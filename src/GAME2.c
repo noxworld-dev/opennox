@@ -8446,6 +8446,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4)
           return 1;
         }
         sub_459150();
+		OnLibraryNotice(261, 0);
         result = 1;
         break;
       case 10146:
@@ -36937,7 +36938,9 @@ LABEL_9:
 unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1)
 {
   unsigned __int16 result; // ax
+  int scrollLockStatus;
 
+  scrollLockStatus = GetKeyState(145);
   if ( a1 > 0xFFu )
     return a1;
   if ( a1 == 42 || a1 == 54 )
@@ -36960,11 +36963,26 @@ unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1)
            || *(_DWORD *)&byte_5D4594[1193132]
            && iswalpha(*(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572]) )
     {
-      result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191574];
+	
+		if (scrollLockStatus)
+		{
+			result = asc_9800B0[3 * (unsigned __int8)a1 + 0x108];
+		}
+		else
+		{
+		  result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191574];
+		}
     }
     else
     {
-      result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572];
+		if (scrollLockStatus)
+		{
+			result = asc_9800B0[3 * (unsigned __int8)a1];
+		}
+		else
+		{
+			result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572];
+		}
     }
     return result;
   }
@@ -48579,6 +48597,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             sub_445490(v399);
           if ( v210 == *(_DWORD *)&byte_5D4594[2616328] && nox_wcscmp((const wchar_t *)&byte_5D4594[2661908], v212) )
             *(_DWORD *)&byte_5D4594[1200832] = 1;
+		  OnLibraryNotice(263, v211);
         }
         v3 += 129;
         goto LABEL_1184;
@@ -48597,6 +48616,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             *((_DWORD *)v216 + 523) = 0;
             v218 = sub_418C80(v215);
             v219 = (int)v218;
+			OnLibraryNotice(264, v216 + 4704);
             if ( v218 && sub_419130((int)v218) )
               sub_419570(v219, v215);
           }

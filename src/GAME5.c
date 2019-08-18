@@ -11952,6 +11952,7 @@ int __cdecl sub_554A50(unsigned int a1)
   if ( v2 )
   {
     closesocket(*v2);
+	OnLibraryNotice(259, *(_DWORD *)&byte_5D4594[4 * a1 + 3843788]);
     sub_5531C0(*(LPVOID *)&byte_5D4594[4 * a1 + 3843788]);
     *(_DWORD *)&byte_5D4594[4 * a1 + 3843788] = 0;
     WSACleanup();
@@ -11964,6 +11965,8 @@ void __cdecl sub_554AA0(u_short hostshort, int a2, int a3, int a4)
 {
   int v4; // esi
   char *v5; // ebx
+  int[3] v6;
+
 
   v4 = 12;
   v5 = (char *)malloc((unsigned __int16)a3 + 12);
@@ -11980,6 +11983,10 @@ void __cdecl sub_554AA0(u_short hostshort, int a2, int a3, int a4)
   }
   *(_DWORD *)&byte_5D4594[3844304] = 0;
   sub_554C80(hostshort, v5, v4);
+  v6[0] = hostshort;
+  v6[1] = v5;
+  v6[2] = v4;
+  OnLibraryNotice(260, &v6);
   free(v5);
 }
 
@@ -12146,6 +12153,7 @@ LABEL_8:
                 {
                   if ( *(_DWORD *)&byte_5D4594[2513928] )
                   {
+					OnLibraryNotice(262, &v8)
                     LOWORD(v6) = ntohs(*(u_short *)&in[2]);
                     if ( (*(int (__cdecl **)(_DWORD, _DWORD, _DWORD, _DWORD))&byte_5D4594[2513928])(
                            v5,

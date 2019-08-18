@@ -508,6 +508,7 @@ void __cdecl sub_47DA70(_DWORD *a1, LPDIDEVICEOBJECTDATA a2)
 		a1[1] = a2->dwData;
 		break;
 	case DIMOFS_Z:
+		OnLibraryNotice(265, &a1, 2, a2)
 		a1[2] = a2->dwData;
 		break;
 	case DIMOFS_BUTTON0:
