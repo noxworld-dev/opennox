@@ -54221,8 +54221,8 @@ LABEL_13:
 LABEL_18:
   if ( *(_DWORD *)(v5 + 4) == v3 )
   {
-	v11[0] = v3;
-	sub_4FD400(*(_DWORD *)(v5 + 12), *(_DWORD *)(v5 + 8), *(_DWORD **)v5, (int)v4, v11, *(_DWORD *)(v5 + 16));
+	v12[0] = v3;
+	sub_4FD400(*(_DWORD *)(v5 + 12), *(_DWORD *)(v5 + 8), *(_DWORD **)v5, (int)v4, v12, *(_DWORD *)(v5 + 16));
 	sub_4E5CC0((int)v4);
   }
   else

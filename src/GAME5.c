@@ -11965,7 +11965,7 @@ void __cdecl sub_554AA0(u_short hostshort, int a2, int a3, int a4)
 {
   int v4; // esi
   char *v5; // ebx
-  int[3] v6;
+  int v6[3];
 
 
   v4 = 12;
@@ -12153,7 +12153,7 @@ LABEL_8:
                 {
                   if ( *(_DWORD *)&byte_5D4594[2513928] )
                   {
-					OnLibraryNotice(262, &v8)
+					OnLibraryNotice(262, &v8);
                     LOWORD(v6) = ntohs(*(u_short *)&in[2]);
                     if ( (*(int (__cdecl **)(_DWORD, _DWORD, _DWORD, _DWORD))&byte_5D4594[2513928])(
                            v5,

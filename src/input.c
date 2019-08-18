@@ -322,6 +322,67 @@ void sub_47FB10()
 	sub_47DBD0();
 }
 
+// SDLMODDED
+//----- (0047F950) --------------------------------------------------------
+unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1)
+{
+  unsigned __int16 result; // ax
+  int scrollLockStatus;
+
+  scrollLockStatus = ((SDL_GetModState() & 0x100) == (0x100)); // 0x100 = KMOD_SCROLL
+  if ( a1 > 0xFFu )
+    return a1;
+  if ( a1 == 42 || a1 == 54 )
+  {
+    *(_DWORD *)&byte_5D4594[1193136] = sub_430970(a1) == 2;
+    return 0;
+  }
+  if ( a1 != 58 )
+  {
+    if ( (_BYTE)a1 == byte_5D4594[1193144] )
+    {
+      *(_DWORD *)&byte_5D4594[1193140] = sub_430970(a1) == 2;
+      result = 0;
+    }
+    else if ( *(_DWORD *)&byte_5D4594[1193140] )
+    {
+      result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191576];
+    }
+    else if ( *(_DWORD *)&byte_5D4594[1193136]
+           || *(_DWORD *)&byte_5D4594[1193132]
+           && iswalpha(*(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572]) )
+    {
+	
+		if (scrollLockStatus)
+		{
+			result = asc_9800B0[3 * (unsigned __int8)a1 + 0x108];
+		}
+		else
+		{
+		  result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191574];
+		}
+    }
+    else
+    {
+		if (scrollLockStatus)
+		{
+			result = asc_9800B0[3 * (unsigned __int8)a1];
+		}
+		else
+		{
+			result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572];
+		}
+    }
+    return result;
+  }
+  if ( sub_430950(a1) )
+    return 0;
+  if ( sub_430970(a1) == 2 )
+    *(_DWORD *)&byte_5D4594[1193132] = 1 - *(_DWORD *)&byte_5D4594[1193132];
+  sub_4309B0(a1, 1);
+  return 0;
+}
+
 // free keyboard
 int sub_47FCC0()
 {
@@ -715,6 +776,67 @@ void sub_47FB10()
 	*(_DWORD *)&byte_5D4594[1193132] = byte_5D4594[1193132];
 	sub_47DBD0();
 }
+
+// ORIGINAL
+//----- (0047F950) --------------------------------------------------------
+/*unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1)
+{
+  unsigned __int16 result; // ax
+  int scrollLockStatus;
+
+  scrollLockStatus = GetKeyState(145);
+  if ( a1 > 0xFFu )
+    return a1;
+  if ( a1 == 42 || a1 == 54 )
+  {
+    *(_DWORD *)&byte_5D4594[1193136] = sub_430970(a1) == 2;
+    return 0;
+  }
+  if ( a1 != 58 )
+  {
+    if ( (_BYTE)a1 == byte_5D4594[1193144] )
+    {
+      *(_DWORD *)&byte_5D4594[1193140] = sub_430970(a1) == 2;
+      result = 0;
+    }
+    else if ( *(_DWORD *)&byte_5D4594[1193140] )
+    {
+      result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191576];
+    }
+    else if ( *(_DWORD *)&byte_5D4594[1193136]
+           || *(_DWORD *)&byte_5D4594[1193132]
+           && iswalpha(*(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572]) )
+    {
+	
+		if (scrollLockStatus)
+		{
+			result = asc_9800B0[3 * (unsigned __int8)a1 + 0x108];
+		}
+		else
+		{
+		  result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191574];
+		}
+    }
+    else
+    {
+		if (scrollLockStatus)
+		{
+			result = asc_9800B0[3 * (unsigned __int8)a1];
+		}
+		else
+		{
+			result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572];
+		}
+    }
+    return result;
+  }
+  if ( sub_430950(a1) )
+    return 0;
+  if ( sub_430970(a1) == 2 )
+    *(_DWORD *)&byte_5D4594[1193132] = 1 - *(_DWORD *)&byte_5D4594[1193132];
+  sub_4309B0(a1, 1);
+  return 0;
+}*/
 
 //----- (0047FCC0) --------------------------------------------------------
 int sub_47FCC0()

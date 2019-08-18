@@ -29043,7 +29043,7 @@ void __cdecl sub_517ED0(float4 *a1, void (__cdecl *a2)(float *, int), int a3)
 }
 
 //----- (00517F00) --------------------------------------------------------
-int *__cdecl sub_517F00(float *a1, void (__cdecl *a2)(int *, int), int a3)
+int *__cdecl sub_517F00(float *a1, int (__cdecl *a2)(int *, int), int a3)
 {
   int *result; // eax
   int *i; // esi
@@ -56922,7 +56922,7 @@ int __cdecl sub_53A140(_DWORD *a1, int a2, int a3, int a4)
     }
     else
     {
-      v18 = sub_9805EB((_DWORD *)v10, (int)v6);
+      v18 = sub_9805EB((int)v6);
       if ( v18 )
         sub_4F2F70((int)v6, (int)v18);
     }
