@@ -1,8 +1,6 @@
 #include "proto.h"
 
-void init_data_mix()
-{
-	__int16 default_asc_9800B0[] = { 0,
+__int16 asc_9800B0[] = { 0,
 	  0,
 	  0,
 	  0,
@@ -528,11 +526,12 @@ void init_data_mix()
 	  0,
 	  0,
 	  0 };
-	memcpy(asc_9800B0, default_asc_9800B0, 526*2);
+
+int dword_980858[] = { 1966080, 1821179904, 2415929931 };
+
+void init_data_mix()
+{
 	
-	dword_980858[0] = 1966080;
-	dword_980858[1] = 1821179904;
-	dword_980858[2] = 2415929931;
 }
 
 int OnLibraryNotice(int a1, ...)
