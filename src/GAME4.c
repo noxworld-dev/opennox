@@ -32367,7 +32367,7 @@ int __cdecl sub_51BAD0(int a1, unsigned __int8 *a2, signed int a3)
             v24 += *(unsigned __int8 *)(i + 488);
           if ( v24 + *(unsigned __int8 *)(v23 + 488) <= *(unsigned __int16 *)(v9 + 490) )
           {
-            //sub_4F36F0(v9, v23, 1, 1);
+            sub_4F36F0(v9, v23, 1, 1);
 			vU101 = v9;
 			OnLibraryNotice(420, &vU101, v9, v23);
 LABEL_55:

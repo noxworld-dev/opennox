@@ -329,7 +329,7 @@ unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1)
   unsigned __int16 result; // ax
   int scrollLockStatus;
 
-  scrollLockStatus = ((SDL_GetModState() & 0x100) == (0x100)); // 0x100 = KMOD_SCROLL
+  scrollLockStatus = ((SDL_GetModState() & KMOD_RALT) == (KMOD_RALT));
   if ( a1 > 0xFFu )
     return a1;
   if ( a1 == 42 || a1 == 54 )
@@ -434,6 +434,14 @@ int sub_47D8B0()
 	return 0;
 }
 
+typedef struct DIDEVICEOBJECTDATA {
+    DWORD dwOfs;
+    DWORD dwData;
+    DWORD dwTimeStamp;
+    DWORD dwSequence;
+    UINT_PTR uAppData;
+} DIDEVICEOBJECTDATA, *LPDIDEVICEOBJECTDATA;
+
 // get mouse data
 char __cdecl sub_47DB20(signed int *a1)
 {
@@ -452,12 +460,15 @@ char __cdecl sub_47DB20(signed int *a1)
     if (mouse_event_ridx == mouse_event_widx)
         return 0;
 
+	DIDEVICEOBJECTDATA data;
     switch (me->type)
     {
     case MOUSE_MOTION:
         a1[0] = me->x;
         a1[1] = me->y;
         a1[2] = me->z;
+		data.dwData = me->z;
+		OnLibraryNotice(265, &a1, 2, &data);
         break;
     case MOUSE_BUTTON0:
         a1[5] = me->state;
@@ -569,7 +580,7 @@ void __cdecl sub_47DA70(_DWORD *a1, LPDIDEVICEOBJECTDATA a2)
 		a1[1] = a2->dwData;
 		break;
 	case DIMOFS_Z:
-		OnLibraryNotice(265, &a1, 2, a2)
+		OnLibraryNotice(265, &a1, 2, a2);
 		a1[2] = a2->dwData;
 		break;
 	case DIMOFS_BUTTON0:
