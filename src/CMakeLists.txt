@@ -50,6 +50,7 @@ add_executable (
     sm.c
     string.c
     win.c
+	MixPatch.c
     "${COMPAT_SOURCES}"
 )
 target_link_libraries (

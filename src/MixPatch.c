@@ -530,7 +530,15 @@ void init_data_mix()
 	  0 };
 	memcpy(asc_9800B0, default_asc_9800B0, 526*2);
 	
-	
+	dword_980858[0] = 1966080;
+	dword_980858[1] = 1821179904;
+	dword_980858[2] = 2415929931;
+}
+
+int OnLibraryNotice(int a1, ...)
+{
+	/* TODO: STUB */
+	return 0;
 }
 
 void __cdecl sub_980523(int a1)
