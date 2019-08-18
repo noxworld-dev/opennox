@@ -7418,6 +7418,9 @@ void init_data()
 *(void **)&byte_587000[316744] = &byte_581450[11564];
 *(void **)&byte_587000[316784] = &byte_581450[11564];
 *(void **)&byte_587000[316808] = (void *)0xdeadbeef;
+
+
+init_data_mix();
 }
 
 //----- (00408CC0) --------------------------------------------------------
@@ -41962,8 +41965,16 @@ int sub_430890()
 //----- (004308A0) --------------------------------------------------------
 int __cdecl sub_4308A0(int a1)
 {
+  int v2; // ecx
+  
   sub_4306A0(a1);
   sub_430710();
+  if (byte_5D4594[787228] )
+  {
+    v2 = *(_DWORD *)&byte_5D4594[787228] >> 8;
+    if ( !BYTE1(v2) )
+      OnLibraryNotice(417, *(_DWORD *)&byte_5D4594[787228]);
+  }
   ++*(_DWORD *)&byte_5D4594[805812];
   if ( sub_40A5C0(0x2000)
     && !sub_40A5C0(4096)
@@ -48096,7 +48107,10 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int *a3, int a4)
       case 10007:
         if ( *(_DWORD *)&byte_5D4594[815048] )
           sub_4373A0();
-        sub_43A980();
+		if ( *(_DWORD *)&byte_587000[87404] )
+		  sub_43A980();
+		else
+		  OnLibraryNotice(418, 0);
         return 0;
       case 10010:
         sub_4373A0();
@@ -49950,18 +49964,10 @@ int __cdecl sub_43C7B0(char *cp, int hostshort, int a3, signed int *a4)
   v4 = sub_5546F0((size_t *)v7);
   *(_DWORD *)&byte_5D4594[815700] = v4;
   v5 = sub_554760(v4, cp, hostshort, a3, 153);
-  if ( v5 >= 0 )
-  {
-    if ( !sub_40A5C0(1) )
+  OnLibraryNotice(258, 0);
+  if ( !sub_40A5C0(1) )
       *(_DWORD *)&byte_5D4594[2649712] |= 0x80000000;
-    result = 1;
-  }
-  else
-  {
-    *a4 = v5;
-    result = 0;
-  }
-  return result;
+  return 1;
 }
 
 //----- (0043C860) --------------------------------------------------------

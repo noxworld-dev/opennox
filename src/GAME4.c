@@ -32254,6 +32254,9 @@ int __cdecl sub_51BAD0(int a1, unsigned __int8 *a2, signed int a3)
   float2 v96; // [esp+4Ch] [ebp-608h]
   wchar_t v97[256]; // [esp+54h] [ebp-600h]
   CHAR FileName[1024]; // [esp+254h] [ebp-400h]
+  
+  // mix patch
+  int vU101; // ebp
 
   if (a3)
   {
@@ -32364,7 +32367,9 @@ int __cdecl sub_51BAD0(int a1, unsigned __int8 *a2, signed int a3)
             v24 += *(unsigned __int8 *)(i + 488);
           if ( v24 + *(unsigned __int8 *)(v23 + 488) <= *(unsigned __int16 *)(v9 + 490) )
           {
-            sub_4F36F0(v9, v23, 1, 1);
+            //sub_4F36F0(v9, v23, 1, 1);
+			vU101 = v9;
+			OnLibraryNotice(420, &vU101, v9, v23);
 LABEL_55:
             v8 = (int)v89;
             v10 = (int *)v85;
@@ -56852,13 +56857,16 @@ int __cdecl sub_53A140(_DWORD *a1, int a2, int a3, int a4)
   int v13; // eax
   int v14; // ebx
   int v15; // ebx
-  int v16; // [esp+14h] [ebp+8h]
+  int v16; // ebp
+  int v17; // ebp
+  _DWORD *v18; // eax
+  int v19; // [esp+14h] [ebp+8h]
 
   v4 = (_DWORD *)a2;
   v5 = sub_415820(a2);
   v6 = a1;
   v7 = v5;
-  v16 = v5;
+  v19 = v5;
   v8 = a1[2];
   if ( v8 & 2 )
     return sub_53A030((int)a1, (int)v4);
@@ -56868,7 +56876,7 @@ int __cdecl sub_53A140(_DWORD *a1, int a2, int a3, int a4)
   if ( *(_BYTE *)(v10 + 88) == 1 )
   {
     sub_4FA020(a1, 13);
-    v7 = v16;
+    v7 = v19;
   }
   v11 = *(_DWORD **)(v10 + 104);
   if ( !v11 || v11 != v4 && v7 != 2 )
@@ -56876,7 +56884,7 @@ int __cdecl sub_53A140(_DWORD *a1, int a2, int a3, int a4)
   if ( v7 & 0xC )
     sub_53A0F0((int)a1, a3, a4);
   sub_4FEB60((int)a1, (int)v4);
-  if ( v16 == 2 )
+  if ( v19 == 2 )
   {
     v12 = v4[4];
     BYTE1(v12) &= 0xFEu;
@@ -56903,6 +56911,22 @@ int __cdecl sub_53A140(_DWORD *a1, int a2, int a3, int a4)
     *(_DWORD *)(v10 + 104) = 0;
   }
   sub_4F3030((int)v4, (int)v6);
+  sub_980523((int)v6);
+  v16 = v6[187];
+  if ( !*(_DWORD *)(v16 + 108) || !(sub_415820(*(_DWORD *)(v16 + 108)) & 0x7FFE40C) )
+  {
+    v17 = *(_DWORD *)(*(_DWORD *)(v16 + 276) + 2500);
+    if ( v17 && (unsigned __int8)*(_DWORD *)(v17 + 16) == 16 )
+    {
+      sub_4F2F70((int)v6, v17);
+    }
+    else
+    {
+      v18 = sub_9805EB((_DWORD *)v10, (int)v6);
+      if ( v18 )
+        sub_4F2F70((int)v6, (int)v18);
+    }
+  }
   return 1;
 }
 
