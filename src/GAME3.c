@@ -47932,6 +47932,8 @@ int __cdecl sub_4E2330(int a1, int a2, int a3, int a4, float a5, int a6)
   if ( !a3 )
     v7 = a2;
   sub_4E16D0((int)i, a1, a2, v7, a5, a6);
+  if (i == 0)
+	  return 0;
   if ( !(i[4] & 0x20) )
     return 0;
   if ( *(_BYTE *)(a1 + 8) & 4 )
