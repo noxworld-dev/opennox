@@ -31,4 +31,4 @@ while True:
 print(yaml.dump({
     'language': lang,
     'translations': labels
-}))
+}, allow_unicode=True))

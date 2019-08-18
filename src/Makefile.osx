@@ -8,4 +8,4 @@ out: GAME1.o GAME2.o GAME3.o GAME4.o GAME5.o GAME_data.o compat.o compat_mss.o c
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:
-	$(RM) *.o out
+	$(RM) *.o out.html

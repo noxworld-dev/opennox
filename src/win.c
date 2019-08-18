@@ -171,6 +171,8 @@ void process_wheel_event(const SDL_MouseWheelEvent *event);
 void process_touch_event(const SDL_TouchFingerEvent *event);
 void process_textediting_event(const SDL_TextEditingEvent *event);
 void process_textinput_event(const SDL_TextInputEvent *event);
+void process_textinput_keyboard_event(const SDL_KeyboardEvent *event);
+extern int g_textinput;
 
 void process_event(const SDL_Event *event)
 {
@@ -184,7 +186,10 @@ void process_event(const SDL_Event *event)
         break;
     case SDL_KEYDOWN:
     case SDL_KEYUP:
-        process_keyboard_event(&event->key);
+        if (g_textinput)
+            process_textinput_keyboard_event(&event->key);
+        else
+            process_keyboard_event(&event->key);
         break;
     case SDL_MOUSEBUTTONDOWN:
     case SDL_MOUSEBUTTONUP:

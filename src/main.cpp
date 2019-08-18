@@ -26,6 +26,25 @@ extern "C" int main(int argc, char *argv[])
     int i;
 
 #ifdef __EMSCRIPTEN__
+    EM_ASM({
+        var params = (new URL(document.location)).searchParams;
+        var lang = params.get('lang') || 'en';
+        if (lang != 'en' && lang != 'ko') {
+            window.alert('Unknown language: ' + lang);
+            return;
+        }
+        try {
+            FS.unlink('/assets/default.fnt');
+        } catch (err) {
+        }
+        try {
+            FS.unlink('/assets/nox.csf');
+        } catch (err) {
+        }
+        FS.symlink('/assets/' + lang + '/default.fnt', '/assets/default.fnt');
+        FS.symlink('/assets/' + lang + '/nox.csf', '/assets/nox.csf');
+    });
+
     EM_ASM(
         FS.syncfs(false, function (err) {});
     );

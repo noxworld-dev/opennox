@@ -6,13 +6,11 @@ function initfs() {
         "/assets/audio.bag",
         "/assets/audio.idx",
         "/assets/default.cfg",
-        "/assets/default.fnt",
         "/assets/gamedata.bin",
         "/assets/large.fnt",
         "/assets/mapcycle.txt",
         "/assets/monster.bin",
         "/assets/Modifier.bin",
-        "/assets/nox.csf",
         "/assets/number.fnt",
         "/assets/OTQuest.rul",
         "/assets/small.fnt",
@@ -417,6 +415,15 @@ function initfs() {
         "/assets/maps/wiz10d/wiz10d.map",
         "/assets/maps/wiz11a",
         "/assets/maps/wiz11a/wiz11a.map",
+        "/assets/maps/beneath",
+        "/assets/maps/beneath/beneath.map",
+        "/assets/maps/beneath/beneath.nxz",
+        "/assets/en",
+        "/assets/ko",
+        "/assets/en/default.fnt",
+        "/assets/en/nox.csf",
+        "/assets/ko/default.fnt",
+        "/assets/ko/nox.csf",
     ];
     addRunDependency('syncfs');
     FS.syncfs(true, function (err) {
@@ -487,9 +494,10 @@ class Network {
                     negotiated: true,
                     id: 0
                 })
+                peerChannel.binaryType = 'arraybuffer'
                 peerConnection.addEventListener('icecandidate', ({ candidate }) => {
                     if (candidate) {
-                        this.ws.isready() && this.ws.send(JSON.stringify({
+                        this.isready() && this.ws.send(JSON.stringify({
                             type: 'ICECANDIDATE',
                             remote,
                             candidate
@@ -534,6 +542,8 @@ class Network {
         data = new Uint8Array(data);
         const srcport = (data[0] << 8) | data[1];
         const dstport = (data[2] << 8) | data[3];
+        if (this.recvQueue[dstport] === undefined)
+            this.recvQueue[dstport] = []
         this.recvQueue[dstport].push({ id, srcport, data: data.subarray(4) })
     }
 
@@ -582,6 +592,7 @@ class Network {
             negotiated: true,
             id: 0
         })
+        peerChannel.binaryType = 'arraybuffer'
         peerChannel.addEventListener('message', ({ data }) => this.onpacket(remote, data))
         peerConnection.addEventListener('icecandidate', ({ candidate }) => {
             if (candidate) {
@@ -626,12 +637,16 @@ class Network {
     }
 
     available (destport) {
+        if (this.recvQueue[destport] === undefined)
+            this.recvQueue[destport] = []
         if (!this.recvQueue[destport].length)
             return 0
         return this.recvQueue[destport][0].data.length
     }
 
     recvfrom (destport) {
+        if (this.recvQueue[destport] === undefined)
+            this.recvQueue[destport] = []
         if (!this.recvQueue[destport].length)
             return null, null
         const { id, srcport, data } = this.recvQueue[destport].shift()

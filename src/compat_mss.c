@@ -36,7 +36,7 @@ struct _SAMPLE
 
     HSAMPLE next;
     ALuint source;
-    ALuint hwbuf[2];
+    ALuint hwbuf[4];
     BYTE hwready;
 
     struct _SAMPLE_BUFFER buffers[2];
@@ -270,11 +270,11 @@ DXDEC HSAMPLE AILCALL AIL_allocate_sample_handle (HDIGDRIVER dig)
     sample->dig = dig;
     // fprintf(stderr, "%s\n", __FUNCTION__);
 
+	sample->hwready = sizeof(sample->hwbuf) / sizeof(sample->hwbuf[0]);
     alGenSources(1, &sample->source);
     checkError();
-    alGenBuffers(2, sample->hwbuf);
+    alGenBuffers(sample->hwready, sample->hwbuf);
     checkError();
-    sample->hwready = 2;
 
     SDL_LockMutex(dig->mutex);
     sample->next = dig->sample_head;

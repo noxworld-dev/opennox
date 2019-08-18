@@ -19871,10 +19871,10 @@ int __cdecl sub_415FF0(int a1, int a2, const char *a3, int a4)
 {
   int v4; // edx
 
-  v4 = (*(_DWORD *)&byte_5D4594[371264])++;
+  v4 = (*(int *)&byte_5D4594[371264])++;
   if ( *(int *)&byte_5D4594[371264] >= 4096 )
-    *(_DWORD *)&byte_5D4594[371264] = 0;
-  return a1 + *(_DWORD *)&byte_587000[4 * v4 + 37892] % (a2 - a1 + 1);
+    *(int *)&byte_5D4594[371264] = 0;
+  return a1 + *(int *)&byte_587000[4 * v4 + 37892] % (a2 - a1 + 1);
 }
 
 //----- (00416030) --------------------------------------------------------
@@ -19884,11 +19884,11 @@ double __cdecl sub_416030(float a1, float a2)
   int v3; // edx
 
   v2 = a2 - a1;
-  v3 = *(_DWORD *)&byte_5D4594[371260];
+  v3 = *(int *)&byte_5D4594[371260];
   if ( v2 == 0.0 )
     return a2;
   if ( ++*(int *)&byte_5D4594[371260] >= 4096 )
-    *(_DWORD *)&byte_5D4594[371260] = 0;
+    *(int *)&byte_5D4594[371260] = 0;
   return v2 * ((double)*(int *)&byte_587000[4 * v3 + 37892] * 0.000030518509) + a1;
 }
 

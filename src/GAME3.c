@@ -7101,6 +7101,8 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void *a2, size_t a3)
   int v6; // eax
   int v7; // eax
 
+  //fprintf(stderr, "a1=%d, a2=%d, a3=%d, expected=%d\n", a1, a2, a3, *(_DWORD *)&byte_587000[173336]);
+
   if ( a2 && a3 )
   {
     if ( a1 == *(_DWORD *)&byte_587000[173336] )
@@ -7158,7 +7160,8 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void *a2, size_t a3)
       }
       while ( v5 );
     }
-    if ( *(_DWORD *)&byte_5D4594[1309764] && *(_DWORD *)&byte_5D4594[1309768] >= *(int *)&byte_5D4594[1309772] )
+    //fprintf(stderr, "foo %d %d %d\n", *(_DWORD *)&byte_5D4594[1309764], *(_DWORD *)&byte_5D4594[1309768], *(_DWORD *)&byte_5D4594[1309772]);
+    if ( *(_DWORD *)&byte_5D4594[1309764] && *(unsigned int *)&byte_5D4594[1309768] >= *(unsigned int *)&byte_5D4594[1309772] )
     {
       sub_4AB580();
       sub_4AB560(0);
@@ -14925,7 +14928,7 @@ int __cdecl sub_4B79D0(int *a1, _DWORD *a2)
 }
 
 //----- (004B7A80) --------------------------------------------------------
-int __cdecl sub_4B7A80(_DWORD *a1, int a2)
+int __cdecl sub_4B7A80(int *a1, int a2)
 {
   int result; // eax
   __int16 v3; // dx
@@ -31715,7 +31718,7 @@ int __cdecl sub_4CD690(_DWORD *a1, int a2)
   _DWORD *v10; // eax
   int v11; // eax
   _DWORD *v12; // edi
-  _DWORD *v13; // edi
+  int *v13; // edi
   int v14; // ebx
   int v15; // edx
   int v16; // ebp

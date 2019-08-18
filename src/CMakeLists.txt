@@ -1,3 +1,8 @@
+cmake_minimum_required (VERSION 3.11)
+project (nox-port)
+
+option (USE_ASAN "Enable address sanitizer" OFF)
+
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
 else ()
@@ -29,6 +34,7 @@ endif ()
 
 add_executable (
     out
+    ConvertUTF.c
     GAME1.c
     GAME2.c
     GAME3.c
