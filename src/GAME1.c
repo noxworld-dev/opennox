@@ -41218,7 +41218,7 @@ int __cdecl sub_42FB30(int a1)
 
   if ( *(_DWORD *)&byte_5D4594[787224] )
     return 0;
-  if ( !a1 )
+  if ( !a1 || a1 == 0xfdfdfdfd)
     return 0;
   if ( (*(_BYTE *)(a1 + 10) & 0x3F) == 7 )
     return sub_42FAD0();
@@ -56083,7 +56083,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t **a4, int a5)
   int v16; // eax
   wchar_t *v17; // eax
   int v18; // [esp+10h] [ebp-44h]
-  wchar_t v19[32]; // [esp+14h] [ebp-40h]
+  wchar_t v19[256]; // [esp+14h] [ebp-40h]
 
   v5 = a3;
   v6 = a1;
