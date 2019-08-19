@@ -71,6 +71,10 @@ typedef struct __m64 __m64;
 #define __PAIR64__(x,y) ((((_QWORD)(x)) << 32) | ((_DWORD)(y)))
 #define __SPAIR64__(x,y) ((__int64)((((_QWORD)(x)) << 32) | ((_DWORD)(y))))
 
+#define nox_malloc(x) nox_malloc2(x, __func__, __LINE__, __FILE__)
+
+void* nox_malloc2(size_t x, char* func, int line, char* file);
+
 static int __OFSUB__(int x, int y)
 {
 	DebugBreak();
@@ -154,7 +158,7 @@ static void std___Xlen()
 
 static void *operator_new(size_t x)
 {
-	return malloc(x);
+	return nox_malloc(x);
 }
 
 static void operator_delete(void *x)

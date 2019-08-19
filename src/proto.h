@@ -61,7 +61,7 @@ void __cdecl sub_401FE0(LPCSTR);
 // int __cdecl _getptd(_DWORD, _DWORD); weak
 // int __cdecl _flsbuf(int, FILE *);
 // int _setdefaultprecision(void); weak
-// void *__cdecl malloc(size_t);
+// void *__cdecl nox_malloc(size_t);
 // _DWORD __cdecl _dosmaperr(_DWORD); weak
 // int *__cdecl _errno();
 // unsigned int *__cdecl __doserrno();

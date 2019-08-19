@@ -2294,7 +2294,7 @@ int __thiscall sub_557F60(int this, size_t a2)
 	*(_DWORD *)(v2 + 1524) = v5;
 	*(_DWORD *)(v2 + 1532) = 0;
 	*(_DWORD *)(v2 + 1528) = 0;
-	v6 = malloc(v5);
+	v6 = nox_malloc(v5);
 	*(_DWORD *)(v2 + 1536) = v6;
 	if (v6)
 	{
@@ -2805,7 +2805,7 @@ _DWORD *__cdecl sub_5589B0(int a1, int a2, _DWORD *lpMem, size_t a4)
 	switch (a2)
 	{
 	case 2:
-		result = malloc(a4);
+		result = nox_malloc(a4);
 		break;
 	case 3:
 		free(lpMem);
@@ -11497,7 +11497,7 @@ void *__cdecl sub_562770(int a1, int a2, LPVOID lpMem, int a4)
 	switch (a2)
 	{
 	case 2:
-		result = malloc(a4);
+		result = nox_malloc(a4);
 		break;
 	case 3:
 		free(lpMem);
