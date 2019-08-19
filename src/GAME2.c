@@ -7537,7 +7537,7 @@ int __cdecl sub_457140(int a1, wchar_t *a2)
   result = *(_DWORD *)&byte_5D4594[1045684];
   if ( *(_DWORD *)&byte_5D4594[1045684] )
   {
-    v3 = (wchar_t *)malloc(0x48u);
+    v3 = (wchar_t *)nox_malloc(0x48u);
     sub_425770(v3);
     sub_4258E0((int)&byte_5D4594[1045652], v3);
     nox_wcscpy(v3 + 6, a2);
@@ -7597,7 +7597,7 @@ char *__cdecl sub_457230(wchar_t *a1)
   result = *(char **)&byte_5D4594[1045684];
   if ( *(_DWORD *)&byte_5D4594[1045684] )
   {
-    v3 = malloc(0x48u);
+    v3 = nox_malloc(0x48u);
     result = sub_418A40(a1);
     v4 = result;
     if ( result )
@@ -23581,7 +23581,7 @@ int __cdecl sub_46C690(int a1)
     return -2;
   if ( *(_DWORD *)(a1 + 396) )
     return -3;
-  v2 = malloc(8u);
+  v2 = nox_malloc(8u);
   if ( !v2 )
     return -1;
   *v2 = a1;
@@ -24350,7 +24350,7 @@ FILE *__cdecl sub_46D9D0(int a1, int a2, LPVOID lpMem, int a4)
   *(_WORD *)&v16[8] = 0;
   *(_DWORD *)&v16[10] = 54;
   *(_DWORD *)&v16[2] = v7 + 54;
-  v8 = (char *)malloc(v7);
+  v8 = (char *)nox_malloc(v7);
   v10 = (_BYTE *)a2;
   lpMema = v8;
   if ( v6 > 0 )
@@ -24401,7 +24401,7 @@ int sub_46DB00()
 {
   if ( !*(_DWORD *)&byte_5D4594[1083964] )
   {
-    *(_DWORD *)&byte_5D4594[1083964] = malloc(2 * *(_DWORD *)&byte_5D4594[3805496] * *(_DWORD *)&byte_5D4594[3807120]);
+    *(_DWORD *)&byte_5D4594[1083964] = nox_malloc(2 * *(_DWORD *)&byte_5D4594[3805496] * *(_DWORD *)&byte_5D4594[3807120]);
     strcpy((char *)&byte_5D4594[1082932], "nox");
     *(_DWORD *)&byte_5D4594[1083956] = 1;
     *(_DWORD *)&byte_5D4594[1083960] = 0;
@@ -28700,31 +28700,31 @@ int __cdecl sub_473A10(_DWORD *a1, int2 *a2, _DWORD *a3)
 //----- (00473A40) --------------------------------------------------------
 int sub_473A40()
 {
-  *(_DWORD *)&byte_5D4594[1096464] = malloc(sizeof(void *) * 8192);
+  *(_DWORD *)&byte_5D4594[1096464] = nox_malloc(sizeof(void *) * 8192);
   if ( !*(_DWORD *)&byte_5D4594[1096464] )
     return 0;
   *(_DWORD *)&byte_5D4594[1096468] = 0;
-  *(_DWORD *)&byte_5D4594[1096472] = malloc(0x800u);
+  *(_DWORD *)&byte_5D4594[1096472] = nox_malloc(0x800u);
   if ( !*(_DWORD *)&byte_5D4594[1096472] )
     return 0;
   *(_DWORD *)&byte_5D4594[1096476] = 0;
-  *(_DWORD *)&byte_5D4594[1096480] = malloc(0x800u);
+  *(_DWORD *)&byte_5D4594[1096480] = nox_malloc(0x800u);
   if ( !*(_DWORD *)&byte_5D4594[1096480] )
     return 0;
   *(_DWORD *)&byte_5D4594[1096484] = 0;
-  *(_DWORD *)&byte_5D4594[1096488] = malloc(0x800u);
+  *(_DWORD *)&byte_5D4594[1096488] = nox_malloc(0x800u);
   if ( !*(_DWORD *)&byte_5D4594[1096488] )
     return 0;
   *(_DWORD *)&byte_5D4594[1096492] = 0;
-  *(_DWORD *)&byte_5D4594[1096496] = malloc(0x400u);
+  *(_DWORD *)&byte_5D4594[1096496] = nox_malloc(0x400u);
   if ( !*(_DWORD *)&byte_5D4594[1096496] )
     return 0;
   *(_DWORD *)&byte_5D4594[1096500] = 0;
-  *(_DWORD *)&byte_5D4594[1096504] = malloc(0x400u);
+  *(_DWORD *)&byte_5D4594[1096504] = nox_malloc(0x400u);
   if ( !*(_DWORD *)&byte_5D4594[1096504] )
     return 0;
   *(_DWORD *)&byte_5D4594[1096508] = 0;
-  *(_DWORD *)&byte_5D4594[1096512] = malloc(0x400u);
+  *(_DWORD *)&byte_5D4594[1096512] = nox_malloc(0x400u);
   if ( !*(_DWORD *)&byte_5D4594[1096512] )
     return 0;
   *(_DWORD *)&byte_5D4594[1096516] = 0;
@@ -33596,19 +33596,19 @@ int sub_47A270()
     return 0;
   sub_47A310((LPCSTR)&byte_587000[153712]);
   sub_47A650();
-  result = (int)malloc(336 * *(_DWORD *)&byte_5D4594[1123532]);
+  result = (int)nox_malloc(336 * *(_DWORD *)&byte_5D4594[1123532]);
   *(_DWORD *)&byte_5D4594[1189584] = result;
   if ( result )
   {
-    result = (int)malloc(0x12C000u);
+    result = (int)nox_malloc(0x12C000u);
     *(_DWORD *)&byte_5D4594[1189588] = result;
     if ( result )
     {
-      result = (int)malloc(0x12C000u);
+      result = (int)nox_malloc(0x12C000u);
       *(_DWORD *)&byte_5D4594[1189592] = result;
       if ( result )
       {
-        result = (int)malloc(0x12C000u);
+        result = (int)nox_malloc(0x12C000u);
         *(_DWORD *)&byte_5D4594[1189596] = result;
         if ( result )
         {
@@ -33829,7 +33829,7 @@ int __cdecl sub_47A960(const char *a1, int a2)
     switch ( (unsigned __int8)a1 & 0x3F )
     {
       case 0:
-        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1189584] + v3 + 324) = malloc(3 * v18 * v19);
+        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1189584] + v3 + 324) = nox_malloc(3 * v18 * v19);
         v5 = sub_47AD60(v19, v18, *(_WORD **)(*(_DWORD *)&byte_5D4594[1189584] + v3 + 324)) == 0;
         v6 = *(_DWORD *)&byte_5D4594[1189584];
         if ( v5 )
@@ -33838,7 +33838,7 @@ int __cdecl sub_47A960(const char *a1, int a2)
         *(_BYTE *)(*(_DWORD *)&byte_5D4594[1189584] + v3 + 334) = -128;
         break;
       case 1:
-        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1189584] + v3 + 324) = malloc(3 * v18 * v19);
+        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1189584] + v3 + 324) = nox_malloc(3 * v18 * v19);
         v5 = sub_47AF30(v19, v18, *(unsigned __int8 **)(*(_DWORD *)&byte_5D4594[1189584] + v3 + 324)) == 0;
         v6 = *(_DWORD *)&byte_5D4594[1189584];
         if ( v5 )
@@ -33897,7 +33897,7 @@ LABEL_26:
             }
           }
         }
-        v14 = malloc(3 * v18 * v19);
+        v14 = nox_malloc(3 * v18 * v19);
         v16 = a1;
         *(_DWORD *)(*(_DWORD *)&byte_5D4594[1189584] + v3 + 324) = v14;
         if ( !sub_47B7F0(v19, v18, *(_DWORD *)(*(_DWORD *)&byte_5D4594[1189584] + v3 + 324), (unsigned __int8)v16) )
@@ -38556,14 +38556,16 @@ char __cdecl sub_481900(_DWORD *a1, _DWORD *a2)
   unsigned int v31; // [esp+30h] [ebp+4h]
   unsigned __int8 v32; // [esp+34h] [ebp+8h]
   char *v33; // [esp+34h] [ebp+8h]
+  int* addr;
 
   v2 = *(_DWORD *)&byte_5D4594[3798824];
   v3 = *(_DWORD *)(*(_DWORD *)&byte_5D4594[60 * *a2 + 2682220]
                  + 4 * (a2[1] + *(unsigned __int16 *)&byte_5D4594[60 * *a2 + 2682234]));
   v4 = a2[2];
   v5 = *(_DWORD *)&byte_5D4594[3798836];
-  v6 = *(_DWORD *)(*(_DWORD *)&byte_5D4594[60 * v4 + 2678380]
-                 + 4 * (a2[3] + *(unsigned __int16 *)&byte_5D4594[60 * v4 + 2678394]));
+  addr = (*(_DWORD*)& byte_5D4594[60 * v4 + 2678380]
+	  + 4 * (a2[3] + *(unsigned __int16*)& byte_5D4594[60 * v4 + 2678394]));
+  v6 = *(_DWORD*)addr;
   v7 = *(_DWORD *)&byte_5D4594[3798840];
   *(_DWORD *)&byte_5D4594[4 * v4 + 2523980] = 1;
   v8 = *(_DWORD *)&byte_5D4594[3798804] * (v7 + a1[1] - v2)
@@ -42361,7 +42363,7 @@ LABEL_5:
   *(_DWORD *)(v2 + 8) = v9 + 4;
   v10 = (unsigned __int8)v21 * v19 * v17;
   v20 = 15 * v7;
-  *(_DWORD *)&byte_5D4594[60 * v7 + 2682220] = malloc(4 * v10);
+  *(_DWORD *)&byte_5D4594[60 * v7 + 2682220] = nox_malloc(4 * v10);
   v11 = 0;
   for ( i = 0; v11 < v10; *(_DWORD *)(*(_DWORD *)&byte_5D4594[4 * v20 + 2682220] + 4 * v11 - 4) = sub_42FAA0(
                                                                                                     v13,
@@ -42442,8 +42444,8 @@ int __cdecl sub_485D40(int a1, char *a2)
   int v22; // [esp-4h] [ebp-40h]
   int i; // [esp+10h] [ebp-2Ch]
   int v24; // [esp+14h] [ebp-28h]
-  const char *v25; // [esp+18h] [ebp-24h]
-  char v26[32]; // [esp+1Ch] [ebp-20h]
+  unsigned int v25; // [esp+18h] [ebp-24h]
+  char v26[64]; // [esp+1Ch] [ebp-20h]
   unsigned __int8 v27; // [esp+40h] [ebp+4h]
 
   v2 = a1;
@@ -42477,7 +42479,7 @@ LABEL_5:
     return 0;
   v9 = (_BYTE *)(*(_DWORD *)(v2 + 8) + 9);
   *(_DWORD *)(v2 + 8) = v9;
-  LOBYTE(v25) = *v9;
+  v25 = *v9;
   *(_DWORD *)(v2 + 8) = v9 + 2;
   v10 = v9[2];
   *(_DWORD *)(v2 + 8) = v9 + 3;
@@ -42488,8 +42490,8 @@ LABEL_5:
   *(_DWORD *)(v2 + 8) = v9 + 4;
   v13 = v9[4];
   *(_DWORD *)(v2 + 8) = v12 + 1;
-  v14 = 2 * (unsigned __int8)v25 * (v11 + v13);
-  result = (int)malloc(4 * v14);
+  v14 = 2 * v25 * (v11 + v13);
+  result = (int)nox_malloc(5 * v14);
   v24 = 15 * v7;
   *(_DWORD *)&byte_5D4594[60 * v7 + 2678380] = result;
   if ( result )
@@ -42715,7 +42717,7 @@ int sub_486230()
   int v4; // ecx
   int v5; // edx
 
-  result = (int)malloc(4 * *(_DWORD *)&byte_5D4594[3801788]);
+  result = (int)nox_malloc(4 * *(_DWORD *)&byte_5D4594[3801788]);
   *(_DWORD *)&byte_5D4594[3798784] = result;
   if ( result )
   {
@@ -42736,7 +42738,7 @@ int sub_486230()
     }
     if ( byte_5D4594[3801772] & 0x40 )
     {
-      result = (int)malloc(4 * v1);
+      result = (int)nox_malloc(4 * v1);
       *(_DWORD *)&byte_5D4594[3798776] = result;
       if ( !result )
         return result;
@@ -43047,7 +43049,7 @@ char *__cdecl sub_4866F0(const char *a1, const char *a2)
   char v20[260]; // [esp+1Ch] [ebp-244h]
   struct _WIN32_FIND_DATAA FindFileData; // [esp+120h] [ebp-140h]
 
-  v2 = (char *)malloc(0x120u);
+  v2 = (char *)nox_malloc(0x120u);
   memset(v2, 0, 0x120u);
   strcpy(v20, a1);
   v3 = strrchr(v20, 46);
@@ -43074,7 +43076,7 @@ char *__cdecl sub_4866F0(const char *a1, const char *a2)
   *((_DWORD *)v2 + 1) = *(_DWORD *)&v17[8];
   if ( *(int *)&v17[8] <= 0 )
     goto LABEL_14;
-  v11 = malloc(36 * *(_DWORD *)&v17[8]);
+  v11 = nox_malloc(36 * *(_DWORD *)&v17[8]);
   v12 = *((_DWORD *)v2 + 1);
   *(_DWORD *)v2 = v11;
   memset(v11, 0, 4 * ((unsigned int)(36 * v12) >> 2));
@@ -43447,7 +43449,7 @@ _DWORD *__cdecl sub_486FE0(int a1)
 {
   _DWORD *v1; // esi
 
-  v1 = malloc(0x58u);
+  v1 = nox_malloc(0x58u);
   memset(v1, 0, 0x58u);
   sub_425770(v1);
   v1[4] = 0;
@@ -43574,7 +43576,7 @@ _DWORD *__cdecl sub_4871C0(int a1, int a2, const void *a3)
   _DWORD *v4; // esi
 
   v3 = *(_DWORD *)(a1 + 12);
-  v4 = malloc(0x108u);
+  v4 = nox_malloc(0x108u);
   memset(v4, 0, 0x108u);
   sub_425770(v4);
   v4[6] = a2;
@@ -44160,11 +44162,11 @@ _DWORD *__cdecl sub_487BC0(size_t a1)
   _DWORD *v1; // esi
   void *v2; // eax
 
-  v1 = malloc(0x1Cu);
+  v1 = nox_malloc(0x1Cu);
   memset(v1, 0, 0x1Cu);
   sub_487C30(v1);
   v1[1] = a1;
-  v2 = malloc(a1);
+  v2 = nox_malloc(a1);
   *v1 = v2;
   if ( v2 )
     return v1;
@@ -44608,7 +44610,7 @@ _DWORD *__cdecl sub_488500(int a1, int a2, int a3, int a4, int a5, int a6, int a
     *((_DWORD *)a8 + 261) = 0;
     if ( !v9 )
       a8[520] = 256;
-    v10 = (int *)malloc(0x420u);
+    v10 = (int *)nox_malloc(0x420u);
     qmemcpy(v10, a8, 0x420u);
     v8[8] = v10;
     if ( *(_DWORD *)&byte_587000[26048] != 8 && *(_DWORD *)&byte_587000[26048] != 6 )
@@ -45161,7 +45163,7 @@ _DWORD *__cdecl sub_489300(int a1, int a2, int a3, int a4, int a5, int a6, _DWOR
     if ( !a7[4] )
       a7[4] = v9;
     sub_46AF80((int)v9, a7);
-    v10 = malloc(0xCu);
+    v10 = nox_malloc(0xCu);
     *v10 = *a8;
     v10[1] = a8[1];
     v10[2] = a8[2];
@@ -53358,7 +53360,7 @@ int sub_4960B0()
 {
   int result; // eax
 
-  result = (int)malloc(4 * (4 * *(int *)&byte_5D4594[3805496] / 23 * (*(int *)&byte_5D4594[3807120] / 23) / 2));
+  result = (int)nox_malloc(4 * (4 * *(int *)&byte_5D4594[3805496] / 23 * (*(int *)&byte_5D4594[3807120] / 23) / 2));
   *(_DWORD *)&byte_5D4594[1217456] = result;
   if ( result )
   {
@@ -56693,7 +56695,7 @@ int sub_49A8E0()
   int v2; // esi
 
   *(_DWORD *)&byte_5D4594[1301788] = 47;
-  *(_DWORD *)&byte_5D4594[1301784] = malloc(0xBCu);
+  *(_DWORD *)&byte_5D4594[1301784] = nox_malloc(0xBCu);
   if ( !*(_DWORD *)&byte_5D4594[1301784] )
     return 0;
   v1 = *(_DWORD *)&byte_5D4594[1301788];
@@ -57033,7 +57035,7 @@ int __cdecl sub_49ADD0(int a1)
   if ( !*(_DWORD *)&byte_5D4594[1301844] )
     return 0;
   *(_DWORD *)&byte_5D4594[1301824] = *(_DWORD *)&byte_5D4594[3807120];
-  v2 = malloc(4 * *(_DWORD *)&byte_5D4594[3807120]);
+  v2 = nox_malloc(4 * *(_DWORD *)&byte_5D4594[3807120]);
   *(_DWORD *)&byte_5D4594[1301848] = v2;
   if ( !v2 )
     return 0;

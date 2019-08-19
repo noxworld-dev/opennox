@@ -628,7 +628,7 @@ DWORD WINAPI GetTickCount()
 static char *dos_to_unix(const char *path)
 {
     int i, len = strlen(path);
-    char *str = malloc(len + 1);
+    char *str = nox_malloc(len + 1);
 
     if (path[0] == 'C' && path[1] == ':')
         path += 2;
@@ -1038,7 +1038,7 @@ LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM
         root = hKey->path;
 
     hkResult = calloc(sizeof(*hkResult), 1);
-    hkResult->path = malloc(strlen(root) + strlen(lpSubKey) + 2);
+    hkResult->path = nox_malloc(strlen(root) + strlen(lpSubKey) + 2);
     sprintf(hkResult->path, "%s\\%s", root, lpSubKey);
     *phkResult = hkResult;
     return 0;
@@ -1095,7 +1095,7 @@ VOID WINAPI LeaveCriticalSection(LPCRITICAL_SECTION lpCriticalSection)
 
 HANDLE WINAPI CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwner, LPCSTR lpName)
 {
-    pthread_mutex_t *m = malloc(sizeof(pthread_mutex_t));
+    pthread_mutex_t *m = nox_malloc(sizeof(pthread_mutex_t));
     pthread_mutexattr_t attr;
 
     pthread_mutexattr_init(&attr);

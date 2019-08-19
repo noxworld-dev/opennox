@@ -10535,7 +10535,7 @@ void *__cdecl sub_553000(size_t *a1)
   size_t v10; // eax
   size_t v11; // ebx
 
-  result = malloc(0xA4u);
+  result = nox_malloc(0xA4u);
   v2 = result;
   if ( result )
   {
@@ -10556,7 +10556,7 @@ void *__cdecl sub_553000(size_t *a1)
     }
     if ( (int)a1[3] > 0 )
     {
-      v5 = malloc(a1[3]);
+      v5 = nox_malloc(a1[3]);
       *((_DWORD *)v2 + 30) = v5;
       if ( !v5 )
       {
@@ -10575,14 +10575,14 @@ void *__cdecl sub_553000(size_t *a1)
     {
       a1[5] = 1024;
     }
-    v7 = (char *)malloc(a1[5] + 2);
+    v7 = (char *)nox_malloc(a1[5] + 2);
     *((_DWORD *)v2 + 8) = v7;
     if ( v7 )
     {
       *((_DWORD *)v2 + 10) = v7;
       *((_DWORD *)v2 + 9) = v7;
       *((_DWORD *)v2 + 11) = &v7[a1[5] + 2];
-      v8 = malloc(a1[5] + 2);
+      v8 = nox_malloc(a1[5] + 2);
       *((_DWORD *)v2 + 12) = v8;
       if ( v8 )
       {
@@ -11100,7 +11100,7 @@ LABEL_67:
         if ( !sub_5541D0((unsigned __int8)i[2064] + 1) )
         {
           sub_4DEAB0((unsigned __int8)i[2064], 4);
-          v50 = malloc(0x10u);
+          v50 = nox_malloc(0x10u);
           v50[3] = (unsigned __int8)i[2064] + 1;
           sub_4258E0((int)&byte_5D4594[2495908], v50);
           ++byte_5D4594[2500076];
@@ -11969,7 +11969,7 @@ void __cdecl sub_554AA0(u_short hostshort, int a2, int a3, int a4)
 
 
   v4 = 12;
-  v5 = (char *)malloc((unsigned __int16)a3 + 12);
+  v5 = (char *)nox_malloc((unsigned __int16)a3 + 12);
   v5[2] = 12;
   *v5 = 0;
   v5[1] = 0;
@@ -15423,7 +15423,7 @@ const wchar_t *__cdecl sub_57A4D0(wchar_t *a1, int a2, int a3, int a4)
         {
           if ( a3 )
           {
-            v10 = (wchar_t *)malloc(0x20Cu);
+            v10 = (wchar_t *)nox_malloc(0x20Cu);
             nox_wcscpy(v10 + 6, a1);
             result = (const wchar_t *)sub_4258E0(a3, v10);
           }
@@ -16593,8 +16593,8 @@ int __cdecl sub_57BC50(char *a1, char *a2)
   fseek(v3, 0, 0);
   v5 = (char *)(v4 - 4);
   sub_40ADD0((char *)&v12, 1u, 4u, v3);
-  v6 = (char *)malloc((size_t)v5);
-  v7 = (char *)malloc(v12);
+  v6 = (char *)nox_malloc((size_t)v5);
+  v7 = (char *)nox_malloc(v12);
   v8 = v7;
   if ( !v6 || !v7 )
     return 0;
@@ -16650,9 +16650,9 @@ int __cdecl sub_57BDD0(LPVOID lpMem, int a2)
   fseek(v3, 0, 2);
   v15 = ftell(v4);
   fseek(v4, 0, 0);
-  v5 = (char *)malloc(v15);
+  v5 = (char *)nox_malloc(v15);
   v6 = sub_578BA0(v15);
-  v7 = malloc(v6);
+  v7 = nox_malloc(v6);
   lpMema = v7;
   if ( !v5 || !v7 )
     return 0;
