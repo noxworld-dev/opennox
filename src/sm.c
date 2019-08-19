@@ -143,7 +143,7 @@ void CONNECT_PREPARE (sm_args_t *args)
   int v4; // [esp+Ch] [ebp-A8h]
   int v5; // [esp+10h] [ebp-A4h]
   int v6; // [esp+14h] [ebp-A0h]
-  BYTE Data[153]; // [esp+18h] [ebp-9Ch]
+  BYTE Data[1024]; // [esp+18h] [ebp-9Ch]
 
   sub_43BEB0(&v5, &v4, &v6);
   v1 = sub_431770();
