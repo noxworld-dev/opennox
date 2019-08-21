@@ -1,2 +1,1 @@
-/OPT:NOICF is needed for Win compile. Otherwise breaks elevator shaft draw refreshing (which is weird). Needs to be somehow debugged
-The related function is somewhere in GAME3.c
+Crash when randomly and fast clicking in menus of Network game creation/selection
