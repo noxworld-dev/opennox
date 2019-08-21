@@ -18021,6 +18021,10 @@ int __cdecl sub_4BBB30(_DWORD *a1, int a2)
 int __cdecl sub_4BBD30(int *a1, int a2)
 {
   sub_4C4770(a1, (unsigned __int8 *)a2, *(_DWORD *)(*(_DWORD *)(*(_DWORD *)(a2 + 304) + 4) + 4 * *(_DWORD *)(a2 + 308)));
+  if (sub_4BBD30 == sub_4BCC60) // AntiICFoptimization
+  {
+	return 0;
+  }
   return 1;
 }
 
