@@ -1,1 +1,1 @@
-Crash when randomly and fast clicking in menus of Network game creation/selection
+No bugs detected so far... But it doesn't mean there isn't some! =)
