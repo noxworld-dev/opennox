@@ -67,7 +67,7 @@ void __cdecl sub_401FE0(LPCSTR);
 // unsigned int *__cdecl __doserrno();
 // int __cdecl _isctype(WORD CharType, int); idb
 // void __cdecl __noreturn exit(int);
-// void *__cdecl calloc(size_t, size_t);
+// void *__cdecl nox_calloc(size_t, size_t);
 // int __cdecl free(LPVOID lpMem); idb
 // int __cdecl _lseek(int, int, int);
 // int __cdecl _lseek_lk(int, LONG lDistanceToMove, DWORD dwMoveMethod); idb
@@ -2800,9 +2800,9 @@ BOOL __cdecl sub_46AAB0(_DWORD *a1, int a2, int a3);
 int __cdecl sub_46AB20(_DWORD *a1, int a2, int a3);
 int __cdecl sub_46AB70(int a1, _DWORD *a2, _DWORD *a3);
 int __cdecl sub_46ABB0(int a1, int a2);
-int __cdecl sub_46AC00(int a1, int a2);
+int __cdecl wndShowHide_sub_46AC00(int a1, int a2);
 void __cdecl sub_46AC60(int a1);
-int __cdecl sub_46ACC0(int a1);
+int __cdecl wndIsShown_sub_46ACC0(int a1);
 void __cdecl sub_46ACE0(_DWORD *a1, int a2, int a3, int a4);
 void __cdecl sub_46AD20(_DWORD *a1, int a2, int a3, int a4);
 int __cdecl sub_46AD60(int a1, int a2);
@@ -2843,7 +2843,7 @@ int __cdecl sub_46B300(int a1, int (*a2)(int, int, int, int));
 int sub_46B330(int a1, int a2, int a3, int a4);
 int __cdecl sub_46B340(int a1, int (*a2)(int, int));
 int __cdecl sub_46B370(int a1, int *a2);
-int __cdecl sub_46B430(_DWORD *a1, int (*a2)(int, int, int, int), int (*a3)(int, int), int a4);
+int __cdecl wndSetAllFn_sub_46B430(_DWORD *a1, int (*a2)(int, int, int, int), int (*a3)(int, int), int a4);
 int __cdecl sub_46B490(int a1, int a2, int a3, int a4);
 int __cdecl sub_46B4C0(int a1, int a2, int a3, int a4);
 int sub_46B4F0();
@@ -2858,7 +2858,7 @@ void sub_46C200();
 int __cdecl sub_46C2A0(int a1);
 int sub_46C2E0();
 int __cdecl sub_46C370(_DWORD *a1);
-_DWORD *__cdecl sub_46C3E0(int a1, int a2, int a3, int a4, int a5, int a6, int (*a7)(int,int,int,int));
+_DWORD *__cdecl wndCreate2_sub_46C3E0(int a1, int a2, int a3, int a4, int a5, int a6, int (*a7)(int,int,int,int));
 int __cdecl sub_46C4E0(_DWORD *a1);
 int sub_46C5D0();
 int sub_46C610();

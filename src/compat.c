@@ -672,7 +672,7 @@ HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileDat
 {
     char *converted = dos_to_unix(lpFileName);
     int len = strlen(converted);
-    struct _FIND_FILE *ff = calloc(sizeof(*ff), 1);
+    struct _FIND_FILE *ff = nox_calloc(sizeof(*ff), 1);
 
     // dprintf("%s: converted=%s", __FUNCTION__, converted);
 
@@ -1037,7 +1037,7 @@ LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM
     else
         root = hKey->path;
 
-    hkResult = calloc(sizeof(*hkResult), 1);
+    hkResult = nox_calloc(sizeof(*hkResult), 1);
     hkResult->path = nox_malloc(strlen(root) + strlen(lpSubKey) + 2);
     sprintf(hkResult->path, "%s\\%s", root, lpSubKey);
     *phkResult = hkResult;
