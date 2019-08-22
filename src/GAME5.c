@@ -12949,7 +12949,7 @@ int __cdecl sub_56F280(int a1, int a2)
   int v3; // ecx
   int v4; // ecx
 
-  v2 = calloc(1u, 0x10u);
+  v2 = nox_calloc(1u, 0x10u);
   if ( !v2 )
     return 0;
   v2[3] = 0;
@@ -13064,7 +13064,7 @@ int __cdecl sub_56F480(int a1, int a2)
   int v3; // ecx
   int v4; // ecx
 
-  v2 = calloc(1u, 0x10u);
+  v2 = nox_calloc(1u, 0x10u);
   if ( !v2 )
     return 0;
   v2[3] = 0;
@@ -14622,7 +14622,7 @@ _DWORD *__cdecl sub_5798F0(float a1, float a2)
   unsigned int v3; // eax
   int v4; // edx
 
-  v2 = calloc(1u, 0x204u);
+  v2 = nox_calloc(1u, 0x204u);
   v3 = sub_5798C0();
   v4 = v2[120];
   *v2 = v3;
@@ -14644,7 +14644,7 @@ float *__cdecl sub_579970(int a1, float a2, float a3)
   float *result; // eax
   int v4; // ecx
 
-  result = (float *)calloc(1u, 0x204u);
+  result = (float *)nox_calloc(1u, 0x204u);
   *(_DWORD *)result = a1;
   result[3] = a3;
   v4 = *((_DWORD *)result + 120) | 1;
@@ -15042,7 +15042,7 @@ _DWORD *sub_579E70()
 {
   _DWORD *result; // eax
 
-  result = calloc(1u, 0x204u);
+  result = nox_calloc(1u, 0x204u);
   if ( result )
     result[120] |= 0x1000000u;
   return result;

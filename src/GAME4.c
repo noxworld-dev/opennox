@@ -3270,7 +3270,7 @@ int __cdecl sub_4FA700(int a1)
   v2 = *(_DWORD *)(a1 + 748);
   if ( !*(_DWORD *)(v2 + 292) )
   {
-    result = (int)calloc(1u, 0x898u);
+    result = (int)nox_calloc(1u, 0x898u);
     *(_DWORD *)(v2 + 292) = result;
   }
   v3 = *(_DWORD **)(v2 + 292);
@@ -11519,7 +11519,7 @@ _DWORD *__cdecl sub_504290(char a1, char a2)
     if ( *(_DWORD *)&byte_5D4594[1599532] )
       *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599532] + 8) = result;
     *(_DWORD *)&byte_5D4594[1599532] = result;
-    v4 = calloc(1u, 0x24u);
+    v4 = nox_calloc(1u, 0x24u);
     *v3 = v4;
     v4[5] = a1;
     *(_BYTE *)(*v3 + 6) = a2;
@@ -12460,7 +12460,7 @@ int sub_505360()
     {
       v4 = sub_505800();
       v5 = v4;
-      v6 = calloc(1u, v4 + 1);
+      v6 = nox_calloc(1u, v4 + 1);
       *(_DWORD *)v3 = v6;
       if ( !sub_505830(v5, v6) )
         goto LABEL_45;
@@ -12479,7 +12479,7 @@ LABEL_9:
   *(_DWORD *)&byte_5D4594[1599640] = v9;
   if ( v9 )
   {
-    *(_DWORD *)&byte_5D4594[1599636] = calloc(1u, 48 * v9);
+    *(_DWORD *)&byte_5D4594[1599636] = nox_calloc(1u, 48 * v9);
     v9 = *(_DWORD *)&byte_5D4594[1599640];
   }
   v10 = 0;
@@ -12490,7 +12490,7 @@ LABEL_9:
     {
       v12 = sub_505800();
       v13 = 48 * v10;
-      *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13) = calloc(1u, v12 + 1);
+      *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13) = nox_calloc(1u, v12 + 1);
       if ( !sub_505830(v12, *(void **)(*(_DWORD *)&byte_5D4594[1599636] + v13)) )
         goto LABEL_51;
       if ( strlen(*(const char **)(*(_DWORD *)&byte_5D4594[1599636] + v13)) >= 0x400 )
@@ -12526,7 +12526,7 @@ LABEL_25:
       {
         v20 = strtok(0, v36);
         nox_sprintf(v38, (const char *)&byte_587000[229908], v20);
-        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 36) = calloc(1u, strlen(v38) + 1);
+        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 36) = nox_calloc(1u, strlen(v38) + 1);
         strcpy(*(char **)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 36), v38);
         v21 = strtok(0, v36);
         *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 40) = atoi(v21);
@@ -12556,8 +12556,8 @@ LABEL_25:
       sub_505800();
       if ( v30 )
       {
-        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 20) = calloc(1u, 4 * v30);
-        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 24) = calloc(1u, 4 * v30);
+        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 20) = nox_calloc(1u, 4 * v30);
+        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 24) = nox_calloc(1u, 4 * v30);
       }
       else
       {
@@ -12582,13 +12582,13 @@ LABEL_25:
       }
       *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 16) = i;
       if ( i )
-        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 28) = calloc(1u, 4 * i);
+        *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 28) = nox_calloc(1u, 4 * i);
       else
         *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 28) = 0;
       if ( !sub_505870((const char *)&byte_587000[229924]) )
         goto LABEL_9;
       v35 = sub_505800();
-      *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 32) = calloc(1u, v35);
+      *(_DWORD *)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 32) = nox_calloc(1u, v35);
       if ( fread(*(void **)(*(_DWORD *)&byte_5D4594[1599636] + v13 + 32), 1u, v35, *(FILE **)&byte_5D4594[1599620]) != v35 )
       {
 LABEL_51:
@@ -28273,7 +28273,7 @@ int __cdecl sub_517170(FILE *a1, const char *a2)
   int v9; // [esp+10h] [ebp-104h]
   char v10[256]; // [esp+14h] [ebp-100h]
 
-  result = (int)calloc(1u, 0xF8u);
+  result = (int)nox_calloc(1u, 0xF8u);
   v3 = (_DWORD *)result;
   if ( result )
   {
@@ -28773,7 +28773,7 @@ int sub_517AE0()
   v0 = *(_DWORD *)&byte_5D4594[2386944];
   for ( i = 0; i < *(int *)&byte_5D4594[2386944]; ++i )
   {
-    *(_DWORD *)(*(_DWORD *)&byte_5D4594[2386940] + 4 * i) = calloc(v0, 0x10u);
+    *(_DWORD *)(*(_DWORD *)&byte_5D4594[2386940] + 4 * i) = nox_calloc(v0, 0x10u);
     v0 = *(_DWORD *)&byte_5D4594[2386944];
   }
   return 1;
@@ -34716,7 +34716,7 @@ int __cdecl sub_51F030(int a1, FILE *a2)
       break;
     if ( !_strcmpi((const char *)&byte_587000[254060], (const char *)&byte_5D4594[2487264]) )
     {
-      v2 = (char *)calloc(1u, 0x9Cu);
+      v2 = (char *)nox_calloc(1u, 0x9Cu);
       if ( !v2 || !sub_51E540(a2, &byte_5D4594[2487264]) )
         return 0;
       strcpy(v2 + 60, (const char *)&byte_5D4594[2487264]);
@@ -34986,7 +34986,7 @@ LABEL_43:
 LABEL_49:
       if ( !v24 )
       {
-        v36 = calloc(v9, 0x3Cu);
+        v36 = nox_calloc(v9, 0x3Cu);
         *v49 = v36;
         if ( !v36 )
           return 0;
@@ -35076,7 +35076,7 @@ int __cdecl sub_51F640(int a1, FILE *a2)
       break;
     if ( !_strcmpi((const char *)&byte_587000[254184], (const char *)&byte_5D4594[2487264]) )
     {
-      v2 = (char *)calloc(1u, 0x9Cu);
+      v2 = (char *)nox_calloc(1u, 0x9Cu);
       if ( !v2 || !sub_51E540(a2, &byte_5D4594[2487264]) )
         return 0;
       strcpy(v2 + 60, (const char *)&byte_5D4594[2487264]);
@@ -35191,7 +35191,7 @@ int __cdecl sub_51F9F0(_DWORD *a1, FILE *a2)
   char *v15; // [esp+10h] [ebp-4h]
 
   v15 = 0;
-  v2 = calloc(1u, 0xE0u);
+  v2 = nox_calloc(1u, 0xE0u);
   v3 = (int)v2;
   if ( v2 )
   {
@@ -35373,7 +35373,7 @@ char *__cdecl sub_51FE00(int a1, FILE *a2)
   char *v3; // ebx
   int v4; // ecx
 
-  result = (char *)calloc(1u, 0x80u);
+  result = (char *)nox_calloc(1u, 0x80u);
   v3 = result;
   if ( result )
   {
@@ -35404,7 +35404,7 @@ int __cdecl sub_51FEC0(int a1, int a2, FILE *a3)
   int v5; // ecx
   int i; // eax
 
-  result = (int)calloc(1u, 0x80u);
+  result = (int)nox_calloc(1u, 0x80u);
   v4 = result;
   if ( result )
   {
@@ -35452,7 +35452,7 @@ int __cdecl sub_51FFA0(int a1, FILE *a2)
   int v12; // [esp+10h] [ebp-4h]
 
   v2 = 0;
-  result = (int)calloc(1u, 0x18u);
+  result = (int)nox_calloc(1u, 0x18u);
   v4 = (int *)result;
   v12 = result;
   if ( result )
@@ -35515,7 +35515,7 @@ LABEL_5:
           }
           goto LABEL_41;
         }
-        v7 = calloc(1u, 0x64u);
+        v7 = nox_calloc(1u, 0x64u);
         v2 = (int)v7;
         if ( v7 )
         {
@@ -35628,7 +35628,7 @@ _DWORD *__cdecl sub_520380(FILE *a1)
   v15 = 0;
   v16 = 100;
 LABEL_2:
-  v2 = calloc(1u, 0x80Cu);
+  v2 = nox_calloc(1u, 0x80Cu);
   if ( v2 && sub_51E540(a1, &byte_5D4594[2487264]) )
   {
     if ( !strcmp((const char *)&byte_587000[254488], (const char *)&byte_5D4594[2487264]) )
@@ -35732,7 +35732,7 @@ _DWORD *__cdecl sub_5205B0(FILE *a1)
   result = (_DWORD *)sub_51E540(a1, &byte_5D4594[2487264]);
   if ( result )
   {
-    result = calloc(1u, 0xCu);
+    result = nox_calloc(1u, 0xCu);
     v2 = result;
     if ( result )
     {
@@ -35833,7 +35833,7 @@ LABEL_14:
     }
     for ( i = (_DWORD *)*((_DWORD *)v7 + 21); i; i = (_DWORD *)i[31] )
     {
-      v9 = calloc(1u, 0x80u);
+      v9 = nox_calloc(1u, 0x80u);
       if ( !v9 )
         return 0;
       qmemcpy(v9, i, 0x80u);
@@ -35850,7 +35850,7 @@ LABEL_14:
     }
     for ( k = (_DWORD *)*((_DWORD *)v7 + 23); k; v11 = v14 )
     {
-      v14 = calloc(1u, 0x18u);
+      v14 = nox_calloc(1u, 0x18u);
       if ( !v14 )
         return 0;
       v15 = 1;
@@ -36124,7 +36124,7 @@ char *__cdecl sub_520CE0(int a1, FILE *a2)
   result = (char *)sub_51E540(a2, &byte_5D4594[2487264]);
   if ( result )
   {
-    result = (char *)calloc(1u, 0xA0u);
+    result = (char *)nox_calloc(1u, 0xA0u);
     if ( result )
     {
       strcpy(result, (const char *)&byte_5D4594[2487264]);
@@ -36984,7 +36984,7 @@ float *__cdecl sub_521940(int a1, int a2)
 {
   float *result; // eax
 
-  result = (float *)calloc(1u, 0x178u);
+  result = (float *)nox_calloc(1u, 0x178u);
   if ( result )
   {
     *(_DWORD *)result = 1;
@@ -37146,7 +37146,7 @@ float *__cdecl sub_521BC0(int a1, float2 *a2, float a3, float a4)
 {
   float *result; // eax
 
-  result = (float *)calloc(1u, 0x1Cu);
+  result = (float *)nox_calloc(1u, 0x1Cu);
   if ( result )
   {
     *result = 0.0;
@@ -37240,7 +37240,7 @@ int __cdecl sub_521CB0(int a1, int a2, int a3, int a4)
   float2 v20; // [esp+24h] [ebp-8h]
   int v22; // [esp+34h] [ebp+8h]
 
-  v4 = (float *)calloc(1u, 0x1Cu);
+  v4 = (float *)nox_calloc(1u, 0x1Cu);
   if ( !v4 )
     return 0;
   v15 = sub_502E70(a4);
@@ -39067,7 +39067,7 @@ float *__cdecl sub_523E30(int a1, int a2, int a3)
 {
   float *result; // eax
 
-  result = (float *)calloc(1u, 0x178u);
+  result = (float *)nox_calloc(1u, 0x178u);
   if ( result )
   {
     *(_DWORD *)result = a1;
@@ -41578,7 +41578,7 @@ char *sub_526950()
 
   v0 = sub_502A20();
   *(_DWORD *)&byte_5D4594[2487676] = v0;
-  result = (char *)calloc(v0, 0x40u);
+  result = (char *)nox_calloc(v0, 0x40u);
   v2 = 0;
   *(_DWORD *)&byte_5D4594[2487672] = result;
   if ( result )
@@ -42026,7 +42026,7 @@ int __cdecl sub_527150(int *a1, char a2)
         v4 = *(_DWORD *)(result + 28);
         if ( !v4 )
         {
-          result = (int)calloc(1u, 0x20u);
+          result = (int)nox_calloc(1u, 0x20u);
           v4 = result;
           if ( !result )
             return result;
@@ -53426,7 +53426,7 @@ int __cdecl sub_535A60(int a1, int a2, char *a3)
   sscanf(a3, (const char *)&byte_587000[268104], &a3);
   if ( *(_DWORD *)(a1 + 136) )
     free(*(LPVOID *)(a1 + 136));
-  result = (int)calloc(1u, 0x14u);
+  result = (int)nox_calloc(1u, 0x14u);
   *(_DWORD *)(a1 + 136) = result;
   if ( result )
   {
@@ -53618,7 +53618,7 @@ int __cdecl sub_535CD0(int a1, _DWORD *a2, void *a3)
     v7 = *(_DWORD *)(a1 + 192);
     if ( !v7 )
       return result;
-    v8 = (char *)calloc(1u, 0x100u);
+    v8 = (char *)nox_calloc(1u, 0x100u);
     v47 = v8;
     if ( !v8 )
       return 0;
@@ -53990,7 +53990,7 @@ int __cdecl sub_5363F0(_DWORD *a1, int a2, char *a3)
   a1[52] = *(_DWORD *)&byte_587000[v7 + 269792];
   if ( !*(_DWORD *)&byte_587000[v7 + 269792] )
     goto LABEL_13;
-  result = (int)calloc(1u, *(_DWORD *)&byte_587000[v7 + 269792]);
+  result = (int)nox_calloc(1u, *(_DWORD *)&byte_587000[v7 + 269792]);
   a1[51] = result;
   if ( !result )
     return result;
@@ -54101,7 +54101,7 @@ int __cdecl sub_536620(_DWORD *a1, int a2, char *a3)
   a1[49] = *(_DWORD *)&byte_587000[v7 + 270336];
   if ( !*(_DWORD *)&byte_587000[v7 + 270336] )
     goto LABEL_13;
-  result = (int)calloc(1u, *(_DWORD *)&byte_587000[v7 + 270336]);
+  result = (int)nox_calloc(1u, *(_DWORD *)&byte_587000[v7 + 270336]);
   a1[48] = result;
   if ( !result )
     return result;
@@ -54279,7 +54279,7 @@ int __cdecl sub_536930(_DWORD *a1, int a2, char *a3)
   a1[45] = *(_DWORD *)&byte_587000[v7 + 273120];
   if ( !*(_DWORD *)&byte_587000[v7 + 273120] )
     goto LABEL_13;
-  result = (int)calloc(1u, *(_DWORD *)&byte_587000[v7 + 273120]);
+  result = (int)nox_calloc(1u, *(_DWORD *)&byte_587000[v7 + 273120]);
   a1[44] = result;
   if ( !result )
     return result;
@@ -54415,7 +54415,7 @@ int __cdecl sub_536B80(int a1, int a2, char *a3)
   *(_DWORD *)(a1 + 160) = *(_DWORD *)&byte_587000[v7 + 274084];
   if ( !*(_DWORD *)&byte_587000[v7 + 274088] )
     goto LABEL_14;
-  result = (int)calloc(1u, *(_DWORD *)&byte_587000[v7 + 274088]);
+  result = (int)nox_calloc(1u, *(_DWORD *)&byte_587000[v7 + 274088]);
   *(_DWORD *)(a1 + 164) = result;
   if ( !result )
     return result;
@@ -54589,7 +54589,7 @@ int __cdecl sub_536EC0(_DWORD *a1, int a2, char *a3)
   a1[37] = *(_DWORD *)&byte_587000[v7 + 274880];
   if ( !*(_DWORD *)&byte_587000[v7 + 274880] )
     goto LABEL_14;
-  result = (int)calloc(1u, *(_DWORD *)&byte_587000[v7 + 274880]);
+  result = (int)nox_calloc(1u, *(_DWORD *)&byte_587000[v7 + 274880]);
   a1[36] = result;
   if ( !result )
     return result;

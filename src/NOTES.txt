@@ -1,1 +1,16 @@
-No bugs detected so far... But it doesn't mean there isn't some! =)
+In the upper left corner the cursor seems to be on top of a closed inventory pane, blocking actions in that zone.
+
+It seems that the inventory isn't getting the flag 0x200 for skip cursor update. Also the inventory is composed of multiple elements, so we need to set the flag on all of them on both open (467BB0?) and close (467C10?). Memory initialization and update is still not found yet
+
+GAME2.c 23042 && GAME2.c 23049
+
+Possibly inventory creation: sub_465E00
+
+GAME2.c 16644 open inventory
+GAME2.c 16654 close inventory
+
+
+0x1053fdc0
+0x10541170
+
+It seems that different hower functions are called in vanilla and here. sub_4667E0 in vanilla and sub_466E20 on this. Both doesn't have the flag 0x200 though.
