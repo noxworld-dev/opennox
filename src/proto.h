@@ -2834,7 +2834,7 @@ int __cdecl sub_46B120(_DWORD *a1, int a2);
 _DWORD *__cdecl sub_46B180(_DWORD *a1);
 void __cdecl sub_46B200(_DWORD *a1, int a2);
 int __cdecl sub_46B240(int a1);
-int __cdecl sub_46B250(int a1, int a2);
+int __cdecl wndIsChild_sub_46B250(int a1, int a2);
 int __cdecl sub_46B280(int a1, int a2);
 int __cdecl sub_46B2B0(int a1);
 int __cdecl sub_46B2C0(int a1, int (*a2)(int,int,int,int));

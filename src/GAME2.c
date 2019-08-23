@@ -8948,7 +8948,7 @@ int *__cdecl sub_4597E0(int a1)
   if ( *(_DWORD *)&byte_5D4594[1046492] )
   {
     v1 = sub_46B4F0();
-    if ( sub_46B250(*(int *)&byte_5D4594[1046492], v1) )
+    if ( wndIsChild_sub_46B250(*(int *)&byte_5D4594[1046492], v1) )
       sub_46B500(0);
     sub_46C4E0(*(_DWORD **)&byte_5D4594[1046492]);
     *(_DWORD *)&byte_5D4594[1046492] = 0;
@@ -19709,7 +19709,7 @@ LABEL_12:
     v0 = 1;
   }
   v5 = sub_46AE00();
-  if ( sub_46B250(*(int *)&byte_5D4594[1062452], v5) == 1 )
+  if ( wndIsChild_sub_46B250(*(int *)&byte_5D4594[1062452], v5) == 1 )
   {
     v6 = sub_46AE00();
     sub_46ADE0(v6);
@@ -22356,7 +22356,7 @@ int __cdecl sub_46B240(int a1)
 }
 
 //----- (0046B250) --------------------------------------------------------
-int __cdecl sub_46B250(int a1, int a2)
+int __cdecl wndIsChild_sub_46B250(int a1, int a2)
 {
   int v2; // eax
 
@@ -22597,7 +22597,7 @@ LABEL_2:
         v6 += v5[4];
         j += v5[5];
       }
-      if ( a2 >= v6 && a2 <= v6 + i[2] && a3 >= j && a3 <= j + i[3] )
+      if ( a2 >= v6 && a2 <= v6 + (signed int)(i[2]) && a3 >= j && a3 <= j + (signed int)(i[3]) )
       {
         v8 = i[1];
         if ( v8 & 8 )
@@ -23040,6 +23040,7 @@ LABEL_98:
   }
 LABEL_99:
   v37 = *((_DWORD *)v1 + 1);
+  v61 = v1;
   if ( v37 & 0x200 )
   {
     v1 = 0;
@@ -23103,7 +23104,7 @@ LABEL_123:
   {
     if ( *(_DWORD *)&byte_5D4594[1064904] )
     {
-      if ( sub_46B250(*(int *)&byte_5D4594[1064904], *(int *)&byte_5D4594[1064900]) )
+      if ( wndIsChild_sub_46B250(*(int *)&byte_5D4594[1064904], *(int *)&byte_5D4594[1064900]) )
         sub_46B4C0(*(int *)&byte_5D4594[1064900], 18, v60, 0);
     }
     else if ( *(_DWORD *)&byte_5D4594[1064900] )
