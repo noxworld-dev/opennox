@@ -13222,8 +13222,8 @@ int __cdecl sub_40EF40(int a1, const void *a2, int a3)
     // The new update packet needs to have correct bytes at the
     // beginning. Save the length of the first two queued datas so we
     // can replay them.
-    len1 = **(DWORD **)v3; // head->len
-    len2 = *(DWORD *)*(*(DWORD **)v3 + 3); // head->next->len
+    len1 = *((DWORD*)((DWORD*)(*((DWORD*)v3)) + 1)); // head->len
+    len2 = *((DWORD*)(*((DWORD*)((DWORD*)(*((DWORD*)v3)) + 3)) + 4)); // head->next->len
 
     // Flush old data to network.
     if (a1 == 31)
@@ -13338,13 +13338,18 @@ void __cdecl sub_40F0F0(int a1, int (__cdecl *a2)(_DWORD, int), int a3)
 //----- (0040F120) --------------------------------------------------------
 unsigned __int8 *__cdecl sub_40F120(int a1, _DWORD *a2)
 {
+	int origSize;
   int ***v2; // ebp
-  int v3; // ebx
+  unsigned int v3; // ebx
   int **v4; // eax
   unsigned int v5; // edx
-  unsigned __int8 *v6; // edi
-  unsigned __int8 *result; // eax
+  unsigned int *v6; // edi
+  unsigned int *result; // eax
+  void* dest;
+  void* src;
+  size_t size;
 
+  origSize = a1;
   v2 = *(int ****)&byte_5D4594[4 * a1 + 210292];
   v3 = 0;
   memset(&byte_5D4594[207988], 0, 0x800u);
@@ -13354,7 +13359,10 @@ unsigned __int8 *__cdecl sub_40F120(int a1, _DWORD *a2)
     v5 = a1;
     while ( 1 )
     {
-      qmemcpy(&byte_5D4594[v3 + 207988], v4, 4 * (v5 >> 2));
+	  dest = &byte_5D4594[v3 + 207988];
+	  src = v4;
+	  size = 4 * (v5 >> 2);
+      qmemcpy(dest, src, size);
       v6 = &byte_5D4594[4 * (v5 >> 2) + 207988 + v3];
       v3 += v5;
       qmemcpy(v6, &v4[v5 >> 2], v5 & 3);
@@ -28925,7 +28933,7 @@ _DWORD *__cdecl sub_420890(int a1, int a2)
   _DWORD *result; // eax
   char *v4; // eax
 
-  v2 = nox_malloc(0x18u);
+  v2 = nox_malloc(0x20u);
   if ( !v2 )
     return 0;
   v4 = sub_413FE0((const char *)&byte_587000[60336], 16, a1);
@@ -29074,6 +29082,37 @@ _DWORD *__cdecl sub_420A60(_DWORD *a1, int (__cdecl *a2)(_DWORD, int), int a3)
 }
 
 //----- (00420A90) --------------------------------------------------------
+_DWORD* __cdecl sub_420A90(int a1, int ListSizePtr)
+{
+	_DWORD* result; // eax
+	int v3; // esi
+	int v4; // edx
+	int v5; // edx
+	_DWORD* v6; // esi
+
+	result = *(_DWORD * *)a1;
+	if (*(_DWORD*)a1)
+	{
+		*(_DWORD*)ListSizePtr = result[1];
+		v3 = *(_DWORD*)(a1 + 20);
+		--* (_DWORD*)(a1 + 16);
+		*(_DWORD*)(a1 + 20) = v3 - result[1];
+		v4 = result[3];
+		if (v4)
+			* (_DWORD*)(v4 + 8) = result[2];
+		else
+			*(_DWORD*)(a1 + 4) = result[2];
+		v5 = result[2];
+		if (v5)
+			* (_DWORD*)(v5 + 12) = result[3];
+		else
+			*(_DWORD*)a1 = result[3];
+		v6 = (_DWORD*)* result;
+		sub_4209C0(a1, (int)result);
+		result = v6;
+	}
+	return result;
+}/*
 int **__cdecl sub_420A90(int ***a1, _DWORD *a2)
 {
   int **result; // eax
@@ -29104,7 +29143,7 @@ int **__cdecl sub_420A90(int ***a1, _DWORD *a2)
     result = v6;
   }
   return result;
-}
+}*/
 
 //----- (00420B00) --------------------------------------------------------
 int *******__cdecl sub_420B00(_DWORD *a1, _DWORD *a2)

@@ -982,7 +982,7 @@ int __cdecl sub_420940(int a1, int a2, int a3, int a4);
 void __cdecl sub_4209C0(int a1, _QWORD *a2);
 void __cdecl sub_4209E0(int *a1, int a2);
 _DWORD *__cdecl sub_420A60(_DWORD *a1, int (__cdecl *a2)(_DWORD, int), int a3);
-int **__cdecl sub_420A90(int ***a1, _DWORD *a2);
+_DWORD* __cdecl sub_420A90(int a1, int ListSizePtr);
 int *******__cdecl sub_420B00(_DWORD *a1, _DWORD *a2);
 int __cdecl sub_420B70(_DWORD *a1, _DWORD *a2, int (__cdecl *a3)(_DWORD, int), int a4);
 int __cdecl sub_420BC0(int a1);
