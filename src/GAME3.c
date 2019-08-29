@@ -20387,8 +20387,8 @@ void __cdecl sub_4BEAD0(int2 *a1, int2 *a2, int2 *a3, int2 *a4, int a5, int a6)
     v15 = v36 * *((_DWORD *)v8 - 1) + v12;
     v8 += 16;
     v40[v45 + 4] = v15;
-    ++v45;
-    *(int *)((char *)&v39 + v45 * 4) = v14 + v11 + v38 * v37 + v44 * v10;
+    *(int *)((char *)&v40[0] + v45 * 4) = v14 + v11 + v38 * v37 + v44 * v10;
+	++v45;
   }
   while ( (int)v8 < (int)&byte_581450[9940] );
   *(float *)&byte_587000[180484] = v7;
@@ -20413,8 +20413,8 @@ void __cdecl sub_4BEAD0(int2 *a1, int2 *a2, int2 *a3, int2 *a4, int a5, int a6)
     v25 = v22 * *((float *)v16 - 2);
     v26 = v21 * *((float *)v16 - 1);
     v16 += 16;
-    ++v17;
-    *(float *)((char *)&v39 + v17 * 4) = v25 + v26 + v20 * *((float *)v16 - 4) + v19 * *((float *)v16 - 3);
+    *(float *)((char *)&v40[0] + v17 * 4) = v25 + v26 + v20 * *((float *)v16 - 4) + v19 * *((float *)v16 - 3);
+	++v17;
     *(float *)&v40[v17 + 3] = v46 * *((float *)v16 - 6)
                             + v43 * *((float *)v16 - 5)
                             + v24 * *((float *)v16 - 4)
