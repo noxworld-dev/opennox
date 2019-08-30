@@ -28575,13 +28575,16 @@ int __cdecl sub_420120(LPBYTE lpData)
   DWORD cbData; // [esp+10h] [ebp-88h]
   DWORD Type; // [esp+14h] [ebp-84h]
   CHAR SubKey[128]; // [esp+18h] [ebp-80h]
+  DWORD res;
 
   strcpy(SubKey, "SOFTWARE\\Westwood\\Nox");
   v1 = 0;
   cbData = 23;
-  if ( !RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult) )
+  res = RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult);
+  if ( !res )
   {
-    if ( !RegQueryValueExA(phkResult, (LPCSTR)&byte_587000[60144], 0, &Type, lpData, &cbData) && Type == 1 )
+	  res = RegQueryValueExA(phkResult, (LPCSTR)& byte_587000[60144], 0, &Type, lpData, &cbData);
+    if ( !res && Type == 1 )
       v1 = 1;
     RegCloseKey(phkResult);
   }
@@ -47319,7 +47322,7 @@ int sub_438770()
   {
     switch ( *(_DWORD *)&byte_5D4594[814548] )
     {
-      case 2:
+	  case 2:
         sub_438BD0();
         sub_43AF90(1);
         result = 1;
@@ -47429,10 +47432,11 @@ int sub_438A90()
   u_short v5; // [esp-10h] [ebp-74h]
   char buf[100]; // [esp+0h] [ebp-64h]
 
-  if ( sub_420120((LPBYTE)&buf[56]) )
+  memset(&buf[0], 0, 100);
+  /*if (*/ sub_420120((LPBYTE)& buf[56]); //)
   {
-    if ( !*(_DWORD *)&byte_587000[87404] )
-      sub_40E0D0((int)&buf[56], (LPCSTR)&byte_587000[89088], 0);
+    /*if ( !*(_DWORD *)&byte_587000[87404] )
+      sub_40E0D0((int)&buf[56], (LPCSTR)&byte_587000[89088], 0);*/
     v3 = sub_40ABD0();
     buf[55] = byte_5D4594[2661960];
     buf[54] = byte_5D4594[2661958];
@@ -47447,7 +47451,7 @@ int sub_438A90()
     v4 = sub_43B300();
     result = sub_5550A0(v4, v5, buf);
   }
-  else
+  /*else
   {
     v0 = sub_40F1D0((char *)&byte_587000[89028], 0, (const char *)&byte_587000[88988], 541);
     sub_449E00((int)v0);
@@ -47458,7 +47462,7 @@ int sub_438A90()
     result = *(_DWORD *)&byte_587000[87404];
     if ( *(_DWORD *)&byte_587000[87404] == 1 )
       result = sub_40D380();
-  }
+  }*/
   return result;
 }
 
@@ -50229,7 +50233,7 @@ int sub_43CCA0()
   unsigned __int64 v3; // rax
   unsigned __int64 v4; // rax
   unsigned __int64 v5; // rax
-  char v7[5]; // [esp+8h] [ebp-8h]
+  char v7[8]; // [esp+8h] [ebp-8h]
 
   sub_49C4B0();
   v0 = *(_DWORD *)&byte_5D4594[2598000];

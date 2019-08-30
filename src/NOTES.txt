@@ -6,3 +6,9 @@ The barbarian archer shoots in the wrong direction in the scripted room with exp
 This problem seems to be global, as all directional projectiles fly in the wrong direction (ie MoM when targeted to the east flies toward the west)
 
 The information about durability is borked, showing 0/somehugenumber. The durability system itself seems to work though
+
+The staff of oblivion animation is garbage. Totally garbage.
+
+Conjurer can take control of unlimited number of animals (either by charming or by creating them)
+
+The game hangs (but does not crash) when clicking the column name in the network game selection window

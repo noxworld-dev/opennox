@@ -12178,10 +12178,11 @@ LABEL_8:
                 sub_555010(*(int *)&from.sa_data[2], v7, buf, 8);
               }
               break;
-            case 0x13u:
+            /*case 0x13u:
               if ( sub_43B6D0() )
                 sub_43AFA0((unsigned __int8)buf[3]);
-              break;
+              break;*/
+			case 0x13u:
             case 0x14u:
               if ( sub_43B6D0() && sub_43AF80() == 3 )
                 sub_43AF90(7);
