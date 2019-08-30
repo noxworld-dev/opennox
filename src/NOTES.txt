@@ -9,6 +9,4 @@ The information about durability is borked, showing 0/somehugenumber. The durabi
 
 The staff of oblivion animation is garbage. Totally garbage.
 
-Conjurer can take control of unlimited number of animals (either by charming or by creating them)
-
 The game hangs (but does not crash) when clicking the column name in the network game selection window
