@@ -366,7 +366,7 @@ DXDEC void AILCALL AIL_init_sample (HSAMPLE S)
 DXDEC char FAR *AILCALL AIL_last_error (void)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
-    DebugBreak();
+    //DebugBreak();
     return 0;
 }
 
@@ -722,13 +722,13 @@ DXDEC HTIMER AILCALL AIL_register_timer (AILTIMERCB fn)
 DXDEC void AILCALL AIL_release_sample_handle (HSAMPLE S)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
-    DebugBreak();
+    //DebugBreak();
 }
 
 DXDEC void AILCALL AIL_release_timer_handle (HTIMER timer)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
-    DebugBreak();
+    //DebugBreak();
 }
 
 DXDEC void AILCALL AIL_resume_sample (HSAMPLE S)
@@ -832,7 +832,7 @@ DXDEC void AILCALL AIL_set_timer_frequency (HTIMER timer, U32 hertz)
 DXDEC void AILCALL AIL_shutdown (void)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
-    DebugBreak();
+    //DebugBreak();
 }
 
 DXDEC void AILCALL AIL_start_stream(HSTREAM stream)
@@ -863,13 +863,13 @@ DXDEC S32 AILCALL AIL_startup (void)
 DXDEC void AILCALL AIL_stop_sample (HSAMPLE S)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
-    DebugBreak();
+    //DebugBreak();
 }
 
 DXDEC void AILCALL AIL_stop_timer (HTIMER timer)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
-    DebugBreak();
+    //DebugBreak();
 }
 
 DXDEC S32 AILCALL AIL_stream_position(HSTREAM stream)
