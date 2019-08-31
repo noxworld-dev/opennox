@@ -1,12 +1,8 @@
 Some russian text from the russian CSF is garbage (but not all, which is weird!).
 
-The doors on the minimap are not all drawn (only some are drawn, while others are absent).
-
 The barbarian archer shoots in the wrong direction in the scripted room with explosives in the map wiz03a
-This problem seems to be global, as all directional projectiles fly in the wrong direction (ie MoM when targeted to the east flies toward the west)
+Also level up and staff of oblivion parts aquiral animation is "splashing" only in right directions and never left
 
 The information about durability is borked, showing 0/somehugenumber. The durability system itself seems to work though
-
-The staff of oblivion animation is garbage. Totally garbage.
 
 The game hangs (but does not crash) when clicking the column name in the network game selection window

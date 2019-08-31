@@ -315,14 +315,14 @@ DXDEC void AILCALL AIL_digital_configuration (HDIGDRIVER dig, S32 FAR *rate, S32
 DXDEC S32 AILCALL AIL_digital_handle_release(HDIGDRIVER drvr)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
-    DebugBreak();
+    //DebugBreak();
     return 0;
 }
 
 DXDEC S32 AILCALL AIL_digital_handle_reacquire (HDIGDRIVER drvr)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
-    DebugBreak();
+    //DebugBreak();
     return 0;
 }
 

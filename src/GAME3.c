@@ -7761,11 +7761,11 @@ int __cdecl sub_4AC7B0(int a1)
         v11 += 4;
       }
       *(_BYTE *)(v2 + 299) = LOBYTE(v13);
-      v7 = *(_DWORD *)(v2 + 12) + *(_DWORD *)&byte_587000[8 * LODWORD(v6) + 196184] / 2;
+      v7 = *(_DWORD *)(v2 + 12) + *(int *)&byte_587000[8 * LODWORD(v6) + 196184] / 2;
       sub_410390(
         v2,
         v7 / 23,
-        (*(_DWORD *)(v2 + 16) + *(_DWORD *)&byte_587000[8 * LODWORD(v6) + 196188] / 2) / 23);
+        (*(_DWORD *)(v2 + 16) + *(int *)&byte_587000[8 * LODWORD(v6) + 196188] / 2) / 23);
     }
     *(_DWORD *)(v2 + 288) = 0;
     sub_45A990(v2);
@@ -18855,8 +18855,8 @@ int __cdecl sub_4BCC90(_DWORD *a1, int a2)
     v19 = a2a.field_0;
     v9 = a2a.field_4 - sub_419A70(v16);
     v10 = 8 * *(unsigned __int8 *)(a2 + 299);
-    v11 = *(_DWORD *)&byte_587000[v10 + 196184];
-    v18 = *(_DWORD *)&byte_587000[v10 + 196188];
+    v11 = *(int *)&byte_587000[v10 + 196184];
+    v18 = *(int *)&byte_587000[v10 + 196188];
     sub_49F500(a2a.field_0, v9);
     sub_49F570(v11, v18);
     sub_49E4B0();
@@ -24951,8 +24951,8 @@ __int16 __cdecl sub_4C4770(int *a1, unsigned __int8 *a2, int a3)
       v19 = a2[299];
       a1a.field_4 = v17;
       v20 = 8 * v19;
-      v21 = v16 + *(_DWORD *)&byte_587000[v20 + 196184];
-      v22 = v17 + *(_DWORD *)&byte_587000[v20 + 196188];
+      v21 = v16 + *(int *)&byte_587000[v20 + 196184];
+      v22 = v17 + *(int *)&byte_587000[v20 + 196188];
       a2a.field_0 = v21;
       a2a.field_4 = v22;
       if ( v18 < 0x18u && v18 && (v18 < 8u || v18 > 0x10u) )
