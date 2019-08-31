@@ -16107,14 +16107,14 @@ int __cdecl sub_4627F0(_DWORD *a1)
   wchar_t *v53; // [esp-Ch] [ebp-444h]
   wchar_t *v54; // [esp-4h] [ebp-43Ch]
   wchar_t *v55; // [esp-4h] [ebp-43Ch]
-  float v56; // [esp+0h] [ebp-438h]
+  int v56; // [esp+0h] [ebp-438h]
   double v57; // [esp+0h] [ebp-438h]
   double v58; // [esp+0h] [ebp-438h]
   double v59; // [esp+0h] [ebp-438h]
   double v60; // [esp+0h] [ebp-438h]
   double v61; // [esp+0h] [ebp-438h]
   double v62; // [esp+0h] [ebp-438h]
-  float v63; // [esp+4h] [ebp-434h]
+  int v63; // [esp+4h] [ebp-434h]
   int v64; // [esp+4h] [ebp-434h]
   float v65; // [esp+4h] [ebp-434h]
   int v66; // [esp+4h] [ebp-434h]
@@ -16197,9 +16197,9 @@ LABEL_14:
   {
     if ( *(_WORD *)(*(_DWORD *)&byte_5D4594[1063116] + 294) )
     {
-      sub_4633B0(*(int *)&byte_5D4594[1063116], (int *)&v71, (int *)&v68);
-      v63 = v68;
-      v56 = v71;
+      sub_4633B0(*(int *)&byte_5D4594[1063116], &v71, &v68);
+      v63 = (int)v68;
+      v56 = (int)v71;
       v11 = sub_40F1D0((char *)&byte_587000[137028], 0, (const char *)&byte_587000[136992], 2575);
       nox_swprintf(v75, v11, v56, v63);
     }
@@ -16480,7 +16480,7 @@ int __cdecl sub_463370(_DWORD *a1, _DWORD *a2, _DWORD *a3)
 }
 
 //----- (004633B0) --------------------------------------------------------
-int __cdecl sub_4633B0(int a1, int *a2, int *a3)
+int __cdecl sub_4633B0(int a1, float *a2, float *a3)
 {
   int result; // eax
   int v4; // esi
