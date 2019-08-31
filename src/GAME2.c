@@ -61990,12 +61990,12 @@ int *sub_4A0390()
   _DWORD *v0; // ecx
   int *v1; // esi
   int *v2; // edi
-  int v4; // [esp+0h] [ebp-Ch]
+  int v4[3]; // [esp+0h] [ebp-Ch]
   _DWORD *v5; // [esp+4h] [ebp-8h]
 
-  //sub_425760(&v4);
+  sub_425760(&v4);
   v0 = *(_DWORD **)&byte_5D4594[1305800];
-  v4 = *(_DWORD *)&byte_5D4594[1305796];
+  v4[0] = *(_DWORD *)&byte_5D4594[1305796];
   v5 = *(_DWORD **)&byte_5D4594[1305800];
   if ( *(_DWORD *)&byte_5D4594[1305796] )
   {
