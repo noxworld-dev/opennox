@@ -72,7 +72,7 @@ int __cdecl nox_vsnwprintf(wchar_t *buffer, size_t count, const wchar_t *format,
                 const char *pcch = va_arg(ap, const char *);
                 if (pcch == NULL) pcch = "(null)";
                 for (j = 0; pcch[j]; j++)
-                    EMIT(pcch[j]);
+                    EMIT(pcch[j] & 0xFF);
             }
             break;
         case 'd':
@@ -159,6 +159,7 @@ int __cdecl nox_vsnwprintf(wchar_t *buffer, size_t count, const wchar_t *format,
 
 int __cdecl nox_vsnprintf(char *buffer, size_t count, const char *format, va_list ap)
 {
+	//return vsnprintf(buffer, count, format, ap);
     int i = 0, j, out = 0;
     char ch;
 
@@ -229,7 +230,7 @@ int __cdecl nox_vsnprintf(char *buffer, size_t count, const char *format, va_lis
                 const wchar_t *pwch = va_arg(ap, const wchar_t *);
                 if (pwch == NULL) pwch = null;
                 for (j = 0; pwch[j]; j++)
-                    EMIT(pwch[j] < 0x80 ? pwch[j] : 0x7f);
+                    EMIT(pwch[j]);
             }
             break;
         case 'd':
