@@ -54681,8 +54681,8 @@ int __cdecl sub_537110(int a1, int a2)
   if ( *(_BYTE *)(a2 + 8) < 0 && *(_BYTE *)(a2 + 12) & 4 )
   {
     v3 = *(_DWORD *)(a2 + 748);
-    *(float *)&a3[5] = (double)(*(_DWORD *)&byte_587000[8 * *(_DWORD *)(v3 + 12) + 196184] / 2) + *(float *)(a2 + 56);
-    *(float *)&a3[6] = (double)(*(_DWORD *)&byte_587000[8 * *(_DWORD *)(v3 + 12) + 196188] / 2) + *(float *)(a2 + 60);
+    *(float *)&a3[5] = (double)(*(int *)&byte_587000[8 * *(_DWORD *)(v3 + 12) + 196184] / 2) + *(float *)(a2 + 56);
+    *(float *)&a3[6] = (double)(*(int *)&byte_587000[8 * *(_DWORD *)(v3 + 12) + 196188] / 2) + *(float *)(a2 + 60);
   }
   else
   {

@@ -16146,7 +16146,7 @@ char __cdecl sub_57B500(int a1, int a2, char a3)
     v8 = *(_DWORD *)(v6 + 12);
     if ( v8 != *(_DWORD *)(v6 + 4) )
       return -1;
-    v9 = *(_DWORD *)&byte_587000[8 * v8 + 196184];
+    v9 = *(int *)&byte_587000[8 * v8 + 196184];
     v10 = v9 < 0;
     v11 = v9 <= 0;
     if ( v9 > 0 )
@@ -16210,7 +16210,7 @@ char __cdecl sub_57B630(int a1, int a2, int a3)
           v7 = *(_DWORD *)(v6 + 12);
           if ( v7 == *(int *)(v6 + 4) )
           {
-            v8 = *(_DWORD *)&byte_587000[8 * v7 + 196184];
+            v8 = *(int *)&byte_587000[8 * v7 + 196184];
             v9 = v8 < 0;
             v10 = v8 <= 0;
             if ( v8 > 0 )

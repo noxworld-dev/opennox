@@ -27751,7 +27751,7 @@ int __cdecl sub_472600(int a1, int a2)
   int v13; // eax
   int v14; // esi
   int v15; // ebp
-  volatile unsigned __int8 *v16; // esi
+  unsigned __int8 *v16; // esi
   int v17; // eax
   int v18; // eax
   int v19; // eax
@@ -30412,23 +30412,23 @@ int __cdecl sub_4761B0(int a1)
     return *(_DWORD *)(a1 + 16) + *(int *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196188] / 2;
   result = *(_DWORD *)(a1 + 16);
   v2 = 8 * *(unsigned __int8 *)(a1 + 299);
-  v3 = (*(_DWORD *)(*(_DWORD *)&byte_5D4594[2614252] + 16) - result) * *(_DWORD *)&byte_587000[v2 + 196184]
+  v3 = (*(_DWORD *)(*(_DWORD *)&byte_5D4594[2614252] + 16) - result) * *(int *)&byte_587000[v2 + 196184]
      - (*(_DWORD *)(*(_DWORD *)&byte_5D4594[2614252] + 12) - *(_DWORD *)(a1 + 12))
-     * *(_DWORD *)&byte_587000[v2 + 196188];
+     * *(int *)&byte_587000[v2 + 196188];
   if ( *(int *)&byte_587000[v2 + 196184] < 0 )
     v3 = (*(_DWORD *)(*(_DWORD *)&byte_5D4594[2614252] + 12) - *(_DWORD *)(a1 + 12))
-       * *(_DWORD *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196188]
+       * *(int *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196188]
        - (*(_DWORD *)(*(_DWORD *)&byte_5D4594[2614252] + 16) - result)
-       * *(_DWORD *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196184];
-  v4 = result + *(_DWORD *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196188];
+       * *(int *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196184];
+  v4 = result + *(int *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196188];
   if ( v3 >= 0 )
   {
     if ( v4 <= result )
-      result += *(_DWORD *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196188];
+      result += *(int *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196188];
   }
   else if ( v4 > result )
   {
-    result += *(_DWORD *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196188];
+    result += *(int *)&byte_587000[8 * *(unsigned __int8 *)(a1 + 299) + 196188];
   }
   return result;
 }
@@ -54094,10 +54094,10 @@ void __cdecl sub_4974B0(int a1)
     }
     v8 = sub_4CA8B0(
            *(_DWORD *)(v1 + 16)
-         + *(_DWORD *)&byte_587000[8 * *(unsigned __int8 *)(v1 + 299) + 196188]
+         + *(int *)&byte_587000[8 * *(unsigned __int8 *)(v1 + 299) + 196188]
          - *(_DWORD *)&byte_5D4594[1217448],
            *(_DWORD *)(v1 + 12)
-         + *(_DWORD *)&byte_587000[8 * *(unsigned __int8 *)(v1 + 299) + 196184]
+         + *(int *)&byte_587000[8 * *(unsigned __int8 *)(v1 + 299) + 196184]
          - *(_DWORD *)&byte_5D4594[1217444]);
     *(_DWORD *)(v2 + 44) = v8;
     if ( v8 < 0 )
@@ -54973,7 +54973,7 @@ int __cdecl sub_4984B0(int a1)
       return *(_DWORD *)(a1 + 132);
     v3 = *(_DWORD *)(a1 + 12);
     v4 = 8 * *(unsigned __int8 *)(a1 + 299);
-    v5 = *(_DWORD *)&byte_587000[v4 + 196184];
+    v5 = *(int *)&byte_587000[v4 + 196184];
     v6 = v3 + v5 / 2;
     v42 = v3 + v5 / 2;
     v43 = *(_DWORD *)(a1 + 16) + *(int *)&byte_587000[v4 + 196188] / 2;
