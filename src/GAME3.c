@@ -14525,7 +14525,7 @@ int __cdecl sub_4B71A0(_DWORD *a1, int a2)
 //----- (004B7310) --------------------------------------------------------
 int __cdecl sub_4B7310(_DWORD *a1, int a2)
 {
-  _DWORD *v2; // esi
+  int *v2; // esi
   __int16 v3; // cx
   int v4; // edi
   int v5; // eax
