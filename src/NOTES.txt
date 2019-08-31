@@ -1,5 +1,3 @@
-Some russian text from the russian CSF is garbage (but not all, which is weird!).
-
 The barbarian archer shoots in the wrong direction in the scripted room with explosives in the map wiz03a
 Also level up and staff of oblivion parts aquiral animation is "splashing" only in right directions and never left
 
