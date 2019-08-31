@@ -50933,8 +50933,8 @@ char __cdecl sub_532610(int a1)
         }
         else
         {
-          v8 = *((float *)v4 + 2);
-          v22.field_0 = *(float *)(v4 + 4);
+          v8 = *(float*)(&v4[2]);
+          v22.field_0 = *(float*)(&v4[1]);
           v22.field_4 = v8;
         }
         v9 = v22.field_0 - *(float *)(a1 + 56);
