@@ -1,5 +1,3 @@
-The barbarian archer shoots in the wrong direction in the scripted room with explosives in the map wiz03a
-
 The information about durability is borked, showing 0/somehugenumber. The durability system itself seems to work though
 
 The game hangs (but does not crash) when clicking the column name in the network game selection window
