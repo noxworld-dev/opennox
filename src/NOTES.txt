@@ -1,5 +1,4 @@
 The barbarian archer shoots in the wrong direction in the scripted room with explosives in the map wiz03a
-Also level up and staff of oblivion parts aquiral animation is "splashing" only in right directions and never left
 
 The information about durability is borked, showing 0/somehugenumber. The durability system itself seems to work though
 
