@@ -3103,10 +3103,40 @@ int sub_434B00()
 	return result;
 }
 
+void updateGamma(int value)
+{
+	float modificator;
+
+	modificator = 0.1;
+
+	if (value >= * (_DWORD*)& byte_587000[84400])
+	{
+		modificator = 0.1;
+	}
+	else if (value < *(_DWORD*)& byte_587000[84400])
+	{
+		modificator = -0.1;
+	}
+
+	if (draw_gamma <= 0.1 && modificator < 0)
+	{
+		modificator = 0;
+	}
+	else if (draw_gamma >= 10 && modificator > 0)
+	{
+		modificator = 0;
+	}
+
+	draw_gamma += modificator;
+}
+
 //----- (00434B30) --------------------------------------------------------
 int __cdecl sub_434B30(int a1)
 {
 	int result; // eax
+
+
+	updateGamma(a1);
 
 	result = a1;
 	if (a1 >= 1)
