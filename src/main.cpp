@@ -11,15 +11,15 @@
 #include <emscripten/emscripten.h>
 #endif
 
-extern "C" const char *progname;
-const char *progname;
+extern "C" const char* progname;
+const char* progname;
 
 #if defined(__EMSCRIPTEN__)
 extern "C" int main()
 #elif defined(_WIN32)
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 #else
-extern "C" int main(int argc, char *argv[])
+extern "C" int main(int argc, char* argv[])
 #endif
 {
     char cmdline[256];
@@ -35,18 +35,20 @@ extern "C" int main(int argc, char *argv[])
         }
         try {
             FS.unlink('/assets/default.fnt');
-        } catch (err) {
         }
-        try {
-            FS.unlink('/assets/nox.csf');
-        } catch (err) {
-        }
-        FS.symlink('/assets/' + lang + '/default.fnt', '/assets/default.fnt');
-        FS.symlink('/assets/' + lang + '/nox.csf', '/assets/nox.csf');
-    });
+ catch (err) {
+}
+try {
+    FS.unlink('/assets/nox.csf');
+}
+catch (err) {
+}
+FS.symlink('/assets/' + lang + '/default.fnt', '/assets/default.fnt');
+FS.symlink('/assets/' + lang + '/nox.csf', '/assets/nox.csf');
+        });
 
     EM_ASM(
-        FS.syncfs(false, function (err) {});
+        FS.syncfs(false, function(err) {});
     );
 
     progname = "nox.js";
