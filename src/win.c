@@ -178,6 +178,7 @@ void process_touch_event(const SDL_TouchFingerEvent *event);
 void process_textediting_event(const SDL_TextEditingEvent *event);
 void process_textinput_event(const SDL_TextInputEvent *event);
 void process_textinput_keyboard_event(const SDL_KeyboardEvent *event);
+void process_window_event(const SDL_WindowEvent* event);
 extern int g_textinput;
 
 void process_event(const SDL_Event *event)
@@ -214,6 +215,9 @@ void process_event(const SDL_Event *event)
         process_touch_event(&event->tfinger);
         break;
 #endif
+	case SDL_WINDOWEVENT:
+		process_window_event(&event->window);
+		break;
 	default:
 		break;
 	}
