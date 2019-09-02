@@ -11,7 +11,7 @@ WNDCLASSEXA g_wnd_class;
 HWND g_hwnd;
 #endif
 DWORD dword_974854;
-int g_fullscreen;
+int g_fullscreen = -4; // -4 means "unset"
 
 const char *g_argv[21];
 unsigned int g_argc;
@@ -40,11 +40,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		{
 			*(_DWORD *)&byte_587000[80848] = 0;
 			*(_DWORD *)&byte_5D4594[805860] = 0;
+			g_fullscreen = -2;
 		}
 		else if (!strcmp("-swindow", v4))
 		{
 			*(_DWORD *)&byte_587000[80848] = 0;
 			*(_DWORD *)&byte_5D4594[805860] = 1;
+			g_fullscreen = -3;
+		}
+		else if (!strcmp("-fullscreen", v4))
+		{
+			g_fullscreen = -1;
 		}
 		else if (!strcmp("-minimize", v4))
 		{
