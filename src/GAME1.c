@@ -432,7 +432,7 @@ size_t* __cdecl sub_401070(int a1, int a2)
                                             result = (size_t*)sub_431390();
                                             if (result)
                                             {
-                                                sub_4147E0(sub_401FD0());
+                                                sub_4147E0(getWindowHandle_sub_401FD0());
                                                 g_a1 = a1;
                                                 g_a2 = a2;
                                                 g_v20 = 0;
@@ -41373,7 +41373,7 @@ int sub_430190()
         v2 += 8;
         ++v1;
     } while ((int)v2 < (int)& byte_5D4594[791326]);
-    sub_47D8D0();
+    initMouse_sub_47D8D0();
     sub_430A70(0, *(_DWORD*)& byte_5D4594[3805496] - 1, 0, *(_DWORD*)& byte_5D4594[3807120] - 1);
     sub_47D660(0, (int)& v4);
     sub_47D660(1u, (int)& v4);

@@ -16,16 +16,16 @@
 
 struct _DIG_DRIVER
 {
-    ALCdevice *device;
-    ALCcontext *context;
-    SDL_mutex *mutex;
+    ALCdevice* device;
+    ALCcontext* context;
+    SDL_mutex* mutex;
     HSAMPLE sample_head;
     HSTREAM stream_head;
 };
 
 struct _SAMPLE_BUFFER
 {
-    const void *buffer;
+    const void* buffer;
     unsigned int length;
     unsigned int position;
 };
@@ -68,8 +68,8 @@ struct _STREAM
     BYTE stereo;
     unsigned int playback_rate;
     unsigned int playing;
-    
-    FILE *file;
+
+    FILE* file;
     unsigned int file_size;
     unsigned int chunk_size;
     unsigned int chunk_pos;
@@ -87,13 +87,13 @@ struct _STREAM
             unsigned int position;
             unsigned int samples;
         } adpcm;
-        struct 
+        struct
         {
             MPEGLAYER3WAVEFORMAT wf;
             mp3dec_t dec;
         } mp3;
     };
-    unsigned int (*decode)(HSTREAM, int16_t *, unsigned int);
+    unsigned int (*decode)(HSTREAM, int16_t*, unsigned int);
     void (*seek)(HSTREAM, unsigned int);
     unsigned int (*tell)(HSTREAM);
     BYTE buffer[16 * 1024];
@@ -110,19 +110,19 @@ struct _TIMER
 int ima_index_table[16] = {
     -1, -1, -1, -1, 2, 4, 6, 8,
     -1, -1, -1, -1, 2, 4, 6, 8
-}; 
+};
 
-int ima_step_table[89] = { 
-    7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 
-    19, 21, 23, 25, 28, 31, 34, 37, 41, 45, 
-    50, 55, 60, 66, 73, 80, 88, 97, 107, 118, 
+int ima_step_table[89] = {
+    7, 8, 9, 10, 11, 12, 13, 14, 16, 17,
+    19, 21, 23, 25, 28, 31, 34, 37, 41, 45,
+    50, 55, 60, 66, 73, 80, 88, 97, 107, 118,
     130, 143, 157, 173, 190, 209, 230, 253, 279, 307,
     337, 371, 408, 449, 494, 544, 598, 658, 724, 796,
-    876, 963, 1060, 1166, 1282, 1411, 1552, 1707, 1878, 2066, 
+    876, 963, 1060, 1166, 1282, 1411, 1552, 1707, 1878, 2066,
     2272, 2499, 2749, 3024, 3327, 3660, 4026, 4428, 4871, 5358,
-    5894, 6484, 7132, 7845, 8630, 9493, 10442, 11487, 12635, 13899, 
-    15289, 16818, 18500, 20350, 22385, 24623, 27086, 29794, 32767 
-}; 
+    5894, 6484, 7132, 7845, 8630, 9493, 10442, 11487, 12635, 13899,
+    15289, 16818, 18500, 20350, 22385, 24623, 27086, 29794, 32767
+};
 
 static inline int16_t sat16(int x)
 {
@@ -159,7 +159,7 @@ static int16_t decode_nibble(int16_t predictor, unsigned int nibble, int unsigne
     return predictor;
 }
 
-static unsigned int decode_adpcm(int16_t *out, const BYTE *data, unsigned int size)
+static unsigned int decode_adpcm(int16_t* out, const BYTE* data, unsigned int size)
 {
     int index, diff;
     unsigned int i, samples = 0;
@@ -185,7 +185,7 @@ static unsigned int decode_adpcm(int16_t *out, const BYTE *data, unsigned int si
     return samples;
 }
 
-static unsigned int decode_adpcm_stereo(int16_t *out, const BYTE *data, unsigned int size)
+static unsigned int decode_adpcm_stereo(int16_t* out, const BYTE* data, unsigned int size)
 {
     int lindex, rindex, diff;
     unsigned int i, samples = 0;
@@ -264,13 +264,13 @@ static void stream_unqueue_buffers(HSTREAM S)
     S->hwready += processed;
 }
 
-DXDEC HSAMPLE AILCALL AIL_allocate_sample_handle (HDIGDRIVER dig)
+DXDEC HSAMPLE AILCALL AIL_allocate_sample_handle(HDIGDRIVER dig)
 {
     HSAMPLE sample = calloc(1, sizeof(*sample));
     sample->dig = dig;
     // fprintf(stderr, "%s\n", __FUNCTION__);
 
-	sample->hwready = sizeof(sample->hwbuf) / sizeof(sample->hwbuf[0]);
+    sample->hwready = sizeof(sample->hwbuf) / sizeof(sample->hwbuf[0]);
     alGenSources(1, &sample->source);
     checkError();
     alGenBuffers(sample->hwready, sample->hwbuf);
@@ -305,7 +305,7 @@ DXDEC void AILCALL AIL_close_stream(HSTREAM stream)
     SDL_UnlockMutex(stream->dig->mutex);
 }
 
-DXDEC void AILCALL AIL_digital_configuration (HDIGDRIVER dig, S32 FAR *rate, S32 FAR *format, char FAR *string)
+DXDEC void AILCALL AIL_digital_configuration(HDIGDRIVER dig, S32 FAR* rate, S32 FAR* format, char FAR* string)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     if (string)
@@ -319,14 +319,14 @@ DXDEC S32 AILCALL AIL_digital_handle_release(HDIGDRIVER drvr)
     return 0;
 }
 
-DXDEC S32 AILCALL AIL_digital_handle_reacquire (HDIGDRIVER drvr)
+DXDEC S32 AILCALL AIL_digital_handle_reacquire(HDIGDRIVER drvr)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     //DebugBreak();
     return 0;
 }
 
-DXDEC void AILCALL AIL_end_sample (HSAMPLE S)
+DXDEC void AILCALL AIL_end_sample(HSAMPLE S)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
 
@@ -339,13 +339,13 @@ DXDEC void AILCALL AIL_end_sample (HSAMPLE S)
     SDL_UnlockMutex(S->dig->mutex);
 }
 
-DXDEC S32 AILCALL AIL_get_preference (U32 number)
+DXDEC S32 AILCALL AIL_get_preference(U32 number)
 {
     // fprintf(stderr, "%s: %d\n", __FUNCTION__, number);
     return 0;
 }
 
-DXDEC void AILCALL AIL_init_sample (HSAMPLE S)
+DXDEC void AILCALL AIL_init_sample(HSAMPLE S)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     SDL_LockMutex(S->dig->mutex);
@@ -363,16 +363,16 @@ DXDEC void AILCALL AIL_init_sample (HSAMPLE S)
     SDL_UnlockMutex(S->dig->mutex);
 }
 
-DXDEC char FAR *AILCALL AIL_last_error (void)
+DXDEC char FAR* AILCALL AIL_last_error(void)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     //DebugBreak();
     return 0;
 }
 
-DXDEC void AILCALL AIL_load_sample_buffer (HSAMPLE S, U32 buff_num, void const FAR *buffer, U32 len)
+DXDEC void AILCALL AIL_load_sample_buffer(HSAMPLE S, U32 buff_num, void const FAR* buffer, U32 len)
 {
-    struct _SAMPLE_BUFFER *sb = &S->buffers[buff_num];
+    struct _SAMPLE_BUFFER* sb = &S->buffers[buff_num];
     // fprintf(stderr, "%s: %08X, %d, %08X, %d\n", __FUNCTION__, (int)S, buff_num, (int)buffer, len);
     SDL_LockMutex(S->dig->mutex);
     sb->buffer = buffer;
@@ -394,7 +394,7 @@ static void stream_find_data(HSTREAM stream)
         unsigned int size;
         if (fread(tmp, 8, 1, stream->file) != 1)
             break;
-        size = *(DWORD *)(tmp + 4);
+        size = *(DWORD*)(tmp + 4);
         if (memcmp(tmp, "data", 4) == 0)
         {
             stream->chunk_size = size;
@@ -404,7 +404,7 @@ static void stream_find_data(HSTREAM stream)
     }
 }
 
-static unsigned int stream_pcm_decode(HSTREAM stream, int16_t *out, unsigned int max_samples)
+static unsigned int stream_pcm_decode(HSTREAM stream, int16_t* out, unsigned int max_samples)
 {
     unsigned int channels = stream->stereo ? 2 : 1;
     unsigned int remaining = stream->chunk_size - stream->chunk_pos;
@@ -439,7 +439,7 @@ static unsigned int stream_pcm_tell(HSTREAM stream)
     return stream->pcm.position;
 }
 
-static unsigned int stream_adpcm_decode(HSTREAM stream, int16_t *out, unsigned int max_samples)
+static unsigned int stream_adpcm_decode(HSTREAM stream, int16_t* out, unsigned int max_samples)
 {
     unsigned int block_size = stream->adpcm.wf.nBlockAlign;
     unsigned int samples;
@@ -465,7 +465,7 @@ static unsigned int stream_adpcm_decode(HSTREAM stream, int16_t *out, unsigned i
                 return 0;
             }
         }
-        
+
         if (remaining > block_size - stream->buffered)
             remaining = block_size - stream->buffered;
         fread(stream->buffer + stream->buffered, 1, remaining, stream->file);
@@ -522,7 +522,7 @@ static unsigned int stream_adpcm_tell(HSTREAM stream)
     return stream->adpcm.position;
 }
 
-static unsigned int stream_mp3_decode(HSTREAM stream, int16_t *out, unsigned int max_samples)
+static unsigned int stream_mp3_decode(HSTREAM stream, int16_t* out, unsigned int max_samples)
 {
     unsigned int remaining = stream->chunk_size - stream->chunk_pos;
     unsigned int samples;
@@ -532,7 +532,7 @@ static unsigned int stream_mp3_decode(HSTREAM stream, int16_t *out, unsigned int
     {
         if (!remaining && !stream->buffered)
         {
-find_data:
+        find_data:
             stream_find_data(stream);
             remaining = stream->chunk_size - stream->chunk_pos;
             if (!remaining)
@@ -541,8 +541,8 @@ find_data:
                 return 0;
             }
         }
-        
-read_data:
+
+    read_data:
         if (remaining)
         {
             if (remaining > sizeof(stream->buffer) - stream->buffered)
@@ -578,14 +578,14 @@ static unsigned int stream_mp3_tell(HSTREAM steam)
     return 0;
 }
 
-DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR * filename, S32 stream_mem)
+DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, S32 stream_mem)
 {
     unsigned int file_size, size;
     BYTE tmp[256];
-    FILE *f;
+    FILE* f;
     HSTREAM stream = NULL;
-    WAVEFORMAT *wf = (WAVEFORMAT *)tmp;
-    MPEGLAYER3WAVEFORMAT *mp3wf = (MPEGLAYER3WAVEFORMAT *)tmp;
+    WAVEFORMAT* wf = (WAVEFORMAT*)tmp;
+    MPEGLAYER3WAVEFORMAT* mp3wf = (MPEGLAYER3WAVEFORMAT*)tmp;
 
     f = fopen(filename, "rb");
     if (f == NULL)
@@ -598,14 +598,14 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR * filename,
         goto error;
 
     // XXX ignore file size?
-    file_size = *(DWORD *)(tmp + 4);
+    file_size = *(DWORD*)(tmp + 4);
 
     if (memcmp(tmp + 8, "WAVE", 4) != 0)
         goto error;
 
     if (fread(tmp, 8, 1, f) != 1)
         goto error;
-    size = *(DWORD *)(tmp + 4);
+    size = *(DWORD*)(tmp + 4);
 
     if (memcmp(tmp, "fmt ", 4) != 0)
         goto error;
@@ -643,13 +643,13 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR * filename,
             goto error;
         if (memcmp(tmp, "fact", 4) != 0)
             goto error;
-        size = *(DWORD *)(tmp + 4);
+        size = *(DWORD*)(tmp + 4);
         if (size != 4)
             goto error;
         if (fread(tmp, 4, 1, f) != 1)
             goto error;
 
-        stream->adpcm.samples = *(DWORD *)tmp;
+        stream->adpcm.samples = *(DWORD*)tmp;
     }
     else if (wf->wFormatTag == 0x55) // MP3
     {
@@ -692,10 +692,10 @@ error:
 DXDEC void AILCALL AIL_pause_stream(HSTREAM stream, S32 onoff)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
-    DebugBreak();
+    // DebugBreak();
 }
 
-DXDEC AILSAMPLECB AILCALL AIL_register_EOB_callback (HSAMPLE S, AILSAMPLECB EOB)
+DXDEC AILSAMPLECB AILCALL AIL_register_EOB_callback(HSAMPLE S, AILSAMPLECB EOB)
 {
     AILSAMPLECB prev = S->eob;
     // fprintf(stderr, "%s: %08X, %08X\n", __FUNCTION__, (int)S, (int)EOB);
@@ -703,7 +703,7 @@ DXDEC AILSAMPLECB AILCALL AIL_register_EOB_callback (HSAMPLE S, AILSAMPLECB EOB)
     return prev;
 }
 
-DXDEC AILSAMPLECB AILCALL AIL_register_EOS_callback (HSAMPLE S, AILSAMPLECB EOS)
+DXDEC AILSAMPLECB AILCALL AIL_register_EOS_callback(HSAMPLE S, AILSAMPLECB EOS)
 {
     AILSAMPLECB prev = S->eos;
     // fprintf(stderr, "%s: %08X, %08X\n", __FUNCTION__, (int)S, (int)EOS);
@@ -711,7 +711,7 @@ DXDEC AILSAMPLECB AILCALL AIL_register_EOS_callback (HSAMPLE S, AILSAMPLECB EOS)
     return prev;
 }
 
-DXDEC HTIMER AILCALL AIL_register_timer (AILTIMERCB fn)
+DXDEC HTIMER AILCALL AIL_register_timer(AILTIMERCB fn)
 {
     HTIMER timer = calloc(1, sizeof(*timer));
     // fprintf(stderr, "%s %08x\n", __FUNCTION__, (int)fn);
@@ -719,25 +719,25 @@ DXDEC HTIMER AILCALL AIL_register_timer (AILTIMERCB fn)
     return timer;
 }
 
-DXDEC void AILCALL AIL_release_sample_handle (HSAMPLE S)
+DXDEC void AILCALL AIL_release_sample_handle(HSAMPLE S)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     //DebugBreak();
 }
 
-DXDEC void AILCALL AIL_release_timer_handle (HTIMER timer)
+DXDEC void AILCALL AIL_release_timer_handle(HTIMER timer)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     //DebugBreak();
 }
 
-DXDEC void AILCALL AIL_resume_sample (HSAMPLE S)
+DXDEC void AILCALL AIL_resume_sample(HSAMPLE S)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     DebugBreak();
 }
 
-DXDEC S32 AILCALL AIL_sample_buffer_ready (HSAMPLE S)
+DXDEC S32 AILCALL AIL_sample_buffer_ready(HSAMPLE S)
 {
     // fprintf(stderr, "%s: %08X\n", __FUNCTION__, (int)S);
     if (S->ready == 0)
@@ -747,7 +747,7 @@ DXDEC S32 AILCALL AIL_sample_buffer_ready (HSAMPLE S)
     return !S->current;
 }
 
-DXDEC S32 AILCALL AIL_sample_user_data (HSAMPLE S, U32 index)
+DXDEC S32 AILCALL AIL_sample_user_data(HSAMPLE S, U32 index)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     return S->user[index];
@@ -758,19 +758,19 @@ DXDEC void AILCALL AIL_serve(void)
     // fprintf(stderr, "%s\n", __FUNCTION__);
 }
 
-DXDEC S32 AILCALL AIL_set_preference (U32 number, S32 value)
+DXDEC S32 AILCALL AIL_set_preference(U32 number, S32 value)
 {
     // fprintf(stderr, "%s: %d = %d\n", __FUNCTION__, number, value);
     return 0;
 }
 
-DXDEC void AILCALL AIL_set_sample_adpcm_block_size (HSAMPLE S, U32 blocksize)
+DXDEC void AILCALL AIL_set_sample_adpcm_block_size(HSAMPLE S, U32 blocksize)
 {
     // fprintf(stderr, "%s: %08X, %d\n", __FUNCTION__, (int)S, blocksize);
     S->block_size = blocksize;
 }
 
-DXDEC void AILCALL AIL_set_sample_pan (HSAMPLE S, S32 pan)
+DXDEC void AILCALL AIL_set_sample_pan(HSAMPLE S, S32 pan)
 {
     float pos[3] = { (pan - 63) / 64.0f, 0, 0 };
     pos[2] = sqrtf(1 - pos[0] * pos[0]);
@@ -779,13 +779,13 @@ DXDEC void AILCALL AIL_set_sample_pan (HSAMPLE S, S32 pan)
     // fprintf(stderr, "%s: %08X, %d\n", __FUNCTION__, (int)S, pan);
 }
 
-DXDEC void AILCALL AIL_set_sample_playback_rate (HSAMPLE S, S32 playback_rate)
+DXDEC void AILCALL AIL_set_sample_playback_rate(HSAMPLE S, S32 playback_rate)
 {
     // fprintf(stderr, "%s: %08X, %d\n", __FUNCTION__, (int)S, playback_rate);
     S->playback_rate = playback_rate;
 }
 
-DXDEC void AILCALL AIL_set_sample_type (HSAMPLE S, S32 format, U32 flags)
+DXDEC void AILCALL AIL_set_sample_type(HSAMPLE S, S32 format, U32 flags)
 {
     // fprintf(stderr, "%s: %08X %d %d\n", __FUNCTION__, (int)S, format, flags);
     if (flags)
@@ -794,19 +794,19 @@ DXDEC void AILCALL AIL_set_sample_type (HSAMPLE S, S32 format, U32 flags)
     S->adpcm = format & 4;
 }
 
-DXDEC void AILCALL AIL_set_sample_user_data (HSAMPLE S, U32 index, S32 value)
+DXDEC void AILCALL AIL_set_sample_user_data(HSAMPLE S, U32 index, S32 value)
 {
     // fprintf(stderr, "%s, %d, %08X\n", __FUNCTION__, index, value);
     S->user[index] = value;
 }
 
-DXDEC void AILCALL AIL_set_sample_volume (HSAMPLE S, S32 volume)
+DXDEC void AILCALL AIL_set_sample_volume(HSAMPLE S, S32 volume)
 {
     // fprintf(stderr, "%s: %08X, %d\n", __FUNCTION__, (int)S, volume);
     alSourcef(S->source, AL_GAIN, volume / 127.0f);
 }
 
-DXDEC void AILCALL AIL_set_stream_position(HSTREAM stream,S32 offset)
+DXDEC void AILCALL AIL_set_stream_position(HSTREAM stream, S32 offset)
 {
     SDL_LockMutex(stream->dig->mutex);
     stream->chunk_size = 0;
@@ -817,19 +817,19 @@ DXDEC void AILCALL AIL_set_stream_position(HSTREAM stream,S32 offset)
     SDL_UnlockMutex(stream->dig->mutex);
 }
 
-DXDEC void AILCALL AIL_set_stream_volume(HSTREAM stream,S32 volume)
+DXDEC void AILCALL AIL_set_stream_volume(HSTREAM stream, S32 volume)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     alSourcef(stream->source, AL_GAIN, volume / 127.0f);
 }
 
-DXDEC void AILCALL AIL_set_timer_frequency (HTIMER timer, U32 hertz)
+DXDEC void AILCALL AIL_set_timer_frequency(HTIMER timer, U32 hertz)
 {
     // fprintf(stderr, "%s %d\n", __FUNCTION__, hertz);
     timer->interval = 1000.0 / hertz;
 }
 
-DXDEC void AILCALL AIL_shutdown (void)
+DXDEC void AILCALL AIL_shutdown(void)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     //DebugBreak();
@@ -840,33 +840,33 @@ DXDEC void AILCALL AIL_start_stream(HSTREAM stream)
     stream->playing = 1;
 }
 
-static Uint32 timer_callback(Uint32 interval, void *param)
+static Uint32 timer_callback(Uint32 interval, void* param)
 {
     HTIMER timer = param;
-    
+
     timer->cb(timer->user);
     return timer->interval;
 }
 
-DXDEC void AILCALL AIL_start_timer (HTIMER timer)
+DXDEC void AILCALL AIL_start_timer(HTIMER timer)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     SDL_AddTimer(timer->interval, timer_callback, timer);
 }
 
-DXDEC S32 AILCALL AIL_startup (void)
+DXDEC S32 AILCALL AIL_startup(void)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     return 0;
 }
 
-DXDEC void AILCALL AIL_stop_sample (HSAMPLE S)
+DXDEC void AILCALL AIL_stop_sample(HSAMPLE S)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     //DebugBreak();
 }
 
-DXDEC void AILCALL AIL_stop_timer (HTIMER timer)
+DXDEC void AILCALL AIL_stop_timer(HTIMER timer)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     //DebugBreak();
@@ -885,21 +885,21 @@ DXDEC S32 AILCALL AIL_stream_status(HSTREAM stream)
     return stream->playing ? 4 : 2;
 }
 
-DXDEC void AILCALL AIL_waveOutClose (HDIGDRIVER drvr)
+DXDEC void AILCALL AIL_waveOutClose(HDIGDRIVER drvr)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
 }
 
 #if 0
 // https://wiki.multimedia.cx/index.php/Microsoft_ADPCM
-int AdaptationTable [] = { 
-    230, 230, 230, 230, 307, 409, 512, 614, 
-    768, 614, 512, 409, 307, 230, 230, 230 
+int AdaptationTable[] = {
+    230, 230, 230, 230, 307, 409, 512, 614,
+    768, 614, 512, 409, 307, 230, 230, 230
 };
-int AdaptCoeff1 [] = { 256, 512, 0, 192, 240, 460, 392 };
-int AdaptCoeff2 [] = { 0, -256, 0, 64, 0, -208, -232 };
+int AdaptCoeff1[] = { 256, 512, 0, 192, 240, 460, 392 };
+int AdaptCoeff2[] = { 0, -256, 0, 64, 0, -208, -232 };
 
-static unsigned int decode_adpcm(signed short *out, const BYTE *data, unsigned int size)
+static unsigned int decode_adpcm(signed short* out, const BYTE* data, unsigned int size)
 {
     int8_t nibble;
     unsigned int i, samples = 0;
@@ -937,7 +937,7 @@ static unsigned int decode_adpcm(signed short *out, const BYTE *data, unsigned i
     return samples;
 }
 
-static unsigned int decode_adpcm_stereo(signed short *out, const BYTE *data, unsigned int size)
+static unsigned int decode_adpcm_stereo(signed short* out, const BYTE* data, unsigned int size)
 {
     int8_t nibble;
     unsigned int i, samples = 0;
@@ -984,7 +984,7 @@ static unsigned int decode_adpcm_stereo(signed short *out, const BYTE *data, uns
 }
 #endif
 
-static void sample_play_adpcm(HSAMPLE S, const BYTE *data, unsigned int size)
+static void sample_play_adpcm(HSAMPLE S, const BYTE* data, unsigned int size)
 {
     signed short decoded[4096];
     unsigned int decoded_samples = 0;
@@ -1018,7 +1018,7 @@ static void sample_play_adpcm(HSAMPLE S, const BYTE *data, unsigned int size)
 
 static void sample_work(HSAMPLE S)
 {
-    struct _SAMPLE_BUFFER *buf = &S->buffers[S->current];
+    struct _SAMPLE_BUFFER* buf = &S->buffers[S->current];
 
     if (S->ready == 2)
     {
@@ -1034,12 +1034,12 @@ static void sample_work(HSAMPLE S)
     }
 
     sample_unqueue_buffers(S);
-    
+
     while (S->hwready)
     {
         ALint state;
 
-        sample_play_adpcm(S, (BYTE *)buf->buffer + buf->position, S->block_size);
+        sample_play_adpcm(S, (BYTE*)buf->buffer + buf->position, S->block_size);
         buf->position += S->block_size;
 
         alGetSourcei(S->source, AL_SOURCE_STATE, &state);
@@ -1093,7 +1093,7 @@ static void stream_work(HSTREAM stream)
     }
 }
 
-static Uint32 work_callback(Uint32 interval, void *param)
+static Uint32 work_callback(Uint32 interval, void* param)
 {
     HDIGDRIVER dig = param;
     HSAMPLE sample;
@@ -1120,7 +1120,7 @@ static Uint32 work_callback(Uint32 interval, void *param)
     return interval;
 }
 
-DXDEC S32 AILCALL AIL_waveOutOpen (HDIGDRIVER FAR *pdrvr, LPHWAVEOUT FAR *lphWaveOut, S32 wDeviceID, LPWAVEFORMAT lpFormat)
+DXDEC S32 AILCALL AIL_waveOutOpen(HDIGDRIVER FAR* pdrvr, LPHWAVEOUT FAR* lphWaveOut, S32 wDeviceID, LPWAVEFORMAT lpFormat)
 {
     HDIGDRIVER dig = calloc(1, sizeof(*dig));
     // fprintf(stderr, "%s\n", __FUNCTION__);

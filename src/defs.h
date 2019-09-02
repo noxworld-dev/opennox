@@ -16,7 +16,7 @@
 #define NO_WOLAPI 1
 
 #define USE_SDL 1
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #ifdef __EMSCRIPTEN__
 #define wchar_t int16_t

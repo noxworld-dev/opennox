@@ -3136,7 +3136,7 @@ unsigned __int8* sub_451630()
     {
         v4 = sub_40F1D0((char*)& byte_587000[126708], 0, (const char*)& byte_587000[126672], 272);
         v3 = sub_40F1D0((char*)& byte_587000[126756], 0, (const char*)& byte_587000[126720], 271);
-        nullsub_4(sub_401FD0(), v3, v4, 0);
+        nullsub_4(getWindowHandle_sub_401FD0(), v3, v4, 0);
         exit(0);
     }
     v1 = &byte_5D4594[835880];
@@ -3170,7 +3170,7 @@ wchar_t* sub_4517A0(wchar_t* a1, ...)
     fprintf(*(FILE * *)& byte_5D4594[839880], (const char*)& byte_587000[126940], &byte_5D4594[833752]);
     fflush(*(FILE * *)& byte_5D4594[839880]);
     v5 = sub_40F1D0((char*)& byte_587000[126980], 0, (const char*)& byte_587000[126944], 365);
-    nullsub_4(sub_401FD0(), &byte_5D4594[833752], v5, 0);
+    nullsub_4(getWindowHandle_sub_401FD0(), &byte_5D4594[833752], v5, 0);
     return nox_wcsncpy(v1, (const wchar_t*)& byte_5D4594[833752], 0x63u);
 }
 // 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
@@ -36798,7 +36798,7 @@ int sub_47FD70()
     v8 = *(_DWORD*)& byte_5D4594[3804680] != 0 ? 16 : 8;
     v7 = *(_DWORD*)& byte_5D4594[3807120];
     v6 = *(_DWORD*)& byte_5D4594[3805496];
-    if (sub_444930(sub_401FD0(), v6, v7, v8, v0))
+    if (sub_444930(getWindowHandle_sub_401FD0(), v6, v7, v8, v0))
     {
         printf("%s: %d\n", __FUNCTION__, 1);
         sub_477710();
@@ -36934,7 +36934,7 @@ int sub_4800F0()
     v4 = *(_DWORD*)& byte_5D4594[3804680] != 0 ? 16 : 8;
     v3 = *(_DWORD*)& byte_5D4594[3807120];
     v2 = *(_DWORD*)& byte_5D4594[3805496];
-    if (sub_444930(sub_401FD0(), v2, v3, v4, v5))
+    if (sub_444930(getWindowHandle_sub_401FD0(), v2, v3, v4, v5))
     {
         sub_440900();
         sub_47FEF0();
@@ -44434,7 +44434,7 @@ int __cdecl sub_488710(int a1, unsigned int a2, wchar_t* a3, int a4)
     if (a3)
     {
         *(_DWORD*)& byte_5D4594[1193352] = a1;
-        sub_5700CA(*(int***)& byte_5D4594[1193348], sub_401FD0());
+        sub_5700CA(*(int***)& byte_5D4594[1193348], getWindowHandle_sub_401FD0());
         v6 = *(_DWORD*)(a1 + 36);
         LOBYTE(v6) = v6 | 6;
         *(_DWORD*)(a1 + 36) = v6;
