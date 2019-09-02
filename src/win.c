@@ -138,7 +138,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 }
 
 //----- (00401FD0) --------------------------------------------------------
-HWND sub_401FD0()
+HWND getWindowHandle_sub_401FD0()
 {
 #ifdef USE_SDL
     return (HWND)g_window;
@@ -165,7 +165,7 @@ void sub_47D8A0()
 #ifdef USE_SDL
     SDL_RestoreWindow(g_window);
 #else
-    ShowWindow(sub_401FD0(), SW_RESTORE);
+    ShowWindow(getWindowHandle_sub_401FD0(), SW_RESTORE);
 #endif
 }
 
@@ -405,7 +405,7 @@ void sub_4516C0(wchar_t* a1, ...)
     fprintf(*(FILE * *)& byte_5D4594[839880], "%S", &byte_5D4594[833752]);
     fflush(*(FILE * *)& byte_5D4594[839880]);
     v3 = sub_40F1D0("FatalError", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 324);
-    v2 = sub_401FD0();
+    v2 = getWindowHandle_sub_401FD0();
     nullsub_4(v2, &byte_5D4594[833752], v3, 0);
     fprintf(*(FILE * *)& byte_5D4594[839880], "exiting..\n");
     fclose(*(FILE * *)& byte_5D4594[839880]);

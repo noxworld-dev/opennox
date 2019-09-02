@@ -78,7 +78,7 @@ BOOL sub_423C60()
 {
     if (!*(_DWORD*)& byte_5D4594[588112])
         return 0;
-    *(_DWORD*)& byte_5D4594[588092] = sub_401FD0();
+    *(_DWORD*)& byte_5D4594[588092] = getWindowHandle_sub_401FD0();
     *(_DWORD*)& byte_5D4594[588100] = 4;
     *(_DWORD*)& byte_5D4594[588104] = 0;
     *(_DWORD*)& byte_5D4594[588096] = 0;

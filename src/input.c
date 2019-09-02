@@ -65,8 +65,8 @@ void process_window_event(const SDL_WindowEvent* event)
     int isMouseInside = 0;
 
     SDL_GetGlobalMouseState(&mouseX, &mouseY);
-    SDL_GetWindowPosition(sub_401FD0(), &wndPosX, &wndPosY);
-    SDL_GetWindowSize(sub_401FD0(), &wndSizeW, &wndSizeH);
+    SDL_GetWindowPosition(getWindowHandle_sub_401FD0(), &wndPosX, &wndPosY);
+    SDL_GetWindowSize(getWindowHandle_sub_401FD0(), &wndSizeW, &wndSizeH);
 
     if (mouseX >= wndPosX && mouseX <= wndPosX + wndSizeW &&
         mouseY >= wndPosY && mouseY <= wndPosY + wndSizeH)
@@ -77,11 +77,11 @@ void process_window_event(const SDL_WindowEvent* event)
     switch (event->event)
     {
     case SDL_WINDOWEVENT_FOCUS_LOST:
-        sub_47D8B0();
+        unacquireMouse_sub_47D8B0();
         break;
     case SDL_WINDOWEVENT_FOCUS_GAINED:
         if (isMouseInside)
-            sub_47D8C0();
+            acquireMouse_sub_47D8C0();
         break;
     default:
         break;
@@ -451,7 +451,7 @@ void __cdecl sub_47FA80(signed int a1)
 }
 
 // init mouse
-int sub_47D8D0()
+int initMouse_sub_47D8D0()
 {
     SDL_SetRelativeMouseMode(SDL_TRUE);
     mouse_event_ridx = 0;
@@ -463,16 +463,18 @@ int sub_47D8D0()
 }
 
 // acquire mouse
-int sub_47D8C0()
+int acquireMouse_sub_47D8C0()
 {
     SDL_SetRelativeMouseMode(SDL_TRUE);
+    SDL_SetWindowGrab(getWindowHandle_sub_401FD0(), SDL_TRUE);
     return 0;
 }
 
 // unacquire mouse
-int sub_47D8B0()
+int unacquireMouse_sub_47D8B0()
 {
     SDL_SetRelativeMouseMode(SDL_FALSE);
+    SDL_SetWindowGrab(getWindowHandle_sub_401FD0(), SDL_FALSE);
     return 0;
 }
 
@@ -547,19 +549,19 @@ LPDIRECTINPUTA g_dinput_mouse;
 LPDIRECTINPUTDEVICEA g_device_mouse;
 
 //----- (0047D8B0) --------------------------------------------------------
-int sub_47D8B0()
+int unacquireMouse_sub_47D8B0()
 {
     return g_device_mouse->lpVtbl->Unacquire(g_device_mouse);
 }
 
 //----- (0047D8C0) --------------------------------------------------------
-int sub_47D8C0()
+int acquireMouse_sub_47D8C0()
 {
     return g_device_mouse->lpVtbl->Acquire(g_device_mouse);
 }
 
 //----- (0047D8D0) --------------------------------------------------------
-signed int sub_47D8D0()
+signed int initMouse_sub_47D8D0()
 {
     wchar_t* v0; // eax
     DIPROPDWORD v4; // [esp+20h] [ebp-2Ch]
@@ -575,7 +577,7 @@ signed int sub_47D8D0()
         v0 = sub_40F1D0("Dxinput.c:IM_CreateDeviceFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 87);
         sub_4516C0(v0);
     }
-    if (g_device_mouse->lpVtbl->SetCooperativeLevel(g_device_mouse, sub_401FD0(), DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0)
+    if (g_device_mouse->lpVtbl->SetCooperativeLevel(g_device_mouse, getWindowHandle_sub_401FD0(), DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0)
     {
         v0 = sub_40F1D0("Dxinput.c:IM_SetCoopFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 105);
         sub_4516C0(v0);
@@ -802,7 +804,7 @@ void sub_47FB10()
         sub_4516C0(v2);
     }
 
-    if (g_device_keyboard->lpVtbl->SetCooperativeLevel(g_device_keyboard, sub_401FD0(), DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0)
+    if (g_device_keyboard->lpVtbl->SetCooperativeLevel(g_device_keyboard, getWindowHandle_sub_401FD0(), DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0)
     {
         v5 = sub_40F1D0("Dxinput.c:OK_SetCoopFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 868);
         sub_4516C0(v5);
@@ -932,7 +934,7 @@ void __cdecl sub_47FA80(signed int a1)
 
 int sub_47D890()
 {
-    return sub_47D8B0();
+    return unacquireMouse_sub_47D8B0();
 }
 #endif
 
