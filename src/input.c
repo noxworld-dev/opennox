@@ -54,6 +54,40 @@ static int orientation;
 static int move_speed;
 static int jump;
 
+void process_window_event(const SDL_WindowEvent* event)
+{
+	int mouseX;
+	int mouseY;
+	int wndPosX;
+	int wndPosY;
+	int wndSizeW;
+	int wndSizeH;
+	int isMouseInside = 0;
+
+	SDL_GetGlobalMouseState(&mouseX, &mouseY);
+	SDL_GetWindowPosition(sub_401FD0(), &wndPosX, &wndPosY);
+	SDL_GetWindowSize(sub_401FD0(), &wndSizeW, &wndSizeH);
+
+	if (mouseX >= wndPosX && mouseX <= wndPosX + wndSizeW &&
+		mouseY >= wndPosY && mouseY <= wndPosY + wndSizeH)
+	{
+		isMouseInside = 1;
+	}
+
+	switch (event->event)
+	{
+	case SDL_WINDOWEVENT_FOCUS_LOST:
+		sub_47D8B0();
+		break;
+	case SDL_WINDOWEVENT_FOCUS_GAINED:
+		if (isMouseInside)
+			sub_47D8C0();
+		break;
+	default:
+		break;
+	}
+}
+
 void process_keyboard_event(const SDL_KeyboardEvent *event)
 {
     struct keyboard_event *ke = &keyboard_event_queue[keyboard_event_widx];
@@ -85,6 +119,14 @@ void process_mouse_event(const SDL_MouseButtonEvent *event)
     }
 
     me->state = event->state == SDL_PRESSED;
+
+	if (me->state)
+	{
+		SDL_WindowEvent wndEvt;
+		wndEvt.event = SDL_WINDOWEVENT_FOCUS_GAINED;
+		process_window_event(&wndEvt);
+	}
+
     me->seq = seqnum++;
 
     mouse_event_widx = (mouse_event_widx + 1) % 256;
