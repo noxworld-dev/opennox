@@ -37,7 +37,7 @@ typedef unsigned short _WORD;
 typedef unsigned int _DWORD;
 typedef unsigned __int64 _QWORD;
 typedef int bool;
- 
+
 #if !defined(__MMINTRIN_H) && !defined(_MMINTRIN_H_INCLUDED)
 typedef struct __m64 __m64;
 #endif
@@ -78,43 +78,43 @@ void* nox_malloc2(size_t x, char* func, int line, char* file);
 
 static int __OFSUB__(int x, int y)
 {
-	DebugBreak();
-	return 0;
+    DebugBreak();
+    return 0;
 }
 static int __CFSHR__(int x, int y)
 {
-	DebugBreak();
-	return 0;
+    DebugBreak();
+    return 0;
 }
 static int __CFSHL__(int x, int y)
 {
-	DebugBreak();
-	return 0;
+    DebugBreak();
+    return 0;
 }
 static int __CFADD__(int x, int y)
 {
-	DebugBreak();
-	return 0;
+    DebugBreak();
+    return 0;
 }
 static int __OFADD__(int x, int y)
 {
-	DebugBreak();
-	return 0;
+    DebugBreak();
+    return 0;
 }
 
 // saturating 8-bit addition
 static _BYTE SADD8(_BYTE x, _BYTE y)
 {
-	unsigned int z = x + y;
-	return z > 0xFF ? 0xFF : (_BYTE)z;
+    unsigned int z = x + y;
+    return z > 0xFF ? 0xFF : (_BYTE)z;
 }
 
 #define abs32 abs
 #define qmemcpy memcpy
 
-static void memset32(_DWORD *x, _DWORD y, size_t z)
+static void memset32(_DWORD* x, _DWORD y, size_t z)
 {
-	while (z--) *x++ = y;
+    while (z--)* x++ = y;
 }
 
 #define __ROL4__ _rotl
@@ -123,250 +123,250 @@ static void memset32(_DWORD *x, _DWORD y, size_t z)
 static _QWORD __rdtsc()
 {
 #ifdef __GNUC__
-	unsigned int low, high;
-	asm ("rdtsc" : "=a" (low), "=d" (high));
-	return ((_QWORD)high << 32) | low;
+    unsigned int low, high;
+    asm("rdtsc" : "=a" (low), "=d" (high));
+    return ((_QWORD)high << 32) | low;
 #else
-	_asm rdtsc;
+    _asm rdtsc;
 #endif
 }
 #endif
 
 typedef struct std___Lockit
 {
-	_DWORD x;
+    _DWORD x;
 } std___Lockit;
 
 static void std___Lockit___Lockit(struct std___Lockit* l)
 {
-	return;
+    return;
 }
 
 static void std___Lockit__destructor_Lockit(struct std___Lockit* l)
 {
-	return;
+    return;
 }
 
 static void std___Xran()
 {
-	DebugBreak();
+    DebugBreak();
 }
 
 static void std___Xlen()
 {
-	DebugBreak();
+    DebugBreak();
 }
 
-static void *operator_new(size_t x)
+static void* operator_new(size_t x)
 {
-	return nox_malloc(x);
+    return nox_malloc(x);
 }
 
-static void operator_delete(void *x)
+static void operator_delete(void* x)
 {
-	free(x);
+    free(x);
 }
 
 static _WORD __ROL2__(_WORD x, int shift)
 {
-	if (shift == 0) return x;
-	if (shift == 16) return x;
-	return (_WORD)((x << shift) | (x >> (16 - shift)));
+    if (shift == 0) return x;
+    if (shift == 16) return x;
+    return (_WORD)((x << shift) | (x >> (16 - shift)));
 }
 
 static float COERCE_FLOAT(_DWORD x)
 {
-	return *(float *)&x;
+    return *(float*)& x;
 }
 
 static _DWORD COERCE_INT(float x)
 {
-	return *(_DWORD *)&x;
+    return *(_DWORD*)& x;
 }
 
 typedef struct struc_13
 {
-  char field_0[80];
-  int field_50;
+    char field_0[80];
+    int field_50;
 } struc_13;
 
 /* 288 */
 typedef struct struc_14
 {
-  char field_0[4828];
+    char field_0[4828];
 } struc_14;
 
 /* 289 */
 typedef struct struc_15
 {
-  char field_0[80];
+    char field_0[80];
 } struc_15;
 
 /* 290 */
 typedef struct struc_16
 {
-  char field_0[24];
+    char field_0[24];
 } struc_16;
 
 /* 291 */
 typedef struct struc_17
 {
-  int field_0;
-  int field_4;
-  int field_8;
-  int field_C;
+    int field_0;
+    int field_4;
+    int field_8;
+    int field_C;
 } struc_17;
 
 /* 292 */
 typedef struct struc_18
 {
-  char field_0[2048];
-  int field_800;
+    char field_0[2048];
+    int field_800;
 } struc_18;
 
 /* 293 */
 typedef struct struc_19
 {
-  int field_0[35];
+    int field_0[35];
 } struc_19;
 
 /* 294 */
 typedef struct struc_20
 {
-  char field_0[80];
+    char field_0[80];
 } struc_20;
 
 /* 295 */
 typedef struct struc_21
 {
-  char field_0[28];
+    char field_0[28];
 } struc_21;
 
 /* 296 */
 typedef struct struc_22
 {
-  int field_0;
-  int field_4;
-  int field_8;
-  int field_C;
-  int field_10;
-  int field_14;
+    int field_0;
+    int field_4;
+    int field_8;
+    int field_C;
+    int field_10;
+    int field_14;
 } struc_22;
 
 /* 297 */
 typedef struct struc_23
 {
-  char field_0[200];
+    char field_0[200];
 } struc_23;
 
 /* 298 */
 typedef struct struc_24
 {
-  int field_0;
-  int field_4;
-  int field_8;
-  int field_C;
-  int field_10;
-  int field_14;
+    int field_0;
+    int field_4;
+    int field_8;
+    int field_C;
+    int field_10;
+    int field_14;
 } struc_24;
 
 /* 299 */
 typedef struct struc_25
 {
-  char field_0[12332];
+    char field_0[12332];
 } struc_25;
 
 /* 300 */
 typedef struct pixel888
 {
-  char field_0;
-  char field_1;
-  char field_2;
+    char field_0;
+    char field_1;
+    char field_2;
 } pixel888;
 
 /* 301 */
 typedef struct pixel8888
 {
-  char field_0;
-  char field_1;
-  char field_2;
-  char field_3;
+    char field_0;
+    char field_1;
+    char field_2;
+    char field_3;
 } pixel8888;
 
 /* 302 */
 typedef struct float2
 {
-  float field_0;
-  float field_4;
+    float field_0;
+    float field_4;
 } float2;
 
 /* 303 */
 typedef struct float4
 {
-  float field_0;
-  float field_4;
-  float field_8;
-  float field_C;
+    float field_0;
+    float field_4;
+    float field_8;
+    float field_C;
 } float4;
 
 /* 306 */
 typedef struct int2
 {
-  int field_0;
-  int field_4;
+    int field_0;
+    int field_4;
 } int2;
 
 /* 307 */
 typedef struct int4
 {
-  int field_0;
-  int field_4;
-  int field_8;
-  int field_C;
+    int field_0;
+    int field_4;
+    int field_8;
+    int field_C;
 } int4;
 
 /* 308 */
 typedef struct shape
 {
-  int field_0;
-  float field_4;
-  float field_8;
-  float field_C;
-  float field_10;
-  float field_14;
-  float field_18;
-  float field_1C;
-  float field_20;
-  float field_24;
-  float field_28;
-  float field_2C;
-  float field_30;
+    int field_0;
+    float field_4;
+    float field_8;
+    float field_C;
+    float field_10;
+    float field_14;
+    float field_18;
+    float field_1C;
+    float field_20;
+    float field_24;
+    float field_28;
+    float field_2C;
+    float field_30;
 } shape;
 
 typedef struct string
 {
-  int field_0;
-  int field_4;
-  int field_8;
-  int field_C;
+    int field_0;
+    int field_4;
+    int field_8;
+    int field_C;
 } string;
 
 /* 310 */
 typedef struct wstring
 {
-  int _A;
-  int _Ptr;
-  int _Len;
-  int _Rem;
+    int _A;
+    int _Ptr;
+    int _Len;
+    int _Rem;
 } wstring;
 
 typedef struct struc_35
 {
-	HWND field_0;
-	HIMC field_4;
-	int field_8;
-	int field_C;
-	int field_10;
+    HWND field_0;
+    HIMC field_4;
+    int field_8;
+    int field_C;
+    int field_10;
 } struc_35;
 
 #endif
