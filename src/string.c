@@ -121,23 +121,19 @@ int __cdecl nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format,
         case 'f':
         {
             char tmp[32];
+            char tmp2[32];
             double val;
             int len;
+            int final_precision = precision > 0 ? precision : 5;
+            snprintf(tmp, 32, "%%.%df", final_precision);
             val = va_arg(ap, double);
-            gcvt(val, precision > 0 ? precision : 5, tmp);
-            len = strlen(tmp);
-
-            for (j = 0; j < width - (precision > 0 ? precision : len); j++)
-            {
-                if (flag == '0') EMIT('0');
-                else EMIT(' ');
-            }
-
-            for (j = 0; j < precision - len; j++)
-                EMIT('0');
+            snprintf(tmp2, 32, tmp, val);
+            len = strlen(tmp2);
 
             for (j = 0; j < len; j++)
-                EMIT(tmp[j]);
+            {
+                EMIT(tmp2[j]);
+            }
 
         }
         break;
