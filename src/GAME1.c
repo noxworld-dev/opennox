@@ -10,6 +10,7 @@ extern float draw_gamma;
 extern float input_sensitivity;
 
 int g_fullscreen_cfg = 0;
+int g_scaled_cfg = 0;
 
 void f(int);
 void (*mainloop_enter)();
@@ -43035,7 +43036,13 @@ LABEL_2:
                         strtok(NULL, " \r\t\n");
                         token = strtok(NULL, " \r\t\n");
                         if (token)
-                            g_scaled = atoi(token);
+                        {
+                            g_scaled_cfg = atoi(token);
+                            if (g_scaled >= 0)
+                            {
+                                g_scaled = g_scaled_cfg;
+                            }
+                        }
                     }
                     else if (!strcmp(v1, "InputSensitivity"))
                     {
@@ -44196,7 +44203,7 @@ int __cdecl sub_4332E0(FILE* a1)
         *(_DWORD*)& byte_587000[91780],
         *(_DWORD*)& byte_587000[91784],
         *(_DWORD*)& byte_587000[91788]);
-    fprintf(a1, "Stretched = %d\n", g_scaled);
+    fprintf(a1, "Stretched = %d\n", g_scaled_cfg);
     fprintf(a1, "Fullscreen = %d\n", g_fullscreen_cfg);
     v2 = sub_4766D0();
     fprintf(a1, "VideoSize = %d\n", v2);

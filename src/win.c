@@ -16,6 +16,8 @@ int g_fullscreen = -4; // -4 means "unset"
 const char* g_argv[21];
 unsigned int g_argc;
 
+extern int g_scaled;
+
 //----- (00401C70) --------------------------------------------------------
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
@@ -51,6 +53,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         else if (!strcmp("-fullscreen", v4))
         {
             g_fullscreen = -1;
+        }
+        else if (!strcmp("-stretch", v4))
+        {
+            g_scaled = -1;
         }
         else if (!strcmp("-minimize", v4))
         {
