@@ -603,8 +603,11 @@ void sub_48A120()
 #endif
     sub_48B1D0(&dword_973C60);
     sub_48B1D0(&dword_973C88);
+    if (g_backbuffer1 != g_frontbuffer1)
+    {
+        sub_48B1D0(&g_frontbuffer1);
+    }
     sub_48B1D0(&g_backbuffer1);
-    sub_48B1D0(&g_frontbuffer1);
     sub_48B1B0(&g_ddraw);
     sub_48A9C0(0);
     sub_48AA40();
@@ -1086,9 +1089,15 @@ void sdl_present()
 #endif
 #ifdef _WIN32
         // XXX FIXME WHY?
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_BGRA, g_frontbuffer1->w, g_frontbuffer1->h, 0, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV, g_frontbuffer1->pixels);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_BGRA, g_frontbuffer1->w, g_frontbuffer1->h, 0, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV, NULL);
 #else
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, dstrect.w, dstrect.h, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, g_frontbuffer1->pixels);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, g_frontbuffer1->w, g_frontbuffer1->h, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, NULL);
+#endif
+        glCheckError();
+#ifdef _WIN32
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, g_frontbuffer1->w, g_frontbuffer1->h, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV, g_frontbuffer1->pixels);
+#else
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, g_frontbuffer1->w, g_frontbuffer1->h, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, g_frontbuffer1->pixels);
 #endif
         glCheckError();
 
