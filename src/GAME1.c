@@ -5,8 +5,11 @@
 #include "proto.h"
 
 extern int g_fullscreen;
+int g_scaled = 0;
 extern float draw_gamma;
 extern float input_sensitivity;
+
+int g_fullscreen_cfg = 0;
 
 void f(int);
 void (*mainloop_enter)();
@@ -43246,13 +43249,16 @@ LABEL_74:
             const char *token;
             strtok(NULL, " \r\t\n");
             token = strtok(NULL, " \r\t\n");
-            if (token)
-              g_fullscreen = atoi(token);
+			if (token)
+			{
+				g_fullscreen_cfg = atoi(token);
+				if (g_fullscreen <= -4)
+				{
+					g_fullscreen = g_fullscreen_cfg;
+				}
+			}
 
-            if (g_fullscreen)
-              SDL_SetWindowFullscreen(sub_401FD0(), SDL_WINDOW_FULLSCREEN_DESKTOP);
-            else
-              SDL_SetWindowFullscreen(sub_401FD0(), 0);
+			change_windowed_fullscreen();
           }
           else if ( !strcmp(v1, "Gamma2") )
           {
@@ -43262,6 +43268,14 @@ LABEL_74:
             if (token)
               draw_gamma = atof(token);
           }
+		  else if (!strcmp(v1, "Stretched"))
+		  {
+			  const char* token;
+			  strtok(NULL, " \r\t\n");
+			  token = strtok(NULL, " \r\t\n");
+			  if (token)
+				  g_scaled = atoi(token);
+		  }
           else if ( !strcmp(v1, "InputSensitivity") )
           {
             const char *token;
@@ -43999,8 +44013,7 @@ int sub_432B00()
 #else
     *(_DWORD *)&byte_587000[91780] = v1;
     *(_DWORD *)&byte_587000[91784] = v3;
-    SDL_SetWindowSize(sub_401FD0(), v1, v3);
-    SDL_SetWindowPosition(sub_401FD0(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	change_windowed_fullscreen();
 #endif
     *(_DWORD *)&byte_587000[91788] = v6;
     *(_DWORD *)&byte_587000[91800] = v6;
@@ -44427,7 +44440,8 @@ int __cdecl sub_4332E0(FILE *a1)
     *(_DWORD *)&byte_587000[91780],
     *(_DWORD *)&byte_587000[91784],
     *(_DWORD *)&byte_587000[91788]);
-  fprintf(a1, "Fullscreen = %d\n", g_fullscreen);
+  fprintf(a1, "Stretched = %d\n", g_scaled);
+  fprintf(a1, "Fullscreen = %d\n", g_fullscreen_cfg);
   v2 = sub_4766D0();
   fprintf(a1, "VideoSize = %d\n", v2);
   // fprintf(a1, "Gamma = %d\n", *(_DWORD *)&byte_587000[80852]);
@@ -49381,11 +49395,7 @@ int __cdecl sub_43BEF0(int a1, int a2, int a3)
   *(_DWORD *)&byte_587000[91784] = a2;
   *(_DWORD *)&byte_587000[91788] = a3;
 
-  if (g_fullscreen)
-    SDL_SetWindowFullscreen(sub_401FD0(), SDL_WINDOW_FULLSCREEN_DESKTOP);
-  else
-    SDL_SetWindowFullscreen(sub_401FD0(), 0);
-  SDL_SetWindowSize(sub_401FD0(), a1, a2);
+  change_windowed_fullscreen();
   return result;
 }
 
