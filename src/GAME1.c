@@ -4,6 +4,10 @@
 
 #include "proto.h"
 
+#ifdef USE_SDL
+extern int g_ddraw;
+#endif
+
 extern int g_fullscreen;
 int g_scaled = 0;
 extern float draw_gamma;
@@ -33,9 +37,16 @@ void* nox_malloc2(size_t x, char* func, int line, char* file)
     return buf;
 }
 
+#ifdef USE_SDL
+void __cdecl sub_48B1B0(SDL_GLContext* a1);
+#endif
+
 void cleanup()
 {
     printf("%s\n", __FUNCTION__);
+#ifdef USE_SDL
+    sub_48B1B0(&g_ddraw);
+#endif
     if (sub_40A5C0(0x2000000))
         sub_413D00();
     sub_433290("nox.cfg");
