@@ -608,7 +608,9 @@ void sub_48A120()
         sub_48B1D0(&g_frontbuffer1);
     }
     sub_48B1D0(&g_backbuffer1);
+#ifndef USE_SDL
     sub_48B1B0(&g_ddraw);
+#endif
     sub_48A9C0(0);
     sub_48AA40();
 }
@@ -952,6 +954,7 @@ void __cdecl sub_48A9C0(int a1)
             {
                 dword_974854 = 1;
 #ifdef USE_SDL
+                printf("Ungrab\n");
                 SDL_SetWindowGrab(windowHandle_dword_973FE0, SDL_FALSE);
 #else
                 ClipCursor(0);
@@ -964,6 +967,7 @@ void __cdecl sub_48A9C0(int a1)
                 dword_974854 = 1;
                 dword_973C70 = 1;
 #ifdef USE_SDL
+                printf("Minimize\n");
                 SDL_MinimizeWindow(windowHandle_dword_973FE0);
 #else
                 ShowWindow(windowHandle_dword_973FE0, SW_MINIMIZE);
@@ -1404,7 +1408,10 @@ int sub_48B000()
     g_rotate = 0;
 #endif
     g_format = SDL_PIXELFORMAT_RGBA5551;
-    g_ddraw = SDL_GL_CreateContext(windowHandle_dword_973FE0);
+    if (!g_ddraw)
+    {
+        g_ddraw = SDL_GL_CreateContext(windowHandle_dword_973FE0);
+    }
     SDL_GL_SetSwapInterval(1);
 
 #ifdef _WIN32
