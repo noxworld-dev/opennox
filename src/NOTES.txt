@@ -1,1 +1,3 @@
-...No apparent bugs so far, seeking for more...
+Dialogs aren't working because they are actually mono MP3, and for some reason mono MP3 doesn't get played in EMSCRIPTEN
+
+In EMSCRIPTEN, sometimes sub_4AF950 free crashes. Consider it disabling? Memory leak is minimal as this should be called very rarely.
