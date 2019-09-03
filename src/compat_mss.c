@@ -1061,7 +1061,7 @@ static void stream_work(HSTREAM stream)
     static WORD buffer[16 * 1024];
     unsigned int channels = stream->stereo ? 2 : 1;
     // We need to queue 33ms of audio data.
-    unsigned int min_samples = stream->playback_rate * channels / 30;
+    unsigned int min_samples = stream->playback_rate * channels / 10;
 
     stream_unqueue_buffers(stream);
 
@@ -1135,7 +1135,7 @@ DXDEC S32 AILCALL AIL_waveOutOpen(HDIGDRIVER FAR* pdrvr, LPHWAVEOUT FAR* lphWave
     alcMakeContextCurrent(dig->context);
     checkError();
     dig->mutex = SDL_CreateMutex();
-    SDL_AddTimer(1000.0 / 60, work_callback, dig);
+    SDL_AddTimer(1000.0 / 20, work_callback, dig);
     alListenerf(AL_GAIN, 1.0f);
     alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
     *pdrvr = dig;

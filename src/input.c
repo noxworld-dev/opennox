@@ -79,8 +79,6 @@ void process_window_event(const SDL_WindowEvent* event)
     isMouseInside = 1;
 #endif
 
-    dprintf("Window evt: %d", event->event);
-
     switch (event->event)
     {
     case SDL_WINDOWEVENT_FOCUS_LOST:
@@ -460,15 +458,13 @@ void __cdecl sub_47FA80(signed int a1)
 // init mouse
 int initMouse_sub_47D8D0()
 {
-    SDL_SetRelativeMouseMode(SDL_TRUE);
     SDL_SetWindowGrab(getWindowHandle_sub_401FD0(), SDL_TRUE);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
 
     g_mouse_aquired = 1;
 
     mouse_event_ridx = 0;
     mouse_event_widx = 0;
-
-    dprintf("Mouse inited");
 
     // indicates that mouse is present so cursor should be drawn
     *(_DWORD*)& byte_5D4594[1193108] = 1;
@@ -480,9 +476,8 @@ int acquireMouse_sub_47D8C0()
 {
     if (!g_mouse_aquired)
     {
-        SDL_SetRelativeMouseMode(SDL_TRUE);
         SDL_SetWindowGrab(getWindowHandle_sub_401FD0(), SDL_TRUE);
-        dprintf("Mouse acquired");
+        SDL_SetRelativeMouseMode(SDL_TRUE);
         g_mouse_aquired = 1;
     }
     return 0;
@@ -493,7 +488,6 @@ int unacquireMouse_sub_47D8B0()
 {
     SDL_SetRelativeMouseMode(SDL_FALSE);
     SDL_SetWindowGrab(getWindowHandle_sub_401FD0(), SDL_FALSE);
-    dprintf("Mouse unacquired");
     g_mouse_aquired = 0;
     return 0;
 }
