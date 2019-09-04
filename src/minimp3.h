@@ -778,42 +778,74 @@ static void L3_huffman(float* dst, bs_t* bs, const L3_gr_info_t* gr_info, const 
         int sfb_cnt = gr_info->region_count[ireg++];
         const int16_t* codebook = tabs + tabindex[tab_num];
         int linbits = g_linbits[tab_num];
-        do
+        if (linbits)
         {
-            np = *sfb++ / 2;
-            pairs_to_decode = MINIMP3_MIN(big_val_cnt, np);
-            one = *scf++;
             do
             {
-                int j, w = 5;
-                int leaf = codebook[PEEK_BITS(w)];
-                while (leaf < 0)
+                np = *sfb++ / 2;
+                pairs_to_decode = MINIMP3_MIN(big_val_cnt, np);
+                one = *scf++;
+                do
                 {
-                    FLUSH_BITS(w);
-                    w = leaf & 7;
-                    leaf = codebook[PEEK_BITS(w) - (leaf >> 3)];
-                }
-                FLUSH_BITS(leaf >> 8);
+                    int j, w = 5;
+                    int leaf = codebook[PEEK_BITS(w)];
+                    while (leaf < 0)
+                    {
+                        FLUSH_BITS(w);
+                        w = leaf & 7;
+                        leaf = codebook[PEEK_BITS(w) - (leaf >> 3)];
+                    }
+                    FLUSH_BITS(leaf >> 8);
 
-                for (j = 0; j < 2; j++, dst++, leaf >>= 4)
+                    for (j = 0; j < 2; j++, dst++, leaf >>= 4)
+                    {
+                        int lsb = leaf & 0x0F;
+                        if (lsb == 15)
+                        {
+                            lsb += PEEK_BITS(linbits);
+                            FLUSH_BITS(linbits);
+                            CHECK_BITS;
+                            *dst = one * L3_pow_43(lsb) * ((int32_t)bs_cache < 0 ? -1 : 1);
+                        }
+                        else
+                        {
+                            *dst = g_pow43[16 + lsb - 16 * (bs_cache >> 31)] * one;
+                        }
+                        FLUSH_BITS(lsb ? 1 : 0);
+                    }
+                    CHECK_BITS;
+                } while (--pairs_to_decode);
+            } while ((big_val_cnt -= np) > 0 && --sfb_cnt >= 0);
+        }
+        else
+        {
+            do
+            {
+                np = *sfb++ / 2;
+                pairs_to_decode = MINIMP3_MIN(big_val_cnt, np);
+                one = *scf++;
+                do
                 {
-                    int lsb = leaf & 0x0F;
-                    if (lsb == 15 && linbits)
+                    int j, w = 5;
+                    int leaf = codebook[PEEK_BITS(w)];
+                    while (leaf < 0)
                     {
-                        lsb += PEEK_BITS(linbits);
-                        FLUSH_BITS(linbits);
-                        CHECK_BITS;
-                        *dst = one * L3_pow_43(lsb) * ((int32_t)bs_cache < 0 ? -1 : 1);
+                        FLUSH_BITS(w);
+                        w = leaf & 7;
+                        leaf = codebook[PEEK_BITS(w) - (leaf >> 3)];
                     }
-                    else
+                    FLUSH_BITS(leaf >> 8);
+
+                    for (j = 0; j < 2; j++, dst++, leaf >>= 4)
                     {
+                        int lsb = leaf & 0x0F;
                         *dst = g_pow43[16 + lsb - 16 * (bs_cache >> 31)] * one;
+                        FLUSH_BITS(lsb ? 1 : 0);
                     }
-                    FLUSH_BITS(lsb ? 1 : 0);
-                }
-                CHECK_BITS;
-            } while (--pairs_to_decode);
-        } while ((big_val_cnt -= np) > 0 && --sfb_cnt >= 0);
+                    CHECK_BITS;
+                } while (--pairs_to_decode);
+            } while ((big_val_cnt -= np) > 0 && --sfb_cnt >= 0);
+        }
     }
 
     for (np = 1 - big_val_cnt;; dst += 4)
@@ -823,7 +855,7 @@ static void L3_huffman(float* dst, bs_t* bs, const L3_gr_info_t* gr_info, const 
         if (!(leaf & 8))
         {
             leaf = codebook_count1[(leaf >> 3) + (bs_cache << 4 >> (32 - (leaf & 3)))];
-        }
+}
         FLUSH_BITS(leaf & 7);
         if (BSPOS > layer3gr_limit)
         {
@@ -1061,7 +1093,7 @@ static void L3_imdct36(float* grbuf, float* overlap, const float* window, int nb
             co[1 + 2 * i] = grbuf[4 * i + 1] + grbuf[4 * i + 2];
             si[7 - 2 * i] = grbuf[4 * i + 4] - grbuf[4 * i + 3];
             co[2 + 2 * i] = -(grbuf[4 * i + 3] + grbuf[4 * i + 4]);
-        }
+    }
         L3_dct3_9(co);
         L3_dct3_9(si);
 
@@ -1097,7 +1129,7 @@ static void L3_imdct36(float* grbuf, float* overlap, const float* window, int nb
             grbuf[i] = ovl * window[0 + i] - sum * window[9 + i];
             grbuf[17 - i] = ovl * window[9 + i] + sum * window[0 + i];
         }
-    }
+}
 }
 
 static void L3_idct3(float x0, float x1, float x2, float* dst)
@@ -1299,12 +1331,12 @@ static void mp3d_DCT_II(float* grbuf, int n)
                 VSAVE2(1, VADD(t[2][i], s));
                 VSAVE2(2, VADD(t[1][i], t[1][i + 1]));
                 VSAVE2(3, VADD(t[2][1 + i], s));
-            }
+    }
             VSAVE2(0, t[0][7]);
             VSAVE2(1, VADD(t[2][7], t[3][7]));
             VSAVE2(2, t[1][7]);
             VSAVE2(3, t[3][7]);
-        }
+}
         else
         {
 #define VSAVE4(i, v) VSTORE(&y[i*18], v)
@@ -1546,7 +1578,7 @@ static void mp3d_synth(float* xl, mp3d_sample_t* dstl, int nch, float* lins)
             vst1q_lane_f32(dstl + (49 + i) * nch, b, 2);
 #endif /* HAVE_SSE */
 #endif /* MINIMP3_FLOAT_OUTPUT */
-        }
+}
     }
     else
 #endif /* HAVE_SIMD */

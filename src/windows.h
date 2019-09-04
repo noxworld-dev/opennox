@@ -94,6 +94,7 @@ extern "C" {
         WORD nBlockAlign;
     } WAVEFORMAT, * LPWAVEFORMAT;
 
+#pragma pack(push,1)
     typedef struct {
         WORD wFormatTag;
         WORD nChannels;
@@ -112,6 +113,7 @@ extern "C" {
         WORD nFramesPerBlock;
         WORD nCodecDelay;
     } MPEGLAYER3WAVEFORMAT;
+#pragma pack(pop)
 
     typedef struct _GUID {
         DWORD Data1;
