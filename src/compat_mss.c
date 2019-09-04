@@ -654,9 +654,15 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
     else if (wf->wFormatTag == 0x55) // MP3
     {
         if (size < sizeof(MPEGLAYER3WAVEFORMAT))
+        {
+            printf("mp3 error sizeof, expected %d, got %d\n", sizeof(MPEGLAYER3WAVEFORMAT), size);
             goto error;
+        }
         if (mp3wf->wfx.cbSize != 12)
+        {
+            printf("mp3 error cbSize, expected 12 got %d\n", mp3wf->wfx.cbSize);
             goto error;
+        }
         stream->playback_rate = mp3wf->wfx.nSamplesPerSec;
         stream->stereo = mp3wf->wfx.nChannels > 1;
         stream->mp3.wf = *mp3wf;
@@ -1058,9 +1064,9 @@ static void sample_work(HSAMPLE S)
 
 static void stream_work(HSTREAM stream)
 {
-    static WORD buffer[16 * 1024];
+    static WORD buffer[16 * 1024 * 3];
     unsigned int channels = stream->stereo ? 2 : 1;
-    // We need to queue 33ms of audio data.
+    // We need to queue 100ms of audio data.
     unsigned int min_samples = stream->playback_rate * channels / 10;
 
     stream_unqueue_buffers(stream);
