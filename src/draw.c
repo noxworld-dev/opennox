@@ -607,6 +607,10 @@ void sub_48A120()
     {
         sub_48B1D0(&g_frontbuffer1);
     }
+    else
+    {
+        g_frontbuffer1 = 0;
+    }
     sub_48B1D0(&g_backbuffer1);
 #ifndef USE_SDL
     sub_48B1B0(&g_ddraw);
@@ -1050,7 +1054,7 @@ static void set_viewport(float srcw, float srch)
 
 void sdl_present()
 {
-    if (g_ddraw)
+    if (g_ddraw && g_backbuffer1)
     {
         SDL_Rect srcrect;
         SDL_Rect dstrect;
