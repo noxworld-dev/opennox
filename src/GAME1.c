@@ -32,8 +32,8 @@ void* nox_malloc2(size_t x, char* func, int line, char* file)
     void* buf = malloc(100 + x);
     memset(buf, 0, 100 + x);
     strcpy((char*)((int)buf + x), func);
-    strcpy((char*)((int)buf + x + strlen(func)), file);
     memcpy((char*)((int)buf + x + strlen(file)), &line, sizeof(line));
+    strncpy((char*)((int)buf + x + strlen(func) + sizeof(line)), file, ((strlen(file) > (100 - strlen(func) - sizeof(line))) ? (100 - strlen(func) - sizeof(line)) : strlen(file)));
     return buf;
 }
 

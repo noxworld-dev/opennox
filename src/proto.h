@@ -40,6 +40,7 @@ void init_data();
 
 #ifdef USE_SDL
 void change_windowed_fullscreen();
+void updateGamma(int value);
 #endif
 
 int sub_401000();

@@ -42254,6 +42254,7 @@ int __cdecl sub_485D40(int a1, char* a2)
     *(_DWORD*)(v2 + 8) = v12 + 1;
     v14 = 2 * v25 * (v11 + v13);
     result = (int)nox_malloc(5 * v14);
+    memset((int*)result, 0, 5 * v14);
     v24 = 15 * v7;
     *(_DWORD*)& byte_5D4594[60 * v7 + 2678380] = result;
     if (result)

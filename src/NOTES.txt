@@ -1,3 +1,1 @@
-In EMSCRIPTEN, sometimes sub_4AF950 free crashes. Consider it disabling? Memory leak is minimal as this should be called very rarely.
-
 In dialogs, the REPEAT button does nothing.
