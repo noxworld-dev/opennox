@@ -1,1 +1,3 @@
 In dialogs, the REPEAT button does nothing.
+
+A bookcase in wiz02c gets stuck only in EMSCRIPTEN mode (the first bookcase after the two necrospiders). All other bookcases seems to work correctly though

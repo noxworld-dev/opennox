@@ -78,18 +78,18 @@ struct _STREAM
     {
         struct
         {
-            WAVEFORMAT wf;
+            WAVEFORMAT2 wf;
             unsigned int position;
         } pcm;
         struct
         {
-            WAVEFORMAT wf;
+            WAVEFORMAT2 wf;
             unsigned int position;
             unsigned int samples;
         } adpcm;
         struct
         {
-            MPEGLAYER3WAVEFORMAT wf;
+            MPEGLAYER3WAVEFORMAT2 wf;
             mp3dec_t dec;
         } mp3;
     };
@@ -584,8 +584,8 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
     BYTE tmp[256];
     FILE* f;
     HSTREAM stream = NULL;
-    WAVEFORMAT* wf = (WAVEFORMAT*)tmp;
-    MPEGLAYER3WAVEFORMAT* mp3wf = (MPEGLAYER3WAVEFORMAT*)tmp;
+    WAVEFORMAT2* wf = (WAVEFORMAT2*)tmp;
+    MPEGLAYER3WAVEFORMAT2* mp3wf = (MPEGLAYER3WAVEFORMAT2*)tmp;
 
     f = fopen(filename, "rb");
     if (f == NULL)
@@ -610,7 +610,7 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
     if (memcmp(tmp, "fmt ", 4) != 0)
         goto error;
 
-    if (size < sizeof(WAVEFORMAT) || size > sizeof(tmp))
+    if (size < sizeof(WAVEFORMAT2) || size > sizeof(tmp))
         goto error;
 
     if (fread(tmp, size, 1, f) != 1)
@@ -653,9 +653,9 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
     }
     else if (wf->wFormatTag == 0x55) // MP3
     {
-        if (size < sizeof(MPEGLAYER3WAVEFORMAT))
+        if (size < sizeof(MPEGLAYER3WAVEFORMAT2))
         {
-            printf("mp3 error sizeof, expected %d, got %d\n", sizeof(MPEGLAYER3WAVEFORMAT), size);
+            printf("mp3 error sizeof, expected %d, got %d\n", sizeof(MPEGLAYER3WAVEFORMAT2), size);
             goto error;
         }
         if (mp3wf->wfx.cbSize != 12)

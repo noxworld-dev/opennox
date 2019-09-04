@@ -41152,7 +41152,7 @@ FILE* bag_fp[8];
 static FILE* get_bag(unsigned int offset)
 {
     FILE* fp;
-#ifdef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__0
     int i;
     for (i = 0; bag_files[i].path; i++)
     {
@@ -41324,7 +41324,7 @@ char* __cdecl sub_430100(int a1)
     char* result; // eax
 
 #ifdef __EMSCRIPTEN__
-    return "video.bag.0";
+    return "video.bag";
 #else
     result = "video.bag";
     if (a1 != 1)
@@ -43786,15 +43786,17 @@ int sub_432B00()
     if (!(byte_5D4594[2650637] & 2))
     {
 #ifdef __EMSCRIPTEN__
-        * (_DWORD*)& byte_587000[91780] = EM_ASM_INT(return Module['ingameWidth']());
-        *(_DWORD*)& byte_587000[91784] = EM_ASM_INT(return Module['ingameHeight']());
-#else
+        v1 = EM_ASM_INT(return Module['ingameWidth']());
+        v3 = EM_ASM_INT(return Module['ingameHeight']());
+        v6 = 16;
+#endif
         * (_DWORD*)& byte_587000[91780] = v1;
         *(_DWORD*)& byte_587000[91784] = v3;
+        *(_DWORD*)& byte_587000[91788] = v6;
+        *(_DWORD*)& byte_587000[91800] = v6;
+#ifndef __EMSCRIPTEN__
         change_windowed_fullscreen();
 #endif
-        * (_DWORD*)& byte_587000[91788] = v6;
-        *(_DWORD*)& byte_587000[91800] = v6;
     }
     return 1;
 }

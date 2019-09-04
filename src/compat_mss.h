@@ -5,6 +5,53 @@
 #define DXDEC
 #define FAR
 
+#ifdef _MSC_VER
+#pragma pack(push,1)
+#endif
+typedef struct {
+    WORD wFormatTag;
+    WORD nChannels;
+    DWORD nSamplesPerSec;
+    DWORD nAvgBytesPerSec;
+    WORD nBlockAlign;
+}
+#ifndef _MSC_VER
+__attribute__((packed))
+#endif
+WAVEFORMAT2, * LPWAVEFORMAT2;
+
+
+typedef struct {
+    WORD wFormatTag;
+    WORD nChannels;
+    DWORD nSamplesPerSec;
+    DWORD nAvgBytesPerSec;
+    WORD nBlockAlign;
+    WORD wBitsPerSample;
+    WORD cbSize;
+}
+#ifndef _MSC_VER
+__attribute__((packed))
+#endif
+WAVEFORMATEX2;
+
+typedef struct {
+    WAVEFORMATEX2 wfx;
+    WORD wID;
+    DWORD fdwFlags;
+    WORD nBlockSize;
+    WORD nFramesPerBlock;
+    WORD nCodecDelay;
+}
+#ifndef _MSC_VER
+__attribute__((packed))
+#endif
+MPEGLAYER3WAVEFORMAT2;
+
+#ifdef _MSC_VER
+#pragma pack(pop)
+#endif
+
 typedef int8_t S8;
 typedef uint8_t U8;
 typedef int16_t S16;
