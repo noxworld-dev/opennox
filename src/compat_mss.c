@@ -96,7 +96,7 @@ struct _STREAM
     unsigned int (*decode)(HSTREAM, int16_t*, unsigned int);
     void (*seek)(HSTREAM, unsigned int);
     unsigned int (*tell)(HSTREAM);
-    BYTE buffer[16 * 1024];
+    BYTE buffer[16 * 1024 * 3];
 };
 
 struct _TIMER
