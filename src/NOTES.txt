@@ -1,3 +1,3 @@
-In dialogs, the REPEAT button does nothing.
+Game hangs on game exit in EMSCRIPTEN
 
-A bookcase in wiz02c gets stuck only in EMSCRIPTEN mode (the first bookcase after the two necrospiders). All other bookcases seems to work correctly though
+Game selects wrong resolution in EMSCRIPTEN
