@@ -6,6 +6,7 @@
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
 #endif
+#include <float.h>
 #include "proto.h"
 
 //-------------------------------------------------------------------------
@@ -7854,8 +7855,16 @@ void __cdecl sub_54F740(int a1)
                 v14 = *(float*)(v12 + 12) - *(float*)(a1 + 60);
                 v15 = v14;
                 v16 = sqrt(v14 * v15 + v13 * v13) + 0.1;
-                v1[20] = v13 * v1[136] / v16;
-                v1[21] = v15 * v1[136] / v16;
+                v1[20] = v13 * (double)v1[136] / v16;
+                if (v1[20] == 0.0)
+                {
+                    v1[20] = FLT_MIN; // We need a minimal value so we don't end up checked as "uninitialized"
+                }
+                v1[21] = v15 * (double)v1[136] / v16;
+                if (v1[21] == 0.0)
+                {
+                    v1[21] = FLT_MIN; // We need a minimal value so we don't end up checked as "uninitialized"
+                }
             }
         }
         else
