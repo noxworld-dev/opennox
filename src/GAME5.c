@@ -9939,10 +9939,7 @@ int __cdecl sub_5525B0(unsigned int a1, char a2, int a3, char a4)
         return 0;
     while (1)
     {
-#ifndef __EMSCRIPTEN__
         Sleep(0x32u);
-#endif
-        // emscripten_sleep_with_yield(50);
         if (20 * a3 < ++v6)
             break;
         sub_552A80(a1, a4 | 1);

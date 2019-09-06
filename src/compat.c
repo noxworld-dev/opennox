@@ -609,7 +609,9 @@ BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER *lpFrequency)
 
 VOID WINAPI Sleep(DWORD dwMilliseconds)
 {
-#ifndef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__
+	emscripten_sleep(dwMilliseconds);
+#else
     SDL_Delay(dwMilliseconds);
 #endif
 }

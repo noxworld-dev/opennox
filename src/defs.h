@@ -82,6 +82,8 @@ typedef struct __m64 __m64;
 #define nox_calloc(x,y) calloc((x), (y))
 #endif
 
+void nox_exit(int exitCode);
+
 void* nox_malloc2(size_t x, char* func, int line, char* file);
 
 static int __OFSUB__(int x, int y)

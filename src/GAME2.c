@@ -3137,7 +3137,7 @@ unsigned __int8* sub_451630()
         v4 = sub_40F1D0((char*)& byte_587000[126708], 0, (const char*)& byte_587000[126672], 272);
         v3 = sub_40F1D0((char*)& byte_587000[126756], 0, (const char*)& byte_587000[126720], 271);
         nullsub_4(getWindowHandle_sub_401FD0(), v3, v4, 0);
-        exit(0);
+        nox_exit(0);
     }
     v1 = &byte_5D4594[835880];
     result = &byte_5D4594[835800];
@@ -33478,9 +33478,9 @@ DWORD __cdecl sub_47A310(LPCSTR lpPathName)
                             * (_WORD*)& v6[strlen(v6)] = *(_WORD*)& byte_587000[153736];
                         strcat(v6, FindFileData.cFileName);
                         if (strlen(v6) >= 0x200)
-                            exit(1);
+                            nox_exit(1);
                         if (++ * (int*)& byte_5D4594[1189600] >= 128)
-                            exit(1);
+                            nox_exit(1);
                     }
                     while (FindNextFileA(v5, &FindFileData))
                     {
@@ -33494,9 +33494,9 @@ DWORD __cdecl sub_47A310(LPCSTR lpPathName)
                                 * (_WORD*)& v7[strlen(v7)] = *(_WORD*)& byte_587000[153748];
                             strcat(v7, FindFileData.cFileName);
                             if (strlen(v7) >= 0x200)
-                                exit(1);
+                                nox_exit(1);
                             if (++ * (int*)& byte_5D4594[1189600] >= 128)
-                                exit(1);
+                                nox_exit(1);
                             v5 = v9;
                         }
                     }
@@ -54482,7 +54482,7 @@ int __cdecl sub_498330(int a1)
         else
             v2 = result + 1;
         if (v2 > v3)
-            exit(-1);
+            nox_exit(-1);
     }
     return result;
 }

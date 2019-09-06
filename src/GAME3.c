@@ -29750,7 +29750,7 @@ int sub_4CADD0()
         {
             v2 = nox_calloc(1u, 0x3Cu);
             if (!v2)
-                exit(-1);
+                nox_exit(-1);
             ++v1;
             v2[4] = *(_DWORD*)& byte_5D4594[1522584];
             *(_DWORD*)& byte_5D4594[1522584] = v2;
