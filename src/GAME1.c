@@ -44,9 +44,6 @@ void __cdecl sub_48B1B0(SDL_GLContext* a1);
 void cleanup()
 {
     printf("%s\n", __FUNCTION__);
-#ifdef USE_SDL
-    sub_48B1B0(&g_ddraw);
-#endif
     if (sub_40A5C0(0x2000000))
         sub_413D00();
     sub_433290("nox.cfg");
@@ -74,6 +71,9 @@ void cleanup()
     sub_4D0970();
     sub_4093D0();
     sub_40AF30();
+#ifdef USE_SDL
+    sub_48B1B0(&g_ddraw);
+#endif
     if (*(_DWORD*)& byte_5D4594[260])
         sub_40ACA0(*(LPVOID*)& byte_5D4594[260]);
 }
@@ -50800,6 +50800,9 @@ int sub_43DCC0()
                     *(_DWORD*)& byte_5D4594[816348] = 0;
                 }
                 sub_4312C0();
+#ifdef __EMSCRIPTEN__
+                emscripten_sleep(0x32u);
+#endif // __EMSCRIPTEN__
             }
         }
     }
