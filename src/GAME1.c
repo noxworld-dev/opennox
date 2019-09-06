@@ -37,6 +37,16 @@ void* nox_malloc2(size_t x, char* func, int line, char* file)
     return buf;
 }
 
+void nox_exit(int exitCode)
+{
+#ifdef __EMSCRIPTEN__
+    emscripten_sleep(0x32u);
+    exit(exitCode);
+#else
+    exit(exitCode);
+#endif
+}
+
 #ifdef USE_SDL
 void __cdecl sub_48B1B0(SDL_GLContext* a1);
 #endif
@@ -83,7 +93,7 @@ void mainloop_exit_1()
     if (!*(_DWORD*)& byte_587000[93200])
     {
         cleanup();
-        exit(0);
+        nox_exit(0);
     }
 
     // repeat
@@ -40209,7 +40219,7 @@ unsigned int __cdecl sub_42EBB0(unsigned int a1, int a2, int a3, const char* a4)
         {
             v6 = sub_40F1D0((char*)& byte_587000[80600], 0, (const char*)& byte_587000[80560], 37);
             sub_4516C0(v6);
-            exit(-1);
+            nox_exit(-1);
         }
         *(_DWORD*)(v5 + 20 * *(_DWORD*)& byte_5D4594[754096]) = a2;
         *(_DWORD*)(*(_DWORD*)& byte_5D4594[754088] + 20 * *(_DWORD*)& byte_5D4594[754096] + 4) = a3;
@@ -40224,7 +40234,7 @@ unsigned int __cdecl sub_42EBB0(unsigned int a1, int a2, int a3, const char* a4)
         {
             v8 = sub_40F1D0((char*)& byte_587000[80656], 0, (const char*)& byte_587000[80616], 52);
             sub_4516C0(v8);
-            exit(-1);
+            nox_exit(-1);
         }
         *(_DWORD*)(v7 + 20 * *(_DWORD*)& byte_5D4594[754100]) = a2;
         *(_DWORD*)(*(_DWORD*)& byte_5D4594[754092] + 20 * *(_DWORD*)& byte_5D4594[754100] + 4) = a3;
@@ -50801,7 +50811,7 @@ int sub_43DCC0()
                 }
                 sub_4312C0();
 #ifdef __EMSCRIPTEN__
-                emscripten_sleep(0x32u);
+                Sleep(0x32u);
 #endif // __EMSCRIPTEN__
             }
         }

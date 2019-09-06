@@ -419,7 +419,7 @@ void sub_4516C0(wchar_t* a1, ...)
         sub_430EF0();
     sub_4453A0();
     sub_4453A0();
-    exit(0);
+    nox_exit(0);
 }
 // 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
 
