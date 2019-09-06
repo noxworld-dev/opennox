@@ -192,7 +192,7 @@ extern "C" {
         LONG y;
     } POINT;
 
-    struct WSAData {
+    typedef struct WSAData {
         WORD wVersion;
         WORD wHighVersion;
         CHAR szDescription[257];

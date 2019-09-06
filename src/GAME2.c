@@ -61740,14 +61740,15 @@ int __cdecl sub_4A0570(int* a1, char* a2)
     char* v4; // eax
     int v6; // [esp+0h] [ebp-8h]
     int v7; // [esp+4h] [ebp-4h]
+    int v8;
 
     v2 = strtok(a2, (const char*)& byte_587000[167520]);
-    LOBYTE(v7) = atoi(v2);
+    v7 = atoi(v2);
     v3 = strtok(0, (const char*)& byte_587000[167528]);
-    LOBYTE(v6) = atoi(v3);
+    v6 = atoi(v3);
     v4 = strtok(0, (const char*)& byte_587000[167536]);
-    LOBYTE(a2) = atoi(v4);
-    *a1 = sub_4344A0(v7, v6, (int)a2);
+    v8 = atoi(v4);
+    *a1 = sub_4344A0(v7, v6, (int)v8);
     return 1;
 }
 // 4A05C7: variable 'v7' is possibly undefined

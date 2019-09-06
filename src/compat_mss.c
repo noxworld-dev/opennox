@@ -21,6 +21,7 @@ struct _DIG_DRIVER
     SDL_mutex* mutex;
     HSAMPLE sample_head;
     HSTREAM stream_head;
+    SDL_TimerID timer;
 };
 
 struct _SAMPLE_BUFFER
@@ -97,6 +98,8 @@ struct _STREAM
     void (*seek)(HSTREAM, unsigned int);
     unsigned int (*tell)(HSTREAM);
     BYTE buffer[16 * 1024 * 3];
+
+    char filename[2048];
 };
 
 struct _TIMER
@@ -302,6 +305,7 @@ DXDEC void AILCALL AIL_close_stream(HSTREAM stream)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     SDL_LockMutex(stream->dig->mutex);
+    stream->playing = 0;
     SDL_UnlockMutex(stream->dig->mutex);
 }
 
@@ -620,6 +624,7 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
     stream->dig = dig;
     stream->file = f;
     stream->file_size = file_size;
+    strncpy(stream->filename, filename, strlen(filename) > 2047 ? 2047 : strlen(filename));
 
     if (wf->wFormatTag == 0x01) // PCM
     {
@@ -699,6 +704,7 @@ DXDEC void AILCALL AIL_pause_stream(HSTREAM stream, S32 onoff)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
     // DebugBreak();
+    stream->playing = onoff == 1 ? 0 : 1;
 }
 
 DXDEC AILSAMPLECB AILCALL AIL_register_EOB_callback(HSAMPLE S, AILSAMPLECB EOB)
@@ -894,6 +900,7 @@ DXDEC S32 AILCALL AIL_stream_status(HSTREAM stream)
 DXDEC void AILCALL AIL_waveOutClose(HDIGDRIVER drvr)
 {
     // fprintf(stderr, "%s\n", __FUNCTION__);
+    SDL_RemoveTimer(drvr->timer);
 }
 
 #if 0
@@ -1141,7 +1148,7 @@ DXDEC S32 AILCALL AIL_waveOutOpen(HDIGDRIVER FAR* pdrvr, LPHWAVEOUT FAR* lphWave
     alcMakeContextCurrent(dig->context);
     checkError();
     dig->mutex = SDL_CreateMutex();
-    SDL_AddTimer(1000.0 / 20, work_callback, dig);
+    dig->timer = SDL_AddTimer(1000.0 / 20, work_callback, dig);
     alListenerf(AL_GAIN, 1.0f);
     alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
     *pdrvr = dig;
