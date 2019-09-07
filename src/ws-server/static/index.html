@@ -520,9 +520,12 @@ function drawTexture(gl, shader, rotate) {
         },
         ingameHeight: function() {
           if (isMobile()) return 480;
-          else if (location.search.indexOf('nowidescreen') < 0) return 576;
           else return 768;
         },
+		shouldStretch: function() {
+		  if (location.search.indexOf('nowidescreen') < 0) return true;
+		  else return false;
+		},
         shouldRotate: function() {
             return isMobile()
         },

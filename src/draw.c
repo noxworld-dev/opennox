@@ -1019,12 +1019,15 @@ static void set_viewport(float srcw, float srch)
     int vpw, vph, vpx, vpy;
 
 #ifdef __EMSCRIPTEN__
-    EM_ASM_({
-        if (canvas.width != canvas.clientWidth * devicePixelRatio || canvas.height != canvas.clientHeight * devicePixelRatio) {
-            canvas.width = canvas.clientWidth * devicePixelRatio;
-            canvas.height = canvas.clientHeight * devicePixelRatio;
-        }
-        });
+    if (!g_scaled)
+    {
+        EM_ASM_({
+            if (canvas.width != canvas.clientWidth * devicePixelRatio || canvas.height != canvas.clientHeight * devicePixelRatio) {
+                canvas.width = canvas.clientWidth * devicePixelRatio;
+                canvas.height = canvas.clientHeight * devicePixelRatio;
+            }
+            });
+    }
     vpw = EM_ASM_INT(return canvas.width);
     vph = EM_ASM_INT(return canvas.height);
 #else
@@ -1069,9 +1072,28 @@ void sdl_present()
         }
         if (g_scaled)
         {
+            SDL_GetClipRect(g_backbuffer1, &srcrect);
+            if (dstrect.w != srcrect.w || dstrect.h != srcrect.h)
+            {
+                float newW;
+                float newH;
+                float newCoefficient = (float)(dstrect.w) / (float)(dstrect.h);
+                float oldCoefficient = (float)(srcrect.w) / (float)(srcrect.h);
+                if (newCoefficient > oldCoefficient)
+                {
+                    newW = srcrect.h * newCoefficient;
+                    newH = srcrect.h;
+                }
+                else
+                {
+                    newW = srcrect.w;
+                    newH = srcrect.w / newCoefficient;
+                }
+                dstrect.w = newW;
+                dstrect.h = newH;
+            }
             g_frontbuffer1 = sub_48A600(dstrect.w, dstrect.h, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
             SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
-            SDL_GetClipRect(g_backbuffer1, &srcrect);
             SDL_GetClipRect(g_frontbuffer1, &dstrect);
             res = SDL_BlitScaled(g_backbuffer1, &srcrect, g_frontbuffer1, &dstrect);
         }
