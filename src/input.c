@@ -583,17 +583,17 @@ signed int initMouse_sub_47D8D0()
 
     if (DirectInputCreateA(*(HINSTANCE*)& byte_5D4594[823784], 0x300u, &g_dinput_mouse, 0) < 0)
     {
-        v0 = sub_40F1D0("Dxinput.c:IM_CreateFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 73);
+        v0 = loadString_sub_40F1D0("Dxinput.c:IM_CreateFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 73);
         sub_4516C0(v0);
     }
     if (g_dinput_mouse->lpVtbl->CreateDevice(g_dinput_mouse, &GUID_SysMouse, &g_device_mouse, 0) < 0)
     {
-        v0 = sub_40F1D0("Dxinput.c:IM_CreateDeviceFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 87);
+        v0 = loadString_sub_40F1D0("Dxinput.c:IM_CreateDeviceFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 87);
         sub_4516C0(v0);
     }
     if (g_device_mouse->lpVtbl->SetCooperativeLevel(g_device_mouse, getWindowHandle_sub_401FD0(), DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0)
     {
-        v0 = sub_40F1D0("Dxinput.c:IM_SetCoopFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 105);
+        v0 = loadString_sub_40F1D0("Dxinput.c:IM_SetCoopFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 105);
         sub_4516C0(v0);
     }
     v4.diph.dwSize = 20;
@@ -603,17 +603,17 @@ signed int initMouse_sub_47D8D0()
     v4.dwData = 256;
     if (g_device_mouse->lpVtbl->SetProperty(g_device_mouse, DIPROP_BUFFERSIZE, (LPCDIPROPHEADER)& v4) < 0)
     {
-        v0 = sub_40F1D0("Dxinput.c:IM_SetPropertyFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 123);
+        v0 = loadString_sub_40F1D0("Dxinput.c:IM_SetPropertyFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 123);
         sub_4516C0(v0);
     }
     if (g_device_mouse->lpVtbl->SetDataFormat(g_device_mouse, &c_dfDIMouse) < 0)
     {
-        v0 = sub_40F1D0("Dxinput.c:IM_SetFormatFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 135);
+        v0 = loadString_sub_40F1D0("Dxinput.c:IM_SetFormatFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 135);
         sub_4516C0(v0);
     }
     if (g_device_mouse->lpVtbl->Acquire(g_device_mouse) < 0)
     {
-        v0 = sub_40F1D0("Dxinput.c:IM_AquireFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 147);
+        v0 = loadString_sub_40F1D0("Dxinput.c:IM_AquireFailed", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 147);
         sub_4516C0(v0);
     }
     v9.dwSize = 24;
@@ -727,7 +727,7 @@ UINT __cdecl sub_47D660(UINT uJoyID, int a2)
             *(_DWORD*)& byte_5D4594[v3 + 1189632] = 0;
             if (joyGetDevCapsA(uJoyID, (LPJOYCAPSA)& byte_5D4594[404 * uJoyID + 1189700], 0x194u))
             {
-                v4 = sub_40F1D0((char*)& byte_587000[153832], 0, (const char*)& byte_587000[153792], 79);
+                v4 = loadString_sub_40F1D0((char*)& byte_587000[153832], 0, (const char*)& byte_587000[153792], 79);
                 sub_4517A0(v4, uJoyID);
                 result = 0;
             }
@@ -802,25 +802,25 @@ void sub_47FB10()
 
     if (DirectInputCreateA(*(HINSTANCE*)& byte_5D4594[823784], 0x300u, &g_dinput_keyboard, 0) < 0)
     {
-        v0 = sub_40F1D0("Dxinput.c:OK_CreateFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 827);
+        v0 = loadString_sub_40F1D0("Dxinput.c:OK_CreateFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 827);
         sub_4516C0(v0);
     }
 
     if (g_dinput_keyboard->lpVtbl->CreateDevice(g_dinput_keyboard, &GUID_SysKeyboard, &g_device_keyboard, NULL) < 0)
     {
-        v1 = sub_40F1D0("Dxinput.c:OK_CreateDeviceFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 841);
+        v1 = loadString_sub_40F1D0("Dxinput.c:OK_CreateDeviceFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 841);
         sub_4516C0(v1);
     }
 
     if (g_device_keyboard->lpVtbl->SetDataFormat(g_device_keyboard, &c_dfDIKeyboard) < 0)
     {
-        v2 = sub_40F1D0("Dxinput.c:OK_SetFormatFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 853);
+        v2 = loadString_sub_40F1D0("Dxinput.c:OK_SetFormatFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 853);
         sub_4516C0(v2);
     }
 
     if (g_device_keyboard->lpVtbl->SetCooperativeLevel(g_device_keyboard, getWindowHandle_sub_401FD0(), DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0)
     {
-        v5 = sub_40F1D0("Dxinput.c:OK_SetCoopFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 868);
+        v5 = loadString_sub_40F1D0("Dxinput.c:OK_SetCoopFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 868);
         sub_4516C0(v5);
     }
 
@@ -831,13 +831,13 @@ void sub_47FB10()
     v15.dwData = 256;
     if (g_device_keyboard->lpVtbl->SetProperty(g_device_keyboard, DIPROP_BUFFERSIZE, &v15) < 0)
     {
-        v6 = sub_40F1D0("Dxinput.c:OK_SetPropertyFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 886);
+        v6 = loadString_sub_40F1D0("Dxinput.c:OK_SetPropertyFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 886);
         sub_4516C0(v6);
     }
 
     if (g_device_keyboard->lpVtbl->Acquire(g_device_keyboard) < 0)
     {
-        v7 = sub_40F1D0("Dxinput.c:OK_AquireFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 899);
+        v7 = loadString_sub_40F1D0("Dxinput.c:OK_AquireFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 899);
         sub_4516C0(v7);
     }
 
@@ -1628,8 +1628,8 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 {
                     sub_452D80(921, 100);
                     sub_413A00(1);
-                    v41 = sub_40F1D0((char*)& byte_587000[80304], 0, (const char*)& byte_587000[80264], 1867);
-                    v40 = sub_40F1D0((char*)& byte_587000[80372], 0, (const char*)& byte_587000[80332], 1866);
+                    v41 = loadString_sub_40F1D0((char*)& byte_587000[80304], 0, (const char*)& byte_587000[80264], 1867);
+                    v40 = loadString_sub_40F1D0((char*)& byte_587000[80372], 0, (const char*)& byte_587000[80332], 1866);
                     sub_449A10(0, (int)v40, (int)v41, 56, (int (*)(void))sub_42E600, sub_42E620);
                     *(_DWORD*)& byte_5D4594[v36 + 747900] = 0;
                 }
