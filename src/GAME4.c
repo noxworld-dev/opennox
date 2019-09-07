@@ -53562,6 +53562,7 @@ char* __cdecl sub_536260(char* a1, int a2)
     int v5; // eax
     char* v6; // eax
     double v7; // [esp+Ch] [ebp-8h]
+    double v8;
 
     *(_DWORD*)a2 = 0;
     result = strtok(a1, (const char*)& byte_587000[270276]);
@@ -53580,7 +53581,15 @@ char* __cdecl sub_536260(char* a1, int a2)
             if (result)
             {
                 v7 = (double) * (unsigned int*)& byte_5D4594[2649704];
-                *(_DWORD*)(a2 + 100) = (__int64)(v7 / atof(result));
+                v8 = atof(result);
+                if (v8 == 0.0)
+                {
+                    *(_DWORD*)(a2 + 100) = 0;
+                }
+                else
+                {
+                    *(_DWORD*)(a2 + 100) = (__int64)(v7 / v8);
+                }
                 v4 = strtok(0, (const char*)& byte_587000[270288]);
                 if (v4 && !strcmp(v4, (const char*)& byte_587000[270292]))
                 {
