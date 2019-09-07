@@ -67,6 +67,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             g_argv[g_argc++] = v4;
         }
     }
+#ifdef __EMSCRIPTEN__
+    if (EM_ASM_INT(return Module['shouldStretch']()))
+    {
+        g_scaled = -1;
+    }
+#endif
     g_argv[g_argc] = NULL;
     v7 = 0;
     v10 = 0;
