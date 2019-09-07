@@ -45,12 +45,6 @@ extern "C" int main(int argc, char* argv[])
         }
         FS.symlink('/assets/' + lang + '/default.fnt', '/assets/default.fnt');
         FS.symlink('/assets/' + lang + '/nox.csf', '/assets/nox.csf');
-
-        FS.mkdir('/save');
-        FS.mount(IDBFS, {}, '/save');
-
-        FS.rmdir('/assets/Save');
-        FS.symlink('/save', '/assets/Save');
     });
 
     EM_ASM(

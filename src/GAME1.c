@@ -42061,6 +42061,7 @@ BOOL __cdecl sub_430BE0(int a1, int a2, int a3)
     *(_DWORD*)& byte_5D4594[3807120] = a2;
     if (a2 > * (int*)& byte_587000[80860])
         * (_DWORD*)& byte_5D4594[3807120] = *(_DWORD*)& byte_587000[80860];
+    a3 = 16;
     result = a3 != 8;
     *(_DWORD*)& byte_5D4594[3804680] = a3 != 8;
     return result;
@@ -43793,13 +43794,13 @@ int sub_432B00()
     {
         v6 = sub_4300D0(1) ? 16 : 8;
     }
+#ifdef __EMSCRIPTEN__
+    v1 = EM_ASM_INT(return Module['ingameWidth']());
+    v3 = EM_ASM_INT(return Module['ingameHeight']());
+#endif
+    v6 = 16; // 8 bit not supported
     if (!(byte_5D4594[2650637] & 2))
     {
-#ifdef __EMSCRIPTEN__
-        v1 = EM_ASM_INT(return Module['ingameWidth']());
-        v3 = EM_ASM_INT(return Module['ingameHeight']());
-        v6 = 16;
-#endif
         * (_DWORD*)& byte_587000[91780] = v1;
         *(_DWORD*)& byte_587000[91784] = v3;
         *(_DWORD*)& byte_587000[91788] = v6;
@@ -43807,6 +43808,7 @@ int sub_432B00()
 #ifndef __EMSCRIPTEN__
         change_windowed_fullscreen();
 #endif
+        * (_DWORD*)& byte_5D4594[805856] = 1;
     }
     return 1;
 }
@@ -56553,15 +56555,7 @@ LABEL_29:
     v5 = v9;
 LABEL_30:
     sub_43BEB0(&v11, &v10, &v9);
-    if (v4 == 16)
-    {
-        if (!sub_4300D0(1))
-            v4 = 8;
-    }
-    else if (v4 == 8 && !sub_4300D0(0))
-    {
-        v4 = 16;
-    }
+    v4 = 16; // 8 bit not supported
     sub_481420();
     if (!(byte_5D4594[2650637] & 2))
         sub_43BEF0(640, 480, v4);
