@@ -1994,7 +1994,11 @@ void __cdecl sub_4340A0(int a1, int a2, int a3, int a4)
     unsigned __int64 v6; // rax
     unsigned __int64 v7; // rax
 
-    LODWORD(v4) = a1;
+    a2 = a2 & 0xFF;
+    a3 = a3 & 0xFF;
+    a4 = a4 & 0xFF;
+
+    v4 = a1;
     if (a1 >= 0 && a1 < 16)
     {
         v5 = 48 * a1 + *(_DWORD*)& byte_5D4594[3799572] + 264;
@@ -3150,6 +3154,9 @@ int __cdecl sub_4341D0(int a1, int a2)
 //----- (00434320) --------------------------------------------------------
 void sub_434320(int a1, int a2, int a3)
 {
+    a1 = a1 & 0xFF;
+    a2 = a2 & 0xFF;
+    a3 = a3 & 0xFF;
     if (dword_69A014)
         dword_69A014(a1, a2, a3, (DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 232));
 }
@@ -3157,6 +3164,9 @@ void sub_434320(int a1, int a2, int a3)
 //----- (004343B0) --------------------------------------------------------
 void sub_4343B0(int a1, int a2, int a3)
 {
+    a1 = a1 & 0xFF;
+    a2 = a2 & 0xFF;
+    a3 = a3 & 0xFF;
     if (dword_69A014)
         dword_69A014(a1, a2, a3, (DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 236));
 }
@@ -3164,6 +3174,9 @@ void sub_4343B0(int a1, int a2, int a3)
 //----- (00434400) --------------------------------------------------------
 void sub_434400(int a1, int a2, int a3)
 {
+    a1 = a1 & 0xFF;
+    a2 = a2 & 0xFF;
+    a3 = a3 & 0xFF;
     if (dword_69A014)
         dword_69A014(a1, a2, a3, (DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 240));
 }
@@ -3171,6 +3184,9 @@ void sub_434400(int a1, int a2, int a3)
 //----- (00434430) --------------------------------------------------------
 void sub_434430(int a1, int a2, int a3)
 {
+    a1 = a1 & 0xFF;
+    a2 = a2 & 0xFF;
+    a3 = a3 & 0xFF;
     if (dword_69A014)
         dword_69A014(a1, a2, a3, (DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 244));
 }
@@ -3187,6 +3203,9 @@ int __cdecl sub_4344A0(int a1, int a2, int a3)
     int result; // eax
     int v4; // [esp+0h] [ebp-4h]
 
+    a1 = a1 & 0xFF;
+    a2 = a2 & 0xFF;
+    a3 = a3 & 0xFF;
     result = 0;
     v4 = 0;
     if (dword_69A014)
