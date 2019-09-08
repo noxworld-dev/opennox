@@ -1,7 +1,7 @@
 CC = emcc
 CXX = em++
-CFLAGS = -w -O3 -g -fno-strict-aliasing -fno-strict-overflow -s USE_SDL=2 -s CASE_INSENSITIVE_FS=1 -s TOTAL_MEMORY=201326592 -s EMULATE_FUNCTION_POINTER_CASTS=1 -s ASSERTIONS=2 -mnontrapping-fptoint -s ASYNCIFY -s EXIT_RUNTIME=1
-CXXFLAGS = -O3 -g
+CFLAGS = -w -O3 -g -fno-strict-aliasing -fno-strict-overflow -s USE_SDL=2 -s CASE_INSENSITIVE_FS=1 -s TOTAL_MEMORY=201326592 -s EMULATE_FUNCTION_POINTER_CASTS=1 -s ASSERTIONS=2 -mnontrapping-fptoint -s ASYNCIFY -s EXIT_RUNTIME=1 -fshort-wchar
+CXXFLAGS = -O3 -g -fshort-wchar
 LDFLAGS = --pre-js pre.js
 
 .PHONY: clean
