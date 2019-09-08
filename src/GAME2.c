@@ -61958,19 +61958,18 @@ int __cdecl sub_4A0A60(int a1, char* a2)
 int __cdecl sub_4A0A90(int a1, char* a2)
 {
     wchar_t* v2; // eax
-    wchar_t buffer[0x3Fu];
-    wchar_t format[3] = { 0x25, 0x53, 0x00 };
 
-    v2 = loadString_sub_40F1D0(a2, 0, (const char*)& byte_587000[167760], 424);
     if (!strcmp(a2, "Options.wnd:8BitColor"))
     {
-        nox_swprintf(buffer, format, "\tWindowed");
-        v2 = buffer;
+        v2 = L"\tWindowed";
     }
     else if (!strcmp(a2, "Options.wnd:16BitColor"))
     {
-        nox_swprintf(buffer, format, "\tFullscreen");
-        v2 = buffer;
+        v2 = L"\tFullscreen";
+    }
+    else
+    {
+        v2 = loadString_sub_40F1D0(a2, 0, (const char*)& byte_587000[167760], 424);
     }
     nox_wcsncpy((wchar_t*)(a1 + 72), v2, 0x3Fu);
     *(_WORD*)(a1 + 196) = 0;
