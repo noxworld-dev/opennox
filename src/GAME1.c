@@ -7492,8 +7492,8 @@ _BYTE* getMem(unsigned int addr)
     }
     else if (addr >= 0x980858 && addr <= 0x980858 + 3 * 4)
     {
-        addrOffset = addr - 0x9800B0;
-        result = (_BYTE*)(&((_BYTE*)asc_9800B0)[addrOffset]);
+        addrOffset = addr - 0x980858;
+        result = (_BYTE*)(&((_BYTE*)dword_980858)[addrOffset]);
     }
     else
     {

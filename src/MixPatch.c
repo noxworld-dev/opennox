@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "GameEx.h"
 
 __int16 asc_9800B0[] = { 0,
       0,
