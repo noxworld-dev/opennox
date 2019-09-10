@@ -36,7 +36,10 @@ extern unsigned __int8 byte_581450[23472];
 extern unsigned __int8 byte_587000[316820];
 extern unsigned __int8 byte_5D4594[3844309];
 
+#define MEMACCESS(x) *((_BYTE*)getMem(x))
+
 void init_data();
+_BYTE* getMem(unsigned int addr);
 
 #ifdef USE_SDL
 void change_windowed_fullscreen();

@@ -8,3 +8,5 @@ int OnLibraryNotice(int a1, ...);
 
 void __cdecl sub_980523(int a1);
 int __cdecl sub_9805EB(int a1);
+
+int __stdcall mix_recvfrom(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen);

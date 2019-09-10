@@ -9624,7 +9624,7 @@ int __cdecl sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr*
     char v8; // al
     int result; // eax
 
-    v6 = recvfrom(s, buf, len, flags, from, fromlen);
+    v6 = mix_recvfrom(s, buf, len, flags, from, fromlen);
     if (v6 != -1)
     {
         v7 = sub_551E60((int)from);
@@ -12090,7 +12090,7 @@ int __cdecl sub_554D70(char a1)
     LABEL_8:
         while (1)
         {
-            v2 = recvfrom(*(SOCKET*)& byte_5D4594[2513920], buf, 256, 0, &from, &fromlen);
+            v2 = mix_recvfrom(*(SOCKET*)& byte_5D4594[2513920], buf, 256, 0, &from, &fromlen);
             if (v2 == -1)
                 break;
             v3 = buf[2];

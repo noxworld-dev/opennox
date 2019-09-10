@@ -583,3 +583,7 @@ int __cdecl sub_9805EB(int a1)
     return (int)v1;
 }
 
+int __stdcall mix_recvfrom(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen)
+{
+    return recvfrom(s, buf, len, flags, from, fromlen);
+}
