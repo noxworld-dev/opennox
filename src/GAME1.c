@@ -7456,6 +7456,53 @@ void init_data()
     init_data_mix();
 }
 
+_BYTE* getMem(unsigned int addr)
+{
+    _BYTE* result = 0;
+    unsigned int addrOffset = 0;
+    if (addr >= 0x563002 && addr <= 0x563002 + 4)
+    {
+        addrOffset = addr - 0x563002;
+        result = (_BYTE*)(&((_BYTE*)byte_563002)[addrOffset]);
+    }
+    else if (addr >= 0x563006 && addr <= 0x563006 + 26)
+    {
+        addrOffset = addr - 0x563006;
+        result = (_BYTE*)(&((_BYTE*)byte_563006)[addrOffset]);
+    }
+    else if (addr >= 0x581450 && addr <= 0x581450 + 23472)
+    {
+        addrOffset = addr - 0x581450;
+        result = (_BYTE*)(&((_BYTE*)byte_581450)[addrOffset]);
+    }
+    else if (addr >= 0x587000 && addr <= 0x587000 + 316820)
+    {
+        addrOffset = addr - 0x587000;
+        result = (_BYTE*)(&((_BYTE*)byte_587000)[addrOffset]);
+    }
+    else if (addr >= 0x5D4594 && addr <= 0x5D4594 + 3844309)
+    {
+        addrOffset = addr - 0x5D4594;
+        result = (_BYTE*)(&((_BYTE*)byte_5D4594)[addrOffset]);
+    }
+    else if (addr >= 0x9800B0 && addr <= 0x9800B0 + 526 * 2)
+    {
+        addrOffset = addr - 0x9800B0;
+        result = (_BYTE*)(&((_BYTE*)asc_9800B0)[addrOffset]);
+    }
+    else if (addr >= 0x980858 && addr <= 0x980858 + 3 * 4)
+    {
+        addrOffset = addr - 0x9800B0;
+        result = (_BYTE*)(&((_BYTE*)asc_9800B0)[addrOffset]);
+    }
+    else
+    {
+        fprintf(stderr, "Invalid memory access! Requested = %x\n", addr);
+        DebugBreak();
+    }
+    return result;
+}
+
 //----- (00408CC0) --------------------------------------------------------
 FILE* __cdecl sub_408CC0(char* a1, int a2)
 {
