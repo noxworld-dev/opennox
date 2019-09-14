@@ -32068,7 +32068,7 @@ int __cdecl sub_51BAD0(int a1, unsigned __int8* a2, signed int a3)
     CHAR FileName[1024]; // [esp+254h] [ebp-400h]
 
     // mix patch
-    int vU101; // ebp
+    int vU101[2]; // ebp
 
     if (a3)
     {
@@ -32180,8 +32180,9 @@ int __cdecl sub_51BAD0(int a1, unsigned __int8* a2, signed int a3)
                 if (v24 + *(unsigned __int8*)(v23 + 488) <= *(unsigned __int16*)(v9 + 490))
                 {
                     sub_4F36F0(v9, v23, 1, 1);
-                    vU101 = v9;
-                    OnLibraryNotice(420, &vU101, v9, v23);
+                    vU101[0] = v9;
+                    vU101[1] = v23;
+                    OnLibraryNotice(420, vU101, v9, v23);
                 LABEL_55:
                     v8 = (int)v89;
                     v10 = (int*)v85;

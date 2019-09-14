@@ -51,6 +51,7 @@ add_executable (
     string.c
     win.c
 	MixPatch.c
+	GameEx.c
     "${COMPAT_SOURCES}"
 )
 target_link_libraries (
