@@ -683,12 +683,12 @@ int __cdecl sendtoWrapper(char *buf, int len, int smth)
 
   if ( buf
     && len
-    && (v3 = *(SOCKET **)(4 * MEMACCESS(0x69B7E8) + 0x97EC60)) != 0// 0x97EC60 = netstructList
+    && (v3 = *(SOCKET **)getMem(4 * MEMACCESS(0x69B7E8) + 0x97EC60)) != 0// 0x97EC60 = netstructList
                                                 // 0x69B7E8 = netSocketData
     && 4 * MEMACCESS(0x69B7E8) != 0xFF6813A0       // Seems to be bug
                                                 // lea     eax, ds:97EC60h[eax*4]
                                                 // test    eax, eax
-    && (v4 = *(_DWORD *)(4 * MEMACCESS(0x69B7E8) + 0x97EC60)) != 0 )
+    && (v4 = *(_DWORD *)getMem(4 * MEMACCESS(0x69B7E8) + 0x97EC60)) != 0 )
   {
     result = sendto(*v3, buf, len, 0, (const struct sockaddr *)(v4 + 4), 16);
   }
@@ -1013,7 +1013,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3)
       *(_DWORD *)&cp[12] = 0;
       *(_DWORD *)&cp[16] = 0;
       fileBuffer = nox_malloc(fileBufferSize);
-      if ( ReadFile(result, fileBuffer, fileSize, &NumberOfBytesRead, 0) )
+      if ( fread(fileBuffer, 1, fileSize, result) == fileSize)
       {
         fileBufferOffset = 0;
         v9 = 0;
@@ -1052,7 +1052,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3)
       }
       free(fileBuffer);
     }
-    result = (HANDLE)CloseHandle(result);
+    result = fclose(result);
   }
   return result;
 }
@@ -1150,7 +1150,7 @@ int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4)
     if ( v4 == 1938 && !sub_40A5C0(512) )
     {
       sub_4BDFD0();
-      sub_46A9B0((_DWORD *)0x715E00, 200, 100);
+      sub_46A9B0((_DWORD *)getMem(0x715E00), 200, 100);
     }
     return 0;
   }
@@ -1458,19 +1458,19 @@ _DWORD *OnLibraryNotice(int a1, ...)
   _DWORD *a2b; // [esp+10h] [ebp-5Ch]
   int v23; // [esp+14h] [ebp-58h]
   unsigned __int8 v24[64]; // [esp+1Ch] [ebp-50h]
-  char buf; // [esp+5Ch] [ebp-10h]
-  char v26[4]; // [esp+60h] [ebp-Ch]
+  char buf[10]; // [esp+5Ch] [ebp-10h]
+  char vaArg1_1[4]; // [esp+60h] [ebp-Ch]
   char v27; // [esp+64h] [ebp-8h]
-  int v28; // [esp+78h] [ebp+Ch]
-  int v29; // [esp+7Ch] [ebp+10h]
-  int v30; // [esp+80h] [ebp+14h]
+  int vaArg1; // [esp+78h] [ebp+Ch]
+  int vaArg2; // [esp+7Ch] [ebp+10h]
+  int vaArg3; // [esp+80h] [ebp+14h]
   va_list va; // [esp+84h] [ebp+18h]
 
   va_start(va, a1);
-  v28 = va_arg(va, _DWORD);
-  v29 = va_arg(va, _DWORD);
-  v30 = va_arg(va, _DWORD);
-  *(_DWORD *)v26 = v28;
+  vaArg1 = va_arg(va, _DWORD);
+  vaArg2 = va_arg(va, _DWORD);
+  vaArg3 = va_arg(va, _DWORD);
+  *(_DWORD *)vaArg1_1 = vaArg1;
   result = (_DWORD *)(a1 - 257);
   switch ( a1 )                                 // нет кейсов 256, 262, но на них есть ссылки из экзе
                                                 //  -- видимо микс вырезал функционал
@@ -1485,9 +1485,9 @@ _DWORD *OnLibraryNotice(int a1, ...)
       someSwitch = 0;
       return result;
     case 260:                                   // пингует все сервера из файла game.ip
-      LOWORD(a2) = **(_DWORD **)v26;
-      v3 = *(_DWORD *)(*(_DWORD *)v26 + 8);
-      v4 = *(_DWORD *)(*(_DWORD *)v26 + 4);
+      LOWORD(a2) = **(_DWORD **)vaArg1_1;
+      v3 = *(_DWORD *)(*(_DWORD *)vaArg1_1 + 8);
+      v4 = *(_DWORD *)(*(_DWORD *)vaArg1_1 + 4);
       GameIpParser(v4, a2, v3);
       return (_DWORD *)pingAllServersInGameIp(v4, v1, a2, v4, v3);
     case 261:                                   // вызывается при обновлении параметров сервера через гуй
@@ -1509,9 +1509,9 @@ _DWORD *OnLibraryNotice(int a1, ...)
     case 264:
       return (_DWORD *)sub_40A5C0(1);
     case 265:
-      a2a = (*(_DWORD *)(v30 + 4) >> 7) & 1;
-      result = (_DWORD *)((unsigned __int8)v29 - 2);
-      if ( (unsigned __int8)v29 == 2 && (_DWORD *)MEMACCESS(0x6D8555) == result )
+      a2a = (*(_DWORD *)(vaArg3 + 4) >> 7) & 1;
+      result = (_DWORD *)((unsigned __int8)vaArg2 - 2);
+      if ( (unsigned __int8)vaArg2 == 2 && (_DWORD *)MEMACCESS(0x6D8555) == result )
       {
         if ( (MEMACCESS(0x98085A) >> 3) & 1 )
         {
@@ -1544,20 +1544,20 @@ _DWORD *OnLibraryNotice(int a1, ...)
       }
       return result;
     case 417:
-      v7 = *(_WORD *)v26;
-      if ( v26[1] != 2 )
+      v7 = *(_WORD *)vaArg1_1;
+      if ( vaArg1_1[1] != 2 )
         return result;
-      if ( v26[0] == 26 )
+      if ( vaArg1_1[0] == 26 )
       {
         v8 = 1;
       }
       else
       {
-        if ( v26[0] != 27 )
+        if ( vaArg1_1[0] != 27 )
           goto LABEL_37;
         v8 = 0;
       }
-      v26[1] = v8;
+      vaArg1_1[1] = v8;
       if ( (MEMACCESS(0x98085A) >> 3) & 1 )
       {
         result = (_DWORD *)sub_40A5C0(0x204);// проверяет какие-то неизвестные пока геймфлаги
@@ -1567,7 +1567,7 @@ _DWORD *OnLibraryNotice(int a1, ...)
             return result;
           if ( sub_40A5C0(1) )            // isServer
           {
-            if ( MEMACCESS(0x97EBC0) && playerDoAutoShield(MEMACCESS(0x97EBC0), v26[1]) )
+            if ( MEMACCESS(0x97EBC0) && playerDoAutoShield(MEMACCESS(0x97EBC0), vaArg1_1[1]) )
               sub_452D80(895, 100);
           }
           else
@@ -1635,7 +1635,7 @@ LABEL_37:
           a2b = sub_46B0C0(modifyWndPntr, 1981);
           v12 = 1520;
           v13 = wndEntryNames;
-          *(_DWORD *)v26 = 5;
+          *(_DWORD *)vaArg1_1 = 5;
           do
           {
             sub_46B490((int)a2b, 16397, (int)v13, -1);
@@ -1651,9 +1651,9 @@ LABEL_37:
             }
             ++v13;
             ++v12;
-            --*(_DWORD *)v26;
+            --*(_DWORD *)vaArg1_1;
           }
-          while ( *(_DWORD *)v26 );
+          while ( *(_DWORD *)vaArg1_1 );
         }
 LABEL_60:
         result = 0;
@@ -1682,9 +1682,9 @@ LABEL_60:
       }
       return result;
     case 420:
-      v23 = **(_DWORD **)v26;
-      v19 = *(_DWORD *)(*(_DWORD *)v26 + 4);
-      LOBYTE(v16) = getPlayerClassFromObjPtr(**(_DWORD **)v26);
+      v23 = **(_DWORD **)vaArg1_1;
+      v19 = *(_DWORD *)(*(_DWORD *)vaArg1_1 + 4);
+      LOBYTE(v16) = getPlayerClassFromObjPtr(**(_DWORD **)vaArg1_1);
       v18 = v16;
       if ( *(_BYTE *)(v19 + 0xA) != 17 )
         goto LABEL_71;
@@ -1700,7 +1700,7 @@ LABEL_71:
       if ( (_BYTE)v16 == 1 )
         goto LABEL_71;
 ifIsWarrior:
-      sub_4DA2C0(v23, (const char *)0x5BBAB4, 0);// 0x5BBAB4 = pickup.c:ObjectEquipClassFail
+      sub_4DA2C0(v23, (const char *)getMem(0x5BBAB4), 0);// 0x5BBAB4 = pickup.c:ObjectEquipClassFail
       sub_501960(925, v23, 2, *(_DWORD *)(v23 + 36));
       return v18;
 	default:
