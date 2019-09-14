@@ -1241,7 +1241,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
   int *v40; // [esp+2Ch] [ebp-B8h]
   int v41; // [esp+30h] [ebp-B4h]
   int a2[2]; // [esp+34h] [ebp-B0h]
-  int vectorWithPlayerInfoStructs[6]; // [esp+3Ch] [ebp-A8h]
+  int v43[6]; // [esp+3Ch] [ebp-A8h]
   unsigned __int8 v44[64]; // [esp+54h] [ebp-90h]
   int v45; // [esp+E0h] [ebp-4h]
 
@@ -1322,27 +1322,27 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
             do
             {
               v19 = *v18;
-              v18[(char *)vectorWithPlayerInfoStructs + 2 - (buf + 4)] = *v18;
+              v18[(char *)v43 + 2 - (buf + 4)] = *v18;
               ++v18;
             }
             while ( v19 );
-            if ( playerInfoStructParser_0((char *)vectorWithPlayerInfoStructs) )
+            if ( playerInfoStructParser_0((char *)v43) )
             {
               buf[2] = 6;
               v20 = sub_433890();
-              v21 = (char *)vectorWithPlayerInfoStructs + 2;
+              v21 = (char *)v43 + 2;
               do
               {
                 v22 = *v20;
                 *v21++ = *v20++;
               }
               while ( v22 );
-              v23 = vectorWithPlayerInfoStructs[1];
-              v24 = vectorWithPlayerInfoStructs[2];
-              *((_DWORD *)buf + 1) = vectorWithPlayerInfoStructs[0];
-              v25 = vectorWithPlayerInfoStructs[3];
+              v23 = v43[1];
+              v24 = v43[2];
+              *((_DWORD *)buf + 1) = v43[0];
+              v25 = v43[3];
               *((_DWORD *)buf + 2) = v23;
-              LOWORD(v23) = vectorWithPlayerInfoStructs[4];
+              LOWORD(v23) = v43[4];
               *((_DWORD *)buf + 3) = v24;
               *((_DWORD *)buf + 4) = v25;
               *((_WORD *)buf + 10) = v23;
@@ -1376,14 +1376,14 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
           do
           {
             v28 = *v27;
-            v27[(char *)vectorWithPlayerInfoStructs + 2 - (buf + 4)] = *v27;
+            v27[(char *)v43 + 2 - (buf + 4)] = *v27;
             ++v27;
           }
           while ( v28 );
-          if ( playerInfoStructParser_1((int)vectorWithPlayerInfoStructs, (int)&to, &v39) )
+          if ( playerInfoStructParser_1((int)v43, (int)&to, &v39) )
           {
             buf[2] = 7;
-            v29 = strlen((const char *)vectorWithPlayerInfoStructs + 2);
+            v29 = strlen((const char *)v43 + 2);
             v30 = &buf[v29 + 4];
             v31 = strlen(v30);
             if ( v31 )
