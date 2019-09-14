@@ -866,83 +866,75 @@ char __usercall playerInfoStructParser_1(int a1, int a2, int *a3)
 //----- (10001EE0) --------------------------------------------------------
 char __cdecl playerDoAutoShield(int playerObj, char a2)
 {
-  int v2; // esi
-  int v3; // esi
-  signed int v4; // edi
-  int i; // esi
-  int v6; // eax
-  int v7; // esi
-  bool v8; // eax
-  int v9; // esi
-  int weapFlags; // eax
-  bool v11; // eax
-  int v13; // [esp-28h] [ebp-38h]
-  int v14; // [esp-24h] [ebp-34h]
-  int v15; // [esp-24h] [ebp-34h]
-  char v16; // [esp+Fh] [ebp-1h]
+    int v2; // esi
+    int v3; // esi MAPDST
+    signed int v4; // edi
+    int i; // esi MAPDST
+    int v6; // eax
+    int v8; // eax
+    int weapFlags; // eax
+    int v11; // eax
+    char v16; // [esp+Fh] [ebp-1h]
 
-  v16 = 0;
-  v2 = *(_DWORD *)(playerObj + 748);
-  if ( !(*(_BYTE *)(*(_DWORD *)(v2 + 276) + 3680) & 3) && *(_BYTE *)(v2 + 88) != 1 )
-  {
-    v3 = *(_DWORD *)(v2 + 104);
-    v4 = 0x1F0;
-    if ( v3 )
+    v16 = 0;
+    v2 = *(_DWORD*)(playerObj + 748);
+    if (!(*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 3) && *(_BYTE*)(v2 + 88) != 1)
     {
-      v15 = v3;
-      if ( !a2 )
-        v4 = 0x1F4;
-      while ( 1 )
-      {
-        v9 = *(_DWORD *)(v3 + v4);
-        if ( !v9 )
-          break;
-        weapFlags = sub_415820(v9);       // weaponEquipFlags
-        v3 = v13;
-        if ( weapFlags )
+        v3 = *(_DWORD*)(v2 + 104);
+        v4 = 496;
+        if (v3)
         {
-          if ( weapFlags != 2 )
-          {
-            if ( sub_57B3D0(v13, *(_BYTE *)(*(_DWORD *)(*(_DWORD *)(playerObj + 748) + 276) + 2251)) )
+            if (!a2)
+                v4 = 500;
+            while (1)
             {
-              v11 = sub_4F3180(playerObj, v3);
-              if ( v11 )
-              {
-                if ( sub_4F2FB0((_DWORD *)playerObj, v15) && sub_4F2F70((_DWORD *)playerObj, v3) )// dequip&equip item
-                  v16 = 1;
-                return v16;
-              }
+                v3 = *(_DWORD*)(v3 + v4);
+                if (!v3)
+                    break;
+                weapFlags = sub_415820(v3);       // weaponEquipFlags
+                if (weapFlags)
+                {
+                    if (weapFlags != 2)
+                    {
+                        if (sub_57B3D0(v3, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 748) + 276) + 2251)))
+                        {
+                            v11 = sub_4F3180(playerObj, v3);
+                            if (v11)
+                            {
+                                if (sub_4F2FB0((_DWORD*)playerObj, v3) && sub_4F2F70((_DWORD*)playerObj, v3))// dequip&equip item
+                                    v16 = 1;
+                                return v16;
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
-    else
-    {
-      for ( i = *(_DWORD *)(playerObj + 504); i; i = *(_DWORD *)(v7 + 0x1F0) )
-      {
-        v6 = sub_415820(i);               // weaponEquipFlags
-        v7 = v14;
-        if ( v6 )
+        else
         {
-          if ( v6 != 2 )
-          {
-            if ( sub_57B3D0(v14, *(_BYTE *)(*(_DWORD *)(*(_DWORD *)(playerObj + 0x2EC) + 0x114) + 0x8CB)) )
+            for (i = *(_DWORD*)(playerObj + 504); i; i = *(_DWORD*)(i + 496))
             {
-              v8 = sub_4F3180(playerObj, v7);
-              if ( v8 )
-              {
-                if ( sub_4F2F70((_DWORD *)playerObj, v7) )
-                  v16 = 1;
-                return v16;
-              }
+                v6 = sub_415820(i);               // weaponEquipFlags
+                if (v6)
+                {
+                    if (v6 != 2)
+                    {
+                        if (sub_57B3D0(i, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114) + 0x8CB)))
+                        {
+                            v8 = sub_4F3180(playerObj, i);
+                            if (v8)
+                            {
+                                if (sub_4F2F70((_DWORD*)playerObj, i))
+                                    v16 = 1;
+                                return v16;
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
-  return v16;
+    return v16;
 }
 /* Orphan comments:
 playerCanUseItem
