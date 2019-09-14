@@ -302,13 +302,13 @@ BOOL nox_CharToOemW(
 }
 
 //----- (10001000) --------------------------------------------------------
-BOOL __stdcall DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
   if ( fdwReason && fdwReason == 1 && !isLoaded )
   {
       da_init(gameIps);
     isLoaded = 1;
-    MEMACCESS(0x581354) = MixRecvFromReplacer;
+    //MEMACCESS(0x581354) = MixRecvFromReplacer; // It is replaced elsewhere
     GameExCfgLoader();
   }
   return 1;

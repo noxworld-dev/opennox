@@ -33,7 +33,7 @@ DA_TYPEDEF(int, intArray);
 #define __thiscall __cdecl // Test compile in C mode
 #define __usercall __cdecl // Test compile in C mode
 
-BOOL __stdcall DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
+BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
 // void __thiscall ExceptionDestructor(void *this);
 // void *__thiscall BadAllocException(void *this, char a2);
 // _DWORD *__thiscall LogicExceptionCreator(_DWORD *this, _DWORD *a2);

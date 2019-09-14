@@ -531,7 +531,7 @@ int dword_980858[] = { 1966080, 1821179904, 2415929931 };
 
 void init_data_mix()
 {
-
+    GameEx_DllMain(NULL, 1, NULL);
 }
 
 int OnLibraryNotice_stub(int a1, ...)
@@ -585,5 +585,5 @@ int __cdecl sub_9805EB(int a1)
 
 int __stdcall mix_recvfrom(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen)
 {
-    return recvfrom(s, buf, len, flags, from, fromlen);
+    return MixRecvFromReplacer(s, buf, len, flags, from, fromlen);
 }
