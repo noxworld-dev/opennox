@@ -1676,7 +1676,7 @@ LABEL_60:
     case 420:
       v23 = **(_DWORD **)vaArg1_1;
       v19 = *(_DWORD *)(*(_DWORD *)vaArg1_1 + 4);
-      LOBYTE(v16) = getPlayerClassFromObjPtr(**(_DWORD **)vaArg1_1);
+      v16 = getPlayerClassFromObjPtr(**(_DWORD **)vaArg1_1);
       v18 = v16;
       if ( *(_BYTE *)(v19 + 0xA) != 17 )
         goto LABEL_71;
