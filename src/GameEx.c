@@ -1,5 +1,5 @@
+#define DG_DYNARR_IMPLEMENTATION
 #include "GameEx.h"
-
 
 //-------------------------------------------------------------------------
 // Data declarations
@@ -290,16 +290,23 @@ char isInvalidIp = 0; // weak
 char inputNewIpMsgBox[512]; // weak
 char isLoaded = 0; // weak
 void *modifyWndPntr = 0; // weak
-void *allocatorRelated; // idb
-void *vectorBegin; // idb
-int vectorEnd; // weak
 
+intArray gameIps;
+
+BOOL nox_CharToOemW(
+    LPCWSTR pSrc,
+    LPSTR   pDst
+)
+{
+    return nox_sprintf(pDst, "%S", pSrc);
+}
 
 //----- (10001000) --------------------------------------------------------
 BOOL __stdcall DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
   if ( fdwReason && fdwReason == 1 && !isLoaded )
   {
+      da_init(gameIps);
     isLoaded = 1;
     MEMACCESS(0x581354) = MixRecvFromReplacer;
     GameExCfgLoader();
@@ -770,7 +777,7 @@ char __cdecl getPlayerClassFromObjPtr(int a1)
 }
 
 //----- (10001C50) --------------------------------------------------------
-int __usercall playerInfoStructsToVector(int *this)
+int __usercall playerInfoStructsToVector(smallPlayerStructVector *vector)
 {
   int v1; // esi
   int *v2; // edi
@@ -780,31 +787,22 @@ int __usercall playerInfoStructsToVector(int *this)
   char *result; // eax
   char *v7; // esi
   char v8; // [esp+10h] [ebp-24h]
-  CHAR pDst[18]; // [esp+18h] [ebp-1Ch]
+  smallPlayerStruct pDst; // [esp+18h] [ebp-1Ch]
 
-  v2 = this;
-  v3 = this[4];
-  if ( this[3] > v3 )
-    _invalid_parameter_noinfo(v3, (int)this, v1);
-  v4 = v2[3];
-  v5 = *v2;
-  if ( v4 > v2[4] )
-    _invalid_parameter_noinfo(v3, (int)v2, v4);
-  PossibleVectorSub(&v8, v2, v4, *v2, v4, v5, v3);
   result = sub_416EA0();
   v7 = result;
   if ( result )
   {
     do
     {
-      pDst[1] = *((_BYTE *)sub_418C80(*((_DWORD *)v7 + 515)) + 4);
-      pDst[0] = v7[2251];
-      CharToOemW((LPCWSTR)v7 + 2352, &pDst[2]);
-      InsertIntoVector_(v2, (int)pDst);
+      pDst.string[1] = *((_BYTE *)sub_418C80(*((_DWORD *)v7 + 515)) + 4);
+      pDst.string[0] = v7[2251];
+      nox_CharToOemW((LPCWSTR)v7 + 2352, &(pDst.string[2]));
+      da_add(*vector, pDst);
       v7 = sub_416EE0((int)v7);
     }
     while ( v7 );
-    result = (char *)((v2[4] - v2[3]) / 18);    // Count of vector elements?
+    result = da_count(*vector);
   }
   return (int)result;
 }
@@ -822,7 +820,7 @@ char __cdecl playerInfoStructParser_0(char *a1)
     return 0;
   while ( 1 )
   {
-    CharToOemW((LPCWSTR)v1 + 2352, &pDst);
+    nox_CharToOemW((LPCWSTR)v1 + 2352, &pDst);
     if ( !strcmp(&pDst, a1 + 2) )
       break;
     v1 = sub_416EE0((int)v1);
@@ -989,82 +987,72 @@ char __cdecl playerDropATrap(int playerObj)
 //----- (100020F0) --------------------------------------------------------
 HANDLE __usercall GameIpParser(int a1, int a2, int a3)
 {
-  HANDLE result; // eax
-  HANDLE v4; // edi
-  DWORD v5; // eax
-  DWORD v6; // esi
-  unsigned int v7; // ebp
-  unsigned int v8; // esi
+  HANDLE result; // eax MAPDST
+  DWORD fileSize; // esi MAPDST
+  unsigned int fileBufferSize; // ebp
+  unsigned int fileBufferOffset; // esi
   unsigned int v9; // ecx
-  char v10; // al
+  char currentFileBufferPntr; // al
   DWORD NumberOfBytesRead; // [esp+4h] [ebp-28h]
-  void *v12; // [esp+8h] [ebp-24h]
-  DWORD v13; // [esp+Ch] [ebp-20h]
-  HANDLE v14; // [esp+10h] [ebp-1Ch]
-  char cp[4]; // [esp+14h] [ebp-18h]
-  int v16; // [esp+18h] [ebp-14h]
-  int v17; // [esp+1Ch] [ebp-10h]
-  int v18; // [esp+20h] [ebp-Ch]
-  int v19; // [esp+24h] [ebp-8h]
+  void *fileBuffer; // [esp+8h] [ebp-24h]
+  char cp[20]; // [esp+14h] [ebp-18h]
 
   result = fopen("game_ip.txt", "r");
-  v4 = result;
-  v14 = result;
   if ( result )
   {
-    fseek(result , 0 , SEEK_END);
-    v5 = ftell(v4);
+	fseek(result , 0 , SEEK_END);
+    fileSize = ftell(result);
     fseek(result, 0, 0);
-    v6 = v5;
-    v13 = v5;
-    if ( v5 )
+    if ( fileSize )
     {
-      v7 = v5 + 1;
+      fileBufferSize = fileSize + 1;
       NumberOfBytesRead = 0;
       *(_DWORD *)cp = 0;
-      v16 = 0;
-      v17 = 0;
-      v18 = 0;
-      v19 = 0;
-      v12 = nox_malloc(v5 + 1);
-      if ( fread(v12, 1, v6, v4) == v6 )
+      *(_DWORD *)&cp[4] = 0;
+      *(_DWORD *)&cp[8] = 0;
+      *(_DWORD *)&cp[12] = 0;
+      *(_DWORD *)&cp[16] = 0;
+      fileBuffer = nox_malloc(fileBufferSize);
+      if ( ReadFile(result, fileBuffer, fileSize, &NumberOfBytesRead, 0) )
       {
-        v8 = 0;
+        fileBufferOffset = 0;
         v9 = 0;
-        if ( v7 )
+        if ( fileBufferSize )
         {
           do
           {
             if ( v9 > 0x14 )
               break;
-            v10 = *((_BYTE *)v12 + v8);
-            if ( v10 == 44 || v8 == v13 || v10 == 32 || v10 == 10 )
+            currentFileBufferPntr = *((_BYTE *)fileBuffer + fileBufferOffset);
+            if ( currentFileBufferPntr == 44
+              || fileBufferOffset == fileSize
+              || currentFileBufferPntr == 32
+              || currentFileBufferPntr == 10 )
             {
               if ( v9 )
               {
                 NumberOfBytesRead = inet_addr(cp);
                 sub_555010(NumberOfBytesRead, a2, (char *)a1, a3);
                 *(_DWORD *)cp = 0;
-                v16 = 0;
-                v17 = 0;
-                v18 = 0;
-                v19 = 0;
+                *(_DWORD *)&cp[4] = 0;
+                *(_DWORD *)&cp[8] = 0;
+                *(_DWORD *)&cp[12] = 0;
+                *(_DWORD *)&cp[16] = 0;
                 v9 = 0;
               }
             }
-            else if ( v10 > 41 && v10 < 64 || v10 == 46 )
+            else if ( currentFileBufferPntr > 41 && currentFileBufferPntr < 64 || currentFileBufferPntr == 46 )
             {
-              cp[v9++] = v10;
+              cp[v9++] = currentFileBufferPntr;
             }
-            ++v8;
+            ++fileBufferOffset;
           }
-          while ( v8 < v7 );
-          v4 = v14;
+          while ( fileBufferOffset < fileBufferSize );
         }
       }
-      free(v12);
+      free(fileBuffer);
     }
-    result = (HANDLE)fclose(v4);
+    result = (HANDLE)CloseHandle(result);
   }
   return result;
 }
@@ -1072,64 +1060,14 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3)
 //----- (10002240) --------------------------------------------------------
 unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a2, int a3)
 {
-  unsigned int result; // eax
-  void *v6; // ecx
-  int *v7; // esi
-  int *v8; // edi
-  int v9; // ebx
-  int v10; // eax
-  int v11; // eax
+  int* it;
+  int* end = da_end(gameIps);
 
-  result = vectorEnd;
-  v6 = vectorBegin;
-  if ( (vectorEnd - (_DWORD)vectorBegin) & 0xFFFFFFFC )
+  for (it = da_begin(gameIps), end = da_end(gameIps); it != end; ++it)
   {
-    v7 = (int *)vectorBegin;
-    if ( (unsigned int)vectorBegin > vectorEnd )
-    {
-      _invalid_parameter_noinfo(ebx0, edi0, (int)vectorBegin);
-      result = vectorEnd;
-      v6 = vectorBegin;
-    }
-    v8 = (int *)allocatorRelated;
-    while ( 1 )
-    {
-      v9 = result;
-      if ( (unsigned int)v6 > result )
-        result = _invalid_parameter_noinfo(result, (int)v8, (int)v7);
-      if ( !v8 || v8 != allocatorRelated )
-        result = _invalid_parameter_noinfo(v9, (int)v8, (int)v7);
-      if ( v7 == (int *)v9 )
-        break;
-      if ( v8 )
-      {
-        v10 = *v8;
-      }
-      else
-      {
-        _invalid_parameter_noinfo(v9, 0, (int)v7);
-        v10 = 0;
-      }
-      if ( (unsigned int)v7 >= *(_DWORD *)(v10 + 16) )
-        _invalid_parameter_noinfo(v9, (int)v8, (int)v7);
-      sub_555010(*v7, a1, (char *)a2, a3);// Вызывает какую-то функцию которая создаёт структуру сокета и отпр 16 байт
-      if ( v8 )
-      {
-        v11 = *v8;
-      }
-      else
-      {
-        _invalid_parameter_noinfo(v9, 0, (int)v7);
-        v11 = 0;
-      }
-      if ( (unsigned int)v7 >= *(_DWORD *)(v11 + 16) )
-        _invalid_parameter_noinfo(v9, (int)v8, (int)v7);
-      result = vectorEnd;
-      v6 = vectorBegin;
-      ++v7;
-    }
+      sub_555010(*it, a1, (char*)a2, a3);// Вызывает какую-то функцию которая создаёт структуру сокета и отпр 16 байт
   }
-  return result;
+  return end;
 }
 // 10012BE4: using guessed type int vectorEnd;
 
@@ -1146,12 +1084,12 @@ signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4)
   sub_452D80(766, 100);                   // playSound
   if ( v7 == 4001 )
   {
-    if ( CharToOemW(pSrc, pDst) )
+    if ( nox_CharToOemW(pSrc, pDst) )
     {
       v6 = inet_addr(pDst);
       if ( v6 != -1 && &pDst[strlen(pDst) + 1] != &pDst[1] )
       {
-        addToVector_(&v6, ebx0);
+          da_add(gameIps, v6);
         isInvalidIp = 0;
         return 1;
       }
@@ -1171,17 +1109,17 @@ _DWORD *playErrSoundClient()
 }
 
 //----- (10002400) --------------------------------------------------------
-void invalidIpChecker()
+unsigned int invalidIpChecker(unsigned int interval, void* param)
 {
   while ( sub_44A4A0() )
-    Sleep(0x12Cu);
+    return 1;
   if ( isInvalidIp )
   {
     sub_449A10(0, 0, (int)L"Invalid Address", 33, (int (*)(void))playErrSoundClient, 0);
-    _endthreadex(0);
+    return 0;
   }
   sub_4378B0();
-  _endthreadex(0);
+  return 0;
 }
 // 1000F110: using guessed type wchar_t aInvalidAddress[16];
 // 100129C1: using guessed type char isInvalidIp;
@@ -1192,7 +1130,7 @@ HANDLE __usercall startInvalidIpChecker(int a1)
   HANDLE result; // eax
 
   if ( !MEMACCESS(0x59C56C) )
-    result = _beginthreadex(a1, 0, 0, (int)invalidIpChecker, 0, 0, 0);
+    result = SDL_AddTimer(0x12Cu, invalidIpChecker, NULL);
   return result;
 }
 
@@ -1298,7 +1236,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
   char *v27; // eax
   char v28; // cl
   unsigned int v29; // kr00_4
-  const char *v30; // edx
+  char *v30; // edx
   unsigned int v31; // ecx
   unsigned __int8 *v32; // esi
   char v33; // bl
@@ -1352,65 +1290,35 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
       case 3u:                                  // Send back playerInfoStructs
         if ( sub_40A5C0(1) && (MEMACCESS(0x98085A) >> 5) & 1 )
         {
-          CreateVector(vectorWithPlayerInfoStructs);
+            smallPlayerStructVector vector;
+            smallPlayerStruct* it;
+            smallPlayerStruct* end;
+
+            da_init(vector);
           v45 = 0;
-          if ( playerInfoStructsToVector(vectorWithPlayerInfoStructs) )
+          if ( playerInfoStructsToVector(&vector) )
           {
             copyServerMatchData((char *)v44);
             v11 = MEMACCESS(0x98085A);
-            v39 = 18 * ((vectorWithPlayerInfoStructs[4] - vectorWithPlayerInfoStructs[3]) / 18) + 68;// CountOfVectorElements * sizeof(vectorcontent) + 68
+            v39 = 18 * da_count(vector) + 68;
             qmemcpy(buf + 8, v44, 0x40u);
             *((_DWORD *)buf + 1) = v11;
-            VectorGetFirstElement(vectorWithPlayerInfoStructs, a1);
-            v12 = VectorGetLastElement(vectorWithPlayerInfoStructs, a2);
-            if ( CompareVectorValues(a1, v12, (int)buf) )
+            if (da_count(vector) > 0)
             {
-              v13 = buf + 72;
-              do
-              {
-                if ( a1[0] )                    // Get quantity of items in vector?
+                v13 = buf + 72;
+                for (it = da_begin(vector), end = da_end(vector); it != end; ++it)
                 {
-                  v14 = *(_DWORD *)a1[0];
+                    *(_DWORD*)v13 = *(_DWORD*)(it->string);
+                    *((_DWORD*)v13 + 1) = *(_DWORD*)((it->string) + 4);
+                    *((_DWORD*)v13 + 2) = *(_DWORD*)((it->string) + 8);
+                    *((_DWORD*)v13 + 3) = *(_DWORD*)((it->string) + 12);
+                    *((_WORD*)v13 + 8) = *(_WORD*)((it->string) + 16);
+                    v13 += 18;
                 }
-                else
-                {
-                  _invalid_parameter_noinfo((int)buf, (int)v13, (int)v12);
-                  v14 = 0;
-                }
-                v15 = a1[1];
-                if ( (unsigned int)a1[1] >= *(_DWORD *)(v14 + 16) )// Check if out of bounds
-                  _invalid_parameter_noinfo((int)buf, (int)v13, a1[1]);
-                *(_DWORD *)v13 = *(_DWORD *)v15;
-                *((_DWORD *)v13 + 1) = *(_DWORD *)(v15 + 4);
-                *((_DWORD *)v13 + 2) = *(_DWORD *)(v15 + 8);
-                *((_DWORD *)v13 + 3) = *(_DWORD *)(v15 + 12);
-                v16 = (int *)a1[0];
-                *((_WORD *)v13 + 8) = *(_WORD *)(v15 + 16);
-                v13 += 18;
-                if ( v16 )
-                {
-                  v17 = *v16;
-                }
-                else
-                {
-                  _invalid_parameter_noinfo((int)buf, (int)v13, v15);
-                  v17 = 0;
-                }
-                if ( v15 >= *(_DWORD *)(v17 + 16) )// Check if out of bounds
-                  _invalid_parameter_noinfo((int)buf, (int)v13, v15);
-                a1[1] = v15 + 18;
-                v12 = VectorGetLastElement(vectorWithPlayerInfoStructs, a2);
-              }
-              while ( CompareVectorValues(a1, v12, (int)buf) );
             }
             sendto(s, buf, v39, 0, to, 16);
           }
-          if ( vectorWithPlayerInfoStructs[3] )
-            free((void *)vectorWithPlayerInfoStructs[3]);
-          vectorWithPlayerInfoStructs[3] = 0;
-          vectorWithPlayerInfoStructs[4] = 0;
-          vectorWithPlayerInfoStructs[5] = 0;
-          free((void *)vectorWithPlayerInfoStructs[0]);
+          da_free(vector);
         }
         break;
       case 4u:
