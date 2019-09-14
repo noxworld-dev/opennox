@@ -1,5 +1,6 @@
 #include "defs.h"
 #include "proto.h"
+#include "DG_dynarr.h"
 
 #ifdef _WIN32
 typedef intptr_t INT_PTR;
@@ -17,6 +18,14 @@ typedef struct keyCodeStruct
   unsigned __int8 keyCode;
   char keyName[12];
 } keyCodeStruct;
+
+typedef struct smallPlayerStruct {
+    char string[18];
+} smallPlayerStruct;
+
+DA_TYPEDEF(smallPlayerStruct, smallPlayerStructVector);
+DA_TYPEDEF(int, intArray);
+
 
 //-------------------------------------------------------------------------
 // Function declarations
@@ -42,7 +51,7 @@ void __cdecl notifyThisIsServeronly(int ptr, __int16 shortval, BOOL boolval); //
 int __usercall DestroyNoxWindow();
 int __usercall copyServerMatchData(char *a1);
 char __cdecl getPlayerClassFromObjPtr(int a1);
-int __usercall playerInfoStructsToVector(int *this);
+int __usercall playerInfoStructsToVector(smallPlayerStructVector *vector);
 char __cdecl playerInfoStructParser_0(char *a1); // idb
 char __usercall playerInfoStructParser_1(int a1, int a2, int *a3);
 char __cdecl playerDoAutoShield(int playerObj, char a2); // idb
@@ -51,7 +60,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3);
 unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a2, int a3);
 signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4);
 _DWORD *playErrSoundClient();
-void invalidIpChecker();
+unsigned int invalidIpChecker(unsigned int interval, void* param);
 HANDLE __usercall startInvalidIpChecker(int a1);
 int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4);
 int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struct sockaddr *from, int *fromlen); // idb

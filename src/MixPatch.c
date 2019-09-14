@@ -534,7 +534,7 @@ void init_data_mix()
 
 }
 
-int OnLibraryNotice(int a1, ...)
+int OnLibraryNotice_stub(int a1, ...)
 {
     /* TODO: STUB */
     return 0;
