@@ -33,7 +33,7 @@ DA_TYPEDEF(int, intArray);
 #define __thiscall __cdecl // Test compile in C mode
 #define __usercall __cdecl // Test compile in C mode
 
-BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
+//BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
 // void __thiscall ExceptionDestructor(void *this);
 // void *__thiscall BadAllocException(void *this, char a2);
 // _DWORD *__thiscall LogicExceptionCreator(_DWORD *this, _DWORD *a2);
@@ -63,8 +63,8 @@ _DWORD *playErrSoundClient();
 unsigned int invalidIpChecker(unsigned int interval, void* param);
 HANDLE __usercall startInvalidIpChecker(int a1);
 int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4);
-int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struct sockaddr *from, int *fromlen); // idb
-_DWORD *OnLibraryNotice(int, ...);
+//int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struct sockaddr *from, int *fromlen); // idb
+//_DWORD *OnLibraryNotice(int, ...);
 // int __thiscall ExceptMsg(int this, void *Src);
 // void **SomeAllocatorVectorMB();
 // _DWORD *__usercall addToVector_(_DWORD *a1, int a2);
