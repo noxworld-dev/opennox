@@ -1022,7 +1022,7 @@ static void set_viewport(float srcw, float srch)
     if (!g_scaled)
     {
         EM_ASM_({
-            if (canvas.width != canvas.clientWidth * devicePixelRatio || canvas.height != canvas.clientHeight * devicePixelRatio) {
+            if (canvas.width/canvas.height != (canvas.clientWidth*devicePixelRatio)/(canvas.clientHeight*devicePixelRatio)) {
                 canvas.width = canvas.clientWidth * devicePixelRatio;
                 canvas.height = canvas.clientHeight * devicePixelRatio;
             }
@@ -1061,40 +1061,60 @@ void sdl_present()
     {
         SDL_Rect srcrect;
         SDL_Rect dstrect;
+        SDL_Rect currrect;
         int res;
+        BOOL isRectDifferent = 0;
 
         dstrect.x = 0;
         dstrect.y = 0;
         SDL_GL_GetDrawableSize(getWindowHandle_sub_401FD0(), &(dstrect.w), &(dstrect.h));
+        SDL_GetClipRect(g_backbuffer1, &srcrect);
+        if (dstrect.w != srcrect.w || dstrect.h != srcrect.h)
+        {
+            float newW;
+            float newH;
+            float newCoefficient = (float)(dstrect.w) / (float)(dstrect.h);
+            float oldCoefficient = (float)(srcrect.w) / (float)(srcrect.h);
+            if (newCoefficient > oldCoefficient)
+            {
+                newW = srcrect.h * newCoefficient;
+                newH = srcrect.h;
+            }
+            else
+            {
+                newW = srcrect.w;
+                newH = srcrect.w / newCoefficient;
+            }
+            dstrect.w = newW;
+            dstrect.h = newH;
+
+            isRectDifferent = 1;
+        }
         if (g_frontbuffer1 != g_backbuffer1)
         {
-            sub_48B1D0(&g_frontbuffer1);
+            if (!g_scaled || isRectDifferent)
+            {
+                sub_48B1D0(&g_frontbuffer1);
+                g_frontbuffer1 = 0;
+            }
+            else
+            {
+                SDL_GetClipRect(g_frontbuffer1, &currrect);
+                if (dstrect.h != currrect.h || dstrect.w != currrect.w)
+                {
+                    sub_48B1D0(&g_frontbuffer1);
+                    g_frontbuffer1 = 0;
+                }
+            }
+        }
+        if (g_scaled && g_frontbuffer1 == 0)
+        {
+            g_frontbuffer1 = sub_48A600(dstrect.w, dstrect.h, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
+            SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
+            SDL_SetSurfaceBlendMode(g_frontbuffer1, SDL_BLENDMODE_NONE);
         }
         if (g_scaled)
         {
-            SDL_GetClipRect(g_backbuffer1, &srcrect);
-            if (dstrect.w != srcrect.w || dstrect.h != srcrect.h)
-            {
-                float newW;
-                float newH;
-                float newCoefficient = (float)(dstrect.w) / (float)(dstrect.h);
-                float oldCoefficient = (float)(srcrect.w) / (float)(srcrect.h);
-                if (newCoefficient > oldCoefficient)
-                {
-                    newW = srcrect.h * newCoefficient;
-                    newH = srcrect.h;
-                }
-                else
-                {
-                    newW = srcrect.w;
-                    newH = srcrect.w / newCoefficient;
-                }
-                dstrect.w = newW;
-                dstrect.h = newH;
-            }
-            g_frontbuffer1 = sub_48A600(dstrect.w, dstrect.h, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
-            SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
-            SDL_GetClipRect(g_frontbuffer1, &dstrect);
             res = SDL_BlitScaled(g_backbuffer1, &srcrect, g_frontbuffer1, &dstrect);
         }
         else
