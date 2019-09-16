@@ -1242,7 +1242,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
   int v41; // [esp+30h] [ebp-B4h]
   int a2[2]; // [esp+34h] [ebp-B0h]
   int v43[6]; // [esp+3Ch] [ebp-A8h]
-  unsigned __int8 v44[64]; // [esp+54h] [ebp-90h]
+  unsigned __int8 v44[0x80]; // [esp+54h] [ebp-90h]
   int v45; // [esp+E0h] [ebp-4h]
 
   v6 = buf;
@@ -1354,16 +1354,14 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
       case 5u:
         if ( (MEMACCESS(0x98085A) >> 5) & 1 )
         {
-          *(_WORD *)v44 = 0;
-          memset(&v44[2], 0, 0x76u);
+          memset(v44, 0, 0x80u);
           mbstowcs((wchar_t *)v44, buf + 4, strlen(buf + 4));
           sub_445490((wchar_t *)v44);
           sub_452D80(901, 100);
         }
         break;
       case 7u:
-        *(_WORD *)v44 = 0;
-        memset(&v44[2], 0, 0x76u);
+        memset(v44, 0, 0x80u);
         mbstowcs((wchar_t *)v44, buf + 4, strlen(buf + 4));
         sub_445490((wchar_t *)v44);
         sub_452D80(901, 100);
