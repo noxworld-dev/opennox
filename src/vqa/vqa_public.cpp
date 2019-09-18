@@ -7,6 +7,11 @@ extern "C" int PlayMovieCallback(byte* frame, dword cx, dword cy);
 
 extern "C" int PlayMovie(char* filename)
 {
+    char* backslash = strchr(filename, '\\');
+    if (backslash != NULL)
+    {
+        backslash[0] = '/';
+    }
     Cvqa_file file(filename);
     file.register_decode(&PlayMovieCallback);
     file.post_open();
