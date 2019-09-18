@@ -64,6 +64,8 @@ struct t_list_entry
 	short* audio;
 };
 
+#define MAX_AUDIO_BUFFERS 1000
+
 int Cvqa_file::extract_both()
 {
     ALCcontext* alContext;
@@ -104,12 +106,12 @@ int Cvqa_file::extract_both()
 
     ALuint frequency = get_samplerate();
 
-    ALuint buffers[10];
-    ALuint busyBuffers[10];
+    ALuint buffers[MAX_AUDIO_BUFFERS];
+    ALuint busyBuffers[MAX_AUDIO_BUFFERS];
     memset(&buffers, 0, sizeof(buffers));
     memset(&busyBuffers, 0, sizeof(busyBuffers));
     // Request a buffer name
-    alGenBuffers(10, buffers);
+    alGenBuffers(MAX_AUDIO_BUFFERS, buffers);
 
 
 	bool isPlaying = false;
@@ -121,11 +123,11 @@ int Cvqa_file::extract_both()
 	int cx = get_cx();
 	int cy = get_cy();
 	DDPIXELFORMAT_VQA pf;
-	pf.dwRGBAlphaBitMask = 0;
-	pf.dwRBitMask = 0x0000ff;
-	pf.dwGBitMask = 0x00ff00;
-	pf.dwBBitMask = 0xff0000;
-	vqa_d.set_pf(pf, 3);
+	pf.dwRGBAlphaBitMask = 1 << 15;
+	pf.dwRBitMask = 0x1f << 10;
+	pf.dwGBitMask = 0x1f << 5;
+	pf.dwBBitMask = 0x1f;
+	vqa_d.set_pf(pf, 2);
 	int cs_remaining = 0;
 
 	/*ofstream audio;
@@ -135,7 +137,7 @@ int Cvqa_file::extract_both()
 	audio.write((char*)&header, sizeof(t_wav_header));*/
 
 
-	byte* frame = new byte[3 * cx * cy];
+	byte* frame = new byte[2 * cx * cy];
 
 	int currentFrame = 0;
 	int soundBytesOnFrame = 0;
@@ -220,7 +222,7 @@ int Cvqa_file::extract_both()
                 {
                     ALuint uiBuffer;
                     alSourceUnqueueBuffers(source, 1, &uiBuffer);
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < MAX_AUDIO_BUFFERS; i++)
                     {
                         if (uiBuffer == busyBuffers[i])
                         {
@@ -228,7 +230,7 @@ int Cvqa_file::extract_both()
                             break;
                         }
                     }
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < MAX_AUDIO_BUFFERS; i++)
                     {
                         if (0 == buffers[i])
                         {
@@ -238,7 +240,7 @@ int Cvqa_file::extract_both()
                     }
                 }
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < MAX_AUDIO_BUFFERS; i++)
                 {
                     if (0 != buffers[i])
                     {
@@ -247,7 +249,7 @@ int Cvqa_file::extract_both()
                         break;
                     }
                 }
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < MAX_AUDIO_BUFFERS; i++)
                 {
                     if (0 == busyBuffers[i])
                     {
@@ -272,7 +274,7 @@ int Cvqa_file::extract_both()
 
             int queuedDataSize = 0;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < MAX_AUDIO_BUFFERS; i++)
             {
                 if (0 != busyBuffers[i] && playingBuffer != busyBuffers[i])
                 {
@@ -379,16 +381,16 @@ int Cvqa_file::extract_both()
 	}
 
     ALint buffersProcessed = 0;
-    ALuint buffersProc[10];
+    ALuint buffersProc[MAX_AUDIO_BUFFERS];
     memset(buffersProc, 0, sizeof(buffersProc));
     alGetSourcei(source, AL_BUFFERS_PROCESSED, &buffersProcessed);
     alSourceUnqueueBuffers(source, buffersProcessed, buffersProc);
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < MAX_AUDIO_BUFFERS; i++)
     {
         if (0 != busyBuffers[i])
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < MAX_AUDIO_BUFFERS; j++)
             {
                 if (0 == buffers[j])
                 {
@@ -400,7 +402,7 @@ int Cvqa_file::extract_both()
         }
     }
 
-    alDeleteBuffers(10, buffers);
+    alDeleteBuffers(MAX_AUDIO_BUFFERS, buffers);
     alDeleteSources(1, &source);
     alcMakeContextCurrent(previousContext);
     if (device != NULL)

@@ -296,7 +296,14 @@ void Cvqa_decode::decode_cbf_chunk(const byte* s, int cb_s)
 			while (count--)
 			{
 				int v = *r++;
-				*w++ = m_pfc.get_color((v >> 10 & 0x1f) * 255 / 31, (v >> 5 & 0x1f) * 255 / 31, (v & 0x1f) * 255 / 31);
+                if (m_pfc.is_native())
+                {
+                    *w++ = (short)v;
+                }
+                else
+                {
+                    *w++ = m_pfc.get_color((v >> 10 & 0x1f) * 255 / 31, (v >> 5 & 0x1f) * 255 / 31, (v & 0x1f) * 255 / 31);
+                }
 			}
 			break;
 		}

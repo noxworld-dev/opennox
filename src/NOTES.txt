@@ -1,30 +1,4 @@
-List of subs to port from GameEx.dll
-OnLibraryNotice (10002C30)
-sub_10001290
-sub_10001A20
-sub_10001AD0
-sub_10001B10
-sub_10001B40
-sub_10002680
-sub_10001C20
-sub_10001C50
-sub_100035F0
-sub_10003940
-sub_10001D40
-sub_10001E10
-sub_10001EE0
-sub_10002030
-sub_10003520
-sub_100035D0
-sub_100020F0
-sub_10002240
-sub_10004330
-sub_100016D0
-sub_10001230
-sub_10001670
-DllMain (10001000)
-sub_100024A0
-sub_10002470
-sub_10002400
-sub_100023E0
-sub_10004370
+Need to optimize video in EMSCRIPTEN (introduce some sort of pre-caching?)
+Need to "black out" the screen before starting to feed movie frames
+Check mix patch correctness
+Why the button "Search" does not appear in the LAN games (part of Mix patch)?

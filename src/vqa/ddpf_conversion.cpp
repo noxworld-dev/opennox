@@ -52,3 +52,12 @@ int Cddpf_conversion::get_color(int v)
 {
 	return get_color(v >> 24, v >> 16 & 0xff, v >> 8 & 0xff, v & 0xff);
 }
+
+bool Cddpf_conversion::is_native()
+{
+    if ((a_size + r_size + g_size + b_size) == 16 && a_shift == 15 && r_shift == 10 && g_shift == 5 && b_shift == 0)
+    {
+        return true;
+    }
+    return false;
+}
