@@ -1,4 +1,7 @@
 //#include "stdafx.h"
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#endif
 
 #define XCC
 #include "vqa_file.h"
@@ -356,7 +359,11 @@ int Cvqa_file::extract_both()
 			dword toSleep = dword(frameRate) - (currentTime - startTime);
 			if (toSleep > 0)
 			{
-				SDL_Delay(toSleep);
+#ifdef __EMSCRIPTEN__
+                emscripten_sleep(toSleep);
+#else
+                SDL_Delay(toSleep);
+#endif
 			}
 		}
 

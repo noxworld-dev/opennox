@@ -94,7 +94,7 @@ struct t_vqa_header
 {
 	t_vqa_chunk_header file_header;
 	// 'FORM'
-	long id;
+	long long id;
 	// 'WVQAVQHD'
 	int startpos;
 	short version;
@@ -120,7 +120,7 @@ struct t_vqa_header
 const int vqa_c_mask = 0xff000000;
 const int vqa_t_mask = 0x00ffffff;
 const int vqa_file_id = *(int*)"FORM";
-const long vqa_form_id = { *(long*)"WVQAVQHD" };
+const long long vqa_form_id = { *(long long*)"WVQAVQHD" };
 const int vqa_cbf_id = *(int*)"CBF\0";
 const int vqa_cbp_id = *(int*)"CBP\0";
 const int vqa_cpl_id = *(int*)"CPL\0";
