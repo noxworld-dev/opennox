@@ -52,7 +52,7 @@ extern "C" int main(int argc, char* argv[])
     );
 
     progname = "nox.js";
-    strcpy(cmdline, "nox.js -noskip -nolimit -nothread -sleep -swindow");
+    strcpy(cmdline, "nox.js -noskip -nolimit -nothread -sleep");
 
     if (chdir("assets"))
     {
