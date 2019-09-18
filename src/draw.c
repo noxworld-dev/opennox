@@ -3513,7 +3513,12 @@ int __cdecl sub_4B0340(int a1)
     sub_43DBD0();
     sub_44D8F0();
     while (sub_43DC40() || sub_44D930())
+    {
         sub_4312C0();
+#ifdef __EMSCRIPTEN__
+        emscripten_sleep(0x32u);
+#endif
+    }
     sub_43E8E0();
     v12 = sub_48B3E0(0);
     unacquireMouse_sub_47D8B0();

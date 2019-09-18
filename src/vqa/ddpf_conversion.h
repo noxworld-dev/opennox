@@ -15,6 +15,7 @@ public:
 	int get_color(int a, int r, int g, int b);
 	int get_color(int r, int g, int b);
 	int get_color(int v);
+    bool is_native();
 	void set_pf(const DDPIXELFORMAT_VQA& pf);
 private:
 	int a_shift, r_shift, g_shift, b_shift;

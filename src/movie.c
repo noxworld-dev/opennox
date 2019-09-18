@@ -48,11 +48,19 @@ void DrawMovieFrame(BYTE* frame, unsigned long cx, unsigned long cy)
 {
     for (int i = 0; i < cy; i++)
     {
-        unsigned short int* frame1555row = (BYTE*)(movieSurface->pixels) + (i * movieSurface->pitch);
-        BYTE* frameRow = frame + (i * cx * 3);
+        unsigned short* surfaceRow = (BYTE*)(movieSurface->pixels) + (i * movieSurface->pitch);
+        unsigned short* frameRow = frame + (i * cx * 2);
         for (int j = 0; j < cx; j++)
         {
-            frame1555row[j] = rgb888Toargb1555(frameRow[j * 3], frameRow[j * 3 + 1], frameRow[j * 3 + 2]);
+#ifdef _WIN32
+            surfaceRow[j] = frameRow[j];
+#else
+            unsigned short a = ((frameRow[j] & (0x1 << 15)) >> 15);
+            unsigned short r = ((frameRow[j] & (0x1f << 10)) >> 10) << 11;
+            unsigned short g = ((frameRow[j] & (0x1f << 5)) >> 5) << 6;
+            unsigned short b = ((frameRow[j] & (0x1f << 0)) >> 0) << 1;
+            surfaceRow[j] = a | r | g | b;
+#endif
         }
     }
     SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
