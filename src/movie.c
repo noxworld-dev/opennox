@@ -1,6 +1,92 @@
 #include "proto.h"
+#include <SDL2/SDL.h>
 
 #ifdef NO_MOVIE
+
+void process_window_event(const SDL_WindowEvent* event);
+
+int process_movie_event(const SDL_Event* event)
+{
+    switch (event->type)
+    {
+    case SDL_KEYUP:
+    case SDL_MOUSEBUTTONUP:
+        return -1;
+        break;
+#ifdef __EMSCRIPTEN__
+    case SDL_FINGERMOTION:
+    case SDL_FINGERDOWN:
+    case SDL_FINGERUP:
+        return -1;
+        break;
+#endif
+    case SDL_WINDOWEVENT:
+        process_window_event(&event->window);
+        break;
+    default:
+        break;
+    }
+    return 0;
+}
+
+unsigned short int rgb888Toargb1555(int red, int green, int blue)
+{
+    unsigned short  b = (blue >> 3) & 0x001f << 0;
+    unsigned short  g = ((green >> 3) & 0x001f) << 5;
+    unsigned short  r = ((red >> 3) & 0x001f) << 10;
+    unsigned short  a = 1 << 15;
+
+    return (unsigned short int) (r | g | b | a);
+}
+
+extern SDL_Surface* g_backbuffer1;
+extern Uint32 g_format;
+SDL_Surface* movieSurface = NULL;
+extern void sdl_present();
+
+void DrawMovieFrame(BYTE* frame, unsigned long cx, unsigned long cy)
+{
+    for (int i = 0; i < cy; i++)
+    {
+        unsigned short int* frame1555row = (BYTE*)(movieSurface->pixels) + (i * movieSurface->pitch);
+        BYTE* frameRow = frame + (i * cx * 3);
+        for (int j = 0; j < cx; j++)
+        {
+            frame1555row[j] = rgb888Toargb1555(frameRow[j * 3], frameRow[j * 3 + 1], frameRow[j * 3 + 2]);
+        }
+    }
+    SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
+    SDL_SetSurfaceBlendMode(movieSurface, SDL_BLENDMODE_NONE);
+    SDL_Rect srcRect = movieSurface->clip_rect;
+    SDL_Rect dstRect = g_backbuffer1->clip_rect;
+    if (srcRect.w < dstRect.w)
+    {
+        dstRect.x = (dstRect.w - srcRect.w) / 2;
+    }
+    if (srcRect.h < dstRect.h)
+    {
+        dstRect.y = (dstRect.h - srcRect.h) / 2;
+    }
+
+    SDL_BlitSurface(movieSurface, &srcRect, g_backbuffer1, &dstRect);
+    //
+    sdl_present();
+}
+
+extern int PlayMovieCallback(BYTE* frame, unsigned long cx, unsigned long cy)
+{
+    SDL_Event event;
+    int result = 0;
+    while (SDL_PollEvent(&event))
+    {
+        int processed = process_movie_event(&event);
+        result = result == -1 ? -1 : processed;
+    }
+    DrawMovieFrame(frame, cx, cy);
+    return result;
+}
+
+
 void __cdecl sub_555430(HWND* a1)
 {
     return;

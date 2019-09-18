@@ -3479,6 +3479,9 @@ int __cdecl sub_4B0300(char* a1)
     return result;
 }
 
+
+int PlayMovie(char* filename);
+
 //----- (004B0340) --------------------------------------------------------
 int __cdecl sub_4B0340(int a1)
 {
@@ -3522,7 +3525,7 @@ int __cdecl sub_4B0340(int a1)
         v4 = a1;
     LABEL_13:
 #ifdef USE_SDL
-        // FIXME movie support
+        PlayMovie(&byte_5D4594[1311940]);
 #else
         v13[1] = *(_DWORD*)& byte_5D4594[823784];
         v13[0] = windowHandle_dword_973FE0;
