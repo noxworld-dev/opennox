@@ -1,3 +1,2 @@
-Need to "black out" the screen before starting to feed movie frames
 Check mix patch correctness
 Why the button "Search" does not appear in the LAN games (part of Mix patch)?
