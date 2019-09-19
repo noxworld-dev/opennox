@@ -190,6 +190,8 @@ int Cvqa_file::extract_both()
 
     int delayedPreviously = 0;
 
+    int fpsCompensator = 0;
+
     long long allCallbackTime = 0;
     int howMuchCallbacks = 0;
 
@@ -368,7 +370,7 @@ int Cvqa_file::extract_both()
         }
         else
         {
-            // Process audio first
+            // First process audio
             if (!caches[readCache].audio_is_queued)
             {
                 ALuint currentBuffer = 0;
@@ -432,7 +434,8 @@ int Cvqa_file::extract_both()
                 caches[readCache].audio_is_queued = true;
             } // if (!caches[readCache].audio_is_queued)
 
-            if (cachedFramesReadPosition == 0)
+            // We start the audio AFTER the first frame of the cache was already played
+            if (cachedFramesReadPosition == cx * cy * 2)
             {
                 ALenum state;
                 alGetSourcei(source, AL_SOURCE_STATE, &state);
@@ -490,7 +493,9 @@ int Cvqa_file::extract_both()
                 break;
             }
 
-            long long timeBetweenFrames = (long long)(howMuchMilliseconds / howMuchFrames) + delayedPreviously;
+            long long timeBetweenFrames = (long long)(howMuchMilliseconds / howMuchFrames) + delayedPreviously + fpsCompensator / howMuchFrames;
+
+            fpsCompensator = fpsCompensator % howMuchFrames + howMuchMilliseconds % howMuchFrames;
 
             dword currentTime = SDL_GetTicks();
             timeBetweenFrames -= currentTime - startTime;
