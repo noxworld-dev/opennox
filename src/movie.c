@@ -21,7 +21,7 @@ int process_movie_event(const SDL_Event* event)
         break;
 #endif
     case SDL_WINDOWEVENT:
-        process_window_event(&event->window);
+        //process_window_event(&event->window);
         break;
     default:
         break;

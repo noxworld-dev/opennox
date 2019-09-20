@@ -72,11 +72,12 @@ struct cache_entry
     byte* audio_buffer;
     unsigned int audio_buffer_size;
     unsigned int audio_buffer_position;
-    bool audio_is_queued;
+    ALuint audio_buffer_id;
     bool is_playing;
 };
 
 #define MAX_CACHES 5
+#define MAX_AUDIO_CACHES MAX_CACHES
 
 int Cvqa_file::extract_both()
 {
@@ -91,7 +92,7 @@ int Cvqa_file::extract_both()
         caches[i].audio_buffer = (byte*)malloc(caches[i].audio_buffer_size);
         memset(caches[i].audio_buffer, 0, caches[i].audio_buffer_size);
         caches[i].audio_buffer_position = 0;
-        caches[i].audio_is_queued = false;
+        caches[i].audio_buffer_id = 0;
         caches[i].is_playing = false;
     }
 
@@ -139,15 +140,15 @@ int Cvqa_file::extract_both()
 
     ALuint frequency = get_samplerate();
 
-    ALuint buffers[MAX_CACHES];
-    ALuint busyBuffers[MAX_CACHES];
-    ALuint buffersProc[MAX_CACHES];
+    ALuint buffers[MAX_AUDIO_CACHES];
+    ALuint busyBuffers[MAX_AUDIO_CACHES];
+    ALuint buffersProc[MAX_AUDIO_CACHES];
     memset(buffersProc, 0, sizeof(buffersProc));
     memset(buffers, 0, sizeof(buffers));
     memset(busyBuffers, 0, sizeof(busyBuffers));
     ALint buffersProcessed = 0;
     // Request a buffer name
-    alGenBuffers(MAX_CACHES, buffers);
+    alGenBuffers(MAX_AUDIO_CACHES, buffers);
 
 
 	bool isPlaying = false;
@@ -188,12 +189,20 @@ int Cvqa_file::extract_both()
 
     dword startTime = SDL_GetTicks();
 
-    int delayedPreviously = 0;
+    int delayInNextFrame = 0;
 
     int fpsCompensator = 0;
 
-    long long allCallbackTime = 0;
+    int allCallbackTime = 0;
     int howMuchCallbacks = 0;
+
+    int skipRenderingFor = 0;
+    int beforeNoRenderPass = 0;
+
+    int commitedAudio = 0;
+    int finishedAudio = 0;
+
+    ALint previousAudioFrame = 0;
 
 	while (true)
 	{
@@ -364,110 +373,235 @@ int Cvqa_file::extract_both()
             cachesUnavailable = false;
         }
 
-        if (cachesUnavailable)
+        if (skipRenderingFor > 0)
+        {
+            int afterNoRenderPass = SDL_GetTicks();
+            int sleepFor = skipRenderingFor - (afterNoRenderPass - beforeNoRenderPass);
+            if (sleepFor < 0)
+            {
+                printf("SkipRenderPass overrun...\n");
+                delayInNextFrame += sleepFor;
+                startTime = SDL_GetTicks();
+                skipRenderingFor = 0;
+            }
+            else if (sleepFor > 5 && !cachesFull && currentFrame < get_c_frames())
+            {
+                //printf("SkipRenderPass skip again...\n");
+                // Do nothing, the timings will be recalculated from the same ticks
+            }
+            else
+            {
+                skipRenderingFor = 0;
+                dword beforeSleepTime = SDL_GetTicks();
+                // We need to wait between frames
+#ifdef __EMSCRIPTEN__
+                emscripten_sleep(sleepFor);
+#else
+                SDL_Delay(sleepFor);
+#endif
+                dword afterSleepTime = SDL_GetTicks();
+                delayInNextFrame -= afterSleepTime - beforeSleepTime - sleepFor;
+                startTime = SDL_GetTicks();
+            }
+        }
+        else if (cachesUnavailable)
         {
             // We do nothing here, as we're waiting for caches to be populated
         }
         else
         {
             // First process audio
-            if (!caches[readCache].audio_is_queued)
+            for (int readOffset = 0; readOffset < MAX_CACHES; readOffset++)
             {
-                ALuint currentBuffer = 0;
-                ALuint dataSize = caches[readCache].audio_buffer_position; // We check the latest write position, as we don't need the non-filled parts
-
-                while (currentBuffer == 0)
+                int audioReadCache = readCache + readOffset;
+                if (audioReadCache >= MAX_CACHES)
                 {
-                    ALint buffersProcessed = 0;
-                    alGetSourcei(source, AL_BUFFERS_PROCESSED, &buffersProcessed);
-                    if (buffersProcessed > 0)
+                    audioReadCache = audioReadCache - MAX_CACHES;
+                }
+                if (caches[audioReadCache].is_playing && caches[audioReadCache].audio_buffer_id == 0)
+                {
+                    ALuint currentBuffer = 0;
+                    ALuint dataSize = caches[audioReadCache].audio_buffer_position; // We check the latest write position, as we don't need the non-filled parts
+
+                    while (currentBuffer == 0)
                     {
-                        ALuint unqueuedBuffers[MAX_CACHES];
-                        memset(unqueuedBuffers, 0, sizeof(unqueuedBuffers));
-                        alSourceUnqueueBuffers(source, buffersProcessed, unqueuedBuffers);
-                        for (int j = 0; j < MAX_CACHES; j++)
+                        for (int i = 0; i < MAX_AUDIO_CACHES; i++)
                         {
-                            if (0 != unqueuedBuffers[j])
+                            if (0 != buffers[i])
                             {
-                                for (int i = 0; i < MAX_CACHES; i++)
+                                currentBuffer = buffers[i];
+                                buffers[i] = 0;
+                                break;
+                            }
+                        }
+                        for (int i = 0; i < MAX_AUDIO_CACHES; i++)
+                        {
+                            if (0 == busyBuffers[i])
+                            {
+                                busyBuffers[i] = currentBuffer;
+                                break;
+                            }
+                        }
+
+                        if (currentBuffer != 0)
+                        {
+                            break;
+                        }
+
+                        ALint buffersProcessed = 0;
+                        alGetSourcei(source, AL_BUFFERS_PROCESSED, &buffersProcessed);
+                        if (buffersProcessed > 0)
+                        {
+                            ALuint unqueuedBuffers[MAX_AUDIO_CACHES];
+                            memset(unqueuedBuffers, 0, sizeof(unqueuedBuffers));
+                            alSourceUnqueueBuffers(source, buffersProcessed, unqueuedBuffers);
+                            for (int j = 0; j < MAX_AUDIO_CACHES; j++)
+                            {
+                                if (0 != unqueuedBuffers[j])
                                 {
-                                    if (unqueuedBuffers[j] == busyBuffers[i])
+                                    ALint bufSize = 0;
+                                    alGetBufferi(unqueuedBuffers[j], AL_SIZE, &bufSize);
+                                    finishedAudio -= bufSize;
+                                    for (int i = 0; i < MAX_AUDIO_CACHES; i++)
                                     {
-                                        busyBuffers[i] = 0;
-                                        break;
+                                        if (unqueuedBuffers[j] == busyBuffers[i])
+                                        {
+                                            busyBuffers[i] = 0;
+                                            break;
+                                        }
                                     }
-                                }
-                                for (int i = 0; i < MAX_CACHES; i++)
-                                {
-                                    if (0 == buffers[i])
+                                    for (int i = 0; i < MAX_AUDIO_CACHES; i++)
                                     {
-                                        buffers[i] = unqueuedBuffers[j];
-                                        break;
+                                        if (0 == buffers[i])
+                                        {
+                                            buffers[i] = unqueuedBuffers[j];
+                                            break;
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
 
-                    for (int i = 0; i < MAX_CACHES; i++)
-                    {
-                        if (0 != buffers[i])
-                        {
-                            currentBuffer = buffers[i];
-                            buffers[i] = 0;
-                            break;
-                        }
-                    }
-                    for (int i = 0; i < MAX_CACHES; i++)
-                    {
-                        if (0 == busyBuffers[i])
-                        {
-                            busyBuffers[i] = currentBuffer;
-                            break;
-                        }
-                    }
-                } // while (currentBuffer == 0)
+#ifdef __EMSCRIPTEN__
+                        emscripten_sleep(5);
+#endif
+                    } // while (currentBuffer == 0)
 
-                alBufferData(currentBuffer, format, caches[readCache].audio_buffer, dataSize, frequency);
-                alSourceQueueBuffers(source, 1, &currentBuffer);
+                    alBufferData(currentBuffer, format, caches[audioReadCache].audio_buffer, dataSize, frequency);
+                    alSourceQueueBuffers(source, 1, &currentBuffer);
 
-                caches[readCache].audio_is_queued = true;
-            } // if (!caches[readCache].audio_is_queued)
+                    commitedAudio += dataSize;
 
-            // We start the audio AFTER the first frame of the cache was already played
-            if (cachedFramesReadPosition == cx * cy * 2)
-            {
-                ALenum state;
-                alGetSourcei(source, AL_SOURCE_STATE, &state);
-                if (!isPlaying || state != AL_PLAYING)
-                {
-                    if (isPlaying)
-                    {
-                        printf("Movie restarting sound... Previous state = %d, delay = %d\n", state, delayedPreviously);
-                        delayedPreviously = 0;
-                    }
-                    alSourceRewind(source);
-                    alSourcePlay(source);
-                    isPlaying = true;
-                }
+                    caches[audioReadCache].audio_buffer_id = currentBuffer;
+                } // if (!caches[audioReadCache].audio_buffer_id)
             }
 
+            int currentReadFrame = cachedFramesReadPosition / (cx * cy * 2);
+            unsigned int howMuchFrames = caches[readCache].frames_buffer_position / (cx * cy * 2);
+            unsigned int howMuchMilliseconds = (caches[readCache].audio_buffer_position * 1000) / (get_samplerate() * (16 / 8) * get_c_channels());
+
+            
+            ALenum state;
+            alGetSourcei(source, AL_SOURCE_STATE, &state);
+                
+            unsigned int audioSamplesInOneFrame = (caches[readCache].audio_buffer_position / ((16 / 8) * get_c_channels())) / howMuchFrames;
+
+            if (state == AL_PLAYING)
+            {
+                ALint playingOffset;
+                alGetSourcei(source, AL_SAMPLE_OFFSET, &playingOffset);
+                //printf("PlayingOffset = %d\n", playingOffset);
+                ALint finishedSamples = finishedAudio / ((16 / 8) * get_c_channels());
+                ALint commitedSamples = commitedAudio / ((16 / 8) * get_c_channels());
+                ALint actualOffset = playingOffset - finishedSamples;
+                assert(actualOffset <= commitedSamples);
+                if (actualOffset < 0)
+                {
+                    //printf("Synchronizer: the audio is behind of the current video cache, need to delay the video!\n");
+                    int howMuchFramesBehind = (actualOffset * -1) / audioSamplesInOneFrame;
+                    delayInNextFrame = howMuchFramesBehind * (howMuchMilliseconds / howMuchFrames);
+                }
+                else if (actualOffset > caches[readCache].audio_buffer_position)
+                {
+                    //printf("Synchronizer: the audio is ahead of the current video cache, need to fast forward the video!\n");
+                    int howMuchFramesLeft = (howMuchFrames - 1) - currentReadFrame;
+                    delayInNextFrame = -(howMuchFramesLeft * (howMuchMilliseconds / howMuchFrames));
+                }
+                else
+                {
+                    int whichFrameIsTheSound = 0;
+                    int timeOfThisFrame = 0;
+
+                    for (int audioFrame = 0; audioFrame <= caches[readCache].audio_buffer_position; audioFrame = audioFrame + audioSamplesInOneFrame)
+                    {
+                        if (actualOffset >= audioFrame && actualOffset <= audioFrame + audioSamplesInOneFrame)
+                        {
+                            int samplesOfFrameElapsed = actualOffset - audioFrame;
+                            timeOfThisFrame = ((howMuchMilliseconds / howMuchFrames) * samplesOfFrameElapsed) / audioSamplesInOneFrame;
+                            break;
+                        }
+                        whichFrameIsTheSound++;
+                    }
+
+                    if (whichFrameIsTheSound == previousAudioFrame)
+                    {
+                        //printf("Synchronizer: current and previous audio frame are same!\n");
+                    }
+                    //printf("Synchronizer: frames to adjust: video %d and sound %d\n", currentReadFrame, whichFrameIsTheSound);
+                    if (currentReadFrame == whichFrameIsTheSound)
+                    {
+                        delayInNextFrame = -timeOfThisFrame;
+                        //printf("Synchronizer: adjusted current frame %d\n", delayInNextFrame);
+                    }
+                    else if (currentReadFrame > whichFrameIsTheSound)
+                    {
+                        delayInNextFrame = -timeOfThisFrame + ((currentReadFrame - whichFrameIsTheSound) * (howMuchMilliseconds / howMuchFrames));
+                        //printf("Synchronizer: adjusted previous frame %d\n", delayInNextFrame);
+                    }
+                    else if (currentReadFrame < whichFrameIsTheSound)
+                    {
+                        delayInNextFrame = -timeOfThisFrame - ((whichFrameIsTheSound - currentReadFrame) * (howMuchMilliseconds / howMuchFrames));
+                        //printf("Synchronizer: adjusted next frame %d\n", delayInNextFrame);
+                    }
+                    previousAudioFrame = whichFrameIsTheSound;
+                }
+                
+            }
+            else if (state == AL_PLAYING)
+            {
+
+            }
+            else if (!isPlaying)
+            {
+                alSourceRewind(source);
+                alSourcePlay(source);
+                isPlaying = true;
+            }
+            // Means we got the stopped audio, so now we need to adjust audio based on our current frame position
+            else
+            {
+                ALint offset = (finishedAudio / ((16 / 8) * get_c_channels())) + currentReadFrame*audioSamplesInOneFrame;
+                alSourcei(source, AL_SAMPLE_OFFSET, offset);
+                alSourcePlay(source);
+                delayInNextFrame = 0;
+                printf("Synchronizer: adjusted audio to frame %d\n", currentReadFrame);
+            }
+            
             // Process video frame here
             memcpy(frameDraw, &(caches[readCache].frames_buffer[cachedFramesReadPosition]), cx * cy * 2);
             cachedFramesReadPosition += cx * cy * 2;
 
-            unsigned int howMuchFrames = caches[readCache].frames_buffer_position / (cx * cy * 2);
-            unsigned int howMuchMilliseconds = (caches[readCache].audio_buffer_position * 1000) / (get_samplerate() * (16 / 8) * get_c_channels());
-
             if (cachedFramesReadPosition == caches[readCache].frames_buffer_position)
             {
+                commitedAudio -= caches[readCache].audio_buffer_position;
+                finishedAudio += caches[readCache].audio_buffer_position;
                 // The cache is empty, reset it and release, and prepare for next cache
                 cachedFramesReadPosition = 0;
                 memset(caches[readCache].frames_buffer, 0, caches[readCache].frames_buffer_size);
                 memset(caches[readCache].audio_buffer, 0, caches[readCache].audio_buffer_size);
                 caches[readCache].frames_buffer_position = 0;
                 caches[readCache].audio_buffer_position = 0;
-                caches[readCache].audio_is_queued = false;
+                caches[readCache].audio_buffer_id = 0;
                 caches[readCache].is_playing = false;
             }
             else if (cachedFramesReadPosition > caches[readCache].frames_buffer_position)
@@ -493,39 +627,33 @@ int Cvqa_file::extract_both()
                 break;
             }
 
-            long long timeBetweenFrames = (long long)(howMuchMilliseconds / howMuchFrames) + delayedPreviously + fpsCompensator / howMuchFrames;
+            int timeBetweenFrames = (howMuchMilliseconds / howMuchFrames) + delayInNextFrame + fpsCompensator / howMuchFrames;
 
             fpsCompensator = fpsCompensator % howMuchFrames + howMuchMilliseconds % howMuchFrames;
 
             dword currentTime = SDL_GetTicks();
             timeBetweenFrames -= currentTime - startTime;
-            if (timeBetweenFrames > (long long)(howMuchMilliseconds / howMuchFrames))
+            if (timeBetweenFrames > (howMuchMilliseconds / howMuchFrames))
             {
-                printf("Bigger delay than anticipated %d\n", timeBetweenFrames);
+                //printf("Bigger delay than anticipated %d\n", timeBetweenFrames);
             }
-            else if (timeBetweenFrames < (long long)(howMuchMilliseconds / howMuchFrames - 10))
+            else if (timeBetweenFrames < (howMuchMilliseconds / howMuchFrames - 10))
             {
-                printf("Smaller delay than anticipated %d\n", timeBetweenFrames);
+                //printf("Smaller delay than anticipated %d\n", timeBetweenFrames);
             }
             if (timeBetweenFrames > 0)
             {
-                delayedPreviously = 0;
-                dword beforeSleepTime = SDL_GetTicks();
-                // We need to wait between frames
-#ifdef __EMSCRIPTEN__
-                emscripten_sleep(timeBetweenFrames);
-#else
-                SDL_Delay(timeBetweenFrames);
-#endif
-                dword afterSleepTime = SDL_GetTicks();
-                delayedPreviously -= afterSleepTime - beforeSleepTime - timeBetweenFrames;
+                delayInNextFrame = 0;
+                beforeNoRenderPass = SDL_GetTicks();
+                skipRenderingFor = timeBetweenFrames;
+                //printf("RenderEnd: Next pass skip rendering %d\n", timeBetweenFrames);
             }
             else
             {
                 // How much time we "won back"
-                delayedPreviously += (howMuchMilliseconds / howMuchFrames) - (currentTime - startTime);
+                delayInNextFrame += (howMuchMilliseconds / howMuchFrames);
+                startTime = SDL_GetTicks();
             }
-            startTime = SDL_GetTicks();
         }
 
 		if (abort)
@@ -544,11 +672,11 @@ int Cvqa_file::extract_both()
     alGetSourcei(source, AL_BUFFERS_PROCESSED, &buffersProcessed);
     alSourceUnqueueBuffers(source, buffersProcessed, buffersProc);
 
-    for (int i = 0; i < MAX_CACHES; i++)
+    for (int i = 0; i < MAX_AUDIO_CACHES; i++)
     {
         if (0 != busyBuffers[i])
         {
-            for (int j = 0; j < MAX_CACHES; j++)
+            for (int j = 0; j < MAX_AUDIO_CACHES; j++)
             {
                 if (0 == buffers[j])
                 {
@@ -560,7 +688,7 @@ int Cvqa_file::extract_both()
         }
     }
 
-    alDeleteBuffers(MAX_CACHES, buffers);
+    alDeleteBuffers(MAX_AUDIO_CACHES, buffers);
     alDeleteSources(1, &source);
     alcMakeContextCurrent(previousContext);
     if (device != NULL)
