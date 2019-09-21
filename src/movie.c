@@ -52,7 +52,7 @@ void DrawMovieFrame(BYTE* frame, unsigned long cx, unsigned long cy)
         unsigned short* frameRow = frame + (i * cx * 2);
         for (int j = 0; j < cx; j++)
         {
-#ifdef _WIN32
+#ifndef __EMSCRIPTEN__
             surfaceRow[j] = frameRow[j];
 #else
             unsigned short a = ((frameRow[j] & (0x1 << 15)) >> 15);
