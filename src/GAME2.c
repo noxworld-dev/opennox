@@ -36282,7 +36282,7 @@ int sub_47DBD0()
         *(_WORD*)& byte_5D4594[1191804] = 0;
         strcpy((char*)& byte_5D4594[1191872], "m");
         strcpy((char*)& byte_5D4594[1191874], "M");
-        strcpy((char*)& byte_5D4594[1191876], "µ");
+        strcpy((char*)& byte_5D4594[1191876], "\xb5"); // Âµ
         strcpy((char*)& byte_5D4594[1191866], "n");
         strcpy((char*)& byte_5D4594[1191868], "N");
         *(_WORD*)& byte_5D4594[1191870] = 0;
@@ -36361,25 +36361,25 @@ int sub_47DBD0()
         *(_WORD*)& byte_5D4594[1191890] = *(_WORD*)& byte_5D4594[1192016];
         strcpy((char*)& byte_5D4594[1191892], "_");
         *(_WORD*)& byte_5D4594[1191894] = 0;
-        strcpy((char*)& byte_5D4594[1191728], "ü");
-        strcpy((char*)& byte_5D4594[1191730], "Ü");
+        strcpy((char*)& byte_5D4594[1191728], "\xfc"); // Ã¼
+        strcpy((char*)& byte_5D4594[1191730], "\xdc"); // Ãœ
         *(_WORD*)& byte_5D4594[1191732] = 0;
         *(_WORD*)& byte_5D4594[1191734] = *(_WORD*)& byte_5D4594[1192040];
         *(_WORD*)& byte_5D4594[1191736] = *(_WORD*)& byte_5D4594[1191902];
         strcpy((char*)& byte_5D4594[1191738], "~");
-        strcpy((char*)& byte_5D4594[1191806], "ö");
-        strcpy((char*)& byte_5D4594[1191808], "Ö");
+        strcpy((char*)& byte_5D4594[1191806], "\xf6"); // Ã¶
+        strcpy((char*)& byte_5D4594[1191808], "\xd6"); // Ã–
         *(_WORD*)& byte_5D4594[1191810] = 0;
-        strcpy((char*)& byte_5D4594[1191812], "ä");
-        strcpy((char*)& byte_5D4594[1191814], "Ä");
+        strcpy((char*)& byte_5D4594[1191812], "\xe4"); // Ã¤
+        strcpy((char*)& byte_5D4594[1191814], "\xc4"); // Ã„
         *(_WORD*)& byte_5D4594[1191816] = 0;
         strcpy((char*)& byte_5D4594[1191818], "^");
-        strcpy((char*)& byte_5D4594[1191820], "°");
+        strcpy((char*)& byte_5D4594[1191820], "\xb0"); // Â°
         *(_WORD*)& byte_5D4594[1191822] = 0;
         strcpy((char*)& byte_5D4594[1191830], "#");
         strcpy((char*)& byte_5D4594[1191832], "'");
         *(_WORD*)& byte_5D4594[1191834] = 0;
-        strcpy((char*)& byte_5D4594[1191644], "ß");
+        strcpy((char*)& byte_5D4594[1191644], "\xdf"); // ÃŸ
         strcpy((char*)& byte_5D4594[1191646], "?");
         strcpy((char*)& byte_5D4594[1191648], "\\");
         *(_WORD*)& byte_5D4594[1191650] = 180;
@@ -36490,7 +36490,7 @@ int sub_47DBD0()
         strcpy((char*)& byte_5D4594[1191584], "&");
         strcpy((char*)& byte_5D4594[1191586], "1");
         *(_WORD*)& byte_5D4594[1191588] = 0;
-        strcpy((char*)& byte_5D4594[1191590], "é");
+        strcpy((char*)& byte_5D4594[1191590], "\xe9"); // Ã©
         strcpy((char*)& byte_5D4594[1191592], "2");
         strcpy((char*)& byte_5D4594[1191594], "~");
         strcpy((char*)& byte_5D4594[1191596], "\"");
@@ -36505,16 +36505,16 @@ int sub_47DBD0()
         *(_WORD*)& byte_5D4594[1191614] = *(_WORD*)& byte_5D4594[1192016];
         strcpy((char*)& byte_5D4594[1191616], "6");
         strcpy((char*)& byte_5D4594[1191618], "|");
-        strcpy((char*)& byte_5D4594[1191620], "è");
+        strcpy((char*)& byte_5D4594[1191620], "\xe8"); // Ã¨
         strcpy((char*)& byte_5D4594[1191622], "7");
         strcpy((char*)& byte_5D4594[1191624], "`");
         strcpy((char*)& byte_5D4594[1191626], "_");
         strcpy((char*)& byte_5D4594[1191628], "8");
         strcpy((char*)& byte_5D4594[1191630], "\\");
-        strcpy((char*)& byte_5D4594[1191632], "ç");
+        strcpy((char*)& byte_5D4594[1191632], "\xe7"); // Ã§
         strcpy((char*)& byte_5D4594[1191634], "9");
         *(_WORD*)& byte_5D4594[1191636] = 0;
-        strcpy((char*)& byte_5D4594[1191638], "à");
+        strcpy((char*)& byte_5D4594[1191638], "\xe0"); // Ã 
         strcpy((char*)& byte_5D4594[1191640], "0");
         strcpy((char*)& byte_5D4594[1191642], "@");
         strcpy((char*)& byte_5D4594[1191878], ";");
@@ -36535,17 +36535,17 @@ int sub_47DBD0()
         strcpy((char*)& byte_5D4594[1191806], "m");
         strcpy((char*)& byte_5D4594[1191808], "M");
         *(_WORD*)& byte_5D4594[1191810] = 0;
-        strcpy((char*)& byte_5D4594[1191812], "ù");
+        strcpy((char*)& byte_5D4594[1191812], "\xf9"); // Ã¹
         strcpy((char*)& byte_5D4594[1191814], "%");
         *(_WORD*)& byte_5D4594[1191816] = 0;
         *(_WORD*)& byte_5D4594[1191818] = 178;
         *(_WORD*)& byte_5D4594[1191820] = 0;
         *(_WORD*)& byte_5D4594[1191822] = 0;
         *(_WORD*)& byte_5D4594[1191830] = *(_WORD*)& byte_5D4594[1191902];
-        strcpy((char*)& byte_5D4594[1191832], "µ");
+        strcpy((char*)& byte_5D4594[1191832], "\xb5"); // Âµ
         *(_WORD*)& byte_5D4594[1191834] = 0;
         strcpy((char*)& byte_5D4594[1191644], ")");
-        strcpy((char*)& byte_5D4594[1191646], "°");
+        strcpy((char*)& byte_5D4594[1191646], "\xb0"); // Â°
         strcpy((char*)& byte_5D4594[1191648], "]");
         strcpy((char*)& byte_5D4594[1191650], "=");
         *(_WORD*)& byte_5D4594[1191652] = *(_WORD*)& byte_5D4594[1192040];
@@ -36687,28 +36687,28 @@ int sub_47DBD0()
         *(_WORD*)& byte_5D4594[1191890] = *(_WORD*)& byte_5D4594[1192016];
         strcpy((char*)& byte_5D4594[1191892], "_");
         *(_WORD*)& byte_5D4594[1191894] = 0;
-        strcpy((char*)& byte_5D4594[1191728], "è");
-        strcpy((char*)& byte_5D4594[1191730], "é");
+        strcpy((char*)& byte_5D4594[1191728], "\xe8"); // Ã¨
+        strcpy((char*)& byte_5D4594[1191730], "\xe9"); // Ã©
         strcpy((char*)& byte_5D4594[1191732], "[");
         *(_WORD*)& byte_5D4594[1191734] = *(_WORD*)& byte_5D4594[1192040];
         *(_WORD*)& byte_5D4594[1191736] = *(_WORD*)& byte_5D4594[1191902];
         strcpy((char*)& byte_5D4594[1191738], "]");
-        strcpy((char*)& byte_5D4594[1191806], "ò");
-        strcpy((char*)& byte_5D4594[1191808], "ç");
+        strcpy((char*)& byte_5D4594[1191806], "\xf2"); // Ã²
+        strcpy((char*)& byte_5D4594[1191808], "\xe7"); // Ã§
         strcpy((char*)& byte_5D4594[1191810], "@");
-        strcpy((char*)& byte_5D4594[1191812], "à");
-        strcpy((char*)& byte_5D4594[1191814], "°");
+        strcpy((char*)& byte_5D4594[1191812], "\xe0"); // Ã 
+        strcpy((char*)& byte_5D4594[1191814], "\xb0"); // Â°
         strcpy((char*)& byte_5D4594[1191816], "#");
         strcpy((char*)& byte_5D4594[1191818], "\\");
         strcpy((char*)& byte_5D4594[1191820], "|");
         *(_WORD*)& byte_5D4594[1191822] = 0;
-        strcpy((char*)& byte_5D4594[1191830], "ù");
+        strcpy((char*)& byte_5D4594[1191830], "\xf9"); // Ã¹
         *(_WORD*)& byte_5D4594[1191832] = 167;
         *(_WORD*)& byte_5D4594[1191834] = 0;
         strcpy((char*)& byte_5D4594[1191644], "'");
         strcpy((char*)& byte_5D4594[1191646], "?");
         *(_WORD*)& byte_5D4594[1191648] = 0;
-        strcpy((char*)& byte_5D4594[1191650], "ì");
+        strcpy((char*)& byte_5D4594[1191650], "\xec"); // Ã¬
         strcpy((char*)& byte_5D4594[1191652], "^");
         *(_WORD*)& byte_5D4594[1191654] = 0;
     LABEL_9:

@@ -490,7 +490,7 @@ void __cdecl sub_401B20(char* a1)
     char* v1; // edi
     int v2; // eax
 
-    strcpy((char*)& byte_5D4594[272], "ìqX");
+    strcpy((char*)& byte_5D4594[272], "\xecqX");
     *(_DWORD*)& byte_5D4594[404] = 1;
     v1 = strtok(a1, (const char*)& byte_587000[488]);
     sub_43BEF0(0, 0, 0);
