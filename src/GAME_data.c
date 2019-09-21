@@ -3,35 +3,35 @@
 //-------------------------------------------------------------------------
 // Data declarations
 
-char byte_563002[] = { '\xFE' }; // weak
+char byte_563002[] = { 0xFE }; // weak
 char byte_563006[26] =
 {
-  '\xF7',
-  '\xF8',
-  '\xFA',
-  '\xFB',
-  '\xFC',
-  '\xFD',
-  '\xFE',
-  '\xFF',
-  '\0',
-  '\x01',
-  '\x02',
-  '\x03',
-  '\x04',
-  '\x05',
-  '\x06',
-  '\b',
-  '\xCC',
-  '\xCC',
-  '\xCC',
-  '\xCC',
-  '\xCC',
-  '\xCC',
-  '\xCC',
-  '\xCC',
-  '\xCC',
-  '\xCC'
+  0xF7,
+  0xF8,
+  0xFA,
+  0xFB,
+  0xFC,
+  0xFD,
+  0xFE,
+  0xFF,
+  0x00,
+  0x01,
+  0x02,
+  0x03,
+  0x04,
+  0x05,
+  0x06,
+  0x0B,
+  0xCC,
+  0xCC,
+  0xCC,
+  0xCC,
+  0xCC,
+  0xCC,
+  0xCC,
+  0xCC,
+  0xCC,
+  0xCC
 }; // weak
 unsigned char byte_581450[23472] =
 {
