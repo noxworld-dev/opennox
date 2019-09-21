@@ -1,0 +1,6 @@
+build/
+CMakeFiles/
+*.user
+*.o
+*.exe
+*.wasm
