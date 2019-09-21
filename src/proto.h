@@ -46,6 +46,10 @@ void change_windowed_fullscreen();
 void updateGamma(int value);
 #endif
 
+#ifdef __linux__
+char *dos_to_unix(const char *path);
+#endif
+
 int sub_401000();
 void sub_401010();
 wchar_t* sub_401020();

@@ -1121,10 +1121,6 @@ void sdl_present()
         {
             g_frontbuffer1 = g_backbuffer1;
         }
-        char* srcpixels = g_frontbuffer1->pixels;
-        char* pixels;
-        int srcpitch = g_frontbuffer1->pitch;
-        int pitch;
         const float matrix[] = { 1.0, 0.0, 0.0, 1.0 };
         const float matrixRotated[] = { 0.0, 1.0, 1.0, 0.0 };
 
@@ -3530,7 +3526,14 @@ int __cdecl sub_4B0340(int a1)
         v4 = a1;
     LABEL_13:
 #ifdef USE_SDL
+#ifdef __linux__
+        ;
+        char* path = dos_to_unix(&byte_5D4594[1311940]);
+        PlayMovie(path);
+        free(path);
+#else
         PlayMovie(&byte_5D4594[1311940]);
+#endif
 #else
         v13[1] = *(_DWORD*)& byte_5D4594[823784];
         v13[0] = windowHandle_dword_973FE0;

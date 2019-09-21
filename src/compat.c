@@ -627,7 +627,7 @@ DWORD WINAPI GetTickCount()
 }
 
 // File functions
-static char *dos_to_unix(const char *path)
+char *dos_to_unix(const char *path)
 {
     int i, len = strlen(path);
     char *str = nox_malloc(len + 1);
