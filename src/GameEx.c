@@ -848,7 +848,7 @@ char __usercall playerInfoStructParser_1(int a1, int a2, int *a3)
     return 0;
   while ( 1 )
   {
-    CharToOemW((LPCWSTR)(*(_DWORD *)a2 + 4704), &pDst);
+    nox_CharToOemW((LPCWSTR)(*(_DWORD *)a2 + 4704), &pDst);
     if ( !strcmp(&pDst, (const char *)(a1 + 2)) )
       break;
     v4 = sub_416EE0(a2);
