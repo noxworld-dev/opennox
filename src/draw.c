@@ -1137,14 +1137,14 @@ void sdl_present()
         glPixelStorei(GL_UNPACK_ROW_LENGTH, g_frontbuffer1->pitch / 2);
         glCheckError();
 #endif
-#ifdef _WIN32
+#ifndef __EMSCRIPTEN__
         // XXX FIXME WHY?
         glTexImage2D(GL_TEXTURE_2D, 0, GL_BGRA, g_frontbuffer1->w, g_frontbuffer1->h, 0, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV, NULL);
 #else
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, g_frontbuffer1->w, g_frontbuffer1->h, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, NULL);
 #endif
         glCheckError();
-#ifdef _WIN32
+#ifndef __EMSCRIPTEN__
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, g_frontbuffer1->w, g_frontbuffer1->h, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV, g_frontbuffer1->pixels);
 #else
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, g_frontbuffer1->w, g_frontbuffer1->h, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, g_frontbuffer1->pixels);
