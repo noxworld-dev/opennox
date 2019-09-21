@@ -15054,7 +15054,7 @@ LABEL_7:
     v36 = (int*)v3[2];
     v37 = *v36;
     v3[2] = v36 + 1;
-    if (v37 != 'END ')
+    if (v37 != 0x454E4420) // 'END '
         return 0;
     ++* (_DWORD*)& byte_5D4594[251540];
     return 1;
