@@ -639,6 +639,13 @@ static char *dos_to_unix(const char *path)
     {
         if (path[i] == '\\')
             str[i] = '/';
+// TODO: workaround for a case-sensitive lookup: lower-case the path
+//       since some lookups are on absolute path, this will work only
+//       if the whole path game path is lower-case
+#ifdef __linux__
+        else if (path[i] >= 'A' && path[i] <= 'Z')
+            str[i] = 'a'+(path[i]-'A');
+#endif
         else
             str[i] = path[i];
     }
