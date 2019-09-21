@@ -571,11 +571,7 @@ char GameExCfgLoader()
   DWORD v3; // edi
   char *v4; // esi
   DWORD NumberOfBytesRead; // [esp+4h] [ebp-18h]
-  int v6; // [esp+8h] [ebp-14h]
-  int v7; // [esp+Ch] [ebp-10h]
-  int v8; // [esp+10h] [ebp-Ch]
-  __int16 v9; // [esp+14h] [ebp-8h]
-  char v10; // [esp+16h] [ebp-6h]
+  char v6[16]; // [esp+8h] [ebp-6h]
 
   v0 = fopen("game_ex.cfg", "r");
   v1 = v0;
@@ -619,46 +615,22 @@ char GameExCfgLoader()
         MEMACCESS(0x98085A) &= 0xFFFFFFDF;
       else
         MEMACCESS(0x98085A) |= 0x20u;
-      v6 = 0;
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
+      v6[0] = 0;
       SomeStringSearcher(v4, "PANEL1", (char *)&v6);
       functionalKeyCodes[0] = KeyCodeMatcher((char *)&v6);
-      v6 = 0;
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
+      v6[0] = 0;
       SomeStringSearcher(v4, "PANEL2", (char *)&v6);
       functionalKeyCodes[1] = KeyCodeMatcher((char *)&v6);
-      v6 = 0;
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
+      v6[0] = 0;
       SomeStringSearcher(v4, "PANEL3", (char *)&v6);
       functionalKeyCodes[2] = KeyCodeMatcher((char *)&v6);
-      v6 = 0;
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
+      v6[0] = 0;
       SomeStringSearcher(v4, "PANEL4", (char *)&v6);
       functionalKeyCodes[3] = KeyCodeMatcher((char *)&v6);
-      v6 = 0;
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
+      v6[0] = 0;
       SomeStringSearcher(v4, "PANEL5", (char *)&v6);
       functionalKeyCodes[4] = KeyCodeMatcher((char *)&v6);
-      v6 = 0;
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
+      v6[0] = 0;
       SomeStringSearcher(v4, "TRAPKEY", (char *)&v6);
       functionalKeyCodes[5] = KeyCodeMatcher((char *)&v6);
     }
