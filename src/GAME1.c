@@ -9373,7 +9373,6 @@ unsigned int __cdecl sub_40AD10(unsigned int* a1, int a2, int a3)
     if (!a3)
     {
         v3 = *a1;
-    LABEL_7:
         v4 = a2;
         goto LABEL_8;
     }
@@ -9382,7 +9381,8 @@ unsigned int __cdecl sub_40AD10(unsigned int* a1, int a2, int a3)
         if (a3 != 2)
             goto LABEL_9;
         v3 = a1[3];
-        goto LABEL_7;
+        v4 = a2;
+        goto LABEL_8;
     }
     v4 = a2;
     v3 = a1[2];
@@ -14079,7 +14079,6 @@ _WORD* __cdecl sub_40FE00(_WORD* a1, _BYTE* a2)
             if (!v3)
                 v3 = (char*)v4;
             *v4 = v5;
-        LABEL_22:
             ++v4;
             goto LABEL_23;
         }
@@ -14107,7 +14106,7 @@ _WORD* __cdecl sub_40FE00(_WORD* a1, _BYTE* a2)
                 ++v4;
             }
             *v4 = i;
-            goto LABEL_22;
+            ++v4;
         }
     LABEL_23:
         v5 = *v6++;
@@ -30044,7 +30043,6 @@ __int16 sub_421A30()
                 v2 = 0;
                 if (*(_DWORD*)& byte_587000[60352] <= 1u)
                 {
-                LABEL_16:
                     sub_420EE0((int)& byte_5D4594[16 * *(_DWORD*)v7 + 535844]);
                 }
                 else
@@ -30075,7 +30073,7 @@ __int16 sub_421A30()
                         {
                             if (v2)
                                 break;
-                            goto LABEL_16;
+                            sub_420EE0((int)& byte_5D4594[16 * *(_DWORD*)v7 + 535844]);
                         }
                     }
                 }
@@ -44205,11 +44203,11 @@ int __cdecl sub_4331E0(FILE* a1, int a2)
     }
     else
     {
+    LABEL_6:
         do
         {
             do
             {
-            LABEL_6:
                 if (!fgets((char*)& byte_5D4594[806084], 1024, a1))
                     return v2;
             } while (byte_5D4594[806084] == 35);
@@ -62128,9 +62126,14 @@ LABEL_7:
     case 2:
     case 3:
         if (!*((_DWORD*)lpMem + 1))
-            goto LABEL_22;
-        free(*((LPVOID*)lpMem + 1));
-        free(lpMem);
+        {
+            free(lpMem);
+        }
+        else
+        {
+            free(*((LPVOID*)lpMem + 1));
+            free(lpMem);
+        }
         break;
     case 4:
         v7 = (LPVOID*)((char*)lpMem + 4);
@@ -62172,9 +62175,9 @@ LABEL_7:
             v11 += 48;
             --v12;
         } while (v12);
-        goto LABEL_22;
+        free(lpMem);
+        break;
     default:
-    LABEL_22:
         free(lpMem);
         break;
     }

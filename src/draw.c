@@ -134,7 +134,8 @@ int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
                 *(_DWORD*)& byte_5D4594[3801776] = v8 >> 1;
                 *(_DWORD*)& byte_5D4594[3801800] = v8 >> 4;
                 *(_DWORD*)& byte_5D4594[3799624] = 2;
-                goto LABEL_9;
+                *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
+                return 1;
             }
             *(_DWORD*)& byte_5D4594[3801808] = 2 * v8;
             *(_DWORD*)& byte_5D4594[3801780] = 1;
@@ -160,7 +161,6 @@ int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
         result = sub_48A040(a1, v8, a3, a4);
         if (result)
         {
-        LABEL_9:
             *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
             return 1;
         }
@@ -2985,20 +2985,22 @@ int sub_4338D0()
     case 0:
         dword_69A014 = sub_435180;
         dword_975240 = sub_435240;
-        goto LABEL_7;
+        dword_975380 = sub_434E80;
+        v0 = &byte_581450[9176];
+        qmemcpy(&byte_5D4594[3804364], v0, 0xA0u);
+        break;
     case 1:
         dword_69A014 = sub_4351C0;
         dword_975240 = sub_435280;
-    LABEL_7:
         dword_975380 = sub_434E80;
         v0 = &byte_581450[9176];
-        goto LABEL_8;
+        qmemcpy(&byte_5D4594[3804364], v0, 0xA0u);
+        break;
     case 2:
         dword_69A014 = sub_435200;
         dword_975240 = sub_435280;
         dword_975380 = sub_434EC0;
         v0 = &byte_581450[9336];
-    LABEL_8:
         qmemcpy(&byte_5D4594[3804364], v0, 0xA0u);
         break;
     }
