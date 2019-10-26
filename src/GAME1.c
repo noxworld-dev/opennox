@@ -57670,11 +57670,12 @@ void sub_446380()
 }
 
 //----- (004463E0) --------------------------------------------------------
-FILE* __cdecl sub_4463E0(int a1)
+int __cdecl sub_4463E0(int a1)
 {
     FILE* result; // eax
     FILE* v2; // edi
     char* v3; // eax
+    int result2 = 0;
 
     *(_DWORD*)& byte_5D4594[826036] = 0;
     *(_DWORD*)& byte_5D4594[4 * a1 + 826040] = 0;
@@ -57693,9 +57694,9 @@ FILE* __cdecl sub_4463E0(int a1)
             v3 = *(char**)& byte_5D4594[826036];
         }
         v3[(*(_DWORD*)& byte_5D4594[4 * a1 + 826040])++] = 0;
-        result = (FILE*)fclose(v2);
+        result2 = fclose(v2);
     }
-    return result;
+    return result2;
 }
 
 //----- (00446490) --------------------------------------------------------
