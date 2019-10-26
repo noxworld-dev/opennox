@@ -393,6 +393,7 @@ int sub_4453A0()
 BOOL __cdecl sub_4147E0(HWND hWnd)
 {
 #ifdef USE_SDL
+    return 0;
 #else
     // Trigger expiration time check.
     return PostMessageA(hWnd, 3024u, (WPARAM)& byte_5D4594[338464], *(LPARAM*)& byte_587000[32580]);
@@ -432,13 +433,12 @@ void sub_4516C0(wchar_t* a1, ...)
 //----- (00416A10) --------------------------------------------------------
 int sub_416A10()
 {
-    HWND v0; // esi
-    int result; // eax
-    HWND v2; // eax
-
 #ifdef USE_SDL
     return 1;
 #else
+    HWND v0; // esi
+    int result; // eax
+    HWND v2; // eax
     * (_DWORD*)& byte_5D4594[371712] = CreateMutexA(0, 0, "843ED62B-354B-11d3-8F70-0060089C05B1");
     if (GetLastError() == 183)
     {
