@@ -25129,7 +25129,8 @@ int sub_514210()
     case 0x93u:
         v12 = sub_419AD0(*(float*)& v0);
         sub_5231B0(&v17, v12);
-        goto LABEL_11;
+        result = 0;
+        break;
     case 0x97u:
         v11 = sub_419A70(*(float*)& v0);
         sub_4D9110(&v17, v11);
@@ -25148,7 +25149,6 @@ int sub_514210()
         result = 0;
         break;
     default:
-    LABEL_11:
         result = 0;
         break;
     }

@@ -836,7 +836,6 @@ BOOL WINAPI CopyFileA(LPCSTR lpExistingFileName, LPCSTR lpNewFileName, BOOL bFai
     wfd = _open(lpNewFileName, bFailIfExists ? O_WRONLY | O_CREAT | O_EXCL : O_WRONLY | O_CREAT | O_TRUNC, 0666);
     if (wfd < 0)
     {
-error:
         close(rfd);
         return FALSE;
     }
@@ -846,8 +845,10 @@ error:
         int ret = read(rfd, buf, sizeof(buf));
         if (ret <= 0)
             break;
-        if (write(wfd, buf, ret) != ret)
-            goto error;
+        if (write(wfd, buf, ret) != ret) {
+            close(rfd);
+            return FALSE;
+        }
     }
 
     close(rfd);

@@ -42705,14 +42705,14 @@ char* __cdecl sub_4DBA30(int a1)
                     if (*(_BYTE*)(*(_DWORD*)(i + 748) + 1440) & 0x80)
                     {
                         sub_4D91A0((unsigned __int8)v2[2064], i);
-                    LABEL_67:
                         sub_417190((unsigned __int8)v2[2064], i, 1);
                         continue;
                     }
                     if ((*(_BYTE*)(i + 12) & 0x80))
                     {
                         sub_4D9250((unsigned __int8)v2[2064], i);
-                        goto LABEL_67;
+                        sub_417190((unsigned __int8)v2[2064], i, 1);
+                        continue;
                     }
                 }
             }
