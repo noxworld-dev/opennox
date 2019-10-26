@@ -33,7 +33,7 @@ typedef INT_PTR LSTATUS;
 #include "windows.h"
 #endif
 #include "compat_mss.h"
-#include "string.h"
+#include "noxstring.h"
 
 typedef unsigned char _BYTE;
 typedef unsigned short _WORD;
