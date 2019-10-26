@@ -74,8 +74,15 @@ typedef struct __m64 __m64;
 #define __PAIR64__(x,y) ((((_QWORD)(x)) << 32) | ((_DWORD)(y)))
 #define __SPAIR64__(x,y) ((__int64)((((_QWORD)(x)) << 32) | ((_DWORD)(y))))
 
+//#define DEBUG_MALLOCS
+
+#ifdef DEBUG_MALLOCS
 #define nox_malloc(x) nox_malloc2(x, __func__, __LINE__, __FILE__)
 #define nox_calloc(x,y) nox_malloc2((x)*(y), __func__, __LINE__, __FILE__)
+#else
+#define nox_malloc(x) malloc(x)
+#define nox_calloc(x,y) calloc(x, y)
+#endif
 
 void nox_exit(int exitCode);
 
