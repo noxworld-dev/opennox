@@ -48,7 +48,7 @@ add_executable (
     main.cpp
     movie.c
     sm.c
-    string.c
+    noxstring.c
     win.c
 	MixPatch.c
 	GameEx.c
