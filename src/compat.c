@@ -84,6 +84,7 @@ unsigned int _control87(unsigned int new_, unsigned int mask)
         fesetround(FE_TOWARDZERO);
     else
         DebugBreak();
+    return 0;
 }
 
 unsigned int _controlfp(unsigned int new_, unsigned int mask)
@@ -92,6 +93,7 @@ unsigned int _controlfp(unsigned int new_, unsigned int mask)
         fesetround(FE_TOWARDZERO);
     else
         DebugBreak();
+    return 0;
 }
 
 uintptr_t _beginthread(void( __cdecl *start_address )( void * ), unsigned int stack_size, void *arglist)
@@ -564,6 +566,7 @@ BOOL WINAPI SystemTimeToFileTime(const SYSTEMTIME *lpSystemTime, LPFILETIME lpFi
     t = (t * 1000 + lpSystemTime->wMilliseconds) * 10000;
     lpFileTime->dwLowDateTime = t & 0xffffffff;
     lpFileTime->dwHighDateTime = t >> 32;
+    return 0;
 }
 
 LONG WINAPI CompareFileTime(const FILETIME *lpFileTime1, const FILETIME *lpFileTime2)
@@ -572,6 +575,7 @@ LONG WINAPI CompareFileTime(const FILETIME *lpFileTime1, const FILETIME *lpFileT
         return (LONG)lpFileTime1->dwHighDateTime - (LONG)lpFileTime2->dwHighDateTime;
     if (lpFileTime1->dwLowDateTime != lpFileTime2->dwLowDateTime)
         return (LONG)lpFileTime1->dwLowDateTime - (LONG)lpFileTime2->dwLowDateTime;
+    return 0;
 }
 
 VOID WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime)
@@ -1080,6 +1084,7 @@ LSTATUS WINAPI RegCloseKey(HKEY hKey)
 {
     free(hKey->path);
     free(hKey);
+    return 0;
 }
 
 // Synchronization functions
