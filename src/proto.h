@@ -2217,7 +2217,7 @@ int sub_44D970();
 int sub_44D990();
 int sub_44D9A0();
 char* sub_44D9D0();
-int (*__cdecl sub_44D9F0(int a1))(void);
+int __cdecl sub_44D9F0(int a1);
 int __cdecl sub_44DA60(int a1);
 int __cdecl sub_44DAB0(int a1, int a2, void (*a3)(void));
 int __cdecl sub_44DB30(int a1, int a2, int a3);
