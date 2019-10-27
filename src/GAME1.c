@@ -401,80 +401,91 @@ size_t* __cdecl cmain(int a1, int a2)
     sub_4093A0();
     *(_DWORD*)& byte_5D4594[260] = sub_40ABF0((char*)& byte_587000[92], 7);
     result = (size_t*)sub_40F300((char*)& byte_587000[104]);
-    if (result)
+    if (!result)
     {
-        sub_4D07F0();
-        sub_40AED0();
-        sub_416500();
-        result = (size_t*)sub_4317B0((char*)& byte_587000[112], 0);
-        if (result)
-        {
-            if (!*(_DWORD*)& byte_5D4594[805856])
-                sub_4445C0();
-            sub_416190();
-            sub_415F70();
-            sub_42EAE0();
-            sub_415D50();
-            sub_4158C0();
-            sub_4444F0();
-            sub_4D11A0();
-            sub_430BE0(0, 0, 16);
-            result = (size_t*)sub_43BF10(1);
-            if (result)
-            {
-                sub_434350(*(int*)& byte_5D4594[2650656]);
-                sub_440900();
-                result = (size_t*)sub_42EE30(*(int*)& byte_5D4594[3804680]);
-                if (result)
-                {
-                    result = (size_t*)sub_431370();
-                    if (result)
-                    {
-                        result = (size_t*)sub_4310B0(*(int*)& byte_587000[80]);
-                        if (result || !*(_DWORD*)& byte_587000[80])
-                        {
-                            result = sub_415470("thing.bin");
-                            if (result)
-                            {
-                                result = (size_t*)sub_430190();
-                                if (result)
-                                {
-                                    result = (size_t*)sub_4101D0();
-                                    if (result)
-                                    {
-                                        result = (size_t*)sub_410F60();
-                                        if (result)
-                                        {
-                                            sub_414C90();
-                                            sub_4D0A30();
-                                            sub_4D0E00();
-                                            sub_40EA10();
-                                            sub_40B890(32);
-                                            sub_40B170(32);
-                                            sub_4134D0();
-                                            if (*(_DWORD*)& byte_587000[26048] == 6 || *(_DWORD*)& byte_587000[26048] == 8)
-                                                sub_43F680(0);
-                                            sub_413920();
-                                            result = (size_t*)sub_431390();
-                                            if (result)
-                                            {
-                                                sub_4147E0(getWindowHandle_sub_401FD0());
-                                                g_a1 = a1;
-                                                g_a2 = a2;
-                                                g_v20 = 0;
-                                                g_v21 = 0;
-                                                f(0);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        return result;
     }
+    sub_4D07F0();
+    sub_40AED0();
+    sub_416500();
+    result = (size_t*)sub_4317B0((char*)& byte_587000[112], 0);
+    if (!result)
+    {
+        return result;
+    }
+    if (!*(_DWORD*)& byte_5D4594[805856])
+        sub_4445C0();
+    sub_416190();
+    sub_415F70();
+    sub_42EAE0();
+    sub_415D50();
+    sub_4158C0();
+    sub_4444F0();
+    sub_4D11A0();
+    sub_430BE0(0, 0, 16);
+    result = (size_t*)sub_43BF10(1);
+    if (!result)
+    {
+        return result;
+    }
+    sub_434350(*(int*)& byte_5D4594[2650656]);
+    sub_440900();
+    result = (size_t*)sub_42EE30(*(int*)& byte_5D4594[3804680]);
+    if (!result)
+    {
+        return result;
+    }
+    result = (size_t*)sub_431370();
+    if (!result)
+    {
+        return result;
+    }
+    result = (size_t*)sub_4310B0(*(int*)& byte_587000[80]);
+    if (!(result || !*(_DWORD*)& byte_587000[80]))
+    {
+        return result;
+    }
+    result = sub_415470("thing.bin");
+    if (!result)
+    {
+        return result;
+    }
+    result = (size_t*)sub_430190();
+    if (!result)
+    {
+        return result;
+    }
+    result = (size_t*)sub_4101D0();
+    if (!result)
+    {
+        return result;
+    }
+    result = (size_t*)sub_410F60();
+    if (!result)
+    {
+        return result;
+    }
+    sub_414C90();
+    sub_4D0A30();
+    sub_4D0E00();
+    sub_40EA10();
+    sub_40B890(32);
+    sub_40B170(32);
+    sub_4134D0();
+    if (*(_DWORD*)& byte_587000[26048] == 6 || *(_DWORD*)& byte_587000[26048] == 8)
+        sub_43F680(0);
+    sub_413920();
+    result = (size_t*)sub_431390();
+    if (!result)
+    {
+        return result;
+    }
+    sub_4147E0(getWindowHandle_sub_401FD0());
+    g_a1 = a1;
+    g_a2 = a2;
+    g_v20 = 0;
+    g_v21 = 0;
+    f(0);
     return result;
 }
 // 4015E2: variable 'v18' is possibly undefined
