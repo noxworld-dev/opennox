@@ -16423,38 +16423,34 @@ int __cdecl sub_412670(const char* a1, char* a2, int a3)
     char* v3; // edi
     const char* v4; // ecx
     unsigned __int8* v5; // ebp
-    int result; // eax
+    //int result; // eax
     int(__cdecl * v7)(const char*, char*, int); // eax
     char v8[8]; // [esp+10h] [ebp-8h]
 
     strcpy(v8, " =\n\r\t");
     v3 = strtok(a2, v8);
     if (!v3)
-        goto LABEL_5;
+        return 0;
     v4 = *(const char**)& byte_587000[27104];
     v5 = &byte_587000[27104];
     if (!*(_DWORD*)& byte_587000[27104])
-        goto LABEL_5;
+        return 0;
     while (strcmp(v4, v3))
     {
         v4 = (const char*) * ((_DWORD*)v5 + 3);
         v5 += 12;
         if (!v4)
-            goto LABEL_5;
+            return 0;
     }
-    if (!strcmp(a1, (const char*)& byte_587000[31764])
-        && ((*(_DWORD*)(a3 + 100) = *((_DWORD*)v5 + 1),
-        (v7 = (int(__cdecl*)(const char*, char*, int)) * ((_DWORD*)v5 + 2)) == 0)
-            || v7(a1, a2, a3)))
+    if (strcmp(a1, (const char*)& byte_587000[31764]))
+        return 0;
+    *(_DWORD*)(a3 + 100) = *((_DWORD*)v5 + 1);
+    v7 = (int(__cdecl*)(const char*, char*, int)) * ((_DWORD*)v5 + 2);
+    if ((v7 == 0) || v7(a1, a2, a3))
     {
-        result = 1;
+        return 1;
     }
-    else
-    {
-    LABEL_5:
-        result = 0;
-    }
-    return result;
+    return 0;
 }
 
 //----- (00412740) --------------------------------------------------------
