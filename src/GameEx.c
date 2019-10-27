@@ -93,7 +93,7 @@ keyCodeStruct keycodeArray[] =
   { 208u, "down" },
   { 205u, "right" }
 };
-char EndOfKeyCodeArray[2] = { '\0', '\0' }; // weak
+char EndOfKeyCodeArray[2] = { 0, 0 }; // weak
 int DefaultPacket[4] = { 171901697, 1, 347, 44391266 }; // weak
 unsigned __int8 functionalKeyCodes[] = { 2u, 3u, 4u, 5u, 6u, 156u, 0u };
 wchar_t wndEntryNames[5][35] =
