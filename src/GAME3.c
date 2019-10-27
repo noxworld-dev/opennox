@@ -6223,7 +6223,7 @@ void sub_4AA650()
         loadString_sub_40F1D0(v2, &v3, (const char*)& byte_587000[172980], 131);
         *(_DWORD*)& byte_5D4594[1309744] %= 3;
         if (v3)
-            (void*)sub_44D900((int)v3, 100);
+            /*(void*)*/sub_44D900((int)v3, 100);
     }
 }
 
@@ -41420,7 +41420,7 @@ int __cdecl sub_4DA660(int a1, const char* a2)
                 goto LABEL_16;
             }
         }
-        v9 = -v6 - (v6 - 1);
+        v9 = -(int)v6 - ((int)v6 - 1);
     LABEL_16:
         if (!v9)
             return i;
