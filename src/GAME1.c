@@ -45599,10 +45599,9 @@ int sub_435CC0()
                                                     *(_DWORD*)& byte_5D4594[811116] = 0;
                                                     v1 = sub_4766D0();
                                                     sub_476700(v1, 0);
-                                                    if (sub_40A5C0(2048))
-                                                        goto LABEL_27;
-                                                    if (sub_4D6F50() || sub_4D6F70())
-                                                    {
+                                                    if (sub_40A5C0(2048)) {
+                                                        sub_41CC00((char*)& byte_5D4594[2660688]);
+                                                    } else if (sub_4D6F50() || sub_4D6F70()) {
                                                         if (sub_4D6F50() || sub_4D6F70())
                                                         {
                                                             sub_460380();
@@ -45610,8 +45609,7 @@ int sub_435CC0()
                                                             sub_4721D0();
                                                         }
                                                         if (!sub_40A5C0(1))
-                                                            LABEL_27:
-                                                        sub_41CC00((char*)& byte_5D4594[2660688]);
+                                                            sub_41CC00((char*)& byte_5D4594[2660688]);
                                                     }
                                                     sub_41A480((char*)& byte_5D4594[2660688]);
                                                     sub_443C80((wchar_t*)& byte_587000[86380], 1);
@@ -49571,12 +49569,14 @@ void sub_43C380()
                 v10 = *(_DWORD*)(v0 + 8);
                 if ((int) * (_DWORD*)(v0 + 24) >= 0)
                 {
-                    if (v8 >= v10)
-                        goto LABEL_22;
+                    if (v8 >= v10) {
+                        v8 = *(_DWORD*)(v0 + 8);
+                        v2 = 1;
+                        v13 = *(_DWORD*)(v0 + 8);
+                    }
                 }
                 else if (v8 <= v10)
                 {
-                LABEL_22:
                     v8 = *(_DWORD*)(v0 + 8);
                     v2 = 1;
                     v13 = *(_DWORD*)(v0 + 8);
@@ -49584,12 +49584,14 @@ void sub_43C380()
                 v11 = *(_DWORD*)(v0 + 12);
                 if ((int) * (_DWORD*)(v0 + 28) >= 0)
                 {
-                    if (v9 >= v11)
-                        goto LABEL_27;
+                    if (v9 >= v11) {
+                        v9 = *(_DWORD*)(v0 + 12);
+                        ++v2;
+                        v14 = *(_DWORD*)(v0 + 12);
+                    }
                 }
                 else if (v9 <= v11)
                 {
-                LABEL_27:
                     v9 = *(_DWORD*)(v0 + 12);
                     ++v2;
                     v14 = *(_DWORD*)(v0 + 12);
