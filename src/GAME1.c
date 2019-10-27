@@ -167,7 +167,7 @@ int sub_401060()
 }
 
 //----- (00401070) --------------------------------------------------------
-size_t* __cdecl sub_401070(int a1, int a2)
+size_t* __cdecl cmain(int a1, int a2)
 {
     BOOL v2; // eax
     int v3; // esi

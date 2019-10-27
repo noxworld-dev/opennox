@@ -104,7 +104,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
 #endif
 
-    sub_401070(g_argc, g_argv);
+    cmain(g_argc, g_argv);
 #else
     if (v10 || !(v11 = FindWindowA("Nox Game Window", 0)))
     {
