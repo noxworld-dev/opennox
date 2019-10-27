@@ -742,13 +742,14 @@ char* sub_44D9D0()
 }
 
 //----- (0044D9F0) --------------------------------------------------------
-int (*__cdecl sub_44D9F0(int a1))(void)
+int __cdecl sub_44D9F0(int a1)
 {
     int v1; // ebx
     unsigned __int8* v2; // edi
     int v3; // ebp
     unsigned __int8* v4; // esi
-    int (*result)(void); // eax
+    int result; // eax
+    int (*result2)(void); // eax
 
     v1 = 1;
     if (a1)
@@ -759,24 +760,24 @@ int (*__cdecl sub_44D9F0(int a1))(void)
     do
     {
         v4 = v2 - 4;
-        result = (int (*)(void))(*((_DWORD*)v2 - 1) & 5);
-        if (result == (int (*)(void))v1)
+        result = (int)(*((_DWORD*)v2 - 1) & 5);
+        if (result == v1)
         {
             (*((void(__cdecl * *)(unsigned __int8*))v2 + 5))(v2 - 4);
-            result = *(int (**)(void))v2;
+            result = *(int*)v2;
             if (*(int*)v2 <= 0)
             {
                 if (!(*v4 & 2))
                 {
-                    result = (int (*)(void)) * ((_DWORD*)v2 + 4);
+                    result2 = (int (*)(void)) * ((_DWORD*)v2 + 4);
                     *(_DWORD*)v4 &= ~v1;
-                    if (result)
-                        result = (int (*)(void))result();
+                    if (result2)
+                        result = result2();
                 }
             }
             else
             {
-                result = (int (*)(void))((char*)result - 1);
+                result--;
                 *(_DWORD*)v2 = result;
             }
         }
