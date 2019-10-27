@@ -246,7 +246,6 @@ size_t* __cdecl cmain(int a1, int a2)
                     if (!_strcmpi((const char*)& byte_587000[224], *(const char**)v7))
                     {
                         v8 = *(_DWORD*)& byte_5D4594[2650636] | 0x40000000;
-                    LABEL_44:
                         *(_DWORD*)& byte_5D4594[2650636] = v8;
                         goto LABEL_45;
                     }
@@ -255,14 +254,16 @@ size_t* __cdecl cmain(int a1, int a2)
                         if (!_strcmpi((const char*)& byte_587000[240], *(const char**)v7))
                         {
                             v8 = *(_DWORD*)& byte_5D4594[2650636] | 0x10000;
-                            goto LABEL_44;
+                            *(_DWORD*)& byte_5D4594[2650636] = v8;
+                            goto LABEL_45;
                         }
                         if (_strcmpi((const char*)& byte_587000[248], *(const char**)v7))
                         {
                             if (!_strcmpi((const char*)& byte_587000[256], *(const char**)v7))
                             {
                                 v8 = *(_DWORD*)& byte_5D4594[2650636] | 0x2000000;
-                                goto LABEL_44;
+                                *(_DWORD*)& byte_5D4594[2650636] = v8;
+                                goto LABEL_45;
                             }
                             if (!strcmp((const char*)& byte_587000[264], *(const char**)v7))
                             {
@@ -296,12 +297,14 @@ size_t* __cdecl cmain(int a1, int a2)
                                             if (!_strcmpi((const char*)& byte_587000[312], *(const char**)v7))
                                             {
                                                 v8 = *(_DWORD*)& byte_5D4594[2650636] | 0x100000;
-                                                goto LABEL_44;
+                                                *(_DWORD*)& byte_5D4594[2650636] = v8;
+                                                goto LABEL_45;
                                             }
                                             if (!_strcmpi((const char*)& byte_587000[324], *(const char**)v7))
                                             {
                                                 v8 = *(_DWORD*)& byte_5D4594[2650636] | 0x40000;
-                                                goto LABEL_44;
+                                                *(_DWORD*)& byte_5D4594[2650636] = v8;
+                                                goto LABEL_45;
                                             }
                                             if (_strcmpi((const char*)& byte_587000[332], *(const char**)v7))
                                             {
@@ -311,7 +314,8 @@ size_t* __cdecl cmain(int a1, int a2)
                                                     {
                                                         v8 = *(_DWORD*)& byte_5D4594[2650636];
                                                         BYTE1(v8) &= 0xFBu;
-                                                        goto LABEL_44;
+                                                        *(_DWORD*)& byte_5D4594[2650636] = v8;
+                                                        goto LABEL_45;
                                                     }
                                                 }
                                                 else
