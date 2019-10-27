@@ -37871,7 +37871,6 @@ u_short* __cdecl sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4)
             sub_42C360(v118, v82);
             break;
         }
-    LABEL_94:
         sub_42C360(v118, 0);
         break;
     case 2:
@@ -37966,7 +37965,8 @@ u_short* __cdecl sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4)
             sub_42C360(v118, v113);
             break;
         }
-        goto LABEL_94;
+        sub_42C360(v118, 0);
+        break;
     case 1:
         ++ * (_DWORD*)& byte_5D4594[741668];
         sub_42BDC0(v118, (char*)& byte_587000[71912], byte_5D4594[741668]);
