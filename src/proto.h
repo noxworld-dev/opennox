@@ -55,7 +55,7 @@ void sub_401010();
 wchar_t* sub_401020();
 BOOL sub_401040();
 int sub_401060();
-size_t* __cdecl sub_401070(int a1, int a2);
+size_t* __cdecl cmain(int a1, int a2);
 void sub_401B10();
 void __cdecl sub_401B20(char*);
 //int __stdcall WinMain(HINSTANCE hInstance, int, int, int); // idb
