@@ -20467,11 +20467,10 @@ __int64 sdl_get_ticks()
 }
 void __cdecl sub_416B20()
 {
-    LARGE_INTEGER Frequency; // [esp+0h] [ebp-8h]
-
 #ifdef USE_SDL
     * (_DWORD*)& byte_5D4594[371716] = sdl_get_ticks;
 #else
+    LARGE_INTEGER Frequency; // [esp+0h] [ebp-8h]
     if (sub_416B80() && QueryPerformanceFrequency(&Frequency))
     {
         *(_QWORD*)& byte_5D4594[371724] = Frequency.QuadPart / 1000;
