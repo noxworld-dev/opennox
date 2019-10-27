@@ -19371,15 +19371,16 @@ void __cdecl sub_4BDA60(LPVOID lpMem)
 }
 
 //----- (004BDA80) --------------------------------------------------------
-int(__cdecl* __cdecl sub_4BDA80(int a1))(int)
+int __cdecl sub_4BDA80(int a1)
 {
-    int(__cdecl * result)(int); // eax
+    int result = 0; // eax
+    int(__cdecl * result2)(int); // eax
 
     if (*(_BYTE*)(a1 + 124) & 5)
         (*(void(__cdecl * *)(int))(*(_DWORD*)(a1 + 172) + 16))(a1);
-    result = *(int(__cdecl * *)(int))(a1 + 148);
-    if (result)
-        result = (int(__cdecl*)(int))result(a1);
+    result2 = *(int(__cdecl * *)(int))(a1 + 148);
+    if (result2)
+        result = (int)result2(a1);
     *(_DWORD*)(a1 + 288) = 0;
     return result;
 }
