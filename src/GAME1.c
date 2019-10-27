@@ -42766,29 +42766,23 @@ int __cdecl sub_4317B0(char* a1, int a2)
     sub_42CD90();
     result = fopen("default.cfg", "r");
     v5 = (FILE*)result;
-    if (result)
+    if (!result)
     {
-        if (a2 || sub_431890((FILE*)result))
-        {
-            if (sub_4331E0(v5, a2))
-            {
-                fclose(v5);
-                sub_433290("nox.cfg");
-                result = 1;
-            }
-            else
-            {
-                fclose(v5);
-                result = 0;
-            }
-        }
-        else
-        {
-            fclose(v5);
-            result = 0;
-        }
+        return result;
     }
-    return result;
+    if (!(a2 || sub_431890((FILE*)result)))
+    {
+        fclose(v5);
+        return 0;
+    }
+    if (!sub_4331E0(v5, a2))
+    {
+        fclose(v5);
+        return 0;
+    }
+    fclose(v5);
+    sub_433290("nox.cfg");
+    return 1;
 }
 
 //----- (00431890) --------------------------------------------------------
