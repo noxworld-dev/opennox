@@ -1491,7 +1491,8 @@ int sub_48B000()
     {
         char tmp[8192];
         glGetShaderInfoLog(vertex, 8192, NULL, tmp);
-        fprintf(stderr, "%s\n", tmp);
+        fprintf(stderr, "vertex shader error: %s\n", tmp);
+        return 0;
     }
 
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
@@ -1505,7 +1506,8 @@ int sub_48B000()
     {
         char tmp[8192];
         glGetShaderInfoLog(fragment, 8192, NULL, tmp);
-        fprintf(stderr, "%s\n", tmp);
+        fprintf(stderr, "fragment shader error: %s\n", tmp);
+        return 0;
     }
 
     g_program = glCreateProgram();
@@ -1520,6 +1522,7 @@ int sub_48B000()
     if (status == GL_FALSE)
     {
         fprintf(stderr, "Link failed.\n");
+        return 0;
     }
 
     glUseProgram(g_program);
