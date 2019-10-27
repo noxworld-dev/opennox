@@ -19651,27 +19651,28 @@ int sub_4BDF30()
 }
 
 //----- (004BDF70) --------------------------------------------------------
-int (*__cdecl sub_4BDF70(int* a1))(void)
+int __cdecl sub_4BDF70(int* a1)
 {
-    int (*result)(void); // eax
+    int result; // eax
 
-    result = *(int (**)(void)) & byte_5D4594[1316708];
+    result = *(int*) & byte_5D4594[1316708];
     if (*(_DWORD*)& byte_5D4594[1316708])
         result = sub_4BDF90(a1);
     return result;
 }
 
 //----- (004BDF90) --------------------------------------------------------
-int (*__cdecl sub_4BDF90(int* a1))(void)
+int __cdecl sub_4BDF90(int* a1)
 {
-    int (*result)(void); // eax
+    int result = 0; // eax
+    int (*result2)(void); // eax
 
     sub_453F70(a1 + 6);
     sub_4535E0(a1 + 11);
     sub_4535F0(a1[12]);
-    result = *(int (**)(void)) & byte_587000[4 * *(_DWORD*)& byte_5D4594[1316704] + 180016];
-    if (result)
-        result = (int (*)(void))result();
+    result2 = *(int (**)(void)) & byte_587000[4 * *(_DWORD*)& byte_5D4594[1316704] + 180016];
+    if (result2)
+        result = result2();
     return result;
 }
 
