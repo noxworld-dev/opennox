@@ -54600,7 +54600,7 @@ char __cdecl sub_537610(int a1)
                 v2 = *(_DWORD*)(a1 + 8),
                 v2 & 0xE080)
             || (v4 = *(void(__cdecl * *)(int, int))(a1 + 696), v4 == sub_4EADF0)
-            || (char*)v4 == (char*)sub_4EBD40
+            || v4 == sub_4EBD40
             || (v5 = *(unsigned __int16*)(a1 + 4), (unsigned __int16)v5 == v3)
             || v5 == v1)
         {
@@ -64359,20 +64359,21 @@ char __cdecl sub_544B90(int a1)
 }
 
 //----- (00544C40) --------------------------------------------------------
-int(__cdecl* __cdecl sub_544C40(int a1))(int)
+int __cdecl sub_544C40(int a1)
 {
     int v1; // edi
     int v2; // eax
-    int(__cdecl * result)(int); // eax
+    int result = 0; // eax
+    int(__cdecl * result2)(int); // eax
 
     v1 = *(_DWORD*)(a1 + 748);
     v2 = sub_424300(a1);
     if (v2)
         sub_501960(*(_DWORD*)(v2 + 60), a1, 0, 0);
     sub_502490((int*)(v1 + 1264), 0, a1);
-    result = *(int(__cdecl * *)(int))(*(_DWORD*)(v1 + 484) + 228);
-    if (result)
-        result = (int(__cdecl*)(int))result(a1);
+    result2 = *(int(__cdecl * *)(int))(*(_DWORD*)(v1 + 484) + 228);
+    if (result2)
+        result = result2(a1);
     return result;
 }
 
