@@ -388,9 +388,9 @@ int __cdecl GameExCfgSaver()
   int v22; // ecx
   keyCodeStruct *v23; // eax
   char *v24; // ecx
-  DWORD NumberOfBytesWritten; // [esp+12Ch] [ebp-4h]
-  char v26; // [esp+134h] [ebp+4h]
-  char v27; // [esp+138h] [ebp+8h]
+  //DWORD NumberOfBytesWritten; // [esp+12Ch] [ebp-4h]
+  //char v26; // [esp+134h] [ebp+4h]
+  //char v27; // [esp+138h] [ebp+8h]
 
   result = (int)fopen("game_ex.cfg", "w");
   v1 = (void *)result;
@@ -566,7 +566,7 @@ char GameExCfgLoader()
   char result; // al
   DWORD v3; // edi
   char *v4; // esi
-  DWORD NumberOfBytesRead; // [esp+4h] [ebp-18h]
+  //DWORD NumberOfBytesRead; // [esp+4h] [ebp-18h]
   char v6[16]; // [esp+8h] [ebp-6h]
 
   v0 = fopen("game_ex.cfg", "r");
@@ -747,14 +747,9 @@ char __cdecl getPlayerClassFromObjPtr(int a1)
 //----- (10001C50) --------------------------------------------------------
 int __usercall playerInfoStructsToVector(smallPlayerStructVector *vector)
 {
-  int v1; // esi
-  int *v2; // edi
-  unsigned int v3; // ebx
-  unsigned int v4; // esi
-  int v5; // ebp
   char *result; // eax
   char *v7; // esi
-  char v8; // [esp+10h] [ebp-24h]
+  //char v8; // [esp+10h] [ebp-24h]
   smallPlayerStruct pDst; // [esp+18h] [ebp-1Ch]
 
   result = sub_416EA0();
