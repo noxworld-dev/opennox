@@ -17,7 +17,7 @@ int g_fullscreen_cfg = 0;
 int g_scaled_cfg = 0;
 
 void f(int);
-void (*mainloop_enter)();
+void (*mainloop_enter)(void*);
 void* mainloop_enter_args;
 void (*mainloop_exit)();
 int g_v20, g_v21;
