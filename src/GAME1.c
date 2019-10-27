@@ -12754,7 +12754,7 @@ int __stdcall sub_40E4F0(int a1, _DWORD* a2, int* a3)
             return -2147467262;
     }
     v7 = (int(__stdcall*)(int, _DWORD*, int*, _DWORD)) * ((_DWORD*)v3 + 2);
-    if (v7 != (int(__stdcall*)(int, _DWORD*, int*, _DWORD))1)
+    if ((int)v7 != 1)
     {
         result = v7(a1, a2, a3, *((_DWORD*)v3 + 1));
         if (!result || !v6 && result < 0)
@@ -12855,7 +12855,7 @@ int __stdcall sub_40E6C0(int a1, _DWORD* a2, int* a3)
             return -2147467262;
     }
     v7 = (int(__stdcall*)(int, _DWORD*, int*, _DWORD)) * ((_DWORD*)v3 + 2);
-    if (v7 != (int(__stdcall*)(int, _DWORD*, int*, _DWORD))1)
+    if ((int)v7 != 1)
     {
         result = v7(a1, a2, a3, *((_DWORD*)v3 + 1));
         if (!result || !v6 && result < 0)
@@ -12956,7 +12956,7 @@ int __stdcall sub_40E890(int a1, _DWORD* a2, int* a3)
             return -2147467262;
     }
     v7 = (int(__stdcall*)(int, _DWORD*, int*, _DWORD)) * ((_DWORD*)v3 + 2);
-    if (v7 != (int(__stdcall*)(int, _DWORD*, int*, _DWORD))1)
+    if ((int)v7 != 1)
     {
         result = v7(a1, a2, a3, *((_DWORD*)v3 + 1));
         if (!result || !v6 && result < 0)
