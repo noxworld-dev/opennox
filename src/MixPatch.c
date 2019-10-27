@@ -540,45 +540,41 @@ int OnLibraryNotice_stub(int a1, ...)
     return 0;
 }
 
-void __cdecl sub_980523(int a1)
+void __cdecl sub_980523(_DWORD* a1)
 {
     _DWORD* i; // esi
     int v2; // eax
 
-    if (a1)
+    if (!a1) return;
+    for (i = *(_DWORD * *)(a1 + 126); i; i = (_DWORD*)i[124])
     {
-        for (i = *(_DWORD * *)(a1 + 504); i; i = (_DWORD*)i[124])
+        if (i[2] & 0x2000000)
         {
-            if (i[2] & 0x2000000)
+            v2 = i[4];
+            if (v2 & 0x100)
             {
-                v2 = i[4];
-                if (v2 & 0x100)
-                {
-                    if (sub_415C70((int)i) & 0x3000000)
-                        * (_DWORD*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2500) = i;
-                }
+                if (sub_415C70((int)i) & 0x3000000)
+                    * (_DWORD*)(*(_DWORD*)(*(_DWORD*)(a1 + 187) + 276) + 2500) = i;
             }
         }
     }
 }
 
-int __cdecl sub_9805EB(int a1)
+_DWORD* __cdecl sub_9805EB(_DWORD* a1)
 {
     _DWORD* v1; // esi
-    int result; // eax
 
     if (!a1)
         goto LABEL_6;
-    v1 = *(_DWORD * *)(a1 + 504);
+    v1 = *(_DWORD * *)(a1 + 126);
     if (!v1)
         goto LABEL_6;
     while (!(v1[2] & 0x2000000) || (unsigned __int8)v1[4] != 16)
     {
     LABEL_6:
         v1 = (_DWORD*)v1[124];
-        result = 0;
         if (!v1)
-            return result;
+            return 0;
     }
     return (int)v1;
 }

@@ -56576,7 +56576,7 @@ int __cdecl sub_53A140(_DWORD* a1, int a2, int a3, int a4)
         *(_DWORD*)(v10 + 104) = 0;
     }
     sub_4F3030((int)v4, (int)v6);
-    sub_980523((int)v6);
+    sub_980523(v6);
     v16 = v6[187];
     if (!*(_DWORD*)(v16 + 108) || !(sub_415820(*(_DWORD*)(v16 + 108)) & 0x7FFE40C))
     {
@@ -56587,7 +56587,7 @@ int __cdecl sub_53A140(_DWORD* a1, int a2, int a3, int a4)
         }
         else
         {
-            v18 = sub_9805EB((int)v6);
+            v18 = sub_9805EB(v6);
             if (v18)
                 sub_4F2F70((int)v6, (int)v18);
         }
