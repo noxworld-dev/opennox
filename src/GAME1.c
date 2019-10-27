@@ -48035,27 +48035,37 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4)
             *(_DWORD*)& byte_587000[87412] = 0;
             sub_43A810();
             sub_4378B0();
-            if (sub_40A5C0(0x2000000))
-                goto LABEL_74;
-            goto LABEL_75;
+            if (sub_40A5C0(0x2000000)) {
+                v24 = sub_4A7EF0();
+                sub_439D90(*(_DWORD*)v24 + 216, *((_DWORD*)v24 + 1) + 27);
+            } else {
+                sub_439D90(0x198u, 0xEFu);
+            }
+            result = 0;
+            break;
         case 10055:
             *(_DWORD*)& byte_587000[87412] = 1;
             sub_43A810();
             sub_4378B0();
-            if (!sub_40A5C0(0x2000000))
-                goto LABEL_75;
-            v25 = sub_4A7EF0();
-            sub_439D90(*(_DWORD*)v25 + 216, *((_DWORD*)v25 + 1) + 27);
-            return 0;
+            if (!sub_40A5C0(0x2000000)) {
+                sub_439D90(0x198u, 0xEFu);
+                result = 0;
+            } else {
+                v25 = sub_4A7EF0();
+                sub_439D90(*(_DWORD*)v25 + 216, *((_DWORD*)v25 + 1) + 27);
+                return 0;
+            }
+            break;
         case 10056:
             *(_DWORD*)& byte_587000[87412] = 2;
             sub_43A810();
             sub_4378B0();
-            if (!sub_40A5C0(0x2000000))
-                goto LABEL_75;
-        LABEL_74:
-            v24 = sub_4A7EF0();
-            sub_439D90(*(_DWORD*)v24 + 216, *((_DWORD*)v24 + 1) + 27);
+            if (!sub_40A5C0(0x2000000)) {
+                sub_439D90(0x198u, 0xEFu);
+            } else {
+                v24 = sub_4A7EF0();
+                sub_439D90(*(_DWORD*)v24 + 216, *((_DWORD*)v24 + 1) + 27);
+            }
             result = 0;
             break;
         case 10057:
@@ -48066,14 +48076,12 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4)
             {
                 v26 = sub_4A7EF0();
                 sub_439D90(*(_DWORD*)v26 + 216, *((_DWORD*)v26 + 1) + 27);
-                result = 0;
             }
             else
             {
-            LABEL_75:
                 sub_439D90(0x198u, 0xEFu);
-                result = 0;
             }
+            result = 0;
             break;
         default:
             return 0;
@@ -50443,11 +50451,16 @@ int sub_43D440()
             }
             break;
         case 2:
-            if (!*(_DWORD*)& byte_5D4594[816364])
-                goto LABEL_32;
-            result = AIL_stream_status(*(_DWORD*)& byte_5D4594[816364]);
-            if (result == 2 || !(*(_DWORD*)& byte_5D4594[816152] & 0xFFFF0000))
-                goto LABEL_32;
+            if (!*(_DWORD*)& byte_5D4594[816364]) {
+                result = sub_43D650();
+                *(_DWORD*)& byte_5D4594[816348] = 0;
+            } else {
+                result = AIL_stream_status(*(_DWORD*)& byte_5D4594[816364]);
+                if (result == 2 || !(*(_DWORD*)& byte_5D4594[816152] & 0xFFFF0000)) {
+                    result = sub_43D650();
+                    *(_DWORD*)& byte_5D4594[816348] = 0;
+                }
+            }
             break;
         case 3:
             if (!*(_DWORD*)& byte_5D4594[816356] || (result = *(_DWORD*)& byte_587000[93156]) == 0)
@@ -50457,11 +50470,13 @@ int sub_43D440()
                     || !*(_DWORD*)& byte_5D4594[816364]
                     || AIL_stream_status(*(_DWORD*)& byte_5D4594[816364]) == 2)
                 {
-                    goto LABEL_32;
+                    result = sub_43D650();
+                    *(_DWORD*)& byte_5D4594[816348] = 0;
+                } else {
+                    sub_486350((int)& byte_5D4594[816148], 0x4000);
+                    result = sub_43D6A0();
+                    *(_DWORD*)& byte_5D4594[816348] = 1;
                 }
-                sub_486350((int)& byte_5D4594[816148], 0x4000);
-                result = sub_43D6A0();
-                *(_DWORD*)& byte_5D4594[816348] = 1;
             }
             break;
         case 4:
@@ -50476,7 +50491,6 @@ int sub_43D440()
             }
             else
             {
-            LABEL_32:
                 result = sub_43D650();
                 *(_DWORD*)& byte_5D4594[816348] = 0;
             }
@@ -51058,7 +51072,6 @@ int sub_43DEB0()
         {
             v13 = sub_409B30();
             v6 = loadString_sub_40F1D0((char*)& byte_587000[93352], 0, (const char*)& byte_587000[93312], 318);
-        LABEL_29:
             sub_4516C0(v6, v13);
             sub_4356E0();
             return 0;
