@@ -13799,8 +13799,9 @@ int __cdecl sub_40F7A0(char* a1)
 }
 
 //----- (0040F830) --------------------------------------------------------
-int __cdecl sub_40F830(int a1)
+int __cdecl sub_40F830(const char* path)
 {
+    int a1;
     int v1; // ebx
     FILE* v2; // eax
     FILE* v3; // ebp
@@ -13824,7 +13825,7 @@ int __cdecl sub_40F830(int a1)
 
     v1 = 0;
     v18 = 0;
-    v2 = fopen((const char*)a1, "rb");
+    v2 = fopen(path, "rb");
     v3 = v2;
     if (!v2)
         return 0;
@@ -13897,7 +13898,7 @@ int __cdecl sub_40F830(int a1)
                             } while ((_WORD)v11);
                         }
                     }
-                    sub_40FB60((__int16*)& byte_5D4594[226904]);
+                    sub_40FB60((wchar_t*)& byte_5D4594[226904]);
                     v13 = nox_wcslen((const wchar_t*)& byte_5D4594[226904]);
                     *(_DWORD*)(v9 + *(_DWORD*)& byte_5D4594[251504]) = nox_calloc(v13 + 1, 2u);
                     nox_wcscpy(*(wchar_t**)(v9 + *(_DWORD*)& byte_5D4594[251504]), (const wchar_t*)& byte_5D4594[226904]);
@@ -13936,55 +13937,45 @@ int __cdecl sub_40F830(int a1)
 }
 
 //----- (0040FB60) --------------------------------------------------------
-__int16 __cdecl sub_40FB60(__int16* a1)
+void __cdecl sub_40FB60(wchar_t* a1)
 {
-    __int16* v1; // ecx
-    __int16 v2; // dx
-    __int16 result; // ax
-    int v4; // esi
-    __int16* v5; // edi
+    wchar_t* v1; // ecx
+    wchar_t result; // ax
 
     v1 = a1;
-    v2 = -1;
     result = *a1;
-    v4 = 1;
-    v5 = a1 + 1;
-    if (!*a1)
-        goto LABEL_15;
-    do
+    wchar_t v2 = -1; // dx
+    bool v4 = 1; // esi
+    while (result)
     {
-        if (result == 32)
-        {
-            if (v2 != 32 && !v4)
-                goto LABEL_8;
-        }
-        else
-        {
-            if (result != 10 && result != 9)
-            {
-            LABEL_8:
+        if (result == ' ') {
+            if (v2 != ' ' && !v4) {
                 *v1 = result;
                 ++v1;
                 v2 = result;
                 v4 = 0;
-                goto LABEL_12;
             }
-            if (v2 == 32)
-                --v1;
-            *v1 = result;
-            v4 = 1;
-            v2 = result;
-            ++v1;
+        } else {
+            if (result != '\n' && result != '\t') {
+                *v1 = result;
+                ++v1;
+                v2 = result;
+                v4 = 0;
+            } else {
+                if (v2 == ' ')
+                    --v1;
+                *v1 = result;
+                v2 = result;
+                v4 = 1;
+                ++v1;
+            }
         }
-    LABEL_12:
-        result = *v5;
-        ++v5;
-    } while (result);
-    if (v2 == 32)
+        ++a1;
+        result = *a1;
+    }
+    if (v2 == ' ')
         --v1;
-LABEL_15:
     *v1 = 0;
-    return result;
 }
 
 //----- (0040FBE0) --------------------------------------------------------
@@ -14035,7 +14026,7 @@ int sub_40FBE0()
                 &byte_5D4594[222708],
                 4096);
             sub_40FE00(&byte_5D4594[226904], &byte_5D4594[218612]);
-            sub_40FB60((__int16*)& byte_5D4594[226904]);
+            sub_40FB60((wchar_t*)& byte_5D4594[226904]);
             v6 = nox_wcslen((const wchar_t*)& byte_5D4594[226904]);
             *(_DWORD*)(*(_DWORD*)& byte_5D4594[251504] + v4) = nox_calloc(v6 + 1, 2u);
             nox_wcscpy(*(wchar_t**)(*(_DWORD*)& byte_5D4594[251504] + v4), (const wchar_t*)& byte_5D4594[226904]);
