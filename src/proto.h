@@ -4154,7 +4154,7 @@ int __cdecl sub_4BD8C0(int a1);
 int __cdecl sub_4BD940(int a1);
 int __cdecl sub_4BD9B0(_DWORD* a2);
 int __cdecl sub_4BDA00(int a1);
-int(__cdecl* __cdecl sub_4BDA10(int a1, int a2))(int);
+int __cdecl sub_4BDA10(int a1, int a2);
 _DWORD* __cdecl sub_4BDA30(_DWORD* a1);
 void __cdecl sub_4BDA60(LPVOID lpMem); // idb
 int(__cdecl* __cdecl sub_4BDA80(int a1))(int);
