@@ -7065,7 +7065,7 @@ void __cdecl sub_544A40(int a1, int a2);
 int __cdecl sub_544AE0(int, float); // idb
 void __cdecl sub_544B20(int a1, int a2);
 char __cdecl sub_544B90(int a1);
-int(__cdecl* __cdecl sub_544C40(int a1))(int);
+int __cdecl sub_544C40(int a1);
 void __cdecl sub_544CA0(_DWORD* a1);
 void __cdecl sub_544CE0(_DWORD* a1);
 char __cdecl sub_544D60(int a1);
