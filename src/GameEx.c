@@ -396,141 +396,137 @@ int __cdecl GameExCfgSaver()
   v1 = (void *)result;
   if ( result == 0 )
   {
-    LOBYTE(result) = 0;
+    return 0;
   }
-  else
+  fwrite("AUTO_SHIELD = ", 0xEu, 1, v1);
+  v2 = "1\r\n";
+  if ( !((MEMACCESS(0x98085A) >> 1) & 1) )
+    v2 = "0\r\n";
+  fwrite(v2, 3u, 1, v1);
+  fwrite("GREAT_SWORD_BLOKING_WALK = ", 0x1Bu, 1, v1);
+  v3 = "1\r\n";
+  if ( !((MEMACCESS(0x98085A) >> 2) & 1) )
+    v3 = "0\r\n";
+  fwrite(v3, 3u, 1, v1);
+  fwrite("MOUSE_KEYBOARD_ROLL = ", 0x16u, 1, v1);
+  v4 = "1\r\n";
+  if ( !((MEMACCESS(0x98085A) >> 3) & 1) )
+    v4 = "0\r\n";
+  fwrite(v4, 3u, 1, v1);
+  fwrite("BERSERKER_SHIED_BLOCK = ", 0x18u, 1, v1);
+  v5 = "1\r\n";
+  if ( !((MEMACCESS(0x98085A) >> 4) & 1) )
+    v5 = "0\r\n";
+  fwrite(v5, 3u, 1, v1);
+  fwrite("EXTENSION_MESSAGES = ", 0x15u, 1, v1);
+  v6 = "1\r\n";
+  if ( !((MEMACCESS(0x98085A) >> 5) & 1) )
+    v6 = "0\r\n";
+  fwrite(v6, 3u, 1, v1);
+  fwrite("PANEL1 = ", 9u, 1, v1);
+  v7 = 0;
+  v8 = keycodeArray;
+  while ( functionalKeyCodes[0] != v8->keyCode )
   {
-    fwrite("AUTO_SHIELD = ", 0xEu, 1, v1);
-    v2 = "1\r\n";
-    if ( !((MEMACCESS(0x98085A) >> 1) & 1) )
-      v2 = "0\r\n";
-    fwrite(v2, 3u, 1, v1);
-    fwrite("GREAT_SWORD_BLOKING_WALK = ", 0x1Bu, 1, v1);
-    v3 = "1\r\n";
-    if ( !((MEMACCESS(0x98085A) >> 2) & 1) )
-      v3 = "0\r\n";
-    fwrite(v3, 3u, 1, v1);
-    fwrite("MOUSE_KEYBOARD_ROLL = ", 0x16u, 1, v1);
-    v4 = "1\r\n";
-    if ( !((MEMACCESS(0x98085A) >> 3) & 1) )
-      v4 = "0\r\n";
-    fwrite(v4, 3u, 1, v1);
-    fwrite("BERSERKER_SHIED_BLOCK = ", 0x18u, 1, v1);
-    v5 = "1\r\n";
-    if ( !((MEMACCESS(0x98085A) >> 4) & 1) )
-      v5 = "0\r\n";
-    fwrite(v5, 3u, 1, v1);
-    fwrite("EXTENSION_MESSAGES = ", 0x15u, 1, v1);
-    v6 = "1\r\n";
-    if ( !((MEMACCESS(0x98085A) >> 5) & 1) )
-      v6 = "0\r\n";
-    fwrite(v6, 3u, 1, v1);
-    fwrite("PANEL1 = ", 9u, 1, v1);
-    v7 = 0;
-    v8 = keycodeArray;
-    while ( functionalKeyCodes[0] != v8->keyCode )
+    ++v8;
+    ++v7;
+    if ( (signed int)v8 >= (signed int)EndOfKeyCodeArray )
     {
-      ++v8;
-      ++v7;
-      if ( (signed int)v8 >= (signed int)EndOfKeyCodeArray )
-      {
-        v9 = 0;
-        goto LABEL_17;
-      }
+      v9 = 0;
+      goto LABEL_17;
     }
-    v9 = keycodeArray[v7].keyName;
-LABEL_17:
-    fwrite(v9, strlen(v9), 1, v1);
-    fwrite("\r\n", 2u, 1, v1);
-    fwrite("PANEL2 = ", 9u, 1, v1);
-    v10 = 0;
-    v11 = keycodeArray;
-    while ( functionalKeyCodes[1] != v11->keyCode )
-    {
-      ++v11;
-      ++v10;
-      if ( (signed int)v11 >= (signed int)EndOfKeyCodeArray )
-      {
-        v12 = 0;
-        goto LABEL_21;
-      }
-    }
-    v12 = keycodeArray[v10].keyName;
-LABEL_21:
-    fwrite(v12, strlen(v12), 1, v1);
-    fwrite("\r\n", 2u, 1, v1);
-    fwrite("PANEL3 = ", 9u, 1, v1);
-    v13 = 0;
-    v14 = keycodeArray;
-    while ( functionalKeyCodes[2] != v14->keyCode )
-    {
-      ++v14;
-      ++v13;
-      if ( (signed int)v14 >= (signed int)EndOfKeyCodeArray )
-      {
-        v15 = 0;
-        goto LABEL_25;
-      }
-    }
-    v15 = keycodeArray[v13].keyName;
-LABEL_25:
-    fwrite(v15, strlen(v15), 1, v1);
-    fwrite("\r\n", 2u, 1, v1);
-    fwrite("PANEL4 = ", 9u, 1, v1);
-    v16 = 0;
-    v17 = keycodeArray;
-    while ( functionalKeyCodes[3] != v17->keyCode )
-    {
-      ++v17;
-      ++v16;
-      if ( (signed int)v17 >= (signed int)EndOfKeyCodeArray )
-      {
-        v18 = 0;
-        goto LABEL_29;
-      }
-    }
-    v18 = keycodeArray[v16].keyName;
-LABEL_29:
-    fwrite(v18, strlen(v18), 1, v1);
-    fwrite("\r\n", 2u, 1, v1);
-    fwrite("PANEL5 = ", 9u, 1, v1);
-    v19 = 0;
-    v20 = keycodeArray;
-    while ( functionalKeyCodes[4] != v20->keyCode )
-    {
-      ++v20;
-      ++v19;
-      if ( (signed int)v20 >= (signed int)EndOfKeyCodeArray )
-      {
-        v21 = 0;
-        goto LABEL_33;
-      }
-    }
-    v21 = keycodeArray[v19].keyName;
-LABEL_33:
-    fwrite(v21, strlen(v21), 1, v1);
-    fwrite("\r\n", 2u, 1, v1);
-	fwrite("TRAPKEY = ", 0xAu, 1, v1);
-    v22 = 0;
-    v23 = keycodeArray;
-    while ( functionalKeyCodes[5] != v23->keyCode )
-    {
-      ++v23;
-      ++v22;
-      if ( (signed int)v23 >= (signed int)EndOfKeyCodeArray )
-      {
-        v24 = 0;
-        goto LABEL_37;
-      }
-    }
-    v24 = keycodeArray[v22].keyName;
-LABEL_37:
-    fwrite(v24, strlen(v24), 1, v1);
-    fwrite("\r\n----------", 0xCu, 1, v1);
-    result = fclose(v1);
-    LOBYTE(result) = 1;
   }
-  return result;
+  v9 = keycodeArray[v7].keyName;
+LABEL_17:
+  fwrite(v9, strlen(v9), 1, v1);
+  fwrite("\r\n", 2u, 1, v1);
+  fwrite("PANEL2 = ", 9u, 1, v1);
+  v10 = 0;
+  v11 = keycodeArray;
+  while ( functionalKeyCodes[1] != v11->keyCode )
+  {
+    ++v11;
+    ++v10;
+    if ( (signed int)v11 >= (signed int)EndOfKeyCodeArray )
+    {
+      v12 = 0;
+      goto LABEL_21;
+    }
+  }
+  v12 = keycodeArray[v10].keyName;
+LABEL_21:
+  fwrite(v12, strlen(v12), 1, v1);
+  fwrite("\r\n", 2u, 1, v1);
+  fwrite("PANEL3 = ", 9u, 1, v1);
+  v13 = 0;
+  v14 = keycodeArray;
+  while ( functionalKeyCodes[2] != v14->keyCode )
+  {
+    ++v14;
+    ++v13;
+    if ( (signed int)v14 >= (signed int)EndOfKeyCodeArray )
+    {
+      v15 = 0;
+      goto LABEL_25;
+    }
+  }
+  v15 = keycodeArray[v13].keyName;
+LABEL_25:
+  fwrite(v15, strlen(v15), 1, v1);
+  fwrite("\r\n", 2u, 1, v1);
+  fwrite("PANEL4 = ", 9u, 1, v1);
+  v16 = 0;
+  v17 = keycodeArray;
+  while ( functionalKeyCodes[3] != v17->keyCode )
+  {
+    ++v17;
+    ++v16;
+    if ( (signed int)v17 >= (signed int)EndOfKeyCodeArray )
+    {
+      v18 = 0;
+      goto LABEL_29;
+    }
+  }
+  v18 = keycodeArray[v16].keyName;
+LABEL_29:
+  fwrite(v18, strlen(v18), 1, v1);
+  fwrite("\r\n", 2u, 1, v1);
+  fwrite("PANEL5 = ", 9u, 1, v1);
+  v19 = 0;
+  v20 = keycodeArray;
+  while ( functionalKeyCodes[4] != v20->keyCode )
+  {
+    ++v20;
+    ++v19;
+    if ( (signed int)v20 >= (signed int)EndOfKeyCodeArray )
+    {
+      v21 = 0;
+      goto LABEL_33;
+    }
+  }
+  v21 = keycodeArray[v19].keyName;
+LABEL_33:
+  fwrite(v21, strlen(v21), 1, v1);
+  fwrite("\r\n", 2u, 1, v1);
+  fwrite("TRAPKEY = ", 0xAu, 1, v1);
+  v22 = 0;
+  v23 = keycodeArray;
+  while ( functionalKeyCodes[5] != v23->keyCode )
+  {
+    ++v23;
+    ++v22;
+    if ( (signed int)v23 >= (signed int)EndOfKeyCodeArray )
+    {
+      v24 = 0;
+      goto LABEL_37;
+    }
+  }
+  v24 = keycodeArray[v22].keyName;
+LABEL_37:
+  fwrite(v24, strlen(v24), 1, v1);
+  fwrite("\r\n----------", 0xCu, 1, v1);
+  fclose(v1);
+  return 1;
 }
 // 10001290: could not find valid save-restore pair for ebx
 // 10001290: could not find valid save-restore pair for ebp
