@@ -2482,10 +2482,6 @@ void sub_4AD1E0()
     _WORD** v3; // ebp
     _WORD* v4; // esi
     int v5; // ecx
-    int v6; // ebx
-    int v7; // ebx
-    int v8; // ebx
-    int v9; // ebx
 
     if (!dword_973C70)
     {
@@ -2620,8 +2616,6 @@ int sub_48A5E0()
 int sub_48A3D0()
 {
 #ifdef USE_SDL
-    int width, height, pitch;
-
     *(_DWORD*)& byte_5D4594[3801780] = 2;
     *(_DWORD*)& byte_5D4594[3801796] = 0;
     if (g_backbuffer1)
