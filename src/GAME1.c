@@ -42808,338 +42808,370 @@ int __cdecl sub_431890(FILE* a1)
 LABEL_2:
     while (fgets((char*)& byte_5D4594[806084], 1024, a1))
     {
-        if (byte_5D4594[806084] != 35)
+        if (byte_5D4594[806084] == 35)
         {
-            v1 = strtok((char*)& byte_5D4594[806084], (const char*)& byte_587000[81500]);
-            if (v1)
+            continue;
+        }
+        v1 = strtok((char*)& byte_5D4594[806084], (const char*)& byte_587000[81500]);
+        if (!v1)
+        {
+            continue;
+        }
+        if (!strcmp(v1, "---"))
+            return 1;
+        if (!strcmp(v1, "Version"))
+        {
+            v2 = (char*)sub_432AD0((int*)& byte_587000[81284]);
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, "VideoMode"))
+        {
+            v2 = (char*)sub_432B00();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, "VideoSize"))
+        {
+            v2 = (char*)sub_432BD0();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, "Gamma"))
+        {
+            v2 = (char*)sub_432C00();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, "FXVolume"))
+        {
+            v2 = (char*)sub_432CB0(0);
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, "DialogVolume"))
+        {
+            v2 = (char*)sub_432CB0(1);
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, "MusicVolume"))
+        {
+            v2 = (char*)sub_432CB0(2);
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81592]))
+        {
+            v2 = (char*)sub_431FC0();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81604]))
+        {
+            v2 = (char*)sub_432010();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81616]))
+        {
+            v2 = (char*)sub_4320B0();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81632]))
+        {
+            v2 = (char*)sub_432100();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81648]))
+        {
+            v2 = (char*)sub_432150();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81664]))
+        {
+            v2 = (char*)sub_4321A0();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81688]))
+        {
+            v2 = (char*)sub_4321F0();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81708]))
+        {
+            v2 = (char*)sub_432240();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81724]))
+        {
+            v2 = (char*)sub_432290();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81744]))
+        {
+            v2 = (char*)sub_4322E0();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81760]))
+        {
+            v2 = (char*)sub_432340();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81780]))
+        {
+            v2 = (char*)sub_432390();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81792]))
+        {
+            v2 = (char*)sub_4323E0();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81804]))
+        {
+            v2 = (char*)sub_432430();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81816]))
+        {
+            v2 = (char*)sub_433190();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81828]))
+        {
+            v2 = (char*)sub_432480();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81844]))
+        {
+            v2 = (char*)sub_4324D0();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81860]))
+        {
+            v2 = (char*)sub_432520();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81876]))
+        {
+            v2 = (char*)sub_432590();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81888]))
+        {
+            v2 = (char*)sub_432620();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81904]))
+        {
+            v2 = (char*)sub_4325D0();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81924]))
+        {
+            v2 = (char*)sub_432A90();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81944]))
+        {
+            v2 = (char*)sub_432DF0();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81964]))
+        {
+            v2 = (char*)sub_433050();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81980]))
+        {
+            v2 = (char*)sub_432C30();
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[81992]))
+        {
+            v2 = sub_432E50(0);
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82004]))
+        {
+            v2 = sub_432E50(1);
+            if (!v2)
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82016]))
+        {
+            if (!sub_432D10())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82028]))
+        {
+            if (!sub_432D80())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82040]))
+        {
+            if (!sub_4327C0())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82056]))
+        {
+            if (!sub_432810())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82076]))
+        {
+            if (!sub_432970())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82096]))
+        {
+            if (!sub_432860())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82104]))
+        {
+            if (!sub_4328C0())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82112]))
+        {
+            if (!sub_433130())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82128]))
+        {
+            if (!sub_4330C0())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82140]))
+        {
+            if (!sub_432920())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82160]))
+        {
+            if (!sub_4329D0())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82176]))
+        {
+            if (!sub_432A30())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82188]))
+        {
+            if (!sub_432660())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82200]))
+        {
+            if (!sub_4326B0())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82212]))
+        {
+            if (!sub_432700())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82228]))
+        {
+            if (!sub_432740())
+                return 0;
+        }
+        else if (!strcmp(v1, (const char*)& byte_587000[82248]))
+        {
+            if (!sub_432780())
+                return 0;
+        }
+        else if (!strcmp(v1, "Fullscreen"))
+        {
+            const char* token;
+            strtok(NULL, " \r\t\n");
+            token = strtok(NULL, " \r\t\n");
+            if (token)
             {
-                if (!strcmp(v1, "---"))
-                    return 1;
-                if (!strcmp(v1, "Version"))
+                g_fullscreen_cfg = atoi(token);
+                if (g_fullscreen <= -4)
                 {
-                    v2 = (char*)sub_432AD0((int*)& byte_587000[81284]);
-                LABEL_74:
-                    if (!v2)
-                        return 0;
+                    g_fullscreen = g_fullscreen_cfg;
                 }
-                else
-                {
-                    if (!strcmp(v1, "VideoMode"))
-                    {
-                        v2 = (char*)sub_432B00();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, "VideoSize"))
-                    {
-                        v2 = (char*)sub_432BD0();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, "Gamma"))
-                    {
-                        v2 = (char*)sub_432C00();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, "FXVolume"))
-                    {
-                        v2 = (char*)sub_432CB0(0);
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, "DialogVolume"))
-                    {
-                        v2 = (char*)sub_432CB0(1);
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, "MusicVolume"))
-                    {
-                        v2 = (char*)sub_432CB0(2);
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81592]))
-                    {
-                        v2 = (char*)sub_431FC0();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81604]))
-                    {
-                        v2 = (char*)sub_432010();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81616]))
-                    {
-                        v2 = (char*)sub_4320B0();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81632]))
-                    {
-                        v2 = (char*)sub_432100();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81648]))
-                    {
-                        v2 = (char*)sub_432150();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81664]))
-                    {
-                        v2 = (char*)sub_4321A0();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81688]))
-                    {
-                        v2 = (char*)sub_4321F0();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81708]))
-                    {
-                        v2 = (char*)sub_432240();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81724]))
-                    {
-                        v2 = (char*)sub_432290();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81744]))
-                    {
-                        v2 = (char*)sub_4322E0();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81760]))
-                    {
-                        v2 = (char*)sub_432340();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81780]))
-                    {
-                        v2 = (char*)sub_432390();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81792]))
-                    {
-                        v2 = (char*)sub_4323E0();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81804]))
-                    {
-                        v2 = (char*)sub_432430();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81816]))
-                    {
-                        v2 = (char*)sub_433190();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81828]))
-                    {
-                        v2 = (char*)sub_432480();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81844]))
-                    {
-                        v2 = (char*)sub_4324D0();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81860]))
-                    {
-                        v2 = (char*)sub_432520();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81876]))
-                    {
-                        v2 = (char*)sub_432590();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81888]))
-                    {
-                        v2 = (char*)sub_432620();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81904]))
-                    {
-                        v2 = (char*)sub_4325D0();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81924]))
-                    {
-                        v2 = (char*)sub_432A90();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81944]))
-                    {
-                        v2 = (char*)sub_432DF0();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81964]))
-                    {
-                        v2 = (char*)sub_433050();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81980]))
-                    {
-                        v2 = (char*)sub_432C30();
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[81992]))
-                    {
-                        v2 = sub_432E50(0);
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[82004]))
-                    {
-                        v2 = sub_432E50(1);
-                        goto LABEL_74;
-                    }
-                    if (!strcmp(v1, (const char*)& byte_587000[82016]))
-                    {
-                        if (!sub_432D10())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82028]))
-                    {
-                        if (!sub_432D80())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82040]))
-                    {
-                        if (!sub_4327C0())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82056]))
-                    {
-                        if (!sub_432810())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82076]))
-                    {
-                        if (!sub_432970())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82096]))
-                    {
-                        if (!sub_432860())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82104]))
-                    {
-                        if (!sub_4328C0())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82112]))
-                    {
-                        if (!sub_433130())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82128]))
-                    {
-                        if (!sub_4330C0())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82140]))
-                    {
-                        if (!sub_432920())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82160]))
-                    {
-                        if (!sub_4329D0())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82176]))
-                    {
-                        if (!sub_432A30())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82188]))
-                    {
-                        if (!sub_432660())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82200]))
-                    {
-                        if (!sub_4326B0())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82212]))
-                    {
-                        if (!sub_432700())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82228]))
-                    {
-                        if (!sub_432740())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, (const char*)& byte_587000[82248]))
-                    {
-                        if (!sub_432780())
-                            return 0;
-                    }
-                    else if (!strcmp(v1, "Fullscreen"))
-                    {
-                        const char* token;
-                        strtok(NULL, " \r\t\n");
-                        token = strtok(NULL, " \r\t\n");
-                        if (token)
-                        {
-                            g_fullscreen_cfg = atoi(token);
-                            if (g_fullscreen <= -4)
-                            {
-                                g_fullscreen = g_fullscreen_cfg;
-                            }
-                        }
+            }
 
-                        change_windowed_fullscreen();
-                    }
-                    else if (!strcmp(v1, "Gamma2"))
-                    {
-                        const char* token;
-                        strtok(NULL, " \r\t\n");
-                        token = strtok(NULL, " \r\t\n");
-                        if (token)
-                            draw_gamma = atof(token);
-                    }
-                    else if (!strcmp(v1, "Stretched"))
-                    {
-                        const char* token;
-                        strtok(NULL, " \r\t\n");
-                        token = strtok(NULL, " \r\t\n");
-                        if (token)
-                        {
-                            g_scaled_cfg = atoi(token);
-                            if (g_scaled >= 0)
-                            {
-                                g_scaled = g_scaled_cfg;
-                            }
-                        }
-                    }
-                    else if (!strcmp(v1, "InputSensitivity"))
-                    {
-                        const char* token;
-                        strtok(NULL, " \r\t\n");
-                        token = strtok(NULL, " \r\t\n");
-                        if (token)
-                            input_sensitivity = atof(token);
-                    }
-                    else
-                    {
-                        v3 = *(const char**)& byte_587000[81168];
-                        v4 = 0;
-                        if (*(_DWORD*)& byte_587000[81168])
-                        {
-                            v5 = &byte_587000[81168];
-                            while (strcmp(v1, v3))
-                            {
-                                v3 = (const char*) * ((_DWORD*)v5 + 2);
-                                v5 += 8;
-                                ++v4;
-                                if (!v3)
-                                    goto LABEL_2;
-                            }
-                            v2 = (char*)sub_432C70(*(_DWORD*)& byte_587000[8 * v4 + 81172]);
-                            goto LABEL_74;
-                        }
-                    }
+            change_windowed_fullscreen();
+        }
+        else if (!strcmp(v1, "Gamma2"))
+        {
+            const char* token;
+            strtok(NULL, " \r\t\n");
+            token = strtok(NULL, " \r\t\n");
+            if (token)
+                draw_gamma = atof(token);
+        }
+        else if (!strcmp(v1, "Stretched"))
+        {
+            const char* token;
+            strtok(NULL, " \r\t\n");
+            token = strtok(NULL, " \r\t\n");
+            if (token)
+            {
+                g_scaled_cfg = atoi(token);
+                if (g_scaled >= 0)
+                {
+                    g_scaled = g_scaled_cfg;
                 }
+            }
+        }
+        else if (!strcmp(v1, "InputSensitivity"))
+        {
+            const char* token;
+            strtok(NULL, " \r\t\n");
+            token = strtok(NULL, " \r\t\n");
+            if (token)
+                input_sensitivity = atof(token);
+        }
+        else
+        {
+            v3 = *(const char**)& byte_587000[81168];
+            v4 = 0;
+            if (*(_DWORD*)& byte_587000[81168])
+            {
+                v5 = &byte_587000[81168];
+                while (strcmp(v1, v3))
+                {
+                    v3 = (const char*) * ((_DWORD*)v5 + 2);
+                    v5 += 8;
+                    ++v4;
+                    if (!v3)
+                        goto LABEL_2;
+                }
+                v2 = (char*)sub_432C70(*(_DWORD*)& byte_587000[8 * v4 + 81172]);
+                if (!v2)
+                    return 0;
             }
         }
     }
