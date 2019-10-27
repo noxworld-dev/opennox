@@ -19340,7 +19340,7 @@ int __cdecl sub_4BDA00(int a1)
 }
 
 //----- (004BDA10) --------------------------------------------------------
-int(__cdecl* __cdecl sub_4BDA10(int a1, int a2))(int)
+int __cdecl sub_4BDA10(int a1, int a2)
 {
     *(_DWORD*)(a1 + 12) = a2;
     *(_DWORD*)(a1 + 124) |= 8u;
