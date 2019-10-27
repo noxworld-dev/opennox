@@ -56510,9 +56510,6 @@ int sub_444570()
 int sub_4445C0()
 {
     int v0; // ebx
-    signed int v1; // eax
-    int v2; // esi
-    int v3; // eax
     int v4; // ebx
     int v5; // ebp
     int v6; // eax
@@ -56523,6 +56520,9 @@ int sub_4445C0()
     int v11; // [esp+18h] [ebp-4h]
 
 #if 0
+    signed int v1; // eax
+    int v2; // esi
+    int v3; // eax
     if (sub_444D90())
     {
         v1 = sub_444DD0();
