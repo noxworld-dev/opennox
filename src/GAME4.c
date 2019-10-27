@@ -12435,7 +12435,7 @@ int sub_505360()
                     goto LABEL_25;
                 }
             }
-            v19 = -v17 - (v17 - 1);
+            v19 = -(int)v17 - ((int)v17 - 1);
         LABEL_25:
             if (v19)
             {
@@ -63067,7 +63067,7 @@ char* __cdecl sub_542BF0(int a1, int a2, int a3)
                 }
                 v10 = (CHAR*)sub_4E39D0((int)v4);
                 v11 = *(int(__cdecl * *)(int*))(sub_4E3B60(v10) + 212);
-                if ((char*)v11 == (char*)sub_4F4E50)
+                if (v11 == sub_4F4E50)
                 {
                     v12 = (const char*)sub_508CB0(v4, 1);
                     if (strlen(v12))
@@ -63088,7 +63088,7 @@ char* __cdecl sub_542BF0(int a1, int a2, int a3)
                         sub_509120(v4, 0, v44);
                     }
                 }
-                else if ((char*)v11 == (char*)sub_528DB0)
+                else if (v11 == sub_528DB0)
                 {
                     v17 = (const char*)sub_508CB0(v4, 3);
                     if (strlen(v17))
@@ -63145,7 +63145,7 @@ char* __cdecl sub_542BF0(int a1, int a2, int a3)
                         sub_509120(v4, 11, v45);
                     }
                 }
-                else if ((char*)v11 == (char*)sub_4F51D0)
+                else if (v11 == sub_4F51D0)
                 {
                     v34 = (const char*)sub_508CB0(v4, 12);
                     if (strlen(v34))
