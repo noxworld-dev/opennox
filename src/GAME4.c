@@ -7127,7 +7127,8 @@ void sub_4FEEF0()
                 v4 = *(_DWORD*)(v0 + 24);
                 if (v4 && *(_BYTE*)(v4 + 16) & 0x20)
                     * (_DWORD*)(v0 + 24) = 0;
-                if ((v5 = *(_DWORD*)(v0 + 68), v5 != *(_DWORD*)(v0 + 60)) && v5 <= *(int*)& byte_5D4594[2598000]
+                v5 = *(_DWORD*)(v0 + 68);
+                if (v5 != *(_DWORD*)(v0 + 60) && v5 <= *(int*)& byte_5D4594[2598000]
                     || (v6 = *(int(__cdecl * *)(int))(v0 + 96)) != 0 && v6(v0))
                 {
                 LABEL_23:
