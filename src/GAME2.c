@@ -10601,7 +10601,7 @@ int __cdecl sub_45B930(int a1)
     return wndShowHide_sub_46AC00(*(int*)& byte_5D4594[1046948], 0);
 }
 
-int sub_45BD30()
+int sub_45BD30(int a1, int a2)
 {
     return 1;
 }
@@ -10684,13 +10684,13 @@ int sub_45B9D0()
                                                         v1 = (_DWORD*)result;
                                                         if (result)
                                                         {
-                                                            wndSetAllFn_sub_46B430((_DWORD*)result, sub_45B360, (int)& sub_45BD30, sub_45CF00);
+                                                            wndSetAllFn_sub_46B430((_DWORD*)result, sub_45B360, sub_45BD30, sub_45CF00);
                                                             *v1 = 1320;
                                                             result = wndCreate2_sub_46C3E0(*(int*)& byte_5D4594[1046860], 8, 253, 61, 27, 40, 0);
                                                             v2 = (_DWORD*)result;
                                                             if (result)
                                                             {
-                                                                wndSetAllFn_sub_46B430((_DWORD*)result, sub_45B360, (int)& sub_45BD30, sub_45CF00);
+                                                                wndSetAllFn_sub_46B430((_DWORD*)result, sub_45B360, sub_45BD30, sub_45CF00);
                                                                 *v2 = 1310;
                                                                 *(_DWORD*)& byte_5D4594[1046944] = wndCreate2_sub_46C3E0(
                                                                     *(int*)& byte_5D4594[1046860],
