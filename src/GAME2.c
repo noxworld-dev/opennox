@@ -2718,8 +2718,8 @@ int sub_450C70()
     wndSetAllFn_sub_46B430(*(_DWORD * *)& byte_5D4594[833712], sub_450E80, sub_450E90, 0);
     *(_DWORD*)(*(_DWORD*)& byte_5D4594[833712] + 56) = *(_DWORD*)& byte_5D4594[2650656];
     memset(v4, 0, sizeof(v4));
-    *(_DWORD*)& v4[36] = 2147483648;
-    *(_DWORD*)& v4[52] = 2147483648;
+    *(_DWORD*)& v4[36] = 0x80000000;
+    *(_DWORD*)& v4[52] = 0x80000000;
     *(_DWORD*)& v4[24] = 0;
     memset(v3, 0, sizeof(v3));
     *(_DWORD*)& v4[48] = 0;
@@ -2912,11 +2912,11 @@ int sub_451100()
     if (*(_DWORD*)& byte_5D4594[833720])
     {
         v1 = *(_DWORD * *)(*(_DWORD*)& byte_5D4594[833720] + 32);
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[833720] + 56) = 2147483648;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[833720] + 80) = 2147483648;
+        *(_DWORD*)(*(_DWORD*)& byte_5D4594[833720] + 56) = 0x80000000;
+        *(_DWORD*)(*(_DWORD*)& byte_5D4594[833720] + 80) = 0x80000000;
         *(_DWORD*)(*(_DWORD*)& byte_5D4594[833720] + 64) = v0;
         *(_DWORD*)(*(_DWORD*)& byte_5D4594[833720] + 72) = v0;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[833720] + 88) = 2147483648;
+        *(_DWORD*)(*(_DWORD*)& byte_5D4594[833720] + 88) = 0x80000000;
         *(_DWORD*)(*(_DWORD*)& byte_5D4594[833720] + 104) = v0;
         v2 = v1[9];
         if (v2)
@@ -18496,7 +18496,7 @@ int __cdecl sub_466950(int a1)
     *(_DWORD*)& v6[32] = *(_DWORD*)& byte_5D4594[1049940];
     *(_DWORD*)& v6[40] = *(_DWORD*)& byte_5D4594[1049944];
     *(_DWORD*)& v6[56] = *(_DWORD*)& byte_5D4594[1049944];
-    *(_DWORD*)& v6[68] = 2147483648;
+    *(_DWORD*)& v6[68] = 0x80000000;
     *(_DWORD*)& v6[8] = 1;
     *(_WORD*)& v6[72] = 0;
     *(_DWORD*)& v6[16] = a1;
@@ -18511,7 +18511,7 @@ int __cdecl sub_466950(int a1)
     *(_DWORD*)& v6[48] = 0;
     *(_DWORD*)& v6[40] = *(_DWORD*)& byte_5D4594[1049952];
     *(_DWORD*)& v6[56] = *(_DWORD*)& byte_5D4594[1049952];
-    *(_DWORD*)& v6[68] = 2147483648;
+    *(_DWORD*)& v6[68] = 0x80000000;
     *(_DWORD*)& v6[8] = 1;
     *(_WORD*)& v6[72] = 0;
     *(_DWORD*)& v6[16] = a1;
@@ -18522,11 +18522,11 @@ int __cdecl sub_466950(int a1)
     sub_46B080(v3, 9103);
     memset(v6, 0, sizeof(v6));
     v5[2] = 0;
-    *(_DWORD*)& v6[20] = 2147483648;
-    *(_DWORD*)& v6[44] = 2147483648;
-    *(_DWORD*)& v6[28] = 2147483648;
-    *(_DWORD*)& v6[36] = 2147483648;
-    *(_DWORD*)& v6[52] = 2147483648;
+    *(_DWORD*)& v6[20] = 0x80000000;
+    *(_DWORD*)& v6[44] = 0x80000000;
+    *(_DWORD*)& v6[28] = 0x80000000;
+    *(_DWORD*)& v6[36] = 0x80000000;
+    *(_DWORD*)& v6[52] = 0x80000000;
     *(_DWORD*)& v6[8] = 8;
     *(_DWORD*)& v6[16] = a1;
     v5[3] = 0;
@@ -24433,7 +24433,7 @@ char* sub_46DCC0()
                 }
                 else
                 {
-                    *(_DWORD*)& byte_5D4594[v31 + 1084196] = *(_DWORD*)(v27 + 2108) + 2147483648;
+                    *(_DWORD*)& byte_5D4594[v31 + 1084196] = *(_DWORD*)(v27 + 2108) + 0x80000000;
                 }
                 *(_DWORD*)& byte_5D4594[v31 + 1084200] = *(unsigned __int16*)(v27 + 2148);
                 *(_DWORD*)& byte_5D4594[v31 + 1084208] = *(_DWORD*)(v27 + 3680);
@@ -24484,7 +24484,7 @@ char* sub_46DCC0()
     }
     else if (sub_40A5C0(1024))
     {
-        v1 = 2147483648;
+        v1 = 0x80000000;
         v41 = sub_416F40();
         v2 = sub_417DD0();
         byte_5D4594[1090116] = 0;
@@ -24735,7 +24735,7 @@ char* sub_46E4E0()
         v2 = v1;
         do
         {
-            v3 = 2147483648;
+            v3 = 0x80000000;
             for (i = sub_418B10(); i; i = sub_418B60((int)i))
             {
                 if (*((int*)i + 13) <= v0 && !sub_46E130((unsigned __int8)i[57]) && *((int*)i + 13) > v3)
@@ -24767,7 +24767,7 @@ char* sub_46E4E0()
         do
         {
             v10 = sub_416EA0();
-            for (k = 2147483648; v10; v10 = sub_416EE0((int)v10))
+            for (k = 0x80000000; v10; v10 = sub_416EE0((int)v10))
             {
                 if ((v10[2064] != 31 || !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
                     && *((int*)v10 + 534) <= v8
@@ -24978,23 +24978,23 @@ int sub_46E870()
     *(_DWORD*)& byte_5D4594[1090044] = 439 - v0;
     *(_DWORD*)& byte_5D4594[1090048] = wndCreate2_sub_46C3E0(0, 1560, 0, v0 + 40, 1, 1, 0);
     wndSetAllFn_sub_46B430(*(_DWORD * *)& byte_5D4594[1090048], sub_46F060, sub_46F080, 0);
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090048] + 56) = 2147483648;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090048] + 64) = 2147483648;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090048] + 72) = 2147483648;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090048] + 80) = 2147483648;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090048] + 88) = 2147483648;
+    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090048] + 56) = 0x80000000;
+    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090048] + 64) = 0x80000000;
+    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090048] + 72) = 0x80000000;
+    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090048] + 80) = 0x80000000;
+    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090048] + 88) = 0x80000000;
     memset(v49, 0, sizeof(v49));
     nox_wcscpy((wchar_t*)& v49[72], (const wchar_t*)& byte_5D4594[1090136]);
     *(_DWORD*)& v49[68] = *(_DWORD*)& byte_5D4594[2650644];
-    *(_DWORD*)& v49[20] = 2147483648;
+    *(_DWORD*)& v49[20] = 0x80000000;
     memset(v48, 0, sizeof(v48));
     *(_WORD*)& v48[6] = 0;
     *(_DWORD*)& v48[12] = 0;
     *(_DWORD*)& v48[16] = 0;
-    *(_DWORD*)& v49[28] = 2147483648;
-    *(_DWORD*)& v49[36] = 2147483648;
-    *(_DWORD*)& v49[44] = 2147483648;
-    *(_DWORD*)& v49[52] = 2147483648;
+    *(_DWORD*)& v49[28] = 0x80000000;
+    *(_DWORD*)& v49[36] = 0x80000000;
+    *(_DWORD*)& v49[44] = 0x80000000;
+    *(_DWORD*)& v49[52] = 0x80000000;
     v17 = 0;
     v47 = 3 * v0;
     v18 = 3 * v0 + 1;
@@ -44375,8 +44375,8 @@ _DWORD* __cdecl sub_488500(int a1, int a2, int a3, int a4, int a5, int a6, int a
         memset(v15, 0, sizeof(v15));
         *(_DWORD*)& v15[24] = 0;
         *(_DWORD*)& v15[28] = *(_DWORD*)(a7 + 68);
-        *(_DWORD*)& v15[36] = 2147483648;
-        *(_DWORD*)& v15[52] = 2147483648;
+        *(_DWORD*)& v15[36] = 0x80000000;
+        *(_DWORD*)& v15[52] = 0x80000000;
         *(_DWORD*)& v15[68] = *(_DWORD*)& v15[28];
         memset(v14, 0, sizeof(v14));
         *(_DWORD*)& v14[8] = 1;
@@ -61765,7 +61765,7 @@ int __cdecl sub_4A05E0(int* a1, FILE* a2, char* a3)
     if (!strcmp(a3, (const char*)& byte_587000[167548]))
     {
         result = 1;
-        *a1 = 2147483648;
+        *a1 = 0x80000000;
     }
     else
     {
@@ -61780,7 +61780,7 @@ int __cdecl sub_4A0650(int a1, char* a2)
 {
     if (strcmp(a2, (const char*)& byte_587000[167560]))
         return sub_4A0570((int*)(a1 + 20), a2);
-    *(_DWORD*)(a1 + 20) = 2147483648;
+    *(_DWORD*)(a1 + 20) = 0x80000000;
     return 1;
 }
 
@@ -61789,7 +61789,7 @@ int __cdecl sub_4A0690(int a1, char* a2)
 {
     if (strcmp(a2, (const char*)& byte_587000[167572]))
         return sub_4A0570((int*)(a1 + 28), a2);
-    *(_DWORD*)(a1 + 28) = 2147483648;
+    *(_DWORD*)(a1 + 28) = 0x80000000;
     return 1;
 }
 
@@ -61798,7 +61798,7 @@ int __cdecl sub_4A06D0(int a1, char* a2)
 {
     if (strcmp(a2, (const char*)& byte_587000[167584]))
         return sub_4A0570((int*)(a1 + 44), a2);
-    *(_DWORD*)(a1 + 44) = 2147483648;
+    *(_DWORD*)(a1 + 44) = 0x80000000;
     return 1;
 }
 
@@ -61807,7 +61807,7 @@ int __cdecl sub_4A0710(int a1, char* a2)
 {
     if (strcmp(a2, (const char*)& byte_587000[167596]))
         return sub_4A0570((int*)(a1 + 36), a2);
-    *(_DWORD*)(a1 + 36) = 2147483648;
+    *(_DWORD*)(a1 + 36) = 0x80000000;
     return 1;
 }
 
@@ -61816,7 +61816,7 @@ int __cdecl sub_4A0750(int a1, char* a2)
 {
     if (strcmp(a2, (const char*)& byte_587000[167608]))
         return sub_4A0570((int*)(a1 + 52), a2);
-    *(_DWORD*)(a1 + 52) = 2147483648;
+    *(_DWORD*)(a1 + 52) = 0x80000000;
     return 1;
 }
 
@@ -61825,7 +61825,7 @@ int __cdecl sub_4A0790(int a1, char* a2)
 {
     if (strcmp(a2, (const char*)& byte_587000[167620]))
         return sub_4A0570((int*)(a1 + 68), a2);
-    *(_DWORD*)(a1 + 68) = 2147483648;
+    *(_DWORD*)(a1 + 68) = 0x80000000;
     return 1;
 }
 
