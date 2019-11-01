@@ -104,7 +104,7 @@ void __cdecl sub_401FE0(LPCSTR);
 // int __cdecl realloc(LPVOID lpMem, int); idb
 // char *__cdecl _strdup(const char *);
 // char *__cdecl strchr(const char *, int);
-FILE* __cdecl sub_408CC0(char* a1, int a2);
+FILE* __cdecl sub_408CC0(const char* path, int a2);
 int __cdecl sub_408D40(int a1, int a2);
 int __cdecl sub_408D90(FILE* a1);
 signed int __cdecl sub_408E40(char* a1, int a2, signed int a3, FILE* a4);
@@ -208,7 +208,7 @@ int sub_40AA50();
 int __cdecl sub_40AA60(int a1);
 int __cdecl sub_40AA70(int a1);
 BOOL sub_40ABD0();
-size_t* __cdecl sub_40ABF0(char* a1, int a2);
+size_t* __cdecl sub_40ABF0(const char* path, int a2);
 void __cdecl sub_40ACA0(LPVOID lpMem); // idb
 unsigned int __cdecl sub_40ACC0(void* a1, unsigned int a2, int a3, int a4);
 unsigned int __cdecl sub_40AD10(unsigned int* a1, int a2, int a3);
@@ -1460,7 +1460,7 @@ void __cdecl sub_431720(int* a1);
 char* sub_431770();
 char* sub_431780();
 char* __cdecl sub_431790(char* a1);
-int __cdecl sub_4317B0(char* a1, int a2);
+int __cdecl sub_4317B0(const char* path, int a2);
 int __cdecl sub_431890(FILE* a1);
 int sub_431FC0();
 int sub_432010();

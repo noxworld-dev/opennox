@@ -7452,7 +7452,7 @@ _BYTE* getMem(unsigned int addr)
 }
 
 //----- (00408CC0) --------------------------------------------------------
-FILE* __cdecl sub_408CC0(char* a1, int a2)
+FILE* __cdecl sub_408CC0(const char* path, int a2)
 {
     FILE* result; // eax
 
@@ -7461,28 +7461,29 @@ FILE* __cdecl sub_408CC0(char* a1, int a2)
     {
         if (a2 == 1)
         {
-            result = fopen(a1, "wb");
+            result = fopen(path, "wb");
         }
         else if (a2 == 2)
         {
-            result = fopen(a1, "r+b");
+            result = fopen(path, "r+b");
         }
     }
     else
     {
-        result = fopen(a1, "rb");
+        result = fopen(path, "rb");
     }
     *(_DWORD*)& byte_5D4594[1300] = a2;
-    if (result)
+    if (!result)
     {
-        *(_DWORD*)& byte_5D4594[1288] = 0;
-        *(_DWORD*)& byte_5D4594[1276] = 0;
-        *(_DWORD*)& byte_5D4594[1296] = result;
-        *(_DWORD*)& byte_5D4594[1284] = 0;
-        *(_DWORD*)& byte_5D4594[1292] = 0;
-        *(_DWORD*)& byte_5D4594[1280] = 0;
-        *(_DWORD*)& byte_5D4594[1304] = 0;
+        return result;
     }
+    *(_DWORD*)& byte_5D4594[1288] = 0;
+    *(_DWORD*)& byte_5D4594[1276] = 0;
+    *(_DWORD*)& byte_5D4594[1296] = result;
+    *(_DWORD*)& byte_5D4594[1284] = 0;
+    *(_DWORD*)& byte_5D4594[1292] = 0;
+    *(_DWORD*)& byte_5D4594[1280] = 0;
+    *(_DWORD*)& byte_5D4594[1304] = 0;
     return result;
 }
 
@@ -9245,7 +9246,7 @@ BOOL sub_40ABD0()
 }
 
 //----- (0040ABF0) --------------------------------------------------------
-size_t* __cdecl sub_40ABF0(char* a1, int a2)
+size_t* __cdecl sub_40ABF0(const char* path, int a2)
 {
     FILE* v2; // edi
     size_t* v3; // esi
@@ -9258,7 +9259,7 @@ size_t* __cdecl sub_40ABF0(char* a1, int a2)
     v3 = (size_t*)nox_malloc(0x10u);
     if (!v3)
         goto LABEL_7;
-    v4 = sub_408CC0(a1, 0);
+    v4 = sub_408CC0(path, 0);
     v2 = v4;
     if (!v4
         || !sub_408D40((int)v4, a2)
@@ -42666,7 +42667,7 @@ char* __cdecl sub_431790(char* a1)
 }
 
 //----- (004317B0) --------------------------------------------------------
-int __cdecl sub_4317B0(char* a1, int a2)
+int __cdecl sub_4317B0(const char* path, int a2)
 {
     FILE* v2; // eax
     FILE* v3; // esi
@@ -42676,7 +42677,7 @@ int __cdecl sub_4317B0(char* a1, int a2)
     FILE* v7; // [esp-4h] [ebp-Ch]
 
     sub_42CD90();
-    v2 = fopen(a1, "r");
+    v2 = fopen(path, "r");
     v3 = v2;
     if (v2)
     {
