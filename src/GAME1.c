@@ -146,8 +146,9 @@ void sub_401010()
 //----- (00401020) --------------------------------------------------------
 wchar_t* sub_401020()
 {
-    nox_swprintf((wchar_t*)byte_5D4594, (const wchar_t*)& byte_587000[188], &byte_587000[180]);
-    return (wchar_t*)byte_5D4594;
+    wchar_t* buf = (wchar_t*)&byte_5D4594[0];
+    nox_swprintf(buf, (const wchar_t*)& byte_587000[188], &byte_587000[180]);
+    return buf;
 }
 
 //----- (00401040) --------------------------------------------------------
