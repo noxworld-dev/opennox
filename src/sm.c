@@ -12,7 +12,8 @@ extern void (*mainloop_enter)(void*);
 extern void* mainloop_enter_args;
 extern void (*mainloop_exit)();
 extern int g_v20, g_v21;
-extern int g_a1, g_a2;
+extern int g_argc2;
+extern char** g_argv2;
 
 typedef union
 {
@@ -483,51 +484,46 @@ void f(int reentrant)
             sub_43E290();
             return;
         }
-        else
-        {
-            reentrant = 0;
-        }
+        reentrant = 0;
 
-        if (!*(_DWORD*)& byte_5D4594[805872])
-        {
-            sub_43DB60();
-            sub_43D990();
-            g_v20 = 1;
-            sub_43F140(800);
-            sub_415F70();
-            *(_DWORD*)& byte_5D4594[2598000] = sub_40A5C0(1);
-            if (!*(_DWORD*)& byte_5D4594[260])
-                * (_DWORD*)& byte_5D4594[260] = sub_40ABF0((char*)& byte_587000[372], 7);
-            *(_DWORD*)& byte_5D4594[2650664] = 0;
-            *(_DWORD*)& byte_5D4594[2649708] = 0;
-            if (g_v21)
-                GOTO_CONNECT_RESULT(0);
-            if (sub_40A5C0(1))
-            {
-                if (!sub_4D1660())
-                    return;
-            }
-            if (!sub_4357D0(g_a1, g_a2))
-                return;
-            if (sub_40A5C0(1) && sub_40A5C0(0x400000) && (byte_5D4594[2650636] & 1) == 1)
-            {
-                v23 = sub_409E10();
-                sub_4D39F0(v23);
-                if (!sub_4D4320())
-                {
-                    sub_4D12E0(0);
-                    return;
-                }
-                sub_4D3C30();
-                sub_40A540(0x400000);
-            }
-            GOTO_CONNECT_PREPARE();
-        }
-        else
+        if (*(_DWORD*)& byte_5D4594[805872])
         {
             sub_437190();
             sub_43BF10(1);
             sub_431390();
+            continue;
         }
+        sub_43DB60();
+        sub_43D990();
+        g_v20 = 1;
+        sub_43F140(800);
+        sub_415F70();
+        *(_DWORD*)& byte_5D4594[2598000] = sub_40A5C0(1);
+        if (!*(_DWORD*)& byte_5D4594[260])
+            * (_DWORD*)& byte_5D4594[260] = sub_40ABF0((char*)& byte_587000[372], 7);
+        *(_DWORD*)& byte_5D4594[2650664] = 0;
+        *(_DWORD*)& byte_5D4594[2649708] = 0;
+        if (g_v21)
+            GOTO_CONNECT_RESULT(0);
+        if (sub_40A5C0(1))
+        {
+            if (!sub_4D1660())
+                return;
+        }
+        if (!sub_4357D0(g_argc2, g_argv2))
+            return;
+        if (sub_40A5C0(1) && sub_40A5C0(0x400000) && (byte_5D4594[2650636] & 1) == 1)
+        {
+            v23 = sub_409E10();
+            sub_4D39F0(v23);
+            if (!sub_4D4320())
+            {
+                sub_4D12E0(0);
+                return;
+            }
+            sub_4D3C30();
+            sub_40A540(0x400000);
+        }
+        GOTO_CONNECT_PREPARE();
     }
 }
