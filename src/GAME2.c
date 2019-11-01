@@ -30749,7 +30749,8 @@ void __cdecl sub_476850(int a1, unsigned __int8* a2)
 int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2)
 {
     unsigned __int8* v2; // ebx
-    int(__cdecl * result)(int*, int); // eax
+    int result; // eax
+    int(__cdecl * result2)(int*, int); // eax
     int v4; // eax
     int v5; // edi
     int v6; // ecx
@@ -30782,18 +30783,18 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2)
     void(__cdecl * v33)(unsigned int, _BYTE*, int); // [esp+34h] [ebp+8h]
 
     v2 = a2;
-    result = (int(__cdecl*)(int*, int)) * ((_DWORD*)a2 + 75);
-    if (result == sub_4BCC20)
+    result2 = (int(__cdecl*)(int*, int)) * ((_DWORD*)a2 + 75);
+    if (result2 == sub_4BCC20)
     {
         if (*((_DWORD*)a2 + 28) & 0x40000 && !(*((_DWORD*)a2 + 30) & 0x1000000))
-            return result;
+            return result2;
         v4 = *(_DWORD*)(*((_DWORD*)a2 + 76) + 4);
     }
     else
     {
         v4 = *(_DWORD*)(*(_DWORD*)(*((_DWORD*)a2 + 76) + 4) + 4 * *((_DWORD*)a2 + 77));
     }
-    result = (int(__cdecl*)(int*, int))(*(int(__cdecl * *)(_DWORD)) & byte_5D4594[3799492])(v4);
+    result = (int)(*(int(__cdecl * *)(_DWORD)) & byte_5D4594[3799492])(v4);
     if (result)
     {
         if (*(_DWORD*)& byte_5D4594[3799624] == 1
@@ -30806,7 +30807,7 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2)
         v27 = *((_DWORD*)result + 1);
         v7 = *((_DWORD*)result + 2) + *((_DWORD*)v2 + 3) - *v2;
         v8 = (char*)result + 16;
-        result = (int(__cdecl*)(int*, int))(*((_DWORD*)result + 3)
+        result = (int)(*((_DWORD*)result + 3)
             + *((_DWORD*)v2 + 4)
             - *((__int16*)v2 + 53)
             - *((__int16*)v2 + 52)
@@ -30843,7 +30844,7 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2)
                     v15 -= v26;
                     v25 = v15;
                 }
-                result = (int(__cdecl*)(int*, int))(v27 - 1);
+                result = (int)(v27 - 1);
                 if (v27)
                 {
                     v30 = v27;
@@ -30902,7 +30903,7 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2)
                             v15 -= v26;
                             v25 = v15;
                         }
-                        result = (int(__cdecl*)(int*, int))--v30;
+                        result = (int)--v30;
                     } while (v30);
                 }
             }
