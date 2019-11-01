@@ -389,11 +389,7 @@ void CONNECT_WAIT_THEN(sm_args_t* args)
 
 void CONNECT_RESULT(sm_args_t* args)
 {
-    int v25;
-    int v26;
-    int v28;
     int result = args->connect_result.result;
-
     if (result)
     {
         sub_40A540(0x100000);
@@ -406,53 +402,57 @@ void CONNECT_RESULT(sm_args_t* args)
         if (*(_WORD*)& byte_5D4594[2650636] & 0x1000)
             sub_413E30();
         sub_43D0A0(result);
+        f(0);
+        return;
+    }
+    g_v21 = 1;
+    if (sub_4D38D0() == 1)
+    {
+        f(0);
+        return;
+    }
+    if (!sub_40A5C0(1))
+    {
+        sub_43DDF0(0);
+    }
+    else if (!sub_4D17F0())
+    {
+        f(0);
+        return;
+    }
+    if (!sub_40A5C0(2))
+    {
+        sub_43DE20(0);
     }
     else
     {
-        g_v21 = 1;
-        if (sub_4D38D0() != 1)
+        if (!sub_40A5C0(0x100000))
         {
-            if (!sub_40A5C0(1))
-            {
-                sub_43DDF0(0);
-                goto LABEL_96;
-            }
-            if (sub_4D17F0())
-            {
-            LABEL_96:
-                if (!sub_40A5C0(2))
-                {
-                    sub_43DE20(0);
-                    goto LABEL_104;
-                }
-                if (!sub_40A5C0(0x100000))
-                {
-                    sub_43BEB0(&v26, &v28, &v25);
-                    if (!v26)
-                        sub_43BEF0(640, 480, v25);
-                    if (!sub_43BF10(0))
-                        return;
-                }
-                if (sub_435CC0())
-                {
-                LABEL_104:
-                    if (*(_WORD*)& byte_5D4594[2650636] & 0x1000)
-                        sub_413E30();
-                    if (sub_40A5C0(0x2000) && sub_40A5C0(1) && sub_43AF40())
-                        sub_43AA70();
-                    sub_43F1A0();
-                    sub_434B30(*(int*)& byte_587000[80852]);
-                    sub_434B60();
-                    sub_40A4D0(0x10000000);
-                    mainloop_exit = mainloop_exit_2;
-                    sub_43E290();
-                    return;
-                }
-            }
+            int v25;
+            int v26;
+            int v28;
+            sub_43BEB0(&v26, &v28, &v25);
+            if (!v26)
+                sub_43BEF0(640, 480, v25);
+            if (!sub_43BF10(0))
+                return;
+        }
+        if (!sub_435CC0())
+        {
+            f(0);
+            return;
         }
     }
-
-    f(0);
+    if (*(_WORD*)& byte_5D4594[2650636] & 0x1000)
+        sub_413E30();
+    if (sub_40A5C0(0x2000) && sub_40A5C0(1) && sub_43AF40())
+        sub_43AA70();
+    sub_43F1A0();
+    sub_434B30(*(int*)& byte_587000[80852]);
+    sub_434B60();
+    sub_40A4D0(0x10000000);
+    mainloop_exit = mainloop_exit_2;
+    sub_43E290();
 }
 
 void f(int reentrant)
