@@ -55,7 +55,7 @@ void sub_401010();
 wchar_t* sub_401020();
 BOOL sub_401040();
 int sub_401060();
-size_t* __cdecl cmain(int a1, int a2);
+int __cdecl cmain(int argc, const char* argv[]);
 void sub_401B10();
 void __cdecl sub_401B20(char*);
 //int __stdcall WinMain(HINSTANCE hInstance, int, int, int); // idb
@@ -1604,7 +1604,7 @@ DWORD sub_435750();
 DWORD sub_435770();
 DWORD sub_435780();
 int sub_4357A0();
-BOOL __cdecl sub_4357D0(int a1, int a2);
+BOOL __cdecl sub_4357D0(int argc, const char** argv);
 char* sub_4358A0();
 int __cdecl sub_435A10(signed int* a1);
 int sub_435CC0();
