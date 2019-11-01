@@ -57571,29 +57571,32 @@ int __cdecl sub_49BD50(int a1)
 //----- (0049BD70) --------------------------------------------------------
 int(__cdecl* __cdecl sub_49BD70(int a1))(int, int)
 {
-    int(__cdecl * result)(int, int); // eax
-    int(__cdecl * v2)(int, int); // esi
+    int result; // eax
+    int(__cdecl * result2)(int, int); // eax
+    int v2; // esi
     int v3; // edi
     int(__cdecl * v4)(int, _DWORD); // eax
 
-    result = (int(__cdecl*)(int, int))sub_413A50();
-    if (result != (int(__cdecl*)(int, int))1)
+    result = sub_413A50();
+    if (result != 1)
     {
-        result = (int(__cdecl*)(int, int))sub_49BD40();
+        result = sub_49BD40();
         v2 = result;
         if (result)
         {
             do
             {
-                v3 = sub_49BD50((int)v2);
+                v3 = sub_49BD50(v2);
                 v4 = (int(__cdecl*)(int, _DWORD)) * ((_DWORD*)v2 + 116);
-                if (!v4 || (result = (int(__cdecl*)(int, int))v4(a1, v2)) != 0)
+                if (!v4 || (result = v4(a1, v2)) != 0)
                 {
-                    result = (int(__cdecl*)(int, int)) * ((_DWORD*)v2 + 115);
-                    if (result)
-                        result = (int(__cdecl*)(int, int))result(a1, (int)v2);
+                    result2 = (int(__cdecl*)(int, int)) * ((_DWORD*)v2 + 115);
+                    if (result2)
+                        result = result2(a1, (int)v2);
+                    else
+                        result = 0;
                 }
-                v2 = (int(__cdecl*)(int, int))v3;
+                v2 = v3;
             } while (v3);
         }
     }
