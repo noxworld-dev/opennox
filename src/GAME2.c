@@ -3803,7 +3803,7 @@ int* __cdecl sub_4521A0(int a1)
     v2 = &byte_5D4594[839892];
     if (a1 > 0)
     {
-        while (2)
+        while (1)
         {
             v3 = 0;
             v4 = (int*)v2;
@@ -4237,7 +4237,7 @@ BOOL __cdecl sub_452890(int a1, void* a2)
     v4 = sub_40AF50(a2);
     if (v4 && (v5 = sub_452270(v4)) != 0)
     {
-        while (2)
+        while (1)
         {
             v6 = *(char**)(v2 + 8);
             v7 = *v6;
@@ -4363,7 +4363,7 @@ BOOL __cdecl sub_452B30(int a1)
     char v8; // [esp+Ch] [ebp+4h]
 
     v1 = a1;
-    while (2)
+    while (1)
     {
         v2 = *(char**)(v1 + 8);
         v3 = *v2;
@@ -15037,7 +15037,7 @@ int __cdecl sub_4617C0(int a1, int a2, const void* a3, int2* a4)
     _DWORD* v15; // esi
 
     v4 = 0;
-    while (2)
+    while (1)
     {
         for (i = 0; i < 4u; ++i)
         {
@@ -15133,7 +15133,7 @@ int* __cdecl sub_461970(int a1, int a2)
     if (!(*(_DWORD*)(sub_44CF10(a2) + 32) & 0x4000000))
     {
         v2 = (int*)& byte_5D4594[1050020];
-        while (2)
+        while (1)
         {
             v3 = 0;
             result = v2;
@@ -15353,7 +15353,7 @@ LABEL_2:
             v9 = &byte_5D4594[1050160];
             v23 = 0;
             v28 = &byte_5D4594[1050160];
-            while (2)
+            while (1)
             {
                 v10 = 0;
                 while (!*v9 || *v9 == 32 || *(_DWORD*)(*((_DWORD*)v9 - 35) + 108) != v30 || v10 == v4 && v23 == v27)
@@ -15482,7 +15482,7 @@ char* __cdecl sub_461EF0(int a1)
 
     v8 = 0;
     v1 = &byte_5D4594[1050160];
-    while (2)
+    while (1)
     {
         v2 = 0;
         v3 = v1;
@@ -19023,7 +19023,7 @@ char* __cdecl sub_467520(int a1)
 
     v1 = 0;
     v2 = &byte_5D4594[1050020];
-    while (2)
+    while (1)
     {
         v3 = 0;
         v4 = v2;
@@ -31874,7 +31874,7 @@ char* __cdecl sub_4780A0(int a1)
 
     v1 = 0;
     v2 = &byte_5D4594[1098644];
-    while (2)
+    while (1)
     {
         v3 = 0;
         v4 = v2;
@@ -32691,7 +32691,7 @@ char* __cdecl sub_4793C0(int a1)
 
     v1 = 0;
     v2 = &byte_5D4594[1098636];
-    while (2)
+    while (1)
     {
         v3 = 0;
         v4 = v2;
@@ -32725,7 +32725,7 @@ char* sub_479430()
 
     v0 = 0;
     v1 = &byte_5D4594[1098640];
-    while (2)
+    while (1)
     {
         v2 = 0;
         v3 = v1;
@@ -34651,7 +34651,7 @@ int __cdecl sub_47B7F0(int a1, int a2, int a3, unsigned __int8 a4)
         goto LABEL_208;
     v38 = a4 - 3;
     v125 = a4 - 3;
-    while (2)
+    while (1)
     {
         switch (v38)
         {
@@ -35642,7 +35642,7 @@ char __cdecl sub_47D530(int* a1)
     v9 = a1[1];
     v1 = (__int16*)((char*)a1 + 17);
 LABEL_2:
-    while (2)
+    while (1)
     {
         v2 = v8;
         do
@@ -48125,7 +48125,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
     sub_470A80();
     if (a2 >= a3 + a2)
         return 1;
-    while (2)
+    while (1)
     {
         v7 = *(_BYTE*)v3;
         LOBYTE(v375) = *(_BYTE*)v3;
@@ -58585,7 +58585,7 @@ int __cdecl sub_49D540(int a1, int a2, int a3, int a4)
     v7 = (int*)(*(_DWORD*)& byte_5D4594[3798784] + 4 * a2);
     result = 2 * a1;
 LABEL_2:
-    while (2)
+    while (1)
     {
         v9 = a3;
         v10 = *v7;
@@ -58946,7 +58946,7 @@ int __cdecl sub_49D9A0(int a1, int a2, int a3, int a4)
     v7 = *(__m64*) & byte_5D4594[3800924];
     result = 2 * a1;
 LABEL_2:
-    while (2)
+    while (1)
     {
         v9 = a3;
         v10 = *v4;
@@ -59165,7 +59165,7 @@ int __cdecl sub_49DC70(int a1, int a2, int a3, int a4)
     v7 = *(__m64*) & byte_5D4594[3800924];
     result = 2 * a1;
 LABEL_2:
-    while (2)
+    while (1)
     {
         v9 = a3;
         v10 = *v4;
