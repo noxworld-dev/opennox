@@ -64,7 +64,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         }
         else
         {
-            g_argv[g_argc++] = v4;
+            g_argv[g_argc] = v4;
+            g_argc++;
         }
     }
 #ifdef __EMSCRIPTEN__
