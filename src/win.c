@@ -22,12 +22,10 @@ extern int g_scaled;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
     char* v4; // edi
-    int v5; // eax
     int v7; // esi
+#ifdef __EMSCRIPTEN__
     int v10; // eax
-    HWND v11; // esi
-    HWND v13; // eax
-    int v14; // eax
+#endif
 
     init_data();
 
@@ -73,15 +71,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     {
         g_scaled = -1;
     }
+    v10 = 0;
 #endif
     g_argv[g_argc] = NULL;
     v7 = 0;
-    v10 = 0;
     while (v7 < g_argc)
     {
         if (!_strcmpi(g_argv[v7++], "-serveronly"))
         {
+#ifdef __EMSCRIPTEN__
             v10 = 1;
+#endif
             break;
         }
     }
@@ -107,6 +107,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     cmain(g_argc, g_argv);
 #else
+    HWND v11; // esi
+    HWND v13; // eax
     if (v10 || !(v11 = FindWindowA("Nox Game Window", 0)))
     {
         *(_DWORD*)& byte_5D4594[823784] = hInstance;
