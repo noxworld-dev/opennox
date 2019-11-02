@@ -196,27 +196,18 @@ int __cdecl cmain(int argc, const char* argv[])
     *(_DWORD*)& byte_5D4594[2649704] = 30;
     *(_DWORD*)& byte_5D4594[2598000] = v2;
     sub_416D40();
-    int v3 = 0;
-    if (argc <= 0)
+    bool isServer = 0;
+    for (int i = 0; i < argc; i++)
     {
+        if (!_strcmpi(argv[i], "-serveronly")){
+            isServer = 1;
+            break;
+        }
+    }
+    if (!isServer) {
         result = sub_416A10();
         if (!result)
             return result;
-    }
-    else
-    {
-        const char** v4 = argv;
-        while (_strcmpi(*v4, "-serveronly"))
-        {
-            ++v3;
-            ++v4;
-            if (v3 >= argc) {
-                result = sub_416A10();
-                if (!result)
-                    return result;
-                break;
-            }
-        }
     }
     sub_43DDF0(0);
     sub_43DE20(0);
