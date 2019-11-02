@@ -5,7 +5,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
-extern int g_ddraw;
+extern SDL_GLContext g_ddraw;
 #endif
 
 extern int g_fullscreen;
