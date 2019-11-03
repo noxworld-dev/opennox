@@ -814,33 +814,26 @@ int __cdecl sub_44DA60(int a1)
 //----- (0044DAB0) --------------------------------------------------------
 int __cdecl sub_44DAB0(int a1, int a2, void (*a3)(void))
 {
-    int v3; // esi
-    int result; // eax
-
-    v3 = 1;
     if (*(_DWORD*)& byte_5D4594[2650672] == 1)
     {
         if (a3)
-        {
             a3();
-            return 1;
-        }
+        return 1;
     }
-    else
-    {
-        sub_44DF90(sub_44DD20);
-        result = sub_44DF50();
-        if (!result)
-            return result;
-        if (a2)
-            v3 = 5;
-        *(_DWORD*)result = v3;
-        *(_DWORD*)(result + 8) = 0;
-        *(_DWORD*)(result + 4) = a1;
-        *(_DWORD*)(result + 24) = sub_44DD20;
-        *(_DWORD*)(result + 12) = 16711680 / a1;
-        *(_DWORD*)(result + 20) = a3;
-    }
+    sub_44DF90(sub_44DD20);
+    _DWORD* obj = sub_44DF50();
+    if (!obj)
+        return 0;
+
+    int v3 = 1;
+    if (a2)
+        v3 = 5;
+    obj[0] = v3;
+    obj[1] = a1;
+    obj[2] = 0;
+    obj[3] = 16711680 / a1;
+    obj[5] = a3;
+    obj[6] = sub_44DD20;
     return 1;
 }
 
