@@ -35796,7 +35796,7 @@ int __cdecl sub_4D3580(int a1)
 void __cdecl sub_4D3860(void* a1)
 {
     if (*(_DWORD*)& byte_5D4594[2650636] & 0x200000
-        && (*(_DWORD*)& byte_587000[197424], *(int*)& byte_587000[197424] != -1))
+        && (*(int*)& byte_587000[197424] != -1))
     {
         sub_415F30(*(int*)& byte_587000[197424]);
         _write(*(int*)& byte_587000[197424], a1, 0x99u);
