@@ -23288,8 +23288,6 @@ int __cdecl sub_4C2C20(_DWORD* a1, int a2, unsigned int a3)
 //----- (004C2C60) --------------------------------------------------------
 int __cdecl sub_4C2C60(_DWORD* a1, int2* a2)
 {
-    int v2; // ecx
-    unsigned int v3; // edx
     int v4; // eax
     int result; // eax
     int v6; // [esp+4h] [ebp-Ch]
