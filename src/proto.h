@@ -3292,7 +3292,7 @@ int* __cdecl sub_487970(int a1, int a2);
 int* __cdecl sub_4879C0(int a1, int a2);
 int* __cdecl sub_487A10(int a1, int a2);
 int __cdecl sub_487A60(int a1);
-int __cdecl sub_487A70(_DWORD* a1, void(__cdecl* a2)(char*));
+int __cdecl sub_487A70(_DWORD* a1, int(__cdecl* a2)(char*));
 _DWORD* __cdecl sub_487BC0(size_t a1);
 void __cdecl sub_487C10(LPVOID lpMem); // idb
 _DWORD* __cdecl sub_487C30(_DWORD* a1);

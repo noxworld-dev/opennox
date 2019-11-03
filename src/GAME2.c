@@ -43855,7 +43855,7 @@ int __cdecl sub_487A60(int a1)
 }
 
 //----- (00487A70) --------------------------------------------------------
-int __cdecl sub_487A70(_DWORD* a1, void(__cdecl* a2)(char*))
+int __cdecl sub_487A70(_DWORD* a1, int(__cdecl* a2)(char*))
 {
     int* v2; // eax
     int i; // edi
