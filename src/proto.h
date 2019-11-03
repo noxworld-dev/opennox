@@ -1571,7 +1571,7 @@ char __cdecl sub_434E80(char a1, char a2, char a3);
 char __cdecl sub_434EC0(char a1, char a2, char a3);
 int sub_434F00();
 int sub_434FB0();
-int sub_435040();
+void sub_435040();
 _BYTE* __cdecl sub_4350E0(_BYTE* a1, _BYTE* a2);
 char* __cdecl sub_435120(_BYTE* a1, char* a2);
 _BYTE* __cdecl sub_435150(_BYTE* a1, char* a2);
