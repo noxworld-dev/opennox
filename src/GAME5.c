@@ -15802,36 +15802,35 @@ void __cdecl sub_57AF30(int a1, int a2)
 }
 
 //----- (0057B0A0) --------------------------------------------------------
-int sub_57B0A0()
+void sub_57B0A0()
 {
     int result; // eax
     _DWORD* v1; // ecx
 
     result = *(_DWORD*)& byte_5D4594[2523804];
-    if (*(_DWORD*)& byte_5D4594[2523804])
+    if (!result)
     {
-        v1 = *(_DWORD * *)& byte_5D4594[2523780];
-        if (*(_DWORD*)& byte_5D4594[2523780]
-            && (!*(_DWORD*)& byte_5D4594[2523772] || *(_DWORD*)& byte_5D4594[2523772] == 1))
-        {
-            sub_522FF0(154, (float2*)(*(_DWORD*)& byte_5D4594[2523780] + 56));
-            v1 = *(_DWORD * *)& byte_5D4594[2523780];
-        }
-        if (*(_DWORD*)& byte_5D4594[2523776])
-        {
-            sub_4E5CC0(*(int*)& byte_5D4594[2523776]);
-            v1 = *(_DWORD * *)& byte_5D4594[2523780];
-        }
-        *(_DWORD*)& byte_5D4594[2523776] = 0;
-        if (v1)
-            sub_4FA020(v1, 13);
-        *(_DWORD*)& byte_5D4594[2523780] = 0;
-        result = sub_45D9B0();
-        if (!result)
-            result = sub_413A00(0);
-        *(_DWORD*)& byte_5D4594[2523804] = 0;
+        return;
     }
-    return result;
+    v1 = *(_DWORD * *)& byte_5D4594[2523780];
+    if (*(_DWORD*)& byte_5D4594[2523780]
+        && (!*(_DWORD*)& byte_5D4594[2523772] || *(_DWORD*)& byte_5D4594[2523772] == 1))
+    {
+        sub_522FF0(154, (float2*)(*(_DWORD*)& byte_5D4594[2523780] + 56));
+        v1 = *(_DWORD * *)& byte_5D4594[2523780];
+    }
+    if (*(_DWORD*)& byte_5D4594[2523776])
+    {
+        sub_4E5CC0(*(int*)& byte_5D4594[2523776]);
+        v1 = *(_DWORD * *)& byte_5D4594[2523780];
+    }
+    *(_DWORD*)& byte_5D4594[2523776] = 0;
+    if (v1)
+        sub_4FA020(v1, 13);
+    *(_DWORD*)& byte_5D4594[2523780] = 0;
+    if (!sub_45D9B0())
+        sub_413A00(0);
+    *(_DWORD*)& byte_5D4594[2523804] = 0;
 }
 
 //----- (0057B140) --------------------------------------------------------

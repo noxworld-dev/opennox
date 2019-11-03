@@ -707,38 +707,22 @@ int sub_44D990()
 //----- (0044D9A0) --------------------------------------------------------
 int sub_44D9A0()
 {
-    unsigned __int8* v0; // eax
-    int v1; // ecx
-
-    if (!*(_DWORD*)& byte_5D4594[823772])
+    if (*(_DWORD*)& byte_5D4594[823772])
     {
-        v0 = &byte_5D4594[831108];
-        v1 = 4;
-        do
-        {
-            *(_DWORD*)v0 = 0;
-            v0 += 28;
-            --v1;
-        } while (v1);
+        return 1;
     }
+    sub_44D9D0();
     return 1;
 }
 
 //----- (0044D9D0) --------------------------------------------------------
-char* sub_44D9D0()
+void sub_44D9D0()
 {
-    char* result; // eax
-    int v1; // ecx
-
-    result = (char*)& byte_5D4594[831108];
-    v1 = 4;
-    do
+    struc_36* arr = (struc_36*)& byte_5D4594[831108];
+    for (int i = 0; i < 4; i++)
     {
-        *(_DWORD*)result = 0;
-        result += 28;
-        --v1;
-    } while (v1);
-    return result;
+        arr[i].fields[0] = 0;
+    }
 }
 
 //----- (0044D9F0) --------------------------------------------------------
@@ -790,24 +774,22 @@ int __cdecl sub_44D9F0(int a1)
 //----- (0044DA60) --------------------------------------------------------
 int __cdecl sub_44DA60(int a1)
 {
-    int v1; // esi
-    char* v2; // eax
-
-    v1 = 3;
-    if (!sub_44DFD0(sub_44DD70))
+    if (sub_44DFD0(sub_44DD70))
     {
-        v2 = sub_44DF50();
-        if (!v2)
-            return 0;
-        if (a1)
-            v1 = 7;
-        *(_DWORD*)v2 = v1;
-        *((_DWORD*)v2 + 1) = 0;
-        *((_DWORD*)v2 + 2) = 0;
-        *((_DWORD*)v2 + 3) = 0;
-        *((_DWORD*)v2 + 5) = 0;
-        *((_DWORD*)v2 + 6) = sub_44DDC0;
+        return 1;
     }
+    struc_36* obj = sub_44DF50();
+    if (!obj)
+        return 0;
+    int v1 = 3;
+    if (a1)
+        v1 = 7;
+    obj->fields[0] = v1;
+    obj->fields[1] = 0;
+    obj->fields[2] = 0;
+    obj->fields[3] = 0;
+    obj->field_5 = 0;
+    obj->field_6 = sub_44DDC0;
     return 1;
 }
 
@@ -821,139 +803,120 @@ int __cdecl sub_44DAB0(int a1, int a2, void (*a3)(void))
         return 1;
     }
     sub_44DF90(sub_44DD20);
-    _DWORD* obj = sub_44DF50();
+    struc_36* obj = sub_44DF50();
     if (!obj)
         return 0;
 
     int v3 = 1;
     if (a2)
         v3 = 5;
-    obj[0] = v3;
-    obj[1] = a1;
-    obj[2] = 0;
-    obj[3] = 16711680 / a1;
-    obj[5] = a3;
-    obj[6] = sub_44DD20;
+    obj->fields[0] = v3;
+    obj->fields[1] = a1;
+    obj->fields[2] = 0;
+    obj->fields[3] = 16711680 / a1;
+    obj->field_5 = a3;
+    obj->field_6 = sub_44DD20;
     return 1;
 }
 
 //----- (0044DB30) --------------------------------------------------------
-int __cdecl sub_44DB30(int a1, int a2, int a3)
+int __cdecl sub_44DB30(int a1, int a2, void (*a3)(void))
 {
-    int v3; // esi
-    int result; // eax
-
-    v3 = 1;
     sub_44DF90(sub_44DD70);
-    result = sub_44DF50();
-    if (result)
+    struc_36* obj = sub_44DF50();
+    if (!obj)
     {
-        if (a2)
-            v3 = 5;
-        *(_DWORD*)result = v3;
-        *(_DWORD*)(result + 4) = a1;
-        *(_DWORD*)(result + 8) = 0;
-        *(_DWORD*)(result + 24) = sub_44DD70;
-        *(_DWORD*)(result + 12) = 16711680 / a1;
-        *(_DWORD*)(result + 20) = a3;
-        sub_44DF90(sub_44DDC0);
-        result = 1;
+        return 0;
     }
-    return result;
+    int v3 = 1;
+    if (a2)
+        v3 = 5;
+    obj->fields[0] = v3;
+    obj->fields[1] = a1;
+    obj->fields[2] = 0;
+    obj->fields[3] = 16711680 / a1;
+    obj->field_5 = a3;
+    obj->field_6 = sub_44DD70;
+    sub_44DF90(sub_44DDC0);
+    return 1;
 }
 
 //----- (0044DBA0) --------------------------------------------------------
-int __cdecl sub_44DBA0(int a1, int a2, int a3)
+int __cdecl sub_44DBA0(int a1, int a2, void (*a3)(void))
 {
-    int v3; // esi
-    int result; // eax
-
-    v3 = 1;
-    result = sub_44DF50();
-    if (result)
+    struc_36* obj = sub_44DF50();
+    if (!obj)
     {
-        if (a2)
-            v3 = 5;
-        *(_DWORD*)result = v3;
-        *(_DWORD*)(result + 8) = 0;
-        *(_DWORD*)(result + 4) = a1;
-        *(_DWORD*)(result + 24) = sub_44DDF0;
-        *(_DWORD*)(result + 12) = 16711680 / a1;
-        *(_DWORD*)(result + 20) = a3;
-        result = 1;
+        return 0;
     }
-    return result;
+    int v3 = 1;
+    if (a2)
+        v3 = 5;
+    obj->fields[0] = v3;
+    obj->fields[1] = a1;
+    obj->fields[2] = 0;
+    obj->fields[3] = 16711680 / a1;
+    obj->field_5 = a3;
+    obj->field_6 = sub_44DDF0;
+    return 1;
 }
 
 //----- (0044DBF0) --------------------------------------------------------
-int __cdecl sub_44DBF0(int a1, int a2, int a3)
+int __cdecl sub_44DBF0(int a1, int a2, void (*a3)(void))
 {
-    int v3; // esi
-    int result; // eax
-
-    v3 = 1;
-    result = sub_44DF50();
-    if (result)
+    struc_36* obj = sub_44DF50();
+    if (!obj)
     {
-        if (a2)
-            v3 = 5;
-        *(_DWORD*)result = v3;
-        *(_DWORD*)(result + 8) = 0;
-        *(_DWORD*)(result + 4) = a1;
-        *(_DWORD*)(result + 24) = sub_44DE30;
-        *(_DWORD*)(result + 12) = 16711680 / a1;
-        *(_DWORD*)(result + 20) = a3;
-        result = 1;
+        return 0;
     }
-    return result;
+    int v3 = 1;
+    if (a2)
+        v3 = 5;
+    obj->fields[0] = v3;
+    obj->fields[1] = a1;
+    obj->fields[2] = 0;
+    obj->fields[3] = 16711680 / a1;
+    obj->field_5 = a3;
+    obj->field_6 = sub_44DE30;
+    return 1;
 }
 
 //----- (0044DC40) --------------------------------------------------------
 int __cdecl sub_44DC40(int a1, int a2)
 {
-    int result; // eax
-    _DWORD* v3; // ecx
-    int v4; // eax
-
-    result = sub_44DF50();
-    v3 = (_DWORD*)result;
-    if (result)
+    struc_36* obj = sub_44DF50();
+    if (!obj)
     {
-        v4 = a1 * *(_DWORD*)& byte_5D4594[3801788] / 100;
-        v3[1] = a2;
-        *v3 = 3;
-        v3[2] = 0;
-        v3[5] = 0;
-        v3[6] = sub_44DE80;
-        v3[3] = (v4 << 16) / a2;
-        result = 1;
+        return 0;
     }
-    return result;
+    int v4 = a1 * *(_DWORD*)& byte_5D4594[3801788] / 100;
+    obj->fields[0] = 3;
+    obj->fields[1] = a2;
+    obj->fields[2] = 0;
+    obj->fields[3] = (v4 << 16) / a2;
+    obj->field_5 = 0;
+    obj->field_6 = sub_44DE80;
+    return 1;
 }
 
 //----- (0044DCA0) --------------------------------------------------------
 int __cdecl sub_44DCA0(int a1, int a2)
 {
-    int result; // eax
-    _DWORD* v3; // ecx
-    int v4; // eax
-
-    result = sub_44DF50();
-    v3 = (_DWORD*)result;
-    if (result)
+    struc_36* obj = sub_44DF50();
+    if (!obj)
     {
-        v4 = a1 * *(_DWORD*)& byte_5D4594[3801788] / 100;
-        v3[1] = a2;
-        v4 <<= 16;
-        v3[2] = v4;
-        *v3 = 1;
-        v3[4] = 0;
-        v3[5] = 0;
-        v3[6] = sub_44DEE0;
-        v3[3] = v4 / a2;
-        result = 1;
+        return 0;
     }
-    return result;
+    int v4 = a1 * *(_DWORD*)& byte_5D4594[3801788] / 100;
+    v4 <<= 16;
+    obj->fields[0] = 1;
+    obj->fields[1] = a2;
+    obj->fields[2] = v4;
+    obj->fields[3] = v4 / a2;
+    obj->fields[4] = 0;
+    obj->field_5 = 0;
+    obj->field_6 = sub_44DEE0;
+    return 1;
 }
 
 //----- (0044DD00) --------------------------------------------------------
@@ -1052,105 +1015,80 @@ void __cdecl sub_44DEE0(_DWORD* a1)
 }
 
 //----- (0044DF50) --------------------------------------------------------
-char* sub_44DF50()
+struc_36* sub_44DF50()
 {
-    char* result; // eax
-    int v1; // ecx
-
-    result = (char*)& byte_5D4594[831108];
-    v1 = 0;
-    while (*result & 1)
+    struc_36* it = (struc_36*)& byte_5D4594[831108];
+    int v1 = 0;
+    while (it->fields[0] & 1)
     {
-        result += 28;
+        it++;
         if (++v1 >= 4)
             return 0;
     }
-    return result;
+    return it;
 }
 
 //----- (0044DF70) --------------------------------------------------------
 char* sub_44DF70()
 {
-    char* result; // eax
-    int v1; // ecx
-    int v2; // edx
-
-    result = (char*)& byte_5D4594[831108];
-    v1 = 4;
-    do
+    struc_36* arr = (struc_36*)& byte_5D4594[831108];
+    for (int i = 0; i < 4; i++)
     {
-        v2 = *(_DWORD*)result;
-        result += 28;
-        --v1;
-        *((_DWORD*)result - 7) = v2 & 0xFFFFFFFE;
-    } while (v1);
-    return result;
+        int v2 = arr->fields[0];
+        arr++;
+        *((_DWORD*)arr - 7) = v2 & 0xFFFFFFFE;
+    }
+    return arr;
 }
 
 //----- (0044DF90) --------------------------------------------------------
 int __cdecl sub_44DF90(int a1)
 {
-    int result; // eax
-    unsigned __int8* v2; // esi
-    int v3; // edi
     void (*v4)(void); // eax
 
-    result = 0;
-    v2 = &byte_5D4594[831108];
-    v3 = 4;
-    do
+    int result = 0;
+    struc_36* it = (struc_36*)&byte_5D4594[831108];
+    for (int i = 0; i < 4; i++)
     {
-        if (*v2 & 1 && *((_DWORD*)v2 + 6) == a1)
+        if (it->fields[0] & 1 && it->field_6 == a1)
         {
-            v4 = (void (*)(void)) * ((_DWORD*)v2 + 5);
-            *(_DWORD*)v2 &= 0xFFFFFFFE;
+            v4 = it->field_5;
+            it->fields[0] &= 0xFFFFFFFE;
             if (v4)
                 v4();
             result = 1;
         }
-        v2 += 28;
-        --v3;
-    } while (v3);
-    return result;
-}
-
-//----- (0044DFD0) --------------------------------------------------------
-char* __cdecl sub_44DFD0(int a1)
-{
-    char* result; // eax
-    int v2; // ecx
-
-    result = (char*)& byte_5D4594[831108];
-    v2 = 0;
-    while (!(*result & 1) || *((_DWORD*)result + 6) != a1)
-    {
-        result += 28;
-        if (++v2 >= 4)
-            return 0;
+        it++;
     }
     return result;
 }
 
-//----- (0044E000) --------------------------------------------------------
-char* sub_44E000()
+//----- (0044DFD0) --------------------------------------------------------
+int __cdecl sub_44DFD0(int a1)
 {
-    char* result; // eax
+    struc_36* it = (struc_36*)& byte_5D4594[831108];
+    int v2 = 0;
+    while (!(it->fields[0] & 1) || it->field_6 != a1)
+    {
+        it++;
+        if (++v2 >= 4)
+            return 0;
+    }
+    return it != 0;
+}
 
-    result = sub_44DFD0(sub_44DD70);
-    if (!result)
+//----- (0044E000) --------------------------------------------------------
+void sub_44E000()
+{
+    if (!sub_44DFD0(sub_44DD70))
         * (_DWORD*)& byte_5D4594[2650672] = 1;
-    return result;
 }
 
 //----- (0044E020) --------------------------------------------------------
-char* sub_44E020()
+void sub_44E020()
 {
-    char* result; // eax
-
-    result = sub_44DFD0(sub_44DD20);
-    if (!result)
-        result = (char*)sub_413A00(0);
-    return result;
+    if (!sub_44DFD0(sub_44DD20))
+        sub_413A00(0);
 }
 
 //----- (0044E040) --------------------------------------------------------
@@ -1326,7 +1264,7 @@ _DWORD* sub_44E110()
 }
 
 //----- (0044E320) --------------------------------------------------------
-int sub_44E320()
+void sub_44E320()
 {
     int v0; // eax
 
@@ -1344,15 +1282,14 @@ int sub_44E320()
             sub_4A2500();
             sub_578E00();
         }
-        goto LABEL_4;
     }
-    if (!(byte_5D4594[832472] & 5))
+    else if (byte_5D4594[832472] & 5)
     {
-    LABEL_4:
-        v0 = sub_44E3B0();
-        return sub_44DB30(v0, 1, sub_44E3C0);
+        sub_450160(254, 1, 2);
+        return;
     }
-    return sub_450160(254, 1, 2);
+    v0 = sub_44E3B0();
+    sub_44DB30(v0, 1, sub_44E3C0);
 }
 
 //----- (0044E3B0) --------------------------------------------------------
@@ -1493,7 +1430,7 @@ int __cdecl sub_44E630(int a1, int a2, int a3, int a4)
             {
                 *(_DWORD*)& byte_5D4594[2650672] = 0;
                 v2 = sub_44E3B0();
-                sub_44DAB0(v2, 1, (void (*)(void))sub_44E320);
+                sub_44DAB0(v2, 1, sub_44E320);
                 *(_DWORD*)& byte_5D4594[2650672] = 1;
             }
         }
@@ -1555,7 +1492,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft)
         {
             *(_DWORD*)& byte_5D4594[2650672] = 0;
             v3 = sub_44E3B0();
-            sub_44DAB0(v3, 1, (void (*)(void))sub_44E320);
+            sub_44DAB0(v3, 1, sub_44E320);
             *(_DWORD*)& byte_5D4594[2650672] = 1;
         }
         else if (!*(_DWORD*)& byte_5D4594[831256])
@@ -2354,7 +2291,7 @@ int sub_4505B0()
     sub_450580();
     *(_DWORD*)& byte_5D4594[2650672] = 0;
     v0 = sub_44E3B0();
-    result = sub_44DAB0(v0, 1, (void (*)(void))sub_44E320);
+    result = sub_44DAB0(v0, 1, sub_44E320);
     *(_DWORD*)& byte_5D4594[2650672] = 1;
     return result;
 }
@@ -51106,7 +51043,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
                 else if (!(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
                 {
-                    sub_44DAB0(25, *(_BYTE*)(v3 + 2) == 1, (void (*)(void))sub_44E000);
+                    sub_44DAB0(25, *(_BYTE*)(v3 + 2) == 1, sub_44E000);
                 }
             }
             goto LABEL_1183;

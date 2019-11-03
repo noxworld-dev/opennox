@@ -381,4 +381,11 @@ typedef struct struc_35
     int field_10;
 } struc_35;
 
+typedef struct struc_36
+{
+    _DWORD fields[5];
+    void (*field_5)(void);
+    _DWORD field_6;
+} struc_36;
+
 #endif
