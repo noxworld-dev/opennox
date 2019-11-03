@@ -44850,7 +44850,7 @@ int sub_434DA0()
 {
     __int16 v0; // bx
     int v1; // edi
-    int result; // eax
+    void* result; // eax
     unsigned int v3; // esi
 
     if (*(int*)& byte_5D4594[3799624] < 0)
@@ -44887,7 +44887,7 @@ LABEL_6:
         }
         result = 1;
     }
-    return result;
+    return 1;
 }
 
 //----- (00434E80) --------------------------------------------------------
