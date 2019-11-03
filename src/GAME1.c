@@ -42063,10 +42063,10 @@ BOOL sub_430CC0()
     BOOL result; // eax
 
     *(_DWORD*)& byte_5D4594[3807124] = 1;
-    *(_DWORD*)& byte_5D4594[3807148] = sub_4814F0;
-    *(_DWORD*)& byte_5D4594[3807132] = sub_468F80;
-    *(_DWORD*)& byte_5D4594[3807156] = sub_469920;
     *(_DWORD*)& byte_5D4594[3807128] = sub_480EF0;
+    *(_DWORD*)& byte_5D4594[3807132] = sub_468F80;
+    *(_DWORD*)& byte_5D4594[3807148] = sub_4814F0;
+    *(_DWORD*)& byte_5D4594[3807156] = sub_469920;
     result = sub_430D40();
     *(_DWORD*)& byte_587000[80800] = result;
     if (result)
