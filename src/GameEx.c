@@ -910,7 +910,7 @@ char __cdecl playerDropATrap(int playerObj)
   int v2; // eax
   int i; // esi
   float v4; // [esp+Ch] [ebp-18h]
-  int v5; // [esp+10h] [ebp-14h]
+  //int v5; // [esp+10h] [ebp-14h]
   float *v6; // [esp+14h] [ebp-10h]
   char v7; // [esp+18h] [ebp-Ch]
   char v8; // [esp+1Fh] [ebp-5h]
@@ -922,7 +922,7 @@ char __cdecl playerDropATrap(int playerObj)
   v6 = &v4;
   v2 = *(_DWORD *)(*(_DWORD *)(playerObj + 0x2EC) + 0x114);
   v4 = *(float *)(v2 + 0xE30);
-  v5 = *(_DWORD *)(v2 + 0xE34);
+  //v5 = *(_DWORD *)(v2 + 0xE34);
   v6 = &v4;
   if ( !(*(_BYTE *)(*(_DWORD *)(*(_DWORD *)(playerObj + 0x2EC) + 0x114) + 0xE60) & 3)// check playerGameStatus/isObs
     && *(_BYTE *)(*(_DWORD *)(playerObj + 0x2EC) + 0x58) != 1 )
@@ -1173,12 +1173,12 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
   char v9; // al
   int v10; // esi
   int v11; // edx
-  _DWORD *v12; // esi
+  //_DWORD *v12; // esi
   char *v13; // edi
-  int v14; // eax
-  unsigned int v15; // esi
-  int *v16; // eax
-  int v17; // eax
+  //int v14; // eax
+  //unsigned int v15; // esi
+  //int *v16; // eax
+  //int v17; // eax
   char *v18; // eax
   char v19; // cl
   char *v20; // eax
@@ -1198,15 +1198,15 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
   int *v34; // eax
   _DWORD *v35; // eax
   char v36; // [esp+17h] [ebp-CDh]
-  int a1[2]; // [esp+1Ch] [ebp-C8h]
+  //int a1[2]; // [esp+1Ch] [ebp-C8h]
   struct sockaddr *to; // [esp+24h] [ebp-C0h]
   int v39; // [esp+28h] [ebp-BCh]
   int *v40; // [esp+2Ch] [ebp-B8h]
   int v41; // [esp+30h] [ebp-B4h]
-  int a2[2]; // [esp+34h] [ebp-B0h]
+  //int a2[2]; // [esp+34h] [ebp-B0h]
   int v43[6]; // [esp+3Ch] [ebp-A8h]
   unsigned __int8 v44[0x80]; // [esp+54h] [ebp-90h]
-  int v45; // [esp+E0h] [ebp-4h]
+  //int v45; // [esp+E0h] [ebp-4h]
 
   v6 = buf;
   v40 = fromlen;
@@ -1250,7 +1250,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
             smallPlayerStruct* end;
 
             da_init(vector);
-          v45 = 0;
+          //v45 = 0;
           if ( playerInfoStructsToVector(&vector) )
           {
             copyServerMatchData((char *)v44);
@@ -1413,7 +1413,7 @@ _DWORD *OnLibraryNotice(int a1, ...)
   unsigned __int8 v24[64]; // [esp+1Ch] [ebp-50h]
   char buf[10]; // [esp+5Ch] [ebp-10h]
   char vaArg1_1[4]; // [esp+60h] [ebp-Ch]
-  char v27; // [esp+64h] [ebp-8h]
+  //char v27; // [esp+64h] [ebp-8h]
   int vaArg1; // [esp+78h] [ebp+Ch]
   int vaArg2; // [esp+7Ch] [ebp+10h]
   int vaArg3; // [esp+80h] [ebp+14h]
@@ -1489,7 +1489,7 @@ _DWORD *OnLibraryNotice(int a1, ...)
             else
             {
               notifyThisIsServeronly((int)&buf, 0, 1);
-              v27 = a2a;
+              //v27 = a2a;
               result = (_DWORD *)sendtoWrapper(&buf, 9, 0);
             }
           }
@@ -1526,7 +1526,7 @@ _DWORD *OnLibraryNotice(int a1, ...)
           else
           {
             notifyThisIsServeronly((int)&buf, 0, 1);
-            v27 = v8 | 0x10;
+            //v27 = v8 | 0x10;
             sendtoWrapper(&buf, 9, 0);
           }
         }
