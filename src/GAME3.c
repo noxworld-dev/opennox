@@ -5595,7 +5595,7 @@ FILE* __cdecl sub_4A96C0(char* a1)
         v2 = result;
         if (!result)
             return result;
-        if (sub_40ADD0(v6, 1u, strlen(v3), result) != strlen(v3))
+        if (sub_40ADD0_fread(v6, 1u, strlen(v3), result) != strlen(v3))
         {
             fclose(v2);
             return 0;
@@ -5606,7 +5606,7 @@ FILE* __cdecl sub_4A96C0(char* a1)
             fclose(v2);
             return 0;
         }
-        if (sub_40ADD0((char*)& byte_5D4594[1308748], 1u, 0x300u, v2) != 768)
+        if (sub_40ADD0_fread((char*)& byte_5D4594[1308748], 1u, 0x300u, v2) != 768)
         {
             fclose(v2);
             return 0;
@@ -5618,7 +5618,7 @@ FILE* __cdecl sub_4A96C0(char* a1)
             fclose(v2);
             return 0;
         }
-        if (sub_40ADD0(v6, 1u, strlen(v4), v2) != strlen(v4))
+        if (sub_40ADD0_fread(v6, 1u, strlen(v4), v2) != strlen(v4))
         {
             fclose(v2);
             return 0;
@@ -5629,13 +5629,13 @@ FILE* __cdecl sub_4A96C0(char* a1)
             fclose(v2);
             return 0;
         }
-        if (sub_40ADD0((char*)& byte_5D4594[2589804], 1u, 0x2000u, v2) != 0x2000)
+        if (sub_40ADD0_fread((char*)& byte_5D4594[2589804], 1u, 0x2000u, v2) != 0x2000)
         {
             fclose(v2);
             return 0;
         }
         sub_434610((int)& byte_5D4594[2589804]);
-        if (sub_40ADD0(v6, 1u, strlen(v5), v2) != strlen(v5))
+        if (sub_40ADD0_fread(v6, 1u, strlen(v5), v2) != strlen(v5))
         {
             fclose(v2);
             return 0;
@@ -5646,7 +5646,7 @@ FILE* __cdecl sub_4A96C0(char* a1)
             fclose(v2);
             return 0;
         }
-        if (sub_40ADD0((char*)& byte_5D4594[2524236], 1u, 0x10000u, v2) != 0x10000)
+        if (sub_40ADD0_fread((char*)& byte_5D4594[2524236], 1u, 0x10000u, v2) != 0x10000)
         {
             fclose(v2);
             return 0;

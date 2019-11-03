@@ -30539,7 +30539,7 @@ int sub_519EB0()
         *(_DWORD*)& byte_5D4594[2388644] = ftell(v8);
         fseek(v8, 0, 0);
         *(_DWORD*)& byte_5D4594[2388640] = nox_malloc(*(size_t*)& byte_5D4594[2388644]);
-        sub_40ADD0(*(char**)& byte_5D4594[2388640], 1u, *(size_t*)& byte_5D4594[2388644], v8);
+        sub_40ADD0_fread(*(char**)& byte_5D4594[2388640], 1u, *(size_t*)& byte_5D4594[2388644], v8);
         fclose(v8);
         result = 1;
     }

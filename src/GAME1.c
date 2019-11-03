@@ -7562,7 +7562,7 @@ signed int __cdecl sub_408E40(char* a1, int a2, signed int a3, FILE* a4)
     if ((int)(v5 - v4) > 8)
     {
         v6 = 8 * (v10 / 8);
-        v7 = sub_40ADD0(&a1[v4], 1u, 8 * (v10 / 8), a4);
+        v7 = sub_40ADD0_fread(&a1[v4], 1u, 8 * (v10 / 8), a4);
         sub_4099C0(&a1[v4], v6, &a1[v4]);
         if (v7 <= 0)
         {
@@ -7578,7 +7578,7 @@ signed int __cdecl sub_408E40(char* a1, int a2, signed int a3, FILE* a4)
     if (v11 > 0)
     {
         ftell(a4);
-        v12 = sub_40ADD0((char*)& byte_5D4594[1288], 1u, 8u, a4);
+        v12 = sub_40ADD0_fread((char*)& byte_5D4594[1288], 1u, 8u, a4);
         v7 = v12;
         if (v12 > 0)
         {
@@ -7639,7 +7639,7 @@ int __cdecl sub_409050(FILE* a1, int a2, int a3)
     if (v4 & 7)
     {
         fseek(a1, -v5, 1);
-        if (sub_40ADD0((char*)& byte_5D4594[1288], 1u, 8u, a1) <= 0)
+        if (sub_40ADD0_fread((char*)& byte_5D4594[1288], 1u, 8u, a1) <= 0)
         {
             *(_DWORD*)& byte_5D4594[1284] -= v5;
             return 0;
@@ -9361,49 +9361,41 @@ unsigned int __cdecl sub_40AD60(char* a1, int a2, int a3, _DWORD* a4)
 }
 
 //----- (0040ADD0) --------------------------------------------------------
-signed int __cdecl sub_40ADD0(char* a1, size_t a2, size_t a3, FILE* a4)
+signed int __cdecl sub_40ADD0_fread(char* buf, size_t size, size_t count, FILE* file)
 {
-    char* v4; // ebx
-    signed int v5; // esi
-    signed int result; // eax
-    size_t v7; // edi
-    unsigned int v8; // [esp+14h] [ebp+4h]
 
-    v4 = a1;
-    v5 = a3 * a2;
-    v8 = 0;
+    int left = count * size;
     if (*(_DWORD*)& byte_5D4594[3612])
-        return fread(v4, a2, a3, a4);
+        return fread(buf, size, count, file);
     *(_DWORD*)& byte_5D4594[3612] = 1;
-    if (v5)
+    if (left == 0)
     {
-        while (1)
+        *(_DWORD*)& byte_5D4594[3612] = 0;
+        return 0;
+    }
+    unsigned int total = 0;
+    int result;
+    while (1)
+    {
+        sub_4312C0();
+        size_t n = left;
+        if (left > 204800)
+            n = 204800;
+        result = fread(buf, 1, n, file);
+        if (result < 0)
+            break;
+        total += result;
+        if (result == n)
         {
-            v7 = v5;
-            sub_4312C0();
-            if (v5 > 204800)
-                v7 = 204800;
-            result = fread(v4, 1u, v7, a4);
-            if (result < 0)
-                break;
-            v8 += result;
-            if (result == v7)
-            {
-                v5 -= result;
-                v4 += result;
-                if (v5)
-                    continue;
-            }
-            goto LABEL_9;
+            left -= result;
+            buf += result;
+            if (left > 0)
+                continue;
         }
-        *(_DWORD*)& byte_5D4594[3612] = 0;
+        result = total / size;
+        break;
     }
-    else
-    {
-    LABEL_9:
-        result = v8 / a2;
-        *(_DWORD*)& byte_5D4594[3612] = 0;
-    }
+    *(_DWORD*)& byte_5D4594[3612] = 0;
     return result;
 }
 
@@ -13370,7 +13362,6 @@ unsigned __int8* __cdecl sub_40F120(int a1, _DWORD* a2)
 //----- (0040F1D0) --------------------------------------------------------
 wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int a4)
 {
-    wchar_t* result; // eax
     char* v5; // ebx
     unsigned int v6; // ecx
     char v7; // al
@@ -13378,25 +13369,24 @@ wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int
     _BYTE* v9; // eax
     _BYTE* v10; // esi
     int v11; // eax
-    wchar_t* v12; // esi
 
     if (a2)
         * a2 = 0;
     if (!*(_DWORD*)& byte_5D4594[251500])
         return (wchar_t*)& byte_587000[26204];
     v5 = a1;
-    if (strchr(a1, 58))
+    if (strchr(a1, ':'))
     {
         v8 = a3;
     }
     else
     {
         v6 = strlen(a3) - 1;
-        if (a3[v6] != 92)
+        if (a3[v6] != '\\')
         {
             do
                 v7 = a3[--v6];
-            while (v7 != 92);
+            while (v7 != '\\');
         }
         v8 = &a3[v6 + 1];
         nox_sprintf((char*)& byte_5D4594[243288], (const char*)& byte_587000[26320], v8, a1);
@@ -13406,7 +13396,7 @@ wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int
         v5,
         *(const void**)& byte_5D4594[251500],
         *(size_t*)& byte_5D4594[251492],
-        0x34u,
+        sizeof(nox_string_entry),
         (int(__cdecl*)(const void*, const void*))_strcmpi);
     v10 = v9;
     if (v9)
@@ -13417,17 +13407,13 @@ wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int
             v11 = sub_415FA0(0, (unsigned __int8)v9[49] - 1);
         if (a2)
             * a2 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[251508] + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
-        result = *(wchar_t**)(*(_DWORD*)& byte_5D4594[251504] + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
+        return *(wchar_t**)(*(_DWORD*)& byte_5D4594[251504] + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
     }
-    else
-    {
-        v12 = (wchar_t*)nox_malloc(0x208u);
-        nox_swprintf(v12 + 2, (const wchar_t*)& byte_587000[26368], v5, v8, a4);
-        *(_DWORD*)v12 = *(_DWORD*)& byte_5D4594[251520];
-        *(_DWORD*)& byte_5D4594[251520] = v12;
-        result = v12 + 2;
-    }
-    return result;
+    nox_missing_string* v12 = (nox_missing_string*)nox_malloc(sizeof(nox_missing_string));
+    nox_swprintf(v12->data, L"MISSING:'%S'", v5, v8, a4);
+    v12->next = *(_DWORD*)& byte_5D4594[251520];
+    *(nox_missing_string**)& byte_5D4594[251520] = v12;
+    return v12->data;
 }
 
 //----- (0040F300) --------------------------------------------------------
@@ -13474,13 +13460,13 @@ int __cdecl sub_40F300(char* a1)
         return 0;
     if (!*(_DWORD*)& byte_5D4594[251492])
         return 0;
-    *(_DWORD*)& byte_5D4594[251500] = nox_calloc(*(size_t*)& byte_5D4594[251492], 0x34u);
+    *(nox_string_entry**)& byte_5D4594[251500] = (nox_string_entry*)nox_calloc(*(size_t*)& byte_5D4594[251492], sizeof(nox_string_entry));
     if (!*(_DWORD*)& byte_5D4594[251500])
         return 0;
-    *(_DWORD*)& byte_5D4594[251504] = nox_calloc(*(size_t*)& byte_5D4594[251496], 4u);
+    *(_DWORD*)& byte_5D4594[251504] = nox_calloc(*(size_t*)& byte_5D4594[251496], 4);
     if (!*(_DWORD*)& byte_5D4594[251504])
         return 0;
-    *(_DWORD*)& byte_5D4594[251508] = nox_calloc(*(size_t*)& byte_5D4594[251496], 4u);
+    *(_DWORD*)& byte_5D4594[251508] = nox_calloc(*(size_t*)& byte_5D4594[251496], 4);
     if (!*(_DWORD*)& byte_5D4594[251508])
         return 0;
     if (v6)
@@ -13502,7 +13488,7 @@ int __cdecl sub_40F300(char* a1)
     qsort(
         *(void**)& byte_5D4594[251500],
         *(size_t*)& byte_5D4594[251492],
-        0x34u,
+        sizeof(nox_string_entry),
         (int(__cdecl*)(const void*, const void*))_strcmpi);
     return 1;
 }
@@ -13710,7 +13696,7 @@ int __cdecl sub_40F7A0(char* a1)
     v3 = v2;
     if (!v2)
         return 0;
-    if (sub_40ADD0((char*)v5, 0x18u, 1u, v2) == 1 && *(_DWORD*)v5 == 1129530912)
+    if (sub_40ADD0_fread((char*)v5, 0x18u, 1u, v2) == 1 && *(_DWORD*)v5 == 1129530912)
     {
         *(_DWORD*)& byte_5D4594[251496] = *(_DWORD*)& v5[12];
         *(_DWORD*)& byte_5D4594[251492] = *(_DWORD*)& v5[8];
@@ -13725,11 +13711,8 @@ int __cdecl sub_40F7A0(char* a1)
 int __cdecl sub_40F830(const char* path)
 {
     int a1;
-    int v1; // ebx
     FILE* v2; // eax
-    FILE* v3; // ebp
     int v5; // eax
-    int v6; // edx
     int v7; // ecx
     int v8; // eax
     int v9; // ebx
@@ -13738,124 +13721,121 @@ int __cdecl sub_40F830(const char* path)
     unsigned __int8* v12; // eax
     size_t v13; // eax
     int v14; // eax
-    FILE* v15; // [esp-4h] [ebp-3Ch]
     int v16; // [esp+10h] [ebp-28h]
     int v17; // [esp+14h] [ebp-24h]
-    int v18; // [esp+18h] [ebp-20h]
     int v19; // [esp+1Ch] [ebp-1Ch]
-    int v20; // [esp+20h] [ebp-18h]
-    char v21[20]; // [esp+24h] [ebp-14h]
 
-    v1 = 0;
-    v18 = 0;
-    v2 = fopen(path, "rb");
-    v3 = v2;
-    if (!v2)
+    FILE* file = fopen(path, "rb");
+    if (!file)
         return 0;
-    if (sub_40ADD0(v21, 0x14u, 1u, v2) != 1)
+
+    char hbuf[20];
+    if (sub_40ADD0_fread(hbuf, 20, 1, file) != 1)
     {
-    LABEL_4:
-        v15 = v3;
-    LABEL_5:
-        fclose(v15);
+        fclose(file);
         return 0;
     }
-    if (*(int*)& v21[4] < 2)
-        fseek(v3, 20, 0);
+    if (*(int*)& hbuf[4] < 2)
+        fseek(file, 20, 0);
     else
-        fseek(v3, 24, 0);
-    if (sub_40ADD0((char*)& v16, 4u, 1u, v3) == 1)
+        fseek(file, 24, 0);
+
+    int i = 0;
+    int previ = 0;
+    int v18 = 0;
+    while (sub_40ADD0_fread((char*)& v16, 4, 1, file) == 1)
     {
-        v20 = 0;
-        do
+        if (v16 != 0x4C424C20) // "LBL "
         {
-            v15 = v3;
-            if (v16 != 1279413280)
-                goto LABEL_5;
-            sub_40ADD0((char*)& v17, 4u, 1u, v3);
-            sub_40ADD0((char*)& a1, 4u, 1u, v3);
+            fclose(file);
+            return 0;
+        }
+        sub_40ADD0_fread((char*)& v17, 4, 1, file);
+        sub_40ADD0_fread((char*)& a1, 4, 1, file);
+        v5 = a1;
+        if (a1)
+        {
+            sub_40ADD0_fread((char*)& byte_5D4594[247384], a1, 1, file);
             v5 = a1;
-            if (a1)
+        }
+        nox_string_entry* arr = *(nox_string_entry**)& byte_5D4594[251500];
+        byte_5D4594[247384 + v5] = 0;
+        strcpy((char*)(arr[i].data), (const char*)& byte_5D4594[247384]);
+        if (a1 > * (int*)& byte_5D4594[251480])
+            * (_DWORD*)& byte_5D4594[251480] = a1;
+        v7 = v18;
+        v19 = 0;
+        *(_BYTE*)(&arr[i].data[49]) = v17;
+        arr[i].field_50 = v18;
+        v8 = v17;
+        if (v17 > 0)
+        {
+            v9 = 4 * v7;
+            while (1)
             {
-                sub_40ADD0((char*)& byte_5D4594[247384], a1, 1u, v3);
-                v5 = a1;
-            }
-            v6 = *(_DWORD*)& byte_5D4594[251500];
-            byte_5D4594[v5 + 247384] = 0;
-            strcpy((char*)(v1 + v6), (const char*)& byte_5D4594[247384]);
-            if (a1 > * (int*)& byte_5D4594[251480])
-                * (_DWORD*)& byte_5D4594[251480] = a1;
-            v7 = v18;
-            v19 = 0;
-            *(_WORD*)(v1 + *(_DWORD*)& byte_5D4594[251500] + 50) = v18;
-            *(_BYTE*)(v1 + *(_DWORD*)& byte_5D4594[251500] + 49) = v17;
-            v8 = v17;
-            if (v17 > 0)
-            {
-                v9 = 4 * v7;
-                while (1)
+                sub_40ADD0_fread((char*)& v16, 4, 1, file);
+                if (v16 != 0x53545220 && v16 != 0x53545257 && v16 != 0x53747220 && v16 != 0x53747257) // "STR ", "STRW", "Str ", "StrW"
                 {
-                    sub_40ADD0((char*)& v16, 4u, 1u, v3);
-                    if (v16 != 1398034976 && v16 != 1398035031 && v16 != 1400140320 && v16 != 1400140375)
-                        goto LABEL_4;
-                    sub_40ADD0((char*)& a1, 4u, 1u, v3);
+                    fclose(file);
+                    return 0;
+                }
+                sub_40ADD0_fread((char*)& a1, 4, 1, file);
+                v10 = a1;
+                if (a1)
+                {
+                    sub_40ADD0_fread((char*)& byte_5D4594[226904], 2 * a1, 1u, file);
                     v10 = a1;
-                    if (a1)
+                }
+                *(_WORD*)& byte_5D4594[2 * v10 + 226904] = 0;
+                if (v16 == 0x53747220 || v16 == 0x53747257) // "Str " || "StrW"
+                {
+                    v11 = *(_DWORD*)& byte_5D4594[226904];
+                    v12 = &byte_5D4594[226904];
+                    if (*(_WORD*)& byte_5D4594[226904])
                     {
-                        sub_40ADD0((char*)& byte_5D4594[226904], 2 * a1, 1u, v3);
-                        v10 = a1;
-                    }
-                    *(_WORD*)& byte_5D4594[2 * v10 + 226904] = 0;
-                    if (v16 == 1400140320 || v16 == 1400140375)
-                    {
-                        v11 = *(_DWORD*)& byte_5D4594[226904];
-                        v12 = &byte_5D4594[226904];
-                        if (*(_WORD*)& byte_5D4594[226904])
+                        do
                         {
-                            do
-                            {
-                                v11 = ~v11;
-                                *(_WORD*)v12 = v11;
-                                LOWORD(v11) = *((_WORD*)v12 + 1);
-                                v12 += 2;
-                            } while ((_WORD)v11);
-                        }
-                    }
-                    sub_40FB60((wchar_t*)& byte_5D4594[226904]);
-                    v13 = nox_wcslen((const wchar_t*)& byte_5D4594[226904]);
-                    *(_DWORD*)(v9 + *(_DWORD*)& byte_5D4594[251504]) = nox_calloc(v13 + 1, 2u);
-                    nox_wcscpy(*(wchar_t**)(v9 + *(_DWORD*)& byte_5D4594[251504]), (const wchar_t*)& byte_5D4594[226904]);
-                    if (v16 == 1398035031 || v16 == 1400140375)
-                    {
-                        sub_40ADD0((char*)& a1, 4u, 1u, v3);
-                        v14 = a1;
-                        if (a1)
-                        {
-                            sub_40ADD0((char*)& byte_5D4594[247384], a1, 1u, v3);
-                            v14 = a1;
-                        }
-                        byte_5D4594[v14 + 247384] = 0;
-                        if (v14)
-                        {
-                            *(_DWORD*)(v9 + *(_DWORD*)& byte_5D4594[251508]) = nox_calloc(v14 + 1, 1u);
-                            strcpy(*(char**)(v9 + *(_DWORD*)& byte_5D4594[251508]), (const char*)& byte_5D4594[247384]);
-                        }
-                    }
-                    v8 = v17;
-                    v9 += 4;
-                    if (++v19 >= v17)
-                    {
-                        v1 = v20;
-                        break;
+                            v11 = ~v11;
+                            *(_WORD*)v12 = v11;
+                            LOWORD(v11) = *((_WORD*)v12 + 1);
+                            v12 += 2;
+                        } while ((_WORD)v11);
                     }
                 }
+                sub_40FB60((wchar_t*)& byte_5D4594[226904]);
+                v13 = nox_wcslen((const wchar_t*)& byte_5D4594[226904]);
+                *(_DWORD*)(v9 + *(_DWORD*)& byte_5D4594[251504]) = nox_calloc(v13 + 1, 2u);
+                nox_wcscpy(*(wchar_t**)(v9 + *(_DWORD*)& byte_5D4594[251504]), (const wchar_t*)& byte_5D4594[226904]);
+                if (v16 == 0x53545257 || v16 == 0x53747257) // "STRW" || "StrW"
+                {
+                    sub_40ADD0_fread((char*)& a1, 4, 1, file);
+                    v14 = a1;
+                    if (a1)
+                    {
+                        sub_40ADD0_fread((char*)& byte_5D4594[247384], a1, 1u, file);
+                        v14 = a1;
+                    }
+                    byte_5D4594[v14 + 247384] = 0;
+                    if (v14)
+                    {
+                        *(_DWORD*)(v9 + *(_DWORD*)& byte_5D4594[251508]) = nox_calloc(v14 + 1, 1u);
+                        strcpy(*(char**)(v9 + *(_DWORD*)& byte_5D4594[251508]), (const char*)& byte_5D4594[247384]);
+                    }
+                }
+                v8 = v17;
+                v9 += 4;
+                if (++v19 >= v17)
+                {
+                    i = previ;
+                    break;
+                }
             }
-            v1 += 52;
-            v20 = v1;
-            v18 += v8;
-        } while (sub_40ADD0((char*)& v16, 4u, 1u, v3) == 1);
+        }
+        i++;
+        previ = i;
+        v18 += v8;
     }
-    fclose(v3);
+    fclose(file);
     return 1;
 }
 
@@ -13904,8 +13884,6 @@ void __cdecl sub_40FB60(wchar_t* a1)
 //----- (0040FBE0) --------------------------------------------------------
 int sub_40FBE0()
 {
-    int v0; // ebp
-    int v1; // ebx
     unsigned int v2; // kr08_4
     int v3; // ebx
     int v4; // ebp
@@ -13913,13 +13891,12 @@ int sub_40FBE0()
     size_t v6; // eax
     signed int v7; // ecx
     int v8; // eax
-    int v10; // [esp+10h] [ebp-8h]
-    int v11; // [esp+14h] [ebp-4h]
+    nox_string_entry* arr = *(nox_string_entry**)& byte_5D4594[251500];
 
-    v0 = 0;
-    v1 = 0;
-    v11 = 0;
-    v10 = 0;
+    int v0 = 0;
+    int v1 = 0;
+    int v10 = 0;
+    int v11 = 0;
     do
     {
     LABEL_2:
@@ -13927,13 +13904,14 @@ int sub_40FBE0()
             return 1;
         sub_40F5C0(&byte_5D4594[247384]);
     } while (*(_WORD*)& byte_5D4594[247384] == 12079 || !byte_5D4594[247384]);
-    strcpy((char*)(v1 + *(_DWORD*)& byte_5D4594[251500]), (const char*)& byte_5D4594[247384]);
+    strcpy((char*)(arr[v1].data), (const char*)& byte_5D4594[247384]);
     v2 = strlen((const char*)& byte_5D4594[247384]) + 1;
     if ((int)(v2 - 1) > * (int*)& byte_5D4594[251480])
         * (_DWORD*)& byte_5D4594[251480] = v2 - 1;
-    *(_WORD*)(v1 + *(_DWORD*)& byte_5D4594[251500] + 50) = v0;
+    arr[v1].field_50 = v0;
     v3 = 0;
     v4 = 4 * v0;
+
     while (fgets((char*)& byte_5D4594[247384], 4095, *(FILE * *)& byte_5D4594[251488]))
     {
         sub_40F5C0(&byte_5D4594[247384]);
@@ -13964,8 +13942,8 @@ int sub_40FBE0()
         }
         else if (!_strcmpi((const char*)& byte_5D4594[247384], (const char*)& byte_587000[26424]))
         {
-            *(_BYTE*)(v10 + *(_DWORD*)& byte_5D4594[251500] + 49) = v3;
-            v10 += 52;
+            *(_BYTE*)(&arr[v10].data[49]) = v3;
+            v10++;
             v8 = v3 + v11;
             v1 = v10;
             v11 = v8;
@@ -14145,8 +14123,6 @@ int sub_410020()
     int i; // esi
     LPVOID* v2; // ecx
     int j; // esi
-    _DWORD* v4; // eax
-    _DWORD* v5; // esi
 
     v0 = *(LPVOID * *)& byte_5D4594[251504];
     if (*(_DWORD*)& byte_5D4594[251504])
@@ -14176,16 +14152,15 @@ int sub_410020()
     }
     if (*(_DWORD*)& byte_5D4594[251500])
         free(*(LPVOID*)& byte_5D4594[251500]);
-    v4 = *(_DWORD * *)& byte_5D4594[251520];
-    if (*(_DWORD*)& byte_5D4594[251520])
+
+    nox_missing_string* v4 = *(nox_missing_string**)& byte_5D4594[251520];
+    while (v4)
     {
-        do
-        {
-            v5 = (_DWORD*)* v4;
-            free(v4);
-            v4 = v5;
-        } while (v5);
+        nox_missing_string* v5 = v4->next;
+        free(v4);
+        v4 = v5;
     }
+
     *(_DWORD*)& byte_5D4594[251520] = 0;
     *(_DWORD*)& byte_5D4594[251512] = 0;
     return 1;
@@ -40459,7 +40434,7 @@ FILE* __cdecl sub_42F0B0(int a1)
     v3 = result;
     if (result)
     {
-        sub_40ADD0((char*)& v7, 4u, 1u, result);
+        sub_40ADD0_fread((char*)& v7, 4u, 1u, result);
         *(_DWORD*)& byte_5D4594[754144] = 0;
         if (v7 == -85082901)
         {
@@ -40470,12 +40445,12 @@ FILE* __cdecl sub_42F0B0(int a1)
             fclose(v3);
             return 0;
         }
-        sub_40ADD0((char*)& v6, 4u, 1u, v3);
+        sub_40ADD0_fread((char*)& v6, 4u, 1u, v3);
         v4 = (char*)nox_malloc(v6);
         if (v4)
         {
             fseek(v3, 0, 0);
-            v5 = sub_40ADD0(v4, 1u, v6, v3);
+            v5 = sub_40ADD0_fread(v4, 1u, v6, v3);
             if (v5 == v6)
             {
                 fclose(v3);
@@ -41173,7 +41148,7 @@ int __cdecl sub_42FE30(int a1)
     v2 = *(_DWORD*)(v1 + 16);
     if (*(_DWORD*)(v1 + 12) == v2)
     {
-        v10 = sub_40ADD0(*(char**)v1, 1u, v2, fp);
+        v10 = sub_40ADD0_fread(*(char**)v1, 1u, v2, fp);
     }
     else
     {
@@ -41182,12 +41157,12 @@ int __cdecl sub_42FE30(int a1)
         if (v2 > * (int*)& byte_5D4594[787184])
         {
             v3 = (char*)nox_malloc(v2);
-            v10 = sub_40ADD0(v3, 1u, *(_DWORD*)(v1 + 16), fp);
+            v10 = sub_40ADD0_fread(v3, 1u, *(_DWORD*)(v1 + 16), fp);
             v6 = v3;
         }
         else
         {
-            v5 = sub_40ADD0(*(char**)& byte_5D4594[787208], 1u, v2, fp);
+            v5 = sub_40ADD0_fread(*(char**)& byte_5D4594[787208], 1u, v2, fp);
             v6 = *(char**)& byte_5D4594[787208];
             v10 = v5;
         }
@@ -41265,13 +41240,13 @@ BOOL __cdecl sub_42FFF0(FILE* a1)
     char v4[32]; // [esp+14h] [ebp-20h]
 
     strcpy(v3, "LOOKUPTABLE");
-    v1 = sub_40ADD0(v4, 1u, strlen(v3), a1);
+    v1 = sub_40ADD0_fread(v4, 1u, strlen(v3), a1);
     result = 0;
     if (v1 == strlen(v3))
     {
         v4[strlen(v3)] = 0;
         if (!strcmp(v4, v3))
-            result = sub_40ADD0((char*)& byte_5D4594[754340], 1u, 0x8000u, a1) == 0x8000;
+            result = sub_40ADD0_fread((char*)& byte_5D4594[754340], 1u, 0x8000u, a1) == 0x8000;
         else
             result = 0;
     }
@@ -52271,7 +52246,7 @@ _DWORD* __cdecl sub_43F3B0(char* a1)
         if (v1)
         {
             memset(v1, 0, 0x20u);
-            if (sub_40ADD0((char*)v17, 0x1Cu, 1u, v3) != 1)
+            if (sub_40ADD0_fread((char*)v17, 0x1Cu, 1u, v3) != 1)
                 goto LABEL_15;
             if (v17[0] == 1181699700)
             {
@@ -52282,13 +52257,13 @@ _DWORD* __cdecl sub_43F3B0(char* a1)
                 v1[3] = v17[5];
                 v4 = (char*)nox_malloc(8 * v17[5]);
                 v1[4] = v4;
-                if (!v4 || sub_40ADD0(v4, 8 * v1[3], 1u, v3) != 1)
+                if (!v4 || sub_40ADD0_fread(v4, 8 * v1[3], 1u, v3) != 1)
                     goto LABEL_15;
             }
             else
             {
                 fseek(v3, 0, 0);
-                if (sub_40ADD0((char*)v18, 0x4Cu, 1u, v3) != 1)
+                if (sub_40ADD0_fread((char*)v18, 0x4Cu, 1u, v3) != 1)
                     goto LABEL_15;
                 v5 = *(_WORD*)& v18[2];
                 v6 = *(_WORD*)v18;
@@ -52308,7 +52283,7 @@ _DWORD* __cdecl sub_43F3B0(char* a1)
             v9 = v1[5] * sub_440870((int)v1);
             v10 = (char*)nox_malloc(v9);
             v1[6] = v10;
-            if (!v10 || sub_40ADD0(v10, v9, 1u, v3) != 1)
+            if (!v10 || sub_40ADD0_fread(v10, v9, 1u, v3) != 1)
             {
             LABEL_15:
                 sub_440840(v1);
@@ -57647,7 +57622,7 @@ int __cdecl sub_4463E0(int a1)
         *(_DWORD*)& byte_5D4594[826036] = v3;
         if (v3)
         {
-            sub_40ADD0(v3, *(_DWORD*)& byte_5D4594[4 * a1 + 826040], 1u, v2);
+            sub_40ADD0_fread(v3, *(_DWORD*)& byte_5D4594[4 * a1 + 826040], 1u, v2);
             v3 = *(char**)& byte_5D4594[826036];
         }
         v3[(*(_DWORD*)& byte_5D4594[4 * a1 + 826040])++] = 0;

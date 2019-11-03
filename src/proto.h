@@ -213,7 +213,7 @@ void __cdecl sub_40ACA0(LPVOID lpMem); // idb
 unsigned int __cdecl sub_40ACC0(void* a1, unsigned int a2, int a3, int a4);
 unsigned int __cdecl sub_40AD10(unsigned int* a1, int a2, int a3);
 unsigned int __cdecl sub_40AD60(char* a1, int a2, int a3, _DWORD* a4);
-signed int __cdecl sub_40ADD0(char* a1, size_t a2, size_t a3, FILE* a4);
+signed int __cdecl sub_40ADD0_fread(char* a1, size_t a2, size_t a3, FILE* a4);
 int __cdecl sub_40AE90(const void*, const void*); // idb
 int __cdecl sub_40AEB0(const void*, const void*); // idb
 void sub_40AED0();
