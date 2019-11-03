@@ -9548,7 +9548,6 @@ unsigned int __cdecl sub_501BB0(int a1, float* a2, float* a3)
 {
     int v3; // eax
     int v4; // ecx
-    unsigned int v6; // eax
 
     v3 = sub_501AF0(a1, a2, a3);
     v4 = *(_DWORD*)& byte_5D4594[28 * a1 + 1570292];
@@ -12345,15 +12344,12 @@ int sub_505360()
     int v23; // eax
     int v24; // eax
     int v25; // ecx
-    int v26; // ecx
     int v27; // eax
-    int v28; // ecx
     int v29; // edi
     int v30; // ebx
     int v31; // ecx
     int v32; // esi
     int i; // edi
-    int v34; // ecx
     int v35; // esi
     char v36[2]; // [esp+12h] [ebp-40Ah]
     int v37; // [esp+14h] [ebp-408h]
@@ -15953,7 +15949,6 @@ void __cdecl sub_509F60(int a1, int a2)
 {
     int v2; // esi
     char v3; // al
-    int result; // eax
     int v5; // edi
     _DWORD* v6; // esi
 
@@ -33753,7 +33748,6 @@ int __cdecl sub_51DF90(int a1)
     int v1; // esi
     int v2; // eax
     int result; // eax
-    void* v5; // ecx
     int i; // esi
 
     v1 = a1;
@@ -33786,7 +33780,6 @@ int __cdecl sub_51E010(char* a1, int a2)
     unsigned __int8 v3; // cl
     int result; // eax
     int v5; // esi
-    int v6; // ecx
     int v7; // [esp+10h] [ebp-804h]
     char v8[1024]; // [esp+14h] [ebp-800h]
     char Mem[1024]; // [esp+414h] [ebp-400h]
@@ -46065,7 +46058,6 @@ int __cdecl sub_52CBD0(int a1, int a2, int a3, int a4)
     float v9; // ecx
     float v10; // edx
     int v11; // eax
-    int v13[39]; // [esp+0h] [ebp-C8h]
     int v14; // [esp+9Ch] [ebp-2Ch]
     int v15; // [esp+A0h] [ebp-28h]
     int v16; // [esp+A4h] [ebp-24h]
@@ -62512,11 +62504,9 @@ int __cdecl sub_541D80(FILE* a1, FILE* a2)
     char v5; // [esp+10h] [ebp-1008h]
     char v6; // [esp+14h] [ebp-1004h]
     char v7; // [esp+18h] [ebp-1000h]
-    char v8; // [esp+1Ch] [ebp-FFCh]
 
     fread(&v7, 4u, 1u, a1);
     v2 = 0;
-    v8 = 0;
     fwrite(&v7, 4u, 1u, a2);
     fread(&v4, 4u, 1u, a1);
     fwrite(&v4, 4u, 1u, a2);

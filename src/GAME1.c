@@ -13316,7 +13316,7 @@ void __cdecl sub_40F0F0(int a1, int(__cdecl* a2)(_DWORD, int), int a3)
 //----- (0040F120) --------------------------------------------------------
 unsigned __int8* __cdecl sub_40F120(int a1, _DWORD* a2)
 {
-    int origSize;
+    //int origSize;
     int*** v2; // ebp
     unsigned int v3; // ebx
     int** v4; // eax
@@ -13327,7 +13327,7 @@ unsigned __int8* __cdecl sub_40F120(int a1, _DWORD* a2)
     void* src;
     size_t size;
 
-    origSize = a1;
+    //origSize = a1;
     v2 = *(int****)& byte_5D4594[4 * a1 + 210292];
     v3 = 0;
     memset(&byte_5D4594[207988], 0, 0x800u);
@@ -17605,7 +17605,6 @@ void sub_413C60()
 //----- (00413C80) --------------------------------------------------------
 void sub_413C80(char* a1, ...)
 {
-    int result; // eax
     va_list va; // [esp+8h] [ebp+8h]
 
     va_start(va, a1);
@@ -47190,8 +47189,6 @@ int sub_438770()
 //----- (00438A90) --------------------------------------------------------
 int sub_438A90()
 {
-    wchar_t* v0; // eax
-    wchar_t* v1; // eax
     int result; // eax
     BOOL v3; // eax
     int v4; // eax
@@ -49773,7 +49770,6 @@ int __cdecl sub_43C7B0(char* cp, int hostshort, int a3, signed int* a4)
 {
     int v4; // eax
     int v5; // eax
-    int result; // eax
     char v7[40]; // [esp+8h] [ebp-28h]
 
     memset(v7, 0, sizeof(v7));
@@ -50958,7 +50954,6 @@ int sub_43DEB0()
     wchar_t* v7; // eax
     wchar_t* v8; // eax
     wchar_t* v10; // eax
-    char* v11; // eax
     wchar_t* v12; // [esp-10h] [ebp-118h]
     char* v13; // [esp-4h] [ebp-10Ch]
     char* v14; // [esp-4h] [ebp-10Ch]
@@ -51206,7 +51201,6 @@ void mainloop()
     char v16; // al
     int v17; // eax
     int v19; // eax
-    int result; // eax
     int v21; // [esp-10h] [ebp-68h]
     char v22; // [esp-8h] [ebp-60h]
     char v23; // [esp-4h] [ebp-5Ch]

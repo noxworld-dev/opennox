@@ -6213,7 +6213,6 @@ int __cdecl sub_4AA4D0(int a1, unsigned int a2, int* a3, int a4)
 //----- (004AA650) --------------------------------------------------------
 void sub_4AA650()
 {
-    void* result; // eax
     char* v2; // ecx
     void* v3; // [esp+0h] [ebp-4h]
 
@@ -12084,7 +12083,6 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3)
     _WORD* v15; // eax
     _WORD* v16; // eax
     _WORD* v17; // eax
-    __int16 v18; // dx
     int v19; // ecx
     _WORD* v20; // eax
     _WORD* v21; // eax
@@ -13572,7 +13570,6 @@ int sub_4B5CD0()
     unsigned __int8* v7; // edi
     int v8; // esi
     unsigned __int8* v9; // edi
-    unsigned int v10; // edx
     int result; // eax
     int v12; // [esp+8h] [ebp-4h]
 
@@ -22732,7 +22729,6 @@ int __cdecl sub_4C1FE0(_DWORD* a1)
     int v9; // edi
     BOOL v10; // edi
     int v11; // ecx
-    unsigned int v12; // edx
     int v13; // ebx
     int* v14; // esi
     _DWORD* v15; // eax
@@ -23218,7 +23214,6 @@ int __cdecl sub_4C2A60(int a1, unsigned int a2)
 //----- (004C2B10) --------------------------------------------------------
 int __cdecl sub_4C2B10(_DWORD* a1, unsigned int a2, unsigned int a3)
 {
-    unsigned int v3; // edx
     int2 v5; // [esp+0h] [ebp-10h]
     int2 a1a; // [esp+8h] [ebp-8h]
 
@@ -25155,7 +25150,6 @@ int __cdecl sub_4C5060(_DWORD* a1)
     int v6; // ecx
     int v7; // edi
     int v8; // esi
-    int v9; // edx
     int v10; // [esp+0h] [ebp-24h]
     int2 a1a; // [esp+4h] [ebp-20h]
     int2 v12; // [esp+Ch] [ebp-18h]
@@ -31613,7 +31607,6 @@ int __cdecl sub_4CD9E0(int a1, _DWORD* a2)
     int v4; // edi
     int v5; // ebx
     int v6; // edi
-    unsigned int v7; // edx
     int v8; // ebx
     int v9; // eax
     int v10; // esi
@@ -33540,11 +33533,6 @@ void sub_4D0A20()
 FILE* sub_4D0A30()
 {
     int v0; // ebp
-    char* v1; // edi
-    int v2; // edx
-    int v3; // eax
-    unsigned __int8* v4; // edi
-    __int16 v5; // cx
     FILE* result; // eax
     FILE* v7; // ebx
     int v8; // eax
@@ -33754,7 +33742,6 @@ int sub_4D0E00()
 {
     unsigned int v0; // eax
     int* i; // ebp
-    char v2; // ah
     int v3; // edx
     unsigned __int8 v4; // al
     unsigned __int8* v5; // edi
@@ -34458,7 +34445,6 @@ int sub_4D1860()
     int v22; // eax
     int v23; // ecx
     wchar_t* v24; // eax
-    int v25; // ecx
     int l; // ebx
     char* v27; // eax
     int v28; // eax
@@ -34978,7 +34964,6 @@ int sub_4D2580()
     int v2; // ebx
     unsigned int v3; // ebp
     unsigned int v4; // esi
-    void* v5; // ecx
     _DWORD* i; // esi
     char* v7; // ebp
     char* v8; // edi
@@ -34991,7 +34976,6 @@ int sub_4D2580()
     wchar_t* v15; // eax
     char* v17; // eax
     int v18; // eax
-    void* v19; // ecx
     char* v20; // eax
     char* v21; // esi
     int v22; // ebx
@@ -51372,7 +51356,6 @@ int __cdecl sub_4E6860(int a1, int a2, int a3)
     int v8; // eax
     unsigned int v9; // edx
     int v10; // eax
-    int v11; // ecx
     int v12; // ecx
     int v13; // [esp+Ch] [ebp+4h]
 
