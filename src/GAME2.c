@@ -4699,7 +4699,6 @@ _DWORD* __cdecl sub_452F80(int a1, int a2)
 int __cdecl sub_452FA0(int a1)
 {
     int v1; // eax
-    unsigned int v2; // edx
 
     v1 = a1;
     if (a1 <= 50)
@@ -17269,10 +17268,6 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3)
     int v19; // ecx
     int v20; // eax
     int v21; // eax
-    int v22; // eax
-    int v23; // eax
-    int v24; // eax
-    int v25; // eax
     int v26; // eax
     _DWORD* v28; // esi
     wchar_t* v29; // eax
@@ -33623,7 +33618,6 @@ int __cdecl sub_47A960(const char* a1, int a2)
     void* v14; // eax
     char v15[160]; // [esp+0h] [ebp-348h]
     const char* v16; // [esp+A0h] [ebp-2A8h]
-    unsigned __int8* v17; // [esp+A4h] [ebp-2A4h]
     int v18; // [esp+B8h] [ebp-290h]
     int v19; // [esp+BCh] [ebp-28Ch]
     char v20[68]; // [esp+C0h] [ebp-288h]
@@ -37631,14 +37625,13 @@ void __cdecl sub_480BE0(_DWORD* a1, int* a2, int a3, int a4, int a5)
     int v16; // ecx
     int v17; // edi
     int v18; // eax
-    int v20; // [esp+10h] [ebp-14h]
     int v21; // [esp+14h] [ebp-10h]
     int v22; // [esp+18h] [ebp-Ch]
     int v23; // [esp+1Ch] [ebp-8h]
     int v24; // [esp+20h] [ebp-4h]
     int v25; // [esp+28h] [ebp+4h]
     int v26; // [esp+30h] [ebp+Ch]
-    void(__cdecl * maprgb)(const BYTE*, WORD*);
+    //void(__cdecl * maprgb)(const BYTE*, WORD*);
     BYTE* x1 = *(_BYTE * *)& byte_5D4594[3798844];
     BYTE* x2 = *(_BYTE * *)& byte_5D4594[3798796];
 
@@ -38325,7 +38318,6 @@ char __cdecl sub_481900(_DWORD* a1, _DWORD* a2)
     unsigned int v18; // ecx
     char* v19; // esi
     unsigned int v20; // eax
-    char* v21; // esi
     int v22; // eax
     int v24; // [esp+10h] [ebp-1Ch]
     unsigned __int8 v25; // [esp+14h] [ebp-18h]
@@ -42329,12 +42321,8 @@ unsigned int sub_485F80()
     int v7; // ebx
     unsigned __int8* v8; // esi
     int j; // ecx
-    int v10; // edx
-    unsigned int v11; // eax
     unsigned __int8* v12; // esi
     int k; // ecx
-    int v14; // edx
-    unsigned int v15; // eax
     unsigned int result; // eax
 
     v0 = 0;
@@ -43005,8 +42993,6 @@ int __cdecl sub_486B60(int a1, int a2)
 {
     int v2; // ebp
     FILE* v3; // eax
-    char* v4; // edi
-    unsigned __int8 v5; // cl
     FILE* v6; // eax
     FILE* v7; // esi
     int v8; // edi
