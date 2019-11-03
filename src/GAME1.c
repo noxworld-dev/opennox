@@ -32,6 +32,9 @@ nox_missing_string* missing_strings = 0;
 nox_string_entry* string_entries = 0;
 size_t string_entries_cnt = 0;
 
+char file_buffer[4096] = {0};
+wchar_t file_buffer_w[4096*2] = {0};
+
 typedef struct mem_mapping
 {
     uintptr_t base;
@@ -42,6 +45,8 @@ typedef struct mem_mapping
 
 mem_mapping mappings[] = {
     // overrides
+    {0x5D4594+226904, (void*)file_buffer_w, sizeof(file_buffer_w),1},
+    {0x5D4594+247384, (void*)file_buffer, sizeof(file_buffer),1},
     {0x5D4594+251492, (void*)&string_entries_cnt, sizeof(string_entries_cnt),1},
     {0x5D4594+251500, (void*)&string_entries, sizeof(string_entries),1},
     {0x5D4594+251520, (void*)&missing_strings, sizeof(missing_strings),1},
@@ -13501,24 +13506,24 @@ int sub_40F4E0()
     string_entries_cnt = 0;
 LABEL_2:
     *(_DWORD*)& byte_5D4594[251496] = v0;
-    while (fgets((char*)& byte_5D4594[247384], 4095, *(FILE * *)& byte_5D4594[251488]))
+    while (fgets(file_buffer, sizeof(file_buffer)-1, *(FILE * *)& byte_5D4594[251488]))
     {
-        sub_40F5C0(&byte_5D4594[247384]);
-        if (byte_5D4594[247384] == 34)
+        sub_40F5C0(file_buffer);
+        if (file_buffer[0] == '"')
         {
-            v1 = strlen((const char*)& byte_5D4594[247384]);
-            byte_5D4594[v1 + 247384] = 10;
-            byte_5D4594[v1 + 247385] = 0;
+            v1 = strlen((const char*)file_buffer);
+            file_buffer[v1 + 0] = 10;
+            file_buffer[v1 + 1] = 0;
             sub_40F640(
                 *(FILE * *)& byte_5D4594[251488],
-                (char*)& byte_5D4594[247385],
+                (char*)file_buffer+1,
                 (char*)& byte_5D4594[218612],
                 &byte_5D4594[222708],
                 4096);
             v0 = *(_DWORD*)& byte_5D4594[251496] + 1;
             goto LABEL_2;
         }
-        if (!_strcmpi((const char*)& byte_5D4594[247384], (const char*)& byte_587000[26412]))
+        if (!_strcmpi((const char*)file_buffer, (const char*)& byte_587000[26412]))
             ++* (_DWORD*)& byte_5D4594[251492];
     }
     *(_DWORD*)& byte_5D4594[251496] += 1000;
@@ -13708,17 +13713,12 @@ int __cdecl sub_40F7A0(char* a1)
 //----- (0040F830) --------------------------------------------------------
 int __cdecl sub_40F830(const char* path)
 {
-    int a1;
-    FILE* v2; // eax
-    int v5; // eax
     int v7; // ecx
     int v8; // eax
     int v9; // ebx
-    int v10; // eax
     int v11; // ecx
     unsigned __int8* v12; // eax
     size_t v13; // eax
-    int v14; // eax
     int v16; // [esp+10h] [ebp-28h]
     int v17; // [esp+14h] [ebp-24h]
     int v19; // [esp+1Ch] [ebp-1Ch]
@@ -13749,17 +13749,16 @@ int __cdecl sub_40F830(const char* path)
             return 0;
         }
         sub_40ADD0_fread((char*)& v17, 4, 1, file);
-        sub_40ADD0_fread((char*)& a1, 4, 1, file);
-        v5 = a1;
-        if (a1)
+        int sz = 0;
+        sub_40ADD0_fread((char*)& sz, 4, 1, file);
+        if (sz > 0)
         {
-            sub_40ADD0_fread((char*)& byte_5D4594[247384], a1, 1, file);
-            v5 = a1;
+            sub_40ADD0_fread(file_buffer, sz, 1, file);
         }
-        byte_5D4594[247384 + v5] = 0;
-        strcpy((char*)(string_entries[i].data), (const char*)& byte_5D4594[247384]);
-        if (a1 > * (int*)& byte_5D4594[251480])
-            * (_DWORD*)& byte_5D4594[251480] = a1;
+        file_buffer[sz] = 0;
+        strcpy((char*)(string_entries[i].data), (const char*)file_buffer);
+        if (sz > * (int*)& byte_5D4594[251480])
+            * (_DWORD*)& byte_5D4594[251480] = sz;
         v7 = v18;
         v19 = 0;
         *(_BYTE*)(&string_entries[i].data[49]) = v17;
@@ -13776,19 +13775,18 @@ int __cdecl sub_40F830(const char* path)
                     fclose(file);
                     return 0;
                 }
-                sub_40ADD0_fread((char*)& a1, 4, 1, file);
-                v10 = a1;
-                if (a1)
+                int sz = 0;
+                sub_40ADD0_fread((char*)& sz, 4, 1, file);
+                if (sz > 0)
                 {
-                    sub_40ADD0_fread((char*)& byte_5D4594[226904], 2 * a1, 1u, file);
-                    v10 = a1;
+                    sub_40ADD0_fread((char*)file_buffer_w, 2*sz, 1, file);
                 }
-                *(_WORD*)& byte_5D4594[2 * v10 + 226904] = 0;
+                file_buffer_w[sz] = 0;
                 if (v16 == 0x53747220 || v16 == 0x53747257) // "Str " || "StrW"
                 {
-                    v11 = *(_DWORD*)& byte_5D4594[226904];
-                    v12 = &byte_5D4594[226904];
-                    if (*(_WORD*)& byte_5D4594[226904])
+                    v11 = *(_DWORD*)&file_buffer_w[0];
+                    v12 = file_buffer_w;
+                    if (*(_WORD*)&file_buffer_w[0])
                     {
                         do
                         {
@@ -13799,24 +13797,23 @@ int __cdecl sub_40F830(const char* path)
                         } while ((_WORD)v11);
                     }
                 }
-                sub_40FB60((wchar_t*)& byte_5D4594[226904]);
-                v13 = nox_wcslen((const wchar_t*)& byte_5D4594[226904]);
-                *(_DWORD*)(v9 + *(_DWORD*)& byte_5D4594[251504]) = nox_calloc(v13 + 1, 2u);
-                nox_wcscpy(*(wchar_t**)(v9 + *(_DWORD*)& byte_5D4594[251504]), (const wchar_t*)& byte_5D4594[226904]);
+                sub_40FB60(file_buffer_w);
+                v13 = nox_wcslen((const wchar_t*)file_buffer_w);
+                *(_DWORD*)(v9 + *(_DWORD*)& byte_5D4594[251504]) = nox_calloc(v13 + 1, 2);
+                nox_wcscpy(*(wchar_t**)(v9 + *(_DWORD*)& byte_5D4594[251504]), (const wchar_t*)file_buffer_w);
                 if (v16 == 0x53545257 || v16 == 0x53747257) // "STRW" || "StrW"
                 {
-                    sub_40ADD0_fread((char*)& a1, 4, 1, file);
-                    v14 = a1;
-                    if (a1)
+                    int sz = 0;
+                    sub_40ADD0_fread((char*)& sz, 4, 1, file);
+                    if (sz > 0)
                     {
-                        sub_40ADD0_fread((char*)& byte_5D4594[247384], a1, 1u, file);
-                        v14 = a1;
+                        sub_40ADD0_fread(file_buffer, sz, 1, file);
                     }
-                    byte_5D4594[v14 + 247384] = 0;
-                    if (v14)
+                    file_buffer[sz] = 0;
+                    if (sz > 0)
                     {
-                        *(_DWORD*)(v9 + *(_DWORD*)& byte_5D4594[251508]) = nox_calloc(v14 + 1, 1u);
-                        strcpy(*(char**)(v9 + *(_DWORD*)& byte_5D4594[251508]), (const char*)& byte_5D4594[247384]);
+                        *(_DWORD*)(v9 + *(_DWORD*)& byte_5D4594[251508]) = nox_calloc(sz + 1, 1);
+                        strcpy(*(char**)(v9 + *(_DWORD*)& byte_5D4594[251508]), (const char*)file_buffer);
                     }
                 }
                 v8 = v17;
@@ -13896,37 +13893,37 @@ int sub_40FBE0()
     do
     {
     LABEL_2:
-        if (!fgets((char*)& byte_5D4594[247384], 4096, *(FILE * *)& byte_5D4594[251488]))
+        if (!fgets(file_buffer, sizeof(file_buffer), *(FILE * *)& byte_5D4594[251488]))
             return 1;
-        sub_40F5C0(&byte_5D4594[247384]);
-    } while (*(_WORD*)& byte_5D4594[247384] == 12079 || !byte_5D4594[247384]);
-    strcpy((char*)(string_entries[v1].data), (const char*)& byte_5D4594[247384]);
-    v2 = strlen((const char*)& byte_5D4594[247384]) + 1;
+        sub_40F5C0(file_buffer);
+    } while (*(_WORD*)file_buffer == 12079 || !file_buffer[0]);
+    strcpy((char*)(string_entries[v1].data), (const char*)file_buffer);
+    v2 = strlen((const char*)file_buffer) + 1;
     if ((int)(v2 - 1) > * (int*)& byte_5D4594[251480])
         * (_DWORD*)& byte_5D4594[251480] = v2 - 1;
     string_entries[v1].field_50 = v0;
     v3 = 0;
     v4 = 4 * v0;
 
-    while (fgets((char*)& byte_5D4594[247384], 4095, *(FILE * *)& byte_5D4594[251488]))
+    while (fgets(file_buffer, sizeof(file_buffer)-1, *(FILE * *)& byte_5D4594[251488]))
     {
-        sub_40F5C0(&byte_5D4594[247384]);
-        if (byte_5D4594[247384] == 34)
+        sub_40F5C0(file_buffer);
+        if (file_buffer[0] == '"')
         {
-            v5 = strlen((const char*)& byte_5D4594[247384]);
-            byte_5D4594[v5 + 247384] = 10;
-            byte_5D4594[v5 + 247385] = 0;
+            v5 = strlen((const char*)file_buffer);
+            file_buffer[v5 + 0] = 10;
+            file_buffer[v5 + 1] = 0;
             sub_40F640(
                 *(FILE * *)& byte_5D4594[251488],
-                (char*)& byte_5D4594[247385],
+                (char*)file_buffer+1,
                 (char*)& byte_5D4594[218612],
                 &byte_5D4594[222708],
                 4096);
-            sub_40FE00(&byte_5D4594[226904], &byte_5D4594[218612]);
-            sub_40FB60((wchar_t*)& byte_5D4594[226904]);
-            v6 = nox_wcslen((const wchar_t*)& byte_5D4594[226904]);
+            sub_40FE00(file_buffer_w, &byte_5D4594[218612]);
+            sub_40FB60(file_buffer_w);
+            v6 = nox_wcslen((const wchar_t*)file_buffer_w);
             *(_DWORD*)(*(_DWORD*)& byte_5D4594[251504] + v4) = nox_calloc(v6 + 1, 2u);
-            nox_wcscpy(*(wchar_t**)(*(_DWORD*)& byte_5D4594[251504] + v4), (const wchar_t*)& byte_5D4594[226904]);
+            nox_wcscpy(*(wchar_t**)(*(_DWORD*)& byte_5D4594[251504] + v4), (const wchar_t*)file_buffer_w);
             v7 = strlen((const char*)& byte_5D4594[222708]) + 1;
             if (v7 > 1)
             {
@@ -13936,7 +13933,7 @@ int sub_40FBE0()
             ++v3;
             v4 += 4;
         }
-        else if (!_strcmpi((const char*)& byte_5D4594[247384], (const char*)& byte_587000[26424]))
+        else if (!_strcmpi((const char*)file_buffer, (const char*)& byte_587000[26424]))
         {
             *(_BYTE*)(&string_entries[v10].data[49]) = v3;
             v10++;
