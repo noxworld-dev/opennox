@@ -6370,8 +6370,6 @@ _DWORD* sub_4AAA70()
 {
     _DWORD* v0; // eax
     _DWORD* v1; // eax
-    _DWORD* v2; // eax
-    _DWORD* v3; // eax
     int v4; // eax
     _DWORD* result; // eax
     int v6; // [esp-4h] [ebp-10h]
@@ -6407,6 +6405,8 @@ _DWORD* sub_4AAA70()
     sub_46B490(sub_46B0C0(*(_DWORD * *)& byte_5D4594[1309820], 316), 16394, (draw_gamma - 0.5f) * 50, 0);
     sub_46B490(sub_46B0C0(*(_DWORD * *)& byte_5D4594[1309820], 318), 16394, (log10f(input_sensitivity) + 1.0f) * 50, 0);
 #if 0
+    _DWORD* v2; // eax
+    _DWORD* v3; // eax
     if (!sub_4300D0(0))
     {
         v2 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1309720], 331);

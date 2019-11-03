@@ -51210,9 +51210,6 @@ void mainloop()
     int2* v27; // [esp+20h] [ebp-38h]
     int v28[10]; // [esp+24h] [ebp-34h]
 
-    DWORD cur_tick;
-    static DWORD last_tick;
-
     if (mainloop_enter)
     {
         mainloop_enter(mainloop_enter_args);
@@ -51220,6 +51217,9 @@ void mainloop()
     }
 
 #ifdef __EMSCRIPTEN__
+    DWORD cur_tick;
+    static DWORD last_tick;
+
     // rate limit to < 40 fps
     cur_tick = SDL_GetTicks();
     if (cur_tick - last_tick < 1000 / 40)
