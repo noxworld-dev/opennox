@@ -37682,7 +37682,7 @@ _WORD* __cdecl sub_480EB0(_WORD* a1, __int16* a2, int a3)
 }
 
 //----- (00480EF0) --------------------------------------------------------
-int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9)
+int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9, int a10)
 {
     int* result; // eax
     int v10; // ebx
@@ -37741,238 +37741,246 @@ int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7
     result = (int*)a1;
     v10 = 0;
     v44 = 0;
-    if (a1)
+    if (!result)
     {
-        v11 = *(_BYTE*)(a1 + 10);
-        v45.field_4 = 0;
-        v45.field_0 = 0;
-        v46.field_4 = 0;
-        v46.field_0 = 0;
-        if ((v11 & 0x3F) == 3)
+        return 0;
+    }
+    v11 = *(_BYTE*)(a1 + 10);
+    v45.field_4 = 0;
+    v45.field_0 = 0;
+    v46.field_4 = 0;
+    v46.field_0 = 0;
+    if ((v11 & 0x3F) != 3)
+    {
+        return result;
+    }
+    v42 = (void(__cdecl*)(char*, char*, int, int*, int*))sub_480700;
+    if (!*(_DWORD*)& byte_5D4594[3801804])
+        v42 = (void(__cdecl*)(char*, char*, int, int*, int*))sub_480860;
+    result = (int*)sub_42FB30(a1);
+    if (!result)
+    {
+        return result;
+    }
+    v12 = *result;
+    v13 = result[1] - a9;
+    v43 = *result;
+    v40 = *result;
+    v41 = v13;
+    if (v13 <= 0)
+    {
+        return result;
+    }
+    v14 = result + 3;
+    result = (int*)(result[2] + a2);
+    v15 = *v14;
+    v16 = (char*)v14 + 5;
+    v17 = v15 + a3;
+    v53 = v15 + a3;
+    if (!((int)result <= *(int*)& byte_5D4594[3807116] && v17 <= *(int*)& byte_5D4594[3807152]))
+    {
+        return result;
+    }
+    if ((int)result < *(int*)& byte_5D4594[3807140])
+    {
+        if ((int)result + v12 < *(int*)& byte_5D4594[3807140])
+            return result;
+        v10 = *(int*)& byte_5D4594[3807140] - (int)result;
+        v40 = v12 - (*(int*)& byte_5D4594[3807140] - (int)result);
+        result = *(int**)& byte_5D4594[3807140];
+    }
+    if ((int)result + v40 > * (int*)& byte_5D4594[3807116])
+        v40 = *(int*)& byte_5D4594[3807116] - (int)result;
+    if (v17 < *(int*)& byte_5D4594[3807136])
+    {
+        if (v13 + v17 < *(int*)& byte_5D4594[3807136])
+            return result;
+        v18 = *(int*)& byte_5D4594[3807136] - v17;
+        v17 = *(int*)& byte_5D4594[3807136];
+        v13 -= v18;
+        v53 = *(int*)& byte_5D4594[3807136];
+        v41 = v13;
+        v44 = v18;
+    }
+    if (v13 + v17 > * (int*)& byte_5D4594[3807152])
+    {
+        v13 = *(int*)& byte_5D4594[3807152] - v17;
+        v41 = *(int*)& byte_5D4594[3807152] - v17;
+    }
+    if (!(v40 > 0 && v13 > 0))
+    {
+        return result;
+    }
+    v19 = a6;
+    if (a6 < v17)
+        v19 = v17;
+    if (v13 + v17 > v19)
+        v41 = v19 - v17;
+    if (a7 <= (int)result + v10)
+    {
+        v20 = 0;
+    }
+    else
+    {
+        v20 = a7 - v10 - (int)result;
+        v10 = a7 - (int)result;
+        v40 -= v20;
+    }
+    if (a8 < (int)result + v40 + v10)
+        v40 = a8 - v10 - (int)result;
+    if (v40 <= 0)
+    {
+        return result;
+    }
+    v21 = *(int*)(*(_DWORD*)& byte_5D4594[3798784] + 4 * v17) + 2 * ((int)result + v20);
+    v22 = a4[1];
+    v52 = (char*)v21;
+    v23 = *a4;
+    v49 = a4[2] << 8;
+    v23 <<= 8;
+    v24 = (*a5 << 8) - v23;
+    v47 = v23;
+    v48 = v22 << 8;
+    v25 = a5[1] << 8;
+    v26 = a5[2] << 8;
+    v50[0] = v24 / v43;
+    v50[1] = (v25 - v48) / v43;
+    v50[2] = (v26 - v49) / v43;
+    if (v44 > 0)
+    {
+        v27 = v44;
+        do
         {
-            v42 = (void(__cdecl*)(char*, char*, int, int*, int*))sub_480700;
-            if (!*(_DWORD*)& byte_5D4594[3801804])
-                v42 = (void(__cdecl*)(char*, char*, int, int*, int*))sub_480860;
-            result = (int*)sub_42FB30(a1);
-            if (result)
+            for (i = v43; i > 0; i -= v57)
             {
-                v12 = *result;
-                v13 = result[1] - a9;
-                v43 = *result;
-                v40 = *result;
-                v41 = v13;
-                if (v13 > 0)
+                v29 = *v16;
+                v57 = v16[1];
+                v16 += 2;
+                LOBYTE(a1) = v29;
+                if (v29 == 2)
+                    v16 += 2 * v57;
+            }
+            --v27;
+        } while (v27);
+    }
+    v46.field_4 = v53;
+    sub_473970(&v46, &v45);
+    v30 = 0;
+    v31 = 0;
+    result = (int*)(v41 - 1);
+    if (!v41)
+    {
+        return result;
+    }
+    v56 = v41;
+    while (1)
+    {
+        v32 = 0;
+        v54 = 0;
+        v55 = 0;
+        if (*(_DWORD*)& byte_587000[80820] || !(v45.field_4 & 1))
+        {
+            if (v10 <= 0)
+            {
+                v35 = a1;
+            }
+            else
+            {
+                do
                 {
-                    v14 = result + 3;
-                    result = (int*)(result[2] + a2);
-                    v15 = *v14;
-                    v16 = (char*)v14 + 5;
-                    v17 = v15 + a3;
-                    v53 = v15 + a3;
-                    if ((int)result <= *(int*)& byte_5D4594[3807116] && v17 <= *(int*)& byte_5D4594[3807152])
+                    v35 = *v16;
+                    v59 = v16[1];
+                    v16 += 2;
+                    LOBYTE(a1) = v35;
+                    if (v35 == 2)
+                        v16 += 2 * v59;
+                    v32 += v59;
+                } while (v32 < v10);
+            }
+            if (v32 <= v10)
+            {
+                v36 = v40;
+            }
+            else
+            {
+                v36 = v40;
+                v37 = v40;
+                if (v32 - v10 <= v40)
+                    v37 = v32 - v10;
+                if (v35 == 2)
+                {
+                    v51[0] = v47 + v10 * v50[0];
+                    v51[1] = v48 + v10 * v50[1];
+                    v51[2] = v49 + v10 * v50[2];
+                    v42(v52, &v16[-2 * (v32 - v10)], v37, v51, v50);
+                    v36 = v40;
+                    v54 = 2 * v37;
+                }
+                v55 = 0;
+            }
+            if (v32 < v36 + v10)
+            {
+                do
+                {
+                    v38 = v16[1];
+                    LOBYTE(a1) = *v16;
+                    v16 += 2;
+                    v60 = v38;
+                    if ((_BYTE)a1 == 2)
                     {
-                        if ((int)result < *(int*)& byte_5D4594[3807140])
+                        if (v38 > v10 + v36 - v32)
                         {
-                            if ((int)result + v12 < *(int*)& byte_5D4594[3807140])
-                                return result;
-                            v10 = *(int*)& byte_5D4594[3807140] - (int)result;
-                            v40 = v12 - (*(int*)& byte_5D4594[3807140] - (int)result);
-                            result = *(int**)& byte_5D4594[3807140];
+                            v55 = v32 + v38 - v36 - v10;
+                            v60 = -(char)(v32 + -(char)v36 - v10);
                         }
-                        if ((int)result + v40 > * (int*)& byte_5D4594[3807116])
-                            v40 = *(int*)& byte_5D4594[3807116] - (int)result;
-                        if (v17 < *(int*)& byte_5D4594[3807136])
-                        {
-                            if (v13 + v17 < *(int*)& byte_5D4594[3807136])
-                                return result;
-                            v18 = *(int*)& byte_5D4594[3807136] - v17;
-                            v17 = *(int*)& byte_5D4594[3807136];
-                            v13 -= v18;
-                            v53 = *(int*)& byte_5D4594[3807136];
-                            v41 = v13;
-                            v44 = v18;
-                        }
-                        if (v13 + v17 > * (int*)& byte_5D4594[3807152])
-                        {
-                            v13 = *(int*)& byte_5D4594[3807152] - v17;
-                            v41 = *(int*)& byte_5D4594[3807152] - v17;
-                        }
-                        if (v40 > 0 && v13 > 0)
-                        {
-                            v19 = a6;
-                            if (a6 < v17)
-                                v19 = v17;
-                            if (v13 + v17 > v19)
-                                v41 = v19 - v17;
-                            if (a7 <= (int)result + v10)
-                            {
-                                v20 = 0;
-                            }
-                            else
-                            {
-                                v20 = a7 - v10 - (int)result;
-                                v10 = a7 - (int)result;
-                                v40 -= v20;
-                            }
-                            if (a8 < (int)result + v40 + v10)
-                                v40 = a8 - v10 - (int)result;
-                            if (v40 > 0)
-                            {
-                                v21 = *(int*)(*(_DWORD*)& byte_5D4594[3798784] + 4 * v17) + 2 * ((int)result + v20);
-                                v22 = a4[1];
-                                v52 = (char*)v21;
-                                v23 = *a4;
-                                v49 = a4[2] << 8;
-                                v23 <<= 8;
-                                v24 = (*a5 << 8) - v23;
-                                v47 = v23;
-                                v48 = v22 << 8;
-                                v25 = a5[1] << 8;
-                                v26 = a5[2] << 8;
-                                v50[0] = v24 / v43;
-                                v50[1] = (v25 - v48) / v43;
-                                v50[2] = (v26 - v49) / v43;
-                                if (v44 > 0)
-                                {
-                                    v27 = v44;
-                                    do
-                                    {
-                                        for (i = v43; i > 0; i -= v57)
-                                        {
-                                            v29 = *v16;
-                                            v57 = v16[1];
-                                            v16 += 2;
-                                            LOBYTE(a1) = v29;
-                                            if (v29 == 2)
-                                                v16 += 2 * v57;
-                                        }
-                                        --v27;
-                                    } while (v27);
-                                }
-                                v46.field_4 = v53;
-                                sub_473970(&v46, &v45);
-                                v30 = 0;
-                                v31 = 0;
-                                result = (int*)(v41 - 1);
-                                if (v41)
-                                {
-                                    v56 = v41;
-                                    while (1)
-                                    {
-                                        v32 = 0;
-                                        v54 = 0;
-                                        v55 = 0;
-                                        if (*(_DWORD*)& byte_587000[80820] || !(v45.field_4 & 1))
-                                        {
-                                            if (v10 <= 0)
-                                            {
-                                                v35 = a1;
-                                            }
-                                            else
-                                            {
-                                                do
-                                                {
-                                                    v35 = *v16;
-                                                    v59 = v16[1];
-                                                    v16 += 2;
-                                                    LOBYTE(a1) = v35;
-                                                    if (v35 == 2)
-                                                        v16 += 2 * v59;
-                                                    v32 += v59;
-                                                } while (v32 < v10);
-                                            }
-                                            if (v32 <= v10)
-                                            {
-                                                v36 = v40;
-                                            }
-                                            else
-                                            {
-                                                v36 = v40;
-                                                v37 = v40;
-                                                if (v32 - v10 <= v40)
-                                                    v37 = v32 - v10;
-                                                if (v35 == 2)
-                                                {
-                                                    v51[0] = v47 + v10 * v50[0];
-                                                    v51[1] = v48 + v10 * v50[1];
-                                                    v51[2] = v49 + v10 * v50[2];
-                                                    v42(v52, &v16[-2 * (v32 - v10)], v37, v51, v50);
-                                                    v36 = v40;
-                                                    v54 = 2 * v37;
-                                                }
-                                                v55 = 0;
-                                            }
-                                            if (v32 < v36 + v10)
-                                            {
-                                                do
-                                                {
-                                                    v38 = v16[1];
-                                                    LOBYTE(a1) = *v16;
-                                                    v16 += 2;
-                                                    v60 = v38;
-                                                    if ((_BYTE)a1 == 2)
-                                                    {
-                                                        if (v38 > v10 + v36 - v32)
-                                                        {
-                                                            v55 = v32 + v38 - v36 - v10;
-                                                            v60 = -(char)(v32 + -(char)v36 - v10);
-                                                        }
-                                                        v51[0] = v47 + v50[0] * v32;
-                                                        v51[2] = v49 + v50[2] * v32;
-                                                        v51[1] = v48 + v50[1] * v32;
-                                                        v42(&v52[2 * (v32 - v10)], v16, v60, v51, v50);
-                                                        v36 = v40;
-                                                        v16 += 2 * v60;
-                                                    }
-                                                    v32 += v60;
-                                                    v54 += 2 * v60;
-                                                } while (v32 < v36 + v10);
-                                                if (v55)
-                                                {
-                                                    if ((_BYTE)a1 == 2)
-                                                        v16 += 2 * v55;
-                                                    v32 += v55;
-                                                }
-                                            }
-                                            for (; v32 < v43; v32 += v61)
-                                            {
-                                                v39 = *v16;
-                                                v61 = v16[1];
-                                                v16 += 2;
-                                                LOBYTE(a1) = v39;
-                                                if (v39 == 2)
-                                                    v16 += 2 * v61;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (v31 && v30)
-                                                qmemcpy(v52, v31, v30);
-                                            for (j = v43; j > 0; j -= v58)
-                                            {
-                                                v34 = *v16;
-                                                v58 = v16[1];
-                                                v16 += 2;
-                                                LOBYTE(a1) = v34;
-                                                if (v34 == 2)
-                                                    v16 += 2 * v58;
-                                            }
-                                        }
-                                        v31 = v52;
-                                        v52 += *(int*)& byte_5D4594[3801808];
-                                        ++v45.field_4;
-                                        result = (int*)--v56;
-                                        if (!v56)
-                                            break;
-                                        v30 = v54;
-                                    }
-                                }
-                            }
-                        }
+                        v51[0] = v47 + v50[0] * v32;
+                        v51[2] = v49 + v50[2] * v32;
+                        v51[1] = v48 + v50[1] * v32;
+                        v42(&v52[2 * (v32 - v10)], v16, v60, v51, v50);
+                        v36 = v40;
+                        v16 += 2 * v60;
                     }
+                    v32 += v60;
+                    v54 += 2 * v60;
+                } while (v32 < v36 + v10);
+                if (v55)
+                {
+                    if ((_BYTE)a1 == 2)
+                        v16 += 2 * v55;
+                    v32 += v55;
                 }
             }
+            for (; v32 < v43; v32 += v61)
+            {
+                v39 = *v16;
+                v61 = v16[1];
+                v16 += 2;
+                LOBYTE(a1) = v39;
+                if (v39 == 2)
+                    v16 += 2 * v61;
+            }
         }
+        else
+        {
+            if (v31 && v30)
+                qmemcpy(v52, v31, v30);
+            for (j = v43; j > 0; j -= v58)
+            {
+                v34 = *v16;
+                v58 = v16[1];
+                v16 += 2;
+                LOBYTE(a1) = v34;
+                if (v34 == 2)
+                    v16 += 2 * v58;
+            }
+        }
+        v31 = v52;
+        v52 += *(int*)& byte_5D4594[3801808];
+        ++v45.field_4;
+        result = (int*)--v56;
+        if (!v56)
+            break;
+        v30 = v54;
     }
     return result;
 }
@@ -38005,17 +38013,17 @@ int sub_481420()
 // 481BE0: using guessed type void nullsub_8();
 
 //----- (00481470) --------------------------------------------------------
-int __cdecl sub_481470(_DWORD* a1)
+int __cdecl sub_481470(int2* a1)
 {
     unsigned __int16 v1; // dx
     int v2; // eax
     int v3; // esi
     int v4; // ebx
     int v5; // ecx
-    int result; // eax
+    int result;
 
     LOBYTE(v1) = 0;
-    v2 = a1[1] + 45 * *a1;
+    v2 = a1->field_4 + 45 * a1->field_0;
     HIBYTE(v1) = byte_5D4594[v2 + 2616332];
     v3 = v1;
     v4 = *(_DWORD*)& byte_5D4594[4 * (((byte_5D4594[v2 + 2616333] << 8) - v1) >> 8) + 2615304];
@@ -38023,16 +38031,16 @@ int __cdecl sub_481470(_DWORD* a1)
     do
     {
         v5 += 12;
-        *(_DWORD*)& byte_5D4594[280 * *a1 + 2598276 + v5] = v3;
+        *(_DWORD*)& byte_5D4594[280 * a1->field_0 + 2598276 + v5] = v3;
         v3 += v4;
     } while (v5 < 276);
-    result = 35 * *a1;
-    *(_DWORD*)& byte_5D4594[280 * *a1 + 2598284] = a1[1];
+    result = 35 * a1->field_0;
+    *(_DWORD*)& byte_5D4594[280 * a1->field_0 + 2598284] = a1->field_4;
     return result;
 }
 
 //----- (004814F0) --------------------------------------------------------
-int __cdecl sub_4814F0(_DWORD* a1)
+int __cdecl sub_4814F0(int2* a1)
 {
     int v1; // eax
     int v2; // ecx
@@ -38045,7 +38053,7 @@ int __cdecl sub_4814F0(_DWORD* a1)
     int v9; // [esp+14h] [ebp-8h]
     int v10; // [esp+18h] [ebp-4h]
 
-    v1 = 12 * (a1[1] + 45 * *a1);
+    v1 = 12 * (a1->field_4 + 45 * a1->field_0);
     v2 = *(_DWORD*)& byte_5D4594[v1 + 2618924] >> 8;
     v3 = *(_DWORD*)& byte_5D4594[v1 + 2618928] >> 8;
     v8 = *(_DWORD*)& byte_5D4594[4 * (((*(int*)& byte_5D4594[v1 + 2618936] >> 8) - v2) >> 8) + 2615304];
@@ -38055,7 +38063,7 @@ int __cdecl sub_4814F0(_DWORD* a1)
     v5 = 0;
     do
     {
-        v6 = &byte_5D4594[280 * *a1 + 2598288 + v5];
+        v6 = &byte_5D4594[280 * a1->field_0 + 2598288 + v5];
         v5 += 12;
         *(_DWORD*)v6 = v2;
         *((_DWORD*)v6 + 1) = v3;
@@ -38064,8 +38072,8 @@ int __cdecl sub_4814F0(_DWORD* a1)
         v2 += v8;
         v4 += v10;
     } while (v5 < 276);
-    result = 7 * *a1;
-    *(_DWORD*)& byte_5D4594[280 * *a1 + 2598284] = a1[1];
+    result = 7 * a1->field_0;
+    *(_DWORD*)& byte_5D4594[280 * a1->field_0 + 2598284] = a1->field_4;
     return result;
 }
 
@@ -38753,7 +38761,7 @@ LABEL_60:
                                 {
                                     if (*(_DWORD*)v75 != v66.field_4)
                                     {
-                                        (*(void(__cdecl * *)(int2*)) & byte_5D4594[3807148])(&v66);
+                                        (*(int(__cdecl * *)(int2*)) & byte_5D4594[3807148])(&v66);
                                         v59 = v67.field_0;
                                         v60 = v66.field_0;
                                     }
@@ -41214,7 +41222,7 @@ int __cdecl sub_484450(int a1, int a2)
 }
 
 //----- (00484B70) --------------------------------------------------------
-__int16 __cdecl sub_484B70(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
+__int16 __cdecl sub_484B70(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)
 {
     int v8; // eax
 
