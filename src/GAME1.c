@@ -7395,51 +7395,36 @@ void init_data()
     init_data_mix();
 }
 
-_BYTE* getMem(unsigned int addr)
+typedef struct mem_mapping
 {
-    _BYTE* result = 0;
-    unsigned int addrOffset = 0;
-    if (addr >= 0x563002 && addr <= 0x563002 + 4)
-    {
-        addrOffset = addr - 0x563002;
-        result = (_BYTE*)(&((_BYTE*)byte_563002)[addrOffset]);
+    uintptr_t base;
+    void*     ptr;
+    size_t    size;
+} mem_mapping;
+
+mem_mapping mappings[7] = {
+    {0x563002, (void*)byte_563002, sizeof(byte_563002)},
+    {0x563006, (void*)byte_563006, sizeof(byte_563006)},
+    {0x581450, (void*)byte_581450, sizeof(byte_581450)},
+    {0x587000, (void*)byte_587000, sizeof(byte_587000)},
+    {0x5D4594, (void*)byte_5D4594, sizeof(byte_5D4594)},
+    {0x9800B0, (void*)asc_9800B0, sizeof(asc_9800B0)},
+    {0x980858, (void*)dword_980858, sizeof(dword_980858)},
+};
+
+_BYTE* getMem(uintptr_t addr)
+{
+    for (int i = 0; i < 7; i++) {
+        mem_mapping* m = &mappings[i];
+        if (addr >= m->base && addr <= m->base + (uintptr_t)m->size)
+        {
+            addr -= m->base;
+            return &((_BYTE*)m->ptr)[addr];
+        }
     }
-    else if (addr >= 0x563006 && addr <= 0x563006 + 26)
-    {
-        addrOffset = addr - 0x563006;
-        result = (_BYTE*)(&((_BYTE*)byte_563006)[addrOffset]);
-    }
-    else if (addr >= 0x581450 && addr <= 0x581450 + 23472)
-    {
-        addrOffset = addr - 0x581450;
-        result = (_BYTE*)(&((_BYTE*)byte_581450)[addrOffset]);
-    }
-    else if (addr >= 0x587000 && addr <= 0x587000 + 316820)
-    {
-        addrOffset = addr - 0x587000;
-        result = (_BYTE*)(&((_BYTE*)byte_587000)[addrOffset]);
-    }
-    else if (addr >= 0x5D4594 && addr <= 0x5D4594 + 3844309)
-    {
-        addrOffset = addr - 0x5D4594;
-        result = (_BYTE*)(&((_BYTE*)byte_5D4594)[addrOffset]);
-    }
-    else if (addr >= 0x9800B0 && addr <= 0x9800B0 + 526 * 2)
-    {
-        addrOffset = addr - 0x9800B0;
-        result = (_BYTE*)(&((_BYTE*)asc_9800B0)[addrOffset]);
-    }
-    else if (addr >= 0x980858 && addr <= 0x980858 + 3 * 4)
-    {
-        addrOffset = addr - 0x980858;
-        result = (_BYTE*)(&((_BYTE*)dword_980858)[addrOffset]);
-    }
-    else
-    {
-        fprintf(stderr, "Invalid memory access! Requested = %x\n", addr);
-        DebugBreak();
-    }
-    return result;
+    fprintf(stderr, "Invalid memory access! Requested = %x\n", addr);
+    DebugBreak();
+    return 0;
 }
 
 //----- (00408CC0) --------------------------------------------------------
