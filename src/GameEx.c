@@ -1080,7 +1080,7 @@ unsigned int invalidIpChecker(unsigned int interval, void* param)
 // 100129C1: using guessed type char isInvalidIp;
 
 //----- (10002470) --------------------------------------------------------
-HANDLE __usercall startInvalidIpChecker(int a1)
+HANDLE __usercall startInvalidIpChecker()
 {
   HANDLE result; // eax
 
