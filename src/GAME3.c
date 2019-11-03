@@ -11119,7 +11119,7 @@ int __cdecl sub_4B0B90(int a1, int a2, int a3)
 int __cdecl sub_4B0BC0(int a1, int a2, int a3)
 {
     int v3; // ebp
-    void(__cdecl * v4)(int, int, int); // esi
+    int(__cdecl * v4)(int, int, int); // esi
     int v5; // edi
     int v6; // ebx
     int result; // eax
@@ -11135,13 +11135,13 @@ int __cdecl sub_4B0BC0(int a1, int a2, int a3)
 
     v3 = a3;
     v16 = 1 - a3;
-    v4 = *(void(__cdecl * *)(int, int, int)) & byte_5D4594[3798708];
+    v4 = *(int(__cdecl * *)(int, int, int)) & byte_5D4594[3798708];
     v10 = 5 - 2 * v3;
     v12 = 0;
     v13 = v3;
     v11 = 3;
     if (!*(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 52))
-        v4 = *(void(__cdecl * *)(int, int, int)) & byte_5D4594[3798720];
+        v4 = *(int(__cdecl * *)(int, int, int)) & byte_5D4594[3798720];
     v5 = a2;
     v6 = a1;
     v4(a1, a2 + v3, a1);
@@ -11149,7 +11149,7 @@ int __cdecl sub_4B0BC0(int a1, int a2, int a3)
     v15 = v6 - v3;
     v4(v6 - v3, v5, v6 + v3);
     v4(v6 - v3, v5, v14);
-    result = ((int(__cdecl*)(int, int, int))v4)(v6, v5 - v3, v6);
+    result = v4(v6, v5 - v3, v6);
     if (v3 > 0)
     {
         v8 = v6;
