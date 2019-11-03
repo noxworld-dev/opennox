@@ -43255,7 +43255,6 @@ _DWORD** __cdecl sub_487090(_DWORD** a1)
 //----- (004870A0) --------------------------------------------------------
 void sub_4870A0()
 {
-    int* result; // eax
     int* v1; // edi
     int* v2; // esi
     int* v3; // [esp+4h] [ebp-4h]
@@ -47721,7 +47720,6 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
     int v20; // eax
     int v21; // esi
     int v22; // esi
-    unsigned int v23; // edx
     int v24; // eax
     int v25; // esi
     int v26; // esi
@@ -56033,7 +56031,6 @@ unsigned __int8* __cdecl sub_49A300(int a1)
 {
     int v1; // ecx
     unsigned __int8* v2; // eax
-    unsigned __int8* v4; // esi
 
     v1 = 0;
     v2 = npc_array;
@@ -57227,7 +57224,6 @@ int sub_49B6E0()
 void sub_49B7A0()
 {
     int v0; // esi
-    void* v2; // ecx
 
     v0 = 0;
     if (!sub_477600() && !sub_44E0D0())
@@ -59420,7 +59416,6 @@ int4* __cdecl sub_49E060(__int16 a1, int a2, int a3, int a4, int a5)
     __int16 v25; // ax
     int* v26; // eax
     int v27; // ecx
-    int v28; // edx
     bool v29; // zf
     int v30; // [esp+10h] [ebp-68h]
     int v31; // [esp+14h] [ebp-64h]
@@ -60390,7 +60385,6 @@ void __cdecl sub_49F060(int a1, int a2, int a3)
     int v5; // edi
     int v6; // esi
     int v7; // ecx
-    char v8; // cc
     unsigned int v9; // ecx
     int v10; // eax
     char* v11; // edi
