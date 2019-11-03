@@ -464,5 +464,6 @@ long nox_wcstol(const wchar_t* nptr, wchar_t** endptr, int base)
 int WINAPIV nox_wsprintfA(LPSTR lpBuffer, LPCSTR lpFmt, ...)
 {
     DebugBreak();
+    return 0;
 }
 

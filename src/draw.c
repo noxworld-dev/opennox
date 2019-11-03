@@ -2163,6 +2163,8 @@ HDC sub_444F90()
         result = v1;
     }
     return result;
+#else
+    return 0;
 #endif
 }
 
@@ -3391,6 +3393,7 @@ LABEL_6:
     } while (v2 < 256);
 #ifdef USE_SDL
     // FIXME gamma control
+    return 0;
 #else
     if (*(_DWORD*)& byte_5D4594[3799624])
         return g_ddraw_gamma_control && !g_ddraw_gamma_control->lpVtbl->SetGammaRamp(g_ddraw_gamma_control, 0, &v14);
