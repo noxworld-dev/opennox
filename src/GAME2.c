@@ -45555,7 +45555,7 @@ int sub_48BEB0()
         *(_DWORD*)& byte_5D4594[1193680];
         result = *(_DWORD*)& byte_5D4594[1193680])
     {
-        Sleep(0x21u);
+        Sleep(33);
         if (!*(_DWORD*)& byte_5D4594[1193676]
             && *(_DWORD*)& byte_5D4594[1193660]
             && *(_DWORD*)& byte_5D4594[823776]
