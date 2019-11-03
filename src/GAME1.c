@@ -11662,8 +11662,6 @@ int __cdecl sub_40D560(int a1)
     v2 = (*(int(__stdcall * *)(_DWORD, int))(**(_DWORD * *)& byte_5D4594[4668] + 76))(*(_DWORD*)& byte_5D4594[4668], a1);
     if (v2 <= -2147220995)
     {
-        if (v2 != -2147220995 && v2 != -2147221004 && v2 == -2147221000)
-            return 0;
         return 0;
     }
     if (v2)
