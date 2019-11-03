@@ -3381,7 +3381,7 @@ __int16 sub_48C480();
 int sub_48C4D0();
 int sub_48C560();
 void nullsub_11(void); // weak
-unsigned __int32 __cdecl sub_48C580(unsigned __int32* a1, int a2);
+void __cdecl sub_48C580(pixel8888* a1, int num);
 __int16 __cdecl sub_48C5B0(__int16* a1, int a2);
 int __cdecl sub_48C5E0(int a1, int a2);
 __int16 sub_48C610();

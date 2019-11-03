@@ -44929,35 +44929,27 @@ int sub_434F00()
 //----- (00435040) --------------------------------------------------------
 void sub_435040()
 {
-    int i; // eax
-    char v1; // dl
-    char v2; // cl
-    int result; // eax
-    char v4; // dl
-    char v5; // cl
-    char v6; // dl
-    pixel8888 v7[256]; // [esp+4h] [ebp-400h]
+    pixel8888 buf[256]; // [esp+4h] [ebp-400h]
+    unsigned __int8* data;
 
-    for (i = 0; i < 256; ++i)
+    data = &byte_5D4594[3803308];
+    for (int i = 0; i < 256; ++i)
     {
-        v1 = byte_5D4594[4 * i + 3803309];
-        v7[i].field_3 = byte_5D4594[4 * i + 3803310];
-        v2 = byte_5D4594[4 * i + 3803308];
-        v7[i].field_2 = v1;
-        v7[i].field_1 = v2;
-        v7[i].field_0 = i;
+        buf[i].field_0 = i;
+        buf[i].field_1 = data[4*i + 0];
+        buf[i].field_2 = data[4*i + 1];
+        buf[i].field_3 = data[4*i + 2];
     }
-    sub_48C580((unsigned __int32*)v7, 256);
-    for (result = 0; result < 256; ++result)
+    sub_48C580(buf, 256);
+
+    data = &byte_5D4594[809604];
+    for (int i = 0; i < 256; ++i)
     {
-        v4 = v7[result].field_2;
-        byte_5D4594[4 * result + 809604] = v7[result].field_1;
-        v5 = v7[result].field_3;
-        byte_5D4594[4 * result + 809605] = v4;
-        v6 = v7[result].field_0;
-        byte_5D4594[4 * result + 809606] = v5;
-        byte_5D4594[result + 808304] = v6;
-        byte_5D4594[4 * result + 809607] = 0;
+        data[4*i + 0] = buf[i].field_1;
+        data[4*i + 1] = buf[i].field_2;
+        data[4*i + 2] = buf[i].field_3;
+        data[4*i + 3] = 0;
+        byte_5D4594[i + 808304] = buf[i].field_0;
     }
     *(_DWORD*)& byte_5D4594[808568] = 0;
     *(_DWORD*)& byte_5D4594[810628] = 0;
