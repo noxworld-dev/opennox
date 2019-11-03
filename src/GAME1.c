@@ -28,6 +28,35 @@ void map_download_start();
 int map_download_loop(int);
 int map_download_finish();
 
+nox_missing_string* missing_strings = 0;
+nox_string_entry* string_entries = 0;
+size_t string_entries_cnt = 0;
+
+typedef struct mem_mapping
+{
+    uintptr_t base;
+    void*     ptr;
+    size_t    size;
+    bool      invalid;
+} mem_mapping;
+
+mem_mapping mappings[] = {
+    // overrides
+    {0x5D4594+251492, (void*)&string_entries_cnt, sizeof(string_entries_cnt),1},
+    {0x5D4594+251500, (void*)&string_entries, sizeof(string_entries),1},
+    {0x5D4594+251520, (void*)&missing_strings, sizeof(missing_strings),1},
+    // full blobs
+    {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
+    {0x563006, (void*)byte_563006, sizeof(byte_563006),0},
+    {0x581450, (void*)byte_581450, sizeof(byte_581450),0},
+    {0x587000, (void*)byte_587000, sizeof(byte_587000),0},
+    {0x5D4594, (void*)byte_5D4594, sizeof(byte_5D4594),0},
+    {0x9800B0, (void*)asc_9800B0, sizeof(asc_9800B0),0},
+    {0x980858, (void*)dword_980858, sizeof(dword_980858),0},
+};
+
+size_t mappings_cnt = sizeof(mappings)/sizeof(mem_mapping);
+
 void* nox_malloc2(size_t x, char* func, int line, char* file)
 {
     void* buf = malloc(100 + x);
@@ -7395,29 +7424,13 @@ void init_data()
     init_data_mix();
 }
 
-typedef struct mem_mapping
-{
-    uintptr_t base;
-    void*     ptr;
-    size_t    size;
-} mem_mapping;
-
-mem_mapping mappings[7] = {
-    {0x563002, (void*)byte_563002, sizeof(byte_563002)},
-    {0x563006, (void*)byte_563006, sizeof(byte_563006)},
-    {0x581450, (void*)byte_581450, sizeof(byte_581450)},
-    {0x587000, (void*)byte_587000, sizeof(byte_587000)},
-    {0x5D4594, (void*)byte_5D4594, sizeof(byte_5D4594)},
-    {0x9800B0, (void*)asc_9800B0, sizeof(asc_9800B0)},
-    {0x980858, (void*)dword_980858, sizeof(dword_980858)},
-};
-
 _BYTE* getMem(uintptr_t addr)
 {
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < mappings_cnt; i++) {
         mem_mapping* m = &mappings[i];
         if (addr >= m->base && addr <= m->base + (uintptr_t)m->size)
         {
+            if (m->invalid) break;
             addr -= m->base;
             return &((_BYTE*)m->ptr)[addr];
         }
@@ -13357,7 +13370,7 @@ wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int
 
     if (a2)
         * a2 = 0;
-    if (!*(_DWORD*)& byte_5D4594[251500])
+    if (!string_entries)
         return (wchar_t*)& byte_587000[26204];
     v5 = a1;
     if (strchr(a1, ':'))
@@ -13379,8 +13392,8 @@ wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int
     }
     v9 = bsearch(
         v5,
-        *(const void**)& byte_5D4594[251500],
-        *(size_t*)& byte_5D4594[251492],
+        (const void*)string_entries,
+        string_entries_cnt,
         sizeof(nox_string_entry),
         (int(__cdecl*)(const void*, const void*))_strcmpi);
     v10 = v9;
@@ -13396,8 +13409,8 @@ wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int
     }
     nox_missing_string* v12 = (nox_missing_string*)nox_malloc(sizeof(nox_missing_string));
     nox_swprintf(v12->data, L"MISSING:'%S'", v5, v8, a4);
-    v12->next = *(_DWORD*)& byte_5D4594[251520];
-    *(nox_missing_string**)& byte_5D4594[251520] = v12;
+    v12->next = missing_strings;
+    missing_strings = v12;
     return v12->data;
 }
 
@@ -13443,10 +13456,10 @@ int __cdecl sub_40F300(char* a1)
     }
     if (!*(_DWORD*)& byte_5D4594[251496])
         return 0;
-    if (!*(_DWORD*)& byte_5D4594[251492])
+    if (!string_entries_cnt)
         return 0;
-    *(nox_string_entry**)& byte_5D4594[251500] = (nox_string_entry*)nox_calloc(*(size_t*)& byte_5D4594[251492], sizeof(nox_string_entry));
-    if (!*(_DWORD*)& byte_5D4594[251500])
+    string_entries = (nox_string_entry*)nox_calloc(string_entries_cnt, sizeof(nox_string_entry));
+    if (!string_entries)
         return 0;
     *(_DWORD*)& byte_5D4594[251504] = nox_calloc(*(size_t*)& byte_5D4594[251496], 4);
     if (!*(_DWORD*)& byte_5D4594[251504])
@@ -13471,8 +13484,8 @@ int __cdecl sub_40F300(char* a1)
         fclose(*(FILE * *)& byte_5D4594[251488]);
     }
     qsort(
-        *(void**)& byte_5D4594[251500],
-        *(size_t*)& byte_5D4594[251492],
+        (void*)string_entries,
+        string_entries_cnt,
         sizeof(nox_string_entry),
         (int(__cdecl*)(const void*, const void*))_strcmpi);
     return 1;
@@ -13485,7 +13498,7 @@ int sub_40F4E0()
     unsigned int v1; // ecx
 
     v0 = 0;
-    *(_DWORD*)& byte_5D4594[251492] = 0;
+    string_entries_cnt = 0;
 LABEL_2:
     *(_DWORD*)& byte_5D4594[251496] = v0;
     while (fgets((char*)& byte_5D4594[247384], 4095, *(FILE * *)& byte_5D4594[251488]))
@@ -13509,7 +13522,7 @@ LABEL_2:
             ++* (_DWORD*)& byte_5D4594[251492];
     }
     *(_DWORD*)& byte_5D4594[251496] += 1000;
-    *(_DWORD*)& byte_5D4594[251492] += 500;
+    string_entries_cnt += 500;
     return 1;
 }
 
@@ -13684,7 +13697,7 @@ int __cdecl sub_40F7A0(char* a1)
     if (sub_40ADD0_fread((char*)v5, 0x18u, 1u, v2) == 1 && *(_DWORD*)v5 == 1129530912)
     {
         *(_DWORD*)& byte_5D4594[251496] = *(_DWORD*)& v5[12];
-        *(_DWORD*)& byte_5D4594[251492] = *(_DWORD*)& v5[8];
+        string_entries_cnt = *(_DWORD*)& v5[8];
         v1 = 1;
         *(_DWORD*)& byte_587000[26048] = *(int*)& v5[4] < 2 ? 0 : *(_DWORD*)& v5[20];
     }
@@ -13743,15 +13756,14 @@ int __cdecl sub_40F830(const char* path)
             sub_40ADD0_fread((char*)& byte_5D4594[247384], a1, 1, file);
             v5 = a1;
         }
-        nox_string_entry* arr = *(nox_string_entry**)& byte_5D4594[251500];
         byte_5D4594[247384 + v5] = 0;
-        strcpy((char*)(arr[i].data), (const char*)& byte_5D4594[247384]);
+        strcpy((char*)(string_entries[i].data), (const char*)& byte_5D4594[247384]);
         if (a1 > * (int*)& byte_5D4594[251480])
             * (_DWORD*)& byte_5D4594[251480] = a1;
         v7 = v18;
         v19 = 0;
-        *(_BYTE*)(&arr[i].data[49]) = v17;
-        arr[i].field_50 = v18;
+        *(_BYTE*)(&string_entries[i].data[49]) = v17;
+        string_entries[i].field_50 = v18;
         v8 = v17;
         if (v17 > 0)
         {
@@ -13876,7 +13888,6 @@ int sub_40FBE0()
     size_t v6; // eax
     signed int v7; // ecx
     int v8; // eax
-    nox_string_entry* arr = *(nox_string_entry**)& byte_5D4594[251500];
 
     int v0 = 0;
     int v1 = 0;
@@ -13889,11 +13900,11 @@ int sub_40FBE0()
             return 1;
         sub_40F5C0(&byte_5D4594[247384]);
     } while (*(_WORD*)& byte_5D4594[247384] == 12079 || !byte_5D4594[247384]);
-    strcpy((char*)(arr[v1].data), (const char*)& byte_5D4594[247384]);
+    strcpy((char*)(string_entries[v1].data), (const char*)& byte_5D4594[247384]);
     v2 = strlen((const char*)& byte_5D4594[247384]) + 1;
     if ((int)(v2 - 1) > * (int*)& byte_5D4594[251480])
         * (_DWORD*)& byte_5D4594[251480] = v2 - 1;
-    arr[v1].field_50 = v0;
+    string_entries[v1].field_50 = v0;
     v3 = 0;
     v4 = 4 * v0;
 
@@ -13927,7 +13938,7 @@ int sub_40FBE0()
         }
         else if (!_strcmpi((const char*)& byte_5D4594[247384], (const char*)& byte_587000[26424]))
         {
-            *(_BYTE*)(&arr[v10].data[49]) = v3;
+            *(_BYTE*)(&string_entries[v10].data[49]) = v3;
             v10++;
             v8 = v3 + v11;
             v1 = v10;
@@ -14135,8 +14146,8 @@ int sub_410020()
         }
         free(v2);
     }
-    if (*(_DWORD*)& byte_5D4594[251500])
-        free(*(LPVOID*)& byte_5D4594[251500]);
+    if (string_entries)
+        free(string_entries);
 
     nox_missing_string* v4 = *(nox_missing_string**)& byte_5D4594[251520];
     while (v4)
