@@ -20483,15 +20483,10 @@ BOOL sub_416CD0()
 //----- (00416D00) --------------------------------------------------------
 int sub_416D00()
 {
-    int v0; // ecx
-    int result; // eax
-
-    v0 = *(_DWORD*)& byte_5D4594[371748] - (unsigned __int64)sub_416BB0();
+    int v0 = *(_DWORD*)& byte_5D4594[371748] - (unsigned __int64)sub_416BB0();
     if (v0 < 0 || (unsigned __int64)v0 > * (_QWORD*)& byte_5D4594[371748])
-        result = 0;
-    else
-        result = v0;
-    return result;
+        return 0;
+    return v0;
 }
 
 //----- (00416D40) --------------------------------------------------------
@@ -20519,14 +20514,11 @@ BOOL sub_416D70()
 //----- (00416DD0) --------------------------------------------------------
 void sub_416DD0()
 {
-    int v1; // esi
-    signed int v2; // eax
-
-    v1 = (__int64)((double)(unsigned int)(*(_DWORD*)& byte_5D4594[2598000] - *(_DWORD*)& byte_5D4594[371772])
+    int v1 = (__int64)((double)(unsigned int)(*(_DWORD*)& byte_5D4594[2598000] - *(_DWORD*)& byte_5D4594[371772])
         * *(float*)& byte_587000[54428]);
-    v2 = v1 + *(_DWORD*)& byte_5D4594[371764] - (unsigned __int64)sub_416BB0();
-    if (v2 > 0)
-        Sleep(v2);
+    int ms = v1 + *(_DWORD*)& byte_5D4594[371764] - (unsigned __int64)sub_416BB0();
+    if (ms > 0)
+        Sleep(ms);
 }
 
 //----- (00416E20) --------------------------------------------------------
@@ -51200,10 +51192,10 @@ void mainloop_wait_and_exit(int flags)
         mainloop_stop();
         return;
     }
-    int v19 = sub_416D00();
-    *(_DWORD*)& byte_5D4594[816404] = v19;
-    if (v19 > 0)
-        Sleep(v19);
+    int ms = sub_416D00();
+    *(_DWORD*)& byte_5D4594[816404] = ms;
+    if (ms > 0)
+        Sleep(ms);
     mainloop_stop();
 }
 //----- (0043E290) --------------------------------------------------------
