@@ -75,6 +75,7 @@ VOID WINAPI OutputDebugStringA(LPCSTR lpOutputString)
 BOOL WINAPI HeapDestroy(HANDLE hHeap)
 {
     DebugBreak();
+    return 0;
 }
 
 // CRT functions
@@ -309,21 +310,25 @@ LONG InterlockedIncrement(volatile LONG *Addend)
 int WINAPI MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType)
 {
     DebugBreak();
+    return 0;
 }
 
 int WINAPI MulDiv(int nNumber, int nNumerator, int nDenominator)
 {
     DebugBreak();
+    return 0;
 }
 
 HINSTANCE WINAPI ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory, INT nShowCmd)
 {
     DebugBreak();
+    return 0;
 }
 
 int WINAPI WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar)
 {
     DebugBreak();
+    return 0;
 }
 
 // Socket functions
@@ -873,6 +878,7 @@ BOOL WINAPI MoveFileA(LPCSTR lpExistingFileName, LPCSTR lpNewFileName)
     free(converted);
     dprintf("%s\n", __FUNCTION__);
     DebugBreak();
+    return 0;
 }
 
 BOOL WINAPI CreateDirectoryA(LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes)
@@ -1041,6 +1047,7 @@ char *fgets(char *str, int size, FILE *stream)
 LSTATUS WINAPI RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions, REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult, LPDWORD lpdwDisposition)
 {
     DebugBreak();
+    return 0;
 }
 
 LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult)
@@ -1080,6 +1087,7 @@ LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserve
 LSTATUS WINAPI RegSetValueExA(HKEY hKey, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE *lpData, DWORD cbData)
 {
     DebugBreak();
+    return 0;
 }
 
 LSTATUS WINAPI RegCloseKey(HKEY hKey)
@@ -1138,6 +1146,7 @@ BOOL WINAPI ReleaseMutex(HANDLE hMutex)
 BOOL WINAPI SetEvent(HANDLE hEvent)
 {
     DebugBreak();
+    return 0;
 }
 
 DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds)
