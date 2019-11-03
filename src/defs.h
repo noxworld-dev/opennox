@@ -388,4 +388,17 @@ typedef struct struc_36
     _DWORD field_6;
 } struc_36;
 
+typedef struct nox_missing_string nox_missing_string;
+typedef struct nox_missing_string
+{
+    nox_missing_string* next;
+    wchar_t data[258];
+} nox_missing_string;
+
+typedef struct nox_string_entry
+{
+    char data[50];
+    _WORD field_50;
+} nox_string_entry;
+
 #endif
