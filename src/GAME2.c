@@ -45823,30 +45823,21 @@ int sub_48C560()
 }
 
 //----- (0048C580) --------------------------------------------------------
-unsigned __int32 __cdecl sub_48C580(unsigned __int32* a1, int a2)
+void __cdecl sub_48C580(pixel8888* a1, int num)
 {
-    unsigned __int32* v2; // edi
-    int v3; // ecx
-    volatile signed __int32* v4; // ebx
-    volatile unsigned __int32 result; // eax
-
-    v2 = a1;
-    v3 = a2;
-    do
+    unsigned __int32* pix = (unsigned __int32*)a1;
+    for (int i = num-1; i >= 0; i--)
     {
-        v4 = (volatile signed __int32*)& v2[v3];
-        result = *v2;
-        do
+        unsigned __int32 result = *pix;
+        for (unsigned __int32* it = & pix[i]; it > pix; --it)
         {
-            --v4;
-            if (result > * v4)
-                result = InterlockedExchange(v4, result);
-        } while (v4 != (volatile signed __int32*)v2);
-        *v2 = result;
-        ++v2;
-        --v3;
-    } while (v3);
-    return result;
+            if (result > *it) {
+                result = InterlockedExchange((volatile signed __int32*)it, result);
+            }
+        }
+        *pix = result;
+        ++pix;
+    }
 }
 
 //----- (0048C5B0) --------------------------------------------------------
