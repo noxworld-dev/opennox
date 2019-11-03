@@ -32980,9 +32980,9 @@ int __cdecl sub_4CFE10(const char* a1)
     strcat(v6, a1);
     *(_WORD*)& v6[strlen(v6)] = *(_WORD*)& byte_587000[191736];
     strcat(v6, a1);
-    v1 = &v6[strlen(v6) + 1];
+    v1 = &v6[strlen(v6)];
     v2 = byte_587000[191744];
-    *(_DWORD*)--v1 = *(_DWORD*)& byte_587000[191740];
+    strcat(v1, ".map");
     v1[4] = v2;
     result = sub_426910(v6, 1, 19);
     if (result)
