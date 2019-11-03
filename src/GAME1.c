@@ -50868,25 +50868,19 @@ void sub_43DDC0()
 //----- (0043DDD0) --------------------------------------------------------
 int __cdecl sub_43DDD0(int a1)
 {
-    int result; // eax
-
-    result = a1;
     *(_DWORD*)& byte_587000[93200] = a1;
-    return result;
+    return a1;
 }
 
 //----- (0043DDE0) --------------------------------------------------------
 int __cdecl sub_43DDE0(int a1)
 {
-    int result; // eax
-
-    result = a1;
     *(_DWORD*)& byte_587000[93192] = a1;
-    return result;
+    return a1;
 }
 
 //----- (0043DDF0) --------------------------------------------------------
-int __cdecl sub_43DDF0(int a1)
+int __cdecl sub_43DDF0(int (*a1)(void))
 {
     *(_DWORD*)& byte_5D4594[816388] = a1;
     if (!a1)
@@ -50901,7 +50895,7 @@ int sub_43DE10()
 }
 
 //----- (0043DE20) --------------------------------------------------------
-int __cdecl sub_43DE20(int a1)
+int __cdecl sub_43DE20(int (*a1)(void))
 {
     *(_DWORD*)& byte_5D4594[816396] = a1;
     if (!a1)
@@ -50910,7 +50904,7 @@ int __cdecl sub_43DE20(int a1)
 }
 
 //----- (0043DE40) --------------------------------------------------------
-int __cdecl sub_43DE40(int a1)
+int __cdecl sub_43DE40(int (*a1)(void))
 {
     *(_DWORD*)& byte_5D4594[816392] = a1;
     if (!a1)
@@ -51180,6 +51174,38 @@ int sub_43E230()
     return sub_44A400();
 }
 
+//-------------------------------------------------------------------------
+void mainloop_stop()
+{
+    if (*(_DWORD*)& byte_5D4594[805872])
+    {
+        *(_DWORD*)& byte_587000[93200] = 1;
+        mainloop_exit();
+        return;
+    }
+
+    // "exit the loop" ?
+    if (*(_DWORD*)& byte_587000[93196])
+    {
+        return;
+    }
+    mainloop_exit();
+}
+//-------------------------------------------------------------------------
+void mainloop_wait_and_exit(int flags)
+{
+    if (!(flags & 0x40000000))
+    {
+        while (!sub_416CD0()) {}
+        mainloop_stop();
+        return;
+    }
+    int v19 = sub_416D00();
+    *(_DWORD*)& byte_5D4594[816404] = v19;
+    if (v19 > 0)
+        Sleep(v19);
+    mainloop_stop();
+}
 //----- (0043E290) --------------------------------------------------------
 void mainloop()
 {
@@ -51199,8 +51225,6 @@ void mainloop()
     int v14; // kr00_4
     int v15; // esi
     char v16; // al
-    int v17; // eax
-    int v19; // eax
     int v21; // [esp-10h] [ebp-68h]
     char v22; // [esp-8h] [ebp-60h]
     char v23; // [esp-4h] [ebp-5Ch]
@@ -51231,25 +51255,32 @@ void mainloop()
     {
         int ret = map_download_loop(0);
         if (ret == -1)
+        {
             return;
+        }
         else if (ret == 0)
-            goto map_error;
-        else
-            goto map_loaded;
-    }
-
-    _control87(0x300u, 0x300u);
-    if (!sub_43DEB0())
-    {
-        // XXX
-        if (*(_DWORD*)& byte_587000[173328])
+        {
+            // map error
+            *(_DWORD*)& byte_587000[93196] = 0;
+            *(_DWORD*)& byte_587000[93200] = 0;
+            mainloop_exit();
             return;
-    map_error:
-        *(_DWORD*)& byte_587000[93196] = 0;
-        *(_DWORD*)& byte_587000[93200] = 0;
-        goto done;
+        }
     }
-map_loaded:
+    else
+    {
+        _control87(0x300u, 0x300u);
+        if (!sub_43DEB0())
+        {
+            // XXX
+            if (*(_DWORD*)& byte_587000[173328])
+                return;
+            *(_DWORD*)& byte_587000[93196] = 0;
+            *(_DWORD*)& byte_587000[93200] = 0;
+            mainloop_exit();
+            return;
+        }
+    }
     if (sub_43AF70() == 1)
     {
         sub_40D250();
@@ -51260,7 +51291,10 @@ map_loaded:
     sub_413520();
     sub_435770();
     if (!(*(int (**)(void)) & byte_5D4594[816388])())
-        goto done;
+    {
+        mainloop_exit();
+        return;
+    }
     sub_435780();
     sub_435740();
     sub_430880(1);
@@ -51273,10 +51307,16 @@ map_loaded:
         v0 = (unsigned __int8*)(*(_DWORD*)& byte_5D4594[2618912] + 8);
     }
     if (!(*(int (**)(void)) & byte_5D4594[816396])())
-        goto done;
+    {
+        mainloop_exit();
+        return;
+    }
     sub_430880(0);
     if (!(*(int (**)(void)) & byte_5D4594[816392])())
-        goto done;
+    {
+        mainloop_exit();
+        return;
+    }
     sub_4519C0();
     sub_4312C0();
     sub_495430();
@@ -51408,46 +51448,27 @@ map_loaded:
     }
     sub_435750();
     if (!*(_DWORD*)& byte_587000[93192])
-        goto LABEL_70;
+    {
+        mainloop_stop();
+        return;
+    }
+    int v17 = *(_DWORD*)& byte_5D4594[2650636];
     if (!sub_40A5C0(1) || !sub_40A5C0(2))
-        goto LABEL_78;
-    v17 = *(_DWORD*)& byte_5D4594[2650636];
-    if (*(_DWORD*)& byte_5D4594[2650636] & 0x40000)
-        goto LABEL_65;
-    if (!sub_40A5C0(0x10000000))
     {
-    LABEL_78:
-        v17 = *(_DWORD*)& byte_5D4594[2650636];
-    LABEL_65:
-        if ((v17 & 0x40000000) == 0x40000000)
+        mainloop_wait_and_exit(v17);
+        return;
+    }
+    if (!(v17 & 0x40000))
+    {
+        if (sub_40A5C0(0x10000000))
         {
-            v19 = sub_416D00();
-            *(_DWORD*)& byte_5D4594[816404] = v19;
-            if (v19 > 0)
-                Sleep(v19);
+            if (!(v17 & 0x80000000))
+                sub_416DD0();
+            mainloop_stop();
+            return;
         }
-        else
-        {
-            while (!sub_416CD0())
-                ;
-        }
-        goto LABEL_70;
     }
-    if (!(*(_DWORD*)& byte_5D4594[2650636] & 0x80000000))
-        sub_416DD0();
-LABEL_70:
-    if (*(_DWORD*)& byte_5D4594[805872])
-    {
-        *(_DWORD*)& byte_587000[93200] = 1;
-        goto done;
-    }
-
-    // "exit the loop" ?
-    if (!*(_DWORD*)& byte_587000[93196])
-    {
-    done:
-        mainloop_exit();
-    }
+    mainloop_wait_and_exit(v17);
     return;
 }
 int sub_43E290()
