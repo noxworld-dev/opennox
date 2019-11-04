@@ -1,5 +1,7 @@
 #include "proto.h"
 
+FILE* nox_file_7 = 0;
+FILE* nox_file_8 = 0;
 
 //----- (004F5F30) --------------------------------------------------------
 int __cdecl sub_4F5F30(int* a1)
@@ -10456,32 +10458,32 @@ int sub_502B10()
         result = sub_502DA0(*(char**)& byte_5D4594[1599588]);
         if (result)
         {
-            fread(&v8, 4u, 1u, *(FILE * *)& byte_5D4594[1599584]);
+            fread(&v8, 4u, 1u, nox_file_8);
             if (v8 == -889266515)
             {
                 while (1)
                 {
                     v6 = 0;
-                    fread(&v6, 4u, 1u, *(FILE * *)& byte_5D4594[1599584]);
+                    fread(&v6, 4u, 1u, nox_file_8);
                     v1 = v6;
                     if (!v6)
                         break;
                     if (*(_DWORD*)& byte_5D4594[1599596] >= 2048)
                         goto LABEL_10;
-                    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1599576] + 76 * *(_DWORD*)& byte_5D4594[1599596] + 72) = ftell(*(FILE * *)& byte_5D4594[1599584]) - 4;
-                    fread(&v7, 1u, 1u, *(FILE * *)& byte_5D4594[1599584]);
-                    fread(v11, (unsigned __int8)v7, 1u, *(FILE * *)& byte_5D4594[1599584]);
+                    *(_DWORD*)(*(_DWORD*)& byte_5D4594[1599576] + 76 * *(_DWORD*)& byte_5D4594[1599596] + 72) = ftell(nox_file_8) - 4;
+                    fread(&v7, 1u, 1u, nox_file_8);
+                    fread(v11, (unsigned __int8)v7, 1u, nox_file_8);
                     v2 = -1 - (unsigned __int8)v7;
                     v11[(unsigned __int8)v7] = 0;
                     v3 = v2 + v1;
                     strcpy((char*)(*(_DWORD*)& byte_5D4594[1599576] + 76 * *(_DWORD*)& byte_5D4594[1599596]), v11);
-                    fread(&v4, 1u, 1u, *(FILE * *)& byte_5D4594[1599584]);
-                    fread(&v5, 1u, 1u, *(FILE * *)& byte_5D4594[1599584]);
-                    fread(&v9, 4u, 1u, *(FILE * *)& byte_5D4594[1599584]);
-                    fread(&v10, 4u, 1u, *(FILE * *)& byte_5D4594[1599584]);
+                    fread(&v4, 1u, 1u, nox_file_8);
+                    fread(&v5, 1u, 1u, nox_file_8);
+                    fread(&v9, 4u, 1u, nox_file_8);
+                    fread(&v10, 4u, 1u, nox_file_8);
                     *(float*)(*(_DWORD*)& byte_5D4594[1599576] + 76 * *(_DWORD*)& byte_5D4594[1599596] + 64) = v9;
                     *(float*)(*(_DWORD*)& byte_5D4594[1599576] + 76 * (*(_DWORD*)& byte_5D4594[1599596])++ + 68) = v10;
-                    fseek(*(FILE * *)& byte_5D4594[1599584], v3 - 10, 1);
+                    fseek(nox_file_8, v3 - 10, 1);
                 }
                 sub_502DF0();
                 result = 1;
@@ -10512,10 +10514,10 @@ FILE* __cdecl sub_502DA0(char* a1)
 {
     FILE* result; // eax
 
-    result = *(FILE * *)& byte_5D4594[1599584];
-    if (*(_DWORD*)& byte_5D4594[1599584]
+    result = nox_file_8;
+    if (nox_file_8
         || (result = (FILE*)sub_426910(a1, 1, -1)) != 0
-        && (result = sub_426A60(), (*(_DWORD*)& byte_5D4594[1599584] = result) != 0))
+        && (result = sub_426A60(), (nox_file_8 = result) != 0))
     {
         fseek(result, 0, 0);
         result = (FILE*)1;
@@ -10528,11 +10530,11 @@ FILE* sub_502DF0()
 {
     FILE* result; // eax
 
-    result = *(FILE * *)& byte_5D4594[1599584];
-    if (*(_DWORD*)& byte_5D4594[1599584])
+    result = nox_file_8;
+    if (nox_file_8)
     {
         result = sub_4269F0();
-        *(_DWORD*)& byte_5D4594[1599584] = 0;
+        nox_file_8 = 0;
     }
     return result;
 }
@@ -10540,10 +10542,10 @@ FILE* sub_502DF0()
 //----- (00502E10) --------------------------------------------------------
 FILE* __cdecl sub_502E10(int a1)
 {
-    if (!*(_DWORD*)& byte_5D4594[1599584] || a1 < 0 || a1 >= *(int*)& byte_5D4594[1599596])
+    if (!nox_file_8 || a1 < 0 || a1 >= *(int*)& byte_5D4594[1599596])
         return 0;
-    fseek(*(FILE * *)& byte_5D4594[1599584], *(_DWORD*)(*(_DWORD*)& byte_5D4594[1599576] + 76 * a1 + 72), 0);
-    return *(FILE * *)& byte_5D4594[1599584];
+    fseek(nox_file_8, *(_DWORD*)(*(_DWORD*)& byte_5D4594[1599576] + 76 * a1 + 72), 0);
+    return nox_file_8;
 }
 
 //----- (00502E50) --------------------------------------------------------
@@ -12356,8 +12358,8 @@ int sub_505360()
     char v38[1024]; // [esp+1Ch] [ebp-400h]
 
     strcpy(v36, "%");
-    *(_DWORD*)& byte_5D4594[1599620] = fopen((const char*)& byte_587000[229864], (const char*)& byte_587000[229860]);
-    if (!*(_DWORD*)& byte_5D4594[1599620])
+    nox_file_7 = fopen((const char*)& byte_587000[229864], (const char*)& byte_587000[229860]);
+    if (!nox_file_7)
         return 0;
     if (!sub_505870((const char*)& byte_587000[229872]))
         goto LABEL_45;
@@ -12384,7 +12386,7 @@ int sub_505360()
     if (!sub_505870((const char*)& byte_587000[229892]))
     {
     LABEL_9:
-        fclose(*(FILE * *)& byte_5D4594[1599620]);
+        fclose(nox_file_7);
         return 0;
     }
     v9 = sub_505800();
@@ -12501,10 +12503,10 @@ int sub_505360()
                 goto LABEL_9;
             v35 = sub_505800();
             *(_DWORD*)(*(_DWORD*)& byte_5D4594[1599636] + v13 + 32) = nox_calloc(1u, v35);
-            if (fread(*(void**)(*(_DWORD*)& byte_5D4594[1599636] + v13 + 32), 1u, v35, *(FILE * *)& byte_5D4594[1599620]) != v35)
+            if (fread(*(void**)(*(_DWORD*)& byte_5D4594[1599636] + v13 + 32), 1u, v35, nox_file_7) != v35)
             {
             LABEL_51:
-                fclose(*(FILE * *)& byte_5D4594[1599620]);
+                fclose(nox_file_7);
                 return 0;
             }
             if (++v37 >= *(int*)& byte_5D4594[1599640])
@@ -12517,10 +12519,10 @@ LABEL_44:
     if (!sub_505870((const char*)& byte_587000[229932]))
     {
     LABEL_45:
-        fclose(*(FILE * *)& byte_5D4594[1599620]);
+        fclose(nox_file_7);
         return 0;
     }
-    fclose(*(FILE * *)& byte_5D4594[1599620]);
+    fclose(nox_file_7);
     return 1;
 }
 // 5053BC: variable 'v0' is possibly undefined
@@ -12539,7 +12541,7 @@ int sub_505800()
     size_t v1; // eax
     int v3; // [esp+0h] [ebp-4h]
 
-    v1 = fread(&v3, 4u, 1u, *(FILE * *)& byte_5D4594[1599620]);
+    v1 = fread(&v3, 4u, 1u, nox_file_7);
     return v1 == 1 ? v3 : 0;
 }
 
@@ -12548,7 +12550,7 @@ BOOL __cdecl sub_505830(size_t a1, void* a2)
 {
     size_t v2; // eax
 
-    v2 = fread(a2, 1u, a1, *(FILE * *)& byte_5D4594[1599620]);
+    v2 = fread(a2, 1u, a1, nox_file_7);
     *((_BYTE*)a2 + a1) = 0;
     return v2 == a1;
 }

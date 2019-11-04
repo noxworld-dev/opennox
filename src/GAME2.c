@@ -2,6 +2,8 @@
 
 BYTE* npc_array;
 
+FILE* nox_file_log = 0;
+
 //----- (0044CCA0) --------------------------------------------------------
 int sub_44CCA0()
 {
@@ -3028,12 +3030,12 @@ wchar_t* sub_4515B0(wchar_t* a1, ...)
     va_list va; // [esp+8h] [ebp+8h]
 
     va_start(va, a1);
-    if (!*(_DWORD*)& byte_5D4594[839880])
+    if (!nox_file_log)
         sub_451630();
     v1 = (wchar_t*)sub_451610();
     nox_swprintf((wchar_t*)& byte_5D4594[833752], a1, va);
-    fprintf(*(FILE * *)& byte_5D4594[839880], (const char*)& byte_587000[126660], &byte_5D4594[833752]);
-    fflush(*(FILE * *)& byte_5D4594[839880]);
+    fprintf(nox_file_log, "%S", &byte_5D4594[833752]);
+    fflush(nox_file_log);
     return nox_wcsncpy(v1, (const wchar_t*)& byte_5D4594[833752], 0x63u);
 }
 
@@ -3062,8 +3064,8 @@ unsigned __int8* sub_451630()
     wchar_t* v3; // [esp-Ch] [ebp-Ch]
     wchar_t* v4; // [esp-8h] [ebp-8h]
 
-    *(_DWORD*)& byte_5D4594[839880] = fopen("log", "w");
-    if (!*(_DWORD*)& byte_5D4594[839880])
+    nox_file_log = fopen("log", "w");
+    if (!nox_file_log)
     {
         v4 = loadString_sub_40F1D0((char*)& byte_587000[126708], 0, (const char*)& byte_587000[126672], 272);
         v3 = loadString_sub_40F1D0((char*)& byte_587000[126756], 0, (const char*)& byte_587000[126720], 271);
@@ -3092,14 +3094,14 @@ wchar_t* sub_4517A0(wchar_t* a1, ...)
     va_list va; // [esp+8h] [ebp+8h]
 
     va_start(va, a1);
-    if (!*(_DWORD*)& byte_5D4594[839880])
+    if (!nox_file_log)
         sub_451630();
     v1 = (wchar_t*)sub_451610();
     v2 = loadString_sub_40F1D0((char*)& byte_587000[126924], 0, (const char*)& byte_587000[126888], 355);
     nox_swprintf((wchar_t*)& byte_5D4594[833752], v2);
     nox_vswprintf((wchar_t*)& byte_5D4594[833770], a1, va);
-    fprintf(*(FILE * *)& byte_5D4594[839880], (const char*)& byte_587000[126940], &byte_5D4594[833752]);
-    fflush(*(FILE * *)& byte_5D4594[839880]);
+    fprintf(nox_file_log, "%S", &byte_5D4594[833752]);
+    fflush(nox_file_log);
     v5 = loadString_sub_40F1D0((char*)& byte_587000[126980], 0, (const char*)& byte_587000[126944], 365);
     nullsub_4(getWindowHandle_sub_401FD0(), &byte_5D4594[833752], v5, 0);
     return nox_wcsncpy(v1, (const wchar_t*)& byte_5D4594[833752], 0x63u);
