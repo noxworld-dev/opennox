@@ -48049,7 +48049,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
         switch ((unsigned __int8)v375)
         {
         case 0x21u:
-            goto LABEL_1184;
+            break;
         case 0x27u:
         case 0x28u:
         case 0x2Au:
@@ -48064,15 +48064,15 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     sub_417530(*(int*)& byte_5D4594[2618908], 64);
                 sub_43C650();
                 v3 += 5;
-                goto LABEL_1184;
+                break;
             }
-            if (v7 != 39)
+            else if (v7 != 39)
             {
                 v14 = *(unsigned __int16*)(v373 + 1);
                 if ((unsigned __int16)v14 < (unsigned int)(*(_DWORD*)& byte_5D4594[1200800] + sub_43C790()))
                     * (_DWORD*)& byte_5D4594[2598000] = v14;
                 v3 += 5;
-                goto LABEL_1184;
+                break;
             }
             v373 = v3;
             if (*(_DWORD*)& byte_5D4594[2618908] && *(_BYTE*)(*(_DWORD*)& byte_5D4594[2618908] + 3680) & 0x40)
@@ -48111,7 +48111,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             if (*(_DWORD*)& byte_5D4594[2598000] > (unsigned int)(v10 + 1))
                 * (_DWORD*)& byte_5D4594[2618900] += *(_DWORD*)& byte_5D4594[2598000] - v10;
             sub_43C650();
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x2Bu:
             k = *(_DWORD*)& byte_5D4594[1200804];
             if (*(_DWORD*)(v3 + 37) > * (int*)& byte_5D4594[1200804])
@@ -48135,7 +48136,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_413850();
             }
             v3 += 41;
-            goto LABEL_1184;
+            break;
         case 0x2Cu:
             v42 = sub_578B30(*(_WORD*)(v3 + 1));
             *(_DWORD*)& byte_5D4594[2616328] = v42;
@@ -48154,7 +48155,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             *(_DWORD*)& byte_5D4594[2614264] = 0;
             *(_DWORD*)& byte_5D4594[1200832] = 0;
             sub_4169D0(0);
-            goto LABEL_1184;
+            break;
         case 0x2Du:
             v209 = sub_578B30(*(_WORD*)(v3 + 1));
             v210 = v209;
@@ -48195,7 +48196,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 OnLibraryNotice(263, v211);
             }
             v3 += 129;
-            goto LABEL_1184;
+            break;
         case 0x2Eu:
             if (sub_43C700())
             {
@@ -48223,7 +48224,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 if (sub_4356B0() == 3)
                     sub_445490(v397);
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x2Fu:
             sub_578B30(*(_WORD*)(v3 + 1));
             if (sub_43C700())
@@ -48242,11 +48244,14 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 9;
-            goto LABEL_1184;
+            break;
         case 0x30u:
             sub_578B30(*(_WORD*)(v3 + 1));
             if (!sub_43C700())
-                goto LABEL_94;
+            {
+                v3 += 11;
+                break;
+            }
             if (*(_DWORD*)& byte_5D4594[2650636] & 0x10000000)
                 sub_578B70(*(unsigned __int16*)(v3 + 1));
             if (*(_WORD*)(v3 + 3) || *(_WORD*)(v3 + 1))
@@ -48277,34 +48282,41 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 k = *(_DWORD*)& byte_5D4594[2616328];
                 if (*(unsigned __int16*)(v3 + 1) == *(_DWORD*)& byte_5D4594[2616328] && sub_416120(9u))
                     sub_435600(*(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
-            LABEL_94:
-                v3 += 11;
             }
             else
             {
                 sub_435600(*(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
                 sub_4160D0(9);
-                v3 += 11;
             }
-            goto LABEL_1184;
+            v3 += 11;
+            break;
         case 0x31u:
             v44 = sub_578B30(*(_WORD*)(v3 + 1));
             v45 = v44;
             if (!sub_43C700())
-                goto LABEL_1183;
+            {
+                v3 += 3;
+                break;
+            }
             if (*(_DWORD*)& byte_5D4594[2650636] & 0x10000000)
                 sub_578B70(*(unsigned __int16*)(v3 + 1));
             LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v45) : sub_45A6F0(v45);
             v46 = v5;
             if (!(_DWORD)v5)
-                goto LABEL_1183;
+            {
+                v3 += 3;
+                break;
+            }
             if (*(int(__cdecl * *)(int*, int))(v5 + 300) == sub_4BBD60)
             {
                 v47 = *(_DWORD*)(v5 + 304);
                 if (v47)
                 {
                     if (*(_DWORD*)(v47 + 12) == 1)
-                        goto LABEL_1183;
+                    {
+                        v3 += 3;
+                        break;
+                    }
                 }
             }
             v48 = sub_578B70(*(unsigned __int16*)(v3 + 1));
@@ -48312,42 +48324,61 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             if (!v48)
                 goto LABEL_210;
             sub_45A9A0(v46);
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x32u:
             v49 = sub_578B30(*(_WORD*)(v3 + 1));
             v50 = v49;
             if (!sub_43C700())
-                goto LABEL_1183;
+            {
+                v3 += 3;
+                break;
+            }
             if (*(_DWORD*)& byte_5D4594[2650636] & 0x10000000)
                 sub_578B70(*(unsigned __int16*)(v3 + 1));
             LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v50) : sub_45A6F0(v50);
             v51 = v5;
             if (!(_DWORD)v5)
-                goto LABEL_1183;
+            {
+                v3 += 3;
+                break;
+            }
             if (*(int(__cdecl * *)(int*, int))(v5 + 300) == sub_4BBD60)
             {
                 v52 = *(_DWORD*)(v5 + 304);
                 if (v52)
                 {
                     if (*(_DWORD*)(v52 + 12) == 1)
-                        goto LABEL_1183;
+                    {
+                        v3 += 3;
+                        break;
+                    }
                 }
             }
             if (v51 == *(_DWORD*)& byte_5D4594[2614252])
-                goto LABEL_1183;
+            {
+                v3 += 3;
+                break;
+            }
             v53 = sub_578B70(*(unsigned __int16*)(v3 + 1));
             goto LABEL_208;
         case 0x33u:
             v54 = sub_578B30(*(_WORD*)(v3 + 1));
             v55 = v54;
             if (!sub_43C700())
-                goto LABEL_1183;
+            {
+                v3 += 3;
+                break;
+            }
             if ((byte_5D4594[2650637] & 0x80u) != 0)
                 sub_578B70(*(unsigned __int16*)(v3 + 1));
             LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v55) : sub_45A6F0(v55);
             v51 = v5;
             if (!(_DWORD)v5)
-                goto LABEL_1183;
+            {
+                v3 += 3;
+                break;
+            }
             k = 1;
             *(_DWORD*)(v5 + 484) = 1;
             *(_DWORD*)(v5 + 480) = 1;
@@ -48373,24 +48404,27 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     sub_45A4E0(v331);
                 }
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x34u:
             v57 = sub_578B30(*(_WORD*)(v3 + 1));
             v58 = v57;
             if (sub_43C700())
                 sub_4959F0(v58);
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x35u:
             v59 = sub_578B30(*(_WORD*)(v3 + 1));
             v60 = v59;
             if (sub_43C700())
                 sub_495A20(v60);
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x36u:
             if (sub_43C700())
                 sub_4959B0();
             ++v3;
-            goto LABEL_1184;
+            break;
         case 0x37u:
             v62 = sub_578B30(*(_WORD*)(v3 + 1));
             v63 = v62;
@@ -48405,7 +48439,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 if ((_DWORD)v5)
                     * (_DWORD*)(v5 + 120) |= 0x1000000u;
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x38u:
             v64 = sub_578B30(*(_WORD*)(v3 + 1));
             v65 = v64;
@@ -48424,7 +48459,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     *(_DWORD*)(v5 + 120) &= 0xFEFFFFFF;
                 }
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x39u:
             v16 = sub_578B30(*(_WORD*)(v3 + 1));
             v17 = v16;
@@ -48435,11 +48471,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_764;
             sub_45AB80(v5, *(unsigned __int8*)(v3 + 3));
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0x3Au:
             if (sub_43C700() && !sub_40A5C0(1))
                 sub_410520(*(_WORD*)(v3 + 1));
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x3Bu:
             if (sub_43C700())
             {
@@ -48457,7 +48494,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     }
                 }
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x3Cu:
             if (sub_43C700())
             {
@@ -48478,7 +48516,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     }
                 }
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x3Du:
             if (!sub_43C700())
                 goto LABEL_916;
@@ -48494,7 +48533,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             *(_BYTE*)(v5 + 1) = v66;
             *(_BYTE*)v5 = *(_BYTE*)(v3 - 4);
             *(_BYTE*)(v5 + 2) = *(_BYTE*)(v3 - 3);
-            goto LABEL_1184;
+            break;
         case 0x3Eu:
             if (sub_43C700())
             {
@@ -48502,7 +48541,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 if ((_DWORD)v5)
                     sub_410430(*(unsigned __int8*)(v5 + 5), *(unsigned __int8*)(v5 + 6));
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x41u:
             sub_578B30(*(_WORD*)(v3 + 1));
             if (!sub_43C700())
@@ -48513,18 +48553,19 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_764;
             sub_495150(*(unsigned __int16*)(v3 + 1), 2 * *(unsigned __int8*)(v3 + 3));
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0x42u:
             sub_578B30(*(_WORD*)(v3 + 1));
             if (sub_43C700() && (byte_5D4594[2650637] & 0x80u) != 0)
                 sub_578B70(*(unsigned __int16*)(v3 + 1));
             sub_49A650(*(unsigned __int16*)(v3 + 1), *(_WORD*)(v3 + 3));
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x43u:
             if (sub_43C700())
                 sub_470CB0(*(__int16*)(v3 + 1));
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x44u:
             v92 = sub_578B30(*(_WORD*)(v3 + 1));
             v93 = v92;
@@ -48534,7 +48575,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_578B70(*(unsigned __int16*)(v3 + 1));
             sub_4675E0(v93, *(_WORD*)(v3 + 3), *(_WORD*)(v3 + 5));
             v3 += 7;
-            goto LABEL_1184;
+            break;
         case 0x45u:
             v96 = sub_578B30(*(_WORD*)(v3 + 1));
             v97 = v96;
@@ -48546,13 +48587,13 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_1163;
             sub_470D10(*(unsigned __int16*)(v3 + 3));
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x47u:
             if (!sub_43C700())
                 goto LABEL_966;
             sub_470D20(*(unsigned __int8*)(v3 + 1), *(int*)& byte_587000[157092]);
             v3 += 2;
-            goto LABEL_1184;
+            break;
         case 0x48u:
             v98 = sub_578B30(*(_WORD*)(v3 + 1));
             v99 = *(_DWORD*)& byte_5D4594[2618908];
@@ -48579,20 +48620,20 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 14;
-            goto LABEL_1184;
+            break;
         case 0x49u:
             if (!sub_43C700())
                 goto LABEL_1163;
             sub_467450(*(_DWORD*)(v3 + 1));
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x4Au:
             v102 = *(_DWORD*)(v3 + 1);
             if (!sub_43C700())
                 goto LABEL_1163;
             sub_467490(v102);
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x4Bu:
             v103 = sub_578B30(*(_WORD*)(v3 + 1));
             v104 = v103;
@@ -48610,7 +48651,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_1163;
             sub_461630(v104);
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x4Cu:
             v105 = sub_578B30(*(_WORD*)(v3 + 1));
             v106 = v105;
@@ -48631,7 +48672,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_735;
             sub_461630(v106);
             v3 += 9;
-            goto LABEL_1184;
+            break;
         case 0x4Du:
             v109 = sub_578B30(*(_WORD*)(v3 + 1));
             v110 = v109;
@@ -48641,7 +48682,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_578B70(*(unsigned __int16*)(v3 + 1));
             sub_461A80(v110);
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x4Eu:
             v124 = sub_578B30(*(_WORD*)(v3 + 1));
             v125 = v124;
@@ -48671,7 +48712,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 11;
-            goto LABEL_1184;
+            break;
         case 0x4Fu:
         case 0x50u:
             LODWORD(v5) = sub_43C700();
@@ -48691,7 +48732,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_442:
                 v3 += 7;
             }
-            goto LABEL_1184;
+            break;
         case 0x51u:
         case 0x52u:
             LODWORD(v5) = sub_43C700();
@@ -48714,14 +48755,14 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_437:
                 v3 += 11;
             }
-            goto LABEL_1184;
+            break;
         case 0x53u:
         case 0x54u:
             if (!sub_43C700())
                 goto LABEL_1149;
             sub_417B80(*(_BYTE*)v3, *(unsigned __int16*)(v3 + 1), *(_DWORD*)(v3 + 3));
             v3 += 7;
-            goto LABEL_1184;
+            break;
         case 0x55u:
             v140 = sub_578B30(*(_WORD*)(v3 + 1));
             v141 = v140;
@@ -48750,7 +48791,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 7;
-            goto LABEL_1184;
+            break;
         case 0x56u:
             v144 = sub_418AB0(*(unsigned __int16*)(v3 + 1));
             if (!sub_43C700())
@@ -48784,7 +48825,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             sub_435700(v400, v147);
             sub_4597E0(0);
             v3 += 8;
-            goto LABEL_1184;
+            break;
         case 0x57u:
             v172 = sub_418AB0(*(unsigned __int16*)(v3 + 1));
             if (!sub_43C700())
@@ -48918,7 +48959,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             sub_4597E0(0);
         LABEL_602:
             v3 += 8;
-            goto LABEL_1184;
+            break;
         case 0x59u:
             v160 = sub_418AB0(*(unsigned __int16*)(v3 + 1));
             if (!sub_43C700())
@@ -49026,7 +49067,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             v136 = sub_44CF10(*(_DWORD*)(v134 + 108));
             sub_484D70(v134 + 136, *(float*)(v136 + 44));
             v3 += 7;
-            goto LABEL_1184;
+            break;
         case 0x5Bu:
             if (sub_43C700())
             {
@@ -49043,7 +49084,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 2;
-            goto LABEL_1184;
+            break;
         case 0x5Cu:
             v88 = sub_578B30(*(_WORD*)(v3 + 1));
             v89 = v88;
@@ -49066,7 +49107,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_902:
                 v3 += 6;
             }
-            goto LABEL_1184;
+            break;
         case 0x5Du:
             v84 = sub_578B30(*(_WORD*)(v3 + 1));
             v85 = v84;
@@ -49079,7 +49120,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_948;
             sub_484D70(v5 + 136, *(float*)(v3 + 3));
             v3 += 7;
-            goto LABEL_1184;
+            break;
         case 0x5Eu:
             v178 = sub_578B30(*(_WORD*)(v3 + 1));
             v179 = v178;
@@ -49093,7 +49134,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0x5Fu:
             v180 = sub_578B30(*(_WORD*)(v3 + 1));
             v181 = v180;
@@ -49108,7 +49149,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0x60u:
             v120 = sub_578B30(*(_WORD*)(v3 + 1));
             v121 = v120;
@@ -49118,7 +49159,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 sub_462040(v121);
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x61u:
             v122 = sub_578B30(*(_WORD*)(v3 + 1));
             v123 = v122;
@@ -49128,7 +49170,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 sub_4624D0(v123);
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x64u:
             v182 = sub_578B30(*(_WORD*)(v3 + 1));
             v183 = v182;
@@ -49136,7 +49179,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_638;
             sub_467930(v183, *(unsigned __int8*)(v3 + 3), *(unsigned __int8*)(v3 + 4));
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x65u:
             v71 = sub_578B30(*(_WORD*)(v3 + 1));
             v72 = v71;
@@ -49174,7 +49217,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 7;
-            goto LABEL_1184;
+            break;
         case 0x66u:
             if (sub_43C700() && *(_DWORD*)& byte_5D4594[2614252])
             {
@@ -49182,7 +49225,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 *(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 120) = HIDWORD(v5);
             }
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x67u:
             v77 = sub_578B30(*(_WORD*)(v3 + 1));
             v78 = v77;
@@ -49212,7 +49255,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 7;
-            goto LABEL_1184;
+            break;
         case 0x68u:
             v82 = sub_578B30(*(_WORD*)(v3 + 1));
             v83 = v82;
@@ -49231,7 +49274,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_1057:
                 v3 += 8;
             }
-            goto LABEL_1184;
+            break;
         case 0x69u:
             if (sub_43C700())
             {
@@ -49273,7 +49316,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 21;
-            goto LABEL_1184;
+            break;
         case 0x6Au:
             v119 = sub_417040(*(unsigned __int16*)(v3 + 1));
             if (!v119)
@@ -49302,7 +49345,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_470C40((*((_DWORD*)v119 + 920) >> 10) & 1);
                 v3 += 7;
             }
-            goto LABEL_1184;
+            break;
         case 0x6Bu:
             v69 = sub_578B30(*(_WORD*)(v3 + 1));
             v70 = v69;
@@ -49315,7 +49358,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_948;
             sub_45AB80(v5, *(_DWORD*)(v3 + 3));
             v3 += 7;
-            goto LABEL_1184;
+            break;
         case 0x6Cu:
             v184 = sub_578B30(*(_WORD*)(v3 + 1));
             v185 = v184;
@@ -49334,12 +49377,15 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_459DD0((int)v188, 1);
             sub_495060(*(unsigned __int16*)(v3 + 1), 0, 0);
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x6Du:
             v189 = sub_578B30(*(_WORD*)(v3 + 1));
             v190 = v189;
             if (!sub_43C700())
-                goto LABEL_1183;
+            {
+                v3 += 3;
+                break;
+            }
             v191 = *(_WORD*)(v3 + 1);
             v192 = v191;
             v191 &= 0x7FFFu;
@@ -49356,7 +49402,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_1163;
             sub_467440(*(_DWORD*)(v3 + 1));
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x6Fu:
             v139 = 0;
             if (sub_43C700())
@@ -49366,15 +49412,15 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_45CFE0(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2), *(_BYTE*)(v3 + 3) & 0x7F, v139);
             }
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0x70u:
             sub_49BB80(*(_BYTE*)(v3 + 1));
             v3 += 2;
-            goto LABEL_1184;
+            break;
         case 0x71u:
             sub_467CA0();
             ++v3;
-            goto LABEL_1184;
+            break;
         case 0x7Cu:
             v236 = sub_578B30(*(_WORD*)(v3 + 8));
             v237 = v236;
@@ -49396,41 +49442,29 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 {
                 case 0u:
                     sub_4AEEA0((unsigned __int8**)v382);
-                    v3 += 14;
                     break;
                 case 1u:
                     sub_4AEF80(v382);
-                    v3 += 14;
                     break;
                 case 2u:
                     sub_4AF0F0((unsigned __int8**)v382);
-                    v3 += 14;
                     break;
                 case 3u:
                     sub_4AF2A0((unsigned __int8**)v382);
-                    v3 += 14;
                     break;
                 case 4u:
                     sub_4AF3D0(v382);
-                    v3 += 14;
                     break;
                 case 5u:
                     sub_4AF450(v382);
-                    v3 += 14;
                     break;
                 case 6u:
                     sub_4AF5A0(v382);
-                    goto LABEL_788;
-                default:
-                    goto LABEL_788;
+                    break;
                 }
             }
-            else
-            {
-            LABEL_788:
-                v3 += 14;
-            }
-            goto LABEL_1184;
+            v3 += 14;
+            break;
         case 0x7Du:
         case 0x8Cu:
         case 0x8Du:
@@ -49455,11 +49489,11 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             {
                 sub_499710(*(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7), 10, *(int*)& byte_5D4594[1200776]);
                 v3 += 9;
-                goto LABEL_1184;
+                break;
             }
         LABEL_732:
             v3 += 9;
-            goto LABEL_1184;
+            break;
         case 0x7Eu:
             if (sub_43C700())
             {
@@ -49476,11 +49510,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_1130:
                 v3 += 12;
             }
-            goto LABEL_1184;
+            break;
         case 0x7Fu:
             if (sub_43C700())
                 sub_4B7EE0(*(_WORD*)(v3 + 1));
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x80u:
             if (sub_43C700())
                 sub_4B8090(*(unsigned __int16*)(v3 + 1), *(unsigned __int8*)(v3 + 3));
@@ -49490,25 +49525,25 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_797;
             sub_499610(*(int*)& byte_5D4594[1200776], 50, 1000, 30, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x82u:
             if (!sub_43C700())
                 goto LABEL_797;
             sub_499610(*(int*)& byte_5D4594[1200780], 25, 500, 25, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x83u:
             if (!sub_43C700())
                 goto LABEL_797;
             sub_499610(*(int*)& byte_5D4594[1200784], 25, 500, 25, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x84u:
             if (sub_43C700())
                 sub_499610(*(int*)& byte_5D4594[1200796], 25, 500, 25, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
         LABEL_797:
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x85u:
         case 0x86u:
         case 0x87u:
@@ -49641,7 +49676,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                             break;
                     }
                     v3 += 5;
-                    goto LABEL_1184;
+                    break;
                 default:
                     goto LABEL_868;
                 }
@@ -49651,7 +49686,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_868:
                 v3 += 5;
             }
-            goto LABEL_1184;
+            break;
         case 0x8Fu:
         case 0x90u:
         case 0x91u:
@@ -49659,7 +49694,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_49BDD0((unsigned __int8*)v3);
         LABEL_735:
             v3 += 9;
-            goto LABEL_1184;
+            break;
         case 0x93u:
             if (!*(_DWORD*)& byte_5D4594[1200852])
             {
@@ -49727,7 +49762,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 9;
-            goto LABEL_1184;
+            break;
         case 0x95u:
             if (sub_43C700())
             {
@@ -49778,7 +49813,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 9;
-            goto LABEL_1184;
+            break;
         case 0x96u:
             if (sub_43C700())
             {
@@ -49809,11 +49844,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 } while (v239);
             }
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x97u:
             if (sub_43C700())
                 sub_4355B0(*(unsigned __int8*)(v3 + 1) / 3);
-            goto LABEL_720;
+            v3 += 2;
+            break;
         case 0x98u:
             if (!*(_DWORD*)& byte_5D4594[1200844])
                 * (_DWORD*)& byte_5D4594[1200844] = sub_44CFC0((CHAR*)& byte_587000[159192]);
@@ -49834,18 +49870,19 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 *(_DWORD*)(v5 + 1) = k;
             }
             v3 += 11;
-            goto LABEL_1184;
+            break;
         case 0x9Au:
             if (sub_43C700())
                 sub_473920();
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0x9Bu:
         case 0x9Cu:
         case 0x9Du:
             if (sub_43C700())
                 sub_4A9D00((unsigned __int8*)v3);
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0x9Eu:
             LOBYTE(v376) = *(_BYTE*)(v3 + 1);
             switch ((unsigned __int8)v376)
@@ -49875,7 +49912,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             default:
                 return 0;
             }
-            goto LABEL_1184;
+            break;
         case 0x9Fu:
             v297 = sub_578B30(*(_WORD*)(v3 + 1));
             v298 = v297;
@@ -49897,13 +49934,13 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 6;
-            goto LABEL_1184;
+            break;
         case 0xA0u:
             if (!sub_43C700())
                 goto LABEL_1163;
             sub_499880((__int16*)(v3 + 1));
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0xA1u:
             if (!sub_43C700())
                 goto LABEL_916;
@@ -49921,7 +49958,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 {
                     sub_45A110((_DWORD*)v5);
                     v3 += 6;
-                    goto LABEL_1184;
+                    break;
                 }
             }
             else
@@ -49932,12 +49969,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 {
                     sub_45A110((_DWORD*)v5);
                     v3 += 6;
-                    goto LABEL_1184;
+                    break;
                 }
             }
         LABEL_916:
             v3 += 6;
-            goto LABEL_1184;
+            break;
         case 0xA2u:
             if (sub_43C700())
             {
@@ -49964,7 +50001,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 11;
-            goto LABEL_1184;
+            break;
         case 0xA4u:
             v15 = (unsigned __int8*)(sub_494A60((unsigned __int8*)(v3 + 1), a1, v384) + v3 + 1);
             if ((unsigned int)v15 >= v4)
@@ -49981,7 +50018,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             if ((int)v5 < 0)
                 LODWORD(v5) = -(int)v5;
             v3 = (unsigned int)& v15[v5];
-            goto LABEL_1184;
+            break;
         case 0xA6u:
         case 0xA7u:
             if (!sub_43C700())
@@ -50000,7 +50037,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_651:
                 v3 += 4;
             }
-            goto LABEL_1184;
+            break;
         case 0xA8u:
             v198 = sub_578B30(*(_WORD*)(v3 + 1));
             v199 = v198;
@@ -50051,7 +50088,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     sub_449A10(0, (int)v205, (int)& byte_5D4594[1200068], 33, 0, 0);
                     k = v202 * *(unsigned __int8*)(v3 + 8);
                     v3 += k + 11;
-                    goto LABEL_1184;
+                    break;
                 }
             }
             else if (*(_WORD*)(v3 + 1))
@@ -50068,7 +50105,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                             sub_48D880(v3, (wchar_t*)& byte_5D4594[1197384]);
                             k = v202 * *(unsigned __int8*)(v3 + 8);
                             v3 += k + 11;
-                            goto LABEL_1184;
+                            break;
                         }
                     }
                     else
@@ -50092,15 +50129,15 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_445490((wchar_t*)& byte_5D4594[1197384]);
                 k = v202 * *(unsigned __int8*)(v3 + 8);
                 v3 += k + 11;
-                goto LABEL_1184;
+                break;
             }
         LABEL_693:
             k = v202 * *(unsigned __int8*)(v3 + 8);
             v3 += k + 11;
-            goto LABEL_1184;
+            break;
         case 0xA9u:
             v3 += sub_4C9BF0(v3);
-            goto LABEL_1184;
+            break;
         case 0xAAu:
             v61 = sub_40A5C0(1) ? 5 : 1;
             if (sub_43C700())
@@ -50113,21 +50150,17 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_40EBC0(a1, 0, v366, 5);
             }
             v3 += v61;
-            goto LABEL_1184;
+            break;
         case 0xABu:
             if (sub_43C700())
             {
                 sub_4E55A0(a1, *(_DWORD*)(v3 + 1));
-                v3 += 5;
             }
-            else
-            {
-            LABEL_1099:
-                v3 += 5;
-            }
-            goto LABEL_1184;
+            v3 += 5;
+            break;
         case 0xAEu:
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xAFu:
             *(_DWORD*)& byte_5D4594[1200768] = 0;
             v34 = *(_DWORD*)(v3 + 1);
@@ -50186,7 +50219,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 20;
-            goto LABEL_1184;
+            break;
         case 0xB0u:
             if (!sub_40A5C0(1))
             {
@@ -50221,7 +50254,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 49;
-            goto LABEL_1184;
+            break;
         case 0xB1u:
             v39 = sub_416590(*(unsigned __int8*)(v3 + 1));
             LOBYTE(v40) = v39[52];
@@ -50253,7 +50286,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             }
             sub_459C30();
             v3 += 60;
-            goto LABEL_1184;
+            break;
         case 0xB2u:
             v18 = sub_578B30(*(_WORD*)(v3 + 1));
             v19 = v18;
@@ -50264,7 +50297,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     * (_BYTE*)(v5 + 299) = *(_BYTE*)(v3 + 3);
             }
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0xB3u:
             v20 = sub_578B30(*(_WORD*)(v3 + 1));
             v21 = v20;
@@ -50283,7 +50316,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0xB4u:
             v24 = sub_578B30(*(_WORD*)(v3 + 1));
             v25 = v24;
@@ -50308,7 +50341,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0xB5u:
             if (sub_43C700()
                 && (v329 = *(unsigned __int16*)(v3 + 7),
@@ -50327,14 +50360,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 *(_DWORD*)(v5 + 460) = sub_4CA540;
                 *(_DWORD*)(v5 + 328) = v32;
                 sub_49BC80((_DWORD*)v5);
-                v3 += 14;
             }
-            else
-            {
-            LABEL_1093:
-                v3 += 14;
-            }
-            goto LABEL_1184;
+            v3 += 14;
+            break;
         case 0xB8u:
             if (!sub_4ABAD0((char*)(v3 + 8), *(_DWORD*)(v3 + 4)))
             {
@@ -50343,18 +50371,18 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_4AB570(0);
             }
             v3 += 88;
-            goto LABEL_1184;
+            break;
         case 0xB9u:
             sub_4AB7C0(*(_WORD*)(v3 + 2), (void*)(v3 + 6), *(unsigned __int16*)(v3 + 4));
             k = *(unsigned __int16*)(v3 + 4);
             v3 += k + 6;
-            goto LABEL_1184;
+            break;
         case 0xBAu:
             sub_4AB720();
             sub_4AB560(0);
             sub_4AB570(0);
             v3 += 2;
-            goto LABEL_1184;
+            break;
         case 0xBDu:
             if (sub_43C700())
             {
@@ -50365,7 +50393,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_450C00(6u, v290);
             }
             v3 += 2;
-            goto LABEL_1184;
+            break;
         case 0xC2u:
             v263 = *(unsigned __int8*)(v3 + 1);
             switch (v263)
@@ -50377,7 +50405,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v264 = sub_43C750();
                 sub_40B5D0(v264, v315, (const char*)(v3 + 8), v324, v342);
                 v3 += 140;
-                goto LABEL_1184;
+                break;
             case 1:
                 BYTE4(v5) = *(_BYTE*)(v3 + 3);
                 v343 = (char*)HIDWORD(v5);
@@ -50385,7 +50413,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v265 = sub_43C750();
                 sub_40BFF0(v265, v325, v343);
                 v3 += 4;
-                goto LABEL_1184;
+                break;
             case 2:
                 v365[0] = -62;
                 v365[1] = 3;
@@ -50400,24 +50428,25 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_40B250(v267, v316, v319, (const void*)(v3 + 8), v344);
                 HIDWORD(v5) = *(unsigned __int16*)(v3 + 6);
                 v3 += WORD2(v5) + 8;
-                goto LABEL_1184;
+                break;
             case 3:
                 v345 = *(unsigned __int16*)(v3 + 4);
                 v326 = *(_BYTE*)(v3 + 2);
                 v268 = sub_43C750();
                 sub_40BF60(v268, v326, v345);
                 v3 += 6;
-                goto LABEL_1184;
+                break;
             case 4:
                 v346 = *(_BYTE*)(v3 + 2);
                 v269 = sub_43C750();
                 sub_40C030(v269, v346);
-                goto LABEL_1183;
+                v3 += 3;
+                break;
             case 5:
                 LOBYTE(k) = *(_BYTE*)(v3 + 3);
                 sub_40B720(k, *(_BYTE*)(v3 + 2));
                 v3 += 4;
-                goto LABEL_1184;
+                break;
             case 6:
                 LOBYTE(v263) = *(_BYTE*)(v3 + 3);
                 v347 = *(_BYTE*)(v3 + 2);
@@ -50425,10 +50454,11 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v270 = sub_43C750();
                 sub_40C070(v270, v327, v347);
                 v3 += 4;
-                goto LABEL_1184;
+                break;
             default:
                 return 0;
             }
+            break;
         case 0xC3u:
             sub_578B30(*(_WORD*)(v3 + 1));
             if (*(_DWORD*)& byte_5D4594[2650636] & 0x10000000)
@@ -50466,7 +50496,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_4160D0(8);
                 v3 += 12;
             }
-            goto LABEL_1184;
+            break;
         case 0xC4u:
             switch (*(unsigned __int8*)(v3 + 1))
             {
@@ -50535,7 +50565,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     }
                 }
                 v3 += 10;
-                goto LABEL_1184;
+                break;
             case 2u:
                 if (sub_43C700())
                 {
@@ -50571,7 +50601,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         sub_418CD0((wchar_t*)v5, (wchar_t*)(v3 + 6));
                 }
                 v3 += 46;
-                goto LABEL_1184;
+                break;
             case 5u:
                 if (sub_43C700())
                 {
@@ -50600,7 +50630,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     sub_456FA0();
                 }
                 v3 += 2;
-                goto LABEL_1184;
+                break;
             case 8u:
                 if (sub_43C700() && (LODWORD(v5) = sub_418AB0(*(_DWORD*)(v3 + 2)), (_DWORD)v5))
                 {
@@ -50627,25 +50657,23 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
                 v3 += 5;
                 break;
-            default:
-                goto LABEL_1184;
             }
-            goto LABEL_1184;
+            break;
         case 0xC5u:
             sub_43B6E0();
             ++v3;
-            goto LABEL_1184;
+            break;
         case 0xC6u:
             sub_43B750();
             ++v3;
-            goto LABEL_1184;
+            break;
         case 0xC7u:
             v359 = -56;
             v33 = sub_43C750();
             sub_552640(v33, &v359, 1, 2);
             sub_446380();
             ++v3;
-            goto LABEL_1184;
+            break;
         case 0xC9u:
             switch (*(unsigned __int8*)(v3 + 1))
             {
@@ -50653,21 +50681,22 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 if (sub_43C700())
                     sub_4C1590();
                 v3 += 2;
-                goto LABEL_1184;
+                break;
             case 2u:
                 if (sub_43C700())
                     sub_479280();
                 v3 += 2;
-                goto LABEL_1184;
+                break;
             case 3u:
                 if (sub_43C700())
                     sub_4C1BC0(v3);
-                goto LABEL_1183;
+                v3 += 3;
+                break;
             case 4u:
                 if (sub_43C700())
                     sub_4C1790(v3);
                 v3 += 15;
-                goto LABEL_1184;
+                break;
             case 5u:
                 if (!sub_43C700())
                     goto LABEL_1133;
@@ -50676,7 +50705,10 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 6u:
                 if (!sub_43C700())
-                    goto LABEL_1093;
+                {
+                    v3 += 14;
+                    break;
+                }
                 sub_4C1B50(v3);
                 v3 += 14;
                 break;
@@ -50684,7 +50716,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 if (sub_43C700())
                     sub_4C1BF0();
                 v3 += 2;
-                goto LABEL_1184;
+                break;
             case 8u:
                 if (sub_43C700())
                     sub_479300(
@@ -50694,7 +50726,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         *(_DWORD*)(v3 + 10),
                         v3 + 14);
                 v3 += 18;
-                goto LABEL_1184;
+                break;
             case 9u:
                 if (!sub_43C700())
                     goto LABEL_1133;
@@ -50705,12 +50737,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 if (sub_43C700())
                     sub_4C1320(v3);
                 v3 += 52;
-                goto LABEL_1184;
+                break;
             case 0xDu:
                 if (sub_43C700())
                     sub_478FD0((const wchar_t*)(v3 + 4), (char*)(v3 + 54), *(unsigned __int16*)(v3 + 2));
                 v3 += 86;
-                goto LABEL_1184;
+                break;
             case 0x1Bu:
                 if (!sub_43C700())
                     goto LABEL_1133;
@@ -50730,7 +50762,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             default:
                 return 0;
             }
-            goto LABEL_1184;
+            break;
         case 0xCAu:
             if (sub_43C700())
             {
@@ -50739,18 +50771,19 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 else
                     sub_48E8E0(*(unsigned __int16*)(v3 + 1));
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xCBu:
             if (sub_43C700())
                 sub_445450();
             ++v3;
-            goto LABEL_1184;
+            break;
         case 0xCCu:
             if (sub_43C700())
                 sub_48D5A0(v3);
             k = *(unsigned __int8*)(v3 + 3);
             v3 += k + 4;
-            goto LABEL_1184;
+            break;
         case 0xCDu:
             v86 = 0;
             if (sub_43C700())
@@ -50761,15 +50794,18 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     v86 = 1;
                 sub_4611E0(*(unsigned __int8*)(v3 + 1), (unsigned __int8)v370, (char*)v86);
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xCEu:
             if (sub_43C700())
                 sub_461090(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xCFu:
             if (sub_43C700())
                 sub_461120(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xD0u:
             if (*(_BYTE*)(v3 + 1) == 3)
             {
@@ -50797,11 +50833,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_966:
                 v3 += 2;
             }
-            goto LABEL_1184;
+            break;
         case 0xD1u:
             if (sub_43C700())
                 sub_45D140(*(unsigned __int8*)(v3 + 1), *(_BYTE*)(v3 + 2) & 0x7F);
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xD2u:
             v281 = sub_578B30(*(_WORD*)(v3 + 1));
             v282 = v281;
@@ -50823,7 +50860,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 {
                     sub_459DD0(v5, *(_BYTE*)(v3 + 6));
                     v3 += 7;
-                    goto LABEL_1184;
+                    break;
                 }
             }
             else if ((_DWORD)v5)
@@ -50832,7 +50869,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             }
         LABEL_948:
             v3 += 7;
-            goto LABEL_1184;
+            break;
         case 0xD3u:
             if (!sub_43C700())
                 goto LABEL_112;
@@ -50856,7 +50893,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
                 v3 += 13;
             }
-            goto LABEL_1184;
+            break;
         case 0xD5u:
             v296 = *(_DWORD*)& byte_5D4594[2618908];
             switch (*(_BYTE*)(v3 + 1))
@@ -50885,11 +50922,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 68;
                 break;
             }
-            goto LABEL_1184;
+            break;
         case 0xD6u:
             if (sub_43C700())
                 sub_450160(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2), 0);
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xD7u:
             LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 1));
             if ((_DWORD)v5)
@@ -50898,7 +50936,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 *(_WORD*)(v5 + 2148) = k;
             }
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0xD8u:
             if (sub_43C700())
             {
@@ -50911,7 +50949,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_920:
                 v3 += 6;
             }
-            goto LABEL_1184;
+            break;
         case 0xD9u:
             if (sub_43C700())
             {
@@ -50919,7 +50957,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_470650(*(_BYTE*)(v3 + 1), *(_WORD*)(v3 + 2));
             }
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0xDAu:
             v137 = sub_578B30(*(_WORD*)(v3 + 1));
             v138 = v137;
@@ -50935,7 +50973,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_764:
                 v3 += 4;
             }
-            goto LABEL_1184;
+            break;
         case 0xDBu:
             v193 = sub_578B30(*(_WORD*)(v3 + 1));
             v194 = v193;
@@ -50951,12 +50989,15 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             }
         LABEL_638:
             v3 += 5;
-            goto LABEL_1184;
+            break;
         case 0xDCu:
             v196 = sub_578B30(*(_WORD*)(v3 + 1));
             v197 = v196;
             if (!sub_43C700())
-                goto LABEL_1183;
+            {
+                v3 += 3;
+                break;
+            }
             sub_4950C0(*(unsigned __int16*)(v3 + 1));
             v337 = v197;
             if (sub_578B70(*(unsigned __int16*)(v3 + 1)))
@@ -50967,7 +51008,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
         LABEL_643:
             if ((_DWORD)v5)
                 sub_459E30(v5, 1);
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xDDu:
             v90 = sub_578B30(*(_WORD*)(v3 + 1));
             v91 = v90;
@@ -50990,7 +51032,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_1149:
                 v3 += 7;
             }
-            goto LABEL_1184;
+            break;
         case 0xDEu:
             v94 = sub_578B30(*(_WORD*)(v3 + 1));
             v95 = v94;
@@ -51002,11 +51044,11 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 goto LABEL_948;
             sub_470CE0(*(unsigned __int16*)(v3 + 3), *(unsigned __int16*)(v3 + 5));
             v3 += 7;
-            goto LABEL_1184;
+            break;
         case 0xDFu:
             sub_460EB0(*(_DWORD*)(v3 + 1), *(_BYTE*)(v3 + 5));
             v3 += 6;
-            goto LABEL_1184;
+            break;
         case 0xE0u:
             v291 = sub_578B30(*(_WORD*)(v3 + 1));
             v292 = v291;
@@ -51017,11 +51059,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             else
                 sub_467750(0, *(_BYTE*)(v3 + 3));
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0xE1u:
             v293 = sub_578B30(*(_WORD*)(v3 + 1));
             sub_467740(v293);
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xE2u:
             v294 = sub_578B30(*(_WORD*)(v3 + 1));
             v295 = v294;
@@ -51037,7 +51080,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 *(_DWORD*)(v5 + 432) = k;
             }
             v3 += 4;
-            goto LABEL_1184;
+            break;
         case 0xE4u:
             if (sub_43C700())
             {
@@ -51056,19 +51099,23 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     sub_44DAB0(25, *(_BYTE*)(v3 + 2) == 1, sub_44E000);
                 }
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xE5u:
             if (sub_43C700())
                 sub_43D9B0(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xE6u:
             if (sub_43C700())
                 sub_43DA80();
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xE7u:
             if (sub_43C700())
                 sub_43DAD0();
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xE8u:
             if (sub_43C700())
             {
@@ -51118,7 +51165,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     }
                 }
             }
-            goto LABEL_1183;
+            v3 += 3;
+            break;
         case 0xE9u:
             if (sub_43C700())
             {
@@ -51136,7 +51184,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
             }
             v3 += 9;
-            goto LABEL_1184;
+            break;
         case 0xEAu:
             if (sub_40A5C0(0x2000))
             {
@@ -51148,48 +51196,42 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_1163:
                 v3 += 5;
             }
-            goto LABEL_1184;
+            break;
         case 0xEBu:
             if (!sub_43C700())
-                goto LABEL_720;
+            {
+                v3 += 2;
+                break;
+            }
             sub_4610D0(*(_BYTE*)(v3 + 1));
             v3 += 2;
-            goto LABEL_1184;
+            break;
         case 0xECu:
-            if (!sub_43C700())
-                goto LABEL_720;
-            sub_43C7A0(*(unsigned __int8*)(v3 + 1));
+            if (sub_43C700())
+            {
+                sub_43C7A0(*(unsigned __int8*)(v3 + 1));
+            }
             v3 += 2;
-            goto LABEL_1184;
+            break;
         case 0xEDu:
             if (sub_43C700())
             {
                 sub_4C1CA0(*(unsigned __int8*)(v3 + 1));
-                v3 += 2;
             }
-            else
-            {
-            LABEL_720:
-                v3 += 2;
-            }
-            goto LABEL_1184;
+            v3 += 2;
+            break;
         case 0xEEu:
             if (*(_BYTE*)(v3 + 1) == 6)
             {
                 sub_48D4B0(*(unsigned __int8*)(v3 + 2));
-            LABEL_1183:
                 v3 += 3;
-            LABEL_1184:
-                v4 = v369;
-                if (v3 >= v369)
-                    return 1;
-                continue;
+                break;
             }
-            if (*(_BYTE*)(v3 + 1) == 7)
+            else if (*(_BYTE*)(v3 + 1) == 7)
             {
                 sub_48D4A0();
                 v3 += 2;
-                goto LABEL_1184;
+                break;
             }
             return 0;
         case 0xEFu:
@@ -51203,9 +51245,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     *(_DWORD*)& byte_587000[312828] = *(_DWORD*)(v3 + 13);
                     sub_57B200();
                     v3 += 17;
-                    goto LABEL_1184;
+                    break;
                 }
-                if (byte_5D4594[2661958] == 2)
+                else if (byte_5D4594[2661958] == 2)
                 {
                     *(_DWORD*)& byte_587000[312800] = *(_DWORD*)(v3 + 1);
                     *(_DWORD*)& byte_587000[312804] = *(_DWORD*)(v3 + 5);
@@ -51213,7 +51255,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     *(_DWORD*)& byte_587000[312812] = *(_DWORD*)(v3 + 13);
                     sub_57B200();
                     v3 += 17;
-                    goto LABEL_1184;
+                    break;
                 }
             }
             else
@@ -51225,7 +51267,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             }
             sub_57B200();
             v3 += 17;
-            goto LABEL_1184;
+            break;
         case 0xF0u:
             switch (*(unsigned __int8*)(v3 + 1))
             {
@@ -51257,11 +51299,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     }
                 }
                 v3 += 4;
-                goto LABEL_1184;
+                break;
             case 2u:
                 if (sub_43C700() == 1)
                     sub_49B4B0((unsigned __int16*)v3);
-                goto LABEL_1093;
+                v3 += 14;
+                break;
             case 4u:
                 if (sub_43C700())
                 {
@@ -51272,7 +51315,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     if (WORD2(v5) == *(_DWORD*)& byte_5D4594[2616328])
                         sub_463420(*(unsigned __int8*)(v3 + 2));
                 }
-                goto LABEL_1099;
+                v3 += 5;
+                break;
             case 5u:
             case 6u:
             case 7u:
@@ -51281,17 +51325,17 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xAu:
                 sub_43C700();
                 v3 += 4;
-                goto LABEL_1184;
+                break;
             case 0xBu:
                 sub_43C700();
                 v3 += 16;
-                goto LABEL_1184;
+                break;
             case 0xCu:
                 if (sub_43C700())
                     sub_450770(v3);
                 *(_DWORD*)& byte_5D4594[1556112] = 0;
                 v3 += 90;
-                goto LABEL_1184;
+                break;
             case 0xDu:
                 if (sub_43C700())
                     sub_450980(v3, *(_BYTE*)(v3 + 4) & 1);
@@ -51302,7 +51346,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             LABEL_1119:
                 *(_DWORD*)& byte_5D4594[1556112] = 0;
                 v3 += 69;
-                goto LABEL_1184;
+                break;
             case 0xFu:
                 if (sub_43C700())
                 {
@@ -51311,7 +51355,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         * (_BYTE*)(v5 + 432) = 0;
                 }
                 v3 += 4;
-                goto LABEL_1184;
+                break;
             case 0x10u:
                 if (!*(_DWORD*)& byte_5D4594[1200904])
                     * (_DWORD*)& byte_5D4594[1200904] = sub_44CFC0((CHAR*)& byte_587000[160484]);
@@ -51337,13 +51381,13 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     goto LABEL_1133;
                 sub_45D4A0(*(unsigned __int16*)(v3 + 2));
                 v3 += 4;
-                goto LABEL_1184;
+                break;
             case 0x13u:
                 if (!sub_43C700())
                     goto LABEL_1133;
                 sub_45D400(*(unsigned __int16*)(v3 + 2));
                 v3 += 4;
-                goto LABEL_1184;
+                break;
             case 0x14u:
                 if (sub_43C700() != 1 || sub_470580())
                 {
@@ -51355,7 +51399,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     sub_4705B0();
                     v3 += 2;
                 }
-                goto LABEL_1184;
+                break;
             case 0x15u:
                 if (sub_43C700())
                 {
@@ -51367,7 +51411,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     }
                 }
                 v3 += 8;
-                goto LABEL_1184;
+                break;
             case 0x16u:
                 if (sub_43C700())
                 {
@@ -51376,7 +51420,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         * (_BYTE*)(v5 + 4824) = *(_BYTE*)(v3 + 2);
                 }
                 v3 += 5;
-                goto LABEL_1184;
+                break;
             case 0x17u:
                 if (sub_43C700())
                 {
@@ -51385,11 +51429,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         * (_BYTE*)(v5 + 4825) = *(_BYTE*)(v3 + 2);
                 }
                 v3 += 5;
-                goto LABEL_1184;
+                break;
             case 0x18u:
                 if (sub_43C700() == 1)
                     sub_4BFBB0((_DWORD*) * (unsigned __int8*)(v3 + 2));
-                goto LABEL_1183;
+                v3 += 3;
+                break;
             case 0x19u:
                 if (!*(_DWORD*)& byte_5D4594[1200908])
                 {
@@ -51410,11 +51455,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 if (sub_43C700())
                     sub_499610(*(int*)& byte_5D4594[1200788], 25, 500, 25, *(__int16*)(v3 + 2), *(__int16*)(v3 + 4));
                 v3 += 6;
-                goto LABEL_1184;
+                break;
             case 0x1Cu:
                 if (sub_43C700())
                     sub_41D1A0(*(unsigned __int8*)(v3 + 2));
-                goto LABEL_1183;
+                v3 += 3;
+                break;
             case 0x1Du:
                 if (sub_43C700())
                 {
@@ -51426,7 +51472,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 LABEL_1133:
                     v3 += 4;
                 }
-                goto LABEL_1184;
+                break;
             case 0x1Eu:
                 v303 = sub_417040(*(unsigned __int16*)(v3 + 3));
                 if (sub_43C700() && v303)
@@ -51502,14 +51548,17 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     sub_445490(v402);
                 }
                 v3 += 52;
-                goto LABEL_1184;
+                break;
             default:
                 return 0;
             }
-            goto LABEL_1184;
+            break;
         default:
             return 0;
         }
+        v4 = v369;
+        if (v3 >= v369)
+            return 1;
     }
 }
 // 48EC64: variable 'v16' is possibly undefined
