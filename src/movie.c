@@ -1519,7 +1519,7 @@ int __cdecl sub_556C60(int a1, int a2)
             if (a1 > 0)
             {
             LABEL_116:
-                sprintf(&Text, (const char*)& byte_587000[293696], (unsigned __int16)a1);
+                sprintf(&Text, "Unrecognised Direct Draw result code: %d", (unsigned __int16)a1);
                 return MessageBoxA(*(HWND*)& byte_5D4594[2515892], &Text, (LPCSTR)& byte_587000[300280], 0x30u);
             }
             if (a1)
@@ -2683,7 +2683,7 @@ LABEL_13:
                 {
                     v6 = GetWindowDC(*(HWND*)& byte_5D4594[2514000]);
                     sub_555C10(&v13, &v12, &v17);
-                    sprintf(String, (const char*)& byte_587000[300348], v3[370]);
+                    sprintf(String, "%5d", v3[370]);
                     TextOutA(v6, 0, 0, String, strlen(String));
                     TextOutA(v6, v13 / 2, v12 / 2, String, strlen(String));
                     ReleaseDC(*(HWND*)& byte_5D4594[2514000], v6);

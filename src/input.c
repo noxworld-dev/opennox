@@ -727,7 +727,7 @@ UINT __cdecl sub_47D660(UINT uJoyID, int a2)
             *(_DWORD*)& byte_5D4594[v3 + 1189632] = 0;
             if (joyGetDevCapsA(uJoyID, (LPJOYCAPSA)& byte_5D4594[404 * uJoyID + 1189700], 0x194u))
             {
-                v4 = loadString_sub_40F1D0((char*)& byte_587000[153832], 0, (const char*)& byte_587000[153792], 79);
+                v4 = loadString_sub_40F1D0((char*)& byte_587000[153832], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Jstick.c", 79);
                 sub_4517A0(v4, uJoyID);
                 result = 0;
             }
@@ -1617,7 +1617,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 if (!sub_4DCCB0())
                     goto LABEL_210;
                 sub_452D80(921, 100);
-                sub_4DB130((const char*)& byte_587000[80252]);
+                sub_4DB130("AUTOSAVE");
                 sub_4DB170(1, 0, 0);
                 *(_DWORD*)& byte_5D4594[v36 + 747900] = 0;
                 break;
@@ -1628,8 +1628,8 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 {
                     sub_452D80(921, 100);
                     sub_413A00(1);
-                    v41 = loadString_sub_40F1D0((char*)& byte_587000[80304], 0, (const char*)& byte_587000[80264], 1867);
-                    v40 = loadString_sub_40F1D0((char*)& byte_587000[80372], 0, (const char*)& byte_587000[80332], 1866);
+                    v41 = loadString_sub_40F1D0((char*)& byte_587000[80304], 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 1867);
+                    v40 = loadString_sub_40F1D0((char*)& byte_587000[80372], 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 1866);
                     sub_449A10(0, (int)v40, (int)v41, 56, (int (*)(void))sub_42E600, sub_42E620);
                     *(_DWORD*)& byte_5D4594[v36 + 747900] = 0;
                 }

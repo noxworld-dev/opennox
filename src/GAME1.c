@@ -492,23 +492,23 @@ void __cdecl sub_401B20(char* a1)
 
     strcpy((char*)& byte_5D4594[272], "\xecqX");
     *(_DWORD*)& byte_5D4594[404] = 1;
-    v1 = strtok(a1, (const char*)& byte_587000[488]);
+    v1 = strtok(a1, " \t");
     sub_43BEF0(0, 0, 0);
     if (v1)
     {
         do
         {
-            if (!strcmp((const char*)& byte_587000[500], v1))
+            if (!strcmp("-window", v1))
             {
                 *(_DWORD*)& byte_587000[80848] = 0;
                 *(_DWORD*)& byte_5D4594[805860] = 0;
             }
-            else if (!strcmp((const char*)& byte_587000[508], v1))
+            else if (!strcmp("-swindow", v1))
             {
                 *(_DWORD*)& byte_587000[80848] = 0;
                 *(_DWORD*)& byte_5D4594[805860] = 1;
             }
-            else if (!strcmp((const char*)& byte_587000[520], v1))
+            else if (!strcmp("-minimize", v1))
             {
                 *(_DWORD*)& byte_5D4594[805864] = 1;
             }
@@ -518,7 +518,7 @@ void __cdecl sub_401B20(char* a1)
                 *(_DWORD*)& byte_5D4594[4 * *(_DWORD*)& byte_5D4594[404] + 272] = v1;
                 *(_DWORD*)& byte_5D4594[404] = v2 + 1;
             }
-            v1 = strtok(0, (const char*)& byte_587000[488]);
+            v1 = strtok(0, " \t");
         } while (v1);
         *(_DWORD*)& byte_5D4594[4 * *(_DWORD*)& byte_5D4594[404] + 272] = 0;
     }
@@ -8540,7 +8540,7 @@ void __cdecl sub_409FB0(__int16 a1, unsigned __int16 a2)
         *(_DWORD*)& byte_5D4594[3532] = 1;
         if (sub_43C700())
         {
-            v4 = loadString_sub_40F1D0((char*)& byte_587000[4804], 0, (const char*)& byte_587000[4764], 389);
+            v4 = loadString_sub_40F1D0((char*)& byte_587000[4804], 0, "C:\\NoxPost\\src\\Common\\System\\settings.c", 389);
             sub_440A20(v4, v3);
         }
     }
@@ -8571,15 +8571,15 @@ void __cdecl sub_40A040(__int16 a1, unsigned __int8 a2)
             {
                 if (!a2)
                 {
-                    v5 = loadString_sub_40F1D0((char*)& byte_587000[5048], 0, (const char*)& byte_587000[5008], 431);
+                    v5 = loadString_sub_40F1D0((char*)& byte_587000[5048], 0, "C:\\NoxPost\\src\\Common\\System\\settings.c", 431);
                     goto LABEL_9;
                 }
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[4928], 0, (const char*)& byte_587000[4888], 423);
+                v3 = loadString_sub_40F1D0((char*)& byte_587000[4928], 0, "C:\\NoxPost\\src\\Common\\System\\settings.c", 423);
                 sub_440A20(v3, a2);
                 LOBYTE(v4) = sub_40A8A0();
                 if (!v4)
                 {
-                    v5 = loadString_sub_40F1D0((char*)& byte_587000[4988], 0, (const char*)& byte_587000[4948], 426);
+                    v5 = loadString_sub_40F1D0((char*)& byte_587000[4988], 0, "C:\\NoxPost\\src\\Common\\System\\settings.c", 426);
                 LABEL_9:
                     sub_440A20(v5);
                     goto LABEL_10;
@@ -8590,7 +8590,7 @@ void __cdecl sub_40A040(__int16 a1, unsigned __int8 a2)
             *(_QWORD*)& byte_5D4594[3468] = 60000 * a2 + sub_416BB0();
             return;
         }
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[4868], 0, (const char*)& byte_587000[4828], 414);
+        v6 = loadString_sub_40F1D0((char*)& byte_587000[4868], 0, "C:\\NoxPost\\src\\Common\\System\\settings.c", 414);
         sub_445490(v6);
     }
 }
@@ -8748,7 +8748,7 @@ void __cdecl sub_40A3E0(int a1)
     CHAR String[64]; // [esp+0h] [ebp-40h]
 
     *(_DWORD*)& byte_5D4594[3524] = a1;
-    nox_sprintf(String, (const char*)& byte_587000[5072], a1);
+    nox_sprintf(String, "Nox - %d", a1);
     sub_401FE0(String);
 }
 
@@ -8827,7 +8827,7 @@ int __cdecl sub_40A4D0(int a1)
         if (a1 & 0x4000000)
         {
             if (byte_5D4594[3600] & 1)
-                result = sub_4DA390((const char*)& byte_587000[5084]);
+                result = sub_4DA390("Settings.c:SuddenDeathStart");
         }
     }
     return result;
@@ -9534,7 +9534,7 @@ void __cdecl sub_40AF90(int a1, int a2, char a3, int a4, _BYTE* a5, unsigned int
         break;
     case 3:
         v6 = sub_409E10();
-        nox_sprintf(FileName, (const char*)& byte_587000[25716], v6);
+        nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v6);
         if (sub_41CD70(FileName, a5, a6))
         {
             if (sub_4D6F50() && a1 == 31)
@@ -11341,7 +11341,7 @@ int sub_40CE60()
         && (v1 = *(_DWORD*)& byte_5D4594[4668]) != 0
         && (v3 = v6,
             *(_DWORD*)& byte_5D4594[10976] = 1,
-            strcpy(v6, (const char*)& byte_587000[25748]),
+            strcpy(v6, "SOFTWARE\\Westwood\\Nox"),
             (*(void(__stdcall * *)(int, unsigned __int8*, char*))(*(_DWORD*)v1 + 164))(v1, &byte_587000[25772], v6),
             sub_420030(),
             sub_4200E0() != -1))
@@ -13419,7 +13419,7 @@ wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int
             while (v7 != '\\');
         }
         v8 = &a3[v6 + 1];
-        nox_sprintf((char*)& byte_5D4594[243288], (const char*)& byte_587000[26320], v8, a1);
+        nox_sprintf((char*)& byte_5D4594[243288], "%s:%s", v8, a1);
         v5 = (char*)& byte_5D4594[243288];
     }
     v9 = bsearch(
@@ -13550,7 +13550,7 @@ LABEL_2:
             v0 = *(_DWORD*)& byte_5D4594[251496] + 1;
             goto LABEL_2;
         }
-        if (!_strcmpi((const char*)file_buffer, (const char*)& byte_587000[26412]))
+        if (!_strcmpi((const char*)file_buffer, "END"))
             ++* (_DWORD*)& byte_5D4594[251492];
     }
     *(_DWORD*)& byte_5D4594[251496] += 1000;
@@ -13960,7 +13960,7 @@ int sub_40FBE0()
             ++v3;
             v4 += 4;
         }
-        else if (!_strcmpi((const char*)file_buffer, (const char*)& byte_587000[26424]))
+        else if (!_strcmpi((const char*)file_buffer, "END"))
         {
             *(_BYTE*)(&string_entries[v10].data[49]) = v3;
             v10++;
@@ -14214,7 +14214,7 @@ BOOL sub_410120()
 
     v0 = *(const char**)& byte_587000[16 * *(_DWORD*)& byte_587000[26048] + 25900];
     if (v0)
-        result = _strcmpi(v0, (const char*)& byte_587000[26428]) == 0;
+        result = _strcmpi(v0, "e") == 0;
     else
         result = 1;
     return result;
@@ -15755,23 +15755,23 @@ BOOL __cdecl sub_411A90(float2* a1)
         v2 = (const char*)& byte_5D4594[2682188];
         do
         {
-            if (!strcmp(v2, (const char*)& byte_587000[26656]))
+            if (!strcmp(v2, "WaterNoTeleport"))
             {
                 *(_DWORD*)& byte_587000[26516] = v1;
             }
-            else if (!strcmp(v2, (const char*)& byte_587000[26672]))
+            else if (!strcmp(v2, "WaterDeepNoTeleport"))
             {
                 *(_DWORD*)& byte_587000[26520] = v1;
             }
-            else if (!strcmp(v2, (const char*)& byte_587000[26692]))
+            else if (!strcmp(v2, "WaterShallowNoTeleport"))
             {
                 *(_DWORD*)& byte_587000[26524] = v1;
             }
-            else if (!strcmp(v2, (const char*)& byte_587000[26716]))
+            else if (!strcmp(v2, "WaterSwampDeepNoTeleport"))
             {
                 *(_DWORD*)& byte_587000[26528] = v1;
             }
-            else if (!strcmp(v2, (const char*)& byte_587000[26744]))
+            else if (!strcmp(v2, "WaterSwampShallowNoTeleport"))
             {
                 *(_DWORD*)& byte_587000[26532] = v1;
             }
@@ -15809,14 +15809,14 @@ int __cdecl sub_411B90(int a1, char* a2, int a3)
     v4 = (char*)result;
     if (result)
     {
-        v5 = loadString_sub_40F1D0((char*)result, 0, (const char*)& byte_587000[31016], 418);
+        v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 418);
         v6 = nox_wcslen(v5);
         v7 = v6;
         result = (int)nox_malloc(2 * v6 + 2);
         *(_DWORD*)(a3 + 8) = result;
         if (result)
         {
-            v8 = loadString_sub_40F1D0(v4, 0, (const char*)& byte_587000[31056], 426);
+            v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 426);
             nox_wcsncpy(*(wchar_t**)(a3 + 8), v8, v7);
             *(_WORD*)(*(_DWORD*)(a3 + 8) + 2 * v7) = 0;
             result = 1;
@@ -15906,7 +15906,7 @@ BOOL __cdecl sub_411D90(const char* a1, char* a2, int a3)
     v3 = strtok(a2, v7);
     if (v3)
     {
-        if (!strcmp(a1, (const char*)& byte_587000[31200]))
+        if (!strcmp(a1, "EFFECTIVENESS"))
         {
             v4 = 0;
         LABEL_10:
@@ -15914,17 +15914,17 @@ BOOL __cdecl sub_411D90(const char* a1, char* a2, int a3)
             *(_DWORD*)(a3 + 4 * v4 + 36) = v5;
             return v5 != -1;
         }
-        if (!strcmp(a1, (const char*)& byte_587000[31216]))
+        if (!strcmp(a1, "MATERIAL"))
         {
             v4 = 1;
             goto LABEL_10;
         }
-        if (!strcmp(a1, (const char*)& byte_587000[31228]))
+        if (!strcmp(a1, "PRIMARYENCHANTMENT"))
         {
             v4 = 2;
             goto LABEL_10;
         }
-        if (!strcmp(a1, (const char*)& byte_587000[31248]))
+        if (!strcmp(a1, "SECONDARYENCHANTMENT"))
         {
             v4 = 3;
             goto LABEL_10;
@@ -15941,7 +15941,7 @@ int __cdecl sub_411E60(int a1, char* a2, int a3)
     int v5; // [esp+8h] [ebp-4h]
 
     v5 = 0;
-    v3 = strspn(a2, (const char*)& byte_587000[31272]);
+    v3 = strspn(a2, "= ");
     if (v3 >= strlen(a2))
     {
         *(_BYTE*)(a3 + 62) = v5;
@@ -16092,14 +16092,14 @@ int __cdecl sub_412100(int a1, char* a2, int a3)
     v4 = (char*)result;
     if (result)
     {
-        v5 = loadString_sub_40F1D0((char*)result, 0, (const char*)& byte_587000[31340], 733);
+        v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 733);
         v6 = nox_wcslen(v5);
         v7 = v6;
         result = (int)nox_malloc(2 * v6 + 2);
         *(_DWORD*)(a3 + 8) = result;
         if (result)
         {
-            v8 = loadString_sub_40F1D0(v4, 0, (const char*)& byte_587000[31380], 741);
+            v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 741);
             nox_wcsncpy(*(wchar_t**)(a3 + 8), v8, v7);
             *(_WORD*)(*(_DWORD*)(a3 + 8) + 2 * v7) = 0;
             result = 1;
@@ -16124,14 +16124,14 @@ int __cdecl sub_4121B0(int a1, char* a2, int a3)
     v4 = (char*)result;
     if (result)
     {
-        v5 = loadString_sub_40F1D0((char*)result, 0, (const char*)& byte_587000[31428], 767);
+        v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 767);
         v6 = nox_wcslen(v5);
         v7 = v6;
         result = (int)nox_malloc(2 * v6 + 2);
         *(_DWORD*)(a3 + 12) = result;
         if (result)
         {
-            v8 = loadString_sub_40F1D0(v4, 0, (const char*)& byte_587000[31468], 775);
+            v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 775);
             nox_wcsncpy(*(wchar_t**)(a3 + 12), v8, v7);
             *(_WORD*)(*(_DWORD*)(a3 + 12) + 2 * v7) = 0;
             result = 1;
@@ -16156,14 +16156,14 @@ int __cdecl sub_412260(int a1, char* a2, int a3)
     v4 = (char*)result;
     if (result)
     {
-        v5 = loadString_sub_40F1D0((char*)result, 0, (const char*)& byte_587000[31516], 801);
+        v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
         v6 = nox_wcslen(v5);
         v7 = v6;
         result = (int)nox_malloc(2 * v6 + 2);
         *(_DWORD*)(a3 + 16) = result;
         if (result)
         {
-            v8 = loadString_sub_40F1D0(v4, 0, (const char*)& byte_587000[31556], 809);
+            v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 809);
             nox_wcsncpy(*(wchar_t**)(a3 + 16), v8, v7);
             *(_WORD*)(*(_DWORD*)(a3 + 16) + 2 * v7) = 0;
             result = 1;
@@ -16219,19 +16219,19 @@ int __cdecl sub_412380(const char* a1, char* a2, _DWORD* a3)
         if (!v4)
             return 0;
     }
-    if (!strcmp(a1, (const char*)& byte_587000[31612]))
+    if (!strcmp(a1, "ATTACKEFFECT"))
     {
         v7 = a3;
         a3[10] = *((_DWORD*)v5 + 1);
     }
-    else if (!strcmp(a1, (const char*)& byte_587000[31628]))
+    else if (!strcmp(a1, "ATTACKPREHITEFFECT"))
     {
         v7 = a3;
         a3[13] = *((_DWORD*)v5 + 1);
     }
     else
     {
-        if (strcmp(a1, (const char*)& byte_587000[31648]))
+        if (strcmp(a1, "ATTACKPREDAMAGEEFFECT"))
             return 0;
         v7 = a3;
         a3[16] = *((_DWORD*)v5 + 1);
@@ -16267,14 +16267,14 @@ int __cdecl sub_412490(const char* a1, char* a2, int a3)
         if (!v4)
             return 0;
     }
-    if (!strcmp(a1, (const char*)& byte_587000[31680]))
+    if (!strcmp(a1, "DEFENDEFFECT"))
     {
         v7 = a3;
         *(_DWORD*)(a3 + 76) = *((_DWORD*)v5 + 1);
     }
     else
     {
-        if (strcmp(a1, (const char*)& byte_587000[31696]))
+        if (strcmp(a1, "DEFENDCOLLIDEEFFECT"))
             return 0;
         v7 = a3;
         *(_DWORD*)(a3 + 88) = *((_DWORD*)v5 + 1);
@@ -16310,14 +16310,14 @@ int __cdecl sub_412580(const char* a1, char* a2, int a3)
         if (!v4)
             return 0;
     }
-    if (!strcmp(a1, (const char*)& byte_587000[31724]))
+    if (!strcmp(a1, "ENGAGEEFFECT"))
     {
         v7 = a3;
         *(_DWORD*)(a3 + 112) = *((_DWORD*)v5 + 1);
     }
     else
     {
-        if (strcmp(a1, (const char*)& byte_587000[31740]))
+        if (strcmp(a1, "DISENGAGEEFFECT"))
             return 0;
         v7 = a3;
         *(_DWORD*)(a3 + 116) = *((_DWORD*)v5 + 1);
@@ -16353,7 +16353,7 @@ int __cdecl sub_412670(const char* a1, char* a2, int a3)
         if (!v4)
             return 0;
     }
-    if (strcmp(a1, (const char*)& byte_587000[31764]))
+    if (strcmp(a1, "UPDATEEFFECT"))
         return 0;
     *(_DWORD*)(a3 + 100) = *((_DWORD*)v5 + 1);
     v7 = (int(__cdecl*)(const char*, char*, int)) * ((_DWORD*)v5 + 2);
@@ -16425,13 +16425,13 @@ int __cdecl sub_412760(char* a1, int* a2)
             v10 = strtok(0, v12);
             if (v10)
             {
-                if (!strcmp(v10, (const char*)& byte_587000[31788]))
+                if (!strcmp(v10, "+"))
                 {
                     v11 = 1;
                 }
                 else
                 {
-                    if (strcmp(v10, (const char*)& byte_587000[31792]))
+                    if (strcmp(v10, "-"))
                         return 0;
                     v11 = 0;
                 }
@@ -16460,7 +16460,7 @@ int __cdecl sub_4128C0(int a1, char* a2, int a3)
     int v5; // [esp+8h] [ebp-4h]
 
     v5 = 0;
-    v3 = strspn(a2, (const char*)& byte_587000[31796]);
+    v3 = strspn(a2, "= ");
     if (v3 >= strlen(a2))
     {
         *(_BYTE*)(a3 + 36) = v5;
@@ -16503,19 +16503,19 @@ int __cdecl sub_412930(char* a1, char* a2)
         return 0;
     while (sub_409470(v3, v10))
     {
-        if (!strcmp(v10, (const char*)& byte_587000[31800]))
+        if (!strcmp(v10, "WEAPON_DEFINITIONS"))
         {
             if (!sub_412D40((int)v10, v3, a2))
                 return 0;
         }
-        else if (!strcmp(v10, (const char*)& byte_587000[31820]))
+        else if (!strcmp(v10, "ARMOR_DEFINITIONS"))
         {
             if (!sub_412ED0((int)v10, v3, a2))
                 return 0;
         }
-        else if (strcmp(v10, (const char*)& byte_587000[31840])
-            && strcmp(v10, (const char*)& byte_587000[31856])
-            && strcmp(v10, (const char*)& byte_587000[31868])
+        else if (strcmp(v10, "EFFECTIVENESS")
+            && strcmp(v10, "MATERIAL")
+            && strcmp(v10, "ENCHANTMENT")
             || !sub_412AE0(v10, v3, a2))
         {
             return 0;
@@ -16548,7 +16548,7 @@ int __cdecl sub_412AE0(const char* a1, FILE* a2, char* a3)
     while (1)
     {
         sub_409470(a2, v9);
-        if (!strcmp(v9, (const char*)& byte_587000[31880]))
+        if (!strcmp(v9, "END"))
             return 1;
         v3 = (char**)nox_calloc(1u, 0x90u);
         v4 = v3;
@@ -16565,7 +16565,7 @@ int __cdecl sub_412AE0(const char* a1, FILE* a2, char* a3)
         while (1)
         {
             sub_409470(a2, v9);
-            if (!strcmp(v9, (const char*)& byte_587000[31884]))
+            if (!strcmp(v9, "END"))
                 break;
             v6 = &byte_587000[28760];
             if (*(_DWORD*)& byte_587000[28764])
@@ -16593,7 +16593,7 @@ int __cdecl sub_412C60(const char* a1, int a2)
 {
     int result; // eax
 
-    if (!strcmp(a1, (const char*)& byte_587000[31888]))
+    if (!strcmp(a1, "EFFECTIVENESS"))
     {
         *(_DWORD*)(a2 + 140) = 0;
         *(_DWORD*)(a2 + 136) = *(_DWORD*)& byte_5D4594[251584];
@@ -16602,7 +16602,7 @@ int __cdecl sub_412C60(const char* a1, int a2)
         *(_DWORD*)& byte_5D4594[251584] = a2;
         result = 1;
     }
-    else if (!strcmp(a1, (const char*)& byte_587000[31904]))
+    else if (!strcmp(a1, "MATERIAL"))
     {
         *(_DWORD*)(a2 + 140) = 0;
         *(_DWORD*)(a2 + 136) = *(_DWORD*)& byte_5D4594[251588];
@@ -16611,7 +16611,7 @@ int __cdecl sub_412C60(const char* a1, int a2)
         *(_DWORD*)& byte_5D4594[251588] = a2;
         result = 1;
     }
-    else if (!strcmp(a1, (const char*)& byte_587000[31916]))
+    else if (!strcmp(a1, "ENCHANTMENT"))
     {
         *(_DWORD*)(a2 + 140) = 0;
         *(_DWORD*)(a2 + 136) = *(_DWORD*)& byte_5D4594[251592];
@@ -16640,7 +16640,7 @@ int __cdecl sub_412D40(int a1, FILE* a2, char* a3)
     while (1)
     {
         sub_409470(a2, v9);
-        if (!strcmp(v9, (const char*)& byte_587000[31928]))
+        if (!strcmp(v9, "END"))
             return 1;
         v3 = (char**)nox_calloc(1u, 0x58u);
         v4 = v3;
@@ -16660,7 +16660,7 @@ int __cdecl sub_412D40(int a1, FILE* a2, char* a3)
         while (1)
         {
             sub_409470(a2, v9);
-            if (!strcmp(v9, (const char*)& byte_587000[31932]))
+            if (!strcmp(v9, "END"))
                 break;
             v6 = &byte_587000[28600];
             if (*(_DWORD*)& byte_587000[28604])
@@ -16696,7 +16696,7 @@ int __cdecl sub_412ED0(int a1, FILE* a2, char* a3)
     while (1)
     {
         sub_409470(a2, v9);
-        if (!strcmp(v9, (const char*)& byte_587000[31936]))
+        if (!strcmp(v9, "END"))
             return 1;
         v3 = (char**)nox_calloc(1u, 0x58u);
         v4 = v3;
@@ -16716,7 +16716,7 @@ int __cdecl sub_412ED0(int a1, FILE* a2, char* a3)
         while (1)
         {
             sub_409470(a2, v9);
-            if (!strcmp(v9, (const char*)& byte_587000[31940]))
+            if (!strcmp(v9, "END"))
                 break;
             v6 = &byte_587000[28600];
             if (*(_DWORD*)& byte_587000[28604])
@@ -17036,7 +17036,7 @@ BOOL __cdecl sub_4133D0(int a1)
     v2 = *(_DWORD*)(a1 + 692);
     if (!*(_DWORD*)& byte_5D4594[251620])
     {
-        v3 = sub_413290((const char*)& byte_587000[31944]);
+        v3 = sub_413290("Material7");
         v1 = sub_413330(v3);
         *(_DWORD*)& byte_5D4594[251620] = v1;
     }
@@ -17087,7 +17087,7 @@ wchar_t* __cdecl sub_413480(char a1)
         if ((int)v2 >= (int)& byte_587000[27452])
             return 0;
     }
-    return loadString_sub_40F1D0(*(char**)& byte_587000[20 * v1 + 27344], 0, (const char*)& byte_587000[31956], 2087);
+    return loadString_sub_40F1D0(*(char**)& byte_587000[20 * v1 + 27344], 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 2087);
 }
 
 //----- (004134C0) --------------------------------------------------------
@@ -17151,8 +17151,8 @@ int sub_413520()
             v8 = sub_413760;
             v7 = sub_413780;
             v6 = 35;
-            v5 = loadString_sub_40F1D0((char*)& byte_587000[32036], 0, (const char*)& byte_587000[31996], 200);
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[32088], 0, (const char*)& byte_587000[32048], 199);
+            v5 = loadString_sub_40F1D0((char*)& byte_587000[32036], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 200);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[32088], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 199);
             goto LABEL_9;
         }
         if (v1 == 1 && sub_40A5C0(2048))
@@ -17163,8 +17163,8 @@ int sub_413520()
             v8 = sub_413760;
             v7 = sub_413780;
             v6 = 35;
-            v5 = loadString_sub_40F1D0((char*)& byte_587000[32140], 0, (const char*)& byte_587000[32100], 219);
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[32192], 0, (const char*)& byte_587000[32152], 218);
+            v5 = loadString_sub_40F1D0((char*)& byte_587000[32140], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 219);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[32192], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 218);
             goto LABEL_9;
         }
         sub_4137E0();
@@ -17206,8 +17206,8 @@ int sub_413520()
         v8 = 0;
         v7 = sub_413760;
         v6 = 33;
-        v5 = loadString_sub_40F1D0((char*)& byte_587000[32244], 0, (const char*)& byte_587000[32204], 293);
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[32296], 0, (const char*)& byte_587000[32256], 292);
+        v5 = loadString_sub_40F1D0((char*)& byte_587000[32244], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 293);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[32296], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 292);
     LABEL_9:
         sub_449A10(0, (int)v2, (int)v5, v6, v7, v8);
         sub_44A360(0);
@@ -17388,8 +17388,8 @@ int sub_413900()
 //----- (00413920) --------------------------------------------------------
 int sub_413920()
 {
-    sub_42EBB0(1u, sub_413900, 0, (const char*)& byte_587000[32324]);
-    sub_42EBB0(2u, sub_4138E0, 0, (const char*)& byte_587000[32332]);
+    sub_42EBB0(1u, sub_413900, 0, "Pause");
+    sub_42EBB0(2u, sub_4138E0, 0, "Pause");
     *(_DWORD*)& byte_5D4594[251744] = 0;
     return 1;
 }
@@ -17508,7 +17508,7 @@ void __cdecl sub_413AD0(FILE* a1)
     if (a1)
     {
         v2 = sub_413B00();
-        fprintf(a1, (const char*)& byte_587000[32344], v2);
+        fprintf(a1, "Log closed: %s", v2);
         fflush(a1);
         fclose(a1);
     }
@@ -17560,7 +17560,7 @@ void __cdecl sub_413BD0(FILE* a1, int a2)
 {
     if (a1)
     {
-        fprintf(a1, (const char*)& byte_587000[32384], a2);
+        fprintf(a1, "%s", a2);
         fflush(a1);
     }
 }
@@ -17642,7 +17642,7 @@ int sub_413D30(char* a1, ...)
     if (result)
     {
         nox_vsprintf((char*)& byte_5D4594[251752], a1, va);
-        nox_sprintf((char*)& byte_5D4594[251752], (const char*)& byte_587000[32536], &byte_5D4594[251752], 240);
+        nox_sprintf((char*)& byte_5D4594[251752], "%s%c(", &byte_5D4594[251752], 240);
         strcat((char*)& byte_5D4594[251752], asctime(v1));
         v5 = nox_file_net_log;
         byte_5D4594[strlen((const char*)& byte_5D4594[251752]) + 251751] = 0;
@@ -17772,7 +17772,7 @@ char* __cdecl sub_413FE0(const char* a1, int a2, int a3)
     if (a3 <= 0)
         return 0;
     strcpy(v3, a1);
-    nox_sprintf(v9, (const char*)& byte_587000[32556], a1);
+    nox_sprintf(v9, "%s (Allocation Class)", a1);
     v4 = nox_calloc(a3, a2 + 16);
     *((_DWORD*)v3 + 29) = v4;
     if (!v4)
@@ -19252,7 +19252,7 @@ char** sub_4158C0()
             v1 = &byte_587000[33396];
             do
             {
-                *((_DWORD*)v1 - 1) = loadString_sub_40F1D0(*result, 0, (const char*)& byte_587000[34804], 200);
+                *((_DWORD*)v1 - 1) = loadString_sub_40F1D0(*result, 0, "C:\\NoxPost\\src\\common\\Object\\WeapLook.c", 200);
                 v2 = *((_DWORD*)v1 + 3);
                 v1 += 12;
                 result = (char**)v1;
@@ -19458,7 +19458,7 @@ wchar_t* __cdecl sub_415B60(int a1)
 
     v1 = 0;
     if (!*(_DWORD*)& byte_587000[34848])
-        return loadString_sub_40F1D0((char*)& byte_587000[37836], 0, (const char*)& byte_587000[37796], 263);
+        return loadString_sub_40F1D0((char*)& byte_587000[37836], 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 263);
     HIWORD(v2) = 0;
     for (i = &byte_587000[34848]; ; i += 24)
     {
@@ -19468,9 +19468,9 @@ wchar_t* __cdecl sub_415B60(int a1)
         v4 = *((_DWORD*)i + 6);
         ++v1;
         if (!v4)
-            return loadString_sub_40F1D0((char*)& byte_587000[37836], 0, (const char*)& byte_587000[37796], 263);
+            return loadString_sub_40F1D0((char*)& byte_587000[37836], 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 263);
     }
-    return loadString_sub_40F1D0(*(char**)& byte_587000[24 * v1 + 34852], 0, (const char*)& byte_587000[37756], 261);
+    return loadString_sub_40F1D0(*(char**)& byte_587000[24 * v1 + 34852], 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 261);
 }
 
 //----- (00415BD0) --------------------------------------------------------
@@ -19611,7 +19611,7 @@ char** sub_415D50()
             v1 = &byte_587000[35500];
             do
             {
-                *((_DWORD*)v1 - 1) = loadString_sub_40F1D0(*result, 0, (const char*)& byte_587000[37852], 380);
+                *((_DWORD*)v1 - 1) = loadString_sub_40F1D0(*result, 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 380);
                 v2 = *((_DWORD*)v1 + 3);
                 v1 += 12;
                 result = (char**)v1;
@@ -21124,7 +21124,7 @@ void __cdecl sub_417680(int a1, char a2)
             v8[2] = 0;
             v8[3] = 0;
         } while (v7);
-        v9 = sub_413290((const char*)& byte_587000[54496]);
+        v9 = sub_413290("UserColor1");
         v10 = sub_413330(v9);
         if (v10)
         {
@@ -21159,7 +21159,7 @@ void __cdecl sub_417680(int a1, char a2)
                 {
                     if (a2 & 8)
                     {
-                        v16 = sub_413290((const char*)& byte_587000[54508]);
+                        v16 = sub_413290("ArmorQuality1");
                         LOBYTE(a1) = *(_BYTE*)(sub_413330(v16) + 4);
                         sub_417AA0(80, *(_DWORD*)(v2 + 2060), 0x8000, (int)& a1);
                     }
@@ -21167,7 +21167,7 @@ void __cdecl sub_417680(int a1, char a2)
                 else if (sub_40A5C0(4096))
                 {
                     a1 = -1;
-                    v17 = sub_413290((const char*)& byte_587000[54524]);
+                    v17 = sub_413290("Replenishment1");
                     BYTE2(a1) = *(_BYTE*)(sub_413330(v17) + 4);
                     sub_417AA0(80, *(_DWORD*)(v2 + 2060), 0x10000, (int)& a1);
                 }
@@ -21182,9 +21182,9 @@ void __cdecl sub_417680(int a1, char a2)
                 {
                     if (a2 & 0x20)
                     {
-                        v18 = sub_413290((const char*)& byte_587000[54540]);
+                        v18 = sub_413290("ArmorQuality1");
                         LOBYTE(a1) = *(_BYTE*)(sub_413330(v18) + 4);
-                        v19 = sub_413290((const char*)& byte_587000[54556]);
+                        v19 = sub_413290("Material1");
                         v20 = *(_BYTE*)(sub_413330(v19) + 4);
                         v21 = *(_DWORD*)(v2 + 2060);
                         LOBYTE(a1) = v20;
@@ -21211,7 +21211,7 @@ void __cdecl sub_417680(int a1, char a2)
                 {
                     if (a2 & 8)
                     {
-                        v22 = sub_413290((const char*)& byte_587000[54568]);
+                        v22 = sub_413290("ArmorQuality1");
                         v23 = *(_BYTE*)(sub_413330(v22) + 4);
                         v24 = *(_DWORD*)(v2 + 2060);
                         LOBYTE(a1) = v23;
@@ -21382,7 +21382,7 @@ int sub_417C60()
         v1 = &byte_587000[54596];
         do
         {
-            *(_DWORD*)v1 = loadString_sub_40F1D0(*((char**)v1 - 1), 0, (const char*)& byte_587000[55092], 233);
+            *(_DWORD*)v1 = loadString_sub_40F1D0(*((char**)v1 - 1), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 233);
             v1 += 16;
         } while ((int)v1 < (int)& byte_587000[54756]);
         *(_DWORD*)& byte_5D4594[526288] = 1;
@@ -21495,7 +21495,7 @@ int sub_417E10()
         sub_4191D0(v0[57], (int)v1, 0, *(int*)& byte_5D4594[2616328], 0);
     if (v0)
     {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[55164], 0, (const char*)& byte_587000[55128], 405);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[55164], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 405);
         sub_418800((wchar_t*)v0, v2, 0);
     }
     return sub_417D70(1);
@@ -22032,14 +22032,14 @@ char* __cdecl sub_4186D0(char a1)
         sub_459CD0();
         if (!sub_40A5C0(512))
         {
-            v8 = loadString_sub_40F1D0((char*)& byte_587000[55444], 0, (const char*)& byte_587000[55408], 1009);
+            v8 = loadString_sub_40F1D0((char*)& byte_587000[55444], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1009);
             sub_450C00(6u, v8);
         }
         result = (char*)v7;
     }
     else
     {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[55396], 0, (const char*)& byte_587000[55360], 982);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[55396], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 982);
         sub_450C00(6u, v1);
         result = 0;
     }
@@ -22356,7 +22356,7 @@ wchar_t* __cdecl sub_418C20(int a1)
         v2 += 16;
         ++v1;
         if ((int)v2 >= (int)& byte_587000[54760])
-            return loadString_sub_40F1D0((char*)& byte_587000[55492], 0, (const char*)& byte_587000[55456], 1365);
+            return loadString_sub_40F1D0((char*)& byte_587000[55492], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1365);
     }
     return *(wchar_t**)& byte_587000[16 * v1 + 54596];
 }
@@ -22776,12 +22776,12 @@ char* __cdecl sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5)
                         {
                             if (sub_40A5C0(4096))
                             {
-                                v10 = loadString_sub_40F1D0((char*)& byte_587000[55548], 0, (const char*)& byte_587000[55512], 1848);
+                                v10 = loadString_sub_40F1D0((char*)& byte_587000[55548], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1848);
                                 nox_swprintf(v24, v10, v9 + 4704);
                             }
                             else
                             {
-                                v11 = loadString_sub_40F1D0((char*)& byte_587000[55616], 0, (const char*)& byte_587000[55580], 1850);
+                                v11 = loadString_sub_40F1D0((char*)& byte_587000[55616], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1850);
                                 nox_swprintf(v24, v11, v9 + 4704, v6);
                             }
                             sub_445490(v24);
@@ -22814,12 +22814,12 @@ char* __cdecl sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5)
                     {
                         if (sub_40A5C0(4096))
                         {
-                            v16 = loadString_sub_40F1D0((char*)& byte_587000[55664], 0, (const char*)& byte_587000[55628], 1889);
+                            v16 = loadString_sub_40F1D0((char*)& byte_587000[55664], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1889);
                             nox_swprintf(v24, v16, v15 + 4704);
                         }
                         else
                         {
-                            v17 = loadString_sub_40F1D0((char*)& byte_587000[55732], 0, (const char*)& byte_587000[55696], 1891);
+                            v17 = loadString_sub_40F1D0((char*)& byte_587000[55732], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1891);
                             nox_swprintf(v24, v17, v15 + 4704, v6);
                         }
                         sub_445490(v24);
@@ -23140,23 +23140,23 @@ int sub_419B30()
                         goto LABEL_5;
                     if (sub_40A5C0(2048) || sub_40A5C0(0x200000))
                     {
-                        if (!_strcmpi((const char*)& byte_587000[55764], v8))
+                        if (!_strcmpi("ARENA", v8))
                             goto LABEL_5;
-                        if (!_strcmpi((const char*)& byte_587000[55772], v8))
+                        if (!_strcmpi("SOLO", v8))
                             continue;
                     }
                     if (!sub_40A5C0(0x2000))
                         goto LABEL_15;
-                    if (_strcmpi((const char*)& byte_587000[55780], v8))
+                    if (_strcmpi("SOLO", v8))
                     {
-                        if (_strcmpi((const char*)& byte_587000[55788], v8))
+                        if (_strcmpi("ARENA", v8))
                         {
                         LABEL_15:
                             if (sub_409470(v1, v9) == -1)
                                 goto LABEL_25;
                             sub_4093E0(v1, v11, 1024);
                             v2 = 0;
-                            v3 = strtok(v11, (const char*)& byte_587000[55796]);
+                            v3 = strtok(v11, " ,\r\n\t");
                             if (v3)
                             {
                                 v4 = v10;
@@ -23167,7 +23167,7 @@ int sub_419B30()
                                     ++v4;
                                     if (v2 == 255)
                                         break;
-                                    v3 = strtok(0, (const char*)& byte_587000[55804]);
+                                    v3 = strtok(0, " ,\r\n\t");
                                 } while (v3);
                             }
                             v5 = nox_malloc(8u);
@@ -23339,7 +23339,7 @@ int __cdecl sub_419F10(const char* a1, const char* a2)
         v3[4] = v2;
     }
     v4 = sub_409E10();
-    nox_sprintf((char*)& byte_5D4594[2660688], (const char*)& byte_587000[56168], v4, v6);
+    nox_sprintf((char*)& byte_5D4594[2660688], "%s\\Save\\%s", v4, v6);
     strcpy((char*)& byte_5D4594[2661712], a2);
     GetLocalTime((LPSYSTEMTIME)& byte_5D4594[2661872]);
     result = sub_40A5C0(0x2000);
@@ -25117,7 +25117,7 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2)
     if (sub_40A5C0(1) || a2 >= *(int*)& byte_587000[55984])
     {
         v5 = sub_409E10();
-        nox_sprintf(PathName, (const char*)& byte_587000[56540], v5);
+        nox_sprintf(PathName, "%s\\Save\\", v5);
         CreateDirectoryA(PathName, 0);
         v6 = sub_408CC0((char*)& byte_5D4594[2660688], 1);
         nox_file_2 = v6;
@@ -25142,9 +25142,9 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2)
                     byte_5D4594[2661961] = 0;
                 if (sub_41A230((char*)& byte_5D4594[2660688]))
                 {
-                    v9 = loadString_sub_40F1D0((char*)& byte_587000[56752], 0, (const char*)& byte_587000[56704], 3420);
+                    v9 = loadString_sub_40F1D0((char*)& byte_587000[56752], 0, "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3420);
                     sub_450C00(0xCu, v9);
-                    v10 = loadString_sub_40F1D0((char*)& byte_587000[56816], 0, (const char*)& byte_587000[56768], 3421);
+                    v10 = loadString_sub_40F1D0((char*)& byte_587000[56816], 0, "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3421);
                     sub_445490(v10);
                     result = 1;
                 }
@@ -25168,9 +25168,9 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2)
     }
     else
     {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[56392], 0, (const char*)& byte_587000[56344], 3341);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[56392], 0, "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3341);
         sub_450C00(0xCu, v2);
-        v3 = loadString_sub_40F1D0((char*)& byte_587000[56460], 0, (const char*)& byte_587000[56412], 3342);
+        v3 = loadString_sub_40F1D0((char*)& byte_587000[56460], 0, "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3342);
         sub_445490(v3);
         sub_413D30((char*)& byte_587000[56480], &byte_5D4594[2660688]);
         result = 0;
@@ -25270,7 +25270,7 @@ int __cdecl sub_41CC00(char* a1)
     if (result)
     {
         sub_41CAC0(a1, (char**)result);
-        sub_40BC60(31, 3, (const char*)& byte_587000[56832], v4, v2, 0);
+        sub_40BC60(31, 3, "SAVE_SERVER", v4, v2, 0);
         result = 1;
     }
     return result;
@@ -25521,7 +25521,7 @@ int __cdecl sub_41CFA0(char* a1, int a2)
             sub_408E40(v5, v2, 1, nox_file_2);
             sub_408D90(nox_file_2);
             sub_419EB0(a2, 1);
-            sub_40BC60(a2, 2, (const char*)& byte_587000[57156], (int)v5, v2, 1);
+            sub_40BC60(a2, 2, "SAVEDATA", (int)v5, v2, 1);
             free(v5);
         }
         else
@@ -25634,14 +25634,14 @@ _DWORD* __cdecl sub_41D1D0(int a1)
     unsigned __int8* v6; // esi
     _DWORD* result; // eax
 
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[57204], 0, (const char*)& byte_587000[57168], 41);
+    v1 = loadString_sub_40F1D0((char*)& byte_587000[57204], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 41);
     if (*(int*)& byte_5D4594[2660652] > -2147221247)
     {
         if (*(_DWORD*)& byte_5D4594[2660652])
             LABEL_21:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[58048], 0, (const char*)& byte_587000[58012], 123);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[58048], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 123);
         else
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57996], 0, (const char*)& byte_587000[57960], 117);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57996], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 117);
     }
     else
     {
@@ -25653,55 +25653,55 @@ _DWORD* __cdecl sub_41D1D0(int a1)
         switch (*(int*)& byte_5D4594[2660652] + 2147221404)
         {
         case 0:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57516], 0, (const char*)& byte_587000[57480], 64);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57516], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 64);
             break;
         case 1:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57564], 0, (const char*)& byte_587000[57528], 68);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57564], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 68);
             break;
         case 3:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57416], 0, (const char*)& byte_587000[57380], 56);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57416], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 56);
             break;
         case 4:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57356], 0, (const char*)& byte_587000[57320], 52);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57356], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 52);
             break;
         case 5:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57304], 0, (const char*)& byte_587000[57268], 48);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57304], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 48);
             break;
         case 6:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57472], 0, (const char*)& byte_587000[57436], 60);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57472], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 60);
             break;
         case 8:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57612], 0, (const char*)& byte_587000[57576], 72);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57612], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 72);
             break;
         case 14:
             v3 = sub_4207E0();
             v4 = v3;
             if (v3)
             {
-                v5 = strcspn((const char*)(v3 + 24), (const char*)& byte_587000[57728]);
-                if (!strncmp((const char*)& byte_587000[57732], (const char*)(v5 + v4 + 25), 0x22u))
+                v5 = strcspn((const char*)(v3 + 24), ":");
+                if (!strncmp("Official Nox Games for New Players", (const char*)(v5 + v4 + 25), 0x22u))
                 {
-                    v1 = loadString_sub_40F1D0((char*)& byte_587000[57804], 0, (const char*)& byte_587000[57768], 96);
-                    v2 = loadString_sub_40F1D0((char*)& byte_587000[57860], 0, (const char*)& byte_587000[57824], 97);
+                    v1 = loadString_sub_40F1D0((char*)& byte_587000[57804], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 96);
+                    v2 = loadString_sub_40F1D0((char*)& byte_587000[57860], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 97);
                 }
                 else
                 {
-                    v2 = loadString_sub_40F1D0((char*)& byte_587000[57908], 0, (const char*)& byte_587000[57872], 101);
+                    v2 = loadString_sub_40F1D0((char*)& byte_587000[57908], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 101);
                 }
             }
             else
             {
-                v2 = loadString_sub_40F1D0((char*)& byte_587000[57952], 0, (const char*)& byte_587000[57916], 106);
+                v2 = loadString_sub_40F1D0((char*)& byte_587000[57952], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 106);
             }
             break;
         case 16:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57252], 0, (const char*)& byte_587000[57216], 44);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57252], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 44);
             break;
         case 17:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57664], 0, (const char*)& byte_587000[57628], 76);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57664], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 76);
             break;
         case 18:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[57716], 0, (const char*)& byte_587000[57680], 80);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[57716], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 80);
             break;
         default:
             goto LABEL_21;
@@ -26085,22 +26085,22 @@ wchar_t* __cdecl sub_41DAC0(int a1)
     switch (a1 + 2147221402)
     {
     case 0:
-        result = loadString_sub_40F1D0((char*)& byte_587000[58600], 0, (const char*)& byte_587000[58560], 196);
+        result = loadString_sub_40F1D0((char*)& byte_587000[58600], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 196);
         break;
     case 8:
-        result = loadString_sub_40F1D0((char*)& byte_587000[58496], 0, (const char*)& byte_587000[58456], 188);
+        result = loadString_sub_40F1D0((char*)& byte_587000[58496], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 188);
         break;
     case 10:
-        result = loadString_sub_40F1D0((char*)& byte_587000[58376], 0, (const char*)& byte_587000[58336], 180);
+        result = loadString_sub_40F1D0((char*)& byte_587000[58376], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 180);
         break;
     case 11:
-        result = loadString_sub_40F1D0((char*)& byte_587000[58548], 0, (const char*)& byte_587000[58508], 192);
+        result = loadString_sub_40F1D0((char*)& byte_587000[58548], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 192);
         break;
     case 12:
-        result = loadString_sub_40F1D0((char*)& byte_587000[58436], 0, (const char*)& byte_587000[58396], 184);
+        result = loadString_sub_40F1D0((char*)& byte_587000[58436], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 184);
         break;
     default:
-        result = loadString_sub_40F1D0((char*)& byte_587000[58652], 0, (const char*)& byte_587000[58612], 200);
+        result = loadString_sub_40F1D0((char*)& byte_587000[58652], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 200);
         break;
     }
     if (result)
@@ -26138,8 +26138,8 @@ int sub_41DB90()
                 if (v3)
                 {
                     sub_468110();
-                    nox_sprintf((char*)& byte_5D4594[527996], (const char*)& byte_587000[58668], v3 + 81, v3 + 337);
-                    nox_sprintf((char*)& byte_5D4594[527732], (const char*)& byte_587000[58676], v3 + 468, v3 + 337);
+                    nox_sprintf((char*)& byte_5D4594[527996], "%s/%s", v3 + 81, v3 + 337);
+                    nox_sprintf((char*)& byte_5D4594[527732], "%s\\%s", v3 + 468, v3 + 337);
                     CreateDirectoryA((LPCSTR)(v3 + 468), 0);
                     v0 = sub_40DC90(
                         v3 + 16,
@@ -26275,20 +26275,20 @@ int sub_41DDB0()
                         switch (*(_DWORD*)& byte_5D4594[2660652] + 2147221403)
                         {
                         case 0:
-                            v2 = loadString_sub_40F1D0((char*)& byte_587000[58748], 0, (const char*)& byte_587000[58708], 414);
+                            v2 = loadString_sub_40F1D0((char*)& byte_587000[58748], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 414);
                             nox_wcscpy((wchar_t*)& byte_5D4594[2660140], v2);
                             break;
                         case 1:
-                            v3 = loadString_sub_40F1D0((char*)& byte_587000[58800], 0, (const char*)& byte_587000[58760], 418);
+                            v3 = loadString_sub_40F1D0((char*)& byte_587000[58800], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 418);
                             goto LABEL_14;
                         case 155:
-                            v3 = loadString_sub_40F1D0((char*)& byte_587000[58848], 0, (const char*)& byte_587000[58808], 422);
+                            v3 = loadString_sub_40F1D0((char*)& byte_587000[58848], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 422);
                             goto LABEL_14;
                         case 156:
-                            v3 = loadString_sub_40F1D0((char*)& byte_587000[58904], 0, (const char*)& byte_587000[58864], 426);
+                            v3 = loadString_sub_40F1D0((char*)& byte_587000[58904], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 426);
                             goto LABEL_14;
                         default:
-                            v3 = loadString_sub_40F1D0((char*)& byte_587000[58956], 0, (const char*)& byte_587000[58916], 430);
+                            v3 = loadString_sub_40F1D0((char*)& byte_587000[58956], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 430);
                         LABEL_14:
                             nox_swprintf((wchar_t*)& byte_5D4594[2660140], v3);
                             break;
@@ -26762,28 +26762,28 @@ wchar_t* sub_41E5D0()
     switch (*(_DWORD*)& byte_587000[59168])
     {
     case 1:
-        result = loadString_sub_40F1D0((char*)& byte_587000[59212], 0, (const char*)& byte_587000[59172], 101);
+        result = loadString_sub_40F1D0((char*)& byte_587000[59212], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolpatch.c", 101);
         break;
     case 2:
-        result = loadString_sub_40F1D0((char*)& byte_587000[59268], 0, (const char*)& byte_587000[59228], 105);
+        result = loadString_sub_40F1D0((char*)& byte_587000[59268], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolpatch.c", 105);
         break;
     case 3:
-        result = loadString_sub_40F1D0((char*)& byte_587000[59324], 0, (const char*)& byte_587000[59284], 109);
+        result = loadString_sub_40F1D0((char*)& byte_587000[59324], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolpatch.c", 109);
         break;
     case 4:
-        result = loadString_sub_40F1D0((char*)& byte_587000[59376], 0, (const char*)& byte_587000[59336], 113);
+        result = loadString_sub_40F1D0((char*)& byte_587000[59376], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolpatch.c", 113);
         break;
     case 5:
-        result = loadString_sub_40F1D0((char*)& byte_587000[59428], 0, (const char*)& byte_587000[59388], 117);
+        result = loadString_sub_40F1D0((char*)& byte_587000[59428], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolpatch.c", 117);
         break;
     case 6:
-        result = loadString_sub_40F1D0((char*)& byte_587000[59488], 0, (const char*)& byte_587000[59448], 121);
+        result = loadString_sub_40F1D0((char*)& byte_587000[59488], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolpatch.c", 121);
         break;
     case 7:
-        result = loadString_sub_40F1D0((char*)& byte_587000[59544], 0, (const char*)& byte_587000[59504], 125);
+        result = loadString_sub_40F1D0((char*)& byte_587000[59544], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolpatch.c", 125);
         break;
     default:
-        result = loadString_sub_40F1D0((char*)& byte_587000[59600], 0, (const char*)& byte_587000[59560], 129);
+        result = loadString_sub_40F1D0((char*)& byte_587000[59600], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolpatch.c", 129);
         break;
     }
     return result;
@@ -27105,12 +27105,12 @@ int* sub_41EAC0()
 
     *(_DWORD*)& byte_5D4594[529340] = 0;
     *(_DWORD*)& byte_587000[59616] = -1;
-    v0 = sub_41E9D0(0, (const char*)& byte_587000[59676], 0, 0, 1);
+    v0 = sub_41E9D0(0, "Chat Channels", 0, 0, 1);
     *(_DWORD*)& byte_5D4594[529316] = v0;
     v0[5] = 0;
     *(_DWORD*)& byte_5D4594[529324] = v0;
     v1 = sub_420100();
-    result = sub_41E9D0(0, (const char*)& byte_587000[59692], 0, v1, 0);
+    result = sub_41E9D0(0, "Nox", 0, v1, 0);
     if (result)
     {
         result[9] = *(_DWORD*)& byte_5D4594[529316];
@@ -27288,7 +27288,7 @@ void __cdecl sub_41ECB0(int a1)
                 v14 = strlen(v4);
                 if (strncmp((const char*)(a1 + 52), v4, v14))
                     return;
-                nox_sprintf((char*)(a1 + 215), (const char*)& byte_587000[59696]);
+                nox_sprintf((char*)(a1 + 215), "zot0blat");
             }
             v5 = (wchar_t*)nox_malloc(0x30u);
             v6 = 0;
@@ -27692,13 +27692,13 @@ BOOL __cdecl sub_41F3A0(int a1, int a2)
 
     if (sub_41E2F0() == 7)
     {
-        v4 = loadString_sub_40F1D0((char*)& byte_587000[59760], 0, (const char*)& byte_587000[59720], 970);
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[59828], 0, (const char*)& byte_587000[59788], 969);
+        v4 = loadString_sub_40F1D0((char*)& byte_587000[59760], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c", 970);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[59828], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c", 969);
     }
     else
     {
-        v4 = loadString_sub_40F1D0((char*)& byte_587000[59892], 0, (const char*)& byte_587000[59852], 976);
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[59956], 0, (const char*)& byte_587000[59916], 975);
+        v4 = loadString_sub_40F1D0((char*)& byte_587000[59892], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c", 976);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[59956], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c", 975);
     }
     sub_449A10(0, (int)v2, (int)v4, 288, 0, 0);
     sub_44A4B0();
@@ -27866,7 +27866,7 @@ void __cdecl sub_41F620(int a1)
             if (v6 != -1 && sub_446C70() == -1)
             {
                 sub_452D80(226, 100);
-                v7 = loadString_sub_40F1D0((char*)& byte_587000[60020], 0, (const char*)& byte_587000[59980], 208);
+                v7 = loadString_sub_40F1D0((char*)& byte_587000[60020], 0, "C:\\NoxPost\\src\\common\\WolAPI\\woluser.c", 208);
                 sub_447310(0, (int)v7);
             }
         }
@@ -27901,7 +27901,7 @@ char* __cdecl sub_41F740(int a1, char a2)
 {
     if (!a1)
         return 0;
-    nox_sprintf((char*)& byte_5D4594[531392], (const char*)& byte_587000[60036], (a2 & 1) != 0 ? 64 : 32, a1);
+    nox_sprintf((char*)& byte_5D4594[531392], "%c%s", (a2 & 1) != 0 ? 64 : 32, a1);
     return (char*)& byte_5D4594[531392];
 }
 
@@ -28260,8 +28260,8 @@ int sub_41FDE0()
         strcpy((char*)(v0 + 238), v4);
         sub_40D2C0(v0, 30, 0);
         sub_41FA50(v3);
-        v1 = strcspn((const char*)(v0 + 24), (const char*)& byte_587000[60048]);
-        if (!strncmp((const char*)& byte_587000[60052], (const char*)(v1 + v0 + 25), 8u))
+        v1 = strcspn((const char*)(v0 + 24), ":");
+        if (!strncmp("Official", (const char*)(v1 + v0 + 25), 8u))
             sub_40A4D0(0x1000000);
         else
             sub_40A540(0x1000000);
@@ -28368,7 +28368,7 @@ LSTATUS sub_420030()
             *(_DWORD*)& byte_587000[60072] = *(_DWORD*)Data;
             nox_sprintf(
                 (char*)& byte_5D4594[534780],
-                (const char*)& byte_587000[60112],
+                "%s%d_",
                 &byte_587000[60104],
                 *(_DWORD*)Data >> 8);
         }
@@ -28453,7 +28453,7 @@ LPVOID sub_420200()
     v0 = *(_DWORD*)& byte_5D4594[534808];
     if (!*(_DWORD*)& byte_5D4594[534808])
         return 0;
-    while (_strcmpi((const char*)(v0 + 24), (const char*)& byte_587000[60152]))
+    while (_strcmpi((const char*)(v0 + 24), "chat server"))
     {
         v0 = *(_DWORD*)(v0 + 20);
         if (!v0)
@@ -28479,16 +28479,16 @@ int __cdecl sub_420230(char* a1, _WORD* a2)
         return 0;
     while (1)
     {
-        if (!_strcmpi((const char*)(v2 + 95), (const char*)& byte_587000[60164]))
+        if (!_strcmpi((const char*)(v2 + 95), "LAD"))
         {
             strcpy(v6, (const char*)(v2 + 100));
             *a1 = 0;
             *a2 = 0;
-            strtok(v6, (const char*)& byte_587000[60168]);
-            v3 = strtok(0, (const char*)& byte_587000[60172]);
+            strtok(v6, ";");
+            v3 = strtok(0, ";");
             if (v3)
                 strcpy(a1, v3);
-            v4 = strtok(0, (const char*)& byte_587000[60176]);
+            v4 = strtok(0, ";");
             if (v4)
                 * a2 = atoi(v4);
             if (*a1 && *a2)
@@ -28519,7 +28519,7 @@ int __cdecl sub_420360(char* a1, _WORD* a2)
     v2 = *(_DWORD*)& byte_5D4594[534808];
     if (!*(_DWORD*)& byte_5D4594[534808])
         return 0;
-    while (_strcmpi((const char*)(v2 + 95), (const char*)& byte_587000[60180]))
+    while (_strcmpi((const char*)(v2 + 95), "GAM"))
     {
     LABEL_19:
         v2 = *(_DWORD*)(v2 + 20);
@@ -28528,16 +28528,16 @@ int __cdecl sub_420360(char* a1, _WORD* a2)
     }
     if (sub_40A5C0(4096))
     {
-        if (!_strcmpi((const char*)(v2 + 24), (const char*)& byte_587000[60184]))
+        if (!_strcmpi((const char*)(v2 + 24), "Quest gameres server"))
         {
             strcpy(v7, (const char*)(v2 + 100));
             *a1 = 0;
             *a2 = 0;
-            strtok(v7, (const char*)& byte_587000[60208]);
-            v3 = strtok(0, (const char*)& byte_587000[60212]);
+            strtok(v7, ";");
+            v3 = strtok(0, ";");
             if (v3)
                 strcpy(a1, v3);
-            v4 = strtok(0, (const char*)& byte_587000[60216]);
+            v4 = strtok(0, ";");
             if (v4)
             {
             LABEL_16:
@@ -28550,16 +28550,16 @@ int __cdecl sub_420360(char* a1, _WORD* a2)
     {
         if (!sub_40A5C0(0x2000))
             return 0;
-        if (!_strcmpi((const char*)(v2 + 24), (const char*)& byte_587000[60220]))
+        if (!_strcmpi((const char*)(v2 + 24), "Gameres server"))
         {
             strcpy(v7, (const char*)(v2 + 100));
             *a1 = 0;
             *a2 = 0;
-            strtok(v7, (const char*)& byte_587000[60236]);
-            v5 = strtok(0, (const char*)& byte_587000[60240]);
+            strtok(v7, ";");
+            v5 = strtok(0, ";");
             if (v5)
                 strcpy(a1, v5);
-            v4 = strtok(0, (const char*)& byte_587000[60244]);
+            v4 = strtok(0, ";");
             if (v4)
                 goto LABEL_16;
         }
@@ -28610,17 +28610,17 @@ const char* __cdecl sub_4205B0(int a1)
         return 0;
     while (1)
     {
-        if (!_strcmpi((const char*)(v1 + 95), (const char*)& byte_587000[60248]))
+        if (!_strcmpi((const char*)(v1 + 95), "IRC"))
         {
             v2 = (const char*)(v1 + 24);
             v3 = isdigit(*(unsigned __int8*)v2);
             if (v3)
             {
                 strcpy(v7, v2);
-                v4 = strtok(v7, (const char*)& byte_587000[60252]);
+                v4 = strtok(v7, ":");
                 if (v4)
                 {
-                    v5 = strtok(v4, (const char*)& byte_587000[60256]);
+                    v5 = strtok(v4, ",");
                     if (v5)
                         break;
                 }
@@ -28633,7 +28633,7 @@ const char* __cdecl sub_4205B0(int a1)
     }
     while (atoi(v5) != a1)
     {
-        v5 = strtok(0, (const char*)& byte_587000[60260]);
+        v5 = strtok(0, ",");
         if (!v5)
             goto LABEL_11;
     }
@@ -28655,17 +28655,17 @@ int __cdecl sub_4206B0(int a1)
         return 0;
     while (1)
     {
-        if (!_strcmpi((const char*)(v1 + 95), (const char*)& byte_587000[60264]))
+        if (!_strcmpi((const char*)(v1 + 95), "IRC"))
         {
             v2 = (const char*)(v1 + 24);
             v3 = isdigit(*(unsigned __int8*)v2);
             if (v3)
             {
                 strcpy(v7, v2);
-                v4 = strtok(v7, (const char*)& byte_587000[60268]);
+                v4 = strtok(v7, ":");
                 if (v4)
                 {
-                    v5 = strtok(v4, (const char*)& byte_587000[60272]);
+                    v5 = strtok(v4, ",");
                     if (v5)
                         break;
                 }
@@ -28678,7 +28678,7 @@ int __cdecl sub_4206B0(int a1)
     }
     while (atoi(v5) != *(_DWORD*)& byte_5D4594[534804])
     {
-        v5 = strtok(0, (const char*)& byte_587000[60276]);
+        v5 = strtok(0, ",");
         if (!v5)
             goto LABEL_11;
     }
@@ -28771,7 +28771,7 @@ _DWORD* __cdecl sub_420890(int a1, int a2)
     v2 = nox_malloc(0x20u);
     if (!v2)
         return 0;
-    v4 = sub_413FE0((const char*)& byte_587000[60336], 16, a1);
+    v4 = sub_413FE0("CreateMsgList", 16, a1);
     v2[3] = v4;
     if (!v4)
         return 0;
@@ -30133,7 +30133,7 @@ void __cdecl sub_421C70(int a1)
                     if (!((1 << *(_BYTE*)(v1 + 2064)) & *((_DWORD*)v4 + 34)) && v4[132] & 1 && sub_40A5C0(4096))
                     {
                         sub_4D61F0(a1);
-                        sub_4DA2C0(a1, (const char*)& byte_587000[60500], 0);
+                        sub_4DA2C0(a1, "GeneralPrint:SecretFound", 0);
                         sub_501960(904, a1, 0, 0);
                         for (i = sub_4DA7C0(); i; i = sub_4DA7F0(i))
                         {
@@ -31342,42 +31342,42 @@ int __cdecl sub_4235F0(int a1, float a2, int a3)
 {
     int result; // eax
 
-    if (!strcmp((const char*)a1, (const char*)& byte_587000[60528]))
+    if (!strcmp((const char*)a1, "ATTACKEFFECT"))
     {
         *(float*)(a3 + 44) = a2;
         result = 1;
     }
-    else if (!strcmp((const char*)a1, (const char*)& byte_587000[60544]))
+    else if (!strcmp((const char*)a1, "ATTACKPREHITEFFECT"))
     {
         *(float*)(a3 + 56) = a2;
         result = 1;
     }
-    else if (!strcmp((const char*)a1, (const char*)& byte_587000[60564]))
+    else if (!strcmp((const char*)a1, "ATTACKPREDAMAGEEFFECT"))
     {
         *(float*)(a3 + 68) = a2;
         result = 1;
     }
-    else if (!strcmp((const char*)a1, (const char*)& byte_587000[60588]))
+    else if (!strcmp((const char*)a1, "DEFENDEFFECT"))
     {
         *(float*)(a3 + 80) = a2;
         result = 1;
     }
-    else if (!strcmp((const char*)a1, (const char*)& byte_587000[60604]))
+    else if (!strcmp((const char*)a1, "DEFENDCOLLIDEEFFECT"))
     {
         *(float*)(a3 + 92) = a2;
         result = 1;
     }
-    else if (!strcmp((const char*)a1, (const char*)& byte_587000[60624]))
+    else if (!strcmp((const char*)a1, "UPDATEEFFECT"))
     {
         *(float*)(a3 + 104) = a2;
         result = 1;
     }
-    else if (!strcmp((const char*)a1, (const char*)& byte_587000[60640]))
+    else if (!strcmp((const char*)a1, "ENGAGEEFFECT"))
     {
         *(float*)(a3 + 120) = a2;
         result = 1;
     }
-    else if (!strcmp((const char*)a1, (const char*)& byte_587000[60656]))
+    else if (!strcmp((const char*)a1, "DISENGAGEEFFECT"))
     {
         *(float*)(a3 + 128) = a2;
         result = 1;
@@ -31420,42 +31420,42 @@ int __cdecl sub_4237B0(const char* a1, int a2, _DWORD* a3)
 {
     int result; // eax
 
-    if (!strcmp(a1, (const char*)& byte_587000[60680]))
+    if (!strcmp(a1, "ATTACKEFFECT"))
     {
         a3[12] = a2;
         result = 1;
     }
-    else if (!strcmp(a1, (const char*)& byte_587000[60696]))
+    else if (!strcmp(a1, "ATTACKPREHITEFFECT"))
     {
         a3[15] = a2;
         result = 1;
     }
-    else if (!strcmp(a1, (const char*)& byte_587000[60716]))
+    else if (!strcmp(a1, "ATTACKPREDAMAGEEFFECT"))
     {
         a3[18] = a2;
         result = 1;
     }
-    else if (!strcmp(a1, (const char*)& byte_587000[60740]))
+    else if (!strcmp(a1, "DEFENDEFFECT"))
     {
         a3[21] = a2;
         result = 1;
     }
-    else if (!strcmp(a1, (const char*)& byte_587000[60756]))
+    else if (!strcmp(a1, "DEFENDCOLLIDEEFFECT"))
     {
         a3[24] = a2;
         result = 1;
     }
-    else if (!strcmp(a1, (const char*)& byte_587000[60776]))
+    else if (!strcmp(a1, "UPDATEEFFECT"))
     {
         a3[27] = a2;
         result = 1;
     }
-    else if (!strcmp(a1, (const char*)& byte_587000[60792]))
+    else if (!strcmp(a1, "ENGAGEEFFECT"))
     {
         a3[31] = a2;
         result = 1;
     }
-    else if (!strcmp(a1, (const char*)& byte_587000[60808]))
+    else if (!strcmp(a1, "DISENGAGEEFFECT"))
     {
         a3[33] = a2;
         result = 1;
@@ -31490,12 +31490,12 @@ char* __cdecl sub_423930(const char* a1, _DWORD* a2, const char** a3)
     char v4[256]; // [esp+8h] [ebp-100h]
 
     strcpy(v4, a1);
-    result = (char*)strncmp(v4, (const char*)& byte_587000[64548], 4u);
+    result = (char*)strncmp(v4, "NULL", 4u);
     if (result)
     {
-        for (result = strtok(v4, (const char*)& byte_587000[64556]);
+        for (result = strtok(v4, "+");
             result;
-            result = strtok(0, (const char*)& byte_587000[64560]))
+            result = strtok(0, "+"))
         {
             sub_4239C0(result, a2, a3);
         }
@@ -31537,10 +31537,10 @@ char* __cdecl sub_423A10(const char* a1, _DWORD* a2)
     char v7[256]; // [esp+8h] [ebp-100h]
 
     strcpy(v7, a1);
-    result = (char*)strncmp(v7, (const char*)& byte_587000[64564], 4u);
+    result = (char*)strncmp(v7, "NULL", 4u);
     if (result)
     {
-        result = strtok(v7, (const char*)& byte_587000[64572]);
+        result = strtok(v7, "+");
         for (i = result; result; i = result)
         {
             if (*(_DWORD*)& byte_587000[61096])
@@ -31556,7 +31556,7 @@ char* __cdecl sub_423A10(const char* a1, _DWORD* a2)
                     v4 = (const char**)v5;
                 } while (v6);
             }
-            result = strtok(0, (const char*)& byte_587000[64576]);
+            result = strtok(0, "+");
         }
     }
     return result;
@@ -31567,27 +31567,27 @@ int __cdecl sub_423AD0(shape* a1, char* a2)
 {
     int result; // eax
 
-    if (!strncmp(a2, (const char*)& byte_587000[64580], 4u))
+    if (!strncmp(a2, "NULL", 4u))
     {
         a1->field_0 = 0;
         result = 1;
     }
-    else if (!strncmp(a2, (const char*)& byte_587000[64588], 6u))
+    else if (!strncmp(a2, "CENTER", 6u))
     {
         result = 1;
         a1->field_0 = 1;
     }
-    else if (!strncmp(a2, (const char*)& byte_587000[64596], 6u))
+    else if (!strncmp(a2, "CIRCLE", 6u))
     {
         a1->field_0 = 2;
-        sscanf(a2, (const char*)& byte_587000[64604], &a1->field_4);
+        sscanf(a2, "%*s %f", &a1->field_4);
         result = 1;
         a1->field_8 = a1->field_4 * a1->field_4;
     }
-    else if (!strncmp(a2, (const char*)& byte_587000[64612], 3u))
+    else if (!strncmp(a2, "BOX", 3u))
     {
         a1->field_0 = 3;
-        sscanf(a2, (const char*)& byte_587000[64616], &a1->field_C, &a1->field_10);
+        sscanf(a2, "%*s %f %f", &a1->field_C, &a1->field_10);
         sub_428270(a1);
         result = 1;
     }
@@ -31698,7 +31698,7 @@ int __cdecl sub_424170(char* a1)
                 v4 = (char*)nox_malloc(strlen(v6) + 1);
                 *v3 = v4;
                 strcpy(v4, v6);
-                while (sub_409470(v2, v6) && strcmp(v6, (const char*)& byte_587000[65184]) && sub_409470(v2, v7))
+                while (sub_409470(v2, v6) && strcmp(v6, "END") && sub_409470(v2, v7))
                 {
                     v5 = sub_40AF50(v7);
                     result = sub_4240F0((int)v3, v6, v5);
@@ -31986,13 +31986,13 @@ int __cdecl sub_424460(int a1, void* a2)
     *(_DWORD*)(a1 + 8) = v25 + 1;
     sub_40ACC0(v43, 1u, v36, a1);
     v43[v36] = 0;
-    *(_DWORD*)v6 = loadString_sub_40F1D0(v43, 0, (const char*)& byte_587000[69568], 481);
+    *(_DWORD*)v6 = loadString_sub_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 481);
     v26 = *(__int16**)(a1 + 8);
     v27 = *v26;
     *(_DWORD*)(a1 + 8) = v26 + 1;
     sub_40ACC0(v43, 1u, v27, a1);
     v43[v27] = 0;
-    *((_DWORD*)v6 + 1) = loadString_sub_40F1D0(v43, 0, (const char*)& byte_587000[69608], 488);
+    *((_DWORD*)v6 + 1) = loadString_sub_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 488);
     v28 = *(unsigned __int8**)(a1 + 8);
     v29 = *v28;
     *(_DWORD*)(a1 + 8) = v28 + 1;
@@ -32578,13 +32578,13 @@ int __cdecl sub_424F00(int a1, void* a2)
     *(_DWORD*)(a1 + 8) = v18 + 1;
     sub_40ACC0(v35, 1u, v32, a1);
     v35[v32] = 0;
-    *(_DWORD*)v5 = loadString_sub_40F1D0(v35, 0, (const char*)& byte_587000[70080], 185);
+    *(_DWORD*)v5 = loadString_sub_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 185);
     v19 = *(__int16**)(a1 + 8);
     v20 = *v19;
     *(_DWORD*)(a1 + 8) = v19 + 1;
     sub_40ACC0(v35, 1u, v20, a1);
     v35[v20] = 0;
-    *((_DWORD*)v5 + 1) = loadString_sub_40F1D0(v35, 0, (const char*)& byte_587000[70124], 193);
+    *((_DWORD*)v5 + 1) = loadString_sub_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 193);
     v21 = *(unsigned __int8**)(a1 + 8);
     v22 = *v21;
     *(_DWORD*)(a1 + 8) = v21 + 1;
@@ -34530,14 +34530,14 @@ int sub_427070()
         v2 = sub_44D330(*v0);
         if (!v2)
             break;
-        nox_sprintf(v13, (const char*)& byte_587000[71128], *v0);
-        *((_DWORD*)i - 1) = loadString_sub_40F1D0(v13, 0, (const char*)& byte_587000[71140], 57);
-        if (!strcmp(*(const char**)v2, (const char*)& byte_587000[71180]))
+        nox_sprintf(v13, "creature:%s", *v0);
+        *((_DWORD*)i - 1) = loadString_sub_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 57);
+        if (!strcmp(*(const char**)v2, "Bomber"))
             * (_DWORD*)i = 0;
         else
             *(_DWORD*)i = sub_44CFC0(*v0);
-        nox_sprintf(v13, (const char*)& byte_587000[71188], *v0);
-        v3 = loadString_sub_40F1D0(v13, 0, (const char*)& byte_587000[71208], 65);
+        nox_sprintf(v13, "creature_desc:%s", *v0);
+        v3 = loadString_sub_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 65);
         v4 = *(_DWORD*)& byte_587000[71248];
         v5 = *(_DWORD*)& byte_587000[71252];
         v6 = *v0;
@@ -36572,7 +36572,7 @@ int __cdecl sub_429B20(_DWORD* a1)
 
     v31 = sub_426A30();
     if (!byte_5D4594[741372])
-        byte_5D4594[741372] = sub_410D60((const char*)& byte_587000[71448]);
+        byte_5D4594[741372] = sub_410D60("MagicWallSystemUseOnly");
     sub_4297B0();
     sub_429520();
     v28 = 7;
@@ -39188,7 +39188,7 @@ _DWORD* __cdecl sub_42CDF0(FILE* a1)
 
     v1 = sub_430AF0();
     v2 = a1;
-    fprintf(a1, (const char*)& byte_587000[80148], *(_DWORD*)& byte_587000[4 * v1 + 73652]);
+    fprintf(a1, "MousePickup = %s\n", *(_DWORD*)& byte_587000[4 * v1 + 73652]);
     result = *(_DWORD * *)& byte_5D4594[754056];
     v4 = *(_DWORD * *)& byte_5D4594[754056];
     if (*(_DWORD*)& byte_5D4594[754056])
@@ -39209,18 +39209,18 @@ _DWORD* __cdecl sub_42CDF0(FILE* a1)
                         do
                         {
                             if (*v11 == (char*) * ((_DWORD*)v6 + 1))
-                                fprintf(v2, (const char*)& byte_587000[80168], *(_DWORD*)v6);
+                                fprintf(v2, "%s ", *(_DWORD*)v6);
                             v7 = *((_DWORD*)v6 + 4);
                             v6 += 16;
                         } while (v7);
                     }
                     if (v5 != v4[8] - 1)
-                        fprintf(v2, (const char*)& byte_587000[80172]);
+                        fprintf(v2, "+ ");
                     ++v5;
                     v11++;
                 } while (v5 < v4[8]);
             }
-            fprintf(v2, (const char*)& byte_587000[80176]);
+            fprintf(v2, "= ");
             v8 = 0;
             if (v4[17] > 0)
             {
@@ -39233,18 +39233,18 @@ _DWORD* __cdecl sub_42CDF0(FILE* a1)
                         do
                         {
                             if (*v12 == (char*) * ((_DWORD*)v9 + 1))
-                                fprintf(v2, (const char*)& byte_587000[80180], *(_DWORD*)v9);
+                                fprintf(v2, "%s ", *(_DWORD*)v9);
                             v10 = *((_DWORD*)v9 + 3);
                             v9 += 12;
                         } while (v10);
                     }
                     if (v8 != v4[17] - 1)
-                        fprintf(v2, (const char*)& byte_587000[80184]);
+                        fprintf(v2, "+ ");
                     ++v8;
                     v12++;
                 } while (v8 < v4[17]);
             }
-            result = (_DWORD*)fprintf(v2, (const char*)& byte_587000[80188]);
+            result = (_DWORD*)fprintf(v2, "\n");
         }
     }
     return result;
@@ -39275,7 +39275,7 @@ int __cdecl sub_42CF50(const char* a1)
     *(_DWORD*)& byte_5D4594[747868] = 4;
     byte_5D4594[747848] = 0;
     strcpy(v18, a1);
-    result = (int)strtok(v18, (const char*)& byte_587000[80192]);
+    result = (int)strtok(v18, " \r\t\n");
     v2 = (const char*)result;
     v16 = (char*)result;
     if (result)
@@ -39285,10 +39285,10 @@ int __cdecl sub_42CF50(const char* a1)
         v17 = result;
         if (result)
         {
-            if (!strcmp(v2, (const char*)& byte_587000[80200]))
+            if (!strcmp(v2, "MousePickup"))
             {
-                strtok(0, (const char*)& byte_587000[80212]);
-                v4 = strtok(0, (const char*)& byte_587000[80220]);
+                strtok(0, " \r\t\n");
+                v4 = strtok(0, " \r\t\n");
                 v5 = 0;
                 v6 = (const char**)& byte_587000[73652];
                 while (_strcmpi(v4, *v6))
@@ -39340,13 +39340,13 @@ int __cdecl sub_42CF50(const char* a1)
                         if (!*(_DWORD*)& byte_587000[16 * v8 + 73672])
                             return 0;
                     }
-                    v16 = strtok(0, (const char*)& byte_587000[80228]);
+                    v16 = strtok(0, " \r\t\n");
                     if (!v16)
                         break;
                     v2 = v16;
                 }
                 v3[17] = 0;
-                v11 = strtok(0, (const char*)& byte_587000[80236]);
+                v11 = strtok(0, " \r\t\n");
                 if (v11)
                 {
                     while (*v11 != 61)
@@ -39380,7 +39380,7 @@ int __cdecl sub_42CF50(const char* a1)
                             if (!*(_DWORD*)& byte_587000[12 * v13 + 75880])
                                 return 0;
                         }
-                        v11 = strtok(0, (const char*)& byte_587000[80244]);
+                        v11 = strtok(0, " \r\t\n");
                         if (!v11)
                             break;
                     }
@@ -39770,7 +39770,7 @@ unsigned int sub_42D510()
 char* sub_42E600()
 {
     sub_413A00(0);
-    return sub_4DB790((const char*)& byte_587000[80392]);
+    return sub_4DB790("AUTOSAVE");
 }
 
 //----- (0042E620) --------------------------------------------------------
@@ -40112,20 +40112,20 @@ char* sub_42EAE0()
         v0 = &byte_587000[73684];
         do
         {
-            *(_DWORD*)v0 = loadString_sub_40F1D0(*((char**)v0 - 1), 0, (const char*)& byte_587000[80404], 2092);
+            *(_DWORD*)v0 = loadString_sub_40F1D0(*((char**)v0 - 1), 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2092);
             v1 = *((_DWORD*)v0 + 1);
             v0 += 16;
         } while (v1);
     }
-    *(_DWORD*)& byte_587000[75888] = loadString_sub_40F1D0((char*)& byte_587000[80484], 0, (const char*)& byte_587000[80444], 2095);
+    *(_DWORD*)& byte_587000[75888] = loadString_sub_40F1D0((char*)& byte_587000[80484], 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2095);
     result = *(char**)& byte_587000[75892];
     if (*(_DWORD*)& byte_587000[75892])
     {
         v3 = &byte_587000[75892];
         do
         {
-            nox_sprintf(v4, (const char*)& byte_587000[80504], result);
-            *((_DWORD*)v3 + 2) = loadString_sub_40F1D0(v4, 0, (const char*)& byte_587000[80520], 2100);
+            nox_sprintf(v4, "bindevent:%s", result);
+            *((_DWORD*)v3 + 2) = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
             result = (char*) * ((_DWORD*)v3 + 3);
             v3 += 12;
         } while (result);
@@ -40165,7 +40165,7 @@ unsigned int __cdecl sub_42EBB0(unsigned int a1, int a2, int a3, const char* a4)
         *(_DWORD*)& byte_5D4594[754088] = v5;
         if (!v5)
         {
-            v6 = loadString_sub_40F1D0((char*)& byte_587000[80600], 0, (const char*)& byte_587000[80560], 37);
+            v6 = loadString_sub_40F1D0((char*)& byte_587000[80600], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c", 37);
             sub_4516C0(v6);
             nox_exit(-1);
         }
@@ -40180,7 +40180,7 @@ unsigned int __cdecl sub_42EBB0(unsigned int a1, int a2, int a3, const char* a4)
         *(_DWORD*)& byte_5D4594[754092] = v7;
         if (!v7)
         {
-            v8 = loadString_sub_40F1D0((char*)& byte_587000[80656], 0, (const char*)& byte_587000[80616], 52);
+            v8 = loadString_sub_40F1D0((char*)& byte_587000[80656], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c", 52);
             sub_4516C0(v8);
             nox_exit(-1);
         }
@@ -40871,7 +40871,7 @@ int __cdecl sub_42F660(int a1, void* a2)
                     *(_DWORD*)(v2 + 8) = v18 + 1;
                     sub_40ACC0(v28, 1u, v31, v2);
                     v28[v31] = 0;
-                    if (!strcmp(v28, (const char*)& byte_587000[80736]))
+                    if (!strcmp(v28, "OneShot"))
                     {
                         *((_BYTE*)v13 + 10) = 0;
                     LABEL_15:
@@ -40907,7 +40907,7 @@ int __cdecl sub_42F660(int a1, void* a2)
                         *(_DWORD*)(*(_DWORD*)& byte_5D4594[787156] + 104 * *(_DWORD*)& byte_5D4594[787164] + 96) = v13;
                         goto LABEL_22;
                     }
-                    if (!strcmp(v28, (const char*)& byte_587000[80744]))
+                    if (!strcmp(v28, "Loop"))
                     {
                         *((_BYTE*)v13 + 10) = 2;
                         goto LABEL_15;
@@ -41347,7 +41347,7 @@ int sub_430190()
     sub_430A70(0, *(_DWORD*)& byte_5D4594[3805496] - 1, 0, *(_DWORD*)& byte_5D4594[3807120] - 1);
     sub_47D660(0, (int)& v4);
     sub_47D660(1u, (int)& v4);
-    sub_42EBB0(2u, sub_430140, 0, (const char*)& byte_587000[80776]);
+    sub_42EBB0(2u, sub_430140, 0, "Input");
     return 1;
 }
 
@@ -41977,7 +41977,7 @@ int sub_430BA0()
         }
         else
         {
-            printf((const char*)& byte_587000[80864]);
+            printf("VideoInit: error initializing floor buffer\n");
             result = 0;
         }
     }
@@ -42199,11 +42199,11 @@ wchar_t* sub_430F00()
                         if (v7)
                         {
                             if (!(v7 % 60))
-                                fprintf(v1, (const char*)& byte_587000[81012]);
+                                fprintf(v1, "\n");
                         }
                         fprintf(
                             v1,
-                            (const char*)& byte_587000[81016],
+                            "%d %d %d ",
                             byte_5D4594[3 * *(unsigned __int8*)(v7 + v4) + 3804716],
                             byte_5D4594[3 * *(unsigned __int8*)(v7 + v4) + 3804717],
                             byte_5D4594[3 * *(unsigned __int8*)(v7 + v4) + 3804718]);
@@ -42215,13 +42215,13 @@ wchar_t* sub_430F00()
                 --v5;
             } while (v5);
         }
-        v8 = loadString_sub_40F1D0((char*)& byte_587000[81068], 0, (const char*)& byte_587000[81028], 399);
+        v8 = loadString_sub_40F1D0((char*)& byte_587000[81068], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 399);
         sub_4517A0(v8, v9);
         result = (wchar_t*)fclose(v1);
     }
     else
     {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[80968], 0, (const char*)& byte_587000[80928], 375);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[80968], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 375);
         result = sub_4517A0(v2, v9);
     }
     return result;
@@ -42248,7 +42248,7 @@ int __cdecl sub_431040(int a1, int a2, int a3)
         }
         else
         {
-            printf((const char*)& byte_587000[81084]);
+            printf("VideoInit: error initializing floor buffer\n");
             result = 0;
         }
     }
@@ -42268,7 +42268,7 @@ int __cdecl sub_4310B0(int a3)
         if (sub_4311F0())
         {
             *(_DWORD*)& byte_587000[81128] = *(_DWORD*)& byte_5D4594[805984] + 88;
-            *(_DWORD*)& byte_5D4594[805980] = sub_4866F0((const char*)& byte_587000[81140], (const char*)& byte_587000[81132]);
+            *(_DWORD*)& byte_5D4594[805980] = sub_4866F0("audio", "audio");
         }
     }
     sub_4864A0(&byte_5D4594[805884]);
@@ -42422,7 +42422,7 @@ int sub_431390()
 
     result = *(_DWORD*)& byte_5D4594[806044];
     if (*(_DWORD*)& byte_5D4594[806044]
-        || (result = sub_413FE0((const char*)& byte_587000[81148], 52, 2000),
+        || (result = sub_413FE0("ScreenParticles", 52, 2000),
         (*(_DWORD*)& byte_5D4594[806044] = result) != 0))
     {
         sub_4144D0((_DWORD*)result);
@@ -42706,7 +42706,7 @@ LABEL_2:
         {
             continue;
         }
-        v1 = strtok((char*)& byte_5D4594[806084], (const char*)& byte_587000[81500]);
+        v1 = strtok((char*)& byte_5D4594[806084], " \r\t\n");
         if (!v1)
         {
             continue;
@@ -42755,249 +42755,249 @@ LABEL_2:
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81592]))
+        else if (!strcmp(v1, "LastServer"))
         {
             v2 = (char*)sub_431FC0();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81604]))
+        else if (!strcmp(v1, "ServerName"))
         {
             v2 = (char*)sub_432010();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81616]))
+        else if (!strcmp(v1, "UnlockSurface"))
         {
             v2 = (char*)sub_4320B0();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81632]))
+        else if (!strcmp(v1, "SoftShadowEdge"))
         {
             v2 = (char*)sub_432100();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81648]))
+        else if (!strcmp(v1, "DrawFrontWalls"))
         {
             v2 = (char*)sub_432150();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81664]))
+        else if (!strcmp(v1, "TranslucentFrontWalls"))
         {
             v2 = (char*)sub_4321A0();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81688]))
+        else if (!strcmp(v1, "HighResFrontWalls"))
         {
             v2 = (char*)sub_4321F0();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81708]))
+        else if (!strcmp(v1, "HighResFloors"))
         {
             v2 = (char*)sub_432240();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81724]))
+        else if (!strcmp(v1, "LockHighResFloors"))
         {
             v2 = (char*)sub_432290();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81744]))
+        else if (!strcmp(v1, "TexturedFloors"))
         {
             v2 = (char*)sub_4322E0();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81760]))
+        else if (!strcmp(v1, "TranslucentConsole"))
         {
             v2 = (char*)sub_432340();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81780]))
+        else if (!strcmp(v1, "RenderGlow"))
         {
             v2 = (char*)sub_432390();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81792]))
+        else if (!strcmp(v1, "RenderGUI"))
         {
             v2 = (char*)sub_4323E0();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81804]))
+        else if (!strcmp(v1, "FadeObjects"))
         {
             v2 = (char*)sub_432430();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81816]))
+        else if (!strcmp(v1, "TrackData"))
         {
             v2 = (char*)sub_433190();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81828]))
+        else if (!strcmp(v1, "RenderBubbles"))
         {
             v2 = (char*)sub_432480();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81844]))
+        else if (!strcmp(v1, "SysopPassword"))
         {
             v2 = (char*)sub_4324D0();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81860]))
+        else if (!strcmp(v1, "ServerPassword"))
         {
             v2 = (char*)sub_432520();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81876]))
+        else if (!strcmp(v1, "Profiled"))
         {
             v2 = (char*)sub_432590();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81888]))
+        else if (!strcmp(v1, "SanctuaryHelp"))
         {
             v2 = (char*)sub_432620();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81904]))
+        else if (!strcmp(v1, "MaxPacketLossPct"))
         {
             v2 = (char*)sub_4325D0();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81924]))
+        else if (!strcmp(v1, "SendMessageOfTheDay"))
         {
             v2 = (char*)sub_432A90();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81944]))
+        else if (!strcmp(v1, "InternetUpdateRate"))
         {
             v2 = (char*)sub_432DF0();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81964]))
+        else if (!strcmp(v1, "ConnectionType"))
         {
             v2 = (char*)sub_433050();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81980]))
+        else if (!strcmp(v1, "MapCycle"))
         {
             v2 = (char*)sub_432C30();
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[81992]))
+        else if (!strcmp(v1, "LANFilters"))
         {
             v2 = sub_432E50(0);
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82004]))
+        else if (!strcmp(v1, "INETFilters"))
         {
             v2 = sub_432E50(1);
             if (!v2)
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82016]))
+        else if (!strcmp(v1, "LessonLimit"))
         {
             if (!sub_432D10())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82028]))
+        else if (!strcmp(v1, "TimeLimit"))
         {
             if (!sub_432D80())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82040]))
+        else if (!strcmp(v1, "PlayerSkeletons"))
         {
             if (!sub_4327C0())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82056]))
+        else if (!strcmp(v1, "BroadcastGestures"))
         {
             if (!sub_432810())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82076]))
+        else if (!strcmp(v1, "LatencyCompensation"))
         {
             if (!sub_432970())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82096]))
+        else if (!strcmp(v1, "Closed"))
         {
             if (!sub_432860())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82104]))
+        else if (!strcmp(v1, "Private"))
         {
             if (!sub_4328C0())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82112]))
+        else if (!strcmp(v1, "AudioThreshold"))
         {
             if (!sub_433130())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82128]))
+        else if (!strcmp(v1, "MaxPlayers"))
         {
             if (!sub_4330C0())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82140]))
+        else if (!strcmp(v1, "RestrictedClasses"))
         {
             if (!sub_432920())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82160]))
+        else if (!strcmp(v1, "RestrictedPing"))
         {
             if (!sub_4329D0())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82176]))
+        else if (!strcmp(v1, "LimitMaxRes"))
         {
             if (!sub_432A30())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82188]))
+        else if (!strcmp(v1, "ItemRespawn"))
         {
             if (!sub_432660())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82200]))
+        else if (!strcmp(v1, "CamperAlarm"))
         {
             if (!sub_4326B0())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82212]))
+        else if (!strcmp(v1, "MinKickVotes"))
         {
             if (!sub_432700())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82228]))
+        else if (!strcmp(v1, "ResetQuestMinVotes"))
         {
             if (!sub_432740())
                 return 0;
         }
-        else if (!strcmp(v1, (const char*)& byte_587000[82248]))
+        else if (!strcmp(v1, "KickQuestPlayerMinVotes"))
         {
             if (!sub_432780())
                 return 0;
@@ -43077,8 +43077,8 @@ int sub_431FC0()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82272]);
-    v0 = strtok(0, (const char*)& byte_587000[82280]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
         strncpy((char*)& byte_5D4594[806060], v0, 0x16u);
     else
@@ -43096,13 +43096,13 @@ int sub_432010()
     char v4; // cl
     char v5[64]; // [esp+4h] [ebp-40h]
 
-    strtok(0, (const char*)& byte_587000[82300]);
-    v0 = strtok(0, (const char*)& byte_587000[82308]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     v1 = v0;
     if (v0)
     {
-        if (*(_DWORD*)& byte_587000[81284] == 0x10000 && !_strcmpi(v0, (const char*)& byte_587000[82316]))
-            v1 = (const char*)& byte_587000[82288];
+        if (*(_DWORD*)& byte_587000[81284] == 0x10000 && !_strcmpi(v0, "NoxWorld"))
+            v1 = "User_Game";
         strncpy(v5, v1, 0x3Fu);
         v3 = v5;
         if (v5[0])
@@ -43133,8 +43133,8 @@ int sub_4320B0()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82328]);
-    v0 = strtok(0, (const char*)& byte_587000[82336]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43153,8 +43153,8 @@ int sub_432100()
     bool v1; // zf
     int v2; // eax
 
-    strtok(0, (const char*)& byte_587000[82344]);
-    v0 = strtok(0, (const char*)& byte_587000[82352]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = atoi(v0) == 0;
@@ -43179,8 +43179,8 @@ int sub_432150()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82360]);
-    v0 = strtok(0, (const char*)& byte_587000[82368]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43200,8 +43200,8 @@ int sub_4321A0()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82376]);
-    v0 = strtok(0, (const char*)& byte_587000[82384]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43221,8 +43221,8 @@ int sub_4321F0()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82392]);
-    v0 = strtok(0, (const char*)& byte_587000[82400]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43242,8 +43242,8 @@ int sub_432240()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82408]);
-    v0 = strtok(0, (const char*)& byte_587000[82416]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43263,8 +43263,8 @@ int sub_432290()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82424]);
-    v0 = strtok(0, (const char*)& byte_587000[82432]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43281,8 +43281,8 @@ int sub_4322E0()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82440]);
-    v0 = strtok(0, (const char*)& byte_587000[82448]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         *(_DWORD*)& byte_587000[154956] = atoi(v0);
@@ -43302,8 +43302,8 @@ int sub_432340()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82456]);
-    v0 = strtok(0, (const char*)& byte_587000[82464]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43323,8 +43323,8 @@ int sub_432390()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82472]);
-    v0 = strtok(0, (const char*)& byte_587000[82480]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43344,8 +43344,8 @@ int sub_4323E0()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82488]);
-    v0 = strtok(0, (const char*)& byte_587000[82496]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43365,8 +43365,8 @@ int sub_432430()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82504]);
-    v0 = strtok(0, (const char*)& byte_587000[82512]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43386,8 +43386,8 @@ int sub_432480()
     bool v2; // zf
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82520]);
-    v0 = strtok(0, (const char*)& byte_587000[82528]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = atoi(v0);
@@ -43405,8 +43405,8 @@ int sub_4324D0()
     char* v0; // eax
     wchar_t v2[100]; // [esp+0h] [ebp-C8h]
 
-    strtok(0, (const char*)& byte_587000[82536]);
-    v0 = strtok(0, (const char*)& byte_587000[82544]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, "\r\t\n");
     if (v0)
     {
         nox_swprintf(v2, (const wchar_t*)& byte_587000[82548], v0);
@@ -43423,8 +43423,8 @@ int sub_432520()
     wchar_t v3[100]; // [esp+4h] [ebp-C8h]
 
     v0 = sub_416640();
-    strtok(0, (const char*)& byte_587000[82556]);
-    v1 = strtok(0, (const char*)& byte_587000[82564]);
+    strtok(0, " \r\t\n");
+    v1 = strtok(0, "\r\t\n");
     if (v1)
     {
         nox_swprintf(v3, (const wchar_t*)& byte_587000[82568], v1);
@@ -43443,8 +43443,8 @@ int sub_432590()
 #endif
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82576]);
-    v0 = strtok(0, (const char*)& byte_587000[82584]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
         * (_DWORD*)& byte_5D4594[805856] = atoi(v0) != 0;
     return 1;
@@ -43455,8 +43455,8 @@ int sub_4325D0()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82592]);
-    v0 = strtok(0, (const char*)& byte_587000[82600]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         *(_DWORD*)& byte_587000[81280] = atoi(v0);
@@ -43470,8 +43470,8 @@ int sub_432620()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82608]);
-    v0 = strtok(0, (const char*)& byte_587000[82616]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
         * (_DWORD*)& byte_587000[54276] = atoi(v0) != 0;
     return 1;
@@ -43482,8 +43482,8 @@ int sub_432660()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82624]);
-    v0 = strtok(0, (const char*)& byte_587000[82632]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         if (atoi(v0))
@@ -43501,8 +43501,8 @@ int sub_4326B0()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82640]);
-    v0 = strtok(0, (const char*)& byte_587000[82648]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         if (atoi(v0))
@@ -43520,8 +43520,8 @@ int sub_432700()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82656]);
-    v0 = strtok(0, (const char*)& byte_587000[82664]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
         * (_DWORD*)& byte_587000[229980] = atoi(v0);
     return 1;
@@ -43532,8 +43532,8 @@ int sub_432740()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82672]);
-    v0 = strtok(0, (const char*)& byte_587000[82680]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
         * (_DWORD*)& byte_587000[229988] = atoi(v0);
     return 1;
@@ -43544,8 +43544,8 @@ int sub_432780()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82688]);
-    v0 = strtok(0, (const char*)& byte_587000[82696]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
         * (_DWORD*)& byte_587000[229992] = atoi(v0);
     return 1;
@@ -43557,8 +43557,8 @@ int sub_4327C0()
     char* v0; // esi
     char* v1; // edi
 
-    strtok(0, (const char*)& byte_587000[82704]);
-    v0 = strtok(0, (const char*)& byte_587000[82712]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = sub_416640();
@@ -43573,8 +43573,8 @@ int sub_432810()
     char* v0; // esi
     char* v1; // edi
 
-    strtok(0, (const char*)& byte_587000[82720]);
-    v0 = strtok(0, (const char*)& byte_587000[82728]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = sub_416640();
@@ -43591,8 +43591,8 @@ int sub_432860()
     bool v2; // cc
     char v3; // al
 
-    strtok(0, (const char*)& byte_587000[82736]);
-    v0 = strtok(0, (const char*)& byte_587000[82744]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = sub_416640();
@@ -43616,8 +43616,8 @@ int sub_4328C0()
     bool v2; // cc
     char v3; // al
 
-    strtok(0, (const char*)& byte_587000[82752]);
-    v0 = strtok(0, (const char*)& byte_587000[82760]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = sub_416640();
@@ -43639,8 +43639,8 @@ int sub_432920()
     char* v0; // edi
     char* v1; // esi
 
-    strtok(0, (const char*)& byte_587000[82768]);
-    v0 = strtok(0, (const char*)& byte_587000[82776]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = sub_416640();
@@ -43656,13 +43656,13 @@ int sub_432970()
     char* v1; // esi
     char* v2; // eax
 
-    strtok(0, (const char*)& byte_587000[82784]);
-    v0 = strtok(0, (const char*)& byte_587000[82792]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = sub_416640();
         *(_DWORD*)(v1 + 66) = atoi(v0);
-        v2 = strtok(0, (const char*)& byte_587000[82800]);
+        v2 = strtok(0, " \r\t\n");
         if (v2)
             * (_DWORD*)(v1 + 70) = atoi(v2);
     }
@@ -43676,13 +43676,13 @@ int sub_4329D0()
     char* v1; // esi
     char* v2; // eax
 
-    strtok(0, (const char*)& byte_587000[82808]);
-    v0 = strtok(0, (const char*)& byte_587000[82816]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = sub_416640();
         *(_WORD*)(v1 + 105) = atoi(v0);
-        v2 = strtok(0, (const char*)& byte_587000[82824]);
+        v2 = strtok(0, " \r\t\n");
         if (v2)
             * (_WORD*)(v1 + 107) = atoi(v2);
     }
@@ -43697,8 +43697,8 @@ int sub_432A30()
     bool v2; // cc
     char v3; // al
 
-    strtok(0, (const char*)& byte_587000[82832]);
-    v0 = strtok(0, (const char*)& byte_587000[82840]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = sub_416640();
@@ -43719,8 +43719,8 @@ int sub_432A90()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82848]);
-    v0 = strtok(0, (const char*)& byte_587000[82856]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
         * (_DWORD*)& byte_587000[108752] = atoi(v0) != 0;
     return 1;
@@ -43731,8 +43731,8 @@ int __cdecl sub_432AD0(int* a1)
 {
     char* v1; // eax
 
-    strtok(0, (const char*)& byte_587000[82864]);
-    v1 = strtok(0, (const char*)& byte_587000[82872]);
+    strtok(0, " \r\t\n");
+    v1 = strtok(0, " \r\t\n");
     *a1 = atoi(v1);
     return 1;
 }
@@ -43748,12 +43748,12 @@ int sub_432B00()
     int v5; // eax
     int v6; // esi
 
-    strtok(0, (const char*)& byte_587000[82880]);
-    v0 = strtok(0, (const char*)& byte_587000[82888]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     v1 = atoi(v0);
-    v2 = strtok(0, (const char*)& byte_587000[82896]);
+    v2 = strtok(0, " \r\t\n");
     v3 = atoi(v2);
-    v4 = strtok(0, (const char*)& byte_587000[82904]);
+    v4 = strtok(0, " \r\t\n");
     v5 = atoi(v4);
     v6 = v5;
     if (v5 == 8)
@@ -43793,8 +43793,8 @@ int sub_432BD0()
     char* v0; // eax
     int v1; // eax
 
-    strtok(0, (const char*)& byte_587000[82912]);
-    v0 = strtok(0, (const char*)& byte_587000[82920]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     v1 = atoi(v0);
     sub_4766A0(v1);
     return 1;
@@ -43805,8 +43805,8 @@ int sub_432C00()
 {
     char* v0; // eax
 
-    strtok(0, (const char*)& byte_587000[82928]);
-    v0 = strtok(0, (const char*)& byte_587000[82936]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     *(_DWORD*)& byte_587000[80852] = atoi(v0);
     return 1;
 }
@@ -43817,8 +43817,8 @@ int sub_432C30()
     char* v0; // eax
     int v1; // eax
 
-    strtok(0, (const char*)& byte_587000[82944]);
-    v0 = strtok(0, (const char*)& byte_587000[82952]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = atoi(v0);
@@ -43833,8 +43833,8 @@ int __cdecl sub_432C70(int a1)
     char* v1; // eax
     int v2; // eax
 
-    strtok(0, (const char*)& byte_587000[82960]);
-    v1 = strtok(0, (const char*)& byte_587000[82968]);
+    strtok(0, " \r\t\n");
+    v1 = strtok(0, " \r\t\n");
     if (v1)
     {
         v2 = atoi(v1);
@@ -43850,8 +43850,8 @@ int __cdecl sub_432CB0(int a1)
     unsigned int v2; // eax
     int result; // eax
 
-    strtok(0, (const char*)& byte_587000[82976]);
-    v1 = strtok(0, (const char*)& byte_587000[82984]);
+    strtok(0, " \r\t\n");
+    v1 = strtok(0, " \r\t\n");
     v2 = atoi(v1);
     if ((v2 & 0x80000000) == 0)
     {
@@ -43876,11 +43876,11 @@ int sub_432D10()
     unsigned __int8* v2; // esi
     unsigned __int16 v3; // ax
 
-    strtok(0, (const char*)& byte_587000[82992]);
-    v0 = strtok(0, (const char*)& byte_587000[83000]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
-    v1 = strtok(v0, (const char*)& byte_587000[83008]);
+    v1 = strtok(v0, ",\r\n");
     if (!v1)
         return 1;
     v2 = &byte_587000[81224];
@@ -43889,7 +43889,7 @@ int sub_432D10()
         v3 = atoi(v1);
         sub_409FB0(*(_DWORD*)v2, v3);
         v2 += 4;
-        v1 = strtok(0, (const char*)& byte_587000[83012]);
+        v1 = strtok(0, ",\r\n");
     } while (v1);
     return 1;
 }
@@ -43902,11 +43902,11 @@ int sub_432D80()
     unsigned __int8* v2; // esi
     unsigned __int8 v3; // al
 
-    strtok(0, (const char*)& byte_587000[83016]);
-    v0 = strtok(0, (const char*)& byte_587000[83024]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
-    v1 = strtok(v0, (const char*)& byte_587000[83032]);
+    v1 = strtok(v0, ",\r\n");
     if (!v1)
         return 1;
     v2 = &byte_587000[81224];
@@ -43915,7 +43915,7 @@ int sub_432D80()
         v3 = atoi(v1);
         sub_40A040(*(_DWORD*)v2, v3);
         v2 += 4;
-        v1 = strtok(0, (const char*)& byte_587000[83036]);
+        v1 = strtok(0, ",\r\n");
     } while (v1);
     return 1;
 }
@@ -43926,8 +43926,8 @@ int sub_432DF0()
     char* v0; // eax
     int v1; // eax
 
-    strtok(0, (const char*)& byte_587000[83040]);
-    v0 = strtok(0, (const char*)& byte_587000[83048]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = atoi(v0);
@@ -43947,55 +43947,55 @@ char* __cdecl sub_432E50(int a1)
     char* v4; // eax
     int v5[11]; // [esp+4h] [ebp-2Ch]
 
-    strtok(0, (const char*)& byte_587000[83056]);
-    v1 = strtok(0, (const char*)& byte_587000[83064]);
+    strtok(0, " \r\t\n");
+    v1 = strtok(0, " \r\t\n");
     if (!v1)
         return (char*)1;
-    result = strtok(v1, (const char*)& byte_587000[83072]);
+    result = strtok(v1, ",\r\n");
     if (result)
     {
         v3 = atoi(result);
-        result = strtok(0, (const char*)& byte_587000[83076]);
+        result = strtok(0, ",\r\n");
         if (result)
         {
             v5[0] = atoi(result);
-            result = strtok(0, (const char*)& byte_587000[83080]);
+            result = strtok(0, ",\r\n");
             if (result)
             {
                 v5[1] = *result == 49;
-                result = strtok(0, (const char*)& byte_587000[83084]);
+                result = strtok(0, ",\r\n");
                 if (result)
                 {
                     v5[2] = *result == 49;
-                    result = strtok(0, (const char*)& byte_587000[83088]);
+                    result = strtok(0, ",\r\n");
                     if (result)
                     {
                         v5[3] = atoi(result);
-                        result = strtok(0, (const char*)& byte_587000[83092]);
+                        result = strtok(0, ",\r\n");
                         if (result)
                         {
                             v5[4] = atoi(result);
-                            result = strtok(0, (const char*)& byte_587000[83096]);
+                            result = strtok(0, ",\r\n");
                             if (result)
                             {
                                 v5[5] = *result == 49;
-                                result = strtok(0, (const char*)& byte_587000[83100]);
+                                result = strtok(0, ",\r\n");
                                 if (result)
                                 {
                                     v5[6] = *result == 49;
-                                    result = strtok(0, (const char*)& byte_587000[83104]);
+                                    result = strtok(0, ",\r\n");
                                     if (result)
                                     {
                                         v5[7] = *result == 49;
-                                        result = strtok(0, (const char*)& byte_587000[83108]);
+                                        result = strtok(0, ",\r\n");
                                         if (result)
                                         {
                                             v5[8] = *result == 49;
-                                            result = strtok(0, (const char*)& byte_587000[83112]);
+                                            result = strtok(0, ",\r\n");
                                             if (result)
                                             {
                                                 v5[9] = *result == 49;
-                                                v4 = strtok(0, (const char*)& byte_587000[83116]);
+                                                v4 = strtok(0, ",\r\n");
                                                 if (v4)
                                                     v5[10] = *v4 == 49;
                                                 else
@@ -44024,8 +44024,8 @@ int sub_433050()
     unsigned __int8* i; // ecx
     int v3; // edx
 
-    strtok(0, (const char*)& byte_587000[83120]);
-    v0 = strtok(0, (const char*)& byte_587000[83128]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = atoi(v0);
@@ -44052,8 +44052,8 @@ int sub_4330C0()
     char* v1; // esi
     char v2; // al
 
-    strtok(0, (const char*)& byte_587000[83136]);
-    v0 = strtok(0, (const char*)& byte_587000[83144]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (!v0)
         return 1;
     v1 = sub_416640();
@@ -44079,8 +44079,8 @@ int sub_433130()
     char* v1; // esi
     int v2; // eax
 
-    strtok(0, (const char*)& byte_587000[83152]);
-    v0 = strtok(0, (const char*)& byte_587000[83160]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
     {
         v1 = sub_416640();
@@ -44104,8 +44104,8 @@ int sub_433190()
     char v2; // [esp+0h] [ebp-4h]
 
     v2 = 0;
-    strtok(0, (const char*)& byte_587000[83168]);
-    v0 = strtok(0, (const char*)& byte_587000[83176]);
+    strtok(0, " \r\t\n");
+    v0 = strtok(0, " \r\t\n");
     if (v0)
         v2 = atoi(v0);
     sub_578DE0(v2);
@@ -44123,7 +44123,7 @@ int __cdecl sub_4331E0(FILE* a1, int a2)
     {
         while (fgets((char*)& byte_5D4594[806084], 1024, a1))
         {
-            if (!strncmp((const char*)& byte_587000[83184], (const char*)& byte_5D4594[806084], 3u))
+            if (!strncmp("---", (const char*)& byte_5D4594[806084], 3u))
                 goto LABEL_6;
         }
         result = 1;
@@ -44138,7 +44138,7 @@ int __cdecl sub_4331E0(FILE* a1, int a2)
                 if (!fgets((char*)& byte_5D4594[806084], 1024, a1))
                     return v2;
             } while (byte_5D4594[806084] == 35);
-            if (!strncmp((const char*)& byte_587000[83188], (const char*)& byte_5D4594[806084], 3u))
+            if (!strncmp("---", (const char*)& byte_5D4594[806084], 3u))
                 return 1;
         } while (sub_42CF50((const char*)& byte_5D4594[806084]));
         result = 0;
@@ -44213,75 +44213,75 @@ int __cdecl sub_4332E0(FILE* a1)
         v3 = *(_DWORD*)(*(_DWORD*)& byte_587000[127004] + 4) >> 16;
     else
         v3 = 0;
-    fprintf(a1, (const char*)& byte_587000[83272], v3);
+    fprintf(a1, "FXVolume = %d\n", v3);
     if (sub_44D990() == 1)
         v4 = *(_DWORD*)(*(_DWORD*)& byte_587000[122852] + 4) >> 16;
     else
         v4 = 0;
-    fprintf(a1, (const char*)& byte_587000[83288], v4);
+    fprintf(a1, "DialogVolume = %d\n", v4);
     if (sub_43DC30() == 1)
         v5 = *(_DWORD*)(*(_DWORD*)& byte_587000[93164] + 4) >> 16;
     else
         v5 = 0;
-    fprintf(a1, (const char*)& byte_587000[83308], v5);
-    fprintf(a1, (const char*)& byte_587000[83328], &byte_5D4594[806060]);
+    fprintf(a1, "MusicVolume = %d\n", v5);
+    fprintf(a1, "LastServer = %s\n", &byte_5D4594[806060]);
     v6 = sub_433890();
-    fprintf(a1, (const char*)& byte_587000[83348], v6);
-    fprintf(a1, (const char*)& byte_587000[83368], *(_DWORD*)& byte_5D4594[805868]);
-    fprintf(a1, (const char*)& byte_587000[83388], (*(_DWORD*)& byte_5D4594[2650636] >> 10) & 1);
-    fprintf(a1, (const char*)& byte_587000[83412], *(_DWORD*)& byte_587000[80812]);
-    fprintf(a1, (const char*)& byte_587000[83436], *(_DWORD*)& byte_5D4594[805844]);
-    fprintf(a1, (const char*)& byte_587000[83464], *(_DWORD*)& byte_587000[80820]);
-    fprintf(a1, (const char*)& byte_587000[83488], *(_DWORD*)& byte_587000[154952]);
-    fprintf(a1, (const char*)& byte_587000[83508], *(_DWORD*)& byte_5D4594[1193152]);
-    fprintf(a1, (const char*)& byte_587000[83532], *(_DWORD*)& byte_587000[154956]);
-    fprintf(a1, (const char*)& byte_587000[83556], *(_DWORD*)& byte_587000[80824]);
-    fprintf(a1, (const char*)& byte_587000[83584], *(_DWORD*)& byte_5D4594[805852]);
-    fprintf(a1, (const char*)& byte_587000[83604], *(_DWORD*)& byte_587000[80828]);
-    fprintf(a1, (const char*)& byte_587000[83620], *(_DWORD*)& byte_587000[80836]);
-    fprintf(a1, (const char*)& byte_587000[83640], *(_DWORD*)& byte_587000[80844]);
+    fprintf(a1, "ServerName = %s\n", v6);
+    fprintf(a1, "UnlockSurface = %d\n", *(_DWORD*)& byte_5D4594[805868]);
+    fprintf(a1, "SoftShadowEdge = %d\n", (*(_DWORD*)& byte_5D4594[2650636] >> 10) & 1);
+    fprintf(a1, "DrawFrontWalls = %d\n", *(_DWORD*)& byte_587000[80812]);
+    fprintf(a1, "TranslucentFrontWalls = %d\n", *(_DWORD*)& byte_5D4594[805844]);
+    fprintf(a1, "HighResFrontWalls = %d\n", *(_DWORD*)& byte_587000[80820]);
+    fprintf(a1, "HighResFloors = %d\n", *(_DWORD*)& byte_587000[154952]);
+    fprintf(a1, "LockHighResFloors = %d\n", *(_DWORD*)& byte_5D4594[1193152]);
+    fprintf(a1, "TexturedFloors = %d\n", *(_DWORD*)& byte_587000[154956]);
+    fprintf(a1, "TranslucentConsole = %d\n", *(_DWORD*)& byte_587000[80824]);
+    fprintf(a1, "RenderGlow = %d\n", *(_DWORD*)& byte_5D4594[805852]);
+    fprintf(a1, "RenderGUI = %d\n", *(_DWORD*)& byte_587000[80828]);
+    fprintf(a1, "FadeObjects = %d\n", *(_DWORD*)& byte_587000[80836]);
+    fprintf(a1, "RenderBubbles = %d\n", *(_DWORD*)& byte_587000[80844]);
     v7 = sub_578DF0();
-    fprintf(a1, (const char*)& byte_587000[83660], v7);
+    fprintf(a1, "TrackData = %d\n", v7);
     v8 = sub_40A630();
-    fprintf(a1, (const char*)& byte_587000[83676], v8);
-    fprintf(a1, (const char*)& byte_587000[83696], v1 + 78);
-    fprintf(a1, (const char*)& byte_587000[83720], *(_DWORD*)& byte_5D4594[805856] != 0);
-    fprintf(a1, (const char*)& byte_587000[83736], *(_DWORD*)& byte_587000[54276]);
-    fprintf(a1, (const char*)& byte_587000[83756], *(_DWORD*)& byte_587000[81280]);
-    fprintf(a1, (const char*)& byte_587000[83780], *(_DWORD*)& byte_587000[108752]);
+    fprintf(a1, "SysopPassword = %S\n", v8);
+    fprintf(a1, "ServerPassword = %S\n", v1 + 78);
+    fprintf(a1, "Profiled = %d\n", *(_DWORD*)& byte_5D4594[805856] != 0);
+    fprintf(a1, "SanctuaryHelp = %d\n", *(_DWORD*)& byte_587000[54276]);
+    fprintf(a1, "MaxPacketLossPct = %d\n", *(_DWORD*)& byte_587000[81280]);
+    fprintf(a1, "SendMessageOfTheDay = %d\n", *(_DWORD*)& byte_587000[108752]);
     v9 = sub_4D0D70();
-    fprintf(a1, (const char*)& byte_587000[83808], v9);
-    fprintf(a1, (const char*)& byte_587000[83824], *(_DWORD*)& byte_5D4594[3596]);
+    fprintf(a1, "MapCycle = %d\n", v9);
+    fprintf(a1, "ConnectionType = %d\n", *(_DWORD*)& byte_5D4594[3596]);
     v10 = sub_40A6C0();
-    fprintf(a1, (const char*)& byte_587000[83848], v10);
-    fprintf(a1, (const char*)& byte_587000[83876]);
+    fprintf(a1, "InternetUpdateRate = %d\n", v10);
+    fprintf(a1, "LessonLimit =");
     sub_4337B0(a1);
-    fprintf(a1, (const char*)& byte_587000[83892]);
+    fprintf(a1, "TimeLimit =");
     sub_433820(a1);
-    fprintf(a1, (const char*)& byte_587000[83904], *(_DWORD*)(v1 + 58));
-    fprintf(a1, (const char*)& byte_587000[83928], *(_DWORD*)(v1 + 62));
-    v11 = fprintf(a1, (const char*)& byte_587000[83952], *(_DWORD*)(v1 + 66), *(_DWORD*)(v1 + 70));
+    fprintf(a1, "PlayerSkeletons = %d\n", *(_DWORD*)(v1 + 58));
+    fprintf(a1, "BroadcastGestures = %d\n", *(_DWORD*)(v1 + 62));
+    v11 = fprintf(a1, "LatencyCompensation = %d %d\n", *(_DWORD*)(v1 + 66), *(_DWORD*)(v1 + 70));
     LOBYTE(v11) = v1[100];
-    fprintf(a1, (const char*)& byte_587000[83984], (v11 >> 4) & 1);
+    fprintf(a1, "Closed = %d\n", (v11 >> 4) & 1);
     LOBYTE(v12) = v1[100];
-    fprintf(a1, (const char*)& byte_587000[84000], (v12 >> 5) & 1);
-    fprintf(a1, (const char*)& byte_587000[84016], *(_DWORD*)(v1 + 74));
+    fprintf(a1, "Private = %d\n", (v12 >> 5) & 1);
+    fprintf(a1, "AudioThreshold = %d\n", *(_DWORD*)(v1 + 74));
     v13 = sub_409FA0();
-    fprintf(a1, (const char*)& byte_587000[84040], v13);
-    fprintf(a1, (const char*)& byte_587000[84060], v1[100] & 7);
-    fprintf(a1, (const char*)& byte_587000[84084], *(unsigned __int16*)(v1 + 105), *(unsigned __int16*)(v1 + 107));
-    fprintf(a1, (const char*)& byte_587000[84108], (unsigned __int8)v1[102] >> 7);
+    fprintf(a1, "MaxPlayers = %d\n", v13);
+    fprintf(a1, "RestrictedClasses = %d\n", v1[100] & 7);
+    fprintf(a1, "RestrictedPing = %d %d\n", *(unsigned __int16*)(v1 + 105), *(unsigned __int16*)(v1 + 107));
+    fprintf(a1, "LimitMaxRes = %d\n", (unsigned __int8)v1[102] >> 7);
     v14 = sub_409E60();
-    fprintf(a1, (const char*)& byte_587000[84128], (v14 >> 13) & 1);
+    fprintf(a1, "CamperAlarm = %d\n", (v14 >> 13) & 1);
     v15 = sub_409F40(2);
-    fprintf(a1, (const char*)& byte_587000[84148], v15);
-    fprintf(a1, (const char*)& byte_587000[84168], *(_DWORD*)& byte_587000[229980]);
-    fprintf(a1, (const char*)& byte_587000[84188], *(_DWORD*)& byte_587000[229988]);
-    fprintf(a1, (const char*)& byte_587000[84216], *(_DWORD*)& byte_587000[229992]);
+    fprintf(a1, "ItemRespawn = %d\n", v15);
+    fprintf(a1, "MinKickVotes = %d\n", *(_DWORD*)& byte_587000[229980]);
+    fprintf(a1, "ResetQuestMinVotes = %d\n", *(_DWORD*)& byte_587000[229988]);
+    fprintf(a1, "KickQuestPlayerMinVotes = %d\n", *(_DWORD*)& byte_587000[229992]);
     v16 = sub_48A020(0, &v23);
     fprintf(
         a1,
-        (const char*)& byte_587000[84248],
+        "LANFilters = %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
         v16,
         *v23,
         v23[1],
@@ -44297,7 +44297,7 @@ int __cdecl sub_4332E0(FILE* a1)
     v17 = sub_48A020(1, &v23);
     fprintf(
         a1,
-        (const char*)& byte_587000[84300],
+        "INETFilters = %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
         v17,
         *v23,
         v23[1],
@@ -44317,13 +44317,13 @@ int __cdecl sub_4332E0(FILE* a1)
         do
         {
             v20 = sub_4D0DE0(*((_DWORD*)v19 + 1));
-            fprintf(a1, (const char*)& byte_587000[84352], *(_DWORD*)v18, v20);
+            fprintf(a1, "%s = %d\n", *(_DWORD*)v18, v20);
             v21 = *((_DWORD*)v19 + 2);
             v19 += 8;
             v18 = v19;
         } while (v21);
     }
-    return fprintf(a1, (const char*)& byte_587000[84364]);
+    return fprintf(a1, "---\n");
 }
 // 4335F8: variable 'v12' is possibly undefined
 
@@ -44336,7 +44336,7 @@ int __cdecl sub_4337B0(FILE* a1)
     unsigned __int16 v4; // ax
 
     v1 = sub_40A020(*(__int16*)& byte_587000[81224]);
-    fprintf(a1, (const char*)& byte_587000[84372], v1);
+    fprintf(a1, " %d", v1);
     LOWORD(v2) = *(_WORD*)& byte_587000[81228];
     if (*(_DWORD*)& byte_587000[81228])
     {
@@ -44344,12 +44344,12 @@ int __cdecl sub_4337B0(FILE* a1)
         do
         {
             v4 = sub_40A020(v2);
-            fprintf(a1, (const char*)& byte_587000[84376], v4);
+            fprintf(a1, ",%d", v4);
             v2 = *((_DWORD*)v3 + 1);
             v3 += 4;
         } while (v2);
     }
-    return fprintf(a1, (const char*)& byte_587000[84380]);
+    return fprintf(a1, "\n");
 }
 
 //----- (00433820) --------------------------------------------------------
@@ -44361,7 +44361,7 @@ int __cdecl sub_433820(FILE* a1)
     unsigned __int8 v4; // al
 
     v1 = sub_40A180(*(__int16*)& byte_587000[81224]);
-    fprintf(a1, (const char*)& byte_587000[84384], v1);
+    fprintf(a1, " %d", v1);
     LOWORD(v2) = *(_WORD*)& byte_587000[81228];
     if (*(_DWORD*)& byte_587000[81228])
     {
@@ -44369,12 +44369,12 @@ int __cdecl sub_433820(FILE* a1)
         do
         {
             v4 = sub_40A180(v2);
-            fprintf(a1, (const char*)& byte_587000[84388], v4);
+            fprintf(a1, ",%d", v4);
             v2 = *((_DWORD*)v3 + 1);
             v3 += 4;
         } while (v2);
     }
-    return fprintf(a1, (const char*)& byte_587000[84392]);
+    return fprintf(a1, "\n");
 }
 
 //----- (00433890) --------------------------------------------------------
@@ -45291,39 +45291,39 @@ char* sub_4358A0()
     const char* v4[34]; // [esp+0h] [ebp-88h]
 
     v0 = *(_DWORD*)& byte_5D4594[814516];
-    v4[0] = (const char*)& byte_587000[85792];
-    v4[1] = (const char*)& byte_587000[85808];
-    v4[2] = (const char*)& byte_587000[85824];
-    v4[3] = (const char*)& byte_587000[85840];
-    v4[4] = (const char*)& byte_587000[85856];
-    v4[5] = (const char*)& byte_587000[85872];
-    v4[6] = (const char*)& byte_587000[85888];
-    v4[7] = (const char*)& byte_587000[85904];
-    v4[8] = (const char*)& byte_587000[85924];
-    v4[9] = (const char*)& byte_587000[85944];
-    v4[10] = (const char*)& byte_587000[85960];
-    v4[11] = (const char*)& byte_587000[85976];
-    v4[12] = (const char*)& byte_587000[85992];
-    v4[13] = (const char*)& byte_587000[86008];
-    v4[14] = (const char*)& byte_587000[86024];
-    v4[15] = (const char*)& byte_587000[86040];
-    v4[16] = (const char*)& byte_587000[86056];
-    v4[17] = (const char*)& byte_587000[86072];
-    v4[18] = (const char*)& byte_587000[86088];
-    v4[19] = (const char*)& byte_587000[86104];
-    v4[20] = (const char*)& byte_587000[86120];
-    v4[21] = (const char*)& byte_587000[86136];
-    v4[22] = (const char*)& byte_587000[86152];
-    v4[23] = (const char*)& byte_587000[86168];
-    v4[24] = (const char*)& byte_587000[86180];
-    v4[25] = (const char*)& byte_587000[86192];
-    v4[26] = (const char*)& byte_587000[86208];
-    v4[27] = (const char*)& byte_587000[86224];
-    v4[28] = (const char*)& byte_587000[86240];
-    v4[29] = (const char*)& byte_587000[86256];
-    v4[30] = (const char*)& byte_587000[86272];
-    v4[31] = (const char*)& byte_587000[86284];
-    v4[32] = (const char*)& byte_587000[86296];
+    v4[0] = "Dweezle";
+    v4[1] = "Glork";
+    v4[2] = "Floogle";
+    v4[3] = "Goombah";
+    v4[4] = "Kraun";
+    v4[5] = "Kloog";
+    v4[6] = "Zurg";
+    v4[7] = "Darg";
+    v4[8] = "Arfingle";
+    v4[9] = "Buurl";
+    v4[10] = "Gurgin";
+    v4[11] = "Grok";
+    v4[12] = "Hurlong";
+    v4[13] = "Luric";
+    v4[14] = "Lupis";
+    v4[15] = "Mallik";
+    v4[16] = "Thrall";
+    v4[17] = "Norwood";
+    v4[18] = "Nulik";
+    v4[19] = "Orin";
+    v4[20] = "Olaf";
+    v4[21] = "Orguk";
+    v4[22] = "Pervis";
+    v4[23] = "Paavik";
+    v4[24] = "Qix";
+    v4[25] = "Xevin";
+    v4[26] = "Xurcon";
+    v4[27] = "Markoan";
+    v4[28] = "Yuric";
+    v4[29] = "Yoovis";
+    v4[30] = "Yalek";
+    v4[31] = "Zug";
+    v4[32] = "Zivik";
     v4[33] = 0;
     if (!*(_DWORD*)& byte_5D4594[814516] && byte_587000 != (unsigned __int8*)-85792)
     {
@@ -45336,7 +45336,7 @@ char* sub_4358A0()
         } while (v2);
         *(_DWORD*)& byte_5D4594[814516] = v0;
     }
-    return (char*)v4[sub_415FF0(0, v0 - 1, (const char*)& byte_587000[86304], 559)];
+    return (char*)v4[sub_415FF0(0, v0 - 1, "C:\\NoxPost\\src\\client\\System\\client.c", 559)];
 }
 
 //----- (00435A10) --------------------------------------------------------
@@ -45711,17 +45711,17 @@ int sub_436100()
                 v9 = *(_DWORD*)& byte_5D4594[2650636] | 0x100;
             *(_DWORD*)& byte_5D4594[2650636] = v9;
             if (!*(_DWORD*)& byte_5D4594[814540])
-                * (_DWORD*)& byte_5D4594[814540] = sub_42F970((const char*)& byte_587000[86432]);
+                * (_DWORD*)& byte_5D4594[814540] = sub_42F970("MenuSystemBG");
             if (*(_WORD*)& byte_5D4594[2650636] & 0x100)
             {
                 v10 = sub_43F360((char*)& byte_587000[86448]);
                 sub_47D2C0(*(int*)& byte_5D4594[814540], 0, 0);
-                v11 = loadString_sub_40F1D0((char*)& byte_587000[86496], 0, (const char*)& byte_587000[86456], 1550);
+                v11 = loadString_sub_40F1D0((char*)& byte_587000[86496], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1550);
                 sub_43F840(v10, v11, &v22, 0, 0);
                 sub_434390(*(int*)& byte_5D4594[2523948]);
                 v21 = *(_DWORD*)& byte_5D4594[3807120] / 2;
                 v20 = (*(_DWORD*)& byte_5D4594[3805496] - v22) / 2;
-                v12 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[86548], 0, (const char*)& byte_587000[86508], 1553);
+                v12 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[86548], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1553);
                 sub_43F6E0(v10, v12, v20, v21);
             }
         }
@@ -45861,45 +45861,45 @@ int sub_4365C0()
         sub_434390(*(int*)& byte_5D4594[2618904]);
         v23 = v1;
         v18 = v0;
-        v4 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[86616], 0, (const char*)& byte_587000[86576], 1150);
+        v4 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[86616], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1150);
     }
     else
     {
         sub_434390(*(int*)& byte_5D4594[2650644]);
         v23 = v1;
         v18 = v0;
-        v4 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[86660], 0, (const char*)& byte_587000[86620], 1155);
+        v4 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[86660], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1155);
     }
     sub_43F6E0(0, v4, v18, v23);
     v5 = v1 + 10;
     v24 = *(_DWORD*)& byte_5D4594[2598000];
-    v6 = loadString_sub_40F1D0((char*)& byte_587000[86708], 0, (const char*)& byte_587000[86668], 1159);
+    v6 = loadString_sub_40F1D0((char*)& byte_587000[86708], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1159);
     nox_swprintf((wchar_t*)& byte_5D4594[810900], v6, v24);
     sub_434390(*(int*)& byte_5D4594[2523948]);
     sub_43F6E0(0, (__int16*)& byte_5D4594[810900], v0, v5);
     v5 += 10;
     v7 = sub_43C760();
-    v8 = loadString_sub_40F1D0((char*)& byte_587000[86756], 0, (const char*)& byte_587000[86716], 1165);
+    v8 = loadString_sub_40F1D0((char*)& byte_587000[86756], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1165);
     nox_swprintf((wchar_t*)& byte_5D4594[810900], v8, v7);
     sub_434390(*(int*)& byte_5D4594[2523948]);
     sub_43F6E0(0, (__int16*)& byte_5D4594[810900], v0, v5);
     sub_436970(v7);
     v5 += 10;
     v25 = sub_45A020();
-    v9 = loadString_sub_40F1D0((char*)& byte_587000[86808], 0, (const char*)& byte_587000[86768], 1172);
+    v9 = loadString_sub_40F1D0((char*)& byte_587000[86808], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1172);
     nox_swprintf((wchar_t*)& byte_5D4594[810900], v9, v25);
     sub_434390(*(int*)& byte_5D4594[2523948]);
     sub_43F6E0(0, (__int16*)& byte_5D4594[810900], v0, v5);
     v5 += 10;
     v26 = *(_DWORD*)& byte_5D4594[2649824];
     v19 = *(_DWORD*)& byte_5D4594[2618900];
-    v10 = loadString_sub_40F1D0((char*)& byte_587000[86860], 0, (const char*)& byte_587000[86820], 1177);
+    v10 = loadString_sub_40F1D0((char*)& byte_587000[86860], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1177);
     nox_swprintf((wchar_t*)& byte_5D4594[810900], v10, v19, v26);
     sub_43F6E0(0, (__int16*)& byte_5D4594[810900], v0, v5);
     v5 += 10;
     v27 = *(_DWORD*)& byte_587000[85732];
     v20 = *(_DWORD*)& byte_5D4594[2614264];
-    v11 = loadString_sub_40F1D0((char*)& byte_587000[86912], 0, (const char*)& byte_587000[86872], 1181);
+    v11 = loadString_sub_40F1D0((char*)& byte_587000[86912], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1181);
     nox_swprintf((wchar_t*)& byte_5D4594[810900], v11, v20, v27);
     sub_434460(*(int*)& byte_5D4594[2650656]);
     sub_49CE30(v0 + 80, v5, 16, 8);
@@ -45909,7 +45909,7 @@ int sub_4365C0()
     {
         if (i[3680] & 8)
         {
-            v21 = loadString_sub_40F1D0((char*)& byte_587000[86960], 0, (const char*)& byte_587000[86920], 1201);
+            v21 = loadString_sub_40F1D0((char*)& byte_587000[86960], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1201);
             nox_swprintf((wchar_t*)& byte_5D4594[810900], v21, i + 4704);
         }
         else
@@ -45924,12 +45924,12 @@ int sub_4365C0()
         if (i[2064] == 31)
         {
             v16 = sub_553ED0(0);
-            v14 = loadString_sub_40F1D0((char*)& byte_587000[87016], 0, (const char*)& byte_587000[86976], 1211);
+            v14 = loadString_sub_40F1D0((char*)& byte_587000[87016], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1211);
         }
         else
         {
             v16 = sub_553ED0((unsigned __int8)i[2064] + 1);
-            v14 = loadString_sub_40F1D0((char*)& byte_587000[87072], 0, (const char*)& byte_587000[87032], 1216);
+            v14 = loadString_sub_40F1D0((char*)& byte_587000[87072], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1216);
         }
         nox_swprintf((wchar_t*)& byte_5D4594[810900], v14, v16, v17, v22, v28);
         sub_43F6E0(0, (__int16*)& byte_5D4594[810900], 70, v12);
@@ -45956,7 +45956,7 @@ int __cdecl sub_436970(int a1)
     v1 = *(_DWORD*)& byte_5D4594[3807120] - 31;
     sub_434390(*(int*)& byte_5D4594[2523948]);
     v8 = v1 - sub_43F320(0);
-    v2 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[87128], 0, (const char*)& byte_587000[87088], 323);
+    v2 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[87128], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 323);
     sub_43F6E0(0, v2, 0, v8);
     sub_434460(*(int*)& byte_5D4594[2650660]);
     sub_49CC70(0, v1, *(int*)& byte_5D4594[3805496], 31);
@@ -46006,7 +46006,7 @@ int __cdecl sub_436AA0(int a1)
     v2 = v1 + 30;
     sub_434390(*(int*)& byte_5D4594[2523948]);
     v14 = v1 - sub_43F320(0);
-    v3 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[87180], 0, (const char*)& byte_587000[87140], 368);
+    v3 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[87180], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 368);
     sub_43F6E0(0, v3, 0, v14);
     sub_434460(*(int*)& byte_5D4594[2650660]);
     v4 = v1;
@@ -46078,7 +46078,7 @@ int sub_436C40()
 
     sub_434390(*(int*)& byte_5D4594[2523948]);
     v11 = 60 - sub_43F320(0);
-    v0 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[87224], 0, (const char*)& byte_587000[87184], 428);
+    v0 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[87224], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 428);
     sub_43F6E0(0, v0, 0, v11);
     sub_434460(*(int*)& byte_5D4594[2650660]);
     sub_49CC70(0, 60, *(int*)& byte_5D4594[3805496], 31);
@@ -46144,7 +46144,7 @@ int __cdecl sub_436DF0(int a1)
     v14 = *(_DWORD*)& byte_5D4594[3807120] - 80 + 30;
     sub_434390(*(int*)& byte_5D4594[2523948]);
     v13 = v1 - sub_43F320(0);
-    v2 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[87276], 0, (const char*)& byte_587000[87236], 478);
+    v2 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[87276], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 478);
     sub_43F6E0(0, v2, 0, v13);
     sub_434460(*(int*)& byte_5D4594[2650660]);
     sub_49CC70(0, v1, *(int*)& byte_5D4594[3805496], 31);
@@ -46222,10 +46222,10 @@ int sub_436F50()
             v9 = loadString_sub_40F1D0(
                 *(char**)& byte_587000[4 * *(unsigned __int8*)(*(_DWORD*)& byte_5D4594[2618908] + 2251) + 29456],
                 0,
-                (const char*)& byte_587000[87312],
+                "C:\\NoxPost\\src\\client\\System\\client.c",
                 1357);
             v8 = *(char*)(*(_DWORD*)& byte_5D4594[2618908] + 3684);
-            v7 = loadString_sub_40F1D0((char*)& byte_587000[87392], 0, (const char*)& byte_587000[87352], 1355);
+            v7 = loadString_sub_40F1D0((char*)& byte_587000[87392], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1355);
             nox_swprintf((wchar_t*)& byte_5D4594[811120], v7, v8, v9);
             result = sub_43F6E0(0, (__int16*)& byte_5D4594[811120], v2, v0 + v6);
         }
@@ -46459,7 +46459,7 @@ void sub_4373A0()
         {
             *(_DWORD*)& byte_5D4594[815048] = 0;
             sub_430A70(0, *(_DWORD*)& byte_5D4594[3805496] - 1, 0, *(_DWORD*)& byte_5D4594[3807120] - 1);
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[87876], 0, (const char*)& byte_587000[87836], 619);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[87876], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 619);
             sub_46B490(*(int*)& byte_5D4594[814996], 16385, (int)v2, 0);
             sub_452D80(231, 100);
         }
@@ -46483,7 +46483,7 @@ void sub_4373A0()
         sub_430A70(0, *(_DWORD*)& byte_5D4594[3805496] - 1, 0, *(_DWORD*)& byte_5D4594[3807120] - 1);
         sub_46ADE0(*(int*)& byte_5D4594[814984]);
         sub_4375C0(1);
-        v0 = loadString_sub_40F1D0((char*)& byte_587000[87928], 0, (const char*)& byte_587000[87888], 643);
+        v0 = loadString_sub_40F1D0((char*)& byte_587000[87928], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 643);
         sub_46B490(*(int*)& byte_5D4594[814996], 16385, (int)v0, 0);
         sub_452D80(231, 100);
     }
@@ -46496,7 +46496,7 @@ void sub_4373A0()
             sub_46ADE0(*(int*)& byte_5D4594[814984]);
             wndShowHide_sub_46AC00(*(int*)& byte_5D4594[814984], 1);
             wndShowHide_sub_46AC00(*(int*)& byte_5D4594[814988], 0);
-            v1 = loadString_sub_40F1D0((char*)& byte_587000[87980], 0, (const char*)& byte_587000[87940], 660);
+            v1 = loadString_sub_40F1D0((char*)& byte_587000[87980], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 660);
             sub_46B490(*(int*)& byte_5D4594[814996], 16385, (int)v1, 0);
             sub_4378B0();
             sub_452D80(231, 100);
@@ -46648,7 +46648,7 @@ int sub_4378B0()
             *(_DWORD*)& byte_5D4594[814964] = v4;
             v1 = sub_40A430();
             sub_554AA0(v1, 0, 0, v4);
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[88032], 0, (const char*)& byte_587000[87992], 1097);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[88032], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1097);
             sub_449A10(*(int*)& byte_5D4594[814980], 0, (int)v2, 0, 0, 0);
         }
         *(_DWORD*)& byte_5D4594[815104] = 0;
@@ -46736,7 +46736,7 @@ int sub_4379F0()
     }
     else
     {
-        *(_DWORD*)& byte_5D4594[814980] = sub_4A0AD0((const char*)& byte_587000[88056], sub_439E70);
+        *(_DWORD*)& byte_5D4594[814980] = sub_4A0AD0("noxworld.wnd", sub_439E70);
         if (*(_DWORD*)& byte_5D4594[814980])
         {
             sub_49FF20();
@@ -46783,34 +46783,34 @@ int sub_4379F0()
                     wndShowHide_sub_46AC00((int)v6, 0);
                     *(_DWORD*)& byte_587000[87412] = -1;
                     wndShowHide_sub_46AC00(*(int*)& byte_5D4594[814984], 1);
-                    v7 = loadString_sub_40F1D0((char*)& byte_587000[88164], 0, (const char*)& byte_587000[88124], 2530);
+                    v7 = loadString_sub_40F1D0((char*)& byte_587000[88164], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2530);
                     sub_46B490(*(int*)& byte_5D4594[814996], 16385, (int)v7, 0);
                 }
                 else
                 {
                     *(_DWORD*)& byte_587000[87412] = 0;
                     wndShowHide_sub_46AC00(*(int*)& byte_5D4594[814988], 1);
-                    v5 = loadString_sub_40F1D0((char*)& byte_587000[88112], 0, (const char*)& byte_587000[88072], 2517);
+                    v5 = loadString_sub_40F1D0((char*)& byte_587000[88112], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2517);
                     sub_46B490(*(int*)& byte_5D4594[814996], 16385, (int)v5, 0);
                     sub_46ACE0(*(_DWORD * *)& byte_5D4594[814984], 10620, 10631, 1);
                     sub_49FDB0(0);
                 }
-                *(_DWORD*)& byte_5D4594[814556] = sub_42F970((const char*)& byte_587000[88176]);
-                *(_DWORD*)& byte_5D4594[814560] = sub_42F970((const char*)& byte_587000[88200]);
-                *(_DWORD*)& byte_5D4594[814564] = sub_42F970((const char*)& byte_587000[88224]);
-                *(_DWORD*)& byte_5D4594[814568] = sub_42F970((const char*)& byte_587000[88248]);
-                *(_DWORD*)& byte_5D4594[814572] = sub_42F970((const char*)& byte_587000[88272]);
-                *(_DWORD*)& byte_5D4594[814576] = sub_42F970((const char*)& byte_587000[88296]);
-                *(_DWORD*)& byte_5D4594[814580] = sub_42F970((const char*)& byte_587000[88324]);
-                *(_DWORD*)& byte_5D4594[814584] = sub_42F970((const char*)& byte_587000[88348]);
-                *(_DWORD*)& byte_5D4594[814588] = sub_42F970((const char*)& byte_587000[88376]);
-                *(_DWORD*)& byte_5D4594[814592] = sub_42F970((const char*)& byte_587000[88396]);
-                *(_DWORD*)& byte_5D4594[814596] = sub_42F970((const char*)& byte_587000[88420]);
-                *(_DWORD*)& byte_5D4594[814600] = sub_42F970((const char*)& byte_587000[88440]);
-                *(_DWORD*)& byte_5D4594[814900] = sub_42F970((const char*)& byte_587000[88464]);
-                *(_DWORD*)& byte_5D4594[814904] = sub_42F970((const char*)& byte_587000[88476]);
-                *(_DWORD*)& byte_5D4594[814908] = sub_42F970((const char*)& byte_587000[88488]);
-                *(_DWORD*)& byte_5D4594[814912] = sub_42F970((const char*)& byte_587000[88500]);
+                *(_DWORD*)& byte_5D4594[814556] = sub_42F970("NWGameIconLargeGreen");
+                *(_DWORD*)& byte_5D4594[814560] = sub_42F970("NWGameIconLargeGreenLit");
+                *(_DWORD*)& byte_5D4594[814564] = sub_42F970("NWGameIconSmallGreen");
+                *(_DWORD*)& byte_5D4594[814568] = sub_42F970("NWGameIconSmallGreenLit");
+                *(_DWORD*)& byte_5D4594[814572] = sub_42F970("NWGameIconLargeYellow");
+                *(_DWORD*)& byte_5D4594[814576] = sub_42F970("NWGameIconLargeYellowLit");
+                *(_DWORD*)& byte_5D4594[814580] = sub_42F970("NWGameIconSmallYellow");
+                *(_DWORD*)& byte_5D4594[814584] = sub_42F970("NWGameIconSmallYellowLit");
+                *(_DWORD*)& byte_5D4594[814588] = sub_42F970("NWGameIconLargeRed");
+                *(_DWORD*)& byte_5D4594[814592] = sub_42F970("NWGameIconLargeRedLit");
+                *(_DWORD*)& byte_5D4594[814596] = sub_42F970("NWGameIconSmallRed");
+                *(_DWORD*)& byte_5D4594[814600] = sub_42F970("NWGameIconSmallRedLit");
+                *(_DWORD*)& byte_5D4594[814900] = sub_42F970("NWMapULLg");
+                *(_DWORD*)& byte_5D4594[814904] = sub_42F970("NWMapURLg");
+                *(_DWORD*)& byte_5D4594[814908] = sub_42F970("NWMapLLLg");
+                *(_DWORD*)& byte_5D4594[814912] = sub_42F970("NWMapLRLg");
                 v8 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[815012], 10053);
                 v9 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[815012], 10043);
                 v10 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[815012], 10044);
@@ -46855,16 +46855,16 @@ int sub_4379F0()
                 sub_477610(0);
                 if (*(_DWORD*)& byte_5D4594[815096])
                 {
-                    v27 = loadString_sub_40F1D0((char*)& byte_587000[88552], 0, (const char*)& byte_587000[88512], 2616);
-                    v17 = loadString_sub_40F1D0((char*)& byte_587000[88600], 0, (const char*)& byte_587000[88560], 2616);
+                    v27 = loadString_sub_40F1D0((char*)& byte_587000[88552], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2616);
+                    v17 = loadString_sub_40F1D0((char*)& byte_587000[88600], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2616);
                     sub_449A10(0, (int)v17, (int)v27, 33, 0, 0);
                     sub_44A360(1);
                     *(_DWORD*)& byte_5D4594[815096] = 0;
                 }
                 else if (*(_DWORD*)& byte_5D4594[815100])
                 {
-                    v28 = loadString_sub_40F1D0((char*)& byte_587000[88656], 0, (const char*)& byte_587000[88616], 2623);
-                    v18 = loadString_sub_40F1D0((char*)& byte_587000[88704], 0, (const char*)& byte_587000[88664], 2623);
+                    v28 = loadString_sub_40F1D0((char*)& byte_587000[88656], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2623);
+                    v18 = loadString_sub_40F1D0((char*)& byte_587000[88704], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2623);
                     sub_449A10(0, (int)v18, (int)v28, 33, 0, 0);
                     sub_44A360(1);
                     *(_DWORD*)& byte_5D4594[815100] = 0;
@@ -46947,7 +46947,7 @@ int sub_4383A0()
     wndShowHide_sub_46AC00(*(int*)& byte_5D4594[814988], 1);
     sub_46AD20(*(_DWORD * *)& byte_5D4594[814980], 10006, 10007, 1);
     sub_46ACE0(*(_DWORD * *)& byte_5D4594[814980], 10047, 10051, 0);
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[88760], 0, (const char*)& byte_587000[88720], 418);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[88760], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 418);
     sub_46B490(*(int*)& byte_5D4594[814996], 16385, (int)v0, 0);
     result = *(_DWORD*)& byte_587000[87404];
     *(_DWORD*)& byte_587000[87408] = 1;
@@ -47080,15 +47080,15 @@ int sub_438770()
             break;
         case 4:
             sub_43AF90(3);
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[88816], 0, (const char*)& byte_587000[88776], 1343);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[88816], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1343);
             sub_449E30((int)v2);
             *(_QWORD*)& byte_5D4594[814956] = sub_416BB0() + 20000;
             result = 1;
             break;
         case 5:
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[88864], 0, (const char*)& byte_587000[88824], 1349);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[88864], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1349);
             sub_449E00((int)v3);
-            v4 = loadString_sub_40F1D0((char*)& byte_587000[88916], 0, (const char*)& byte_587000[88876], 1350);
+            v4 = loadString_sub_40F1D0((char*)& byte_587000[88916], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1350);
             sub_449E30((int)v4);
             sub_449EA0(7);
             sub_44A360(0);
@@ -47098,7 +47098,7 @@ int sub_438770()
             break;
         case 7:
             sub_44A360(1);
-            v5 = loadString_sub_40F1D0((char*)& byte_587000[88976], 0, (const char*)& byte_587000[88936], 1364);
+            v5 = loadString_sub_40F1D0((char*)& byte_587000[88976], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1364);
             sub_449E30((int)v5);
             sub_449EA0(0);
             sub_43DE20(sub_43B360);
@@ -47196,9 +47196,9 @@ int sub_438A90()
     }
     /*else
     {
-      v0 = loadString_sub_40F1D0((char *)&byte_587000[89028], 0, (const char *)&byte_587000[88988], 541);
+      v0 = loadString_sub_40F1D0((char *)&byte_587000[89028], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 541);
       sub_449E00((int)v0);
-      v1 = loadString_sub_40F1D0((char *)&byte_587000[89076], 0, (const char *)&byte_587000[89036], 542);
+      v1 = loadString_sub_40F1D0((char *)&byte_587000[89076], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 542);
       sub_449E30((int)v1);
       sub_449EA0(1);
       sub_43AF90(1);
@@ -47223,11 +47223,11 @@ int sub_438BD0()
         && *(_DWORD*)& byte_5D4594[814552] != 9
         && *(_DWORD*)& byte_5D4594[814552] != 10)
     {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[89152], 0, (const char*)& byte_587000[89112], 1262);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[89152], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1262);
         sub_449E00((int)v1);
         v0 = *(_DWORD*)& byte_5D4594[814552];
     }
-    v2 = loadString_sub_40F1D0(*(char**)& byte_587000[4 * v0 + 87416], 0, (const char*)& byte_587000[89164], 1265);
+    v2 = loadString_sub_40F1D0(*(char**)& byte_587000[4 * v0 + 87416], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1265);
     sub_449E30((int)v2);
     *(_DWORD*)& byte_5D4594[815044] = 0;
     sub_449EA0(1);
@@ -47459,7 +47459,7 @@ int __cdecl sub_439370(int2* a1, int a2)
     }
     else
     {
-        v3 = loadString_sub_40F1D0((char*)& byte_587000[89244], 0, (const char*)& byte_587000[89204], 688);
+        v3 = loadString_sub_40F1D0((char*)& byte_587000[89244], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 688);
         sub_449A10(*(int*)& byte_5D4594[814980], 0, (int)v3, 33, 0, 0);
         sub_44A360(0);
         result = sub_44A4B0();
@@ -47545,7 +47545,7 @@ int __cdecl sub_4394D0(int a1)
     v36 = a1 + 111;
     v1 = *(_BYTE*)(a1 + 102) & 0x7F;
     sub_46B490(*(int*)& byte_5D4594[815004], 16399, 0, 0);
-    v2 = loadString_sub_40F1D0((char*)& byte_587000[89316], 0, (const char*)& byte_587000[89276], 749);
+    v2 = loadString_sub_40F1D0((char*)& byte_587000[89316], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 749);
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v2, 14);
     if (*(_BYTE*)(a1 + 120))
     {
@@ -47561,14 +47561,14 @@ int __cdecl sub_4394D0(int a1)
     if (*(_DWORD*)& byte_587000[87404] == 1)
     {
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)& byte_587000[89332], -1);
-        v3 = loadString_sub_40F1D0((char*)& byte_587000[89376], 0, (const char*)& byte_587000[89336], 766);
+        v3 = loadString_sub_40F1D0((char*)& byte_587000[89376], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 766);
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v3, 14);
         sub_439CC0(*(_DWORD*)(a1 + 32), v37);
         nox_swprintf(v38, (const wchar_t*)& byte_587000[89388], v37);
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v38, -1);
     }
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)& byte_587000[89396], -1);
-    v4 = loadString_sub_40F1D0((char*)& byte_587000[89440], 0, (const char*)& byte_587000[89400], 774);
+    v4 = loadString_sub_40F1D0((char*)& byte_587000[89440], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 774);
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v4, 14);
     if (*(_DWORD*)(a1 + 96) == 9999)
         nox_swprintf(v38, (const wchar_t*)& byte_587000[89448]);
@@ -47576,20 +47576,20 @@ int __cdecl sub_4394D0(int a1)
         nox_swprintf(v38, (const wchar_t*)& byte_587000[89456], *(_DWORD*)(a1 + 96));
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v38, -1);
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)& byte_587000[89464], -1);
-    v5 = loadString_sub_40F1D0((char*)& byte_587000[89508], 0, (const char*)& byte_587000[89468], 787);
+    v5 = loadString_sub_40F1D0((char*)& byte_587000[89508], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 787);
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v5, 14);
     v6 = sub_43BCB0(*(_WORD*)(a1 + 163));
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v6, -1);
     if (*(_BYTE*)(a1 + 164) & 0x10)
     {
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)& byte_587000[89520], -1);
-        v7 = loadString_sub_40F1D0((char*)& byte_587000[89564], 0, (const char*)& byte_587000[89524], 794);
+        v7 = loadString_sub_40F1D0((char*)& byte_587000[89564], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 794);
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v7, 14);
         nox_swprintf(v38, (const wchar_t*)& byte_587000[89572], *(unsigned __int16*)(a1 + 165));
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v38, -1);
     }
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)& byte_587000[89580], -1);
-    v8 = loadString_sub_40F1D0((char*)& byte_587000[89624], 0, (const char*)& byte_587000[89584], 801);
+    v8 = loadString_sub_40F1D0((char*)& byte_587000[89624], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 801);
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v8, 14);
     strcpy(v37, (const char*)(a1 + 111));
     nox_swprintf(v38, (const wchar_t*)& byte_587000[89628], v37);
@@ -47599,26 +47599,26 @@ int __cdecl sub_4394D0(int a1)
     if (v9 & 0xC000u)
     {
         if (v9 & 0x4000)
-            v33 = loadString_sub_40F1D0((char*)& byte_587000[89680], 0, (const char*)& byte_587000[89640], 811);
+            v33 = loadString_sub_40F1D0((char*)& byte_587000[89680], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 811);
         else
-            v33 = loadString_sub_40F1D0((char*)& byte_587000[89732], 0, (const char*)& byte_587000[89692], 815);
+            v33 = loadString_sub_40F1D0((char*)& byte_587000[89732], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 815);
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v33, 6);
-        v10 = loadString_sub_40F1D0((char*)& byte_587000[89780], 0, (const char*)& byte_587000[89740], 817);
+        v10 = loadString_sub_40F1D0((char*)& byte_587000[89780], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 817);
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v10, 6);
     }
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)& byte_587000[89788], -1);
-    v11 = loadString_sub_40F1D0((char*)& byte_587000[89832], 0, (const char*)& byte_587000[89792], 822);
+    v11 = loadString_sub_40F1D0((char*)& byte_587000[89832], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 822);
     sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v11, 14);
     nox_swprintf(v38, (const wchar_t*)& byte_587000[89844], *(unsigned __int8*)(a1 + 103), *(unsigned __int8*)(a1 + 104));
     result = sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v38, -1);
     if (*(_BYTE*)(a1 + 164) & 0x20)
     {
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)& byte_587000[89860], -1);
-        v13 = loadString_sub_40F1D0((char*)& byte_587000[89904], 0, (const char*)& byte_587000[89864], 831);
+        v13 = loadString_sub_40F1D0((char*)& byte_587000[89904], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 831);
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v13, 14);
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, *(_DWORD*)& byte_587000[4 * v1 + 87472], -1);
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)& byte_587000[89916], -1);
-        v14 = loadString_sub_40F1D0((char*)& byte_587000[89960], 0, (const char*)& byte_587000[89920], 836);
+        v14 = loadString_sub_40F1D0((char*)& byte_587000[89960], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 836);
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v14, 14);
         v15 = 0;
         v16 = 1;
@@ -47647,12 +47647,12 @@ int __cdecl sub_4394D0(int a1)
         } while (v18);
         if (!v15)
         {
-            v20 = loadString_sub_40F1D0((char*)& byte_587000[90016], 0, (const char*)& byte_587000[89976], 866);
+            v20 = loadString_sub_40F1D0((char*)& byte_587000[90016], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 866);
             sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v20, 4);
         }
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)& byte_587000[90024], -1);
         v21 = 0;
-        v22 = loadString_sub_40F1D0((char*)& byte_587000[90068], 0, (const char*)& byte_587000[90028], 872);
+        v22 = loadString_sub_40F1D0((char*)& byte_587000[90068], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 872);
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v22, 14);
         v23 = 1;
         v35 = 0;
@@ -47683,12 +47683,12 @@ int __cdecl sub_4394D0(int a1)
         } while (v25);
         if (!v21)
         {
-            v27 = loadString_sub_40F1D0((char*)& byte_587000[90124], 0, (const char*)& byte_587000[90084], 899);
+            v27 = loadString_sub_40F1D0((char*)& byte_587000[90124], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 899);
             sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v27, 4);
         }
         sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)& byte_587000[90132], -1);
         v28 = 0;
-        v29 = loadString_sub_40F1D0((char*)& byte_587000[90176], 0, (const char*)& byte_587000[90136], 905);
+        v29 = loadString_sub_40F1D0((char*)& byte_587000[90176], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 905);
         result = sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v29, 14);
         v30 = 1;
         v31 = 26;
@@ -47708,7 +47708,7 @@ int __cdecl sub_4394D0(int a1)
         } while (v31);
         if (!v28)
         {
-            v32 = loadString_sub_40F1D0((char*)& byte_587000[90232], 0, (const char*)& byte_587000[90192], 920);
+            v32 = loadString_sub_40F1D0((char*)& byte_587000[90232], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 920);
             result = sub_46B490(*(int*)& byte_5D4594[815004], 16397, (int)v32, 4);
         }
     }
@@ -47721,7 +47721,7 @@ char* __cdecl sub_439CC0(int a1, char* a2)
     size_t v2; // esi
     char* result; // eax
 
-    v2 = (size_t)& strstr((const char*)(a1 + 52), (const char*)& byte_587000[90240])[-52 - a1];
+    v2 = (size_t)& strstr((const char*)(a1 + 52), "'s_game")[-52 - a1];
     result = strncpy(a2, (const char*)(a1 + 52), v2);
     a2[v2] = 0;
     return result;
@@ -48001,7 +48001,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4)
                 wndShowHide_sub_46AC00(*(int*)& byte_5D4594[814992], 0);
                 sub_46AD20(*(_DWORD * *)& byte_5D4594[814980], 10006, 10007, 0);
                 sub_46ACE0(*(_DWORD * *)& byte_5D4594[814980], 10047, 10051, 1);
-                v21 = loadString_sub_40F1D0((char*)& byte_587000[90440], 0, (const char*)& byte_587000[90400], 2186);
+                v21 = loadString_sub_40F1D0((char*)& byte_587000[90440], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2186);
                 sub_46B490(*(int*)& byte_5D4594[814996], 16385, (int)v21, 0);
                 return 0;
             }
@@ -48010,7 +48010,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4)
         LOBYTE(v22) = sub_4D7700();
         if (!v22)
         {
-            v23 = loadString_sub_40F1D0((char*)& byte_587000[90328], 0, (const char*)& byte_587000[90288], 2013);
+            v23 = loadString_sub_40F1D0((char*)& byte_587000[90328], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2013);
             sub_449A10(*(int*)& byte_5D4594[814980], 0, (int)v23, 33, 0, 0);
             sub_44A360(0);
             sub_44A4B0();
@@ -48080,8 +48080,8 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4)
         if (sub_43AF80() == 10)
         {
             v14 = sub_449E60(4);
-            nox_sprintf(v35, (const char*)& byte_587000[90452], v14);
-            v15 = loadString_sub_40F1D0((char*)& byte_587000[90496], 0, (const char*)& byte_587000[90456], 2209);
+            nox_sprintf(v35, "%S", v14);
+            v15 = loadString_sub_40F1D0((char*)& byte_587000[90496], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2209);
             sub_449E30((int)v15);
             sub_43AF90(11);
             sub_40D740((int)v34);
@@ -48159,9 +48159,9 @@ void sub_43A810()
     wndShowHide_sub_46AC00(*(int*)& byte_5D4594[814988], 1);
     sub_46AE60(*(int*)& byte_5D4594[814984], *(_DWORD*)& byte_5D4594[4 * *(_DWORD*)& byte_587000[87412] + 814900]);
     if (*(_DWORD*)& byte_5D4594[815048] == 1)
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[90544], 0, (const char*)& byte_587000[90504], 377);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[90544], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 377);
     else
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[90596], 0, (const char*)& byte_587000[90556], 382);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[90596], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 382);
     sub_46B490(*(int*)& byte_5D4594[814996], 16385, (int)v2, 0);
     if (*(_DWORD*)& byte_587000[87404] == 1)
     {
@@ -48202,8 +48202,8 @@ int sub_43A980()
     wchar_t* v0; // eax
     wchar_t* v2; // [esp-10h] [ebp-10h]
 
-    v2 = loadString_sub_40F1D0((char*)& byte_587000[90648], 0, (const char*)& byte_587000[90608], 1295);
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[90700], 0, (const char*)& byte_587000[90660], 1295);
+    v2 = loadString_sub_40F1D0((char*)& byte_587000[90648], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1295);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[90700], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1295);
     sub_449A10(*(int*)& byte_5D4594[814980], (int)v0, (int)v2, 39, 0, 0);
     return sub_43AF90(10);
 }
@@ -48293,7 +48293,7 @@ char* sub_43AA70()
     {
         memset(v10, 0, sizeof(v10));
         v6 = sub_41FA40();
-        nox_sprintf(v9, (const char*)& byte_587000[90760], v6, &byte_587000[90752]);
+        nox_sprintf(v9, "%s%s", v6, &byte_587000[90752]);
         strcpy(&v10[52], v9);
         *(_DWORD*)v10 = sub_420100();
         *(_DWORD*)& v10[4] = 1;
@@ -48335,7 +48335,7 @@ void sub_43ACC0()
     if (!*(_DWORD*)& byte_5D4594[815088] && !*(_DWORD*)& byte_5D4594[815044])
     {
         v0 = sub_41FA40();
-        nox_sprintf(v11, (const char*)& byte_587000[90776], v0, &byte_587000[90768]);
+        nox_sprintf(v11, "%s%s", v0, &byte_587000[90768]);
         for (i = sub_41F0E0(); i; i = sub_41F0C0())
         {
             if (strcmp(v11, (const char*)(i + 52)))
@@ -48635,7 +48635,7 @@ int sub_43B360()
     else
     {
         v1 = sub_43B320();
-        nox_sprintf(v5, (const char*)& byte_587000[90840], v0, v1);
+        nox_sprintf(v5, "%s:%d", v0, v1);
         sub_431790(v5);
         sub_435720(v0);
     }
@@ -48749,7 +48749,7 @@ _DWORD* sub_43B630()
     wchar_t* v0; // eax
 
     sub_46C6E0(*(int*)& byte_5D4594[815000]);
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[90904], 0, (const char*)& byte_587000[90864], 1284);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[90904], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1284);
     return sub_449A10(*(int*)& byte_5D4594[814980], 0, (int)v0, 34, 0, 0);
 }
 
@@ -48791,8 +48791,8 @@ int sub_43B6E0()
     result = *(_DWORD*)& byte_5D4594[814980];
     if (*(_DWORD*)& byte_5D4594[814980])
     {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[90960], 0, (const char*)& byte_587000[90920], 3331);
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[91008], 0, (const char*)& byte_587000[90968], 3331);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[90960], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3331);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[91008], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3331);
         sub_449A10(0, (int)v1, (int)v2, 33, 0, 0);
         result = sub_44A360(1);
         *(_DWORD*)& byte_5D4594[815096] = 0;
@@ -48814,8 +48814,8 @@ int sub_43B750()
     result = *(_DWORD*)& byte_5D4594[814980];
     if (*(_DWORD*)& byte_5D4594[814980])
     {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[91064], 0, (const char*)& byte_587000[91024], 3351);
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[91112], 0, (const char*)& byte_587000[91072], 3351);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[91064], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3351);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[91112], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3351);
         sub_449A10(0, (int)v1, (int)v2, 33, 0, 0);
         result = sub_44A360(1);
         *(_DWORD*)& byte_5D4594[815100] = 0;
@@ -48885,22 +48885,22 @@ _DWORD* __cdecl sub_43B7C0(int a1)
         WideCharStr[0] = 0;
         if (v8 & 0x20)
         {
-            v9 = loadString_sub_40F1D0((char*)& byte_587000[91248], 0, (const char*)& byte_587000[91208], 3486);
+            v9 = loadString_sub_40F1D0((char*)& byte_587000[91248], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3486);
             nox_wcscat(WideCharStr, v9);
         }
         if (*(_BYTE*)(a1 + 100) & 0x10)
         {
             if (WideCharStr[0])
                 nox_wcscat(WideCharStr, (const wchar_t*)& byte_587000[91272]);
-            v10 = loadString_sub_40F1D0((char*)& byte_587000[91316], 0, (const char*)& byte_587000[91276], 3494);
+            v10 = loadString_sub_40F1D0((char*)& byte_587000[91316], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3494);
             nox_wcscat(WideCharStr, v10);
         }
         if (!WideCharStr[0])
         {
             if (*(_BYTE*)(a1 + 103) < *(_BYTE*)(a1 + 104))
-                v11 = loadString_sub_40F1D0((char*)& byte_587000[91424], 0, (const char*)& byte_587000[91384], 3505);
+                v11 = loadString_sub_40F1D0((char*)& byte_587000[91424], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3505);
             else
-                v11 = loadString_sub_40F1D0((char*)& byte_587000[91376], 0, (const char*)& byte_587000[91336], 3501);
+                v11 = loadString_sub_40F1D0((char*)& byte_587000[91376], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3501);
             nox_wcscat(WideCharStr, v11);
         }
         result = (_DWORD*)sub_46B490(*(int*)& byte_5D4594[815032], 16397, (int)WideCharStr, 4);
@@ -48986,25 +48986,25 @@ unsigned __int16* __cdecl sub_43BC10(wchar_t* a1, unsigned __int8 a2)
 //----- (0043BC80) --------------------------------------------------------
 int __cdecl sub_43BC80(int a1, unsigned __int16 a2, char* a3)
 {
-    return nox_sprintf(a3, (const char*)& byte_587000[91432], a1, a2);
+    return nox_sprintf(a3, "%s:%d", a1, a2);
 }
 
 //----- (0043BCB0) --------------------------------------------------------
 wchar_t* __cdecl sub_43BCB0(__int16 a1)
 {
     if (a1 & 0x1000)
-        return loadString_sub_40F1D0((char*)& byte_587000[91480], 0, (const char*)& byte_587000[91440], 3534);
+        return loadString_sub_40F1D0((char*)& byte_587000[91480], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3534);
     if (a1 & 0x20)
-        return loadString_sub_40F1D0((char*)& byte_587000[91528], 0, (const char*)& byte_587000[91488], 3541);
+        return loadString_sub_40F1D0((char*)& byte_587000[91528], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3541);
     if (a1 & 0x400)
-        return loadString_sub_40F1D0((char*)& byte_587000[91572], 0, (const char*)& byte_587000[91532], 3545);
+        return loadString_sub_40F1D0((char*)& byte_587000[91572], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3545);
     if (a1 & 0x10)
-        return loadString_sub_40F1D0((char*)& byte_587000[91624], 0, (const char*)& byte_587000[91584], 3550);
+        return loadString_sub_40F1D0((char*)& byte_587000[91624], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3550);
     if (a1 & 0x40)
-        return loadString_sub_40F1D0((char*)& byte_587000[91672], 0, (const char*)& byte_587000[91632], 3555);
+        return loadString_sub_40F1D0((char*)& byte_587000[91672], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3555);
     if ((a1 & 0x80u) == 0)
-        return loadString_sub_40F1D0((char*)& byte_587000[91772], 0, (const char*)& byte_587000[91732], 3563);
-    return loadString_sub_40F1D0((char*)& byte_587000[91724], 0, (const char*)& byte_587000[91684], 3559);
+        return loadString_sub_40F1D0((char*)& byte_587000[91772], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3563);
+    return loadString_sub_40F1D0((char*)& byte_587000[91724], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3559);
 }
 
 //----- (0043BD90) --------------------------------------------------------
@@ -50155,47 +50155,47 @@ int __cdecl sub_43D0A0(int a1)
     wchar_t* v1; // esi
     wchar_t* v2; // eax
 
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[91932], 0, (const char*)& byte_587000[91888], 702);
+    v1 = loadString_sub_40F1D0((char*)& byte_587000[91932], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 702);
     switch (a1 + 23)
     {
     case 0:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92656], 0, (const char*)& byte_587000[92612], 762);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92656], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 762);
         break;
     case 1:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92596], 0, (const char*)& byte_587000[92552], 757);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92596], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 757);
         break;
     case 2:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92540], 0, (const char*)& byte_587000[92496], 752);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92540], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 752);
         break;
     case 3:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92304], 0, (const char*)& byte_587000[92260], 732);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92304], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 732);
         break;
     case 4:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92252], 0, (const char*)& byte_587000[92208], 727);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92252], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 727);
         break;
     case 5:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92124], 0, (const char*)& byte_587000[92080], 718);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92124], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 718);
         break;
     case 8:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92484], 0, (const char*)& byte_587000[92440], 747);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92484], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 747);
         break;
     case 10:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92056], 0, (const char*)& byte_587000[92012], 713);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92056], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 713);
         break;
     case 11:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[91992], 0, (const char*)& byte_587000[91948], 708);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[91992], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 708);
         break;
     case 17:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92192], 0, (const char*)& byte_587000[92148], 722);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92192], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 722);
         break;
     case 19:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92424], 0, (const char*)& byte_587000[92380], 742);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92424], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 742);
         break;
     case 20:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92364], 0, (const char*)& byte_587000[92320], 737);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92364], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 737);
         break;
     default:
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[92720], 0, (const char*)& byte_587000[92676], 767);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[92720], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 767);
         break;
     }
     sub_449A10(0, (int)v1, (int)v2, 33, 0, 0);
@@ -50212,7 +50212,7 @@ void __cdecl sub_43D260(int a1, int a2)
     {
         if (a2)
         {
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92784], 0, (const char*)& byte_587000[92740], 784);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[92784], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 784);
             nox_swprintf(v3, v2, a1, a2);
             sub_445490(v3);
         }
@@ -50952,7 +50952,7 @@ int sub_43DEB0()
         if (!v5)
         {
             v13 = sub_409B30();
-            v6 = loadString_sub_40F1D0((char*)& byte_587000[93352], 0, (const char*)& byte_587000[93312], 318);
+            v6 = loadString_sub_40F1D0((char*)& byte_587000[93352], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 318);
             sub_4516C0(v6, v13);
             sub_4356E0();
             return 0;
@@ -50964,10 +50964,10 @@ int sub_43DEB0()
         sub_43C720(1);
         if ((int) * (_DWORD*)& byte_5D4594[3803228] < 0)
         {
-            v7 = loadString_sub_40F1D0((char*)& byte_587000[93408], 0, (const char*)& byte_587000[93368], 338);
+            v7 = loadString_sub_40F1D0((char*)& byte_587000[93408], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 338);
             sub_445490(v7);
             v14 = sub_42E8E0(8, 1);
-            v8 = loadString_sub_40F1D0((char*)& byte_587000[93468], 0, (const char*)& byte_587000[93428], 339);
+            v8 = loadString_sub_40F1D0((char*)& byte_587000[93468], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 339);
             nox_swprintf(v15, v8, v14);
             sub_445490(v15);
         }
@@ -50985,8 +50985,8 @@ int sub_43DEB0()
                 sub_40A540(9437184);
                 sub_477530(1);
                 sub_43E1A0(1);
-                v12 = loadString_sub_40F1D0((char*)& byte_587000[93244], 0, (const char*)& byte_587000[93204], 298);
-                v10 = loadString_sub_40F1D0((char*)& byte_587000[93304], 0, (const char*)& byte_587000[93264], 297);
+                v12 = loadString_sub_40F1D0((char*)& byte_587000[93244], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 298);
+                v10 = loadString_sub_40F1D0((char*)& byte_587000[93304], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 297);
                 sub_449A10(0, (int)v10, (int)v12, 24, sub_43E230, sub_43E200);
             }
             goto LABEL_16;
@@ -51042,7 +51042,7 @@ int map_download_finish()
     if (!sub_4AC2B0(sub_409B30()))
     {
         v13 = sub_409B30();
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[93528], 0, (const char*)& byte_587000[93488], 386);
+        v6 = loadString_sub_40F1D0((char*)& byte_587000[93528], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 386);
         sub_4516C0(v6, v13);
         sub_4356E0();
         return 0;
@@ -51345,13 +51345,13 @@ void mainloop()
                     v26 = v5;
                     do
                     {
-                        v6 = sub_415FF0(0, 100, (const char*)& byte_587000[93544], 570);
+                        v6 = sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 570);
                         v7 = *(_DWORD*)& byte_5D4594[816420] + v2 * v6 / 100;
                         v9 = *(_DWORD*)& byte_5D4594[816424] + v3 * v6 / 100;
-                        v23 = sub_415FF0(2, 5, (const char*)& byte_587000[93584], 582);
-                        v22 = sub_415FF0(2, 5, (const char*)& byte_587000[93624], 581);
-                        v21 = sub_415FF0(-7, 2, (const char*)& byte_587000[93664], 579);
-                        v10 = sub_415FF0(-5, 5, (const char*)& byte_587000[93704], 578);
+                        v23 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 582);
+                        v22 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 581);
+                        v21 = sub_415FF0(-7, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 579);
+                        v10 = sub_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 578);
                         sub_431540(4, v7, v9, v10, v21, 1, v22, v23, 2, 1);
                         --v26;
                     } while (v26);
@@ -51369,7 +51369,7 @@ void mainloop()
             }
             if (v1[2].field_4 == 1)
             {
-                sub_415FF0(0, 2, (const char*)& byte_587000[93744], 608);
+                sub_415FF0(0, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 608);
                 if (!*(_DWORD*)& byte_5D4594[816416])
                 {
                     *(_DWORD*)& byte_5D4594[816416] = 1;
@@ -51377,12 +51377,12 @@ void mainloop()
                     v11 = 75;
                     do
                     {
-                        v12 = sub_415FF0(0, 255, (const char*)& byte_587000[93784], 620);
-                        v13 = sub_415FF0(6, 12, (const char*)& byte_587000[93824], 621);
+                        v12 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 620);
+                        v13 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 621);
                         v14 = v13 * *(int*)& byte_587000[8 * v12 + 192088];
                         v15 = v13 * *(int*)& byte_587000[8 * v12 + 192092] / 16 - 6;
-                        v24 = sub_415FF0(2, 5, (const char*)& byte_587000[93864], 633);
-                        v16 = sub_415FF0(2, 5, (const char*)& byte_587000[93904], 632);
+                        v24 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 633);
+                        v16 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 632);
                         sub_431540(4, v14 / 16 + v27->field_0, v27->field_4 + v15, v14 / 16, v15, 1, v16, v24, 2, 1);
                         --v11;
                     } while (v11);
@@ -51549,8 +51549,8 @@ int __cdecl sub_43E940(int a1)
         return -2147221504;
     AIL_set_timer_frequency(v1, 30);
     AIL_start_timer(*(_DWORD*)& byte_587000[93944]);
-    sub_42EBB0(1u, sub_43E910, 0, (const char*)& byte_587000[94056]);
-    sub_42EBB0(2u, sub_43E8E0, 0, (const char*)& byte_587000[94064]);
+    sub_42EBB0(1u, sub_43E910, 0, "Audio");
+    sub_42EBB0(2u, sub_43E8E0, 0, "Audio");
     result = 0;
     *(_DWORD*)(a1 + 20) = 1;
     return result;
@@ -51665,7 +51665,7 @@ int __cdecl sub_43EAD0(int a1)
         }
         strcpy(v7, "Device: ");
         AIL_digital_configuration(v5, 0, 0, &v7[strlen(v7)]);
-        if (AIL_get_preference(15) || !strstr(v7, (const char*)& byte_587000[94084]))
+        if (AIL_get_preference(15) || !strstr(v7, "Emulated"))
             return v5;
         AIL_waveOutClose(v5);
         AIL_set_preference(15, 1);
@@ -53713,7 +53713,7 @@ char* __cdecl sub_440BC0(int a1, unsigned __int8 a2, int a3)
         v11 = (_DWORD*)(a3 + 4 * a1);
         do
         {
-            nox_sprintf(v12, (const char*)& byte_587000[101620], *v11);
+            nox_sprintf(v12, "%S", *v11);
             v5 = strlen(v12) + 1;
             v6 = &byte_5D4594[strlen((const char*)& byte_5D4594[818100]) + 818100];
             qmemcpy(v6, v12, 4 * (v5 >> 2));
@@ -53802,7 +53802,7 @@ int __cdecl sub_440D80(int a1, char a2, int a3)
         return 0;
     sub_450B20(*(wchar_t**)(a3 + 4));
     sub_450B70();
-    v4 = loadString_sub_40F1D0((char*)& byte_587000[101668], 0, (const char*)& byte_587000[101628], 1329);
+    v4 = loadString_sub_40F1D0((char*)& byte_587000[101668], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1329);
     sub_450C00(4u, v4);
     return 1;
 }
@@ -53815,7 +53815,7 @@ int __cdecl sub_440DD0(int a1, char a2)
     if (a2 != 1)
         return 0;
     sub_450B50();
-    v3 = loadString_sub_40F1D0((char*)& byte_587000[101724], 0, (const char*)& byte_587000[101684], 1340);
+    v3 = loadString_sub_40F1D0((char*)& byte_587000[101724], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1340);
     sub_450C00(4u, v3);
     return 1;
 }
@@ -53828,7 +53828,7 @@ int __cdecl sub_440E10(int a1, char a2, int a3)
     if (a2 != 3)
         return 0;
     sub_40A610(*(wchar_t**)(a3 + 4 * a1));
-    v4 = loadString_sub_40F1D0((char*)& byte_587000[101780], 0, (const char*)& byte_587000[101740], 1352);
+    v4 = loadString_sub_40F1D0((char*)& byte_587000[101780], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1352);
     sub_450C00(6u, v4);
     return 1;
 }
@@ -53843,7 +53843,7 @@ int __cdecl sub_440E60(int a1, char a2)
     if (!sub_40A5C0(2048))
     {
         sub_579830();
-        v3 = loadString_sub_40F1D0((char*)& byte_587000[101840], 0, (const char*)& byte_587000[101800], 1368);
+        v3 = loadString_sub_40F1D0((char*)& byte_587000[101840], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1368);
         sub_450C00(6u, v3);
     }
     return 1;
@@ -53870,7 +53870,7 @@ int __cdecl sub_440EB0(int a1, unsigned __int8 a2, int a3)
         sub_5797F0(v4);
     }
     v6 = sub_579850();
-    v5 = loadString_sub_40F1D0((char*)& byte_587000[101892], 0, (const char*)& byte_587000[101852], 1388);
+    v5 = loadString_sub_40F1D0((char*)& byte_587000[101892], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1388);
     sub_450C00(6u, v5, v6);
     return 1;
 }
@@ -53883,7 +53883,7 @@ int __cdecl sub_440F50(int a1, char a2)
     if (a2 != 2)
         return 0;
     *(_DWORD*)& byte_587000[95416] = 1;
-    v3 = loadString_sub_40F1D0((char*)& byte_587000[101944], 0, (const char*)& byte_587000[101904], 1400);
+    v3 = loadString_sub_40F1D0((char*)& byte_587000[101944], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1400);
     sub_450C00(6u, v3);
     return 1;
 }
@@ -53896,7 +53896,7 @@ int __cdecl sub_440F90(int a1, char a2)
     if (a2 != 2)
         return 0;
     *(_DWORD*)& byte_587000[95416] = 0;
-    v3 = loadString_sub_40F1D0((char*)& byte_587000[101996], 0, (const char*)& byte_587000[101956], 1411);
+    v3 = loadString_sub_40F1D0((char*)& byte_587000[101996], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1411);
     sub_450C00(6u, v3);
     return 1;
 }
@@ -53957,8 +53957,8 @@ int sub_441050()
     int v7; // [esp-Ch] [ebp-18h]
     wchar_t* v8; // [esp-8h] [ebp-14h]
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[102048], 0, (const char*)& byte_587000[102008], 1460);
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[102096], 0, (const char*)& byte_587000[102056], 1461);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[102048], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1460);
+    v1 = loadString_sub_40F1D0((char*)& byte_587000[102096], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1461);
     v2 = (char**)sub_4E3B30();
     if (!v2)
         return 1;
@@ -53974,13 +53974,13 @@ int sub_441050()
                 {
                     v8 = v0;
                     v7 = v4;
-                    v5 = loadString_sub_40F1D0((char*)& byte_587000[102148], 0, (const char*)& byte_587000[102108], 1475);
+                    v5 = loadString_sub_40F1D0((char*)& byte_587000[102148], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1475);
                 }
                 else
                 {
                     v8 = v1;
                     v7 = v4;
-                    v5 = loadString_sub_40F1D0((char*)& byte_587000[102200], 0, (const char*)& byte_587000[102160], 1477);
+                    v5 = loadString_sub_40F1D0((char*)& byte_587000[102200], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1477);
                 }
                 sub_450C00(6u, v5, v7, v8);
             }
@@ -54002,8 +54002,8 @@ int sub_441130()
     int v7; // [esp-Ch] [ebp-18h]
     wchar_t* v8; // [esp-8h] [ebp-14h]
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[102252], 0, (const char*)& byte_587000[102212], 1492);
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[102300], 0, (const char*)& byte_587000[102260], 1493);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[102252], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1492);
+    v1 = loadString_sub_40F1D0((char*)& byte_587000[102300], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1493);
     v2 = (char**)sub_4E3B30();
     if (!v2)
         return 1;
@@ -54019,13 +54019,13 @@ int sub_441130()
                 {
                     v8 = v0;
                     v7 = v4;
-                    v5 = loadString_sub_40F1D0((char*)& byte_587000[102352], 0, (const char*)& byte_587000[102312], 1508);
+                    v5 = loadString_sub_40F1D0((char*)& byte_587000[102352], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1508);
                 }
                 else
                 {
                     v8 = v1;
                     v7 = v4;
-                    v5 = loadString_sub_40F1D0((char*)& byte_587000[102404], 0, (const char*)& byte_587000[102364], 1510);
+                    v5 = loadString_sub_40F1D0((char*)& byte_587000[102404], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1510);
                 }
                 sub_450C00(6u, v5, v7, v8);
             }
@@ -54046,8 +54046,8 @@ int sub_441210()
     int v6; // [esp-8h] [ebp-14h]
     wchar_t* v7; // [esp-4h] [ebp-10h]
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[102456], 0, (const char*)& byte_587000[102416], 1524);
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[102504], 0, (const char*)& byte_587000[102464], 1525);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[102456], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1524);
+    v1 = loadString_sub_40F1D0((char*)& byte_587000[102504], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1525);
     v2 = 1;
     do
     {
@@ -54058,14 +54058,14 @@ int sub_441210()
                 v7 = v0;
                 v6 = sub_4249A0(v2, 1);
                 v5 = sub_424930(v2);
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[102556], 0, (const char*)& byte_587000[102516], 1531);
+                v3 = loadString_sub_40F1D0((char*)& byte_587000[102556], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1531);
             }
             else
             {
                 v7 = v1;
                 v6 = sub_4249A0(v2, 1);
                 v5 = sub_424930(v2);
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[102608], 0, (const char*)& byte_587000[102568], 1533);
+                v3 = loadString_sub_40F1D0((char*)& byte_587000[102608], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1533);
             }
             sub_450C00(6u, v3, v5, v6, v7);
         }
@@ -54087,8 +54087,8 @@ int sub_4412E0()
     int v8; // [esp-Ch] [ebp-18h]
     wchar_t* v9; // [esp-8h] [ebp-14h]
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[102660], 0, (const char*)& byte_587000[102620], 1588);
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[102708], 0, (const char*)& byte_587000[102668], 1589);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[102660], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1588);
+    v1 = loadString_sub_40F1D0((char*)& byte_587000[102708], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1589);
     v2 = (unsigned __int16*)sub_4E3B30();
     if (!v2)
         return 1;
@@ -54105,13 +54105,13 @@ int sub_4412E0()
                 {
                     v9 = v0;
                     v8 = v5;
-                    v6 = loadString_sub_40F1D0((char*)& byte_587000[102760], 0, (const char*)& byte_587000[102720], 1604);
+                    v6 = loadString_sub_40F1D0((char*)& byte_587000[102760], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1604);
                 }
                 else
                 {
                     v9 = v1;
                     v8 = v5;
-                    v6 = loadString_sub_40F1D0((char*)& byte_587000[102812], 0, (const char*)& byte_587000[102772], 1606);
+                    v6 = loadString_sub_40F1D0((char*)& byte_587000[102812], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1606);
                 }
                 sub_450C00(6u, v6, v8, v9);
             }
@@ -54137,9 +54137,9 @@ int __cdecl sub_4413C0(int a1, char a2)
         v3 += 76;
     } while ((int)v3 < (int)& byte_587000[95428]);
     if (*(_DWORD*)& byte_587000[95416])
-        v4 = loadString_sub_40F1D0((char*)& byte_587000[102880], 0, (const char*)& byte_587000[102840], 1630);
+        v4 = loadString_sub_40F1D0((char*)& byte_587000[102880], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1630);
     else
-        v4 = loadString_sub_40F1D0((char*)& byte_587000[102932], 0, (const char*)& byte_587000[102892], 1632);
+        v4 = loadString_sub_40F1D0((char*)& byte_587000[102932], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1632);
     sub_450C00(4u, v4);
     return 1;
 }
@@ -54240,17 +54240,17 @@ int __cdecl sub_441550(int a1, char a2)
     if (sub_40A5C0(0x2000))
     {
         v15 = sub_40A4C0();
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[103020], 0, (const char*)& byte_587000[102980], 1801);
+        v6 = loadString_sub_40F1D0((char*)& byte_587000[103020], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1801);
         sub_450C00(6u, (wchar_t*)& byte_587000[103028], v6, v15);
         v7 = sub_40A5B0();
         v16 = sub_4573C0(v7);
-        v8 = loadString_sub_40F1D0((char*)& byte_587000[103080], 0, (const char*)& byte_587000[103040], 1802);
+        v8 = loadString_sub_40F1D0((char*)& byte_587000[103080], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1802);
         sub_450C00(6u, (wchar_t*)& byte_587000[103088], v8, v16);
         v17 = sub_40A180(*((_WORD*)v2 + 26));
         v14 = (unsigned __int16)sub_40A020(*((_WORD*)v2 + 26));
         v13 = sub_409FA0();
         v12 = sub_409B30();
-        v9 = loadString_sub_40F1D0((char*)& byte_587000[103140], 0, (const char*)& byte_587000[103100], 1803);
+        v9 = loadString_sub_40F1D0((char*)& byte_587000[103140], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1803);
         sub_450C00(6u, v9, v12, v4, v13, v14, v17);
         v10.S_un.S_addr = sub_554200(0);
         v11 = inet_ntoa(v10);
@@ -54284,9 +54284,9 @@ int sub_4416F0()
     wchar_t* v0; // eax
 
     if (*(_DWORD*)& byte_5D4594[805836])
-        v0 = loadString_sub_40F1D0((char*)& byte_587000[103208], 0, (const char*)& byte_587000[103168], 1869);
+        v0 = loadString_sub_40F1D0((char*)& byte_587000[103208], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1869);
     else
-        v0 = loadString_sub_40F1D0((char*)& byte_587000[103260], 0, (const char*)& byte_587000[103220], 1871);
+        v0 = loadString_sub_40F1D0((char*)& byte_587000[103260], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1871);
     sub_450C00(6u, v0);
     return 1;
 }
@@ -54353,7 +54353,7 @@ int __cdecl sub_441870(int a1, char a2, int a3)
         if (*(_DWORD*)(a3 + 8))
         {
             *(_DWORD*)& byte_5D4594[2650636] |= 0x800000;
-            nox_sprintf(v4, (const char*)& byte_587000[103324], *(_DWORD*)(a3 + 8));
+            nox_sprintf(v4, "%S", *(_DWORD*)(a3 + 8));
             result = sub_413A80(v4);
         }
     }
@@ -54396,7 +54396,7 @@ int __cdecl sub_441910(int a1, char a2, int a3)
         return 1;
     if (a2 != 2)
         return 0;
-    nox_sprintf(&v11[4], (const char*)& byte_587000[103328], *(_DWORD*)(a3 + 4));
+    nox_sprintf(&v11[4], "%S", *(_DWORD*)(a3 + 4));
     if (v11[4] != 35 && !sub_4CFE10(&v11[4]))
         return 1;
     v4 = sub_4CFFA0((int)& byte_5D4594[3801836]);
@@ -54412,7 +54412,7 @@ int __cdecl sub_441910(int a1, char a2, int a3)
             }
             else if (!(sub_40A5B0() & v5))
             {
-                v6 = loadString_sub_40F1D0((char*)& byte_587000[103372], 0, (const char*)& byte_587000[103332], 2005);
+                v6 = loadString_sub_40F1D0((char*)& byte_587000[103372], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2005);
                 sub_440A20(v6);
                 return 1;
             }
@@ -54423,7 +54423,7 @@ int __cdecl sub_441910(int a1, char a2, int a3)
     {
     LABEL_16:
         v7 = strlen(&v11[4]) + 1;
-        if ((int)(v7 - 1) <= 4 || _strcmpi(&v11[v7 - 1], (const char*)& byte_587000[103392]))
+        if ((int)(v7 - 1) <= 4 || _strcmpi(&v11[v7 - 1], ".map"))
         {
             strcpy((char*)& byte_5D4594[822324], &v11[4]);
             v8 = (char*)& byte_5D4594[822324];
@@ -54442,7 +54442,7 @@ int __cdecl sub_441910(int a1, char a2, int a3)
                 _stat(FileName, (int)& v12)))
         {
             v10 = v8;
-            v9 = loadString_sub_40F1D0((char*)& byte_587000[103512], 0, (const char*)& byte_587000[103472], 2076);
+            v9 = loadString_sub_40F1D0((char*)& byte_587000[103512], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2076);
         }
         else
         {
@@ -54450,7 +54450,7 @@ int __cdecl sub_441910(int a1, char a2, int a3)
             sub_4D2450(v8);
             sub_41D650();
             v10 = v8;
-            v9 = loadString_sub_40F1D0((char*)& byte_587000[103460], 0, (const char*)& byte_587000[103420], 2072);
+            v9 = loadString_sub_40F1D0((char*)& byte_587000[103460], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2072);
         }
         sub_440A20(v9, v10);
         return 1;
@@ -54474,7 +54474,7 @@ char** __cdecl sub_441B90(_DWORD* a1)
         {
             if (!((_BYTE)result[3] & 4) && (!*(_DWORD*)& byte_587000[94464] || !((_BYTE)v2[1] & 0x10)))
             {
-                v3 = loadString_sub_40F1D0(*v2, 0, (const char*)& byte_587000[103528], 2097);
+                v3 = loadString_sub_40F1D0(*v2, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2097);
                 sub_450C00(6u, (wchar_t*)& byte_587000[103568], *(v2 - 1), v3);
             }
             v2 += 6;
@@ -54534,7 +54534,7 @@ int __cdecl sub_441BF0(int a1, int a2, int a3, const wchar_t** a4)
                 }
                 else
                 {
-                    v12 = loadString_sub_40F1D0((char*)v11[2], 0, (const char*)& byte_587000[103588], 2135);
+                    v12 = loadString_sub_40F1D0((char*)v11[2], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2135);
                     sub_450C00(6u, v12);
                     result = 1;
                 }
@@ -54596,18 +54596,18 @@ int __cdecl sub_441D80(int a1, unsigned __int8 a2, int a3)
         v8 = v7;
         if (!v7 || !*((_DWORD*)v7 + 514))
             return 0;
-        nox_sprintf(v12, (const char*)& byte_587000[103632], *(_DWORD*)(a3 + 8));
+        nox_sprintf(v12, "%S", *(_DWORD*)(a3 + 8));
         v9 = atof(v12);
         v10 = *(_DWORD*)(a3 + 12);
         v11.field_0 = v9;
-        nox_sprintf(v12, (const char*)& byte_587000[103636], v10);
+        nox_sprintf(v12, "%S", v10);
         v11.field_4 = atof(v12);
         sub_4E7010(*((_DWORD*)v8 + 514), &v11);
         return 1;
     }
     if (a2 < 3u)
         return 0;
-    nox_sprintf(v12, (const char*)& byte_587000[103628], *(_DWORD*)(a3 + 8));
+    nox_sprintf(v12, "%S", *(_DWORD*)(a3 + 8));
     v4 = sub_579E30(v12);
     if (!v4)
         return 1;
@@ -54788,7 +54788,7 @@ int sub_4421A0()
     wchar_t* v0; // eax
     char* v2; // eax
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[103680], 0, (const char*)& byte_587000[103640], 2440);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[103680], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2440);
     sub_450C00(6u, v0);
     if (sub_40A5C0(1))
     {
@@ -54905,7 +54905,7 @@ int sub_4423D0()
     wchar_t* v0; // eax
 
     *(_DWORD*)& byte_5D4594[2650636] |= 0x8000000u;
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[103744], 0, (const char*)& byte_587000[103704], 2541);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[103744], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2541);
     sub_450C00(6u, v0);
     return 1;
 }
@@ -54918,7 +54918,7 @@ int sub_442410()
     if (!sub_40A5C0(4096))
     {
         sub_4EF500(1);
-        v0 = loadString_sub_40F1D0((char*)& byte_587000[103800], 0, (const char*)& byte_587000[103760], 2557);
+        v0 = loadString_sub_40F1D0((char*)& byte_587000[103800], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2557);
         sub_450C00(6u, v0);
     }
     return 1;
@@ -54930,7 +54930,7 @@ int sub_442450()
     wchar_t* v0; // eax
 
     sub_4EF500(0);
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[103848], 0, (const char*)& byte_587000[103808], 2568);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[103848], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2568);
     sub_450C00(6u, v0);
     return 1;
 }
@@ -54943,7 +54943,7 @@ int sub_442480()
     if (!sub_40A5C0(4096))
     {
         nullsub_26(1);
-        v0 = loadString_sub_40F1D0((char*)& byte_587000[103900], 0, (const char*)& byte_587000[103860], 2585);
+        v0 = loadString_sub_40F1D0((char*)& byte_587000[103900], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2585);
         sub_450C00(6u, v0);
     }
     return 1;
@@ -54956,7 +54956,7 @@ int sub_4424C0()
     wchar_t* v0; // eax
 
     nullsub_26(0);
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[103948], 0, (const char*)& byte_587000[103908], 2597);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[103948], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2597);
     sub_450C00(6u, v0);
     return 1;
 }
@@ -54972,7 +54972,7 @@ int __cdecl sub_4424F0(int a1, char a2, int a3)
         if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *(const wchar_t**)& byte_587000[94468]))
         {
             sub_4D0D90(1);
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[104000], 0, (const char*)& byte_587000[103960], 2614);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[104000], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2614);
         LABEL_6:
             sub_450C00(6u, v3);
             sub_4AD840();
@@ -54981,7 +54981,7 @@ int __cdecl sub_4424F0(int a1, char a2, int a3)
         if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *(const wchar_t**)& byte_587000[94472]))
         {
             sub_4D0D90(0);
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[104052], 0, (const char*)& byte_587000[104012], 2621);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[104052], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2621);
             goto LABEL_6;
         }
     }
@@ -55000,8 +55000,8 @@ int __cdecl sub_442590(int a1, char a2, int a3)
         {
             sub_409E70(1);
             sub_40A670();
-            v5 = loadString_sub_40F1D0((char*)& byte_587000[104104], 0, (const char*)& byte_587000[104064], 2644);
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[104160], 0, (const char*)& byte_587000[104120], 2645);
+            v5 = loadString_sub_40F1D0((char*)& byte_587000[104104], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2644);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[104160], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2645);
         LABEL_6:
             sub_450C00(6u, v3, v5);
             return 1;
@@ -55010,8 +55010,8 @@ int __cdecl sub_442590(int a1, char a2, int a3)
         {
             sub_409EC0(1);
             sub_40A670();
-            v5 = loadString_sub_40F1D0((char*)& byte_587000[104208], 0, (const char*)& byte_587000[104168], 2652);
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[104264], 0, (const char*)& byte_587000[104224], 2653);
+            v5 = loadString_sub_40F1D0((char*)& byte_587000[104208], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2652);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[104264], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2653);
             goto LABEL_6;
         }
     }
@@ -55030,8 +55030,8 @@ int __cdecl sub_442670(int a1, char a2, int a3)
         {
             sub_409E70(16);
             sub_40A670();
-            v5 = loadString_sub_40F1D0((char*)& byte_587000[104312], 0, (const char*)& byte_587000[104272], 2674);
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[104368], 0, (const char*)& byte_587000[104328], 2675);
+            v5 = loadString_sub_40F1D0((char*)& byte_587000[104312], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2674);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[104368], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2675);
         LABEL_6:
             sub_450C00(6u, v3, v5);
             return 1;
@@ -55040,8 +55040,8 @@ int __cdecl sub_442670(int a1, char a2, int a3)
         {
             sub_409EC0(16);
             sub_40A670();
-            v5 = loadString_sub_40F1D0((char*)& byte_587000[104416], 0, (const char*)& byte_587000[104376], 2682);
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[104472], 0, (const char*)& byte_587000[104432], 2683);
+            v5 = loadString_sub_40F1D0((char*)& byte_587000[104416], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2682);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[104472], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2683);
             goto LABEL_6;
         }
     }
@@ -55137,7 +55137,7 @@ int __cdecl sub_442840(int a1, unsigned __int8 a2, int a3)
         v12 = (_DWORD*)(a3 + 4 * a1);
         do
         {
-            nox_sprintf(v14, (const char*)& byte_587000[104480], *v12);
+            nox_sprintf(v14, "%S", *v12);
             v5 = strlen(v14) + 1;
             v6 = &v13[strlen(v13)];
             qmemcpy(v6, v14, 4 * (v5 >> 2));
@@ -55154,7 +55154,7 @@ int __cdecl sub_442840(int a1, unsigned __int8 a2, int a3)
         if (v13[0])
         {
             sub_40A440(v13);
-            v11 = loadString_sub_40F1D0((char*)& byte_587000[104528], 0, (const char*)& byte_587000[104488], 2766);
+            v11 = loadString_sub_40F1D0((char*)& byte_587000[104528], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2766);
             sub_450C00(6u, v11, v13);
         }
     }
@@ -55177,16 +55177,16 @@ int __cdecl sub_442950(int a1, char a2, int a3)
             {
                 sub_409E70(4);
                 sub_40A670();
-                v5 = loadString_sub_40F1D0((char*)& byte_587000[104804], 0, (const char*)& byte_587000[104764], 2810);
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[104860], 0, (const char*)& byte_587000[104820], 2811);
+                v5 = loadString_sub_40F1D0((char*)& byte_587000[104804], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2810);
+                v3 = loadString_sub_40F1D0((char*)& byte_587000[104860], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2811);
                 goto LABEL_13;
             }
             if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *(const wchar_t**)& byte_587000[94472]))
             {
                 sub_409EC0(4);
                 sub_40A670();
-                v5 = loadString_sub_40F1D0((char*)& byte_587000[104912], 0, (const char*)& byte_587000[104872], 2818);
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[104968], 0, (const char*)& byte_587000[104928], 2819);
+                v5 = loadString_sub_40F1D0((char*)& byte_587000[104912], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2818);
+                v3 = loadString_sub_40F1D0((char*)& byte_587000[104968], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2819);
                 goto LABEL_13;
             }
         }
@@ -55196,8 +55196,8 @@ int __cdecl sub_442950(int a1, char a2, int a3)
             {
                 sub_409E70(8);
                 sub_40A670();
-                v5 = loadString_sub_40F1D0((char*)& byte_587000[104580], 0, (const char*)& byte_587000[104540], 2788);
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[104636], 0, (const char*)& byte_587000[104596], 2789);
+                v5 = loadString_sub_40F1D0((char*)& byte_587000[104580], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2788);
+                v3 = loadString_sub_40F1D0((char*)& byte_587000[104636], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2789);
             LABEL_13:
                 sub_450C00(6u, v3, v5);
                 return 1;
@@ -55206,8 +55206,8 @@ int __cdecl sub_442950(int a1, char a2, int a3)
             {
                 sub_409E70(8);
                 sub_40A670();
-                v5 = loadString_sub_40F1D0((char*)& byte_587000[104692], 0, (const char*)& byte_587000[104652], 2796);
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[104748], 0, (const char*)& byte_587000[104708], 2797);
+                v5 = loadString_sub_40F1D0((char*)& byte_587000[104692], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2796);
+                v3 = loadString_sub_40F1D0((char*)& byte_587000[104748], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2797);
                 goto LABEL_13;
             }
         }
@@ -55231,11 +55231,11 @@ int __cdecl sub_442B00(int a1, char a2, int a3)
         if (sub_40A5C0(128))
         {
             v8 = *(_DWORD*)(a3 + 8);
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[105020], 0, (const char*)& byte_587000[104980], 3293);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[105020], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3293);
             goto LABEL_16;
         }
         v4 = sub_424960(*(wchar_t**)(a3 + 8));
-        if (v4 || (nox_sprintf(v10, (const char*)& byte_587000[105032], *(_DWORD*)(a3 + 8)), (v4 = sub_4243F0(v10)) != 0))
+        if (v4 || (nox_sprintf(v10, "%S", *(_DWORD*)(a3 + 8)), (v4 = sub_4243F0(v10)) != 0))
         {
             if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 12), *(const wchar_t**)& byte_587000[94468]))
             {
@@ -55247,7 +55247,7 @@ int __cdecl sub_442B00(int a1, char a2, int a3)
                 sub_424B90(v4);
                 sub_40A670();
                 v8 = *(_DWORD*)(a3 + 8);
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[105076], 0, (const char*)& byte_587000[105036], 3324);
+                v3 = loadString_sub_40F1D0((char*)& byte_587000[105076], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3324);
                 goto LABEL_16;
             }
             if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 12), *(const wchar_t**)& byte_587000[94472]))
@@ -55257,7 +55257,7 @@ int __cdecl sub_442B00(int a1, char a2, int a3)
                 sub_424BB0(v4);
                 sub_40A670();
                 v8 = *(_DWORD*)(a3 + 8);
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[105132], 0, (const char*)& byte_587000[105092], 3333);
+                v3 = loadString_sub_40F1D0((char*)& byte_587000[105132], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3333);
             LABEL_16:
                 sub_450C00(6u, v3, v8);
                 return 1;
@@ -55266,7 +55266,7 @@ int __cdecl sub_442B00(int a1, char a2, int a3)
         else
         {
             v9 = *(_DWORD*)(a3 + 8);
-            v7 = loadString_sub_40F1D0((char*)& byte_587000[105188], 0, (const char*)& byte_587000[105148], 3342);
+            v7 = loadString_sub_40F1D0((char*)& byte_587000[105188], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3342);
             sub_450C00(6u, v7, v9);
         }
     }
@@ -55290,14 +55290,14 @@ int __cdecl sub_442C90(int a1, char a2, int a3)
         if (sub_40A5C0(128))
         {
             v8 = *(_DWORD*)(a3 + 8);
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[105244], 0, (const char*)& byte_587000[105204], 3361);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[105244], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3361);
             goto LABEL_19;
         }
         if (_nox_wcsicmp(*(const wchar_t**)(a3 + 8), *(const wchar_t**)& byte_587000[94492]))
         {
             v6 = (unsigned __int16*)sub_415A60(*(wchar_t**)(a3 + 8));
             if (v6
-                || (nox_sprintf(v11, (const char*)& byte_587000[105368], *(_DWORD*)(a3 + 8)),
+                || (nox_sprintf(v11, "%S", *(_DWORD*)(a3 + 8)),
                 (v6 = (unsigned __int16*)sub_415A30(v11)) != 0))
             {
                 if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 12), *(const wchar_t**)& byte_587000[94468]))
@@ -55307,7 +55307,7 @@ int __cdecl sub_442C90(int a1, char a2, int a3)
                     sub_4E3BF0((int)v6);
                     sub_40A670();
                     v8 = *(_DWORD*)(a3 + 8);
-                    v3 = loadString_sub_40F1D0((char*)& byte_587000[105412], 0, (const char*)& byte_587000[105372], 3401);
+                    v3 = loadString_sub_40F1D0((char*)& byte_587000[105412], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3401);
                 LABEL_19:
                     sub_450C00(6u, v3, v8);
                     return 1;
@@ -55320,14 +55320,14 @@ int __cdecl sub_442C90(int a1, char a2, int a3)
                     sub_4E5DB0(*v6);
                     sub_40A670();
                     v8 = *(_DWORD*)(a3 + 8);
-                    v3 = loadString_sub_40F1D0((char*)& byte_587000[105468], 0, (const char*)& byte_587000[105428], 3414);
+                    v3 = loadString_sub_40F1D0((char*)& byte_587000[105468], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3414);
                     goto LABEL_19;
                 }
             }
             else
             {
                 v10 = *(_DWORD*)(a3 + 8);
-                v7 = loadString_sub_40F1D0((char*)& byte_587000[105524], 0, (const char*)& byte_587000[105484], 3423);
+                v7 = loadString_sub_40F1D0((char*)& byte_587000[105524], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3423);
                 sub_450C00(6u, v7, v10);
             }
         }
@@ -55337,7 +55337,7 @@ int __cdecl sub_442C90(int a1, char a2, int a3)
             {
                 sub_409E70(2);
                 v9 = *(_DWORD*)(a3 + 12);
-                v4 = loadString_sub_40F1D0((char*)& byte_587000[105296], 0, (const char*)& byte_587000[105256], 3370);
+                v4 = loadString_sub_40F1D0((char*)& byte_587000[105296], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3370);
             LABEL_9:
                 sub_450C00(6u, v4, v9);
                 sub_4AD840();
@@ -55347,7 +55347,7 @@ int __cdecl sub_442C90(int a1, char a2, int a3)
             {
                 sub_409E70(2);
                 v9 = *(_DWORD*)(a3 + 12);
-                v4 = loadString_sub_40F1D0((char*)& byte_587000[105352], 0, (const char*)& byte_587000[105312], 3377);
+                v4 = loadString_sub_40F1D0((char*)& byte_587000[105352], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3377);
                 goto LABEL_9;
             }
         }
@@ -55370,14 +55370,14 @@ int __cdecl sub_442ED0(int a1, char a2, int a3)
         if (sub_40A5C0(128))
         {
             v7 = *(_DWORD*)(a3 + 8);
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[105580], 0, (const char*)& byte_587000[105540], 3442);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[105580], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3442);
         LABEL_12:
             sub_450C00(6u, v3, v7);
             return 1;
         }
         v4 = (unsigned __int16*)sub_415EF0(*(wchar_t**)(a3 + 8));
         if (v4
-            || (nox_sprintf(v9, (const char*)& byte_587000[105592], *(_DWORD*)(a3 + 8)),
+            || (nox_sprintf(v9, "%S", *(_DWORD*)(a3 + 8)),
             (v4 = (unsigned __int16*)sub_415EC0(v9)) != 0))
         {
             if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 12), *(const wchar_t**)& byte_587000[94468]))
@@ -55387,7 +55387,7 @@ int __cdecl sub_442ED0(int a1, char a2, int a3)
                     sub_4E3BF0((int)v4);
                     sub_40A670();
                     v7 = *(_DWORD*)(a3 + 8);
-                    v3 = loadString_sub_40F1D0((char*)& byte_587000[105636], 0, (const char*)& byte_587000[105596], 3462);
+                    v3 = loadString_sub_40F1D0((char*)& byte_587000[105636], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3462);
                     goto LABEL_12;
                 }
                 return 1;
@@ -55400,7 +55400,7 @@ int __cdecl sub_442ED0(int a1, char a2, int a3)
                     sub_4E5DB0(*v4);
                     sub_40A670();
                     v7 = *(_DWORD*)(a3 + 8);
-                    v3 = loadString_sub_40F1D0((char*)& byte_587000[105692], 0, (const char*)& byte_587000[105652], 3473);
+                    v3 = loadString_sub_40F1D0((char*)& byte_587000[105692], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3473);
                     goto LABEL_12;
                 }
                 return 1;
@@ -55409,7 +55409,7 @@ int __cdecl sub_442ED0(int a1, char a2, int a3)
         else
         {
             v8 = *(_DWORD*)(a3 + 8);
-            v6 = loadString_sub_40F1D0((char*)& byte_587000[105748], 0, (const char*)& byte_587000[105708], 3481);
+            v6 = loadString_sub_40F1D0((char*)& byte_587000[105748], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3481);
             sub_450C00(6u, v6, v8);
         }
     }
@@ -55428,7 +55428,7 @@ int __cdecl sub_443050(int a1, char a2, int a3)
 
     if (a2 == 4)
     {
-        nox_sprintf(v9, (const char*)& byte_587000[105764], *(_DWORD*)(a3 + 8));
+        nox_sprintf(v9, "%S", *(_DWORD*)(a3 + 8));
         v3 = sub_4E3B60(v9);
         if (v3)
         {
@@ -55436,7 +55436,7 @@ int __cdecl sub_443050(int a1, char a2, int a3)
             {
                 sub_4E3BF0(v3);
                 v7 = *(_DWORD*)(a3 + 8);
-                v4 = loadString_sub_40F1D0((char*)& byte_587000[105808], 0, (const char*)& byte_587000[105768], 3535);
+                v4 = loadString_sub_40F1D0((char*)& byte_587000[105808], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3535);
             LABEL_7:
                 sub_450C00(6u, v4, v7);
                 return 1;
@@ -55445,14 +55445,14 @@ int __cdecl sub_443050(int a1, char a2, int a3)
             {
                 sub_4E3BC0(v3);
                 v7 = *(_DWORD*)(a3 + 8);
-                v4 = loadString_sub_40F1D0((char*)& byte_587000[105864], 0, (const char*)& byte_587000[105824], 3541);
+                v4 = loadString_sub_40F1D0((char*)& byte_587000[105864], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3541);
                 goto LABEL_7;
             }
         }
         else
         {
             v8 = *(_DWORD*)(a3 + 8);
-            v6 = loadString_sub_40F1D0((char*)& byte_587000[105920], 0, (const char*)& byte_587000[105880], 3548);
+            v6 = loadString_sub_40F1D0((char*)& byte_587000[105920], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3548);
             sub_450C00(6u, v6, v8);
         }
     }
@@ -55478,7 +55478,7 @@ int __cdecl sub_443160(int a1, char a2, int a3)
     {
         if (v5[2064] == 31)
         {
-            v8 = loadString_sub_40F1D0((char*)& byte_587000[106024], 0, (const char*)& byte_587000[105984], 3580);
+            v8 = loadString_sub_40F1D0((char*)& byte_587000[106024], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3580);
             sub_440A20(v8);
             return 1;
         }
@@ -55488,13 +55488,13 @@ int __cdecl sub_443160(int a1, char a2, int a3)
             sub_4DEB00((unsigned __int8)v6[2064]);
         sub_416770(0, v4, v6 + 2112);
         v9 = (int)(v6 + 4704);
-        v7 = loadString_sub_40F1D0((char*)& byte_587000[105976], 0, (const char*)& byte_587000[105936], 3577);
+        v7 = loadString_sub_40F1D0((char*)& byte_587000[105976], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3577);
     }
     else
     {
         sub_416770(0, v4, 0);
         v9 = (int)v4;
-        v7 = loadString_sub_40F1D0((char*)& byte_587000[106080], 0, (const char*)& byte_587000[106040], 3585);
+        v7 = loadString_sub_40F1D0((char*)& byte_587000[106080], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3585);
     }
     sub_440A20(v7, v9);
     return 1;
@@ -55505,7 +55505,7 @@ int sub_443250()
 {
     wchar_t* v0; // eax
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[106132], 0, (const char*)& byte_587000[106092], 3698);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[106132], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3698);
     sub_450C00(6u, v0);
     return 1;
 }
@@ -55515,7 +55515,7 @@ int sub_443280()
 {
     wchar_t* v0; // eax
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[106192], 0, (const char*)& byte_587000[106152], 3704);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[106192], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3704);
     sub_450C00(6u, v0);
     return 1;
 }
@@ -55536,7 +55536,7 @@ int __cdecl sub_4432B0(int a1, char a2, int a3)
         return 1;
     if (v4[2064] == 31)
     {
-        v7 = loadString_sub_40F1D0((char*)& byte_587000[106300], 0, (const char*)& byte_587000[106260], 3745);
+        v7 = loadString_sub_40F1D0((char*)& byte_587000[106300], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3745);
         sub_440A20(v7);
         return 1;
     }
@@ -55547,7 +55547,7 @@ int __cdecl sub_4432B0(int a1, char a2, int a3)
     else
     {
         sub_4DEAB0((unsigned __int8)v5[2064], 4);
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[106252], 0, (const char*)& byte_587000[106212], 3739);
+        v6 = loadString_sub_40F1D0((char*)& byte_587000[106252], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3739);
         sub_440A20(v6, v5 + 4704);
     }
     return 1;
@@ -55583,7 +55583,7 @@ int __cdecl sub_443380(int a1, char a2, int a3)
         sub_409F80(v3);
         sub_455800();
     }
-    v7 = loadString_sub_40F1D0((char*)& byte_587000[106360], 0, (const char*)& byte_587000[106320], 3779);
+    v7 = loadString_sub_40F1D0((char*)& byte_587000[106360], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3779);
     sub_440A20(v7, v3);
     return 1;
 }
@@ -55631,7 +55631,7 @@ int sub_443480()
 {
     wchar_t* v0; // eax
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[106412], 0, (const char*)& byte_587000[106372], 3830);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[106412], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3830);
     sub_450C00(6u, v0);
     return 1;
 }
@@ -55645,7 +55645,7 @@ int sub_4434B0()
     wchar_t* v3; // eax
     wchar_t v5[128]; // [esp+4h] [ebp-100h]
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[106472], 0, (const char*)& byte_587000[106432], 3839);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[106472], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3839);
     sub_450C00(6u, v0);
     for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
     {
@@ -55654,13 +55654,13 @@ int sub_4434B0()
         if (*(_DWORD*)& byte_5D4594[823684] && i[3680] & 4)
         {
             nox_wcscat(v5, (const wchar_t*)& byte_587000[106484]);
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[106532], 0, (const char*)& byte_587000[106492], 3851);
+            v2 = loadString_sub_40F1D0((char*)& byte_587000[106532], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3851);
             nox_wcscat(v5, v2);
         }
         if (i[3680] & 8)
         {
             nox_wcscat(v5, (const wchar_t*)& byte_587000[106544]);
-            v3 = loadString_sub_40F1D0((char*)& byte_587000[106592], 0, (const char*)& byte_587000[106552], 3857);
+            v3 = loadString_sub_40F1D0((char*)& byte_587000[106592], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3857);
             nox_wcscat(v5, v3);
         }
         sub_450C00(6u, (wchar_t*)& byte_587000[106604], v5);
@@ -55721,9 +55721,9 @@ int __cdecl sub_443610(int a1, unsigned __int8 a2, int a3)
 LABEL_9:
     v8 = *v3;
     if (v5)
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[106708], 0, (const char*)& byte_587000[106668], 3923);
+        v6 = loadString_sub_40F1D0((char*)& byte_587000[106708], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3923);
     else
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[106652], 0, (const char*)& byte_587000[106612], 3921);
+        v6 = loadString_sub_40F1D0((char*)& byte_587000[106652], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3921);
     sub_450C00(6u, v6, v8);
     return 1;
 }
@@ -55759,9 +55759,9 @@ int __cdecl sub_4436E0(int a1, unsigned __int8 a2, int a3)
 LABEL_9:
     v8 = *v3;
     if (v5)
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[106812], 0, (const char*)& byte_587000[106772], 3961);
+        v6 = loadString_sub_40F1D0((char*)& byte_587000[106812], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3961);
     else
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[106756], 0, (const char*)& byte_587000[106716], 3959);
+        v6 = loadString_sub_40F1D0((char*)& byte_587000[106756], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3959);
     sub_450C00(6u, v6, v8);
     return 1;
 }
@@ -55777,7 +55777,7 @@ int __cdecl sub_4437B0(int a1, char a2)
     if (!sub_40A5C0(1))
     {
         v4 = *(_DWORD*)& byte_5D4594[823700];
-        v3 = loadString_sub_40F1D0((char*)& byte_587000[106860], 0, (const char*)& byte_587000[106820], 3979);
+        v3 = loadString_sub_40F1D0((char*)& byte_587000[106860], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3979);
         sub_450C00(6u, v3, v4);
     }
     sub_440950(1, *(wchar_t**)& byte_5D4594[823700]);
@@ -55795,7 +55795,7 @@ int __cdecl sub_443810(int a1, char a2, int a3)
     nox_wcscpy(v5, *(const wchar_t**)(a3 + 4));
     if (!nox_wcschr(v5, 0x2Eu))
         nox_wcscat(v5, (const wchar_t*)& byte_587000[106872]);
-    v4 = loadString_sub_40F1D0((char*)& byte_587000[106924], 0, (const char*)& byte_587000[106884], 4002);
+    v4 = loadString_sub_40F1D0((char*)& byte_587000[106924], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4002);
     sub_450C00(6u, v4, v5);
     sub_4438A0((int)v5);
     return 1;
@@ -55814,7 +55814,7 @@ int __cdecl sub_4438A0(int a1)
     if (!a1)
         return 0;
     v6[0] = 0;
-    nox_sprintf(v6, (const char*)& byte_587000[106940], a1);
+    nox_sprintf(v6, "%S", a1);
     v1 = fopen(v6, "r");
     v2 = v1;
     if (!v1)
@@ -55852,7 +55852,7 @@ int __cdecl sub_4439B0(int a1, unsigned __int8 a2)
     if (a2 == 1)
     {
         *(_DWORD*)& byte_5D4594[823696] = 1;
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[107008], 0, (const char*)& byte_587000[106968], 4014);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[107008], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4014);
         sub_450C00(6u, v2);
         result = 1;
     }
@@ -55920,7 +55920,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5)
         v13 = (char)a4[6 * v7 + 3];
         if (!(v13 & 1))
         {
-            v14 = loadString_sub_40F1D0((char*)& byte_587000[107068], 0, (const char*)& byte_587000[107028], 4091);
+            v14 = loadString_sub_40F1D0((char*)& byte_587000[107068], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4091);
         LABEL_21:
             sub_450C00(6u, v14);
             return 1;
@@ -55932,7 +55932,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5)
         v12 = &a4[6 * v7];
         if (!(v13 & 2))
         {
-            v14 = loadString_sub_40F1D0((char*)& byte_587000[107120], 0, (const char*)& byte_587000[107080], 4097);
+            v14 = loadString_sub_40F1D0((char*)& byte_587000[107120], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4097);
             goto LABEL_21;
         }
     }
@@ -55944,7 +55944,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5)
         if ((unsigned __int8)a2 <= a1 + 1)
         {
         LABEL_30:
-            v17 = loadString_sub_40F1D0((char*)v12[2], 0, (const char*)& byte_587000[107132], 4125);
+            v17 = loadString_sub_40F1D0((char*)v12[2], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4125);
             sub_450C00(6u, v17);
             return 1;
         }
@@ -56078,7 +56078,7 @@ int __cdecl sub_443C80(wchar_t* a1, int a2)
                 v11 = sub_443A20(0, v10, (int)v12, (const wchar_t**)& byte_587000[97368], a2);
                 if (!v11)
                 {
-                    v9 = loadString_sub_40F1D0((char*)& byte_587000[107236], 0, (const char*)& byte_587000[107196], 4226);
+                    v9 = loadString_sub_40F1D0((char*)& byte_587000[107236], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4226);
                     sub_450C00(6u, v9);
                 }
             }
@@ -56156,7 +56156,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3)
             && !*(_WORD*)& byte_5D4594[818232];
         if (sub_4E6860(a1, v5, 0) != 1)
             goto LABEL_61;
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[107288], 0, (const char*)& byte_587000[107248], 4287);
+        v6 = loadString_sub_40F1D0((char*)& byte_587000[107288], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4287);
         v7 = sub_40A8A0();
         if (v7)
         {
@@ -56169,7 +56169,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3)
         if (v8)
             sub_419570(v8 + 48, *(_DWORD*)(a1 + 2060));
         v21 = v6;
-        v9 = loadString_sub_40F1D0((char*)& byte_587000[107332], 0, (const char*)& byte_587000[107292], 4308);
+        v9 = loadString_sub_40F1D0((char*)& byte_587000[107332], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4308);
         goto LABEL_38;
     case 1:
         if (!sub_4D12A0(*(unsigned __int8*)(a1 + 2064))
@@ -56180,11 +56180,11 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3)
         }
         nox_wcstok((wchar_t*)& byte_5D4594[818228], (const wchar_t*)& byte_587000[107348]);
         v10 = nox_wcstok(0, (const wchar_t*)& byte_587000[107352]);
-        nox_sprintf(v22, (const char*)& byte_587000[107356], v10);
+        nox_sprintf(v22, "%S", v10);
         v11 = sub_5071D0(v22);
         if (v11 != -1 && *(_DWORD*)& byte_5D4594[823692])
         {
-            v12 = loadString_sub_40F1D0((char*)& byte_587000[107456], 0, (const char*)& byte_587000[107416], 4332);
+            v12 = loadString_sub_40F1D0((char*)& byte_587000[107456], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4332);
             sub_450C00(6u, v12, v10);
             sub_507310(
                 v11,
@@ -56196,7 +56196,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3)
         else
         {
             v21 = v10;
-            v9 = loadString_sub_40F1D0((char*)& byte_587000[107400], 0, (const char*)& byte_587000[107360], 4329);
+            v9 = loadString_sub_40F1D0((char*)& byte_587000[107400], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4329);
         LABEL_38:
             sub_450C00(6u, v9, v21);
             *(_DWORD*)& byte_5D4594[823692] = 0;
@@ -56211,7 +56211,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3)
             goto LABEL_61;
         }
         v19 = *(_DWORD*)& byte_5D4594[823692] + 4704;
-        v13 = loadString_sub_40F1D0((char*)& byte_587000[107516], 0, (const char*)& byte_587000[107476], 4345);
+        v13 = loadString_sub_40F1D0((char*)& byte_587000[107516], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4345);
         sub_450C00(6u, v13, v19, a3);
         sub_443C80(a3, 0);
         *(_DWORD*)& byte_5D4594[823692] = 0;
@@ -56225,7 +56225,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3)
         {
             if (sub_40A5C0(1))
             {
-                v16 = loadString_sub_40F1D0((char*)& byte_587000[107568], 0, (const char*)& byte_587000[107528], 4392);
+                v16 = loadString_sub_40F1D0((char*)& byte_587000[107568], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4392);
                 sub_450C00(6u, v16);
                 *(_DWORD*)& byte_5D4594[823692] = 0;
                 return 1;
@@ -56268,7 +56268,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3)
         return 1;
     default:
         v20 = v3 + 4704;
-        v18 = loadString_sub_40F1D0((char*)& byte_587000[107624], 0, (const char*)& byte_587000[107584], 4400);
+        v18 = loadString_sub_40F1D0((char*)& byte_587000[107624], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4400);
         sub_450C00(6u, v18, v20, a3);
         goto LABEL_61;
     }
@@ -56336,8 +56336,8 @@ void __cdecl sub_444440(int* a1)
         v2 = a1;
         do
         {
-            nox_sprintf(v5, (const char*)& byte_587000[107652], *v1);
-            v3 = loadString_sub_40F1D0(v5, 0, (const char*)& byte_587000[107668], 4441);
+            nox_sprintf(v5, "cmd_token:%S", *v1);
+            v3 = loadString_sub_40F1D0(v5, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4441);
             v1[1] = (int)v3;
             sub_4444C0(*v1, (int)v3);
             if (nox_wcslen(v3) < 0x20)
@@ -56377,8 +56377,8 @@ int sub_4444F0()
     v0 = (int*)& byte_587000[94468];
     do
     {
-        nox_sprintf(v3, (const char*)& byte_587000[107708], *v0);
-        v1 = loadString_sub_40F1D0(v3, 0, (const char*)& byte_587000[107724], 4476);
+        nox_sprintf(v3, "cmd_token:%S", *v0);
+        v1 = loadString_sub_40F1D0(v3, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4476);
         sub_4444C0(*v0, (int)v1);
         ++v0;
     } while ((int)v0 < (int)& byte_587000[94500]);
@@ -56404,8 +56404,8 @@ int sub_444570()
     v0 = (int*)& byte_587000[94504];
     do
     {
-        nox_sprintf(v3, (const char*)& byte_587000[107764], *v0);
-        v1 = loadString_sub_40F1D0(v3, 0, (const char*)& byte_587000[107776], 874);
+        nox_sprintf(v3, "keybind:%S", *v0);
+        v1 = loadString_sub_40F1D0(v3, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 874);
         v0[1] = (int)v1;
         result = sub_4444C0(*v0, (int)v1);
         v0 += 19;
@@ -56574,7 +56574,7 @@ BOOL sub_444830()
     __asm { cpuid }
     _EAX = 0;
     __asm { cpuid }
-    return strcmp((const char*)& byte_587000[107832], (const char*)v11) == 0;
+    return strcmp("GenuineIntel", (const char*)v11) == 0;
 }
 #endif
 
@@ -56880,7 +56880,7 @@ void __cdecl sub_445490(wchar_t* a1)
             + 4 * *(_DWORD*)& byte_5D4594[2649704]
             + *(_DWORD*)& byte_5D4594[2649704];
         byte_5D4594[v2 + 824444] = 0;
-        v3 = loadString_sub_40F1D0((char*)& byte_587000[107916], 0, (const char*)& byte_587000[107880], 69);
+        v3 = loadString_sub_40F1D0((char*)& byte_587000[107916], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimsg.c", 69);
         sub_450C00(6u, v3, a1);
     }
 }
@@ -56951,7 +56951,7 @@ int sub_445650()
 {
     wchar_t* v0; // eax
 
-    *(_DWORD*)& byte_5D4594[825748] = sub_42F970((const char*)& byte_587000[107928]);
+    *(_DWORD*)& byte_5D4594[825748] = sub_42F970("ChatIcon");
     *(_DWORD*)& byte_5D4594[825744] = wndCreate2_sub_46C3E0(
         0,
         136,
@@ -56962,7 +56962,7 @@ int sub_445650()
         0);
     sub_46AE60(*(int*)& byte_5D4594[825744], *(int*)& byte_5D4594[825748]);
     wndSetAllFn_sub_46B430(*(_DWORD * *)& byte_5D4594[825744], 0, sub_4456E0, 0);
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[107980], 0, (const char*)& byte_587000[107940], 73);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[107980], 0, "C:\\NoxPost\\src\\client\\Gui\\chaticon.c", 73);
     sub_46B000((wchar_t*)(*(_DWORD*)& byte_5D4594[825744] + 36), v0);
     return 1;
 }
@@ -57010,7 +57010,7 @@ int sub_445790()
     int result; // eax
     wchar_t* v1; // eax
 
-    result = sub_4A0AD0((const char*)& byte_587000[107992], sub_445840);
+    result = sub_4A0AD0("QuitMenu.wnd", sub_445840);
     *(_DWORD*)& byte_5D4594[825760] = result;
     if (result)
     {
@@ -57024,7 +57024,7 @@ int sub_445790()
         sub_445C40();
         *(_DWORD*)& byte_5D4594[825752] = 0;
         *(_DWORD*)& byte_5D4594[825768] = 0;
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[108044], 0, (const char*)& byte_587000[108008], 309);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[108044], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 309);
         nox_swprintf((wchar_t*)& byte_5D4594[825772], (const wchar_t*)& byte_587000[108052], v1);
         result = 1;
     }
@@ -57074,8 +57074,8 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4)
         }
         else
         {
-            v23 = loadString_sub_40F1D0((char*)& byte_587000[108224], 0, (const char*)& byte_587000[108188], 199);
-            v15 = loadString_sub_40F1D0((char*)& byte_587000[108288], 0, (const char*)& byte_587000[108252], 198);
+            v23 = loadString_sub_40F1D0((char*)& byte_587000[108224], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 199);
+            v15 = loadString_sub_40F1D0((char*)& byte_587000[108288], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 198);
             sub_449A10(0, (int)v15, (int)v23, 56, (int (*)(void))sub_445B40, sub_445BA0);
             v16 = a3[9];
             LOBYTE(v16) = v16 & 0xFD;
@@ -57090,7 +57090,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4)
             sub_445C40();
             if (sub_40A5C0(2048))
             {
-                sub_4DB130((const char*)& byte_587000[108308]);
+                sub_4DB130("AUTOSAVE");
                 sub_4DB170(1, 0, 0);
             }
             goto LABEL_27;
@@ -57118,8 +57118,8 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4)
         break;
     case 9004:
         sub_46ADE0(*(int*)& byte_5D4594[825760]);
-        v22 = loadString_sub_40F1D0((char*)& byte_587000[108096], 0, (const char*)& byte_587000[108060], 185);
-        v13 = loadString_sub_40F1D0((char*)& byte_587000[108160], 0, (const char*)& byte_587000[108124], 184);
+        v22 = loadString_sub_40F1D0((char*)& byte_587000[108096], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 185);
+        v13 = loadString_sub_40F1D0((char*)& byte_587000[108160], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 184);
         sub_449A10(*(int*)& byte_5D4594[825760], (int)v13, (int)v22, 56, sub_445B20, sub_445B30);
         v14 = a3[9];
         LOBYTE(v14) = v14 & 0xFD;
@@ -57212,11 +57212,11 @@ void* sub_445B40()
     wchar_t* v2; // [esp-10h] [ebp-10h]
 
     sub_413A00(0);
-    result = sub_4DB790((const char*)& byte_587000[108320]);
+    result = sub_4DB790("AUTOSAVE");
     if (!result)
     {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[108368], 0, (const char*)& byte_587000[108332], 88);
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[108432], 0, (const char*)& byte_587000[108396], 87);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[108368], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 88);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[108432], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 87);
         result = sub_449A10(0, (int)v1, (int)v2, 33, 0, 0);
     }
     return result;
@@ -57311,7 +57311,7 @@ int sub_445C40()
                     sub_46ADC0(*(int*)& byte_5D4594[825760]);
                     if (sub_40A5C0(2048))
                     {
-                        v20 = loadString_sub_40F1D0((char*)& byte_587000[108496], 0, (const char*)& byte_587000[108460], 396);
+                        v20 = loadString_sub_40F1D0((char*)& byte_587000[108496], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 396);
                         v1 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9003);
                         sub_46AEE0((int)v1, (int)v20);
                         v2 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9001);
@@ -57331,7 +57331,7 @@ int sub_445C40()
                     }
                     else
                     {
-                        v21 = loadString_sub_40F1D0((char*)& byte_587000[108548], 0, (const char*)& byte_587000[108512], 427);
+                        v21 = loadString_sub_40F1D0((char*)& byte_587000[108548], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 427);
                         v8 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9003);
                         sub_46AEE0((int)v8, (int)v21);
                         v9 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9001);
@@ -57529,7 +57529,7 @@ void sub_446190()
     *(_DWORD*)& byte_5D4594[825764] = 0;
     if (sub_40A5C0(1))
     {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[108608], 0, (const char*)& byte_587000[108572], 667);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[108608], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 667);
         sub_413D30((char*)& byte_587000[108632], v1);
     }
     if (sub_40A5C0(0x2000000))
@@ -57564,8 +57564,8 @@ void sub_446190()
             {
                 v4 = -57;
                 sub_4E5420(159, &v4, 1, 0, 1);
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[108672], 0, (const char*)& byte_587000[108636], 737);
-                v2 = loadString_sub_40F1D0((char*)& byte_587000[108724], 0, (const char*)& byte_587000[108688], 736);
+                v3 = loadString_sub_40F1D0((char*)& byte_587000[108672], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 737);
+                v2 = loadString_sub_40F1D0((char*)& byte_587000[108724], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 736);
                 sub_449A10(0, (int)v2, (int)v3, 0, 0, 0);
                 sub_44A360(1);
                 goto LABEL_20;
@@ -57722,13 +57722,13 @@ int sub_4465C0()
     char* v7; // [esp+10h] [ebp-8h]
     _DWORD* v8; // [esp+14h] [ebp-4h]
 
-    v0 = sub_4A0AD0((const char*)& byte_587000[108772], sub_4466C0);
+    v0 = sub_4A0AD0("motd.wnd", sub_4466C0);
     *(_DWORD*)& byte_5D4594[826028] = v0;
     v1 = sub_46B0C0(v0, 4203);
     *(_DWORD*)& byte_5D4594[826032] = v1;
     v2 = (_DWORD*)v1[8];
-    v7 = sub_42F970((const char*)& byte_587000[108784]);
-    v3 = sub_42F970((const char*)& byte_587000[108796]);
+    v7 = sub_42F970("UISlider");
+    v3 = sub_42F970("UISliderLit");
     v4 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[826028], 4204);
     v5 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[826028], 4205);
     v8 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[826028], 4206);
@@ -57913,7 +57913,7 @@ char* sub_446970()
             v2 = &byte_587000[108848];
             do
             {
-                *(_DWORD*)v2 = loadString_sub_40F1D0(*((char**)v2 + 1), 0, (const char*)& byte_587000[110148], 181);
+                *(_DWORD*)v2 = loadString_sub_40F1D0(*((char**)v2 + 1), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 181);
                 result = (char*) * ((_DWORD*)v2 + 3);
                 v2 += 8;
                 ++v1;
@@ -57947,8 +57947,8 @@ int __cdecl sub_446A20(wchar_t* a1)
     sub_446CC0(0);
     sub_41F140(a1);
     sub_44A400();
-    v3 = loadString_sub_40F1D0((char*)& byte_587000[110256], 0, (const char*)& byte_587000[110208], 212);
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[110324], 0, (const char*)& byte_587000[110276], 211);
+    v3 = loadString_sub_40F1D0((char*)& byte_587000[110256], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 212);
+    v1 = loadString_sub_40F1D0((char*)& byte_587000[110324], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 211);
     sub_449A10(*(int*)& byte_5D4594[829480], (int)v1, (int)v3, 288, 0, 0);
     return sub_44A4B0();
 }
@@ -57990,7 +57990,7 @@ const char* __cdecl sub_446AE0(int a1)
         strcpy(&v3[36], result);
         if (sub_41F9E0((int)v3))
         {
-            result = (const char*)loadString_sub_40F1D0((char*)& byte_587000[110384], 0, (const char*)& byte_587000[110336], 293);
+            result = (const char*)loadString_sub_40F1D0((char*)& byte_587000[110384], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 293);
             if (result)
                 result = (const char*)sub_447310(0, (int)result);
         }
@@ -58017,7 +58017,7 @@ char* __cdecl sub_446BC0(int a1)
     char* result; // eax
 
     v1 = sub_46B490(*(int*)& byte_5D4594[829488], 16406, a1, 0);
-    nox_sprintf((char*)& byte_5D4594[826072], (const char*)& byte_587000[110396], v1);
+    nox_sprintf((char*)& byte_5D4594[826072], "%S", v1);
     result = (char*)& byte_5D4594[826072];
     if (byte_5D4594 != (unsigned __int8*)-826072 && (byte_5D4594[826072] == 64 || byte_5D4594[826072] == 32))
         result = (char*)& byte_5D4594[826073];
@@ -58201,7 +58201,7 @@ char* __cdecl sub_446F40(int a1)
     if (a1 == -1)
         return 0;
     v1 = sub_46B490(*(int*)& byte_5D4594[829488], 16406, a1, 0);
-    nox_sprintf((char*)& byte_5D4594[827120], (const char*)& byte_587000[110428], v1);
+    nox_sprintf((char*)& byte_5D4594[827120], "%S", v1);
     return (char*)& byte_5D4594[827120];
 }
 
@@ -58249,7 +58249,7 @@ void __cdecl sub_446F80(wchar_t* a1)
             return;
         }
     }
-    v8 = loadString_sub_40F1D0((char*)& byte_587000[110480], 0, (const char*)& byte_587000[110432], 1076);
+    v8 = loadString_sub_40F1D0((char*)& byte_587000[110480], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1076);
     if (v8)
         sub_447310(0, (int)v8);
 }
@@ -58298,7 +58298,7 @@ void __cdecl sub_447090(wchar_t* a1)
             return;
         }
     }
-    v8 = loadString_sub_40F1D0((char*)& byte_587000[110540], 0, (const char*)& byte_587000[110492], 1123);
+    v8 = loadString_sub_40F1D0((char*)& byte_587000[110540], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1123);
     if (v8)
         sub_447310(0, (int)v8);
 }
@@ -58472,7 +58472,7 @@ int sub_447470()
     wchar_t* v0; // esi
     int result; // eax
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[110616], 0, (const char*)& byte_587000[110568], 1261);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[110616], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1261);
     result = sub_41EC00();
     if (result)
     {
@@ -58490,12 +58490,12 @@ int __cdecl sub_4474C0(int a1, int a2)
 
     if (a1)
     {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[110672], 0, (const char*)& byte_587000[110624], 1277);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[110672], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1277);
         nox_swprintf((wchar_t*)& byte_5D4594[827176], v2, a2, a1);
     }
     else
     {
-        v3 = loadString_sub_40F1D0((char*)& byte_587000[110728], 0, (const char*)& byte_587000[110680], 1281);
+        v3 = loadString_sub_40F1D0((char*)& byte_587000[110728], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1281);
         nox_swprintf((wchar_t*)& byte_5D4594[827176], v3, a2);
     }
     return sub_46B490(*(int*)& byte_5D4594[829492], 16397, (int)& byte_5D4594[827176], 9);
@@ -58506,7 +58506,7 @@ int __cdecl sub_447540(int a1)
 {
     wchar_t* v1; // eax
 
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[110792], 0, (const char*)& byte_587000[110744], 1296);
+    v1 = loadString_sub_40F1D0((char*)& byte_587000[110792], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1296);
     nox_swprintf((wchar_t*)& byte_5D4594[827176], v1, a1);
     return sub_46B490(*(int*)& byte_5D4594[829492], 16397, (int)& byte_5D4594[827176], 9);
 }
@@ -58517,7 +58517,7 @@ int sub_447590()
     wchar_t* v0; // esi
     int result; // eax
 
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[110848], 0, (const char*)& byte_587000[110800], 1310);
+    v0 = loadString_sub_40F1D0((char*)& byte_587000[110848], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1310);
     result = sub_41EC00();
     if (result)
     {
@@ -58561,7 +58561,7 @@ int sub_447620()
     sub_43BDD0(1900);
     sub_43DE20(sub_41E210);
     sub_43FE20(150);
-    *(_DWORD*)& byte_5D4594[829480] = sub_4A0AD0((const char*)& byte_587000[110856], sub_447CC0);
+    *(_DWORD*)& byte_5D4594[829480] = sub_4A0AD0("wolchat.wnd", sub_447CC0);
     sub_446970();
     result = *(_DWORD*)& byte_5D4594[829480];
     if (*(_DWORD*)& byte_5D4594[829480])
@@ -58585,45 +58585,45 @@ int sub_447620()
             *(_DWORD*)& byte_5D4594[829528] = loadString_sub_40F1D0(
                 (char*)& byte_587000[110916],
                 0,
-                (const char*)& byte_587000[110868],
+                "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
                 1415);
             *(_DWORD*)& byte_5D4594[829532] = loadString_sub_40F1D0(
                 (char*)& byte_587000[110980],
                 0,
-                (const char*)& byte_587000[110932],
+                "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
                 1416);
             *(_DWORD*)& byte_5D4594[829536] = &byte_587000[110992];
             *(_DWORD*)& byte_5D4594[829540] = loadString_sub_40F1D0(
                 (char*)& byte_587000[111048],
                 0,
-                (const char*)& byte_587000[111000],
+                "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
                 1418);
             *(_DWORD*)& byte_5D4594[829544] = &byte_587000[111056];
             *(_DWORD*)& byte_5D4594[829548] = loadString_sub_40F1D0(
                 (char*)& byte_587000[111120],
                 0,
-                (const char*)& byte_587000[111072],
+                "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
                 1420);
             *(_DWORD*)& byte_5D4594[829552] = loadString_sub_40F1D0(
                 (char*)& byte_587000[111184],
                 0,
-                (const char*)& byte_587000[111136],
+                "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
                 1421);
             *(_DWORD*)& byte_5D4594[829556] = &byte_587000[111204];
             *(_DWORD*)& byte_5D4594[829560] = loadString_sub_40F1D0(
                 (char*)& byte_587000[111264],
                 0,
-                (const char*)& byte_587000[111216],
+                "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
                 1423);
             *(_DWORD*)& byte_5D4594[829564] = loadString_sub_40F1D0(
                 (char*)& byte_587000[111328],
                 0,
-                (const char*)& byte_587000[111280],
+                "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
                 1424);
             *(_DWORD*)& byte_5D4594[829524] = loadString_sub_40F1D0(
                 (char*)& byte_587000[111392],
                 0,
-                (const char*)& byte_587000[111344],
+                "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
                 1425);
             *(_DWORD*)& byte_587000[109280] = -1;
             sub_446D50();
@@ -58638,7 +58638,7 @@ int sub_447620()
                 v2 = &byte_587000[108828];
                 do
                 {
-                    v3 = loadString_sub_40F1D0(*v1, 0, (const char*)& byte_587000[111416], 1446);
+                    v3 = loadString_sub_40F1D0(*v1, 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1446);
                     *((_DWORD*)v2 - 1) = v3;
                     nox_wcslen(v3);
                     v4 = (_BYTE*) * ((_DWORD*)v2 + 3);
@@ -58651,8 +58651,8 @@ int sub_447620()
             *(_DWORD*)& byte_5D4594[829512] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1918);
             *(_DWORD*)& byte_5D4594[829516] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1919);
             v5 = *(_DWORD * *)(*(_DWORD*)& byte_5D4594[829492] + 32);
-            v6 = sub_42F970((const char*)& byte_587000[111464]);
-            v7 = sub_42F970((const char*)& byte_587000[111484]);
+            v6 = sub_42F970("ShopInventorySlider");
+            v7 = sub_42F970("ShopInventorySliderSelected");
             sub_4B5700(*(int*)& byte_5D4594[829508], 0, 0, (int)v6, (int)v7, (int)v7);
             sub_46B280(*(int*)& byte_5D4594[829508], *(int*)& byte_5D4594[829492]);
             sub_46B280(*(int*)& byte_5D4594[829512], *(int*)& byte_5D4594[829492]);
@@ -58823,12 +58823,12 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4)
                 break;
             case 1926:
                 v18 = sub_4200F0();
-                nox_sprintf(File, (const char*)& byte_587000[111512], v18);
+                nox_sprintf(File, "http://battleclans.westwood.com/nox/index_%d.html", v18);
                 ShellExecuteA(0, 0, File, 0, (LPCSTR)& byte_587000[111564], 3);
                 break;
             case 1927:
                 v19 = sub_4200F0();
-                nox_sprintf(File, (const char*)& byte_587000[111568], v19);
+                nox_sprintf(File, "http://www.westwood.com/westwoodonline/tournaments/nox/rankindex_%d.html", v19);
                 ShellExecuteA(0, 0, File, 0, (LPCSTR)& byte_587000[111644], 3);
                 break;
             default:
@@ -59152,7 +59152,7 @@ int __cdecl sub_448680(wchar_t* a1, char* a2)
     char v4[2048]; // [esp+4h] [ebp-800h]
 
     if (sub_4100F0((__int16*)a1))
-        return nox_sprintf(a2, (const char*)& byte_587000[111664], a1);
+        return nox_sprintf(a2, "%S", a1);
     memset(v4, 0, sizeof(v4));
     memset(a2, 0, 0x800u);
     v3 = nox_wcslen(a1);
@@ -59174,7 +59174,7 @@ int sub_448730()
         return 0;
     if (*(_DWORD*)& byte_5D4594[830120])
         return 0;
-    result = sub_4A0AD0((const char*)& byte_587000[111672], sub_4489C0);
+    result = sub_4A0AD0("wolfind.wnd", sub_4489C0);
     *(_DWORD*)& byte_5D4594[830124] = result;
     if (result)
     {
@@ -59199,42 +59199,42 @@ int sub_448730()
         *(_DWORD*)& byte_5D4594[830160] = loadString_sub_40F1D0(
             (char*)& byte_587000[111732],
             0,
-            (const char*)& byte_587000[111684],
+            "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
             579);
         *(_DWORD*)& byte_5D4594[830164] = loadString_sub_40F1D0(
             (char*)& byte_587000[111800],
             0,
-            (const char*)& byte_587000[111752],
+            "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
             580);
         *(_DWORD*)& byte_5D4594[830168] = loadString_sub_40F1D0(
             (char*)& byte_587000[111872],
             0,
-            (const char*)& byte_587000[111824],
+            "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
             581);
         *(_DWORD*)& byte_5D4594[830172] = loadString_sub_40F1D0(
             (char*)& byte_587000[111936],
             0,
-            (const char*)& byte_587000[111888],
+            "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
             582);
         *(_DWORD*)& byte_5D4594[830176] = loadString_sub_40F1D0(
             (char*)& byte_587000[112000],
             0,
-            (const char*)& byte_587000[111952],
+            "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
             583);
         *(_DWORD*)& byte_5D4594[830180] = loadString_sub_40F1D0(
             (char*)& byte_587000[112068],
             0,
-            (const char*)& byte_587000[112020],
+            "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
             584);
         *(_DWORD*)& byte_5D4594[830184] = loadString_sub_40F1D0(
             (char*)& byte_587000[112136],
             0,
-            (const char*)& byte_587000[112088],
+            "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
             585);
         *(_DWORD*)& byte_5D4594[830188] = loadString_sub_40F1D0(
             (char*)& byte_587000[112196],
             0,
-            (const char*)& byte_587000[112148],
+            "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
             586);
         *(_DWORD*)& byte_587000[111668] = 1;
         *(_DWORD*)& byte_5D4594[830116] = 1;
@@ -59317,7 +59317,7 @@ int __cdecl sub_4489C0(int a1, int a2, int* a3, int a4)
         {
             if (!nox_wcscmp(v4, v5))
             {
-                v7 = loadString_sub_40F1D0((char*)& byte_587000[112316], 0, (const char*)& byte_587000[112268], 327);
+                v7 = loadString_sub_40F1D0((char*)& byte_587000[112316], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 327);
             }
             else
             {
@@ -59328,7 +59328,7 @@ int __cdecl sub_4489C0(int a1, int a2, int* a3, int a4)
                 *(_DWORD*)& byte_5D4594[830124] = 0;
                 sub_40D380();
                 sub_446A20(v4);
-                v7 = loadString_sub_40F1D0((char*)& byte_587000[112252], 0, (const char*)& byte_587000[112204], 321);
+                v7 = loadString_sub_40F1D0((char*)& byte_587000[112252], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 321);
             }
             sub_46B490(*(int*)& byte_5D4594[830140], 16385, (int)v7, 0);
             result = 0;
@@ -59365,7 +59365,7 @@ int sub_448CF0()
     {
         if (v0 && *v0)
         {
-            nox_sprintf(v7, (const char*)& byte_587000[112336], v0);
+            nox_sprintf(v7, "%S", v0);
             sub_40D740((int)v6);
             nox_swprintf((wchar_t*)& byte_5D4594[829840], *(const wchar_t**)& byte_5D4594[830184], v0);
             sub_46B490(*(int*)& byte_5D4594[830140], 16385, (int)& byte_5D4594[829840], 0);
@@ -59373,19 +59373,19 @@ int sub_448CF0()
             sub_4160D0(18);
             return sub_46ABB0(*(int*)& byte_5D4594[830148], 0);
         }
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[112388], 0, (const char*)& byte_587000[112340], 234);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[112388], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 234);
         return sub_46B490(*(int*)& byte_5D4594[830140], 16385, (int)v2, 0);
     }
     v3 = sub_46B490(*(int*)& byte_5D4594[830132], 16413, 0, 0);
-    nox_sprintf(v8, (const char*)& byte_587000[112400], v3);
+    nox_sprintf(v8, "%S", v3);
     if (!v0 || !*v0)
     {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[112520], 0, (const char*)& byte_587000[112472], 267);
+        v2 = loadString_sub_40F1D0((char*)& byte_587000[112520], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 267);
         return sub_46B490(*(int*)& byte_5D4594[830140], 16385, (int)v2, 0);
     }
     if (&v5 != (int*)-112 && v8[0])
     {
-        nox_sprintf(v7, (const char*)& byte_587000[112404], v0);
+        nox_sprintf(v7, "%S", v0);
         sub_40D770((int)v6, (int)v8);
         nox_swprintf((wchar_t*)& byte_5D4594[829840], *(const wchar_t**)& byte_5D4594[830188], v0);
         sub_46B490(*(int*)& byte_5D4594[830140], 16385, (int)& byte_5D4594[829840], 0);
@@ -59396,7 +59396,7 @@ int sub_448CF0()
     }
     else
     {
-        v4 = loadString_sub_40F1D0((char*)& byte_587000[112456], 0, (const char*)& byte_587000[112408], 264);
+        v4 = loadString_sub_40F1D0((char*)& byte_587000[112456], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 264);
         result = sub_46B490(*(int*)& byte_5D4594[830140], 16385, (int)v4, 0);
     }
     return result;
@@ -59517,7 +59517,7 @@ int __cdecl sub_4490C0(int a1)
                 }
             } while (*(_DWORD*)(a1 + 48));
         }
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[112580], 0, (const char*)& byte_587000[112532], 639);
+        v6 = loadString_sub_40F1D0((char*)& byte_587000[112580], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 639);
         result = sub_46B490(*(int*)& byte_5D4594[830140], 16385, (int)v6, 0);
         if (!v1)
             LABEL_14:
@@ -59537,7 +59537,7 @@ int sub_4491B0()
     result = *(_DWORD*)& byte_5D4594[830116];
     if (*(_DWORD*)& byte_5D4594[830116])
     {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[112640], 0, (const char*)& byte_587000[112592], 660);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[112640], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 660);
         result = sub_46B490(*(int*)& byte_5D4594[830140], 16385, (int)v1, 0);
     }
     return result;
@@ -59552,7 +59552,7 @@ int sub_449200()
     result = *(_DWORD*)& byte_5D4594[830116];
     if (*(_DWORD*)& byte_5D4594[830116])
     {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[112700], 0, (const char*)& byte_587000[112652], 669);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[112700], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 669);
         result = sub_46B490(*(int*)& byte_5D4594[830140], 16385, (int)v1, 0);
     }
     return result;
@@ -59567,7 +59567,7 @@ int sub_449240()
     result = *(_DWORD*)& byte_5D4594[830116];
     if (*(_DWORD*)& byte_5D4594[830116])
     {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[112760], 0, (const char*)& byte_587000[112712], 678);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[112760], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 678);
         result = sub_46B490(*(int*)& byte_5D4594[830140], 16385, (int)v1, 0);
     }
     return result;
@@ -59593,7 +59593,7 @@ int sub_449280()
         return 0;
     if (*(_DWORD*)& byte_5D4594[830120])
         return 0;
-    result = sub_4A0AD0((const char*)& byte_587000[112772], sub_4493D0);
+    result = sub_4A0AD0("wolopt.wnd", sub_4493D0);
     *(_DWORD*)& byte_5D4594[830104] = result;
     if (result)
     {
@@ -59717,7 +59717,7 @@ int sub_449530()
     v16 = 0;
     v17 = -1;
     v1 = 0;
-    result = sub_4A0AD0((const char*)& byte_587000[112784], sub_4497D0);
+    result = sub_4A0AD0("servlist.wnd", sub_4497D0);
     *(_DWORD*)& byte_5D4594[830108] = result;
     if (result)
     {
@@ -59765,8 +59765,8 @@ int sub_449530()
         v12 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830108], 1966);
         v13 = (_DWORD*)v3[8];
         v19 = (int)v12;
-        v18 = sub_42F970((const char*)& byte_587000[112808]);
-        v14 = sub_42F970((const char*)& byte_587000[112820]);
+        v18 = sub_42F970("UISlider");
+        v14 = sub_42F970("UISliderLit");
         sub_4B5700((int)v10, 0, 0, (int)v18, (int)v14, (int)v14);
         sub_46B280((int)v10, (int)v3);
         sub_46B280((int)v11, (int)v3);
@@ -59858,8 +59858,8 @@ int __cdecl sub_4497D0(int a1, int a2, int* a3, int a4)
                 *(_DWORD*)& byte_5D4594[830108] = 0;
                 if (v8)
                 {
-                    v15 = loadString_sub_40F1D0((char*)& byte_587000[112880], 0, (const char*)& byte_587000[112832], 175);
-                    v14 = loadString_sub_40F1D0((char*)& byte_587000[112952], 0, (const char*)& byte_587000[112904], 174);
+                    v15 = loadString_sub_40F1D0((char*)& byte_587000[112880], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 175);
+                    v14 = loadString_sub_40F1D0((char*)& byte_587000[112952], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 174);
                     sub_449A10(0, (int)v14, (int)v15, 288, 0, 0);
                     sub_44A4B0();
                     sub_452D80(921, 100);
@@ -60442,7 +60442,7 @@ int sub_44A560()
     else
     {
         sub_43BDD0(1700);
-        result = sub_4A0AD0((const char*)& byte_587000[113384], sub_44AB30);
+        result = sub_4A0AD0("wolapi.wnd", sub_44AB30);
         *(_DWORD*)& byte_5D4594[830248] = result;
         if (!result)
             return result;
@@ -60501,8 +60501,8 @@ int sub_44A560()
     v6 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1710);
     v7 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1711);
     v8 = *(_DWORD * *)(*(_DWORD*)& byte_5D4594[830264] + 32);
-    v18 = sub_42F970((const char*)& byte_587000[113424]);
-    v9 = sub_42F970((const char*)& byte_587000[113436]);
+    v18 = sub_42F970("UISlider");
+    v9 = sub_42F970("UISliderLit");
     sub_4B5700((int)v5, 0, 0, (int)v18, (int)v9, (int)v9);
     sub_46B280((int)v5, *(int*)& byte_5D4594[830264]);
     sub_46B280((int)v6, *(int*)& byte_5D4594[830264]);
@@ -60518,7 +60518,7 @@ int sub_44A560()
         {
             if (*(_DWORD*)& byte_5D4594[830272] == 1)
             {
-                v10 = loadString_sub_40F1D0((char*)& byte_587000[113496], 0, (const char*)& byte_587000[113448], 485);
+                v10 = loadString_sub_40F1D0((char*)& byte_587000[113496], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 485);
                 sub_413D30((char*)& byte_587000[113524], v10);
             }
             else
@@ -60529,8 +60529,8 @@ int sub_44A560()
             sub_43DE60();
             return 0;
         }
-        v15 = loadString_sub_40F1D0((char*)& byte_587000[113628], 0, (const char*)& byte_587000[113580], 495);
-        v11 = loadString_sub_40F1D0((char*)& byte_587000[113684], 0, (const char*)& byte_587000[113636], 495);
+        v15 = loadString_sub_40F1D0((char*)& byte_587000[113628], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
+        v11 = loadString_sub_40F1D0((char*)& byte_587000[113684], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
         sub_449A10(*(int*)& byte_5D4594[830248], (int)v11, (int)v15, 33, 0, 0);
         sub_44A4B0();
         *(_DWORD*)& byte_5D4594[830272] = 0;
@@ -60667,7 +60667,7 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4)
                 {
                     v16 = sub_4200F0();
                     v14 = sub_44A520(*(int*)& byte_5D4594[830280]);
-                    nox_sprintf((char*)File, (const char*)& byte_587000[113720], v14, v16);
+                    nox_sprintf((char*)File, "%s%d.html", v14, v16);
                     ShellExecuteA(0, 0, (LPCSTR)File, 0, (LPCSTR)& byte_587000[113732], 3);
                 }
                 goto LABEL_42;
@@ -60711,10 +60711,10 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4)
             if (!*(_DWORD*)& byte_5D4594[830276])
                 sub_41FC20(128);
             v11 = sub_46B490(*(int*)& byte_5D4594[830256], 16413, 0, 0);
-            nox_sprintf(v20, (const char*)& byte_587000[113712], v11);
+            nox_sprintf(v20, "%S", v11);
             sub_41FA80(v20);
             v12 = sub_46B490(*(int*)& byte_5D4594[830260], 16413, 0, 0);
-            nox_sprintf(v20, (const char*)& byte_587000[113716], v12);
+            nox_sprintf(v20, "%S", v12);
             sub_41FAE0(v20);
             sub_41FC50();
             v13 = sub_41FC40();
@@ -60757,7 +60757,7 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4)
     if (a4 == 1702)
     {
         v5 = sub_46B490(result, 16413, 0, 0);
-        nox_sprintf(v20, (const char*)& byte_587000[113692], v5);
+        nox_sprintf(v20, "%S", v5);
         if (v20[0])
             * (_DWORD*)& byte_5D4594[830268] = 1;
     }
@@ -60808,7 +60808,7 @@ void sub_44B010()
     sub_44E040();
     if (sub_40A5C0(0x2000000))
     {
-        v0 = loadString_sub_40F1D0((char*)& byte_587000[113772], 0, (const char*)& byte_587000[113736], 75);
+        v0 = loadString_sub_40F1D0((char*)& byte_587000[113772], 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 75);
         sub_413D30((char*)& byte_587000[113788], v0);
         if (sub_43C710())
             sub_41E400();
@@ -60817,7 +60817,7 @@ void sub_44B010()
     }
     else if (sub_40A5C0(1))
     {
-        *(_DWORD*)& byte_5D4594[830292] = sub_4A0AD0((const char*)& byte_587000[113792], sub_44B0F0);
+        *(_DWORD*)& byte_5D4594[830292] = sub_4A0AD0("woldisc.wnd", sub_44B0F0);
         sub_46A9B0(
             *(_DWORD * *)& byte_5D4594[830292],
             *(int*)& byte_5D4594[3805496] / 2 - *(int*)(*(_DWORD*)& byte_5D4594[830292] + 24) / 2,
@@ -60825,7 +60825,7 @@ void sub_44B010()
     }
     else
     {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[113840], 0, (const char*)& byte_587000[113804], 100);
+        v1 = loadString_sub_40F1D0((char*)& byte_587000[113840], 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 100);
         sub_445490(v1);
     }
 }
@@ -60902,7 +60902,7 @@ int __cdecl sub_44B1F0(int a1, int a2, char* a3)
 //----- (0044B230) --------------------------------------------------------
 int __cdecl sub_44B230(int a1, int a2, char* a3)
 {
-    sscanf(a3, (const char*)& byte_587000[122508], a1 + 44);
+    sscanf(a3, "%f", a1 + 44);
     return 1;
 }
 
@@ -60915,7 +60915,7 @@ int __cdecl sub_44B250(int a1, int a2, char* a3)
     int v7; // [esp+0h] [ebp-8h]
     int v8; // [esp+4h] [ebp-4h]
 
-    if (sscanf(a3, (const char*)& byte_587000[122512], &a3, &v7, &v8) != 3)
+    if (sscanf(a3, "%d %d %d", &a3, &v7, &v8) != 3)
         return 0;
     v4 = (int)a3;
     if ((int)a3 > 255)
@@ -60936,7 +60936,7 @@ int __cdecl sub_44B250(int a1, int a2, char* a3)
 //----- (0044B2D0) --------------------------------------------------------
 int __cdecl sub_44B2D0(int a1, int a2, char* a3)
 {
-    if (sscanf(a3, (const char*)& byte_587000[122524], &a3) != 1 || (int)a3 < 0 || (int)a3 >= 360)
+    if (sscanf(a3, "%d", &a3) != 1 || (int)a3 < 0 || (int)a3 >= 360)
         return 0;
     *(_WORD*)(a1 + 24) = (__int64)((double)(int)a3 * *(double*)& byte_581450[9560] * *(double*)& byte_581450[9552]
         + *(double*)& byte_581450[9544]);
@@ -60947,7 +60947,7 @@ int __cdecl sub_44B2D0(int a1, int a2, char* a3)
 //----- (0044B330) --------------------------------------------------------
 int __cdecl sub_44B330(int a1, int a2, char* a3)
 {
-    if (sscanf(a3, (const char*)& byte_587000[122528], &a3) != 1 || (int)a3 < 0 || (int)a3 >= 180)
+    if (sscanf(a3, "%d", &a3) != 1 || (int)a3 < 0 || (int)a3 >= 180)
         return 0;
     *(_WORD*)(a1 + 26) = (__int64)((double)(int)a3 * *(double*)& byte_581450[9560] * *(double*)& byte_581450[9552]
         + *(double*)& byte_581450[9544]);
@@ -61040,17 +61040,17 @@ int __cdecl sub_44B390(int a1, int a2, _BYTE* a3)
 //----- (0044B4C0) --------------------------------------------------------
 int __cdecl sub_44B4C0(const char* a1)
 {
-    if (!strcmp(a1, (const char*)& byte_587000[122532]))
+    if (!strcmp(a1, "OneShot"))
         return 0;
-    if (!strcmp(a1, (const char*)& byte_587000[122540]))
+    if (!strcmp(a1, "OneShotRemove"))
         return 1;
-    if (!strcmp(a1, (const char*)& byte_587000[122556]))
+    if (!strcmp(a1, "Loop"))
         return 2;
-    if (!strcmp(a1, (const char*)& byte_587000[122564]))
+    if (!strcmp(a1, "LoopAndFade"))
         return 3;
-    if (!strcmp(a1, (const char*)& byte_587000[122576]))
+    if (!strcmp(a1, "Random"))
         return 4;
-    return strcmp(a1, (const char*)& byte_587000[122584]) != 0 ? 0 : 5;
+    return strcmp(a1, "Slave") != 0 ? 0 : 5;
 }
 
 //----- (0044B560) --------------------------------------------------------
@@ -61228,7 +61228,7 @@ LABEL_3:
         *(_DWORD*)(v4 + 8) = v8 + 1;
         sub_40ACC0(a3, 1u, v23, v4);
         *((_BYTE*)a3 + v23) = 0;
-        if (!strcmp((const char*)& byte_587000[122592], (const char*)a3))
+        if (!strcmp("NAKED", (const char*)a3))
         {
             v14 = nox_calloc(1u, 0x28u);
             v15 = *(__int16*)(v11 + 40);
@@ -61859,7 +61859,7 @@ int __cdecl sub_44C200(int a1, _DWORD* a2, int a3)
 //----- (0044C2F0) --------------------------------------------------------
 int __cdecl sub_44C2F0(int a1, int a2, char* a3)
 {
-    sscanf(a3, (const char*)& byte_587000[122600], &a3);
+    sscanf(a3, "%d", &a3);
     *(_WORD*)(a1 + 22) = (_WORD)a3;
     return 1;
 }
@@ -61869,7 +61869,7 @@ int __cdecl sub_44C320(int a1, int a2, char* a3)
 {
     int v5; // [esp+0h] [ebp-4h]
 
-    sscanf(a3, (const char*)& byte_587000[122604], &v5, &a3);
+    sscanf(a3, "%d %d", &v5, &a3);
     if ((int)a3 < (int)v5)
         a3 = v5;
     *(float*)(a1 + 68) = (double)(int)v5;
@@ -61882,7 +61882,7 @@ int __cdecl sub_44C370(int a1, int a2, char* a3)
 {
     int v5; // [esp+0h] [ebp-4h]
 
-    sscanf(a3, (const char*)& byte_587000[122612], &a3, &v5);
+    sscanf(a3, "%d %d", &a3, &v5);
     *(_BYTE*)(a1 + 12) = (int)a3 / 2;
     *(_BYTE*)(a1 + 13) = v5 / 2;
     return 1;
@@ -61918,7 +61918,7 @@ int __cdecl sub_44C3F0(int a1, int a2, void* a3)
 //----- (0044C410) --------------------------------------------------------
 int __cdecl sub_44C410(int a1, int a2, char* a3)
 {
-    sscanf(a3, (const char*)& byte_587000[122620], &a3);
+    sscanf(a3, "%d", &a3);
     *(_DWORD*)(a1 + 120) = a3;
     return 1;
 }
@@ -61928,7 +61928,7 @@ int __cdecl sub_44C440(int a1, int a2, char* a3)
 {
     int v3; // ecx
 
-    sscanf(a3, (const char*)& byte_587000[122624], &a3);
+    sscanf(a3, "%d", &a3);
     v3 = *(_DWORD*)(a1 + 32);
     *(_BYTE*)(a1 + 14) = (_BYTE)a3;
     *(_DWORD*)(a1 + 32) = v3 | 0x80000000;
@@ -61938,14 +61938,14 @@ int __cdecl sub_44C440(int a1, int a2, char* a3)
 //----- (0044C480) --------------------------------------------------------
 int __cdecl sub_44C480(int a1, int a2, char* a3)
 {
-    *(_DWORD*)(a1 + 4) = loadString_sub_40F1D0(a3, 0, (const char*)& byte_587000[122628], 1396);
+    *(_DWORD*)(a1 + 4) = loadString_sub_40F1D0(a3, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
     return 1;
 }
 
 //----- (0044C4B0) --------------------------------------------------------
 int __cdecl sub_44C4B0(int a1, int a2, char* a3)
 {
-    *(_DWORD*)(a1 + 8) = loadString_sub_40F1D0(a3, 0, (const char*)& byte_587000[122668], 1403);
+    *(_DWORD*)(a1 + 8) = loadString_sub_40F1D0(a3, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
     return 1;
 }
 
@@ -62350,7 +62350,7 @@ void* __cdecl sub_44C840(char* a1)
                     *((_DWORD*)v15 + 1) = v16;
                     *((_WORD*)v15 + 4) = v10;
                     v15[10] = v17;
-                    *(_DWORD*)(v7 + 4) = loadString_sub_40F1D0((char*)& byte_5D4594[830404], 0, (const char*)& byte_587000[122732], 1926);
+                    *(_DWORD*)(v7 + 4) = loadString_sub_40F1D0((char*)& byte_5D4594[830404], 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
                 }
                 if (!*(_DWORD*)(v7 + 8))
                 {
@@ -62369,7 +62369,7 @@ void* __cdecl sub_44C840(char* a1)
                     *(_DWORD*)--v25 = *(_DWORD*)& byte_587000[122784];
                     *((_DWORD*)v25 + 1) = v26;
                     *((_DWORD*)v25 + 2) = v24;
-                    *(_DWORD*)(v7 + 8) = loadString_sub_40F1D0((char*)& byte_5D4594[830404], 0, (const char*)& byte_587000[122796], 1933);
+                    *(_DWORD*)(v7 + 8) = loadString_sub_40F1D0((char*)& byte_5D4594[830404], 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
                 }
             }
             v6 = *(_DWORD*)& byte_5D4594[830612];

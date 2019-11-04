@@ -106,7 +106,7 @@ int sub_423CF0()
         return 0;
     while (GetDriveTypeA(v0) != 5
         || !sub_423ED0(v0, (DWORD)SectorsPerCluster)
-        || _strnicmp((const char*)& byte_587000[64664], (const char*)& SectorsPerCluster[4], 3u))
+        || _strnicmp("NOX", (const char*)& SectorsPerCluster[4], 3u))
     {
         v0 += strlen(v0) + 1;
         if (!strlen(v0))
@@ -115,7 +115,7 @@ int sub_423CF0()
     v5 = 0;
     v6 = 0;
     v4 = 0;
-    if (_strcmpi((const char*)& SectorsPerCluster[72], (const char*)& byte_587000[64668])
+    if (_strcmpi((const char*)& SectorsPerCluster[72], "CDFS")
         || *(_DWORD*)& SectorsPerCluster[136] > 0u)
     {
         return 0;
