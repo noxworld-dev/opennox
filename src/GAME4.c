@@ -32352,7 +32352,7 @@ int __cdecl sub_51BAD0(int a1, unsigned __int8* a2, signed int a3)
             case 0xA8u:
                 if (v4[3] & 2)
                 {
-                    nox_swprintf(v97, (const wchar_t*)& byte_587000[253032], v4 + 11);
+                    nox_swprintf(v97, L"%S", v4 + 11);
                     v44 = 1;
                 }
                 else

@@ -14197,7 +14197,7 @@ char* sub_579190()
                 {
                     if (strlen(result) >= 0x7F)
                         result[127] = 0;
-                    nox_swprintf(v11, (const wchar_t*)& byte_587000[311668], result);
+                    nox_swprintf(v11, L"%S", result);
                     if (*v0 & 1)
                     {
                         v3 = sub_40A630();
@@ -15269,7 +15269,7 @@ int __cdecl sub_57A3F0(char* a1, int a2, int a3, int a4)
                 * v6 = 0;
             if (v8[0])
             {
-                nox_swprintf(v9, (const wchar_t*)& byte_587000[312420], v8);
+                nox_swprintf(v9, L"%S", v8);
                 sub_57A4D0(v9, a2, a3, a4);
             }
         } while (!feof(v5));
@@ -15301,13 +15301,13 @@ const wchar_t* __cdecl sub_57A4D0(wchar_t* a1, int a2, int a3, int a4)
     {
         if (v13[0] == 34)
         {
-            result = nox_wcstok(&v13[1], (const wchar_t*)& byte_587000[312428]);
+            result = nox_wcstok(&v13[1], L"\"\n\r");
             v7 = result;
             v5 = 1;
         }
         else
         {
-            result = nox_wcstok(v13, (const wchar_t*)& byte_587000[312436]);
+            result = nox_wcstok(v13, L" \n\t\r");
             v7 = result;
         }
         if (v7)
@@ -15322,13 +15322,13 @@ const wchar_t* __cdecl sub_57A4D0(wchar_t* a1, int a2, int a3, int a4)
                     ++v9;
                 if (*v9 == 34)
                 {
-                    result = nox_wcstok((wchar_t*)v9 + 1, (const wchar_t*)& byte_587000[312448]);
+                    result = nox_wcstok((wchar_t*)v9 + 1, L"\"\n\r");
                     v7 = result;
                     v5 = 1;
                 }
                 else
                 {
-                    result = nox_wcstok(0, (const wchar_t*)& byte_587000[312456]);
+                    result = nox_wcstok(0, L" \n\t\r");
                     v7 = result;
                     v5 = 0;
                 }
@@ -15383,13 +15383,13 @@ BOOL __cdecl sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4)
         }
         v17 = ++v5;
     } while (v5 < 7u);
-    if (!(*(_DWORD*)& byte_5D4594[2523764] & a4) || _nox_wcsicmp(*v4, (const wchar_t*)& byte_587000[312472]) || a1 <= 1u)
+    if (!(*(_DWORD*)& byte_5D4594[2523764] & a4) || _nox_wcsicmp(*v4, L"set") || a1 <= 1u)
         return 0;
-    if (_nox_wcsicmp(v4[1], (const wchar_t*)& byte_587000[312480]))
+    if (_nox_wcsicmp(v4[1], L"spell"))
     {
-        if (_nox_wcsicmp(v4[1], (const wchar_t*)& byte_587000[312504]))
+        if (_nox_wcsicmp(v4[1], L"weapon"))
         {
-            if (_nox_wcsicmp(v4[1], (const wchar_t*)& byte_587000[312532]))
+            if (_nox_wcsicmp(v4[1], L"armor"))
                 return 0;
             if (a1 != 4)
                 return 0;
@@ -15402,7 +15402,7 @@ BOOL __cdecl sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4)
             v14 = sub_415D10((char*)* v13);
             if (!v14)
                 return 0;
-            if (_nox_wcsicmp(v4[3], (const wchar_t*)& byte_587000[312548]))
+            if (_nox_wcsicmp(v4[3], L"off"))
                 v15 = v14 | *(_DWORD*)(a3 + 48);
             else
                 v15 = ~v14 & *(_DWORD*)(a3 + 48);
@@ -15435,7 +15435,7 @@ BOOL __cdecl sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4)
                 } while (v12 > 0);
                 v18 = v11;
             }
-            if (_nox_wcsicmp(v4[3], (const wchar_t*)& byte_587000[312524]))
+            if (_nox_wcsicmp(v4[3], L"off"))
                 * (_BYTE*)(v18 + a3 + 43) |= v10;
             else
                 *(_BYTE*)(v18 + a3 + 43) &= ~(_BYTE)v10;
@@ -15457,7 +15457,7 @@ BOOL __cdecl sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4)
             return 0;
         if (sub_424A70(v6) & 0x7000000)
         {
-            if (!_nox_wcsicmp(v4[3], (const wchar_t*)& byte_587000[312496]))
+            if (!_nox_wcsicmp(v4[3], L"off"))
                 sub_453FA0(a3 + 24, v6, 0);
         }
     }
