@@ -3426,7 +3426,7 @@ LABEL_6:
 int sub_434CC0()
 {
     int v0; // edi
-    int result; // eax
+    void* result; // eax
     int i; // esi
     int v3; // [esp+4h] [ebp-4h]
 
@@ -3435,31 +3435,33 @@ int sub_434CC0()
         v0 = dword_69A014;
         dword_69A014 = sub_4351C0;
     }
-    result = (int)calloc(0x101u, 2u);
+    result = calloc(257, 2);
     *(_DWORD*)& byte_5D4594[3804672] = result;
-    if (result)
+    if (!result)
     {
-        result = (int)calloc(0x101u, 2u);
-        *(_DWORD*)& byte_5D4594[3804656] = result;
-        if (result)
-        {
-            result = (int)calloc(0x101u, 2u);
-            *(_DWORD*)& byte_5D4594[3804664] = result;
-            if (result)
-            {
-                for (i = 0; i < 256; ++i)
-                {
-                    *(_WORD*)(*(_DWORD*)& byte_5D4594[3804672] + 2 * i) = sub_4344A0(i, 0, 0);
-                    *(_WORD*)(*(_DWORD*)& byte_5D4594[3804656] + 2 * i) = sub_4344A0(0, i, 0);
-                    *(_WORD*)(*(_DWORD*)& byte_5D4594[3804664] + 2 * i) = sub_4344A0(0, 0, i);
-                }
-                if (!*(_DWORD*)& byte_5D4594[3801780])
-                    dword_69A014 = v0;
-                result = 1;
-            }
-        }
+        return 0;
     }
-    return result;
+    result = calloc(257, 2);
+    *(_DWORD*)& byte_5D4594[3804656] = result;
+    if (!result)
+    {
+        return 0;
+    }
+    result = calloc(257, 2);
+    *(_DWORD*)& byte_5D4594[3804664] = result;
+    if (!result)
+    {
+        return 0;
+    }
+    for (i = 0; i < 256; ++i)
+    {
+        *(_WORD*)(*(_DWORD*)& byte_5D4594[3804672] + 2 * i) = sub_4344A0(i, 0, 0);
+        *(_WORD*)(*(_DWORD*)& byte_5D4594[3804656] + 2 * i) = sub_4344A0(0, i, 0);
+        *(_WORD*)(*(_DWORD*)& byte_5D4594[3804664] + 2 * i) = sub_4344A0(0, 0, i);
+    }
+    if (!*(_DWORD*)& byte_5D4594[3801780])
+        dword_69A014 = v0;
+    return 1;
 }
 // 434CDD: variable 'v3' is possibly undefined
 
