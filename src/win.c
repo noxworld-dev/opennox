@@ -18,6 +18,8 @@ unsigned int g_argc;
 
 extern int g_scaled;
 
+extern FILE* nox_file_log;
+
 //----- (00401C70) --------------------------------------------------------
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
@@ -412,19 +414,19 @@ void sub_4516C0(wchar_t* a1, ...)
     va_list va; // [esp+8h] [ebp+8h]
 
     va_start(va, a1);
-    if (!*(_DWORD*)& byte_5D4594[839880])
+    if (!nox_file_log)
         sub_451630();
     sub_451610();
     v1 = loadString_sub_40F1D0("FatalErrorHeader", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 314);
     nox_swprintf((wchar_t*)& byte_5D4594[833752], v1);
     nox_vswprintf((wchar_t*)& byte_5D4594[833778], a1, va);
-    fprintf(*(FILE * *)& byte_5D4594[839880], "%S", &byte_5D4594[833752]);
-    fflush(*(FILE * *)& byte_5D4594[839880]);
+    fprintf(nox_file_log, "%S", &byte_5D4594[833752]);
+    fflush(nox_file_log);
     v3 = loadString_sub_40F1D0("FatalError", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 324);
     v2 = getWindowHandle_sub_401FD0();
     nullsub_4(v2, &byte_5D4594[833752], v3, 0);
-    fprintf(*(FILE * *)& byte_5D4594[839880], "exiting..\n");
-    fclose(*(FILE * *)& byte_5D4594[839880]);
+    fprintf(nox_file_log, "exiting..\n");
+    fclose(nox_file_log);
     if (*(_DWORD*)& byte_5D4594[823776])
         sub_430EF0();
     sub_4453A0();
