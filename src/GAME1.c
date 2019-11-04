@@ -78,8 +78,10 @@ mem_mapping mappings[] = {
     {0x5D4594+1599620, (void*)&nox_file_7, sizeof(nox_file_7),1},
     {0x5D4594+251544, (void*)&dword_5D4594_251544, sizeof(dword_5D4594_251544),1},
     // full blobs
+    #if 0
     {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
     {0x563006, (void*)byte_563006, sizeof(byte_563006),0},
+    #endif
     {0x581450, (void*)byte_581450, sizeof(byte_581450),0},
     {0x587000, (void*)byte_587000, sizeof(byte_587000),0},
     {0x5D4594, (void*)byte_5D4594, sizeof(byte_5D4594),0},

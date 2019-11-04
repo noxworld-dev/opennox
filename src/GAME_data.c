@@ -3,6 +3,7 @@
 //-------------------------------------------------------------------------
 // Data declarations
 
+#if 0
 char byte_563002[] = { 0xFE }; // weak
 char byte_563006[26] =
 {
@@ -33,6 +34,7 @@ char byte_563006[26] =
   0xCC,
   0xCC
 }; // weak
+#endif
 unsigned char byte_581450[23472] =
 {
   255u,
