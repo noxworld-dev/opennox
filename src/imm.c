@@ -1935,7 +1935,7 @@ int* __thiscall sub_572442(int* this, int a2, int a3, int a4)
         {
             v12 = GetKeyboardLayout(0);
             ImmGetDescriptionA(v12, szDescription, 0x100u);
-            LOBYTE(v9) = strncmp(szDescription, (const char*)& byte_587000[311272], 0x10u) == 0;
+            LOBYTE(v9) = strncmp(szDescription, "Microsoft IME 98", 0x10u) == 0;
             v10 = sub_570920(v7 + 2);
             if (wstring__size(v7 + 2) > (unsigned int)v7[22])
             {
