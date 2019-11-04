@@ -629,7 +629,7 @@ int __cdecl sub_4A2610(int a1, _DWORD* a2, int* a3)
                 {
                     sub_43BC80(*(_DWORD*)v11 + 12, *(_WORD*)(*(_DWORD*)v11 + 109), v16);
                 }
-                nox_swprintf(v17, (const wchar_t*)& byte_587000[169688], v16, *(_DWORD*)(*(_DWORD*)v11 + 96));
+                nox_swprintf(v17, L"%S   %dms", v16, *(_DWORD*)(*(_DWORD*)v11 + 96));
                 sub_46B490((int)v7, 16397, (int)v17, -1);
                 ++v10;
                 v11 += 4;
@@ -2625,10 +2625,10 @@ int sub_4A5150()
                     v15 = *(unsigned __int8*)(v12 + *(_DWORD*)& byte_5D4594[1307780] + 1277);
                     if (v15 < 1)
                         v15 = 1;
-                    nox_wcscat(v30, (const wchar_t*)& byte_587000[170632]);
+                    nox_wcscat(v30, L" - ");
                     v16 = loadString_sub_40F1D0((char*)& byte_587000[170680], 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 298);
                     nox_wcscat(v30, v16);
-                    nox_swprintf(v29, (const wchar_t*)& byte_587000[170700], v15);
+                    nox_swprintf(v29, L" %d", v15);
                     nox_wcscat(v30, v29);
                 }
                 sub_46B490(*(int*)& byte_5D4594[1307744], 16397, (int)& byte_587000[170708], 14);
@@ -18721,14 +18721,14 @@ int __cdecl sub_4BCC90(_DWORD* a1, int a2)
                 *(_DWORD*)& byte_587000[8 * *(unsigned __int8*)(a2 + 297) + 179880],
                 *(_DWORD*)& byte_587000[8 * *(unsigned __int8*)(a2 + 297) + 179884]);
             sub_49E4B0();
-            nox_swprintf((wchar_t*)& byte_5D4594[1316540], (const wchar_t*)& byte_587000[179952], *(_DWORD*)(a2 + 128));
+            nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%d", *(_DWORD*)(a2 + 128));
             sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4 - 10);
             v12 = sub_44CEF0(*(_DWORD*)(a2 + 108));
-            nox_swprintf((wchar_t*)& byte_5D4594[1316540], (const wchar_t*)& byte_587000[179960], v12);
+            nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%S", v12);
             sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4);
             nox_swprintf(
                 (wchar_t*)& byte_5D4594[1316540],
-                (const wchar_t*)& byte_587000[179968],
+                L"%S",
                 *(_DWORD*)& byte_587000[4 * *(_DWORD*)(a2 + 276) + 178920]);
             sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4 + 10);
         }
@@ -18740,14 +18740,14 @@ int __cdecl sub_4BCC90(_DWORD* a1, int a2)
                 *(_DWORD*)& byte_587000[8 * *(unsigned __int8*)(a2 + 297) + 179880],
                 *(_DWORD*)& byte_587000[8 * *(unsigned __int8*)(a2 + 297) + 179884]);
             sub_49E4B0();
-            nox_swprintf((wchar_t*)& byte_5D4594[1316540], (const wchar_t*)& byte_587000[179976], *(_DWORD*)(a2 + 128));
+            nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%d", *(_DWORD*)(a2 + 128));
             sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4 - 10);
             v13 = sub_44CEF0(*(_DWORD*)(a2 + 108));
-            nox_swprintf((wchar_t*)& byte_5D4594[1316540], (const wchar_t*)& byte_587000[179984], v13);
+            nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%S", v13);
             sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4);
             nox_swprintf(
                 (wchar_t*)& byte_5D4594[1316540],
-                (const wchar_t*)& byte_587000[179992],
+                L"%S",
                 *(_DWORD*)& byte_587000[4 * *(_DWORD*)(a2 + 276) + 178696]);
             sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4 + 10);
         }
@@ -18780,10 +18780,10 @@ int __cdecl sub_4BCC90(_DWORD* a1, int a2)
         sub_49F500(v20 + v11, v8 + v18);
         sub_49E4B0();
     }
-    nox_swprintf((wchar_t*)& byte_5D4594[1316540], (const wchar_t*)& byte_587000[180000], *(_DWORD*)(a2 + 128));
+    nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%d", *(_DWORD*)(a2 + 128));
     sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4 - 10);
     v14 = sub_44CEF0(*(_DWORD*)(a2 + 108));
-    nox_swprintf((wchar_t*)& byte_5D4594[1316540], (const wchar_t*)& byte_587000[180008], v14);
+    nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%S", v14);
     sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4);
     return 1;
 }
@@ -19757,7 +19757,7 @@ int __cdecl sub_4BE120(int a1)
         v6 = v5 & 0xFFFFFFFB;
     v4[9] = v6;
     v7 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1316972], 2110);
-    nox_swprintf(v16, (const wchar_t*)& byte_587000[180392], *(_DWORD*)(a1 + 70));
+    nox_swprintf(v16, L"%d", *(_DWORD*)(a1 + 70));
     sub_46B490((int)v7, 16414, (int)v16, -1);
     switch (*(_DWORD*)(a1 + 66))
     {
@@ -20590,14 +20590,14 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
                 if (*(_DWORD*)& byte_587000[26048] != 6)
                 {
                     v22 = loadString_sub_40F1D0((char*)& byte_587000[180736], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 292);
-                    nox_swprintf((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180744], v22);
+                    nox_swprintf((wchar_t*)& byte_5D4594[1317000], L"%s ", v22);
                     v23 = (const wchar_t*)sub_424930(v1[108]);
                     nox_wcscat((wchar_t*)& byte_5D4594[1317000], v23);
                     goto LABEL_93;
                 }
                 v20 = (const wchar_t*)sub_424930(v1[108]);
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v20);
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180652]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 v21 = loadString_sub_40F1D0((char*)& byte_587000[180692], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 288);
                 goto LABEL_90;
             }
@@ -20620,14 +20620,14 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
             {
                 v27 = loadString_sub_40F1D0((char*)& byte_587000[180788], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 313);
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v27);
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180800]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 v28 = (const wchar_t*)sub_427240(v1[108]);
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v28);
             }
             else
             {
                 v25 = sub_427240(v1[108]);
-                nox_swprintf((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180804], v25);
+                nox_swprintf((wchar_t*)& byte_5D4594[1317000], L"%s ", v25);
                 v26 = loadString_sub_40F1D0((char*)& byte_587000[180848], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 320);
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v26);
             }
@@ -20649,14 +20649,14 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
             {
                 v30 = (const wchar_t*)sub_425260(v1[108]);
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v30);
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180860]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 v21 = loadString_sub_40F1D0((char*)& byte_587000[180900], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 342);
             LABEL_90:
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v21);
                 goto LABEL_93;
             }
             v31 = loadString_sub_40F1D0((char*)& byte_587000[180944], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
-            nox_swprintf((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180952], v31);
+            nox_swprintf((wchar_t*)& byte_5D4594[1317000], L"%s ", v31);
             v32 = (const wchar_t*)sub_425260(v1[108]);
             nox_wcscat((wchar_t*)& byte_5D4594[1317000], v32);
         }
@@ -20726,23 +20726,23 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
             nox_wcscat((wchar_t*)& byte_5D4594[1317000], v12);
             if (v35)
             {
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180588]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v35);
             }
             v17 = a1;
             if (a1)
             {
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180592]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v17);
             }
             if (v34)
             {
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v34);
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180596]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
             }
             if (!v3)
                 return (wchar_t*)& byte_5D4594[1317000];
-            nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180600]);
+            nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
             nox_wcscat((wchar_t*)& byte_5D4594[1317000], v3);
             result = (wchar_t*)& byte_5D4594[1317000];
             break;
@@ -20750,43 +20750,43 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
             if (v3)
             {
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v3);
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180604]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
             }
             nox_wcscat((wchar_t*)& byte_5D4594[1317000], v12);
             if (v34)
             {
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180608]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v34);
             }
             if (v35)
             {
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180612]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v35);
             }
             if (!a1)
                 return (wchar_t*)& byte_5D4594[1317000];
-            nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180616]);
+            nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
             goto LABEL_67;
         case 5:
             nox_wcscat((wchar_t*)& byte_5D4594[1317000], v12);
             if (v34)
             {
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180620]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v34);
             }
             if (v3)
             {
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180624]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v3);
             }
             if (v35)
             {
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180628]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v35);
             }
             if (!a1)
                 return (wchar_t*)& byte_5D4594[1317000];
-            nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180632]);
+            nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
             nox_wcscat((wchar_t*)& byte_5D4594[1317000], a1);
             result = (wchar_t*)& byte_5D4594[1317000];
             break;
@@ -20794,21 +20794,21 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
             if (v3)
             {
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v3);
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180572]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
             }
             if (v35)
             {
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v35);
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180576]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
             }
             if (a1)
             {
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], a1);
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180580]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
             }
             if (v34)
             {
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180584]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v34);
             }
             nox_wcscat((wchar_t*)& byte_5D4594[1317000], v12);
@@ -20818,22 +20818,22 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
             if (v3)
             {
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v3);
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180636]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
             }
             if (v34)
             {
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v34);
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180640]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
             }
             nox_wcscat((wchar_t*)& byte_5D4594[1317000], v12);
             if (v35)
             {
-                nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180644]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
                 nox_wcscat((wchar_t*)& byte_5D4594[1317000], v35);
             }
             if (!a1)
                 return (wchar_t*)& byte_5D4594[1317000];
-            nox_wcscat((wchar_t*)& byte_5D4594[1317000], (const wchar_t*)& byte_587000[180648]);
+            nox_wcscat((wchar_t*)& byte_5D4594[1317000], L" ");
         LABEL_67:
             nox_wcscat((wchar_t*)& byte_5D4594[1317000], a1);
             result = (wchar_t*)& byte_5D4594[1317000];
@@ -21350,13 +21350,13 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4)
         v8 = nox_wcstol(v7, 0, 10) + 1;
         if (v8 > * (int*)& byte_5D4594[1319248])
             return 0;
-        nox_swprintf((wchar_t*)& byte_5D4594[1319164], (const wchar_t*)& byte_587000[183644], v8);
+        nox_swprintf((wchar_t*)& byte_5D4594[1319164], L"%d", v8);
         sub_46AEE0(*(int*)& byte_5D4594[1319232], (int)& byte_5D4594[1319164]);
         if (!*(_DWORD*)& byte_5D4594[1319264])
             return 0;
         nox_swprintf(
             (wchar_t*)& byte_5D4594[1319068],
-            (const wchar_t*)& byte_587000[183652],
+            L"%d",
             *(_DWORD*)& byte_5D4594[1319260] * v8);
         sub_46AEE0(*(int*)& byte_5D4594[1319236], (int)& byte_5D4594[1319068]);
         result = 0;
@@ -21367,13 +21367,13 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4)
         v11 = v10;
         if (v10 > 1)
         {
-            nox_swprintf((wchar_t*)& byte_5D4594[1319164], (const wchar_t*)& byte_587000[183660], v10 - 1);
+            nox_swprintf((wchar_t*)& byte_5D4594[1319164], L"%d", v10 - 1);
             sub_46AEE0(*(int*)& byte_5D4594[1319232], (int)& byte_5D4594[1319164]);
             if (*(_DWORD*)& byte_5D4594[1319264])
             {
                 nox_swprintf(
                     (wchar_t*)& byte_5D4594[1319068],
-                    (const wchar_t*)& byte_587000[183668],
+                    L"%d",
                     *(_DWORD*)& byte_5D4594[1319260] * (v11 - 1));
                 sub_46AEE0(*(int*)& byte_5D4594[1319236], (int)& byte_5D4594[1319068]);
             }
@@ -21444,11 +21444,11 @@ int __cdecl sub_4C0430(int a1, int a2, int a3, int a4, int a5, const void* a6, i
     *(_DWORD*)& byte_5D4594[1319252] = a8;
     sub_4BFD40();
     sub_4C0560(a2, a3);
-    nox_swprintf((wchar_t*)& byte_5D4594[1319164], (const wchar_t*)& byte_587000[183676], 1);
+    nox_swprintf((wchar_t*)& byte_5D4594[1319164], L"%d", 1);
     sub_46AEE0(*(int*)& byte_5D4594[1319232], (int)& byte_5D4594[1319164]);
     if (*(_DWORD*)& byte_5D4594[1319264])
     {
-        nox_swprintf((wchar_t*)& byte_5D4594[1319068], (const wchar_t*)& byte_587000[183684], *(_DWORD*)& byte_5D4594[1319260]);
+        nox_swprintf((wchar_t*)& byte_5D4594[1319068], L"%d", *(_DWORD*)& byte_5D4594[1319260]);
         result = sub_46AEE0(*(int*)& byte_5D4594[1319236], (int)& byte_5D4594[1319068]);
     }
     else
@@ -21857,11 +21857,11 @@ int sub_4C0D00()
                 *(_DWORD*)(*(_DWORD*)v6 + 12) = v8 + v21 + 25;
                 *(_DWORD*)(*(_DWORD*)v6 + 16) = v22 + v7 + 25;
                 (*(void(__cdecl * *)(unsigned __int8*, _DWORD))(*(_DWORD*)v6 + 300))(&byte_5D4594[1320188], *(_DWORD*)v6);
-                nox_swprintf(v23, (const wchar_t*)& byte_587000[184220], *((_DWORD*)v6 + 1));
+                nox_swprintf(v23, L"%d", *((_DWORD*)v6 + 1));
                 sub_434390(*(int*)& byte_5D4594[2523948]);
                 sub_43F6E0(0, (__int16*)v23, v8 + v21 + 5, v22 + v7 + 5);
                 v9 = v22 + v7 + 50;
-                nox_swprintf(v23, (const wchar_t*)& byte_587000[184228], *((_DWORD*)v6 + 34));
+                nox_swprintf(v23, L"%d", *((_DWORD*)v6 + 34));
                 sub_434390(*(int*)& byte_5D4594[2589772]);
                 sub_43F6E0(0, (__int16*)v23, v8 + v21 + 5, v9 - v18 - 5);
             }
@@ -21887,11 +21887,11 @@ int sub_4C0D00()
                 *(_DWORD*)(*(_DWORD*)v11 + 12) = v13 + v21 + 25;
                 *(_DWORD*)(*(_DWORD*)v11 + 16) = v22 + v12 + 25;
                 (*(void(__cdecl * *)(unsigned __int8*, _DWORD))(*(_DWORD*)v11 + 300))(&byte_5D4594[1320188], *(_DWORD*)v11);
-                nox_swprintf(v23, (const wchar_t*)& byte_587000[184236], *((_DWORD*)v11 + 1));
+                nox_swprintf(v23, L"%d", *((_DWORD*)v11 + 1));
                 sub_434390(*(int*)& byte_5D4594[2523948]);
                 sub_43F6E0(0, (__int16*)v23, v13 + v21 + 5, v22 + v12 + 5);
                 v14 = v22 + v12 + 50;
-                nox_swprintf(v23, (const wchar_t*)& byte_587000[184244], *((_DWORD*)v11 + 34));
+                nox_swprintf(v23, L"%d", *((_DWORD*)v11 + 34));
                 sub_434390(*(int*)& byte_5D4594[2589772]);
                 sub_43F6E0(0, (__int16*)v23, v13 + v21 + 5, v14 - v18 - 5);
             }
@@ -22540,12 +22540,12 @@ int __cdecl sub_4C1B50(int a1)
     result = *(_DWORD*)& byte_5D4594[1320964];
     if (*(_DWORD*)& byte_5D4594[1320964])
     {
-        nox_swprintf((wchar_t*)& byte_5D4594[1320240], (const wchar_t*)& byte_587000[184316], *(_DWORD*)(a1 + 2));
+        nox_swprintf((wchar_t*)& byte_5D4594[1320240], L"%d", *(_DWORD*)(a1 + 2));
         if (*(_DWORD*)(a1 + 6))
-            nox_swprintf((wchar_t*)& byte_5D4594[1320868], (const wchar_t*)& byte_587000[184324], *(_DWORD*)(a1 + 6));
+            nox_swprintf((wchar_t*)& byte_5D4594[1320868], L"(%d)", *(_DWORD*)(a1 + 6));
         else
             nox_wcscpy((wchar_t*)& byte_5D4594[1320868], (const wchar_t*)& byte_5D4594[1320984]);
-        result = nox_swprintf((wchar_t*)& byte_5D4594[1320100], (const wchar_t*)& byte_587000[184336], *(_DWORD*)(a1 + 10));
+        result = nox_swprintf((wchar_t*)& byte_5D4594[1320100], L"%d", *(_DWORD*)(a1 + 10));
     }
     return result;
 }
@@ -24138,7 +24138,7 @@ int __cdecl sub_4C3CD0(int a1, unsigned int a2, int a3, int a4)
                 *(_DWORD*)& byte_5D4594[1321252] = a3;
                 v9 = sub_46B490(*(int*)& byte_5D4594[1321240], 16406, *(_DWORD*)(v5 + 48), 0);
                 v6 = loadString_sub_40F1D0((char*)& byte_587000[185404], 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 436);
-                nox_swprintf((wchar_t*)& byte_5D4594[1321256], (const wchar_t*)& byte_587000[185428], v6, v9);
+                nox_swprintf((wchar_t*)& byte_5D4594[1321256], L"%s\n'%s'", v6, v9);
                 sub_46A8C0(*(int*)& byte_5D4594[1321232]);
                 sub_46B500(*(int*)& byte_5D4594[1321232]);
                 sub_46C690(*(int*)& byte_5D4594[1321232]);
@@ -29918,7 +29918,7 @@ int __cdecl sub_4CAFF0(_DWORD* a1, _DWORD* a2)
     {
         if ((a1[1] & 0x2000) == 0x2000)
             sub_43F670(1);
-        nox_swprintf(v15, (const wchar_t*)& byte_587000[187476], a1[8]);
+        nox_swprintf(v15, L"%i%%", a1[8]);
         sub_43F840(a2[50], v15, &v13, &v12, 64);
         v6 = xLeft + a1[2] / 2 - v13 / 2;
         v7 = a1[3] / 2 - v12 / 2 + yTop + 1;
@@ -30509,7 +30509,7 @@ int __cdecl sub_4CBF60(int a1, unsigned int a2, int a3, int a4)
                 *(_DWORD*)& byte_5D4594[1522632] = a3;
                 v9 = sub_46B490(*(int*)& byte_5D4594[1522620], 16406, *(_DWORD*)(v5 + 48), 0);
                 v6 = loadString_sub_40F1D0((char*)& byte_587000[187784], 0, "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 424);
-                nox_swprintf((wchar_t*)& byte_5D4594[1522636], (const wchar_t*)& byte_587000[187808], v6, v9);
+                nox_swprintf((wchar_t*)& byte_5D4594[1522636], L"%s\n'%s'", v6, v9);
                 sub_46A8C0(*(int*)& byte_5D4594[1522612]);
                 sub_46B500(*(int*)& byte_5D4594[1522612]);
                 sub_46C690(*(int*)& byte_5D4594[1522612]);
@@ -30753,7 +30753,7 @@ int sub_4CC4E0()
     v4 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1522892], 9998);
     if (!sub_4145F0(v10))
         v10[0] = 0;
-    nox_swprintf((wchar_t*)& byte_5D4594[1522896], (const wchar_t*)& byte_587000[187852], v10);
+    nox_swprintf((wchar_t*)& byte_5D4594[1522896], L"%S", v10);
     sub_46B490((int)v4, 16385, (int)& byte_5D4594[1522896], 0);
     v5 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1522892], 9970);
     sub_46B340((int)v5, sub_4CC6F0);
@@ -32343,7 +32343,7 @@ HANDLE __cdecl sub_4CED40(char* a1)
         if (_strcmpi(a1, FindFileData.cAlternateFileName)
             && _strcmpi("user", FindFileData.cAlternateFileName))
         {
-            nox_swprintf(v5, (const wchar_t*)& byte_587000[191568], FindFileData.cAlternateFileName);
+            nox_swprintf(v5, L"%S", FindFileData.cAlternateFileName);
             sub_46B490(*(int*)& byte_5D4594[1523028], 16397, (int)v5, -1);
         }
         while (FindNextFileA(v2, &FindFileData))
@@ -32353,7 +32353,7 @@ HANDLE __cdecl sub_4CED40(char* a1)
             {
                 if (_strcmpi("user", FindFileData.cAlternateFileName))
                 {
-                    nox_swprintf(v5, (const wchar_t*)& byte_587000[191584], FindFileData.cAlternateFileName);
+                    nox_swprintf(v5, L"%S", FindFileData.cAlternateFileName);
                     sub_46B490(*(int*)& byte_5D4594[1523028], 16397, (int)v5, -1);
                 }
             }
@@ -33390,7 +33390,7 @@ int __cdecl sub_4D0670(char* a1)
                 * v4 = 0;
             if (v7[0])
             {
-                nox_swprintf(v8, (const wchar_t*)& byte_587000[191788], v7);
+                nox_swprintf(v8, L"%S", v7);
                 v5 = sub_57AE30(v7);
                 if (v5)
                 {
@@ -43759,7 +43759,7 @@ _DWORD* __cdecl sub_4DD320(int a1, int a2)
             LABEL_23:
                 strcpy(v8 + 2112, (const char*)(a2 + 105));
                 v8[2135] = *(_BYTE*)(a2 + 152);
-                nox_swprintf((wchar_t*)v8 + 1036, (const wchar_t*)& byte_587000[200104], a2 + 142);
+                nox_swprintf((wchar_t*)v8 + 1036, L"%S", a2 + 142);
                 strcpy(v8 + 2096, (const char*)(a2 + 128));
                 v11 = *(_DWORD*)(a2 + 138);
                 *((_DWORD*)v8 + 517) = v11;
@@ -43939,8 +43939,8 @@ char* __cdecl sub_4DDA00(int a1)
             if (!result)
                 return result;
         }
-        nox_swprintf((wchar_t*)(a1 + 2274), (const wchar_t*)& byte_587000[200112], i);
-        nox_swprintf((wchar_t*)(a1 + 4704), (const wchar_t*)& byte_587000[200120], a1 + 2185, a1 + 2274);
+        nox_swprintf((wchar_t*)(a1 + 2274), L" %d", i);
+        nox_swprintf((wchar_t*)(a1 + 4704), L"%s%s", a1 + 2185, a1 + 2274);
     }
     return result;
 }
@@ -49216,7 +49216,7 @@ int __cdecl sub_4E42C0(FILE* a1)
         v1 = strtok((char*)& byte_5D4594[1563936], "\r\t\n");
         if (!v1)
             return 1;
-        nox_swprintf(v4, (const wchar_t*)& byte_587000[202256], v1);
+        nox_swprintf(v4, L"%S", v1);
         if (!fgets((char*)& byte_5D4594[1563936], 1024, a1))
             return 1;
         v2 = strtok((char*)& byte_5D4594[1563936], "\r\t\n");
@@ -49241,7 +49241,7 @@ int __cdecl sub_4E4390(FILE* a1)
         v1 = strtok((char*)& byte_5D4594[1563936], "\r\t\n");
         if (!v1)
             break;
-        nox_swprintf(v3, (const wchar_t*)& byte_587000[202276], v1);
+        nox_swprintf(v3, L"%S", v1);
         sub_4168A0(v3);
     }
     return 1;
@@ -52062,7 +52062,7 @@ wchar_t* __cdecl sub_4E77E0(int a1)
         if (*v2 && *(_DWORD*)(*v2 + 8))
         {
             nox_wcscat((wchar_t*)& byte_5D4594[1565660], *(const wchar_t**)(*v2 + 8));
-            nox_wcscat((wchar_t*)& byte_5D4594[1565660], (const wchar_t*)& byte_587000[203820]);
+            nox_wcscat((wchar_t*)& byte_5D4594[1565660], L" ");
         }
         v7 = v2[1];
         if (v7)
@@ -52071,7 +52071,7 @@ wchar_t* __cdecl sub_4E77E0(int a1)
             if (v8)
             {
                 nox_wcscat((wchar_t*)& byte_5D4594[1565660], v8);
-                nox_wcscat((wchar_t*)& byte_5D4594[1565660], (const wchar_t*)& byte_587000[203824]);
+                nox_wcscat((wchar_t*)& byte_5D4594[1565660], L" ");
             }
         }
         if (v4[2])
@@ -52079,13 +52079,13 @@ wchar_t* __cdecl sub_4E77E0(int a1)
         v9 = v2[2];
         if (v9 && *(_DWORD*)(v9 + 8))
         {
-            nox_wcscat((wchar_t*)& byte_5D4594[1565660], (const wchar_t*)& byte_587000[203828]);
+            nox_wcscat((wchar_t*)& byte_5D4594[1565660], L" ");
             nox_wcscat((wchar_t*)& byte_5D4594[1565660], *(const wchar_t**)(v2[2] + 8));
         }
         v10 = v2[3];
         if (v10 && *(_DWORD*)(v10 + 12))
         {
-            nox_wcscat((wchar_t*)& byte_5D4594[1565660], (const wchar_t*)& byte_587000[203832]);
+            nox_wcscat((wchar_t*)& byte_5D4594[1565660], L" ");
             nox_wcscat((wchar_t*)& byte_5D4594[1565660], *(const wchar_t**)(v2[3] + 12));
             return (wchar_t*)& byte_5D4594[1565660];
         }
