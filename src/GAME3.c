@@ -8,6 +8,8 @@ extern int g_fullscreen;
 extern float draw_gamma;
 extern float input_sensitivity;
 
+FILE* nox_file_9 = 0;
+
 //----- (004A19D0) --------------------------------------------------------
 int sub_4A19D0()
 {
@@ -6963,10 +6965,10 @@ LPCSTR sub_4AB580()
 {
     LPCSTR result; // eax
 
-    if (*(_DWORD*)& byte_5D4594[1309760])
-        fclose(*(FILE * *)& byte_5D4594[1309760]);
+    if (nox_file_9)
+        fclose(nox_file_9);
     result = *(LPCSTR*)& byte_5D4594[1309776];
-    *(_DWORD*)& byte_5D4594[1309760] = 0;
+    nox_file_9 = 0;
     *(_DWORD*)& byte_5D4594[1309764] = 0;
     *(_DWORD*)& byte_5D4594[1309784] = 0;
     *(_DWORD*)& byte_5D4594[1309780] = 0;
@@ -7045,10 +7047,10 @@ int sub_4AB720()
     int v0; // esi
     int v1; // edi
 
-    fclose(*(FILE * *)& byte_5D4594[1309760]);
+    fclose(nox_file_9);
     _unlink(*(LPCSTR*)& byte_5D4594[1309776]);
     v0 = *(_DWORD*)& byte_5D4594[1309780];
-    *(_DWORD*)& byte_5D4594[1309760] = 0;
+    nox_file_9 = 0;
     *(_DWORD*)& byte_5D4594[1309764] = 0;
     *(_DWORD*)& byte_587000[173336] = 1;
     *(_DWORD*)& byte_5D4594[1309772] = 0;
@@ -7086,7 +7088,7 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void* a2, size_t a3)
     {
         if (a1 == *(_DWORD*)& byte_587000[173336])
         {
-            fwrite(a2, a3, 1u, *(FILE * *)& byte_5D4594[1309760]);
+            fwrite(a2, a3, 1u, nox_file_9);
             *(_DWORD*)& byte_5D4594[1309768] += a3;
             ++* (_DWORD*)& byte_587000[173336];
         }
@@ -7119,7 +7121,7 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void* a2, size_t a3)
             {
                 if (*(_DWORD*)& byte_587000[173336] == *v5)
                 {
-                    fwrite(*((void**)v5 + 1), *((_DWORD*)v5 + 2), 1u, *(FILE * *)& byte_5D4594[1309760]);
+                    fwrite(*((void**)v5 + 1), *((_DWORD*)v5 + 2), 1u, nox_file_9);
                     *(_DWORD*)& byte_5D4594[1309768] += *((_DWORD*)v5 + 2);
                     ++* (_DWORD*)& byte_587000[173336];
                     v6 = *((_DWORD*)v5 + 4);
@@ -7186,8 +7188,8 @@ LPCSTR sub_4ABA90()
     if (*(_DWORD*)& byte_5D4594[1309764])
     {
         sub_43CAB0();
-        if (*(_DWORD*)& byte_5D4594[1309760])
-            fclose(*(FILE * *)& byte_5D4594[1309760]);
+        if (nox_file_9)
+            fclose(nox_file_9);
         sub_4AB9B0(*(char**)& byte_5D4594[1309776]);
         result = sub_4AB580();
     }
@@ -7258,8 +7260,8 @@ int __cdecl sub_4ABAD0(char* a1, unsigned int a2)
     if (v8)
     {
         strcpy(v8, v11);
-        *(_DWORD*)& byte_5D4594[1309760] = fopen(*(const char**)& byte_5D4594[1309776], "wb");
-        if (*(_DWORD*)& byte_5D4594[1309760])
+        nox_file_9 = fopen(*(const char**)& byte_5D4594[1309776], "wb");
+        if (nox_file_9)
         {
             result = 1;
             *(_DWORD*)& byte_587000[173336] = 1;
