@@ -79,6 +79,7 @@ typedef struct __m64 __m64;
 #ifdef DEBUG_MALLOCS
 #define nox_malloc(x) nox_malloc2(x, __func__, __LINE__, __FILE__)
 #define nox_calloc(x,y) nox_malloc2((x)*(y), __func__, __LINE__, __FILE__)
+void* nox_malloc2(size_t x, char* func, int line, char* file);
 #else
 #define nox_malloc(x) malloc(x)
 #define nox_calloc(x,y) calloc(x, y)
@@ -86,7 +87,6 @@ typedef struct __m64 __m64;
 
 void nox_exit(int exitCode);
 
-void* nox_malloc2(size_t x, char* func, int line, char* file);
 
 static int __OFSUB__(int x, int y)
 {

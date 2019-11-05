@@ -1118,6 +1118,7 @@ mem_mapping mappings[] = {
 
 size_t mappings_cnt = sizeof(mappings)/sizeof(mem_mapping);
 
+#ifdef DEBUG_MALLOCS
 void* nox_malloc2(size_t x, char* func, int line, char* file)
 {
     void* buf = malloc(100 + x);
@@ -1127,6 +1128,7 @@ void* nox_malloc2(size_t x, char* func, int line, char* file)
     strncpy((char*)((int)buf + x + strlen(func) + sizeof(line)), file, ((strlen(file) > (100 - strlen(func) - sizeof(line))) ? (100 - strlen(func) - sizeof(line)) : strlen(file)));
     return buf;
 }
+#endif
 
 void nox_exit(int exitCode)
 {
