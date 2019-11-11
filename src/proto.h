@@ -505,7 +505,7 @@ int __cdecl sub_4128A0_parse_allowed_armor(const char* a1, char* a2, obj_412ae0_
 int __cdecl sub_4128C0_parse_allowed_pos(const char* a1, char* a2, obj_412ae0_t* a3);
 int __cdecl sub_412930(char* a1, char* a2);
 int __cdecl sub_412AE0(const char* a1, FILE* a2, char* a3);
-int __cdecl sub_412C60(const char* a1, int a2);
+int __cdecl sub_412C60(const char* a1, obj_412ae0_t* a2);
 int __cdecl sub_412D40(int a1, FILE* a2, char* a3);
 int __cdecl sub_412ED0(int a1, FILE* a2, char* a3);
 void sub_413060();
@@ -1046,10 +1046,10 @@ unsigned __int8 __cdecl sub_422A40(int a1, _BYTE* a2);
 int __cdecl sub_422C10(int a1, int a2);
 int __cdecl sub_4235C0(const char* a1, char* a2, obj_412ae0_t* a3);
 int __cdecl sub_4235F0(const char* a1, float a2, obj_412ae0_t* a3); // idb
-double sub_423730();
+double sub_423730_parse_float();
 int __cdecl sub_423780(const char* a1, char* a2, obj_412ae0_t* a3);
-int __cdecl sub_4237B0(const char* a1, char* a2, obj_412ae0_t* a3);
-int sub_4238F0();
+int __cdecl sub_4237B0(const char* a1, int a2, obj_412ae0_t* a3);
+int sub_4238F0_parse_int();
 char* __cdecl sub_423930(const char* a1, _DWORD* a2, const char** a3);
 int __cdecl sub_4239C0(char* a1, _DWORD* a2, const char** a3);
 char* __cdecl sub_423A10(const char* a1, _DWORD* a2);
