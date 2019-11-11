@@ -20489,13 +20489,9 @@ void sub_416E20()
 }
 
 //----- (00416E30) --------------------------------------------------------
-int sub_416E30()
+void sub_416E30()
 {
-    int result; // eax
-
-    result = 0;
-    memset(&byte_5D4594[371780], 0, 0x25B80u);
-    return result;
+    memset(&byte_5D4594[371780], 0, 32*4828);
 }
 
 //----- (00416E50) --------------------------------------------------------
@@ -21065,139 +21061,141 @@ void __cdecl sub_417680(int a1, char a2)
     int v26; // [esp-Ch] [ebp-18h]
 
     v2 = a1;
-    if (a1)
+    if (!a1)
     {
-        if (!sub_40A5C0(1))
-            * (_DWORD*)(v2 + 4) = 0;
-        v3 = v2 + 2328;
-        v4 = 27;
-        do
+        return;
+    }
+    if (!sub_40A5C0(1))
+        * (_DWORD*)(v2 + 4) = 0;
+    v3 = v2 + 2328;
+    v4 = 27;
+    do
+    {
+        v5 = (_DWORD*)v3;
+        *(_DWORD*)(v3 - 4) = 0;
+        v3 += 24;
+        *v5 = 0;
+        --v4;
+        v5[1] = 0;
+        v5[2] = 0;
+        v5[3] = 0;
+    } while (v4);
+    if (!sub_40A5C0(1))
+        * (_DWORD*)v2 = 0;
+    v6 = v2 + 2976;
+    v7 = 26;
+    do
+    {
+        v8 = (_DWORD*)v6;
+        *(_DWORD*)(v6 - 4) = 0;
+        v6 += 24;
+        *v8 = 0;
+        --v7;
+        v8[1] = 0;
+        v8[2] = 0;
+        v8[3] = 0;
+    } while (v7);
+    v9 = sub_413290("UserColor1");
+    v10 = sub_413330(v9);
+    if (!v10)
+    {
+        return;
+    }
+    if (*(_BYTE*)(v2 + 2251) || sub_40A5C0(2048))
+    {
+        LOBYTE(a1) = -1;
+        v11 = sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2269));
+        v12 = *(unsigned __int8*)(v2 + 2270);
+        BYTE1(a1) = *(_BYTE*)(v11 + 4);
+        BYTE2(a1) = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + v12) + 4);
+        HIBYTE(a1) = -1;
+        if (a2 & 1)
+            sub_417AA0(82, *(_DWORD*)(v2 + 2060), 1024, (int)& a1);
+    }
+    LOBYTE(a1) = -1;
+    BYTE1(a1) = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2268)) + 4);
+    HIWORD(a1) = -1;
+    if (a2 & 2)
+        sub_417AA0(82, *(_DWORD*)(v2 + 2060), 4, (int)& a1);
+    v13 = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2272)) + 4);
+    v14 = *(unsigned __int8*)(v2 + 2271);
+    LOBYTE(a1) = v13;
+    BYTE1(a1) = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + v14) + 4);
+    HIWORD(a1) = -1;
+    if (a2 & 4)
+        sub_417AA0(82, *(_DWORD*)(v2 + 2060), 1, (int)& a1);
+    v15 = *(_BYTE*)(v2 + 2251);
+    a1 = -1;
+    if (v15 == 1)
+    {
+        if (sub_40A5C0(2048))
         {
-            v5 = (_DWORD*)v3;
-            *(_DWORD*)(v3 - 4) = 0;
-            v3 += 24;
-            *v5 = 0;
-            --v4;
-            v5[1] = 0;
-            v5[2] = 0;
-            v5[3] = 0;
-        } while (v4);
-        if (!sub_40A5C0(1))
-            * (_DWORD*)v2 = 0;
-        v6 = v2 + 2976;
-        v7 = 26;
-        do
-        {
-            v8 = (_DWORD*)v6;
-            *(_DWORD*)(v6 - 4) = 0;
-            v6 += 24;
-            *v8 = 0;
-            --v7;
-            v8[1] = 0;
-            v8[2] = 0;
-            v8[3] = 0;
-        } while (v7);
-        v9 = sub_413290("UserColor1");
-        v10 = sub_413330(v9);
-        if (v10)
-        {
-            if (*(_BYTE*)(v2 + 2251) || sub_40A5C0(2048))
+            if (a2 & 8)
             {
-                LOBYTE(a1) = -1;
-                v11 = sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2269));
-                v12 = *(unsigned __int8*)(v2 + 2270);
-                BYTE1(a1) = *(_BYTE*)(v11 + 4);
-                BYTE2(a1) = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + v12) + 4);
-                HIBYTE(a1) = -1;
-                if (a2 & 1)
-                    sub_417AA0(82, *(_DWORD*)(v2 + 2060), 1024, (int)& a1);
+                v16 = sub_413290("ArmorQuality1");
+                LOBYTE(a1) = *(_BYTE*)(sub_413330(v16) + 4);
+                sub_417AA0(80, *(_DWORD*)(v2 + 2060), 0x8000, (int)& a1);
             }
-            LOBYTE(a1) = -1;
-            BYTE1(a1) = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2268)) + 4);
-            HIWORD(a1) = -1;
-            if (a2 & 2)
-                sub_417AA0(82, *(_DWORD*)(v2 + 2060), 4, (int)& a1);
-            v13 = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2272)) + 4);
-            v14 = *(unsigned __int8*)(v2 + 2271);
-            LOBYTE(a1) = v13;
-            BYTE1(a1) = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + v14) + 4);
-            HIWORD(a1) = -1;
-            if (a2 & 4)
-                sub_417AA0(82, *(_DWORD*)(v2 + 2060), 1, (int)& a1);
-            v15 = *(_BYTE*)(v2 + 2251);
+        }
+        else if (sub_40A5C0(4096))
+        {
             a1 = -1;
-            if (v15 == 1)
+            v17 = sub_413290("Replenishment1");
+            BYTE2(a1) = *(_BYTE*)(sub_413330(v17) + 4);
+            sub_417AA0(80, *(_DWORD*)(v2 + 2060), 0x10000, (int)& a1);
+        }
+        else if (a2 & 0x10)
+        {
+            sub_417AA0(79, *(_DWORD*)(v2 + 2060), 0x4000, (int)& a1);
+        }
+    }
+    if (!*(_BYTE*)(v2 + 2251))
+    {
+        if (sub_40A5C0(2048))
+        {
+            if (a2 & 0x20)
             {
-                if (sub_40A5C0(2048))
-                {
-                    if (a2 & 8)
-                    {
-                        v16 = sub_413290("ArmorQuality1");
-                        LOBYTE(a1) = *(_BYTE*)(sub_413330(v16) + 4);
-                        sub_417AA0(80, *(_DWORD*)(v2 + 2060), 0x8000, (int)& a1);
-                    }
-                }
-                else if (sub_40A5C0(4096))
-                {
-                    a1 = -1;
-                    v17 = sub_413290("Replenishment1");
-                    BYTE2(a1) = *(_BYTE*)(sub_413330(v17) + 4);
-                    sub_417AA0(80, *(_DWORD*)(v2 + 2060), 0x10000, (int)& a1);
-                }
-                else if (a2 & 0x10)
-                {
-                    sub_417AA0(79, *(_DWORD*)(v2 + 2060), 0x4000, (int)& a1);
-                }
+                v18 = sub_413290("ArmorQuality1");
+                LOBYTE(a1) = *(_BYTE*)(sub_413330(v18) + 4);
+                v19 = sub_413290("Material1");
+                v20 = *(_BYTE*)(sub_413330(v19) + 4);
+                v21 = *(_DWORD*)(v2 + 2060);
+                LOBYTE(a1) = v20;
+                sub_417AA0(80, v21, 256, (int)& a1);
             }
-            if (!*(_BYTE*)(v2 + 2251))
+        }
+        else if (sub_40A5C0(4096))
+        {
+            v25 = *(_DWORD*)(v2 + 2060);
+            a1 = -1;
+            sub_417AA0(80, v25, 256, (int)& a1);
+        }
+        else
+        {
+            if (a2 & 0x40)
+                sub_417AA0(80, *(_DWORD*)(v2 + 2060), 512, (int)& a1);
+            if (a2 < 0)
+                sub_417AA0(79, *(_DWORD*)(v2 + 2060), 0x1000000, (int)& a1);
+        }
+    }
+    if (*(_BYTE*)(v2 + 2251) == 2)
+    {
+        if (sub_40A5C0(2048))
+        {
+            if (a2 & 8)
             {
-                if (sub_40A5C0(2048))
-                {
-                    if (a2 & 0x20)
-                    {
-                        v18 = sub_413290("ArmorQuality1");
-                        LOBYTE(a1) = *(_BYTE*)(sub_413330(v18) + 4);
-                        v19 = sub_413290("Material1");
-                        v20 = *(_BYTE*)(sub_413330(v19) + 4);
-                        v21 = *(_DWORD*)(v2 + 2060);
-                        LOBYTE(a1) = v20;
-                        sub_417AA0(80, v21, 256, (int)& a1);
-                    }
-                }
-                else if (sub_40A5C0(4096))
-                {
-                    v25 = *(_DWORD*)(v2 + 2060);
-                    a1 = -1;
-                    sub_417AA0(80, v25, 256, (int)& a1);
-                }
-                else
-                {
-                    if (a2 & 0x40)
-                        sub_417AA0(80, *(_DWORD*)(v2 + 2060), 512, (int)& a1);
-                    if (a2 < 0)
-                        sub_417AA0(79, *(_DWORD*)(v2 + 2060), 0x1000000, (int)& a1);
-                }
+                v22 = sub_413290("ArmorQuality1");
+                v23 = *(_BYTE*)(sub_413330(v22) + 4);
+                v24 = *(_DWORD*)(v2 + 2060);
+                LOBYTE(a1) = v23;
+                sub_417AA0(80, v24, 0x8000, (int)& a1);
             }
-            if (*(_BYTE*)(v2 + 2251) == 2)
-            {
-                if (sub_40A5C0(2048))
-                {
-                    if (a2 & 8)
-                    {
-                        v22 = sub_413290("ArmorQuality1");
-                        v23 = *(_BYTE*)(sub_413330(v22) + 4);
-                        v24 = *(_DWORD*)(v2 + 2060);
-                        LOBYTE(a1) = v23;
-                        sub_417AA0(80, v24, 0x8000, (int)& a1);
-                    }
-                }
-                else if (sub_40A5C0(4096))
-                {
-                    v26 = *(_DWORD*)(v2 + 2060);
-                    a1 = -1;
-                    sub_417AA0(80, v26, 4, (int)& a1);
-                }
-            }
+        }
+        else if (sub_40A5C0(4096))
+        {
+            v26 = *(_DWORD*)(v2 + 2060);
+            a1 = -1;
+            sub_417AA0(80, v26, 4, (int)& a1);
         }
     }
 }
