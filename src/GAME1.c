@@ -50,6 +50,1032 @@ extern FILE* nox_file_9;
 
 _DWORD* dword_5D4594_251544 = 0;
 
+const char* table_5184[] = {
+    "NULL",
+    "AnchorCast",
+    "AnchorOn",
+    "AnchorOff",
+    "BlindCast",
+    "BlindOn",
+    "BlindOff",
+    "BlinkCast",
+    "BurnCast",
+    "CleansingFlameCast",
+    "ChannelLifeCast",
+    "ChannelLifeEffect",
+    "ChannelLifeStop",
+    "CancelCast",
+    "CharmCast",
+    "CharmSuccess",
+    "CharmFailure",
+    "ConfuseCast",
+    "ConfuseOn",
+    "ConfuseOff",
+    "CounterspellCast",
+    "CurePoisonCast",
+    "CurePoisonEffect",
+    "DeathCast",
+    "DeathOn",
+    "DeathOff",
+    "DeathTimer",
+    "DeathRayCast",
+    "DetonateGlyphCast",
+    "DrainManaCast",
+    "EarthquakeCast",
+    "EnergyBoltCast",
+    "EnergyBoltSustain",
+    "FearCast",
+    "FearOn",
+    "FearOff",
+    "ForceOfNatureCast",
+    "ForceOfNatureReflect",
+    "ForceOfNatureRelease",
+    "GlyphCast",
+    "GlyphDetonate",
+    "FireballCast",
+    "FireballExplode",
+    "FirewalkCast",
+    "FirewalkOn",
+    "FirewalkOff",
+    "FirewalkFlame",
+    "FistCast",
+    "FistHit",
+    "ForceFieldCast",
+    "FrostCast",
+    "FrostOn",
+    "FrostOff",
+    "FumbleCast",
+    "FumbleEffect",
+    "GreaterHealCast",
+    "GreaterHealEffect",
+    "GreaterHealStop",
+    "HasteCast",
+    "HasteOn",
+    "HasteOff",
+    "InfravisionCast",
+    "InfravisionOn",
+    "InfraVisionOff",
+    "InversionCast",
+    "InvisibilityCast",
+    "InvisibilityOn",
+    "InvisibilityOff",
+    "InvulnerabilityCast",
+    "InvulnerabilityOn",
+    "InvulnerabilityOff",
+    "InvulnerableEffect",
+    "LesserHealCast",
+    "LesserHealEffect",
+    "LightCast",
+    "LightOn",
+    "LightOff",
+    "LightningCast",
+    "LightningBolt",
+    "LockCast",
+    "ManaBombCast",
+    "ManaBombEffect",
+    "MarkCast",
+    "MagicMissileCast",
+    "MagicMissileDetonate",
+    "MeteorCast",
+    "MeteorShowerCast",
+    "MeteorHit",
+    "MoonglowCast",
+    "MoonglowOn",
+    "MoonglowOff",
+    "NullifyCast",
+    "NullifyOn",
+    "NullifyOff",
+    "PhantomCast",
+    "PixieSwarmCast",
+    "PixieHit",
+    "PlasmaCast",
+    "PlasmaSustain",
+    "PoisonCast",
+    "PoisonEffect",
+    "ProtectionFromFireCast",
+    "ProtectionFromFireOn",
+    "ProtectionFromFireOff",
+    "ProtectionFromFireEffect",
+    "ProtectionFromElectricityCast",
+    "ProtectionFromElectricityOn",
+    "ProtectionFromElectricityOff",
+    "ProtectionFromElectricityEffect",
+    "ProtectionFromPoisonCast",
+    "ProtectionFromPoisonOn",
+    "ProtectionFromPoisonOff",
+    "ProtectionFromPoisonEffect",
+    "ProtectionFromMagicCast",
+    "ProtectionFromMagicOn",
+    "ProtectionFromMagicOff",
+    "ProtectionFromMagicEffect",
+    "PullCast",
+    "PushCast",
+    "ReflectiveShieldCast",
+    "ReflectiveShieldOn",
+    "ReflectiveShieldOff",
+    "ReflectiveShieldEffect",
+    "RegenerationOn",
+    "RegenerationOff",
+    "RunCast",
+    "RunOn",
+    "RunOff",
+    "ShieldCast",
+    "ShieldOn",
+    "ShieldOff",
+    "ShieldRepelled",
+    "ShockCast",
+    "ShockOn",
+    "ShockOff",
+    "Shocked",
+    "SlowCast",
+    "SlowOn",
+    "SlowOff",
+    "StunCast",
+    "StunOn",
+    "StunOff",
+    "SummonCast",
+    "SwapCast",
+    "TagCast",
+    "TagOn",
+    "TagOff",
+    "TeleportOut",
+    "TeleportIn",
+    "TeleportToMarkerCast",
+    "TeleportToMarkerEffect",
+    "TeleportPopCast",
+    "TeleportToTargetCast",
+    "TelekinesisCast",
+    "TelekinesisOn",
+    "TelekinesisOff",
+    "ToxicCloudCast",
+    "TriggerGlyphCast",
+    "TurnUndeadCast",
+    "TurnUndeadEffect",
+    "VampirismCast",
+    "VampirismOn",
+    "VampirismOff",
+    "DrainHealth",
+    "VillainCast",
+    "VillainOn",
+    "VillainOff",
+    "WallCast",
+    "WallOn",
+    "WallOff",
+    "BerserkerChargeInvoke",
+    "BerserkerCrash",
+    "BerserkerChargeOn",
+    "BerserkerChargeOff",
+    "WarcryInvoke",
+    "WarcryOn",
+    "WarcryOff",
+    "HarpoonInvoke",
+    "HarpoonOn",
+    "HarpoonOff",
+    "TreadLightlyInvoke",
+    "TreadLightlyOn",
+    "TreadLightlyOff",
+    "EyeOfTheWolfInvoke",
+    "EyeOfTheWolfOn",
+    "EyeOfTheWolfOff",
+    "SpellPhonemeUp",
+    "SpellPhonemeUpRight",
+    "SpellPhonemeRight",
+    "SpellPhonemeDownRight",
+    "SpellPhonemeDown",
+    "SpellPhonemeDownLeft",
+    "SpellPhonemeLeft",
+    "SpellPhonemeUpLeft",
+    "FemaleSpellPhonemeUp",
+    "FemaleSpellPhonemeUpRight",
+    "FemaleSpellPhonemeRight",
+    "FemaleSpellPhonemeDownRight",
+    "FemaleSpellPhonemeDown",
+    "FemaleSpellPhonemeDownLeft",
+    "FemaleSpellPhonemeLeft",
+    "FemaleSpellPhonemeUpLeft",
+    "NPCSpellPhonemeUp",
+    "NPCSpellPhonemeUpRight",
+    "NPCSpellPhonemeRight",
+    "NPCSpellPhonemeDownRight",
+    "NPCSpellPhonemeDown",
+    "NPCSpellPhonemeDownLeft",
+    "NPCSpellPhonemeLeft",
+    "NPCSpellPhonemeUpLeft",
+    "NPCFemaleSpellPhonemeUp",
+    "NPCFemaleSpellPhonemeUpRight",
+    "NPCFemaleSpellPhonemeRight",
+    "NPCFemaleSpellPhonemeDownRight",
+    "NPCFemaleSpellPhonemeDown",
+    "NPCFemaleSpellPhonemeDownLeft",
+    "NPCFemaleSpellPhonemeLeft",
+    "NPCFemaleSpellPhonemeUpLeft",
+    "FireballWand",
+    "SmallFireballWand",
+    "FlareWand",
+    "LightningWand",
+    "DepletedWand",
+    "Ricochet",
+    "WeaponEffectFire",
+    "WeaponEffectElectricity",
+    "AwardSpell",
+    "AwardGuide",
+    "BlueFireDamage",
+    "DrainMana",
+    "ManaRecharge",
+    "PermanentFizzle",
+    "ManaEmpty",
+    "Lock",
+    "Unlock",
+    "ElevEnable",
+    "ElevDisable",
+    "OpenWoodenDoor",
+    "MoveWoodenDoor",
+    "CloseWoodenDoor",
+    "WoodenDoorLocked",
+    "OpenGate",
+    "MoveGate",
+    "CloseGate",
+    "GateLocked",
+    "OpenWoodenGate",
+    "CloseWoodenGate",
+    "OpenHeavyWoodenDoor",
+    "CloseHeavyWoodenDoor",
+    "ElevStoneUp",
+    "ElevStoneDown",
+    "ElevWoodUp",
+    "ElevWoodDown",
+    "ElevMechUp",
+    "ElevMechDown",
+    "ElevLavaUp",
+    "ElevLavaDown",
+    "ElevGreenUp",
+    "ElevGreenDown",
+    "ElevLOTDUp",
+    "ElevLOTDDown",
+    "Gear1",
+    "Gear2",
+    "Gear3",
+    "SmallRockMove",
+    "MediumRockMove",
+    "LargeRockMove",
+    "BoulderMove",
+    "WalkOnSnow",
+    "WalkOnStone",
+    "WalkOnDirt",
+    "WalkOnWood",
+    "WalkOnWater",
+    "WalkOnMud",
+    "RunOnSnow",
+    "RunOnStone",
+    "RunOnDirt",
+    "RunOnWood",
+    "RunOnWater",
+    "RunOnMud",
+    "PlayerFallThud",
+    "BarrelMove",
+    "BlackPowderBurn",
+    "FireExtinguish",
+    "PolypExplode",
+    "PowderBarrelExplode",
+    "BarrelBreak",
+    "WaterBarrelBreak",
+    "LOTDBarrelBreak",
+    "WineCaskBreak",
+    "BarrelStackBreak",
+    "CoffinBreak",
+    "WaspHiveBreak",
+    "WorkstationBreak",
+    "CrushLight",
+    "CrushMedium",
+    "CrushHard",
+    "SentryRayHitWall",
+    "SentryRayHit",
+    "DeathRayKill",
+    "TauntLaugh",
+    "TauntShakeFist",
+    "TauntPoint",
+    "FlagPickup",
+    "FlagDrop",
+    "FlagRespawn",
+    "FlagCapture",
+    "TreasurePickup",
+    "TreasureDrop",
+    "GameOver",
+    "ServerOptionsChange",
+    "CamperAlarm",
+    "PlayerEliminated",
+    "CrownChange",
+    "HumanMaleEatFood",
+    "HumanMaleEatApple",
+    "HumanMaleDrinkJug",
+    "HumanMaleHurtLight",
+    "HumanMaleHurtMedium",
+    "HumanMaleHurtHeavy",
+    "HumanMaleHurtPoison",
+    "HumanMaleDie",
+    "HumanMaleExertionLight",
+    "HumanMaleExertionHeavy",
+    "HumanFemaleEatFood",
+    "HumanFemaleEatApple",
+    "HumanFemaleDrinkJug",
+    "HumanFemaleHurtLight",
+    "HumanFemaleHurtMedium",
+    "HumanFemaleHurtHeavy",
+    "HumanFemaleHurtPoison",
+    "HumanFemaleDie",
+    "HumanFemaleExertionLight",
+    "HumanFemaleExertionHeavy",
+    "MonsterEatFood",
+    "BatMove",
+    "BatBite",
+    "BatDie",
+    "BatRecognize",
+    "SmallSpiderMove",
+    "SmallSpiderIdle",
+    "SmallSpiderBite",
+    "SmallSpiderDie",
+    "SmallSpiderRecognize",
+    "LargeSpiderMove",
+    "LargeSpiderIdle",
+    "LargeSpiderBite",
+    "LargeSpiderDie",
+    "LargeSpiderSpit",
+    "LargeSpiderRecognize",
+    "LargeSpiderHurt",
+    "WebGooHit",
+    "SkeletonMove",
+    "SkeletonAttackInit",
+    "SkeletonHitting",
+    "SkeletonMissing",
+    "SkeletonDie",
+    "SkeletonRecognize",
+    "SkeletonHurt",
+    "SkeletonLordMove",
+    "SkeletonLordAttackInit",
+    "SkeletonLordHitting",
+    "SkeletonLordMissing",
+    "SkeletonLordDie",
+    "SkeletonLordRecognize",
+    "SkeletonLordHurt",
+    "BomberRecognize",
+    "BomberSummon",
+    "BomberDie",
+    "BomberMove",
+    "DemonRecognize",
+    "DemonTaunt",
+    "DemonSpellInit",
+    "DemonDie",
+    "DemonMove",
+    "DemonHurt",
+    "GruntMove",
+    "GruntTaunt",
+    "GruntIdle",
+    "GruntAttackInit",
+    "GruntHitting",
+    "GruntMissing",
+    "GruntDie",
+    "GruntBowTwang",
+    "GruntRecognize",
+    "GruntHurt",
+    "OgreBruteListen",
+    "OgreBruteTaunt",
+    "OgreBruteIdle",
+    "OgreBruteEngage",
+    "OgreBruteRecognize",
+    "OgreBruteMove",
+    "OgreBruteHurt",
+    "OgreBruteDie",
+    "OgreBruteMeleeHit",
+    "OgreBruteMeleeMiss",
+    "OgreBruteAttackInit",
+    "OgreWarlordListen",
+    "OgreWarlordTaunt",
+    "OgreWarlordIdle",
+    "OgreWarlordEngage",
+    "OgreWarlordRecognize",
+    "OgreWarlordMove",
+    "OgreWarlordHurt",
+    "OgreWarlordDie",
+    "OgreWarlordMeleeHit",
+    "OgreWarlordMeleeMiss",
+    "OgreWarlordAttackInit",
+    "OgreWarlordThrow",
+    "ScorpionRecognize",
+    "ScorpionMove",
+    "ScorpionIdle",
+    "ScorpionAttackInit",
+    "ScorpionStingHit",
+    "ScorpionStingMiss",
+    "ScorpionClawHit",
+    "ScorpionClawMiss",
+    "ScorpionHurt",
+    "ScorpionDie",
+    "LeechMove",
+    "LeechIdle",
+    "LeechAttackInit",
+    "LeechHitting",
+    "LeechMissing",
+    "LeechDie",
+    "LeechRecognize",
+    "LeechHurt",
+    "BearMove",
+    "BearAttackInit",
+    "BearHitting",
+    "BearMissing",
+    "BearDie",
+    "BearRecognize",
+    "BearHurt",
+    "WolfMove",
+    "WolfIdle",
+    "WolfAttackInit",
+    "WolfHitting",
+    "WolfMissing",
+    "WolfDie",
+    "WolfRecognize",
+    "WolfHurt",
+    "WolfHowl",
+    "WolfGrowl",
+    "PlantSleep",
+    "PlantAttackInit",
+    "PlantHitting",
+    "PlantMissing",
+    "PlantDie",
+    "PlantRecognize",
+    "PlantHurt",
+    "PlantGrowl",
+    "MimicMove",
+    "MimicIdle",
+    "MimicAttackInit",
+    "MimicHitting",
+    "MimicMissing",
+    "MimicDie",
+    "MimicRecognize",
+    "MimicHurt",
+    "MimicMorph",
+    "ZombieMove",
+    "ZombieIdle",
+    "ZombieAttackInit",
+    "ZombieHitting",
+    "ZombieMissing",
+    "ZombieDie",
+    "ZombieRecognize",
+    "ZombieHurt",
+    "ZombieGetUp",
+    "VileZombieMove",
+    "VileZombieIdle",
+    "VileZombieAttackInit",
+    "VileZombieHitting",
+    "VileZombieMissing",
+    "VileZombieDie",
+    "VileZombieRecognize",
+    "VileZombieHurt",
+    "VileZombieGetUp",
+    "ImpMove",
+    "ImpShoot",
+    "ImpSteal",
+    "ImpDie",
+    "ImpRecognize",
+    "GolemMove",
+    "GolemHitting",
+    "GolemMissing",
+    "GolemDie",
+    "GolemHurt",
+    "GolemRecognize",
+    "MechGolemMove",
+    "MechGolemAttackInit",
+    "MechGolemHitting",
+    "MechGolemMissing",
+    "MechGolemDie",
+    "MechGolemHurt",
+    "MechGolemRecognize",
+    "TowerRecognize",
+    "TowerShoot",
+    "SkullRecognize",
+    "SkullShoot",
+    "GhostMove",
+    "GhostHitting",
+    "GhostDie",
+    "GhostHurt",
+    "GhostRecognize",
+    "WizardTalkable",
+    "WizardMove",
+    "WizardDie",
+    "WizardHurt",
+    "WizardRecognize",
+    "WizardEngage",
+    "WizardRetreat",
+    "WaspMove",
+    "WaspIdle",
+    "WaspSting",
+    "WaspDie",
+    "WaspRecognize",
+    "EmberDemonMove",
+    "EmberDemonTaunt",
+    "EmberDemonHitting",
+    "EmberDemonMissing",
+    "EmberDemonDie",
+    "EmberDemonThrow",
+    "EmberDemonRecognize",
+    "EmberDemonHurt",
+    "UrchinMove",
+    "UrchinTaunt",
+    "UrchinIdle",
+    "UrchinDie",
+    "UrchinThrow",
+    "UrchinRecognize",
+    "UrchinHurt",
+    "UrchinFlee",
+    "UrchinShamanMove",
+    "UrchinShamanTaunt",
+    "UrchinShamanIdle",
+    "UrchinShamanDie",
+    "UrchinShamanRecognize",
+    "UrchinShamanHurt",
+    "UrchinShamanFlee",
+    "ArcherMove",
+    "ArcherTaunt",
+    "ArcherIdle",
+    "ArcherDie",
+    "ArcherMissileInit",
+    "ArcherShoot",
+    "ArcherRecognize",
+    "ArcherHurt",
+    "ArcherRetreat",
+    "SwordsmanMove",
+    "SwordsmanTaunt",
+    "SwordsmanIdle",
+    "SwordsmanAttackInit",
+    "SwordsmanHitting",
+    "SwordsmanMissing",
+    "SwordsmanDie",
+    "SwordsmanRecognize",
+    "SwordsmanHurt",
+    "SwordsmanRetreat",
+    "BeholderMove",
+    "BeholderIdle",
+    "BeholderAttackInit",
+    "BeholderDie",
+    "BeholderRecognize",
+    "BeholderHurt",
+    "DryadMove",
+    "DryadTaunt",
+    "DryadDie",
+    "DryadRecognize",
+    "DryadHurt",
+    "EvilCherubMove",
+    "EvilCherubTaunt",
+    "EvilCherubIdle",
+    "EvilCherubMissileInit",
+    "EvilCherubShoot",
+    "EvilCherubDie",
+    "EvilCherubRecognize",
+    "EvilCherubHurt",
+    "FishDie",
+    "FrogDie",
+    "FrogRecognize",
+    "HecubahTaunt",
+    "HecubahTalkable",
+    "HecubahMove",
+    "HecubahAttackInit",
+    "HecubahDie",
+    "HecubahRecognize",
+    "HecubahHurt",
+    "HecubahDieFrame0A",
+    "HecubahDieFrame0B",
+    "HecubahDieFrame98",
+    "HecubahDieFrame194",
+    "HecubahDieFrame283",
+    "HecubahDieFrame439",
+    "NecromancerTaunt",
+    "NecromancerTalkable",
+    "NecromancerMove",
+    "NecromancerAttackInit",
+    "NecromancerDie",
+    "NecromancerRecognize",
+    "NecromancerEngage",
+    "NecromancerRetreat",
+    "NecromancerHurt",
+    "LichMove",
+    "LichAttackInit",
+    "LichDie",
+    "LichRecognize",
+    "LichHurt",
+    "FlyingGolemMove",
+    "FlyingGolemShoot",
+    "FlyingGolemDie",
+    "FlyingGolemRecognize",
+    "FlyingGolemHurt",
+    "NPCTalkable",
+    "NPCIdle",
+    "NPCDie",
+    "NPCRecognize",
+    "NPCRetreat",
+    "NPCHurt",
+    "MaidenIdle",
+    "MaidenTalkable",
+    "MaidenFlee",
+    "MaidenDie",
+    "MaidenHurt",
+    "RatDie",
+    "ShadeMove",
+    "ShadeAttackInit",
+    "ShadeDie",
+    "ShadeRecognize",
+    "ShadeHurt",
+    "WeirdlingMove",
+    "WillOWispMove",
+    "WillOWispIdle",
+    "WillOWispDie",
+    "WillOWispHurt",
+    "WillOWispRecognize",
+    "WillOWispEngage",
+    "TrollMove",
+    "TrollIdle",
+    "TrollDie",
+    "TrollHurt",
+    "TrollRecognize",
+    "TrollAttackInit",
+    "TrollFlatus",
+    "MaleNPC1Talkable",
+    "MaleNPC1Idle",
+    "MaleNPC1Recognize",
+    "MaleNPC1Engage",
+    "MaleNPC1Retreat",
+    "MaleNPC1Hurt",
+    "MaleNPC1Die",
+    "MaleNPC1AttackInit",
+    "MaleNPC2Talkable",
+    "MaleNPC2Idle",
+    "MaleNPC2Recognize",
+    "MaleNPC2Engage",
+    "MaleNPC2Retreat",
+    "MaleNPC2Hurt",
+    "MaleNPC2Die",
+    "MaleNPC2AttackInit",
+    "Maiden1Talkable",
+    "Maiden1Idle",
+    "Maiden1Recognize",
+    "Maiden1Retreat",
+    "Maiden1Hurt",
+    "Maiden1Die",
+    "Maiden1AttackInit",
+    "Maiden2Talkable",
+    "Maiden2Idle",
+    "Maiden2Recognize",
+    "Maiden2Retreat",
+    "Maiden2Hurt",
+    "Maiden2Die",
+    "Maiden2AttackInit",
+    "HorvathTalkable",
+    "HorvathEngage",
+    "HorvathHurt",
+    "HorvathDie",
+    "Wizard1Talkable",
+    "Wizard1Idle",
+    "Wizard1Recognize",
+    "Wizard1Engage",
+    "Wizard1Retreat",
+    "Wizard1Hurt",
+    "Wizard1Die",
+    "Wizard1AttackInit",
+    "Wizard2Talkable",
+    "Wizard2Idle",
+    "Wizard2Recognize",
+    "Wizard2Engage",
+    "Wizard2Retreat",
+    "Wizard2Hurt",
+    "Wizard2Die",
+    "Wizard2AttackInit",
+    "FireKnight1Talkable",
+    "FireKnight1Idle",
+    "FireKnight1Recognize",
+    "FireKnight1Engage",
+    "FireKnight1Retreat",
+    "FireKnight1Hurt",
+    "FireKnight1Die",
+    "FireKnight1AttackInit",
+    "FireKnight2Talkable",
+    "FireKnight2Idle",
+    "FireKnight2Recognize",
+    "FireKnight2Engage",
+    "FireKnight2Retreat",
+    "FireKnight2Hurt",
+    "FireKnight2Die",
+    "FireKnight2AttackInit",
+    "Guard1Talkable",
+    "Guard1Idle",
+    "Guard1Recognize",
+    "Guard1Engage",
+    "Guard1Retreat",
+    "Guard1Hurt",
+    "Guard1Die",
+    "Guard1AttackInit",
+    "Guard2Talkable",
+    "Guard2Idle",
+    "Guard2Recognize",
+    "Guard2Engage",
+    "Guard2Retreat",
+    "Guard2Hurt",
+    "Guard2Die",
+    "Guard2AttackInit",
+    "WoundedNPCTalkable",
+    "WoundedNPCIdle",
+    "WoundedNPCRecognize",
+    "WoundedNPCRetreat",
+    "WoundedNPCHurt",
+    "WoundedNPCDie",
+    "WoundedNPCAttackInit",
+    "HorrendousTalkable",
+    "HorrendousRecognize",
+    "HorrendousRetreat",
+    "HorrendousHurt",
+    "HorrendousDie",
+    "HorrendousAttackInit",
+    "SecretWallOpen",
+    "SecretWallClose",
+    "SecretWallEarthOpen",
+    "SecretWallEarthClose",
+    "SecretWallMetalOpen",
+    "SecretWallMetalClose",
+    "SecretWallStoneOpen",
+    "SecretWallStoneClose",
+    "SecretWallWoodOpen",
+    "SecretWallWoodClose",
+    "TriggerPressed",
+    "TriggerReleased",
+    "PotionUse",
+    "PotionBreak",
+    "RestoreHealth",
+    "RestoreMana",
+    "WallDestroyed",
+    "WallDestroyedStone",
+    "WallDestroyedWood",
+    "WallDestroyedMetal",
+    "ChestOpen",
+    "CryptChestOpen",
+    "SackChestOpen",
+    "ChestLocked",
+    "EggBreak",
+    "Poisoned",
+    "ButtonPress",
+    "ButtonRelease",
+    "LeverToggle",
+    "SwitchToggle",
+    "ChainPull",
+    "ShortBellsUp",
+    "LongBellsUp",
+    "LongBellsDown",
+    "BigBell",
+    "MetallicBong",
+    "Chime",
+    "BigGong",
+    "SmallGong",
+    "MysticChant",
+    "TripleChime",
+    "Clank1",
+    "Clank2",
+    "Clank3",
+    "MapOpen",
+    "MapClose",
+    "BookOpen",
+    "BookClose",
+    "PageTurn",
+    "InventoryOpen",
+    "InventoryClose",
+    "InventoryPickup",
+    "InventoryDrop",
+    "SpellPickup",
+    "SpellDrop",
+    "SpellPopOffBook",
+    "TrapEditorOpen",
+    "TrapEditorClose",
+    "ChangeSpellbar",
+    "ExpandSpellbar",
+    "CollapseSpellbar",
+    "CreatureCageAppears",
+    "CreatureCageHides",
+    "ShopRepairItem",
+    "MetalArmorPickup",
+    "MetalArmorDrop",
+    "MetalArmorBreak",
+    "LeatherArmorPickup",
+    "LeatherArmorDrop",
+    "LeatherArmorBreak",
+    "WoodenArmorPickup",
+    "WoodenArmorDrop",
+    "WoodenArmorBreak",
+    "ClothArmorPickup",
+    "ClothArmorDrop",
+    "ClothArmorBreak",
+    "ShoesPickup",
+    "ShoesDrop",
+    "MetalWeaponBreak",
+    "WoodWeaponBreak",
+    "KeyPickup",
+    "KeyDrop",
+    "AmuletPickup",
+    "AmuletDrop",
+    "TrapPickup",
+    "TrapDrop",
+    "BookPickup",
+    "BookDrop",
+    "ScrollPickup",
+    "ScrollDrop",
+    "WandPickup",
+    "WandDrop",
+    "PotionPickup",
+    "PotionDrop",
+    "MeatPickup",
+    "MeatDrop",
+    "ApplePickup",
+    "AppleDrop",
+    "ShroomPickup",
+    "ShroomDrop",
+    "SpectaclesPickup",
+    "SpectaclesDrop",
+    "MetalWeaponPickup",
+    "MetalWeaponDrop",
+    "WoodenWeaponPickup",
+    "WoodenWeaponDrop",
+    "BearTrapTriggered",
+    "PoisonTrapTriggered",
+    "StoneHitStone",
+    "StoneHitEarth",
+    "StoneHitWood",
+    "StoneHitMetal",
+    "StoneHitFlesh",
+    "WoodHitStone",
+    "WoodHitEarth",
+    "WoodHitWood",
+    "WoodHitMetal",
+    "WoodHitFlesh",
+    "MetalHitStone",
+    "MetalHitEarth",
+    "MetalHitWood",
+    "MetalHitMetal",
+    "MetalHitFlesh",
+    "FleshHitStone",
+    "FleshHitEarth",
+    "FleshHitWood",
+    "FleshHitMetal",
+    "FleshHitFlesh",
+    "DiamondHitStone",
+    "DiamondHitEarth",
+    "DiamondHitWood",
+    "DiamondHitMetal",
+    "DiamondHitFlesh",
+    "HitStoneBreakable",
+    "HitEarthBreakable",
+    "HitWoodBreakable",
+    "HitMetalBreakable",
+    "HitMagicBreakable",
+    "HitMetalShield",
+    "PunchMissing",
+    "LongswordMissing",
+    "SwordMissing",
+    "HammerMissing",
+    "AxeMissing",
+    "MaceMissing",
+    "BowShoot",
+    "CrossBowShoot",
+    "BowEmpty",
+    "CrossBowEmpty",
+    "ArrowTrapShoot",
+    "GreatSwordReflect",
+    "ChakramThrow",
+    "ChakramCatch",
+    "ChakramFallToGround",
+    "StaffBlock",
+    "NextWeapon",
+    "HeartBeat",
+    "GenerateTick",
+    "SummonClick",
+    "SummonComplete",
+    "SummonAbort",
+    "ManaClick",
+    "LevelUp",
+    "JournalEntryAdd",
+    "SecretFound",
+    "EarthRumbleMajor",
+    "EarthRumbleMinor",
+    "ElectricalArc1",
+    "FloorSpikesUp",
+    "FloorSpikesDown",
+    "SpikeBlockMove",
+    "BoulderRoll",
+    "ArcheryContestBegins",
+    "HorrendousIsKilled",
+    "StaffOblivionAchieve1",
+    "StaffOblivionAchieve2",
+    "StaffOblivionAchieve3",
+    "StaffOblivionAchieve4",
+    "FireGrate",
+    "MechGolemPowerUp",
+    "ShellSelect",
+    "ShellClick",
+    "ShellSlideIn",
+    "ShellSlideOut",
+    "ShellMouseBoom",
+    "NoCanDo",
+    "BallThrow",
+    "BallGrab",
+    "BallBounce",
+    "BallHitGoal",
+    "BirdAmbient1",
+    "LoopAmbienceCastle",
+    "LoopAmbienceCave",
+    "LoopAmbienceForest",
+    "LoopAmbienceInferno",
+    "LoopAmbienceLOTD",
+    "LoopAmbienceMine",
+    "LoopAmbienceSwamp",
+    "LoopAmbBird2",
+    "LoopAmbBirdSwamp1",
+    "LoopAmbBirdSwamp2",
+    "LoopAmbBrook2",
+    "LoopAmbBrook3",
+    "LoopAmbCricket1",
+    "LoopAmbCricket2",
+    "LoopAmbCricket3",
+    "LoopAmbCrow1",
+    "LoopAmbCrow2",
+    "LoopAmbCrowWL",
+    "LoopAmbDog1",
+    "LoopAmbDripCave1",
+    "LoopAmbDripCave2",
+    "LoopAmbDripRoom",
+    "LoopAmbFrogSwamp1",
+    "LoopAmbFrogSwamp2",
+    "LoopAmbFrogSwamp3",
+    "LoopAmbFrogSwamp4",
+    "LoopAmbFrogSwamp5",
+    "LoopAmbFliesSwamp",
+    "LoopAmbRodentForest1",
+    "LoopAmbRodentForest2",
+    "LoopAmbCaveRumble",
+    "LoopAmbSpiritsFOV",
+    "LoopAmbSpiritsLOTD",
+    "LoopAmbWindCave1",
+    "LoopAmbWindCave2",
+    "LoopAmbWindCave3",
+    "LoopAmbWindLOTD",
+    "LoopAmbWindWL1",
+    "LoopAmbWindWL2",
+    "LoopAmbHeartNox",
+    "LoopAmbBird3",
+    "LoopAmbBird4",
+    "LoopAmbBird5",
+    "LoopAmbBird6",
+    "LoopAmbBird7",
+    "LoopAmbBird8",
+    "LoopAmbIxTemple",
+    "LoopAmbLeaves",
+    "LoopAmbHowls",
+    "LoopAmbWeirdling",
+    "LoopAmbSpikeWave",
+    "LoopAmbBeachBirds",
+    "LoopAmbBeachWaves",
+    "LoopCampfire",
+    "LoopTorch",
+    "LoopBlueFire",
+    "LoopWorkstation",
+    "LoopWaterFountain",
+    "LoopWindmill",
+    "LoopOrrery",
+    "LoopVandegraf",
+    "LoopGearSmall",
+    "LoopGearLarge",
+    "LoopGearPulley",
+    "LoopPolyp",
+    "LoopSentryGlobe",
+    "LoopSpikePillar",
+    "HarpoonBroken",
+    "HarpoonReel",
+    "MonsterGeneratorDie",
+    "MonsterGeneratorHurt",
+    "MonsterGeneratorSpawn",
+    "PlayerExit",
+    "AwardLife",
+    "SoulGateTouch",
+    "QuestRespawn",
+    "QuestFinalDeath",
+    "QuestPlayerJoinGame",
+    "QuestStatScreen",
+    "QuestIntroScreen",
+    "QuestPlayerExitGame",
+    "QuestLockedChest",
+    "LoopMonsterGenerator",
+    "StoneDoorOpen",
+    "StoneDoorClose",
+    "DiamondDrop",
+    "DiamondPickup",
+    "RubyDrop",
+    "RubyPickup",
+    "EmeraldDrop",
+    "EmeraldPickup",
+    "EnableSharedKeyMode"
+};
+
 typedef struct mem_mapping
 {
     uintptr_t base;
@@ -77,6 +1103,7 @@ mem_mapping mappings[] = {
     {0x5D4594+1599584, (void*)&nox_file_8, sizeof(nox_file_8),1},
     {0x5D4594+1599620, (void*)&nox_file_7, sizeof(nox_file_7),1},
     {0x5D4594+251544, (void*)&dword_5D4594_251544, sizeof(dword_5D4594_251544),1},
+    {0x587000+5184, (void*)table_5184, sizeof(table_5184),1},
     // full blobs
     #if 0
     {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
@@ -1058,1029 +2085,8 @@ void init_data()
     *(void**)& byte_587000[3376] = &byte_581450[1000];
     *(void**)& byte_587000[3596] = &byte_587000[3468];
     *(void**)& byte_587000[3600] = &byte_587000[3532];
-    *(void**)& byte_587000[5184] = &byte_587000[9276];
-    *(void**)& byte_587000[5188] = &byte_587000[9284];
-    *(void**)& byte_587000[5192] = &byte_587000[9296];
-    *(void**)& byte_587000[5196] = &byte_587000[9308];
-    *(void**)& byte_587000[5200] = &byte_587000[9320];
-    *(void**)& byte_587000[5204] = &byte_587000[9332];
-    *(void**)& byte_587000[5208] = &byte_587000[9340];
-    *(void**)& byte_587000[5212] = &byte_587000[9352];
-    *(void**)& byte_587000[5216] = &byte_587000[9364];
-    *(void**)& byte_587000[5220] = &byte_587000[9376];
-    *(void**)& byte_587000[5224] = &byte_587000[9396];
-    *(void**)& byte_587000[5228] = &byte_587000[9412];
-    *(void**)& byte_587000[5232] = &byte_587000[9432];
-    *(void**)& byte_587000[5236] = &byte_587000[9448];
-    *(void**)& byte_587000[5240] = &byte_587000[9460];
-    *(void**)& byte_587000[5244] = &byte_587000[9472];
-    *(void**)& byte_587000[5248] = &byte_587000[9488];
-    *(void**)& byte_587000[5252] = &byte_587000[9504];
-    *(void**)& byte_587000[5256] = &byte_587000[9516];
-    *(void**)& byte_587000[5260] = &byte_587000[9528];
-    *(void**)& byte_587000[5264] = &byte_587000[9540];
-    *(void**)& byte_587000[5268] = &byte_587000[9560];
-    *(void**)& byte_587000[5272] = &byte_587000[9576];
-    *(void**)& byte_587000[5276] = &byte_587000[9596];
-    *(void**)& byte_587000[5280] = &byte_587000[9608];
-    *(void**)& byte_587000[5284] = &byte_587000[9616];
-    *(void**)& byte_587000[5288] = &byte_587000[9628];
-    *(void**)& byte_587000[5292] = &byte_587000[9640];
-    *(void**)& byte_587000[5296] = &byte_587000[9656];
-    *(void**)& byte_587000[5300] = &byte_587000[9676];
-    *(void**)& byte_587000[5304] = &byte_587000[9692];
-    *(void**)& byte_587000[5308] = &byte_587000[9708];
-    *(void**)& byte_587000[5312] = &byte_587000[9724];
-    *(void**)& byte_587000[5316] = &byte_587000[9744];
-    *(void**)& byte_587000[5320] = &byte_587000[9756];
-    *(void**)& byte_587000[5324] = &byte_587000[9764];
-    *(void**)& byte_587000[5328] = &byte_587000[9772];
-    *(void**)& byte_587000[5332] = &byte_587000[9792];
-    *(void**)& byte_587000[5336] = &byte_587000[9816];
-    *(void**)& byte_587000[5340] = &byte_587000[9840];
-    *(void**)& byte_587000[5344] = &byte_587000[9852];
-    *(void**)& byte_587000[5348] = &byte_587000[9868];
-    *(void**)& byte_587000[5352] = &byte_587000[9884];
-    *(void**)& byte_587000[5356] = &byte_587000[9900];
-    *(void**)& byte_587000[5360] = &byte_587000[9916];
-    *(void**)& byte_587000[5364] = &byte_587000[9928];
-    *(void**)& byte_587000[5368] = &byte_587000[9940];
-    *(void**)& byte_587000[5372] = &byte_587000[9956];
-    *(void**)& byte_587000[5376] = &byte_587000[9968];
-    *(void**)& byte_587000[5380] = &byte_587000[9976];
-    *(void**)& byte_587000[5384] = &byte_587000[9992];
-    *(void**)& byte_587000[5388] = &byte_587000[10004];
-    *(void**)& byte_587000[5392] = &byte_587000[10012];
-    *(void**)& byte_587000[5396] = &byte_587000[10024];
-    *(void**)& byte_587000[5400] = &byte_587000[10036];
-    *(void**)& byte_587000[5404] = &byte_587000[10052];
-    *(void**)& byte_587000[5408] = &byte_587000[10068];
-    *(void**)& byte_587000[5412] = &byte_587000[10088];
-    *(void**)& byte_587000[5416] = &byte_587000[10104];
-    *(void**)& byte_587000[5420] = &byte_587000[10116];
-    *(void**)& byte_587000[5424] = &byte_587000[10124];
-    *(void**)& byte_587000[5428] = &byte_587000[10136];
-    *(void**)& byte_587000[5432] = &byte_587000[10152];
-    *(void**)& byte_587000[5436] = &byte_587000[10168];
-    *(void**)& byte_587000[5440] = &byte_587000[10184];
-    *(void**)& byte_587000[5444] = &byte_587000[10200];
-    *(void**)& byte_587000[5448] = &byte_587000[10220];
-    *(void**)& byte_587000[5452] = &byte_587000[10236];
-    *(void**)& byte_587000[5456] = &byte_587000[10252];
-    *(void**)& byte_587000[5460] = &byte_587000[10272];
-    *(void**)& byte_587000[5464] = &byte_587000[10292];
-    *(void**)& byte_587000[5468] = &byte_587000[10312];
-    *(void**)& byte_587000[5472] = &byte_587000[10332];
-    *(void**)& byte_587000[5476] = &byte_587000[10348];
-    *(void**)& byte_587000[5480] = &byte_587000[10368];
-    *(void**)& byte_587000[5484] = &byte_587000[10380];
-    *(void**)& byte_587000[5488] = &byte_587000[10388];
-    *(void**)& byte_587000[5492] = &byte_587000[10400];
-    *(void**)& byte_587000[5496] = &byte_587000[10416];
-    *(void**)& byte_587000[5500] = &byte_587000[10432];
-    *(void**)& byte_587000[5504] = &byte_587000[10444];
-    *(void**)& byte_587000[5508] = &byte_587000[10460];
-    *(void**)& byte_587000[5512] = &byte_587000[10476];
-    *(void**)& byte_587000[5516] = &byte_587000[10488];
-    *(void**)& byte_587000[5520] = &byte_587000[10508];
-    *(void**)& byte_587000[5524] = &byte_587000[10532];
-    *(void**)& byte_587000[5528] = &byte_587000[10544];
-    *(void**)& byte_587000[5532] = &byte_587000[10564];
-    *(void**)& byte_587000[5536] = &byte_587000[10576];
-    *(void**)& byte_587000[5540] = &byte_587000[10592];
-    *(void**)& byte_587000[5544] = &byte_587000[10604];
-    *(void**)& byte_587000[5548] = &byte_587000[10616];
-    *(void**)& byte_587000[5552] = &byte_587000[10628];
-    *(void**)& byte_587000[5556] = &byte_587000[10640];
-    *(void**)& byte_587000[5560] = &byte_587000[10652];
-    *(void**)& byte_587000[5564] = &byte_587000[10664];
-    *(void**)& byte_587000[5568] = &byte_587000[10680];
-    *(void**)& byte_587000[5572] = &byte_587000[10692];
-    *(void**)& byte_587000[5576] = &byte_587000[10704];
-    *(void**)& byte_587000[5580] = &byte_587000[10720];
-    *(void**)& byte_587000[5584] = &byte_587000[10732];
-    *(void**)& byte_587000[5588] = &byte_587000[10748];
-    *(void**)& byte_587000[5592] = &byte_587000[10772];
-    *(void**)& byte_587000[5596] = &byte_587000[10796];
-    *(void**)& byte_587000[5600] = &byte_587000[10820];
-    *(void**)& byte_587000[5604] = &byte_587000[10848];
-    *(void**)& byte_587000[5608] = &byte_587000[10880];
-    *(void**)& byte_587000[5612] = &byte_587000[10908];
-    *(void**)& byte_587000[5616] = &byte_587000[10940];
-    *(void**)& byte_587000[5620] = &byte_587000[10972];
-    *(void**)& byte_587000[5624] = &byte_587000[11000];
-    *(void**)& byte_587000[5628] = &byte_587000[11024];
-    *(void**)& byte_587000[5632] = &byte_587000[11048];
-    *(void**)& byte_587000[5636] = &byte_587000[11076];
-    *(void**)& byte_587000[5640] = &byte_587000[11100];
-    *(void**)& byte_587000[5644] = &byte_587000[11124];
-    *(void**)& byte_587000[5648] = &byte_587000[11148];
-    *(void**)& byte_587000[5652] = &byte_587000[11176];
-    *(void**)& byte_587000[5656] = &byte_587000[11188];
-    *(void**)& byte_587000[5660] = &byte_587000[11200];
-    *(void**)& byte_587000[5664] = &byte_587000[11224];
-    *(void**)& byte_587000[5668] = &byte_587000[11244];
-    *(void**)& byte_587000[5672] = &byte_587000[11264];
-    *(void**)& byte_587000[5676] = &byte_587000[11288];
-    *(void**)& byte_587000[5680] = &byte_587000[11304];
-    *(void**)& byte_587000[5684] = &byte_587000[11320];
-    *(void**)& byte_587000[5688] = &byte_587000[11328];
-    *(void**)& byte_587000[5692] = &byte_587000[11336];
-    *(void**)& byte_587000[5696] = &byte_587000[11344];
-    *(void**)& byte_587000[5700] = &byte_587000[11356];
-    *(void**)& byte_587000[5704] = &byte_587000[11368];
-    *(void**)& byte_587000[5708] = &byte_587000[11380];
-    *(void**)& byte_587000[5712] = &byte_587000[11396];
-    *(void**)& byte_587000[5716] = &byte_587000[11408];
-    *(void**)& byte_587000[5720] = &byte_587000[11416];
-    *(void**)& byte_587000[5724] = &byte_587000[11428];
-    *(void**)& byte_587000[5728] = &byte_587000[11436];
-    *(void**)& byte_587000[5732] = &byte_587000[11448];
-    *(void**)& byte_587000[5736] = &byte_587000[11456];
-    *(void**)& byte_587000[5740] = &byte_587000[11464];
-    *(void**)& byte_587000[5744] = &byte_587000[11476];
-    *(void**)& byte_587000[5748] = &byte_587000[11484];
-    *(void**)& byte_587000[5752] = &byte_587000[11492];
-    *(void**)& byte_587000[5756] = &byte_587000[11504];
-    *(void**)& byte_587000[5760] = &byte_587000[11516];
-    *(void**)& byte_587000[5764] = &byte_587000[11524];
-    *(void**)& byte_587000[5768] = &byte_587000[11532];
-    *(void**)& byte_587000[5772] = &byte_587000[11540];
-    *(void**)& byte_587000[5776] = &byte_587000[11552];
-    *(void**)& byte_587000[5780] = &byte_587000[11564];
-    *(void**)& byte_587000[5784] = &byte_587000[11588];
-    *(void**)& byte_587000[5788] = &byte_587000[11612];
-    *(void**)& byte_587000[5792] = &byte_587000[11628];
-    *(void**)& byte_587000[5796] = &byte_587000[11652];
-    *(void**)& byte_587000[5800] = &byte_587000[11668];
-    *(void**)& byte_587000[5804] = &byte_587000[11684];
-    *(void**)& byte_587000[5808] = &byte_587000[11700];
-    *(void**)& byte_587000[5812] = &byte_587000[11716];
-    *(void**)& byte_587000[5816] = &byte_587000[11736];
-    *(void**)& byte_587000[5820] = &byte_587000[11752];
-    *(void**)& byte_587000[5824] = &byte_587000[11772];
-    *(void**)& byte_587000[5828] = &byte_587000[11788];
-    *(void**)& byte_587000[5832] = &byte_587000[11800];
-    *(void**)& byte_587000[5836] = &byte_587000[11816];
-    *(void**)& byte_587000[5840] = &byte_587000[11828];
-    *(void**)& byte_587000[5844] = &byte_587000[11840];
-    *(void**)& byte_587000[5848] = &byte_587000[11852];
-    *(void**)& byte_587000[5852] = &byte_587000[11864];
-    *(void**)& byte_587000[5856] = &byte_587000[11876];
-    *(void**)& byte_587000[5860] = &byte_587000[11884];
-    *(void**)& byte_587000[5864] = &byte_587000[11892];
-    *(void**)& byte_587000[5868] = &byte_587000[11916];
-    *(void**)& byte_587000[5872] = &byte_587000[11932];
-    *(void**)& byte_587000[5876] = &byte_587000[11952];
-    *(void**)& byte_587000[5880] = &byte_587000[11972];
-    *(void**)& byte_587000[5884] = &byte_587000[11988];
-    *(void**)& byte_587000[5888] = &byte_587000[12000];
-    *(void**)& byte_587000[5892] = &byte_587000[12012];
-    *(void**)& byte_587000[5896] = &byte_587000[12028];
-    *(void**)& byte_587000[5900] = &byte_587000[12040];
-    *(void**)& byte_587000[5904] = &byte_587000[12052];
-    *(void**)& byte_587000[5908] = &byte_587000[12072];
-    *(void**)& byte_587000[5912] = &byte_587000[12088];
-    *(void**)& byte_587000[5916] = &byte_587000[12104];
-    *(void**)& byte_587000[5920] = &byte_587000[12124];
-    *(void**)& byte_587000[5924] = &byte_587000[12140];
-    *(void**)& byte_587000[5928] = &byte_587000[12156];
-    *(void**)& byte_587000[5932] = &byte_587000[12172];
-    *(void**)& byte_587000[5936] = &byte_587000[12192];
-    *(void**)& byte_587000[5940] = &byte_587000[12212];
-    *(void**)& byte_587000[5944] = &byte_587000[12236];
-    *(void**)& byte_587000[5948] = &byte_587000[12256];
-    *(void**)& byte_587000[5952] = &byte_587000[12280];
-    *(void**)& byte_587000[5956] = &byte_587000[12300];
-    *(void**)& byte_587000[5960] = &byte_587000[12320];
-    *(void**)& byte_587000[5964] = &byte_587000[12344];
-    *(void**)& byte_587000[5968] = &byte_587000[12372];
-    *(void**)& byte_587000[5972] = &byte_587000[12396];
-    *(void**)& byte_587000[5976] = &byte_587000[12424];
-    *(void**)& byte_587000[5980] = &byte_587000[12448];
-    *(void**)& byte_587000[5984] = &byte_587000[12476];
-    *(void**)& byte_587000[5988] = &byte_587000[12500];
-    *(void**)& byte_587000[5992] = &byte_587000[12528];
-    *(void**)& byte_587000[5996] = &byte_587000[12548];
-    *(void**)& byte_587000[6000] = &byte_587000[12572];
-    *(void**)& byte_587000[6004] = &byte_587000[12596];
-    *(void**)& byte_587000[6008] = &byte_587000[12624];
-    *(void**)& byte_587000[6012] = &byte_587000[12644];
-    *(void**)& byte_587000[6016] = &byte_587000[12668];
-    *(void**)& byte_587000[6020] = &byte_587000[12688];
-    *(void**)& byte_587000[6024] = &byte_587000[12712];
-    *(void**)& byte_587000[6028] = &byte_587000[12736];
-    *(void**)& byte_587000[6032] = &byte_587000[12768];
-    *(void**)& byte_587000[6036] = &byte_587000[12796];
-    *(void**)& byte_587000[6040] = &byte_587000[12828];
-    *(void**)& byte_587000[6044] = &byte_587000[12856];
-    *(void**)& byte_587000[6048] = &byte_587000[12888];
-    *(void**)& byte_587000[6052] = &byte_587000[12916];
-    *(void**)& byte_587000[6056] = &byte_587000[12944];
-    *(void**)& byte_587000[6060] = &byte_587000[12960];
-    *(void**)& byte_587000[6064] = &byte_587000[12980];
-    *(void**)& byte_587000[6068] = &byte_587000[12992];
-    *(void**)& byte_587000[6072] = &byte_587000[13008];
-    *(void**)& byte_587000[6076] = &byte_587000[13024];
-    *(void**)& byte_587000[6080] = &byte_587000[13036];
-    *(void**)& byte_587000[6084] = &byte_587000[13056];
-    *(void**)& byte_587000[6088] = &byte_587000[13080];
-    *(void**)& byte_587000[6092] = &byte_587000[13092];
-    *(void**)& byte_587000[6096] = &byte_587000[13104];
-    *(void**)& byte_587000[6100] = &byte_587000[13120];
-    *(void**)& byte_587000[6104] = &byte_587000[13132];
-    *(void**)& byte_587000[6108] = &byte_587000[13148];
-    *(void**)& byte_587000[6112] = &byte_587000[13164];
-    *(void**)& byte_587000[6116] = &byte_587000[13176];
-    *(void**)& byte_587000[6120] = &byte_587000[13184];
-    *(void**)& byte_587000[6124] = &byte_587000[13192];
-    *(void**)& byte_587000[6128] = &byte_587000[13204];
-    *(void**)& byte_587000[6132] = &byte_587000[13216];
-    *(void**)& byte_587000[6136] = &byte_587000[13232];
-    *(void**)& byte_587000[6140] = &byte_587000[13248];
-    *(void**)& byte_587000[6144] = &byte_587000[13264];
-    *(void**)& byte_587000[6148] = &byte_587000[13284];
-    *(void**)& byte_587000[6152] = &byte_587000[13296];
-    *(void**)& byte_587000[6156] = &byte_587000[13308];
-    *(void**)& byte_587000[6160] = &byte_587000[13320];
-    *(void**)& byte_587000[6164] = &byte_587000[13332];
-    *(void**)& byte_587000[6168] = &byte_587000[13348];
-    *(void**)& byte_587000[6172] = &byte_587000[13364];
-    *(void**)& byte_587000[6176] = &byte_587000[13384];
-    *(void**)& byte_587000[6180] = &byte_587000[13408];
-    *(void**)& byte_587000[6184] = &byte_587000[13420];
-    *(void**)& byte_587000[6188] = &byte_587000[13436];
-    *(void**)& byte_587000[6192] = &byte_587000[13448];
-    *(void**)& byte_587000[6196] = &byte_587000[13464];
-    *(void**)& byte_587000[6200] = &byte_587000[13476];
-    *(void**)& byte_587000[6204] = &byte_587000[13492];
-    *(void**)& byte_587000[6208] = &byte_587000[13504];
-    *(void**)& byte_587000[6212] = &byte_587000[13520];
-    *(void**)& byte_587000[6216] = &byte_587000[13532];
-    *(void**)& byte_587000[6220] = &byte_587000[13548];
-    *(void**)& byte_587000[6224] = &byte_587000[13560];
-    *(void**)& byte_587000[6228] = &byte_587000[13576];
-    *(void**)& byte_587000[6232] = &byte_587000[13584];
-    *(void**)& byte_587000[6236] = &byte_587000[13592];
-    *(void**)& byte_587000[6240] = &byte_587000[13600];
-    *(void**)& byte_587000[6244] = &byte_587000[13616];
-    *(void**)& byte_587000[6248] = &byte_587000[13632];
-    *(void**)& byte_587000[6252] = &byte_587000[13648];
-    *(void**)& byte_587000[6256] = &byte_587000[13660];
-    *(void**)& byte_587000[6260] = &byte_587000[13672];
-    *(void**)& byte_587000[6264] = &byte_587000[13684];
-    *(void**)& byte_587000[6268] = &byte_587000[13696];
-    *(void**)& byte_587000[6272] = &byte_587000[13708];
-    *(void**)& byte_587000[6276] = &byte_587000[13720];
-    *(void**)& byte_587000[6280] = &byte_587000[13732];
-    *(void**)& byte_587000[6284] = &byte_587000[13744];
-    *(void**)& byte_587000[6288] = &byte_587000[13756];
-    *(void**)& byte_587000[6292] = &byte_587000[13768];
-    *(void**)& byte_587000[6296] = &byte_587000[13780];
-    *(void**)& byte_587000[6300] = &byte_587000[13792];
-    *(void**)& byte_587000[6304] = &byte_587000[13804];
-    *(void**)& byte_587000[6308] = &byte_587000[13820];
-    *(void**)& byte_587000[6312] = &byte_587000[13832];
-    *(void**)& byte_587000[6316] = &byte_587000[13848];
-    *(void**)& byte_587000[6320] = &byte_587000[13864];
-    *(void**)& byte_587000[6324] = &byte_587000[13880];
-    *(void**)& byte_587000[6328] = &byte_587000[13900];
-    *(void**)& byte_587000[6332] = &byte_587000[13912];
-    *(void**)& byte_587000[6336] = &byte_587000[13932];
-    *(void**)& byte_587000[6340] = &byte_587000[13948];
-    *(void**)& byte_587000[6344] = &byte_587000[13964];
-    *(void**)& byte_587000[6348] = &byte_587000[13984];
-    *(void**)& byte_587000[6352] = &byte_587000[13996];
-    *(void**)& byte_587000[6356] = &byte_587000[14012];
-    *(void**)& byte_587000[6360] = &byte_587000[14032];
-    *(void**)& byte_587000[6364] = &byte_587000[14044];
-    *(void**)& byte_587000[6368] = &byte_587000[14056];
-    *(void**)& byte_587000[6372] = &byte_587000[14068];
-    *(void**)& byte_587000[6376] = &byte_587000[14088];
-    *(void**)& byte_587000[6380] = &byte_587000[14104];
-    *(void**)& byte_587000[6384] = &byte_587000[14120];
-    *(void**)& byte_587000[6388] = &byte_587000[14132];
-    *(void**)& byte_587000[6392] = &byte_587000[14148];
-    *(void**)& byte_587000[6396] = &byte_587000[14160];
-    *(void**)& byte_587000[6400] = &byte_587000[14172];
-    *(void**)& byte_587000[6404] = &byte_587000[14184];
-    *(void**)& byte_587000[6408] = &byte_587000[14196];
-    *(void**)& byte_587000[6412] = &byte_587000[14208];
-    *(void**)& byte_587000[6416] = &byte_587000[14224];
-    *(void**)& byte_587000[6420] = &byte_587000[14240];
-    *(void**)& byte_587000[6424] = &byte_587000[14252];
-    *(void**)& byte_587000[6428] = &byte_587000[14272];
-    *(void**)& byte_587000[6432] = &byte_587000[14284];
-    *(void**)& byte_587000[6436] = &byte_587000[14304];
-    *(void**)& byte_587000[6440] = &byte_587000[14316];
-    *(void**)& byte_587000[6444] = &byte_587000[14336];
-    *(void**)& byte_587000[6448] = &byte_587000[14356];
-    *(void**)& byte_587000[6452] = &byte_587000[14376];
-    *(void**)& byte_587000[6456] = &byte_587000[14396];
-    *(void**)& byte_587000[6460] = &byte_587000[14416];
-    *(void**)& byte_587000[6464] = &byte_587000[14436];
-    *(void**)& byte_587000[6468] = &byte_587000[14456];
-    *(void**)& byte_587000[6472] = &byte_587000[14472];
-    *(void**)& byte_587000[6476] = &byte_587000[14496];
-    *(void**)& byte_587000[6480] = &byte_587000[14520];
-    *(void**)& byte_587000[6484] = &byte_587000[14540];
-    *(void**)& byte_587000[6488] = &byte_587000[14560];
-    *(void**)& byte_587000[6492] = &byte_587000[14580];
-    *(void**)& byte_587000[6496] = &byte_587000[14604];
-    *(void**)& byte_587000[6500] = &byte_587000[14628];
-    *(void**)& byte_587000[6504] = &byte_587000[14652];
-    *(void**)& byte_587000[6508] = &byte_587000[14676];
-    *(void**)& byte_587000[6512] = &byte_587000[14692];
-    *(void**)& byte_587000[6516] = &byte_587000[14720];
-    *(void**)& byte_587000[6520] = &byte_587000[14748];
-    *(void**)& byte_587000[6524] = &byte_587000[14764];
-    *(void**)& byte_587000[6528] = &byte_587000[14772];
-    *(void**)& byte_587000[6532] = &byte_587000[14780];
-    *(void**)& byte_587000[6536] = &byte_587000[14788];
-    *(void**)& byte_587000[6540] = &byte_587000[14804];
-    *(void**)& byte_587000[6544] = &byte_587000[14820];
-    *(void**)& byte_587000[6548] = &byte_587000[14836];
-    *(void**)& byte_587000[6552] = &byte_587000[14852];
-    *(void**)& byte_587000[6556] = &byte_587000[14868];
-    *(void**)& byte_587000[6560] = &byte_587000[14892];
-    *(void**)& byte_587000[6564] = &byte_587000[14908];
-    *(void**)& byte_587000[6568] = &byte_587000[14924];
-    *(void**)& byte_587000[6572] = &byte_587000[14940];
-    *(void**)& byte_587000[6576] = &byte_587000[14956];
-    *(void**)& byte_587000[6580] = &byte_587000[14972];
-    *(void**)& byte_587000[6584] = &byte_587000[14996];
-    *(void**)& byte_587000[6588] = &byte_587000[15012];
-    *(void**)& byte_587000[6592] = &byte_587000[15024];
-    *(void**)& byte_587000[6596] = &byte_587000[15040];
-    *(void**)& byte_587000[6600] = &byte_587000[15060];
-    *(void**)& byte_587000[6604] = &byte_587000[15076];
-    *(void**)& byte_587000[6608] = &byte_587000[15092];
-    *(void**)& byte_587000[6612] = &byte_587000[15104];
-    *(void**)& byte_587000[6616] = &byte_587000[15124];
-    *(void**)& byte_587000[6620] = &byte_587000[15140];
-    *(void**)& byte_587000[6624] = &byte_587000[15160];
-    *(void**)& byte_587000[6628] = &byte_587000[15184];
-    *(void**)& byte_587000[6632] = &byte_587000[15204];
-    *(void**)& byte_587000[6636] = &byte_587000[15224];
-    *(void**)& byte_587000[6640] = &byte_587000[15240];
-    *(void**)& byte_587000[6644] = &byte_587000[15264];
-    *(void**)& byte_587000[6648] = &byte_587000[15284];
-    *(void**)& byte_587000[6652] = &byte_587000[15300];
-    *(void**)& byte_587000[6656] = &byte_587000[15316];
-    *(void**)& byte_587000[6660] = &byte_587000[15328];
-    *(void**)& byte_587000[6664] = &byte_587000[15340];
-    *(void**)& byte_587000[6668] = &byte_587000[15356];
-    *(void**)& byte_587000[6672] = &byte_587000[15368];
-    *(void**)& byte_587000[6676] = &byte_587000[15384];
-    *(void**)& byte_587000[6680] = &byte_587000[15396];
-    *(void**)& byte_587000[6684] = &byte_587000[15408];
-    *(void**)& byte_587000[6688] = &byte_587000[15420];
-    *(void**)& byte_587000[6692] = &byte_587000[15432];
-    *(void**)& byte_587000[6696] = &byte_587000[15444];
-    *(void**)& byte_587000[6700] = &byte_587000[15456];
-    *(void**)& byte_587000[6704] = &byte_587000[15472];
-    *(void**)& byte_587000[6708] = &byte_587000[15488];
-    *(void**)& byte_587000[6712] = &byte_587000[15504];
-    *(void**)& byte_587000[6716] = &byte_587000[15516];
-    *(void**)& byte_587000[6720] = &byte_587000[15532];
-    *(void**)& byte_587000[6724] = &byte_587000[15548];
-    *(void**)& byte_587000[6728] = &byte_587000[15560];
-    *(void**)& byte_587000[6732] = &byte_587000[15576];
-    *(void**)& byte_587000[6736] = &byte_587000[15592];
-    *(void**)& byte_587000[6740] = &byte_587000[15608];
-    *(void**)& byte_587000[6744] = &byte_587000[15624];
-    *(void**)& byte_587000[6748] = &byte_587000[15644];
-    *(void**)& byte_587000[6752] = &byte_587000[15660];
-    *(void**)& byte_587000[6756] = &byte_587000[15676];
-    *(void**)& byte_587000[6760] = &byte_587000[15692];
-    *(void**)& byte_587000[6764] = &byte_587000[15712];
-    *(void**)& byte_587000[6768] = &byte_587000[15732];
-    *(void**)& byte_587000[6772] = &byte_587000[15752];
-    *(void**)& byte_587000[6776] = &byte_587000[15772];
-    *(void**)& byte_587000[6780] = &byte_587000[15792];
-    *(void**)& byte_587000[6784] = &byte_587000[15808];
-    *(void**)& byte_587000[6788] = &byte_587000[15828];
-    *(void**)& byte_587000[6792] = &byte_587000[15852];
-    *(void**)& byte_587000[6796] = &byte_587000[15868];
-    *(void**)& byte_587000[6800] = &byte_587000[15884];
-    *(void**)& byte_587000[6804] = &byte_587000[15900];
-    *(void**)& byte_587000[6808] = &byte_587000[15920];
-    *(void**)& byte_587000[6812] = &byte_587000[15944];
-    *(void**)& byte_587000[6816] = &byte_587000[15968];
-    *(void**)& byte_587000[6820] = &byte_587000[15988];
-    *(void**)& byte_587000[6824] = &byte_587000[16008];
-    *(void**)& byte_587000[6828] = &byte_587000[16024];
-    *(void**)& byte_587000[6832] = &byte_587000[16040];
-    *(void**)& byte_587000[6836] = &byte_587000[16060];
-    *(void**)& byte_587000[6840] = &byte_587000[16080];
-    *(void**)& byte_587000[6844] = &byte_587000[16100];
-    *(void**)& byte_587000[6848] = &byte_587000[16116];
-    *(void**)& byte_587000[6852] = &byte_587000[16136];
-    *(void**)& byte_587000[6856] = &byte_587000[16152];
-    *(void**)& byte_587000[6860] = &byte_587000[16164];
-    *(void**)& byte_587000[6864] = &byte_587000[16176];
-    *(void**)& byte_587000[6868] = &byte_587000[16188];
-    *(void**)& byte_587000[6872] = &byte_587000[16204];
-    *(void**)& byte_587000[6876] = &byte_587000[16220];
-    *(void**)& byte_587000[6880] = &byte_587000[16236];
-    *(void**)& byte_587000[6884] = &byte_587000[16248];
-    *(void**)& byte_587000[6888] = &byte_587000[16264];
-    *(void**)& byte_587000[6892] = &byte_587000[16276];
-    *(void**)& byte_587000[6896] = &byte_587000[16288];
-    *(void**)& byte_587000[6900] = &byte_587000[16304];
-    *(void**)& byte_587000[6904] = &byte_587000[16316];
-    *(void**)& byte_587000[6908] = &byte_587000[16328];
-    *(void**)& byte_587000[6912] = &byte_587000[16336];
-    *(void**)& byte_587000[6916] = &byte_587000[16352];
-    *(void**)& byte_587000[6920] = &byte_587000[16364];
-    *(void**)& byte_587000[6924] = &byte_587000[16376];
-    *(void**)& byte_587000[6928] = &byte_587000[16388];
-    *(void**)& byte_587000[6932] = &byte_587000[16404];
-    *(void**)& byte_587000[6936] = &byte_587000[16416];
-    *(void**)& byte_587000[6940] = &byte_587000[16428];
-    *(void**)& byte_587000[6944] = &byte_587000[16436];
-    *(void**)& byte_587000[6948] = &byte_587000[16452];
-    *(void**)& byte_587000[6952] = &byte_587000[16464];
-    *(void**)& byte_587000[6956] = &byte_587000[16476];
-    *(void**)& byte_587000[6960] = &byte_587000[16488];
-    *(void**)& byte_587000[6964] = &byte_587000[16500];
-    *(void**)& byte_587000[6968] = &byte_587000[16516];
-    *(void**)& byte_587000[6972] = &byte_587000[16532];
-    *(void**)& byte_587000[6976] = &byte_587000[16548];
-    *(void**)& byte_587000[6980] = &byte_587000[16560];
-    *(void**)& byte_587000[6984] = &byte_587000[16576];
-    *(void**)& byte_587000[6988] = &byte_587000[16588];
-    *(void**)& byte_587000[6992] = &byte_587000[16600];
-    *(void**)& byte_587000[6996] = &byte_587000[16612];
-    *(void**)& byte_587000[7000] = &byte_587000[16624];
-    *(void**)& byte_587000[7004] = &byte_587000[16640];
-    *(void**)& byte_587000[7008] = &byte_587000[16656];
-    *(void**)& byte_587000[7012] = &byte_587000[16672];
-    *(void**)& byte_587000[7016] = &byte_587000[16684];
-    *(void**)& byte_587000[7020] = &byte_587000[16700];
-    *(void**)& byte_587000[7024] = &byte_587000[16712];
-    *(void**)& byte_587000[7028] = &byte_587000[16724];
-    *(void**)& byte_587000[7032] = &byte_587000[16736];
-    *(void**)& byte_587000[7036] = &byte_587000[16748];
-    *(void**)& byte_587000[7040] = &byte_587000[16768];
-    *(void**)& byte_587000[7044] = &byte_587000[16784];
-    *(void**)& byte_587000[7048] = &byte_587000[16800];
-    *(void**)& byte_587000[7052] = &byte_587000[16812];
-    *(void**)& byte_587000[7056] = &byte_587000[16828];
-    *(void**)& byte_587000[7060] = &byte_587000[16840];
-    *(void**)& byte_587000[7064] = &byte_587000[16852];
-    *(void**)& byte_587000[7068] = &byte_587000[16868];
-    *(void**)& byte_587000[7072] = &byte_587000[16884];
-    *(void**)& byte_587000[7076] = &byte_587000[16908];
-    *(void**)& byte_587000[7080] = &byte_587000[16928];
-    *(void**)& byte_587000[7084] = &byte_587000[16948];
-    *(void**)& byte_587000[7088] = &byte_587000[16964];
-    *(void**)& byte_587000[7092] = &byte_587000[16984];
-    *(void**)& byte_587000[7096] = &byte_587000[17000];
-    *(void**)& byte_587000[7100] = &byte_587000[17016];
-    *(void**)& byte_587000[7104] = &byte_587000[17024];
-    *(void**)& byte_587000[7108] = &byte_587000[17036];
-    *(void**)& byte_587000[7112] = &byte_587000[17048];
-    *(void**)& byte_587000[7116] = &byte_587000[17056];
-    *(void**)& byte_587000[7120] = &byte_587000[17072];
-    *(void**)& byte_587000[7124] = &byte_587000[17084];
-    *(void**)& byte_587000[7128] = &byte_587000[17100];
-    *(void**)& byte_587000[7132] = &byte_587000[17116];
-    *(void**)& byte_587000[7136] = &byte_587000[17128];
-    *(void**)& byte_587000[7140] = &byte_587000[17140];
-    *(void**)& byte_587000[7144] = &byte_587000[17156];
-    *(void**)& byte_587000[7148] = &byte_587000[17172];
-    *(void**)& byte_587000[7152] = &byte_587000[17192];
-    *(void**)& byte_587000[7156] = &byte_587000[17212];
-    *(void**)& byte_587000[7160] = &byte_587000[17232];
-    *(void**)& byte_587000[7164] = &byte_587000[17248];
-    *(void**)& byte_587000[7168] = &byte_587000[17264];
-    *(void**)& byte_587000[7172] = &byte_587000[17284];
-    *(void**)& byte_587000[7176] = &byte_587000[17300];
-    *(void**)& byte_587000[7180] = &byte_587000[17312];
-    *(void**)& byte_587000[7184] = &byte_587000[17328];
-    *(void**)& byte_587000[7188] = &byte_587000[17340];
-    *(void**)& byte_587000[7192] = &byte_587000[17352];
-    *(void**)& byte_587000[7196] = &byte_587000[17368];
-    *(void**)& byte_587000[7200] = &byte_587000[17380];
-    *(void**)& byte_587000[7204] = &byte_587000[17392];
-    *(void**)& byte_587000[7208] = &byte_587000[17408];
-    *(void**)& byte_587000[7212] = &byte_587000[17424];
-    *(void**)& byte_587000[7216] = &byte_587000[17436];
-    *(void**)& byte_587000[7220] = &byte_587000[17448];
-    *(void**)& byte_587000[7224] = &byte_587000[17460];
-    *(void**)& byte_587000[7228] = &byte_587000[17476];
-    *(void**)& byte_587000[7232] = &byte_587000[17492];
-    *(void**)& byte_587000[7236] = &byte_587000[17508];
-    *(void**)& byte_587000[7240] = &byte_587000[17520];
-    *(void**)& byte_587000[7244] = &byte_587000[17532];
-    *(void**)& byte_587000[7248] = &byte_587000[17544];
-    *(void**)& byte_587000[7252] = &byte_587000[17552];
-    *(void**)& byte_587000[7256] = &byte_587000[17568];
-    *(void**)& byte_587000[7260] = &byte_587000[17584];
-    *(void**)& byte_587000[7264] = &byte_587000[17600];
-    *(void**)& byte_587000[7268] = &byte_587000[17620];
-    *(void**)& byte_587000[7272] = &byte_587000[17640];
-    *(void**)& byte_587000[7276] = &byte_587000[17656];
-    *(void**)& byte_587000[7280] = &byte_587000[17672];
-    *(void**)& byte_587000[7284] = &byte_587000[17692];
-    *(void**)& byte_587000[7288] = &byte_587000[17708];
-    *(void**)& byte_587000[7292] = &byte_587000[17720];
-    *(void**)& byte_587000[7296] = &byte_587000[17732];
-    *(void**)& byte_587000[7300] = &byte_587000[17744];
-    *(void**)& byte_587000[7304] = &byte_587000[17756];
-    *(void**)& byte_587000[7308] = &byte_587000[17768];
-    *(void**)& byte_587000[7312] = &byte_587000[17784];
-    *(void**)& byte_587000[7316] = &byte_587000[17796];
-    *(void**)& byte_587000[7320] = &byte_587000[17808];
-    *(void**)& byte_587000[7324] = &byte_587000[17828];
-    *(void**)& byte_587000[7328] = &byte_587000[17848];
-    *(void**)& byte_587000[7332] = &byte_587000[17868];
-    *(void**)& byte_587000[7336] = &byte_587000[17884];
-    *(void**)& byte_587000[7340] = &byte_587000[17908];
-    *(void**)& byte_587000[7344] = &byte_587000[17928];
-    *(void**)& byte_587000[7348] = &byte_587000[17948];
-    *(void**)& byte_587000[7352] = &byte_587000[17960];
-    *(void**)& byte_587000[7356] = &byte_587000[17972];
-    *(void**)& byte_587000[7360] = &byte_587000[17984];
-    *(void**)& byte_587000[7364] = &byte_587000[17996];
-    *(void**)& byte_587000[7368] = &byte_587000[18016];
-    *(void**)& byte_587000[7372] = &byte_587000[18028];
-    *(void**)& byte_587000[7376] = &byte_587000[18044];
-    *(void**)& byte_587000[7380] = &byte_587000[18056];
-    *(void**)& byte_587000[7384] = &byte_587000[18072];
-    *(void**)& byte_587000[7388] = &byte_587000[18088];
-    *(void**)& byte_587000[7392] = &byte_587000[18104];
-    *(void**)& byte_587000[7396] = &byte_587000[18120];
-    *(void**)& byte_587000[7400] = &byte_587000[18140];
-    *(void**)& byte_587000[7404] = &byte_587000[18160];
-    *(void**)& byte_587000[7408] = &byte_587000[18180];
-    *(void**)& byte_587000[7412] = &byte_587000[18196];
-    *(void**)& byte_587000[7416] = &byte_587000[18216];
-    *(void**)& byte_587000[7420] = &byte_587000[18232];
-    *(void**)& byte_587000[7424] = &byte_587000[18252];
-    *(void**)& byte_587000[7428] = &byte_587000[18268];
-    *(void**)& byte_587000[7432] = &byte_587000[18284];
-    *(void**)& byte_587000[7436] = &byte_587000[18304];
-    *(void**)& byte_587000[7440] = &byte_587000[18316];
-    *(void**)& byte_587000[7444] = &byte_587000[18336];
-    *(void**)& byte_587000[7448] = &byte_587000[18352];
-    *(void**)& byte_587000[7452] = &byte_587000[18364];
-    *(void**)& byte_587000[7456] = &byte_587000[18376];
-    *(void**)& byte_587000[7460] = &byte_587000[18388];
-    *(void**)& byte_587000[7464] = &byte_587000[18404];
-    *(void**)& byte_587000[7468] = &byte_587000[18416];
-    *(void**)& byte_587000[7472] = &byte_587000[18432];
-    *(void**)& byte_587000[7476] = &byte_587000[18448];
-    *(void**)& byte_587000[7480] = &byte_587000[18464];
-    *(void**)& byte_587000[7484] = &byte_587000[18488];
-    *(void**)& byte_587000[7488] = &byte_587000[18504];
-    *(void**)& byte_587000[7492] = &byte_587000[18520];
-    *(void**)& byte_587000[7496] = &byte_587000[18540];
-    *(void**)& byte_587000[7500] = &byte_587000[18556];
-    *(void**)& byte_587000[7504] = &byte_587000[18564];
-    *(void**)& byte_587000[7508] = &byte_587000[18572];
-    *(void**)& byte_587000[7512] = &byte_587000[18588];
-    *(void**)& byte_587000[7516] = &byte_587000[18604];
-    *(void**)& byte_587000[7520] = &byte_587000[18620];
-    *(void**)& byte_587000[7524] = &byte_587000[18632];
-    *(void**)& byte_587000[7528] = &byte_587000[18652];
-    *(void**)& byte_587000[7532] = &byte_587000[18664];
-    *(void**)& byte_587000[7536] = &byte_587000[18684];
-    *(void**)& byte_587000[7540] = &byte_587000[18696];
-    *(void**)& byte_587000[7544] = &byte_587000[18716];
-    *(void**)& byte_587000[7548] = &byte_587000[18736];
-    *(void**)& byte_587000[7552] = &byte_587000[18756];
-    *(void**)& byte_587000[7556] = &byte_587000[18776];
-    *(void**)& byte_587000[7560] = &byte_587000[18796];
-    *(void**)& byte_587000[7564] = &byte_587000[18816];
-    *(void**)& byte_587000[7568] = &byte_587000[18836];
-    *(void**)& byte_587000[7572] = &byte_587000[18856];
-    *(void**)& byte_587000[7576] = &byte_587000[18872];
-    *(void**)& byte_587000[7580] = &byte_587000[18896];
-    *(void**)& byte_587000[7584] = &byte_587000[18912];
-    *(void**)& byte_587000[7588] = &byte_587000[18936];
-    *(void**)& byte_587000[7592] = &byte_587000[18956];
-    *(void**)& byte_587000[7596] = &byte_587000[18976];
-    *(void**)& byte_587000[7600] = &byte_587000[18992];
-    *(void**)& byte_587000[7604] = &byte_587000[19004];
-    *(void**)& byte_587000[7608] = &byte_587000[19020];
-    *(void**)& byte_587000[7612] = &byte_587000[19028];
-    *(void**)& byte_587000[7616] = &byte_587000[19044];
-    *(void**)& byte_587000[7620] = &byte_587000[19056];
-    *(void**)& byte_587000[7624] = &byte_587000[19072];
-    *(void**)& byte_587000[7628] = &byte_587000[19092];
-    *(void**)& byte_587000[7632] = &byte_587000[19108];
-    *(void**)& byte_587000[7636] = &byte_587000[19132];
-    *(void**)& byte_587000[7640] = &byte_587000[19148];
-    *(void**)& byte_587000[7644] = &byte_587000[19160];
-    *(void**)& byte_587000[7648] = &byte_587000[19168];
-    *(void**)& byte_587000[7652] = &byte_587000[19176];
-    *(void**)& byte_587000[7656] = &byte_587000[19192];
-    *(void**)& byte_587000[7660] = &byte_587000[19204];
-    *(void**)& byte_587000[7664] = &byte_587000[19212];
-    *(void**)& byte_587000[7668] = &byte_587000[19224];
-    *(void**)& byte_587000[7672] = &byte_587000[19240];
-    *(void**)& byte_587000[7676] = &byte_587000[19252];
-    *(void**)& byte_587000[7680] = &byte_587000[19264];
-    *(void**)& byte_587000[7684] = &byte_587000[19276];
-    *(void**)& byte_587000[7688] = &byte_587000[19284];
-    *(void**)& byte_587000[7692] = &byte_587000[19296];
-    *(void**)& byte_587000[7696] = &byte_587000[19312];
-    *(void**)& byte_587000[7700] = &byte_587000[19324];
-    *(void**)& byte_587000[7704] = &byte_587000[19340];
-    *(void**)& byte_587000[7708] = &byte_587000[19352];
-    *(void**)& byte_587000[7712] = &byte_587000[19368];
-    *(void**)& byte_587000[7716] = &byte_587000[19384];
-    *(void**)& byte_587000[7720] = &byte_587000[19400];
-    *(void**)& byte_587000[7724] = &byte_587000[19416];
-    *(void**)& byte_587000[7728] = &byte_587000[19432];
-    *(void**)& byte_587000[7732] = &byte_587000[19452];
-    *(void**)& byte_587000[7736] = &byte_587000[19468];
-    *(void**)& byte_587000[7740] = &byte_587000[19480];
-    *(void**)& byte_587000[7744] = &byte_587000[19492];
-    *(void**)& byte_587000[7748] = &byte_587000[19504];
-    *(void**)& byte_587000[7752] = &byte_587000[19516];
-    *(void**)& byte_587000[7756] = &byte_587000[19532];
-    *(void**)& byte_587000[7760] = &byte_587000[19548];
-    *(void**)& byte_587000[7764] = &byte_587000[19560];
-    *(void**)& byte_587000[7768] = &byte_587000[19580];
-    *(void**)& byte_587000[7772] = &byte_587000[19596];
-    *(void**)& byte_587000[7776] = &byte_587000[19616];
-    *(void**)& byte_587000[7780] = &byte_587000[19632];
-    *(void**)& byte_587000[7784] = &byte_587000[19648];
-    *(void**)& byte_587000[7788] = &byte_587000[19664];
-    *(void**)& byte_587000[7792] = &byte_587000[19676];
-    *(void**)& byte_587000[7796] = &byte_587000[19696];
-    *(void**)& byte_587000[7800] = &byte_587000[19716];
-    *(void**)& byte_587000[7804] = &byte_587000[19732];
-    *(void**)& byte_587000[7808] = &byte_587000[19752];
-    *(void**)& byte_587000[7812] = &byte_587000[19768];
-    *(void**)& byte_587000[7816] = &byte_587000[19784];
-    *(void**)& byte_587000[7820] = &byte_587000[19800];
-    *(void**)& byte_587000[7824] = &byte_587000[19812];
-    *(void**)& byte_587000[7828] = &byte_587000[19832];
-    *(void**)& byte_587000[7832] = &byte_587000[19848];
-    *(void**)& byte_587000[7836] = &byte_587000[19860];
-    *(void**)& byte_587000[7840] = &byte_587000[19880];
-    *(void**)& byte_587000[7844] = &byte_587000[19896];
-    *(void**)& byte_587000[7848] = &byte_587000[19908];
-    *(void**)& byte_587000[7852] = &byte_587000[19920];
-    *(void**)& byte_587000[7856] = &byte_587000[19940];
-    *(void**)& byte_587000[7860] = &byte_587000[19956];
-    *(void**)& byte_587000[7864] = &byte_587000[19968];
-    *(void**)& byte_587000[7868] = &byte_587000[19988];
-    *(void**)& byte_587000[7872] = &byte_587000[20004];
-    *(void**)& byte_587000[7876] = &byte_587000[20016];
-    *(void**)& byte_587000[7880] = &byte_587000[20028];
-    *(void**)& byte_587000[7884] = &byte_587000[20048];
-    *(void**)& byte_587000[7888] = &byte_587000[20064];
-    *(void**)& byte_587000[7892] = &byte_587000[20080];
-    *(void**)& byte_587000[7896] = &byte_587000[20092];
-    *(void**)& byte_587000[7900] = &byte_587000[20104];
-    *(void**)& byte_587000[7904] = &byte_587000[20120];
-    *(void**)& byte_587000[7908] = &byte_587000[20132];
-    *(void**)& byte_587000[7912] = &byte_587000[20152];
-    *(void**)& byte_587000[7916] = &byte_587000[20168];
-    *(void**)& byte_587000[7920] = &byte_587000[20184];
-    *(void**)& byte_587000[7924] = &byte_587000[20196];
-    *(void**)& byte_587000[7928] = &byte_587000[20208];
-    *(void**)& byte_587000[7932] = &byte_587000[20228];
-    *(void**)& byte_587000[7936] = &byte_587000[20244];
-    *(void**)& byte_587000[7940] = &byte_587000[20256];
-    *(void**)& byte_587000[7944] = &byte_587000[20276];
-    *(void**)& byte_587000[7948] = &byte_587000[20292];
-    *(void**)& byte_587000[7952] = &byte_587000[20308];
-    *(void**)& byte_587000[7956] = &byte_587000[20320];
-    *(void**)& byte_587000[7960] = &byte_587000[20332];
-    *(void**)& byte_587000[7964] = &byte_587000[20352];
-    *(void**)& byte_587000[7968] = &byte_587000[20372];
-    *(void**)& byte_587000[7972] = &byte_587000[20388];
-    *(void**)& byte_587000[7976] = &byte_587000[20412];
-    *(void**)& byte_587000[7980] = &byte_587000[20432];
-    *(void**)& byte_587000[7984] = &byte_587000[20452];
-    *(void**)& byte_587000[7988] = &byte_587000[20468];
-    *(void**)& byte_587000[7992] = &byte_587000[20484];
-    *(void**)& byte_587000[7996] = &byte_587000[20508];
-    *(void**)& byte_587000[8000] = &byte_587000[20528];
-    *(void**)& byte_587000[8004] = &byte_587000[20544];
-    *(void**)& byte_587000[8008] = &byte_587000[20568];
-    *(void**)& byte_587000[8012] = &byte_587000[20588];
-    *(void**)& byte_587000[8016] = &byte_587000[20608];
-    *(void**)& byte_587000[8020] = &byte_587000[20624];
-    *(void**)& byte_587000[8024] = &byte_587000[20640];
-    *(void**)& byte_587000[8028] = &byte_587000[20664];
-    *(void**)& byte_587000[8032] = &byte_587000[20680];
-    *(void**)& byte_587000[8036] = &byte_587000[20692];
-    *(void**)& byte_587000[8040] = &byte_587000[20708];
-    *(void**)& byte_587000[8044] = &byte_587000[20724];
-    *(void**)& byte_587000[8048] = &byte_587000[20740];
-    *(void**)& byte_587000[8052] = &byte_587000[20752];
-    *(void**)& byte_587000[8056] = &byte_587000[20764];
-    *(void**)& byte_587000[8060] = &byte_587000[20784];
-    *(void**)& byte_587000[8064] = &byte_587000[20800];
-    *(void**)& byte_587000[8068] = &byte_587000[20812];
-    *(void**)& byte_587000[8072] = &byte_587000[20828];
-    *(void**)& byte_587000[8076] = &byte_587000[20844];
-    *(void**)& byte_587000[8080] = &byte_587000[20860];
-    *(void**)& byte_587000[8084] = &byte_587000[20872];
-    *(void**)& byte_587000[8088] = &byte_587000[20884];
-    *(void**)& byte_587000[8092] = &byte_587000[20904];
-    *(void**)& byte_587000[8096] = &byte_587000[20924];
-    *(void**)& byte_587000[8100] = &byte_587000[20940];
-    *(void**)& byte_587000[8104] = &byte_587000[20960];
-    *(void**)& byte_587000[8108] = &byte_587000[20980];
-    *(void**)& byte_587000[8112] = &byte_587000[20996];
-    *(void**)& byte_587000[8116] = &byte_587000[21012];
-    *(void**)& byte_587000[8120] = &byte_587000[21036];
-    *(void**)& byte_587000[8124] = &byte_587000[21056];
-    *(void**)& byte_587000[8128] = &byte_587000[21076];
-    *(void**)& byte_587000[8132] = &byte_587000[21096];
-    *(void**)& byte_587000[8136] = &byte_587000[21112];
-    *(void**)& byte_587000[8140] = &byte_587000[21128];
-    *(void**)& byte_587000[8144] = &byte_587000[21152];
-    *(void**)& byte_587000[8148] = &byte_587000[21168];
-    *(void**)& byte_587000[8152] = &byte_587000[21184];
-    *(void**)& byte_587000[8156] = &byte_587000[21204];
-    *(void**)& byte_587000[8160] = &byte_587000[21228];
-    *(void**)& byte_587000[8164] = &byte_587000[21248];
-    *(void**)& byte_587000[8168] = &byte_587000[21272];
-    *(void**)& byte_587000[8172] = &byte_587000[21292];
-    *(void**)& byte_587000[8176] = &byte_587000[21316];
-    *(void**)& byte_587000[8180] = &byte_587000[21336];
-    *(void**)& byte_587000[8184] = &byte_587000[21356];
-    *(void**)& byte_587000[8188] = &byte_587000[21372];
-    *(void**)& byte_587000[8192] = &byte_587000[21388];
-    *(void**)& byte_587000[8196] = &byte_587000[21400];
-    *(void**)& byte_587000[8200] = &byte_587000[21412];
-    *(void**)& byte_587000[8204] = &byte_587000[21428];
-    *(void**)& byte_587000[8208] = &byte_587000[21440];
-    *(void**)& byte_587000[8212] = &byte_587000[21456];
-    *(void**)& byte_587000[8216] = &byte_587000[21476];
-    *(void**)& byte_587000[8220] = &byte_587000[21496];
-    *(void**)& byte_587000[8224] = &byte_587000[21516];
-    *(void**)& byte_587000[8228] = &byte_587000[21528];
-    *(void**)& byte_587000[8232] = &byte_587000[21544];
-    *(void**)& byte_587000[8236] = &byte_587000[21560];
-    *(void**)& byte_587000[8240] = &byte_587000[21572];
-    *(void**)& byte_587000[8244] = &byte_587000[21584];
-    *(void**)& byte_587000[8248] = &byte_587000[21596];
-    *(void**)& byte_587000[8252] = &byte_587000[21608];
-    *(void**)& byte_587000[8256] = &byte_587000[21624];
-    *(void**)& byte_587000[8260] = &byte_587000[21636];
-    *(void**)& byte_587000[8264] = &byte_587000[21652];
-    *(void**)& byte_587000[8268] = &byte_587000[21664];
-    *(void**)& byte_587000[8272] = &byte_587000[21680];
-    *(void**)& byte_587000[8276] = &byte_587000[21692];
-    *(void**)& byte_587000[8280] = &byte_587000[21708];
-    *(void**)& byte_587000[8284] = &byte_587000[21716];
-    *(void**)& byte_587000[8288] = &byte_587000[21732];
-    *(void**)& byte_587000[8292] = &byte_587000[21740];
-    *(void**)& byte_587000[8296] = &byte_587000[21748];
-    *(void**)& byte_587000[8300] = &byte_587000[21760];
-    *(void**)& byte_587000[8304] = &byte_587000[21772];
-    *(void**)& byte_587000[8308] = &byte_587000[21784];
-    *(void**)& byte_587000[8312] = &byte_587000[21792];
-    *(void**)& byte_587000[8316] = &byte_587000[21800];
-    *(void**)& byte_587000[8320] = &byte_587000[21808];
-    *(void**)& byte_587000[8324] = &byte_587000[21816];
-    *(void**)& byte_587000[8328] = &byte_587000[21828];
-    *(void**)& byte_587000[8332] = &byte_587000[21840];
-    *(void**)& byte_587000[8336] = &byte_587000[21852];
-    *(void**)& byte_587000[8340] = &byte_587000[21864];
-    *(void**)& byte_587000[8344] = &byte_587000[21880];
-    *(void**)& byte_587000[8348] = &byte_587000[21896];
-    *(void**)& byte_587000[8352] = &byte_587000[21912];
-    *(void**)& byte_587000[8356] = &byte_587000[21928];
-    *(void**)& byte_587000[8360] = &byte_587000[21940];
-    *(void**)& byte_587000[8364] = &byte_587000[21952];
-    *(void**)& byte_587000[8368] = &byte_587000[21968];
-    *(void**)& byte_587000[8372] = &byte_587000[21984];
-    *(void**)& byte_587000[8376] = &byte_587000[22000];
-    *(void**)& byte_587000[8380] = &byte_587000[22016];
-    *(void**)& byte_587000[8384] = &byte_587000[22032];
-    *(void**)& byte_587000[8388] = &byte_587000[22052];
-    *(void**)& byte_587000[8392] = &byte_587000[22072];
-    *(void**)& byte_587000[8396] = &byte_587000[22092];
-    *(void**)& byte_587000[8400] = &byte_587000[22108];
-    *(void**)& byte_587000[8404] = &byte_587000[22128];
-    *(void**)& byte_587000[8408] = &byte_587000[22144];
-    *(void**)& byte_587000[8412] = &byte_587000[22160];
-    *(void**)& byte_587000[8416] = &byte_587000[22180];
-    *(void**)& byte_587000[8420] = &byte_587000[22200];
-    *(void**)& byte_587000[8424] = &byte_587000[22220];
-    *(void**)& byte_587000[8428] = &byte_587000[22240];
-    *(void**)& byte_587000[8432] = &byte_587000[22256];
-    *(void**)& byte_587000[8436] = &byte_587000[22276];
-    *(void**)& byte_587000[8440] = &byte_587000[22296];
-    *(void**)& byte_587000[8444] = &byte_587000[22312];
-    *(void**)& byte_587000[8448] = &byte_587000[22328];
-    *(void**)& byte_587000[8452] = &byte_587000[22340];
-    *(void**)& byte_587000[8456] = &byte_587000[22352];
-    *(void**)& byte_587000[8460] = &byte_587000[22372];
-    *(void**)& byte_587000[8464] = &byte_587000[22388];
-    *(void**)& byte_587000[8468] = &byte_587000[22400];
-    *(void**)& byte_587000[8472] = &byte_587000[22408];
-    *(void**)& byte_587000[8476] = &byte_587000[22424];
-    *(void**)& byte_587000[8480] = &byte_587000[22436];
-    *(void**)& byte_587000[8484] = &byte_587000[22448];
-    *(void**)& byte_587000[8488] = &byte_587000[22460];
-    *(void**)& byte_587000[8492] = &byte_587000[22472];
-    *(void**)& byte_587000[8496] = &byte_587000[22484];
-    *(void**)& byte_587000[8500] = &byte_587000[22500];
-    *(void**)& byte_587000[8504] = &byte_587000[22512];
-    *(void**)& byte_587000[8508] = &byte_587000[22524];
-    *(void**)& byte_587000[8512] = &byte_587000[22536];
-    *(void**)& byte_587000[8516] = &byte_587000[22552];
-    *(void**)& byte_587000[8520] = &byte_587000[22564];
-    *(void**)& byte_587000[8524] = &byte_587000[22576];
-    *(void**)& byte_587000[8528] = &byte_587000[22588];
-    *(void**)& byte_587000[8532] = &byte_587000[22600];
-    *(void**)& byte_587000[8536] = &byte_587000[22612];
-    *(void**)& byte_587000[8540] = &byte_587000[22628];
-    *(void**)& byte_587000[8544] = &byte_587000[22640];
-    *(void**)& byte_587000[8548] = &byte_587000[22660];
-    *(void**)& byte_587000[8552] = &byte_587000[22676];
-    *(void**)& byte_587000[8556] = &byte_587000[22696];
-    *(void**)& byte_587000[8560] = &byte_587000[22712];
-    *(void**)& byte_587000[8564] = &byte_587000[22732];
-    *(void**)& byte_587000[8568] = &byte_587000[22752];
-    *(void**)& byte_587000[8572] = &byte_587000[22772];
-    *(void**)& byte_587000[8576] = &byte_587000[22792];
-    *(void**)& byte_587000[8580] = &byte_587000[22808];
-    *(void**)& byte_587000[8584] = &byte_587000[22824];
-    *(void**)& byte_587000[8588] = &byte_587000[22840];
-    *(void**)& byte_587000[8592] = &byte_587000[22856];
-    *(void**)& byte_587000[8596] = &byte_587000[22872];
-    *(void**)& byte_587000[8600] = &byte_587000[22888];
-    *(void**)& byte_587000[8604] = &byte_587000[22904];
-    *(void**)& byte_587000[8608] = &byte_587000[22916];
-    *(void**)& byte_587000[8612] = &byte_587000[22932];
-    *(void**)& byte_587000[8616] = &byte_587000[22948];
-    *(void**)& byte_587000[8620] = &byte_587000[22964];
-    *(void**)& byte_587000[8624] = &byte_587000[22980];
-    *(void**)& byte_587000[8628] = &byte_587000[22996];
-    *(void**)& byte_587000[8632] = &byte_587000[23012];
-    *(void**)& byte_587000[8636] = &byte_587000[23028];
-    *(void**)& byte_587000[8640] = &byte_587000[23044];
-    *(void**)& byte_587000[8644] = &byte_587000[23060];
-    *(void**)& byte_587000[8648] = &byte_587000[23076];
-    *(void**)& byte_587000[8652] = &byte_587000[23092];
-    *(void**)& byte_587000[8656] = &byte_587000[23108];
-    *(void**)& byte_587000[8660] = &byte_587000[23124];
-    *(void**)& byte_587000[8664] = &byte_587000[23140];
-    *(void**)& byte_587000[8668] = &byte_587000[23156];
-    *(void**)& byte_587000[8672] = &byte_587000[23172];
-    *(void**)& byte_587000[8676] = &byte_587000[23188];
-    *(void**)& byte_587000[8680] = &byte_587000[23208];
-    *(void**)& byte_587000[8684] = &byte_587000[23228];
-    *(void**)& byte_587000[8688] = &byte_587000[23248];
-    *(void**)& byte_587000[8692] = &byte_587000[23268];
-    *(void**)& byte_587000[8696] = &byte_587000[23288];
-    *(void**)& byte_587000[8700] = &byte_587000[23304];
-    *(void**)& byte_587000[8704] = &byte_587000[23320];
-    *(void**)& byte_587000[8708] = &byte_587000[23340];
-    *(void**)& byte_587000[8712] = &byte_587000[23356];
-    *(void**)& byte_587000[8716] = &byte_587000[23372];
-    *(void**)& byte_587000[8720] = &byte_587000[23384];
-    *(void**)& byte_587000[8724] = &byte_587000[23396];
-    *(void**)& byte_587000[8728] = &byte_587000[23408];
-    *(void**)& byte_587000[8732] = &byte_587000[23424];
-    *(void**)& byte_587000[8736] = &byte_587000[23436];
-    *(void**)& byte_587000[8740] = &byte_587000[23452];
-    *(void**)& byte_587000[8744] = &byte_587000[23468];
-    *(void**)& byte_587000[8748] = &byte_587000[23488];
-    *(void**)& byte_587000[8752] = &byte_587000[23504];
-    *(void**)& byte_587000[8756] = &byte_587000[23520];
-    *(void**)& byte_587000[8760] = &byte_587000[23540];
-    *(void**)& byte_587000[8764] = &byte_587000[23552];
-    *(void**)& byte_587000[8768] = &byte_587000[23564];
-    *(void**)& byte_587000[8772] = &byte_587000[23576];
-    *(void**)& byte_587000[8776] = &byte_587000[23592];
-    *(void**)& byte_587000[8780] = &byte_587000[23604];
-    *(void**)& byte_587000[8784] = &byte_587000[23620];
-    *(void**)& byte_587000[8788] = &byte_587000[23632];
-    *(void**)& byte_587000[8792] = &byte_587000[23644];
-    *(void**)& byte_587000[8796] = &byte_587000[23652];
-    *(void**)& byte_587000[8800] = &byte_587000[23668];
-    *(void**)& byte_587000[8804] = &byte_587000[23680];
-    *(void**)& byte_587000[8808] = &byte_587000[23700];
-    *(void**)& byte_587000[8812] = &byte_587000[23720];
-    *(void**)& byte_587000[8816] = &byte_587000[23736];
-    *(void**)& byte_587000[8820] = &byte_587000[23752];
-    *(void**)& byte_587000[8824] = &byte_587000[23768];
-    *(void**)& byte_587000[8828] = &byte_587000[23784];
-    *(void**)& byte_587000[8832] = &byte_587000[23796];
-    *(void**)& byte_587000[8836] = &byte_587000[23820];
-    *(void**)& byte_587000[8840] = &byte_587000[23840];
-    *(void**)& byte_587000[8844] = &byte_587000[23864];
-    *(void**)& byte_587000[8848] = &byte_587000[23888];
-    *(void**)& byte_587000[8852] = &byte_587000[23912];
-    *(void**)& byte_587000[8856] = &byte_587000[23936];
-    *(void**)& byte_587000[8860] = &byte_587000[23948];
-    *(void**)& byte_587000[8864] = &byte_587000[23968];
-    *(void**)& byte_587000[8868] = &byte_587000[23980];
-    *(void**)& byte_587000[8872] = &byte_587000[23992];
-    *(void**)& byte_587000[8876] = &byte_587000[24008];
-    *(void**)& byte_587000[8880] = &byte_587000[24024];
-    *(void**)& byte_587000[8884] = &byte_587000[24040];
-    *(void**)& byte_587000[8888] = &byte_587000[24048];
-    *(void**)& byte_587000[8892] = &byte_587000[24060];
-    *(void**)& byte_587000[8896] = &byte_587000[24072];
-    *(void**)& byte_587000[8900] = &byte_587000[24084];
-    *(void**)& byte_587000[8904] = &byte_587000[24096];
-    *(void**)& byte_587000[8908] = &byte_587000[24112];
-    *(void**)& byte_587000[8912] = &byte_587000[24132];
-    *(void**)& byte_587000[8916] = &byte_587000[24152];
-    *(void**)& byte_587000[8920] = &byte_587000[24172];
-    *(void**)& byte_587000[8924] = &byte_587000[24192];
-    *(void**)& byte_587000[8928] = &byte_587000[24212];
-    *(void**)& byte_587000[8932] = &byte_587000[24232];
-    *(void**)& byte_587000[8936] = &byte_587000[24252];
-    *(void**)& byte_587000[8940] = &byte_587000[24268];
-    *(void**)& byte_587000[8944] = &byte_587000[24288];
-    *(void**)& byte_587000[8948] = &byte_587000[24308];
-    *(void**)& byte_587000[8952] = &byte_587000[24324];
-    *(void**)& byte_587000[8956] = &byte_587000[24340];
-    *(void**)& byte_587000[8960] = &byte_587000[24356];
-    *(void**)& byte_587000[8964] = &byte_587000[24372];
-    *(void**)& byte_587000[8968] = &byte_587000[24388];
-    *(void**)& byte_587000[8972] = &byte_587000[24404];
-    *(void**)& byte_587000[8976] = &byte_587000[24420];
-    *(void**)& byte_587000[8980] = &byte_587000[24436];
-    *(void**)& byte_587000[8984] = &byte_587000[24448];
-    *(void**)& byte_587000[8988] = &byte_587000[24468];
-    *(void**)& byte_587000[8992] = &byte_587000[24488];
-    *(void**)& byte_587000[8996] = &byte_587000[24504];
-    *(void**)& byte_587000[9000] = &byte_587000[24524];
-    *(void**)& byte_587000[9004] = &byte_587000[24544];
-    *(void**)& byte_587000[9008] = &byte_587000[24564];
-    *(void**)& byte_587000[9012] = &byte_587000[24584];
-    *(void**)& byte_587000[9016] = &byte_587000[24604];
-    *(void**)& byte_587000[9020] = &byte_587000[24624];
-    *(void**)& byte_587000[9024] = &byte_587000[24648];
-    *(void**)& byte_587000[9028] = &byte_587000[24672];
-    *(void**)& byte_587000[9032] = &byte_587000[24692];
-    *(void**)& byte_587000[9036] = &byte_587000[24712];
-    *(void**)& byte_587000[9040] = &byte_587000[24732];
-    *(void**)& byte_587000[9044] = &byte_587000[24752];
-    *(void**)& byte_587000[9048] = &byte_587000[24772];
-    *(void**)& byte_587000[9052] = &byte_587000[24792];
-    *(void**)& byte_587000[9056] = &byte_587000[24808];
-    *(void**)& byte_587000[9060] = &byte_587000[24824];
-    *(void**)& byte_587000[9064] = &byte_587000[24840];
-    *(void**)& byte_587000[9068] = &byte_587000[24856];
-    *(void**)& byte_587000[9072] = &byte_587000[24872];
-    *(void**)& byte_587000[9076] = &byte_587000[24888];
-    *(void**)& byte_587000[9080] = &byte_587000[24904];
-    *(void**)& byte_587000[9084] = &byte_587000[24920];
-    *(void**)& byte_587000[9088] = &byte_587000[24936];
-    *(void**)& byte_587000[9092] = &byte_587000[24952];
-    *(void**)& byte_587000[9096] = &byte_587000[24968];
-    *(void**)& byte_587000[9100] = &byte_587000[24984];
-    *(void**)& byte_587000[9104] = &byte_587000[25000];
-    *(void**)& byte_587000[9108] = &byte_587000[25020];
-    *(void**)& byte_587000[9112] = &byte_587000[25040];
-    *(void**)& byte_587000[9116] = &byte_587000[25060];
-    *(void**)& byte_587000[9120] = &byte_587000[25080];
-    *(void**)& byte_587000[9124] = &byte_587000[25096];
-    *(void**)& byte_587000[9128] = &byte_587000[25108];
-    *(void**)& byte_587000[9132] = &byte_587000[25124];
-    *(void**)& byte_587000[9136] = &byte_587000[25140];
-    *(void**)& byte_587000[9140] = &byte_587000[25160];
-    *(void**)& byte_587000[9144] = &byte_587000[25176];
-    *(void**)& byte_587000[9148] = &byte_587000[25188];
-    *(void**)& byte_587000[9152] = &byte_587000[25204];
-    *(void**)& byte_587000[9156] = &byte_587000[25220];
-    *(void**)& byte_587000[9160] = &byte_587000[25236];
-    *(void**)& byte_587000[9164] = &byte_587000[25252];
-    *(void**)& byte_587000[9168] = &byte_587000[25264];
-    *(void**)& byte_587000[9172] = &byte_587000[25280];
-    *(void**)& byte_587000[9176] = &byte_587000[25296];
-    *(void**)& byte_587000[9180] = &byte_587000[25312];
-    *(void**)& byte_587000[9184] = &byte_587000[25324];
-    *(void**)& byte_587000[9188] = &byte_587000[25344];
-    *(void**)& byte_587000[9192] = &byte_587000[25368];
-    *(void**)& byte_587000[9196] = &byte_587000[25392];
-    *(void**)& byte_587000[9200] = &byte_587000[25404];
-    *(void**)& byte_587000[9204] = &byte_587000[25416];
-    *(void**)& byte_587000[9208] = &byte_587000[25432];
-    *(void**)& byte_587000[9212] = &byte_587000[25448];
-    *(void**)& byte_587000[9216] = &byte_587000[25464];
-    *(void**)& byte_587000[9220] = &byte_587000[25484];
-    *(void**)& byte_587000[9224] = &byte_587000[25500];
-    *(void**)& byte_587000[9228] = &byte_587000[25520];
-    *(void**)& byte_587000[9232] = &byte_587000[25540];
-    *(void**)& byte_587000[9236] = &byte_587000[25560];
-    *(void**)& byte_587000[9240] = &byte_587000[25584];
-    *(void**)& byte_587000[9244] = &byte_587000[25600];
-    *(void**)& byte_587000[9248] = &byte_587000[25616];
-    *(void**)& byte_587000[9252] = &byte_587000[25628];
-    *(void**)& byte_587000[9256] = &byte_587000[25644];
-    *(void**)& byte_587000[9260] = &byte_587000[25656];
-    *(void**)& byte_587000[9264] = &byte_587000[25668];
-    *(void**)& byte_587000[9268] = &byte_587000[25680];
-    *(void**)& byte_587000[9272] = &byte_587000[25696];
+
+
     *(void**)& byte_587000[25892] = &byte_587000[26052];
     *(void**)& byte_587000[25896] = &byte_587000[26056];
     *(void**)& byte_587000[25900] = &byte_587000[26060];
@@ -9446,28 +9452,18 @@ int __cdecl sub_40AEB0(const void* a1, const void* a2)
 //----- (0040AED0) --------------------------------------------------------
 void sub_40AED0()
 {
-    _DWORD* v0; // eax
-    int v1; // edx
-    unsigned __int8* v2; // ecx
-    int v3; // esi
-
-    if (!*(_DWORD*)& byte_5D4594[3616])
+    if (*(_DWORD*)& byte_5D4594[3616])
     {
-        v0 = nox_malloc(0x1FF8u);
-        *(_DWORD*)& byte_5D4594[3616] = v0;
-        v1 = 0;
-        v2 = &byte_587000[5184];
-        do
-        {
-            v3 = *(_DWORD*)v2;
-            *v0 = v1;
-            v0[1] = v3;
-            v0 += 2;
-            v2 += 4;
-            ++v1;
-        } while ((int)v2 < (int)& byte_587000[9276]);
-        qsort(*(void**)& byte_5D4594[3616], 0x3FFu, 8u, sub_40AE90);
+        return;
     }
+    _DWORD* v0 = nox_calloc(1023, 8);
+    *(_DWORD*)& byte_5D4594[3616] = v0;
+    for (int i = 0; i < 1023; i++)
+    {
+        v0[2*i+0] = i;
+        v0[2*i+1] = (_DWORD)table_5184[i];
+    }
+    qsort(*(void**)& byte_5D4594[3616], 1023, 8, sub_40AE90);
 }
 
 //----- (0040AF30) --------------------------------------------------------
@@ -9499,9 +9495,9 @@ int __cdecl sub_40AF50(void* a1)
 }
 
 //----- (0040AF80) --------------------------------------------------------
-char* __cdecl sub_40AF80(int a1)
+const char* __cdecl sub_40AF80(int a1)
 {
-    return *(char**)& byte_587000[4 * a1 + 5184];
+    return table_5184[a1];
 }
 
 //----- (0040AF90) --------------------------------------------------------
