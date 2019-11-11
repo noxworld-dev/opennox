@@ -3094,7 +3094,6 @@ char sub_4A62B0()
 {
     unsigned __int8* v0; // esi
     int v1; // eax
-    const char** v2; // ebp
     int v3; // ebp
     char result; // al
     unsigned __int8* v5; // [esp+10h] [ebp-18h]
@@ -3111,16 +3110,16 @@ char sub_4A62B0()
         v0[1] = 0;
         v0[2] = 0;
         nox_sprintf(v7, "UserColor%d", v1 + 1);
-        v2 = (const char**)sub_4133B0(2);
+        obj_412ae0_t* v2 = sub_4133B0(2);
         if (v2)
         {
-            while (strcmp(v7, *v2))
+            while (strcmp(v7, v2->field_0))
             {
-                v2 = (const char**)sub_4133C0((int)v2);
+                v2 = sub_4133C0(v2);
                 if (!v2)
                     goto LABEL_7;
             }
-            v3 = (int)(v2 + 6);
+            v3 = (int)(&v2->field_6);
             *(_WORD*)v5 = *(_WORD*)v3;
             v5[2] = *(_BYTE*)(v3 + 2);
         LABEL_7:
