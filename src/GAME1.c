@@ -50,6 +50,26 @@ extern FILE* nox_file_9;
 
 _DWORD* dword_5D4594_251544 = 0;
 
+void sub_57F634() {}
+void nullsub_38() {}
+void nullsub_39() {}
+void nullsub_40() {}
+void nullsub_41() {}
+void nullsub_42() {}
+void nullsub_43() {}
+void nullsub_44() {}
+void nullsub_45() {}
+void nullsub_46() {}
+void nullsub_47() {}
+void nullsub_48() {}
+void nullsub_62() {}
+void nullsub_65() {}
+void nullsub_66() {}
+void nullsub_67() {}
+void nullsub_68() {}
+void nullsub_69() {}
+void nullsub_70() {}
+
 const char* table_5184[] = {
     "NULL",
     "AnchorCast",
@@ -1076,6 +1096,117 @@ const char* table_5184[] = {
     "EnableSharedKeyMode"
 };
 
+typedef struct table_26792_t
+{
+    const char* name;
+    void* fnc;
+    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
+} table_26792_t;
+
+table_26792_t table_26792[] = {
+    {"DamageMultiplierEffect", &sub_4E04C0, &sub_4235C0},
+    {"StunEffect", &sub_4E04D0, &sub_423780},
+    {"FireEffect", &sub_4E0550, &sub_4235C0},
+    {"FireRingEffect", &sub_4E05B0, &sub_423780},
+    {"BlueFireRingEffect", &sub_4E05F0, &sub_423780},
+    {"FrostEffect", &nullsub_38, &sub_423780},
+    {"RecoilEffect", &sub_4E0640, &sub_4235C0},
+    {"ConfuseEffect", &sub_4E0670, &sub_423780},
+    {"LightningEffect", &sub_4E06F0, &sub_4235C0},
+    {"DrainManaEffect", &sub_4E0740, &sub_4235C0},
+    {"VampirismEffect", &sub_4E07C0, &sub_4235C0},
+    {"PoisonEffect", &sub_4E0850, &sub_423780},
+    {"PanicEffect", &nullsub_39, &sub_423780},
+    {"SympathyEffect", &sub_4E08E0, &sub_4235C0},
+    {"ReadinessEffect", &nullsub_22, &sub_423780},
+    {"ProjectileSpeedEffect", &sub_4E09B0, &sub_4235C0},
+    {"ReplenishmentEffect", &nullsub_36, &sub_423780},
+};
+int table_26792_cnt = sizeof(table_26792)/sizeof(table_26792_t);
+
+typedef struct table_27008_t
+{
+    const char* name;
+    void* fnc;
+    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
+} table_27008_t;
+
+table_27008_t table_27008[] = {
+    {"ArmorMultiplierEffect", &sub_4E0370, &sub_4235C0},
+    {"DurabilityMultiplierEffect", &sub_4E0380, &sub_4235C0},
+    {"ResilienceEffect", &nullsub_40, &sub_4235C0},
+    {"InversionEffect", &sub_4E03D0, &sub_423780},
+    {"GripEffect", &sub_4E0480, &sub_423780},
+    {"BreakingEffect", &nullsub_41, &sub_4235C0},
+    {"PunctureProneEffect", &nullsub_42, &sub_4235C0},
+};
+int table_27008_cnt = sizeof(table_27008)/sizeof(table_27008_t);
+
+typedef struct table_27104_t
+{
+    const char* name;
+    void* fnc;
+    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
+} table_27104_t;
+
+table_27104_t table_27104[] = {
+    {"RegenerationUpdate", &sub_4E01D0, &sub_423780},
+    {"ParasiteUpdate", &nullsub_43, &sub_423780},
+    {"AttractionUpdate", &nullsub_44, &sub_423780},
+    {"ContinualReplenishmentUpdate", &sub_4E02C0, &sub_423780},
+};
+int table_27104_cnt = sizeof(table_27104)/sizeof(table_27104_t);
+
+typedef struct table_27168_t
+{
+    const char* name;
+    void* fnc;
+    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
+} table_27168_t;
+
+table_27168_t table_27168[] = {
+    {"BrillianceEngage", &sub_4DFB50, &sub_423780},
+    {"BrillianceDisengage", &sub_4DFB80, &sub_423780},
+    {"SpeedEngage", &sub_4DFC30, &sub_4235C0},
+    {"SpeedDisengage", &sub_4DFCA0, &sub_4235C0},
+    {"FireProtectEngage", &sub_4DFD10, &sub_4235C0},
+    {"FireProtectDisengage", &sub_4DFD40, &sub_4235C0},
+    {"LightningProtectEngage", &sub_4DFD80, &sub_4235C0},
+    {"LightningProtectDisengage", &sub_4DFDB0, &sub_4235C0},
+    {"PoisonProtectEngage", &sub_4DFDE0, &sub_4235C0},
+    {"PoisonProtectDisengage", &sub_4DFE10, &sub_4235C0},
+    {"RegenerationEngage", &sub_4E0140, 0},
+    {"RegenerationDisengage", &sub_4E0170, 0},
+};
+int table_27168_cnt = sizeof(table_27168)/sizeof(table_27168_t);
+
+typedef struct table_28760_t
+{
+    const char* name;
+    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
+} table_28760_t;
+
+table_28760_t table_28760[] = {
+    {"DESC", &sub_412100_parse_desc},
+    {"PRIMARYDESC", &sub_412100_parse_desc},
+    {"SECONDARYDESC", &sub_4121B0_parse_second_desc},
+    {"IDENTIFYDESC", &sub_412260_parse_ident_desc},
+    {"WORTH", &sub_412310_parse_worth},
+    {"COLOR", &sub_412360_parse_color},
+    {"ATTACKEFFECT", &sub_412380_parse_attack_effect},
+    {"ATTACKPREHITEFFECT", &sub_412380_parse_attack_effect},
+    {"ATTACKPREDAMAGEEFFECT", &sub_412380_parse_attack_effect},
+    {"DEFENDEFFECT", &sub_412490_parse_defend_effect},
+    {"DEFENDCOLLIDEEFFECT", &sub_412490_parse_defend_effect},
+    {"ENGAGEEFFECT", &sub_412580_parse_engage_effect},
+    {"DISENGAGEEFFECT", &sub_412580_parse_engage_effect},
+    {"UPDATEEFFECT", &sub_412670_parse_update_effect},
+    {"ALLOWED_WEAPONS", &sub_412740_parse_allowed_weapons},
+    {"ALLOWED_ARMOR", &sub_4128A0_parse_allowed_armor},
+    {"ALLOWED_POSITION", &sub_4128C0_parse_allowed_pos},
+};
+int table_28760_cnt = sizeof(table_28760)/sizeof(table_28760_t);
+
 typedef struct mem_mapping
 {
     uintptr_t base;
@@ -1104,6 +1235,11 @@ mem_mapping mappings[] = {
     {0x5D4594+1599620, (void*)&nox_file_7, sizeof(nox_file_7),1},
     {0x5D4594+251544, (void*)&dword_5D4594_251544, sizeof(dword_5D4594_251544),1},
     {0x587000+5184, (void*)table_5184, sizeof(table_5184),1},
+    {0x587000+26792, (void*)table_26792, sizeof(table_26792),1},
+    {0x587000+27008, (void*)table_27008, sizeof(table_27008),1},
+    {0x587000+27104, (void*)table_27104, sizeof(table_27104),1},
+    {0x587000+27168, (void*)table_27168, sizeof(table_27168),1},
+    {0x587000+28760, (void*)table_28760, sizeof(table_28760),1},
     // full blobs
     #if 0
     {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
@@ -1559,63 +1695,6 @@ void __cdecl sub_401B20(char* a1)
     }
 }
 
-void sub_57F634()
-{
-}
-void nullsub_38()
-{
-}
-void nullsub_39()
-{
-}
-void nullsub_40()
-{
-}
-void nullsub_41()
-{
-}
-void nullsub_42()
-{
-}
-void nullsub_43()
-{
-}
-void nullsub_44()
-{
-}
-void nullsub_45()
-{
-}
-void nullsub_46()
-{
-}
-void nullsub_47()
-{
-}
-void nullsub_48()
-{
-}
-void nullsub_62()
-{
-}
-void nullsub_65()
-{
-}
-void nullsub_66()
-{
-}
-void nullsub_67()
-{
-}
-void nullsub_68()
-{
-}
-void nullsub_69()
-{
-}
-void nullsub_70()
-{
-}
 void init_data()
 {
     *(void**)& byte_587000[26824] = &sub_4235C0;
@@ -1657,12 +1736,6 @@ void init_data()
     *(void**)& byte_587000[28668] = &sub_411D90;
     *(void**)& byte_587000[28676] = &sub_411D90;
     *(void**)& byte_587000[28684] = &sub_411D90;
-
-    *(void**)& byte_587000[28772] = &sub_412100;
-    *(void**)& byte_587000[28820] = &sub_412380;
-    *(void**)& byte_587000[28828] = &sub_412380;
-    *(void**)& byte_587000[28844] = &sub_412490;
-    *(void**)& byte_587000[28860] = &sub_412580;
 
     *(void**)& byte_587000[54732] = &byte_5D4594[2523948];
 
@@ -2125,6 +2198,7 @@ void init_data()
     *(void**)& byte_587000[26508] = &byte_587000[26636];
     *(void**)& byte_587000[26776] = &byte_587000[27468];
     *(void**)& byte_587000[26780] = &byte_587000[27476];
+#if 0
     *(void**)& byte_587000[26800] = &sub_4235C0;
     *(void**)& byte_587000[26812] = &sub_423780;
     *(void**)& byte_587000[26796] = &sub_4E04C0;
@@ -2212,6 +2286,7 @@ void init_data()
     *(void**)& byte_587000[27276] = &byte_587000[28176];
     *(void**)& byte_587000[27288] = &byte_587000[28200];
     *(void**)& byte_587000[27300] = &byte_587000[28220];
+#endif
     *(void**)& byte_587000[27328] = &sub_4DFB50;
     *(void**)& byte_587000[27348] = &sub_4DFC30;
     *(void**)& byte_587000[27368] = &sub_4DFD10;
@@ -2260,14 +2335,20 @@ void init_data()
     *(void**)& byte_587000[28728] = &byte_587000[29676];
     *(void**)& byte_587000[28736] = &byte_587000[29688];
     *(void**)& byte_587000[28744] = &byte_587000[29696];
+#if 0
     *(void**)& byte_587000[28764] = &sub_412100;
+    *(void**)& byte_587000[28772] = &sub_412100;
     *(void**)& byte_587000[28780] = &sub_4121B0;
     *(void**)& byte_587000[28788] = &sub_412260;
     *(void**)& byte_587000[28796] = &sub_412310;
     *(void**)& byte_587000[28804] = &sub_412360;
     *(void**)& byte_587000[28812] = &sub_412380;
+    *(void**)& byte_587000[28820] = &sub_412380;
+    *(void**)& byte_587000[28828] = &sub_412380;
     *(void**)& byte_587000[28836] = &sub_412490;
+    *(void**)& byte_587000[28844] = &sub_412490;
     *(void**)& byte_587000[28852] = &sub_412580;
+    *(void**)& byte_587000[28860] = &sub_412580;
     *(void**)& byte_587000[28868] = &sub_412670;
     *(void**)& byte_587000[28876] = &sub_412740;
     *(void**)& byte_587000[28884] = &sub_4128A0;
@@ -2289,6 +2370,7 @@ void init_data()
     *(void**)& byte_587000[28872] = &byte_587000[29920];
     *(void**)& byte_587000[28880] = &byte_587000[29936];
     *(void**)& byte_587000[28888] = &byte_587000[29952];
+#endif
     *(void**)& byte_587000[28904] = &byte_587000[29972];
     *(void**)& byte_587000[28912] = &byte_587000[29984];
     *(void**)& byte_587000[28920] = &byte_587000[29996];
@@ -15306,23 +15388,11 @@ int __cdecl sub_411350(int* a1, int* a2, int a3)
 //----- (004113A0) --------------------------------------------------------
 int __cdecl sub_4113A0(int* a1, int a2)
 {
-    int v2; // eax
-    int v3; // ecx
-    int v4; // esi
-    int v5; // edx
-    int v6; // edi
-    int v7; // ebp
-    bool v8; // zf
-    bool v9; // zf
-    bool v10; // zf
-    int result; // eax
+    int v2 = *a1;
+    int v3 = a1[1];
 
-    v2 = *a1;
-    v3 = a1[1];
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
+    bool v4;
+    bool v5;
     if (*a1 == v3)
     {
         v4 = 1;
@@ -15331,11 +15401,16 @@ int __cdecl sub_4113A0(int* a1, int a2)
     else if (*a1 >= v3)
     {
         v4 = 1;
+        v5 = 0;
     }
     else
     {
+        v4 = 0;
         v5 = 1;
     }
+
+    bool v6;
+    bool v7;
     if (v2 == 46 - v3)
     {
         v6 = 1;
@@ -15344,75 +15419,70 @@ int __cdecl sub_4113A0(int* a1, int a2)
     else if (v2 >= 46 - v3)
     {
         v6 = 1;
+        v7 = 0;
     }
     else
     {
+        v6 = 0;
         v7 = 1;
     }
+
     switch (a2)
     {
     case 0:
-        if (!v5)
-            goto LABEL_32;
-        goto LABEL_29;
+        if (!v5 || !v6)
+            return 0;
+        return 1;
     case 1:
-        v8 = v5 == 0;
-        goto LABEL_30;
+        if (!v5)
+            return 0;
+        return 1;
     case 2:
-        if (v5)
-            goto LABEL_16;
-        goto LABEL_32;
+        if (!v5 || !v7)
+            return 0;
+        return 1;
     case 3:
-        goto LABEL_29;
+        if (!v6)
+            return 0;
+        return 1;
     case 4:
-    LABEL_16:
-        v8 = v7 == 0;
-        goto LABEL_30;
+        if (!v7)
+            return 0;
+        return 1;
     case 5:
-        if (v6)
-            goto LABEL_18;
-        goto LABEL_32;
+        if (!v6 || !v4)
+            return 0;
+        return 1;
     case 6:
-    LABEL_18:
-        v8 = v4 == 0;
-        goto LABEL_30;
-    case 7:
         if (!v4)
-            goto LABEL_32;
-        v8 = v7 == 0;
-        goto LABEL_30;
+            return 0;
+        return 1;
+    case 7:
+        if (!v4 || !v7)
+            return 0;
+        return 1;
     case 8:
-        v9 = v5 == 0;
-        goto LABEL_28;
+        if (v5)
+            return 1;
+        if (!v6)
+            return 0;
+        return 1;
     case 9:
-        v10 = v5 == 0;
-        goto LABEL_24;
+        if (!v5 && !v7)
+            return 0;
+        return 1;
     case 10:
-        v10 = v4 == 0;
-    LABEL_24:
-        if (v10 && !v7)
-            goto LABEL_32;
-        result = 1;
-        break;
+        if (!v4 && !v7)
+            return 0;
+        return 1;
     case 11:
-        v9 = v4 == 0;
-    LABEL_28:
-        if (!v9)
-            goto LABEL_31;
-    LABEL_29:
-        v8 = v6 == 0;
-    LABEL_30:
-        if (v8)
-            LABEL_32 :
-            result = 0;
-        else
-            LABEL_31 :
-            result = 1;
-        break;
-    default:
-        goto LABEL_32;
+        if (v4)
+            return 1;
+        if (!v6)
+            return 0;
+        return 1;
     }
-    return result;
+    return 0;
 }
 
 //----- (00411490) --------------------------------------------------------
@@ -15420,55 +15490,40 @@ int __cdecl sub_411490(int a1, int a2)
 {
     int v2; // ecx
     int v3; // edx
-    int result; // eax
     int v5; // esi
 
     v2 = byte_5D4594[60 * a1 + 2678400];
     v3 = byte_5D4594[60 * a1 + 2678401];
     if (v2 == 3 && v3 == 3)
         return a2;
-    result = a2;
-    if (a2)
+    if (!a2)
     {
-        if (a2 > v2 - 2)
-        {
-            if (a2 == v2 - 1)
-            {
-                result = 2;
-            }
-            else
-            {
-                v5 = v2 + 2 * v3 - 4;
-                if (a2 >= v5)
-                {
-                    if (a2 == v5)
-                    {
-                        result = 5;
-                    }
-                    else if (a2 > 2 * (v3 + v2) - 6)
-                    {
-                        if (a2 == 2 * (v3 + v2) - 5)
-                            result = 7;
-                        else
-                            result = a2 + 2 * (6 - v3 - v2);
-                    }
-                    else
-                    {
-                        result = 6;
-                    }
-                }
-                else
-                {
-                    result = ((((unsigned __int8)v2 ^ (unsigned __int8)a2) & 1) != 0) + 3;
-                }
-            }
-        }
-        else
-        {
-            result = 1;
-        }
+        return 0;
     }
-    return result;
+    if (a2 <= v2 - 2)
+    {
+        return 1;
+    }
+    if (a2 == v2 - 1)
+    {
+        return 2;
+    }
+    v5 = v2 + 2 * v3 - 4;
+    if (a2 < v5)
+    {
+        return ((((unsigned __int8)v2 ^ (unsigned __int8)a2) & 1) != 0) + 3;
+    }
+    if (a2 == v5)
+    {
+        return 5;
+    }
+    else if (a2 > 2 * (v3 + v2) - 6)
+    {
+        if (a2 == 2 * (v3 + v2) - 5)
+            return 7;
+        return a2 + 2 * (6 - v3 - v2);
+    }
+    return 6;
 }
 
 //----- (00411540) --------------------------------------------------------
@@ -16077,7 +16132,7 @@ char* __cdecl sub_4120B0(int a1, char* a2, int a3)
 }
 
 //----- (00412100) --------------------------------------------------------
-int __cdecl sub_412100(int a1, char* a2, int a3)
+int __cdecl sub_412100_parse_desc(const char* a1, char* a2, obj_412ae0_t* a3)
 {
     int result; // eax
     char* v4; // ebx
@@ -16090,26 +16145,27 @@ int __cdecl sub_412100(int a1, char* a2, int a3)
     strcpy(v9, " =\n\r\t");
     result = (int)strtok(a2, v9);
     v4 = (char*)result;
-    if (result)
+    if (!result)
     {
-        v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 733);
-        v6 = nox_wcslen(v5);
-        v7 = v6;
-        result = (int)nox_malloc(2 * v6 + 2);
-        *(_DWORD*)(a3 + 8) = result;
-        if (result)
-        {
-            v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 741);
-            nox_wcsncpy(*(wchar_t**)(a3 + 8), v8, v7);
-            *(_WORD*)(*(_DWORD*)(a3 + 8) + 2 * v7) = 0;
-            result = 1;
-        }
+        return 0;
     }
-    return result;
+    v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 733);
+    v6 = nox_wcslen(v5);
+    v7 = v6;
+    result = (int)nox_malloc(2 * v6 + 2);
+    a3->data[2] = result;
+    if (!result)
+    {
+        return 0;
+    }
+    v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 741);
+    nox_wcsncpy(*(wchar_t**)(&a3->data[2]), v8, v7);
+    *(_WORD*)(*(_DWORD*)(&a3->data[2]) + 2 * v7) = 0;
+    return 1;
 }
 
 //----- (004121B0) --------------------------------------------------------
-int __cdecl sub_4121B0(int a1, char* a2, int a3)
+int __cdecl sub_4121B0_parse_second_desc(const char* a1, char* a2, obj_412ae0_t* a3)
 {
     int result; // eax
     char* v4; // ebx
@@ -16122,26 +16178,27 @@ int __cdecl sub_4121B0(int a1, char* a2, int a3)
     strcpy(v9, " =\n\r\t");
     result = (int)strtok(a2, v9);
     v4 = (char*)result;
-    if (result)
+    if (!result)
     {
-        v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 767);
-        v6 = nox_wcslen(v5);
-        v7 = v6;
-        result = (int)nox_malloc(2 * v6 + 2);
-        *(_DWORD*)(a3 + 12) = result;
-        if (result)
-        {
-            v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 775);
-            nox_wcsncpy(*(wchar_t**)(a3 + 12), v8, v7);
-            *(_WORD*)(*(_DWORD*)(a3 + 12) + 2 * v7) = 0;
-            result = 1;
-        }
+        return 0;
     }
-    return result;
+    v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 767);
+    v6 = nox_wcslen(v5);
+    v7 = v6;
+    result = (int)nox_malloc(2 * v6 + 2);
+    a3->data[3] = result;
+    if (!result)
+    {
+        return 0;
+    }
+    v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 775);
+    nox_wcsncpy(*(wchar_t**)(&a3->data[3]), v8, v7);
+    *(_WORD*)(*(_DWORD*)(&a3->data[3]) + 2 * v7) = 0;
+    return 1;
 }
 
 //----- (00412260) --------------------------------------------------------
-int __cdecl sub_412260(int a1, char* a2, int a3)
+int __cdecl sub_412260_parse_ident_desc(const char* a1, char* a2, obj_412ae0_t* a3)
 {
     int result; // eax
     char* v4; // ebx
@@ -16154,210 +16211,186 @@ int __cdecl sub_412260(int a1, char* a2, int a3)
     strcpy(v9, " =\n\r\t");
     result = (int)strtok(a2, v9);
     v4 = (char*)result;
-    if (result)
+    if (!result)
     {
-        v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
-        v6 = nox_wcslen(v5);
-        v7 = v6;
-        result = (int)nox_malloc(2 * v6 + 2);
-        *(_DWORD*)(a3 + 16) = result;
-        if (result)
-        {
-            v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 809);
-            nox_wcsncpy(*(wchar_t**)(a3 + 16), v8, v7);
-            *(_WORD*)(*(_DWORD*)(a3 + 16) + 2 * v7) = 0;
-            result = 1;
-        }
+        return 0;
     }
-    return result;
+    v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
+    v6 = nox_wcslen(v5);
+    v7 = v6;
+    result = (int)nox_malloc(2 * v6 + 2);
+    a3->data[4] = result;
+    if (!result)
+    {
+        return 0;
+    }
+    v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 809);
+    nox_wcsncpy(*(wchar_t**)(&a3->data[4]), v8, v7);
+    *(_WORD*)(*(_DWORD*)(&a3->data[4]) + 2 * v7) = 0;
+    return 1;
 }
 
 //----- (00412310) --------------------------------------------------------
-char* __cdecl sub_412310(int a1, char* a2, int a3)
+int __cdecl sub_412310_parse_worth(const char* a1, char* a2, obj_412ae0_t* a3)
 {
     char* result; // eax
     char v4[8]; // [esp+0h] [ebp-8h]
 
     strcpy(v4, " =\n\r\t");
     result = strtok(a2, v4);
-    if (result)
+    if (!result)
     {
-        *(_DWORD*)(a3 + 20) = atoi(result);
-        result = (char*)1;
+        return 0;
     }
-    return result;
+    a3->data[5] = atoi(result);
+    return 1;
 }
 
 //----- (00412360) --------------------------------------------------------
-BOOL __cdecl sub_412360(int a1, char* a2, int a3)
+int __cdecl sub_412360_parse_color(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    return sub_411CF0(a2, (_BYTE*)(a3 + 24)) != 0;
+    return sub_411CF0(a2, (_BYTE*)(&a3->data[6])) != 0;
 }
 
 //----- (00412380) --------------------------------------------------------
-int __cdecl sub_412380(const char* a1, char* a2, _DWORD* a3)
+int __cdecl sub_412380_parse_attack_effect(const char* a1, char* a2, obj_412ae0_t* obj)
 {
-    char* v3; // edi
-    const char* v4; // ecx
-    unsigned __int8* v5; // ebp
-    _DWORD* v7; // ecx
-    int(__cdecl * v8)(const char*, char*, _DWORD*); // eax
-    char v9[8]; // [esp+10h] [ebp-8h]
-
+    char v9[8];
     strcpy(v9, " \n\r\t=");
-    v3 = strtok(a2, v9);
+    char* v3 = strtok(a2, v9);
     if (!v3)
         return 0;
-    v4 = *(const char**)& byte_587000[26792];
-    v5 = &byte_587000[26792];
-    if (!*(_DWORD*)& byte_587000[26792])
+    if (!table_26792)
         return 0;
-    while (strcmp(v4, v3))
+
+    table_26792_t* ent = 0;
+    for (int i = 0; i < table_26792_cnt; i++)
     {
-        v4 = (const char*) * ((_DWORD*)v5 + 3);
-        v5 += 12;
-        if (!v4)
-            return 0;
+        if (strcmp(table_26792[i].name, v3) == 0) {
+            ent = &table_26792[i];
+            break;
+        }
     }
+    if (!ent)
+        return 0;
+
     if (!strcmp(a1, "ATTACKEFFECT"))
     {
-        v7 = a3;
-        a3[10] = *((_DWORD*)v5 + 1);
+        obj->data[10] = ent->fnc;
     }
     else if (!strcmp(a1, "ATTACKPREHITEFFECT"))
     {
-        v7 = a3;
-        a3[13] = *((_DWORD*)v5 + 1);
+        obj->data[13] = ent->fnc;
     }
     else
     {
         if (strcmp(a1, "ATTACKPREDAMAGEEFFECT"))
             return 0;
-        v7 = a3;
-        a3[16] = *((_DWORD*)v5 + 1);
+        obj->data[16] = ent->fnc;
     }
-    v8 = (int(__cdecl*)(const char*, char*, _DWORD*)) * ((_DWORD*)v5 + 2);
-    if (v8 && !v8(a1, a2, v7))
+    if (ent->parse_fnc && !ent->parse_fnc(a1, a2, obj))
         return 0;
     return 1;
 }
 
 //----- (00412490) --------------------------------------------------------
-int __cdecl sub_412490(const char* a1, char* a2, int a3)
+int __cdecl sub_412490_parse_defend_effect(const char* a1, char* a2, obj_412ae0_t* obj)
 {
-    char* v3; // edi
-    const char* v4; // ecx
-    unsigned __int8* v5; // ebp
-    int v7; // ecx
-    int(__cdecl * v8)(const char*, char*, int); // eax
-    char v9[8]; // [esp+10h] [ebp-8h]
-
+    char v9[8];
     strcpy(v9, " \n\r\t=");
-    v3 = strtok(a2, v9);
+    char* v3 = strtok(a2, v9);
     if (!v3)
         return 0;
-    v4 = *(const char**)& byte_587000[27008];
-    v5 = &byte_587000[27008];
-    if (!*(_DWORD*)& byte_587000[27008])
+
+    table_27008_t* ent = 0;
+    if (!table_27008)
         return 0;
-    while (strcmp(v4, v3))
+    for (int i = 0; i < table_27008_cnt; i++)
     {
-        v4 = (const char*) * ((_DWORD*)v5 + 3);
-        v5 += 12;
-        if (!v4)
-            return 0;
+        if (strcmp(table_27008[i].name, v3) == 0) {
+            ent = &table_27008[i];
+            break;
+        }
     }
+    if (!ent)
+        return 0;
     if (!strcmp(a1, "DEFENDEFFECT"))
     {
-        v7 = a3;
-        *(_DWORD*)(a3 + 76) = *((_DWORD*)v5 + 1);
+        obj->data[19] = ent->fnc;
     }
     else
     {
         if (strcmp(a1, "DEFENDCOLLIDEEFFECT"))
             return 0;
-        v7 = a3;
-        *(_DWORD*)(a3 + 88) = *((_DWORD*)v5 + 1);
+        obj->data[22] = ent->fnc;
     }
-    v8 = (int(__cdecl*)(const char*, char*, int)) * ((_DWORD*)v5 + 2);
-    if (v8 && !v8(a1, a2, v7))
+    if (ent->parse_fnc && !ent->parse_fnc(a1, a2, obj))
         return 0;
     return 1;
 }
 
 //----- (00412580) --------------------------------------------------------
-int __cdecl sub_412580(const char* a1, char* a2, int a3)
+int __cdecl sub_412580_parse_engage_effect(const char* a1, char* a2, obj_412ae0_t* obj)
 {
-    char* v3; // edi
-    const char* v4; // ecx
-    unsigned __int8* v5; // ebp
-    int v7; // ecx
-    int(__cdecl * v8)(const char*, char*, int); // eax
-    char v9[8]; // [esp+10h] [ebp-8h]
-
+    char v9[8];
     strcpy(v9, " =\n\r\t");
-    v3 = strtok(a2, v9);
+    char* v3 = strtok(a2, v9);
     if (!v3)
         return 0;
-    v4 = *(const char**)& byte_587000[27168];
-    v5 = &byte_587000[27168];
-    if (!*(_DWORD*)& byte_587000[27168])
+    if (!table_27168)
         return 0;
-    while (strcmp(v4, v3))
+
+    table_27168_t* ent = 0;
+    for (int i = 0; i < table_27168_cnt; i++)
     {
-        v4 = (const char*) * ((_DWORD*)v5 + 3);
-        v5 += 12;
-        if (!v4)
-            return 0;
+        if (strcmp(table_27168[i].name, v3) == 0) {
+            ent = &table_27168[i];
+            break;
+        }
     }
+    if (!ent)
+        return 0;
     if (!strcmp(a1, "ENGAGEEFFECT"))
     {
-        v7 = a3;
-        *(_DWORD*)(a3 + 112) = *((_DWORD*)v5 + 1);
+        obj->data[28] = ent->fnc;
     }
     else
     {
         if (strcmp(a1, "DISENGAGEEFFECT"))
             return 0;
-        v7 = a3;
-        *(_DWORD*)(a3 + 116) = *((_DWORD*)v5 + 1);
+        obj->data[29] = ent->fnc;
     }
-    v8 = (int(__cdecl*)(const char*, char*, int)) * ((_DWORD*)v5 + 2);
-    if (v8 && !v8(a1, a2, v7))
+    if (ent->parse_fnc && !ent->parse_fnc(a1, a2, obj))
         return 0;
     return 1;
 }
 
 //----- (00412670) --------------------------------------------------------
-int __cdecl sub_412670(const char* a1, char* a2, int a3)
+int __cdecl sub_412670_parse_update_effect(const char* a1, char* a2, obj_412ae0_t* obj)
 {
-    char* v3; // edi
-    const char* v4; // ecx
-    unsigned __int8* v5; // ebp
-    //int result; // eax
-    int(__cdecl * v7)(const char*, char*, int); // eax
-    char v8[8]; // [esp+10h] [ebp-8h]
-
+    char v8[8];
     strcpy(v8, " =\n\r\t");
-    v3 = strtok(a2, v8);
+    char* v3 = strtok(a2, v8);
     if (!v3)
         return 0;
-    v4 = *(const char**)& byte_587000[27104];
-    v5 = &byte_587000[27104];
-    if (!*(_DWORD*)& byte_587000[27104])
+    if (!table_27104)
         return 0;
-    while (strcmp(v4, v3))
+
+    table_27104_t* ent = 0;
+    for (int i = 0; i < table_27104_cnt; i++)
     {
-        v4 = (const char*) * ((_DWORD*)v5 + 3);
-        v5 += 12;
-        if (!v4)
-            return 0;
+        if (strcmp(table_27104[i].name, v3) == 0) {
+            ent = &table_27104[i];
+            break;
+        }
     }
+    if (!ent)
+        return 0;
+
     if (strcmp(a1, "UPDATEEFFECT"))
         return 0;
-    *(_DWORD*)(a3 + 100) = *((_DWORD*)v5 + 1);
-    v7 = (int(__cdecl*)(const char*, char*, int)) * ((_DWORD*)v5 + 2);
-    if ((v7 == 0) || v7(a1, a2, a3))
+    obj->data[25] = ent->fnc;
+    if ((ent->parse_fnc == 0) || ent->parse_fnc(a1, a2, obj))
     {
         return 1;
     }
@@ -16365,10 +16398,10 @@ int __cdecl sub_412670(const char* a1, char* a2, int a3)
 }
 
 //----- (00412740) --------------------------------------------------------
-int __cdecl sub_412740(int a1, char* a2, int a3)
+int __cdecl sub_412740_parse_allowed_weapons(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    *(_DWORD*)(a3 + 28) = 0;
-    return sub_412760(a2, (int*)(a3 + 28));
+    a3->data[7] = 0;
+    return sub_412760(a2, (int*)(&a3->data[7]));
 }
 
 //----- (00412760) --------------------------------------------------------
@@ -16446,33 +16479,28 @@ int __cdecl sub_412760(char* a1, int* a2)
 }
 
 //----- (004128A0) --------------------------------------------------------
-int __cdecl sub_4128A0(int a1, char* a2, int a3)
+int __cdecl sub_4128A0_parse_allowed_armor(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    *(_DWORD*)(a3 + 32) = 0;
-    return sub_412760(a2, (int*)(a3 + 32));
+    a3->data[8] = 0;
+    return sub_412760(a2, (int*)(&a3->data[8]));
 }
 
 //----- (004128C0) --------------------------------------------------------
-int __cdecl sub_4128C0(int a1, char* a2, int a3)
+int __cdecl sub_4128C0_parse_allowed_pos(const char* a1, char* a2, obj_412ae0_t* a3)
 {
     size_t v3; // edx
-    int result; // eax
     int v5; // [esp+8h] [ebp-4h]
 
     v5 = 0;
     v3 = strspn(a2, "= ");
     if (v3 >= strlen(a2))
     {
-        *(_BYTE*)(a3 + 36) = v5;
-        result = 1;
+        *(_BYTE*)(&a3->data[9]) = v5;
+        return 1;
     }
-    else
-    {
-        sub_423930(&a2[v3], &v5, (const char**)& byte_587000[26776]);
-        result = 1;
-        *(_BYTE*)(a3 + 36) = v5;
-    }
-    return result;
+    sub_423930(&a2[v3], &v5, (const char**)& byte_587000[26776]);
+    *(_BYTE*)(&a3->data[9]) = v5;
+    return 1;
 }
 
 //----- (00412930) --------------------------------------------------------
@@ -16480,10 +16508,6 @@ int __cdecl sub_412930(char* a1, char* a2)
 {
     FILE* v2; // eax
     FILE* v3; // ebx
-    LPVOID i; // eax
-    LPVOID j; // eax
-    int v7; // edi
-    int k; // esi
     int l; // eax
     char v10[256]; // [esp+10h] [ebp-100h]
 
@@ -16522,12 +16546,12 @@ int __cdecl sub_412930(char* a1, char* a2)
         }
     }
     sub_408D90(v3);
-    for (i = sub_413370(); i; i = (LPVOID)sub_413380((int)i))
+    for (LPVOID i = sub_413370(); i; i = (LPVOID)sub_413380((int)i))
         ;
-    for (j = sub_413390(); j; j = (LPVOID)sub_4133A0((int)j))
+    for (LPVOID j = sub_413390(); j; j = (LPVOID)sub_4133A0((int)j))
         ;
-    v7 = 0;
-    for (k = 0; k < 3; ++k)
+    int v7 = 0;
+    for (int k = 0; k < 3; k++)
     {
         for (l = sub_4133B0(k); l; l = sub_4133C0(l))
             ++v7;
@@ -16538,47 +16562,40 @@ int __cdecl sub_412930(char* a1, char* a2)
 //----- (00412AE0) --------------------------------------------------------
 int __cdecl sub_412AE0(const char* a1, FILE* a2, char* a3)
 {
-    char** v3; // eax
-    char** v4; // ebp
-    char* v5; // edx
-    unsigned __int8* v6; // edi
-    int v7; // eax
-    char v9[256]; // [esp+10h] [ebp-100h]
+    char v9[256];
 
     while (1)
     {
         sub_409470(a2, v9);
         if (!strcmp(v9, "END"))
             return 1;
-        v3 = (char**)nox_calloc(1u, 0x90u);
-        v4 = v3;
+        obj_412ae0_t* v3 = (obj_412ae0_t*)nox_calloc(1, sizeof(obj_412ae0_t));
         if (!v3)
             return 0;
-        v3[1] = (char*)(*(_DWORD*)& byte_5D4594[251596])++;
+        v3->data[1] = (char*)(*(_DWORD*)& byte_5D4594[251596])++;
         if (!sub_412C60(a1, (int)v3))
             return 0;
-        v5 = (char*)nox_malloc(strlen(v9) + 1);
-        *v4 = v5;
+        char* v5 = (char*)nox_malloc(strlen(v9) + 1);
         if (!v5)
             return 0;
         strcpy(v5, v9);
+        v3->data[0] = v5;
         while (1)
         {
             sub_409470(a2, v9);
             if (!strcmp(v9, "END"))
                 break;
-            v6 = &byte_587000[28760];
-            if (*(_DWORD*)& byte_587000[28764])
+            table_28760_t* v6 = &table_28760[0];
+            if (v6->parse_fnc)
             {
-                while (strcmp(*(const char**)v6, v9))
+                while (strcmp(v6->name, v9))
                 {
-                    v7 = *((_DWORD*)v6 + 3);
-                    v6 += 8;
-                    if (!v7)
+                    v6++;
+                    if (!v6->parse_fnc)
                         goto LABEL_12;
                 }
                 sub_4093E0(a2, a3, 0x40000);
-                if (!(*((int(__cdecl * *)(char*, char*, char**))v6 + 1))(v9, a3, v4))
+                if (!v6->parse_fnc(v9, a3, v3))
                     return 0;
             }
         LABEL_12:
@@ -16591,8 +16608,6 @@ int __cdecl sub_412AE0(const char* a1, FILE* a2, char* a3)
 //----- (00412C60) --------------------------------------------------------
 int __cdecl sub_412C60(const char* a1, int a2)
 {
-    int result; // eax
-
     if (!strcmp(a1, "EFFECTIVENESS"))
     {
         *(_DWORD*)(a2 + 140) = 0;
@@ -16600,7 +16615,6 @@ int __cdecl sub_412C60(const char* a1, int a2)
         if (*(_DWORD*)& byte_5D4594[251584])
             * (_DWORD*)(*(_DWORD*)& byte_5D4594[251584] + 140) = a2;
         *(_DWORD*)& byte_5D4594[251584] = a2;
-        result = 1;
     }
     else if (!strcmp(a1, "MATERIAL"))
     {
@@ -16609,7 +16623,6 @@ int __cdecl sub_412C60(const char* a1, int a2)
         if (*(_DWORD*)& byte_5D4594[251588])
             * (_DWORD*)(*(_DWORD*)& byte_5D4594[251588] + 140) = a2;
         *(_DWORD*)& byte_5D4594[251588] = a2;
-        result = 1;
     }
     else if (!strcmp(a1, "ENCHANTMENT"))
     {
@@ -16618,13 +16631,12 @@ int __cdecl sub_412C60(const char* a1, int a2)
         if (*(_DWORD*)& byte_5D4594[251592])
             * (_DWORD*)(*(_DWORD*)& byte_5D4594[251592] + 140) = a2;
         *(_DWORD*)& byte_5D4594[251592] = a2;
-        result = 1;
     }
     else
     {
-        result = 0;
+        return 0;
     }
-    return result;
+    return 1;
 }
 
 //----- (00412D40) --------------------------------------------------------
@@ -31328,65 +31340,53 @@ int __cdecl sub_422C10(int a1, int a2)
 }
 
 //----- (004235C0) --------------------------------------------------------
-int __cdecl sub_4235C0(int a1, int a2, int a3)
+int __cdecl sub_4235C0(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    float v4; // [esp+0h] [ebp-8h]
-
-    v4 = sub_423730();
+    float v4 = sub_423730();
     sub_4235F0(a1, v4, a3);
     return 1;
 }
 
 //----- (004235F0) --------------------------------------------------------
-int __cdecl sub_4235F0(int a1, float a2, int a3)
+int __cdecl sub_4235F0(const char* a1, float a2, obj_412ae0_t* a3)
 {
-    int result; // eax
-
     if (!strcmp((const char*)a1, "ATTACKEFFECT"))
     {
-        *(float*)(a3 + 44) = a2;
-        result = 1;
+        *(float*)(&a3->data[11]) = a2;
     }
     else if (!strcmp((const char*)a1, "ATTACKPREHITEFFECT"))
     {
-        *(float*)(a3 + 56) = a2;
-        result = 1;
+        *(float*)(&a3->data[14]) = a2;
     }
     else if (!strcmp((const char*)a1, "ATTACKPREDAMAGEEFFECT"))
     {
-        *(float*)(a3 + 68) = a2;
-        result = 1;
+        *(float*)(&a3->data[17]) = a2;
     }
     else if (!strcmp((const char*)a1, "DEFENDEFFECT"))
     {
-        *(float*)(a3 + 80) = a2;
-        result = 1;
+        *(float*)(&a3->data[20]) = a2;
     }
     else if (!strcmp((const char*)a1, "DEFENDCOLLIDEEFFECT"))
     {
-        *(float*)(a3 + 92) = a2;
-        result = 1;
+        *(float*)(&a3->data[23]) = a2;
     }
     else if (!strcmp((const char*)a1, "UPDATEEFFECT"))
     {
-        *(float*)(a3 + 104) = a2;
-        result = 1;
+        *(float*)(&a3->data[26]) = a2;
     }
     else if (!strcmp((const char*)a1, "ENGAGEEFFECT"))
     {
-        *(float*)(a3 + 120) = a2;
-        result = 1;
+        *(float*)(&a3->data[30]) = a2;
     }
     else if (!strcmp((const char*)a1, "DISENGAGEEFFECT"))
     {
-        *(float*)(a3 + 128) = a2;
-        result = 1;
+        *(float*)(&a3->data[32]) = a2;
     }
     else
     {
-        result = 0;
+        return 0;
     }
-    return result;
+    return 1;
 }
 
 //----- (00423730) --------------------------------------------------------
@@ -31406,65 +31406,53 @@ double sub_423730()
 }
 
 //----- (00423780) --------------------------------------------------------
-int __cdecl sub_423780(const char* a1, int a2, _DWORD* a3)
+int __cdecl sub_423780(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    int v3; // eax
-
-    v3 = sub_4238F0();
+    int v3 = sub_4238F0();
     sub_4237B0(a1, v3, a3);
     return 1;
 }
 
 //----- (004237B0) --------------------------------------------------------
-int __cdecl sub_4237B0(const char* a1, int a2, _DWORD* a3)
+int __cdecl sub_4237B0(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    int result; // eax
-
     if (!strcmp(a1, "ATTACKEFFECT"))
     {
-        a3[12] = a2;
-        result = 1;
+        a3->data[12] = a2;
     }
     else if (!strcmp(a1, "ATTACKPREHITEFFECT"))
     {
-        a3[15] = a2;
-        result = 1;
+        a3->data[15] = a2;
     }
     else if (!strcmp(a1, "ATTACKPREDAMAGEEFFECT"))
     {
-        a3[18] = a2;
-        result = 1;
+        a3->data[18] = a2;
     }
     else if (!strcmp(a1, "DEFENDEFFECT"))
     {
-        a3[21] = a2;
-        result = 1;
+        a3->data[21] = a2;
     }
     else if (!strcmp(a1, "DEFENDCOLLIDEEFFECT"))
     {
-        a3[24] = a2;
-        result = 1;
+        a3->data[24] = a2;
     }
     else if (!strcmp(a1, "UPDATEEFFECT"))
     {
-        a3[27] = a2;
-        result = 1;
+        a3->data[27] = a2;
     }
     else if (!strcmp(a1, "ENGAGEEFFECT"))
     {
-        a3[31] = a2;
-        result = 1;
+        a3->data[31] = a2;
     }
     else if (!strcmp(a1, "DISENGAGEEFFECT"))
     {
-        a3[33] = a2;
-        result = 1;
+        a3->data[33] = a2;
     }
     else
     {
-        result = 0;
+        return 0;
     }
-    return result;
+    return 1;
 }
 
 //----- (004238F0) --------------------------------------------------------
