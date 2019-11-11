@@ -401,4 +401,9 @@ typedef struct nox_string_entry
     _WORD field_50;
 } nox_string_entry;
 
+typedef struct obj_412ae0_t
+{
+    _DWORD data[36];
+} obj_412ae0_t;
+
 #endif
