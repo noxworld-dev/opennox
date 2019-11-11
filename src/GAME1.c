@@ -50,6 +50,9 @@ extern FILE* nox_file_9;
 
 _DWORD* dword_5D4594_251544 = 0;
 
+obj_412ae0_t* byte_5D4594_251584[3] = {0};
+int byte_5D4594_251596 = 0;
+
 void sub_57F634() {}
 void nullsub_38() {}
 void nullsub_39() {}
@@ -1234,6 +1237,8 @@ mem_mapping mappings[] = {
     {0x5D4594+1599584, (void*)&nox_file_8, sizeof(nox_file_8),1},
     {0x5D4594+1599620, (void*)&nox_file_7, sizeof(nox_file_7),1},
     {0x5D4594+251544, (void*)&dword_5D4594_251544, sizeof(dword_5D4594_251544),1},
+    {0x5D4594+251584, (void*)byte_5D4594_251584, sizeof(byte_5D4594_251584),1},
+    {0x5D4594+251596, (void*)&byte_5D4594_251596, sizeof(byte_5D4594_251596),1},
     {0x587000+5184, (void*)table_5184, sizeof(table_5184),1},
     {0x587000+26792, (void*)table_26792, sizeof(table_26792),1},
     {0x587000+27008, (void*)table_27008, sizeof(table_27008),1},
@@ -16505,17 +16510,16 @@ int __cdecl sub_412930(char* a1, char* a2)
 {
     FILE* v2; // eax
     FILE* v3; // ebx
-    int l; // eax
     char v10[256]; // [esp+10h] [ebp-100h]
 
-    *(_DWORD*)& byte_5D4594[251584] = 0;
-    *(_DWORD*)& byte_5D4594[251588] = 0;
+    byte_5D4594_251584[0] = 0;
+    byte_5D4594_251584[1] = 0;
+    byte_5D4594_251584[2] = 0;
+    byte_5D4594_251596 = 0;
     *(_DWORD*)& byte_5D4594[251600] = 0;
     *(_DWORD*)& byte_5D4594[251604] = 0;
     *(_DWORD*)& byte_5D4594[251608] = 0;
     *(_DWORD*)& byte_5D4594[251612] = 0;
-    *(_DWORD*)& byte_5D4594[251592] = 0;
-    *(_DWORD*)& byte_5D4594[251596] = 0;
     v2 = sub_408CC0(a1, 0);
     v3 = v2;
     if (!v2)
@@ -16550,7 +16554,7 @@ int __cdecl sub_412930(char* a1, char* a2)
     int v7 = 0;
     for (int k = 0; k < 3; k++)
     {
-        for (l = sub_4133B0(k); l; l = sub_4133C0(l))
+        for (obj_412ae0_t* l = sub_4133B0(k); l; l = sub_4133C0(l))
             ++v7;
     }
     return 1;
@@ -16569,7 +16573,7 @@ int __cdecl sub_412AE0(const char* a1, FILE* a2, char* a3)
         obj_412ae0_t* v3 = (obj_412ae0_t*)nox_calloc(1, sizeof(obj_412ae0_t));
         if (!v3)
             return 0;
-        v3->field_1 = (*(_DWORD*)& byte_5D4594[251596])++;
+        v3->field_1 = byte_5D4594_251596++;
         if (!sub_412C60(a1, v3))
             return 0;
         char* v5 = (char*)nox_malloc(strlen(v9) + 1);
@@ -16608,26 +16612,26 @@ int __cdecl sub_412C60(const char* a1, obj_412ae0_t* a2)
     if (!strcmp(a1, "EFFECTIVENESS"))
     {
         a2->field_35 = 0;
-        a2->field_34 = *(obj_412ae0_t**)& byte_5D4594[251584];
-        if (a2->field_34)
-            a2->field_34->field_35 = a2;
-        *(obj_412ae0_t**)& byte_5D4594[251584] = a2;
+        a2->field_34 = byte_5D4594_251584[0];
+        if (byte_5D4594_251584[0])
+            byte_5D4594_251584[0]->field_35 = a2;
+        byte_5D4594_251584[0] = a2;
     }
     else if (!strcmp(a1, "MATERIAL"))
     {
         a2->field_35 = 0;
-        a2->field_34 = *(obj_412ae0_t**)& byte_5D4594[251588];
-        if (a2->field_34)
-            a2->field_34->field_35 = a2;
-        *(obj_412ae0_t**)& byte_5D4594[251588] = a2;
+        a2->field_34 = byte_5D4594_251584[1];
+        if (byte_5D4594_251584[1])
+            byte_5D4594_251584[1]->field_35 = a2;
+        byte_5D4594_251584[1] = a2;
     }
     else if (!strcmp(a1, "ENCHANTMENT"))
     {
         a2->field_35 = 0;
-        a2->field_34 = *(obj_412ae0_t**)& byte_5D4594[251592];
-        if (a2->field_34)
-            a2->field_34->field_35 = a2;
-        *(obj_412ae0_t**)& byte_5D4594[251592] = a2;
+        a2->field_34 = byte_5D4594_251584[2];
+        if (byte_5D4594_251584[2])
+            byte_5D4594_251584[2] = a2;
+        byte_5D4594_251584[2] = a2;
     }
     else
     {
@@ -16751,22 +16755,18 @@ int __cdecl sub_412ED0(int a1, FILE* a2, char* a3)
 //----- (00413060) --------------------------------------------------------
 void sub_413060()
 {
-    LPVOID* v0; // esi
-
     sub_4130C0(*(LPVOID*)& byte_5D4594[251600]);
     *(_DWORD*)& byte_5D4594[251600] = 0;
     *(_DWORD*)& byte_5D4594[251604] = 0;
     sub_413100(*(LPVOID*)& byte_5D4594[251608]);
     *(_DWORD*)& byte_5D4594[251608] = 0;
     *(_DWORD*)& byte_5D4594[251612] = 0;
-    v0 = (LPVOID*)& byte_5D4594[251584];
-    do
+    for (int i = 0; i < 3; i++)
     {
-        sub_413140(*v0);
-        *v0 = 0;
-        ++v0;
-    } while ((int)v0 < (int)& byte_5D4594[251596]);
-    *(_DWORD*)& byte_5D4594[251596] = 0;
+        sub_413140(byte_5D4594_251584[i]);
+        byte_5D4594_251584[i] = 0;
+    }
+    byte_5D4594_251596 = 0;
 }
 
 //----- (004130C0) --------------------------------------------------------
@@ -16919,83 +16919,47 @@ _DWORD* __cdecl sub_413270(int a1)
 //----- (00413290) --------------------------------------------------------
 int __cdecl sub_413290(const char* a1)
 {
-    unsigned __int8* v1; // edx
-    int v2; // edi
-
     if (!a1)
         return 255;
-    v1 = &byte_5D4594[251584];
-    while (1)
+    for (int i = 0; i < 3; i++)
     {
-        v2 = *(_DWORD*)v1;
-        if (*(_DWORD*)v1)
-            break;
-    LABEL_6:
-        v1 += 4;
-        if ((int)v1 >= (int)& byte_5D4594[251596])
-            return 255;
+        for (obj_412ae0_t* it = byte_5D4594_251584[i]; it; it = it->field_34)
+        {
+            if (strcmp(it->field_0, a1) == 0)
+                return it->field_1;
+        }
     }
-    while (strcmp(*(const char**)v2, a1))
-    {
-        v2 = *(_DWORD*)(v2 + 136);
-        if (!v2)
-            goto LABEL_6;
-    }
-    return *(_DWORD*)(v2 + 4);
+    return 255;
 }
 
 //----- (00413300) --------------------------------------------------------
 int __cdecl sub_413300(int a1)
 {
-    unsigned __int8* v1; // ecx
-    _DWORD* v2; // eax
-
-    v1 = &byte_5D4594[251584];
-    while (1)
+    for (int i = 0; i < 3; i++)
     {
-        v2 = *(_DWORD * *)v1;
-        if (*(_DWORD*)v1)
-            break;
-    LABEL_5:
-        v1 += 4;
-        if ((int)v1 >= (int)& byte_5D4594[251596])
-            return 0;
+        for (obj_412ae0_t* it = byte_5D4594_251584[i]; it; it = it->field_34)
+        {
+            if (it->field_1 == a1)
+                return it->field_0;
+        }
     }
-    while (v2[1] != a1)
-    {
-        v2 = (_DWORD*)v2[34];
-        if (!v2)
-            goto LABEL_5;
-    }
-    return *v2;
+    return 0;
 }
 
 //----- (00413330) --------------------------------------------------------
-int __cdecl sub_413330(int a1)
+obj_412ae0_t* __cdecl sub_413330(int a1)
 {
-    int* v1; // ecx
-    int result; // eax
-
     if (a1 == 255)
         return 0;
-    v1 = (int*)& byte_5D4594[251584];
-    while (1)
+    for (int i = 0; i < 3; i++)
     {
-        result = *v1;
-        if (*v1)
-            break;
-    LABEL_6:
-        ++v1;
-        if ((int)v1 >= (int)& byte_5D4594[251596])
-            return 0;
+        for (obj_412ae0_t* it = byte_5D4594_251584[i]; it; it = it->field_34)
+        {
+            if (it->field_1 == a1)
+                return it;
+        }
     }
-    while (*(_DWORD*)(result + 4) != a1)
-    {
-        result = *(_DWORD*)(result + 136);
-        if (!result)
-            goto LABEL_6;
-    }
-    return result;
+    return 0;
 }
 
 //----- (00413370) --------------------------------------------------------
@@ -17023,15 +16987,15 @@ int __cdecl sub_4133A0(int a1)
 }
 
 //----- (004133B0) --------------------------------------------------------
-int __cdecl sub_4133B0(int a1)
+obj_412ae0_t* __cdecl sub_4133B0(int a1)
 {
-    return *(_DWORD*)& byte_5D4594[4 * a1 + 251584];
+    return byte_5D4594_251584[a1];
 }
 
 //----- (004133C0) --------------------------------------------------------
-int __cdecl sub_4133C0(int a1)
+obj_412ae0_t* __cdecl sub_4133C0(obj_412ae0_t* a1)
 {
-    return *(_DWORD*)(a1 + 136);
+    return a1->field_34;
 }
 
 //----- (004133D0) --------------------------------------------------------
