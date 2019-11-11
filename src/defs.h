@@ -401,9 +401,45 @@ typedef struct nox_string_entry
     _WORD field_50;
 } nox_string_entry;
 
+typedef struct obj_412ae0_t obj_412ae0_t;
 typedef struct obj_412ae0_t
 {
-    _DWORD data[36];
+    char* field_0;
+    _DWORD field_1;
+    wchar_t* field_2;
+    wchar_t* field_3;
+    wchar_t* field_4;
+    int field_5;
+    _DWORD field_6;
+    int field_7;
+    int field_8;
+    _DWORD field_9;
+    void* field_10;
+    float field_11;
+    int   field_12;
+    void* field_13;
+    float field_14;
+    int   field_15;
+    void* field_16;
+    float field_17;
+    int   field_18;
+    void* field_19;
+    float field_20;
+    int   field_21;
+    void* field_22;
+    float field_23;
+    int   field_24;
+    void* field_25;
+    float field_26;
+    int   field_27;
+    void* field_28;
+    void* field_29;
+    float field_30;
+    int   field_31;
+    float field_32;
+    int   field_33;
+    obj_412ae0_t* field_34;
+    obj_412ae0_t* field_35;
 } obj_412ae0_t;
 
 #endif

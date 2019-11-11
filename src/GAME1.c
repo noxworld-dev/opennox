@@ -16152,15 +16152,14 @@ int __cdecl sub_412100_parse_desc(const char* a1, char* a2, obj_412ae0_t* a3)
     v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 733);
     v6 = nox_wcslen(v5);
     v7 = v6;
-    result = (int)nox_malloc(2 * v6 + 2);
-    a3->data[2] = result;
-    if (!result)
+    a3->field_2 = (wchar_t*)nox_malloc(2 * v6 + 2);
+    if (!a3->field_2)
     {
         return 0;
     }
     v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 741);
-    nox_wcsncpy(*(wchar_t**)(&a3->data[2]), v8, v7);
-    *(_WORD*)(*(_DWORD*)(&a3->data[2]) + 2 * v7) = 0;
+    nox_wcsncpy(*(wchar_t**)(&a3->field_2), v8, v7);
+    *(_WORD*)(*(_DWORD*)(&a3->field_2) + 2 * v7) = 0;
     return 1;
 }
 
@@ -16185,15 +16184,14 @@ int __cdecl sub_4121B0_parse_second_desc(const char* a1, char* a2, obj_412ae0_t*
     v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 767);
     v6 = nox_wcslen(v5);
     v7 = v6;
-    result = (int)nox_malloc(2 * v6 + 2);
-    a3->data[3] = result;
-    if (!result)
+    a3->field_3 = (wchar_t*)nox_malloc(2 * v6 + 2);
+    if (!a3->field_3)
     {
         return 0;
     }
     v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 775);
-    nox_wcsncpy(*(wchar_t**)(&a3->data[3]), v8, v7);
-    *(_WORD*)(*(_DWORD*)(&a3->data[3]) + 2 * v7) = 0;
+    nox_wcsncpy(*(wchar_t**)(&a3->field_3), v8, v7);
+    *(_WORD*)(*(_DWORD*)(&a3->field_3) + 2 * v7) = 0;
     return 1;
 }
 
@@ -16218,15 +16216,14 @@ int __cdecl sub_412260_parse_ident_desc(const char* a1, char* a2, obj_412ae0_t* 
     v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
     v6 = nox_wcslen(v5);
     v7 = v6;
-    result = (int)nox_malloc(2 * v6 + 2);
-    a3->data[4] = result;
-    if (!result)
+    a3->field_4 = (wchar_t*)nox_malloc(2 * v6 + 2);
+    if (!a3->field_4)
     {
         return 0;
     }
     v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 809);
-    nox_wcsncpy(*(wchar_t**)(&a3->data[4]), v8, v7);
-    *(_WORD*)(*(_DWORD*)(&a3->data[4]) + 2 * v7) = 0;
+    nox_wcsncpy(*(wchar_t**)(&a3->field_4), v8, v7);
+    *(_WORD*)(*(_DWORD*)(&a3->field_4) + 2 * v7) = 0;
     return 1;
 }
 
@@ -16242,14 +16239,14 @@ int __cdecl sub_412310_parse_worth(const char* a1, char* a2, obj_412ae0_t* a3)
     {
         return 0;
     }
-    a3->data[5] = atoi(result);
+    a3->field_5 = atoi(result);
     return 1;
 }
 
 //----- (00412360) --------------------------------------------------------
 int __cdecl sub_412360_parse_color(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    return sub_411CF0(a2, (_BYTE*)(&a3->data[6])) != 0;
+    return sub_411CF0(a2, (_BYTE*)(&a3->field_6)) != 0;
 }
 
 //----- (00412380) --------------------------------------------------------
@@ -16276,17 +16273,17 @@ int __cdecl sub_412380_parse_attack_effect(const char* a1, char* a2, obj_412ae0_
 
     if (!strcmp(a1, "ATTACKEFFECT"))
     {
-        obj->data[10] = ent->fnc;
+        obj->field_10 = ent->fnc;
     }
     else if (!strcmp(a1, "ATTACKPREHITEFFECT"))
     {
-        obj->data[13] = ent->fnc;
+        obj->field_13 = ent->fnc;
     }
     else
     {
         if (strcmp(a1, "ATTACKPREDAMAGEEFFECT"))
             return 0;
-        obj->data[16] = ent->fnc;
+        obj->field_16 = ent->fnc;
     }
     if (ent->parse_fnc && !ent->parse_fnc(a1, a2, obj))
         return 0;
@@ -16316,13 +16313,13 @@ int __cdecl sub_412490_parse_defend_effect(const char* a1, char* a2, obj_412ae0_
         return 0;
     if (!strcmp(a1, "DEFENDEFFECT"))
     {
-        obj->data[19] = ent->fnc;
+        obj->field_19 = ent->fnc;
     }
     else
     {
         if (strcmp(a1, "DEFENDCOLLIDEEFFECT"))
             return 0;
-        obj->data[22] = ent->fnc;
+        obj->field_22 = ent->fnc;
     }
     if (ent->parse_fnc && !ent->parse_fnc(a1, a2, obj))
         return 0;
@@ -16352,13 +16349,13 @@ int __cdecl sub_412580_parse_engage_effect(const char* a1, char* a2, obj_412ae0_
         return 0;
     if (!strcmp(a1, "ENGAGEEFFECT"))
     {
-        obj->data[28] = ent->fnc;
+        obj->field_28 = ent->fnc;
     }
     else
     {
         if (strcmp(a1, "DISENGAGEEFFECT"))
             return 0;
-        obj->data[29] = ent->fnc;
+        obj->field_29 = ent->fnc;
     }
     if (ent->parse_fnc && !ent->parse_fnc(a1, a2, obj))
         return 0;
@@ -16389,7 +16386,7 @@ int __cdecl sub_412670_parse_update_effect(const char* a1, char* a2, obj_412ae0_
 
     if (strcmp(a1, "UPDATEEFFECT"))
         return 0;
-    obj->data[25] = ent->fnc;
+    obj->field_25 = ent->fnc;
     if ((ent->parse_fnc == 0) || ent->parse_fnc(a1, a2, obj))
     {
         return 1;
@@ -16400,8 +16397,8 @@ int __cdecl sub_412670_parse_update_effect(const char* a1, char* a2, obj_412ae0_
 //----- (00412740) --------------------------------------------------------
 int __cdecl sub_412740_parse_allowed_weapons(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    a3->data[7] = 0;
-    return sub_412760(a2, (int*)(&a3->data[7]));
+    a3->field_7 = 0;
+    return sub_412760(a2, &a3->field_7);
 }
 
 //----- (00412760) --------------------------------------------------------
@@ -16481,8 +16478,8 @@ int __cdecl sub_412760(char* a1, int* a2)
 //----- (004128A0) --------------------------------------------------------
 int __cdecl sub_4128A0_parse_allowed_armor(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    a3->data[8] = 0;
-    return sub_412760(a2, (int*)(&a3->data[8]));
+    a3->field_8 = 0;
+    return sub_412760(a2, &a3->field_8);
 }
 
 //----- (004128C0) --------------------------------------------------------
@@ -16495,11 +16492,11 @@ int __cdecl sub_4128C0_parse_allowed_pos(const char* a1, char* a2, obj_412ae0_t*
     v3 = strspn(a2, "= ");
     if (v3 >= strlen(a2))
     {
-        *(_BYTE*)(&a3->data[9]) = v5;
+        *(_BYTE*)(&a3->field_9) = v5;
         return 1;
     }
     sub_423930(&a2[v3], &v5, (const char**)& byte_587000[26776]);
-    *(_BYTE*)(&a3->data[9]) = v5;
+    *(_BYTE*)(&a3->field_9) = v5;
     return 1;
 }
 
@@ -16572,14 +16569,14 @@ int __cdecl sub_412AE0(const char* a1, FILE* a2, char* a3)
         obj_412ae0_t* v3 = (obj_412ae0_t*)nox_calloc(1, sizeof(obj_412ae0_t));
         if (!v3)
             return 0;
-        v3->data[1] = (char*)(*(_DWORD*)& byte_5D4594[251596])++;
-        if (!sub_412C60(a1, (int)v3))
+        v3->field_1 = (*(_DWORD*)& byte_5D4594[251596])++;
+        if (!sub_412C60(a1, v3))
             return 0;
         char* v5 = (char*)nox_malloc(strlen(v9) + 1);
         if (!v5)
             return 0;
         strcpy(v5, v9);
-        v3->data[0] = v5;
+        v3->field_0 = v5;
         while (1)
         {
             sub_409470(a2, v9);
@@ -16606,31 +16603,31 @@ int __cdecl sub_412AE0(const char* a1, FILE* a2, char* a3)
 }
 
 //----- (00412C60) --------------------------------------------------------
-int __cdecl sub_412C60(const char* a1, int a2)
+int __cdecl sub_412C60(const char* a1, obj_412ae0_t* a2)
 {
     if (!strcmp(a1, "EFFECTIVENESS"))
     {
-        *(_DWORD*)(a2 + 140) = 0;
-        *(_DWORD*)(a2 + 136) = *(_DWORD*)& byte_5D4594[251584];
-        if (*(_DWORD*)& byte_5D4594[251584])
-            * (_DWORD*)(*(_DWORD*)& byte_5D4594[251584] + 140) = a2;
-        *(_DWORD*)& byte_5D4594[251584] = a2;
+        a2->field_35 = 0;
+        a2->field_34 = *(obj_412ae0_t**)& byte_5D4594[251584];
+        if (a2->field_34)
+            a2->field_34->field_35 = a2;
+        *(obj_412ae0_t**)& byte_5D4594[251584] = a2;
     }
     else if (!strcmp(a1, "MATERIAL"))
     {
-        *(_DWORD*)(a2 + 140) = 0;
-        *(_DWORD*)(a2 + 136) = *(_DWORD*)& byte_5D4594[251588];
-        if (*(_DWORD*)& byte_5D4594[251588])
-            * (_DWORD*)(*(_DWORD*)& byte_5D4594[251588] + 140) = a2;
-        *(_DWORD*)& byte_5D4594[251588] = a2;
+        a2->field_35 = 0;
+        a2->field_34 = *(obj_412ae0_t**)& byte_5D4594[251588];
+        if (a2->field_34)
+            a2->field_34->field_35 = a2;
+        *(obj_412ae0_t**)& byte_5D4594[251588] = a2;
     }
     else if (!strcmp(a1, "ENCHANTMENT"))
     {
-        *(_DWORD*)(a2 + 140) = 0;
-        *(_DWORD*)(a2 + 136) = *(_DWORD*)& byte_5D4594[251592];
-        if (*(_DWORD*)& byte_5D4594[251592])
-            * (_DWORD*)(*(_DWORD*)& byte_5D4594[251592] + 140) = a2;
-        *(_DWORD*)& byte_5D4594[251592] = a2;
+        a2->field_35 = 0;
+        a2->field_34 = *(obj_412ae0_t**)& byte_5D4594[251592];
+        if (a2->field_34)
+            a2->field_34->field_35 = a2;
+        *(obj_412ae0_t**)& byte_5D4594[251592] = a2;
     }
     else
     {
@@ -31342,7 +31339,7 @@ int __cdecl sub_422C10(int a1, int a2)
 //----- (004235C0) --------------------------------------------------------
 int __cdecl sub_4235C0(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    float v4 = sub_423730();
+    float v4 = sub_423730_parse_float();
     sub_4235F0(a1, v4, a3);
     return 1;
 }
@@ -31352,35 +31349,35 @@ int __cdecl sub_4235F0(const char* a1, float a2, obj_412ae0_t* a3)
 {
     if (!strcmp((const char*)a1, "ATTACKEFFECT"))
     {
-        *(float*)(&a3->data[11]) = a2;
+        a3->field_11 = a2;
     }
     else if (!strcmp((const char*)a1, "ATTACKPREHITEFFECT"))
     {
-        *(float*)(&a3->data[14]) = a2;
+        a3->field_14 = a2;
     }
     else if (!strcmp((const char*)a1, "ATTACKPREDAMAGEEFFECT"))
     {
-        *(float*)(&a3->data[17]) = a2;
+        a3->field_17 = a2;
     }
     else if (!strcmp((const char*)a1, "DEFENDEFFECT"))
     {
-        *(float*)(&a3->data[20]) = a2;
+        a3->field_20 = a2;
     }
     else if (!strcmp((const char*)a1, "DEFENDCOLLIDEEFFECT"))
     {
-        *(float*)(&a3->data[23]) = a2;
+        a3->field_23 = a2;
     }
     else if (!strcmp((const char*)a1, "UPDATEEFFECT"))
     {
-        *(float*)(&a3->data[26]) = a2;
+        a3->field_26 = a2;
     }
     else if (!strcmp((const char*)a1, "ENGAGEEFFECT"))
     {
-        *(float*)(&a3->data[30]) = a2;
+        a3->field_30 = a2;
     }
     else if (!strcmp((const char*)a1, "DISENGAGEEFFECT"))
     {
-        *(float*)(&a3->data[32]) = a2;
+        a3->field_32 = a2;
     }
     else
     {
@@ -31390,63 +31387,58 @@ int __cdecl sub_4235F0(const char* a1, float a2, obj_412ae0_t* a3)
 }
 
 //----- (00423730) --------------------------------------------------------
-double sub_423730()
+double sub_423730_parse_float()
 {
-    char* v0; // eax
-    double result; // st7
-    char v2[6]; // [esp+0h] [ebp-8h]
-
+    char v2[6];
     strcpy(v2, " =\n\r\t");
-    v0 = strtok(0, v2);
-    if (v0)
-        result = atof(v0);
-    else
-        result = -1.0;
-    return result;
+    char* v0 = strtok(0, v2);
+    if (!v0)
+        return -1.0;
+    return atof(v0);
 }
 
 //----- (00423780) --------------------------------------------------------
 int __cdecl sub_423780(const char* a1, char* a2, obj_412ae0_t* a3)
 {
-    int v3 = sub_4238F0();
+    int v3 = sub_4238F0_parse_int();
     sub_4237B0(a1, v3, a3);
     return 1;
 }
 
 //----- (004237B0) --------------------------------------------------------
-int __cdecl sub_4237B0(const char* a1, char* a2, obj_412ae0_t* a3)
+int __cdecl sub_4237B0(const char* a1, int a2, obj_412ae0_t* a3)
 {
     if (!strcmp(a1, "ATTACKEFFECT"))
     {
-        a3->data[12] = a2;
+        a3->field_12 = a2;
     }
     else if (!strcmp(a1, "ATTACKPREHITEFFECT"))
     {
-        a3->data[15] = a2;
+        a3->field_15 = a2;
     }
     else if (!strcmp(a1, "ATTACKPREDAMAGEEFFECT"))
     {
-        a3->data[18] = a2;
+        a3->field_18 = a2;
     }
     else if (!strcmp(a1, "DEFENDEFFECT"))
     {
-        a3->data[21] = a2;
+        a3->field_21 = a2;
     }
     else if (!strcmp(a1, "DEFENDCOLLIDEEFFECT"))
     {
-        a3->data[24] = a2;
+        a3->field_24 = a2;
     }
     else if (!strcmp(a1, "UPDATEEFFECT"))
     {
-        a3->data[27] = a2;
+        a3->field_27 = a2;
     }
     else if (!strcmp(a1, "ENGAGEEFFECT"))
     {
-        a3->data[31] = a2;
+        a3->field_31 = a2;
     }
     else if (!strcmp(a1, "DISENGAGEEFFECT"))
     {
-        a3->data[33] = a2;
+        a3->field_33 = a2;
     }
     else
     {
@@ -31456,19 +31448,14 @@ int __cdecl sub_4237B0(const char* a1, char* a2, obj_412ae0_t* a3)
 }
 
 //----- (004238F0) --------------------------------------------------------
-int sub_4238F0()
+int sub_4238F0_parse_int()
 {
-    char* v0; // eax
-    int result; // eax
-    char v2[6]; // [esp+0h] [ebp-8h]
-
+    char v2[6];
     strcpy(v2, " =\n\r\t");
-    v0 = strtok(0, v2);
-    if (v0)
-        result = atoi(v0);
-    else
-        result = -1;
-    return result;
+    char* v0 = strtok(0, v2);
+    if (!v0)
+        return -1;
+    return atoi(v0);
 }
 
 //----- (00423930) --------------------------------------------------------
