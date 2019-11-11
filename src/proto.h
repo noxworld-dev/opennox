@@ -703,7 +703,7 @@ int sub_416D40();
 BOOL __cdecl sub_416D70();
 void __cdecl sub_416DD0();
 void sub_416E20();
-int sub_416E30();
+void sub_416E30();
 char* __cdecl sub_416E50(int a1);
 char* sub_416EA0();
 char* __cdecl sub_416EE0(int a1);
