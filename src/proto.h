@@ -219,7 +219,7 @@ int __cdecl sub_40AEB0(const void*, const void*); // idb
 void sub_40AED0();
 LPVOID sub_40AF30();
 int __cdecl sub_40AF50(void* a1);
-char* __cdecl sub_40AF80(int a1);
+const char* __cdecl sub_40AF80(int a1);
 void __cdecl sub_40AF90(int a1, int a2, char a3, int a4, _BYTE* a5, unsigned int a6);
 int __cdecl sub_40B170(int a1);
 char* __cdecl sub_40B1F0(unsigned __int8 a1);
