@@ -4,6 +4,31 @@ BYTE* npc_array;
 
 FILE* nox_file_log = 0;
 
+table_122104_t table_122104[] = {
+    {"FLAGS", &sub_44B160},
+    {"CLASS", &sub_44B190},
+    {"SUBCLASS", &sub_44B1C0},
+    {"EXTENT", &sub_44B1F0},
+    {"LIGHTINTENSITY", &sub_44B230},
+    {"DRAW", &sub_44C200},
+    {"Z", &sub_44C2F0},
+    {"ZSIZE", &sub_44C320},
+    {"SIZE", &sub_44C370},
+    {"MENUICON", &sub_44C3B0},
+    {"LIGHTCOLOR", &sub_44B250},
+    {"LIGHTDIRECTION", &sub_44B2D0},
+    {"LIGHTPENUMBRA", &sub_44B330},
+    {"AUDIOLOOP", &sub_44C3F0},
+    {"CLIENTUPDATE", &sub_4B5C40},
+    {"LIFETIME", &sub_44C410},
+    {"WEIGHT", &sub_44C440},
+    {"PRETTYNAME", &sub_44C480},
+    {"DESCRIPTION", &sub_44C4B0},
+    {"PRETTYIMAGE", &sub_44C500},
+    {"HEALTH", &sub_44C4E0},
+};
+int table_122104_cnt = sizeof(table_122104)/sizeof(table_122104_t);
+
 //----- (0044CCA0) --------------------------------------------------------
 int sub_44CCA0()
 {
@@ -120,13 +145,10 @@ int __cdecl sub_44CE00(int a1, char* a2, int a3)
     char* v3; // ebx
     unsigned __int8* v4; // eax
     char* v5; // edi
-    unsigned __int8* v6; // ebp
-    int v7; // eax
     char* v8; // eax
     unsigned __int8 v10; // [esp+18h] [ebp+8h]
 
     v3 = a2;
-LABEL_2:
     while (1)
     {
         v4 = *(unsigned __int8**)(a1 + 8);
@@ -137,20 +159,17 @@ LABEL_2:
         sub_40ACC0(v3, 1u, v10, a1);
         v3[v10] = 0;
         v5 = strtok(v3, " \t\n\r");
-        v6 = &byte_587000[122104];
-        if (*(_DWORD*)& byte_587000[122108])
+        for (int i = 0; i < table_122104_cnt; i++)
         {
-            while (strcmp(v5, *(const char**)v6))
+            table_122104_t* v6 = &table_122104[i];
+            if (strcmp(v5, v6->field_0) == 0)
             {
-                v7 = *((_DWORD*)v6 + 3);
-                v6 += 8;
-                if (!v7)
-                    goto LABEL_2;
+                v8 = strtok(0, "=");
+                if (v8)
+                    memmove(v3, v8 + 1, strlen(v8 + 1) + 1);
+                (*((void(__cdecl * *)(int, int, char*))&v6->field_4))(a3, a1, v3);
+                break;
             }
-            v8 = strtok(0, "=");
-            if (v8)
-                memmove(v3, v8 + 1, strlen(v8 + 1) + 1);
-            (*((void(__cdecl * *)(int, int, char*))v6 + 1))(a3, a1, v3);
         }
     }
 }
