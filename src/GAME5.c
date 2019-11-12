@@ -9652,8 +9652,8 @@ int __cdecl sub_5520B0(int a1, int a2)
     if (*(_DWORD*)& byte_5D4594[2495924])
         return -14;
     *(_DWORD*)& byte_5D4594[3844300] = 0;
-    memset(&byte_5D4594[3843788], 0, 0x200u);
-    memset(&byte_5D4594[2500084], 0, 0x2200u);
+    memset(&byte_5D4594[3843788], 0, 512);
+    memset(&byte_5D4594[2500084], 0, 8704);
     *(_DWORD*)& byte_5D4594[2512884] = a2;
     *(_DWORD*)& byte_5D4594[3844300] = sub_413FE0("GQueue", a2, a1);
     if (!*(_DWORD*)& byte_5D4594[3844300])
@@ -9857,28 +9857,26 @@ int sub_552460()
 }
 
 //----- (005524C0) --------------------------------------------------------
-unsigned int sub_5524C0()
+void sub_5524C0()
 {
     unsigned int v0; // edi
     unsigned int* v1; // esi
-    unsigned int result; // eax
 
     *(_DWORD*)& byte_5D4594[2495920] = timeGetTime();
     v0 = 0;
     v1 = (unsigned int*)& byte_5D4594[3843788];
     do
     {
-        result = *v1;
+        unsigned int result = *v1;
         if (*v1 && *(_DWORD*)(result + 152) == 1)
         {
-            result = *(_DWORD*)(result + 160) + 300;
+            _DWORD result = *(_DWORD*)(result + 160) + 300;
             if (result < *(int*)& byte_5D4594[2598000])
                 result = sub_5545B0(v0);
         }
         ++v1;
         ++v0;
     } while ((int)v1 < (int)& byte_5D4594[3844300]);
-    return result;
 }
 
 //----- (00552510) --------------------------------------------------------
@@ -11426,7 +11424,7 @@ unsigned int __cdecl sub_554040(int a1, int a2, char* a3)
     v17[6] = v8 >> 4;
     *(_WORD*)& v17[38] = *(_WORD*)(v3 + 107);
     *(_DWORD*)& v17[40] = v10;
-    v11 = sub_43BE50();
+    v11 = sub_43BE50_get_video_mode_id();
     v12 = *((_DWORD*)v4 + 12);
     v17[19] = v3[102] | v11;
     v17[20] = v3[100];

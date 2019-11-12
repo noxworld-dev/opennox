@@ -48,6 +48,24 @@ extern FILE* nox_file_8;
 extern FILE* nox_file_log;
 extern FILE* nox_file_9;
 
+const int default_win_width = 640;
+const int default_win_height = 480;
+const int default_win_depth = 16;
+
+const int max_win_width = 1024;
+const int max_win_height = 768;
+
+int nox_win_width_1 = default_win_width;
+int nox_win_height_1 = default_win_height;
+int nox_win_depth_1 = default_win_depth;
+
+int nox_win_width_2 = default_win_width;
+int nox_win_height_2 = default_win_height;
+int nox_win_depth_2 = default_win_depth;
+
+int nox_max_width = max_win_width;
+int nox_max_height = max_win_height;
+
 _DWORD* dword_5D4594_251544 = 0;
 
 obj_412ae0_t* byte_5D4594_251584[3] = {0};
@@ -1176,6 +1194,13 @@ table_28760_t table_28760[] = {
 };
 int table_28760_cnt = sizeof(table_28760)/sizeof(table_28760_t);
 
+nox_video_mode nox_video_modes[] = {
+    {640, 480, 0},
+    {800, 600, 1},
+    {1024, 768, 2},
+};
+int nox_video_modes_cnt = sizeof(nox_video_modes)/sizeof(nox_video_mode);
+
 extern table_122104_t table_122104[];
 
 typedef struct mem_mapping
@@ -1204,6 +1229,15 @@ mem_mapping mappings[] = {
     {0x5D4594+1309760, (void*)&nox_file_9, sizeof(nox_file_9),1},
     {0x5D4594+1599584, (void*)&nox_file_8, sizeof(nox_file_8),1},
     {0x5D4594+1599620, (void*)&nox_file_7, sizeof(nox_file_7),1},
+    {0x587000+91780, (void*)&nox_win_width_1, sizeof(nox_win_width_1),1},
+    {0x587000+91784, (void*)&nox_win_height_1, sizeof(nox_win_height_1),1},
+    {0x587000+91788, (void*)&nox_win_depth_1, sizeof(nox_win_depth_1),1},
+    {0x587000+91792, (void*)&nox_win_width_2, sizeof(nox_win_width_2),1},
+    {0x587000+91796, (void*)&nox_win_height_2, sizeof(nox_win_height_2),1},
+    {0x587000+91800, (void*)&nox_win_depth_2, sizeof(nox_win_depth_2),1},
+    {0x587000+91804, (void*)nox_video_modes, sizeof(nox_video_modes),1},
+    {0x587000+80856, (void*)&nox_max_width, sizeof(nox_max_width),1},
+    {0x587000+80860, (void*)&nox_max_height, sizeof(nox_max_height),1},
     {0x5D4594+251544, (void*)&dword_5D4594_251544, sizeof(dword_5D4594_251544),1},
     {0x5D4594+251584, (void*)byte_5D4594_251584, sizeof(byte_5D4594_251584),1},
     {0x5D4594+251596, (void*)&byte_5D4594_251596, sizeof(byte_5D4594_251596),1},
@@ -1464,12 +1498,12 @@ int __cdecl cmain(int argc, const char* argv[])
             int v12 = 16;
             if (!sub_4300D0(1))
                 v12 = 8;
-            *(_DWORD*)& byte_587000[91780] = 640;
-            *(_DWORD*)& byte_587000[91784] = 480;
-            *(_DWORD*)& byte_587000[91788] = v12;
-            *(_DWORD*)& byte_587000[91792] = 640;
-            *(_DWORD*)& byte_587000[91796] = 480;
-            *(_DWORD*)& byte_587000[91800] = v12;
+            nox_win_width_1 = default_win_width;
+            nox_win_height_1 = default_win_height;
+            nox_win_depth_1 = v12;
+            nox_win_width_2 = default_win_width;
+            nox_win_height_2 = default_win_height;
+            nox_win_depth_2 = v12;
         }
         else if (!_strcmpi(flag, "-noaudio"))
         {
@@ -1634,7 +1668,7 @@ void __cdecl sub_401B20(char* a1)
     strcpy((char*)& byte_5D4594[272], "\xecqX");
     *(_DWORD*)& byte_5D4594[404] = 1;
     v1 = strtok(a1, " \t");
-    sub_43BEF0(0, 0, 0);
+    sub_43BEF0_set_video_mode(0, 0, 0);
     if (v1)
     {
         do
@@ -14024,9 +14058,9 @@ int sub_4161E0()
         byte_5D4594[371620] = v1;
         *(_DWORD*)& byte_5D4594[371692] = 1;
     }
-    if ((byte_5D4594[371618] & 0xEF) != sub_43BE50())
+    if ((byte_5D4594[371618] & 0xEF) != sub_43BE50_get_video_mode_id())
     {
-        v2 = sub_43BE50();
+        v2 = sub_43BE50_get_video_mode_id();
         *(_DWORD*)& byte_5D4594[371692] = 1;
         byte_5D4594[371618] = byte_5D4594[371618] & 0x80 | v2;
     }
@@ -36057,11 +36091,11 @@ BOOL __cdecl sub_430BE0(int a1, int a2, int a3)
     printf("New size: %d, %d\n", a1, a2);
 
     *(_DWORD*)& byte_5D4594[3805496] = a1;
-    if (a1 > * (int*)& byte_587000[80856])
-        * (_DWORD*)& byte_5D4594[3805496] = *(_DWORD*)& byte_587000[80856];
+    if (a1 > nox_max_width)
+        * (_DWORD*)& byte_5D4594[3805496] = nox_max_width;
     *(_DWORD*)& byte_5D4594[3807120] = a2;
-    if (a2 > * (int*)& byte_587000[80860])
-        * (_DWORD*)& byte_5D4594[3807120] = *(_DWORD*)& byte_587000[80860];
+    if (a2 > nox_max_height)
+        * (_DWORD*)& byte_5D4594[3807120] = nox_max_height;
     a3 = 16;
     result = a3 != 8;
     *(_DWORD*)& byte_5D4594[3804680] = a3 != 8;
@@ -36069,25 +36103,17 @@ BOOL __cdecl sub_430BE0(int a1, int a2, int a3)
 }
 
 //----- (00430C30) --------------------------------------------------------
-int __cdecl sub_430C30(int a1, int a2)
+void __cdecl sub_430C30_set_video_max(int w, int h)
 {
-    int result; // eax
-
-    result = a1;
-    *(_DWORD*)& byte_587000[80856] = a1;
-    *(_DWORD*)& byte_587000[80860] = a2;
-    return result;
+    nox_max_width = w;
+    nox_max_height = h;
 }
 
 //----- (00430C50) --------------------------------------------------------
-int __cdecl sub_430C50(_DWORD* a1, _DWORD* a2)
+void __cdecl sub_430C50_get_video_max(int* w, int* h)
 {
-    int result; // eax
-
-    *a1 = *(_DWORD*)& byte_587000[80856];
-    result = *(_DWORD*)& byte_587000[80860];
-    *a2 = *(_DWORD*)& byte_587000[80860];
-    return result;
+    *w = nox_max_width;
+    *h = nox_max_height;
 }
 
 //----- (00430CC0) --------------------------------------------------------
@@ -37794,18 +37820,16 @@ int __cdecl sub_432AD0(int* a1)
 int sub_432B00()
 {
     char* v0; // eax
-    int v1; // edi
     char* v2; // eax
-    int v3; // ebx
     char* v4; // eax
     int v5; // eax
     int v6; // esi
 
     strtok(0, " \r\t\n");
     v0 = strtok(0, " \r\t\n");
-    v1 = atoi(v0);
+    int w = atoi(v0);
     v2 = strtok(0, " \r\t\n");
-    v3 = atoi(v2);
+    int h = atoi(v2);
     v4 = strtok(0, " \r\t\n");
     v5 = atoi(v4);
     v6 = v5;
@@ -37830,10 +37854,10 @@ int sub_432B00()
     v6 = 16; // 8 bit not supported
     if (!(byte_5D4594[2650637] & 2))
     {
-        * (_DWORD*)& byte_587000[91780] = v1;
-        *(_DWORD*)& byte_587000[91784] = v3;
-        *(_DWORD*)& byte_587000[91788] = v6;
-        *(_DWORD*)& byte_587000[91800] = v6;
+        nox_win_width_1 = w;
+        nox_win_height_1 = h;
+        nox_win_depth_1 = v6;
+        nox_win_depth_2 = v6;
 
         change_windowed_fullscreen();
     }
@@ -38252,9 +38276,9 @@ int __cdecl sub_4332E0(FILE* a1)
     fprintf(
         a1,
         "VideoMode = %d %d %d\n",
-        *(_DWORD*)& byte_587000[91780],
-        *(_DWORD*)& byte_587000[91784],
-        *(_DWORD*)& byte_587000[91788]);
+        nox_win_width_1,
+        nox_win_height_1,
+        nox_win_depth_1);
     fprintf(a1, "Stretched = %d\n", g_scaled_cfg);
     fprintf(a1, "Fullscreen = %d\n", g_fullscreen_cfg);
     v2 = sub_4766D0();
@@ -39403,7 +39427,7 @@ int __cdecl sub_435A10(signed int* a1)
     int v6; // [esp+14h] [ebp-A0h]
     BYTE Data[153]; // [esp+18h] [ebp-9Ch]
 
-    sub_43BEB0(&v5, &v4, &v6);
+    sub_43BEB0_get_video_mode(&v5, &v4, &v6);
     v1 = sub_431770();
     nox_wcscpy((wchar_t*)v1, (const wchar_t*)& byte_5D4594[2661908]);
     v1[66] = byte_5D4594[2661958];
@@ -40904,7 +40928,7 @@ int sub_4379F0()
                 *(_DWORD*)& byte_5D4594[815088] = 0;
                 sub_4158C0();
                 sub_415D50();
-                sub_430C30(1024, 768);
+                sub_430C30_set_video_max(max_win_width, max_win_height);
                 sub_477610(0);
                 if (*(_DWORD*)& byte_5D4594[815096])
                 {
@@ -42335,7 +42359,7 @@ char* sub_43AA70()
         v1[103] = v3 - 1;
         --v1[104];
     }
-    v4 = sub_43BE50();
+    v4 = sub_43BE50_get_video_mode_id();
     v5 = v1[102];
     *((_DWORD*)v1 + 12) = 66458;
     v1[102] = v5 & 0x80 | v4;
@@ -42675,7 +42699,6 @@ int sub_43B360()
     char* v0; // ebx
     unsigned __int16 v1; // ax
     char v2; // al
-    int* v3; // eax
     char v5[32]; // [esp+0h] [ebp-20h]
 
     sub_40A4D0(4);
@@ -42694,10 +42717,11 @@ int sub_43B360()
     }
     sub_433290((char*)& byte_587000[90848]);
     v2 = *(_BYTE*)(*(_DWORD*)& byte_5D4594[814624] + 102);
-    if (v2 < 0 && (v3 = (int*)sub_43BE80(v2 & 0x7F)) != 0)
-        sub_430C30(*v3, v3[1]);
+    nox_video_mode* v3;
+    if (v2 < 0 && (v3 = sub_43BE80_video_mode_by_id(v2 & 0x7F)) != 0)
+        sub_430C30_set_video_max(v3->width, v3->height);
     else
-        sub_430C30(1024, 768);
+        sub_430C30_set_video_max(max_win_width, max_win_height);
     sub_44A400();
     sub_43A9D0();
     sub_4A24A0();
@@ -43119,69 +43143,49 @@ int __cdecl sub_43BE40(int a1)
 }
 
 //----- (0043BE50) --------------------------------------------------------
-int sub_43BE50()
+int sub_43BE50_get_video_mode_id()
 {
-    int v0; // ecx
-    unsigned __int8* v1; // eax
-
-    v0 = 0;
-    v1 = &byte_587000[91804];
-    while (*(_DWORD*)v1 != *(_DWORD*)& byte_587000[91780])
+    for (int i = 0; i < nox_video_modes_cnt; i++)
     {
-        v1 += 12;
-        ++v0;
-        if ((int)v1 >= (int)& byte_587000[91840])
-            return 3;
+        nox_video_mode* m = &nox_video_modes[i];
+        if (m->width == nox_win_width_1)
+            return m->id;
     }
-    return *(_DWORD*)& byte_587000[12 * v0 + 91812];
+    return nox_video_modes_cnt;
 }
 
 //----- (0043BE80) --------------------------------------------------------
-char* __cdecl sub_43BE80(int a1)
+nox_video_mode* __cdecl sub_43BE80_video_mode_by_id(int a1)
 {
-    int v1; // ecx
-    unsigned __int8* v2; // eax
-
-    v1 = 0;
-    v2 = &byte_587000[91812];
-    while (*(_DWORD*)v2 != a1)
+    for (int i = 0; i < nox_video_modes_cnt; i++)
     {
-        v2 += 12;
-        ++v1;
-        if ((int)v2 >= (int)& byte_587000[91848])
-            return 0;
+        nox_video_mode* m = &nox_video_modes[i];
+        if (m->id == a1)
+            return m;
     }
-    return (char*)& byte_587000[12 * v1 + 91804];
+    return 0;
 }
 
 //----- (0043BEB0) --------------------------------------------------------
-_DWORD* __cdecl sub_43BEB0(_DWORD* a1, _DWORD* a2, _DWORD* a3)
+void __cdecl sub_43BEB0_get_video_mode(int* w, int* h, int* d)
 {
-    _DWORD* result; // eax
-
-    if (a1)
-        * a1 = *(_DWORD*)& byte_587000[91780];
-    if (a2)
-        * a2 = *(_DWORD*)& byte_587000[91784];
-    result = a3;
-    if (a3)
-        * a3 = *(_DWORD*)& byte_587000[91788];
-    return result;
+    if (w)
+        * w = nox_win_width_1;
+    if (h)
+        * h = nox_win_height_1;
+    if (d)
+        * d = nox_win_depth_1;
 }
 
 //----- (0043BEF0) --------------------------------------------------------
-int __cdecl sub_43BEF0(int a1, int a2, int a3)
+void __cdecl sub_43BEF0_set_video_mode(int w, int h, int d)
 {
-    int result; // eax
-
-    a3 = 16; // 8 bit not supported
-    result = a1;
-    *(_DWORD*)& byte_587000[91780] = a1;
-    *(_DWORD*)& byte_587000[91784] = a2;
-    *(_DWORD*)& byte_587000[91788] = a3;
+    d = 16; // 8 bit not supported
+    nox_win_width_1 = w;
+    nox_win_height_1 = h;
+    nox_win_depth_1 = d;
 
     change_windowed_fullscreen();
-    return result;
 }
 
 //----- (0043BF10) --------------------------------------------------------
@@ -43194,15 +43198,15 @@ int __cdecl sub_43BF10(int a1)
 
     if (a1 == 1)
     {
-        v1 = *(_DWORD*)& byte_587000[91792];
-        v2 = *(_DWORD*)& byte_587000[91796];
-        v3 = *(_DWORD*)& byte_587000[91800];
+        v1 = nox_win_width_2;
+        v2 = nox_win_height_2;
+        v3 = nox_win_depth_2;
     }
     else
     {
-        v1 = *(_DWORD*)& byte_587000[91780];
-        v2 = *(_DWORD*)& byte_587000[91784];
-        v3 = *(_DWORD*)& byte_587000[91788];
+        v1 = nox_win_width_1;
+        v2 = nox_win_height_1;
+        v3 = nox_win_depth_1;
     }
     sub_430BE0(v1, v2, v3);
     *(_DWORD*)& byte_5D4594[805872] = 0;
@@ -45065,9 +45069,6 @@ LABEL_16:
 int map_download_finish()
 {
     int result; // eax
-    int v3; // [esp+4h] [ebp-Ch]
-    int v4; // [esp+8h] [ebp-8h]
-    int v5; // [esp+Ch] [ebp-4h]
     wchar_t* v6; // eax
     char* v13; // [esp-4h] [ebp-10Ch]
 
@@ -45075,9 +45076,12 @@ int map_download_finish()
     result = *(_DWORD*)& byte_587000[173332];
     if (*(_DWORD*)& byte_587000[173332])
     {
-        sub_43BEB0(&v3, &v5, &v4);
+        int v3; // [esp+4h] [ebp-Ch]
+        int v4; // [esp+8h] [ebp-8h]
+        int v5; // [esp+Ch] [ebp-4h]
+        sub_43BEB0_get_video_mode(&v3, &v5, &v4);
         if (!v3)
-            sub_43BEF0(640, 480, v4);
+            sub_43BEF0_set_video_mode(default_win_width, default_win_height, v4);
         result = *(_DWORD*)& byte_587000[173332];
     }
 
@@ -50600,11 +50604,11 @@ LABEL_29:
     v4 = v9;
     v5 = v9;
 LABEL_30:
-    sub_43BEB0(&v11, &v10, &v9);
+    sub_43BEB0_get_video_mode(&v11, &v10, &v9);
     v4 = 16; // 8 bit not supported
     sub_481420();
     if (!(byte_5D4594[2650637] & 2))
-        sub_43BEF0(640, 480, v4);
+        sub_43BEF0_set_video_mode(default_win_width, default_win_height, v4);
     sub_4766A0(v5);
     result = sub_40A5C0(0x10000000);
     if (result)
