@@ -265,9 +265,6 @@ extern "C" {
 #define CloseHandle compatCloseHandle
 #define GetLastError compatGetLastError
 #define GetLocalTime compatGetLocalTime
-#define GetTickCount compatGetTickCount
-#define Sleep compatSleep
-#define timeGetTime compattimeGetTime
 #define FindFirstFileA compatFindFirstFileA
 #define FindNextFileA compatFindNextFileA
 #define FindClose compatFindClose
@@ -359,9 +356,6 @@ extern "C" {
     BOOL WINAPI CloseHandle(HANDLE hObject);
     DWORD WINAPI GetLastError();
     VOID WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime);
-    DWORD WINAPI GetTickCount();
-    VOID WINAPI Sleep(DWORD dwMilliseconds);
-    DWORD WINAPI timeGetTime();
     HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
     BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
     BOOL WINAPI FindClose(HANDLE hFindFile);

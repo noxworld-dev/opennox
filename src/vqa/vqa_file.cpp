@@ -187,7 +187,7 @@ int Cvqa_file::extract_both()
 
     unsigned int cachedFramesReadPosition = 0;
 
-    dword startTime = SDL_GetTicks();
+    dword startTime = nox_get_ticks();
 
     int delayInNextFrame = 0;
 
@@ -375,13 +375,13 @@ int Cvqa_file::extract_both()
 
         if (skipRenderingFor > 0)
         {
-            int afterNoRenderPass = SDL_GetTicks();
+            int afterNoRenderPass = nox_get_ticks();
             int sleepFor = skipRenderingFor - (afterNoRenderPass - beforeNoRenderPass);
             if (sleepFor < 0)
             {
                 printf("SkipRenderPass overrun...\n");
                 delayInNextFrame += sleepFor;
-                startTime = SDL_GetTicks();
+                startTime = nox_get_ticks();
                 skipRenderingFor = 0;
             }
             else if (sleepFor > 5 && !cachesFull && currentFrame < get_c_frames())
@@ -392,16 +392,12 @@ int Cvqa_file::extract_both()
             else
             {
                 skipRenderingFor = 0;
-                dword beforeSleepTime = SDL_GetTicks();
+                dword beforeSleepTime = nox_get_ticks();
                 // We need to wait between frames
-#ifdef __EMSCRIPTEN__
-                emscripten_sleep(sleepFor);
-#else
-                SDL_Delay(sleepFor);
-#endif
-                dword afterSleepTime = SDL_GetTicks();
+                nox_sleep(sleepFor);
+                dword afterSleepTime = nox_get_ticks();
                 delayInNextFrame -= afterSleepTime - beforeSleepTime - sleepFor;
-                startTime = SDL_GetTicks();
+                startTime = nox_get_ticks();
             }
         }
         else if (cachesUnavailable)
@@ -483,7 +479,7 @@ int Cvqa_file::extract_both()
                         }
 
 #ifdef __EMSCRIPTEN__
-                        emscripten_sleep(5);
+                        nox_sleep(5);
 #endif
                     } // while (currentBuffer == 0)
 
@@ -631,7 +627,7 @@ int Cvqa_file::extract_both()
 
             fpsCompensator = fpsCompensator % howMuchFrames + howMuchMilliseconds % howMuchFrames;
 
-            dword currentTime = SDL_GetTicks();
+            dword currentTime = nox_get_ticks();
             timeBetweenFrames -= currentTime - startTime;
             if (timeBetweenFrames > (howMuchMilliseconds / howMuchFrames))
             {
@@ -644,7 +640,7 @@ int Cvqa_file::extract_both()
             if (timeBetweenFrames > 0)
             {
                 delayInNextFrame = 0;
-                beforeNoRenderPass = SDL_GetTicks();
+                beforeNoRenderPass = nox_get_ticks();
                 skipRenderingFor = timeBetweenFrames;
                 //printf("RenderEnd: Next pass skip rendering %d\n", timeBetweenFrames);
             }
@@ -652,7 +648,7 @@ int Cvqa_file::extract_both()
             {
                 // How much time we "won back"
                 delayInNextFrame += (howMuchMilliseconds / howMuchFrames);
-                startTime = SDL_GetTicks();
+                startTime = nox_get_ticks();
             }
         }
 
