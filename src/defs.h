@@ -18,6 +18,8 @@
 #define USE_SDL 1
 #include <SDL2/SDL.h>
 
+#include "platform.h"
+
 #ifdef __EMSCRIPTEN__
 #define wchar_t int16_t
 #endif

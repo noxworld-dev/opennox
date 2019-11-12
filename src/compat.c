@@ -616,25 +616,6 @@ BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER *lpFrequency)
     return TRUE;
 }
 
-VOID WINAPI Sleep(DWORD dwMilliseconds)
-{
-#ifdef __EMSCRIPTEN__
-	emscripten_sleep(dwMilliseconds);
-#else
-    SDL_Delay(dwMilliseconds);
-#endif
-}
-
-DWORD WINAPI timeGetTime()
-{
-    return SDL_GetTicks();
-}
-
-DWORD WINAPI GetTickCount()
-{
-    return timeGetTime();
-}
-
 // File functions
 char *dos_to_unix(const char *path)
 {
@@ -1073,7 +1054,7 @@ LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserve
     {
         int i;
         for (i = 0; i < *lpcbData - 1; i++)
-            lpData[i] = (rand() % 10) + '0';
+            lpData[i] = (nox_rand() % 10) + '0';
         lpData[i] = 0;
         *lpType = 1; // REG_SZ
         return 0;

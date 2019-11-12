@@ -3503,7 +3503,7 @@ int __cdecl sub_4B0340(int a1)
     {
         sub_4312C0();
 #ifdef __EMSCRIPTEN__
-        emscripten_sleep(0x32u);
+        nox_sleep(0x32u);
 #endif
     }
     sub_43E8E0();

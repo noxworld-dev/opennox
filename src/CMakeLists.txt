@@ -35,6 +35,7 @@ endif ()
 add_executable (
     out
     ConvertUTF.c
+    platform.c
     GAME1.c
     GAME2.c
     GAME3.c
