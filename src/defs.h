@@ -442,4 +442,44 @@ typedef struct obj_412ae0_t
     obj_412ae0_t* field_35;
 } obj_412ae0_t;
 
+typedef struct table_26792_t
+{
+    const char* name;
+    void* fnc;
+    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
+} table_26792_t;
+
+typedef struct table_27008_t
+{
+    const char* name;
+    void* fnc;
+    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
+} table_27008_t;
+
+typedef struct table_27104_t
+{
+    const char* name;
+    void* fnc;
+    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
+} table_27104_t;
+
+typedef struct table_27168_t
+{
+    const char* name;
+    void* fnc;
+    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
+} table_27168_t;
+
+typedef struct table_28760_t
+{
+    const char* name;
+    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
+} table_28760_t;
+
+typedef struct table_122104_t
+{
+    const char* field_0;
+    void* field_4;
+} table_122104_t;
+
 #endif

@@ -1099,13 +1099,6 @@ const char* table_5184[] = {
     "EnableSharedKeyMode"
 };
 
-typedef struct table_26792_t
-{
-    const char* name;
-    void* fnc;
-    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
-} table_26792_t;
-
 table_26792_t table_26792[] = {
     {"DamageMultiplierEffect", &sub_4E04C0, &sub_4235C0},
     {"StunEffect", &sub_4E04D0, &sub_423780},
@@ -1127,13 +1120,6 @@ table_26792_t table_26792[] = {
 };
 int table_26792_cnt = sizeof(table_26792)/sizeof(table_26792_t);
 
-typedef struct table_27008_t
-{
-    const char* name;
-    void* fnc;
-    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
-} table_27008_t;
-
 table_27008_t table_27008[] = {
     {"ArmorMultiplierEffect", &sub_4E0370, &sub_4235C0},
     {"DurabilityMultiplierEffect", &sub_4E0380, &sub_4235C0},
@@ -1145,13 +1131,6 @@ table_27008_t table_27008[] = {
 };
 int table_27008_cnt = sizeof(table_27008)/sizeof(table_27008_t);
 
-typedef struct table_27104_t
-{
-    const char* name;
-    void* fnc;
-    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
-} table_27104_t;
-
 table_27104_t table_27104[] = {
     {"RegenerationUpdate", &sub_4E01D0, &sub_423780},
     {"ParasiteUpdate", &nullsub_43, &sub_423780},
@@ -1159,13 +1138,6 @@ table_27104_t table_27104[] = {
     {"ContinualReplenishmentUpdate", &sub_4E02C0, &sub_423780},
 };
 int table_27104_cnt = sizeof(table_27104)/sizeof(table_27104_t);
-
-typedef struct table_27168_t
-{
-    const char* name;
-    void* fnc;
-    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
-} table_27168_t;
 
 table_27168_t table_27168[] = {
     {"BrillianceEngage", &sub_4DFB50, &sub_423780},
@@ -1182,12 +1154,6 @@ table_27168_t table_27168[] = {
     {"RegenerationDisengage", &sub_4E0170, 0},
 };
 int table_27168_cnt = sizeof(table_27168)/sizeof(table_27168_t);
-
-typedef struct table_28760_t
-{
-    const char* name;
-    int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
-} table_28760_t;
 
 table_28760_t table_28760[] = {
     {"DESC", &sub_412100_parse_desc},
@@ -1209,6 +1175,8 @@ table_28760_t table_28760[] = {
     {"ALLOWED_POSITION", &sub_4128C0_parse_allowed_pos},
 };
 int table_28760_cnt = sizeof(table_28760)/sizeof(table_28760_t);
+
+extern table_122104_t table_122104[];
 
 typedef struct mem_mapping
 {
@@ -1245,6 +1213,7 @@ mem_mapping mappings[] = {
     {0x587000+27104, (void*)table_27104, sizeof(table_27104),1},
     {0x587000+27168, (void*)table_27168, sizeof(table_27168),1},
     {0x587000+28760, (void*)table_28760, sizeof(table_28760),1},
+    {0x587000+122104, (void*)table_122104, 168,1}, // TODO
     // full blobs
     #if 0
     {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
@@ -2454,7 +2423,9 @@ void init_data()
     *(void**)& byte_587000[31112] = &byte_587000[31160];
     *(void**)& byte_587000[31116] = &byte_587000[31168];
     *(void**)& byte_587000[31120] = &byte_587000[31176];
+#ifndef USE_SDL
     *(void**)& byte_587000[32580] = &GetLocalTime;
+#endif
     *(void**)& byte_587000[32584] = &byte_587000[32608];
     *(void**)& byte_587000[32588] = &byte_587000[32652];
     *(void**)& byte_587000[32592] = &byte_587000[32860];
@@ -4461,6 +4432,7 @@ void init_data()
     *(void**)& byte_587000[117064] = &byte_587000[122064];
     *(void**)& byte_587000[117080] = &byte_587000[122076];
     *(void**)& byte_587000[117096] = &byte_587000[122088];
+#if 0
     *(void**)& byte_587000[122104] = &byte_587000[122280];
     *(void**)& byte_587000[122108] = &sub_44B160;
     *(void**)& byte_587000[122112] = &byte_587000[122288];
@@ -4503,6 +4475,7 @@ void init_data()
     *(void**)& byte_587000[122260] = &sub_44C500;
     *(void**)& byte_587000[122264] = &byte_587000[122500];
     *(void**)& byte_587000[122268] = &sub_44C4E0;
+#endif
     *(void**)& byte_587000[122852] = &byte_5D4594[830980];
     *(void**)& byte_587000[122944] = &byte_587000[123016];
     *(void**)& byte_587000[122948] = &byte_587000[123024];
@@ -61126,7 +61099,7 @@ int __cdecl sub_44B700(int a1, int a2, void* a3)
     unsigned __int8 v22; // [esp+1Ch] [ebp+8h]
     unsigned __int8 v23; // [esp+1Ch] [ebp+8h]
 
-    v3 = nox_calloc(1u, 0x38BCu);
+    v3 = nox_calloc(1u, 14524);
     v4 = a2;
     v5 = v3;
     v21 = v3;
