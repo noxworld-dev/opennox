@@ -146,7 +146,7 @@ void CONNECT_PREPARE(sm_args_t* args)
     int v6; // [esp+14h] [ebp-A0h]
     BYTE Data[1024]; // [esp+18h] [ebp-9Ch]
 
-    sub_43BEB0(&v5, &v4, &v6);
+    sub_43BEB0_get_video_mode(&v5, &v4, &v6);
     v1 = sub_431770();
     nox_wcscpy((wchar_t*)v1, (const wchar_t*)& byte_5D4594[2661908]);
     v1[66] = byte_5D4594[2661958];
@@ -431,9 +431,9 @@ void CONNECT_RESULT(sm_args_t* args)
             int v25;
             int v26;
             int v28;
-            sub_43BEB0(&v26, &v28, &v25);
+            sub_43BEB0_get_video_mode(&v26, &v28, &v25);
             if (!v26)
-                sub_43BEF0(640, 480, v25);
+                sub_43BEF0_set_video_mode(default_win_width, default_win_height, v25);
             if (!sub_43BF10(0))
                 return;
         }

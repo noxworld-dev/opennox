@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     g_argv[0] = "nox.exe";
     g_argc = 1;
 
-    sub_43BEF0(0, 0, 0);
+    sub_43BEF0_set_video_mode(0, 0, 0);
 
     for (v4 = strtok(lpCmdLine, " \t"); v4; v4 = strtok(0, " \t"))
     {
