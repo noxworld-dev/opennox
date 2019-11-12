@@ -71,7 +71,6 @@ _DWORD* dword_5D4594_251544 = 0;
 obj_412ae0_t* byte_5D4594_251584[3] = {0};
 int byte_5D4594_251596 = 0;
 
-void sub_57F634() {}
 void nullsub_38() {}
 void nullsub_39() {}
 void nullsub_40() {}
@@ -79,17 +78,6 @@ void nullsub_41() {}
 void nullsub_42() {}
 void nullsub_43() {}
 void nullsub_44() {}
-void nullsub_45() {}
-void nullsub_46() {}
-void nullsub_47() {}
-void nullsub_48() {}
-void nullsub_62() {}
-void nullsub_65() {}
-void nullsub_66() {}
-void nullsub_67() {}
-void nullsub_68() {}
-void nullsub_69() {}
-void nullsub_70() {}
 
 const char* table_5184[] = {
     "NULL",
