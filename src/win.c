@@ -17,6 +17,8 @@ const char* g_argv[21];
 unsigned int g_argc;
 
 extern int g_scaled;
+extern int nox_win_width;
+extern int nox_win_height;
 
 extern FILE* nox_file_log;
 
@@ -89,7 +91,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
 #ifdef USE_SDL
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
-    g_window = SDL_CreateWindow("Nox Game Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, *(int*)& byte_5D4594[3805496], *(int*)& byte_5D4594[3807120], SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+    g_window = SDL_CreateWindow("Nox Game Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, nox_win_width, nox_win_height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
 #ifdef __EMSCRIPTEN__
     if (EM_ASM_INT(return isMobile()))
@@ -130,7 +132,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         g_wnd_class.hIconSm = 0;
 
         RegisterClassExA(&g_wnd_class);
-        v13 = CreateWindowExA(0x40000u, "Nox Game Window", "NOX", 0x80000000, 0, 0, *(int*)& byte_5D4594[3805496], *(int*)& byte_5D4594[3807120], 0, 0, hInstance, 0);
+        v13 = CreateWindowExA(0x40000u, "Nox Game Window", "NOX", 0x80000000, 0, 0, nox_win_width, nox_win_height, 0, 0, hInstance, 0);
         if (!v13)
             return 0;
         g_hwnd = v13;
@@ -374,7 +376,7 @@ int sub_4453A0()
 {
 #ifdef USE_SDL
     SDL_Event event;
-    while (SDL_PollEvent(&event))
+    while (nox_SDL_PollEvent(&event))
         process_event(&event);
     return 0;
 #else

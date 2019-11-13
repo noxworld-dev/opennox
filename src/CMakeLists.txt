@@ -36,6 +36,7 @@ add_executable (
     out
     ConvertUTF.c
     platform.c
+    e2e.c
     GAME1.c
     GAME2.c
     GAME3.c

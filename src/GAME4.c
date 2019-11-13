@@ -1,5 +1,7 @@
 #include "proto.h"
 
+extern int nox_win_width;
+
 FILE* nox_file_7 = 0;
 FILE* nox_file_8 = 0;
 
@@ -9795,7 +9797,7 @@ int __cdecl sub_501FD0(int a1, int a2, __int16 a3)
     LOBYTE(a1) = (a1 == *(_DWORD*)(a2 + 16)) - 90;
     HIWORD(a1) = v5;
     v7 = v4 - *(float*)(*(_DWORD*)(v3 + 276) + 3632);
-    BYTE1(a1) = 50 * sub_419A70(v7) / (*(_DWORD*)& byte_5D4594[3805496] / 2);
+    BYTE1(a1) = 50 * sub_419A70(v7) / (nox_win_width / 2);
     return sub_40EBC0(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), 1, &a1, 4);
 }
 

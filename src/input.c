@@ -5,6 +5,9 @@
 
 #include "proto.h"
 
+extern int nox_win_width;
+extern int nox_win_height;
+
 #ifdef USE_SDL
 #include "sdl2_scancode_to_dinput.h"
 
@@ -55,37 +58,35 @@ static int move_speed;
 static int jump;
 int g_mouse_aquired = 0;
 
-void process_window_event(const SDL_WindowEvent* event)
-{
-    int mouseX;
-    int mouseY;
-    int wndPosX;
-    int wndPosY;
-    int wndSizeW;
-    int wndSizeH;
-    int isMouseInside = 0;
-
+int is_mouse_inside(HWND wnd) {
+#ifdef __EMSCRIPTEN__
+    return 1;
+#else
+    int mouseX, mouseY;
+    int wndPosX, wndPosY;
+    int wndSizeW, wndSizeH;
     SDL_GetGlobalMouseState(&mouseX, &mouseY);
-    SDL_GetWindowPosition(getWindowHandle_sub_401FD0(), &wndPosX, &wndPosY);
-    SDL_GetWindowSize(getWindowHandle_sub_401FD0(), &wndSizeW, &wndSizeH);
+    SDL_GetWindowPosition(wnd, &wndPosX, &wndPosY);
+    SDL_GetWindowSize(wnd, &wndSizeW, &wndSizeH);
 
     if (mouseX >= wndPosX && mouseX <= wndPosX + wndSizeW &&
         mouseY >= wndPosY && mouseY <= wndPosY + wndSizeH)
     {
-        isMouseInside = 1;
+        return 1;
     }
-
-#ifdef __EMSCRIPTEN__
-    isMouseInside = 1;
+    return 0;
 #endif
+}
 
+void process_window_event(const SDL_WindowEvent* event)
+{
     switch (event->event)
     {
     case SDL_WINDOWEVENT_FOCUS_LOST:
         unacquireMouse_sub_47D8B0();
         break;
     case SDL_WINDOWEVENT_FOCUS_GAINED:
-        if (isMouseInside)
+        if (is_mouse_inside(getWindowHandle_sub_401FD0()))
             acquireMouse_sub_47D8C0();
         break;
     default:
@@ -501,44 +502,44 @@ typedef struct DIDEVICEOBJECTDATA {
 } DIDEVICEOBJECTDATA, * LPDIDEVICEOBJECTDATA;
 
 // get mouse data
-char __cdecl sub_47DB20(signed int* a1)
+char __cdecl sub_47DB20(nox_mouse_state_t* e)
 {
     struct mouse_event* me = &mouse_event_queue[mouse_event_ridx];
 
-    a1[0] = 0;
-    a1[1] = 0;
-    a1[2] = 0;
-    a1[5] = 0;
-    a1[7] = 0;
-    a1[8] = 0;
-    a1[10] = 0;
-    a1[11] = 0;
-    a1[13] = 0;
+    e->pos.x = 0;
+    e->pos.y = 0;
+    e->z = 0;
+    e->left_state = 0;
+    e->left_seq = 0;
+    e->right_state = 0;
+    e->right_seq = 0;
+    e->middle_state = 0;
+    e->middle_seq = 0;
 
     if (mouse_event_ridx == mouse_event_widx)
         return 0;
 
-    DIDEVICEOBJECTDATA data;
     switch (me->type)
     {
     case MOUSE_MOTION:
-        a1[0] = me->x;
-        a1[1] = me->y;
-        a1[2] = me->z;
+        e->pos.x = me->x;
+        e->pos.y = me->y;
+        e->z = me->z;
+        DIDEVICEOBJECTDATA data;
         data.dwData = me->z;
-        OnLibraryNotice(265, &a1, 2, &data);
+        OnLibraryNotice(265, &e, 2, &data);
         break;
     case MOUSE_BUTTON0:
-        a1[5] = me->state;
-        a1[7] = me->seq;
+        e->left_state = me->state;
+        e->left_seq = me->seq;
         break;
     case MOUSE_BUTTON1:
-        a1[8] = me->state;
-        a1[10] = me->seq;
+        e->right_state = me->state;
+        e->right_seq = me->seq;
         break;
     case MOUSE_BUTTON2:
-        a1[11] = me->state;
-        a1[13] = me->seq;
+        e->middle_state = me->state;
+        e->middle_seq = me->seq;
         break;
     }
 
@@ -1033,7 +1034,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 }
                 break;
             case 2:
-                if (SDL_GetEventState(SDL_MOUSEBUTTONDOWN))
+                if (nox_SDL_GetEventState(SDL_MOUSEBUTTONDOWN))
                 {
                     v5 = 1;
                     if (byte_5D4594[754064] & 8)
@@ -1251,7 +1252,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
         }
     }
 #ifdef __EMSCRIPTEN__
-    if (!SDL_GetEventState(SDL_MOUSEBUTTONDOWN))
+    if (!nox_SDL_GetEventState(SDL_MOUSEBUTTONDOWN))
     {
         sub_42E670(1, orientation);
         if (move_speed)
@@ -1274,8 +1275,8 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 v17 = sub_4739D0(*(_DWORD*)(v15 + 16));
             else
                 v17 = a3[1];
-            a4 = *v16 - *(int*)& byte_5D4594[3805496] / 2;
-            v18 = (__int64)((atan2((double)(v17 - *(int*)& byte_5D4594[3807120] / 2), (double)a4) + 6.2831855) * 40.743664 + 0.5);
+            a4 = *v16 - nox_win_width / 2;
+            v18 = (__int64)((atan2((double)(v17 - nox_win_height / 2), (double)a4) + 6.2831855) * 40.743664 + 0.5);
             *(_DWORD*)& byte_5D4594[754060] = v18;
             if ((int)v18 < 0)
             {

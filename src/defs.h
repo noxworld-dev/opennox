@@ -498,4 +498,31 @@ typedef struct nox_video_mode
     int id;
 } nox_video_mode;
 
+typedef struct mouse_pos_t
+{
+    int x;
+    int y;
+} mouse_pos_t;
+
+typedef struct nox_mouse_state_t
+{
+    mouse_pos_t pos;
+    int z;
+
+    _DWORD field_3;
+    _DWORD field_4;
+
+    _DWORD left_state;
+    _DWORD field_6;
+    _DWORD left_seq;
+
+    _DWORD right_state;
+    _DWORD field_9;
+    _DWORD right_seq;
+
+    _DWORD middle_state;
+    _DWORD field_12;
+    _DWORD middle_seq;
+} nox_mouse_state_t;
+
 #endif

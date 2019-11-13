@@ -85,7 +85,7 @@ extern int PlayMovieCallback(BYTE* frame, unsigned long cx, unsigned long cy)
 {
     SDL_Event event;
     int result = 0;
-    while (SDL_PollEvent(&event))
+    while (nox_SDL_PollEvent(&event))
     {
         int processed = process_movie_event(&event);
         result = result == -1 ? -1 : processed;
