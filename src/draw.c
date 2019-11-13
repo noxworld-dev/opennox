@@ -25,6 +25,9 @@
 
 #include "proto.h"
 
+extern int nox_win_width;
+extern int nox_win_height;
+
 #ifdef USE_SDL
 enum {
     DDSD_CAPS = 1,
@@ -1458,13 +1461,13 @@ int sub_48B000()
     glCheckError();
     glBindTexture(GL_TEXTURE_2D, g_texture);
     glCheckError();
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, *(_DWORD*)& byte_5D4594[3805496], *(_DWORD*)& byte_5D4594[3807120], 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, nox_win_width, nox_win_height, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, NULL);
     glCheckError();
 
 #if 0
     EM_ASM_({
         Module['initGL']($0, $1);
-        }, * (_DWORD*)& byte_5D4594[3805496], * (_DWORD*)& byte_5D4594[3807120]);
+        }, nox_win_width, nox_win_height);
 #endif
 
     vertex = glCreateShader(GL_VERTEX_SHADER);
