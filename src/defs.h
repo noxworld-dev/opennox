@@ -525,4 +525,9 @@ typedef struct nox_mouse_state_t
     _DWORD middle_seq;
 } nox_mouse_state_t;
 
+typedef struct obj_5D4594_3799572_t
+{
+    _DWORD data[264];
+} obj_5D4594_3799572_t;
+
 #endif

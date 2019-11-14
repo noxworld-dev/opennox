@@ -28,6 +28,16 @@
 extern int nox_win_width;
 extern int nox_win_height;
 
+extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
+extern obj_5D4594_3799572_t obj_5D4594_3799660;
+extern obj_5D4594_3799572_t obj_5D4594_3800716;
+
+void* nox_backbuffer1_pix = 0;
+void* nox_backbuffer_pix = 0;
+
+int nox_backbuffer_width = 0;
+int nox_backbuffer_height = 0;
+
 #ifdef USE_SDL
 enum {
     DDSD_CAPS = 1,
@@ -54,7 +64,7 @@ int sdl_unk1(int);
 int create_surfaces(HWND a1, int width, int height);
 
 void __cdecl sub_48B1B0(SDL_GLContext* a1);
-void __cdecl sub_48B1D0(SDL_Surface** a1);
+void __cdecl sub_48B1D0_free_surface(SDL_Surface** a1);
 SDL_Surface* __cdecl sub_48A600(int a1, int a2, int a3, int a4);
 int __cdecl sub_48A720(SDL_Surface* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5);
 void __cdecl sub_48A670(SDL_Surface* a1);
@@ -82,7 +92,8 @@ int __cdecl sub_48AED0(HWND a1, int a2, int a3);
 HWND windowHandle_dword_973FE0;
 #endif
 
-DWORD dword_974868;
+int nox_backbuffer_pitch32;
+int nox_backbuffer_width32;
 DWORD dword_973C64;
 
 //----- (00444AC0) --------------------------------------------------------
@@ -102,8 +113,8 @@ int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
 #else
     windowHandle_dword_973FE0 = a1;
 #endif
-    * (_DWORD*)& byte_5D4594[3801784] = a2;
-    *(_DWORD*)& byte_5D4594[3801788] = a3;
+    nox_backbuffer_width = a2;
+    nox_backbuffer_height = a3;
     *(_DWORD*)& byte_5D4594[3799568] = a4;
     *(_DWORD*)& byte_5D4594[3801772] = a5;
     v5 = sub_48C870(0);
@@ -125,9 +136,9 @@ int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
     }
     v9 = (v7 & 0x17) - 20;
     *(_DWORD*)& byte_5D4594[3801796] = 0;
-    *(_DWORD*)& byte_5D4594[3801784] = a2 & 0xFFFFFFE0;
-    *(_DWORD*)& byte_5D4594[3801788] = a3;
-    dword_974868 = 0;
+    nox_backbuffer_width = a2 & 0xFFFFFFE0;
+    nox_backbuffer_height = a3;
+    nox_backbuffer_pitch32 = 0;
     dword_973C64 = 0;
     if (!v9)
     {
@@ -135,7 +146,7 @@ int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
         *(_DWORD*)& byte_5D4594[3801808] = a2 & 0xFFFFFFE0;
         *(_DWORD*)& byte_5D4594[3801780] = 0;
         *(_DWORD*)& byte_5D4594[3801776] = v8 >> 2;
-        *(_DWORD*)& byte_5D4594[3801800] = v8 >> 5;
+        nox_backbuffer_width32 = v8 >> 5;
         *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
         return 1;
     }
@@ -151,7 +162,7 @@ int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
     *(_DWORD*)& byte_5D4594[3801780] = 1;
     *(_DWORD*)& byte_5D4594[3801808] = 2 * v8;
     *(_DWORD*)& byte_5D4594[3801776] = v8 >> 1;
-    *(_DWORD*)& byte_5D4594[3801800] = v8 >> 4;
+    nox_backbuffer_width32 = v8 >> 4;
     *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
     return 1;
 }
@@ -591,17 +602,17 @@ void sub_48A120()
     sub_48B190(&g_clipper);
     sub_48B1D0(&g_frontbuffer);
 #endif
-    sub_48B1D0(&dword_973C60);
-    sub_48B1D0(&dword_973C88);
+    sub_48B1D0_free_surface(&dword_973C60);
+    sub_48B1D0_free_surface(&dword_973C88);
     if (g_backbuffer1 != g_frontbuffer1)
     {
-        sub_48B1D0(&g_frontbuffer1);
+        sub_48B1D0_free_surface(&g_frontbuffer1);
     }
     else
     {
         g_frontbuffer1 = 0;
     }
-    sub_48B1D0(&g_backbuffer1);
+    sub_48B1D0_free_surface(&g_backbuffer1);
 #ifndef USE_SDL
     sub_48B1B0(&g_ddraw);
 #endif
@@ -618,8 +629,8 @@ char sub_48A190()
     dword_6F7BA0 = sdl_present;
 
     dword_6F7B9C = 1;
-    *(_DWORD*)& byte_5D4594[1193492] = g_backbuffer1->pixels;
-    *(_DWORD*)& byte_5D4594[3798752] = *(_DWORD*)& byte_5D4594[1193492];
+    nox_backbuffer1_pix = g_backbuffer1->pixels;
+    nox_backbuffer_pix = nox_backbuffer1_pix;
 #else
     if (*(_DWORD*)& byte_5D4594[3801796] && byte_5D4594[3801772] & 0x20 && (v0 = sub_48ACC0()) != 0)
     {
@@ -857,8 +868,8 @@ void sub_48A7F0()
 void __cdecl sub_48A820(UINT uFlags)
 {
 #ifdef USE_SDL
-    DWORD width = *(_DWORD*)& byte_5D4594[3801784];
-    DWORD height = *(_DWORD*)& byte_5D4594[3801788];
+    DWORD width = nox_backbuffer_width;
+    DWORD height = nox_backbuffer_height;
 
     //SDL_SetWindowSize(windowHandle_dword_973FE0, width, height);
     //SDL_SetWindowGrab(windowHandle_dword_973FE0, SDL_TRUE);
@@ -883,8 +894,8 @@ void __cdecl sub_48A820(UINT uFlags)
         {
             v2 = GetSystemMetrics(0);
             v3 = GetSystemMetrics(1);
-            v4 = *(_DWORD*)& byte_5D4594[3801784];
-            v5 = *(_DWORD*)& byte_5D4594[3801788];
+            v4 = nox_backbuffer_width;
+            v5 = nox_backbuffer_height;
             v6 = v3;
             v7 = 0;
             v8 = 0;
@@ -893,8 +904,8 @@ void __cdecl sub_48A820(UINT uFlags)
                 uFlagsa = 0;
                 if ((byte_5D4594[3801772] & 0x18) == 24)
                 {
-                    v7 = (v2 - *(int*)& byte_5D4594[3801784]) / 2;
-                    v8 = (v6 - *(int*)& byte_5D4594[3801788]) / 2;
+                    v7 = (v2 - nox_backbuffer_width) / 2;
+                    v8 = (v6 - nox_backbuffer_height) / 2;
                 LABEL_11:
                     SetRect(&rc, v7, v8, v7 + v4, v8 + v5);
                     v10 = GetMenu(windowHandle_dword_973FE0);
@@ -1084,7 +1095,7 @@ void sdl_present()
         {
             if (!g_scaled || isRectDifferent)
             {
-                sub_48B1D0(&g_frontbuffer1);
+                sub_48B1D0_free_surface(&g_frontbuffer1);
                 g_frontbuffer1 = 0;
             }
             else
@@ -1092,7 +1103,7 @@ void sdl_present()
                 SDL_GetClipRect(g_frontbuffer1, &currrect);
                 if (dstrect.h != currrect.h || dstrect.w != currrect.w)
                 {
-                    sub_48B1D0(&g_frontbuffer1);
+                    sub_48B1D0_free_surface(&g_frontbuffer1);
                     g_frontbuffer1 = 0;
                 }
             }
@@ -1205,7 +1216,7 @@ void __cdecl sub_48AB50()
                 v0 = 0;
                 dword_6F7B9C = 0;
             }
-            *(_DWORD*)& byte_5D4594[3798752] = *(_DWORD*)& byte_5D4594[4 * v0 + 1193488];
+            nox_backbuffer_pix = *(_DWORD*)& byte_5D4594[4 * v0 + 1193488];
         }
         sub_48BE50(0);
     }
@@ -1227,7 +1238,7 @@ void __cdecl sub_48ABC0()
             ClientToScreen(windowHandle_dword_973FE0, &Point);
             GetClientRect(windowHandle_dword_973FE0, &rectClient);
             OffsetRect(&rectClient, Point.x, Point.y);
-            SetRect(&rc, 0, 0, *(int*)& byte_5D4594[3801784], *(int*)& byte_5D4594[3801788]);
+            SetRect(&rc, 0, 0, nox_backbuffer_width, nox_backbuffer_height);
             sub_48BE50(1);
             sub_48BD90(0);
             sub_48B5D0(0, 0);
@@ -1251,7 +1262,7 @@ int sub_48ACC0()
         result = sub_48A6C0(g_backbuffer1);
         if (result)
         {
-            *(_DWORD*)& byte_5D4594[1193492] = result;
+            nox_backbuffer1_pix = result;
             if ((byte_5D4594[3801772] & 0x80u) != 0)
             {
                 result = sub_48A6C0(g_backbuffer2);
@@ -1260,7 +1271,7 @@ int sub_48ACC0()
                 *(_DWORD*)& byte_5D4594[1193496] = result;
             }
             dword_6F7B9C = 1;
-            *(_DWORD*)& byte_5D4594[3798752] = *(_DWORD*)& byte_5D4594[1193492];
+            nox_backbuffer_pix = nox_backbuffer1_pix;
             return 1;
         }
     }
@@ -1618,7 +1629,7 @@ void __cdecl sub_48B1B0(SDL_GLContext* a1)
     }
 }
 
-void __cdecl sub_48B1D0(SDL_Surface** a1)
+void __cdecl sub_48B1D0_free_surface(SDL_Surface** a1)
 {
     if (*a1)
     {
@@ -1762,7 +1773,7 @@ int sdl_unk1(int a1)
     r1->bottom = r1->top + *(_DWORD*)& byte_5D4594[1193620];
 
     if ((!a1 || *(_DWORD*)& byte_5D4594[1193668] || *(_DWORD*)& byte_5D4594[1193664])
-        && sub_49F930((int4*)& v4, r1, (int4*)& byte_5D4594[3800752]))
+        && sub_49F930((int4*)& v4, r1, (int4*)(&obj_5D4594_3800716.data[9])))
     {
         r2->left = 0;
         r2->top = 0;
@@ -1776,7 +1787,7 @@ int sdl_unk1(int a1)
         //	return 0;
     }
 
-    if (sub_49F930((int4*)& v4, r1, (int4*)& byte_5D4594[3800752]))
+    if (sub_49F930((int4*)& v4, r1, (int4*)(&obj_5D4594_3800716.data[9])))
     {
         r3->left = v4.left - r1->left;
         r3->top = v4.top - r1->top;
@@ -1861,7 +1872,7 @@ int __cdecl sub_48B840(int a1)
         - *(_DWORD*)& byte_5D4594[1193636]
         + *(_DWORD*)& byte_5D4594[1193620];
     if ((!a1 || *(_DWORD*)& byte_5D4594[1193668] || *(_DWORD*)& byte_5D4594[1193664])
-        && sub_49F930((int4*)& v4, (int4*)& byte_5D4594[1193532], (int4*)& byte_5D4594[3800752]))
+        && sub_49F930((int4*)& v4, (int4*)& byte_5D4594[1193532],(int4*)(&obj_5D4594_3800716.data[9])))
     {
         *(_DWORD*)& byte_5D4594[1193556] = v4.right - v4.left;
         v1 = g_frontbuffer;
@@ -1880,7 +1891,7 @@ int __cdecl sub_48B840(int a1)
             return 0;
         }
     }
-    if (sub_49F930((int4*)& v4, (int4*)& byte_5D4594[1193532], (int4*)& byte_5D4594[3800752]))
+    if (sub_49F930((int4*)& v4, (int4*)& byte_5D4594[1193532], (int4*)(&obj_5D4594_3800716.data[9])))
     {
         *(_DWORD*)& byte_5D4594[1193604] = v4.left - *(_DWORD*)& byte_5D4594[1193532];
         *(_DWORD*)& byte_5D4594[1193608] = v4.top - *(_DWORD*)& byte_5D4594[1193536];
@@ -1940,7 +1951,7 @@ int __cdecl sub_48BA50(int a1)
         - *(_DWORD*)& byte_5D4594[1193636]
         + *(_DWORD*)& byte_5D4594[1193620];
     if ((!a1 || *(_DWORD*)& byte_5D4594[1193668] || *(_DWORD*)& byte_5D4594[1193664])
-        && sub_49F930((int4*)& v4, (int4*)& byte_5D4594[1193532], (int4*)& byte_5D4594[3800752]))
+        && sub_49F930((int4*)& v4, (int4*)& byte_5D4594[1193532], (int4*)(&obj_5D4594_3800716.data[9])))
     {
         *(_DWORD*)& byte_5D4594[1193556] = v4.right - v4.left;
         *(_DWORD*)& byte_5D4594[1193548] = 0;
@@ -1978,7 +1989,7 @@ int __cdecl sub_48BA50(int a1)
             }
         }
     }
-    if (sub_49F930((int4*)& v4, (int4*)& byte_5D4594[1193532], (int4*)& byte_5D4594[3800752]))
+    if (sub_49F930((int4*)& v4, (int4*)& byte_5D4594[1193532], (int4*)(&obj_5D4594_3800716.data[9])))
     {
         *(_DWORD*)& byte_5D4594[1193604] = v4.left - *(_DWORD*)& byte_5D4594[1193532];
         *(_DWORD*)& byte_5D4594[1193608] = v4.top - *(_DWORD*)& byte_5D4594[1193536];
@@ -2032,7 +2043,7 @@ void __cdecl sub_4340A0(int a1, int a2, int a3, int a4)
     v4 = a1;
     if (a1 >= 0 && a1 < 16)
     {
-        v5 = 48 * a1 + *(_DWORD*)& byte_5D4594[3799572] + 264;
+        v5 = 48 * a1 + (_DWORD)(&ptr_5D4594_3799572->data[66]);
         *(_DWORD*)(v5 + 32) = (unsigned __int8)a4;
         *(_DWORD*)(v5 + 24) = (unsigned __int8)a2;
         *(_DWORD*)(v5 + 28) = (unsigned __int8)a3;
@@ -2325,13 +2336,13 @@ int __cdecl sub_444930(HWND a1, int a2, int a3, int a4, int a5)
     int result; // eax
 
     *(_DWORD*)& byte_5D4594[823776] = 0;
-    *(_DWORD*)& byte_5D4594[3799572] = &byte_5D4594[3799660];
+    ptr_5D4594_3799572 = &obj_5D4594_3799660;
     result = sub_4449D0(a1, a2, a3, a4, a5);
     printf("%s: %d\n", __FUNCTION__, result);
     if (result)
     {
-        *(_DWORD*)& byte_5D4594[3799572] = &byte_5D4594[3800716];
-        qmemcpy(&byte_5D4594[3800716], &byte_5D4594[3799660], 0x420u);
+        ptr_5D4594_3799572 = &obj_5D4594_3800716;
+        qmemcpy(&obj_5D4594_3800716, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t));
         if (byte_5D4594[3801773] & 2)
         {
 #ifdef USE_SDL
@@ -2390,8 +2401,8 @@ void sub_48C110()
     RECT Rect; // [esp+0h] [ebp-10h]
 
 #ifdef USE_SDL
-    * (_DWORD*)& byte_5D4594[1193684] = *(_DWORD*)& byte_5D4594[3801784];
-    *(_DWORD*)& byte_5D4594[1193688] = *(_DWORD*)& byte_5D4594[3801788];
+    * (_DWORD*)& byte_5D4594[1193684] = nox_backbuffer_width;
+    *(_DWORD*)& byte_5D4594[1193688] = nox_backbuffer_height;
 #else
     if (byte_5D4594[3801772] & 0x10)
     {
@@ -2401,8 +2412,8 @@ void sub_48C110()
     }
     else
     {
-        *(_DWORD*)& byte_5D4594[1193684] = *(_DWORD*)& byte_5D4594[3801784];
-        *(_DWORD*)& byte_5D4594[1193688] = *(_DWORD*)& byte_5D4594[3801788];
+        *(_DWORD*)& byte_5D4594[1193684] = nox_backbuffer_width;
+        *(_DWORD*)& byte_5D4594[1193688] = nox_backbuffer_height;
     }
 #endif
 }
@@ -2475,100 +2486,73 @@ void sub_4AD1E0()
     _WORD* v4; // esi
     int v5; // ecx
 
-    if (!dword_973C70)
+    if (dword_973C70)
     {
-#ifdef USE_SDL
-        result = SDL_LockSurface(g_backbuffer1);
-        v1 = g_backbuffer1->pixels;
-#else
-        DDSURFACEDESC v11; // [esp+Ch] [ebp-70h]
-        v11.dwSize = sizeof(v11);
-        v11.dwFlags = 0;
-        result = g_backbuffer1->lpVtbl->Lock(g_backbuffer1, 0, &v11, 1, 0);
-        v1 = v11.lpSurface;
-#endif
-        if (!result)
-        {
-            v2 = *(_DWORD*)& byte_5D4594[3801788];
-            v3 = *(_WORD * **)& byte_5D4594[3798784];
-            while (v2 > 0)
-            {
-                v4 = *v3;
-                v5 = *(_DWORD*)& byte_5D4594[3801800];
-                while (v5 > 0)
-                {
-                    int i;
-                    for (i = 0; i < 16; i++)
-                        * v1++ = *v4++ << 1;
-                    v5--;
-                }
-                //memcpy(v1, v4, v5 * 32);
-                //v1 = (_DWORD *)((char *)v1 + v5 * 32);
-                v1 = (_WORD*)((char*)v1 + dword_974868);
-                ++v3;
-                v2--;
-            }
-#ifdef USE_SDL
-            SDL_UnlockSurface(g_backbuffer1);
-#else
-            g_backbuffer1->lpVtbl->Unlock(g_backbuffer1, v11.lpSurface);
-#endif
-            ++* (_DWORD*)& byte_5D4594[3798652];
-        }
+        return;
     }
+#ifdef USE_SDL
+    result = SDL_LockSurface(g_backbuffer1);
+    v1 = g_backbuffer1->pixels;
+#else
+    DDSURFACEDESC v11; // [esp+Ch] [ebp-70h]
+    v11.dwSize = sizeof(v11);
+    v11.dwFlags = 0;
+    result = g_backbuffer1->lpVtbl->Lock(g_backbuffer1, 0, &v11, 1, 0);
+    v1 = v11.lpSurface;
+#endif
+    if (result)
+    {
+        return;
+    }
+    v2 = nox_backbuffer_height;
+    v3 = *(_WORD * **)& byte_5D4594[3798784];
+    while (v2 > 0)
+    {
+        v4 = *v3;
+        v5 = nox_backbuffer_width32;
+        while (v5 > 0)
+        {
+            int i;
+            for (i = 0; i < 16; i++)
+                * v1++ = *v4++ << 1;
+            v5--;
+        }
+        //memcpy(v1, v4, v5 * 32);
+        //v1 = (_DWORD *)((char *)v1 + v5 * 32);
+        v1 = (_WORD*)((char*)v1 + nox_backbuffer_pitch32);
+        ++v3;
+        v2--;
+    }
+#ifdef USE_SDL
+    SDL_UnlockSurface(g_backbuffer1);
+#else
+    g_backbuffer1->lpVtbl->Unlock(g_backbuffer1, v11.lpSurface);
+#endif
+    ++* (_DWORD*)& byte_5D4594[3798652];
 }
 
 //----- (004AD2A0) --------------------------------------------------------
 void sub_4AD2A0()
 {
-    int result; // eax
-    _DWORD* v1; // edi
-    int v2; // edx
-    _DWORD** v3; // ebp
-    _DWORD* v4; // esi
-    int v5; // ecx
-    int v6; // ebx
-    int v7; // ebx
-    int v8; // ebx
-    int v9; // ebx
-    bool v10; // cc
-
     // FIXME unlocked surfaces
-
-    if (!dword_973C70)
+    if (dword_973C70)
     {
-        v1 = *(_DWORD * *)& byte_5D4594[3798752];
-        v2 = *(_DWORD*)& byte_5D4594[3801788];
-        v3 = *(_DWORD * **)& byte_5D4594[3798784];
-        do
-        {
-            v4 = *v3;
-            v5 = *(_DWORD*)& byte_5D4594[3801800];
-            do
-            {
-                v6 = v4[1];
-                *v1 = *v4;
-                v1[1] = v6;
-                v7 = v4[3];
-                v1[2] = v4[2];
-                v1[3] = v7;
-                v8 = v4[5];
-                v1[4] = v4[4];
-                v1[5] = v8;
-                result = v4[6];
-                v9 = v4[7];
-                v1[6] = result;
-                v1[7] = v9;
-                v4 += 8;
-                v1 += 8;
-                v10 = v5-- <= 1;
-            } while (!v10);
-            ++v3;
-            v1 = (_DWORD*)((char*)v1 + dword_974868);
-            v10 = v2-- <= 1;
-        } while (!v10);
-        ++* (_DWORD*)& byte_5D4594[3798652];
+        return;
     }
+    _DWORD* dst = (_DWORD *)nox_backbuffer_pix;
+    _DWORD** src = *(_DWORD * **)& byte_5D4594[3798784];
+    for (int y = 0; y < nox_backbuffer_height; y++)
+    {
+        _DWORD* row = src[y];
+        for (int x = 0; x < nox_backbuffer_width32; x++)
+        {
+            memcpy(dst, row, 32);
+            row += 8;
+            dst += 8;
+        }
+        dst = (_DWORD*)((char*)dst + nox_backbuffer_pitch32);
+    }
+    ++* (_DWORD*)& byte_5D4594[3798652];
 }
 
 //----- (00486090) --------------------------------------------------------
@@ -2612,18 +2596,18 @@ int sub_48A3D0()
     *(_DWORD*)& byte_5D4594[3801796] = 0;
     if (g_backbuffer1)
     {
-        *(_DWORD*)& byte_5D4594[3801784] = g_backbuffer1->w;
-        *(_DWORD*)& byte_5D4594[3801788] = g_backbuffer1->h;
+        nox_backbuffer_width = g_backbuffer1->w;
+        nox_backbuffer_height = g_backbuffer1->h;
         *(_DWORD*)& byte_5D4594[3799564] = g_backbuffer1->pitch;
         *(_DWORD*)& byte_5D4594[3801796] = 1;
         sub_48A190();
         if (g_format == SDL_PIXELFORMAT_RGBA5551 || g_format == SDL_PIXELFORMAT_RGB565)
         {
-            *(_DWORD*)& byte_5D4594[3801800] = g_backbuffer1->w >> 4;
+            nox_backbuffer_width32 = g_backbuffer1->w >> 4;
             *(_DWORD*)& byte_5D4594[3801776] = g_backbuffer1->w >> 1;
             *(_DWORD*)& byte_5D4594[3801780] = 1;
             *(_DWORD*)& byte_5D4594[3801808] = 2 * g_backbuffer1->w;
-            dword_974868 = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
+            nox_backbuffer_pitch32 = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
 
             if (g_format == SDL_PIXELFORMAT_RGBA5551)
                 * (_DWORD*)& byte_5D4594[3799624] = 1;
@@ -2664,15 +2648,15 @@ int sub_48A3D0()
         {
             v1 = v12.dwWidth;
             v2 = v12.lPitch;
-            *(_DWORD*)& byte_5D4594[3801788] = v12.dwHeight;
-            *(_DWORD*)& byte_5D4594[3801784] = v12.dwWidth;
+            nox_backbuffer_height = v12.dwHeight;
+            nox_backbuffer_width = v12.dwWidth;
             *(_DWORD*)& byte_5D4594[3799564] = v12.lPitch;
             dword_973C64 = v12.ddsCaps.dwCaps & DDSCAPS_FLIP;
             if (v12.ddsCaps.dwCaps & DDSCAPS_FLIP)
             {
                 *(_DWORD*)& byte_5D4594[3801796] = 1;
                 sub_48A190();
-                v1 = *(_DWORD*)& byte_5D4594[3801784];
+                v1 = nox_backbuffer_width;
                 v2 = *(_DWORD*)& byte_5D4594[3799564];
             }
             else
@@ -2686,7 +2670,7 @@ int sub_48A3D0()
                 v3 = 2 * v1;
                 v4 = v1;
                 v5 = v2 - 2 * v1;
-                *(_DWORD*)& byte_5D4594[3801800] = v1 >> 4;
+                nox_backbuffer_width32 = v1 >> 4;
                 v6 = v12.ddpfPixelFormat.dwRBitMask;
                 *(_DWORD*)& byte_5D4594[3801776] = v4 >> 1;
                 v7 = 0;
@@ -2728,7 +2712,7 @@ int sub_48A3D0()
                 *(_DWORD*)& byte_5D4594[3801776] = v1 >> 2;
                 *(_DWORD*)& byte_5D4594[3799624] = 0;
                 *(_DWORD*)& byte_5D4594[3801808] = v1;
-                *(_DWORD*)& byte_5D4594[3801800] = v1 >> 5;
+                nox_backbuffer_width32 = v1 >> 5;
                 dword_974868 = v2 - v1;
                 return 1;
             }
@@ -2915,8 +2899,8 @@ LPVOID sub_48B350()
         *(_DWORD*)& byte_5D4594[1193656] = 0;
     }
 #ifdef USE_SDL
-    sub_48B1D0(&g_cursor_surf);
-    sub_48B1D0(&dword_6F7C48);
+    sub_48B1D0_free_surface(&g_cursor_surf);
+    sub_48B1D0_free_surface(&dword_6F7C48);
 #else
     if (g_cursor_surf)
     {
@@ -2993,26 +2977,26 @@ int sub_4338D0()
         qmemcpy(&byte_5D4594[3804364], v0, 0xA0u);
         break;
     }
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 52) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 56) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 68) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 96) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 100) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 104) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 176) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 180) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 184) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 216) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 220) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 224) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 232) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 236) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 240) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 244) = 0;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 1036) = 255;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 1040) = 16711935;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 1044) = 16711935;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 1048) = 0;
+    ptr_5D4594_3799572->data[13] = 0;
+    ptr_5D4594_3799572->data[14] = 0;
+    ptr_5D4594_3799572->data[17] = 0;
+    ptr_5D4594_3799572->data[24] = 0;
+    ptr_5D4594_3799572->data[25] = 0;
+    ptr_5D4594_3799572->data[26] = 0;
+    ptr_5D4594_3799572->data[44] = 0;
+    ptr_5D4594_3799572->data[45] = 0;
+    ptr_5D4594_3799572->data[46] = 0;
+    ptr_5D4594_3799572->data[54] = 0;
+    ptr_5D4594_3799572->data[55] = 0;
+    ptr_5D4594_3799572->data[56] = 0;
+    ptr_5D4594_3799572->data[58] = 0;
+    ptr_5D4594_3799572->data[59] = 0;
+    ptr_5D4594_3799572->data[60] = 0;
+    ptr_5D4594_3799572->data[61] = 0;
+    ptr_5D4594_3799572->data[259] = 255;
+    ptr_5D4594_3799572->data[260] = 16711935;
+    ptr_5D4594_3799572->data[261] = 16711935;
+    ptr_5D4594_3799572->data[262] = 0;
     sub_434990(25, 25, 25);
     result = sub_434CC0();
     if (result)
@@ -3077,27 +3061,27 @@ int __cdecl sub_433CD0(BYTE a1, BYTE a2, BYTE a3)
     unsigned __int64 v7; // rax
     int result; // eax
 
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 96) = a1;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 100) = a2;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 104) = a3;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 64) = a1 == 0xFF && a2 == 0xFF && a3 == 0xFF;
+    ptr_5D4594_3799572->data[24] = a1;
+    ptr_5D4594_3799572->data[25] = a2;
+    ptr_5D4594_3799572->data[26] = a3;
+    ptr_5D4594_3799572->data[16] = a1 == 0xFF && a2 == 0xFF && a3 == 0xFF;
     if (*(_DWORD*)& byte_5D4594[3801804])
     {
         v5 = a1 | (a1 << 16);
         v5 <<= 16;
         LODWORD(v5) = a1 | (unsigned int)v5;
         v5 <<= 16;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 72) = a1 | (unsigned int)v5;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 76) = HIDWORD(v5);
+        ptr_5D4594_3799572->data[18] = a1 | (unsigned int)v5;
+        ptr_5D4594_3799572->data[19] = HIDWORD(v5);
         v6 = (a2 | ((a2 | ((unsigned __int64)a2 << 16)) << 16)) << 16;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 80) = a2 | (unsigned int)v6;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 84) = HIDWORD(v6);
+        ptr_5D4594_3799572->data[20] = a2 | (unsigned int)v6;
+        ptr_5D4594_3799572->data[21] = HIDWORD(v6);
         v7 = (a3 | ((a3 | ((unsigned __int64)a3 << 16)) << 16)) << 16;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 88) = a3 | (unsigned int)v7;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 92) = HIDWORD(v7);
+        ptr_5D4594_3799572->data[22] = a3 | (unsigned int)v7;
+        ptr_5D4594_3799572->data[23] = HIDWORD(v7);
     }
     result = dword_975380(a1, a2, a3);
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 1032) = result;
+    ((_WORD*)(&ptr_5D4594_3799572->data[258]))[1] = result;
     return result;
 }
 
@@ -3112,13 +3096,13 @@ int __cdecl sub_433E40(int a1)
 }
 
 //----- (00433ED0) --------------------------------------------------------
-int __cdecl sub_433ED0(int a1)
+void __cdecl sub_433ED0(int a1)
 {
     int v2; // [esp+0h] [ebp-8h]
     int v3; // [esp+4h] [ebp-4h]
 
     dword_975240(a1, &v3, &v2, &a1);
-    return sub_433E80(v3, v2, a1);
+    sub_433E80(v3, v2, a1);
 }
 
 //----- (00434040) --------------------------------------------------------
@@ -3148,8 +3132,8 @@ int __cdecl sub_4341D0(int a1, int a2)
     if (a1 >= 0 && a1 < 16)
     {
         v3 = a2;
-        v4 = 48 * a1 + *(_DWORD*)& byte_5D4594[3799572] + 264;
-        result = *(_DWORD*)(48 * a1 + *(_DWORD*)& byte_5D4594[3799572] + 304);
+        v4 = 48 * a1 + (_DWORD)(&ptr_5D4594_3799572->data[66]);
+        result = *(_DWORD*)(48 * a1 + (_DWORD)(&ptr_5D4594_3799572->data[76]));
         if (a2 != result)
         {
             dword_975240(a2, &a1, &a2, &v10);
@@ -3187,7 +3171,7 @@ void sub_434320(int a1, int a2, int a3)
     a2 = a2 & 0xFF;
     a3 = a3 & 0xFF;
     if (dword_69A014)
-        dword_69A014(a1, a2, a3, (DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 232));
+        dword_69A014(a1, a2, a3, &ptr_5D4594_3799572->data[58]);
 }
 
 //----- (004343B0) --------------------------------------------------------
@@ -3197,7 +3181,7 @@ void sub_4343B0(int a1, int a2, int a3)
     a2 = a2 & 0xFF;
     a3 = a3 & 0xFF;
     if (dword_69A014)
-        dword_69A014(a1, a2, a3, (DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 236));
+        dword_69A014(a1, a2, a3, &ptr_5D4594_3799572->data[59]);
 }
 
 //----- (00434400) --------------------------------------------------------
@@ -3207,7 +3191,7 @@ void sub_434400(int a1, int a2, int a3)
     a2 = a2 & 0xFF;
     a3 = a3 & 0xFF;
     if (dword_69A014)
-        dword_69A014(a1, a2, a3, (DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 240));
+        dword_69A014(a1, a2, a3, &ptr_5D4594_3799572->data[60]);
 }
 
 //----- (00434430) --------------------------------------------------------
@@ -3217,7 +3201,7 @@ void sub_434430(int a1, int a2, int a3)
     a2 = a2 & 0xFF;
     a3 = a3 & 0xFF;
     if (dword_69A014)
-        dword_69A014(a1, a2, a3, (DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 244));
+        dword_69A014(a1, a2, a3, &ptr_5D4594_3799572->data[61]);
 }
 
 //----- (00434480) --------------------------------------------------------
@@ -3536,8 +3520,8 @@ int __cdecl sub_4B0340(int a1)
         v13[5] = *(_DWORD*)& byte_5D4594[3798780];
         v13[6] = *(_DWORD*)& byte_5D4594[3798780];
         v13[3] = g_frontbuffer;
-        v13[7] = *(_DWORD*)& byte_5D4594[3801784];
-        v13[8] = *(_DWORD*)& byte_5D4594[3801788];
+        v13[7] = nox_backbuffer_width;
+        v13[8] = nox_backbuffer_height;
         v13[9] = 1;
         if (*(_DWORD*)& byte_5D4594[1311928])
         {
@@ -3582,8 +3566,8 @@ int __cdecl sub_4B0340(int a1)
     v2 = *(_DWORD*)& byte_5D4594[3801780];
     v3 = windowHandle_dword_973FE0;
     v4 = *(_DWORD*)& byte_5D4594[3801772];
-    v8 = *(_DWORD*)& byte_5D4594[3801784];
-    v7 = *(_DWORD*)& byte_5D4594[3801788];
+    v8 = nox_backbuffer_width;
+    v7 = nox_backbuffer_height;
     a1 = *(_DWORD*)& byte_5D4594[3799568];
     sub_48B350();
     sub_433C20();
@@ -3705,7 +3689,7 @@ unsigned __int8* __cdecl sub_48C200(int a1, int a2, int a3)
         *(_DWORD*)& byte_5D4594[1193576] = v6;
         *(_DWORD*)& byte_5D4594[1193516] = result;
         v11 = dword_6F7C34;
-        if (!*(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 60))
+        if (!ptr_5D4594_3799572->data[15])
             v11 = dword_6F7C40;
         v21 = v11;
         v12 = v6;
@@ -3798,7 +3782,7 @@ unsigned __int8* __cdecl sub_48C320(int a1, int a2, int a3)
         *(_DWORD*)& byte_5D4594[1193576] = v6;
         *(_DWORD*)& byte_5D4594[1193516] = result;
         v10 = dword_6F7C34;
-        if (!*(_DWORD*)(*(_DWORD*)& byte_5D4594[3799572] + 60))
+        if (!ptr_5D4594_3799572->data[15])
             v10 = dword_6F7C40;
         v19 = v10;
         v11 = v6;
