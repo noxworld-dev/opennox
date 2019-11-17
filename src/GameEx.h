@@ -89,7 +89,7 @@ int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4);
 // std::exception *__thiscall CopyConstructor2(std::exception *this, struct std::exception *a2);
 // _BYTE *__thiscall Copier(_DWORD *this, void *Dst, rsize_t MaxCount);
 // void *__stdcall SomeAllocator_2(char *a1);
-// int __usercall getFlagValueFromFlagIndex(signed int a1);
+int __usercall getFlagValueFromFlagIndex(signed int a1);
 // int __usercall PossibleVectorSub_1(int a1, int a2, int a3);
 // char *__usercall SomeVectorFunc_2(int a1, char *a2, const void *a3);
 // int __usercall SomeVectorFunc_3(int result, int a2, int a3);

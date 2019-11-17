@@ -484,13 +484,6 @@ typedef struct table_122104_t
     void* field_4;
 } table_122104_t;
 
-const int default_win_width;
-const int default_win_height;
-const int default_win_depth;
-
-const int max_win_width;
-const int max_win_height;
-
 typedef struct nox_video_mode
 {
     int width;
