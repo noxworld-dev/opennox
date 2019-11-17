@@ -4,6 +4,9 @@
 
 #include "proto.h"
 
+extern int default_win_width;
+extern int default_win_height;
+
 void f(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
@@ -14,9 +17,6 @@ extern void (*mainloop_exit)();
 extern int g_v20, g_v21;
 extern int g_argc2;
 extern char** g_argv2;
-
-extern int default_win_width;
-extern int default_win_height;
 
 typedef union
 {

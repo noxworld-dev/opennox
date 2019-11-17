@@ -10,6 +10,9 @@ else ()
     if (USE_ASAN)
         add_compile_options (-fsanitize=address)
     endif ()
+    if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
+        add_compile_options (-s USE_SDL=2)
+    endif ()
 endif ()
 include_directories (external/include)
 link_directories (${PROJECT_SOURCE_DIR}/external/lib)
@@ -62,8 +65,12 @@ add_executable (
 	vqa/vqa_public.cpp
     "${COMPAT_SOURCES}"
 )
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
+    set (WASM_FLAGS "-o out.html")
+endif ()
 target_link_libraries (
     out
+    "${WASM_FLAGS}"
     SDL2
     "${OPENAL_LIBRARIES}"
     "${OPENGL_LIBRARIES}"
