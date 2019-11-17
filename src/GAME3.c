@@ -13,6 +13,9 @@ extern int nox_backbuffer_height;
 extern int nox_win_depth_1;
 extern int nox_win_depth_2;
 
+extern int default_win_width;
+extern int default_win_height;
+
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 extern obj_5D4594_3799572_t obj_5D4594_3800716;
 

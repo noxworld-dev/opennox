@@ -35682,7 +35682,7 @@ int __cdecl sub_4302A0(int a1, int a2)
 void __cdecl sub_4306A0(int a1)
 {
     if (nox_processing_input)
-        return 1;
+        return;
     nox_processing_input = 1;
     int v2 = 0;
     while (1)
@@ -37785,8 +37785,8 @@ int sub_432B00()
         v6 = sub_4300D0(1) ? 16 : 8;
     }
 #ifdef __EMSCRIPTEN__
-    v1 = EM_ASM_INT(return Module['ingameWidth']());
-    v3 = EM_ASM_INT(return Module['ingameHeight']());
+    w = EM_ASM_INT(return Module['ingameWidth']());
+    h = EM_ASM_INT(return Module['ingameHeight']());
 #endif
     v6 = 16; // 8 bit not supported
     if (!(byte_5D4594[2650637] & 2))

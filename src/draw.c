@@ -28,6 +28,10 @@
 extern int nox_win_width;
 extern int nox_win_height;
 
+extern int default_win_width;
+extern int default_win_height;
+extern int default_win_depth;
+
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 extern obj_5D4594_3799572_t obj_5D4594_3799660;
 extern obj_5D4594_3799572_t obj_5D4594_3800716;

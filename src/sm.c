@@ -4,6 +4,9 @@
 
 #include "proto.h"
 
+extern int default_win_width;
+extern int default_win_height;
+
 void f(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
