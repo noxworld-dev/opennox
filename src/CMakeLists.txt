@@ -66,7 +66,7 @@ add_executable (
     "${COMPAT_SOURCES}"
 )
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
-    set (WASM_FLAGS "-o out.html")
+    set (WASM_FLAGS "-g -o out.html --pre-js pre.js -lidbfs.js -s CASE_INSENSITIVE_FS=1 -s ASYNCIFY -s TOTAL_MEMORY=201326592 -s EMULATE_FUNCTION_POINTER_CASTS=1 -s ASSERTIONS=2 -mnontrapping-fptoint -s EXIT_RUNTIME=1")
 endif ()
 target_link_libraries (
     out
