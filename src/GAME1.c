@@ -81,6 +81,8 @@ int nox_processing_input = 0;
 
 nox_mouse_state_t nox_mouse = {0};
 nox_mouse_state_t nox_mouse_prev = {0};
+_DWORD nox_mouse_prev_seq = 0;
+_DWORD nox_mouse_prev_seq_2 = 0;
 mouse_pos_t nox_mouse_min = {0, 0};
 mouse_pos_t nox_mouse_max = {default_win_width-1, default_win_height-1};
 mouse_pos_t nox_mouse_prev_left = {0};
@@ -95,6 +97,14 @@ int byte_5D4594_251596 = 0;
 obj_5D4594_3799572_t* ptr_5D4594_3799572 = 0;
 obj_5D4594_3799572_t obj_5D4594_3799660 = {0};
 obj_5D4594_3799572_t obj_5D4594_3800716 = {0};
+
+obj_5D4594_754088_t* ptr_5D4594_754088 = 0;
+int ptr_5D4594_754088_cnt = 0;
+
+obj_5D4594_754088_t* ptr_5D4594_754092 = 0;
+int ptr_5D4594_754092_cnt = 0;
+
+int obj_5D4594_754104_switch = 0;
 
 void nullsub_38() {}
 void nullsub_39() {}
@@ -1247,6 +1257,11 @@ mem_mapping mappings[] = {
     {0x5D4594+251544, (void*)&dword_5D4594_251544, sizeof(dword_5D4594_251544),1},
     {0x5D4594+251584, (void*)byte_5D4594_251584, sizeof(byte_5D4594_251584),1},
     {0x5D4594+251596, (void*)&byte_5D4594_251596, sizeof(byte_5D4594_251596),1},
+    {0x5D4594+754088, (void*)&ptr_5D4594_754088, sizeof(ptr_5D4594_754088),1},
+    {0x5D4594+754092, (void*)&ptr_5D4594_754092, sizeof(ptr_5D4594_754092),1},
+    {0x5D4594+754096, (void*)&ptr_5D4594_754088_cnt, sizeof(ptr_5D4594_754088_cnt),1},
+    {0x5D4594+754100, (void*)&ptr_5D4594_754092_cnt, sizeof(ptr_5D4594_754092_cnt),1},
+    {0x5D4594+754104, (void*)&obj_5D4594_754104_switch, sizeof(obj_5D4594_754104_switch),1},
     {0x5D4594+791324, (void*)nox_input_buffer, sizeof(nox_input_buffer),1},
     {0x5D4594+805832, (void*)&nox_processing_input, sizeof(nox_processing_input),1},
     {0x5D4594+805660, (void*)&nox_mouse, sizeof(nox_mouse),1},
@@ -1255,6 +1270,8 @@ mem_mapping mappings[] = {
     {0x5D4594+805780, (void*)&nox_mouse_prev_left, sizeof(nox_mouse_prev_left),1},
     {0x5D4594+805788, (void*)&nox_mouse_prev_right, sizeof(nox_mouse_prev_right),1},
     {0x5D4594+805796, (void*)&nox_mouse_prev_middle, sizeof(nox_mouse_prev_middle),1},
+    {0x5D4594+805812, (void*)&nox_mouse_prev_seq, sizeof(nox_mouse_prev_seq),1},
+    {0x5D4594+805828, (void*)&nox_mouse_prev_seq_2, sizeof(nox_mouse_prev_seq_2),1},
     {0x5D4594+1193492, (void*)&nox_backbuffer1_pix, sizeof(nox_backbuffer1_pix),1},
     {0x5D4594+3798752, (void*)&nox_backbuffer_pix, sizeof(nox_backbuffer_pix),1},
     {0x5D4594+3801784, (void*)&nox_backbuffer_width, sizeof(nox_backbuffer_width),1},
@@ -11518,25 +11535,20 @@ char* sub_413890()
 }
 
 //----- (004138E0) --------------------------------------------------------
-int sub_4138E0()
+void sub_4138E0(int a1)
 {
     *(_DWORD*)& byte_5D4594[251740] = sub_413A50();
-    return sub_413A00(1);
+    sub_413A00(1);
 }
 
 //----- (00413900) --------------------------------------------------------
-int sub_413900()
+void sub_413900(int a1)
 {
-    int result; // eax
-
-    result = sub_44E0D0();
-    if (!result)
+    if (!sub_44E0D0())
     {
-        result = *(_DWORD*)& byte_5D4594[251740];
         if (!*(_DWORD*)& byte_5D4594[251740])
-            result = sub_413A00(0);
+            sub_413A00(0);
     }
-    return result;
 }
 
 //----- (00413920) --------------------------------------------------------
@@ -11562,7 +11574,7 @@ void __cdecl sub_413980(int a1)
     if (a1)
     {
         sub_413A00(1);
-        *(_DWORD*)& byte_5D4594[251744] = a1 + sub_430B40();
+        *(_DWORD*)& byte_5D4594[251744] = a1 + sub_430B40_get_mouse_prev_seq();
     }
     else
     {
@@ -11577,23 +11589,17 @@ BOOL sub_4139B0()
 }
 
 //----- (004139C0) --------------------------------------------------------
-unsigned int sub_4139C0()
+void sub_4139C0()
 {
-    unsigned int result; // eax
-
-    result = *(_DWORD*)& byte_5D4594[251744];
     if (*(_DWORD*)& byte_5D4594[251744])
     {
-        result = sub_430B40();
-        if (result >= *(int*)& byte_5D4594[251744])
+        if (sub_430B40_get_mouse_prev_seq() >= *(int*)& byte_5D4594[251744])
         {
             *(_DWORD*)& byte_5D4594[251744] = 0;
-            result = sub_450560();
-            if (!result)
-                result = sub_413A00(0);
+            if (!sub_450560())
+                sub_413A00(0);
         }
     }
-    return result;
 }
 
 //----- (00413A00) --------------------------------------------------------
@@ -34268,130 +34274,95 @@ int sub_42EBA0()
 }
 
 //----- (0042EBB0) --------------------------------------------------------
-unsigned int __cdecl sub_42EBB0(unsigned int a1, int a2, int a3, const char* a4)
+void __cdecl sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const char* name)
 {
-    unsigned int result; // eax
-    int v5; // eax
     wchar_t* v6; // eax
-    int v7; // eax
     wchar_t* v8; // eax
 
-    result = a1;
     if (a1 == 1)
     {
-        v5 = realloc(*(LPVOID*)& byte_5D4594[754088], 4 * (5 * *(_DWORD*)& byte_5D4594[754096] + 5));
-        *(_DWORD*)& byte_5D4594[754088] = v5;
-        if (!v5)
+        obj_5D4594_754088_t* arr = (obj_5D4594_754088_t*)realloc(ptr_5D4594_754088, sizeof(obj_5D4594_754088_t) * (ptr_5D4594_754088_cnt + 1));
+        ptr_5D4594_754088 = arr;
+        if (!arr)
         {
             v6 = loadString_sub_40F1D0((char*)& byte_587000[80600], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c", 37);
             sub_4516C0(v6);
             nox_exit(-1);
         }
-        *(_DWORD*)(v5 + 20 * *(_DWORD*)& byte_5D4594[754096]) = a2;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[754088] + 20 * *(_DWORD*)& byte_5D4594[754096] + 4) = a3;
-        strcpy((char*)(*(_DWORD*)& byte_5D4594[754088] + 20 * *(_DWORD*)& byte_5D4594[754096] + 8), a4);
-        result = ++ * (_DWORD*)& byte_5D4594[754096];
+        arr[ptr_5D4594_754088_cnt].fnc = fnc;
+        arr[ptr_5D4594_754088_cnt].field_4 = field_4;
+        strcpy(arr[ptr_5D4594_754088_cnt].name, name);
+        ++ptr_5D4594_754088_cnt;
     }
     else if (a1 == 2)
     {
-        v7 = realloc(*(LPVOID*)& byte_5D4594[754092], 4 * (5 * *(_DWORD*)& byte_5D4594[754100] + 5));
-        *(_DWORD*)& byte_5D4594[754092] = v7;
-        if (!v7)
+        obj_5D4594_754088_t* arr = realloc(ptr_5D4594_754092, sizeof(obj_5D4594_754088_t) * (ptr_5D4594_754092_cnt + 1));
+        ptr_5D4594_754092 = arr;
+        if (!arr)
         {
             v8 = loadString_sub_40F1D0((char*)& byte_587000[80656], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c", 52);
             sub_4516C0(v8);
             nox_exit(-1);
         }
-        *(_DWORD*)(v7 + 20 * *(_DWORD*)& byte_5D4594[754100]) = a2;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[754092] + 20 * *(_DWORD*)& byte_5D4594[754100] + 4) = a3;
-        result = strlen(a4) + 1;
-        qmemcpy((void*)(*(_DWORD*)& byte_5D4594[754092] + 20 * (*(_DWORD*)& byte_5D4594[754100])++ + 8), a4, result);
+        arr[ptr_5D4594_754092_cnt].fnc = fnc;
+        arr[ptr_5D4594_754092_cnt].field_4 = field_4;
+        int sz = strlen(name) + 1;
+        qmemcpy(arr[ptr_5D4594_754092_cnt].name, name, sz);
+        ++ptr_5D4594_754092_cnt;
     }
-    return result;
 }
 
 //----- (0042ED20) --------------------------------------------------------
-char* sub_42ED20()
+void sub_42ED20()
 {
-    char* result; // eax
-    int v1; // edi
-    int v2; // esi
-
-    result = *(char**)& byte_5D4594[754104];
-    v1 = 0;
-    if (*(_DWORD*)& byte_5D4594[754104])
+    if (!obj_5D4594_754104_switch)
     {
-        result = *(char**)& byte_5D4594[754088];
-        *(_DWORD*)& byte_5D4594[754104] = 0;
-        if (*(_DWORD*)& byte_5D4594[754088])
-        {
-            if (*(_DWORD*)& byte_5D4594[754096] > 0)
-            {
-                v2 = 0;
-                while (1)
-                {
-                    (*(void(__cdecl * *)(_DWORD)) & result[v2])(*(_DWORD*)& result[v2 + 4]);
-                    result = *(char**)& byte_5D4594[754096];
-                    ++v1;
-                    v2 += 20;
-                    if (v1 >= *(int*)& byte_5D4594[754096])
-                        break;
-                    result = *(char**)& byte_5D4594[754088];
-                }
-            }
-        }
+        return;
     }
-    return result;
+    obj_5D4594_754104_switch = 0;
+    if (!ptr_5D4594_754088)
+    {
+        return;
+    }
+    for (int i = 0; i < ptr_5D4594_754088_cnt; i++)
+    {
+        obj_5D4594_754088_t* cur = &ptr_5D4594_754088[i];
+        cur->fnc(cur->field_4);
+    }
 }
 
 //----- (0042ED70) --------------------------------------------------------
 void sub_42ED70()
 {
-    int v0; // eax
-    int v1; // edi
-    int v2; // esi
-
-    if (*(_DWORD*)& byte_5D4594[754104] != 1)
+    if (obj_5D4594_754104_switch)
     {
-        v0 = *(_DWORD*)& byte_5D4594[754092];
-        if (*(_DWORD*)& byte_5D4594[754092])
-        {
-            v1 = 0;
-            if (*(_DWORD*)& byte_5D4594[754100] > 0)
-            {
-                v2 = 0;
-                while (1)
-                {
-                    (*(void(__cdecl * *)(_DWORD))(v2 + v0))(*(_DWORD*)(v2 + v0 + 4));
-                    ++v1;
-                    v2 += 20;
-                    if (v1 >= *(int*)& byte_5D4594[754100])
-                        break;
-                    v0 = *(_DWORD*)& byte_5D4594[754092];
-                }
-            }
-        }
-        *(_DWORD*)& byte_5D4594[754104] = 1;
+        return;
+    }
+    obj_5D4594_754104_switch = 1;
+    if (!ptr_5D4594_754092)
+    {
+        return;
+    }
+    for (int i = 0; i < ptr_5D4594_754092_cnt; i++)
+    {
+        obj_5D4594_754088_t* cur = &ptr_5D4594_754092[i];
+        cur->fnc(cur->field_4);
     }
 }
 
 //----- (0042EDC0) --------------------------------------------------------
-LPVOID sub_42EDC0()
+void sub_42EDC0()
 {
-    LPVOID result; // eax
-
-    if (*(_DWORD*)& byte_5D4594[754088])
+    if (ptr_5D4594_754088)
     {
-        free(*(LPVOID*)& byte_5D4594[754088]);
-        *(_DWORD*)& byte_5D4594[754088] = 0;
+        free(ptr_5D4594_754088);
+        ptr_5D4594_754088 = 0;
     }
-    result = *(LPVOID*)& byte_5D4594[754092];
-    if (*(_DWORD*)& byte_5D4594[754092])
+    if (ptr_5D4594_754092)
     {
-        free(*(LPVOID*)& byte_5D4594[754092]);
-        *(_DWORD*)& byte_5D4594[754092] = 0;
+        free(ptr_5D4594_754092);
+        ptr_5D4594_754092 = 0;
     }
-    return result;
 }
 
 //----- (0042EE00) --------------------------------------------------------
@@ -35421,7 +35392,7 @@ char* __cdecl sub_430120(int a1)
 }
 
 //----- (00430140) --------------------------------------------------------
-int sub_430140()
+void sub_430140(int a1)
 {
     unsigned __int8* v0; // eax
 
@@ -35439,7 +35410,7 @@ int sub_430140()
     *(_DWORD*)& byte_5D4594[791356] = 0;
     *(_DWORD*)& byte_5D4594[791376] = 1;
     *(_DWORD*)& byte_5D4594[791368] = 0;
-    return sub_4302A0(1, 1);
+    sub_4302A0_process_events(1, 1);
 }
 
 //----- (00430190) --------------------------------------------------------
@@ -35495,23 +35466,21 @@ void sub_430230()
 }
 
 //----- (004302A0) --------------------------------------------------------
-int __cdecl sub_4302A0(int a1, int a2)
+void __cdecl sub_4302A0_process_events(int evNum, int a2)
 {
-    int result; // eax
-
-    if (*(_DWORD*)& byte_5D4594[805828] != *(_DWORD*)& byte_5D4594[805812])
+    if (nox_mouse_prev_seq_2 != nox_mouse_prev_seq)
     {
         nox_mouse.field_6 = 0;
         nox_mouse.field_9 = 0;
         nox_mouse.field_12 = 0;
         nox_mouse.z = 0;
-        *(_DWORD*)& byte_5D4594[805828] = *(_DWORD*)& byte_5D4594[805812];
+        nox_mouse_prev_seq_2 = nox_mouse_prev_seq;
     }
     int num = 0;
-    if (*(_DWORD*)& byte_5D4594[754104] != 1)
+    if (obj_5D4594_754104_switch != 1)
     {
-        num = a1;
-        if (!a1)
+        num = evNum;
+        if (!evNum)
             sub_430230();
     }
     int x = 0;
@@ -35550,21 +35519,20 @@ int __cdecl sub_4302A0(int a1, int a2)
                     {
                         nox_mouse.field_6 = 5;
                         nox_mouse.left_state = 1;
-                        nox_mouse.left_seq = *(_DWORD*)& byte_5D4594[805812];
+                        nox_mouse.left_seq = nox_mouse_prev_seq;
                     }
                 }
-                else if ((unsigned int)(*(int*)& byte_5D4594[805812] - nox_mouse.left_seq) >= 0xF
-                    || (dx = nox_mouse.pos.x - nox_mouse_prev_left.x, dy = nox_mouse.pos.y - nox_mouse_prev_left.y, dx*dx + dy*dy >= 100))
+                else if ((unsigned int)((int)(nox_mouse_prev_seq) - nox_mouse.left_seq) >= 15 || (dx = nox_mouse.pos.x - nox_mouse_prev_left.x, dy = nox_mouse.pos.y - nox_mouse_prev_left.y, dx*dx + dy*dy >= 100))
                 {
                     nox_mouse.field_6 = 6;
                     nox_mouse.left_state = 0;
-                    nox_mouse.left_seq = *(_DWORD*)& byte_5D4594[805812];
+                    nox_mouse.left_seq = nox_mouse_prev_seq;
                 }
                 else
                 {
                     nox_mouse.field_6 = 7;
                     nox_mouse.left_state = 0;
-                    nox_mouse.left_seq = *(_DWORD*)& byte_5D4594[805812];
+                    nox_mouse.left_seq = nox_mouse_prev_seq;
                 }
             }
 
@@ -35584,21 +35552,20 @@ int __cdecl sub_4302A0(int a1, int a2)
                     {
                         nox_mouse.field_9 = 9;
                         nox_mouse.right_state = 1;
-                        nox_mouse.right_seq = *(_DWORD*)& byte_5D4594[805812];
+                        nox_mouse.right_seq = nox_mouse_prev_seq;
                     }
                 }
-                else if ((unsigned int)(*(int*)& byte_5D4594[805812] - nox_mouse.right_seq) >= 0xF
-                    || (dx = nox_mouse.pos.x - nox_mouse_prev_right.x, dy = nox_mouse.pos.y - nox_mouse_prev_right.y, dx*dx + dy*dy >= 100))
+                else if ((unsigned int)((int)(nox_mouse_prev_seq) - nox_mouse.right_seq) >= 15 || (dx = nox_mouse.pos.x - nox_mouse_prev_right.x, dy = nox_mouse.pos.y - nox_mouse_prev_right.y, dx*dx + dy*dy >= 100))
                 {
                     nox_mouse.field_9 = 10;
                     nox_mouse.right_state = 0;
-                    nox_mouse.right_seq = *(_DWORD*)& byte_5D4594[805812];
+                    nox_mouse.right_seq = nox_mouse_prev_seq;
                 }
                 else
                 {
                     nox_mouse.field_9 = 11;
                     nox_mouse.right_state = 0;
-                    nox_mouse.right_seq = *(_DWORD*)& byte_5D4594[805812];
+                    nox_mouse.right_seq = nox_mouse_prev_seq;
                 }
             }
 
@@ -35618,21 +35585,20 @@ int __cdecl sub_4302A0(int a1, int a2)
                     {
                         nox_mouse.field_12 = 13;
                         nox_mouse.middle_state = 1;
-                        nox_mouse.middle_seq = *(_DWORD*)& byte_5D4594[805812];
+                        nox_mouse.middle_seq = nox_mouse_prev_seq;
                     }
                 }
-                else if ((unsigned int)(*(int*)& byte_5D4594[805812] - nox_mouse.middle_seq) >= 0xF
-                    || (dx = nox_mouse.pos.x - nox_mouse_prev_middle.x, dy = nox_mouse.pos.y - nox_mouse_prev_middle.y, dx*dx + dy*dy >= 100))
+                else if ((unsigned int)((int)(nox_mouse_prev_seq) - nox_mouse.middle_seq) >= 15 || (dx = nox_mouse.pos.x - nox_mouse_prev_middle.x, dy = nox_mouse.pos.y - nox_mouse_prev_middle.y, dx*dx + dy*dy >= 100))
                 {
                     nox_mouse.field_12 = 14;
                     nox_mouse.middle_state = 0;
-                    nox_mouse.middle_seq = *(_DWORD*)& byte_5D4594[805812];
+                    nox_mouse.middle_seq = nox_mouse_prev_seq;
                 }
                 else
                 {
                     nox_mouse.field_12 = 15;
                     nox_mouse.middle_state = 0;
-                    nox_mouse.middle_seq = *(_DWORD*)& byte_5D4594[805812];
+                    nox_mouse.middle_seq = nox_mouse_prev_seq;
                 }
             }
         }
@@ -35652,7 +35618,6 @@ int __cdecl sub_4302A0(int a1, int a2)
         nox_mouse_prev_middle.x = x;
         nox_mouse_prev_middle.y = y;
     }
-    result = x - nox_mouse_prev.pos.x;
     nox_mouse.field_3 = x - nox_mouse_prev.pos.x;
     nox_mouse.field_4 = y - nox_mouse_prev.pos.y;
     if (nox_mouse.field_3 * nox_mouse.field_3 + (y - nox_mouse_prev.pos.y) * (y - nox_mouse_prev.pos.y) >= 4)
@@ -35662,20 +35627,18 @@ int __cdecl sub_4302A0(int a1, int a2)
     }
     else
     {
-        result = ++ * (_DWORD*)& byte_5D4594[805824];
-        if (*(_DWORD*)& byte_5D4594[805824] >= 0xAu)
+        ++ * (_DWORD*)& byte_5D4594[805824];
+        if (*(_DWORD*)& byte_5D4594[805824] >= 10)
             * (_DWORD*)& byte_5D4594[805804] = 1;
     }
     if (a2)
     {
-        result = nox_mouse.z;
         if (nox_mouse.z <= 0)
             nox_mouse.z = nox_mouse.z >= 0 ? 0 : 20;
         else
             nox_mouse.z = 19;
         nox_mouse_prev = nox_mouse;
     }
-    return result;
 }
 
 //----- (004306A0) --------------------------------------------------------
@@ -35687,7 +35650,7 @@ void __cdecl sub_4306A0(int a1)
     int v2 = 0;
     while (1)
     {
-        char v4 = sub_47DB20(&nox_input_buffer[v2]);
+        char v4 = sub_47DB20_get_mouse_data(&nox_input_buffer[v2]);
         if (v4 == -1)
             continue;
         v2++;
@@ -35695,11 +35658,11 @@ void __cdecl sub_4306A0(int a1)
             break;
     }
     int v5 = v2 - 1;
-    sub_4302A0(v5, a1);
+    sub_4302A0_process_events(v5, a1);
     nox_processing_input = 0;
     if (v5)
     {
-        *(_DWORD*)& byte_5D4594[805816] = *(_DWORD*)& byte_5D4594[805812];
+        *(_DWORD*)& byte_5D4594[805816] = nox_mouse_prev_seq;
     }
 }
 
@@ -35745,7 +35708,7 @@ int sub_430710()
                 if (*v4 == 58)
                     sub_47F950(0x3Au);
             }
-            if (*(_DWORD*)& byte_5D4594[754104] == 1)
+            if (obj_5D4594_754104_switch == 1)
                 v4[2] = 1;
             v5 = v4[1];
             v6 = v4[2];
@@ -35755,14 +35718,14 @@ int sub_430710()
             v7 *= 8;
             ++v2;
             byte_5D4594[v7 + 789277] = v5;
-            v8 = *(_DWORD*)& byte_5D4594[805812];
+            v8 = nox_mouse_prev_seq;
             byte_5D4594[v7 + 789278] = v6;
             *(_DWORD*)& byte_5D4594[v7 + 789280] = v8;
         } while (*v4);
     }
     result = sub_4307D0();
     if (result == 1 || v2)
-        * (_DWORD*)& byte_5D4594[805816] = *(_DWORD*)& byte_5D4594[805812];
+        * (_DWORD*)& byte_5D4594[805816] = nox_mouse_prev_seq;
     return result;
 }
 
@@ -35778,7 +35741,7 @@ int sub_4307D0()
     unsigned __int8* v7; // eax
 
     v0 = 0;
-    if (*(_DWORD*)& byte_5D4594[754104] == 1)
+    if (obj_5D4594_754104_switch == 1)
         return 0;
     if (byte_5D4594[787228])
     {
@@ -35790,10 +35753,10 @@ int sub_4307D0()
             ++v0;
         } while (v3);
     }
-    v4 = *(_DWORD*)& byte_5D4594[805812];
+    v4 = nox_mouse_prev_seq;
     v5 = 0;
     v6 = &byte_5D4594[789280];
-    while (*(v6 - 3) != 2 || (unsigned int)(*(_DWORD*)& byte_5D4594[805812] - *(_DWORD*)v6) <= 0xA)
+    while (*(v6 - 3) != 2 || (unsigned int)(nox_mouse_prev_seq - *(_DWORD*)v6) <= 0xA)
     {
         v6 += 8;
         ++v5;
@@ -35843,10 +35806,10 @@ int __cdecl sub_4308A0(int a1)
         if (!BYTE1(v2))
             OnLibraryNotice(417, *(_DWORD*)& byte_5D4594[787228]);
     }
-    ++* (_DWORD*)& byte_5D4594[805812];
+    ++nox_mouse_prev_seq;
     if (sub_40A5C0(0x2000)
         && !sub_40A5C0(4096)
-        && (unsigned int)(*(_DWORD*)& byte_5D4594[805812] - *(_DWORD*)& byte_5D4594[805816]) > 0xA8C)
+        && (unsigned int)(nox_mouse_prev_seq - *(_DWORD*)& byte_5D4594[805816]) > 0xA8C)
     {
         if (!sub_40A5C0(1))
         {
@@ -36000,9 +35963,9 @@ int sub_430B30()
 }
 
 //----- (00430B40) --------------------------------------------------------
-int sub_430B40()
+int sub_430B40_get_mouse_prev_seq()
 {
-    return *(_DWORD*)& byte_5D4594[805812];
+    return nox_mouse_prev_seq;
 }
 
 //----- (00430B50) --------------------------------------------------------
@@ -45452,38 +45415,30 @@ void sub_43E8D0()
 }
 
 //----- (0043E8E0) --------------------------------------------------------
-int sub_43E8E0()
+void sub_43E8E0(int a1)
 {
-    int result; // eax
-
-    result = *(_DWORD*)& byte_5D4594[816432];
     if (*(_DWORD*)& byte_5D4594[816432])
     {
         if (!*(_DWORD*)& byte_5D4594[816436])
         {
             *(_DWORD*)& byte_5D4594[816436] = 1;
-            result = AIL_digital_handle_release(*(_DWORD*)& byte_5D4594[816432]);
+            AIL_digital_handle_release(*(_DWORD*)& byte_5D4594[816432]);
         }
     }
-    return result;
 }
 // 581400: using guessed type int __stdcall AIL_digital_handle_release(_DWORD);
 
 //----- (0043E910) --------------------------------------------------------
-int sub_43E910()
+void sub_43E910(int a1)
 {
-    int result; // eax
-
-    result = *(_DWORD*)& byte_5D4594[816432];
     if (*(_DWORD*)& byte_5D4594[816432])
     {
         if (*(_DWORD*)& byte_5D4594[816436])
         {
-            result = AIL_digital_handle_reacquire(*(_DWORD*)& byte_5D4594[816432]);
+            AIL_digital_handle_reacquire(*(_DWORD*)& byte_5D4594[816432]);
             *(_DWORD*)& byte_5D4594[816436] = 0;
         }
     }
-    return result;
 }
 // 5813FC: using guessed type int __stdcall AIL_digital_handle_reacquire(_DWORD);
 

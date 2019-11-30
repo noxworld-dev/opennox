@@ -502,7 +502,7 @@ typedef struct DIDEVICEOBJECTDATA {
 } DIDEVICEOBJECTDATA, * LPDIDEVICEOBJECTDATA;
 
 // get mouse data
-char __cdecl sub_47DB20(nox_mouse_state_t* e)
+char __cdecl sub_47DB20_get_mouse_data(nox_mouse_state_t* e)
 {
     struct mouse_event* me = &mouse_event_queue[mouse_event_ridx];
 
