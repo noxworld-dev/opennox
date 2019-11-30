@@ -2894,10 +2894,8 @@ int sub_48C060()
 }
 
 //----- (0048B350) --------------------------------------------------------
-LPVOID sub_48B350()
+void sub_48B350()
 {
-    LPVOID result; // eax
-
     *(_DWORD*)& byte_5D4594[1193660] = 0;
     *(_DWORD*)& byte_5D4594[1193680] = 0;
     if (*(_DWORD*)& byte_5D4594[1193656])
@@ -2922,14 +2920,12 @@ LPVOID sub_48B350()
         dword_6F7C48 = 0;
     }
 #endif
-    result = *(LPVOID*)& byte_5D4594[1193704];
     if (*(_DWORD*)& byte_5D4594[1193704])
     {
         free(*(LPVOID*)& byte_5D4594[1193704]);
         *(_DWORD*)& byte_5D4594[1193704] = 0;
     }
     *(_DWORD*)& byte_5D4594[1193624] = 0;
-    return result;
 }
 
 #ifdef USE_SDL

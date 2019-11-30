@@ -8871,22 +8871,18 @@ int sub_4AE520()
 }
 
 //----- (004AE540) --------------------------------------------------------
-LPVOID sub_4AE540()
+void sub_4AE540()
 {
-    LPVOID result; // eax
-
     if (*(_DWORD*)& byte_5D4594[3798632])
     {
         free(*(LPVOID*)& byte_5D4594[3798632]);
         *(_DWORD*)& byte_5D4594[3798632] = 0;
     }
-    result = *(LPVOID*)& byte_5D4594[3798644];
     if (*(_DWORD*)& byte_5D4594[3798644])
     {
         free(*(LPVOID*)& byte_5D4594[3798644]);
         *(_DWORD*)& byte_5D4594[3798644] = 0;
     }
-    return result;
 }
 
 //----- (004AE580) --------------------------------------------------------
@@ -10077,23 +10073,19 @@ int sub_4AF8D0()
 }
 
 //----- (004AF950) --------------------------------------------------------
-LPVOID sub_4AF950()
+void sub_4AF950()
 {
-    LPVOID result; // eax
-
     if (*(_DWORD*)& byte_5D4594[1311140])
     {
         free(*(LPVOID*)& byte_5D4594[1311140]);
         *(_DWORD*)& byte_5D4594[1311140] = 0;
     }
-    result = *(LPVOID*)& byte_5D4594[1311144];
     if (*(_DWORD*)& byte_5D4594[1311144])
     {
         free(*(LPVOID*)& byte_5D4594[1311144]);
         *(_DWORD*)& byte_5D4594[1311144] = 0;
     }
     *(_DWORD*)& byte_5D4594[1311148] = 0;
-    return result;
 }
 
 //----- (004AF990) --------------------------------------------------------
@@ -10832,13 +10824,11 @@ int sub_4B0650()
 }
 
 //----- (004B0660) --------------------------------------------------------
-void* sub_4B0660()
+void sub_4B0660()
 {
     void* result; // eax
-
     for (result = *(void**)& byte_5D4594[1312460]; *(_DWORD*)& byte_5D4594[1312460]; result = *(void**)& byte_5D4594[1312460])
         sub_4B07D0(result);
-    return result;
 }
 
 //----- (004B0680) --------------------------------------------------------
@@ -33482,7 +33472,7 @@ HANDLE sub_4D07F0()
 }
 
 //----- (004D0970) --------------------------------------------------------
-int* sub_4D0970()
+void sub_4D0970()
 {
     int* result; // eax
     int* v1; // esi
@@ -33500,7 +33490,6 @@ int* sub_4D0970()
             v1 = v2;
         } while (v2);
     }
-    return result;
 }
 
 //----- (004D09B0) --------------------------------------------------------
@@ -33720,14 +33709,10 @@ int __cdecl sub_4D0D90(int a1)
 }
 
 //----- (004D0DA0) --------------------------------------------------------
-int sub_4D0DA0()
+void sub_4D0DA0()
 {
-    int result; // eax
-
-    result = 0;
     memset(&byte_5D4594[1548452], 0, 0x18u);
     memset(&byte_5D4594[1548428], 0, 0x18u);
-    return result;
 }
 
 //----- (004D0DC0) --------------------------------------------------------
@@ -34006,7 +33991,7 @@ _DWORD* sub_4D11A0()
 }
 
 //----- (004D11D0) --------------------------------------------------------
-int* sub_4D11D0()
+void sub_4D11D0()
 {
     int* result; // eax
     int* v1; // esi
@@ -34024,7 +34009,6 @@ int* sub_4D11D0()
             v1 = v2;
         } while (v2);
     }
-    return result;
 }
 
 //----- (004D1210) --------------------------------------------------------
@@ -34090,7 +34074,7 @@ int __cdecl sub_4D12A0(int a1)
 }
 
 //----- (004D12E0) --------------------------------------------------------
-int __cdecl sub_4D12E0(int a1)
+void __cdecl sub_4D12E0(int a1)
 {
     int v1; // edi
     int v2; // esi
@@ -34215,7 +34199,7 @@ int __cdecl sub_4D12E0(int a1)
     sub_50E360();
     sub_50D7E0();
     sub_4E4F80();
-    return sub_40A540(0x80000);
+    sub_40A540(0x80000);
 }
 // 511840: using guessed type int sub_511840(void);
 
@@ -36281,7 +36265,7 @@ LABEL_8:
 }
 
 //----- (004D4160) --------------------------------------------------------
-int sub_4D4160()
+void sub_4D4160()
 {
     int v0; // edi
     int v1; // esi
@@ -36333,7 +36317,7 @@ int sub_4D4160()
     nox_sprintf(ExistingFileName, "%s\\blend.obj", v6);
     DeleteFileA(FileName);
     MoveFileA(ExistingFileName, FileName);
-    return sub_40A540(0x400000);
+    sub_40A540(0x400000);
 }
 
 //----- (004D42C0) --------------------------------------------------------
@@ -37778,23 +37762,19 @@ int __cdecl sub_4D6170(int a1)
 }
 
 //----- (004D61B0) --------------------------------------------------------
-int __cdecl sub_4D61B0(int a1)
+void __cdecl sub_4D61B0(int a1)
 {
-    int result; // eax
     int v2; // eax
-
-    result = a1;
     if (a1)
     {
         if ((*(_BYTE*)(a1 + 16) & 0x20) != 32)
         {
             v2 = *(_DWORD*)(a1 + 748);
             ++* (_DWORD*)(*(_DWORD*)(v2 + 276) + 4668);
-            result = *(_DWORD*)(v2 + 276);
+            int result = *(_DWORD*)(v2 + 276);
             *(_DWORD*)(result + 4692) |= 8u;
         }
     }
-    return result;
 }
 
 //----- (004D61F0) --------------------------------------------------------
@@ -40680,7 +40660,7 @@ int __cdecl sub_4D9800(int a1, int a2)
 }
 
 //----- (004D9840) --------------------------------------------------------
-int __cdecl sub_4D9840(_DWORD* a1, _DWORD* a2)
+void __cdecl sub_4D9840(_DWORD* a1, _DWORD* a2)
 {
     char v3[7]; // [esp+4h] [ebp-8h]
 
@@ -40692,7 +40672,7 @@ int __cdecl sub_4D9840(_DWORD* a1, _DWORD* a2)
         *(_WORD*)& v3[3] = sub_578AC0(a1);
         *(_WORD*)& v3[5] = sub_578AC0(a2);
     }
-    return sub_4E5390(255, (int)v3, 7, 0, 1);
+    sub_4E5390(255, (int)v3, 7, 0, 1);
 }
 
 //----- (004D98A0) --------------------------------------------------------
@@ -51860,7 +51840,7 @@ BOOL __cdecl sub_4E7410(int a1)
 }
 
 //----- (004E7470) --------------------------------------------------------
-char* __cdecl sub_4E7470(int a1, int a2)
+void __cdecl sub_4E7470(int a1, int a2)
 {
     const char* v2; // eax
     unsigned __int8* v3; // edi
@@ -51911,7 +51891,6 @@ char* __cdecl sub_4E7470(int a1, int a2)
             result = *(char**)(v10 + 4);
         }
     }
-    return result;
 }
 
 //----- (004E7540) --------------------------------------------------------
@@ -56884,7 +56863,7 @@ int __cdecl sub_4ED020(int a1)
 }
 
 //----- (004ED050) --------------------------------------------------------
-__int16 __cdecl sub_4ED050(int a1, int a2)
+void __cdecl sub_4ED050(int a1, int a2)
 {
     int v2; // eax
     int i; // esi
@@ -56906,7 +56885,6 @@ __int16 __cdecl sub_4ED050(int a1, int a2)
             *(_DWORD*)(v4 + 4) = a2;
         }
     }
-    return v2;
 }
 
 //----- (004ED0C0) --------------------------------------------------------
