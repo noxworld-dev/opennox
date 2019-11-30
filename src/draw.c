@@ -3497,7 +3497,7 @@ int __cdecl sub_4B0340(int a1)
         nox_sleep(0x32u);
 #endif
     }
-    sub_43E8E0();
+    sub_43E8E0(0);
     v12 = sub_48B3E0(0);
     unacquireMouse_sub_47D8B0();
     sub_48A7F0();
@@ -3558,7 +3558,7 @@ int __cdecl sub_4B0340(int a1)
                 return result;
             sub_48B3F0(v11, v10, v9);
         }
-        sub_43E910();
+        sub_43E910(0);
         sub_43DBE0();
         acquireMouse_sub_47D8C0();
         sub_48B3E0(v12);

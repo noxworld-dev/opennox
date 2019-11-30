@@ -523,4 +523,10 @@ typedef struct obj_5D4594_3799572_t
     _DWORD data[264];
 } obj_5D4594_3799572_t;
 
+typedef struct {
+    void (*fnc)(int);
+    int field_4;
+    char name[12];
+} obj_5D4594_754088_t;
+
 #endif

@@ -417,7 +417,7 @@ int __cdecl sub_4A22A0(int a1, int* a2)
     int xLeft; // [esp+4h] [ebp-8h]
     int yTop; // [esp+8h] [ebp-4h]
 
-    sub_430B40();
+    sub_430B40_get_mouse_prev_seq();
     sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
     if ((signed char) * (_BYTE*)(a1 + 4) >= 0)
     {
@@ -19983,7 +19983,7 @@ int __cdecl sub_4BE640(int a1, int a2)
     int v4; // esi
     signed int v5; // edi
 
-    v2 = sub_430B40() + a2;
+    v2 = sub_430B40_get_mouse_prev_seq() + a2;
     if (!a1)
         return 0;
     v4 = *(_DWORD*)(a1 + 96);
