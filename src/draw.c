@@ -1458,6 +1458,12 @@ int sub_48B000()
     if (!g_ddraw)
     {
         g_ddraw = SDL_GL_CreateContext(windowHandle_dword_973FE0);
+	    if (g_ddraw == NULL)
+	    {
+		    fprintf(stderr, "SDL GL context creation failed: %s\n", SDL_GetError());
+		    return 0;
+	    }
+
     }
     SDL_GL_SetSwapInterval(1);
 
