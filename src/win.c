@@ -90,8 +90,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         }
     }
 #ifdef USE_SDL
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0)
+	{
+		fprintf(stderr, "ERROR: SDL Initialization failed: %s\n", SDL_GetError() );
+		return 0;
+	}
     g_window = SDL_CreateWindow("Nox Game Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, nox_win_width, nox_win_height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+	if(g_window == NULL)
+	{
+		fprintf(stderr, "ERROR: SDL Window creation failed: %s\n", SDL_GetError());
+		return 0;
+	}
 
 #ifdef __EMSCRIPTEN__
     if (EM_ASM_INT(return isMobile()))
