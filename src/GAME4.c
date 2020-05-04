@@ -38314,7 +38314,7 @@ int __cdecl sub_5235F0(char a1)
         *(_DWORD*)& byte_5D4594[2487564] = clock();
         if (*(_DWORD*)& byte_5D4594[2487568] > * (int*)& byte_5D4594[2487564])
             * (_DWORD*)& byte_5D4594[2487568] = 0;
-        sub_4453A0();
+        sub_4453A0_poll_events();
         result = *(_DWORD*)& byte_5D4594[2487564] - *(_DWORD*)& byte_5D4594[2487568];
         if (*(_DWORD*)& byte_5D4594[2487564] - *(_DWORD*)& byte_5D4594[2487568] > * (int*)& byte_587000[254948])
         {

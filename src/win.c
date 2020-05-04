@@ -150,7 +150,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         if (byte_5D4594[2650637] & 0x10)
             sub_413E30(/* "Memory dump after GameLoop() :" */);
         *(_DWORD*)& byte_5D4594[823800] = 1;
-        sub_4453A0();
+        sub_4453A0_poll_events();
         DestroyWindow(g_hwnd);
         sub_416B00();
         UnregisterClassA(g_wnd_class.lpszClassName, hInstance);
@@ -381,7 +381,7 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 #endif
 
 //----- (004453A0) --------------------------------------------------------
-int sub_4453A0()
+int sub_4453A0_poll_events()
 {
 #ifdef USE_SDL
     SDL_Event event;
@@ -440,8 +440,8 @@ void sub_4516C0(wchar_t* a1, ...)
     fclose(nox_file_log);
     if (*(_DWORD*)& byte_5D4594[823776])
         sub_430EF0();
-    sub_4453A0();
-    sub_4453A0();
+    sub_4453A0_poll_events();
+    sub_4453A0_poll_events();
     nox_exit(0);
 }
 // 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);

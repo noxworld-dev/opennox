@@ -41,6 +41,7 @@ void* nox_backbuffer_pix = 0;
 
 int nox_backbuffer_width = 0;
 int nox_backbuffer_height = 0;
+int nox_backbuffer_depth = 0;
 
 #ifdef USE_SDL
 enum {
@@ -101,7 +102,7 @@ int nox_backbuffer_width32;
 DWORD dword_973C64;
 
 //----- (00444AC0) --------------------------------------------------------
-int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
+int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags)
 {
     int v5; // eax
     bool v6; // zf
@@ -113,14 +114,14 @@ int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
     InitializeCriticalSection((LPCRITICAL_SECTION)& byte_5D4594[3799596]);
     *(_DWORD*)& byte_5D4594[823780] = 1;
 #ifdef USE_SDL
-    windowHandle_dword_973FE0 = (SDL_Window*)a1;
+    windowHandle_dword_973FE0 = (SDL_Window*)wnd;
 #else
     windowHandle_dword_973FE0 = a1;
 #endif
-    nox_backbuffer_width = a2;
-    nox_backbuffer_height = a3;
-    *(_DWORD*)& byte_5D4594[3799568] = a4;
-    *(_DWORD*)& byte_5D4594[3801772] = a5;
+    nox_backbuffer_width = w;
+    nox_backbuffer_height = h;
+    nox_backbuffer_depth = depth;
+    *(_DWORD*)& byte_5D4594[3801772] = flags;
     v5 = sub_48C870(0);
     *(_DWORD*)& byte_5D4594[3799620] = v5;
     v6 = v5 == 5;
@@ -130,24 +131,24 @@ int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
         v7 = byte_5D4594[3801772] | 0x20;
         *(_DWORD*)& byte_5D4594[3801772] |= 0x120u;
     }
-    v8 = a2 & 0xFFFFFFE0;
+    v8 = w & 0xFFFFFFE0;
     if (!(v7 & 4))
     {
-        if (!sub_48A040(a1, v8, a3, a4))
+        if (!sub_48A040(wnd, v8, h, depth))
             return 0;
         *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
         return 1;
     }
     v9 = (v7 & 0x17) - 20;
     *(_DWORD*)& byte_5D4594[3801796] = 0;
-    nox_backbuffer_width = a2 & 0xFFFFFFE0;
-    nox_backbuffer_height = a3;
+    nox_backbuffer_width = w & 0xFFFFFFE0;
+    nox_backbuffer_height = h;
     nox_backbuffer_pitch32 = 0;
     dword_973C64 = 0;
     if (!v9)
     {
         *(_DWORD*)& byte_5D4594[3799624] = 0;
-        *(_DWORD*)& byte_5D4594[3801808] = a2 & 0xFFFFFFE0;
+        *(_DWORD*)& byte_5D4594[3801808] = w & 0xFFFFFFE0;
         *(_DWORD*)& byte_5D4594[3801780] = 0;
         *(_DWORD*)& byte_5D4594[3801776] = v8 >> 2;
         nox_backbuffer_width32 = v8 >> 5;
@@ -324,7 +325,7 @@ int __cdecl sub_4B0640(int(*a1)(void))
     return 0;
 }
 
-void sub_48A290()
+void sub_48A290_call_present()
 {
 }
 
@@ -356,7 +357,7 @@ int __cdecl sub_4341D0(int a1, int a2)
     return 0;
 }
 
-int sub_4AD170(void)
+int sub_4AD170_call_copy_backbuffer(void)
 {
     return 0;
 }
@@ -396,7 +397,7 @@ Uint32 g_format;
 SDL_GLContext g_ddraw;
 GLuint g_texture, g_program, g_tex_coord_buffer, g_tex_coord_attr, g_gamma_uniform, g_matrix_uniform, g_sampler_uniform;
 unsigned int g_tex_coord_itemsize, g_tex_coord_numitems;
-float draw_gamma = 1.0;
+float draw_gamma = 1.0f;
 
 SDL_Surface* dword_6F7C48;
 SDL_Surface* g_cursor_surf;
@@ -518,11 +519,11 @@ LPDIRECTDRAWPALETTE g_ddraw_palette;
 LPDIRECTDRAWGAMMACONTROL g_ddraw_gamma_control;
 #endif
 DWORD dword_973C70;
-DWORD dword_973C7C;
+DWORD g_present_ticks;
 DWORD g_backbuffer_count;
 DWORD dword_5ACFAC;
 DWORD dword_6F7B9C;
-void(*dword_6F7BA0)();
+void(*g_present_ptr)();
 DWORD dword_6F7BB0;
 DWORD dword_6F7BF8;
 BYTE* dword_6F7C74;
@@ -535,7 +536,7 @@ __int16(*dword_6F7C34)();
 void(*dword_975240)(_DWORD, _DWORD*, _DWORD*, _DWORD*);
 int(*dword_975380)(_DWORD, _DWORD, _DWORD);
 void(*dword_69A014)(_DWORD, _DWORD, _DWORD, _DWORD*);
-void(*dword_714204)();
+void(*g_copy_backbuffer_ptr)();
 
 //----- (0048A040) --------------------------------------------------------
 int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4)
@@ -556,7 +557,7 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4)
     dword_973C88 = 0;
     dword_973C60 = 0;
     dword_973C70 = 0;
-    dword_973C7C = 0;
+    g_present_ticks = 0;
     dword_974854 = 0;
     dword_6F7B9C = 1;
     dword_5ACFAC = 1;
@@ -630,7 +631,7 @@ char sub_48A190()
     int v0; // eax
 
 #ifdef USE_SDL
-    dword_6F7BA0 = sdl_present;
+    g_present_ptr = sdl_present;
 
     dword_6F7B9C = 1;
     nox_backbuffer1_pix = g_backbuffer1->pixels;
@@ -638,12 +639,12 @@ char sub_48A190()
 #else
     if (*(_DWORD*)& byte_5D4594[3801796] && byte_5D4594[3801772] & 0x20 && (v0 = sub_48ACC0()) != 0)
     {
-        dword_6F7BA0 = sub_48AB50;
+        g_present_ptr = sub_48AB50;
     }
     else
     {
         v0 = *(_DWORD*)& byte_5D4594[3801772];
-        dword_6F7BA0 = sub_48AAF0;
+        g_present_ptr = sub_48AAF0;
         LOBYTE(v0) = byte_5D4594[3801772] & 0xDF;
         *(_DWORD*)& byte_5D4594[3801772] = v0;
     }
@@ -678,10 +679,10 @@ void __cdecl sub_48A220()
 }
 
 //----- (0048A290) --------------------------------------------------------
-void sub_48A290()
+void sub_48A290_call_present()
 {
-    dword_6F7BA0();
-    ++dword_973C7C;
+    g_present_ptr();
+    ++g_present_ticks;
 }
 
 #ifdef USE_SDL
@@ -1369,15 +1370,15 @@ int __cdecl sub_48AED0(HWND a1, int a2, int a3)
         v4 = CreateICA("Display", 0, 0, 0);
         v5 = GetDeviceCaps(v4, 12);
         DeleteDC(v4);
-        if (*(_DWORD*)& byte_5D4594[3799568] == 8)
+        if (nox_backbuffer_depth == 8)
         {
-            if (v5 != *(_DWORD*)& byte_5D4594[3799568])
+            if (v5 != nox_backbuffer_depth)
             {
                 sub_48C940("8 bit color windowed mode requires you switch your desktop to 256 colors");
                 return 0;
             }
         }
-        else if (*(_DWORD*)& byte_5D4594[3799568] == 16 && v5 != 16)
+        else if (nox_backbuffer_depth == 16 && v5 != 16)
         {
             sub_48C940("16 bit color windowed mode requires you switch your desktop to High Color (65536 colors)");
             return 0;
@@ -2341,32 +2342,30 @@ void sub_433C20()
 }
 
 //----- (00444930) --------------------------------------------------------
-int __cdecl sub_444930(HWND a1, int a2, int a3, int a4, int a5)
+int __cdecl sub_444930(HWND wnd, int w, int h, int depth, int flags)
 {
-    int result; // eax
-
     *(_DWORD*)& byte_5D4594[823776] = 0;
     ptr_5D4594_3799572 = &obj_5D4594_3799660;
-    result = sub_4449D0(a1, a2, a3, a4, a5);
+    int result = sub_4449D0(wnd, w, h, depth, flags);
     printf("%s: %d\n", __FUNCTION__, result);
-    if (result)
-    {
-        ptr_5D4594_3799572 = &obj_5D4594_3800716;
-        qmemcpy(&obj_5D4594_3800716, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t));
-        if (byte_5D4594[3801773] & 2)
-        {
-#ifdef USE_SDL
-            // FIXME
-#else
-            ShowWindow(windowHandle_dword_973FE0, SW_MINIMIZE);
-            PostMessageA(windowHandle_dword_973FE0, WM_ACTIVATEAPP, 0, 0);
-#endif
-        }
-        result = 1;
-        *(_DWORD*)& byte_5D4594[823776] = 1;
-        ++* (_DWORD*)& byte_5D4594[823772];
+    if (!result) {
+        return 0;
     }
-    return result;
+    ptr_5D4594_3799572 = &obj_5D4594_3800716;
+    qmemcpy(&obj_5D4594_3800716, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t));
+    if (byte_5D4594[3801773] & 2)
+    {
+#ifdef USE_SDL
+        // FIXME
+#else
+        ShowWindow(windowHandle_dword_973FE0, SW_MINIMIZE);
+        PostMessageA(windowHandle_dword_973FE0, WM_ACTIVATEAPP, 0, 0);
+#endif
+    }
+    result = 1;
+    *(_DWORD*)& byte_5D4594[823776] = 1;
+    ++* (_DWORD*)& byte_5D4594[823772];
+    return 1;
 }
 
 //----- (00444C50) --------------------------------------------------------
@@ -2444,7 +2443,7 @@ int __cdecl sub_48C940(LPCSTR lpText)
 int sub_4AD100()
 {
     if (byte_5D4594[3801772] & 0x40)
-        dword_714204 = sub_4AD180;
+        g_copy_backbuffer_ptr = sub_4AD180;
     else
         sub_4AD150();
     *(_DWORD*)& byte_5D4594[3798652] = 0;
@@ -2454,14 +2453,14 @@ int sub_4AD100()
 //----- (004AD150) --------------------------------------------------------
 void sub_4AD150()
 {
-    dword_714204 = sub_4AD2A0;
+    g_copy_backbuffer_ptr = sub_4AD2A0;
     if (!(byte_5D4594[3801772] & 0x20))
-        dword_714204 = sub_4AD1E0;
+        g_copy_backbuffer_ptr = sub_4AD1E0;
 }
 
-void sub_4AD170(void)
+void sub_4AD170_call_copy_backbuffer(void)
 {
-    dword_714204();
+    g_copy_backbuffer_ptr();
 }
 
 //----- (004AD180) --------------------------------------------------------
@@ -2672,7 +2671,7 @@ int sub_48A3D0()
             else
             {
                 *(_DWORD*)& byte_5D4594[3801796] = 0;
-                dword_6F7BA0 = sub_48ABC0;
+                g_present_ptr = sub_48ABC0;
                 *(_DWORD*)& byte_5D4594[3801772] &= 0xFFFFFFDF;
             }
             if (v12.ddpfPixelFormat.dwRGBBitCount == 16)
@@ -3574,7 +3573,7 @@ int __cdecl sub_4B0340(int a1)
     v4 = *(_DWORD*)& byte_5D4594[3801772];
     v8 = nox_backbuffer_width;
     v7 = nox_backbuffer_height;
-    a1 = *(_DWORD*)& byte_5D4594[3799568];
+    a1 = nox_backbuffer_depth;
     sub_48B350();
     sub_433C20();
     sub_486110();

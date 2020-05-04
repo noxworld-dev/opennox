@@ -209,7 +209,7 @@ int __cdecl sub_40AA60(int a1);
 int __cdecl sub_40AA70(int a1);
 BOOL sub_40ABD0();
 size_t* __cdecl sub_40ABF0(const char* path, int a2);
-void __cdecl sub_40ACA0(LPVOID lpMem); // idb
+void __cdecl sub_40ACA0_free_ptr2(void** lpMem); // idb
 unsigned int __cdecl sub_40ACC0(void* a1, unsigned int a2, int a3, int a4);
 unsigned int __cdecl sub_40AD10(unsigned int* a1, int a2, int a3);
 unsigned int __cdecl sub_40AD60(char* a1, int a2, int a3, _DWORD* a4);
@@ -1972,9 +1972,9 @@ void sub_444560();
 int sub_444570();
 void sub_4445C0();
 BOOL sub_444830();
-int __cdecl sub_444930(HWND a1, int a2, int a3, int a4, int a5);
-int __cdecl sub_4449D0(HWND a1, int a2, int a3, int a4, int a5);
-int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5);
+int __cdecl sub_444930(HWND wnd, int w, int h, int depth, int flags);
+int __cdecl sub_4449D0(HWND wnd, int w, int h, int depth, int flags);
+int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags);
 void sub_444C50();
 void sub_444D00();
 void sub_444D30();
@@ -1985,7 +1985,7 @@ signed int sub_444DD0();
 HDC sub_444F90();
 void __cdecl sub_444FC0(HDC a1);
 int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam); // idb
-int sub_4453A0();
+int sub_4453A0_poll_events();
 int sub_445440();
 wchar_t* sub_445450();
 void __cdecl sub_445490(wchar_t* a1);
@@ -3339,7 +3339,7 @@ char sub_48A190();
 int __cdecl sub_48A1D0(int a1);
 int __cdecl sub_48A210(int a1);
 void __cdecl sub_48A220();
-void sub_48A290();
+void sub_48A290_call_present();
 int sub_48A2A0();
 int sub_48A3D0();
 int sub_48A5D0();
@@ -3524,13 +3524,13 @@ unsigned int __cdecl sub_499CF0(int* a1, int a2, int a3);
 int __cdecl sub_499E70(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 _DWORD* __cdecl sub_499F60(int a1, int a2, int a3, __int16 a4, char a5, char a6, char a7, char a8, char a9, int a10);
 int __cdecl sub_49A150(int2* a1, int a2, unsigned __int8 a3); // idb
-int sub_49A2C0();
-int sub_49A2E0(void); // weak
-int __cdecl sub_49A2F0(); // weak
-unsigned __int8* __cdecl sub_49A300(int a1);
-char* __cdecl sub_49A340(int a1);
-int __cdecl sub_49A380(_DWORD* a1, int a2);
-char* __cdecl sub_49A3B0(int a1, int a2);
+void nox_alloc_npcs();
+void sub_49A2E0(void); // weak
+void __cdecl sub_49A2F0(); // weak
+nox_npc* __cdecl nox_new_npc(int id);
+nox_npc* __cdecl nox_npc_by_id(int id);
+int __cdecl nox_init_npc(nox_npc* ptr, int id);
+nox_npc* __cdecl nox_npc_set_328(int id, int a2);
 char* __cdecl sub_49A3D0(char a1, int a2, int a3, int a4);
 int __cdecl sub_49A4B0(_DWORD* a1, int a2, int a3);
 int sub_49A5F0();
@@ -3887,7 +3887,7 @@ int __cdecl sub_4AD040(int a1);
 int sub_4AD100();
 void nullsub_15(void); // weak
 void sub_4AD150();
-void sub_4AD170(void); // weak
+void sub_4AD170_call_copy_backbuffer(void); // weak
 void sub_4AD180();
 void sub_4AD1E0();
 void sub_4AD2A0();

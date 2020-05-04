@@ -17,6 +17,7 @@ extern void* nox_backbuffer1_pix;
 extern void* nox_backbuffer_pix;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
+extern int nox_backbuffer_depth;
 extern int nox_backbuffer_width32;
 
 int g_fullscreen_cfg = 0;
@@ -1276,6 +1277,7 @@ mem_mapping mappings[] = {
     {0x5D4594+3798752, (void*)&nox_backbuffer_pix, sizeof(nox_backbuffer_pix),1},
     {0x5D4594+3801784, (void*)&nox_backbuffer_width, sizeof(nox_backbuffer_width),1},
     {0x5D4594+3801788, (void*)&nox_backbuffer_height, sizeof(nox_backbuffer_height),1},
+    {0x5D4594+3799568, (void*)&nox_backbuffer_depth, sizeof(nox_backbuffer_depth),1},
     {0x5D4594+3801800, (void*)&nox_backbuffer_width32, sizeof(nox_backbuffer_width32),1},
     {0x5D4594+3799572, (void*)&ptr_5D4594_3799572, sizeof(ptr_5D4594_3799572),1},
     {0x5D4594+3799660, (void*)&obj_5D4594_3799660, sizeof(obj_5D4594_3799660),1},
@@ -1370,7 +1372,7 @@ void cleanup()
     sub_48B1B0(&g_ddraw);
 #endif
     if (*(_DWORD*)& byte_5D4594[260])
-        sub_40ACA0(*(LPVOID*)& byte_5D4594[260]);
+        sub_40ACA0_free_ptr2(*(LPVOID*)& byte_5D4594[260]);
 }
 
 void mainloop_exit_1()
@@ -3566,8 +3568,9 @@ size_t* __cdecl sub_40ABF0(const char* path, int a2)
 
     v2 = 0;
     v3 = (size_t*)nox_malloc(0x10u);
-    if (!v3)
-        goto LABEL_7;
+    if (!v3) {
+        return 0;
+    }
     v4 = sub_408CC0(path, 0);
     v2 = v4;
     if (!v4
@@ -3579,8 +3582,7 @@ size_t* __cdecl sub_40ABF0(const char* path, int a2)
             (*v3 = (size_t)v5) == 0)
         || (v6 = v3[1], sub_408E40(v5, 1, v3[1], v2) != v6))
     {
-        sub_40ACA0(v3);
-    LABEL_7:
+        sub_40ACA0_free_ptr2(v3);
         v3 = 0;
         goto LABEL_9;
     }
@@ -3594,11 +3596,13 @@ LABEL_9:
 }
 
 //----- (0040ACA0) --------------------------------------------------------
-void __cdecl sub_40ACA0(LPVOID lpMem)
+void __cdecl sub_40ACA0_free_ptr2(void** ptr)
 {
-    if (*(_DWORD*)lpMem)
-        free(*(LPVOID*)lpMem);
-    free(lpMem);
+    if (*ptr) {
+        free(*ptr);
+        *ptr = NULL;
+    }
+    free(ptr);
 }
 
 //----- (0040ACC0) --------------------------------------------------------
@@ -13175,7 +13179,7 @@ size_t* __cdecl sub_415470(char* a1)
                         if (!sub_415700((int)v3, v1))
                         {
                         LABEL_34:
-                            sub_40ACA0(v3);
+                            sub_40ACA0_free_ptr2(v3);
                             return 0;
                         }
                         goto LABEL_35;
@@ -13183,7 +13187,7 @@ size_t* __cdecl sub_415470(char* a1)
                 }
             LABEL_35:
                 if (!*(_DWORD*)& byte_5D4594[260])
-                    sub_40ACA0(v3);
+                    sub_40ACA0_free_ptr2(v3);
                 free(v1);
                 result = (size_t*)1;
             }
@@ -39347,7 +39351,7 @@ int sub_435CC0()
                             result = sub_473680();
                             if (result)
                             {
-                                sub_49A2C0();
+                                nox_alloc_npcs();
                                 result = sub_499360();
                                 if (result)
                                 {
@@ -43017,12 +43021,12 @@ int __cdecl sub_43BF10(int a1)
     }
     sub_430BE0(v1, v2, v3);
     *(_DWORD*)& byte_5D4594[805872] = 0;
-    if (v1 == nox_backbuffer_width && v2 == nox_backbuffer_height && v3 == *(_DWORD*)& byte_5D4594[3799568])
+    if (v1 == nox_backbuffer_width && v2 == nox_backbuffer_height && v3 == nox_backbuffer_depth)
     {
         return 1;
     }
     sub_48BE50(1);
-    if (v3 == *(_DWORD*)& byte_5D4594[3799568] || (result = sub_42F370(*(int*)& byte_5D4594[3804680])) != 0)
+    if (v3 == nox_backbuffer_depth || (result = sub_42F370(*(int*)& byte_5D4594[3804680])) != 0)
     {
         result = sub_430BA0();
         if (result)
@@ -44912,7 +44916,7 @@ int map_download_loop(int first)
     unsigned __int8* v1; // eax
 
     sub_416C70(30);
-    sub_4453A0();
+    sub_4453A0_poll_events();
     sub_4308A0(1);
     sub_46B740();
     if (sub_43AF70() == 1)
@@ -44938,8 +44942,8 @@ int map_download_loop(int first)
     sub_46C2E0();
     sub_477830();
     sub_48A220();
-    sub_4AD170();
-    sub_48A290();
+    sub_4AD170_call_copy_backbuffer();
+    sub_48A290_call_present();
 
     if (!*(_DWORD*)& byte_587000[173328])
         return map_download_finish();
@@ -45117,7 +45121,7 @@ void mainloop()
         sub_40DF90();
     }
     sub_416C70(30);
-    sub_4453A0();
+    sub_4453A0_poll_events();
     sub_413520();
     sub_435770();
     if (!(*(int (**)(void)) & byte_5D4594[816388])())
@@ -45272,8 +45276,8 @@ void mainloop()
         if (!(*(_DWORD*)& byte_5D4594[2650636] & 0x40000) || byte_5D4594[2650637] & 1 || *(_DWORD*)& byte_5D4594[815132])
         {
             sub_48A220();
-            sub_4AD170();
-            sub_48A290();
+            sub_4AD170_call_copy_backbuffer();
+            sub_48A290_call_present();
         }
     }
     sub_435750();
@@ -45323,7 +45327,7 @@ void sub_43E290()
 #endif
 }
 // 43E815: variable 'v18' is possibly undefined
-// 4AD170: using guessed type int sub_4AD170(void);
+// 4AD170: using guessed type int sub_4AD170_call_copy_backbuffer(void);
 
 //----- (0043E8B0) --------------------------------------------------------
 int sub_43E8B0()
@@ -50394,110 +50398,110 @@ BOOL sub_444830()
 #endif
 
 //----- (004449D0) --------------------------------------------------------
-int __cdecl sub_4449D0(HWND a1, int a2, int a3, int a4, int a5)
+int __cdecl sub_4449D0(HWND wnd, int w, int h, int depth, int flags)
 {
     int result; // eax
 
-    result = sub_444AC0(a1, a2, a3, a4, a5);
+    result = sub_444AC0(wnd, w, h, depth, flags);
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_47D200();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_486090();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_4B0B30();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_4408E0();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_49F610();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_4338D0();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_4AD100();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_48B1F0();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_44D9A0();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_4B0650();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_49E3F0();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_48C560();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_4B02D0();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_4AF8D0();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_4AEE80();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_4AE520();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_49CB50();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_43F1C0();
+    printf("%s: %d\n", __FUNCTION__, result);
+    if (!result)
+        return result;
+
+    result = sub_4AE400();
     printf("%s: %d\n", __FUNCTION__, result);
     if (result)
-    {
-        result = sub_47D200();
-        printf("%s: %d\n", __FUNCTION__, result);
-        if (result)
-        {
-            result = sub_486090();
-            printf("%s: %d\n", __FUNCTION__, result);
-            if (result)
-            {
-                result = sub_4B0B30();
-                printf("%s: %d\n", __FUNCTION__, result);
-                if (result)
-                {
-                    result = sub_4408E0();
-                    printf("%s: %d\n", __FUNCTION__, result);
-                    if (result)
-                    {
-                        result = sub_49F610();
-                        printf("%s: %d\n", __FUNCTION__, result);
-                        if (result)
-                        {
-                            result = sub_4338D0();
-                            printf("%s: %d\n", __FUNCTION__, result);
-                            if (result)
-                            {
-                                result = sub_4AD100();
-                                printf("%s: %d\n", __FUNCTION__, result);
-                                if (result)
-                                {
-                                    result = sub_48B1F0();
-                                    printf("%s: %d\n", __FUNCTION__, result);
-                                    if (result)
-                                    {
-                                        result = sub_44D9A0();
-                                        printf("%s: %d\n", __FUNCTION__, result);
-                                        if (result)
-                                        {
-                                            result = sub_4B0650();
-                                            printf("%s: %d\n", __FUNCTION__, result);
-                                            if (result)
-                                            {
-                                                result = sub_49E3F0();
-                                                printf("%s: %d\n", __FUNCTION__, result);
-                                                if (result)
-                                                {
-                                                    result = sub_48C560();
-                                                    printf("%s: %d\n", __FUNCTION__, result);
-                                                    if (result)
-                                                    {
-                                                        result = sub_4B02D0();
-                                                        printf("%s: %d\n", __FUNCTION__, result);
-                                                        if (result)
-                                                        {
-                                                            result = sub_4AF8D0();
-                                                            printf("%s: %d\n", __FUNCTION__, result);
-                                                            if (result)
-                                                            {
-                                                                result = sub_4AEE80();
-                                                                printf("%s: %d\n", __FUNCTION__, result);
-                                                                if (result)
-                                                                {
-                                                                    result = sub_4AE520();
-                                                                    printf("%s: %d\n", __FUNCTION__, result);
-                                                                    if (result)
-                                                                    {
-                                                                        result = sub_49CB50();
-                                                                        printf("%s: %d\n", __FUNCTION__, result);
-                                                                        if (result)
-                                                                        {
-                                                                            result = sub_43F1C0();
-                                                                            printf("%s: %d\n", __FUNCTION__, result);
-                                                                            if (result)
-                                                                            {
-                                                                                result = sub_4AE400();
-                                                                                printf("%s: %d\n", __FUNCTION__, result);
-                                                                                if (result)
-                                                                                    result = sub_49F4A0();
-                                                                                printf("%s: %d\n", __FUNCTION__, result);
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+        result = sub_49F4A0();
+    printf("%s: %d\n", __FUNCTION__, result);
     return result;
 }
 
@@ -56120,13 +56124,13 @@ void* __cdecl sub_44C840(char* a1)
     {
         if (sub_40A5C0(1) && *(_DWORD*)& byte_5D4594[2650664])
         {
-            sub_40ACA0(*(LPVOID*)& byte_5D4594[260]);
+            sub_40ACA0_free_ptr2(*(LPVOID*)& byte_5D4594[260]);
             *(_DWORD*)& byte_5D4594[260] = 0;
         }
     }
     else
     {
-        sub_40ACA0(v2);
+        sub_40ACA0_free_ptr2(v2);
     }
     result = nox_malloc(4 * *(_DWORD*)& byte_5D4594[830612]);
     *(_DWORD*)& byte_5D4594[830608] = result;

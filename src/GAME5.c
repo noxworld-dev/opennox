@@ -6501,8 +6501,10 @@ LABEL_36:
             if (v16)
             {
                 v11 = v17;
-                if (v17)
-                    return sub_425CA0(*((_DWORD*)result + 69), *(_DWORD*)(v11 + 276));
+                if (v17) {
+                    sub_425CA0(*((_DWORD*)result + 69), *(_DWORD*)(v11 + 276));
+                    return;
+                }
             }
         }
         return;
@@ -20303,9 +20305,9 @@ int __thiscall sub_42CC50(LPVOID* this)
     return sub_42C770(this);
 }
 
-int sub_49A2E0(void)
+void sub_49A2E0(void)
 {
-    return sub_49A2C0();
+    nox_alloc_npcs();
 }
 
 void nullsub_16(void)
@@ -20357,9 +20359,9 @@ int sub_467460(void)
     return sub_4671E0();
 }
 
-int __cdecl sub_49A2F0()
+void __cdecl sub_49A2F0()
 {
-    return sub_49A2C0();
+    nox_alloc_npcs();
 }
 
 void nullsub_8(void)
