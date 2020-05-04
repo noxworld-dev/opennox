@@ -4,3 +4,8 @@ CMakeFiles/
 *.o
 *.exe
 *.wasm
+
+# For IntelliJ IDE
+src/.idea
+src/cmake-build-*
+
