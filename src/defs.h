@@ -529,4 +529,11 @@ typedef struct {
     char name[12];
 } obj_5D4594_754088_t;
 
+typedef struct{
+    bool live;
+    BYTE pad[3];
+    int id;
+    _DWORD data8[327];
+} nox_npc;
+
 #endif
