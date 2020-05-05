@@ -478,6 +478,14 @@ typedef struct table_28760_t
     int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_28760_t;
 
+typedef struct table_116008_t
+{
+    const char* name;
+    void* draw;
+    unsigned int kind;
+    int(__cdecl *parse_fnc)(void*, _DWORD*, int);
+} table_116008_t;
+
 typedef struct table_122104_t
 {
     const char* field_0;
