@@ -1218,6 +1218,79 @@ table_28760_t table_28760[] = {
 };
 int table_28760_cnt = sizeof(table_28760)/sizeof(table_28760_t);
 
+table_116008_t table_116008[] = {
+        {"NoDraw", 0, 0, 0},
+        {"DebugDraw", &sub_4BCC90, 0, 0},
+        {"StaticDraw", &sub_4BCC20, 1, &sub_44C160},
+        {"StaticRandomDraw", &sub_4BCC60, 2, &sub_44BFD0},
+        {"DoorDraw", &sub_4BC9E0, 2, &sub_44C0F0},
+        {"AnimateDraw", &sub_4BBD60, 3, &sub_44B390},
+        {"ConditionalAnimateDraw", &sub_4BC930, 4, &sub_44B560},
+        {"MonsterGeneratorDraw", &sub_4BC750, 4, &sub_44B560},
+        {"VectorAnimateDraw", &sub_4BC700, 5, &sub_44BF60},
+        {"MonsterDraw", &sub_4BC180, 7, &sub_44BB80},
+        {"MaidenDraw", &sub_4BBF90, 7, &sub_44BD60},
+        {"AnimateStateDraw", &sub_4BBF10, 8, &sub_44BD90},
+        {"PlayerDraw", &sub_4B8270, 6, &sub_44B700},
+        {"SlaveDraw", &sub_4BBD30, 2, &sub_44C120},
+        {"TriggerDraw", &sub_4BB9D0, 0, 0},
+        {"PressurePlateDraw", &sub_4BBB30, 0, 0},
+        {"LightningDraw", &sub_4BAC80, 0, 0},
+        {"ChainLightningBoltDraw", &sub_4BB3F0, 0, 0},
+        {"EnergyBoltDraw", &sub_4BB5D0, 0, 0},
+        {"GreenBoltDraw", &sub_4BB7B0, 0, 0},
+        {"PlasmaDraw", &sub_4BA980, 0, 0},
+        {"YellowSparkDraw", &sub_4B6AE0, 0, 0},
+        {"RedSparkDraw", &sub_4B6A60, 0, 0},
+        {"BlueSparkDraw", &sub_4B6A80, 0, 0},
+        {"CyanSparkDraw", &sub_4B6AA0, 0, 0},
+        {"GreenSparkDraw", &sub_4B6AC0, 0, 0},
+        {"VioletSparkDraw", &sub_4B6E40, 0, 0},
+        {"WhiteSparkDraw", &sub_4B7040, 0, 0},
+        {"BlueRainSparkDraw", &sub_4B7060, 0, 0},
+        {"DeathBallSparkDraw", &sub_4B6E60, 0, 0},
+        {"PixieDraw", &sub_4B6E80, 0, 0},
+        {"PixieDustDraw", &sub_4B6FE0, 0, 0},
+        {"ParticleDraw", &sub_4AFE80, 0, 0},
+        {"BubbleDraw", &sub_4B7540, 0, 0},
+        {"VortexDraw", &sub_4B9F50, 0, 0},
+        {"BlackPowderDraw", &sub_4B9ED0, 0, 0},
+        {"SpiderSpitDraw", &sub_4B9D70, 0, 0},
+        {"GlyphDraw", &sub_4B9C70, 3, &sub_44B390},
+        {"BoulderDraw", &sub_4B9B50, 2, &sub_44C120},
+        {"DrainManaDraw", &sub_4B9B40, 0, 0},
+        {"GlowOrbDraw", &sub_4B6B60, 0, 0},
+        {"GlowOrbMoveDraw", &sub_4B6E20, 0, 0},
+        {"MagicDraw", &sub_4B98A0, 0, 0},
+        {"MagicMissileDraw", &sub_4B99F0, 0, 0},
+        {"MagicTailLinkDraw", &sub_4B5E10, 0, 0},
+        {"MagicMissileTailLinkDraw", &sub_4B5F30, 0, 0},
+        {"MagicSparkleDraw", &sub_4B6B00, 0, 0},
+        {"PlayerWaypointDraw", &sub_4B9790, 0, 0},
+        {"WeaponDraw", &sub_4B9690, 1, &sub_44C160},
+        {"ArmorDraw", &sub_4B96D0, 1, &sub_44C160},
+        {"WeaponAnimateDraw", &sub_4B96B0, 3, &sub_44B390},
+        {"ArmorAnimateDraw", &sub_4B9770, 3, &sub_44B390},
+        {"FlagDraw", &sub_4B9500, 3, &sub_44B390},
+        {"BaseDraw", &sub_4B95B0, 1, &sub_44C160},
+        {"NPCDraw", &sub_4B9050, 0, 0},
+        {"SphericalShieldDraw", &sub_4B8020, 3, &sub_44B390},
+        {"SummonEffectDraw", &sub_4B7D00, 3, &sub_44B390},
+        {"ReleasedSoulDraw", &sub_4B7C20, 5, &sub_44BF60},
+        {"UndeadKillerDraw", &sub_4B7A80, 0, 0},
+        {"ArrowDraw", &sub_4B7920, 2, &sub_44C120},
+        {"WeakArrowDraw", &sub_4B79D0, 2, &sub_44C120},
+        {"ArrowTailLinkDraw", &sub_4B6050, 0, 0},
+        {"WeakArrowTailLinkDraw", &sub_4B6120, 0, 0},
+        {"BlueRainDraw", &sub_4B7810, 0, 0},
+        {"LevelUpDraw", &sub_4B7700, 0, 0},
+        {"OblivionUpDraw", &sub_4B77D0, 0, 0},
+        {"RainOrbDraw", &sub_4B7310, 0, 0},
+        {"HarpoonDraw", &sub_4B64A0, 2, &sub_44C120},
+        {"HarpoonRopeDraw", &sub_4B61F0, 0, 0},
+};
+int table_116008_cnt = sizeof(table_116008)/sizeof(table_116008_t);
+
 nox_video_mode nox_video_modes[] = {
     {640, 480, 0},
     {800, 600, 1},
@@ -1289,6 +1362,7 @@ mem_mapping mappings[] = {
     {0x587000+27104, (void*)table_27104, sizeof(table_27104),1},
     {0x587000+27168, (void*)table_27168, sizeof(table_27168),1},
     {0x587000+28760, (void*)table_28760, sizeof(table_28760),1},
+    {0x587000+116008, (void*)table_116008, sizeof(table_116008),1},
     {0x587000+80764, (void*)&nox_mouse_max, sizeof(nox_mouse_max),1},
     {0x587000+80856, (void*)&nox_max_width, sizeof(nox_max_width),1},
     {0x587000+80860, (void*)&nox_max_height, sizeof(nox_max_height),1},
@@ -55628,16 +55702,12 @@ int __cdecl sub_44C160(int a1, int a2, char* a3)
 }
 
 //----- (0044C200) --------------------------------------------------------
-int __cdecl sub_44C200(int a1, _DWORD* a2, int a3)
+int __cdecl nox_parse_draw(void* a1, _DWORD* a2, int a3)
 {
     unsigned __int8* v3; // eax
     unsigned __int8 v4; // cl
     int v5; // esi
-    const char* v6; // eax
-    int v7; // edi
-    unsigned __int8* v8; // ebp
     int result; // eax
-    int(__cdecl * v10)(int, _DWORD*, int); // ecx
     int v11; // [esp+10h] [ebp-104h]
     char v12[256]; // [esp+14h] [ebp-100h]
 
@@ -55649,24 +55719,25 @@ int __cdecl sub_44C200(int a1, _DWORD* a2, int a3)
     sub_40ACC0(v12, 1u, v4, (int)a2);
     v12[v5] = 0;
     sub_40AD60((char*)& v11, 4, 1, a2);
-    v6 = *(const char**)& byte_587000[116008];
-    v7 = 0;
-    if (!*(_DWORD*)& byte_587000[116008])
+
+    if (!*(_DWORD*)table_116008)
         return 1;
-    v8 = &byte_587000[116008];
-    while (strcmp(v6, v12))
-    {
-        v6 = (const char*) * ((_DWORD*)v8 + 4);
-        v8 += 16;
-        ++v7;
-        if (!v6)
-            return 1;
+
+    table_116008_t* item = NULL;
+    for (int i=0; i < table_116008_cnt; i++) {
+        table_116008_t* cur = &table_116008[i];
+        if (!strcmp(cur->name, v12)) {
+            item = cur;
+            break;
+        }
+    }
+    if (!item) {
+        return 1;
     }
     result = 1;
-    v10 = *(int(__cdecl * *)(int, _DWORD*, int)) & byte_587000[16 * v7 + 116020];
-    if (v10)
-        result = v10(a1, a2, a3);
-    *(_DWORD*)(a1 + 88) = *(_DWORD*)& byte_587000[16 * v7 + 116012];
+    if (item->parse_fnc)
+        result = item->parse_fnc(a1, a2, a3);
+    *(_DWORD*)(a1 + 88) = item->draw;
     return result;
 }
 // 44C200: using guessed type char var_100[256];
@@ -55819,7 +55890,7 @@ int sub_44C580()
                 free(*(LPVOID*)v0);
             v2 = *(void**)(v0 + 92);
             if (v2)
-                sub_44C650(v2, *(_DWORD*)(v0 + 88));
+                sub_44C650(v2, *(void**)(v0 + 88));
             free((LPVOID)v0);
             v0 = v1;
         } while (v1);
@@ -55853,54 +55924,44 @@ void sub_44C620()
 }
 
 //----- (0044C650) --------------------------------------------------------
-void __cdecl sub_44C650(LPVOID lpMem, int a2)
+void __cdecl sub_44C650(LPVOID lpMem, void* draw)
 {
-    int v2; // edx
-    int v3; // ecx
-    unsigned __int8* v4; // eax
-    int v5; // edi
-    LPVOID* v7; // esi
-    int v8; // edi
-    char* v9; // esi
-    int v10; // edi
-    char* v11; // esi
-    int v12; // edi
-
-    v2 = 0;
-    v3 = 0;
-    if (*(_DWORD*)& byte_587000[116008])
+    int kind = 0;
+    if (*(_DWORD*)table_116008)
     {
-        v4 = &byte_587000[116008];
-        while (*((_DWORD*)v4 + 1) != a2)
-        {
-            v5 = *((_DWORD*)v4 + 4);
-            v4 += 16;
-            ++v3;
-            if (!v5)
-                goto LABEL_7;
+        table_116008_t* item = NULL;
+        for (int i = 0; i < table_116008_cnt; i++) {
+            table_116008_t* cur = &table_116008[i];
+            if (!cur->name)
+                break;
+            if (cur->draw == draw) {
+                item = cur;
+                break;
+            }
         }
-        v2 = *(_DWORD*)& byte_587000[16 * v3 + 116016];
+        if (item) {
+            kind = item->kind;
+        }
     }
-LABEL_7:
-    switch (v2)
-    {
+    LPVOID* v7 = 0;
+    int v8 = 0;
+    char* v9 = 0;
+    int v10 = 0;
+    char* v11 = 0;
+    int v12 = 0;
+
+    switch (kind) {
     case 2:
     case 3:
-        if (!*((_DWORD*)lpMem + 1))
-        {
-            free(lpMem);
-        }
-        else
-        {
+        if (*((_DWORD*)lpMem + 1)) {
             free(*((LPVOID*)lpMem + 1));
-            free(lpMem);
         }
+        free(lpMem);
         break;
     case 4:
         v7 = (LPVOID*)((char*)lpMem + 4);
         v8 = 5;
-        do
-        {
+        do {
             if (*v7)
                 free(*v7);
             ++v7;
@@ -55919,8 +55980,7 @@ LABEL_7:
     case 7:
         v9 = (char*)lpMem + 8;
         v10 = 16;
-        do
-        {
+        do {
             sub_44C780((int)v9);
             v9 += 48;
             --v10;
@@ -55930,8 +55990,7 @@ LABEL_7:
     case 8:
         v11 = (char*)lpMem + 8;
         v12 = 3;
-        do
-        {
+        do {
             sub_44C780((int)v11);
             v11 += 48;
             --v12;
