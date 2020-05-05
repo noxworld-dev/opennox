@@ -22,7 +22,7 @@ table_122104_t table_122104[] = {
     {"SUBCLASS", &sub_44B1C0},
     {"EXTENT", &sub_44B1F0},
     {"LIGHTINTENSITY", &sub_44B230},
-    {"DRAW", &sub_44C200},
+    {"DRAW", &nox_parse_draw},
     {"Z", &sub_44C2F0},
     {"ZSIZE", &sub_44C320},
     {"SIZE", &sub_44C370},

@@ -2158,7 +2158,7 @@ void* __cdecl sub_44C000(_BYTE* a1, int a2);
 BOOL __cdecl sub_44C0F0(int a1, int a2, _BYTE* a3);
 BOOL __cdecl sub_44C120(_DWORD* a1, int a2, _BYTE* a3);
 int __cdecl sub_44C160(int a1, int a2, char* a3);
-int __cdecl sub_44C200(int a1, _DWORD* a2, int a3);
+int __cdecl nox_parse_draw(void* a1, _DWORD* a2, int a3);
 int __cdecl sub_44C2F0(int a1, int a2, char* a3);
 int __cdecl sub_44C320(int a1, int a2, char* a3);
 int __cdecl sub_44C370(int a1, int a2, char* a3);
@@ -2172,7 +2172,7 @@ int __cdecl sub_44C4E0(int a1, int a2, char* a3);
 int __cdecl sub_44C500(int a1, int a2);
 int sub_44C580();
 void sub_44C620();
-void __cdecl sub_44C650(LPVOID lpMem, int); // idb
+void __cdecl sub_44C650(LPVOID lpMem, void* draw); // idb
 void* __cdecl sub_44C780(int a1);
 LPVOID __cdecl sub_44C7B0(int a1);
 void* __cdecl sub_44C840(char* a1);
