@@ -2495,7 +2495,7 @@ int sub_4A50D0()
         return 1;
     }
     sub_431510();
-    sub_46C2E0();
+    sub_46C2E0_draw();
     if (sub_40A5C0(0x2000))
     {
         if (!sub_43AF70())
@@ -3568,7 +3568,7 @@ int sub_4A6C90()
     else
     {
         sub_431510();
-        sub_46C2E0();
+        sub_46C2E0_draw();
         if (!sub_40A5C0(0x2000))
         {
             sub_4A24A0();
@@ -7031,7 +7031,7 @@ int sub_4AB5E0()
         }
         if (*(_DWORD*)& byte_5D4594[2598000] % 0x1Eu)
             sub_43CA20();
-        sub_46C2E0();
+        sub_46C2E0_draw();
         sub_477830();
         sub_48A220();
         sub_4AD170_call_copy_backbuffer();
@@ -10544,7 +10544,7 @@ int __cdecl sub_4AFE20(_DWORD* a1, CHAR* a2)
 }
 
 //----- (004AFE80) --------------------------------------------------------
-int __cdecl sub_4AFE80(int a1, _DWORD* a2)
+int __cdecl nox_thing_particle_draw(int a1, _DWORD* a2)
 {
     _DWORD* v2; // eax
     void(__cdecl * v3)(_DWORD*); // ecx
@@ -13532,7 +13532,7 @@ void sub_4B5BF0()
 }
 
 //----- (004B5C40) --------------------------------------------------------
-int __cdecl sub_4B5C40(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_client_update(int a1, int a2, char* a3)
 {
     char* v3; // eax
     const char* v4; // ecx
@@ -13621,7 +13621,7 @@ int sub_4B5CD0()
 // 4B5D71: variable 'v5' is possibly undefined
 
 //----- (004B5E10) --------------------------------------------------------
-int __cdecl sub_4B5E10(_DWORD* a1, int a2)
+int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, int a2)
 {
     int v2; // ecx
     int v3; // edi
@@ -13668,7 +13668,7 @@ int __cdecl sub_4B5E10(_DWORD* a1, int a2)
 }
 
 //----- (004B5F30) --------------------------------------------------------
-int __cdecl sub_4B5F30(_DWORD* a1, int a2)
+int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, int a2)
 {
     int v2; // ecx
     int v3; // edi
@@ -13713,7 +13713,7 @@ int __cdecl sub_4B5F30(_DWORD* a1, int a2)
 }
 
 //----- (004B6050) --------------------------------------------------------
-int __cdecl sub_4B6050(_DWORD* a1, int a2)
+int __cdecl nox_thing_arrow_tail_link_draw(_DWORD* a1, int a2)
 {
     int v2; // ebp
     int v3; // edi
@@ -13745,7 +13745,7 @@ int __cdecl sub_4B6050(_DWORD* a1, int a2)
 }
 
 //----- (004B6120) --------------------------------------------------------
-int __cdecl sub_4B6120(_DWORD* a1, int a2)
+int __cdecl nox_thing_weak_arrow_tail_link_draw(_DWORD* a1, int a2)
 {
     int v2; // ebp
     int v3; // edi
@@ -13777,7 +13777,7 @@ int __cdecl sub_4B6120(_DWORD* a1, int a2)
 }
 
 //----- (004B61F0) --------------------------------------------------------
-int __cdecl sub_4B61F0(int* a1, int a2)
+int __cdecl nox_thing_harpoon_rope_draw(int* a1, int a2)
 {
     int v2; // ecx
     int v3; // edx
@@ -13879,9 +13879,9 @@ int __cdecl sub_4B63B0(int2* a1, int2* a2)
 }
 
 //----- (004B64A0) --------------------------------------------------------
-int __cdecl sub_4B64A0(int* a1, int a2)
+int __cdecl nox_thing_harpoon_draw(int* a1, int a2)
 {
-    return sub_4BBD30(a1, a2);
+    return nox_thing_slave_draw(a1, a2);
 }
 
 //----- (004B64C0) --------------------------------------------------------
@@ -14113,37 +14113,37 @@ __int16 __cdecl sub_4B69F0(int a1)
 }
 
 //----- (004B6A60) --------------------------------------------------------
-int __cdecl sub_4B6A60(_DWORD* a1, int a2)
+int __cdecl nox_thing_red_spark_draw(_DWORD* a1, int a2)
 {
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[1313532], *(int*)& byte_5D4594[1313528]);
 }
 
 //----- (004B6A80) --------------------------------------------------------
-int __cdecl sub_4B6A80(_DWORD* a1, int a2)
+int __cdecl nox_thing_blue_spark_draw(_DWORD* a1, int a2)
 {
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[1313540], *(int*)& byte_5D4594[1313536]);
 }
 
 //----- (004B6AA0) --------------------------------------------------------
-int __cdecl sub_4B6AA0(_DWORD* a1, int a2)
+int __cdecl nox_thing_cyan_spark_draw(_DWORD* a1, int a2)
 {
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[1313548], *(int*)& byte_5D4594[1313544]);
 }
 
 //----- (004B6AC0) --------------------------------------------------------
-int __cdecl sub_4B6AC0(_DWORD* a1, int a2)
+int __cdecl nox_thing_green_spark_draw(_DWORD* a1, int a2)
 {
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[1313584], *(int*)& byte_5D4594[1313580]);
 }
 
 //----- (004B6AE0) --------------------------------------------------------
-int __cdecl sub_4B6AE0(_DWORD* a1, int a2)
+int __cdecl nox_thing_yellow_spark_draw(_DWORD* a1, int a2)
 {
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[1313532], *(int*)& byte_5D4594[1313576]);
 }
 
 //----- (004B6B00) --------------------------------------------------------
-int __cdecl sub_4B6B00(int* a1, int a2)
+int __cdecl nox_thing_magic_sparkle_draw(int* a1, int a2)
 {
     int result; // eax
 
@@ -14155,7 +14155,7 @@ int __cdecl sub_4B6B00(int* a1, int a2)
 }
 
 //----- (004B6B60) --------------------------------------------------------
-int __cdecl sub_4B6B60(int* a1, int a2)
+int __cdecl nox_thing_glow_orb_draw(int* a1, int a2)
 {
     return sub_4B6B80(a1, a2, 0);
 }
@@ -14277,25 +14277,25 @@ LABEL_14:
 // 4B6CB4: variable 'v8' is possibly undefined
 
 //----- (004B6E20) --------------------------------------------------------
-int __cdecl sub_4B6E20(int* a1, int a2)
+int __cdecl nox_thing_glow_orb_move_draw(int* a1, int a2)
 {
     return sub_4B6B80(a1, a2, 1);
 }
 
 //----- (004B6E40) --------------------------------------------------------
-int __cdecl sub_4B6E40(_DWORD* a1, int a2)
+int __cdecl nox_thing_violet_spark_draw(_DWORD* a1, int a2)
 {
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[1313556], *(int*)& byte_5D4594[1313552]);
 }
 
 //----- (004B6E60) --------------------------------------------------------
-int __cdecl sub_4B6E60(_DWORD* a1, int a2)
+int __cdecl nox_thing_death_ball_spark_draw(_DWORD* a1, int a2)
 {
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[1313572], *(int*)& byte_5D4594[1313568]);
 }
 
 //----- (004B6E80) --------------------------------------------------------
-int __cdecl sub_4B6E80(int* a1, int a2)
+int __cdecl nox_thing_pixie_draw(int* a1, int a2)
 {
     bool v2; // cc
     __int16 v3; // ax
@@ -14357,7 +14357,7 @@ LABEL_7:
 }
 
 //----- (004B6FE0) --------------------------------------------------------
-int __cdecl sub_4B6FE0(int* a1, int a2)
+int __cdecl nox_thing_pixie_dust_draw(int* a1, int a2)
 {
     int result; // eax
 
@@ -14369,13 +14369,13 @@ int __cdecl sub_4B6FE0(int* a1, int a2)
 }
 
 //----- (004B7040) --------------------------------------------------------
-int __cdecl sub_4B7040(_DWORD* a1, int a2)
+int __cdecl nox_thing_white_spark_draw(_DWORD* a1, int a2)
 {
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[2523948], *(int*)& byte_5D4594[1313540]);
 }
 
 //----- (004B7060) --------------------------------------------------------
-int __cdecl sub_4B7060(_DWORD* a1, int a2)
+int __cdecl nox_thing_blue_rain_spark_draw(_DWORD* a1, int a2)
 {
     int result; // eax
     int v3; // eax
@@ -14468,7 +14468,7 @@ int __cdecl sub_4B71A0(_DWORD* a1, int a2)
 }
 
 //----- (004B7310) --------------------------------------------------------
-int __cdecl sub_4B7310(_DWORD* a1, int a2)
+int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, int a2)
 {
     int* v2; // esi
     __int16 v3; // cx
@@ -14560,7 +14560,7 @@ int __cdecl sub_4B7310(_DWORD* a1, int a2)
 }
 
 //----- (004B7540) --------------------------------------------------------
-int __cdecl sub_4B7540(_DWORD* a1, int a2)
+int __cdecl nox_thing_bubble_draw(_DWORD* a1, int a2)
 {
     unsigned int v2; // eax
     int v4; // edx
@@ -14665,7 +14665,7 @@ int __cdecl sub_4B7540(_DWORD* a1, int a2)
 }
 
 //----- (004B7700) --------------------------------------------------------
-int __cdecl sub_4B7700(int a1, int a2)
+int __cdecl nox_thing_levelup_draw(int a1, int a2)
 {
     int v2; // eax
 
@@ -14706,7 +14706,7 @@ _DWORD* __cdecl sub_4B7740(int a1, int a2, int a3)
 }
 
 //----- (004B77D0) --------------------------------------------------------
-int __cdecl sub_4B77D0(int a1, int a2)
+int __cdecl nox_thing_oblivion_up_draw(int a1, int a2)
 {
     int v2; // eax
 
@@ -14721,7 +14721,7 @@ int __cdecl sub_4B77D0(int a1, int a2)
 }
 
 //----- (004B7810) --------------------------------------------------------
-int __cdecl sub_4B7810(int a1, int a2)
+int __cdecl nox_thing_blue_rain_draw(int a1, int a2)
 {
     int v3; // ebx
     int v4; // ebp
@@ -14764,7 +14764,7 @@ int __cdecl sub_4B7810(int a1, int a2)
 }
 
 //----- (004B7920) --------------------------------------------------------
-int __cdecl sub_4B7920(int* a1, _DWORD* a2)
+int __cdecl nox_thing_arrow_draw(int* a1, _DWORD* a2)
 {
     int v2; // eax
     int v3; // edi
@@ -14789,11 +14789,11 @@ int __cdecl sub_4B7920(int* a1, _DWORD* a2)
         a2[82] = v5;
         sub_49B950(v4, *(_DWORD*)& byte_5D4594[2649704] / 3u);
     }
-    return sub_4BBD30(a1, (int)a2);
+    return nox_thing_slave_draw(a1, (int)a2);
 }
 
 //----- (004B79D0) --------------------------------------------------------
-int __cdecl sub_4B79D0(int* a1, _DWORD* a2)
+int __cdecl nox_thing_weak_arrow_draw(int* a1, _DWORD* a2)
 {
     int v2; // eax
     int v3; // edi
@@ -14818,11 +14818,11 @@ int __cdecl sub_4B79D0(int* a1, _DWORD* a2)
         a2[82] = v5;
         sub_49B950(v4, *(_DWORD*)& byte_5D4594[2649704] / 3u);
     }
-    return sub_4BBD30(a1, (int)a2);
+    return nox_thing_slave_draw(a1, (int)a2);
 }
 
 //----- (004B7A80) --------------------------------------------------------
-int __cdecl sub_4B7A80(int* a1, int a2)
+int __cdecl nox_thing_undead_killer_draw(int* a1, int a2)
 {
     int result; // eax
     __int16 v3; // dx
@@ -14883,9 +14883,9 @@ int __cdecl sub_4B7A80(int* a1, int a2)
 // 4B7BE5: variable 'v9' is possibly undefined
 
 //----- (004B7C20) --------------------------------------------------------
-int __cdecl sub_4B7C20(int* a1, int a2)
+int __cdecl nox_thing_released_soul_draw(int* a1, int a2)
 {
-    return sub_4BC700(a1, a2);
+    return nox_thing_vector_animate_draw(a1, a2);
 }
 
 //----- (004B7C40) --------------------------------------------------------
@@ -14926,7 +14926,7 @@ _DWORD* __cdecl sub_4B7C40(__int16 a1, unsigned __int16* a2, unsigned __int16 a3
 }
 
 //----- (004B7D00) --------------------------------------------------------
-int __cdecl sub_4B7D00(int* a1, _DWORD* a2)
+int __cdecl nox_thing_summon_effect_draw(int* a1, _DWORD* a2)
 {
     _DWORD* v2; // esi
     int v3; // ecx
@@ -14965,7 +14965,7 @@ int __cdecl sub_4B7D00(int* a1, _DWORD* a2)
     {
         if (v7 >= v8 - 1)
             sub_499610(v6, 50, 1000, 30, v2[3], v2[4]);
-        sub_4BBD60(a1, (int)v2);
+        nox_thing_animate_draw(a1, (int)v2);
         v10 = 0;
         v11 = &byte_587000[192092];
         do
@@ -14982,7 +14982,7 @@ int __cdecl sub_4B7D00(int* a1, _DWORD* a2)
             v14 = v17 + 2 * *(_DWORD*)v11;
             v2[4] = v14;
             if (v13 >= 0 && v13 < 5888 && v14 >= 0 && v14 < 5888)
-                sub_4BBD60(a1, (int)v2);
+                nox_thing_animate_draw(a1, (int)v2);
             v11 += 80;
             ++v10;
         } while ((int)v11 < (int)& byte_587000[194140]);
@@ -15057,7 +15057,7 @@ int sub_4B7F90()
 }
 
 //----- (004B8020) --------------------------------------------------------
-int __cdecl sub_4B8020(int* a1, _DWORD* a2)
+int __cdecl nox_thing_spherical_shield_draw(int* a1, _DWORD* a2)
 {
     int v2; // esi
     int v3; // eax
@@ -15079,7 +15079,7 @@ int __cdecl sub_4B8020(int* a1, _DWORD* a2)
     if (v4)
     {
         sub_49AA90(a2, v4[3], v4[4] + 3);
-        result = sub_4BBD60(a1, (int)a2);
+        result = nox_thing_animate_draw(a1, (int)a2);
     }
     else
     {
@@ -15198,7 +15198,7 @@ int sub_4B8220()
 }
 
 //----- (004B8270) --------------------------------------------------------
-int __cdecl sub_4B8270(int a1, int a2)
+int __cdecl nox_thing_player_draw(int a1, int a2)
 {
     int v2; // ebx
     char* v3; // esi
@@ -15900,7 +15900,7 @@ int __cdecl sub_4B8FA0(int a1, int* a2, int* a3)
 }
 
 //----- (004B9050) --------------------------------------------------------
-int __cdecl sub_4B9050(int* a1, int a2)
+int __cdecl nox_thing_npc_draw(int* a1, int a2)
 {
     int v2; // eax
     int v4; // edi
@@ -16127,7 +16127,7 @@ int __cdecl sub_4B94E0(int a1)
 }
 
 //----- (004B9500) --------------------------------------------------------
-int __cdecl sub_4B9500(int* a1, int a2)
+int __cdecl nox_thing_flag_draw(int* a1, int a2)
 {
     int v2; // ebx
     int v3; // edi
@@ -16136,7 +16136,7 @@ int __cdecl sub_4B9500(int* a1, int a2)
     unsigned __int16* v6; // ebx
 
     v2 = a2;
-    sub_4B96B0(a1, a2);
+    nox_thing_weapon_animate_draw(a1, a2);
     if (sub_40A5C0(128))
     {
         if (*(_DWORD*)(v2 + 120) & 0x1000000)
@@ -16161,9 +16161,9 @@ int __cdecl sub_4B9500(int* a1, int a2)
 }
 
 //----- (004B95B0) --------------------------------------------------------
-int __cdecl sub_4B95B0(int* a1, int a2)
+int __cdecl nox_thing_base_draw(int* a1, int a2)
 {
-    sub_4B9690(a1, a2);
+    nox_thing_weapon_draw(a1, a2);
     return 1;
 }
 
@@ -16246,24 +16246,24 @@ _DWORD* __cdecl sub_4B9650(int a1)
 // 4B9677: variable 'v3' is possibly undefined
 
 //----- (004B9690) --------------------------------------------------------
-int __cdecl sub_4B9690(int* a1, int a2)
+int __cdecl nox_thing_weapon_draw(int* a1, int a2)
 {
     sub_4B95D0(a2);
-    return sub_4BCC20(a1, a2);
+    return nox_thing_static_draw(a1, a2);
 }
 
 //----- (004B96B0) --------------------------------------------------------
-int __cdecl sub_4B96B0(int* a1, int a2)
+int __cdecl nox_thing_weapon_animate_draw(int* a1, int a2)
 {
     sub_4B95D0(a2);
-    return sub_4BBD60(a1, a2);
+    return nox_thing_animate_draw(a1, a2);
 }
 
 //----- (004B96D0) --------------------------------------------------------
-int __cdecl sub_4B96D0(int* a1, int a2)
+int __cdecl nox_thing_armor_draw(int* a1, int a2)
 {
     sub_4B96F0(a2);
-    return sub_4BCC20(a1, a2);
+    return nox_thing_static_draw(a1, a2);
 }
 
 //----- (004B96F0) --------------------------------------------------------
@@ -16317,14 +16317,14 @@ _DWORD* __cdecl sub_4B96F0(int a1)
 // 4B9724: variable 'v3' is possibly undefined
 
 //----- (004B9770) --------------------------------------------------------
-int __cdecl sub_4B9770(int* a1, int a2)
+int __cdecl nox_thing_armor_animate_draw(int* a1, int a2)
 {
     sub_4B96F0(a2);
-    return sub_4BBD60(a1, a2);
+    return nox_thing_animate_draw(a1, a2);
 }
 
 //----- (004B9790) --------------------------------------------------------
-int __cdecl sub_4B9790(int a1, int a2)
+int __cdecl nox_thing_player_waypoint_draw(int a1, int a2)
 {
     int v2; // esi
     int v3; // ebp
@@ -16361,7 +16361,7 @@ int __cdecl sub_4B9790(int a1, int a2)
 }
 
 //----- (004B98A0) --------------------------------------------------------
-int __cdecl sub_4B98A0(int* a1, int a2)
+int __cdecl nox_thing_magic_draw(int* a1, int a2)
 {
     int v2; // esi
     int v3; // edi
@@ -16399,7 +16399,7 @@ int __cdecl sub_4B98A0(int* a1, int a2)
 }
 
 //----- (004B99F0) --------------------------------------------------------
-int __cdecl sub_4B99F0(int* a1, int a2)
+int __cdecl nox_thing_magic_missle_draw(int* a1, int a2)
 {
     int v2; // esi
     int v3; // edi
@@ -16437,13 +16437,13 @@ int __cdecl sub_4B99F0(int* a1, int a2)
 }
 
 //----- (004B9B40) --------------------------------------------------------
-int sub_4B9B40()
+int nox_thing_drain_mana_draw()
 {
     return 1;
 }
 
 //----- (004B9B50) --------------------------------------------------------
-int __cdecl sub_4B9B50(int* a1, int a2)
+int __cdecl nox_thing_boulder_draw(int* a1, int a2)
 {
     int v2; // edi
     int v3; // ecx
@@ -16501,7 +16501,7 @@ int __cdecl sub_4B9B50(int* a1, int a2)
 }
 
 //----- (004B9C70) --------------------------------------------------------
-int __cdecl sub_4B9C70(int* a1, _DWORD* a2)
+int __cdecl nox_thing_glyph_draw(int* a1, _DWORD* a2)
 {
     _DWORD* v2; // esi
     char v3; // cl
@@ -16519,7 +16519,7 @@ int __cdecl sub_4B9C70(int* a1, _DWORD* a2)
     LABEL_10:
         sub_434560(1);
         sub_434580((unsigned __int8)a2);
-        v7 = sub_4BBD60(a1, (int)v2);
+        v7 = nox_thing_animate_draw(a1, (int)v2);
         sub_434560(0);
         sub_434600(0);
         return v7;
@@ -16545,7 +16545,7 @@ int __cdecl sub_4B9C70(int* a1, _DWORD* a2)
 }
 
 //----- (004B9D70) --------------------------------------------------------
-int __cdecl sub_4B9D70(_DWORD* a1, int a2)
+int __cdecl nox_thing_spider_spit_draw(_DWORD* a1, int a2)
 {
     _DWORD* v2; // eax
     int v3; // edi
@@ -16612,7 +16612,7 @@ int __cdecl sub_4B9D70(_DWORD* a1, int a2)
 }
 
 //----- (004B9ED0) --------------------------------------------------------
-int __cdecl sub_4B9ED0(_DWORD* a1, int a2)
+int __cdecl nox_thing_black_powder_draw(_DWORD* a1, int a2)
 {
     int v2; // esi
     int v3; // edi
@@ -16628,7 +16628,7 @@ int __cdecl sub_4B9ED0(_DWORD* a1, int a2)
 }
 
 //----- (004B9F50) --------------------------------------------------------
-int __cdecl sub_4B9F50(int* a1, int a2)
+int __cdecl nox_thing_vortex_draw(int* a1, int a2)
 {
     int v2; // ecx
     int v3; // edi
@@ -17036,7 +17036,7 @@ char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3)
 }
 
 //----- (004BA980) --------------------------------------------------------
-int __cdecl sub_4BA980(int* a1, int a2)
+int __cdecl nox_thing_plasma_draw(int* a1, int a2)
 {
     int v3; // ebx
     unsigned __int16 v4; // di
@@ -17157,7 +17157,7 @@ int sub_4BAB30()
 }
 
 //----- (004BAC80) --------------------------------------------------------
-int __cdecl sub_4BAC80(int* a1, int a2)
+int __cdecl nox_thing_lightning_draw(int* a1, int a2)
 {
     int v2; // ebx
     int v3; // edi
@@ -17519,7 +17519,7 @@ int __cdecl sub_4BB070(int a1, int a2)
 }
 
 //----- (004BB3F0) --------------------------------------------------------
-int __cdecl sub_4BB3F0(int* a1, int a2)
+int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, int a2)
 {
     unsigned __int16 v2; // ax
     int v3; // ebx
@@ -17594,7 +17594,7 @@ int __cdecl sub_4BB3F0(int* a1, int a2)
 }
 
 //----- (004BB5D0) --------------------------------------------------------
-int __cdecl sub_4BB5D0(int* a1, int a2)
+int __cdecl nox_thing_energy_bolt_draw(int* a1, int a2)
 {
     int v2; // esi
     bool v3; // zf
@@ -17671,7 +17671,7 @@ int __cdecl sub_4BB5D0(int* a1, int a2)
 }
 
 //----- (004BB7B0) --------------------------------------------------------
-int __cdecl sub_4BB7B0(int* a1, int a2)
+int __cdecl nox_thing_green_bolt_draw(int* a1, int a2)
 {
     int v2; // eax
     int v3; // eax
@@ -17757,7 +17757,7 @@ int __cdecl sub_4BB7B0(int* a1, int a2)
 }
 
 //----- (004BB9D0) --------------------------------------------------------
-int __cdecl sub_4BB9D0(_DWORD* a1, int a2)
+int __cdecl nox_thing_trigger_draw(_DWORD* a1, int a2)
 {
     int v2; // edi
     int v3; // ebx
@@ -17799,7 +17799,7 @@ int __cdecl sub_4BB9D0(_DWORD* a1, int a2)
 }
 
 //----- (004BBB30) --------------------------------------------------------
-int __cdecl sub_4BBB30(_DWORD* a1, int a2)
+int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, int a2)
 {
     int v2; // esi
     int v4; // ebp
@@ -17882,10 +17882,10 @@ int __cdecl sub_4BBB30(_DWORD* a1, int a2)
 // 4BBC74: variable 'v9' is possibly undefined
 
 //----- (004BBD30) --------------------------------------------------------
-int __cdecl sub_4BBD30(int* a1, int a2)
+int __cdecl nox_thing_slave_draw(int* a1, int a2)
 {
     sub_4C4770(a1, (unsigned __int8*)a2, *(_DWORD*)(*(_DWORD*)(*(_DWORD*)(a2 + 304) + 4) + 4 * *(_DWORD*)(a2 + 308)));
-    if (sub_4BBD30 == sub_4BCC60) // AntiICFoptimization
+    if (nox_thing_slave_draw == nox_thing_static_random_draw) // AntiICFoptimization
     {
         return 0;
     }
@@ -17893,7 +17893,7 @@ int __cdecl sub_4BBD30(int* a1, int a2)
 }
 
 //----- (004BBD60) --------------------------------------------------------
-int __cdecl sub_4BBD60(int* a1, int a2)
+int __cdecl nox_thing_animate_draw(int* a1, int a2)
 {
     int v2; // edi
     int v3; // esi
@@ -17970,7 +17970,7 @@ int __cdecl sub_4BBD60(int* a1, int a2)
 }
 
 //----- (004BBF10) --------------------------------------------------------
-int __cdecl sub_4BBF10(int* a1, _DWORD* a2)
+int __cdecl nox_thing_animate_state_draw(int* a1, _DWORD* a2)
 {
     int v2; // eax
     int v3; // edx
@@ -18004,7 +18004,7 @@ int __cdecl sub_4BBF10(int* a1, _DWORD* a2)
 }
 
 //----- (004BBF90) --------------------------------------------------------
-int __cdecl sub_4BBF90(int* a1, int a2)
+int __cdecl nox_thing_maiden_draw(int* a1, int a2)
 {
     int v2; // eax
     int v3; // edx
@@ -18031,11 +18031,11 @@ int __cdecl sub_4BBF90(int* a1, int a2)
             v10 = v12;
             ++v11;
         } while (v12 < 6);
-        return sub_4BC180(a1, a2);
+        return nox_thing_monster_draw(a1, a2);
     }
     v2 = sub_4DA790();
     if (!v2)
-        return sub_4BC180(a1, a2);
+        return nox_thing_monster_draw(a1, a2);
     while (1)
     {
         v3 = *(_DWORD*)(v2 + 40);
@@ -18043,7 +18043,7 @@ int __cdecl sub_4BBF90(int* a1, int a2)
             break;
         v2 = sub_4DA7A0(v2);
         if (!v2)
-            return sub_4BC180(a1, a2);
+            return nox_thing_monster_draw(a1, a2);
     }
     v5 = *(_DWORD*)(v2 + 748);
     v6 = 0;
@@ -18058,7 +18058,7 @@ int __cdecl sub_4BBF90(int* a1, int a2)
         v6 = v8;
         v7 += 3;
     } while (v8 < 6);
-    return sub_4BC180(a1, a2);
+    return nox_thing_monster_draw(a1, a2);
 }
 // 4BC002: variable 'v5' is possibly undefined
 // 4BC002: variable 'v3' is possibly undefined
@@ -18101,7 +18101,7 @@ void __cdecl sub_4BC080(_DWORD* a1, int a2, unsigned __int16 a3, unsigned __int1
 }
 
 //----- (004BC180) --------------------------------------------------------
-int __cdecl sub_4BC180(int* a1, int a2)
+int __cdecl nox_thing_monster_draw(int* a1, int a2)
 {
     int v2; // esi
     int v3; // edi
@@ -18387,7 +18387,7 @@ int __cdecl sub_4BC6B0(int* a1, int a2, int a3)
 }
 
 //----- (004BC700) --------------------------------------------------------
-int __cdecl sub_4BC700(int* a1, int a2)
+int __cdecl nox_thing_vector_animate_draw(int* a1, int a2)
 {
     return sub_4BC6B0(a1, a2, *(_DWORD*)(a2 + 304));
 }
@@ -18403,7 +18403,7 @@ int __cdecl sub_4BC720(int a1)
 }
 
 //----- (004BC750) --------------------------------------------------------
-int __cdecl sub_4BC750(int* a1, int a2)
+int __cdecl nox_thing_monster_gen_draw(int* a1, int a2)
 {
     int v2; // esi
     int v3; // eax
@@ -18521,7 +18521,7 @@ int sub_4BC920()
 }
 
 //----- (004BC930) --------------------------------------------------------
-int __cdecl sub_4BC930(int* a1, int a2)
+int __cdecl nox_thing_cond_animate_draw(int* a1, int a2)
 {
     int v2; // eax
     int v3; // edi
@@ -18573,7 +18573,7 @@ int __cdecl sub_4BC930(int* a1, int a2)
 }
 
 //----- (004BC9E0) --------------------------------------------------------
-int __cdecl sub_4BC9E0(int* a1, int a2)
+int __cdecl nox_thing_door_draw(int* a1, int a2)
 {
     _BYTE* v2; // edi
     int v3; // eax
@@ -18665,7 +18665,7 @@ int __cdecl sub_4BC9E0(int* a1, int a2)
 // 4BCABD: variable 'v4' is possibly undefined
 
 //----- (004BCC20) --------------------------------------------------------
-int __cdecl sub_4BCC20(int* a1, int a2)
+int __cdecl nox_thing_static_draw(int* a1, int a2)
 {
     if (!(*(_DWORD*)(a2 + 112) & 0x40000) || *(_DWORD*)(a2 + 120) & 0x1000000)
         sub_4C4770(a1, (unsigned __int8*)a2, *(_DWORD*)(*(_DWORD*)(a2 + 304) + 4));
@@ -18673,14 +18673,14 @@ int __cdecl sub_4BCC20(int* a1, int a2)
 }
 
 //----- (004BCC60) --------------------------------------------------------
-int __cdecl sub_4BCC60(int* a1, int a2)
+int __cdecl nox_thing_static_random_draw(int* a1, int a2)
 {
     sub_4C4770(a1, (unsigned __int8*)a2, *(_DWORD*)(*(_DWORD*)(*(_DWORD*)(a2 + 304) + 4) + 4 * *(_DWORD*)(a2 + 308)));
     return 1;
 }
 
 //----- (004BCC90) --------------------------------------------------------
-int __cdecl sub_4BCC90(_DWORD* a1, int a2)
+int __cdecl nox_thing_debug_draw(_DWORD* a1, int a2)
 {
     int v2; // edi
     int v3; // ebx
@@ -18724,7 +18724,7 @@ int __cdecl sub_4BCC90(_DWORD* a1, int a2)
             sub_49E4B0();
             nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%d", *(_DWORD*)(a2 + 128));
             sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4 - 10);
-            v12 = sub_44CEF0(*(_DWORD*)(a2 + 108));
+            v12 = nox_get_thing_name(*(_DWORD*)(a2 + 108));
             nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%S", v12);
             sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4);
             nox_swprintf(
@@ -18743,7 +18743,7 @@ int __cdecl sub_4BCC90(_DWORD* a1, int a2)
             sub_49E4B0();
             nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%d", *(_DWORD*)(a2 + 128));
             sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4 - 10);
-            v13 = sub_44CEF0(*(_DWORD*)(a2 + 108));
+            v13 = nox_get_thing_name(*(_DWORD*)(a2 + 108));
             nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%S", v13);
             sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4);
             nox_swprintf(
@@ -18783,7 +18783,7 @@ int __cdecl sub_4BCC90(_DWORD* a1, int a2)
     }
     nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%d", *(_DWORD*)(a2 + 128));
     sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4 - 10);
-    v14 = sub_44CEF0(*(_DWORD*)(a2 + 108));
+    v14 = nox_get_thing_name(*(_DWORD*)(a2 + 108));
     nox_swprintf((wchar_t*)& byte_5D4594[1316540], L"%S", v14);
     sub_43F6E0(0, (__int16*)& byte_5D4594[1316540], a2a.field_0, a2a.field_4);
     return 1;
@@ -20568,7 +20568,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
     {
         if (!(v2 & 0x100))
         {
-            result = (wchar_t*)sub_44CF30(*((_DWORD*)a1 + 27));
+            result = (wchar_t*)nox_get_thing_field_4(*((_DWORD*)a1 + 27));
             if (result)
                 return result;
             return (wchar_t*)& byte_5D4594[1317000];
@@ -20663,7 +20663,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
         }
         else
         {
-            result = (wchar_t*)sub_44CF30(v1[27]);
+            result = (wchar_t*)nox_get_thing_field_4(v1[27]);
             if (result)
                 return result;
         }
@@ -20843,7 +20843,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
     }
     else
     {
-        v33 = sub_44CEF0(v1[27]);
+        v33 = nox_get_thing_name(v1[27]);
         v5 = loadString_sub_40F1D0((char*)& byte_587000[180560], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 53);
         nox_swprintf((wchar_t*)& byte_5D4594[1317000], v5, v33);
         result = (wchar_t*)& byte_5D4594[1317000];
@@ -22916,7 +22916,7 @@ int __cdecl sub_4C2440(int a1)
     const char* v1; // eax
     int v2; // eax
 
-    v1 = (const char*)sub_44CEF0(a1);
+    v1 = (const char*)nox_get_thing_name(a1);
     if (!v1)
         return 0;
     v2 = sub_427010(v1);
@@ -23301,7 +23301,7 @@ int __cdecl sub_4C2C60(_DWORD* a1, int2* a2)
     a1a.field_4 = (a2->field_4 - (int)v6) / 38;
     v4 = sub_4C2410(&a1a);
     if (v4)
-        result = sub_44CF30(*(_DWORD*)(v4 + 4));
+        result = nox_get_thing_field_4(*(_DWORD*)(v4 + 4));
     else
         result = 0;
     return result;
@@ -23449,7 +23449,7 @@ int __cdecl sub_4C2EF0(int a1)
     int v1; // eax
     int v3; // eax
 
-    v1 = *(_DWORD*)(sub_44CF10(a1) + 36);
+    v1 = *(_DWORD*)(nox_get_thing(a1) + 36);
     if (v1 & 1)
         return 1;
     v3 = -((v1 & 2) != 0);
@@ -31701,7 +31701,7 @@ int __cdecl sub_4CDBF0(int a1, _DWORD* a2)
         v5 = sub_45A360(*(int*)& byte_5D4594[1522996], v3, v4);
         if (v5)
         {
-            *(_DWORD*)(v5 + 300) = sub_4B6FE0;
+            *(_DWORD*)(v5 + 300) = nox_thing_pixie_dust_draw;
             sub_484BE0((_DWORD*)(v5 + 136), 255, 200, 75);
             *(_DWORD*)(v5 + 432) = v3 << 12;
             *(_DWORD*)(v5 + 436) = v4 << 12;
@@ -31773,7 +31773,7 @@ void __cdecl sub_4CDD80(int a1, _DWORD* a2)
         v11 = v10;
         if (v10)
         {
-            *(_DWORD*)(v10 + 300) = sub_4B6B00;
+            *(_DWORD*)(v10 + 300) = nox_thing_magic_sparkle_draw;
             sub_484BE0((_DWORD*)(v10 + 136), 128, 128, 255);
             *(_DWORD*)(v11 + 432) = v2[3] << 12;
             *(_DWORD*)(v11 + 436) = v2[4] << 12;
@@ -48010,7 +48010,7 @@ void* __cdecl sub_4E2B60(char* a1)
             v2[2] = (size_t)(v6 + 1);
             sub_40ACC0(v3, 1u, v22, (int)v2);
             *((_BYTE*)v3 + v22) = 0;
-            *((_DWORD*)v5 + 1) = sub_413F90((const char*)v3);
+            *((_DWORD*)v5 + 1) = nox_clone_str((const char*)v3);
             *((_DWORD*)v5 + 2) = 0;
             *(_WORD*)v5 = *(_WORD*)& byte_587000[201384];
             ++* (_DWORD*)& byte_587000[201384];
