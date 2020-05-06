@@ -20,6 +20,8 @@ extern int nox_backbuffer_height;
 extern int nox_backbuffer_depth;
 extern int nox_backbuffer_width32;
 
+extern nox_alloc_class* nox_alloc_window;
+
 int g_fullscreen_cfg = 0;
 int g_scaled_cfg = 0;
 
@@ -1353,6 +1355,7 @@ mem_mapping mappings[] = {
     {0x5D4594+830604, (void*)&nox_things_head, sizeof(nox_things_head),1},
     {0x5D4594+830608, (void*)&nox_things_array, sizeof(nox_things_array),1},
     {0x5D4594+830612, (void*)&nox_things_count, sizeof(nox_things_count),1},
+    {0x5D4594+1064884, (void*)&nox_alloc_window, sizeof(nox_alloc_window),1},
     {0x5D4594+1193492, (void*)&nox_backbuffer1_pix, sizeof(nox_backbuffer1_pix),1},
     {0x5D4594+3798752, (void*)&nox_backbuffer_pix, sizeof(nox_backbuffer_pix),1},
     {0x5D4594+3801784, (void*)&nox_backbuffer_width, sizeof(nox_backbuffer_width),1},
@@ -11973,113 +11976,107 @@ char* __cdecl nox_clone_str(const char* a1)
 }
 
 //----- (00413FE0) --------------------------------------------------------
-char* __cdecl sub_413FE0(const char* a1, int a2, int a3)
+nox_alloc_class* __cdecl nox_new_alloc_class(const char* name, int size, int cnt)
 {
-    char* v3; // ebx
-    void* v4; // eax
-    int i; // ecx
-    _DWORD* v6; // eax
-    int v7; // edi
-    char v9[80]; // [esp+10h] [ebp-50h]
+    nox_alloc_class* p = (nox_alloc_class*)nox_calloc(1, sizeof(nox_alloc_class));
+    if (!p)
+        return 0;
+    if (!name)
+        return 0;
+    if (size <= 0)
+        return 0;
+    if (cnt <= 0)
+        return 0;
+    strcpy(&p->name[0], name);
 
-    v3 = (char*)nox_calloc(1u, 0x98u);
-    if (!v3)
+    char sbuf[80];
+    nox_sprintf(sbuf, "%s (Allocation Class)", name);
+
+    int isize = size + sizeof(nox_alloc_hdr);
+    void* items = nox_calloc(cnt, isize);
+    p->items = items;
+
+    if (!items)
         return 0;
-    if (!a1)
-        return 0;
-    if (a2 <= 0)
-        return 0;
-    if (a3 <= 0)
-        return 0;
-    strcpy(v3, a1);
-    nox_sprintf(v9, "%s (Allocation Class)", a1);
-    v4 = nox_calloc(a3, a2 + 16);
-    *((_DWORD*)v3 + 29) = v4;
-    if (!v4)
-        return 0;
-    for (i = 0; i < a3; ++i)
+
+    for (int i = 0; i < cnt; i++)
     {
-        v6 = (_DWORD*)(*((_DWORD*)v3 + 29) + (a2 + 16) * i);
-        v7 = *((_DWORD*)v3 + 24);
-        *v6 = 0;
-        v6[2] = v7;
-        v6[1] = 0;
-        *((_DWORD*)v3 + 24) = v6;
-        if (!i)
-            * ((_DWORD*)v3 + 25) = v6;
+        nox_alloc_hdr* h = (nox_alloc_hdr*)(p->items + isize * i);
+
+        h->field_0 = 0;
+        h->field_1 = 0;
+        h->field_2 = p->field_24;
+        p->field_24 = h;
+        if (i != 0)
+            p->field_25 = h;
     }
-    *((_DWORD*)v3 + 22) = a2;
-    *((_DWORD*)v3 + 23) = a3;
-    *((_DWORD*)v3 + 36) = a3;
-    *((_DWORD*)v3 + 32) = 0;
-    *((_DWORD*)v3 + 26) = 0;
-    *((_DWORD*)v3 + 27) = 0;
-    *((_DWORD*)v3 + 31) = 0;
-    *((_DWORD*)v3 + 33) = 0;
-    return v3;
+    p->size = size;
+    p->cnt1 = cnt;
+    p->cnt2 = cnt;
+    p->field_32 = 0;
+    p->field_26 = 0;
+    p->field_27 = 0;
+    p->field_31 = 0;
+    p->field_33 = 0;
+    return p;
 }
 
 //----- (004140D0) --------------------------------------------------------
-char* __cdecl sub_4140D0(const char* a1, int a2, int a3)
+nox_alloc_class* __cdecl nox_new_alloc_class_f30(const char* name, int size, int cnt)
 {
-    char* result; // eax
-
-    result = sub_413FE0(a1, a2, a3);
-    if (result)
-        * ((_DWORD*)result + 30) = 1;
-    return result;
+    nox_alloc_class* p = nox_new_alloc_class(name, size, cnt);
+    if (!p)
+        return 0;
+    p->field_30 = 1;
+    return p;
 }
 
 //----- (00414100) --------------------------------------------------------
-void __cdecl sub_414100(LPVOID lpMem)
+void __cdecl nox_free_alloc_class(nox_alloc_class* p)
 {
-    if (lpMem)
-    {
-        if (*((_DWORD*)lpMem + 30))
-            sub_414130(lpMem);
-        free(*((LPVOID*)lpMem + 29));
-        free(lpMem);
-    }
+    if (!p)
+        return;
+    if (p->field_30)
+        nox_free_alloc_class_f30(p);
+    free(p->items);
+    free(p);
 }
 
 //----- (00414130) --------------------------------------------------------
-void __cdecl sub_414130(_DWORD* a1)
+void __cdecl nox_free_alloc_class_f30(nox_alloc_class* p)
 {
-    _DWORD* v1; // eax
-    _DWORD* v2; // esi
-    _DWORD* v3; // eax
-    _DWORD* v4; // esi
+    if (!p)
+        return;
 
-    if (a1)
-    {
-        v1 = (_DWORD*)a1[26];
-        if (v1)
+    if (p->field_26) {
+        _DWORD* v1 = (_DWORD*)p->field_26;
+        _DWORD* v2;
+        do
         {
-            do
-            {
-                v2 = (_DWORD*)v1[2];
-                free(v1);
-                v1 = v2;
-            } while (v2);
-        }
-        v3 = (_DWORD*)a1[28];
-        if (v3)
-        {
-            do
-            {
-                v4 = (_DWORD*)v3[2];
-                if (*(_QWORD*)v3)
-                    free(v3);
-                v3 = v4;
-            } while (v4);
-        }
-        a1[26] = 0;
-        a1[27] = 0;
+            v2 = (_DWORD*)v1[2];
+            free(v1);
+            v1 = v2;
+        } while (v2);
     }
+
+    if (p->field_28) {
+        _DWORD* v3 = (_DWORD*)p->field_28;
+        _DWORD* v4;
+        do
+        {
+            v4 = (_DWORD*)v3[2];
+            if (*(_QWORD*)v3)
+                free(v3);
+            v3 = v4;
+        } while (v4);
+    }
+
+    p->field_26 = 0;
+    p->field_27 = 0;
 }
 
 //----- (00414190) --------------------------------------------------------
-int __cdecl sub_414190(_DWORD* a1)
+int __cdecl nox_alloc_class_new_obj(_DWORD* a1)
 {
     _DWORD* v1; // esi
     int v2; // eax
@@ -12189,14 +12186,12 @@ int __cdecl sub_414190(_DWORD* a1)
 }
 
 //----- (004142F0) --------------------------------------------------------
-void* __cdecl sub_4142F0(_DWORD* a1)
+void* __cdecl nox_alloc_class_new_obj_zero(nox_alloc_class* al)
 {
-    void* v1; // edx
-
-    v1 = (void*)sub_414190(a1);
+    void* v1 = (void*)nox_alloc_class_new_obj(al);
     if (!v1)
         return 0;
-    memset(v1, 0, a1[22]);
+    memset(v1, 0, al->size);
     return v1;
 }
 
@@ -12318,7 +12313,7 @@ void __cdecl sub_4144D0(_DWORD* a1)
     if (a1)
     {
         if (a1[30])
-            sub_414130(a1);
+            nox_free_alloc_class_f30(a1);
         *(_DWORD*)& byte_5D4594[252276] = a1[28];
         v1 = *(_DWORD*)& byte_5D4594[252276];
         if (*(_DWORD*)& byte_5D4594[252276])
@@ -22989,7 +22984,7 @@ _DWORD* __cdecl sub_420890(int a1, int a2)
     v2 = nox_malloc(0x20u);
     if (!v2)
         return 0;
-    v4 = sub_413FE0("CreateMsgList", 16, a1);
+    v4 = nox_new_alloc_class("CreateMsgList", 16, a1);
     v2[3] = v4;
     if (!v4)
         return 0;
@@ -23021,7 +23016,7 @@ void __cdecl sub_4208F0(LPVOID lpMem)
             } while (v1);
         }
     }
-    sub_414100(*((LPVOID*)lpMem + 3));
+    nox_free_alloc_class(*((LPVOID*)lpMem + 3));
     free(lpMem);
 }
 
@@ -23035,7 +23030,7 @@ int __cdecl sub_420940(int a1, int a2, int a3, int a4)
 
     //dprintf("len %d: %08X %08X", a3, ((_DWORD*)a2)[0], ((_DWORD*)a2)[1]);
 
-    v4 = sub_4142F0(*(_DWORD * *)(a1 + 12));
+    v4 = nox_alloc_class_new_obj_zero(*(_DWORD * *)(a1 + 12));
     if (!v4)
         return 0;
     *v4 = a2;
@@ -36447,7 +36442,7 @@ int sub_431390()
 
     result = *(_DWORD*)& byte_5D4594[806044];
     if (*(_DWORD*)& byte_5D4594[806044]
-        || (result = sub_413FE0("ScreenParticles", 52, 2000),
+        || (result = nox_new_alloc_class("ScreenParticles", 52, 2000),
         (*(_DWORD*)& byte_5D4594[806044] = result) != 0))
     {
         sub_4144D0((_DWORD*)result);
@@ -36482,7 +36477,7 @@ int sub_4313E0()
 void sub_4314D0()
 {
     if (*(_DWORD*)& byte_5D4594[806044])
-        sub_414100(*(LPVOID*)& byte_5D4594[806044]);
+        nox_free_alloc_class(*(LPVOID*)& byte_5D4594[806044]);
     *(_DWORD*)& byte_5D4594[806044] = 0;
     *(_DWORD*)& byte_5D4594[806048] = 0;
     *(_DWORD*)& byte_5D4594[806052] = 0;
@@ -36532,7 +36527,7 @@ _DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char 
     default:
         return 0;
     }
-    v12 = sub_4142F0(*(_DWORD * *)& byte_5D4594[806044]);
+    v12 = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[806044]);
     if (v12)
         goto LABEL_11;
     v12 = *(_DWORD * *)& byte_5D4594[806052];

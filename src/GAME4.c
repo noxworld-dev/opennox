@@ -4114,7 +4114,7 @@ char* sub_4FB990()
     char* result; // eax
 
     memset(&byte_5D4594[1568876], 0, 0x300u);
-    result = sub_413FE0("executingAbilityClass", 24, 64);
+    result = nox_new_alloc_class("executingAbilityClass", 24, 64);
     *(_DWORD*)& byte_5D4594[1569644] = result;
     return result;
 }
@@ -4319,7 +4319,7 @@ LABEL_25:
     v10 = sub_425470(v3);
     if (v10 > 0)
     {
-        v11 = sub_4142F0(*(_DWORD * *)& byte_5D4594[1569644]);
+        v11 = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[1569644]);
         if (v11)
         {
             v12 = *(_DWORD*)& byte_5D4594[2598000];
@@ -5048,7 +5048,7 @@ int sub_4FC9B0()
     result = sub_4FE850();
     if (result)
     {
-        result = sub_413FE0("magicEntityClass", 60, 64);
+        result = nox_new_alloc_class("magicEntityClass", 60, 64);
         *(_DWORD*)& byte_5D4594[1569668] = result;
         if (result)
         {
@@ -5075,7 +5075,7 @@ int sub_4FC9B0()
 int sub_4FCA80()
 {
     sub_4FE880();
-    sub_414100(*(LPVOID*)& byte_5D4594[1569668]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[1569668]);
     *(_DWORD*)& byte_5D4594[1569672] = 0;
     sub_4E5CC0(*(int*)& byte_5D4594[1569664]);
     *(_DWORD*)& byte_5D4594[1569664] = 0;
@@ -6528,7 +6528,7 @@ LABEL_36:
     v19 = *(_DWORD*)& byte_5D4594[2598000];
     *(_BYTE*)(v9 + 188) = 1;
     *(_DWORD*)(v9 + 216) = v19;
-    v20 = sub_4142F0(*(_DWORD * *)& byte_5D4594[1569668]);
+    v20 = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[1569668]);
     if (!v20)
         return 0;
     v21 = a5;
@@ -6668,14 +6668,14 @@ void sub_4FE840()
 //----- (004FE850) --------------------------------------------------------
 BOOL sub_4FE850()
 {
-    *(_DWORD*)& byte_5D4594[1569724] = sub_413FE0("spellDuration", 120, 512);
+    *(_DWORD*)& byte_5D4594[1569724] = nox_new_alloc_class("spellDuration", 120, 512);
     return *(_DWORD*)& byte_5D4594[1569724] != 0;
 }
 
 //----- (004FE880) --------------------------------------------------------
 void sub_4FE880()
 {
-    sub_414100(*(LPVOID*)& byte_5D4594[1569724]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[1569724]);
     *(_DWORD*)& byte_5D4594[1569728] = 0;
 }
 
@@ -6747,7 +6747,7 @@ _WORD* sub_4FE950()
 {
     _WORD* result; // eax
 
-    result = sub_4142F0(*(_DWORD * *)& byte_5D4594[1569724]);
+    result = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[1569724]);
     if (result)
         * result = ++ * (_WORD*)& byte_5D4594[1569732];
     return result;
@@ -7548,7 +7548,7 @@ void __cdecl sub_4FF620(int a1)
 BOOL sub_4FF730()
 {
     *(_DWORD*)& byte_5D4594[1569756] = 0;
-    *(_DWORD*)& byte_5D4594[1569748] = sub_413FE0(
+    *(_DWORD*)& byte_5D4594[1569748] = nox_new_alloc_class(
         "MagicWall",
         32,
         (*(_DWORD*)& byte_587000[217844] << 6) + 32);
@@ -7560,7 +7560,7 @@ int sub_4FF770()
 {
     int result; // eax
 
-    sub_414100(*(LPVOID*)& byte_5D4594[1569748]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[1569748]);
     result = 0;
     *(_DWORD*)& byte_5D4594[1569748] = 0;
     *(_DWORD*)& byte_5D4594[1569752] = 0;
@@ -7943,7 +7943,7 @@ _DWORD* __cdecl sub_4FFE80(int a1, _BYTE* a2, int a3, char a4, char a5, char a6)
 {
     _DWORD* result; // eax
 
-    result = sub_4142F0(*(_DWORD * *)& byte_5D4594[1569748]);
+    result = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[1569748]);
     if (result)
     {
         result[2] = a2;
@@ -9357,7 +9357,7 @@ int sub_501860()
 
     if (*(_DWORD*)& byte_5D4594[1599064])
         return 1;
-    *(_DWORD*)& byte_5D4594[1599056] = sub_413FE0("AudEvent", 36, 128);
+    *(_DWORD*)& byte_5D4594[1599056] = nox_new_alloc_class("AudEvent", 36, 128);
     if (!*(_DWORD*)& byte_5D4594[1599056])
         return 0;
     v1 = &byte_5D4594[1570292];
@@ -9381,7 +9381,7 @@ void sub_5018D0()
 {
     if (*(_DWORD*)& byte_5D4594[1599064])
     {
-        sub_414100(*(LPVOID*)& byte_5D4594[1599056]);
+        nox_free_alloc_class(*(LPVOID*)& byte_5D4594[1599056]);
         *(_DWORD*)& byte_5D4594[1599060] = 0;
         *(_DWORD*)& byte_5D4594[1599064] = 0;
     }
@@ -9423,7 +9423,7 @@ _DWORD* __cdecl sub_501960(int a1, int a2, int a3, int a4)
                 {
                     if (!sub_40A5C0(4096) || !(*(_BYTE*)(a2 + 8) & 4) || (result = (_DWORD*)sub_419E60(a2)) == 0)
                     {
-                        result = sub_4142F0(*(_DWORD * *)& byte_5D4594[1599056]);
+                        result = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[1599056]);
                         v5 = result;
                         if (result)
                         {
@@ -9461,7 +9461,7 @@ void __cdecl sub_501A30(int a1, float2* a2, int a3, int a4)
         {
             if (sub_501940(a1) > 0)
             {
-                v4 = (int*)sub_4142F0(*(_DWORD * *)& byte_5D4594[1599056]);
+                v4 = (int*)nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[1599056]);
                 if (v4)
                 {
                     v4[1] = a1;
@@ -13170,7 +13170,7 @@ int sub_5066D0()
 {
     int result; // eax
 
-    result = sub_413FE0("VoteClass", 52, 64);
+    result = nox_new_alloc_class("VoteClass", 52, 64);
     *(_DWORD*)& byte_5D4594[1599652] = result;
     if (result)
     {
@@ -13192,7 +13192,7 @@ int sub_506720()
 {
     int result; // eax
 
-    sub_414100(*(LPVOID*)& byte_5D4594[1599652]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[1599652]);
     result = 0;
     *(_DWORD*)& byte_5D4594[1599652] = 0;
     *(_DWORD*)& byte_5D4594[1599656] = 0;
@@ -13417,7 +13417,7 @@ _DWORD* __cdecl sub_506A20(int a1, int a2)
         return 0;
     if (!*(_DWORD*)& byte_5D4594[1599656])
         v2 = 1;
-    v3 = sub_4142F0(*(_DWORD * *)& byte_5D4594[1599652]);
+    v3 = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[1599652]);
     if (!v3)
         return 0;
     *v3 = a1;
@@ -16694,7 +16694,7 @@ int sub_50AB90()
 {
     int result; // eax
 
-    result = sub_413FE0("VisitNodes", 16, 1024);
+    result = nox_new_alloc_class("VisitNodes", 16, 1024);
     *(_DWORD*)& byte_5D4594[2386184] = result;
     if (result)
     {
@@ -16706,7 +16706,7 @@ int sub_50AB90()
         }
         else
         {
-            sub_414100(*(LPVOID*)& byte_5D4594[2386184]);
+            nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2386184]);
             result = 0;
         }
     }
@@ -16717,7 +16717,7 @@ int sub_50AB90()
 void sub_50ABF0()
 {
     free(*(LPVOID*)& byte_5D4594[2386176]);
-    sub_414100(*(LPVOID*)& byte_5D4594[2386184]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2386184]);
     *(_DWORD*)& byte_5D4594[2386184] = 0;
 }
 
@@ -17547,7 +17547,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
         return result;
     }
     sub_4144D0(*(_DWORD * *)& byte_5D4594[2386184]);
-    v11 = (unsigned __int16*)sub_4142F0(*(_DWORD * *)& byte_5D4594[2386184]);
+    v11 = (unsigned __int16*)nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386184]);
     *v11 = a2a.field_0;
     v11[1] = a2a.field_4;
     v12 = *v11;
@@ -17740,7 +17740,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
                     }
                 }
             LABEL_32:
-                v31 = sub_4142F0(*(_DWORD * *)& byte_5D4594[2386184]);
+                v31 = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386184]);
                 if (!v31)
                 {
                     v55 = *(_DWORD*)(v30 + 36);
@@ -17759,7 +17759,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
             if (!sub_50AC20((int)v15, v68))
                 goto LABEL_38;
             *((_BYTE*)v15 + 12) |= 2u;
-            v32 = (unsigned __int16*)sub_4142F0(*(_DWORD * *)& byte_5D4594[2386184]);
+            v32 = (unsigned __int16*)nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386184]);
             if (!v32)
             {
                 v30 = a2;
@@ -18227,7 +18227,7 @@ int __cdecl sub_50CB20(int a1, float* a2)
     a2a.field_4 = sub_419A70(v15);
     sub_50C8D0(a1, &a2a);
     sub_4144D0(*(_DWORD * *)& byte_5D4594[2386184]);
-    v4 = (unsigned __int16*)sub_4142F0(*(_DWORD * *)& byte_5D4594[2386184]);
+    v4 = (unsigned __int16*)nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386184]);
     *v4 = a2a.field_0;
     v4[1] = a2a.field_4;
     v5 = v4[1] + (*v4 << 8);
@@ -18267,7 +18267,7 @@ int __cdecl sub_50CB20(int a1, float* a2)
                     {
                         if (sub_50C830(a1, v10, v11))
                         {
-                            v12 = sub_4142F0(*(_DWORD * *)& byte_5D4594[2386184]);
+                            v12 = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386184]);
                             if (v12)
                             {
                                 *v12 = v10;
@@ -18303,13 +18303,13 @@ char* __cdecl sub_50CD40(int a1, int a2, _DWORD* a3)
     if (result)
     {
         if (*(_DWORD*)& byte_5D4594[2386188]
-            || (result = sub_413FE0("MonsterListen", 24, 128),
+            || (result = nox_new_alloc_class("MonsterListen", 24, 128),
             (*(_DWORD*)& byte_5D4594[2386188] = result) != 0))
         {
             result = (char*)sub_534160(a2);
             if (result)
             {
-                result = (char*)sub_414190(*(_DWORD * *)& byte_5D4594[2386188]);
+                result = (char*)nox_alloc_class_new_obj(*(_DWORD * *)& byte_5D4594[2386188]);
                 if (result)
                 {
                     *(_DWORD*)result = a1;
@@ -18568,7 +18568,7 @@ void sub_50D1E0()
 {
     if (*(_DWORD*)& byte_5D4594[2386188])
     {
-        sub_414100(*(LPVOID*)& byte_5D4594[2386188]);
+        nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2386188]);
         *(_DWORD*)& byte_5D4594[2386188] = 0;
     }
     *(_DWORD*)& byte_5D4594[2386192] = 0;
@@ -18858,12 +18858,12 @@ int sub_50D780()
 {
     int result; // eax
 
-    result = sub_413FE0("SpawnClass", 12, 96);
+    result = nox_new_alloc_class("SpawnClass", 12, 96);
     *(_DWORD*)& byte_5D4594[2386216] = result;
     if (result)
     {
         *(_DWORD*)& byte_5D4594[2386212] = 0;
-        result = sub_413FE0("MonsterListClass", 148, 96);
+        result = nox_new_alloc_class("MonsterListClass", 148, 96);
         *(_DWORD*)& byte_5D4594[2386220] = result;
         if (result)
         {
@@ -18888,10 +18888,10 @@ void sub_50D7E0()
 //----- (0050D820) --------------------------------------------------------
 void sub_50D820()
 {
-    sub_414100(*(LPVOID*)& byte_5D4594[2386216]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2386216]);
     *(_DWORD*)& byte_5D4594[2386216] = 0;
     *(_DWORD*)& byte_5D4594[2386212] = 0;
-    sub_414100(*(LPVOID*)& byte_5D4594[2386220]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2386220]);
     *(_DWORD*)& byte_5D4594[2386220] = 0;
     *(_DWORD*)& byte_5D4594[2386224] = 0;
     *(_DWORD*)& byte_5D4594[2386228] = 0;
@@ -19032,7 +19032,7 @@ int sub_50D960()
                                 v5 = sub_50DE60(*v3);
                                 if (!v5)
                                 {
-                                    v6 = sub_4142F0(*(_DWORD * *)& byte_5D4594[2386220]);
+                                    v6 = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386220]);
                                     v5 = v6;
                                     if (!v6)
                                         break;
@@ -19310,7 +19310,7 @@ int __cdecl sub_50E030(int a1, _DWORD* a2)
     v3 = (_DWORD*)a2[187];
     if (!v3[549])
     {
-        result = sub_4142F0(*(_DWORD * *)& byte_5D4594[2386216]);
+        result = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386216]);
         v5 = (_DWORD*)result;
         if (!result)
             return result;
@@ -19469,11 +19469,11 @@ int sub_50E2A0()
 {
     int result; // eax
 
-    result = sub_413FE0("TradeSessions", 64, 64);
+    result = nox_new_alloc_class("TradeSessions", 64, 64);
     *(_DWORD*)& byte_5D4594[2386492] = result;
     if (result)
     {
-        *(_DWORD*)& byte_5D4594[2386496] = sub_413FE0("TradeItems", 16, 500);
+        *(_DWORD*)& byte_5D4594[2386496] = nox_new_alloc_class("TradeItems", 16, 500);
         if (*(_DWORD*)& byte_5D4594[2386496])
         {
             memset(&byte_5D4594[2386364], 0, 0x80u);
@@ -19495,10 +19495,10 @@ int sub_50E300()
     int result; // eax
 
     if (*(_DWORD*)& byte_5D4594[2386492])
-        sub_414100(*(LPVOID*)& byte_5D4594[2386492]);
+        nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2386492]);
     *(_DWORD*)& byte_5D4594[2386492] = 0;
     if (*(_DWORD*)& byte_5D4594[2386496])
-        sub_414100(*(LPVOID*)& byte_5D4594[2386496]);
+        nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2386496]);
     result = 0;
     memset(&byte_5D4594[2386364], 0, 0x80u);
     *(_DWORD*)& byte_5D4594[2386496] = 0;
@@ -19764,7 +19764,7 @@ _DWORD* sub_50E870()
     _DWORD* v0; // eax
     _DWORD* v1; // esi
 
-    v0 = sub_4142F0(*(_DWORD * *)& byte_5D4594[2386492]);
+    v0 = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386492]);
     v1 = v0;
     if (!v0)
         return 0;
@@ -20051,7 +20051,7 @@ float* __cdecl sub_50EE00(int a1, float a2)
     _DWORD* i; // eax
     int v7; // eax
 
-    result = (float*)sub_4142F0(*(_DWORD * *)& byte_5D4594[2386496]);
+    result = (float*)nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386496]);
     v3 = result;
     if (result)
     {
@@ -20629,7 +20629,7 @@ int __cdecl sub_50F820(int a1, int a2, float a3)
         if (!sub_50FD60(*(_DWORD * *)(a1 + 36), SLODWORD(a3)))
             return 0;
     }
-    v5 = (int*)sub_4142F0(*(_DWORD * *)& byte_5D4594[2386496]);
+    v5 = (int*)nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386496]);
     v6 = v5;
     if (v5)
     {
@@ -22001,7 +22001,7 @@ int __cdecl sub_511250(int a1, float* a2)
 //----- (005112C0) --------------------------------------------------------
 BOOL sub_5112C0()
 {
-    *(_DWORD*)& byte_5D4594[2386568] = sub_413FE0("Springs", 52, 256);
+    *(_DWORD*)& byte_5D4594[2386568] = nox_new_alloc_class("Springs", 52, 256);
     return *(_DWORD*)& byte_5D4594[2386568] != 0;
 }
 
@@ -22015,7 +22015,7 @@ void sub_5112F0()
 //----- (00511310) --------------------------------------------------------
 int sub_511310()
 {
-    sub_414100(*(LPVOID*)& byte_5D4594[2386568]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2386568]);
     *(_DWORD*)& byte_5D4594[2386572] = 0;
     return 1;
 }
@@ -22136,7 +22136,7 @@ void __cdecl sub_5114D0(int a1, int a2, int a3, int a4, int a5, int a6)
 
     if (a1 && a2 && !(*(_BYTE*)(a1 + 16) & 0x20) && !(*(_BYTE*)(a2 + 16) & 0x20))
     {
-        v6 = (float*)sub_4142F0(*(_DWORD * *)& byte_5D4594[2386568]);
+        v6 = (float*)nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386568]);
         if (v6)
         {
             *((_DWORD*)v6 + 4) = a3;
@@ -22188,7 +22188,7 @@ void __cdecl sub_511590(int a1, int a2)
         {
             if (!(*(_BYTE*)(a1 + 16) & 0x20) && !(*(_BYTE*)(a2 + 16) & 0x20))
             {
-                v3 = sub_4142F0(*(_DWORD * *)& byte_5D4594[2386568]);
+                v3 = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386568]);
                 v4 = (int)v3;
                 if (v3)
                 {
@@ -27933,7 +27933,7 @@ int sub_516EA0()
 BOOL sub_516EE0()
 {
     *(_DWORD*)& byte_5D4594[2386920] = 0;
-    *(_DWORD*)& byte_5D4594[2386916] = sub_413FE0("PendingOwn", 12, 512);
+    *(_DWORD*)& byte_5D4594[2386916] = nox_new_alloc_class("PendingOwn", 12, 512);
     return *(_DWORD*)& byte_5D4594[2386916] != 0;
 }
 
@@ -27942,7 +27942,7 @@ int sub_516F10()
 {
     int result; // eax
 
-    sub_414100(*(LPVOID*)& byte_5D4594[2386916]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2386916]);
     result = 0;
     *(_DWORD*)& byte_5D4594[2386916] = 0;
     *(_DWORD*)& byte_5D4594[2386920] = 0;
@@ -27979,7 +27979,7 @@ _DWORD* __cdecl sub_516F90(int a1, int a2)
 {
     _DWORD* result; // eax
 
-    result = sub_4142F0(*(_DWORD * *)& byte_5D4594[2386916]);
+    result = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2386916]);
     if (result)
     {
         *result = a1;

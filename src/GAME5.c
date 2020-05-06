@@ -2635,7 +2635,7 @@ void __cdecl sub_548630(int a1, unsigned int a2, float2* a3)
     else
     {
     LABEL_9:
-        v7 = (int*)sub_4142F0(*(_DWORD * *)& byte_5D4594[2491548]);
+        v7 = (int*)nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2491548]);
         if (v7)
         {
             v7[2] = a1;
@@ -2660,7 +2660,7 @@ void sub_5486D0()
     v0 = *(char**)& byte_5D4594[2491548];
     if (!*(_DWORD*)& byte_5D4594[2491548])
     {
-        v0 = sub_413FE0("Hit", 28, 1024);
+        v0 = nox_new_alloc_class("Hit", 28, 1024);
         *(_DWORD*)& byte_5D4594[2491548] = v0;
         memset(&byte_5D4594[2490520], 0, 0x400u);
     }
@@ -9627,7 +9627,7 @@ int __cdecl sub_5520B0(int a1, int a2)
     memset(&byte_5D4594[3843788], 0, 512);
     memset(&byte_5D4594[2500084], 0, 8704);
     *(_DWORD*)& byte_5D4594[2512884] = a2;
-    *(_DWORD*)& byte_5D4594[3844300] = sub_413FE0("GQueue", a2, a1);
+    *(_DWORD*)& byte_5D4594[3844300] = nox_new_alloc_class("GQueue", a2, a1);
     if (!*(_DWORD*)& byte_5D4594[3844300])
         return -1;
     if (*(_DWORD*)& byte_5D4594[2495924])
@@ -12216,7 +12216,7 @@ int __cdecl sub_555130(unsigned int a1, const void* a2, signed int a3)
         return -3;
     if (!v3)
         return -3;
-    v5 = sub_4142F0(*(_DWORD * *)& byte_5D4594[3844300]);
+    v5 = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[3844300]);
     if (!v5)
         return -1;
     *v5 = *(_DWORD*)(v3 + 116);
@@ -16592,11 +16592,11 @@ char* sub_57BFB0()
     char* result; // eax
 
     *(_DWORD*)& byte_5D4594[2523904] = 0;
-    result = sub_413FE0("ItemGroupInfo", 96, 512);
+    result = nox_new_alloc_class("ItemGroupInfo", 96, 512);
     *(_DWORD*)& byte_5D4594[2523892] = result;
     if (result)
     {
-        *(_DWORD*)& byte_5D4594[2523896] = sub_413FE0("ItemGroupElement", 16, 5000);
+        *(_DWORD*)& byte_5D4594[2523896] = nox_new_alloc_class("ItemGroupElement", 16, 5000);
         result = (char*)(*(_DWORD*)& byte_5D4594[2523896] != 0);
     }
     return result;
@@ -16617,12 +16617,12 @@ int sub_57C030()
     *(_DWORD*)& byte_5D4594[2523904] = 0;
     if (*(_DWORD*)& byte_5D4594[2523892])
     {
-        sub_414100(*(LPVOID*)& byte_5D4594[2523892]);
+        nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2523892]);
         *(_DWORD*)& byte_5D4594[2523892] = 0;
     }
     if (*(_DWORD*)& byte_5D4594[2523896])
     {
-        sub_414100(*(LPVOID*)& byte_5D4594[2523896]);
+        nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2523896]);
         *(_DWORD*)& byte_5D4594[2523896] = 0;
     }
     *(_DWORD*)& byte_5D4594[2523900] = 0;
@@ -16835,7 +16835,7 @@ void* sub_57C330()
     void* result; // eax
 
     v0 = 0;
-    if (!sub_40A5C0(2097153) || (result = sub_4142F0(*(_DWORD * *)& byte_5D4594[2523892]), (v0 = result) != 0))
+    if (!sub_40A5C0(2097153) || (result = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2523892]), (v0 = result) != 0))
         result = v0;
     return result;
 }
@@ -16843,7 +16843,7 @@ void* sub_57C330()
 //----- (0057C360) --------------------------------------------------------
 void* sub_57C360()
 {
-    return sub_4142F0(*(_DWORD * *)& byte_5D4594[2523896]);
+    return nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2523896]);
 }
 
 //----- (0057C370) --------------------------------------------------------
@@ -16893,7 +16893,7 @@ int __cdecl sub_57C3F0(int a1)
 //----- (0057C410) --------------------------------------------------------
 BOOL sub_57C410()
 {
-    *(_DWORD*)& byte_5D4594[2523908] = sub_413FE0("DebugData", 344, 256);
+    *(_DWORD*)& byte_5D4594[2523908] = nox_new_alloc_class("DebugData", 344, 256);
     return *(_DWORD*)& byte_5D4594[2523908] != 0;
 }
 
@@ -16909,7 +16909,7 @@ int sub_57C460()
 {
     if (*(_DWORD*)& byte_5D4594[2523908])
     {
-        sub_414100(*(LPVOID*)& byte_5D4594[2523908]);
+        nox_free_alloc_class(*(LPVOID*)& byte_5D4594[2523908]);
         *(_DWORD*)& byte_5D4594[2523908] = 0;
     }
     *(_DWORD*)& byte_5D4594[2523912] = 0;
@@ -16938,7 +16938,7 @@ int __cdecl sub_57C500(const char* a1, const char* a2)
 {
     char* v2; // edx
 
-    v2 = (char*)sub_4142F0(*(_DWORD * *)& byte_5D4594[2523908]);
+    v2 = (char*)nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2523908]);
     if (!v2)
         return 0;
     strcpy(v2, a1);
