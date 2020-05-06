@@ -570,12 +570,12 @@ void sub_413E30();
 int __cdecl sub_413F60(const void*, const void*); // idb
 void nullsub_2(void); // weak
 char* __cdecl nox_clone_str(const char* a1);
-char* __cdecl sub_413FE0(const char* a1, int a2, int a3);
-char* __cdecl sub_4140D0(const char* a1, int a2, int a3);
-void __cdecl sub_414100(LPVOID lpMem); // idb
-void __cdecl sub_414130(_DWORD* a1);
-int __cdecl sub_414190(_DWORD* a1);
-void* __cdecl sub_4142F0(_DWORD* a1);
+nox_alloc_class* __cdecl nox_new_alloc_class(const char* name, int size, int cnt);
+nox_alloc_class* __cdecl nox_new_alloc_class_f30(const char* name, int size, int cnt);
+void __cdecl nox_free_alloc_class(nox_alloc_class* p); // idb
+void __cdecl nox_free_alloc_class_f30(nox_alloc_class* p);
+int __cdecl nox_alloc_class_new_obj(_DWORD* a1);
+void* __cdecl nox_alloc_class_new_obj_zero(nox_alloc_class* a1);
 void __cdecl sub_414330(unsigned int* a1, _QWORD* a2);
 int __cdecl sub_4143D0(int a1, int a2);
 void __cdecl sub_414400(unsigned int* a1, _QWORD* a2);
@@ -2868,7 +2868,7 @@ void sub_46B740();
 void __cdecl sub_46C140(int a1);
 void sub_46C200();
 int __cdecl sub_46C2A0(int a1);
-int sub_46C2E0_draw();
+void sub_46C2E0_draw();
 int __cdecl sub_46C370_draw(_DWORD* a1);
 _DWORD* __cdecl wndCreate2_sub_46C3E0(int a1, int a2, int a3, int a4, int a5, int a6, int (*a7)(int, int, int, int));
 int __cdecl sub_46C4E0(_DWORD* a1);

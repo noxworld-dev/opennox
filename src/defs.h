@@ -403,6 +403,36 @@ typedef struct nox_string_entry
     _WORD field_50;
 } nox_string_entry;
 
+typedef struct nox_alloc_hdr nox_alloc_hdr;
+typedef struct nox_alloc_hdr
+{
+    int field_0;
+    int field_1;
+    nox_alloc_hdr* field_2;
+    int field_3;
+} nox_alloc_hdr;
+
+typedef struct nox_alloc_class
+{
+    char name[88];  // 0, 0, 0
+    int size; // 22, 0x58, 88
+    int cnt1; // 23
+    nox_alloc_hdr* field_24; // 24
+    nox_alloc_hdr* field_25; // 25
+    _DWORD field_26; // 26
+    _DWORD field_27; // 27
+    _DWORD field_28; // 28
+    void* items; // 29
+    _DWORD field_30; // 30
+    _DWORD field_31; // 31
+    _DWORD field_32; // 32
+    _DWORD field_33; // 33
+    _DWORD field_34; // 34
+    _DWORD field_35; // 35
+    int cnt2; // 36
+    _DWORD field_37; // 37
+} nox_alloc_class;
+
 typedef struct nox_thing nox_thing;
 typedef struct nox_thing
 {

@@ -48369,7 +48369,7 @@ int __cdecl sub_4E3360(unsigned int a1)
 
     v1 = 0;
     v2 = 1;
-    result = sub_413FE0("objectMemClass", 772, a1);
+    result = nox_new_alloc_class("objectMemClass", 772, a1);
     *(_DWORD*)& byte_5D4594[1563344] = result;
     if (result)
     {
@@ -48377,7 +48377,7 @@ int __cdecl sub_4E3360(unsigned int a1)
         {
             while (1)
             {
-                v4 = sub_4142F0((_DWORD*)result);
+                v4 = nox_alloc_class_new_obj_zero((_DWORD*)result);
                 if (!v4)
                     break;
                 v4[9] = v2++;
@@ -48419,7 +48419,7 @@ int __cdecl sub_4E3360(unsigned int a1)
 //----- (004E3420) --------------------------------------------------------
 int sub_4E3420()
 {
-    sub_414100(*(LPVOID*)& byte_5D4594[1563344]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[1563344]);
     return 1;
 }
 
@@ -48442,7 +48442,7 @@ _DWORD* __cdecl sub_4E3470(int a1)
     int v8; // eax
     int v9; // [esp+10h] [ebp-4h]
 
-    result = (_DWORD*)sub_414190(*(_DWORD * *)& byte_5D4594[1563344]);
+    result = (_DWORD*)nox_alloc_class_new_obj(*(_DWORD * *)& byte_5D4594[1563344]);
     v2 = result;
     if (result)
     {
@@ -49882,7 +49882,7 @@ int sub_4E4DE0()
     int result; // eax
 
     if (*(_DWORD*)& byte_5D4594[1565508])
-        sub_414100(*(LPVOID*)& byte_5D4594[1565508]);
+        nox_free_alloc_class(*(LPVOID*)& byte_5D4594[1565508]);
     *(_DWORD*)& byte_5D4594[1565508] = 0;
     memset(&byte_5D4594[1565524], 0, 0x40u);
     memset(&byte_5D4594[1565124], 0, 0x180u);
@@ -50043,17 +50043,17 @@ int __cdecl sub_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, ch
             else
                 *(_DWORD*)& byte_5D4594[1565520] = sub_40A5C0(1) ? 3072 : 256;
             if (sub_40A5C0(2048))
-                v7 = sub_4140D0("importantClass", 416, *(int*)& byte_5D4594[1565520]);
+                v7 = nox_new_alloc_class_f30("importantClass", 416, *(int*)& byte_5D4594[1565520]);
             else
-                v7 = sub_413FE0("importantClass", 416, *(int*)& byte_5D4594[1565520]);
+                v7 = nox_new_alloc_class("importantClass", 416, *(int*)& byte_5D4594[1565520]);
             *(_DWORD*)& byte_5D4594[1565508] = v7;
         }
-        v8 = (char*)sub_4142F0(v7);
+        v8 = (char*)nox_alloc_class_new_obj_zero(v7);
         if (!v8)
         {
             if (sub_4E52B0() != 1)
                 return 0;
-            v8 = (char*)sub_4142F0(*(_DWORD * *)& byte_5D4594[1565508]);
+            v8 = (char*)nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[1565508]);
             if (!v8)
                 return 0;
         }
@@ -56164,7 +56164,7 @@ _DWORD* __cdecl sub_4EC5E0(int a1)
     result = *(_DWORD * *)& byte_587000[205200];
     if (*(_DWORD*)& byte_587000[205200])
     {
-        result = sub_4142F0(*(_DWORD * *)& byte_5D4594[1568020]);
+        result = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[1568020]);
         v2 = result;
         if (result)
         {
@@ -56393,14 +56393,14 @@ void sub_4EC720()
 //----- (004ECA60) --------------------------------------------------------
 BOOL sub_4ECA60()
 {
-    *(_DWORD*)& byte_5D4594[1568020] = sub_413FE0("Respawn", 60, 384);
+    *(_DWORD*)& byte_5D4594[1568020] = nox_new_alloc_class("Respawn", 60, 384);
     return *(_DWORD*)& byte_5D4594[1568020] != 0;
 }
 
 //----- (004ECA90) --------------------------------------------------------
 void sub_4ECA90()
 {
-    sub_414100(*(LPVOID*)& byte_5D4594[1568020]);
+    nox_free_alloc_class(*(LPVOID*)& byte_5D4594[1568020]);
 }
 
 //----- (004ECAA0) --------------------------------------------------------
