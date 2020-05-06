@@ -90,6 +90,10 @@ mouse_pos_t nox_mouse_prev_left = {0};
 mouse_pos_t nox_mouse_prev_right = {0};
 mouse_pos_t nox_mouse_prev_middle = {0};
 
+nox_thing* nox_things_head = 0;
+nox_thing** nox_things_array = 0;
+int nox_things_count = 0;
+
 _DWORD* dword_5D4594_251544 = 0;
 
 obj_412ae0_t* byte_5D4594_251584[3] = {0};
@@ -1220,74 +1224,74 @@ int table_28760_cnt = sizeof(table_28760)/sizeof(table_28760_t);
 
 table_116008_t table_116008[] = {
         {"NoDraw", 0, 0, 0},
-        {"DebugDraw", &sub_4BCC90, 0, 0},
-        {"StaticDraw", &sub_4BCC20, 1, &sub_44C160},
-        {"StaticRandomDraw", &sub_4BCC60, 2, &sub_44BFD0},
-        {"DoorDraw", &sub_4BC9E0, 2, &sub_44C0F0},
-        {"AnimateDraw", &sub_4BBD60, 3, &sub_44B390},
-        {"ConditionalAnimateDraw", &sub_4BC930, 4, &sub_44B560},
-        {"MonsterGeneratorDraw", &sub_4BC750, 4, &sub_44B560},
-        {"VectorAnimateDraw", &sub_4BC700, 5, &sub_44BF60},
-        {"MonsterDraw", &sub_4BC180, 7, &sub_44BB80},
-        {"MaidenDraw", &sub_4BBF90, 7, &sub_44BD60},
-        {"AnimateStateDraw", &sub_4BBF10, 8, &sub_44BD90},
-        {"PlayerDraw", &sub_4B8270, 6, &sub_44B700},
-        {"SlaveDraw", &sub_4BBD30, 2, &sub_44C120},
-        {"TriggerDraw", &sub_4BB9D0, 0, 0},
-        {"PressurePlateDraw", &sub_4BBB30, 0, 0},
-        {"LightningDraw", &sub_4BAC80, 0, 0},
-        {"ChainLightningBoltDraw", &sub_4BB3F0, 0, 0},
-        {"EnergyBoltDraw", &sub_4BB5D0, 0, 0},
-        {"GreenBoltDraw", &sub_4BB7B0, 0, 0},
-        {"PlasmaDraw", &sub_4BA980, 0, 0},
-        {"YellowSparkDraw", &sub_4B6AE0, 0, 0},
-        {"RedSparkDraw", &sub_4B6A60, 0, 0},
-        {"BlueSparkDraw", &sub_4B6A80, 0, 0},
-        {"CyanSparkDraw", &sub_4B6AA0, 0, 0},
-        {"GreenSparkDraw", &sub_4B6AC0, 0, 0},
-        {"VioletSparkDraw", &sub_4B6E40, 0, 0},
-        {"WhiteSparkDraw", &sub_4B7040, 0, 0},
-        {"BlueRainSparkDraw", &sub_4B7060, 0, 0},
-        {"DeathBallSparkDraw", &sub_4B6E60, 0, 0},
-        {"PixieDraw", &sub_4B6E80, 0, 0},
-        {"PixieDustDraw", &sub_4B6FE0, 0, 0},
-        {"ParticleDraw", &sub_4AFE80, 0, 0},
-        {"BubbleDraw", &sub_4B7540, 0, 0},
-        {"VortexDraw", &sub_4B9F50, 0, 0},
-        {"BlackPowderDraw", &sub_4B9ED0, 0, 0},
-        {"SpiderSpitDraw", &sub_4B9D70, 0, 0},
-        {"GlyphDraw", &sub_4B9C70, 3, &sub_44B390},
-        {"BoulderDraw", &sub_4B9B50, 2, &sub_44C120},
-        {"DrainManaDraw", &sub_4B9B40, 0, 0},
-        {"GlowOrbDraw", &sub_4B6B60, 0, 0},
-        {"GlowOrbMoveDraw", &sub_4B6E20, 0, 0},
-        {"MagicDraw", &sub_4B98A0, 0, 0},
-        {"MagicMissileDraw", &sub_4B99F0, 0, 0},
-        {"MagicTailLinkDraw", &sub_4B5E10, 0, 0},
-        {"MagicMissileTailLinkDraw", &sub_4B5F30, 0, 0},
-        {"MagicSparkleDraw", &sub_4B6B00, 0, 0},
-        {"PlayerWaypointDraw", &sub_4B9790, 0, 0},
-        {"WeaponDraw", &sub_4B9690, 1, &sub_44C160},
-        {"ArmorDraw", &sub_4B96D0, 1, &sub_44C160},
-        {"WeaponAnimateDraw", &sub_4B96B0, 3, &sub_44B390},
-        {"ArmorAnimateDraw", &sub_4B9770, 3, &sub_44B390},
-        {"FlagDraw", &sub_4B9500, 3, &sub_44B390},
-        {"BaseDraw", &sub_4B95B0, 1, &sub_44C160},
-        {"NPCDraw", &sub_4B9050, 0, 0},
-        {"SphericalShieldDraw", &sub_4B8020, 3, &sub_44B390},
-        {"SummonEffectDraw", &sub_4B7D00, 3, &sub_44B390},
-        {"ReleasedSoulDraw", &sub_4B7C20, 5, &sub_44BF60},
-        {"UndeadKillerDraw", &sub_4B7A80, 0, 0},
-        {"ArrowDraw", &sub_4B7920, 2, &sub_44C120},
-        {"WeakArrowDraw", &sub_4B79D0, 2, &sub_44C120},
-        {"ArrowTailLinkDraw", &sub_4B6050, 0, 0},
-        {"WeakArrowTailLinkDraw", &sub_4B6120, 0, 0},
-        {"BlueRainDraw", &sub_4B7810, 0, 0},
-        {"LevelUpDraw", &sub_4B7700, 0, 0},
-        {"OblivionUpDraw", &sub_4B77D0, 0, 0},
-        {"RainOrbDraw", &sub_4B7310, 0, 0},
-        {"HarpoonDraw", &sub_4B64A0, 2, &sub_44C120},
-        {"HarpoonRopeDraw", &sub_4B61F0, 0, 0},
+        {"DebugDraw", &nox_thing_debug_draw, 0, 0},
+        {"StaticDraw", &nox_thing_static_draw, 1, &sub_44C160},
+        {"StaticRandomDraw", &nox_thing_static_random_draw, 2, &sub_44BFD0},
+        {"DoorDraw", &nox_thing_door_draw, 2, &sub_44C0F0},
+        {"AnimateDraw", &nox_thing_animate_draw, 3, &sub_44B390},
+        {"ConditionalAnimateDraw", &nox_thing_cond_animate_draw, 4, &sub_44B560},
+        {"MonsterGeneratorDraw", &nox_thing_monster_gen_draw, 4, &sub_44B560},
+        {"VectorAnimateDraw", &nox_thing_vector_animate_draw, 5, &sub_44BF60},
+        {"MonsterDraw", &nox_thing_monster_draw, 7, &sub_44BB80},
+        {"MaidenDraw", &nox_thing_maiden_draw, 7, &sub_44BD60},
+        {"AnimateStateDraw", &nox_thing_animate_state_draw, 8, &sub_44BD90},
+        {"PlayerDraw", &nox_thing_player_draw, 6, &sub_44B700},
+        {"SlaveDraw", &nox_thing_slave_draw, 2, &sub_44C120},
+        {"TriggerDraw", &nox_thing_trigger_draw, 0, 0},
+        {"PressurePlateDraw", &nox_thing_pressure_plate_draw, 0, 0},
+        {"LightningDraw", &nox_thing_lightning_draw, 0, 0},
+        {"ChainLightningBoltDraw", &nox_thing_chain_lightning_bolt_draw, 0, 0},
+        {"EnergyBoltDraw", &nox_thing_energy_bolt_draw, 0, 0},
+        {"GreenBoltDraw", &nox_thing_green_bolt_draw, 0, 0},
+        {"PlasmaDraw", &nox_thing_plasma_draw, 0, 0},
+        {"YellowSparkDraw", &nox_thing_yellow_spark_draw, 0, 0},
+        {"RedSparkDraw", &nox_thing_red_spark_draw, 0, 0},
+        {"BlueSparkDraw", &nox_thing_blue_spark_draw, 0, 0},
+        {"CyanSparkDraw", &nox_thing_cyan_spark_draw, 0, 0},
+        {"GreenSparkDraw", &nox_thing_green_spark_draw, 0, 0},
+        {"VioletSparkDraw", &nox_thing_violet_spark_draw, 0, 0},
+        {"WhiteSparkDraw", &nox_thing_white_spark_draw, 0, 0},
+        {"BlueRainSparkDraw", &nox_thing_blue_rain_spark_draw, 0, 0},
+        {"DeathBallSparkDraw", &nox_thing_death_ball_spark_draw, 0, 0},
+        {"PixieDraw", &nox_thing_pixie_draw, 0, 0},
+        {"PixieDustDraw", &nox_thing_pixie_dust_draw, 0, 0},
+        {"ParticleDraw", &nox_thing_particle_draw, 0, 0},
+        {"BubbleDraw", &nox_thing_bubble_draw, 0, 0},
+        {"VortexDraw", &nox_thing_vortex_draw, 0, 0},
+        {"BlackPowderDraw", &nox_thing_black_powder_draw, 0, 0},
+        {"SpiderSpitDraw", &nox_thing_spider_spit_draw, 0, 0},
+        {"GlyphDraw", &nox_thing_glyph_draw, 3, &sub_44B390},
+        {"BoulderDraw", &nox_thing_boulder_draw, 2, &sub_44C120},
+        {"DrainManaDraw", &nox_thing_drain_mana_draw, 0, 0},
+        {"GlowOrbDraw", &nox_thing_glow_orb_draw, 0, 0},
+        {"GlowOrbMoveDraw", &nox_thing_glow_orb_move_draw, 0, 0},
+        {"MagicDraw", &nox_thing_magic_draw, 0, 0},
+        {"MagicMissileDraw", &nox_thing_magic_missle_draw, 0, 0},
+        {"MagicTailLinkDraw", &nox_thing_magic_tail_link_draw, 0, 0},
+        {"MagicMissileTailLinkDraw", &nox_thing_magic_missle_tail_link_draw, 0, 0},
+        {"MagicSparkleDraw", &nox_thing_magic_sparkle_draw, 0, 0},
+        {"PlayerWaypointDraw", &nox_thing_player_waypoint_draw, 0, 0},
+        {"WeaponDraw", &nox_thing_weapon_draw, 1, &sub_44C160},
+        {"ArmorDraw", &nox_thing_armor_draw, 1, &sub_44C160},
+        {"WeaponAnimateDraw", &nox_thing_weapon_animate_draw, 3, &sub_44B390},
+        {"ArmorAnimateDraw", &nox_thing_armor_animate_draw, 3, &sub_44B390},
+        {"FlagDraw", &nox_thing_flag_draw, 3, &sub_44B390},
+        {"BaseDraw", &nox_thing_base_draw, 1, &sub_44C160},
+        {"NPCDraw", &nox_thing_npc_draw, 0, 0},
+        {"SphericalShieldDraw", &nox_thing_spherical_shield_draw, 3, &sub_44B390},
+        {"SummonEffectDraw", &nox_thing_summon_effect_draw, 3, &sub_44B390},
+        {"ReleasedSoulDraw", &nox_thing_released_soul_draw, 5, &sub_44BF60},
+        {"UndeadKillerDraw", &nox_thing_undead_killer_draw, 0, 0},
+        {"ArrowDraw", &nox_thing_arrow_draw, 2, &sub_44C120},
+        {"WeakArrowDraw", &nox_thing_weak_arrow_draw, 2, &sub_44C120},
+        {"ArrowTailLinkDraw", &nox_thing_arrow_tail_link_draw, 0, 0},
+        {"WeakArrowTailLinkDraw", &nox_thing_weak_arrow_tail_link_draw, 0, 0},
+        {"BlueRainDraw", &nox_thing_blue_rain_draw, 0, 0},
+        {"LevelUpDraw", &nox_thing_levelup_draw, 0, 0},
+        {"OblivionUpDraw", &nox_thing_oblivion_up_draw, 0, 0},
+        {"RainOrbDraw", &nox_thing_rain_orb_draw, 0, 0},
+        {"HarpoonDraw", &nox_thing_harpoon_draw, 2, &sub_44C120},
+        {"HarpoonRopeDraw", &nox_thing_harpoon_rope_draw, 0, 0},
 };
 int table_116008_cnt = sizeof(table_116008)/sizeof(table_116008_t);
 
@@ -1298,7 +1302,7 @@ nox_video_mode nox_video_modes[] = {
 };
 int nox_video_modes_cnt = sizeof(nox_video_modes)/sizeof(nox_video_mode);
 
-extern table_122104_t table_122104[];
+extern nox_parse_thing_funcs_t nox_parse_thing_funcs[];
 
 typedef struct mem_mapping
 {
@@ -1346,6 +1350,9 @@ mem_mapping mappings[] = {
     {0x5D4594+805796, (void*)&nox_mouse_prev_middle, sizeof(nox_mouse_prev_middle),1},
     {0x5D4594+805812, (void*)&nox_mouse_prev_seq, sizeof(nox_mouse_prev_seq),1},
     {0x5D4594+805828, (void*)&nox_mouse_prev_seq_2, sizeof(nox_mouse_prev_seq_2),1},
+    {0x5D4594+830604, (void*)&nox_things_head, sizeof(nox_things_head),1},
+    {0x5D4594+830608, (void*)&nox_things_array, sizeof(nox_things_array),1},
+    {0x5D4594+830612, (void*)&nox_things_count, sizeof(nox_things_count),1},
     {0x5D4594+1193492, (void*)&nox_backbuffer1_pix, sizeof(nox_backbuffer1_pix),1},
     {0x5D4594+3798752, (void*)&nox_backbuffer_pix, sizeof(nox_backbuffer_pix),1},
     {0x5D4594+3801784, (void*)&nox_backbuffer_width, sizeof(nox_backbuffer_width),1},
@@ -1373,7 +1380,7 @@ mem_mapping mappings[] = {
     {0x587000+91796, (void*)&nox_win_height_2, sizeof(nox_win_height_2),1},
     {0x587000+91800, (void*)&nox_win_depth_2, sizeof(nox_win_depth_2),1},
     {0x587000+91804, (void*)nox_video_modes, sizeof(nox_video_modes),1},
-    {0x587000+122104, (void*)table_122104, 168,1}, // TODO
+    {0x587000+122104, (void*)nox_parse_thing_funcs, 168,1}, // TODO
     // full blobs
     #if 0
     {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
@@ -11955,7 +11962,7 @@ int __cdecl sub_413F60(const void* a1, const void* a2)
 }
 
 //----- (00413F90) --------------------------------------------------------
-char* __cdecl sub_413F90(const char* a1)
+char* __cdecl nox_clone_str(const char* a1)
 {
     char* result; // eax
 
@@ -28119,7 +28126,7 @@ CHAR* __cdecl sub_426680(int a1, char* a2)
         ++* ((_DWORD*)v3 + 1);
         *((_DWORD*)v3 + 2) = v8;
         v9 = 8 * i;
-        *(_DWORD*)(*(_DWORD*)v3 + v9) = sub_413F90(a2);
+        *(_DWORD*)(*(_DWORD*)v3 + v9) = nox_clone_str(a2);
         result = (CHAR*)(v9 + *(_DWORD*)v3);
     }
     return result;
@@ -32422,7 +32429,7 @@ int sub_42BF10()
     {
         if (!sub_40A5C0(2))
             return 0;
-        v1 = sub_44D390();
+        v1 = nox_get_things_count();
     }
     *(_DWORD*)& byte_5D4594[741680] = v1;
     *(_DWORD*)& byte_5D4594[741676] = nox_malloc(2 * v1);
@@ -39510,7 +39517,7 @@ int sub_435EB0()
     sub_473B30();
     sub_496120();
     sub_473840();
-    sub_44C580();
+    sub_44C580_free();
     sub_49A950();
     sub_45A200();
     sub_49AEA0();
@@ -45013,7 +45020,7 @@ int map_download_loop(int first)
     if (!*(_DWORD*)& byte_587000[173328])
         return map_download_finish();
 
-    sub_46C2E0();
+    sub_46C2E0_draw();
     sub_477830();
     sub_48A220();
     sub_4AD170_call_copy_backbuffer();
@@ -45326,7 +45333,7 @@ void mainloop()
     {
         sub_437180();
         if (!*(_DWORD*)& byte_5D4594[1556112])
-            sub_46C2E0();
+            sub_46C2E0_draw();
         if (*(_DWORD*)& byte_5D4594[815132])
         {
             v28[0] = 0;
@@ -54751,31 +54758,31 @@ int __cdecl sub_44B0F0(int a1, int a2, int* a3, int a4)
 }
 
 //----- (0044B160) --------------------------------------------------------
-int __cdecl sub_44B160(int a1, int a2, const char* a3)
+int __cdecl nox_parse_thing_flags(nox_thing* obj, int a2, const char* a3)
 {
-    *(_DWORD*)(a1 + 40) = 0;
-    sub_423930(a3, (_DWORD*)(a1 + 40), (const char**)& byte_587000[114076]);
+    obj->flags = 0;
+    sub_423930(a3, &obj->flags, (const char**)& byte_587000[114076]);
     return 1;
 }
 
 //----- (0044B190) --------------------------------------------------------
-int __cdecl sub_44B190(int a1, int a2, const char* a3)
+int __cdecl nox_parse_thing_class(nox_thing* obj, int a2, const char* a3)
 {
-    *(_DWORD*)(a1 + 32) = 0;
-    sub_423930(a3, (_DWORD*)(a1 + 32), (const char**)& byte_587000[114208]);
+    obj->pri_class = 0;
+    sub_423930(a3, &obj->pri_class, (const char**)& byte_587000[114208]);
     return 1;
 }
 
 //----- (0044B1C0) --------------------------------------------------------
-int __cdecl sub_44B1C0(int a1, int a2, const char* a3)
+int __cdecl nox_parse_thing_subclass(nox_thing* obj, int a2, const char* a3)
 {
-    *(_DWORD*)(a1 + 36) = 0;
-    sub_423A10(a3, (_DWORD*)(a1 + 36));
+    obj->sub_class = 0;
+    sub_423A10(a3, &obj->sub_class);
     return 1;
 }
 
 //----- (0044B1F0) --------------------------------------------------------
-int __cdecl sub_44B1F0(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_extent(int a1, int a2, char* a3)
 {
     int result; // eax
     shape v4; // [esp+0h] [ebp-3Ch]
@@ -54789,14 +54796,14 @@ int __cdecl sub_44B1F0(int a1, int a2, char* a3)
 }
 
 //----- (0044B230) --------------------------------------------------------
-int __cdecl sub_44B230(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_light_intensity(int a1, int a2, char* a3)
 {
     sscanf(a3, "%f", a1 + 44);
     return 1;
 }
 
 //----- (0044B250) --------------------------------------------------------
-int __cdecl sub_44B250(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_light_color(int a1, int a2, char* a3)
 {
     int v4; // esi
     int v5; // edx
@@ -54823,7 +54830,7 @@ int __cdecl sub_44B250(int a1, int a2, char* a3)
 }
 
 //----- (0044B2D0) --------------------------------------------------------
-int __cdecl sub_44B2D0(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_light_dir(int a1, int a2, char* a3)
 {
     if (sscanf(a3, "%d", &a3) != 1 || (int)a3 < 0 || (int)a3 >= 360)
         return 0;
@@ -54834,7 +54841,7 @@ int __cdecl sub_44B2D0(int a1, int a2, char* a3)
 }
 
 //----- (0044B330) --------------------------------------------------------
-int __cdecl sub_44B330(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_light_penumbra(int a1, int a2, char* a3)
 {
     if (sscanf(a3, "%d", &a3) != 1 || (int)a3 < 0 || (int)a3 >= 180)
         return 0;
@@ -54919,7 +54926,7 @@ int __cdecl sub_44B390(int a1, int a2, _BYTE* a3)
             } while (v13 < *((unsigned __int8*)v5 + 8));
         }
         *(_DWORD*)(a1 + 92) = v5;
-        *(_DWORD*)(a1 + 88) = sub_4BBD60;
+        *(_DWORD*)(a1 + 88) = nox_thing_animate_draw;
         result = 1;
     }
     return result;
@@ -54984,7 +54991,7 @@ int __cdecl sub_44B560(_DWORD* a1, int a2, _BYTE* a3)
     {
     LABEL_10:
         a1[23] = v3;
-        a1[22] = sub_4BC930;
+        a1[22] = nox_thing_cond_animate_draw;
         a1[24] = 0;
         result = 1;
     }
@@ -55146,7 +55153,7 @@ LABEL_3:
         if (!v16)
             return 0;
     }
-    *(_DWORD*)(a1 + 88) = sub_4B8270;
+    *(_DWORD*)(a1 + 88) = nox_thing_player_draw;
     *(_DWORD*)(a1 + 92) = v21;
     return 1;
 }
@@ -55338,7 +55345,7 @@ int __cdecl sub_44BB80(int a1, int a2)
         }
         return 0;
     }
-    *(_DWORD*)(a1 + 88) = sub_4BC180;
+    *(_DWORD*)(a1 + 88) = nox_thing_monster_draw;
     *(_DWORD*)(a1 + 92) = v2;
     return 1;
 }
@@ -55413,7 +55420,7 @@ int __cdecl sub_44BD60(int a1, int a2)
     int result; // eax
 
     result = sub_44BB80(a1, a2);
-    *(_DWORD*)(a1 + 88) = sub_4BBF90;
+    *(_DWORD*)(a1 + 88) = nox_thing_maiden_draw;
     return result;
 }
 
@@ -55470,7 +55477,7 @@ int __cdecl sub_44BD90(_DWORD* a1, int a2)
         return 0;
     }
     a1[21] = 2;
-    a1[22] = sub_4BBF10;
+    a1[22] = nox_thing_animate_state_draw;
     a1[23] = v2;
     return 1;
 }
@@ -55541,7 +55548,7 @@ int __cdecl sub_44BF60(int a1, int a2)
     result = sub_44BFA0((int)v2, a2);
     if (result)
     {
-        *(_DWORD*)(a1 + 88) = sub_4BC700;
+        *(_DWORD*)(a1 + 88) = nox_thing_vector_animate_draw;
         *(_DWORD*)(a1 + 92) = v3;
         result = 1;
     }
@@ -55564,7 +55571,7 @@ BOOL __cdecl sub_44BFD0(int a1, int a2, _BYTE* a3)
 {
     void* v3; // eax
 
-    *(_DWORD*)(a1 + 88) = sub_4BCC60;
+    *(_DWORD*)(a1 + 88) = nox_thing_static_random_draw;
     v3 = sub_44C000(a3, a2);
     *(_DWORD*)(a1 + 92) = v3;
     return v3 != 0;
@@ -55640,7 +55647,7 @@ BOOL __cdecl sub_44C0F0(int a1, int a2, _BYTE* a3)
 {
     void* v3; // eax
 
-    *(_DWORD*)(a1 + 88) = sub_4BC9E0;
+    *(_DWORD*)(a1 + 88) = nox_thing_door_draw;
     v3 = sub_44C000(a3, a2);
     *(_DWORD*)(a1 + 92) = v3;
     return v3 != 0;
@@ -55651,7 +55658,7 @@ BOOL __cdecl sub_44C120(_DWORD* a1, int a2, _BYTE* a3)
 {
     void* v3; // eax
 
-    a1[22] = sub_4BBD30;
+    a1[22] = nox_thing_slave_draw;
     v3 = sub_44C000(a3, a2);
     a1[23] = v3;
     a1[24] = 0;
@@ -55694,7 +55701,7 @@ int __cdecl sub_44C160(int a1, int a2, char* a3)
             v6[v11] = 0;
         }
         *(_DWORD*)(v4 + 4) = sub_42FAA0(v8, a3, v6);
-        *(_DWORD*)(a1 + 88) = sub_4BCC20;
+        *(_DWORD*)(a1 + 88) = nox_thing_static_draw;
         *(_DWORD*)(a1 + 92) = v4;
         result = 1;
     }
@@ -55702,7 +55709,7 @@ int __cdecl sub_44C160(int a1, int a2, char* a3)
 }
 
 //----- (0044C200) --------------------------------------------------------
-int __cdecl nox_parse_draw(void* a1, _DWORD* a2, int a3)
+int __cdecl nox_parse_thing_draw(nox_thing* obj, _DWORD* a2, int a3)
 {
     unsigned __int8* v3; // eax
     unsigned __int8 v4; // cl
@@ -55736,14 +55743,14 @@ int __cdecl nox_parse_draw(void* a1, _DWORD* a2, int a3)
     }
     result = 1;
     if (item->parse_fnc)
-        result = item->parse_fnc(a1, a2, a3);
-    *(_DWORD*)(a1 + 88) = item->draw;
+        result = item->parse_fnc(obj, a2, a3);
+    obj->draw_func = item->draw;
     return result;
 }
 // 44C200: using guessed type char var_100[256];
 
 //----- (0044C2F0) --------------------------------------------------------
-int __cdecl sub_44C2F0(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_z(int a1, int a2, char* a3)
 {
     sscanf(a3, "%d", &a3);
     *(_WORD*)(a1 + 22) = (_WORD)a3;
@@ -55751,7 +55758,7 @@ int __cdecl sub_44C2F0(int a1, int a2, char* a3)
 }
 
 //----- (0044C320) --------------------------------------------------------
-int __cdecl sub_44C320(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_zsize(int a1, int a2, char* a3)
 {
     int v5; // [esp+0h] [ebp-4h]
 
@@ -55764,7 +55771,7 @@ int __cdecl sub_44C320(int a1, int a2, char* a3)
 }
 
 //----- (0044C370) --------------------------------------------------------
-int __cdecl sub_44C370(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_size(int a1, int a2, char* a3)
 {
     int v5; // [esp+0h] [ebp-4h]
 
@@ -55775,7 +55782,7 @@ int __cdecl sub_44C370(int a1, int a2, char* a3)
 }
 
 //----- (0044C3B0) --------------------------------------------------------
-int __cdecl sub_44C3B0(int a1, int a2)
+int __cdecl nox_parse_thing_menu_icon(int a1, int a2)
 {
     int* v2; // ecx
     int v3; // edx
@@ -55795,14 +55802,14 @@ int __cdecl sub_44C3B0(int a1, int a2)
 }
 
 //----- (0044C3F0) --------------------------------------------------------
-int __cdecl sub_44C3F0(int a1, int a2, void* a3)
+int __cdecl nox_parse_thing_audio_loop(int a1, int a2, void* a3)
 {
     *(_DWORD*)(a1 + 104) = sub_40AF50(a3);
     return 1;
 }
 
 //----- (0044C410) --------------------------------------------------------
-int __cdecl sub_44C410(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_lifetime(int a1, int a2, char* a3)
 {
     sscanf(a3, "%d", &a3);
     *(_DWORD*)(a1 + 120) = a3;
@@ -55810,7 +55817,7 @@ int __cdecl sub_44C410(int a1, int a2, char* a3)
 }
 
 //----- (0044C440) --------------------------------------------------------
-int __cdecl sub_44C440(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_weight(int a1, int a2, char* a3)
 {
     int v3; // ecx
 
@@ -55822,28 +55829,28 @@ int __cdecl sub_44C440(int a1, int a2, char* a3)
 }
 
 //----- (0044C480) --------------------------------------------------------
-int __cdecl sub_44C480(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_pretty_name(int a1, int a2, char* a3)
 {
     *(_DWORD*)(a1 + 4) = loadString_sub_40F1D0(a3, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
     return 1;
 }
 
 //----- (0044C4B0) --------------------------------------------------------
-int __cdecl sub_44C4B0(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_desc(int a1, int a2, char* a3)
 {
     *(_DWORD*)(a1 + 8) = loadString_sub_40F1D0(a3, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
     return 1;
 }
 
 //----- (0044C4E0) --------------------------------------------------------
-int __cdecl sub_44C4E0(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_health(int a1, int a2, char* a3)
 {
     *(_WORD*)(a1 + 124) = atoi(a3);
     return 1;
 }
 
 //----- (0044C500) --------------------------------------------------------
-int __cdecl sub_44C500(int a1, int a2)
+int __cdecl nox_parse_thing_pretty_image(int a1, int a2)
 {
     int* v2; // ecx
     int v3; // esi
@@ -55874,38 +55881,30 @@ int __cdecl sub_44C500(int a1, int a2)
 // 44C554: variable 'v8' is possibly undefined
 
 //----- (0044C580) --------------------------------------------------------
-int sub_44C580()
+void sub_44C580_free()
 {
-    int v0; // esi
-    int v1; // edi
-    void* v2; // eax
-
-    v0 = *(_DWORD*)& byte_5D4594[830604];
-    if (*(_DWORD*)& byte_5D4594[830604])
-    {
-        do
-        {
-            v1 = *(_DWORD*)(v0 + 108);
-            if (*(_DWORD*)v0)
-                free(*(LPVOID*)v0);
-            v2 = *(void**)(v0 + 92);
-            if (v2)
-                sub_44C650(v2, *(void**)(v0 + 88));
-            free((LPVOID)v0);
-            v0 = v1;
-        } while (v1);
+    if (nox_things_head) {
+        nox_thing* cur = nox_things_head;
+        while(cur) {
+            if (cur->name)
+                free(cur->name);
+            if (cur->field_5c)
+                sub_44C650_free(cur->field_5c, cur->draw_func);
+            nox_thing* next = cur->next;
+            free(cur);
+            cur = next;
+        }
     }
-    *(_DWORD*)& byte_5D4594[830604] = 0;
-    if (*(_DWORD*)& byte_5D4594[830608])
+    nox_things_head = NULL;
+    if (nox_things_array)
     {
-        free(*(LPVOID*)& byte_5D4594[830608]);
-        *(_DWORD*)& byte_5D4594[830608] = 0;
+        free(nox_things_array);
+        nox_things_array = NULL;
     }
-    *(_DWORD*)& byte_5D4594[830612] = 0;
+    nox_things_count = 0;
     sub_44C620();
     if (!sub_40A5C0(1))
         sub_42BF80();
-    return 1;
 }
 
 //----- (0044C620) --------------------------------------------------------
@@ -55924,7 +55923,7 @@ void sub_44C620()
 }
 
 //----- (0044C650) --------------------------------------------------------
-void __cdecl sub_44C650(LPVOID lpMem, void* draw)
+void __cdecl sub_44C650_free(LPVOID lpMem, void* draw)
 {
     int kind = 0;
     if (*(_DWORD*)table_116008)
@@ -56078,12 +56077,8 @@ void* __cdecl sub_44C840(char* a1)
 {
     char* v1; // ebx
     size_t* v2; // edi
-    void* result; // eax
-    _DWORD* v4; // esi
     unsigned __int8* v5; // eax
     int v6; // eax
-    int v7; // ebp
-    int v8; // ecx
     CHAR* v9; // esi
     unsigned int v10; // edx
     unsigned __int8* v11; // edi
@@ -56107,8 +56102,8 @@ void* __cdecl sub_44C840(char* a1)
 
     v1 = (char*)nox_malloc(0x40000u);
     sub_44CCA0();
-    sub_44C580();
-    *(_DWORD*)& byte_5D4594[830612] = 1;
+    sub_44C580_free();
+    nox_things_count = 1;
     sub_485CF0();
     sub_485F30();
     sub_46A360();
@@ -56124,57 +56119,58 @@ void* __cdecl sub_44C840(char* a1)
     {
         switch (i)
         {
-        case 1397769548:
+        case 0x5350454C: // "SPEL"
             sub_415100((int)v2);
             break;
-        case 1094863180:
+        case 0x4142494C: // "ABIL"
             sub_415320((int)v2);
             break;
-        case 1096107040:
+        case 0x41554420: // "AUD "
             sub_414D40((int)v2);
             break;
-        case 1096175188:
+        case 0x41564E54: // "AVNT"
             sub_452B00((int)v2);
             break;
-        case 1463897164:
+        case 0x57414C4C: // "WALL"
             if (!sub_46A010(v2, v1))
                 return 0;
             break;
-        case 1179406162:
+        case 0x464C4F52: // "FLOR"
             if (!sub_485B30((int)v2, v1))
                 return 0;
             break;
-        case 1162102597:
+        case 0x45444745: // "EDGE"
             if (!sub_485D40((int)v2, v1))
                 return 0;
             break;
-        case 1229799751:
+        case 0x494D4147: // "IMAG"
             sub_415240((int)v2);
             break;
-        case 1414024775:
-            v4 = nox_calloc(1u, 0x80u);
-            if (!v4)
+        case 0x54484E47: // "THNG"
+            ;
+            nox_thing* obj = (nox_thing*)nox_calloc(1, sizeof(nox_thing));
+            if (!obj)
                 return 0;
             v5 = (unsigned __int8*)v2[2];
             v28 = *v5;
             v2[2] = (size_t)(v5 + 1);
             sub_40ACC0(v1, 1u, v28, (int)v2);
             v1[v28] = 0;
-            *v4 = sub_413F90(v1);
-            v4[29] = -1;
-            v4[7] = (*(_DWORD*)& byte_5D4594[830612])++;
-            v4[10] |= 0x1000000u;
-            *((_BYTE*)v4 + 15) = 0;
-            v4[4] = 0xFFFF;
-            v4[26] = 0;
-            v4[22] = sub_4BCC90;
-            v4[17] = 0;
-            v4[18] = 1106247680;
-            if (!sub_44CE00((int)v2, v1, (int)v4))
+            obj->name = nox_clone_str(v1);
+            obj->field_74 = -1;
+            obj->field_1c = nox_things_count++;
+            obj->flags |= 0x1000000;
+            *((_BYTE*)obj + 15) = 0;
+            obj->field_10 = 0xFFFF;
+            obj->field_68 = 0;
+            obj->draw_func = nox_thing_debug_draw;
+            obj->field_44 = 0;
+            obj->field_48 = 0x41F00000;
+            if (!nox_parse_thing((int)v2, v1, obj))
                 return 0;
-            v4[27] = *(_DWORD*)& byte_5D4594[830604];
-            *(_DWORD*)& byte_5D4594[830604] = v4;
-            sub_44CD10((CHAR*)* v4);
+            obj->next = nox_things_head;
+            nox_things_head = obj;
+            sub_44CD10(obj->name);
             break;
         }
     }
@@ -56191,27 +56187,26 @@ void* __cdecl sub_44C840(char* a1)
     {
         sub_40ACA0_free_ptr2(v2);
     }
-    result = nox_malloc(4 * *(_DWORD*)& byte_5D4594[830612]);
-    *(_DWORD*)& byte_5D4594[830608] = result;
+    void* result = nox_malloc(4 * nox_things_count);
+    nox_things_array = result;
     if (result)
     {
         sub_44CCD0();
-        v6 = *(_DWORD*)& byte_5D4594[830612];
-        v7 = *(_DWORD*)& byte_5D4594[830604];
-        v8 = 1;
-        for (i = 1; v8 < *(int*)& byte_5D4594[830612]; v7 = *(_DWORD*)(v7 + 108))
+        v6 = nox_things_count;
+        nox_thing* cur = nox_things_head;
+        for (int i = 1; i < nox_things_count; i++)
         {
-            *(_DWORD*)(*(_DWORD*)& byte_5D4594[830608] + 4 * (v6 - v8)) = v7;
-            sub_44CD60((CHAR * *)v7, *(_DWORD*)& byte_5D4594[830612] - i);
-            if (*(_BYTE*)(v7 + 14))
+            nox_things_array[v6 - i] = cur;
+            sub_44CD60(cur, nox_things_count - i);
+            if (*((_BYTE*)cur + 0xe))
             {
-                if (!*(_DWORD*)(v7 + 4))
+                if (!cur->field_4)
                 {
                     strcpy((char*)& byte_5D4594[830404], "thing.db:");
-                    v9 = *(CHAR * *)v7;
-                    v10 = strlen(*(const char**)v7) + 1;
+                    v9 = cur->name;
+                    v10 = strlen(cur->name) + 1;
                     v11 = &byte_5D4594[strlen((const char*)& byte_5D4594[830404]) + 830404];
-                    qmemcpy(v11, *(const void**)v7, 4 * (v10 >> 2));
+                    qmemcpy(v11, cur->name, 4 * (v10 >> 2));
                     v13 = &v9[4 * (v10 >> 2)];
                     v12 = &v11[4 * (v10 >> 2)];
                     v14 = v10;
@@ -56224,15 +56219,15 @@ void* __cdecl sub_44C840(char* a1)
                     *((_DWORD*)v15 + 1) = v16;
                     *((_WORD*)v15 + 4) = v10;
                     v15[10] = v17;
-                    *(_DWORD*)(v7 + 4) = loadString_sub_40F1D0((char*)& byte_5D4594[830404], 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
+                    cur->field_4 = loadString_sub_40F1D0((char*)& byte_5D4594[830404], 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
                 }
-                if (!*(_DWORD*)(v7 + 8))
+                if (!cur->field_8)
                 {
                     strcpy((char*)& byte_5D4594[830404], "thing.db:");
-                    v18 = *(CHAR * *)v7;
-                    v19 = strlen(*(const char**)v7) + 1;
+                    v18 = cur->name;
+                    v19 = strlen(cur->name) + 1;
                     v20 = &byte_5D4594[strlen((const char*)& byte_5D4594[830404]) + 830404];
-                    qmemcpy(v20, *(const void**)v7, 4 * (v19 >> 2));
+                    qmemcpy(v20, cur->name, 4 * (v19 >> 2));
                     v22 = &v18[4 * (v19 >> 2)];
                     v21 = &v20[4 * (v19 >> 2)];
                     v23 = v19;
@@ -56243,12 +56238,11 @@ void* __cdecl sub_44C840(char* a1)
                     *(_DWORD*)--v25 = *(_DWORD*)& byte_587000[122784];
                     *((_DWORD*)v25 + 1) = v26;
                     *((_DWORD*)v25 + 2) = v24;
-                    *(_DWORD*)(v7 + 8) = loadString_sub_40F1D0((char*)& byte_5D4594[830404], 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
+                    cur->field_8 = loadString_sub_40F1D0((char*)& byte_5D4594[830404], 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
                 }
             }
-            v6 = *(_DWORD*)& byte_5D4594[830612];
-            v8 = i + 1;
-            i = v8;
+            v6 = nox_things_count;
+            cur = cur->next;
         }
         sub_44CDB0();
         free(v1);

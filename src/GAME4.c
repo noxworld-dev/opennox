@@ -33723,7 +33723,7 @@ int sub_51DED0()
     {
         if (!sub_4E3AD0(v0[27]) && sub_4E3B80(v0[27]))
         {
-            v1 = (CHAR*)sub_44CEF0(v0[27]);
+            v1 = (CHAR*)nox_get_thing_name(v0[27]);
             v2 = (unsigned __int16*)sub_4E3B60(v1);
             v3 = (float*)sub_4E3450(*v2);
             v4 = *((_DWORD*)v3 + 9);

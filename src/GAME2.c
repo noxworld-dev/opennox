@@ -14,32 +14,36 @@ extern obj_5D4594_3799572_t obj_5D4594_3800716;
 const int nox_max_npcs = 1024;
 nox_npc* npc_array;
 
+extern nox_thing* nox_things_head;
+extern nox_thing** nox_things_array;
+extern int nox_things_count;
+
 FILE* nox_file_log = 0;
 
-table_122104_t table_122104[] = {
-    {"FLAGS", &sub_44B160},
-    {"CLASS", &sub_44B190},
-    {"SUBCLASS", &sub_44B1C0},
-    {"EXTENT", &sub_44B1F0},
-    {"LIGHTINTENSITY", &sub_44B230},
-    {"DRAW", &nox_parse_draw},
-    {"Z", &sub_44C2F0},
-    {"ZSIZE", &sub_44C320},
-    {"SIZE", &sub_44C370},
-    {"MENUICON", &sub_44C3B0},
-    {"LIGHTCOLOR", &sub_44B250},
-    {"LIGHTDIRECTION", &sub_44B2D0},
-    {"LIGHTPENUMBRA", &sub_44B330},
-    {"AUDIOLOOP", &sub_44C3F0},
-    {"CLIENTUPDATE", &sub_4B5C40},
-    {"LIFETIME", &sub_44C410},
-    {"WEIGHT", &sub_44C440},
-    {"PRETTYNAME", &sub_44C480},
-    {"DESCRIPTION", &sub_44C4B0},
-    {"PRETTYIMAGE", &sub_44C500},
-    {"HEALTH", &sub_44C4E0},
+nox_parse_thing_funcs_t nox_parse_thing_funcs[] = {
+    {"FLAGS", &nox_parse_thing_flags},
+    {"CLASS", &nox_parse_thing_class},
+    {"SUBCLASS", &nox_parse_thing_subclass},
+    {"EXTENT", &nox_parse_thing_extent},
+    {"LIGHTINTENSITY", &nox_parse_thing_light_intensity},
+    {"DRAW", &nox_parse_thing_draw},
+    {"Z", &nox_parse_thing_z},
+    {"ZSIZE", &nox_parse_thing_zsize},
+    {"SIZE", &nox_parse_thing_size},
+    {"MENUICON", &nox_parse_thing_menu_icon},
+    {"LIGHTCOLOR", &nox_parse_thing_light_color},
+    {"LIGHTDIRECTION", &nox_parse_thing_light_dir},
+    {"LIGHTPENUMBRA", &nox_parse_thing_light_penumbra},
+    {"AUDIOLOOP", &nox_parse_thing_audio_loop},
+    {"CLIENTUPDATE", &nox_parse_thing_client_update},
+    {"LIFETIME", &nox_parse_thing_lifetime},
+    {"WEIGHT", &nox_parse_thing_weight},
+    {"PRETTYNAME", &nox_parse_thing_pretty_name},
+    {"DESCRIPTION", &nox_parse_thing_desc},
+    {"PRETTYIMAGE", &nox_parse_thing_pretty_image},
+    {"HEALTH", &nox_parse_thing_health},
 };
-int table_122104_cnt = sizeof(table_122104)/sizeof(table_122104_t);
+int nox_parse_thing_funcs_cnt = sizeof(nox_parse_thing_funcs)/sizeof(nox_parse_thing_funcs_t);
 
 //----- (0044CCA0) --------------------------------------------------------
 int sub_44CCA0()
@@ -108,27 +112,23 @@ int __cdecl sub_44CD30(CHAR* a1)
 }
 
 //----- (0044CD60) --------------------------------------------------------
-void __cdecl sub_44CD60(CHAR** a1, int a2)
+void __cdecl sub_44CD60(nox_thing* a1, int a2)
 {
-    int v2; // eax
-    int v3; // esi
-    int v4; // ecx
+    if (!a1)
+        return;
 
-    if (a1)
-    {
-        v2 = sub_44CD30(*a1);
-        if (v2 >= 0)
-        {
-            v3 = *(_DWORD*)& byte_5D4594[4 * v2 + 830296];
-            if (v3)
-            {
-                v4 = *(_DWORD*)& byte_5D4594[4 * v2 + 830724];
-                *(_DWORD*)(v3 + 8 * v4) = a1;
-                *(_DWORD*)(*(_DWORD*)& byte_5D4594[4 * v2 + 830296] + 8 * v4 + 4) = a2;
-                ++* (_DWORD*)& byte_5D4594[4 * v2 + 830724];
-            }
-        }
-    }
+    int v2 = sub_44CD30(a1->name);
+    if (v2 < 0)
+        return;
+
+    int v3 = *(_DWORD*)& byte_5D4594[4 * v2 + 830296];
+    if (!v3)
+        return;
+
+    int v4 = *(_DWORD*)& byte_5D4594[4 * v2 + 830724];
+    *(_DWORD*)(v3 + 8 * v4) = a1;
+    *(_DWORD*)(v3 + 8 * v4 + 4) = a2;
+    ++* (_DWORD*)& byte_5D4594[4 * v2 + 830724];
 }
 
 //----- (0044CDB0) --------------------------------------------------------
@@ -152,7 +152,7 @@ int __cdecl sub_44CDE0(const void* a1, const void* a2)
 }
 
 //----- (0044CE00) --------------------------------------------------------
-int __cdecl sub_44CE00(int a1, char* a2, int a3)
+int __cdecl nox_parse_thing(int a1, char* a2, nox_thing* obj)
 {
     char* v3; // ebx
     unsigned __int8* v4; // eax
@@ -171,15 +171,15 @@ int __cdecl sub_44CE00(int a1, char* a2, int a3)
         sub_40ACC0(v3, 1u, v10, a1);
         v3[v10] = 0;
         v5 = strtok(v3, " \t\n\r");
-        for (int i = 0; i < table_122104_cnt; i++)
+        for (int i = 0; i < nox_parse_thing_funcs_cnt; i++)
         {
-            table_122104_t* v6 = &table_122104[i];
-            if (strcmp(v5, v6->field_0) == 0)
+            nox_parse_thing_funcs_t* v6 = &nox_parse_thing_funcs[i];
+            if (strcmp(v5, v6->name) == 0)
             {
                 v8 = strtok(0, "=");
                 if (v8)
                     memmove(v3, v8 + 1, strlen(v8 + 1) + 1);
-                (*((void(__cdecl * *)(int, int, char*))&v6->field_4))(a3, a1, v3);
+                v6->parse_func(obj, a1, v3);
                 break;
             }
         }
@@ -187,63 +187,43 @@ int __cdecl sub_44CE00(int a1, char* a2, int a3)
 }
 
 //----- (0044CEF0) --------------------------------------------------------
-int __cdecl sub_44CEF0(int a1)
+char* __cdecl nox_get_thing_name(int i)
 {
-    int result; // eax
-
-    if (a1 < 1 || a1 >= *(int*)& byte_5D4594[830612])
-        result = 0;
-    else
-        result = **(_DWORD * *)(*(_DWORD*)& byte_5D4594[830608] + 4 * a1);
-    return result;
+    if (i < 1 || i >= nox_things_count)
+        return 0;
+    return nox_things_array[i]->name;
 }
 
 //----- (0044CF10) --------------------------------------------------------
-int __cdecl sub_44CF10(int a1)
+nox_thing* __cdecl nox_get_thing(int i)
 {
-    int result; // eax
-
-    if (a1 < 1 || a1 >= *(int*)& byte_5D4594[830612])
-        result = 0;
-    else
-        result = *(_DWORD*)(*(_DWORD*)& byte_5D4594[830608] + 4 * a1);
-    return result;
+    if (i < 1 || i >= nox_things_count)
+        return 0;
+    return nox_things_array[i];
 }
 
 //----- (0044CF30) --------------------------------------------------------
-int __cdecl sub_44CF30(int a1)
+wchar_t* __cdecl nox_get_thing_field_4(int i)
 {
-    int result; // eax
-
-    if (a1 < 1 || a1 >= *(int*)& byte_5D4594[830612])
-        result = 0;
-    else
-        result = *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[830608] + 4 * a1) + 4);
-    return result;
+    if (i < 1 || i >= nox_things_count)
+        return 0;
+    return nox_things_array[i]->field_4;
 }
 
 //----- (0044CF60) --------------------------------------------------------
-int __cdecl sub_44CF60(int a1)
+wchar_t* __cdecl nox_get_thing_field_8(int i)
 {
-    int result; // eax
-
-    if (a1 < 1 || a1 >= *(int*)& byte_5D4594[830612])
-        result = 0;
-    else
-        result = *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[830608] + 4 * a1) + 8);
-    return result;
+    if (i < 1 || i >= nox_things_count)
+        return 0;
+    return nox_things_array[i]->field_8;
 }
 
 //----- (0044CF90) --------------------------------------------------------
-int __cdecl sub_44CF90(int a1)
+int __cdecl nox_get_thing_field_70(int i)
 {
-    int result; // eax
-
-    if (a1 < 1 || a1 >= *(int*)& byte_5D4594[830612])
-        result = 0;
-    else
-        result = *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[830608] + 4 * a1) + 112);
-    return result;
+    if (i < 1 || i >= nox_things_count)
+        return 0;
+    return nox_things_array[i]->field_70;
 }
 
 //----- (0044CFC0) --------------------------------------------------------
@@ -283,14 +263,12 @@ int __cdecl sub_44D020(const void* a1, const void* a2)
 }
 
 //----- (0044D040) --------------------------------------------------------
-int __cdecl sub_44D040(int a1)
+int __cdecl sub_44D040(int i)
 {
-    int result; // eax
-
-    result = sub_44CF10(a1);
-    if (result)
-        result = (*(_DWORD*)(result + 32) >> 22) & 1;
-    return result;
+    nox_thing* obj = nox_get_thing(i);
+    if (!obj)
+        return 0;
+    return (obj->pri_class >> 22) & 1;
 }
 
 //----- (0044D060) --------------------------------------------------------
@@ -298,7 +276,7 @@ BOOL __cdecl sub_44D060(int a1)
 {
     int v1; // eax
 
-    v1 = sub_44CF10(a1);
+    v1 = nox_get_thing(a1);
     return v1 && *(_DWORD*)(v1 + 32) & 0x400000 && *(_BYTE*)(v1 + 36) & 0x18;
 }
 
@@ -307,31 +285,30 @@ int __cdecl sub_44D090(int a1)
 {
     int result; // eax
 
-    result = sub_44CF10(a1);
+    result = nox_get_thing(a1);
     if (result)
         result = (*(_DWORD*)(result + 32) & 0x20400000) != 0;
     return result;
 }
 
 //----- (0044D0C0) --------------------------------------------------------
-int __cdecl sub_44D0C0(float a1, int a2)
+int __cdecl sub_44D0C0(float a1, int i)
 {
     float v2; // esi
     _DWORD* v3; // ebx
     _DWORD* v4; // ebp
     int v5; // edi
     int v6; // ecx
-    int v7; // edx
     float v9; // [esp+4h] [ebp+4h]
 
-    if (a2 < 1 || a2 >= *(int*)& byte_5D4594[830612])
+    if (i < 1 || i >= nox_things_count)
         return 0;
     v2 = a1;
     memset((void*)LODWORD(a1), 0, 0x200u);
-    *(_DWORD*)(LODWORD(a1) + 108) = a2;
+    *(_DWORD*)(LODWORD(a1) + 108) = i;
     v3 = (_DWORD*)(LODWORD(a1) + 136);
     v4 = (_DWORD*)(LODWORD(a1) + 152);
-    v5 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[830608] + 4 * a2) + 12;
+    v5 = &(nox_things_array[i]->field_c);
     *(_BYTE*)LODWORD(a1) = *(_BYTE*)v5;
     *(_BYTE*)(LODWORD(a1) + 1) = *(_BYTE*)(v5 + 1);
     *(_WORD*)(LODWORD(a1) + 106) = *(_WORD*)(v5 + 10);
@@ -393,38 +370,34 @@ int __cdecl sub_44D0C0(float a1, int a2)
         *(_WORD*)(LODWORD(v2) + 448) = -1;
         *(_WORD*)(LODWORD(v2) + 450) = -1;
     }
-    v7 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[830608] + 4 * a2);
-    if (*(_DWORD*)(v7 + 120))
-        sub_49B950((_DWORD*)LODWORD(v2), *(_DWORD*)(v7 + 120));
+    nox_thing* v7 = nox_things_array[i];
+    if (v7->field_78)
+        sub_49B950((_DWORD*)LODWORD(v2), v7->field_78);
     return 1;
 }
 
 //----- (0044D2C0) --------------------------------------------------------
 void sub_44D2C0()
 {
-    int i; // esi
-    double v1; // st7
-    float v2; // eax
-    shape v3; // [esp+4h] [ebp-3Ch]
+    for (nox_thing* cur = nox_things_head; cur; cur = cur->next) {
+        if (*((_BYTE*)&cur->field_14) == 3) {
+            double v1 = cur->field_40;
+            float v2 = cur->field_40;
 
-    for (i = *(_DWORD*)& byte_5D4594[830604]; i; i = *(_DWORD*)(i + 108))
-    {
-        if (*(_BYTE*)(i + 20) == 3)
-        {
-            v1 = *(float*)(i + 64);
-            v2 = *(float*)(i + 64);
+            shape v3;
             v3.field_0 = 3;
             v3.field_4 = v2;
             v3.field_8 = v1 * v1;
+
             sub_428270(&v3);
         }
     }
 }
 
 //----- (0044D310) --------------------------------------------------------
-LPVOID sub_44D310()
+nox_thing* nox_get_things_head()
 {
-    return *(LPVOID*)& byte_5D4594[830604];
+    return nox_things_head;
 }
 
 //----- (0044D320) --------------------------------------------------------
@@ -468,9 +441,9 @@ int __cdecl sub_44D340(CHAR* a1)
 }
 
 //----- (0044D390) --------------------------------------------------------
-int sub_44D390()
+int nox_get_things_count()
 {
-    return *(_DWORD*)& byte_5D4594[830612];
+    return nox_things_count;
 }
 
 //----- (0044D3A0) --------------------------------------------------------
@@ -9441,12 +9414,12 @@ _DWORD* __cdecl sub_45A240(int a1)
         if (result)
         {
             v3 = (int(__cdecl*)(_DWORD*, int))v1[75];
-            if (v3 == sub_4BCC60)
+            if (v3 == nox_thing_static_random_draw)
             {
                 v4 = sub_415FF0(0, *(unsigned __int8*)(v1[76] + 8) - 1, "C:\\NoxPost\\src\\Client\\Drawable\\drawable.c", 401);
                 sub_45AB80((int)v1, v4);
             }
-            else if (v3 == sub_4B6A60 || v3 == sub_4B6A80 || v3 == sub_4B6AE0 || v3 == sub_4B6AC0 || v3 == sub_4B6AA0)
+            else if (v3 == nox_thing_red_spark_draw || v3 == nox_thing_blue_spark_draw || v3 == nox_thing_yellow_spark_draw || v3 == nox_thing_green_spark_draw || v3 == nox_thing_cyan_spark_draw)
             {
                 *((_WORD*)v1 + 52) = 35;
                 *((_BYTE*)v1 + 296) = 2;
@@ -14954,7 +14927,7 @@ int __cdecl sub_461660(int a1, int a2, const void* a3)
                     * (_DWORD*)& byte_5D4594[1062516] = 10 * (5 * v7 - 10);
             }
         }
-        v8 = sub_44CF10(a2);
+        v8 = nox_get_thing(a2);
         if (v8)
         {
             if (*(_DWORD*)(v8 + 32) & 0x1001000)
@@ -15074,7 +15047,7 @@ int* __cdecl sub_461970(int a1, int a2)
     int v3; // ecx
     int* result; // eax
 
-    if (!(*(_DWORD*)(sub_44CF10(a2) + 32) & 0x4000000))
+    if (!(*(_DWORD*)(nox_get_thing(a2) + 32) & 0x4000000))
     {
         v2 = (int*)& byte_5D4594[1050020];
         while (1)
@@ -16283,10 +16256,10 @@ LABEL_72:
         v15 = *(_DWORD*)& byte_5D4594[1063116];
     }
 LABEL_91:
-    v49 = sub_44CF60(*(_DWORD*)(v15 + 108));
+    v49 = nox_get_thing_field_8(*(_DWORD*)(v15 + 108));
     if (v49)
         sub_46B490((int)v10, 16397, v49, -1);
-    v67 = sub_44CF90(*(_DWORD*)(*(_DWORD*)& byte_5D4594[1063116] + 108));
+    v67 = nox_get_thing_field_70(*(_DWORD*)(*(_DWORD*)& byte_5D4594[1063116] + 108));
     v50 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1062476], 9155);
     return sub_46AE60((int)v50, v67);
 }
@@ -17912,7 +17885,7 @@ void __cdecl sub_465CD0(_DWORD* a1, int a2, int a3, int a4)
 }
 
 //----- (00465D50) --------------------------------------------------------
-int __cdecl sub_465D50(int a1)
+int __cdecl sub_465D50_draw(int a1)
 {
     int v2; // eax
     int result; // eax
@@ -20419,7 +20392,7 @@ void __cdecl sub_469140(int arg0)
     {
         if (!sub_57AF20()
             || arg0 == *(_DWORD*)& byte_5D4594[2614252]
-            || *(int(__cdecl * *)(int*, int))(arg0 + 300) == sub_4B6B60)
+            || *(int(__cdecl * *)(int*, int))(arg0 + 300) == nox_thing_glow_orb_draw)
         {
             v3 = *(_DWORD*)(arg0 + 148);
             v4 = *(_DWORD*)(arg0 + 144);
@@ -23155,7 +23128,7 @@ int __cdecl sub_46C2A0(int a1)
 }
 
 //----- (0046C2E0) --------------------------------------------------------
-int sub_46C2E0()
+int sub_46C2E0_draw()
 {
     int v0; // ecx
     int v1; // eax
@@ -23174,7 +23147,7 @@ int sub_46C2E0()
             v2 = *(_DWORD*)(v1 + 392);
             if (*(_BYTE*)(v1 + 4) & 0x40)
             {
-                sub_46C370((_DWORD*)v1);
+                sub_46C370_draw((_DWORD*)v1);
                 v0 = *(_DWORD*)& byte_5D4594[1064892];
             }
             v1 = v2;
@@ -23188,7 +23161,7 @@ int sub_46C2E0()
             v4 = *(_DWORD*)(v3 + 392);
             if (!(*(_BYTE*)(v3 + 4) & 0x60))
             {
-                sub_46C370((_DWORD*)v3);
+                sub_46C370_draw((_DWORD*)v3);
                 v0 = *(_DWORD*)& byte_5D4594[1064892];
             }
             v3 = v4;
@@ -23201,7 +23174,7 @@ int sub_46C2E0()
         {
             v6 = *(_DWORD*)(result + 392);
             if (*(_BYTE*)(result + 4) & 0x20)
-                sub_46C370((_DWORD*)result);
+                sub_46C370_draw((_DWORD*)result);
             result = v6;
         } while (v6);
     }
@@ -23209,7 +23182,7 @@ int sub_46C2E0()
 }
 
 //----- (0046C370) --------------------------------------------------------
-int __cdecl sub_46C370(_DWORD* a1)
+int __cdecl sub_46C370_draw(_DWORD* a1)
 {
     int(__cdecl * v2)(_DWORD*, _DWORD*); // eax
     _DWORD* i; // esi
@@ -23224,7 +23197,7 @@ int __cdecl sub_46C370(_DWORD* a1)
         if ((a1[1] & 0x1000) == 4096)
             sub_4AA030(a1, (int)(a1 + 9));
         for (i = (_DWORD*)a1[100]; i; i = (_DWORD*)i[97])
-            sub_46C370(i);
+            sub_46C370_draw(i);
     }
     return 0;
 }
@@ -26470,13 +26443,13 @@ int __cdecl sub_470E90(int a1, int a2)
 int __cdecl sub_470EE0(int a1, int a2, int a3, int a4, int a5)
 {
     *(_DWORD*)& byte_5D4594[1093116] = wndCreate2_sub_46C3E0(a1, 1032, a2, a3, a4, a5, 0);
-    wndSetAllFn_sub_46B430(*(_DWORD * *)& byte_5D4594[1093116], sub_470E90, sub_470F40, sub_4710B0);
+    wndSetAllFn_sub_46B430(*(_DWORD * *)& byte_5D4594[1093116], sub_470E90, sub_470F40_draw, sub_4710B0);
     *(_DWORD*)(*(_DWORD*)& byte_5D4594[1093116] + 32) = 4;
     return *(_DWORD*)& byte_5D4594[1093116];
 }
 
 //----- (00470F40) --------------------------------------------------------
-int __cdecl sub_470F40(_DWORD* a1)
+int __cdecl sub_470F40_draw(_DWORD* a1)
 {
     _DWORD* v1; // ebp
     int v2; // eax
@@ -26546,7 +26519,7 @@ LABEL_13:
         sub_434560(0);
     }
 LABEL_15:
-    sub_465D50((int)v1);
+    sub_465D50_draw((int)v1);
     return 1;
 }
 // 470FE2: variable 'v12' is possibly undefined
@@ -26816,7 +26789,7 @@ int sub_4714E0()
     sub_46B000((wchar_t*)(*(_DWORD*)& byte_5D4594[1091364] + 36), v3);
     *(_DWORD*)(*(_DWORD*)& byte_5D4594[1091364] + 32) = 2;
     *(_WORD*)& byte_5D4594[1091384] = 0;
-    v4 = sub_44CF10(*(int*)& byte_5D4594[1096276]);
+    v4 = nox_get_thing(*(int*)& byte_5D4594[1096276]);
     if (v4)
     {
         sub_44D0C0(COERCE_FLOAT(&byte_5D4594[1091388]), *(_DWORD*)(v4 + 28));
@@ -26845,7 +26818,7 @@ int sub_4714E0()
         sub_46B000((wchar_t*)(*(_DWORD*)& byte_5D4594[1090828] + 36), v6);
         *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090828] + 32) = 1;
         *(_WORD*)& byte_5D4594[1090848] = 0;
-        v7 = sub_44CF10(*(int*)& byte_5D4594[1096272]);
+        v7 = nox_get_thing(*(int*)& byte_5D4594[1096272]);
         if (v7)
         {
             sub_44D0C0(COERCE_FLOAT(&byte_5D4594[1090852]), *(_DWORD*)(v7 + 28));
@@ -27314,7 +27287,7 @@ unsigned __int8* sub_472310()
     *(_WORD*)& byte_5D4594[1090312] = sub_467850(*(int*)& byte_5D4594[1096268]);
     if (*(_WORD*)& byte_5D4594[1090312])
     {
-        result = (unsigned __int8*)sub_44CF10(*(int*)& byte_5D4594[1096268]);
+        result = (unsigned __int8*)nox_get_thing(*(int*)& byte_5D4594[1096268]);
         if (result)
         {
             sub_44D0C0(COERCE_FLOAT(&byte_5D4594[1090316]), *((_DWORD*)result + 7));
@@ -27339,7 +27312,7 @@ unsigned __int8* sub_472310()
         *(_WORD*)& byte_5D4594[1090312] = sub_467850(*(int*)& byte_5D4594[1096284]);
         if (*(_WORD*)& byte_5D4594[1090312])
         {
-            v1 = sub_44CF10(*(int*)& byte_5D4594[1096284]);
+            v1 = nox_get_thing(*(int*)& byte_5D4594[1096284]);
             if (v1)
             {
                 sub_44D0C0(COERCE_FLOAT(&byte_5D4594[1090316]), *(_DWORD*)(v1 + 28));
@@ -27365,7 +27338,7 @@ unsigned __int8* sub_472310()
             *(_WORD*)& byte_5D4594[1090312] = (_WORD)result;
             if ((_WORD)result)
             {
-                result = (unsigned __int8*)sub_44CF10(*(int*)& byte_5D4594[1096280]);
+                result = (unsigned __int8*)nox_get_thing(*(int*)& byte_5D4594[1096280]);
                 if (result)
                 {
                     result = (unsigned __int8*)sub_44D0C0(COERCE_FLOAT(&byte_5D4594[1090316]), *((_DWORD*)result + 7));
@@ -29042,7 +29015,7 @@ int __cdecl sub_4745F0(_DWORD* a1)
             sub_474E60(a1, v4);
             sub_495BB0((_DWORD*)v4, a1);
             if (byte_5D4594[2650636] & 2)
-                sub_4BCC90(a1, v4);
+                nox_thing_debug_draw(a1, v4);
             v5 = *(_DWORD*)(v4 + 480);
             *(_DWORD*)(v4 + 132) = 0;
             if (!v5 && !*(_DWORD*)(v4 + 488))
@@ -29613,7 +29586,7 @@ int __cdecl sub_4756E0(_DWORD* a1)
         v4 = a1[28];
         if (!(v3 & 0x1000)
             && v3 & 1
-            && (v2 == sub_4BCC20 || v2 == sub_4BCC60)
+            && (v2 == nox_thing_static_draw || v2 == nox_thing_static_random_draw)
             && !(v4 & 0x80800000)
             && (v3 & 0x48 || v4 & 0x400000)
             && !(v3 & 0x800))
@@ -29643,7 +29616,7 @@ int __cdecl sub_475740(_DWORD* a1)
             if (v3 & 1)
             {
                 result = 1;
-                if ((v2 == sub_4BCC20 || v2 == sub_4BCC60)
+                if ((v2 == nox_thing_static_draw || v2 == nox_thing_static_random_draw)
                     && !(v4 & 0x80800000)
                     && !(v3 & 0x800)
                     && (v3 & 0x48 || v4 & 0x400000))
@@ -29930,7 +29903,7 @@ int4* __cdecl sub_475810(int* a1)
                     if ((*(int(__cdecl * *)(int*, int))(v23 + 300))(v1, v23))
                     {
                         if (byte_5D4594[2650636] & 2)
-                            sub_4BCC90(v1, v23);
+                            nox_thing_debug_draw(v1, v23);
                         v28 = *(_BYTE*)(v23 + 280);
                         *(_DWORD*)(v23 + 132) = 0;
                         if (v28 & 0x40)
@@ -30029,7 +30002,7 @@ int __cdecl sub_475F10(_DWORD* a1)
             sub_474E60(a1, v4);
             sub_495BB0((_DWORD*)v4, a1);
             if (byte_5D4594[2650636] & 2)
-                sub_4BCC90(a1, v4);
+                nox_thing_debug_draw(a1, v4);
             v5 = *(_DWORD*)(v4 + 480);
             *(_DWORD*)(v4 + 132) = 0;
             if (!v5 && !*(_DWORD*)(v4 + 488))
@@ -30061,7 +30034,7 @@ int __cdecl sub_475FE0(_DWORD* a1)
             *(_DWORD*)(v4 + 484) = 1;
             (*(void(__cdecl * *)(_DWORD*, int))(v4 + 300))(a1, v4);
             if (byte_5D4594[2650636] & 2)
-                sub_4BCC90(a1, v4);
+                nox_thing_debug_draw(a1, v4);
             v5 = *(_DWORD*)(v4 + 480);
             *(_DWORD*)(v4 + 132) = 0;
             if (!v5 && !*(_DWORD*)(v4 + 488))
@@ -30518,7 +30491,7 @@ void __cdecl sub_476850(int a1, unsigned __int8* a2)
     int v30; // [esp+20h] [ebp-8h]
     unsigned int v31; // [esp+30h] [ebp+8h]
 
-    if (*((int(__cdecl * *)(int*, int))a2 + 75) == sub_4BCC20)
+    if (*((int(__cdecl * *)(int*, int))a2 + 75) == nox_thing_static_draw)
     {
         if (*((_DWORD*)a2 + 28) & 0x40000 && !(*((_DWORD*)a2 + 30) & 0x1000000))
             return;
@@ -30682,7 +30655,7 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2)
 
     v2 = a2;
     result2 = (int(__cdecl*)(int*, int)) * ((_DWORD*)a2 + 75);
-    if (result2 == sub_4BCC20)
+    if (result2 == nox_thing_static_draw)
     {
         if (*((_DWORD*)a2 + 28) & 0x40000 && !(*((_DWORD*)a2 + 30) & 0x1000000))
             return result2;
@@ -41460,7 +41433,7 @@ void __cdecl sub_484F90(int a1)
     {
         if (!sub_57AF20()
             || a1 == *(_DWORD*)& byte_5D4594[2614252]
-            || *(int(__cdecl * *)(int*, int))(a1 + 300) == sub_4B6B60)
+            || *(int(__cdecl * *)(int*, int))(a1 + 300) == nox_thing_glow_orb_draw)
         {
             if (*(_DWORD*)(a1 + 120) & 0x20000000 && *(_DWORD*)& byte_5D4594[3801780] == 1)
             {
@@ -48251,7 +48224,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 3;
                 break;
             }
-            if (*(int(__cdecl * *)(int*, int))(v5 + 300) == sub_4BBD60)
+            if (*(int(__cdecl * *)(int*, int))(v5 + 300) == nox_thing_animate_draw)
             {
                 v47 = *(_DWORD*)(v5 + 304);
                 if (v47)
@@ -48287,7 +48260,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 3;
                 break;
             }
-            if (*(int(__cdecl * *)(int*, int))(v5 + 300) == sub_4BBD60)
+            if (*(int(__cdecl * *)(int*, int))(v5 + 300) == nox_thing_animate_draw)
             {
                 v52 = *(_DWORD*)(v5 + 304);
                 if (v52)
@@ -48332,7 +48305,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 if ((_DWORD)v5 != *(_DWORD*)& byte_5D4594[2614252])
                     sub_49B950((_DWORD*)v5, *(int*)& byte_5D4594[2649704]);
             }
-            else if (*(int(__cdecl * *)(int*, int))(v5 + 300) != sub_4BBD60
+            else if (*(int(__cdecl * *)(int*, int))(v5 + 300) != nox_thing_animate_draw
                 || (v56 = *(_DWORD*)(v5 + 304)) == 0
                 || *(_DWORD*)(v56 + 12) != 1)
             {
@@ -49008,7 +48981,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 sub_467410(*(_DWORD*)(v3 + 3));
             if (v135 != 1 || sub_4356C0(v134, 15) || v134 == *(_DWORD*)& byte_5D4594[2614252] && sub_467430() & 8)
                 goto LABEL_1149;
-            v136 = sub_44CF10(*(_DWORD*)(v134 + 108));
+            v136 = nox_get_thing(*(_DWORD*)(v134 + 108));
             sub_484D70(v134 + 136, *(float*)(v136 + 44));
             v3 += 7;
             break;
@@ -49023,7 +48996,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     && *(_DWORD*)& byte_5D4594[2614252]
                     && !sub_4356C0(*(int*)& byte_5D4594[2614252], 15))
                 {
-                    v131 = sub_44CF10(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 108));
+                    v131 = nox_get_thing(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 108));
                     sub_484D70(*(_DWORD*)& byte_5D4594[2614252] + 136, *(float*)(v131 + 44));
                 }
             }
@@ -50062,7 +50035,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         if ((_DWORD)v5)
                         {
                             v322 = *(unsigned __int16*)(v3 + 1);
-                            v208 = sub_44CF30(*(_DWORD*)(v5 + 108));
+                            v208 = nox_get_thing_field_4(*(_DWORD*)(v5 + 108));
                             sub_450C00(6u, (wchar_t*)& byte_587000[159000], v208, v322, &byte_5D4594[1197384]);
                         }
                     }
@@ -52407,7 +52380,7 @@ int* __cdecl sub_495500(int* a1)
         v8 = *(_DWORD*)& byte_5D4594[1203828];
         goto LABEL_28;
     }
-    v9 = sub_44CF10(a1[3]);
+    v9 = nox_get_thing(a1[3]);
     v10 = v9;
     if (!v9)
         goto LABEL_27;

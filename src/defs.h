@@ -403,6 +403,43 @@ typedef struct nox_string_entry
     _WORD field_50;
 } nox_string_entry;
 
+typedef struct nox_thing nox_thing;
+typedef struct nox_thing
+{
+    char* name; // 0, 0x0
+    wchar_t* field_4; // 1, 0x4
+    wchar_t* field_8; // 2, 0x8
+    _DWORD field_c; // 3, 0xc
+    _DWORD field_10; // 4, 0x10
+    _DWORD field_14; // 5, 0x14
+    _DWORD field_18; // 6, 0x18
+    _DWORD field_1c; // 7, 0x1c
+    int pri_class; // 8, 0x20, 32
+    _DWORD sub_class; // 9, 0x24, 36
+    int flags; // 10, 0x28, 40
+    _DWORD field_2c; // 11, 0x2c, 44
+    _DWORD field_30; // 12, 0x30
+    _DWORD field_34; // 13, 0x34
+    _DWORD field_38; // 14, 0x38
+    _DWORD field_3c; // 15, 0x3c
+    float field_40; // 16, 0x40
+    _DWORD field_44; // 17, 0x44
+    _DWORD field_48; // 18, 0x48
+    _DWORD field_4c; // 19, 0x4c
+    _DWORD field_50; // 20, 0x50
+    _DWORD field_54; // 21, 0x54
+    void* draw_func; // 22, 0x58
+    void* field_5c; // 23, 0x5c
+    _DWORD field_60; // 24, 0x60
+    _DWORD field_64; // 25, 0x64
+    _DWORD field_68; // 26, 0x68
+    nox_thing* next; // 27, 0x6c, 108
+    _DWORD field_70; // 28, 0x70, 112
+    _DWORD field_74; // 29, 0x74
+    _DWORD field_78; // 30, 0x78, 120
+    _DWORD field_7c; // 31, 0x7c
+} nox_thing;
+
 typedef struct obj_412ae0_t obj_412ae0_t;
 typedef struct obj_412ae0_t
 {
@@ -486,11 +523,11 @@ typedef struct table_116008_t
     int(__cdecl *parse_fnc)(void*, _DWORD*, int);
 } table_116008_t;
 
-typedef struct table_122104_t
+typedef struct nox_parse_thing_funcs_t
 {
-    const char* field_0;
-    void* field_4;
-} table_122104_t;
+    const char* name;
+    void(__cdecl *parse_func)(nox_thing*, int, char*);
+} nox_parse_thing_funcs_t;
 
 typedef struct nox_video_mode
 {
