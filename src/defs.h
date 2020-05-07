@@ -470,6 +470,34 @@ typedef struct nox_thing
     _DWORD field_7c; // 31, 0x7c
 } nox_thing;
 
+typedef enum {
+    NOX_WIN_VISIBLE = 0x10
+} nox_window_flags;
+
+typedef struct nox_window nox_window;
+typedef struct nox_window
+{
+    _DWORD field_0;
+    nox_window_flags flags; // 1
+    int width; // 2
+    int height; // 3
+    _DWORD field_4;
+    _DWORD field_5;
+    _DWORD field_6;
+    _DWORD field_7;
+    _DWORD field_8;
+    _DWORD field_9[83];
+    _DWORD field_92; // 92
+    int (*field_93)(int, int, int, int); // 93
+    int (*field_94)(int, int, int, int); // 94
+    int (*field_95)(int, int); // 95
+    _DWORD field_96; // 96
+    nox_window* field_97; // 97
+    nox_window* field_98; // 98
+    nox_window* field_99; // 99
+    nox_window* field_100; // 100
+} nox_window;
+
 typedef struct obj_412ae0_t obj_412ae0_t;
 typedef struct obj_412ae0_t
 {

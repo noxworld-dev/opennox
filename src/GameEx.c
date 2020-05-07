@@ -1573,14 +1573,14 @@ LABEL_37:
         }
         else
         {
-          result = sub_4A0AD0("modify.wnd", modifyWndInputHandler);
+          result = nox_new_window_from_file("modify.wnd", modifyWndInputHandler);
           modifyWndPntr = result;
           if ( !result )
             return result;
           if ( sub_40A5C0(512) )
           {
             v10 = sub_46B0C0(modifyWndPntr, 1938);
-            wndShowHide_sub_46AC00((int)v10, 1);
+            nox_window_set_visible((int)v10, 1);
             v11 = sub_46B0C0(modifyWndPntr, 1524);
             sub_46ABB0((int)v11, 0);
           }
@@ -1591,7 +1591,7 @@ LABEL_37:
           *(_DWORD *)vaArg1_1 = 5;
           do
           {
-            sub_46B490((int)a2b, 16397, (int)v13, -1);
+            nox_window_call_field_94((int)a2b, 16397, (int)v13, -1);
             if ( getFlagValueFromFlagIndex(v12 - 1519) & MEMACCESS(0x98085A) )
             {
               v14 = sub_46B0C0(modifyWndPntr, v12);
