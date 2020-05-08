@@ -1184,6 +1184,31 @@ table_116008_t table_116008[] = {
 };
 int table_116008_cnt = sizeof(table_116008)/sizeof(table_116008_t);
 
+nox_parse_thing_funcs_t nox_parse_thing_funcs[] = {
+        {"FLAGS", &nox_parse_thing_flags},
+        {"CLASS", &nox_parse_thing_class},
+        {"SUBCLASS", &nox_parse_thing_subclass},
+        {"EXTENT", &nox_parse_thing_extent},
+        {"LIGHTINTENSITY", &nox_parse_thing_light_intensity},
+        {"DRAW", &nox_parse_thing_draw},
+        {"Z", &nox_parse_thing_z},
+        {"ZSIZE", &nox_parse_thing_zsize},
+        {"SIZE", &nox_parse_thing_size},
+        {"MENUICON", &nox_parse_thing_menu_icon},
+        {"LIGHTCOLOR", &nox_parse_thing_light_color},
+        {"LIGHTDIRECTION", &nox_parse_thing_light_dir},
+        {"LIGHTPENUMBRA", &nox_parse_thing_light_penumbra},
+        {"AUDIOLOOP", &nox_parse_thing_audio_loop},
+        {"CLIENTUPDATE", &nox_parse_thing_client_update},
+        {"LIFETIME", &nox_parse_thing_lifetime},
+        {"WEIGHT", &nox_parse_thing_weight},
+        {"PRETTYNAME", &nox_parse_thing_pretty_name},
+        {"DESCRIPTION", &nox_parse_thing_desc},
+        {"PRETTYIMAGE", &nox_parse_thing_pretty_image},
+        {"HEALTH", &nox_parse_thing_health},
+};
+int nox_parse_thing_funcs_cnt = sizeof(nox_parse_thing_funcs)/sizeof(nox_parse_thing_funcs_t);
+
 nox_video_mode nox_video_modes[] = {
         {640, 480, 0},
         {800, 600, 1},
