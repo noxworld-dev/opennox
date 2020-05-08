@@ -45,6 +45,7 @@ add_executable (
     GAME1_2.c
     GAME1_3.c
     GAME2.c
+    GAME2_1.c
     GAME2_2.c
     GAME3.c
     GAME3_2.c
