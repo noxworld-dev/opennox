@@ -13,24 +13,10 @@ int g_scaled = 0;
 extern float draw_gamma;
 extern float input_sensitivity;
 
-extern void* nox_backbuffer1_pix;
-extern void* nox_backbuffer_pix;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 extern int nox_backbuffer_depth;
 extern int nox_backbuffer_width32;
-
-extern nox_alloc_class* nox_alloc_window;
-
-extern nox_window* nox_win_unk1;
-extern nox_window* nox_win_unk2;
-extern nox_window* nox_win_unk3;
-extern nox_window* nox_win_unk4;
-extern nox_window* nox_win_unk5;
-extern nox_window* nox_win_cur_weapon;
-
-extern nox_window* nox_win_main_menu;
-extern nox_window* nox_win_main_bg;
 
 int g_fullscreen_cfg = 0;
 int g_scaled_cfg = 0;
@@ -61,11 +47,6 @@ FILE* nox_file_4 = 0;
 FILE* nox_file_5 = 0;
 FILE* nox_file_6 = 0;
 FILE* nox_file_net_log = 0;
-
-extern FILE* nox_file_7;
-extern FILE* nox_file_8;
-extern FILE* nox_file_log;
-extern FILE* nox_file_9;
 
 const int default_win_width = 640;
 const int default_win_height = 480;
@@ -1316,109 +1297,6 @@ nox_video_mode nox_video_modes[] = {
 };
 int nox_video_modes_cnt = sizeof(nox_video_modes)/sizeof(nox_video_mode);
 
-extern nox_parse_thing_funcs_t nox_parse_thing_funcs[];
-
-typedef struct mem_mapping
-{
-    uintptr_t base;
-    void*     ptr;
-    size_t    size;
-    bool      invalid;
-} mem_mapping;
-
-mem_mapping mappings[] = {
-    // overrides
-    {0x5D4594+226904, (void*)file_buffer_w, sizeof(file_buffer_w),1},
-    {0x5D4594+247384, (void*)file_buffer, sizeof(file_buffer),1},
-    {0x5D4594+251488, (void*)&nox_file_1, sizeof(nox_file_1),1},
-    {0x5D4594+251492, (void*)&string_entries_cnt, sizeof(string_entries_cnt),1},
-    {0x5D4594+251500, (void*)&string_entries, sizeof(string_entries),1},
-    {0x5D4594+251520, (void*)&missing_strings, sizeof(missing_strings),1},
-    {0x5D4594+252264, (void*)&nox_file_4, sizeof(nox_file_4),1},
-    {0x5D4594+252268, (void*)&nox_file_5, sizeof(nox_file_5),1},
-    {0x5D4594+252272, (void*)&nox_file_net_log, sizeof(nox_file_net_log),1},
-    {0x5D4594+527688, (void*)&nox_file_2, sizeof(nox_file_2),1},
-    {0x5D4594+739988, (void*)&nox_file_3, sizeof(nox_file_3),1},
-    {0x5D4594+787204, (void*)&nox_file_6, sizeof(nox_file_6),1},
-    {0x5D4594+839880, (void*)&nox_file_log, sizeof(nox_file_log),1},
-    {0x5D4594+1309760, (void*)&nox_file_9, sizeof(nox_file_9),1},
-    {0x5D4594+1599584, (void*)&nox_file_8, sizeof(nox_file_8),1},
-    {0x5D4594+1599620, (void*)&nox_file_7, sizeof(nox_file_7),1},
-    {0x5D4594+3805496, (void*)&nox_win_width, sizeof(nox_win_width),1},
-    {0x5D4594+3807120, (void*)&nox_win_height, sizeof(nox_win_height),1},
-    {0x5D4594+251544, (void*)&dword_5D4594_251544, sizeof(dword_5D4594_251544),1},
-    {0x5D4594+251584, (void*)byte_5D4594_251584, sizeof(byte_5D4594_251584),1},
-    {0x5D4594+251596, (void*)&byte_5D4594_251596, sizeof(byte_5D4594_251596),1},
-    {0x5D4594+754088, (void*)&ptr_5D4594_754088, sizeof(ptr_5D4594_754088),1},
-    {0x5D4594+754092, (void*)&ptr_5D4594_754092, sizeof(ptr_5D4594_754092),1},
-    {0x5D4594+754096, (void*)&ptr_5D4594_754088_cnt, sizeof(ptr_5D4594_754088_cnt),1},
-    {0x5D4594+754100, (void*)&ptr_5D4594_754092_cnt, sizeof(ptr_5D4594_754092_cnt),1},
-    {0x5D4594+754104, (void*)&obj_5D4594_754104_switch, sizeof(obj_5D4594_754104_switch),1},
-    {0x5D4594+791324, (void*)nox_input_buffer, sizeof(nox_input_buffer),1},
-    {0x5D4594+805832, (void*)&nox_processing_input, sizeof(nox_processing_input),1},
-    {0x5D4594+805660, (void*)&nox_mouse, sizeof(nox_mouse),1},
-    {0x5D4594+805716, (void*)&nox_mouse_prev, sizeof(nox_mouse_prev),1},
-    {0x5D4594+805772, (void*)&nox_mouse_min, sizeof(nox_mouse_min),1},
-    {0x5D4594+805780, (void*)&nox_mouse_prev_left, sizeof(nox_mouse_prev_left),1},
-    {0x5D4594+805788, (void*)&nox_mouse_prev_right, sizeof(nox_mouse_prev_right),1},
-    {0x5D4594+805796, (void*)&nox_mouse_prev_middle, sizeof(nox_mouse_prev_middle),1},
-    {0x5D4594+805812, (void*)&nox_mouse_prev_seq, sizeof(nox_mouse_prev_seq),1},
-    {0x5D4594+805828, (void*)&nox_mouse_prev_seq_2, sizeof(nox_mouse_prev_seq_2),1},
-    {0x5D4594+830604, (void*)&nox_things_head, sizeof(nox_things_head),1},
-    {0x5D4594+830608, (void*)&nox_things_array, sizeof(nox_things_array),1},
-    {0x5D4594+830612, (void*)&nox_things_count, sizeof(nox_things_count),1},
-    {0x5D4594+1046860, (void*)&nox_win_unk1, sizeof(nox_win_unk1),1},
-    {0x5D4594+1062460, (void*)&nox_win_unk5, sizeof(nox_win_unk5),1},
-    {0x5D4594+1064892, (void*)&nox_win_unk4, sizeof(nox_win_unk4),1},
-    {0x5D4594+1064904, (void*)&nox_win_unk3, sizeof(nox_win_unk3),1},
-    {0x5D4594+1064908, (void*)&nox_win_unk2, sizeof(nox_win_unk2),1},
-    {0x5D4594+1064884, (void*)&nox_alloc_window, sizeof(nox_alloc_window),1},
-    {0x5D4594+1093116, (void*)&nox_win_cur_weapon, sizeof(nox_win_cur_weapon),1},
-    {0x5D4594+1193492, (void*)&nox_backbuffer1_pix, sizeof(nox_backbuffer1_pix),1},
-    {0x5D4594+1307296, (void*)&nox_win_main_menu, sizeof(nox_win_main_menu),1},
-    {0x5D4594+1307300, (void*)&nox_win_main_bg, sizeof(nox_win_main_bg),1},
-    {0x5D4594+3798752, (void*)&nox_backbuffer_pix, sizeof(nox_backbuffer_pix),1},
-    {0x5D4594+3801784, (void*)&nox_backbuffer_width, sizeof(nox_backbuffer_width),1},
-    {0x5D4594+3801788, (void*)&nox_backbuffer_height, sizeof(nox_backbuffer_height),1},
-    {0x5D4594+3799568, (void*)&nox_backbuffer_depth, sizeof(nox_backbuffer_depth),1},
-    {0x5D4594+3801800, (void*)&nox_backbuffer_width32, sizeof(nox_backbuffer_width32),1},
-    {0x5D4594+3799572, (void*)&ptr_5D4594_3799572, sizeof(ptr_5D4594_3799572),1},
-    {0x5D4594+3799660, (void*)&obj_5D4594_3799660, sizeof(obj_5D4594_3799660),1},
-    {0x5D4594+3800716, (void*)&obj_5D4594_3800716, sizeof(obj_5D4594_3800716),1},
-    {0x5D4594+3800716, (void*)&nox_draw_unk1, sizeof(nox_draw_unk1),1},
-
-    {0x587000+5184, (void*)table_5184, sizeof(table_5184),1},
-    {0x587000+26792, (void*)table_26792, sizeof(table_26792),1},
-    {0x587000+27008, (void*)table_27008, sizeof(table_27008),1},
-    {0x587000+27104, (void*)table_27104, sizeof(table_27104),1},
-    {0x587000+27168, (void*)table_27168, sizeof(table_27168),1},
-    {0x587000+28760, (void*)table_28760, sizeof(table_28760),1},
-    {0x587000+116008, (void*)table_116008, sizeof(table_116008),1},
-    {0x587000+80764, (void*)&nox_mouse_max, sizeof(nox_mouse_max),1},
-    {0x587000+80856, (void*)&nox_max_width, sizeof(nox_max_width),1},
-    {0x587000+80860, (void*)&nox_max_height, sizeof(nox_max_height),1},
-    {0x587000+91780, (void*)&nox_win_width_1, sizeof(nox_win_width_1),0},
-    {0x587000+91784, (void*)&nox_win_height_1, sizeof(nox_win_height_1),0},
-    {0x587000+91788, (void*)&nox_win_depth_1, sizeof(nox_win_depth_1),1},
-    {0x587000+91792, (void*)&nox_win_width_2, sizeof(nox_win_width_2),1},
-    {0x587000+91796, (void*)&nox_win_height_2, sizeof(nox_win_height_2),1},
-    {0x587000+91800, (void*)&nox_win_depth_2, sizeof(nox_win_depth_2),1},
-    {0x587000+91804, (void*)nox_video_modes, sizeof(nox_video_modes),1},
-    {0x587000+122104, (void*)nox_parse_thing_funcs, 168,1}, // TODO
-    // full blobs
-    #if 0
-    {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
-    {0x563006, (void*)byte_563006, sizeof(byte_563006),0},
-    #endif
-    {0x581450, (void*)byte_581450, sizeof(byte_581450),0},
-    {0x587000, (void*)byte_587000, sizeof(byte_587000),0},
-    {0x5D4594, (void*)byte_5D4594, sizeof(byte_5D4594),0},
-    {0x9800B0, (void*)asc_9800B0, sizeof(asc_9800B0),0},
-    {0x980858, (void*)dword_980858, sizeof(dword_980858),0},
-};
-
-size_t mappings_cnt = sizeof(mappings)/sizeof(mem_mapping);
-
 #ifdef DEBUG_MALLOCS
 void* nox_malloc2(size_t x, char* func, int line, char* file)
 {
@@ -1856,22 +1734,6 @@ void __cdecl sub_401B20(char* a1)
     {
         *(_DWORD*)& byte_5D4594[4 * *(_DWORD*)& byte_5D4594[404] + 272] = 0;
     }
-}
-
-_BYTE* getMem(uintptr_t addr)
-{
-    for (int i = 0; i < mappings_cnt; i++) {
-        mem_mapping* m = &mappings[i];
-        if (addr >= m->base && addr <= m->base + (uintptr_t)m->size)
-        {
-            if (m->invalid) break;
-            addr -= m->base;
-            return &((_BYTE*)m->ptr)[addr];
-        }
-    }
-    fprintf(stderr, "Invalid memory access! Requested = %x\n", addr);
-    DebugBreak();
-    return 0;
 }
 
 //----- (00408CC0) --------------------------------------------------------
