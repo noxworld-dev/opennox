@@ -41,6 +41,7 @@ add_executable (
     platform.c
     e2e.c
     GAME1.c
+    GAME1_2.c
     GAME2.c
     GAME3.c
     GAME4.c
