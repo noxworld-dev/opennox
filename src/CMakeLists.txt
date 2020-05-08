@@ -57,6 +57,7 @@ add_executable (
     GAME4_2.c
     GAME4_3.c
     GAME5.c
+    GAME5_2.c
     GAME_data.c
     GAME_data_init.c
     cdrom.c
