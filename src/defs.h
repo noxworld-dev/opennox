@@ -471,7 +471,9 @@ typedef struct nox_thing
 } nox_thing;
 
 typedef enum {
-    NOX_WIN_VISIBLE = 0x10
+    NOX_WIN_HIDDEN = 0x10,
+    NOX_WIN_LAYER_FRONT = 0x20,
+    NOX_WIN_LAYER_BACK = 0x40
 } nox_window_flags;
 
 typedef struct nox_window nox_window;
@@ -490,10 +492,10 @@ typedef struct nox_window
     _DWORD field_92; // 92
     int (*field_93)(int, int, int, int); // 93
     int (*field_94)(int, int, int, int); // 94
-    int (*field_95)(int, int); // 95
-    _DWORD field_96; // 96
-    nox_window* field_97; // 97
-    nox_window* field_98; // 98
+    int (*draw)(nox_window*, void*); // 95, second arg is &field_9
+    int (*field_96)(void*); // 96
+    nox_window* field_97; // 97, 388
+    nox_window* field_98; // 98, 392
     nox_window* field_99; // 99
     nox_window* field_100; // 100
 } nox_window;

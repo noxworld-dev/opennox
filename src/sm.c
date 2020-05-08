@@ -425,7 +425,7 @@ void CONNECT_RESULT(sm_args_t* args)
     }
     if (!sub_40A5C0(2))
     {
-        sub_43DE20(0);
+        nox_set_draw_unk1(0);
     }
     else
     {

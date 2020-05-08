@@ -11953,7 +11953,7 @@ int __cdecl sub_554B40(u_short hostshort)
                     result = setsockopt(*(SOCKET*)& byte_5D4594[2513920], 0xFFFF, 32, optval, 4);
                     if (result != -1)
                     {
-                        sub_43DE20((int)sub_554FF0);
+                        nox_set_draw_unk1((int)sub_554FF0);
                         *(_DWORD*)& byte_5D4594[2513916] = 1;
                         result = 0;
                     }
@@ -12000,7 +12000,7 @@ int sub_554D10()
         *(_DWORD*)& byte_5D4594[2513920] = 0;
         *(_DWORD*)& byte_5D4594[2513924] = 0;
         *(_DWORD*)& byte_5D4594[2513916] = 0;
-        sub_43DE20(0);
+        nox_set_draw_unk1(0);
         sub_555000(0);
         WSACleanup();
     }

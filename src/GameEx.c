@@ -1580,7 +1580,7 @@ LABEL_37:
           if ( sub_40A5C0(512) )
           {
             v10 = sub_46B0C0(modifyWndPntr, 1938);
-            nox_window_set_visible((int)v10, 1);
+            nox_window_set_hidden((int)v10, 1);
             v11 = sub_46B0C0(modifyWndPntr, 1524);
             sub_46ABB0((int)v11, 0);
           }
