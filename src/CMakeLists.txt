@@ -57,6 +57,7 @@ add_executable (
     noxstring.c
     win.c
     memmap.c
+    static.c
 	MixPatch.c
 	GameEx.c
 	vqa/aud_decode.cpp
