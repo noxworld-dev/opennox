@@ -796,12 +796,12 @@ char __cdecl sub_419960(int a1, int a2, __int16 a3);
 int __cdecl sub_4199C0(int a1);
 double __cdecl sub_419A10(float a1); // idb
 unsigned int __cdecl sub_419A30(float a1);
-int __cdecl sub_419A70(float); // idb
-__int16 __cdecl sub_419A90(float a1);
-__int16 __cdecl sub_419AB0(float a1);
-char __cdecl sub_419AD0(float a1);
-float __cdecl sub_419AF0(double a1);
-int __cdecl sub_419B10(double); // idb
+int __cdecl nox_float2int(float); // idb
+__int16 __cdecl nox_float2int16(float a1);
+__int16 __cdecl nox_float2int16_abs(float a1);
+char __cdecl nox_float2int8(float a1);
+float __cdecl nox_double2float(double a1);
+int __cdecl nox_double2int(double); // idb
 int sub_419B30();
 double __cdecl sub_419D40(void* a1);
 double __cdecl sub_419D70(void* a1, int a2);

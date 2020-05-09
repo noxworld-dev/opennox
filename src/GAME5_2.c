@@ -9490,8 +9490,8 @@ char __cdecl sub_57F1D0(float2* a1)
     unsigned __int8 v7; // [esp+Ch] [ebp-4h]
 
     v1 = 0;
-    v2 = sub_419A70(a1->field_0);
-    v7 = sub_419A70(a1->field_4) % 23;
+    v2 = nox_float2int(a1->field_0);
+    v7 = nox_float2int(a1->field_4) % 23;
     v3 = (double)(unsigned __int8)(v2 % 23);
     if (v3 >= 11.5)
     {
@@ -9523,9 +9523,9 @@ int __cdecl sub_57F2A0(float2* a1, int a2, int a3)
     float v8; // [esp+0h] [ebp-Ch]
 
     v7 = a1->field_0 - (double)(23 * a2);
-    v3 = sub_419A70(v7);
+    v3 = nox_float2int(v7);
     v8 = a1->field_4 - (double)(23 * a3);
-    v4 = sub_419A70(v8);
+    v4 = nox_float2int(v8);
     if (v3 <= v4)
     {
         LOBYTE(v4) = 22 - v3 <= v4;

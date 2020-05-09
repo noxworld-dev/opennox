@@ -2644,7 +2644,7 @@ void mainloop()
             v4 = v2 * v2 + v3 * v3;
             if (*(_DWORD*)& byte_5D4594[816428])
             {
-                v5 = sub_419B10(sqrt((double)(v2 * v2 + v3 * v3))) / 4;
+                v5 = nox_double2int(sqrt((double)(v2 * v2 + v3 * v3))) / 4;
                 if (v5 > 0)
                 {
                     v26 = v5;
