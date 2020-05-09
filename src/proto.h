@@ -2132,7 +2132,7 @@ int __cdecl sub_44B0F0(int a1, int a2, int* a3, int a4);
 int __cdecl nox_parse_thing_flags(nox_thing* obj, int a2, const char* a3);
 int __cdecl nox_parse_thing_class(nox_thing* obj, int a2, const char* a3);
 int __cdecl nox_parse_thing_subclass(nox_thing* obj, int a2, const char* a3);
-int __cdecl nox_parse_thing_extent(int a1, int a2, char* a3);
+int __cdecl nox_parse_thing_extent(nox_thing* obj, int a2, char* a3);
 int __cdecl nox_parse_thing_light_intensity(int a1, int a2, char* a3);
 int __cdecl nox_parse_thing_light_color(int a1, int a2, char* a3);
 int __cdecl nox_parse_thing_light_dir(int a1, int a2, char* a3);
