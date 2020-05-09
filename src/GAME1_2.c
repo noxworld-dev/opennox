@@ -814,10 +814,10 @@ int __cdecl sub_428CD0(int a1)
                 sub_426AC0(v12, 4 * (unsigned __int16)* v11);
                 sub_421040((int)v10);
                 v13 = sub_421030(**((_DWORD * *)v10 + 27));
-                *((_DWORD*)v10 + 22) = sub_419A70(*((float*)v13 + 1));
-                *((_DWORD*)v10 + 23) = sub_419A70(*((float*)v13 + 2));
-                *((_DWORD*)v10 + 24) = sub_419A70(*((float*)v13 + 1));
-                v14 = sub_419A70(*((float*)v13 + 2));
+                *((_DWORD*)v10 + 22) = nox_float2int(*((float*)v13 + 1));
+                *((_DWORD*)v10 + 23) = nox_float2int(*((float*)v13 + 2));
+                *((_DWORD*)v10 + 24) = nox_float2int(*((float*)v13 + 1));
+                v14 = nox_float2int(*((float*)v13 + 2));
                 v15 = 1;
                 v16 = *v11 <= 1u;
                 *((_DWORD*)v10 + 25) = v14;
@@ -833,11 +833,11 @@ int __cdecl sub_428CD0(int a1)
                             v19 = *((float*)v17 + 1);
                             v29[0] = *((float*)v17 + 1);
                             if (v19 > (double) * ((int*)v10 + 24))
-                                * ((_DWORD*)v10 + 24) = sub_419A70(v29[0]);
+                                * ((_DWORD*)v10 + 24) = nox_float2int(v29[0]);
                         }
                         else
                         {
-                            *((_DWORD*)v10 + 22) = sub_419A70(v29[0]);
+                            *((_DWORD*)v10 + 22) = nox_float2int(v29[0]);
                         }
                         v20 = *((float*)v17 + 2);
                         v29[0] = *((float*)v17 + 2);
@@ -846,11 +846,11 @@ int __cdecl sub_428CD0(int a1)
                             v21 = *((float*)v17 + 2);
                             v29[0] = *((float*)v17 + 2);
                             if (v21 > (double) * ((int*)v10 + 25))
-                                * ((_DWORD*)v10 + 25) = sub_419A70(v29[0]);
+                                * ((_DWORD*)v10 + 25) = nox_float2int(v29[0]);
                         }
                         else
                         {
-                            *((_DWORD*)v10 + 23) = sub_419A70(v29[0]);
+                            *((_DWORD*)v10 + 23) = nox_float2int(v29[0]);
                         }
                         ++v15;
                     } while (v15 < (unsigned __int16)* v11);

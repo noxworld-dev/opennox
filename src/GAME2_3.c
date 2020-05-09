@@ -2910,7 +2910,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                             *(_DWORD*)(v99 + 2243) = *(unsigned __int16*)(v3 + 5);
                             LOWORD(v101) = *(_WORD*)(v3 + 9);
                             v332 = (double)v101;
-                            *(_DWORD*)(v99 + 2235) = sub_419A70(v332);
+                            *(_DWORD*)(v99 + 2235) = nox_float2int(v332);
                             *(_DWORD*)(v99 + 2239) = *(unsigned __int16*)(v3 + 11);
                             *(_WORD*)(v99 + 3652) = *(_WORD*)(v3 + 7);
                             *(_BYTE*)(v99 + 3684) = *(_BYTE*)(v3 + 13);
@@ -3944,7 +3944,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                             break;
                         case 163:
                             v340 = sub_419D40(&byte_587000[159972]);
-                            v252 = sub_419A70(v340);
+                            v252 = nox_float2int(v340);
                             v357 = 150;
                             v253 = v252 >> 2;
                             for (i = v252 >> 2; ; v253 = i)
@@ -4016,7 +4016,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 {
                     v241 = *(unsigned __int16*)(v3 + 5) - *(unsigned __int16*)(v3 + 1);
                     v242 = *(unsigned __int16*)(v3 + 7) - *(unsigned __int16*)(v3 + 3);
-                    LODWORD(v5) = sub_419B10(sqrt((double)(v241 * v241 + v242 * v242))) + 1;
+                    LODWORD(v5) = nox_double2int(sqrt((double)(v241 * v241 + v242 * v242))) + 1;
                     v371 = v5;
                     if ((int)v5 >= 0)
                     {
@@ -4071,7 +4071,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         if (*(_DWORD*)& byte_5D4594[2614252])
                         {
                             v225 = *(unsigned __int16*)(v3 + 5) - *(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 12);
-                            v226 = sub_419B10(sqrt((double)(v225 * v225
+                            v226 = nox_double2int(sqrt((double)(v225 * v225
                                                             + (*(unsigned __int16*)(v3 + 7)
                                                                - *(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 16))
                                                               * (*(unsigned __int16*)(v3 + 7)
@@ -4084,7 +4084,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     {
                         v227 = *(unsigned __int16*)(v3 + 5) - *(unsigned __int16*)(v3 + 1);
                         v228 = *(unsigned __int16*)(v3 + 7) - *(unsigned __int16*)(v3 + 3);
-                        v229 = sub_419B10(sqrt((double)(v227 * v227 + v228 * v228)));
+                        v229 = nox_double2int(sqrt((double)(v227 * v227 + v228 * v228)));
                         if (!v229)
                             v229 = 1;
                         v230 = *(unsigned __int16*)(v3 + 5) - 4 * v227 / v229;
@@ -7186,11 +7186,11 @@ int __cdecl sub_495D00(_DWORD* a1, int a2, _DWORD* a3)
     v30 = v6[4] - *((__int16*)v6 + 52) - *((__int16*)v6 + 53) - a3[5] + a3[1] - 10;
     v28 = (float*)& byte_587000[64 * v6[77] + 194136];
     v22 = *(float*)& byte_587000[64 * v6[77] + 194136] * -12.0;
-    v11 = sub_419A70(v22) + v9;
+    v11 = nox_float2int(v22) + v9;
     v29 = (float*)& byte_587000[8 * v10 + 194140];
     v23 = *(float*)& byte_587000[8 * v10 + 194140] * -12.0;
     v27 = 0;
-    v31 = sub_419A70(v23) + v30;
+    v31 = nox_float2int(v23) + v30;
     v12 = a2;
     if (*(_BYTE*)(a2 + 56))
     {
@@ -7203,9 +7203,9 @@ int __cdecl sub_495D00(_DWORD* a1, int a2, _DWORD* a3)
             v13 = *v8 + *(v32 - 1) - v8[4];
             v14 = *v32 - *((__int16*)v6 + 52) - *((__int16*)v6 + 53) - v8[5] + v8[1] - 10;
             v24 = *v28 * -12.0;
-            v15 = sub_419A70(v24) + v13;
+            v15 = nox_float2int(v24) + v13;
             v25 = *v29 * -12.0;
-            v16 = sub_419A70(v25) + v14;
+            v16 = nox_float2int(v25) + v14;
             v17 = sub_4344A0(200, 200, 200);
             sub_434460(v17);
             sub_49F500(v11, v31);
@@ -7665,7 +7665,7 @@ int __cdecl sub_496150(int* a1)
                     v38 = *(_DWORD*)(v19 + 20);
                     v39 = *(_DWORD*)& byte_5D4594[1217444] - *(_DWORD*)(v38 + 12);
                     v40 = *(_DWORD*)(v38 + 16) - *(_DWORD*)& byte_5D4594[1217448];
-                    sub_419B10(sqrt((double) * (int*)(v19 + 32)));
+                    nox_double2int(sqrt((double) * (int*)(v19 + 32)));
                     v83.field_0 = (double)(int)(v40 + *(int*)(*(_DWORD*)(v19 + 20) + 12));
                     v83.field_4 = (double)(int)(v39 + *(int*)(*(_DWORD*)(v19 + 20) + 16));
                     v83.field_8 = (double)(int)(*(int*)(*(_DWORD*)(v19 + 20) + 12) - v40);
@@ -7746,10 +7746,10 @@ int __cdecl sub_496150(int* a1)
                 default:
                     break;
             }
-            a1a.field_0 = *a1 - a1[4] + sub_419A70(a4.field_0);
-            a1a.field_4 = a1[1] - a1[5] + sub_419A70(a4.field_4);
-            a2.field_0 = *a1 - a1[4] + sub_419A70(v78.field_0);
-            a2.field_4 = a1[1] - a1[5] + sub_419A70(v78.field_4);
+            a1a.field_0 = *a1 - a1[4] + nox_float2int(a4.field_0);
+            a1a.field_4 = a1[1] - a1[5] + nox_float2int(a4.field_4);
+            a2.field_0 = *a1 - a1[4] + nox_float2int(v78.field_0);
+            a2.field_4 = a1[1] - a1[5] + nox_float2int(v78.field_4);
             //dprintf("%d\t%d\t%d %d %d %d", v72, *(unsigned __int8 *)(v19 + 56), a1a.field_0, a1a.field_4, a2.field_0, a2.field_4);
             if (sub_57BA30(&a1a, &a2, (int4*)a1))
             {
@@ -8049,7 +8049,7 @@ void __cdecl sub_4974B0(int a1)
         v4 = (double)(int)(*(_DWORD*)& byte_5D4594[1217444] - *(int*)& byte_587000[v3 + 196184] / 2 - *(_DWORD*)(a1 + 12));
         v15 = *(_DWORD*)& byte_5D4594[1217448] - *(int*)& byte_587000[v3 + 196188] / 2 - *(_DWORD*)(a1 + 16);
         v14 = (double)v15 * (double)v15 + v4 * v4;
-        *(_DWORD*)(v2 + 32) = sub_419A70(v14);
+        *(_DWORD*)(v2 + 32) = nox_float2int(v14);
         v5 = sub_4CA8B0(
                 *(_DWORD*)(v1 + 16) - *(_DWORD*)& byte_5D4594[1217448],
                 *(_DWORD*)(v1 + 12) - *(_DWORD*)& byte_5D4594[1217444]);
@@ -8152,13 +8152,13 @@ int __cdecl sub_497650(float a1)
     v5 = (double)(int)(v4 - *(_DWORD*)& byte_5D4594[1217448]);
     v23 = v5;
     v21 = v5 * v23 + v24 * v24;
-    v6 = sub_419A70(v21);
+    v6 = nox_float2int(v21);
     v3[8] = v6;
     v7 = (__int64)sqrt((double)v6);
-    v22 = sub_419A70(v24);
-    v8 = sub_419A70(v23);
+    v22 = nox_float2int(v24);
+    v8 = nox_float2int(v23);
     v9 = sub_4CA8B0(v8, v22);
-    v10 = sub_419A70(*(float*)(LODWORD(v2) + 48));
+    v10 = nox_float2int(*(float*)(LODWORD(v2) + 48));
     v11 = sub_4CA8B0(v10, v7);
     v3[10] = v11 + v9;
     if (v11 + v9 < 0)
@@ -8270,17 +8270,17 @@ int __cdecl sub_4977C0(int a1)
     v38[5] = v39 + *(float*)(v1 + 84);
     v38[6] = v2 + *(float*)(v1 + 88);
     v38[7] = v39 + *(float*)(v1 + 92);
-    v30 = sub_419A70(v38[0]) - *(_DWORD*)& byte_5D4594[1217444];
-    v4 = sub_419A70(v38[1]);
+    v30 = nox_float2int(v38[0]) - *(_DWORD*)& byte_5D4594[1217444];
+    v4 = nox_float2int(v38[1]);
     v5 = sub_4CA8B0(v4 - *(_DWORD*)& byte_5D4594[1217448], v30);
-    v31 = sub_419A70(v38[2]) - *(_DWORD*)& byte_5D4594[1217444];
-    v6 = sub_419A70(v38[3]);
+    v31 = nox_float2int(v38[2]) - *(_DWORD*)& byte_5D4594[1217444];
+    v6 = nox_float2int(v38[3]);
     v7 = sub_4CA8B0(v6 - *(_DWORD*)& byte_5D4594[1217448], v31);
-    v32 = sub_419A70(v38[4]) - *(_DWORD*)& byte_5D4594[1217444];
-    v8 = sub_419A70(v38[5]);
+    v32 = nox_float2int(v38[4]) - *(_DWORD*)& byte_5D4594[1217444];
+    v8 = nox_float2int(v38[5]);
     v9 = sub_4CA8B0(v8 - *(_DWORD*)& byte_5D4594[1217448], v32);
-    v33 = sub_419A70(v38[6]) - *(_DWORD*)& byte_5D4594[1217444];
-    v10 = sub_419A70(v38[7]);
+    v33 = nox_float2int(v38[6]) - *(_DWORD*)& byte_5D4594[1217444];
+    v10 = nox_float2int(v38[7]);
     v40 = sub_4CA8B0(v10 - *(_DWORD*)& byte_5D4594[1217448], v33);
     result = (unsigned __int8)sub_497B80(v38, (int*)& byte_5D4594[1217444]) - 1;
     switch (result)
@@ -8289,21 +8289,21 @@ int __cdecl sub_4977C0(int a1)
             v35 = (v38[5] + v38[1]) * 0.5;
             v14 = (v38[4] + v38[0]) * 0.5 - (double) * (int*)& byte_5D4594[1217444];
             v25 = (v35 - (double) * (int*)& byte_5D4594[1217448]) * (v35 - (double) * (int*)& byte_5D4594[1217448]) + v14 * v14;
-            v15 = sub_419A70(v25);
+            v15 = nox_float2int(v25);
             result = sub_497F60(v5, v9, 9, v15, v1);
             break;
         case 1:
             v37 = (v38[7] + v38[3]) * 0.5;
             v18 = (v38[6] + v38[2]) * 0.5 - (double) * (int*)& byte_5D4594[1217444];
             v27 = (v37 - (double) * (int*)& byte_5D4594[1217448]) * (v37 - (double) * (int*)& byte_5D4594[1217448]) + v18 * v18;
-            v19 = sub_419A70(v27);
+            v19 = nox_float2int(v27);
             result = sub_497F60(v40, v7, 10, v19, v1);
             break;
         case 3:
             v34 = (v38[3] + v38[1]) * 0.5;
             v12 = (v38[2] + v38[0]) * 0.5 - (double) * (int*)& byte_5D4594[1217444];
             v24 = (v34 - (double) * (int*)& byte_5D4594[1217448]) * (v34 - (double) * (int*)& byte_5D4594[1217448]) + v12 * v12;
-            v13 = sub_419A70(v24);
+            v13 = nox_float2int(v24);
             result = sub_497F60(v5, v7, 8, v13, v1);
             break;
         case 4:
@@ -8312,7 +8312,7 @@ int __cdecl sub_4977C0(int a1)
             v29 = (double)(int)(*(_DWORD*)(v1 + 16) - *(_DWORD*)& byte_5D4594[1217448])
                   * (double)(int)(*(_DWORD*)(v1 + 16) - *(_DWORD*)& byte_5D4594[1217448])
                   + v22 * v22;
-            v23 = sub_419A70(v29);
+            v23 = nox_float2int(v29);
             result = sub_497F60(v7, v9, 14, v23, v1);
             break;
         case 5:
@@ -8321,14 +8321,14 @@ int __cdecl sub_4977C0(int a1)
             v28 = (double)(int)(*(_DWORD*)(v1 + 16) - *(_DWORD*)& byte_5D4594[1217448])
                   * (double)(int)(*(_DWORD*)(v1 + 16) - *(_DWORD*)& byte_5D4594[1217448])
                   + v20 * v20;
-            v21 = sub_419A70(v28);
+            v21 = nox_float2int(v28);
             result = sub_497F60(v5, v40, 13, v21, v1);
             break;
         case 7:
             v36 = (v38[7] + v38[5]) * 0.5;
             v16 = (v38[6] + v38[4]) * 0.5 - (double) * (int*)& byte_5D4594[1217444];
             v26 = (v36 - (double) * (int*)& byte_5D4594[1217448]) * (v36 - (double) * (int*)& byte_5D4594[1217448]) + v16 * v16;
-            v17 = sub_419A70(v26);
+            v17 = nox_float2int(v26);
             result = sub_497F60(v40, v9, 11, v17, v1);
             break;
         default:
@@ -8398,8 +8398,8 @@ int __cdecl sub_497C40(int a1, int a2, char a3)
 
     v21 = 23 * a1;
     v22 = 23 * a2;
-    v3 = 23 * a1 + sub_419A70(11.5);
-    v4 = 23 * a2 + sub_419A70(11.5);
+    v3 = 23 * a1 + nox_float2int(11.5);
+    v4 = 23 * a2 + nox_float2int(11.5);
     v5 = sub_4CADD0();
     *(_DWORD*)(v5 + 24) = a1;
     *(_BYTE*)(v5 + 36) = a3;
@@ -8409,22 +8409,22 @@ int __cdecl sub_497C40(int a1, int a2, char a3)
     switch (a3)
     {
         case 1:
-            v6 = v3 - *(_DWORD*)& byte_5D4594[1217444] + sub_419A70(5.75);
-            v7 = v4 - *(_DWORD*)& byte_5D4594[1217448] - sub_419A70(5.75);
+            v6 = v3 - *(_DWORD*)& byte_5D4594[1217444] + nox_float2int(5.75);
+            v7 = v4 - *(_DWORD*)& byte_5D4594[1217448] - nox_float2int(5.75);
             v8 = v3;
             v9 = 23 * a2;
             v23 = v21 + 23;
             break;
         case 2:
-            v6 = v3 - *(_DWORD*)& byte_5D4594[1217444] - sub_419A70(5.75);
-            v7 = v4 - *(_DWORD*)& byte_5D4594[1217448] - sub_419A70(5.75);
+            v6 = v3 - *(_DWORD*)& byte_5D4594[1217444] - nox_float2int(5.75);
+            v7 = v4 - *(_DWORD*)& byte_5D4594[1217448] - nox_float2int(5.75);
             v8 = v3;
             v9 = 23 * a2;
             v23 = 23 * a1;
             break;
         case 4:
-            v6 = v3 - *(_DWORD*)& byte_5D4594[1217444] + sub_419A70(5.75);
-            v10 = sub_419A70(5.75);
+            v6 = v3 - *(_DWORD*)& byte_5D4594[1217444] + nox_float2int(5.75);
+            v10 = nox_float2int(5.75);
             v8 = v3;
             v7 = v4 - *(_DWORD*)& byte_5D4594[1217448] + v10;
             v23 = v21 + 23;
@@ -8439,9 +8439,9 @@ int __cdecl sub_497C40(int a1, int a2, char a3)
             v9 = v22 + 23;
             break;
         case 8:
-            v6 = v3 - *(_DWORD*)& byte_5D4594[1217444] - sub_419A70(5.75);
+            v6 = v3 - *(_DWORD*)& byte_5D4594[1217444] - nox_float2int(5.75);
             v23 = 23 * a1;
-            v7 = v4 - *(_DWORD*)& byte_5D4594[1217448] + sub_419A70(5.75);
+            v7 = v4 - *(_DWORD*)& byte_5D4594[1217448] + nox_float2int(5.75);
             v8 = v3;
             v9 = v22 + 23;
             break;
@@ -8976,38 +8976,38 @@ int __cdecl sub_4984B0(int a1)
     }
     if (*(_DWORD*)(v1 + 44) == 2)
     {
-        v12 = sub_419A70(*(float*)(v1 + 48));
+        v12 = nox_float2int(*(float*)(v1 + 48));
         v50 = v12;
         if (*(_WORD*)(v1 + 2))
         {
             v35 = *(unsigned __int16*)(v1 + 6);
             v13 = v6 - (*(unsigned __int16*)(v1 + 4) >> 1) - v7;
-            v14 = v43 + v12 + *(__int16*)(v1 + 104) - v35 - v8 - sub_419A70(*(float*)(v1 + 96));
+            v14 = v43 + v12 + *(__int16*)(v1 + 104) - v35 - v8 - nox_float2int(*(float*)(v1 + 96));
             v15 = v13 + *(unsigned __int16*)(v1 + 4);
             v16 = v14 + v35;
         }
         else
         {
             v13 = v6 - v12 - v7;
-            v14 = v43 - v12 - v8 - sub_419A70(*(float*)(v1 + 100));
+            v14 = v43 - v12 - v8 - nox_float2int(*(float*)(v1 + 100));
             v15 = v42 + v50 - v44;
-            v16 = v43 + v50 + *(__int16*)(v1 + 104) - v45 - sub_419A70(*(float*)(v1 + 96));
+            v16 = v43 + v50 + *(__int16*)(v1 + 104) - v45 - nox_float2int(*(float*)(v1 + 96));
         }
     }
     else if (*(_WORD*)(v1 + 2))
     {
         v13 = v6 - (*(unsigned __int16*)(v1 + 4) >> 1) - v7;
-        v16 = sub_419A70(*(float*)(v1 + 92)) + v43 + *(__int16*)(v1 + 104) - v8;
+        v16 = nox_float2int(*(float*)(v1 + 92)) + v43 + *(__int16*)(v1 + 104) - v8;
         v14 = v16 - *(unsigned __int16*)(v1 + 6);
         v15 = v13 + *(unsigned __int16*)(v1 + 4);
     }
     else
     {
-        v13 = v37 + sub_419A70(*(float*)(v1 + 72));
-        v17 = v43 - v8 - sub_419A70(*(float*)(v1 + 100));
-        v14 = sub_419A70(*(float*)(v1 + 68)) + v17;
-        v15 = v37 + sub_419A70(*(float*)(v1 + 80));
-        v16 = sub_419A70(*(float*)(v1 + 92)) + v43 + *(__int16*)(v1 + 104) - v45;
+        v13 = v37 + nox_float2int(*(float*)(v1 + 72));
+        v17 = v43 - v8 - nox_float2int(*(float*)(v1 + 100));
+        v14 = nox_float2int(*(float*)(v1 + 68)) + v17;
+        v15 = v37 + nox_float2int(*(float*)(v1 + 80));
+        v16 = nox_float2int(*(float*)(v1 + 92)) + v43 + *(__int16*)(v1 + 104) - v45;
     }
     v32 = 0;
     v51 = 0;
@@ -9351,7 +9351,7 @@ int __cdecl sub_498C20(int2* a1, int2* a2, int a3)
     {
         v29 = (double)(a2->field_4 - v3->field_4) / (double)(a2->field_0 - v3->field_0);
         v27 = (double)v3->field_0 * v29;
-        v31 = v3->field_4 - sub_419A70(v27);
+        v31 = v3->field_4 - nox_float2int(v27);
     }
     v7 = *(_DWORD*)& byte_5D4594[1217464];
     v8 = 0;
@@ -9402,7 +9402,7 @@ int __cdecl sub_498C20(int2* a1, int2* a2, int a3)
                             {
                                 a1a.field_0 = a2a.field_0;
                                 v26 = (double)a2a.field_0 * v29;
-                                a1a.field_4 = v31 + sub_419A70(v26);
+                                a1a.field_4 = v31 + nox_float2int(v26);
                                 LABEL_59:
                                 if (sub_499160(&a1a, &a2a, &a3a) && sub_499160(&a1a, v3, a2))
                                     sub_499130(&a1a.field_0);
@@ -9421,7 +9421,7 @@ int __cdecl sub_498C20(int2* a1, int2* a2, int a3)
                         {
                             v28 = (double)(a3a.field_4 - a2a.field_4) / (double)(a3a.field_0 - a2a.field_0);
                             v21 = (double)a2a.field_0 * v28;
-                            v15 = sub_419A70(v21);
+                            v15 = nox_float2int(v21);
                             v16 = a2a.field_4 - v15;
                             if (v37 == 4 || v37 == 8)
                             {
@@ -9436,7 +9436,7 @@ int __cdecl sub_498C20(int2* a1, int2* a2, int a3)
                                 {
                                     a1a.field_0 = v3->field_0;
                                     v22 = (double)a1a.field_0 * v28;
-                                    a1a.field_4 = v16 + sub_419A70(v22);
+                                    a1a.field_4 = v16 + nox_float2int(v22);
                                     if (sub_499160(&a1a, &a2a, &a3a) && sub_499160(&a1a, v3, a2))
                                         sub_499130(&a1a.field_0);
                                 }
@@ -9446,7 +9446,7 @@ int __cdecl sub_498C20(int2* a1, int2* a2, int a3)
                                 if (v38 == 1 || v38 == 2)
                                     goto LABEL_65;
                                 v25 = (double)(v31 - v16) / v28;
-                                v17 = sub_419A70(v25);
+                                v17 = nox_float2int(v25);
                                 v18 = v3->field_4;
                                 a1a.field_0 = v17;
                                 a1a.field_4 = v18;
@@ -9457,9 +9457,9 @@ int __cdecl sub_498C20(int2* a1, int2* a2, int a3)
                                 v39 = (double)(v31 - v16);
                                 v30 = v28 - v29;
                                 v23 = v39 / v30;
-                                a1a.field_0 = sub_419A70(v23);
+                                a1a.field_0 = nox_float2int(v23);
                                 v24 = v39 * v28 / v30;
-                                a1a.field_4 = v16 + sub_419A70(v24);
+                                a1a.field_4 = v16 + nox_float2int(v24);
                                 if (sub_499160(&a1a, &a2a, &a3a) && sub_499160(&a1a, v3, a2))
                                     goto LABEL_64;
                             }

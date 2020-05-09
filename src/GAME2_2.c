@@ -1067,18 +1067,18 @@ void __cdecl sub_477050(int arg0, int a2)
                             if ((!(v7 & 0x400000) || (*(_BYTE*)(arg0 + 116) & 0x80)) && (!(v7 & 2) || *(_DWORD*)(arg0 + 276) != 10))
                             {
                                 v23 = (double) * (int*)(arg0 + 16) - *(float*)(arg0 + 100) - (double) * (__int16*)(arg0 + 104);
-                                v29 = sub_419A70(v23);
+                                v29 = nox_float2int(v23);
                                 v24 = (double) * (int*)(v2 + 16) - *(float*)(v2 + 96) - (double) * (__int16*)(v2 + 104);
-                                v8 = COERCE_FLOAT(sub_419A70(v24));
+                                v8 = COERCE_FLOAT(nox_float2int(v24));
                                 a3.field_0 = v8;
                                 if (*(_DWORD*)(v2 + 44) == 2)
                                 {
                                     v25 = *(float*)(v2 + 48) * *(float*)(v2 + 48);
-                                    LODWORD(a3.field_0) = sub_419A70(v25);
-                                    v17 = sub_419A70(*(float*)(v2 + 48));
+                                    LODWORD(a3.field_0) = nox_float2int(v25);
+                                    v17 = nox_float2int(*(float*)(v2 + 48));
                                     v18 = *(_DWORD*)(v2 + 12);
                                     v19 = *(_DWORD*)(v2 + 12) - v17;
-                                    v20 = v18 + sub_419A70(*(float*)(v2 + 48));
+                                    v20 = v18 + nox_float2int(*(float*)(v2 + 48));
                                     v21 = *(_DWORD*)(a2 + 4);
                                     if (v21 <= SLODWORD(v8))
                                     {
@@ -1103,9 +1103,9 @@ void __cdecl sub_477050(int arg0, int a2)
                                     a3.field_4 = (double) * (int*)(a2 + 4);
                                     if (sub_57B850(&a1, (float*)(v2 + 44), &a3)
                                         || (a1.field_4 = (double)v29, sub_57B850(&a1, (float*)(v2 + 44), &a3))
-                                        || (v9 = *(_DWORD*)(v2 + 12) + sub_419A70(*(float*)(v2 + 72)),
-                                            v10 = v29 + sub_419A70(*(float*)(v2 + 76)),
-                                            v11 = LODWORD(v8) + sub_419A70(*(float*)(v2 + 76)),
+                                        || (v9 = *(_DWORD*)(v2 + 12) + nox_float2int(*(float*)(v2 + 72)),
+                                            v10 = v29 + nox_float2int(*(float*)(v2 + 76)),
+                                            v11 = LODWORD(v8) + nox_float2int(*(float*)(v2 + 76)),
                                             *(_DWORD*)a2 > v9)
                                            && *(_DWORD*)a2 < *(int*)(v2 + 12)
                                            && (v12 = *(_DWORD*)(a2 + 4), v12 > v10)
@@ -1113,7 +1113,7 @@ void __cdecl sub_477050(int arg0, int a2)
                                     {
                                         LABEL_38:
                                         v26 = (double) * (__int16*)(v2 + 104) + (double) * (int*)(v2 + 16) + *(float*)(v2 + 96);
-                                        v22 = sub_419A70(v26);
+                                        v22 = nox_float2int(v26);
                                         if (v22 > * (int*)& byte_5D4594[1096628])
                                         {
                                             *(_DWORD*)& byte_5D4594[1096628] = v22;
@@ -1141,9 +1141,9 @@ void __cdecl sub_477050(int arg0, int a2)
                                         }
                                         return;
                                     }
-                                    v13 = *(_DWORD*)(v2 + 12) + sub_419A70(*(float*)(v2 + 80));
-                                    v14 = v29 + sub_419A70(*(float*)(v2 + 84));
-                                    LODWORD(v15) = LODWORD(v8) + sub_419A70(*(float*)(v2 + 84));
+                                    v13 = *(_DWORD*)(v2 + 12) + nox_float2int(*(float*)(v2 + 80));
+                                    v14 = v29 + nox_float2int(*(float*)(v2 + 84));
+                                    LODWORD(v15) = LODWORD(v8) + nox_float2int(*(float*)(v2 + 84));
                                     if (*(int*)a2 < *(int*)(v2 + 12))
                                         return;
                                     if (*(int*)a2 >= v13)
@@ -1231,7 +1231,7 @@ void __cdecl sub_477470(_DWORD* a1, int a2, int a3)
     {
         if (*(_DWORD*)(a3 + 44) == 2)
         {
-            v4 = sub_419A70(*(float*)(a3 + 48));
+            v4 = nox_float2int(*(float*)(a3 + 48));
         }
         else
         {
@@ -1251,7 +1251,7 @@ void __cdecl sub_477470(_DWORD* a1, int a2, int a3)
                 return;
             }
             v7 = *(float*)(a3 + 60) + *(float*)(a3 + 56);
-            v4 = sub_419A70(v7) / 2;
+            v4 = nox_float2int(v7) / 2;
         }
         v3 = v4 + 6;
         goto LABEL_8;
@@ -11252,7 +11252,7 @@ int __cdecl sub_484C60(float a1)
         v2 = a1;
     else
         v2 = 31.0;
-    return sub_419B10(
+    return nox_double2int(
             sqrt(
                     ((*(float*)& byte_587000[154980] + v2) / (*(float*)& byte_587000[154980] + *(float*)& byte_587000[154968])
                      + 1.0)
@@ -11496,7 +11496,7 @@ void __cdecl sub_484F90(int a1)
                 {
                     v38 = *(float*)& v44 * *(float*)& v44;
                     v28 = ((double)a4 - *(float*)& v44) * 0.043478262 + 0.5;
-                    v8 = sub_419A70(v28);
+                    v8 = nox_float2int(v28);
                     a5a = v8;
                     if (v8 < 0)
                     {
@@ -11504,7 +11504,7 @@ void __cdecl sub_484F90(int a1)
                         v8 = 0;
                     }
                     v29 = ((double)a4 + *(float*)& v44) * 0.043478262 + 0.5;
-                    v9 = sub_419A70(v29);
+                    v9 = nox_float2int(v29);
                     v34 = v9;
                     if (v9 > 56)
                     {
@@ -11512,11 +11512,11 @@ void __cdecl sub_484F90(int a1)
                         v9 = 56;
                     }
                     v30 = ((double)v42 - *(float*)& v44) * 0.043478262 + 0.5;
-                    v10 = sub_419A70(v30);
+                    v10 = nox_float2int(v30);
                     if (v10 < 0)
                         v10 = 0;
                     v31 = ((double)v42 + *(float*)& v44) * 0.043478262 + 0.5;
-                    v11 = sub_419A70(v31);
+                    v11 = nox_float2int(v31);
                     v35.field_0 = v11;
                     if (v11 > 44)
                     {

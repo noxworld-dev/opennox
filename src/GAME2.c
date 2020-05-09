@@ -1439,7 +1439,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft)
     int v3; // eax
 
     *(float*)& byte_5D4594[831276] = *(float*)& byte_5D4594[831276] - sub_44E8B0();
-    v2 = sub_419A70(*(float*)& byte_5D4594[831276]);
+    v2 = nox_float2int(*(float*)& byte_5D4594[831276]);
     sub_46A9B0(a1, 0, v2);
     sub_49F6F0(*(int*)& byte_5D4594[831284], *(int*)& byte_5D4594[831288], default_win_width, default_win_height);
     if (byte_5D4594[832472] & 1)
@@ -1587,7 +1587,7 @@ int __cdecl sub_44E8E0(int a1, int a2)
     sub_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)v57, v2 - v39 / 2, v38 + v3 - 240);
     v40 = *(_DWORD*)& byte_587000[122968] - *(_DWORD*)& byte_587000[122964];
     v36 = (double)v38 * 1.5;
-    v41 = sub_419A70(v36);
+    v41 = nox_float2int(v36);
     v6 = &byte_587000[122964];
     v43 = 0;
     v42 = 0;
@@ -11126,8 +11126,8 @@ int __cdecl sub_45C7D0(_DWORD* a1)
         goto LABEL_26;
     }
 LABEL_27:
-    v23 = sub_419A70(*(float*)& byte_5D4594[1046640]);
-    v12 = sub_419A70(*(float*)& byte_5D4594[1046636]);
+    v23 = nox_float2int(*(float*)& byte_5D4594[1046640]);
+    v12 = nox_float2int(*(float*)& byte_5D4594[1046636]);
     sub_46A9B0(a1, v12, v23);
     return 1;
 }
@@ -11844,10 +11844,10 @@ int sub_45D870()
     if (*(_DWORD*)& byte_5D4594[1047520])
     {
         v1 = *(_DWORD*)& byte_5D4594[1046652] != 1 ? 0 : 3;
-        v9 = ((int) * (_DWORD*)& byte_5D4594[1046668] - sub_419A70(*(float*)& byte_5D4594[1046636])) / 50;
-        v10 = ((int) * (_DWORD*)& byte_5D4594[1046672] - sub_419A70(*(float*)& byte_5D4594[1046640])) / 50;
-        v3 = sub_419A70(*(float*)& byte_5D4594[1046636]);
-        v4 = sub_419A70(*(float*)& byte_5D4594[1046640]);
+        v9 = ((int) * (_DWORD*)& byte_5D4594[1046668] - nox_float2int(*(float*)& byte_5D4594[1046636])) / 50;
+        v10 = ((int) * (_DWORD*)& byte_5D4594[1046672] - nox_float2int(*(float*)& byte_5D4594[1046640])) / 50;
+        v3 = nox_float2int(*(float*)& byte_5D4594[1046636]);
+        v4 = nox_float2int(*(float*)& byte_5D4594[1046640]);
         v5 = 50;
         do
         {
