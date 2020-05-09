@@ -1053,7 +1053,7 @@ int sub_4238F0_parse_int();
 char* __cdecl sub_423930(const char* a1, _DWORD* a2, const char** a3);
 int __cdecl sub_4239C0(char* a1, _DWORD* a2, const char** a3);
 char* __cdecl sub_423A10(const char* a1, _DWORD* a2);
-int __cdecl nox_parse_shape(shape*, char*);
+int __cdecl nox_parse_shape(nox_shape*, char*);
 int sub_423BB0();
 BOOL sub_423C60();
 BOOL __cdecl sub_423CC0(int a1);
@@ -1249,7 +1249,7 @@ int __cdecl sub_4280E0(int2* a1, _DWORD* a2); // idb
 int __cdecl sub_428170(_DWORD*, int4*);
 int __cdecl sub_4281F0(int2*, int4*);
 BOOL __cdecl sub_428220(float2* a1, float4* a2); // idb
-void __cdecl nox_shape_box_calc(shape*);
+void __cdecl nox_shape_box_calc(nox_shape*);
 char* __cdecl sub_4282D0(char* a1, int a2);
 void* __cdecl sub_4282F0(int a1, int a2, size_t a3);
 unsigned int __cdecl sub_428540(int a1, char* a2, int a3);

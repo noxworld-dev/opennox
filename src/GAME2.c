@@ -312,7 +312,7 @@ int __cdecl sub_44D0C0(float a1, int i)
     v6 = *(_DWORD*)(LODWORD(a1) + 44);
     *(_DWORD*)(LODWORD(a1) + 100) = *(_DWORD*)(v5 + 60);
     if (v6 == 3)
-        nox_shape_box_calc((shape*)(LODWORD(a1) + 44));
+        nox_shape_box_calc((nox_shape*)(LODWORD(a1) + 44));
     v9 = *(float*)(v5 + 32);
     if (v9 >= *(double*)& byte_581450[9568])
     {
@@ -358,7 +358,7 @@ void sub_44D2C0()
             double v1 = cur->field_40;
             float v2 = cur->field_40;
 
-            shape v3;
+            nox_shape v3;
             v3.field_0 = 3;
             v3.field_4 = v2;
             v3.field_8 = v1 * v1;

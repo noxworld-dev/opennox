@@ -1285,7 +1285,7 @@ int sub_4E3110()
             {
                 if (v2 != 3)
                     continue;
-                nox_shape_box_calc((shape*)(i + 60));
+                nox_shape_box_calc((nox_shape*)(i + 60));
                 if (*((float*)i + 24) - *((float*)i + 22) < 85.0 && *((float*)i + 27) - *((float*)i + 21) < 85.0)
                     continue;
                 LABEL_9:
@@ -16716,7 +16716,7 @@ int __cdecl sub_4F4E50(float a1)
             sub_426AC0_file3_fread(&a1, 4u);
             sub_426AC0_file3_fread(&v12, 4u);
         }
-        nox_shape_box_calc((shape*)(v1 + 172));
+        nox_shape_box_calc((nox_shape*)(v1 + 172));
         if ((__int16)v11 < 41)
         {
             sub_426AC0_file3_fread(&a1, 3u);

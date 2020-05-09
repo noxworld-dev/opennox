@@ -4763,7 +4763,7 @@ int __cdecl sub_535970(int a1, int a2, char* a3)
 //----- (00535990) --------------------------------------------------------
 int __cdecl sub_535990(int a1, int a2, char* a3)
 {
-    return nox_parse_shape((shape*)(a1 + 60), a3);
+    return nox_parse_shape((nox_shape*)(a1 + 60), a3);
 }
 
 //----- (005359B0) --------------------------------------------------------
