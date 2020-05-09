@@ -12155,7 +12155,7 @@ int __cdecl nox_parse_thing_subclass(nox_thing* obj, int a2, const char* a3)
 int __cdecl nox_parse_thing_extent(int a1, int a2, char* a3)
 {
     int result; // eax
-    shape v4; // [esp+0h] [ebp-3Ch]
+    nox_shape v4; // [esp+0h] [ebp-3Ch]
 
     result = nox_parse_shape(&v4, a3);
     *(_BYTE*)(a1 + 20) = v4.field_0;

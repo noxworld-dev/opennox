@@ -340,7 +340,7 @@ typedef struct int4
 } int4;
 
 /* 308 */
-typedef struct shape
+typedef struct nox_shape
 {
     int field_0;
     float field_4;
@@ -355,7 +355,7 @@ typedef struct shape
     float field_28;
     float field_2C;
     float field_30;
-} shape;
+} nox_shape;
 
 typedef struct string
 {
