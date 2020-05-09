@@ -682,13 +682,13 @@ typedef struct table_28760_t
     int(__cdecl *parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_28760_t;
 
-typedef struct table_116008_t
+typedef struct nox_parse_thing_draw_funcs_t
 {
     const char* name;
     void* draw;
     unsigned int kind;
-    int(__cdecl *parse_fnc)(void*, _DWORD*, int);
-} table_116008_t;
+    int(__cdecl *parse_fnc)(nox_thing*, _DWORD*, int);
+} nox_parse_thing_draw_funcs_t;
 
 typedef struct nox_parse_thing_funcs_t
 {
