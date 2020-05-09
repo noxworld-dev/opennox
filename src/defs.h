@@ -447,8 +447,10 @@ typedef struct nox_thing
     char* name; // 0, 0x0
     wchar_t* field_4; // 1, 0x4
     wchar_t* field_8; // 2, 0x8
-    _DWORD field_c; // 3, 0xc
-    _DWORD field_10; // 4, 0x10
+    _WORD field_c; // 3, 0xc, 12
+    _BYTE field_e; // 3, 0xe, 14
+    _BYTE field_f; // 3, 0xf, 15
+    _DWORD field_10; // 4, 0x10, 16
     _WORD shape_kind; // 5, 0x14
     _WORD field_16; // 5, 0x16
     _DWORD field_18; // 6, 0x18
@@ -456,10 +458,10 @@ typedef struct nox_thing
     int pri_class; // 8, 0x20, 32
     _DWORD sub_class; // 9, 0x24, 36
     int flags; // 10, 0x28, 40
-    _DWORD field_2c; // 11, 0x2c, 44
-    _DWORD field_30; // 12, 0x30
-    _DWORD field_34; // 13, 0x34
-    _DWORD field_38; // 14, 0x38
+    float light_intensity; // 11, 0x2c, 44
+    int light_color_r; // 12, 0x30, 48
+    int light_color_g; // 13, 0x34, 52
+    int light_color_b; // 14, 0x38, 56
     _DWORD field_3c; // 15, 0x3c
     float shape_r; // 16, 0x40
     _DWORD field_44; // 17, 0x44
