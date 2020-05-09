@@ -12164,36 +12164,24 @@ int __cdecl nox_parse_thing_extent(nox_thing* obj, int a2, char* a3)
 }
 
 //----- (0044B230) --------------------------------------------------------
-int __cdecl nox_parse_thing_light_intensity(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_light_intensity(nox_thing* obj, int a2, char* a3)
 {
-    sscanf(a3, "%f", a1 + 44);
+    sscanf(a3, "%f", &obj->light_intensity);
     return 1;
 }
 
 //----- (0044B250) --------------------------------------------------------
-int __cdecl nox_parse_thing_light_color(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_light_color(nox_thing* obj, int a2, char* a3)
 {
-    int v4; // esi
-    int v5; // edx
-    int v6; // ecx
-    int v7; // [esp+0h] [ebp-8h]
-    int v8; // [esp+4h] [ebp-4h]
-
-    if (sscanf(a3, "%d %d %d", &a3, &v7, &v8) != 3)
+    int r;
+    int g;
+    int b;
+    if (sscanf(a3, "%d %d %d", &r, &g, &b) != 3)
         return 0;
-    v4 = (int)a3;
-    if ((int)a3 > 255)
-        v4 = 255;
-    v5 = v7;
-    if (v7 > 255)
-        v5 = 255;
-    v6 = v8;
-    if (v8 > 255)
-        v6 = 255;
-    *(_BYTE*)(a1 + 15) = 2;
-    *(_DWORD*)(a1 + 48) = v4;
-    *(_DWORD*)(a1 + 52) = v5;
-    *(_DWORD*)(a1 + 56) = v6;
+    obj->field_f = 2;
+    obj->light_color_r = (r <= 255 ? r : 255);
+    obj->light_color_g = (g <= 255 ? g : 255);
+    obj->light_color_b = (b <= 255 ? b : 255);
     return 1;
 }
 
