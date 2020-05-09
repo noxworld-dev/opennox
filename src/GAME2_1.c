@@ -1921,7 +1921,7 @@ int __cdecl sub_4627F0(_DWORD* a1)
     if (v19 && *(float* (__cdecl * *)(int, int, int, int, int, float*))(v19 + 76) == sub_4E0370)
         v18 = *(float*)(v19 + 80);
     v65 = v18 * v17[16] * 1000.0 + 0.5;
-    v20 = sub_419A70(v65);
+    v20 = nox_float2int(v65);
     if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[1063116] + 116) & 2)
     {
         v21 = loadString_sub_40F1D0((char*)& byte_587000[137536], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2647);
@@ -2050,9 +2050,9 @@ int __cdecl sub_4633B0(int a1, float* a2, float* a3)
             if (*(float* (__cdecl * *)(int, int, int, int, int, float*))(v4 + 76) == sub_4E0380)
             {
                 v5 = (double)* a2 * *(float*)(v4 + 80);
-                *a2 = sub_419A70(v5);
+                *a2 = nox_float2int(v5);
                 v6 = (double)* a3 * *(float*)(v4 + 80);
-                result = sub_419A70(v6);
+                result = nox_float2int(v6);
                 *a3 = result;
             }
         }
@@ -2326,7 +2326,7 @@ int* __cdecl sub_463880(int* a1)
     v2 = sub_43F320(*(int*)& byte_5D4594[1063636]);
     v68 = v1 - v2;
     v51 = (double)(v1 - v2) * 0.5 + 0.5;
-    v3 = sub_419A70(v51);
+    v3 = nox_float2int(v51);
     v4 = *(_DWORD*)& byte_5D4594[2618908];
     v73 = v3;
     result = a1;
@@ -2364,15 +2364,15 @@ int* __cdecl sub_463880(int* a1)
         sub_434460(*(int*)& byte_5D4594[2598268]);
         sub_49CE30(v10 + 60, v15, 90, v1);
         v54 = (double)(int)(90 * *(_DWORD*)(v4 + 2247)) / *v70;
-        v67 = sub_419A70(v54);
+        v67 = nox_float2int(v54);
         sub_434460(*(int*)& byte_5D4594[2589776]);
         sub_49CE30(v10 + 60, v15, v67, v1);
         v68 = 90 * sub_470CC0();
         v55 = (double)v68 / *v70;
-        v67 = sub_419A70(v55);
+        v67 = nox_float2int(v55);
         sub_434460(*(int*)& byte_5D4594[2650644]);
         sub_49CE30(v10 + 60, v15, v67, v1);
-        v56 = sub_419A70(*v70);
+        v56 = nox_float2int(*v70);
         v42 = *(_DWORD*)(v4 + 2247);
         v17 = loadString_sub_40F1D0((char*)& byte_587000[138544], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1914);
         nox_swprintf(v77, v17, v42, v56);
@@ -2389,17 +2389,17 @@ int* __cdecl sub_463880(int* a1)
             sub_49CE30(v10 + 60, v19, 90, v1);
             v68 = 90 * *(_DWORD*)(v4 + 2243);
             v57 = (double)v68 / v70[1];
-            v67 = sub_419A70(v57);
+            v67 = nox_float2int(v57);
             v20 = loadString_sub_40F1D0((char*)& byte_587000[138604], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1941);
             sub_43FAF0(0, v20, v10, v19, 200, 0);
             sub_434460(*(int*)& byte_5D4594[2650684]);
             sub_49CE30(v10 + 60, v19, v67, v1);
             v68 = 90 * sub_470DD0();
             v58 = (double)v68 / v70[1];
-            v67 = sub_419A70(v58);
+            v67 = nox_float2int(v58);
             sub_434460(*(int*)& byte_5D4594[2649820]);
             sub_49CE30(v10 + 60, v19, v67, v1);
-            v59 = sub_419A70(v70[1]);
+            v59 = nox_float2int(v70[1]);
             v43 = *(_DWORD*)(v4 + 2243);
             v21 = loadString_sub_40F1D0((char*)& byte_587000[138652], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1952);
             nox_swprintf(v77, v21, v43, v59);
@@ -2414,12 +2414,12 @@ int* __cdecl sub_463880(int* a1)
         sub_49CE30(v10 + 60, v19, 90, v1);
         v68 = 90 * *(_DWORD*)(v4 + 2239);
         v60 = (double)v68 / v70[3];
-        v67 = sub_419A70(v60);
+        v67 = nox_float2int(v60);
         v23 = loadString_sub_40F1D0((char*)& byte_587000[138712], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1975);
         sub_43FAF0(0, v23, v10, v19, 200, 0);
         sub_434460(*(int*)& byte_5D4594[2597996]);
         sub_49CE30(v10 + 60, v19, v67, v1);
-        v61 = sub_419A70(v70[3]);
+        v61 = nox_float2int(v70[3]);
         v44 = *(_DWORD*)(v4 + 2239);
         v24 = loadString_sub_40F1D0((char*)& byte_587000[138764], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1982);
         nox_swprintf(v77, v24, v44, v61);
@@ -2432,7 +2432,7 @@ int* __cdecl sub_463880(int* a1)
         sub_49CE30(v10 + 60, v25, 90, v1);
         v68 = 90 * *(_DWORD*)(v4 + 2235);
         v62 = (double)v68 / v70[2] + 0.5;
-        v67 = sub_419A70(v62);
+        v67 = nox_float2int(v62);
         v26 = loadString_sub_40F1D0((char*)& byte_587000[138824], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2006);
         sub_43FAF0(0, v26, v10, v25, 200, 0);
         sub_434460(*(int*)& byte_5D4594[2589772]);
@@ -2447,7 +2447,7 @@ int* __cdecl sub_463880(int* a1)
         {
             if (v69 > 0.0)
             {
-                *(float*)& v68 = COERCE_FLOAT(sub_419A70(v69));
+                *(float*)& v68 = COERCE_FLOAT(nox_float2int(v69));
                 if (v67 + v68 > 90)
                     v68 = 90 - v67;
                 sub_434460(*(int*)& byte_5D4594[2589772]);
@@ -2459,15 +2459,15 @@ int* __cdecl sub_463880(int* a1)
         {
             sub_434460(*(int*)& byte_5D4594[2650648]);
             v45 = -v69;
-            v46 = sub_419A70(v45);
-            v27 = sub_419A70(v69);
+            v46 = nox_float2int(v45);
+            v27 = nox_float2int(v69);
             sub_49CE30(v67 + v27 + v10 + 60, v25, v46, v1);
         }
         *(float*)& v68 = v69 * 100.0 * 0.011111111;
         v63 = v70[2] * 100.0 / v71[2];
-        v64 = sub_419A70(v63);
+        v64 = nox_float2int(v63);
         v47 = (double) * (int*)(v4 + 2235) * 100.0 / v71[2] + *(float*)& v68 + 0.5;
-        v48 = sub_419A70(v47);
+        v48 = nox_float2int(v47);
         v28 = loadString_sub_40F1D0((char*)& byte_587000[138872], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2045);
         nox_swprintf(v77, v28, v48, v64);
         sub_43F840(*(int*)& byte_5D4594[1063636], v77, &v76, 0, 0);
@@ -2475,7 +2475,7 @@ int* __cdecl sub_463880(int* a1)
         sub_43FAF0(*(int*)& byte_5D4594[1063636], v77, v10 - v76 + 193, v25 + v73, 200, 0);
         sub_434390(*(int*)& byte_5D4594[2523948]);
         v65 = (double) * (int*)(v4 + 2235) * 100.0 / v71[2] + *(float*)& v68 + 0.5;
-        v29 = sub_419A70(v65);
+        v29 = nox_float2int(v65);
         nox_swprintf(v77, L"%d", v29);
         sub_43FAF0(*(int*)& byte_5D4594[1063636], v77, v10 + 45, SLODWORD(v69), 200, 0);
         sub_434390(*(int*)& byte_5D4594[2523948]);
@@ -2488,7 +2488,7 @@ int* __cdecl sub_463880(int* a1)
         sub_43F840(0, v77, &v75, 0, 0);
         sub_43FAF0(0, v77, v10, v30, 0, 0);
         v49 = *(float*)& byte_5D4594[1062548] * 1000.0 + 0.5;
-        v50 = sub_419A70(v49);
+        v50 = nox_float2int(v49);
         v32 = loadString_sub_40F1D0((char*)& byte_587000[138984], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2076);
         nox_swprintf(v77, v32, v50, 1000);
         sub_43FAF0(0, v77, v75 + v10 + 5, v30, 0, 0);
@@ -6140,7 +6140,7 @@ void __cdecl sub_469140(int arg0)
                 v4 = sub_484C60(v27);
             }
             v28 = sub_484BD0() * 65536.0;
-            if (v3 > sub_419A70(v28))
+            if (v3 > nox_float2int(v28))
             {
                 v33 = *(_DWORD*)& byte_587000[142320];
                 if ((unsigned int)v3 <= *(int*)& byte_587000[142320])
@@ -11394,7 +11394,7 @@ unsigned __int8 sub_46FFD0()
                     v10 = sub_470CC0();
                     v24 = v10;
                     v16 = (double)v10 / v25 * 100.0;
-                    v8 = sub_419A70(v16);
+                    v8 = nox_float2int(v16);
                 }
                 if (v8 > 25)
                 {
@@ -14871,18 +14871,18 @@ int __cdecl sub_474BE0(_DWORD* a1, int* a2, int a3, int a4, int a5, int a6, int 
         if (!a5)
             v32 = 1.0;
         v25 = (double)(2 * *(int*)& byte_587000[8 * v9 + 192088]) * v32 + (double)* v8;
-        v10 = sub_419A70(v25);
+        v10 = nox_float2int(v25);
         v11 = *(int*)& byte_587000[8 * v9 + 192092];
         v30.field_0 = v10;
         v26 = (double)(2 * v11) * v32 + (double)v8[1];
-        v30.field_4 = sub_419A70(v26);
+        v30.field_4 = nox_float2int(v26);
         v12 = v9 - 6 + (v9 - 6 < 0 ? 0x100 : 0);
         v27 = (double)(2 * *(int*)& byte_587000[8 * v12 + 192088]) * v32 + (double)* v8;
-        v13 = sub_419A70(v27);
+        v13 = nox_float2int(v27);
         v14 = *(int*)& byte_587000[8 * v12 + 192092];
         v31.field_0 = v13;
         v28 = (double)(2 * v14) * v32 + (double)v8[1];
-        v15 = sub_419A70(v28);
+        v15 = nox_float2int(v28);
         v16 = v30.field_4;
         v17 = v15;
         v18 = v8[1];
@@ -15006,7 +15006,7 @@ int __cdecl sub_474E60(_DWORD* a1, int a2)
     {
         v4 = a1;
         sub_4739E0(a1, (int2*)(a2 + 12), &xLeft);
-        v5 = 5 - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - sub_419A70(*(float*)(a2 + 100));
+        v5 = 5 - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - nox_float2int(*(float*)(a2 + 100));
         v6 = *(_BYTE*)(a2 + 112);
         v7 = v5 + xLeft.field_4;
         xLeft.field_4 += v5;
@@ -15032,9 +15032,9 @@ int __cdecl sub_474E60(_DWORD* a1, int a2)
     }
     if (sub_4356C0(a2, 4) && !sub_413A50())
     {
-        v11 = sub_419A70(*(float*)(a2 + 48));
+        v11 = nox_float2int(*(float*)(a2 + 48));
         v39 = *(float*)(a2 + 100) * 0.5;
-        v44 = sub_419A70(v39);
+        v44 = nox_float2int(v39);
         if (!*(_DWORD*)& byte_5D4594[1096544])
             * (_DWORD*)& byte_5D4594[1096544] = sub_44CFC0((CHAR*)& byte_587000[150512]);
         v12 = 2;
@@ -15058,8 +15058,8 @@ int __cdecl sub_474E60(_DWORD* a1, int a2)
         v41 = sub_415FF0(2, 3, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1335);
         v37 = sub_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1331);
         v35 = sub_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1330);
-        v29 = sub_419A70(*(float*)(v2 + 100)) + 12;
-        v14 = sub_419A70(*(float*)(v2 + 100));
+        v29 = nox_float2int(*(float*)(v2 + 100)) + 12;
+        v14 = nox_float2int(*(float*)(v2 + 100));
         v33 = sub_415FF0(v14 + 8, v29, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1329);
         v31 = *(_DWORD*)(v2 + 16) + sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1327);
         v15 = sub_415FF0(-6, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1326);
@@ -15078,11 +15078,11 @@ int __cdecl sub_474E60(_DWORD* a1, int a2)
         do
         {
             v17 = sub_415FF0(1, 2, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1366);
-            v38 = sub_419A70(*(float*)(v2 + 48));
-            v18 = sub_419A70(*(float*)(v2 + 48));
+            v38 = nox_float2int(*(float*)(v2 + 48));
+            v18 = nox_float2int(*(float*)(v2 + 48));
             v19 = sub_415FF0(-v18, v38, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1369);
             xLeft.field_0 = a3.field_0 + v19;
-            v20 = sub_419A70(*(float*)(v2 + 100));
+            v20 = nox_float2int(*(float*)(v2 + 100));
             v21 = sub_415FF0(-10 - v20, 0, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1370);
             xLeft.field_4 = v21 + a3.field_4 + *(__int16*)(v2 + 104);
             v22 = sub_415FF0(3, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1372);

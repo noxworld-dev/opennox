@@ -2164,9 +2164,9 @@ void sub_40A970()
     *(_DWORD*)& byte_5D4594[3520] = *(_DWORD*)& byte_5D4594[2598000];
     *(_DWORD*)& byte_5D4594[3536] = 0;
     v3 = sub_419D40(&byte_587000[5112]);
-    *(_DWORD*)& byte_5D4594[3476] = sub_419A70(v3);
+    *(_DWORD*)& byte_5D4594[3476] = nox_float2int(v3);
     v4 = sub_419D40(&byte_587000[5140]);
-    *(_DWORD*)& byte_5D4594[1392] = sub_419A70(v4);
+    *(_DWORD*)& byte_5D4594[1392] = nox_float2int(v4);
     for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
     {
         v1 = *((_DWORD*)i + 920);
@@ -8215,14 +8215,14 @@ int __cdecl sub_411160(float2* a1)
     int v16[2]; // [esp+14h] [ebp-8h]
 
     v12 = (a1->field_0 + 11.5) * 0.021739131;
-    v1 = sub_419A70(v12);
+    v1 = nox_float2int(v12);
     v13 = (a1->field_4 + 11.5) * 0.021739131;
-    v2 = sub_419A70(v13);
+    v2 = nox_float2int(v13);
     v14 = a1->field_0 + 11.5;
-    v3 = sub_419A70(v14);
+    v3 = nox_float2int(v14);
     v15 = a1->field_4 + 11.5;
     v4 = v3 % 46;
-    v5 = sub_419A70(v15) % 46;
+    v5 = nox_float2int(v15) % 46;
     if (v1 - 1 <= 0 || v1 >= 127 || v2 - 1 <= 0 || v2 >= 127)
         return -1;
     if (v4 <= v5)
@@ -14457,7 +14457,7 @@ int __cdecl sub_417F50(int a1)
     v8 = v6[187];
     *(_QWORD*)(v8 + 8) = sub_416BB0();
     v10 = sub_419D40(&byte_587000[55236]);
-    *(_DWORD*)(v8 + 20) = sub_419A70(v10);
+    *(_DWORD*)(v8 + 20) = nox_float2int(v10);
     *(float*)(v8 + 24) = sub_419D40(&byte_587000[55260]);
     sub_4174B0((int)v7, 1);
     sub_4DAA50((int)v7, 0, 0.0, 0.0);

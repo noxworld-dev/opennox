@@ -7319,8 +7319,8 @@ int __cdecl sub_4ABDA0(int a1, __int16 a2, __int16 a3, _DWORD* a4)
         sub_426AC0(&v17, 4u);
         v9 = v11;
         *a4 += 4;
-        v13[0] = sub_419A70(v9);
-        v13[1] = sub_419A70(v17);
+        v13[0] = nox_float2int(v9);
+        v13[1] = nox_float2int(v17);
     }
     if (a3 >= 10)
     {
@@ -7440,8 +7440,8 @@ int __cdecl sub_4AC020(int a1, __int16 a2, _DWORD* a3)
     sub_426AC0(&v31, 4u);
     v20 = v31;
     *v3 += 4;
-    v22 = sub_419A70(v20);
-    v7 = sub_419A70(v30);
+    v22 = nox_float2int(v20);
+    v7 = nox_float2int(v30);
     result = sub_45A360(a1, v7, v22);
     v9 = result;
     if (result)
@@ -14543,11 +14543,11 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, int a2)
         v23[2] = v4;
         v23[3] = v6;
         v20 = *(float*)& byte_587000[8 * v7 + 194136] * 150.0 + (double)(int)v2[108];
-        v8 = sub_419A70(v20);
+        v8 = nox_float2int(v20);
         v9 = *(float*)& byte_587000[8 * v7 + 194140] * 150.0;
         v23[0] = v8;
         v21 = v9 + (double)(int)v2[109];
-        v10 = sub_419A70(v21);
+        v10 = nox_float2int(v21);
         v11 = *(_DWORD*)& byte_5D4594[1313700];
         v23[1] = v10;
         if (v2[27] != *(_DWORD*)& byte_5D4594[1313692])
@@ -15846,7 +15846,7 @@ void __cdecl sub_4B8EB0(_DWORD* a1, int a2, unsigned __int16 a3, char a4)
     {
         v4 = *a1 + *(_DWORD*)(a2 + 12) - a1[4];
         v7 = *(float*)(a2 + 48) + *(float*)(a2 + 48);
-        v5 = sub_419A70(v7) + v4;
+        v5 = nox_float2int(v7) + v4;
         v6 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 104) - a1[5] - 48;
         sub_434460(*(int*)& byte_5D4594[2650656]);
         sub_49CE30(v5, v6, 2, 48);
