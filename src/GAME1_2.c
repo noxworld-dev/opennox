@@ -230,7 +230,7 @@ BOOL __cdecl sub_428220(float2* a1, float4* a2)
 }
 
 //----- (00428270) --------------------------------------------------------
-void __cdecl sub_428270(shape* a1)
+void __cdecl nox_shape_box_calc(shape* a1)
 {
     shape* v1; // eax
     double v2; // st7
