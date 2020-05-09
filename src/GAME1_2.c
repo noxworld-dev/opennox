@@ -10005,10 +10005,10 @@ int sub_435CC0()
     sub_435570();
     *(_DWORD*)& byte_5D4594[1556112] = 0;
 
-    if (!sub_45A1D0(5000))
+    if (!nox_alloc_drawable_init(5000))
         return 0;
 
-    result = sub_49A8E0();
+    result = sub_49A8E0_init();
     if (!result)
         return 0;
 
@@ -10106,12 +10106,12 @@ int sub_435EB0()
     sub_467DF0(0);
     sub_495AE0();
     sub_4959D0();
-    sub_473B30();
+    sub_473B30_free();
     sub_496120();
     sub_473840();
     sub_44C580_free();
-    sub_49A950();
-    sub_45A200();
+    sub_49A950_free();
+    nox_drawable_free();
     sub_49AEA0();
     sub_49A2E0();
     sub_4951C0();
@@ -10454,7 +10454,7 @@ int sub_4365C0()
     sub_43F6E0(0, (__int16*)& byte_5D4594[810900], v0, v5);
     sub_436970(v7);
     v5 += 10;
-    v25 = sub_45A020();
+    v25 = nox_get_drawable_count();
     v9 = loadString_sub_40F1D0((char*)& byte_587000[86808], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1172);
     nox_swprintf((wchar_t*)& byte_5D4594[810900], v9, v25);
     sub_434390(*(int*)& byte_5D4594[2523948]);

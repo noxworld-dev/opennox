@@ -95,7 +95,7 @@ int __cdecl sub_4CD690(_DWORD* a1, int a2)
             v2 = v13[2] + v13[4] - 1;
         if (v18 >= v13[9])
             v3 = v13[3] - v24 + v16 - 1;
-        v19 = sub_45A360(*(int*)& byte_5D4594[1522976], v2, v3);
+        v19 = sub_45A360_drawable(*(int*)& byte_5D4594[1522976], v2, v3);
         if (v19)
         {
             v20 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 93);
@@ -124,7 +124,7 @@ int __cdecl sub_4CD8D0(int a1, int a2)
         * (_DWORD*)& byte_5D4594[1522980] = sub_44CFC0((CHAR*)& byte_587000[189808]);
     v2 = *(_DWORD*)(a2 + 12) + sub_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 32);
     v3 = sub_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 33);
-    v4 = sub_45A360(*(int*)& byte_5D4594[1522980], v2, *(_DWORD*)(a2 + 16) + v3);
+    v4 = sub_45A360_drawable(*(int*)& byte_5D4594[1522980], v2, *(_DWORD*)(a2 + 16) + v3);
     v5 = v4;
     if (v4)
     {
@@ -137,7 +137,7 @@ int __cdecl sub_4CD8D0(int a1, int a2)
         *(_DWORD*)(v5 + 444) = *(_DWORD*)& byte_5D4594[2598000];
         *(_WORD*)(v5 + 104) = 0;
         *(_BYTE*)(v5 + 296) = sub_415FF0(3, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 55);
-        sub_45A110((_DWORD*)v5);
+        sub_45A110_drawable((_DWORD*)v5);
     }
     return 1;
 }
@@ -178,7 +178,7 @@ int __cdecl sub_4CD9E0(int a1, _DWORD* a2)
             v5 = v2[9];
             v6 = v3 * sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 40) / 100 + v4;
             v8 = (v15 * sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 41)) / 100 + v5;
-            v9 = sub_45A360(*(int*)& byte_5D4594[1522984], v6, v8);
+            v9 = sub_45A360_drawable(*(int*)& byte_5D4594[1522984], v6, v8);
             v10 = v9;
             if (v9)
             {
@@ -191,7 +191,7 @@ int __cdecl sub_4CD9E0(int a1, _DWORD* a2)
                 *(_DWORD*)(v10 + 444) = *(_DWORD*)& byte_5D4594[2598000];
                 *(_WORD*)(v10 + 104) = 20;
                 *(_BYTE*)(v10 + 296) = sub_415FF0(0, 6, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 65);
-                sub_45A110((_DWORD*)v10);
+                sub_45A110_drawable((_DWORD*)v10);
             }
             if (++v16 >= *(int*)& byte_587000[190108])
                 break;
@@ -201,10 +201,10 @@ int __cdecl sub_4CD9E0(int a1, _DWORD* a2)
     v11 = v2[108];
     if ((v2[3] - v11) * (v2[3] - v11) + (v2[4] - v2[109]) * (v2[4] - v2[109]) > 200)
     {
-        v12 = (_DWORD*)sub_45A360(*(int*)& byte_5D4594[1522992], v11, v2[109]);
+        v12 = (_DWORD*)sub_45A360_drawable(*(int*)& byte_5D4594[1522992], v11, v2[109]);
         v12[108] = v2[3];
         v12[109] = v2[4];
-        sub_45A110(v12);
+        sub_45A110_drawable(v12);
         v2[108] = v2[3];
         v2[109] = v2[4];
         sub_49B950(v12, *(_DWORD*)& byte_5D4594[2649704] / 3u);
@@ -240,7 +240,7 @@ int __cdecl sub_4CDBF0(int a1, _DWORD* a2)
         v4 = v2[9]
              + sub_415FF0(-3, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 29)
              + v8 / 5;
-        v5 = sub_45A360(*(int*)& byte_5D4594[1522996], v3, v4);
+        v5 = sub_45A360_drawable(*(int*)& byte_5D4594[1522996], v3, v4);
         if (v5)
         {
             *(_DWORD*)(v5 + 300) = nox_thing_pixie_dust_draw;
@@ -255,7 +255,7 @@ int __cdecl sub_4CDBF0(int a1, _DWORD* a2)
             *(_WORD*)(v5 + 104) = *((_WORD*)v2 + 52);
             *(_WORD*)(v5 + 106) = *((_WORD*)v2 + 53);
             *(_BYTE*)(v5 + 296) = 0;
-            sub_45A110((_DWORD*)v5);
+            sub_45A110_drawable((_DWORD*)v5);
         }
         v12 += v10;
         v6 = v9 == 1;
@@ -292,10 +292,10 @@ void __cdecl sub_4CDD80(int a1, _DWORD* a2)
             v4 = sub_44CFC0((CHAR*)& byte_587000[190560]);
             *(_DWORD*)& byte_5D4594[1523000] = v4;
         }
-        v5 = (_DWORD*)sub_45A360(v4, a2[108], a2[109]);
+        v5 = (_DWORD*)sub_45A360_drawable(v4, a2[108], a2[109]);
         v5[108] = a2[3];
         v5[109] = a2[4];
-        sub_45A110(v5);
+        sub_45A110_drawable(v5);
         a2[108] = a2[3];
         a2[109] = a2[4];
         sub_49B950(v5, *(int*)& byte_5D4594[2649704]);
@@ -311,7 +311,7 @@ void __cdecl sub_4CDD80(int a1, _DWORD* a2)
     {
         v8 = v2[8] + v7 / 4 + sub_415FF0(-8, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 66);
         v9 = sub_415FF0(-8, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 68);
-        v10 = sub_45A360(*(int*)& byte_5D4594[1523004], v8, v2[9] + v6 / 4 + v9);
+        v10 = sub_45A360_drawable(*(int*)& byte_5D4594[1523004], v8, v2[9] + v6 / 4 + v9);
         v11 = v10;
         if (v10)
         {
@@ -327,7 +327,7 @@ void __cdecl sub_4CDD80(int a1, _DWORD* a2)
             *(_WORD*)(v11 + 104) = *((_WORD*)v2 + 52);
             *(_WORD*)(v11 + 106) = *((_WORD*)v2 + 53);
             *(_BYTE*)(v11 + 296) = 0;
-            sub_45A110((_DWORD*)v11);
+            sub_45A110_drawable((_DWORD*)v11);
         }
         v7 += v13;
         v6 += v14;
@@ -357,7 +357,7 @@ _DWORD* __cdecl sub_4CDFA0(int a1, _DWORD* a2)
         v3 = a2;
         do
         {
-            result = (_DWORD*)sub_45A360(*(int*)& byte_5D4594[1523008], *(_DWORD*)(a1 + 12), *(_DWORD*)(a1 + 16));
+            result = (_DWORD*)sub_45A360_drawable(*(int*)& byte_5D4594[1523008], *(_DWORD*)(a1 + 12), *(_DWORD*)(a1 + 16));
             v4 = result;
             if (result)
             {
@@ -369,7 +369,7 @@ _DWORD* __cdecl sub_4CDFA0(int a1, _DWORD* a2)
                 v4[111] = *(_DWORD*)& byte_5D4594[2598000];
                 *((_WORD*)v4 + 52) = 22;
                 *((_BYTE*)v4 + 296) = sub_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 49);
-                result = sub_45A110(v4);
+                result = sub_45A110_drawable(v4);
             }
             v3 = (_DWORD*)((char*)v3 - 1);
         } while (v3);
@@ -462,18 +462,18 @@ int __cdecl sub_4CE200(int a1, int a2, int a3, int a4)
             v10 = *(_DWORD*)& byte_5D4594[1523020];
             if (!v9)
                 v10 = *(_DWORD*)& byte_5D4594[1523016];
-            v11 = sub_45A360(v10, v7, v8);
+            v11 = sub_45A360_drawable(v10, v7, v8);
             v12 = v11;
             if (v11)
             {
                 *(_WORD*)(v11 + 104) = 0;
-                sub_45A110((_DWORD*)v11);
+                sub_45A110_drawable((_DWORD*)v11);
                 *(_BYTE*)(v12 + 432) = sub_415FF0(1, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 57);
                 *(_DWORD*)(v12 + 460) = sub_4CE340;
                 v13 = sub_415FF0(10, 32, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 61);
                 sub_49B950((_DWORD*)v12, v13);
-                sub_49BC80((_DWORD*)v12);
-                sub_49BAB0((_DWORD*)v12);
+                sub_49BC80_drawable((_DWORD*)v12);
+                sub_49BAB0_drawable((_DWORD*)v12);
             }
             result = --a3;
         } while (a3);
