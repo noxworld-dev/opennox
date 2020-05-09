@@ -27,8 +27,8 @@ extern int nox_backbuffer_width32;
 extern nox_video_mode nox_video_modes[];
 extern int nox_video_modes_cnt;
 
-extern table_116008_t table_116008[];
-extern int table_116008_cnt;
+extern nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[];
+extern int nox_parse_thing_draw_funcs_cnt;
 
 int (*nox_draw_unk1)(void) = 0;
 
@@ -13083,12 +13083,12 @@ int __cdecl nox_parse_thing_draw(nox_thing* obj, _DWORD* a2, int a3)
     v12[v5] = 0;
     sub_40AD60((char*)& v11, 4, 1, a2);
 
-    if (!*(_DWORD*)table_116008)
+    if (!*(_DWORD*)nox_parse_thing_draw_funcs)
         return 1;
 
-    table_116008_t* item = NULL;
-    for (int i=0; i < table_116008_cnt; i++) {
-        table_116008_t* cur = &table_116008[i];
+    nox_parse_thing_draw_funcs_t* item = NULL;
+    for (int i=0; i < nox_parse_thing_draw_funcs_cnt; i++) {
+        nox_parse_thing_draw_funcs_t* cur = &nox_parse_thing_draw_funcs[i];
         if (!strcmp(cur->name, v12)) {
             item = cur;
             break;
@@ -13282,11 +13282,11 @@ void sub_44C620()
 void __cdecl sub_44C650_free(LPVOID lpMem, void* draw)
 {
     int kind = 0;
-    if (*(_DWORD*)table_116008)
+    if (*(_DWORD*)nox_parse_thing_draw_funcs)
     {
-        table_116008_t* item = NULL;
-        for (int i = 0; i < table_116008_cnt; i++) {
-            table_116008_t* cur = &table_116008[i];
+        nox_parse_thing_draw_funcs_t* item = NULL;
+        for (int i = 0; i < nox_parse_thing_draw_funcs_cnt; i++) {
+            nox_parse_thing_draw_funcs_t* cur = &nox_parse_thing_draw_funcs[i];
             if (!cur->name)
                 break;
             if (cur->draw == draw) {

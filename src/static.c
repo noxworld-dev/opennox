@@ -1111,7 +1111,7 @@ table_28760_t table_28760[] = {
 };
 int table_28760_cnt = sizeof(table_28760)/sizeof(table_28760_t);
 
-table_116008_t table_116008[] = {
+nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[] = {
         {"NoDraw", 0, 0, 0},
         {"DebugDraw", &nox_thing_debug_draw, 0, 0},
         {"StaticDraw", &nox_thing_static_draw, 1, &sub_44C160},
@@ -1182,7 +1182,7 @@ table_116008_t table_116008[] = {
         {"HarpoonDraw", &nox_thing_harpoon_draw, 2, &sub_44C120},
         {"HarpoonRopeDraw", &nox_thing_harpoon_rope_draw, 0, 0},
 };
-int table_116008_cnt = sizeof(table_116008)/sizeof(table_116008_t);
+int nox_parse_thing_draw_funcs_cnt = sizeof(nox_parse_thing_draw_funcs)/sizeof(nox_parse_thing_draw_funcs_t);
 
 nox_parse_thing_funcs_t nox_parse_thing_funcs[] = {
         {"FLAGS", &nox_parse_thing_flags},

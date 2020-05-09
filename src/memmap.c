@@ -62,7 +62,7 @@ extern table_27008_t table_27008[];
 extern table_27104_t table_27104[];
 extern table_27168_t table_27168[];
 extern table_28760_t table_28760[];
-extern table_116008_t table_116008[];
+extern nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[];
 
 // unresolved
 
@@ -224,7 +224,7 @@ mem_mapping mappings[] = {
         {0x587000+91796, (void*)&nox_win_height_2, sizeof(nox_win_height_2),1},
         {0x587000+91800, (void*)&nox_win_depth_2, sizeof(nox_win_depth_2),1},
         {0x587000+91804, (void*)nox_video_modes, sizeof(nox_video_mode)*3,1},
-        {0x587000+116008, (void*)table_116008, sizeof(table_116008_t)*69,1}, // TODO
+        {0x587000+116008, (void*)nox_parse_thing_draw_funcs, sizeof(nox_parse_thing_draw_funcs_t)*69,1}, // TODO
         {0x587000+122104, (void*)nox_parse_thing_funcs, sizeof(nox_parse_thing_funcs_t)*21,1}, // TODO
         // full blobs
 #if 0
