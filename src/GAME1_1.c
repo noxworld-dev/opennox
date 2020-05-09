@@ -9535,39 +9535,26 @@ char* __cdecl sub_423A10(const char* a1, _DWORD* a2)
 }
 
 //----- (00423AD0) --------------------------------------------------------
-int __cdecl nox_parse_shape(nox_shape* a1, char* a2)
+int __cdecl nox_parse_shape(nox_shape* s, char* buf)
 {
-    int result; // eax
-
-    if (!strncmp(a2, "NULL", 4u))
-    {
-        a1->field_0 = 0;
-        result = 1;
+    if (!strncmp(buf, "NULL", 4)) {
+        s->kind = NOX_SHAPE_NONE;
+        return 1;
+    } else if (!strncmp(buf, "CENTER", 6)) {
+        s->kind = NOX_SHAPE_CENTER;
+        return 1;
+    } else if (!strncmp(buf, "CIRCLE", 6)) {
+        s->kind = NOX_SHAPE_CIRCLE;
+        sscanf(buf, "%*s %f", &s->circle_r);
+        s->circle_r2 = s->circle_r * s->circle_r;
+        return 1;
+    } else if (!strncmp(buf, "BOX", 3)) {
+        s->kind = NOX_SHAPE_BOX;
+        sscanf(buf, "%*s %f %f", &s->box_w, &s->box_h);
+        nox_shape_box_calc(s);
+        return 1;
     }
-    else if (!strncmp(a2, "CENTER", 6u))
-    {
-        result = 1;
-        a1->field_0 = 1;
-    }
-    else if (!strncmp(a2, "CIRCLE", 6u))
-    {
-        a1->field_0 = 2;
-        sscanf(a2, "%*s %f", &a1->field_4);
-        result = 1;
-        a1->field_8 = a1->field_4 * a1->field_4;
-    }
-    else if (!strncmp(a2, "BOX", 3u))
-    {
-        a1->field_0 = 3;
-        sscanf(a2, "%*s %f %f", &a1->field_C, &a1->field_10);
-        nox_shape_box_calc(a1);
-        result = 1;
-    }
-    else
-    {
-        result = 0;
-    }
-    return result;
+    return 0;
 }
 
 //----- (00423F80) --------------------------------------------------------
