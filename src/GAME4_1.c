@@ -15805,29 +15805,29 @@ int sub_51AEA0()
     int v7; // [esp+10h] [ebp-4h]
 
     v7 = 1;
-    sub_426AC0(&v7, 2u);
-    sub_426AC0(&byte_5D4594[2598000], 4u);
+    sub_426AC0_file3_fread(&v7, 2u);
+    sub_426AC0_file3_fread(&byte_5D4594[2598000], 4u);
     v0 = *(_DWORD*)& byte_5D4594[2487236];
     for (i = 0; v0; v0 = *(_DWORD*)(v0 + 24))
         ++i;
-    sub_426AC0(&i, 4u);
+    sub_426AC0_file3_fread(&i, 4u);
     for (j = *(_DWORD*)& byte_5D4594[2487236]; j; j = *(_DWORD*)(j + 24))
     {
-        sub_426AC0((_BYTE*)j, 4u);
-        sub_426AC0((_BYTE*)(j + 4), 4u);
-        sub_426AC0((_BYTE*)(j + 8), 4u);
+        sub_426AC0_file3_fread((_BYTE*)j, 4u);
+        sub_426AC0_file3_fread((_BYTE*)(j + 4), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(j + 8), 4u);
         v2 = *(_DWORD*)(j + 16);
         if (v2)
             v5 = *(_DWORD*)(v2 + 44);
         else
             v5 = 0;
-        sub_426AC0(&v5, 4u);
+        sub_426AC0_file3_fread(&v5, 4u);
         v3 = *(_DWORD*)(j + 20);
         if (v3)
             v5 = *(_DWORD*)(v3 + 44);
         else
             v5 = 0;
-        sub_426AC0(&v5, 4u);
+        sub_426AC0_file3_fread(&v5, 4u);
     }
     return 1;
 }
@@ -15850,21 +15850,21 @@ int sub_51AF80()
     int v13; // [esp+28h] [ebp-4h]
 
     v6 = 1;
-    sub_426AC0(&v6, 2u);
+    sub_426AC0_file3_fread(&v6, 2u);
     if ((__int16)v6 <= 1 && (__int16)v6 > 0)
     {
-        sub_426AC0(&v8, 4u);
-        sub_426AC0(&v7, 4u);
+        sub_426AC0_file3_fread(&v8, 4u);
+        sub_426AC0_file3_fread(&v7, 4u);
         v0 = 0;
         if (v7 <= 0)
             return 1;
         while (1)
         {
-            sub_426AC0(&v9, 4u);
-            sub_426AC0(&v10, 4u);
-            sub_426AC0(&v11, 4u);
-            sub_426AC0(&v12, 4u);
-            sub_426AC0(&v13, 4u);
+            sub_426AC0_file3_fread(&v9, 4u);
+            sub_426AC0_file3_fread(&v10, 4u);
+            sub_426AC0_file3_fread(&v11, 4u);
+            sub_426AC0_file3_fread(&v12, 4u);
+            sub_426AC0_file3_fread(&v13, 4u);
             v1 = sub_51AD40();
             v2 = v1;
             if (!v1)

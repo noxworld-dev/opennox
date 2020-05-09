@@ -302,7 +302,7 @@ int __cdecl sub_51DF90(int a1)
     a1 = v2;
     if (!(_WORD)v2)
         return 0;
-    sub_426AC0(&a1, 2u);
+    sub_426AC0_file3_fread(&a1, 2u);
     sub_426C90();
     result = (*(int(__cdecl * *)(int, _DWORD))(v1 + 704))(v1, 0);
     if (result)
@@ -340,7 +340,7 @@ int __cdecl sub_51E010(char* a1, int a2)
     result = sub_426910(Mem, 0, 19);
     if (result)
     {
-        sub_426AC0(&v7, 4u);
+        sub_426AC0_file3_fread(&v7, 4u);
         v5 = sub_4268E0();
         if (sub_51E140())
         {
@@ -368,15 +368,15 @@ int sub_51E140()
     *(_DWORD*)& byte_5D4594[2487252] = 256;
     *(_DWORD*)& byte_5D4594[2487256] = 256;
     sub_410640((void(__cdecl*)(int, int))sub_51DEA0, 0);
-    sub_426AC0(&byte_5D4594[2487252], 4u);
-    sub_426AC0(&byte_5D4594[2487256], 4u);
+    sub_426AC0_file3_fread(&byte_5D4594[2487252], 4u);
+    sub_426AC0_file3_fread(&byte_5D4594[2487256], 4u);
     sub_426A80((int*)& byte_5D4594[2487252]);
     sub_5004D0();
     if (sub_426E20(0))
     {
         sub_5004F0();
         v2 = 0;
-        sub_426AC0(&v2, 1u);
+        sub_426AC0_file3_fread(&v2, 1u);
         result = 1;
     }
     else
@@ -9894,7 +9894,7 @@ int __cdecl sub_528DB0(int a1)
     if (!*(_DWORD*)& byte_5D4594[2487692])
         * (_DWORD*)& byte_5D4594[2487692] = sub_4E3AA0((CHAR*)& byte_587000[258376]);
     v45 = 64;
-    sub_426AC0(&v45, 2u);
+    sub_426AC0_file3_fread(&v45, 2u);
     if ((__int16)v45 > 64)
         return 0;
     result = sub_4F4530((int*)a1, (__int16)v45);
@@ -9902,7 +9902,7 @@ int __cdecl sub_528DB0(int a1)
         return result;
     if (!*(_DWORD*)& byte_5D4594[3803300])
         sub_509E20(*(__int16*)(a1 + 124), (int2*)v52);
-    sub_426AC0(v52, 8u);
+    sub_426AC0_file3_fread(v52, 8u);
     if ((__int16)v45 >= 3)
     {
         v3 = *(char**)(a1 + 756);
@@ -9916,7 +9916,7 @@ int __cdecl sub_528DB0(int a1)
         else
             v5 = 0;
         sub_4F5580(v1 + 1264, v5);
-        sub_426AC0((_BYTE*)(v1 + 1220), 2u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1220), 2u);
         if (v3)
             v6 = v3 + 768;
         else
@@ -9950,7 +9950,7 @@ int __cdecl sub_528DB0(int a1)
     {
         sub_4F5540(v1 + 1232);
         sub_4F5540(v1 + 1264);
-        sub_426AC0((_BYTE*)(v1 + 1220), 2u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1220), 2u);
         sub_4F5540(v1 + 1224);
     }
     v14 = *(_DWORD*)& byte_5D4594[3803300];
@@ -9964,53 +9964,53 @@ int __cdecl sub_528DB0(int a1)
         if (!v14)
         {
             v46 = 0;
-            sub_426AC0(&v46, 4u);
+            sub_426AC0_file3_fread(&v46, 4u);
         }
     }
     else if ((__int16)v45 >= 11)
     {
         v46 = 0;
-        sub_426AC0(&v46, 4u);
+        sub_426AC0_file3_fread(&v46, 4u);
     }
     if ((__int16)v45 >= 31)
     {
-        sub_426AC0((_BYTE*)(v1 + 1332), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1332), 1u);
         if ((__int16)v45 < 51)
         {
-            sub_426AC0(&v46, 2u);
+            sub_426AC0_file3_fread(&v46, 2u);
             *(_DWORD*)(v1 + 1440) = (unsigned __int16)v46;
         }
         else
         {
-            sub_426AC0((_BYTE*)(v1 + 1440), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1440), 4u);
         }
-        sub_426AC0((_BYTE*)(v1 + 1352), 4u);
-        sub_426AC0((_BYTE*)(v1 + 1336), 4u);
-        sub_426AC0((_BYTE*)(v1 + 1344), 4u);
-        sub_426AC0((_BYTE*)(v1 + 1312), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1352), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1336), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1344), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1312), 4u);
         if ((__int16)v45 < 33)
             sub_426AA0(2);
-        sub_426AC0((_BYTE*)(v1 + 1304), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1304), 4u);
         *(_DWORD*)(v1 + 1308) = *(_DWORD*)(v1 + 1304);
         if ((__int16)v45 < 34)
-            sub_426AC0((_BYTE*)(v1 + 1360), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1360), 4u);
         LOBYTE(v48) = strlen((const char*)(v1 + 1364));
-        sub_426AC0(&v48, 1u);
-        sub_426AC0((_BYTE*)(v1 + 1364), (unsigned __int8)v48);
+        sub_426AC0_file3_fread(&v48, 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1364), (unsigned __int8)v48);
         *(_BYTE*)((unsigned __int8)v48 + v1 + 1364) = 0;
         if ((__int16)v45 >= 34)
         {
             if (*(_DWORD*)& byte_5D4594[3803300])
             {
                 memset((void*)(v1 + 1488), 0, 0x224u);
-                sub_426AC0(&v44, 4u);
+                sub_426AC0_file3_fread(&v44, 4u);
                 for (i = 0; i < v44; ++i)
                 {
-                    sub_426AC0(&v48, 1u);
-                    sub_426AC0(v53, (unsigned __int8)v48);
+                    sub_426AC0_file3_fread(&v48, 1u);
+                    sub_426AC0_file3_fread(v53, (unsigned __int8)v48);
                     v53[(unsigned __int8)v48] = 0;
                     v23 = sub_4243F0(v53);
-                    sub_426AC0((_BYTE*)(v1 + 4 * v23 + 1488), 4u);
+                    sub_426AC0_file3_fread((_BYTE*)(v1 + 4 * v23 + 1488), 4u);
                 }
             }
             else
@@ -10028,7 +10028,7 @@ int __cdecl sub_528DB0(int a1)
                     --v19;
                 } while (v19);
                 v44 = v16;
-                sub_426AC0(&v44, 4u);
+                sub_426AC0_file3_fread(&v44, 4u);
                 v20 = 0;
                 v47 = (_BYTE*)(v1 + 1488);
                 do
@@ -10037,9 +10037,9 @@ int __cdecl sub_528DB0(int a1)
                     {
                         v21 = sub_424870(v20);
                         LOBYTE(v46) = strlen(v21);
-                        sub_426AC0(&v46, 1u);
-                        sub_426AC0(v21, (unsigned __int8)v46);
-                        sub_426AC0(v47, 4u);
+                        sub_426AC0_file3_fread(&v46, 1u);
+                        sub_426AC0_file3_fread(v21, (unsigned __int8)v46);
+                        sub_426AC0_file3_fread(v47, 4u);
                     }
                     ++v20;
                     v17 = v47 + 4;
@@ -10049,93 +10049,93 @@ int __cdecl sub_528DB0(int a1)
         }
         else
         {
-            sub_426AC0((_BYTE*)(v1 + 1488), 0x224u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1488), 0x224u);
         }
         if ((__int16)v45 < 46)
         {
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             *(_WORD*)(v1 + 1448) = (unsigned __int8)v44;
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             *(_WORD*)(v1 + 1450) = (unsigned __int8)v44;
         }
         else
         {
-            sub_426AC0((_BYTE*)(v1 + 1448), 2u);
-            sub_426AC0((_BYTE*)(v1 + 1450), 2u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1448), 2u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1450), 2u);
         }
         if ((__int16)v45 <= 32)
-            sub_426AC0(&v49, 4u);
+            sub_426AC0_file3_fread(&v49, 4u);
         if ((__int16)v45 < 46)
         {
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             *(_WORD*)(v1 + 1456) = (unsigned __int8)v44;
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             *(_WORD*)(v1 + 1458) = (unsigned __int8)v44;
         }
         else
         {
-            sub_426AC0((_BYTE*)(v1 + 1456), 2u);
-            sub_426AC0((_BYTE*)(v1 + 1458), 2u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1456), 2u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1458), 2u);
         }
         if ((__int16)v45 <= 32)
-            sub_426AC0(&v49, 4u);
+            sub_426AC0_file3_fread(&v49, 4u);
         if ((__int16)v45 < 46)
         {
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             *(_WORD*)(v1 + 1464) = (unsigned __int8)v44;
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             *(_WORD*)(v1 + 1466) = (unsigned __int8)v44;
         }
         else
         {
-            sub_426AC0((_BYTE*)(v1 + 1464), 2u);
-            sub_426AC0((_BYTE*)(v1 + 1466), 2u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1464), 2u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1466), 2u);
         }
         if ((__int16)v45 <= 32)
-            sub_426AC0(&v49, 4u);
+            sub_426AC0_file3_fread(&v49, 4u);
         if ((__int16)v45 < 46)
         {
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             *(_WORD*)(v1 + 1472) = (unsigned __int8)v44;
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             *(_WORD*)(v1 + 1474) = (unsigned __int8)v44;
         }
         else
         {
-            sub_426AC0((_BYTE*)(v1 + 1472), 2u);
-            sub_426AC0((_BYTE*)(v1 + 1474), 2u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1472), 2u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1474), 2u);
         }
         if ((__int16)v45 <= 32)
-            sub_426AC0(&v49, 4u);
+            sub_426AC0_file3_fread(&v49, 4u);
         if ((__int16)v45 < 46)
         {
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             *(_WORD*)(v1 + 1480) = (unsigned __int8)v44;
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             *(_WORD*)(v1 + 1482) = (unsigned __int8)v44;
         }
         else
         {
-            sub_426AC0((_BYTE*)(v1 + 1480), 2u);
-            sub_426AC0((_BYTE*)(v1 + 1482), 2u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1480), 2u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1482), 2u);
         }
-        if ((__int16)v45 > 32 || (sub_426AC0(&v49, 4u), (__int16)v45 >= 32))
-            sub_426AC0((_BYTE*)(v1 + 1316), 4u);
+        if ((__int16)v45 > 32 || (sub_426AC0_file3_fread(&v49, 4u), (__int16)v45 >= 32))
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1316), 4u);
         if ((__int16)v45 >= 33)
         {
-            sub_426AC0((_BYTE*)(v1 + 2040), 4u);
-            sub_426AC0((_BYTE*)(v1 + 1320), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 2040), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1320), 4u);
             if ((__int16)v45 < 42)
             {
-                sub_426AC0(&v44, 2u);
+                sub_426AC0_file3_fread(&v44, 2u);
                 if (!(_WORD)v44)
                     * (_BYTE*)(v1 + 1445) = 1;
             }
             if ((__int16)v45 < 53)
             {
-                sub_426AC0((_BYTE*)(v1 + 2044), 4u);
-                sub_426AC0((_BYTE*)(v1 + 2048), 4u);
-                sub_426AC0((_BYTE*)(v1 + 2052), 4u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 2044), 4u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 2048), 4u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 2052), 4u);
             }
             else
             {
@@ -10145,8 +10145,8 @@ int __cdecl sub_528DB0(int a1)
                 {
                     if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                     {
-                        sub_426AC0(&v44, 1u);
-                        sub_426AC0(v53, (unsigned __int8)v44);
+                        sub_426AC0_file3_fread(&v44, 1u);
+                        sub_426AC0_file3_fread(v53, (unsigned __int8)v44);
                         v53[(unsigned __int8)v44] = 0;
                         *v24 = sub_4243F0(v53);
                     }
@@ -10154,8 +10154,8 @@ int __cdecl sub_528DB0(int a1)
                     {
                         v25 = sub_424870(*v24);
                         LOBYTE(v44) = strlen(v25);
-                        sub_426AC0(&v44, 1u);
-                        sub_426AC0(v25, (unsigned __int8)v44);
+                        sub_426AC0_file3_fread(&v44, 1u);
+                        sub_426AC0_file3_fread(v25, (unsigned __int8)v44);
                     }
                     ++v24;
                     --v46;
@@ -10166,8 +10166,8 @@ int __cdecl sub_528DB0(int a1)
         {
             if (*(_DWORD*)& byte_5D4594[3803300])
             {
-                sub_426AC0(&v44, 1u);
-                sub_426AC0(v53, (unsigned __int8)v44);
+                sub_426AC0_file3_fread(&v44, 1u);
+                sub_426AC0_file3_fread(v53, (unsigned __int8)v44);
                 v53[(unsigned __int8)v44] = 0;
                 *(_DWORD*)(v1 + 1360) = sub_5345F0(v53);
             }
@@ -10175,8 +10175,8 @@ int __cdecl sub_528DB0(int a1)
             {
                 v26 = sub_5345B0(*(_DWORD*)(v1 + 1360));
                 LOBYTE(v44) = strlen(v26);
-                sub_426AC0(&v44, 1u);
-                sub_426AC0(v26, (unsigned __int8)v44);
+                sub_426AC0_file3_fread(&v44, 1u);
+                sub_426AC0_file3_fread(v26, (unsigned __int8)v44);
             }
         }
     }
@@ -10187,25 +10187,25 @@ int __cdecl sub_528DB0(int a1)
             return result;
     }
     if ((__int16)v45 >= 42)
-        sub_426AC0((_BYTE*)(v1 + 1445), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1445), 1u);
     if ((__int16)v45 >= 43 && *(_BYTE*)(a1 + 12) & 8)
     {
         LOBYTE(v44) = 0;
         v27 = *(_DWORD*)(a1 + 692);
         if ((__int16)v45 >= 50)
-            sub_426AC0((_BYTE*)(v27 + 1716), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v27 + 1716), 4u);
         if ((__int16)v45 >= 61)
-            sub_426AC0((_BYTE*)(v27 + 1720), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v27 + 1720), 4u);
         if ((__int16)v45 >= 48)
         {
             LOBYTE(v47) = strlen((const char*)(v27 + 1684));
-            sub_426AC0(&v47, 1u);
-            sub_426AC0((_BYTE*)(v27 + 1684), (unsigned __int8)v47);
+            sub_426AC0_file3_fread(&v47, 1u);
+            sub_426AC0_file3_fread((_BYTE*)(v27 + 1684), (unsigned __int8)v47);
             *(_BYTE*)((unsigned __int8)v47 + v27 + 1684) = 0;
         }
         if (*(_DWORD*)& byte_5D4594[3803300] == 1)
         {
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
             if (!v27)
                 goto LABEL_137;
             *(_BYTE*)v27 = v44;
@@ -10214,7 +10214,7 @@ int __cdecl sub_528DB0(int a1)
         {
             if (v27)
                 LOBYTE(v44) = *(_BYTE*)v27;
-            sub_426AC0(&v44, 1u);
+            sub_426AC0_file3_fread(&v44, 1u);
         }
         if (v27)
         {
@@ -10234,21 +10234,21 @@ int __cdecl sub_528DB0(int a1)
     }
     LABEL_137:
     if ((__int16)v45 >= 44)
-        sub_426AC0((_BYTE*)v1, 4u);
+        sub_426AC0_file3_fread((_BYTE*)v1, 4u);
     if ((__int16)v45 >= 45)
     {
         v50 = *(_DWORD*)(a1 + 12) & 0x180;
-        sub_426AC0(&v50, 4u);
+        sub_426AC0_file3_fread(&v50, 4u);
         *(_DWORD*)(a1 + 12) |= v50;
     }
     if ((__int16)v45 >= 49)
-        sub_426AC0(*(_BYTE * *)(a1 + 556), 2u);
+        sub_426AC0_file3_fread(*(_BYTE * *)(a1 + 556), 2u);
     if ((__int16)v45 >= 51)
     {
-        sub_426AC0((_BYTE*)(v1 + 1348), 1u);
-        sub_426AC0((_BYTE*)(v1 + 1340), 1u);
-        sub_426AC0((_BYTE*)(v1 + 1444), 1u);
-        sub_426AC0((_BYTE*)(v1 + 2036), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1348), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1340), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1444), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 2036), 1u);
     }
     if (*(_BYTE*)(a1 + 12) & 0x20 && (__int16)v45 >= 54)
     {
@@ -10257,7 +10257,7 @@ int __cdecl sub_528DB0(int a1)
         LOBYTE(v46) = 0;
         do
         {
-            sub_426AC0(v29, 3u);
+            sub_426AC0_file3_fread(v29, 3u);
             if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                 sub_4E4A90(a1, v46, (int)v29);
             ++v28;
@@ -10274,7 +10274,7 @@ int __cdecl sub_528DB0(int a1)
         if ((__int16)v45 >= 64)
         {
             LOBYTE(v47) = *(_BYTE*)(a1 + 540);
-            sub_426AC0(&v47, 1u);
+            sub_426AC0_file3_fread(&v47, 1u);
             if (*(_DWORD*)& byte_5D4594[3803300] != 1)
                 goto LABEL_171;
             if (!(_BYTE)v47)
@@ -10468,7 +10468,7 @@ int __cdecl sub_529CE0(int a1)
 
     v1 = *(_DWORD*)(a1 + 748);
     v21 = 4;
-    sub_426AC0(&v21, 2u);
+    sub_426AC0_file3_fread(&v21, 2u);
     if ((__int16)v21 > 4)
         return 0;
     v19 = 1;
@@ -10477,24 +10477,24 @@ int __cdecl sub_529CE0(int a1)
     v19 = 0;
     if (sub_40A5C0(1) && !sub_40A5C0(0x400000))
         v19 = 1;
-    sub_426AC0(&v19, 1u);
+    sub_426AC0_file3_fread(&v19, 1u);
     if (v19 || (_WORD)v21 == 1)
     {
         LABEL_67:
         v23 = *(_DWORD*)& byte_5D4594[2598000];
-        sub_426AC0(&v23, 4u);
+        sub_426AC0_file3_fread(&v23, 4u);
         v3 = *(_DWORD*)& byte_5D4594[2598000] - v23;
         v18 = 0;
-        sub_426AC0(&v18, 4u);
-        sub_426AC0((_BYTE*)(v1 + 8), 4u);
-        sub_426AC0((_BYTE*)(v1 + 12), 8 * *(_DWORD*)(v1 + 8));
-        sub_426AC0((_BYTE*)(v1 + 268), 4u);
-        sub_426AC0((_BYTE*)(v1 + 272), 8u);
-        sub_426AC0((_BYTE*)(v1 + 280), 4u);
-        sub_426AC0((_BYTE*)(v1 + 284), 1u);
+        sub_426AC0_file3_fread(&v18, 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 8), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 12), 8 * *(_DWORD*)(v1 + 8));
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 268), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 272), 8u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 280), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 284), 1u);
         if (*(_DWORD*)& byte_5D4594[3803300] == 1)
             sub_52A420((int*)(v1 + 280), v3);
-        sub_426AC0((_BYTE*)(v1 + 296), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 296), 4u);
         v4 = *(int*)(v1 + 296) <= 0;
         v18 = 0;
         if (!v4)
@@ -10504,46 +10504,46 @@ int __cdecl sub_529CE0(int a1)
             {
                 if (*(_DWORD*)& byte_5D4594[3803300])
                 {
-                    sub_426AC0(&v22, 4u);
+                    sub_426AC0_file3_fread(&v22, 4u);
                     *v5 = sub_579C80(v22);
                 }
                 else
                 {
-                    sub_426AC0(*v5, 4u);
+                    sub_426AC0_file3_fread(*v5, 4u);
                 }
                 ++v5;
                 v4 = ++v18 < *(int*)(v1 + 296);
             } while (v4);
         }
-        sub_426AC0((_BYTE*)(v1 + 364), 4u);
-        sub_426AC0((_BYTE*)(v1 + 368), 8u);
-        sub_426AC0((_BYTE*)(v1 + 376), 4u);
-        sub_426AC0((_BYTE*)(v1 + 380), 8u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 364), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 368), 8u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 376), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 380), 8u);
         strcpy(v24, sub_40AF80(*(_DWORD*)(v1 + 388)));
         LOBYTE(v20) = strlen(v24);
-        sub_426AC0(&v20, 1u);
-        sub_426AC0(v24, (unsigned __int8)v20);
+        sub_426AC0_file3_fread(&v20, 1u);
+        sub_426AC0_file3_fread(v24, (unsigned __int8)v20);
         v24[(unsigned __int8)v20] = 0;
         *(_DWORD*)(v1 + 388) = sub_40AF50(v24);
-        sub_426AC0((_BYTE*)(v1 + 396), 8u);
-        sub_426AC0((_BYTE*)(v1 + 404), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 396), 8u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 404), 4u);
         if (*(_DWORD*)& byte_5D4594[3803300] == 1)
             sub_52A420((int*)(v1 + 404), v3);
-        sub_426AC0((_BYTE*)(v1 + 481), 1u);
-        sub_426AC0((_BYTE*)(v1 + 482), 1u);
-        sub_426AC0((_BYTE*)(v1 + 483), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 481), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 482), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 483), 1u);
         if ((__int16)v21 < 3)
-            sub_426AC0(&v18, 4u);
-        sub_426AC0((_BYTE*)(v1 + 496), 4u);
-        sub_426AC0((_BYTE*)(v1 + 500), 8u);
+            sub_426AC0_file3_fread(&v18, 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 496), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 500), 8u);
         if (*(_DWORD*)& byte_5D4594[3803300] == 1)
             sub_52A420((int*)(v1 + 496), v3);
-        sub_426AC0(&v18, 4u);
-        sub_426AC0((_BYTE*)(v1 + 536), 4u);
-        sub_426AC0((_BYTE*)(v1 + 540), 4u);
+        sub_426AC0_file3_fread(&v18, 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 536), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 540), 4u);
         sub_52A420((int*)(v1 + 536), v3);
         sub_52A420((int*)(v1 + 540), v3);
-        sub_426AC0((_BYTE*)(v1 + 544), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 544), 1u);
         v6 = 0;
         if ((signed char) * (_BYTE*)(v1 + 544) >= 0)
         {
@@ -10555,7 +10555,7 @@ int __cdecl sub_529CE0(int a1)
                 v18 += 24;
             } while (v6 <= *(char*)(v1 + 544));
         }
-        sub_426AC0((_BYTE*)(v1 + 1129), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1129), 1u);
         v7 = *(_BYTE*)(v1 + 1129) == 0;
         v18 = 0;
         if (!v7)
@@ -10565,13 +10565,13 @@ int __cdecl sub_529CE0(int a1)
             {
                 if (*(_DWORD*)& byte_5D4594[3803300])
                 {
-                    sub_426AC0(v8, 4u);
+                    sub_426AC0_file3_fread(v8, 4u);
                 }
                 else
                 {
                     if (!*(_DWORD*)& byte_5D4594[2487688])
                         * (_DWORD*)& byte_5D4594[2487688] = sub_4E3AA0((CHAR*)& byte_587000[258392]);
-                    sub_426AC0((_BYTE*)(*(_DWORD*)v8 + 44), 4u);
+                    sub_426AC0_file3_fread((_BYTE*)(*(_DWORD*)v8 + 44), 4u);
                 }
                 v9 = *(unsigned __int8*)(v1 + 1129);
                 v8 += 4;
@@ -10580,7 +10580,7 @@ int __cdecl sub_529CE0(int a1)
         }
         if (*(_DWORD*)& byte_5D4594[3803300])
         {
-            sub_426AC0((_BYTE*)(v1 + 1196), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1196), 4u);
         }
         else
         {
@@ -10589,59 +10589,59 @@ int __cdecl sub_529CE0(int a1)
                 v22 = *(_DWORD*)(v10 + 44);
             else
                 v22 = 0;
-            sub_426AC0(&v22, 4u);
+            sub_426AC0_file3_fread(&v22, 4u);
         }
-        sub_426AC0((_BYTE*)(v1 + 1204), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1204), 4u);
         sub_52A420((int*)(v1 + 1204), v3);
-        sub_426AC0((_BYTE*)(v1 + 2096), 4u);
-        sub_426AC0((_BYTE*)(v1 + 2100), 4u);
-        sub_426AC0((_BYTE*)(v1 + 2104), 1u);
-        sub_426AC0((_BYTE*)(v1 + 2105), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 2096), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 2100), 4u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 2104), 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 2105), 1u);
         LOBYTE(v20) = strlen((const char*)(v1 + 2106));
-        sub_426AC0(&v20, 1u);
-        sub_426AC0((_BYTE*)(v1 + 2106), (unsigned __int8)v20);
+        sub_426AC0_file3_fread(&v20, 1u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 2106), (unsigned __int8)v20);
         *(_BYTE*)((unsigned __int8)v20 + v1 + 2106) = 0;
         if ((__int16)v21 >= 4)
         {
-            sub_426AC0((_BYTE*)(v1 + 4), 4u);
-            sub_426AC0((_BYTE*)(v1 + 288), 4u);
-            sub_426AC0((_BYTE*)(v1 + 292), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 4), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 288), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 292), 4u);
             v11 = sub_4ECCB0(*(_DWORD*)(v1 + 392));
             if (v11)
                 v18 = *(_DWORD*)(v11 + 44);
             else
                 v18 = 0;
-            sub_426AC0(&v18, 4u);
+            sub_426AC0_file3_fread(&v18, 4u);
             if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                 * (_DWORD*)(v1 + 392) = v18;
-            sub_426AC0((_BYTE*)(v1 + 492), 4u);
-            sub_426AC0((_BYTE*)(v1 + 508), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 492), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 508), 4u);
             sub_52A420((int*)(v1 + 508), v3);
-            sub_426AC0((_BYTE*)(v1 + 512), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 512), 4u);
             sub_52A420((int*)(v1 + 512), v3);
-            sub_426AC0((_BYTE*)(v1 + 516), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 516), 4u);
             sub_52A420((int*)(v1 + 516), v3);
-            sub_426AC0((_BYTE*)(v1 + 520), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 520), 4u);
             sub_52A420((int*)(v1 + 520), v3);
-            sub_426AC0((_BYTE*)(v1 + 528), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 528), 4u);
             sub_52A420((int*)(v1 + 528), v3);
-            sub_426AC0((_BYTE*)(v1 + 532), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 532), 4u);
             sub_52A420((int*)(v1 + 532), v3);
-            sub_426AC0((_BYTE*)(v1 + 524), 4u);
-            sub_426AC0((_BYTE*)(v1 + 548), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 524), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 548), 4u);
             sub_52A420((int*)(v1 + 548), v3);
-            sub_426AC0((_BYTE*)(v1 + 1128), 1u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1128), 1u);
             v12 = sub_4ECCB0(*(_DWORD*)(v1 + 1200));
             if (v12)
                 v18 = *(_DWORD*)(v12 + 44);
             else
                 v18 = 0;
-            sub_426AC0(&v18, 4u);
+            sub_426AC0_file3_fread(&v18, 4u);
             if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                 * (_DWORD*)(v1 + 1200) = v18;
-            sub_426AC0((_BYTE*)(v1 + 1208), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1208), 4u);
             sub_52A420((int*)(v1 + 1208), v3);
-            sub_426AC0((_BYTE*)(v1 + 1212), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1212), 4u);
             sub_52A420((int*)(v1 + 1212), v3);
             v13 = *(_DWORD*)(v1 + 1216);
             v14 = 0;
@@ -10649,11 +10649,11 @@ int __cdecl sub_529CE0(int a1)
                 v18 = *(_DWORD*)(v13 + 44);
             else
                 v18 = 0;
-            sub_426AC0(&v18, 4u);
+            sub_426AC0_file3_fread(&v18, 4u);
             if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                 * (_DWORD*)(v1 + 1216) = v18;
             v15 = (unsigned __int8*)(v1 + 2172);
-            sub_426AC0((_BYTE*)(v1 + 2172), 1u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 2172), 1u);
             if (*(_BYTE*)(v1 + 2172))
             {
                 v16 = (int*)(v1 + 2140);
@@ -10664,7 +10664,7 @@ int __cdecl sub_529CE0(int a1)
                         v18 = *(_DWORD*)(v17 + 44);
                     else
                         v18 = 0;
-                    sub_426AC0(&v18, 4u);
+                    sub_426AC0_file3_fread(&v18, 4u);
                     if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                         * v16 = v18;
                     ++v14;
@@ -10705,13 +10705,13 @@ int __cdecl sub_52A440(int a1, int a2, int a3)
 
     strcpy(v11, sub_534650(*(_DWORD*)a2));
     LOBYTE(v10) = strlen(v11);
-    sub_426AC0(&v10, 1u);
-    sub_426AC0(v11, (unsigned __int8)v10);
+    sub_426AC0_file3_fread(&v10, 1u);
+    sub_426AC0_file3_fread(v11, (unsigned __int8)v10);
     v11[(unsigned __int8)v10] = 0;
     v3 = sub_534670(v11);
     *(_DWORD*)a2 = v3;
     LOBYTE(v8) = byte_587000[16 * v3 + 255604];
-    sub_426AC0(&v8, 1u);
+    sub_426AC0_file3_fread(&v8, 1u);
     v4 = 0;
     if ((unsigned __int8)v8 > 0u)
     {
@@ -10729,12 +10729,12 @@ int __cdecl sub_52A440(int a1, int a2, int a3)
                         goto LABEL_15;
                     if (*v5)
                     {
-                        sub_426AC0((_BYTE*)(*v5 + 44), 4u);
+                        sub_426AC0_file3_fread((_BYTE*)(*v5 + 44), 4u);
                     }
                     else
                     {
                         v9 = 0;
-                        sub_426AC0(&v9, 4u);
+                        sub_426AC0_file3_fread(&v9, 4u);
                     }
                     goto LABEL_18;
                 case 2:
@@ -10742,12 +10742,12 @@ int __cdecl sub_52A440(int a1, int a2, int a3)
                         goto LABEL_15;
                     if (*v5)
                     {
-                        sub_426AC0((_BYTE*)* v5, 4u);
+                        sub_426AC0_file3_fread((_BYTE*)* v5, 4u);
                     }
                     else
                     {
                         v9 = 0;
-                        sub_426AC0(&v9, 4u);
+                        sub_426AC0_file3_fread(&v9, 4u);
                     }
                     goto LABEL_18;
                 case 3:
@@ -10757,26 +10757,26 @@ int __cdecl sub_52A440(int a1, int a2, int a3)
                     v7 = 4;
                     goto LABEL_17;
                 case 5:
-                    sub_426AC0(v5, 4u);
+                    sub_426AC0_file3_fread(v5, 4u);
                     if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                         sub_52A420(v5, a3);
                     goto LABEL_18;
                 case 7:
                     v7 = 1;
                 LABEL_17:
-                    sub_426AC0(v5, v7);
+                    sub_426AC0_file3_fread(v5, v7);
                 LABEL_18:
                     ++v4;
                     v5 += 2;
                     if (v4 >= (unsigned __int8)v8)
-                        return sub_426AC0((_BYTE*)(a2 + 20), 4u);
+                        return sub_426AC0_file3_fread((_BYTE*)(a2 + 20), 4u);
                     continue;
                 default:
                     return result;
             }
         }
     }
-    return sub_426AC0((_BYTE*)(a2 + 20), 4u);
+    return sub_426AC0_file3_fread((_BYTE*)(a2 + 20), 4u);
 }
 // 52A440: using guessed type char var_100[256];
 
@@ -10795,10 +10795,10 @@ size_t __cdecl sub_52A5F0(int a1)
     int v10; // [esp-4h] [ebp-14h]
 
     v1 = (int*)a1;
-    sub_426AC0((_BYTE*)(a1 + 4), 1u);
+    sub_426AC0_file3_fread((_BYTE*)(a1 + 4), 1u);
     LOBYTE(a1) = strlen(*(const char**)(*v1 + 4));
-    sub_426AC0(&a1, 1u);
-    sub_426AC0(*(_BYTE * *)(*v1 + 4), (unsigned __int8)a1);
+    sub_426AC0_file3_fread(&a1, 1u);
+    sub_426AC0_file3_fread(*(_BYTE * *)(*v1 + 4), (unsigned __int8)a1);
     v2 = *(int(__cdecl * *)(int*))(*v1 + 212);
     if (v2 == sub_4F6390)
     {
@@ -10809,7 +10809,7 @@ size_t __cdecl sub_52A5F0(int a1)
         LABEL_6:
         LOBYTE(a1) = strlen(v3);
         LABEL_7:
-        sub_426AC0(&a1, 1u);
+        sub_426AC0_file3_fread(&a1, 1u);
         if (!v3)
             goto LABEL_13;
         goto LABEL_12;
@@ -10828,58 +10828,58 @@ size_t __cdecl sub_52A5F0(int a1)
     LOBYTE(a1) = 0;
     if (v4)
         LOBYTE(a1) = strlen(v4);
-    sub_426AC0(&a1, 1u);
+    sub_426AC0_file3_fread(&a1, 1u);
     if (v3)
         LABEL_12:
-        sub_426AC0(v3, (unsigned __int8)a1);
+        sub_426AC0_file3_fread(v3, (unsigned __int8)a1);
     LABEL_13:
     v5 = (const char**)v1[3];
     if (v5)
     {
         LOBYTE(a1) = strlen(*v5);
-        sub_426AC0(&a1, 1u);
-        sub_426AC0(*(_BYTE * *)v1[3], (unsigned __int8)a1);
+        sub_426AC0_file3_fread(&a1, 1u);
+        sub_426AC0_file3_fread(*(_BYTE * *)v1[3], (unsigned __int8)a1);
     }
     else
     {
         LOBYTE(a1) = 0;
-        sub_426AC0(&a1, 1u);
+        sub_426AC0_file3_fread(&a1, 1u);
     }
     v6 = (const char**)v1[4];
     if (v6)
     {
         LOBYTE(a1) = strlen(*v6);
-        sub_426AC0(&a1, 1u);
-        sub_426AC0(*(_BYTE * *)v1[4], (unsigned __int8)a1);
+        sub_426AC0_file3_fread(&a1, 1u);
+        sub_426AC0_file3_fread(*(_BYTE * *)v1[4], (unsigned __int8)a1);
     }
     else
     {
         LOBYTE(a1) = 0;
-        sub_426AC0(&a1, 1u);
+        sub_426AC0_file3_fread(&a1, 1u);
     }
     v7 = (const char**)v1[5];
     if (v7)
     {
         LOBYTE(a1) = strlen(*v7);
-        sub_426AC0(&a1, 1u);
-        sub_426AC0(*(_BYTE * *)v1[5], (unsigned __int8)a1);
+        sub_426AC0_file3_fread(&a1, 1u);
+        sub_426AC0_file3_fread(*(_BYTE * *)v1[5], (unsigned __int8)a1);
     }
     else
     {
         LOBYTE(a1) = 0;
-        sub_426AC0(&a1, 1u);
+        sub_426AC0_file3_fread(&a1, 1u);
     }
     v8 = (const char**)v1[6];
     if (v8)
     {
         LOBYTE(a1) = strlen(*v8);
-        sub_426AC0(&a1, 1u);
-        result = sub_426AC0(*(_BYTE * *)v1[6], (unsigned __int8)a1);
+        sub_426AC0_file3_fread(&a1, 1u);
+        result = sub_426AC0_file3_fread(*(_BYTE * *)v1[6], (unsigned __int8)a1);
     }
     else
     {
         LOBYTE(a1) = 0;
-        result = sub_426AC0(&a1, 1u);
+        result = sub_426AC0_file3_fread(&a1, 1u);
     }
     return result;
 }
@@ -10902,19 +10902,19 @@ int __cdecl sub_52A840(int a1, int a2)
     char v14[200]; // [esp+14h] [ebp-C8h]
 
     if (a2 < 50)
-        sub_426AC0(&v13, 4u);
-    sub_426AC0((_BYTE*)(a1 + 4), 1u);
-    sub_426AC0(&v12, 1u);
+        sub_426AC0_file3_fread(&v13, 4u);
+    sub_426AC0_file3_fread((_BYTE*)(a1 + 4), 1u);
+    sub_426AC0_file3_fread(&v12, 1u);
     if ((_BYTE)v12)
     {
-        sub_426AC0(v14, (unsigned __int8)v12);
+        sub_426AC0_file3_fread(v14, (unsigned __int8)v12);
         v14[(unsigned __int8)v12] = 0;
         *(_DWORD*)a1 = sub_4E3B60(v14);
     }
     if (a2 >= 47)
     {
-        sub_426AC0(&v12, 1u);
-        sub_426AC0(v14, (unsigned __int8)v12);
+        sub_426AC0_file3_fread(&v12, 1u);
+        sub_426AC0_file3_fread(v14, (unsigned __int8)v12);
         v2 = (_BYTE)v12 == 0;
         v14[(unsigned __int8)v12] = 0;
         if (!v2)
@@ -10936,10 +10936,10 @@ int __cdecl sub_52A840(int a1, int a2)
         }
     }
     v5 = 0;
-    sub_426AC0(&v12, 1u);
+    sub_426AC0_file3_fread(&v12, 1u);
     if ((_BYTE)v12)
     {
-        sub_426AC0(v14, (unsigned __int8)v12);
+        sub_426AC0_file3_fread(v14, (unsigned __int8)v12);
         v14[(unsigned __int8)v12] = 0;
         v6 = sub_413290(v14);
         if (v6 != 255)
@@ -10947,10 +10947,10 @@ int __cdecl sub_52A840(int a1, int a2)
     }
     *(_DWORD*)(a1 + 12) = v5;
     v7 = 0;
-    sub_426AC0(&v12, 1u);
+    sub_426AC0_file3_fread(&v12, 1u);
     if ((_BYTE)v12)
     {
-        sub_426AC0(v14, (unsigned __int8)v12);
+        sub_426AC0_file3_fread(v14, (unsigned __int8)v12);
         v14[(unsigned __int8)v12] = 0;
         v8 = sub_413290(v14);
         if (v8 != 255)
@@ -10958,20 +10958,20 @@ int __cdecl sub_52A840(int a1, int a2)
     }
     *(_DWORD*)(a1 + 16) = v7;
     v9 = 0;
-    sub_426AC0(&v12, 1u);
+    sub_426AC0_file3_fread(&v12, 1u);
     if ((_BYTE)v12)
     {
-        sub_426AC0(v14, (unsigned __int8)v12);
+        sub_426AC0_file3_fread(v14, (unsigned __int8)v12);
         v14[(unsigned __int8)v12] = 0;
         v10 = sub_413290(v14);
         if (v10 != 255)
             v9 = sub_413330(v10);
     }
     *(_DWORD*)(a1 + 20) = v9;
-    sub_426AC0(&v12, 1u);
+    sub_426AC0_file3_fread(&v12, 1u);
     result = v12;
     if ((_BYTE)v12
-        && (sub_426AC0(v14, (unsigned __int8)v12), v14[(unsigned __int8)v12] = 0, result = sub_413290(v14), result != 255))
+        && (sub_426AC0_file3_fread(v14, (unsigned __int8)v12), v14[(unsigned __int8)v12] = 0, result = sub_413290(v14), result != 255))
     {
         result = sub_413330(result);
         *(_DWORD*)(a1 + 24) = result;
@@ -11006,11 +11006,11 @@ int __cdecl sub_52AAB0(_DWORD* a1)
     char v20[256]; // [esp+34h] [ebp-100h]
 
     v13 = 2;
-    sub_426AC0(&v13, 2u);
+    sub_426AC0_file3_fread(&v13, 2u);
     if ((__int16)v13 > 2 || (__int16)v13 <= 0)
         return 0;
     LOBYTE(v16) = sub_424CB0((int)a1);
-    sub_426AC0(&v16, 1u);
+    sub_426AC0_file3_fread(&v16, 1u);
     if (*(_DWORD*)& byte_5D4594[3803300])
     {
         v5 = 0;
@@ -11018,14 +11018,14 @@ int __cdecl sub_52AAB0(_DWORD* a1)
             return 1;
         while (1)
         {
-            sub_426AC0(&v11, 1u);
-            sub_426AC0(v20, (unsigned __int8)v11);
+            sub_426AC0_file3_fread(&v11, 1u);
+            sub_426AC0_file3_fread(v20, (unsigned __int8)v11);
             v20[(unsigned __int8)v11] = 0;
             v6 = sub_424880(v20);
             if (v6 == -1)
                 break;
-            sub_426AC0(&v15, 1u);
-            sub_426AC0(&v14, 4u);
+            sub_426AC0_file3_fread(&v15, 1u);
+            sub_426AC0_file3_fread(&v14, 4u);
             v7 = a1[15];
             v17[1] = a1[14];
             v10 = (unsigned __int8)v15;
@@ -11036,7 +11036,7 @@ int __cdecl sub_52AAB0(_DWORD* a1)
             *((_WORD*)a1 + v6 + 172) = v14;
             if (v6 == 26 && (__int16)v13 >= 2)
             {
-                sub_426AC0(&v12, 4u);
+                sub_426AC0_file3_fread(&v12, 4u);
                 v9 = sub_4FF2D0(51, (int)a1);
                 if (v9)
                     * (_DWORD*)(v9 + 72) = v12;
@@ -11055,12 +11055,12 @@ int __cdecl sub_52AAB0(_DWORD* a1)
         {
             v2 = sub_4248F0(v1);
             LOBYTE(v11) = strlen(v2);
-            sub_426AC0(&v11, 1u);
-            sub_426AC0(v2, (unsigned __int8)v11);
+            sub_426AC0_file3_fread(&v11, 1u);
+            sub_426AC0_file3_fread(v2, (unsigned __int8)v11);
             LOBYTE(v15) = sub_4FF570((int)a1, v1);
-            sub_426AC0(&v15, 1u);
+            sub_426AC0_file3_fread(&v15, 1u);
             v14 = sub_4FF550((int)a1, v1);
-            sub_426AC0(&v14, 4u);
+            sub_426AC0_file3_fread(&v14, 4u);
             if (v1 == 26)
             {
                 v3 = sub_4FF2D0(51, (int)a1);
@@ -11068,7 +11068,7 @@ int __cdecl sub_52AAB0(_DWORD* a1)
                     v12 = *(_DWORD*)(v3 + 72);
                 else
                     v12 = 100;
-                sub_426AC0(&v12, 4u);
+                sub_426AC0_file3_fread(&v12, 4u);
             }
         }
         v1 = sub_424D20(v1);
@@ -11089,8 +11089,8 @@ size_t __cdecl sub_52AD10(int a1)
 
     if (*(_DWORD*)& byte_5D4594[3803300])
     {
-        sub_426AC0(&v5, 1u);
-        sub_426AC0(v6, (unsigned __int8)v5);
+        sub_426AC0_file3_fread(&v5, 1u);
+        sub_426AC0_file3_fread(v6, (unsigned __int8)v5);
         v6[(unsigned __int8)v5] = 0;
         v4 = sub_424350(v6);
         result = sub_424320(a1, (int)v4);
@@ -11102,13 +11102,13 @@ size_t __cdecl sub_52AD10(int a1)
         if (v1)
         {
             LOBYTE(v5) = strlen(*v1);
-            sub_426AC0(&v5, 1u);
-            result = sub_426AC0(*v2, (unsigned __int8)v5);
+            sub_426AC0_file3_fread(&v5, 1u);
+            result = sub_426AC0_file3_fread(*v2, (unsigned __int8)v5);
         }
         else
         {
             LOBYTE(v5) = 0;
-            result = sub_426AC0(&v5, 1u);
+            result = sub_426AC0_file3_fread(&v5, 1u);
         }
     }
     return result;
@@ -11180,7 +11180,7 @@ int __cdecl sub_52ADE0(int a1)
     v2 = *(char**)(a1 + 756);
     v54 = *(_DWORD*)(a1 + 136);
     v44 = 62;
-    sub_426AC0(&v44, 2u);
+    sub_426AC0_file3_fread(&v44, 2u);
     if ((__int16)v44 > 62)
         return 0;
     if (*(_DWORD*)& byte_5D4594[3803300] == 1)
@@ -11195,7 +11195,7 @@ int __cdecl sub_52ADE0(int a1)
     {
         if (!*(_DWORD*)& byte_5D4594[3803300])
             sub_509E20(*(__int16*)(a1 + 124), (int2*)v55);
-        sub_426AC0(v55, 8u);
+        sub_426AC0_file3_fread(v55, 8u);
         if (v2)
             v5 = v2 + 640;
         else
@@ -11206,7 +11206,7 @@ int __cdecl sub_52ADE0(int a1)
         else
             v6 = 0;
         sub_4F5580(v1 + 1264, v6);
-        sub_426AC0((_BYTE*)(v1 + 1220), 2u);
+        sub_426AC0_file3_fread((_BYTE*)(v1 + 1220), 2u);
         if (v2)
             v7 = v2 + 768;
         else
@@ -11244,11 +11244,11 @@ int __cdecl sub_52ADE0(int a1)
                 *(_DWORD*)& byte_5D4594[3803300] != 1))
         {
             if (!v15)
-                sub_426AC0(&v47, 4u);
+                sub_426AC0_file3_fread(&v47, 4u);
         }
         else
         {
-            sub_426AC0(&v47, 4u);
+            sub_426AC0_file3_fread(&v47, 4u);
         }
         if (*(_DWORD*)& byte_5D4594[3803300] == 1)
         {
@@ -11256,7 +11256,7 @@ int __cdecl sub_52ADE0(int a1)
             LOBYTE(v48) = 0;
             do
             {
-                sub_426AC0(v53, 3u);
+                sub_426AC0_file3_fread(v53, 3u);
                 sub_4E4A90(a1, v48, v53);
                 LOBYTE(v48) = ++v17;
             } while (v17 < 6u);
@@ -11267,40 +11267,40 @@ int __cdecl sub_52ADE0(int a1)
             v19 = 6;
             do
             {
-                sub_426AC0(v18, 3u);
+                sub_426AC0_file3_fread(v18, 3u);
                 v18 += 3;
                 --v19;
             } while (v19);
         }
         if (*(_DWORD*)& byte_5D4594[3803300] == 1 && (_WORD)v44 == 31)
         {
-            sub_426AC0(&v49, 2u);
-            sub_426AC0(&v46, 1u);
+            sub_426AC0_file3_fread(&v49, 2u);
+            sub_426AC0_file3_fread(&v46, 1u);
             for (i = 0; i < v46; ++i)
             {
-                sub_426AC0(&v50, 1u);
-                sub_426AC0(v56, (unsigned __int8)v50);
+                sub_426AC0_file3_fread(&v50, 1u);
+                sub_426AC0_file3_fread(v56, (unsigned __int8)v50);
                 v56[(unsigned __int8)v50] = 0;
-                sub_426AC0(&v43, 1u);
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
             }
         }
         if ((__int16)v44 >= 32)
         {
-            sub_426AC0((_BYTE*)(v1 + 1332), 1u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1332), 1u);
             if ((__int16)v44 < 49)
             {
-                sub_426AC0(&v47, 2u);
+                sub_426AC0_file3_fread(&v47, 2u);
                 *(_DWORD*)(v1 + 1440) = (unsigned __int16)v47;
             }
             else
             {
-                sub_426AC0((_BYTE*)(v1 + 1440), 4u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1440), 4u);
             }
-            sub_426AC0((_BYTE*)(v1 + 1352), 4u);
-            sub_426AC0((_BYTE*)(v1 + 1336), 4u);
-            sub_426AC0((_BYTE*)(v1 + 1344), 4u);
-            sub_426AC0((_BYTE*)(v1 + 1312), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1352), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1336), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1344), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1312), 4u);
             v43 = 0;
             v22 = *(_WORD * *)(a1 + 556);
             if (v22)
@@ -11308,31 +11308,31 @@ int __cdecl sub_52ADE0(int a1)
                 LOWORD(v21) = *v22;
                 v43 = v21;
             }
-            sub_426AC0(&v43, 2u);
+            sub_426AC0_file3_fread(&v43, 2u);
             v23 = *(_WORD * *)(a1 + 556);
             if (v23)
                 * v23 = v43;
-            sub_426AC0((_BYTE*)(v1 + 1304), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1304), 4u);
             *(_DWORD*)(v1 + 1308) = *(_DWORD*)(v1 + 1304);
             if ((__int16)v44 < 35)
-                sub_426AC0((_BYTE*)(v1 + 1360), 4u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1360), 4u);
             LOBYTE(v49) = strlen((const char*)(v1 + 1364));
-            sub_426AC0(&v49, 1u);
-            sub_426AC0((_BYTE*)(v1 + 1364), (unsigned __int8)v49);
+            sub_426AC0_file3_fread(&v49, 1u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1364), (unsigned __int8)v49);
             *(_BYTE*)((unsigned __int8)v49 + v1 + 1364) = 0;
             if ((__int16)v44 >= 34)
             {
                 if (*(_DWORD*)& byte_5D4594[3803300])
                 {
                     memset((void*)(v1 + 1488), 0, 0x224u);
-                    sub_426AC0(&v43, 4u);
+                    sub_426AC0_file3_fread(&v43, 4u);
                     for (j = 0; j < v43; LOBYTE(v48) = j)
                     {
-                        sub_426AC0(&v49, 1u);
-                        sub_426AC0(v56, (unsigned __int8)v49);
+                        sub_426AC0_file3_fread(&v49, 1u);
+                        sub_426AC0_file3_fread(v56, (unsigned __int8)v49);
                         v56[(unsigned __int8)v49] = 0;
                         v31 = sub_4243F0(v56);
-                        sub_426AC0((_BYTE*)(v1 + 4 * v31 + 1488), 4u);
+                        sub_426AC0_file3_fread((_BYTE*)(v1 + 4 * v31 + 1488), 4u);
                         ++j;
                     }
                 }
@@ -11351,7 +11351,7 @@ int __cdecl sub_52ADE0(int a1)
                         --v27;
                     } while (v27);
                     v43 = v24;
-                    sub_426AC0(&v43, 4u);
+                    sub_426AC0_file3_fread(&v43, 4u);
                     v48 = 0;
                     v47 = 137;
                     do
@@ -11360,9 +11360,9 @@ int __cdecl sub_52ADE0(int a1)
                         {
                             v28 = sub_424870(v48);
                             LOBYTE(v52) = strlen(v28);
-                            sub_426AC0(&v52, 1u);
-                            sub_426AC0(v28, (unsigned __int8)v52);
-                            sub_426AC0(v25, 4u);
+                            sub_426AC0_file3_fread(&v52, 1u);
+                            sub_426AC0_file3_fread(v28, (unsigned __int8)v52);
+                            sub_426AC0_file3_fread(v25, 4u);
                         }
                         v25 += 4;
                         v29 = v47 == 1;
@@ -11373,89 +11373,89 @@ int __cdecl sub_52ADE0(int a1)
             }
             else
             {
-                sub_426AC0((_BYTE*)(v1 + 1488), 0x224u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1488), 0x224u);
             }
             if ((__int16)v44 < 47)
             {
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
                 *(_WORD*)(v1 + 1448) = (unsigned __int8)v43;
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
                 *(_WORD*)(v1 + 1450) = (unsigned __int8)v43;
             }
             else
             {
-                sub_426AC0((_BYTE*)(v1 + 1448), 2u);
-                sub_426AC0((_BYTE*)(v1 + 1450), 2u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1448), 2u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1450), 2u);
             }
             if ((__int16)v44 < 34)
-                sub_426AC0(&v45, 4u);
+                sub_426AC0_file3_fread(&v45, 4u);
             if ((__int16)v44 < 47)
             {
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
                 *(_WORD*)(v1 + 1456) = (unsigned __int8)v43;
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
                 *(_WORD*)(v1 + 1458) = (unsigned __int8)v43;
             }
             else
             {
-                sub_426AC0((_BYTE*)(v1 + 1456), 2u);
-                sub_426AC0((_BYTE*)(v1 + 1458), 2u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1456), 2u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1458), 2u);
             }
             if ((__int16)v44 < 34)
-                sub_426AC0(&v45, 4u);
+                sub_426AC0_file3_fread(&v45, 4u);
             if ((__int16)v44 < 47)
             {
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
                 *(_WORD*)(v1 + 1464) = (unsigned __int8)v43;
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
                 *(_WORD*)(v1 + 1466) = (unsigned __int8)v43;
             }
             else
             {
-                sub_426AC0((_BYTE*)(v1 + 1464), 2u);
-                sub_426AC0((_BYTE*)(v1 + 1466), 2u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1464), 2u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1466), 2u);
             }
             if ((__int16)v44 < 34)
-                sub_426AC0(&v45, 4u);
+                sub_426AC0_file3_fread(&v45, 4u);
             if ((__int16)v44 < 47)
             {
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
                 *(_WORD*)(v1 + 1472) = (unsigned __int8)v43;
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
                 *(_WORD*)(v1 + 1474) = (unsigned __int8)v43;
             }
             else
             {
-                sub_426AC0((_BYTE*)(v1 + 1472), 2u);
-                sub_426AC0((_BYTE*)(v1 + 1474), 2u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1472), 2u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1474), 2u);
             }
             if ((__int16)v44 < 34)
-                sub_426AC0(&v45, 4u);
+                sub_426AC0_file3_fread(&v45, 4u);
             if ((__int16)v44 < 47)
             {
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
                 *(_WORD*)(v1 + 1480) = (unsigned __int8)v43;
-                sub_426AC0(&v43, 1u);
+                sub_426AC0_file3_fread(&v43, 1u);
                 *(_WORD*)(v1 + 1482) = (unsigned __int8)v43;
             }
             else
             {
-                sub_426AC0((_BYTE*)(v1 + 1480), 2u);
-                sub_426AC0((_BYTE*)(v1 + 1482), 2u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1480), 2u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1482), 2u);
             }
             if ((__int16)v44 < 34)
-                sub_426AC0(&v45, 4u);
+                sub_426AC0_file3_fread(&v45, 4u);
             if ((__int16)v44 >= 33)
-                sub_426AC0((_BYTE*)(v1 + 1316), 4u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1316), 4u);
             if ((__int16)v44 >= 34)
             {
-                sub_426AC0((_BYTE*)(v1 + 2040), 4u);
-                sub_426AC0((_BYTE*)(v1 + 1324), 1u);
-                sub_426AC0((_BYTE*)(v1 + 1328), 4u);
-                sub_426AC0((_BYTE*)(v1 + 1320), 4u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 2040), 4u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1324), 1u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1328), 4u);
+                sub_426AC0_file3_fread((_BYTE*)(v1 + 1320), 4u);
                 if ((__int16)v44 < 42)
                 {
-                    sub_426AC0(&v43, 2u);
+                    sub_426AC0_file3_fread(&v43, 2u);
                     if (!(_WORD)v43)
                         * (_BYTE*)(v1 + 1445) = 1;
                 }
@@ -11465,8 +11465,8 @@ int __cdecl sub_52ADE0(int a1)
                 {
                     if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                     {
-                        sub_426AC0(&v43, 1u);
-                        sub_426AC0(v56, (unsigned __int8)v43);
+                        sub_426AC0_file3_fread(&v43, 1u);
+                        sub_426AC0_file3_fread(v56, (unsigned __int8)v43);
                         v56[(unsigned __int8)v43] = 0;
                         *v32 = sub_4243F0(v56);
                     }
@@ -11474,8 +11474,8 @@ int __cdecl sub_52ADE0(int a1)
                     {
                         v33 = sub_424870(*v32);
                         LOBYTE(v43) = strlen(v33);
-                        sub_426AC0(&v43, 1u);
-                        sub_426AC0(v33, (unsigned __int8)v43);
+                        sub_426AC0_file3_fread(&v43, 1u);
+                        sub_426AC0_file3_fread(v33, (unsigned __int8)v43);
                     }
                     ++v32;
                     --v47;
@@ -11485,8 +11485,8 @@ int __cdecl sub_52ADE0(int a1)
             {
                 if (*(_DWORD*)& byte_5D4594[3803300])
                 {
-                    sub_426AC0(&v43, 1u);
-                    sub_426AC0(v57, (unsigned __int8)v43);
+                    sub_426AC0_file3_fread(&v43, 1u);
+                    sub_426AC0_file3_fread(v57, (unsigned __int8)v43);
                     v57[(unsigned __int8)v43] = 0;
                     *(_DWORD*)(v1 + 1360) = sub_5345F0(v57);
                 }
@@ -11494,8 +11494,8 @@ int __cdecl sub_52ADE0(int a1)
                 {
                     v34 = sub_5345B0(*(_DWORD*)(v1 + 1360));
                     LOBYTE(v43) = strlen(v34);
-                    sub_426AC0(&v43, 1u);
-                    sub_426AC0(v34, (unsigned __int8)v43);
+                    sub_426AC0_file3_fread(&v43, 1u);
+                    sub_426AC0_file3_fread(v34, (unsigned __int8)v43);
                 }
             }
         }
@@ -11511,16 +11511,16 @@ int __cdecl sub_52ADE0(int a1)
                 return result;
         }
         if ((__int16)v44 >= 42)
-            sub_426AC0((_BYTE*)(v1 + 1445), 1u);
+            sub_426AC0_file3_fread((_BYTE*)(v1 + 1445), 1u);
         if ((__int16)v44 >= 44)
-            sub_426AC0((_BYTE*)v1, 4u);
+            sub_426AC0_file3_fread((_BYTE*)v1, 4u);
         if ((__int16)v44 >= 45)
         {
             v36 = *(_DWORD*)(v35 + 556);
             v45 = 0;
             if (v36)
                 v45 = *(unsigned __int16*)(v36 + 4);
-            sub_426AC0(&v45, 4u);
+            sub_426AC0_file3_fread(&v45, 4u);
             v37 = *(_DWORD*)(v35 + 556);
             if (v37)
                 * (_WORD*)(v37 + 4) = v45;
@@ -11528,13 +11528,13 @@ int __cdecl sub_52ADE0(int a1)
         if ((__int16)v44 >= 46)
         {
             v51 = *(_DWORD*)(v35 + 12) & 0x180;
-            sub_426AC0(&v51, 4u);
+            sub_426AC0_file3_fread(&v51, 4u);
             *(_DWORD*)(v35 + 12) |= v51;
         }
         if ((__int16)v44 >= 48)
-            sub_426AC0(*(_BYTE * *)(v35 + 556), 2u);
+            sub_426AC0_file3_fread(*(_BYTE * *)(v35 + 556), 2u);
         if ((__int16)v44 >= 51)
-            sub_426AC0((_BYTE*)(v35 + 28), 4u);
+            sub_426AC0_file3_fread((_BYTE*)(v35 + 28), 4u);
         if ((__int16)v44 >= 52)
             sub_52AD10(v35);
         if ((__int16)v44 < 61 || (result = sub_52AAB0((_DWORD*)v35)) != 0)
@@ -11542,7 +11542,7 @@ int __cdecl sub_52ADE0(int a1)
             if ((__int16)v44 >= 62)
             {
                 LOBYTE(v45) = *(_BYTE*)(v35 + 540);
-                sub_426AC0(&v45, 1u);
+                sub_426AC0_file3_fread(&v45, 1u);
                 if (*(_DWORD*)& byte_5D4594[3803300] != 1)
                     goto LABEL_156;
                 if (!(_BYTE)v45)

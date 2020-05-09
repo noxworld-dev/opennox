@@ -14104,7 +14104,7 @@ int __thiscall sub_460940(void* this)
         LOBYTE(v2) = *(_BYTE*)(*(_DWORD*)& byte_5D4594[2618908] + 2251);
     else
         LOBYTE(v2) = sub_431770()[66];
-    sub_426AC0(&v2, 1u);
+    sub_426AC0_file3_fread(&v2, 1u);
     if (!(_BYTE)v2)
     {
         result = sub_460A10(*(int*)& byte_587000[133480], 5, 5, 0);
@@ -14153,8 +14153,8 @@ int __cdecl sub_460A10(int a1, int a2, int a3, char a4)
             {
                 if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                 {
-                    sub_426AC0(&v10, 1u);
-                    sub_426AC0(v13, (unsigned __int8)v10);
+                    sub_426AC0_file3_fread(&v10, 1u);
+                    sub_426AC0_file3_fread(v13, (unsigned __int8)v10);
                     v13[(unsigned __int8)v10] = 0;
                     if (a4)
                         * (_DWORD*)v4 = sub_4243F0(v13);
@@ -14166,20 +14166,20 @@ int __cdecl sub_460A10(int a1, int a2, int a3, char a4)
                     if (a4)
                     {
                         LOBYTE(v10) = strlen(sub_424870(*(_DWORD*)v4));
-                        sub_426AC0(&v10, 1u);
+                        sub_426AC0_file3_fread(&v10, 1u);
                         v9 = (unsigned __int8)v10;
                         v6 = sub_424870(*(_DWORD*)v4);
                     }
                     else
                     {
                         LOBYTE(v10) = strlen(sub_425250(*(_DWORD*)v4));
-                        sub_426AC0(&v10, 1u);
+                        sub_426AC0_file3_fread(&v10, 1u);
                         v9 = (unsigned __int8)v10;
                         v6 = sub_425250(*(_DWORD*)v4);
                     }
-                    sub_426AC0(v6, v9);
+                    sub_426AC0_file3_fread(v6, v9);
                 }
-                sub_426AC0((_BYTE*)(v4 + 4), 1u);
+                sub_426AC0_file3_fread((_BYTE*)(v4 + 4), 1u);
                 v4 += 8;
                 --v5;
             } while (v5);

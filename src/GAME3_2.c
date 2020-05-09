@@ -1143,7 +1143,7 @@ int __cdecl sub_4CF470(char* a1, int a2)
             if (sub_426910(FileName, 1, 19))
             {
                 v2 |= 2u;
-                sub_426AC0(&v5, 4u);
+                sub_426AC0_file3_fread(&v5, 4u);
                 if (v5 != -86065425 && v5 == -86050098)
                 {
                     sub_426C20(&v4, 4u);
@@ -1242,7 +1242,7 @@ int __cdecl sub_4CF5F0(char* a1, int a2)
         v9 = sub_426910(FileName, 1, 19);
     if (!v9)
         return 0;
-    sub_426AC0(&v10, 4u);
+    sub_426AC0_file3_fread(&v10, 4u);
     if (v10 == -86065425)
     {
         sub_409B10(0);
@@ -1455,16 +1455,16 @@ int sub_4CFCE0()
     int v7; // [esp+14h] [ebp-104h]
     char v8[256]; // [esp+18h] [ebp-100h]
 
-    sub_426AC0(&v5[0], 4u);
-    sub_426AC0(&v5[1], 4u);
+    sub_426AC0_file3_fread(&v5[0], 4u);
+    sub_426AC0_file3_fread(&v5[1], 4u);
     sub_426A80(&v5);
     while (1)
     {
         LOBYTE(v3) = 0;
-        sub_426AC0(&v3, 1u);
+        sub_426AC0_file3_fread(&v3, 1u);
         if (!(_BYTE)v3)
             break;
-        sub_426AC0(v8, (unsigned __int8)v3);
+        sub_426AC0_file3_fread(v8, (unsigned __int8)v3);
         sub_426C20(&v7, 4u);
         if (!sub_426EA0(0, v8, &v4))
         {
@@ -1530,7 +1530,7 @@ int __cdecl sub_4CFE10(const char* a1)
     result = sub_426910(v6, 1, 19);
     if (result)
     {
-        sub_426AC0(&v4, 4u);
+        sub_426AC0_file3_fread(&v4, 4u);
         if (v4 != -86065425)
         {
             if (v4 != -86050098)
@@ -1540,7 +1540,7 @@ int __cdecl sub_4CFE10(const char* a1)
             }
             sub_426C20(&v5, 4u);
         }
-        sub_426AC0(v6, 0x20u);
+        sub_426AC0_file3_fread(v6, 0x20u);
         if (sub_42A6E0())
         {
             sub_4269F0();
@@ -1792,11 +1792,11 @@ int __cdecl sub_4D0250(char* a1, char* a2, int a3, int a4)
             sub_426A50(1);
             while (1)
             {
-                sub_426AC0(&v15, 1u);
+                sub_426AC0_file3_fread(&v15, 1u);
                 if (!(_BYTE)v15)
                     break;
-                sub_426AC0(v29, (unsigned __int8)v15);
-                sub_426AC0(&v27, 4u);
+                sub_426AC0_file3_fread(v29, (unsigned __int8)v15);
+                sub_426AC0_file3_fread(&v27, 4u);
                 if (!sub_426EA0((int)v6, v29, &v14))
                 {
                     if (v14 == 1)

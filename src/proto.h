@@ -1199,7 +1199,7 @@ FILE* sub_426A60();
 char* sub_426A70();
 int* __cdecl sub_426A80(int* a1);
 int __cdecl sub_426AA0(int a1);
-size_t __cdecl sub_426AC0(_BYTE* a1, size_t a2);
+size_t __cdecl sub_426AC0_file3_fread(_BYTE* a1, size_t a2);
 int __cdecl sub_426BD0(unsigned __int8* a1, int a2);
 void __cdecl sub_426C20(_BYTE* a1, size_t a2);
 void __cdecl sub_426C90();
