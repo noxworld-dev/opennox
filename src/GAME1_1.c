@@ -9535,7 +9535,7 @@ char* __cdecl sub_423A10(const char* a1, _DWORD* a2)
 }
 
 //----- (00423AD0) --------------------------------------------------------
-int __cdecl nox_parse_shape(shape* a1, char* a2)
+int __cdecl nox_parse_shape(nox_shape* a1, char* a2)
 {
     int result; // eax
 
