@@ -339,22 +339,28 @@ typedef struct int4
     int field_C;
 } int4;
 
-/* 308 */
+typedef enum {
+    NOX_SHAPE_NONE = 0,
+    NOX_SHAPE_CENTER = 1,
+    NOX_SHAPE_CIRCLE = 2,
+    NOX_SHAPE_BOX = 3
+} nox_shape_kind;
+
 typedef struct nox_shape
 {
-    int field_0;
-    float field_4;
-    float field_8;
-    float field_C;
-    float field_10;
-    float field_14;
-    float field_18;
-    float field_1C;
-    float field_20;
-    float field_24;
-    float field_28;
-    float field_2C;
-    float field_30;
+    nox_shape_kind kind; // 0x0
+    float circle_r; // 0x4
+    float circle_r2; // 0x8
+    float box_w; // 0xC
+    float box_h; // 0x10
+    float box_left_top; // 0x14
+    float box_left_bottom; // 0x18
+    float box_left_bottom_2; // 0x1C
+    float box_left_top_2; // 0x20
+    float box_right_top; // 0x24
+    float box_right_bottom; // 0x28
+    float box_right_bottom_2; // 0x2C
+    float box_right_top_2; // 0x30
 } nox_shape;
 
 typedef struct string
@@ -441,7 +447,8 @@ typedef struct nox_thing
     wchar_t* field_8; // 2, 0x8
     _DWORD field_c; // 3, 0xc
     _DWORD field_10; // 4, 0x10
-    _DWORD field_14; // 5, 0x14
+    _WORD shape_kind; // 5, 0x14
+    _WORD field_16; // 5, 0x16
     _DWORD field_18; // 6, 0x18
     _DWORD field_1c; // 7, 0x1c
     int pri_class; // 8, 0x20, 32
@@ -452,11 +459,11 @@ typedef struct nox_thing
     _DWORD field_34; // 13, 0x34
     _DWORD field_38; // 14, 0x38
     _DWORD field_3c; // 15, 0x3c
-    float field_40; // 16, 0x40
+    float shape_r; // 16, 0x40
     _DWORD field_44; // 17, 0x44
     _DWORD field_48; // 18, 0x48
-    _DWORD field_4c; // 19, 0x4c
-    _DWORD field_50; // 20, 0x50
+    float shape_w; // 19, 0x4c
+    float shape_h; // 20, 0x50
     _DWORD field_54; // 21, 0x54
     void* draw_func; // 22, 0x58
     void* field_5c; // 23, 0x5c

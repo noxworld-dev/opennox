@@ -354,16 +354,14 @@ int __cdecl sub_44D0C0(float a1, int i)
 void sub_44D2C0()
 {
     for (nox_thing* cur = nox_things_head; cur; cur = cur->next) {
-        if (*((_BYTE*)&cur->field_14) == 3) {
-            double v1 = cur->field_40;
-            float v2 = cur->field_40;
+        if (cur->shape_kind == NOX_SHAPE_BOX) {
+            double r = cur->shape_r;
 
-            nox_shape v3;
-            v3.field_0 = 3;
-            v3.field_4 = v2;
-            v3.field_8 = v1 * v1;
-
-            nox_shape_box_calc(&v3);
+            nox_shape s;
+            s.kind = 3;
+            s.circle_r = r;
+            s.circle_r2 = r * r;
+            nox_shape_box_calc(&s);
         }
     }
 }

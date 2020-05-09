@@ -12152,17 +12152,15 @@ int __cdecl nox_parse_thing_subclass(nox_thing* obj, int a2, const char* a3)
 }
 
 //----- (0044B1F0) --------------------------------------------------------
-int __cdecl nox_parse_thing_extent(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_extent(nox_thing* obj, int a2, char* a3)
 {
-    int result; // eax
-    nox_shape v4; // [esp+0h] [ebp-3Ch]
-
-    result = nox_parse_shape(&v4, a3);
-    *(_BYTE*)(a1 + 20) = v4.field_0;
-    *(float*)(a1 + 64) = v4.field_4;
-    *(float*)(a1 + 76) = v4.field_C;
-    *(float*)(a1 + 80) = v4.field_10;
-    return result;
+    nox_shape s;
+    int res = nox_parse_shape(&s, a3);
+    obj->shape_kind = s.kind;
+    obj->shape_r = s.circle_r;
+    obj->shape_w = s.box_w;
+    obj->shape_h = s.box_h;
+    return res;
 }
 
 //----- (0044B230) --------------------------------------------------------

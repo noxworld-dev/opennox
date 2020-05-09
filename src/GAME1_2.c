@@ -230,33 +230,29 @@ BOOL __cdecl sub_428220(float2* a1, float4* a2)
 }
 
 //----- (00428270) --------------------------------------------------------
-void __cdecl nox_shape_box_calc(nox_shape* a1)
+void __cdecl nox_shape_box_calc(nox_shape* s)
 {
-    nox_shape* v1; // eax
-    double v2; // st7
-    double v3; // st7
-    double v4; // st6
-    double v5; // st7
-    double v6; // st6
-    float v7; // [esp+0h] [ebp-4h]
-    float v8; // [esp+8h] [ebp+4h]
+    const float mul = 0.35354999; // cos(Pi/4) / 2
+    float px = s->box_w * mul;
+    float py = s->box_h * mul;
 
-    v1 = a1;
-    v8 = a1->field_C * 0.35354999;
-    v2 = v1->field_10 * 0.35354999;
-    v7 = v2;
-    v3 = v2 - v8;
-    v1->field_14 = v3;
-    v4 = -v8 - v7;
-    v1->field_18 = v4;
-    v1->field_1C = v4;
-    v1->field_20 = v3;
-    v5 = v7 + v8;
-    v1->field_24 = v5;
-    v6 = v8 - v7;
-    v1->field_28 = v6;
-    v1->field_2C = v6;
-    v1->field_30 = v5;
+    double v = 0.0;
+
+    v = -px + py;
+    s->box_left_top = v;
+    s->box_left_top_2 = v;
+
+    v = -px - py;
+    s->box_left_bottom = v;
+    s->box_left_bottom_2 = v;
+
+    v = +px + py;
+    s->box_right_top = v;
+    s->box_right_top_2 = v;
+
+    v = +px - py;
+    s->box_right_bottom = v;
+    s->box_right_bottom_2 = v;
 }
 
 //----- (004282D0) --------------------------------------------------------
