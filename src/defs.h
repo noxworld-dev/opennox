@@ -440,6 +440,8 @@ typedef struct nox_alloc_class
 } nox_alloc_class;
 
 typedef struct nox_thing nox_thing;
+typedef struct nox_drawable nox_drawable;
+
 typedef struct nox_thing
 {
     char* name; // 0, 0x0
@@ -465,7 +467,7 @@ typedef struct nox_thing
     float shape_w; // 19, 0x4c
     float shape_h; // 20, 0x50
     _DWORD field_54; // 21, 0x54
-    void* draw_func; // 22, 0x58
+    int(__cdecl *draw_func)(_DWORD*, nox_drawable*); // 22, 0x58, same as nox_drawable->draw_func
     void* field_5c; // 23, 0x5c
     _DWORD field_60; // 24, 0x60
     _DWORD field_64; // 25, 0x64
@@ -499,13 +501,109 @@ typedef struct nox_window
     _DWORD field_92; // 92
     int (*field_93)(int, int, int, int); // 93
     int (*field_94)(int, int, int, int); // 94
-    int (*draw)(nox_window*, void*); // 95, second arg is &field_9
+    int (*draw_func)(nox_window*, void*); // 95, second arg is &field_9
     int (*field_96)(void*); // 96
     nox_window* field_97; // 97, 388
     nox_window* field_98; // 98, 392
     nox_window* field_99; // 99
     nox_window* field_100; // 100
 } nox_window;
+
+typedef struct nox_drawable
+{
+    _DWORD field_0; // 0, 0
+    _DWORD field_1; // 1, 4
+    _DWORD field_2; // 2, 8
+    int field_3; // 3, 12
+    int field_4; // 4, 16
+    _DWORD field_5; // 5, 20
+    _DWORD field_6; // 6, 24
+    _DWORD field_7; // 7, 28
+    _DWORD field_8; // 8, 32
+    _DWORD field_9; // 9, 36
+    _DWORD field_10; // 10, 40
+    nox_shape shape; // 11, 44
+    _DWORD field_24; // 24, 96
+    _DWORD field_25; // 25, 100
+    _DWORD field_26; // 26, 104
+    _DWORD field_27; // 27, 108
+    int field_28; // 28, 112,  flags?
+    _DWORD field_29; // 29, 116
+    int flags; // 30, 120
+    _DWORD field_31;
+    _DWORD field_32;
+    _DWORD field_33; // 33, 132
+    _DWORD field_34; // 34, 136
+    _DWORD field_35;
+    _DWORD field_36;
+    _DWORD field_37;
+    _DWORD field_38; // 38, 152
+    _DWORD field_39; // 39, 156
+    _DWORD field_40; // 40, 160
+    _WORD field_41_0; // 41, 164
+    _WORD field_41_1; // 41, 165
+    _DWORD field_42; // 42, 168
+    _DWORD field_43;
+    _DWORD field_44;
+    _DWORD data_45[5];
+    _DWORD data_50[10];
+    _DWORD data_60[5];
+    _DWORD field_65;
+    _DWORD field_66;
+    _DWORD field_67;
+    _DWORD field_68;
+    _DWORD field_69; // 69, 276
+    _DWORD field_70; // 70, 280
+    _DWORD field_71; // 71, 284
+    _DWORD field_72; // 72, 288
+    _DWORD field_73;
+    _DWORD field_74;
+    int(__cdecl *draw_func)(_DWORD*, nox_drawable*); // 75, 300, same as nox_thing->draw_func
+    void* field_76; // 76, 304
+    _DWORD field_77; // 77, 308
+    _DWORD field_78;
+    _DWORD field_79;
+    _DWORD field_80; // 80, 320
+    _DWORD field_81;
+    _DWORD field_82;
+    _DWORD field_83;
+    _DWORD field_84;
+    _DWORD field_85; // 85, 340
+    _DWORD field_86;
+    _DWORD field_87;
+    _DWORD field_88;
+    _DWORD field_89;
+    nox_drawable* field_90; // 90, 360
+    nox_drawable* field_91; // 91, 364
+    nox_drawable* field_92; // 92, 368
+    nox_drawable* field_93; // 93, 372
+    _DWORD field_94;
+    _DWORD field_95;
+    _DWORD field_96;
+    nox_drawable* field_97; // 97, 388
+    nox_drawable* field_98; // 98, 392
+    nox_drawable** field_99; // 99, 396
+    nox_drawable* field_100; // 100, 400
+    nox_drawable* field_101; // 101, 404
+    _DWORD field_102;
+    _DWORD field_103;
+    _DWORD field_104;
+    _DWORD data_105[5];
+    _DWORD data_110[5];
+    _DWORD field_115;
+    _DWORD field_116; // 116, 464
+    _DWORD field_117;
+    _DWORD field_118;
+    _DWORD field_119;
+    _DWORD field_120; // 120, 480
+    _DWORD field_121; // 121, 484
+    _DWORD field_122; // 122, 488
+    _DWORD field_123; // 123, 492
+    _DWORD field_124;
+    _DWORD field_125;
+    _DWORD field_126;
+    _DWORD field_127;
+} nox_drawable;
 
 typedef struct obj_412ae0_t obj_412ae0_t;
 typedef struct obj_412ae0_t

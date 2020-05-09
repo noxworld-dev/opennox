@@ -8,6 +8,12 @@ extern int nox_backbuffer_height;
 extern int default_win_width;
 extern int default_win_height;
 
+extern nox_drawable** nox_drawable_list_3;
+extern int nox_drawable_list_3_size;
+
+extern nox_drawable** nox_drawable_list_4;
+extern int nox_drawable_list_4_size;
+
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 
 //----- (00475F10) --------------------------------------------------------
@@ -19,14 +25,14 @@ int __cdecl sub_475F10(_DWORD* a1)
     int v4; // esi
     int v5; // eax
 
-    v1 = *(int**)& byte_5D4594[1096472];
-    result = *(_DWORD*)& byte_5D4594[1096476] - 1;
-    for (i = (*(_DWORD*)& byte_5D4594[1096476])-- == 0; !i; -- * (_DWORD*)& byte_5D4594[1096476])
+    v1 = nox_drawable_list_3;
+    result = nox_drawable_list_3_size - 1;
+    for (i = nox_drawable_list_3_size-- == 0; !i; -- nox_drawable_list_3_size)
     {
         v4 = *v1;
         ++v1;
         sub_4746C0(a1, v4);
-        if (sub_4984B0(v4))
+        if (sub_4984B0_drawable(v4))
         {
             *(_DWORD*)(v4 + 484) = 1;
             (*(void(__cdecl * *)(_DWORD*, int))(v4 + 300))(a1, v4);
@@ -41,8 +47,8 @@ int __cdecl sub_475F10(_DWORD* a1)
             if (!v5 && !*(_DWORD*)(v4 + 488))
                 * (_DWORD*)(v4 + 340) = *(_DWORD*)& byte_5D4594[2598000];
         }
-        result = *(_DWORD*)& byte_5D4594[1096476] - 1;
-        i = *(_DWORD*)& byte_5D4594[1096476] == 0;
+        result = nox_drawable_list_3_size - 1;
+        i = nox_drawable_list_3_size == 0;
     }
     return result;
 }
@@ -56,13 +62,13 @@ int __cdecl sub_475FE0(_DWORD* a1)
     int v4; // esi
     int v5; // eax
 
-    v1 = *(int**)& byte_5D4594[1096488];
-    result = *(_DWORD*)& byte_5D4594[1096492] - 1;
-    for (i = (*(_DWORD*)& byte_5D4594[1096492])-- == 0; !i; -- * (_DWORD*)& byte_5D4594[1096492])
+    v1 = nox_drawable_list_4;
+    result = nox_drawable_list_4_size - 1;
+    for (i = nox_drawable_list_4_size-- == 0; !i; -- nox_drawable_list_4_size)
     {
         v4 = *v1;
         ++v1;
-        if (sub_4984B0(v4))
+        if (sub_4984B0_drawable(v4))
         {
             *(_DWORD*)(v4 + 484) = 1;
             (*(void(__cdecl * *)(_DWORD*, int))(v4 + 300))(a1, v4);
@@ -73,8 +79,8 @@ int __cdecl sub_475FE0(_DWORD* a1)
             if (!v5 && !*(_DWORD*)(v4 + 488))
                 * (_DWORD*)(v4 + 340) = *(_DWORD*)& byte_5D4594[2598000];
         }
-        result = *(_DWORD*)& byte_5D4594[1096492] - 1;
-        i = *(_DWORD*)& byte_5D4594[1096492] == 0;
+        result = nox_drawable_list_4_size - 1;
+        i = nox_drawable_list_4_size == 0;
     }
     return result;
 }
@@ -1059,7 +1065,7 @@ void __cdecl sub_477050(int arg0, int a2)
             {
                 if (v4 & 0x80400206 || *(_DWORD*)(arg0 + 108) == *(_DWORD*)& byte_5D4594[1096648])
                 {
-                    if (sub_4984B0(arg0))
+                    if (sub_4984B0_drawable(arg0))
                     {
                         if (!(*(_BYTE*)(arg0 + 112) & 4) || (v6 = sub_417040(*(_DWORD*)(arg0 + 128))) != 0 && !(v6[3680] & 1))
                         {
@@ -2557,7 +2563,7 @@ _DWORD* __cdecl sub_479300(int a1, int a2, int a3, __int16 a4, int a5)
     {
         if (!*result)
         {
-            result = sub_45A240(a1);
+            result = nox_new_drawable_for_thing(a1);
             *v6 = result;
             if (!result)
                 return result;
