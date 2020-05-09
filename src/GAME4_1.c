@@ -1547,7 +1547,7 @@ int __cdecl sub_50B2C0(int a1)
             {
                 *(float*)(a1 + 184) = *(float*)& byte_587000[234176] + *(float*)& byte_587000[234176] + *(float*)(a1 + 184);
                 *(float*)(a1 + 188) = *(float*)& byte_587000[234176] + *(float*)& byte_587000[234176] + *(float*)(a1 + 188);
-                sub_428270((shape*)(a1 + 172));
+                nox_shape_box_calc((shape*)(a1 + 172));
             }
             sub_4E7290(a1);
         }

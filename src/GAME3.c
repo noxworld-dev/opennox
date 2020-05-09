@@ -7730,7 +7730,7 @@ int __cdecl sub_4AC7B0(int a1)
                     * (_DWORD*)(v2 + 56) = 1114636288;
                 if (v10 > 60.0)
                     * (_DWORD*)(v2 + 60) = 1114636288;
-                sub_428270((shape*)(v2 + 44));
+                nox_shape_box_calc((shape*)(v2 + 44));
             }
         }
         else
@@ -7980,7 +7980,7 @@ int __cdecl sub_4ACEF0(int a1)
         sub_426AC0_file3_fread(&v6, 4u);
         *(float*)(v2 + 60) = (double)v6;
         v5 += 4;
-        sub_428270((shape*)(v2 + 44));
+        nox_shape_box_calc((shape*)(v2 + 44));
         v4[4] = 10;
         *v4 = 90;
         v4[1] = 90;

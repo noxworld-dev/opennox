@@ -9535,7 +9535,7 @@ char* __cdecl sub_423A10(const char* a1, _DWORD* a2)
 }
 
 //----- (00423AD0) --------------------------------------------------------
-int __cdecl sub_423AD0(shape* a1, char* a2)
+int __cdecl nox_parse_shape(shape* a1, char* a2)
 {
     int result; // eax
 
@@ -9560,7 +9560,7 @@ int __cdecl sub_423AD0(shape* a1, char* a2)
     {
         a1->field_0 = 3;
         sscanf(a2, "%*s %f %f", &a1->field_C, &a1->field_10);
-        sub_428270(a1);
+        nox_shape_box_calc(a1);
         result = 1;
     }
     else

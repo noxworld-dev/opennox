@@ -312,7 +312,7 @@ int __cdecl sub_44D0C0(float a1, int i)
     v6 = *(_DWORD*)(LODWORD(a1) + 44);
     *(_DWORD*)(LODWORD(a1) + 100) = *(_DWORD*)(v5 + 60);
     if (v6 == 3)
-        sub_428270((shape*)(LODWORD(a1) + 44));
+        nox_shape_box_calc((shape*)(LODWORD(a1) + 44));
     v9 = *(float*)(v5 + 32);
     if (v9 >= *(double*)& byte_581450[9568])
     {
@@ -363,7 +363,7 @@ void sub_44D2C0()
             v3.field_4 = v2;
             v3.field_8 = v1 * v1;
 
-            sub_428270(&v3);
+            nox_shape_box_calc(&v3);
         }
     }
 }
