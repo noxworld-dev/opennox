@@ -101,6 +101,28 @@ extern int nox_things_count;
 
 extern nox_parse_thing_funcs_t nox_parse_thing_funcs[];
 
+extern nox_alloc_class* nox_alloc_drawable;
+extern nox_drawable* nox_drawable_head_unk1;
+extern nox_drawable* nox_drawable_head_unk2;
+extern nox_drawable* nox_drawable_head_unk3;
+extern nox_drawable* nox_drawable_head_unk4;
+extern int nox_drawable_count;
+
+extern nox_drawable** nox_drawable_list_1;
+extern int nox_drawable_list_1_size;
+
+extern nox_drawable** nox_drawable_list_2;
+extern int nox_drawable_list_2_size;
+
+extern nox_drawable** nox_drawable_list_3;
+extern int nox_drawable_list_3_size;
+
+extern nox_drawable** nox_drawable_list_4;
+extern int nox_drawable_list_4_size;
+
+extern nox_drawable*** nox_drawable_2d_index;
+extern int nox_drawable_2d_index_size;
+
 typedef struct mem_mapping
 {
     uintptr_t base;
@@ -150,6 +172,18 @@ mem_mapping mappings[] = {
         {0x5D4594+830604, (void*)&nox_things_head, sizeof(nox_things_head),1},
         {0x5D4594+830608, (void*)&nox_things_array, sizeof(nox_things_array),1},
         {0x5D4594+830612, (void*)&nox_things_count, sizeof(nox_things_count),1},
+        {0x5D4594+1096472, (void*)&nox_drawable_list_3, sizeof(nox_drawable_list_3),1},
+        {0x5D4594+1096476, (void*)&nox_drawable_list_3_size, sizeof(nox_drawable_list_3_size),1},
+        {0x5D4594+1096480, (void*)&nox_drawable_list_2, sizeof(nox_drawable_list_2),1},
+        {0x5D4594+1096484, (void*)&nox_drawable_list_2_size, sizeof(nox_drawable_list_2_size),1},
+        {0x5D4594+1096488, (void*)&nox_drawable_list_4, sizeof(nox_drawable_list_4),1},
+        {0x5D4594+1096492, (void*)&nox_drawable_list_4_size, sizeof(nox_drawable_list_4_size),1},
+        {0x5D4594+1046568, (void*)&nox_drawable_head_unk2, sizeof(nox_drawable_head_unk2),1},
+        {0x5D4594+1046572, (void*)&nox_drawable_head_unk1, sizeof(nox_drawable_head_unk1),1},
+        {0x5D4594+1046580, (void*)&nox_drawable_head_unk3, sizeof(nox_drawable_head_unk3),1},
+        {0x5D4594+1046584, (void*)&nox_drawable_head_unk4, sizeof(nox_drawable_head_unk4),1},
+        {0x5D4594+1046588, (void*)&nox_drawable_count, sizeof(nox_drawable_count),1},
+        {0x5D4594+1046592, (void*)&nox_alloc_drawable, sizeof(nox_alloc_drawable),1},
         {0x5D4594+1046860, (void*)&nox_win_unk1, sizeof(nox_win_unk1),1},
         {0x5D4594+1062460, (void*)&nox_win_unk5, sizeof(nox_win_unk5),1},
         {0x5D4594+1064892, (void*)&nox_win_unk4, sizeof(nox_win_unk4),1},
@@ -158,6 +192,10 @@ mem_mapping mappings[] = {
         {0x5D4594+1064884, (void*)&nox_alloc_window, sizeof(nox_alloc_window),1},
         {0x5D4594+1093116, (void*)&nox_win_cur_weapon, sizeof(nox_win_cur_weapon),1},
         {0x5D4594+1193492, (void*)&nox_backbuffer1_pix, sizeof(nox_backbuffer1_pix),1},
+        {0x5D4594+1096464, (void*)&nox_drawable_list_1, sizeof(nox_drawable_list_1),1},
+        {0x5D4594+1096468, (void*)&nox_drawable_list_1_size, sizeof(nox_drawable_list_1_size),1},
+        {0x5D4594+1301784, (void*)&nox_drawable_2d_index, sizeof(nox_drawable_2d_index),1},
+        {0x5D4594+1301788, (void*)&nox_drawable_2d_index_size, sizeof(nox_drawable_2d_index_size),1},
         {0x5D4594+1307296, (void*)&nox_win_main_menu, sizeof(nox_win_main_menu),1},
         {0x5D4594+1307300, (void*)&nox_win_main_bg, sizeof(nox_win_main_bg),1},
         {0x5D4594+3798752, (void*)&nox_backbuffer_pix, sizeof(nox_backbuffer_pix),1},
