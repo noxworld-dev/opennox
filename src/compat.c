@@ -680,9 +680,11 @@ HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileDat
         converted[len - 2] = 0;
     if (glob(converted, GLOB_NOESCAPE, NULL, &ff->globbuf))
     {
+        free(converted);
         free(ff);
         return (HANDLE)-1;
     }
+    free(converted);
 
     fill_find_data(ff->globbuf.gl_pathv[ff->idx++], lpFindFileData);
     return (HANDLE)ff;
