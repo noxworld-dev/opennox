@@ -21232,20 +21232,20 @@ void __cdecl sub_417680(int a1, char a2)
                 v11 = sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2269));
                 v12 = *(unsigned __int8*)(v2 + 2270);
                 BYTE1(a1) = *(_BYTE*)(v11 + 4);
-                BYTE2(a1) = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + v12) + 4);
+                BYTE2(a1) = *((_BYTE*)sub_413330(*(_DWORD*)(v10 + 4) + v12) + 4);
                 HIBYTE(a1) = -1;
                 if (a2 & 1)
                     sub_417AA0(82, *(_DWORD*)(v2 + 2060), 1024, (int)& a1);
             }
             LOBYTE(a1) = -1;
-            BYTE1(a1) = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2268)) + 4);
+            BYTE1(a1) = *((_BYTE*)sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2268)) + 4);
             HIWORD(a1) = -1;
             if (a2 & 2)
                 sub_417AA0(82, *(_DWORD*)(v2 + 2060), 4, (int)& a1);
-            v13 = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2272)) + 4);
+            v13 = *((_BYTE*)sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2272)) + 4);
             v14 = *(unsigned __int8*)(v2 + 2271);
             LOBYTE(a1) = v13;
-            BYTE1(a1) = *(_BYTE*)(sub_413330(*(_DWORD*)(v10 + 4) + v14) + 4);
+            BYTE1(a1) = *((_BYTE*)sub_413330(*(_DWORD*)(v10 + 4) + v14) + 4);
             HIWORD(a1) = -1;
             if (a2 & 4)
                 sub_417AA0(82, *(_DWORD*)(v2 + 2060), 1, (int)& a1);
@@ -21258,7 +21258,7 @@ void __cdecl sub_417680(int a1, char a2)
                     if (a2 & 8)
                     {
                         v16 = sub_413290((const char*)& byte_587000[54508]);
-                        LOBYTE(a1) = *(_BYTE*)(sub_413330(v16) + 4);
+                        LOBYTE(a1) = *((_BYTE*)sub_413330(v16) + 4);
                         sub_417AA0(80, *(_DWORD*)(v2 + 2060), 0x8000, (int)& a1);
                     }
                 }
@@ -21266,7 +21266,7 @@ void __cdecl sub_417680(int a1, char a2)
                 {
                     a1 = -1;
                     v17 = sub_413290((const char*)& byte_587000[54524]);
-                    BYTE2(a1) = *(_BYTE*)(sub_413330(v17) + 4);
+                    BYTE2(a1) = *((_BYTE*)sub_413330(v17) + 4);
                     sub_417AA0(80, *(_DWORD*)(v2 + 2060), 0x10000, (int)& a1);
                 }
                 else if (a2 & 0x10)
@@ -21281,9 +21281,9 @@ void __cdecl sub_417680(int a1, char a2)
                     if (a2 & 0x20)
                     {
                         v18 = sub_413290((const char*)& byte_587000[54540]);
-                        LOBYTE(a1) = *(_BYTE*)(sub_413330(v18) + 4);
+                        LOBYTE(a1) = *((_BYTE*)sub_413330(v18) + 4);
                         v19 = sub_413290((const char*)& byte_587000[54556]);
-                        v20 = *(_BYTE*)(sub_413330(v19) + 4);
+                        v20 = *((_BYTE*)sub_413330(v19) + 4);
                         v21 = *(_DWORD*)(v2 + 2060);
                         LOBYTE(a1) = v20;
                         sub_417AA0(80, v21, 256, (int)& a1);
@@ -21310,7 +21310,7 @@ void __cdecl sub_417680(int a1, char a2)
                     if (a2 & 8)
                     {
                         v22 = sub_413290((const char*)& byte_587000[54568]);
-                        v23 = *(_BYTE*)(sub_413330(v22) + 4);
+                        v23 = *((_BYTE*)sub_413330(v22) + 4);
                         v24 = *(_DWORD*)(v2 + 2060);
                         LOBYTE(a1) = v23;
                         sub_417AA0(80, v24, 0x8000, (int)& a1);
