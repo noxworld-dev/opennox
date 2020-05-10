@@ -84,6 +84,8 @@ extern int ptr_5D4594_754092_cnt;
 
 extern int obj_5D4594_754104_switch;
 
+extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
+
 extern nox_mouse_state_t nox_input_buffer[256];
 extern int nox_processing_input;
 
@@ -209,6 +211,7 @@ mem_mapping mappings[] = {
         {0x5D4594+3799660, (void*)&obj_5D4594_3799660, sizeof(obj_5D4594_3799660),1},
         {0x5D4594+3800716, (void*)&obj_5D4594_3800716, sizeof(obj_5D4594_3800716),1},
         {0x5D4594+3800716, (void*)&nox_draw_unk1, sizeof(nox_draw_unk1),1},
+        {0x5D4594+2650668, (void*)&ptr_5D4594_2650668, sizeof(ptr_5D4594_2650668),1},
 
         {0x587000+80, (void*)&nox_enable_audio, sizeof(nox_enable_audio),1},
         {0x587000+5184, (void*)table_5184, sizeof(void*)*1023,1}, // TODO

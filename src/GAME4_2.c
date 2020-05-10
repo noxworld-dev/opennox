@@ -1,5 +1,6 @@
 #include "proto.h"
 
+extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
 //----- (0051DA70) --------------------------------------------------------
 int __cdecl sub_51DA70(int a1, int a2, int a3, int a4, int a5)
@@ -103,7 +104,7 @@ int __cdecl sub_51DA70(int a1, int a2, int a3, int a4, int a5)
                 v20 = 0;
             }
             return sub_543C50(
-                    (_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8) + 44 * v6 + 24),
+                    (_DWORD*)((_DWORD)(ptr_5D4594_2650668[v8]) + 44 * v6 + 24),
                     v9,
                     v10,
                     v19,
@@ -111,18 +112,17 @@ int __cdecl sub_51DA70(int a1, int a2, int a3, int a4, int a5)
                     a5);
         }
         v22 = 44 * v6;
-        v23 = v22 + *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8);
+        v23 = v22 + (_DWORD)(ptr_5D4594_2650668[v8]);
         if (*(_DWORD*)(v23 + 24) != v9 || *(_DWORD*)(v23 + 28) != v10)
         {
             *(_DWORD*)(v23 + 24) = v9;
-            *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8) + v22 + 28) = v10;
+            *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[v8]) + v22 + 28) = v10;
             if (v9 == 255)
-                sub_422200(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8) + v22 + 24);
+                sub_422200((_DWORD)(ptr_5D4594_2650668[v8]) + v22 + 24);
             if (v7)
-                * (_BYTE*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8) + v22) |= 2u;
+                * (_BYTE*)((_DWORD)(ptr_5D4594_2650668[v8]) + v22) |= 2u;
             else
-                *(_BYTE*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8) + v22) = *(_BYTE*)(v22
-                                                                                                   + *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8)) & 0xFD;
+                *(_BYTE*)((_DWORD)(ptr_5D4594_2650668[v8]) + v22) = *(_BYTE*)(v22 + (_DWORD)(ptr_5D4594_2650668[v8])) & 0xFD;
             return 1;
         }
         return 0;
@@ -142,7 +142,7 @@ int __cdecl sub_51DA70(int a1, int a2, int a3, int a4, int a5)
             v25 = 0;
         }
         return sub_543C50(
-                (_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8) + 44 * v6 + 4),
+                (_DWORD*)((_DWORD)(ptr_5D4594_2650668[v8]) + 44 * v6 + 4),
                 v9,
                 v10,
                 v24,
@@ -150,18 +150,17 @@ int __cdecl sub_51DA70(int a1, int a2, int a3, int a4, int a5)
                 a5);
     }
     v26 = 44 * v6;
-    v27 = v26 + *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8);
+    v27 = v26 + (_DWORD)(ptr_5D4594_2650668[v8]);
     if (*(_DWORD*)(v27 + 4) == v9 && *(_DWORD*)(v27 + 8) == v10)
         return 0;
     *(_DWORD*)(v27 + 4) = v9;
-    *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8) + v26 + 8) = v10;
+    *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[v8]) + v26 + 8) = v10;
     if (v9 == 255)
-        sub_422200(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8) + v26 + 4);
+        sub_422200((_DWORD)(ptr_5D4594_2650668[v8]) + v26 + 4);
     if (v7)
-        * (_BYTE*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8) + v26) |= 1u;
+        * (_BYTE*)((_DWORD)(ptr_5D4594_2650668[v8]) + v26) |= 1u;
     else
-        *(_BYTE*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8) + v26) = *(_BYTE*)(v26
-                                                                                           + *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v8)) & 0xFE;
+        *(_BYTE*)((_DWORD)(ptr_5D4594_2650668[v8]) + v26) = *(_BYTE*)(v26 + (_DWORD)(ptr_5D4594_2650668[v8])) & 0xFE;
     return 1;
 }
 
@@ -176,8 +175,8 @@ void __cdecl sub_51DD50(int a1, int a2, int a3, int a4)
     if (a1 > 0 && a1 < 127 && a2 > 0 && a2 < 127)
     {
         if ((v4 = a3, a3 & 2)
-            && (v4 = a3, a4 == *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * a1) + 44 * a2 + 24))
-            || v4 & 1 && a4 == *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * a1) + 44 * a2 + 4))
+            && (v4 = a3, a4 == *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[a1]) + 44 * a2 + 24))
+            || v4 & 1 && a4 == *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[a1]) + 44 * a2 + 4))
         {
             if ((!(v4 & 1) || a2 != 1) && (!(a3 & 2) || a1 != 1))
             {
@@ -8570,14 +8569,14 @@ int __cdecl sub_527450(_DWORD* a1)
                 goto LABEL_70;
             if (v14 < 128)
             {
-                v17 = 44 * v14 + *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v16);
+                v17 = 44 * v14 + (_DWORD)(ptr_5D4594_2650668[v16]);
                 if (*(_DWORD*)(v17 + 24) != 255)
                     v15 = 8;
                 if (*(_DWORD*)(v17 + 4) != 255)
                     v15 |= 2u;
                 if (v14 > 0 && *(_DWORD*)(v17 - 20) != 255)
                     v15 |= 4u;
-                if (v16 > 0 && *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v16 - 4) + 44 * v14 + 4) != 255)
+                if (v16 > 0 && *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[v16 - 1]) + 44 * v14 + 4) != 255)
                     v15 |= 1u;
                 if (*(_DWORD*)& byte_587000[4 * v15 + 255052] != 255)
                 {
@@ -8626,12 +8625,12 @@ int __cdecl sub_527450(_DWORD* a1)
             if (v14 < 128)
             {
                 v39 = 0;
-                if (v14 > 0 && *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v16) + 44 * v14 - 20) != 255)
+                if (v14 > 0 && *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[v16]) + 44 * v14 - 20) != 255)
                     v39 = 2;
                 if (v16 > 0)
                 {
                     v25 = 44 * v14;
-                    v26 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v16 - 4);
+                    v26 = ptr_5D4594_2650668[v16 - 1];
                     if (*(_DWORD*)(v26 + 44 * v14 + 4) != 255)
                         v39 |= 8u;
                     if (v14 > 0)

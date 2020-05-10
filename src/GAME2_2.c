@@ -16,6 +16,8 @@ extern int nox_drawable_list_4_size;
 
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 
+extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
+
 //----- (00475F10) --------------------------------------------------------
 int __cdecl sub_475F10(_DWORD* a1)
 {
@@ -8544,7 +8546,7 @@ int __cdecl sub_481C20(int* a1)
         for (i = 44 * *(_DWORD*)& byte_5D4594[3798832]; ; v12 = i)
         {
             HIWORD(v13) = *(_WORD*)& byte_5D4594[2650670];
-            v14 = v12 + *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * j);
+            v14 = v12 + (_DWORD)(ptr_5D4594_2650668[j]);
             if (*(_BYTE*)v14 & 2)
             {
                 LOWORD(v13) = *(_WORD*)(v14 + 24);
@@ -8636,7 +8638,7 @@ int __cdecl sub_481C20(int* a1)
         v71 = 44 * v19;
         while (1)
         {
-            v28 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v25);
+            v28 = ptr_5D4594_2650668[v25];
             v29 = *(_BYTE*)(v28 + v27);
             v30 = v27 + v28;
             if (v29 & 2)
@@ -8897,7 +8899,7 @@ int __cdecl sub_482570(_DWORD* a1)
         if (++v11 >= v4)
             return 0;
     }
-    v7 = (_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v2);
+    v7 = &ptr_5D4594_2650668[v2];
     while (1)
     {
         v8 = i + *v7;
@@ -8995,7 +8997,7 @@ int __cdecl sub_4826A0(_DWORD* a1)
                 {
                     HIWORD(v10) = *(_WORD*)& byte_5D4594[2650670];
                     v8 += 46;
-                    v11 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v9);
+                    v11 = ptr_5D4594_2650668[v9];
                     v12 = *(_BYTE*)(v11 + v21);
                     v13 = v21 + v11;
                     if (v12)
