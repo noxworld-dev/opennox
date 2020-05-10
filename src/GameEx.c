@@ -91,9 +91,11 @@ keyCodeStruct keycodeArray[] =
   { 200u, "up" },
   { 203u, "left" },
   { 208u, "down" },
-  { 205u, "right" }
+  { 205u, "right" },
+  { 0, 0 },
 };
-char EndOfKeyCodeArray[2] = { 0, 0 }; // weak
+int keycodeArraySize = sizeof(keycodeArray)/sizeof(keyCodeStruct);
+char* EndOfKeyCodeArray = 0; // weak
 int DefaultPacket[4] = { 171901697, 1, 347, 44391266 }; // weak
 unsigned __int8 functionalKeyCodes[] = { 2u, 3u, 4u, 5u, 6u, 156u, 0u };
 wchar_t wndEntryNames[5][35] =
@@ -309,6 +311,7 @@ BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRes
       da_init(gameIps);
     isLoaded = 1;
     //MEMACCESS(0x581354) = MixRecvFromReplacer; // It is replaced elsewhere
+    EndOfKeyCodeArray = &keycodeArray[keycodeArraySize-1];
     GameExCfgLoader();
   }
   return 1;
