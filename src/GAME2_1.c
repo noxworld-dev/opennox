@@ -5267,7 +5267,7 @@ int __cdecl sub_467DF0(int a1)
         sub_479280();
     sub_45D810();
     sub_4B8220();
-    sub_49A2F0();
+    nox_alloc_npcs_2();
     sub_4573B0();
     if (!sub_40A5C0(1))
     {

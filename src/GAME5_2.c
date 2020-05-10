@@ -10333,7 +10333,7 @@ int sub_467460(void)
     return sub_4671E0();
 }
 
-void __cdecl sub_49A2F0()
+void __cdecl nox_alloc_npcs_2()
 {
     nox_alloc_npcs();
 }
