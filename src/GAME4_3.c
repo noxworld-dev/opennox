@@ -1,5 +1,6 @@
 #include "proto.h"
 
+extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
 //----- (0052F8A0) --------------------------------------------------------
 int __cdecl sub_52F8A0(float a1)
@@ -15143,27 +15144,27 @@ BOOL __cdecl sub_5437E0(int* a1, int a2, int a3)
     {
         if (a3 - v8 <= v9)
         {
-            v15 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v5);
+            v15 = ptr_5D4594_2650668[v5];
             v11 = *(_DWORD*)(v15 + 44 * v7 + 24);
             sub_51DD50(v5, v7, 2, *(_DWORD*)(v15 + 44 * v7 + 24));
         }
         else
         {
             v13 = v5 - 1;
-            v14 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v13);
+            v14 = ptr_5D4594_2650668[v13];
             v11 = *(_DWORD*)(v14 + 44 * v7 + 4);
             sub_51DD50(v13, v7, 1, *(_DWORD*)(v14 + 44 * v7 + 4));
         }
     }
     else if (a3 - v8 <= v9)
     {
-        v12 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v5);
+        v12 = ptr_5D4594_2650668[v5];
         v11 = *(_DWORD*)(v12 + 44 * v7 + 4);
         sub_51DD50(v5, v7, 1, *(_DWORD*)(v12 + 44 * v7 + 4));
     }
     else
     {
-        v10 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v5);
+        v10 = ptr_5D4594_2650668[v5];
         v11 = *(_DWORD*)(v10 + 44 * v7 - 20);
         sub_51DD50(v5, v7 - 1, 2, *(_DWORD*)(v10 + 44 * v7 - 20));
     }
@@ -15243,11 +15244,11 @@ void __cdecl sub_543BC0(int a1, int a2, int a3, int a4, int a5, int a6)
             {
                 if (a3 & 2)
                 {
-                    if (a4 == *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * a1) + 44 * a2 + 24))
+                    if (a4 == *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[a1]) + 44 * a2 + 24))
                         return;
                     v7 = a3;
                 }
-                if (!(a3 & 1) || a4 != *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * a1) + 44 * a2 + 4))
+                if (!(a3 & 1) || a4 != *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[a1]) + 44 * a2 + 4))
                 {
                     if (a5)
                     {

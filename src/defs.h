@@ -741,6 +741,22 @@ typedef struct {
     char name[12];
 } obj_5D4594_754088_t;
 
+typedef struct {
+    _BYTE field_0; // 0, 0
+    _BYTE field_0_1; // 0, 1
+    _WORD field_0_2; // 0, 2
+    int field_1; // 1, 4
+    int field_2; // 2, 8
+    int field_3; // 3, 12
+    int field_4; // 4, 16
+    void* field_5; // 5, 20
+    int field_6; // 6, 24
+    int field_7; // 7, 28
+    int field_8; // 8, 32
+    int field_9; // 9, 36
+    void* field_10; // 10, 40
+} obj_5D4594_2650668_t;
+
 typedef struct{
     bool live;
     BYTE pad[3];

@@ -36,6 +36,9 @@ _DWORD* dword_5D4594_251544 = 0;
 obj_412ae0_t* byte_5D4594_251584[3] = {0};
 int byte_5D4594_251596 = 0;
 
+extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
+extern int ptr_5D4594_2650668_cap;
+
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_win_width_1;
@@ -101,7 +104,7 @@ void cleanup()
     sub_4311B0();
     sub_430EF0();
     sub_430210();
-    sub_410FC0();
+    sub_410FC0_free();
     sub_4106C0();
     sub_42F4D0();
     sub_42EDC0();
@@ -419,7 +422,7 @@ int __cdecl cmain(int argc, const char* argv[])
     {
         return result;
     }
-    result = sub_410F60();
+    result = sub_410F60_init();
     if (!result)
     {
         return result;
@@ -8077,33 +8080,25 @@ char* __cdecl sub_410F20(int a1)
 }
 
 //----- (00410F60) --------------------------------------------------------
-int sub_410F60()
+int sub_410F60_init()
 {
-    int v1; // esi
+    ptr_5D4594_2650668 = nox_calloc(ptr_5D4594_2650668_cap, sizeof(void*));
+    if (!ptr_5D4594_2650668)
+        return 0;
 
-    *(_DWORD*)& byte_5D4594[2650668] = nox_calloc(0x80u, 4u);
-    if (*(_DWORD*)& byte_5D4594[2650668])
-    {
-        v1 = 0;
-        while (1)
-        {
-            *(_DWORD*)(v1 + *(_DWORD*)& byte_5D4594[2650668]) = nox_calloc(0x80u, 0x2Cu);
-            if (!*(_DWORD*)(v1 + *(_DWORD*)& byte_5D4594[2650668]))
-                break;
-            v1 += 4;
-            if (v1 >= 512)
-                return 1;
-        }
+    for (int i = 0; i < ptr_5D4594_2650668_cap; i++) {
+        ptr_5D4594_2650668[i] = (obj_5D4594_2650668_t*)nox_calloc(ptr_5D4594_2650668_cap, sizeof(obj_5D4594_2650668_t));
+        if (!ptr_5D4594_2650668[i])
+            return 0;
     }
-    return 0;
+    return 1;
 }
 
 //----- (00410FC0) --------------------------------------------------------
-void sub_410FC0()
+void sub_410FC0_free()
 {
-    for (int i = 0; i < 512; i += 4)
-    {
-        void* ptr = *(void**)(i + *(_DWORD*)& byte_5D4594[2650668]);
+    for (int i = 0; i < ptr_5D4594_2650668_cap; i++) {
+        obj_5D4594_2650668_t* ptr = ptr_5D4594_2650668[i];
         if (ptr)
             free(ptr);
     }
@@ -8113,47 +8108,37 @@ void sub_410FC0()
 int sub_410FF0()
 {
     int v0; // edi
-    int j; // ebp
     int v2; // esi
     char v3; // al
-    int v4; // esi
     _DWORD* v5; // eax
     int v6; // ecx
     _DWORD* v7; // eax
     int v8; // ecx
-    int i; // [esp+10h] [ebp-4h]
 
     v0 = 0;
-    for (i = 0; i < 5632; i += 44)
-    {
-        for (j = 0; j < 512; j += 4)
-        {
-            v2 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + j);
-            v3 = *(_BYTE*)(v2 + i);
-            v4 = i + v2;
-            if (v3 & 1)
-            {
-                if (*(int*)(v4 + 4) >= *(int*)& byte_5D4594[251568])
-                {
+    for (int i = 0; i < ptr_5D4594_2650668_cap; i++) {
+        for (int j = 0; j < ptr_5D4594_2650668_cap; j++) {
+            obj_5D4594_2650668_t* obj = &ptr_5D4594_2650668[j][i];
+            v3 = *(_BYTE*)(&obj->field_0);
+            if (v3 & 1) {
+                if (obj->field_1 >= *(int*)& byte_5D4594[251568]) {
                     v0 = 1;
-                    *(_DWORD*)(v4 + 4) = 0;
+                    obj->field_1 = 0;
                 }
-                if (*(int*)(v4 + 8) >= (int) * (unsigned __int16*)& byte_5D4594[60 * *(_DWORD*)(v4 + 4) + 2682232])
-                {
+                if (obj->field_2 >= (int) * (unsigned __int16*)& byte_5D4594[60 * obj->field_1 + 2682232]) {
                     v0 = 1;
-                    *(_DWORD*)(v4 + 8) = 0;
+                    obj->field_2 = 0;
                 }
-                v5 = *(_DWORD * *)(v4 + 20);
+                v5 = obj->field_5;
                 while (v5)
                 {
                     v6 = v5[2];
-                    if (v6 >= *(int*)& byte_5D4594[251572]
-                        || v5[3] >= (int) * (unsigned __int16*)& byte_5D4594[60 * v6 + 2678392])
+                    if (v6 >= *(int*)& byte_5D4594[251572] || v5[3] >= (int) * (unsigned __int16*)& byte_5D4594[60 * v6 + 2678392])
                     {
                         v0 = 1;
-                        *(_DWORD*)(v4 + 20) = v5[4];
+                        obj->field_5 = v5[4];
                         sub_4221E0((int)v5);
-                        v5 = *(_DWORD * *)(v4 + 20);
+                        v5 = obj->field_5;
                     }
                     else
                     {
@@ -8161,29 +8146,24 @@ int sub_410FF0()
                     }
                 }
             }
-            if (*(_BYTE*)v4 & 2)
-            {
-                if (*(int*)(v4 + 24) >= *(int*)& byte_5D4594[251568])
-                {
+            if (v3 & 2) {
+                if (obj->field_6 >= *(int*)& byte_5D4594[251568]) {
                     v0 = 1;
-                    *(_DWORD*)(v4 + 24) = 0;
+                    obj->field_6 = 0;
                 }
-                if (*(int*)(v4 + 28) >= (int) * (unsigned __int16*)& byte_5D4594[60 * *(_DWORD*)(v4 + 24) + 2682232])
-                {
+                if (obj->field_7 >= (int) * (unsigned __int16*)& byte_5D4594[60 * obj->field_6 + 2682232]) {
                     v0 = 1;
-                    *(_DWORD*)(v4 + 28) = 0;
+                    obj->field_7 = 0;
                 }
-                v7 = *(_DWORD * *)(v4 + 40);
+                v7 = obj->field_10;
                 while (v7)
                 {
                     v8 = v7[2];
-                    if (v8 >= *(int*)& byte_5D4594[251572]
-                        || v7[3] >= (int) * (unsigned __int16*)& byte_5D4594[60 * v8 + 2678392])
-                    {
+                    if (v8 >= *(int*)& byte_5D4594[251572] || v7[3] >= (int) * (unsigned __int16*)& byte_5D4594[60 * v8 + 2678392]) {
                         v0 = 1;
-                        *(_DWORD*)(v4 + 40) = v7[4];
+                        obj->field_10 = v7[4];
                         sub_4221E0((int)v7);
-                        v7 = *(_DWORD * *)(v4 + 40);
+                        v7 = obj->field_10;
                     }
                     else
                     {
@@ -8199,89 +8179,56 @@ int sub_410FF0()
 //----- (00411160) --------------------------------------------------------
 int __cdecl sub_411160(float2* a1)
 {
-    int v1; // edi
-    int v2; // esi
-    int v3; // eax
-    int v4; // ebp
-    int v5; // edx
-    int v6; // eax
-    bool v7; // zf
-    int result; // eax
-    int v9; // eax
-    int v10; // eax
-    int v11; // eax
-    float v12; // [esp+0h] [ebp-1Ch]
-    float v13; // [esp+0h] [ebp-1Ch]
-    float v14; // [esp+0h] [ebp-1Ch]
-    float v15; // [esp+0h] [ebp-1Ch]
-    int v16[2]; // [esp+14h] [ebp-8h]
+    float v12 = (a1->field_0 + 11.5) * 0.021739131;
+    float v13 = (a1->field_4 + 11.5) * 0.021739131;
 
-    v12 = (a1->field_0 + 11.5) * 0.021739131;
-    v1 = nox_float2int(v12);
-    v13 = (a1->field_4 + 11.5) * 0.021739131;
-    v2 = nox_float2int(v13);
-    v14 = a1->field_0 + 11.5;
-    v3 = nox_float2int(v14);
-    v15 = a1->field_4 + 11.5;
-    v4 = v3 % 46;
-    v5 = nox_float2int(v15) % 46;
-    if (v1 - 1 <= 0 || v1 >= 127 || v2 - 1 <= 0 || v2 >= 127)
+    int i = nox_float2int(v12);
+    int j = nox_float2int(v13);
+
+    float v14 = a1->field_0 + 11.5;
+    float v15 = a1->field_4 + 11.5;
+
+    int v4 = nox_float2int(v14) % 46;
+    int v5 = nox_float2int(v15) % 46;
+
+    if (i - 1 <= 0 || i >= 127 || j - 1 <= 0 || j >= 127)
         return -1;
-    if (v4 <= v5)
-    {
-        if (46 - v4 <= v5)
-        {
-            v11 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v1);
-            v7 = *(_DWORD*)(44 * v2 + v11 + 40) == 0;
-            result = *(_DWORD*)(44 * v2 + v11 + 24);
-            if (!v7)
-            {
+
+    int result = 0;
+    int v16[2] = {0};
+    if (v4 <= v5) {
+        if (46 - v4 <= v5) {
+            obj_5D4594_2650668_t* obj = &ptr_5D4594_2650668[i][j];
+            result = obj->field_6;
+            if (obj->field_10) {
                 v16[0] = v4;
                 v16[1] = v5 - 23;
-                result = sub_411350(
-                    *(int**)(44 * v2 + *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v1) + 40),
-                    v16,
-                    result);
+                result = sub_411350(obj->field_10, v16, result);
             }
-        }
-        else
-        {
-            v10 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v1 - 4);
-            v7 = *(_DWORD*)(v10 + 44 * v2 + 20) == 0;
-            result = *(_DWORD*)(v10 + 44 * v2 + 4);
-            if (!v7)
-            {
+        } else {
+            obj_5D4594_2650668_t* obj = &ptr_5D4594_2650668[i - 1][j];
+            result = obj->field_1;
+            if (obj->field_5) {
                 v16[1] = v5;
                 v16[0] = v4 + 23;
-                result = sub_411350(
-                    *(int**)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v1 - 4) + 44 * v2 + 20),
-                    v16,
-                    result);
+                result = sub_411350(obj->field_5, v16, result);
             }
         }
-    }
-    else if (46 - v4 <= v5)
-    {
-        v9 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v1);
-        v7 = *(_DWORD*)(44 * v2 + v9 + 20) == 0;
-        result = *(_DWORD*)(44 * v2 + v9 + 4);
-        if (!v7)
-        {
+    } else if (46 - v4 <= v5) {
+        obj_5D4594_2650668_t* obj = &ptr_5D4594_2650668[i][j];
+        result = obj->field_1;
+        if (obj->field_5) {
             v16[1] = v5;
             v16[0] = v4 - 23;
-            result = sub_411350(*(int**)(44 * v2 + *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v1) + 20), v16, result);
+            result = sub_411350(obj->field_5, v16, result);
         }
-    }
-    else
-    {
-        v6 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v1);
-        v7 = *(_DWORD*)(44 * v2 + v6 - 4) == 0;
-        result = *(_DWORD*)(44 * v2 + v6 - 20);
-        if (!v7)
-        {
+    } else {
+        obj_5D4594_2650668_t* obj = &ptr_5D4594_2650668[i][j - 1];
+        result = obj->field_6;
+        if (obj->field_10) {
             v16[0] = v4;
             v16[1] = v5 + 23;
-            result = sub_411350(*(int**)(44 * v2 + *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v1) - 4), v16, result);
+            result = sub_411350(obj->field_10, v16, result);
         }
     }
     return result;

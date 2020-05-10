@@ -28,6 +28,9 @@ const nox_drawable_list_1_cap = 8192;
 nox_drawable** nox_drawable_list_1 = 0;
 int nox_drawable_list_1_size = 0;
 
+obj_5D4594_2650668_t** ptr_5D4594_2650668 = 0;
+const int ptr_5D4594_2650668_cap = 128;
+
 //----- (00460D40) --------------------------------------------------------
 BOOL sub_460D40()
 {
@@ -5253,8 +5256,6 @@ int sub_467CD0()
 int __cdecl sub_467DF0(int a1)
 {
     int result; // eax
-    int i; // edi
-    int j; // esi
     int v4[3]; // [esp+0h] [ebp-Ch]
 
     v4[0] = 25;
@@ -5282,24 +5283,21 @@ int __cdecl sub_467DF0(int a1)
     sub_431510();
     sub_45A5E0(a1);
     result = sub_40A5C0(1);
-    if (!result)
-    {
+    if (!result) {
         sub_410160();
-        for (i = 0; i < 5632; i += 44)
-        {
-            for (j = 0; j < 512; j += 4)
-            {
-                *(_BYTE*)(*(_DWORD*)(j + *(_DWORD*)& byte_5D4594[2650668]) + i) = 0;
-                *(_DWORD*)(*(_DWORD*)(j + *(_DWORD*)& byte_5D4594[2650668]) + i + 4) = 255;
-                *(_DWORD*)(*(_DWORD*)(j + *(_DWORD*)& byte_5D4594[2650668]) + i + 24) = 255;
-                sub_422200(*(_DWORD*)(j + *(_DWORD*)& byte_5D4594[2650668]) + i + 4);
-                result = sub_422200(*(_DWORD*)(j + *(_DWORD*)& byte_5D4594[2650668]) + i + 24);
+        for (int i = 0; i < ptr_5D4594_2650668_cap*44; i += 44) {
+            for (int j = 0; j < ptr_5D4594_2650668_cap; j++) {
+                *(_BYTE*)((_DWORD)(ptr_5D4594_2650668[j]) + i) = 0;
+                *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[j]) + i + 4) = 255;
+                *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[j]) + i + 24) = 255;
+                sub_422200((_DWORD)(ptr_5D4594_2650668[j]) + i + 4);
+                result = sub_422200((_DWORD)(ptr_5D4594_2650668[j]) + i + 24);
             }
         }
     }
     return result;
 }
-// 49A2F0: using guessed type int __cdecl sub_49A2F0(_DWORD, _DWORD, _DWORD);
+// 49A2F0: using guessed type int __cdecl nox_alloc_npcs_2(_DWORD, _DWORD, _DWORD);
 
 //----- (00467F30) --------------------------------------------------------
 int sub_467F30()

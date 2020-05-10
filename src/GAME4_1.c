@@ -1,5 +1,6 @@
 #include "proto.h"
 
+extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
 //----- (005098A0) --------------------------------------------------------
 int sub_5098A0()
@@ -17776,10 +17777,10 @@ int __cdecl sub_51D740(float* a1, int a2)
     {
         if (46 - v6 > v7)
         {
-            v8 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v4 - 4) + 44 * v5 + 24;
+            v8 = (_DWORD)(ptr_5D4594_2650668[v4 - 1]) + 44 * v5 + 24;
             goto LABEL_10;
         }
-        v13 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v4) + 44 * v5 + 24;
+        v13 = (_DWORD)(ptr_5D4594_2650668[v4]) + 44 * v5 + 24;
         v14 = v15.field_4;
         *(float*)(a2 + 4) = v15.field_0;
         *(_DWORD*)a2 = v13;
@@ -17790,7 +17791,7 @@ int __cdecl sub_51D740(float* a1, int a2)
     {
         if (46 - v6 > v7)
         {
-            v8 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v4) + 44 * v5 - 20;
+            v8 = (_DWORD)(ptr_5D4594_2650668[v4]) + 44 * v5 - 20;
             LABEL_10:
             v9 = v15.field_4;
             *(float*)(a2 + 4) = v15.field_0;
@@ -17798,7 +17799,7 @@ int __cdecl sub_51D740(float* a1, int a2)
             *(float*)(a2 + 8) = v9;
             return 1;
         }
-        v11 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2650668] + 4 * v4) + 44 * v5 + 4;
+        v11 = (_DWORD)(ptr_5D4594_2650668[v4]) + 44 * v5 + 4;
         v12 = v15.field_4;
         *(float*)(a2 + 4) = v15.field_0;
         *(_DWORD*)a2 = v11;
