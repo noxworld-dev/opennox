@@ -8,6 +8,8 @@
 extern SDL_GLContext g_ddraw;
 #endif
 
+int nox_enable_audio = 1;
+
 void f(int);
 int g_v20, g_v21;
 int g_argc2;
@@ -166,9 +168,9 @@ void mainloop_exit_2()
 }
 
 //----- (00401000) --------------------------------------------------------
-int sub_401000()
+int nox_get_audio_enabled()
 {
-    return *(_DWORD*)& byte_587000[80];
+    return nox_enable_audio;
 }
 
 //----- (00401010) --------------------------------------------------------
@@ -256,7 +258,7 @@ int __cdecl cmain(int argc, const char* argv[])
         }
         else if (!_strcmpi(flag, "-serveronly"))
         {
-            *(_DWORD*)& byte_587000[80] = 0;
+            nox_enable_audio = 0;
             *(_DWORD*)& byte_5D4594[2650636] |= 0x40040000u;
             sub_416B20();
         }
@@ -286,7 +288,7 @@ int __cdecl cmain(int argc, const char* argv[])
         {
             int v11 = *(_DWORD*)& byte_5D4594[2650636];
             BYTE1(v11) = BYTE1(v11) & 0xFB | 2;
-            *(_DWORD*)& byte_587000[80] = 0;
+            nox_enable_audio = 0;
             *(_DWORD*)& byte_5D4594[805868] = 1;
             *(_DWORD*)& byte_5D4594[2650636] = v11;
             *(_DWORD*)& byte_587000[80800] = 0;
@@ -304,7 +306,7 @@ int __cdecl cmain(int argc, const char* argv[])
         }
         else if (!_strcmpi(flag, "-noaudio"))
         {
-            *(_DWORD*)& byte_587000[80] = 0;
+            nox_enable_audio = 0;
         }
         else if (!_strcmpi(flag, "-noMMX"))
         {
@@ -397,8 +399,8 @@ int __cdecl cmain(int argc, const char* argv[])
     {
         return result;
     }
-    result = sub_4310B0(*(int*)& byte_587000[80]);
-    if (!(result || !*(_DWORD*)& byte_587000[80]))
+    result = sub_4310B0(nox_enable_audio);
+    if (!(result || !nox_enable_audio))
     {
         return result;
     }
@@ -13258,7 +13260,7 @@ void __cdecl sub_416B20()
 //----- (00416B80) --------------------------------------------------------
 BOOL sub_416B80()
 {
-    return *(_DWORD*)& byte_5D4594[2650636] & 0x40000000 && *(_DWORD*)& byte_5D4594[2650636] & 0x40000 && !sub_401000();
+    return *(_DWORD*)& byte_5D4594[2650636] & 0x40000000 && *(_DWORD*)& byte_5D4594[2650636] & 0x40000 && !nox_get_audio_enabled();
 }
 
 //----- (00416BC0) --------------------------------------------------------

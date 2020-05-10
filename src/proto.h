@@ -50,7 +50,7 @@ void updateGamma(int value);
 char *dos_to_unix(const char *path);
 #endif
 
-int sub_401000();
+int nox_get_audio_enabled();
 void sub_401010();
 wchar_t* sub_401020();
 BOOL sub_401040();
