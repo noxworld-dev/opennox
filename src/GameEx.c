@@ -571,6 +571,7 @@ char GameExCfgLoader()
   char *v4; // esi
   //DWORD NumberOfBytesRead; // [esp+4h] [ebp-18h]
   char v6[16]; // [esp+8h] [ebp-6h]
+  memset(v6, 0, sizeof(v6));
 
   v0 = fopen("game_ex.cfg", "r");
   v1 = v0;
