@@ -1,5 +1,7 @@
 #include "proto.h"
 
+extern int nox_enable_audio;
+
 extern nox_missing_string* missing_strings;
 extern nox_string_entry* string_entries;
 extern size_t string_entries_cnt;
@@ -208,6 +210,7 @@ mem_mapping mappings[] = {
         {0x5D4594+3800716, (void*)&obj_5D4594_3800716, sizeof(obj_5D4594_3800716),1},
         {0x5D4594+3800716, (void*)&nox_draw_unk1, sizeof(nox_draw_unk1),1},
 
+        {0x587000+80, (void*)&nox_enable_audio, sizeof(nox_enable_audio),1},
         {0x587000+5184, (void*)table_5184, sizeof(void*)*1023,1}, // TODO
         {0x587000+26792, (void*)table_26792, sizeof(table_26792_t)*17,1}, // TODO
         {0x587000+27008, (void*)table_27008, sizeof(table_27008_t)*7,1}, // TODO
