@@ -4,6 +4,8 @@
 
 #include "proto.h"
 
+extern int nox_enable_audio;
+
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
@@ -6877,6 +6879,8 @@ int __cdecl sub_431040(int a1, int a2, int a3)
 //----- (004310B0) --------------------------------------------------------
 int __cdecl sub_4310B0(int a3)
 {
+    if (!nox_enable_audio)
+        return 1;
     int v1; // esi
     int v2; // esi
     int v3; // esi

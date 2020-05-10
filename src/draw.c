@@ -25,6 +25,8 @@
 
 #include "proto.h"
 
+extern int nox_enable_audio;
+
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -3511,9 +3513,11 @@ int __cdecl sub_4B0340(int a1)
 #ifdef USE_SDL
 #ifdef __linux__
         ;
-        char* path = dos_to_unix(&byte_5D4594[1311940]);
-        PlayMovie(path);
-        free(path);
+        if (nox_enable_audio) { // TODO: disable audio in movies instead
+            char *path = dos_to_unix(&byte_5D4594[1311940]);
+            PlayMovie(path);
+            free(path);
+        }
 #else
         PlayMovie(&byte_5D4594[1311940]);
 #endif
