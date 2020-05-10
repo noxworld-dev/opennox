@@ -3526,7 +3526,7 @@ _DWORD* __cdecl sub_499F60(int a1, int a2, int a3, __int16 a4, char a5, char a6,
 int __cdecl sub_49A150(int2* a1, int a2, unsigned __int8 a3); // idb
 void nox_alloc_npcs();
 void sub_49A2E0(void); // weak
-void __cdecl sub_49A2F0(); // weak
+void __cdecl nox_alloc_npcs_2(); // weak
 nox_npc* __cdecl nox_new_npc(int id);
 nox_npc* __cdecl nox_npc_by_id(int id);
 int __cdecl nox_init_npc(nox_npc* ptr, int id);
