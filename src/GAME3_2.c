@@ -7,6 +7,9 @@
 extern int nox_win_width;
 extern int nox_win_height;
 
+extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
+extern int ptr_5D4594_2650668_cap;
+
 //----- (004CD690) --------------------------------------------------------
 int __cdecl sub_4CD690(_DWORD* a1, int a2)
 {
@@ -2627,8 +2630,6 @@ void __cdecl sub_4D12E0(int a1)
     int v5; // esi
     _DWORD* v6; // eax
     int i; // esi
-    int j; // edi
-    int k; // esi
     int v11[3]; // [esp+0h] [ebp-Ch]
 
     v11[0] = 25;
@@ -2718,15 +2719,13 @@ void __cdecl sub_4D12E0(int a1)
         sub_4FCAC0(v1, 1);
     else
         sub_4FCAC0(0, 0);
-    for (j = 0; j < 5632; j += 44)
-    {
-        for (k = 0; k < 512; k += 4)
-        {
-            *(_BYTE*)(*(_DWORD*)(k + *(_DWORD*)& byte_5D4594[2650668]) + j) = 0;
-            *(_DWORD*)(*(_DWORD*)(k + *(_DWORD*)& byte_5D4594[2650668]) + j + 4) = 255;
-            *(_DWORD*)(*(_DWORD*)(k + *(_DWORD*)& byte_5D4594[2650668]) + j + 24) = 255;
-            sub_422200(*(_DWORD*)(k + *(_DWORD*)& byte_5D4594[2650668]) + j + 4);
-            sub_422200(*(_DWORD*)(k + *(_DWORD*)& byte_5D4594[2650668]) + j + 24);
+    for (int j = 0; j < ptr_5D4594_2650668_cap*44; j += 44) {
+        for (int k = 0; k < ptr_5D4594_2650668_cap; k++) {
+            *(_BYTE*)((_DWORD)(ptr_5D4594_2650668[k]) + j) = 0;
+            *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[k]) + j + 4) = 255;
+            *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[k]) + j + 24) = 255;
+            sub_422200((_DWORD)(ptr_5D4594_2650668[k]) + j + 4);
+            sub_422200((_DWORD)(ptr_5D4594_2650668[k]) + j + 24);
         }
     }
     sub_410730();
