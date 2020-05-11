@@ -36,12 +36,12 @@ typedef INT_PTR LSTATUS;
 #endif
 #include "compat_mss.h"
 #include "noxstring.h"
+#include <stdbool.h>
 
 typedef unsigned char _BYTE;
 typedef unsigned short _WORD;
 typedef unsigned int _DWORD;
 typedef unsigned __int64 _QWORD;
-typedef int bool;
 
 #if !defined(__MMINTRIN_H) && !defined(_MMINTRIN_H_INCLUDED)
 typedef struct __m64 __m64;
