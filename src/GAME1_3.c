@@ -502,15 +502,15 @@ int sub_43BFE0()
     if (*(_DWORD*)& byte_587000[91840])
     {
         *(_DWORD*)& byte_587000[91840] = 0;
-        LABEL_3:
-        result = 1;
         *(_DWORD*)& byte_5D4594[815132] = 1;
-        return result;
+        return 1;
     }
     result = sub_43C0A0();
-    if (result)
-        goto LABEL_3;
-    return result;
+    if (!result)
+        return 0;
+
+    *(_DWORD*)& byte_5D4594[815132] = 1;
+    return 1;
 }
 
 //----- (0043C020) --------------------------------------------------------
