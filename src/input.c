@@ -459,8 +459,10 @@ void __cdecl sub_47FA80(signed int a1)
 // init mouse
 int initMouse_sub_47D8D0()
 {
+#ifndef NOX_NO_MOUSE_GRAB
     SDL_SetWindowGrab(getWindowHandle_sub_401FD0(), SDL_TRUE);
     SDL_SetRelativeMouseMode(SDL_TRUE);
+#endif
 
     g_mouse_aquired = 1;
 
@@ -477,8 +479,10 @@ int acquireMouse_sub_47D8C0()
 {
     if (!g_mouse_aquired)
     {
+#ifndef NOX_NO_MOUSE_GRAB
         SDL_SetWindowGrab(getWindowHandle_sub_401FD0(), SDL_TRUE);
         SDL_SetRelativeMouseMode(SDL_TRUE);
+#endif
         g_mouse_aquired = 1;
     }
     return 0;
