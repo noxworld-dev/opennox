@@ -73,6 +73,8 @@ add_executable (
     static.c
 	MixPatch.c
 	GameEx.c
+    memfile.c
+    thing.c
 	vqa/aud_decode.cpp
 	vqa/ddpf_conversion.cpp
 	vqa/vqa_decode.cpp

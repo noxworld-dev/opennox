@@ -440,7 +440,7 @@ int __cdecl sub_51E260(int* a1, int a2)
     a1[38] = 0;
     a1[46] = 0;
     *(_DWORD*)& byte_5D4594[2487520] = 0;
-    v2 = sub_408CC0(v7, 0);
+    v2 = sub_408CC0_fopen(v7, 0);
     v3 = v2;
     if (!v2 || !sub_408D40((int)v2, 1))
         return 0;
@@ -543,7 +543,7 @@ int __cdecl sub_51E570(FILE* a1, _BYTE* a2)
         while (1)
         {
             v5 = v3;
-            sub_408E40((char*)CharType, 1, 1, a1);
+            sub_408E40_fread((char*)CharType, 1, 1, a1);
             if (sub_409370() == -1)
                 return 0;
             v3 = *(_DWORD*)CharType;
@@ -588,7 +588,7 @@ int __cdecl sub_51E630(FILE* a1)
     while (1)
     {
         LOBYTE(a1) = 0;
-        sub_408E40((char*)& a1, 1, 1, v1);
+        sub_408E40_fread((char*)& a1, 1, 1, v1);
         result = sub_409370();
         if (result == -1)
             break;

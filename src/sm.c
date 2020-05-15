@@ -502,8 +502,7 @@ void f(int reentrant)
         sub_43F140(800);
         sub_415F70();
         *(_DWORD*)& byte_5D4594[2598000] = sub_40A5C0(1);
-        if (!*(_DWORD*)& byte_5D4594[260])
-            * (_DWORD*)& byte_5D4594[260] = sub_40ABF0((char*)& byte_587000[372], 7);
+        nox_ensure_thing_bin();
         *(_DWORD*)& byte_5D4594[2650664] = 0;
         *(_DWORD*)& byte_5D4594[2649708] = 0;
         if (g_v21)

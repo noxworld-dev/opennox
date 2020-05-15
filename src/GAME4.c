@@ -9883,7 +9883,7 @@ BOOL __cdecl sub_502120(int a1, void* a2)
     v15 = a1;
     v19 = *v4;
     *(_DWORD*)(v15 + 8) = v4 + 1;
-    sub_40ACC0(a2, 1u, v19, v15);
+    nox_memfile_read(a2, 1u, v19, v15);
     *((_BYTE*)a2 + v19) = 0;
     v5 = sub_40AF50(a2);
     if (!v5)
@@ -10004,7 +10004,7 @@ int __cdecl sub_502370(int a1, void* a2)
     v2 = *(char**)(a1 + 8);
     v3 = *v2;
     *(_DWORD*)(a1 + 8) = v2 + 1;
-    sub_40ACC0(a2, 1u, v3, a1);
+    nox_memfile_read(a2, 1u, v3, a1);
     *((_BYTE*)a2 + v3) = 0;
     v4 = sub_40AF50(a2);
     if (v4 && *(_DWORD*)& byte_5D4594[1599064])
@@ -10258,14 +10258,14 @@ int __cdecl sub_502790(FILE* a1, char* a2)
     int v9; // [esp+14h] [ebp-404h]
     char v10[1024]; // [esp+18h] [ebp-400h]
 
-    sub_408E40((char*)& v8, 4, 1, a1);
-    sub_408E40(v10, 1, v8, a1);
-    sub_408E40(a2, 4, 1, a1);
-    sub_408E40((char*)& v7, 4, 1, a1);
+    sub_408E40_fread((char*)& v8, 4, 1, a1);
+    sub_408E40_fread(v10, 1, v8, a1);
+    sub_408E40_fread(a2, 4, 1, a1);
+    sub_408E40_fread((char*)& v7, 4, 1, a1);
     result = v7;
     for (i = 0; i < v7; ++i)
     {
-        sub_408E40((char*)& v6, 1, 1, a1);
+        sub_408E40_fread((char*)& v6, 1, 1, a1);
         sub_409050(a1, 1, 1);
         v4 = 0;
         v5 = 268 * (unsigned __int8)v6;
@@ -10287,7 +10287,7 @@ int __cdecl sub_502790(FILE* a1, char* a2)
                     break;
                 case 2:
                 case 7:
-                    sub_408E40((char*)& v9, 1, 1, a1);
+                    sub_408E40_fread((char*)& v9, 1, 1, a1);
                     sub_409050(a1, (unsigned __int8)v9, 1);
                     break;
                 default:

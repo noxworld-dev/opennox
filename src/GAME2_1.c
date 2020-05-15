@@ -2019,10 +2019,10 @@ int __cdecl sub_4627F0(_DWORD* a1)
         v15 = *(_DWORD*)& byte_5D4594[1063116];
     }
     LABEL_91:
-    v49 = nox_get_thing_field_8(*(_DWORD*)(v15 + 108));
+    v49 = nox_get_thing_desc(*(_DWORD*)(v15 + 108));
     if (v49)
         nox_window_call_field_94((int)v10, 16397, v49, -1);
-    v67 = nox_get_thing_field_70(*(_DWORD*)(*(_DWORD*)& byte_5D4594[1063116] + 108));
+    v67 = nox_get_thing_pretty_image(*(_DWORD*)(*(_DWORD*)& byte_5D4594[1063116] + 108));
     v50 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1062476], 9155);
     return sub_46AE60((int)v50, v67);
 }
@@ -6784,7 +6784,7 @@ BOOL __cdecl sub_46A010(_DWORD* a1, char* a2)
     a1[2] = v4;
     v42 = *v4;
     v2[2] = v4 + 1;
-    sub_40ACC0(a2, 1u, v42, (int)v30);
+    nox_memfile_read(a2, 1u, v42, (int)v30);
     a2[v42] = 0;
     v5 = 0;
     if (*(_DWORD*)& byte_5D4594[251540] > 0)
@@ -6814,7 +6814,7 @@ BOOL __cdecl sub_46A010(_DWORD* a1, char* a2)
                     v9 = (unsigned __int8*)v2[2];
                     v43 = *v9;
                     v2[2] = v9 + 1;
-                    sub_40ACC0(v3, 1u, v43, (int)v2);
+                    nox_memfile_read(v3, 1u, v43, (int)v2);
                     v3[v43] = 0;
                     if (++v8 >= (unsigned __int8)v31)
                         goto LABEL_11;
@@ -6826,17 +6826,17 @@ BOOL __cdecl sub_46A010(_DWORD* a1, char* a2)
                 v10 = (unsigned __int8*)v2[2];
                 v44 = *v10;
                 v2[2] = v10 + 1;
-                sub_40ACC0(v3, 1u, v44, (int)v2);
+                nox_memfile_read(v3, 1u, v44, (int)v2);
                 v3[v44] = 0;
                 v11 = (unsigned __int8*)v2[2];
                 v45 = *v11;
                 v2[2] = v11 + 1;
-                sub_40ACC0(v3, 1u, v45, (int)v2);
+                nox_memfile_read(v3, 1u, v45, (int)v2);
                 v3[v45] = 0;
                 v12 = (unsigned __int8*)v2[2];
                 v46 = *v12;
                 v2[2] = v12 + 1;
-                sub_40ACC0(v3, 1u, v46, (int)v2);
+                nox_memfile_read(v3, 1u, v46, (int)v2);
                 v3[v46] = 0;
                 ++v2[2];
                 v47 = (const char**)& byte_587000[142868];
@@ -6883,7 +6883,7 @@ BOOL __cdecl sub_46A010(_DWORD* a1, char* a2)
                                     LOBYTE(v39) = *v22;
                                     v2[2] = v22 + 1;
                                     v24 = (unsigned __int8)v39;
-                                    sub_40ACC0(v3, (unsigned __int8)v39, 1, (int)v2);
+                                    nox_memfile_read(v3, (unsigned __int8)v39, 1, (int)v2);
                                     v21 = v40;
                                     v3[v24] = 0;
                                     v14 = v34;
