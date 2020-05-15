@@ -2205,7 +2205,6 @@ void __cdecl sub_44D5C0(int a1, int a2);
 int sub_44D640();
 BOOL __cdecl sub_44D660(const char* a1);
 int __cdecl sub_44D7E0(int a1);
-int sub_44D810();
 void sub_44D8C0();
 int sub_44D8F0();
 int __cdecl sub_44D900(int a1, int a2);
