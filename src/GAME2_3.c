@@ -4421,7 +4421,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                             if ((_DWORD)v5)
                             {
                                 v322 = *(unsigned __int16*)(v3 + 1);
-                                v208 = nox_get_thing_field_4(*(_DWORD*)(v5 + 108));
+                                v208 = nox_get_thing_pretty_name(*(_DWORD*)(v5 + 108));
                                 sub_450C00(6u, (wchar_t*)& byte_587000[159000], v208, v322, &byte_5D4594[1197384]);
                             }
                         }

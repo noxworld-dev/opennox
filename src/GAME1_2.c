@@ -5538,7 +5538,7 @@ int __cdecl sub_42F660(int a1, void* a2)
         v4 = *(unsigned __int8**)(a1 + 8);
         v29 = *v4;
         *(_DWORD*)(v26 + 8) = v4 + 1;
-        sub_40ACC0(a2, 1u, v29, v26);
+        nox_memfile_read(a2, 1u, v29, v26);
         *((_BYTE*)a2 + v29) = 0;
         strcpy((char*)(*(_DWORD*)& byte_5D4594[787156] + 104 * *(_DWORD*)& byte_5D4594[787164]), (const char*)a2);
         v5 = *(char**)(v2 + 8);
@@ -5559,7 +5559,7 @@ int __cdecl sub_42F660(int a1, void* a2)
                 v30 = *v11;
                 LOBYTE(a2) = v10;
                 *(_DWORD*)(v2 + 8) = v11 + 1;
-                sub_40ACC0(v3, 1u, v30, v2);
+                nox_memfile_read(v3, 1u, v30, v2);
                 *((_BYTE*)v3 + v30) = 0;
                 if (sub_47A8C0((const char*)a2, (char*)v3))
                 {
@@ -5602,7 +5602,7 @@ int __cdecl sub_42F660(int a1, void* a2)
                     v18 = *(unsigned __int8**)(v2 + 8);
                     v31 = *v18;
                     *(_DWORD*)(v2 + 8) = v18 + 1;
-                    sub_40ACC0(v28, 1u, v31, v2);
+                    nox_memfile_read(v28, 1u, v31, v2);
                     v28[v31] = 0;
                     if (!strcmp(v28, "OneShot"))
                     {
@@ -5625,7 +5625,7 @@ int __cdecl sub_42F660(int a1, void* a2)
                                     v32 = *v24;
                                     *(_DWORD*)(v2 + 8) = v24 + 1;
                                     LOBYTE(a2) = v23;
-                                    sub_40ACC0(v28, 1u, v32, v2);
+                                    nox_memfile_read(v28, 1u, v32, v2);
                                     v28[v32] = 0;
                                     *(_DWORD*)(v13[1] + v19) = sub_47A8C0((const char*)a2, v28);
                                 }
@@ -10020,7 +10020,7 @@ int sub_435CC0()
     if (!result)
         return 0;
 
-    result = sub_44C840((char*)& byte_587000[86368]);
+    result = sub_44C840_read_things();
     if (!result)
         return 0;
 

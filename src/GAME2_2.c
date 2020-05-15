@@ -11993,7 +11993,7 @@ int __cdecl sub_485B30(int a1, char* a2)
     *(_DWORD*)(a1 + 8) = v3;
     LOBYTE(a1) = *v3;
     *(_DWORD*)(v2 + 8) = v3 + 1;
-    sub_40ACC0(v22, 1u, (unsigned __int8)a1, v16);
+    nox_memfile_read(v22, 1u, (unsigned __int8)a1, v16);
     v4 = *(_DWORD*)& byte_5D4594[251568];
     v5 = 0;
     v22[(unsigned __int8)a1] = 0;
@@ -12045,7 +12045,7 @@ int __cdecl sub_485B30(int a1, char* a2)
             LOBYTE(v21) = v15;
             v23 = *v14;
             *(_DWORD*)(v2 + 8) = v14 + 1;
-            sub_40ACC0(a2, 1u, v23, v2);
+            nox_memfile_read(a2, 1u, v23, v2);
             v13 = -1;
             a2[v23] = 0;
             v11 = i;
@@ -12116,7 +12116,7 @@ int __cdecl sub_485D40(int a1, char* a2)
     *(_DWORD*)(a1 + 8) = v3;
     LOBYTE(a1) = *v3;
     *(_DWORD*)(v2 + 8) = v3 + 1;
-    sub_40ACC0(v26, 1u, (unsigned __int8)a1, v22);
+    nox_memfile_read(v26, 1u, (unsigned __int8)a1, v22);
     v4 = *(_DWORD*)& byte_5D4594[251572];
     v5 = 0;
     v26[(unsigned __int8)a1] = 0;
@@ -12174,7 +12174,7 @@ int __cdecl sub_485D40(int a1, char* a2)
                 LOBYTE(v25) = v19;
                 v27 = *v18;
                 *(_DWORD*)(v2 + 8) = v18 + 1;
-                sub_40ACC0(a2, 1u, v27, v2);
+                nox_memfile_read(a2, 1u, v27, v2);
                 v17 = -1;
                 a2[v27] = 0;
                 v15 = i;

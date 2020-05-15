@@ -2843,7 +2843,7 @@ int sub_4D1660()
     result = sub_501860();
     if (result)
     {
-        result = sub_4E2B60((char*)& byte_587000[196440]);
+        result = sub_4E2B60();
         if (result)
         {
             sub_4463E0(1);

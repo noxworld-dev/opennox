@@ -1130,7 +1130,7 @@ int sub_419B30()
     *(_DWORD*)& byte_5D4594[527684] = result;
     if (result)
     {
-        result = sub_408CC0((char*)& byte_587000[55748], 0);
+        result = sub_408CC0_fopen((char*)& byte_587000[55748], 0);
         v1 = (FILE*)result;
         if (result)
         {
@@ -3128,7 +3128,7 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2)
         v5 = sub_409E10();
         nox_sprintf(PathName, "%s\\Save\\", v5);
         CreateDirectoryA(PathName, 0);
-        v6 = sub_408CC0((char*)& byte_5D4594[2660688], 1);
+        v6 = sub_408CC0_fopen((char*)& byte_5D4594[2660688], 1);
         nox_file_2 = v6;
         if (v6)
         {
@@ -3203,7 +3203,7 @@ FILE* __cdecl sub_41CAC0(char* a1, char** a2)
     int v12; // [esp+0h] [ebp-8h]
     char* v13; // [esp+4h] [ebp-4h]
 
-    result = sub_408CC0(a1, 0);
+    result = sub_408CC0_fopen(a1, 0);
     nox_file_2 = result;
     if (result)
     {
@@ -3214,7 +3214,7 @@ FILE* __cdecl sub_41CAC0(char* a1, char** a2)
             v4 = 0;
             while (1)
             {
-                sub_408E40((char*)& v13, 4, 1, nox_file_2);
+                sub_408E40_fread((char*)& v13, 4, 1, nox_file_2);
                 if (!v13)
                     break;
                 v5 = sub_409390();
@@ -3242,7 +3242,7 @@ FILE* __cdecl sub_41CAC0(char* a1, char** a2)
                         v4 += v12;
                         do
                         {
-                            sub_408E40((char*)& a1, 1, 1, nox_file_2);
+                            sub_408E40_fread((char*)& a1, 1, 1, nox_file_2);
                             *(_BYTE*)v3 = (_BYTE)a1;
                             v3 = (char**)((char*)v3 + 1);
                             --v11;
@@ -3300,7 +3300,7 @@ int __cdecl sub_41CC50(char* a1)
     int v9; // [esp+4h] [ebp-4h]
 
     v1 = a1;
-    v2 = sub_408CC0(a1, 0);
+    v2 = sub_408CC0_fopen(a1, 0);
     nox_file_2 = v2;
     if (v2)
     {
@@ -3309,7 +3309,7 @@ int __cdecl sub_41CC50(char* a1)
             v4 = 0;
             while (1)
             {
-                sub_408E40((char*)& a1, 4, 1, nox_file_2);
+                sub_408E40_fread((char*)& a1, 4, 1, nox_file_2);
                 if (sub_409370() == -1)
                     break;
                 if (!a1)
@@ -3362,7 +3362,7 @@ int __cdecl sub_41CD70(char* a1, _BYTE* a2, int a3)
     _BYTE* v7; // esi
 
     v3 = a1;
-    v4 = sub_408CC0(a1, 1);
+    v4 = sub_408CC0_fopen(a1, 1);
     nox_file_2 = v4;
     if (v4)
     {
@@ -3515,7 +3515,7 @@ int __cdecl sub_41CFA0(char* a1, int a2)
     v2 = sub_41CC50(a1);
     if (!v2)
         return 0;
-    v3 = sub_408CC0(a1, 0);
+    v3 = sub_408CC0_fopen(a1, 0);
     nox_file_2 = v3;
     if (!v3)
     {
@@ -3527,7 +3527,7 @@ int __cdecl sub_41CFA0(char* a1, int a2)
         v5 = (char*)nox_malloc(v2);
         if (v5)
         {
-            sub_408E40(v5, v2, 1, nox_file_2);
+            sub_408E40_fread(v5, v2, 1, nox_file_2);
             sub_408D90(nox_file_2);
             sub_419EB0(a2, 1);
             sub_40BC60(a2, 2, "SAVEDATA", (int)v5, v2, 1);
@@ -9620,7 +9620,7 @@ int __cdecl sub_424170(char* a1)
     char v6[256]; // [esp+10h] [ebp-200h]
     char v7[256]; // [esp+110h] [ebp-100h]
 
-    result = sub_408CC0(a1, 0);
+    result = sub_408CC0_fopen(a1, 0);
     v2 = (FILE*)result;
     if (result)
     {
@@ -9828,7 +9828,7 @@ int __cdecl sub_424460(int a1, void* a2)
     v2 = *(unsigned __int8**)(a1 + 8);
     v33 = *v2;
     *(_DWORD*)(a1 + 8) = v2 + 1;
-    sub_40ACC0(a2, 1u, v33, a1);
+    nox_memfile_read(a2, 1u, v33, a1);
     v3 = 0;
     *((_BYTE*)a2 + v33) = 0;
     v4 = sub_4243F0((const char*)a2);
@@ -9890,7 +9890,7 @@ int __cdecl sub_424460(int a1, void* a2)
         LOBYTE(v39) = v18;
         v34 = *v17;
         *(_DWORD*)(a1 + 8) = v17 + 1;
-        sub_40ACC0(v43, 1u, v34, a1);
+        nox_memfile_read(v43, 1u, v34, a1);
         v43[v34] = 0;
         v16 = -1;
     }
@@ -9909,7 +9909,7 @@ int __cdecl sub_424460(int a1, void* a2)
         LOBYTE(v39) = v22;
         v35 = *v21;
         *(_DWORD*)(a1 + 8) = v21 + 1;
-        sub_40ACC0(v43, 1u, v35, a1);
+        nox_memfile_read(v43, 1u, v35, a1);
         v43[v35] = 0;
         v20 = -1;
     }
@@ -9922,32 +9922,32 @@ int __cdecl sub_424460(int a1, void* a2)
     v25 = *(unsigned __int8**)(a1 + 8);
     v36 = *v25;
     *(_DWORD*)(a1 + 8) = v25 + 1;
-    sub_40ACC0(v43, 1u, v36, a1);
+    nox_memfile_read(v43, 1u, v36, a1);
     v43[v36] = 0;
     *(_DWORD*)v6 = loadString_sub_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 481);
     v26 = *(__int16**)(a1 + 8);
     v27 = *v26;
     *(_DWORD*)(a1 + 8) = v26 + 1;
-    sub_40ACC0(v43, 1u, v27, a1);
+    nox_memfile_read(v43, 1u, v27, a1);
     v43[v27] = 0;
     *((_DWORD*)v6 + 1) = loadString_sub_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 488);
     v28 = *(unsigned __int8**)(a1 + 8);
     v29 = *v28;
     *(_DWORD*)(a1 + 8) = v28 + 1;
     v30 = v29;
-    sub_40ACC0(v43, 1u, v29, a1);
+    nox_memfile_read(v43, 1u, v29, a1);
     v43[v30] = 0;
     *((_DWORD*)v6 + 17) = sub_40AF50(v43);
     v31 = *(unsigned __int8**)(a1 + 8);
     v37 = *v31;
     *(_DWORD*)(a1 + 8) = v31 + 1;
-    sub_40ACC0(v43, 1u, v37, a1);
+    nox_memfile_read(v43, 1u, v37, a1);
     v43[v37] = 0;
     *((_DWORD*)v6 + 18) = sub_40AF50(v43);
     v32 = *(unsigned __int8**)(a1 + 8);
     v38 = *v32;
     *(_DWORD*)(a1 + 8) = v32 + 1;
-    sub_40ACC0(v43, 1u, v38, a1);
+    nox_memfile_read(v43, 1u, v38, a1);
     v43[v38] = 0;
     *((_DWORD*)v6 + 19) = sub_40AF50(v43);
     if ((int)v40 > 0)
@@ -10446,7 +10446,7 @@ int __cdecl sub_424F00(int a1, void* a2)
     v2 = *(unsigned __int8**)(a1 + 8);
     v28 = *v2;
     *(_DWORD*)(a1 + 8) = v2 + 1;
-    sub_40ACC0(a2, 1u, v28, a1);
+    nox_memfile_read(a2, 1u, v28, a1);
     *((_BYTE*)a2 + v28) = 0;
     v3 = sub_424D80((const char*)a2);
     if (!v3)
@@ -10467,7 +10467,7 @@ int __cdecl sub_424F00(int a1, void* a2)
         LOBYTE(v34) = v9;
         v29 = *v8;
         *(_DWORD*)(a1 + 8) = v8 + 1;
-        sub_40ACC0(v35, 1u, v29, a1);
+        nox_memfile_read(v35, 1u, v29, a1);
         v35[v29] = 0;
         v7 = -1;
     }
@@ -10486,7 +10486,7 @@ int __cdecl sub_424F00(int a1, void* a2)
         LOBYTE(v34) = v13;
         v30 = *v12;
         *(_DWORD*)(a1 + 8) = v12 + 1;
-        sub_40ACC0(v35, 1u, v30, a1);
+        nox_memfile_read(v35, 1u, v30, a1);
         v35[v30] = 0;
         v11 = -1;
     }
@@ -10505,7 +10505,7 @@ int __cdecl sub_424F00(int a1, void* a2)
         LOBYTE(v34) = v17;
         v31 = *v16;
         *(_DWORD*)(a1 + 8) = v16 + 1;
-        sub_40ACC0(v35, 1u, v31, a1);
+        nox_memfile_read(v35, 1u, v31, a1);
         v35[v31] = 0;
         v15 = -1;
     }
@@ -10514,33 +10514,33 @@ int __cdecl sub_424F00(int a1, void* a2)
     v18 = *(unsigned __int8**)(a1 + 8);
     v32 = *v18;
     *(_DWORD*)(a1 + 8) = v18 + 1;
-    sub_40ACC0(v35, 1u, v32, a1);
+    nox_memfile_read(v35, 1u, v32, a1);
     v35[v32] = 0;
     *(_DWORD*)v5 = loadString_sub_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 185);
     v19 = *(__int16**)(a1 + 8);
     v20 = *v19;
     *(_DWORD*)(a1 + 8) = v19 + 1;
-    sub_40ACC0(v35, 1u, v20, a1);
+    nox_memfile_read(v35, 1u, v20, a1);
     v35[v20] = 0;
     *((_DWORD*)v5 + 1) = loadString_sub_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 193);
     v21 = *(unsigned __int8**)(a1 + 8);
     v22 = *v21;
     *(_DWORD*)(a1 + 8) = v21 + 1;
     v23 = v22;
-    sub_40ACC0(v35, 1u, v22, a1);
+    nox_memfile_read(v35, 1u, v22, a1);
     v35[v23] = 0;
     *((_DWORD*)v5 + 10) = sub_40AF50(v35);
     v24 = *(unsigned __int8**)(a1 + 8);
     v33 = *v24;
     *(_DWORD*)(a1 + 8) = v24 + 1;
-    sub_40ACC0(v35, 1u, v33, a1);
+    nox_memfile_read(v35, 1u, v33, a1);
     v35[v33] = 0;
     *((_DWORD*)v5 + 11) = sub_40AF50(v35);
     v25 = *(unsigned __int8**)(a1 + 8);
     v26 = *v25;
     *(_DWORD*)(a1 + 8) = v25 + 1;
     v27 = v26;
-    sub_40ACC0(v35, 1u, v26, a1);
+    nox_memfile_read(v35, 1u, v26, a1);
     v35[v27] = 0;
     *((_DWORD*)v5 + 12) = sub_40AF50(v35);
     *((_DWORD*)v5 + 5) = 1;
@@ -12049,7 +12049,7 @@ int __cdecl sub_426910(char* a1, int a2, int a3)
     {
         v3 = 1;
     }
-    result = sub_408CC0(a1, v3);
+    result = sub_408CC0_fopen(a1, v3);
     nox_file_3 = result;
     if (result)
     {
@@ -12165,7 +12165,7 @@ size_t __cdecl sub_426AC0_file3_fread(_BYTE* a1, size_t a2)
         }
         else
         {
-            v5 = sub_408E40(a1, a2, 1, nox_file_3);
+            v5 = sub_408E40_fread(a1, a2, 1, nox_file_3);
         }
         if (v5)
             sub_426BD0(a1, a2);
@@ -12236,7 +12236,7 @@ void __cdecl sub_426C20(_BYTE* a1, size_t a2)
         }
         else if (sub_426A40())
         {
-            sub_408E40(a1, a2, 1, nox_file_3);
+            sub_408E40_fread(a1, a2, 1, nox_file_3);
         }
         else
         {

@@ -4991,7 +4991,7 @@ int __cdecl sub_535CD0(int a1, _DWORD* a2, void* a3)
     v44 = a2;
     v49 = *v5;
     v44[2] = v5 + 1;
-    sub_40ACC0(a3, 1u, v49, (int)v44);
+    nox_memfile_read(a3, 1u, v49, (int)v44);
     *((_BYTE*)a3 + v49) = 0;
     sub_40AD60((char*)& v45, 4, 1, v3);
     result = 0;
@@ -5020,7 +5020,7 @@ int __cdecl sub_535CD0(int a1, _DWORD* a2, void* a3)
                 return 0;
             v50 = *v13;
             v3[2] = v13 + 1;
-            sub_40ACC0(v4, 1u, v50, (int)v3);
+            nox_memfile_read(v4, 1u, v50, (int)v3);
             *((_BYTE*)v4 + v50) = 0;
             v14 = 16 * v12;
             v15 = &v47[v14];
@@ -5048,7 +5048,7 @@ int __cdecl sub_535CD0(int a1, _DWORD* a2, void* a3)
             v24 = (unsigned __int8*)v3[2];
             v52 = *v24;
             v3[2] = v24 + 1;
-            sub_40ACC0(v4, 1u, v52, (int)v3);
+            nox_memfile_read(v4, 1u, v52, (int)v3);
             *((_BYTE*)v4 + v52) = 0;
             *(_DWORD*)(v56 + 12) = !strcmp((const char*)v4, "Loop")
                                    || !strcmp((const char*)v4, "LoopAndFade");
@@ -5095,7 +5095,7 @@ int __cdecl sub_535CD0(int a1, _DWORD* a2, void* a3)
                 {
                     v53 = *v33;
                     v3[2] = v33 + 1;
-                    sub_40ACC0(v4, 1u, v53, (int)v3);
+                    nox_memfile_read(v4, 1u, v53, (int)v3);
                     *((_BYTE*)v4 + v53) = 0;
                     v57 = 0;
                     v34 = (const char**)& byte_587000[268120];
@@ -5117,7 +5117,7 @@ int __cdecl sub_535CD0(int a1, _DWORD* a2, void* a3)
                     LOBYTE(v46) = v37;
                     v54 = *v35;
                     v3[2] = v35 + 1;
-                    sub_40ACC0(v4, 1u, v54, (int)v3);
+                    nox_memfile_read(v4, 1u, v54, (int)v3);
                     v30 = v48;
                     v43 = (unsigned __int8)v46;
                     *((_BYTE*)v4 + v54) = 0;
@@ -5127,7 +5127,7 @@ int __cdecl sub_535CD0(int a1, _DWORD* a2, void* a3)
                 {
                     v55 = *v33;
                     v3[2] = v33 + 1;
-                    sub_40ACC0(v4, 1u, v55, (int)v3);
+                    nox_memfile_read(v4, 1u, v55, (int)v3);
                     *((_BYTE*)v4 + v55) = 0;
                     v45 = 8 * v30;
                     if (8 * v30 > 0)

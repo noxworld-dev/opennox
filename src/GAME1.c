@@ -29,6 +29,8 @@ wchar_t file_buffer_w[4096*2] = {0};
 FILE* nox_file_1 = 0;
 FILE* nox_file_4 = 0;
 FILE* nox_file_5 = 0;
+FILE* nox_file_10 = 0;
+int nox_file_10_mode = 0;
 FILE* nox_file_net_log = 0;
 
 _DWORD* dword_5D4594_251544 = 0;
@@ -123,8 +125,7 @@ void cleanup()
 #ifdef USE_SDL
     sub_48B1B0(&g_ddraw);
 #endif
-    if (*(_DWORD*)& byte_5D4594[260])
-        sub_40ACA0_free_ptr2(*(LPVOID*)& byte_5D4594[260]);
+    nox_free_thing_bin();
 }
 
 void mainloop_exit_1()
@@ -361,7 +362,7 @@ int __cdecl cmain(int argc, const char* argv[])
     sub_409F80(32);
     *(_DWORD*)& byte_5D4594[2614260] = *(_DWORD*)& byte_5D4594[2649704] >> 1;
     sub_4093A0();
-    *(_DWORD*)& byte_5D4594[260] = sub_40ABF0("thing.bin", 7);
+    nox_ensure_thing_bin();
     result = sub_40F300("nox.str");
     if (!result)
     {
@@ -407,7 +408,7 @@ int __cdecl cmain(int argc, const char* argv[])
     {
         return result;
     }
-    result = sub_415470("thing.bin");
+    result = sub_415470();
     if (!result)
     {
         return result;
@@ -506,43 +507,35 @@ void __cdecl sub_401B20(char* a1)
 }
 
 //----- (00408CC0) --------------------------------------------------------
-FILE* __cdecl sub_408CC0(const char* path, int a2)
+FILE* __cdecl sub_408CC0_fopen(const char* path, int mode)
 {
-    FILE* result; // eax
+    FILE* f = 0;
+    if (mode) {
+        if (mode == 1) {
+            f = fopen(path, "wb");
+        } else if (mode == 2) {
+            f = fopen(path, "r+b");
+        }
+    } else {
+        f = fopen(path, "rb");
+    }
+    nox_file_10_mode = mode;
 
-    result = 0;
-    if (a2)
-    {
-        if (a2 == 1)
-        {
-            result = fopen(path, "wb");
-        }
-        else if (a2 == 2)
-        {
-            result = fopen(path, "r+b");
-        }
-    }
-    else
-    {
-        result = fopen(path, "rb");
-    }
-    *(_DWORD*)& byte_5D4594[1300] = a2;
-    if (!result)
-    {
-        return result;
-    }
+    if (!f)
+        return 0;
+
     *(_DWORD*)& byte_5D4594[1288] = 0;
     *(_DWORD*)& byte_5D4594[1276] = 0;
-    *(_DWORD*)& byte_5D4594[1296] = result;
+    nox_file_10 = f;
     *(_DWORD*)& byte_5D4594[1284] = 0;
     *(_DWORD*)& byte_5D4594[1292] = 0;
     *(_DWORD*)& byte_5D4594[1280] = 0;
     *(_DWORD*)& byte_5D4594[1304] = 0;
-    return result;
+    return f;
 }
 
 //----- (00408D40) --------------------------------------------------------
-int __cdecl sub_408D40(int a1, int a2)
+int __cdecl sub_408D40(FILE* f, int a2)
 {
     if (sub_409A60())
         return 0;
@@ -563,7 +556,7 @@ int __cdecl sub_408D90(FILE* a1)
         if (byte_5D4594[1284] & 7)
         {
             v1 = 8 - (byte_5D4594[1284] & 7);
-            if (*(_DWORD*)& byte_5D4594[1300])
+            if (nox_file_10_mode)
             {
                 sub_4097C0(&byte_5D4594[1288], 8, &byte_5D4594[1276]);
                 fwrite(&byte_5D4594[1276], 8u, 1u, a1);
@@ -573,11 +566,9 @@ int __cdecl sub_408D90(FILE* a1)
         ftell(a1);
     }
     fclose(a1);
-#ifdef __EMSCRIPTEN__
-#endif
     * (_DWORD*)& byte_5D4594[1276] = 0;
     *(_DWORD*)& byte_5D4594[1288] = 0;
-    *(_DWORD*)& byte_5D4594[1296] = 0;
+    nox_file_10 = 0;
     *(_DWORD*)& byte_5D4594[1284] = 0;
     *(_DWORD*)& byte_5D4594[1292] = 0;
     *(_DWORD*)& byte_5D4594[1280] = 0;
@@ -586,7 +577,7 @@ int __cdecl sub_408D90(FILE* a1)
 }
 
 //----- (00408E40) --------------------------------------------------------
-signed int __cdecl sub_408E40(char* a1, int a2, signed int a3, FILE* a4)
+signed int __cdecl sub_408E40_fread(char* a1, int a2, signed int a3, FILE* a4)
 {
     unsigned int v4; // ebp
     unsigned int v5; // edi
@@ -664,8 +655,8 @@ signed int __cdecl sub_408FE0(char* a1, int a2, int a3, FILE* a4)
     char v5[8]; // [esp+4h] [ebp-8h]
 
     if (byte_5D4594[1284] & 7)
-        sub_408E40(v5, 8 - (byte_5D4594[1284] & 7), 1, a4);
-    result = sub_408E40(v5, 8, 1, a4);
+        sub_408E40_fread(v5, 8 - (byte_5D4594[1284] & 7), 1, a4);
+    result = sub_408E40_fread(v5, 8, 1, a4);
     if (result == 1)
         qmemcpy(a1, v5, a3 * a2);
     return result;
@@ -679,7 +670,7 @@ int __cdecl sub_409050(FILE* a1, int a2, int a3)
     int v5; // edi
 
     *(_DWORD*)& byte_5D4594[1304] = 0;
-    if (*(_DWORD*)& byte_5D4594[1300])
+    if (nox_file_10_mode)
     {
         if (!a2)
         {
@@ -850,19 +841,15 @@ int sub_409390()
 }
 
 //----- (004093A0) --------------------------------------------------------
-int sub_4093A0()
+void sub_4093A0()
 {
-    int result; // eax
-
-    result = 0;
-    *(_DWORD*)& byte_5D4594[1296] = 0;
+    nox_file_10 = 0;
     *(_DWORD*)& byte_5D4594[1284] = 0;
     *(_DWORD*)& byte_5D4594[1288] = 0;
     *(_DWORD*)& byte_5D4594[1276] = 0;
     *(_DWORD*)& byte_5D4594[1292] = 0;
     *(_DWORD*)& byte_5D4594[1280] = 0;
     *(_DWORD*)& byte_5D4594[1308] = 0;
-    return result;
 }
 
 //----- (004093E0) --------------------------------------------------------
@@ -884,7 +871,7 @@ void __cdecl sub_4093E0(FILE* a1, char* a2, int a3)
     v5 = a2;
     while (1)
     {
-        sub_408E40(v5, 1, 1, a1);
+        sub_408E40_fread(v5, 1, 1, a1);
         v6 = isspace(*v5);
         if (!v6)
             break;
@@ -923,7 +910,7 @@ int __cdecl sub_409470(FILE* a1, _BYTE* a2)
         while (1)
         {
             v5 = v3;
-            sub_408E40((char*)CharType, 1, 1, a1);
+            sub_408E40_fread((char*)CharType, 1, 1, a1);
             if (sub_409370() == -1)
                 return 0;
             if (*(_DWORD*)& byte_587000[1668] <= 1)
@@ -966,7 +953,7 @@ int __cdecl sub_409520(FILE* a1)
     do
     {
         LOBYTE(a1) = 0;
-        sub_408E40((char*)& a1, 1, 1, v1);
+        sub_408E40_fread((char*)& a1, 1, 1, v1);
         result = sub_409370();
     } while (result != -1 && (_BYTE)a1 != 10);
     return result;
@@ -2292,72 +2279,6 @@ BOOL sub_40ABD0()
     return _stat((LPCSTR)& byte_587000[5160], (int)& v1) == 0;
 }
 
-//----- (0040ABF0) --------------------------------------------------------
-size_t* __cdecl sub_40ABF0(const char* path, int a2)
-{
-    FILE* v2; // edi
-    size_t* v3; // esi
-    FILE* v4; // eax
-    char* v5; // eax
-    size_t v6; // ebx
-    size_t v7; // eax
-
-    v2 = 0;
-    v3 = (size_t*)nox_malloc(0x10u);
-    if (!v3) {
-        return 0;
-    }
-    v4 = sub_408CC0(path, 0);
-    v2 = v4;
-    if (!v4
-        || !sub_408D40((int)v4, a2)
-        || (sub_409050(v2, 0, 2),
-            v3[1] = sub_409390(),
-            sub_409050(v2, 0, 0),
-            v5 = (char*)nox_malloc(v3[1]),
-            (*v3 = (size_t)v5) == 0)
-        || (v6 = v3[1], sub_408E40(v5, 1, v3[1], v2) != v6))
-    {
-        sub_40ACA0_free_ptr2(v3);
-        v3 = 0;
-        goto LABEL_9;
-    }
-    v7 = *v3;
-    v3[2] = *v3;
-    v3[3] = v7 + v6;
-LABEL_9:
-    if (v2)
-        sub_408D90(v2);
-    return v3;
-}
-
-//----- (0040ACA0) --------------------------------------------------------
-void __cdecl sub_40ACA0_free_ptr2(void** ptr)
-{
-    if (*ptr) {
-        free(*ptr);
-        *ptr = NULL;
-    }
-    free(ptr);
-}
-
-//----- (0040ACC0) --------------------------------------------------------
-unsigned int __cdecl sub_40ACC0(void* a1, unsigned int a2, int a3, int a4)
-{
-    unsigned int v4; // eax
-    unsigned int v5; // ecx
-    const void* v6; // esi
-
-    v4 = a3 * a2;
-    v5 = *(_DWORD*)(a4 + 12);
-    v6 = *(const void**)(a4 + 8);
-    if ((unsigned int)v6 + a3 * a2 > v5)
-        v4 = v5 - (_DWORD)v6;
-    qmemcpy(a1, v6, v4);
-    *(_DWORD*)(a4 + 8) += v4;
-    return v4 / a2;
-}
-
 //----- (0040AD10) --------------------------------------------------------
 unsigned int __cdecl sub_40AD10(unsigned int* a1, int a2, int a3)
 {
@@ -2411,8 +2332,8 @@ unsigned int __cdecl sub_40AD60(char* a1, int a2, int a3, _DWORD* a4)
     char v5[8]; // [esp+4h] [ebp-8h]
 
     if (((unsigned __int8)a4[2] - (unsigned __int8)* a4) & 7)
-        sub_40ACC0(&v5, 8 - (((unsigned __int8)a4[2] - (unsigned __int8)* a4) & 7), 1, (int)a4);
-    result = sub_40ACC0(&v5, 8u, 1, (int)a4);
+        nox_memfile_read(&v5, 8 - (((unsigned __int8)a4[2] - (unsigned __int8)* a4) & 7), 1, (int)a4);
+    result = nox_memfile_read(&v5, 8u, 1, (int)a4);
     if (result == 1)
         qmemcpy(a1, &v5, a3 * a2);
     return result;
@@ -7867,7 +7788,7 @@ int __cdecl sub_410900(_DWORD* a1, char* a2)
     a1[2] = v5;
     v43 = *v5;
     v3[2] = v5 + 1;
-    sub_40ACC0(a2, 1u, v43, (int)v38);
+    nox_memfile_read(a2, 1u, v43, (int)v38);
     a2[v43] = 0;
     strncpy((char*)& byte_5D4594[12332 * *(_DWORD*)& byte_5D4594[251540] + 2692748], a2, 0x1Fu);
     v6 = (int*)v3[2];
@@ -7904,7 +7825,7 @@ int __cdecl sub_410900(_DWORD* a1, char* a2)
             v17 = (unsigned __int8*)v3[2];
             v44 = *v17;
             v3[2] = v17 + 1;
-            sub_40ACC0(v4, 1u, v44, (int)v3);
+            nox_memfile_read(v4, 1u, v44, (int)v3);
             v4[v44] = 0;
             strncpy((char*)& byte_5D4594[12332 * *(_DWORD*)& byte_5D4594[251540] + 2692791 + v48], v4, 0x40u);
             ++v14;
@@ -7918,19 +7839,19 @@ LABEL_7:
     v18 = (unsigned __int8*)v3[2];
     v45 = *v18;
     v3[2] = v18 + 1;
-    sub_40ACC0(v4, 1u, v45, (int)v3);
+    nox_memfile_read(v4, 1u, v45, (int)v3);
     v4[v45] = 0;
     strncpy((char*)& byte_5D4594[12332 * *(_DWORD*)& byte_5D4594[251540] + 2693303], v4, 0x40u);
     v19 = (unsigned __int8*)v3[2];
     v46 = *v19;
     v3[2] = v19 + 1;
-    sub_40ACC0(v4, 1u, v46, (int)v3);
+    nox_memfile_read(v4, 1u, v46, (int)v3);
     v4[v46] = 0;
     strncpy((char*)& byte_5D4594[12332 * *(_DWORD*)& byte_5D4594[251540] + 2693367], v4, 0x40u);
     v20 = (unsigned __int8*)v3[2];
     v47 = *v20;
     v3[2] = v20 + 1;
-    sub_40ACC0(v4, 1u, v47, (int)v3);
+    nox_memfile_read(v4, 1u, v47, (int)v3);
     v4[v47] = 0;
     strncpy((char*)& byte_5D4594[12332 * *(_DWORD*)& byte_5D4594[251540] + 2693431], v4, 0x40u);
     v21 = (unsigned __int8*)v3[2];
@@ -8439,7 +8360,7 @@ int __cdecl sub_411540(int a1, _BYTE* a2)
     *(_DWORD*)(a1 + 8) = v4;
     v32 = *v4;
     *(_DWORD*)(v3 + 8) = v4 + 1;
-    sub_40ACC0(v31, 1u, v32, v28);
+    nox_memfile_read(v31, 1u, v32, v28);
     v5 = 3 * *(_DWORD*)& byte_5D4594[251568];
     v31[v32] = 0;
     strncpy((char*)& byte_5D4594[20 * v5 + 2682188], v31, 0x1Fu);
@@ -8518,7 +8439,7 @@ int __cdecl sub_411540(int a1, _BYTE* a2)
                 *(_DWORD*)(v3 + 8) = v27;
                 v33 = *v27;
                 *(_DWORD*)(v3 + 8) = v27 + 1;
-                sub_40ACC0(a2, 1u, v33, v3);
+                nox_memfile_read(a2, 1u, v33, v3);
                 a2[v33] = 0;
             }
             --v30;
@@ -8591,7 +8512,7 @@ int __cdecl sub_411850(int a1, _BYTE* a2)
     *(_DWORD*)(a1 + 8) = v4;
     v30 = *v4;
     *(_DWORD*)(v3 + 8) = v4 + 1;
-    sub_40ACC0(v29, 1u, v30, v27);
+    nox_memfile_read(v29, 1u, v30, v27);
     v5 = 3 * *(_DWORD*)& byte_5D4594[251572];
     v29[v30] = 0;
     strcpy((char*)& byte_5D4594[20 * v5 + 2678348], v29);
@@ -8651,7 +8572,7 @@ int __cdecl sub_411850(int a1, _BYTE* a2)
                 *(_DWORD*)(v3 + 8) = v24;
                 v31 = *v24;
                 *(_DWORD*)(v3 + 8) = v24 + 1;
-                sub_40ACC0(a2, 1u, v31, v3);
+                nox_memfile_read(a2, 1u, v31, v3);
                 a2[v31] = 0;
             }
             --v21;
@@ -9385,7 +9306,7 @@ int __cdecl sub_412930(char* a1, char* a2)
     *(_DWORD*)& byte_5D4594[251604] = 0;
     *(_DWORD*)& byte_5D4594[251608] = 0;
     *(_DWORD*)& byte_5D4594[251612] = 0;
-    v2 = sub_408CC0(a1, 0);
+    v2 = sub_408CC0_fopen(a1, 0);
     v3 = v2;
     if (!v2)
         return 0;
@@ -11416,7 +11337,7 @@ BOOL __cdecl sub_414E70(int a1, void* a2)
     *(_DWORD*)(a1 + 8) = v3;
     v20 = *v3;
     *(_DWORD*)(v2 + 8) = v3 + 1;
-    sub_40ACC0(a2, 1u, v20, v18);
+    nox_memfile_read(a2, 1u, v20, v18);
     v4 = (unsigned __int8*)(*(_DWORD*)(v2 + 8) + 9);
     *(_DWORD*)(v2 + 8) = v4;
     v5 = *v4;
@@ -11493,7 +11414,7 @@ BOOL __cdecl sub_414F60(_DWORD* a1, void* a2)
     a1[2] = v4;
     v22 = *v4;
     v2[2] = v4 + 1;
-    sub_40ACC0(v3, 1u, v22, (int)v20);
+    nox_memfile_read(v3, 1u, v22, (int)v20);
     *((_BYTE*)v3 + v22) = 0;
     v2[2] += 14;
     sub_40AD60((char*)& a2, 1, 1, v2);
@@ -11505,7 +11426,7 @@ BOOL __cdecl sub_414F60(_DWORD* a1, void* a2)
             v6 = (unsigned __int8*)v2[2];
             v23 = *v6;
             v2[2] = v6 + 1;
-            sub_40ACC0(v3, 1u, v23, (int)v2);
+            nox_memfile_read(v3, 1u, v23, (int)v2);
             *((_BYTE*)v3 + v23) = 0;
             if (++v5 >= (unsigned __int8)a2)
                 goto LABEL_4;
@@ -11518,17 +11439,17 @@ BOOL __cdecl sub_414F60(_DWORD* a1, void* a2)
         v7 = (unsigned __int8*)v2[2];
         v24 = *v7;
         v2[2] = v7 + 1;
-        sub_40ACC0(v3, 1u, v24, (int)v2);
+        nox_memfile_read(v3, 1u, v24, (int)v2);
         *((_BYTE*)v3 + v24) = 0;
         v8 = (unsigned __int8*)v2[2];
         v25 = *v8;
         v2[2] = v8 + 1;
-        sub_40ACC0(v3, 1u, v25, (int)v2);
+        nox_memfile_read(v3, 1u, v25, (int)v2);
         *((_BYTE*)v3 + v25) = 0;
         v9 = (unsigned __int8*)v2[2];
         v26 = *v9;
         v2[2] = v9 + 1;
-        sub_40ACC0(v3, 1u, v26, (int)v2);
+        nox_memfile_read(v3, 1u, v26, (int)v2);
         *((_BYTE*)v3 + v26) = 0;
         ++v2[2];
         v10 = 15;
@@ -11570,7 +11491,7 @@ BOOL __cdecl sub_414F60(_DWORD* a1, void* a2)
 }
 
 //----- (00415100) --------------------------------------------------------
-int __cdecl sub_415100(int a1)
+int __cdecl sub_415100_read_spells(int a1)
 {
     int* v1; // ecx
     int v2; // edx
@@ -11782,90 +11703,87 @@ int __cdecl sub_415320(int a1)
 }
 
 //----- (00415470) --------------------------------------------------------
-size_t* __cdecl sub_415470(char* a1)
+bool __cdecl sub_415470(void)
 {
-    char* v1; // edi
-    size_t* result; // eax
     unsigned int* v3; // esi
     int v4; // [esp+8h] [ebp-4h]
 
-    v1 = (char*)nox_malloc(0x40000u);
-    result = (size_t*)sub_424170("SoundSet.bin");
-    if (result)
+    int result = sub_424170("SoundSet.bin");
+    if (!result)
+        return 0;
+
+    char* v1 = (char*)nox_malloc(0x40000u);
+    result = (size_t*)sub_412930("Modifier.bin", v1);
+    if (!result)
+        return 0;
+
+    nox_memfile* things = nox_open_thing_bin();
+    if (!things)
+        return 0;
+
+    sub_40AD10(things, 0, 0);
+    *(_DWORD*)& byte_5D4594[251540] = 0;
+    *(_DWORD*)& byte_5D4594[251568] = 0;
+    *(_DWORD*)& byte_5D4594[251572] = 0;
+    while (nox_memfile_read(&v4, 4u, 1, things))
     {
-        result = (size_t*)sub_412930("Modifier.bin", v1);
-        if (result)
+        switch (v4)
         {
-            v3 = *(unsigned int**)& byte_5D4594[260];
-            if (*(_DWORD*)& byte_5D4594[260] || (result = sub_40ABF0(a1, 7), (v3 = result) != 0))
+        case 1397769548:
+            if (!sub_4156B0(things, v1))
+                goto LABEL_34;
+            break;
+        case 1096107040:
+            if (sub_40A5C0(0x200000))
             {
-                sub_40AD10(v3, 0, 0);
-                *(_DWORD*)& byte_5D4594[251540] = 0;
-                *(_DWORD*)& byte_5D4594[251568] = 0;
-                *(_DWORD*)& byte_5D4594[251572] = 0;
-                while (sub_40ACC0(&v4, 4u, 1, (int)v3))
-                {
-                    switch (v4)
-                    {
-                    case 1397769548:
-                        if (!sub_4156B0((int)v3, v1))
-                            goto LABEL_34;
-                        break;
-                    case 1096107040:
-                        if (sub_40A5C0(0x200000))
-                        {
-                            sub_414D40((int)v3);
-                        }
-                        else if (!sub_415660((int)v3, v1))
-                        {
-                            goto LABEL_34;
-                        }
-                        break;
-                    case 1096175188:
-                        if (sub_40A5C0(0x200000))
-                        {
-                            sub_452B00((int)v3);
-                        }
-                        else if (!sub_452890((int)v3, v1))
-                        {
-                            goto LABEL_34;
-                        }
-                        break;
-                    case 1463897164:
-                        if (!sub_410900(v3, v1))
-                            goto LABEL_34;
-                        break;
-                    case 1179406162:
-                        if (!sub_411540((int)v3, v1))
-                            goto LABEL_34;
-                        break;
-                    case 1162102597:
-                        if (!sub_411850((int)v3, v1))
-                            goto LABEL_34;
-                        break;
-                    case 1094863180:
-                        if (!sub_415750((int)v3, v1))
-                            goto LABEL_34;
-                        break;
-                    case 1229799751:
-                        if (!sub_415700((int)v3, v1))
-                        {
-                        LABEL_34:
-                            sub_40ACA0_free_ptr2(v3);
-                            return 0;
-                        }
-                        goto LABEL_35;
-                    }
-                }
-            LABEL_35:
-                if (!*(_DWORD*)& byte_5D4594[260])
-                    sub_40ACA0_free_ptr2(v3);
-                free(v1);
-                result = (size_t*)1;
+                sub_414D40(things);
             }
+            else if (!sub_415660(things, v1))
+            {
+                goto LABEL_34;
+            }
+            break;
+        case 1096175188:
+            if (sub_40A5C0(0x200000))
+            {
+                sub_452B00(things);
+            }
+            else if (!sub_452890(things, v1))
+            {
+                goto LABEL_34;
+            }
+            break;
+        case 1463897164:
+            if (!sub_410900(things, v1))
+                goto LABEL_34;
+            break;
+        case 1179406162:
+            if (!sub_411540(things, v1))
+                goto LABEL_34;
+            break;
+        case 1162102597:
+            if (!sub_411850(things, v1))
+                goto LABEL_34;
+            break;
+        case 1094863180:
+            if (!sub_415750(things, v1))
+                goto LABEL_34;
+            break;
+        case 1229799751:
+            if (!sub_415700(things, v1))
+            {
+            LABEL_34:
+                nox_memfile_free(things);
+                return 0;
+            }
+            goto LABEL_35;
         }
     }
-    return result;
+LABEL_35:
+    nox_free_thing_bin();
+    free(v1);
+
+    return 1;
 }
 
 //----- (00415660) --------------------------------------------------------

@@ -4681,7 +4681,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
     {
         if (!(v2 & 0x100))
         {
-            result = (wchar_t*)nox_get_thing_field_4(*((_DWORD*)a1 + 27));
+            result = (wchar_t*)nox_get_thing_pretty_name(*((_DWORD*)a1 + 27));
             if (result)
                 return result;
             return (wchar_t*)& byte_5D4594[1317000];
@@ -4776,7 +4776,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1)
         }
         else
         {
-            result = (wchar_t*)nox_get_thing_field_4(v1[27]);
+            result = (wchar_t*)nox_get_thing_pretty_name(v1[27]);
             if (result)
                 return result;
         }
@@ -7414,7 +7414,7 @@ int __cdecl sub_4C2C60(_DWORD* a1, int2* a2)
     a1a.field_4 = (a2->field_4 - (int)v6) / 38;
     v4 = sub_4C2410(&a1a);
     if (v4)
-        result = nox_get_thing_field_4(*(_DWORD*)(v4 + 4));
+        result = nox_get_thing_pretty_name(*(_DWORD*)(v4 + 4));
     else
         result = 0;
     return result;

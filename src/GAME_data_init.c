@@ -64,21 +64,21 @@ void init_data()
     *(void**)& byte_587000[94028] = &byte_587000[93952];
 
     *(void**)& byte_587000[98228] = &sub_441CE0;
-    *(void**)& byte_587000[116612] = &sub_44B390;
-    *(void**)& byte_587000[116820] = &sub_44B390;
-    *(void**)& byte_587000[116836] = &sub_44B390;
-    *(void**)& byte_587000[116852] = &sub_44B390;
-    *(void**)& byte_587000[116900] = &sub_44B390;
-    *(void**)& byte_587000[116916] = &sub_44B390;
-    *(void**)& byte_587000[116132] = &sub_44B560;
-    *(void**)& byte_587000[116932] = &sub_44BF60;
-    *(void**)& byte_587000[116628] = &sub_44C120;
-    *(void**)& byte_587000[116964] = &sub_44C120;
-    *(void**)& byte_587000[116980] = &sub_44C120;
-    *(void**)& byte_587000[117092] = &sub_44C120;
-    *(void**)& byte_587000[116788] = &sub_44C160;
-    *(void**)& byte_587000[116804] = &sub_44C160;
-    *(void**)& byte_587000[116868] = &sub_44C160;
+    *(void**)& byte_587000[116612] = &nox_things_animate_draw_parse;
+    *(void**)& byte_587000[116820] = &nox_things_animate_draw_parse;
+    *(void**)& byte_587000[116836] = &nox_things_animate_draw_parse;
+    *(void**)& byte_587000[116852] = &nox_things_animate_draw_parse;
+    *(void**)& byte_587000[116900] = &nox_things_animate_draw_parse;
+    *(void**)& byte_587000[116916] = &nox_things_animate_draw_parse;
+    *(void**)& byte_587000[116132] = &nox_things_cond_animate_draw_parse;
+    *(void**)& byte_587000[116932] = &nox_things_vector_animate_draw_parse;
+    *(void**)& byte_587000[116628] = &nox_things_slave_draw_parse;
+    *(void**)& byte_587000[116964] = &nox_things_slave_draw_parse;
+    *(void**)& byte_587000[116980] = &nox_things_slave_draw_parse;
+    *(void**)& byte_587000[117092] = &nox_things_slave_draw_parse;
+    *(void**)& byte_587000[116788] = &nox_things_static_draw_parse;
+    *(void**)& byte_587000[116804] = &nox_things_static_draw_parse;
+    *(void**)& byte_587000[116868] = &nox_things_static_draw_parse;
 
     *(void**)& byte_587000[32600] = &byte_5D4594[338468];
 

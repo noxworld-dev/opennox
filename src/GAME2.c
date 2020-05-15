@@ -134,7 +134,7 @@ int __cdecl sub_44CDE0(const void* a1, const void* a2)
 }
 
 //----- (0044CE00) --------------------------------------------------------
-int __cdecl nox_parse_thing(int a1, char* a2, nox_thing* obj)
+int __cdecl nox_parse_thing(nox_memfile* f, char* a2, nox_thing* obj)
 {
     char* v3; // ebx
     unsigned __int8* v4; // eax
@@ -145,12 +145,10 @@ int __cdecl nox_parse_thing(int a1, char* a2, nox_thing* obj)
     v3 = a2;
     while (1)
     {
-        v4 = *(unsigned __int8**)(a1 + 8);
-        v10 = *v4;
-        *(_DWORD*)(a1 + 8) = v4 + 1;
+        v10 = nox_memfile_read_u8(f);
         if (!v10)
             return 1;
-        sub_40ACC0(v3, 1u, v10, a1);
+        nox_memfile_read(v3, 1u, v10, f);
         v3[v10] = 0;
         v5 = strtok(v3, " \t\n\r");
         for (int i = 0; i < nox_parse_thing_funcs_cnt; i++)
@@ -161,7 +159,7 @@ int __cdecl nox_parse_thing(int a1, char* a2, nox_thing* obj)
                 v8 = strtok(0, "=");
                 if (v8)
                     memmove(v3, v8 + 1, strlen(v8 + 1) + 1);
-                v6->parse_func(obj, a1, v3);
+                v6->parse_func(obj, f, v3);
                 break;
             }
         }
@@ -185,27 +183,27 @@ nox_thing* __cdecl nox_get_thing(int i)
 }
 
 //----- (0044CF30) --------------------------------------------------------
-wchar_t* __cdecl nox_get_thing_field_4(int i)
+wchar_t* __cdecl nox_get_thing_pretty_name(int i)
 {
     if (i < 1 || i >= nox_things_count)
         return 0;
-    return nox_things_array[i]->field_4;
+    return nox_things_array[i]->pretty_name;
 }
 
 //----- (0044CF60) --------------------------------------------------------
-wchar_t* __cdecl nox_get_thing_field_8(int i)
+wchar_t* __cdecl nox_get_thing_desc(int i)
 {
     if (i < 1 || i >= nox_things_count)
         return 0;
-    return nox_things_array[i]->field_8;
+    return nox_things_array[i]->desc;
 }
 
 //----- (0044CF90) --------------------------------------------------------
-int __cdecl nox_get_thing_field_70(int i)
+int __cdecl nox_get_thing_pretty_image(int i)
 {
     if (i < 1 || i >= nox_things_count)
         return 0;
-    return nox_things_array[i]->field_70;
+    return nox_things_array[i]->pretty_image;
 }
 
 //----- (0044CFC0) --------------------------------------------------------
@@ -289,7 +287,7 @@ int __cdecl nox_drawable_link_thing(nox_drawable* a1, int i)
     a1->field_27 = i;
     v3 = &a1->field_34;
     v4 = &a1->field_38;
-    int v5 = &(nox_things_array[i]->field_c);
+    int v5 = &(nox_things_array[i]->hwidth);
     *((_BYTE*)&a1->field_0) = *(_BYTE*)v5;
     *((_BYTE*)&a1->field_0 + 1) = *(_BYTE*)(v5 + 1);
     *(_WORD*)((void*)a1 + 104+2) = *(_WORD*)(v5 + 10);
@@ -348,8 +346,8 @@ int __cdecl nox_drawable_link_thing(nox_drawable* a1, int i)
         *(_WORD*)(v2 + 450) = -1;
     }
     nox_thing* v7 = nox_things_array[i];
-    if (v7->field_78)
-        sub_49B950((_DWORD*)v2, v7->field_78);
+    if (v7->lifetime)
+        sub_49B950((_DWORD*)v2, v7->lifetime);
     return 1;
 }
 
@@ -4143,7 +4141,7 @@ BOOL __cdecl sub_452890(int a1, void* a2)
     v21 = a1;
     v28 = *v3;
     *(_DWORD*)(v21 + 8) = v3 + 1;
-    sub_40ACC0(a2, 1u, v28, v21);
+    nox_memfile_read(a2, 1u, v28, v21);
     *((_BYTE*)a2 + v28) = 0;
     v4 = sub_40AF50(a2);
     if (v4 && (v5 = sub_452270(v4)) != 0)
@@ -4204,7 +4202,7 @@ BOOL __cdecl sub_452890(int a1, void* a2)
                     *(_DWORD*)(v2 + 8) = v10 + 1;
                     if (!v29)
                         break;
-                    sub_40ACC0(a2, 1u, v29, v2);
+                    nox_memfile_read(a2, 1u, v29, v2);
                     *((_BYTE*)a2 + v29) = 0;
                     if (v9 < 32)
                     {
@@ -4361,7 +4359,7 @@ int __cdecl sub_452BD0(int a1, char* a2)
     v4 = *(char**)(a1 + 8);
     v5 = *v4;
     *(_DWORD*)(a1 + 8) = v4 + 1;
-    sub_40ACC0(a2, 1u, v5, a1);
+    nox_memfile_read(a2, 1u, v5, a1);
     a2[v5] = 0;
     v6 = sub_40AF50(a2);
     if (v6 && (v7 = sub_452270(v6)) != 0)
@@ -4408,7 +4406,7 @@ int __cdecl sub_452BD0(int a1, char* a2)
                 if (!v23)
                     break;
                 v24 = v23;
-                sub_40ACC0(v3, 1u, v23, v2);
+                nox_memfile_read(v3, 1u, v23, v2);
                 v3[v24] = 0;
                 v25 = strrchr(v3, 46);
                 if (v25)
