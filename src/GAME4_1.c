@@ -12458,7 +12458,7 @@ int sub_517010()
     char v2[256]; // [esp+4h] [ebp-100h]
 
     *(_DWORD*)& byte_5D4594[2386924] = 0;
-    result = sub_408CC0((char*)& byte_587000[249116], 0);
+    result = sub_408CC0_fopen((char*)& byte_587000[249116], 0);
     v1 = (FILE*)result;
     if (result)
     {
@@ -12493,7 +12493,7 @@ int __cdecl sub_517090(FILE* a1, _BYTE* a2)
         while (1)
         {
             v5 = v3;
-            sub_408E40((char*)CharType, 1, 1, a1);
+            sub_408E40_fread((char*)CharType, 1, 1, a1);
             if (sub_409370() == -1)
                 return 0;
             if (*(_DWORD*)& byte_587000[1668] <= 1)
@@ -12536,7 +12536,7 @@ int __cdecl sub_517140(FILE* a1)
     do
     {
         LOBYTE(a1) = 0;
-        sub_408E40((char*)& a1, 1, 1, v1);
+        sub_408E40_fread((char*)& a1, 1, 1, v1);
         result = sub_409370();
     } while (result != -1 && (_BYTE)a1 != 10);
     return result;

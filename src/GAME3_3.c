@@ -4,6 +4,8 @@
 
 #include "proto.h"
 
+extern nox_memfile* nox_loaded_thing_bin;
+
 //----- (004E17B0) --------------------------------------------------------
 int __cdecl sub_4E17B0(int a1, int a2, int a3, int a4, float a5)
 {
@@ -967,14 +969,12 @@ LPVOID sub_4E2B30()
 }
 
 //----- (004E2B60) --------------------------------------------------------
-void* __cdecl sub_4E2B60(char* a1)
+void* __cdecl sub_4E2B60(void)
 {
     void* v1; // eax
-    size_t* v2; // ebx
     void* v3; // edi
     void* result; // eax
     void* v5; // ebp
-    unsigned __int8* v6; // eax
     int v7; // eax
     int v8; // eax
     int v9; // edx
@@ -997,55 +997,51 @@ void* __cdecl sub_4E2B60(char* a1)
     sub_4E3010();
     *(_DWORD*)& byte_5D4594[1563664] = 0;
     v1 = nox_malloc(0x40000u);
-    v2 = *(size_t * *)& byte_5D4594[260];
     v3 = v1;
     v21 = v1;
-    if (!*(_DWORD*)& byte_5D4594[260])
-    {
-        v2 = sub_40ABF0(a1, 7);
-        if (!v2)
-            return 0;
-    }
-    sub_40AD10(v2, 0, 0);
-    while (sub_40ACC0(&i, 4u, 1, (int)v2))
+
+    nox_memfile* things = nox_open_thing_bin();
+    if (!things)
+        return 0;
+    sub_40AD10(things, 0, 0);
+    while (nox_memfile_read(&i, 4u, 1, things))
     {
         switch (i)
         {
             case 1397769548:
-                sub_415100((int)v2);
+                sub_415100_read_spells(things);
                 break;
             case 1094863180:
-                sub_415320((int)v2);
+                sub_415320(things);
                 break;
             case 1096107040:
-                sub_502320((int)v2, v3);
+                sub_502320(things, v3);
                 break;
             case 1096175188:
-                sub_502120((int)v2, v3);
+                sub_502120(things, v3);
                 break;
             case 1463897164:
-                if (!sub_414F60(v2, v3))
+                if (!sub_414F60(things, v3))
                     goto LABEL_53;
                 break;
             case 1179406162:
-                if (!sub_414DB0((int)v2))
+                if (!sub_414DB0(things))
                     goto LABEL_53;
                 break;
             case 1162102597:
-                if (!sub_414E70((int)v2, v3))
+                if (!sub_414E70(things, v3))
                     goto LABEL_53;
                 break;
             case 1229799751:
-                sub_415240((int)v2);
+                sub_415240(things);
                 break;
             case 1414024775:
                 v5 = nox_calloc(1u, 0xE0u);
                 if (!v5)
                     goto LABEL_53;
-                v6 = (unsigned __int8*)v2[2];
-                v22 = *v6;
-                v2[2] = (size_t)(v6 + 1);
-                sub_40ACC0(v3, 1u, v22, (int)v2);
+                v22 = *(unsigned __int8*)things->cur;
+                things->cur++;
+                nox_memfile_read(v3, 1u, v22, things);
                 *((_BYTE*)v3 + v22) = 0;
                 *((_DWORD*)v5 + 1) = nox_clone_str((const char*)v3);
                 *((_DWORD*)v5 + 2) = 0;
@@ -1060,10 +1056,10 @@ void* __cdecl sub_4E2B60(char* a1)
                 *((_DWORD*)v5 + 38) = sub_4E0B30;
                 *((_DWORD*)v5 + 39) = sub_532E20;
                 *((_DWORD*)v5 + 53) = sub_4F49A0;
-                if (!sub_4E3220((int)v2, (char*)v3, (int)v5))
+                if (!sub_4E3220(things, (char*)v3, (int)v5))
                 {
                     LABEL_53:
-                    sub_40ACA0_free_ptr2(v2);
+                    nox_memfile_free(things);
                     return 0;
                 }
                 if (!*((_DWORD*)v5 + 35))
@@ -1140,17 +1136,16 @@ void* __cdecl sub_4E2B60(char* a1)
         }
     }
     *(_DWORD*)& byte_5D4594[2650664] = 1;
-    if (*(_DWORD*)& byte_5D4594[260])
+    if (nox_loaded_thing_bin)
     {
         if (sub_40A5C0(2) && *(_DWORD*)& byte_5D4594[2649708])
         {
-            sub_40ACA0_free_ptr2(*(LPVOID*)& byte_5D4594[260]);
-            *(_DWORD*)& byte_5D4594[260] = 0;
+            nox_free_thing_bin();
         }
     }
     else
     {
-        sub_40ACA0_free_ptr2(v2);
+        nox_memfile_free(things);
     }
     result = (void*)sub_4E3110();
     if (result)
@@ -1350,7 +1345,7 @@ int __cdecl sub_4E3220(int a1, char* a2, int a3)
         *(_DWORD*)(a1 + 8) = v4 + 1;
         if (!v10)
             return 1;
-        sub_40ACC0(v3, 1u, v10, a1);
+        nox_memfile_read(v3, 1u, v10, a1);
         v3[v10] = 0;
         v5 = strtok(v3, " \t\n\r");
         v6 = &byte_587000[201392];

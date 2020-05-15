@@ -1,4 +1,5 @@
 #include "defs.h"
+#include "memfile.h"
 
 // '...' differs in levels of indirection from '... *'
 #pragma warning(disable : 4047)
@@ -104,10 +105,10 @@ void __cdecl sub_401FE0(LPCSTR);
 // int __cdecl realloc(LPVOID lpMem, int); idb
 // char *__cdecl _strdup(const char *);
 // char *__cdecl strchr(const char *, int);
-FILE* __cdecl sub_408CC0(const char* path, int a2);
-int __cdecl sub_408D40(int a1, int a2);
+FILE* __cdecl sub_408CC0_fopen(const char* path, int mode);
+int __cdecl sub_408D40(FILE* a1, int a2);
 int __cdecl sub_408D90(FILE* a1);
-signed int __cdecl sub_408E40(char* a1, int a2, signed int a3, FILE* a4);
+signed int __cdecl sub_408E40_fread(char* a1, int a2, signed int a3, FILE* a4);
 signed int __cdecl sub_408FE0(char* a1, int a2, int a3, FILE* a4);
 int __cdecl sub_409050(FILE* a1, int a2, int a3);
 int __cdecl sub_409110(FILE* a1);
@@ -115,7 +116,7 @@ int __cdecl sub_409190(FILE* a1, int a2, int a3);
 size_t __cdecl sub_409200(char* a1, int a2, int a3, FILE* a4);
 int sub_409370();
 int sub_409390();
-int sub_4093A0();
+void sub_4093A0();
 void sub_4093D0(void); // weak
 void __cdecl sub_4093E0(FILE* a1, char* a2, int a3);
 int __cdecl sub_409470(FILE* a1, _BYTE* a2);
@@ -208,9 +209,6 @@ int sub_40AA50();
 int __cdecl sub_40AA60(int a1);
 int __cdecl sub_40AA70(int a1);
 BOOL sub_40ABD0();
-size_t* __cdecl sub_40ABF0(const char* path, int a2);
-void __cdecl sub_40ACA0_free_ptr2(void** lpMem); // idb
-unsigned int __cdecl sub_40ACC0(void* a1, unsigned int a2, int a3, int a4);
 unsigned int __cdecl sub_40AD10(unsigned int* a1, int a2, int a3);
 unsigned int __cdecl sub_40AD60(char* a1, int a2, int a3, _DWORD* a4);
 signed int __cdecl sub_40ADD0_fread(char* a1, size_t a2, size_t a3, FILE* a4);
@@ -606,10 +604,10 @@ int __cdecl sub_414D40(int a1);
 BOOL __cdecl sub_414DB0(int a1);
 BOOL __cdecl sub_414E70(int a1, void* a2);
 BOOL __cdecl sub_414F60(_DWORD* a1, void* a2);
-int __cdecl sub_415100(int a1);
+int __cdecl sub_415100_read_spells(int a1);
 int __cdecl sub_415240(int a1);
 int __cdecl sub_415320(int a1);
-size_t* __cdecl sub_415470(char* a1);
+bool __cdecl sub_415470(void);
 int __cdecl sub_415660(int a1, char* a2);
 int __cdecl sub_4156B0(int a1, void* a2);
 int __cdecl sub_415700(int a1, void* a2);
@@ -2129,53 +2127,53 @@ _DWORD* __cdecl sub_44AFB0(int a1, int a2, int a3);
 void sub_44B000();
 void sub_44B010();
 int __cdecl sub_44B0F0(int a1, int a2, int* a3, int a4);
-int __cdecl nox_parse_thing_flags(nox_thing* obj, int a2, const char* a3);
-int __cdecl nox_parse_thing_class(nox_thing* obj, int a2, const char* a3);
-int __cdecl nox_parse_thing_subclass(nox_thing* obj, int a2, const char* a3);
-int __cdecl nox_parse_thing_extent(nox_thing* obj, int a2, char* a3);
-int __cdecl nox_parse_thing_light_intensity(nox_thing* obj, int a2, char* a3);
-int __cdecl nox_parse_thing_light_color(nox_thing* obj, int a2, char* a3);
-int __cdecl nox_parse_thing_light_dir(int a1, int a2, char* a3);
-int __cdecl nox_parse_thing_light_penumbra(int a1, int a2, char* a3);
-int __cdecl sub_44B390(int a1, int a2, _BYTE* a3);
+int __cdecl nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* a3);
+int __cdecl nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* a3);
+int __cdecl nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* a3);
+int __cdecl nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* a3);
+bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
 int __cdecl sub_44B4C0(const char* a1);
-int __cdecl sub_44B560(_DWORD* a1, int a2, _BYTE* a3);
-int __cdecl sub_44B700(int a1, int a2, void* a3);
+bool __cdecl nox_things_cond_animate_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
+bool __cdecl nox_things_player_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
 int __cdecl sub_44B8B0(int a1, int a2);
 int __cdecl sub_44B940(_DWORD* a1, int a2, int a3);
 int __cdecl sub_44BA60(const char* a1);
 int __cdecl sub_44BAC0(const char* a1);
 int __cdecl sub_44BB20(const char* a1);
-int __cdecl sub_44BB80(int a1, int a2);
+bool __cdecl nox_things_monster_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
 int __cdecl sub_44BC50(int a1, int a2);
-int __cdecl sub_44BD60(int a1, int a2);
-int __cdecl sub_44BD90(_DWORD* a1, int a2);
+bool __cdecl nox_things_maiden_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
+bool __cdecl nox_things_animate_state_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
 int __cdecl sub_44BE90(int a1, int a2);
-int __cdecl sub_44BF60(int a1, int a2);
+bool __cdecl nox_things_vector_animate_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
 int __cdecl sub_44BFA0(int a1, int a2);
-BOOL __cdecl sub_44BFD0(int a1, int a2, _BYTE* a3);
+bool __cdecl nox_things_static_random_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
 void* __cdecl sub_44C000(_BYTE* a1, int a2);
-BOOL __cdecl sub_44C0F0(int a1, int a2, _BYTE* a3);
-BOOL __cdecl sub_44C120(_DWORD* a1, int a2, _BYTE* a3);
-int __cdecl sub_44C160(int a1, int a2, char* a3);
-int __cdecl nox_parse_thing_draw(nox_thing* obj, _DWORD* a2, int a3);
-int __cdecl nox_parse_thing_z(int a1, int a2, char* a3);
-int __cdecl nox_parse_thing_zsize(int a1, int a2, char* a3);
-int __cdecl nox_parse_thing_size(int a1, int a2, char* a3);
-int __cdecl nox_parse_thing_menu_icon(int a1, int a2);
-int __cdecl nox_parse_thing_audio_loop(int a1, int a2, void* a3);
-int __cdecl nox_parse_thing_lifetime(int a1, int a2, char* a3);
-int __cdecl nox_parse_thing_weight(int a1, int a2, char* a3);
-int __cdecl nox_parse_thing_pretty_name(int a1, int a2, char* a3);
-int __cdecl nox_parse_thing_desc(int a1, int a2, char* a3);
-int __cdecl nox_parse_thing_health(int a1, int a2, char* a3);
-int __cdecl nox_parse_thing_pretty_image(int a1, int a2);
+bool __cdecl nox_things_door_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
+bool __cdecl nox_things_slave_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
+bool __cdecl nox_things_static_draw_parse(nox_thing* obj, _DWORD* a2, _BYTE* a3);
+int __cdecl nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* a3);
+int __cdecl nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* a3);
 void sub_44C580_free();
 void sub_44C620();
 void __cdecl sub_44C650_free(LPVOID lpMem, void* draw); // idb
 void* __cdecl sub_44C780(int a1);
 LPVOID __cdecl sub_44C7B0(int a1);
-void* __cdecl sub_44C840(char* a1);
+void* __cdecl sub_44C840_read_things(void);
 int sub_44CCA0();
 size_t sub_44CCD0();
 CHAR* __cdecl sub_44CD10(CHAR* a1);
@@ -2183,12 +2181,12 @@ int __cdecl sub_44CD30(CHAR* a1);
 void __cdecl sub_44CD60(nox_thing* a1, int a2);
 void sub_44CDB0();
 int __cdecl sub_44CDE0(const void*, const void*); // idb
-int __cdecl nox_parse_thing(int a1, char* a2, nox_thing* obj);
+int __cdecl nox_parse_thing(nox_memfile* f, char* a2, nox_thing* obj);
 char* __cdecl nox_get_thing_name(int a1);
 nox_thing* __cdecl nox_get_thing(int i);
-wchar_t* __cdecl nox_get_thing_field_4(int a1);
-wchar_t* __cdecl nox_get_thing_field_8(int a1);
-int __cdecl nox_get_thing_field_70(int a1);
+wchar_t* __cdecl nox_get_thing_pretty_name(int a1);
+wchar_t* __cdecl nox_get_thing_desc(int a1);
+int __cdecl nox_get_thing_pretty_image(int a1);
 int __cdecl sub_44CFC0(CHAR* a1);
 int __cdecl sub_44CFD0(CHAR* a1);
 int __cdecl sub_44D020(const void*, const void*); // idb
@@ -4019,7 +4017,7 @@ wchar_t* __cdecl sub_4B5A30(wchar_t* a1);
 int __cdecl sub_4B5AB0(int a1, int a2, int* a3, int a4);
 int __cdecl sub_4B5B70(wchar_t* a1);
 void sub_4B5BF0();
-int __cdecl nox_parse_thing_client_update(int a1, int a2, char* a3);
+int __cdecl nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* a3);
 int sub_4B5CD0();
 int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, int a2);
 int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, int a2);
@@ -4966,7 +4964,7 @@ void sub_4E29D0();
 int __cdecl sub_4E2A00(const void*, const void*); // idb
 int sub_4E2A20();
 LPVOID sub_4E2B30();
-void* __cdecl sub_4E2B60(char* a1);
+void* __cdecl sub_4E2B60(void);
 int sub_4E3010();
 size_t sub_4E3040();
 CHAR* __cdecl sub_4E3080(CHAR* a1);
@@ -7915,6 +7913,9 @@ int __thiscall sub_57EA80(_DWORD* this, _BYTE* a2, _DWORD* a3, unsigned int a4, 
 _DWORD* __thiscall sub_57F160(int this, int a2, int a3);
 char __cdecl sub_57F1D0(float2* a1); // idb
 int __cdecl sub_57F2A0(float2* a1, int a2, int a3); // idb
+nox_memfile* nox_open_thing_bin(void);
+void nox_free_thing_bin(void);
+bool nox_ensure_thing_bin(void);
 // void __stdcall std___Xlen();
 // _DWORD __stdcall std__logic_error__logic_error(_DWORD); weak
 // int unknown_libname_34(void); weak

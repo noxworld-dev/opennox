@@ -18,8 +18,12 @@ extern FILE* nox_file_6;
 extern FILE* nox_file_7;
 extern FILE* nox_file_8;
 extern FILE* nox_file_9;
+extern FILE* nox_file_10;
+extern int nox_file_10_mode;
 extern FILE* nox_file_log;
 extern FILE* nox_file_net_log;
+
+extern nox_memfile* nox_loaded_thing_bin;
 
 extern int nox_win_width;
 extern int nox_win_height;
@@ -137,6 +141,9 @@ typedef struct mem_mapping
 
 mem_mapping mappings[] = {
         // overrides
+        {0x5D4594+260, (void*)&nox_loaded_thing_bin, sizeof(nox_loaded_thing_bin),1},
+        {0x5D4594+1296, (void*)&nox_file_10, sizeof(nox_file_10),1},
+        {0x5D4594+1300, (void*)&nox_file_10_mode, sizeof(nox_file_10_mode),1},
         {0x5D4594+226904, (void*)file_buffer_w, sizeof(file_buffer_w),1},
         {0x5D4594+247384, (void*)file_buffer, sizeof(file_buffer),1},
         {0x5D4594+251488, (void*)&nox_file_1, sizeof(nox_file_1),1},

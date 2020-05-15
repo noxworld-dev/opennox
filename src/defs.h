@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <wctype.h>
+#include "memfile.h"
 
 #define NO_IMM 1
 #define NO_MOVIE 1
@@ -445,15 +446,17 @@ typedef struct nox_drawable nox_drawable;
 typedef struct nox_thing
 {
     char* name; // 0, 0x0
-    wchar_t* field_4; // 1, 0x4
-    wchar_t* field_8; // 2, 0x8
-    _WORD field_c; // 3, 0xc, 12
-    _BYTE field_e; // 3, 0xe, 14
+    wchar_t* pretty_name; // 1, 0x4, 4
+    wchar_t* desc; // 2, 0x8, 8
+    _BYTE hwidth; // 3, 0xc, 12
+    _BYTE hheight; // 3, 0xd, 13
+    _BYTE weight; // 3, 0xe, 14
     _BYTE field_f; // 3, 0xf, 15
     _DWORD field_10; // 4, 0x10, 16
-    _WORD shape_kind; // 5, 0x14
-    _WORD field_16; // 5, 0x16
-    _DWORD field_18; // 6, 0x18
+    _WORD shape_kind; // 5, 0x14, 20
+    _WORD z; // 5, 0x16, 22
+    _WORD light_dir; // 6, 0x18, 24
+    _WORD light_penumbra; // 6, 0x1a, 26
     _DWORD field_1c; // 7, 0x1c
     int pri_class; // 8, 0x20, 32
     _DWORD sub_class; // 9, 0x24, 36
@@ -464,21 +467,22 @@ typedef struct nox_thing
     int light_color_b; // 14, 0x38, 56
     _DWORD field_3c; // 15, 0x3c
     float shape_r; // 16, 0x40
-    _DWORD field_44; // 17, 0x44
-    _DWORD field_48; // 18, 0x48
+    float zsize_min; // 17, 0x44, 68
+    float zsize_max; // 18, 0x48, 72
     float shape_w; // 19, 0x4c
     float shape_h; // 20, 0x50
     _DWORD field_54; // 21, 0x54
-    int(__cdecl *draw_func)(_DWORD*, nox_drawable*); // 22, 0x58, same as nox_drawable->draw_func
-    void* field_5c; // 23, 0x5c
+    int (__cdecl *draw_func)(_DWORD*, nox_drawable*); // 22, 0x58, 88, same as nox_drawable->draw_func
+    void* field_5c; // 23, 0x5c, 92
     _DWORD field_60; // 24, 0x60
-    _DWORD field_64; // 25, 0x64
-    _DWORD field_68; // 26, 0x68
+    _DWORD client_update; // 25, 0x64, 100
+    _DWORD audio_loop; // 26, 0x68, 104
     nox_thing* next; // 27, 0x6c, 108
-    _DWORD field_70; // 28, 0x70, 112
-    _DWORD field_74; // 29, 0x74
-    _DWORD field_78; // 30, 0x78, 120
-    _DWORD field_7c; // 31, 0x7c
+    _DWORD pretty_image; // 28, 0x70, 112
+    _DWORD menuicon; // 29, 0x74, 116
+    int lifetime; // 30, 0x78, 120
+    _WORD health; // 31, 0x7c, 124
+    _WORD field_7e; // 31, 0x7e, 126
 } nox_thing;
 
 typedef enum {
@@ -687,13 +691,13 @@ typedef struct nox_parse_thing_draw_funcs_t
     const char* name;
     void* draw;
     unsigned int kind;
-    int(__cdecl *parse_fnc)(nox_thing*, _DWORD*, int);
+    bool (__cdecl *parse_fnc)(nox_thing*, nox_memfile*, void*);
 } nox_parse_thing_draw_funcs_t;
 
 typedef struct nox_parse_thing_funcs_t
 {
     const char* name;
-    void(__cdecl *parse_func)(nox_thing*, int, char*);
+    void(__cdecl *parse_func)(nox_thing*, nox_memfile*, char*);
 } nox_parse_thing_funcs_t;
 
 typedef struct nox_video_mode

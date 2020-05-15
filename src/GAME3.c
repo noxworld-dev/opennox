@@ -13529,7 +13529,7 @@ void sub_4B5BF0()
 }
 
 //----- (004B5C40) --------------------------------------------------------
-int __cdecl nox_parse_thing_client_update(int a1, int a2, char* a3)
+int __cdecl nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* a3)
 {
     char* v3; // eax
     const char* v4; // ecx
@@ -13553,7 +13553,7 @@ int __cdecl nox_parse_thing_client_update(int a1, int a2, char* a3)
     }
     if (!*(_DWORD*)& byte_587000[8 * v5 + 175072])
         return 0;
-    *(_DWORD*)(a1 + 100) = *(_DWORD*)& byte_587000[8 * v5 + 175076];
+    obj->client_update = *(_DWORD*)& byte_587000[8 * v5 + 175076];
     return 1;
 }
 
