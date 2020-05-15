@@ -2,6 +2,8 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "client/io/console.h"
+
 #include "proto.h"
 
 extern nox_memfile* nox_loaded_thing_bin;

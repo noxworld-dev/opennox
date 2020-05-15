@@ -416,34 +416,6 @@ BOOL __cdecl sub_4147E0(HWND hWnd)
 #endif
 }
 
-//----- (004516C0) --------------------------------------------------------
-void sub_4516C0(wchar_t* a1, ...)
-{
-    wchar_t* v1; // eax
-    HWND v2; // eax
-    wchar_t* v3; // [esp-8h] [ebp-8h]
-    va_list va; // [esp+8h] [ebp+8h]
-
-    va_start(va, a1);
-    if (!nox_file_log)
-        sub_451630();
-    sub_451610();
-    v1 = loadString_sub_40F1D0("FatalErrorHeader", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 314);
-    nox_swprintf((wchar_t*)& byte_5D4594[833752], v1);
-    nox_vswprintf((wchar_t*)& byte_5D4594[833778], a1, va);
-    fprintf(nox_file_log, "%S", &byte_5D4594[833752]);
-    fflush(nox_file_log);
-    v3 = loadString_sub_40F1D0("FatalError", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 324);
-    v2 = getWindowHandle_sub_401FD0();
-    nullsub_4(v2, &byte_5D4594[833752], v3, 0);
-    fprintf(nox_file_log, "exiting..\n");
-    fclose(nox_file_log);
-    if (*(_DWORD*)& byte_5D4594[823776])
-        sub_430EF0();
-    sub_4453A0_poll_events();
-    sub_4453A0_poll_events();
-    nox_exit(0);
-}
 // 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
 
 //----- (00416A10) --------------------------------------------------------

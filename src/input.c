@@ -3,6 +3,8 @@
 #include <emscripten/html5.h>
 #endif
 
+#include "client/io/console.h"
+
 #include "proto.h"
 
 extern int nox_win_width;

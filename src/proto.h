@@ -2295,9 +2295,6 @@ void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD); // weak
 int sub_4514F0();
 wchar_t* sub_4515B0(wchar_t* a1, ...);
 int sub_451610();
-unsigned __int8* sub_451630();
-void sub_4516C0(wchar_t* a1, ...);
-wchar_t* sub_4517A0(wchar_t* a1, ...);
 int __cdecl sub_451850(int a2, int a3);
 int __cdecl sub_451920(_DWORD* a2);
 void sub_451970();
