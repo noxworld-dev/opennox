@@ -75,6 +75,7 @@ add_executable (
 	GameEx.c
     memfile.c
     thing.c
+    client/io/console.c
 	vqa/aud_decode.cpp
 	vqa/ddpf_conversion.cpp
 	vqa/vqa_decode.cpp
