@@ -13529,7 +13529,7 @@ void sub_4B5BF0()
 }
 
 //----- (004B5C40) --------------------------------------------------------
-int __cdecl nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* a3)
+bool __cdecl nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* a3)
 {
     char* v3; // eax
     const char* v4; // ecx
