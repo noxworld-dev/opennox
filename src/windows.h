@@ -34,7 +34,8 @@ extern "C" {
 #define __int32 int
 #define __int64 long long
 
-    typedef void VOID;
+#define VOID void
+
     typedef unsigned char BYTE;
     typedef char CHAR;
     typedef wchar_t WCHAR;
