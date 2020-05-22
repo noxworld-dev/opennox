@@ -3196,7 +3196,7 @@ __int64 __cdecl sub_484C30(int a1, int a2);
 int __cdecl sub_484C60(float); // idb
 int __cdecl sub_484CE0(int, float); // idb
 int __cdecl sub_484D20(int a1, float a2);
-int __cdecl sub_484D70(int, float); // idb
+int __cdecl sub_484D70_light_intensity(int, float); // idb
 int __cdecl sub_484DC0(int2* a1, int2* a2, int* a3); // idb
 void __cdecl sub_484E60(int a1);
 void __cdecl sub_484F90(int a1);

@@ -2056,12 +2056,10 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
     wchar_t* v128; // eax
     unsigned int v129; // eax
     int v130; // esi
-    int v131; // eax
     int v132; // eax
     int v133; // esi
     int v134; // esi
     int v135; // ebx
-    int v136; // eax
     int v137; // eax
     int v138; // esi
     int v139; // esi
@@ -3367,8 +3365,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     sub_467410(*(_DWORD*)(v3 + 3));
                 if (v135 != 1 || sub_4356C0(v134, 15) || v134 == *(_DWORD*)& byte_5D4594[2614252] && sub_467430() & 8)
                     goto LABEL_1149;
-                v136 = nox_get_thing(*(_DWORD*)(v134 + 108));
-                sub_484D70(v134 + 136, *(float*)(v136 + 44));
+                nox_thing* v136 = nox_get_thing(*(_DWORD*)(v134 + 108));
+                sub_484D70_light_intensity(v134 + 136, v136->light_intensity);
                 v3 += 7;
                 break;
             case 0x5Bu:
@@ -3382,8 +3380,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         && *(_DWORD*)& byte_5D4594[2614252]
                         && !sub_4356C0(*(int*)& byte_5D4594[2614252], 15))
                     {
-                        v131 = nox_get_thing(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 108));
-                        sub_484D70(*(_DWORD*)& byte_5D4594[2614252] + 136, *(float*)(v131 + 44));
+                        nox_thing* v131 = nox_get_thing(*(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 108));
+                        sub_484D70_light_intensity(*(_DWORD*)& byte_5D4594[2614252] + 136, v131->light_intensity);
                     }
                 }
                 v3 += 2;
@@ -3421,7 +3419,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v85) : sub_45A6F0(v85);
                 if (!(_DWORD)v5)
                     goto LABEL_948;
-                sub_484D70(v5 + 136, *(float*)(v3 + 3));
+                sub_484D70_light_intensity(v5 + 136, *(float*)(v3 + 3));
                 v3 += 7;
                 break;
             case 0x5Eu:
@@ -4612,7 +4610,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     {
                         sub_45A990_drawable(v5);
                         v328 = (double)(16 * *(unsigned __int8*)(v3 + 3) / 10);
-                        sub_484D70(v22 + 136, v328);
+                        sub_484D70_light_intensity(v22 + 136, v328);
                         sub_45AB80(v22, 8 * *(unsigned __int8*)(v3 + 3) / 50);
                         if (*(_DWORD*)(v22 + 308) == 8)
                             * (_DWORD*)(v22 + 308) = 7;
@@ -4632,12 +4630,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         if (*(_BYTE*)(v3 + 3))
                         {
                             *(_DWORD*)(v5 + 112) |= 0x80000u;
-                            sub_484D70(v5 + 136, 41.958);
+                            sub_484D70_light_intensity(v5 + 136, 41.958);
                         }
                         else
                         {
                             *(_DWORD*)(v5 + 112) &= 0xFFF7FFFF;
-                            sub_484D70(v5 + 136, 0.0);
+                            sub_484D70_light_intensity(v5 + 136, 0.0);
                         }
                         sub_45AB80(v26, *(unsigned __int8*)(v3 + 3));
                         *(_DWORD*)(v26 + 288) = *(_DWORD*)& byte_5D4594[2598000];
@@ -6668,8 +6666,6 @@ int* __cdecl sub_495500(int* a1)
     char* v6; // eax
     char* v7; // eax
     int v8; // ebp
-    int v9; // eax
-    int v10; // ebp
     int v11; // esi
     int v12; // esi
     int v13; // ecx
@@ -6766,13 +6762,12 @@ int* __cdecl sub_495500(int* a1)
         v8 = *(_DWORD*)& byte_5D4594[1203828];
         goto LABEL_28;
     }
-    v9 = nox_get_thing(a1[3]);
-    v10 = v9;
-    if (!v9)
+    nox_thing* t9 = nox_get_thing(a1[3]);
+    if (!t9)
         goto LABEL_27;
-    if (*(_DWORD*)(v9 + 32) & 0x1001000)
+    if (t9->pri_class & 0x1001000)
         sub_4B9650(a1[3]);
-    v8 = *(_DWORD*)(v10 + 112);
+    v8 = t9->pretty_image;
     LABEL_26:
     if (!v8)
         goto LABEL_27;
