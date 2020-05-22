@@ -1,3 +1,5 @@
+#include "client/shell/wolapi/wolchat.h"
+
 #include "proto.h"
 
 void sub_57F634() {}
@@ -2132,7 +2134,7 @@ void init_data()
     *(void**)& byte_587000[98240] = &byte_5D4594[823760];
     *(void**)& byte_587000[98256] = &byte_587000[101484];
     *(void**)& byte_587000[108828] = &byte_587000[109320];
-    *(void**)& byte_587000[108832] = &sub_446AE0;
+    *(void**)& byte_587000[108832] = &sub_446AE0_wol_chat;
     *(void**)& byte_587000[108840] = &byte_5D4594[829572];
     *(void**)& byte_587000[108852] = &byte_587000[109336];
     *(void**)& byte_587000[108860] = &byte_587000[109348];

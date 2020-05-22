@@ -2,6 +2,9 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "client/shell/wolapi/wolchat.h"
+#include "client/shell/wolapi/woldlgs.h"
+
 #include "proto.h"
 
 #ifdef USE_SDL
@@ -3470,7 +3473,7 @@ int __stdcall sub_40C240(int a1, int a2, int a3)
         {
             sub_41ECB0(a3);
             sub_41EBB0(a3);
-            sub_447470();
+            sub_447470_wol_chat();
             sub_448640();
         }
         else if (sub_41E2F0() == 8)
@@ -3541,7 +3544,7 @@ int __stdcall sub_40C2E0(int a1, int a2, int a3, const char* a4)
     sub_41EBB0(a3);
     if (sub_41E2F0() == 7)
     {
-        sub_447470();
+        sub_447470_wol_chat();
         sub_448640();
         goto LABEL_15;
     }
@@ -3587,7 +3590,7 @@ int __stdcall sub_40C420(int a1, int a2, int a3, int* a4)
             {
                 sub_41F4B0();
                 if (sub_41E2F0() == 7)
-                    sub_447590();
+                    sub_447590_wol_chat();
                 sub_41F230(0, -1);
                 sub_41EBB0(0);
             }
@@ -3717,10 +3720,10 @@ int __stdcall sub_40C690(int a1, int a2, int a3, int a4, int a5)
             sub_41F4B0();
             sub_41F230(0, -1);
             sub_41EBB0(0);
-            sub_4474C0(0, a5 + 36);
+            sub_4474C0_wol_chat(0, a5 + 36);
             return 0;
         }
-        sub_4474C0(a4 + 36, a5 + 36);
+        sub_4474C0_wol_chat(a4 + 36, a5 + 36);
         sub_41F230(0, -1);
     }
     return 0;
@@ -3741,7 +3744,7 @@ int __stdcall sub_40C720(int a1, int a2, _DWORD* a3)
         {
             if (a2 <= 262447 || a2 > 262450)
             {
-                sub_4490C0(0);
+                sub_4490C0_wol_dialogs(0);
                 return 0;
             }
         }
@@ -3749,16 +3752,16 @@ int __stdcall sub_40C720(int a1, int a2, _DWORD* a3)
         {
             if (*a3 == sub_420100())
             {
-                sub_4490C0((int)a3);
+                sub_4490C0_wol_dialogs((int)a3);
                 return 0;
             }
         }
         else if (!*a3)
         {
-            sub_4490C0((int)a3);
+            sub_4490C0_wol_dialogs((int)a3);
             return 0;
         }
-        sub_4491B0();
+        sub_4491B0_wol_dialogs();
     }
     return 0;
 }
@@ -3770,10 +3773,10 @@ int __stdcall sub_40C7A0(int a1, int a2)
     {
         if (a2)
         {
-            sub_449240();
+            sub_449240_wol_dialogs();
             return 0;
         }
-        sub_449200();
+        sub_449200_wol_dialogs();
     }
     return 0;
 }
@@ -3832,7 +3835,7 @@ int __stdcall sub_40C880(int a1, int a2, const char* a3, int a4, int a5)
 int __stdcall sub_40C8C0(int a1, int a2, int a3, int a4)
 {
     if (sub_41E2F0() == 7 && !a2 && a4)
-        sub_447540(a3);
+        sub_447540_wol_chat(a3);
     return 0;
 }
 
@@ -3909,7 +3912,7 @@ int __stdcall sub_40C9D0(int a1, int a2, int* a3)
     if (sub_41F9E0((int)a3))
     {
         sub_41EBB0(0);
-        sub_447590();
+        sub_447590_wol_chat();
     }
     sub_41F230(0, -1);
     return 0;
@@ -3974,7 +3977,7 @@ BOOL __stdcall sub_40CA60(int a1, int a2, const void* a3)
             if (sub_41E2F0() == 3)
             {
                 sub_446A90();
-                sub_446AD0(sub_447620);
+                sub_446AD0(sub_447620_wol_chat);
                 sub_41FF30(a3);
                 v8 = sub_41E2F0();
                 sub_41DA70(v8, 7);
