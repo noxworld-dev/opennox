@@ -1,3 +1,4 @@
+#include "server/system/cscrfunc.h"
 #include "client/shell/wolapi/wolchat.h"
 
 #include "proto.h"
