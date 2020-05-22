@@ -12448,7 +12448,7 @@ int sub_4714E0()
     {
         nox_drawable_link_thing(&byte_5D4594[1091388], *(_DWORD*)(v4 + 28));
         *(_DWORD*)& byte_5D4594[1091368] = &byte_5D4594[1091388];
-        if (byte_5D4594 != (unsigned __int8*)-1091388)
+        if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1091388
             * (_DWORD*)& byte_5D4594[1091508] |= 0x40000000u;
     }
     else
@@ -12477,7 +12477,7 @@ int sub_4714E0()
         {
             nox_drawable_link_thing(&byte_5D4594[1090852], *(_DWORD*)(v7 + 28));
             *(_DWORD*)& byte_5D4594[1090832] = &byte_5D4594[1090852];
-            if (byte_5D4594 != (unsigned __int8*)-1090852)
+            if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090852
                 * (_DWORD*)& byte_5D4594[1090972] |= 0x40000000u;
         }
         else
@@ -12947,7 +12947,7 @@ unsigned __int8* sub_472310()
             nox_drawable_link_thing(&byte_5D4594[1090316], *((_DWORD*)result + 7));
             result = &byte_5D4594[1090316];
             *(_DWORD*)& byte_5D4594[1090296] = &byte_5D4594[1090316];
-            if (byte_5D4594 != (unsigned __int8*)-1090316)
+            if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
             {
                 result = (unsigned __int8*)(*(_DWORD*)& byte_5D4594[1090436] | 0x40000000);
                 *(_DWORD*)& byte_5D4594[1090308] = *(_DWORD*)& byte_5D4594[1096268];
@@ -12971,7 +12971,7 @@ unsigned __int8* sub_472310()
             {
                 nox_drawable_link_thing(&byte_5D4594[1090316], *(_DWORD*)(v1 + 28));
                 *(_DWORD*)& byte_5D4594[1090296] = &byte_5D4594[1090316];
-                if (byte_5D4594 != (unsigned __int8*)-1090316)
+                if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
                 {
                     *(_DWORD*)& byte_5D4594[1090436] |= 0x40000000u;
                     result = *(unsigned __int8**)& byte_5D4594[1096284];
@@ -12997,7 +12997,7 @@ unsigned __int8* sub_472310()
                 {
                     result = (unsigned __int8*)nox_drawable_link_thing(&byte_5D4594[1090316], *((_DWORD*)result + 7));
                     *(_DWORD*)& byte_5D4594[1090296] = &byte_5D4594[1090316];
-                    if (byte_5D4594 != (unsigned __int8*)-1090316)
+                    if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
                     {
                         result = (unsigned __int8*)(*(_DWORD*)& byte_5D4594[1090436] | 0x40000000);
                         *(_DWORD*)& byte_5D4594[1090308] = *(_DWORD*)& byte_5D4594[1096280];
