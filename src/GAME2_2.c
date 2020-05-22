@@ -6676,7 +6676,7 @@ int sub_47FD70()
     int v1; // edi
     int v2; // ebx
 
-    int flags = 0;
+    unsigned int flags = 0;
     if (*(_DWORD*)& byte_587000[80848]) {
         if (*(_DWORD*)& byte_5D4594[805868])
             flags = 0x20;

@@ -5673,7 +5673,7 @@ char* __cdecl sub_42F970(const char* a1)
     }
     v4 = *(_DWORD*)& byte_5D4594[787156] + 104 * v1;
     v5 = *(const char**)(v4 + 96);
-    if (v5 == (const char*)-1)
+    if ((int)v5 == -1)
     {
         LOBYTE(v5) = *(_BYTE*)(v4 + 100);
         if ((_BYTE)v5 != (_BYTE)-1)
@@ -9904,7 +9904,7 @@ char* sub_4358A0()
     v4[31] = "Zug";
     v4[32] = "Zivik";
     v4[33] = 0;
-    if (!*(_DWORD*)& byte_5D4594[814516] && byte_587000 != (unsigned __int8*)-85792)
+    if (!*(_DWORD*)& byte_5D4594[814516]) // TODO: byte_587000 != (unsigned __int8*)-85792
     {
         v1 = v4;
         do

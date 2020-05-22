@@ -767,7 +767,7 @@ size_t __cdecl sub_409200(char* a1, int a2, int a3, FILE* a4)
     v6 = 0;
     v7 = -1;
     v21 = a3 * a2;
-    if (byte_5D4594 == (unsigned __int8*)-1288 || !a2 || !v4)
+    if (!a2 || !v4) // TODO: byte_5D4594 == (unsigned __int8*)-1288 || ...
         return 0;
     v8 = byte_5D4594[1284] & 7;
     if (byte_5D4594[1284] & 7)
@@ -4330,7 +4330,7 @@ void sub_40D0F0()
             (*(void(__stdcall * *)(_DWORD))(**(_DWORD * *)& byte_5D4594[4668] + 8))(*(_DWORD*)& byte_5D4594[4668]);
         }
         v0 = &byte_5D4594[4676];
-        if (byte_5D4594 != (unsigned __int8*)-4676)
+        if (true) // TODO: byte_5D4594 != (unsigned __int8*)-4676
         {
             v1 = *(_DWORD*)& byte_5D4594[4692];
             if (*(_DWORD*)& byte_5D4594[4692] && **(_DWORD * *)& byte_5D4594[4692])
