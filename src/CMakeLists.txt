@@ -91,6 +91,9 @@ add_executable (
     memfile.c
     thing.c
     common/system/settings.c
+    server/system/server.c
+    server/system/trade.c
+    server/system/cscrfunc.c
     client/audio/auddiag.c
     client/io/console.c
     client/shell/wolapi/locale.c
