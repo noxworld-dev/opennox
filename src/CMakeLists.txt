@@ -2,14 +2,29 @@ cmake_minimum_required (VERSION 3.11)
 project (nox-port)
 
 option (USE_ASAN "Enable address sanitizer" OFF)
+option (STRICT_MODE "Fail on compilation warnings" OFF)
 
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
 else ()
-    add_compile_options (-O3 -g -fno-strict-aliasing -fno-strict-overflow -m32 -fshort-wchar -Werror=return-type)
+    add_compile_options (-g -fno-strict-aliasing -fno-strict-overflow -m32 -fshort-wchar -Werror=return-type)
+
+    if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+        add_compile_options(-O0)
+        add_definitions(-DNOX_NO_MOUSE_GRAB)
+    else ()
+        add_compile_options(-O3)
+    endif ()
+
+    if (STRICT_MODE)
+        add_compile_options(-Werror=incompatible-pointer-types)
+        add_compile_options(-Werror=int-conversion)
+    endif ()
+
     if (USE_ASAN)
         add_compile_options (-fsanitize=address)
     endif ()
+
     if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
         add_compile_options (-s USE_SDL=2)
     endif ()
