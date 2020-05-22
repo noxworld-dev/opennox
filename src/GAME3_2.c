@@ -2,6 +2,8 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common/system/settings.h"
+
 #include "proto.h"
 
 extern int nox_win_width;
@@ -3376,13 +3378,13 @@ void sub_4D2230()
             if (!sub_40A180(v1))
             {
                 v2 = sub_40A5B0();
-                sub_409FB0(v2, 0xFu);
+                sub_409FB0_settings(v2, 0xFu);
             }
         }
     }
     else if (sub_40A5C0(1024) && !sub_40A020(1024))
     {
-        sub_409FB0(1024, 0xFu);
+        sub_409FB0_settings(1024, 0xFu);
     }
 }
 
