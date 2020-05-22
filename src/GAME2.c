@@ -1,3 +1,6 @@
+#include "client/audio/auddiag.h"
+#include "client/io/console.h"
+
 #include "proto.h"
 
 extern int nox_win_width;
@@ -586,30 +589,6 @@ int __cdecl sub_44D7E0(int a1)
     return 1;
 }
 // 581410: using guessed type int __stdcall AIL_start_stream(_DWORD);
-
-//----- (0044D810) --------------------------------------------------------
-int sub_44D810()
-{
-    int v1; // [esp+4h] [ebp-4h]
-
-    if (!*(_DWORD*)& byte_5D4594[831076])
-    {
-        *(_DWORD*)& byte_5D4594[831092] = sub_43F130();
-        *(_DWORD*)& byte_587000[122848] = *(_DWORD*)& byte_5D4594[831092] != 0;
-        sub_4864A0(&byte_5D4594[830876]);
-        sub_486380(&byte_5D4594[830876], 0x1F4u, 0, 0x4000);
-        *(_DWORD*)& byte_5D4594[830864] = 0;
-        *(_DWORD*)& byte_5D4594[830972] = 0;
-        *(_DWORD*)& byte_5D4594[830872] = 0;
-        *(_DWORD*)& byte_5D4594[831080] = 0;
-        *(_DWORD*)& byte_5D4594[831084] = 0;
-        *(_DWORD*)& byte_5D4594[831076] = 1;
-        loadString_sub_40F1D0((char*)& byte_587000[122920], &v1, "C:\\NoxPost\\src\\client\\Audio\\AudDiag.c", 279);
-        if (v1)
-            sub_44D900(v1, 0);
-    }
-    return 1;
-}
 
 //----- (0044D8C0) --------------------------------------------------------
 void sub_44D8C0()
@@ -3033,56 +3012,8 @@ int sub_451610()
     return result;
 }
 
-//----- (00451630) --------------------------------------------------------
-unsigned __int8* sub_451630()
-{
-    unsigned __int8* v1; // ecx
-    unsigned __int8* result; // eax
-    wchar_t* v3; // [esp-Ch] [ebp-Ch]
-    wchar_t* v4; // [esp-8h] [ebp-8h]
-
-    nox_file_log = fopen("log", "w");
-    if (!nox_file_log)
-    {
-        v4 = loadString_sub_40F1D0((char*)& byte_587000[126708], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 272);
-        v3 = loadString_sub_40F1D0((char*)& byte_587000[126756], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 271);
-        nullsub_4(getWindowHandle_sub_401FD0(), v3, v4, 0);
-        nox_exit(0);
-    }
-    v1 = &byte_5D4594[835880];
-    result = &byte_5D4594[835800];
-    do
-    {
-        *(_DWORD*)result = v1;
-        *(_WORD*)v1 = 0;
-        result += 4;
-        v1 += 200;
-    } while ((int)result < (int)& byte_5D4594[835880]);
-    return result;
-}
 // 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
 
-//----- (004517A0) --------------------------------------------------------
-wchar_t* sub_4517A0(wchar_t* a1, ...)
-{
-    wchar_t* v1; // esi
-    wchar_t* v2; // eax
-    wchar_t* v5; // [esp-Ch] [ebp-Ch]
-    va_list va; // [esp+8h] [ebp+8h]
-
-    va_start(va, a1);
-    if (!nox_file_log)
-        sub_451630();
-    v1 = (wchar_t*)sub_451610();
-    v2 = loadString_sub_40F1D0((char*)& byte_587000[126924], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 355);
-    nox_swprintf((wchar_t*)& byte_5D4594[833752], v2);
-    nox_vswprintf((wchar_t*)& byte_5D4594[833770], a1, va);
-    fprintf(nox_file_log, "%S", &byte_5D4594[833752]);
-    fflush(nox_file_log);
-    v5 = loadString_sub_40F1D0((char*)& byte_587000[126980], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 365);
-    nullsub_4(getWindowHandle_sub_401FD0(), &byte_5D4594[833752], v5, 0);
-    return nox_wcsncpy(v1, (const wchar_t*)& byte_5D4594[833752], 0x63u);
-}
 // 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
 
 //----- (00451850) --------------------------------------------------------

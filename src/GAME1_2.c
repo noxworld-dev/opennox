@@ -2,6 +2,9 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "client/audio/auddiag.h"
+#include "client/io/console.h"
+
 #include "proto.h"
 
 extern int nox_enable_audio;
