@@ -1,3 +1,6 @@
+#include "client/shell/wolapi/wollogin.h"
+#include "client/shell/wolapi/wolreg.h"
+
 #include "proto.h"
 
 FILE* nox_file_2 = 0;
@@ -4146,7 +4149,7 @@ int sub_41DB90()
                     v3 = sub_41E520();
                     if (v3)
                     {
-                        sub_468110();
+                        sub_468110_wol_prog();
                         nox_sprintf((char*)& byte_5D4594[527996], "%s/%s", v3 + 81, v3 + 337);
                         nox_sprintf((char*)& byte_5D4594[527732], "%s\\%s", v3 + 468, v3 + 337);
                         CreateDirectoryA((LPCSTR)(v3 + 468), 0);
@@ -4238,7 +4241,7 @@ int sub_41DD40()
                 if (v3)
                 {
                     if (v3 == 1)
-                        sub_468170();
+                        sub_468170_wol_prog();
                 }
                 else
                 {
@@ -4248,7 +4251,7 @@ int sub_41DD40()
             }
             else
             {
-                sub_4682B0();
+                sub_4682B0_wol_prog();
                 sub_41E300(2);
                 v4 = sub_41E2F0();
                 sub_41DA70(v4, 2);
@@ -4307,7 +4310,7 @@ int sub_41DDB0()
                     }
                     else
                     {
-                        sub_468F30();
+                        sub_468F30_wol_reg();
                     }
                     break;
                 case 20:
@@ -5423,7 +5426,7 @@ wchar_t* __cdecl sub_41EFB0(int a1)
     wchar_t* result; // eax
     char v3[20]; // [esp+4h] [ebp-14h]
 
-    sub_446970();
+    sub_446970_wol_chat();
     if (*(_DWORD*)& byte_5D4594[529340])
     {
         strcpy(v3, (const char*)(**(_DWORD * *)& byte_5D4594[529340] + 52));
@@ -5449,7 +5452,7 @@ wchar_t* __cdecl sub_41EFB0(int a1)
             result = (wchar_t*)sub_41E810();
             *(_DWORD*)& byte_5D4594[529340] = result;
             if (result)
-                result = (wchar_t*)sub_446A20(result + 2);
+                result = (wchar_t*)sub_446A20_wol_chat(result + 2);
         }
     }
     return result;
