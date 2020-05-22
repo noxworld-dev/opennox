@@ -1,3 +1,4 @@
+#include "common/system/settings.h"
 #include "client/audio/auddiag.h"
 #include "client/io/console.h"
 
@@ -8458,8 +8459,8 @@ char sub_459150()
         sub_40A440(v9 + 9);
         if (!((*((_WORD*)v9 + 26) >> 8) & 0x10))
         {
-            sub_409FB0(*((_WORD*)v9 + 26), *((_WORD*)v9 + 27));
-            sub_40A040(*((_WORD*)v9 + 26), v9[56]);
+            sub_409FB0_settings(*((_WORD*)v9 + 26), *((_WORD*)v9 + 27));
+            sub_40A040_settings(*((_WORD*)v9 + 26), v9[56]);
         }
         if (v8 && sub_43AF70() == 1)
         {

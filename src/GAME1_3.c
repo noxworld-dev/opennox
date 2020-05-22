@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common/system/settings.h"
 #include "client/io/console.h"
 #include "client/shell/wolapi/locale.h"
 #include "client/shell/wolapi/wolchat.h"
@@ -6882,7 +6883,7 @@ int __cdecl sub_443400(int a1, char a2, int a3)
     if (v5)
     {
         v6 = nox_wcstol(v5, 0, 10);
-        sub_40A040(*((_WORD*)v4 + 26), v6);
+        sub_40A040_settings(*((_WORD*)v4 + 26), v6);
     }
     return 1;
 }
@@ -6901,7 +6902,7 @@ int __cdecl sub_443440(int a1, char a2, int a3)
     if (v4)
     {
         v6 = nox_wcstol(v4, 0, 10);
-        sub_409FB0(*((_WORD*)v5 + 26), v6);
+        sub_409FB0_settings(*((_WORD*)v5 + 26), v6);
     }
     return 1;
 }

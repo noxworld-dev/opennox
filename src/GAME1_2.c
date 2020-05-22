@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common/system/settings.h"
 #include "client/audio/auddiag.h"
 #include "client/io/console.h"
 
@@ -8510,7 +8511,7 @@ int sub_432D10()
     do
     {
         v3 = atoi(v1);
-        sub_409FB0(*(_DWORD*)v2, v3);
+        sub_409FB0_settings(*(_DWORD*)v2, v3);
         v2 += 4;
         v1 = strtok(0, ",\r\n");
     } while (v1);
@@ -8536,7 +8537,7 @@ int sub_432D80()
     do
     {
         v3 = atoi(v1);
-        sub_40A040(*(_DWORD*)v2, v3);
+        sub_40A040_settings(*(_DWORD*)v2, v3);
         v2 += 4;
         v1 = strtok(0, ",\r\n");
     } while (v1);
