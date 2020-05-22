@@ -458,7 +458,7 @@ typedef struct nox_thing
     _WORD light_dir; // 6, 0x18, 24
     _WORD light_penumbra; // 6, 0x1a, 26
     _DWORD field_1c; // 7, 0x1c
-    int pri_class; // 8, 0x20, 32
+    unsigned int pri_class; // 8, 0x20, 32
     _DWORD sub_class; // 9, 0x24, 36
     int flags; // 10, 0x28, 40
     float light_intensity; // 11, 0x2c, 44
@@ -529,15 +529,15 @@ typedef struct nox_drawable
     _DWORD field_9; // 9, 36
     _DWORD field_10; // 10, 40
     nox_shape shape; // 11, 44
-    _DWORD field_24; // 24, 96
-    _DWORD field_25; // 25, 100
+    float field_24; // 24, 96
+    float field_25; // 25, 100
     _DWORD field_26; // 26, 104
-    _DWORD field_27; // 27, 108
-    int field_28; // 28, 112,  flags?
+    _DWORD field_27; // 27, 108, thing ID?
+    unsigned int field_28; // 28, 112, flags?
     _DWORD field_29; // 29, 116
-    int flags; // 30, 120
-    _DWORD field_31;
-    _DWORD field_32;
+    unsigned int flags; // 30, 120
+    _DWORD field_31; // 31, 124
+    _DWORD field_32; // 32, 128, npc ID?
     _DWORD field_33; // 33, 132
     _DWORD field_34; // 34, 136
     _DWORD field_35;
@@ -563,12 +563,15 @@ typedef struct nox_drawable
     _DWORD field_71; // 71, 284
     _DWORD field_72; // 72, 288
     _DWORD field_73;
-    _DWORD field_74;
+    _BYTE field_74_1; // 74, 296
+    _BYTE field_74_2; // 74, 297
+    _BYTE field_74_3; // 74, 298
+    _BYTE field_74_4; // 74, 299
     int(__cdecl *draw_func)(_DWORD*, nox_drawable*); // 75, 300, same as nox_thing->draw_func
     void* field_76; // 76, 304
     _DWORD field_77; // 77, 308
     _DWORD field_78;
-    _DWORD field_79;
+    _DWORD field_79; // 79, 316
     _DWORD field_80; // 80, 320
     _DWORD field_81;
     _DWORD field_82;
@@ -594,8 +597,18 @@ typedef struct nox_drawable
     _DWORD field_102;
     _DWORD field_103;
     _DWORD field_104;
-    _DWORD data_105[5];
-    _DWORD data_110[5];
+    _DWORD field_105;
+    _DWORD field_106;
+    _DWORD field_107;
+    _BYTE field_108_1; // 108, 432
+    _BYTE field_108_2; // 108, 433
+    _WORD field_108_3; // 108, 434
+    _DWORD field_109; // 109, 436, SE?
+    _DWORD field_110; // 110, 440, SW?
+    _DWORD field_111; // 111, 444, SW?
+    _DWORD field_112; // 112, 448, SE?
+    _DWORD field_113;
+    _DWORD field_114;
     _DWORD field_115;
     _DWORD field_116; // 116, 464
     _DWORD field_117;
