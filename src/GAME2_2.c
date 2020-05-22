@@ -11297,7 +11297,7 @@ int __cdecl sub_484D20(int a1, float a2)
 }
 
 //----- (00484D70) --------------------------------------------------------
-int __cdecl sub_484D70(int a1, float a2)
+int __cdecl sub_484D70_light_intensity(int a1, float a2)
 {
     int result; // eax
 

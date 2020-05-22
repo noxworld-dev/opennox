@@ -656,7 +656,7 @@ void __cdecl sub_4CE610(int a1)
              * ((double)(*(unsigned __int8*)(v7 + v1 + 226) - *(unsigned __int8*)((char)v6 + v1 + 226))
                 / v10)
              + (double) * (unsigned __int8*)((char)v6 + v1 + 226);
-        sub_484D70(v1 + 136, v8);
+        sub_484D70_light_intensity(v1 + 136, v8);
     }
 }
 

@@ -457,7 +457,7 @@ typedef struct nox_thing
     _WORD z; // 5, 0x16, 22
     _WORD light_dir; // 6, 0x18, 24
     _WORD light_penumbra; // 6, 0x1a, 26
-    _DWORD field_1c; // 7, 0x1c
+    int field_1c; // 7, 0x1c, 28, ID? index?
     unsigned int pri_class; // 8, 0x20, 32
     _DWORD sub_class; // 9, 0x24, 36
     int flags; // 10, 0x28, 40

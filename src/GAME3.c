@@ -13652,7 +13652,7 @@ int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, int a2)
         v10 = v2 + 136;
         sub_484BE0((_DWORD*)(v2 + 136), 128, 128, 255);
         v12 = (double)v15 * 20.0 / (double) * (int*)& byte_5D4594[2649704];
-        sub_484D70(v10, v12);
+        sub_484D70_light_intensity(v10, v12);
         sub_434460(v9);
         sub_434560(1);
         sub_434580(0x80u);
@@ -13697,7 +13697,7 @@ int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, int a2)
         v8 = v2 + 136;
         sub_484BE0((_DWORD*)(v2 + 136), 255, 128, 50);
         v10 = (double)v14 * 20.0 / (double)v13;
-        sub_484D70(v8, v10);
+        sub_484D70_light_intensity(v8, v10);
         sub_434460(v7);
         sub_434560(1);
         sub_434580(0x80u);
