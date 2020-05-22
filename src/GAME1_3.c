@@ -3,6 +3,10 @@
 #endif
 
 #include "client/io/console.h"
+#include "client/shell/wolapi/locale.h"
+#include "client/shell/wolapi/wolchat.h"
+#include "client/shell/wolapi/wollogin.h"
+#include "client/shell/wolapi/woldlgs.h"
 
 #include "proto.h"
 
@@ -577,7 +581,7 @@ int sub_43C0A0()
         }
         if (v0 == 1900)
         {
-            result = sub_447620();
+            result = sub_447620_wol_chat();
             if (!result)
                 return result;
             return 1;
@@ -591,7 +595,7 @@ int sub_43C0A0()
         }
         if (v0 != 1700)
             return 1;
-        result = sub_44A560();
+        result = sub_44A560_wol_login();
         if (result)
             return 1;
     }
@@ -698,12 +702,12 @@ int sub_43C260()
         {
             if (*(_DWORD*)& byte_5D4594[4 * byte_5D4594[815208] + 815140] == 1700)
             {
-                result = sub_44A560();
+                result = sub_44A560_wol_login();
             }
             else
             {
                 result = (*(int (**)(void))(result + 48))();
-                *(_DWORD*)(v1 + 52) = sub_44A560;
+                *(_DWORD*)(v1 + 52) = sub_44A560_wol_login;
             }
         }
         for (; *(_DWORD*)& byte_5D4594[4 * byte_5D4594[815208] + 815140] != 1700; result = byte_5D4594[815208])
@@ -9169,35 +9173,6 @@ BOOL sub_446950()
     return *(_DWORD*)& byte_5D4594[826028] && !(sub_46ADA0(*(int*)& byte_5D4594[826028]) & 0x10);
 }
 
-//----- (00446970) --------------------------------------------------------
-char* sub_446970()
-{
-    char* result; // eax
-    int v1; // edi
-    unsigned __int8* v2; // esi
-
-    result = *(char**)& byte_5D4594[829568];
-    if (!*(_DWORD*)& byte_5D4594[829568])
-    {
-        result = *(char**)& byte_587000[108852];
-        v1 = 0;
-        if (*(_DWORD*)& byte_587000[108852])
-        {
-            v2 = &byte_587000[108848];
-            do
-            {
-                *(_DWORD*)v2 = loadString_sub_40F1D0(*((char**)v2 + 1), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 181);
-                result = (char*) * ((_DWORD*)v2 + 3);
-                v2 += 8;
-                ++v1;
-            } while (result);
-        }
-        *(_DWORD*)& byte_5D4594[826092] = v1;
-        *(_DWORD*)& byte_5D4594[829568] = 1;
-    }
-    return result;
-}
-
 //----- (004469D0) --------------------------------------------------------
 wchar_t* __cdecl sub_4469D0(int a1)
 {
@@ -9209,21 +9184,6 @@ wchar_t* __cdecl sub_4469D0(int a1)
             *(_DWORD*)& byte_587000[8 * (a1 % *(_DWORD*)& byte_5D4594[826092]) + 108848],
             a1 / *(_DWORD*)& byte_5D4594[826092] + 1);
     return (wchar_t*)& byte_5D4594[827140];
-}
-
-//----- (00446A20) --------------------------------------------------------
-int __cdecl sub_446A20(wchar_t* a1)
-{
-    wchar_t* v1; // eax
-    wchar_t* v3; // [esp-10h] [ebp-10h]
-
-    sub_446CC0(0);
-    sub_41F140(a1);
-    sub_44A400();
-    v3 = loadString_sub_40F1D0((char*)& byte_587000[110256], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 212);
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[110324], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 211);
-    sub_449A10(*(int*)& byte_5D4594[829480], (int)v1, (int)v3, 288, 0, 0);
-    return sub_44A4B0();
 }
 
 //----- (00446A90) --------------------------------------------------------
@@ -9246,40 +9206,6 @@ int __cdecl sub_446AD0(int a1)
 
     result = a1;
     *(_DWORD*)(*(_DWORD*)& byte_5D4594[829520] + 52) = a1;
-    return result;
-}
-
-//----- (00446AE0) --------------------------------------------------------
-const char* __cdecl sub_446AE0(int a1)
-{
-    const char* result; // eax
-    const char* v2; // ebx
-    char v3[108]; // [esp+8h] [ebp-6Ch]
-
-    result = sub_446BC0(a1);
-    v2 = result;
-    if (result)
-    {
-        strcpy(&v3[36], result);
-        if (sub_41F9E0((int)v3))
-        {
-            result = (const char*)loadString_sub_40F1D0((char*)& byte_587000[110384], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 293);
-            if (result)
-                result = (const char*)sub_447310(0, (int)result);
-        }
-        else if (sub_427880(v2))
-        {
-            sub_427850((int)v3);
-            sub_41F980(v2, 0);
-            result = (const char*)sub_446C10(a1, 0);
-        }
-        else
-        {
-            sub_427820((int)v3);
-            sub_41F980(v2, 1);
-            result = (const char*)sub_446C10(a1, 1);
-        }
-    }
     return result;
 }
 
@@ -9478,104 +9404,6 @@ char* __cdecl sub_446F40(int a1)
     return (char*)& byte_5D4594[827120];
 }
 
-//----- (00446F80) --------------------------------------------------------
-void __cdecl sub_446F80(wchar_t* a1)
-{
-    wchar_t v1; // ax
-    int* v2; // eax
-    int* v3; // edi
-    int i; // eax
-    char* v5; // eax
-    const char* v6; // esi
-    char* v7; // eax
-    wchar_t* v8; // eax
-
-    if (!a1)
-        return;
-    v1 = *a1;
-    if (!*a1 || v1 == 10 || v1 == 13)
-        return;
-    if (sub_41EC00())
-    {
-        if (sub_446C90())
-        {
-            v2 = (int*)nox_window_call_field_94(*(int*)& byte_5D4594[829488], 16404, 0, 0);
-            v3 = v2;
-            for (i = *v2; i != -1; ++v3)
-            {
-                v5 = sub_446F40(i);
-                v6 = v5;
-                if (v5)
-                {
-                    if (sub_41F860(v5, a1))
-                        sub_4471A0(v6, (int)a1, 1, 1);
-                }
-                i = v3[1];
-            }
-            return;
-        }
-        sub_448680(a1, (char*)& byte_5D4594[827176]);
-        if (sub_40D3E0((int)& byte_5D4594[827176]))
-        {
-            v7 = sub_41FA40();
-            sub_4471A0(v7, (int)a1, 0, 0);
-            return;
-        }
-    }
-    v8 = loadString_sub_40F1D0((char*)& byte_587000[110480], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1076);
-    if (v8)
-        sub_447310(0, (int)v8);
-}
-
-//----- (00447090) --------------------------------------------------------
-void __cdecl sub_447090(wchar_t* a1)
-{
-    wchar_t v1; // ax
-    int* v2; // eax
-    int* v3; // edi
-    int i; // eax
-    char* v5; // eax
-    const char* v6; // esi
-    char* v7; // eax
-    wchar_t* v8; // eax
-
-    if (!a1)
-        return;
-    v1 = *a1;
-    if (!*a1 || v1 == 10 || v1 == 13)
-        return;
-    if (sub_41EC00())
-    {
-        if (sub_446C90())
-        {
-            v2 = (int*)nox_window_call_field_94(*(int*)& byte_5D4594[829488], 16404, 0, 0);
-            v3 = v2;
-            for (i = *v2; i != -1; ++v3)
-            {
-                v5 = sub_446F40(i);
-                v6 = v5;
-                if (v5)
-                {
-                    if (sub_41F8F0(v5, a1))
-                        sub_447250(v6, (int)a1, 1, 1);
-                }
-                i = v3[1];
-            }
-            return;
-        }
-        sub_448680(a1, (char*)& byte_5D4594[827176]);
-        if (sub_40D4D0((int)& byte_5D4594[827176]))
-        {
-            v7 = sub_41FA40();
-            sub_447250(v7, (int)a1, 0, 0);
-            return;
-        }
-    }
-    v8 = loadString_sub_40F1D0((char*)& byte_587000[110540], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1123);
-    if (v8)
-        sub_447310(0, (int)v8);
-}
-
 //----- (004471A0) --------------------------------------------------------
 const wchar_t* __cdecl sub_4471A0(const char* a1, int a2, int a3, int a4)
 {
@@ -9739,67 +9567,6 @@ unsigned int __cdecl sub_447410(char* a1)
     return result;
 }
 
-//----- (00447470) --------------------------------------------------------
-int sub_447470()
-{
-    wchar_t* v0; // esi
-    int result; // eax
-
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[110616], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1261);
-    result = sub_41EC00();
-    if (result)
-    {
-        nox_swprintf((wchar_t*)& byte_5D4594[827176], v0, result);
-        result = nox_window_call_field_94(*(int*)& byte_5D4594[829492], 16397, (int)& byte_5D4594[827176], 9);
-    }
-    return result;
-}
-
-//----- (004474C0) --------------------------------------------------------
-int __cdecl sub_4474C0(int a1, int a2)
-{
-    wchar_t* v2; // eax
-    wchar_t* v3; // eax
-
-    if (a1)
-    {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[110672], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1277);
-        nox_swprintf((wchar_t*)& byte_5D4594[827176], v2, a2, a1);
-    }
-    else
-    {
-        v3 = loadString_sub_40F1D0((char*)& byte_587000[110728], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1281);
-        nox_swprintf((wchar_t*)& byte_5D4594[827176], v3, a2);
-    }
-    return nox_window_call_field_94(*(int*)& byte_5D4594[829492], 16397, (int)& byte_5D4594[827176], 9);
-}
-
-//----- (00447540) --------------------------------------------------------
-int __cdecl sub_447540(int a1)
-{
-    wchar_t* v1; // eax
-
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[110792], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1296);
-    nox_swprintf((wchar_t*)& byte_5D4594[827176], v1, a1);
-    return nox_window_call_field_94(*(int*)& byte_5D4594[829492], 16397, (int)& byte_5D4594[827176], 9);
-}
-
-//----- (00447590) --------------------------------------------------------
-int sub_447590()
-{
-    wchar_t* v0; // esi
-    int result; // eax
-
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[110848], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1310);
-    result = sub_41EC00();
-    if (result)
-    {
-        nox_swprintf((wchar_t*)& byte_5D4594[827176], v0, result);
-        result = nox_window_call_field_94(*(int*)& byte_5D4594[829492], 16397, (int)& byte_5D4594[827176], 9);
-    }
-    return result;
-}
-
 //----- (004475E0) --------------------------------------------------------
 int sub_4475E0()
 {
@@ -9811,164 +9578,6 @@ void sub_447600()
 {
     if (!sub_44A4A0())
         sub_46B500(*(int*)& byte_5D4594[829500]);
-}
-
-//----- (00447620) --------------------------------------------------------
-int sub_447620()
-{
-    int result; // eax
-    char** v1; // eax
-    unsigned __int8* v2; // esi
-    wchar_t* v3; // eax
-    _BYTE* v4; // ecx
-    _DWORD* v5; // edi
-    char* v6; // ebx
-    char* v7; // esi
-    _DWORD* v8; // edi
-    _DWORD* v9; // edi
-
-    sub_43BDD0(1900);
-    nox_set_draw_unk1(sub_41E210);
-    sub_43FE20(150);
-    *(_DWORD*)& byte_5D4594[829480] = nox_new_window_from_file("wolchat.wnd", sub_447CC0);
-    sub_446970();
-    result = *(_DWORD*)& byte_5D4594[829480];
-    if (*(_DWORD*)& byte_5D4594[829480])
-    {
-        sub_46A8C0(*(int*)& byte_5D4594[829480]);
-        sub_44A4B0();
-        nox_window_set_all_funcs(*(_DWORD * *)& byte_5D4594[829480], sub_447C70, 0, 0);
-        sub_46B340(*(int*)& byte_5D4594[829480], sub_4483A0);
-        result = sub_43C5B0(*(_DWORD * *)& byte_5D4594[829480], 0, 0, 0, -480, 0, 20, 0, -40);
-        *(_DWORD*)& byte_5D4594[829520] = result;
-        if (result)
-        {
-            *(_DWORD*)result = 1900;
-            *(_DWORD*)(*(_DWORD*)& byte_5D4594[829520] + 48) = sub_446A90;
-            *(_DWORD*)(*(_DWORD*)& byte_5D4594[829520] + 56) = sub_447BD0;
-            *(_DWORD*)& byte_5D4594[829484] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1908);
-            *(_DWORD*)& byte_5D4594[829488] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1909);
-            *(_DWORD*)& byte_5D4594[829492] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1907);
-            *(_DWORD*)& byte_5D4594[829496] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1916);
-            *(_DWORD*)& byte_5D4594[829500] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1910);
-            *(_DWORD*)& byte_5D4594[829528] = loadString_sub_40F1D0(
-                    (char*)& byte_587000[110916],
-                    0,
-                    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
-                    1415);
-            *(_DWORD*)& byte_5D4594[829532] = loadString_sub_40F1D0(
-                    (char*)& byte_587000[110980],
-                    0,
-                    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
-                    1416);
-            *(_DWORD*)& byte_5D4594[829536] = &byte_587000[110992];
-            *(_DWORD*)& byte_5D4594[829540] = loadString_sub_40F1D0(
-                    (char*)& byte_587000[111048],
-                    0,
-                    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
-                    1418);
-            *(_DWORD*)& byte_5D4594[829544] = &byte_587000[111056];
-            *(_DWORD*)& byte_5D4594[829548] = loadString_sub_40F1D0(
-                    (char*)& byte_587000[111120],
-                    0,
-                    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
-                    1420);
-            *(_DWORD*)& byte_5D4594[829552] = loadString_sub_40F1D0(
-                    (char*)& byte_587000[111184],
-                    0,
-                    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
-                    1421);
-            *(_DWORD*)& byte_5D4594[829556] = &byte_587000[111204];
-            *(_DWORD*)& byte_5D4594[829560] = loadString_sub_40F1D0(
-                    (char*)& byte_587000[111264],
-                    0,
-                    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
-                    1423);
-            *(_DWORD*)& byte_5D4594[829564] = loadString_sub_40F1D0(
-                    (char*)& byte_587000[111328],
-                    0,
-                    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
-                    1424);
-            *(_DWORD*)& byte_5D4594[829524] = loadString_sub_40F1D0(
-                    (char*)& byte_587000[111392],
-                    0,
-                    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
-                    1425);
-            *(_DWORD*)& byte_587000[109280] = -1;
-            sub_446D50();
-            sub_46A8A0();
-            sub_447600();
-            sub_41EBB0(0);
-            sub_446CC0(0);
-            sub_41F100((char*)& byte_587000[111400]);
-            if (**(_BYTE * *)& byte_587000[108828])
-            {
-                v1 = (char**)& byte_587000[108828];
-                v2 = &byte_587000[108828];
-                do
-                {
-                    v3 = loadString_sub_40F1D0(*v1, 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1446);
-                    *((_DWORD*)v2 - 1) = v3;
-                    nox_wcslen(v3);
-                    v4 = (_BYTE*) * ((_DWORD*)v2 + 3);
-                    v2 += 12;
-                    v1 = (char**)v2;
-                } while (*v4);
-            }
-            sub_41FFF0();
-            *(_DWORD*)& byte_5D4594[829508] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1917);
-            *(_DWORD*)& byte_5D4594[829512] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1918);
-            *(_DWORD*)& byte_5D4594[829516] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1919);
-            v5 = *(_DWORD * *)(*(_DWORD*)& byte_5D4594[829492] + 32);
-            v6 = sub_42F970("ShopInventorySlider");
-            v7 = sub_42F970("ShopInventorySliderSelected");
-            sub_4B5700(*(int*)& byte_5D4594[829508], 0, 0, (int)v6, (int)v7, (int)v7);
-            sub_46B280(*(int*)& byte_5D4594[829508], *(int*)& byte_5D4594[829492]);
-            sub_46B280(*(int*)& byte_5D4594[829512], *(int*)& byte_5D4594[829492]);
-            sub_46B280(*(int*)& byte_5D4594[829516], *(int*)& byte_5D4594[829492]);
-            sub_46B300(*(int*)& byte_5D4594[829492], sub_447BF0);
-            v5[9] = *(_DWORD*)& byte_5D4594[829508];
-            v5[7] = *(_DWORD*)& byte_5D4594[829512];
-            v5[8] = *(_DWORD*)& byte_5D4594[829516];
-            *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[829508] + 400) + 8) = 16;
-            *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[829508] + 400) + 12) = 46;
-            *(_DWORD*)& byte_5D4594[829508] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1920);
-            *(_DWORD*)& byte_5D4594[829512] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1921);
-            *(_DWORD*)& byte_5D4594[829516] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1922);
-            v8 = *(_DWORD * *)(*(_DWORD*)& byte_5D4594[829484] + 32);
-            sub_4B5700(*(int*)& byte_5D4594[829508], 0, 0, (int)v6, (int)v7, (int)v7);
-            sub_46B280(*(int*)& byte_5D4594[829508], *(int*)& byte_5D4594[829484]);
-            sub_46B280(*(int*)& byte_5D4594[829512], *(int*)& byte_5D4594[829484]);
-            sub_46B280(*(int*)& byte_5D4594[829516], *(int*)& byte_5D4594[829484]);
-            sub_46B300(*(int*)& byte_5D4594[829484], sub_447BF0);
-            v8[9] = *(_DWORD*)& byte_5D4594[829508];
-            v8[7] = *(_DWORD*)& byte_5D4594[829512];
-            v8[8] = *(_DWORD*)& byte_5D4594[829516];
-            *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[829508] + 400) + 8) = 16;
-            *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[829508] + 400) + 12) = 46;
-            *(_DWORD*)& byte_5D4594[829508] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1923);
-            *(_DWORD*)& byte_5D4594[829512] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1924);
-            *(_DWORD*)& byte_5D4594[829516] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1925);
-            v9 = *(_DWORD * *)(*(_DWORD*)& byte_5D4594[829488] + 32);
-            sub_4B5700(*(int*)& byte_5D4594[829508], 0, 0, (int)v6, (int)v7, (int)v7);
-            sub_46B280(*(int*)& byte_5D4594[829508], *(int*)& byte_5D4594[829488]);
-            sub_46B280(*(int*)& byte_5D4594[829512], *(int*)& byte_5D4594[829488]);
-            sub_46B280(*(int*)& byte_5D4594[829516], *(int*)& byte_5D4594[829488]);
-            sub_46B300(*(int*)& byte_5D4594[829488], sub_447BF0);
-            v9[9] = *(_DWORD*)& byte_5D4594[829508];
-            v9[7] = *(_DWORD*)& byte_5D4594[829512];
-            v9[8] = *(_DWORD*)& byte_5D4594[829516];
-            *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[829508] + 400) + 8) = 16;
-            *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[829508] + 400) + 12) = 46;
-            sub_41F370(0);
-            if (sub_40A5C0(0x2000000))
-                sub_448450();
-            else
-                sub_41F3A0(-99999, 1);
-            result = 1;
-        }
-    }
-    return result;
 }
 
 //----- (00447BD0) --------------------------------------------------------
@@ -10060,7 +9669,7 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4)
                 switch (sub_46B0A0(a3))
                 {
                     case 1902:
-                        sub_448730();
+                        sub_448730_wol_dialogs();
                         break;
                     case 1903:
                         v16 = sub_41E2F0();
@@ -10084,7 +9693,7 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4)
                         break;
                     case 1913:
                         v20 = (wchar_t*)nox_window_call_field_94(*(int*)& byte_5D4594[829500], 16413, 0, 0);
-                        sub_447090(v20);
+                        sub_447090_wol_chat(v20);
                         nox_window_call_field_94(*(int*)& byte_5D4594[829500], 16414, (int)& byte_5D4594[829580], 0);
                         break;
                     case 1914:
@@ -10120,7 +9729,7 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4)
                     if (nox_wcscmp(v6, v5))
                     {
                         sub_40D380();
-                        sub_446A20(v7);
+                        sub_446A20_wol_chat(v7);
                     }
                     LABEL_23:
                     sub_447600();
@@ -10128,7 +9737,7 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4)
                 }
                 else
                 {
-                    sub_446A20(0);
+                    sub_446A20_wol_chat(0);
                     sub_447600();
                     result = 0;
                 }
@@ -10193,7 +9802,7 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4)
     v13 = v21;
     LABEL_31:
     v14 = (wchar_t*)nox_window_call_field_94((int)v13, 16413, 0, 0);
-    sub_446F80(v14);
+    sub_446F80_wol_chat(v14);
     nox_window_call_field_94((int)v13, 16414, (int)& byte_5D4594[829576], 0);
     return 0;
 }
@@ -10321,7 +9930,7 @@ int sub_448450()
     result = sub_40A5C0(0x2000000);
     if (result)
     {
-        sub_446970();
+        sub_446970_wol_chat();
         v1 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[829480], 1905);
         result = nox_window_call_field_94(*(int*)& byte_5D4594[829480], 16391, (int)v1, 0);
     }
@@ -10432,245 +10041,6 @@ int __cdecl sub_448680(wchar_t* a1, char* a2)
     return result;
 }
 
-//----- (00448730) --------------------------------------------------------
-int sub_448730()
-{
-    int result; // eax
-
-    if (*(_DWORD*)& byte_5D4594[830112])
-        return 0;
-    if (*(_DWORD*)& byte_5D4594[830116])
-        return 0;
-    if (*(_DWORD*)& byte_5D4594[830120])
-        return 0;
-    result = nox_new_window_from_file("wolfind.wnd", sub_4489C0);
-    *(_DWORD*)& byte_5D4594[830124] = result;
-    if (result)
-    {
-        *(_DWORD*)(result + 56) = *(_DWORD*)& byte_5D4594[2650656];
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[830124] + 16) = (nox_win_width
-                                                            - *(_DWORD*)(*(_DWORD*)& byte_5D4594[830124] + 8))
-                                                           / 2;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[830124] + 24) = *(_DWORD*)(*(_DWORD*)& byte_5D4594[830124] + 8)
-                                                           + *(_DWORD*)(*(_DWORD*)& byte_5D4594[830124] + 16);
-        *(_DWORD*)& byte_5D4594[830128] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830124], 1933);
-        sub_46B300(*(int*)& byte_5D4594[830128], sub_448F00);
-        *(_DWORD*)& byte_5D4594[830136] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830124], 1934);
-        *(_DWORD*)& byte_5D4594[830132] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830124], 1935);
-        sub_46B300(*(int*)& byte_5D4594[830132], sub_448F60);
-        *(_DWORD*)& byte_5D4594[830152] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830124], 1931);
-        *(_DWORD*)& byte_5D4594[830156] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830124], 1932);
-        sub_46ABB0(*(int*)& byte_5D4594[830152], 0);
-        *(_DWORD*)& byte_5D4594[830140] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830124], 1938);
-        *(_DWORD*)& byte_5D4594[830144] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830124], 1939);
-        *(_DWORD*)& byte_5D4594[830148] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830124], 1936);
-        sub_46B500(*(int*)& byte_5D4594[830132]);
-        *(_DWORD*)& byte_5D4594[830160] = loadString_sub_40F1D0(
-                (char*)& byte_587000[111732],
-                0,
-                "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-                579);
-        *(_DWORD*)& byte_5D4594[830164] = loadString_sub_40F1D0(
-                (char*)& byte_587000[111800],
-                0,
-                "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-                580);
-        *(_DWORD*)& byte_5D4594[830168] = loadString_sub_40F1D0(
-                (char*)& byte_587000[111872],
-                0,
-                "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-                581);
-        *(_DWORD*)& byte_5D4594[830172] = loadString_sub_40F1D0(
-                (char*)& byte_587000[111936],
-                0,
-                "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-                582);
-        *(_DWORD*)& byte_5D4594[830176] = loadString_sub_40F1D0(
-                (char*)& byte_587000[112000],
-                0,
-                "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-                583);
-        *(_DWORD*)& byte_5D4594[830180] = loadString_sub_40F1D0(
-                (char*)& byte_587000[112068],
-                0,
-                "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-                584);
-        *(_DWORD*)& byte_5D4594[830184] = loadString_sub_40F1D0(
-                (char*)& byte_587000[112136],
-                0,
-                "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-                585);
-        *(_DWORD*)& byte_5D4594[830188] = loadString_sub_40F1D0(
-                (char*)& byte_587000[112196],
-                0,
-                "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-                586);
-        *(_DWORD*)& byte_587000[111668] = 1;
-        *(_DWORD*)& byte_5D4594[830116] = 1;
-        sub_46B120(*(_DWORD * *)& byte_5D4594[830124], 0);
-        sub_46A8C0(*(int*)& byte_5D4594[830124]);
-        sub_46C690(*(int*)& byte_5D4594[830124]);
-        sub_46B500(*(int*)& byte_5D4594[830124]);
-        sub_46B340(*(int*)& byte_5D4594[830124], sub_448FC0);
-        result = 1;
-    }
-    return result;
-}
-
-//----- (004489C0) --------------------------------------------------------
-int __cdecl sub_4489C0(int a1, int a2, int* a3, int a4)
-{
-    wchar_t* v4; // esi
-    const wchar_t* v5; // eax
-    int result; // eax
-    wchar_t* v7; // eax
-    int v8; // esi
-
-    if (a2 == 16391)
-    {
-        v8 = sub_46B0A0(a3);
-        sub_452D80(766, 100);
-        switch (v8)
-        {
-            case 1931:
-                nox_window_set_hidden(*(int*)& byte_5D4594[830136], 0);
-                nox_window_set_hidden(*(int*)& byte_5D4594[830132], 1);
-                nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, *(int*)& byte_5D4594[830160], 0);
-                nox_window_call_field_94(*(int*)& byte_5D4594[830144], 16385, *(int*)& byte_5D4594[830168], 0);
-                nox_window_call_field_94(*(int*)& byte_5D4594[830148], 16385, *(int*)& byte_5D4594[830176], 0);
-                sub_46ABB0(*(int*)& byte_5D4594[830152], 0);
-                sub_46ABB0(*(int*)& byte_5D4594[830156], 1);
-                if (*(_DWORD*)& byte_5D4594[830204])
-                    sub_46ABB0(*(int*)& byte_5D4594[830148], 0);
-                else
-                    sub_46ABB0(*(int*)& byte_5D4594[830148], 1);
-                *(_DWORD*)& byte_587000[111668] = 1;
-                result = 0;
-                break;
-            case 1932:
-                nox_window_set_hidden(*(int*)& byte_5D4594[830136], 1);
-                nox_window_set_hidden(*(int*)& byte_5D4594[830132], 0);
-                nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, *(int*)& byte_5D4594[830164], 0);
-                nox_window_call_field_94(*(int*)& byte_5D4594[830144], 16385, *(int*)& byte_5D4594[830172], 0);
-                nox_window_call_field_94(*(int*)& byte_5D4594[830148], 16385, *(int*)& byte_5D4594[830180], 0);
-                sub_46ABB0(*(int*)& byte_5D4594[830152], 1);
-                sub_46ABB0(*(int*)& byte_5D4594[830156], 0);
-                *(_DWORD*)& byte_587000[111668] = 0;
-                if (*(_DWORD*)& byte_5D4594[830208])
-                    sub_46ABB0(*(int*)& byte_5D4594[830148], 0);
-                else
-                    sub_46ABB0(*(int*)& byte_5D4594[830148], 1);
-                result = 0;
-                break;
-            case 1936:
-                sub_448CF0();
-                goto LABEL_24;
-            case 1937:
-                sub_46C6E0(*(int*)& byte_5D4594[830124]);
-                sub_46C4E0(*(_DWORD * *)& byte_5D4594[830124]);
-                sub_447600();
-                *(_DWORD*)& byte_5D4594[830116] = 0;
-                result = 0;
-                break;
-            default:
-                goto LABEL_24;
-        }
-    }
-    else if (a2 == 16400
-             && sub_46B0A0(a3) == 1934
-             && a4 != -1
-             && (v4 = (wchar_t*)nox_window_call_field_94((int)a3, 16406, a4, 0), *v4)
-             && (v5 = (const wchar_t*)sub_41EC00(), v4))
-    {
-        if (v5)
-        {
-            if (!nox_wcscmp(v4, v5))
-            {
-                v7 = loadString_sub_40F1D0((char*)& byte_587000[112316], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 327);
-            }
-            else
-            {
-                sub_46C6E0(*(int*)& byte_5D4594[830124]);
-                sub_46C4E0(*(_DWORD * *)& byte_5D4594[830124]);
-                sub_447600();
-                *(_DWORD*)& byte_5D4594[830116] = 0;
-                *(_DWORD*)& byte_5D4594[830124] = 0;
-                sub_40D380();
-                sub_446A20(v4);
-                v7 = loadString_sub_40F1D0((char*)& byte_587000[112252], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 321);
-            }
-            nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)v7, 0);
-            result = 0;
-        }
-        else
-        {
-            sub_446A20(0);
-            result = 0;
-        }
-    }
-    else
-    {
-        LABEL_24:
-        result = 0;
-    }
-    return result;
-}
-
-//----- (00448CF0) --------------------------------------------------------
-int sub_448CF0()
-{
-    _WORD* v0; // esi
-    int result; // eax
-    wchar_t* v2; // eax
-    int v3; // eax
-    wchar_t* v4; // eax
-    int v5; // [esp+0h] [ebp-170h]
-    char v6[36]; // [esp+4h] [ebp-16Ch]
-    char v7[72]; // [esp+28h] [ebp-148h]
-    char v8[256]; // [esp+70h] [ebp-100h]
-
-    v0 = (_WORD*)nox_window_call_field_94(*(int*)& byte_5D4594[830128], 16413, 0, 0);
-    if (*(_DWORD*)& byte_587000[111668])
-    {
-        if (v0 && *v0)
-        {
-            nox_sprintf(v7, "%S", v0);
-            sub_40D740((int)v6);
-            nox_swprintf((wchar_t*)& byte_5D4594[829840], *(const wchar_t**)& byte_5D4594[830184], v0);
-            nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)& byte_5D4594[829840], 0);
-            *(_DWORD*)& byte_5D4594[830204] = 1;
-            sub_4160D0(18);
-            return sub_46ABB0(*(int*)& byte_5D4594[830148], 0);
-        }
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[112388], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 234);
-        return nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)v2, 0);
-    }
-    v3 = nox_window_call_field_94(*(int*)& byte_5D4594[830132], 16413, 0, 0);
-    nox_sprintf(v8, "%S", v3);
-    if (!v0 || !*v0)
-    {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[112520], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 267);
-        return nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)v2, 0);
-    }
-    if (v8[0]) // TODO: &v5 != (int*)-112 && ...
-    {
-        nox_sprintf(v7, "%S", v0);
-        sub_40D770((int)v6, (int)v8);
-        nox_swprintf((wchar_t*)& byte_5D4594[829840], *(const wchar_t**)& byte_5D4594[830188], v0);
-        nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)& byte_5D4594[829840], 0);
-        *(_DWORD*)& byte_5D4594[830208] = 1;
-        sub_4160D0(19);
-        sub_46ABB0(*(int*)& byte_5D4594[830148], 0);
-        result = nox_window_call_field_94(*(int*)& byte_5D4594[830132], 16414, (int)& byte_5D4594[830212], 0);
-    }
-    else
-    {
-        v4 = loadString_sub_40F1D0((char*)& byte_587000[112456], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 264);
-        result = nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)v4, 0);
-    }
-    return result;
-}
-
 //----- (00448F00) --------------------------------------------------------
 int __cdecl sub_448F00(_DWORD* a1, int a2, int a3, int a4)
 {
@@ -10682,13 +10052,13 @@ int __cdecl sub_448F00(_DWORD* a1, int a2, int a3, int a4)
         {
             if (*(_DWORD*)& byte_5D4594[830204] != 1)
             {
-                sub_448CF0();
+                sub_448CF0_wol_dialogs();
                 return 1;
             }
         }
         else if (*(_DWORD*)& byte_5D4594[830208] != 1)
         {
-            sub_448CF0();
+            sub_448CF0_wol_dialogs();
         }
     }
     return 1;
@@ -10705,13 +10075,13 @@ int __cdecl sub_448F60(_DWORD* a1, int a2, int a3, int a4)
         {
             if (*(_DWORD*)& byte_5D4594[830204] != 1)
             {
-                sub_448CF0();
+                sub_448CF0_wol_dialogs();
                 return 1;
             }
         }
         else if (*(_DWORD*)& byte_5D4594[830208] != 1)
         {
-            sub_448CF0();
+            sub_448CF0_wol_dialogs();
         }
     }
     return 1;
@@ -10751,98 +10121,6 @@ int __cdecl sub_448FC0(int a1, int a2)
         *(_DWORD*)& byte_5D4594[830208] = 0;
     }
     return 1;
-}
-
-//----- (004490C0) --------------------------------------------------------
-void __cdecl sub_4490C0(int a1)
-{
-    int v1; // ebp
-    char* v3; // ebx
-    const char* v4; // esi
-    _DWORD* v5; // eax
-    wchar_t* v6; // eax
-
-    v1 = 0;
-    if (sub_43AF80() == 11)
-    {
-        sub_43AFC0(a1);
-        return;
-    }
-    if (!*(_DWORD*)& byte_5D4594[830116])
-    {
-        return;
-    }
-    v3 = sub_420110();
-    if (!v3)
-    {
-        sub_4491B0();
-        return;
-    }
-    nox_window_call_field_94(*(int*)& byte_5D4594[830136], 16399, 0, 0);
-    if (a1)
-    {
-        v4 = (const char*)(a1 + 52);
-        do
-        {
-            if (!strncmp(v4, v3, strlen(v3)))
-            {
-                v5 = sub_41E7A0(v4);
-                nox_window_call_field_94(*(int*)& byte_5D4594[830136], 16397, (int)v5, 9);
-                ++v1;
-            }
-        } while (*(_DWORD*)(a1 + 48));
-    }
-    v6 = loadString_sub_40F1D0((char*)& byte_587000[112580], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 639);
-    nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)v6, 0);
-    if (!v1)
-        sub_4491B0();
-}
-
-//----- (004491B0) --------------------------------------------------------
-int sub_4491B0()
-{
-    int result; // eax
-    wchar_t* v1; // eax
-
-    if (sub_43AF80() == 11)
-        return sub_43AFA0(9);
-    result = *(_DWORD*)& byte_5D4594[830116];
-    if (*(_DWORD*)& byte_5D4594[830116])
-    {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[112640], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 660);
-        result = nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)v1, 0);
-    }
-    return result;
-}
-
-//----- (00449200) --------------------------------------------------------
-int sub_449200()
-{
-    int result; // eax
-    wchar_t* v1; // eax
-
-    result = *(_DWORD*)& byte_5D4594[830116];
-    if (*(_DWORD*)& byte_5D4594[830116])
-    {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[112700], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 669);
-        result = nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)v1, 0);
-    }
-    return result;
-}
-
-//----- (00449240) --------------------------------------------------------
-int sub_449240()
-{
-    int result; // eax
-    wchar_t* v1; // eax
-
-    result = *(_DWORD*)& byte_5D4594[830116];
-    if (*(_DWORD*)& byte_5D4594[830116])
-    {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[112760], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 678);
-        result = nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)v1, 0);
-    }
-    return result;
 }
 
 //----- (00449280) --------------------------------------------------------
@@ -10939,7 +10217,7 @@ int __cdecl sub_4493D0(int a1, int a2, int* a3, int a4)
             result = 0;
             break;
         case 1996:
-            sub_4B5770(*(int*)& byte_5D4594[830104]);
+            sub_4B5770_wol_locale(*(int*)& byte_5D4594[830104]);
             result = 0;
             break;
         default:
@@ -10989,7 +10267,7 @@ int sub_449530()
     v16 = 0;
     v17 = -1;
     v1 = 0;
-    result = nox_new_window_from_file("servlist.wnd", sub_4497D0);
+    result = nox_new_window_from_file("servlist.wnd", sub_4497D0_wol_dialogs);
     *(_DWORD*)& byte_5D4594[830108] = result;
     if (result)
     {
@@ -11055,109 +10333,6 @@ int sub_449530()
             nox_window_call_field_94(*(int*)& byte_5D4594[830108], 16391, (int)v15, 0);
         }
         result = 1;
-    }
-    return result;
-}
-
-//----- (004497D0) --------------------------------------------------------
-int __cdecl sub_4497D0(int a1, int a2, int* a3, int a4)
-{
-    _DWORD* v3; // esi
-    int v4; // eax
-    int result; // eax
-    int v6; // eax
-    int v7; // eax
-    int v8; // edi
-    _DWORD* v9; // eax
-    int v10; // esi
-    int v11; // eax
-    const char* i; // eax
-    int v13; // eax
-    wchar_t* v14; // eax
-    wchar_t* v15; // [esp-10h] [ebp-18h]
-
-    if (a2 == 16389)
-    {
-        sub_452D80(920, 100);
-        result = 1;
-    }
-    else if (a2 == 16391)
-    {
-        v6 = sub_46B0A0(a3) - 1952;
-        if (v6)
-        {
-            v7 = v6 - 10;
-            if (v7)
-            {
-                if (v7 == 1)
-                {
-                    sub_46C6E0(*(int*)& byte_5D4594[830108]);
-                    sub_46C4E0(*(_DWORD * *)& byte_5D4594[830108]);
-                    *(_DWORD*)& byte_5D4594[830108] = 0;
-                    if (sub_41E2F0() != 7)
-                    {
-                        sub_468020();
-                        sub_452D80(921, 100);
-                        return 1;
-                    }
-                }
-            }
-            else
-            {
-                v8 = 0;
-                v9 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830108], 1961);
-                v10 = nox_window_call_field_94((int)v9, 16404, 0, 0);
-                if (v10 >= 0)
-                {
-                    v11 = sub_4200F0();
-                    for (i = sub_4205B0(v11); i; i = (const char*)sub_4206B0((int)i))
-                    {
-                        if (!v10)
-                            break;
-                        --v10;
-                    }
-                    sub_4207D0((int)i);
-                    if (sub_41E2F0() == 7)
-                    {
-                        v8 = 1;
-                        sub_41E300(3);
-                    }
-                    v13 = sub_41E2F0();
-                    sub_41DA70(v13, 3);
-                }
-                sub_46C6E0(*(int*)& byte_5D4594[830108]);
-                sub_46C4E0(*(_DWORD * *)& byte_5D4594[830108]);
-                *(_DWORD*)& byte_5D4594[830108] = 0;
-                if (v8)
-                {
-                    v15 = loadString_sub_40F1D0((char*)& byte_587000[112880], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 175);
-                    v14 = loadString_sub_40F1D0((char*)& byte_587000[112952], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 174);
-                    sub_449A10(0, (int)v14, (int)v15, 288, 0, 0);
-                    sub_44A4B0();
-                    sub_452D80(921, 100);
-                    return 1;
-                }
-            }
-        }
-        else
-        {
-            sub_46C6E0(*(int*)& byte_5D4594[830096]);
-            sub_46C4E0(*(_DWORD * *)& byte_5D4594[830096]);
-            *(_DWORD*)& byte_5D4594[830112] = 0;
-            sub_447600();
-        }
-        sub_452D80(921, 100);
-        result = 1;
-    }
-    else
-    {
-        if (a2 == 16400 && sub_46B0A0(a3) == 1961)
-        {
-            v3 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830108], 1962);
-            v4 = nox_window_call_field_94((int)a3, 16404, 0, 0);
-            sub_46ABB0((int)v3, v4 >= 0);
-        }
-        result = 0;
     }
     return result;
 }
@@ -11674,154 +10849,6 @@ char* __cdecl sub_44A520(int a1)
     return *(char**)& byte_587000[8 * v2 + 113140];
 }
 
-//----- (0044A560) --------------------------------------------------------
-int sub_44A560()
-{
-    int result; // eax
-    int i; // esi
-    int v2; // esi
-    _DWORD* v3; // eax
-    _DWORD* v4; // eax
-    _DWORD* v5; // esi
-    _DWORD* v6; // ebp
-    _DWORD* v7; // ebx
-    _DWORD* v8; // edi
-    char* v9; // eax
-    wchar_t* v10; // eax
-    wchar_t* v11; // eax
-    _DWORD* v12; // esi
-    int v13; // eax
-    _DWORD* v14; // eax
-    wchar_t* v15; // [esp-10h] [ebp-ECh]
-    _BYTE* v16; // [esp+8h] [ebp-D4h]
-    _BYTE* v17; // [esp+Ch] [ebp-D0h]
-    char* v18; // [esp+10h] [ebp-CCh]
-    wchar_t v19[100]; // [esp+14h] [ebp-C8h]
-
-    sub_40A4D0(4);
-    sub_43AF50(1);
-    sub_41E300(1);
-    sub_4A1BE0(1);
-    sub_4A1A40(0);
-    sub_41D4C0();
-    sub_41D440();
-    if (*(_DWORD*)& byte_5D4594[830248])
-    {
-        sub_46ABB0(*(int*)& byte_5D4594[830248], 1);
-    }
-    else
-    {
-        sub_43BDD0(1700);
-        result = nox_new_window_from_file("wolapi.wnd", sub_44AB30);
-        *(_DWORD*)& byte_5D4594[830248] = result;
-        if (!result)
-            return result;
-        result = sub_43C5B0((_DWORD*)result, 0, 0, 0, -480, 0, 20, 0, -40);
-        *(_DWORD*)& byte_5D4594[830244] = result;
-        if (!result)
-            return result;
-        *(_DWORD*)result = 1700;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[830244] + 48) = sub_44AA40;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[830244] + 56) = sub_44AA70;
-        nox_window_set_all_funcs(*(_DWORD * *)& byte_5D4594[830248], sub_44AAC0, 0, 0);
-    }
-    sub_41FCF0();
-    *(_DWORD*)& byte_5D4594[830264] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1708);
-    nox_window_call_field_94(*(int*)& byte_5D4594[830264], 16399, 0, 0);
-    for (i = 0; i < 128; ++i)
-    {
-        sub_41FB90(i, &v16, &v17);
-        nox_swprintf(v19, L"%S", v16);
-        if (!v19[0])
-            nox_swprintf(v19, L" ");
-        nox_window_call_field_94(*(int*)& byte_5D4594[830264], 16397, (int)v19, -1);
-    }
-    v2 = sub_41FC40();
-    if (v2 == -1)
-    {
-        sub_41FC20(0);
-        v2 = 0;
-    }
-    nox_window_call_field_94(*(int*)& byte_5D4594[830264], 16403, v2, 0);
-    sub_41FB90(v2, &v16, &v17);
-    *(_DWORD*)& byte_5D4594[830256] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1701);
-    if (v16 && *v16)
-    {
-        nox_swprintf(v19, L"%S", v16);
-        nox_window_call_field_94(*(int*)& byte_5D4594[830256], 16414, (int)v19, 0);
-    }
-    *(_DWORD*)& byte_5D4594[830260] = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1702);
-    sub_46B300(*(int*)& byte_5D4594[830260], sub_44AAD0);
-    v3 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1703);
-    *(_DWORD*)& byte_5D4594[830252] = v3;
-    if (v17 && *v17)
-    {
-        nox_swprintf(v19, L"%S", v17);
-        nox_window_call_field_94(*(int*)& byte_5D4594[830260], 16414, (int)v19, 0);
-        v4 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1703);
-        v4[9] |= 4u;
-        *(_DWORD*)& byte_5D4594[830276] = 1;
-    }
-    else
-    {
-        v3[9] &= 0xFFFFFFFB;
-        *(_DWORD*)& byte_5D4594[830276] = 0;
-    }
-    v5 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1709);
-    v6 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1710);
-    v7 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1711);
-    v8 = *(_DWORD * *)(*(_DWORD*)& byte_5D4594[830264] + 32);
-    v18 = sub_42F970("UISlider");
-    v9 = sub_42F970("UISliderLit");
-    sub_4B5700((int)v5, 0, 0, (int)v18, (int)v9, (int)v9);
-    sub_46B280((int)v5, *(int*)& byte_5D4594[830264]);
-    sub_46B280((int)v6, *(int*)& byte_5D4594[830264]);
-    sub_46B280((int)v7, *(int*)& byte_5D4594[830264]);
-    v8[9] = v5;
-    v8[7] = v6;
-    v8[8] = v7;
-    *(_DWORD*)(v5[100] + 8) = 16;
-    *(_DWORD*)(v5[100] + 12) = 10;
-    if (*(_DWORD*)& byte_5D4594[830272] == 1 || sub_4D3320() == 1)
-    {
-        if (sub_40A5C0(0x2000000))
-        {
-            if (*(_DWORD*)& byte_5D4594[830272] == 1)
-            {
-                v10 = loadString_sub_40F1D0((char*)& byte_587000[113496], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 485);
-                sub_413D30((char*)& byte_587000[113524], v10);
-            }
-            else
-            {
-                sub_413D30((char*)& byte_587000[113528]);
-            }
-            sub_43DDD0(0);
-            sub_43DE60();
-            return 0;
-        }
-        v15 = loadString_sub_40F1D0((char*)& byte_587000[113628], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
-        v11 = loadString_sub_40F1D0((char*)& byte_587000[113684], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
-        sub_449A10(*(int*)& byte_5D4594[830248], (int)v11, (int)v15, 33, 0, 0);
-        sub_44A4B0();
-        *(_DWORD*)& byte_5D4594[830272] = 0;
-    }
-    if (!sub_44A4A0())
-    {
-        sub_46A8A0();
-        sub_46B500(*(int*)& byte_5D4594[830256]);
-    }
-    *(_DWORD*)& byte_5D4594[830268] = 0;
-    if (sub_40A5C0(0x2000000))
-    {
-        v12 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1708);
-        v13 = sub_4A7F00();
-        nox_window_call_field_94(*(int*)& byte_5D4594[830248], 16400, (int)v12, v13 - 1);
-        v14 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1706);
-        nox_window_call_field_94(*(int*)& byte_5D4594[830248], 16391, (int)v14, 0);
-    }
-    return 1;
-}
-
 //----- (0044AA40) --------------------------------------------------------
 int sub_44AA40()
 {
@@ -11991,7 +11018,7 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4)
             sub_40DB50(v13 + 1, (int)& v17);
             if (!v17)
             {
-                sub_4B5770(*(int*)& byte_5D4594[830248]);
+                sub_4B5770_wol_locale(*(int*)& byte_5D4594[830248]);
                 LABEL_42:
                 sub_452D80(921, 100);
                 return 1;
@@ -12043,7 +11070,7 @@ int sub_44AF70()
     sub_43BE40(2);
     sub_452D80(923, 100);
     result = 1;
-    *(_DWORD*)(*(_DWORD*)& byte_5D4594[830244] + 52) = sub_447620;
+    *(_DWORD*)(*(_DWORD*)& byte_5D4594[830244] + 52) = sub_447620_wol_chat;
     *(_DWORD*)& byte_5D4594[830248] = 0;
     return result;
 }

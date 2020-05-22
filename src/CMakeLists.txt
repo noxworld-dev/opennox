@@ -92,6 +92,12 @@ add_executable (
     thing.c
     client/audio/auddiag.c
     client/io/console.c
+    client/shell/wolapi/locale.c
+    client/shell/wolapi/wolchat.c
+    client/shell/wolapi/wollogin.c
+    client/shell/wolapi/woldlgs.c
+    client/shell/wolapi/wolprog.c
+    client/shell/wolapi/wolreg.c
 	vqa/aud_decode.cpp
 	vqa/ddpf_conversion.cpp
 	vqa/vqa_decode.cpp
