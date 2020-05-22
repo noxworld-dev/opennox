@@ -1,6 +1,6 @@
 #include "../../proto.h"
 
-extern FILE* nox_file_log;
+FILE* nox_file_log = 0;
 
 //----- (00451630) --------------------------------------------------------
 unsigned __int8* sub_451630()
@@ -78,5 +78,21 @@ wchar_t* sub_4517A0(wchar_t* a1, ...)
     fflush(nox_file_log);
     v5 = loadString_sub_40F1D0((char*)& byte_587000[126980], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 365);
     nullsub_4(getWindowHandle_sub_401FD0(), &byte_5D4594[833752], v5, 0);
+    return nox_wcsncpy(v1, (const wchar_t*)& byte_5D4594[833752], 0x63u);
+}
+
+//----- (004515B0) --------------------------------------------------------
+wchar_t* sub_4515B0(wchar_t* a1, ...)
+{
+    wchar_t* v1; // esi
+    va_list va; // [esp+8h] [ebp+8h]
+
+    va_start(va, a1);
+    if (!nox_file_log)
+        sub_451630();
+    v1 = (wchar_t*)sub_451610();
+    nox_swprintf((wchar_t*)& byte_5D4594[833752], a1, va);
+    fprintf(nox_file_log, "%S", &byte_5D4594[833752]);
+    fflush(nox_file_log);
     return nox_wcsncpy(v1, (const wchar_t*)& byte_5D4594[833752], 0x63u);
 }
