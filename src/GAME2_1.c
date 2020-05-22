@@ -12385,10 +12385,8 @@ int sub_4714E0()
     int v1; // edi
     unsigned __int8* v2; // esi
     wchar_t* v3; // eax
-    int v4; // eax
     wchar_t* v5; // eax
     wchar_t* v6; // eax
-    int v7; // eax
     _DWORD* v8; // esi
     char* v9; // eax
     wchar_t* v10; // eax
@@ -12443,10 +12441,10 @@ int sub_4714E0()
     sub_46B000((wchar_t*)(*(_DWORD*)& byte_5D4594[1091364] + 36), v3);
     *(_DWORD*)(*(_DWORD*)& byte_5D4594[1091364] + 32) = 2;
     *(_WORD*)& byte_5D4594[1091384] = 0;
-    v4 = nox_get_thing(*(int*)& byte_5D4594[1096276]);
-    if (v4)
+    nox_thing* t4 = nox_get_thing(*(int*)& byte_5D4594[1096276]);
+    if (t4)
     {
-        nox_drawable_link_thing(&byte_5D4594[1091388], *(_DWORD*)(v4 + 28));
+        nox_drawable_link_thing(&byte_5D4594[1091388], t4->field_1c);
         *(_DWORD*)& byte_5D4594[1091368] = &byte_5D4594[1091388];
         if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1091388
             * (_DWORD*)& byte_5D4594[1091508] |= 0x40000000u;
@@ -12472,10 +12470,10 @@ int sub_4714E0()
         sub_46B000((wchar_t*)(*(_DWORD*)& byte_5D4594[1090828] + 36), v6);
         *(_DWORD*)(*(_DWORD*)& byte_5D4594[1090828] + 32) = 1;
         *(_WORD*)& byte_5D4594[1090848] = 0;
-        v7 = nox_get_thing(*(int*)& byte_5D4594[1096272]);
-        if (v7)
+        nox_thing* t7 = nox_get_thing(*(int*)& byte_5D4594[1096272]);
+        if (t7)
         {
-            nox_drawable_link_thing(&byte_5D4594[1090852], *(_DWORD*)(v7 + 28));
+            nox_drawable_link_thing(&byte_5D4594[1090852], t7->field_1c);
             *(_DWORD*)& byte_5D4594[1090832] = &byte_5D4594[1090852];
             if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090852
                 * (_DWORD*)& byte_5D4594[1090972] |= 0x40000000u;
@@ -12933,7 +12931,6 @@ wchar_t* sub_472280()
 unsigned __int8* sub_472310()
 {
     unsigned __int8* result; // eax
-    int v1; // eax
 
     *(_WORD*)& byte_5D4594[1091384] = sub_467850(*(int*)& byte_5D4594[1096276]);
     *(_WORD*)& byte_5D4594[1090848] = sub_467850(*(int*)& byte_5D4594[1096272]);
@@ -12966,10 +12963,10 @@ unsigned __int8* sub_472310()
         *(_WORD*)& byte_5D4594[1090312] = sub_467850(*(int*)& byte_5D4594[1096284]);
         if (*(_WORD*)& byte_5D4594[1090312])
         {
-            v1 = nox_get_thing(*(int*)& byte_5D4594[1096284]);
-            if (v1)
+            nox_thing* t1 = nox_get_thing(*(int*)& byte_5D4594[1096284]);
+            if (t1)
             {
-                nox_drawable_link_thing(&byte_5D4594[1090316], *(_DWORD*)(v1 + 28));
+                nox_drawable_link_thing(&byte_5D4594[1090316], t1->field_1c);
                 *(_DWORD*)& byte_5D4594[1090296] = &byte_5D4594[1090316];
                 if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
                 {

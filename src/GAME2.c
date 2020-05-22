@@ -329,7 +329,7 @@ int __cdecl nox_drawable_link_thing(nox_drawable* a1, int i)
     }
     *(float*)(v2 + 140) = v9;
     if (v9 != 0.0) {
-        sub_484D70(v2 + 136, v9);
+        sub_484D70_light_intensity(v2 + 136, v9);
         if (!*v3)
         {
             *v3 = 1;
@@ -9626,13 +9626,13 @@ int __cdecl sub_45A840(_DWORD* a1)
     if (sub_4356C0((int)a1, 23))
     {
         sub_484BE0(a1 + 34, 128, 128, 255);
-        sub_484D70((int)(a1 + 34), 300.0);
+        sub_484D70_light_intensity((int)(a1 + 34), 300.0);
         result = 1;
     }
     else if (sub_4356C0((int)a1, 15) || a1 == *(_DWORD * *)& byte_5D4594[2614252] && sub_467430() & 8)
     {
         sub_484BE0(a1 + 34, 255, 255, 255);
-        sub_484D70((int)(a1 + 34), 200.0);
+        sub_484D70_light_intensity((int)(a1 + 34), 200.0);
         result = 1;
     }
     else
@@ -9644,7 +9644,7 @@ int __cdecl sub_45A840(_DWORD* a1)
         }
         else if (a1[69] == 10)
         {
-            sub_484D70((int)(a1 + 34), 0.0);
+            sub_484D70_light_intensity((int)(a1 + 34), 0.0);
             result = 1;
         }
         else
@@ -9653,18 +9653,18 @@ int __cdecl sub_45A840(_DWORD* a1)
             v3 = a1[29];
             if (v3 & 1)
             {
-                sub_484D70((int)(a1 + 34), 25.0);
+                sub_484D70_light_intensity((int)(a1 + 34), 25.0);
                 result = 1;
             }
             else if (v3 & 2)
             {
-                sub_484D70((int)(a1 + 34), 35.0);
+                sub_484D70_light_intensity((int)(a1 + 34), 35.0);
                 result = 1;
             }
             else
             {
                 if (v3 & 4)
-                    sub_484D70((int)(a1 + 34), 45.0);
+                    sub_484D70_light_intensity((int)(a1 + 34), 45.0);
                 result = 1;
             }
         }

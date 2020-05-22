@@ -506,7 +506,7 @@ int __cdecl nox_thing_magic_draw(int* a1, int a2)
         sub_49CE30(v10.field_0 - (v7 >> 1), v10.field_4 - (v7 >> 1), v7, v7);
         sub_484BE0((_DWORD*)(a2 + 136), 200, 200, 255);
         v9 = sub_416090(0.0, 100.0);
-        sub_484D70(a2 + 136, v9);
+        sub_484D70_light_intensity(a2 + 136, v9);
     }
     return 1;
 }
@@ -544,7 +544,7 @@ int __cdecl nox_thing_magic_missle_draw(int* a1, int a2)
         sub_49CE30(v10.field_0 - (v7 >> 1), v10.field_4 - (v7 >> 1), v7, v7);
         sub_484BE0((_DWORD*)(a2 + 136), 255, 180, 50);
         v9 = sub_416090(0.0, 100.0);
-        sub_484D70(a2 + 136, v9);
+        sub_484D70_light_intensity(a2 + 136, v9);
     }
     return 1;
 }
