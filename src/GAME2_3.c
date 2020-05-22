@@ -12055,17 +12055,16 @@ _DWORD* __cdecl sub_49C160(int a1)
 // 49C256: variable 'v4' is possibly undefined
 
 //----- (0049C450) --------------------------------------------------------
-int __cdecl sub_49C450(int a1)
+void __cdecl sub_49C450(int a1)
 {
     int v1; // esi
     int* v2; // ecx
-    int result; // eax
 
     v1 = 0;
     v2 = (int*)& byte_5D4594[1303924];
     while (1)
     {
-        result = *v2;
+        int result = *v2;
         if (*v2)
         {
             if (*(unsigned __int16*)(a1 + 3) == *(_DWORD*)(result + 437)
@@ -12077,11 +12076,10 @@ int __cdecl sub_49C450(int a1)
         ++v2;
         ++v1;
         if ((int)v2 >= (int)& byte_5D4594[1304308])
-            return result;
+            return;
     }
-    result = sub_45A4E0_drawable(*v2);
+    sub_45A4E0_drawable(*v2);
     *(_DWORD*)& byte_5D4594[4 * v1 + 1303924] = 0;
-    return result;
 }
 
 //----- (0049C4B0) --------------------------------------------------------
@@ -12106,23 +12104,18 @@ void sub_49C4B0()
 }
 
 //----- (0049C4F0) --------------------------------------------------------
-int sub_49C4F0()
+void sub_49C4F0()
 {
-    int* v0; // esi
-    int result; // eax
-
-    v0 = (int*)& byte_5D4594[1303924];
+    int* v0 = (int*)& byte_5D4594[1303924];
     do
     {
-        result = *v0;
         if (*v0)
         {
-            result = sub_45A4E0_drawable(*v0);
+            sub_45A4E0_drawable(*v0);
             *v0 = 0;
         }
         ++v0;
     } while ((int)v0 < (int)& byte_5D4594[1304308]);
-    return result;
 }
 
 //----- (0049C520) --------------------------------------------------------

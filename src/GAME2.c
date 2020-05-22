@@ -9393,45 +9393,43 @@ int __cdecl sub_45A4B0(_QWORD* a1)
 }
 
 //----- (0045A4E0) --------------------------------------------------------
-int __cdecl sub_45A4E0_drawable(int a1)
+void __cdecl sub_45A4E0_drawable(nox_drawable* dr)
 {
-    int v1; // eax
-    int v2; // eax
-    int v3; // eax
-    int v4; // eax
-
-    v1 = *(_DWORD*)(a1 + 372);
-    if (v1)
-        * (_DWORD*)(v1 + 368) = *(_DWORD*)(a1 + 368);
+    if (dr->field_93)
+        dr->field_93->field_92 = dr->field_92;
     else
-        nox_drawable_head_unk1 = *(_DWORD*)(a1 + 368);
-    v2 = *(_DWORD*)(a1 + 368);
-    if (v2)
-        * (_DWORD*)(v2 + 372) = *(_DWORD*)(a1 + 372);
-    sub_49A9B0_drawable(a1);
-    sub_476F10(a1);
-    if (*(_DWORD*)(a1 + 120) & 0x10000)
-    {
-        v3 = *(_DWORD*)(a1 + 364);
-        if (v3)
-            * (_DWORD*)(v3 + 360) = *(_DWORD*)(a1 + 360);
+        nox_drawable_head_unk1 = dr->field_92;
+
+    if (dr->field_92)
+        dr->field_92->field_93 = dr->field_93;
+
+    sub_49A9B0_drawable(dr);
+    sub_476F10_drawable(dr);
+
+    if (dr->flags & 0x10000) {
+        if (dr->field_91)
+            dr->field_91->field_90 = dr->field_90;
         else
-            nox_drawable_head_unk2 = *(_DWORD*)(a1 + 360);
-        v4 = *(_DWORD*)(a1 + 360);
-        if (v4)
-            * (_DWORD*)(v4 + 364) = *(_DWORD*)(a1 + 364);
+            nox_drawable_head_unk2 = dr->field_90;
+
+        if (dr->field_90)
+            dr->field_90->field_91 = dr->field_91;
     }
-    sub_45A160_drawable((_DWORD*)a1);
-    sub_49BCD0((_DWORD*)a1);
-    sub_49BAF0((_DWORD*)a1);
-    sub_49BA10((_DWORD*)a1);
-    sub_459E30(a1, 3);
-    sub_459F70((_DWORD*)a1);
-    if (*(_BYTE*)(a1 + 112) & 4)
-        sub_459F00(a1);
-    if (sub_419130(a1 + 24))
-        sub_419570(a1 + 24, *(_DWORD*)(a1 + 128));
-    return sub_45A4B0((_QWORD*)a1);
+
+    sub_45A160_drawable(dr);
+    sub_49BCD0(dr);
+    sub_49BAF0(dr);
+    sub_49BA10(dr);
+    sub_459E30(dr, 3);
+    sub_459F70(dr);
+
+    if (*(_BYTE*)(&dr->field_28) & 0x4)
+        sub_459F00(dr);
+
+    if (sub_419130(&dr->field_6))
+        sub_419570(&dr->field_6, dr->field_32);
+
+    sub_45A4B0(dr);
 }
 
 //----- (0045A5E0) --------------------------------------------------------
@@ -9471,7 +9469,7 @@ int __cdecl sub_45A630(int a1)
 }
 
 //----- (0045A670) --------------------------------------------------------
-int __cdecl sub_45A670(unsigned int a1)
+void __cdecl sub_45A670(unsigned int a1)
 {
     int result; // eax
     _DWORD* v2; // esi
@@ -9484,26 +9482,22 @@ int __cdecl sub_45A670(unsigned int a1)
         *(_DWORD*)& byte_5D4594[1046604] = result;
     }
     v2 = nox_drawable_head_unk1;
-    if (v2)
+    if (!v2)
+        return;
+    do
     {
-        do
+        int result = v2[28];
+        v3 = (_DWORD*)v2[92];
+        if (!(result & 0x20400006))
         {
-            result = v2[28];
-            v3 = (_DWORD*)v2[92];
-            if (!(result & 0x20400006))
+            if (!sub_49C520((int)v2))
             {
-                result = sub_49C520((int)v2);
-                if (!result)
-                {
-                    result = v2[27];
-                    if (result != *(_DWORD*)& byte_5D4594[1046604] && v2[80] < a1)
-                        result = sub_45A4E0_drawable((int)v2);
-                }
+                if (v2[27] != *(_DWORD*)& byte_5D4594[1046604] && v2[80] < a1)
+                    sub_45A4E0_drawable((int)v2);
             }
-            v2 = v3;
-        } while (v3);
-    }
-    return result;
+        }
+        v2 = v3;
+    } while (v3);
 }
 
 //----- (0045A6F0) --------------------------------------------------------
