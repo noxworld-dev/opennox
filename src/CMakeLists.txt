@@ -90,6 +90,7 @@ add_executable (
 	GameEx.c
     memfile.c
     thing.c
+    common/system/settings.c
     client/audio/auddiag.c
     client/io/console.c
     client/shell/wolapi/locale.c
