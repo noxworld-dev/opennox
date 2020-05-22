@@ -950,7 +950,7 @@ int sub_476E90()
 }
 
 //----- (00476F10) --------------------------------------------------------
-int __cdecl sub_476F10(int a1)
+int __cdecl sub_476F10_drawable(int a1)
 {
     int result; // eax
 

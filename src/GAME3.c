@@ -15007,31 +15007,26 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, _DWORD* a2)
 }
 
 //----- (004B7EE0) --------------------------------------------------------
-int __cdecl sub_4B7EE0(__int16 a1)
+void __cdecl sub_4B7EE0(__int16 a1)
 {
-    int result; // eax
-    int v2; // esi
-
     if (!*(_DWORD*)& byte_5D4594[1313744])
         * (_DWORD*)& byte_5D4594[1313744] = sub_44CFC0((CHAR*)& byte_587000[177052]);
     if (!*(_DWORD*)& byte_5D4594[1313740])
         * (_DWORD*)& byte_5D4594[1313740] = sub_44CFC0((CHAR*)& byte_587000[177068]);
-    result = sub_45A060();
-    v2 = result;
-    if (result)
+
+    int v2 = sub_45A060();
+    if (!v2)
+        return;
+
+    while (*(_DWORD*)(v2 + 108) != *(_DWORD*)& byte_5D4594[1313744] || *(_WORD*)(v2 + 438) != a1)
     {
-        while (*(_DWORD*)(v2 + 108) != *(_DWORD*)& byte_5D4594[1313744] || *(_WORD*)(v2 + 438) != a1)
-        {
-            result = sub_45A070(v2);
-            v2 = result;
-            if (!result)
-                return result;
-        }
-        sub_499610(*(int*)& byte_5D4594[1313740], 50, 1000, 30, *(_DWORD*)(v2 + 12), *(_DWORD*)(v2 + 16));
-        sub_45A4B0(*(_QWORD * *)(v2 + 432));
-        result = sub_45A4E0_drawable(v2);
+        v2 = sub_45A070(v2);
+        if (!v2)
+            return;
     }
-    return result;
+    sub_499610(*(int*)& byte_5D4594[1313740], 50, 1000, 30, *(_DWORD*)(v2 + 12), *(_DWORD*)(v2 + 16));
+    sub_45A4B0(*(_QWORD * *)(v2 + 432));
+    sub_45A4E0_drawable(v2);
 }
 
 //----- (004B7F90) --------------------------------------------------------
