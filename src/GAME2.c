@@ -15,8 +15,6 @@ extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
 extern int nox_things_count;
 
-FILE* nox_file_log = 0;
-
 nox_window* nox_win_unk1 = 0;
 
 nox_alloc_class* nox_alloc_drawable = 0;
@@ -2977,22 +2975,6 @@ int sub_4514F0()
         }
     }
     return result;
-}
-
-//----- (004515B0) --------------------------------------------------------
-wchar_t* sub_4515B0(wchar_t* a1, ...)
-{
-    wchar_t* v1; // esi
-    va_list va; // [esp+8h] [ebp+8h]
-
-    va_start(va, a1);
-    if (!nox_file_log)
-        sub_451630();
-    v1 = (wchar_t*)sub_451610();
-    nox_swprintf((wchar_t*)& byte_5D4594[833752], a1, va);
-    fprintf(nox_file_log, "%S", &byte_5D4594[833752]);
-    fflush(nox_file_log);
-    return nox_wcsncpy(v1, (const wchar_t*)& byte_5D4594[833752], 0x63u);
 }
 
 //----- (00451610) --------------------------------------------------------

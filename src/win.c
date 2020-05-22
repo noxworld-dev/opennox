@@ -20,8 +20,6 @@ extern int g_scaled;
 extern int nox_win_width;
 extern int nox_win_height;
 
-extern FILE* nox_file_log;
-
 //----- (00401C70) --------------------------------------------------------
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
