@@ -5036,7 +5036,7 @@ int __cdecl sub_440CE0(int a1, char a2, int a3)
     if (a2 != 3)
         return 0;
     result = (int)& byte_5D4594[822660];
-    if (byte_5D4594 != (unsigned __int8*)-822660)
+    if (true) // TODO: byte_5D4594 != (unsigned __int8*)-822660
     {
         v4 = sub_416590(1);
         v5 = *(const wchar_t**)& byte_587000[94400];
@@ -9290,7 +9290,7 @@ char* __cdecl sub_446BC0(int a1)
     v1 = nox_window_call_field_94(*(int*)& byte_5D4594[829488], 16406, a1, 0);
     nox_sprintf((char*)& byte_5D4594[826072], "%S", v1);
     result = (char*)& byte_5D4594[826072];
-    if (byte_5D4594 != (unsigned __int8*)-826072 && (byte_5D4594[826072] == 64 || byte_5D4594[826072] == 32))
+    if (byte_5D4594[826072] == 64 || byte_5D4594[826072] == 32) // TODO: byte_5D4594 != (unsigned __int8*)-826072 && ...
         result = (char*)& byte_5D4594[826073];
     return result;
 }
@@ -10650,7 +10650,7 @@ int sub_448CF0()
         v2 = loadString_sub_40F1D0((char*)& byte_587000[112520], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 267);
         return nox_window_call_field_94(*(int*)& byte_5D4594[830140], 16385, (int)v2, 0);
     }
-    if (&v5 != (int*)-112 && v8[0])
+    if (v8[0]) // TODO: &v5 != (int*)-112 && ...
     {
         nox_sprintf(v7, "%S", v0);
         sub_40D770((int)v6, (int)v8);
