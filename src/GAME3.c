@@ -15195,9 +15195,8 @@ int sub_4B8220()
 }
 
 //----- (004B8270) --------------------------------------------------------
-int __cdecl nox_thing_player_draw(int a1, int a2)
+int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr)
 {
-    int v2; // ebx
     char* v3; // esi
     _DWORD* v4; // eax
     char* v5; // eax
@@ -15232,8 +15231,7 @@ int __cdecl nox_thing_player_draw(int a1, int a2)
     BOOL v35; // [esp+30h] [ebp-38h]
     int v36[13]; // [esp+34h] [ebp-34h]
 
-    v2 = a2;
-    v26 = *(_DWORD*)(a2 + 128);
+    v26 = dr->field_32;
     v31 = 0;
     v30 = 0;
     v29 = 0;
@@ -15243,7 +15241,7 @@ int __cdecl nox_thing_player_draw(int a1, int a2)
         return 1;
     if (*(_DWORD*)& byte_5D4594[2618908] && *(_BYTE*)(*(_DWORD*)& byte_5D4594[2618908] + 3680) & 1)
         v30 = 1;
-    if (*(_DWORD*)& byte_5D4594[2616328] == *(_DWORD*)(v2 + 128))
+    if (*(_DWORD*)& byte_5D4594[2616328] == dr->field_32)
     {
         v4 = sub_418C80(*(int*)& byte_5D4594[2616328]);
         if (!v4)
@@ -15256,7 +15254,7 @@ int __cdecl nox_thing_player_draw(int a1, int a2)
     v6 = sub_418C80(*(int*)& byte_5D4594[2616328]);
     if (v6)
     {
-        v7 = sub_418C80(*(_DWORD*)(v2 + 128));
+        v7 = sub_418C80(dr->field_32);
         v8 = v7;
         if (v7)
         {
@@ -15306,15 +15304,15 @@ LABEL_15:
         v11 = *(_DWORD * *)& byte_5D4594[1313792];
         v3 = v32;
     LABEL_23:
-        v11[3] = *(_DWORD*)(v2 + 12) - v10[4] + *v10 + 15;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313792] + 16) = v10[1] - v10[5] + *(_DWORD*)(v2 + 16) - 25;
+        v11[3] = dr->field_3 - v10[4] + *v10 + 15;
+        *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313792] + 16) = v10[1] - v10[5] + dr->field_4 - 25;
         (*(void(__cdecl * *)(int*, _DWORD))(*(_DWORD*)& byte_5D4594[1313792] + 300))(v36, *(_DWORD*)& byte_5D4594[1313792]);
         goto LABEL_24;
     }
 LABEL_25:
-    if (!sub_4356C0(v2, 23))
+    if (!sub_4356C0(dr, 23))
     {
-        if (!sub_4356C0(v2, 25))
+        if (!sub_4356C0(dr, 25))
         {
             *(_DWORD*)& byte_5D4594[3798668] = *((_DWORD*)v3 + 574);
             *(_DWORD*)& byte_5D4594[3798672] = *((_DWORD*)v3 + 576);
@@ -15328,7 +15326,8 @@ LABEL_25:
                 v17 = (int*)& byte_5D4594[3798668];
                 do
                 {
-                    sub_434480(*v17, (int)& v33, (int)& a2, (int)& a1);
+                    int a2 = 0;
+                    sub_434480(*v17, (int)& v33, &a2, (int)& a1);
                     if ((unsigned __int8)a2 >= 0x9Bu)
                         LOBYTE(a2) = -1;
                     else
@@ -15366,10 +15365,10 @@ LABEL_37:
     sub_4341D0(4, *(int*)& byte_5D4594[3798680]);
     sub_4341D0(5, *(int*)& byte_5D4594[3798684]);
     sub_4341D0(6, *(int*)& byte_5D4594[3798688]);
-    v18 = sub_4B8FA0(v2, &v28, &v27);
+    v18 = sub_4B8FA0(dr, &v28, &v27);
     if (!v18)
         return 0;
-    sub_4C4770(v10, (unsigned __int8*)v2, v18);
+    sub_4C4770_draw(v10, dr, v18);
 
     // A player in Nox has a 32-bit integer field that contains bits for each
     // type of armor / weapon. sub_4B8D40 is responsible for iterating over
@@ -15383,32 +15382,32 @@ LABEL_37:
     // body, and then the armor / weapon on top (or vice versa depending on
     // rotation). The quiver is unique because it is on the player's back, e.g.
     // it must be drawn first, then the body, then the rest of the armor.
-    v20 = *(_BYTE*)(v2 + 297);
-    if (v20 != 1 && v20 && v20 != 2 && v20 != 3 && v20 != 6 || *(_DWORD*)(v2 + 276) == 37)
+    v20 = dr->field_74_2;
+    if (v20 != 1 && v20 && v20 != 2 && v20 != 3 && v20 != 6 || dr->field_69 == 37)
     {
-        sub_4B8D40(v10, v2, *((_DWORD*)v3 + 1) & 2, (_DWORD*)v3 + 581, v28, v27);
-        sub_4B8960(v10, v2, *(_DWORD*)v3, (_DWORD*)v3 + 743, v28, v27);
-        sub_4B8D40(v10, v2, *((_DWORD*)v3 + 1) & ~2, (_DWORD*)v3 + 581, v28, v27);
+        sub_4B8D40(v10, dr, *((_DWORD*)v3 + 1) & 2, (_DWORD*)v3 + 581, v28, v27);
+        sub_4B8960(v10, dr, *(_DWORD*)v3, (_DWORD*)v3 + 743, v28, v27);
+        sub_4B8D40(v10, dr, *((_DWORD*)v3 + 1) & ~2, (_DWORD*)v3 + 581, v28, v27);
     }
     else
     {
-        sub_4B8D40(v10, v2, *((_DWORD*)v3 + 1) & ~2, (_DWORD*)v3 + 581, v28, v27);
-        sub_4B8960(v10, v2, *(_DWORD*)v3, (_DWORD*)v3 + 743, v28, v27);
-        sub_4B8D40(v10, v2, *((_DWORD*)v3 + 1) & 2, (_DWORD*)v3 + 581, v28, v27);
+        sub_4B8D40(v10, dr, *((_DWORD*)v3 + 1) & ~2, (_DWORD*)v3 + 581, v28, v27);
+        sub_4B8960(v10, dr, *(_DWORD*)v3, (_DWORD*)v3 + 743, v28, v27);
+        sub_4B8D40(v10, dr, *((_DWORD*)v3 + 1) & 2, (_DWORD*)v3 + 581, v28, v27);
     }
 
     if (v30
-        || !sub_4356C0(v2, 0)
-        || *(_DWORD*)(v2 + 128) == *(_DWORD*)& byte_5D4594[2616328]
+        || !sub_4356C0(dr, 0)
+        || dr->field_32 == *(_DWORD*)& byte_5D4594[2616328]
         || *(_DWORD*)& byte_5D4594[2614252] && (sub_4356C0(*(int*)& byte_5D4594[2614252], 21) || v31))
     {
         a1 = sub_4344A0(155, 155, 155);
-        if (!sub_48D830(v2) && !sub_40A5C0(2048))
+        if (!sub_48D830(dr) && !sub_40A5C0(2048))
         {
             v21 = (__int16*)(v3 + 4704);
             sub_43F840(0, (unsigned __int16*)v3 + 2352, &v34, 0, 0);
-            v22 = *v10 + *(_DWORD*)(v2 + 12) + v34 / -2 - v10[4];
-            a2 = v10[1] - v10[5] + *(_DWORD*)(v2 + 16) - 64;
+            v22 = *v10 + dr->field_3 + v34 / -2 - v10[4];
+            int a2 = v10[1] - v10[5] + dr->field_4 - 64;
             sub_434390(*(int*)& byte_5D4594[2614248]);
             sub_43F6E0(0, v21, v22 + 1, a2 + 1);
             sub_434390(a1);
@@ -15425,7 +15424,7 @@ LABEL_37:
             v3 = v32;
             v12 = 0;
         }
-        if (sub_4356C0(v2, 16))
+        if (sub_4356C0(dr, 16))
         {
             v36[2] = nox_win_width;
             v36[8] = nox_win_width;
@@ -15441,13 +15440,13 @@ LABEL_37:
                 *(_DWORD*)& byte_5D4594[1313796] = nox_new_drawable_for_thing(v24);
                 *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313796] + 120) |= 0x1000000u;
             }
-            *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313796] + 12) = *v10 + *(_DWORD*)(v2 + 12) - v10[4];
-            *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313796] + 16) = v10[1] - v10[5] + *(_DWORD*)(v2 + 16) - 50;
+            *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313796] + 12) = *v10 + dr->field_3 - v10[4];
+            *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313796] + 16) = v10[1] - v10[5] + dr->field_4 - 50;
             (*(void(__cdecl * *)(int*, _DWORD))(*(_DWORD*)& byte_5D4594[1313796] + 300))(
                 v36,
                 *(_DWORD*)& byte_5D4594[1313796]);
         }
-        if (sub_4356C0(v2, 30))
+        if (sub_4356C0(dr, 30))
         {
             v36[2] = nox_win_width;
             v36[8] = nox_win_width;
@@ -15463,8 +15462,8 @@ LABEL_37:
                 *(_DWORD*)& byte_5D4594[1313800] = nox_new_drawable_for_thing(v25);
                 *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313800] + 120) |= 0x1000000u;
             }
-            *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313800] + 12) = *v10 + *(_DWORD*)(v2 + 12) - v10[4];
-            *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313800] + 16) = v10[1] - v10[5] + *(_DWORD*)(v2 + 16) - 50;
+            *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313800] + 12) = *v10 + dr->field_3 - v10[4];
+            *(_DWORD*)(*(_DWORD*)& byte_5D4594[1313800] + 16) = v10[1] - v10[5] + dr->field_4 - 50;
             (*(void(__cdecl * *)(int*, _DWORD))(*(_DWORD*)& byte_5D4594[1313800] + 300))(
                 v36,
                 *(_DWORD*)& byte_5D4594[1313800]);
@@ -15472,10 +15471,10 @@ LABEL_37:
         do
             sub_4341D0(v12++, *(int*)& byte_5D4594[2523948]);
         while (v12 < 6);
-        if (v2 != *(_DWORD*)& byte_5D4594[2614252] && sub_470A90())
+        if (dr != *(_DWORD*)& byte_5D4594[2614252] && sub_470A90())
         {
             if (sub_40A5C0(4096))
-                sub_4B8EB0(v10, v2, (unsigned __int8)v3[2282], (*((_DWORD*)v3 + 920) >> 10) & 1);
+                sub_4B8EB0(v10, dr, (unsigned __int8)v3[2282], (*((_DWORD*)v3 + 920) >> 10) & 1);
         }
     }
     return 1;
@@ -15546,7 +15545,7 @@ __int16 __cdecl sub_4B8960(int* a1, int a2, int a3, _DWORD* a4, int a5, int a6)
                     {
                         sub_4B8CA0(a4, (char*)2);
                     }
-                    sub_4C4770(a1, v6, *(_DWORD*)(*(_DWORD*)(v11 + 4 * v6[297] + 4) + 4 * a6));
+                    sub_4C4770_draw(a1, v6, *(_DWORD*)(*(_DWORD*)(v11 + 4 * v6[297] + 4) + 4 * a6));
                     v8 = a3;
                     v30 = 1;
                 }
@@ -15579,7 +15578,7 @@ LABEL_22:
                         {
                             sub_4B8CA0(a4, (char*)(1 << v13));
                         }
-                        sub_4C4770(a1, v6, *(_DWORD*)(*(_DWORD*)(v17 + 4 * v6[297] + 4) + 4 * a6));
+                        sub_4C4770_draw(a1, v6, *(_DWORD*)(*(_DWORD*)(v17 + 4 * v6[297] + 4) + 4 * a6));
                         if (v15)
                             v31 = 1;
                         v8 = a3;
@@ -15611,7 +15610,7 @@ LABEL_22:
             {
                 sub_4B8CA0(a4, (char*)2);
             }
-            sub_4C4770(a1, v6, *(_DWORD*)(*(_DWORD*)(v20 + 4 * v6[297] + 4) + 4 * a6));
+            sub_4C4770_draw(a1, v6, *(_DWORD*)(*(_DWORD*)(v20 + 4 * v6[297] + 4) + 4 * a6));
             v8 = a3;
         }
     }
@@ -15639,7 +15638,7 @@ LABEL_55:
             {
                 sub_4B8CA0(a4, (char*)v22);
             }
-            LOWORD(v22) = sub_4C4770(a1, v6, *(_DWORD*)(*(_DWORD*)(v24 + 4 * v6[297] + 4) + 4 * a6));
+            LOWORD(v22) = sub_4C4770_draw(a1, v6, *(_DWORD*)(*(_DWORD*)(v24 + 4 * v6[297] + 4) + 4 * a6));
         }
     }
     return v22;
@@ -15752,7 +15751,7 @@ __int16 __cdecl sub_4B8D40(int* a1, int a2, int a3, _DWORD* a4, int a5, int a6)
                 {
                     sub_4B8E10(a4, (char*)(1 << v7));
                 }
-                LOWORD(v9) = sub_4C4770(a1, v6, *(_DWORD*)(*(_DWORD*)(v10 + 4 * v6[297] + 4) + 4 * a6));
+                LOWORD(v9) = sub_4C4770_draw(a1, v6, *(_DWORD*)(*(_DWORD*)(v10 + 4 * v6[297] + 4) + 4 * a6));
             }
         }
         ++v7;

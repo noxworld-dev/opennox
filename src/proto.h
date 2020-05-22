@@ -4066,7 +4066,7 @@ int __cdecl nox_thing_spherical_shield_draw(int* a1, _DWORD* a2);
 _DWORD* __cdecl sub_4B8090(unsigned int a1, int a2);
 void __cdecl sub_4B81E0(int, int); // idb
 int sub_4B8220();
-int __cdecl nox_thing_player_draw(int a1, int a2);
+int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr);
 __int16 __cdecl sub_4B8960(int* a1, int a2, int a3, _DWORD* a4, int a5, int a6);
 _DWORD* __cdecl sub_4B8CA0(_DWORD* a1, char* a2);
 __int16 __cdecl sub_4B8D40(int* a1, int a2, int a3, _DWORD* a4, int a5, int a6);
@@ -4109,9 +4109,9 @@ void nullsub_20(void); // weak
 int __cdecl nox_thing_trigger_draw(_DWORD* a1, int a2);
 int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, int a2);
 int __cdecl nox_thing_slave_draw(int* a1, int a2);
-int __cdecl nox_thing_animate_draw(int* a1, int a2);
-int __cdecl nox_thing_animate_state_draw(int* a1, _DWORD* a2);
-int __cdecl nox_thing_maiden_draw(int* a1, int a2);
+int __cdecl nox_thing_animate_draw(_DWORD* a1, nox_drawable* dr);
+int __cdecl nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr);
+int __cdecl nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr);
 void __cdecl sub_4BC080(_DWORD* a1, int a2, unsigned __int16 a3, unsigned __int16 a4, char a5);
 int __cdecl nox_thing_monster_draw(int* a1, int a2);
 char __cdecl sub_4BC490(int a1);
@@ -4121,11 +4121,11 @@ int __cdecl nox_thing_vector_animate_draw(int* a1, int a2);
 int __cdecl sub_4BC720(int a1);
 int __cdecl nox_thing_monster_gen_draw(int* a1, int a2);
 int sub_4BC920();
-int __cdecl nox_thing_cond_animate_draw(int* a1, int a2);
-int __cdecl nox_thing_door_draw(int* a1, int a2);
-int __cdecl nox_thing_static_draw(int* a1, int a2);
-int __cdecl nox_thing_static_random_draw(int* a1, int a2);
-int __cdecl nox_thing_debug_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_cond_animate_draw(_DWORD* a1, nox_drawable* dr);
+int __cdecl nox_thing_door_draw(_DWORD* a1, nox_drawable* dr);
+int __cdecl nox_thing_static_draw(_DWORD* a1, nox_drawable* dr);
+int __cdecl nox_thing_static_random_draw(_DWORD* a1, nox_drawable* dr);
+int __cdecl nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr);
 int __cdecl sub_4BD010(int a1, int2* a2, int a3); // idb
 _DWORD* __cdecl sub_4BD280(int a1, int a2);
 void __cdecl sub_4BD2D0(LPVOID lpMem); // idb
@@ -4308,7 +4308,7 @@ int sub_4C4220();
 int sub_4C4260();
 BOOL sub_4C4280();
 int __cdecl sub_4C42A0(int2* a1, int2* a2, int* a3, int* a4); // idb
-__int16 __cdecl sub_4C4770(int* a1, unsigned __int8* a2, int a3);
+__int16 __cdecl sub_4C4770_draw(int* a1, unsigned __int8* a2, int a3);
 char __cdecl sub_4C4EC0(_DWORD* a1, int a2);
 __int16 __cdecl sub_4C4F40(_DWORD* a1, int a2);
 int sub_4C4FD0();
