@@ -1,3 +1,6 @@
+#include "../network/playback.h"
+#include "../network/mapsend.h"
+
 #include "../../proto.h"
 
 //----- (004D1860) --------------------------------------------------------
@@ -143,7 +146,7 @@ int sub_4D1860_server()
         return 0;
     }
     if (!sub_40A5C0(2048))
-        sub_519EB0();
+        sub_519EB0_net_mapsend();
     sub_4DAC00();
     for (k = sub_4DA7C0(); k; k = sub_4DA7F0(k))
     {
@@ -430,7 +433,7 @@ int sub_4D2580_server()
     sub_5524C0();
     sub_552460();
     if (*(_DWORD*)& byte_5D4594[2650636] & 0x400000)
-        sub_4D3580(1);
+        sub_4D3580_net_playback(1);
     if (*(_DWORD*)& byte_5D4594[2650636] & 0x20000000)
     {
         *(_DWORD*)& v38[4] = (__PAIR64__(v3, v1) - *(_QWORD*)& byte_5D4594[1548684]) >> 32;
