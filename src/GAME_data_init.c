@@ -1,4 +1,6 @@
 #include "server/system/cscrfunc.h"
+#include "server/object/die/die.h"
+#include "server/object/pickdrop/pickup.h"
 #include "client/shell/wolapi/wolchat.h"
 
 #include "proto.h"
@@ -5073,7 +5075,7 @@ void init_data()
     *(void**)& byte_587000[272448] = &byte_587000[272668];
     *(void**)& byte_587000[272452] = &sub_4F37D0;
     *(void**)& byte_587000[272460] = &byte_587000[272684];
-    *(void**)& byte_587000[272464] = &sub_4F3A60;
+    *(void**)& byte_587000[272464] = &sub_4F3A60_obj_pickup;
     *(void**)& byte_587000[272472] = &byte_587000[272696];
     *(void**)& byte_587000[272476] = &sub_4F3B00;
     *(void**)& byte_587000[272484] = &byte_587000[272708];
@@ -5190,9 +5192,9 @@ void init_data()
     *(void**)& byte_587000[274208] = &byte_587000[274424];
     *(void**)& byte_587000[274212] = &sub_54E460;
     *(void**)& byte_587000[274224] = &byte_587000[274436];
-    *(void**)& byte_587000[274228] = &sub_54E370;
+    *(void**)& byte_587000[274228] = &sub_54E370_obj_die;
     *(void**)& byte_587000[274240] = &byte_587000[274448];
-    *(void**)& byte_587000[274244] = &sub_54E170;
+    *(void**)& byte_587000[274244] = &sub_54E170_obj_die;
     *(void**)& byte_587000[274256] = &byte_587000[274460];
     *(void**)& byte_587000[274260] = &sub_54E4B0;
     *(void**)& byte_587000[274272] = &byte_587000[274472];

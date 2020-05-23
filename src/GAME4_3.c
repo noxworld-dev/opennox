@@ -16104,7 +16104,7 @@ void __cdecl sub_544CE0(_DWORD* a1)
         sub_4D9200(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)a1);
         sub_417300(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)a1, 1);
     }
-    sub_4EE500((int)a1);
+    sub_4EE500_obj_health((int)a1);
     sub_537AF0(a1 + 14, 1);
     sub_4E5CC0((int)a1);
 }

@@ -94,6 +94,10 @@ add_executable (
     server/system/server.c
     server/system/trade.c
     server/system/cscrfunc.c
+    server/object/health.c
+    server/object/objutil.c
+    server/object/die/die.c
+    server/object/pickdrop/pickup.c
     server/network/playback.c
     server/network/sdecode.c
     server/network/mapsend.c
