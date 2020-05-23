@@ -1,6 +1,17 @@
 cmake_minimum_required (VERSION 3.11)
 project (nox-port)
 
+# Set default build type
+if (NOT CMAKE_BUILD_TYPE)
+    message (STATUS "Build type not set - defaulting to Release")
+    set (
+        CMAKE_BUILD_TYPE "Release"
+        CACHE
+        STRING
+        "Choose the type of build from: Debug Release RelWithDebInfo MinSizeRel Coverage."
+        FORCE)
+endif ()
+
 option (USE_ASAN "Enable address sanitizer" OFF)
 option (STRICT_MODE "Fail on compilation warnings" OFF)
 
@@ -10,15 +21,15 @@ else ()
     add_compile_options (-g -fno-strict-aliasing -fno-strict-overflow -m32 -fshort-wchar -Werror=return-type)
 
     if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-        add_compile_options(-O0)
-        add_definitions(-DNOX_NO_MOUSE_GRAB)
+        add_compile_options (-O0)
+        add_definitions (-DNOX_NO_MOUSE_GRAB)
     else ()
-        add_compile_options(-O3)
+        add_compile_options (-O3)
     endif ()
 
     if (STRICT_MODE)
-        add_compile_options(-Werror=incompatible-pointer-types)
-        add_compile_options(-Werror=int-conversion)
+        add_compile_options (-Werror=incompatible-pointer-types)
+        add_compile_options (-Werror=int-conversion)
     endif ()
 
     if (USE_ASAN)
@@ -86,8 +97,8 @@ add_executable (
     win.c
     memmap.c
     static.c
-	MixPatch.c
-	GameEx.c
+    MixPatch.c
+    GameEx.c
     memfile.c
     thing.c
     common/system/settings.c
@@ -109,11 +120,11 @@ add_executable (
     client/shell/wolapi/woldlgs.c
     client/shell/wolapi/wolprog.c
     client/shell/wolapi/wolreg.c
-	vqa/aud_decode.cpp
-	vqa/ddpf_conversion.cpp
-	vqa/vqa_decode.cpp
-	vqa/vqa_file.cpp
-	vqa/vqa_public.cpp
+    vqa/aud_decode.cpp
+    vqa/ddpf_conversion.cpp
+    vqa/vqa_decode.cpp
+    vqa/vqa_file.cpp
+    vqa/vqa_public.cpp
     "${COMPAT_SOURCES}"
 )
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
