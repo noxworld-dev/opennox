@@ -94,6 +94,9 @@ add_executable (
     server/system/server.c
     server/system/trade.c
     server/system/cscrfunc.c
+    server/network/playback.c
+    server/network/sdecode.c
+    server/network/mapsend.c
     client/audio/auddiag.c
     client/io/console.c
     client/shell/wolapi/locale.c
