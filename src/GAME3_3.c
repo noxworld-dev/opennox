@@ -2,6 +2,8 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "server/object/health.h"
+
 #include "proto.h"
 
 extern nox_memfile* nox_loaded_thing_bin;
@@ -5045,77 +5047,6 @@ int __cdecl sub_4E7700(int a1)
     if (v1)
         result ^= *v1 ^ v1[1] ^ v1[2];
     return result;
-}
-
-//----- (004E77E0) --------------------------------------------------------
-wchar_t* __cdecl sub_4E77E0(int a1)
-{
-    int v1; // eax
-    _DWORD* v2; // edi
-    _DWORD* v3; // eax
-    _DWORD* v4; // ebx
-    wchar_t* v5; // eax
-    int v7; // eax
-    const wchar_t* v8; // eax
-    int v9; // eax
-    int v10; // eax
-    wchar_t* v11; // eax
-    int v12; // [esp-4h] [ebp-10h]
-
-    v1 = *(_DWORD*)(a1 + 8);
-    if (v1 & 0x13001000)
-    {
-        v2 = *(_DWORD * *)(a1 + 692);
-        if (v1 & 0x11001000)
-            v3 = sub_413250(*(unsigned __int16*)(a1 + 4));
-        else
-            v3 = sub_413270(*(unsigned __int16*)(a1 + 4));
-        v4 = v3;
-        if (!v3)
-        {
-            v12 = sub_4E39D0(a1);
-            v5 = loadString_sub_40F1D0((char*)& byte_587000[203812], 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c", 983);
-            nox_swprintf((wchar_t*)& byte_5D4594[1565660], v5, v12);
-            return (wchar_t*)& byte_5D4594[1565660];
-        }
-        nox_wcscpy((wchar_t*)& byte_5D4594[1565660], (const wchar_t*)& byte_5D4594[1567732]);
-        if (*v2 && *(_DWORD*)(*v2 + 8))
-        {
-            nox_wcscat((wchar_t*)& byte_5D4594[1565660], *(const wchar_t**)(*v2 + 8));
-            nox_wcscat((wchar_t*)& byte_5D4594[1565660], L" ");
-        }
-        v7 = v2[1];
-        if (v7)
-        {
-            v8 = *(const wchar_t**)(v7 + 8);
-            if (v8)
-            {
-                nox_wcscat((wchar_t*)& byte_5D4594[1565660], v8);
-                nox_wcscat((wchar_t*)& byte_5D4594[1565660], L" ");
-            }
-        }
-        if (v4[2])
-            nox_wcscat((wchar_t*)& byte_5D4594[1565660], (const wchar_t*)v4[2]);
-        v9 = v2[2];
-        if (v9 && *(_DWORD*)(v9 + 8))
-        {
-            nox_wcscat((wchar_t*)& byte_5D4594[1565660], L" ");
-            nox_wcscat((wchar_t*)& byte_5D4594[1565660], *(const wchar_t**)(v2[2] + 8));
-        }
-        v10 = v2[3];
-        if (v10 && *(_DWORD*)(v10 + 12))
-        {
-            nox_wcscat((wchar_t*)& byte_5D4594[1565660], L" ");
-            nox_wcscat((wchar_t*)& byte_5D4594[1565660], *(const wchar_t**)(v2[3] + 12));
-            return (wchar_t*)& byte_5D4594[1565660];
-        }
-    }
-    else
-    {
-        v11 = loadString_sub_40F1D0((char*)& byte_587000[203876], 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c", 1032);
-        nox_wcscpy((wchar_t*)& byte_5D4594[1565660], v11);
-    }
-    return (wchar_t*)& byte_5D4594[1565660];
 }
 
 //----- (004E7980) --------------------------------------------------------
@@ -10969,61 +10900,6 @@ void __cdecl sub_4EE4C0(_DWORD* a1)
     }
 }
 
-//----- (004EE500) --------------------------------------------------------
-void __cdecl sub_4EE500(int a1)
-{
-    int v1; // ebx
-    int v2; // esi
-    int v3; // ebp
-    int v4; // edi
-    int v5; // eax
-    double v6; // st7
-    wchar_t* v7; // eax
-
-    v1 = a1;
-    if (a1)
-    {
-        if (sub_40A5C0(2048))
-        {
-            v2 = *(_DWORD*)(a1 + 520);
-            if (v2)
-            {
-                v3 = 1;
-                v4 = sub_4EC580(*(_DWORD*)(a1 + 520));
-                if (*(_BYTE*)(v4 + 8) & 4)
-                {
-                    v5 = 0;
-                    if (v2 == v4)
-                        goto LABEL_12;
-                    do
-                    {
-                        if (v5)
-                            break;
-                        if (*(_BYTE*)(v2 + 8) & 2)
-                        {
-                            v3 = sub_500CC0(v4, v2);
-                            v5 = 1;
-                        }
-                        v2 = *(_DWORD*)(v2 + 508);
-                    } while (v2 != v4);
-                    if (v3)
-                    {
-                        v1 = a1;
-                        LABEL_12:
-                        v6 = sub_4EF270(v4, *(float*)(v1 + 28));
-                        if (v6 > 0.0)
-                        {
-                            v7 = loadString_sub_40F1D0((char*)& byte_587000[206012], 0, "C:\\NoxPost\\src\\Server\\Object\\health.c", 172);
-                            sub_4D9EB0(v4, v7, (unsigned int)(__int64)v6);
-                        }
-                        return;
-                    }
-                }
-            }
-        }
-    }
-}
-
 //----- (004EE5E0) --------------------------------------------------------
 void __cdecl sub_4EE5E0(int a1, int a2)
 {
@@ -11062,7 +10938,7 @@ void __cdecl sub_4EE5E0(int a1, int a2)
                         *(_DWORD*)(a1 + 16) = v4;
                         sub_4FF5B0(a1, 16);
                         if (!sub_534A40(a1))
-                            sub_4EE500(a1);
+                            sub_4EE500_obj_health(a1);
                         if (*(_BYTE*)(a1 + 8) & 2)
                         {
                             sub_50A3D0((_DWORD*)a1);
@@ -15781,36 +15657,6 @@ int __cdecl sub_4F37D0(int a1, int a2, int a3)
     if (v13 == 1)
         sub_501960(832, a1, 0, 0);
     return v13;
-}
-
-//----- (004F3A60) --------------------------------------------------------
-int __cdecl sub_4F3A60(int a1, int a2, int a3)
-{
-    int* v3; // edi
-    wchar_t* v4; // eax
-    int result; // eax
-    int v6; // edi
-    int v7; // [esp-8h] [ebp-10h]
-
-    if (*(_BYTE*)(a1 + 8) & 4)
-    {
-        v3 = *(int**)(a2 + 692);
-        sub_4FA590(a1, *v3);
-        sub_4E5CC0(a2);
-        v7 = *v3;
-        v4 = loadString_sub_40F1D0((char*)& byte_587000[215812], 0, "C:\\NoxPost\\src\\Server\\Object\\pickdrop\\pickup.c", 709);
-        sub_4D9EB0(a1, v4, v7);
-        sub_501960(307, a1, 0, 0);
-        result = 1;
-    }
-    else
-    {
-        v6 = sub_4F31E0(a1, a2, a3);
-        if (v6)
-            sub_501960(307, a1, 0, 0);
-        result = v6;
-    }
-    return result;
 }
 
 //----- (004F3B00) --------------------------------------------------------
