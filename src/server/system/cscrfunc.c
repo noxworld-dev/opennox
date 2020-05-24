@@ -1,5 +1,71 @@
 #include "../../proto.h"
 
+//----- (00512E80) --------------------------------------------------------
+int __cdecl sub_512E80(int a1)
+{
+    int v1; // eax
+
+    v1 = *(_DWORD*)& byte_5D4594[1599628];
+    if (*(int*)& byte_5D4594[1599628] < 1024)
+    {
+        *(_DWORD*)& byte_5D4594[4 * *(_DWORD*)& byte_5D4594[1599628] + 3826092] = a1;
+        *(_DWORD*)& byte_5D4594[1599628] = ++v1;
+    }
+    return v1 - 1;
+}
+
+//----- (00528AC0) --------------------------------------------------------
+int __cdecl sub_528AC0(int a1, wchar_t* a2, wchar_t a3)
+{
+    char v3; // al
+    __int16 v4; // ax
+    double v5; // st7
+    __int64 v6; // rax
+    double v7; // st7
+    int v8; // edi
+    int result; // eax
+    int i; // esi
+    char v11[520]; // [esp+8h] [ebp-208h]
+
+    v11[0] = -88;
+    v11[3] = 0;
+    if (sub_4100F0((__int16*)a2))
+        v3 = v11[3] | 2;
+    else
+        v3 = v11[3] | 4;
+    v11[3] = v3;
+    v4 = sub_578AC0((_DWORD*)a1);
+    v5 = *(float*)(a1 + 56);
+    *(_WORD*)& v11[1] = v4;
+    v6 = (__int64)v5;
+    v7 = *(float*)(a1 + 60);
+    *(_WORD*)& v11[4] = v6;
+    *(_WORD*)& v11[6] = (__int64)v7;
+    *(_WORD*)& v11[9] = a3;
+    v11[8] = nox_wcslen(a2) + 1;
+    if (v11[3] & 4)
+    {
+        nox_wcscpy((wchar_t*)& v11[11], a2);
+        v8 = 2;
+    }
+    else
+    {
+        nox_sprintf(&v11[11], "%S", a2);
+        v8 = 1;
+    }
+    result = sub_4DA7C0();
+    for (i = result; result; i = result)
+    {
+        sub_40EBC0(
+                *(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 2064),
+                1,
+                v11,
+                v8 * (unsigned __int8)v11[8] + 11);
+        result = sub_4DA7F0(i);
+    }
+    return result;
+}
+
 //----- (00512B10) --------------------------------------------------------
 int sub_512B10()
 {

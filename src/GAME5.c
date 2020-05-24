@@ -9703,29 +9703,6 @@ int sub_552460()
     return 0;
 }
 
-//----- (005524C0) --------------------------------------------------------
-void sub_5524C0()
-{
-    unsigned int v0; // edi
-    unsigned int* v1; // esi
-
-    *(_DWORD*)& byte_5D4594[2495920] = nox_get_ticks();
-    v0 = 0;
-    v1 = (unsigned int*)& byte_5D4594[3843788];
-    do
-    {
-        unsigned int result = *v1;
-        if (*v1 && *(_DWORD*)(result + 152) == 1)
-        {
-            _DWORD result = *(_DWORD*)(result + 160) + 300;
-            if (result < *(int*)& byte_5D4594[2598000])
-                result = sub_5545B0(v0);
-        }
-        ++v1;
-        ++v0;
-    } while ((int)v1 < (int)& byte_5D4594[3844300]);
-}
-
 //----- (00552510) --------------------------------------------------------
 int __cdecl sub_552510(unsigned int a1)
 {

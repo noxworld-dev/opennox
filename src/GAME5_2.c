@@ -3990,24 +3990,6 @@ int sub_578F30()
     return result;
 }
 
-//----- (00578FC0) --------------------------------------------------------
-char* sub_578FC0()
-{
-    char* result; // eax
-
-    result = *(char**)& byte_5D4594[2523744];
-    if (*(_DWORD*)& byte_5D4594[2523744])
-    {
-        result = (char*)sub_578FF0();
-        if (*(_WORD*)& byte_5D4594[2523738] > 0)
-        {
-            if (byte_5D4594[2598000] & 1)
-                result = sub_579190();
-        }
-    }
-    return result;
-}
-
 //----- (00578FF0) --------------------------------------------------------
 int sub_578FF0()
 {
@@ -5737,22 +5719,6 @@ void sub_57B0A0()
     if (!sub_45D9B0())
         sub_413A00(0);
     *(_DWORD*)& byte_5D4594[2523804] = 0;
-}
-
-//----- (0057B140) --------------------------------------------------------
-BOOL sub_57B140()
-{
-    unsigned __int64 v0; // rdi
-    BOOL result; // eax
-
-    result = 0;
-    if (*(_QWORD*)& byte_5D4594[2523796])
-    {
-        v0 = sub_57B180() + 5000;
-        if (v0 < sub_416BB0())
-            result = 1;
-    }
-    return result;
 }
 
 //----- (0057B180) --------------------------------------------------------
@@ -10381,10 +10347,6 @@ int __thiscall sub_558810(int (**this)(void))
 BOOL sub_444D90()
 {
     return 0;
-}
-int sub_46DCB0(void)
-{
-    return sub_46DCC0();
 }
 void sub_511840(void)
 {

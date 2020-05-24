@@ -11580,65 +11580,6 @@ int __cdecl sub_425F10(int a1)
     return result;
 }
 
-//----- (00426060) --------------------------------------------------------
-LPVOID sub_426060()
-{
-    char* v0; // eax
-    char* i; // eax
-    char* v2; // eax
-    char* j; // esi
-    LPVOID result; // eax
-    char* v5; // edi
-    char* v6; // esi
-    int v7; // [esp-4h] [ebp-4h]
-
-    *(_DWORD*)& byte_5D4594[608316] = 0;
-    *(_DWORD*)& byte_5D4594[600116] = time(0);
-    v7 = sub_5545A0();
-    v0 = sub_554230();
-    sub_4282D0(v0, v7);
-    if (!sub_40A5C0(0x2000) || sub_40A5C0(4096))
-    {
-        result = (LPVOID)sub_40A5C0(4096);
-        if (result)
-        {
-            result = (LPVOID)sub_40A5C0(4096);
-            if (result)
-            {
-                v5 = sub_416640();
-                v6 = sub_416590(0);
-                *(_WORD*)& byte_5D4594[739396] = sub_40A770();
-                *(_DWORD*)& byte_5D4594[739400] = *((_DWORD*)v5 + 10);
-                *(_DWORD*)& byte_5D4594[739404] = sub_4200E0();
-                byte_5D4594[739412] = (v6[53] & 0xC0) != 0;
-                *(_DWORD*)& byte_5D4594[739408] = 5;
-                strncpy((char*)& byte_5D4594[739676], v6 + 9, 0xFu);
-                byte_5D4594[739691] = 0;
-                strncpy((char*)& byte_5D4594[739420], v6, 8u);
-                byte_5D4594[739428] = 0;
-                result = sub_4289D0((LPVOID*)& byte_5D4594[739396]);
-            }
-        }
-    }
-    else
-    {
-        for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
-            * ((_DWORD*)i + 1162) = -1;
-        v2 = sub_417090(31);
-        if (v2)
-            sub_425F10((int)v2);
-        for (j = sub_416EA0(); j; j = sub_416EE0((int)j))
-        {
-            if (j[2064] != 31)
-                sub_425F10((int)j);
-        }
-        sub_426150();
-        result = (LPVOID)sub_428810((int)& byte_5D4594[599476], 0);
-        *(_WORD*)& byte_5D4594[599482] = 0;
-    }
-    return result;
-}
-
 //----- (00426150) --------------------------------------------------------
 char* sub_426150()
 {

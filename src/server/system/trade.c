@@ -1,4 +1,360 @@
+#include "../dbase/objdb.h"
+
 #include "../../proto.h"
+
+//----- (0050E7A0) --------------------------------------------------------
+int __cdecl sub_50E7A0(_DWORD* a1, int a2)
+{
+    int* v2; // esi
+    int v4; // eax
+    int v5; // eax
+    int v6; // eax
+
+    v2 = (int*)a1[5];
+    if (!v2)
+        return 0;
+    while (*v2 != a2)
+    {
+        v2 = (int*)v2[2];
+        if (!v2)
+            return 0;
+    }
+    v4 = v2[2];
+    if (v4)
+        * (_DWORD*)(v4 + 12) = v2[3];
+    v5 = v2[3];
+    if (v5)
+        * (_DWORD*)(v5 + 8) = v2[2];
+    if (v2 == (int*)a1[5])
+        a1[5] = v2[2];
+    v6 = a1[2];
+    if (!(*(_BYTE*)(v6 + 8) & 4))
+        v6 = a1[3];
+    sub_50E820(v6, *v2);
+    sub_414330(*(unsigned int**)& byte_5D4594[2386496], v2);
+    return 1;
+}
+
+//----- (0050E8F0) --------------------------------------------------------
+_DWORD* __cdecl sub_50E8F0(int a1, int a2)
+{
+    int v2; // ebx
+    int v3; // eax
+    _DWORD* v4; // esi
+    _DWORD* result; // eax
+
+    v2 = 0;
+    if (sub_40A5C0(4096)
+        && (v3 = *(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064),
+            v4 = *(_DWORD * *)& byte_5D4594[4 * v3 + 2386364],
+            *(_DWORD*)& byte_5D4594[4 * v3 + 2386364] = 0,
+            v4))
+    {
+        v2 = 1;
+    }
+    else
+    {
+        result = sub_50E870();
+        v4 = result;
+        if (!result)
+            return result;
+    }
+    v4[2] = a1;
+    v4[3] = a2;
+    v4[4] = 1;
+    if (!v2)
+        sub_50E970((int)v4);
+    return v4;
+}
+
+//----- (0050F0F0) --------------------------------------------------------
+int __cdecl sub_50F0F0(int a1, int a2)
+{
+    int v2; // ebx
+    int v3; // ebp
+    wchar_t* v4; // eax
+    char v6[86]; // [esp+10h] [ebp-58h]
+
+    *(_WORD*)v6 = 3529;
+    v2 = *(_DWORD*)(a2 + 8);
+    if (*(_BYTE*)(v2 + 8) & 4)
+    {
+        v3 = *(_DWORD*)(a2 + 8);
+        v2 = *(_DWORD*)(a2 + 12);
+    }
+    else
+    {
+        v3 = *(_DWORD*)(a2 + 12);
+    }
+    v4 = sub_4E39F0_obj_db((const char**)v2);
+    nox_wcsncpy((wchar_t*)& v6[4], v4, 0x18u);
+    *(_WORD*)& v6[52] = 0;
+    strcpy(&v6[54], (const char*)(*(_DWORD*)(v2 + 692) + 1684));
+    *(_WORD*)& v6[2] = *(_WORD*)(v2 + 4);
+    return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(v3 + 748) + 276) + 2064), (int)v6, 86, 0, 1);
+}
+
+//----- (0050F1A0) --------------------------------------------------------
+int __cdecl sub_50F1A0(int a1, int a2)
+{
+    int v2; // eax
+    int v3; // esi
+    int v4; // edx
+    wchar_t* v6; // [esp-8h] [ebp-40h]
+    wchar_t* v7; // [esp-8h] [ebp-40h]
+    char v8[52]; // [esp+4h] [ebp-34h]
+
+    *(_WORD*)v8 = 3273;
+    v2 = *(_DWORD*)(a2 + 8);
+    v3 = *(_DWORD*)(a1 + 748);
+    if (a1 != v2)
+    {
+        if (*(_BYTE*)(v2 + 8) & 4)
+        {
+            nox_wcscpy((wchar_t*)& v8[2], (const wchar_t*)(*(_DWORD*)(*(_DWORD*)(v2 + 748) + 276) + 4704));
+            return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
+        }
+        v7 = sub_4E39F0_obj_db(*(const char***)(a2 + 12));
+        nox_wcsncpy((wchar_t*)& v8[2], v7, 0x18u);
+        LABEL_8:
+        *(_WORD*)& v8[50] = 0;
+        return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
+    }
+    v4 = *(_DWORD*)(a2 + 12);
+    if (!(*(_BYTE*)(v4 + 8) & 4))
+    {
+        v6 = sub_4E39F0_obj_db((const char**)v4);
+        nox_wcsncpy((wchar_t*)& v8[2], v6, 0x18u);
+        goto LABEL_8;
+    }
+    nox_wcscpy((wchar_t*)& v8[2], (const wchar_t*)(*(_DWORD*)(*(_DWORD*)(v4 + 748) + 276) + 4704));
+    return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
+}
+
+//----- (0050F280) --------------------------------------------------------
+int __cdecl sub_50F280(int a1, int a2)
+{
+    int result; // eax
+    _DWORD* i; // esi
+
+    result = a2;
+    for (i = *(_DWORD * *)(a2 + 20); i; i = (_DWORD*)i[2])
+        result = sub_50F2B0(a1, i);
+    return result;
+}
+
+//----- (0050F370) --------------------------------------------------------
+_DWORD* __cdecl sub_50F370(_DWORD* a1, int a2)
+{
+    _DWORD* result; // eax
+
+    result = a1;
+    *a1 = 1;
+    if (*(_BYTE*)(a2 + 8) & 4)
+        * (_DWORD*)(*(_DWORD*)(a2 + 748) + 280) = a1;
+    return result;
+}
+
+//----- (0050FAE0) --------------------------------------------------------
+int __cdecl sub_50FAE0(int a1, int a2, int a3, int a4, int a5)
+{
+    int v5; // esi
+    __int16 v6; // dx
+    int v7; // ecx
+    int v8; // edx
+    int i; // eax
+    char v11[15]; // [esp+4h] [ebp-10h]
+
+    v5 = *(_DWORD*)(a1 + 748);
+    v11[0] = -55;
+    v11[2] = a1 == a2;
+    v11[1] = 4;
+    v6 = *(_WORD*)(a4 + 36);
+    *(_WORD*)& v11[3] = *(_WORD*)(a4 + 4);
+    *(_DWORD*)& v11[7] = a5;
+    v7 = *(_DWORD*)(a4 + 8);
+    *(_WORD*)& v11[5] = v6;
+    if (v7 & 0x13001000)
+    {
+        v8 = *(_DWORD*)(a4 + 692);
+        for (i = 0; i < 4; ++i)
+        {
+            if (*(_DWORD*)v8)
+                v11[i + 11] = *(_BYTE*)(*(_DWORD*)v8 + 4);
+            else
+                v11[i + 11] = -1;
+            v8 += 4;
+        }
+    }
+    else
+    {
+        *(_DWORD*)& v11[11] = -1;
+    }
+    return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), (int)v11, 15, 0, 1);
+}
+
+//----- (0050FD60) --------------------------------------------------------
+BOOL __cdecl sub_50FD60(_DWORD* a1, int a2)
+{
+    _DWORD* v2; // esi
+    unsigned int v3; // edi
+    unsigned int v4; // ecx
+    int v5; // eax
+    int* v6; // edx
+    int v7; // ecx
+    int v8; // eax
+    int v9; // edx
+    int* i; // ecx
+    int v12[4]; // [esp+8h] [ebp-20h]
+    int v13[4]; // [esp+18h] [ebp-10h]
+
+    v13[0] = 0;
+    v12[0] = 0;
+    v2 = a1;
+    v13[1] = 0;
+    v12[1] = 0;
+    v3 = 0;
+    v13[2] = 0;
+    v12[2] = 0;
+    v13[3] = 0;
+    for (v12[3] = 0; v2; v2 = (_DWORD*)v2[2])
+    {
+        v4 = 0;
+        v5 = *(unsigned __int16*)(*v2 + 4);
+        v6 = v13;
+        while (*v6 != v5)
+        {
+            ++v4;
+            ++v6;
+            if (v4 >= 4)
+            {
+                v7 = v12[v3];
+                v13[v3] = v5;
+                v12[v3++] = v7 + 1;
+                goto LABEL_6;
+            }
+        }
+        ++v12[v4];
+        LABEL_6:
+        ;
+    }
+    v8 = 0;
+    if (!v3)
+        return 1;
+    HIWORD(v9) = 0;
+    for (i = v13; ; ++i)
+    {
+        LOWORD(v9) = *(_WORD*)(a2 + 4);
+        if (*i == v9 && !(*(_DWORD*)(a2 + 8) & 0x13001000))
+            break;
+        if (++v8 >= v3)
+            return v3 < 4;
+    }
+    return 1;
+}
+
+//----- (00510320) --------------------------------------------------------
+void __cdecl sub_510320(int a1, int a2)
+{
+    int v2; // ecx
+    _BYTE* v3; // ebp
+    int v4; // eax
+    int v5; // esi
+    char v6; // cl
+    int v7; // edx
+    int v8; // eax
+
+    if (a1 && a2)
+    {
+        v2 = *(_DWORD*)(a2 + 8);
+        if (*(_BYTE*)(v2 + 8) & 4)
+            v2 = *(_DWORD*)(a2 + 12);
+        v3 = *(_BYTE * *)(v2 + 692);
+        v4 = sub_5103A0(a2, a1);
+        if (v4 != -1)
+        {
+            v5 = (int)& v3[28 * v4];
+            v6 = v3[28 * v4 + 8] - 1;
+            *(_BYTE*)(v5 + 8) = v6;
+            if (!v6)
+            {
+                v7 = v4;
+                if (v4 < (unsigned __int8)* v3 - 1)
+                {
+                    v8 = v5 + 4;
+                    do
+                    {
+                        ++v7;
+                        qmemcpy((void*)v8, (const void*)(v8 + 28), 0x1Cu);
+                        v8 += 28;
+                    } while (v7 < (unsigned __int8)* v3 - 1);
+                }
+                --* v3;
+            }
+        }
+    }
+}
+
+//----- (005104F0) --------------------------------------------------------
+int __cdecl sub_5104F0(int a1, __int16 a2)
+{
+    int v2; // eax
+    char v4[4]; // [esp+0h] [ebp-4h]
+
+    *(_WORD*)& v4[2] = a2;
+    v2 = *(_DWORD*)(a1 + 748);
+    v4[0] = -55;
+    v4[1] = 27;
+    return sub_4E5420(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064), v4, 4, 0, 1);
+}
+
+//----- (00510540) --------------------------------------------------------
+int __cdecl sub_510540(int a1)
+{
+    int v1; // eax
+    int result; // eax
+
+    if (!sub_40A5C0(4096))
+        goto LABEL_12;
+    if (!*(_DWORD*)& byte_5D4594[2386520])
+    {
+        *(_DWORD*)& byte_5D4594[2386520] = sub_4E3AA0((CHAR*)& byte_587000[236324]);
+        *(_DWORD*)& byte_5D4594[2386528] = sub_4E3AA0((CHAR*)& byte_587000[236332]);
+        *(_DWORD*)& byte_5D4594[2386524] = sub_4E3AA0((CHAR*)& byte_587000[236340]);
+        *(_DWORD*)& byte_5D4594[2386532] = sub_4E3AA0((CHAR*)& byte_587000[236348]);
+    }
+    v1 = *(unsigned __int16*)(a1 + 4);
+    if ((unsigned __int16)v1 == *(_DWORD*)& byte_5D4594[2386520]
+        || v1 == *(_DWORD*)& byte_5D4594[2386524]
+        || v1 == *(_DWORD*)& byte_5D4594[2386528]
+        || v1 == *(_DWORD*)& byte_5D4594[2386532])
+    {
+        result = 0;
+    }
+    else
+    {
+        LABEL_12:
+        result = 1;
+    }
+    return result;
+}
+
+//----- (005105D0) --------------------------------------------------------
+BOOL __cdecl sub_5105D0(int a1)
+{
+    int v1; // eax
+
+    if (!*(_DWORD*)& byte_5D4594[2386536])
+    {
+        *(_DWORD*)& byte_5D4594[2386536] = sub_4E3AA0((CHAR*)& byte_587000[236364]);
+        *(_DWORD*)& byte_5D4594[2386544] = sub_4E3AA0((CHAR*)& byte_587000[236372]);
+        *(_DWORD*)& byte_5D4594[2386540] = sub_4E3AA0((CHAR*)& byte_587000[236380]);
+    }
+    v1 = *(unsigned __int16*)(a1 + 4);
+    return (unsigned __int16)v1 == *(_DWORD*)& byte_5D4594[2386536]
+           || v1 == *(_DWORD*)& byte_5D4594[2386540]
+           || v1 == *(_DWORD*)& byte_5D4594[2386544];
+}
 
 //----- (0050EF10) --------------------------------------------------------
 _DWORD* __cdecl sub_50EF10_trade(int a1, int a2)
