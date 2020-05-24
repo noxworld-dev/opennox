@@ -1,4 +1,5 @@
 #include "drawable.h"
+#include "../draw/animdraw.h"
 #include "../../proto.h"
 
 extern nox_alloc_class* nox_alloc_drawable;
