@@ -6331,7 +6331,6 @@ float* __cdecl sub_5224B0(int a1, int a2, int a3);
 int __cdecl sub_5226D0(int, float, int); // idb
 int __cdecl sub_5227B0(int a1, float* a2);
 int __cdecl sub_522810(float* a1, char* a2);
-void __cdecl sub_5228B0(int a1);
 int __cdecl sub_522A40(int a1);
 float* __cdecl sub_522AD0(float* a1, int a2);
 float* __cdecl sub_522C80(float* a1);

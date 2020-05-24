@@ -112,6 +112,7 @@ add_executable (
     server/dbase/objdb.c
     server/gamemech/explevel.c
     server/xfer/savegame/savegame.c
+    server/mapgen/generate/populate.c
     server/network/playback.c
     server/network/sdecode.c
     server/network/mapsend.c
