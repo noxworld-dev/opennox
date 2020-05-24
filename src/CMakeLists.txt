@@ -114,6 +114,7 @@ add_executable (
     server/network/mapsend.c
     client/audio/auddiag.c
     client/draw/animdraw.c
+    client/draw/canidraw.c
     client/drawable/drawable.c
     client/io/console.c
     client/shell/wolapi/locale.c
