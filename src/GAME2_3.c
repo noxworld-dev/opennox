@@ -1,5 +1,6 @@
 #include "client/draw/animdraw.h"
 #include "client/drawable/drawable.h"
+#include "client/gui/guimsg.h"
 #include "proto.h"
 
 extern int nox_win_width;
