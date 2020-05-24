@@ -1,5 +1,6 @@
 #include "../network/playback.h"
 #include "../network/mapsend.h"
+#include "../xfer/savegame/savegame.h"
 
 #include "../../proto.h"
 
@@ -596,7 +597,7 @@ int sub_4D2580_server()
                         }
                         sub_40A4D0(0x8000000);
                         v26 = sub_4DB160();
-                        v23 = sub_4DB370((const char*)v26);
+                        v23 = sub_4DB370_savegame((const char*)v26);
                         sub_40A540(0x8000000);
                         if (!v23 && sub_40A5C0(2))
                         {

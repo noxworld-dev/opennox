@@ -109,6 +109,9 @@ add_executable (
     server/object/objutil.c
     server/object/die/die.c
     server/object/pickdrop/pickup.c
+    server/dbase/objdb.c
+    server/gamemech/explevel.c
+    server/xfer/savegame/savegame.c
     server/network/playback.c
     server/network/sdecode.c
     server/network/mapsend.c

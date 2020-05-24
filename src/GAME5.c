@@ -4,6 +4,8 @@
    Detected compiler: Visual C++
 */
 #include <float.h>
+#include "server/dbase/objdb.h"
+
 #include "proto.h"
 
 //-------------------------------------------------------------------------
@@ -3040,7 +3042,7 @@ char __cdecl sub_548DE0(int a1, int a2, int a3, const char* a4)
         v8[0] = -48;
         v8[1] = 3;
         strcpy(&v8[2], a4);
-        v7 = sub_4E39F0((const char**)a2);
+        v7 = sub_4E39F0_obj_db((const char**)a2);
         nox_wcsncpy((wchar_t*)& v8[34], v7, 0x1Fu);
         *(_WORD*)& v8[96] = 0;
         v8[134] = *(_BYTE*)(v5 + 2104);
