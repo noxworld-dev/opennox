@@ -1,3 +1,4 @@
+#include "client/draw/animdraw.h"
 #include "client/drawable/drawable.h"
 #include "proto.h"
 
