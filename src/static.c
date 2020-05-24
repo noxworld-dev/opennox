@@ -1,3 +1,5 @@
+#include "common/object/modifier.h"
+
 #include "proto.h"
 
 void nullsub_38() {}

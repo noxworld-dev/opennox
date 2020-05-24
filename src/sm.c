@@ -2,6 +2,8 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common/system/team.h"
+
 #include "proto.h"
 
 extern int default_win_width;

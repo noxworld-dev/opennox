@@ -1,6 +1,7 @@
+#include "common/system/team.h"
+#include "common/system/settings.h"
 #include "client/drawable/drawable.h"
 #include "client/gui/guimsg.h"
-#include "common/system/settings.h"
 #include "client/audio/auddiag.h"
 #include "client/io/console.h"
 
