@@ -1984,7 +1984,6 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam); // 
 int sub_4453A0_poll_events();
 int sub_445440();
 wchar_t* sub_445450();
-void __cdecl sub_445490(wchar_t* a1);
 int sub_445530();
 int __cdecl sub_4456E0(int* a1);
 int __cdecl sub_445730(int a1);

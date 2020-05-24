@@ -1,3 +1,5 @@
+#include "../../client/gui/guimsg.h"
+
 #include "../../proto.h"
 
 
