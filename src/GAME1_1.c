@@ -1,3 +1,6 @@
+#include "server/magic/plyrgide.h"
+#include "server/magic/plyrspel.h"
+#include "server/ability/ability.h"
 #include "client/shell/wolapi/wollogin.h"
 #include "client/shell/wolapi/wolreg.h"
 #include "client/shell/wolapi/wolprog.h"
@@ -2394,7 +2397,7 @@ BOOL __cdecl sub_41B420(int a1)
                         break;
                 }
                 v10 = sub_427010(v16);
-                sub_4FAE80(a1, v10, 0);
+                sub_4FAE80_magic_plyrgide(a1, v10, 0);
                 if (++v8 >= (unsigned __int8)v13)
                     return 1;
             }
@@ -2512,12 +2515,12 @@ int __cdecl sub_41B660(int a1)
                 {
                     v18 = v23;
                     v15 = sub_4243F0(v24);
-                    sub_4FB550(a1, v15, 0, 0, v18);
+                    sub_4FB550_magic_plyrspel(a1, v15, 0, 0, v18);
                 }
                 else
                 {
                     v14 = sub_424D80(v24);
-                    sub_4FB9C0(a1, v14, 0);
+                    sub_4FB9C0_ability(a1, v14, 0);
                 }
                 if (++v11 >= (unsigned __int8)v20)
                     return 1;
