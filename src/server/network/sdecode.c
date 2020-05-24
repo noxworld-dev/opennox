@@ -1,5 +1,6 @@
-#include "mapsend.h"
+#include "../../common/system/team.h"
 #include "../system/trade.h"
+#include "mapsend.h"
 
 #include "../../proto.h"
 

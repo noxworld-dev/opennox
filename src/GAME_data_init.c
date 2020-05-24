@@ -1,3 +1,4 @@
+#include "common/object/modifier.h"
 #include "server/system/cscrfunc.h"
 #include "server/object/die/die.h"
 #include "server/object/pickdrop/pickup.h"

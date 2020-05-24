@@ -3,6 +3,7 @@
 #endif
 
 #include "common/system/settings.h"
+#include "common/system/gamedisk.h"
 #include "client/io/console.h"
 #include "client/draw/animdraw.h"
 #include "client/draw/canidraw.h"
@@ -2582,7 +2583,7 @@ void mainloop()
     }
     sub_416C70(30);
     sub_4453A0_poll_events();
-    sub_413520();
+    sub_413520_gamedisk();
     sub_435770();
     if (!(*(int (**)(void)) & byte_5D4594[816388])())
     {
