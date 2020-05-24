@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "client/drawable/drawable.h"
 #include "client/shell/wolapi/locale.h"
 #include "client/shell/wolapi/wollogin.h"
 

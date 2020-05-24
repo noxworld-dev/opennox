@@ -113,6 +113,7 @@ add_executable (
     server/network/sdecode.c
     server/network/mapsend.c
     client/audio/auddiag.c
+    client/drawable/drawable.c
     client/io/console.c
     client/shell/wolapi/locale.c
     client/shell/wolapi/wolchat.c

@@ -1,3 +1,4 @@
+#include "client/drawable/drawable.h"
 #include "common/system/settings.h"
 #include "client/audio/auddiag.h"
 #include "client/io/console.h"
@@ -9279,54 +9280,6 @@ void nox_drawable_free()
     nox_drawable_head_unk3 = 0;
     nox_drawable_head_unk4 = 0;
     nox_drawable_count = 0;
-}
-
-//----- (0045A240) --------------------------------------------------------
-nox_drawable* __cdecl nox_new_drawable_for_thing(int i)
-{
-    int v4; // eax
-
-    nox_drawable* v1 = (nox_drawable*)nox_alloc_class_new_obj_zero(nox_alloc_drawable);
-    if (!v1) {
-        v1 = sub_45A330_drawable();
-    }
-    if (!v1)
-        return 0;
-
-    if (!nox_drawable_link_thing(v1, i))
-        return 0;
-
-    int(__cdecl * draw_fnc)(_DWORD*, nox_drawable*);
-    draw_fnc = v1->draw_func;
-    if (draw_fnc == nox_thing_static_random_draw)
-    {
-        v4 = sub_415FF0(0, *(unsigned __int8*)(v1->field_76 + 8) - 1, "C:\\NoxPost\\src\\Client\\Drawable\\drawable.c", 401);
-        sub_45AB80(v1, v4);
-    }
-    else if (draw_fnc == nox_thing_red_spark_draw || draw_fnc == nox_thing_blue_spark_draw || draw_fnc == nox_thing_yellow_spark_draw || draw_fnc == nox_thing_green_spark_draw || draw_fnc == nox_thing_cyan_spark_draw)
-    {
-        *((_WORD*)v1 + 26*2) = 35;
-        *((_BYTE*)v1 + 74*4) = 2;
-    }
-    else
-    {
-        sub_45AB80(v1, 0);
-    }
-    v1->field_79 = *(_DWORD*)& byte_5D4594[2598000];
-    v1->field_85 = *(_DWORD*)& byte_5D4594[2598000];
-    nox_drawable_count++;
-    v1->field_120 = 0;
-    v1->field_121 = 0;
-    return v1;
-}
-
-//----- (0045A330) --------------------------------------------------------
-void* sub_45A330_drawable()
-{
-    if (!nox_drawable_head_unk4)
-        return 0;
-    sub_45A4E0_drawable(nox_drawable_head_unk4);
-    return nox_alloc_class_new_obj_zero(nox_alloc_drawable);
 }
 
 //----- (0045A360) --------------------------------------------------------

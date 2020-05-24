@@ -1,3 +1,4 @@
+#include "client/drawable/drawable.h"
 #include "client/shell/wolapi/wollogin.h"
 #include "client/shell/wolapi/wolreg.h"
 

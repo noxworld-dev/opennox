@@ -2460,8 +2460,7 @@ _DWORD* __cdecl sub_45A110_drawable(nox_drawable* a1);
 void __cdecl sub_45A160_drawable(nox_drawable* a1);
 BOOL __cdecl nox_alloc_drawable_init(int cnt);
 void nox_drawable_free();
-nox_drawable* __cdecl nox_new_drawable_for_thing(int i);
-void* sub_45A330_drawable();
+
 nox_drawable* __cdecl sub_45A360_drawable(int thingInd, int a2, int a3);
 void __cdecl sub_45A480_drawable(int a1);
 int __cdecl sub_45A4B0(_QWORD* a1);
