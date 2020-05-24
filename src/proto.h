@@ -1986,7 +1986,6 @@ int sub_445440();
 wchar_t* sub_445450();
 void __cdecl sub_445490(wchar_t* a1);
 int sub_445530();
-int sub_445650();
 int __cdecl sub_4456E0(int* a1);
 int __cdecl sub_445730(int a1);
 BOOL sub_445750();

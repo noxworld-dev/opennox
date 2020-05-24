@@ -6,6 +6,7 @@
 #include "client/io/console.h"
 #include "client/draw/animdraw.h"
 #include "client/draw/canidraw.h"
+#include "client/gui/chaticon.h"
 #include "client/shell/wolapi/locale.h"
 #include "client/shell/wolapi/wolchat.h"
 #include "client/shell/wolapi/wollogin.h"
@@ -8227,27 +8228,6 @@ int sub_445530()
             break;
     }
     return result;
-}
-
-//----- (00445650) --------------------------------------------------------
-int sub_445650()
-{
-    wchar_t* v0; // eax
-
-    *(_DWORD*)& byte_5D4594[825748] = sub_42F970("ChatIcon");
-    *(_DWORD*)& byte_5D4594[825744] = nox_window_new(
-            0,
-            136,
-            nox_win_width - 50,
-            nox_win_height / 2 - 50,
-            50,
-            50,
-            0);
-    sub_46AE60(*(int*)& byte_5D4594[825744], *(int*)& byte_5D4594[825748]);
-    nox_window_set_all_funcs(*(_DWORD * *)& byte_5D4594[825744], 0, sub_4456E0, 0);
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[107980], 0, "C:\\NoxPost\\src\\client\\Gui\\chaticon.c", 73);
-    sub_46B000((wchar_t*)(*(_DWORD*)& byte_5D4594[825744] + 36), v0);
-    return 1;
 }
 
 //----- (004456E0) --------------------------------------------------------
