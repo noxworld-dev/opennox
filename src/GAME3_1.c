@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "client/drawable/drawable.h"
 #include "proto.h"
 
 extern int nox_win_width;
