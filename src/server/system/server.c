@@ -6,6 +6,13 @@
 
 #include "../../proto.h"
 
+void nullsub_21(void)
+{
+}
+void nullsub_25(_DWORD a1)
+{
+}
+
 //----- (00413980) --------------------------------------------------------
 void __cdecl sub_413980(int a1)
 {
