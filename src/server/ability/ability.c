@@ -2,6 +2,26 @@
 
 #include "../../proto.h"
 
+//----- (004D8060) --------------------------------------------------------
+int __cdecl sub_4D8060(int a1, int a2, int a3)
+{
+    int result; // eax
+    int v4; // eax
+
+    result = a1;
+    if (*(_BYTE*)(a1 + 8) & 4)
+    {
+        v4 = *(_DWORD*)(a1 + 748);
+        LOBYTE(a1) = -51;
+        BYTE1(a1) = a2;
+        BYTE2(a1) = *(_BYTE*)(*(_DWORD*)(v4 + 276) + 4 * a2 + 3696);
+        if (a3)
+            BYTE2(a1) |= 0x80u;
+        result = sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v4 + 276) + 2064), (int)& a1, 3, 0, 1);
+    }
+    return result;
+}
+
 //----- (004FB960) --------------------------------------------------------
 void __cdecl sub_4FB960_ability(int a1)
 {
