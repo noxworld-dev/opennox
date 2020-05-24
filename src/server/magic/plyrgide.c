@@ -1,5 +1,25 @@
 #include "../../proto.h"
 
+//----- (004D8000) --------------------------------------------------------
+int __cdecl sub_4D8000(int a1, char a2, char a3, int a4)
+{
+    int result; // eax
+    int v5; // ecx
+
+    result = a1;
+    if (*(_BYTE*)(a1 + 8) & 4)
+    {
+        v5 = *(_DWORD*)(a1 + 748);
+        BYTE1(a1) = a2;
+        LOBYTE(a1) = -47;
+        BYTE2(a1) = a3;
+        if (a4)
+            BYTE2(a1) = a3 | 0x80;
+        result = sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), (int)& a1, 3, 0, 1);
+    }
+    return result;
+}
+
 //----- (004FAE80) --------------------------------------------------------
 int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3)
 {

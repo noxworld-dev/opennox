@@ -3264,28 +3264,6 @@ _DWORD* __cdecl sub_56F920(int a1, int a2)
     return result;
 }
 
-//----- (0056F980) --------------------------------------------------------
-_DWORD* __cdecl sub_56F980(int a1, unsigned __int8 a2)
-{
-    _DWORD* result; // eax
-    int v3; // ecx
-
-    result = (_DWORD*)a1;
-    if (a1 >= 657757279)
-    {
-        result = sub_56F590(a1);
-        if (result)
-        {
-            *(_DWORD*)& byte_5D4594[2516328] ^= result[1];
-            v3 = *(_DWORD*)& byte_5D4594[2516348] ^ (a2 + (*(_DWORD*)& byte_5D4594[2516348] ^ result[1]));
-            result[1] = v3;
-            *(_DWORD*)& byte_5D4594[2516328] ^= v3;
-            result = (_DWORD*)sub_56F5C0();
-        }
-    }
-    return result;
-}
-
 //----- (0056F9E0) --------------------------------------------------------
 _DWORD* __cdecl sub_56F9E0(int a1, __int16 a2)
 {

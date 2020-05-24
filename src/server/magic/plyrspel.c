@@ -2,6 +2,32 @@
 
 #include "../../proto.h"
 
+//----- (00424850) --------------------------------------------------------
+BOOL __cdecl sub_424850(void* a1)
+{
+    return a1 == *(void**)& byte_587000[66120];
+}
+
+//----- (004D7F90) --------------------------------------------------------
+int __cdecl sub_4D7F90(int a1, int a2, char a3, int a4)
+{
+    int result; // eax
+    int v5; // eax
+
+    result = a1;
+    if (*(_BYTE*)(a1 + 8) & 4)
+    {
+        v5 = *(_DWORD*)(a1 + 748);
+        LOBYTE(a1) = 111;
+        BYTE1(a1) = a2;
+        BYTE2(a1) = *(_BYTE*)(*(_DWORD*)(v5 + 276) + 4 * a2 + 3696);
+        HIBYTE(a1) = a3;
+        if (a4)
+            HIBYTE(a1) = a3 | 0x80;
+        result = sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), (int)& a1, 4, 0, 1);
+    }
+    return result;
+}
 
 //----- (004FB0B0) --------------------------------------------------------
 void __cdecl sub_4FB0B0_magic_plyrspel(int a1)
