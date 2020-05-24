@@ -124,6 +124,7 @@ add_executable (
     client/draw/animdraw.c
     client/draw/canidraw.c
     client/draw/mgendraw.c
+    client/draw/vectdraw.c
     client/drawable/drawable.c
     client/io/console.c
     client/shell/wolapi/locale.c
