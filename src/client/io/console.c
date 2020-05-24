@@ -2,6 +2,23 @@
 
 FILE* nox_file_log = 0;
 
+//----- (00451610) --------------------------------------------------------
+int sub_451610()
+{
+    int result; // eax
+    unsigned __int8* v1; // ecx
+
+    result = *(_DWORD*)& byte_5D4594[835876];
+    v1 = &byte_5D4594[835876];
+    do
+    {
+        *(_DWORD*)v1 = *((_DWORD*)v1 - 1);
+        v1 -= 4;
+    } while ((int)v1 > (int)& byte_5D4594[835800]);
+    *(_DWORD*)& byte_5D4594[835800] = result;
+    return result;
+}
+
 //----- (00451630) --------------------------------------------------------
 unsigned __int8* sub_451630()
 {

@@ -3,7 +3,6 @@
 #endif
 
 #include "server/object/health.h"
-#include "server/gamemech/explevel.h"
 #include "server/magic/plyrspel.h"
 #include "server/ability/ability.h"
 
@@ -11531,25 +11530,6 @@ double __cdecl sub_4EF1E0(int a1, int a2)
     else
         result = sub_419D40(&byte_587000[206172]) + (double)(a1 - *(unsigned __int16*)(a2 + 60)) * *(float*)(a2 + 64);
     return result;
-}
-
-//----- (004EF270) --------------------------------------------------------
-double __cdecl sub_4EF270(int a1, float a2)
-{
-    int v3; // ecx
-    double v4; // st7
-    float v5; // [esp+Ch] [ebp+8h]
-
-    if (*(float*)(a1 + 28) >= (double)a2)
-        return 0.0;
-    v3 = *(_DWORD*)(a1 + 748);
-    v4 = (a2 - *(float*)(a1 + 28)) * *(float*)& byte_587000[206148] + 1.0;
-    v5 = v4;
-    *(float*)(a1 + 28) = v4 + *(float*)(a1 + 28);
-    sub_56FA40(*(_DWORD*)(*(_DWORD*)(v3 + 276) + 4604), v5);
-    sub_4D81A0(a1);
-    sub_4EF2E0_exp_level(a1);
-    return v5;
 }
 
 //----- (004EF410) --------------------------------------------------------

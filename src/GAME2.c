@@ -2980,23 +2980,6 @@ int sub_4514F0()
     return result;
 }
 
-//----- (00451610) --------------------------------------------------------
-int sub_451610()
-{
-    int result; // eax
-    unsigned __int8* v1; // ecx
-
-    result = *(_DWORD*)& byte_5D4594[835876];
-    v1 = &byte_5D4594[835876];
-    do
-    {
-        *(_DWORD*)v1 = *((_DWORD*)v1 - 1);
-        v1 -= 4;
-    } while ((int)v1 > (int)& byte_5D4594[835800]);
-    *(_DWORD*)& byte_5D4594[835800] = result;
-    return result;
-}
-
 // 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
 
 // 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
