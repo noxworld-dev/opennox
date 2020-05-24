@@ -123,6 +123,7 @@ add_executable (
     client/audio/auddiag.c
     client/draw/animdraw.c
     client/draw/canidraw.c
+    client/draw/mgendraw.c
     client/drawable/drawable.c
     client/io/console.c
     client/shell/wolapi/locale.c
