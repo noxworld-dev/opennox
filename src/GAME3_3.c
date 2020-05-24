@@ -2148,20 +2148,6 @@ int sub_4E4100()
     return result;
 }
 
-//----- (004E4170) --------------------------------------------------------
-void sub_4E4170()
-{
-    float v0; // [esp+0h] [ebp-4h]
-
-    if (!(*(_DWORD*)& byte_5D4594[2598000] % (unsigned int)(5 * *(_DWORD*)& byte_5D4594[2649704])))
-    {
-        v0 = sub_4E3CA0();
-        sub_4E3D50();
-        if (sub_4E3CA0() != v0)
-            sub_4E3DD0();
-    }
-}
-
 //----- (004E41B0) --------------------------------------------------------
 int __cdecl sub_4E41B0(char* a1)
 {
@@ -3767,41 +3753,6 @@ void __cdecl sub_4E5DB0(int a1)
     }
 }
 
-//----- (004E5E20) --------------------------------------------------------
-_DWORD* sub_4E5E20()
-{
-    _DWORD* result; // eax
-    _DWORD* v1; // edi
-    _DWORD* v2; // esi
-
-    result = *(_DWORD * *)& byte_5D4594[1565588];
-    v1 = 0;
-    if (*(_DWORD*)& byte_5D4594[1565588])
-    {
-        do
-        {
-            v2 = (_DWORD*)result[113];
-            if (result[114] == *(_DWORD*)& byte_5D4594[2598000])
-            {
-                result[113] = v1;
-                v1 = result;
-                sub_4DA920(result);
-            }
-            else
-            {
-                sub_4E5E80(result);
-            }
-            result = v2;
-        } while (v2);
-        *(_DWORD*)& byte_5D4594[1565588] = v1;
-    }
-    else
-    {
-        *(_DWORD*)& byte_5D4594[1565588] = 0;
-    }
-    return result;
-}
-
 //----- (004E5E80) --------------------------------------------------------
 int __cdecl sub_4E5E80(_DWORD* a1)
 {
@@ -4985,25 +4936,6 @@ int __cdecl sub_4E7680(int a1)
         ;
     return result;
 }
-
-//----- (004E76C0) --------------------------------------------------------
-int sub_4E76C0()
-{
-    int v0; // edi
-    int result; // eax
-    int i; // esi
-
-    v0 = 0;
-    result = sub_4DA790();
-    for (i = result; result; i = result)
-    {
-        nullsub_25(i);
-        v0 ^= sub_4E7700(i);
-        result = sub_4DA7A0(i);
-    }
-    return result;
-}
-// 4E76F0: using guessed type void __cdecl nullsub_25(_DWORD);
 
 //----- (004E7700) --------------------------------------------------------
 int __cdecl sub_4E7700(int a1)
@@ -9162,166 +9094,6 @@ void __cdecl sub_4EC6A0(int a1)
     }
 }
 
-//----- (004EC720) --------------------------------------------------------
-void sub_4EC720()
-{
-    int v0; // esi
-    int v1; // eax
-    int v2; // edi
-    int v3; // ecx
-    int v4; // eax
-    _DWORD* v5; // eax
-    int v6; // edi
-    __int16 v7; // ax
-    _BYTE* v8; // eax
-    int v9; // eax
-    int v10; // eax
-    double v11; // st7
-    double v12; // st6
-    int v13; // eax
-    int v14; // ecx
-    _BYTE* v15; // eax
-    int v16; // eax
-    int v17; // ecx
-    int v18; // eax
-
-    if (!*(_DWORD*)& byte_5D4594[1568028])
-        * (_DWORD*)& byte_5D4594[1568028] = sub_4E3AA0((CHAR*)& byte_587000[205204]);
-    if (!sub_40A5C0(4608))
-    {
-        v0 = *(_DWORD*)& byte_5D4594[1568024];
-        *(_DWORD*)& byte_587000[205200] = 0;
-        if (*(_DWORD*)& byte_5D4594[1568024])
-        {
-            while (1)
-            {
-                if (*(_DWORD*)(v0 + 24))
-                {
-                    LABEL_18:
-                    if (*(_DWORD*)& byte_5D4594[2598000] >= *(int*)(v0 + 20) && sub_4E3BA0(*(_DWORD*)v0))
-                    {
-                        v5 = sub_4E3450(*(_DWORD*)v0);
-                        v6 = (int)v5;
-                        if (v5)
-                        {
-                            sub_4DAA50((int)v5, 0, *(float*)(v0 + 8), *(float*)(v0 + 12));
-                            sub_522FF0(129, (float2*)(v0 + 8));
-                            v7 = *(_WORD*)(v0 + 16);
-                            *(_WORD*)(v6 + 124) = v7;
-                            *(_WORD*)(v6 + 126) = v7;
-                            if (*(_DWORD*)(v6 + 8) & 0x13001000)
-                                sub_4E4990(v6, (int*)(v0 + 28));
-                            if (*(_DWORD*)(v6 + 8) & 0x1000000 && sub_415820(v6) & 0x82)
-                            {
-                                v8 = *(_BYTE * *)(v6 + 736);
-                                v8[1] = *(_BYTE*)(v0 + 48);
-                                *v8 = *(_BYTE*)(v0 + 49);
-                            }
-                            sub_501960(283, v6, 0, 0);
-                        }
-                        v9 = *(_DWORD*)(v0 + 4);
-                        if (v9)
-                        {
-                            if (*(_BYTE*)(v9 + 8) & 2)
-                                sub_4E5CC0(*(_DWORD*)(v0 + 4));
-                        }
-                        *(_DWORD*)(v0 + 24) = 0;
-                        *(_DWORD*)(v0 + 4) = v6;
-                    }
-                    goto LABEL_31;
-                }
-                v1 = *(_DWORD*)(v0 + 4);
-                v2 = 0;
-                if (!v1)
-                    goto LABEL_16;
-                v3 = *(_DWORD*)(v1 + 8);
-                if (v3 & 2)
-                    break;
-                if (*(_BYTE*)(v1 + 16) & 0x20)
-                {
-                    if (sub_4E3BA0(*(unsigned __int16*)(v1 + 4)))
-                        v2 = 1;
-                    *(_DWORD*)(v0 + 4) = 0;
-                    if (v2)
-                        goto LABEL_16;
-                }
-                else if (v3 & 0x3001000 || *(unsigned __int16*)(v1 + 4) == *(_DWORD*)& byte_5D4594[1568028])
-                {
-                    if (*(_DWORD*)(v1 + 492) || !sub_4E3BA0(*(unsigned __int16*)(v1 + 4)))
-                    {
-                        v18 = *(_DWORD*)(v0 + 4);
-                        if (*(_DWORD*)(v18 + 492)
-                            && sub_4E3BA0(*(unsigned __int16*)(v18 + 4))
-                            && *(unsigned __int16*)(*(_DWORD*)(v0 + 4) + 4) != *(_DWORD*)& byte_5D4594[1568028]
-                            && sub_409F40(2))
-                        {
-                            goto LABEL_16;
-                        }
-                    }
-                    else
-                    {
-                        v10 = *(_DWORD*)(v0 + 4);
-                        if (*(_DWORD*)& byte_5D4594[2598000] > (unsigned int)(5 * *(_DWORD*)& byte_5D4594[2649704]
-                                                                              + *(_DWORD*)(v10 + 128)))
-                        {
-                            v11 = *(float*)(v0 + 8) - *(float*)(v10 + 56);
-                            v12 = *(float*)(v0 + 12) - *(float*)(v10 + 60);
-                            if (v12 * v12 + v11 * v11 > 2500.0)
-                            {
-                                sub_522FF0(129, (float2*)(v10 + 56));
-                                sub_501A30(283, (float2*)(*(_DWORD*)(v0 + 4) + 56), 0, 0);
-                                sub_4E7010(*(_DWORD*)(v0 + 4), (float2*)(v0 + 8));
-                                v13 = *(_DWORD*)(v0 + 4);
-                                v14 = *(_DWORD*)(v13 + 8);
-                                if (v14 & 0x1000)
-                                {
-                                    sub_53C520(v13, 100);
-                                }
-                                else if (v14 & 0x1000000 && sub_415820(*(_DWORD*)(v0 + 4)) & 0x82)
-                                {
-                                    v15 = *(_BYTE * *)(*(_DWORD*)(v0 + 4) + 736);
-                                    v15[1] = *(_BYTE*)(v0 + 48);
-                                    *v15 = *(_BYTE*)(v0 + 49);
-                                }
-                                v16 = *(_DWORD*)(v0 + 4);
-                                v17 = *(_DWORD*)(v16 + 556);
-                                if (v17)
-                                    sub_4E4560(v16, *(_WORD*)(v17 + 4));
-                                sub_522FF0(129, (float2*)(v0 + 8));
-                                sub_501A30(283, (float2*)(v0 + 8), 0, 0);
-                            }
-                        }
-                    }
-                }
-                else if (*(_DWORD*)(v1 + 492))
-                {
-                    goto LABEL_16;
-                }
-                LABEL_17:
-                if (*(_DWORD*)(v0 + 24))
-                    goto LABEL_18;
-                LABEL_31:
-                v0 = *(_DWORD*)(v0 + 52);
-                if (!v0)
-                    return;
-            }
-            v4 = *(_DWORD*)(v1 + 16);
-            if (v4 & 0x20)
-            {
-                *(_DWORD*)(v0 + 4) = 0;
-            }
-            else if ((v4 & 0x8000) == 0)
-            {
-                goto LABEL_17;
-            }
-            LABEL_16:
-            *(_DWORD*)(v0 + 24) = 1;
-            *(_DWORD*)(v0 + 20) = *(_DWORD*)& byte_5D4594[2598000] + 30 * *(_DWORD*)& byte_5D4594[2649704];
-            goto LABEL_17;
-        }
-    }
-}
-
 //----- (004ECA60) --------------------------------------------------------
 BOOL sub_4ECA60()
 {
@@ -10438,37 +10210,6 @@ char __cdecl sub_4EDD00(int a1, int a2)
         } while (v4);
     }
     return v2;
-}
-
-//----- (004EDD70) --------------------------------------------------------
-int sub_4EDD70()
-{
-    int result; // eax
-    int i; // edi
-    _DWORD* v2; // esi
-    _DWORD* v3; // ebx
-    float2 a3; // [esp+4h] [ebp-8h]
-
-    result = sub_4DA7C0();
-    for (i = result; result; i = result)
-    {
-        v2 = *(_DWORD * *)(i + 504);
-        if (v2)
-        {
-            do
-            {
-                v3 = (_DWORD*)v2[124];
-                if (v2[2] & 0x10000000)
-                {
-                    sub_4ED970(50.0, (float2*)(i + 56), &a3);
-                    sub_4ED790(i, v2, &a3);
-                }
-                v2 = v3;
-            } while (v3);
-        }
-        result = sub_4DA7F0(i);
-    }
-    return result;
 }
 
 //----- (004EDDE0) --------------------------------------------------------
@@ -11652,27 +11393,6 @@ char sub_4EF580()
     if (sub_4E3BA0(v8))
         v0 |= 0x80u;
     return v0;
-}
-
-//----- (004EF660) --------------------------------------------------------
-int __cdecl sub_4EF660(int a1)
-{
-    int v1; // esi
-    int i; // eax
-
-    v1 = *(_DWORD*)(a1 + 748);
-    *(_DWORD*)(v1 + 116) = 0;
-    *(_DWORD*)(v1 + 120) = 0;
-    *(_DWORD*)(v1 + 124) = 0;
-    *(_DWORD*)(v1 + 128) = 0;
-    *(_DWORD*)(v1 + 308) = 0;
-    for (i = 4796; i < 4816; *(_DWORD*)(*(_DWORD*)(v1 + 276) + i - 4) = 0)
-        i += 4;
-    if (!sub_40A5C0(2048))
-        * (_BYTE*)(v1 + 244) = sub_4EF6F0(a1);
-    *(_DWORD*)(v1 + 264) = 0;
-    *(_DWORD*)(a1 + 520) = 0;
-    return sub_422140(*(_DWORD*)(v1 + 276));
 }
 
 //----- (004EF6F0) --------------------------------------------------------
@@ -14109,99 +13829,6 @@ _DWORD* __cdecl sub_4F1D30(int a1, unsigned int a2)
 _DWORD* __cdecl sub_4F1F00(int a1, unsigned int a2)
 {
     return sub_4F1D30(a1, a2);
-}
-
-//----- (004F1F20) --------------------------------------------------------
-void sub_4F1F20()
-{
-    int v0; // ebp
-    int v1; // eax
-    int v2; // esi
-    int v3; // ebx
-    int v4; // eax
-    _DWORD* v5; // edi
-    _DWORD* v6; // eax
-    _DWORD* v7; // esi
-    _DWORD* v8; // edi
-    int v9; // [esp+0h] [ebp-10h]
-    int v10; // [esp+4h] [ebp-Ch]
-    float2 a3; // [esp+8h] [ebp-8h]
-
-    v9 = sub_4E3CC0();
-    if (!*(_DWORD*)& byte_5D4594[1568300])
-    {
-        *(_DWORD*)& byte_5D4594[1568300] = sub_4E3AA0((CHAR*)& byte_587000[214944]);
-        *(_DWORD*)& byte_5D4594[1568304] = sub_4E3AA0((CHAR*)& byte_587000[214960]);
-    }
-    sub_4F2110();
-    sub_4F2210();
-    v0 = sub_4DA790();
-    if (v0)
-    {
-        do
-        {
-            v10 = sub_4DA7A0(v0);
-            v1 = *(unsigned __int16*)(v0 + 4);
-            if ((unsigned __int16)v1 == *(_DWORD*)& byte_5D4594[1568300] || v1 == *(_DWORD*)& byte_5D4594[1568304])
-            {
-                if (*(_BYTE*)(*(_DWORD*)(v0 + 692) + 216) & 0x80)
-                {
-                    v7 = sub_4F0720(v0, v9);
-                    if (v7)
-                    {
-                        sub_4DAA50((int)v7, 0, *(float*)(v0 + 56), *(float*)(v0 + 60));
-                        if (v7[2] & 0x1000000)
-                        {
-                            if (v7[3] & 0xC)
-                            {
-                                v8 = sub_4E3810((CHAR*)& byte_587000[214980]);
-                                if (v8)
-                                {
-                                    a3 = *((float2*)v7 + 7);
-                                    sub_4ED970(30.0, (float2*)v7 + 7, &a3);
-                                    sub_4DAA50((int)v8, 0, a3.field_0, a3.field_4);
-                                }
-                            }
-                        }
-                    }
-                }
-                sub_4E5CC0(v0);
-            }
-            else if (*(int* (__cdecl * *)(int))(v0 + 688) == sub_4F0400)
-            {
-                v2 = sub_4E7980(v0);
-                if (v2)
-                {
-                    do
-                    {
-                        v3 = sub_4E7990(v2);
-                        v4 = *(unsigned __int16*)(v2 + 4);
-                        if ((unsigned __int16)v4 == *(_DWORD*)& byte_5D4594[1568300] || v4 == *(_DWORD*)& byte_5D4594[1568304])
-                        {
-                            v5 = sub_4F0720(v2, v9 + 1);
-                            sub_4ED0C0(v0, (int*)v2);
-                            sub_4E5CC0(v2);
-                            if (v5)
-                            {
-                                sub_4F3070(v0, (int)v5, 0);
-                                if (v5[2] & 0x1000000)
-                                {
-                                    if (v5[3] & 0xC)
-                                    {
-                                        v6 = sub_4E3810((CHAR*)& byte_587000[214988]);
-                                        if (v6)
-                                            sub_4F3070(v0, (int)v6, 0);
-                                    }
-                                }
-                            }
-                        }
-                        v2 = v3;
-                    } while (v3);
-                }
-            }
-            v0 = v10;
-        } while (v10);
-    }
 }
 
 //----- (004F2110) --------------------------------------------------------
