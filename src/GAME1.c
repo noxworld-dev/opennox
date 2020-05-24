@@ -18,7 +18,6 @@ int g_v20, g_v21;
 int g_argc2;
 char** g_argv2;
 
-void map_download_start();
 int map_download_loop(int);
 int map_download_finish();
 

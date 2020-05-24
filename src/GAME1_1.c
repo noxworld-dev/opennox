@@ -1,5 +1,7 @@
 #include "client/shell/wolapi/wollogin.h"
 #include "client/shell/wolapi/wolreg.h"
+#include "client/shell/wolapi/wolprog.h"
+#include "client/shell/wolapi/wolchat.h"
 
 #include "proto.h"
 

@@ -1,4 +1,5 @@
 #include "mapsend.h"
+#include "../system/trade.h"
 
 #include "../../proto.h"
 
@@ -774,7 +775,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                                 v69 = *(_DWORD*)(v85 + 280);
                                 if (v69)
                                 {
-                                    if (sub_50F820(v69, v9, *(float*)& v68) == 1)
+                                    if (sub_50F820_trade(v69, v9, *(float*)& v68) == 1)
                                         sub_4ED0C0(v9, v68);
                                 }
                             }
@@ -814,25 +815,25 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                                 if (v65)
                                 {
                                     if (*(_BYTE*)(v65 + 12) & 8)
-                                        sub_50EF10(v9, v65);
+                                        sub_50EF10_trade(v9, v65);
                                 }
                             }
                             goto LABEL_232;
                         case 0x16u:
                             v72 = (_DWORD*)v10[70];
                             if (v72)
-                                sub_5100C0(v9, v72, *((unsigned __int16*)v4 + 1));
+                                sub_5100C0_trade(v9, v72, *((unsigned __int16*)v4 + 1));
                             goto LABEL_252;
                         case 0x17u:
                             v73 = v10[70];
                             if (v73)
-                                sub_510640(v9, v73, *((unsigned __int16*)v4 + 1), (float*)v4[4]);
+                                sub_510640_trade(v9, v73, *((unsigned __int16*)v4 + 1), (float*)v4[4]);
                             goto LABEL_255;
                         case 0x18u:
                             v74 = v10[70];
                             if (!v74)
                                 goto LABEL_252;
-                            sub_510BE0((int*)v9, v74, (_DWORD*) * ((unsigned __int16*)v4 + 1));
+                            sub_510BE0_trade((int*)v9, v74, (_DWORD*) * ((unsigned __int16*)v4 + 1));
                             v4 += 4;
                             goto LABEL_273;
                         case 0x19u:
@@ -859,7 +860,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                             v77 = v10[70];
                             if (!v77)
                                 goto LABEL_252;
-                            sub_5109C0((int*)v9, v77, (_DWORD*) * ((unsigned __int16*)v4 + 1));
+                            sub_5109C0_trade((int*)v9, v77, (_DWORD*) * ((unsigned __int16*)v4 + 1));
                             v4 += 4;
                             break;
                         case 0x1Eu:

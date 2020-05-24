@@ -18,7 +18,7 @@ option (STRICT_MODE "Fail on compilation warnings" OFF)
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
 else ()
-    add_compile_options (-g -fno-strict-aliasing -fno-strict-overflow -m32 -fshort-wchar -Werror=return-type)
+    add_compile_options (-g -fno-strict-aliasing -fno-strict-overflow -m32 -fshort-wchar -Werror=return-type -Werror=implicit-function-declaration)
 
     if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
         add_compile_options (-O0)

@@ -47,6 +47,8 @@ void (*mainloop_enter)(void*);
 void* mainloop_enter_args;
 void (*mainloop_exit)();
 
+void map_download_start();
+
 nox_thing* nox_things_head = 0;
 nox_thing** nox_things_array = 0;
 int nox_things_count = 0;
