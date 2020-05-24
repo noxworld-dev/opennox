@@ -3,6 +3,7 @@
 #endif
 
 #include "client/draw/animdraw.h"
+#include "client/draw/vectdraw.h"
 #include "client/drawable/drawable.h"
 #include "client/shell/wolapi/locale.h"
 #include "client/shell/wolapi/wollogin.h"
