@@ -1,3 +1,4 @@
+#include "../../../common/object/armrlook.h"
 #include "../objutil.h"
 
 #include "../../../proto.h"

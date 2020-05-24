@@ -1,3 +1,4 @@
+#include "common/system/team.h"
 #include "server/magic/plyrspel.h"
 #include "server/magic/spell/execdur.h"
 #include "client/gui/guimsg.h"

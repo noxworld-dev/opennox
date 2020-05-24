@@ -101,7 +101,13 @@ add_executable (
     GameEx.c
     memfile.c
     thing.c
+    common/object/modifier.c
+    common/object/armrlook.c
+    common/object/weaplook.c
     common/system/settings.c
+    common/system/gamedisk.c
+    common/system/team.c
+    common/xfer/savegame/xferplyr.c
     server/system/server.c
     server/system/trade.c
     server/system/cscrfunc.c

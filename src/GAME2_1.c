@@ -1,3 +1,4 @@
+#include "common/object/modifier.h"
 #include "client/drawable/drawable.h"
 #include "client/gui/chaticon.h"
 #include "client/gui/guimsg.h"

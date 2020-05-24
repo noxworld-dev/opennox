@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common/system/team.h"
 #include "server/object/health.h"
 #include "server/magic/plyrspel.h"
 #include "server/ability/ability.h"

@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common/system/team.h"
 #include "common/system/settings.h"
 #include "server/system/server.h"
 #include "server/network/playback.h"

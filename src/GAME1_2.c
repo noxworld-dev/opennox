@@ -2,7 +2,10 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common/system/team.h"
 #include "common/system/settings.h"
+#include "common/object/armrlook.h"
+#include "common/object/weaplook.h"
 #include "client/audio/auddiag.h"
 #include "client/io/console.h"
 

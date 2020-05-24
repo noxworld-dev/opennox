@@ -2,6 +2,10 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common/system/team.h"
+#include "common/object/armrlook.h"
+#include "common/object/weaplook.h"
+#include "common/xfer/savegame/xferplyr.h"
 #include "client/shell/wolapi/wolchat.h"
 #include "client/shell/wolapi/woldlgs.h"
 
@@ -8574,38 +8578,6 @@ void sub_411B80()
     nox_srand(0x962u);
 }
 
-//----- (00411B90) --------------------------------------------------------
-int __cdecl sub_411B90(int a1, char* a2, int a3)
-{
-    int result; // eax
-    char* v4; // ebx
-    wchar_t* v5; // eax
-    size_t v6; // eax
-    size_t v7; // esi
-    wchar_t* v8; // eax
-    char v9[8]; // [esp+Ch] [ebp-8h]
-
-    strcpy(v9, " =\n\r\t");
-    result = (int)strtok(a2, v9);
-    v4 = (char*)result;
-    if (result)
-    {
-        v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 418);
-        v6 = nox_wcslen(v5);
-        v7 = v6;
-        result = (int)nox_malloc(2 * v6 + 2);
-        *(_DWORD*)(a3 + 8) = result;
-        if (result)
-        {
-            v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 426);
-            nox_wcsncpy(*(wchar_t**)(a3 + 8), v8, v7);
-            *(_WORD*)(*(_DWORD*)(a3 + 8) + 2 * v7) = 0;
-            result = 1;
-        }
-    }
-    return result;
-}
-
 //----- (00411C40) --------------------------------------------------------
 BOOL __cdecl sub_411C40(const char* a1, char* a2, int a3)
 {
@@ -8855,102 +8827,6 @@ char* __cdecl sub_4120B0(int a1, char* a2, int a3)
         *(float*)(a3 + 64) = v4;
     }
     return result;
-}
-
-//----- (00412100) --------------------------------------------------------
-int __cdecl sub_412100_parse_desc(const char* a1, char* a2, obj_412ae0_t* a3)
-{
-    int result; // eax
-    char* v4; // ebx
-    wchar_t* v5; // eax
-    size_t v6; // eax
-    size_t v7; // esi
-    wchar_t* v8; // eax
-    char v9[8]; // [esp+Ch] [ebp-8h]
-
-    strcpy(v9, " =\n\r\t");
-    result = (int)strtok(a2, v9);
-    v4 = (char*)result;
-    if (!result)
-    {
-        return 0;
-    }
-    v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 733);
-    v6 = nox_wcslen(v5);
-    v7 = v6;
-    a3->field_2 = (wchar_t*)nox_malloc(2 * v6 + 2);
-    if (!a3->field_2)
-    {
-        return 0;
-    }
-    v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 741);
-    nox_wcsncpy(*(wchar_t**)(&a3->field_2), v8, v7);
-    *(_WORD*)(*(_DWORD*)(&a3->field_2) + 2 * v7) = 0;
-    return 1;
-}
-
-//----- (004121B0) --------------------------------------------------------
-int __cdecl sub_4121B0_parse_second_desc(const char* a1, char* a2, obj_412ae0_t* a3)
-{
-    int result; // eax
-    char* v4; // ebx
-    wchar_t* v5; // eax
-    size_t v6; // eax
-    size_t v7; // esi
-    wchar_t* v8; // eax
-    char v9[8]; // [esp+Ch] [ebp-8h]
-
-    strcpy(v9, " =\n\r\t");
-    result = (int)strtok(a2, v9);
-    v4 = (char*)result;
-    if (!result)
-    {
-        return 0;
-    }
-    v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 767);
-    v6 = nox_wcslen(v5);
-    v7 = v6;
-    a3->field_3 = (wchar_t*)nox_malloc(2 * v6 + 2);
-    if (!a3->field_3)
-    {
-        return 0;
-    }
-    v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 775);
-    nox_wcsncpy(*(wchar_t**)(&a3->field_3), v8, v7);
-    *(_WORD*)(*(_DWORD*)(&a3->field_3) + 2 * v7) = 0;
-    return 1;
-}
-
-//----- (00412260) --------------------------------------------------------
-int __cdecl sub_412260_parse_ident_desc(const char* a1, char* a2, obj_412ae0_t* a3)
-{
-    int result; // eax
-    char* v4; // ebx
-    wchar_t* v5; // eax
-    size_t v6; // eax
-    size_t v7; // esi
-    wchar_t* v8; // eax
-    char v9[8]; // [esp+Ch] [ebp-8h]
-
-    strcpy(v9, " =\n\r\t");
-    result = (int)strtok(a2, v9);
-    v4 = (char*)result;
-    if (!result)
-    {
-        return 0;
-    }
-    v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
-    v6 = nox_wcslen(v5);
-    v7 = v6;
-    a3->field_4 = (wchar_t*)nox_malloc(2 * v6 + 2);
-    if (!a3->field_4)
-    {
-        return 0;
-    }
-    v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 809);
-    nox_wcsncpy(*(wchar_t**)(&a3->field_4), v8, v7);
-    *(_WORD*)(*(_DWORD*)(&a3->field_4) + 2 * v7) = 0;
-    return 1;
 }
 
 //----- (00412310) --------------------------------------------------------
@@ -9766,24 +9642,6 @@ int __cdecl sub_413420(char a1)
     return *(_DWORD*)& byte_587000[20 * v2 + 27340];
 }
 
-//----- (00413480) --------------------------------------------------------
-wchar_t* __cdecl sub_413480(char a1)
-{
-    int v1; // ecx
-    unsigned __int8* v2; // eax
-
-    v1 = 0;
-    v2 = &byte_587000[27332];
-    while (a1 != *v2)
-    {
-        v2 += 20;
-        ++v1;
-        if ((int)v2 >= (int)& byte_587000[27452])
-            return 0;
-    }
-    return loadString_sub_40F1D0(*(char**)& byte_587000[20 * v1 + 27344], 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 2087);
-}
-
 //----- (004134C0) --------------------------------------------------------
 void sub_4134C0()
 {
@@ -9810,108 +9668,6 @@ void sub_4134F0()
     *(_DWORD*)& byte_5D4594[251712] = 0;
     *(_DWORD*)& byte_5D4594[251716] = 0;
     *(_DWORD*)& byte_5D4594[251720] = 0;
-}
-
-//----- (00413520) --------------------------------------------------------
-int sub_413520()
-{
-    unsigned __int64 v0; // rax
-    int v1; // eax
-    wchar_t* v2; // eax
-    __int64 v3; // rax
-    wchar_t* v5; // [esp-10h] [ebp-1Ch]
-    int v6; // [esp-Ch] [ebp-18h]
-    int (*v7)(); // [esp-8h] [ebp-14h]
-    int (*v8)(); // [esp-4h] [ebp-10h]
-
-    LODWORD(v0) = *(_DWORD*)& byte_5D4594[251700];
-    switch (*(_DWORD*)& byte_5D4594[251700])
-    {
-    case 1:
-        // XXX NO CD
-        //v1 = sub_423CF0();
-        v1 = 2;
-        *(_DWORD*)& byte_5D4594[251704] = v1;
-        if (!v1)
-        {
-            sub_4137C0();
-            sub_44D8F0();
-            if (sub_40A5C0(2048))
-                sub_4137A0();
-            v8 = sub_413760;
-            v7 = sub_413780;
-            v6 = 35;
-            v5 = loadString_sub_40F1D0((char*)& byte_587000[32036], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 200);
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[32088], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 199);
-            goto LABEL_9;
-        }
-        if (v1 == 1 && sub_40A5C0(2048))
-        {
-            sub_4137C0();
-            sub_44D8F0();
-            sub_4137A0();
-            v8 = sub_413760;
-            v7 = sub_413780;
-            v6 = 35;
-            v5 = loadString_sub_40F1D0((char*)& byte_587000[32140], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 219);
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[32192], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 218);
-            goto LABEL_9;
-        }
-        sub_4137E0();
-        LODWORD(v0) = sub_413800();
-        *(_DWORD*)& byte_5D4594[251700] = 6;
-        *(_DWORD*)& byte_5D4594[251728] = 0;
-        break;
-    case 2:
-        v3 = sub_416BB0();
-        *(_QWORD*)& byte_5D4594[251628] = v3;
-        v0 = v3 - *(_QWORD*)& byte_5D4594[251732];
-        if (v0 > 0x7D0)
-        {
-            sub_423C60();
-            LODWORD(v0) = *(_DWORD*)& byte_5D4594[251628];
-            *(_DWORD*)& byte_5D4594[251700] = 3;
-            *(_DWORD*)& byte_5D4594[251732] = *(_DWORD*)& byte_5D4594[251628];
-            *(_DWORD*)& byte_5D4594[251736] = *(_DWORD*)& byte_5D4594[251632];
-        }
-        break;
-    case 3:
-        LODWORD(v0) = *(_DWORD*)& byte_5D4594[251708];
-        if (*(_DWORD*)& byte_5D4594[251708])
-        {
-            LODWORD(v0) = *(_DWORD*)& byte_5D4594[251712];
-            *(_DWORD*)& byte_5D4594[251708] = 0;
-            if (*(_DWORD*)& byte_5D4594[251712])
-            {
-                *(_DWORD*)& byte_5D4594[251712] = 0;
-                *(_DWORD*)& byte_5D4594[251700] = 1;
-            }
-            else
-            {
-                *(_DWORD*)& byte_5D4594[251700] = 2;
-            }
-        }
-        break;
-    case 4:
-        v8 = 0;
-        v7 = sub_413760;
-        v6 = 33;
-        v5 = loadString_sub_40F1D0((char*)& byte_587000[32244], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 293);
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[32296], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 292);
-    LABEL_9:
-        sub_449A10(0, (int)v2, (int)v5, v6, v7, v8);
-        sub_44A360(0);
-        LODWORD(v0) = sub_44A4B0();
-        *(_DWORD*)& byte_5D4594[251700] = 6;
-        break;
-    case 6:
-        return v0;
-    default:
-        sub_43DDD0(0);
-        LODWORD(v0) = sub_43DE60();
-        break;
-    }
-    return v0;
 }
 
 //----- (00413760) --------------------------------------------------------
@@ -11871,34 +11627,6 @@ int __cdecl sub_415880(char* a1)
     return *(_DWORD*)& byte_587000[12 * v1 + 33072];
 }
 
-//----- (004158C0) --------------------------------------------------------
-char** sub_4158C0()
-{
-    char** result; // eax
-    unsigned __int8* v1; // esi
-    int v2; // ecx
-
-    result = *(char***)& byte_5D4594[371248];
-    if (!*(_DWORD*)& byte_5D4594[371248])
-    {
-        result = *(char***)& byte_587000[33396];
-        if (*(_DWORD*)& byte_587000[33396])
-        {
-            result = (char**)& byte_587000[33396];
-            v1 = &byte_587000[33396];
-            do
-            {
-                *((_DWORD*)v1 - 1) = loadString_sub_40F1D0(*result, 0, "C:\\NoxPost\\src\\common\\Object\\WeapLook.c", 200);
-                v2 = *((_DWORD*)v1 + 3);
-                v1 += 12;
-                result = (char**)v1;
-            } while (v2);
-        }
-        *(_DWORD*)& byte_5D4594[371248] = 1;
-    }
-    return result;
-}
-
 //----- (00415910) --------------------------------------------------------
 int __cdecl sub_415910(char* a1)
 {
@@ -12084,31 +11812,6 @@ int __cdecl sub_415B20(char* a1)
     return *(_DWORD*)& byte_587000[24 * v1 + 34868];
 }
 
-//----- (00415B60) --------------------------------------------------------
-wchar_t* __cdecl sub_415B60(int a1)
-{
-    int v1; // ecx
-    int v2; // edx
-    unsigned __int8* i; // eax
-    int v4; // esi
-
-    v1 = 0;
-    if (!*(_DWORD*)& byte_587000[34848])
-        return loadString_sub_40F1D0((char*)& byte_587000[37836], 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 263);
-    HIWORD(v2) = 0;
-    for (i = &byte_587000[34848]; ; i += 24)
-    {
-        LOWORD(v2) = *(_WORD*)(a1 + 4);
-        if (v2 == *((_DWORD*)i + 2))
-            break;
-        v4 = *((_DWORD*)i + 6);
-        ++v1;
-        if (!v4)
-            return loadString_sub_40F1D0((char*)& byte_587000[37836], 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 263);
-    }
-    return loadString_sub_40F1D0(*(char**)& byte_587000[24 * v1 + 34852], 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 261);
-}
-
 //----- (00415BD0) --------------------------------------------------------
 double __cdecl sub_415BD0(int a1)
 {
@@ -12228,34 +11931,6 @@ int __cdecl sub_415D10(char* a1)
             return 0;
     }
     return *(_DWORD*)& byte_587000[24 * v1 + 34860];
-}
-
-//----- (00415D50) --------------------------------------------------------
-char** sub_415D50()
-{
-    char** result; // eax
-    unsigned __int8* v1; // esi
-    int v2; // ecx
-
-    result = *(char***)& byte_5D4594[371256];
-    if (!*(_DWORD*)& byte_5D4594[371256])
-    {
-        result = *(char***)& byte_587000[35500];
-        if (*(_DWORD*)& byte_587000[35500])
-        {
-            result = (char**)& byte_587000[35500];
-            v1 = &byte_587000[35500];
-            do
-            {
-                *((_DWORD*)v1 - 1) = loadString_sub_40F1D0(*result, 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 380);
-                v2 = *((_DWORD*)v1 + 3);
-                v1 += 12;
-                result = (char**)v1;
-            } while (v2);
-        }
-        *(_DWORD*)& byte_5D4594[371256] = 1;
-    }
-    return result;
 }
 
 //----- (00415DA0) --------------------------------------------------------
@@ -13980,37 +13655,6 @@ void sub_417C50()
     nox_srand(0x9D9u);
 }
 
-//----- (00417C60) --------------------------------------------------------
-int sub_417C60()
-{
-    unsigned __int8* v0; // eax
-    unsigned __int8* v1; // esi
-
-    memset(&byte_5D4594[526292], 0, 0x550u);
-    v0 = &byte_5D4594[526364];
-    do
-    {
-        *(v0 - 15) = 0;
-        *(_DWORD*)v0 = 0;
-        *((_DWORD*)v0 + 1) = 0;
-        *((_DWORD*)v0 - 3) = 0;
-        v0 += 80;
-    } while ((int)v0 < (int)& byte_5D4594[527644]);
-    if (!*(_DWORD*)& byte_5D4594[526288])
-    {
-        v1 = &byte_587000[54596];
-        do
-        {
-            *(_DWORD*)v1 = loadString_sub_40F1D0(*((char**)v1 - 1), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 233);
-            v1 += 16;
-        } while ((int)v1 < (int)& byte_587000[54756]);
-        *(_DWORD*)& byte_5D4594[526288] = 1;
-    }
-    sub_417D50(2);
-    sub_417D70(1);
-    return sub_417D70(4);
-}
-
 //----- (00417CF0) --------------------------------------------------------
 int sub_417CF0()
 {
@@ -14096,28 +13740,6 @@ char sub_417DE0()
             ++v0;
     }
     return v0;
-}
-
-//----- (00417E10) --------------------------------------------------------
-int sub_417E10()
-{
-    char* v0; // esi
-    _DWORD* v1; // eax
-    wchar_t* v2; // eax
-
-    sub_40A4D0(512);
-    v0 = sub_418AB0(1);
-    if (!v0)
-        v0 = sub_4186D0(1);
-    v1 = sub_418C80(*(int*)& byte_5D4594[2616328]);
-    if (v1)
-        sub_4191D0(v0[57], (int)v1, 0, *(int*)& byte_5D4594[2616328], 0);
-    if (v0)
-    {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[55164], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 405);
-        sub_418800((wchar_t*)v0, v2, 0);
-    }
-    return sub_417D70(1);
 }
 
 //----- (00417EA0) --------------------------------------------------------

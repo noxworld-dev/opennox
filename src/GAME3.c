@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common/system/team.h"
 #include "client/draw/animdraw.h"
 #include "client/draw/vectdraw.h"
 #include "client/drawable/drawable.h"
