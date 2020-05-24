@@ -3,6 +3,7 @@
 #endif
 
 #include "server/object/health.h"
+#include "server/gamemech/explevel.h"
 
 #include "proto.h"
 
@@ -1702,39 +1703,6 @@ int __cdecl sub_4E38A0(int a1)
 int __cdecl sub_4E39D0(int a1)
 {
     return *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[1563456] + 4 * *(unsigned __int16*)(a1 + 4)) + 4);
-}
-
-//----- (004E39F0) --------------------------------------------------------
-wchar_t* __cdecl sub_4E39F0(const char** a1)
-{
-    const char* v1; // esi
-    char* v2; // eax
-    const char* v3; // eax
-    const char* v4; // edx
-    unsigned __int8 v5; // al
-    unsigned __int8* v6; // ecx
-    unsigned __int8* i; // edx
-
-    v1 = *a1;
-    if (!*a1)
-        v1 = (const char*)sub_4E39D0((int)a1);
-    v2 = strrchr(v1, 58);
-    if (v2)
-        v3 = v2 + 1;
-    else
-        v3 = v1;
-    v4 = v3;
-    strcpy((char*)& byte_5D4594[1563460], "NPC:");
-    v5 = *v3;
-    v6 = &byte_5D4594[strlen((const char*)& byte_5D4594[1563460]) + 1563460];
-    for (i = (unsigned __int8*)(v4 + 1); v5; ++i)
-    {
-        if (v5 != 95)
-            * v6++ = v5;
-        v5 = *i;
-    }
-    *v6 = 0;
-    return loadString_sub_40F1D0((char*)& byte_5D4594[1563460], 0, "C:\\NoxPost\\src\\Server\\DBase\\objdb.c", 1577);
 }
 
 //----- (004E3A80) --------------------------------------------------------
@@ -11578,49 +11546,8 @@ double __cdecl sub_4EF270(int a1, float a2)
     *(float*)(a1 + 28) = v4 + *(float*)(a1 + 28);
     sub_56FA40(*(_DWORD*)(*(_DWORD*)(v3 + 276) + 4604), v5);
     sub_4D81A0(a1);
-    sub_4EF2E0(a1);
+    sub_4EF2E0_exp_level(a1);
     return v5;
-}
-
-//----- (004EF2E0) --------------------------------------------------------
-void __cdecl sub_4EF2E0(int a1)
-{
-    int v1; // esi
-    wchar_t* v2; // eax
-
-    v1 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 276);
-    if ((sub_4DB1B0() != 1 || !sub_4DB1C0())
-        && sub_419D70(&byte_587000[206192], *(char*)(v1 + 3684) + 1) <= *(float*)(a1 + 28))
-    {
-        ++* (_BYTE*)(v1 + 3684);
-        sub_56F980(*(_DWORD*)(v1 + 4644), 1u);
-        sub_4EEDC0(a1, 1);
-        if (sub_40A5C0(2048))
-        {
-            sub_57AF30(a1, 0);
-        }
-        else
-        {
-            sub_501960(902, a1, 2, *(_DWORD*)(a1 + 36));
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[206244], 0, "C:\\NoxPost\\src\\Server\\GameMech\\explevel.c", 253);
-            sub_4D9EB0(a1, v2);
-        }
-    }
-}
-
-//----- (004EF3A0) --------------------------------------------------------
-void __cdecl sub_4EF3A0(int a1, float a2)
-{
-    int v2; // ecx
-    wchar_t* v3; // eax
-
-    v2 = *(_DWORD*)(a1 + 748);
-    *(float*)(a1 + 28) = a2 + *(float*)(a1 + 28);
-    sub_56FA40(*(_DWORD*)(*(_DWORD*)(v2 + 276) + 4604), a2);
-    sub_4D81A0(a1);
-    v3 = loadString_sub_40F1D0((char*)& byte_587000[206296], 0, "C:\\NoxPost\\src\\Server\\GameMech\\explevel.c", 381);
-    sub_4D9EB0(a1, v3, (unsigned int)(__int64)a2);
-    sub_4EF2E0(a1);
 }
 
 //----- (004EF410) --------------------------------------------------------

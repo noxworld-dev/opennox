@@ -1,5 +1,7 @@
 #include "server/system/trade.h"
 #include "server/network/mapsend.h"
+#include "server/dbase/objdb.h"
+#include "server/gamemech/explevel.h"
 
 #include "proto.h"
 
@@ -4578,7 +4580,7 @@ int __cdecl sub_50F0F0(int a1, int a2)
     {
         v3 = *(_DWORD*)(a2 + 12);
     }
-    v4 = sub_4E39F0((const char**)v2);
+    v4 = sub_4E39F0_obj_db((const char**)v2);
     nox_wcsncpy((wchar_t*)& v6[4], v4, 0x18u);
     *(_WORD*)& v6[52] = 0;
     strcpy(&v6[54], (const char*)(*(_DWORD*)(v2 + 692) + 1684));
@@ -4606,7 +4608,7 @@ int __cdecl sub_50F1A0(int a1, int a2)
             nox_wcscpy((wchar_t*)& v8[2], (const wchar_t*)(*(_DWORD*)(*(_DWORD*)(v2 + 748) + 276) + 4704));
             return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
         }
-        v7 = sub_4E39F0(*(const char***)(a2 + 12));
+        v7 = sub_4E39F0_obj_db(*(const char***)(a2 + 12));
         nox_wcsncpy((wchar_t*)& v8[2], v7, 0x18u);
         LABEL_8:
         *(_WORD*)& v8[50] = 0;
@@ -4615,7 +4617,7 @@ int __cdecl sub_50F1A0(int a1, int a2)
     v4 = *(_DWORD*)(a2 + 12);
     if (!(*(_BYTE*)(v4 + 8) & 4))
     {
-        v6 = sub_4E39F0((const char**)v4);
+        v6 = sub_4E39F0_obj_db((const char**)v4);
         nox_wcsncpy((wchar_t*)& v8[2], v6, 0x18u);
         goto LABEL_8;
     }
@@ -10828,7 +10830,7 @@ int sub_516190()
     v1 = script_pop();
     v2 = sub_511B60(v1);
     if (v2)
-        sub_4EF3A0(v2, *(float*)& v0);
+        sub_4EF3A0_exp_level(v2, *(float*)& v0);
     return 0;
 }
 
