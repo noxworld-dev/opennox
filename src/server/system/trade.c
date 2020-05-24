@@ -1,7 +1,7 @@
 #include "../../proto.h"
 
 //----- (0050EF10) --------------------------------------------------------
-_DWORD* __cdecl sub_50EF10(int a1, int a2)
+_DWORD* __cdecl sub_50EF10_trade(int a1, int a2)
 {
     int v2; // edx
     int v3; // eax
@@ -107,7 +107,7 @@ _DWORD* __cdecl sub_50EF10(int a1, int a2)
 }
 
 //----- (0050F820) --------------------------------------------------------
-int __cdecl sub_50F820(int a1, int a2, float a3)
+int __cdecl sub_50F820_trade(int a1, int a2, float a3)
 {
     float v3; // ebx
     int result; // eax
@@ -205,7 +205,7 @@ int __cdecl sub_50F820(int a1, int a2, float a3)
 }
 
 //----- (005100C0) --------------------------------------------------------
-float* __cdecl sub_5100C0(int a1, _DWORD* a2, int a3)
+float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3)
 {
     int v3; // edi
     unsigned int v4; // ebx
@@ -305,7 +305,7 @@ float* __cdecl sub_5100C0(int a1, _DWORD* a2, int a3)
 }
 
 //----- (00510640) --------------------------------------------------------
-float* __cdecl sub_510640(int a1, int a2, int a3, float* a4)
+float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4)
 {
     int v4; // ebp
     float* result; // eax
@@ -413,7 +413,7 @@ float* __cdecl sub_510640(int a1, int a2, int a3, float* a4)
 }
 
 //----- (005109C0) --------------------------------------------------------
-_DWORD* __cdecl sub_5109C0(int* a1, int a2, _DWORD* a3)
+_DWORD* __cdecl sub_5109C0_trade(int* a1, int a2, _DWORD* a3)
 {
     int v3; // ebx
     int v4; // esi
@@ -460,7 +460,7 @@ _DWORD* __cdecl sub_5109C0(int* a1, int a2, _DWORD* a3)
 }
 
 //----- (00510BE0) --------------------------------------------------------
-_DWORD* __cdecl sub_510BE0(int* a1, int a2, _DWORD* a3)
+_DWORD* __cdecl sub_510BE0_trade(int* a1, int a2, _DWORD* a3)
 {
     _DWORD* result; // eax
     int v4; // ebx

@@ -1130,6 +1130,11 @@ BOOL WINAPI SetEvent(HANDLE hEvent)
     return 0;
 }
 
+#if defined(__APPLE__) || defined(__EMSCRIPTEN__)
+#else
+int pthread_timedjoin_np(void*, void*, void*);
+#endif
+
 DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds)
 {
     DWORD result = (DWORD)-1;

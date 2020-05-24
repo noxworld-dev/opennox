@@ -1,4 +1,5 @@
 #include "woldlgs.h"
+#include "wolchat.h"
 #include "../../../proto.h"
 
 extern int nox_win_width;
