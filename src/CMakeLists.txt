@@ -111,6 +111,10 @@ add_executable (
     server/object/pickdrop/pickup.c
     server/dbase/objdb.c
     server/gamemech/explevel.c
+    server/magic/spell/execdur.c
+    server/magic/plyrspel.c
+    server/magic/plyrgide.c
+    server/ability/ability.c
     server/xfer/savegame/savegame.c
     server/mapgen/generate/populate.c
     server/network/playback.c

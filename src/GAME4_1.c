@@ -2,6 +2,7 @@
 #include "server/network/mapsend.h"
 #include "server/dbase/objdb.h"
 #include "server/gamemech/explevel.h"
+#include "server/magic/plyrspel.h"
 
 #include "proto.h"
 
@@ -7947,7 +7948,7 @@ int sub_5131C0()
         v4 = sub_511B60(v1);
         if (v4)
         {
-            v5 = sub_4FB550(v4, v2, 1, 0, 0);
+            v5 = sub_4FB550_magic_plyrspel(v4, v2, 1, 0, 0);
             sub_507230(v5);
         }
         else
@@ -7995,7 +7996,7 @@ int __cdecl sub_513280(int a1, int* a2)
     {
         v2 = 1;
     }
-    return sub_4FB550(a1, *a2, 1, v2, 0);
+    return sub_4FB550_magic_plyrspel(a1, *a2, 1, v2, 0);
 }
 
 //----- (005132E0) --------------------------------------------------------
