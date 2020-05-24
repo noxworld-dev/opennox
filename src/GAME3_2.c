@@ -6,7 +6,8 @@
 #include "server/system/server.h"
 #include "server/network/playback.h"
 #include "server/network/sdecode.h"
-#include "server/xfer/savegame/savegame.h""
+#include "server/xfer/savegame/savegame.h"
+#include "server/mapgen/generate/populate.h"
 
 #include "proto.h"
 
@@ -4241,7 +4242,7 @@ int sub_4D44E0()
                             sub_4D4790();
                             sub_522F40(&byte_5D4594[1549796]);
                             sub_521710();
-                            sub_5228B0((int)& byte_5D4594[1549796]);
+                            sub_5228B0_mapgen_populate((int)& byte_5D4594[1549796]);
                             v2 = 1;
                             goto LABEL_25;
                         }
