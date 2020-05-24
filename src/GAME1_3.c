@@ -4,6 +4,7 @@
 
 #include "common/system/settings.h"
 #include "client/io/console.h"
+#include "client/draw/animdraw.h"
 #include "client/shell/wolapi/locale.h"
 #include "client/shell/wolapi/wolchat.h"
 #include "client/shell/wolapi/wollogin.h"
