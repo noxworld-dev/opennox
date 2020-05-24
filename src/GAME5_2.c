@@ -10306,9 +10306,6 @@ void nullsub_35(_DWORD a1, _DWORD a2)
 void nullsub_34(_DWORD a1, _DWORD a2, _DWORD a3)
 {
 }
-void nullsub_25(_DWORD a1)
-{
-}
 void nullsub_20(void)
 {
 }
@@ -10322,9 +10319,6 @@ void nullsub_22(void)
 {
 }
 void nullsub_23(void)
-{
-}
-void nullsub_21(void)
 {
 }
 void nullsub_7(void)
