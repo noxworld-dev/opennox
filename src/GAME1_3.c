@@ -7,6 +7,7 @@
 #include "client/draw/animdraw.h"
 #include "client/draw/canidraw.h"
 #include "client/gui/chaticon.h"
+#include "client/gui/guimsg.h"
 #include "client/shell/wolapi/locale.h"
 #include "client/shell/wolapi/wolchat.h"
 #include "client/shell/wolapi/wollogin.h"
@@ -8141,32 +8142,6 @@ wchar_t* sub_445450()
     } while ((int)v0 < (int)& byte_5D4594[826372]);
     *(_DWORD*)& byte_5D4594[825736] = 0;
     return result;
-}
-
-//----- (00445490) --------------------------------------------------------
-void __cdecl sub_445490(wchar_t* a1)
-{
-    int v1; // eax
-    int v2; // eax
-    wchar_t* v3; // eax
-
-    if (a1)
-    {
-        v1 = ++ * (_DWORD*)& byte_5D4594[825736];
-        if (*(_DWORD*)& byte_5D4594[825736] == 3)
-        {
-            v1 = 0;
-            *(_DWORD*)& byte_5D4594[825736] = 0;
-        }
-        nox_wcscpy((wchar_t*)& byte_5D4594[644 * v1 + 823804], a1);
-        v2 = 644 * *(_DWORD*)& byte_5D4594[825736];
-        *(_DWORD*)& byte_5D4594[v2 + 824440] = *(_DWORD*)& byte_5D4594[2598000]
-                                               + 4 * *(_DWORD*)& byte_5D4594[2649704]
-                                               + *(_DWORD*)& byte_5D4594[2649704];
-        byte_5D4594[v2 + 824444] = 0;
-        v3 = loadString_sub_40F1D0((char*)& byte_587000[107916], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimsg.c", 69);
-        sub_450C00(6u, v3, a1);
-    }
 }
 
 //----- (00445530) --------------------------------------------------------

@@ -9,6 +9,7 @@
 #include "client/draw/mgendraw.h"
 #include "client/draw/vectdraw.h"
 #include "client/drawable/drawable.h"
+#include "client/gui/guimsg.h"
 
 #include "proto.h"
 

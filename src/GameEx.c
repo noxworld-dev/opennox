@@ -1,5 +1,6 @@
 #define DG_DYNARR_IMPLEMENTATION
 #include "GameEx.h"
+#include "client/gui/guimsg.h"
 
 //-------------------------------------------------------------------------
 // Data declarations

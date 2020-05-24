@@ -1,6 +1,7 @@
 #include "server/magic/plyrgide.h"
 #include "server/magic/plyrspel.h"
 #include "server/ability/ability.h"
+#include "client/gui/guimsg.h"
 #include "client/shell/wolapi/wollogin.h"
 #include "client/shell/wolapi/wolreg.h"
 #include "client/shell/wolapi/wolprog.h"
