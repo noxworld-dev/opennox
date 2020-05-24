@@ -2,9 +2,12 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "server/magic/plyrspel.h"
+#include "server/ability/ability.h"
 #include "client/draw/animdraw.h"
 #include "client/draw/canidraw.h"
 #include "client/drawable/drawable.h"
+
 #include "proto.h"
 
 extern int nox_win_width;
@@ -13075,7 +13078,7 @@ int __cdecl sub_4C9BF0(int a1)
     switch (*(unsigned __int8*)(a1 + 1))
     {
         case 0u:
-            sub_4FB0B0(*(_DWORD*)(a1 + 2));
+            sub_4FB0B0_magic_plyrspel(*(_DWORD*)(a1 + 2));
             return 6;
         case 1u:
             v50 = sub_424930(*(_DWORD*)(a1 + 2));
@@ -13084,7 +13087,7 @@ int __cdecl sub_4C9BF0(int a1)
             sub_445490(v62);
             return 6;
         case 2u:
-            sub_4FB960(*(_DWORD*)(a1 + 2));
+            sub_4FB960_ability(*(_DWORD*)(a1 + 2));
             return 6;
         case 3u:
             v13 = sub_417040(*(_DWORD*)(a1 + 2));

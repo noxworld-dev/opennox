@@ -4,6 +4,8 @@
 
 #include "server/object/health.h"
 #include "server/gamemech/explevel.h"
+#include "server/magic/plyrspel.h"
+#include "server/ability/ability.h"
 
 #include "proto.h"
 
@@ -7841,7 +7843,7 @@ int __cdecl sub_4EAD20(int a1, int a2)
 
     result = a2;
     if (a2)
-        result = sub_4FB550(a2, **(_DWORD * *)(a1 + 700), 1, 0, 0);
+        result = sub_4FB550_magic_plyrspel(a2, **(_DWORD * *)(a1 + 700), 1, 0, 0);
     return result;
 }
 
@@ -11377,7 +11379,7 @@ void __cdecl sub_4EED40(int a1, char a2, int a3)
                 if (sub_40A5C0(4096) || sub_4D6F50() || sub_4D6F70())
                     * v4 = 0;
                 else
-                    sub_4FB9C0(a1, *v3, a3);
+                    sub_4FB9C0_ability(a1, *v3, a3);
             }
             ++v3;
             ++v4;
@@ -11962,12 +11964,12 @@ int __cdecl sub_4EFC80(int a1)
             v3 = *(_BYTE*)(a1 + 2251);
             if (v3 == 1)
             {
-                sub_4FB550(*(_DWORD*)(a1 + 2056), 27, 1, 1, 1);
+                sub_4FB550_magic_plyrspel(*(_DWORD*)(a1 + 2056), 27, 1, 1, 1);
             }
             else if (v3 == 2)
             {
-                sub_4FB550(*(_DWORD*)(a1 + 2056), 9, 1, 1, 1);
-                sub_4FB550(*(_DWORD*)(a1 + 2056), 41, 1, 1, 1);
+                sub_4FB550_magic_plyrspel(*(_DWORD*)(a1 + 2056), 9, 1, 1, 1);
+                sub_4FB550_magic_plyrspel(*(_DWORD*)(a1 + 2056), 41, 1, 1, 1);
             }
         }
     }
