@@ -1,4 +1,8 @@
 #ifndef NOX_PORT_CLIENT_GUI_SERVOPTS_ADVSERV
 #define NOX_PORT_CLIENT_GUI_SERVOPTS_ADVSERV
 
+#include "../../../defs.h"
+
+int __cdecl sub_4BE2C0(int a1);
+
 #endif //NOX_PORT_CLIENT_GUI_SERVOPTS_ADVSERV
