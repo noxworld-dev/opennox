@@ -2,6 +2,7 @@
 #include "client/drawable/drawable.h"
 #include "client/gui/chaticon.h"
 #include "client/gui/guimsg.h"
+#include "client/gui/guiobs.h"
 #include "client/shell/wolapi/wollogin.h"
 #include "client/shell/wolapi/wolreg.h"
 
