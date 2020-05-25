@@ -1,0 +1,1 @@
+#include "npcinfo.h"
