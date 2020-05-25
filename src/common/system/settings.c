@@ -1,4 +1,5 @@
 #include "../../client/gui/guimsg.h"
+#include "../../client/system/parsecmd.h"
 #include "../../proto.h"
 
 
