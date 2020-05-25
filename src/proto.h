@@ -4104,7 +4104,6 @@ int __cdecl sub_4BDF70(int* a1);
 int __cdecl sub_4BDF90(int* a1);
 int sub_4BDFD0();
 int __cdecl sub_4BE120(int a1);
-int __cdecl sub_4BE2C0(int a1);
 int sub_4BE320();
 int __cdecl sub_4BE330(int a1, unsigned int a2, int* a3, int a4);
 int sub_4BE610();
