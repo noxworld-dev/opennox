@@ -3,6 +3,7 @@
 #include "server/object/die/die.h"
 #include "server/object/pickdrop/pickup.h"
 #include "client/shell/wolapi/wolchat.h"
+#include "client/system/parsecmd.h"
 
 #include "proto.h"
 

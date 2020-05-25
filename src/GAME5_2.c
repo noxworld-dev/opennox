@@ -1,5 +1,8 @@
-#include <float.h>
+#include "client/system/parsecmd.h"
+
 #include "proto.h"
+
+#include <float.h>
 
 
 //----- (005528B0) --------------------------------------------------------
@@ -3957,39 +3960,6 @@ int __cdecl sub_578F20(int a1)
     return result;
 }
 
-//----- (00578F30) --------------------------------------------------------
-int sub_578F30()
-{
-    int result; // eax
-    unsigned __int8* v1; // esi
-
-    result = *(_DWORD*)& byte_587000[311480];
-    if (*(int*)& byte_587000[311480] != -1)
-    {
-        shutdown(*(SOCKET*)& byte_587000[311480], 2);
-        result = closesocket(*(SOCKET*)& byte_587000[311480]);
-    }
-    *(_DWORD*)& byte_587000[311480] = -1;
-    *(_WORD*)& byte_5D4594[2523738] = 0;
-    v1 = &byte_5D4594[2516484];
-    do
-    {
-        if (*(int*)v1 != -1)
-        {
-            shutdown(*(SOCKET*)& byte_587000[311480], 2);
-            result = closesocket(*(_DWORD*)v1);
-        }
-        *(_DWORD*)v1 = -1;
-        v1[4] = 0;
-        *((_WORD*)v1 + 514) = 0;
-        *((_WORD*)v1 + 515) = 0;
-        *((_WORD*)v1 + 516) = 0;
-        *((_DWORD*)v1 + 260) = 0;
-        v1 += 1044;
-    } while ((int)v1 < (int)& byte_5D4594[2520660]);
-    return result;
-}
-
 //----- (00578FF0) --------------------------------------------------------
 int sub_578FF0()
 {
@@ -4339,41 +4309,6 @@ int __cdecl sub_579750(int a1)
 int sub_5797E0()
 {
     return *(_DWORD*)& byte_5D4594[2523744];
-}
-
-//----- (005797F0) --------------------------------------------------------
-SOCKET __cdecl sub_5797F0(unsigned __int16 a1)
-{
-    SOCKET result; // eax
-
-    if (*(_DWORD*)& byte_5D4594[2523744] != 1)
-    {
-        if (!a1 || (*(_WORD*)& byte_5D4594[2523736] = a1, a1 <= 0x400u))
-            * (_WORD*)& byte_5D4594[2523736] = 18500;
-        result = sub_578E10();
-        *(_DWORD*)& byte_5D4594[2523744] = 1;
-    }
-    return result;
-}
-
-//----- (00579830) --------------------------------------------------------
-int sub_579830()
-{
-    int result; // eax
-
-    result = *(_DWORD*)& byte_5D4594[2523744];
-    if (*(_DWORD*)& byte_5D4594[2523744])
-    {
-        result = sub_578F30();
-        *(_DWORD*)& byte_5D4594[2523744] = 0;
-    }
-    return result;
-}
-
-//----- (00579850) --------------------------------------------------------
-u_short sub_579850()
-{
-    return *(_WORD*)& byte_5D4594[2523736];
 }
 
 //----- (00579860) --------------------------------------------------------
@@ -4953,66 +4888,6 @@ int __cdecl sub_579F00(_DWORD* a1, int a2)
     }
     *a1 = *((_DWORD*)v6 + 2);
     a1[1] = *((_DWORD*)v6 + 3);
-    return 1;
-}
-
-//----- (0057A080) --------------------------------------------------------
-int __cdecl sub_57A080(wchar_t* a1)
-{
-    char* v1; // eax
-
-    if (!sub_40A5C0(2))
-        return 0;
-    if (!a1)
-        return 0;
-    v1 = sub_4170D0(a1);
-    if (!v1 || v1[2064] == 31)
-        return 0;
-    sub_4174F0((int)v1, 8);
-    return 1;
-}
-
-//----- (0057A0C0) --------------------------------------------------------
-int __cdecl sub_57A0C0(wchar_t* a1)
-{
-    char* v1; // eax
-
-    if (!a1)
-        return 0;
-    v1 = sub_4170D0(a1);
-    if (!v1)
-        return 0;
-    sub_4174F0((int)v1, 4);
-    return 1;
-}
-
-//----- (0057A0F0) --------------------------------------------------------
-int __cdecl sub_57A0F0(wchar_t* a1)
-{
-    char* v1; // eax
-
-    if (!sub_40A5C0(2))
-        return 0;
-    if (!a1)
-        return 0;
-    v1 = sub_4170D0(a1);
-    if (!v1)
-        return 0;
-    sub_417530((int)v1, 8);
-    return 1;
-}
-
-//----- (0057A130) --------------------------------------------------------
-int __cdecl sub_57A130(wchar_t* a1)
-{
-    char* v1; // eax
-
-    if (!a1)
-        return 0;
-    v1 = sub_4170D0(a1);
-    if (!v1)
-        return 0;
-    sub_417530((int)v1, 4);
     return 1;
 }
 
