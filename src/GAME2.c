@@ -4,6 +4,7 @@
 #include "client/gui/guimsg.h"
 #include "client/audio/auddiag.h"
 #include "client/io/console.h"
+#include "client/system/parsecmd.h"
 
 #include "proto.h"
 
@@ -2502,35 +2503,6 @@ int __cdecl sub_450B00(int a1)
 int sub_450B10()
 {
     return *(_DWORD*)& byte_5D4594[832468];
-}
-
-//----- (00450B20) --------------------------------------------------------
-wchar_t* __cdecl sub_450B20(wchar_t* a1)
-{
-    wchar_t* result; // eax
-
-    result = a1;
-    if (a1)
-    {
-        if (*a1)
-        {
-            result = nox_wcscpy((wchar_t*)& byte_5D4594[832552], a1);
-            *(_DWORD*)& byte_5D4594[833728] = 1;
-        }
-    }
-    return result;
-}
-
-//----- (00450B50) --------------------------------------------------------
-int sub_450B50()
-{
-    int result; // eax
-
-    result = 0;
-    *(_WORD*)& byte_5D4594[832552] = 0;
-    *(_DWORD*)& byte_5D4594[833728] = 0;
-    *(_DWORD*)& byte_5D4594[833732] = 0;
-    return result;
 }
 
 //----- (00450B70) --------------------------------------------------------

@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "client/system/parsecmd.h"
 #include "common/system/team.h"
 #include "common/system/settings.h"
 #include "server/system/server.h"

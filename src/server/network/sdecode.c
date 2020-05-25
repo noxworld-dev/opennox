@@ -1,3 +1,4 @@
+#include "../../client/system/parsecmd.h"
 #include "../../common/system/team.h"
 #include "../system/trade.h"
 #include "mapsend.h"

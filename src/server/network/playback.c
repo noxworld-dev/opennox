@@ -1,3 +1,4 @@
+#include "../../client/system/parsecmd.h"
 #include "sdecode.h"
 
 #include "../../proto.h"

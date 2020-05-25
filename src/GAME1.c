@@ -8,6 +8,7 @@
 #include "common/xfer/savegame/xferplyr.h"
 #include "client/shell/wolapi/wolchat.h"
 #include "client/shell/wolapi/woldlgs.h"
+#include "client/system/parsecmd.h"
 
 #include "proto.h"
 
@@ -1266,12 +1267,6 @@ unsigned int sub_409AA0()
 int sub_409AB0()
 {
     return byte_5D4594[3482];
-}
-
-//----- (00409AC0) --------------------------------------------------------
-int sub_409AC0()
-{
-    return *(unsigned __int16*)& byte_5D4594[3480];
 }
 
 //----- (00409AD0) --------------------------------------------------------
@@ -11732,21 +11727,6 @@ int __cdecl sub_415A30(char* a1)
     return result;
 }
 
-//----- (00415A60) --------------------------------------------------------
-int __cdecl sub_415A60(wchar_t* a1)
-{
-    char* v1; // eax
-    int v2; // eax
-    int result; // eax
-
-    v1 = (char*)sub_415960(a1);
-    if (v1 && (v2 = sub_415840(v1)) != 0)
-        result = sub_4E3B70(v2);
-    else
-        result = 0;
-    return result;
-}
-
 //----- (00415A90) --------------------------------------------------------
 void sub_415A90()
 {
@@ -12031,21 +12011,6 @@ int __cdecl sub_415EC0(char* a1)
     int result; // eax
 
     v1 = (char*)sub_415DF0(a1);
-    if (v1 && (v2 = sub_415CD0(v1)) != 0)
-        result = sub_4E3B70(v2);
-    else
-        result = 0;
-    return result;
-}
-
-//----- (00415EF0) --------------------------------------------------------
-int __cdecl sub_415EF0(wchar_t* a1)
-{
-    char* v1; // eax
-    int v2; // eax
-    int result; // eax
-
-    v1 = (char*)sub_415DA0(a1);
     if (v1 && (v2 = sub_415CD0(v1)) != 0)
         result = sub_4E3B70(v2);
     else

@@ -143,7 +143,7 @@ int __cdecl nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format,
         default:
             dprintf("Unhandled format character: '%c'", ch);
             DebugBreak();
-            //EMIT(ch); 
+            //EMIT(ch);
             break;
         }
     }

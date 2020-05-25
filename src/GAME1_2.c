@@ -8,6 +8,7 @@
 #include "common/object/weaplook.h"
 #include "client/audio/auddiag.h"
 #include "client/io/console.h"
+#include "client/system/parsecmd.h"
 
 #include "proto.h"
 

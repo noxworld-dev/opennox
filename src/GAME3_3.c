@@ -1811,17 +1811,6 @@ int __cdecl sub_4E3BA0(int a1)
     return *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[1563456] + 4 * a1) + 16);
 }
 
-//----- (004E3BC0) --------------------------------------------------------
-int __cdecl sub_4E3BC0(int a1)
-{
-    int result; // eax
-
-    result = a1;
-    *(_DWORD*)& byte_5D4594[1563664] ^= *(_DWORD*)(a1 + 16);
-    *(_DWORD*)(a1 + 16) = 0;
-    return result;
-}
-
 //----- (004E3BF0) --------------------------------------------------------
 int __cdecl sub_4E3BF0(int a1)
 {
@@ -3719,38 +3708,6 @@ void __cdecl sub_4E5CC0(int a1)
         *(_DWORD*)(a1 + 456) = *(_DWORD*)& byte_5D4594[2598000];
         if (sub_419130(a1 + 48))
             sub_419570(a1 + 48, *(_DWORD*)(a1 + 36));
-    }
-}
-
-//----- (004E5DB0) --------------------------------------------------------
-void __cdecl sub_4E5DB0(int a1)
-{
-    int v1; // edi
-    int v2; // ebx
-    int v3; // eax
-    int v4; // esi
-
-    v1 = sub_4DA790();
-    if (v1)
-    {
-        do
-        {
-            v2 = sub_4DA7A0(v1);
-            v3 = *(_DWORD*)(v1 + 504);
-            if (v3)
-            {
-                do
-                {
-                    v4 = *(_DWORD*)(v3 + 496);
-                    if (*(unsigned __int16*)(v3 + 4) == a1)
-                        sub_4E5CC0(v3);
-                    v3 = v4;
-                } while (v4);
-            }
-            if (*(unsigned __int16*)(v1 + 4) == a1)
-                sub_4E5CC0(v1);
-            v1 = v2;
-        } while (v2);
     }
 }
 
