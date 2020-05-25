@@ -3331,8 +3331,6 @@ double __cdecl sub_48C700(float a1, float a2);
 unsigned int __fastcall sub_48C730(unsigned int a1);
 int __cdecl sub_48C870(LPSTR); // idb
 int __cdecl sub_48C940(LPCSTR lpText); // idb
-int sub_48C980();
-int __cdecl sub_48C9F0(int* a1);
 int __cdecl sub_48CA70(int a1);
 BOOL sub_48CA90();
 int sub_48CAB0();
