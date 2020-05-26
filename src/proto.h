@@ -3524,7 +3524,6 @@ BOOL sub_49F4A0();
 void sub_49F4D0();
 int __cdecl sub_49F500(int a1, int a2);
 int __cdecl sub_49F570(int a1, int a2);
-void sub_49F5A0();
 int __cdecl sub_49F5B0(_DWORD* a1, _DWORD* a2, int a3);
 int sub_49F610();
 void nullsub_14(void); // weak
@@ -3973,12 +3972,6 @@ void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5);
 char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3);
 int __cdecl nox_thing_plasma_draw(int* a1, int a2);
 int sub_4BAB30();
-int __cdecl nox_thing_lightning_draw(int* a1, int a2);
-int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, int a7); // idb
-int __cdecl sub_4BB070(int a1, int a2);
-int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, int a2);
-int __cdecl nox_thing_energy_bolt_draw(int* a1, int a2);
-int __cdecl nox_thing_green_bolt_draw(int* a1, int a2);
 void nullsub_20(void); // weak
 int __cdecl nox_thing_trigger_draw(_DWORD* a1, int a2);
 int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, int a2);
