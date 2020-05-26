@@ -1,6 +1,7 @@
 #include "drawable.h"
 #include "../draw/animdraw.h"
 #include "../draw/canidraw.h"
+#include "../draw/litning.h"
 #include "../draw/mgendraw.h"
 #include "../../proto.h"
 
