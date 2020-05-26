@@ -6639,32 +6639,6 @@ char* __cdecl sub_430B80(_DWORD* a1)
     return (char*)& byte_5D4594[3805516];
 }
 
-//----- (00430BA0) --------------------------------------------------------
-int nox_init_floor_buf() {
-    if (*(_DWORD*)& byte_5D4594[3801780] == 1)
-        sub_430CC0();
-    else
-        sub_430D60();
-    if (!sub_430DB0(nox_backbuffer_width, nox_backbuffer_height))
-    {
-        printf("VideoInit: error initializing floor buffer\n");
-        return 0;
-    }
-    return 1;
-}
-
-int sub_430BA0()
-{
-    sub_430EC0();
-    int result = sub_47FD70();
-    printf("%s: %d\n", __FUNCTION__, result);
-    if (!result)
-    {
-        return 0;
-    }
-    return nox_init_floor_buf();
-}
-
 //----- (00430BB0) --------------------------------------------------------
 void __cdecl sub_430BB0(_DWORD* a1, _DWORD* a2, _DWORD* a3)
 {
@@ -6706,33 +6680,6 @@ void __cdecl sub_430C50_get_video_max(int* w, int* h)
     *h = nox_max_height;
 }
 
-//----- (00430CC0) --------------------------------------------------------
-BOOL sub_430CC0()
-{
-    BOOL result; // eax
-
-    *(_DWORD*)& byte_5D4594[3807124] = 1;
-    *(_DWORD*)& byte_5D4594[3807128] = sub_480EF0;
-    *(_DWORD*)& byte_5D4594[3807132] = sub_468F80;
-    *(_DWORD*)& byte_5D4594[3807148] = sub_4814F0;
-    *(_DWORD*)& byte_5D4594[3807156] = sub_469920;
-    result = sub_430D40();
-    *(_DWORD*)& byte_587000[80800] = result;
-    if (result)
-    {
-        *(_DWORD*)& byte_5D4594[805836] = 1;
-        *(_DWORD*)& byte_5D4594[3805484] = sub_480950;
-        *(_DWORD*)& byte_5D4594[3805492] = sub_4805A0;
-    }
-    else
-    {
-        *(_DWORD*)& byte_5D4594[805836] = 0;
-        *(_DWORD*)& byte_5D4594[3805484] = sub_480BE0;
-        *(_DWORD*)& byte_5D4594[3805492] = sub_480860;
-    }
-    return result;
-}
-
 //----- (00430D40) --------------------------------------------------------
 BOOL sub_430D40()
 {
@@ -6742,23 +6689,6 @@ BOOL sub_430D40()
         result = 0;
     else
         result = sub_444D90();
-    return result;
-}
-
-//----- (00430D60) --------------------------------------------------------
-int sub_430D60()
-{
-    int result; // eax
-
-    result = 0;
-    *(_DWORD*)& byte_5D4594[3805484] = sub_485880;
-    *(_DWORD*)& byte_587000[80800] = 0;
-    *(_DWORD*)& byte_5D4594[805836] = 0;
-    *(_DWORD*)& byte_5D4594[3807124] = 0;
-    *(_DWORD*)& byte_5D4594[3807148] = sub_481470;
-    *(_DWORD*)& byte_5D4594[3807132] = sub_484E60;
-    *(_DWORD*)& byte_5D4594[3807156] = sub_485740;
-    *(_DWORD*)& byte_5D4594[3807128] = sub_484B70;
     return result;
 }
 
@@ -6868,20 +6798,6 @@ int sub_430F00_screenshot()
     v8 = loadString_sub_40F1D0((char*)& byte_587000[81068], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 399);
     sub_4517A0(v8, path);
     return fclose(file);
-}
-
-//----- (00431040) --------------------------------------------------------
-int __cdecl sub_431040(int a1, int a2, int a3)
-{
-    nox_win_width = a2;
-    nox_win_height = a3;
-    *(_DWORD*)& byte_587000[80848] = 0;
-    int result = sub_4800F0();
-    if (!result)
-    {
-        return 0;
-    }
-    return nox_init_floor_buf();
 }
 
 //----- (004310B0) --------------------------------------------------------
