@@ -9,6 +9,7 @@
 #include "client/draw/canidraw.h"
 #include "client/gui/chaticon.h"
 #include "client/gui/guimsg.h"
+#include "client/light/light16.h"
 #include "client/shell/wolapi/locale.h"
 #include "client/shell/wolapi/wolchat.h"
 #include "client/shell/wolapi/wollogin.h"
