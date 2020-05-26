@@ -1396,20 +1396,16 @@ int sub_430B30();
 int sub_430B40_get_mouse_prev_seq();
 int __cdecl sub_430B50(int a1, int a2, int a3, int a4);
 char* __cdecl sub_430B80(_DWORD* a1);
-int sub_430BA0();
 void __cdecl sub_430BB0(_DWORD* a1, _DWORD* a2, _DWORD* a3);
 BOOL __cdecl sub_430BE0(int a1, int a2, int a3);
 void __cdecl sub_430C30_set_video_max(int w, int h);
 void __cdecl sub_430C50_get_video_max(int* w, int* h);
-BOOL sub_430CC0();
 BOOL sub_430D40();
-int sub_430D60();
 int __cdecl sub_430DB0(int a1, int a2);
 int sub_430E70();
 int sub_430EC0();
 void sub_430EF0();
 int sub_430F00_screenshot();
-int __cdecl sub_431040(int a1, int a2, int a3);
 int __cdecl sub_4310B0(int a3);
 void sub_4311B0();
 BOOL sub_4311F0();
@@ -2653,11 +2649,6 @@ int __cdecl sub_468840(wchar_t* a1);
 int sub_468DC0();
 int __cdecl sub_468DF0(wchar_t* a1);
 int __cdecl sub_468E60(int a1);
-void __cdecl sub_468F80(int a1);
-void __cdecl sub_469140(int arg0);
-int __cdecl sub_4695E0(int a1, int a2, int* a3, int a4, int a5);
-int __cdecl sub_4696B0(int2* a1, int2* a2, int2* a3, int2* a4, signed int a5, int* a6); // idb
-int __cdecl sub_4697C0(int* a1, int* a2, int2* a3, signed int a4, int* a5); // idb
 char* __cdecl sub_469920(_DWORD* a1);
 int __cdecl sub_469B90(int* a1);
 char* sub_469BB0();
@@ -3055,10 +3046,8 @@ int __cdecl sub_480950(int* a1, int* a2, int a3, int a4, int a5);
 void __cdecl sub_480BE0(_DWORD* a1, int* a2, int a3, int a4, int a5);
 _WORD* __cdecl sub_480EB0(_WORD* a1, __int16* a2, int a3);
 int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9, int a10);
-__int16 __cdecl sub_484B70(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10);
 void sub_481410();
 int sub_481420();
-int __cdecl sub_481470(int2* a1);
 int __cdecl sub_4814F0(int2* a1);
 char __cdecl sub_4815E0(_DWORD* a1, int a2);
 char* __cdecl sub_481770(_DWORD* a1, int a2, unsigned __int16 a3);
@@ -3073,7 +3062,6 @@ __int16 __cdecl sub_4831C0(int a1, int a2);
 int __cdecl sub_483FE0(int a1, int a2);
 int __cdecl sub_484450(int a1, int a2);
 void __cdecl sub_484BA0(float a1);
-double sub_484BD0();
 _DWORD* __cdecl sub_484BE0(_DWORD* a1, int a2, int a3, int a4);
 __int64 __cdecl sub_484C00(int a1, int a2);
 __int64 __cdecl sub_484C30(int a1, int a2);
@@ -3082,12 +3070,8 @@ int __cdecl sub_484CE0(int, float); // idb
 int __cdecl sub_484D20(int a1, float a2);
 int __cdecl sub_484D70_light_intensity(int, float); // idb
 int __cdecl sub_484DC0(int2* a1, int2* a2, int* a3); // idb
-void __cdecl sub_484E60(int a1);
-void __cdecl sub_484F90(int a1);
 int __cdecl sub_4854D0(int2* a1, int2* a2, int2* a3, int a4, float a5); // idb
 int __cdecl sub_4855D0(int, int, int, float); // idb
-char* __cdecl sub_485740(_DWORD* a1);
-signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5);
 unsigned int __cdecl sub_485AE0(int a1, int a2);
 int __cdecl sub_485B30(int a1, char* a2);
 int sub_485CF0();
@@ -4103,7 +4087,6 @@ int __cdecl sub_4C1B50(int a1);
 int __cdecl sub_4C1BC0(int);
 int sub_4C1BF0();
 int __fastcall sub_4C1C60(int a1, int a2);
-int __fastcall sub_4C1C70(int a1, int a2);
 int __cdecl sub_4C1C80(int a1);
 int sub_4C1C90();
 int __cdecl sub_4C1CA0(int a1);
