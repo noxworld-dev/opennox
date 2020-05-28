@@ -1,3 +1,6 @@
+#include "client/drawable/drawdb.h"
+#include "client/gui/guigen.h"
+
 #include "proto.h"
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;

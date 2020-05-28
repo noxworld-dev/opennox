@@ -1,7 +1,7 @@
 #include "team.h"
 // FIXME
 #include "../../client/gui/guimsg.h"
-
+#include "../../client/gui/servopts/guiserv.h"
 #include "../../proto.h"
 
 //----- (00417C60) --------------------------------------------------------

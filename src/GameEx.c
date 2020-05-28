@@ -2,6 +2,8 @@
 #include "GameEx.h"
 #include "client/gui/guimsg.h"
 
+#include "client/shell/noxworld.h"
+
 //-------------------------------------------------------------------------
 // Data declarations
 
