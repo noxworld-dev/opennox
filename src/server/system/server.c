@@ -1,9 +1,12 @@
+#include "server.h"
+
 #include "../../common/system/settings.h"
 #include "../network/playback.h"
 #include "../network/mapsend.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
-
+#include "../../common/telnet/telnetd.h"
+#include "../../client/gui/guiquit.h"
 #include "../../proto.h"
 
 void nullsub_21(void)

@@ -4,17 +4,23 @@
 
 #include "common/system/settings.h"
 #include "common/system/gamedisk.h"
-#include "client/io/console.h"
 #include "client/draw/animdraw.h"
 #include "client/draw/canidraw.h"
-#include "client/gui/chaticon.h"
-#include "client/gui/guimsg.h"
 #include "client/light/light16.h"
 #include "client/shell/wolapi/locale.h"
 #include "client/shell/wolapi/wolchat.h"
 #include "client/shell/wolapi/wollogin.h"
 #include "client/shell/wolapi/woldlgs.h"
 #include "client/system/parsecmd.h"
+
+#include "client/gui/guiquit.h"
+#include "client/gui/servopts/general.h"
+#include "client/gui/servopts/guiserv.h"
+#include "client/network/cdecode.h"
+#include "client/shell/noxworld.h"
+#include "client/shell/selchar.h"
+#include "client/shell/selcolor.h"
+#include "client/system/gameloop.h"
 
 #include "proto.h"
 
@@ -51,8 +57,6 @@ int (*nox_draw_unk1)(void) = 0;
 void (*mainloop_enter)(void*);
 void* mainloop_enter_args;
 void (*mainloop_exit)();
-
-void map_download_start();
 
 nox_thing* nox_things_head = 0;
 nox_thing** nox_things_array = 0;
@@ -107,15 +111,6 @@ char* sub_43B510()
 }
 // 43B510: using guessed type char var_50[80];
 
-//----- (0043B630) --------------------------------------------------------
-_DWORD* sub_43B630()
-{
-    wchar_t* v0; // eax
-
-    sub_46C6E0(*(int*)& byte_5D4594[815000]);
-    v0 = loadString_sub_40F1D0((char*)& byte_587000[90904], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1284);
-    return sub_449A10(*(int*)& byte_5D4594[814980], 0, (int)v0, 34, 0, 0);
-}
 
 //----- (0043B670) --------------------------------------------------------
 _DWORD* sub_43B670()
@@ -145,175 +140,8 @@ int sub_43B6D0()
     return *(_DWORD*)& byte_5D4594[815044];
 }
 
-//----- (0043B6E0) --------------------------------------------------------
-void sub_43B6E0()
-{
-    wchar_t* v1; // eax
-    wchar_t* v2; // [esp-10h] [ebp-10h]
-    if (*(_DWORD*)& byte_5D4594[814980])
-    {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[90960], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3331);
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[91008], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3331);
-        sub_449A10(0, (int)v1, (int)v2, 33, 0, 0);
-        sub_44A360(1);
-        *(_DWORD*)& byte_5D4594[815096] = 0;
-    }
-    else
-    {
-        *(_DWORD*)& byte_5D4594[815096] = 1;
-    }
-}
 
-//----- (0043B750) --------------------------------------------------------
-void sub_43B750()
-{
-    wchar_t* v1; // eax
-    wchar_t* v2; // [esp-10h] [ebp-10h]
 
-    if (*(_DWORD*)& byte_5D4594[814980])
-    {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[91064], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3351);
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[91112], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3351);
-        sub_449A10(0, (int)v1, (int)v2, 33, 0, 0);
-        sub_44A360(1);
-        *(_DWORD*)& byte_5D4594[815100] = 0;
-    }
-    else
-    {
-        *(_DWORD*)& byte_5D4594[815100] = 1;
-    }
-}
-
-//----- (0043B7C0) --------------------------------------------------------
-_DWORD* __cdecl sub_43B7C0(int a1)
-{
-    int v1; // eax
-    __int16 v2; // cx
-    _DWORD* v3; // eax
-    int v4; // eax
-    _DWORD* result; // eax
-    wchar_t* v6; // eax
-    int v7; // eax
-    char v8; // al
-    wchar_t* v9; // eax
-    wchar_t* v10; // eax
-    wchar_t* v11; // [esp-14h] [ebp-208h]
-    WCHAR WideCharStr[64]; // [esp+8h] [ebp-1ECh]
-    char v13[32]; // [esp+88h] [ebp-16Ch]
-    char v14[332]; // [esp+A8h] [ebp-14Ch]
-
-    if (*(_DWORD*)& byte_587000[87408])
-    {
-        nox_window_call_field_94(*(int*)& byte_5D4594[815012], 16397, (int)& byte_587000[91164], 4);
-        strncpy(v14, (const char*)(a1 + 120), 0xFu);
-        v14[15] = 0;
-        if (!memcmp(v14, &byte_5D4594[815120], 1u))
-            sub_43BC80(a1 + 12, *(_WORD*)(a1 + 109), v14);
-        nox_swprintf(WideCharStr, L"%S", v14);
-        sub_43BC10(WideCharStr, 0x64u);
-        nox_window_call_field_94(*(int*)& byte_5D4594[815016], 16397, (int)WideCharStr, 4);
-        nox_swprintf(
-                WideCharStr,
-                L"%d/%d",
-                *(unsigned __int8*)(a1 + 103),
-                *(unsigned __int8*)(a1 + 104));
-        nox_window_call_field_94(*(int*)& byte_5D4594[815020], 16397, (int)WideCharStr, 4);
-        v6 = sub_43BCB0(*(_WORD*)(a1 + 163));
-        if (*(_BYTE*)(a1 + 164) & 0x10)
-        {
-            nox_swprintf(
-                    (wchar_t*)& byte_5D4594[814772],
-                    L"%s %d",
-                    v6,
-                    *(unsigned __int16*)(a1 + 165));
-            nox_window_call_field_94(*(int*)& byte_5D4594[815024], 16397, (int)& byte_5D4594[814772], 4);
-        }
-        else
-        {
-            nox_window_call_field_94(*(int*)& byte_5D4594[815024], 16397, (int)v6, 4);
-        }
-        v7 = *(_DWORD*)(a1 + 96);
-        if (v7 == 9999)
-            nox_swprintf(WideCharStr, L"--");
-        else
-            _itow(v7, WideCharStr, 10);
-        nox_window_call_field_94(*(int*)& byte_5D4594[815028], 16397, (int)WideCharStr, 4);
-        v8 = *(_BYTE*)(a1 + 100);
-        WideCharStr[0] = 0;
-        if (v8 & 0x20)
-        {
-            v9 = loadString_sub_40F1D0((char*)& byte_587000[91248], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3486);
-            nox_wcscat(WideCharStr, v9);
-        }
-        if (*(_BYTE*)(a1 + 100) & 0x10)
-        {
-            if (WideCharStr[0])
-                nox_wcscat(WideCharStr, L"+");
-            v10 = loadString_sub_40F1D0((char*)& byte_587000[91316], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3494);
-            nox_wcscat(WideCharStr, v10);
-        }
-        if (!WideCharStr[0])
-        {
-            if (*(_BYTE*)(a1 + 103) < *(_BYTE*)(a1 + 104))
-                v11 = loadString_sub_40F1D0((char*)& byte_587000[91424], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3505);
-            else
-                v11 = loadString_sub_40F1D0((char*)& byte_587000[91376], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3501);
-            nox_wcscat(WideCharStr, v11);
-        }
-        result = (_DWORD*)nox_window_call_field_94(*(int*)& byte_5D4594[815032], 16397, (int)WideCharStr, 4);
-    }
-    else
-    {
-        memset(v14, 0, sizeof(v14));
-        *(_DWORD*)& v14[8] = 257;
-        *(_DWORD*)& v14[16] = *(_DWORD*)& byte_5D4594[814980];
-        if (*(int*)& byte_587000[87412] == -1)
-        {
-            v1 = sub_437860(*(__int16*)(a1 + 44), *(__int16*)(a1 + 46));
-            v2 = *(_WORD*)& byte_587000[8 * v1 + 87528];
-            v1 += 10054;
-            *(_WORD*)(a1 + 44) -= v2;
-            *(_WORD*)(a1 + 46) -= *(_WORD*)& byte_587000[8 * v1 + 7098];
-            *(_WORD*)(a1 + 44) >>= 1;
-            *(_WORD*)(a1 + 46) >>= 1;
-            v3 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[814988], v1);
-            v4 = sub_4A91A0((int)v3, 1185, *(__int16*)(a1 + 44) - 5, *(__int16*)(a1 + 46) - 5, 10, 10, v14);
-        }
-        else
-        {
-            *(_WORD*)(a1 + 44) -= *(_WORD*)& byte_587000[8 * *(_DWORD*)& byte_587000[87412] + 87528];
-            *(_WORD*)(a1 + 46) -= *(_WORD*)& byte_587000[8 * *(_DWORD*)& byte_587000[87412] + 87530];
-            v4 = sub_4A91A0(
-                    *(int*)& byte_5D4594[814984],
-                    1192,
-                    *(__int16*)(a1 + 44) - 10,
-                    *(__int16*)(a1 + 46) - 10,
-                    20,
-                    20,
-                    v14);
-        }
-        *(_DWORD*)(a1 + 28) = v4;
-        sub_437320(a1);
-        if (*(_BYTE*)(a1 + 120))
-        {
-            strncpy(v13, (const char*)(a1 + 120), 0xFu);
-            v13[15] = 0;
-        }
-        else
-        {
-            sub_43BC80(a1 + 12, *(_WORD*)(a1 + 109), v13);
-        }
-        if (*(_DWORD*)(a1 + 96) == 9999)
-            nox_swprintf(WideCharStr, L"%S -- ms", v13);
-        else
-            nox_swprintf(WideCharStr, L"%S %dms", v13, *(_DWORD*)(a1 + 96));
-        sub_46B000((wchar_t*)(*(_DWORD*)(a1 + 28) + 36), WideCharStr);
-        sub_46B2C0(*(_DWORD*)(a1 + 28), sub_439E70);
-        result = *(_DWORD * *)(a1 + 28);
-        *result = *(_DWORD*)(a1 + 36) + 10070;
-    }
-    return result;
-}
 
 //----- (0043BC10) --------------------------------------------------------
 unsigned __int16* __cdecl sub_43BC10(wchar_t* a1, unsigned __int8 a2)
@@ -346,23 +174,6 @@ int __cdecl sub_43BC80(int a1, unsigned __int16 a2, char* a3)
     return nox_sprintf(a3, "%s:%d", a1, a2);
 }
 
-//----- (0043BCB0) --------------------------------------------------------
-wchar_t* __cdecl sub_43BCB0(__int16 a1)
-{
-    if (a1 & 0x1000)
-        return loadString_sub_40F1D0((char*)& byte_587000[91480], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3534);
-    if (a1 & 0x20)
-        return loadString_sub_40F1D0((char*)& byte_587000[91528], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3541);
-    if (a1 & 0x400)
-        return loadString_sub_40F1D0((char*)& byte_587000[91572], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3545);
-    if (a1 & 0x10)
-        return loadString_sub_40F1D0((char*)& byte_587000[91624], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3550);
-    if (a1 & 0x40)
-        return loadString_sub_40F1D0((char*)& byte_587000[91672], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3555);
-    if ((a1 & 0x80u) == 0)
-        return loadString_sub_40F1D0((char*)& byte_587000[91772], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3563);
-    return loadString_sub_40F1D0((char*)& byte_587000[91724], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3559);
-}
 
 //----- (0043BD90) --------------------------------------------------------
 int __cdecl sub_43BD90(int a1)
@@ -1484,75 +1295,7 @@ int sub_43CFF0()
     return 0;
 }
 
-//----- (0043D0A0) --------------------------------------------------------
-void __cdecl sub_43D0A0(int a1)
-{
-    wchar_t* v1; // esi
-    wchar_t* v2; // eax
 
-    v1 = loadString_sub_40F1D0((char*)& byte_587000[91932], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 702);
-    switch (a1 + 23)
-    {
-        case 0:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92656], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 762);
-            break;
-        case 1:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92596], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 757);
-            break;
-        case 2:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92540], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 752);
-            break;
-        case 3:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92304], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 732);
-            break;
-        case 4:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92252], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 727);
-            break;
-        case 5:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92124], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 718);
-            break;
-        case 8:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92484], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 747);
-            break;
-        case 10:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92056], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 713);
-            break;
-        case 11:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[91992], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 708);
-            break;
-        case 17:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92192], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 722);
-            break;
-        case 19:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92424], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 742);
-            break;
-        case 20:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92364], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 737);
-            break;
-        default:
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92720], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 767);
-            break;
-    }
-    sub_449A10(0, (int)v1, (int)v2, 33, 0, 0);
-    sub_44A360(1);
-}
-
-//----- (0043D260) --------------------------------------------------------
-void __cdecl sub_43D260(int a1, int a2)
-{
-    wchar_t* v2; // eax
-    wchar_t v3[256]; // [esp+8h] [ebp-200h]
-
-    if (a1)
-    {
-        if (a2)
-        {
-            v2 = loadString_sub_40F1D0((char*)& byte_587000[92784], 0, "C:\\NoxPost\\src\\Client\\Network\\netclint.c", 784);
-            nox_swprintf(v3, v2, a1, a2);
-            sub_445490(v3);
-        }
-    }
-}
 
 //----- (0043D2C0) --------------------------------------------------------
 void sub_43D2C0()
@@ -2232,148 +1975,8 @@ int sub_43DE60()
     return result;
 }
 
-//----- (0043DEB0) --------------------------------------------------------
-int sub_43DEB0()
-{
-    char* v0; // eax
-    char* v1; // esi
-    int v2; // eax
-    char v3; // al
-    char v4; // bl
-    char* v5; // esi
-    wchar_t* v6; // eax
-    wchar_t* v7; // eax
-    wchar_t* v8; // eax
-    wchar_t* v10; // eax
-    wchar_t* v12; // [esp-10h] [ebp-118h]
-    char* v13; // [esp-4h] [ebp-10Ch]
-    char* v14; // [esp-4h] [ebp-10Ch]
-    wchar_t v15[128]; // [esp+8h] [ebp-100h]
 
-    if (!sub_40A5C0(0x800000))
-        goto LABEL_16;
-    sub_477610(10);
-    if (sub_4DB250())
-        v0 = sub_4DB260();
-    else
-        v0 = sub_409B30();
-    v1 = v0;
-    v2 = sub_409B00();
-    v3 = sub_4CF470(v1, v2);
-    v4 = v3;
-    if (v3 & 2 && v3 & 4)
-    {
-        sub_43F140(500);
-        v5 = sub_4AC2B0(v1);
-        sub_43F1A0();
-        if (!v5)
-        {
-            v13 = sub_409B30();
-            v6 = loadString_sub_40F1D0((char*)& byte_587000[93352], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 318);
-            sub_4516C0(v6, v13);
-            sub_4356E0();
-            return 0;
-        }
-        if (sub_40A5C0(1))
-            sub_4DD180(31);
-        else
-            sub_43C9F0();
-        sub_43C720(1);
-        if ((int) * (_DWORD*)& byte_5D4594[3803228] < 0)
-        {
-            v7 = loadString_sub_40F1D0((char*)& byte_587000[93408], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 338);
-            sub_445490(v7);
-            v14 = sub_42E8E0(8, 1);
-            v8 = loadString_sub_40F1D0((char*)& byte_587000[93468], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 339);
-            nox_swprintf(v15, v8, v14);
-            sub_445490(v15);
-        }
-    }
-    else
-    {
-        if (!sub_40A5C0(1))
-        {
-            if (!(v4 & 1) || v4 & 4)
-            {
-                sub_40A4D0(0x100000);
-            }
-            else
-            {
-                sub_40A540(9437184);
-                sub_477530(1);
-                sub_43E1A0(1);
-                v12 = loadString_sub_40F1D0((char*)& byte_587000[93244], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 298);
-                v10 = loadString_sub_40F1D0((char*)& byte_587000[93304], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 297);
-                sub_449A10(0, (int)v10, (int)v12, 24, sub_43E230, sub_43E200);
-            }
-            goto LABEL_16;
-        }
-        sub_4DD180(31);
-    }
-    if (!(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
-    {
-        *(_DWORD*)& byte_5D4594[2650672] = 1;
-        sub_44DA60(1);
-    }
-    LABEL_16:
-    if (sub_40A5C0(0x100000))
-    {
-        map_download_start();
-        return 0;
-    }
-    if (sub_40A5C0(9437184))
-        sub_40A540(9437184);
-    return 1;
-}
 
-int map_download_finish()
-{
-    int result; // eax
-    wchar_t* v6; // eax
-    char* v13; // [esp-4h] [ebp-10Ch]
-
-    sub_4CC930();
-    result = *(_DWORD*)& byte_587000[173332];
-    if (*(_DWORD*)& byte_587000[173332])
-    {
-        int v3; // [esp+4h] [ebp-Ch]
-        int v4; // [esp+8h] [ebp-8h]
-        int v5; // [esp+Ch] [ebp-4h]
-        sub_43BEB0_get_video_mode(&v3, &v5, &v4);
-        if (!v3)
-            sub_43BEF0_set_video_mode(default_win_width, default_win_height, v4);
-        result = *(_DWORD*)& byte_587000[173332];
-    }
-
-    if (!result)
-    {
-        sub_40A540(9437184);
-        return 0;
-    }
-    sub_43E1A0(0);
-    if (!(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
-    {
-        *(_DWORD*)& byte_5D4594[2650672] = 1;
-        sub_44DA60(1);
-    }
-    if (!sub_4AC2B0(sub_409B30()))
-    {
-        v13 = sub_409B30();
-        v6 = loadString_sub_40F1D0((char*)& byte_587000[93528], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 386);
-        sub_4516C0(v6, v13);
-        sub_4356E0();
-        return 0;
-    }
-    if (sub_40A5C0(1))
-        sub_4DD180(31);
-    else
-        sub_43C9F0();
-    sub_43C720(1);
-
-    if (sub_40A5C0(9437184))
-        sub_40A540(9437184);
-    return 1;
-}
 int map_download_loop(int first)
 {
     unsigned __int8* v1; // eax
@@ -2411,14 +2014,6 @@ int map_download_loop(int first)
     if (!*(_DWORD*)& byte_587000[173328])
         return map_download_finish();
     return -1;
-}
-void map_download_start()
-{
-    sub_467DF0(1);
-    sub_4CC770();
-    *(_DWORD*)& byte_587000[173328] = 1;
-    *(_DWORD*)& byte_587000[173332] = 1;
-    map_download_loop(1);
 }
 
 //----- (0043E1A0) --------------------------------------------------------
@@ -6348,189 +5943,8 @@ int sub_445770()
     return result;
 }
 
-//----- (00445790) --------------------------------------------------------
-int sub_445790()
-{
-    int result; // eax
-    wchar_t* v1; // eax
 
-    result = nox_new_window_from_file("QuitMenu.wnd", sub_445840);
-    *(_DWORD*)& byte_5D4594[825760] = result;
-    if (result)
-    {
-        nox_window_set_all_funcs((_DWORD*)result, sub_445BB0, sub_445BC0, 0);
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[825760] + 56) = *(_DWORD*)& byte_5D4594[2650656];
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[825760] + 16) = (nox_win_width
-                                                            - *(_DWORD*)(*(_DWORD*)& byte_5D4594[825760] + 8))
-                                                           / 2;
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[825760] + 24) = *(_DWORD*)(*(_DWORD*)& byte_5D4594[825760] + 8)
-                                                           + *(_DWORD*)(*(_DWORD*)& byte_5D4594[825760] + 16);
-        sub_445C40();
-        *(_DWORD*)& byte_5D4594[825752] = 0;
-        *(_DWORD*)& byte_5D4594[825768] = 0;
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[108044], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 309);
-        nox_swprintf((wchar_t*)& byte_5D4594[825772], L"%s", v1);
-        result = 1;
-    }
-    return result;
-}
 
-//----- (00445840) --------------------------------------------------------
-int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4)
-{
-    int v3; // esi
-    int v4; // eax
-    int result; // eax
-    int v6; // eax
-    int v7; // eax
-    char* v8; // eax
-    int v9; // eax
-    int v10; // eax
-    int v12; // eax
-    wchar_t* v13; // eax
-    int v14; // eax
-    wchar_t* v15; // eax
-    int v16; // eax
-    int v17; // eax
-    int v18; // ecx
-    _DWORD* v19; // eax
-    int v20; // eax
-    int v21; // eax
-    wchar_t* v22; // [esp-18h] [ebp-18h]
-    wchar_t* v23; // [esp-18h] [ebp-18h]
-
-    if (a2 != 16391)
-        return 0;
-    v3 = sub_46B0A0(a3);
-    sub_452D80(766, 100);
-    switch (v3)
-    {
-        case 9001:
-            sub_445C40();
-            sub_413A00(1);
-            if (!sub_40A5C0(2048) || sub_4372B0())
-            {
-                sub_445B40();
-                v17 = a3[9];
-                LOBYTE(v17) = v17 & 0xFD;
-                a3[9] = v17;
-                result = 0;
-            }
-            else
-            {
-                v23 = loadString_sub_40F1D0((char*)& byte_587000[108224], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 199);
-                v15 = loadString_sub_40F1D0((char*)& byte_587000[108288], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 198);
-                sub_449A10(0, (int)v15, (int)v23, 56, (int (*)(void))sub_445B40, sub_445BA0);
-                v16 = a3[9];
-                LOBYTE(v16) = v16 & 0xFD;
-                a3[9] = v16;
-                result = 0;
-            }
-            break;
-        case 9002:
-            v18 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 120);
-            if ((v18 & 0x8000) == 0)
-            {
-                sub_445C40();
-                if (sub_40A5C0(2048))
-                {
-                    sub_4DB130("AUTOSAVE");
-                    sub_4DB170(1, 0, 0);
-                }
-                goto LABEL_27;
-            }
-            v19 = sub_46B0C0(a1, v3);
-            sub_46ABB0((int)v19, 0);
-            v20 = a3[9];
-            LOBYTE(v20) = v20 & 0xFD;
-            a3[9] = v20;
-            result = 0;
-            break;
-        case 9003:
-            sub_445C40();
-            if (sub_40A5C0(2048))
-                sub_46D580();
-            else
-                sub_41CE00();
-            if (sub_43C6E0())
-                goto LABEL_27;
-            sub_43CF70();
-            v12 = a3[9];
-            LOBYTE(v12) = v12 & 0xFD;
-            a3[9] = v12;
-            result = 0;
-            break;
-        case 9004:
-            sub_46ADE0(*(int*)& byte_5D4594[825760]);
-            v22 = loadString_sub_40F1D0((char*)& byte_587000[108096], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 185);
-            v13 = loadString_sub_40F1D0((char*)& byte_587000[108160], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 184);
-            sub_449A10(*(int*)& byte_5D4594[825760], (int)v13, (int)v22, 56, sub_445B20, sub_445B30);
-            v14 = a3[9];
-            LOBYTE(v14) = v14 & 0xFD;
-            a3[9] = v14;
-            result = 0;
-            break;
-        case 9005:
-            sub_445C40();
-            sub_4ADA40();
-            v4 = a3[9];
-            LOBYTE(v4) = v4 & 0xFD;
-            a3[9] = v4;
-            result = 0;
-            break;
-        case 9006:
-            goto LABEL_11;
-        case 9007:
-            if (sub_40A5C0(1))
-            {
-                v8 = sub_417040(*(int*)& byte_5D4594[2616328]);
-                sub_443E90((int)v8, 0, 0);
-                LABEL_11:
-                sub_445C40();
-                v9 = a3[9];
-                LOBYTE(v9) = v9 & 0xFD;
-                a3[9] = v9;
-                result = 0;
-            }
-            else
-            {
-                sub_440950(0, 0);
-                sub_445C40();
-                v7 = a3[9];
-                LOBYTE(v7) = v7 & 0xFD;
-                a3[9] = v7;
-                result = 0;
-            }
-            break;
-        case 9008:
-            sub_445C40();
-            sub_457500();
-            v10 = a3[9];
-            LOBYTE(v10) = v10 & 0xFD;
-            a3[9] = v10;
-            result = 0;
-            break;
-        case 9009:
-            sub_445C40();
-            if (sub_40A5C0(4096))
-                sub_48CB10(4);
-            else
-                sub_48CB10(0);
-            v6 = a3[9];
-            LOBYTE(v6) = v6 & 0xFD;
-            a3[9] = v6;
-            result = 0;
-            break;
-        default:
-        LABEL_27:
-            v21 = a3[9];
-            LOBYTE(v21) = v21 & 0xFD;
-            a3[9] = v21;
-            result = 0;
-            break;
-    }
-    return result;
-}
 // 445B20: using guessed type int sub_445B20();
 
 //----- (00445B20) --------------------------------------------------------
@@ -6548,23 +5962,6 @@ int sub_445B30()
     return sub_46ADC0(*(int*)& byte_5D4594[825760]);
 }
 
-//----- (00445B40) --------------------------------------------------------
-void* sub_445B40()
-{
-    void* result; // eax
-    wchar_t* v1; // eax
-    wchar_t* v2; // [esp-10h] [ebp-10h]
-
-    sub_413A00(0);
-    result = sub_4DB790("AUTOSAVE");
-    if (!result)
-    {
-        v2 = loadString_sub_40F1D0((char*)& byte_587000[108368], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 88);
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[108432], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 87);
-        result = sub_449A10(0, (int)v1, (int)v2, 33, 0, 0);
-    }
-    return result;
-}
 
 //----- (00445BA0) --------------------------------------------------------
 int sub_445BA0()
@@ -6611,124 +6008,6 @@ int sub_445C20()
     return result;
 }
 
-//----- (00445C40) --------------------------------------------------------
-int sub_445C40()
-{
-    int result; // eax
-    _DWORD* v1; // eax
-    _DWORD* v2; // eax
-    _DWORD* v3; // eax
-    _DWORD* v4; // eax
-    _DWORD* v5; // eax
-    _DWORD* v6; // esi
-    _DWORD* v7; // eax
-    _DWORD* v8; // eax
-    _DWORD* v9; // eax
-    _DWORD* v10; // eax
-    _DWORD* v11; // esi
-    _DWORD* v12; // eax
-    _DWORD* v13; // esi
-    _DWORD* v14; // eax
-    _DWORD* v15; // eax
-    _DWORD* v16; // eax
-    _DWORD* v17; // eax
-    _DWORD* v18; // eax
-    _DWORD* v19; // eax
-    wchar_t* v20; // [esp-4h] [ebp-8h]
-    wchar_t* v21; // [esp-4h] [ebp-8h]
-
-    if (sub_46ADA0(*(int*)& byte_5D4594[825760]) & 0x10)
-    {
-        if (!*(_DWORD*)& byte_5D4594[2614252]
-            || !sub_40A5C0(2048)
-            || (result = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 276), result != 2) && result != 1 && result != 51)
-        {
-            result = sub_45D9B0();
-            if (result != 1)
-            {
-                result = sub_413A50();
-                if (result != 1)
-                {
-                    sub_452D80(921, 100);
-                    sub_46A8C0(*(int*)& byte_5D4594[825760]);
-                    *(_DWORD*)(*(_DWORD*)& byte_5D4594[825760] + 4) |= 8u;
-                    sub_46ADC0(*(int*)& byte_5D4594[825760]);
-                    if (sub_40A5C0(2048))
-                    {
-                        v20 = loadString_sub_40F1D0((char*)& byte_587000[108496], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 396);
-                        v1 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9003);
-                        sub_46AEE0((int)v1, (int)v20);
-                        v2 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9001);
-                        nox_window_set_hidden((int)v2, 0);
-                        v3 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9002);
-                        nox_window_set_hidden((int)v3, 0);
-                        v4 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9007);
-                        nox_window_set_hidden((int)v4, 1);
-                        v5 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9008);
-                        nox_window_set_hidden((int)v5, 1);
-                        v6 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9009);
-                        nox_window_set_hidden((int)v6, 1);
-                        v7 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9004);
-                        sub_46A9B0(v7, v6[4], v6[5]);
-                        sub_413A00(1);
-                        result = sub_46AB20(*(_DWORD * *)& byte_5D4594[825760], 220, 285);
-                    }
-                    else
-                    {
-                        v21 = loadString_sub_40F1D0((char*)& byte_587000[108548], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 427);
-                        v8 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9003);
-                        sub_46AEE0((int)v8, (int)v21);
-                        v9 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9001);
-                        nox_window_set_hidden((int)v9, 1);
-                        v10 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9002);
-                        nox_window_set_hidden((int)v10, 1);
-                        v11 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9007);
-                        nox_window_set_hidden((int)v11, 0);
-                        sub_46ABB0((int)v11, 1);
-                        v12 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9008);
-                        nox_window_set_hidden((int)v12, 0);
-                        v13 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9009);
-                        nox_window_set_hidden((int)v13, 0);
-                        sub_46AEE0((int)v13, (int)& byte_5D4594[825772]);
-                        if (sub_40A5C0(49152) || !sub_417DD0())
-                            sub_46ABB0((int)v13, 0);
-                        else
-                            sub_46ABB0((int)v13, 1);
-                        v14 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9004);
-                        sub_46A9B0(v14, v13[4], v13[5] + 45);
-                        sub_46AB20(*(_DWORD * *)& byte_5D4594[825760], 220, 330);
-                        result = sub_40A5C0(4096);
-                        if (result)
-                        {
-                            v15 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9007);
-                            sub_46ABB0((int)v15, 0);
-                            v16 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9003);
-                            result = sub_46ABB0((int)v16, 0);
-                        }
-                        if (*(_DWORD*)& byte_5D4594[2650636] & 0x40000)
-                        {
-                            v17 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9007);
-                            sub_46ABB0((int)v17, 0);
-                            v18 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9005);
-                            sub_46ABB0((int)v18, 0);
-                            v19 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9003);
-                            result = sub_46ABB0((int)v19, 0);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    else
-    {
-        sub_46B500(0);
-        sub_46ADE0(*(int*)& byte_5D4594[825760]);
-        nox_window_set_hidden(*(int*)& byte_5D4594[825760], 1);
-        *(_DWORD*)(*(_DWORD*)& byte_5D4594[825760] + 4) &= 0xFFFFFFF7;
-        result = sub_413A00(0);
-    }
-    return result;
-}
 
 //----- (00445FF0) --------------------------------------------------------
 _DWORD* sub_445FF0()
@@ -6856,77 +6135,6 @@ int sub_446180()
     return *(_DWORD*)& byte_5D4594[825764];
 }
 
-//----- (00446190) --------------------------------------------------------
-void sub_446190()
-{
-    wchar_t* v1; // eax
-    wchar_t* v2; // eax
-    wchar_t* v3; // [esp-12h] [ebp-14h]
-    char v4; // [esp+1h] [ebp-1h]
-
-    *(_DWORD*)& byte_5D4594[825764] = 0;
-    if (sub_40A5C0(1))
-    {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[108608], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 667);
-        sub_413D30((char*)& byte_587000[108632], v1);
-    }
-    if (sub_40A5C0(0x2000000))
-    {
-        sub_43C260();
-        sub_41E300(9);
-        sub_44B000();
-    }
-    else if (sub_4D6F50())
-    {
-        if (sub_4D6F30())
-            sub_43C2F0();
-        sub_4D70B0();
-        sub_4D6F40(0);
-        sub_4D6F90(0);
-    }
-    if (!*(_DWORD*)& byte_5D4594[825768])
-    {
-        *(_DWORD*)& byte_5D4594[825752] = 0;
-        *(_DWORD*)& byte_5D4594[825768] = *(_DWORD*)& byte_5D4594[2598000];
-        if (sub_40A5C0(1))
-        {
-            if (sub_43AF70() == 1 && sub_40A5C0(49152))
-                sub_416150(15, 0);
-            sub_509CB0();
-        }
-        if (sub_40A5C0(1))
-        {
-            *(_DWORD*)& byte_5D4594[825752] = sub_416F40() - 1;
-            sub_467440(0);
-            if (*(_DWORD*)& byte_5D4594[825752] > 0)
-            {
-                v4 = -57;
-                sub_4E5420(159, &v4, 1, 0, 1);
-                v3 = loadString_sub_40F1D0((char*)& byte_587000[108672], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 737);
-                v2 = loadString_sub_40F1D0((char*)& byte_587000[108724], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 736);
-                sub_449A10(0, (int)v2, (int)v3, 0, 0, 0);
-                sub_44A360(1);
-                goto LABEL_20;
-            }
-        }
-        else if (!sub_40A5C0(0x2000))
-        {
-            goto LABEL_20;
-        }
-        sub_446380();
-    }
-    LABEL_20:
-    if (*(_DWORD*)& byte_5D4594[2650652])
-    {
-        if (sub_41E2F0() == 9)
-        {
-            sub_41F4B0();
-            sub_41EC30();
-            sub_446490(0);
-            sub_44B000();
-        }
-    }
-}
 
 //----- (00446360) --------------------------------------------------------
 unsigned int sub_446360()
@@ -9154,38 +8362,6 @@ void sub_44B000()
     *(_DWORD*)& byte_5D4594[830272] = 1;
 }
 
-//----- (0044B010) --------------------------------------------------------
-void sub_44B010()
-{
-    wchar_t* v0; // eax
-    wchar_t* v1; // eax
-
-    sub_43C260();
-    sub_41E300(9);
-    sub_44E040();
-    if (sub_40A5C0(0x2000000))
-    {
-        v0 = loadString_sub_40F1D0((char*)& byte_587000[113772], 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 75);
-        sub_413D30((char*)& byte_587000[113788], v0);
-        if (sub_43C710())
-            sub_41E400();
-        else
-            sub_4460C0();
-    }
-    else if (sub_40A5C0(1))
-    {
-        *(_DWORD*)& byte_5D4594[830292] = nox_new_window_from_file("woldisc.wnd", sub_44B0F0);
-        sub_46A9B0(
-                *(_DWORD * *)& byte_5D4594[830292],
-                nox_win_width / 2 - *(int*)(*(_DWORD*)& byte_5D4594[830292] + 24) / 2,
-                nox_win_height / 2 - *(int*)(*(_DWORD*)& byte_5D4594[830292] + 28) / 2);
-    }
-    else
-    {
-        v1 = loadString_sub_40F1D0((char*)& byte_587000[113840], 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 100);
-        sub_445490(v1);
-    }
-}
 
 //----- (0044B0F0) --------------------------------------------------------
 int __cdecl sub_44B0F0(int a1, int a2, int* a3, int a4)
@@ -10178,19 +9354,7 @@ bool __cdecl nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* a3)
     return 1;
 }
 
-//----- (0044C480) --------------------------------------------------------
-bool __cdecl nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* a3)
-{
-    obj->pretty_name = loadString_sub_40F1D0(a3, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
-    return 1;
-}
 
-//----- (0044C4B0) --------------------------------------------------------
-bool __cdecl nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* a3)
-{
-    obj->desc = loadString_sub_40F1D0(a3, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
-    return 1;
-}
 
 //----- (0044C4E0) --------------------------------------------------------
 bool __cdecl nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* a3)
@@ -10408,177 +9572,4 @@ LPVOID __cdecl sub_44C7B0(int a1)
     return result;
 }
 
-//----- (0044C840) --------------------------------------------------------
-void* __cdecl sub_44C840_read_things(void)
-{
-    char* v1; // ebx
-    int v6; // eax
-    CHAR* v9; // esi
-    unsigned int v10; // edx
-    unsigned __int8* v11; // edi
-    unsigned __int8* v12; // edi
-    CHAR* v13; // esi
-    char v14; // cl
-    unsigned __int8* v15; // edi
-    int v16; // ecx
-    unsigned __int8 v17; // al
-    CHAR* v18; // esi
-    unsigned int v19; // edx
-    unsigned __int8* v20; // edi
-    unsigned __int8* v21; // edi
-    CHAR* v22; // esi
-    char v23; // cl
-    int v24; // edx
-    unsigned __int8* v25; // edi
-    int v26; // ecx
-    int i; // [esp+10h] [ebp-4h]
-    unsigned __int8 v28; // [esp+18h] [ebp+4h]
 
-    v1 = (char*)nox_malloc(256*1024);
-    sub_44CCA0();
-    sub_44C580_free();
-    nox_things_count = 1;
-    sub_485CF0();
-    sub_485F30();
-    sub_46A360();
-
-    nox_memfile* things = nox_open_thing_bin();
-    if (!things)
-        return 0;
-    sub_40AD10(things, 0, 0);
-    while (nox_memfile_read(&i, 4u, 1, things))
-    {
-        switch (i)
-        {
-            case 0x5350454C: // "SPEL"
-                sub_415100_read_spells(things);
-                break;
-            case 0x4142494C: // "ABIL"
-                sub_415320(things);
-                break;
-            case 0x41554420: // "AUD "
-                sub_414D40(things);
-                break;
-            case 0x41564E54: // "AVNT"
-                sub_452B00(things);
-                break;
-            case 0x57414C4C: // "WALL"
-                if (!sub_46A010(things, v1))
-                    return 0;
-                break;
-            case 0x464C4F52: // "FLOR"
-                if (!sub_485B30(things, v1))
-                    return 0;
-                break;
-            case 0x45444745: // "EDGE"
-                if (!sub_485D40(things, v1))
-                    return 0;
-                break;
-            case 0x494D4147: // "IMAG"
-                sub_415240(things);
-                break;
-            case 0x54484E47: // "THNG"
-                ;
-                nox_thing* obj = (nox_thing*)nox_calloc(1, sizeof(nox_thing));
-                if (!obj)
-                    return 0;
-                v28 = *(unsigned __int8*)things->cur;
-                things->cur++;
-                nox_memfile_read(v1, 1u, v28, things);
-                v1[v28] = 0;
-                obj->name = nox_clone_str(v1);
-                obj->menuicon = -1;
-                obj->field_1c = nox_things_count++;
-                obj->flags |= 0x1000000;
-                *((_BYTE*)obj + 15) = 0;
-                obj->field_10 = 0xFFFF;
-                obj->audio_loop = 0;
-                obj->draw_func = nox_thing_debug_draw;
-                obj->zsize_min = 0;
-                obj->zsize_max = 30.0f;
-                if (!nox_parse_thing(things, v1, obj))
-                    return 0;
-                obj->next = nox_things_head;
-                nox_things_head = obj;
-                sub_44CD10(obj->name);
-                break;
-        }
-    }
-    *(_DWORD*)& byte_5D4594[2649708] = 1;
-    if (nox_loaded_thing_bin)
-    {
-        if (sub_40A5C0(1) && *(_DWORD*)& byte_5D4594[2650664])
-        {
-            nox_free_thing_bin();
-        }
-    }
-    else
-    {
-        nox_memfile_free(things);
-    }
-    void* result = nox_malloc(4 * nox_things_count);
-    nox_things_array = result;
-    if (result)
-    {
-        sub_44CCD0();
-        v6 = nox_things_count;
-        nox_thing* cur = nox_things_head;
-        for (int i = 1; i < nox_things_count; i++)
-        {
-            nox_things_array[v6 - i] = cur;
-            sub_44CD60(cur, nox_things_count - i);
-            if (*((_BYTE*)cur + 0xe))
-            {
-                if (!cur->pretty_name)
-                {
-                    strcpy((char*)& byte_5D4594[830404], "thing.db:");
-                    v9 = cur->name;
-                    v10 = strlen(cur->name) + 1;
-                    v11 = &byte_5D4594[strlen((const char*)& byte_5D4594[830404]) + 830404];
-                    qmemcpy(v11, cur->name, 4 * (v10 >> 2));
-                    v13 = &v9[4 * (v10 >> 2)];
-                    v12 = &v11[4 * (v10 >> 2)];
-                    v14 = v10;
-                    LOWORD(v10) = *(_WORD*)& byte_587000[122728];
-                    qmemcpy(v12, v13, v14 & 3);
-                    v15 = &byte_5D4594[strlen((const char*)& byte_5D4594[830404]) + 830405];
-                    v16 = *(_DWORD*)& byte_587000[122724];
-                    *(_DWORD*)--v15 = *(_DWORD*)& byte_587000[122720];
-                    v17 = byte_587000[122730];
-                    *((_DWORD*)v15 + 1) = v16;
-                    *((_WORD*)v15 + 4) = v10;
-                    v15[10] = v17;
-                    cur->pretty_name = loadString_sub_40F1D0((char*)& byte_5D4594[830404], 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
-                }
-                if (!cur->desc)
-                {
-                    strcpy((char*)& byte_5D4594[830404], "thing.db:");
-                    v18 = cur->name;
-                    v19 = strlen(cur->name) + 1;
-                    v20 = &byte_5D4594[strlen((const char*)& byte_5D4594[830404]) + 830404];
-                    qmemcpy(v20, cur->name, 4 * (v19 >> 2));
-                    v22 = &v18[4 * (v19 >> 2)];
-                    v21 = &v20[4 * (v19 >> 2)];
-                    v23 = v19;
-                    v24 = *(_DWORD*)& byte_587000[122792];
-                    qmemcpy(v21, v22, v23 & 3);
-                    v25 = &byte_5D4594[strlen((const char*)& byte_5D4594[830404]) + 830405];
-                    v26 = *(_DWORD*)& byte_587000[122788];
-                    *(_DWORD*)--v25 = *(_DWORD*)& byte_587000[122784];
-                    *((_DWORD*)v25 + 1) = v26;
-                    *((_DWORD*)v25 + 2) = v24;
-                    cur->desc = loadString_sub_40F1D0((char*)& byte_5D4594[830404], 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
-                }
-            }
-            v6 = nox_things_count;
-            cur = cur->next;
-        }
-        sub_44CDB0();
-        free(v1);
-        sub_4131A0();
-        sub_415AB0();
-        sub_4157C0();
-        result = (void*)(sub_42BF10() != 0);
-    }
-    return result;
-}

@@ -7,6 +7,8 @@
 #include "server/magic/plyrspel.h"
 #include "server/ability/ability.h"
 
+#include "common/gamemech/pausefx.h"
+
 #include "proto.h"
 
 extern nox_memfile* nox_loaded_thing_bin;

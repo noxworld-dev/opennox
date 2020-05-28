@@ -1,5 +1,7 @@
 #include "parsecmd.h"
+
 #include "../gui/guimsg.h"
+#include "../gui/servopts/general.h"
 #include "../../proto.h"
 
 //----- (00450B20) --------------------------------------------------------

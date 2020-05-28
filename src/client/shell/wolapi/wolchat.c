@@ -1,3 +1,6 @@
+#include "wolchat.h"
+
+#include "../../../common/wolapi/wolchnl.h"
 #include "../../../proto.h"
 
 //----- (00446970) --------------------------------------------------------

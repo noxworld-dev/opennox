@@ -4,12 +4,15 @@
 
 #include "client/system/parsecmd.h"
 #include "common/system/team.h"
-#include "common/system/settings.h"
 #include "server/system/server.h"
 #include "server/network/playback.h"
 #include "server/network/sdecode.h"
 #include "server/xfer/savegame/savegame.h"
 #include "server/mapgen/generate/populate.h"
+
+#include "client/gui/chathelp.h"
+#include "client/gui/conntype.h"
+#include "client/gui/servopts/guiserv.h"
 
 #include "proto.h"
 
