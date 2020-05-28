@@ -1,8 +1,10 @@
+#include "sdecode.h"
+
 #include "../../client/system/parsecmd.h"
 #include "../../common/system/team.h"
 #include "../system/trade.h"
 #include "mapsend.h"
-
+#include "../../client/network/cdecode.h"
 #include "../../proto.h"
 
 //----- (0051BAD0) --------------------------------------------------------

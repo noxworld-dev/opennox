@@ -1,6 +1,5 @@
 #include "server/system/trade.h"
 #include "server/network/mapsend.h"
-#include "server/dbase/objdb.h"
 #include "server/gamemech/explevel.h"
 #include "server/magic/plyrspel.h"
 

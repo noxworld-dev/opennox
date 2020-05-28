@@ -10,6 +10,14 @@
 #include "client/shell/wolapi/woldlgs.h"
 #include "client/system/parsecmd.h"
 
+#include "client/gui/servopts/playrlst.h"
+#include "client/gui/woldisc.h"
+#include "client/network/netclint.h"
+#include "client/system/ctrlevnt.h"
+#include "common/ability/comablty.h"
+#include "common/magic/speltree.h"
+#include "common/wolapi/woluser.h"
+
 #include "proto.h"
 
 #ifdef USE_SDL
@@ -23,7 +31,6 @@ int g_v20, g_v21;
 int g_argc2;
 char** g_argv2;
 
-int map_download_loop(int);
 int map_download_finish();
 
 nox_missing_string* missing_strings = 0;

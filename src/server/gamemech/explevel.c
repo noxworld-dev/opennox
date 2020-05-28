@@ -1,3 +1,6 @@
+#include "explevel.h"
+
+#include "../../common/gamemech/pausefx.h"
 #include "../../proto.h"
 
 //----- (0056F980) --------------------------------------------------------

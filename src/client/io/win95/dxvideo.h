@@ -1,4 +1,8 @@
 #ifndef NOX_PORT_CLIENT_IO_WIN95_DXVIDEO
 #define NOX_PORT_CLIENT_IO_WIN95_DXVIDEO
 
-#endif //NOX_PORT_CLIENT_IO_WIN95_DXVIDEO
+#include "../../../defs.h"
+
+int sub_47FD70();
+
+#endif // NOX_PORT_CLIENT_IO_WIN95_DXVIDEO

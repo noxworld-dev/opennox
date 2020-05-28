@@ -1,4 +1,6 @@
 #include "guiobs.h"
+
+#include "gamewin/gamewin.h"
 #include "../../proto.h"
 
 extern int nox_win_width;

@@ -1,4 +1,6 @@
 #include "light16.h"
+
+#include "../io/win95/dxvideo.h"
 #include "../../proto.h"
 
 extern int nox_win_width;

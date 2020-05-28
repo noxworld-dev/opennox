@@ -5,6 +5,9 @@
 #include "client/shell/wolapi/wolchat.h"
 #include "client/system/parsecmd.h"
 
+#include "client/gui/gamewin/psscript.h"
+#include "common/wolapi/wolstate.h"
+
 #include "proto.h"
 
 void sub_57F634() {}
