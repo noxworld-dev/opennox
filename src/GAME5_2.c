@@ -2,6 +2,7 @@
 
 #include "client/gui/guiinv.h"
 #include "common/system/group.h"
+#include "comw32/comlib.h"
 
 #include "proto.h"
 
