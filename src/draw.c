@@ -2687,7 +2687,7 @@ int sub_48A3D0()
                 v7 = 0;
                 *(_DWORD*)& byte_5D4594[3801780] = 1;
                 *(_DWORD*)& byte_5D4594[3801808] = v3;
-                for (dword_974868 = v5; v6; v6 >>= 1)
+                for (nox_backbuffer_pitch32 = v5; v6; v6 >>= 1)
                 {
                     if (v6 & 1)
                         ++v7;
@@ -2724,7 +2724,7 @@ int sub_48A3D0()
                 *(_DWORD*)& byte_5D4594[3799624] = 0;
                 *(_DWORD*)& byte_5D4594[3801808] = v1;
                 nox_backbuffer_width32 = v1 >> 5;
-                dword_974868 = v2 - v1;
+                nox_backbuffer_pitch32 = v2 - v1;
                 return 1;
             }
         }
