@@ -345,15 +345,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
 #ifdef __EMSCRIPTEN__
     if (!nox_SDL_GetEventState(SDL_MOUSEBUTTONDOWN))
     {
-        sub_42E670(1, orientation);
-        if (move_speed)
-            sub_42E670(2, 3);
-        if (jump)
-        {
-            sub_42E670(2, 3);
-            sub_42E670(7, 0);
-            jump = 0;
-        }
+    	sub_42D6B0_em_not_mouse_down();
     }
     else
 #endif

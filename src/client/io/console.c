@@ -53,7 +53,7 @@ void sub_4516C0(unsigned short * a1, ...)
     unsigned short * v1; // eax
     int v2; // eax
     unsigned short * v3; // [esp-8h] [ebp-8h]
-    __gnuc_va_list va; // [esp+8h] [ebp+8h]
+    va_list va; // [esp+8h] [ebp+8h]
 
     va_start(va, a1);
     if (!nox_file_log)
