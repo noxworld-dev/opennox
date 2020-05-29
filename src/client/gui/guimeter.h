@@ -7,4 +7,6 @@ int sub_4710B0();
 int __cdecl sub_471160(int a1, int a2, int a3, int a4, int a5);
 int sub_4714E0();
 
+int __cdecl sub_471D10(int xLeft);
+
 #endif // NOX_PORT_CLIENT_GUI_GUIMETER

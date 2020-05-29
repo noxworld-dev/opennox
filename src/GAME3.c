@@ -18,6 +18,11 @@
 #include "client/shell/selclass.h"
 #include "client/shell/selcolor.h"
 
+#include "client/draw/drawrays.h"
+#include "client/draw/drawwin.h"
+#include "client/draw/fx.h"
+#include "client/draw/lvupdraw.h"
+
 #include "proto.h"
 
 extern int g_fullscreen;
@@ -200,98 +205,6 @@ int sub_4A2210()
 }
 // 4A18E0: using guessed type int __cdecl sub_4A18E0(int, int, int, int);
 
-//----- (004A22A0) --------------------------------------------------------
-int __cdecl sub_4A22A0(int a1, int* a2)
-{
-    int v2; // edx
-    int v3; // ecx
-    unsigned __int8* v4; // esi
-    int v5; // eax
-    int v6; // eax
-    bool v7; // zf
-    int v8; // eax
-    int v9; // eax
-    unsigned __int8* v10; // esi
-    int v11; // eax
-    int xLeft; // [esp+4h] [ebp-8h]
-    int yTop; // [esp+8h] [ebp-4h]
-
-    sub_430B40_get_mouse_prev_seq();
-    sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
-    if ((signed char) * (_BYTE*)(a1 + 4) >= 0)
-    {
-        if (a2[5] != 0x80000000)
-        {
-            sub_434460(a2[5]);
-            sub_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
-        }
-    }
-    else
-    {
-        v2 = *(_DWORD*)(a1 + 100);
-        xLeft += *(_DWORD*)(a1 + 96);
-        v3 = v2 + yTop;
-        LOBYTE(v2) = *(_BYTE*)(a1 + 36);
-        yTop = v3;
-        if (v2 & 2)
-            sub_47D2C0(a2[10], xLeft, v3);
-        else
-            sub_47D2C0(a2[6], xLeft, v3);
-    }
-    if (*(_DWORD*)& byte_587000[168836])
-    {
-        v4 = &byte_587000[168868];
-        do
-        {
-            v5 = *((_DWORD*)v4 + 2);
-            if (v5)
-                * ((_DWORD*)v4 + 2) = v5 - 1;
-            v6 = *((_DWORD*)v4 + 1);
-            if (v6)
-            {
-                *((_DWORD*)v4 + 1) = v6 - 1;
-                *((_DWORD*)v4 + 2) = sub_415FF0(60, 120, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 180);
-            }
-            v7 = (*(_DWORD*)v4)-- == 1;
-            v8 = *((_DWORD*)v4 - 5);
-            if (v7)
-            {
-                if (v8)
-                {
-                    *((_DWORD*)v4 - 5) = 0;
-                    *(_DWORD*)v4 = sub_415FF0(*((_DWORD*)v4 - 4), *((_DWORD*)v4 - 3), "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 211);
-                    *((_DWORD*)v4 + 2) = sub_415FF0(60, 90, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 214);
-                }
-                else
-                {
-                    *((_DWORD*)v4 - 5) = 1;
-                    *(_DWORD*)v4 = sub_415FF0(*((_DWORD*)v4 - 2), *((_DWORD*)v4 - 1), "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 199);
-                }
-            }
-            else if (!v8
-                && !*((_DWORD*)v4 + 2)
-                && !*((_DWORD*)v4 + 1)
-                && sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 228) > 75)
-            {
-                *((_DWORD*)v4 + 1) = sub_415FF0(4, 8, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 229);
-            }
-            v9 = *((_DWORD*)v4 + 4);
-            v4 += 48;
-        } while (v9);
-    }
-    if (*(_DWORD*)& byte_587000[168832])
-    {
-        v10 = &byte_587000[168872];
-        do
-        {
-            if (!*((_DWORD*)v10 - 6) && !*(_DWORD*)v10)
-                sub_47D2C0(*((_DWORD*)v10 - 9), *((_DWORD*)v10 - 8), *((_DWORD*)v10 - 7));
-            v11 = *((_DWORD*)v10 + 2);
-            v10 += 48;
-        } while (v11);
-    }
-    return 1;
-}
 
 //----- (004A2490) --------------------------------------------------------
 BOOL __cdecl sub_4A2490(int a1, int a2, int a3, int a4)
@@ -1885,75 +1798,6 @@ int __cdecl sub_4A49D0(int yTop, int a2)
 }
 
 
-//----- (004A4B70) --------------------------------------------------------
-void* __cdecl sub_4A4B70(int a1)
-{
-    unsigned __int8 v1; // dl
-    void* result; // eax
-    _BYTE* v3; // edi
-    int v4; // esi
-    int v5; // ebp
-    int v6; // esi
-    int v7; // ebp
-    bool v8; // zf
-    unsigned __int8 v9; // [esp+10h] [ebp-Ch]
-    int v10; // [esp+14h] [ebp-8h]
-    int v11; // [esp+18h] [ebp-4h]
-
-    v1 = 0;
-    result = (void*) * (unsigned __int8*)(*(_DWORD*)& byte_5D4594[1307724] + 66);
-    v3 = *(_BYTE * *)& byte_587000[4 * (_DWORD)result + 170156];
-    if (*v3)
-    {
-        do
-            result = (void*)++v1;
-        while (v3[4 * v1 + v1]);
-        if (v1)
-        {
-            v4 = 0;
-            v9 = sub_415FF0(0, v1 - 1, "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 195);
-            if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[1307724] + 66))
-            {
-                v10 = 0;
-                v11 = 5;
-                do
-                {
-                    sub_45E110(v10);
-                    v6 = 0;
-                    v7 = 5;
-                    do
-                    {
-                        if (a1 == 1)
-                            sub_45DBE0((void*)2, 0, v6);
-                        else
-                            sub_45DBE0((void*)2, (unsigned __int8)v3[4 * v9 + v6 + v9], v6);
-                        ++v6;
-                        --v7;
-                    } while (v7);
-                    v8 = v11 == 1;
-                    ++v10;
-                    --v11;
-                } while (!v8);
-                result = (void*)sub_45E110(0);
-            }
-            else
-            {
-                sub_45E110(0);
-                v5 = 5;
-                do
-                {
-                    if (a1 == 1)
-                        result = sub_45DBE0((void*)3, 0, v4);
-                    else
-                        result = sub_45DBE0((void*)3, (unsigned __int8)v3[4 * v9 + v4 + v9], v4);
-                    ++v4;
-                    --v5;
-                } while (v5);
-            }
-        }
-    }
-    return result;
-}
 
 //----- (004A4CB0) --------------------------------------------------------
 int __cdecl sub_4A4CB0(const void* a1, const void* a2)
@@ -12380,62 +12224,6 @@ void __cdecl sub_4B6720(int2* a1, int a2, int a3, char a4)
     }
 }
 
-//----- (004B6770) --------------------------------------------------------
-int __cdecl sub_4B6770(int* a1, int a2, int a3, int a4)
-{
-    int v4; // edx
-    int v5; // ebx
-    int v6; // ecx
-    int v7; // eax
-    int result; // eax
-    int v9; // edi
-    int v10; // ebx
-    int v11; // ecx
-    int v12; // eax
-    int v13; // eax
-    int v14; // eax
-    int v15; // esi
-    int v16; // [esp+Ch] [ebp-Ch]
-    int2 xLeft; // [esp+10h] [ebp-8h]
-    int v18; // [esp+20h] [ebp+8h]
-
-    v4 = a2;
-    v5 = *(_DWORD*)(a2 + 444);
-    v6 = *(_DWORD*)(a2 + 448) - v5;
-    v7 = *(_DWORD*)(a2 + 448) - *(_DWORD*)& byte_5D4594[2598000];
-    v16 = *(_DWORD*)(a2 + 448) - v5;
-    v18 = v7;
-    if (v7 == v6)
-        v18 = --v7;
-    if (v7 > 0)
-    {
-        v9 = *a1;
-        v10 = a1[1];
-        v11 = *a1 + *(_DWORD*)(v4 + 12) - a1[4];
-        v12 = *(_DWORD*)(v4 + 16) - *(__int16*)(v4 + 106) - *(__int16*)(v4 + 104) - a1[5];
-        xLeft.field_0 = v11;
-        v13 = v10 + v12;
-        xLeft.field_4 = v13;
-        if (v11 - 10 >= v9 && v13 - 10 >= v10 && v11 + 10 < a1[2] && v13 + 10 < a1[3])
-        {
-            v14 = v18 * sub_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 213) / v16;
-            v15 = v14;
-            if (v14)
-            {
-                sub_4B6720(&xLeft, a4, 2 * v14 + 1, v14 + 1);
-                sub_434460(a3);
-                sub_499B70(xLeft.field_0, xLeft.field_4, v15);
-            }
-        }
-        result = 1;
-    }
-    else
-    {
-        sub_45A4E0_drawable(v4);
-        result = 0;
-    }
-    return result;
-}
 
 //----- (004B6880) --------------------------------------------------------
 int __cdecl sub_4B6880(_DWORD* a1, int a2, int a3, int a4)
@@ -12560,17 +12348,6 @@ int __cdecl nox_thing_yellow_spark_draw(_DWORD* a1, int a2)
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[1313532], *(int*)& byte_5D4594[1313576]);
 }
 
-//----- (004B6B00) --------------------------------------------------------
-int __cdecl nox_thing_magic_sparkle_draw(int* a1, int a2)
-{
-    int result; // eax
-
-    if (sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5)
-        result = sub_4B6770(a1, a2, *(int*)& byte_5D4594[2523948], *(int*)& byte_5D4594[1313540]);
-    else
-        result = sub_4B6770(a1, a2, *(int*)& byte_5D4594[1313540], *(int*)& byte_5D4594[1313536]);
-    return result;
-}
 
 //----- (004B6B60) --------------------------------------------------------
 int __cdecl nox_thing_glow_orb_draw(int* a1, int a2)
@@ -12712,79 +12489,7 @@ int __cdecl nox_thing_death_ball_spark_draw(_DWORD* a1, int a2)
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[1313572], *(int*)& byte_5D4594[1313568]);
 }
 
-//----- (004B6E80) --------------------------------------------------------
-int __cdecl nox_thing_pixie_draw(int* a1, int a2)
-{
-    bool v2; // cc
-    __int16 v3; // ax
-    __int16 v4; // ax
-    int v5; // edx
-    int v6; // edi
-    int v7; // ecx
-    int v8; // eax
-    int v9; // edi
-    int v10; // esi
-    int v11; // ebx
-    int v12; // ebp
-    __int64 v13; // rax
-    int2 v15; // [esp+10h] [ebp-8h]
 
-    v2 = sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 503) < 50;
-    v3 = *(_WORD*)(a2 + 104);
-    if (v2)
-    {
-        if (v3 > 0)
-        {
-            v4 = v3 - 1;
-        LABEL_6:
-            *(_WORD*)(a2 + 104) = v4;
-            goto LABEL_7;
-        }
-    }
-    else if (v3 < 35)
-    {
-        v4 = v3 + 1;
-        goto LABEL_6;
-    }
-LABEL_7:
-    v5 = *a1;
-    v6 = a1[1];
-    v7 = *a1 + *(_DWORD*)(a2 + 12) - a1[4];
-    v8 = v6 + *(_DWORD*)(a2 + 16) - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
-    v15.field_0 = v7;
-    v15.field_4 = v8;
-    if (v7 - 10 >= v5 && v8 - 10 >= v6 && v7 + 10 < a1[2] && v8 + 10 < a1[3])
-    {
-        sub_4B6720(&v15, *(int*)& byte_5D4594[1313560], 10, 4);
-        v9 = *a1 + *(_DWORD*)(a2 + 32) - a1[4];
-        v10 = a1[1] + *(_DWORD*)(a2 + 36) - *(__int16*)(a2 + 104) - a1[5];
-        v11 = v15.field_0 - v9;
-        v12 = v15.field_4 - v10;
-        if (v11 * v11 + v12 * v12 > 400)
-        {
-            v13 = (__int64)sqrt((double)(v11 * v11 + v12 * v12));
-            v9 = v15.field_0 - 20 * v11 / (int)v13;
-            v10 = v15.field_4 - 20 * v12 / (int)v13;
-        }
-        sub_434460(*(int*)& byte_5D4594[1313564]);
-        sub_49F500(v15.field_0, v15.field_4);
-        sub_49F500(v9, v10);
-        sub_49E4B0();
-    }
-    return 1;
-}
-
-//----- (004B6FE0) --------------------------------------------------------
-int __cdecl nox_thing_pixie_dust_draw(int* a1, int a2)
-{
-    int result; // eax
-
-    if (sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5)
-        result = sub_4B6770(a1, a2, *(int*)& byte_5D4594[2523948], *(int*)& byte_5D4594[1313564]);
-    else
-        result = sub_4B6770(a1, a2, *(int*)& byte_5D4594[1313564], *(int*)& byte_5D4594[1313560]);
-    return result;
-}
 
 //----- (004B7040) --------------------------------------------------------
 int __cdecl nox_thing_white_spark_draw(_DWORD* a1, int a2)
@@ -12792,47 +12497,6 @@ int __cdecl nox_thing_white_spark_draw(_DWORD* a1, int a2)
     return sub_4B6970(a1, a2, *(int*)& byte_5D4594[2523948], *(int*)& byte_5D4594[1313540]);
 }
 
-//----- (004B7060) --------------------------------------------------------
-int __cdecl nox_thing_blue_rain_spark_draw(_DWORD* a1, int a2)
-{
-    int result; // eax
-    int v3; // eax
-    int v4; // eax
-    int v5; // edi
-
-    result = sub_4B6970(a1, a2, *(int*)& byte_5D4594[2523948], *(int*)& byte_5D4594[1313540]);
-    if (result == 1 && *(_BYTE*)(a2 + 296) >= 5)
-    {
-        v3 = *(_DWORD*)& byte_5D4594[1313688];
-        if (!*(_DWORD*)& byte_5D4594[1313688])
-        {
-            v3 = sub_44CFC0((CHAR*)& byte_587000[176184]);
-            *(_DWORD*)& byte_5D4594[1313688] = v3;
-        }
-        v4 = sub_45A360_drawable(v3, *(_DWORD*)(a2 + 12), *(_DWORD*)(a2 + 16));
-        v5 = v4;
-        if (v4)
-        {
-            if (v4 != -432)
-            {
-                *(_DWORD*)(v4 + 432) = *(_DWORD*)(a2 + 12) << 12;
-                *(_DWORD*)(v4 + 436) = *(_DWORD*)(a2 + 16) << 12;
-                *(_BYTE*)(v4 + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
-                *(_DWORD*)(v5 + 440) = sub_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
-                *(_DWORD*)(v5 + 448) = *(_DWORD*)& byte_5D4594[2598000]
-                    + sub_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
-                *(_DWORD*)(v5 + 444) = *(_DWORD*)& byte_5D4594[2598000];
-            }
-            *(_WORD*)(v5 + 104) = sub_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);
-            *(_WORD*)(v5 + 106) = 0;
-            *(_BYTE*)(v5 + 296) = sub_415FF0(0, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 620);
-            sub_45A110_drawable((_DWORD*)v5);
-        }
-        sub_45A4E0_drawable(a2);
-        result = 0;
-    }
-    return result;
-}
 
 //----- (004B71A0) --------------------------------------------------------
 int __cdecl sub_4B71A0(_DWORD* a1, int a2)
@@ -12885,97 +12549,6 @@ int __cdecl sub_4B71A0(_DWORD* a1, int a2)
     return result;
 }
 
-//----- (004B7310) --------------------------------------------------------
-int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, int a2)
-{
-    int* v2; // esi
-    __int16 v3; // cx
-    int v4; // edi
-    int v5; // eax
-    __int16 v6; // bp
-    int v7; // ebx
-    __int16 v8; // ax
-    double v9; // st7
-    __int16 v10; // ax
-    int v11; // edi
-    char v12; // al
-    int result; // eax
-    int v14; // ebx
-    int v15; // edi
-    int v16; // edx
-    int v17; // ebx
-    int v18; // eax
-    int v19; // edi
-    float v20; // [esp+0h] [ebp-2Ch]
-    float v21; // [esp+0h] [ebp-2Ch]
-    int2 xLeft; // [esp+14h] [ebp-18h]
-    __int16 v23[4]; // [esp+1Ch] [ebp-10h]
-    float2 v24; // [esp+24h] [ebp-8h]
-    int v25; // [esp+34h] [ebp+8h]
-
-    v2 = (_DWORD*)a2;
-    if (!*(_DWORD*)& byte_5D4594[1313692])
-    {
-        *(_DWORD*)& byte_5D4594[1313692] = sub_44CFC0((CHAR*)& byte_587000[176396]);
-        *(_DWORD*)& byte_5D4594[1313696] = sub_44CFC0((CHAR*)& byte_587000[176412]);
-    }
-    v3 = *(_WORD*)(a2 + 104);
-    if (v3 > 0)
-    {
-        v14 = a1[5];
-        v15 = *(_DWORD*)(a2 + 16);
-        xLeft.field_0 = *a1 + *(_DWORD*)(a2 + 12) - a1[4];
-        v16 = a1[1] - v14;
-        v17 = *(_DWORD*)& byte_5D4594[1313588];
-        v18 = *(_DWORD*)(a2 + 108);
-        xLeft.field_4 = v15 + v16 - v3;
-        if (v18 != *(_DWORD*)& byte_5D4594[1313692])
-            v17 = *(_DWORD*)& byte_5D4594[1313536];
-        sub_4B6720(&xLeft, v17, *(unsigned __int8*)(a2 + 442), 5);
-        v19 = *(__int16*)(a2 + 104) - *(__int16*)(a2 + 440);
-        sub_434460(v17);
-        sub_49F500(xLeft.field_0, xLeft.field_4);
-        sub_49F570(0, v19);
-        sub_49E4B0();
-        *(_WORD*)(a2 + 440) = *(_WORD*)(a2 + 104);
-        *(_WORD*)(a2 + 104) += *(char*)(a2 + 296);
-        sub_434460(*(int*)& byte_5D4594[1313592]);
-        sub_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(a2 + 442) / 3);
-        result = 1;
-    }
-    else
-    {
-        if (!*(_DWORD*)& byte_5D4594[1313700])
-        {
-            *(_DWORD*)& byte_5D4594[1313700] = sub_44CFC0((CHAR*)& byte_587000[176424]);
-            *(_DWORD*)& byte_5D4594[1313704] = sub_44CFC0((CHAR*)& byte_587000[176440]);
-        }
-        v4 = *(_DWORD*)(a2 + 12);
-        v5 = *(_DWORD*)(a2 + 16);
-        v6 = v5 + 20;
-        v25 = v5 - *(_DWORD*)(a2 + 436);
-        v24.field_0 = (double)(v2[3] - v2[108]);
-        v24.field_4 = (double)v25;
-        v7 = sub_509ED0(&v24);
-        v23[2] = v4;
-        v23[3] = v6;
-        v20 = *(float*)& byte_587000[8 * v7 + 194136] * 150.0 + (double)(int)v2[108];
-        v8 = nox_float2int(v20);
-        v9 = *(float*)& byte_587000[8 * v7 + 194140] * 150.0;
-        v23[0] = v8;
-        v21 = v9 + (double)(int)v2[109];
-        v10 = nox_float2int(v21);
-        v11 = *(_DWORD*)& byte_5D4594[1313700];
-        v23[1] = v10;
-        if (v2[27] != *(_DWORD*)& byte_5D4594[1313692])
-            v11 = *(_DWORD*)& byte_5D4594[1313704];
-        v12 = sub_415FF0(6, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 793);
-        sub_499490(v11, v23, 0, 0, v12, 1);
-        sub_45A4E0_drawable((int)v2);
-        result = 0;
-    }
-    return result;
-}
 
 //----- (004B7540) --------------------------------------------------------
 int __cdecl nox_thing_bubble_draw(_DWORD* a1, int a2)
@@ -13097,31 +12670,6 @@ int __cdecl nox_thing_levelup_draw(int a1, int a2)
     return 1;
 }
 
-//----- (004B7740) --------------------------------------------------------
-_DWORD* __cdecl sub_4B7740(int a1, int a2, int a3)
-{
-    int2* v3; // edi
-    int v4; // ebp
-    int v5; // eax
-    int v6; // esi
-    char v7; // al
-    _DWORD* result; // eax
-    int2 a2a; // [esp+10h] [ebp-8h]
-
-    v3 = (int2*)(a3 + 12);
-    v4 = 2;
-    do
-    {
-        a2a.field_0 = v3->field_0 + sub_415FF0(-15, 15, "C:\\NoxPost\\src\\client\\Draw\\LvUpDraw.c", 35);
-        v5 = *(_DWORD*)(a3 + 16) + sub_415FF0(-15, 15, "C:\\NoxPost\\src\\client\\Draw\\LvUpDraw.c", 36);
-        a2a.field_4 = v5;
-        v6 = v5 - *(_DWORD*)(a2 + 20);
-        v7 = sub_415FF0(8, 12, "C:\\NoxPost\\src\\client\\Draw\\LvUpDraw.c", 40);
-        result = (_DWORD*)sub_499950(a1, &a2a, v3, v6, -v7);
-        --v4;
-    } while (v4);
-    return result;
-}
 
 //----- (004B77D0) --------------------------------------------------------
 int __cdecl nox_thing_oblivion_up_draw(int a1, int a2)
@@ -13138,48 +12686,6 @@ int __cdecl nox_thing_oblivion_up_draw(int a1, int a2)
     return 1;
 }
 
-//----- (004B7810) --------------------------------------------------------
-int __cdecl nox_thing_blue_rain_draw(int a1, int a2)
-{
-    int v3; // ebx
-    int v4; // ebp
-    int v5; // eax
-    int v6; // edi
-    int v7; // eax
-    int v8; // esi
-    int v9; // [esp+8h] [ebp+8h]
-
-    if (sub_40A5C0(0x200000))
-        return 1;
-    if (!*(_DWORD*)& byte_5D4594[1313716])
-        * (_DWORD*)& byte_5D4594[1313716] = sub_44CFC0((CHAR*)& byte_587000[176640]);
-    v3 = a2;
-    v9 = 2;
-    do
-    {
-        v4 = *(_DWORD*)(v3 + 12) + sub_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 42);
-        v5 = sub_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 43);
-        v6 = *(_DWORD*)(v3 + 16) + v5;
-        v7 = sub_45A360_drawable(*(int*)& byte_5D4594[1313716], v4, v6);
-        v8 = v7;
-        if (v7)
-        {
-            *(_DWORD*)(v7 + 432) = v4 << 12;
-            *(_DWORD*)(v7 + 436) = v6 << 12;
-            *(_BYTE*)(v7 + 299) = 0;
-            *(_DWORD*)(v7 + 440) = 0;
-            *(_DWORD*)(v7 + 448) = *(_DWORD*)& byte_5D4594[2598000]
-                + sub_415FF0(90, 120, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 63);
-            *(_DWORD*)(v8 + 444) = *(_DWORD*)& byte_5D4594[2598000];
-            *(_WORD*)(v8 + 106) = 0;
-            *(_BYTE*)(v8 + 296) = -5;
-            *(_WORD*)(v8 + 104) = v6 - *(_WORD*)(a1 + 20);
-            sub_45A110_drawable((_DWORD*)v8);
-        }
-        --v9;
-    } while (v9);
-    return 1;
-}
 
 //----- (004B7920) --------------------------------------------------------
 int __cdecl nox_thing_arrow_draw(int* a1, _DWORD* a2)
@@ -13239,65 +12745,7 @@ int __cdecl nox_thing_weak_arrow_draw(int* a1, _DWORD* a2)
     return nox_thing_slave_draw(a1, (int)a2);
 }
 
-//----- (004B7A80) --------------------------------------------------------
-int __cdecl nox_thing_undead_killer_draw(int* a1, int a2)
-{
-    int result; // eax
-    __int16 v3; // dx
-    int v4; // eax
-    int v5; // ecx
-    int v6; // ebx
-    int v7; // edi
-    int v8; // eax
-    int v9; // eax
-    int v10; // eax
-    int v11; // [esp-18h] [ebp-28h]
-    int v12; // [esp-14h] [ebp-24h]
-    char v13; // [esp-Ch] [ebp-1Ch]
-    __int16 v14[4]; // [esp+0h] [ebp-10h]
-    int2 v15; // [esp+8h] [ebp-8h]
 
-    if (!*(_DWORD*)& byte_5D4594[1313728])
-    {
-        *(_DWORD*)& byte_5D4594[1313736] = sub_44CFC0((CHAR*)& byte_587000[176812]);
-        *(_DWORD*)& byte_5D4594[1313732] = sub_4344A0(100, 100, 255);
-        *(_DWORD*)& byte_5D4594[1313728] = 1;
-    }
-    if ((unsigned int)(*(_DWORD*)& byte_5D4594[2598000] - *(_DWORD*)(a2 + 316)) <= 0x46)
-    {
-        if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 54) > 85)
-        {
-            v3 = *(_WORD*)(a2 + 328);
-            v14[0] = *(_WORD*)(a2 + 324);
-            v14[1] = v3;
-            v14[2] = *(_WORD*)(a2 + 12) + sub_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 60);
-            v14[3] = *(_WORD*)(a2 + 16) + sub_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 61);
-            v13 = sub_415FF0(6, 10, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 66);
-            v4 = sub_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 65);
-            sub_499490(*(int*)& byte_5D4594[1313736], v14, 0, v4, v13, 0);
-        }
-        v5 = *(_DWORD*)(a2 + 12);
-        v6 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104);
-        v7 = a1[5];
-        v8 = *(_DWORD*)(a2 + 328);
-        v15.field_0 = v5 + *a1 - a1[4];
-        v12 = *(_DWORD*)(a2 + 324);
-        v11 = *(_DWORD*)(a2 + 16);
-        v15.field_4 = *(_DWORD*)(a2 + 16) + v6 - v7;
-        v9 = sub_48C690(v5, v11, v12, v8);
-        v10 = 8 - v9 / 40;
-        if (v10 < 0)
-            v10 = 1;
-        sub_4B6720(&v15, *(int*)& byte_5D4594[1313732], v10, 12);
-        result = 1;
-    }
-    else
-    {
-        sub_45A4E0_drawable(a2);
-        result = 0;
-    }
-    return result;
-}
 // 4B7BE5: variable 'v9' is possibly undefined
 
 //----- (004B7C20) --------------------------------------------------------

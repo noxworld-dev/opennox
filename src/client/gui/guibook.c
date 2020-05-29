@@ -3,6 +3,9 @@
 #include "guimsg.h"
 #include "../../proto.h"
 
+extern int nox_win_width;
+extern int nox_win_height;
+
 //----- (0045AD70) --------------------------------------------------------
 unsigned int __cdecl sub_45AD70(int a1)
 {
@@ -409,3 +412,164 @@ int __cdecl sub_45CF00(_DWORD* a1)
     return 1;
 }
 
+
+
+//----- (0045C7D0) --------------------------------------------------------
+int __cdecl sub_45C7D0(_DWORD* a1)
+{
+    int v1; // esi
+    int v3; // edi
+    int v4; // eax
+    int v5; // eax
+    int v6; // edi
+    int v7; // eax
+    int v8; // eax
+    int v9; // eax
+    int v10; // ecx
+    double v11; // st7
+    int v12; // eax
+    int v13; // [esp-28h] [ebp-34h]
+    int v14; // [esp-28h] [ebp-34h]
+    int v15; // [esp-24h] [ebp-30h]
+    int v16; // [esp-20h] [ebp-2Ch]
+    char v17; // [esp-18h] [ebp-24h]
+    char v18; // [esp-18h] [ebp-24h]
+    char v19; // [esp-14h] [ebp-20h]
+    char v20; // [esp-14h] [ebp-20h]
+    int v21; // [esp-10h] [ebp-1Ch]
+    int v22; // [esp-Ch] [ebp-18h]
+    int v23; // [esp-Ch] [ebp-18h]
+    int v24; // [esp+4h] [ebp-8h]
+    int v25; // [esp+8h] [ebp-4h]
+
+    v1 = *(_DWORD*)& byte_5D4594[1046652] != 0 ? 3 : 0;
+    if (!*(_DWORD*)& byte_5D4594[1047520])
+        return 1;
+    if (*(_DWORD*)& byte_5D4594[1046648]
+        && sub_430B40_get_mouse_prev_seq() - *(_DWORD*)& byte_5D4594[1046648] < (unsigned int)(2 * *(_DWORD*)& byte_5D4594[2649704]))
+    {
+        return 1;
+    }
+    sub_46AA60(a1, &v25, &v24);
+    if (*(_DWORD*)& byte_5D4594[1046648])
+    {
+        v3 = 50;
+        do
+        {
+            v19 = sub_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1287);
+            v17 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1286);
+            v16 = sub_415FF0(-10, -1, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1284);
+            v15 = sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1283);
+            v4 = sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1282);
+            v13 = v24 + v4;
+            v5 = sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1281);
+            sub_431540(v1, v25 + v5, v13, v15, v16, 1, v17, v19, 2, 1);
+            --v3;
+        } while (v3);
+        sub_452D80(795, 100);
+        *(_DWORD*)& byte_5D4594[1046648] = 0;
+    }
+    v6 = 2;
+    do
+    {
+        v20 = sub_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1331);
+        v18 = sub_415FF0(1, 2, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1330);
+        v7 = sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1326);
+        v14 = v24 + v7;
+        v8 = sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1325);
+        sub_431540(v1, v25 + v8, v14, 0, 0, 0, v18, v20, 1, 1);
+        --v6;
+    } while (v6);
+    v22 = v24;
+    v21 = v25;
+    if (*(_DWORD*)& byte_5D4594[1046652] == 1)
+        v9 = sub_425310(*(int*)& byte_5D4594[1047524], 0);
+    else
+        v9 = sub_424A90(*(int*)& byte_5D4594[1047524]);
+    sub_47D2C0(v9, v21, v22);
+    *(float*)& byte_5D4594[1046636] = *(float*)& byte_5D4594[1046636] + *(float*)& byte_5D4594[1046620];
+    *(float*)& byte_5D4594[1046640] = *(float*)& byte_5D4594[1046640] + *(float*)& byte_5D4594[1046624];
+    if ((double) * (int*)& byte_5D4594[1046668] <= *(float*)& byte_5D4594[1046636]
+        && (double) * (int*)& byte_5D4594[1046672] <= *(float*)& byte_5D4594[1046640])
+    {
+    LABEL_26:
+        sub_45DBE0(*(void**)& byte_5D4594[1046676], *(int*)& byte_5D4594[1047524], *(int*)& byte_5D4594[1046852]);
+        sub_45D810();
+        goto LABEL_27;
+    }
+    if (*(float*)& byte_5D4594[1046636] > (double) * (float*)& byte_5D4594[8 * *(_DWORD*)& byte_5D4594[1046628] + 1046692])
+    {
+        v10 = *(_DWORD*)& byte_5D4594[1046628] + 1;
+        *(_DWORD*)& byte_5D4594[1046628] = v10;
+        if (v10 < *(int*)& byte_5D4594[1046680])
+        {
+            if (v10 <= *(int*)& byte_5D4594[1046680] - 1)
+            {
+                *(float*)& byte_5D4594[1046620] = *(float*)& byte_5D4594[8 * v10 + 1046692]
+                    - *(float*)& byte_5D4594[8 * v10 + 1046684];
+                *(float*)& byte_5D4594[1046624] = *(float*)& byte_5D4594[8 * v10 + 1046696]
+                    - *(float*)& byte_5D4594[8 * v10 + 1046688];
+                sub_509F20((float2*)& byte_5D4594[1046620]);
+                if (nox_win_width < 1000)
+                {
+                    if (nox_win_width < 750)
+                        v11 = 6.0;
+                    else
+                        v11 = 8.0;
+                }
+                else
+                {
+                    v11 = 10.0;
+                }
+                *(float*)& byte_5D4594[1046620] = *(float*)& byte_5D4594[1046620] * v11;
+                *(float*)& byte_5D4594[1046624] = *(float*)& byte_5D4594[1046624] * v11;
+            }
+            goto LABEL_27;
+        }
+        goto LABEL_26;
+    }
+LABEL_27:
+    v23 = nox_float2int(*(float*)& byte_5D4594[1046640]);
+    v12 = nox_float2int(*(float*)& byte_5D4594[1046636]);
+    sub_46A9B0(a1, v12, v23);
+    return 1;
+}
+
+//----- (0045D870) --------------------------------------------------------
+int sub_45D870()
+{
+    int result; // eax
+    int v1; // esi
+    int v3; // edi
+    int v4; // ebx
+    int v5; // ebp
+    int v6; // eax
+    int v7; // [esp-30h] [ebp-38h]
+    char v8; // [esp-20h] [ebp-28h]
+    int v9; // [esp+0h] [ebp-8h]
+    int v10; // [esp+4h] [ebp-4h]
+
+    result = *(_DWORD*)& byte_5D4594[1047520];
+    if (*(_DWORD*)& byte_5D4594[1047520])
+    {
+        v1 = *(_DWORD*)& byte_5D4594[1046652] != 1 ? 0 : 3;
+        v9 = ((int) * (_DWORD*)& byte_5D4594[1046668] - nox_float2int(*(float*)& byte_5D4594[1046636])) / 50;
+        v10 = ((int) * (_DWORD*)& byte_5D4594[1046672] - nox_float2int(*(float*)& byte_5D4594[1046640])) / 50;
+        v3 = nox_float2int(*(float*)& byte_5D4594[1046636]);
+        v4 = nox_float2int(*(float*)& byte_5D4594[1046640]);
+        v5 = 50;
+        do
+        {
+            v8 = sub_415FF0(3, 4, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2483);
+            v7 = v4 - sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2479);
+            v6 = sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2478);
+            sub_431540(v1, v3 + v6, v7, 0, 0, 1, v8, 0, 0, 1);
+            v3 += v9;
+            v4 += v10;
+            --v5;
+        } while (v5);
+        sub_45DBE0(*(void**)& byte_5D4594[1046676], *(int*)& byte_5D4594[1047524], *(int*)& byte_5D4594[1046852]);
+        result = sub_45D810();
+    }
+    return result;
+}

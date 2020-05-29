@@ -897,3 +897,41 @@ int sub_460070()
     return result;
 }
 
+
+
+//----- (00460EC0) --------------------------------------------------------
+_DWORD* __cdecl sub_460EC0(int a1)
+{
+    _DWORD* result; // eax
+    int v2; // esi
+    int v3; // eax
+    int v4; // [esp-24h] [ebp-24h]
+    int v5; // [esp-20h] [ebp-20h]
+    int v6; // [esp-1Ch] [ebp-1Ch]
+    char v7; // [esp-14h] [ebp-14h]
+    char v8; // [esp-10h] [ebp-10h]
+
+    if (!a1)
+        return (_DWORD*)sub_460070();
+    result = *(_DWORD * *)& byte_5D4594[1049500];
+    if (!(*(_BYTE*)(*(_DWORD*)& byte_5D4594[1049500] + 4) & 8))
+    {
+        v2 = 50;
+        *(_DWORD*)& byte_5D4594[1049536] = nox_win_height + 1;
+        do
+        {
+            v8 = sub_415FF0(4, 6, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2732);
+            v7 = sub_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2731);
+            v6 = sub_415FF0(-20, -5, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2729);
+            v5 = sub_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2728);
+            v4 = sub_415FF0(0, 20, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2727)
+                 + *(_DWORD*)(*(_DWORD*)& byte_5D4594[1049504] + 20)
+                 + 10;
+            v3 = sub_415FF0(0, 20, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2726);
+            result = sub_431540(0, v3 + *(_DWORD*)(*(_DWORD*)& byte_5D4594[1049504] + 16) + 10, v4, v5, v6, 1, v7, v8, 2, 1);
+            --v2;
+        } while (v2);
+    }
+    return result;
+}
+

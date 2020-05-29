@@ -14,6 +14,8 @@
 #include "common/wolapi/wolstate.h"
 #include "common/wolapi/woluser.h"
 
+#include "client/gui/guibook.h"
+
 #include "proto.h"
 
 FILE* nox_file_2 = 0;

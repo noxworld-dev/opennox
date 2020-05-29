@@ -17,6 +17,8 @@
 #include "../gui/guifb.h"
 #include "../gui/guiggovr.h"
 #include "../gui/guibrief.h"
+#include "../draw/drawrays.h"
+#include "../draw/fx.h"
 #include "../../proto.h"
 
 //----- (0048EA70) --------------------------------------------------------

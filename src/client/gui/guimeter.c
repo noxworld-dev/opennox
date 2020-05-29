@@ -230,3 +230,155 @@ int sub_4714E0()
     return 1;
 }
 
+
+
+//----- (00471D10) --------------------------------------------------------
+int __cdecl sub_471D10(int xLeft)
+{
+    _DWORD* v1; // ebx
+    int v2; // esi
+    unsigned __int8* v3; // edi
+    int v4; // ecx
+    int result; // eax
+    int v6; // ebx
+    int* v7; // edi
+    int v8; // esi
+    unsigned __int8* v9; // esi
+    int v10; // edi
+    int v11; // eax
+    int v12; // eax
+    int v13; // ecx
+    int v14; // eax
+    int v15; // eax
+    int v16; // eax
+    int yTop; // [esp+Ch] [ebp-14h]
+    int v18; // [esp+10h] [ebp-10h]
+    int v19; // [esp+14h] [ebp-Ch]
+    unsigned __int8* v20; // [esp+18h] [ebp-8h]
+    unsigned __int8* v21; // [esp+1Ch] [ebp-4h]
+
+    v1 = (_DWORD*)xLeft;
+    v18 = *(_DWORD*)(xLeft + 32);
+    v2 = v18;
+    v3 = &byte_5D4594[20 * v18 + 1093036];
+    v20 = &byte_5D4594[20 * v18 + 1093036];
+    if (!v18 && *(_DWORD*)& byte_5D4594[1096264])
+    {
+        sub_46AA60(*(_DWORD * *)& byte_5D4594[1090276], &xLeft, &yTop);
+        sub_47D2C0(*(int*)& byte_5D4594[1091900], xLeft, yTop);
+    }
+    sub_46AA60(v1, &xLeft, &yTop);
+    xLeft += 5;
+    if (*(_DWORD*)& byte_5D4594[3799468])
+    {
+        sub_434460(*(int*)& byte_5D4594[2650656]);
+        sub_49CE30(xLeft, yTop, 15, 125);
+    }
+    v4 = *((_DWORD*)v3 + 2);
+    if (v4)
+    {
+        v6 = 125 * *((_DWORD*)v3 + 1) / v4;
+        sub_49CF10(xLeft, yTop, 15, 125 - v6);
+        sub_434460(*((_DWORD*)v3 + 3));
+        sub_434560(1);
+        sub_49CE30(xLeft, yTop - v6 + 125, 15, v6);
+        sub_434560(0);
+        sub_49F500(xLeft, yTop - v6 + 125);
+        sub_49F570(14, 0);
+        sub_49E4B0();
+        if (v2 < 2 && *(_DWORD*)& byte_587000[80844] == 1)
+        {
+            v19 = 64;
+            v7 = (int*)& byte_5D4594[1536 * v2 + 1093188];
+            v21 = &byte_5D4594[1536 * v2 + 1093188];
+            do
+            {
+                if (v7[2])
+                {
+                    v8 = *(v7 - 1) >> 4;
+                    if (v8 >= 125 - v6)
+                    {
+                        if (*(_DWORD*)& byte_5D4594[1096264])
+                            sub_434460(*((_DWORD*)v20 + 3));
+                        else
+                            sub_434460(v7[3]);
+                        if (*v7 <= 2)
+                            sub_49CE30(xLeft + *(v7 - 2), yTop + v8, *v7, *v7);
+                        else
+                            sub_4720C0(xLeft + *(v7 - 2), yTop + v8);
+                        *(v7 - 1) -= v7[1];
+                    }
+                    else
+                    {
+                        v7[2] = 0;
+                    }
+                    v2 = v18;
+                }
+                v7 += 6;
+                --v19;
+            } while (v19);
+            if (v6 > 1)
+            {
+                v9 = v21;
+                v10 = 64;
+                do
+                {
+                    if (!*((_DWORD*)v9 + 2))
+                    {
+                        v11 = sub_415FF0(1, 100, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 668);
+                        if (v11 >= 80)
+                            * (_DWORD*)v9 = (v11 >= 95) + 2;
+                        else
+                            *(_DWORD*)v9 = 1;
+                        v12 = sub_415FF0(0, 14, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 676);
+                        v13 = *(_DWORD*)v9;
+                        *((_DWORD*)v9 - 2) = v12;
+                        if (v13 + v12 > 15)
+                            * ((_DWORD*)v9 - 2) = 15 - v13;
+                        *((_DWORD*)v9 - 1) = 16 * (125 - v13);
+                        *((_DWORD*)v9 + 1) = sub_415FF0(4, 48, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 684);
+                        *((_DWORD*)v9 + 2) = 1;
+                        LOBYTE(v19) = sub_415FF0(0, 64, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 688);
+                        if (v18)
+                            v14 = sub_4344A0(v19, v19, 255);
+                        else
+                            v14 = sub_4344A0(255, v19, v19);
+                        *((_DWORD*)v9 + 3) = v14;
+                    }
+                    v9 += 24;
+                    --v10;
+                } while (v10);
+                v2 = v18;
+            }
+        }
+        if (!v2)
+        {
+            if (*(int*)& byte_5D4594[1096260] <= 0)
+            {
+                v16 = *(_DWORD*)& byte_5D4594[1096256] >> 3;
+            }
+            else
+            {
+                v15 = *(_DWORD*)& byte_5D4594[1096260] + *(_DWORD*)& byte_5D4594[1096256];
+                *(_DWORD*)& byte_5D4594[1096256] = v15;
+                --* (_DWORD*)& byte_5D4594[1096260];
+                v16 = v15 >> 3;
+                if (v16 >= 10)
+                {
+                    v16 = 0;
+                    *(_DWORD*)& byte_5D4594[1096256] = 0;
+                }
+            }
+            sub_46AE60(*(int*)& byte_5D4594[1090276], *(_DWORD*)& byte_5D4594[4 * v16 + 1092996]);
+        }
+        sub_472080();
+        result = 1;
+    }
+    else
+    {
+        sub_49CF10(xLeft, yTop, 15, 125);
+        result = 1;
+    }
+    return result;
+}
+

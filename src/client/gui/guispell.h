@@ -14,4 +14,6 @@ int __cdecl sub_45FBD0(int yTop);
 int __cdecl sub_45FDE0(int yTop);
 int sub_460070();
 
+_DWORD* __cdecl sub_460EC0(int a1);
+
 #endif // NOX_PORT_CLIENT_GUI_GUISPELL

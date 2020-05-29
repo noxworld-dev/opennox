@@ -586,3 +586,59 @@ int sub_436F50()
     return result;
 }
 
+//----- (004358A0) --------------------------------------------------------
+char* sub_4358A0()
+{
+    int v0; // ecx
+    const char** v1; // eax
+    const char* v2; // edx
+    const char* v4[34]; // [esp+0h] [ebp-88h]
+
+    v0 = *(_DWORD*)& byte_5D4594[814516];
+    v4[0] = "Dweezle";
+    v4[1] = "Glork";
+    v4[2] = "Floogle";
+    v4[3] = "Goombah";
+    v4[4] = "Kraun";
+    v4[5] = "Kloog";
+    v4[6] = "Zurg";
+    v4[7] = "Darg";
+    v4[8] = "Arfingle";
+    v4[9] = "Buurl";
+    v4[10] = "Gurgin";
+    v4[11] = "Grok";
+    v4[12] = "Hurlong";
+    v4[13] = "Luric";
+    v4[14] = "Lupis";
+    v4[15] = "Mallik";
+    v4[16] = "Thrall";
+    v4[17] = "Norwood";
+    v4[18] = "Nulik";
+    v4[19] = "Orin";
+    v4[20] = "Olaf";
+    v4[21] = "Orguk";
+    v4[22] = "Pervis";
+    v4[23] = "Paavik";
+    v4[24] = "Qix";
+    v4[25] = "Xevin";
+    v4[26] = "Xurcon";
+    v4[27] = "Markoan";
+    v4[28] = "Yuric";
+    v4[29] = "Yoovis";
+    v4[30] = "Yalek";
+    v4[31] = "Zug";
+    v4[32] = "Zivik";
+    v4[33] = 0;
+    if (!*(_DWORD*)& byte_5D4594[814516]) // TODO: byte_587000 != (unsigned __int8*)-85792
+    {
+        v1 = v4;
+        do
+        {
+            v2 = v1[1];
+            ++v1;
+            ++v0;
+        } while (v2);
+        *(_DWORD*)& byte_5D4594[814516] = v0;
+    }
+    return (char*)v4[sub_415FF0(0, v0 - 1, "C:\\NoxPost\\src\\client\\System\\client.c", 559)];
+}

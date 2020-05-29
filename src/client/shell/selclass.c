@@ -56,3 +56,75 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4)
     return 1;
 }
 
+
+
+//----- (004A4B70) --------------------------------------------------------
+void* __cdecl sub_4A4B70(int a1)
+{
+    unsigned __int8 v1; // dl
+    void* result; // eax
+    _BYTE* v3; // edi
+    int v4; // esi
+    int v5; // ebp
+    int v6; // esi
+    int v7; // ebp
+    bool v8; // zf
+    unsigned __int8 v9; // [esp+10h] [ebp-Ch]
+    int v10; // [esp+14h] [ebp-8h]
+    int v11; // [esp+18h] [ebp-4h]
+
+    v1 = 0;
+    result = (void*) * (unsigned __int8*)(*(_DWORD*)& byte_5D4594[1307724] + 66);
+    v3 = *(_BYTE * *)& byte_587000[4 * (_DWORD)result + 170156];
+    if (*v3)
+    {
+        do
+            result = (void*)++v1;
+        while (v3[4 * v1 + v1]);
+        if (v1)
+        {
+            v4 = 0;
+            v9 = sub_415FF0(0, v1 - 1, "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 195);
+            if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[1307724] + 66))
+            {
+                v10 = 0;
+                v11 = 5;
+                do
+                {
+                    sub_45E110(v10);
+                    v6 = 0;
+                    v7 = 5;
+                    do
+                    {
+                        if (a1 == 1)
+                            sub_45DBE0((void*)2, 0, v6);
+                        else
+                            sub_45DBE0((void*)2, (unsigned __int8)v3[4 * v9 + v6 + v9], v6);
+                        ++v6;
+                        --v7;
+                    } while (v7);
+                    v8 = v11 == 1;
+                    ++v10;
+                    --v11;
+                } while (!v8);
+                result = (void*)sub_45E110(0);
+            }
+            else
+            {
+                sub_45E110(0);
+                v5 = 5;
+                do
+                {
+                    if (a1 == 1)
+                        result = sub_45DBE0((void*)3, 0, v4);
+                    else
+                        result = sub_45DBE0((void*)3, (unsigned __int8)v3[4 * v9 + v4 + v9], v4);
+                    ++v4;
+                    --v5;
+                } while (v5);
+            }
+        }
+    }
+    return result;
+}
+

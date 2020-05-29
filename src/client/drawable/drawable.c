@@ -3,6 +3,10 @@
 #include "../draw/canidraw.h"
 #include "../draw/litning.h"
 #include "../draw/mgendraw.h"
+#include "../draw/glowdraw.h"
+#include "../draw/magicdrw.h"
+#include "../draw/udeddraw.h"
+#include "../draw/partrain.h"
 #include "../../proto.h"
 
 extern nox_alloc_class* nox_alloc_drawable;
