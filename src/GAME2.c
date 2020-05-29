@@ -333,8 +333,8 @@ int __cdecl nox_drawable_link_thing(nox_drawable* a1, int i)
     if (a1->shape.kind == NOX_SHAPE_BOX)
         nox_shape_box_calc(&a1->shape);
 
-    a1->field_24 = *(_DWORD*)(v5 + 56);
-    a1->field_25 = *(_DWORD*)(v5 + 60);
+    a1->field_24 = *(float*)(v5 + 56);
+    a1->field_25 = *(float*)(v5 + 60);
     v9 = *(float*)(v5 + 32);
     if (v9 >= *(double*)& byte_581450[9568]) {
         *(_DWORD*)(v2 + 172) = 0;
