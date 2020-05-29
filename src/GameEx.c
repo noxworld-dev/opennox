@@ -4,6 +4,9 @@
 
 #include "client/shell/noxworld.h"
 
+extern int nox_win_width_1;
+extern int nox_win_height_1;
+
 //-------------------------------------------------------------------------
 // Data declarations
 
@@ -735,8 +738,8 @@ int __usercall copyServerMatchData(char *a1)
   a1[37] = sub_409F40(2);
   a1[38] = MEMACCESS(0x5D5331);
   *((_DWORD *)a1 + 12) = 65540;
-  *((_WORD *)a1 + 26) = MEMACCESS(0x59D688);
-  *((_WORD *)a1 + 27) = MEMACCESS(0x59D684);
+  *((_WORD *)a1 + 26) = nox_win_height_1;
+  *((_WORD *)a1 + 27) = nox_win_width_1;
   *((_WORD *)a1 + 28) = MEMACCESS(0x62F112);
   *((_WORD *)a1 + 29) = MEMACCESS(0x62F116);
   a1[60] = MEMACCESS(0x62F0BA);
