@@ -10245,8 +10245,8 @@ void __cdecl sub_49F060(int a1, int a2, int a3)
             return;
         v6 = ptr_5D4594_3799572->data[5];
         if (v3 < v6
-            || a2 < ptr_5D4594_3799572->data[6]
-            || a2 > ptr_5D4594_3799572->data[8])
+            || a2 < (int)ptr_5D4594_3799572->data[6]
+            || a2 > (int)ptr_5D4594_3799572->data[8])
         {
             return;
         }
@@ -10306,8 +10306,8 @@ unsigned __int8* __cdecl sub_49F0F0(int a1, int a2, int a3)
         result = *(unsigned __int8**)(&ptr_5D4594_3799572->data[5]);
         if (v3 > v5
             || v4 < (int)result
-            || a2 < ptr_5D4594_3799572->data[6]
-            || a2 > ptr_5D4594_3799572->data[8])
+            || a2 < (int)ptr_5D4594_3799572->data[6]
+            || a2 > (int)ptr_5D4594_3799572->data[8])
         {
             return result;
         }
@@ -10362,8 +10362,8 @@ void __cdecl sub_49F180(int a1, int a2, int a3)
             return;
         v6 = ptr_5D4594_3799572->data[5];
         if (v3 < v6
-            || a2 < ptr_5D4594_3799572->data[6]
-            || a2 > ptr_5D4594_3799572->data[8])
+            || a2 < (int)ptr_5D4594_3799572->data[6]
+            || a2 > (int)ptr_5D4594_3799572->data[8])
         {
             return;
         }
@@ -10540,8 +10540,8 @@ void __cdecl sub_49F3A0(int a1, int a2, int a3)
             return;
         v6 = ptr_5D4594_3799572->data[6];
         if (v3 < v6
-            || a1 < ptr_5D4594_3799572->data[5]
-            || a1 > ptr_5D4594_3799572->data[7])
+            || a1 < (int)ptr_5D4594_3799572->data[5]
+            || a1 > (int)ptr_5D4594_3799572->data[7])
         {
             return;
         }
@@ -10594,8 +10594,8 @@ void __cdecl sub_49F420(int a1, int a2, int a3)
             return;
         v6 = ptr_5D4594_3799572->data[6];
         if (v3 < v6
-            || a1 < ptr_5D4594_3799572->data[5]
-            || a1 > ptr_5D4594_3799572->data[7])
+            || a1 < (int)ptr_5D4594_3799572->data[5]
+            || a1 > (int)ptr_5D4594_3799572->data[7])
         {
             return;
         }
@@ -10745,10 +10745,10 @@ int4* __cdecl sub_49F780(int xLeft, int a2)
     int v3; // eax
 
     v2 = xLeft;
-    if (xLeft < ptr_5D4594_3799572->data[1])
+    if (xLeft < (int)ptr_5D4594_3799572->data[1])
         v2 = ptr_5D4594_3799572->data[1];
     v3 = a2;
-    if (a2 > ptr_5D4594_3799572->data[3])
+    if (a2 > (int)ptr_5D4594_3799572->data[3])
         v3 = ptr_5D4594_3799572->data[3];
     return sub_49F6F0(
             v2,
@@ -10763,7 +10763,7 @@ int4* __cdecl sub_49F7C0(int a1)
     int v1; // eax
 
     v1 = a1;
-    if (a1 > ptr_5D4594_3799572->data[4])
+    if (a1 > (int)ptr_5D4594_3799572->data[4])
         v1 = ptr_5D4594_3799572->data[4];
     return sub_49F6F0(
             ptr_5D4594_3799572->data[1],
@@ -10827,10 +10827,10 @@ int sub_49F860()
 //----- (0049F8E0) --------------------------------------------------------
 BOOL __cdecl sub_49F8E0(int a1, int a2, int a3)
 {
-    return a1 - a3 < ptr_5D4594_3799572->data[1]
-           || a3 + a1 >= ptr_5D4594_3799572->data[3]
-           || a2 - a3 < ptr_5D4594_3799572->data[2]
-           || a3 + a2 >= ptr_5D4594_3799572->data[4];
+    return a1 - a3 < (int)ptr_5D4594_3799572->data[1]
+           || a3 + a1 >= (int)ptr_5D4594_3799572->data[3]
+           || a2 - a3 < (int)ptr_5D4594_3799572->data[2]
+           || a3 + a2 >= (int)ptr_5D4594_3799572->data[4];
 }
 
 //----- (0049F930) --------------------------------------------------------
@@ -10902,7 +10902,7 @@ int __cdecl sub_49F990(int* a1, int* a2, int* a3, int* a4)
     v9 = 0;
     if (*a1 >= v4)
     {
-        if (v7 > ptr_5D4594_3799572->data[7])
+        if (v7 > (int)ptr_5D4594_3799572->data[7])
             v9 = 2;
     }
     else
