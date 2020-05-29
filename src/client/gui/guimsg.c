@@ -2,7 +2,7 @@
 #include "../../proto.h"
 
 //----- (00445490) --------------------------------------------------------
-void __cdecl sub_445490( unsigned short * a1)
+void __cdecl sub_445490(wchar_t* a1)
 {
     int v1; // eax
     int v2; // eax

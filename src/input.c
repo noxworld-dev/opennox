@@ -211,6 +211,19 @@ void send_mouse1_event()
 }
 
 #ifdef __EMSCRIPTEN__
+void sub_42D6B0_em_not_mouse_down()
+{
+    sub_42E670(1, orientation);
+    if (move_speed)
+        sub_42E670(2, 3);
+    if (jump)
+    {
+        sub_42E670(2, 3);
+        sub_42E670(7, 0);
+        jump = 0;
+    }
+}
+
 void process_touch_event(SDL_TouchFingerEvent* event)
 {
     if (g_rotated)

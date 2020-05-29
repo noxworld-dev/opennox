@@ -2896,6 +2896,7 @@ void sub_47DBD0();
 unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1);
 void __cdecl sub_47FA80(int a1);
 void sub_47FB10();
+void sub_42D6B0_em_not_mouse_down();
 int sub_47FCC0();
 int __stdcall sub_47FCE0(_DWORD* a1, int a2);
 int sub_47FEF0();

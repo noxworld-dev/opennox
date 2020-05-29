@@ -1,6 +1,7 @@
 #include "mainmenu.h"
 
 #include "selchar.h"
+#include "noxworld.h"
 #include "../../proto.h"
 
 extern nox_window* nox_win_main_menu;
