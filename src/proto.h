@@ -6826,7 +6826,6 @@ LPVOID __cdecl sub_551E60(int a1);
 int __cdecl sub_551EB0(int a1, unsigned int a2, unsigned __int8 a3, int a4, int a5);
 int __cdecl sub_551F90(SOCKET s, char* buf, int len, int flags, struct sockaddr* to, int tolen); // idb
 int __cdecl sub_552010(int a1);
-int __cdecl sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen); // idb
 int __cdecl sub_5520B0(int a1, int a2);
 int sub_5521A0();
 void sub_5522E0(int a1);
