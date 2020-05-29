@@ -4,6 +4,19 @@
 #include "../gui/servopts/general.h"
 #include "../../proto.h"
 
+#ifdef NOX_DEBUG
+int nox_cheats_disabled = 0;
+#else
+int nox_cheats_disabled = 1;
+#endif
+
+//----- (00440D70) --------------------------------------------------------
+int nox_cmd_racoiaws()
+{
+    nox_cheats_disabled = 0;
+    return 1;
+}
+
 //----- (00450B20) --------------------------------------------------------
 wchar_t* __cdecl sub_450B20(wchar_t* a1)
 {
@@ -584,7 +597,7 @@ char** __cdecl sub_441B90(_DWORD* a1)
 		v2 = (char**)(a1 + 2);
 		do
 		{
-			if (!((_BYTE)result[3] & 4) && (!*(_DWORD*)& byte_587000[94464] || !((_BYTE)v2[1] & 0x10)))
+			if (!((_BYTE)result[3] & 4) && (!nox_cheats_disabled || !((_BYTE)v2[1] & 0x10)))
 			{
 				v3 = loadString_sub_40F1D0(*v2, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2097);
 				sub_450C00(6u, (wchar_t*)& byte_587000[103568], *(v2 - 1), v3);
@@ -624,7 +637,7 @@ int __cdecl sub_441BF0(int a1, int a2, int a3, const wchar_t** a4)
 					if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *v6))
 					{
 						v8 = *((_BYTE*)v7 + 12);
-						if (!(v8 & 4) && (!*(_DWORD*)& byte_587000[94464] || !(v8 & 0x10)))
+						if (!(v8 & 4) && (!nox_cheats_disabled || !(v8 & 0x10)))
 							break;
 					}
 					v9 = v7[6];
@@ -1699,7 +1712,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5)
 		v6 = a1;
 		v5 = a3;
 	}
-	if (!(*(_DWORD*)& byte_5D4594[2650636] & 0x40000) && *(_DWORD*)& byte_587000[94464] && (int)a4[6 * v7 + 3] & 0x10)
+	if (!(*(_DWORD*)& byte_5D4594[2650636] & 0x40000) && nox_cheats_disabled && (int)a4[6 * v7 + 3] & 0x10)
 		return 0;
 	if (*(_DWORD*)& byte_5D4594[823684])
 	{

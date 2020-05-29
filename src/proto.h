@@ -1797,7 +1797,6 @@ char* __cdecl sub_440BC0(int a1, unsigned __int8 a2, int a3);
 int __cdecl sub_440C90(int a1, char a2);
 int __cdecl sub_440CC0(int a1, char a2);
 int __cdecl sub_440CE0(int a1, char a2, int a3);
-int sub_440D70();
 int __cdecl sub_440FD0(int a1, char a2);
 int __cdecl sub_440FF0(int a1, char a2);
 int __cdecl sub_441010(int a1, char a2);

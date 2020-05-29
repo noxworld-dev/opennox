@@ -3,6 +3,8 @@
 
 #include "../../defs.h"
 
+int nox_cmd_racoiaws();
+
 void sub_440A20(wchar_t* a1, ...);
 
 int __cdecl sub_440D80(int a1, char a2, int a3);
