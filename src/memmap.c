@@ -55,6 +55,8 @@ extern nox_window* nox_win_unk4;
 extern nox_window* nox_win_unk5;
 extern nox_window* nox_win_cur_weapon;
 
+extern int nox_cheats_disabled;
+
 extern nox_window* nox_win_main_menu;
 extern nox_window* nox_win_main_bg;
 
@@ -237,6 +239,7 @@ mem_mapping mappings[] = {
         {0x587000+91796, (void*)&nox_win_height_2, sizeof(nox_win_height_2),1},
         {0x587000+91800, (void*)&nox_win_depth_2, sizeof(nox_win_depth_2),1},
         {0x587000+91804, (void*)nox_video_modes, sizeof(nox_video_mode)*3,1},
+        {0x587000+94464, (void*)&nox_cheats_disabled, sizeof(nox_cheats_disabled),1},
         {0x587000+116008, (void*)nox_parse_thing_draw_funcs, sizeof(nox_parse_thing_draw_funcs_t)*69,1}, // TODO
         {0x587000+122104, (void*)nox_parse_thing_funcs, sizeof(nox_parse_thing_funcs_t)*21,1}, // TODO
         // full blobs
