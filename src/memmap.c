@@ -257,7 +257,7 @@ _BYTE* getMem(uintptr_t addr)
 {
     for (int i = 0; i < mappings_cnt; i++) {
         mem_mapping* m = &mappings[i];
-        if (addr >= m->base && addr <= m->base + (uintptr_t)m->size)
+        if (addr >= m->base && addr < m->base + (uintptr_t)m->size)
         {
             if (m->invalid) break;
             addr -= m->base;
