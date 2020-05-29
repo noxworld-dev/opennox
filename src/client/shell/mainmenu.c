@@ -166,3 +166,98 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4)
     }
     return 1;
 }
+
+
+//----- (004A22A0) --------------------------------------------------------
+int __cdecl sub_4A22A0(int a1, int* a2)
+{
+    int v2; // edx
+    int v3; // ecx
+    unsigned __int8* v4; // esi
+    int v5; // eax
+    int v6; // eax
+    bool v7; // zf
+    int v8; // eax
+    int v9; // eax
+    unsigned __int8* v10; // esi
+    int v11; // eax
+    int xLeft; // [esp+4h] [ebp-8h]
+    int yTop; // [esp+8h] [ebp-4h]
+
+    sub_430B40_get_mouse_prev_seq();
+    sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
+    if ((signed char) * (_BYTE*)(a1 + 4) >= 0)
+    {
+        if (a2[5] != 0x80000000)
+        {
+            sub_434460(a2[5]);
+            sub_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
+        }
+    }
+    else
+    {
+        v2 = *(_DWORD*)(a1 + 100);
+        xLeft += *(_DWORD*)(a1 + 96);
+        v3 = v2 + yTop;
+        LOBYTE(v2) = *(_BYTE*)(a1 + 36);
+        yTop = v3;
+        if (v2 & 2)
+            sub_47D2C0(a2[10], xLeft, v3);
+        else
+            sub_47D2C0(a2[6], xLeft, v3);
+    }
+    if (*(_DWORD*)& byte_587000[168836])
+    {
+        v4 = &byte_587000[168868];
+        do
+        {
+            v5 = *((_DWORD*)v4 + 2);
+            if (v5)
+                * ((_DWORD*)v4 + 2) = v5 - 1;
+            v6 = *((_DWORD*)v4 + 1);
+            if (v6)
+            {
+                *((_DWORD*)v4 + 1) = v6 - 1;
+                *((_DWORD*)v4 + 2) = sub_415FF0(60, 120, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 180);
+            }
+            v7 = (*(_DWORD*)v4)-- == 1;
+            v8 = *((_DWORD*)v4 - 5);
+            if (v7)
+            {
+                if (v8)
+                {
+                    *((_DWORD*)v4 - 5) = 0;
+                    *(_DWORD*)v4 = sub_415FF0(*((_DWORD*)v4 - 4), *((_DWORD*)v4 - 3), "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 211);
+                    *((_DWORD*)v4 + 2) = sub_415FF0(60, 90, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 214);
+                }
+                else
+                {
+                    *((_DWORD*)v4 - 5) = 1;
+                    *(_DWORD*)v4 = sub_415FF0(*((_DWORD*)v4 - 2), *((_DWORD*)v4 - 1), "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 199);
+                }
+            }
+            else if (!v8
+                && !*((_DWORD*)v4 + 2)
+                && !*((_DWORD*)v4 + 1)
+                && sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 228) > 75)
+            {
+                *((_DWORD*)v4 + 1) = sub_415FF0(4, 8, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 229);
+            }
+            v9 = *((_DWORD*)v4 + 4);
+            v4 += 48;
+        } while (v9);
+    }
+    if (*(_DWORD*)& byte_587000[168832])
+    {
+        v10 = &byte_587000[168872];
+        do
+        {
+            if (!*((_DWORD*)v10 - 6) && !*(_DWORD*)v10)
+                sub_47D2C0(*((_DWORD*)v10 - 9), *((_DWORD*)v10 - 8), *((_DWORD*)v10 - 7));
+            v11 = *((_DWORD*)v10 + 2);
+            v10 += 48;
+        } while (v11);
+    }
+    return 1;
+}
+
