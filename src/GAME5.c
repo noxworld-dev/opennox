@@ -275,7 +275,7 @@ int* __cdecl sub_5455E0(int a1)
     int v5; // edx
     int v6; // [esp-4h] [ebp-Ch]
 
-    if (sub_40A5C0(4096))
+    if (nox_common_mapflags_check(4096))
         v6 = 1142947840;
     else
         v6 = 1132068864;
@@ -1501,7 +1501,7 @@ char __cdecl sub_546A70(int a1)
                         goto LABEL_89;
                     goto LABEL_90;
                 case 0x3A:
-                    if (sub_40A5C0(4096))
+                    if (nox_common_mapflags_check(4096))
                         v17 = sub_544A00(v1, 640.0);
                     else
                         v17 = sub_544A00(v1, 250.0);
@@ -1765,7 +1765,7 @@ char __cdecl sub_547210(int a1)
         if (SBYTE1(v3) < 0)
             return (char)v3;
         v44 = (int*)sub_424300(a1);
-        if (sub_40A5C0(2048))
+        if (nox_common_mapflags_check(2048))
         {
             if (!sub_477600())
             {
@@ -1943,7 +1943,7 @@ char __cdecl sub_547210(int a1)
                 {
                     sub_5471B0(v1);
                     sub_50A260(v1, 68);
-                    if (((*(_BYTE*)(v2 + 1440) & 0x80) || *(_BYTE*)(v1 + 12) & 0x80) && sub_40A5C0(2048))
+                    if (((*(_BYTE*)(v2 + 1440) & 0x80) || *(_BYTE*)(v1 + 12) & 0x80) && nox_common_mapflags_check(2048))
                         sub_50A260(v1, 14);
                     else
                         sub_50A260(v1, 6);
@@ -1985,7 +1985,7 @@ char __cdecl sub_547210(int a1)
                 }
                 return (char)v3;
             }
-            if (sub_40A5C0(2048))
+            if (nox_common_mapflags_check(2048))
             {
                 if (!sub_534440(v1) && !sub_4FF350(v1, 3))
                 {
@@ -3778,7 +3778,7 @@ int __cdecl sub_549D80(int a1)
 {
     int v1; // esi
 
-    v1 = sub_40A5C0(2048) ? 30 : 96;
+    v1 = nox_common_mapflags_check(2048) ? 30 : 96;
     sub_52E040(a1 + 56, 96.0, 1092616192, 100.0, a1, 0, 0);
     sub_4E25B0(a1 + 56, 96.0, 10.0, v1, 7, a1, 0);
     sub_5231B0((float*)(a1 + 56), 128);
@@ -3865,7 +3865,7 @@ int __cdecl sub_549FA0(int a1)
     sub_501960(487, a1, 0, 0);
     v1 = (float2*)(a1 + 56);
     sub_522FF0(138, (float2*)(a1 + 56));
-    if (sub_40A5C0(2048))
+    if (nox_common_mapflags_check(2048))
         v11 = sub_415FA0(20, 30);
     else
         v11 = 6;
@@ -3888,7 +3888,7 @@ int __cdecl sub_549FA0(int a1)
             v4[29] = v5;
             v9 = sub_416030(5.0, 20.0);
             sub_52DF80((int)v1, (int)v4, v9);
-            v6 = sub_40A5C0(2048) ? sub_415FA0(10, 20) : sub_415FA0(5, 10);
+            v6 = nox_common_mapflags_check(2048) ? sub_415FA0(10, 20) : sub_415FA0(5, 10);
             sub_511660(v4, *(_DWORD*)& byte_5D4594[2649704] * v6);
             v3 = (*(_DWORD*)& byte_5D4594[2491580] + 1) % *(_DWORD*)& byte_587000[287344];
             ++v2;
@@ -4010,7 +4010,7 @@ void __cdecl sub_54A390(int a1, CHAR* a2, const char* a3, const char* a4, const 
     float2 a3a; // [esp+4h] [ebp-1Ch]
     unsigned __int8 v14[20]; // [esp+Ch] [ebp-14h]
 
-    if (sub_40A5C0(2048))
+    if (nox_common_mapflags_check(2048))
     {
         result = (int)sub_4E3810(a2);
         v8 = result;
@@ -4084,7 +4084,7 @@ void __cdecl sub_54A4C0(int a1)
         *((_DWORD*)v2 + 4) = 0x800000 | v4;
         v15 = sub_416030(5.0, 25.0);
         sub_52DF80((int)v1, (int)v2, v15);
-        if (sub_40A5C0(2048))
+        if (nox_common_mapflags_check(2048))
         {
             v5 = sub_415FA0(10, 20);
             sub_511660(v2, *(_DWORD*)& byte_5D4594[2649704] * v5);
@@ -4117,7 +4117,7 @@ void __cdecl sub_54A4C0(int a1)
                 *((_DWORD*)v9 + 4) = 0x800000 | v11;
                 v17 = sub_416030(5.0, 25.0);
                 sub_52DF80((int)v1, (int)v9, v17);
-                v12 = sub_40A5C0(2048) ? sub_415FA0(10, 20) : sub_415FA0(2, 5);
+                v12 = nox_common_mapflags_check(2048) ? sub_415FA0(10, 20) : sub_415FA0(2, 5);
                 sub_511660(v9, *(_DWORD*)& byte_5D4594[2649704] * v12);
                 v8 = (*(_DWORD*)& byte_5D4594[2491588] + 1) % *(_DWORD*)& byte_587000[287348];
                 v13 = ++v18 < v20;
@@ -5169,7 +5169,7 @@ __int16 __cdecl sub_54C0C0(int a1)
         {
             *(_DWORD*)(v1 + 2040) = 3;
             *(_DWORD*)(v1 + 1584) = 0x40000000;
-            v2 = sub_40A5C0(4096);
+            v2 = nox_common_mapflags_check(4096);
             if (!v2)
             {
                 *(_DWORD*)(v1 + 1504) = 2147483648;
@@ -5412,7 +5412,7 @@ int __cdecl sub_54C710(int a1)
         {
             *v4 = *((_WORD*)v3 + 26);
             *(_WORD*)(*(_DWORD*)(a1 + 556) + 4) = *((_WORD*)v3 + 26);
-            if (sub_40A5C0(4096))
+            if (nox_common_mapflags_check(4096))
             {
                 v20 = sub_419D40(&byte_587000[290164]);
                 v15 = (double) * *(unsigned __int16**)(v1 + 556) * v20;
@@ -5441,7 +5441,7 @@ int __cdecl sub_54C710(int a1)
         if (v9 & 0x82)
         {
             v10 = *(_BYTE * *)(v1 + 736);
-            if (sub_40A5C0(4096))
+            if (nox_common_mapflags_check(4096))
                 v11 = sub_419D40(&byte_587000[290228]);
             else
                 v11 = sub_419D40(&byte_587000[290252]);
@@ -5456,7 +5456,7 @@ int __cdecl sub_54C710(int a1)
             **(_BYTE * *)(v1 + 736) = 0;
         }
     }
-    result = sub_40A5C0(4096);
+    result = nox_common_mapflags_check(4096);
     if (result)
     {
         result = *(_DWORD*)(v1 + 8);
@@ -5498,7 +5498,7 @@ _DWORD* __cdecl sub_54C950(int a1)
         {
             *v3 = *((_WORD*)result + 26);
             *(_WORD*)(*(_DWORD*)(a1 + 556) + 4) = *((_WORD*)result + 26);
-            result = (_DWORD*)sub_40A5C0(4096);
+            result = (_DWORD*)nox_common_mapflags_check(4096);
             if (result)
             {
                 v6 = sub_419D40(&byte_587000[290300]);
@@ -6083,7 +6083,7 @@ int __cdecl sub_54D2B0(int a1)
     v3 = *(_DWORD*)(a1 + 748);
     if (!*(_DWORD*)& byte_5D4594[2491688])
         * (_DWORD*)& byte_5D4594[2491688] = sub_4E3AA0((CHAR*)& byte_587000[290560]);
-    if (sub_40A5C0(2048))
+    if (nox_common_mapflags_check(2048))
         sub_4DB170(0, 0, 0);
     v24 = *(_DWORD*)(a1 + 520);
     if (v24)
@@ -6117,7 +6117,7 @@ int __cdecl sub_54D2B0(int a1)
         v22 = 0;
         v6 = 0;
     }
-    if (sub_40A5C0(0x2000))
+    if (nox_common_mapflags_check(0x2000))
     {
         v7 = 0;
         v23[10] = 0;
@@ -6210,20 +6210,20 @@ LABEL_38:
     v16 = sub_40A8A0();
     if (v16)
     {
-        if (sub_40A5C0(256))
+        if (nox_common_mapflags_check(256))
         {
             sub_54D980(v1, v24, v2, v6);
         }
-        else if (sub_40A5C0(16))
+        else if (nox_common_mapflags_check(16))
         {
             sub_54DC40(v1, v24);
         }
-        else if (sub_40A5C0(1024))
+        else if (nox_common_mapflags_check(1024))
         {
             sub_54D7A0(v1, v24);
         }
     }
-    if (sub_40A5C0(1024)
+    if (nox_common_mapflags_check(1024)
         && sub_40A020(1024)
         && *(_DWORD*)(*(_DWORD*)(v3 + 276) + 2140) >= (int)(unsigned __int16)sub_40A020(1024))
     {
@@ -6231,7 +6231,7 @@ LABEL_38:
     }
     *(_DWORD*)(v1 + 16) |= 0x10u;
     sub_4DA9F0((_DWORD*)v1);
-    if (!sub_40A5C0(4096))
+    if (!nox_common_mapflags_check(4096))
         sub_4EDA40((_DWORD*)v1);
     sub_54DF00(v1);
     v17 = *(_DWORD*)(v3 + 276);
@@ -6245,7 +6245,7 @@ LABEL_38:
     if (*(_DWORD*)(v3 + 280))
         sub_510DC0(*(_DWORD * *)(v3 + 280));
     *(_DWORD*)(v3 + 280) = 0;
-    result = sub_40A5C0(4096);
+    result = nox_common_mapflags_check(4096);
     if (result)
     {
         v19 = *(_DWORD*)(v3 + 320);
@@ -6869,7 +6869,7 @@ void __cdecl sub_54E630(int a1)
     sub_502490((int*)(v1 + 56), *(_DWORD*)(a1 + 520), a1);
     sub_501960(1000, a1, 0, 0);
     sub_523200((float*)(a1 + 56), 200);
-    if (sub_40A5C0(4096))
+    if (nox_common_mapflags_check(4096))
     {
         if (*(_DWORD*)(a1 + 520))
         {

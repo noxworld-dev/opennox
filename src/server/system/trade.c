@@ -44,7 +44,7 @@ _DWORD* __cdecl sub_50E8F0(int a1, int a2)
     _DWORD* result; // eax
 
     v2 = 0;
-    if (sub_40A5C0(4096)
+    if (nox_common_mapflags_check(4096)
         && (v3 = *(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064),
             v4 = *(_DWORD * *)& byte_5D4594[4 * v3 + 2386364],
             *(_DWORD*)& byte_5D4594[4 * v3 + 2386364] = 0,
@@ -314,7 +314,7 @@ int __cdecl sub_510540(int a1)
     int v1; // eax
     int result; // eax
 
-    if (!sub_40A5C0(4096))
+    if (!nox_common_mapflags_check(4096))
         goto LABEL_12;
     if (!*(_DWORD*)& byte_5D4594[2386520])
     {
@@ -451,7 +451,7 @@ _DWORD* __cdecl sub_50EF10_trade(int a1, int a2)
             sub_50F280(v11, (int)v9);
         else
             sub_50F280(v9[3], (int)v9);
-        if (v9[4] && sub_40A5C0(2048))
+        if (v9[4] && nox_common_mapflags_check(2048))
         {
             v12 = v9[2];
             if (!(*(_BYTE*)(v12 + 8) & 4))
@@ -605,7 +605,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3)
             if (*(_BYTE*)(v6 + 8) & 0x10)
             {
                 v9 = sub_4E7D30(v3, *(unsigned __int16*)(v6 + 4));
-                if (v9 >= (sub_40A5C0(6144) ? 9 : 3))
+                if (v9 >= (nox_common_mapflags_check(6144) ? 9 : 3))
                 {
                     v10 = loadString_sub_40F1D0((char*)& byte_587000[236200], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2943);
                     return (float*)sub_4D9EB0(v3, v10);
@@ -620,7 +620,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3)
                     return (float*)sub_501960(925, v3, 0, 0);
                 }
             }
-            if (sub_40A5C0(4096))
+            if (nox_common_mapflags_check(4096))
             {
                 v11 = *(_DWORD*)(v6 + 8);
                 if (v11 & 0x1000)
@@ -637,7 +637,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3)
                     }
                 }
             }
-            if (sub_40A5C0(4096) && (sub_5105D0(v6) || *(unsigned __int16*)(v6 + 4) == *(_DWORD*)& byte_5D4594[2386548]))
+            if (nox_common_mapflags_check(4096) && (sub_5105D0(v6) || *(unsigned __int16*)(v6 + 4) == *(_DWORD*)& byte_5D4594[2386548]))
                 v13 = sub_4E3450(*(unsigned __int16*)(v6 + 4));
             else
                 v13 = (_DWORD*)v6;
@@ -712,7 +712,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4)
             if (*(_BYTE*)(v7 + 8) & 0x10)
             {
                 v9 = sub_4E7D30(v4, *(unsigned __int16*)(v7 + 4));
-                if (v9 >= (sub_40A5C0(6144) ? 9 : 3))
+                if (v9 >= (nox_common_mapflags_check(6144) ? 9 : 3))
                 {
                     v14 = loadString_sub_40F1D0((char*)& byte_587000[236444], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3108);
                     return (float*)sub_4D9EB0(v4, v14);
@@ -725,7 +725,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4)
                 if (*(_DWORD*)(v20 + 320) >= nox_float2int(v16))
                     break;
             }
-            if (sub_40A5C0(4096))
+            if (nox_common_mapflags_check(4096))
             {
                 v10 = *(_DWORD*)(v7 + 8);
                 if (v10 & 0x1000)
@@ -743,7 +743,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4)
                     }
                 }
             }
-            if (sub_40A5C0(4096) && (sub_5105D0(v7) || *(unsigned __int16*)(v7 + 4) == *(_DWORD*)& byte_5D4594[2386552]))
+            if (nox_common_mapflags_check(4096) && (sub_5105D0(v7) || *(unsigned __int16*)(v7 + 4) == *(_DWORD*)& byte_5D4594[2386552]))
                 v12 = sub_4E3450(*(unsigned __int16*)(v7 + 4));
             else
                 v12 = (_DWORD*)v7;

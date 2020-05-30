@@ -89,7 +89,7 @@ _DWORD* __cdecl sub_41D1D0(int a1)
     v6 = (unsigned __int8*)v2;
     LABEL_24:
     sub_44A400();
-    if (sub_40A5C0(0x2000000))
+    if (nox_common_mapflags_check(0x2000000))
     {
         sub_413D30((char*)& byte_587000[58064], v1, v6);
         sub_43DDD0(0);

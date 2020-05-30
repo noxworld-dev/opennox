@@ -38,7 +38,7 @@ void __cdecl sub_40A040_settings(__int16 a1, unsigned __int8 a2)
     v2 = sub_409A70(a1);
     if (byte_5D4594[v2 + 3500] != a2)
     {
-        if (!sub_40A5C0(0x4000000) && !*(_DWORD*)& byte_5D4594[3592])
+        if (!nox_common_mapflags_check(0x4000000) && !*(_DWORD*)& byte_5D4594[3592])
         {
             *(_DWORD*)& byte_5D4594[3532] = 1;
             if (sub_43C700())
