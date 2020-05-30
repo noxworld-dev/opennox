@@ -14,6 +14,7 @@ endif ()
 
 option (USE_ASAN "Enable address sanitizer" OFF)
 option (STRICT_MODE "Fail on compilation warnings" OFF)
+option (E2E_TEST "Run in end-to-end test mode" OFF)
 
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
@@ -26,6 +27,11 @@ else ()
         add_definitions (-DNOX_DEBUG)
     else ()
         add_compile_options (-O3)
+    endif ()
+
+    if (E2E_TEST)
+        add_definitions (-DNOX_PREDICTABLE)
+        add_definitions (-DNOX_E2E_TEST)
     endif ()
 
     if (STRICT_MODE)
