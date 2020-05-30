@@ -120,7 +120,7 @@ void* __cdecl sub_44C840_read_things(void)
     *(_DWORD*)& byte_5D4594[2649708] = 1;
     if (nox_loaded_thing_bin)
     {
-        if (sub_40A5C0(1) && *(_DWORD*)& byte_5D4594[2650664])
+        if (nox_common_mapflags_check(1) && *(_DWORD*)& byte_5D4594[2650664])
         {
             nox_free_thing_bin();
         }

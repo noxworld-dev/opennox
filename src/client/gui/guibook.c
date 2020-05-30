@@ -15,7 +15,7 @@ unsigned int __cdecl sub_45AD70(int a1)
     result = sub_477600();
     if (!result)
     {
-        if (!sub_4372B0() || (result = sub_40A5C0(2048)) == 0)
+        if (!sub_4372B0() || (result = nox_common_mapflags_check(2048)) == 0)
         {
             if (!*(_DWORD*)& byte_5D4594[2618908]
                 || sub_45ADF0(*(unsigned __int8*)(*(_DWORD*)& byte_5D4594[2618908] + 2251)))
@@ -231,7 +231,7 @@ int __cdecl sub_45BD40(int a1)
             v20 = 19;
         }
         if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[1047516] + 2251) == 2
-            && (*(_DWORD*)(*(_DWORD*)& byte_5D4594[1047516] + 4232) || sub_40A5C0(0x2000) && !sub_40A5C0(4096)))
+            && (*(_DWORD*)(*(_DWORD*)& byte_5D4594[1047516] + 4232) || nox_common_mapflags_check(0x2000) && !nox_common_mapflags_check(4096)))
         {
             sub_43F840(0, v71, &v70, 0, 0);
             sub_43FAF0(0, v71, (108 - v70) / 2 + v66 + 24, v14, 128, 0);

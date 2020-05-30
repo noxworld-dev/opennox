@@ -17,6 +17,7 @@ const char* g_argv[21];
 unsigned int g_argc;
 
 extern int g_scaled;
+// FIXME: w&h are set to 0 at initialization (but window will be resized a moment later)
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -34,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     g_argv[0] = "nox.exe";
     g_argc = 1;
 
-    sub_43BEF0_set_video_mode(0, 0, 0);
+    //sub_43BEF0_set_video_mode(0, 0, 0); // probably not needed
 
     for (v4 = strtok(lpCmdLine, " \t"); v4; v4 = strtok(0, " \t"))
     {

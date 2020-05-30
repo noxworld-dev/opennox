@@ -19,7 +19,7 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2)
     wchar_t* v10; // eax
     CHAR PathName[1024]; // [esp+4h] [ebp-400h]
 
-    if (sub_40A5C0(1) || a2 >= *(int*)& byte_587000[55984])
+    if (nox_common_mapflags_check(1) || a2 >= *(int*)& byte_587000[55984])
     {
         v5 = sub_409E10();
         nox_sprintf(PathName, "%s\\Save\\", v5);
@@ -41,7 +41,7 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2)
                     } while (v8);
                 }
                 sub_408D90(nox_file_2);
-                if (sub_40A5C0(4096))
+                if (nox_common_mapflags_check(4096))
                     byte_5D4594[2661961] = sub_465DF0();
                 else
                     byte_5D4594[2661961] = 0;

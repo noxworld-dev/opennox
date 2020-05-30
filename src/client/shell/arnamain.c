@@ -17,7 +17,7 @@ int __cdecl sub_4AA4D0(int a1, unsigned int a2, int* a3, int a4)
     {
         if (a2 != 16391)
             return 0;
-        if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[1309708] + 64) && !sub_40A5C0(0x2000000) && !sub_4D6F30())
+        if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[1309708] + 64) && !nox_common_mapflags_check(0x2000000) && !sub_4D6F30())
             goto LABEL_17;
         v4 = sub_46B0A0(a3) - 411;
         if (v4)

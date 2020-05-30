@@ -28,7 +28,7 @@ int __cdecl sub_4AD320(int a1)
     sub_46B120(v3, a1);
     sub_46B340(*(int*)& byte_5D4594[1309812], sub_4AD570);
     v4 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1309812], 10306);
-    if (sub_40A5C0(1056))
+    if (nox_common_mapflags_check(1056))
         sub_46ABB0((int)v4, 0);
     sub_46A8A0();
     sub_4AD840();
@@ -120,7 +120,7 @@ int sub_4AD840()
         {
             v1 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1309812], 10301);
             v1[9] |= 4u;
-            if (sub_40A5C0(1024))
+            if (nox_common_mapflags_check(1024))
                 sub_46ABB0((int)v1, 0);
         }
         if (*(_DWORD*)& byte_587000[108752])

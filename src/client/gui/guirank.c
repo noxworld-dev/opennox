@@ -366,7 +366,7 @@ int __cdecl sub_46F080(int a1, int a2)
 
     v2 = 0;
     v35 = 0;
-    if (!sub_40A5C0(8) && *(_DWORD*)& byte_587000[145668] != 6)
+    if (!nox_common_mapflags_check(8) && *(_DWORD*)& byte_587000[145668] != 6)
     {
         *(_DWORD*)& byte_5D4594[1090120] = *(_DWORD*)& byte_587000[145668] - 1;
         if (*(int*)& byte_587000[145668] - 1 < 0)
@@ -378,7 +378,7 @@ int __cdecl sub_46F080(int a1, int a2)
     }
     sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
     v4 = sub_416590(0);
-    if (sub_40A5C0(1))
+    if (nox_common_mapflags_check(1))
     {
         v5 = sub_40A5B0();
         v6 = (unsigned __int16)sub_40A020(v5);
@@ -486,7 +486,7 @@ int __cdecl sub_46F080(int a1, int a2)
                     v16 = v32 >> 4;
                     if (v32 == 16)
                         sub_46F8F0(1, v36);
-                    if (sub_40A5C0(1024) && v34 > 0 && *(int*)& byte_5D4594[80 * v32 + 1084196] >= v34)
+                    if (nox_common_mapflags_check(1024) && v34 > 0 && *(int*)& byte_5D4594[80 * v32 + 1084196] >= v34)
                         v15 = 1;
                     v17 = 80 * v32;
                     v18 = *(_DWORD*)& byte_5D4594[v17 + 1084208];
@@ -585,7 +585,7 @@ int __cdecl sub_46F080(int a1, int a2)
                         v22 = (wchar_t*)a2;
                         break;
                 }
-                if (!sub_40A5C0(1) || !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
+                if (!nox_common_mapflags_check(1) || !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
                 {
                     if (*(_DWORD*)& byte_5D4594[1090120] == 1)
                     {
@@ -613,7 +613,7 @@ int __cdecl sub_46F080(int a1, int a2)
                     v25 = 0;
                 }
                 v22 = loadString_sub_40F1D0((char*)& byte_587000[147040], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1519);
-                if (!sub_40A5C0(1) || !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
+                if (!nox_common_mapflags_check(1) || !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
                 {
                     v30 = byte_5D4594[1090116];
                     v26 = loadString_sub_40F1D0((char*)& byte_587000[147084], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1525);
@@ -748,9 +748,9 @@ char sub_46FC50()
     int v6; // [esp-Ch] [ebp-Ch]
     int v7; // [esp-8h] [ebp-8h]
 
-    if (sub_40A220() && (!sub_40A5C0(1) || sub_40A300() || (v0 = sub_40A5B0(), sub_40A180(v0))))
+    if (sub_40A220() && (!nox_common_mapflags_check(1) || sub_40A300() || (v0 = sub_40A5B0(), sub_40A180(v0))))
     {
-        if (!sub_40A5C0(1) || sub_40A300() || (v1 = sub_40A5B0(), LOBYTE(v2) = sub_40A180(v1), (_BYTE)v2))
+        if (!nox_common_mapflags_check(1) || sub_40A300() || (v1 = sub_40A5B0(), LOBYTE(v2) = sub_40A180(v1), (_BYTE)v2))
         {
             if (wndIsShown_sub_46ACC0(*(int*)& byte_5D4594[1090108]))
                 nox_window_set_hidden(*(int*)& byte_5D4594[1090108], 0);
@@ -780,7 +780,7 @@ int sub_46FD80()
     wchar_t* v3; // eax
     int v4; // [esp-4h] [ebp-4h]
 
-    if (sub_40A5C0(4224))
+    if (nox_common_mapflags_check(4224))
     {
         result = wndIsShown_sub_46ACC0(*(int*)& byte_5D4594[1090112]);
         if (!result)
@@ -790,7 +790,7 @@ int sub_46FD80()
     {
         if (wndIsShown_sub_46ACC0(*(int*)& byte_5D4594[1090112]))
             nox_window_set_hidden(*(int*)& byte_5D4594[1090112], 0);
-        if (sub_40A5C0(1))
+        if (nox_common_mapflags_check(1))
         {
             v1 = sub_40A5B0();
             v2 = (unsigned __int16)sub_40A020(v1);

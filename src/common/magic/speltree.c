@@ -118,7 +118,7 @@ int __cdecl sub_424460(int a1, void* a2)
         v43[v34] = 0;
         v16 = -1;
     }
-    if (sub_40A5C0(2))
+    if (nox_common_mapflags_check(2))
         * ((_DWORD*)v6 + 2) = sub_42FAA0(v16, v39, v43);
     v19 = *(int**)(a1 + 8);
     v20 = *v19;
@@ -137,7 +137,7 @@ int __cdecl sub_424460(int a1, void* a2)
         v43[v35] = 0;
         v20 = -1;
     }
-    if (sub_40A5C0(2))
+    if (nox_common_mapflags_check(2))
         * ((_DWORD*)v6 + 3) = sub_42FAA0(v20, v39, v43);
     v23 = *(int**)(a1 + 8);
     v24 = *v23;

@@ -25,7 +25,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4)
     {
         if (a2 != 16391)
             return 0;
-        if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[1307308] + 64) && !sub_40A5C0(0x2000000))
+        if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[1307308] + 64) && !nox_common_mapflags_check(0x2000000))
         {
         LABEL_32:
             sub_452D80(921, 100);

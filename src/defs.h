@@ -12,7 +12,7 @@
 #include <wctype.h>
 #include "memfile.h"
 
-#define NO_IMM 1
+#define NO_IMM 0
 #define NO_MOVIE 1
 #define NO_WOLAPI 1
 

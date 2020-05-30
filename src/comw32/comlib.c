@@ -21,7 +21,7 @@ int __cdecl sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr*
                 sub_56FDD0(v8, buf, v6);
         }
     }
-    if (sub_40A5C0(1))
+    if (nox_common_mapflags_check(1))
         result = v6;
     else
         result = sub_415FF0(1, 99, "C:\\NoxPost\\src\\comw32\\comlib.c", 450) < *(int*)& byte_5D4594[2495940] ? 0 : v6;

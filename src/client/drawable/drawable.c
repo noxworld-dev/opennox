@@ -110,7 +110,7 @@ nox_drawable* __cdecl nox_new_drawable_for_thing(int i)
     draw_fnc = v1->draw_func;
     if (draw_fnc == nox_thing_static_random_draw)
     {
-        v4 = sub_415FF0(0, *(unsigned __int8*)(v1->field_76 + 8) - 1, "C:\\NoxPost\\src\\Client\\Drawable\\drawable.c", 401);
+        v4 = sub_415FF0(0, *(unsigned __int8*)((char*)v1->field_76 + 8) - 1, "C:\\NoxPost\\src\\Client\\Drawable\\drawable.c", 401);
         sub_45AB80(v1, v4);
     }
     else if (draw_fnc == nox_thing_red_spark_draw || draw_fnc == nox_thing_blue_spark_draw || draw_fnc == nox_thing_yellow_spark_draw || draw_fnc == nox_thing_green_spark_draw || draw_fnc == nox_thing_cyan_spark_draw)

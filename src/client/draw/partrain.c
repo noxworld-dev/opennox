@@ -13,7 +13,7 @@ int __cdecl nox_thing_blue_rain_draw(int a1, int a2)
     int v8; // esi
     int v9; // [esp+8h] [ebp+8h]
 
-    if (sub_40A5C0(0x200000))
+    if (nox_common_mapflags_check(0x200000))
         return 1;
     if (!*(_DWORD*)& byte_5D4594[1313716])
         * (_DWORD*)& byte_5D4594[1313716] = sub_44CFC0((CHAR*)& byte_587000[176640]);

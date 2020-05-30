@@ -652,7 +652,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4)
             switch (v10)
             {
                 case 0:
-                    if (sub_40A5C0(1) && sub_40A5C0(8))
+                    if (nox_common_mapflags_check(1) && nox_common_mapflags_check(8))
                         return 0;
                     v56 = a3;
                     *(_BYTE*)v4 = 0;
@@ -4126,7 +4126,7 @@ _DWORD* __cdecl sub_5798F0(float a1, float a2)
     if (*(_DWORD*)& byte_5D4594[2523752])
         * (_DWORD*)(*(_DWORD*)& byte_5D4594[2523752] + 488) = v2;
     *(_DWORD*)& byte_5D4594[2523752] = v2;
-    if (sub_40A5C0(1))
+    if (nox_common_mapflags_check(1))
         sub_5179B0((int)v2);
     return v2;
 }
@@ -4164,7 +4164,7 @@ char* sub_5799C0()
             if (*(_DWORD*)& byte_5D4594[2523752])
                 * (_DWORD*)(*(_DWORD*)& byte_5D4594[2523752] + 488) = v0;
             *(_DWORD*)& byte_5D4594[2523752] = v0;
-            if (sub_40A5C0(1))
+            if (nox_common_mapflags_check(1))
                 sub_5179B0(v0);
             v0 = v1;
         } while (v1);
@@ -4298,7 +4298,7 @@ void __cdecl sub_579B30(LPVOID lpMem)
         * (_DWORD*)(v8 + 484) = *((_DWORD*)lpMem + 121);
     else
         *(_DWORD*)& byte_5D4594[2523752] = *((_DWORD*)lpMem + 121);
-    if (sub_40A5C0(1))
+    if (nox_common_mapflags_check(1))
         sub_517A70((int)lpMem);
     free(lpMem);
 }
@@ -4496,7 +4496,7 @@ void sub_579DD0()
         do
         {
             v1 = (_DWORD*)v0[121];
-            if (sub_40A5C0(1))
+            if (nox_common_mapflags_check(1))
                 sub_517A70((int)v0);
             free(v0);
             v0 = v1;
@@ -4539,7 +4539,7 @@ void __cdecl sub_579E90(int a1)
     if (*(_DWORD*)& byte_5D4594[2523756])
         * (_DWORD*)(*(_DWORD*)& byte_5D4594[2523756] + 488) = a1;
     *(_DWORD*)& byte_5D4594[2523756] = a1;
-    if (sub_40A5C0(1))
+    if (nox_common_mapflags_check(1))
         sub_5179B0(a1);
 }
 
@@ -4564,7 +4564,7 @@ int __cdecl sub_579F00(_DWORD* a1, int a2)
     float4 v12; // [esp+10h] [ebp-10h]
 
     v2 = 0;
-    if (sub_40A5C0(32))
+    if (nox_common_mapflags_check(32))
     {
         if (a2)
         {
@@ -4600,7 +4600,7 @@ int __cdecl sub_579F00(_DWORD* a1, int a2)
             goto LABEL_24;
         if (!(*((_BYTE*)v6 + 480) & 1))
             goto LABEL_24;
-        if (sub_40A5C0(32))
+        if (nox_common_mapflags_check(32))
         {
             if (v2)
             {
@@ -4637,7 +4637,7 @@ int __cdecl sub_57A160(int a1)
 {
     int result; // eax
 
-    if (a1 && sub_40A5C0(2))
+    if (a1 && nox_common_mapflags_check(2))
         result = (*(_DWORD*)(a1 + 3680) >> 3) & 1;
     else
         result = 0;
@@ -4897,7 +4897,7 @@ BOOL __cdecl sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4)
                 return 0;
             if (a1 != 4)
                 return 0;
-            if (!sub_40A5C0(1))
+            if (!nox_common_mapflags_check(1))
                 return 0;
             nox_sprintf(v16, "%S", v4[2]);
             v13 = (unsigned __int16*)sub_415EC0(v16);
@@ -4916,7 +4916,7 @@ BOOL __cdecl sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4)
         {
             if (a1 != 4)
                 return 0;
-            if (!sub_40A5C0(1))
+            if (!nox_common_mapflags_check(1))
                 return 0;
             nox_sprintf(v16, "%S", v4[2]);
             v8 = (unsigned __int16*)sub_415A30(v16);
@@ -6259,7 +6259,7 @@ void* sub_57C330()
     void* result; // eax
 
     v0 = 0;
-    if (!sub_40A5C0(2097153) || (result = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2523892]), (v0 = result) != 0))
+    if (!nox_common_mapflags_check(2097153) || (result = nox_alloc_class_new_obj_zero(*(_DWORD * *)& byte_5D4594[2523892]), (v0 = result) != 0))
         result = v0;
     return result;
 }

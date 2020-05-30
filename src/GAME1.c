@@ -60,9 +60,9 @@ extern int nox_win_height;
 extern int nox_win_width_1;
 extern int nox_win_height_1;
 extern int nox_win_depth_1;
-extern int nox_win_width_2;
-extern int nox_win_height_2;
-extern int nox_win_depth_2;
+//extern int nox_win_width_2;
+//extern int nox_win_height_2;
+//extern int nox_win_depth_2;
 extern int default_win_height;
 extern int default_win_width;
 
@@ -109,9 +109,9 @@ void __cdecl sub_48B1B0(SDL_GLContext* a1);
 void cleanup()
 {
     printf("%s\n", __FUNCTION__);
-    if (sub_40A5C0(0x2000000))
+    if (nox_common_mapflags_check(0x2000000))
         sub_413D00();
-    sub_433290("nox.cfg");
+    nox_common_writecfgfile("nox.cfg");
     sub_4314D0();
     sub_413960();
     sub_431380();
@@ -162,19 +162,19 @@ void mainloop_exit_2()
     sub_43F140(300);
     sub_43D990();
     sub_4D39B0();
-    if (sub_40A5C0(1))
+    if (nox_common_mapflags_check(1))
         sub_4D23C0();
-    if (sub_40A5C0(2))
+    if (nox_common_mapflags_check(2))
         sub_435EB0();
-    if (!sub_43BF10(1))
+    if (!sub_43BF10_upd_video_mode(1))
         return;
     *(_DWORD*)& byte_587000[80852] = sub_434B00();
     sub_434B30(1);
     sub_434B60();
     g_v21 = 0;
-    if (sub_40A5C0(1))
+    if (nox_common_mapflags_check(1))
         sub_4D3200();
-    if (sub_40A5C0(2))
+    if (nox_common_mapflags_check(2))
         sub_437190();
     sub_416190();
     if (*(_WORD*)& byte_5D4594[2650636] & 0x1000)
@@ -210,7 +210,7 @@ BOOL sub_401040()
 {
     BOOL result; // eax
 
-    result = sub_40A5C0(1);
+    result = nox_common_mapflags_check(1);
     *(_DWORD*)& byte_5D4594[2598000] = result;
     return result;
 }
@@ -245,7 +245,7 @@ int __cdecl cmain(int argc, const char* argv[])
     sub_40A4D0(3);
     *(_DWORD*)& byte_5D4594[2650636] = 1024;
     *(_DWORD*)& byte_5D4594[2650652] = 0;
-    BOOL v2 = sub_40A5C0(1);
+    BOOL v2 = nox_common_mapflags_check(1);
     *(_DWORD*)& byte_5D4594[2649704] = 30;
     *(_DWORD*)& byte_5D4594[2598000] = v2;
     sub_416D40();
@@ -318,9 +318,9 @@ int __cdecl cmain(int argc, const char* argv[])
             nox_win_width_1 = default_win_width;
             nox_win_height_1 = default_win_height;
             nox_win_depth_1 = v12;
-            nox_win_width_2 = default_win_width;
-            nox_win_height_2 = default_win_height;
-            nox_win_depth_2 = v12;
+            //nox_win_width_2 = default_win_width;
+            //nox_win_height_2 = default_win_height;
+            //nox_win_depth_2 = v12;
         }
         else if (!_strcmpi(flag, "-noaudio"))
         {
@@ -377,7 +377,7 @@ int __cdecl cmain(int argc, const char* argv[])
     *(_DWORD*)& byte_5D4594[2614260] = *(_DWORD*)& byte_5D4594[2649704] >> 1;
     sub_4093A0();
     nox_ensure_thing_bin();
-    result = sub_40F300("nox.str");
+    result = nox_strman_readfile("nox.str"); // strange, should be .csf but it works anyway
     if (!result)
     {
         return result;
@@ -385,7 +385,7 @@ int __cdecl cmain(int argc, const char* argv[])
     sub_4D07F0();
     sub_40AED0();
     sub_416500();
-    result = sub_4317B0("nox.cfg", 0);
+    result = nox_common_readcfgfile("nox.cfg", 0);
     if (!result)
     {
         return result;
@@ -399,15 +399,15 @@ int __cdecl cmain(int argc, const char* argv[])
     sub_4158C0();
     sub_4444F0();
     sub_4D11A0();
-    sub_430BE0(0, 0, 16);
-    result = sub_43BF10(1);
+    nox_video_resizewnd(0, 0, 16);
+    result = sub_43BF10_upd_video_mode(1); 
     if (!result)
     {
         return result;
     }
     sub_434350(*(int*)& byte_5D4594[2650656]);
     sub_440900();
-    result = sub_42EE30(*(int*)& byte_5D4594[3804680]);
+    result = nox_video_read_videobag(*(int*)& byte_5D4594[3804680]);
     if (!result)
     {
         return result;
@@ -417,7 +417,7 @@ int __cdecl cmain(int argc, const char* argv[])
     {
         return result;
     }
-    result = sub_4310B0(nox_enable_audio);
+    result = nox_audio_initall(nox_enable_audio);
     if (!(result || !nox_enable_audio))
     {
         return result;
@@ -1473,7 +1473,7 @@ int __cdecl sub_409E70(int a1)
     if ((a1 & *(_DWORD*)& byte_5D4594[3484]) != a1)
     {
         *(_DWORD*)& byte_5D4594[3484] |= a1;
-        result = sub_40A5C0(1);
+        result = nox_common_mapflags_check(1);
         if (result)
         {
             if (a1 & 0x2000)
@@ -1505,7 +1505,7 @@ int __cdecl sub_409EF0(int a1)
     int result; // eax
 
     *(_DWORD*)& byte_5D4594[3484] ^= a1;
-    result = sub_40A5C0(1);
+    result = nox_common_mapflags_check(1);
     if (result)
     {
         if (a1 & 0x2000)
@@ -1524,7 +1524,7 @@ BOOL __cdecl sub_409F40(int a1)
 {
     BOOL result; // eax
 
-    if (a1 == 0x2000 && sub_40A5C0(1056))
+    if (a1 == 0x2000 && nox_common_mapflags_check(1056))
         result = 1;
     else
         result = (a1 & *(_DWORD*)& byte_5D4594[3484]) != 0;
@@ -1580,7 +1580,7 @@ int __cdecl sub_40A1F0(int a1)
     int result; // eax
 
     *(_DWORD*)& byte_587000[4660] = a1;
-    result = sub_40A5C0(1);
+    result = nox_common_mapflags_check(1);
     if (result)
         result = sub_4D8F50(159, a1);
     return result;
@@ -1821,8 +1821,11 @@ int sub_40A5B0()
     return *(_DWORD*)& byte_5D4594[3600];
 }
 
+// Tests against mapflags variable
+// I called them mapflags, but they are used for storing the current game mode (chat/DM/elim/ctf...) as well as some other data
+// such as if this game client instance is for ex. hosting a server (flag value 1)
 //----- (0040A5C0) --------------------------------------------------------
-BOOL __cdecl sub_40A5C0(int a1)
+BOOL __cdecl nox_common_mapflags_check(int a1)
 {
     return (a1 & *(_DWORD*)& byte_5D4594[3600]) != 0;
 }
@@ -1840,7 +1843,7 @@ int __cdecl sub_40A5E0(int a1)
 //----- (0040A5F0) --------------------------------------------------------
 int sub_40A5F0()
 {
-    return !sub_40A5C0(4096) ? *(_DWORD*)& byte_5D4594[3584] : 0;
+    return !nox_common_mapflags_check(4096) ? *(_DWORD*)& byte_5D4594[3584] : 0;
 }
 
 //----- (0040A610) --------------------------------------------------------
@@ -1919,7 +1922,7 @@ int __cdecl sub_40A6D0(int a1)
     result = *(_DWORD*)& byte_587000[4728];
     if (a1 != *(_DWORD*)& byte_587000[4728])
     {
-        result = sub_40A5C0(0x20000);
+        result = nox_common_mapflags_check(0x20000);
         if (result == 1)
             result = sub_4D7F10(159);
     }
@@ -1951,7 +1954,7 @@ BOOL sub_40A740()
     char* v0; // esi
 
     v0 = sub_4165B0();
-    return sub_40A5C0(128) && v0[53] < 0;
+    return nox_common_mapflags_check(128) && v0[53] < 0;
 }
 
 //----- (0040A770) --------------------------------------------------------
@@ -2167,12 +2170,12 @@ int __cdecl sub_40AA70(int a1)
     v1 = sub_416640();
     if (!a1)
         goto LABEL_31;
-    if (sub_40A5C0(4096))
+    if (nox_common_mapflags_check(4096))
         return sub_40A770() < 6;
     v3 = *(_DWORD*)(a1 + 3680);
     if (v3 & 0x100 && !*(_DWORD*)& byte_5D4594[3508])
         return 0;
-    if (!sub_40A740() && !sub_40A5C0(0x8000))
+    if (!sub_40A740() && !nox_common_mapflags_check(0x8000))
         goto LABEL_31;
     result = *(_DWORD*)(a1 + 2068);
     if (!result)
@@ -2180,20 +2183,20 @@ int __cdecl sub_40AA70(int a1)
     if (sub_418AE0(*(_DWORD*)(a1 + 2068)))
         goto LABEL_31;
     v4 = (unsigned __int8)v1[52];
-    if ((sub_40A5C0(96) || sub_40A5C0(16) && sub_417DA0(4)) && v4 > 2)
+    if ((nox_common_mapflags_check(96) || nox_common_mapflags_check(16) && sub_417DA0(4)) && v4 > 2)
         v4 = 2;
     if ((unsigned __int8)sub_417DE0() >= v4)
         return 0;
-    if (sub_40A5C0(96))
+    if (nox_common_mapflags_check(96))
     {
         v5 = (unsigned __int8)sub_417DE0();
         if (v5 >= sub_417DC0())
             return 0;
     }
 LABEL_31:
-    if (sub_40A5C0(128))
+    if (nox_common_mapflags_check(128))
         goto LABEL_26;
-    if (!sub_40A5C0(1024))
+    if (!nox_common_mapflags_check(1024))
         goto LABEL_26;
     v6 = sub_416EA0();
     if (!v6)
@@ -2394,7 +2397,7 @@ void __cdecl sub_40AF90(int a1, int a2, char a3, int a4, _BYTE* a5, unsigned int
         break;
     case 2:
         sub_41C8F0(a5, a6);
-        if (sub_40A5C0(4096))
+        if (nox_common_mapflags_check(4096))
         {
             if (sub_4460B0())
                 sub_446140();
@@ -2420,7 +2423,7 @@ void __cdecl sub_40AF90(int a1, int a2, char a3, int a4, _BYTE* a5, unsigned int
             else
             {
                 v7 = sub_41A2E0(FileName, a1);
-                if (sub_40A5C0(4096))
+                if (nox_common_mapflags_check(4096))
                 {
                     if (v7)
                     {
@@ -2440,7 +2443,7 @@ void __cdecl sub_40AF90(int a1, int a2, char a3, int a4, _BYTE* a5, unsigned int
                 DeleteFileA(FileName);
             }
         }
-        else if (sub_40A5C0(4096) && a1 != 31)
+        else if (nox_common_mapflags_check(4096) && a1 != 31)
         {
             sub_4DEAB0(a1, 4);
         }
@@ -3095,12 +3098,12 @@ int __cdecl sub_40BC60(int a1, int a2, const char* a3, int a4, int a5, int a6)
     v7 = a5;
     if (!a5 || !a4)
         return 0;
-    if (!sub_40A5C0(1))
+    if (!nox_common_mapflags_check(1))
     {
         v8 = sub_43C750();
         goto LABEL_12;
     }
-    if (!sub_40A5C0(2))
+    if (!nox_common_mapflags_check(2))
         return 0;
     if (!a6)
     {
@@ -6322,7 +6325,7 @@ wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int
 }
 
 //----- (0040F300) --------------------------------------------------------
-int __cdecl sub_40F300(char* a1)
+int __cdecl nox_strman_readfile(char* a1)
 {
     char* v2; // eax
     unsigned __int8 v3; // dl
@@ -9448,13 +9451,13 @@ CHAR* sub_4131A0()
     {
         for (i = *(_DWORD*)& byte_5D4594[251600]; i; i = *(_DWORD*)(i + 80))
         {
-            if (sub_40A5C0(2097153))
+            if (nox_common_mapflags_check(2097153))
             {
                 result = (CHAR*)sub_4E3AA0(*(CHAR * *)i);
             }
             else
             {
-                result = (CHAR*)sub_40A5C0(2);
+                result = (CHAR*)nox_common_mapflags_check(2);
                 if (!result)
                     return result;
                 result = (CHAR*)sub_44CFC0(*(CHAR * *)i);
@@ -9463,13 +9466,13 @@ CHAR* sub_4131A0()
         }
         for (j = *(_DWORD*)& byte_5D4594[251608]; j; j = *(_DWORD*)(j + 80))
         {
-            if (sub_40A5C0(2097153))
+            if (nox_common_mapflags_check(2097153))
             {
                 result = (CHAR*)sub_4E3AA0(*(CHAR * *)j);
             }
             else
             {
-                result = (CHAR*)sub_40A5C0(2);
+                result = (CHAR*)nox_common_mapflags_check(2);
                 if (!result)
                     return result;
                 result = (CHAR*)sub_44CFC0(*(CHAR * *)j);
@@ -9855,7 +9858,7 @@ int __cdecl sub_413A00(int a1)
 {
     int result; // eax
 
-    result = sub_40A5C0(2048);
+    result = nox_common_mapflags_check(2048);
     if (result == 1)
     {
         if (a1)
@@ -9878,7 +9881,7 @@ int __cdecl sub_413A00(int a1)
 //----- (00413A50) --------------------------------------------------------
 BOOL sub_413A50()
 {
-    return sub_40A5C0(0x40000);
+    return nox_common_mapflags_check(0x40000);
 }
 
 //----- (00413A60) --------------------------------------------------------
@@ -10043,7 +10046,7 @@ int sub_413D30(char* a1, ...)
     va_start(va, a1);
     time(&v6);
     v1 = localtime(&v6);
-    result = sub_40A5C0(4);
+    result = nox_common_mapflags_check(4);
     if (result)
     {
         nox_vsprintf((char*)& byte_5D4594[251752], a1, va);
@@ -10183,7 +10186,7 @@ nox_alloc_class* __cdecl nox_new_alloc_class(const char* name, int size, int cnt
 
     for (int i = 0; i < cnt; i++)
     {
-        nox_alloc_hdr* h = (nox_alloc_hdr*)(p->items + isize * i);
+        nox_alloc_hdr* h = (nox_alloc_hdr*)((char*)p->items + isize * i);
 
         h->field_0 = 0;
         h->field_1 = 0;
@@ -11399,7 +11402,7 @@ bool __cdecl sub_415470(void)
                 goto LABEL_34;
             break;
         case 1096107040:
-            if (sub_40A5C0(0x200000))
+            if (nox_common_mapflags_check(0x200000))
             {
                 sub_414D40(things);
             }
@@ -11409,7 +11412,7 @@ bool __cdecl sub_415470(void)
             }
             break;
         case 1096175188:
-            if (sub_40A5C0(0x200000))
+            if (nox_common_mapflags_check(0x200000))
             {
                 sub_452B00(things);
             }
@@ -11565,7 +11568,7 @@ void sub_4157C0()
             v0 = &byte_587000[33064];
             do
             {
-                if (sub_40A5C0(2097153))
+                if (nox_common_mapflags_check(2097153))
                     v1 = sub_4E3AA0(*(CHAR * *)v0);
                 else
                     v1 = sub_44CFC0(*(CHAR * *)v0);
@@ -11760,7 +11763,7 @@ void sub_415AB0()
             v0 = &byte_587000[34864];
             do
             {
-                if (sub_40A5C0(2097153))
+                if (nox_common_mapflags_check(2097153))
                 {
                     *((_DWORD*)v0 - 2) = sub_4E3AA0(*((CHAR * *)v0 - 4));
                     v1 = sub_4E3AA0(*(CHAR * *)v0);
@@ -12269,7 +12272,7 @@ int sub_4161E0()
         *(_DWORD*)& byte_5D4594[371692] = 1;
         qmemcpy(&byte_5D4594[371404], v15, 0x14u);
     }
-    if (!sub_40A5C0(1))
+    if (!nox_common_mapflags_check(1))
         return *(_DWORD*)& byte_5D4594[371692];
     if (*(_DWORD*)& byte_5D4594[371428] != v12)
     {
@@ -12722,7 +12725,7 @@ __int64 sub_416BF0()
 }
 
 //----- (00416C70) --------------------------------------------------------
-__int64 __cdecl sub_416C70(int a1)
+__int64 __cdecl sub_416C70(int a1) // frameratelimiter
 {
     __int64 v1; // rax
     __int64 result; // rax
@@ -13242,7 +13245,7 @@ int __cdecl sub_4174F0(int a1, int a2)
     int result; // eax
 
     *(_DWORD*)(a1 + 3680) |= a2;
-    result = sub_40A5C0(1);
+    result = nox_common_mapflags_check(1);
     if (result)
     {
         if (a2 & 0x423)
@@ -13258,12 +13261,12 @@ char __cdecl sub_417530(int a1, int a2)
     __int16 v3; // ax
 
     *(_DWORD*)(a1 + 3680) &= ~a2;
-    v2 = sub_40A5C0(1);
+    v2 = nox_common_mapflags_check(1);
     if (v2)
     {
         if (a2 & 1)
         {
-            v2 = sub_40A5C0(128);
+            v2 = nox_common_mapflags_check(128);
             if (!v2)
             {
                 v2 = sub_40A8A0();
@@ -13360,7 +13363,7 @@ void __cdecl sub_417680(int a1, char a2)
     {
         return;
     }
-    if (!sub_40A5C0(1))
+    if (!nox_common_mapflags_check(1))
         * (_DWORD*)(v2 + 4) = 0;
     v3 = v2 + 2328;
     v4 = 27;
@@ -13375,7 +13378,7 @@ void __cdecl sub_417680(int a1, char a2)
         v5[2] = 0;
         v5[3] = 0;
     } while (v4);
-    if (!sub_40A5C0(1))
+    if (!nox_common_mapflags_check(1))
         * (_DWORD*)v2 = 0;
     v6 = v2 + 2976;
     v7 = 26;
@@ -13396,7 +13399,7 @@ void __cdecl sub_417680(int a1, char a2)
     {
         return;
     }
-    if (*(_BYTE*)(v2 + 2251) || sub_40A5C0(2048))
+    if (*(_BYTE*)(v2 + 2251) || nox_common_mapflags_check(2048))
     {
         LOBYTE(a1) = -1;
         v11 = sub_413330(*(_DWORD*)(v10 + 4) + *(unsigned __int8*)(v2 + 2269));
@@ -13423,7 +13426,7 @@ void __cdecl sub_417680(int a1, char a2)
     a1 = -1;
     if (v15 == 1)
     {
-        if (sub_40A5C0(2048))
+        if (nox_common_mapflags_check(2048))
         {
             if (a2 & 8)
             {
@@ -13432,7 +13435,7 @@ void __cdecl sub_417680(int a1, char a2)
                 sub_417AA0(80, *(_DWORD*)(v2 + 2060), 0x8000, (int)& a1);
             }
         }
-        else if (sub_40A5C0(4096))
+        else if (nox_common_mapflags_check(4096))
         {
             a1 = -1;
             v17 = sub_413290("Replenishment1");
@@ -13446,7 +13449,7 @@ void __cdecl sub_417680(int a1, char a2)
     }
     if (!*(_BYTE*)(v2 + 2251))
     {
-        if (sub_40A5C0(2048))
+        if (nox_common_mapflags_check(2048))
         {
             if (a2 & 0x20)
             {
@@ -13459,7 +13462,7 @@ void __cdecl sub_417680(int a1, char a2)
                 sub_417AA0(80, v21, 256, (int)& a1);
             }
         }
-        else if (sub_40A5C0(4096))
+        else if (nox_common_mapflags_check(4096))
         {
             v25 = *(_DWORD*)(v2 + 2060);
             a1 = -1;
@@ -13475,7 +13478,7 @@ void __cdecl sub_417680(int a1, char a2)
     }
     if (*(_BYTE*)(v2 + 2251) == 2)
     {
-        if (sub_40A5C0(2048))
+        if (nox_common_mapflags_check(2048))
         {
             if (a2 & 8)
             {
@@ -13486,7 +13489,7 @@ void __cdecl sub_417680(int a1, char a2)
                 sub_417AA0(80, v24, 0x8000, (int)& a1);
             }
         }
-        else if (sub_40A5C0(4096))
+        else if (nox_common_mapflags_check(4096))
         {
             v26 = *(_DWORD*)(v2 + 2060);
             a1 = -1;
@@ -13646,7 +13649,7 @@ int sub_417D00()
         *(_DWORD*)v1 = 0;
         v1 += 80;
     } while ((int)v1 < (int)& byte_5D4594[527704]);
-    result = sub_40A5C0(1);
+    result = nox_common_mapflags_check(1);
     if (result == 1)
     {
         v3 = 2500;
@@ -13740,7 +13743,7 @@ bool sub_417EC0()
         if (*(_DWORD*)(i + 8) & 0x10000000)
             ++* (_DWORD*)& byte_5D4594[526276];
     }
-    if (*(_DWORD*)& byte_5D4594[526276] > 0 && !sub_40A5C0(0x8000))
+    if (*(_DWORD*)& byte_5D4594[526276] > 0 && !nox_common_mapflags_check(0x8000))
         sub_4181F0(0);
     return *(_DWORD*)& byte_5D4594[526276] > 0;
 }
@@ -14110,7 +14113,7 @@ void __cdecl sub_4184D0(wchar_t* a1)
         v3[14] = 0;
         v3[16] = *((_BYTE*)a1 + 56);
         v3[17] = *((_BYTE*)a1 + 68);
-        if (sub_40A5C0(512))
+        if (nox_common_mapflags_check(512))
             v3[14] = 1;
         v3[15] = nox_wcslen(a1);
         v1 = 2 * (unsigned __int8)v3[15];

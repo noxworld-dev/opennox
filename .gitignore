@@ -9,3 +9,5 @@ CMakeFiles/
 src/.idea
 src/cmake-build-*
 
+# Omit external libraries
+src/external

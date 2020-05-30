@@ -3464,7 +3464,7 @@ int __cdecl sub_4B0300(char* a1)
 int PlayMovie(char* filename);
 
 //----- (004B0340) --------------------------------------------------------
-int __cdecl sub_4B0340(int a1)
+int __cdecl sub_4B0340(int a1) // draw general
 {
     BOOL v1; // esi
     int v2; // ebp

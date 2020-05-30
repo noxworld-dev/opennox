@@ -31,7 +31,7 @@ int __cdecl nox_thing_animate_draw( unsigned int * a1, struct nox_drawable * dr)
                 goto LABEL_9;
             if (!(dr->field_28 & 0x10000000))
                 goto LABEL_8;
-            if (sub_40A5C0(32))
+            if (nox_common_mapflags_check(32))
             {
                 LABEL_9:
                 v3 = (*(unsigned int *)& byte_5D4594[2598000] + dr->field_32)

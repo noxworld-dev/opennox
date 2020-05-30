@@ -276,18 +276,19 @@ void __cdecl sub_43BEF0_set_video_mode(int w, int h, int d)
 }
 
 //----- (0043BF10) --------------------------------------------------------
-int __cdecl sub_43BF10(int a1)
+int __cdecl sub_43BF10_upd_video_mode(int defaults)
 {
     int v1; // esi
     int v2; // edi
     int v3; // ebx
     int result; // eax
 
-    if (a1 == 1)
+	// If true, set to 640x480
+    if (defaults == 1)
     {
-        v1 = nox_win_width_2;
-        v2 = nox_win_height_2;
-        v3 = nox_win_depth_2;
+        v1 = default_win_width;
+        v2 = default_win_height;
+        v3 = default_win_depth;
     }
     else
     {
@@ -295,19 +296,19 @@ int __cdecl sub_43BF10(int a1)
         v2 = nox_win_height_1;
         v3 = nox_win_depth_1;
     }
-    sub_430BE0(v1, v2, v3);
+    nox_video_resizewnd(v1, v2, v3);
     *(_DWORD*)& byte_5D4594[805872] = 0;
     if (v1 == nox_backbuffer_width && v2 == nox_backbuffer_height && v3 == nox_backbuffer_depth)
     {
         return 1;
     }
     sub_48BE50(1);
-    if (v3 == nox_backbuffer_depth || (result = sub_42F370(*(int*)& byte_5D4594[3804680])) != 0)
+    if (v3 == nox_backbuffer_depth || (result = nox_video_parse_videobag(*(int*)& byte_5D4594[3804680])) != 0)
     {
         result = sub_430BA0();
         if (result)
         {
-            sub_4A96C0("default.pal");
+            sub_4A96C0_video_read_palette("default.pal");
             sub_461520();
             sub_430A70_set_mouse_bounds(0, v1 - 1, 0, v2 - 1);
             sub_48BE50(0);
@@ -352,7 +353,7 @@ int sub_43C020()
 //----- (0043C060) --------------------------------------------------------
 BOOL sub_43C060()
 {
-    sub_4A96C0((char*)& byte_587000[91856]);
+    sub_4A96C0_video_read_palette((char*)& byte_587000[91856]);
     sub_4AA1F0();
     sub_4A2210();
     sub_477610(0);
@@ -363,7 +364,7 @@ BOOL sub_43C060()
 }
 
 //----- (0043C0A0) --------------------------------------------------------
-int sub_43C0A0()
+int sub_43C0A0() // switch game states
 {
     unsigned int v0; // eax
     int result; // eax
@@ -834,7 +835,7 @@ int sub_43C700()
 //----- (0043C710) --------------------------------------------------------
 BOOL sub_43C710()
 {
-    return sub_40A5C0(0x10000000);
+    return nox_common_mapflags_check(0x10000000);
 }
 
 //----- (0043C720) --------------------------------------------------------
@@ -865,7 +866,7 @@ int sub_43C760()
 {
     int v0; // esi
 
-    if (!sub_40A5C0(1))
+    if (!nox_common_mapflags_check(1))
         return *(_DWORD*)& byte_5D4594[815712];
     v0 = sub_40E9F0(31, 1);
     return v0 + sub_40F0D0(31);
@@ -905,7 +906,7 @@ int __cdecl sub_43C7B0(char* cp, int hostshort, int a3, signed int* a4)
     *(_DWORD*)& byte_5D4594[815700] = v4;
     v5 = sub_554760(v4, cp, hostshort, a3, 153);
     OnLibraryNotice(258, 0);
-    if (!sub_40A5C0(1))
+    if (!nox_common_mapflags_check(1))
         * (_DWORD*)& byte_5D4594[2649712] |= 0x80000000;
     return 1;
 }
@@ -1125,7 +1126,7 @@ int sub_43CCA0()
     sub_49C4B0();
     v0 = *(_DWORD*)& byte_5D4594[2598000];
     sub_552A80(*(unsigned int*)& byte_5D4594[815700], 1);
-    if (v0 != *(_DWORD*)& byte_5D4594[2598000] && *(_DWORD*)& byte_5D4594[2650652] == 1 && !sub_40A5C0(1))
+    if (v0 != *(_DWORD*)& byte_5D4594[2598000] && *(_DWORD*)& byte_5D4594[2650652] == 1 && !nox_common_mapflags_check(1))
     {
         v1 = sub_40A710(1);
         if (sub_43C790() > v1)
@@ -1147,7 +1148,7 @@ int sub_43CCA0()
         *(_QWORD*)& byte_5D4594[815724] = sub_416BB0();
         sub_552E70(*(unsigned int*)& byte_5D4594[815700]);
     }
-    if (!sub_40A5C0(1))
+    if (!nox_common_mapflags_check(1))
         sub_4E5770(0x1Fu, 0);
     sub_40EE10(*(unsigned int*)& byte_5D4594[815700], 31, 0);
     sub_40ED10(31, 0);
@@ -1964,7 +1965,7 @@ int sub_43DE60()
     result = sub_43AF70();
     if (result == 1)
     {
-        result = sub_40A5C0(0x2000000);
+        result = nox_common_mapflags_check(0x2000000);
         if (!result)
             result = sub_40D380();
     }
@@ -4295,7 +4296,7 @@ void __cdecl sub_4417E0(wchar_t* a1, const char* a2)
 //----- (004420F0) --------------------------------------------------------
 int sub_4420F0()
 {
-    if (!sub_40A5C0(0x2000))
+    if (!nox_common_mapflags_check(0x2000))
         sub_40AA60(1);
     return 1;
 }
@@ -4303,7 +4304,7 @@ int sub_4420F0()
 //----- (004423A0) --------------------------------------------------------
 int sub_4423A0()
 {
-    if (sub_4D6F50() && !sub_40A5C0(4096))
+    if (sub_4D6F50() && !nox_common_mapflags_check(4096))
         sub_4D7080();
     return 1;
 }
@@ -4534,7 +4535,7 @@ void sub_4445C0()
     if (!(byte_5D4594[2650637] & 2))
         sub_43BEF0_set_video_mode(default_win_width, default_win_height, v4);
     sub_4766A0(v5);
-    if (sub_40A5C0(0x10000000))
+    if (nox_common_mapflags_check(0x10000000))
         sub_476700(v5, 0);
     *(_DWORD*)& byte_5D4594[805856] = 1;
 }
@@ -5075,9 +5076,9 @@ int sub_4460C0()
 {
     int result; // eax
 
-    if (sub_40A5C0(4096))
+    if (nox_common_mapflags_check(4096))
     {
-        if (sub_40A5C0(1))
+        if (nox_common_mapflags_check(1))
         {
             result = sub_4DCD40();
         }
@@ -5095,10 +5096,10 @@ int sub_4460C0()
     else
     {
         *(_DWORD*)& byte_5D4594[825764] = 1;
-        result = sub_40A5C0(4096);
+        result = nox_common_mapflags_check(4096);
         if (result)
         {
-            result = sub_40A5C0(1);
+            result = nox_common_mapflags_check(1);
             if (result)
                 result = sub_4D6B10(0);
         }
@@ -5112,10 +5113,10 @@ int sub_446140()
     int result; // eax
 
     *(_DWORD*)& byte_5D4594[825764] = 1;
-    result = sub_40A5C0(4096);
+    result = nox_common_mapflags_check(4096);
     if (result)
     {
-        result = sub_40A5C0(1);
+        result = nox_common_mapflags_check(1);
         if (result)
             result = sub_4D6B10(0);
     }
@@ -5145,7 +5146,7 @@ unsigned int sub_446360()
 void sub_446380()
 {
     sub_44A400();
-    if (sub_40A5C0(0x2000) && !sub_40A5C0(4096) && !sub_4D6F30())
+    if (nox_common_mapflags_check(0x2000) && !nox_common_mapflags_check(4096) && !sub_4D6F30())
         sub_41CEE0((int)& byte_5D4594[2660684], 1);
     sub_4597E0(1);
     sub_43DDD0(0);
@@ -5373,7 +5374,7 @@ void sub_4467F0()
     if (!result)
     {
         result = sub_4D6F50();
-        if (!result || (result = sub_40A5C0(128)) == 0)
+        if (!result || (result = nox_common_mapflags_check(128)) == 0)
         {
             if (!(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
             {
@@ -6188,7 +6189,7 @@ int sub_448450()
     int result; // eax
     _DWORD* v1; // eax
 
-    result = sub_40A5C0(0x2000000);
+    result = nox_common_mapflags_check(0x2000000);
     if (result)
     {
         sub_446970_wol_chat();
@@ -6537,7 +6538,7 @@ int sub_449530()
         sub_46A8C0(*(int*)& byte_5D4594[830108]);
         sub_46C690(*(int*)& byte_5D4594[830108]);
         sub_46B500(*(int*)& byte_5D4594[830108]);
-        if (sub_40A5C0(0x2000000))
+        if (nox_common_mapflags_check(0x2000000))
         {
             v16 = sub_4A7F10();
             v0 = v16;
@@ -6546,7 +6547,7 @@ int sub_449530()
         v4 = sub_4200F0();
         for (i = sub_4205B0(v4); i; i = (const char*)sub_4206B0((int)i))
         {
-            if (sub_40A5C0(0x2000000))
+            if (nox_common_mapflags_check(0x2000000))
             {
                 v6 = strchr(i + 24, 58);
                 if (v6)
@@ -6587,7 +6588,7 @@ int sub_449530()
         v13[8] = v19;
         *(_DWORD*)(v10[100] + 8) = 16;
         *(_DWORD*)(v10[100] + 12) = 10;
-        if (sub_40A5C0(0x2000000) && v16 && v17 != -1)
+        if (nox_common_mapflags_check(0x2000000) && v16 && v17 != -1)
         {
             *(_DWORD*)(sub_46B0C0(*(_DWORD * *)& byte_5D4594[830108], 1961)[8] + 48) = v17;
             v15 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830108], 1962);
@@ -8396,7 +8397,7 @@ void sub_44C580_free()
     }
     nox_things_count = 0;
     sub_44C620();
-    if (!sub_40A5C0(1))
+    if (!nox_common_mapflags_check(1))
         sub_42BF80();
 }
 

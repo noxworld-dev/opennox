@@ -48,7 +48,7 @@ void sub_436100_draw()
     }
     if (!(!*(_DWORD*)& byte_587000[85724]
           || v3
-          || !sub_40A5C0(1)
+          || !nox_common_mapflags_check(1)
           || sub_416D70()
           || *(_DWORD*)& byte_5D4594[815132]
           || sub_413A50()
@@ -119,14 +119,14 @@ void sub_436100_draw()
         sub_4365C0();
     if (*(_DWORD*)& byte_5D4594[811904])
         sub_436F50();
-    if (sub_40A5C0(8))
+    if (nox_common_mapflags_check(8))
     {
         v13 = sub_416BB0() - *(_QWORD*)& byte_5D4594[811908];
         v24 = HIDWORD(v13);
-        if (v13 > 0x2710 && !sub_40A5C0(1))
+        if (v13 > 0x2710 && !nox_common_mapflags_check(1))
             sub_40A540(8);
     }
-    if (sub_40A5C0(8))
+    if (nox_common_mapflags_check(8))
     {
         nox_wcscpy(v25, (const wchar_t*)& byte_5D4594[811376]);
         v14 = (nox_win_width - 310) / 2;
