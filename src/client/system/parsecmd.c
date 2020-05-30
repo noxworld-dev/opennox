@@ -2,6 +2,9 @@
 
 #include "../gui/guimsg.h"
 #include "../gui/servopts/general.h"
+#include "../gui/servopts/guiserv.h"
+#include "../../common/system/settings.h"
+
 #include "../../proto.h"
 
 #ifdef NOX_DEBUG
@@ -35,7 +38,7 @@ wchar_t* __cdecl sub_450B20(wchar_t* a1)
 }
 
 //----- (00440D80) --------------------------------------------------------
-int __cdecl sub_440D80(int a1, char a2, int a3)
+int __cdecl nox_cmd_lock(int a1, char a2, int a3)
 {
 	wchar_t* v4; // eax
 
@@ -61,7 +64,7 @@ int sub_450B50()
 }
 
 //----- (00440DD0) --------------------------------------------------------
-int __cdecl sub_440DD0(int a1, char a2)
+int __cdecl nox_cmd_unlock(int a1, char a2)
 {
 	wchar_t* v3; // eax
 
@@ -74,7 +77,7 @@ int __cdecl sub_440DD0(int a1, char a2)
 }
 
 //----- (00440E10) --------------------------------------------------------
-int __cdecl sub_440E10(int a1, char a2, int a3)
+int __cdecl nox_cmd_set_sysop(int a1, char a2, int a3)
 {
 	wchar_t* v4; // eax
 
@@ -134,7 +137,7 @@ int sub_579830()
 }
 
 //----- (00440E60) --------------------------------------------------------
-int __cdecl sub_440E60(int a1, char a2)
+int __cdecl nox_cmd_telnet_off(int a1, char a2)
 {
 	wchar_t* v3; // eax
 
@@ -171,7 +174,7 @@ u_short sub_579850()
 }
 
 //----- (00440EB0) --------------------------------------------------------
-int __cdecl sub_440EB0(int a1, unsigned __int8 a2, int a3)
+int __cdecl nox_cmd_telnet_on(int a1, unsigned __int8 a2, int a3)
 {
 	unsigned __int16 v4; // ax
 	wchar_t* v5; // eax
@@ -197,7 +200,7 @@ int __cdecl sub_440EB0(int a1, unsigned __int8 a2, int a3)
 }
 
 //----- (00440F50) --------------------------------------------------------
-int __cdecl sub_440F50(int a1, char a2)
+int __cdecl nox_cmd_macros_on(int a1, char a2)
 {
 	wchar_t* v3; // eax
 
@@ -210,7 +213,7 @@ int __cdecl sub_440F50(int a1, char a2)
 }
 
 //----- (00440F90) --------------------------------------------------------
-int __cdecl sub_440F90(int a1, char a2)
+int __cdecl nox_cmd_macros_off(int a1, char a2)
 {
 	wchar_t* v3; // eax
 
@@ -224,7 +227,7 @@ int __cdecl sub_440F90(int a1, char a2)
 
 
 //----- (00441050) --------------------------------------------------------
-int sub_441050()
+int nox_cmd_list_weapons()
 {
 	wchar_t* v0; // ebx
 	wchar_t* v1; // ebp
@@ -269,7 +272,7 @@ int sub_441050()
 }
 
 //----- (00441130) --------------------------------------------------------
-int sub_441130()
+int nox_cmd_list_armor()
 {
 	wchar_t* v0; // ebx
 	wchar_t* v1; // ebp
@@ -314,7 +317,7 @@ int sub_441130()
 }
 
 //----- (00441210) --------------------------------------------------------
-int sub_441210()
+int nox_cmd_list_spells()
 {
 	wchar_t* v0; // edi
 	wchar_t* v1; // ebx
@@ -353,7 +356,7 @@ int sub_441210()
 }
 
 //----- (004412E0) --------------------------------------------------------
-int sub_4412E0()
+int nox_cmd_list_staffs()
 {
 	wchar_t* v0; // ebx
 	wchar_t* v1; // ebp
@@ -400,7 +403,7 @@ int sub_4412E0()
 }
 
 //----- (004413C0) --------------------------------------------------------
-int __cdecl sub_4413C0(int a1, char a2)
+int __cdecl nox_cmd_show_bindings(int a1, char a2)
 {
 	unsigned __int8* v3; // esi
 	wchar_t* v4; // eax
@@ -429,7 +432,7 @@ int sub_409AC0()
 }
 
 //----- (00441550) --------------------------------------------------------
-int __cdecl sub_441550(int a1, char a2)
+int __cdecl nox_cmd_show_game(int a1, char a2)
 {
 	char* v2; // esi
 	int v4; // edi
@@ -480,7 +483,7 @@ int __cdecl sub_441550(int a1, char a2)
 }
 
 //----- (004416F0) --------------------------------------------------------
-int sub_4416F0()
+int nox_cmd_show_mmx()
 {
 	wchar_t* v0; // eax
 
@@ -503,7 +506,7 @@ void sub_440A20(wchar_t* a1, ...)
 }
 
 //----- (00441910) --------------------------------------------------------
-int __cdecl sub_441910(int a1, char a2, int a3)
+int __cdecl nox_cmd_load(int a1, char a2, int a3)
 {
 	int v4; // eax
 	int v5; // ebx
@@ -670,7 +673,7 @@ int __cdecl sub_441BF0(int a1, int a2, int a3, const wchar_t** a4)
 }
 
 //----- (00441CE0) --------------------------------------------------------
-int __cdecl sub_441CE0(int a1, int a2, int a3)
+int __cdecl nox_cmd_help(int a1, int a2, int a3)
 {
 	if ((unsigned __int8)a2 != 1)
 		return sub_441BF0(1, a2, a3, (const wchar_t**)& byte_587000[97368]);
@@ -679,7 +682,7 @@ int __cdecl sub_441CE0(int a1, int a2, int a3)
 }
 
 //----- (004421A0) --------------------------------------------------------
-int sub_4421A0()
+int nox_cmd_set_obs()
 {
 	wchar_t* v0; // eax
 	char* v2; // eax
@@ -699,7 +702,7 @@ int sub_4421A0()
 }
 
 //----- (004423D0) --------------------------------------------------------
-int sub_4423D0()
+int nox_cmd_set_save_debug()
 {
 	wchar_t* v0; // eax
 
@@ -710,7 +713,7 @@ int sub_4423D0()
 }
 
 //----- (00442410) --------------------------------------------------------
-int sub_442410()
+int nox_cmd_set_god()
 {
 	wchar_t* v0; // eax
 
@@ -724,7 +727,7 @@ int sub_442410()
 }
 
 //----- (00442450) --------------------------------------------------------
-int sub_442450()
+int nox_cmd_unset_god()
 {
 	wchar_t* v0; // eax
 
@@ -734,7 +737,7 @@ int sub_442450()
 	return 1;
 }
 //----- (00442480) --------------------------------------------------------
-int sub_442480()
+int nox_cmd_set_sage()
 {
 	wchar_t* v0; // eax
 
@@ -749,7 +752,7 @@ int sub_442480()
 
 // 4EF4F0: using guessed type void __cdecl nullsub_26(_DWORD);
 //----- (004424C0) --------------------------------------------------------
-int sub_4424C0()
+int nox_cmd_unset_sage()
 {
 	wchar_t* v0; // eax
 
@@ -762,7 +765,7 @@ int sub_4424C0()
 // 4EF4F0: using guessed type void __cdecl nullsub_26(_DWORD);
 
 //----- (004424F0) --------------------------------------------------------
-int __cdecl sub_4424F0(int a1, char a2, int a3)
+int __cdecl nox_cmd_set_cycle(int a1, char a2, int a3)
 {
 	wchar_t* v3; // eax
 
@@ -788,7 +791,7 @@ int __cdecl sub_4424F0(int a1, char a2, int a3)
 }
 
 //----- (00442590) --------------------------------------------------------
-int __cdecl sub_442590(int a1, char a2, int a3)
+int __cdecl nox_cmd_set_weapons(int a1, char a2, int a3)
 {
 	wchar_t* v3; // eax
 	wchar_t* v5; // [esp-4h] [ebp-Ch]
@@ -818,7 +821,7 @@ int __cdecl sub_442590(int a1, char a2, int a3)
 }
 
 //----- (00442670) --------------------------------------------------------
-int __cdecl sub_442670(int a1, char a2, int a3)
+int __cdecl nox_cmd_set_staffs(int a1, char a2, int a3)
 {
 	wchar_t* v3; // eax
 	wchar_t* v5; // [esp-4h] [ebp-Ch]
@@ -847,7 +850,7 @@ int __cdecl sub_442670(int a1, char a2, int a3)
 	return 0;
 }
 //----- (00442840) --------------------------------------------------------
-int __cdecl sub_442840(int a1, unsigned __int8 a2, int a3)
+int __cdecl nox_cmd_set_name(int a1, unsigned __int8 a2, int a3)
 {
 	int v3; // ebx
 	unsigned int v5; // edx
@@ -897,7 +900,7 @@ int __cdecl sub_442840(int a1, unsigned __int8 a2, int a3)
 // 442840: using guessed type char var_80[128];
 
 //----- (00442950) --------------------------------------------------------
-int __cdecl sub_442950(int a1, char a2, int a3)
+int __cdecl nox_cmd_set_mnstrs(int a1, char a2, int a3)
 {
 	wchar_t* v3; // eax
 	wchar_t* v5; // [esp-4h] [ebp-10h]
@@ -949,7 +952,7 @@ int __cdecl sub_442950(int a1, char a2, int a3)
 }
 
 //----- (00442B00) --------------------------------------------------------
-int __cdecl sub_442B00(int a1, char a2, int a3)
+int __cdecl nox_cmd_set_spell(int a1, char a2, int a3)
 {
 	wchar_t* v3; // eax
 	int v4; // esi
@@ -1065,7 +1068,7 @@ int __cdecl sub_415A60(wchar_t* a1)
 }
 
 //----- (00442C90) --------------------------------------------------------
-int __cdecl sub_442C90(int a1, char a2, int a3)
+int __cdecl nox_cmd_set_weapon(int a1, char a2, int a3)
 {
 	wchar_t* v3; // eax
 	wchar_t* v4; // eax
@@ -1162,7 +1165,7 @@ int __cdecl sub_415EF0(wchar_t* a1)
 }
 
 //----- (00442ED0) --------------------------------------------------------
-int __cdecl sub_442ED0(int a1, char a2, int a3)
+int __cdecl nox_cmd_set_armor(int a1, char a2, int a3)
 {
 	wchar_t* v3; // eax
 	unsigned __int16* v4; // esi
@@ -1223,7 +1226,7 @@ int __cdecl sub_442ED0(int a1, char a2, int a3)
 }
 
 //----- (00443050) --------------------------------------------------------
-int __cdecl sub_443050(int a1, char a2, int a3)
+int __cdecl nox_cmd_set_staff(int a1, char a2, int a3)
 {
 	int v3; // edi
 	wchar_t* v4; // eax
@@ -1266,7 +1269,7 @@ int __cdecl sub_443050(int a1, char a2, int a3)
 }
 
 //----- (00443160) --------------------------------------------------------
-int __cdecl sub_443160(int a1, char a2, int a3)
+int __cdecl nox_cmd_ban(int a1, char a2, int a3)
 {
 	wchar_t* v4; // edi
 	char* v5; // eax
@@ -1307,7 +1310,7 @@ int __cdecl sub_443160(int a1, char a2, int a3)
 }
 
 //----- (00443250) --------------------------------------------------------
-int sub_443250()
+int nox_cmd_allow_user()
 {
 	wchar_t* v0; // eax
 
@@ -1317,7 +1320,7 @@ int sub_443250()
 }
 
 //----- (00443280) --------------------------------------------------------
-int sub_443280()
+int nox_cmd_allow_ip()
 {
 	wchar_t* v0; // eax
 
@@ -1327,7 +1330,7 @@ int sub_443280()
 }
 
 //----- (004432B0) --------------------------------------------------------
-int __cdecl sub_4432B0(int a1, char a2, int a3)
+int __cdecl nox_cmd_kick(int a1, char a2, int a3)
 {
 	char* v4; // eax
 	char* v5; // esi
@@ -1360,7 +1363,7 @@ int __cdecl sub_4432B0(int a1, char a2, int a3)
 }
 
 //----- (00443380) --------------------------------------------------------
-int __cdecl sub_443380(int a1, char a2, int a3)
+int __cdecl nox_cmd_set_players(int a1, char a2, int a3)
 {
 	int v3; // esi
 	const wchar_t* v5; // eax
@@ -1395,7 +1398,7 @@ int __cdecl sub_443380(int a1, char a2, int a3)
 }
 
 //----- (00443480) --------------------------------------------------------
-int sub_443480()
+int nox_cmd_set_spellpts()
 {
 	wchar_t* v0; // eax
 
@@ -1405,7 +1408,7 @@ int sub_443480()
 }
 
 //----- (004434B0) --------------------------------------------------------
-int sub_4434B0()
+int nox_cmd_list_users()
 {
 	wchar_t* v0; // eax
 	char* i; // esi
@@ -1467,7 +1470,7 @@ int __cdecl sub_57A130(wchar_t* a1)
 }
 
 //----- (00443610) --------------------------------------------------------
-int __cdecl sub_443610(int a1, unsigned __int8 a2, int a3)
+int __cdecl nox_cmd_unmute(int a1, unsigned __int8 a2, int a3)
 {
 	wchar_t** v3; // esi
 	int v4; // eax
@@ -1535,7 +1538,7 @@ int __cdecl sub_57A0C0(wchar_t* a1)
 }
 
 //----- (004436E0) --------------------------------------------------------
-int __cdecl sub_4436E0(int a1, unsigned __int8 a2, int a3)
+int __cdecl nox_cmd_mute(int a1, unsigned __int8 a2, int a3)
 {
 	wchar_t** v3; // esi
 	int v4; // eax
@@ -1573,7 +1576,7 @@ int __cdecl sub_4436E0(int a1, unsigned __int8 a2, int a3)
 }
 
 //----- (004437B0) --------------------------------------------------------
-int __cdecl sub_4437B0(int a1, char a2)
+int __cdecl nox_cmd_exec(int a1, char a2)
 {
 	wchar_t* v3; // eax
 	int v4; // [esp-4h] [ebp-4h]
@@ -1591,7 +1594,7 @@ int __cdecl sub_4437B0(int a1, char a2)
 }
 
 //----- (00443810) --------------------------------------------------------
-int __cdecl sub_443810(int a1, char a2, int a3)
+int __cdecl nox_cmd_exec_rul(int a1, char a2, int a3)
 {
 	wchar_t* v4; // eax
 	wchar_t v5[128]; // [esp+0h] [ebp-100h]
@@ -2143,4 +2146,736 @@ int sub_4444F0()
 	*(_DWORD*)& byte_5D4594[823696] = 0;
 	sub_444440((int*)& byte_587000[97368]);
 	return sub_444570();
+}
+
+//----- (00440B00) --------------------------------------------------------
+int __cdecl nox_cmd_unbind(int a1, char a2, int a3)
+{
+    int v3; // eax
+
+    if (a2 != 2)
+        return 0;
+    if (nox_wcslen(*(const wchar_t**)(a3 + 4)) >= 0x20)
+        return 0;
+    v3 = sub_440AC0(*(wchar_t**)(a3 + 4));
+    if (v3 == -1)
+        return 0;
+    *(_WORD*)& byte_587000[76 * v3 + 94516] = 0;
+    return 1;
+}
+
+//----- (00440B50) --------------------------------------------------------
+int __cdecl nox_cmd_broadcast(int a1, unsigned __int8 a2, int a3)
+{
+    int result; // eax
+    wchar_t v4[128]; // [esp+0h] [ebp-100h]
+
+    if (a2 == 1)
+        return 0;
+    result = sub_440BC0(a1, a2, a3);
+    if (result)
+    {
+        nox_swprintf(v4, L"%S", result);
+        sub_440950(5, v4);
+        result = 1;
+    }
+    return result;
+}
+
+//----- (00440C90) --------------------------------------------------------
+int __cdecl nox_cmd_say(int a1, char a2)
+{
+    if (a2 == 1)
+        return 0;
+    sub_46A4B0((wchar_t*)(*(_DWORD*)& byte_5D4594[823700] + 8), 0);
+    return 1;
+}
+
+//----- (00440CC0) --------------------------------------------------------
+int __cdecl nox_cmd_offonly1(int a1, char a2)
+{
+    if (a2 != 2)
+        return 0;
+    sub_4185B0();
+    return 1;
+}
+
+//----- (00440CE0) --------------------------------------------------------
+int __cdecl nox_cmd_offonly2(int a1, char a2, int a3)
+{
+    int result; // eax
+    char* v4; // ebx
+    const wchar_t* v5; // eax
+    int v6; // edi
+    unsigned __int8* v7; // esi
+
+    if (a2 != 3)
+        return 0;
+    result = (int)& byte_5D4594[822660];
+    if (true) // TODO: byte_5D4594 != (unsigned __int8*)-822660
+    {
+        v4 = sub_416590(1);
+        v5 = *(const wchar_t**)& byte_587000[94400];
+        v6 = 0;
+        if (*(_DWORD*)& byte_587000[94400])
+        {
+            v7 = &byte_587000[94400];
+            while (_nox_wcsicmp(v5, *(const wchar_t**)(a3 + 4 * a1)))
+            {
+                v5 = (const wchar_t*) * ((_DWORD*)v7 + 2);
+                v7 += 8;
+                ++v6;
+                if (!v5)
+                    return 1;
+            }
+            *((_WORD*)v4 + 26) &= 0xE80Fu;
+            *((_WORD*)v4 + 26) |= *(_WORD*)& byte_587000[8 * v6 + 94404];
+        }
+        result = 1;
+    }
+    return result;
+}
+
+//----- (00440FD0) --------------------------------------------------------
+int __cdecl nox_cmd_set_fr(int a1, char a2)
+{
+    if (a2 != 2)
+        return 0;
+    sub_43DDE0(1);
+    return 1;
+}
+
+//----- (00440FF0) --------------------------------------------------------
+int __cdecl nox_cmd_unset_fr(int a1, char a2)
+{
+    if (a2 != 2)
+        return 0;
+    sub_43DDE0(0);
+    return 1;
+}
+
+//----- (00441010) --------------------------------------------------------
+int __cdecl nox_cmd_set_net_debug(int a1, char a2)
+{
+    int v3; // eax
+
+    if (a2 != 2)
+        return 0;
+    v3 = *(_DWORD*)& byte_5D4594[2650636];
+    BYTE1(v3) |= 0x80u;
+    *(_DWORD*)& byte_5D4594[2650636] = v3;
+    return 1;
+}
+
+//----- (00441030) --------------------------------------------------------
+int __cdecl nox_cmd_unset_net_debug(int a1, char a2)
+{
+    int v3; // eax
+
+    if (a2 != 2)
+        return 0;
+    v3 = *(_DWORD*)& byte_5D4594[2650636];
+    BYTE1(v3) &= 0x7Fu;
+    *(_DWORD*)& byte_5D4594[2650636] = v3;
+    return 1;
+}
+
+//----- (00441440) --------------------------------------------------------
+int nox_cmd_show_ai()
+{
+    *(_DWORD*)& byte_5D4594[2650636] ^= 8u;
+    return 1;
+}
+
+//----- (00441460) --------------------------------------------------------
+int nox_cmd_show_gui()
+{
+    int v0; // eax
+
+    v0 = *(_DWORD*)& byte_587000[80828] ^ 1;
+    *(_DWORD*)& byte_587000[80828] = v0;
+    *(_DWORD*)& byte_587000[80832] = v0;
+    return 1;
+}
+
+//----- (00441480) --------------------------------------------------------
+int nox_cmd_show_extents()
+{
+    sub_452D80(921, 100);
+    *(_DWORD*)& byte_5D4594[2650636] ^= 2u;
+    return 1;
+}
+
+//----- (004414B0) --------------------------------------------------------
+int nox_cmd_show_perfmon()
+{
+    sub_452D80(921, 100);
+    sub_435F40();
+    return 1;
+}
+
+//----- (004414D0) --------------------------------------------------------
+int nox_cmd_show_netstat()
+{
+    sub_470A60();
+    return 1;
+}
+
+//----- (004414E0) --------------------------------------------------------
+int nox_cmd_show_info()
+{
+    sub_452D80(921, 100);
+    sub_435F60();
+    return 1;
+}
+
+//----- (00441500) --------------------------------------------------------
+int nox_cmd_show_mem()
+{
+    sub_409B30();
+    sub_413E30();
+    return 1;
+}
+
+//----- (00441530) --------------------------------------------------------
+int nox_cmd_show_rank()
+{
+    if (sub_40A5C0(0x2000))
+        sub_4703F0();
+    return 1;
+}
+
+//----- (004416B0) --------------------------------------------------------
+int __cdecl nox_cmd_show_motd(int a1, char a2)
+{
+    if (a2 != 2)
+        return 0;
+    sub_4467F0();
+    return 1;
+}
+
+//----- (004416D0) --------------------------------------------------------
+int __cdecl nox_cmd_show_seq(int a1, char a2)
+{
+    if (a2 != 2)
+        return 0;
+    sub_48D7B0();
+    return 1;
+}
+
+//----- (00441740) --------------------------------------------------------
+int nox_cmd_list_maps()
+{
+    int* v0; // esi
+    int i; // edi
+    bool v2; // zf
+    signed int v3; // edi
+
+    memset(&byte_5D4594[822404], 0, 0x100u);
+    v0 = sub_4D09B0();
+    for (i = 1; v0; ++i)
+    {
+        sub_4417E0((wchar_t*)& byte_5D4594[822404], (const char*)v0 + 12);
+        if (!(i % 4))
+        {
+            sub_450C00(6u, (wchar_t*)& byte_587000[103276], &byte_5D4594[822404]);
+            *(_WORD*)& byte_5D4594[822404] = 0;
+        }
+        v0 = sub_4D09C0(v0);
+    }
+    v3 = (i - 1) & 0x80000003;
+    v2 = v3 == 0;
+    if (v3 < 0)
+        v2 = (((_BYTE)v3 - 1) | 0xFFFFFFFC) == (unsigned int)-1;
+    if (!v2)
+        sub_450C00(6u, (wchar_t*)& byte_587000[103284], &byte_5D4594[822404]);
+    return 1;
+}
+
+//----- (00441870) --------------------------------------------------------
+int __cdecl nox_cmd_log_file(int a1, char a2, int a3)
+{
+    int result; // eax
+    char v4[256]; // [esp+0h] [ebp-100h]
+
+    result = 0;
+    if (a2 == 3)
+    {
+        if (*(_DWORD*)(a3 + 8))
+        {
+            *(_DWORD*)& byte_5D4594[2650636] |= 0x800000;
+            nox_sprintf(v4, "%S", *(_DWORD*)(a3 + 8));
+            result = sub_413A80(v4);
+        }
+    }
+    return result;
+}
+
+//----- (004418D0) --------------------------------------------------------
+int __cdecl nox_cmd_log_console(int a1, char a2)
+{
+    if (a2 != 2)
+        return 0;
+    *(_DWORD*)& byte_5D4594[2650636] |= 0x1000000u;
+    return 1;
+}
+
+//----- (004418F0) --------------------------------------------------------
+int __cdecl nox_cmd_log_stop(int a1, char a2)
+{
+    if (a2 != 2)
+        return 0;
+    sub_413C00();
+    return 1;
+}
+
+//----- (00441D20) --------------------------------------------------------
+int nox_cmd_set()
+{
+    return 1;
+}
+
+//----- (00441D30) --------------------------------------------------------
+int nox_cmd_cheat_ability()
+{
+    char* i; // esi
+
+    if (!sub_40A5C0(0x2000))
+    {
+        for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
+        {
+            if (*((_DWORD*)i + 514))
+                sub_4FC180(*((_DWORD*)i + 514));
+        }
+    }
+    return 1;
+}
+
+//----- (00441D80) --------------------------------------------------------
+int __cdecl nox_cmd_cheat_goto(int a1, unsigned __int8 a2, int a3)
+{
+    const char* v4; // edi
+    char* v5; // esi
+    int v6; // eax
+    char* v7; // eax
+    char* v8; // esi
+    double v9; // st7
+    int v10; // eax
+    float2 v11; // [esp+8h] [ebp-54h]
+    char v12[76]; // [esp+10h] [ebp-4Ch]
+
+    if (sub_40A5C0(0x2000))
+        return 1;
+    if (a2 >= 4u)
+    {
+        v7 = sub_417040(*(int*)& byte_5D4594[2616328]);
+        v8 = v7;
+        if (!v7 || !*((_DWORD*)v7 + 514))
+            return 0;
+        nox_sprintf(v12, "%S", *(_DWORD*)(a3 + 8));
+        v9 = atof(v12);
+        v10 = *(_DWORD*)(a3 + 12);
+        v11.field_0 = v9;
+        nox_sprintf(v12, "%S", v10);
+        v11.field_4 = atof(v12);
+        sub_4E7010(*((_DWORD*)v8 + 514), &v11);
+        return 1;
+    }
+    if (a2 < 3u)
+        return 0;
+    nox_sprintf(v12, "%S", *(_DWORD*)(a3 + 8));
+    v4 = sub_579E30(v12);
+    if (!v4)
+        return 1;
+    v5 = sub_416EA0();
+    if (!v5)
+        return 1;
+    do
+    {
+        v6 = *((_DWORD*)v5 + 514);
+        if (v6)
+            sub_4E7010(v6, (float2*)v4 + 1);
+        v5 = sub_416EE0((int)v5);
+    } while (v5);
+    return 1;
+}
+
+//----- (00441EB0) --------------------------------------------------------
+int nox_cmd_cheat_health()
+{
+    char* i; // esi
+
+    if (!sub_40A5C0(0x2000))
+    {
+        for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
+        {
+            if (*((_DWORD*)i + 514))
+                sub_4EE6F0(*((_DWORD*)i + 514));
+        }
+    }
+    return 1;
+}
+
+//----- (00441F00) --------------------------------------------------------
+int nox_cmd_cheat_mana()
+{
+    char* i; // esi
+    int v1; // eax
+
+    if (!sub_40A5C0(0x2000))
+    {
+        for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
+        {
+            v1 = *((_DWORD*)i + 514);
+            if (v1)
+                sub_4EEB80(v1, 2000);
+        }
+    }
+    return 1;
+}
+
+//----- (00441F50) --------------------------------------------------------
+int __cdecl nox_cmd_cheat_level(int a1, unsigned __int8 a2, int a3)
+{
+    char* i; // esi
+    unsigned __int8 v5; // al
+
+    if (!sub_40A5C0(0x2000))
+    {
+        if (a2 < 3u)
+            return 0;
+        for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
+        {
+            if (*((_DWORD*)i + 514))
+            {
+                v5 = nox_wcstol(*(const wchar_t**)(a3 + 8), 0, 10);
+                sub_4EF410(*((_DWORD*)i + 514), v5);
+            }
+        }
+    }
+    return 1;
+}
+
+//----- (00441FC0) --------------------------------------------------------
+int __cdecl nox_cmd_cheat_spells(int a1, unsigned __int8 a2, int a3)
+{
+    int v4; // eax
+    int v5; // edi
+    char* i; // ebp
+    int v7; // esi
+    int* v8; // ebx
+
+    if (!sub_40A5C0(0x2000))
+    {
+        if (a2 < 3u)
+            return 0;
+        v4 = nox_wcstol(*(const wchar_t**)(a3 + 8), 0, 10);
+        v5 = v4;
+        if (v4 > 0)
+        {
+            if (v4 > 5)
+                v5 = 5;
+        }
+        else
+        {
+            v5 = 1;
+        }
+        for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
+        {
+            v7 = 0;
+            v8 = (int*)(i + 3696);
+            do
+            {
+                *v8 = v5;
+                sub_56FCE0(*((_DWORD*)i + 1159), v7, v5);
+                *v8 = v5;
+                sub_56FCE0(*((_DWORD*)i + 1159), v7++, v5);
+                ++v8;
+            } while (v7 < 137);
+        }
+    }
+    return 1;
+}
+
+//----- (00442070) --------------------------------------------------------
+int __cdecl nox_cmd_cheat_gold(int a1, unsigned __int8 a2, int a3)
+{
+    int v4; // edi
+    char* i; // esi
+    int v6; // eax
+
+    if (!sub_40A5C0(0x2000))
+    {
+        if (a2 < 3u)
+            return 0;
+        v4 = nox_wcstol(*(const wchar_t**)(a3 + 8), 0, 10);
+        for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
+        {
+            v6 = *((_DWORD*)i + 514);
+            if (v6)
+            {
+                if (v4 < 0)
+                    sub_4FA5D0(v6, v4);
+                else
+                    sub_4FA590(v6, v4);
+            }
+        }
+    }
+    return 1;
+}
+
+//----- (00442120) --------------------------------------------------------
+int nox_cmd_image()
+{
+    sub_46DB00();
+    return 1;
+}
+
+//----- (00442130) --------------------------------------------------------
+int nox_cmd_quit()
+{
+    sub_4460C0();
+    return 1;
+}
+
+//----- (00442140) --------------------------------------------------------
+int nox_cmd_exit()
+{
+    if (sub_40A5C0(4096) && sub_40A5C0(1))
+        sub_4D6B10(0);
+    if (sub_40A5C0(0x2000000))
+        sub_4460C0();
+    sub_43DDD0(0);
+    sub_43DE60();
+    return 1;
+}
+
+//----- (00442210) --------------------------------------------------------
+int __cdecl nox_cmd_watch(int a1, unsigned __int8 a2, int a3)
+{
+    int result; // eax
+    char* v4; // eax
+    wchar_t v5[128]; // [esp+4h] [ebp-100h]
+
+    result = sub_440BC0(a1, a2, a3);
+    if (result)
+    {
+        nox_swprintf(v5, L"%S", result);
+        if (sub_40A5C0(1))
+        {
+            v4 = sub_417040(*(int*)& byte_5D4594[2616328]);
+            if (a2 <= 1u)
+                sub_443E90((int)v4, 4, (wchar_t*)& byte_5D4594[823768]);
+            else
+                sub_443E90((int)v4, 4, v5);
+            result = 1;
+        }
+        else
+        {
+            if (a2 <= 1u)
+                sub_440950(4, (wchar_t*)& byte_5D4594[823764]);
+            else
+                sub_440950(4, v5);
+            result = 1;
+        }
+    }
+    return result;
+}
+
+//----- (004422D0) --------------------------------------------------------
+int __cdecl nox_cmd_gamma(int a1, unsigned __int8 a2, int a3)
+{
+    const wchar_t* v3; // eax
+    int v4; // esi
+    int v5; // esi
+    int v6; // eax
+    int v8; // [esp-14h] [ebp-14h]
+
+    if (a2 <= 1u)
+        return 1;
+    v3 = *(const wchar_t**)(a3 + 4 * a1);
+    if (*v3 == 43)
+    {
+        v4 = nox_wcstol(v3, 0, 10);
+        v8 = sub_434B00() + v4;
+        sub_434B30(v8);
+    }
+    else
+    {
+        if (*v3 == 45)
+        {
+            v5 = nox_wcstol(v3, 0, 10);
+            v6 = sub_434B00() - v5;
+        }
+        else
+        {
+            v6 = nox_wcstol(v3, 0, 10);
+        }
+        sub_434B30(v6);
+    }
+    sub_434B60();
+    return 1;
+}
+
+//----- (00442340) --------------------------------------------------------
+int __cdecl nox_cmd_window(int a1, unsigned __int8 a2, int a3)
+{
+    const wchar_t* v3; // eax
+    int v4; // eax
+    int v6; // eax
+
+    if (a2 > 1u)
+    {
+        v3 = *(const wchar_t**)(a3 + 4 * a1);
+        if (*v3 != 43 && *v3 != 45)
+        {
+            v4 = nox_wcstol(v3, 0, 10);
+            sub_476700(v4, 0);
+            return 1;
+        }
+        v6 = nox_wcstol(v3, 0, 10);
+        sub_476700(0, v6);
+    }
+    return 1;
+}
+
+//----- (00442750) --------------------------------------------------------
+int nox_cmd_set_qual_modem()
+{
+    int v0; // eax
+
+    *(_DWORD*)& byte_5D4594[2650652] = 1;
+    v0 = sub_40A710(4);
+    sub_40A6D0(v0);
+    *(_DWORD*)& byte_5D4594[3596] = 4;
+    sub_4AD840();
+    return 1;
+}
+
+//----- (00442780) --------------------------------------------------------
+int nox_cmd_set_qual_isdn()
+{
+    int v0; // eax
+
+    *(_DWORD*)& byte_5D4594[2650652] = 1;
+    v0 = sub_40A710(3);
+    sub_40A6D0(v0);
+    *(_DWORD*)& byte_5D4594[3596] = 3;
+    sub_4AD840();
+    return 1;
+}
+
+//----- (004427B0) --------------------------------------------------------
+int nox_cmd_set_qual_cable()
+{
+    int v0; // eax
+
+    *(_DWORD*)& byte_5D4594[2650652] = 1;
+    v0 = sub_40A710(2);
+    sub_40A6D0(v0);
+    *(_DWORD*)& byte_5D4594[3596] = 2;
+    sub_4AD840();
+    return 1;
+}
+
+//----- (004427E0) --------------------------------------------------------
+int nox_cmd_set_qual_t1()
+{
+    int v0; // eax
+
+    *(_DWORD*)& byte_5D4594[2650652] = 1;
+    v0 = sub_40A710(1);
+    sub_40A6D0(v0);
+    *(_DWORD*)& byte_5D4594[3596] = 1;
+    sub_4AD840();
+    return 1;
+}
+
+//----- (00442810) --------------------------------------------------------
+int nox_cmd_set_qual_lan()
+{
+    int v0; // eax
+
+    *(_DWORD*)& byte_5D4594[2650652] = 0;
+    v0 = sub_40A710(1);
+    sub_40A6D0(v0);
+    *(_DWORD*)& byte_5D4594[3596] = 1;
+    sub_4AD840();
+    return 1;
+}
+
+//----- (00443400) --------------------------------------------------------
+int __cdecl nox_cmd_set_time(int a1, char a2, int a3)
+{
+    char* v4; // esi
+    const wchar_t* v5; // eax
+    unsigned __int8 v6; // al
+
+    if (a2 != 3)
+        return 0;
+    v4 = sub_4165B0();
+    v5 = *(const wchar_t**)(a3 + 8);
+    if (v5)
+    {
+        v6 = nox_wcstol(v5, 0, 10);
+        sub_40A040_settings(*((_WORD*)v4 + 26), v6);
+    }
+    return 1;
+}
+
+//----- (00443440) --------------------------------------------------------
+int __cdecl nox_cmd_set_lessons(int a1, char a2, int a3)
+{
+    const wchar_t* v4; // esi
+    char* v5; // edi
+    unsigned __int16 v6; // ax
+
+    if (a2 != 3)
+        return 0;
+    v4 = *(const wchar_t**)(a3 + 8);
+    v5 = sub_4165B0();
+    if (v4)
+    {
+        v6 = nox_wcstol(v4, 0, 10);
+        sub_409FB0_settings(*((_WORD*)v5 + 26), v6);
+    }
+    return 1;
+}
+
+//----- (004435C0) --------------------------------------------------------
+int nox_cmd_clear()
+{
+    sub_450B70();
+    return 1;
+}
+
+//----- (004435D0) --------------------------------------------------------
+int nox_cmd_menu_options()
+{
+    if (!sub_40A5C0(8) && sub_40A5C0(0x2000))
+        sub_457500();
+    return 1;
+}
+
+//----- (00443600) --------------------------------------------------------
+int nox_cmd_menu_vidopt()
+{
+    sub_4ADA40();
+    return 1;
+}
+
+//----- (00440A50) --------------------------------------------------------
+int __cdecl nox_cmd_bind(int a1, char a2, int a3)
+{
+    int v3; // esi
+
+    if (a2 != 3)
+        return 0;
+    if (nox_wcslen(*(const wchar_t**)(a3 + 4)) >= 0x20)
+        return 0;
+    v3 = sub_440AC0(*(wchar_t**)(a3 + 4));
+    if (v3 == -1 || nox_wcslen(*(const wchar_t**)(a3 + 8)) >= 0x80)
+        return 0;
+    nox_wcscpy((wchar_t*)& byte_587000[76 * v3 + 94516], *(const wchar_t**)(a3 + 8));
+    return 1;
 }
