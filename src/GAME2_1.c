@@ -10391,7 +10391,7 @@ void __cdecl sub_475560_draw(nox_drawable* dr, int a2)
                 dr->field_121 = 1;
                 dr->field_120 = 0;
             } else {
-                if (!dr->field_121 || (dr->field_28 & 0x6))
+                if (!dr->field_121 || (LOBYTE(dr->field_28) & 0x6))
                     return;
                 dr->field_120 = 1;
             }
