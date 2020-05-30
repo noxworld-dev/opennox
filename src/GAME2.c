@@ -330,8 +330,8 @@ int __cdecl nox_drawable_link_thing(nox_drawable* a1, int i)
     a1->shape.kind = *(unsigned __int8*)(v5 + 8);
     a1->shape.circle_r = *(float*)(v5 + 52);
     a1->shape.circle_r2 = *(float*)(v5 + 52) * *(float*)(v5 + 52);
-    a1->shape.box_w = *(_DWORD*)(v5 + 64);
-    a1->shape.box_h = *(_DWORD*)(v5 + 68);
+    a1->shape.box_w = *(float*)(v5 + 64);
+    a1->shape.box_h = *(float*)(v5 + 68);
     if (a1->shape.kind == NOX_SHAPE_BOX)
         nox_shape_box_calc(&a1->shape);
 
