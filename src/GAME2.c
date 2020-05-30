@@ -6544,7 +6544,7 @@ nox_drawable* __cdecl sub_45A360_drawable(int thingInd, int a2, int a3)
     nox_drawable* dr = nox_new_drawable_for_thing(thingInd);
     if (!dr)
         return 0;
-    sub_452E60(&dr->field_124);
+    sub_452E60(&dr->field_31);
     if (dr->field_116)
         sub_49BC80_drawable(dr);
     if (dr->flags & 0x200000)
