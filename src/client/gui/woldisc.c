@@ -15,7 +15,7 @@ void sub_44B010()
     sub_43C260();
     sub_41E300(9);
     sub_44E040();
-    if (sub_40A5C0(0x2000000))
+    if (nox_common_mapflags_check(0x2000000))
     {
         v0 = loadString_sub_40F1D0((char*)& byte_587000[113772], 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 75);
         sub_413D30((char*)& byte_587000[113788], v0);
@@ -24,7 +24,7 @@ void sub_44B010()
         else
             sub_4460C0();
     }
-    else if (sub_40A5C0(1))
+    else if (nox_common_mapflags_check(1))
     {
         *(_DWORD*)& byte_5D4594[830292] = nox_new_window_from_file("woldisc.wnd", sub_44B0F0);
         sub_46A9B0(

@@ -14,7 +14,7 @@ extern FILE* nox_file_2;
 extern FILE* nox_file_3;
 extern FILE* nox_file_4;
 extern FILE* nox_file_5;
-extern FILE* nox_file_6;
+extern FILE* nox_video_bag_fileptr;
 extern FILE* nox_file_7;
 extern FILE* nox_file_8;
 extern FILE* nox_file_9;
@@ -157,7 +157,7 @@ mem_mapping mappings[] = {
         {0x5D4594+252272, (void*)&nox_file_net_log, sizeof(nox_file_net_log),1},
         {0x5D4594+527688, (void*)&nox_file_2, sizeof(nox_file_2),1},
         {0x5D4594+739988, (void*)&nox_file_3, sizeof(nox_file_3),1},
-        {0x5D4594+787204, (void*)&nox_file_6, sizeof(nox_file_6),1},
+        {0x5D4594+787204, (void*)&nox_video_bag_fileptr, sizeof(nox_video_bag_fileptr),1},
         {0x5D4594+839880, (void*)&nox_file_log, sizeof(nox_file_log),1},
         {0x5D4594+1309760, (void*)&nox_file_9, sizeof(nox_file_9),1},
         {0x5D4594+1599584, (void*)&nox_file_8, sizeof(nox_file_8),1},

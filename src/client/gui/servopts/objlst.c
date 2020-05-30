@@ -71,7 +71,7 @@ int __cdecl sub_4530C0(int a1, int a2)
     nox_window_call_field_94(*(int*)& byte_5D4594[1045464], 16409, (int)v12, 0);
     *(_DWORD*)& byte_5D4594[4 * *(_DWORD*)& byte_5D4594[1045460] + 1045472] = v2;
     sub_453750();
-    if (!sub_40A5C0(1) || sub_40A5C0(49152))
+    if (!nox_common_mapflags_check(1) || nox_common_mapflags_check(49152))
         sub_46AD20(*(_DWORD * *)& byte_5D4594[1045468], 1515, 1533, 0);
     return *(_DWORD*)& byte_5D4594[1045468];
 }

@@ -35,7 +35,7 @@ void __cdecl sub_4EE500_obj_health(int a1)
     v1 = a1;
     if (a1)
     {
-        if (sub_40A5C0(2048))
+        if (nox_common_mapflags_check(2048))
         {
             v2 = *(_DWORD*)(a1 + 520);
             if (v2)

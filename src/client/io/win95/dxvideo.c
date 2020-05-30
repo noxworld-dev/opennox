@@ -12,7 +12,7 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
 //----- (0047FD70) --------------------------------------------------------
-int sub_47FD70()
+int sub_47FD70() // init video output
 {
     int v1; // edi
     int v2; // ebx

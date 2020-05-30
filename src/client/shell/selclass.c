@@ -24,7 +24,7 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4)
                 return 1;
             if (v4 == 610)
             {
-                if (sub_40A5C0(0x2000) && !sub_40A5C0(4096))
+                if (nox_common_mapflags_check(0x2000) && !nox_common_mapflags_check(4096))
                 {
                     if (sub_4D6F50() || (v5 = sub_4D6F70()) != 0)
                         v5 = 1;
