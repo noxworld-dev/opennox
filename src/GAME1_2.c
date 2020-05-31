@@ -38,9 +38,16 @@ const int max_win_height = 768;
 int nox_win_width = 0;
 int nox_win_height = 0;
 
-int nox_win_width_1;
-int nox_win_height_1;
-int nox_win_depth_1;
+int nox_win_width_1 = default_win_width;
+int nox_win_height_1 = default_win_height;
+int nox_win_depth_1 = default_win_depth;
+
+int nox_win_width_2 = default_win_width;
+int nox_win_height_2 = default_win_height;
+int nox_win_depth_2 = default_win_depth;
+
+int nox_max_width = max_win_width;
+int nox_max_height = max_win_height;
 
 extern int g_fullscreen;
 int g_scaled = 0;
@@ -6589,30 +6596,29 @@ BOOL __cdecl nox_video_resizewnd(int a1, int a2, int a3)
     printf("New size: %d, %d\n", a1, a2);
 
     nox_win_width = a1;
-    if (a1 > max_win_width)
-        nox_win_width = max_win_width;
+    if (a1 > nox_max_width)
+        nox_win_width = nox_max_width;
     nox_win_height = a2;
-    if (a2 > max_win_height)
-        nox_win_height = max_win_height;
+    if (a2 > nox_max_height)
+        nox_win_height = nox_max_height;
     a3 = 16;
     result = a3 != 8;
     *(_DWORD*)& byte_5D4594[3804680] = a3 != 8;
     return result;
 }
 
-/*
 //----- (00430C30) --------------------------------------------------------
 void __cdecl sub_430C30_set_video_max(int w, int h)
 {
     nox_max_width = w;
     nox_max_height = h;
 }
-*/
+
 //----- (00430C50) --------------------------------------------------------
 void __cdecl sub_430C50_get_video_max(int* w, int* h)
 {
-    *w = max_win_width;
-    *h = max_win_height;
+    *w = nox_max_width;
+    *h = nox_max_height;
 }
 
 //----- (00430D40) --------------------------------------------------------
@@ -8224,7 +8230,7 @@ int nox_common_parsecfg_videomode()
         nox_win_width_1 = w;
         nox_win_height_1 = h;
         nox_win_depth_1 = v6;
-        //nox_win_depth_2 = v6;
+        nox_win_depth_2 = v6;
 
 		// FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the start!
 		// this is different from original game where window is only resized after joining the game
@@ -11256,15 +11262,12 @@ int sub_43B360() // client connecting draw handler
         sub_435720(v0);
     }
     nox_common_writecfgfile((char*)& byte_587000[90848]);
-	/*
-	v2 = *(_BYTE*)(*(_DWORD*)& byte_5D4594[814624] + 102);
-	nox_video_mode* v3;
+    v2 = *(_BYTE*)(*(_DWORD*)& byte_5D4594[814624] + 102);
+    nox_video_mode* v3;
     if (v2 < 0 && (v3 = sub_43BE80_video_mode_by_id(v2 & 0x7F)) != 0)
         sub_430C30_set_video_max(v3->width, v3->height);
     else
-        sub_430C30_set_video_max(640, 480);
-	*/
-	// removed by angrykirc
+        sub_430C30_set_video_max(max_win_width, max_win_height);
     sub_44A400();
     sub_43A9D0();
     sub_4A24A0();

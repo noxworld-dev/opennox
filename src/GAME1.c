@@ -60,9 +60,9 @@ extern int nox_win_height;
 extern int nox_win_width_1;
 extern int nox_win_height_1;
 extern int nox_win_depth_1;
-//extern int nox_win_width_2;
-//extern int nox_win_height_2;
-//extern int nox_win_depth_2;
+extern int nox_win_width_2;
+extern int nox_win_height_2;
+extern int nox_win_depth_2;
 extern int default_win_height;
 extern int default_win_width;
 
@@ -318,9 +318,9 @@ int __cdecl cmain(int argc, const char* argv[])
             nox_win_width_1 = default_win_width;
             nox_win_height_1 = default_win_height;
             nox_win_depth_1 = v12;
-            //nox_win_width_2 = default_win_width;
-            //nox_win_height_2 = default_win_height;
-            //nox_win_depth_2 = v12;
+            nox_win_width_2 = default_win_width;
+            nox_win_height_2 = default_win_height;
+            nox_win_depth_2 = v12;
         }
         else if (!_strcmpi(flag, "-noaudio"))
         {

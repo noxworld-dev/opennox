@@ -286,9 +286,9 @@ int __cdecl sub_43BF10_upd_video_mode(int defaults)
 	// If true, set to 640x480
     if (defaults == 1)
     {
-        v1 = default_win_width;
-        v2 = default_win_height;
-        v3 = default_win_depth;
+        v1 = nox_win_width_2;
+        v2 = nox_win_height_2;
+        v3 = nox_win_depth_2;
     }
     else
     {

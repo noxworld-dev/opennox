@@ -9,7 +9,6 @@
 
 extern int nox_win_width;
 extern int nox_win_height;
-#define NOX_NO_MOUSE_GRAB
 
 #ifdef USE_SDL
 #include "sdl2_scancode_to_dinput.h"

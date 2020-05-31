@@ -312,7 +312,7 @@ int sub_4379F0()
                 *(_DWORD*)& byte_5D4594[815088] = 0;
                 sub_4158C0();
                 sub_415D50();
-                //sub_430C30_set_video_max(max_win_width, max_win_height);
+                sub_430C30_set_video_max(max_win_width, max_win_height);
                 sub_477610(0);
                 if (*(_DWORD*)& byte_5D4594[815096])
                 {

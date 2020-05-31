@@ -32,7 +32,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_height;
 extern int nox_win_depth_1;
-//extern int nox_win_depth_2;
+extern int nox_win_depth_2;
 
 extern int default_win_width;
 extern int default_win_height;
@@ -4899,7 +4899,6 @@ int sub_4AAA10()
     sub_43C570(*(LPVOID*)& byte_5D4594[1309740]);
     sub_46C4E0(*(_DWORD * *)& byte_5D4594[1309720]);
     sub_4A1A40(1);
-	/*
     if (nox_win_depth_1 == nox_win_depth_2)
     {
         v0();
@@ -4909,8 +4908,6 @@ int sub_4AAA10()
         nox_win_depth_2 = nox_win_depth_1;
         *(_DWORD*)& byte_5D4594[805872] = 1;
     }
-	*/
-	v0();
     return 1;
 }
 

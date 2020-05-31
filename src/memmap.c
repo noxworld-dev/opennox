@@ -32,14 +32,12 @@ extern int nox_win_width_1;
 extern int nox_win_height_1;
 extern int nox_win_depth_1;
 
-/*
 extern int nox_win_width_2;
 extern int nox_win_height_2;
 extern int nox_win_depth_2;
-*/
-extern int max_win_width;
-extern int max_win_height;
 
+extern int nox_max_width;
+extern int nox_max_height;
 
 extern void* nox_backbuffer1_pix;
 extern void* nox_backbuffer_pix;
@@ -232,16 +230,14 @@ mem_mapping mappings[] = {
         {0x587000+27168, (void*)table_27168, sizeof(table_27168_t)*12,1}, // TODO
         {0x587000+28760, (void*)table_28760, sizeof(table_28760_t)*17,1}, // TODO
         {0x587000+80764, (void*)&nox_mouse_max, sizeof(nox_mouse_max),1},
-        {0x587000+80856, (void*)&max_win_width, sizeof(max_win_width),1},
-        {0x587000+80860, (void*)&max_win_height, sizeof(max_win_height),1},
+        {0x587000+80856, (void*)&nox_max_width, sizeof(nox_max_width),1},
+        {0x587000+80860, (void*)&nox_max_height, sizeof(nox_max_height),1},
         {0x587000+91780, (void*)&nox_win_width_1, sizeof(nox_win_width_1),1},
         {0x587000+91784, (void*)&nox_win_height_1, sizeof(nox_win_height_1),1},
         {0x587000+91788, (void*)&nox_win_depth_1, sizeof(nox_win_depth_1),1},
-		// angrykirc: used to be *_2
-        {0x587000+91792, (void*)&nox_win_width_1, sizeof(nox_win_width_1),1},
-        {0x587000+91796, (void*)&nox_win_height_1, sizeof(nox_win_height_1),1},
-        {0x587000+91800, (void*)&nox_win_depth_1, sizeof(nox_win_depth_1),1},
-		//
+        {0x587000+91792, (void*)&nox_win_width_2, sizeof(nox_win_width_2),1},
+        {0x587000+91796, (void*)&nox_win_height_2, sizeof(nox_win_height_2),1},
+        {0x587000+91800, (void*)&nox_win_depth_2, sizeof(nox_win_depth_2),1},
         {0x587000+91804, (void*)nox_video_modes, sizeof(nox_video_mode)*3,1},
         {0x587000+94464, (void*)&nox_cheats_disabled, sizeof(nox_cheats_disabled),1},
         {0x587000+116008, (void*)nox_parse_thing_draw_funcs, sizeof(nox_parse_thing_draw_funcs_t)*69,1}, // TODO
