@@ -44,9 +44,10 @@ Uint8 nox_SDL_GetEventState(Uint32 type) {
 #else // NOX_PREDICTABLE --------------------------------------------------
 
 volatile unsigned int ticks = 0;
+volatile unsigned int loop_ticks = 0;
 
 void nox_srand_time() {
-    srand(ticks);
+    srand(loop_ticks);
 }
 
 #ifdef NOX_E2E_TEST
@@ -56,21 +57,23 @@ void time_hook();
 void nox_sleep(unsigned int ms) {
     ticks += ms;
     sleep(0);
-#ifdef NOX_E2E_TEST
-    time_hook();
-#endif
 }
 
 unsigned int nox_get_ticks() {
     return ticks;
 }
 
+unsigned int nox_get_loop_ticks() {
+    return loop_ticks;
+}
+
 #ifdef NOX_E2E_TEST
 unsigned int event_cur = 0;
 unsigned int event_cnt = 0;
-unsigned int next_event = 500000;
+unsigned int next_event = 50;
 
-const unsigned int wait_unit = 70;
+const unsigned int wait_unit = 5;
+const unsigned int time_scale = 10;
 
 SDL_Event script_events[512] = {0};
 
@@ -79,13 +82,20 @@ void script_add_event(SDL_Event e) {
     event_cnt++;
 }
 
+void script_exit() {
+    SDL_Event e;
+    e.type = 0xdead;
+    e.common.timestamp = 100;
+    script_add_event(e);
+}
+
 void script_wait(unsigned int dt) {
     if (dt == 0) {
         dt = wait_unit;
     }
     SDL_Event e;
     e.type = 0xbeaf;
-    e.common.timestamp = dt*1000;
+    e.common.timestamp = dt*time_scale;
     script_add_event(e);
 }
 
@@ -130,14 +140,16 @@ void script_click(int btn) {
 }
 
 void time_hook() {
+    //fprintf(stderr, "loop %d\n", loop_ticks);
     if (event_cnt == 0) {
         init_script_events();
     }
-    if (next_event && ticks >= next_event) {
+    if (next_event && loop_ticks >= next_event) {
         next_event = 0;
         event_cur++;
-        //fprintf(stderr, "%d: script trigger: %d\n", ticks, event_cur);
+        fprintf(stderr, "%d: script trigger: %d\n", loop_ticks, event_cur);
     }
+    loop_ticks++;
 }
 #endif
 
@@ -145,34 +157,34 @@ void log_event(SDL_Event* event) {
     switch (event->type)
     {
     case SDL_TEXTEDITING:
-        fprintf(stderr, "%d: sdl: edit\n", ticks);
+        fprintf(stderr, "%d: sdl: edit\n", loop_ticks);
         break;
     case SDL_TEXTINPUT:
-        fprintf(stderr, "%d: sdl: text\n", ticks);
+        fprintf(stderr, "%d: sdl: text\n", loop_ticks);
         break;
     case SDL_KEYDOWN:
-        fprintf(stderr, "%d: sdl: key down\n", ticks);
+        fprintf(stderr, "%d: sdl: key down\n", loop_ticks);
         break;
     case SDL_KEYUP:
-        fprintf(stderr, "%d: sdl: key up\n", ticks);
+        fprintf(stderr, "%d: sdl: key up\n", loop_ticks);
         break;
     case SDL_MOUSEBUTTONDOWN:
-        fprintf(stderr, "%d: sdl: mouse down: %d %d\n", ticks, event->button.button, event->button.state);
+        fprintf(stderr, "%d: sdl: mouse down: %d %d\n", loop_ticks, event->button.button, event->button.state);
         break;
     case SDL_MOUSEBUTTONUP:
-        fprintf(stderr, "%d: sdl: mouse up: %d %d\n", ticks, event->button.button, event->button.state);
+        fprintf(stderr, "%d: sdl: mouse up: %d %d\n", loop_ticks, event->button.button, event->button.state);
         break;
     case SDL_MOUSEMOTION:
-        fprintf(stderr, "%d: sdl: mouse motion: %d %d\n", ticks, event->motion.xrel, event->motion.yrel);
+        fprintf(stderr, "%d: sdl: mouse motion: %d %d\n", loop_ticks, event->motion.xrel, event->motion.yrel);
         break;
     case SDL_MOUSEWHEEL:
-        fprintf(stderr, "%d: sdl: mouse wheel\n", ticks);
+        fprintf(stderr, "%d: sdl: mouse wheel\n", loop_ticks);
         break;
     case SDL_WINDOWEVENT:
-        fprintf(stderr, "%d: sdl: window\n", ticks);
+        fprintf(stderr, "%d: sdl: window\n", loop_ticks);
         break;
     default:
-        fprintf(stderr, "%d: sdl: unknown: %d\n", ticks, event->type);
+        fprintf(stderr, "%d: sdl: unknown: %d\n", loop_ticks, event->type);
         break;
     }
 }
@@ -184,8 +196,12 @@ int script_mouse_y = 0;
 
 int nox_SDL_PollEvent(SDL_Event* event) {
 #ifdef NOX_E2E_TEST
-    time_hook();
     if (event_cur) {
+        if (event_cur-1 >= event_cnt) {
+            // no more recorded events - allow player to control again
+            return SDL_PollEvent(event);
+        }
+        // consume and discard all SDL events
         while (SDL_PollEvent(event)) {
             //log_event(event);
             if (event->type == SDL_QUIT) {
@@ -198,16 +214,16 @@ int nox_SDL_PollEvent(SDL_Event* event) {
         if (next_event) {
             return 0; // wait, do nothing
         }
-        if (event_cur-1 >= event_cnt) {
-            exit(1);
-            return 0; // no more recorded events
-        }
         SDL_Event* e2 = &script_events[event_cur-1];
-        if (e2->type == 0xbeaf) {
+        if (e2->type == 0xdead) {
+            // special: exit
+            exit(1);
+            return 0;
+        } else if (e2->type == 0xbeaf) {
             // special: timer, wait some time before generating a new event
-            unsigned int dt = e2->common.timestamp;
-            //fprintf(stderr, "%d: script wait: %d\n", ticks, dt);
-            next_event = ticks+dt;
+            unsigned int dt = e2->common.timestamp/time_scale;
+            fprintf(stderr, "%d: script wait: %d\n", loop_ticks, dt);
+            next_event = loop_ticks+dt;
             return 0;
         }
         *event = *e2;
