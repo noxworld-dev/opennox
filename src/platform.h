@@ -15,6 +15,7 @@ Uint8 nox_SDL_GetEventState(Uint32 type);
 
 #ifdef NOX_E2E_TEST
 void script_add_event(SDL_Event e);
+void script_exit();
 void script_wait(unsigned int dt);
 void script_move(int dx, int dy);
 void script_move_to(int x, int y);

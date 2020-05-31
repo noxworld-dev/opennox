@@ -5,6 +5,10 @@
 #include "../gui/guimsg.h"
 #include "../../common/system/gamedisk.h"
 
+#ifdef NOX_E2E_TEST
+#include "../../platform.h"
+#endif
+
 extern int default_win_width;
 extern int default_win_height;
 
@@ -176,6 +180,9 @@ int map_download_finish()
 //----- (0043E290) --------------------------------------------------------
 void mainloop()
 {
+#ifdef NOX_E2E_TEST
+    time_hook();
+#endif
     unsigned __int8* v0; // eax
     int2* v1; // edi
     int v2; // ebp
