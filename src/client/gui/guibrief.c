@@ -2,9 +2,6 @@
 
 #include "../../proto.h"
 
-extern int default_win_width;
-extern int default_win_height;
-
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -134,10 +131,10 @@ int __cdecl sub_44E8E0(int a1, int a2)
     wchar_t v56[256]; // [esp+274h] [ebp-400h]
     wchar_t v57[256]; // [esp+474h] [ebp-200h]
 
-    v49 = (nox_win_width - default_win_width) / 2;
+    v49 = (nox_win_width - NOX_DEFAULT_WIDTH) / 2;
     v47 = 0;
     v45 = 0;
-    v50 = (nox_win_height - default_win_height) / 2;
+    v50 = (nox_win_height - NOX_DEFAULT_HEIGHT) / 2;
     sub_434390(*(int*)& byte_5D4594[2523948]);
     v2 = nox_win_width / 2;
     v3 = nox_win_height / 2;
@@ -367,8 +364,8 @@ int __cdecl sub_44F0F0(int a1, int a2)
         *(_DWORD*)& byte_587000[123008] = 1;
     }
     v12 = *(_DWORD*)& byte_5D4594[2523948];
-    v6 = (nox_win_width - default_win_width) / 2;
-    v7 = (nox_win_height - default_win_height) / 2;
+    v6 = (nox_win_width - NOX_DEFAULT_WIDTH) / 2;
+    v7 = (nox_win_height - NOX_DEFAULT_HEIGHT) / 2;
     v8 = loadString_sub_40F1D0((char*)& byte_587000[124460], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 714);
     sub_43F840(*(_DWORD*)(a2 + 200), v8, &v10, 0, 0);
     v9 = v6 - v10 / 2 + 320;
@@ -418,8 +415,8 @@ int __cdecl sub_44F300(int a1, int a2)
     sub_431510();
     sub_45ACA0(1);
     sub_446780();
-    v3 = (nox_win_width - default_win_width) / 2;
-    v4 = (nox_win_height - default_win_height) / 2;
+    v3 = (nox_win_width - NOX_DEFAULT_WIDTH) / 2;
+    v4 = (nox_win_height - NOX_DEFAULT_HEIGHT) / 2;
     v5 = loadString_sub_40F1D0((char*)& byte_587000[124528], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 765);
     sub_43F840(*(_DWORD*)(a2 + 200), v5, &v31, 0, 0);
     v29 = (unsigned __int16*)(v3 - v31 / 2 + 320);

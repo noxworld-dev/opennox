@@ -64,8 +64,6 @@ extern int nox_win_depth_1;
 extern int nox_win_width_2;
 extern int nox_win_height_2;
 extern int nox_win_depth_2;
-extern int default_win_height;
-extern int default_win_width;
 
 extern const char* table_5184[];
 
@@ -316,11 +314,11 @@ int __cdecl cmain(int argc, const char* argv[])
             int v12 = 16;
             if (!sub_4300D0(1))
                 v12 = 8;
-            nox_win_width_1 = default_win_width;
-            nox_win_height_1 = default_win_height;
+            nox_win_width_1 = NOX_DEFAULT_WIDTH;
+            nox_win_height_1 = NOX_DEFAULT_HEIGHT;
             nox_win_depth_1 = v12;
-            nox_win_width_2 = default_win_width;
-            nox_win_height_2 = default_win_height;
+            nox_win_width_2 = NOX_DEFAULT_WIDTH;
+            nox_win_height_2 = NOX_DEFAULT_HEIGHT;
             nox_win_depth_2 = v12;
         }
         else if (!_strcmpi(flag, "-noaudio"))
