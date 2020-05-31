@@ -25,6 +25,7 @@ extern SDL_GLContext g_ddraw;
 #endif
 
 int nox_enable_audio = 1;
+int nox_enable_threads = 1;
 
 void f(int);
 int g_v20, g_v21;
@@ -311,7 +312,7 @@ int __cdecl cmain(int argc, const char* argv[])
             *(_DWORD*)& byte_5D4594[2650636] = v11;
             *(_DWORD*)& byte_587000[80800] = 0;
             *(_DWORD*)& byte_5D4594[805840] = 1;
-            *(_DWORD*)& byte_587000[80804] = 0;
+            nox_enable_threads = 0;
             int v12 = 16;
             if (!sub_4300D0(1))
                 v12 = 8;
@@ -333,7 +334,7 @@ int __cdecl cmain(int argc, const char* argv[])
         }
         else if (!_strcmpi(flag, "-nothread"))
         {
-            *(_DWORD*)& byte_587000[80804] = 0;
+            nox_enable_threads = 0;
         }
         else if (!_strcmpi(flag, "-vol"))
         {
