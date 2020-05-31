@@ -19,7 +19,7 @@ option (E2E_TEST "Run in end-to-end test mode" OFF)
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
 else ()
-    add_compile_options (-g -fno-strict-aliasing -fno-strict-overflow -m32 -fshort-wchar -Werror=return-type -Werror=implicit-function-declaration)
+    add_compile_options (-g -fno-strict-aliasing -fno-strict-overflow -m32 -fshort-wchar -Werror=return-type -Werror=implicit-function-declaration -Werror=pointer-arith)
 
     if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
         add_compile_options (-O0)
