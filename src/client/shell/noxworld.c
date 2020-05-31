@@ -9,9 +9,6 @@
 extern int nox_win_width;
 extern int nox_win_height;
 
-extern int max_win_width;
-extern int max_win_height;
-
 //----- (004373A0) --------------------------------------------------------
 void sub_4373A0()
 {
@@ -312,7 +309,7 @@ int sub_4379F0()
                 *(_DWORD*)& byte_5D4594[815088] = 0;
                 sub_4158C0();
                 sub_415D50();
-                sub_430C30_set_video_max(max_win_width, max_win_height);
+                sub_430C30_set_video_max(NOX_MAX_WIDTH, NOX_MAX_HEIGHT);
                 sub_477610(0);
                 if (*(_DWORD*)& byte_5D4594[815096])
                 {

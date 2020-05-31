@@ -9,9 +9,6 @@
 #include "../../platform.h"
 #endif
 
-extern int default_win_width;
-extern int default_win_height;
-
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -142,7 +139,7 @@ int map_download_finish()
         int v5; // [esp+Ch] [ebp-4h]
         sub_43BEB0_get_video_mode(&v3, &v5, &v4);
         if (!v3)
-            sub_43BEF0_set_video_mode(default_win_width, default_win_height, v4);
+            sub_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
         result = *(_DWORD*)& byte_587000[173332];
     }
 

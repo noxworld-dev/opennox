@@ -7,9 +7,6 @@ extern int nox_enable_threads;
 extern int nox_win_width;
 extern int nox_win_height;
 
-extern int default_win_width;
-extern int default_win_height;
-
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
@@ -57,7 +54,7 @@ int sub_47FD70() // init video output
     *(_DWORD*)& byte_5D4594[3804680] = *(_DWORD*)& byte_5D4594[3801780];
     *(_DWORD*)& byte_5D4594[3805488] = *(_DWORD*)& byte_5D4594[3801808] * nox_backbuffer_height;
     *(_DWORD*)& byte_5D4594[3807124] = *(_DWORD*)& byte_5D4594[3801780] == 1;
-    sub_430B50(0, 0, default_win_width-1, default_win_height-1);
+    sub_430B50(0, 0, NOX_DEFAULT_WIDTH-1, NOX_DEFAULT_HEIGHT-1);
     sub_4453A0_poll_events();
     return 1;
 }
