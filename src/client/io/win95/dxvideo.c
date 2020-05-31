@@ -2,6 +2,8 @@
 
 #include "../../../proto.h"
 
+extern int nox_enable_threads;
+
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -28,7 +30,7 @@ int sub_47FD70() // init video output
         flags |= 0x18u;
     if (*(_DWORD*)& byte_5D4594[2650636] & 0x2000000 && *(_DWORD*)& byte_587000[80848])
         flags &= 0xFFFFFFDF;
-    if (!*(_DWORD*)& byte_587000[80804])
+    if (!nox_enable_threads)
         flags |= 0x100u;
     if (*(_DWORD*)& byte_5D4594[805864])
         flags |= 0x200u;
