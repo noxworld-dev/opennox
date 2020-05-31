@@ -5893,7 +5893,7 @@ nox_npc* __cdecl nox_npc_by_id(int id)
 //----- (0049A380) --------------------------------------------------------
 int __cdecl nox_init_npc(nox_npc* ptr, int id)
 {
-    memset(ptr, 0, 524); // TODO: why only part of it?
+    memset(ptr, 0, sizeof(nox_npc));
     ptr->live = 1;
     ptr->id = id;
     return id;

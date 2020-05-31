@@ -780,5 +780,6 @@ typedef struct{
     int id;
     _DWORD data8[327];
 } nox_npc;
+_Static_assert( sizeof( nox_npc ) == 1316, "struct nox_npc size is wrong" );
 
 #endif
