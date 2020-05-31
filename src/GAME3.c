@@ -34,9 +34,6 @@ extern int nox_backbuffer_height;
 extern int nox_win_depth_1;
 extern int nox_win_depth_2;
 
-extern int default_win_width;
-extern int default_win_height;
-
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 
 FILE* nox_file_9 = 0;
@@ -5578,7 +5575,7 @@ int sub_4AB5E0()
     {
         sub_43BEB0_get_video_mode(&v3, &v5, &v4);
         if (!v3)
-            sub_43BEF0_set_video_mode(default_win_width, default_win_height, v4);
+            sub_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
         result = *(_DWORD*)& byte_587000[173332];
     }
     return result;

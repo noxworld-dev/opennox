@@ -16,6 +16,12 @@
 #define NO_MOVIE 1
 #define NO_WOLAPI 1
 
+#define NOX_DEFAULT_WIDTH 640
+#define NOX_DEFAULT_HEIGHT 480
+#define NOX_DEFAULT_DEPTH 16
+#define NOX_MAX_WIDTH 1024
+#define NOX_MAX_HEIGHT 768
+
 #define USE_SDL 1
 #include <SDL2/SDL.h>
 
@@ -780,6 +786,6 @@ typedef struct{
     int id;
     _DWORD data8[327];
 } nox_npc;
-_Static_assert( sizeof( nox_npc ) == 1316, "struct nox_npc size is wrong" );
+//_Static_assert( sizeof( nox_npc ) == 1316, "struct nox_npc size is wrong" );
 
 #endif

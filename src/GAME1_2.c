@@ -28,26 +28,19 @@ extern int nox_backbuffer_height;
 
 extern float input_sensitivity;
 
-const int default_win_width = 640;
-const int default_win_height = 480;
-const int default_win_depth = 16;
-
-const int max_win_width = 1024;
-const int max_win_height = 768;
-
 int nox_win_width = 0;
 int nox_win_height = 0;
 
-int nox_win_width_1 = default_win_width;
-int nox_win_height_1 = default_win_height;
-int nox_win_depth_1 = default_win_depth;
+int nox_win_width_1 = NOX_DEFAULT_WIDTH;
+int nox_win_height_1 = NOX_DEFAULT_HEIGHT;
+int nox_win_depth_1 = NOX_DEFAULT_DEPTH;
 
-int nox_win_width_2 = default_win_width;
-int nox_win_height_2 = default_win_height;
-int nox_win_depth_2 = default_win_depth;
+int nox_win_width_2 = NOX_DEFAULT_WIDTH;
+int nox_win_height_2 = NOX_DEFAULT_HEIGHT;
+int nox_win_depth_2 = NOX_DEFAULT_DEPTH;
 
-int nox_max_width = max_win_width;
-int nox_max_height = max_win_height;
+int nox_max_width = NOX_MAX_WIDTH;
+int nox_max_height = NOX_MAX_HEIGHT;
 
 extern int g_fullscreen;
 int g_scaled = 0;
@@ -67,7 +60,7 @@ _DWORD nox_mouse_prev_seq = 0;
 _DWORD nox_mouse_prev_seq_2 = 0;
 mouse_pos_t nox_mouse_min = {0, 0};
 #ifdef __GNUC__
-mouse_pos_t nox_mouse_max = {default_win_width-1, default_win_height-1};
+mouse_pos_t nox_mouse_max = {NOX_DEFAULT_WIDTH-1, NOX_DEFAULT_HEIGHT-1};
 #else
 mouse_pos_t nox_mouse_max = { 639, 478 }; // thx ugly hack
 #endif
@@ -11267,7 +11260,7 @@ int sub_43B360() // client connecting draw handler
     if (v2 < 0 && (v3 = sub_43BE80_video_mode_by_id(v2 & 0x7F)) != 0)
         sub_430C30_set_video_max(v3->width, v3->height);
     else
-        sub_430C30_set_video_max(max_win_width, max_win_height);
+        sub_430C30_set_video_max(NOX_MAX_WIDTH, NOX_MAX_HEIGHT);
     sub_44A400();
     sub_43A9D0();
     sub_4A24A0();

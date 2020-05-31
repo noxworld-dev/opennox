@@ -25,9 +25,6 @@ extern int nox_win_height;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
-extern int default_win_width;
-extern int default_win_height;
-
 extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
 extern int nox_things_count;
@@ -1301,8 +1298,8 @@ _DWORD* sub_44E560()
     _DWORD* result; // eax
     _DWORD* v1; // eax
 
-    *(_DWORD*)& byte_5D4594[831284] = (nox_win_width - default_win_width) / 2;
-    *(_DWORD*)& byte_5D4594[831288] = (nox_win_height - default_win_height) / 2;
+    *(_DWORD*)& byte_5D4594[831284] = (nox_win_width - NOX_DEFAULT_WIDTH) / 2;
+    *(_DWORD*)& byte_5D4594[831288] = (nox_win_height - NOX_DEFAULT_HEIGHT) / 2;
     result = nox_window_new(0, 56, 0, 0, nox_win_width, nox_win_height, sub_44E6E0);
     *(_DWORD*)& byte_5D4594[831236] = result;
     if (result)
@@ -1369,7 +1366,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft)
     *(float*)& byte_5D4594[831276] = *(float*)& byte_5D4594[831276] - sub_44E8B0();
     v2 = nox_float2int(*(float*)& byte_5D4594[831276]);
     sub_46A9B0(a1, 0, v2);
-    sub_49F6F0(*(int*)& byte_5D4594[831284], *(int*)& byte_5D4594[831288], default_win_width, default_win_height);
+    sub_49F6F0(*(int*)& byte_5D4594[831284], *(int*)& byte_5D4594[831288], NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT);
     if (byte_5D4594[832472] & 1)
     {
         sub_44E8E0((int)a1, xLeft);
@@ -1538,8 +1535,8 @@ int __cdecl sub_450160(int a1, int a2, char a3)
         }
         *(_DWORD*)& byte_5D4594[831240] = v11;
     }
-    sub_43F840(v5[59], *v15, 0, &byte_5D4594[831280], default_win_height);
-    sub_46AB20(v5, default_win_width, *(int*)& byte_5D4594[831280]);
+    sub_43F840(v5[59], *v15, 0, &byte_5D4594[831280], NOX_DEFAULT_HEIGHT);
+    sub_46AB20(v5, NOX_DEFAULT_WIDTH, *(int*)& byte_5D4594[831280]);
     if (v3 == 255)
     {
         *(_DWORD*)& byte_5D4594[831276] = 1140457472;
@@ -2048,7 +2045,7 @@ void sub_451430()
 {
     int v0; // eax
 
-    if (nox_win_height == default_win_height || nox_win_width == default_win_width)
+    if (nox_win_height == NOX_DEFAULT_HEIGHT || nox_win_width == NOX_DEFAULT_WIDTH)
     {
         v0 = sub_43F320(0);
         if (*(_DWORD*)& byte_5D4594[839884])

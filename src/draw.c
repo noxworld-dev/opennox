@@ -30,10 +30,6 @@ extern int nox_enable_audio;
 extern int nox_win_width;
 extern int nox_win_height;
 
-extern int default_win_width;
-extern int default_win_height;
-extern int default_win_depth;
-
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 extern obj_5D4594_3799572_t obj_5D4594_3799660;
 extern obj_5D4594_3799572_t obj_5D4594_3800716;
@@ -3583,7 +3579,7 @@ int __cdecl sub_4B0340(int a1) // draw general
     sub_486110();
     sub_48A120();
     *(_DWORD*)& byte_5D4594[3801772] = v4;
-    result = sub_48A040(v3, default_win_width, default_win_height, default_win_depth);
+    result = sub_48A040(v3, NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
     if (result)
     {
         result = sub_486090();

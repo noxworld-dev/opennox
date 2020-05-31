@@ -22,10 +22,6 @@
 
 extern nox_memfile* nox_loaded_thing_bin;
 
-extern int default_win_width;
-extern int default_win_height;
-extern int default_win_depth;
-
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -4533,7 +4529,7 @@ void sub_4445C0()
     v4 = 16; // 8 bit not supported
     sub_481420();
     if (!(byte_5D4594[2650637] & 2))
-        sub_43BEF0_set_video_mode(default_win_width, default_win_height, v4);
+        sub_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
     sub_4766A0(v5);
     if (nox_common_mapflags_check(0x10000000))
         sub_476700(v5, 0);

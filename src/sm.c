@@ -6,9 +6,6 @@
 
 #include "proto.h"
 
-extern int default_win_width;
-extern int default_win_height;
-
 void f(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
@@ -438,7 +435,7 @@ void CONNECT_RESULT(sm_args_t* args)
             int v28;
             sub_43BEB0_get_video_mode(&v26, &v28, &v25);
             if (!v26)
-                sub_43BEF0_set_video_mode(default_win_width, default_win_height, v25);
+                sub_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v25);
             if (!sub_43BF10_upd_video_mode(0))
                 return;
         }

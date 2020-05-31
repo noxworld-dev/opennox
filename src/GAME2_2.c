@@ -16,9 +16,6 @@ extern int nox_win_height;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
-extern int default_win_width;
-extern int default_win_height;
-
 extern nox_drawable** nox_drawable_list_3;
 extern int nox_drawable_list_3_size;
 
@@ -1881,12 +1878,12 @@ int sub_478970()
     int result; // eax
     int2 a1; // [esp+0h] [ebp-8h]
 
-    a1.field_0 = nox_win_width - default_win_width;
-    a1.field_4 = nox_win_height - 480;
+    a1.field_0 = nox_win_width - NOX_DEFAULT_WIDTH;
+    a1.field_4 = nox_win_height - NOX_DEFAULT_HEIGHT;
     sub_47D2C0(
             *(int*)& byte_5D4594[1098400],
-            nox_win_width - default_win_width,
-            nox_win_height - 480);
+            nox_win_width - NOX_DEFAULT_WIDTH,
+            nox_win_height - NOX_DEFAULT_HEIGHT);
     if (*(_DWORD*)& byte_5D4594[1098628] == 2)
     {
         sub_47D2C0(*(int*)& byte_5D4594[1098404], a1.field_0, a1.field_4);
@@ -2627,7 +2624,7 @@ int __cdecl sub_479CB0(int a1, int a2)
 
     v2 = *(_DWORD*)(a2 + 24);
     sub_46AA60(*(_DWORD * *)& byte_5D4594[1123524], &v4, &v5);
-    sub_47D2C0(v2, nox_win_width - default_win_width, nox_win_height - default_win_height);
+    sub_47D2C0(v2, nox_win_width - NOX_DEFAULT_WIDTH, nox_win_height - NOX_DEFAULT_HEIGHT);
     return 1;
 }
 
