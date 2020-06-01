@@ -10685,13 +10685,13 @@ int4* __cdecl sub_475810_draw(int* a1)
         v41 = *(_DWORD*)((_DWORD*)nox_drawable_list_1[0] + 16); // FIXME?
     else
         v41 = 0x7FFFFFFF;
+    nox_drawable** v35 = nox_drawable_list_1;
     if (*(_DWORD*)& byte_5D4594[1096516])
     {
         v22 = **(unsigned __int8***)& byte_5D4594[1096512];
         LABEL_51:
         v21 = sub_476080(v22);
     }
-    nox_drawable** v35 = nox_drawable_list_1;
     while (nox_drawable_list_1_size || *(_DWORD*)& byte_5D4594[1096516])
     {
         if (v41 >= v21)
