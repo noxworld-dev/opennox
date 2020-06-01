@@ -12,6 +12,7 @@ HWND g_hwnd;
 #endif
 DWORD dword_974854;
 int g_fullscreen = -4; // -4 means "unset"
+extern int nox_video_dxFullScreen;
 
 const char* g_argv[21];
 unsigned int g_argc;
@@ -41,13 +42,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     {
         if (!strcmp("-window", v4))
         {
-            *(_DWORD*)& byte_587000[80848] = 0;
+            *(_DWORD*)& nox_video_dxFullScreen = 0;
             *(_DWORD*)& byte_5D4594[805860] = 0;
             g_fullscreen = -2;
         }
         else if (!strcmp("-swindow", v4))
         {
-            *(_DWORD*)& byte_587000[80848] = 0;
+            *(_DWORD*)& nox_video_dxFullScreen = 0;
             *(_DWORD*)& byte_5D4594[805860] = 1;
             g_fullscreen = -3;
         }
@@ -146,7 +147,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         g_hwnd = v13;
 
         sub_401070(g_argc, g_argv);
-        if (byte_5D4594[2650637] & 0x10)
+        if (nox_common_engineFlags & 0x1000)
             sub_413E30(/* "Memory dump after GameLoop() :" */);
         *(_DWORD*)& byte_5D4594[823800] = 1;
         sub_4453A0_poll_events();

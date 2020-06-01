@@ -292,7 +292,7 @@ unsigned __fastcall sub_48C730(unsigned int a1)
 }
 
 //----- (0048C870) --------------------------------------------------------
-int __cdecl sub_48C870(LPSTR a1)
+int __cdecl nox_client_winVerGetMajor_48C870(LPSTR printOut)
 {
     int v1; // esi
     unsigned __int8* v2; // ebx
@@ -337,9 +337,9 @@ int __cdecl sub_48C870(LPSTR a1)
             v2 = &byte_587000[156228];
         }
     }
-    if (a1)
+    if (printOut)
         nox_wsprintfA(
-                a1,
+                printOut,
                 (LPCSTR)& byte_587000[156292],
                 VersionInformation.dwMajorVersion,
                 VersionInformation.dwMinorVersion,

@@ -5252,7 +5252,7 @@ int sub_4D6FC0()
 }
 
 //----- (004D7080) --------------------------------------------------------
-int sub_4D7080()
+int nox_server_conCmdHandler_startSoloQuest_4D7080()
 {
     *(_DWORD*)& byte_5D4594[1556112] = 1;
     sub_44E0B0(1);
