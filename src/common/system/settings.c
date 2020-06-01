@@ -17,7 +17,7 @@ void __cdecl sub_409FB0_settings(__int16 a1, unsigned __int16 a2)
         if (a2 > 0x3E7u)
             v3 = 999;
         *(_WORD*)& byte_5D4594[2 * v2 + 3488] = v3;
-        *(_DWORD*)& byte_5D4594[3532] = 1;
+        *(_DWORD*)& nox_server_gameSettingsUpdated = 1;
         if (sub_43C700())
         {
             v4 = loadString_sub_40F1D0((char*)& byte_587000[4804], 0, "C:\\NoxPost\\src\\Common\\System\\settings.c", 389);
@@ -38,9 +38,9 @@ void __cdecl sub_40A040_settings(__int16 a1, unsigned __int8 a2)
     v2 = sub_409A70(a1);
     if (byte_5D4594[v2 + 3500] != a2)
     {
-        if (!nox_common_mapflags_check(0x4000000) && !*(_DWORD*)& byte_5D4594[3592])
+        if (!nox_common_gameFlags_check_40A5C0(0x4000000) && !*(_DWORD*)& byte_5D4594[3592])
         {
-            *(_DWORD*)& byte_5D4594[3532] = 1;
+            *(_DWORD*)& nox_server_gameSettingsUpdated = 1;
             if (sub_43C700())
             {
                 if (!a2)

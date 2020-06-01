@@ -210,7 +210,7 @@ int sub_4A75C0()
     char v24[16]; // [esp+4h] [ebp-510h]
     char v25[1278]; // [esp+14h] [ebp-500h]
 
-    if (nox_common_mapflags_check(2048))
+    if (nox_common_gameFlags_check_40A5C0(2048))
         sub_4DBE10((int)& byte_587000[171652], 0);
     memset(v25, 0, 0x4FCu);
     *(_WORD*)& v25[1276] = 0;
@@ -306,7 +306,7 @@ int sub_4A75C0()
     *(_DWORD*)v16 = *(_DWORD*)& byte_587000[171764];
     *((_WORD*)v16 + 2) = v14;
     v16[6] = v15;
-    if (nox_common_mapflags_check(2048))
+    if (nox_common_gameFlags_check_40A5C0(2048))
     {
         v17 = *(_DWORD*)& byte_587000[171776];
         v18 = &v25[strlen(&v25[4]) + 4];
@@ -317,7 +317,7 @@ int sub_4A75C0()
     CreateDirectoryA(&v25[4], 0);
     SetCurrentDirectoryA(&v25[4]);
     i = 0;
-    if (nox_common_mapflags_check(2048))
+    if (nox_common_gameFlags_check_40A5C0(2048))
     {
         strcpy(v24, "Player.plr");
     }
@@ -337,7 +337,7 @@ int sub_4A75C0()
     if (i > 99)
         return 0;
     strcat(&v25[4], v24);
-    if (nox_common_mapflags_check(2048))
+    if (nox_common_gameFlags_check_40A5C0(2048))
     {
         if (v25[1274])
         {

@@ -67,7 +67,7 @@ int __cdecl sub_424F00(int a1, void* a2)
         v35[v29] = 0;
         v7 = -1;
     }
-    if (nox_common_mapflags_check(2))
+    if (nox_common_gameFlags_check_40A5C0(2))
         * ((_DWORD*)v5 + 2) = sub_42FAA0(v7, v34, v35);
     v10 = *(int**)(a1 + 8);
     v11 = *v10;
@@ -86,7 +86,7 @@ int __cdecl sub_424F00(int a1, void* a2)
         v35[v30] = 0;
         v11 = -1;
     }
-    if (nox_common_mapflags_check(2))
+    if (nox_common_gameFlags_check_40A5C0(2))
         * ((_DWORD*)v5 + 3) = sub_42FAA0(v11, v34, v35);
     v14 = *(int**)(a1 + 8);
     v15 = *v14;
@@ -105,7 +105,7 @@ int __cdecl sub_424F00(int a1, void* a2)
         v35[v31] = 0;
         v15 = -1;
     }
-    if (nox_common_mapflags_check(2))
+    if (nox_common_gameFlags_check_40A5C0(2))
         * ((_DWORD*)v5 + 4) = sub_42FAA0(v15, v34, v35);
     v18 = *(unsigned __int8**)(a1 + 8);
     v32 = *v18;

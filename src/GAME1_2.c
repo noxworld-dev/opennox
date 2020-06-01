@@ -62,7 +62,7 @@ mouse_pos_t nox_mouse_min = {0, 0};
 #ifdef __GNUC__
 mouse_pos_t nox_mouse_max = {NOX_DEFAULT_WIDTH-1, NOX_DEFAULT_HEIGHT-1};
 #else
-mouse_pos_t nox_mouse_max = { 639, 478 }; // thx ugly hack
+mouse_pos_t nox_mouse_max = { 639, 478 }; // ugly hack for MSVC
 #endif
 mouse_pos_t nox_mouse_prev_left = {0};
 mouse_pos_t nox_mouse_prev_right = {0};
@@ -695,7 +695,7 @@ int sub_428B30()
             sub_426AC0_file3_fread(&v8, 1u);
             sub_426AC0_file3_fread(v12, (unsigned __int8)v8);
             v12[(unsigned __int8)v8] = 0;
-            if (!nox_common_mapflags_check(2) || nox_common_mapflags_check(1))
+            if (!nox_common_gameFlags_check_40A5C0(2) || nox_common_gameFlags_check_40A5C0(1))
                 v7 = sub_4E3AA0(v12);
             else
                 v7 = sub_44CFC0(v12);
@@ -956,7 +956,7 @@ int sub_429200()
             sub_426AC0_file3_fread(&v3[1], 4u);
             sub_426AC0_file3_fread(&v3[2], 4u);
             sub_469B90(v3);
-            if (nox_common_mapflags_check(2097154))
+            if (nox_common_gameFlags_check_40A5C0(2097154))
                 sub_4349C0(v3);
         }
         result = 1;
@@ -1005,7 +1005,7 @@ int __cdecl sub_4292C0(_DWORD* a1)
                     v7.field_0 += v9.field_0 / 23 - *(_DWORD*)v3;
                     v7.field_4 += v9.field_4 / 23 - *((_DWORD*)v3 + 1);
                 }
-                if (nox_common_mapflags_check(0x400000))
+                if (nox_common_gameFlags_check_40A5C0(0x400000))
                 {
                     v4 = sub_5042F0(v7.field_0, v7.field_4);
                     if (v4)
@@ -1110,7 +1110,7 @@ int __cdecl sub_429530(_DWORD* a1)
                     v7.field_0 += v9.field_0 / 23 - *(_DWORD*)v3;
                     v7.field_4 += v9.field_4 / 23 - *((_DWORD*)v3 + 1);
                 }
-                if (nox_common_mapflags_check(0x400000))
+                if (nox_common_gameFlags_check_40A5C0(0x400000))
                 {
                     v4 = sub_5042F0(v7.field_0, v7.field_4);
                     if (v4)
@@ -1125,7 +1125,7 @@ int __cdecl sub_429530(_DWORD* a1)
                     *((_BYTE*)v2 + 4) |= 8u;
                     *((_WORD*)v2 + 5) = *(_WORD*)& byte_5D4594[741344];
                     ++* (_DWORD*)& byte_5D4594[741344];
-                    if (!nox_common_mapflags_check(0x400000))
+                    if (!nox_common_gameFlags_check_40A5C0(0x400000))
                         sub_410840((int)v2);
                 }
                 ++v6;
@@ -1238,7 +1238,7 @@ int __cdecl sub_4297C0(_DWORD* a1)
                 *v3 += v12.field_0 / 23 - *(_DWORD*)v5;
                 *((_DWORD*)v2 + 2) += v12.field_4 / 23 - *((_DWORD*)v5 + 1);
             }
-            if (!nox_common_mapflags_check(0x400000))
+            if (!nox_common_gameFlags_check_40A5C0(0x400000))
                 break;
             v6 = sub_5042F0(*v3, *((_DWORD*)v2 + 2));
             if (!v6)
@@ -1269,7 +1269,7 @@ int __cdecl sub_4297C0(_DWORD* a1)
                         v2[22] = 0;
                     }
                 }
-                if (!nox_common_mapflags_check(0x400000))
+                if (!nox_common_gameFlags_check_40A5C0(0x400000))
                     sub_410760(v2);
             }
             if (++v11 >= *(__int16*)& byte_5D4594[741348])
@@ -1430,7 +1430,7 @@ int __cdecl sub_429B20(_DWORD* a1)
             sub_426AC0_file3_fread(&v24, 1u);
             v16 = (unsigned __int8)v24 >> 7;
             LOBYTE(v24) = v24 & 0x7F;
-            if (nox_common_mapflags_check(0x400000))
+            if (nox_common_gameFlags_check_40A5C0(0x400000))
             {
                 v17 = (unsigned __int8*)* sub_504290(v30, (char)a1);
             }
@@ -1522,7 +1522,7 @@ int __cdecl sub_429B20(_DWORD* a1)
                                 else
                                     v23 = 100;
                                 sub_426AC0_file3_fread(&v23, 1u);
-                                if (nox_common_mapflags_check(0x200000))
+                                if (nox_common_gameFlags_check_40A5C0(0x200000))
                                     LOBYTE(v24) = 0;
                                 else
                                     LOBYTE(v24) = v11[12];
@@ -1731,7 +1731,7 @@ int __cdecl sub_42A150(__int16 a1, _DWORD* a2)
     v18 = v27;
     LOBYTE(v27) = v27 & 0x7F;
     v19 = v18 >> 7;
-    if (nox_common_mapflags_check(0x400000))
+    if (nox_common_gameFlags_check_40A5C0(0x400000))
     {
         v20 = (unsigned __int8**)sub_504290(v17 + byte_5D4594[741360], v4 + byte_5D4594[741368]);
         v21 = *v20;
@@ -3030,13 +3030,13 @@ int sub_42BF10()
 
     if (*(_DWORD*)& byte_5D4594[741676])
         return 1;
-    if (nox_common_mapflags_check(2097153))
+    if (nox_common_gameFlags_check_40A5C0(2097153))
     {
         v1 = sub_4E3AC0();
     }
     else
     {
-        if (!nox_common_mapflags_check(2))
+        if (!nox_common_gameFlags_check_40A5C0(2))
             return 0;
         v1 = nox_get_things_count();
     }
@@ -3096,7 +3096,7 @@ int sub_42BFE0()
     _WORD* v14; // eax
     int v15; // [esp+4h] [ebp-4h]
 
-    result = nox_common_mapflags_check(2097153);
+    result = nox_common_gameFlags_check_40A5C0(2097153);
     if (result)
     {
         sub_42BFB0();
@@ -3151,16 +3151,16 @@ int sub_42BFE0()
                 ++v15;
             }
         }
-        result = nox_common_mapflags_check(0x200000);
+        result = nox_common_gameFlags_check_40A5C0(0x200000);
         if (!result)
         {
-            result = nox_common_mapflags_check(1);
+            result = nox_common_gameFlags_check_40A5C0(1);
             if (result == 1)
             {
-                result = nox_common_mapflags_check(2);
+                result = nox_common_gameFlags_check_40A5C0(2);
                 if (result == 1)
                 {
-                    result = nox_common_mapflags_check(0x400000);
+                    result = nox_common_gameFlags_check_40A5C0(0x400000);
                     if (!result)
                     {
                         result = sub_45A060();
@@ -4495,7 +4495,7 @@ unsigned int sub_42D510()
     v0 = 0;
     v1 = sub_416BB0();
     *(_DWORD*)& byte_5D4594[747864] = 0;
-    result = nox_common_mapflags_check(1);
+    result = nox_common_gameFlags_check_40A5C0(1);
     if (result)
     {
         v3 = *(_DWORD*)& byte_5D4594[754040];
@@ -4606,7 +4606,7 @@ void __cdecl sub_42E670(int a1, int a2)
     int v4; // ecx
     int v5; // eax
 
-    v2 = !nox_common_mapflags_check(1);
+    v2 = !nox_common_gameFlags_check_40A5C0(1);
     result = *(_DWORD*)& byte_5D4594[754036];
     if (v2)
     {
@@ -4621,7 +4621,7 @@ void __cdecl sub_42E670(int a1, int a2)
     }
     if (byte_5D4594[2661958] || (result = sub_42D460(a1)) == 0)
     {
-        if (nox_common_mapflags_check(1) && sub_42D4B0(a1))
+        if (nox_common_gameFlags_check_40A5C0(1) && sub_42D4B0(a1))
         {
             result = *(_DWORD*)& byte_5D4594[754040];
             v4 = *(_DWORD*)& byte_5D4594[754036];
@@ -4648,7 +4648,7 @@ void __cdecl sub_42E670(int a1, int a2)
         *(_DWORD*)& byte_5D4594[v5 + 747900] = 1;
         *(_DWORD*)& byte_5D4594[v5 + 747896] = a2;
         *(_DWORD*)& byte_5D4594[754036] = v4 + 1;
-        if (nox_common_mapflags_check(1))
+        if (nox_common_gameFlags_check_40A5C0(1))
         {
             *(_DWORD*)& byte_5D4594[754036] %= 128;
         }
@@ -6392,11 +6392,11 @@ int __cdecl sub_4308A0(int a1)
             OnLibraryNotice(417, *(_DWORD*)& byte_5D4594[787228]);
     }
     ++nox_mouse_prev_seq;
-    if (nox_common_mapflags_check(0x2000)
-        && !nox_common_mapflags_check(4096)
+    if (nox_common_gameFlags_check_40A5C0(0x2000)
+        && !nox_common_gameFlags_check_40A5C0(4096)
         && (unsigned int)(nox_mouse_prev_seq - *(_DWORD*)& byte_5D4594[805816]) > 0xA8C)
     {
-        if (!nox_common_mapflags_check(1))
+        if (!nox_common_gameFlags_check_40A5C0(1))
         {
             sub_440950(0, (wchar_t*)& byte_587000[80784]);
             return 1;
@@ -7603,15 +7603,15 @@ int sub_432100()
     if (v0)
     {
         v1 = atoi(v0) == 0;
-        v2 = *(_DWORD*)& byte_5D4594[2650636];
+        v2 = *(_DWORD*)& nox_common_engineFlags;
         if (!v1)
         {
             BYTE1(v2) |= 4u;
-            *(_DWORD*)& byte_5D4594[2650636] = v2;
+            *(_DWORD*)& nox_common_engineFlags = v2;
             return 1;
         }
         BYTE1(v2) &= 0xFBu;
-        *(_DWORD*)& byte_5D4594[2650636] = v2;
+        *(_DWORD*)& nox_common_engineFlags = v2;
     }
     return 1;
 }
@@ -8668,7 +8668,7 @@ int __cdecl sub_4332E0(FILE* a1)
     v6 = sub_433890();
     fprintf(a1, "ServerName = %s\n", v6);
     fprintf(a1, "UnlockSurface = %d\n", *(_DWORD*)& byte_5D4594[805868]);
-    fprintf(a1, "SoftShadowEdge = %d\n", (*(_DWORD*)& byte_5D4594[2650636] >> 10) & 1);
+    fprintf(a1, "SoftShadowEdge = %d\n", (*(_DWORD*)& nox_common_engineFlags >> 10) & 1);
     fprintf(a1, "DrawFrontWalls = %d\n", *(_DWORD*)& byte_587000[80812]);
     fprintf(a1, "TranslucentFrontWalls = %d\n", *(_DWORD*)& byte_5D4594[805844]);
     fprintf(a1, "HighResFrontWalls = %d\n", *(_DWORD*)& byte_587000[80820]);
@@ -9670,7 +9670,7 @@ BOOL __cdecl sub_4357D0(int argc, const char** argv)
 #endif
     * (_DWORD*)& byte_5D4594[811064] = *(_DWORD*)& byte_587000[80828];
     sub_40EE60();
-    if (!nox_common_mapflags_check(1))
+    if (!nox_common_gameFlags_check_40A5C0(1))
         sub_416E30();
     BOOL result = sub_48D7D0();
     if (!result)
@@ -9731,7 +9731,7 @@ int __cdecl sub_435A10(signed int* a1)
     strcpy((char*)& Data[128], sub_41FA40());
     *(_DWORD*)& Data[138] = *(_DWORD*)& byte_5D4594[2660032];
     qmemcpy(Data, v1, 0x61u);
-    if (nox_common_mapflags_check(1))
+    if (nox_common_gameFlags_check_40A5C0(1))
     {
         sub_4D3860(Data);
         *(_DWORD*)& byte_5D4594[2616328] = sub_4DD320(31, (int)Data);
@@ -9761,7 +9761,7 @@ int __cdecl sub_435A10(signed int* a1)
         printf("foo 7\n");
     }
     *(_DWORD*)& byte_5D4594[811372] = 2;
-    if (!nox_common_mapflags_check(1))
+    if (!nox_common_gameFlags_check_40A5C0(1))
         sub_417C60();
     return 1;
 }
@@ -9830,7 +9830,7 @@ int sub_435CC0()
     sub_4958F0();
     sub_43C720(0);
     sub_40A4D0(0x800000);
-    if (nox_common_mapflags_check(1))
+    if (nox_common_gameFlags_check_40A5C0(1))
         sub_4DDF60(31);
     else
         sub_43CB00();
@@ -9848,7 +9848,7 @@ int sub_435CC0()
     *(_DWORD*)& byte_5D4594[811116] = 0;
     v1 = sub_4766D0();
     sub_476700(v1, 0);
-    if (nox_common_mapflags_check(2048)) {
+    if (nox_common_gameFlags_check_40A5C0(2048)) {
         sub_41CC00((char*)& byte_5D4594[2660688]);
     } else if (sub_4D6F50() || sub_4D6F70()) {
         if (sub_4D6F50() || sub_4D6F70())
@@ -9857,11 +9857,11 @@ int sub_435CC0()
             sub_460E60();
             sub_4721D0();
         }
-        if (!nox_common_mapflags_check(1))
+        if (!nox_common_gameFlags_check_40A5C0(1))
             sub_41CC00((char*)& byte_5D4594[2660688]);
     }
     sub_41A480((char*)& byte_5D4594[2660688]);
-    sub_443C80((wchar_t*)& byte_587000[86380], 1);
+    nox_server_parseCmdText_443C80((wchar_t*)& byte_587000[86380], 1);
     sub_4951C0();
     sub_465DE0(0);
     return 1;
@@ -9871,7 +9871,7 @@ int sub_435CC0()
 int sub_435EB0()
 {
     nox_common_writecfgfile((char*)& byte_587000[86424]);
-    if (nox_common_mapflags_check(1))
+    if (nox_common_gameFlags_check_40A5C0(1))
         sub_4DE530(31, 2);
     else
         sub_43CB50();
@@ -9921,7 +9921,7 @@ int sub_435F80_draw()
     v0 = sub_4309F0();
     if (sub_446180())
         sub_446190();
-    if (!sub_437060() && !nox_common_mapflags_check(8))
+    if (!sub_437060() && !nox_common_gameFlags_check_40A5C0(8))
     {
         sub_43DDD0(0);
         return 0;
@@ -9938,12 +9938,12 @@ int sub_435F80_draw()
             *(_DWORD*)& byte_5D4594[811084] + v0->field_0 - *(_DWORD*)& byte_5D4594[811068],
             *(_DWORD*)& byte_5D4594[811088] + v0->field_4 - *(_DWORD*)& byte_5D4594[811072]))
         return 1;
-    if (!nox_common_mapflags_check(1))
+    if (!nox_common_gameFlags_check_40A5C0(1))
     {
         sub_40B970();
         sub_40B790();
     }
-    if (nox_common_mapflags_check(1))
+    if (nox_common_gameFlags_check_40A5C0(1))
     {
         sub_49C4B0();
         if (!sub_494E90(31))
@@ -10056,7 +10056,7 @@ int sub_437100()
 
     result = *(_DWORD*)& byte_587000[80828];
     if (*(_DWORD*)& byte_5D4594[811064] != *(_DWORD*)& byte_587000[80828]
-        && !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
+        && !(*(_DWORD*)& nox_common_engineFlags & 0x40000))
     {
         *(_DWORD*)& byte_5D4594[811064] = *(_DWORD*)& byte_587000[80828];
         sub_4721A0(*(int*)& byte_587000[80828]);
@@ -10095,16 +10095,16 @@ int sub_437190()
     sub_470550();
     sub_46C5D0();
     sub_44DF70();
-    if (!nox_common_mapflags_check(1))
+    if (!nox_common_gameFlags_check_40A5C0(1))
         sub_43CC80();
     *(_DWORD*)& byte_5D4594[811372] = 0;
-    if (!nox_common_mapflags_check(1))
+    if (!nox_common_gameFlags_check_40A5C0(1))
         sub_4E4DE0();
     sub_40A380();
     sub_435720((char*)& byte_5D4594[814544]);
     sub_446580(1);
     sub_48D760();
-    if (!nox_common_mapflags_check(1))
+    if (!nox_common_gameFlags_check_40A5C0(1))
         sub_40EE60();
     result = sub_417CF0();
     *(_DWORD*)& byte_5D4594[2616328] = 0;
@@ -10329,7 +10329,7 @@ int sub_438330()
 
     v0 = *(void (**)(void))(*(_DWORD*)& byte_5D4594[815040] + 52);
     sub_43C570(*(LPVOID*)& byte_5D4594[815040]);
-    if (!nox_common_mapflags_check(0x10000000))
+    if (!nox_common_gameFlags_check_40A5C0(0x10000000))
         sub_43A9D0();
     if (v0)
         v0();
@@ -10873,7 +10873,7 @@ char* sub_43AA70()
     v0 = sub_416590(0);
     v1 = sub_416640();
     qmemcpy(v1 + 111, v0, 0x3Au);
-    *(_WORD*)(v1 + 163) = sub_40A5B0();
+    *(_WORD*)(v1 + 163) = nox_common_gameFlags_getVal_40A5B0();
     *(_DWORD*)(v1 + 135) = -1;
     *(_DWORD*)(v1 + 139) = -1;
     *(_DWORD*)(v1 + 143) = -1;
@@ -10894,7 +10894,7 @@ char* sub_43AA70()
     v1[104] = sub_409FA0();
     v3 = sub_416F40();
     v1[103] = v3;
-    if (*(_DWORD*)& byte_5D4594[2650636] & 0x40000)
+    if (*(_DWORD*)& nox_common_engineFlags & 0x40000)
     {
         v1[103] = v3 - 1;
         --v1[104];
@@ -11000,7 +11000,7 @@ void sub_43ACC0()
         if (*(_DWORD*)& byte_5D4594[815088])
             sub_4A0360();
         sub_44A400();
-        if (nox_common_mapflags_check(0x2000000) && *(int*)& byte_587000[87412] == -1)
+        if (nox_common_gameFlags_check_40A5C0(0x2000000) && *(int*)& byte_587000[87412] == -1)
         {
             v6 = sub_4A7F20() + 10053;
             v7 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[814980], 10002);
@@ -11241,7 +11241,7 @@ int sub_43B360() // client connecting draw handler
     char v5[32]; // [esp+0h] [ebp-20h]
 
     sub_40A4D0(4);
-    sub_40A540(1);
+    nox_common_gameFlags_unset_40A540(1);
     v0 = (char*)(*(_DWORD*)& byte_5D4594[814624] + 12);
     if (!memcmp((const void*)(*(_DWORD*)& byte_5D4594[814624] + 12), &byte_5D4594[815116], 1u))
     {

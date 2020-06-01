@@ -69,7 +69,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4)
         case 9001:
             sub_445C40();
             sub_413A00(1);
-            if (!nox_common_mapflags_check(2048) || sub_4372B0())
+            if (!nox_common_gameFlags_check_40A5C0(2048) || sub_4372B0())
             {
                 sub_445B40();
                 v17 = a3[9];
@@ -93,7 +93,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4)
             if ((v18 & 0x8000) == 0)
             {
                 sub_445C40();
-                if (nox_common_mapflags_check(2048))
+                if (nox_common_gameFlags_check_40A5C0(2048))
                 {
                     sub_4DB130("AUTOSAVE");
                     sub_4DB170(1, 0, 0);
@@ -109,7 +109,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4)
             break;
         case 9003:
             sub_445C40();
-            if (nox_common_mapflags_check(2048))
+            if (nox_common_gameFlags_check_40A5C0(2048))
                 sub_46D580();
             else
                 sub_41CE00();
@@ -142,7 +142,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4)
         case 9006:
             goto LABEL_11;
         case 9007:
-            if (nox_common_mapflags_check(1))
+            if (nox_common_gameFlags_check_40A5C0(1))
             {
                 v8 = sub_417040(*(int*)& byte_5D4594[2616328]);
                 sub_443E90((int)v8, 0, 0);
@@ -173,7 +173,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4)
             break;
         case 9009:
             sub_445C40();
-            if (nox_common_mapflags_check(4096))
+            if (nox_common_gameFlags_check_40A5C0(4096))
                 sub_48CB10(4);
             else
                 sub_48CB10(0);
@@ -239,7 +239,7 @@ int sub_445C40()
     if (sub_46ADA0(*(int*)& byte_5D4594[825760]) & 0x10)
     {
         if (!*(_DWORD*)& byte_5D4594[2614252]
-            || !nox_common_mapflags_check(2048)
+            || !nox_common_gameFlags_check_40A5C0(2048)
             || (result = *(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 276), result != 2) && result != 1 && result != 51)
         {
             result = sub_45D9B0();
@@ -252,7 +252,7 @@ int sub_445C40()
                     sub_46A8C0(*(int*)& byte_5D4594[825760]);
                     *(_DWORD*)(*(_DWORD*)& byte_5D4594[825760] + 4) |= 8u;
                     sub_46ADC0(*(int*)& byte_5D4594[825760]);
-                    if (nox_common_mapflags_check(2048))
+                    if (nox_common_gameFlags_check_40A5C0(2048))
                     {
                         v20 = loadString_sub_40F1D0((char*)& byte_587000[108496], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 396);
                         v1 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9003);
@@ -289,14 +289,14 @@ int sub_445C40()
                         v13 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9009);
                         nox_window_set_hidden((int)v13, 0);
                         sub_46AEE0((int)v13, (int)& byte_5D4594[825772]);
-                        if (nox_common_mapflags_check(49152) || !sub_417DD0())
+                        if (nox_common_gameFlags_check_40A5C0(49152) || !sub_417DD0())
                             sub_46ABB0((int)v13, 0);
                         else
                             sub_46ABB0((int)v13, 1);
                         v14 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9004);
                         sub_46A9B0(v14, v13[4], v13[5] + 45);
                         sub_46AB20(*(_DWORD * *)& byte_5D4594[825760], 220, 330);
-                        result = nox_common_mapflags_check(4096);
+                        result = nox_common_gameFlags_check_40A5C0(4096);
                         if (result)
                         {
                             v15 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9007);
@@ -304,7 +304,7 @@ int sub_445C40()
                             v16 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9003);
                             result = sub_46ABB0((int)v16, 0);
                         }
-                        if (*(_DWORD*)& byte_5D4594[2650636] & 0x40000)
+                        if (*(_DWORD*)& nox_common_engineFlags & 0x40000)
                         {
                             v17 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[825760], 9007);
                             sub_46ABB0((int)v17, 0);
@@ -338,12 +338,12 @@ void sub_446190()
     char v4; // [esp+1h] [ebp-1h]
 
     *(_DWORD*)& byte_5D4594[825764] = 0;
-    if (nox_common_mapflags_check(1))
+    if (nox_common_gameFlags_check_40A5C0(1))
     {
         v1 = loadString_sub_40F1D0((char*)& byte_587000[108608], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 667);
         sub_413D30((char*)& byte_587000[108632], v1);
     }
-    if (nox_common_mapflags_check(0x2000000))
+    if (nox_common_gameFlags_check_40A5C0(0x2000000))
     {
         sub_43C260();
         sub_41E300(9);
@@ -361,13 +361,13 @@ void sub_446190()
     {
         *(_DWORD*)& byte_5D4594[825752] = 0;
         *(_DWORD*)& byte_5D4594[825768] = *(_DWORD*)& byte_5D4594[2598000];
-        if (nox_common_mapflags_check(1))
+        if (nox_common_gameFlags_check_40A5C0(1))
         {
-            if (sub_43AF70() == 1 && nox_common_mapflags_check(49152))
+            if (sub_43AF70() == 1 && nox_common_gameFlags_check_40A5C0(49152))
                 sub_416150(15, 0);
             sub_509CB0();
         }
-        if (nox_common_mapflags_check(1))
+        if (nox_common_gameFlags_check_40A5C0(1))
         {
             *(_DWORD*)& byte_5D4594[825752] = sub_416F40() - 1;
             sub_467440(0);
@@ -382,7 +382,7 @@ void sub_446190()
                 goto LABEL_20;
             }
         }
-        else if (!nox_common_mapflags_check(0x2000))
+        else if (!nox_common_gameFlags_check_40A5C0(0x2000))
         {
             goto LABEL_20;
         }

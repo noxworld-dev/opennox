@@ -217,7 +217,7 @@ int sub_4714E0()
     }
     sub_472280();
     sub_470B00();
-    if (nox_common_mapflags_check(4096))
+    if (nox_common_gameFlags_check_40A5C0(4096))
     {
         *(_DWORD*)& byte_5D4594[1096252] = 1;
     }

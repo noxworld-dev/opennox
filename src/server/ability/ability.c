@@ -68,7 +68,7 @@ int __cdecl sub_4FB9C0_ability(int a1, int a2, int a3)
             * v7 = 5;
         sub_56FCE0(*(_DWORD*)(*(_DWORD*)(v3 + 276) + 4636), a2, *(_DWORD*)(*(_DWORD*)(v3 + 276) + 4 * a2 + 3696));
         sub_4D8060(a1, a2, a3);
-        if (nox_common_mapflags_check(4096))
+        if (nox_common_gameFlags_check_40A5C0(4096))
         {
             sub_4FAD50(a1, 2, a1, a2);
             if (!sub_419E60(a1))
