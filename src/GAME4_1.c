@@ -9168,7 +9168,7 @@ int sub_515200()
 //----- (00515220) --------------------------------------------------------
 int sub_515220()
 {
-    sub_44DAB0(25, 0, sub_44E000);
+    nox_client_screenFadeTimeout_44DAB0(25, 0, sub_44E000);
     return 0;
 }
 
@@ -10495,7 +10495,7 @@ int sub_5165D0()
 {
     *(_DWORD*)& byte_5D4594[2386828] = script_pop() - 1;
     sub_413A00(1);
-    return sub_44DAB0(25, 1, (void (*)(void))sub_516570);
+    return nox_client_screenFadeTimeout_44DAB0(25, 1, (void (*)(void))sub_516570);
 }
 
 //----- (00516600) --------------------------------------------------------

@@ -594,7 +594,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 129;
                 break;
             case 0x2Eu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     v214 = sub_578B30(*(_WORD*)(v3 + 1));
                     v215 = v214;
@@ -624,7 +624,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0x2Fu:
                 sub_578B30(*(_WORD*)(v3 + 1));
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (*(_DWORD*)& nox_common_engineFlags & 0x10000000)
                         sub_578B70(*(unsigned __int16*)(v3 + 1));
@@ -643,7 +643,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0x30u:
                 sub_578B30(*(_WORD*)(v3 + 1));
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                 {
                     v3 += 11;
                     break;
@@ -689,7 +689,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x31u:
                 v44 = sub_578B30(*(_WORD*)(v3 + 1));
                 v45 = v44;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                 {
                     v3 += 3;
                     break;
@@ -725,7 +725,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x32u:
                 v49 = sub_578B30(*(_WORD*)(v3 + 1));
                 v50 = v49;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                 {
                     v3 += 3;
                     break;
@@ -761,12 +761,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x33u:
                 v54 = sub_578B30(*(_WORD*)(v3 + 1));
                 v55 = v54;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                 {
                     v3 += 3;
                     break;
                 }
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v55) : sub_45A6F0(v55);
                 v51 = v5;
@@ -805,28 +805,28 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x34u:
                 v57 = sub_578B30(*(_WORD*)(v3 + 1));
                 v58 = v57;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_4959F0(v58);
                 v3 += 3;
                 break;
             case 0x35u:
                 v59 = sub_578B30(*(_WORD*)(v3 + 1));
                 v60 = v59;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_495A20(v60);
                 v3 += 3;
                 break;
             case 0x36u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_4959B0();
                 ++v3;
                 break;
             case 0x37u:
                 v62 = sub_578B30(*(_WORD*)(v3 + 1));
                 v63 = v62;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
-                    if ((byte_5D4594[2650637] & 0x80u) != 0)
+                    if ((nox_common_engineFlags & 0x8000) != 0)
                         sub_578B70(*(unsigned __int16*)(v3 + 1));
                     if (sub_578B70(*(unsigned __int16*)(v3 + 1)))
                         LODWORD(v5) = sub_45A720(v63);
@@ -840,9 +840,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x38u:
                 v64 = sub_578B30(*(_WORD*)(v3 + 1));
                 v65 = v64;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
-                    if ((byte_5D4594[2650637] & 0x80u) != 0)
+                    if ((nox_common_engineFlags & 0x8000) != 0)
                         sub_578B70(*(unsigned __int16*)(v3 + 1));
                     if (sub_578B70(*(unsigned __int16*)(v3 + 1)))
                         LODWORD(v5) = sub_45A720(v65);
@@ -860,7 +860,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x39u:
                 v16 = sub_578B30(*(_WORD*)(v3 + 1));
                 v17 = v16;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_764;
                 LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v17) : sub_45A6F0(v17);
                 if (!(_DWORD)v5)
@@ -869,12 +869,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 4;
                 break;
             case 0x3Au:
-                if (sub_43C700() && !nox_common_gameFlags_check_40A5C0(1))
+                if (nox_client_isConnected_43C700() && !nox_common_gameFlags_check_40A5C0(1))
                     sub_410520(*(_WORD*)(v3 + 1));
                 v3 += 3;
                 break;
             case 0x3Bu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (!nox_common_gameFlags_check_40A5C0(1))
                     {
@@ -893,7 +893,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 3;
                 break;
             case 0x3Cu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (!nox_common_gameFlags_check_40A5C0(1))
                     {
@@ -915,7 +915,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 3;
                 break;
             case 0x3Du:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_916;
                 LODWORD(v5) = sub_410580(*(unsigned __int8*)(v3 + 4), *(unsigned __int8*)(v3 + 5));
                 if (!(_DWORD)v5)
@@ -931,7 +931,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 *(_BYTE*)(v5 + 2) = *(_BYTE*)(v3 - 3);
                 break;
             case 0x3Eu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     LODWORD(v5) = sub_410580(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
                     if ((_DWORD)v5)
@@ -941,9 +941,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0x41u:
                 sub_578B30(*(_WORD*)(v3 + 1));
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_764;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 if (!sub_4951F0(*(unsigned __int16*)(v3 + 1)))
                     goto LABEL_764;
@@ -952,22 +952,22 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0x42u:
                 sub_578B30(*(_WORD*)(v3 + 1));
-                if (sub_43C700() && (byte_5D4594[2650637] & 0x80u) != 0)
+                if (nox_client_isConnected_43C700() && (nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 sub_49A650(*(unsigned __int16*)(v3 + 1), *(_WORD*)(v3 + 3));
                 v3 += 5;
                 break;
             case 0x43u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_470CB0(*(__int16*)(v3 + 1));
                 v3 += 3;
                 break;
             case 0x44u:
                 v92 = sub_578B30(*(_WORD*)(v3 + 1));
                 v93 = v92;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1149;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 sub_4675E0(v93, *(_WORD*)(v3 + 3), *(_WORD*)(v3 + 5));
                 v3 += 7;
@@ -975,9 +975,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x45u:
                 v96 = sub_578B30(*(_WORD*)(v3 + 1));
                 v97 = v96;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1163;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 if (v97 != *(_DWORD*)& byte_5D4594[2616328])
                     goto LABEL_1163;
@@ -985,7 +985,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 5;
                 break;
             case 0x47u:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_966;
                 sub_470D20(*(unsigned __int8*)(v3 + 1), *(int*)& byte_587000[157092]);
                 v3 += 2;
@@ -994,9 +994,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v98 = sub_578B30(*(_WORD*)(v3 + 1));
                 v99 = *(_DWORD*)& byte_5D4594[2618908];
                 v100 = v98;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
-                    if ((byte_5D4594[2650637] & 0x80u) != 0)
+                    if ((nox_common_engineFlags & 0x8000) != 0)
                         sub_578B70(*(unsigned __int16*)(v3 + 1));
                     if (v100 == *(_DWORD*)& byte_5D4594[2616328])
                     {
@@ -1018,14 +1018,14 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 14;
                 break;
             case 0x49u:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1163;
                 sub_467450(*(_DWORD*)(v3 + 1));
                 v3 += 5;
                 break;
             case 0x4Au:
                 v102 = *(_DWORD*)(v3 + 1);
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1163;
                 sub_467490(v102);
                 v3 += 5;
@@ -1033,9 +1033,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x4Bu:
                 v103 = sub_578B30(*(_WORD*)(v3 + 1));
                 v104 = v103;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1163;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 *(_DWORD*)v381 = 0;
                 *(_WORD*)& v381[16] = -1;
@@ -1051,9 +1051,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x4Cu:
                 v105 = sub_578B30(*(_WORD*)(v3 + 1));
                 v106 = v105;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_735;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 v107 = 0;
                 v108 = v385;
@@ -1072,9 +1072,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x4Du:
                 v109 = sub_578B30(*(_WORD*)(v3 + 1));
                 v110 = v109;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1163;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 sub_461A80(v110);
                 v3 += 5;
@@ -1083,7 +1083,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v124 = sub_578B30(*(_WORD*)(v3 + 1));
                 v125 = v124;
                 v126 = sub_416590(0);
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     v127 = sub_417040(v125);
                     if (v127)
@@ -1111,7 +1111,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0x4Fu:
             case 0x50u:
-                LODWORD(v5) = sub_43C700();
+                LODWORD(v5) = nox_client_isConnected_43C700();
                 if (!(_DWORD)v5)
                     goto LABEL_442;
                 LOWORD(v5) = *(_WORD*)(v3 + 1);
@@ -1131,7 +1131,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0x51u:
             case 0x52u:
-                LODWORD(v5) = sub_43C700();
+                LODWORD(v5) = nox_client_isConnected_43C700();
                 if (!(_DWORD)v5)
                     goto LABEL_437;
                 LOWORD(v5) = *(_WORD*)(v3 + 1);
@@ -1154,7 +1154,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0x53u:
             case 0x54u:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1149;
                 sub_417B80(*(_BYTE*)v3, *(unsigned __int16*)(v3 + 1), *(_DWORD*)(v3 + 3));
                 v3 += 7;
@@ -1162,9 +1162,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x55u:
                 v140 = sub_578B30(*(_WORD*)(v3 + 1));
                 v141 = v140;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
-                    if ((byte_5D4594[2650637] & 0x80u) != 0)
+                    if ((nox_common_engineFlags & 0x8000) != 0)
                         sub_578B70(*(unsigned __int16*)(v3 + 1));
                     v142 = sub_417040(v141);
                     if (v142)
@@ -1190,12 +1190,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0x56u:
                 v144 = sub_418AB0(*(unsigned __int16*)(v3 + 1));
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_602;
                 HIDWORD(v5) = *(_DWORD*)(v3 + 4);
                 if (HIDWORD(v5) <= *(int*)& byte_5D4594[1200804])
                     goto LABEL_602;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 sub_452D80(309, 100);
                 if (!nox_common_gameFlags_check_40A5C0(1))
@@ -1224,7 +1224,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0x57u:
                 v172 = sub_418AB0(*(unsigned __int16*)(v3 + 1));
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_602;
                 k = *(_DWORD*)& byte_5D4594[1200804];
                 if (*(_DWORD*)(v3 + 4) <= *(int*)& byte_5D4594[1200804])
@@ -1267,7 +1267,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v389[0] = 0;
                 v392[0] = 0;
                 v391[0] = 0;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_602;
                 HIDWORD(v5) = *(_DWORD*)(v3 + 4);
                 if (HIDWORD(v5) <= *(int*)& byte_5D4594[1200804])
@@ -1358,7 +1358,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0x59u:
                 v160 = sub_418AB0(*(unsigned __int16*)(v3 + 1));
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_602;
                 k = *(_DWORD*)& byte_5D4594[1200804];
                 if (*(_DWORD*)(v3 + 4) <= *(int*)& byte_5D4594[1200804])
@@ -1444,9 +1444,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x5Au:
                 v132 = sub_578B30(*(_WORD*)(v3 + 1));
                 v133 = v132;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1149;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v133) : sub_45A6F0(v133);
                 v134 = v5;
@@ -1465,7 +1465,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 7;
                 break;
             case 0x5Bu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     LOBYTE(v129) = sub_467430();
                     v130 = (v129 >> 3) & 1;
@@ -1484,9 +1484,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x5Cu:
                 v88 = sub_578B30(*(_WORD*)(v3 + 1));
                 v89 = v88;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_902;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v89) : sub_45A6F0(v89);
                 if ((_DWORD)v5)
@@ -1507,9 +1507,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x5Du:
                 v84 = sub_578B30(*(_WORD*)(v3 + 1));
                 v85 = v84;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_948;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v85) : sub_45A6F0(v85);
                 if (!(_DWORD)v5)
@@ -1520,7 +1520,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x5Eu:
                 v178 = sub_578B30(*(_WORD*)(v3 + 1));
                 v179 = v178;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v179) : sub_45A6F0(v179);
                     if ((_DWORD)v5)
@@ -1534,7 +1534,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x5Fu:
                 v180 = sub_578B30(*(_WORD*)(v3 + 1));
                 v181 = v180;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v181) : sub_45A6F0(v181);
                     if ((_DWORD)v5)
@@ -1549,9 +1549,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x60u:
                 v120 = sub_578B30(*(_WORD*)(v3 + 1));
                 v121 = v120;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
-                    if ((byte_5D4594[2650637] & 0x80u) != 0)
+                    if ((nox_common_engineFlags & 0x8000) != 0)
                         sub_578B70(*(unsigned __int16*)(v3 + 1));
                     sub_462040(v121);
                 }
@@ -1560,9 +1560,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x61u:
                 v122 = sub_578B30(*(_WORD*)(v3 + 1));
                 v123 = v122;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
-                    if ((byte_5D4594[2650637] & 0x80u) != 0)
+                    if ((nox_common_engineFlags & 0x8000) != 0)
                         sub_578B70(*(unsigned __int16*)(v3 + 1));
                     sub_4624D0(v123);
                 }
@@ -1571,7 +1571,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x64u:
                 v182 = sub_578B30(*(_WORD*)(v3 + 1));
                 v183 = v182;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_638;
                 sub_467930(v183, *(unsigned __int8*)(v3 + 3), *(unsigned __int8*)(v3 + 4));
                 v3 += 5;
@@ -1579,9 +1579,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x65u:
                 v71 = sub_578B30(*(_WORD*)(v3 + 1));
                 v72 = v71;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
-                    if ((byte_5D4594[2650637] & 0x80u) != 0)
+                    if ((nox_common_engineFlags & 0x8000) != 0)
                         sub_578B70(*(unsigned __int16*)(v3 + 1));
                     if (sub_578B70(*(unsigned __int16*)(v3 + 1)))
                         LODWORD(v5) = sub_45A720(v72);
@@ -1615,7 +1615,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 7;
                 break;
             case 0x66u:
-                if (sub_43C700() && *(_DWORD*)& byte_5D4594[2614252])
+                if (nox_client_isConnected_43C700() && *(_DWORD*)& byte_5D4594[2614252])
                 {
                     HIDWORD(v5) = *(_DWORD*)(v3 + 1);
                     *(_DWORD*)(*(_DWORD*)& byte_5D4594[2614252] + 120) = HIDWORD(v5);
@@ -1625,9 +1625,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x67u:
                 v77 = sub_578B30(*(_WORD*)(v3 + 1));
                 v78 = v77;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
-                    if ((byte_5D4594[2650637] & 0x80u) != 0)
+                    if ((nox_common_engineFlags & 0x8000) != 0)
                         sub_578B70(*(unsigned __int16*)(v3 + 1));
                     if (sub_578B70(*(unsigned __int16*)(v3 + 1)))
                         LODWORD(v5) = sub_45A720(v78);
@@ -1655,9 +1655,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x68u:
                 v82 = sub_578B30(*(_WORD*)(v3 + 1));
                 v83 = v82;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1057;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 if (v83 == *(_DWORD*)& byte_5D4594[2616328])
                 {
@@ -1672,7 +1672,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
                 break;
             case 0x69u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     v285 = *(_WORD*)(v3 + 1);
                     v286 = v285;
@@ -1745,9 +1745,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x6Bu:
                 v69 = sub_578B30(*(_WORD*)(v3 + 1));
                 v70 = v69;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_948;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v70) : sub_45A6F0(v70);
                 if (!(_DWORD)v5)
@@ -1758,7 +1758,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x6Cu:
                 v184 = sub_578B30(*(_WORD*)(v3 + 1));
                 v185 = v184;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_638;
                 v186 = *(_WORD*)(v3 + 3);
                 v187 = v186;
@@ -1777,7 +1777,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x6Du:
                 v189 = sub_578B30(*(_WORD*)(v3 + 1));
                 v190 = v189;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                 {
                     v3 += 3;
                     break;
@@ -1794,14 +1794,14 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 LODWORD(v5) = sub_45A720(v190);
                 goto LABEL_643;
             case 0x6Eu:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1163;
                 sub_467440(*(_DWORD*)(v3 + 1));
                 v3 += 5;
                 break;
             case 0x6Fu:
                 v139 = 0;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (*(_BYTE*)(v3 + 3) & 0x80)
                         v139 = 1;
@@ -1820,7 +1820,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x7Cu:
                 v236 = sub_578B30(*(_WORD*)(v3 + 8));
                 v237 = v236;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (sub_578B70(*(unsigned __int16*)(v3 + 8)))
                         v238 = sub_45A720(v237);
@@ -1865,7 +1865,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x8Cu:
             case 0x8Du:
             case 0x8Eu:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_732;
                 sub_49BDD0((unsigned __int8*)v3);
                 HIWORD(k) = 0;
@@ -1891,7 +1891,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 9;
                 break;
             case 0x7Eu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     sub_4B7C40(
                             *(_WORD*)(v3 + 5),
@@ -1908,34 +1908,34 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
                 break;
             case 0x7Fu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_4B7EE0(*(_WORD*)(v3 + 1));
                 v3 += 3;
                 break;
             case 0x80u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_4B8090(*(unsigned __int16*)(v3 + 1), *(unsigned __int8*)(v3 + 3));
                 goto LABEL_764;
             case 0x81u:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_797;
                 sub_499610(*(int*)& byte_5D4594[1200776], 50, 1000, 30, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
                 v3 += 5;
                 break;
             case 0x82u:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_797;
                 sub_499610(*(int*)& byte_5D4594[1200780], 25, 500, 25, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
                 v3 += 5;
                 break;
             case 0x83u:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_797;
                 sub_499610(*(int*)& byte_5D4594[1200784], 25, 500, 25, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
                 v3 += 5;
                 break;
             case 0x84u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_499610(*(int*)& byte_5D4594[1200796], 25, 500, 25, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
             LABEL_797:
                 v3 += 5;
@@ -1948,7 +1948,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x8Au:
             case 0x8Bu:
             case 0xA3u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     k = 0;
                     switch (v8)
@@ -2086,7 +2086,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x8Fu:
             case 0x90u:
             case 0x91u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_49BDD0((unsigned __int8*)v3);
             LABEL_735:
                 v3 += 9;
@@ -2098,7 +2098,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     *(_DWORD*)& byte_5D4594[1200856] = sub_44CFC0((CHAR*)& byte_587000[159540]);
                     *(_DWORD*)& byte_5D4594[1197380] = sub_44CFC0((CHAR*)& byte_587000[159556]);
                 }
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_916;
                 v378.field_0 = *(__int16*)(v3 + 1);
                 v378.field_4 = *(__int16*)(v3 + 3);
@@ -2109,7 +2109,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 LODWORD(v5) = sub_45A360_drawable(v235, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
                 goto LABEL_829;
             case 0x94u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     v241 = *(unsigned __int16*)(v3 + 5) - *(unsigned __int16*)(v3 + 1);
                     v242 = *(unsigned __int16*)(v3 + 7) - *(unsigned __int16*)(v3 + 3);
@@ -2160,7 +2160,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 9;
                 break;
             case 0x95u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     sub_4C5020(v3);
                     if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4987) < 25)
@@ -2211,7 +2211,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 9;
                 break;
             case 0x96u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (!*(_DWORD*)& byte_5D4594[1200860])
                         * (_DWORD*)& byte_5D4594[1200860] = sub_44CFC0((CHAR*)& byte_587000[159568]);
@@ -2242,14 +2242,14 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 5;
                 break;
             case 0x97u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_4355B0(*(unsigned __int8*)(v3 + 1) / 3);
                 v3 += 2;
                 break;
             case 0x98u:
                 if (!*(_DWORD*)& byte_5D4594[1200844])
                     * (_DWORD*)& byte_5D4594[1200844] = sub_44CFC0((CHAR*)& byte_587000[159192]);
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     LODWORD(v5) = sub_45A360_drawable(
                             *(int*)& byte_5D4594[1200844],
@@ -2268,14 +2268,14 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 11;
                 break;
             case 0x9Au:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_473920();
                 v3 += 5;
                 break;
             case 0x9Bu:
             case 0x9Cu:
             case 0x9Du:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_4A9D00((unsigned __int8*)v3);
                 v3 += 3;
                 break;
@@ -2290,7 +2290,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     case 5u:
                     case 6u:
                     case 7u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_49C160(v3);
                         goto LABEL_1070;
                     case 8u:
@@ -2300,7 +2300,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     case 0xCu:
                     case 0xDu:
                     case 0xEu:
-                        if (!sub_43C700())
+                        if (!nox_client_isConnected_43C700())
                             goto LABEL_1070;
                         sub_49C450(v3);
                         v3 += 7;
@@ -2312,7 +2312,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0x9Fu:
                 v297 = sub_578B30(*(_WORD*)(v3 + 1));
                 v298 = v297;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v298) : sub_45A6F0(v298);
                     if ((_DWORD)v5)
@@ -2332,13 +2332,13 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 6;
                 break;
             case 0xA0u:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1163;
                 sub_499880((__int16*)(v3 + 1));
                 v3 += 5;
                 break;
             case 0xA1u:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_916;
                 if (!*(_DWORD*)& byte_5D4594[1200864])
                 {
@@ -2372,7 +2372,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 6;
                 break;
             case 0xA2u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (!*(_DWORD*)& byte_5D4594[1200848])
                         * (_DWORD*)& byte_5D4594[1200848] = sub_44CFC0((CHAR*)& byte_587000[159204]);
@@ -2417,7 +2417,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0xA6u:
             case 0xA7u:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_651;
                 v338 = *(char*)(v3 + 1);
                 v321 = (*(unsigned __int16*)(v3 + 2) >> 9) & 0x7E;
@@ -2471,9 +2471,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     }
                     v202 = 2;
                 }
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_693;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 if (*(_BYTE*)(v3 + 3) & 0x10)
                 {
@@ -2536,7 +2536,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 break;
             case 0xAAu:
                 v61 = nox_common_gameFlags_check_40A5C0(1) ? 5 : 1;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     v366[0] = -85;
                     if (nox_common_gameFlags_check_40A5C0(1))
@@ -2548,7 +2548,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += v61;
                 break;
             case 0xABu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     sub_4E55A0(a1, *(_DWORD*)(v3 + 1));
                 }
@@ -2642,7 +2642,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         sub_40A1F0(0);
                     }
                     qmemcpy(&byte_5D4594[1200708], v37, 0x3Au);
-                    if (sub_43C700() && *(_DWORD*)& byte_5D4594[1200768])
+                    if (nox_client_isConnected_43C700() && *(_DWORD*)& byte_5D4594[1200768])
                     {
                         v38 = loadString_sub_40F1D0((char*)& byte_587000[157156], 0, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 1429);
                         sub_445490(v38);
@@ -2686,7 +2686,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xB2u:
                 v18 = sub_578B30(*(_WORD*)(v3 + 1));
                 v19 = v18;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v19) : sub_45A6F0(v19);
                     if ((_DWORD)v5)
@@ -2697,7 +2697,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xB3u:
                 v20 = sub_578B30(*(_WORD*)(v3 + 1));
                 v21 = v20;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v21) : sub_45A6F0(v21);
                     v22 = v5;
@@ -2716,7 +2716,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xB4u:
                 v24 = sub_578B30(*(_WORD*)(v3 + 1));
                 v25 = v24;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v25) : sub_45A6F0(v25);
                     v26 = v5;
@@ -2739,7 +2739,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 4;
                 break;
             case 0xB5u:
-                if (sub_43C700()
+                if (nox_client_isConnected_43C700()
                     && (v329 = *(unsigned __int16*)(v3 + 7),
                         v320 = *(unsigned __int16*)(v3 + 5),
                         v31 = sub_578B30(*(_WORD*)(v3 + 1)),
@@ -2780,7 +2780,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 2;
                 break;
             case 0xBDu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (*(_BYTE*)(v3 + 1) == 1)
                         v290 = loadString_sub_40F1D0((char*)& byte_587000[160420], 0, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 6351);
@@ -2897,7 +2897,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 switch (*(unsigned __int8*)(v3 + 1))
                 {
                     case 0u:
-                        if (!sub_43C700())
+                        if (!nox_client_isConnected_43C700())
                             goto LABEL_888;
                         qmemcpy(v386, (const void*)(v3 + 18), 2 * *(unsigned __int8*)(v3 + 15));
                         v386[*(unsigned __int8*)(v3 + 15)] = 0;
@@ -2940,7 +2940,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     case 1u:
                         v274 = sub_578B30(*(_WORD*)(v3 + 6));
                         v275 = v274;
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             if (sub_578B70(*(unsigned __int16*)(v3 + 6)))
                                 LODWORD(v5) = sub_45A720(v275);
@@ -2963,7 +2963,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 10;
                         break;
                     case 2u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             LODWORD(v5) = sub_418C80(*(_DWORD*)(v3 + 2));
                             if ((_DWORD)v5)
@@ -2974,7 +2974,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         }
                         goto LABEL_902;
                     case 3u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             v278 = sub_418C80(*(unsigned __int16*)(v3 + 6));
                             if (v278)
@@ -2990,7 +2990,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         }
                         goto LABEL_908;
                     case 4u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             LODWORD(v5) = sub_418AB0(*(_DWORD*)(v3 + 2));
                             if ((_DWORD)v5)
@@ -2999,7 +2999,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 46;
                         break;
                     case 5u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             LODWORD(v5) = sub_418AB0(*(_DWORD*)(v3 + 2));
                             if ((_DWORD)v5)
@@ -3007,7 +3007,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         }
                         goto LABEL_916;
                     case 6u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             LODWORD(v5) = sub_418AB0(*(_DWORD*)(v3 + 2));
                             v280 = (wchar_t*)v5;
@@ -3020,7 +3020,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         }
                         goto LABEL_920;
                     case 7u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             sub_419030(0);
                             sub_456FA0();
@@ -3028,7 +3028,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 2;
                         break;
                     case 8u:
-                        if (sub_43C700() && (LODWORD(v5) = sub_418AB0(*(_DWORD*)(v3 + 2)), (_DWORD)v5))
+                        if (nox_client_isConnected_43C700() && (LODWORD(v5) = sub_418AB0(*(_DWORD*)(v3 + 2)), (_DWORD)v5))
                         {
                             sub_419090(v5, *(_DWORD*)(v3 + 6));
                             v3 += 10;
@@ -3040,12 +3040,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         }
                         break;
                     case 9u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_417D00();
                         v3 += 2;
                         break;
                     case 0xCu:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 2));
                             if ((_DWORD)v5)
@@ -3074,33 +3074,33 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 switch (*(unsigned __int8*)(v3 + 1))
                 {
                     case 1u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_4C1590();
                         v3 += 2;
                         break;
                     case 2u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_479280();
                         v3 += 2;
                         break;
                     case 3u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_4C1BC0(v3);
                         v3 += 3;
                         break;
                     case 4u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_4C1790(v3);
                         v3 += 15;
                         break;
                     case 5u:
-                        if (!sub_43C700())
+                        if (!nox_client_isConnected_43C700())
                             goto LABEL_1133;
                         sub_4C15D0(v3);
                         v3 += 4;
                         break;
                     case 6u:
-                        if (!sub_43C700())
+                        if (!nox_client_isConnected_43C700())
                         {
                             v3 += 14;
                             break;
@@ -3109,12 +3109,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 14;
                         break;
                     case 7u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_4C1BF0();
                         v3 += 2;
                         break;
                     case 8u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_479300(
                                     *(unsigned __int16*)(v3 + 2),
                                     *(unsigned __int16*)(v3 + 4),
@@ -3124,33 +3124,33 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 18;
                         break;
                     case 9u:
-                        if (!sub_43C700())
+                        if (!nox_client_isConnected_43C700())
                             goto LABEL_1133;
                         sub_479480(*(unsigned __int16*)(v3 + 2));
                         v3 += 4;
                         break;
                     case 0xCu:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_4C1320(v3);
                         v3 += 52;
                         break;
                     case 0xDu:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_478FD0((const wchar_t*)(v3 + 4), (char*)(v3 + 54), *(unsigned __int16*)(v3 + 2));
                         v3 += 86;
                         break;
                     case 0x1Bu:
-                        if (!sub_43C700())
+                        if (!nox_client_isConnected_43C700())
                             goto LABEL_1133;
                         sub_479520(*(unsigned __int16*)(v3 + 2));
                         v3 += 4;
                         break;
                     case 0x1Du:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_4795E0(*(unsigned __int16*)(v3 + 2), *(_DWORD*)(v3 + 4));
                         goto LABEL_1057;
                     case 0x1Fu:
-                        if (!sub_43C700())
+                        if (!nox_client_isConnected_43C700())
                             goto LABEL_1057;
                         sub_479740(*(unsigned __int16*)(v3 + 2), *(_DWORD*)(v3 + 4));
                         v3 += 8;
@@ -3160,7 +3160,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
                 break;
             case 0xCAu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (*(short*)(v3 + 1) == -8531)
                         sub_48E940();
@@ -3170,19 +3170,19 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 3;
                 break;
             case 0xCBu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_445450();
                 ++v3;
                 break;
             case 0xCCu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_48D5A0(v3);
                 k = *(unsigned __int8*)(v3 + 3);
                 v3 += k + 4;
                 break;
             case 0xCDu:
                 v86 = 0;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     v87 = *(_BYTE*)(v3 + 2);
                     LOBYTE(v370) = *(_BYTE*)(v3 + 2) & 0x7F;
@@ -3193,19 +3193,19 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 3;
                 break;
             case 0xCEu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_461090(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
                 v3 += 3;
                 break;
             case 0xCFu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_461120(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
                 v3 += 3;
                 break;
             case 0xD0u:
                 if (*(_BYTE*)(v3 + 1) == 3)
                 {
-                    if (sub_43C700())
+                    if (nox_client_isConnected_43C700())
                     {
                         sub_479D30(
                                 (wchar_t*)(v3 + 34),
@@ -3220,7 +3220,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
                 else if (*(_BYTE*)(v3 + 1) == 4)
                 {
-                    if (sub_43C700())
+                    if (nox_client_isConnected_43C700())
                     {
                         sub_47A1F0();
                         if (*(_DWORD*)& byte_5D4594[2618908])
@@ -3231,14 +3231,14 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
                 break;
             case 0xD1u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_45D140(*(unsigned __int8*)(v3 + 1), *(_BYTE*)(v3 + 2) & 0x7F);
                 v3 += 3;
                 break;
             case 0xD2u:
                 v281 = sub_578B30(*(_WORD*)(v3 + 1));
                 v282 = v281;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_948;
                 if (sub_578B70(*(unsigned __int16*)(v3 + 1)))
                 {
@@ -3267,7 +3267,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 7;
                 break;
             case 0xD3u:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_112;
                 if ((unsigned int)(*(_DWORD*)& byte_5D4594[2598000] - *(_DWORD*)(v3 + 9)) >= 0x1E)
                 {
@@ -3295,7 +3295,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 switch (*(_BYTE*)(v3 + 1))
                 {
                     case 1:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             if (v296)
                                 sub_427490(v296, (char*)(v3 + 2), *(_WORD*)(v3 + 66));
@@ -3304,7 +3304,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 68;
                         break;
                     case 2:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             if (v296)
                                 sub_427590(v296, (const char*)(v3 + 2));
@@ -3313,15 +3313,15 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 68;
                         break;
                     case 3:
-                        if (sub_43C700() && v296)
+                        if (nox_client_isConnected_43C700() && v296)
                             sub_4276B0(v296, (const char*)(v3 + 2), *(_WORD*)(v3 + 66));
                         v3 += 68;
                         break;
                 }
                 break;
             case 0xD6u:
-                if (sub_43C700())
-                    sub_450160(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2), 0);
+                if (nox_client_isConnected_43C700())
+                    nox_client_lockScreenBriefing_450160(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2), 0);
                 v3 += 3;
                 break;
             case 0xD7u:
@@ -3334,7 +3334,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 5;
                 break;
             case 0xD8u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     sub_455D80(*(_BYTE*)(v3 + 2), *(_BYTE*)(v3 + 1));
                     sub_4705F0(*(_BYTE*)(v3 + 1), *(_BYTE*)(v3 + 3), *(_WORD*)(v3 + 4));
@@ -3347,7 +3347,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
                 break;
             case 0xD9u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     sub_456140(*(_BYTE*)(v3 + 1));
                     sub_470650(*(_BYTE*)(v3 + 1), *(_WORD*)(v3 + 2));
@@ -3357,7 +3357,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xDAu:
                 v137 = sub_578B30(*(_WORD*)(v3 + 1));
                 v138 = v137;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (sub_4951F0(v138))
                         sub_4950F0(v138, *(_BYTE*)(v3 + 3));
@@ -3373,7 +3373,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xDBu:
                 v193 = sub_578B30(*(_WORD*)(v3 + 1));
                 v194 = v193;
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (sub_578B70(*(unsigned __int16*)(v3 + 1)))
                         v195 = sub_45A720(v194);
@@ -3389,7 +3389,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xDCu:
                 v196 = sub_578B30(*(_WORD*)(v3 + 1));
                 v197 = v196;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                 {
                     v3 += 3;
                     break;
@@ -3409,9 +3409,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xDDu:
                 v90 = sub_578B30(*(_WORD*)(v3 + 1));
                 v91 = v90;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_1149;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 if (v91 == *(_DWORD*)& byte_5D4594[2616328])
                 {
@@ -3432,9 +3432,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xDEu:
                 v94 = sub_578B30(*(_WORD*)(v3 + 1));
                 v95 = v94;
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                     goto LABEL_948;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 if (v95 != *(_DWORD*)& byte_5D4594[2616328])
                     goto LABEL_948;
@@ -3448,7 +3448,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xE0u:
                 v291 = sub_578B30(*(_WORD*)(v3 + 1));
                 v292 = v291;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 if (*(_WORD*)(v3 + 1))
                     sub_467750(v292, *(_BYTE*)(v3 + 3));
@@ -3464,7 +3464,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
             case 0xE2u:
                 v294 = sub_578B30(*(_WORD*)(v3 + 1));
                 v295 = v294;
-                if ((byte_5D4594[2650637] & 0x80u) != 0)
+                if ((nox_common_engineFlags & 0x8000) != 0)
                     sub_578B70(*(unsigned __int16*)(v3 + 1));
                 LODWORD(v5) = sub_478080(v295);
                 if ((_DWORD)v5
@@ -3478,7 +3478,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 4;
                 break;
             case 0xE4u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (*(_BYTE*)(v3 + 1) == 1)
                     {
@@ -3492,28 +3492,28 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     }
                     else if (!(*(_DWORD*)& nox_common_engineFlags & 0x40000))
                     {
-                        sub_44DAB0(25, *(_BYTE*)(v3 + 2) == 1, sub_44E000);
+                        nox_client_screenFadeTimeout_44DAB0(25, *(_BYTE*)(v3 + 2) == 1, sub_44E000);
                     }
                 }
                 v3 += 3;
                 break;
             case 0xE5u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_43D9B0(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
                 v3 += 3;
                 break;
             case 0xE6u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_43DA80();
                 v3 += 3;
                 break;
             case 0xE7u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                     sub_43DAD0();
                 v3 += 3;
                 break;
             case 0xE8u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 1));
                     v111 = (_DWORD*)v5;
@@ -3564,7 +3564,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 3;
                 break;
             case 0xE9u:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     if (nox_common_gameFlags_check_40A5C0(0x2000))
                     {
@@ -3594,7 +3594,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 }
                 break;
             case 0xEBu:
-                if (!sub_43C700())
+                if (!nox_client_isConnected_43C700())
                 {
                     v3 += 2;
                     break;
@@ -3603,14 +3603,14 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 v3 += 2;
                 break;
             case 0xECu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     sub_43C7A0(*(unsigned __int8*)(v3 + 1));
                 }
                 v3 += 2;
                 break;
             case 0xEDu:
-                if (sub_43C700())
+                if (nox_client_isConnected_43C700())
                 {
                     sub_4C1CA0(*(unsigned __int8*)(v3 + 1));
                 }
@@ -3668,7 +3668,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                 switch (*(unsigned __int8*)(v3 + 1))
                 {
                     case 0u:
-                        if (sub_43C700() == 1)
+                        if (nox_client_isConnected_43C700() == 1)
                         {
                             if (nox_common_gameFlags_check_40A5C0(1))
                             {
@@ -3684,7 +3684,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         }
                         goto LABEL_1085;
                     case 1u:
-                        if (sub_43C700() == 1)
+                        if (nox_client_isConnected_43C700() == 1)
                         {
                             sub_452D80(1008, 100);
                             v299 = sub_417040(*(unsigned __int16*)(v3 + 2));
@@ -3697,12 +3697,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 4;
                         break;
                     case 2u:
-                        if (sub_43C700() == 1)
+                        if (nox_client_isConnected_43C700() == 1)
                             sub_49B4B0((unsigned __int16*)v3);
                         v3 += 14;
                         break;
                     case 4u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             v300 = sub_417040(*(unsigned __int16*)(v3 + 3));
                             if (v300)
@@ -3719,32 +3719,32 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     case 8u:
                     case 9u:
                     case 0xAu:
-                        sub_43C700();
+                        nox_client_isConnected_43C700();
                         v3 += 4;
                         break;
                     case 0xBu:
-                        sub_43C700();
+                        nox_client_isConnected_43C700();
                         v3 += 16;
                         break;
                     case 0xCu:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_450770(v3);
                         *(_DWORD*)& byte_5D4594[1556112] = 0;
                         v3 += 90;
                         break;
                     case 0xDu:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_450980(v3, *(_BYTE*)(v3 + 4) & 1);
                         goto LABEL_1119;
                     case 0xEu:
-                        if (sub_43C700())
-                            sub_450A30(v3, 1);
+                        if (nox_client_isConnected_43C700())
+                            nox_client_showQuestBriefing_450A30(v3, 1);
                     LABEL_1119:
                         *(_DWORD*)& byte_5D4594[1556112] = 0;
                         v3 += 69;
                         break;
                     case 0xFu:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             LODWORD(v5) = sub_45A720(*(unsigned __int16*)(v3 + 2));
                             if ((_DWORD)v5)
@@ -3755,7 +3755,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                     case 0x10u:
                         if (!*(_DWORD*)& byte_5D4594[1200904])
                             * (_DWORD*)& byte_5D4594[1200904] = sub_44CFC0((CHAR*)& byte_587000[160484]);
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             v301 = sub_45A360_drawable(
                                     *(int*)& byte_5D4594[1200904],
@@ -3769,23 +3769,23 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         }
                         goto LABEL_1130;
                     case 0x11u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_45D320(*(unsigned __int16*)(v3 + 2));
                         goto LABEL_1133;
                     case 0x12u:
-                        if (!sub_43C700())
+                        if (!nox_client_isConnected_43C700())
                             goto LABEL_1133;
                         sub_45D4A0(*(unsigned __int16*)(v3 + 2));
                         v3 += 4;
                         break;
                     case 0x13u:
-                        if (!sub_43C700())
+                        if (!nox_client_isConnected_43C700())
                             goto LABEL_1133;
                         sub_45D400(*(unsigned __int16*)(v3 + 2));
                         v3 += 4;
                         break;
                     case 0x14u:
-                        if (sub_43C700() != 1 || sub_470580())
+                        if (nox_client_isConnected_43C700() != 1 || sub_470580())
                         {
                             LABEL_1085:
                             v3 += 2;
@@ -3797,7 +3797,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         }
                         break;
                     case 0x15u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 6));
                             if ((_DWORD)v5)
@@ -3809,7 +3809,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 8;
                         break;
                     case 0x16u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 3));
                             if ((_DWORD)v5)
@@ -3818,7 +3818,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 5;
                         break;
                     case 0x17u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 3));
                             if ((_DWORD)v5)
@@ -3827,7 +3827,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 5;
                         break;
                     case 0x18u:
-                        if (sub_43C700() == 1)
+                        if (nox_client_isConnected_43C700() == 1)
                             sub_4BFBB0((_DWORD*) * (unsigned __int8*)(v3 + 2));
                         v3 += 3;
                         break;
@@ -3840,7 +3840,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v302 = (_DWORD*)sub_45A360_drawable(*(int*)& byte_5D4594[1200912], *(__int16*)(v3 + 2), *(__int16*)(v3 + 4));
                         if (v302)
                             sub_45A110_drawable(v302);
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             v380.field_0 = *(__int16*)(v3 + 2);
                             v380.field_4 = *(__int16*)(v3 + 4);
@@ -3848,17 +3848,17 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         }
                         goto LABEL_1149;
                     case 0x1Au:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_499610(*(int*)& byte_5D4594[1200788], 25, 500, 25, *(__int16*)(v3 + 2), *(__int16*)(v3 + 4));
                         v3 += 6;
                         break;
                     case 0x1Cu:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                             sub_41D1A0(*(unsigned __int8*)(v3 + 2));
                         v3 += 3;
                         break;
                     case 0x1Du:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             sub_465DE0(*(unsigned __int16*)(v3 + 2));
                             v3 += 4;
@@ -3871,7 +3871,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         break;
                     case 0x1Eu:
                         v303 = sub_417040(*(unsigned __int16*)(v3 + 3));
-                        if (sub_43C700() && v303)
+                        if (nox_client_isConnected_43C700() && v303)
                         {
                             if (v303 == *(char**)& byte_5D4594[2618908])
                             {
@@ -3890,7 +3890,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         goto LABEL_1163;
                     case 0x1Fu:
                         v306 = sub_417040(*(unsigned __int16*)(v3 + 3));
-                        if (!sub_43C700() || !v306)
+                        if (!nox_client_isConnected_43C700() || !v306)
                             goto LABEL_1163;
                         if (v306 == *(char**)& byte_5D4594[2618908])
                         {
@@ -3909,7 +3909,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         break;
                     case 0x20u:
                         v309 = sub_417040(*(unsigned __int16*)(v3 + 3));
-                        if (!sub_43C700() || !v309)
+                        if (!nox_client_isConnected_43C700() || !v309)
                             goto LABEL_1163;
                         if (v309 == *(char**)& byte_5D4594[2618908])
                         {
@@ -3927,7 +3927,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3)
                         v3 += 5;
                         break;
                     case 0x21u:
-                        if (sub_43C700())
+                        if (nox_client_isConnected_43C700())
                         {
                             v383[0] = (int)& byte_587000[160948];
                             v383[1] = (int)& byte_587000[160988];
