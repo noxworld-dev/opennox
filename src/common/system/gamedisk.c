@@ -24,7 +24,7 @@ int sub_413520_gamedisk()
             {
                 sub_4137C0();
                 sub_44D8F0();
-                if (nox_common_mapflags_check(2048))
+                if (nox_common_gameFlags_check_40A5C0(2048))
                     sub_4137A0();
                 v8 = sub_413760;
                 v7 = sub_413780;
@@ -33,7 +33,7 @@ int sub_413520_gamedisk()
                 v2 = loadString_sub_40F1D0((char*)& byte_587000[32088], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 199);
                 goto LABEL_9;
             }
-            if (v1 == 1 && nox_common_mapflags_check(2048))
+            if (v1 == 1 && nox_common_gameFlags_check_40A5C0(2048))
             {
                 sub_4137C0();
                 sub_44D8F0();

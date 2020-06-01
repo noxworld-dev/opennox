@@ -310,7 +310,7 @@ void __cdecl sub_4611E0(int a1, int a2, char* a3)
         {
             if (*((_DWORD*)v3 - 4) == a1 && *(_DWORD*)v3 != a2)
             {
-                if (nox_common_mapflags_check(2) && *(_DWORD*)& byte_5D4594[2618908])
+                if (nox_common_gameFlags_check_40A5C0(2) && *(_DWORD*)& byte_5D4594[2618908])
                     * (_DWORD*)(*(_DWORD*)& byte_5D4594[2618908] + 4 * a1 + 3696) = a2;
                 *(_DWORD*)v3 = a2;
                 if (a2)
@@ -1385,7 +1385,7 @@ int __cdecl sub_463430(int a1)
         }
         ++v7;
     } while (v7 < 6);
-    if (nox_common_mapflags_check(4096) && *(_DWORD*)& byte_5D4594[1050008])
+    if (nox_common_gameFlags_check_40A5C0(4096) && *(_DWORD*)& byte_5D4594[1050008])
     {
         v4 += 5;
         v3 += 6;
@@ -1404,7 +1404,7 @@ int __cdecl sub_463430(int a1)
         *(_DWORD*)& byte_5D4594[1049820] = v3 + 30;
         *(_DWORD*)& byte_5D4594[1049824] = v4 + 20;
     }
-    if (nox_common_mapflags_check(4096) && sub_4BFD30())
+    if (nox_common_gameFlags_check_40A5C0(4096) && sub_4BFD30())
     {
         v9 = v4 + 5;
         v10 = v3 + 66;
@@ -3198,7 +3198,7 @@ int __cdecl sub_467B00(int a1, int a2)
             {
                 v6 = 31;
                 if (*(_BYTE*)(*(_DWORD*)v3 + 112) & 0x10)
-                    v6 = nox_common_mapflags_check(6144) ? 9 : 3;
+                    v6 = nox_common_gameFlags_check_40A5C0(6144) ? 9 : 3;
                 if (!(*(_DWORD*)(*(_DWORD*)v3 + 112) & 0x4000000) && a2 + v5 <= v6)
                     LABEL_15:
                     ++v8;
@@ -3381,7 +3381,7 @@ int __cdecl sub_467DF0(int a1)
     sub_4B8220();
     nox_alloc_npcs_2();
     sub_4573B0();
-    if (!nox_common_mapflags_check(1))
+    if (!nox_common_gameFlags_check_40A5C0(1))
     {
         sub_469B90(v4);
         sub_4349C0(v4);
@@ -3393,7 +3393,7 @@ int __cdecl sub_467DF0(int a1)
     sub_49BBB0();
     sub_431510();
     sub_45A5E0(a1);
-    result = nox_common_mapflags_check(1);
+    result = nox_common_gameFlags_check_40A5C0(1);
     if (!result) {
         sub_410160();
         for (int i = 0; i < ptr_5D4594_2650668_cap*44; i += 44) {
@@ -4142,7 +4142,7 @@ char* __cdecl sub_46A3F0(int a1, int a2, int a3, int a4)
 //----- (0046A430) --------------------------------------------------------
 void __cdecl sub_46A430(int a1)
 {
-    if (!nox_common_mapflags_check(2048))
+    if (!nox_common_gameFlags_check_40A5C0(2048))
     {
         if (!*(_DWORD*)& byte_5D4594[1064868])
         {
@@ -5824,7 +5824,7 @@ void sub_46B740()
                     }
                     else
                     {
-                        if (nox_common_mapflags_check(6144) || sub_57B450((int*)v44))
+                        if (nox_common_gameFlags_check_40A5C0(6144) || sub_57B450((int*)v44))
                             sub_477610(2);
                         else
                             sub_477610(16);
@@ -6578,7 +6578,7 @@ char* sub_46DCC0()
         v43 = (wchar_t*)v23;
         byte_5D4594[1090117] = 0;
         byte_5D4594[1090118] = 0;
-        if (nox_common_mapflags_check(1) && *(_DWORD*)& byte_5D4594[2650636] & 0x40000)
+        if (nox_common_gameFlags_check_40A5C0(1) && *(_DWORD*)& nox_common_engineFlags & 0x40000)
             v43 = (wchar_t*)--v23;
         for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
         {
@@ -6602,7 +6602,7 @@ char* sub_46DCC0()
                 v28 = sub_416EA0();
                 for (j = -1; v28; v28 = sub_416EE0((int)v28))
                 {
-                    if ((v28[2064] != 31 || !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
+                    if ((v28[2064] != 31 || !(*(_DWORD*)& nox_common_engineFlags & 0x40000))
                         && *((int*)v28 + 527) >= v26
                         && !sub_46E1E0(*((_DWORD*)v28 + 515))
                         && *((int*)v28 + 527) < j)
@@ -6679,7 +6679,7 @@ char* sub_46DCC0()
             }
         }
     }
-    else if (nox_common_mapflags_check(1024))
+    else if (nox_common_gameFlags_check_40A5C0(1024))
     {
         v1 = 0x80000000;
         v41 = sub_416F40();
@@ -6688,7 +6688,7 @@ char* sub_46DCC0()
         v42 = (wchar_t*)v2;
         byte_5D4594[1090117] = 0;
         byte_5D4594[1090118] = 0;
-        if (nox_common_mapflags_check(1) && *(_DWORD*)& byte_5D4594[2650636] & 0x40000)
+        if (nox_common_gameFlags_check_40A5C0(1) && *(_DWORD*)& nox_common_engineFlags & 0x40000)
             --v41;
         if (byte_5D4594[1090116] < v2)
         {
@@ -6729,7 +6729,7 @@ char* sub_46DCC0()
                 v11 = sub_416EA0();
                 for (m = 0x7FFFFFFF; v11; v11 = sub_416EE0((int)v11))
                 {
-                    if ((v11[2064] != 31 || !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
+                    if ((v11[2064] != 31 || !(*(_DWORD*)& nox_common_engineFlags & 0x40000))
                         && *((int*)v11 + 535) >= v9
                         && !sub_46E1E0(*((_DWORD*)v11 + 515))
                         && *((int*)v11 + 535) < m)
@@ -6807,7 +6807,7 @@ int __cdecl sub_46E080(int a1)
     int v1; // eax
     _DWORD* v3; // eax
 
-    if (nox_common_mapflags_check(32))
+    if (nox_common_gameFlags_check_40A5C0(32))
     {
         v1 = *(_DWORD*)(a1 + 2060);
         if (v1 == *(unsigned __int16*)& byte_5D4594[1090128])
@@ -6815,12 +6815,12 @@ int __cdecl sub_46E080(int a1)
         if (v1 == *(unsigned __int16*)& byte_5D4594[1090130])
             return 3;
     }
-    else if (nox_common_mapflags_check(64))
+    else if (nox_common_gameFlags_check_40A5C0(64))
     {
         if (*(_DWORD*)(a1 + 2060) == *(unsigned __int16*)& byte_5D4594[1090132])
             return 4;
     }
-    else if (nox_common_mapflags_check(16))
+    else if (nox_common_gameFlags_check_40A5C0(16))
     {
         v3 = sub_45A6F0(*(_DWORD*)(a1 + 2060));
         if (v3)
@@ -6925,7 +6925,7 @@ char* sub_46E4E0()
     byte_5D4594[1090116] = 0;
     byte_5D4594[1090117] = 0;
     byte_5D4594[1090118] = 0;
-    if (nox_common_mapflags_check(1) && *(_DWORD*)& byte_5D4594[2650636] & 0x40000)
+    if (nox_common_gameFlags_check_40A5C0(1) && *(_DWORD*)& nox_common_engineFlags & 0x40000)
         --v23;
     if (byte_5D4594[1090116] < v1)
     {
@@ -6966,7 +6966,7 @@ char* sub_46E4E0()
             v10 = sub_416EA0();
             for (k = 0x80000000; v10; v10 = sub_416EE0((int)v10))
             {
-                if ((v10[2064] != 31 || !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
+                if ((v10[2064] != 31 || !(*(_DWORD*)& nox_common_engineFlags & 0x40000))
                     && *((int*)v10 + 534) <= v8
                     && !sub_46E1E0(*((_DWORD*)v10 + 515))
                     && *((int*)v10 + 534) > k)
@@ -7114,7 +7114,7 @@ char sub_46FEE0()
             return 0;
     }
     v4 = *(_DWORD*)& byte_5D4594[80 * v0 + 1084196];
-    if (!nox_common_mapflags_check(1024))
+    if (!nox_common_gameFlags_check_40A5C0(1024))
     {
         v7 = byte_5D4594[1090117];
         if (byte_5D4594[1090117])
@@ -7154,7 +7154,7 @@ char __cdecl sub_46FF70(int a1)
     unsigned __int8* v6; // eax
 
     v1 = 1;
-    if (!nox_common_mapflags_check(1024))
+    if (!nox_common_gameFlags_check_40A5C0(1024))
     {
         v5 = byte_5D4594[1090116];
         if (byte_5D4594[1090116])
@@ -7354,7 +7354,7 @@ int sub_4703F0()
     {
         if (*(_DWORD*)& byte_5D4594[1090120] == 1)
         {
-            result = nox_common_mapflags_check(4096);
+            result = nox_common_gameFlags_check_40A5C0(4096);
             v1 = *(_DWORD*)& byte_5D4594[1090120];
             if (!result)
             {
@@ -8250,7 +8250,7 @@ int __cdecl sub_471C00(int a1)
     v1 = *(_DWORD*)(a1 + 32);
     v7 = v1;
     v2 = &byte_5D4594[20 * v1 + 1093036];
-    if (sub_4372E0() || *(_DWORD*)& byte_5D4594[2650672] || nox_common_mapflags_check(9437184))
+    if (sub_4372E0() || *(_DWORD*)& byte_5D4594[2650672] || nox_common_gameFlags_check_40A5C0(9437184))
         return 1;
     if (v1)
         v3 = nox_win_width / 2 + 21;
@@ -8791,7 +8791,7 @@ int __cdecl sub_472600(int a1, int a2)
                         goto LABEL_37;
                 }
             }
-            if (nox_common_mapflags_check(0x10000) || *(_DWORD*)(v11 + 12))
+            if (nox_common_gameFlags_check_40A5C0(0x10000) || *(_DWORD*)(v11 + 12))
             {
                 v26 = *(_DWORD*)& byte_587000[149232];
                 v25 = v26;
@@ -8811,7 +8811,7 @@ int __cdecl sub_472600(int a1, int a2)
         v10 = i + 1;
         v80 += 23;
     }
-    if (byte_5D4594[2650636] & 8)
+    if (nox_common_engineFlags & 8)
     {
         v29 = sub_50CB00();
         v30 = (char*)sub_50CB10();
@@ -8945,7 +8945,7 @@ int __cdecl sub_472600(int a1, int a2)
                 sub_473570(xLeft.field_0, xLeft.field_4);
                 continue;
             }
-            if (!nox_common_mapflags_check(32))
+            if (!nox_common_gameFlags_check_40A5C0(32))
             {
                 if (k == *(int*)& byte_5D4594[2614252])
                     sub_4735C0(xLeft.field_0, xLeft.field_4);
@@ -9374,7 +9374,7 @@ int sub_473680()
                                                                                                                                 sub_4AB4A0(0);
                                                                                                                                 sub_4AB4D0(0);
                                                                                                                                 if (!*(_DWORD*)& byte_587000[80828]
-                                                                                                                                    || *(_DWORD*)& byte_5D4594[2650636] & 0x40000)
+                                                                                                                                    || *(_DWORD*)& nox_common_engineFlags & 0x40000)
                                                                                                                                 {
                                                                                                                                     sub_4721A0(0);
                                                                                                                                     sub_460EA0(0);
@@ -10150,7 +10150,7 @@ int __cdecl sub_4745F0(_DWORD* a1)
                 sub_4C4F40(a1, v4);
             sub_474E60(a1, v4);
             sub_495BB0((_DWORD*)v4, a1);
-            if (byte_5D4594[2650636] & 2)
+            if (nox_common_engineFlags & 2)
                 nox_thing_debug_draw(a1, v4);
             v5 = *(_DWORD*)(v4 + 480);
             *(_DWORD*)(v4 + 132) = 0;
@@ -10593,8 +10593,8 @@ int4* __cdecl sub_475810_draw(int* a1)
     v7 = v6 / 23;
     sub_496150(v1);
     v8 = 0;
-    if (!nox_common_mapflags_check(2048) && !sub_413830()
-        || nox_common_mapflags_check(2048) && !sub_413840()
+    if (!nox_common_gameFlags_check_40A5C0(2048) && !sub_413830()
+        || nox_common_gameFlags_check_40A5C0(2048) && !sub_413840()
         || sub_4356C0(*(int*)& byte_5D4594[2614252], 2)
         || *(_DWORD*)& byte_5D4594[2650672])
     {
@@ -10620,7 +10620,7 @@ int4* __cdecl sub_475810_draw(int* a1)
     }
     (*(void(__cdecl * *)(_DWORD)) & byte_5D4594[3807132])(v1);
     v10 = 1;
-    if (*(_DWORD*)& byte_5D4594[2650636] & 0x100000
+    if (*(_DWORD*)& nox_common_engineFlags & 0x100000
         || (v38.field_0 = (double)v1[6], v38.field_4 = (double)v1[7], v11 = sub_411160(&v38), v11 == 255)
         || v11 == -1)
     {
@@ -10738,7 +10738,7 @@ int4* __cdecl sub_475810_draw(int* a1)
                     sub_4746C0(v1, dr);
                     if (dr->draw_func(v1, dr))
                     {
-                        if (byte_5D4594[2650636] & 2)
+                        if (nox_common_engineFlags & 2)
                             nox_thing_debug_draw(v1, dr);
                         v28 = *(_BYTE*)(&dr->field_70);
                         dr->field_33 = 0;
@@ -10805,7 +10805,7 @@ int4* __cdecl sub_475810_draw(int* a1)
         }
     }
     sub_44D9F0(0);
-    if (byte_5D4594[2650636] & 8)
+    if (nox_common_engineFlags & 8)
         sub_476270(v1);
     sub_45AB40();
     sub_437290();

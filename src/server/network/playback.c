@@ -80,7 +80,7 @@ int __cdecl sub_4D3580_net_playback(int a1)
                 {
                     _read(*(int*)& byte_587000[197428], &v8, 4u);
                     _read(*(int*)& byte_587000[197428], v11, 2 * v8);
-                    sub_443C80((wchar_t*)v11, 0);
+                    nox_server_parseCmdText_443C80((wchar_t*)v11, 0);
                 }
                 break;
             case 4u:

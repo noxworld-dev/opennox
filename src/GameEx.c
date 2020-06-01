@@ -1112,7 +1112,7 @@ int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4)
   v4 = sub_46B0A0((int *)a3);
   if ( v4 > 0x791 )
   {
-    if ( v4 == 1938 && !nox_common_mapflags_check(512) )
+    if ( v4 == 1938 && !nox_common_gameFlags_check_40A5C0(512) )
     {
       sub_4BDFD0();
       sub_46A9B0((_DWORD *)getMem(0x715E00), 200, 100);
@@ -1253,7 +1253,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
         sub_452D80(895, 100);
         break;
       case 3u:                                  // Send back playerInfoStructs
-        if ( nox_common_mapflags_check(1) && (MEMACCESS(0x98085A) >> 5) & 1 )
+        if ( nox_common_gameFlags_check_40A5C0(1) && (MEMACCESS(0x98085A) >> 5) & 1 )
         {
             smallPlayerStructVector vector;
             smallPlayerStruct* it;
@@ -1287,7 +1287,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
         }
         break;
       case 4u:
-        if ( nox_common_mapflags_check(1) )
+        if ( nox_common_gameFlags_check_40A5C0(1) )
         {
           if ( (MEMACCESS(0x98085A) >> 5) & 1 )
           {
@@ -1340,7 +1340,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struc
         sub_452D80(901, 100);
         break;
       case 8u:
-        if ( nox_common_mapflags_check(1) && (MEMACCESS(0x98085A) >> 5) & 1 )
+        if ( nox_common_gameFlags_check_40A5C0(1) && (MEMACCESS(0x98085A) >> 5) & 1 )
         {
           v26 = buf + 4;
           v27 = buf + 4;
@@ -1468,9 +1468,9 @@ _DWORD *OnLibraryNotice(int a1, ...)
       qmemcpy(serverData, v24, sizeof(serverData));
       return result;
     case 263:                                   // просто проверяет является ли инстанс игры хостом
-      return (_DWORD *)nox_common_mapflags_check(1);
+      return (_DWORD *)nox_common_gameFlags_check_40A5C0(1);
     case 264:
-      return (_DWORD *)nox_common_mapflags_check(1);
+      return (_DWORD *)nox_common_gameFlags_check_40A5C0(1);
     case 265:
       a2a = (*(_DWORD *)(vaArg3 + 4) >> 7) & 1;
       result = (_DWORD *)((unsigned __int8)vaArg2 - 2);
@@ -1478,10 +1478,10 @@ _DWORD *OnLibraryNotice(int a1, ...)
       {
         if ( (MEMACCESS(0x98085A) >> 3) & 1 )
         {
-          result = (_DWORD *)nox_common_mapflags_check(516);
+          result = (_DWORD *)nox_common_gameFlags_check_40A5C0(516);
           if ( result )
           {
-            result = (_DWORD *)nox_common_mapflags_check(1);
+            result = (_DWORD *)nox_common_gameFlags_check_40A5C0(1);
             if ( result )
             {
               v6 = MEMACCESS(0x97EBC0);            // playerObjServerHost
@@ -1523,12 +1523,12 @@ _DWORD *OnLibraryNotice(int a1, ...)
       vaArg1_1[1] = v8;
       if ( (MEMACCESS(0x98085A) >> 3) & 1 )
       {
-        result = (_DWORD *)nox_common_mapflags_check(0x204);// проверяет какие-то неизвестные пока геймфлаги
+        result = (_DWORD *)nox_common_gameFlags_check_40A5C0(0x204);// проверяет какие-то неизвестные пока геймфлаги
         if ( result )
         {
           if ( MEMACCESS(0x6D8538) || MEMACCESS(0x6D855D) )
             return result;
-          if ( nox_common_mapflags_check(1) )            // isServer
+          if ( nox_common_gameFlags_check_40A5C0(1) )            // isServer
           {
             if ( MEMACCESS(0x97EBC0) && playerDoAutoShield(MEMACCESS(0x97EBC0), vaArg1_1[1]) )
               sub_452D80(895, 100);
@@ -1546,12 +1546,12 @@ LABEL_37:
       {
         if ( (MEMACCESS(0x98085A) >> 3) & 1 )
         {
-          result = (_DWORD *)nox_common_mapflags_check(516);
+          result = (_DWORD *)nox_common_gameFlags_check_40A5C0(516);
           if ( result )
           {
             if ( MEMACCESS(0x6D8538) || MEMACCESS(0x6D855D) )
               return result;
-            if ( nox_common_mapflags_check(1) )          // checkGameFlags isServer
+            if ( nox_common_gameFlags_check_40A5C0(1) )          // checkGameFlags isServer
             {
               v9 = sub_418C80(MEMACCESS(0x85319C));
               playerDropATrap((int)(v9 - 12));
@@ -1566,12 +1566,12 @@ LABEL_37:
       }
       if ( (_BYTE)v7 != 66 )
         goto LABEL_60;
-      if ( !nox_common_mapflags_check(1) )
+      if ( !nox_common_gameFlags_check_40A5C0(1) )
       {
         sub_445490(L"only server can change these options");
         return sub_452D80(231, 100);
       }
-      result = (_DWORD *)nox_common_mapflags_check(516);
+      result = (_DWORD *)nox_common_gameFlags_check_40A5C0(516);
       if ( result )
       {
         sub_452D80(921, 100);
@@ -1587,7 +1587,7 @@ LABEL_37:
           modifyWndPntr = result;
           if ( !result )
             return result;
-          if ( nox_common_mapflags_check(512) )
+          if ( nox_common_gameFlags_check_40A5C0(512) )
           {
             v10 = sub_46B0C0(modifyWndPntr, 1938);
             nox_window_set_hidden((int)v10, 1);

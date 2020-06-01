@@ -50,7 +50,7 @@ int __cdecl sub_475F10(_DWORD* a1)
                 sub_4C4F40(a1, v4);
             sub_474E60(a1, v4);
             sub_495BB0((_DWORD*)v4, a1);
-            if (byte_5D4594[2650636] & 2)
+            if (nox_common_engineFlags & 2)
                 nox_thing_debug_draw(a1, v4);
             v5 = *(_DWORD*)(v4 + 480);
             *(_DWORD*)(v4 + 132) = 0;
@@ -82,7 +82,7 @@ int __cdecl sub_475FE0(_DWORD* a1)
         {
             *(_DWORD*)(v4 + 484) = 1;
             (*(void(__cdecl * *)(_DWORD*, int))(v4 + 300))(a1, v4);
-            if (byte_5D4594[2650636] & 2)
+            if (nox_common_engineFlags & 2)
                 nox_thing_debug_draw(a1, v4);
             v5 = *(_DWORD*)(v4 + 480);
             *(_DWORD*)(v4 + 132) = 0;
@@ -6727,7 +6727,7 @@ int __cdecl sub_480950(int* a1, int* a2, int a3, int a4, int a5)
              + 2 * (*(_DWORD*)& byte_5D4594[3798836] + v7);
         if (v8 >= *(int*)& byte_5D4594[3798844])
             v8 += *(_DWORD*)& byte_5D4594[3798796] - *(_DWORD*)& byte_5D4594[3798844];
-        if (*(_WORD*)& byte_5D4594[2650636] & 0x800)
+        if (*(_WORD*)& nox_common_engineFlags & 0x800)
         {
             if (2 * a4 + v8 < *(int*)& byte_5D4594[3798844])
             {

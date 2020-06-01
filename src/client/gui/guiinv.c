@@ -495,7 +495,7 @@ int __cdecl sub_4627F0(_DWORD* a1)
     sub_46AEE0((int)v9, (int)& byte_5D4594[1063124]);
     v10 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1062476], 9156);
     nox_window_call_field_94((int)v10, 16399, 0, 0);
-    if (nox_common_mapflags_check(2048))
+    if (nox_common_gameFlags_check_40A5C0(2048))
     {
         if (*(_WORD*)(*(_DWORD*)& byte_5D4594[1063116] + 294))
         {
@@ -595,7 +595,7 @@ int __cdecl sub_4627F0(_DWORD* a1)
         v28 = sub_4EF1E0(*(_DWORD*)(LODWORD(v70) + 2239), (int)v26);
         v29 = v26[1];
         v70 = v28 * v69 + v71 + v72;
-        if (v29 == *(_DWORD*)& byte_5D4594[1063648] && nox_common_mapflags_check(2048))
+        if (v29 == *(_DWORD*)& byte_5D4594[1063648] && nox_common_gameFlags_check_40A5C0(2048))
         {
             v30 = sub_419D40((void*)& byte_587000[137632]);
         }
@@ -867,7 +867,7 @@ int* __cdecl sub_463880(int* a1)
         nox_swprintf(v77, v12, v52);
         sub_43FAF0(0, v77, v10, v11, 200, 0);
         v13 = v11 + v1 + 1;
-        if (nox_common_mapflags_check(2048))
+        if (nox_common_gameFlags_check_40A5C0(2048))
         {
             v53 = (__int64)sub_419D70(&byte_587000[138404], *(char*)(v4 + 3684) + 1);
             v41 = *(_DWORD*)& byte_5D4594[1062544];
@@ -1764,7 +1764,7 @@ int __cdecl sub_4667E0(int a1, int a2, unsigned int a3)
         sub_4776B0(v10);
         return 1;
     }
-    if (!nox_common_mapflags_check(4096))
+    if (!nox_common_gameFlags_check_40A5C0(4096))
         goto LABEL_28;
     v11 = sub_4281F0(&v15, (int4*)& byte_5D4594[1049812]);
     if (v11 == 1)
@@ -1832,7 +1832,7 @@ int sub_4671E0()
     char v5[100]; // [esp+0h] [ebp-64h]
 
     nox_wcscpy((wchar_t*)& byte_5D4594[1062588], (const wchar_t*)& byte_5D4594[1063676]);
-    if (nox_common_mapflags_check(4096) || sub_4D6F50() || (result = sub_4D6F70()) != 0)
+    if (nox_common_gameFlags_check_40A5C0(4096) || sub_4D6F50() || (result = sub_4D6F70()) != 0)
     {
         result = *(_DWORD*)& byte_5D4594[1049844];
         if (*(_DWORD*)& byte_5D4594[1049844] > 0xAu)

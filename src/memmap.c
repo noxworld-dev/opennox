@@ -222,6 +222,9 @@ mem_mapping mappings[] = {
         {0x5D4594+3800716, (void*)&obj_5D4594_3800716, sizeof(obj_5D4594_3800716),1},
         {0x5D4594+3800716, (void*)&nox_draw_unk1, sizeof(nox_draw_unk1),1},
         {0x5D4594+2650668, (void*)&ptr_5D4594_2650668, sizeof(ptr_5D4594_2650668),1},
+		{0x5D4594+2650636, (void*)&nox_common_engineFlags, sizeof(nox_common_engineFlags),1},
+		{0x5D4594+3600, (void*)&nox_common_gameFlags, sizeof(nox_common_gameFlags),1},
+		{0x5D4594+3532, (void*)&nox_server_gameSettingsUpdated, sizeof(nox_server_gameSettingsUpdated),1},
 
         {0x587000+80, (void*)&nox_enable_audio, sizeof(nox_enable_audio),1},
         {0x587000+5184, (void*)table_5184, sizeof(void*)*1023,1}, // TODO
