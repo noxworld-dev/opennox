@@ -3832,7 +3832,7 @@ char* __cdecl sub_469920(_DWORD* a1)
     int v17; // [esp+1Ch] [ebp-8h]
     int v18; // [esp+20h] [ebp-4h]
 
-    if (byte_5D4594[2650637] & 8)
+    if (nox_common_engineFlags & 0x800)
         return (char*)& byte_587000[142336];
     v1 = *a1 - *(_DWORD*)& byte_5D4594[2650676];
     v2 = a1[1] - *(_DWORD*)& byte_5D4594[2650680];

@@ -26,6 +26,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 extern int nox_backbuffer_depth;
+extern int nox_video_dxUnlockSurface;
 
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 extern obj_5D4594_3799572_t obj_5D4594_3800716;
@@ -11600,14 +11601,14 @@ _DWORD* sub_4CB330()
 
     v0 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1522600], 2010);
     v1 = v0[9];
-    if (*(_DWORD*)& byte_5D4594[805868])
+    if (*(_DWORD*)& nox_video_dxUnlockSurface)
         v2 = v1 | 4;
     else
         v2 = v1 & 0xFFFFFFFB;
     v0[9] = v2;
     v3 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1522600], 2012);
     v4 = v3[9];
-    if (byte_5D4594[2650637] & 4)
+    if (nox_common_engineFlags & 0x400)
         v5 = v4 | 4;
     else
         v5 = v4 & 0xFFFFFFFB;
@@ -11730,9 +11731,9 @@ int __cdecl sub_4CB5D0(int a1, int a2, int* a3, int a4)
         switch (v3)
         {
             case 2010:
-                *(_DWORD*)& byte_5D4594[805868] = sub_48A1D0(1 - *(_DWORD*)& byte_5D4594[805868]);
+                nox_video_dxUnlockSurface = nox_video_checkIsWinNT_48A1D0(1 - nox_video_dxUnlockSurface);
                 v6 = *(_DWORD*)(a1 + 36);
-                if (*(_DWORD*)& byte_5D4594[805868])
+                if (*(_DWORD*)& nox_video_dxUnlockSurface)
                     v7 = v6 | 4;
                 else
                     v7 = v6 & 0xFFFFFFFB;

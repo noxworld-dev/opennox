@@ -112,7 +112,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4)
             case 122:
                 if (sub_44E560())
                 {
-                    sub_450160(255, 1, 0);
+                    nox_client_lockScreenBriefing_450160(255, 1, 0);
                     sub_4A2530();
                 }
                 v8 = a3[9];

@@ -105,7 +105,7 @@ void sub_436100_draw()
             sub_43F6E0(v10, v12, v20, v21);
         }
     }
-    else if (*(_DWORD*)& byte_5D4594[2614252] && sub_43C700())
+    else if (*(_DWORD*)& byte_5D4594[2614252] && nox_client_isConnected_43C700())
     {
         sub_475810_draw((int*)& byte_5D4594[811068]);
         sub_4738E0();

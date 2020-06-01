@@ -5,6 +5,7 @@
 
 extern int nox_win_width;
 extern int nox_win_height;
+extern int nox_video_dxFullScreen;
 
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
@@ -53,7 +54,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 			v9 -= *(_DWORD*)& byte_5D4594[3798844] - *(_DWORD*)& byte_5D4594[3798796];
 			*(_DWORD*)& byte_5D4594[1193184] = v9;
 		}
-		if (byte_5D4594[2650637] & 8)
+		if (nox_common_engineFlags & 0x800)
 		{
 			if ((unsigned int)& v9[a4] < *(int*)& byte_5D4594[3798844])
 			{
@@ -385,7 +386,7 @@ void __cdecl sub_484E60(int a1)
 	v1 = (_DWORD*)a1;
 	*(_DWORD*)& byte_5D4594[2650676] = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	*(_DWORD*)& byte_5D4594[2650680] = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
-	if (byte_5D4594[2650637] & 8)
+	if (nox_common_engineFlags & 0x800)
 	{
 		memset(&byte_5D4594[2616332], 0x1Fu, 0xA04u);
 		byte_5D4594[2618896] = 31;
@@ -434,7 +435,7 @@ char* __cdecl sub_485740(_DWORD* a1)
 	char* result; // eax
 	int v10; // [esp+10h] [ebp-4h]
 
-	if (byte_5D4594[2650637] & 8)
+	if (nox_common_engineFlags & 0x800)
 		return (char*)& byte_587000[155000];
 	v1 = *a1 - *(_DWORD*)& byte_5D4594[2650676];
 	v2 = a1[1] - *(_DWORD*)& byte_5D4594[2650680];
@@ -928,7 +929,7 @@ void __cdecl sub_468F80(int a1)
 	v1 = (_DWORD*)a1;
 	*(_DWORD*)& byte_5D4594[2650676] = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	*(_DWORD*)& byte_5D4594[2650680] = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
-	if (byte_5D4594[2650637] & 8)
+	if (nox_common_engineFlags & 0x800)
 	{
 		v2 = 2464;
 		v3 = &byte_5D4594[2618924];
@@ -1053,7 +1054,7 @@ BOOL sub_430CC0()
 }
 
 //----- (00430BA0) --------------------------------------------------------
-int nox_init_floor_buf() {
+int nox_video_initFloorBuffer_430BA0() {
 	if (*(_DWORD*)& byte_5D4594[3801780] == 1)
 		sub_430CC0();
 	else
@@ -1071,23 +1072,23 @@ int __cdecl sub_431040(int a1, int a2, int a3)
 {
 	nox_win_width = a2;
 	nox_win_height = a3;
-	*(_DWORD*)& byte_587000[80848] = 0;
+	*(_DWORD*)& nox_video_dxFullScreen = 0;
 	int result = sub_4800F0();
 	if (!result)
 	{
 		return 0;
 	}
-	return nox_init_floor_buf();
+	return nox_video_initFloorBuffer_430BA0();
 }
 
-int sub_430BA0()
+int nox_video_recreateBuffersAndTarget_430BA0()
 {
-	sub_430EC0();
-	int result = sub_47FD70();
+	nox_video_freeFloorBuffer_430EC0();
+	int result = nox_video_recreateRenderTarget_47FD70();
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result)
 	{
 		return 0;
 	}
-	return nox_init_floor_buf();
+	return nox_video_initFloorBuffer_430BA0();
 }

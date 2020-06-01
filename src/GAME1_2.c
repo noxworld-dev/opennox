@@ -22,6 +22,7 @@
 #include "proto.h"
 
 extern int nox_enable_audio;
+extern int nox_video_dxUnlockSurface;
 
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
@@ -6678,7 +6679,7 @@ int sub_430E70()
 }
 
 //----- (00430EC0) --------------------------------------------------------
-int sub_430EC0()
+int nox_video_freeFloorBuffer_430EC0()
 {
     if (*(_DWORD*)& byte_5D4594[3798796])
     {
@@ -6692,7 +6693,7 @@ int sub_430EC0()
 //----- (00430EF0) --------------------------------------------------------
 void sub_430EF0()
 {
-    sub_430EC0();
+    nox_video_freeFloorBuffer_430EC0();
 }
 
 //----- (00430F00) --------------------------------------------------------
@@ -7583,11 +7584,11 @@ int sub_4320B0()
     if (!v0)
         return 1;
     v1 = atoi(v0);
-    *(_DWORD*)& byte_5D4594[805868] = v1;
+    *(_DWORD*)& nox_video_dxUnlockSurface = v1;
     v2 = v1 == 0;
     result = 1;
     if (!v2)
-        * (_DWORD*)& byte_5D4594[805868] = 1;
+        * (_DWORD*)& nox_video_dxUnlockSurface = 1;
     return result;
 }
 
@@ -8218,7 +8219,7 @@ int nox_common_parsecfg_videomode()
     h = EM_ASM_INT(return Module['ingameHeight']());
 #endif
     v6 = 16; // 8 bit not supported
-    if (!(byte_5D4594[2650637] & 2))
+    if (!(nox_common_engineFlags & 0x200))
     {
         nox_win_width_1 = w;
         nox_win_height_1 = h;
@@ -8667,7 +8668,7 @@ int __cdecl sub_4332E0(FILE* a1)
     fprintf(a1, "LastServer = %s\n", &byte_5D4594[806060]);
     v6 = sub_433890();
     fprintf(a1, "ServerName = %s\n", v6);
-    fprintf(a1, "UnlockSurface = %d\n", *(_DWORD*)& byte_5D4594[805868]);
+    fprintf(a1, "UnlockSurface = %d\n", *(_DWORD*)& nox_video_dxUnlockSurface);
     fprintf(a1, "SoftShadowEdge = %d\n", (*(_DWORD*)& nox_common_engineFlags >> 10) & 1);
     fprintf(a1, "DrawFrontWalls = %d\n", *(_DWORD*)& byte_587000[80812]);
     fprintf(a1, "TranslucentFrontWalls = %d\n", *(_DWORD*)& byte_5D4594[805844]);
@@ -9956,7 +9957,7 @@ int sub_435F80_draw()
     sub_49BD70((int)& byte_5D4594[811068]);
     sub_49BBC0();
     sub_421B80();
-    if (sub_43C700())
+    if (nox_client_isConnected_43C700())
         sub_4357A0();
     sub_436100_draw();
     sub_49BB40();

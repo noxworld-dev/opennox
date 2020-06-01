@@ -26,9 +26,13 @@ extern SDL_GLContext g_ddraw;
 
 int nox_enable_audio = 1;
 int nox_enable_threads = 1;
-_DWORD nox_common_engineFlags;
-_DWORD nox_common_gameFlags;
-bool nox_server_gameSettingsUpdated;
+int nox_video_dxFullScreen = 0;
+int nox_video_dxUnlockSurface = 0;
+HANDLE *nox_video_cursorDrawThreadHandle;
+
+_DWORD nox_common_engineFlags; 
+_DWORD nox_common_gameFlags; // & 1 = host server; & 0x800 = solo game
+int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
 void f(int);
 int g_v20, g_v21;
@@ -309,7 +313,7 @@ int __cdecl cmain(int argc, const char* argv[])
             int v11 = *(_DWORD*)& nox_common_engineFlags;
             BYTE1(v11) = BYTE1(v11) & 0xFB | 2;
             nox_enable_audio = 0;
-            *(_DWORD*)& byte_5D4594[805868] = 1;
+            *(_DWORD*)& nox_video_dxUnlockSurface = 1;
             *(_DWORD*)& nox_common_engineFlags = v11;
             *(_DWORD*)& byte_587000[80800] = 0;
             *(_DWORD*)& byte_5D4594[805840] = 1;
@@ -494,12 +498,12 @@ void __cdecl sub_401B20(char* a1)
         {
             if (!strcmp("-window", v1))
             {
-                *(_DWORD*)& byte_587000[80848] = 0;
+                *(_DWORD*)& nox_video_dxFullScreen = 0;
                 *(_DWORD*)& byte_5D4594[805860] = 0;
             }
             else if (!strcmp("-swindow", v1))
             {
-                *(_DWORD*)& byte_587000[80848] = 0;
+                *(_DWORD*)& nox_video_dxFullScreen = 0;
                 *(_DWORD*)& byte_5D4594[805860] = 1;
             }
             else if (!strcmp("-minimize", v1))
@@ -13169,6 +13173,7 @@ int __cdecl sub_417300(int a1, int a2, int a3)
     return result;
 }
 
+// mark spell -- is tracked
 //----- (004173D0) --------------------------------------------------------
 int __cdecl sub_4173D0(int a1, int a2)
 {

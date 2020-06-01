@@ -764,7 +764,7 @@ int __cdecl sub_44DA60(int a1)
 }
 
 //----- (0044DAB0) --------------------------------------------------------
-int __cdecl sub_44DAB0(int a1, int a2, void (*a3)(void))
+int __cdecl nox_client_screenFadeTimeout_44DAB0(int a1, int a2, void (*a3)(void))
 {
     if (*(_DWORD*)& byte_5D4594[2650672] == 1)
     {
@@ -1255,15 +1255,15 @@ void sub_44E320()
     }
     else if (byte_5D4594[832472] & 5)
     {
-        sub_450160(254, 1, 2);
+        nox_client_lockScreenBriefing_450160(254, 1, 2);
         return;
     }
-    v0 = sub_44E3B0();
+    v0 = nox_client_getIntroScreenDuration_44E3B0();
     sub_44DB30(v0, 1, sub_44E3C0);
 }
 
 //----- (0044E3B0) --------------------------------------------------------
-int sub_44E3B0()
+int nox_client_getIntroScreenDuration_44E3B0()
 {
     return 25;
 }
@@ -1304,7 +1304,7 @@ _DWORD* sub_44E560()
     *(_DWORD*)& byte_5D4594[831236] = result;
     if (result)
     {
-        sub_46B300((int)result, sub_44E630);
+        sub_46B300((int)result, nox_client_wndQuestBriefProc_44E630);
         *(_DWORD*)(*(_DWORD*)& byte_5D4594[831236] + 56) = *(_DWORD*)& byte_5D4594[2650656];
         result = nox_new_window_from_file("Briefing.wnd", 0);
         *(_DWORD*)& byte_5D4594[831232] = result;
@@ -1322,7 +1322,7 @@ _DWORD* sub_44E560()
 }
 
 //----- (0044E630) --------------------------------------------------------
-int __cdecl sub_44E630(int a1, int a2, int a3, int a4)
+int __cdecl nox_client_wndQuestBriefProc_44E630(int a1, int a2, int a3, int a4)
 {
     int v2; // eax
 
@@ -1334,8 +1334,8 @@ int __cdecl sub_44E630(int a1, int a2, int a3, int a4)
             if (*(_DWORD*)& byte_5D4594[831220] == 255)
             {
                 *(_DWORD*)& byte_5D4594[2650672] = 0;
-                v2 = sub_44E3B0();
-                sub_44DAB0(v2, 1, sub_44E320);
+                v2 = nox_client_getIntroScreenDuration_44E3B0();
+                nox_client_screenFadeTimeout_44DAB0(v2, 1, sub_44E320);
                 *(_DWORD*)& byte_5D4594[2650672] = 1;
             }
         }
@@ -1396,8 +1396,8 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft)
         if (*(_DWORD*)& byte_5D4594[831220])
         {
             *(_DWORD*)& byte_5D4594[2650672] = 0;
-            v3 = sub_44E3B0();
-            sub_44DAB0(v3, 1, sub_44E320);
+            v3 = nox_client_getIntroScreenDuration_44E3B0();
+            nox_client_screenFadeTimeout_44DAB0(v3, 1, sub_44E320);
             *(_DWORD*)& byte_5D4594[2650672] = 1;
         }
         else if (!*(_DWORD*)& byte_5D4594[831256])
@@ -1432,9 +1432,9 @@ int sub_44E8D0()
 
 
 
-
+// called both for quest and solo games chapter intro/briefing
 //----- (00450160) --------------------------------------------------------
-int __cdecl sub_450160(int a1, int a2, char a3)
+int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3)
 {
     int v3; // ebx
     int v4; // edi
@@ -1457,15 +1457,15 @@ int __cdecl sub_450160(int a1, int a2, char a3)
     *(_DWORD*)& byte_5D4594[832488] = 0;
     *(_DWORD*)& byte_5D4594[832472] = 0;
     *(_DWORD*)& byte_5D4594[831256] = 0;
-    byte_5D4594[831252] = a1 + 1;
+    byte_5D4594[831252] = a1 + 1; // 254/255 for quest, 0 for solo
     if (*(_DWORD*)& byte_5D4594[2618908])
         v4 = *(unsigned __int8*)(*(_DWORD*)& byte_5D4594[2618908] + 2251);
     else
-        v4 = a2;
+        v4 = a2; // chapter
     sub_46A8C0(*(int*)& byte_5D4594[831236]);
     sub_46ADC0(*(int*)& byte_5D4594[831236]);
     sub_46B500(*(int*)& byte_5D4594[831236]);
-    sub_46B300(*(int*)& byte_5D4594[831236], sub_44E630);
+    sub_46B300(*(int*)& byte_5D4594[831236], nox_client_wndQuestBriefProc_44E630);
     v5 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[831232], 1010);
     sub_46B340((int)v5, sub_44E6F0);
     *(_DWORD*)& byte_5D4594[831220] = a2;
@@ -1572,7 +1572,7 @@ int __cdecl sub_450160(int a1, int a2, char a3)
     sub_43DD70(v6, 50);
     *(_QWORD*)& byte_5D4594[831292] = sub_416BB0();
     *(_DWORD*)& byte_5D4594[831248] = 0;
-    v12 = sub_44E3B0();
+    v12 = nox_client_getIntroScreenDuration_44E3B0();
     sub_44DB30(v12, 1, sub_44E3E0);
     result = *(_DWORD*)& byte_5D4594[831224];
     if (*(_DWORD*)& byte_5D4594[831224])
@@ -1614,8 +1614,8 @@ int sub_4505B0()
 
     sub_450580();
     *(_DWORD*)& byte_5D4594[2650672] = 0;
-    v0 = sub_44E3B0();
-    result = sub_44DAB0(v0, 1, sub_44E320);
+    v0 = nox_client_getIntroScreenDuration_44E3B0();
+    result = nox_client_screenFadeTimeout_44DAB0(v0, 1, sub_44E320);
     *(_DWORD*)& byte_5D4594[2650672] = 1;
     return result;
 }

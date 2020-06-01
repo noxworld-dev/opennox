@@ -9,5 +9,8 @@ CMakeFiles/
 src/.idea
 src/cmake-build-*
 
+# For VS IDE
+.vs/
+
 # Omit external libraries
 src/external

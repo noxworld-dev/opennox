@@ -9,23 +9,26 @@ extern int nox_win_height;
 
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
+extern int nox_video_renderTargetFlags;
+extern int nox_video_dxFullScreen;
+extern int nox_video_dxUnlockSurface;
 
 //----- (0047FD70) --------------------------------------------------------
-int sub_47FD70() // init video output
+int nox_video_recreateRenderTarget_47FD70() 
 {
     int v1; // edi
     int v2; // ebx
 
     unsigned int flags = 0;
-    if (*(_DWORD*)& byte_587000[80848]) {
-        if (*(_DWORD*)& byte_5D4594[805868])
+    if (nox_video_dxFullScreen) {
+        if (nox_video_dxUnlockSurface)
             flags = 0x20;
     } else {
         flags = 0x10;
     }
     if (*(_DWORD*)& byte_5D4594[805860])
         flags |= 0x18u;
-    if (*(_DWORD*)& nox_common_engineFlags & 0x2000000 && *(_DWORD*)& byte_587000[80848])
+    if (*(_DWORD*)& nox_common_engineFlags & 0x2000000 && nox_video_dxFullScreen)
         flags &= 0xFFFFFFDF;
     if (!nox_enable_threads)
         flags |= 0x100u;

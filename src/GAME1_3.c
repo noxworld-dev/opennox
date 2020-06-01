@@ -301,7 +301,7 @@ int __cdecl sub_43BF10_upd_video_mode(int defaults)
     sub_48BE50(1);
     if (v3 == nox_backbuffer_depth || (result = nox_video_parse_videobag(*(int*)& byte_5D4594[3804680])) != 0)
     {
-        result = sub_430BA0();
+        result = nox_video_recreateBuffersAndTarget_430BA0();
         if (result)
         {
             sub_4A96C0_video_read_palette("default.pal");
@@ -823,7 +823,7 @@ BOOL sub_43C6E0()
 }
 
 //----- (0043C700) --------------------------------------------------------
-int sub_43C700()
+int nox_client_isConnected_43C700()
 {
     return *(_DWORD*)& byte_5D4594[815764];
 }
@@ -930,7 +930,7 @@ int __cdecl sub_43C860(int a1, unsigned __int8* a2, int a3)
     else
     {
         sub_48EA70(31, (unsigned int)a2, a3);
-        if (sub_43C700())
+        if (nox_client_isConnected_43C700())
             sub_48D660();
     }
     *(_QWORD*)& byte_5D4594[815716] = sub_416BB0();
@@ -4301,7 +4301,7 @@ int sub_4420F0()
 int sub_4423A0()
 {
     if (sub_4D6F50() && !nox_common_gameFlags_check_40A5C0(4096))
-        sub_4D7080();
+        nox_server_conCmdHandler_startSoloQuest_4D7080();
     return 1;
 }
 
@@ -4528,7 +4528,7 @@ void sub_4445C0()
     sub_43BEB0_get_video_mode(&v11, &v10, &v9);
     v4 = 16; // 8 bit not supported
     sub_481420();
-    if (!(byte_5D4594[2650637] & 2))
+    if (!(nox_common_engineFlags & 0x200))
         sub_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
     sub_4766A0(v5);
     if (nox_common_gameFlags_check_40A5C0(0x10000000))
@@ -4599,7 +4599,7 @@ int __cdecl sub_4449D0(HWND wnd, int w, int h, int depth, int flags)
     if (!result)
         return result;
 
-    result = sub_48B1F0();
+    result = nox_video_initCursorDrawVars_48B1F0();
     printf("%s: %d\n", __FUNCTION__, result);
     if (!result)
         return result;

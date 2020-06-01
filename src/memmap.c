@@ -2,6 +2,12 @@
 
 extern int nox_enable_audio;
 extern int nox_enable_threads;
+extern int nox_video_dxFullScreen;
+extern int nox_video_windowsPlatformVersion;
+extern int nox_video_pauseThreadedDrawCursor;
+extern int nox_video_drawCursorThreadOk;
+extern int nox_video_allowCursorDrawThread;
+extern HANDLE *nox_video_cursorDrawThreadHandle;
 
 extern nox_missing_string* missing_strings;
 extern nox_string_entry* string_entries;
@@ -46,6 +52,9 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 extern int nox_backbuffer_depth;
 extern int nox_backbuffer_width32;
+extern int nox_video_renderTargetFlags;
+extern int nox_video_dxUnlockSurface;
+extern int nox_video_dxFullScreen;
 
 extern nox_alloc_class* nox_alloc_window;
 
@@ -225,6 +234,11 @@ mem_mapping mappings[] = {
 		{0x5D4594+2650636, (void*)&nox_common_engineFlags, sizeof(nox_common_engineFlags),1},
 		{0x5D4594+3600, (void*)&nox_common_gameFlags, sizeof(nox_common_gameFlags),1},
 		{0x5D4594+3532, (void*)&nox_server_gameSettingsUpdated, sizeof(nox_server_gameSettingsUpdated),1},
+		{0x5D4594+3801772, (void*)&nox_video_renderTargetFlags, sizeof(nox_video_renderTargetFlags),1},
+		{0x5D4594+805868, (void*)&nox_video_dxUnlockSurface, sizeof(nox_video_dxUnlockSurface),1},
+		{0x5D4594+1193676, (void*)&nox_video_pauseThreadedDrawCursor, sizeof(nox_video_pauseThreadedDrawCursor),1},
+		{0x5D4594+1193660, (void*)&nox_video_drawCursorThreadOk, sizeof(nox_video_drawCursorThreadOk),1},
+		{0x5D4594+1193680, (void*)&nox_video_allowCursorDrawThread, sizeof(nox_video_allowCursorDrawThread),1},
 
         {0x587000+80, (void*)&nox_enable_audio, sizeof(nox_enable_audio),1},
         {0x587000+5184, (void*)table_5184, sizeof(void*)*1023,1}, // TODO
@@ -245,8 +259,11 @@ mem_mapping mappings[] = {
         {0x587000+91800, (void*)&nox_win_depth_2, sizeof(nox_win_depth_2),1},
         {0x587000+91804, (void*)nox_video_modes, sizeof(nox_video_mode)*3,1},
         {0x587000+94464, (void*)&nox_cheats_disabled, sizeof(nox_cheats_disabled),1},
-        {0x587000+116008, (void*)nox_parse_thing_draw_funcs, sizeof(nox_parse_thing_draw_funcs_t)*69,1}, // TODO
-        {0x587000+122104, (void*)nox_parse_thing_funcs, sizeof(nox_parse_thing_funcs_t)*21,1}, // TODO
+        {0x587000+116008, (void*)&nox_parse_thing_draw_funcs, sizeof(nox_parse_thing_draw_funcs_t)*69,1}, // TODO
+        {0x587000+122104, (void*)&nox_parse_thing_funcs, sizeof(nox_parse_thing_funcs_t)*21,1}, // TODO
+		{0x587000+80848, (void*)&nox_video_dxFullScreen, sizeof(nox_video_dxFullScreen),1},
+		{0x5D4594+1193656, (void*)&nox_video_cursorDrawThreadHandle, sizeof(nox_video_cursorDrawThreadHandle),1},
+		{0x5D4594+3799620, (void*)&nox_video_windowsPlatformVersion, sizeof(nox_video_windowsPlatformVersion),1},
         // full blobs
 #if 0
         {0x563002, (void*)byte_563002, sizeof(byte_563002),0},

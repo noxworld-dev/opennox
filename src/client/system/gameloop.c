@@ -405,12 +405,12 @@ void mainloop()
             v25 = (int*)sub_437250();
             sub_431720(v25);
         }
-        if (!(*(_DWORD*)& nox_common_engineFlags & 0x40000) || byte_5D4594[2650637] & 1 || *(_DWORD*)& byte_5D4594[815132])
+        if (!(nox_common_engineFlags & 0x40000) || nox_common_engineFlags & 0x100 || *(_DWORD*)& byte_5D4594[815132])
             sub_477830(); // Draw cursor
         sub_44D9F0(1);
         if (!sub_409F40(4096)) // CheckRuleFlags and smth
             sub_46D830();
-        if (!(*(_DWORD*)& nox_common_engineFlags & 0x40000) || byte_5D4594[2650637] & 1 || *(_DWORD*)& byte_5D4594[815132])
+        if (!(nox_common_engineFlags & 0x40000) || nox_common_engineFlags & 0x100 || *(_DWORD*)& byte_5D4594[815132])
         {
             sub_48A220();
             sub_4AD170_call_copy_backbuffer();

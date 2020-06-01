@@ -18,7 +18,7 @@ void __cdecl sub_409FB0_settings(__int16 a1, unsigned __int16 a2)
             v3 = 999;
         *(_WORD*)& byte_5D4594[2 * v2 + 3488] = v3;
         *(_DWORD*)& nox_server_gameSettingsUpdated = 1;
-        if (sub_43C700())
+        if (nox_client_isConnected_43C700())
         {
             v4 = loadString_sub_40F1D0((char*)& byte_587000[4804], 0, "C:\\NoxPost\\src\\Common\\System\\settings.c", 389);
             sub_440A20(v4, v3);
@@ -41,7 +41,7 @@ void __cdecl sub_40A040_settings(__int16 a1, unsigned __int8 a2)
         if (!nox_common_gameFlags_check_40A5C0(0x4000000) && !*(_DWORD*)& byte_5D4594[3592])
         {
             *(_DWORD*)& nox_server_gameSettingsUpdated = 1;
-            if (sub_43C700())
+            if (nox_client_isConnected_43C700())
             {
                 if (!a2)
                 {

@@ -3800,7 +3800,7 @@ int sub_578C60()
 {
     if (sub_44E560())
     {
-        sub_450160(255, 1, 0);
+        nox_client_lockScreenBriefing_450160(255, 1, 0);
         sub_4A2530();
     }
     return 1;

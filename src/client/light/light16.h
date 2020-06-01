@@ -3,6 +3,6 @@
 
 #include "../../defs.h"
 
-int sub_430BA0();
+int nox_video_recreateBuffersAndTarget_430BA0();
 
 #endif //NOX_PORT_CLIENT_LIGHT_LIGHT16
