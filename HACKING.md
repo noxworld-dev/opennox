@@ -30,7 +30,7 @@ There may be others not so obvious reasons to avoid thsse kind of changes: unuse
 
 So the rule of thumb is to keep the code and data structures as close as possible to the original.
 
-When renaming a procedure name, stick to the naming scheme aka "module"\_"component"\_"action"\_"original_address". Example: when renaming a procedure named sub_112233, it should be named as nox\_network\_playerinfo\_112233, where "nox" is the module (another possible module name is "mix" or "unimod"), "network" is the component, "playerinfo" is the action, and "112233" is the original HEX address of the procedure in the original Nox binary.
+When renaming a procedure name, stick to the naming scheme aka `<module>_<component>_<action>_<original_address>`. Example: when renaming a procedure named `sub_112233`, it should be named as `nox_network_playerinfo_112233`, where `nox` is the module (another possible module name is `mix` or `unimod`), `network` is the component, `playerinfo` is the action, and `112233` is the original HEX address of the procedure in the original Nox binary.
 
 ## Keep it compatible
 
@@ -40,4 +40,12 @@ This doesn't imply that the code may not be _extended_ to support new functional
 
 ## Keep it compilable and runnable
 
-Before commiting a change into "dev" please make sure that the code is AT LEAST compilable and runnable. The project is complicated, so we can't ask for testing for any possible regressions, but it should pass at least some basic checks. The code in the "master" branch should be compilable, runnable, (mostly) regression-checked and working on ALL supported platforms (for now it is Windows+MinGW, Windows+VS2017, WASM, others may be added).
+Before commiting a change into `dev` please make sure that the code is AT LEAST compilable and runnable. The project is complicated, so we can't ask for testing for any possible regressions, but it should pass at least some basic checks.
+
+The code in the `master` branch should be compilable, runnable, (mostly) regression-checked and working on ALL supported platforms:
+
+- Linux + GCC
+- Windows + MinGW
+- Windows + VS2017
+- WASM
+- (others may be added)
