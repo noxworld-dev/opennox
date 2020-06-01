@@ -441,7 +441,7 @@ int sub_46D580()
     wchar_t* v5; // eax
     wchar_t* v6; // eax
 
-    result = nox_common_mapflags_check(4096);
+    result = nox_common_gameFlags_check_40A5C0(4096);
     if (!result)
     {
         memset(&byte_5D4594[1064948], 0, 0x45E4u);

@@ -3484,7 +3484,7 @@ int __cdecl sub_4B0340(int a1) // draw general
 #else
     v1 = (GetAsyncKeyState(VK_SHIFT) & 0x8000u) != 0;
 #endif
-    if ((*(_WORD*)& byte_5D4594[2650636] & 0x200) == 512 || v1 || byte_5D4594[3801772] & 0x10)
+    if ((*(_WORD*)& nox_common_engineFlags & 0x200) == 512 || v1 || byte_5D4594[3801772] & 0x10)
         goto LABEL_23;
     sub_431290();
     sub_43DBD0();

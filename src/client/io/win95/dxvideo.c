@@ -25,7 +25,7 @@ int sub_47FD70() // init video output
     }
     if (*(_DWORD*)& byte_5D4594[805860])
         flags |= 0x18u;
-    if (*(_DWORD*)& byte_5D4594[2650636] & 0x2000000 && *(_DWORD*)& byte_587000[80848])
+    if (*(_DWORD*)& nox_common_engineFlags & 0x2000000 && *(_DWORD*)& byte_587000[80848])
         flags &= 0xFFFFFFDF;
     if (!nox_enable_threads)
         flags |= 0x100u;

@@ -277,7 +277,7 @@ int sub_45E190()
         if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[2618908] + 2251) == 1)
         {
             if ((!*(_DWORD*)& byte_5D4594[2618908] || !*(_DWORD*)(*(_DWORD*)& byte_5D4594[2618908] + 3832))
-                && (!nox_common_mapflags_check(0x2000) || nox_common_mapflags_check(4096) || sub_4D6F50() || sub_4D6F70()))
+                && (!nox_common_gameFlags_check_40A5C0(0x2000) || nox_common_gameFlags_check_40A5C0(4096) || sub_4D6F50() || sub_4D6F70()))
             {
                 v17 = sub_42F970("QuickBarWarriorRight");
                 sub_46AE60(*(int*)& byte_5D4594[1049504], (int)v17);
@@ -304,7 +304,7 @@ int sub_45E190()
         else if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[2618908] + 2251) == 2)
         {
             if ((!*(_DWORD*)& byte_5D4594[2618908] || !*(_DWORD*)(*(_DWORD*)& byte_5D4594[2618908] + 3832))
-                && (!nox_common_mapflags_check(0x2000) || nox_common_mapflags_check(4096) || sub_4D6F50() || sub_4D6F70()))
+                && (!nox_common_gameFlags_check_40A5C0(0x2000) || nox_common_gameFlags_check_40A5C0(4096) || sub_4D6F50() || sub_4D6F70()))
             {
                 v11 = sub_42F970("QuickBarWarriorRight");
                 sub_46AE60(*(int*)& byte_5D4594[1049504], (int)v11);

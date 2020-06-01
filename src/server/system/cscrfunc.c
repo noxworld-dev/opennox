@@ -112,7 +112,7 @@ int sub_512B90()
         v6 = 0;
         v4 = loadString_sub_40F1D0(v3, &v6, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1342);
         sub_528AC0(v2, v4, 0);
-        if (nox_common_mapflags_check(2048))
+        if (nox_common_gameFlags_check_40A5C0(2048))
             sub_44D900(v6, 100);
     }
     return 0;
@@ -155,7 +155,7 @@ int sub_514A80()
         v8 = 0;
         v5 = loadString_sub_40F1D0(v4, &v8, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3629);
         sub_528AC0(v3, v5, v7);
-        if (nox_common_mapflags_check(2048))
+        if (nox_common_gameFlags_check_40A5C0(2048))
             sub_44D900(v8, 100);
     }
     return 0;
@@ -184,7 +184,7 @@ int sub_514B10()
         sub_528AC0(v3, v5, v0);
         if (v7)
         {
-            if (nox_common_mapflags_check(2048))
+            if (nox_common_gameFlags_check_40A5C0(2048))
                 sub_44D900(v7, 100);
         }
     }

@@ -42,7 +42,7 @@ int __cdecl sub_545090(int a1)
     int v2; // ecx
     float2 v4; // [esp+4h] [ebp-8h]
 
-    v1 = *(__int16*)(a1 + 124) + sub_415FA0(-20, 20);
+    v1 = *(__int16*)(a1 + 124) + nox_common_randomInt_415FA0(-20, 20);
     if (v1 < 0)
         v1 += (unsigned int)(255 - v1) >> 8 << 8;
     if (v1 >= 256)
@@ -66,14 +66,14 @@ char __cdecl sub_545140(int a1)
     int* v1; // eax
     double v2; // st7
 
-    if (sub_415FA0(0, 100) >= 15)
+    if (nox_common_randomInt_415FA0(0, 100) >= 15)
     {
         LOBYTE(v1) = sub_545020(a1);
         return (char)v1;
     }
     if (sub_534220(a1))
     {
-        if (!sub_534280(a1) || sub_415FA0(0, 100) < 50)
+        if (!sub_534280(a1) || nox_common_randomInt_415FA0(0, 100) < 50)
         {
             LOBYTE(v1) = (unsigned int)sub_50A260(a1, 16);
             return (char)v1;
@@ -209,7 +209,7 @@ char __cdecl sub_545440(int a1)
                 v3 = sub_50A260(a1, 41);
                 if (v3)
                     v3[1] = *(_DWORD*)& byte_5D4594[2598000]
-                    + sub_415FA0(4 * *(_DWORD*)& byte_5D4594[2649704], 6 * *(_DWORD*)& byte_5D4594[2649704]);
+                    + nox_common_randomInt_415FA0(4 * *(_DWORD*)& byte_5D4594[2649704], 6 * *(_DWORD*)& byte_5D4594[2649704]);
                 v2 = sub_50A260(a1, 24);
                 if (v2)
                 {
@@ -275,7 +275,7 @@ int* __cdecl sub_5455E0(int a1)
     int v5; // edx
     int v6; // [esp-4h] [ebp-Ch]
 
-    if (nox_common_mapflags_check(4096))
+    if (nox_common_gameFlags_check_40A5C0(4096))
         v6 = 1142947840;
     else
         v6 = 1132068864;
@@ -434,7 +434,7 @@ char __cdecl sub_5457E0(int* a1)
         && !*(_DWORD*)(v2 + 1196)
         && sub_4FF350((int)a1, 0)
         && !(byte_5D4594[2598000] & 0x1F)
-        && sub_415FA0(0, 100) < 10)
+        && nox_common_randomInt_415FA0(0, 100) < 10)
     {
         v4 = sub_50A260((int)a1, 66);
         if (v4)
@@ -446,7 +446,7 @@ char __cdecl sub_5457E0(int* a1)
         v6 = v3;
         if (v3)
         {
-            v3 = (int*)(*(_DWORD*)& byte_5D4594[2598000] + *(_DWORD*)& byte_5D4594[2649704] * sub_415FA0(3, 10));
+            v3 = (int*)(*(_DWORD*)& byte_5D4594[2598000] + *(_DWORD*)& byte_5D4594[2649704] * nox_common_randomInt_415FA0(3, 10));
             v6[1] = (int)v3;
         }
         return (char)v3;
@@ -490,7 +490,7 @@ char __cdecl sub_5457E0(int* a1)
             if (v3)
             {
                 v3 = (int*)(*(_DWORD*)& byte_5D4594[2598000]
-                    + sub_415FA0(*(int*)& byte_5D4594[2649704], 2 * *(_DWORD*)& byte_5D4594[2649704]));
+                    + nox_common_randomInt_415FA0(*(int*)& byte_5D4594[2649704], 2 * *(_DWORD*)& byte_5D4594[2649704]));
                 v11[1] = (int)v3;
             }
             return (char)v3;
@@ -660,7 +660,7 @@ int __cdecl sub_545C60(int a1, int a2, unsigned __int8 a3)
         v5 += 2;
     } while (v3 < *(unsigned __int8*)(a2 + 476));
     if (v17)
-        return v18[sub_415FA0(0, v17 - 1)];
+        return v18[nox_common_randomInt_415FA0(0, v17 - 1)];
 LABEL_27:
     v9 = 0;
     while (1)
@@ -710,7 +710,7 @@ int __cdecl sub_545DA0(int a1)
     v2 = sub_50A260(a1, 1);
     if (v2)
         v2[1] = *(_DWORD*)& byte_5D4594[2598000]
-        + sub_415FA0(*(int*)& byte_5D4594[2649704], 2 * *(_DWORD*)& byte_5D4594[2649704]);
+        + nox_common_randomInt_415FA0(*(int*)& byte_5D4594[2649704], 2 * *(_DWORD*)& byte_5D4594[2649704]);
     v3 = sub_50A260(a1, 25);
     if (v3)
     {
@@ -1120,7 +1120,7 @@ int __cdecl sub_546600(int a1)
         v2 = 0;
         for (i = sub_4DA7C0(); i; i = sub_4DA7F0(i))
             ++v2;
-        v4 = sub_415FA0(0, v2 - 1);
+        v4 = nox_common_randomInt_415FA0(0, v2 - 1);
         result = sub_4DA7C0();
         if (result)
         {
@@ -1312,7 +1312,7 @@ void __cdecl sub_5469B0(int a1)
             if ((!v2 || v2 == 4) && *(_DWORD*)& byte_5D4594[2598000] >= *(int*)(v1 + 528))
             {
                 *(_DWORD*)(v1 + 528) = *(_DWORD*)& byte_5D4594[2598000]
-                    + sub_415FA0(20 * *(_DWORD*)& byte_5D4594[2649704], 60 * *(_DWORD*)& byte_5D4594[2649704]);
+                    + nox_common_randomInt_415FA0(20 * *(_DWORD*)& byte_5D4594[2649704], 60 * *(_DWORD*)& byte_5D4594[2649704]);
                 v3 = sub_424300(a1);
                 if (v3)
                     sub_501960(*(_DWORD*)(v3 + 16), a1, 0, 0);
@@ -1501,7 +1501,7 @@ char __cdecl sub_546A70(int a1)
                         goto LABEL_89;
                     goto LABEL_90;
                 case 0x3A:
-                    if (nox_common_mapflags_check(4096))
+                    if (nox_common_gameFlags_check_40A5C0(4096))
                         v17 = sub_544A00(v1, 640.0);
                     else
                         v17 = sub_544A00(v1, 250.0);
@@ -1765,7 +1765,7 @@ char __cdecl sub_547210(int a1)
         if (SBYTE1(v3) < 0)
             return (char)v3;
         v44 = (int*)sub_424300(a1);
-        if (nox_common_mapflags_check(2048))
+        if (nox_common_gameFlags_check_40A5C0(2048))
         {
             if (!sub_477600())
             {
@@ -1891,7 +1891,7 @@ char __cdecl sub_547210(int a1)
                                                 v43[2] = v22;
                                                 sub_541300(4, (_DWORD*)v1, (int)v43);
                                                 v3 = (int*)(*(_DWORD*)& byte_5D4594[2598000]
-                                                    + sub_415FA0(*(unsigned __int16*)(v2 + 1480), *(unsigned __int16*)(v2 + 1482)));
+                                                    + nox_common_randomInt_415FA0(*(unsigned __int16*)(v2 + 1480), *(unsigned __int16*)(v2 + 1482)));
                                                 *(_DWORD*)(v2 + 1484) = v3;
                                                 return (char)v3;
                                             }
@@ -1916,7 +1916,7 @@ char __cdecl sub_547210(int a1)
                                         v25[3] = 0;
                                         v25[2] = v27;
                                     }
-                                    v3 = (int*)sub_415FA0(0, 1);
+                                    v3 = (int*)nox_common_randomInt_415FA0(0, 1);
                                     if (v3)
                                     {
                                         LOBYTE(v3) = (_BYTE)v44;
@@ -1943,7 +1943,7 @@ char __cdecl sub_547210(int a1)
                 {
                     sub_5471B0(v1);
                     sub_50A260(v1, 68);
-                    if (((*(_BYTE*)(v2 + 1440) & 0x80) || *(_BYTE*)(v1 + 12) & 0x80) && nox_common_mapflags_check(2048))
+                    if (((*(_BYTE*)(v2 + 1440) & 0x80) || *(_BYTE*)(v1 + 12) & 0x80) && nox_common_gameFlags_check_40A5C0(2048))
                         sub_50A260(v1, 14);
                     else
                         sub_50A260(v1, 6);
@@ -1985,7 +1985,7 @@ char __cdecl sub_547210(int a1)
                 }
                 return (char)v3;
             }
-            if (nox_common_mapflags_check(2048))
+            if (nox_common_gameFlags_check_40A5C0(2048))
             {
                 if (!sub_534440(v1) && !sub_4FF350(v1, 3))
                 {
@@ -2026,12 +2026,12 @@ char __cdecl sub_547210(int a1)
                     {
                         sub_547C50(v1);
                     }
-                    else if (sub_415FA0(0, 100) >= 33 || !sub_547C50(v1))
+                    else if (nox_common_randomInt_415FA0(0, 100) >= 33 || !sub_547C50(v1))
                     {
                         v35 = sub_50A260(v1, 1);
                         if (v35)
                             v35[1] = *(_DWORD*)& byte_5D4594[2598000]
-                            + sub_415FA0(*(_DWORD*)& byte_5D4594[2649704] >> 1, 2 * *(_DWORD*)& byte_5D4594[2649704]);
+                            + nox_common_randomInt_415FA0(*(_DWORD*)& byte_5D4594[2649704] >> 1, 2 * *(_DWORD*)& byte_5D4594[2649704]);
                     }
                     LOBYTE(v3) = byte_5D4594[2598000];
                     *(_DWORD*)(v2 + 496) = *(_DWORD*)& byte_5D4594[2598000];
@@ -2124,7 +2124,7 @@ int __cdecl sub_547C50(int a1)
         if (v6 > 15.0)
             v14 = 15.0;
         v7 = v14;
-        if (sub_415FA0(0, 100) < 50)
+        if (nox_common_randomInt_415FA0(0, 100) < 50)
             v7 = -v7;
         v13.field_8 = v7 * v11 + v1[14];
         v13.field_C = v7 * v12 + v1[15];
@@ -3454,7 +3454,7 @@ BOOL __cdecl sub_549690(int a1, int a2)
     if (*(_DWORD*)(v2 + 136))
     {
         v3 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 484);
-        if (sub_415FA0(1, 100) <= *(int*)(v2 + 136))
+        if (nox_common_randomInt_415FA0(1, 100) <= *(int*)(v2 + 136))
         {
             if (sub_4EE7E0(a2, *(_DWORD*)(v3 + 140), *(_DWORD*)(v3 + 144)))
                 result = 1;
@@ -3675,7 +3675,7 @@ int __cdecl sub_549A60(float a1)
         v9 = sub_50A260(v1, 41);
         if (v9)
             v9[1] = *(_DWORD*)& byte_5D4594[2598000]
-            + sub_415FA0(2 * *(_DWORD*)& byte_5D4594[2649704], 4 * *(_DWORD*)& byte_5D4594[2649704]);
+            + nox_common_randomInt_415FA0(2 * *(_DWORD*)& byte_5D4594[2649704], 4 * *(_DWORD*)& byte_5D4594[2649704]);
         v10 = sub_50A260(v1, 24);
         if (v10)
         {
@@ -3778,7 +3778,7 @@ int __cdecl sub_549D80(int a1)
 {
     int v1; // esi
 
-    v1 = nox_common_mapflags_check(2048) ? 30 : 96;
+    v1 = nox_common_gameFlags_check_40A5C0(2048) ? 30 : 96;
     sub_52E040(a1 + 56, 96.0, 1092616192, 100.0, a1, 0, 0);
     sub_4E25B0(a1 + 56, 96.0, 10.0, v1, 7, a1, 0);
     sub_5231B0((float*)(a1 + 56), 128);
@@ -3838,7 +3838,7 @@ int __cdecl sub_549E90(int a1)
             v3[27] = v4;
             v3[29] = 2.0;
             *((_DWORD*)v3 + 4) = 0x800000 | v5;
-            v6 = sub_415FA0(10, 20);
+            v6 = nox_common_randomInt_415FA0(10, 20);
             sub_511660(v3, *(_DWORD*)& byte_5D4594[2649704] * v6);
             v7 = *((_DWORD*)v2 + 1);
             v2 += 4;
@@ -3865,8 +3865,8 @@ int __cdecl sub_549FA0(int a1)
     sub_501960(487, a1, 0, 0);
     v1 = (float2*)(a1 + 56);
     sub_522FF0(138, (float2*)(a1 + 56));
-    if (nox_common_mapflags_check(2048))
-        v11 = sub_415FA0(20, 30);
+    if (nox_common_gameFlags_check_40A5C0(2048))
+        v11 = nox_common_randomInt_415FA0(20, 30);
     else
         v11 = 6;
     v2 = 0;
@@ -3888,7 +3888,7 @@ int __cdecl sub_549FA0(int a1)
             v4[29] = v5;
             v9 = sub_416030(5.0, 20.0);
             sub_52DF80((int)v1, (int)v4, v9);
-            v6 = nox_common_mapflags_check(2048) ? sub_415FA0(10, 20) : sub_415FA0(5, 10);
+            v6 = nox_common_gameFlags_check_40A5C0(2048) ? nox_common_randomInt_415FA0(10, 20) : nox_common_randomInt_415FA0(5, 10);
             sub_511660(v4, *(_DWORD*)& byte_5D4594[2649704] * v6);
             v3 = (*(_DWORD*)& byte_5D4594[2491580] + 1) % *(_DWORD*)& byte_587000[287344];
             ++v2;
@@ -3977,7 +3977,7 @@ int __cdecl sub_54A310(int a1)
 {
     int v1; // esi
 
-    v1 = sub_415FA0(0, 100);
+    v1 = nox_common_randomInt_415FA0(0, 100);
     sub_54A4C0(a1);
     if (v1 > 20)
     {
@@ -4010,7 +4010,7 @@ void __cdecl sub_54A390(int a1, CHAR* a2, const char* a3, const char* a4, const 
     float2 a3a; // [esp+4h] [ebp-1Ch]
     unsigned __int8 v14[20]; // [esp+Ch] [ebp-14h]
 
-    if (nox_common_mapflags_check(2048))
+    if (nox_common_gameFlags_check_40A5C0(2048))
     {
         result = (int)sub_4E3810(a2);
         v8 = result;
@@ -4084,17 +4084,17 @@ void __cdecl sub_54A4C0(int a1)
         *((_DWORD*)v2 + 4) = 0x800000 | v4;
         v15 = sub_416030(5.0, 25.0);
         sub_52DF80((int)v1, (int)v2, v15);
-        if (nox_common_mapflags_check(2048))
+        if (nox_common_gameFlags_check_40A5C0(2048))
         {
-            v5 = sub_415FA0(10, 20);
+            v5 = nox_common_randomInt_415FA0(10, 20);
             sub_511660(v2, *(_DWORD*)& byte_5D4594[2649704] * v5);
-            v6 = sub_415FA0(10, 20);
+            v6 = nox_common_randomInt_415FA0(10, 20);
         }
         else
         {
-            v7 = sub_415FA0(2, 5);
+            v7 = nox_common_randomInt_415FA0(2, 5);
             sub_511660(v2, *(_DWORD*)& byte_5D4594[2649704] * v7);
-            v6 = sub_415FA0(5, 10);
+            v6 = nox_common_randomInt_415FA0(5, 10);
         }
         v20 = v6;
         v18 = 0;
@@ -4117,7 +4117,7 @@ void __cdecl sub_54A4C0(int a1)
                 *((_DWORD*)v9 + 4) = 0x800000 | v11;
                 v17 = sub_416030(5.0, 25.0);
                 sub_52DF80((int)v1, (int)v9, v17);
-                v12 = nox_common_mapflags_check(2048) ? sub_415FA0(10, 20) : sub_415FA0(2, 5);
+                v12 = nox_common_gameFlags_check_40A5C0(2048) ? nox_common_randomInt_415FA0(10, 20) : nox_common_randomInt_415FA0(2, 5);
                 sub_511660(v9, *(_DWORD*)& byte_5D4594[2649704] * v12);
                 v8 = (*(_DWORD*)& byte_5D4594[2491588] + 1) % *(_DWORD*)& byte_587000[287348];
                 v13 = ++v18 < v20;
@@ -4132,7 +4132,7 @@ int __cdecl sub_54A750(int a1)
 {
     int v1; // esi
 
-    v1 = sub_415FA0(0, 100);
+    v1 = nox_common_randomInt_415FA0(0, 100);
     sub_54A4C0(a1);
     if (v1 > 20)
     {
@@ -4158,7 +4158,7 @@ int __cdecl sub_54A7D0(int a1)
 {
     int v1; // eax
 
-    v1 = sub_415FA0(0, 100);
+    v1 = nox_common_randomInt_415FA0(0, 100);
     if (v1 > 20)
     {
         if (v1 <= 50)
@@ -4181,7 +4181,7 @@ int __cdecl sub_54A7D0(int a1)
 //----- (0054A850) --------------------------------------------------------
 int __cdecl sub_54A850(int a1)
 {
-    if (sub_415FA0(0, 100) > 25)
+    if (nox_common_randomInt_415FA0(0, 100) > 25)
         sub_54A390(a1, (CHAR*)& byte_587000[289712], "WeaponPower1", 0, 0, 0, 0);
     return 1;
 }
@@ -4191,7 +4191,7 @@ int __cdecl sub_54A890(int a1)
 {
     int v1; // eax
 
-    v1 = sub_415FA0(0, 100);
+    v1 = nox_common_randomInt_415FA0(0, 100);
     if (v1 > 20)
     {
         if (v1 <= 50)
@@ -4207,7 +4207,7 @@ int __cdecl sub_54A890(int a1)
 //----- (0054A900) --------------------------------------------------------
 int __cdecl sub_54A900(int a1)
 {
-    if (sub_415FA0(0, 100) > 25)
+    if (nox_common_randomInt_415FA0(0, 100) > 25)
         sub_54A390(
             a1,
             (CHAR*)& byte_587000[289860],
@@ -4222,7 +4222,7 @@ int __cdecl sub_54A900(int a1)
 //----- (0054A950) --------------------------------------------------------
 int __cdecl sub_54A950(int a1)
 {
-    if (sub_415FA0(0, 100) > 25)
+    if (nox_common_randomInt_415FA0(0, 100) > 25)
         sub_54A390(a1, (CHAR*)& byte_587000[289916], 0, 0, 0, 0, 5);
     return 1;
 }
@@ -4304,7 +4304,7 @@ LABEL_10:
         v20 = v5->field_4 - *(float*)(v4 + 68);
         if (v19 == 0.0 && v20 == 0.0)
         {
-            v8 = sub_415FA0(0, 3);
+            v8 = nox_common_randomInt_415FA0(0, 3);
             v19 = *(float*)& byte_587000[8 * v8 + 289928];
             v20 = *(float*)& byte_587000[8 * v8 + 289932];
         }
@@ -4530,7 +4530,7 @@ void __cdecl sub_54AFB0(int a1, float* a2)
         if (sub_537110(a1, *(int*)& byte_5D4594[2491592]))
         {
             if (!(*(_BYTE*)(a1 + 8) & 4)
-                || (*(_DWORD*)(a1 + 36) != *(_DWORD*)& byte_5D4594[2616328] || !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
+                || (*(_DWORD*)(a1 + 36) != *(_DWORD*)& byte_5D4594[2616328] || !(*(_DWORD*)& nox_common_engineFlags & 0x40000))
                 && (v3 = sub_417040(*(_DWORD*)(a1 + 36))) != 0
                 && !(v3[3680] & 1))
             {
@@ -5169,7 +5169,7 @@ __int16 __cdecl sub_54C0C0(int a1)
         {
             *(_DWORD*)(v1 + 2040) = 3;
             *(_DWORD*)(v1 + 1584) = 0x40000000;
-            v2 = nox_common_mapflags_check(4096);
+            v2 = nox_common_gameFlags_check_40A5C0(4096);
             if (!v2)
             {
                 *(_DWORD*)(v1 + 1504) = 2147483648;
@@ -5412,7 +5412,7 @@ int __cdecl sub_54C710(int a1)
         {
             *v4 = *((_WORD*)v3 + 26);
             *(_WORD*)(*(_DWORD*)(a1 + 556) + 4) = *((_WORD*)v3 + 26);
-            if (nox_common_mapflags_check(4096))
+            if (nox_common_gameFlags_check_40A5C0(4096))
             {
                 v20 = sub_419D40(&byte_587000[290164]);
                 v15 = (double) * *(unsigned __int16**)(v1 + 556) * v20;
@@ -5441,7 +5441,7 @@ int __cdecl sub_54C710(int a1)
         if (v9 & 0x82)
         {
             v10 = *(_BYTE * *)(v1 + 736);
-            if (nox_common_mapflags_check(4096))
+            if (nox_common_gameFlags_check_40A5C0(4096))
                 v11 = sub_419D40(&byte_587000[290228]);
             else
                 v11 = sub_419D40(&byte_587000[290252]);
@@ -5456,7 +5456,7 @@ int __cdecl sub_54C710(int a1)
             **(_BYTE * *)(v1 + 736) = 0;
         }
     }
-    result = nox_common_mapflags_check(4096);
+    result = nox_common_gameFlags_check_40A5C0(4096);
     if (result)
     {
         result = *(_DWORD*)(v1 + 8);
@@ -5498,7 +5498,7 @@ _DWORD* __cdecl sub_54C950(int a1)
         {
             *v3 = *((_WORD*)result + 26);
             *(_WORD*)(*(_DWORD*)(a1 + 556) + 4) = *((_WORD*)result + 26);
-            result = (_DWORD*)nox_common_mapflags_check(4096);
+            result = (_DWORD*)nox_common_gameFlags_check_40A5C0(4096);
             if (result)
             {
                 v6 = sub_419D40(&byte_587000[290300]);
@@ -5728,7 +5728,7 @@ void __cdecl sub_54CD30(int a1)
         } while (v2);
         if (v1)
         {
-            v4 = sub_415FA0(0, v1 - 1);
+            v4 = nox_common_randomInt_415FA0(0, v1 - 1);
             v5 = 0;
             for (i = sub_4E7980(a1); i; i = sub_4E7990(i))
             {
@@ -5778,7 +5778,7 @@ void __cdecl sub_54CE00(int a1)
             ++v4;
             ++v6;
         } while (v4 < 137);
-        v2 = sub_415FA0(0, v3 - 1);
+        v2 = nox_common_randomInt_415FA0(0, v3 - 1);
         v7 = 0;
         v8 = v2;
         for (i = 0; i < 137; ++i)
@@ -5835,7 +5835,7 @@ void __cdecl sub_54CEE0(int a1)
             ++v4;
             ++v6;
         } while (v4 < 41);
-        v8 = sub_415FA0(0, v3 - 1);
+        v8 = nox_common_randomInt_415FA0(0, v3 - 1);
         v7 = 0;
         for (i = 0; i < 41; ++i)
         {
@@ -5888,7 +5888,7 @@ char __cdecl sub_54CFB0(int a1)
             ++v4;
             ++v5;
         } while (v4 < 6);
-        v2 = sub_415FA0(1, v3);
+        v2 = nox_common_randomInt_415FA0(1, v3);
         v6 = 1;
         a1 = v2;
         v7 = 1;
@@ -6083,7 +6083,7 @@ int __cdecl sub_54D2B0(int a1)
     v3 = *(_DWORD*)(a1 + 748);
     if (!*(_DWORD*)& byte_5D4594[2491688])
         * (_DWORD*)& byte_5D4594[2491688] = sub_4E3AA0((CHAR*)& byte_587000[290560]);
-    if (nox_common_mapflags_check(2048))
+    if (nox_common_gameFlags_check_40A5C0(2048))
         sub_4DB170(0, 0, 0);
     v24 = *(_DWORD*)(a1 + 520);
     if (v24)
@@ -6117,7 +6117,7 @@ int __cdecl sub_54D2B0(int a1)
         v22 = 0;
         v6 = 0;
     }
-    if (nox_common_mapflags_check(0x2000))
+    if (nox_common_gameFlags_check_40A5C0(0x2000))
     {
         v7 = 0;
         v23[10] = 0;
@@ -6210,20 +6210,20 @@ LABEL_38:
     v16 = sub_40A8A0();
     if (v16)
     {
-        if (nox_common_mapflags_check(256))
+        if (nox_common_gameFlags_check_40A5C0(256))
         {
             sub_54D980(v1, v24, v2, v6);
         }
-        else if (nox_common_mapflags_check(16))
+        else if (nox_common_gameFlags_check_40A5C0(16))
         {
             sub_54DC40(v1, v24);
         }
-        else if (nox_common_mapflags_check(1024))
+        else if (nox_common_gameFlags_check_40A5C0(1024))
         {
             sub_54D7A0(v1, v24);
         }
     }
-    if (nox_common_mapflags_check(1024)
+    if (nox_common_gameFlags_check_40A5C0(1024)
         && sub_40A020(1024)
         && *(_DWORD*)(*(_DWORD*)(v3 + 276) + 2140) >= (int)(unsigned __int16)sub_40A020(1024))
     {
@@ -6231,7 +6231,7 @@ LABEL_38:
     }
     *(_DWORD*)(v1 + 16) |= 0x10u;
     sub_4DA9F0((_DWORD*)v1);
-    if (!nox_common_mapflags_check(4096))
+    if (!nox_common_gameFlags_check_40A5C0(4096))
         sub_4EDA40((_DWORD*)v1);
     sub_54DF00(v1);
     v17 = *(_DWORD*)(v3 + 276);
@@ -6245,7 +6245,7 @@ LABEL_38:
     if (*(_DWORD*)(v3 + 280))
         sub_510DC0(*(_DWORD * *)(v3 + 280));
     *(_DWORD*)(v3 + 280) = 0;
-    result = nox_common_mapflags_check(4096);
+    result = nox_common_gameFlags_check_40A5C0(4096);
     if (result)
     {
         v19 = *(_DWORD*)(v3 + 320);
@@ -6756,7 +6756,7 @@ void __cdecl sub_54E0D0(int a1)
     if (v2)
     {
         sub_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
-        v3 = sub_415FA0(45, 75);
+        v3 = nox_common_randomInt_415FA0(45, 75);
         sub_511660(v2, *(_DWORD*)& byte_5D4594[2649704] * v3);
     }
     sub_4E25B0(a1 + 56, 30.0, 30.0, 1, 1, a1, 0);
@@ -6811,7 +6811,7 @@ void __cdecl sub_54E4B0(int a1)
     sub_501960(757, a1, 0, 0);
     v2 = (float2*)(a1 + 56);
     sub_522FF0(138, (float2*)(a1 + 56));
-    v3 = sub_415FA0(20, 30);
+    v3 = nox_common_randomInt_415FA0(20, 30);
     v4 = 0;
     if (v3 <= 0)
     {
@@ -6836,7 +6836,7 @@ void __cdecl sub_54E4B0(int a1)
             v6[29] = v7;
             v10 = sub_416030(5.0, 20.0);
             sub_52DF80((int)v2, (int)v6, v10);
-            v8 = sub_415FA0(45, 75);
+            v8 = nox_common_randomInt_415FA0(45, 75);
             sub_511660(v6, *(_DWORD*)& byte_5D4594[2649704] * v8);
             v5 = (*(_DWORD*)& byte_5D4594[2491704] + 1) % *(_DWORD*)& byte_587000[290340];
             ++v4;
@@ -6869,7 +6869,7 @@ void __cdecl sub_54E630(int a1)
     sub_502490((int*)(v1 + 56), *(_DWORD*)(a1 + 520), a1);
     sub_501960(1000, a1, 0, 0);
     sub_523200((float*)(a1 + 56), 200);
-    if (nox_common_mapflags_check(4096))
+    if (nox_common_gameFlags_check_40A5C0(4096))
     {
         if (*(_DWORD*)(a1 + 520))
         {
@@ -7103,7 +7103,7 @@ char __cdecl sub_54E930(_DWORD* a1)
                                 ++v10;
                                 --v11;
                             } while (v11);
-                            v12 = *(_DWORD*)(v2 + 4 * (sub_415FA0(0, v9 - 1) + 4 * v3));
+                            v12 = *(_DWORD*)(v2 + 4 * (nox_common_randomInt_415FA0(0, v9 - 1) + 4 * v3));
                             v4 = sub_54EBA0(a1, &a2, v12);
                             if (v4 == 1)
                             {
@@ -7187,7 +7187,7 @@ int __cdecl sub_54EBA0(_DWORD* a1, float2* a2, int a4)
     } while (v3);
     if (!v13)
         return 0;
-    v10 = sub_415FA0(0, v13 - 1);
+    v10 = nox_common_randomInt_415FA0(0, v13 - 1);
     v11 = sub_417090(v18[v10]);
     return sub_54ED50((int)a1, a2, *((_DWORD*)v11 + 514), a4);
 }
@@ -7695,7 +7695,7 @@ void __cdecl sub_54F740(int a1)
                         {
                             do
                             {
-                                v11 = sub_415FA0(0, *(unsigned __int8*)(v9 + 476) - 1);
+                                v11 = nox_common_randomInt_415FA0(0, *(unsigned __int8*)(v9 + 476) - 1);
                                 v9 = *((_DWORD*)v2 + 3);
                             } while (*(_DWORD*)(v9 + 8 * v11 + 92) == *((_DWORD*)v2 + 5));
                             *((_DWORD*)v2 + 5) = v9;
@@ -8698,7 +8698,7 @@ void __cdecl sub_550D00(int a1, int a2)
     v18.field_4 = *(float*)(a2 + 68) - *(float*)(a1 + 68);
     if (v18.field_0 == 0.0 && v18.field_4 == 0.0)
     {
-        v4 = sub_415FA0(0, 3);
+        v4 = nox_common_randomInt_415FA0(0, 3);
         v18.field_0 = *(float*)& byte_587000[8 * v4 + 292784];
         v18.field_4 = *(float*)& byte_587000[8 * v4 + 292788];
     }

@@ -143,7 +143,7 @@ int* sub_454740()
     nox_window_call_field_94(*(int*)& byte_5D4594[1045592], 16414, (int)WideCharStr, 0);
     for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
     {
-        if (i[2064] != 31 || !(*(_DWORD*)& byte_5D4594[2650636] & 0x40000))
+        if (i[2064] != 31 || !(*(_DWORD*)& nox_common_engineFlags & 0x40000))
             sub_455920((int)(i + 4704));
     }
     return sub_455800();

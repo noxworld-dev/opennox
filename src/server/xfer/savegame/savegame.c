@@ -250,7 +250,7 @@ char* __cdecl sub_4DB7E0_savegame(const char* a1)
     v1 = sub_417090(31);
     if (!a1)
         return 0;
-    if (!nox_common_mapflags_check(2) || (result = (char*)sub_4738D0()) != 0)
+    if (!nox_common_gameFlags_check_40A5C0(2) || (result = (char*)sub_4738D0()) != 0)
     {
         sub_4DB9C0();
         if (!strcmp(a1, "WORKING")

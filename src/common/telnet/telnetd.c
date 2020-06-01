@@ -120,7 +120,7 @@ char* sub_579190()
                     }
                     else
                     {
-                        sub_443C80(v11, 0);
+                        nox_server_parseCmdText_443C80(v11, 0);
                     }
                 }
                 result = (char*)send(

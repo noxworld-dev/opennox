@@ -120,7 +120,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
         return 1;
     }
     v4 = a2;
-    if (*(_DWORD*)& byte_5D4594[2650636] & 0x200000)
+    if (*(_DWORD*)& nox_common_engineFlags & 0x200000)
     {
         v5 = sub_417090(a1);
         sub_4D3450((int)v5, a2, a3);
@@ -315,13 +315,13 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                         sub_4DA2C0(v9, "GeneralPrint:ConjureNoSpellWarning1", 0);
                         v34 = 0;
                     }
-                    if (!nox_common_mapflags_check(2048))
+                    if (!nox_common_gameFlags_check_40A5C0(2048))
                     {
                         v35 = *(_DWORD*)(v9 + 16);
                         if (v35 & 0x4000)
                             v34 = 0;
                     }
-                    if (!nox_common_mapflags_check(128) && v34)
+                    if (!nox_common_gameFlags_check_40A5C0(128) && v34)
                     {
                         v36 = (int*)(v4 + 1);
                         v37 = 0;
@@ -338,7 +338,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                              || !sub_424A50(*v36, 32)
                              || !*(_DWORD*)(v85 + 288)
                              || sub_5330C0(v9, *(_DWORD*)(v85 + 288))
-                             || nox_common_mapflags_check(4096))
+                             || nox_common_gameFlags_check_40A5C0(4096))
                             && !sub_4FE340(v9, (int*)(v4 + 1), v37, 3, v4[21])
                             && v37 == 1)
                         {
@@ -358,7 +358,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                     goto LABEL_273;
                 case 0x7Au:
                     v33 = (*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 3) == 0;
-                    if (!nox_common_mapflags_check(128) && v33)
+                    if (!nox_common_gameFlags_check_40A5C0(128) && v33)
                         sub_4FBB70(v9, v4[1]);
                     v10 = (int*)v85;
                     v4 += 2;
@@ -407,7 +407,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                     {
                         for (j = sub_416EA0(); j; j = sub_416EE0((int)j))
                         {
-                            if (nox_common_mapflags_check(2) && j[2064] == 31)
+                            if (nox_common_gameFlags_check_40A5C0(2) && j[2064] == 31)
                             {
                                 sub_48EA70(31, (unsigned int)v4, v45);
                             }
@@ -441,7 +441,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                         v49 = sub_417040(*(_DWORD*)(v48 + 36));
                         if (v49 && sub_419180(v48 + 48, v86[57]))
                         {
-                            if (nox_common_mapflags_check(2) && *(_DWORD*)(v48 + 36) == *(_DWORD*)& byte_5D4594[2616328])
+                            if (nox_common_gameFlags_check_40A5C0(2) && *(_DWORD*)(v48 + 36) == *(_DWORD*)& byte_5D4594[2616328])
                             {
                                 sub_48EA70((unsigned __int8)v49[2064], (unsigned int)v4, v45);
                             }
@@ -533,7 +533,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                     ++v4;
                     goto LABEL_273;
                 case 0xC1u:
-                    if (nox_common_mapflags_check(4096)
+                    if (nox_common_gameFlags_check_40A5C0(4096)
                         && *(_BYTE*)(v8 + 2064) != 31
                         && *(_DWORD*)(v8 + 2092)
                         && *(_DWORD*)(v8 + 2056)
@@ -618,7 +618,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                         v53 = sub_4ECCB0(*((unsigned __int16*)v4 + 3));
                         if (v53)
                         {
-                            if (!nox_common_mapflags_check(128))
+                            if (!nox_common_gameFlags_check_40A5C0(128))
                             {
                                 sub_4F7AB0(&v96, v53);
                                 sub_4E7010(v53, &v96);
@@ -731,7 +731,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                     switch (v4[1])
                     {
                         case 0u:
-                            if (nox_common_mapflags_check(4096))
+                            if (nox_common_gameFlags_check_40A5C0(4096))
                                 sub_506870(3, v9, (wchar_t*)v4 + 1);
                             else
                                 sub_506870(0, v9, (wchar_t*)v4 + 1);
@@ -742,7 +742,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3)
                             v4 += 52;
                             goto LABEL_226;
                         case 2u:
-                            if (nox_common_mapflags_check(4096))
+                            if (nox_common_gameFlags_check_40A5C0(4096))
                                 sub_506C90(3, v9, (wchar_t*)v4 + 1);
                             else
                                 sub_506C90(0, v9, (wchar_t*)v4 + 1);

@@ -388,7 +388,7 @@ int sub_447620_wol_chat()
             *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[829508] + 400) + 8) = 16;
             *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[829508] + 400) + 12) = 46;
             sub_41F370(0);
-            if (nox_common_mapflags_check(0x2000000))
+            if (nox_common_gameFlags_check_40A5C0(0x2000000))
                 sub_448450();
             else
                 sub_41F3A0(-99999, 1);

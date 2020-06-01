@@ -25,7 +25,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4)
     {
         if (a2 != 16391)
             return 0;
-        if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[1307308] + 64) && !nox_common_mapflags_check(0x2000000))
+        if (*(_BYTE*)(*(_DWORD*)& byte_5D4594[1307308] + 64) && !nox_common_gameFlags_check_40A5C0(0x2000000))
         {
         LABEL_32:
             sub_452D80(921, 100);
@@ -38,12 +38,12 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4)
                 if (sub_40ABD0() && sub_413840())
                 {
                     sub_40A4D0(2048);
-                    sub_40A540(0x2000);
-                    sub_40A540(0x10000);
+                    nox_common_gameFlags_unset_40A540(0x2000);
+                    nox_common_gameFlags_unset_40A540(0x10000);
                     sub_501AC0(0);
-                    v4 = *(_DWORD*)& byte_5D4594[2650636];
-                    LOBYTE(v4) = byte_5D4594[2650636] & 0xCF;
-                    *(_DWORD*)& byte_5D4594[2650636] = v4;
+                    v4 = *(_DWORD*)& nox_common_engineFlags;
+                    LOBYTE(v4) = nox_common_engineFlags & 0xCF;
+                    *(_DWORD*)& nox_common_engineFlags = v4;
                     sub_4D6F40(0);
                     sub_4D6F90(0);
                     sub_4D6F60(0);
@@ -82,10 +82,10 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4)
                 return 1;
             case 112:
                 sub_4A1D40();
-                *(_DWORD*)& byte_5D4594[2650636] = *(_DWORD*)& byte_5D4594[2650636] & 0xFFFFFFDF | 0x10;
+                *(_DWORD*)& nox_common_engineFlags = *(_DWORD*)& nox_common_engineFlags & 0xFFFFFFDF | 0x10;
                 sub_40A4D0(0x2000);
                 sub_40A4D0(0x10000);
-                sub_40A540(2048);
+                nox_common_gameFlags_unset_40A540(2048);
                 sub_461440(0);
                 sub_4D6F40(0);
                 sub_4D6F90(0);
@@ -120,7 +120,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4)
                 a3[9] = v8;
                 goto LABEL_32;
             case 131:
-                LOBYTE(v6) = sub_4D7700();
+                LOBYTE(v6) = nox_client_checkQuestExp_SKU2_4D7700();
                 if (!v6)
                 {
                     v7 = loadString_sub_40F1D0((char*)& byte_587000[169352], 0, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 416);
@@ -131,10 +131,10 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4)
                     return 1;
                 }
                 sub_4A1D40();
-                *(_DWORD*)& byte_5D4594[2650636] = *(_DWORD*)& byte_5D4594[2650636] & 0xFFFFFFDF | 0x10;
+                *(_DWORD*)& nox_common_engineFlags = *(_DWORD*)& nox_common_engineFlags & 0xFFFFFFDF | 0x10;
                 sub_40A4D0(0x2000);
                 sub_40A4D0(0x10000);
-                sub_40A540(2048);
+                nox_common_gameFlags_unset_40A540(2048);
                 sub_4D6F40(1);
                 sub_4D6F90(1);
                 sub_4E3CD0(0);

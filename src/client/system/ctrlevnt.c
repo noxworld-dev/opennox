@@ -91,10 +91,10 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
     int v43; // [esp+4h] [ebp-4h]
 
     *(_QWORD*)& byte_5D4594[747876] = sub_416BB0();
-    if (nox_common_mapflags_check(1) && nox_common_mapflags_check(0x2000))
+    if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x2000))
         * (_QWORD*)& byte_5D4594[747876] += sub_42E630();
     v2 = *(_DWORD*)& byte_5D4594[2618908];
-    if (!nox_common_mapflags_check(1))
+    if (!nox_common_gameFlags_check_40A5C0(1))
         * (_DWORD*)& byte_5D4594[754036] = 0;
     for (i = a4; i; i = *(_DWORD*)(i + 84))
     {
@@ -292,21 +292,21 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 sub_42E670(46, 0);
                 break;
             case 0x2E:
-                if (nox_common_mapflags_check(0x2000) && sub_4160F0(0x15u, *(unsigned int*)& byte_5D4594[2649704]))
+                if (nox_common_gameFlags_check_40A5C0(0x2000) && sub_4160F0(0x15u, *(unsigned int*)& byte_5D4594[2649704]))
                 {
                     sub_4160D0(21);
                     sub_42E670(47, 0);
                 }
                 break;
             case 0x2F:
-                if (nox_common_mapflags_check(0x2000) && sub_4160F0(0x14u, 2 * *(_DWORD*)& byte_5D4594[2649704]))
+                if (nox_common_gameFlags_check_40A5C0(0x2000) && sub_4160F0(0x14u, 2 * *(_DWORD*)& byte_5D4594[2649704]))
                 {
                     sub_4160D0(20);
                     sub_42E670(48, 0);
                 }
                 break;
             case 0x30:
-                if (nox_common_mapflags_check(0x2000) && sub_4160F0(0x16u, *(unsigned int*)& byte_5D4594[2649704]))
+                if (nox_common_gameFlags_check_40A5C0(0x2000) && sub_4160F0(0x16u, *(unsigned int*)& byte_5D4594[2649704]))
                 {
                     sub_4160D0(22);
                     sub_42E670(49, 0);
@@ -316,7 +316,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 sub_42E670(50, 0);
                 break;
             case 0x32:
-                if (nox_common_mapflags_check(0x2000))
+                if (nox_common_gameFlags_check_40A5C0(0x2000))
                     sub_42E670(51, 0);
                 break;
             case 0x33:
@@ -327,11 +327,11 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 sub_42E670(53, 0);
                 break;
             case 0x35:
-                if (nox_common_mapflags_check(2048) && !sub_477600())
+                if (nox_common_gameFlags_check_40A5C0(2048) && !sub_477600())
                     sub_42E670(54, 0);
                 break;
             case 0x36:
-                if (nox_common_mapflags_check(2048) && !sub_477600())
+                if (nox_common_gameFlags_check_40A5C0(2048) && !sub_477600())
                     sub_42E670(55, 0);
                 break;
             case 0x37:
@@ -379,7 +379,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
         sub_45DBB0();
     if (byte_5D4594[754064] & 4)
         sub_42E670(28, 0);
-    if (nox_common_mapflags_check(1))
+    if (nox_common_gameFlags_check_40A5C0(1))
     {
         v19 = *(_DWORD*)& byte_5D4594[754048];
         v20 = *(_DWORD*)& byte_5D4594[754040];
@@ -463,7 +463,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
         *(_DWORD*)& byte_5D4594[754044] = v27;
     }
     *(_DWORD*)& byte_5D4594[754064] = 0;
-    if (nox_common_mapflags_check(1))
+    if (nox_common_gameFlags_check_40A5C0(1))
     {
         result = *(_DWORD*)& byte_5D4594[754040];
         v34 = *(_DWORD*)& byte_5D4594[754036];
@@ -484,56 +484,56 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
             switch (*(_DWORD*)& byte_5D4594[24 * (l % 128) + 747892])
             {
             case 0x14:
-                if (!nox_common_mapflags_check(128))
+                if (!nox_common_gameFlags_check_40A5C0(128))
                 {
                     sub_452D80(186, 100);
                     sub_476E00(1);
                 }
                 break;
             case 0x15:
-                if (!nox_common_mapflags_check(128))
+                if (!nox_common_gameFlags_check_40A5C0(128))
                 {
                     sub_452D80(190, 100);
                     sub_476E00(6);
                 }
                 break;
             case 0x16:
-                if (!nox_common_mapflags_check(128))
+                if (!nox_common_gameFlags_check_40A5C0(128))
                 {
                     sub_452D80(192, 100);
                     sub_476E00(3);
                 }
                 break;
             case 0x17:
-                if (!nox_common_mapflags_check(128))
+                if (!nox_common_gameFlags_check_40A5C0(128))
                 {
                     sub_452D80(188, 100);
                     sub_476E00(4);
                 }
                 break;
             case 0x18:
-                if (!nox_common_mapflags_check(128))
+                if (!nox_common_gameFlags_check_40A5C0(128))
                 {
                     sub_452D80(187, 100);
                     sub_476E00(2);
                 }
                 break;
             case 0x19:
-                if (!nox_common_mapflags_check(128))
+                if (!nox_common_gameFlags_check_40A5C0(128))
                 {
                     sub_452D80(193, 100);
                     sub_476E00(0);
                 }
                 break;
             case 0x1A:
-                if (!nox_common_mapflags_check(128))
+                if (!nox_common_gameFlags_check_40A5C0(128))
                 {
                     sub_452D80(189, 100);
                     sub_476E00(7);
                 }
                 break;
             case 0x1B:
-                if (!nox_common_mapflags_check(128))
+                if (!nox_common_gameFlags_check_40A5C0(128))
                 {
                     sub_452D80(191, 100);
                     sub_476E00(5);
@@ -655,7 +655,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 *(_DWORD*)& byte_5D4594[v36 + 747900] = 0;
                 break;
             case 46:
-                if (nox_common_mapflags_check(8) || !nox_common_mapflags_check(0x2000))
+                if (nox_common_gameFlags_check_40A5C0(8) || !nox_common_gameFlags_check_40A5C0(0x2000))
                     goto LABEL_211;
                 sub_457500();
                 *(_DWORD*)& byte_5D4594[v36 + 747900] = 0;
@@ -688,7 +688,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 *(_DWORD*)& byte_5D4594[v36 + 747900] = 0;
                 break;
             case 53:
-                if (*(_DWORD*)& byte_5D4594[2650636] & 0x40000)
+                if (*(_DWORD*)& nox_common_engineFlags & 0x40000)
                     goto LABEL_211;
                 *(_DWORD*)& byte_587000[80828] ^= 1u;
                 *(_DWORD*)& byte_587000[80832] = *(_DWORD*)& byte_587000[80828];
@@ -696,7 +696,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 *(_DWORD*)& byte_5D4594[v36 + 747900] = 0;
                 break;
             case 54:
-                if (!nox_common_mapflags_check(2048))
+                if (!nox_common_gameFlags_check_40A5C0(2048))
                     goto LABEL_211;
                 if (!sub_4DCCB0())
                     goto LABEL_210;
@@ -706,7 +706,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 *(_DWORD*)& byte_5D4594[v36 + 747900] = 0;
                 break;
             case 55:
-                if (!nox_common_mapflags_check(2048))
+                if (!nox_common_gameFlags_check_40A5C0(2048))
                     goto LABEL_211;
                 if (sub_4DCCB0())
                 {

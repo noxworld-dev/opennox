@@ -4676,7 +4676,7 @@ int __cdecl sub_5235F0(char a1)
     int result; // eax
     int v3; // [esp+0h] [ebp-4h]
 
-    result = nox_common_mapflags_check(0x200000);
+    result = nox_common_gameFlags_check_40A5C0(0x200000);
     if (!result)
     {
         *(_DWORD*)& byte_5D4594[2487564] = clock();
@@ -9072,7 +9072,7 @@ void __cdecl sub_5281F0(float a1)
     v3 = *(_DWORD*)(LODWORD(a1) + 748);
     if ((v2 & 0x8000) != 0 && !sub_534A40(SLODWORD(a1)))
         return;
-    if (nox_common_mapflags_check(4096))
+    if (nox_common_gameFlags_check_40A5C0(4096))
         v4 = 640.0;
     else
         v4 = 250.0;
@@ -9143,9 +9143,9 @@ void __cdecl sub_5281F0(float a1)
     if (*(_DWORD*)(v3 + 1204) == *(_DWORD*)& byte_5D4594[2598000])
     {
         v15 = *(_DWORD*)(v3 + 1440);
-        if (v15 & 0x400 || nox_common_mapflags_check(0x2000) || *(_DWORD*)(v3 + 1196))
+        if (v15 & 0x400 || nox_common_gameFlags_check_40A5C0(0x2000) || *(_DWORD*)(v3 + 1196))
         {
-            *(_DWORD*)(v3 + 1208) = *(_DWORD*)& byte_5D4594[2598000] + sub_415FA0(5, 10);
+            *(_DWORD*)(v3 + 1208) = *(_DWORD*)& byte_5D4594[2598000] + nox_common_randomInt_415FA0(5, 10);
         }
         else
         {
@@ -9164,7 +9164,7 @@ void __cdecl sub_5281F0(float a1)
             }
             else
             {
-                *(_DWORD*)(v3 + 1208) = sub_415FA0(5, 10) + *(_DWORD*)& byte_5D4594[2598000];
+                *(_DWORD*)(v3 + 1208) = nox_common_randomInt_415FA0(5, 10) + *(_DWORD*)& byte_5D4594[2598000];
             }
         }
     }
@@ -9339,7 +9339,7 @@ void __cdecl sub_5287B0(int a1, int a2)
                     if (v17)
                         sub_501960(*(_DWORD*)(v17 + 68), v2, 0, 0);
                     *(_DWORD*)(v4 + 536) = *(_DWORD*)& byte_5D4594[2598000]
-                                           + sub_415FA0(2 * *(_DWORD*)& byte_5D4594[2649704], 4 * *(_DWORD*)& byte_5D4594[2649704]);
+                                           + nox_common_randomInt_415FA0(2 * *(_DWORD*)& byte_5D4594[2649704], 4 * *(_DWORD*)& byte_5D4594[2649704]);
                 }
             }
         }
@@ -10021,7 +10021,7 @@ int __cdecl sub_528DB0(int a1)
                 LABEL_164:
                 if (!*(_BYTE*)(v1 + 1445))
                     goto LABEL_201;
-                if (nox_common_mapflags_check(1))
+                if (nox_common_gameFlags_check_40A5C0(1))
                 {
                     *(_WORD*)(*(_DWORD*)(a1 + 556) + 4) = 0;
                     **(_WORD * *)(a1 + 556) = 0;
@@ -10048,7 +10048,7 @@ int __cdecl sub_528DB0(int a1)
                 }
                 if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                 {
-                    if (nox_common_mapflags_check(0x200000) || !sub_4DB240())
+                    if (nox_common_gameFlags_check_40A5C0(0x200000) || !sub_4DB240())
                         sub_529BC0(a1);
                     if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                     {
@@ -10214,7 +10214,7 @@ int __cdecl sub_529CE0(int a1)
     if ((__int16)v21 < 2)
         goto LABEL_67;
     v19 = 0;
-    if (nox_common_mapflags_check(1) && !nox_common_mapflags_check(0x400000))
+    if (nox_common_gameFlags_check_40A5C0(1) && !nox_common_gameFlags_check_40A5C0(0x400000))
         v19 = 1;
     sub_426AC0_file3_fread(&v19, 1u);
     if (v19 || (_WORD)v21 == 1)
@@ -11289,7 +11289,7 @@ int __cdecl sub_52ADE0(int a1)
                     LABEL_149:
                     if (!*(_BYTE*)(v1 + 1445))
                         goto LABEL_170;
-                    if (nox_common_mapflags_check(1))
+                    if (nox_common_gameFlags_check_40A5C0(1))
                     {
                         v38 = *(_DWORD*)(v35 + 556);
                         if (v38)
@@ -11322,7 +11322,7 @@ int __cdecl sub_52ADE0(int a1)
                 sub_52BA70(v35);
                 if (*(_DWORD*)& byte_5D4594[3803300] == 1)
                 {
-                    if (nox_common_mapflags_check(1))
+                    if (nox_common_gameFlags_check_40A5C0(1))
                     {
                         for (k = *(_DWORD * *)(v35 + 504); k; k = (_DWORD*)k[124])
                         {
@@ -11540,7 +11540,7 @@ int __cdecl sub_52BD30(int* a1)
         if (result)
         {
             sub_4DAA50(result, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
-            v4 = sub_415FA0(0, 255);
+            v4 = nox_common_randomInt_415FA0(0, 255);
             *((_WORD*)v3 + 62) = v4;
             result = 8 * v4;
             v3[20] = *(float*)& byte_587000[result + 194136] * v3[136];
@@ -11972,7 +11972,7 @@ int __cdecl sub_52C530(int a1, int a2, int a3, int a4, int* a5, char a6)
     v8 = nox_float2int(v10);
     v9 = v8;
     v12 = v8;
-    if (nox_common_mapflags_check(4096))
+    if (nox_common_gameFlags_check_40A5C0(4096))
     {
         v11 = sub_419D40(&byte_587000[258728]) * (double)v12;
         v9 = nox_float2int(v11);
@@ -12759,7 +12759,7 @@ int __cdecl sub_52D3C0(int a1, int a2, int a3, int a4, int a5, int a6)
     v21.field_4 = v8;
     v21.field_8 = v9;
     v21.field_C = v10;
-    v11 = nox_common_mapflags_check(2048);
+    v11 = nox_common_gameFlags_check_40A5C0(2048);
     if (sub_535250(&v21, 0, 0, !v11 ? 73 : 9))
     {
         v14 = sub_4E3450(*(_DWORD*)& byte_5D4594[4 * a6 + 2487736]);
@@ -12852,18 +12852,18 @@ int __cdecl sub_52D5C0(int a1, int a2, int a3, int a4, int a5, int a6)
             }
         }
     }
-    if (!nox_common_mapflags_check(2048))
+    if (!nox_common_gameFlags_check_40A5C0(2048))
         a6 = 4;
     v19 = 48;
     do
     {
-        v8 = a6 - sub_415FA0(0, 1);
+        v8 = a6 - nox_common_randomInt_415FA0(0, 1);
         if (v8 >= 1)
         {
             v9 = (float*)sub_4E3450(*(_DWORD*)& byte_5D4594[4 * ((a1 != 10 ? 5 : 0) + v8) + 2487756]);
             if (v9)
             {
-                v10 = sub_415FA0(0, 255);
+                v10 = nox_common_randomInt_415FA0(0, 255);
                 v11 = v9[44];
                 *((_WORD*)v9 + 62) = v10;
                 v12 = v11 + *(float*)(a4 + 176) + 4.0;
@@ -12883,7 +12883,7 @@ int __cdecl sub_52D5C0(int a1, int a2, int a3, int a4, int a5, int a6)
                     v9[20] = v21 * 4.0;
                     v9[21] = v22 * 4.0;
                     *((_DWORD*)v9 + 34) = *(_DWORD*)& byte_5D4594[2598000]
-                                          + sub_415FA0(3 * *(_DWORD*)& byte_5D4594[2649704], 6 * *(_DWORD*)& byte_5D4594[2649704]);
+                                          + nox_common_randomInt_415FA0(3 * *(_DWORD*)& byte_5D4594[2649704], 6 * *(_DWORD*)& byte_5D4594[2649704]);
                     v9[39] = *(float*)(a4 + 56);
                     v9[40] = *(float*)(a4 + 60);
                     *((_DWORD*)v9 + 186) = sub_53D510;
@@ -12935,7 +12935,7 @@ int __cdecl sub_52D8A0(int a1, int a2, int a3, int a4, int a5, int a6)
     v19.field_4 = v9;
     v19.field_8 = v8;
     v19.field_C = v10;
-    v11 = nox_common_mapflags_check(2048);
+    v11 = nox_common_gameFlags_check_40A5C0(2048);
     if (sub_535250(&v19, 0, 0, !v11 ? 73 : 9))
     {
         v14 = sub_4E3450(*(int*)& byte_5D4594[2487800]);
@@ -13018,7 +13018,7 @@ int __cdecl sub_52D9D0(int a1, int a2, int a3, int a4, int a5, int a6)
         v13 = *(float*)(a5 + 8);
         v24.field_8 = v11;
         v24.field_C = v13;
-        v14 = nox_common_mapflags_check(2048);
+        v14 = nox_common_gameFlags_check_40A5C0(2048);
         if (sub_535250(&v24, 0, 0, !v14 ? 73 : 9))
         {
             v17 = sub_4E3450(*(int*)& byte_5D4594[2487804]);
@@ -13541,16 +13541,16 @@ int __cdecl sub_52E450(int a1, int a2, int a3)
         {
             v6 = *v5;
             a3 = *v5;
-            if (!nox_common_mapflags_check(4096))
+            if (!nox_common_gameFlags_check_40A5C0(4096))
                 * v5 = 0;
         }
-        else if (!nox_common_mapflags_check(4096))
+        else if (!nox_common_gameFlags_check_40A5C0(4096))
         {
             *v5 -= a3;
         }
         if (!v6)
             return 0;
-        if (!nox_common_mapflags_check(4096))
+        if (!nox_common_gameFlags_check_40A5C0(4096))
             sub_4E44F0(a2);
         goto LABEL_23;
     }
@@ -13561,7 +13561,7 @@ int __cdecl sub_52E450(int a1, int a2, int a3)
             LOWORD(v6) = 1;
             a3 = 1;
             LABEL_24:
-            if (!nox_common_mapflags_check(4096) || !(*(_BYTE*)(a1 + 8) & 4))
+            if (!nox_common_gameFlags_check_40A5C0(4096) || !(*(_BYTE*)(a1 + 8) & 4))
                 goto LABEL_33;
             v8 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251);
             if (v8)
@@ -14009,7 +14009,7 @@ int __cdecl sub_52ED40(float* a1)
             v12 = 2;
             do
             {
-                v13 = sub_415FA0(0, v10);
+                v13 = nox_common_randomInt_415FA0(0, v10);
                 v14 = sub_4E3450(*(_DWORD*)& byte_5D4594[4 * v13 + 2487888]);
                 v15 = v14;
                 if (v14)

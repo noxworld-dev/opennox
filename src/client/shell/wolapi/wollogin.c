@@ -110,7 +110,7 @@ int sub_44A560_wol_login()
     *(_DWORD*)(v5[100] + 12) = 10;
     if (*(_DWORD*)& byte_5D4594[830272] == 1 || sub_4D3320() == 1)
     {
-        if (nox_common_mapflags_check(0x2000000))
+        if (nox_common_gameFlags_check_40A5C0(0x2000000))
         {
             if (*(_DWORD*)& byte_5D4594[830272] == 1)
             {
@@ -137,7 +137,7 @@ int sub_44A560_wol_login()
         sub_46B500(*(int*)& byte_5D4594[830256]);
     }
     *(_DWORD*)& byte_5D4594[830268] = 0;
-    if (nox_common_mapflags_check(0x2000000))
+    if (nox_common_gameFlags_check_40A5C0(0x2000000))
     {
         v12 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[830248], 1708);
         v13 = sub_4A7F00();

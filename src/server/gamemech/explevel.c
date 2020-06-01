@@ -38,7 +38,7 @@ void __cdecl sub_4EF2E0_exp_level(int a1)
         ++* (_BYTE*)(v1 + 3684);
         sub_56F980(*(_DWORD*)(v1 + 4644), 1u);
         sub_4EEDC0(a1, 1);
-        if (nox_common_mapflags_check(2048))
+        if (nox_common_gameFlags_check_40A5C0(2048))
         {
             sub_57AF30(a1, 0);
         }

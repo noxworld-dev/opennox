@@ -41,7 +41,7 @@ int sub_4A4DB0()
             sub_46B2C0(*(int*)& byte_5D4594[1307744], sub_4A5710);
             sub_46B120(*(_DWORD * *)& byte_5D4594[1307776], *(int*)& byte_5D4594[1307744]);
             sub_46B120(*(_DWORD * *)& byte_5D4594[1307768], *(int*)& byte_5D4594[1307744]);
-            if (nox_common_mapflags_check(2048))
+            if (nox_common_gameFlags_check_40A5C0(2048))
             {
                 v5 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1307764], 504);
                 nox_window_set_hidden((int)v5, 1);
@@ -68,11 +68,11 @@ int sub_4A4DB0()
             sub_4A5150();
             sub_4A19F0((char*)& byte_587000[170448]);
             sub_46A8A0();
-            if (nox_common_mapflags_check(0x2000))
+            if (nox_common_gameFlags_check_40A5C0(0x2000))
                 sub_4A5700();
             else
                 sub_4A56E0();
-            if (nox_common_mapflags_check(0x2000000))
+            if (nox_common_gameFlags_check_40A5C0(0x2000000))
             {
                 v9 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1307764], 502);
                 nox_window_call_field_94(*(int*)& byte_5D4594[1307764], 16391, (int)v9, 0);
@@ -123,7 +123,7 @@ int sub_4A5150()
     strcpy(PathName, v2);
     strcat(PathName, "\\Save\\");
     CreateDirectoryA(PathName, 0);
-    if (nox_common_mapflags_check(2048))
+    if (nox_common_gameFlags_check_40A5C0(2048))
     {
         *(_DWORD*)& byte_5D4594[1307780] = nox_calloc(0xEu, 0x4FEu);
         result = sub_46CE40(
@@ -309,7 +309,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4)
                 if (!strlen((const char*)(*(_DWORD*)& byte_5D4594[1307780] + 1278 * v8 + 4)))
                     goto LABEL_38;
                 sub_4DC970((char*)(*(_DWORD*)& byte_5D4594[1307780] + 1278 * v8 + 4), v20);
-                if ((!nox_common_mapflags_check(2048) || sub_4DC100((int)v20, (int)& byte_587000[171268]))
+                if ((!nox_common_gameFlags_check_40A5C0(2048) || sub_4DC100((int)v20, (int)& byte_587000[171268]))
                     && sub_41A000((char*)(*(_DWORD*)& byte_5D4594[1307780] + 1278 * *(_DWORD*)(v7 + 48) + 4), v23))
                 {
                     qmemcpy(&byte_5D4594[2660684], v23, 0x4FCu);
@@ -330,7 +330,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4)
                     {
                         sub_409D70((char*)& byte_587000[171276]);
                     }
-                    if (nox_common_mapflags_check(2048))
+                    if (nox_common_gameFlags_check_40A5C0(2048))
                     {
                         sub_4DB220(1);
                         sub_4DB230(1);
@@ -377,7 +377,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4)
                 goto LABEL_40;
             *(_DWORD*)& byte_5D4594[1307772] = *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[1307776] + 32) + 48);
             sub_4DC970((char*)(*(_DWORD*)& byte_5D4594[1307780] + 1278 * v5 + 4), (char*)& byte_5D4594[1307752]);
-            if (nox_common_mapflags_check(2048) && !strcmp((const char*)& byte_5D4594[1307752], "AUTOSAVE"))
+            if (nox_common_gameFlags_check_40A5C0(2048) && !strcmp((const char*)& byte_5D4594[1307752], "AUTOSAVE"))
             {
                 sub_452D80(925, 100);
                 v17 = 0;
@@ -395,7 +395,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4)
                 }
                 v17 = sub_4A5C70;
                 v16 = 56;
-                if (nox_common_mapflags_check(2048))
+                if (nox_common_gameFlags_check_40A5C0(2048))
                 {
                     v15 = loadString_sub_40F1D0((char*)& byte_587000[171024], 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 480);
                     v6 = loadString_sub_40F1D0((char*)& byte_587000[171092], 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 479);

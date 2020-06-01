@@ -68,7 +68,7 @@ int __cdecl sub_4FB2A0_magic_plyrspel(int a1)
         v4 = *(_DWORD * *)(v3 + 184);
         if (v4 && *v4)
         {
-            if (!nox_common_mapflags_check(4096))
+            if (!nox_common_gameFlags_check_40A5C0(4096))
             {
                 v5 = *(_DWORD*)(v3 + 288);
                 if (sub_424A50(**(_DWORD * *)(v3 + 184), 32))
@@ -103,7 +103,7 @@ int __cdecl sub_4FB2A0_magic_plyrspel(int a1)
                     else
                     {
                         v14[0] = *(_DWORD*)(*(_DWORD*)(v3 + 276) + 3640);
-                        if (nox_common_mapflags_check(4096))
+                        if (nox_common_gameFlags_check_40A5C0(4096))
                         {
                             if (sub_424A50(**(_DWORD * *)(v3 + 184), 32))
                             {
@@ -183,7 +183,7 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5)
         goto LABEL_76;
     }
     v7 = *(_DWORD*)(a1 + 748);
-    if (nox_common_mapflags_check(6144) && *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) == 3
+    if (nox_common_gameFlags_check_40A5C0(6144) && *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) == 3
         || *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) == 5)
     {
         v8 = loadString_sub_40F1D0((char*)& byte_587000[217020], 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 351);
@@ -191,7 +191,7 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5)
         sub_4D9EB0(a1, v8);
         return 0;
     }
-    if (nox_common_mapflags_check(4096)
+    if (nox_common_gameFlags_check_40A5C0(4096)
         && (a2 == 34
             || a2 == 134
             || a2 == 45
@@ -218,7 +218,7 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5)
     v9 = (_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696);
     if (*v9 > 5)
         * v9 = 5;
-    if (nox_common_mapflags_check(4096))
+    if (nox_common_gameFlags_check_40A5C0(4096))
     {
         v10 = *(_DWORD*)(v7 + 276);
         if (*(_DWORD*)(v10 + 4 * a2 + 3696) > 3)
@@ -254,7 +254,7 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5)
                 v13 = (_DWORD*)(v12 + *(_DWORD*)(v7 + 276));
                 if (*v13 > 5)
                     * v13 = 5;
-                if (nox_common_mapflags_check(4096))
+                if (nox_common_gameFlags_check_40A5C0(4096))
                 {
                     v14 = *(_DWORD*)(v7 + 276);
                     if (*(_DWORD*)(v14 + 4 * v6 + 3696) > 3)
@@ -271,9 +271,9 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5)
     {
         v15 = 1;
         sub_501960(226, v5, 0, 0);
-        if (nox_common_mapflags_check(2048) && (v6 == 34 || sub_424A50(v6, 86016)))
+        if (nox_common_gameFlags_check_40A5C0(2048) && (v6 == 34 || sub_424A50(v6, 86016)))
             v15 = 0;
-        if (!nox_common_mapflags_check(4096) || *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4792))
+        if (!nox_common_gameFlags_check_40A5C0(4096) || *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4792))
         {
             if (v15)
             {
@@ -290,7 +290,7 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5)
             }
         }
     }
-    if (nox_common_mapflags_check(2048) && a3 == 1 && a4 == 1)
+    if (nox_common_gameFlags_check_40A5C0(2048) && a3 == 1 && a4 == 1)
     {
         v18 = *(_DWORD * *)(v7 + 280);
         if (v18)

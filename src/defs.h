@@ -32,18 +32,37 @@
 #endif
 
 #ifdef _WIN32
+// Windows specific headers
+// Already defined in winreg.h
+/*
 typedef intptr_t INT_PTR;
 typedef INT_PTR LSTATUS;
+*/
 
 #include <windows.h>
 #include <mmreg.h>
+// Substitute for stdbool (b/c in MSVC stdbool bool is 8-bit type)
+#ifndef bool 
+#define bool char//int
+#endif
+#ifndef true
+#define true 1
+#define false 0
+#endif
+
+#ifndef _Static_assert
+#define _Static_assert static_assert
+#endif
 #else
+// Non-windows platform headers
 #pragma GCC poison fgetwln fgetws fputwc fputws fwprintf fwscanf mbrtowc mbsnrtowcs mbsrtowcs putwc putwchar swprintf swscanf vfwprintf vfwscanf vswprintf vswscanf vwprintf vwscanf wcrtomb wcscat wcschr wcscmp wcscoll wcscpy wcscspn wcsftime wcsftime wcslcat wcslcpy wcslen wcsncat wcsncmp wcsncpy wcsnrtombs wcspbrk wcsrchr wcsrtombs wcsspn wcsstr wcstod wcstof wcstok wcstol wcstold wcstoll wcstoul wcstoull wcswidth wcsxfrm wcwidth wmemchr wmemcmp wmemcpy wmemmove wmemset wprintf wscanf
 #include "windows.h"
+#include <stdbool.h>
 #endif
 #include "compat_mss.h"
 #include "noxstring.h"
-#include <stdbool.h>
+
+//_Static_assert(sizeof(bool) == 4, "boolean values must be aligned to 32-bit int");
 
 typedef unsigned char _BYTE;
 typedef unsigned short _WORD;

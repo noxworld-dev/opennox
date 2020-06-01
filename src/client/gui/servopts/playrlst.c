@@ -67,7 +67,7 @@ int __cdecl sub_456270(int a1)
     v7[8] = v12;
     sub_456500();
     v9 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1045684], 10504);
-    if (nox_common_mapflags_check(128))
+    if (nox_common_gameFlags_check_40A5C0(128))
     {
         v10 = loadString_sub_40F1D0((char*)& byte_587000[129280], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 631);
         nox_window_call_field_94((int)v9, 16385, (int)v10, -1);
@@ -118,21 +118,21 @@ int __cdecl sub_4567C0(int a1, int a2, int* a3, int a4)
                 sub_46ABB0(*(int*)& byte_5D4594[1045688], 0);
                 sub_46ABB0(*(int*)& byte_5D4594[1045692], 0);
             }
-            else if (nox_common_mapflags_check(0x8000) || v3[53] < 0)
+            else if (nox_common_gameFlags_check_40A5C0(0x8000) || v3[53] < 0)
             {
                 sub_46ABB0(*(int*)& byte_5D4594[1045688], 0);
                 sub_46ABB0(*(int*)& byte_5D4594[1045692], 0);
             }
             else
             {
-                if (nox_common_mapflags_check(1))
+                if (nox_common_gameFlags_check_40A5C0(1))
                     sub_46ABB0(*(int*)& byte_5D4594[1045692], 1);
-                if (nox_common_mapflags_check(128) || !*(_DWORD*)& byte_5D4594[1045696])
+                if (nox_common_gameFlags_check_40A5C0(128) || !*(_DWORD*)& byte_5D4594[1045696])
                     sub_46ABB0(*(int*)& byte_5D4594[1045688], 1);
                 else
                     sub_46ABB0(*(int*)& byte_5D4594[1045688], 0);
             }
-            if (nox_common_mapflags_check(1) && *(_DWORD*)& byte_5D4594[2650636] & 0x40000)
+            if (nox_common_gameFlags_check_40A5C0(1) && *(_DWORD*)& nox_common_engineFlags & 0x40000)
                 sub_46ABB0(*(int*)& byte_5D4594[1045688], 0);
         }
     }
@@ -242,7 +242,7 @@ int __cdecl sub_457010(int a1, wchar_t* a2)
         v4 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1045684], 10502);
         v5 = nox_window_call_field_94((int)v4, 16404, 0, 0);
         nox_wcscpy(v9, a2);
-        if (nox_common_mapflags_check(96) || v2[52] & 0x60)
+        if (nox_common_gameFlags_check_40A5C0(96) || v2[52] & 0x60)
         {
             v6 = *(_BYTE*)(a1 + 57);
             if (v6 < 3u)
@@ -291,7 +291,7 @@ char* __cdecl sub_457230(wchar_t* a1)
             sub_4258E0((int)& byte_5D4594[1045668], v3);
             nox_wcscpy((wchar_t*)v3 + 6, a1);
             nox_wcscpy(v8, a1);
-            if (nox_common_mapflags_check(96) || v1[52] & 0x60)
+            if (nox_common_gameFlags_check_40A5C0(96) || v1[52] & 0x60)
             {
                 v5 = v4[57];
                 if ((unsigned __int8)v5 < 3u)

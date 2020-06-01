@@ -51,12 +51,12 @@ int sub_450FD0()
             sub_450B90(4u, (int)v5);
             if (v0)
             {
-                if (*(_DWORD*)& byte_5D4594[2650636] & 0x200000)
+                if (*(_DWORD*)& nox_common_engineFlags & 0x200000)
                 {
                     v1 = nox_wcslen(v0);
                     sub_4D33E0(v0, v1 + 1);
                 }
-                sub_443C80(v0, 0);
+                nox_server_parseCmdText_443C80(v0, 0);
             }
             nox_window_call_field_94(*(int*)& byte_5D4594[833716], 16414, (int)& byte_5D4594[833748], 0);
         }
