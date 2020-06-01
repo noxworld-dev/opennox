@@ -10682,7 +10682,7 @@ int4* __cdecl sub_475810_draw(int* a1)
     v37 = *(unsigned __int8***)& byte_5D4594[1096512];
     v21 = 0x7FFFFFFF;
     if (nox_drawable_list_1_size)
-        v41 = *(_DWORD*)((_DWORD*)nox_drawable_list_1[0] + 16); // FIXME?
+        v41 = *(_DWORD*)(*(_DWORD*)nox_drawable_list_1 + 16);
     else
         v41 = 0x7FFFFFFF;
     nox_drawable** v35 = nox_drawable_list_1;
