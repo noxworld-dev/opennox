@@ -1855,7 +1855,7 @@ void __cdecl sub_4F8460(int a1)
             && (v23 = (double) * (int*)(v21 + 2288) - *(float*)(v1 + 60),
                 v22 = (double) * (int*)(v21 + 2284) - *(float*)(v1 + 56),
                 v23 * v23 + v22 * v22 <= 10000.0)
-            || sub_4FC250(v1, 4))
+            || nox_common_playerIsAbilityActive_4FC250(v1, 4))
         {
             a1 = 0;
             goto LABEL_93;
@@ -1930,7 +1930,7 @@ void __cdecl sub_4F8460(int a1)
             v31 = *(_DWORD*)(v1 + 36) + *(_DWORD*)& byte_5D4594[2598000];
             v32 = (v31 - 1) / (v69 + 1) % v67;
             v33 = v31 / (v69 + 1) % v67;
-            if ((!sub_4FC250(v1, 4) || a1) && v33 != v32 && (v33 == 3 || v33 == 9))
+            if ((!nox_common_playerIsAbilityActive_4FC250(v1, 4) || a1) && v33 != v32 && (v33 == 3 || v33 == 9))
             {
                 v34 = sub_411160((float2*)(v1 + 56));
                 if (v34 >= 0 && v34 < *(int*)& byte_5D4594[251568])
@@ -1999,7 +1999,7 @@ void __cdecl sub_4F8460(int a1)
                 {
                     if (v66 != 5)
                     {
-                        if (sub_4FC250(v1, 4))
+                        if (nox_common_playerIsAbilityActive_4FC250(v1, 4))
                             sub_4FC300((_DWORD*)v1, 4);
                     }
                 }
@@ -2013,7 +2013,7 @@ void __cdecl sub_4F8460(int a1)
                 switch (*((_DWORD*)v5 + 2))
                 {
                 case 1:
-                    if (!sub_4FF350(v1, 25) && (!nox_common_gameFlags_check_40A5C0(4096) || !*(_DWORD*)(v2 + 280)) && sub_4FC250(v1, 1) != 1)
+                    if (!sub_4FF350(v1, 25) && (!nox_common_gameFlags_check_40A5C0(4096) || !*(_DWORD*)(v2 + 280)) && nox_common_playerIsAbilityActive_4FC250(v1, 1) != 1)
                         * (_WORD*)(v1 + 126) = *((_WORD*)v5 + 6);
                     break;
                 case 2:
@@ -2023,9 +2023,9 @@ void __cdecl sub_4F8460(int a1)
                     if (sub_4F9BC0(v1))
                     {
                         sub_4FEE90(v1);
-                        if (!sub_4FC250(v1, 1)
+                        if (!nox_common_playerIsAbilityActive_4FC250(v1, 1)
                             && (*(_BYTE*)(v2 + 88) != 1
-                                || *(_DWORD*)(*(_DWORD*)(v2 + 276) + 4) & 0x47F0000 && sub_4FA2B0(v1) != 29))
+                                || *(_DWORD*)(*(_DWORD*)(v2 + 276) + 4) & 0x47F0000 && nox_common_mapPlrActionToStateId_4FA2B0(v1) != 29))
                         {
                             if (*(_BYTE*)(v2 + 88) == 16)
                             {
@@ -2078,7 +2078,7 @@ void __cdecl sub_4F8460(int a1)
                     }
                     break;
                 case 7:
-                    if (!sub_4F9BC0(v1) || sub_4FC250(v1, 1) || sub_4FC3E0(v1, 2))
+                    if (!sub_4F9BC0(v1) || nox_common_playerIsAbilityActive_4FC250(v1, 1) || sub_4FC3E0(v1, 2))
                         break;
                     sub_4FEE90(v1);
                     v60 = *(_DWORD*)(*(_DWORD*)(v1 + 748) + 276);
@@ -2667,7 +2667,7 @@ void __cdecl sub_4F9C70(_DWORD* a1)
         v2 = *(_DWORD*)(*(_DWORD*)(v1 + 276) + 4);
         if (v2)
         {
-            if (v2 & 0x47F0000 && sub_4FA2B0((int)a1) != 29)
+            if (v2 & 0x47F0000 && nox_common_mapPlrActionToStateId_4FA2B0((int)a1) != 29)
             {
                 v3 = *(_DWORD*)(*(_DWORD*)(v1 + 104) + 736);
                 if (*(_BYTE*)(v3 + 108) || !*(_BYTE*)(v3 + 109))
@@ -2871,7 +2871,7 @@ int __cdecl sub_4FA020(_DWORD* a1, int a2)
     }
     if (a2 == 24 || a2 == 25 || a2 == 26 || a2 == 27 || a2 == 28 || a2 == 29)
     {
-        if (sub_4FC250((int)a1, 1))
+        if (nox_common_playerIsAbilityActive_4FC250((int)a1, 1))
             return 0;
         if (*(_BYTE*)(v5 + 88) == 12)
             return 0;
@@ -2963,7 +2963,7 @@ int __cdecl sub_4FA280(int a1)
 }
 
 //----- (004FA2B0) --------------------------------------------------------
-int __cdecl sub_4FA2B0(int a1)
+int __cdecl nox_common_mapPlrActionToStateId_4FA2B0(int a1)
 {
     int v1; // edi
     int result; // eax
@@ -2978,11 +2978,11 @@ int __cdecl sub_4FA2B0(int a1)
     case 1u:
     case 0xEu:
     case 0x16u:
-        if (sub_4FC250(a1, 2) && sub_4FC3E0(a1, 2))
+        if (nox_common_playerIsAbilityActive_4FC250(a1, 2) && sub_4FC3E0(a1, 2))
         {
             result = 46;
         }
-        else if (sub_4FC250(a1, 1))
+        else if (nox_common_playerIsAbilityActive_4FC250(a1, 1))
         {
             result = 45;
         }
@@ -3841,7 +3841,7 @@ void __cdecl sub_4FBB70(int a1, int a2)
     }
     if (v3 == 2)
     {
-        v6 = sub_4FC250((int)v2, 1);
+        v6 = nox_common_playerIsAbilityActive_4FC250((int)v2, 1);
     LABEL_16:
         if (v6)
         {
@@ -3853,7 +3853,7 @@ void __cdecl sub_4FBB70(int a1, int a2)
             sub_501960(231, (int)v2, 0, 0);
             return;
         }
-        v7 = sub_4FC250((int)v2, 3);
+        v7 = nox_common_playerIsAbilityActive_4FC250((int)v2, 3);
         goto LABEL_18;
     }
     if (v3 == 1)
@@ -3865,12 +3865,12 @@ void __cdecl sub_4FBB70(int a1, int a2)
         goto LABEL_25;
     if (sub_4FC3E0((int)v2, 2))
         goto LABEL_19;
-    v7 = sub_4FC250((int)v2, 1);
+    v7 = nox_common_playerIsAbilityActive_4FC250((int)v2, 1);
 LABEL_18:
     if (v7)
         goto LABEL_19;
 LABEL_25:
-    if (sub_4FC250((int)v2, v3))
+    if (nox_common_playerIsAbilityActive_4FC250((int)v2, v3))
         goto LABEL_19;
     if (*(_BYTE*)(v4 + 88) == 12 || !nox_common_gameFlags_check_40A5C0(2048) && (v8 = v2[4], BYTE1(v8) & 0x40))
     {
@@ -4089,7 +4089,7 @@ void __cdecl sub_4FC180(int a1)
 }
 
 //----- (004FC250) --------------------------------------------------------
-int __cdecl sub_4FC250(int a1, int a2)
+int __cdecl nox_common_playerIsAbilityActive_4FC250(int a1, int a2)
 {
     int v2; // eax
     _DWORD* v3; // eax
@@ -4283,7 +4283,7 @@ int __cdecl sub_4FC4C0(int a1)
         {
             if (!v1[2251])
             {
-                if (sub_4FC250(v2, 2))
+                if (nox_common_playerIsAbilityActive_4FC250(v2, 2))
                 {
                     v3 = *((_DWORD*)v1 + 514);
                     v4 = *(float*)(a1 + 56) - *(float*)(v3 + 56);
@@ -6351,7 +6351,7 @@ void __cdecl sub_4FEDA0(int* a1)
         v4 = *(_DWORD*)(v3 + 8);
         if (v4 & 4)
         {
-            if (*(_BYTE*)(*(_DWORD*)(*(_DWORD*)(v3 + 748) + 276) + 2251) || !sub_4FC250(v3, 1))
+            if (*(_BYTE*)(*(_DWORD*)(*(_DWORD*)(v3 + 748) + 276) + 2251) || !nox_common_playerIsAbilityActive_4FC250(v3, 1))
             {
                 sub_4FA020((_DWORD*)a1[4], 13);
                 sub_4FE900((int)a1);
