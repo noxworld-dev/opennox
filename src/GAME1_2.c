@@ -7588,7 +7588,7 @@ int sub_4320B0()
     v2 = v1 == 0;
     result = 1;
     if (!v2)
-		nox_video_dxUnlockSurface = 1;
+        nox_video_dxUnlockSurface = 1;
     return result;
 }
 
@@ -8226,8 +8226,8 @@ int nox_common_parsecfg_videomode()
         nox_win_depth_1 = v6;
         nox_win_depth_2 = v6;
 
-		// FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the start!
-		// this is different from original game where window is only resized after joining the game
+        // FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the start!
+        // this is different from original game where window is only resized after joining the game
         change_windowed_fullscreen();
     }
     return 1;

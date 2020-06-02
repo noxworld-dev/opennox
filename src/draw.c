@@ -47,6 +47,7 @@ int nox_video_drawCursorThreadOk = 0;
 int nox_video_allowCursorDrawThread = 0;
 int nox_video_windowsPlatformVersion = 0;
 int nox_video_cursorDrawIsThreaded = 0;
+int nox_video_gammaValue = 0;
 extern HANDLE *nox_video_cursorDrawThreadHandle;
 
 #ifdef USE_SDL
@@ -132,11 +133,11 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags)
     v5 = nox_client_winVerGetMajor_48C870(0); // Check Windows version
     nox_video_windowsPlatformVersion = v5;
 #else
-	v5 = 5; // Fix for Linux
+    v5 = 5; // Fix for Linux
 	nox_video_windowsPlatformVersion = v5;
 #endif
-	v6 = v5 == 5;
-	if (v6) // if Windows NT platform
+    v6 = v5 == 5;
+    if (v6) // if Windows NT platform
     {
         v7 = nox_video_renderTargetFlags | 0x20;
         nox_video_renderTargetFlags |= 0x120u;
@@ -1469,11 +1470,11 @@ int sub_48B000()
     if (!g_ddraw)
     {
         g_ddraw = SDL_GL_CreateContext(windowHandle_dword_973FE0);
-	    if (g_ddraw == NULL)
-	    {
-		    fprintf(stderr, "SDL GL context creation failed: %s\n", SDL_GetError());
-		    return 0;
-	    }
+        if (g_ddraw == NULL)
+        {
+            fprintf(stderr, "SDL GL context creation failed: %s\n", SDL_GetError());
+            return 0;
+        }
 
     }
     SDL_GL_SetSwapInterval(1);
@@ -1695,7 +1696,7 @@ int nox_video_initCursorDrawVars_48B1F0()
 {
     int result; // eax
 
-	if (nox_video_renderTargetFlags & 0x100)
+    if (nox_video_renderTargetFlags & 0x100)
     {
         nox_video_cursorDrawIsThreaded = 0;
         return 1;
@@ -1805,7 +1806,7 @@ int sdl_drawCursorThreaded(int a1)
         rect_to_sdl(&v4, &src);
         rect_to_sdl(r2, &dst);
         //if (SDL_BlitScaled(g_backbuffer1, &src, dword_6F7C48, &dst))
-        //	return 0;
+        //    return 0;
     }
 
     if (sub_49F930((int4*)& v4, r1, (int4*)(&obj_5D4594_3800716.data[9])))
@@ -1818,8 +1819,8 @@ int sdl_drawCursorThreaded(int a1)
         // FIXME frontbuffer?
         rect_to_sdl(r3, &src);
         rect_to_sdl(&v4, &dst);
-		
-#if 0	// SDL textures cannot be locked from threads other than where they were created in.
+        
+#if 0   // SDL textures cannot be locked from threads other than where they were created in.
         uint16_t * dstpixels;
         int dstpitch;
 		
@@ -2368,7 +2369,7 @@ int __cdecl sub_444930(HWND wnd, int w, int h, int depth, int flags)
     if (nox_video_renderTargetFlags & 0x200)
     {
 #ifdef USE_SDL
-        // FIXME
+        SDL_MinimizeWindow(windowHandle_dword_973FE0);
 #else
         ShowWindow(windowHandle_dword_973FE0, SW_MINIMIZE);
         PostMessageA(windowHandle_dword_973FE0, WM_ACTIVATEAPP, 0, 0);
@@ -3267,23 +3268,23 @@ int __cdecl sub_434AC0(int a1)
 }
 
 //----- (00434B00) --------------------------------------------------------
-int sub_434B00()
+int nox_video_getGammaSetting_434B00()
 {
     int result; // eax
 
-    result = *(_DWORD*)& byte_587000[84400];
-    if (*(int*)& byte_587000[84400] >= 1)
+    result = nox_video_gammaValue;
+    if (nox_video_gammaValue >= 1)
     {
-        if (*(int*)& byte_587000[84400] > 10)
+        if (nox_video_gammaValue > 10)
         {
             result = 10;
-            *(_DWORD*)& byte_587000[84400] = 10;
+            nox_video_gammaValue = 10;
         }
     }
     else
     {
         result = 1;
-        *(_DWORD*)& byte_587000[84400] = 1;
+        nox_video_gammaValue = 1;
     }
     return result;
 }
@@ -3316,7 +3317,7 @@ void updateGamma(int value)
 }
 
 //----- (00434B30) --------------------------------------------------------
-int __cdecl sub_434B30(int a1)
+int __cdecl nox_video_setGammaSetting_434B30(int a1)
 {
     int result; // eax
 
@@ -3325,12 +3326,12 @@ int __cdecl sub_434B30(int a1)
     {
         if (a1 > 10)
             result = 10;
-        *(_DWORD*)& byte_587000[84400] = result;
+        nox_video_gammaValue = result;
     }
     else
     {
         result = 1;
-        *(_DWORD*)& byte_587000[84400] = 1;
+        nox_video_gammaValue = 1;
     }
 
     return result;
@@ -3355,16 +3356,16 @@ BOOL sub_434B60()
     char v14[1536];
     pixel888 v19[256]; // [esp+61Ch] [ebp-300h]
 
-    v0 = *(_DWORD*)& byte_587000[84400];
+    v0 = nox_video_gammaValue;
     v1 = v19;
-    if (*(int*)& byte_587000[84400] < 1)
+    if (nox_video_gammaValue < 1)
     {
         v0 = 1;
     LABEL_5:
-        *(_DWORD*)& byte_587000[84400] = v0;
+        nox_video_gammaValue = v0;
         goto LABEL_6;
     }
-    if (*(_DWORD*)& byte_587000[84400] > 10)
+    if (nox_video_gammaValue > 10)
     {
         v0 = 10;
         goto LABEL_5;

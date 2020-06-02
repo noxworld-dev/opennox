@@ -23,11 +23,11 @@ extern int (*nox_draw_unk1)(void);
 
 void map_download_start()
 {
-	sub_467DF0(1);
-	sub_4CC770();
-	*(_DWORD*)& byte_587000[173328] = 1;
-	*(_DWORD*)& byte_587000[173332] = 1;
-	map_download_loop(1);
+    sub_467DF0(1);
+    sub_4CC770();
+    *(_DWORD*)& byte_587000[173328] = 1;
+    *(_DWORD*)& byte_587000[173332] = 1;
+    map_download_loop(1);
 }
 
 //----- (0043DEB0) --------------------------------------------------------
