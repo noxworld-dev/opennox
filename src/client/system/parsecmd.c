@@ -1967,7 +1967,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3)
 			{
 				v12 = loadString_sub_40F1D0((char*)& byte_587000[107456], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4332);
 				sub_450C00(6u, v12, v10);
-				sub_507310(
+				nox_server_doMapScript_507310(
 						v11,
 						*(_DWORD*)(*(_DWORD*)& byte_5D4594[823692] + 2056),
 						*(_DWORD*)(*(_DWORD*)& byte_5D4594[823692] + 2056));

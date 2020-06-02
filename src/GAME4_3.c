@@ -1429,7 +1429,7 @@ int __cdecl sub_531600(int a1)
         goto LABEL_16;
     if (*(_DWORD*)(v2 + 16) & 0x8020)
         goto LABEL_53;
-    if (sub_4E6E50((float2*)(*(_DWORD*)(a1 + 16) + 56), *(__int16*)(*(_DWORD*)(a1 + 16) + 124), (float2*)(v2 + 56)) & 2)
+    if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(*(_DWORD*)(a1 + 16) + 56), *(__int16*)(*(_DWORD*)(a1 + 16) + 124), (float2*)(v2 + 56)) & 2)
     {
         if (!*(_DWORD*)(a1 + 76))
             * (_DWORD*)(a1 + 76) = 3 * *(_DWORD*)& byte_5D4594[2649704];
@@ -1559,7 +1559,7 @@ void __cdecl sub_531920(int a1, int a2)
             if (!(v2 & 2) || (v3 = *(_DWORD*)(a1 + 12), (v3 & 0x8000) == 0))
             {
                 if (sub_5330C0(a2, a1)
-                    && sub_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) & 1 | 0xC
+                    && nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) & 1 | 0xC
                     && sub_5370E0(a2, a1, 0))
                 {
                     v4 = *(float*)(a1 + 56) - *(float*)(a2 + 56);
@@ -3310,7 +3310,7 @@ unsigned __int8* __cdecl sub_533D00(int a1)
 int __cdecl sub_533E70(int a1)
 {
     *(_DWORD*)& byte_5D4594[2487956] = 0;
-    *(_DWORD*)& byte_5D4594[2487988] = 1315859240;
+    *(_DWORD*)& byte_5D4594[2487988] = 1315859240; // fp32 100
     sub_518170(a1 + 56, 100.0, sub_533EB0, a1);
     return *(_DWORD*)& byte_5D4594[2487956];
 }
@@ -3338,7 +3338,7 @@ void __cdecl sub_533EB0(int a1, int a2)
     a3.field_4 = v3;
     if (sub_54E6F0(a2, a1))
     {
-        if (sub_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), &a3) & 1)
+        if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), &a3) & 1)
         {
             v4 = *(__int16*)(a2 + 124);
             v5 = *(float*)(a1 + 80) * *(float*)& byte_587000[8 * v4 + 194136];
@@ -7022,7 +7022,7 @@ void __cdecl sub_538510(int a1, int a2)
             {
                 if (a1 != v2)
                 {
-                    if ((unsigned __int8)sub_4E6E50((float2*)(v2 + 56), *(__int16*)(v2 + 124), (float2*)(a1 + 56)) & *(_BYTE*)(a2 + 32))
+                    if ((unsigned __int8)nox_server_testTwoPointsAndDirection_4E6E50((float2*)(v2 + 56), *(__int16*)(v2 + 124), (float2*)(a1 + 56)) & *(_BYTE*)(a2 + 32))
                     {
                         v3 = *(_DWORD*)(a1 + 16);
                         if (!(v3 & 0x8040) && (*(_DWORD*)(a2 + 24) || !(v3 & 8)))

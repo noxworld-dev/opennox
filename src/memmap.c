@@ -279,7 +279,7 @@ mem_mapping mappings[] = {
         {0x587000, (void*)byte_587000, sizeof(byte_587000),0},
         {0x5D4594, (void*)byte_5D4594, sizeof(byte_5D4594),0},
         {0x9800B0, (void*)asc_9800B0, sizeof(asc_9800B0),0},
-        {0x980858, (void*)dword_980858, sizeof(dword_980858),0},
+        {0x980858, (void*)mix_dword_980858, sizeof(mix_dword_980858),0},
 };
 
 size_t mappings_cnt = sizeof(mappings)/sizeof(mem_mapping);

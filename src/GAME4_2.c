@@ -13788,7 +13788,7 @@ int __cdecl sub_52E850(float a1)
         if (v10)
         {
             if (!(*(_DWORD*)(v10 + 16) & 0x8020)
-                && sub_4E6E50(
+                && nox_server_testTwoPointsAndDirection_4E6E50(
                     (float2*)(*(_DWORD*)(v1 + 16) + 56),
                     *(__int16*)(*(_DWORD*)(v1 + 16) + 124),
                     (float2*)(v10 + 56)) & 1
@@ -13929,7 +13929,7 @@ void __cdecl sub_52EC60(int a1, int a2)
                 if (!a2
                     || sub_5330C0(a2, a1)
                        && (*(_DWORD*)& byte_5D4594[2487832]
-                           || sub_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) & 1 && sub_5370E0(a2, a1, 0)))
+                           || nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) & 1 && sub_5370E0(a2, a1, 0)))
                 {
                     v4 = *(float*)(a1 + 56) - *(float*)& byte_5D4594[2487868];
                     v5 = *(float*)(a1 + 60) - *(float*)& byte_5D4594[2487872];
@@ -14528,7 +14528,7 @@ void __cdecl sub_52F710(int a1, int* a2, int a3, int a4)
                 && (v5 = *(_DWORD*)(a1 + 748), !*(_BYTE*)(*(_DWORD*)(v5 + 276) + 2251))
                 && *(_BYTE*)(v5 + 88) == 16
                 && a4
-                && sub_4E6E50((float2*)(a1 + 56), *(__int16*)(a1 + 124), (float2*)(a4 + 72)) & 1)
+                && nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a1 + 56), *(__int16*)(a1 + 124), (float2*)(a4 + 72)) & 1)
             {
                 *a2 = 1;
             }

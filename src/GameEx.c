@@ -318,7 +318,8 @@ BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRes
     isLoaded = 1;
     //MEMACCESS(0x581354) = MixRecvFromReplacer; // It is replaced elsewhere
     EndOfKeyCodeArray = &keycodeArray[keycodeArraySize-1];
-    GameExCfgLoader();
+    if (!GameExCfgLoader())
+        fprintf(stderr, "Failed to read game_ex.cfg !");
   }
   return 1;
 }
@@ -576,10 +577,10 @@ char GameExCfgLoader()
   DWORD v3; // edi
   char *v4; // esi
   //DWORD NumberOfBytesRead; // [esp+4h] [ebp-18h]
-  char v6[16]; // [esp+8h] [ebp-6h]
+  char v6[32]; // [esp+8h] [ebp-6h]
   memset(v6, 0, sizeof(v6));
 
-  v0 = fopen("game_ex.cfg", "r");
+  v0 = fopen("game_ex.cfg", "rb");
   v1 = v0;
   if ( !v0 )
     return 0;
@@ -589,35 +590,35 @@ char GameExCfgLoader()
   if ( v3 )
   {
     v4 = (char *)nox_malloc(v3 + 1);
-    if ( fread(v4, 1, v3, v1) == v3 )
+    if (fread(v4, 1, v3, v1) == v3 )
     {
       SomeStringSearcher(v4, "AUTO_SHIELD", (char *)&v6);
-      if ( (_BYTE)v6 == 48 )
+      if ( (_BYTE)*v6 == 48 )
         MEMACCESS(0x98085A) &= 0xFFFFFFFD;
       else
         MEMACCESS(0x98085A) |= 2u;
       SomeStringSearcher(v4, "GREAT_SWORD_BLOKING_WALK", (char *)&v6);
-      if ( (_BYTE)v6 == 48 )
+      if ( (_BYTE)*v6 == 48 )
         MEMACCESS(0x98085A) &= 0xFFFFFFFB;
       else
         MEMACCESS(0x98085A) |= 4u;
       SomeStringSearcher(v4, "MOUSE_KEYBOARD_ROLL", (char *)&v6);
-      if ( (_BYTE)v6 == 48 )
+      if ( (_BYTE)*v6 == 48 )
         MEMACCESS(0x98085A) &= 0xFFFFFFF7;
       else
         MEMACCESS(0x98085A) |= 8u;
       SomeStringSearcher(v4, "MOUSE_KEYBOARD_ROLL", (char *)&v6);
-      if ( (_BYTE)v6 == 48 )
+      if ( (_BYTE)*v6 == 48 )
         MEMACCESS(0x98085A) &= 0xFFFFFFF7;
       else
         MEMACCESS(0x98085A) |= 8u;
       SomeStringSearcher(v4, "BERSERKER_SHIED_BLOCK", (char *)&v6);
-      if ( (_BYTE)v6 == 48 )
+      if ( (_BYTE)*v6 == 48 )
         MEMACCESS(0x98085A) &= 0xFFFFFFEF;
       else
         MEMACCESS(0x98085A) |= 0x10u;
       SomeStringSearcher(v4, "EXTENSION_MESSAGES", (char *)&v6);
-      if ( (_BYTE)v6 == 48 )
+      if ( (_BYTE)*v6 == 48 )
         MEMACCESS(0x98085A) &= 0xFFFFFFDF;
       else
         MEMACCESS(0x98085A) |= 0x20u;
@@ -641,7 +642,7 @@ char GameExCfgLoader()
       functionalKeyCodes[5] = KeyCodeMatcher((char *)&v6);
     }
     free(v4);
-    fclose(v1);
+    fclose(v0);
     result = 1;
   }
   else

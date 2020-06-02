@@ -5221,7 +5221,7 @@ void init_data()
     *(void**)& byte_587000[274528] = &byte_587000[274656];
     *(void**)& byte_587000[274532] = &sub_4E23C0;
     *(void**)& byte_587000[274536] = &byte_587000[274672];
-    *(void**)& byte_587000[274540] = &sub_4E17B0;
+    *(void**)& byte_587000[274540] = &nox_server_handler_PlayerDamage_4E17B0;
     *(void**)& byte_587000[274544] = &byte_587000[274688];
     *(void**)& byte_587000[274548] = &sub_4E24B0;
     *(void**)& byte_587000[274552] = &byte_587000[274700];
