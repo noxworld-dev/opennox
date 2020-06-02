@@ -55,13 +55,13 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 			*(_DWORD*)& byte_5D4594[1193184] = v9;
 		}
 		if (nox_common_engineFlags & 0x800)
-		{
-			if ((unsigned int)& v9[a4] < *(int*)& byte_5D4594[3798844])
-			{
-				qmemcpy(a5, v9, a4);
-			}
-			else
-			{
+        {
+            if ((unsigned int)& v9[a4] < *(int*)& byte_5D4594[3798844])
+            {
+                qmemcpy(a5, v9, a4);
+            }
+            else
+            {
 				v10 = *(_DWORD*)& byte_5D4594[3798844] - (_DWORD)v9;
 				qmemcpy(a5, v9, *(_DWORD*)& byte_5D4594[3798844] - (_DWORD)v9);
 				v11 = (void*)(*(_DWORD*)& byte_5D4594[1193180] + v10);

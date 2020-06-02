@@ -2698,21 +2698,21 @@ int __cdecl nox_cmd_gamma(int a1, unsigned __int8 a2, int a3)
     if (*v3 == 43)
     {
         v4 = nox_wcstol(v3, 0, 10);
-        v8 = sub_434B00() + v4;
-        sub_434B30(v8);
+        v8 = nox_video_getGammaSetting_434B00() + v4;
+        nox_video_setGammaSetting_434B30(v8);
     }
     else
     {
         if (*v3 == 45)
         {
             v5 = nox_wcstol(v3, 0, 10);
-            v6 = sub_434B00() - v5;
+            v6 = nox_video_getGammaSetting_434B00() - v5;
         }
         else
         {
             v6 = nox_wcstol(v3, 0, 10);
         }
-        sub_434B30(v6);
+        nox_video_setGammaSetting_434B30(v6);
     }
     sub_434B60();
     return 1;

@@ -279,7 +279,7 @@ int __cdecl sub_43BF10_upd_video_mode(int defaults)
     int v3; // ebx
     int result; // eax
 
-	// If true, set to 640x480
+    // If true, set to 640x480
     if (defaults == 1)
     {
         v1 = nox_win_width_2;
