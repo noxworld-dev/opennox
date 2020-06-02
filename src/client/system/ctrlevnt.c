@@ -103,7 +103,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
             switch (*(_DWORD*)(i + 4 * j + 36))
             {
             case 1:
-                v9 = sub_477620();
+                v9 = nox_client_getCursorType_477620();
                 switch (v9)
                 {
                 case 3:

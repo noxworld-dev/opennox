@@ -5374,7 +5374,7 @@ int __cdecl sub_4AB340(int a1, int a2, int a3, int a4)
         return 1;
     if (a3 == 57)
     {
-        v4 = sub_4309F0();
+        v4 = nox_client_getMousePos_4309F0();
         nox_window_call_field_93(a1, 5, v4->field_0 | (v4->field_4 << 16), 0);
     }
     return 0;
@@ -5540,7 +5540,7 @@ int sub_4AB5E0()
     {
         sub_416C70(30);
         sub_4453A0_poll_events();
-        sub_4308A0(1);
+        nox_client_processMouseInput_4308A0(1);
         sub_46B740();
         if (sub_43AF70() == 1)
         {
@@ -5562,7 +5562,7 @@ int sub_4AB5E0()
         if (*(_DWORD*)& byte_5D4594[2598000] % 0x1Eu)
             sub_43CA20();
         mainloop_draw();
-        sub_477830();
+        nox_client_drawCursorAndTooltips_477830();
         sub_48A220();
         sub_4AD170_call_copy_backbuffer();
         sub_48A290_call_present();
@@ -6582,7 +6582,7 @@ int sub_4AD570()
     int2* v0; // edi
     _DWORD* v1; // esi
 
-    v0 = sub_4309F0();
+    v0 = nox_client_getMousePos_4309F0();
     if (sub_43AF70() == 1)
     {
         v1 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1309812], 10317);

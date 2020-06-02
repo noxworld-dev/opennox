@@ -50,7 +50,7 @@ int sub_43DEB0()
 
     if (!nox_common_gameFlags_check_40A5C0(0x800000))
         goto LABEL_16;
-    sub_477610(10);
+    nox_client_setCursorType_477610(10);
     if (sub_4DB250())
         v0 = sub_4DB260();
     else
@@ -269,7 +269,7 @@ void mainloop()
     sub_435780();
     sub_435740();
     sub_430880(1);
-    sub_4308A0(1);
+    nox_client_processMouseInput_4308A0(1);
     sub_46B740();
     v0 = (unsigned __int8*)sub_430940();
     for (*(_DWORD*)& byte_5D4594[2618912] = v0; *v0; *(_DWORD*)& byte_5D4594[2618912] = v0)
@@ -323,7 +323,7 @@ void mainloop()
         *(_DWORD*)& nox_common_engineFlags &= 0x7FFFFFFFu;
         if (!*(_DWORD*)& byte_5D4594[816408])
         {
-            v1 = sub_4309F0();
+            v1 = nox_client_getMousePos_4309F0();
             v27 = v1;
             v2 = v1->field_0 - *(_DWORD*)& byte_5D4594[816420];
             v3 = v1->field_4 - *(_DWORD*)& byte_5D4594[816424];
@@ -406,7 +406,7 @@ void mainloop()
             sub_431720(v25);
         }
         if (!(nox_common_engineFlags & 0x40000) || nox_common_engineFlags & 0x100 || *(_DWORD*)& byte_5D4594[815132])
-            sub_477830(); // Draw cursor
+            nox_client_drawCursorAndTooltips_477830(); // Draw cursor
         sub_44D9F0(1);
         if (!sub_409F40(4096)) // CheckRuleFlags and smth
             sub_46D830();

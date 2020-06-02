@@ -2014,7 +2014,7 @@ int sub_465CA0()
 {
     nox_window_set_hidden(*(int*)& byte_5D4594[1062476], 0);
     *(_DWORD*)& byte_5D4594[1049864] = 5;
-    sub_477610(6);
+    nox_client_setCursorType_477610(6);
     return sub_46ADC0(*(int*)& byte_5D4594[1062456]);
 }
 
@@ -2922,7 +2922,7 @@ int sub_467650()
 
     sub_462740();
     *(_DWORD*)& byte_5D4594[1049864] = 6;
-    sub_477610(8);
+    nox_client_setCursorType_477610(8);
     result = sub_467C80();
     if (!result)
         result = sub_467BB0();
@@ -5381,7 +5381,7 @@ void sub_46B740()
     v63 = 0;
     v61 = 0;
     v64 = 0;
-    v2 = sub_4309F0();
+    v2 = nox_client_getMousePos_4309F0();
     v65.field_0 = (int)v2;
     v3 = v2->field_4;
     v4 = v2[3].field_0;
@@ -5396,12 +5396,12 @@ void sub_46B740()
     v60 = v8;
     sub_4776B0(0);
     if (*(_DWORD*)& byte_5D4594[815132] || sub_477600())
-        sub_477610(0);
+        nox_client_setCursorType_477610(0);
     else
-        sub_477610(14);
+        nox_client_setCursorType_477610(14);
     if (nox_win_unk3)
     {
-        sub_477610(0);
+        nox_client_setCursorType_477610(0);
         *(_DWORD*)& byte_5D4594[1064916] = 0;
         v1 = (wchar_t*)sub_46B5B0(nox_win_unk3, v2->field_0, v2->field_4);
         v62 = 0;
@@ -5439,7 +5439,7 @@ void sub_46B740()
     }
     if (*(_DWORD*)& byte_5D4594[1064916])
     {
-        sub_477610(0);
+        nox_client_setCursorType_477610(0);
         switch (v66[0])
         {
             case 0:
@@ -5657,7 +5657,7 @@ void sub_46B740()
     }
     else if (v1)
     {
-        sub_477610(0);
+        nox_client_setCursorType_477610(0);
         for (i = 0; i < 4; ++i)
         {
             v39 = v66[i];
@@ -5735,12 +5735,12 @@ void sub_46B740()
         v42 = sub_4675B0();
         if (v42 == 5)
         {
-            sub_477610(6);
+            nox_client_setCursorType_477610(6);
             goto LABEL_201;
         }
         if (v42 == 6)
         {
-            sub_477610(8);
+            nox_client_setCursorType_477610(8);
             goto LABEL_201;
         }
         v43 = sub_476F90();
@@ -5801,11 +5801,11 @@ void sub_46B740()
                             {
                                 if (*(_DWORD*)(v44 + 112) & 2 && *(_BYTE*)(v44 + 280) & 0x10)
                                 {
-                                    sub_477610(4);
+                                    nox_client_setCursorType_477610(4);
                                 }
                                 else if (*(_DWORD*)(v44 + 112) & 2 && *(_BYTE*)(v44 + 116) & 8)
                                 {
-                                    sub_477610(3);
+                                    nox_client_setCursorType_477610(3);
                                 }
                             }
                         }
@@ -5820,14 +5820,14 @@ void sub_46B740()
                     }
                     if (v54 >= 5625)
                     {
-                        sub_477610(15);
+                        nox_client_setCursorType_477610(15);
                     }
                     else
                     {
                         if (nox_common_gameFlags_check_40A5C0(6144) || sub_57B450((int*)v44))
-                            sub_477610(2);
+                            nox_client_setCursorType_477610(2);
                         else
-                            sub_477610(16);
+                            nox_client_setCursorType_477610(16);
                         v56 = sub_430AF0();
                         if (v66[v56] == sub_430B00())
                         {
@@ -5854,18 +5854,18 @@ void sub_46B740()
                         && (*(_DWORD*)(v44 + 120) & 0x1000000) == 0x1000000
                         && !(*(_BYTE*)(v44 + 280) & 0xC))
                     {
-                        sub_477610(13);
+                        nox_client_setCursorType_477610(13);
                     }
                 }
             }
         }
         else if (sub_479590() == 2)
         {
-            sub_477610(11);
+            nox_client_setCursorType_477610(11);
         }
         else if (sub_479590() == 3)
         {
-            sub_477610(12);
+            nox_client_setCursorType_477610(12);
         }
     }
     LABEL_201:

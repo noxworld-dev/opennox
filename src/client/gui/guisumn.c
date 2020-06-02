@@ -168,7 +168,7 @@ int __cdecl sub_4C27F0(_DWORD* a1)
         v2 = loadString_sub_40F1D0(*(char**)& byte_587000[4 * a1[8] + 184344], 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);
         sub_46AA60(a1, &v11, &v10);
         sub_43F840(0, v2, &v12, 0, 0);
-        v3 = sub_4309F0();
+        v3 = nox_client_getMousePos_4309F0();
         sub_43F320(0);
         v4 = (*(_DWORD*)& byte_587000[184452] - v12) / 2 + 1;
         if (sub_46AAB0(a1, v3->field_0, v3->field_4))

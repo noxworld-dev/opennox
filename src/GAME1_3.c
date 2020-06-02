@@ -352,7 +352,7 @@ BOOL sub_43C060()
     sub_4A96C0_video_read_palette((char*)& byte_587000[91856]);
     sub_4AA1F0();
     sub_4A2210();
-    sub_477610(0);
+    nox_client_setCursorType_477610(0);
     sub_48B3E0(1);
     sub_44E040();
     sub_43E8C0(0);
@@ -1976,7 +1976,7 @@ int map_download_loop(int first)
 
     sub_416C70(30);
     sub_4453A0_poll_events();
-    sub_4308A0(1);
+    nox_client_processMouseInput_4308A0(1);
     sub_46B740();
     if (sub_43AF70() == 1)
     {
@@ -1999,7 +1999,7 @@ int map_download_loop(int first)
         return map_download_finish();
 
     mainloop_draw();
-    sub_477830();
+    nox_client_drawCursorAndTooltips_477830();
     sub_48A220();
     sub_4AD170_call_copy_backbuffer();
     sub_48A290_call_present();
@@ -6010,7 +6010,7 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4)
                 }
                 else
                 {
-                    v8 = sub_4309F0();
+                    v8 = nox_client_getMousePos_4309F0();
                     *(_DWORD*)& byte_587000[109280] = a4;
                     v9 = v8->field_0;
                     v10 = v8->field_4;
@@ -6160,7 +6160,7 @@ int __cdecl sub_4483A0(int a1, int a2)
 
     if (*(_DWORD*)& byte_5D4594[829504])
     {
-        v2 = sub_4309F0();
+        v2 = nox_client_getMousePos_4309F0();
         if (!sub_46AAB0(*(_DWORD * *)& byte_5D4594[829504], v2->field_0, v2->field_4))
             sub_448380();
     }
@@ -6673,7 +6673,7 @@ int __cdecl sub_449BE0(int a1, int a2, int a3, int a4)
         return 1;
     if (a3 == 57)
     {
-        v4 = sub_4309F0();
+        v4 = nox_client_getMousePos_4309F0();
         nox_window_call_field_93(a1, 5, v4->field_0 | (v4->field_4 << 16), 0);
     }
     return 0;
@@ -7039,7 +7039,7 @@ int sub_44A400()
             sub_46B500(*(int*)& byte_5D4594[830232]);
         *(_DWORD*)& byte_5D4594[830224] = 0;
         *(_DWORD*)& byte_5D4594[830228] = 0;
-        sub_477610(0);
+        nox_client_setCursorType_477610(0);
         result = sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
     }
     return result;

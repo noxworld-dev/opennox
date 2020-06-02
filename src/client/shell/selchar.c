@@ -18,7 +18,7 @@ int sub_4A4DB0()
     wchar_t* v8; // eax
     _DWORD* v9; // eax
 
-    sub_477610(0);
+    nox_client_setCursorType_477610(0);
     if (sub_4D6F30())
         sub_4D6F90(1);
     sub_43BDD0(500);
