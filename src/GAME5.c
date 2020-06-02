@@ -2983,7 +2983,7 @@ void __cdecl sub_548CD0(int a1, int a2)
                         {
                             v3 = *(_DWORD*)(v2 + 2096);
                             if (v3 != -1 && *(int*)(v2 + 2100) != -1)
-                                sub_507310(v3, a1, a2);
+                                nox_server_doMapScript_507310(v3, a1, a2);
                         }
                     }
                 }
@@ -3018,7 +3018,7 @@ char __cdecl sub_548D30(int a1, char a2)
                 * (_BYTE*)(v6 + 2105) = a2;
             else
                 *(_BYTE*)(v6 + 2105) = 0;
-            result = sub_507310(*(_DWORD*)(v6 + 2100), v2, v5);
+            result = nox_server_doMapScript_507310(*(_DWORD*)(v6 + 2100), v2, v5);
         }
     }
     return result;
@@ -3548,7 +3548,7 @@ void __cdecl sub_549860(int a1, float a2)
     v8 = *(_DWORD*)(LODWORD(a2) + 748);
     if (!v3)
     {
-        if (sub_4E6E50((float2*)(v2 + 56), *(__int16*)(v2 + 124), (float2*)(a1 + 56)) & 1)
+        if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(v2 + 56), *(__int16*)(v2 + 124), (float2*)(a1 + 56)) & 1)
         {
             if (sub_4E6C00(v2, a1) <= *(float*)(*(_DWORD*)(v8 + 484) + 112))
             {
@@ -7516,7 +7516,7 @@ void __cdecl sub_54F380(int a1)
                 *v2 = v6;
                 if (v6)
                 {
-                    if (!(sub_4E6E50((float2*)(a1 + 56), *(__int16*)(a1 + 124), v6 + 7) & 1))
+                    if (!(nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a1 + 56), *(__int16*)(a1 + 124), v6 + 7) & 1))
                         * v2 = 0;
                 }
             }
@@ -7890,7 +7890,7 @@ void __cdecl sub_54FC50(int a1, int a2)
 {
     if (*(_BYTE*)(a1 + 8) & 6 && !(*(_DWORD*)(a1 + 16) & 0x8020) && sub_5330C0(a2, a1) && sub_537110(a1, a2))
     {
-        if (sub_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)a1 + 7) & 1)
+        if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)a1 + 7) & 1)
             * (_DWORD*)& byte_5D4594[2491764] = 1;
     }
 }

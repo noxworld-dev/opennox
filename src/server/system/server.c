@@ -1504,7 +1504,7 @@ int sub_4FC590()
                             "MapInitialize",
                             *(const char**)(v2 + *(_DWORD*)& byte_5D4594[1599636]),
                             0xDu))
-                        sub_507310(v1, 0, 0);
+                        nox_server_doMapScript_507310(v1, 0, 0);
                     ++v1;
                     v2 += 48;
                 } while (v1 < *(int*)& byte_5D4594[1599640]);
@@ -1535,7 +1535,7 @@ int sub_4FC600()
                 do
                 {
                     if (!strncmp("MapEntry", *(const char**)(v2 + *(_DWORD*)& byte_5D4594[1599636]), 8u))
-                        sub_507310(v1, 0, 0);
+                        nox_server_doMapScript_507310(v1, 0, 0);
                     ++v1;
                     v2 += 48;
                 } while (v1 < *(int*)& byte_5D4594[1599640]);
@@ -2219,7 +2219,7 @@ void sub_51ADF0()
                 if (*(_DWORD*)(48 * v1 + *(_DWORD*)& byte_5D4594[1599636] + 8))
                     sub_507230(v0[2]);
                 v0 = (_DWORD*)sub_51AD90((int)v0);
-                sub_507310(v1, v2, v3);
+                nox_server_doMapScript_507310(v1, v2, v3);
             }
         } while (v0);
     }
@@ -2709,7 +2709,7 @@ int sub_4D1860_server()
         do
         {
             if (!strncmp("MapExit", *(const char**)(v1 + *(_DWORD*)& byte_5D4594[1599636]), 7u))
-                sub_507310(v0, 0, 0);
+                nox_server_doMapScript_507310(v0, 0, 0);
             ++v0;
             v1 += 48;
         } while (v0 < *(int*)& byte_5D4594[1599640]);
@@ -3218,7 +3218,7 @@ int sub_4D2580_server()
                                         "MapShutdown",
                                         *(const char**)(v25 + *(_DWORD*)& byte_5D4594[1599636]),
                                         0xBu))
-                                    sub_507310(v23, 0, 0);
+                                    nox_server_doMapScript_507310(v23, 0, 0);
                                 ++v23;
                                 v25 += 48;
                             } while (v23 < *(int*)& byte_5D4594[1599640]);

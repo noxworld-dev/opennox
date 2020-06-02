@@ -12227,7 +12227,7 @@ void __cdecl sub_4E0850(int a1, int a2, int a3, int a4)
     v4 = a4;
     if ((!(*(_BYTE*)(a4 + 8) & 4)
          || *(_BYTE*)(*(_DWORD*)(a4 + 748) + 88) != 16
-         || !(sub_4E6E50((float2*)(a4 + 56), *(__int16*)(a4 + 124), (float2*)(a3 + 56)) & 1))
+         || !(nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a4 + 56), *(__int16*)(a4 + 124), (float2*)(a3 + 56)) & 1))
         && *(_BYTE*)(v4 + 8) & 6
         && sub_4EE7E0(v4, 1, *(_DWORD*)(a1 + 72)))
     {

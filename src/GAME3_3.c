@@ -14,7 +14,7 @@
 extern nox_memfile* nox_loaded_thing_bin;
 
 //----- (004E17B0) --------------------------------------------------------
-int __cdecl sub_4E17B0(int a1, int a2, int a3, int a4, float a5)
+int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, int a5)
 {
     int v5; // esi
     int v6; // eax
@@ -128,7 +128,7 @@ int __cdecl sub_4E17B0(int a1, int a2, int a3, int a4, float a5)
         if (*(_BYTE*)(v9 + 8) & 1)
         {
             v16 = (float2*)(v5 + 56);
-            if (sub_4E6E50((float2*)(v5 + 56), *(__int16*)(v5 + 124), (float2*)(v9 + 56)) & 1)
+            if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(v5 + 56), *(__int16*)(v5 + 124), (float2*)(v9 + 56)) & 1)
             {
                 sub_4E0A70(v9, v5);
                 if (!(*(_BYTE*)(v9 + 12) & 0x40))
@@ -144,7 +144,7 @@ int __cdecl sub_4E17B0(int a1, int a2, int a3, int a4, float a5)
         else if (LODWORD(a5) == 16 || LODWORD(a5) == 17)
         {
             v16 = (float2*)(v5 + 56);
-            if (sub_4E6E50((float2*)(v5 + 56), *(__int16*)(v5 + 124), (float2*)(v9 + 56)) & 1)
+            if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(v5 + 56), *(__int16*)(v5 + 124), (float2*)(v9 + 56)) & 1)
             {
                 LABEL_36:
                 if (LODWORD(a5) == 16)
@@ -217,7 +217,7 @@ int __cdecl sub_4E17B0(int a1, int a2, int a3, int a4, float a5)
         }
     }
     LABEL_70:
-    if (LODWORD(a5) == 15 || !v21 || !(sub_4E6E50((float2*)(v5 + 56), *(__int16*)(v5 + 124), &a3a) & 1))
+    if (LODWORD(a5) == 15 || !v21 || !(nox_server_testTwoPointsAndDirection_4E6E50((float2*)(v5 + 56), *(__int16*)(v5 + 124), &a3a) & 1))
         goto LABEL_120;
     if (*(_BYTE*)(v5 + 8) & 4)
     {
@@ -279,7 +279,7 @@ int __cdecl sub_4E17B0(int a1, int a2, int a3, int a4, float a5)
         {
             if (*(_BYTE*)(v12 + 88) == 1 || sub_4FA2B0(v5) == 45 || HIBYTE(v54) == 1 && HIBYTE(v54) == 2)
             {
-                if (*(int*)((char*)dword_980858 + 2) & 0x10)
+                if (mix_dword_980858[0] & 0x100000) // BERSERKER_SHIED_BLOCK
                     goto M_LABEL_78;
             }
         }
@@ -288,7 +288,7 @@ int __cdecl sub_4E17B0(int a1, int a2, int a3, int a4, float a5)
         if (*(_BYTE*)(v5 + 8) & 4)
         {
             v31 = *(_BYTE*)(v12 + 88);
-            if (v31 != 13 && v31 != 18 && v31 != 19 && v31 != 20 && (v31 || !(*(int*)((char*)dword_980858 + 2) & 4)))
+            if (v31 != 13 && v31 != 18 && v31 != 19 && v31 != 20 && (v31 || !(mix_dword_980858[0] & 0x40000))) // GREAT_SWORD_BLOKING_WALK
                 goto LABEL_120;
         }
         else if (!sub_534340(v5))
@@ -307,7 +307,7 @@ int __cdecl sub_4E17B0(int a1, int a2, int a3, int a4, float a5)
     }
     M_LABEL_78:
     v25 = LODWORD(a5);
-    if (LODWORD(a5) != 9 && LODWORD(a5) != 17)
+    if (LODWORD(a5) != 9 && LODWORD(a5) != 17) // Blocking
     {
         sub_501960(878, v5, 0, 0);
         if (*(_BYTE*)(v9 + 8) & 1)
@@ -658,7 +658,7 @@ int __cdecl sub_4E23C0(int a1, int a2, int a3, int a4, int a5)
     }
     else if (a2
              && (!a3 ? (v7 = *(float*)(a2 + 76), a3a.field_0 = *(float*)(a2 + 72), a3a.field_4 = v7) : (v6 = *(float*)(a3 + 76), a3a.field_0 = *(float*)(a3 + 72), a3a.field_4 = v6),
-            sub_4E6E50((float2*)(a1 + 56), *(__int16*)(a1 + 124), &a3a) & 1
+            nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a1 + 56), *(__int16*)(a1 + 124), &a3a) & 1
             && (v8 = *(_DWORD*)(a1 + 748), sub_50A020(a1) == 21)
             && *(_BYTE*)(v8 + 481) > (unsigned int)(*(_BYTE*)(v8 + 480) >> 1)))
     {
@@ -4508,7 +4508,7 @@ int __cdecl sub_4E6CE0(float2* a1, float2* a2)
 }
 
 //----- (004E6E50) --------------------------------------------------------
-int __cdecl sub_4E6E50(float2* a1, int a2, float2* a3)
+int __cdecl nox_server_testTwoPointsAndDirection_4E6E50(float2* a1, int a2, float2* a3)
 {
     int v3; // esi
     int v5[2]; // [esp+4h] [ebp-8h]
@@ -4552,7 +4552,7 @@ void __cdecl sub_4E6EF0(int a1, _DWORD* a2)
         && (!(*(_BYTE*)(a1 + 8) & 4) || !(*(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 3680) & 1))
         && (!a2[2] || sub_5330C0(a2[9], a1)))
     {
-        if (sub_4E6E50((float2*)(a2[9] + 56), *(__int16*)(a2[9] + 124), (float2*)(a1 + 56)) & *a2)
+        if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2[9] + 56), *(__int16*)(a2[9] + 124), (float2*)(a1 + 56)) & *a2)
         {
             v2 = a2[9];
             if (a1 != v2 && (!a2[1] || sub_5370E0(v2, a1, 0)))
@@ -6599,10 +6599,10 @@ void __cdecl sub_4E9500(int a1, int a2, float* a3)
                 || (v10 = *(_BYTE*)(*(_DWORD*)(v6 + 276) + 3), v10 != 1) && v10 != 2)
             {
                 LABEL_22:
-                if (*(_BYTE*)(v6 + 88) == 13 || !*(_BYTE*)(v6 + 88) && dword_980858[0] & 0x40000)
+                if (*(_BYTE*)(v6 + 88) == 13 || !*(_BYTE*)(v6 + 88) && mix_dword_980858[0] & 0x40000) // GREAT_SWORD_BLOKING_WALK
                 {
                     v7 = *(_DWORD*)(*(_DWORD*)(v6 + 276) + 4);
-                    if (v7 & 0x400 && sub_4E6E50((float2*)(v3 + 56), *(__int16*)(v3 + 124), v4 + 9) & 1)
+                    if (v7 & 0x400 && nox_server_testTwoPointsAndDirection_4E6E50((float2*)(v3 + 56), *(__int16*)(v3 + 124), v4 + 9) & 1)
                     {
                         v8 = nox_common_randomInt_415FA0(18, 20);
                         sub_501960(890, v3, 0, 0);
@@ -6621,7 +6621,7 @@ void __cdecl sub_4E9500(int a1, int a2, float* a3)
                     sub_52BE40((int)v4, v3);
                     return;
                 }
-                if (sub_4FF350(v3, 27) && sub_4E6E50((float2*)(v3 + 56), *(__int16*)(v3 + 124), v4 + 7) & 1)
+                if (sub_4FF350(v3, 27) && nox_server_testTwoPointsAndDirection_4E6E50((float2*)(v3 + 56), *(__int16*)(v3 + 124), v4 + 7) & 1)
                 {
                     sub_52BE40((int)v4, v3);
                     sub_501960(122, v3, 0, 0);
@@ -6629,10 +6629,10 @@ void __cdecl sub_4E9500(int a1, int a2, float* a3)
                 }
                 goto LABEL_18;
             }
-            if (!(dword_980858[0] & 0x100000))
+            if (!(mix_dword_980858[0] & 0x100000)) // BERSERKER_SHIED_BLOCK
                 goto LABEL_13;
         }
-        if (sub_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 72)) & 1)
+        if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 72)) & 1)
         {
             sub_501960(878, v3, 0, 0);
             sub_4E0A70((int)v4, v3);
@@ -6719,7 +6719,7 @@ void __cdecl sub_4E9770(int a1, int a2, float* a3)
                     sub_52BE40(a1, a2);
                     return;
                 }
-                if (sub_4FF350(a2, 27) && sub_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) & 1)
+                if (sub_4FF350(a2, 27) && nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) & 1)
                 {
                     sub_52BE40(a1, a2);
                     sub_501960(122, a2, 0, 0);
@@ -6834,7 +6834,7 @@ void __cdecl sub_4E9AC0(int a1, int a2)
     v2 = a1;
     v3 = *(char**)(a1 + 700);
     v4 = 1;
-    if (a2 && sub_4FF350(a2, 27) && sub_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) & 1)
+    if (a2 && sub_4FF350(a2, 27) && nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) & 1)
     {
         sub_4E0A70(a1, a2);
         sub_4EC300(a1);
@@ -7116,7 +7116,7 @@ void __cdecl sub_4EA080(int a1, int a2, float* a3)
                             sub_52BE40(a1, a2);
                             return;
                         }
-                        if (sub_4FF350(a2, 27) && sub_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) & 1)
+                        if (sub_4FF350(a2, 27) && nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) & 1)
                         {
                             sub_52BE40(a1, a2);
                             sub_501960(122, a2, 0, 0);
