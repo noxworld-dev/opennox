@@ -46,6 +46,7 @@ int nox_video_pauseThreadedDrawCursor = 0;
 int nox_video_drawCursorThreadOk = 0;
 int nox_video_allowCursorDrawThread = 0;
 int nox_video_windowsPlatformVersion = 0;
+int nox_video_cursorDrawIsThreaded = 0;
 extern HANDLE *nox_video_cursorDrawThreadHandle;
 
 #ifdef USE_SDL
@@ -70,7 +71,7 @@ static inline void rect_to_sdl(const RECT* r, SDL_Rect* sr)
     sr->h = r->bottom - r->top;
 }
 void sdl_present();
-int sdl_unk1(int);
+int sdl_drawCursorThreaded(int);
 int create_surfaces(HWND a1, int width, int height);
 
 void __cdecl sub_48B1B0(SDL_GLContext* a1);
@@ -127,11 +128,15 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags)
     nox_backbuffer_height = h;
     nox_backbuffer_depth = depth;
     nox_video_renderTargetFlags = flags;
+#ifndef USE_SDL
     v5 = nox_client_winVerGetMajor_48C870(0); // Check Windows version
     nox_video_windowsPlatformVersion = v5;
-    v6 = v5 == 5; 
-    v7 = nox_video_renderTargetFlags;
-    if (v6) // if Windows NT platform
+#else
+	v5 = 5; // Fix for Linux
+	nox_video_windowsPlatformVersion = v5;
+#endif
+	v6 = v5 == 5;
+	if (v6) // if Windows NT platform
     {
         v7 = nox_video_renderTargetFlags | 0x20;
         nox_video_renderTargetFlags |= 0x120u;
@@ -534,7 +539,7 @@ DWORD dword_6F7BF8;
 BYTE* dword_6F7C74;
 BYTE* dword_6F7C78;
 extern DWORD dword_974854;
-int(*dword_6F7BF0)(int);
+int(*nox_video_cursorThreadedDrawFnPtr)(int);
 void(*dword_6F7C10)(_DWORD, _DWORD, _DWORD);
 __int16(*dword_6F7C40)();
 __int16(*dword_6F7C34)();
@@ -575,7 +580,7 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4)
 #ifdef USE_SDL
         create_surfaces(a1, a2, a3);
 #else
-        if (nox_client_renderTargetFlags & 0x10)
+        if (nox_video_renderTargetFlags & 0x10)
         {
             // windowed mode
             result = sub_48AED0(a1, a2, a3);
@@ -642,16 +647,16 @@ char sub_48A190()
     nox_backbuffer1_pix = g_backbuffer1->pixels;
     nox_backbuffer_pix = nox_backbuffer1_pix;
 #else
-    if (*(_DWORD*)& byte_5D4594[3801796] && nox_client_renderTargetFlags & 0x20 && (v0 = sub_48ACC0()) != 0)
+    if (*(_DWORD*)& byte_5D4594[3801796] && nox_video_renderTargetFlags & 0x20 && (v0 = sub_48ACC0()) != 0)
     {
         g_present_ptr = sub_48AB50;
     }
     else
     {
-        v0 = *(_DWORD*)& nox_client_renderTargetFlags;
+        v0 = *(_DWORD*)& nox_video_renderTargetFlags;
         g_present_ptr = sub_48AAF0;
-        LOBYTE(v0) = nox_client_renderTargetFlags & 0xDF;
-        *(_DWORD*)& nox_client_renderTargetFlags = v0;
+        LOBYTE(v0) = nox_video_renderTargetFlags & 0xDF;
+        *(_DWORD*)& nox_video_renderTargetFlags = v0;
     }
 #endif
     return v0;
@@ -732,14 +737,14 @@ int sub_48A2A0()
 
     if (!dword_6F7BB0 || !dword_974854)
         return 0;
-    if (!(nox_video_renderTargetFlags & 200))
+    if (!(nox_video_renderTargetFlags & 0x200))
         SetForegroundWindow(windowHandle_dword_973FE0);
     v0 = 0;
     if (g_frontbuffer && g_frontbuffer->lpVtbl->IsLost(g_frontbuffer))
         v0 = g_frontbuffer->lpVtbl->Restore(g_frontbuffer);
     if (dword_6F7C48 && dword_6F7C48->lpVtbl->IsLost(dword_6F7C48))
         v0 = dword_6F7C48->lpVtbl->Restore(dword_6F7C48);
-    if (nox_client_renderTargetFlags & 0x10)
+    if (nox_video_renderTargetFlags & 0x10)
     {
         if (v0 || g_backbuffer1 && g_backbuffer1->lpVtbl->IsLost(g_backbuffer1) && g_backbuffer1->lpVtbl->Restore(g_backbuffer1))
         {
@@ -897,7 +902,7 @@ void __cdecl sub_48A820(UINT uFlags)
     RECT rc; // [esp+0h] [ebp-10h]
     UINT uFlagsa; // [esp+14h] [ebp+4h]
 
-    if (nox_video_renderTargetFlags & 200 || (result = (HCURSOR)uFlags) != 0)
+    if (nox_video_renderTargetFlags & 0x200 || (result = (HCURSOR)uFlags) != 0)
     {
         result = (HCURSOR)IsWindow(windowHandle_dword_973FE0);
         if (result)
@@ -912,7 +917,7 @@ void __cdecl sub_48A820(UINT uFlags)
             if (uFlags)
             {
                 uFlagsa = 0;
-                if ((nox_client_renderTargetFlags & 0x18) == 24)
+                if ((nox_video_renderTargetFlags & 0x18) == 24)
                 {
                     v7 = (v2 - nox_backbuffer_width) / 2;
                     v8 = (v6 - nox_backbuffer_height) / 2;
@@ -923,7 +928,7 @@ void __cdecl sub_48A820(UINT uFlags)
                     AdjustWindowRect(&rc, v9, (BOOL)v10);
                     SetWindowPos(
                         windowHandle_dword_973FE0,
-                        (HWND)(((nox_client_renderTargetFlags & 0x10) != 0) - 1),
+                        (HWND)(((nox_video_renderTargetFlags & 0x10) != 0) - 1),
                         rc.left,
                         rc.top,
                         rc.right - rc.left,
@@ -933,20 +938,20 @@ void __cdecl sub_48A820(UINT uFlags)
                     GetClientRect(windowHandle_dword_973FE0, &rc);
                     ClientToScreen(windowHandle_dword_973FE0, (LPPOINT)& rc);
                     ClientToScreen(windowHandle_dword_973FE0, (LPPOINT)& rc.right);
-                    if (!(nox_client_renderTargetFlags & 4))
+                    if (!(nox_video_renderTargetFlags & 4))
                         ClipCursor(&rc);
                     sub_4348C0();
                     dword_5ACFAC = 0;
                     SetCursor(0);
                     return;
                 }
-                if ((nox_client_renderTargetFlags & 0x10) != 16)
+                if ((nox_video_renderTargetFlags & 0x10) != 16)
                     goto LABEL_11;
             }
             else
             {
                 uFlagsa = SWP_NOMOVE;
-                if ((nox_client_renderTargetFlags & 0x18) != 16)
+                if ((nox_video_renderTargetFlags & 0x18) != 16)
                     goto LABEL_11;
             }
             v4 = v2;
@@ -1007,7 +1012,7 @@ void sub_48AA40()
 
     if (IsWindow(windowHandle_dword_973FE0))
     {
-        if ((nox_client_renderTargetFlags & 0x18) != 24)
+        if ((nox_video_renderTargetFlags & 0x18) != 24)
         {
             v3 = GetSystemMetrics(1);
             v1 = GetSystemMetrics(0);
@@ -1136,7 +1141,7 @@ void sdl_present()
         const float matrixRotated[] = { 0.0, 1.0, 1.0, 0.0 };
 
         sub_48BE50(1);
-        sub_48B5D0(0, 0);
+        nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0);
 
         glBindTexture(GL_TEXTURE_2D, g_texture);
         glCheckError();
@@ -1263,7 +1268,7 @@ int sub_48ACC0()
 {
     int result; // eax
 
-    if (!(nox_client_renderTargetFlags & 0x20))
+    if (!(nox_video_renderTargetFlags & 0x20))
         return 1;
     result = sub_48A6C0(g_frontbuffer);
     if (result)
@@ -1273,7 +1278,7 @@ int sub_48ACC0()
         if (result)
         {
             nox_backbuffer1_pix = result;
-            if ((nox_client_renderTargetFlags & 0x80u) != 0)
+            if ((nox_video_renderTargetFlags & 0x80u) != 0)
             {
                 result = sub_48A6C0(g_backbuffer2);
                 if (!result)
@@ -1327,7 +1332,7 @@ signed int __cdecl sub_48AD40(HWND a1, int a2, int a3, int a4)
     v6.dwFlags = 33;
     v6.ddsCaps.dwCaps = 536;
     v6.dwBackBufferCount = 1;
-    if ((*(_DWORD*)& nox_client_renderTargetFlags & 0x80u) != 0)
+    if ((*(_DWORD*)& nox_video_renderTargetFlags & 0x80u) != 0)
     {
         v6.dwBackBufferCount = 2;
         ++g_backbuffer_count;
@@ -1369,7 +1374,7 @@ int __cdecl sub_48AED0(HWND a1, int a2, int a3)
     int v5; // edi
     int result; // eax
 
-    v3 = nox_client_renderTargetFlags;
+    v3 = nox_video_renderTargetFlags;
     if (!(v3 & 4))
     {
         v4 = CreateICA("Display", 0, 0, 0);
@@ -1692,10 +1697,10 @@ int nox_video_initCursorDrawVars_48B1F0()
 
 	if (nox_video_renderTargetFlags & 0x100)
     {
-        *(_DWORD*)& byte_5D4594[3798724] = 0;
+        nox_video_cursorDrawIsThreaded = 0;
         return 1;
     }
-    *(_DWORD*)& byte_5D4594[3798724] = 1;
+    nox_video_cursorDrawIsThreaded = 1;
     if (nox_video_renderTargetFlags & 4)
         return 1;
     *(_DWORD*)& byte_5D4594[1193640] = 0;
@@ -1733,16 +1738,16 @@ int nox_video_initCursorDrawVars_48B1F0()
         dword_6F7C34 = sub_48C420;
     }
 #ifdef USE_SDL
-    dword_6F7BF0 = sdl_unk1;
+    nox_video_cursorThreadedDrawFnPtr = sdl_drawCursorThreaded;
 #else
-    if (nox_client_renderTargetFlags & 0x10)
+    if (nox_video_renderTargetFlags & 0x10)
         // windowed mode
         dword_6F7BF0 = sub_48BA50;
     else
         // fullscreen mode
         dword_6F7BF0 = sub_48B840;
 #endif
-    result = sub_48BF70();
+    result = nox_video_createCursorSurface_48BF70();
     printf("%s: %d\n", __FUNCTION__, result);
     if (result)
     {
@@ -1767,7 +1772,7 @@ int nox_video_initCursorDrawVars_48B1F0()
     return result;
 }
 
-int sdl_unk1(int a1)
+int sdl_drawCursorThreaded(int a1)
 {
     RECT* r1 = (RECT*)& byte_5D4594[1193532];
     RECT* r2 = (RECT*)& byte_5D4594[1193548];
@@ -1813,11 +1818,11 @@ int sdl_unk1(int a1)
         // FIXME frontbuffer?
         rect_to_sdl(r3, &src);
         rect_to_sdl(&v4, &dst);
-
-#if 0
+		
+#if 0	// SDL textures cannot be locked from threads other than where they were created in.
         uint16_t * dstpixels;
         int dstpitch;
-
+		
         if (SDL_LockTexture(g_texture, &dst, (void**)& dstpixels, &dstpitch) == 0)
         {
             unsigned int x, y;
@@ -1844,8 +1849,10 @@ int sdl_unk1(int a1)
             }
 
             SDL_UnlockTexture(g_texture);
+			/*
             SDL_RenderCopy(g_ddraw, g_texture, &dst, &dst);
             SDL_RenderPresent(g_ddraw);
+			*/
         }
 #endif
 
@@ -2127,7 +2134,7 @@ int sub_434FB0()
     PALETTEENTRY v1[256]; // [esp+0h] [ebp-400h]
 
     g_ddraw_palette = 0;
-    if (nox_client_renderTargetFlags & 4 || *(_DWORD*)& byte_5D4594[3799624])
+    if (nox_video_renderTargetFlags & 4 || *(_DWORD*)& byte_5D4594[3799624])
         return 1;
 
     sub_4350E0(v1, &byte_5D4594[3803308]);
@@ -2233,7 +2240,7 @@ void sub_4353F0()
     *(_WORD*)plpal = 768;
     *(_WORD*)& plpal[2] = 256;
     memset(&plpal[4], 0, 0x400u);
-    if (!*(_DWORD*)& byte_5D4594[3799624] && nox_client_renderTargetFlags & 0x10)
+    if (!*(_DWORD*)& byte_5D4594[3799624] && nox_video_renderTargetFlags & 0x10)
     {
         sub_435550();
         v1 = &plpal[5];
@@ -2281,7 +2288,7 @@ void sub_4354F0()
 #else
     HDC v1; // esi
 
-    if (!*(_DWORD*)& byte_5D4594[3799624] && nox_client_renderTargetFlags & 0x10)
+    if (!*(_DWORD*)& byte_5D4594[3799624] && nox_video_renderTargetFlags & 0x10)
     {
         if (*(_DWORD*)& byte_5D4594[809596])
         {
@@ -2358,7 +2365,7 @@ int __cdecl sub_444930(HWND wnd, int w, int h, int depth, int flags)
     }
     ptr_5D4594_3799572 = &obj_5D4594_3800716;
     qmemcpy(&obj_5D4594_3800716, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t));
-    if (nox_video_renderTargetFlags & 200)
+    if (nox_video_renderTargetFlags & 0x200)
     {
 #ifdef USE_SDL
         // FIXME
@@ -2418,7 +2425,7 @@ void sub_48C110()
     * (_DWORD*)& byte_5D4594[1193684] = nox_backbuffer_width;
     *(_DWORD*)& byte_5D4594[1193688] = nox_backbuffer_height;
 #else
-    if (nox_client_renderTargetFlags & 0x10)
+    if (nox_video_renderTargetFlags & 0x10)
     {
         GetClientRect(windowHandle_dword_973FE0, &Rect);
         *(_DWORD*)& byte_5D4594[1193684] = Rect.right - Rect.left;
@@ -2677,7 +2684,7 @@ int sub_48A3D0()
             {
                 *(_DWORD*)& byte_5D4594[3801796] = 0;
                 g_present_ptr = sub_48ABC0;
-                *(_DWORD*)& nox_client_renderTargetFlags &= 0xFFFFFFDF;
+                *(_DWORD*)& nox_video_renderTargetFlags &= 0xFFFFFFDF;
             }
             if (v12.ddpfPixelFormat.dwRGBBitCount == 16)
             {
@@ -2734,9 +2741,9 @@ int sub_48A3D0()
         if (*(_DWORD*)& byte_5D4594[3801780] != 2)
             return 1;
     }
-    if (!(nox_client_renderTargetFlags & 4))
+    if (!(nox_video_renderTargetFlags & 4))
     {
-        if (nox_client_renderTargetFlags & 0x10)
+        if (nox_video_renderTargetFlags & 0x10)
         {
             sub_48C940("Unsupported windowed video mode detected\r\n\r\nPlease change your desktop to 16 bit color");
             return 0;
@@ -2748,14 +2755,18 @@ int sub_48A3D0()
 }
 
 //----- (0048BF70) --------------------------------------------------------
-int sub_48BF70()
+int nox_video_createCursorSurface_48BF70()
 {
     int result; // eax
     int v1; // [esp+0h] [ebp-18h]
     int v2; // [esp+4h] [ebp-14h]
     int4 a1; // [esp+8h] [ebp-10h]
 
+#ifdef USE_SDL
+	g_cursor_surf = sub_48A600(128, 128, DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT, DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY);
+#else
     g_cursor_surf = sub_48A600(128, 128, DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT, DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY);
+#endif
     if (g_cursor_surf)
     {
         if (sub_48A720(g_cursor_surf, &v2, &v1, &dword_6F7BF8, &dword_6F7C74))
@@ -2799,7 +2810,7 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3)
 {
     int i; // esi
 
-    if (*(_DWORD*)& byte_5D4594[3798724])
+    if (nox_video_cursorDrawIsThreaded)
     {
         EnterCriticalSection((LPCRITICAL_SECTION)& byte_5D4594[3799596]);
         *(_DWORD*)& byte_5D4594[1193640] = *(_DWORD*)& byte_5D4594[1193648];
@@ -2903,7 +2914,7 @@ void nox_video_stopCursorDrawThread_48B350()
 {
     nox_video_drawCursorThreadOk = 0;
     nox_video_allowCursorDrawThread = 0;
-    if (nox_video_cursorDrawThreadHandle) // using cursor thread
+    if (nox_video_cursorDrawThreadHandle)
     {
         nox_video_pauseThreadedDrawCursor = 1;
         WaitForSingleObject(nox_video_cursorDrawThreadHandle, 0x108u);
@@ -3625,7 +3636,7 @@ int __cdecl sub_4B0640(int(*a1)(void))
 }
 
 //----- (0048B5D0) --------------------------------------------------------
-int __cdecl sub_48B5D0(int a1, int a2)
+int __cdecl nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2)
 {
     int result; // eax
     int v3; // esi
@@ -3634,7 +3645,7 @@ int __cdecl sub_48B5D0(int a1, int a2)
     if (!*(_DWORD*)& byte_5D4594[1193708]
         && nox_video_drawCursorThreadOk
         && *(_DWORD*)& byte_5D4594[823776]
-        && *(_DWORD*)& byte_5D4594[3798724]
+        && nox_video_cursorDrawIsThreaded
         && *(_DWORD*)& byte_5D4594[1193672]
         && *(_DWORD*)& byte_5D4594[1193108]
         && *(_DWORD*)& byte_5D4594[787144])
@@ -3647,7 +3658,7 @@ int __cdecl sub_48B5D0(int a1, int a2)
         if (a2)
             g_ddraw->lpVtbl->WaitForVerticalBlank(g_ddraw, 1, 0);
 #endif
-        v3 = dword_6F7BF0(a1);
+        v3 = nox_video_cursorThreadedDrawFnPtr(a1);
         LeaveCriticalSection((LPCRITICAL_SECTION)& byte_5D4594[3799596]);
         result = v3;
         *(_DWORD*)& byte_5D4594[1193708] = 0;

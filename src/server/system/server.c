@@ -2699,7 +2699,7 @@ int sub_4D1860_server()
     int v63[15]; // [esp+10h] [ebp-3Ch]
 
     if (nox_common_gameFlags_check_40A5C0(2))
-        sub_477610(10);
+        nox_client_setCursorType_477610(10);
     sub_4D22B0();
     sub_4D9800(0, 1);
     v0 = 0;

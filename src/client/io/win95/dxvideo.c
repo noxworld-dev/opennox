@@ -35,8 +35,8 @@ int nox_video_recreateRenderTarget_47FD70()
     if (*(_DWORD*)& byte_5D4594[805864])
         flags |= 0x200u;
     sub_48A210(sub_47FCE0);
-    v1 = sub_477620();
-    sub_477610(0);
+    v1 = nox_client_getCursorType_477620();
+    nox_client_setCursorType_477610(0);
     v2 = sub_48B3E0(0);
     int depth = *(_DWORD*)& byte_5D4594[3804680] != 0 ? 16 : 8;
     if (!sub_444930(getWindowHandle_sub_401FD0(), nox_win_width, nox_win_height, depth, flags))
@@ -48,7 +48,7 @@ int nox_video_recreateRenderTarget_47FD70()
     }
     printf("%s: %d\n", __FUNCTION__, 1);
     sub_477710();
-    sub_477610(v1);
+    nox_client_setCursorType_477610(v1);
     sub_48B3E0(v2);
     sub_440900();
     sub_47FEF0();

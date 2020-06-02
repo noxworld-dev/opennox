@@ -347,7 +347,7 @@ int sub_462740()
     nox_window_call_field_94((int)v1, 16399, 0, 0);
     sub_46ADE0(*(int*)& byte_5D4594[1062456]);
     *(_DWORD*)& byte_5D4594[1049864] = 0;
-    sub_477610(0);
+    nox_client_setCursorType_477610(0);
     return 1;
 }
 
@@ -432,7 +432,7 @@ int __cdecl sub_4627F0(_DWORD* a1)
     wchar_t v76[256]; // [esp+238h] [ebp-200h]
 
     v73 = 1;
-    v1 = sub_4309F0();
+    v1 = nox_client_getMousePos_4309F0();
     sub_434390(*(int*)& byte_5D4594[2523948]);
     v2 = 0;
     sub_43F340(0);
@@ -444,7 +444,7 @@ int __cdecl sub_4627F0(_DWORD* a1)
     {
         if (sub_4281F0(&v74, (int4*)& byte_587000[136368]) && (v74.field_4 - 13) / 50 != 1)
         {
-            sub_477610(7);
+            nox_client_setCursorType_477610(7);
             goto LABEL_14;
         }
     }
@@ -452,21 +452,21 @@ int __cdecl sub_4627F0(_DWORD* a1)
     {
         if (sub_4281F0(&v74, (int4*)& byte_587000[136336]))
         {
-            sub_477610(0);
+            nox_client_setCursorType_477610(0);
             goto LABEL_14;
         }
         if (!sub_478030())
         {
-            sub_477610(7);
+            nox_client_setCursorType_477610(7);
             goto LABEL_14;
         }
         if (!sub_479870() || (LOBYTE(v3) = sub_479880(&v74), !v3))
         {
-            sub_477610(7);
+            nox_client_setCursorType_477610(7);
             goto LABEL_14;
         }
     }
-    sub_477610(6);
+    nox_client_setCursorType_477610(6);
     LABEL_14:
     result = *(_DWORD*)& byte_5D4594[1063116];
     if (!*(_DWORD*)& byte_5D4594[1063116])
