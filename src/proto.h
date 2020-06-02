@@ -4486,7 +4486,7 @@ int __cdecl sub_4E1500(int a1, int a2, int a3, int a4, int a5);
 void __cdecl sub_4E1560(int a1, int a2, int a3, int a4, float a5, int a6);
 int __cdecl sub_4E1650(int a1, _DWORD* a2, unsigned __int16 a3, unsigned __int16 a4);
 void __cdecl sub_4E16D0(int a1, int a2, int a3, int a4, float a5, int a6);
-int __cdecl sub_4E17B0(int a1, int a2, int a3, int a4, float a5);
+int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, float a5);
 void __cdecl sub_4E20F0(int a1, int a2, float a3);
 void __cdecl sub_4E2180(int a1, int a2, int a3, int a4, float a5);
 double __cdecl sub_4E2220(int a1);
@@ -4632,7 +4632,7 @@ void __cdecl sub_4E6AA0(int a1);
 BOOL __cdecl sub_4E6BD0(int a1);
 long double __cdecl sub_4E6C00(int a1, int a2);
 int __cdecl sub_4E6CE0(float2* a1, float2* a2); // idb
-int __cdecl sub_4E6E50(float2* a1, int a2, float2* a3); // idb
+int __cdecl nox_server_testTwoPointsAndDirection_4E6E50(float2* a1, int a2, float2* a3); // idb
 int __cdecl sub_4E6EA0(int, float, int); // idb
 void __cdecl sub_4E6EF0(int a1, _DWORD* a2);
 void __cdecl sub_4E7010(int, float2*);
@@ -5231,7 +5231,7 @@ int script_pop();
 int __cdecl sub_507270(int** a1);
 double __cdecl sub_507280(float** a1);
 LPVOID sub_507290();
-int __cdecl sub_507310(int a1, int a2, int a3);
+int __cdecl nox_server_doMapScript_507310(int a1, int a2, int a3);
 int __cdecl sub_508B70(int a1, int a2);
 int __cdecl sub_508C30(int a1);
 int __cdecl sub_508C70(int a1);

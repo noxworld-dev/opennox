@@ -2283,7 +2283,7 @@ void __cdecl sub_4F8460(int a1)
                         "PlayerDeath",
                         *(const char**)(v40 + *(_DWORD*)& byte_5D4594[1599636]),
                         0xBu))
-                        sub_507310(v39, 0, 0);
+                        nox_server_doMapScript_507310(v39, 0, 0);
                     ++v39;
                     v40 += 48;
                 } while (v39 < *(int*)& byte_5D4594[1599640]);
@@ -9326,7 +9326,7 @@ unsigned __int8* __cdecl sub_502490(int* a1, int a2, int a3)
     }
     else
     {
-        sub_507310(v4, a2, a3);
+        nox_server_doMapScript_507310(v4, a2, a3);
         if (*(_DWORD*)(48 * a1[1] + *(_DWORD*)& byte_5D4594[1599636] + 4))
             * (_DWORD*)& byte_5D4594[1599076] = script_pop();
         v6 = *(_DWORD*)& byte_5D4594[1599624];
@@ -13216,13 +13216,13 @@ LPVOID sub_507290()
         *(_DWORD*)(*(_DWORD*)(*(_DWORD*)& byte_5D4594[1599636] + 76) + 12) = 0;
         result = (LPVOID)sub_4DB240();
         if (!result)
-            result = (LPVOID)sub_507310(1, 0, 0);
+            result = (LPVOID)nox_server_doMapScript_507310(1, 0, 0);
     }
     return result;
 }
 
 //----- (00507310) --------------------------------------------------------
-int __cdecl sub_507310(int a1, int a2, int a3)
+int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3)
 {
     int v3; // ebx
     int v4; // eax
@@ -13391,11 +13391,11 @@ int __cdecl sub_507310(int a1, int a2, int a3)
     *(_DWORD*)& byte_5D4594[3821964] = a2;
     v4 = *(_DWORD*)& byte_5D4594[1599636];
     *(_DWORD*)& byte_5D4594[3821968] = a3;
-    v5 = 48 * a1;
+    v5 = 48 * index;
     v6 = 0;
-    v7 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[1599636] + 48 * a1 + 8);
+    v7 = *(_DWORD*)(*(_DWORD*)& byte_5D4594[1599636] + 48 * index + 8);
     v161 = 0;
-    v162 = 48 * a1;
+    v162 = 48 * index;
     if (v7 > 0)
     {
         do
@@ -14150,12 +14150,12 @@ int __cdecl sub_507310(int a1, int a2, int a3)
             continue;
         case 69:
             v138 = sub_507270((int**)& v160);
-            if (sub_508B70(a1, v138) != 1)
+            if (sub_508B70(index, v138) != 1)
                 continue;
             goto LABEL_199;
         case 70:
             v139 = sub_507270((int**)& v160);
-            sub_507310(v139, a2, v3);
+            nox_server_doMapScript_507310(v139, a2, v3);
             continue;
         case 73:
             v23 = script_pop();
