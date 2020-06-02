@@ -313,8 +313,8 @@ int __cdecl cmain(int argc, const char* argv[])
             int v11 = *(_DWORD*)& nox_common_engineFlags;
             BYTE1(v11) = BYTE1(v11) & 0xFB | 2;
             nox_enable_audio = 0;
-            *(_DWORD*)& nox_video_dxUnlockSurface = 1;
-            *(_DWORD*)& nox_common_engineFlags = v11;
+            nox_video_dxUnlockSurface = 1;
+            nox_common_engineFlags = v11;
             *(_DWORD*)& byte_587000[80800] = 0;
             *(_DWORD*)& byte_5D4594[805840] = 1;
             nox_enable_threads = 0;

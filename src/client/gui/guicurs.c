@@ -4,9 +4,10 @@
 
 extern int nox_win_width;
 extern int nox_win_height;
+int nox_client_mouseCursorType = 0;
 
 //----- (00477A30) --------------------------------------------------------
-int __cdecl sub_477A30(int a1, int a2, int a3)
+int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3)
 {
     int v3; // edi
     int v4; // ebp
@@ -46,11 +47,11 @@ int __cdecl sub_477A30(int a1, int a2, int a3)
     }
     else
     {
-        v6 = *(_DWORD*)& byte_5D4594[1097200];
-        if (*(_DWORD*)& byte_5D4594[1097200] != *(_DWORD*)& byte_587000[151528] && *(_DWORD*)& byte_5D4594[1097200] != 14)
+        v6 = nox_client_mouseCursorType;
+        if (nox_client_mouseCursorType != *(_DWORD*)& byte_587000[151528] && nox_client_mouseCursorType != 14)
         {
             sub_48B680(0);
-            v6 = *(_DWORD*)& byte_5D4594[1097200];
+            v6 = nox_client_mouseCursorType;
         }
         switch (v6)
         {
@@ -78,7 +79,7 @@ int __cdecl sub_477A30(int a1, int a2, int a3)
             case 7:
                 v11 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[151996], 0, "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 207);
                 sub_43F6E0(0, v11, v3 + 49, v4 + 88);
-                sub_4BE6D0(*(_DWORD*)& byte_5D4594[4 * *(_DWORD*)& byte_5D4594[1097200] + 1097220], v3, v4);
+                sub_4BE6D0(*(_DWORD*)& byte_5D4594[4 * nox_client_mouseCursorType + 1097220], v3, v4);
                 break;
             case 8:
                 v12 = (__int16*)loadString_sub_40F1D0((char*)& byte_587000[152044], 0, "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 214);
@@ -100,7 +101,7 @@ int __cdecl sub_477A30(int a1, int a2, int a3)
                 *(_DWORD*)& byte_5D4594[1097208] = -2 * v5;
                 break;
             case 14:
-                v14 = sub_4309F0();
+                v14 = nox_client_getMousePos_4309F0();
                 v19.field_0 = (double)(v14->field_0 - nox_win_width / 2);
                 v19.field_4 = (double)(v14->field_4 - nox_win_height / 2);
                 //dprintf("cur %f %f %d", v19.field_0, v19.field_4, sub_509ED0(&v19));
@@ -140,7 +141,7 @@ int __cdecl sub_477A30(int a1, int a2, int a3)
         }
         result = v18;
         *(_DWORD*)& byte_5D4594[3798728] = 0;
-        *(_DWORD*)& byte_587000[151528] = *(_DWORD*)& byte_5D4594[1097200];
+        *(_DWORD*)& byte_587000[151528] = nox_client_mouseCursorType;
         *(_DWORD*)& byte_5D4594[3799496] = v18;
     }
     return result;

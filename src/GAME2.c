@@ -5704,7 +5704,7 @@ int __cdecl sub_458500(_DWORD* a1, int a2)
     int xLeft; // [esp+8h] [ebp-8h]
     int v5; // [esp+Ch] [ebp-4h]
 
-    v1 = sub_4309F0();
+    v1 = nox_client_getMousePos_4309F0();
     sub_46AA60(a1, &xLeft, &v5);
     sub_49CF10(xLeft, v5 + 25, a1[2], a1[3] - 25);
     v2 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1046492], 10120);

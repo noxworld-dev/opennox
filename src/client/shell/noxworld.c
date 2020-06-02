@@ -310,7 +310,7 @@ int sub_4379F0()
                 sub_4158C0();
                 sub_415D50();
                 sub_430C30_set_video_max(NOX_MAX_WIDTH, NOX_MAX_HEIGHT);
-                sub_477610(0);
+                nox_client_setCursorType_477610(0);
                 if (*(_DWORD*)& byte_5D4594[815096])
                 {
                     v27 = loadString_sub_40F1D0((char*)& byte_587000[88552], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2616);
@@ -830,7 +830,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4)
         case 0x4010u:
             if (sub_46B0A0(a3) == 10061)
             {
-                v29 = *sub_4309F0();
+                v29 = *nox_client_getMousePos_4309F0();
                 *(_DWORD*)& byte_5D4594[814624] = sub_4A28C0(a4);
                 sub_439370(&v29, *(int*)& byte_5D4594[814624]);
                 return 0;
@@ -859,7 +859,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4)
         sub_452D80(766, 100);
     if (v5 >= 10070)
     {
-        v29 = *sub_4309F0();
+        v29 = *nox_client_getMousePos_4309F0();
         v30 = v29.field_0 - 216;
         v31 = v29.field_4 - 27;
         v6 = (int*)sub_4A0020();

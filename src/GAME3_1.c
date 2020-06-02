@@ -894,7 +894,7 @@ int __cdecl nox_thing_plasma_draw(int* a1, int a2)
     float2 v25; // [esp+4h] [ebp-8h]
     unsigned __int8 v26; // [esp+14h] [ebp+8h]
 
-    v24 = sub_4309F0();
+    v24 = nox_client_getMousePos_4309F0();
     v3 = a2;
     if (*(_BYTE*)(a2 + 432))
     {
@@ -2887,7 +2887,7 @@ int __cdecl sub_4BE7B0(int a1)
 {
     int result; // eax
 
-    if (sub_477620() == 10)
+    if (nox_client_getCursorType_477620() == 10)
     {
         ++* (_DWORD*)& byte_5D4594[1316976];
         result = sub_4BE640(a1, *(int*)& byte_5D4594[1316976]);
@@ -5007,7 +5007,7 @@ int __cdecl sub_4C1FE0(_DWORD* a1)
     int v28; // [esp+2Ch] [ebp-8h]
     int v29; // [esp+30h] [ebp-4h]
 
-    v1 = sub_4309F0();
+    v1 = nox_client_getMousePos_4309F0();
     v24 = v1;
     if (byte_5D4594[1321200] == 1)
     {
@@ -11601,7 +11601,7 @@ _DWORD* sub_4CB330()
 
     v0 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1522600], 2010);
     v1 = v0[9];
-    if (*(_DWORD*)& nox_video_dxUnlockSurface)
+    if (nox_video_dxUnlockSurface)
         v2 = v1 | 4;
     else
         v2 = v1 & 0xFFFFFFFB;
@@ -11733,7 +11733,7 @@ int __cdecl sub_4CB5D0(int a1, int a2, int* a3, int a4)
             case 2010:
                 nox_video_dxUnlockSurface = nox_video_checkIsWinNT_48A1D0(1 - nox_video_dxUnlockSurface);
                 v6 = *(_DWORD*)(a1 + 36);
-                if (*(_DWORD*)& nox_video_dxUnlockSurface)
+                if (nox_video_dxUnlockSurface)
                     v7 = v6 | 4;
                 else
                     v7 = v6 & 0xFFFFFFFB;

@@ -20,6 +20,8 @@ extern int nox_video_pauseThreadedDrawCursor;
 extern int nox_video_drawCursorThreadOk;
 extern int nox_video_allowCursorDrawThread;
 extern int nox_video_windowsPlatformVersion;
+extern int nox_video_cursorDrawIsThreaded;
+extern int nox_client_mouseCursorType;
 extern HANDLE *nox_video_cursorDrawThreadHandle;
 
 extern nox_drawable** nox_drawable_list_3;
@@ -1021,7 +1023,7 @@ void sub_476FA0()
 
     if (!*(_DWORD*)& byte_5D4594[1096632])
         * (_DWORD*)& byte_5D4594[1096632] = sub_4E3AA0((CHAR*)& byte_587000[151432]);
-    v0 = sub_4309F0();
+    v0 = nox_client_getMousePos_4309F0();
     sub_437250();
     v1 = *v0;
     sub_473970(&v1, &v1);
@@ -1274,19 +1276,19 @@ int sub_477600()
 }
 
 //----- (00477610) --------------------------------------------------------
-int __cdecl sub_477610(int a1)
+int __cdecl nox_client_setCursorType_477610(int a1)
 {
     int result; // eax
 
     result = a1;
-    *(_DWORD*)& byte_5D4594[1097200] = a1;
+    nox_client_mouseCursorType = a1;
     return result;
 }
 
 //----- (00477620) --------------------------------------------------------
-int sub_477620()
+int nox_client_getCursorType_477620()
 {
-    return *(_DWORD*)& byte_5D4594[1097200];
+    return nox_client_mouseCursorType;
 }
 
 //----- (00477630) --------------------------------------------------------
@@ -1394,7 +1396,7 @@ char* sub_477710()
 }
 
 //----- (00477830) --------------------------------------------------------
-char* sub_477830()
+char* nox_client_drawCursorAndTooltips_477830()
 {
     int2* v0; // edi
     char* v1; // eax
@@ -1409,7 +1411,7 @@ char* sub_477830()
 
     if (!*(_DWORD*)& byte_5D4594[1097220])
         sub_477710();
-    v0 = sub_4309F0();
+    v0 = nox_client_getMousePos_4309F0();
     v9[0] = 0;
     v9[1] = 0;
     v9[2] = nox_win_width;
@@ -1420,18 +1422,18 @@ char* sub_477830()
     v9[5] = 0;
     *(_DWORD*)& byte_5D4594[1097204] = 0;
     *(_DWORD*)& byte_5D4594[1097208] = sub_43F320(0) + 4;
-    if (*(_DWORD*)& byte_5D4594[1097188])
+    if (*(_DWORD*)& byte_5D4594[1097188]) // Dragging item
     {
         *(_DWORD*)(*(_DWORD*)& byte_5D4594[1097188] + 12) = v0->field_0;
         *(_DWORD*)(*(_DWORD*)& byte_5D4594[1097188] + 16) = v0->field_4;
         (*(void(__cdecl * *)(int*, _DWORD))(*(_DWORD*)& byte_5D4594[1097188] + 300))(v9, *(_DWORD*)& byte_5D4594[1097188]);
     }
-    if (*(_DWORD*)& byte_5D4594[1097192])
+    if (*(_DWORD*)& byte_5D4594[1097192]) // Player is dragging spell or ability
     {
         v1 = sub_417040(*(int*)& byte_5D4594[2616328]);
         if (!v1 || v1[2251])
         {
-            v2 = sub_424A90(*(int*)& byte_5D4594[1097192]);
+            v2 = sub_424A90(*(int*)& byte_5D4594[1097192]); // Spell icon
             if (v2) {
                 sub_47D2C0(v2, v0->field_0 - 15, v0->field_4 - 15);
                 goto LABEL_12;
@@ -1439,7 +1441,7 @@ char* sub_477830()
         }
         else
         {
-            v2 = sub_425310(*(int*)& byte_5D4594[1097192], 0);
+            v2 = sub_425310(*(int*)& byte_5D4594[1097192], 0); // Ability icon
             if (v2) {
                 sub_47D2C0(v2, v0->field_0 - 15, v0->field_4 - 15);
                 goto LABEL_12;
@@ -1447,7 +1449,7 @@ char* sub_477830()
         }
     }
     LABEL_12:
-    result = (char*)sub_477A30(*(int*)& byte_5D4594[2523948], v0->field_0, v0->field_4);
+    result = (char*)nox_video_cursorDrawImpl_477A30(*(int*)& byte_5D4594[2523948], v0->field_0, v0->field_4);
     if (*(_WORD*)& byte_5D4594[1096676] && *(_DWORD*)& byte_587000[80840] == 1)
     {
         sub_43F840(0, (unsigned __int16*)& byte_5D4594[1096676], &v8, &v7, 0);
@@ -1495,10 +1497,10 @@ int sub_477EA0()
     int v1; // edi
     int v2; // esi
 
-    v0 = sub_4309F0();
+    v0 = nox_client_getMousePos_4309F0();
     v1 = v0->field_0;
     v2 = v0->field_4 + 22;
-    sub_477A30(*(int*)& byte_5D4594[2650656], v0->field_0, v2);
+    nox_video_cursorDrawImpl_477A30(*(int*)& byte_5D4594[2650656], v0->field_0, v2);
     sub_477EF0(*(int*)& byte_5D4594[2614248], --v1, v2);
     return sub_477EF0(*(int*)& byte_5D4594[2614248], v1 + 2, v2);
 }
@@ -1506,7 +1508,7 @@ int sub_477EA0()
 //----- (00477EF0) --------------------------------------------------------
 int __cdecl sub_477EF0(int a1, int a2, int a3)
 {
-    if (*(_DWORD*)& byte_5D4594[1097200] == 2)
+    if (nox_client_mouseCursorType == 2)
         return sub_4C32A0(a2, a3, 5 - *(_DWORD*)& byte_5D4594[2598000] % 5u, a1);
     sub_434460(a1);
     sub_434560(1);
@@ -1524,7 +1526,7 @@ void sub_477F80()
 {
     char* v0; // eax
 
-    if (!*(_DWORD*)& byte_5D4594[3798724])
+    if (!nox_video_cursorDrawIsThreaded)
     {
         if (*(_DWORD*)& byte_5D4594[3799468])
         {
@@ -1766,7 +1768,7 @@ int __cdecl sub_478480(int a1, int a2, int* a3, int a4)
                 return 0;
             if (*(_DWORD*)& byte_5D4594[1098628] == 4)
                 sub_467680();
-            sub_477610(12);
+            nox_client_setCursorType_477610(12);
             *(_DWORD*)& byte_5D4594[1098628] = 3;
             if (sub_467C80())
                 return 0;
@@ -1785,7 +1787,7 @@ int __cdecl sub_478480(int a1, int a2, int* a3, int a4)
             {
                 if (*(_DWORD*)& byte_5D4594[1098628] == 4)
                     sub_467680();
-                sub_477610(11);
+                nox_client_setCursorType_477610(11);
                 *(_DWORD*)& byte_5D4594[1098628] = 2;
             }
             return 0;
@@ -2181,7 +2183,7 @@ int sub_479280()
         nox_window_set_hidden(*(int*)& byte_5D4594[1098576], 1);
         sub_46ABB0(*(int*)& byte_5D4594[1098576], 0);
         sub_467C10();
-        sub_477610(0);
+        nox_client_setCursorType_477610(0);
         result = *(_DWORD*)& byte_587000[80828];
         if (!*(_DWORD*)& byte_587000[80828] && *(_DWORD*)& byte_5D4594[1098612] == 1)
             * (_DWORD*)& byte_587000[80828] = 1;
@@ -14200,7 +14202,7 @@ void __cdecl sub_48B680(int a1)
 {
     if (a1 != ptr_5D4594_3799572->data[15])
     {
-        if (*(_DWORD*)& byte_5D4594[3798724])
+        if (nox_video_cursorDrawIsThreaded)
             ptr_5D4594_3799572->data[15] = a1;
         else
             ptr_5D4594_3799572->data[14] = a1;
@@ -14216,7 +14218,7 @@ int __cdecl sub_48B6B0(int a1, int a2, int a3)
     unsigned __int64 v5; // rax
     unsigned __int64 v6; // rax
 
-    if (!*(_DWORD*)& byte_5D4594[3798724])
+    if (!nox_video_cursorDrawIsThreaded)
         return sub_433CD0(a1, a2, a3);
     result = (unsigned __int8)a1;
     ptr_5D4594_3799572->data[34] = (unsigned __int8)a1;
@@ -14272,8 +14274,8 @@ int __cdecl sub_48BE50(int a1)
     result = nox_video_drawCursorThreadOk;
     if (nox_video_drawCursorThreadOk)
     {
-        result = *(_DWORD*)& byte_5D4594[3798724];
-        if (*(_DWORD*)& byte_5D4594[3798724])
+        result = nox_video_cursorDrawIsThreaded;
+        if (nox_video_cursorDrawIsThreaded)
         {
             result = a1;
             nox_video_pauseThreadedDrawCursor = a1;
@@ -14285,7 +14287,7 @@ int __cdecl sub_48BE50(int a1)
 //----- (0048BE70) --------------------------------------------------------
 int nox_video_createCursorDrawThread_48BE70()
 {
-    *(_DWORD*)& nox_video_allowCursorDrawThread = 1;
+    nox_video_allowCursorDrawThread = 1;
     nox_video_cursorDrawThreadHandle = _beginthread(nox_video_cursorThreadWorker_48BEB0, 0, 0);
     if (nox_video_cursorDrawThreadHandle != -1)
         return 1;
@@ -14313,9 +14315,9 @@ int nox_video_cursorThreadWorker_48BEB0()
             && *(_DWORD*)& byte_5D4594[787144]
             && !sub_430890())
         {
-            sub_4306A0(0);
-            v1 = sub_4309F0();
-            if (sub_477620() == 10)
+            nox_client_readMouseBuffer_4306A0(0);
+            v1 = nox_client_getMousePos_4309F0();
+            if (nox_client_getCursorType_477620() == 10)
             {
                 v4 = v1->field_4 - 64;
                 v3 = v1->field_0 - 64;
@@ -14326,7 +14328,7 @@ int nox_video_cursorThreadWorker_48BEB0()
             {
                 sub_48B3F0(0, v1->field_0 - 64, v1->field_4 - 64);
             }
-            sub_48B5D0(1, 1);
+            nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(1, 1);
         }
     }
     return result;

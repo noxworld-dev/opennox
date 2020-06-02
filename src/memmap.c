@@ -7,6 +7,8 @@ extern int nox_video_windowsPlatformVersion;
 extern int nox_video_pauseThreadedDrawCursor;
 extern int nox_video_drawCursorThreadOk;
 extern int nox_video_allowCursorDrawThread;
+extern int nox_video_cursorDrawIsThreaded;
+extern int nox_client_mouseCursorType;
 extern HANDLE *nox_video_cursorDrawThreadHandle;
 
 extern nox_missing_string* missing_strings;
@@ -239,6 +241,8 @@ mem_mapping mappings[] = {
 		{0x5D4594+1193676, (void*)&nox_video_pauseThreadedDrawCursor, sizeof(nox_video_pauseThreadedDrawCursor),1},
 		{0x5D4594+1193660, (void*)&nox_video_drawCursorThreadOk, sizeof(nox_video_drawCursorThreadOk),1},
 		{0x5D4594+1193680, (void*)&nox_video_allowCursorDrawThread, sizeof(nox_video_allowCursorDrawThread),1},
+		{0x5D4594+3798724, (void*)&nox_video_cursorDrawIsThreaded, sizeof(nox_video_cursorDrawIsThreaded),1},
+		{0x5D4594+1097200, (void*)&nox_client_mouseCursorType, sizeof(nox_client_mouseCursorType),1},
 
         {0x587000+80, (void*)&nox_enable_audio, sizeof(nox_enable_audio),1},
         {0x587000+5184, (void*)table_5184, sizeof(void*)*1023,1}, // TODO
