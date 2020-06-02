@@ -49,3 +49,18 @@ The code in the `master` branch should be compilable, runnable, (mostly) regress
 - Windows + VS2017
 - WASM
 - (others may be added)
+
+## Pull Request guidelines
+
+The large majority of current work(this is subject to change) is renaming of functions and variables, restoration of data structures, and restoration of code flow from assembly-like to more C-like.
+
+The former of these typically touches many files in multiple locations without making any logical changes, while the latter two can introduce subtle changes in logic and the generated generated machine code.
+
+Given the general lack of clarity in the code, it is often necessary to review existing commits when looking for newly introduced issues, which often involves undoing changes within the commit in order to find the cause of any given issue.
+
+Mixing renames with restorations into the same commit makes the process of looking for issues unnecessarily tedious.
+
+It is thus advised to create separate commits for renames and for restoration of code flow or data structures whenever possible.
+
+## Code style guide
+[The code style guide]() is subject to change as the project evolves.
