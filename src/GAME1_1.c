@@ -2510,11 +2510,11 @@ BOOL __cdecl sub_41B9C0(_DWORD* a1)
         }
         if ((__int16)v18 >= 5 && !*(_BYTE*)(*(_DWORD*)(v19 + 276) + 2251))
         {
-            v14 = sub_4FC250((int)a1, 1);
+            v14 = nox_common_playerIsAbilityActive_4FC250((int)a1, 1);
             sub_426AC0_file3_fread(&v14, 1u);
             if (*(_DWORD*)& byte_5D4594[3803300] == 1 && v14 == 1)
                 sub_4FC670(1);
-            v15 = sub_4FC250((int)a1, 4);
+            v15 = nox_common_playerIsAbilityActive_4FC250((int)a1, 4);
             sub_426AC0_file3_fread(&v15, 1u);
             v23 = sub_4FC030((int)a1, 4);
             sub_426AC0_file3_fread(&v23, 4u);
@@ -2538,11 +2538,11 @@ BOOL __cdecl sub_41B9C0(_DWORD* a1)
     }
     if ((_WORD)v18 == 4 && !*(_BYTE*)(*(_DWORD*)(v19 + 276) + 2251))
     {
-        v14 = sub_4FC250((int)a1, 1);
+        v14 = nox_common_playerIsAbilityActive_4FC250((int)a1, 1);
         sub_426AC0_file3_fread(&v14, 1u);
         if (*(_DWORD*)& byte_5D4594[3803300] == 1 && v14 == 1)
             sub_4FC670(1);
-        v15 = sub_4FC250((int)a1, 4);
+        v15 = nox_common_playerIsAbilityActive_4FC250((int)a1, 4);
         sub_426AC0_file3_fread(&v15, 1u);
         v19 = sub_4FC030((int)a1, 4);
         sub_426AC0_file3_fread(&v19, 4u);

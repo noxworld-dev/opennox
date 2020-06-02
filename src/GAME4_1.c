@@ -12907,7 +12907,7 @@ int __cdecl sub_518C30(int a1, _DWORD* a2, int a3, signed int a4)
     *(_WORD*)& v22[5] = v14;
     *(_WORD*)& v22[7] = nox_float2int(v15);
     v22[9] = 0;
-    v22[11] = sub_4FA2B0((int)v5);
+    v22[11] = nox_common_mapPlrActionToStateId_4FA2B0((int)v5);
     v16 = *(_BYTE*)(v6 + 88);
     if (v16 == 1
         || v16 == 10
