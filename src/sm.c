@@ -450,7 +450,7 @@ void CONNECT_RESULT(sm_args_t* args)
     if (nox_common_gameFlags_check_40A5C0(0x2000) && nox_common_gameFlags_check_40A5C0(1) && sub_43AF40())
         sub_43AA70();
     sub_43F1A0();
-    sub_434B30(*(int*)& byte_587000[80852]);
+    nox_video_setGammaSetting_434B30(*(int*)& byte_587000[80852]);
     sub_434B60();
     sub_40A4D0(0x10000000);
     mainloop_exit = mainloop_exit_2;

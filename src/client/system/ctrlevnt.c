@@ -573,16 +573,16 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4)
                 break;
             case 14:
                 sub_452D80(921, 100);
-                v38 = sub_434B00();
-                sub_434B30(v38 + 1);
+                v38 = nox_video_getGammaSetting_434B00();
+                nox_video_setGammaSetting_434B30(v38 + 1);
                 updateGamma(1);
                 sub_434B60();
                 *(_DWORD*)& byte_5D4594[v36 + 747900] = 0;
                 break;
             case 15:
                 sub_452D80(921, 100);
-                v39 = sub_434B00();
-                sub_434B30(v39 - 1);
+                v39 = nox_video_getGammaSetting_434B00();
+                nox_video_setGammaSetting_434B30(v39 - 1);
                 updateGamma(-1);
                 sub_434B60();
                 *(_DWORD*)& byte_5D4594[v36 + 747900] = 0;

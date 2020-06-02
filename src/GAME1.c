@@ -174,8 +174,8 @@ void mainloop_exit_2()
         sub_435EB0();
     if (!sub_43BF10_upd_video_mode(1))
         return;
-    *(_DWORD*)& byte_587000[80852] = sub_434B00();
-    sub_434B30(1);
+    *(_DWORD*)& byte_587000[80852] = nox_video_getGammaSetting_434B00();
+    nox_video_setGammaSetting_434B30(1);
     sub_434B60();
     g_v21 = 0;
     if (nox_common_gameFlags_check_40A5C0(1))

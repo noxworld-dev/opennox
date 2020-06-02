@@ -9,6 +9,7 @@ extern int nox_video_drawCursorThreadOk;
 extern int nox_video_allowCursorDrawThread;
 extern int nox_video_cursorDrawIsThreaded;
 extern int nox_client_mouseCursorType;
+extern int nox_video_gammaValue;
 extern HANDLE *nox_video_cursorDrawThreadHandle;
 
 extern nox_missing_string* missing_strings;
@@ -233,16 +234,16 @@ mem_mapping mappings[] = {
         {0x5D4594+3800716, (void*)&obj_5D4594_3800716, sizeof(obj_5D4594_3800716),1},
         {0x5D4594+3800716, (void*)&nox_draw_unk1, sizeof(nox_draw_unk1),1},
         {0x5D4594+2650668, (void*)&ptr_5D4594_2650668, sizeof(ptr_5D4594_2650668),1},
-		{0x5D4594+2650636, (void*)&nox_common_engineFlags, sizeof(nox_common_engineFlags),1},
-		{0x5D4594+3600, (void*)&nox_common_gameFlags, sizeof(nox_common_gameFlags),1},
-		{0x5D4594+3532, (void*)&nox_server_gameSettingsUpdated, sizeof(nox_server_gameSettingsUpdated),1},
-		{0x5D4594+3801772, (void*)&nox_video_renderTargetFlags, sizeof(nox_video_renderTargetFlags),1},
-		{0x5D4594+805868, (void*)&nox_video_dxUnlockSurface, sizeof(nox_video_dxUnlockSurface),1},
-		{0x5D4594+1193676, (void*)&nox_video_pauseThreadedDrawCursor, sizeof(nox_video_pauseThreadedDrawCursor),1},
-		{0x5D4594+1193660, (void*)&nox_video_drawCursorThreadOk, sizeof(nox_video_drawCursorThreadOk),1},
-		{0x5D4594+1193680, (void*)&nox_video_allowCursorDrawThread, sizeof(nox_video_allowCursorDrawThread),1},
-		{0x5D4594+3798724, (void*)&nox_video_cursorDrawIsThreaded, sizeof(nox_video_cursorDrawIsThreaded),1},
-		{0x5D4594+1097200, (void*)&nox_client_mouseCursorType, sizeof(nox_client_mouseCursorType),1},
+        {0x5D4594+2650636, (void*)&nox_common_engineFlags, sizeof(nox_common_engineFlags),1},
+        {0x5D4594+3600, (void*)&nox_common_gameFlags, sizeof(nox_common_gameFlags),1},
+        {0x5D4594+3532, (void*)&nox_server_gameSettingsUpdated, sizeof(nox_server_gameSettingsUpdated),1},
+        {0x5D4594+3801772, (void*)&nox_video_renderTargetFlags, sizeof(nox_video_renderTargetFlags),1},
+        {0x5D4594+805868, (void*)&nox_video_dxUnlockSurface, sizeof(nox_video_dxUnlockSurface),1},
+        {0x5D4594+1193676, (void*)&nox_video_pauseThreadedDrawCursor, sizeof(nox_video_pauseThreadedDrawCursor),1},
+        {0x5D4594+1193660, (void*)&nox_video_drawCursorThreadOk, sizeof(nox_video_drawCursorThreadOk),1},
+        {0x5D4594+1193680, (void*)&nox_video_allowCursorDrawThread, sizeof(nox_video_allowCursorDrawThread),1},
+        {0x5D4594+3798724, (void*)&nox_video_cursorDrawIsThreaded, sizeof(nox_video_cursorDrawIsThreaded),1},
+        {0x5D4594+1097200, (void*)&nox_client_mouseCursorType, sizeof(nox_client_mouseCursorType),1},
 
         {0x587000+80, (void*)&nox_enable_audio, sizeof(nox_enable_audio),1},
         {0x587000+5184, (void*)table_5184, sizeof(void*)*1023,1}, // TODO
@@ -265,9 +266,10 @@ mem_mapping mappings[] = {
         {0x587000+94464, (void*)&nox_cheats_disabled, sizeof(nox_cheats_disabled),1},
         {0x587000+116008, (void*)&nox_parse_thing_draw_funcs, sizeof(nox_parse_thing_draw_funcs_t)*69,1}, // TODO
         {0x587000+122104, (void*)&nox_parse_thing_funcs, sizeof(nox_parse_thing_funcs_t)*21,1}, // TODO
-		{0x587000+80848, (void*)&nox_video_dxFullScreen, sizeof(nox_video_dxFullScreen),1},
-		{0x5D4594+1193656, (void*)&nox_video_cursorDrawThreadHandle, sizeof(nox_video_cursorDrawThreadHandle),1},
-		{0x5D4594+3799620, (void*)&nox_video_windowsPlatformVersion, sizeof(nox_video_windowsPlatformVersion),1},
+        {0x587000+80848, (void*)&nox_video_dxFullScreen, sizeof(nox_video_dxFullScreen),1},
+        {0x587000+84400, (void*)&nox_video_gammaValue, sizeof(nox_video_gammaValue),1},
+        {0x5D4594+1193656, (void*)&nox_video_cursorDrawThreadHandle, sizeof(nox_video_cursorDrawThreadHandle),1},
+        {0x5D4594+3799620, (void*)&nox_video_windowsPlatformVersion, sizeof(nox_video_windowsPlatformVersion),1},
         // full blobs
 #if 0
         {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
