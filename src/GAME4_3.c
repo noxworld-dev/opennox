@@ -5961,7 +5961,7 @@ BOOL __cdecl sub_536FB0(int a1, int a2, char a3)
         v5 = *(_DWORD*)(a1 + 12);
         if (v5 & 0x2000)
         {
-            if (sub_4FC250(a2, 4))
+            if (nox_common_playerIsAbilityActive_4FC250(a2, 4))
                 result = 0;
         }
     }
@@ -7355,7 +7355,7 @@ BOOL __cdecl sub_538960(int a1)
     }
     *(_DWORD*)& v82[28] = v4;
     v81 = sub_4F9FD0(a1);
-    if (sub_4FC250(a1, 2) && sub_4FC3E0(a1, 2))
+    if (nox_common_playerIsAbilityActive_4FC250(a1, 2) && sub_4FC3E0(a1, 2))
     {
         sub_4F9F90(46, &v77, &v78);
         HIBYTE(v76) = (*(_DWORD*)& byte_5D4594[2598000] - *(_DWORD*)(a1 + 136)) / (unsigned int)(v78 + 1);
@@ -7374,7 +7374,7 @@ BOOL __cdecl sub_538960(int a1)
             sub_4FC440(a1, 2);
         goto LABEL_159;
     }
-    if (sub_4FC250(a1, 1))
+    if (nox_common_playerIsAbilityActive_4FC250(a1, 1))
     {
         if (!sub_4FF350(a1, 25) && !sub_4FF350(a1, 5))
         {

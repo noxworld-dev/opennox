@@ -276,8 +276,8 @@ int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a
             }
         }
         else
-        {
-            if (*(_BYTE*)(v12 + 88) == 1 || sub_4FA2B0(v5) == 45 || HIBYTE(v54) == 1 && HIBYTE(v54) == 2)
+        {   // actionId (+88) = 1 corresposponds either to attacking OR using berserker charge; there used to be a logic flaw
+            if (*(_BYTE*)(v12 + 88) == 1 && nox_common_mapPlrActionToStateId_4FA2B0(v5) == 45 || HIBYTE(v54) == 1 && HIBYTE(v54) == 2)
             {
                 if (mix_dword_980858[0] & 0x100000) // BERSERKER_SHIED_BLOCK
                     goto M_LABEL_78;
@@ -5657,7 +5657,7 @@ void __cdecl sub_4E8460(int a1, int a2)
     float v18; // [esp+Ch] [ebp-10h]
     float v19; // [esp+10h] [ebp-Ch]
 
-    if (sub_4FC250(a1, 1))
+    if (nox_common_playerIsAbilityActive_4FC250(a1, 1))
     {
         if (!a2)
             goto LABEL_14;
@@ -6360,7 +6360,7 @@ char* __cdecl sub_4E9090(int a1, int a2, int a3)
                                 v11 = 1;
                                 do
                                 {
-                                    if (sub_4FC250(v4, v11))
+                                    if (nox_common_playerIsAbilityActive_4FC250(v4, v11))
                                         sub_4FC300((_DWORD*)v4, v11);
                                     ++v11;
                                 } while (v11 < 6);
@@ -6595,7 +6595,7 @@ void __cdecl sub_4E9500(int a1, int a2, float* a3)
         if (*(_BYTE*)(v6 + 88) != 16)
         {
             if (*(_BYTE*)(v6 + 88) != 1
-                || sub_4FA2B0(a2) != 45
+                || nox_common_mapPlrActionToStateId_4FA2B0(a2) != 45
                 || (v10 = *(_BYTE*)(*(_DWORD*)(v6 + 276) + 3), v10 != 1) && v10 != 2)
             {
                 LABEL_22:
@@ -6609,7 +6609,7 @@ void __cdecl sub_4E9500(int a1, int a2, float* a3)
                         sub_4E0A70((int)v4, v3);
                         sub_52BE40((int)v4, v3);
                         sub_4FA020((_DWORD*)v3, v8);
-                        v9 = sub_4FA2B0(v3);
+                        v9 = nox_common_mapPlrActionToStateId_4FA2B0(v3);
                         sub_4F9F90(v9, &a1, &a2);
                         v5 = v11;
                         *(_BYTE*)(v6 + 236) = a1 - 1;
@@ -6809,7 +6809,7 @@ BOOL __cdecl sub_4E9A30(int a1, int a2)
             v5 = 0;
         }
     }
-    if (sub_4FC250(a2, 4))
+    if (nox_common_playerIsAbilityActive_4FC250(a2, 4))
         v5 = 0;
     return v5;
 }
@@ -7692,7 +7692,7 @@ void __cdecl sub_4EAB60(int a1, int a2)
                 if (v5 <= *(float*)(a1 + 184) && v5 <= *(float*)(a1 + 188))
                     goto LABEL_11;
             }
-            else if (!*(_DWORD*)(v2 + 24) && (!(v3 & 4) || !sub_4FC250(a2, 4)))
+            else if (!*(_DWORD*)(v2 + 24) && (!(v3 & 4) || !nox_common_playerIsAbilityActive_4FC250(a2, 4)))
             {
                 if (*(_WORD*)(v2 + 20))
                     * (_DWORD*)(v2 + 16) = *(_DWORD*)& byte_5D4594[2598000] + *(unsigned __int16*)(v2 + 20);
