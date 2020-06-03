@@ -310,7 +310,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 		if (!*(_DWORD*)&byte_5D4594[1090120])
 			return 1;
 	}
-	sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
+	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
 	v4 = sub_416590(0);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		v5 = nox_common_gameFlags_getVal_40A5B0();
@@ -321,9 +321,9 @@ int __cdecl sub_46F080(int a1, int a2) {
 	v34 = v6;
 	if ((signed char)*(_BYTE*)(a1 + 4) >= 0) {
 		if (*(_DWORD*)(a2 + 20) != 0x80000000)
-			sub_49CF10(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
+			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 	} else {
-		sub_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
+		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
 	}
 	if (*(_DWORD*)&byte_587000[145664] ||
 	    *(_DWORD*)&byte_5D4594[2598000] >

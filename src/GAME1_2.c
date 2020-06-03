@@ -588,7 +588,7 @@ LPVOID __cdecl sub_4289D0(LPVOID* a1) {
 }
 
 //----- (00428B30) --------------------------------------------------------
-int sub_428B30() {
+int nox_server_mapRWObjectTOC_428B30() {
 	int v1;              // eax
 	unsigned __int16 v2; // bp
 	int v3;              // esi
@@ -649,7 +649,7 @@ int sub_428B30() {
 // 428B30: using guessed type char var_100[256];
 
 //----- (00428CD0) --------------------------------------------------------
-int __cdecl sub_428CD0(int a1) {
+int __cdecl nox_server_mapRWPolygons_428CD0(int a1) {
 	char* i;              // eax
 	char* v3;             // esi
 	unsigned int j;       // edi
@@ -831,7 +831,7 @@ int __cdecl sub_428CD0(int a1) {
 }
 
 //----- (00429200) --------------------------------------------------------
-int sub_429200() {
+int nox_server_mapRWAmbientData_429200() {
 	int result; // eax
 	char* v1;   // esi
 	int v2;     // [esp+0h] [ebp-10h]
@@ -862,7 +862,7 @@ int sub_429200() {
 }
 
 //----- (004292C0) --------------------------------------------------------
-int __cdecl sub_4292C0(_DWORD* a1) {
+int __cdecl nox_server_mapRWWindowWalls_4292C0(_DWORD* a1) {
 	int result; // eax
 	_DWORD* v2; // edi
 	char* v3;   // esi
@@ -948,7 +948,7 @@ void __cdecl sub_4294B0(_BYTE* a1, _DWORD* a2) {
 void sub_429520() { *(_DWORD*)&byte_5D4594[741344] = 0; }
 
 //----- (00429530) --------------------------------------------------------
-int __cdecl sub_429530(_DWORD* a1) {
+int __cdecl nox_server_mapRWDestructableWalls_429530(_DWORD* a1) {
 	int result; // eax
 	_DWORD* v2; // edi
 	char* v3;   // esi
@@ -1036,7 +1036,7 @@ void __cdecl sub_429740(_BYTE* a1, _DWORD* a2) {
 void sub_4297B0() { *(_DWORD*)&byte_5D4594[741352] = 0; }
 
 //----- (004297C0) --------------------------------------------------------
-int __cdecl sub_4297C0(_DWORD* a1) {
+int __cdecl nox_server_mapRWSecretWalls_4297C0(_DWORD* a1) {
 	char* v2;  // esi
 	int* v3;   // edi
 	_BYTE* v4; // ebx
@@ -1161,7 +1161,7 @@ void __cdecl sub_429A60(int a1, _DWORD* a2) {
 }
 
 //----- (00429B20) --------------------------------------------------------
-int __cdecl sub_429B20(_DWORD* a1) {
+int __cdecl nox_server_mapRWWallMap_429B20(_DWORD* a1) {
 	_DWORD* v2;           // ebp
 	int v3;               // esi
 	int v5;               // edx
@@ -1599,7 +1599,7 @@ int __cdecl sub_42A650(unsigned __int8* a1) {
 unsigned __int8 __cdecl sub_42A6C0(unsigned __int8 a1, unsigned __int8 a2) { return byte_587000[13 * a1 + 71276 + a2]; }
 
 //----- (0042A6E0) --------------------------------------------------------
-int sub_42A6E0() {
+int nox_server_mapRWMapInfo_42A6E0() {
 	__int16 v0; // ax
 	int v2;     // [esp+0h] [ebp-8h]
 	int v3;     // [esp+4h] [ebp-4h]
@@ -7855,7 +7855,7 @@ int __cdecl sub_4343E0(int a1) {
 }
 
 //----- (00434460) --------------------------------------------------------
-int __cdecl nox_video_drawSetColor_434460(int a1) {
+int __cdecl nox_client_drawSetColor_434460(int a1) {
 	ptr_5D4594_3799572->data[61] = a1;
 	return a1;
 }
@@ -7893,14 +7893,14 @@ char* __cdecl sub_434510(char* a1, unsigned __int8 a2, unsigned __int8 a3, unsig
 }
 
 //----- (00434560) --------------------------------------------------------
-int __cdecl nox_video_drawEnableAlpha_434560(int a1) {
+int __cdecl nox_client_drawEnableAlpha_434560(int a1) {
 	if (ptr_5D4594_3799572->data[13] != a1)
 		ptr_5D4594_3799572->data[13] = a1;
 	return ptr_5D4594_3799572;
 }
 
 //----- (00434580) --------------------------------------------------------
-int __cdecl nox_video_drawSetAlpha_434580(unsigned __int8 a1) {
+int __cdecl nox_client_drawSetAlpha_434580(unsigned __int8 a1) {
 	int result; // eax
 	__int64 v2; // rax
 
@@ -8914,12 +8914,12 @@ char* sub_437250() { return (char*)&byte_5D4594[811068]; }
 
 //----- (00437260) --------------------------------------------------------
 int4* sub_437260() {
-	return sub_49F6F0(*(int*)&byte_5D4594[811068], *(int*)&byte_5D4594[811072], *(int*)&byte_5D4594[811100],
+	return nox_client_copyRect_49F6F0(*(int*)&byte_5D4594[811068], *(int*)&byte_5D4594[811072], *(int*)&byte_5D4594[811100],
 			  *(int*)&byte_5D4594[811104]);
 }
 
 //----- (00437290) --------------------------------------------------------
-int4* sub_437290() { return sub_49F6F0(0, 0, nox_backbuffer_width, nox_backbuffer_height); }
+int4* sub_437290() { return nox_client_copyRect_49F6F0(0, 0, nox_backbuffer_width, nox_backbuffer_height); }
 
 //----- (004372B0) --------------------------------------------------------
 BOOL sub_4372B0() {
@@ -9247,12 +9247,12 @@ int __cdecl sub_438E30(_DWORD* a1, int a2) {
 	int v6;       // [esp+4h] [ebp-4h]
 
 	v1 = a1;
-	sub_46AA60(a1, &v6, &a1);
+	nox_client_wndGetPosition_46AA60(a1, &v6, &a1);
 	v2 = v1[25];
 	if (v1[9] & 6)
-		sub_47D2C0(v1[19], v6 + v1[24], (int)a1 + v2);
+		nox_client_drawImageAt_47D2C0(v1[19], v6 + v1[24], (int)a1 + v2);
 	else
-		sub_47D2C0(v1[15], v6 + v1[24], (int)a1 + v2);
+		nox_client_drawImageAt_47D2C0(v1[15], v6 + v1[24], (int)a1 + v2);
 	v3 = v1[100];
 	if (!v3)
 		return 1;

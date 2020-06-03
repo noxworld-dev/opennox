@@ -99,9 +99,9 @@ wchar_t* __cdecl sub_478B10(int2* a1) {
 	int v6;          // [esp+10h] [ebp-4h]
 
 	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3806);
-	sub_46AA60(v1, &v5, &v6);
+	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
-	sub_47D2C0(*(int*)&byte_5D4594[1098456], a1->field_0, a1->field_4);
+	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1098456], a1->field_0, a1->field_4);
 	result = *(wchar_t**)&byte_5D4594[1098596];
 	if (*(_DWORD*)&byte_5D4594[1098596] ||
 	    (result = loadString_sub_40F1D0((char*)&byte_587000[152740], *(_DWORD**)&byte_5D4594[1098596],
@@ -122,10 +122,10 @@ wchar_t* __cdecl sub_478BC0(int* a1) {
 	int v6;          // [esp+10h] [ebp-4h]
 
 	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3806);
-	sub_46AA60(v1, &v5, &v6);
+	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
 	sub_434390(*(int*)&byte_5D4594[2523948]);
-	sub_47D2C0(*(int*)&byte_5D4594[1098456], *a1, a1[1]);
+	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1098456], *a1, a1[1]);
 	result = *(wchar_t**)&byte_5D4594[1098600];
 	if (*(_DWORD*)&byte_5D4594[1098600] ||
 	    (result = loadString_sub_40F1D0((char*)&byte_587000[152796], *(_DWORD**)&byte_5D4594[1098600],

@@ -13,14 +13,14 @@ int __cdecl sub_48C9F0(int* a1) {
 	int v4;      // [esp+4h] [ebp-4h]
 
 	v1 = a1;
-	sub_46AA60(a1, &v4, &a1);
+	nox_client_wndGetPosition_46AA60(a1, &v4, &a1);
 	v4 += v1[24];
 	a1 = (int*)((char*)a1 + v1[25]);
 	if (*(_DWORD*)&byte_5D4594[2618908]) {
 		v2 = loadString_sub_40F1D0((char*)&byte_587000[156384], 0, "C:\\NoxPost\\src\\client\\Gui\\guiobs.c",
 					   41);
 		sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1193712] + 36), v2);
-		sub_47D2C0(v1[15], v4, (int)a1);
+		nox_client_drawImageAt_47D2C0(v1[15], v4, (int)a1);
 	}
 	return 1;
 }

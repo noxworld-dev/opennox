@@ -187,7 +187,7 @@ int __cdecl sub_474E60(_DWORD* a1, int a2) {
 			sub_434600(1);
 			sub_433E40(*(int*)&byte_5D4594[2650684]);
 		}
-		sub_4BE6D0(*(int*)&byte_5D4594[1096456], xLeft.field_0 - 64, xLeft.field_4 - 64);
+		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1096456], xLeft.field_0 - 64, xLeft.field_4 - 64);
 		sub_434600(0);
 	} else {
 		v4 = a1;
@@ -245,7 +245,7 @@ int __cdecl sub_474E60(_DWORD* a1, int a2) {
 			xLeft.field_4 = v21 + a3.field_4 + *(__int16*)(v2 + 104);
 			v22 = sub_415FF0(3, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1372);
 			sub_4B6720(&xLeft, *(int*)&byte_5D4594[1096452], v17 + v22, v17 + 2);
-			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[1096436]);
+			nox_client_drawSetColor_434460(*(int*)&byte_5D4594[1096436]);
 			sub_499B70(xLeft.field_0, xLeft.field_4, v17);
 			--v16;
 		} while (v16);
@@ -271,10 +271,10 @@ int __cdecl sub_474E60(_DWORD* a1, int a2) {
 			xLeft.field_0 = *(_DWORD*)&byte_587000[v26 + 149504] + v25;
 			xLeft.field_4 += *(_DWORD*)&byte_587000[v26 + 149508];
 		}
-		nox_video_drawEnableAlpha_434560(1);
-		nox_video_drawSetAlpha_434580(0x80u);
-		sub_4BE6D0(*(int*)&byte_5D4594[1096460], xLeft.field_0, xLeft.field_4);
-		nox_video_drawEnableAlpha_434560(0);
+		nox_client_drawEnableAlpha_434560(1);
+		nox_client_drawSetAlpha_434580(0x80u);
+		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1096460], xLeft.field_0, xLeft.field_4);
+		nox_client_drawEnableAlpha_434560(0);
 	}
 	if (sub_4356C0(v2, 27) && (v27 = *(_BYTE*)(v2 + 297)) != 0 && v27 != 1 && v27 != 2)
 		result = sub_499810((int)v4, v2);
