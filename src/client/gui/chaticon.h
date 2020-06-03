@@ -3,4 +3,4 @@
 
 int sub_445650();
 
-#endif //NOX_PORT_CLIENT_GUI_CHATICON
+#endif // NOX_PORT_CLIENT_GUI_CHATICON

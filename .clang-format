@@ -1,0 +1,5 @@
+BasedOnStyle: LLVM
+ColumnLimit: 120
+IndentWidth: 8 # required for tabs to work
+UseTab: ForContinuationAndIndentation
+PointerAlignment: Left
