@@ -52,7 +52,7 @@ int sub_43DEB0() {
 	if (sub_4DB250())
 		v0 = sub_4DB260();
 	else
-		v0 = sub_409B30();
+		v0 = nox_server_currentMapGetFilename_409B30();
 	v1 = v0;
 	v2 = sub_409B00();
 	v3 = sub_4CF470(v1, v2);
@@ -62,7 +62,7 @@ int sub_43DEB0() {
 		v5 = sub_4AC2B0(v1);
 		sub_43F1A0();
 		if (!v5) {
-			v13 = sub_409B30();
+			v13 = nox_server_currentMapGetFilename_409B30();
 			v6 = loadString_sub_40F1D0((char*)&byte_587000[93352], 0,
 						   "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 318);
 			sub_4516C0(v6, v13);
@@ -142,8 +142,8 @@ int map_download_finish() {
 		*(_DWORD*)&byte_5D4594[2650672] = 1;
 		sub_44DA60(1);
 	}
-	if (!sub_4AC2B0(sub_409B30())) {
-		v13 = sub_409B30();
+	if (!sub_4AC2B0(nox_server_currentMapGetFilename_409B30())) {
+		v13 = nox_server_currentMapGetFilename_409B30();
 		v6 = loadString_sub_40F1D0((char*)&byte_587000[93528], 0,
 					   "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 386);
 		sub_4516C0(v6, v13);

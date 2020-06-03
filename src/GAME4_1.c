@@ -5119,7 +5119,7 @@ int __cdecl sub_5118A0(float a1) {
 }
 
 //----- (00511B60) --------------------------------------------------------
-int __cdecl sub_511B60(int a1) {
+int __cdecl nox_server_scriptValToObjectPtr_511B60(int a1) {
 	int result; // eax
 	int v2;     // edi
 	int v3;     // esi
@@ -5346,7 +5346,7 @@ int sub_511EB0() {
 		v1 = (*(int*)&byte_5D4594[3821636] + 23 * v1) / 23;
 		v0 = (*(int*)&byte_5D4594[3821640] + 23 * v0) / 23;
 	}
-	if (sub_410580(v1, v0))
+	if (nox_server_getWallAtPoint_410580(v1, v0))
 		sub_507230(v0 | (v1 << 16));
 	else
 		sub_507230(0);
@@ -5359,7 +5359,7 @@ int sub_511F50() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_410580(v0 >> 16, (unsigned __int16)v0);
+	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
 		sub_511F80(v1);
 	return 0;
@@ -5401,8 +5401,8 @@ int sub_512010() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 2, (void(__cdecl*)(int, int))sub_511F80, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, (void(__cdecl*)(int, int))sub_511F80, 0);
 	return 0;
 }
 
@@ -5412,7 +5412,7 @@ int sub_512040() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_410580(v0 >> 16, (unsigned __int16)v0);
+	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
 		sub_512070(v1);
 	return 0;
@@ -5454,8 +5454,8 @@ int sub_512100() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 2, (void(__cdecl*)(int, int))sub_512070, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, (void(__cdecl*)(int, int))sub_512070, 0);
 	return 0;
 }
 
@@ -5465,7 +5465,7 @@ int sub_512130() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_410580(v0 >> 16, (unsigned __int16)v0);
+	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
 		sub_512160(v1);
 	return 0;
@@ -5512,8 +5512,8 @@ int sub_512260() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 2, (void(__cdecl*)(int, int))sub_512160, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, (void(__cdecl*)(int, int))sub_512160, 0);
 	return 0;
 }
 
@@ -5523,7 +5523,7 @@ int sub_512290() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_410580(v0 >> 16, (unsigned __int16)v0);
+	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
 		sub_5122C0(v1);
 	return 0;
@@ -5546,8 +5546,8 @@ int sub_5122F0() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 2, (void(__cdecl*)(int, int))sub_5122C0, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, (void(__cdecl*)(int, int))sub_5122C0, 0);
 	return 0;
 }
 
@@ -5584,21 +5584,21 @@ int sub_512370() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = v2;
 	if (v2) {
 		v4 = *(_DWORD*)(v2 + 16);
 		if ((v4 & 0x8000) == 0) {
-			v5 = sub_579C40(v0);
+			v5 = nox_server_getWaypointById_579C40(v0);
 			if (v5)
-				sub_5123C0(v3, (int)v5);
+				nox_server_scriptMoveTo_5123C0(v3, (int)v5);
 		}
 	}
 	return 0;
 }
 
 //----- (005123C0) --------------------------------------------------------
-int* __cdecl sub_5123C0(int a1, int a2) {
+int* __cdecl nox_server_scriptMoveTo_5123C0(int a1, int a2) {
 	int* result; // eax
 	int v3;      // ebx
 	int* v4;     // eax
@@ -5656,7 +5656,7 @@ int __cdecl sub_5124C0(_DWORD* a1, _DWORD* a2) {
 }
 
 //----- (00512500) --------------------------------------------------------
-int sub_512500() {
+int nox_server_scriptGroupGoTo_512500() {
 	int v0;     // esi
 	int v1;     // eax
 	int v2;     // edi
@@ -5666,14 +5666,14 @@ int sub_512500() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_57C0A0(v1);
-	v3 = sub_579C40(v0);
+	v2 = nox_server_scriptGetGroup_57C0A0(v1);
+	v3 = nox_server_getWaypointById_579C40(v0);
 	if (v3) {
 		if (v2) {
 			for (i = *(int**)(v2 + 84); i; i = (int*)i[2]) {
 				v5 = sub_4ED020(*i);
 				if (v5)
-					sub_5123C0(v5, (int)v3);
+					nox_server_scriptMoveTo_5123C0(v5, (int)v3);
 			}
 		}
 	}
@@ -5689,7 +5689,7 @@ int sub_512560() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		if (*(_BYTE*)(v2 + 8) & 2) {
 			v3 = *(_DWORD*)(v2 + 16);
@@ -5734,7 +5734,7 @@ int sub_512610() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	result = sub_57C0A0(v1);
+	result = nox_server_scriptGetGroup_57C0A0(v1);
 	if (result) {
 		for (i = *(int**)(result + 84); i; i = (int*)i[2]) {
 			v4 = sub_4ED020(*i);
@@ -5755,7 +5755,7 @@ int sub_512670() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_4E75B0(v1);
 	return 0;
@@ -5767,8 +5767,8 @@ int sub_512690() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_5126C0, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_5126C0, 0);
 	return 0;
 }
 
@@ -5781,7 +5781,7 @@ int sub_5126D0() {
 	_DWORD* v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_579C40(v0);
+	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1)
 		v1[120] |= 1u;
 	return 0;
@@ -5793,8 +5793,8 @@ int sub_5126F0() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 1, (void(__cdecl*)(int, int))sub_512720, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, (void(__cdecl*)(int, int))sub_512720, 0);
 	return 0;
 }
 
@@ -5813,7 +5813,7 @@ int sub_512730() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_4E7600(v1);
 	return 0;
@@ -5825,8 +5825,8 @@ int sub_512750() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_512780, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_512780, 0);
 	return 0;
 }
 
@@ -5839,7 +5839,7 @@ int sub_512790() {
 	_DWORD* v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_579C40(v0);
+	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1)
 		v1[120] &= 0xFFFFFFFE;
 	return 0;
@@ -5851,8 +5851,8 @@ int sub_5127B0() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 1, (void(__cdecl*)(int, int))sub_5127E0, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, (void(__cdecl*)(int, int))sub_5127E0, 0);
 	return 0;
 }
 
@@ -5871,7 +5871,7 @@ int sub_5127F0() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_4E7650(v1);
 	return 0;
@@ -5883,8 +5883,8 @@ int sub_512810() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_512840, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_512840, 0);
 	return 0;
 }
 
@@ -5897,7 +5897,7 @@ int sub_512850() {
 	_DWORD* v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_579C40(v0);
+	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1)
 		v1[120] ^= 1u;
 	return 0;
@@ -5909,8 +5909,8 @@ int sub_512870() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 1, (void(__cdecl*)(int, int))sub_5128A0, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, (void(__cdecl*)(int, int))sub_5128A0, 0);
 	return 0;
 }
 
@@ -5929,7 +5929,7 @@ int sub_5128B0() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_4E5CC0(v1);
 	return 0;
@@ -5941,8 +5941,8 @@ int sub_5128D0() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_512900, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_512900, 0);
 	return 0;
 }
 
@@ -5955,7 +5955,7 @@ int sub_512910() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_512930(v1);
 	return 0;
@@ -5991,8 +5991,8 @@ int sub_512990() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_512930, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_512930, 0);
 	return 0;
 }
 
@@ -6001,7 +6001,7 @@ int sub_5129C0() {
 	int v0; // eax
 
 	v0 = script_pop();
-	sub_511B60(v0);
+	nox_server_scriptValToObjectPtr_511B60(v0);
 	return 0;
 }
 
@@ -6010,7 +6010,7 @@ int sub_5129E0() {
 	int v0; // eax
 
 	v0 = script_pop();
-	sub_511B60(v0);
+	nox_server_scriptValToObjectPtr_511B60(v0);
 	return 0;
 }
 
@@ -6026,7 +6026,7 @@ int sub_512A00() {
 	int* v7;    // eax
 
 	v0 = script_pop();
-	result = sub_511B60(v0);
+	result = nox_server_scriptValToObjectPtr_511B60(v0);
 	v2 = result;
 	if (result) {
 		if (*(_BYTE*)(result + 8) & 2) {
@@ -6071,7 +6071,7 @@ int sub_512AC0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = (float2*)sub_579C40(v0);
+	v2 = (float2*)nox_server_getWaypointById_579C40(v0);
 	if (v2) {
 		v5 = v2 + 1;
 		v3 = sub_40AF50(*(void**)&byte_5D4594[4 * v1 + 3831212]);
@@ -6089,7 +6089,7 @@ int sub_512C20() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && (*(_BYTE*)(v1 + 8) & 0x80)) {
 		*(_BYTE*)(*(_DWORD*)(v1 + 748) + 1) = 0;
 		sub_501960(234, v1, 0, 0);
@@ -6103,7 +6103,7 @@ int sub_512C60() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && (*(_BYTE*)(v1 + 8) & 0x80)) {
 		*(_BYTE*)(*(_DWORD*)(v1 + 748) + 1) = 5;
 		sub_501960(233, v1, 0, 0);
@@ -6118,7 +6118,7 @@ int sub_512CA0() {
 	int result; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && *(_DWORD*)(v1 + 16) & 0x1000000) {
 		sub_507230(1);
 		result = 0;
@@ -6136,7 +6136,7 @@ int sub_512CE0() {
 	int result; // eax
 
 	v0 = script_pop();
-	v1 = sub_579C40(v0);
+	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1 && v1[120] & 1) {
 		sub_507230(1);
 		result = 0;
@@ -6154,7 +6154,7 @@ int sub_512D20() {
 	int result; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && (*(_BYTE*)(v1 + 8) & 0x80)) {
 		sub_507230(*(_BYTE*)(*(_DWORD*)(v1 + 748) + 1) != 0);
 		result = 0;
@@ -6265,7 +6265,7 @@ int sub_512F10() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = (float*)sub_579C40(v0);
+	v2 = (float*)nox_server_getWaypointById_579C40(v0);
 	if (v2) {
 		v3 = sub_4E3810(*(CHAR**)&byte_5D4594[4 * v1 + 3831212]);
 		v4 = v3;
@@ -6292,9 +6292,9 @@ int sub_512F80() {
 	v1 = script_pop();
 	v2 = script_pop();
 	v3 = script_pop();
-	v4 = sub_511B60(v3);
+	v4 = nox_server_scriptValToObjectPtr_511B60(v3);
 	if (v4) {
-		v6[0] = sub_511B60(v2);
+		v6[0] = nox_server_scriptValToObjectPtr_511B60(v2);
 		v6[1] = v1;
 		v6[2] = v0;
 		sub_512FE0(v4, v6);
@@ -6331,11 +6331,11 @@ int sub_513010() {
 	v1 = script_pop();
 	v2 = script_pop();
 	v3 = script_pop();
-	v6[0] = sub_511B60(v2);
+	v6[0] = nox_server_scriptValToObjectPtr_511B60(v2);
 	v6[1] = v1;
 	v6[2] = v0;
-	v4 = (unsigned __int8*)sub_57C0A0(v3);
-	sub_502670(v4, 0, (void(__cdecl*)(int, int))sub_512FE0, (int)v6);
+	v4 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v3);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v4, 0, (void(__cdecl*)(int, int))sub_512FE0, (int)v6);
 	return 0;
 }
 
@@ -6350,7 +6350,7 @@ int sub_513070() {
 	v4 = COERCE_FLOAT(script_pop());
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v5[1] = v0;
 		v5[0] = (__int64)v4;
@@ -6404,8 +6404,8 @@ int sub_513160() {
 	v1 = script_pop();
 	v5[1] = v0;
 	v5[0] = (__int64)v4;
-	v2 = (unsigned __int8*)sub_57C0A0(v1);
-	sub_502670(v2, 0, (void(__cdecl*)(int, int))sub_5130E0, (int)v5);
+	v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, (void(__cdecl*)(int, int))sub_5130E0, (int)v5);
 	return 0;
 }
 
@@ -6422,7 +6422,7 @@ int sub_5131C0() {
 	v1 = script_pop();
 	v2 = sub_4243F0(*(const char**)&byte_5D4594[4 * v0 + 3831212]);
 	if (v2) {
-		v4 = sub_511B60(v1);
+		v4 = nox_server_scriptValToObjectPtr_511B60(v1);
 		if (v4) {
 			v5 = sub_4FB550_magic_plyrspel(v4, v2, 1, 0, 0);
 			sub_507230(v5);
@@ -6448,8 +6448,8 @@ int sub_513230() {
 	v1 = script_pop();
 	v4 = sub_4243F0(*(const char**)&byte_5D4594[4 * v0 + 3831212]);
 	if (v4) {
-		v2 = (unsigned __int8*)sub_57C0A0(v1);
-		sub_502670(v2, 0, (void(__cdecl*)(int, int))sub_513280, (int)&v4);
+		v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
+		nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, (void(__cdecl*)(int, int))sub_513280, (int)&v4);
 	}
 	return 0;
 }
@@ -6482,7 +6482,7 @@ int sub_5132E0() {
 	strcpy(v8, *(const char**)&byte_5D4594[4 * v0 + 3831212]);
 	v2 = sub_424880(v8);
 	if (v2 != -1) {
-		v3 = sub_511B60(v1);
+		v3 = nox_server_scriptValToObjectPtr_511B60(v1);
 		if (v3) {
 			v6[0] = v2;
 			v6[1] = (__int64)((double)*(unsigned int*)&byte_5D4594[2649704] * v5);
@@ -6513,8 +6513,8 @@ int sub_5133B0() {
 	if (v2 != -1) {
 		v6[0] = v2;
 		v6[1] = (__int64)((double)*(unsigned int*)&byte_5D4594[2649704] * v5);
-		v3 = (unsigned __int8*)sub_57C0A0(v1);
-		sub_502670(v3, 0, (void(__cdecl*)(int, int))sub_513390, (int)v6);
+		v3 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
+		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, (void(__cdecl*)(int, int))sub_513390, (int)v6);
 	}
 	return 0;
 }
@@ -6552,7 +6552,7 @@ int sub_513530() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_507230(*(_DWORD*)(v1 + 56));
 	else
@@ -6566,7 +6566,7 @@ int sub_513570() {
 	_DWORD* v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_579C40(v0);
+	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1)
 		sub_507230(v1[2]);
 	else
@@ -6580,7 +6580,7 @@ int sub_5135B0() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_507230(*(_DWORD*)(v1 + 60));
 	else
@@ -6594,7 +6594,7 @@ int sub_5135F0() {
 	_DWORD* v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_579C40(v0);
+	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1)
 		sub_507230(v1[3]);
 	else
@@ -6608,7 +6608,7 @@ int sub_513630() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_507230(*(_DWORD*)(v1 + 104));
 	else
@@ -6622,7 +6622,7 @@ int sub_513670() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_507230(*(__int16*)(v1 + 124));
 	else
@@ -6640,7 +6640,7 @@ int sub_5136A0() {
 	v4 = COERCE_FLOAT(script_pop());
 	LODWORD(v3.field_0) = script_pop();
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v3.field_0 = (double)*(int*)&byte_5D4594[3821636] + v3.field_0;
 		v3.field_4 = (double)*(int*)&byte_5D4594[3821640] + v4;
@@ -6659,7 +6659,7 @@ int sub_513700() {
 	v4 = COERCE_FLOAT(script_pop());
 	v3 = COERCE_FLOAT(script_pop());
 	v0 = script_pop();
-	v1 = (float*)sub_579C40(v0);
+	v1 = (float*)nox_server_getWaypointById_579C40(v0);
 	if (v1) {
 		v1[2] = (double)*(int*)&byte_5D4594[3821636] + v3;
 		v1[3] = (double)*(int*)&byte_5D4594[3821640] + v4;
@@ -6675,7 +6675,7 @@ int sub_513750() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		sub_4E46F0(v2, *(float*)&v0);
 	return 0;
@@ -6690,7 +6690,7 @@ int sub_513780() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = v0;
 		if (v0 < 0)
@@ -6713,7 +6713,7 @@ int sub_5137D0() {
 	v4 = COERCE_FLOAT(script_pop());
 	v3 = COERCE_FLOAT(script_pop());
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		*(float*)(v1 + 88) = v3 + *(float*)(v1 + 88);
 		*(float*)(v1 + 92) = v4 + *(float*)(v1 + 92);
@@ -6737,7 +6737,7 @@ int sub_513820() {
 	v8 = COERCE_FLOAT(script_pop());
 	v7 = COERCE_FLOAT(script_pop());
 	v0 = script_pop();
-	v1 = (float*)sub_511B60(v0);
+	v1 = (float*)nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = v1[14] - v8 + (double)*(int*)&byte_5D4594[3821636];
 		v3 = v1[15] - v5 + (double)*(int*)&byte_5D4594[3821640];
@@ -6758,7 +6758,7 @@ int sub_5138B0() {
 
 	v0 = script_pop();
 	v1 = 0;
-	v2 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2) {
 		v3 = *(_DWORD*)(v2 + 504);
 		if (v3)
@@ -6777,7 +6777,7 @@ int sub_5138E0() {
 
 	v0 = script_pop();
 	v1 = 0;
-	v2 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2) {
 		v3 = *(_DWORD*)(v2 + 496);
 		if (v3)
@@ -6797,8 +6797,8 @@ int sub_513910() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
-	v3 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v4 = 0;
 	if (v2 && v3 && sub_4F78E0(v2, v3))
 		v4 = 1;
@@ -6812,7 +6812,7 @@ int sub_513960() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_507230(*(_DWORD*)(*(_DWORD*)(v1 + 492) + 44));
 	else
@@ -6837,8 +6837,8 @@ int sub_5139A0() {
 	}
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
-	v3 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v4 = v3;
 	if (v2 && v3) {
 		if (nox_common_gameFlags_check_40A5C0(2048) && (*(_BYTE*)(v2 + 8) & 4) == 4 &&
@@ -6924,8 +6924,8 @@ int sub_513C10() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
-	v3 = (_DWORD*)sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
+	v3 = (_DWORD*)nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && v3) {
 		v4 = sub_4ED930(v2, v3);
 		sub_507230(v4);
@@ -6956,7 +6956,7 @@ int sub_513C70() {
 	strcpy(v7, *(const char**)&byte_5D4594[4 * v0 + 3831212]);
 	v2 = sub_424880(v7);
 	v3 = v2;
-	if (v2 != -1 && (v4 = sub_511B60(v1)) != 0) {
+	if (v2 != -1 && (v4 = nox_server_scriptValToObjectPtr_511B60(v1)) != 0) {
 		v5 = sub_4FF350(v4, v3);
 		sub_507230(v5);
 		result = 0;
@@ -6980,7 +6980,7 @@ int sub_513D00() {
 	strcpy(v5, *(const char**)&byte_5D4594[4 * v0 + 3831212]);
 	v2 = sub_424880(v5);
 	if (v2 != -1) {
-		v3 = sub_511B60(v1);
+		v3 = nox_server_scriptValToObjectPtr_511B60(v1);
 		if (v3)
 			sub_4FF5B0(v3, v2);
 	}
@@ -6995,7 +6995,7 @@ int sub_513D70() {
 	int result;           // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && (v2 = *(unsigned __int16**)(v1 + 556)) != 0) {
 		sub_507230(*v2);
 		result = 0;
@@ -7014,7 +7014,7 @@ int sub_513DB0() {
 	int result; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && (v2 = *(_DWORD*)(v1 + 556)) != 0) {
 		sub_507230(*(unsigned __int16*)(v2 + 4));
 		result = 0;
@@ -7033,7 +7033,7 @@ int sub_513DF0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2 && v0 > 0)
 		sub_4EE460(v2, v0);
 	return 0;
@@ -7068,8 +7068,8 @@ int sub_513E80() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
-	v3 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v4 = 0;
 	if (v2 && v3) {
 		v5 = *(float*)(v2 + 56) - *(float*)(v3 + 56);
@@ -7181,8 +7181,8 @@ int sub_514050() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
-	v3 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && v3) {
 		v6.field_0 = *(float*)(v3 + 56) - *(float*)(v2 + 56);
 		v6.field_4 = *(float*)(v3 + 60) - *(float*)(v2 + 60);
@@ -7205,7 +7205,7 @@ int sub_5140B0() {
 	v5 = COERCE_FLOAT(script_pop());
 	v6 = COERCE_FLOAT(script_pop());
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		*(float*)&v4 = (double)*(int*)&byte_5D4594[3821640] + v5;
 		*(float*)&v3 = (double)*(int*)&byte_5D4594[3821636] + v6;
@@ -7249,7 +7249,7 @@ int sub_514170() {
 	v6 = COERCE_FLOAT(script_pop());
 	v7 = COERCE_FLOAT(script_pop());
 	v0 = script_pop();
-	result = sub_57C0A0(v0);
+	result = nox_server_scriptGetGroup_57C0A0(v0);
 	if (result) {
 		for (i = *(int**)(result + 84); i; i = (int*)i[2]) {
 			v3 = sub_4ED020(*i);
@@ -7392,8 +7392,8 @@ int sub_514490() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
-	v3 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	sub_4EC290(v2, v3);
 	return 0;
 }
@@ -7409,8 +7409,8 @@ int sub_5144C0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
-	v3 = sub_57C0A0(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
+	v3 = nox_server_scriptGetGroup_57C0A0(v0);
 	if (v3) {
 		for (i = *(int**)(v3 + 84); i; i = (int*)i[2]) {
 			v5 = sub_4ED020(*i);
@@ -7433,9 +7433,9 @@ int sub_514510() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_57C0A0(v1);
+	v2 = nox_server_scriptGetGroup_57C0A0(v1);
 	if (v2) {
-		v3 = sub_511B60(v0);
+		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 		v4 = *(int**)(v2 + 84);
 		for (i = v3; v4; v4 = (int*)v4[2]) {
 			v6 = sub_4ED020(*v4);
@@ -7460,8 +7460,8 @@ int sub_514570() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_57C0A0(v1);
-	v3 = sub_57C0A0(v0);
+	v2 = nox_server_scriptGetGroup_57C0A0(v1);
+	v3 = nox_server_scriptGetGroup_57C0A0(v0);
 	v4 = v3;
 	if (v2) {
 		if (v3) {
@@ -7490,8 +7490,8 @@ int sub_5145F0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v0);
-	v3 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v4 = sub_4EC4F0(v3, v2);
 	sub_507230(v4);
 	return 0;
@@ -7511,10 +7511,10 @@ int sub_514630() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	result = sub_57C0A0(v0);
+	result = nox_server_scriptGetGroup_57C0A0(v0);
 	v3 = result;
 	if (result) {
-		v4 = sub_511B60(v1);
+		v4 = nox_server_scriptValToObjectPtr_511B60(v1);
 		v5 = *(int**)(v3 + 84);
 		v6 = v4;
 		v7 = 1;
@@ -7553,10 +7553,10 @@ int sub_5146B0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	result = sub_57C0A0(v1);
+	result = nox_server_scriptGetGroup_57C0A0(v1);
 	v3 = result;
 	if (result) {
-		v4 = sub_511B60(v0);
+		v4 = nox_server_scriptValToObjectPtr_511B60(v0);
 		v5 = *(int**)(v3 + 84);
 		v6 = v4;
 		v7 = 1;
@@ -7596,8 +7596,8 @@ int sub_514730() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_57C0A0(v0);
-	v3 = sub_57C0A0(v1);
+	v2 = nox_server_scriptGetGroup_57C0A0(v0);
+	v3 = nox_server_scriptGetGroup_57C0A0(v1);
 	v10 = v3;
 	if (!v2 || !v3)
 		return 0;
@@ -7634,7 +7634,7 @@ int sub_5147E0() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	sub_4EC300(v1);
 	return 0;
 }
@@ -7661,7 +7661,7 @@ int sub_5148A0() {
 
 	strcpy(v2, *(const char**)&byte_5D4594[4 * script_pop() + 3831212]);
 	strcat(v2, (const char*)&byte_5D4594[3821644]);
-	v0 = sub_57C280(v2, 1);
+	v0 = nox_server_scriptGetMapGroupByName_57C280(v2, 1);
 	if (v0)
 		sub_507230(*(_DWORD*)(v0 + 4));
 	else
@@ -7676,7 +7676,7 @@ int sub_514940() {
 
 	strcpy(v2, *(const char**)&byte_5D4594[4 * script_pop() + 3831212]);
 	strcat(v2, (const char*)&byte_5D4594[3821644]);
-	v0 = sub_57C280(v2, 0);
+	v0 = nox_server_scriptGetMapGroupByName_57C280(v2, 0);
 	if (v0)
 		sub_507230(*(_DWORD*)(v0 + 4));
 	else
@@ -7691,7 +7691,7 @@ int sub_5149E0() {
 
 	strcpy(v2, *(const char**)&byte_5D4594[4 * script_pop() + 3831212]);
 	strcat(v2, (const char*)&byte_5D4594[3821644]);
-	v0 = sub_57C280(v2, 2);
+	v0 = nox_server_scriptGetMapGroupByName_57C280(v2, 2);
 	if (v0)
 		sub_507230(*(_DWORD*)(v0 + 4));
 	else
@@ -7712,7 +7712,7 @@ int sub_514BB0() {
 	_DWORD* v1; // eax
 
 	v0 = script_pop();
-	v1 = (_DWORD*)sub_511B60(v0);
+	v1 = (_DWORD*)nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_528D00(v1);
 	return 0;
@@ -7785,7 +7785,7 @@ int sub_514CB0() {
 
 	v0 = script_pop();
 	v1 = 0;
-	v2 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && *(_DWORD*)&byte_5D4594[3821968] &&
 	    *(_DWORD*)(v2 + 44) == *(_DWORD*)(*(_DWORD*)&byte_5D4594[3821968] + 44)) {
 		v1 = 1;
@@ -7802,7 +7802,7 @@ int sub_514CF0() {
 
 	v0 = script_pop();
 	v1 = 0;
-	v2 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && *(_DWORD*)&byte_5D4594[3821964] &&
 	    *(_DWORD*)(v2 + 44) == *(_DWORD*)(*(_DWORD*)&byte_5D4594[3821964] + 44)) {
 		v1 = 1;
@@ -7843,7 +7843,7 @@ int sub_514D90() {
 	v2 = script_pop();
 	v3 = script_pop();
 	v6 = sub_548F70(*(const char**)&byte_5D4594[4 * v2 + 3831212]);
-	v4 = sub_511B60(v3);
+	v4 = nox_server_scriptValToObjectPtr_511B60(v3);
 	if (v4)
 		sub_548C80(v4, v6, v1, v0);
 	return 0;
@@ -7856,7 +7856,7 @@ int sub_514DF0() {
 	int v2; // ecx
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = *(_DWORD*)(v1 + 748);
 		if (*(_BYTE*)(v1 + 8) & 2) {
@@ -7876,7 +7876,7 @@ int sub_514E30() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2 && *(_BYTE*)(v2 + 8) & 2)
 		strcpy((char*)(*(_DWORD*)(v2 + 748) + 2106), *(const char**)&byte_5D4594[4 * v0 + 3831212]);
 	return 0;
@@ -7906,8 +7906,8 @@ int sub_514ED0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v0);
-	v3 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2 && v3)
 		sub_548CD0(v2, v3);
 	return 0;
@@ -7931,11 +7931,11 @@ int sub_514F10() {
 	v2 = script_pop();
 	v3 = sub_4243F0(*(const char**)&byte_5D4594[4 * v2 + 3831212]);
 	if (v3) {
-		v4 = sub_511B60(v1);
+		v4 = nox_server_scriptValToObjectPtr_511B60(v1);
 		v5 = v4;
 		if (v4) {
 			if (!(*(_DWORD*)(v4 + 16) & 0x8020)) {
-				v6 = sub_511B60(v0);
+				v6 = nox_server_scriptValToObjectPtr_511B60(v0);
 				v7 = v6;
 				if (v6) {
 					v9.field_0 = *(float*)(v6 + 56) - *(float*)(v5 + 56);
@@ -7970,7 +7970,7 @@ int sub_514FC0() {
 	v1 = script_pop();
 	v2 = sub_4243F0(*(const char**)&byte_5D4594[4 * v1 + 3831212]);
 	if (v2) {
-		v3 = sub_511B60(v0);
+		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 		v4 = (_DWORD*)v3;
 		if (v3) {
 			v8.field_0 = v6 - *(float*)(v3 + 56);
@@ -8001,7 +8001,7 @@ int sub_515060() {
 	v1 = script_pop();
 	v2 = sub_4243F0(*(const char**)&byte_5D4594[4 * v1 + 3831212]);
 	if (v2) {
-		v3 = sub_511B60(v0);
+		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 		if (v3) {
 			v6 = v5;
 			sub_4E7010(*(int*)&byte_5D4594[1569664], &v6);
@@ -8157,7 +8157,7 @@ int sub_5154A0() {
 
 	v0 = -1;
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = *(_DWORD*)(v2 + 8);
 		if (v3 & 0x4000)
@@ -8178,7 +8178,7 @@ int sub_5154E0() {
 	v1 = script_pop();
 	v2 = script_pop();
 	if (v2) {
-		v3 = sub_511B60(v2);
+		v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 		if (v3) {
 			sub_427500(v3, *(char**)&byte_5D4594[4 * v1 + 3831212], v0);
 			if (v0 & 0xB) {
@@ -8201,7 +8201,7 @@ int sub_515550() {
 	v0 = script_pop();
 	v1 = script_pop();
 	if (v1) {
-		v2 = sub_511B60(v1);
+		v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 		if (v2) {
 			sub_427630(v2, *(const char**)&byte_5D4594[4 * v0 + 3831212]);
 			return 0;
@@ -8223,7 +8223,7 @@ int sub_5155A0() {
 	v1 = script_pop();
 	v2 = script_pop();
 	if (v2) {
-		v3 = sub_511B60(v2);
+		v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 		if (v3) {
 			sub_427720(v3, *(const char**)&byte_5D4594[4 * v1 + 3831212], v0);
 			return 0;
@@ -8256,7 +8256,7 @@ int sub_515600() {
 	v8[2] = v5;
 	v8[3] = v6;
 	v8[4] = v7;
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_515680(v1, v8);
 	return 0;
@@ -8311,8 +8311,8 @@ int sub_515700() {
 	v8[0] = v3;
 	v8[2] = v5;
 	v8[4] = v7;
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, sub_515680, (int)v8);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515680, (int)v8);
 	return 0;
 }
 
@@ -8322,7 +8322,7 @@ int sub_515780() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_5157A0(v1);
 	return 0;
@@ -8347,8 +8347,8 @@ int sub_5157D0() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_5157A0, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_5157A0, 0);
 	return 0;
 }
 
@@ -8358,7 +8358,7 @@ int sub_515800() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_515820(v1);
 	return 0;
@@ -8383,8 +8383,8 @@ int sub_515850() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_515820, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515820, 0);
 	return 0;
 }
 
@@ -8397,9 +8397,9 @@ int sub_515880() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
-		v3 = sub_511B60(v0);
+		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 		if (v3)
 			sub_5158C0(v2, v3);
 	}
@@ -8441,11 +8441,11 @@ int sub_515910() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2) {
 		v5 = v2;
-		v3 = (unsigned __int8*)sub_57C0A0(v1);
-		sub_502670(v3, 0, sub_5158C0, v5);
+		v3 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
+		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, sub_5158C0, v5);
 	}
 	return 0;
 }
@@ -8458,7 +8458,7 @@ int sub_515950() {
 
 	v3 = script_pop();
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_515980(v1, &v3);
 	return 0;
@@ -8486,8 +8486,8 @@ int sub_5159B0() {
 
 	v3 = script_pop();
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_515980, (int)&v3);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515980, (int)&v3);
 	return 0;
 }
 
@@ -8502,7 +8502,7 @@ int sub_5159E0() {
 	v4 = COERCE_FLOAT(script_pop());
 	v3 = COERCE_FLOAT(script_pop());
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v5.field_0 = v3;
 		v5.field_4 = v4;
@@ -8557,8 +8557,8 @@ int sub_515AE0() {
 	LODWORD(v3.field_0) = script_pop();
 	v0 = script_pop();
 	v4 = v3;
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_515A30, (int)&v4);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515A30, (int)&v4);
 	return 0;
 }
 
@@ -8572,7 +8572,7 @@ int sub_515B30() {
 	v3[1] = script_pop();
 	v3[0] = script_pop();
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		*(_QWORD*)v4 = *(_QWORD*)v3;
 		sub_515B80(v1, v4);
@@ -8620,8 +8620,8 @@ int sub_515BF0() {
 	v3[0] = script_pop();
 	v0 = script_pop();
 	*(_QWORD*)v4 = *(_QWORD*)v3;
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_515B80, (int)v4);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515B80, (int)v4);
 	return 0;
 }
 
@@ -8635,7 +8635,7 @@ int __fastcall sub_515C40(int a1) {
 	v5 = HIBYTE(a1);
 	v1 = script_pop();
 	v2 = script_pop();
-	v3 = sub_511B60(v2);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
 		v5 = v1;
 		sub_515C80(v3, &v5);
@@ -8667,8 +8667,8 @@ int sub_515CB0() {
 	v0 = script_pop();
 	v1 = script_pop();
 	v4 = v0;
-	v2 = (unsigned __int8*)sub_57C0A0(v1);
-	sub_502670(v2, 0, (void(__cdecl*)(int, int))sub_515C80, (int)&v4);
+	v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, (void(__cdecl*)(int, int))sub_515C80, (int)&v4);
 	return 0;
 }
 
@@ -8681,9 +8681,9 @@ int sub_515CF0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
-		v3 = sub_511B60(v0);
+		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 		sub_515D30(v2, v3);
 	}
 	return 0;
@@ -8731,9 +8731,9 @@ int sub_515DB0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v4 = sub_511B60(v0);
-	v2 = (unsigned __int8*)sub_57C0A0(v1);
-	sub_502670(v2, 0, sub_515D30, v4);
+	v4 = nox_server_scriptValToObjectPtr_511B60(v0);
+	v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, sub_515D30, v4);
 	return 0;
 }
 
@@ -8745,7 +8745,7 @@ int sub_515DF0() {
 
 	v3 = script_pop();
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_515E20(v1, &v3);
 	return 0;
@@ -8773,8 +8773,8 @@ int sub_515E50() {
 
 	v3 = script_pop();
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_515E20, (int)&v3);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515E20, (int)&v3);
 	return 0;
 }
 
@@ -8786,7 +8786,7 @@ int sub_515E80() {
 
 	v3 = script_pop();
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_515EB0(v1, &v3);
 	return 0;
@@ -8814,8 +8814,8 @@ int sub_515EE0() {
 
 	v3 = script_pop();
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_515EB0, (int)&v3);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515EB0, (int)&v3);
 	return 0;
 }
 
@@ -8830,19 +8830,19 @@ int sub_515F10() {
 	v0 = script_pop();
 	v1 = script_pop();
 	v2 = script_pop();
-	v5[0] = sub_511B60(v1);
+	v5[0] = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v5[0]) {
-		v3 = sub_511B60(v2);
+		v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 		if (v3) {
 			v5[1] = v0;
-			sub_515F70(v3, v5);
+			nox_server_scriptFleeFrom_515F70(v3, v5);
 		}
 	}
 	return 0;
 }
 
 //----- (00515F70) --------------------------------------------------------
-void __cdecl sub_515F70(int a1, _DWORD* a2) {
+void __cdecl nox_server_scriptFleeFrom_515F70(int a1, _DWORD* a2) {
 	int v2;  // eax
 	int* v3; // eax
 	int* v4; // eax
@@ -8874,7 +8874,7 @@ void __cdecl sub_515F70(int a1, _DWORD* a2) {
 }
 
 //----- (00516000) --------------------------------------------------------
-int sub_516000() {
+int nox_server_scriptMonsterGroupFleeFrom_516000() {
 	int v0;              // edi
 	int v1;              // esi
 	int v2;              // ebx
@@ -8884,11 +8884,11 @@ int sub_516000() {
 	v0 = script_pop();
 	v1 = script_pop();
 	v2 = script_pop();
-	v5[0] = sub_511B60(v1);
+	v5[0] = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v5[0]) {
 		v5[1] = v0;
-		v3 = (unsigned __int8*)sub_57C0A0(v2);
-		sub_502670(v3, 0, (void(__cdecl*)(int, int))sub_515F70, (int)v5);
+		v3 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v2);
+		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, (void(__cdecl*)(int, int))nox_server_scriptFleeFrom_515F70, (int)v5);
 	}
 	return 0;
 }
@@ -8901,7 +8901,7 @@ int sub_516060() {
 
 	v3 = script_pop();
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_516090(v1, &v3);
 	return 0;
@@ -8938,8 +8938,8 @@ int sub_5160F0() {
 
 	v3 = script_pop();
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_516090, (int)&v3);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_516090, (int)&v3);
 	return 0;
 }
 
@@ -8950,7 +8950,7 @@ int sub_516120() {
 	int v2; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = sub_4FA6D0(v1);
 		sub_507230(v2);
@@ -8968,7 +8968,7 @@ int sub_516160() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		sub_4FA620(v2, v0);
 	return 0;
@@ -8982,7 +8982,7 @@ int sub_516190() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		sub_4EF3A0_exp_level(v2, *(float*)&v0);
 	return 0;
@@ -8998,8 +8998,8 @@ int sub_5161C0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
-	v3 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v4 = 0;
 	if (v2 && v3 && sub_5330C0(v2, v3))
 		v4 = 1;
@@ -9020,7 +9020,7 @@ int sub_516210() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v7 = sub_511B60(v1);
+	v7 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v7) {
 		v3 = *(const char**)&byte_587000[237172];
 		v4 = 1;
@@ -9059,7 +9059,7 @@ int sub_5162D0() {
 
 	v8 = script_pop();
 	v0 = script_pop();
-	v9 = sub_511B60(v0);
+	v9 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v9) {
 		v2 = &byte_587000[237304];
 		if (byte_587000 != (unsigned __int8*)-237304) {
@@ -9100,7 +9100,7 @@ int sub_5163C0() {
 	int v2; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = sub_548F40(v1);
 		sub_507230(v2);
@@ -9277,7 +9277,7 @@ int sub_516720() {
 
 	v0 = sub_417090(31);
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = *(_DWORD*)(v2 + 12);
 		BYTE1(v3) |= 1u;
@@ -9296,7 +9296,7 @@ int sub_516760() {
 	int v2; // edx
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = *(_DWORD*)(v1 + 12);
 		BYTE1(v2) &= 0xFEu;
@@ -9314,7 +9314,7 @@ int __thiscall sub_516790(void* this) {
 
 	v4 = this;
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		sub_507230((*(_DWORD*)(v2 + 12) >> 8) & 1);
 	else
@@ -9331,7 +9331,7 @@ int sub_5167D0() {
 
 	v0 = sub_417090(31);
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = *((_DWORD*)v0 + 514);
 		if (v3)
@@ -9349,7 +9349,7 @@ int sub_516810() {
 
 	v0 = sub_417090(31);
 	v1 = script_pop();
-	v2 = (_DWORD*)sub_511B60(v1);
+	v2 = (_DWORD*)nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = *((_DWORD*)v0 + 514);
 		if (v3)
@@ -9366,7 +9366,7 @@ int __thiscall sub_516850(void* this) {
 
 	v4 = this;
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		sub_507230((*(_DWORD*)(v2 + 12) & 0xFFu) >> 7);
 	else
@@ -9410,7 +9410,7 @@ int sub_516920() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		if (v0 == 1) {
 			sub_4E79C0(v2, 1);
@@ -9439,7 +9439,7 @@ int sub_516970() {
 	v0 = script_pop();
 	v1 = script_pop();
 	v2 = script_pop();
-	v3 = sub_511B60(v2);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (!v3 || !(*(_BYTE*)(v3 + 8) & 2))
 		return 0;
 	v4 = *(_DWORD**)(v3 + 748);
@@ -9497,7 +9497,7 @@ int sub_516A50() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = (_DWORD*)sub_511B60(v1);
+	v2 = (_DWORD*)nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		sub_511660(v2, v0);
 	return 0;
@@ -9558,7 +9558,7 @@ int sub_516B40() {
 	v1 = script_pop();
 	v2 = script_pop();
 	v3 = script_pop();
-	v4 = sub_511B60(v3);
+	v4 = nox_server_scriptValToObjectPtr_511B60(v3);
 	v5 = v4;
 	if (v4) {
 		if (*(_BYTE*)(v4 + 8) & 2) {
@@ -9580,7 +9580,7 @@ int sub_516BC0() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_4D9760(v1);
 	return 0;
@@ -9594,7 +9594,7 @@ int sub_516BE0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		sub_548FE0(v2, *(const char**)&byte_5D4594[4 * v0 + 3831212]);
 	return 0;
@@ -9620,7 +9620,7 @@ int sub_516C30() {
 
 	v0 = script_pop();
 	v1 = 0;
-	v2 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && *(_BYTE*)(v2 + 8) & 2)
 		v1 = (*(_DWORD*)(*(_DWORD*)(v2 + 748) + 1440) >> 7) & 1;
 	sub_507230(v1);
@@ -9633,7 +9633,7 @@ int sub_516C70() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_516C90(v1);
 	return 0;
@@ -9657,8 +9657,8 @@ int sub_516CB0() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_516C90, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_516C90, 0);
 	return 0;
 }
 
@@ -9668,7 +9668,7 @@ int sub_516CE0() {
 	int v1; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_516D00(v1);
 	return 0;
@@ -9696,8 +9696,8 @@ int sub_516D40() {
 	unsigned __int8* v1; // eax
 
 	v0 = script_pop();
-	v1 = (unsigned __int8*)sub_57C0A0(v0);
-	sub_502670(v1, 0, (void(__cdecl*)(int, int))sub_516D00, 0);
+	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_516D00, 0);
 	return 0;
 }
 
@@ -9708,7 +9708,7 @@ int sub_516D70() {
 	int v2; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = *(_DWORD*)&byte_5D4594[2386908];
 		if (!*(_DWORD*)&byte_5D4594[2386908]) {
@@ -9727,7 +9727,7 @@ int sub_516DC0() {
 	int v2; // eax
 
 	v0 = script_pop();
-	v1 = sub_511B60(v0);
+	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = *(_DWORD*)&byte_5D4594[2386912];
 		if (!*(_DWORD*)&byte_5D4594[2386912]) {
@@ -9758,7 +9758,7 @@ int sub_516E30() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = v2;
 	if (v2 && *(_BYTE*)(v2 + 8) & 4) {
 		if (v0 <= 0)
@@ -9781,7 +9781,7 @@ int sub_516EA0() {
 
 	v0 = script_pop();
 	v1 = 0;
-	v2 = sub_511B60(v0);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && *(_BYTE*)(v2 + 8) & 4)
 		v1 = *(_DWORD*)(*(_DWORD*)(*(_DWORD*)(v2 + 748) + 276) + 2136);
 	sub_507230(v1);
@@ -11665,7 +11665,7 @@ int __cdecl sub_519660(int a1, int a2) {
 		break;
 	}
 	if (result != v4) {
-		v5 = sub_410580(*(_DWORD*)(a1 + 4), *(_DWORD*)(a1 + 8));
+		v5 = nox_server_getWallAtPoint_410580(*(_DWORD*)(a1 + 4), *(_DWORD*)(a1 + 8));
 		if (v4) {
 			sub_4DF120(v5);
 			result = v2 | *(_DWORD*)(a1 + 28);
@@ -12452,9 +12452,9 @@ void sub_51B0C0() {
 	if (*(_DWORD*)&byte_5D4594[2487236]) {
 		do {
 			if (v0[4])
-				v0[4] = sub_511B60(v0[4]);
+				v0[4] = nox_server_scriptValToObjectPtr_511B60(v0[4]);
 			if (v0[5])
-				v0[5] = sub_511B60(v0[5]);
+				v0[5] = nox_server_scriptValToObjectPtr_511B60(v0[5]);
 			v0 = (int*)v0[6];
 		} while (v0);
 	}
