@@ -108,6 +108,7 @@ add_executable (
     GameEx.c
     memfile.c
     thing.c
+    vardefs.c
 
     client/audio/auddiag.c
     client/audio/audevent.c
