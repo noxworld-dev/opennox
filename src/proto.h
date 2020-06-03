@@ -53,7 +53,7 @@ void updateGamma(int value);
 #endif
 
 #ifdef __linux__
-char *dos_to_unix(const char *path);
+char* dos_to_unix(const char* path);
 #endif
 
 int map_download_loop(int);
@@ -66,7 +66,7 @@ int sub_401060();
 int __cdecl cmain(int argc, const char* argv[]);
 void sub_401B10();
 void __cdecl sub_401B20(char*);
-//int __stdcall WinMain(HINSTANCE hInstance, int, int, int); // idb
+// int __stdcall WinMain(HINSTANCE hInstance, int, int, int); // idb
 HWND getWindowHandle_sub_401FD0();
 void __cdecl sub_401FE0(LPCSTR);
 // void __cdecl srand(unsigned int);
@@ -562,7 +562,7 @@ int sub_413D30(char* a1, ...);
 int sub_413E10();
 void sub_413E30();
 int __cdecl sub_413F60(const void*, const void*); // idb
-void nullsub_2(void); // weak
+void nullsub_2(void);                             // weak
 char* __cdecl nox_clone_str(const char* a1);
 nox_alloc_class* __cdecl nox_new_alloc_class(const char* name, int size, int cnt);
 nox_alloc_class* __cdecl nox_new_alloc_class_f30(const char* name, int size, int cnt);
@@ -587,8 +587,8 @@ BOOL __cdecl sub_4147E0(HWND hWnd);
 int sub_414800();
 unsigned int __cdecl sub_4148D0(LPCSTR lpFileName);
 int __cdecl sub_4149A0(LPCSTR lpFileName, LPVOID lpBuffer, LPVOID, LPVOID); // idb
-int __cdecl sub_414A40(LPCSTR lpSubKey, LPCSTR lpValueName); // idb
-int __cdecl sub_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData); // idb
+int __cdecl sub_414A40(LPCSTR lpSubKey, LPCSTR lpValueName);                // idb
+int __cdecl sub_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData);  // idb
 char* __cdecl sub_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMultiByte);
 int __cdecl sub_414B30(int a1, _DWORD* a2);
 int __cdecl sub_414BA0(int a1);
@@ -1212,8 +1212,8 @@ _DWORD* __cdecl sub_427820(int a1);
 _DWORD* __cdecl sub_427850(int a1);
 BOOL __cdecl sub_427880(const char* a1);
 int __cdecl sub_4278B0(float* a1, float* a2, float* a3);
-int __cdecl sub_427980(float4* a1, float4* a2); // idb
-int __cdecl sub_427C80(int4* a1, int4* a2); // idb
+int __cdecl sub_427980(float4* a1, float4* a2);    // idb
+int __cdecl sub_427C80(int4* a1, int4* a2);        // idb
 int __cdecl sub_427DF0(int a1, int* a2, float a3); // idb
 int __cdecl sub_427F30(int2*, int*);
 int __cdecl sub_4280E0(int2* a1, _DWORD* a2); // idb
@@ -2440,7 +2440,7 @@ char __cdecl sub_467420(char a1);
 unsigned __int8 sub_467430();
 int __cdecl sub_467440(int a1);
 int __cdecl sub_467450(int a1);
-int sub_467460(void); // weak
+int sub_467460(void);               // weak
 int __cdecl sub_467470(int, float); // idb
 int __cdecl sub_467490(int a1);
 int sub_4674A0();
@@ -2566,7 +2566,8 @@ int __cdecl sub_46B300(int a1, int (*a2)(int, int, int, int));
 int sub_46B330(int a1, int a2, int a3, int a4);
 int __cdecl sub_46B340(int a1, int (*a2)(int, int));
 int __cdecl sub_46B370(int a1, int* a2);
-int __cdecl nox_window_set_all_funcs(nox_window* win, int (*a2)(int, int, int, int), int (*draw)(nox_window*, void*), void* a4);
+int __cdecl nox_window_set_all_funcs(nox_window* win, int (*a2)(int, int, int, int), int (*draw)(nox_window*, void*),
+				     void* a4);
 int __cdecl nox_window_call_field_94(nox_window* win, int a2, int a3, int a4);
 int __cdecl nox_window_call_field_93(nox_window* win, int a2, int a3, int a4);
 int sub_46B4F0();
@@ -2580,7 +2581,8 @@ void sub_46C200();
 int __cdecl sub_46C2A0(int a1);
 void mainloop_draw();
 int __cdecl nox_window_draw_recursive(nox_window* a1);
-nox_window* __cdecl nox_window_new(nox_window* a1, int flags, int a3, int a4, int w, int h, int (*fnc)(int, int, int, int));
+nox_window* __cdecl nox_window_new(nox_window* a1, int flags, int a3, int a4, int w, int h,
+				   int (*fnc)(int, int, int, int));
 int __cdecl sub_46C4E0(_DWORD* a1);
 int sub_46C5D0();
 int sub_46C610();
@@ -2768,7 +2770,7 @@ int __cdecl sub_478480(int a1, int a2, int* a3, int a4);
 int __cdecl sub_478650(int a1, int a2, unsigned int a3);
 void __cdecl sub_478850(int a1, __int16 a2, int a3, int a4);
 int sub_478970();
-int __cdecl sub_478A70(int2* a1); // idb
+int __cdecl sub_478A70(int2* a1);      // idb
 wchar_t* __cdecl sub_478B10(int2* a1); // idb
 int sub_478C80();
 int __cdecl sub_478E50(int a1, int a2, unsigned int a3);
@@ -2875,13 +2877,13 @@ void __cdecl sub_484BA0(float a1);
 _DWORD* __cdecl sub_484BE0(_DWORD* a1, int a2, int a3, int a4);
 __int64 __cdecl sub_484C00(int a1, int a2);
 __int64 __cdecl sub_484C30(int a1, int a2);
-int __cdecl sub_484C60(float); // idb
+int __cdecl sub_484C60(float);      // idb
 int __cdecl sub_484CE0(int, float); // idb
 int __cdecl sub_484D20(int a1, float a2);
-int __cdecl sub_484D70_light_intensity(int, float); // idb
-int __cdecl sub_484DC0(int2* a1, int2* a2, int* a3); // idb
+int __cdecl sub_484D70_light_intensity(int, float);                     // idb
+int __cdecl sub_484DC0(int2* a1, int2* a2, int* a3);                    // idb
 int __cdecl sub_4854D0(int2* a1, int2* a2, int2* a3, int a4, float a5); // idb
-int __cdecl sub_4855D0(int, int, int, float); // idb
+int __cdecl sub_4855D0(int, int, int, float);                           // idb
 unsigned int __cdecl sub_485AE0(int a1, int a2);
 int __cdecl sub_485B30(int a1, char* a2);
 int sub_485CF0();
@@ -3062,7 +3064,7 @@ double __cdecl sub_48C6D0(float a1, float a2, float a3, float a4);
 double __cdecl sub_48C700(float a1, float a2);
 unsigned int __fastcall sub_48C730(unsigned int a1);
 int __cdecl nox_client_winVerGetMajor_48C870(LPSTR); // idb
-int __cdecl sub_48C940(LPCSTR lpText); // idb
+int __cdecl sub_48C940(LPCSTR lpText);               // idb
 int __cdecl sub_48CA70(int a1);
 BOOL sub_48CA90();
 int sub_48CAB0();
@@ -3184,7 +3186,7 @@ unsigned int __cdecl sub_499CF0(int* a1, int a2, int a3);
 _DWORD* __cdecl sub_499F60(int a1, int a2, int a3, __int16 a4, char a5, char a6, char a7, char a8, char a9, int a10);
 int __cdecl sub_49A150(int2* a1, int a2, unsigned __int8 a3); // idb
 void nox_alloc_npcs();
-void sub_49A2E0(void); // weak
+void sub_49A2E0(void);           // weak
 void __cdecl nox_alloc_npcs_2(); // weak
 nox_npc* __cdecl nox_new_npc(int id);
 nox_npc* __cdecl nox_npc_by_id(int id);
@@ -3354,9 +3356,11 @@ int sub_4A0CF0();
 int sub_4A0D10();
 BOOL __cdecl sub_4A0D40(int* a1, FILE* a2, char* a3);
 _DWORD* __cdecl sub_4A0D80_parse_window(FILE* a1, char* a2, int (*a3)(int, int, int, int));
-nox_window* __cdecl sub_4A1440_parse_window(const char* a1, int a2, int a3, wchar_t* a4, int a5, int a6, int a7, _DWORD* a8, float* a9, int (*a10)(int, int, int, int));
+nox_window* __cdecl sub_4A1440_parse_window(const char* a1, int a2, int a3, wchar_t* a4, int a5, int a6, int a7,
+					    _DWORD* a8, float* a9, int (*a10)(int, int, int, int));
 int sub_4A14F0();
-nox_window* __cdecl sub_4A1510_parse_window(const char* a1, int a2, int a3, wchar_t* a4, int a5, int a6, int a7, _DWORD* a8, float* a9);
+nox_window* __cdecl sub_4A1510_parse_window(const char* a1, int a2, int a3, wchar_t* a4, int a5, int a6, int a7,
+					    _DWORD* a8, float* a9);
 BOOL __cdecl sub_4A1780(int a1, FILE* a2, char* a3);
 int sub_4A18A0();
 int __cdecl sub_4A18C0(int a1);
@@ -3398,7 +3402,7 @@ int __cdecl sub_4A4800(int a1);
 int sub_4A4840();
 int sub_4A4970();
 int sub_4A49A0();
-int __cdecl sub_4A49D0(int yTop, int a2); // idb
+int __cdecl sub_4A49D0(int yTop, int a2);         // idb
 int __cdecl sub_4A4CB0(const void*, const void*); // idb
 int sub_4A50A0();
 int sub_4A50D0();
@@ -3609,7 +3613,7 @@ int __cdecl sub_4B0300(char* a1);
 int __cdecl sub_4B0340(int a1);
 void sub_4B05D0();
 void __cdecl sub_4B0610(int a1);
-int __cdecl sub_4B0640(int(*a1)(void));
+int __cdecl sub_4B0640(int (*a1)(void));
 int sub_4B0650();
 void sub_4B0660();
 int* __cdecl sub_4B0680(unsigned __int8 a1, unsigned __int8 a2);
@@ -3852,7 +3856,7 @@ int sub_4C2470();
 int sub_4C24A0();
 int __cdecl sub_4C24B0(int a1, int a2, unsigned int a3);
 _DWORD* __cdecl sub_4C2560(int2* a1); // idb
-int __cdecl sub_4C26F0(int yTop); // idb
+int __cdecl sub_4C26F0(int yTop);     // idb
 int __cdecl sub_4C2A00(int a1, int a2, int a3, int a4, __int16* a5);
 int __cdecl sub_4C2A60(int a1, unsigned int a2);
 int __cdecl sub_4C2B10(_DWORD* a1, unsigned int a2, unsigned int a3);
@@ -3973,7 +3977,7 @@ int __cdecl sub_4CA650(int a1, int a2);
 int __cdecl sub_4CA720(int a1, int a2);
 int sub_4CA860();
 int __cdecl sub_4CA8B0(int a1, int a2);
-void __cdecl sub_4CA960(_DWORD* a1, char a2, float4* a3, float2* a4); // idb
+void __cdecl sub_4CA960(_DWORD* a1, char a2, float4* a3, float2* a4);      // idb
 void __cdecl sub_4CAA90(int2* a1, float4* a2, float2* a3, int a4, int a5); // idb
 void __cdecl sub_4CAC30(int2* a1, float4* a2, float2* a3, int a4, int a5); // idb
 int sub_4CADD0();
@@ -4114,7 +4118,7 @@ unsigned __int8* sub_4D3C70();
 _DWORD* __cdecl sub_4D3C80(_DWORD* a1);
 int __cdecl sub_4D3D90(float2* a1, float2* a2); // idb
 int __cdecl sub_4D3E30(float2* a1, float2* a2); // idb
-BOOL __cdecl sub_4D3ED0(float2* a1); // idb
+BOOL __cdecl sub_4D3ED0(float2* a1);            // idb
 int __cdecl sub_4D3F60(int a1);
 int __cdecl sub_4D3F80(int a1);
 int __cdecl sub_4D3FF0(int a1);
@@ -4486,7 +4490,7 @@ int __cdecl sub_4E1500(int a1, int a2, int a3, int a4, int a5);
 void __cdecl sub_4E1560(int a1, int a2, int a3, int a4, float a5, int a6);
 int __cdecl sub_4E1650(int a1, _DWORD* a2, unsigned __int16 a3, unsigned __int16 a4);
 void __cdecl sub_4E16D0(int a1, int a2, int a3, int a4, float a5, int a6);
-int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, float a5);
+int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, int a5);
 void __cdecl sub_4E20F0(int a1, int a2, float a3);
 void __cdecl sub_4E2180(int a1, int a2, int a3, int a4, float a5);
 double __cdecl sub_4E2220(int a1);
@@ -4631,9 +4635,9 @@ int __cdecl sub_4E6860(int a1, int a2, int a3);
 void __cdecl sub_4E6AA0(int a1);
 BOOL __cdecl sub_4E6BD0(int a1);
 long double __cdecl sub_4E6C00(int a1, int a2);
-int __cdecl sub_4E6CE0(float2* a1, float2* a2); // idb
+int __cdecl sub_4E6CE0(float2* a1, float2* a2);                                          // idb
 int __cdecl nox_server_testTwoPointsAndDirection_4E6E50(float2* a1, int a2, float2* a3); // idb
-int __cdecl sub_4E6EA0(int, float, int); // idb
+int __cdecl sub_4E6EA0(int, float, int);                                                 // idb
 void __cdecl sub_4E6EF0(int a1, _DWORD* a2);
 void __cdecl sub_4E7010(int, float2*);
 void __cdecl sub_4E7190(_BYTE* a1, float* a2);
@@ -5047,7 +5051,8 @@ BOOL __cdecl sub_4FEA70(int a1, float2* a2); // idb
 int __cdecl sub_4FEAE0(int a1);
 _DWORD* __cdecl sub_4FEB10(int a1, int a2);
 unsigned int __cdecl sub_4FEB60(int a1, int a2);
-int __cdecl sub_4FEBA0(int a1, int a2, _DWORD* a3, int a4, _DWORD* a5, int a6, int(__cdecl* a7)(_WORD*), int a8, int a9, int a10);
+int __cdecl sub_4FEBA0(int a1, int a2, _DWORD* a3, int a4, _DWORD* a5, int a6, int(__cdecl* a7)(_WORD*), int a8, int a9,
+		       int a10);
 int __cdecl sub_4FED40(int a1);
 int sub_4FED70();
 void __cdecl sub_4FEDA0(int* a1);
@@ -5281,7 +5286,7 @@ int __cdecl sub_50B2C0(int a1);
 void sub_50B500();
 int sub_50B510();
 int sub_50B520();
-int __cdecl sub_50B580(int a1, float4* a3); // idb
+int __cdecl sub_50B580(int a1, float4* a3);       // idb
 void __cdecl sub_50B600(float* arg0, float4* a1); // idb
 BOOL __cdecl sub_50B810(int a1, float* a2);
 BOOL __cdecl sub_50B870(int a1, int a2, int a3);
@@ -5674,12 +5679,12 @@ int sub_517AE0();
 void sub_517B30();
 void __cdecl sub_517B70(float2* a1, void(__cdecl* a2)(_DWORD, int), int a3); // idb
 void __cdecl sub_517C10(float4* a1, void(__cdecl* a2)(float*, int), int a3); // idb
-void __cdecl sub_517DC0(float4* a1, void(__cdecl* a2)(int, int), int a3); // idb
+void __cdecl sub_517DC0(float4* a1, void(__cdecl* a2)(int, int), int a3);    // idb
 void __cdecl sub_517ED0(float4* a1, void(__cdecl* a2)(float*, int), int a3); // idb
 int* __cdecl sub_517F00(float* a1, int(__cdecl* a2)(int*, int), int a3);
 void __cdecl sub_517F90(float2* a1, float a2, int a3, int a4); // idb
-void __cdecl sub_518000(float*, int); // idb
-int __cdecl sub_518040(int, float, int, int); // idb
+void __cdecl sub_518000(float*, int);                          // idb
+int __cdecl sub_518040(int, float, int, int);                  // idb
 void __cdecl sub_5180B0(int a1, int a2);
 void __cdecl sub_518170(int a1, float a2, int a3, int a4);
 void __cdecl sub_5182D0(float* a1, float a2, void(__cdecl* a3)(int, int), int a4);
@@ -5814,7 +5819,7 @@ int __cdecl sub_520BF0(int a1, FILE* a2);
 char* __cdecl sub_520CE0(int a1, FILE* a2);
 _DWORD* __cdecl sub_520D50(_DWORD* a1);
 __int64 __cdecl sub_520DF0(float2* a1, _DWORD* a2); // idb
-int __cdecl sub_520E60(int2* a1); // idb
+int __cdecl sub_520E60(int2* a1);                   // idb
 int __cdecl sub_520EA0(int a1);
 void sub_520F80();
 void sub_520FC0();
@@ -5873,7 +5878,7 @@ float* __cdecl sub_522C80(float* a1);
 char __cdecl sub_522CA0(int a1, float* a2);
 float* __cdecl sub_522D30(int a1);
 unsigned __int8* __cdecl sub_522F40(_DWORD* a1);
-int __cdecl sub_522FF0(char a1, float2* a2); // idb
+int __cdecl sub_522FF0(char a1, float2* a2);                // idb
 int __cdecl sub_523030(float2* a1, const void* a2, int a3); // idb
 int __cdecl sub_523150(char a1, char a2, float* a3);
 int __cdecl sub_5231B0(float* a1, char a2);
@@ -5888,7 +5893,7 @@ int __cdecl sub_523670(int a1, float* a2);
 int __cdecl sub_5236F0(__int16 a1, float* a2, char a3, __int16 a4, __int16 a5);
 int __cdecl sub_523760(__int16 a1);
 int __cdecl sub_523790(int4* a1, __int16 a2); // idb
-void sub_523830(int4* a1, __int16 a2); // idb
+void sub_523830(int4* a1, __int16 a2);        // idb
 void sub_5238A0(float* a1, char a2);
 BOOL __cdecl sub_5238F0(int* a1);
 int __cdecl sub_523920(int a1);
@@ -6297,7 +6302,7 @@ BOOL __cdecl sub_536FB0(int a1, int a2, char a3);
 int __cdecl sub_5370E0(int a1, int a2, char a3);
 int __cdecl sub_537110(int a1, int a2);
 void __cdecl sub_537230(float*, int); // idb
-int __cdecl sub_5374B0(float4* a1); // idb
+int __cdecl sub_5374B0(float4* a1);   // idb
 void __cdecl sub_5374D0(_DWORD* a1);
 _DWORD* __cdecl sub_537520(_DWORD* a1);
 void __cdecl sub_537540(int a1);
@@ -6371,7 +6376,7 @@ int __cdecl sub_53BEF0(int a1);
 void __cdecl sub_53C060(float*, int); // idb
 int __cdecl sub_53C0C0(int a1);
 void __cdecl sub_53C140(float*, int); // idb
-void __cdecl sub_53C160(int a3); // idb
+void __cdecl sub_53C160(int a3);      // idb
 void __cdecl sub_53C240(float*, int); // idb
 int __cdecl sub_53C520(int a1, int a2);
 signed int __cdecl sub_53C580(int a1);
@@ -6393,7 +6398,7 @@ void __cdecl sub_53D330(int a1);
 void __cdecl sub_53D400(int a1);
 void __cdecl sub_53D510(int a1);
 void __cdecl sub_53D5A0(float* a2); // idb
-void __cdecl sub_53D6E0(int a6); // idb
+void __cdecl sub_53D6E0(int a6);    // idb
 void __cdecl sub_53D850(int a1);
 void __cdecl sub_53D8C0(int a1, int a2);
 void __cdecl sub_53D960(int a1);
@@ -6453,7 +6458,7 @@ void sub_540150();
 int __cdecl sub_540160(int a1, int a2, int a3, int a4, int a5, int a6);
 int __cdecl sub_540440(int a1, int a2, int a3, int a4, int a5, int a6);
 int __cdecl sub_540610(float2* a1, int a2, int a3, float a4, int a5, int a6); // idb
-void __cdecl sub_540780(float*, int); // idb
+void __cdecl sub_540780(float*, int);                                         // idb
 BOOL __cdecl sub_5408A0(int a1);
 int __cdecl sub_5408D0(int a1);
 int* __cdecl sub_540A30(int a1, int a2, int a3);
@@ -6465,7 +6470,7 @@ int __cdecl sub_540D40(int a1);
 int __cdecl sub_540D90(int a1, int a2);
 int __cdecl sub_540F20(int a1, int a2);
 int __cdecl sub_541050(int a1);
-int __cdecl sub_5411A0(int a3); // idb
+int __cdecl sub_5411A0(int a3);       // idb
 void __cdecl sub_5412A0(float*, int); // idb
 char __cdecl sub_541300(int a1, _DWORD* a2, int a3);
 char __cdecl sub_541360(_DWORD* a1);
@@ -6606,10 +6611,10 @@ int __cdecl sub_5490E0(int a1, char* a2);
 int __cdecl sub_549180(int a1, char* a2);
 int __cdecl sub_549220(float); // idb
 void __cdecl sub_549270(int a1, int a2);
-int __cdecl sub_549380(float); // idb
+int __cdecl sub_549380(float);          // idb
 int __cdecl sub_549440(int a3, int a2); // idb
-void __cdecl sub_5494C0(float*, int); // idb
-int __cdecl sub_5495B0(float); // idb
+void __cdecl sub_5494C0(float*, int);   // idb
+int __cdecl sub_5495B0(float);          // idb
 BOOL __cdecl sub_549690(int a1, int a2);
 int __cdecl sub_549700(float); // idb
 int __cdecl sub_5497E0(float a1);
@@ -6687,11 +6692,11 @@ int __cdecl sub_54E730(int a1, int a2);
 int __cdecl sub_54E810(int a1, float2* a2, int a3); // idb
 void __cdecl sub_54E850(int a1, int a2);
 char __cdecl sub_54E930(_DWORD* a1);
-int __cdecl sub_54EBA0(_DWORD* a1, float2* a2, int a4); // idb
+int __cdecl sub_54EBA0(_DWORD* a1, float2* a2, int a4);     // idb
 int __cdecl sub_54ED50(int a1, float2* a2, int a3, int a4); // idb
-int __cdecl sub_54EF00(float* a3); // idb
-void __cdecl sub_54EF60(float*, int); // idb
-int __cdecl sub_54EF90(float, int, int, int); // idb
+int __cdecl sub_54EF00(float* a3);                          // idb
+void __cdecl sub_54EF60(float*, int);                       // idb
+int __cdecl sub_54EF90(float, int, int, int);               // idb
 _DWORD* __cdecl sub_54F070(int a1, int a2, int a3);
 void __cdecl sub_54F2B0(int a1, int a2);
 void __cdecl sub_54F380(int a1);
@@ -6699,29 +6704,29 @@ void __cdecl sub_54F740(int a1);
 int __cdecl sub_54F9A0(int a1);
 void __cdecl sub_54FA80(int a1, int a2);
 void sub_54FBB0(int a1);
-int __cdecl sub_54FBF0(int a3); // idb
+int __cdecl sub_54FBF0(int a3);    // idb
 void __cdecl sub_54FC50(int, int); // idb
 void __cdecl sub_54FCD0(int a1, int a2);
 float* __cdecl sub_54FD80(float a1, float a2, int a3, int a4, float a5, float a6, float a7, int a8); // idb
-void __cdecl sub_54FEF0(int a2); // idb
-int __cdecl sub_54FFC0(int2* a1, int a2); // idb
-int __cdecl sub_550280(int, float, float, int, int, int, int); // idb
-int __cdecl sub_5502F0(float2* a1, float a2, float a3, int a4, int a5, float2* a6, float2* a7); // idb
-int __cdecl sub_550380(int a1, int a2, float2* a3); // idb
+void __cdecl sub_54FEF0(int a2);                                                                     // idb
+int __cdecl sub_54FFC0(int2* a1, int a2);                                                            // idb
+int __cdecl sub_550280(int, float, float, int, int, int, int);                                       // idb
+int __cdecl sub_5502F0(float2* a1, float a2, float a3, int a4, int a5, float2* a6, float2* a7);      // idb
+int __cdecl sub_550380(int a1, int a2, float2* a3);                                                  // idb
 BOOL __cdecl sub_550480(int a1);
-void __cdecl sub_5504B0(int a2); // idb
-int __cdecl sub_550580(int2* a1, float* a2); // idb
+void __cdecl sub_5504B0(int a2);                                                          // idb
+int __cdecl sub_550580(int2* a1, float* a2);                                              // idb
 int __cdecl sub_550760(int a1, float2* a2, float2* a3, float4* a4, float2* a5, float a6); // idb
 int __cdecl sub_550A10(int a1, float2* a2, float2* a3, float4* a4, float2* a5, float a6); // idb
-char __cdecl sub_550CB0(float2* a1, float2* a2); // idb
-void __cdecl sub_550D00(int a1, int a2); // idb
+char __cdecl sub_550CB0(float2* a1, float2* a2);                                          // idb
+void __cdecl sub_550D00(int a1, int a2);                                                  // idb
 void __cdecl sub_550F80(float* a1, int a2);
 void __cdecl sub_551250(unsigned int a1, float* a2, int a3);
-int __cdecl sub_5516A0(float4* a1, float4* a2, float2* a3, int a4, int a6); // idb
+int __cdecl sub_5516A0(float4* a1, float4* a2, float2* a3, int a4, int a6);           // idb
 int __cdecl sub_551780(float4* a1, float a2, float a3, float a4, float2* a5, int a6); // idb
 int __cdecl sub_551870(float4* a1, float a2, float a3, float a4, float2* a5, int a6); // idb
-int __cdecl sub_551960(float4* a1, float4* a2, float4* a3, float2* a4); // idb
-BOOL __cdecl sub_551A90(float2* a1, float4* a2); // idb
+int __cdecl sub_551960(float4* a1, float4* a2, float4* a3, float2* a4);               // idb
+BOOL __cdecl sub_551A90(float2* a1, float4* a2);                                      // idb
 void __cdecl sub_551AE0(int a1, int a2, int a3);
 void sub_551BF0();
 void __cdecl sub_551C40(int a1, int a2);
@@ -6786,15 +6791,15 @@ int __cdecl sub_5549F0(unsigned int a1);
 int __cdecl sub_554A50(unsigned int a1);
 void __cdecl sub_554AA0(u_short hostshort, int, int, int); // idb
 void sub_554B30();
-int __cdecl sub_554B40(u_short hostshort); // idb
+int __cdecl sub_554B40(u_short hostshort);                 // idb
 int __cdecl sub_554C80(u_short hostshort, char* buf, int); // idb
 int sub_554D10();
 int sub_554D70(char a1);
 int sub_554FF0();
 int __cdecl sub_555000(int a1);
 int __cdecl sub_555010(int, u_short hostshort, char* buf, int); // idb
-int __cdecl sub_5550A0(int, u_short hostshort, char* buf); // idb
-int __cdecl sub_5550D0(int, u_short hostshort, char* buf); // idb
+int __cdecl sub_5550A0(int, u_short hostshort, char* buf);      // idb
+int __cdecl sub_5550D0(int, u_short hostshort, char* buf);      // idb
 int sub_555100();
 void sub_555110();
 void sub_555120();
@@ -6876,8 +6881,10 @@ BOOL __cdecl sub_558970(int a1, int a2, CHAR* a3, signed int a4);
 int __cdecl sub_558990(int a1, int a2, void* a3, unsigned int a4);
 _DWORD* __cdecl sub_5589B0(int a1, int a2, _DWORD* lpMem, size_t a4);
 int __cdecl sub_558A20(int a1, int a2, void* a3, unsigned int a4);
-char __cdecl sub_558AA0(_DWORD* a1, _DWORD* a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7, int a8, char a9);
-void __cdecl sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12);
+char __cdecl sub_558AA0(_DWORD* a1, _DWORD* a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7,
+			int a8, char a9);
+void __cdecl sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9,
+			int a10, int a11, int a12);
 _DWORD* __thiscall sub_559AA0(_DWORD* this);
 int __thiscall sub_559AB0(int this);
 _BYTE* __thiscall sub_559AD0(_BYTE* this);
@@ -6999,7 +7006,7 @@ int __cdecl sub_5606D0(_DWORD* a1);
 int __cdecl sub_560760(int a1);
 int __cdecl sub_5607B0(_DWORD* a1);
 void __cdecl nullsub_31(_DWORD); // weak
-int sub_560850(); // weak
+int sub_560850();                // weak
 int __cdecl sub_560860(int a1);
 void __cdecl sub_560881(unsigned __int16* a1, _WORD* a2, __int16 a3, __int16 a4, unsigned int a5, int a6);
 int __cdecl sub_561430(int a1);
@@ -7065,30 +7072,18 @@ unsigned int __cdecl sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned i
 // _DWORD __cdecl swap(_DWORD, _DWORD, _DWORD); weak
 // void *__cdecl bsearch(const void *, const void *, size_t, size_t, int (__cdecl *)(const void *, const void *));
 // int __usercall __CxxFrameHandler@<eax>(int a1@<eax>, int a2, int a3, int a4, int a5);
-// int __cdecl _CallCatchBlock2(struct EHRegistrationNode *a1, const struct _s_FuncInfo *a2, void *a3, int a4, unsigned int a5);
-// int __cdecl _CallSETranslator(struct EHExceptionRecord *a1, struct EHRegistrationNode *a2, int a3, void *a4, const struct _s_FuncInfo *a5, int a6, struct EHRegistrationNode *a7);
-// int __cdecl TranslatorGuardHandler(PEXCEPTION_RECORD ExceptionRecord, PVOID TargetFrame, int); idb
-// int __cdecl fgetc(FILE *);
-// int __cdecl getc(FILE *);
-// void *__cdecl operator_new(unsigned int); weak
-// char *__cdecl fgets(char *, int, FILE *);
-// int __cdecl iswctype(WCHAR SrcStr, __int16); idb
-// size_t __cdecl wcslen(const wchar_t *);
-// size_t __cdecl strspn(const char *, const char *);
-// double __cdecl atof(const char *);
-// int fprintf(FILE *, const char *, ...);
-// char *__cdecl asctime(const struct tm *);
-// struct tm *__cdecl localtime(const time_t *);
-// time_t __cdecl time(time_t *);
-// int __cdecl vsprintf(char *, const char *, va_list);
-// double __usercall _CIacos@<st0>(double x@<st0>); idb
-// double __cdecl sub_566D1D(_DWORD, _DWORD); weak
-// int __cdecl _read(int, void *, unsigned int);
-// unsigned int __cdecl _read_lk(int a1, LPVOID lpBuffer, DWORD nNumberOfBytesToRead);
-// int __cdecl wcscmp(const wchar_t *, const wchar_t *);
-// int sscanf(const char *, const char *, ...);
-// int __cdecl toupper(CHAR SrcStr); idb
-// int __cdecl _access(LPCSTR lpFileName, char); idb
+// int __cdecl _CallCatchBlock2(struct EHRegistrationNode *a1, const struct _s_FuncInfo *a2, void *a3, int a4, unsigned
+// int a5); int __cdecl _CallSETranslator(struct EHExceptionRecord *a1, struct EHRegistrationNode *a2, int a3, void *a4,
+// const struct _s_FuncInfo *a5, int a6, struct EHRegistrationNode *a7); int __cdecl
+// TranslatorGuardHandler(PEXCEPTION_RECORD ExceptionRecord, PVOID TargetFrame, int); idb int __cdecl fgetc(FILE *); int
+// __cdecl getc(FILE *); void *__cdecl operator_new(unsigned int); weak char *__cdecl fgets(char *, int, FILE *); int
+// __cdecl iswctype(WCHAR SrcStr, __int16); idb size_t __cdecl wcslen(const wchar_t *); size_t __cdecl strspn(const char
+// *, const char *); double __cdecl atof(const char *); int fprintf(FILE *, const char *, ...); char *__cdecl
+// asctime(const struct tm *); struct tm *__cdecl localtime(const time_t *); time_t __cdecl time(time_t *); int __cdecl
+// vsprintf(char *, const char *, va_list); double __usercall _CIacos@<st0>(double x@<st0>); idb double __cdecl
+// sub_566D1D(_DWORD, _DWORD); weak int __cdecl _read(int, void *, unsigned int); unsigned int __cdecl _read_lk(int a1,
+// LPVOID lpBuffer, DWORD nNumberOfBytesToRead); int __cdecl wcscmp(const wchar_t *, const wchar_t *); int sscanf(const
+// char *, const char *, ...); int __cdecl toupper(CHAR SrcStr); idb int __cdecl _access(LPCSTR lpFileName, char); idb
 // int printf(const char *, ...);
 // double __usercall _CIpow@<st0>(double x@<st0>, double y@<st1>); idb
 // double __cdecl sub_567362(_DWORD, _DWORD, __int16, _DWORD, __int16); weak
@@ -7324,12 +7319,12 @@ int __cdecl sub_57C490(const char* a1);
 int __cdecl sub_57C500(const char* a1, const char* a2);
 void __cdecl sub_57C5A0(const char* a1);
 void __cdecl sub_57C650(float* a1, float* a2, float* a3);
-void __cdecl sub_57C790(float4* a1, float2* a2, float2* a3, float a4); // idb
-BOOL __cdecl sub_57C8A0(float4* a1, float2* a2, float2* a3); // idb
+void __cdecl sub_57C790(float4* a1, float2* a2, float2* a3, float a4);  // idb
+BOOL __cdecl sub_57C8A0(float4* a1, float2* a2, float2* a3);            // idb
 char __cdecl sub_57C9A0(int a1, int a2, float* a3, float* a4, char a5); // idb
-float2* __cdecl sub_57CD30(float4* a1, float2* a2, float2* a3); // idb
-float2* __cdecl sub_57CD70(float4* a1, float2* a2, float2* a3); // idb
-int __cdecl sub_57CDB0(int2* a1, float* a2, float2* a3); // idb
+float2* __cdecl sub_57CD30(float4* a1, float2* a2, float2* a3);         // idb
+float2* __cdecl sub_57CD70(float4* a1, float2* a2, float2* a3);         // idb
+int __cdecl sub_57CDB0(int2* a1, float* a2, float2* a3);                // idb
 void __thiscall sub_57D150(LPVOID* this);
 int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4);
 void __thiscall sub_57DD70(LPVOID* this);
@@ -7354,7 +7349,7 @@ void __thiscall sub_57EA00(LPVOID* this);
 int __thiscall sub_57EA60(int this);
 int __thiscall sub_57EA80(_DWORD* this, _BYTE* a2, _DWORD* a3, unsigned int a4, _DWORD* a5);
 _DWORD* __thiscall sub_57F160(int this, int a2, int a3);
-char __cdecl sub_57F1D0(float2* a1); // idb
+char __cdecl sub_57F1D0(float2* a1);                // idb
 int __cdecl sub_57F2A0(float2* a1, int a2, int a3); // idb
 nox_memfile* nox_open_thing_bin(void);
 void nox_free_thing_bin(void);
@@ -7363,21 +7358,15 @@ bool nox_ensure_thing_bin(void);
 // _DWORD __stdcall std__logic_error__logic_error(_DWORD); weak
 // int unknown_libname_34(void); weak
 // void *__thiscall sub_57F445(LPVOID lpMem, char a2);
-// _DWORD __thiscall std__logic_error__logic_error(std__logic_error *__hidden this, const struct std__logic_error *); weak
-// int unknown_libname_35(void); weak
-// void *__thiscall sub_57F518(LPVOID lpMem, char a2);
-// void __cdecl std___Xran(); weak
-// int unknown_libname_36(void); weak
-// void __thiscall sub_57F5E3(const struct std__logic_error *this);
-// void *__thiscall sub_57F600(LPVOID lpMem, char a2);
-// std__logic_error *__thiscall sub_57F61C(std__logic_error *this, const struct std__logic_error *a2);
-// int sub_57F65E();
-// _DWORD __thiscall std___Lockit___Lockit(std___Lockit *__hidden this); weak
-// void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this); weak
-// LONG __stdcall ImmGetCompositionStringA(HIMC, DWORD, LPVOID lpBuf, DWORD dwBufLen);
-// BOOL __stdcall ImmSetCompositionStringA(HIMC, DWORD dwIndex, LPVOID lpComp, DWORD dwCompLen, LPVOID lpRead, DWORD dwReadLen);
-// BOOL __stdcall ImmNotifyIME(HIMC, DWORD dwAction, DWORD dwIndex, DWORD dwValue);
-// BOOL __stdcall ImmGetOpenStatus(HIMC);
+// _DWORD __thiscall std__logic_error__logic_error(std__logic_error *__hidden this, const struct std__logic_error *);
+// weak int unknown_libname_35(void); weak void *__thiscall sub_57F518(LPVOID lpMem, char a2); void __cdecl
+// std___Xran(); weak int unknown_libname_36(void); weak void __thiscall sub_57F5E3(const struct std__logic_error
+// *this); void *__thiscall sub_57F600(LPVOID lpMem, char a2); std__logic_error *__thiscall sub_57F61C(std__logic_error
+// *this, const struct std__logic_error *a2); int sub_57F65E(); _DWORD __thiscall std___Lockit___Lockit(std___Lockit
+// *__hidden this); weak void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this); weak LONG
+// __stdcall ImmGetCompositionStringA(HIMC, DWORD, LPVOID lpBuf, DWORD dwBufLen); BOOL __stdcall
+// ImmSetCompositionStringA(HIMC, DWORD dwIndex, LPVOID lpComp, DWORD dwCompLen, LPVOID lpRead, DWORD dwReadLen); BOOL
+// __stdcall ImmNotifyIME(HIMC, DWORD dwAction, DWORD dwIndex, DWORD dwValue); BOOL __stdcall ImmGetOpenStatus(HIMC);
 // BOOL __stdcall ImmSetOpenStatus(HIMC, BOOL);
 // BOOL __stdcall ImmSetCompositionWindow(HIMC, LPCOMPOSITIONFORM lpCompForm);
 // DWORD __stdcall ImmGetCandidateListA(HIMC, DWORD deIndex, LPCANDIDATELIST lpCandList, DWORD dwBufLen);
@@ -7504,12 +7493,12 @@ int __cdecl SEH_57E8A0(int a1, int a2, int a3, int a4);
 int __cdecl SEH_57E910(int a1, int a2, int a3, int a4);
 // int __usercall sub_58017A@<eax>(int a1@<ebp>);
 int __cdecl SEH_57EA00(int a1, int a2, int a3, int a4);
-// LSTATUS __stdcall RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions, REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult, LPDWORD lpdwDisposition);
-// LSTATUS __stdcall RegCloseKey(HKEY hKey);
-// LSTATUS __stdcall RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData, LPDWORD lpcbData);
-// LSTATUS __stdcall RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult);
-// LSTATUS __stdcall RegSetValueExA(HKEY hKey, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE *lpData, DWORD cbData);
-// UINT __stdcall RealizePalette(HDC hdc);
+// LSTATUS __stdcall RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions, REGSAM
+// samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult, LPDWORD lpdwDisposition); LSTATUS
+// __stdcall RegCloseKey(HKEY hKey); LSTATUS __stdcall RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD
+// lpReserved, LPDWORD lpType, LPBYTE lpData, LPDWORD lpcbData); LSTATUS __stdcall RegOpenKeyExA(HKEY hKey, LPCSTR
+// lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult); LSTATUS __stdcall RegSetValueExA(HKEY hKey, LPCSTR
+// lpValueName, DWORD Reserved, DWORD dwType, const BYTE *lpData, DWORD cbData); UINT __stdcall RealizePalette(HDC hdc);
 // HPALETTE __stdcall SelectPalette(HDC hdc, HPALETTE hPal, BOOL bForceBkgd);
 // HPALETTE __stdcall CreatePalette(const LOGPALETTE *plpal);
 // BOOL __stdcall DeleteObject(HGDIOBJ ho);
@@ -7523,31 +7512,31 @@ int __cdecl SEH_57EA00(int a1, int a2, int a3, int a4);
 // LONG __stdcall InterlockedIncrement(volatile LONG *lpAddend);
 // DWORD __stdcall SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanceToMoveHigh, DWORD dwMoveMethod);
 // LONG __stdcall InterlockedDecrement(volatile LONG *lpAddend);
-// int __stdcall MultiByteToWideChar(UINT CodePage, DWORD dwFlags, LPCSTR lpMultiByteStr, int cbMultiByte, LPWSTR lpWideCharStr, int cchWideChar);
-// BOOL __stdcall GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
-// BOOL __stdcall CloseHandle(HANDLE hObject);
-// int __stdcall WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte, LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar);
-// void __stdcall LeaveCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
-// void __stdcall EnterCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
-// DWORD __stdcall GetTimeZoneInformation(LPTIME_ZONE_INFORMATION lpTimeZoneInformation);
-// void __stdcall GetLocalTime(LPSYSTEMTIME lpSystemTime);
-// BOOL __stdcall ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
-// HANDLE __stdcall CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
-// HANDLE __stdcall OpenMutexA(DWORD dwDesiredAccess, BOOL bInheritHandle, LPCSTR lpName);
-// HANDLE __stdcall CreateMutexA(LPSECURITY_ATTRIBUTES lpMutexAttributes, BOOL bInitialOwner, LPCSTR lpName);
-// BOOL __stdcall QueryPerformanceFrequency(LARGE_INTEGER *lpFrequency);
-// BOOL __stdcall QueryPerformanceCounter(LARGE_INTEGER *lpPerformanceCount);
-// BOOL __stdcall CreateDirectoryA(LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-// BOOL __stdcall SetVolumeLabelA(LPCSTR lpRootPathName, LPCSTR lpVolumeName);
-// DWORD __stdcall GetLogicalDriveStringsA(DWORD nBufferLength, LPSTR lpBuffer);
-// BOOL __stdcall GetVolumeInformationA(LPCSTR lpRootPathName, LPSTR lpVolumeNameBuffer, DWORD nVolumeNameSize, LPDWORD lpVolumeSerialNumber, LPDWORD lpMaximumComponentLength, LPDWORD lpFileSystemFlags, LPSTR lpFileSystemNameBuffer, DWORD nFileSystemNameSize);
-// BOOL __stdcall GetDiskFreeSpaceA(LPCSTR lpRootPathName, LPDWORD lpSectorsPerCluster, LPDWORD lpBytesPerSector, LPDWORD lpNumberOfFreeClusters, LPDWORD lpTotalNumberOfClusters);
-// BOOL __stdcall FindClose(HANDLE hFindFile);
-// BOOL __stdcall FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
-// LONG __stdcall CompareFileTime(const FILETIME *lpFileTime1, const FILETIME *lpFileTime2);
-// BOOL __stdcall SystemTimeToFileTime(const SYSTEMTIME *lpSystemTime, LPFILETIME lpFileTime);
-// int __stdcall GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME *lpTime, LPCSTR lpFormat, LPSTR lpTimeStr, int cchTime);
-// int __stdcall GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME *lpDate, LPCSTR lpFormat, LPSTR lpDateStr, int cchDate);
+// int __stdcall MultiByteToWideChar(UINT CodePage, DWORD dwFlags, LPCSTR lpMultiByteStr, int cbMultiByte, LPWSTR
+// lpWideCharStr, int cchWideChar); BOOL __stdcall GetVersionExA(LPOSVERSIONINFOA lpVersionInformation); BOOL __stdcall
+// CloseHandle(HANDLE hObject); int __stdcall WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr,
+// int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte, LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar); void
+// __stdcall LeaveCriticalSection(LPCRITICAL_SECTION lpCriticalSection); void __stdcall
+// EnterCriticalSection(LPCRITICAL_SECTION lpCriticalSection); DWORD __stdcall
+// GetTimeZoneInformation(LPTIME_ZONE_INFORMATION lpTimeZoneInformation); void __stdcall GetLocalTime(LPSYSTEMTIME
+// lpSystemTime); BOOL __stdcall ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD
+// lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped); HANDLE __stdcall CreateFileA(LPCSTR lpFileName, DWORD
+// dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD
+// dwFlagsAndAttributes, HANDLE hTemplateFile); HANDLE __stdcall OpenMutexA(DWORD dwDesiredAccess, BOOL bInheritHandle,
+// LPCSTR lpName); HANDLE __stdcall CreateMutexA(LPSECURITY_ATTRIBUTES lpMutexAttributes, BOOL bInitialOwner, LPCSTR
+// lpName); BOOL __stdcall QueryPerformanceFrequency(LARGE_INTEGER *lpFrequency); BOOL __stdcall
+// QueryPerformanceCounter(LARGE_INTEGER *lpPerformanceCount); BOOL __stdcall CreateDirectoryA(LPCSTR lpPathName,
+// LPSECURITY_ATTRIBUTES lpSecurityAttributes); BOOL __stdcall SetVolumeLabelA(LPCSTR lpRootPathName, LPCSTR
+// lpVolumeName); DWORD __stdcall GetLogicalDriveStringsA(DWORD nBufferLength, LPSTR lpBuffer); BOOL __stdcall
+// GetVolumeInformationA(LPCSTR lpRootPathName, LPSTR lpVolumeNameBuffer, DWORD nVolumeNameSize, LPDWORD
+// lpVolumeSerialNumber, LPDWORD lpMaximumComponentLength, LPDWORD lpFileSystemFlags, LPSTR lpFileSystemNameBuffer,
+// DWORD nFileSystemNameSize); BOOL __stdcall GetDiskFreeSpaceA(LPCSTR lpRootPathName, LPDWORD lpSectorsPerCluster,
+// LPDWORD lpBytesPerSector, LPDWORD lpNumberOfFreeClusters, LPDWORD lpTotalNumberOfClusters); BOOL __stdcall
+// FindClose(HANDLE hFindFile); BOOL __stdcall FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData); LONG
+// __stdcall CompareFileTime(const FILETIME *lpFileTime1, const FILETIME *lpFileTime2); BOOL __stdcall
+// SystemTimeToFileTime(const SYSTEMTIME *lpSystemTime, LPFILETIME lpFileTime); int __stdcall GetTimeFormatA(LCID
+// Locale, DWORD dwFlags, const SYSTEMTIME *lpTime, LPCSTR lpFormat, LPSTR lpTimeStr, int cchTime); int __stdcall
+// GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME *lpDate, LPCSTR lpFormat, LPSTR lpDateStr, int cchDate);
 // BOOL __stdcall SetCurrentDirectoryA(LPCSTR lpPathName);
 // DWORD __stdcall WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds);
 // int __stdcall MulDiv(int nNumber, int nNumerator, int nDenominator);
@@ -7559,38 +7548,25 @@ int __cdecl SEH_57EA00(int a1, int a2, int a3, int a4);
 // BOOL __stdcall FileTimeToSystemTime(const FILETIME *lpFileTime, LPSYSTEMTIME lpSystemTime);
 // BOOL __stdcall FileTimeToLocalFileTime(const FILETIME *lpFileTime, LPFILETIME lpLocalFileTime);
 // void __stdcall GetSystemTime(LPSYSTEMTIME lpSystemTime);
-// LPTOP_LEVEL_EXCEPTION_FILTER __stdcall SetUnhandledExceptionFilter(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter);
-// DWORD __stdcall GetModuleFileNameA(HMODULE hModule, LPSTR lpFilename, DWORD nSize);
-// BOOL __stdcall DeleteFileA(LPCSTR lpFileName);
-// UINT __stdcall GetDriveTypeA(LPCSTR lpRootPathName);
-// DWORD __stdcall GetCurrentDirectoryA(DWORD nBufferLength, LPSTR lpBuffer);
-// void __stdcall DeleteCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
-// void __stdcall GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
-// void __stdcall InitializeCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
-// DWORD __stdcall GetLastError();
-// HANDLE __stdcall FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
-// BOOL __stdcall IsDBCSLeadByte(BYTE TestChar);
-// HINSTANCE __stdcall ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory, INT nShowCmd);
-// SHORT __stdcall GetAsyncKeyState(int vKey);
-// BOOL __stdcall CopyRect(LPRECT lprcDst, const RECT *lprcSrc);
-// int __stdcall ShowCursor(BOOL bShow);
-// HDC __stdcall GetWindowDC(HWND hWnd);
-// int __stdcall GetSystemMetrics(int nIndex);
-// BOOL __stdcall AdjustWindowRect(LPRECT lpRect, DWORD dwStyle, BOOL bMenu);
-// BOOL __stdcall SetWindowPos(HWND hWnd, HWND hWndInsertAfter, int X, int Y, int cx, int cy, UINT uFlags);
-// HMENU __stdcall GetMenu(HWND hWnd);
-// BOOL __stdcall IsRectEmpty(const RECT *lprc);
-// int __stdcall MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType);
-// BOOL __stdcall PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg);
-// LRESULT __stdcall DispatchMessageA(const MSG *lpMsg);
-// BOOL __stdcall GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax);
-// BOOL __stdcall TranslateMessage(const MSG *lpMsg);
-// BOOL __stdcall IsWindow(HWND hWnd);
-// HCURSOR __stdcall SetCursor(HCURSOR hCursor);
-// void __stdcall PostQuitMessage(int nExitCode);
-// LONG __stdcall GetWindowLongA(HWND hWnd, int nIndex);
-// BOOL __stdcall ClientToScreen(HWND hWnd, LPPOINT lpPoint);
-// LONG __stdcall SetWindowLongA(HWND hWnd, int nIndex, LONG dwNewLong);
+// LPTOP_LEVEL_EXCEPTION_FILTER __stdcall SetUnhandledExceptionFilter(LPTOP_LEVEL_EXCEPTION_FILTER
+// lpTopLevelExceptionFilter); DWORD __stdcall GetModuleFileNameA(HMODULE hModule, LPSTR lpFilename, DWORD nSize); BOOL
+// __stdcall DeleteFileA(LPCSTR lpFileName); UINT __stdcall GetDriveTypeA(LPCSTR lpRootPathName); DWORD __stdcall
+// GetCurrentDirectoryA(DWORD nBufferLength, LPSTR lpBuffer); void __stdcall DeleteCriticalSection(LPCRITICAL_SECTION
+// lpCriticalSection); void __stdcall GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer); void __stdcall
+// InitializeCriticalSection(LPCRITICAL_SECTION lpCriticalSection); DWORD __stdcall GetLastError(); HANDLE __stdcall
+// FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData); BOOL __stdcall IsDBCSLeadByte(BYTE TestChar);
+// HINSTANCE __stdcall ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR
+// lpDirectory, INT nShowCmd); SHORT __stdcall GetAsyncKeyState(int vKey); BOOL __stdcall CopyRect(LPRECT lprcDst, const
+// RECT *lprcSrc); int __stdcall ShowCursor(BOOL bShow); HDC __stdcall GetWindowDC(HWND hWnd); int __stdcall
+// GetSystemMetrics(int nIndex); BOOL __stdcall AdjustWindowRect(LPRECT lpRect, DWORD dwStyle, BOOL bMenu); BOOL
+// __stdcall SetWindowPos(HWND hWnd, HWND hWndInsertAfter, int X, int Y, int cx, int cy, UINT uFlags); HMENU __stdcall
+// GetMenu(HWND hWnd); BOOL __stdcall IsRectEmpty(const RECT *lprc); int __stdcall MessageBoxA(HWND hWnd, LPCSTR lpText,
+// LPCSTR lpCaption, UINT uType); BOOL __stdcall PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT
+// wMsgFilterMax, UINT wRemoveMsg); LRESULT __stdcall DispatchMessageA(const MSG *lpMsg); BOOL __stdcall
+// GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax); BOOL __stdcall TranslateMessage(const
+// MSG *lpMsg); BOOL __stdcall IsWindow(HWND hWnd); HCURSOR __stdcall SetCursor(HCURSOR hCursor); void __stdcall
+// PostQuitMessage(int nExitCode); LONG __stdcall GetWindowLongA(HWND hWnd, int nIndex); BOOL __stdcall
+// ClientToScreen(HWND hWnd, LPPOINT lpPoint); LONG __stdcall SetWindowLongA(HWND hWnd, int nIndex, LONG dwNewLong);
 // BOOL __stdcall OffsetRect(LPRECT lprc, int dx, int dy);
 // BOOL __stdcall SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom);
 // HDC __stdcall GetDC(HWND hWnd);
@@ -7607,24 +7583,17 @@ int __cdecl SEH_57EA00(int a1, int a2, int a3, int a4);
 // HICON __stdcall LoadIconA(HINSTANCE hInstance, LPCSTR lpIconName);
 // HCURSOR __stdcall LoadCursorA(HINSTANCE hInstance, LPCSTR lpCursorName);
 // ATOM __stdcall RegisterClassExA(const WNDCLASSEXA *);
-// HWND __stdcall CreateWindowExA(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle, int X, int Y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam);
-// BOOL __stdcall DestroyWindow(HWND hWnd);
-// BOOL __stdcall UnregisterClassA(LPCSTR lpClassName, HINSTANCE hInstance);
-// BOOL __stdcall ClipCursor(const RECT *lpRect);
-// SHORT __stdcall GetKeyState(int nVirtKey);
-// HKL __stdcall GetKeyboardLayout(DWORD idThread);
-// int __stdcall GetKeyboardLayoutList(int nBuff, HKL *lpList);
-// MMRESULT __stdcall timeKillEvent(UINT uTimerID);
-// MMRESULT __stdcall timeEndPeriod(UINT uPeriod);
-// MMRESULT __stdcall timeBeginPeriod(UINT uPeriod);
-// MMRESULT __stdcall timeSetEvent(UINT uDelay, UINT uResolution, LPTIMECALLBACK fptc, DWORD_PTR dwUser, UINT fuEvent);
-// UINT __stdcall joyGetNumDevs();
-// MMRESULT __stdcall joyGetPosEx(UINT uJoyID, LPJOYINFOEX pji);
-// MMRESULT __stdcall joyGetDevCapsA(UINT_PTR uJoyID, LPJOYCAPSA pjc, UINT cbjc);
-// MCIERROR __stdcall mciSendCommandA(MCIDEVICEID mciId, UINT uMsg, DWORD_PTR dwParam1, DWORD_PTR dwParam2);
-// SOCKET __stdcall socket(int af, int type, int protocol);
-// int __stdcall WSACleanup();
-// int __stdcall setsockopt(SOCKET s, int level, int optname, const char *optval, int optlen);
+// HWND __stdcall CreateWindowExA(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle, int X, int Y,
+// int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam); BOOL __stdcall
+// DestroyWindow(HWND hWnd); BOOL __stdcall UnregisterClassA(LPCSTR lpClassName, HINSTANCE hInstance); BOOL __stdcall
+// ClipCursor(const RECT *lpRect); SHORT __stdcall GetKeyState(int nVirtKey); HKL __stdcall GetKeyboardLayout(DWORD
+// idThread); int __stdcall GetKeyboardLayoutList(int nBuff, HKL *lpList); MMRESULT __stdcall timeKillEvent(UINT
+// uTimerID); MMRESULT __stdcall timeEndPeriod(UINT uPeriod); MMRESULT __stdcall timeBeginPeriod(UINT uPeriod); MMRESULT
+// __stdcall timeSetEvent(UINT uDelay, UINT uResolution, LPTIMECALLBACK fptc, DWORD_PTR dwUser, UINT fuEvent); UINT
+// __stdcall joyGetNumDevs(); MMRESULT __stdcall joyGetPosEx(UINT uJoyID, LPJOYINFOEX pji); MMRESULT __stdcall
+// joyGetDevCapsA(UINT_PTR uJoyID, LPJOYCAPSA pjc, UINT cbjc); MCIERROR __stdcall mciSendCommandA(MCIDEVICEID mciId,
+// UINT uMsg, DWORD_PTR dwParam1, DWORD_PTR dwParam2); SOCKET __stdcall socket(int af, int type, int protocol); int
+// __stdcall WSACleanup(); int __stdcall setsockopt(SOCKET s, int level, int optname, const char *optval, int optlen);
 // int __stdcall bind(SOCKET s, const struct sockaddr *name, int namelen);
 // int __stdcall WSAGetLastError();
 // int __stdcall gethostname(char *name, int namelen);
@@ -7689,4 +7658,5 @@ int __cdecl SEH_57EA00(int a1, int a2, int a3, int a4);
 // int __stdcall AIL_release_sample_handle(_DWORD); weak
 // HRESULT __stdcall CoInitialize(LPVOID pvReserved);
 // void __stdcall CoUninitialize();
-// HRESULT __stdcall CoCreateInstance(const IID *const rclsid, LPUNKNOWN pUnkOuter, DWORD dwClsContext, const IID *const riid, LPVOID *ppv);
+// HRESULT __stdcall CoCreateInstance(const IID *const rclsid, LPUNKNOWN pUnkOuter, DWORD dwClsContext, const IID *const
+// riid, LPVOID *ppv);

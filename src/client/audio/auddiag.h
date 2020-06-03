@@ -3,4 +3,4 @@
 
 int sub_44D810();
 
-#endif //NOX_PORT_CLIENT_AUDIO_AUDDIAG
+#endif // NOX_PORT_CLIENT_AUDIO_AUDDIAG

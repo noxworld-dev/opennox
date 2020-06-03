@@ -14,3 +14,5 @@ src/cmake-build-*
 
 # Omit external libraries
 src/external
+# Omit include replacements made for source analysis
+src/includes

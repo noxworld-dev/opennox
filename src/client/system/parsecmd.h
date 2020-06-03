@@ -102,4 +102,4 @@ int nox_cmd_menu_vidopt();
 int __cdecl nox_cmd_help(int a1, int a2, int a3);
 int __cdecl nox_cmd_bind(int a1, char a2, int a3);
 
-#endif //NOX_PORT_CLIENT_SYSTEM_PARSECMD
+#endif // NOX_PORT_CLIENT_SYSTEM_PARSECMD

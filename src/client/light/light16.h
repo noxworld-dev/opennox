@@ -5,4 +5,4 @@
 
 int nox_video_recreateBuffersAndTarget_430BA0();
 
-#endif //NOX_PORT_CLIENT_LIGHT_LIGHT16
+#endif // NOX_PORT_CLIENT_LIGHT_LIGHT16

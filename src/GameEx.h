@@ -1,31 +1,33 @@
+#include "DG_dynarr.h"
 #include "defs.h"
 #include "proto.h"
-#include "DG_dynarr.h"
 
 #ifdef _WIN32
 typedef intptr_t INT_PTR;
 typedef INT_PTR LSTATUS;
 
-#include <windows.h>
 #include <mmreg.h>
+#include <windows.h>
 #else
-#pragma GCC poison fgetwln fgetws fputwc fputws fwprintf fwscanf mbrtowc mbsnrtowcs mbsrtowcs putwc putwchar swprintf swscanf vfwprintf vfwscanf vswprintf vswscanf vwprintf vwscanf wcrtomb wcscat wcschr wcscmp wcscoll wcscpy wcscspn wcsftime wcsftime wcslcat wcslcpy wcslen wcsncat wcsncmp wcsncpy wcsnrtombs wcspbrk wcsrchr wcsrtombs wcsspn wcsstr wcstod wcstof wcstok wcstol wcstold wcstoll wcstoul wcstoull wcswidth wcsxfrm wcwidth wmemchr wmemcmp wmemcpy wmemmove wmemset wprintf wscanf
+#pragma GCC poison fgetwln fgetws fputwc fputws fwprintf fwscanf mbrtowc mbsnrtowcs mbsrtowcs putwc putwchar swprintf  \
+    swscanf vfwprintf vfwscanf vswprintf vswscanf vwprintf vwscanf wcrtomb wcscat wcschr wcscmp wcscoll wcscpy wcscspn \
+	wcsftime wcsftime wcslcat wcslcpy wcslen wcsncat wcsncmp wcsncpy wcsnrtombs wcspbrk wcsrchr wcsrtombs wcsspn   \
+	    wcsstr wcstod wcstof wcstok wcstol wcstold wcstoll wcstoul wcstoull wcswidth wcsxfrm wcwidth wmemchr       \
+		wmemcmp wmemcpy wmemmove wmemset wprintf wscanf
 #include "windows.h"
 #endif
 
-typedef struct keyCodeStruct
-{
-  unsigned __int8 keyCode;
-  char keyName[12];
+typedef struct keyCodeStruct {
+	unsigned __int8 keyCode;
+	char keyName[12];
 } keyCodeStruct;
 
 typedef struct smallPlayerStruct {
-    char string[18];
+	char string[18];
 } smallPlayerStruct;
 
 DA_TYPEDEF(smallPlayerStruct, smallPlayerStructVector);
 DA_TYPEDEF(int, intArray);
-
 
 //-------------------------------------------------------------------------
 // Function declarations
@@ -33,7 +35,7 @@ DA_TYPEDEF(int, intArray);
 #define __thiscall __cdecl // Test compile in C mode
 #define __usercall __cdecl // Test compile in C mode
 
-//BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
+// BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
 // void __thiscall ExceptionDestructor(void *this);
 // void *__thiscall BadAllocException(void *this, char a2);
 // _DWORD *__thiscall LogicExceptionCreator(_DWORD *this, _DWORD *a2);
@@ -42,29 +44,29 @@ DA_TYPEDEF(int, intArray);
 // _DWORD *__thiscall LogicLengthErrorException(void *this, char a2);
 // _DWORD *__thiscall LengthErrorExceptionCreator(_DWORD *this, int a2);
 // std::exception *__thiscall CopyConstructor(std::exception *this, struct std::exception *a2);
-unsigned __int8 __cdecl KeyCodeMatcher(char *a1);
+unsigned __int8 __cdecl KeyCodeMatcher(char* a1);
 int __cdecl GameExCfgSaver();
-const char *__usercall SomeStringSearcher(const char *result, const char *a2, char *a3);
+const char* __usercall SomeStringSearcher(const char* result, const char* a2, char* a3);
 char GameExCfgLoader();
-int __cdecl sendtoWrapper(char *buf, int len, int smth);
+int __cdecl sendtoWrapper(char* buf, int len, int smth);
 void __cdecl notifyThisIsServeronly(int ptr, __int16 shortval, BOOL boolval); // idb
 int __usercall DestroyNoxWindow();
-int __usercall copyServerMatchData(char *a1);
+int __usercall copyServerMatchData(char* a1);
 char __cdecl getPlayerClassFromObjPtr(int a1);
-int __usercall playerInfoStructsToVector(smallPlayerStructVector *vector);
-char __cdecl playerInfoStructParser_0(char *a1); // idb
-char __usercall playerInfoStructParser_1(int a1, int a2, int *a3);
+int __usercall playerInfoStructsToVector(smallPlayerStructVector* vector);
+char __cdecl playerInfoStructParser_0(char* a1); // idb
+char __usercall playerInfoStructParser_1(int a1, int a2, int* a3);
 char __cdecl playerDoAutoShield(int playerObj, char a2); // idb
-char __cdecl playerDropATrap(int playerObj); // idb
+char __cdecl playerDropATrap(int playerObj);             // idb
 HANDLE __usercall GameIpParser(int a1, int a2, int a3);
 unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a2, int a3);
 signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4);
-_DWORD *playErrSoundClient();
+_DWORD* playErrSoundClient();
 unsigned int invalidIpChecker(unsigned int interval, void* param);
 HANDLE __usercall startInvalidIpChecker();
 int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4);
-//int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struct sockaddr *from, int *fromlen); // idb
-//_DWORD *OnLibraryNotice(int, ...);
+// int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struct sockaddr *from, int *fromlen); //
+// idb _DWORD *OnLibraryNotice(int, ...);
 // int __thiscall ExceptMsg(int this, void *Src);
 // void **SomeAllocatorVectorMB();
 // _DWORD *__usercall addToVector_(_DWORD *a1, int a2);
@@ -77,18 +79,14 @@ int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4);
 // _DWORD *__thiscall AllocAndMemset_(int this, _DWORD *a2, unsigned int a3, void *a4);
 // _DWORD *__userpurge SomeVectorFunc(int ebx0, int esi0, _DWORD *a1, int a2, void *a3, _BYTE *Src);
 // _DWORD *__userpurge SomeVectorFunc_0(_DWORD *a1, _DWORD *a2, int a3, int a4, int a5);
-// _DWORD *__userpurge PossibleVectorSub(_DWORD *a1, _DWORD *a2, int esi0, int a3, unsigned int a4, int a5, unsigned int a6);
-// _DWORD *__fastcall SomeStringCopier_(int a1, int a2, void *Src, rsize_t MaxCount);
-// _DWORD *__thiscall MemMover(_DWORD *this, unsigned int a2, unsigned int a3);
-// char *__stdcall SomeVectorFunc_1(int a1, int a2, void *Src);
-// void __fastcall __noreturn VectorException(int a1, int a2, int a3, int a4);
-// void *__fastcall SomeAllocator_0(unsigned int a1);
-// char *__thiscall SomeVectorProcedure(_DWORD *this, int a2, int a3, int a4);
-// void __fastcall __noreturn VectorException_0(int a1, int a2, int a3, int a4);
-// void *__fastcall SomeAllocator_1(unsigned int a1);
-// std::exception *__thiscall CopyConstructor2(std::exception *this, struct std::exception *a2);
-// _BYTE *__thiscall Copier(_DWORD *this, void *Dst, rsize_t MaxCount);
-// void *__stdcall SomeAllocator_2(char *a1);
+// _DWORD *__userpurge PossibleVectorSub(_DWORD *a1, _DWORD *a2, int esi0, int a3, unsigned int a4, int a5, unsigned int
+// a6); _DWORD *__fastcall SomeStringCopier_(int a1, int a2, void *Src, rsize_t MaxCount); _DWORD *__thiscall
+// MemMover(_DWORD *this, unsigned int a2, unsigned int a3); char *__stdcall SomeVectorFunc_1(int a1, int a2, void
+// *Src); void __fastcall __noreturn VectorException(int a1, int a2, int a3, int a4); void *__fastcall
+// SomeAllocator_0(unsigned int a1); char *__thiscall SomeVectorProcedure(_DWORD *this, int a2, int a3, int a4); void
+// __fastcall __noreturn VectorException_0(int a1, int a2, int a3, int a4); void *__fastcall SomeAllocator_1(unsigned
+// int a1); std::exception *__thiscall CopyConstructor2(std::exception *this, struct std::exception *a2); _BYTE
+// *__thiscall Copier(_DWORD *this, void *Dst, rsize_t MaxCount); void *__stdcall SomeAllocator_2(char *a1);
 int __usercall getFlagValueFromFlagIndex(signed int a1);
 // int __usercall PossibleVectorSub_1(int a1, int a2, int a3);
 // char *__usercall SomeVectorFunc_2(int a1, char *a2, const void *a3);
@@ -126,12 +124,11 @@ int __usercall getFlagValueFromFlagIndex(signed int a1);
 // void __cdecl __noreturn _endthreadex(DWORD dwExitCode); idb
 // void __noreturn _callthreadstartex();
 // void __stdcall __noreturn _threadstartex(LPVOID lpThreadParameter);
-// HANDLE __usercall _beginthreadex(int a1, LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, int a4, int a5, DWORD dwCreationFlags, LPDWORD lpThreadId);
-// _LocaleUpdate *__thiscall _LocaleUpdate::_LocaleUpdate(_LocaleUpdate *this, struct localeinfo_struct *a2);
-// int __cdecl _mbstowcs_l_helper(LPWSTR lpWideCharStr, LPCSTR lpMultiByteStr, int cchWideChar, struct localeinfo_struct *); idb
-// size_t __cdecl mbstowcs(wchar_t *, const char *, size_t);
-// signed int __stdcall _CRT_INIT(int a1, int a2, int a3);
-// BOOL __usercall __DllMainCRTStartup(int a1, int a2, HINSTANCE hinstDLL);
+// HANDLE __usercall _beginthreadex(int a1, LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, int a4, int
+// a5, DWORD dwCreationFlags, LPDWORD lpThreadId); _LocaleUpdate *__thiscall _LocaleUpdate::_LocaleUpdate(_LocaleUpdate
+// *this, struct localeinfo_struct *a2); int __cdecl _mbstowcs_l_helper(LPWSTR lpWideCharStr, LPCSTR lpMultiByteStr, int
+// cchWideChar, struct localeinfo_struct *); idb size_t __cdecl mbstowcs(wchar_t *, const char *, size_t); signed int
+// __stdcall _CRT_INIT(int a1, int a2, int a3); BOOL __usercall __DllMainCRTStartup(int a1, int a2, HINSTANCE hinstDLL);
 // BOOL __stdcall DllEntryPoint(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved);
 // BOOL __usercall __noreturn __report_gsfailure(int a1, int a2, int a3, int a4, int a5, int a6, char a7);
 // errno_t __cdecl strcpy_s(char *Dst, rsize_t SizeInBytes, const char *Src);
@@ -247,10 +244,10 @@ int __usercall getFlagValueFromFlagIndex(signed int a1);
 // int __cdecl InitPointers_2(int a1);
 // int __cdecl InitPointers_0(int a1);
 // int __cdecl __crtInitCritSecAndSpinCount(LPCRITICAL_SECTION lpCriticalSection, DWORD dwSpinCount); idb
-// int __cdecl __crtLCMapStringA(struct localeinfo_struct *, LCID Locale, DWORD dwMapFlags, LPCSTR lpMultiByteStr, char *cbMultiByte, LPWSTR lpDestStr, char *cchDest, UINT CodePage, int); idb
-// int __cdecl __crtGetStringTypeA(struct localeinfo_struct *, DWORD dwInfoType, LPCSTR lpMultiByteStr, char *cbMultiByte, LPWORD lpCharType, UINT CodePage, LCID Locale, int); idb
-// _DWORD __cdecl __free_lc_time(_DWORD); weak
-// _DWORD __cdecl __free_lconv_num(_DWORD); weak
+// int __cdecl __crtLCMapStringA(struct localeinfo_struct *, LCID Locale, DWORD dwMapFlags, LPCSTR lpMultiByteStr, char
+// *cbMultiByte, LPWSTR lpDestStr, char *cchDest, UINT CodePage, int); idb int __cdecl __crtGetStringTypeA(struct
+// localeinfo_struct *, DWORD dwInfoType, LPCSTR lpMultiByteStr, char *cbMultiByte, LPWORD lpCharType, UINT CodePage,
+// LCID Locale, int); idb _DWORD __cdecl __free_lc_time(_DWORD); weak _DWORD __cdecl __free_lconv_num(_DWORD); weak
 // _DWORD __cdecl __free_lconv_mon(_DWORD); weak
 // int __cdecl _ismbblead(unsigned int);
 // int __cdecl SomeWndPointerGetter(int a1, int a2, int a3);
@@ -261,41 +258,31 @@ int __usercall getFlagValueFromFlagIndex(signed int a1);
 // void __noreturn StringExceptionCreator();
 // std::exception *__thiscall CopyConstructor3(std::exception *this, struct std::exception *a2);
 // _DWORD __cdecl sub_1000B1A6(_DWORD, _DWORD); weak
-// _DWORD __cdecl __CxxFrameHandler3(struct EHExceptionRecord *, struct EHRegistrationNode *, struct _CONTEXT *, void *); weak
-// std::exception *__thiscall BadException_0(std::exception *this, char *a2);
-// void __thiscall ExceptionDestructor2(void *this);
-// void *__thiscall BadException(void *this, char a2);
-// void __cdecl __DestructExceptionObject(_DWORD *a1);
-// std::exception *__thiscall BadException_1(std::exception *this, struct std::exception *a2);
-// int AllocAndDestructSet();
-// void __cdecl vectorDestructor(); idb
-// void __cdecl BadAllocExcept(); idb
-// HANDLE __stdcall CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
-// BOOL __stdcall WriteFile(HANDLE hFile, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten, LPOVERLAPPED lpOverlapped);
-// BOOL __stdcall CloseHandle(HANDLE hObject);
-// DWORD __stdcall GetFileSize(HANDLE hFile, LPDWORD lpFileSizeHigh);
-// BOOL __stdcall ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
-// BOOL __stdcall TerminateProcess(HANDLE hProcess, UINT uExitCode);
+// _DWORD __cdecl __CxxFrameHandler3(struct EHExceptionRecord *, struct EHRegistrationNode *, struct _CONTEXT *, void
+// *); weak std::exception *__thiscall BadException_0(std::exception *this, char *a2); void __thiscall
+// ExceptionDestructor2(void *this); void *__thiscall BadException(void *this, char a2); void __cdecl
+// __DestructExceptionObject(_DWORD *a1); std::exception *__thiscall BadException_1(std::exception *this, struct
+// std::exception *a2); int AllocAndDestructSet(); void __cdecl vectorDestructor(); idb void __cdecl BadAllocExcept();
+// idb HANDLE __stdcall CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES
+// lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile); BOOL __stdcall
+// WriteFile(HANDLE hFile, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten, LPOVERLAPPED
+// lpOverlapped); BOOL __stdcall CloseHandle(HANDLE hObject); DWORD __stdcall GetFileSize(HANDLE hFile, LPDWORD
+// lpFileSizeHigh); BOOL __stdcall ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD
+// lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped); BOOL __stdcall TerminateProcess(HANDLE hProcess, UINT uExitCode);
 // HANDLE __stdcall GetCurrentProcess();
 // LONG __stdcall UnhandledExceptionFilter(struct _EXCEPTION_POINTERS *ExceptionInfo);
-// LPTOP_LEVEL_EXCEPTION_FILTER __stdcall SetUnhandledExceptionFilter(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter);
-// BOOL __stdcall IsDebuggerPresent();
-// void __stdcall __noreturn ExitThread(DWORD dwExitCode);
-// DWORD __stdcall GetCurrentThreadId();
-// DWORD __stdcall GetLastError();
-// HANDLE __stdcall CreateThread(LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, LPTHREAD_START_ROUTINE lpStartAddress, LPVOID lpParameter, DWORD dwCreationFlags, LPDWORD lpThreadId);
-// int __stdcall MultiByteToWideChar(UINT CodePage, DWORD dwFlags, LPCSTR lpMultiByteStr, int cbMultiByte, LPWSTR lpWideCharStr, int cchWideChar);
-// LPSTR __stdcall GetCommandLineA();
-// LPVOID __stdcall HeapAlloc(HANDLE hHeap, DWORD dwFlags, SIZE_T dwBytes);
-// BOOL __stdcall HeapFree(HANDLE hHeap, DWORD dwFlags, LPVOID lpMem);
-// void __stdcall RaiseException(DWORD dwExceptionCode, DWORD dwExceptionFlags, DWORD nNumberOfArguments, const ULONG_PTR *lpArguments);
-// HMODULE __stdcall GetModuleHandleW(LPCWSTR lpModuleName);
-// FARPROC __stdcall GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
-// LPVOID __stdcall TlsGetValue(DWORD dwTlsIndex);
-// DWORD __stdcall TlsAlloc();
-// BOOL __stdcall TlsSetValue(DWORD dwTlsIndex, LPVOID lpTlsValue);
-// BOOL __stdcall TlsFree(DWORD dwTlsIndex);
-// LONG __stdcall InterlockedIncrement(volatile LONG *lpAddend);
+// LPTOP_LEVEL_EXCEPTION_FILTER __stdcall SetUnhandledExceptionFilter(LPTOP_LEVEL_EXCEPTION_FILTER
+// lpTopLevelExceptionFilter); BOOL __stdcall IsDebuggerPresent(); void __stdcall __noreturn ExitThread(DWORD
+// dwExitCode); DWORD __stdcall GetCurrentThreadId(); DWORD __stdcall GetLastError(); HANDLE __stdcall
+// CreateThread(LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, LPTHREAD_START_ROUTINE lpStartAddress,
+// LPVOID lpParameter, DWORD dwCreationFlags, LPDWORD lpThreadId); int __stdcall MultiByteToWideChar(UINT CodePage,
+// DWORD dwFlags, LPCSTR lpMultiByteStr, int cbMultiByte, LPWSTR lpWideCharStr, int cchWideChar); LPSTR __stdcall
+// GetCommandLineA(); LPVOID __stdcall HeapAlloc(HANDLE hHeap, DWORD dwFlags, SIZE_T dwBytes); BOOL __stdcall
+// HeapFree(HANDLE hHeap, DWORD dwFlags, LPVOID lpMem); void __stdcall RaiseException(DWORD dwExceptionCode, DWORD
+// dwExceptionFlags, DWORD nNumberOfArguments, const ULONG_PTR *lpArguments); HMODULE __stdcall GetModuleHandleW(LPCWSTR
+// lpModuleName); FARPROC __stdcall GetProcAddress(HMODULE hModule, LPCSTR lpProcName); LPVOID __stdcall
+// TlsGetValue(DWORD dwTlsIndex); DWORD __stdcall TlsAlloc(); BOOL __stdcall TlsSetValue(DWORD dwTlsIndex, LPVOID
+// lpTlsValue); BOOL __stdcall TlsFree(DWORD dwTlsIndex); LONG __stdcall InterlockedIncrement(volatile LONG *lpAddend);
 // void __stdcall SetLastError(DWORD dwErrCode);
 // LONG __stdcall InterlockedDecrement(volatile LONG *lpAddend);
 // SIZE_T __stdcall HeapSize(HANDLE hHeap, DWORD dwFlags, LPCVOID lpMem);
@@ -313,9 +300,9 @@ int __usercall getFlagValueFromFlagIndex(signed int a1);
 // BOOL __stdcall FreeEnvironmentStringsA(LPCH);
 // LPCH __stdcall GetEnvironmentStrings();
 // BOOL __stdcall FreeEnvironmentStringsW(LPWCH);
-// int __stdcall WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte, LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar);
-// LPWCH __stdcall GetEnvironmentStringsW();
-// HANDLE __stdcall HeapCreate(DWORD flOptions, SIZE_T dwInitialSize, SIZE_T dwMaximumSize);
+// int __stdcall WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar, LPSTR
+// lpMultiByteStr, int cbMultiByte, LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar); LPWCH __stdcall
+// GetEnvironmentStringsW(); HANDLE __stdcall HeapCreate(DWORD flOptions, SIZE_T dwInitialSize, SIZE_T dwMaximumSize);
 // BOOL __stdcall HeapDestroy(HANDLE hHeap);
 // BOOL __stdcall VirtualFree(LPVOID lpAddress, SIZE_T dwSize, DWORD dwFreeType);
 // BOOL __stdcall QueryPerformanceCounter(LARGE_INTEGER *lpPerformanceCount);

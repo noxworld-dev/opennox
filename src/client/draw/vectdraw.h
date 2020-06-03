@@ -5,4 +5,4 @@
 
 int __cdecl sub_4BC5D0(_DWORD* a1, int a2);
 
-#endif //NOX_PORT_CLIENT_DRAW_VECTDRAW
+#endif // NOX_PORT_CLIENT_DRAW_VECTDRAW
