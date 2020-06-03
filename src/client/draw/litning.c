@@ -86,7 +86,7 @@ int __cdecl sub_4BB070(int a1, int a2) {
 		sub_49F500((__int16)a2, SHIWORD(a2));
 		sub_49E4F0(32);
 	}
-	sub_434460(*(int*)&byte_5D4594[1316472]);
+	nox_video_drawSetColor_434460(*(int*)&byte_5D4594[1316472]);
 	sub_49F500(v5, v4);
 	sub_49F500(v7, v6);
 	sub_49E4B0();

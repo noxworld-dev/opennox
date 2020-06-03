@@ -234,14 +234,14 @@ int __cdecl sub_476270(_DWORD* a1) {
 			v25 = &v23[2 * v3 + 1];
 			v5 = v1[1] + (unsigned __int64)(__int64)*v25 - v1[5];
 			if (i == v24) {
-				sub_434460(*(int*)&byte_5D4594[2650644]);
+				nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650644]);
 			} else if (v23[2 * i] < 0.0 || *v25 < 0.0) {
-				sub_434460(*(int*)&byte_5D4594[2650684]);
+				nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650684]);
 			} else {
-				sub_434460(*(int*)&byte_5D4594[2589772]);
+				nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2589772]);
 			}
 			sub_49CC70(v4 - 1, v5 - 1, 3, 3);
-			sub_434460(*(int*)&byte_5D4594[2618904]);
+			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2618904]);
 			sub_49F500(v4, v5);
 			v6 = *v1 + (unsigned __int64)(__int64)v23[2 * v2] - v1[4];
 			v7 = v1[1] + (unsigned __int64)(__int64)v23[2 * v2 + 1] - v1[5];
@@ -251,13 +251,13 @@ int __cdecl sub_476270(_DWORD* a1) {
 			if (v2 >= v27)
 				break;
 		}
-		sub_434460(*(int*)&byte_5D4594[2589772]);
+		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2589772]);
 		sub_49CC70(v6 - 1, v7 - 1, 3, 3);
 	}
 	v8 = (float*)sub_50CD30();
 	v9 = *v1 + (unsigned __int64)(__int64)*v8 - v1[4];
 	v10 = v1[1] + (unsigned __int64)(__int64)v8[1] - v1[5];
-	sub_434460(*(int*)&byte_5D4594[2523948]);
+	nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2523948]);
 	sub_49CC70(v9 - 2, v10 - 2, 5, 5);
 	v11 = v1[4];
 	v12 = v1[5];
@@ -1058,7 +1058,7 @@ void __cdecl sub_477050(int arg0, int a2) {
 }
 
 //----- (00477470) --------------------------------------------------------
-void __cdecl sub_477470(_DWORD* a1, int a2, int a3) {
+void __cdecl nox_client_drawCursorSelectCircle2_477470(_DWORD* a1, int a2, int a3) {
 	int v3;   // ebx
 	int v4;   // ebx
 	int v5;   // esi
@@ -1074,13 +1074,13 @@ void __cdecl sub_477470(_DWORD* a1, int a2, int a3) {
 			LABEL_8:
 				v5 = *a1 + *(_DWORD*)(a3 + 12) - a1[4];
 				v6 = *(_DWORD*)(a3 + 16) + a1[1] - a1[5];
-				sub_434460(a2);
-				sub_434560(1);
-				sub_434580(0x80u);
-				sub_4B0B90(v5, v6, v3 - 1);
-				sub_4B0B90(v5, v6, v3 + 1);
-				sub_434560(0);
-				sub_4B0B90(v5, v6, v3);
+				nox_video_drawSetColor_434460(a2);
+				nox_video_drawEnableAlpha_434560(1);
+				nox_video_drawSetAlpha_434580(0x80u);
+				nox_video_drawCircle_4B0B90(v5, v6, v3 - 1);
+				nox_video_drawCircle_4B0B90(v5, v6, v3 + 1);
+				nox_video_drawEnableAlpha_434560(0);
+				nox_video_drawCircle_4B0B90(v5, v6, v3);
 				return;
 			}
 			v7 = *(float*)(a3 + 60) + *(float*)(a3 + 56);
@@ -1324,15 +1324,15 @@ int sub_477EA0() {
 int __cdecl sub_477EF0(int a1, int a2, int a3) {
 	if (nox_client_mouseCursorType == 2)
 		return sub_4C32A0(a2, a3, 5 - *(_DWORD*)&byte_5D4594[2598000] % 5u, a1);
-	sub_434460(a1);
-	sub_434560(1);
+	nox_video_drawSetColor_434460(a1);
+	nox_video_drawEnableAlpha_434560(1);
 	sub_49F500(a2 - 4, a3 - 4);
 	sub_49F570(8, 8);
 	sub_49E4B0();
 	sub_49F500(a2 + 4, a3 - 4);
 	sub_49F570(-8, 8);
 	sub_49E4B0();
-	return sub_434560(0);
+	return nox_video_drawEnableAlpha_434560(0);
 }
 
 //----- (00477F80) --------------------------------------------------------
@@ -1346,7 +1346,7 @@ void sub_477F80() {
 			    *(int*)&byte_5D4594[1097212] + 64 >= *((int*)v0 + 2) ||
 			    *(int*)&byte_5D4594[1097216] < *((int*)v0 + 1) ||
 			    *(int*)&byte_5D4594[1097216] + 64 >= *((int*)v0 + 3)) {
-				sub_434460(*(int*)&byte_5D4594[2650656]);
+				nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 				sub_49CE30(*(_DWORD*)&byte_5D4594[1097212] + 32, *(_DWORD*)&byte_5D4594[1097216] + 32,
 					   64, 64);
 			}
@@ -11980,12 +11980,12 @@ int __cdecl sub_488160(int a1, int a2) {
 		v4 = xLeft + *(_DWORD*)(a1 + 8) - v9;
 	}
 	if (v30 != 0x80000000) {
-		sub_434460(v30);
+		nox_video_drawSetColor_434460(v30);
 		sub_49CE30(v4 + 1, yTop + 1, v21 - 2, *(_DWORD*)(a1 + 12) - 2);
 		v8 = v23;
 	}
 	if (v25 != (wchar_t*)0x80000000) {
-		sub_434460((int)v25);
+		nox_video_drawSetColor_434460((int)v25);
 		sub_49CC70(v4, yTop, v21, *(_DWORD*)(a1 + 12));
 		v8 = v23;
 	}
@@ -12030,7 +12030,7 @@ int __cdecl sub_488160(int a1, int a2) {
 		if (v2 == sub_46B4F0()) {
 			v17 = (byte_5D4594[1193344]++ & 8) == 0;
 			if (!v17) {
-				sub_434460(*(_DWORD*)(a2 + 68));
+				nox_video_drawSetColor_434460(*(_DWORD*)(a2 + 68));
 				sub_49CE30(v16, v7, 2, v29);
 			}
 		}
@@ -12254,7 +12254,7 @@ int __cdecl sub_488870(int a1, int a2) {
 		if (v2 == sub_46B4F0()) {
 			v13 = (byte_5D4594[1193344]++ & 8) == 0;
 			if (!v13) {
-				sub_434460(*(_DWORD*)(a2 + 68));
+				nox_video_drawSetColor_434460(*(_DWORD*)(a2 + 68));
 				sub_49CE30(xLeft, v6, 2, v23);
 			}
 		}
@@ -12398,11 +12398,11 @@ int __cdecl sub_488D00(int a1, int xLeft) {
 	if (*(_BYTE*)v2 & 4)
 		v27 = *(_DWORD*)(v2 + 52);
 	if (v7 != 0x80000000) {
-		sub_434460(v7);
+		nox_video_drawSetColor_434460(v7);
 		sub_49CE30(xLeft + 1, yTop + 1, v5 - 2, *(_DWORD*)(a1 + 12) - 2);
 	}
 	if (v25 != 0x80000000) {
-		sub_434460(v25);
+		nox_video_drawSetColor_434460(v25);
 		sub_49CC70(xLeft, yTop, v5, *(_DWORD*)(a1 + 12));
 	}
 	if (*v3 && *(_DWORD*)(v2 + 68) != 0x80000000) {

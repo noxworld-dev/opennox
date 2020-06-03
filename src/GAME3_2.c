@@ -337,7 +337,7 @@ int __cdecl sub_4CEA90(float* a1, int2* a2, int a3) {
 	v8 = a2->field_4 + nox_float2int(a1[5]);
 	v11 = a2->field_0 + nox_float2int(a1[6]);
 	v5 = a2->field_4 + nox_float2int(a1[7]);
-	sub_434460(a3);
+	nox_video_drawSetColor_434460(a3);
 	sub_49F500(v3, v4);
 	sub_49F500(v7, v8);
 	sub_49E4B0();

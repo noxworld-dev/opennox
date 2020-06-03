@@ -4007,7 +4007,7 @@ int __cdecl sub_4449D0(HWND wnd, int w, int h, int depth, int flags) {
 	if (!result)
 		return result;
 
-	result = sub_4B0B30();
+	result = nox_video_assignCircleDrawFuncs_4B0B30();
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result)
 		return result;
@@ -5318,7 +5318,7 @@ int __cdecl sub_448140(int yTop) {
 	sub_46AA60((_DWORD*)yTop, &xLeft, &yTop);
 	nox_window_get_size(v1, &v4, &v5);
 	sub_49CF10(xLeft, yTop, v4, v5);
-	sub_434460(*(int*)&byte_5D4594[2523948]);
+	nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2523948]);
 	sub_49F500(xLeft + 1, yTop);
 	sub_49F570(v4 - 2, 0);
 	sub_49E4B0();
@@ -5555,7 +5555,7 @@ int __cdecl sub_448FC0(int a1, int a2) {
 	sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
 	if ((signed char)*(_BYTE*)(a1 + 4) >= 0) {
 		if (*(_DWORD*)(a2 + 20) != 0x80000000) {
-			sub_434460(*(int*)&byte_5D4594[2650656]);
+			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 			sub_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 		}
 	} else {

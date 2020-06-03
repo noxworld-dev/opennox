@@ -7855,7 +7855,7 @@ int __cdecl sub_4343E0(int a1) {
 }
 
 //----- (00434460) --------------------------------------------------------
-int __cdecl sub_434460(int a1) {
+int __cdecl nox_video_drawSetColor_434460(int a1) {
 	ptr_5D4594_3799572->data[61] = a1;
 	return a1;
 }
@@ -7893,14 +7893,14 @@ char* __cdecl sub_434510(char* a1, unsigned __int8 a2, unsigned __int8 a3, unsig
 }
 
 //----- (00434560) --------------------------------------------------------
-int __cdecl sub_434560(int a1) {
+int __cdecl nox_video_drawEnableAlpha_434560(int a1) {
 	if (ptr_5D4594_3799572->data[13] != a1)
 		ptr_5D4594_3799572->data[13] = a1;
 	return ptr_5D4594_3799572;
 }
 
 //----- (00434580) --------------------------------------------------------
-int __cdecl sub_434580(unsigned __int8 a1) {
+int __cdecl nox_video_drawSetAlpha_434580(unsigned __int8 a1) {
 	int result; // eax
 	__int64 v2; // rax
 

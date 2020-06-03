@@ -44,11 +44,11 @@ int __cdecl nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		goto LABEL_12;
 	case 3:
 		v6 = 2 * *(unsigned __int8*)(v2 + 8);
-		sub_434560(1);
+		nox_video_drawEnableAlpha_434560(1);
 		v3 = (*(unsigned int*)&byte_5D4594[2598000] - dr->field_79) /
 		     ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 		if (v3 < v6) {
-			sub_434580(-56 - 200 * v3 / v6);
+			nox_video_drawSetAlpha_434580(-56 - 200 * v3 / v6);
 		LABEL_10:
 			v4 = *(unsigned __int8*)(v2 + 8);
 			if (v3 >= v4)
@@ -56,7 +56,7 @@ int __cdecl nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		LABEL_12:
 			sub_4C4770_draw(a1, dr, *(unsigned int*)(*(unsigned int*)(v2 + 4) + 4 * v3));
 			if (*(unsigned int*)(v2 + 12) == 3)
-				sub_434560(0);
+				nox_video_drawEnableAlpha_434560(0);
 		LABEL_14:
 			result = 1;
 		} else {
