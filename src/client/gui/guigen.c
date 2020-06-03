@@ -25,8 +25,8 @@ __int16 __cdecl sub_4A9D00(unsigned __int8* a1) {
 	sub_440900();
 	v3 = nox_win_height / 2 - 120;
 	v4 = nox_win_width / 2 - 160;
-	sub_47D2C0(*(_DWORD*)&byte_5D4594[4 * (*(_DWORD*)&byte_5D4594[1309672] % 4) + 1309644], v4, v3);
-	sub_47D2C0(*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1309672] + 1309516], v4, v3);
+	nox_client_drawImageAt_47D2C0(*(_DWORD*)&byte_5D4594[4 * (*(_DWORD*)&byte_5D4594[1309672] % 4) + 1309644], v4, v3);
+	nox_client_drawImageAt_47D2C0(*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1309672] + 1309516], v4, v3);
 	switch (*v1) {
 	case 0x9Bu:
 		v5 = loadString_sub_40F1D0((char*)&byte_587000[172368], 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c",

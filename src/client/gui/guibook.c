@@ -107,17 +107,17 @@ int __cdecl sub_45BD40(int a1) {
 	v3 = sub_43F320(0);
 	*(_DWORD*)&byte_5D4594[1046656] = v3 + 2;
 	sub_434390(*(int*)&byte_5D4594[1046880]);
-	sub_47D2C0(*(int*)&byte_5D4594[1046856], v1, v2);
+	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1046856], v1, v2);
 	if (*(_DWORD*)&byte_5D4594[1046872])
-		sub_47D2C0(*(int*)&byte_5D4594[1046660], v1, v2);
+		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1046660], v1, v2);
 	else
-		sub_47D2C0(*(int*)&byte_5D4594[1046644], v1, v2);
+		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1046644], v1, v2);
 	if (*(_DWORD*)&byte_5D4594[1046868] == 3) {
-		sub_4BE6D0(*(int*)&byte_5D4594[1046928], v1, v2);
+		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1046928], v1, v2);
 		goto LABEL_75;
 	}
 	if (*(_DWORD*)&byte_5D4594[1046868] == 2) {
-		sub_4BE6D0(*(int*)&byte_5D4594[1046924], v1, v2);
+		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1046924], v1, v2);
 		goto LABEL_75;
 	}
 	if (*(_DWORD*)&byte_587000[132132]) {
@@ -226,7 +226,7 @@ int __cdecl sub_45BD40(int a1) {
 		v63 = v23 + v20 + v68 + 2;
 		v61 = (108 - v18) / 2 + v66 + 24;
 		v27 = sub_427400(*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1046932] + 1046960]);
-		sub_47D2C0(v27, v61, v63);
+		nox_client_drawImageAt_47D2C0(v27, v61, v63);
 		v28 = (unsigned __int16*)sub_4272E0(
 		    *(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1046932] + 1046960]);
 		v29 = v28;
@@ -415,7 +415,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 						   (unsigned int)(2 * *(_DWORD*)&byte_5D4594[2649704])) {
 		return 1;
 	}
-	sub_46AA60(a1, &v25, &v24);
+	nox_client_wndGetPosition_46AA60(a1, &v25, &v24);
 	if (*(_DWORD*)&byte_5D4594[1046648]) {
 		v3 = 50;
 		do {
@@ -448,7 +448,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 		v9 = sub_425310(*(int*)&byte_5D4594[1047524], 0);
 	else
 		v9 = sub_424A90(*(int*)&byte_5D4594[1047524]);
-	sub_47D2C0(v9, v21, v22);
+	nox_client_drawImageAt_47D2C0(v9, v21, v22);
 	*(float*)&byte_5D4594[1046636] = *(float*)&byte_5D4594[1046636] + *(float*)&byte_5D4594[1046620];
 	*(float*)&byte_5D4594[1046640] = *(float*)&byte_5D4594[1046640] + *(float*)&byte_5D4594[1046624];
 	if ((double)*(int*)&byte_5D4594[1046668] <= *(float*)&byte_5D4594[1046636] &&
