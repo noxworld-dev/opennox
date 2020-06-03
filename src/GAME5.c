@@ -2077,7 +2077,7 @@ void __cdecl sub_548100(int2* a1, int a2) {
 	float2 v9; // [esp+0h] [ebp-8h]
 	int v10;   // [esp+Ch] [ebp+4h]
 
-	v2 = sub_410580(a1->field_0, a1->field_4);
+	v2 = nox_server_getWallAtPoint_410580(a1->field_0, a1->field_4);
 	if (v2) {
 		if (*(_BYTE*)(v2 + 4) & 4) {
 			if (*(_BYTE*)(a2 + 8) & 6) {
@@ -6705,9 +6705,9 @@ void __cdecl sub_54F740(int a1) {
 			goto LABEL_33;
 	}
 	if (*((_DWORD*)v2 + 4) && !*((_DWORD*)v2 + 3))
-		*((_DWORD*)v2 + 3) = sub_579C40(*((_DWORD*)v2 + 4));
+		*((_DWORD*)v2 + 3) = nox_server_getWaypointById_579C40(*((_DWORD*)v2 + 4));
 	if (*((_DWORD*)v2 + 6) && !*((_DWORD*)v2 + 5))
-		*((_DWORD*)v2 + 5) = sub_579C40(*((_DWORD*)v2 + 6));
+		*((_DWORD*)v2 + 5) = nox_server_getWaypointById_579C40(*((_DWORD*)v2 + 6));
 	v4 = *((_DWORD*)v2 + 7);
 	v5 = *(_DWORD*)(v4 + 16);
 	if (!(v5 & 4) || v5 & 0x20) {
@@ -6719,7 +6719,7 @@ void __cdecl sub_54F740(int a1) {
 	switch (*v2) {
 	case 0u:
 		if (*(_DWORD*)(a1 + 16) & 0x1000000) {
-			v6 = sub_579C40(*((_DWORD*)v2 + 2));
+			v6 = nox_server_getWaypointById_579C40(*((_DWORD*)v2 + 2));
 			if (v6) {
 				sub_4E7010(a1, (float2*)(*((_DWORD*)v2 + 7) + 56));
 				v7 = (double)*((int*)v2 + 1);
@@ -7131,7 +7131,7 @@ int __cdecl sub_54FFC0(int2* a1, int a2) {
 			if (*(_BYTE*)(a2 + 8) & 4) {
 				v10 = *(_DWORD*)(a2 + 748);
 				if (v10)
-					*(_DWORD*)(v10 + 296) = sub_410580(a1->field_0, a1->field_4);
+					*(_DWORD*)(v10 + 296) = nox_server_getWallAtPoint_410580(a1->field_0, a1->field_4);
 				v2 = a2;
 			}
 			if (sub_550380(v4, v2, &a7))
@@ -7157,7 +7157,7 @@ int __cdecl sub_54FFC0(int2* a1, int a2) {
 			if (*(_BYTE*)(v2 + 8) & 4) {
 				v12 = *(_DWORD*)(v2 + 748);
 				if (v12)
-					*(_DWORD*)(v12 + 296) = sub_410580(a1->field_0, a1->field_4);
+					*(_DWORD*)(v12 + 296) = nox_server_getWallAtPoint_410580(a1->field_0, a1->field_4);
 			}
 			if (sub_550380(v4, v2, &a7))
 				v16 = 1;

@@ -3777,7 +3777,7 @@ _DWORD* sub_579C00() {
 }
 
 //----- (00579C40) --------------------------------------------------------
-_DWORD* __cdecl sub_579C40(int a1) {
+_DWORD* __cdecl nox_server_getWaypointById_579C40(int a1) {
 	_DWORD* result; // eax
 
 	result = *(_DWORD**)&byte_5D4594[2523752];
@@ -3940,7 +3940,7 @@ const char* __cdecl sub_579E30(const char* a1) {
 	const char* i; // esi
 
 	for (i = (const char*)sub_579860(); i; i = (const char*)sub_579870((int)i)) {
-		if (sub_4DA3F0(i + 16, a1))
+		if (nox_server_strcmpWithoutMapname_4DA3F0(i + 16, a1))
 			break;
 	}
 	return i;
@@ -5231,7 +5231,7 @@ unsigned int sub_57BF80() {
 	unsigned int v2; // ecx
 
 	v0 = 0;
-	for (i = sub_57C080(); i; i = sub_57C090(i)) {
+	for (i = nox_server_getFirstMapGroup_57C080(); i; i = nox_server_getNextMapGroup_57C090(i)) {
 		v2 = *(_DWORD*)(i + 4);
 		if (v2 >= v0)
 			v0 = v2 + 1;
@@ -5277,10 +5277,10 @@ int sub_57C030() {
 }
 
 //----- (0057C080) --------------------------------------------------------
-int sub_57C080() { return *(_DWORD*)&byte_5D4594[2523900]; }
+int nox_server_getFirstMapGroup_57C080() { return *(_DWORD*)&byte_5D4594[2523900]; }
 
 //----- (0057C090) --------------------------------------------------------
-int __cdecl sub_57C090(int a1) {
+int __cdecl nox_server_getNextMapGroup_57C090(int a1) {
 	int result; // eax
 
 	if (a1)
@@ -5291,7 +5291,7 @@ int __cdecl sub_57C090(int a1) {
 }
 
 //----- (0057C0A0) --------------------------------------------------------
-int __cdecl sub_57C0A0(int a1) {
+int __cdecl nox_server_scriptGetGroup_57C0A0(int a1) {
 	int result; // eax
 
 	result = *(_DWORD*)&byte_5D4594[2523900];
@@ -5306,7 +5306,7 @@ int __cdecl sub_57C0A0(int a1) {
 }
 
 //----- (0057C0C0) --------------------------------------------------------
-int __cdecl sub_57C0C0(char* a1, int a2, char a3) {
+int __cdecl nox_server_mapLoadAddGroup_57C0C0(char* a1, int a2, char a3) {
 	int result; // eax
 	int v4;     // esi
 	int v5;     // ecx
@@ -5414,11 +5414,11 @@ int __cdecl sub_57C1E0(_DWORD* a1, int a2) {
 }
 
 //----- (0057C280) --------------------------------------------------------
-int __cdecl sub_57C280(const char* a1, int a2) {
+int __cdecl nox_server_scriptGetMapGroupByName_57C280(const char* a1, int a2) {
 	int i; // esi
 
-	for (i = sub_57C080(); i; i = sub_57C090(i)) {
-		if (a2 == sub_57C2D0((int**)i) && sub_4DA3F0((const char*)(i + 8), a1))
+	for (i = nox_server_getFirstMapGroup_57C080(); i; i = nox_server_getNextMapGroup_57C090(i)) {
+		if (a2 == nox_server_scriptGetGroupId_57C2D0((int**)i) && nox_server_strcmpWithoutMapname_4DA3F0((const char*)(i + 8), a1))
 			break;
 	}
 	return i;
@@ -5446,7 +5446,7 @@ void __cdecl sub_57C370(_QWORD* a1) { sub_414330(*(unsigned int**)&byte_5D4594[2
 void __cdecl sub_57C390(_QWORD* a1) { sub_414330(*(unsigned int**)&byte_5D4594[2523896], a1); }
 
 //----- (0057C3B0) --------------------------------------------------------
-int __cdecl sub_57C3B0(int a1) {
+int __cdecl nox_server_addNewMapGroup_57C3B0(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -5751,7 +5751,7 @@ char __cdecl sub_57C9A0(int a1, int a2, float* a3, float* a4, char a5) {
 	v31 = (unsigned char)sub_57B500(v5, a2, v30);
 	if (v31 == 255)
 		return 0;
-	v9 = v6 & 1 ? sub_4105E0(v5, a2) : sub_410580(v5, a2);
+	v9 = v6 & 1 ? sub_4105E0(v5, a2) : nox_server_getWallAtPoint_410580(v5, a2);
 	if (!v9 || v6 < 0 && *(_BYTE*)(v9 + 4) & 4 && *(_BYTE*)(*(_DWORD*)(v9 + 28) + 20) & 2)
 		return 0;
 	v10 = *(_DWORD*)&byte_5D4594[12332 * *(unsigned __int8*)(v9 + 1) + 2692780];

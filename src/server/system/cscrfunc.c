@@ -93,7 +93,7 @@ int sub_512B90() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	v2 = sub_511B60(v1);
+	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = *(char**)&byte_5D4594[4 * v0 + 3831212];
 		v6 = 0;
@@ -133,7 +133,7 @@ int sub_514A80() {
 	v0 = script_pop();
 	v1 = script_pop();
 	v2 = script_pop();
-	v3 = sub_511B60(v2);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
 		v4 = *(char**)&byte_5D4594[4 * v1 + 3831212];
 		v7 = v0 * *(_WORD*)&byte_5D4594[2649704];
@@ -159,7 +159,7 @@ int sub_514B10() {
 	v0 = script_pop();
 	v1 = script_pop();
 	v2 = script_pop();
-	v3 = sub_511B60(v2);
+	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
 		v4 = *(char**)&byte_5D4594[4 * v1 + 3831212];
 		v7 = 0;

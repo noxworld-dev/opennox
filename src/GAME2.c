@@ -1279,7 +1279,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		v6 = 24;
 		*(_DWORD*)&byte_5D4594[831220] = 255;
 	} else if (v3 == 254) {
-		sub_409B30();
+		nox_server_currentMapGetFilename_409B30();
 		v7 = sub_42F970("GauntletStartMines");
 		sub_46AE60(*(int*)&byte_5D4594[831232], (int)v7);
 		nox_window_call_field_94((int)v5, 16385, (int)&byte_5D4594[832540], 0);
@@ -5033,7 +5033,7 @@ char sub_459150() {
 			v17 = (int*)sub_459870();
 			v12 = sub_416590(1);
 			sub_57AAA0("user.rul", v12, v17);
-			v13 = sub_409B30();
+			v13 = nox_server_currentMapGetFilename_409B30();
 			sub_57A950(v13);
 			v18 = nox_common_gameFlags_getVal_40A5B0();
 			v16 = (int*)sub_459870();

@@ -3,6 +3,6 @@
 
 #include "../../defs.h"
 
-int __cdecl sub_57C2D0(int** a1);
+int __cdecl nox_server_scriptGetGroupId_57C2D0(int** a1);
 
 #endif // NOX_PORT_COMMON_SYSTEM_GROUP

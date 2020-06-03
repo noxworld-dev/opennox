@@ -1148,7 +1148,7 @@ int __cdecl sub_409B10(int a1) {
 }
 
 //----- (00409B30) --------------------------------------------------------
-char* sub_409B30() { return (char*)&byte_5D4594[2598188]; }
+char* nox_server_currentMapGetFilename_409B30() { return (char*)&byte_5D4594[2598188]; }
 
 //----- (00409B40) --------------------------------------------------------
 char* sub_409B40() { return (char*)&byte_5D4594[2649740]; }
@@ -1184,7 +1184,7 @@ char* sub_409B90() {
 	v3[6] = v2;
 	strcat((char*)&byte_5D4594[2424], sub_409B40());
 	*(_WORD*)&byte_5D4594[strlen((const char*)&byte_5D4594[2424]) + 2424] = *(_WORD*)&byte_587000[4740];
-	strcat((char*)&byte_5D4594[2424], sub_409B30());
+	strcat((char*)&byte_5D4594[2424], nox_server_currentMapGetFilename_409B30());
 	return (char*)&byte_5D4594[2424];
 }
 
@@ -6026,7 +6026,7 @@ LPVOID __cdecl sub_410250(int a1, int a2) {
 
 	if (a1 < 0 || a1 >= 256 || a2 < 0 || a2 >= 256)
 		return 0;
-	result = (LPVOID)sub_410580(a1, a2);
+	result = (LPVOID)nox_server_getWallAtPoint_410580(a1, a2);
 	if (result)
 		return result;
 	v3 = *(_DWORD*)&byte_5D4594[251548];
@@ -6207,7 +6207,7 @@ int __cdecl sub_410550(__int16 a1) {
 }
 
 //----- (00410580) --------------------------------------------------------
-int __cdecl sub_410580(int a1, int a2) {
+int __cdecl nox_server_getWallAtPoint_410580(int a1, int a2) {
 	int result; // eax
 	int v3;     // eax
 

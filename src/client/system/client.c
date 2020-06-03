@@ -512,7 +512,7 @@ int sub_436F50() {
 	v2 = *(_DWORD*)v1 + 10;
 	v3 = *((_DWORD*)v1 + 1) + 90;
 	sub_434390(*(int*)&byte_5D4594[2523948]);
-	v4 = sub_409B30();
+	v4 = nox_server_currentMapGetFilename_409B30();
 	nox_swprintf((wchar_t*)&byte_5D4594[811120], L"%S", v4);
 	sub_43F6E0(0, (__int16*)&byte_5D4594[811120], v2, v3);
 	result = *(_DWORD*)&byte_5D4594[2614252];

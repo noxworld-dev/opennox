@@ -442,7 +442,7 @@ int __cdecl nox_cmd_show_game(int a1, char a2) {
 		v17 = sub_40A180(*((_WORD*)v2 + 26));
 		v14 = (unsigned __int16)sub_40A020(*((_WORD*)v2 + 26));
 		v13 = sub_409FA0();
-		v12 = sub_409B30();
+		v12 = nox_server_currentMapGetFilename_409B30();
 		v9 = loadString_sub_40F1D0((char*)&byte_587000[103140], 0,
 					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1803);
 		sub_450C00(6u, v9, v12, v4, v13, v14, v17);
@@ -2146,7 +2146,7 @@ int nox_cmd_show_info() {
 
 //----- (00441500) --------------------------------------------------------
 int nox_cmd_show_mem() {
-	sub_409B30();
+	nox_server_currentMapGetFilename_409B30();
 	sub_413E30();
 	return 1;
 }

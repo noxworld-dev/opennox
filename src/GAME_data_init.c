@@ -1273,7 +1273,7 @@ void init_data() {
 	*(void**)&byte_587000[70224] = &byte_587000[70388];
 	*(void**)&byte_587000[70228] = &sub_4292C0;
 	*(void**)&byte_587000[70232] = &byte_587000[70400];
-	*(void**)&byte_587000[70236] = &sub_505C30;
+	*(void**)&byte_587000[70236] = &nox_server_mapRWGroupData_505C30;
 	*(void**)&byte_587000[70240] = &byte_587000[70412];
 	*(void**)&byte_587000[70244] = &sub_505A40;
 	*(void**)&byte_587000[70248] = &byte_587000[70428];
@@ -4044,7 +4044,7 @@ void init_data() {
 	*(void**)&byte_587000[245936] = &sub_512320;
 	*(void**)&byte_587000[245940] = &sub_512350;
 	*(void**)&byte_587000[245944] = &sub_512370;
-	*(void**)&byte_587000[245948] = &sub_512500;
+	*(void**)&byte_587000[245948] = &nox_server_scriptGroupGoTo_512500;
 	*(void**)&byte_587000[245952] = &sub_512560;
 	*(void**)&byte_587000[245956] = &sub_512610;
 	*(void**)&byte_587000[245960] = &sub_512670;
@@ -4197,7 +4197,7 @@ void init_data() {
 	*(void**)&byte_587000[246548] = &sub_515E80;
 	*(void**)&byte_587000[246552] = &sub_515EE0;
 	*(void**)&byte_587000[246556] = &sub_515F10;
-	*(void**)&byte_587000[246560] = &sub_516000;
+	*(void**)&byte_587000[246560] = &nox_server_scriptMonsterGroupFleeFrom_516000;
 	*(void**)&byte_587000[246564] = &sub_516060;
 	*(void**)&byte_587000[246568] = &sub_5160F0;
 	*(void**)&byte_587000[246572] = &sub_5161C0;

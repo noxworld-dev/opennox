@@ -1442,7 +1442,7 @@ int __cdecl sub_5003B0(int a1) {
 	if (*(_DWORD*)&byte_5D4594[1569756] > 0) {
 		v4 = &byte_5D4594[1569764];
 		do {
-			v5 = (_BYTE*)sub_410580(*v4, v4[1]);
+			v5 = (_BYTE*)nox_server_getWallAtPoint_410580(*v4, v4[1]);
 			if (v5) {
 				*v5 = v4[13];
 			} else {
@@ -2370,7 +2370,7 @@ int sub_4D1860_server() {
 			sub_424BD0();
 			sub_4537F0();
 		}
-		v10 = sub_409B30();
+		v10 = nox_server_currentMapGetFilename_409B30();
 		v6 = nox_server_loadMapFile_4CF5F0(v10, 0);
 		if (nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(128)) {
 			v11 = sub_40A8A0();
@@ -2564,7 +2564,7 @@ int sub_4D1860_server() {
 		sub_4E3D50();
 		sub_4E3DD0();
 		sub_4F1F20();
-		v55 = sub_409B30();
+		v55 = nox_server_currentMapGetFilename_409B30();
 		sub_4D10F0(v55);
 		sub_4D7520(1);
 		v56 = (__int64)sub_419D40(&byte_587000[196800]);
@@ -2713,7 +2713,7 @@ int sub_4D2580_server() {
 					sub_4D0A30();
 					v11 = sub_4D0CF0();
 					if (v11) {
-						v12 = sub_409B30();
+						v12 = nox_server_currentMapGetFilename_409B30();
 						if (!_strcmpi(v11, v12))
 							v11 = sub_4D0CF0();
 						if (v11)

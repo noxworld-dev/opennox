@@ -857,7 +857,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 		case 0x3Du:
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_916;
-			LODWORD(v5) = sub_410580(*(unsigned __int8*)(v3 + 4), *(unsigned __int8*)(v3 + 5));
+			LODWORD(v5) = nox_server_getWallAtPoint_410580(*(unsigned __int8*)(v3 + 4), *(unsigned __int8*)(v3 + 5));
 			if (!(_DWORD)v5) {
 				LODWORD(v5) = sub_410250(*(unsigned __int8*)(v3 + 4), *(unsigned __int8*)(v3 + 5));
 				if (!(_DWORD)v5)
@@ -871,7 +871,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			break;
 		case 0x3Eu:
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) = sub_410580(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
+				LODWORD(v5) = nox_server_getWallAtPoint_410580(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
 				if ((_DWORD)v5)
 					sub_410430(*(unsigned __int8*)(v5 + 5), *(unsigned __int8*)(v5 + 6));
 			}
