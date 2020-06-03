@@ -3546,7 +3546,7 @@ int __cdecl sub_534BC0(int a1, int a2, int a3, int a4, int a5) {
 	float v16;           // [esp+0h] [ebp-1Ch]
 	int2 v17;
 
-	v5 = (unsigned __int8*)sub_410580(a1, a2);
+	v5 = (unsigned __int8*)nox_server_getWallAtPoint_410580(a1, a2);
 	if (!*(_DWORD*)&byte_5D4594[2488556])
 		*(_DWORD*)&byte_5D4594[2488556] = sub_410D60("MagicWallSystemUseOnly");
 	if (!v5)
@@ -3608,7 +3608,7 @@ int __cdecl sub_534DA0(int* a1) {
 	float v16;   // [esp+8h] [ebp-1Ch]
 	float2 v17;  // [esp+1Ch] [ebp-8h]
 
-	v1 = sub_410580(*a1, a1[1]);
+	v1 = nox_server_getWallAtPoint_410580(*a1, a1[1]);
 	if (!*(_DWORD*)&byte_5D4594[2488560])
 		*(_DWORD*)&byte_5D4594[2488560] = sub_410D60("MagicWallSystemUseOnly");
 	if (!v1)
@@ -3729,7 +3729,7 @@ LABEL_10:
 			if (v6->field_0 <= v6->field_8) {
 				v15 = &v41[8 * v7 + 4];
 				do {
-					if (sub_410580(v14, v13)) {
+					if (nox_server_getWallAtPoint_410580(v14, v13)) {
 						v16 = (float*)(v29 ? a6 + 56 : a2);
 						v17 = (double)v32;
 						v35 = v17;

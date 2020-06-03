@@ -194,7 +194,7 @@ int sub_519EB0_net_mapsend() {
 	const char* v11;     // [esp+10h] [ebp-104h]
 	char v12[256];       // [esp+14h] [ebp-100h]
 
-	v0 = sub_409B30();
+	v0 = nox_server_currentMapGetFilename_409B30();
 	v11 = v0;
 	if (*(_DWORD*)&byte_5D4594[2388648]) {
 		v1 = &byte_5D4594[2387156];

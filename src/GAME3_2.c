@@ -1995,7 +1995,7 @@ int sub_4D17F0() {
 	int result; // eax
 
 	sub_4E79B0(0);
-	if (!memcmp(sub_409B30(), &byte_5D4594[1548720], 1u))
+	if (!memcmp(nox_server_currentMapGetFilename_409B30(), &byte_5D4594[1548720], 1u))
 		sub_409D70((char*)&byte_587000[196452]);
 	sub_519870();
 	result = sub_4D1860_server();
@@ -2295,7 +2295,7 @@ int sub_4D38D0() {
 	if (*(_DWORD*)&nox_common_engineFlags & 0x200000 && *(int*)&byte_587000[197424] != -1) {
 		_write(*(int*)&byte_587000[197424], &byte_5D4594[2598000], 4u);
 		_write(*(int*)&byte_587000[197424], &byte_587000[197434], 1u);
-		*(_DWORD*)&byte_5D4594[1549764] = sub_409B30();
+		*(_DWORD*)&byte_5D4594[1549764] = nox_server_currentMapGetFilename_409B30();
 		byte_5D4594[1548725] = strlen(*(const char**)&byte_5D4594[1549764]) + 1;
 		_write(*(int*)&byte_587000[197424], &byte_5D4594[1548725], 1u);
 		_write(*(int*)&byte_587000[197424], *(const void**)&byte_5D4594[1549764], byte_5D4594[1548725]);
@@ -4335,9 +4335,9 @@ int __cdecl sub_4D6880(int a1, int a2) {
 	if (sub_51A950())
 		v3[4] |= 2u;
 	*(_WORD*)&v3[2] = sub_4E3CC0();
-	sub_409B30();
+	nox_server_currentMapGetFilename_409B30();
 	strcpy(&v3[5], sub_4D6940());
-	sub_409B30();
+	nox_server_currentMapGetFilename_409B30();
 	strcpy(&v3[37], sub_4D6950());
 	return sub_4E5390(a1, (int)v3, 69, 0, 1);
 }
@@ -4360,9 +4360,9 @@ int __cdecl sub_4D6960(int a1) {
 	if (sub_51A950())
 		v2[4] |= 2u;
 	*(_WORD*)&v2[2] = sub_4E3CC0();
-	sub_409B30();
+	nox_server_currentMapGetFilename_409B30();
 	strcpy(&v2[5], sub_4D6940());
-	sub_409B30();
+	nox_server_currentMapGetFilename_409B30();
 	strcpy(&v2[37], sub_4D6950());
 	return sub_4E5390(a1, (int)v2, 69, 0, 1);
 }
@@ -6975,7 +6975,7 @@ int __cdecl sub_4DA3E0(int a1) {
 }
 
 //----- (004DA3F0) --------------------------------------------------------
-BOOL __cdecl sub_4DA3F0(const char* a1, const char* a2) {
+BOOL __cdecl nox_server_strcmpWithoutMapname_4DA3F0(const char* a1, const char* a2) {
 	char* v2;       // eax
 	const char* v3; // edi
 	const char* v4; // ebx
@@ -8904,7 +8904,7 @@ _DWORD* __cdecl sub_4DDB40(_DWORD* a1) {
 	sub_40EBC0(*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064), 1, &v5[124], 129);
 	sub_4DDDC0(*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064));
 	v5[80] = 43;
-	strcpy(&v5[81], sub_409B30());
+	strcpy(&v5[81], nox_server_currentMapGetFilename_409B30());
 	*(_DWORD*)&v5[113] = sub_409B00();
 	*(_DWORD*)&v5[117] = *(_DWORD*)&byte_5D4594[2598000];
 	sub_552640(*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064) + 1, &v5[80], 41, 3);

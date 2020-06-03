@@ -6260,7 +6260,7 @@ BOOL __cdecl sub_4FFD00(int a1, int a2, int a3, unsigned __int8 a4) {
 		byte_5D4594[1570005] = sub_410D60("InvisibleWallSet");
 		byte_5D4594[1570006] = sub_410D60("InvisibleBlockingWallSet");
 	}
-	v5 = sub_410580(a2, a3);
+	v5 = nox_server_getWallAtPoint_410580(a2, a3);
 	v6 = (unsigned __int8*)v5;
 	if (v5) {
 		v7 = *(_BYTE*)(v5 + 1);
@@ -8222,7 +8222,7 @@ int __cdecl sub_5025E0(int a1, int a2, int a3) {
 }
 
 //----- (00502670) --------------------------------------------------------
-void __cdecl sub_502670(unsigned __int8* a1, int a2, void(__cdecl* a3)(int, int), int a4) {
+void __cdecl nox_server_scriptExecuteFnForEachGroupObj_502670(unsigned __int8* groupPtr, int expectedType, void(__cdecl* a3)(int, int), int a4) {
 	int* i;               // esi
 	int v5;               // eax
 	int* j;               // esi
@@ -8232,11 +8232,11 @@ void __cdecl sub_502670(unsigned __int8* a1, int a2, void(__cdecl* a3)(int, int)
 	int* l;               // esi
 	unsigned __int8* v11; // eax
 
-	if (a1) {
-		switch (*a1) {
+	if (groupPtr) {
+		switch (*groupPtr) {
 		case 0u:
-			if (!a2) {
-				for (i = (int*)*((_DWORD*)a1 + 21); i; i = (int*)i[2]) {
+			if (!expectedType) {
+				for (i = (int*)*((_DWORD*)groupPtr + 21); i; i = (int*)i[2]) {
 					v5 = sub_4ED020(*i);
 					if (v5)
 						a3(v5, a4);
@@ -8244,18 +8244,18 @@ void __cdecl sub_502670(unsigned __int8* a1, int a2, void(__cdecl* a3)(int, int)
 			}
 			break;
 		case 1u:
-			if (a2 == 1) {
-				for (j = (int*)*((_DWORD*)a1 + 21); j; j = (int*)j[2]) {
-					v7 = sub_579C40(*j);
+			if (expectedType == 1) {
+				for (j = (int*)*((_DWORD*)groupPtr + 21); j; j = (int*)j[2]) {
+					v7 = nox_server_getWaypointById_579C40(*j);
 					if (v7)
 						a3((int)v7, a4);
 				}
 			}
 			break;
 		case 2u:
-			if (a2 == 2) {
-				for (k = (int*)*((_DWORD*)a1 + 21); k; k = (int*)k[2]) {
-					v9 = sub_410580(*k, k[1]);
+			if (expectedType == 2) {
+				for (k = (int*)*((_DWORD*)groupPtr + 21); k; k = (int*)k[2]) {
+					v9 = nox_server_getWallAtPoint_410580(*k, k[1]);
 					if (v9)
 						a3(v9, a4);
 				}
@@ -8264,10 +8264,10 @@ void __cdecl sub_502670(unsigned __int8* a1, int a2, void(__cdecl* a3)(int, int)
 			break;
 		case 3u:
 		LABEL_20:
-			for (l = (int*)*((_DWORD*)a1 + 21); l; l = (int*)l[2]) {
-				v11 = (unsigned __int8*)sub_57C0A0(*l);
+			for (l = (int*)*((_DWORD*)groupPtr + 21); l; l = (int*)l[2]) {
+				v11 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(*l);
 				if (v11)
-					sub_502670(v11, a2, a3, a4);
+					nox_server_scriptExecuteFnForEachGroupObj_502670(v11, expectedType, a3, a4);
 			}
 			break;
 		default:
@@ -9383,7 +9383,7 @@ int __cdecl sub_504330(int a1, int a2) {
 		v3 = (a1 + 23 * (*v2)[5]) / 23;
 		v4 = a2 + 23 * (*v2)[6];
 		v6 = v4 / 23;
-		v7 = (unsigned __int8*)sub_410580(v3, v6);
+		v7 = (unsigned __int8*)nox_server_getWallAtPoint_410580(v3, v6);
 		if (v7) {
 			v8 = **v2;
 			if (*(_DWORD*)&byte_5D4594[3835368])
@@ -9595,7 +9595,7 @@ int __cdecl sub_504720(int a1, int a2) {
 	v2 = *(int**)&byte_5D4594[1599564];
 	if (*(_DWORD*)&byte_5D4594[1599564]) {
 		do {
-			sub_57C3B0(*v2);
+			nox_server_addNewMapGroup_57C3B0(*v2);
 			v2 = (int*)v2[1];
 		} while (v2);
 	}
@@ -10487,7 +10487,7 @@ int sub_505A40() {
 }
 
 //----- (00505C30) --------------------------------------------------------
-int sub_505C30() {
+int nox_server_mapRWGroupData_505C30() {
 	char v0;      // bp
 	int v2;       // ebx
 	int i;        // eax
@@ -10527,25 +10527,27 @@ int sub_505C30() {
 		if (v13 <= 0)
 			return 1;
 		while (1) {
+            v17 = 0;
 			sub_426AC0_file3_fread(&v17, 1u);
 			sub_426AC0_file3_fread(v23, (unsigned __int8)v17);
+			v23[v17] = 0; // null-term missing
 			v8 = (_WORD)v15 == 2;
 			if ((__int16)v15 < 2) {
-				if (strlen(sub_409B30()) + 1 + strlen(v23) >= 0x35)
+				if (strlen(nox_server_currentMapGetFilename_409B30()) + 1 + strlen(v23) >= 0x35)
 					return 0;
-				v9 = sub_409B30();
+				v9 = nox_server_currentMapGetFilename_409B30();
 				nox_sprintf(v25, "%s.map:%s", v9, v23);
 				strcpy(v23, v25);
 				v8 = (_WORD)v15 == 2;
 			}
 			if (v8) {
 				strcpy(v14, ":");
-				strcpy(v24, sub_409B30());
+				strcpy(v24, nox_server_currentMapGetFilename_409B30());
 				*(_WORD*)&v24[strlen(v24)] = *(_WORD*)&byte_587000[229976];
 				strcpy(v26, v23);
 				strtok(v26, v14);
 				v10 = strtok(0, v14);
-				if (strlen(sub_409B30()) + 1 + strlen(v10) >= 0x35)
+				if (strlen(nox_server_currentMapGetFilename_409B30()) + 1 + strlen(v10) >= 0x35)
 					return 0;
 				strcat(v24, v10);
 				strcpy(v23, v24);
@@ -10556,7 +10558,7 @@ int sub_505C30() {
 				if (nox_common_gameFlags_check_40A5C0(0x400000)) {
 					sub_504600(v23, v16, v18);
 				} else if (nox_common_gameFlags_check_40A5C0(2097153)) {
-					sub_57C0C0(v23, v16, v18);
+					nox_server_mapLoadAddGroup_57C0C0(v23, v16, v18);
 				}
 			}
 			sub_426AC0_file3_fread(&v12, 4u);
@@ -10595,10 +10597,10 @@ int sub_505C30() {
 		}
 	}
 	v13 = 0;
-	for (i = sub_57C080(); i; i = sub_57C090(i))
+	for (i = nox_server_getFirstMapGroup_57C080(); i; i = nox_server_getNextMapGroup_57C090(i))
 		++v13;
 	sub_426AC0_file3_fread(&v13, 4u);
-	v4 = sub_57C080();
+	v4 = nox_server_getFirstMapGroup_57C080();
 	if (!v4)
 		return 1;
 	do {
@@ -10633,7 +10635,7 @@ int sub_505C30() {
 			goto LABEL_16;
 		}
 	LABEL_17:
-		v4 = sub_57C090(v4);
+		v4 = nox_server_getNextMapGroup_57C090(v4);
 	} while (v4);
 	return 1;
 }
@@ -12389,7 +12391,7 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 			continue;
 		case 69:
 			v138 = sub_507270((int**)&v160);
-			if (sub_508B70(index, v138) != 1)
+			if (nox_server_scriptCallBuiltinFn_508B70(index, v138) != 1)
 				continue;
 			goto LABEL_199;
 		case 70:
@@ -12428,7 +12430,7 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 }
 
 //----- (00508B70) --------------------------------------------------------
-int __cdecl sub_508B70(int a1, int a2) {
+int __cdecl nox_server_scriptCallBuiltinFn_508B70(int a1, int a2) {
 	int v2;     // ebx
 	int result; // eax
 

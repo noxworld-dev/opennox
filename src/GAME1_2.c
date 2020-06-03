@@ -894,7 +894,7 @@ int __cdecl sub_4292C0(_DWORD* a1) {
 					if (v4)
 						v2 = (_DWORD*)*v4;
 				} else {
-					v2 = (_DWORD*)sub_410580(v7.field_0, v7.field_4);
+					v2 = (_DWORD*)nox_server_getWallAtPoint_410580(v7.field_0, v7.field_4);
 				}
 				if (v2) {
 					*((_BYTE*)v2 + 4) |= 0x40u;
@@ -980,7 +980,7 @@ int __cdecl sub_429530(_DWORD* a1) {
 					if (v4)
 						v2 = (_DWORD*)*v4;
 				} else {
-					v2 = (_DWORD*)sub_410580(v7.field_0, v7.field_4);
+					v2 = (_DWORD*)nox_server_getWallAtPoint_410580(v7.field_0, v7.field_4);
 				}
 				if (v2) {
 					*((_BYTE*)v2 + 4) |= 8u;
@@ -1115,7 +1115,7 @@ int __cdecl sub_4297C0(_DWORD* a1) {
 			if (++v11 >= *(__int16*)&byte_5D4594[741348])
 				return 1;
 		}
-		v10 = sub_410580(*v3, *((_DWORD*)v2 + 2));
+		v10 = nox_server_getWallAtPoint_410580(*v3, *((_DWORD*)v2 + 2));
 	LABEL_14:
 		v7 = v10;
 		goto LABEL_15;
@@ -1258,7 +1258,7 @@ int __cdecl sub_429B20(_DWORD* a1) {
 				v17 = (unsigned __int8*)*sub_504290(v30, (char)a1);
 			} else {
 				v18 = (unsigned __int8)v30;
-				v19 = (unsigned __int8*)sub_410580((unsigned __int8)v30, (unsigned __int8)a1);
+				v19 = (unsigned __int8*)nox_server_getWallAtPoint_410580((unsigned __int8)v30, (unsigned __int8)a1);
 				v17 = v19;
 				if (v19) {
 					if (v31 & 1)
@@ -1307,7 +1307,7 @@ int __cdecl sub_429B20(_DWORD* a1) {
 			v29 = v8;
 			if (v8 <= v8 + v7) {
 				do {
-					v10 = (_BYTE*)sub_410580(v9, v26);
+					v10 = (_BYTE*)nox_server_getWallAtPoint_410580(v9, v26);
 					v11 = v10;
 					if (v10) {
 						if (v10[1] != byte_5D4594[741372]) {
@@ -1447,7 +1447,7 @@ int __cdecl sub_42A150(__int16 a1, _DWORD* a2) {
 			if (v10 > v10 + v9)
 				goto LABEL_27;
 			do {
-				v12 = sub_410580(v11, v8);
+				v12 = nox_server_getWallAtPoint_410580(v11, v8);
 				v13 = (_BYTE*)v12;
 				if (v3) {
 					if (!v12)
@@ -1559,7 +1559,7 @@ int __cdecl sub_42A150(__int16 a1, _DWORD* a2) {
 		}
 		goto LABEL_59;
 	}
-	v22 = (unsigned __int8*)sub_410580(v17 + *(_DWORD*)&byte_5D4594[741360], v4 + *(_DWORD*)&byte_5D4594[741368]);
+	v22 = (unsigned __int8*)nox_server_getWallAtPoint_410580(v17 + *(_DWORD*)&byte_5D4594[741360], v4 + *(_DWORD*)&byte_5D4594[741368]);
 	v21 = v22;
 	if (v22) {
 		if (v30 & 1) {
