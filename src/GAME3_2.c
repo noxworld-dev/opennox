@@ -337,19 +337,19 @@ int __cdecl sub_4CEA90(float* a1, int2* a2, int a3) {
 	v8 = a2->field_4 + nox_float2int(a1[5]);
 	v11 = a2->field_0 + nox_float2int(a1[6]);
 	v5 = a2->field_4 + nox_float2int(a1[7]);
-	nox_video_drawSetColor_434460(a3);
-	sub_49F500(v3, v4);
-	sub_49F500(v7, v8);
-	sub_49E4B0();
-	sub_49F500(v11, v5);
-	sub_49F500(v7, v8);
-	sub_49E4B0();
-	sub_49F500(v3, v4);
-	sub_49F500(v9, v10);
-	sub_49E4B0();
-	sub_49F500(v11, v5);
-	sub_49F500(v9, v10);
-	return sub_49E4B0();
+	nox_client_drawSetColor_434460(a3);
+	nox_client_drawAddPoint_49F500(v3, v4);
+	nox_client_drawAddPoint_49F500(v7, v8);
+	nox_client_drawLineFromPoints_49E4B0();
+	nox_client_drawAddPoint_49F500(v11, v5);
+	nox_client_drawAddPoint_49F500(v7, v8);
+	nox_client_drawLineFromPoints_49E4B0();
+	nox_client_drawAddPoint_49F500(v3, v4);
+	nox_client_drawAddPoint_49F500(v9, v10);
+	nox_client_drawLineFromPoints_49E4B0();
+	nox_client_drawAddPoint_49F500(v11, v5);
+	nox_client_drawAddPoint_49F500(v9, v10);
+	return nox_client_drawLineFromPoints_49E4B0();
 }
 
 //----- (004CEBA0) --------------------------------------------------------
@@ -433,12 +433,12 @@ int __cdecl sub_4CEED0(int a1, int a2) {
 	int xLeft;  // [esp+8h] [ebp-8h]
 	int yTop;   // [esp+Ch] [ebp-4h]
 
-	sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
+	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
 	if ((signed char)*(_BYTE*)(a1 + 4) >= 0) {
 		if (*(_DWORD*)(a2 + 20) != 0x80000000)
-			sub_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
+			nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 	} else {
-		sub_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
+		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
 	}
 	v2 = nox_window_call_field_94(*(int*)&byte_5D4594[1523028], 16404, 0, 0);
 	v3 = *(_BYTE*)(*(_DWORD*)&byte_5D4594[1523040] + 4);
@@ -857,7 +857,7 @@ int __cdecl sub_4CFE10(const char* a1) {
 			sub_426C20(&v5, 4u);
 		}
 		sub_426AC0_file3_fread(v6, 0x20u);
-		if (sub_42A6E0()) {
+		if (nox_server_mapRWMapInfo_42A6E0()) {
 			sub_4269F0();
 			result = 1;
 		} else {

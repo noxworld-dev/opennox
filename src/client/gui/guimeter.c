@@ -235,26 +235,26 @@ int __cdecl sub_471D10(int xLeft) {
 	v3 = &byte_5D4594[20 * v18 + 1093036];
 	v20 = &byte_5D4594[20 * v18 + 1093036];
 	if (!v18 && *(_DWORD*)&byte_5D4594[1096264]) {
-		sub_46AA60(*(_DWORD**)&byte_5D4594[1090276], &xLeft, &yTop);
-		sub_47D2C0(*(int*)&byte_5D4594[1091900], xLeft, yTop);
+		nox_client_wndGetPosition_46AA60(*(_DWORD**)&byte_5D4594[1090276], &xLeft, &yTop);
+		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1091900], xLeft, yTop);
 	}
-	sub_46AA60(v1, &xLeft, &yTop);
+	nox_client_wndGetPosition_46AA60(v1, &xLeft, &yTop);
 	xLeft += 5;
 	if (*(_DWORD*)&byte_5D4594[3799468]) {
-		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
-		sub_49CE30(xLeft, yTop, 15, 125);
+		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
+		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 15, 125);
 	}
 	v4 = *((_DWORD*)v3 + 2);
 	if (v4) {
 		v6 = 125 * *((_DWORD*)v3 + 1) / v4;
-		sub_49CF10(xLeft, yTop, 15, 125 - v6);
-		nox_video_drawSetColor_434460(*((_DWORD*)v3 + 3));
-		nox_video_drawEnableAlpha_434560(1);
-		sub_49CE30(xLeft, yTop - v6 + 125, 15, v6);
-		nox_video_drawEnableAlpha_434560(0);
-		sub_49F500(xLeft, yTop - v6 + 125);
+		nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 15, 125 - v6);
+		nox_client_drawSetColor_434460(*((_DWORD*)v3 + 3));
+		nox_client_drawEnableAlpha_434560(1);
+		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop - v6 + 125, 15, v6);
+		nox_client_drawEnableAlpha_434560(0);
+		nox_client_drawAddPoint_49F500(xLeft, yTop - v6 + 125);
 		sub_49F570(14, 0);
-		sub_49E4B0();
+		nox_client_drawLineFromPoints_49E4B0();
 		if (v2 < 2 && *(_DWORD*)&byte_587000[80844] == 1) {
 			v19 = 64;
 			v7 = (int*)&byte_5D4594[1536 * v2 + 1093188];
@@ -264,11 +264,11 @@ int __cdecl sub_471D10(int xLeft) {
 					v8 = *(v7 - 1) >> 4;
 					if (v8 >= 125 - v6) {
 						if (*(_DWORD*)&byte_5D4594[1096264])
-							nox_video_drawSetColor_434460(*((_DWORD*)v20 + 3));
+							nox_client_drawSetColor_434460(*((_DWORD*)v20 + 3));
 						else
-							nox_video_drawSetColor_434460(v7[3]);
+							nox_client_drawSetColor_434460(v7[3]);
 						if (*v7 <= 2)
-							sub_49CE30(xLeft + *(v7 - 2), yTop + v8, *v7, *v7);
+							nox_client_drawRectFilledOpaque_49CE30(xLeft + *(v7 - 2), yTop + v8, *v7, *v7);
 						else
 							sub_4720C0(xLeft + *(v7 - 2), yTop + v8);
 						*(v7 - 1) -= v7[1];
@@ -333,7 +333,7 @@ int __cdecl sub_471D10(int xLeft) {
 		sub_472080();
 		result = 1;
 	} else {
-		sub_49CF10(xLeft, yTop, 15, 125);
+		nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 15, 125);
 		result = 1;
 	}
 	return result;

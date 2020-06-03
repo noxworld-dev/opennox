@@ -402,8 +402,8 @@ int __cdecl sub_4627F0(_DWORD* a1) {
 	v2 = 0;
 	sub_43F340(0);
 	sub_43F320(0);
-	nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
-	sub_49CE30(*a1 + 11, a1[1] + 15, 200, 200);
+	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
+	nox_client_drawRectFilledOpaque_49CE30(*a1 + 11, a1[1] + 15, 200, 200);
 	sub_463370(*(_DWORD**)&byte_5D4594[1062456], v1, &v74);
 	if (sub_4281F0(&v74, (int4*)&byte_587000[136352]) || sub_4281F0(&v74, (int4*)&byte_587000[136368])) {
 		if (sub_4281F0(&v74, (int4*)&byte_587000[136368]) && (v74.field_4 - 13) / 50 != 1) {
@@ -797,8 +797,8 @@ int* __cdecl sub_463880(int* a1) {
 		v8 = v6 + 11;
 		v9 = v7 + 15;
 		sub_434390(v72);
-		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
-		sub_49CE30(v8, v9, 200, 200);
+		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
+		nox_client_drawRectFilledOpaque_49CE30(v8, v9, 200, 200);
 		v10 = v8 + 2;
 		v11 = v9 + 2 * v1 + 3;
 		v52 = *(char*)(v4 + 3684);
@@ -819,17 +819,17 @@ int* __cdecl sub_463880(int* a1) {
 		v16 = loadString_sub_40F1D0((char*)&byte_587000[138496], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c",
 					    1896);
 		sub_43FAF0(0, v16, v10, v15, 200, 0);
-		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2598268]);
-		sub_49CE30(v10 + 60, v15, 90, v1);
+		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2598268]);
+		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v15, 90, v1);
 		v54 = (double)(int)(90 * *(_DWORD*)(v4 + 2247)) / *v70;
 		v67 = nox_float2int(v54);
-		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2589776]);
-		sub_49CE30(v10 + 60, v15, v67, v1);
+		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2589776]);
+		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v15, v67, v1);
 		v68 = 90 * sub_470CC0();
 		v55 = (double)v68 / *v70;
 		v67 = nox_float2int(v55);
-		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650644]);
-		sub_49CE30(v10 + 60, v15, v67, v1);
+		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650644]);
+		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v15, v67, v1);
 		v56 = nox_float2int(*v70);
 		v42 = *(_DWORD*)(v4 + 2247);
 		v17 = loadString_sub_40F1D0((char*)&byte_587000[138544], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c",
@@ -843,21 +843,21 @@ int* __cdecl sub_463880(int* a1) {
 		sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 + 45, SLODWORD(v69), 200, 0);
 		v19 = v15 + v1 + 1;
 		if (*(_BYTE*)(v4 + 2251)) {
-			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650648]);
-			sub_49CE30(v10 + 60, v19, 90, v1);
+			nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650648]);
+			nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, 90, v1);
 			v68 = 90 * *(_DWORD*)(v4 + 2243);
 			v57 = (double)v68 / v70[1];
 			v67 = nox_float2int(v57);
 			v20 = loadString_sub_40F1D0((char*)&byte_587000[138604], 0,
 						    "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1941);
 			sub_43FAF0(0, v20, v10, v19, 200, 0);
-			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650684]);
-			sub_49CE30(v10 + 60, v19, v67, v1);
+			nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650684]);
+			nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, v67, v1);
 			v68 = 90 * sub_470DD0();
 			v58 = (double)v68 / v70[1];
 			v67 = nox_float2int(v58);
-			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2649820]);
-			sub_49CE30(v10 + 60, v19, v67, v1);
+			nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2649820]);
+			nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, v67, v1);
 			v59 = nox_float2int(v70[1]);
 			v43 = *(_DWORD*)(v4 + 2243);
 			v21 = loadString_sub_40F1D0((char*)&byte_587000[138652], 0,
@@ -870,16 +870,16 @@ int* __cdecl sub_463880(int* a1) {
 			sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 + 45, v19 + v73, 200, 0);
 			v19 += v1 + 1;
 		}
-		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650660]);
-		sub_49CE30(v10 + 60, v19, 90, v1);
+		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650660]);
+		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, 90, v1);
 		v68 = 90 * *(_DWORD*)(v4 + 2239);
 		v60 = (double)v68 / v70[3];
 		v67 = nox_float2int(v60);
 		v23 = loadString_sub_40F1D0((char*)&byte_587000[138712], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c",
 					    1975);
 		sub_43FAF0(0, v23, v10, v19, 200, 0);
-		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2597996]);
-		sub_49CE30(v10 + 60, v19, v67, v1);
+		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2597996]);
+		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, v67, v1);
 		v61 = nox_float2int(v70[3]);
 		v44 = *(_DWORD*)(v4 + 2239);
 		v24 = loadString_sub_40F1D0((char*)&byte_587000[138764], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c",
@@ -890,16 +890,16 @@ int* __cdecl sub_463880(int* a1) {
 		nox_swprintf(v77, L"%d", *(_DWORD*)(v4 + 2239));
 		sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 + 45, v19 + v73, 200, 0);
 		v25 = v19 + v1 + 1;
-		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2614256]);
-		sub_49CE30(v10 + 60, v25, 90, v1);
+		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2614256]);
+		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v25, 90, v1);
 		v68 = 90 * *(_DWORD*)(v4 + 2235);
 		v62 = (double)v68 / v70[2] + 0.5;
 		v67 = nox_float2int(v62);
 		v26 = loadString_sub_40F1D0((char*)&byte_587000[138824], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c",
 					    2006);
 		sub_43FAF0(0, v26, v10, v25, 200, 0);
-		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2589772]);
-		sub_49CE30(v10 + 60, v25, v67, v1);
+		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2589772]);
+		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v25, v67, v1);
 		sub_434390(*(int*)&byte_5D4594[2523948]);
 		v69 = *(float*)&byte_5D4594[1063100] / (v71[2] * 0.000001);
 		if (byte_5D4594[1062541] & 2)
@@ -911,16 +911,16 @@ int* __cdecl sub_463880(int* a1) {
 				*(float*)&v68 = COERCE_FLOAT(nox_float2int(v69));
 				if (v67 + v68 > 90)
 					v68 = 90 - v67;
-				nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2589772]);
-				sub_49CE30(v67 + v10 + 60, v25, v68, v1);
+				nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2589772]);
+				nox_client_drawRectFilledOpaque_49CE30(v67 + v10 + 60, v25, v68, v1);
 				sub_434390(*(int*)&byte_5D4594[2650684]);
 			}
 		} else {
-			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650648]);
+			nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650648]);
 			v45 = -v69;
 			v46 = nox_float2int(v45);
 			v27 = nox_float2int(v69);
-			sub_49CE30(v67 + v27 + v10 + 60, v25, v46, v1);
+			nox_client_drawRectFilledOpaque_49CE30(v67 + v27 + v10 + 60, v25, v46, v1);
 		}
 		*(float*)&v68 = v69 * 100.0 * 0.011111111;
 		v63 = v70[2] * 100.0 / v71[2];

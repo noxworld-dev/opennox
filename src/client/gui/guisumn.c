@@ -155,7 +155,7 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 	if (*(_DWORD*)&byte_5D4594[1321204] || (result = 1, a1[8] != 1)) {
 		v2 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * a1[8] + 184344], 0,
 					   "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);
-		sub_46AA60(a1, &v11, &v10);
+		nox_client_wndGetPosition_46AA60(a1, &v11, &v10);
 		sub_43F840(0, v2, &v12, 0, 0);
 		v3 = nox_client_getMousePos_4309F0();
 		sub_43F320(0);

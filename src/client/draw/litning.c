@@ -69,10 +69,10 @@ int __cdecl sub_4BB070(int a1, int a2) {
 		sub_434080(12);
 		v4 = SHIWORD(a1);
 		v5 = (__int16)a1;
-		sub_49F500((__int16)a1, SHIWORD(a1));
+		nox_client_drawAddPoint_49F500((__int16)a1, SHIWORD(a1));
 		v6 = SHIWORD(a2);
 		v7 = (__int16)a2;
-		sub_49F500((__int16)a2, SHIWORD(a2));
+		nox_client_drawAddPoint_49F500((__int16)a2, SHIWORD(a2));
 		sub_49E4F0(v23);
 		v23 = 1;
 	} else {
@@ -80,16 +80,16 @@ int __cdecl sub_4BB070(int a1, int a2) {
 		sub_434080(3);
 		v4 = SHIWORD(a1);
 		v5 = (__int16)a1;
-		sub_49F500((__int16)a1, SHIWORD(a1));
+		nox_client_drawAddPoint_49F500((__int16)a1, SHIWORD(a1));
 		v6 = SHIWORD(a2);
 		v7 = (__int16)a2;
-		sub_49F500((__int16)a2, SHIWORD(a2));
+		nox_client_drawAddPoint_49F500((__int16)a2, SHIWORD(a2));
 		sub_49E4F0(32);
 	}
-	nox_video_drawSetColor_434460(*(int*)&byte_5D4594[1316472]);
-	sub_49F500(v5, v4);
-	sub_49F500(v7, v6);
-	sub_49E4B0();
+	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[1316472]);
+	nox_client_drawAddPoint_49F500(v5, v4);
+	nox_client_drawAddPoint_49F500(v7, v6);
+	nox_client_drawLineFromPoints_49E4B0();
 	if (!v23)
 		return --*(_DWORD*)&byte_5D4594[1316492];
 	v8 = byte_5D4594[1316420];
@@ -108,13 +108,13 @@ int __cdecl sub_4BB070(int a1, int a2) {
 			if (v4 - v6 < 0)
 				v10 = v6 - v4;
 			if (v9 <= v10) {
-				sub_49F500(v19, v6);
-				sub_49F500(v21, v4);
+				nox_client_drawAddPoint_49F500(v19, v6);
+				nox_client_drawAddPoint_49F500(v21, v4);
 			} else {
-				sub_49F500(v7, v27);
-				sub_49F500(v5, v17);
+				nox_client_drawAddPoint_49F500(v7, v27);
+				nox_client_drawAddPoint_49F500(v5, v17);
 			}
-			sub_49E4B0();
+			nox_client_drawLineFromPoints_49E4B0();
 			++v27;
 			++v17;
 			++v21;
@@ -139,13 +139,13 @@ int __cdecl sub_4BB070(int a1, int a2) {
 		if (v4 - v6 < 0)
 			v12 = v6 - v4;
 		if (v11 <= v12) {
-			sub_49F500(v20, v6);
-			sub_49F500(v18, v4);
+			nox_client_drawAddPoint_49F500(v20, v6);
+			nox_client_drawAddPoint_49F500(v18, v4);
 		} else {
-			sub_49F500(v7, v28);
-			sub_49F500(v5, v22);
+			nox_client_drawAddPoint_49F500(v7, v28);
+			nox_client_drawAddPoint_49F500(v5, v22);
 		}
-		sub_49E4B0();
+		nox_client_drawLineFromPoints_49E4B0();
 		--v28;
 		--v22;
 		--v18;

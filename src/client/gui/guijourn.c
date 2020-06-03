@@ -83,8 +83,8 @@ void __cdecl sub_469D40(int xLeft, int yTop, int a3) {
 	v3 = *(_DWORD*)&byte_5D4594[2618908];
 	v4 = yTop - a3;
 	if (*(_DWORD*)&byte_5D4594[2618908]) {
-		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
-		sub_49CE30(xLeft, yTop, 260, 150);
+		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
+		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150);
 		v5 = *(_DWORD*)(v3 + 3644);
 		if (v5) {
 			for (i = *(_DWORD*)(v5 + 64); i; i = *(_DWORD*)(i + 64))

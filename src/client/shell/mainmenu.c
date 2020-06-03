@@ -170,11 +170,11 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 	int yTop;             // [esp+8h] [ebp-4h]
 
 	sub_430B40_get_mouse_prev_seq();
-	sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
+	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
 	if ((signed char)*(_BYTE*)(a1 + 4) >= 0) {
 		if (a2[5] != 0x80000000) {
-			nox_video_drawSetColor_434460(a2[5]);
-			sub_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
+			nox_client_drawSetColor_434460(a2[5]);
+			nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 		}
 	} else {
 		v2 = *(_DWORD*)(a1 + 100);
@@ -183,9 +183,9 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 		LOBYTE(v2) = *(_BYTE*)(a1 + 36);
 		yTop = v3;
 		if (v2 & 2)
-			sub_47D2C0(a2[10], xLeft, v3);
+			nox_client_drawImageAt_47D2C0(a2[10], xLeft, v3);
 		else
-			sub_47D2C0(a2[6], xLeft, v3);
+			nox_client_drawImageAt_47D2C0(a2[6], xLeft, v3);
 	}
 	if (*(_DWORD*)&byte_587000[168836]) {
 		v4 = &byte_587000[168868];
@@ -226,7 +226,7 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 		v10 = &byte_587000[168872];
 		do {
 			if (!*((_DWORD*)v10 - 6) && !*(_DWORD*)v10)
-				sub_47D2C0(*((_DWORD*)v10 - 9), *((_DWORD*)v10 - 8), *((_DWORD*)v10 - 7));
+				nox_client_drawImageAt_47D2C0(*((_DWORD*)v10 - 9), *((_DWORD*)v10 - 8), *((_DWORD*)v10 - 7));
 			v11 = *((_DWORD*)v10 + 2);
 			v10 += 48;
 		} while (v11);

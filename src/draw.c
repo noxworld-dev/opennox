@@ -2601,7 +2601,7 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3) {
 		}
 		LeaveCriticalSection((LPCRITICAL_SECTION)&byte_5D4594[3799596]);
 	} else if (*(_DWORD*)&byte_5D4594[1193672] && a1) {
-		sub_47D2C0(a1, a2, a3);
+		nox_client_drawImageAt_47D2C0(a1, a2, a3);
 		return 1;
 	}
 	return 1;

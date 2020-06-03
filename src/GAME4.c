@@ -9873,7 +9873,7 @@ int __cdecl sub_504AB0(char* a1) {
 // 504AB0: using guessed type char var_840[64];
 
 //----- (00504CF0) --------------------------------------------------------
-int __cdecl sub_504CF0(_DWORD* a2) {
+int __cdecl nox_server_mapRWObjectData_504CF0(_DWORD* a2) {
 	int result;          // eax
 	int i;               // esi
 	int j;               // esi
@@ -9962,7 +9962,7 @@ int __cdecl sub_504CF0(_DWORD* a2) {
 }
 
 //----- (00504F90) --------------------------------------------------------
-int sub_504F90() {
+int nox_server_mapRWScriptData_504F90() {
 	int result; // eax
 	char v1;    // [esp+3h] [ebp-5h]
 	int v2;     // [esp+4h] [ebp-4h]
@@ -10008,7 +10008,7 @@ LPVOID sub_505060() {
 }
 
 //----- (00505080) --------------------------------------------------------
-int sub_505080() {
+int nox_server_mapRWMapIntro_505080() {
 	FILE* v0;           // ebx
 	BOOL v1;            // ebp
 	char* v2;           // edi
@@ -10418,7 +10418,7 @@ char* sub_5058F0() {
 }
 
 //----- (00505A40) --------------------------------------------------------
-int sub_505A40() {
+int nox_server_mapRWScriptObject_505A40() {
 	int v0;   // edi
 	char* v1; // eax
 	FILE* v2; // eax
@@ -10642,7 +10642,7 @@ int nox_server_mapRWGroupData_505C30() {
 // 505C30: using guessed type char var_E4[76];
 
 //----- (005060D0) --------------------------------------------------------
-int sub_5060D0() {
+int nox_server_mapRWDebugData_5060D0() {
 	int j;        // eax
 	char* v2;     // esi
 	int i;        // esi
@@ -10690,7 +10690,7 @@ int sub_5060D0() {
 }
 
 //----- (00506260) --------------------------------------------------------
-int __cdecl sub_506260(_DWORD* a1) {
+int __cdecl nox_server_mapRWWaypoints_506260(_DWORD* a1) {
 	float* v2;        // esi
 	_DWORD* v3;       // edi
 	char* v4;         // esi

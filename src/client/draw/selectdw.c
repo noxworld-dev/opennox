@@ -3,7 +3,7 @@
 #include "../../proto.h"
 
 //----- (004773C0) --------------------------------------------------------
-void __cdecl nox_client_drawCursorSelectCircle_4773C0(_DWORD* a1) {
+void __cdecl nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 	int v1;     // eax
 	int v2;     // eax
 	_DWORD* v3; // eax
@@ -42,6 +42,6 @@ void __cdecl nox_client_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 	LABEL_15:
 		v5 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1096640] + 112);
 		if (!(v5 & 0x200))
-			nox_client_drawCursorSelectCircle2_477470(a1, (int)v3, *(int*)&byte_5D4594[1096640]);
+			nox_video_drawCursorSelectCircle2_477470(a1, (int)v3, *(int*)&byte_5D4594[1096640]);
 	}
 }

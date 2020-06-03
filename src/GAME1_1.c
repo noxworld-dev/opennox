@@ -6712,7 +6712,7 @@ int __cdecl sub_422200(int a1) {
 }
 
 //----- (00422230) --------------------------------------------------------
-int __cdecl sub_422230(int a1) {
+int __cdecl nox_server_mapRWFloorMap_422230(int a1) {
 	int v2;               // ecx
 	char v3;              // bl
 	int v4;               // esi

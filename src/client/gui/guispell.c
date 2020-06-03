@@ -508,7 +508,7 @@ int __cdecl sub_45F9B0(_DWORD* a1) {
 
 	if (!*(_DWORD*)&byte_5D4594[1049476]) {
 		v1 = a1;
-		sub_46AA60(a1, &v6, &a1);
+		nox_client_wndGetPosition_46AA60(a1, &v6, &a1);
 		nox_window_get_size((int)v1, &v7, &v9);
 		v5 = *(unsigned __int8*)(*(_DWORD*)&byte_587000[133480] + 200) + 1;
 		v2 = loadString_sub_40F1D0((char*)&byte_587000[135296], 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
@@ -537,7 +537,7 @@ int __cdecl sub_45FAC0(_DWORD* a1) {
 	wchar_t v9[32]; // [esp+14h] [ebp-40h]
 
 	v1 = a1;
-	sub_46AA60(a1, &a1, &v7);
+	nox_client_wndGetPosition_46AA60(a1, &a1, &v7);
 	nox_window_get_size((int)v1, &v5, &v8);
 	v4 = byte_5D4594[1048140] + 1;
 	v2 = loadString_sub_40F1D0((char*)&byte_587000[135348], 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1299);
@@ -582,7 +582,7 @@ int __cdecl sub_45FBD0(int yTop) {
 	} while (v2 < 5);
 	if (v2 == 5)
 		return 0;
-	sub_46AA60((_DWORD*)yTop, &xLeft, &yTop);
+	nox_client_wndGetPosition_46AA60((_DWORD*)yTop, &xLeft, &yTop);
 	v5 = sub_43F320(0);
 	v6 = *(_DWORD*)(*(_DWORD*)&byte_587000[133480] + 204);
 	v7 = (int*)(v6 + 8 * v2);
@@ -602,7 +602,7 @@ int __cdecl sub_45FBD0(int yTop) {
 			sub_46B000((wchar_t*)(v1 + 36), v10);
 			if (v9) {
 			LABEL_14:
-				sub_47D2C0(v9, xLeft, yTop);
+				nox_client_drawImageAt_47D2C0(v9, xLeft, yTop);
 			LABEL_19:
 				v13 = 24 * *v7;
 				if (*(_DWORD*)&byte_5D4594[v13 + 1047776] || !*(_DWORD*)&byte_5D4594[v13 + 1047772] ||
@@ -610,7 +610,7 @@ int __cdecl sub_45FBD0(int yTop) {
 					v14 = sub_4252D0(*v7);
 					if (v14 / *(_DWORD*)&byte_5D4594[2649704]) {
 						if (!v19)
-							sub_49CF10(xLeft, yTop, 34,
+							nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 34,
 								   34 - (*(_DWORD*)&byte_5D4594[2598000] -
 									 *(_DWORD*)&byte_5D4594[24 * *v7 + 1047784]) /
 									    (v14 / *(_DWORD*)&byte_5D4594[2649704]));
@@ -676,7 +676,7 @@ int __cdecl sub_45FDE0(int yTop) {
 	} while (v2 < 5);
 	if (v2 == 5)
 		return 0;
-	sub_46AA60((_DWORD*)yTop, &xLeft, &yTop);
+	nox_client_wndGetPosition_46AA60((_DWORD*)yTop, &xLeft, &yTop);
 	if (v4[2 * v2]) {
 		if (*(_DWORD*)&byte_5D4594[2598000] <= 0xAu || v2 != *(_DWORD*)&byte_587000[133484] ||
 		    (unsigned int)(*(_DWORD*)&byte_5D4594[2598000] - *(_DWORD*)&byte_5D4594[1049540]) >= 0xA) {
@@ -692,7 +692,7 @@ int __cdecl sub_45FDE0(int yTop) {
 		v11 = (wchar_t*)sub_424930(v4[2 * v2]);
 		sub_46B000((wchar_t*)(v1 + 36), v11);
 		if (v9) {
-			sub_47D2C0(v9, xLeft, yTop);
+			nox_client_drawImageAt_47D2C0(v9, xLeft, yTop);
 		} else {
 			sub_434390(*(int*)&byte_5D4594[2523948]);
 			v17 = sub_43F320(0) + yTop + 2;
@@ -716,11 +716,11 @@ int __cdecl sub_45FDE0(int yTop) {
 			v14 = v20;
 		}
 		if (!sub_424B70(v4[2 * v2]) || sub_4372B0() || sub_4356C0(*(int*)&byte_5D4594[2614252], 29)) {
-			sub_49CF10(xLeft, yTop, 30, 30);
+			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 30, 30);
 			return 1;
 		}
 		if (v13 < v14 && v14) {
-			sub_49CF10(xLeft, yTop, 30, 30 * (v14 - v13) / v14);
+			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 30, 30 * (v14 - v13) / v14);
 			return 1;
 		}
 	} else {

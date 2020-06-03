@@ -3165,7 +3165,7 @@ int __cdecl sub_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 		}
 	LABEL_97:
 		if (*(_DWORD*)&byte_5D4594[816452]) {
-			sub_49D190(ptr_5D4594_3799572->data[59], v11, v5, v67, *(_DWORD*)(v7 + 8));
+			nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], v11, v5, v67, *(_DWORD*)(v7 + 8));
 			*(_DWORD*)&byte_5D4594[816452] = 0;
 			sub_43FE90(v7, a2, v11, v5);
 			*(_DWORD*)&byte_5D4594[816452] = 1;
@@ -3266,7 +3266,7 @@ int __cdecl sub_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 	}
 LABEL_60:
 	if (*(_DWORD*)&byte_5D4594[816452]) {
-		sub_49D190(ptr_5D4594_3799572->data[59], xLeft, v71, v67, v72.field_C - v72.field_4);
+		nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], xLeft, v71, v67, v72.field_C - v72.field_4);
 		*(_DWORD*)&byte_5D4594[816452] = 0;
 		sub_43FE90(a1, a2, xLeft, v71);
 		*(_DWORD*)&byte_5D4594[816452] = 1;
@@ -3379,7 +3379,7 @@ int __cdecl sub_440360(int a1, int a2, int xLeft, int yTop) {
 		if (!v43) {
 		LABEL_95:
 			if (*(_DWORD*)&byte_5D4594[816452]) {
-				sub_49D190(ptr_5D4594_3799572->data[59], xLeft, yTop, v67, *(_DWORD*)(a1 + 8));
+				nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], xLeft, yTop, v67, *(_DWORD*)(a1 + 8));
 				*(_DWORD*)&byte_5D4594[816452] = 0;
 				sub_440360(a1, a2, xLeft, yTop);
 				*(_DWORD*)&byte_5D4594[816452] = 1;
@@ -3564,7 +3564,7 @@ int __cdecl sub_440360(int a1, int a2, int xLeft, int yTop) {
 LABEL_61:
 	if (*(_DWORD*)&byte_5D4594[816452]) {
 		v42 = v70;
-		sub_49D190(ptr_5D4594_3799572->data[59], xLeft, v70, v67, v71.field_C - v71.field_4);
+		nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], xLeft, v70, v67, v71.field_C - v71.field_4);
 		*(_DWORD*)&byte_5D4594[816452] = 0;
 		sub_440360(a1, a2, xLeft, v42);
 		*(_DWORD*)&byte_5D4594[816452] = 1;
@@ -4047,7 +4047,7 @@ int __cdecl sub_4449D0(HWND wnd, int w, int h, int depth, int flags) {
 	if (!result)
 		return result;
 
-	result = sub_49E3F0();
+	result = nox_video_initLineDrawingFuncs_49E3F0();
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result)
 		return result;
@@ -4077,7 +4077,7 @@ int __cdecl sub_4449D0(HWND wnd, int w, int h, int depth, int flags) {
 	if (!result)
 		return result;
 
-	result = sub_49CB50();
+	result = nox_video_initRectDrawingFuncs_49CB50();
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result)
 		return result;
@@ -4318,10 +4318,10 @@ int __cdecl sub_4456E0(int* a1) {
 	int v4;  // [esp+4h] [ebp-4h]
 
 	v1 = a1;
-	sub_46AA60(a1, &a1, &v4);
+	nox_client_wndGetPosition_46AA60(a1, &a1, &v4);
 	v2 = v1[25];
 	a1 = (int*)((char*)a1 + v1[24]);
-	sub_47D2C0(v1[15], (int)a1, v2 + v4);
+	nox_client_drawImageAt_47D2C0(v1[15], (int)a1, v2 + v4);
 	return 1;
 }
 
@@ -4364,8 +4364,8 @@ int __cdecl sub_445BC0(_DWORD* a1) {
 	int xLeft; // [esp+4h] [ebp-8h]
 	int yTop;  // [esp+8h] [ebp-4h]
 
-	sub_46AA60(a1, &xLeft, &yTop);
-	sub_49CF10(xLeft, yTop, a1[2], a1[3]);
+	nox_client_wndGetPosition_46AA60(a1, &xLeft, &yTop);
+	nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, a1[2], a1[3]);
 	return 1;
 }
 
@@ -5315,22 +5315,22 @@ int __cdecl sub_448140(int yTop) {
 	int v5;    // [esp+Ch] [ebp-4h]
 
 	v1 = yTop;
-	sub_46AA60((_DWORD*)yTop, &xLeft, &yTop);
+	nox_client_wndGetPosition_46AA60((_DWORD*)yTop, &xLeft, &yTop);
 	nox_window_get_size(v1, &v4, &v5);
-	sub_49CF10(xLeft, yTop, v4, v5);
-	nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2523948]);
-	sub_49F500(xLeft + 1, yTop);
+	nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, v4, v5);
+	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2523948]);
+	nox_client_drawAddPoint_49F500(xLeft + 1, yTop);
 	sub_49F570(v4 - 2, 0);
-	sub_49E4B0();
-	sub_49F500(xLeft + 1, yTop + v5);
+	nox_client_drawLineFromPoints_49E4B0();
+	nox_client_drawAddPoint_49F500(xLeft + 1, yTop + v5);
 	sub_49F570(v4 - 2, 0);
-	sub_49E4B0();
-	sub_49F500(xLeft, yTop + 1);
+	nox_client_drawLineFromPoints_49E4B0();
+	nox_client_drawAddPoint_49F500(xLeft, yTop + 1);
 	sub_49F570(0, v5 - 2);
-	sub_49E4B0();
-	sub_49F500(xLeft + v4, yTop + 1);
+	nox_client_drawLineFromPoints_49E4B0();
+	nox_client_drawAddPoint_49F500(xLeft + v4, yTop + 1);
 	sub_49F570(0, v5 - 2);
-	sub_49E4B0();
+	nox_client_drawLineFromPoints_49E4B0();
 	return 1;
 }
 
@@ -5342,7 +5342,7 @@ int __cdecl sub_448240(_DWORD* a1, _BYTE* a2) {
 	int v6;               // [esp+8h] [ebp-4h]
 
 	v2 = *(unsigned __int16**)&byte_587000[12 * a1[8] + 108824];
-	sub_46AA60(a1, &v6, &a1);
+	nox_client_wndGetPosition_46AA60(a1, &v6, &a1);
 	sub_43F840(0, v2, &v5, 0, 0);
 	v3 = *(_DWORD*)&byte_5D4594[2589772];
 	if (!(*a2 & 2))
@@ -5396,13 +5396,13 @@ int __cdecl sub_4483A0(int a1, int a2) {
 		if (!sub_46AAB0(*(_DWORD**)&byte_5D4594[829504], v2->field_0, v2->field_4))
 			sub_448380();
 	}
-	sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
+	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
 	if ((signed char)*(_BYTE*)(a1 + 4) >= 0) {
 		if (*(_DWORD*)(a2 + 20) != 0x80000000)
-			sub_49CF10(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
+			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 		result = 1;
 	} else {
-		sub_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
+		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
 		result = 1;
 	}
 	return result;
@@ -5552,14 +5552,14 @@ int __cdecl sub_448FC0(int a1, int a2) {
 	int xLeft; // [esp+4h] [ebp-8h]
 	int yTop;  // [esp+8h] [ebp-4h]
 
-	sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
+	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
 	if ((signed char)*(_BYTE*)(a1 + 4) >= 0) {
 		if (*(_DWORD*)(a2 + 20) != 0x80000000) {
-			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
-			sub_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
+			nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
+			nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 		}
 	} else {
-		sub_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
+		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
 	}
 	if (*(_DWORD*)&byte_587000[111668]) {
 		if (*(_DWORD*)&byte_5D4594[830204] && sub_4160F0(0x12u, 10 * *(_DWORD*)&byte_5D4594[2649704])) {
