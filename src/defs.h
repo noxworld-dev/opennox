@@ -39,8 +39,8 @@ typedef intptr_t INT_PTR;
 typedef INT_PTR LSTATUS;
 */
 
-#include <mmreg.h>
 #include <windows.h>
+//#include <mmreg.h>
 
 #ifndef _Static_assert
 #define _Static_assert static_assert

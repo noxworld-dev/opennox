@@ -241,17 +241,17 @@ int __cdecl sub_471D10(int xLeft) {
 	sub_46AA60(v1, &xLeft, &yTop);
 	xLeft += 5;
 	if (*(_DWORD*)&byte_5D4594[3799468]) {
-		sub_434460(*(int*)&byte_5D4594[2650656]);
+		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 		sub_49CE30(xLeft, yTop, 15, 125);
 	}
 	v4 = *((_DWORD*)v3 + 2);
 	if (v4) {
 		v6 = 125 * *((_DWORD*)v3 + 1) / v4;
 		sub_49CF10(xLeft, yTop, 15, 125 - v6);
-		sub_434460(*((_DWORD*)v3 + 3));
-		sub_434560(1);
+		nox_video_drawSetColor_434460(*((_DWORD*)v3 + 3));
+		nox_video_drawEnableAlpha_434560(1);
 		sub_49CE30(xLeft, yTop - v6 + 125, 15, v6);
-		sub_434560(0);
+		nox_video_drawEnableAlpha_434560(0);
 		sub_49F500(xLeft, yTop - v6 + 125);
 		sub_49F570(14, 0);
 		sub_49E4B0();
@@ -264,9 +264,9 @@ int __cdecl sub_471D10(int xLeft) {
 					v8 = *(v7 - 1) >> 4;
 					if (v8 >= 125 - v6) {
 						if (*(_DWORD*)&byte_5D4594[1096264])
-							sub_434460(*((_DWORD*)v20 + 3));
+							nox_video_drawSetColor_434460(*((_DWORD*)v20 + 3));
 						else
-							sub_434460(v7[3]);
+							nox_video_drawSetColor_434460(v7[3]);
 						if (*v7 <= 2)
 							sub_49CE30(xLeft + *(v7 - 2), yTop + v8, *v7, *v7);
 						else

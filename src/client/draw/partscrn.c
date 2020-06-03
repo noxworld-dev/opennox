@@ -22,7 +22,7 @@ int __cdecl sub_489700(int a1, int a2) {
 	if (xLeft.field_0 <= 0 || v2 <= 0 || xLeft.field_0 >= *(int*)(a1 + 32) || v2 >= *(int*)(a1 + 36))
 		goto LABEL_19;
 	sub_4B6720(&xLeft, *(_DWORD*)(a2 + 8), *(unsigned __int8*)(a2 + 40), *(_BYTE*)(a2 + 40));
-	sub_434460(*(_DWORD*)(a2 + 12));
+	nox_video_drawSetColor_434460(*(_DWORD*)(a2 + 12));
 	sub_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(a2 + 40) >> 1);
 	v3 = *(_BYTE*)(a2 + 41);
 	*(_DWORD*)(a2 + 20) += *(_DWORD*)(a2 + 36);
