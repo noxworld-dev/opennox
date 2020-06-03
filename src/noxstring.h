@@ -21,46 +21,41 @@ int nox_vsprintf(char* str, const char* format, va_list ap);
 int nox_snprintf(char* str, size_t size, const char* format, ...);
 int nox_sprintf(char* str, const char* format, ...);
 
-static int __cdecl nox_swprintf(wchar_t* str, const wchar_t* fmt, ...)
-{
-    int len;
-    va_list ap;
-    va_start(ap, fmt);
-    len = nox_vsnwprintf(str, 0x3fffffff, fmt, ap);
-    va_end(ap);
-    return len;
+static int __cdecl nox_swprintf(wchar_t* str, const wchar_t* fmt, ...) {
+	int len;
+	va_list ap;
+	va_start(ap, fmt);
+	len = nox_vsnwprintf(str, 0x3fffffff, fmt, ap);
+	va_end(ap);
+	return len;
 }
 
-static int __cdecl nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap)
-{
-    return nox_vsnwprintf(str, 0x3fffffff, fmt, ap);
+static int __cdecl nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap) {
+	return nox_vsnwprintf(str, 0x3fffffff, fmt, ap);
 }
 
 #define dprintf _dprintf
-static void dprintf(const char* fmt, ...)
-{
-    char buf[1024];
-    int len;
-    va_list ap;
-    va_start(ap, fmt);
-    len = nox_vsnprintf(buf, sizeof(buf) - 1, fmt, ap);
-    buf[len] = '\n';
-    buf[len + 1] = 0;
-    OutputDebugStringA(buf);
-    va_end(ap);
+static void dprintf(const char* fmt, ...) {
+	char buf[1024];
+	int len;
+	va_list ap;
+	va_start(ap, fmt);
+	len = nox_vsnprintf(buf, sizeof(buf) - 1, fmt, ap);
+	buf[len] = '\n';
+	buf[len + 1] = 0;
+	OutputDebugStringA(buf);
+	va_end(ap);
 }
 
-static void dhexdump(const BYTE* data, unsigned int len)
-{
-    char tmp[4];
-    unsigned int i;
+static void dhexdump(const BYTE* data, unsigned int len) {
+	char tmp[4];
+	unsigned int i;
 
-    for (i = 0; i < len; i++)
-    {
-        sprintf(tmp, "%02X ", data[i]);
-        OutputDebugStringA(tmp);
-    }
-    OutputDebugStringA("\n");
+	for (i = 0; i < len; i++) {
+		sprintf(tmp, "%02X ", data[i]);
+		OutputDebugStringA(tmp);
+	}
+	OutputDebugStringA("\n");
 }
 
 #endif

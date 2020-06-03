@@ -5,4 +5,4 @@
 
 void __cdecl sub_445490(wchar_t* a1);
 
-#endif //NOX_PORT_CLIENT_GUI_GUIMSG
+#endif // NOX_PORT_CLIENT_GUI_GUIMSG
