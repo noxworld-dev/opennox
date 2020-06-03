@@ -853,7 +853,7 @@ int4* __cdecl sub_48D990(_DWORD* a1) {
 					} else {
 						v9 = *(_DWORD*)&byte_5D4594[2614248];
 					}
-					sub_434460(v9);
+					nox_video_drawSetColor_434460(v9);
 					v23 = v8 - v1;
 					sub_49F500(v8, v18 - v1);
 					sub_49F500(v8 - v1, v18);
@@ -2112,7 +2112,7 @@ int sub_495430() {
 	__int64 v4; // rtt
 
 	*(_DWORD*)&byte_5D4594[1203832] = 0;
-	sub_434560(0);
+	nox_video_drawEnableAlpha_434560(0);
 	sub_4345F0(0);
 	sub_434600(0);
 	v0 = *(_DWORD*)&byte_5D4594[1203840];
@@ -2514,8 +2514,8 @@ int __cdecl sub_495BF0(int a1, int a2, int a3) {
 		v9 = (_DWORD*)(a2 + 8);
 		do {
 			v13 -= 42;
-			sub_434560(1);
-			sub_434580(v13);
+			nox_video_drawEnableAlpha_434560(1);
+			nox_video_drawSetAlpha_434580(v13);
 			*(_DWORD*)(a1 + 12) = *v9;
 			*(_DWORD*)(a1 + 16) = v9[1];
 			(*(void(__cdecl**)(int, int))(a1 + 300))(a3, a1);
@@ -2542,7 +2542,7 @@ int __cdecl sub_495BF0(int a1, int a2, int a3) {
 	*(_DWORD*)(a2 + 12) = v7;
 	if (v12 != 5)
 		*(_BYTE*)(a2 + 56) = v12 + 1;
-	return sub_434560(0);
+	return nox_video_drawEnableAlpha_434560(0);
 }
 
 //----- (00495D00) --------------------------------------------------------
@@ -2617,8 +2617,8 @@ int __cdecl sub_495D00(_DWORD* a1, int a2, _DWORD* a3) {
 		v32 = (_DWORD*)(a2 + 12);
 		do {
 			v26 -= 63;
-			sub_434560(1);
-			sub_434580(v26);
+			nox_video_drawEnableAlpha_434560(1);
+			nox_video_drawSetAlpha_434580(v26);
 			v13 = *v8 + *(v32 - 1) - v8[4];
 			v14 = *v32 - *((__int16*)v6 + 52) - *((__int16*)v6 + 53) - v8[5] + v8[1] - 10;
 			v24 = *v28 * -12.0;
@@ -2626,7 +2626,7 @@ int __cdecl sub_495D00(_DWORD* a1, int a2, _DWORD* a3) {
 			v25 = *v29 * -12.0;
 			v16 = nox_float2int(v25) + v14;
 			v17 = sub_4344A0(200, 200, 200);
-			sub_434460(v17);
+			nox_video_drawSetColor_434460(v17);
 			sub_49F500(v11, v31);
 			sub_49F500(v15, v16);
 			sub_49E4B0();
@@ -2654,7 +2654,7 @@ int __cdecl sub_495D00(_DWORD* a1, int a2, _DWORD* a3) {
 	v21 = *(_BYTE*)(v12 + 56);
 	if (v21 != 5)
 		*(_BYTE*)(v12 + 56) = v21 + 1;
-	return sub_434560(0);
+	return nox_video_drawEnableAlpha_434560(0);
 }
 
 //----- (00495F30) --------------------------------------------------------
@@ -4466,7 +4466,7 @@ int sub_498AE0() {
 	int v1; // esi
 	int i;  // eax
 
-	sub_434560(1);
+	nox_video_drawEnableAlpha_434560(1);
 	sub_434430(0, 0, 0);
 	v0 = *(_DWORD*)&byte_5D4594[1217464];
 	v1 = 0;
@@ -4478,7 +4478,7 @@ int sub_498AE0() {
 		}
 		i = v1;
 	}
-	return sub_434560(0);
+	return nox_video_drawEnableAlpha_434560(0);
 }
 
 //----- (00498B50) --------------------------------------------------------
@@ -4524,7 +4524,7 @@ int __cdecl sub_498B50(int a1, int a2, int a3, int a4) {
 	v13 = v4 - v5;
 	v18 = 10;
 	do {
-		sub_434580(v15);
+		nox_video_drawSetAlpha_434580(v15);
 		v15 -= 20;
 		sub_49F500(v5, v6);
 		sub_49F500(v5 + v13, v12 + v6);

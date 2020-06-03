@@ -1258,11 +1258,11 @@ int __cdecl sub_4A3C50(_DWORD* a1, int a2) {
 	v6 = v20;
 LABEL_13:
 	if (v5 != 0x80000000) {
-		sub_434460(v5);
+		nox_video_drawSetColor_434460(v5);
 		sub_49CE30(xLeft, yTop, v22, v4);
 	}
 	if (v6 != 0x80000000) {
-		sub_434460(v6);
+		nox_video_drawSetColor_434460(v6);
 		sub_49CC70(xLeft, yTop, v22, v4);
 	}
 	sub_49F6F0(xLeft, yTop, v22, v4);
@@ -1300,7 +1300,7 @@ LABEL_13:
 					}
 				LABEL_30:
 					if (*(_DWORD*)(a2 + 52) != 0x80000000) {
-						sub_434460(*(_DWORD*)(a2 + 52));
+						nox_video_drawSetColor_434460(*(_DWORD*)(a2 + 52));
 						sub_49CE30(xLeft, v21, v22, v12);
 					}
 					goto LABEL_32;
@@ -1398,7 +1398,7 @@ int __cdecl sub_4A3FC0(_DWORD* a1, int a2) {
 		v4 += -1 - sub_43F320(v20);
 	}
 	if (v28 != 0x80000000) {
-		sub_434460(v28);
+		nox_video_drawSetColor_434460(v28);
 		sub_49CC70(xLeft, yTop, v22, v4);
 	}
 	sub_49F6F0(xLeft, yTop, v22, v4);
@@ -1437,7 +1437,7 @@ int __cdecl sub_4A3FC0(_DWORD* a1, int a2) {
 					}
 				LABEL_27:
 					if (*(_DWORD*)(a2 + 52) != 0x80000000) {
-						sub_434460(*(_DWORD*)(a2 + 52));
+						nox_video_drawSetColor_434460(*(_DWORD*)(a2 + 52));
 						sub_49CE30(xLeft, v25, v22, v13);
 					}
 					goto LABEL_29;
@@ -2159,7 +2159,7 @@ int __cdecl sub_4A6D20(int a1, int a2) {
 	v10 = v5;
 	LOBYTE(v5) = byte_5D4594[3 * v6 + 1307796];
 	v8 = sub_4344A0(v5, v4, v10);
-	sub_434460(v8);
+	nox_video_drawSetColor_434460(v8);
 	sub_49CE30(xLeft, yTop, v7, v13);
 	return 1;
 }
@@ -3003,11 +3003,11 @@ int __cdecl sub_4A81D0(int a1, int a2) {
 		v4 = *(_DWORD*)(v2 + 44);
 	}
 	if (v3 != 0x80000000) {
-		sub_434460(v3);
+		nox_video_drawSetColor_434460(v3);
 		sub_49CC70(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 	}
 	if (v4 != 0x80000000) {
-		sub_434460(v4);
+		nox_video_drawSetColor_434460(v4);
 		sub_49CE30(xLeft + 1, yTop + 1, *(_DWORD*)(a1 + 8) - 2, *(_DWORD*)(a1 + 12) - 2);
 	}
 	if (*(_WORD*)(v2 + 72)) {
@@ -3236,15 +3236,15 @@ int __cdecl sub_4A8820(int a1, int a2) {
 	v5 = *(_DWORD*)(v3 + 12) / 2 + v15 - 5;
 	v13 = sub_43F320(*(_DWORD*)(v2 + 200));
 	if (a2 != 0x80000000) {
-		sub_434460(a2);
+		nox_video_drawSetColor_434460(a2);
 		sub_49CE30(v4, v5, 10, 10);
 	}
 	if (v12 != 0x80000000) {
-		sub_434460(v12);
+		nox_video_drawSetColor_434460(v12);
 		sub_49CC70(v4, v5, 10, 10);
 	}
 	if (*(_BYTE*)v2 & 4 && *(_DWORD*)(v2 + 52) != 0x80000000) {
-		sub_434460(*(_DWORD*)(v2 + 52));
+		nox_video_drawSetColor_434460(*(_DWORD*)(v2 + 52));
 		sub_49CE30(v4 + 1, v5 + 1, 8, 8);
 	}
 	if ((*(_DWORD*)(v3 + 4) & 0x2000) == 0x2000)
@@ -3448,19 +3448,19 @@ int __cdecl sub_4A8EA0(int a1, int a2) {
 	v4 = yTop + *(_DWORD*)(a1 + 12) / 2 - 5;
 	v5 = xLeft + 4;
 	if (v12 != 0x80000000) {
-		sub_434460(v12);
+		nox_video_drawSetColor_434460(v12);
 		sub_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 	}
 	if (v3 != 0x80000000) {
-		sub_434460(v3);
+		nox_video_drawSetColor_434460(v3);
 		sub_49CC70(v5, v4, 10, 10);
 	}
 	if (*(_BYTE*)v2 & 4) {
 		if (*(_DWORD*)(v2 + 52) != 0x80000000) {
-			sub_434460(*(_DWORD*)(v2 + 52));
+			nox_video_drawSetColor_434460(*(_DWORD*)(v2 + 52));
 			sub_49CE30(v5 + 1, v4 + 1, 8, 8);
 			if (v3 != 0x80000000) {
-				sub_434460(v3);
+				nox_video_drawSetColor_434460(v3);
 				sub_49F500(v5, v4);
 				sub_49F570(9, 9);
 				sub_49E4B0();
@@ -6544,7 +6544,7 @@ int __cdecl sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 	v37 = a3;
 	v34 = 3;
 	v32 = 5 - 2 * a3;
-	result = sub_434460(a5);
+	result = nox_video_drawSetColor_434460(a5);
 	v6 = a4;
 	if (a4 < 0) {
 		v6 = 0;
@@ -7022,9 +7022,9 @@ unsigned __int8* __cdecl sub_4AF0F0(unsigned __int8** a1) {
 		if (v6) {
 			do {
 				if (v7 & 1)
-					sub_434460(*(int*)&byte_5D4594[2523948]);
+					nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2523948]);
 				else
-					sub_434460(*(int*)&byte_5D4594[2589772]);
+					nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2589772]);
 				v13 = (int)v1[7];
 				v8 = sub_48C5E0(-8, -2);
 				v12 = (char*)a1 + v8;
@@ -7198,7 +7198,7 @@ int __cdecl sub_4AF4C0(int a1) {
 	v1 = *(_DWORD*)(*(_DWORD*)(a1 + 20) + 8);
 	v2 = *(_DWORD*)(v1 + 12);
 	v3 = *(_DWORD*)(v1 + 16);
-	sub_434460(*(int*)&byte_5D4594[2589772]);
+	nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2589772]);
 	v11 = sub_48C5E0(v3 - 2, v3 + 2);
 	v4 = sub_48C5E0(v2 - 2, v2 + 2);
 	v5 = sub_4AF990(v4, v11, 2, 10);
@@ -7240,10 +7240,10 @@ char* __cdecl sub_4AF5A0(int* a1) {
 }
 
 int __cdecl sub_4AF650(int* a1) {
-	sub_434560(1);
-	sub_434580(255 * a1[12] / a1[13]);
+	nox_video_drawEnableAlpha_434560(1);
+	nox_video_drawSetAlpha_434580(255 * a1[12] / a1[13]);
 	sub_4AFEB0(a1);
-	return sub_434560(0);
+	return nox_video_drawEnableAlpha_434560(0);
 }
 
 //----- (004AF600) --------------------------------------------------------
@@ -7939,7 +7939,7 @@ int __cdecl sub_4AFEB0(int* a1) {
 	}
 	result = v1[16];
 	if (result) {
-		sub_434460(v1[6]);
+		nox_video_drawSetColor_434460(v1[6]);
 		switch (v1[16]) {
 		case 1:
 			result = sub_49EFA0(v4, v5);
@@ -8368,22 +8368,22 @@ int __cdecl sub_4B0870(int* a1) {
 int __cdecl sub_4B0B20(int a1) { return *(_DWORD*)a1; }
 
 //----- (004B0B30) --------------------------------------------------------
-int sub_4B0B30() {
+int nox_video_assignCircleDrawFuncs_4B0B30() {
 	if (*(_DWORD*)&byte_5D4594[3801780]) {
 		if (*(_DWORD*)&byte_5D4594[3801780] == 1) {
-			*(_DWORD*)&byte_5D4594[1312468] = sub_4B1380;
-			*(_DWORD*)&byte_5D4594[1312464] = sub_4B2480;
+			*(_DWORD*)&byte_5D4594[1312468] = nox_video_drawCircle16Opaque_4B1380;
+			*(_DWORD*)&byte_5D4594[1312464] = nox_video_drawCircle16Alpha_4B2480;
 			return 1;
 		}
 	} else {
-		*(_DWORD*)&byte_5D4594[1312468] = sub_4B0D30;
-		*(_DWORD*)&byte_5D4594[1312464] = sub_4B1A60;
+		*(_DWORD*)&byte_5D4594[1312468] = nox_video_drawCircle8Opaque_4B0D30;
+		*(_DWORD*)&byte_5D4594[1312464] = nox_video_drawCircle8Alpha_4B1A60;
 	}
 	return 1;
 }
 
 //----- (004B0B90) --------------------------------------------------------
-int __cdecl sub_4B0B90(int a1, int a2, int a3) {
+int __cdecl nox_video_drawCircle_4B0B90(int a1, int a2, int a3) {
 	int result; // eax
 
 	if (ptr_5D4594_3799572->data[13])
@@ -8456,7 +8456,7 @@ int __cdecl sub_4B0BC0(int a1, int a2, int a3) {
 }
 
 //----- (004B0D30) --------------------------------------------------------
-char __cdecl sub_4B0D30(int a1, int a2, int a3) {
+char __cdecl nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 	int v3;      // esi
 	int v4;      // edi
 	char result; // al
@@ -8668,7 +8668,7 @@ int __cdecl sub_4B0F50(int a1, int a2, int a3) {
 }
 
 //----- (004B1380) --------------------------------------------------------
-__int16 __cdecl sub_4B1380(int a1, int a2, int a3) {
+__int16 __cdecl nox_video_drawCircle16Opaque_4B1380(int a1, int a2, int a3) {
 	int v3;         // ebx
 	int v4;         // esi
 	__int16 result; // ax
@@ -8925,7 +8925,7 @@ int __cdecl sub_4B15E0(int a1, int a2, int a3) {
 }
 
 //----- (004B1A60) --------------------------------------------------------
-int __cdecl sub_4B1A60(int a1, int a2, int a3) {
+int __cdecl nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 	int result; // eax
 	int v4;     // edi
 	int v5;     // esi
@@ -9340,14 +9340,14 @@ int __cdecl sub_4B1E30(int a1, int a2, int a3) {
 }
 
 //----- (004B2480) --------------------------------------------------------
-_WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
+_WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	_WORD* result;       // eax
-	unsigned int v4;     // esi
+	unsigned int colourBase;     // esi
 	int v5;              // ecx
 	_WORD* v6;           // ecx
-	int v7;              // ebp
-	int v8;              // esi
-	int v9;              // edi
+	int redcol;              // ebp
+	int bluecol2;              // esi
+	int grencol2;              // edi
 	_WORD* v10;          // ecx
 	_WORD* v11;          // eax
 	int v12;             // eax
@@ -9377,11 +9377,11 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 	int v53;             // [esp+38h] [ebp-18h]
 	int v54;             // [esp+38h] [ebp-18h]
 	int v55;             // [esp+3Ch] [ebp-14h]
-	_WORD* v56;          // [esp+40h] [ebp-10h]
+	int v56;             // [esp+40h] [ebp-10h]
 	int v57;             // [esp+44h] [ebp-Ch]
-	unsigned __int8 v58; // [esp+48h] [ebp-8h]
+	unsigned __int8 grencol; // [esp+48h] [ebp-8h]
 	int v59;             // [esp+48h] [ebp-8h]
-	unsigned __int8 v60; // [esp+4Ch] [ebp-4h]
+	unsigned __int8 bluecol; // [esp+4Ch] [ebp-4h]
 	int v61;             // [esp+4Ch] [ebp-4h]
 	int v62;             // [esp+54h] [ebp+4h]
 	int v63;             // [esp+54h] [ebp+4h]
@@ -9390,31 +9390,31 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 	if (ptr_5D4594_3799572->data[0] && sub_49F8E0(a1, a2, a3))
 		return (_WORD*)sub_4B3450(a1, a2, a3);
 	v57 = 0;
-	v56 = (_WORD*)a3;
-	v4 = *(unsigned __int16*)(&ptr_5D4594_3799572->data[61]);
+	v56 = a3; // Radius?
+	colourBase = *(unsigned __int16*)(&ptr_5D4594_3799572->data[61]);
 	v55 = 3;
-	v58 = (*(_DWORD*)&byte_5D4594[3804368] & v4) >> byte_5D4594[3804380];
+	grencol = (*(_DWORD*)&byte_5D4594[3804368] & colourBase) >> byte_5D4594[3804380];
 	v44 = 1 - a3;
-	v60 = ((unsigned __int8)*(_WORD*)(&ptr_5D4594_3799572->data[61]) & byte_5D4594[3804372])
+	bluecol = ((unsigned __int8)*(_WORD*)(&ptr_5D4594_3799572->data[61]) & byte_5D4594[3804372])
 	      << byte_5D4594[3804384];
 	v45 = 5 - 2 * a3;
 	v5 = 4 * (a3 + a2);
 	v53 = v5;
 	v46 = 2 * a1;
 	v6 = 2 * a1 + *(_DWORD*)(v5 + *(_DWORD*)&byte_5D4594[3798784]);
-	v7 = (unsigned __int8)((*(_DWORD*)&byte_5D4594[3804364] & v4) >> byte_5D4594[3804376]);
-	v8 = v60;
-	v9 = v58;
+	redcol = (unsigned __int8)((*(_DWORD*)&byte_5D4594[3804364] & colourBase) >> byte_5D4594[3804376]);
+	bluecol2 = bluecol;
+	grencol2 = grencol;
 	*v6 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
 		      2 * (unsigned __int8)((((unsigned __int8)v6 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((v60 - (unsigned __int8)(((unsigned __int8)v6 & byte_5D4594[3804372])
+					    ((bluecol - (unsigned __int8)(((unsigned __int8)v6 & byte_5D4594[3804372])
 								      << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & *v6) >>
 					     byte_5D4594[3804380]) +
-					    ((v58 -
+					    ((grencol -
 					      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 										   *v6) >>
 								byte_5D4594[3804380])) >>
@@ -9422,7 +9422,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v6) >>
 					     byte_5D4594[3804376]) +
-					    ((v7 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
+					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 											*v6) >>
 								     byte_5D4594[3804376])) >>
 					     2)));
@@ -9432,20 +9432,20 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 	*v10 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
 		      2 * (unsigned __int8)((((unsigned __int8)v10 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((v60 - (unsigned __int8)(((unsigned __int8)v10 & byte_5D4594[3804372])
+					    ((bluecol - (unsigned __int8)(((unsigned __int8)v10 & byte_5D4594[3804372])
 								      << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & *v10) >>
 					     byte_5D4594[3804380]) +
-					    ((v9 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
+					    ((grencol2 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 											*v10) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v10) >>
 					     byte_5D4594[3804376]) +
-					    ((v7 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
+					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 											*v10) >>
 								     byte_5D4594[3804376])) >>
 					     2)));
@@ -9453,20 +9453,20 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 	*v11 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
 		      2 * (unsigned __int8)((((unsigned __int8)v11 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((v60 - (unsigned __int8)(((unsigned __int8)v11 & byte_5D4594[3804372])
+					    ((bluecol - (unsigned __int8)(((unsigned __int8)v11 & byte_5D4594[3804372])
 								      << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & *v11) >>
 					     byte_5D4594[3804380]) +
-					    ((v9 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
+					    ((grencol2 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 											*v11) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v11) >>
 					     byte_5D4594[3804376]) +
-					    ((v7 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
+					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 											*v11) >>
 								     byte_5D4594[3804376])) >>
 					     2)));
@@ -9476,20 +9476,20 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 	*v13 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
 		      2 * (unsigned __int8)((((unsigned __int8)v13 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((v8 - (unsigned __int8)(((unsigned __int8)v13 & byte_5D4594[3804372])
+					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)v13 & byte_5D4594[3804372])
 								     << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & *v13) >>
 					     byte_5D4594[3804380]) +
-					    ((v9 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
+					    ((grencol2 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 											*v13) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v13) >>
 					     byte_5D4594[3804376]) +
-					    ((v7 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
+					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 											*v13) >>
 								     byte_5D4594[3804376])) >>
 					     2)));
@@ -9498,20 +9498,20 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 	*v14 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
 		      2 * (unsigned __int8)((((unsigned __int8)v14 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((v8 - (unsigned __int8)(((unsigned __int8)v14 & byte_5D4594[3804372])
+					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)v14 & byte_5D4594[3804372])
 								     << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & *v14) >>
 					     byte_5D4594[3804380]) +
-					    ((v9 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
+					    ((grencol2 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 											*v14) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v14) >>
 					     byte_5D4594[3804376]) +
-					    ((v7 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
+					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 											*v14) >>
 								     byte_5D4594[3804376])) >>
 					     2)));
@@ -9520,20 +9520,20 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 	*v15 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
 		      2 * (unsigned __int8)((((unsigned __int8)v15 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((v8 - (unsigned __int8)(((unsigned __int8)v15 & byte_5D4594[3804372])
+					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)v15 & byte_5D4594[3804372])
 								     << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & *v15) >>
 					     byte_5D4594[3804380]) +
-					    ((v9 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
+					    ((grencol2 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 											*v15) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v15) >>
 					     byte_5D4594[3804376]) +
-					    ((v7 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
+					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 											*v15) >>
 								     byte_5D4594[3804376])) >>
 					     2)));
@@ -9541,20 +9541,20 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 	*v16 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
 		      2 * (unsigned __int8)((((unsigned __int8)v16 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((v8 - (unsigned __int8)(((unsigned __int8)v16 & byte_5D4594[3804372])
+					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)v16 & byte_5D4594[3804372])
 								     << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & *v16) >>
 					     byte_5D4594[3804380]) +
-					    ((v9 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
+					    ((grencol2 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 											*v16) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v16) >>
 					     byte_5D4594[3804376]) +
-					    ((v7 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
+					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 											*v16) >>
 								     byte_5D4594[3804376])) >>
 					     2)));
@@ -9562,20 +9562,20 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 	*v17 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
 		      2 * (unsigned __int8)((((unsigned __int8)v17 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((v8 - (unsigned __int8)(((unsigned __int8)v17 & byte_5D4594[3804372])
+					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)v17 & byte_5D4594[3804372])
 								     << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & *v17) >>
 					     byte_5D4594[3804380]) +
-					    ((v9 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
+					    ((grencol2 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 											*v17) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v17) >>
 					     byte_5D4594[3804376]) +
-					    ((v7 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
+					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 											*v17) >>
 								     byte_5D4594[3804376])) >>
 					     2)));
@@ -9593,7 +9593,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 			if (v44 >= 0) {
 				v44 += v45;
 				v45 += 4;
-				v56 = (_WORD*)((char*)v56 - 1);
+				v56 -= 1;
 				v64 -= 2;
 				v52 -= 4;
 				v63 += 4;
@@ -9610,9 +9610,9 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 			v20 = v19 + 2 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + v52);
 			*v20 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int8)v20 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int16)*v20 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((v8 - (unsigned __int8)(((unsigned __int8)v20 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v20 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9620,28 +9620,24 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 										*v20) >>
 							     byte_5D4594[3804380]) +
-							    ((v9 -
-							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
-												       [3804368] &
-												   *v20) >>
-										byte_5D4594[3804380])) >>
-							     2))) |
+							    ((grencol2 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & 
+                                    *v20) >>
+										byte_5D4594[3804380])) >> 2))) |
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v20) >>
 							     byte_5D4594[3804376]) +
-							    ((v7 -
-							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
-												       [3804364] &
+							    ((redcol -
+							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 												   *v20) >>
 										byte_5D4594[3804376])) >>
 							     2)));
 			v21 = v64 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + v48);
 			*v21 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int8)v21 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int16)*v21 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((v8 - (unsigned __int8)(((unsigned __int8)v21 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v21 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9649,7 +9645,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 										*v21) >>
 							     byte_5D4594[3804380]) +
-							    ((v9 -
+							    ((grencol2 -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804368] &
 												   *v21) >>
@@ -9659,7 +9655,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v21) >>
 							     byte_5D4594[3804376]) +
-							    ((v7 -
+							    ((redcol -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804364] &
 												   *v21) >>
@@ -9668,9 +9664,9 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 			v22 = v64 + *(_DWORD*)(v47 + *(_DWORD*)&byte_5D4594[3798784]);
 			*v22 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int8)v22 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int16)*v22 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((v8 - (unsigned __int8)(((unsigned __int8)v22 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v22 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9678,7 +9674,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 										*v22) >>
 							     byte_5D4594[3804380]) +
-							    ((v9 -
+							    ((grencol2 -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804368] &
 												   *v22) >>
@@ -9688,7 +9684,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v22) >>
 							     byte_5D4594[3804376]) +
-							    ((v7 -
+							    ((redcol -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804364] &
 												   *v22) >>
@@ -9697,9 +9693,9 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 			v23 = v19 + 2 + *(_DWORD*)(v63 + *(_DWORD*)&byte_5D4594[3798784]);
 			*v23 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int8)v23 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int16)*v23 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((v8 - (unsigned __int8)(((unsigned __int8)v23 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v23 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9707,7 +9703,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 										*v23) >>
 							     byte_5D4594[3804380]) +
-							    ((v9 -
+							    ((grencol2 -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804368] &
 												   *v23) >>
@@ -9717,7 +9713,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v23) >>
 							     byte_5D4594[3804376]) +
-							    ((v7 -
+							    ((redcol -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804364] &
 												   *v23) >>
@@ -9726,9 +9722,9 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 			v24 = v54 + *(_DWORD*)(v63 + *(_DWORD*)&byte_5D4594[3798784]);
 			*v24 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int8)v24 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int16)*v24 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((v8 - (unsigned __int8)(((unsigned __int8)v24 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v24 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9736,7 +9732,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 										*v24) >>
 							     byte_5D4594[3804380]) +
-							    ((v9 -
+							    ((grencol2 -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804368] &
 												   *v24) >>
@@ -9746,7 +9742,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v24) >>
 							     byte_5D4594[3804376]) +
-							    ((v7 -
+							    ((redcol -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804364] &
 												   *v24) >>
@@ -9755,9 +9751,9 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 			v25 = v50 + *(_DWORD*)(v47 + *(_DWORD*)&byte_5D4594[3798784]);
 			*v25 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int8)v25 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int16)*v25 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((v8 - (unsigned __int8)(((unsigned __int8)v25 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v25 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9765,7 +9761,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 										*v25) >>
 							     byte_5D4594[3804380]) +
-							    ((v9 -
+							    ((grencol2 -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804368] &
 												   *v25) >>
@@ -9775,7 +9771,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v25) >>
 							     byte_5D4594[3804376]) +
-							    ((v7 -
+							    ((redcol -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804364] &
 												   *v25) >>
@@ -9784,9 +9780,9 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 			v26 = v50 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + v48);
 			*v26 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int8)v26 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int16)*v26 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((v8 - (unsigned __int8)(((unsigned __int8)v26 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v26 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9794,7 +9790,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 										*v26) >>
 							     byte_5D4594[3804380]) +
-							    ((v9 -
+							    ((grencol2 -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804368] &
 												   *v26) >>
@@ -9804,7 +9800,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v26) >>
 							     byte_5D4594[3804376]) +
-							    ((v7 -
+							    ((redcol -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804364] &
 												   *v26) >>
@@ -9813,9 +9809,9 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 			v27 = v54 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + v52);
 			*v27 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int8)v27 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int16)*v27 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((v8 - (unsigned __int8)(((unsigned __int8)v27 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v27 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9823,7 +9819,7 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] &
 										*v27) >>
 							     byte_5D4594[3804380]) +
-							    ((v9 -
+							    ((grencol2 -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804368] &
 												   *v27) >>
@@ -9833,14 +9829,14 @@ _WORD* __cdecl sub_4B2480(int a1, int a2, int a3) {
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v27) >>
 							     byte_5D4594[3804376]) +
-							    ((v7 -
+							    ((redcol -
 							      (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594
 												       [3804364] &
 												   *v27) >>
 										byte_5D4594[3804376])) >>
 							     2)));
 			result = v56;
-			if ((int)v56 <= v57)
+			if (v56 <= v57)
 				break;
 			v19 += 2;
 		}
@@ -10844,19 +10840,19 @@ int __cdecl sub_4B51E0(int a1, int a2) {
 	sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
 	if (*(_BYTE*)(a1 + 4) & 8) {
 		if (*(_BYTE*)a2 & 2 && *(_DWORD*)(a2 + 36) != 0x80000000) {
-			sub_434460(*(_DWORD*)(a2 + 36));
+			nox_video_drawSetColor_434460(*(_DWORD*)(a2 + 36));
 			sub_49CC70(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 		}
 	} else {
 		v3 = *(_DWORD*)(a2 + 44);
 	}
 	if (v3 != 0x80000000) {
-		sub_434460(v3);
+		nox_video_drawSetColor_434460(v3);
 		sub_49CE30(xLeft + 1, yTop + 1, *(_DWORD*)(a1 + 8) - 2, *(_DWORD*)(a1 + 12) - 2);
 	}
 	v4 = yTop + *(_DWORD*)(a1 + 12) / 2;
 	if (v2 != 0x80000000) {
-		sub_434460(v2);
+		nox_video_drawSetColor_434460(v2);
 		sub_49CE30(xLeft, v4 - 1, *(_DWORD*)(a1 + 8), 3);
 	}
 	return 1;
@@ -11001,7 +10997,7 @@ int __cdecl sub_4B5540(int a1, int a2) {
 		if (*(_BYTE*)a2 & 2) {
 			v2 = *(_DWORD*)(a2 + 52);
 			if (*(_DWORD*)(a2 + 36) != 0x80000000) {
-				sub_434460(*(_DWORD*)(a2 + 36));
+				nox_video_drawSetColor_434460(*(_DWORD*)(a2 + 36));
 				sub_49CC70(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 			}
 		}
@@ -11009,12 +11005,12 @@ int __cdecl sub_4B5540(int a1, int a2) {
 		v3 = *(_DWORD*)(a2 + 44);
 	}
 	if (v3 != 0x80000000) {
-		sub_434460(v3);
+		nox_video_drawSetColor_434460(v3);
 		sub_49CE30(xLeft + 1, yTop + 1, *(_DWORD*)(a1 + 8) - 2, *(_DWORD*)(a1 + 12) - 2);
 	}
 	v4 = xLeft + *(_DWORD*)(a1 + 8) / 2;
 	if (v2 != 0x80000000) {
-		sub_434460(v2);
+		nox_video_drawSetColor_434460(v2);
 		sub_49CE30(v4 - 1, yTop + 4, 3, *(_DWORD*)(a1 + 12) - 8);
 	}
 	return 1;
@@ -11277,13 +11273,13 @@ int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, int a2) {
 		sub_484BE0((_DWORD*)(v2 + 136), 128, 128, 255);
 		v12 = (double)v15 * 20.0 / (double)*(int*)&byte_5D4594[2649704];
 		sub_484D70_light_intensity(v10, v12);
-		sub_434460(v9);
-		sub_434560(1);
-		sub_434580(0x80u);
+		nox_video_drawSetColor_434460(v9);
+		nox_video_drawEnableAlpha_434560(1);
+		nox_video_drawSetAlpha_434580(0x80u);
 		sub_49F500(v3, v4);
 		sub_49F500(v13, v14);
 		sub_49E4B0();
-		sub_434560(0);
+		nox_video_drawEnableAlpha_434560(0);
 	}
 	return 1;
 }
@@ -11320,13 +11316,13 @@ int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, int a2) {
 		sub_484BE0((_DWORD*)(v2 + 136), 255, 128, 50);
 		v10 = (double)v14 * 20.0 / (double)v13;
 		sub_484D70_light_intensity(v8, v10);
-		sub_434460(v7);
-		sub_434560(1);
-		sub_434580(0x80u);
+		nox_video_drawSetColor_434460(v7);
+		nox_video_drawEnableAlpha_434560(1);
+		nox_video_drawSetAlpha_434580(0x80u);
 		sub_49F500(v3, v4);
 		sub_49F500(v11, v12);
 		sub_49E4B0();
-		sub_434560(0);
+		nox_video_drawEnableAlpha_434560(0);
 	}
 	return 1;
 }
@@ -11350,13 +11346,13 @@ int __cdecl nox_thing_arrow_tail_link_draw(_DWORD* a1, int a2) {
 		     (int)(*(_DWORD*)&byte_5D4594[2649704] / 3u);
 		if (v7 >= 64)
 			v7 = 63;
-		sub_434460(*(_DWORD*)&byte_5D4594[4 * v7 + 1313012]);
-		sub_434560(1);
-		sub_434580(0x80u);
+		nox_video_drawSetColor_434460(*(_DWORD*)&byte_5D4594[4 * v7 + 1313012]);
+		nox_video_drawEnableAlpha_434560(1);
+		nox_video_drawSetAlpha_434580(0x80u);
 		sub_49F500(v3, v4 - 4);
 		sub_49F500(v6, v5 + v4 - 4);
 		sub_49E4B0();
-		sub_434560(0);
+		nox_video_drawEnableAlpha_434560(0);
 	}
 	return 1;
 }
@@ -11380,13 +11376,13 @@ int __cdecl nox_thing_weak_arrow_tail_link_draw(_DWORD* a1, int a2) {
 		     (int)(*(_DWORD*)&byte_5D4594[2649704] / 3u);
 		if (v7 >= 64)
 			v7 = 63;
-		sub_434460(*(_DWORD*)&byte_5D4594[4 * v7 + 1313268]);
-		sub_434560(1);
-		sub_434580(0x80u);
+		nox_video_drawSetColor_434460(*(_DWORD*)&byte_5D4594[4 * v7 + 1313268]);
+		nox_video_drawEnableAlpha_434560(1);
+		nox_video_drawSetAlpha_434580(0x80u);
 		sub_49F500(v3, v4 - 4);
 		sub_49F500(v6, v5 + v4 - 4);
 		sub_49E4B0();
-		sub_434560(0);
+		nox_video_drawEnableAlpha_434560(0);
 	}
 	return 1;
 }
@@ -11459,13 +11455,13 @@ int __cdecl sub_4B63B0(int2* a1, int2* a2) {
 	int v2; // ebx
 	int v3; // ebp
 
-	sub_434460(*(int*)&byte_5D4594[1312492]);
+	nox_video_drawSetColor_434460(*(int*)&byte_5D4594[1312492]);
 	sub_49F500(a1->field_0, a1->field_4);
 	sub_49F500(a2->field_0, a2->field_4);
 	sub_49E4B0();
 	v2 = a2->field_0 - a1->field_0;
 	v3 = a2->field_4 - a1->field_4;
-	sub_434460(*(int*)&byte_5D4594[1312496]);
+	nox_video_drawSetColor_434460(*(int*)&byte_5D4594[1312496]);
 	if (v2 < 0)
 		v2 = -v2;
 	if (v3 < 0)
@@ -11592,7 +11588,7 @@ int __cdecl sub_4B6880(_DWORD* a1, int a2, int a3, int a4) {
 		if (!v12 && v11 - 10 >= v10 && v8 + 10 < a1[2] && v11 + 10 < a1[3]) {
 			v13 = 4 * v15 / v5;
 			sub_4B6720(&xLeft, a4, 2 * v13 + 1, 5 * v15 / v5);
-			sub_434460(a3);
+			nox_video_drawSetColor_434460(a3);
 			sub_499B70(xLeft.field_0, xLeft.field_4, v13);
 		}
 		result = 1;
@@ -11749,11 +11745,11 @@ LABEL_14:
 	if (v13 + xLeft.field_4 >= a1[3])
 		return 1;
 	sub_4B6720(&xLeft, v21, v13, 5);
-	sub_434460(v19);
+	nox_video_drawSetColor_434460(v19);
 	sub_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(v3 + 444) >> 1);
 	v14 = *(_DWORD*)(v3 + 32) - *(_DWORD*)(v3 + 12);
 	v15 = *(_DWORD*)(v3 + 36) - *(_DWORD*)(v3 + 16);
-	sub_434460(v19);
+	nox_video_drawSetColor_434460(v19);
 	sub_49F500(xLeft.field_0, xLeft.field_4);
 	sub_49F570(v14, v15);
 	sub_49E4B0();
@@ -11829,7 +11825,7 @@ int __cdecl sub_4B71A0(_DWORD* a1, int a2) {
 			v9 = v8 / 16;
 			v10 = (v8 / 16) >> 1;
 			sub_4B6720(&v11, *(_DWORD*)&byte_5D4594[v8 + 1313596], 2 * (v8 / 16) + 1, 5 * v6 / v5);
-			sub_434460(v12);
+			nox_video_drawSetColor_434460(v12);
 			sub_49CE30(v11.field_0 - v10, v11.field_4 - v10, v9, v9);
 		}
 		result = 1;
@@ -11879,7 +11875,7 @@ int __cdecl nox_thing_bubble_draw(_DWORD* a1, int a2) {
 	v5 = *(unsigned __int8*)(a2 + 440);
 	xLeft.field_4 = *(_DWORD*)(a2 + 16) + v4 - a1[5] - *(__int16*)(a2 + 104);
 	sub_4B6720(&xLeft, *(_DWORD*)(a2 + 432), v5, v5 + 3);
-	sub_434460(*(_DWORD*)(a2 + 436));
+	nox_video_drawSetColor_434460(*(_DWORD*)(a2 + 436));
 	sub_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(a2 + 440) >> 1);
 	if (byte_5D4594[2598000] & 3)
 		*(_WORD*)(a2 + 104) += *(char*)(a2 + 446);
@@ -12109,13 +12105,13 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, _DWORD* a2) {
 		v2[4] = v17;
 		v2[77] = v18;
 		*(_DWORD*)(v5 + 12) = 2;
-		sub_434560(1);
+		nox_video_drawEnableAlpha_434560(1);
 		v16 = *(unsigned int*)&byte_5D4594[2598000];
 		LODWORD(v16) = v2[79];
-		sub_434580((__int64)(((double)*(unsigned int*)&byte_5D4594[2598000] - (double)v16) /
-				     (double)*((unsigned __int16*)v2 + 218) * 255.0));
+		nox_video_drawSetAlpha_434580((__int64)(((double)*(unsigned int*)&byte_5D4594[2598000] - (double)v16) /
+							(double)*((unsigned __int16*)v2 + 218) * 255.0));
 		(*(void(__cdecl**)(int*, _DWORD))(v2[108] + 300))(a1, v2[108]);
-		sub_434560(0);
+		nox_video_drawEnableAlpha_434560(0);
 		result = 1;
 	} else {
 		sub_45A4B0((_QWORD*)v2[108]);
@@ -12862,17 +12858,17 @@ void __cdecl sub_4B8EB0(_DWORD* a1, int a2, unsigned __int16 a3, char a4) {
 		v7 = *(float*)(a2 + 48) + *(float*)(a2 + 48);
 		v5 = nox_float2int(v7) + v4;
 		v6 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 104) - a1[5] - 48;
-		sub_434460(*(int*)&byte_5D4594[2650656]);
+		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 		sub_49CE30(v5, v6, 2, 48);
 		if (a4)
-			sub_434460(*(int*)&byte_5D4594[2618904]);
+			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2618904]);
 		else
-			sub_434460(*(int*)&byte_5D4594[2650644]);
+			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650644]);
 		sub_49CE30(v5, v6 - 48 * a3 / 100 + 48, 2, 48 * a3 / 100);
 		if (a4)
-			sub_434460(*(int*)&byte_5D4594[2650688]);
+			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650688]);
 		else
-			sub_434460(*(int*)&byte_5D4594[2598268]);
+			nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2598268]);
 		sub_49CC70(v5 - 1, v6 - 1, 4, 50);
 	}
 }

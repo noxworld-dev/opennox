@@ -804,7 +804,7 @@ int __cdecl sub_44DD70(int a1) {
 
 //----- (0044DDC0) --------------------------------------------------------
 void sub_44DDC0() {
-	sub_434460(*(int*)&byte_5D4594[2650656]);
+	nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 	sub_49CE30(0, 0, nox_backbuffer_width, nox_backbuffer_height);
 }
 
@@ -1607,7 +1607,7 @@ int __cdecl sub_450E90(int a1, int a2) {
 			sub_49CF10(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 			return 1;
 		}
-		sub_434460(*(_DWORD*)(a2 + 20));
+		nox_video_drawSetColor_434460(*(_DWORD*)(a2 + 20));
 		sub_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 	}
 	return 1;
@@ -1768,9 +1768,9 @@ int sub_4514F0() {
 	result = *(_DWORD*)&byte_5D4594[823776];
 	if (*(_DWORD*)&byte_5D4594[823776]) {
 		v1 = sub_43F320(0);
-		sub_434460(*(int*)&byte_5D4594[2650656]);
+		nox_video_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 		sub_49CE30(*(int*)&byte_5D4594[839884], *(int*)&byte_5D4594[839888], 320, 21 * v1);
-		sub_434460(1);
+		nox_video_drawSetColor_434460(1);
 		sub_49CC70(*(int*)&byte_5D4594[839884], *(int*)&byte_5D4594[839888], 320, 21 * v1);
 		sub_434390(1);
 		result = *(_DWORD*)&byte_5D4594[839888];

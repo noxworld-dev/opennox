@@ -173,7 +173,7 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 	sub_46AA60((_DWORD*)a1, &xLeft, &yTop);
 	if ((signed char)*(_BYTE*)(a1 + 4) >= 0) {
 		if (a2[5] != 0x80000000) {
-			sub_434460(a2[5]);
+			nox_video_drawSetColor_434460(a2[5]);
 			sub_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 		}
 	} else {
