@@ -23,7 +23,7 @@ int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a
 	int v11;     // ecx
 	int v12;     // edi
 	int* v13;    // eax
-	int v14;     // ebp
+	int weaponFlags;     // ebp
 	float v15;   // eax
 	float2* v16; // ebp
 	int v17;     // ecx
@@ -63,8 +63,8 @@ int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a
 	float v51;   // [esp+4h] [ebp-28h]
 	float v52;   // [esp+4h] [ebp-28h]
 	float v53;   // [esp+18h] [ebp-14h]
-	int v54;     // [esp+1Ch] [ebp-10h]
-	int v55;     // [esp+20h] [ebp-Ch]
+	int armorrFlags;     // [esp+1Ch] [ebp-10h]
+	int weaponFlags2;     // [esp+20h] [ebp-Ch]
 	float2 a3a;  // [esp+24h] [ebp-8h]
 
 	v5 = a1;
@@ -85,20 +85,20 @@ int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a
 	if (a3)
 		v9 = a3;
 	v10 = *(_DWORD*)(v5 + 8);
-	v11 = *(_DWORD*)(v5 + 8) & 4;
-	if (v11) {
-		v12 = *(_DWORD*)(v5 + 748);
-		v13 = *(int**)(v12 + 276);
-		v14 = v13[1];
-		v54 = *v13;
+	v11 = *(_DWORD*)(v5 + 8) & 4; 
+	if (v11) { // Is player
+		v12 = *(_DWORD*)(v5 + 748); // UC
+		v13 = *(int**)(v12 + 276); // PlayerInfo
+		weaponFlags = v13[1];
+		armorrFlags = *v13; 
 		v15 = *(float*)(v12 + 228);
-		v55 = v14;
+		weaponFlags2 = weaponFlags;
 	} else {
 		if (!(v10 & 2) || !(*(_BYTE*)(v5 + 12) & 0x10))
 			return 0;
 		v12 = *(_DWORD*)(v5 + 748);
-		v55 = *(_DWORD*)(v12 + 2056);
-		v54 = *(_DWORD*)(v12 + 2060);
+		weaponFlags2 = *(_DWORD*)(v12 + 2056);
+		armorrFlags = *(_DWORD*)(v12 + 2060);
 		v15 = *(float*)(v12 + 2072);
 	}
 	v53 = v15;
@@ -201,10 +201,10 @@ LABEL_70:
 	} else if (sub_50A020(v5) != 21) {
 		goto LABEL_86;
 	}
-	if (!(v54 & 0x3000000)) {
+	if (!(armorrFlags & 0x3000000)) {
 	LABEL_86:
 		v27 = LODWORD(a5);
-		if (v55 & 0x400) {
+		if (weaponFlags2 & 0x400) {
 			v27 = LODWORD(a5);
 			if (*(_BYTE*)(v9 + 8) & 1 || a5 == 0.0 || LODWORD(a5) == 11) {
 				if (*(_BYTE*)(v5 + 8) & 4) {
@@ -235,15 +235,15 @@ LABEL_70:
 				sub_4E22A0(v5, a2, a3, 1024, v47, v27);
 				return 0;
 			}
-		} else { // actionId (+88) = 1 corresposponds either to attacking OR using berserker charge; there used
-			 // to be a logic flaw
-			if (*(_BYTE*)(v12 + 88) == 1 && nox_common_mapPlrActionToStateId_4FA2B0(v5) == 45 ||
-			    HIBYTE(v54) == 1 && HIBYTE(v54) == 2) {
+		} else { 
+            // actionId (+88) = 1 corresposponds either to attacking OR using berserker charge
+			// armorrFlags & 0x3000000 tests if either Steel or Wooden shields are equipped (see 58F820 -- table that references armor types and corresponding flags)
+			if (*(_BYTE*)(v12 + 88) == 1 && nox_common_mapPlrActionToStateId_4FA2B0(v5) == 45 && armorrFlags & 0x3000000) { 
 				if (mix_dword_980858[0] & 0x100000) // BERSERKER_SHIED_BLOCK
 					goto M_LABEL_78;
 			}
 		}
-		if (!(v55 & 0x7FF8000) || v27 && v27 != 11 || *(_BYTE*)(v9 + 8) & 1)
+		if (!(weaponFlags2 & 0x7FF8000) || v27 && v27 != 11 || *(_BYTE*)(v9 + 8) & 1)
 			goto LABEL_120;
 		if (*(_BYTE*)(v5 + 8) & 4) {
 			v31 = *(_BYTE*)(v12 + 88);
