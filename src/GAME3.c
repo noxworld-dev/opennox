@@ -9409,8 +9409,8 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	grencol2 = grencol;
 	*v6 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-		      2 * (unsigned __int8)((((unsigned __int8)v6 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((bluecol - (unsigned __int8)(((unsigned __int8)v6 & byte_5D4594[3804372])
+		      2 * (unsigned __int8)((((unsigned __int8)*v6 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
+					    ((bluecol - (unsigned __int8)(((unsigned __int8)*v6 & byte_5D4594[3804372])
 								      << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
@@ -9433,8 +9433,8 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	v59 = 2 * (a1 + a3);
 	*v10 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-		      2 * (unsigned __int8)((((unsigned __int8)v10 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((bluecol - (unsigned __int8)(((unsigned __int8)v10 & byte_5D4594[3804372])
+		      2 * (unsigned __int8)((((unsigned __int8)*v10 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
+					    ((bluecol - (unsigned __int8)(((unsigned __int8)*v10 & byte_5D4594[3804372])
 								      << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
@@ -9454,8 +9454,8 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	v11 = v59 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + 4 * a2);
 	*v11 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-		      2 * (unsigned __int8)((((unsigned __int8)v11 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((bluecol - (unsigned __int8)(((unsigned __int8)v11 & byte_5D4594[3804372])
+		      2 * (unsigned __int8)((((unsigned __int8)*v11 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
+					    ((bluecol - (unsigned __int8)(((unsigned __int8)*v11 & byte_5D4594[3804372])
 								      << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
@@ -9477,8 +9477,8 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	v13 = 2 * a1 + *(_DWORD*)(v12 + *(_DWORD*)&byte_5D4594[3798784]);
 	*v13 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-		      2 * (unsigned __int8)((((unsigned __int8)v13 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)v13 & byte_5D4594[3804372])
+		      2 * (unsigned __int8)((((unsigned __int8)*v13 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
+					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v13 & byte_5D4594[3804372])
 								     << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
@@ -9499,8 +9499,8 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	v14 = 2 * a1 + *(_DWORD*)(v61 + *(_DWORD*)&byte_5D4594[3798784]);
 	*v14 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-		      2 * (unsigned __int8)((((unsigned __int8)v14 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)v14 & byte_5D4594[3804372])
+		      2 * (unsigned __int8)((((unsigned __int8)*v14 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
+					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v14 & byte_5D4594[3804372])
 								     << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
@@ -9521,8 +9521,8 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	v15 = v62 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + 4 * a2);
 	*v15 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-		      2 * (unsigned __int8)((((unsigned __int8)v15 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)v15 & byte_5D4594[3804372])
+		      2 * (unsigned __int8)((((unsigned __int8)*v15 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
+					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v15 & byte_5D4594[3804372])
 								     << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
@@ -9542,8 +9542,8 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	v16 = v62 + *(_DWORD*)(4 * a2 + *(_DWORD*)&byte_5D4594[3798784]);
 	*v16 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-		      2 * (unsigned __int8)((((unsigned __int8)v16 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)v16 & byte_5D4594[3804372])
+		      2 * (unsigned __int8)((((unsigned __int8)*v16 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
+					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v16 & byte_5D4594[3804372])
 								     << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
@@ -9563,8 +9563,8 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	v17 = v51 + *(_DWORD*)(v53 + *(_DWORD*)&byte_5D4594[3798784]);
 	*v17 =
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-		      2 * (unsigned __int8)((((unsigned __int8)v17 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
-					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)v17 & byte_5D4594[3804372])
+		      2 * (unsigned __int8)((((unsigned __int8)*v17 & byte_5D4594[3804372]) << byte_5D4594[3804384]) +
+					    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v17 & byte_5D4594[3804372])
 								     << byte_5D4594[3804384])) >>
 					     2))) |
 	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
@@ -9612,9 +9612,9 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 			v20 = v19 + 2 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + v52);
 			*v20 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int16)*v20 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int8)*v20 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v20 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v20 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9637,9 +9637,9 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 			v21 = v64 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + v48);
 			*v21 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int16)*v21 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int8)*v21 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v21 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v21 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9666,9 +9666,9 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 			v22 = v64 + *(_DWORD*)(v47 + *(_DWORD*)&byte_5D4594[3798784]);
 			*v22 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int16)*v22 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int8)*v22 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v22 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v22 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9695,9 +9695,9 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 			v23 = v19 + 2 + *(_DWORD*)(v63 + *(_DWORD*)&byte_5D4594[3798784]);
 			*v23 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int16)*v23 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int8)*v23 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v23 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v23 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9724,9 +9724,9 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 			v24 = v54 + *(_DWORD*)(v63 + *(_DWORD*)&byte_5D4594[3798784]);
 			*v24 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int16)*v24 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int8)*v24 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v24 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v24 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9753,9 +9753,9 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 			v25 = v50 + *(_DWORD*)(v47 + *(_DWORD*)&byte_5D4594[3798784]);
 			*v25 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int16)*v25 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int8)*v25 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v25 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v25 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9782,9 +9782,9 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 			v26 = v50 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + v48);
 			*v26 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int16)*v26 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int8)*v26 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v26 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v26 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
@@ -9811,9 +9811,9 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 			v27 = v54 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + v52);
 			*v27 =
 			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804664] +
-				      2 * (unsigned __int8)((((unsigned __int16)*v27 & byte_5D4594[3804372])
+				      2 * (unsigned __int8)((((unsigned __int8)*v27 & byte_5D4594[3804372])
 							     << byte_5D4594[3804384]) +
-							    ((bluecol2 - (unsigned __int8)(((unsigned __int16)*v27 &
+							    ((bluecol2 - (unsigned __int8)(((unsigned __int8)*v27 &
 										      byte_5D4594[3804372])
 										     << byte_5D4594[3804384])) >>
 							     2))) |
