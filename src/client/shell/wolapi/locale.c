@@ -1,5 +1,6 @@
 #include "../../../proto.h"
 
+extern _DWORD dword_5d4594_1312480;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -16,13 +17,13 @@ int __cdecl sub_4B5770_wol_locale(int a1) {
 	char* v10;   // [esp+14h] [ebp+4h]
 
 	*(_DWORD*)&byte_5D4594[1312488] = a1;
-	*(_DWORD*)&byte_5D4594[1312480] = nox_new_window_from_file("locale.wnd", sub_4B5AB0);
-	sub_46A9B0(*(_DWORD**)&byte_5D4594[1312480], nox_win_width / 2 - 75, nox_win_height / 2 - 77);
-	sub_46B120(*(_DWORD**)&byte_5D4594[1312480], 0);
-	sub_46A8C0(*(int*)&byte_5D4594[1312480]);
-	sub_46C690(*(int*)&byte_5D4594[1312480]);
-	sub_46B500(*(int*)&byte_5D4594[1312480]);
-	*(_DWORD*)&byte_5D4594[1312484] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1312480], 1981);
+	dword_5d4594_1312480 = nox_new_window_from_file("locale.wnd", sub_4B5AB0);
+	sub_46A9B0(*(_DWORD**)&dword_5d4594_1312480, nox_win_width / 2 - 75, nox_win_height / 2 - 77);
+	sub_46B120(*(_DWORD**)&dword_5d4594_1312480, 0);
+	sub_46A8C0(*(int*)&dword_5d4594_1312480);
+	sub_46C690(*(int*)&dword_5d4594_1312480);
+	sub_46B500(*(int*)&dword_5d4594_1312480);
+	*(_DWORD*)&byte_5D4594[1312484] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1981);
 	sub_4B5990();
 	for (i = 0; i < *(int*)&byte_5D4594[1312472]; ++i)
 		nox_window_call_field_94(*(int*)&byte_5D4594[1312484], 16397,
@@ -35,9 +36,9 @@ int __cdecl sub_4B5770_wol_locale(int a1) {
 				   216);
 	nox_window_call_field_94(*(int*)&byte_5D4594[1312484], 16397, (int)v3, -1);
 	nox_window_call_field_94(*(int*)&byte_5D4594[1312484], 16403, 0, 0);
-	v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1312480], 1982);
-	v5 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1312480], 1983);
-	v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1312480], 1984);
+	v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1982);
+	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1983);
+	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1984);
 	v7 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[1312484] + 32);
 	v10 = sub_42F970("UISlider");
 	v8 = sub_42F970("UISliderLit");
