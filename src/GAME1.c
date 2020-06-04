@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251540;
 extern _DWORD dword_5d4594_251548;
 extern _DWORD dword_5d4594_251568;
 extern _DWORD dword_5d4594_251572;
@@ -6513,7 +6514,7 @@ int __cdecl sub_410900(_DWORD* a1, char* a2) {
 	unsigned int v48;     // [esp+28h] [ebp+8h]
 	unsigned int v49;     // [esp+28h] [ebp+8h]
 
-	if (*(_DWORD*)&byte_5D4594[251540] >= 80)
+	if (dword_5d4594_251540 >= 80)
 		return 0;
 	v3 = a1;
 	v4 = a2;
@@ -6524,31 +6525,31 @@ int __cdecl sub_410900(_DWORD* a1, char* a2) {
 	v3[2] = v5 + 1;
 	nox_memfile_read(a2, 1u, v43, (int)v38);
 	a2[v43] = 0;
-	strncpy((char*)&byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2692748], a2, 0x1Fu);
+	strncpy((char*)&byte_5D4594[12332 * dword_5d4594_251540 + 2692748], a2, 0x1Fu);
 	v6 = (int*)v3[2];
 	v7 = *v6;
 	v3[2] = v6 + 1;
-	*(_DWORD*)&byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2692780] = v7;
+	*(_DWORD*)&byte_5D4594[12332 * dword_5d4594_251540 + 2692780] = v7;
 	v8 = (int*)v3[2];
 	v9 = *v8;
 	v3[2] = v8 + 1;
-	*(_WORD*)&byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2692784] = v9;
+	*(_WORD*)&byte_5D4594[12332 * dword_5d4594_251540 + 2692784] = v9;
 	v10 = (int*)v3[2];
 	v11 = *v10;
 	v3[2] = v10 + 1;
-	*(_WORD*)&byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2692786] = v11;
+	*(_WORD*)&byte_5D4594[12332 * dword_5d4594_251540 + 2692786] = v11;
 	v12 = (_BYTE*)v3[2];
 	LOBYTE(v11) = *v12;
 	v3[2] = v12 + 1;
-	byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2692788] = v11;
+	byte_5D4594[12332 * dword_5d4594_251540 + 2692788] = v11;
 	v13 = (_BYTE*)v3[2];
 	LOBYTE(v11) = *v13;
 	v3[2] = v13 + 1;
-	byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2692789] = v11;
+	byte_5D4594[12332 * dword_5d4594_251540 + 2692789] = v11;
 	sub_40AD60((char*)&v39, 1, 1, v3);
 	v14 = 0;
 	v15 = v39;
-	v16 = 12332 * *(_DWORD*)&byte_5D4594[251540];
+	v16 = 12332 * dword_5d4594_251540;
 	byte_5D4594[v16 + 2692790] = v39;
 	memset(&byte_5D4594[v16 + 2692791], 0, 0x200u);
 	if (v15) {
@@ -6559,7 +6560,7 @@ int __cdecl sub_410900(_DWORD* a1, char* a2) {
 			v3[2] = v17 + 1;
 			nox_memfile_read(v4, 1u, v44, (int)v3);
 			v4[v44] = 0;
-			strncpy((char*)&byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2692791 + v48], v4, 0x40u);
+			strncpy((char*)&byte_5D4594[12332 * dword_5d4594_251540 + 2692791 + v48], v4, 0x40u);
 			++v14;
 			v48 += 64;
 			if (v14 >= (unsigned __int8)v39)
@@ -6573,23 +6574,23 @@ LABEL_7:
 	v3[2] = v18 + 1;
 	nox_memfile_read(v4, 1u, v45, (int)v3);
 	v4[v45] = 0;
-	strncpy((char*)&byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2693303], v4, 0x40u);
+	strncpy((char*)&byte_5D4594[12332 * dword_5d4594_251540 + 2693303], v4, 0x40u);
 	v19 = (unsigned __int8*)v3[2];
 	v46 = *v19;
 	v3[2] = v19 + 1;
 	nox_memfile_read(v4, 1u, v46, (int)v3);
 	v4[v46] = 0;
-	strncpy((char*)&byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2693367], v4, 0x40u);
+	strncpy((char*)&byte_5D4594[12332 * dword_5d4594_251540 + 2693367], v4, 0x40u);
 	v20 = (unsigned __int8*)v3[2];
 	v47 = *v20;
 	v3[2] = v20 + 1;
 	nox_memfile_read(v4, 1u, v47, (int)v3);
 	v4[v47] = 0;
-	strncpy((char*)&byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2693431], v4, 0x40u);
+	strncpy((char*)&byte_5D4594[12332 * dword_5d4594_251540 + 2693431], v4, 0x40u);
 	v21 = (unsigned __int8*)v3[2];
 	v22 = *v21;
 	v3[2] = v21 + 1;
-	v23 = 12332 * *(_DWORD*)&byte_5D4594[251540];
+	v23 = 12332 * dword_5d4594_251540;
 	byte_5D4594[v23 + 2693497] = v22;
 	v24 = 0;
 	memset(&byte_5D4594[v23 + 2701180], 0, 0xF00u);
@@ -6602,15 +6603,15 @@ LABEL_7:
 			v26 = 0;
 			v27 = 8 * (v25 + v49);
 			do {
-				byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2705020 + v26 + v24] = v40;
+				byte_5D4594[12332 * dword_5d4594_251540 + 2705020 + v26 + v24] = v40;
 				v28 = (int*)v3[2];
 				v29 = *v28;
 				v3[2] = v28 + 1;
-				*(_DWORD*)&byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2693500 + v27] = v29;
+				*(_DWORD*)&byte_5D4594[12332 * dword_5d4594_251540 + 2693500 + v27] = v29;
 				v30 = (int*)v3[2];
 				v31 = *v30;
 				v3[2] = v30 + 1;
-				*(_DWORD*)&byte_5D4594[12332 * *(_DWORD*)&byte_5D4594[251540] + 2693504 + v27] = v31;
+				*(_DWORD*)&byte_5D4594[12332 * dword_5d4594_251540 + 2693504 + v27] = v31;
 				v32 = (int*)v3[2];
 				v33 = *v32;
 				v34 = (int)(v32 + 1);
@@ -6633,7 +6634,7 @@ LABEL_7:
 	v3[2] = v36 + 1;
 	if (v37 != 0x454E4420) // 'END '
 		return 0;
-	++*(_DWORD*)&byte_5D4594[251540];
+	++dword_5d4594_251540;
 	return 1;
 }
 
@@ -6646,10 +6647,10 @@ int __cdecl sub_410D60(const char* a1) {
 	const char* i; // edi
 
 	v1 = 0;
-	if (*(int*)&byte_5D4594[251540] <= 0)
+	if (*(int*)&dword_5d4594_251540 <= 0)
 		return -1;
 	for (i = (const char*)&byte_5D4594[2692748]; strcmp(a1, i); i += 12332) {
-		if (++v1 >= *(int*)&byte_5D4594[251540])
+		if (++v1 >= *(int*)&dword_5d4594_251540)
 			return -1;
 	}
 	return v1;
@@ -9738,7 +9739,7 @@ bool __cdecl sub_415470(void) {
 		return 0;
 
 	sub_40AD10(things, 0, 0);
-	*(_DWORD*)&byte_5D4594[251540] = 0;
+	dword_5d4594_251540 = 0;
 	dword_5d4594_251568 = 0;
 	dword_5d4594_251572 = 0;
 	while (nox_memfile_read(&v4, 4u, 1, things)) {
