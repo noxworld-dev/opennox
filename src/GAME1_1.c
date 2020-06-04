@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_534808;
 extern _DWORD dword_5d4594_529340;
 extern _DWORD dword_587000_60352;
 extern _DWORD dword_5d4594_2660652;
@@ -5047,9 +5048,9 @@ void __cdecl sub_4201B0(_DWORD* a1) {
 		if (v2) {
 			qmemcpy(v2, i, 0xF8u);
 			v2[5] = 0;
-			if (*(_DWORD*)&byte_5D4594[534808])
-				v2[5] = *(_DWORD*)&byte_5D4594[534808];
-			*(_DWORD*)&byte_5D4594[534808] = v2;
+			if (dword_5d4594_534808)
+				v2[5] = dword_5d4594_534808;
+			dword_5d4594_534808 = v2;
 		}
 	}
 }
@@ -5058,8 +5059,8 @@ void __cdecl sub_4201B0(_DWORD* a1) {
 LPVOID sub_420200() {
 	int v0; // esi
 
-	v0 = *(_DWORD*)&byte_5D4594[534808];
-	if (!*(_DWORD*)&byte_5D4594[534808])
+	v0 = dword_5d4594_534808;
+	if (!dword_5d4594_534808)
 		return 0;
 	while (_strcmpi((const char*)(v0 + 24), "chat server")) {
 		v0 = *(_DWORD*)(v0 + 20);
@@ -5080,8 +5081,8 @@ int __cdecl sub_420230(char* a1, _WORD* a2) {
 		return 0;
 	if (!a2)
 		return 0;
-	v2 = *(_DWORD*)&byte_5D4594[534808];
-	if (!*(_DWORD*)&byte_5D4594[534808])
+	v2 = dword_5d4594_534808;
+	if (!dword_5d4594_534808)
 		return 0;
 	while (1) {
 		if (!_strcmpi((const char*)(v2 + 95), "LAD")) {
@@ -5119,8 +5120,8 @@ int __cdecl sub_420360(char* a1, _WORD* a2) {
 		return 0;
 	*a1 = 0;
 	*a2 = 0;
-	v2 = *(_DWORD*)&byte_5D4594[534808];
-	if (!*(_DWORD*)&byte_5D4594[534808])
+	v2 = dword_5d4594_534808;
+	if (!dword_5d4594_534808)
 		return 0;
 	while (_strcmpi((const char*)(v2 + 95), "GAM")) {
 	LABEL_19:
@@ -5171,16 +5172,16 @@ _DWORD* sub_420580() {
 	_DWORD* result; // eax
 	_DWORD* v1;     // esi
 
-	result = *(_DWORD**)&byte_5D4594[534808];
-	if (*(_DWORD*)&byte_5D4594[534808]) {
+	result = *(_DWORD**)&dword_5d4594_534808;
+	if (dword_5d4594_534808) {
 		do {
 			v1 = (_DWORD*)result[5];
 			free(result);
 			result = v1;
 		} while (v1);
-		*(_DWORD*)&byte_5D4594[534808] = 0;
+		dword_5d4594_534808 = 0;
 	} else {
-		*(_DWORD*)&byte_5D4594[534808] = 0;
+		dword_5d4594_534808 = 0;
 	}
 	return result;
 }
@@ -5194,9 +5195,9 @@ const char* __cdecl sub_4205B0(int a1) {
 	char* v5;       // eax
 	char v7[68];    // [esp+10h] [ebp-44h]
 
-	v1 = *(_DWORD*)&byte_5D4594[534808];
+	v1 = dword_5d4594_534808;
 	*(_DWORD*)&byte_5D4594[534804] = a1;
-	if (!*(_DWORD*)&byte_5D4594[534808])
+	if (!dword_5d4594_534808)
 		return 0;
 	while (1) {
 		if (!_strcmpi((const char*)(v1 + 95), "IRC")) {
