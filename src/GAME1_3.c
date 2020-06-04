@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816440;
 extern _DWORD dword_587000_154956;
 extern _DWORD dword_587000_80820;
 extern _DWORD dword_5d4594_830104;
@@ -2362,7 +2363,7 @@ int sub_43F1C0() {
 	}
 	dword_5d4594_816456 = 64;
 	*(_DWORD*)&byte_5D4594[816484] = 1;
-	*(_DWORD*)&byte_5D4594[816440] = 1;
+	dword_5d4594_816440 = 1;
 	*(_DWORD*)&byte_5D4594[816460] = 0;
 	*(_DWORD*)&byte_5D4594[816452] = 0;
 	v1 = &byte_5D4594[816484];
@@ -2682,10 +2683,10 @@ int __cdecl sub_43F7B0(int a1, __int16* a2, int a3, int a4) {
 	*(_DWORD*)&byte_5D4594[816460] = a3;
 	if (!*(_DWORD*)&byte_5D4594[816484])
 		return sub_4407F0(v5, a2, a3, a4);
-	*(_DWORD*)&byte_5D4594[816440] = 2;
+	dword_5d4594_816440 = 2;
 	sub_4407F0(v5, a2, a3, a4);
 	result = sub_4407F0(v5, a2, a3 + 1, a4);
-	*(_DWORD*)&byte_5D4594[816440] = 1;
+	dword_5d4594_816440 = 1;
 	return result;
 }
 
@@ -2731,7 +2732,7 @@ int __cdecl sub_43F840(int a1, unsigned __int16* a2, int* a3, _DWORD* a4, int a5
 				v10 = (unsigned __int8*)sub_43FE30(a1, v6);
 				if (v10 || (v10 = (unsigned __int8*)sub_43FE30(a1, 0x3Fu)) != 0) {
 					v11 = *v10;
-					v8 += v11 + *(_DWORD*)&byte_5D4594[816440];
+					v8 += v11 + dword_5d4594_816440;
 					if (a5 && v8 > a5) {
 						if (i) {
 							v7 = v15;
@@ -2739,7 +2740,7 @@ int __cdecl sub_43F840(int a1, unsigned __int16* a2, int* a3, _DWORD* a4, int a5
 							i = 0;
 						} else {
 							--v9;
-							v12 = v8 - (*(_DWORD*)&byte_5D4594[816440] + v11);
+							v12 = v8 - (dword_5d4594_816440 + v11);
 							if (v12 > v7)
 								v7 = v12;
 						}
@@ -2798,7 +2799,7 @@ int __cdecl sub_43F9E0(int a1, unsigned __int16* a2, int a3) {
 		} else if (v6 != 10 && v6 != 13) {
 			v8 = (unsigned __int8*)sub_43FE30(v3, v6);
 			if (v8 || (v8 = (unsigned __int8*)sub_43FE30(v3, 0x3Fu)) != 0)
-				v5 += *(_DWORD*)&byte_5D4594[816440] + *v8;
+				v5 += dword_5d4594_816440 + *v8;
 		}
 		if (v5 > a3)
 			break;
@@ -2814,9 +2815,9 @@ int __cdecl sub_43FA80(int a1, unsigned __int16* a2, int* a3, _DWORD* a4, int a5
 
 	if (!*(_DWORD*)&byte_5D4594[816484])
 		return sub_43F840(a1, a2, a3, a4, a5);
-	*(_DWORD*)&byte_5D4594[816440] = 2;
+	dword_5d4594_816440 = 2;
 	result = sub_43F840(a1, a2, a3, a4, a5);
-	*(_DWORD*)&byte_5D4594[816440] = 1;
+	dword_5d4594_816440 = 1;
 	return result;
 }
 
@@ -2898,7 +2899,7 @@ int __cdecl sub_43FAF0(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 					if (!v14)
 						goto LABEL_31;
 				}
-				v17 = *(_DWORD*)&byte_5D4594[816440] + *(unsigned __int8*)v14;
+				v17 = dword_5d4594_816440 + *(unsigned __int8*)v14;
 				HIWORD(v14) = HIWORD(a5);
 				v11 += v17;
 				if (!a5 || v11 <= a5)
@@ -2971,10 +2972,10 @@ int __cdecl sub_43FD80(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 	*(_DWORD*)&byte_5D4594[816460] = a3;
 	if (!*(_DWORD*)&byte_5D4594[816484])
 		return sub_43FAF0(a1, a2, a3, a4, a5, a6);
-	*(_DWORD*)&byte_5D4594[816440] = 2;
+	dword_5d4594_816440 = 2;
 	sub_43FAF0(a1, a2, a3, a4, a5, a6);
 	result = sub_43FAF0(a1, a2, a3 + 1, a4, a5, a6);
-	*(_DWORD*)&byte_5D4594[816440] = 1;
+	dword_5d4594_816440 = 1;
 	return result;
 }
 
@@ -3104,7 +3105,7 @@ int __cdecl sub_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 		goto LABEL_102;
 	SetRect(&rc, xLeft, v5, xLeft + *v8, v10 + v5);
 	if (!sub_49F930(&v72, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1])))
-		return v11 + *(_DWORD*)&byte_5D4594[816440] + v67;
+		return v11 + dword_5d4594_816440 + v67;
 	if (rc.left == v72.field_0 && rc.right == v72.field_8 && rc.top == v72.field_4 && rc.bottom == v72.field_C) {
 	LABEL_102:
 		v44 = v10;
@@ -3193,7 +3194,7 @@ int __cdecl sub_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 			sub_43FE90(v7, a2, v11, v5);
 			*(_DWORD*)&byte_5D4594[816452] = 1;
 		}
-		return v11 + *(_DWORD*)&byte_5D4594[816440] + v67;
+		return v11 + dword_5d4594_816440 + v67;
 	}
 	v12 = v72.field_4 - rc.top + v5;
 	v66 = *(_DWORD*)(a1 + 4) * (v72.field_4 - rc.top) + v65;
@@ -3294,7 +3295,7 @@ LABEL_60:
 		sub_43FE90(a1, a2, xLeft, v71);
 		*(_DWORD*)&byte_5D4594[816452] = 1;
 	}
-	return xLeft + *(_DWORD*)&byte_5D4594[816440] + v67;
+	return xLeft + dword_5d4594_816440 + v67;
 }
 // 43FEE1: variable 'v4' is possibly undefined
 
@@ -3394,7 +3395,7 @@ int __cdecl sub_440360(int a1, int a2, int xLeft, int yTop) {
 		goto LABEL_100;
 	SetRect(&rc, xLeft, yTop, v8 + xLeft, v7 + yTop);
 	if (!sub_49F930(&v71, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1])))
-		return xLeft + v8 + *(_DWORD*)&byte_5D4594[816440];
+		return xLeft + v8 + dword_5d4594_816440;
 	if (rc.left == v71.field_0 && rc.right == v71.field_8 && rc.top == v71.field_4 && rc.bottom == v71.field_C) {
 	LABEL_100:
 		v43 = v7;
@@ -3407,7 +3408,7 @@ int __cdecl sub_440360(int a1, int a2, int xLeft, int yTop) {
 				sub_440360(a1, a2, xLeft, yTop);
 				*(_DWORD*)&byte_5D4594[816452] = 1;
 			}
-			return xLeft + *(_DWORD*)&byte_5D4594[816440] + v67;
+			return xLeft + dword_5d4594_816440 + v67;
 		}
 		v45 = 4 * yTop;
 		v46 = v44 + 1;
@@ -3592,7 +3593,7 @@ LABEL_61:
 		sub_440360(a1, a2, xLeft, v42);
 		*(_DWORD*)&byte_5D4594[816452] = 1;
 	}
-	return xLeft + *(_DWORD*)&byte_5D4594[816440] + v67;
+	return xLeft + dword_5d4594_816440 + v67;
 }
 // 4403CC: variable 'v6' is possibly undefined
 
