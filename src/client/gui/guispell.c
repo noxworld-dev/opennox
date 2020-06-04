@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1049500;
 extern _DWORD dword_5d4594_1049504;
 extern _DWORD dword_587000_133480;
@@ -323,26 +324,26 @@ int sub_45E190() {
 					    1892);
 		sub_46B000(v27 + 18, v29);
 		*((_DWORD*)v27 + 92) = 4;
-		*(_DWORD*)&byte_5D4594[1049508] = nox_window_new(0, 1032, *(_DWORD*)&byte_5D4594[1047548] - 1,
+		dword_5d4594_1049508 = nox_window_new(0, 1032, *(_DWORD*)&byte_5D4594[1047548] - 1,
 								 *(_DWORD*)&byte_5D4594[1047552] + 26, 61, 48, 0);
-		sub_46AE40(*(int*)&byte_5D4594[1049508], 1, -26);
+		sub_46AE40(*(int*)&dword_5d4594_1049508, 1, -26);
 		v30 = sub_42F970("QuickBarSpellSetBase");
-		sub_46AE60(*(int*)&byte_5D4594[1049508], (int)v30);
+		sub_46AE60(*(int*)&dword_5d4594_1049508, (int)v30);
 		v31 = sub_42F970("QuickBarSpellSetBase");
-		sub_46AEA0(*(int*)&byte_5D4594[1049508], (int)v31);
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1049508] + 368) = 5;
-		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1049508], sub_45F8D0, sub_45F6F0, 0);
+		sub_46AEA0(*(int*)&dword_5d4594_1049508, (int)v31);
+		*(_DWORD*)(dword_5d4594_1049508 + 368) = 5;
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1049508, sub_45F8D0, sub_45F6F0, 0);
 	} else {
-		*(_DWORD*)&byte_5D4594[1049508] = nox_window_new(0, 1032, *(_DWORD*)&byte_5D4594[1047548] - 1,
+		dword_5d4594_1049508 = nox_window_new(0, 1032, *(_DWORD*)&byte_5D4594[1047548] - 1,
 								 *(_DWORD*)&byte_5D4594[1047552] + 26, 61, 48, 0);
-		sub_46AE40(*(int*)&byte_5D4594[1049508], 1, -26);
+		sub_46AE40(*(int*)&dword_5d4594_1049508, 1, -26);
 		v32 = sub_42F970("QuickBarWarriorLeft");
-		sub_46AE60(*(int*)&byte_5D4594[1049508], (int)v32);
+		sub_46AE60(*(int*)&dword_5d4594_1049508, (int)v32);
 		v33 = sub_42F970("QuickBarWarriorLeft");
-		sub_46AEA0(*(int*)&byte_5D4594[1049508], (int)v33);
-		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1049508], sub_45F8D0, sub_45F6F0, 0);
+		sub_46AEA0(*(int*)&dword_5d4594_1049508, (int)v33);
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1049508, sub_45F8D0, sub_45F6F0, 0);
 	}
-	*(_DWORD*)&byte_5D4594[1049524] = nox_window_new(*(int*)&byte_5D4594[1049508], 1160, 0, 9, 29, 30, 0);
+	*(_DWORD*)&byte_5D4594[1049524] = nox_window_new(*(int*)&dword_5d4594_1049508, 1160, 0, 9, 29, 30, 0);
 	v34 = sub_42F970("SpellbookButton");
 	sub_46AE60(*(int*)&byte_5D4594[1049524], (int)v34);
 	v35 = sub_42F970("SpellbookButtonLit");
@@ -352,7 +353,7 @@ int sub_45E190() {
 	v36 = loadString_sub_40F1D0((char*)&byte_587000[134692], 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1931);
 	sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1049528] + 36), v36);
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251)) {
-		v37 = (wchar_t*)nox_window_new(*(int*)&byte_5D4594[1049508], 1032, 30, 0, 15, 19, 0);
+		v37 = (wchar_t*)nox_window_new(*(int*)&dword_5d4594_1049508, 1032, 30, 0, 15, 19, 0);
 		sub_46AE40((int)v37, -29, -26);
 		sub_46AE60((int)v37, 0);
 		v38 = sub_42F970("QuickBarSpellSetUpLit");
@@ -362,7 +363,7 @@ int sub_45E190() {
 		v39 = loadString_sub_40F1D0((char*)&byte_587000[134772], 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 					    1943);
 		sub_46B000(v37 + 18, v39);
-		v40 = (wchar_t*)nox_window_new(*(int*)&byte_5D4594[1049508], 1032, 30, 29, 15, 19, 0);
+		v40 = (wchar_t*)nox_window_new(*(int*)&dword_5d4594_1049508, 1032, 30, 29, 15, 19, 0);
 		sub_46AE40((int)v40, -29, -55);
 		sub_46AE60((int)v40, 0);
 		v41 = sub_42F970("QuickBarSpellSetDownLit");
@@ -372,7 +373,7 @@ int sub_45E190() {
 		v42 = loadString_sub_40F1D0((char*)&byte_587000[134856], 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 					    1953);
 		sub_46B000(v40 + 18, v42);
-		v43 = (wchar_t*)nox_window_new(*(int*)&byte_5D4594[1049508], 1032, 48, 16, 13, 17, 0);
+		v43 = (wchar_t*)nox_window_new(*(int*)&dword_5d4594_1049508, 1032, 48, 16, 13, 17, 0);
 		sub_46AE40((int)v43, -47, -42);
 		sub_46AE60((int)v43, 0);
 		v44 = sub_42F970("QuickBarSpellSetMaxLit");
