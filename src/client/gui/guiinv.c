@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1049864;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1063116;
 extern _DWORD dword_5d4594_1062480;
@@ -139,7 +140,7 @@ int __cdecl sub_461A30(int a1, int a2) {
 	v2 = *(_DWORD*)(a1 + 396);
 	if (a2 != 6)
 		return 0;
-	*(_DWORD*)&byte_5D4594[1049864] = 4;
+	dword_5d4594_1049864 = 4;
 	v4 = loadString_sub_40F1D0((char*)&byte_587000[136564], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1220);
 	sub_445490(v4);
 	sub_46ADC0(v2);
@@ -315,7 +316,7 @@ int sub_462740() {
 	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1062476], 9156);
 	nox_window_call_field_94((int)v1, 16399, 0, 0);
 	sub_46ADE0(*(int*)&byte_5D4594[1062456]);
-	*(_DWORD*)&byte_5D4594[1049864] = 0;
+	dword_5d4594_1049864 = 0;
 	nox_client_setCursorType_477610(0);
 	return 1;
 }
@@ -1122,7 +1123,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 	case 5:
 		if (sub_4372B0())
 			return 1;
-		if (*(_DWORD*)&byte_5D4594[1049864] == 5) {
+		if (dword_5d4594_1049864 == 5) {
 			v8 = sub_4281F0(&v56, (int4*)&byte_587000[136352]);
 			if (v8) {
 				v9 = (v56.field_0 - 314) / 50;
@@ -1149,7 +1150,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 					}
 				}
 			}
-		} else if (*(_DWORD*)&byte_5D4594[1049864] == 6) {
+		} else if (dword_5d4594_1049864 == 6) {
 			v15 = sub_4281F0(&v56, (int4*)&byte_587000[136352]);
 			if (v15) {
 				v16 = (v56.field_0 - 314) / 50;
@@ -1194,13 +1195,13 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 	case 6:
 		goto LABEL_53;
 	case 7:
-		if (sub_4372B0() || *(_DWORD*)&byte_5D4594[1049864] == 6)
+		if (sub_4372B0() || dword_5d4594_1049864 == 6)
 			return 1;
 		if (!byte_5D4594[1049869]) {
 			v26 = sub_4281F0(&v56, (int4*)&byte_587000[136368]);
 			if (v26) {
 				if ((v56.field_4 - 13) / 50 == 1) {
-					if (*(_DWORD*)&byte_5D4594[1049864] != 5) {
+					if (dword_5d4594_1049864 != 5) {
 						sub_465CA0();
 						return 1;
 					}
@@ -1211,15 +1212,15 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 			}
 		}
 	LABEL_53:
-		if (sub_4372B0() || *(_DWORD*)&byte_5D4594[1049864] == 6)
+		if (sub_4372B0() || dword_5d4594_1049864 == 6)
 			return 1;
-		if (*(_DWORD*)&byte_5D4594[1049864] == 5) {
+		if (dword_5d4594_1049864 == 5) {
 			if (sub_477630() == 7)
 				goto LABEL_5;
 		} else {
 			sub_46ADE0(*(int*)&byte_5D4594[1062456]);
 		}
-		if (*(_DWORD*)&byte_5D4594[1049864] == 4) {
+		if (dword_5d4594_1049864 == 4) {
 			v58 = v59;
 			sub_473970(&v58, &v58);
 			v28 = sub_49ABF0(&v58, 20);
@@ -1231,7 +1232,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 					(v57.field_4 - v28[4]) * (v57.field_4 - v28[4]) <=
 				    5625) {
 				LABEL_64:
-					*(_DWORD*)&byte_5D4594[1049864] = 0;
+					dword_5d4594_1049864 = 0;
 					return 1;
 				}
 				v29 = loadString_sub_40F1D0((char*)&byte_587000[139256], 0,
@@ -1390,7 +1391,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 	case 8:
 		return 1;
 	case 9:
-		if (*(_DWORD*)&byte_5D4594[1049864] == 5)
+		if (dword_5d4594_1049864 == 5)
 			goto LABEL_5;
 		return 0;
 	case 19:
@@ -1417,7 +1418,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 		return 1;
 	default:
 	LABEL_124:
-		if (*(_DWORD*)&byte_5D4594[1049864] == 5)
+		if (dword_5d4594_1049864 == 5)
 			return 1;
 		return 0;
 	}
