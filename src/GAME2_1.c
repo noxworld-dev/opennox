@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_133480;
 extern _DWORD dword_5d4594_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -288,10 +289,10 @@ int sub_461250() {
 	int v1;     // esi
 	_DWORD* v2; // eax
 
-	v0 = *(unsigned __int8*)(*(_DWORD*)&byte_587000[133480] + 200);
+	v0 = *(unsigned __int8*)(dword_587000_133480 + 200);
 	do {
 		v1 = 0;
-		v2 = (_DWORD*)(*(_DWORD*)&byte_587000[133480] + 40 * v0);
+		v2 = (_DWORD*)(dword_587000_133480 + 40 * v0);
 		do {
 			if (!*v2) {
 				sub_45E110(v0);
@@ -302,7 +303,7 @@ int sub_461250() {
 		} while (v1 < 5);
 		if (++v0 >= 5)
 			v0 = 0;
-	} while (v0 != *(unsigned __int8*)(*(_DWORD*)&byte_587000[133480] + 200));
+	} while (v0 != *(unsigned __int8*)(dword_587000_133480 + 200));
 	return -1;
 }
 
@@ -312,8 +313,8 @@ int sub_4612A0() {
 	_DWORD* i;  // ecx
 
 	result = 0;
-	for (i = (_DWORD*)(*(_DWORD*)&byte_587000[133480] +
-			   40 * *(unsigned __int8*)(*(_DWORD*)&byte_587000[133480] + 200));
+	for (i = (_DWORD*)(dword_587000_133480 +
+			   40 * *(unsigned __int8*)(dword_587000_133480 + 200));
 	     *i; i += 2) {
 		if (++result >= 5)
 			return -1;
@@ -327,10 +328,10 @@ int __cdecl sub_4612D0(int a1) {
 	int v2;     // eax
 	_DWORD* v3; // ecx
 
-	v1 = *(unsigned __int8*)(*(_DWORD*)&byte_587000[133480] + 200);
+	v1 = *(unsigned __int8*)(dword_587000_133480 + 200);
 	do {
 		v2 = 0;
-		v3 = (_DWORD*)(*(_DWORD*)&byte_587000[133480] + 40 * v1);
+		v3 = (_DWORD*)(dword_587000_133480 + 40 * v1);
 		do {
 			if (*v3 == a1)
 				return 1;
@@ -339,7 +340,7 @@ int __cdecl sub_4612D0(int a1) {
 		} while (v2 < 5);
 		if (++v1 >= 5)
 			v1 = 0;
-	} while (v1 != *(unsigned __int8*)(*(_DWORD*)&byte_587000[133480] + 200));
+	} while (v1 != *(unsigned __int8*)(dword_587000_133480 + 200));
 	return 0;
 }
 
@@ -347,7 +348,7 @@ int __cdecl sub_4612D0(int a1) {
 void __cdecl sub_461320(int a1, _DWORD* a2) {
 	if (a2) {
 		if (a1 >= 0 && a1 < 5)
-			nox_client_wndGetPosition_46AA60(*(_DWORD**)(*(_DWORD*)&byte_587000[133480] + 4 * a1 + 212), a2, a2 + 1);
+			nox_client_wndGetPosition_46AA60(*(_DWORD**)(dword_587000_133480 + 4 * a1 + 212), a2, a2 + 1);
 	}
 }
 
@@ -359,16 +360,16 @@ int __cdecl sub_461360(int a1) {
 	int v4;     // esi
 	int result; // eax
 
-	v1 = *(_DWORD*)&byte_587000[133480];
-	v2 = *(unsigned __int8*)(*(_DWORD*)&byte_587000[133480] + 200);
-	v3 = *(unsigned __int8*)(*(_DWORD*)&byte_587000[133480] + 200);
+	v1 = dword_587000_133480;
+	v2 = *(unsigned __int8*)(dword_587000_133480 + 200);
+	v3 = *(unsigned __int8*)(dword_587000_133480 + 200);
 	do {
 		v4 = 5;
 		result = 40 * v2;
 		do {
 			if (*(_DWORD*)(result + v1) == a1) {
 				*(_DWORD*)(result + v1) = 0;
-				v1 = *(_DWORD*)&byte_587000[133480];
+				v1 = dword_587000_133480;
 			}
 			result += 8;
 			--v4;
@@ -388,8 +389,8 @@ int sub_4613B0() {
 	int result; // eax
 	int v5;     // [esp+10h] [ebp-4h]
 
-	v0 = *(_DWORD*)&byte_587000[133480];
-	v1 = *(_DWORD*)&byte_587000[133480];
+	v0 = dword_587000_133480;
+	v1 = dword_587000_133480;
 	v5 = 5;
 	do {
 		v2 = v1;
@@ -416,8 +417,8 @@ int sub_461400() {
 		result = i;
 		v2 = 5;
 		do {
-			*(_DWORD*)(result + *(_DWORD*)&byte_587000[133480]) = *(_DWORD*)&byte_5D4594[result + 1047564];
-			*(_BYTE*)(result + *(_DWORD*)&byte_587000[133480] + 4) = byte_5D4594[result + 1047568];
+			*(_DWORD*)(result + dword_587000_133480) = *(_DWORD*)&byte_5D4594[result + 1047564];
+			*(_BYTE*)(result + dword_587000_133480 + 4) = byte_5D4594[result + 1047568];
 			result += 40;
 			--v2;
 		} while (v2);

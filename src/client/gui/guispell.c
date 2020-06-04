@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_587000_133480;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -193,10 +194,10 @@ int sub_45E190() {
 	if (!*(_DWORD*)&byte_5D4594[2618908])
 		return 0;
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251))
-		sub_4601F0(*(int*)&byte_587000[133480], *(_DWORD*)&byte_5D4594[1047548] + 69,
+		sub_4601F0(*(int*)&dword_587000_133480, *(_DWORD*)&byte_5D4594[1047548] + 69,
 			   *(_DWORD*)&byte_5D4594[1047552] + 32, 5, 0, sub_45EF50, sub_45FDE0);
 	else
-		sub_4601F0(*(int*)&byte_587000[133480], *(_DWORD*)&byte_5D4594[1047548] + 69,
+		sub_4601F0(*(int*)&dword_587000_133480, *(_DWORD*)&byte_5D4594[1047548] + 69,
 			   *(_DWORD*)&byte_5D4594[1047552] + 32, 5, 0, sub_45EF50, sub_45FBD0);
 	v4 = &byte_5D4594[1048964];
 	do {
@@ -510,7 +511,7 @@ int __cdecl sub_45F9B0(_DWORD* a1) {
 		v1 = a1;
 		nox_client_wndGetPosition_46AA60(a1, &v6, &a1);
 		nox_window_get_size((int)v1, &v7, &v9);
-		v5 = *(unsigned __int8*)(*(_DWORD*)&byte_587000[133480] + 200) + 1;
+		v5 = *(unsigned __int8*)(dword_587000_133480 + 200) + 1;
 		v2 = loadString_sub_40F1D0((char*)&byte_587000[135296], 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 					   1276);
 		nox_swprintf(v11, v2, v5);
@@ -584,7 +585,7 @@ int __cdecl sub_45FBD0(int yTop) {
 		return 0;
 	nox_client_wndGetPosition_46AA60((_DWORD*)yTop, &xLeft, &yTop);
 	v5 = sub_43F320(0);
-	v6 = *(_DWORD*)(*(_DWORD*)&byte_587000[133480] + 204);
+	v6 = *(_DWORD*)(dword_587000_133480 + 204);
 	v7 = (int*)(v6 + 8 * v2);
 	v8 = *(_DWORD*)(v6 + 8 * v2);
 	if (v8) {
