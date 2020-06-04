@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_155144;
 extern _DWORD dword_5d4594_3798840;
 extern _DWORD dword_5d4594_1123524;
 extern _DWORD dword_5d4594_3799624;
@@ -11033,10 +11034,10 @@ void* sub_486EF0() {
 
 	result = *(void**)&byte_5D4594[1193336];
 	if (*(_DWORD*)&byte_5D4594[1193336]) {
-		result = *(void**)&byte_587000[155144];
-		if (!*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24)) {
-			v1 = *(int**)(*(_DWORD*)&byte_587000[155144] + 12);
-			for (i = *(_DWORD*)&byte_587000[155144] + 12; v1 != (int*)i; v1 = (int*)*v1) {
+		result = *(void**)&dword_587000_155144;
+		if (!*(_DWORD*)(dword_587000_155144 + 24)) {
+			v1 = *(int**)(dword_587000_155144 + 12);
+			for (i = dword_587000_155144 + 12; v1 != (int*)i; v1 = (int*)*v1) {
 				if (!(v1[3] & 2))
 					result = (void*)((int(__cdecl*)(int*))v1[54])(v1);
 			}
@@ -11047,11 +11048,11 @@ void* sub_486EF0() {
 
 //----- (00486F30) --------------------------------------------------------
 int sub_486F30() {
-	sub_425760(*(_DWORD**)&byte_587000[155144]);
-	sub_425760((_DWORD*)(*(_DWORD*)&byte_587000[155144] + 12));
-	*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24) = 0;
-	*(_DWORD*)&byte_5D4594[1193340] = *(_DWORD*)&byte_587000[155144] + 32;
-	sub_4864A0((_DWORD*)(*(_DWORD*)&byte_587000[155144] + 32));
+	sub_425760(*(_DWORD**)&dword_587000_155144);
+	sub_425760((_DWORD*)(dword_587000_155144 + 12));
+	*(_DWORD*)(dword_587000_155144 + 24) = 0;
+	*(_DWORD*)&byte_5D4594[1193340] = dword_587000_155144 + 32;
+	sub_4864A0((_DWORD*)(dword_587000_155144 + 32));
 	*(_DWORD*)&byte_5D4594[1193336] = 1;
 	return 0;
 }
@@ -11100,7 +11101,7 @@ void __cdecl sub_487030(LPVOID lpMem) {
 }
 
 //----- (00487050) --------------------------------------------------------
-_DWORD* __cdecl sub_487050(_DWORD* a1) { return sub_4258E0(*(int*)&byte_587000[155144], a1); }
+_DWORD* __cdecl sub_487050(_DWORD* a1) { return sub_4258E0(*(int*)&dword_587000_155144, a1); }
 
 //----- (00487070) --------------------------------------------------------
 void __cdecl sub_487070(LPVOID lpMem) {
@@ -11132,7 +11133,7 @@ void sub_4870A0() {
 int* __cdecl sub_4870E0(int* a1) {
 	int* result; // eax
 
-	result = sub_425890(*(int**)&byte_587000[155144]);
+	result = sub_425890(*(int**)&dword_587000_155144);
 	*a1 = (int)result;
 	return result;
 }
@@ -11241,12 +11242,12 @@ void __cdecl sub_4872C0(LPVOID lpMem) {
 int __cdecl sub_487310(_DWORD* a1) {
 	int result; // eax
 
-	++*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24);
-	sub_4258E0(*(_DWORD*)&byte_587000[155144] + 12, a1);
-	result = *(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24) - 1;
-	*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24) = result;
+	++*(_DWORD*)(dword_587000_155144 + 24);
+	sub_4258E0(dword_587000_155144 + 12, a1);
+	result = *(_DWORD*)(dword_587000_155144 + 24) - 1;
+	*(_DWORD*)(dword_587000_155144 + 24) = result;
 	if (result < 0)
-		*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24) = 0;
+		*(_DWORD*)(dword_587000_155144 + 24) = 0;
 	return result;
 }
 
@@ -11363,7 +11364,7 @@ int __cdecl sub_487590(int a1, const void* a2) {
 int* __cdecl sub_4875B0(int* a1) {
 	int* result; // eax
 
-	result = sub_425890((int*)(*(_DWORD*)&byte_587000[155144] + 12));
+	result = sub_425890((int*)(dword_587000_155144 + 12));
 	*a1 = (int)result;
 	return result;
 }
@@ -11382,7 +11383,7 @@ int sub_4875F0() {
 	int result; // eax
 	int* v3;    // [esp+4h] [ebp-4h]
 
-	++*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24);
+	++*(_DWORD*)(dword_587000_155144 + 24);
 	v0 = sub_4875B0((int*)&v3);
 	if (v0) {
 		do {
@@ -11391,10 +11392,10 @@ int sub_4875F0() {
 			v0 = v1;
 		} while (v1);
 	}
-	result = *(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24) - 1;
-	*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24) = result;
+	result = *(_DWORD*)(dword_587000_155144 + 24) - 1;
+	*(_DWORD*)(dword_587000_155144 + 24) = result;
 	if (result < 0)
-		*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24) = 0;
+		*(_DWORD*)(dword_587000_155144 + 24) = 0;
 	return result;
 }
 
@@ -11419,13 +11420,13 @@ void __cdecl sub_487680(LPVOID lpMem) {
 void* __cdecl sub_4876A0(_DWORD** a1) {
 	void* result; // eax
 
-	++*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24);
+	++*(_DWORD*)(dword_587000_155144 + 24);
 	sub_425920(a1);
-	result = (void*)(*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24) - 1);
-	*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24) = result;
+	result = (void*)(*(_DWORD*)(dword_587000_155144 + 24) - 1);
+	*(_DWORD*)(dword_587000_155144 + 24) = result;
 	if ((int)result < 0) {
-		result = *(void**)&byte_587000[155144];
-		*(_DWORD*)(*(_DWORD*)&byte_587000[155144] + 24) = 0;
+		result = *(void**)&dword_587000_155144;
+		*(_DWORD*)(dword_587000_155144 + 24) = 0;
 	}
 	return result;
 }
