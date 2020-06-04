@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_1062456;
 extern _DWORD dword_5d4594_1063636;
 extern _DWORD dword_5d4594_815132;
@@ -7185,7 +7186,7 @@ int __cdecl sub_471C00(int a1) {
 	v1 = *(_DWORD*)(a1 + 32);
 	v7 = v1;
 	v2 = &byte_5D4594[20 * v1 + 1093036];
-	if (sub_4372E0() || *(_DWORD*)&byte_5D4594[2650672] || nox_common_gameFlags_check_40A5C0(9437184))
+	if (sub_4372E0() || dword_5d4594_2650672 || nox_common_gameFlags_check_40A5C0(9437184))
 		return 1;
 	if (v1)
 		v3 = nox_win_width / 2 + 21;
@@ -9263,7 +9264,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 	v8 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(2048) && !sub_413830() ||
 	    nox_common_gameFlags_check_40A5C0(2048) && !sub_413840() || sub_4356C0(*(int*)&byte_5D4594[2614252], 2) ||
-	    *(_DWORD*)&byte_5D4594[2650672]) {
+	    dword_5d4594_2650672) {
 		v8 = 1;
 	}
 	if (*(_DWORD*)&byte_5D4594[1556112] || v8) {

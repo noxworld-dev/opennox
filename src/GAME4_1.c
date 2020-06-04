@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_2386940;
 extern _DWORD dword_5d4594_2487236;
 extern _DWORD dword_5d4594_2386176;
@@ -8054,7 +8055,7 @@ int sub_515130() {
 
 //----- (00515200) --------------------------------------------------------
 int sub_515200() {
-	*(_DWORD*)&byte_5D4594[2650672] = 0;
+	dword_5d4594_2650672 = 0;
 	sub_44DB30(25, 0, 0);
 	return 0;
 }
@@ -9203,7 +9204,7 @@ int __thiscall sub_516570(_BYTE* this) {
 	} else {
 		v2 = v4;
 	}
-	*(_DWORD*)&byte_5D4594[2650672] = 1;
+	dword_5d4594_2650672 = 1;
 	return sub_4D9560((unsigned __int8)v2[2064], byte_5D4594[2386828], *(int*)&byte_5D4594[2386832]);
 }
 
