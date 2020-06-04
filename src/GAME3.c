@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798720;
 extern _DWORD dword_5d4594_1307716;
 extern _DWORD dword_5d4594_1312484;
 extern _DWORD dword_587000_127004;
@@ -6419,7 +6420,7 @@ int sub_4AE470() {
 					v3 = (unsigned __int16*)*((_DWORD*)v2 + 1);
 					if (*((_DWORD*)v3 + 1)) {
 						(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) &
-						 byte_5D4594[3798720])(*v2, v1, *v3);
+						 dword_5d4594_3798720)(*v2, v1, *v3);
 						v1 = dword_5d4594_3798636;
 					}
 					result = dword_5d4594_3798640;
@@ -6500,7 +6501,7 @@ int __cdecl sub_4AE5C0(int a1) {
 					v9 = *((_WORD*)v6 + 1);
 					v6 += 4;
 					(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) &
-					 byte_5D4594[3798720])(v8, dword_5d4594_3798636, v9);
+					 dword_5d4594_3798720)(v8, dword_5d4594_3798636, v9);
 					--v7;
 				} while (v7);
 				v1 = dword_5d4594_3798636;
@@ -6596,7 +6597,7 @@ int __cdecl sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 		sub_4AEC20(0, 1);
 		v10 = *(void(__cdecl**)(int, int, int)) & byte_5D4594[3798708];
 		if (!ptr_5D4594_3799572->data[13])
-			v10 = *(void(__cdecl**)(int, int, int)) & byte_5D4594[3798720];
+			v10 = *(void(__cdecl**)(int, int, int)) & dword_5d4594_3798720;
 		v11 = a2 + a3;
 		v12 = a2 - a3;
 		v38 = 0;
@@ -8451,7 +8452,7 @@ int __cdecl sub_4B0BC0(int a1, int a2, int a3) {
 	v13 = v3;
 	v11 = 3;
 	if (!ptr_5D4594_3799572->data[13])
-		v4 = *(int(__cdecl**)(int, int, int)) & byte_5D4594[3798720];
+		v4 = *(int(__cdecl**)(int, int, int)) & dword_5d4594_3798720;
 	v5 = a2;
 	v6 = a1;
 	v4(a1, a2 + v3, a1);
