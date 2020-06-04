@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_2650652;
 
 #ifdef NOX_DEBUG
@@ -2112,8 +2113,8 @@ int nox_cmd_show_ai() {
 int nox_cmd_show_gui() {
 	int v0; // eax
 
-	v0 = *(_DWORD*)&byte_587000[80828] ^ 1;
-	*(_DWORD*)&byte_587000[80828] = v0;
+	v0 = dword_587000_80828 ^ 1;
+	dword_587000_80828 = v0;
 	*(_DWORD*)&byte_587000[80832] = v0;
 	return 1;
 }
