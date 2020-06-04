@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798844;
 extern _DWORD dword_5d4594_814980;
 extern int nox_enable_audio;
 extern int nox_video_dxUnlockSurface;
@@ -5940,7 +5941,7 @@ int __cdecl sub_430DB0(int a1, int a2) {
 	*(_DWORD*)&byte_5D4594[3798796] = v3;
 	if (!v3)
 		return 0;
-	*(_DWORD*)&byte_5D4594[3798844] = &v3[v2];
+	dword_5d4594_3798844 = &v3[v2];
 	return 1;
 }
 
