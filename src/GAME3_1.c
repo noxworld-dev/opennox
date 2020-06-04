@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_1522624;
 extern _DWORD dword_5d4594_1313796;
 extern _DWORD dword_587000_154956;
@@ -7665,7 +7666,7 @@ void sub_4C6A00() {
 					     (32 * ((byte_5D4594[v5 + 3803308] +
 						     ((unsigned __int16)(v1 * (v4 - byte_5D4594[v5 + 3803308])) >> 8)) &
 						    0xF8))))) +
-				      *(_DWORD*)&byte_5D4594[810640]);
+				      dword_5d4594_810640);
 			v2 = (_BYTE*)(dword_5d4594_3799540 + 1);
 			result = v8 - 1;
 			v6 = v8 == 1;
@@ -7792,7 +7793,7 @@ void sub_4C6C60() {
 					     (32 * ((byte_5D4594[v6 + 3803308] +
 						     ((unsigned __int16)(v8 * (v5 - byte_5D4594[v6 + 3803308])) >> 8)) &
 						    0xF8))))) +
-				      *(_DWORD*)&byte_5D4594[810640]);
+				      dword_5d4594_810640);
 			v2 = (_BYTE*)(dword_5d4594_3799540 + 1);
 			result = v10 - 1;
 			v7 = v10 == 1;
@@ -7872,7 +7873,7 @@ void sub_4C6E40() {
 					     (32 * ((byte_5D4594[v6 + 3803308] +
 						     ((unsigned __int16)(v8 * (v5 - byte_5D4594[v6 + 3803308])) >> 8)) &
 						    0xF8))))) +
-				      *(_DWORD*)&byte_5D4594[810640]);
+				      dword_5d4594_810640);
 			v2 = (_BYTE*)(dword_5d4594_3799540 + 1);
 			result = v10 - 1;
 			v7 = v10 == 1;
@@ -7972,7 +7973,7 @@ unsigned int sub_4C7110() {
 												v7)) >>
 								       8)) &
 								0xF8))))) +
-				    *(_DWORD*)&byte_5D4594[810640]);
+				    dword_5d4594_810640);
 			v1 = (_BYTE*)(dword_5d4594_3799540 + 1);
 			result = v5 - 1;
 			++dword_5d4594_3799540;
@@ -8026,7 +8027,7 @@ unsigned int sub_4C7240() {
 											  byte_5D4594[v5 + 3803308])) >>
 								      8)) &
 								    0xF8))))) +
-				    *(_DWORD*)&byte_5D4594[810640]);
+				    dword_5d4594_810640);
 			v2 = (unsigned __int8*)(dword_5d4594_3799540 + 1);
 			result = v7 - 1;
 			++dword_5d4594_3799540;
@@ -8057,13 +8058,13 @@ unsigned __int8 sub_4C73A0() {
 		v3 = *v0;
 		v4 = (unsigned __int16)(*v0 & 0x7C00) >> 7;
 		++v0;
-		// result = *(_BYTE *)(*(_DWORD *)&byte_5D4594[810640]
+		// result = *(_BYTE *)(*(_DWORD *)&dword_5d4594_810640
 		//                  + (((unsigned __int8)(__CFADD__(v2[2], 8 * (v3 & 0x1F)) ? -1 : (unsigned
 		//                  __int8)(byte_5D4594[4 * *v1 + 3803310] + 8 * (v3 & 0x1F))) >> 3) | (4 * (((unsigned
 		//                  __int8)-__CFADD__(v2[1], (unsigned __int16)(v3 & 0x3E0) >> 2) | (unsigned
 		//                  __int8)(v2[1] + ((unsigned __int16)(v3 & 0x3E0) >> 2))) & 0xF8)) | ((((unsigned
 		//                  __int8)-__CFADD__(*v2, (_BYTE)v4) | (unsigned __int8)(*v2 + v4)) & 0xF8) << 7)));
-		result = *(_BYTE*)(*(_DWORD*)&byte_5D4594[810640] + (SADD8(v2[2], 8 * (v3 & 0x1F)) >> 3) |
+		result = *(_BYTE*)(dword_5d4594_810640 + (SADD8(v2[2], 8 * (v3 & 0x1F)) >> 3) |
 				   (4 * (SADD8(v2[1], (unsigned __int16)(v3 & 0x3E0) >> 2) & 0xF8) |
 				    (SADD8(*v2, (_BYTE)v4) & 0xF8) << 7));
 		*v1++ = result;
