@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1319060;
 extern _DWORD dword_5d4594_3798720;
 extern _DWORD dword_5d4594_1522632;
 extern _DWORD dword_5d4594_1321252;
@@ -3231,12 +3232,12 @@ int sub_4BFBF0() {
 	int v1;     // [esp+0h] [ebp-8h]
 	int v2;     // [esp+4h] [ebp-4h]
 
-	result = *(_DWORD*)&byte_5D4594[1319060];
-	if (*(_DWORD*)&byte_5D4594[1319060]) {
-		nox_window_set_hidden(*(int*)&byte_5D4594[1319060], 0);
-		sub_46ABB0(*(int*)&byte_5D4594[1319060], 1);
-		nox_window_get_size(*(int*)&byte_5D4594[1319060], &v2, &v1);
-		sub_46A9B0(*(_DWORD**)&byte_5D4594[1319060], nox_win_width / 2 - v2 / 2, nox_win_height / 2 - v1 / 2);
+	result = dword_5d4594_1319060;
+	if (dword_5d4594_1319060) {
+		nox_window_set_hidden(*(int*)&dword_5d4594_1319060, 0);
+		sub_46ABB0(*(int*)&dword_5d4594_1319060, 1);
+		nox_window_get_size(*(int*)&dword_5d4594_1319060, &v2, &v1);
+		sub_46A9B0(*(_DWORD**)&dword_5d4594_1319060, nox_win_width / 2 - v2 / 2, nox_win_height / 2 - v1 / 2);
 		result = sub_46B500(0);
 	}
 	return result;
@@ -3246,9 +3247,9 @@ int sub_4BFBF0() {
 int sub_4BFC70() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1319060];
-	if (*(_DWORD*)&byte_5D4594[1319060]) {
-		nox_window_set_hidden(*(int*)&byte_5D4594[1319060], 1);
+	result = dword_5d4594_1319060;
+	if (dword_5d4594_1319060) {
+		nox_window_set_hidden(*(int*)&dword_5d4594_1319060, 1);
 		result = sub_46B500(0);
 	}
 	return result;
@@ -3259,7 +3260,7 @@ int sub_4BFC90() {
 	int result; // eax
 
 	result = nox_new_window_from_file("SKey.wnd", sub_4BFCD0);
-	*(_DWORD*)&byte_5D4594[1319060] = result;
+	dword_5d4594_1319060 = result;
 	if (result) {
 		sub_4BFB70(0);
 		sub_4BFC70();
@@ -3283,8 +3284,8 @@ int __cdecl sub_4BFCD0(int a1, int a2, int* a3, int a4) {
 
 //----- (004BFD10) --------------------------------------------------------
 _DWORD* sub_4BFD10() {
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1319060]);
-	*(_DWORD*)&byte_5D4594[1319060] = 0;
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1319060);
+	dword_5d4594_1319060 = 0;
 	return sub_4BFB70(0);
 }
 
