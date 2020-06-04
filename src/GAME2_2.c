@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798816;
 extern _DWORD dword_5d4594_1096640;
 extern _DWORD dword_587000_154952;
 extern _DWORD dword_5d4594_3798808;
@@ -7195,7 +7196,7 @@ LABEL_9:
 	sub_481410();
 	v11 = dword_5d4594_3798824;
 	v74 = dword_5d4594_3798832;
-	if (*(int*)&dword_5d4594_3798832 < *(int*)&dword_5d4594_3798832 + *(int*)&byte_5D4594[3798816]) {
+	if (*(int*)&dword_5d4594_3798832 < *(int*)&dword_5d4594_3798832 + *(int*)&dword_5d4594_3798816) {
 		v12 = 44 * dword_5d4594_3798832;
 		for (i = 44 * dword_5d4594_3798832;; v12 = i) {
 			HIWORD(v13) = *(_WORD*)&byte_5D4594[2650670];
@@ -7228,7 +7229,7 @@ LABEL_9:
 					sub_481BF0((int)&v68, v17);
 			}
 			v11 += 46;
-			v18 = (int)++v74 < *(int*)&dword_5d4594_3798832 + *(_DWORD*)&byte_5D4594[3798816];
+			v18 = (int)++v74 < *(int*)&dword_5d4594_3798832 + dword_5d4594_3798816;
 			i += 44;
 			if (!v18)
 				break;
@@ -7239,7 +7240,7 @@ LABEL_36:
 		if ((int)&v78[nox_backbuffer_height] <= *(int*)&dword_5d4594_3798824 + *(int*)&dword_5d4594_3798808)
 			goto LABEL_60;
 		v22 = dword_5d4594_3798832;
-		if (*(int*)&dword_5d4594_3798832 + *(int*)&byte_5D4594[3798816] >= 128)
+		if (*(int*)&dword_5d4594_3798832 + *(int*)&dword_5d4594_3798816 >= 128)
 			goto LABEL_60;
 		if ((int)&v78[nox_backbuffer_height] >
 		    *(int*)&dword_5d4594_3798824 + *(int*)&dword_5d4594_3798808 + 46) {
@@ -7248,7 +7249,7 @@ LABEL_36:
 		}
 		++dword_5d4594_3798832;
 		v23 = dword_5d4594_3798824 + 46;
-		v19 = *(_DWORD*)&byte_5D4594[3798816] + v22;
+		v19 = dword_5d4594_3798816 + v22;
 		v24 = dword_5d4594_3798840 + 46;
 		dword_5d4594_3798824 += 46;
 		dword_5d4594_3798840 += 46;
@@ -7507,11 +7508,11 @@ int __cdecl sub_482570(_DWORD* a1) {
 	v3 = (v1 - 11) / 46 - 1;
 	if (v3 < 0)
 		v3 = 0;
-	v4 = *(_DWORD*)&byte_5D4594[3798816] + v3;
-	v10 = *(_DWORD*)&byte_5D4594[3798816] + v3;
-	if (*(int*)&byte_5D4594[3798816] + v3 >= 128) {
+	v4 = dword_5d4594_3798816 + v3;
+	v10 = dword_5d4594_3798816 + v3;
+	if (*(int*)&dword_5d4594_3798816 + v3 >= 128) {
 		v10 = 127;
-		v3 = 127 - *(_DWORD*)&byte_5D4594[3798816];
+		v3 = 127 - dword_5d4594_3798816;
 		v4 = 127;
 	}
 	v11 = v3;
@@ -7589,10 +7590,10 @@ int __cdecl sub_4826A0(_DWORD* a1) {
 	result = (v2 - 11) / 46 - 1;
 	if (result < 0)
 		result = 0;
-	v4 = *(_DWORD*)&byte_5D4594[3798816] + result;
-	if (*(int*)&byte_5D4594[3798816] + result >= 128) {
+	v4 = dword_5d4594_3798816 + result;
+	if (*(int*)&dword_5d4594_3798816 + result >= 128) {
 		v4 = 127;
-		result = 127 - *(_DWORD*)&byte_5D4594[3798816];
+		result = 127 - dword_5d4594_3798816;
 	}
 	v5 = v25;
 	dword_5d4594_3798824 = 46 * result - 11;

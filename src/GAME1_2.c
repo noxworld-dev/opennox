@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798816;
 extern _DWORD dword_587000_154952;
 extern _DWORD dword_5d4594_3798808;
 extern _DWORD dword_5d4594_3798832;
@@ -5967,11 +5968,11 @@ int __cdecl sub_430DB0(int a1, int a2) {
 	dword_5d4594_3798820 = 0;
 	dword_5d4594_3798824 = 0;
 	*(_DWORD*)&byte_5D4594[3798800] = 46 * *(_DWORD*)&byte_5D4594[3798812];
-	*(_DWORD*)&byte_5D4594[3798816] = a2 / 46 + 3;
+	dword_5d4594_3798816 = a2 / 46 + 3;
 	*(_DWORD*)&byte_5D4594[3798828] = 0;
 	dword_5d4594_3798832 = 0;
-	dword_5d4594_3798808 = 46 * *(_DWORD*)&byte_5D4594[3798816];
-	v2 = ((46 * *(_DWORD*)&byte_5D4594[3798812]) << byte_5D4594[3807124]) * 46 * *(_DWORD*)&byte_5D4594[3798816];
+	dword_5d4594_3798808 = 46 * dword_5d4594_3798816;
+	v2 = ((46 * *(_DWORD*)&byte_5D4594[3798812]) << byte_5D4594[3807124]) * 46 * dword_5d4594_3798816;
 	dword_5d4594_3798804 = (46 * *(_DWORD*)&byte_5D4594[3798812]) << byte_5D4594[3807124];
 	dword_5d4594_3798836 = 0;
 	dword_5d4594_3798840 = 0;
