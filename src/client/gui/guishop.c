@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "guimsg.h"
+extern _DWORD dword_5d4594_1098576;
 extern _DWORD dword_587000_80828;
 
 //----- (00478730) --------------------------------------------------------
@@ -99,7 +100,7 @@ wchar_t* __cdecl sub_478B10(int2* a1) {
 	int v5;          // [esp+Ch] [ebp-8h]
 	int v6;          // [esp+10h] [ebp-4h]
 
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3806);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3806);
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
 	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1098456], a1->field_0, a1->field_4);
@@ -122,7 +123,7 @@ wchar_t* __cdecl sub_478BC0(int* a1) {
 	int v5;          // [esp+Ch] [ebp-8h]
 	int v6;          // [esp+10h] [ebp-4h]
 
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3806);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3806);
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
 	sub_434390(*(int*)&byte_5D4594[2523948]);
@@ -141,13 +142,13 @@ wchar_t* __cdecl sub_478BC0(int* a1) {
 int __cdecl sub_478FD0(const wchar_t* a1, char* a2, int a3) {
 	_DWORD* v3; // esi
 
-	v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3810);
+	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3810);
 	sub_445C20();
 	*(_DWORD*)&byte_5D4594[1098624] = 1;
 	*(_DWORD*)&byte_5D4594[1098628] = 1;
-	nox_window_set_hidden(*(int*)&byte_5D4594[1098576], 0);
-	sub_46ABB0(*(int*)&byte_5D4594[1098576], 1);
-	sub_46A8C0(*(int*)&byte_5D4594[1098576]);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1098576, 0);
+	sub_46ABB0(*(int*)&dword_5d4594_1098576, 1);
+	sub_46A8C0(*(int*)&dword_5d4594_1098576);
 	*(_DWORD*)&byte_5D4594[1098612] = dword_587000_80828;
 	dword_587000_80828 = 0;
 	sub_467BB0();
@@ -178,7 +179,7 @@ _DWORD* __cdecl sub_479520(int a1) {
 	v1 = loadString_sub_40F1D0((char*)&byte_587000[153264], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1346);
 	nox_swprintf((wchar_t*)&byte_5D4594[1097352], v1, a1);
 	v2 = loadString_sub_40F1D0((char*)&byte_587000[153316], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1350);
-	sub_449A10(*(int*)&byte_5D4594[1098576], (int)v2, (int)&byte_5D4594[1097352], 33, 0, 0);
+	sub_449A10(*(int*)&dword_5d4594_1098576, (int)v2, (int)&byte_5D4594[1097352], 33, 0, 0);
 	return sub_452D80(925, 100);
 }
 
