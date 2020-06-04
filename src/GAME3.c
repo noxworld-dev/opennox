@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1312484;
 extern _DWORD dword_587000_127004;
 extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1312480;
@@ -11159,8 +11160,8 @@ int __cdecl sub_4B5AB0(int a1, int a2, int* a3, int a4) {
 	if (sub_46B0A0(a3) != 1985)
 		return 0;
 	a2 = 0;
-	v5 = nox_window_call_field_94(*(int*)&byte_5D4594[1312484], 16404, 0, 0);
-	v6 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1312484], 16406, v5, 0);
+	v5 = nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16404, 0, 0);
+	v6 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16406, v5, 0);
 	v7 = sub_4B5B70_wol_locale(v6);
 	v8 = sub_41FC40();
 	sub_40DB50(v8 + 1, (int)&a2);
@@ -11180,7 +11181,7 @@ void sub_4B5BF0() {
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1312480);
 	dword_5d4594_1312480 = 0;
 	*(_DWORD*)&byte_5D4594[1312488] = 0;
-	*(_DWORD*)&byte_5D4594[1312484] = 0;
+	dword_5d4594_1312484 = 0;
 	free(*(LPVOID*)&byte_5D4594[1312476]);
 	*(_DWORD*)&byte_5D4594[1312472] = 0;
 }
