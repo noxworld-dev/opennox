@@ -1,4 +1,5 @@
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2388648;
 
 //----- (005199F0) --------------------------------------------------------
 void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
@@ -84,9 +85,9 @@ void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
 				}
 				if (*((_WORD*)a1 + 2) == 1 && *((_DWORD*)a1 + 2))
 					free(*((LPVOID*)a1 + 2));
-				v13 = *(_DWORD*)&byte_5D4594[2388648];
-				if (*(_DWORD*)&byte_5D4594[2388648])
-					v13 = --*(_DWORD*)&byte_5D4594[2388648];
+				v13 = dword_5d4594_2388648;
+				if (dword_5d4594_2388648)
+					v13 = --dword_5d4594_2388648;
 				v16 = v13;
 				v14 = loadString_sub_40F1D0((char*)&byte_587000[249520], 0,
 							    "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 315);
@@ -112,8 +113,8 @@ void __cdecl sub_519C80_net_mapsend(unsigned __int8* a1, unsigned __int8 a2) {
 		v5[0] = -70;
 		v5[1] = a2;
 		sub_552640(v2 + 1, v5, 2, 3);
-		if (*(_DWORD*)&byte_5D4594[2388648])
-			--*(_DWORD*)&byte_5D4594[2388648];
+		if (dword_5d4594_2388648)
+			--dword_5d4594_2388648;
 		v4 = *a1;
 		v3 = loadString_sub_40F1D0((char*)&byte_587000[249572], 0,
 					   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 350);
@@ -129,7 +130,7 @@ char* __cdecl sub_519D20(int a1) {
 	char* result;        // eax
 
 	v1 = &byte_5D4594[48 * a1 + 2387148];
-	++*(_DWORD*)&byte_5D4594[2388648];
+	++dword_5d4594_2388648;
 	if (*((_WORD*)v1 + 1)) {
 		if (*((_WORD*)v1 + 1) == 1)
 			v2 = loadString_sub_40F1D0((char*)&byte_587000[249628], 0,
@@ -166,9 +167,9 @@ int __cdecl sub_519DE0_net_mapsend(int a1) {
 	if (*((_WORD*)v1 + 2) == 1 && *((_DWORD*)v1 + 2))
 		free(*((LPVOID*)v1 + 2));
 	sub_519830((int)v1, a1);
-	result = *(_DWORD*)&byte_5D4594[2388648];
-	if (*(_DWORD*)&byte_5D4594[2388648])
-		result = --*(_DWORD*)&byte_5D4594[2388648];
+	result = dword_5d4594_2388648;
+	if (dword_5d4594_2388648)
+		result = --dword_5d4594_2388648;
 	if (v2) {
 		v4 = loadString_sub_40F1D0((char*)&byte_587000[249728], 0,
 					   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 428);
@@ -196,7 +197,7 @@ int sub_519EB0_net_mapsend() {
 
 	v0 = nox_server_currentMapGetFilename_409B30();
 	v11 = v0;
-	if (*(_DWORD*)&byte_5D4594[2388648]) {
+	if (dword_5d4594_2388648) {
 		v1 = &byte_5D4594[2387156];
 		do {
 			if (*((_WORD*)v1 - 3) == 1) {
