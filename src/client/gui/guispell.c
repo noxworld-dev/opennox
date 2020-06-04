@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1049520;
 extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1049500;
 extern _DWORD dword_5d4594_1049504;
@@ -217,8 +218,8 @@ int sub_45E190() {
 		sub_46AE40(*(int*)&dword_5d4594_1049504, -263, 0);
 		*(_DWORD*)&byte_5D4594[1049536] = nox_win_height - 74;
 		sub_46B300(*(int*)&dword_5d4594_1049504, sub_45F8D0);
-		*(_DWORD*)&byte_5D4594[1049520] = nox_window_new(*(int*)&dword_5d4594_1049504, 1032, 9, 33, 32, 32, 0);
-		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1049520], sub_45F7A0, sub_460000, 0);
+		dword_5d4594_1049520 = nox_window_new(*(int*)&dword_5d4594_1049504, 1032, 9, 33, 32, 32, 0);
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1049520, sub_45F7A0, sub_460000, 0);
 		dword_5d4594_1049500 = nox_window_new(*(int*)&dword_5d4594_1049504, 1160, 0, 19, 12, 12, 0);
 		sub_46B300(*(int*)&dword_5d4594_1049500, sub_45FB90);
 		sub_46AE40(*(int*)&dword_5d4594_1049500, -265, -23);
@@ -242,7 +243,7 @@ int sub_45E190() {
 				sub_46AE60(*(int*)&dword_5d4594_1049504, (int)v17);
 				v18 = sub_42F970("QuickBarWarriorRight");
 				sub_46AEA0(*(int*)&dword_5d4594_1049504, (int)v18);
-				sub_46AD80(*(int*)&byte_5D4594[1049520], 8);
+				sub_46AD80(*(int*)&dword_5d4594_1049520, 8);
 				sub_46AD80(*(int*)&dword_5d4594_1049500, 8);
 				sub_46B340(*(int*)&dword_5d4594_1049500, sub_45EF30);
 			} else {
@@ -252,8 +253,8 @@ int sub_45E190() {
 				sub_46AEA0(*(int*)&dword_5d4594_1049504, (int)v14);
 				v15 = loadString_sub_40F1D0((char*)&byte_587000[134012], 0,
 							    "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1805);
-				sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1049520] + 36), v15);
-				sub_46AD60(*(int*)&byte_5D4594[1049520], 8);
+				sub_46B000((wchar_t*)(dword_5d4594_1049520 + 36), v15);
+				sub_46AD60(*(int*)&dword_5d4594_1049520, 8);
 				v16 = loadString_sub_40F1D0((char*)&byte_587000[134068], 0,
 							    "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1808);
 				sub_46B000((wchar_t*)(dword_5d4594_1049500 + 36), v16);
@@ -267,7 +268,7 @@ int sub_45E190() {
 				sub_46AE60(*(int*)&dword_5d4594_1049504, (int)v11);
 				v12 = sub_42F970("QuickBarWarriorRight");
 				sub_46AEA0(*(int*)&dword_5d4594_1049504, (int)v12);
-				sub_46AD80(*(int*)&byte_5D4594[1049520], 8);
+				sub_46AD80(*(int*)&dword_5d4594_1049520, 8);
 				sub_46AD80(*(int*)&dword_5d4594_1049500, 8);
 				sub_46B340(*(int*)&dword_5d4594_1049500, sub_45EF30);
 			} else {
@@ -277,8 +278,8 @@ int sub_45E190() {
 				sub_46AEA0(*(int*)&dword_5d4594_1049504, (int)v8);
 				v9 = loadString_sub_40F1D0((char*)&byte_587000[134216], 0,
 							   "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1838);
-				sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1049520] + 36), v9);
-				sub_46AD60(*(int*)&byte_5D4594[1049520], 8);
+				sub_46B000((wchar_t*)(dword_5d4594_1049520 + 36), v9);
+				sub_46AD60(*(int*)&dword_5d4594_1049520, 8);
 				v10 = loadString_sub_40F1D0((char*)&byte_587000[134276], 0,
 							    "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1841);
 				sub_46B000((wchar_t*)(dword_5d4594_1049500 + 36), v10);
@@ -754,8 +755,8 @@ int sub_460070() {
 			sub_46AEA0(*(int*)&dword_5d4594_1049504, (int)v6);
 			v7 = loadString_sub_40F1D0((char*)&byte_587000[135572], 0,
 						   "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1544);
-			sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1049520] + 36), v7);
-			sub_46AD60(*(int*)&byte_5D4594[1049520], 8);
+			sub_46B000((wchar_t*)(dword_5d4594_1049520 + 36), v7);
+			sub_46AD60(*(int*)&dword_5d4594_1049520, 8);
 			v8 = loadString_sub_40F1D0((char*)&byte_587000[135628], 0,
 						   "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1547);
 			sub_46B000((wchar_t*)(dword_5d4594_1049500 + 36), v8);
@@ -770,8 +771,8 @@ int sub_460070() {
 				sub_46AEA0(*(int*)&dword_5d4594_1049504, (int)v2);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[135728], 0,
 							   "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1559);
-				sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1049520] + 36), v3);
-				sub_46AD60(*(int*)&byte_5D4594[1049520], 8);
+				sub_46B000((wchar_t*)(dword_5d4594_1049520 + 36), v3);
+				sub_46AD60(*(int*)&dword_5d4594_1049520, 8);
 				v4 = loadString_sub_40F1D0((char*)&byte_587000[135788], 0,
 							   "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1562);
 				sub_46B000((wchar_t*)(dword_5d4594_1049500 + 36), v4);
