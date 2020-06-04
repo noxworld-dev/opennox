@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_814624;
 extern _DWORD dword_5d4594_815032;
 extern _DWORD dword_5d4594_815020;
 extern _DWORD dword_5d4594_815024;
@@ -786,8 +787,8 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 	case 0x4010u:
 		if (sub_46B0A0(a3) == 10061) {
 			v29 = *nox_client_getMousePos_4309F0();
-			*(_DWORD*)&byte_5D4594[814624] = sub_4A28C0(a4);
-			sub_439370(&v29, *(int*)&byte_5D4594[814624]);
+			dword_5d4594_814624 = sub_4A28C0(a4);
+			sub_439370(&v29, *(int*)&dword_5d4594_814624);
 			return 0;
 		}
 		return 0;
@@ -820,8 +821,8 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 			v7 = (int*)sub_4A0020();
 			*(_DWORD*)&byte_5D4594[815036] = sub_4A2610(*(int*)&dword_5d4594_814980, &v30, v7);
 		} else {
-			*(_DWORD*)&byte_5D4594[814624] = sub_4A0490(v5 - 10070);
-			sub_439370(&v29, *(int*)&byte_5D4594[814624]);
+			dword_5d4594_814624 = sub_4A0490(v5 - 10070);
+			sub_439370(&v29, *(int*)&dword_5d4594_814624);
 		}
 		sub_4776B0((wchar_t*)&byte_5D4594[815112]);
 	}
