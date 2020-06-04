@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_149232;
 extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_1062456;
 extern _DWORD dword_5d4594_1063636;
@@ -7405,16 +7406,16 @@ unsigned __int8* sub_472310() {
 
 //----- (004724E0) --------------------------------------------------------
 void sub_4724E0() {
-	*(_DWORD*)&byte_587000[149232] -= 10;
-	if (*(int*)&byte_587000[149232] < 500)
-		*(_DWORD*)&byte_587000[149232] = 500;
+	dword_587000_149232 -= 10;
+	if (*(int*)&dword_587000_149232 < 500)
+		dword_587000_149232 = 500;
 }
 
 //----- (00472500) --------------------------------------------------------
 void sub_472500() {
-	*(_DWORD*)&byte_587000[149232] += 10;
-	if (*(_DWORD*)&byte_587000[149232] > 4000)
-		*(_DWORD*)&byte_587000[149232] = 4000;
+	dword_587000_149232 += 10;
+	if (dword_587000_149232 > 4000)
+		dword_587000_149232 = 4000;
 }
 
 //----- (00472520) --------------------------------------------------------
@@ -7422,12 +7423,12 @@ int __cdecl sub_472520(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_587000[149232] = a1;
+	dword_587000_149232 = a1;
 	return result;
 }
 
 //----- (00472530) --------------------------------------------------------
-int sub_472530() { return *(_DWORD*)&byte_587000[149232]; }
+int sub_472530() { return dword_587000_149232; }
 
 //----- (00472540) --------------------------------------------------------
 int __cdecl sub_472540(int a1) {
@@ -7588,7 +7589,7 @@ int __cdecl sub_472600(int a1, int a2) {
 	nox_client_drawRectLines_473510(-3, yTop - 3, v3 + 6, v3 + 6);
 	nox_client_drawEnableAlpha_434560(0);
 	nox_client_copyRect_49F6F0(0, yTop, v3, v3);
-	v6 = *(_DWORD*)&byte_587000[149232];
+	v6 = dword_587000_149232;
 	v7 = v3 * v6 / 100;
 	sub_435670(&v84);
 	v8 = v84.field_0 - v7 / 2;
@@ -7639,7 +7640,7 @@ int __cdecl sub_472600(int a1, int a2) {
 							*(_DWORD*)(v19 + 12)) {
 						LABEL_28:
 							if (v69 < 4) {
-								v20 = *(_DWORD*)&byte_587000[149232];
+								v20 = dword_587000_149232;
 								v21 = 8 * *(unsigned __int8*)(v15 + 299);
 								v22 = 100 * (*(int*)(v15 + 12) - xLeft.field_0) / v20;
 								v85 = 100 * (*(int*)(v15 + 16) - xLeft.field_4) / v20;
@@ -7661,7 +7662,7 @@ int __cdecl sub_472600(int a1, int a2) {
 				}
 			}
 			if (nox_common_gameFlags_check_40A5C0(0x10000) || *(_DWORD*)(v11 + 12)) {
-				v26 = *(_DWORD*)&byte_587000[149232];
+				v26 = dword_587000_149232;
 				v25 = v26;
 				v76.field_0 = 100 * (v14 - v8) / v26;
 				v76.field_4 = yTop + 100 * (v80 - v9) / v26;
@@ -7687,12 +7688,12 @@ int __cdecl sub_472600(int a1, int a2) {
 				v31 = (float*)(v30 + 8);
 				v72 = v29 - 1;
 				do {
-					v32 = *(_DWORD*)&byte_587000[149232];
+					v32 = dword_587000_149232;
 					v33 = *(v31 - 1);
 					xLeft.field_0 = (int)(100 * ((unsigned __int64)(__int64)*(v31 - 2) - v8)) / v32;
 					nox_client_drawAddPoint_49F500(xLeft.field_0,
 						   yTop + (int)(100 * ((unsigned __int64)(__int64)v33 - v9)) / v32);
-					v34 = *(_DWORD*)&byte_587000[149232];
+					v34 = dword_587000_149232;
 					v35 = v31[1];
 					xLeft.field_0 = (int)(100 * ((unsigned __int64)(__int64)*v31 - v8)) / v34;
 					nox_client_drawAddPoint_49F500(xLeft.field_0,
@@ -7705,7 +7706,7 @@ int __cdecl sub_472600(int a1, int a2) {
 		}
 		for (j = (float*)sub_50AAE0(); j; j = (float*)sub_50AB10()) {
 			nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650644]);
-			v37 = *(_DWORD*)&byte_587000[149232];
+			v37 = dword_587000_149232;
 			v38 = j[1];
 			xLeft.field_0 = (int)(100 * ((unsigned __int64)(__int64)*j - v8)) / v37;
 			sub_473570(xLeft.field_0, yTop + (int)(100 * ((unsigned __int64)(__int64)v38 - v9)) / v37);
@@ -7728,7 +7729,7 @@ int __cdecl sub_472600(int a1, int a2) {
 		} else if (a2 != 1) {
 			continue;
 		}
-		v42 = *(_DWORD*)&byte_587000[149232];
+		v42 = dword_587000_149232;
 		xLeft.field_0 = 100 * (*(int*)(k + 12) - v8) / v42;
 		xLeft.field_4 = yTop + 100 * (*(int*)(k + 16) - v9) / v42;
 		if (!(*(_DWORD*)(k + 112) & 0x400000) ||
@@ -7837,7 +7838,7 @@ int __cdecl sub_472600(int a1, int a2) {
 		LABEL_103:
 			v63 = sub_4217B0((int2*)(l + 12), 0);
 			if ((!v63 || BYTE2(v63->field_0[32]) == a2) && v75 && (v75[3680] & 1) != 1) {
-				v64 = *(_DWORD*)&byte_587000[149232];
+				v64 = dword_587000_149232;
 				xLeft.field_0 = 100 * (*(int*)(l + 12) - v8) / v64;
 				xLeft.field_4 = yTop + 100 * (*(int*)(l + 16) - v9) / v64;
 				if (l == *(_DWORD*)&byte_5D4594[2614252] || v76.field_0)
@@ -7869,7 +7870,7 @@ int __cdecl sub_4730D0(int2* a1, unsigned __int8 a2, int a3) {
 	int v5;     // edi
 	int2* v6;   // ebp
 
-	if (*(_DWORD*)&byte_587000[149232] <= 2000) {
+	if (dword_587000_149232 <= 2000) {
 		v4 = *(_DWORD*)&byte_5D4594[2650660];
 		result = a2;
 		v5 = a3 / 2;
@@ -8036,16 +8037,16 @@ int __cdecl nox_client_drawRectLines_473510(int a1, int a2, int a3, int a4) {
 
 //----- (00473570) --------------------------------------------------------
 void __cdecl sub_473570(int xLeft, int yTop) {
-	if (*(_DWORD*)&byte_587000[149232] > 1200)
-		sub_499B70(xLeft, yTop, (*(_DWORD*)&byte_587000[149232] < 1750) + 2);
+	if (dword_587000_149232 > 1200)
+		sub_499B70(xLeft, yTop, (dword_587000_149232 < 1750) + 2);
 	else
 		sub_499B70(xLeft, yTop, 4);
 }
 
 //----- (004735C0) --------------------------------------------------------
 void __cdecl sub_4735C0(int xLeft, int yTop) {
-	if (*(_DWORD*)&byte_587000[149232] > 1200)
-		sub_499B70(xLeft, yTop, (*(_DWORD*)&byte_587000[149232] < 1750) + 4);
+	if (dword_587000_149232 > 1200)
+		sub_499B70(xLeft, yTop, (dword_587000_149232 < 1750) + 4);
 	else
 		sub_499B70(xLeft, yTop, 6);
 }
