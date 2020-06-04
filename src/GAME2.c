@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_833720;
 extern _DWORD dword_5d4594_1045532;
 extern _DWORD dword_5d4594_1045536;
 extern _DWORD dword_5d4594_1046508;
@@ -1537,12 +1538,12 @@ int __cdecl sub_450B00(int a1) {
 int sub_450B10() { return *(_DWORD*)&byte_5D4594[832468]; }
 
 //----- (00450B70) --------------------------------------------------------
-int sub_450B70() { return nox_window_call_field_94(*(int*)&byte_5D4594[833720], 16399, 0, 0); }
+int sub_450B70() { return nox_window_call_field_94(*(int*)&dword_5d4594_833720, 16399, 0, 0); }
 
 //----- (00450B90) --------------------------------------------------------
 int __cdecl sub_450B90(unsigned __int8 a1, int a2) {
 	if (*(_DWORD*)&byte_5D4594[833724])
-		nox_window_call_field_94(*(int*)&byte_5D4594[833720], 16397, a2, a1);
+		nox_window_call_field_94(*(int*)&dword_5d4594_833720, 16397, a2, a1);
 	if (sub_579740())
 		sub_579750(a2);
 	return 1;
@@ -1596,7 +1597,7 @@ int sub_450C70() {
 	nox_wcsncpy((wchar_t*)&v4[72], v1, 0x40u);
 	*(_WORD*)&v4[198] = 0;
 	*(_DWORD*)&v4[8] = 32;
-	*(_DWORD*)&byte_5D4594[833720] =
+	dword_5d4594_833720 =
 	    sub_4A4310(*(int*)&dword_5d4594_833712, 1152, 0, 0, *(int*)&byte_5D4594[833704],
 		       *(_DWORD*)&byte_5D4594[833708] - 20, (int)v4, (__int16*)v3);
 	*(_DWORD*)&v4[44] = v0;
@@ -1695,14 +1696,14 @@ int sub_451100() {
 	v0 = *(_DWORD*)&byte_5D4594[2650660];
 	if (dword_5d4594_833712)
 		*(_DWORD*)(dword_5d4594_833712 + 56) = *(_DWORD*)&byte_5D4594[2650656];
-	if (*(_DWORD*)&byte_5D4594[833720]) {
-		v1 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[833720] + 32);
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833720] + 56) = 0x80000000;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833720] + 80) = 0x80000000;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833720] + 64) = v0;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833720] + 72) = v0;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833720] + 88) = 0x80000000;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833720] + 104) = v0;
+	if (dword_5d4594_833720) {
+		v1 = *(_DWORD**)(dword_5d4594_833720 + 32);
+		*(_DWORD*)(dword_5d4594_833720 + 56) = 0x80000000;
+		*(_DWORD*)(dword_5d4594_833720 + 80) = 0x80000000;
+		*(_DWORD*)(dword_5d4594_833720 + 64) = v0;
+		*(_DWORD*)(dword_5d4594_833720 + 72) = v0;
+		*(_DWORD*)(dword_5d4594_833720 + 88) = 0x80000000;
+		*(_DWORD*)(dword_5d4594_833720 + 104) = v0;
 		v2 = v1[9];
 		if (v2) {
 			*(_DWORD*)(v2 + 56) = *(_DWORD*)&byte_5D4594[2650656];
@@ -1760,7 +1761,7 @@ int sub_4512B0() {
 	nox_window_set_hidden(*(int*)&dword_5d4594_833712, 1);
 	*(_DWORD*)(dword_5d4594_833712 + 4) &= 0xFFFFFFF7;
 	*(_DWORD*)(dword_5d4594_833716 + 4) &= 0xFFFFFFF7;
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[833720] + 4) &= 0xFFFFFFF7;
+	*(_DWORD*)(dword_5d4594_833720 + 4) &= 0xFFFFFFF7;
 	*(_DWORD*)(dword_5d4594_833716 + 36) &= 0xFFFFFFFB;
 	*(_DWORD*)(dword_5d4594_833716 + 36) &= 0xFFFFFFFD;
 	dword_5d4594_3799524 = 1;

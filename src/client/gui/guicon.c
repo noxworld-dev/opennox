@@ -3,6 +3,7 @@
 #include "../system/parsecmd.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_833720;
 extern _DWORD dword_5d4594_833712;
 extern _DWORD dword_5d4594_833716;
 
@@ -68,7 +69,7 @@ int sub_451350() {
 	if (!result) {
 		sub_46A8C0(*(int*)&dword_5d4594_833712);
 		*(_DWORD*)(dword_5d4594_833712 + 4) |= 8u;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833720] + 4) |= 8u;
+		*(_DWORD*)(dword_5d4594_833720 + 4) |= 8u;
 		*(_DWORD*)(dword_5d4594_833716 + 4) |= 8u;
 		*(_DWORD*)(dword_5d4594_833716 + 4) |= 1u;
 		sub_46B500(*(int*)&dword_5d4594_833716);
