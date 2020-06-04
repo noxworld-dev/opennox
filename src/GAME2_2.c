@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1098576;
 extern _DWORD dword_5d4594_1193516;
 extern _DWORD dword_5d4594_3798820;
 extern _DWORD dword_5d4594_3798824;
@@ -1474,11 +1475,11 @@ int sub_478110() {
 	*(_DWORD*)&byte_5D4594[1098508] = 0;
 	*(_DWORD*)&byte_5D4594[1098512] = 0;
 	v0 = nox_new_window_from_file("Shop.wnd", sub_478480);
-	*(_DWORD*)&byte_5D4594[1098576] = v0;
+	dword_5d4594_1098576 = v0;
 	if (!v0)
 		return 0;
 	nox_window_set_all_funcs(v0, sub_478650, sub_478970, 0);
-	v2 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3806);
+	v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3806);
 	sub_46B070((int)v2, sub_478E50);
 	v3 = &byte_5D4594[1098636];
 	do {
@@ -1492,10 +1493,10 @@ int sub_478110() {
 		v3 += 140;
 	} while ((int)v3 < (int)&byte_5D4594[1100036]);
 	sub_478F10();
-	nox_window_get_size(*(int*)&byte_5D4594[1098576], &v8, &v7);
-	sub_46A9B0(*(_DWORD**)&byte_5D4594[1098576], nox_win_width - v8, nox_win_height - v7);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1098576], 1);
-	sub_46ABB0(*(int*)&byte_5D4594[1098576], 0);
+	nox_window_get_size(*(int*)&dword_5d4594_1098576, &v8, &v7);
+	sub_46A9B0(*(_DWORD**)&dword_5d4594_1098576, nox_win_width - v8, nox_win_height - v7);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1098576, 1);
+	sub_46ABB0(*(int*)&dword_5d4594_1098576, 0);
 	*(_DWORD*)&byte_5D4594[1098400] = sub_42F970("ShopBase");
 	*(_DWORD*)&byte_5D4594[1098404] = sub_42F970("ShopTradeMode");
 	*(_DWORD*)&byte_5D4594[1098408] = sub_42F970("ShopIdentifyMode");
@@ -1517,10 +1518,10 @@ int sub_478110() {
 	*(_DWORD*)&byte_5D4594[1098472] = sub_42F970("ShopkeeperWizardPic");
 	*(_DWORD*)&byte_5D4594[1098476] = sub_42F970("ShopkeeperLandOfTheDeadPic");
 	*(_DWORD*)&byte_5D4594[1098480] = sub_42F970("ShopkeeperMagicShopPic");
-	*(_DWORD*)&byte_5D4594[1098580] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3807);
-	*(_DWORD*)&byte_5D4594[1098584] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3808);
-	*(_DWORD*)&byte_5D4594[1098588] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3809);
-	v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3806);
+	*(_DWORD*)&byte_5D4594[1098580] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3807);
+	*(_DWORD*)&byte_5D4594[1098584] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3808);
+	*(_DWORD*)&byte_5D4594[1098588] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3809);
+	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3806);
 	nox_client_wndGetPosition_46AA60(v6, &byte_5D4594[1098380], &byte_5D4594[1098384]);
 	nox_window_get_size((int)v6, &byte_5D4594[1098388], &byte_5D4594[1098392]);
 	*(_DWORD*)&byte_5D4594[1098388] += *(_DWORD*)&byte_5D4594[1098380];
@@ -1633,14 +1634,14 @@ int __cdecl sub_478650(int a1, int a2, unsigned int a3) {
 			break;
 		case 19:
 			if (*(_DWORD*)&byte_5D4594[1098628] == 2) {
-				nox_window_call_field_94(*(int*)&byte_5D4594[1098576], 16391,
+				nox_window_call_field_94(*(int*)&dword_5d4594_1098576, 16391,
 							 *(int*)&byte_5D4594[1098584], 0);
 				return 1;
 			}
 			break;
 		case 20:
 			if (*(_DWORD*)&byte_5D4594[1098628] == 2) {
-				nox_window_call_field_94(*(int*)&byte_5D4594[1098576], 16391,
+				nox_window_call_field_94(*(int*)&dword_5d4594_1098576, 16391,
 							 *(int*)&byte_5D4594[1098588], 0);
 				return 1;
 			}
@@ -1703,7 +1704,7 @@ int __cdecl sub_478A70(int2* a1) {
 	int v5;     // [esp+Ch] [ebp-8h]
 	int v6;     // [esp+10h] [ebp-4h]
 
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3806);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3806);
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
 	sub_434390(*(int*)&byte_5D4594[2523948]);
@@ -1841,9 +1842,9 @@ int sub_478F80() {
 
 	sub_478F10();
 	sub_44D8F0();
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1098576]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1098576);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1098576] = 0;
+	dword_5d4594_1098576 = 0;
 	*(_DWORD*)&byte_5D4594[1098624] = 0;
 	*(_DWORD*)&byte_5D4594[1098628] = 1;
 	*(_DWORD*)&byte_5D4594[1098596] = 0;
@@ -1859,7 +1860,7 @@ char* __cdecl sub_4790F0(int a1) {
 	_DWORD* v1;   // esi
 	char* result; // eax
 
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1098576], 3805);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3805);
 	if (!*(_DWORD*)&byte_5D4594[1107040]) {
 		*(_DWORD*)&byte_5D4594[1098396] = sub_44CFC0((CHAR*)&byte_587000[152868]);
 		*(_DWORD*)&byte_5D4594[1098560] = sub_44CFC0((CHAR*)&byte_587000[152880]);
@@ -1913,8 +1914,8 @@ int sub_479280() {
 		*(_DWORD*)&byte_5D4594[1098628] = 0;
 		sub_478F10();
 		sub_44D8F0();
-		nox_window_set_hidden(*(int*)&byte_5D4594[1098576], 1);
-		sub_46ABB0(*(int*)&byte_5D4594[1098576], 0);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1098576, 1);
+		sub_46ABB0(*(int*)&dword_5d4594_1098576, 0);
 		sub_467C10();
 		nox_client_setCursorType_477610(0);
 		result = dword_587000_80828;
