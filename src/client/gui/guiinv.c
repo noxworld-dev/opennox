@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1062476;
 extern _DWORD dword_5d4594_1049856;
 extern _DWORD dword_5d4594_1049800;
 extern _DWORD dword_5d4594_1062456;
@@ -312,14 +313,14 @@ int sub_462740() {
 	wchar_t* v0; // eax
 	_DWORD* v1;  // eax
 
-	if (wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[1062476]))
+	if (wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1062476))
 		return 0;
-	nox_window_set_hidden(*(int*)&byte_5D4594[1062476], 1);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1062476, 1);
 	dword_5d4594_1063116 = 0;
 	*(_DWORD*)&byte_5D4594[1063120] = 0;
 	v0 = loadString_sub_40F1D0((char*)&byte_587000[136832], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2361);
 	nox_wcscpy((wchar_t*)&byte_5D4594[1063124], v0);
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1062476], 9156);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1062476, 9156);
 	nox_window_call_field_94((int)v1, 16399, 0, 0);
 	sub_46ADE0(*(int*)&dword_5d4594_1062456);
 	dword_5d4594_1049864 = 0;
@@ -443,7 +444,7 @@ LABEL_14:
 			v5 = loadString_sub_40F1D0((char*)&byte_587000[136900], 0,
 						   "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2529);
 			nox_wcscpy((wchar_t*)&byte_5D4594[1063124], v5);
-			v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1062476], 9156);
+			v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1062476, 9156);
 			result = nox_window_call_field_94((int)v6, 16399, 0, 0);
 		}
 		return result;
@@ -458,9 +459,9 @@ LABEL_14:
 	if (!nox_wcscmp(v75, (const wchar_t*)&byte_5D4594[1063652]))
 		*(_DWORD*)&byte_5D4594[1063120] = 0;
 	nox_wcscat((wchar_t*)&byte_5D4594[1063124], v75);
-	v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1062476], 9151);
+	v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1062476, 9151);
 	sub_46AEE0((int)v9, (int)&byte_5D4594[1063124]);
-	v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1062476], 9156);
+	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1062476, 9156);
 	nox_window_call_field_94((int)v10, 16399, 0, 0);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		if (*(_WORD*)(dword_5d4594_1063116 + 294)) {
@@ -706,7 +707,7 @@ LABEL_91:
 	if (v49)
 		nox_window_call_field_94((int)v10, 16397, v49, -1);
 	v67 = nox_get_thing_pretty_image(*(_DWORD*)(dword_5d4594_1063116 + 108));
-	v50 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1062476], 9155);
+	v50 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1062476, 9155);
 	return sub_46AE60((int)v50, v67);
 }
 //----- (00463880) --------------------------------------------------------

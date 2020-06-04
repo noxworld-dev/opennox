@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1062476;
 extern _DWORD dword_5d4594_1047932;
 extern _DWORD dword_5d4594_1049512;
 extern _DWORD dword_5d4594_2650676;
@@ -1797,7 +1798,7 @@ void __cdecl sub_465C70(int a1) {
 
 //----- (00465CA0) --------------------------------------------------------
 int sub_465CA0() {
-	nox_window_set_hidden(*(int*)&byte_5D4594[1062476], 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1062476, 0);
 	dword_5d4594_1049864 = 5;
 	nox_client_setCursorType_477610(6);
 	return sub_46ADC0(*(int*)&dword_5d4594_1062456);
@@ -2268,12 +2269,12 @@ int __cdecl sub_466ED0(int a1) {
 	_DWORD* v2; // eax
 
 	result = nox_new_window_from_file("identify.wnd", 0);
-	*(_DWORD*)&byte_5D4594[1062476] = result;
+	dword_5d4594_1062476 = result;
 	if (result) {
 		sub_46AB20((_DWORD*)result, 200, 200);
-		sub_46B120(*(_DWORD**)&byte_5D4594[1062476], a1);
-		sub_46A9B0(*(_DWORD**)&byte_5D4594[1062476], 51, 15);
-		v2 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1062476], 9155);
+		sub_46B120(*(_DWORD**)&dword_5d4594_1062476, a1);
+		sub_46A9B0(*(_DWORD**)&dword_5d4594_1062476, 51, 15);
+		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1062476, 9155);
 		sub_46B340((int)v2, sub_466F50);
 		result = 1;
 	}
