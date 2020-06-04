@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
 extern _DWORD dword_5d4594_3798784;
@@ -9418,7 +9419,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										   *v6) >>
 								byte_5D4594[3804380])) >>
 					     2))) |
-	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+	    *(_WORD*)(dword_5d4594_3804672 +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v6) >>
 					     byte_5D4594[3804376]) +
 					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
@@ -9441,7 +9442,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 											*v10) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
-	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+	    *(_WORD*)(dword_5d4594_3804672 +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v10) >>
 					     byte_5D4594[3804376]) +
 					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
@@ -9462,7 +9463,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 											*v11) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
-	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+	    *(_WORD*)(dword_5d4594_3804672 +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v11) >>
 					     byte_5D4594[3804376]) +
 					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
@@ -9485,7 +9486,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 											*v13) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
-	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+	    *(_WORD*)(dword_5d4594_3804672 +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v13) >>
 					     byte_5D4594[3804376]) +
 					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
@@ -9507,7 +9508,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 											*v14) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
-	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+	    *(_WORD*)(dword_5d4594_3804672 +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v14) >>
 					     byte_5D4594[3804376]) +
 					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
@@ -9529,7 +9530,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 											*v15) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
-	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+	    *(_WORD*)(dword_5d4594_3804672 +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v15) >>
 					     byte_5D4594[3804376]) +
 					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
@@ -9550,7 +9551,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 											*v16) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
-	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+	    *(_WORD*)(dword_5d4594_3804672 +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v16) >>
 					     byte_5D4594[3804376]) +
 					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
@@ -9571,7 +9572,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 											*v17) >>
 								     byte_5D4594[3804380])) >>
 					     2))) |
-	    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+	    *(_WORD*)(dword_5d4594_3804672 +
 		      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v17) >>
 					     byte_5D4594[3804376]) +
 					    ((redcol - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
@@ -9622,7 +9623,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 							    ((grencol2 - (unsigned __int8)((unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & 
                                     *v20) >>
 										byte_5D4594[3804380])) >> 2))) |
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v20) >>
 							     byte_5D4594[3804376]) +
@@ -9650,7 +9651,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 												   *v21) >>
 										byte_5D4594[3804380])) >>
 							     2))) |
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v21) >>
 							     byte_5D4594[3804376]) +
@@ -9679,7 +9680,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 												   *v22) >>
 										byte_5D4594[3804380])) >>
 							     2))) |
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v22) >>
 							     byte_5D4594[3804376]) +
@@ -9708,7 +9709,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 												   *v23) >>
 										byte_5D4594[3804380])) >>
 							     2))) |
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v23) >>
 							     byte_5D4594[3804376]) +
@@ -9737,7 +9738,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 												   *v24) >>
 										byte_5D4594[3804380])) >>
 							     2))) |
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v24) >>
 							     byte_5D4594[3804376]) +
@@ -9766,7 +9767,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 												   *v25) >>
 										byte_5D4594[3804380])) >>
 							     2))) |
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v25) >>
 							     byte_5D4594[3804376]) +
@@ -9795,7 +9796,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 												   *v26) >>
 										byte_5D4594[3804380])) >>
 							     2))) |
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v26) >>
 							     byte_5D4594[3804376]) +
@@ -9824,7 +9825,7 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 												   *v27) >>
 										byte_5D4594[3804380])) >>
 							     2))) |
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] &
 										*v27) >>
 							     byte_5D4594[3804376]) +
@@ -9951,7 +9952,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 		v39 = (_WORD*)(*(_DWORD*)(dword_5d4594_3798784 + 4 * v73) + 2 * a1);
 		v51 = (unsigned __int16)*v39;
 		*v39 =
-		    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+		    *(_WORD*)(dword_5d4594_3804672 +
 			      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v51) >> byte_5D4594[3804376]) +
 						    ((v71 - (unsigned __int8)((*(_DWORD*)&byte_5D4594[3804364] & v51) >>
 									      byte_5D4594[3804376])) >>
@@ -9978,7 +9979,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 			v40 = (_WORD*)(*(_DWORD*)(dword_5d4594_3798784 + 4 * a2) + 2 * v63);
 			v52 = (unsigned __int16)*v40;
 			*v40 =
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v52) >>
 							     byte_5D4594[3804376]) +
 							    ((v71 - (unsigned __int8)((*(_DWORD*)&byte_5D4594[3804364] &
@@ -10008,7 +10009,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 		v41 = (_WORD*)(*(_DWORD*)(dword_5d4594_3798784 + 4 * a2) + 2 * v63);
 		v53 = (unsigned __int16)*v41;
 		*v41 =
-		    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+		    *(_WORD*)(dword_5d4594_3804672 +
 			      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v53) >> byte_5D4594[3804376]) +
 						    ((v71 - (unsigned __int8)((*(_DWORD*)&byte_5D4594[3804364] & v53) >>
 									      byte_5D4594[3804376])) >>
@@ -10031,7 +10032,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 		v42 = (_WORD*)(*(_DWORD*)(dword_5d4594_3798784 + 4 * v67) + 2 * a1);
 		v54 = (unsigned __int16)*v42;
 		*v42 =
-		    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+		    *(_WORD*)(dword_5d4594_3804672 +
 			      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v54) >> byte_5D4594[3804376]) +
 						    ((v71 - (unsigned __int8)((*(_DWORD*)&byte_5D4594[3804364] & v54) >>
 									      byte_5D4594[3804376])) >>
@@ -10051,7 +10052,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 		v43 = (_WORD*)(*(_DWORD*)(dword_5d4594_3798784 + 4 * v67) + 2 * a1);
 		v55 = (unsigned __int16)*v43;
 		*v43 =
-		    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+		    *(_WORD*)(dword_5d4594_3804672 +
 			      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v55) >> byte_5D4594[3804376]) +
 						    ((v71 - (unsigned __int8)((*(_DWORD*)&byte_5D4594[3804364] & v55) >>
 									      byte_5D4594[3804376])) >>
@@ -10075,7 +10076,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 				v44 = (_WORD*)(*(_DWORD*)(dword_5d4594_3798784 + 4 * a2) + 2 * v61);
 				v56 = (unsigned __int16)*v44;
 				*v44 =
-				    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+				    *(_WORD*)(dword_5d4594_3804672 +
 					      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v56) >>
 								     byte_5D4594[3804376]) +
 								    ((v71 - (unsigned __int8)((*(_DWORD*)&byte_5D4594
@@ -10105,7 +10106,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 			v45 = (_WORD*)(*(_DWORD*)(dword_5d4594_3798784 + 4 * a2) + 2 * v61);
 			v57 = (unsigned __int16)*v45;
 			*v45 =
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v57) >>
 							     byte_5D4594[3804376]) +
 							    ((v71 - (unsigned __int8)((*(_DWORD*)&byte_5D4594[3804364] &
@@ -10133,7 +10134,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 			v46 = (_WORD*)(*(_DWORD*)(dword_5d4594_3798784 + 4 * v73) + 2 * a1);
 			v58 = (unsigned __int16)*v46;
 			*v46 =
-			    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+			    *(_WORD*)(dword_5d4594_3804672 +
 				      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v58) >>
 							     byte_5D4594[3804376]) +
 							    ((v71 - (unsigned __int8)((*(_DWORD*)&byte_5D4594[3804364] &
@@ -10200,7 +10201,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 				v22 = (_WORD*)(v62 + *(_DWORD*)(dword_5d4594_3798784 + 4 * v19));
 				v23 = (unsigned __int16)*v22;
 				*v22 =
-				    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+				    *(_WORD*)(dword_5d4594_3804672 +
 					      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v23) >>
 								     byte_5D4594[3804376]) +
 								    ((v4 - (unsigned __int8)((*(_DWORD*)&byte_5D4594
@@ -10233,7 +10234,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 					v26 = (unsigned __int16)*v25;
 					v24 = v59 + i;
 					*v25 =
-					    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+					    *(_WORD*)(dword_5d4594_3804672 +
 						      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v26) >>
 									     byte_5D4594[3804376]) +
 									    ((v4 -
@@ -10269,7 +10270,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 					v27 = (_WORD*)(v64 + *(_DWORD*)(v69 + dword_5d4594_3798784));
 					v28 = (unsigned __int16)*v27;
 					*v27 =
-					    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+					    *(_WORD*)(dword_5d4594_3804672 +
 						      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v28) >>
 									     byte_5D4594[3804376]) +
 									    ((v4 -
@@ -10306,7 +10307,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 				v29 = (_WORD*)(v62 + *(_DWORD*)(v47 + dword_5d4594_3798784));
 				v30 = (unsigned __int16)*v29;
 				*v29 =
-				    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+				    *(_WORD*)(dword_5d4594_3804672 +
 					      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v30) >>
 								     byte_5D4594[3804376]) +
 								    ((v4 - (unsigned __int8)((*(_DWORD*)&byte_5D4594
@@ -10335,7 +10336,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 				v31 = (_WORD*)(v74 + *(_DWORD*)(v47 + dword_5d4594_3798784));
 				v32 = (unsigned __int16)*v31;
 				*v31 =
-				    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+				    *(_WORD*)(dword_5d4594_3804672 +
 					      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v32) >>
 								     byte_5D4594[3804376]) +
 								    ((v4 - (unsigned __int8)((*(_DWORD*)&byte_5D4594
@@ -10365,7 +10366,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 					v33 = (_WORD*)(v72 + *(_DWORD*)(v69 + dword_5d4594_3798784));
 					v34 = (unsigned __int16)*v33;
 					*v33 =
-					    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+					    *(_WORD*)(dword_5d4594_3804672 +
 						      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v34) >>
 									     byte_5D4594[3804376]) +
 									    ((v4 -
@@ -10400,7 +10401,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 					v35 = (_WORD*)(v72 + *(_DWORD*)(dword_5d4594_3798784 + 4 * v70));
 					v36 = (unsigned __int16)*v35;
 					*v35 =
-					    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+					    *(_WORD*)(dword_5d4594_3804672 +
 						      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v36) >>
 									     byte_5D4594[3804376]) +
 									    ((v4 -
@@ -10436,7 +10437,7 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 				v37 = (_WORD*)(v74 + *(_DWORD*)(dword_5d4594_3798784 + 4 * v59));
 				v38 = (unsigned __int16)*v37;
 				*v37 =
-				    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] +
+				    *(_WORD*)(dword_5d4594_3804672 +
 					      2 * (unsigned __int8)(((*(_DWORD*)&byte_5D4594[3804364] & v38) >>
 								     byte_5D4594[3804376]) +
 								    ((v4 - (unsigned __int8)((*(_DWORD*)&byte_5D4594
