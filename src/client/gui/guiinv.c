@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1062512;
 extern _DWORD dword_5d4594_1049864;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1063116;
@@ -1127,7 +1128,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 			v8 = sub_4281F0(&v56, (int4*)&byte_587000[136352]);
 			if (v8) {
 				v9 = (v56.field_0 - 314) / 50;
-				v10 = (*(_DWORD*)&byte_5D4594[1062512] + v56.field_4 - 13) / 50;
+				v10 = (dword_5d4594_1062512 + v56.field_4 - 13) / 50;
 				if (!sub_464B40(v9, v10))
 					return 1;
 				v11 = 148 * (v10 + 14 * v9 + 7 * v9);
@@ -1154,7 +1155,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 			v15 = sub_4281F0(&v56, (int4*)&byte_587000[136352]);
 			if (v15) {
 				v16 = (v56.field_0 - 314) / 50;
-				v17 = (*(_DWORD*)&byte_5D4594[1062512] + v56.field_4 - 13) / 50;
+				v17 = (dword_5d4594_1062512 + v56.field_4 - 13) / 50;
 				if (sub_464B40(v16, v17)) {
 					v18 = 148 * (v17 + 14 * v16 + 7 * v16);
 					if (byte_5D4594[v18 + 1050160]) {
@@ -1331,8 +1332,8 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 			goto LABEL_121;
 		}
 		*(_DWORD*)&byte_5D4594[1049804] = (v56.field_0 - 314) / 50;
-		*(_DWORD*)&byte_5D4594[1049808] = (*(_DWORD*)&byte_5D4594[1062512] + v56.field_4 - 13) / 50;
-		if (!sub_464B40((v56.field_0 - 314) / 50, (*(_DWORD*)&byte_5D4594[1062512] + v56.field_4 - 13) / 50))
+		*(_DWORD*)&byte_5D4594[1049808] = (dword_5d4594_1062512 + v56.field_4 - 13) / 50;
+		if (!sub_464B40((v56.field_0 - 314) / 50, (dword_5d4594_1062512 + v56.field_4 - 13) / 50))
 			goto LABEL_121;
 		if (*(_DWORD*)&byte_5D4594[1049856]) {
 			v39 = 148 * (*(_DWORD*)&byte_5D4594[1049808] + 14 * *(_DWORD*)&byte_5D4594[1049804] +
@@ -1534,7 +1535,7 @@ wchar_t* __cdecl sub_466660(int a1, int2* a2) {
 					return 0;
 				v8 = (a2->field_0 - 314) / 50;
 				*(_DWORD*)&byte_5D4594[1049796] = (a2->field_0 - 314) / 50;
-				v9 = (a2->field_4 + *(_DWORD*)&byte_5D4594[1062512] - 13) / 50;
+				v9 = (a2->field_4 + dword_5d4594_1062512 - 13) / 50;
 			}
 			*(_DWORD*)&byte_5D4594[1049800] = v9;
 			if (sub_464B40(v8, v9)) {
