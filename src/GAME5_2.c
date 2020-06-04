@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523756;
 extern _DWORD dword_5d4594_2523752;
 extern _DWORD dword_5d4594_2516328;
 extern _DWORD dword_5d4594_2516348;
@@ -3558,7 +3559,7 @@ int __cdecl sub_579870(int a1) {
 }
 
 //----- (00579890) --------------------------------------------------------
-int sub_579890() { return *(_DWORD*)&byte_5D4594[2523756]; }
+int sub_579890() { return dword_5d4594_2523756; }
 
 //----- (005798A0) --------------------------------------------------------
 int __cdecl sub_5798A0(int a1) {
@@ -3621,8 +3622,8 @@ float* __cdecl sub_579970(int a1, float a2, float a3) {
 	v4 = *((_DWORD*)result + 120) | 1;
 	result[2] = a2;
 	*((_DWORD*)result + 120) = v4;
-	result[121] = *(float*)&byte_5D4594[2523756];
-	*(_DWORD*)&byte_5D4594[2523756] = result;
+	result[121] = *(float*)&dword_5d4594_2523756;
+	dword_5d4594_2523756 = result;
 	return result;
 }
 
@@ -3631,8 +3632,8 @@ char* sub_5799C0() {
 	int v0; // esi
 	int v1; // edi
 
-	v0 = *(_DWORD*)&byte_5D4594[2523756];
-	if (*(_DWORD*)&byte_5D4594[2523756]) {
+	v0 = dword_5d4594_2523756;
+	if (dword_5d4594_2523756) {
 		do {
 			v1 = *(_DWORD*)(v0 + 484);
 			*(_DWORD*)(v0 + 484) = dword_5d4594_2523752;
@@ -3644,7 +3645,7 @@ char* sub_5799C0() {
 			v0 = v1;
 		} while (v1);
 	}
-	*(_DWORD*)&byte_5D4594[2523756] = 0;
+	dword_5d4594_2523756 = 0;
 	return sub_579A30();
 }
 
@@ -3799,8 +3800,8 @@ _DWORD* __cdecl nox_server_getWaypointById_579C40(int a1) {
 int __cdecl sub_579C60(int a1) {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[2523756];
-	if (!*(_DWORD*)&byte_5D4594[2523756])
+	result = dword_5d4594_2523756;
+	if (!dword_5d4594_2523756)
 		return 0;
 	while (*(_DWORD*)(result + 4) != a1) {
 		result = *(_DWORD*)(result + 484);
@@ -3814,8 +3815,8 @@ int __cdecl sub_579C60(int a1) {
 _DWORD* __cdecl sub_579C80(int a1) {
 	_DWORD* result; // eax
 
-	result = *(_DWORD**)&byte_5D4594[2523756];
-	if (!*(_DWORD*)&byte_5D4594[2523756])
+	result = *(_DWORD**)&dword_5d4594_2523756;
+	if (!dword_5d4594_2523756)
 		return 0;
 	while (*result != a1) {
 		result = (_DWORD*)result[121];
@@ -3834,13 +3835,13 @@ int sub_579CA0() {
 	int* v4;    // edi
 	int v5;     // eax
 
-	v0 = *(_DWORD**)&byte_5D4594[2523756];
-	if (*(_DWORD*)&byte_5D4594[2523756]) {
+	v0 = *(_DWORD**)&dword_5d4594_2523756;
+	if (dword_5d4594_2523756) {
 		do {
 			v0[1] = *v0;
 			v0 = (_DWORD*)v0[121];
 		} while (v0);
-		v0 = *(_DWORD**)&byte_5D4594[2523756];
+		v0 = *(_DWORD**)&dword_5d4594_2523756;
 	}
 	v1 = v0;
 	if (!v0)
@@ -3882,8 +3883,8 @@ int sub_579D20() {
 	char v9;          // [esp+0h] [ebp-4h]
 
 	v0 = sub_5798C0();
-	v1 = *(unsigned int**)&byte_5D4594[2523756];
-	if (*(_DWORD*)&byte_5D4594[2523756]) {
+	v1 = *(unsigned int**)&dword_5d4594_2523756;
+	if (dword_5d4594_2523756) {
 		do {
 			v2 = *v1;
 			*v1 = v0;
@@ -3891,7 +3892,7 @@ int sub_579D20() {
 			v1 = (unsigned int*)v1[121];
 			++v0;
 		} while (v1);
-		v1 = *(unsigned int**)&byte_5D4594[2523756];
+		v1 = *(unsigned int**)&dword_5d4594_2523756;
 	}
 	v3 = v1;
 	if (!v1)
@@ -3935,7 +3936,7 @@ void sub_579DD0() {
 		} while (v1);
 	}
 	dword_5d4594_2523752 = 0;
-	*(_DWORD*)&byte_5D4594[2523756] = 0;
+	dword_5d4594_2523756 = 0;
 	*(_DWORD*)&byte_5D4594[2523760] = 0;
 }
 
@@ -3963,10 +3964,10 @@ _DWORD* sub_579E70() {
 //----- (00579E90) --------------------------------------------------------
 void __cdecl sub_579E90(int a1) {
 	*(_DWORD*)(a1 + 480) |= 0x1000000u;
-	*(_DWORD*)(a1 + 484) = *(_DWORD*)&byte_5D4594[2523756];
-	if (*(_DWORD*)&byte_5D4594[2523756])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[2523756] + 488) = a1;
-	*(_DWORD*)&byte_5D4594[2523756] = a1;
+	*(_DWORD*)(a1 + 484) = dword_5d4594_2523756;
+	if (dword_5d4594_2523756)
+		*(_DWORD*)(dword_5d4594_2523756 + 488) = a1;
+	dword_5d4594_2523756 = a1;
 	if (nox_common_gameFlags_check_40A5C0(1))
 		sub_5179B0(a1);
 }
