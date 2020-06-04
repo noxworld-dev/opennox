@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1047516;
 extern _DWORD dword_5d4594_1046868;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -141,7 +142,7 @@ int __cdecl sub_45BD40(int a1) {
 					v7 = v67 + 19;
 				}
 				sub_434390(*(int*)&byte_5D4594[1046880]);
-				v9 = *(_BYTE*)(*(_DWORD*)&byte_5D4594[1047516] + 2251);
+				v9 = *(_BYTE*)(dword_5d4594_1047516 + 2251);
 				if (dword_5d4594_1046868 == 1) {
 					if (v9 == 2 && !sub_424B70(*(_DWORD*)&byte_5D4594[4 * v8 + 1046960] + 74))
 						sub_434390(*(int*)&byte_5D4594[1046884]);
@@ -207,8 +208,8 @@ int __cdecl sub_45BD40(int a1) {
 			nox_wcscat(v71, v22);
 			v20 = 19;
 		}
-		if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1047516] + 2251) == 2 &&
-		    (*(_DWORD*)(*(_DWORD*)&byte_5D4594[1047516] + 4232) ||
+		if (*(_BYTE*)(dword_5d4594_1047516 + 2251) == 2 &&
+		    (*(_DWORD*)(dword_5d4594_1047516 + 4232) ||
 		     nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096))) {
 			sub_43F840(0, v71, &v70, 0, 0);
 			sub_43FAF0(0, v71, (108 - v70) / 2 + v66 + 24, v14, 128, 0);
@@ -239,7 +240,7 @@ int __cdecl sub_45BD40(int a1) {
 			goto LABEL_53;
 		}
 	} else {
-		if (!*(_BYTE*)(*(_DWORD*)&byte_5D4594[1047516] + 2251)) {
+		if (!*(_BYTE*)(dword_5d4594_1047516 + 2251)) {
 			sub_425450(*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1046932] + 1046960]);
 			v33 = (unsigned __int16*)sub_425260(
 			    *(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1046932] + 1046960]);
@@ -326,7 +327,7 @@ int __cdecl sub_45BD40(int a1) {
 			sub_43FAF0(0, v51, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
 			v47 += v3;
 		}
-		v64 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1047516] +
+		v64 = *(_DWORD*)(dword_5d4594_1047516 +
 				 4 * *(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1046932] + 1046960] + 3696);
 		v52 = loadString_sub_40F1D0((char*)&byte_587000[132836], 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c",
 					    1206);
@@ -364,7 +365,7 @@ int __cdecl sub_45CF00(_DWORD* a1) {
 	wchar_t* v4; // eax
 
 	if (*a1 == 1310) {
-		if (!*(_BYTE*)(*(_DWORD*)&byte_5D4594[1047516] + 2251)) {
+		if (!*(_BYTE*)(dword_5d4594_1047516 + 2251)) {
 			v3 = loadString_sub_40F1D0((char*)&byte_587000[133244], 0,
 						   "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1640);
 			sub_4776B0(v3);
