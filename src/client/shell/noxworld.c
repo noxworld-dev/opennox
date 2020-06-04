@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_815016;
 extern _DWORD dword_5d4594_815048;
 extern _DWORD dword_587000_87404;
 extern _DWORD dword_587000_87412;
@@ -200,7 +201,7 @@ int sub_4379F0() {
 				dword_5d4594_815000 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10033);
 				*(_DWORD*)&byte_5D4594[814992] = sub_489B80(*(int*)&dword_5d4594_814980);
 				*(_DWORD*)&byte_5D4594[815008] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10001);
-				*(_DWORD*)&byte_5D4594[815016] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10038);
+				dword_5d4594_815016 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10038);
 				*(_DWORD*)&byte_5D4594[815020] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10039);
 				*(_DWORD*)&byte_5D4594[815024] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10040);
 				*(_DWORD*)&byte_5D4594[815028] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10041);
@@ -768,7 +769,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 
 	if (a2 > 0x4010) {
 		if (a2 == 16403 || a2 == 16412) {
-			nox_window_call_field_94(*(int*)&byte_5D4594[815016], a2, (int)a3, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_815016, a2, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[815020], a2, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[815024], a2, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[815028], a2, (int)a3, 0);
@@ -790,7 +791,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 	case 0x4000u:
 		v27 = sub_46B0A0(a3);
 		if (v27 >= 10043 && v27 <= 10044) {
-			nox_window_call_field_94(*(int*)&byte_5D4594[815016], 0x4000, (int)a3, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_815016, 0x4000, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[815020], 0x4000, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[815024], 0x4000, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[815028], 0x4000, (int)a3, 0);
@@ -1160,7 +1161,7 @@ _DWORD* __cdecl sub_43B7C0(int a1) {
 			sub_43BC80(a1 + 12, *(_WORD*)(a1 + 109), v14);
 		nox_swprintf(WideCharStr, L"%S", v14);
 		sub_43BC10(WideCharStr, 0x64u);
-		nox_window_call_field_94(*(int*)&byte_5D4594[815016], 16397, (int)WideCharStr, 4);
+		nox_window_call_field_94(*(int*)&dword_5d4594_815016, 16397, (int)WideCharStr, 4);
 		nox_swprintf(WideCharStr, L"%d/%d", *(unsigned __int8*)(a1 + 103), *(unsigned __int8*)(a1 + 104));
 		nox_window_call_field_94(*(int*)&byte_5D4594[815020], 16397, (int)WideCharStr, 4);
 		v6 = sub_43BCB0(*(_WORD*)(a1 + 163));
