@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1063116;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_1064916;
 extern _DWORD dword_587000_80828;
@@ -2260,17 +2261,17 @@ int __cdecl sub_466F50(_DWORD* a1, int* a2) {
 	int v15;     // [esp+0h] [ebp-8h]
 	int v16;     // [esp+4h] [ebp-4h]
 
-	if (!*(_DWORD*)&byte_5D4594[1063116])
+	if (!dword_5d4594_1063116)
 		return 1;
-	v3 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1063116] + 112);
+	v3 = *(_DWORD*)(dword_5d4594_1063116 + 112);
 	if (v3 & 0x13001000) {
-		v4 = v3 & 0x11001000 ? sub_413250(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1063116] + 108))
-				     : sub_413270(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1063116] + 108));
+		v4 = v3 & 0x11001000 ? sub_413250(*(_DWORD*)(dword_5d4594_1063116 + 108))
+				     : sub_413270(*(_DWORD*)(dword_5d4594_1063116 + 108));
 		v6 = v4;
 		if (v4) {
-			v7 = *(_DWORD*)&byte_5D4594[1063116];
+			v7 = dword_5d4594_1063116;
 			v8 = 1;
-			v9 = *(_DWORD*)&byte_5D4594[1063116] + 432;
+			v9 = dword_5d4594_1063116 + 432;
 			v10 = v4 + 4;
 			do {
 				LOBYTE(v4) = v10[1];
