@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1312480;
 extern _DWORD dword_5d4594_3799492;
 extern _DWORD dword_5d4594_2618912;
@@ -2139,7 +2140,7 @@ int sub_4A6C90() {
 	v0 = *(void (**)(void))(*(_DWORD*)&byte_5D4594[1308092] + 52);
 	sub_43C570(*(LPVOID*)&byte_5D4594[1308092]);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1308084);
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1308088]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1308088);
 	if (v0) {
 		v0();
 	} else {
@@ -2421,10 +2422,10 @@ int __cdecl sub_4A7270(int a1, int a2, unsigned int a3, int a4) {
 _DWORD* __cdecl sub_4A72D0(unsigned __int16 a1) {
 	_DWORD* result; // eax
 
-	sub_46C6E0(*(int*)&byte_5D4594[1308088]);
-	result = (_DWORD*)nox_window_set_hidden(*(int*)&byte_5D4594[1308088], 1);
+	sub_46C6E0(*(int*)&dword_5d4594_1308088);
+	result = (_DWORD*)nox_window_set_hidden(*(int*)&dword_5d4594_1308088, 1);
 	if (a1 < 0x20u) {
-		result = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308088], *(int*)&byte_5D4594[1307792]);
+		result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308088, *(int*)&byte_5D4594[1307792]);
 		if (result)
 			result[8] = *(unsigned __int16*)&byte_5D4594[1307788] | (a1 << 16);
 	}
@@ -2549,7 +2550,7 @@ _DWORD* __cdecl sub_4A7530(unsigned __int16 a1) {
 	v1 = 761;
 	*(_DWORD*)&byte_5D4594[1307788] = a1;
 	do {
-		result = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308088], v1);
+		result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308088, v1);
 		if (result)
 			result[8] = a1 | ((unsigned __int16)(v1 - 761) << 16);
 		++v1;
@@ -2559,10 +2560,10 @@ _DWORD* __cdecl sub_4A7530(unsigned __int16 a1) {
 
 //----- (004A7580) --------------------------------------------------------
 int __cdecl sub_4A7580(int a1, int a2) {
-	sub_46A8C0(*(int*)&byte_5D4594[1308088]);
-	sub_46C690(*(int*)&byte_5D4594[1308088]);
-	return sub_46A9B0(*(_DWORD**)&byte_5D4594[1308088], a1 - *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308088] + 8),
-			  a2 - *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308088] + 12) / 2);
+	sub_46A8C0(*(int*)&dword_5d4594_1308088);
+	sub_46C690(*(int*)&dword_5d4594_1308088);
+	return sub_46A9B0(*(_DWORD**)&dword_5d4594_1308088, a1 - *(_DWORD*)(dword_5d4594_1308088 + 8),
+			  a2 - *(_DWORD*)(dword_5d4594_1308088 + 12) / 2);
 }
 
 //----- (004A7A60) --------------------------------------------------------
