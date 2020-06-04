@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_5d4594_3798844;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_video_dxFullScreen;
@@ -37,24 +38,24 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 	v7 = *a1 - *(_DWORD*)&byte_5D4594[3798820];
 	if (v7 >= 0 && v6 >= 0 && v7 < *(int*)&byte_5D4594[3798800] && v6 < *(int*)&byte_5D4594[3798808]) {
 		v8 = *(const void**)&byte_5D4594[3798796];
-		result = *(_DWORD*)&byte_5D4594[3798844];
+		result = dword_5d4594_3798844;
 		v9 = (char*)(v7 + *(_DWORD*)&byte_5D4594[3798796] + *(_DWORD*)&byte_5D4594[3798836] +
 			     *(_DWORD*)&byte_5D4594[3798804] * (*(_DWORD*)&byte_5D4594[3798840] + v6));
 		v21 = *(_DWORD*)&byte_5D4594[3798796];
-		v20 = *(_DWORD*)&byte_5D4594[3798844];
-		v22 = *(_DWORD*)&byte_5D4594[3798844] - *(_DWORD*)&byte_5D4594[3798796];
+		v20 = dword_5d4594_3798844;
+		v22 = dword_5d4594_3798844 - *(_DWORD*)&byte_5D4594[3798796];
 		*(_DWORD*)&byte_5D4594[1193184] = v9;
 		*(_DWORD*)&byte_5D4594[1193180] = a5;
-		if ((unsigned int)v9 >= *(int*)&byte_5D4594[3798844]) {
-			v9 -= *(_DWORD*)&byte_5D4594[3798844] - *(_DWORD*)&byte_5D4594[3798796];
+		if ((unsigned int)v9 >= *(int*)&dword_5d4594_3798844) {
+			v9 -= dword_5d4594_3798844 - *(_DWORD*)&byte_5D4594[3798796];
 			*(_DWORD*)&byte_5D4594[1193184] = v9;
 		}
 		if (nox_common_engineFlags & 0x800) {
-			if ((unsigned int)&v9[a4] < *(int*)&byte_5D4594[3798844]) {
+			if ((unsigned int)&v9[a4] < *(int*)&dword_5d4594_3798844) {
 				qmemcpy(a5, v9, a4);
 			} else {
-				v10 = *(_DWORD*)&byte_5D4594[3798844] - (_DWORD)v9;
-				qmemcpy(a5, v9, *(_DWORD*)&byte_5D4594[3798844] - (_DWORD)v9);
+				v10 = dword_5d4594_3798844 - (_DWORD)v9;
+				qmemcpy(a5, v9, dword_5d4594_3798844 - (_DWORD)v9);
 				v11 = (void*)(*(_DWORD*)&byte_5D4594[1193180] + v10);
 				result = a4 - v10;
 				qmemcpy(v11, v8, result);
