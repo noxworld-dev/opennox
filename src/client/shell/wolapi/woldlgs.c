@@ -2,6 +2,7 @@
 #include "../../../proto.h"
 #include "wolchat.h"
 
+extern _DWORD dword_5d4594_830116;
 extern _DWORD dword_5d4594_830140;
 extern _DWORD dword_5d4594_830108;
 extern _DWORD dword_5d4594_830124;
@@ -14,7 +15,7 @@ int sub_448730_wol_dialogs() {
 
 	if (*(_DWORD*)&byte_5D4594[830112])
 		return 0;
-	if (*(_DWORD*)&byte_5D4594[830116])
+	if (dword_5d4594_830116)
 		return 0;
 	if (*(_DWORD*)&byte_5D4594[830120])
 		return 0;
@@ -55,7 +56,7 @@ int sub_448730_wol_dialogs() {
 		*(_DWORD*)&byte_5D4594[830188] = loadString_sub_40F1D0(
 		    (char*)&byte_587000[112196], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 586);
 		*(_DWORD*)&byte_587000[111668] = 1;
-		*(_DWORD*)&byte_5D4594[830116] = 1;
+		dword_5d4594_830116 = 1;
 		sub_46B120(*(_DWORD**)&dword_5d4594_830124, 0);
 		sub_46A8C0(*(int*)&dword_5d4594_830124);
 		sub_46C690(*(int*)&dword_5d4594_830124);
@@ -115,7 +116,7 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			sub_46C6E0(*(int*)&dword_5d4594_830124);
 			sub_46C4E0(*(_DWORD**)&dword_5d4594_830124);
 			sub_447600();
-			*(_DWORD*)&byte_5D4594[830116] = 0;
+			dword_5d4594_830116 = 0;
 			result = 0;
 			break;
 		default:
@@ -132,7 +133,7 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 				sub_46C6E0(*(int*)&dword_5d4594_830124);
 				sub_46C4E0(*(_DWORD**)&dword_5d4594_830124);
 				sub_447600();
-				*(_DWORD*)&byte_5D4594[830116] = 0;
+				dword_5d4594_830116 = 0;
 				dword_5d4594_830124 = 0;
 				sub_40D380();
 				sub_446A20_wol_chat(v4);
@@ -217,7 +218,7 @@ void __cdecl sub_4490C0_wol_dialogs(int a1) {
 		sub_43AFC0(a1);
 		return;
 	}
-	if (!*(_DWORD*)&byte_5D4594[830116]) {
+	if (!dword_5d4594_830116) {
 		return;
 	}
 	v3 = sub_420110();
@@ -250,8 +251,8 @@ int sub_4491B0_wol_dialogs() {
 
 	if (sub_43AF80() == 11)
 		return sub_43AFA0(9);
-	result = *(_DWORD*)&byte_5D4594[830116];
-	if (*(_DWORD*)&byte_5D4594[830116]) {
+	result = dword_5d4594_830116;
+	if (dword_5d4594_830116) {
 		v1 = loadString_sub_40F1D0((char*)&byte_587000[112640], 0,
 					   "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 660);
 		result = nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v1, 0);
@@ -264,8 +265,8 @@ int sub_449200_wol_dialogs() {
 	int result;  // eax
 	wchar_t* v1; // eax
 
-	result = *(_DWORD*)&byte_5D4594[830116];
-	if (*(_DWORD*)&byte_5D4594[830116]) {
+	result = dword_5d4594_830116;
+	if (dword_5d4594_830116) {
 		v1 = loadString_sub_40F1D0((char*)&byte_587000[112700], 0,
 					   "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 669);
 		result = nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v1, 0);
@@ -278,8 +279,8 @@ int sub_449240_wol_dialogs() {
 	int result;  // eax
 	wchar_t* v1; // eax
 
-	result = *(_DWORD*)&byte_5D4594[830116];
-	if (*(_DWORD*)&byte_5D4594[830116]) {
+	result = dword_5d4594_830116;
+	if (dword_5d4594_830116) {
 		v1 = loadString_sub_40F1D0((char*)&byte_587000[112760], 0,
 					   "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 678);
 		result = nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v1, 0);
