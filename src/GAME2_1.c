@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1062456;
 extern _DWORD dword_5d4594_1063636;
 extern _DWORD dword_5d4594_815132;
 extern _DWORD dword_5d4594_1049796;
@@ -1524,7 +1525,7 @@ int __cdecl sub_464770(int a1, int a2, unsigned int a3) {
 	case 6:
 		if (!*(_DWORD*)&byte_5D4594[1049848])
 			goto LABEL_25;
-		if (!sub_46AAB0(*(_DWORD**)&byte_5D4594[1062456], (unsigned __int16)a3, a3 >> 16))
+		if (!sub_46AAB0(*(_DWORD**)&dword_5d4594_1062456, (unsigned __int16)a3, a3 >> 16))
 			goto LABEL_22;
 		if (*(_DWORD*)&byte_5D4594[1049856]) {
 			if (*(_DWORD*)(*(_DWORD*)&byte_5D4594[1049848] + 112) & 0x1001000) {
@@ -1576,7 +1577,7 @@ int __cdecl sub_464770(int a1, int a2, unsigned int a3) {
 		*(_DWORD*)&byte_5D4594[1049848] = 0;
 		*(_DWORD*)&byte_5D4594[1049856] = 0;
 	LABEL_25:
-		sub_46ADE0(*(int*)&byte_5D4594[1062456]);
+		sub_46ADE0(*(int*)&dword_5d4594_1062456);
 		result = 1;
 		break;
 	case 7:
@@ -1779,7 +1780,7 @@ int sub_465CA0() {
 	nox_window_set_hidden(*(int*)&byte_5D4594[1062476], 0);
 	dword_5d4594_1049864 = 5;
 	nox_client_setCursorType_477610(6);
-	return sub_46ADC0(*(int*)&byte_5D4594[1062456]);
+	return sub_46ADC0(*(int*)&dword_5d4594_1062456);
 }
 
 //----- (00465CD0) --------------------------------------------------------
@@ -1865,23 +1866,23 @@ int sub_465E00() {
 	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1062452], 0, sub_4661C0, 0);
 	v0 = nox_window_new(*(int*)&byte_5D4594[1062452], 8, 0, 224, nox_win_width, 40, 0);
 	nox_window_set_all_funcs(v0, sub_464BA0, sub_4661C0, sub_4667E0);
-	*(_DWORD*)&byte_5D4594[1062456] = nox_window_new(*(int*)&byte_5D4594[1062452], 40, 0, 0, 563, 224, sub_466220);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1062456], sub_464BD0, sub_463430, sub_466620);
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1062456] + 44) |= 0x100u;
+	dword_5d4594_1062456 = nox_window_new(*(int*)&byte_5D4594[1062452], 40, 0, 0, 563, 224, sub_466220);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1062456, sub_464BD0, sub_463430, sub_466620);
+	*(_DWORD*)(dword_5d4594_1062456 + 44) |= 0x100u;
 	*(_DWORD*)&byte_5D4594[1062472] = nox_window_new(*(int*)&byte_5D4594[1062452], 40, 0, 0, 1, 1, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1062472], sub_464BD0, sub_4661C0, 0);
-	*(_DWORD*)&byte_5D4594[1062468] = nox_window_new(*(int*)&byte_5D4594[1062456], 40, 173, 174, 50, 50, 0);
+	*(_DWORD*)&byte_5D4594[1062468] = nox_window_new(*(int*)&dword_5d4594_1062456, 40, 173, 174, 50, 50, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1062468], sub_464770, sub_4625D0, sub_4661D0);
 	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1062468] + 44) |= 0x100u;
-	result = sub_466950(*(int*)&byte_5D4594[1062456]);
+	result = sub_466950(*(int*)&dword_5d4594_1062456);
 	if (!result)
 		return 0;
 
-	result = sub_466C40(*(int*)&byte_5D4594[1062456]);
+	result = sub_466C40(*(int*)&dword_5d4594_1062456);
 	if (!result)
 		return 0;
 
-	result = sub_466ED0(*(int*)&byte_5D4594[1062456]);
+	result = sub_466ED0(*(int*)&dword_5d4594_1062456);
 	if (!result)
 		return 0;
 
@@ -1926,7 +1927,7 @@ int sub_465E00() {
 	if (*(_DWORD*)&byte_5D4594[1059196])
 		byte_5D4594[1059336] = 1;
 
-	return *(_DWORD*)&byte_5D4594[1062456];
+	return dword_5d4594_1062456;
 }
 
 //----- (004661C0) --------------------------------------------------------
