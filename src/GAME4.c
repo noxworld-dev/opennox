@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1569752;
 extern _DWORD dword_5d4594_251568;
 extern _DWORD dword_5d4594_1569728;
 extern _DWORD dword_5d4594_1570272;
@@ -5976,7 +5977,7 @@ int sub_4FF770() {
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1569748]);
 	result = 0;
 	*(_DWORD*)&byte_5D4594[1569748] = 0;
-	*(_DWORD*)&byte_5D4594[1569752] = 0;
+	dword_5d4594_1569752 = 0;
 	*(_DWORD*)&byte_5D4594[1569756] = 0;
 	return result;
 }
@@ -5984,7 +5985,7 @@ int sub_4FF770() {
 //----- (004FF790) --------------------------------------------------------
 void sub_4FF790() {
 	sub_4144D0(*(_DWORD**)&byte_5D4594[1569748]);
-	*(_DWORD*)&byte_5D4594[1569752] = 0;
+	dword_5d4594_1569752 = 0;
 }
 
 //----- (004FF7B0) --------------------------------------------------------
@@ -5999,8 +6000,8 @@ void __cdecl sub_4FF7B0(int a1) {
 	v1 = *(_BYTE*)(a1 + 2064);
 	v2 = 1 << v1;
 	if (v1 != 31) {
-		v3 = *(_DWORD**)&byte_5D4594[1569752];
-		if (*(_DWORD*)&byte_5D4594[1569752]) {
+		v3 = *(_DWORD**)&dword_5d4594_1569752;
+		if (dword_5d4594_1569752) {
 			do {
 				if (*(_BYTE*)(a1 + 3680) & 0x10) {
 					if (!(v2 & v3[4])) {
@@ -6027,8 +6028,8 @@ int __cdecl sub_4FF840(int a1) {
 	int result; // eax
 	int v2;     // esi
 
-	result = *(_DWORD*)&byte_5D4594[1569752];
-	if (*(_DWORD*)&byte_5D4594[1569752]) {
+	result = dword_5d4594_1569752;
+	if (dword_5d4594_1569752) {
 		do {
 			v2 = *(_DWORD*)(result + 24);
 			if (*(_DWORD*)(result + 8) == a1)
@@ -6060,7 +6061,7 @@ void __cdecl sub_4FF870(int a1) {
 	if (v2)
 		*(_DWORD*)(v2 + 24) = *(_DWORD*)(a1 + 24);
 	else
-		*(_DWORD*)&byte_5D4594[1569752] = *(_DWORD*)(a1 + 24);
+		dword_5d4594_1569752 = *(_DWORD*)(a1 + 24);
 	v3 = *(_DWORD*)(a1 + 24);
 	if (v3)
 		*(_DWORD*)(v3 + 28) = *(_DWORD*)(a1 + 28);
@@ -6108,7 +6109,7 @@ int __cdecl sub_4FF900(int a1) {
 int __cdecl sub_4FF990(int a1) {
 	int result; // eax
 
-	for (result = *(_DWORD*)&byte_5D4594[1569752]; result; result = *(_DWORD*)(result + 24))
+	for (result = dword_5d4594_1569752; result; result = *(_DWORD*)(result + 24))
 		*(_DWORD*)(result + 16) &= ~a1;
 	return result;
 }
@@ -6325,10 +6326,10 @@ _DWORD* __cdecl sub_4FFE80(int a1, _BYTE* a2, int a3, char a4, char a5, char a6)
 		result[5] = a1;
 		result[4] = 0;
 		result[7] = 0;
-		result[6] = *(_DWORD*)&byte_5D4594[1569752];
-		if (*(_DWORD*)&byte_5D4594[1569752])
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1569752] + 28) = result;
-		*(_DWORD*)&byte_5D4594[1569752] = result;
+		result[6] = dword_5d4594_1569752;
+		if (dword_5d4594_1569752)
+			*(_DWORD*)(dword_5d4594_1569752 + 28) = result;
+		dword_5d4594_1569752 = result;
 	}
 	return result;
 }
@@ -6494,8 +6495,8 @@ int __cdecl sub_500080(int a1) {
 	int result; // eax
 	int v2;     // esi
 
-	result = *(_DWORD*)&byte_5D4594[1569752];
-	if (*(_DWORD*)&byte_5D4594[1569752]) {
+	result = dword_5d4594_1569752;
+	if (dword_5d4594_1569752) {
 		do {
 			v2 = *(_DWORD*)(result + 24);
 			if (*(_DWORD*)(result + 20) == a1)
@@ -6527,7 +6528,7 @@ int __cdecl sub_5000B0(_DWORD* a1) {
 	sub_426AC0_file3_fread(&v6, 2u);
 	if ((__int16)v6 > 1 || (__int16)v6 <= 0)
 		return 0;
-	v1 = *(_DWORD*)&byte_5D4594[1569752];
+	v1 = dword_5d4594_1569752;
 	for (LOBYTE(v5) = 0; v1; v1 = *(_DWORD*)(v1 + 24))
 		LOBYTE(v5) = v5 + 1;
 	sub_426AC0_file3_fread(&v5, 1u);
@@ -6555,8 +6556,8 @@ int __cdecl sub_5000B0(_DWORD* a1) {
 		}
 		return 1;
 	}
-	v2 = *(_DWORD*)&byte_5D4594[1569752];
-	if (!*(_DWORD*)&byte_5D4594[1569752])
+	v2 = dword_5d4594_1569752;
+	if (!dword_5d4594_1569752)
 		return 1;
 	do {
 		sub_426AC0_file3_fread((_BYTE*)v2, 4u);
@@ -6612,7 +6613,7 @@ void __cdecl sub_500330(char a1, char a2, int a3, char a4, char a5, char a6, cha
 int sub_5004D0() {
 	int result; // eax
 
-	for (result = *(_DWORD*)&byte_5D4594[1569752]; result; result = *(_DWORD*)(result + 24)) {
+	for (result = dword_5d4594_1569752; result; result = *(_DWORD*)(result + 24)) {
 		if (*(_DWORD*)result == 1)
 			**(_BYTE**)(result + 8) = *(_BYTE*)(result + 13);
 	}
@@ -6623,7 +6624,7 @@ int sub_5004D0() {
 int sub_5004F0() {
 	int result; // eax
 
-	for (result = *(_DWORD*)&byte_5D4594[1569752]; result; result = *(_DWORD*)(result + 24)) {
+	for (result = dword_5d4594_1569752; result; result = *(_DWORD*)(result + 24)) {
 		if (*(_DWORD*)result == 1)
 			**(_BYTE**)(result + 8) = *(_BYTE*)(result + 4);
 	}
