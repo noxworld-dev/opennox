@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_823692;
 extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_2650652;
 
@@ -1774,11 +1775,11 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 	else
 		*(_WORD*)&byte_5D4594[818228] = 0;
 	v3 = a1;
-	*(_DWORD*)&byte_5D4594[823692] = a1;
+	dword_5d4594_823692 = a1;
 	if (a2 != 4 && a2 != 5 && a2) {
 		if (nox_common_gameFlags_check_40A5C0(49152))
 			return 1;
-		v3 = *(_DWORD*)&byte_5D4594[823692];
+		v3 = dword_5d4594_823692;
 	}
 	switch (a2) {
 	case 0:
@@ -1815,13 +1816,13 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 		v10 = nox_wcstok(0, L" ");
 		nox_sprintf(v22, "%S", v10);
 		v11 = sub_5071D0(v22);
-		if (v11 != -1 && *(_DWORD*)&byte_5D4594[823692]) {
+		if (v11 != -1 && dword_5d4594_823692) {
 			v12 = loadString_sub_40F1D0((char*)&byte_587000[107456], 0,
 						    "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4332);
 			sub_450C00(6u, v12, v10);
-			nox_server_doMapScript_507310(v11, *(_DWORD*)(*(_DWORD*)&byte_5D4594[823692] + 2056),
-						      *(_DWORD*)(*(_DWORD*)&byte_5D4594[823692] + 2056));
-			*(_DWORD*)&byte_5D4594[823692] = 0;
+			nox_server_doMapScript_507310(v11, *(_DWORD*)(dword_5d4594_823692 + 2056),
+						      *(_DWORD*)(dword_5d4594_823692 + 2056));
+			dword_5d4594_823692 = 0;
 			result = 1;
 		} else {
 			v21 = v10;
@@ -1829,7 +1830,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4329);
 		LABEL_38:
 			sub_450C00(6u, v9, v21);
-			*(_DWORD*)&byte_5D4594[823692] = 0;
+			dword_5d4594_823692 = 0;
 			result = 1;
 		}
 		return result;
@@ -1839,16 +1840,16 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 		    !nox_common_gameFlags_check_40A5C0(2048)) {
 			goto LABEL_61;
 		}
-		v19 = *(_DWORD*)&byte_5D4594[823692] + 4704;
+		v19 = dword_5d4594_823692 + 4704;
 		v13 = loadString_sub_40F1D0((char*)&byte_587000[107516], 0,
 					    "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4345);
 		sub_450C00(6u, v13, v19, a3);
 		nox_server_parseCmdText_443C80(a3, 0);
-		*(_DWORD*)&byte_5D4594[823692] = 0;
+		dword_5d4594_823692 = 0;
 		return 1;
 	case 3:
 		sub_4D9FD0(0, a3);
-		*(_DWORD*)&byte_5D4594[823692] = 0;
+		dword_5d4594_823692 = 0;
 		return 1;
 	case 4:
 		if (!(*(_BYTE*)(v3 + 3680) & 1) && !(*(_DWORD*)&nox_common_engineFlags & 0x400000)) {
@@ -1856,16 +1857,16 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 				v16 = loadString_sub_40F1D0((char*)&byte_587000[107568], 0,
 							    "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4392);
 				sub_450C00(6u, v16);
-				*(_DWORD*)&byte_5D4594[823692] = 0;
+				dword_5d4594_823692 = 0;
 				return 1;
 			}
 		LABEL_61:
-			*(_DWORD*)&byte_5D4594[823692] = 0;
+			dword_5d4594_823692 = 0;
 			return 1;
 		}
 		if (!*a3) {
 			sub_4E6040(*(_DWORD*)(v3 + 2056));
-			*(_DWORD*)&byte_5D4594[823692] = 0;
+			dword_5d4594_823692 = 0;
 			return 1;
 		}
 		v17 = sub_416EA0();
@@ -1873,10 +1874,10 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 			goto LABEL_61;
 		do {
 			if (!_nox_wcsicmp(a3, (const wchar_t*)v17 + 2352))
-				sub_4E6060(*(_DWORD*)(*(_DWORD*)&byte_5D4594[823692] + 2056), *((_DWORD*)v17 + 514));
+				sub_4E6060(*(_DWORD*)(dword_5d4594_823692 + 2056), *((_DWORD*)v17 + 514));
 			v17 = sub_416EE0((int)v17);
 		} while (v17);
-		*(_DWORD*)&byte_5D4594[823692] = 0;
+		dword_5d4594_823692 = 0;
 		result = 1;
 		break;
 	case 5:
@@ -1890,7 +1891,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 				sub_501960(902, v15, 0, 0);
 			v14 = sub_416EE0((int)v14);
 		} while (v14);
-		*(_DWORD*)&byte_5D4594[823692] = 0;
+		dword_5d4594_823692 = 0;
 		return 1;
 	default:
 		v20 = v3 + 4704;
