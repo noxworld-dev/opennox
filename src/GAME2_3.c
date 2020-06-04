@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1303452;
 extern _DWORD dword_5d4594_3798696;
 extern _DWORD dword_5d4594_815132;
 extern _DWORD dword_5d4594_1305684;
@@ -5988,10 +5989,10 @@ int sub_49B3E0() {
 	int result; // eax
 
 	result = nox_new_window_from_file("GGOver.wnd", sub_49B420);
-	*(_DWORD*)&byte_5D4594[1303452] = result;
+	dword_5d4594_1303452 = result;
 	if (result) {
 		nox_window_set_hidden(result, 1);
-		sub_46ABB0(*(int*)&byte_5D4594[1303452], 0);
+		sub_46ABB0(*(int*)&dword_5d4594_1303452, 0);
 		result = 1;
 	}
 	return result;
@@ -6021,15 +6022,15 @@ int __cdecl sub_49B420(int a1, int a2, int* a3, int a4) {
 int sub_49B490() {
 	int result; // eax
 
-	result = sub_46C4E0(*(_DWORD**)&byte_5D4594[1303452]);
-	*(_DWORD*)&byte_5D4594[1303452] = 0;
+	result = sub_46C4E0(*(_DWORD**)&dword_5d4594_1303452);
+	dword_5d4594_1303452 = 0;
 	return result;
 }
 
 //----- (0049B6B0) --------------------------------------------------------
 int sub_49B6B0() {
-	nox_window_set_hidden(*(int*)&byte_5D4594[1303452], 1);
-	sub_46ABB0(*(int*)&byte_5D4594[1303452], 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1303452, 1);
+	sub_46ABB0(*(int*)&dword_5d4594_1303452, 0);
 	return sub_46B500(0);
 }
 
