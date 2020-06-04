@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_264364;
 extern _DWORD dword_5d4594_2487904;
 extern _DWORD dword_5d4594_2487908;
 extern _DWORD dword_5d4594_251572;
@@ -3946,17 +3947,17 @@ int __cdecl sub_535250(float4* a1, float2* a2, int2* a3, char a4) {
 				v30 = a1->field_0;
 				if (v30 <= v55) {
 					while (v30 >= v58) {
-						v31 = *(float*)&byte_587000[264364];
+						v31 = *(float*)&dword_587000_264364;
 						modf(v30 / v31, &v73);
-						v32 = *(float*)&byte_587000[264364];
+						v32 = *(float*)&dword_587000_264364;
 						v33 = nox_double2float(v32 * v73);
 						if (v51 <= *(double*)&byte_581450[9568]) {
 							v70 = v33;
-							v35 = *(float*)&byte_587000[264364];
+							v35 = *(float*)&dword_587000_264364;
 							v74 = v33 + v35;
 						} else {
 							v74 = v33;
-							v34 = *(float*)&byte_587000[264364];
+							v34 = *(float*)&dword_587000_264364;
 							v70 = v33 + v34;
 						}
 						a1b = nox_double2int(v73);
@@ -3970,10 +3971,10 @@ int __cdecl sub_535250(float4* a1, float2* a2, int2* a3, char a4) {
 						    v49 < *(double*)&byte_581450[9568] && v72 < (double)a1->field_C) {
 							v72 = a1->field_C;
 						}
-						v37 = *(float*)&byte_587000[264364];
+						v37 = *(float*)&dword_587000_264364;
 						modf(v36 / v37, &v73);
 						v38 = nox_double2int(v73 - v49);
-						v39 = *(float*)&byte_587000[264364];
+						v39 = *(float*)&dword_587000_264364;
 						v40 = v38;
 						modf(v72 / v39, &v73);
 						v41 = nox_double2int(v49 + v73);
@@ -4019,18 +4020,18 @@ int __cdecl sub_535250(float4* a1, float2* a2, int2* a3, char a4) {
 				v15 = a1->field_4;
 				if (v15 <= v54) {
 					while (v15 >= v57) {
-						v16 = *(float*)&byte_587000[264364];
+						v16 = *(float*)&dword_587000_264364;
 						modf(v15 / v16, &v73);
-						v17 = *(float*)&byte_587000[264364];
+						v17 = *(float*)&dword_587000_264364;
 						v18 = v17 * v73;
 						if (v50 <= *(double*)&byte_581450[9568]) {
 							v20 = nox_double2float(v18);
 							v71 = v20;
-							v21 = *(float*)&byte_587000[264364];
+							v21 = *(float*)&dword_587000_264364;
 							v75 = v20 + v21;
 						} else {
 							v75 = nox_double2float(v18);
-							v19 = *(float*)&byte_587000[264364];
+							v19 = *(float*)&dword_587000_264364;
 							v71 = v19 + v75;
 						}
 						a1a = nox_double2int(v73);
@@ -4044,10 +4045,10 @@ int __cdecl sub_535250(float4* a1, float2* a2, int2* a3, char a4) {
 						    v48 < *(double*)&byte_581450[9568] && v69 < (double)a1->field_8) {
 							v69 = a1->field_8;
 						}
-						v23 = *(float*)&byte_587000[264364];
+						v23 = *(float*)&dword_587000_264364;
 						modf(v22 / v23, &v73);
 						v24 = nox_double2int(v73 - v48);
-						v25 = *(float*)&byte_587000[264364];
+						v25 = *(float*)&dword_587000_264364;
 						v26 = v24;
 						modf(v69 / v25, &v73);
 						v27 = nox_double2int(v48 + v73);
