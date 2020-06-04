@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2650652;
 
 //-------------------------------------------------------------------------
@@ -8466,8 +8467,8 @@ int sub_552460() {
 	unsigned int v0;     // esi
 	unsigned __int8* v1; // edi
 
-	*(_DWORD*)&byte_5D4594[2495920] = nox_get_ticks();
-	if (*(_DWORD*)&byte_5D4594[2495920] - *(_DWORD*)&byte_5D4594[2512888] <= 1000)
+	dword_5d4594_2495920 = nox_get_ticks();
+	if (dword_5d4594_2495920 - *(_DWORD*)&byte_5D4594[2512888] <= 1000)
 		return 0;
 	v0 = 0;
 	v1 = &byte_5D4594[3843788];
@@ -8479,7 +8480,7 @@ int sub_552460() {
 		v1 += 4;
 		++v0;
 	} while ((int)v1 < (int)&byte_5D4594[3844300]);
-	*(_DWORD*)&byte_5D4594[2512888] = *(_DWORD*)&byte_5D4594[2495920];
+	*(_DWORD*)&byte_5D4594[2512888] = dword_5d4594_2495920;
 	return 0;
 }
 
