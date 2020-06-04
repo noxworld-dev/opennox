@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_814980;
 extern int nox_enable_audio;
 extern int nox_video_dxUnlockSurface;
 
@@ -8985,7 +8986,7 @@ int __cdecl sub_437320(int a1) {
 //----- (004375C0) --------------------------------------------------------
 void __cdecl sub_4375C0(int a1) {
 	if (*(_DWORD*)&byte_5D4594[815088])
-		sub_46AD20(*(_DWORD**)&byte_5D4594[814980], 10070, *(_DWORD*)&byte_5D4594[815088] + 10069, a1);
+		sub_46AD20(*(_DWORD**)&dword_5d4594_814980, 10070, *(_DWORD*)&byte_5D4594[815088] + 10069, a1);
 }
 
 //----- (004375F0) --------------------------------------------------------
@@ -9212,12 +9213,12 @@ int sub_438C80(int a1, int a2) {
 			nox_window_call_field_94(*(int*)&byte_5D4594[815012], 16403, -1, 0);
 			*(_DWORD*)&byte_5D4594[815056] = 0;
 			sub_46C6E0(*(int*)&byte_5D4594[815000]);
-			sub_46B500(*(int*)&byte_5D4594[814980]);
+			sub_46B500(*(int*)&dword_5d4594_814980);
 		}
 	}
 	if (sub_4A28B0() && !sub_46AAB0(*(_DWORD**)&byte_5D4594[815036], v0->field_0, v0->field_4)) {
 		sub_4A2890();
-		sub_46B500(*(int*)&byte_5D4594[814980]);
+		sub_46B500(*(int*)&dword_5d4594_814980);
 	}
 	if (*(_DWORD*)&byte_5D4594[815048] && sub_438DD0(v0->field_0, v0->field_4)) {
 		nox_client_setCursorType_477610(9);
@@ -9465,7 +9466,7 @@ int __cdecl sub_439D90(unsigned int a1, unsigned int a2) {
 int sub_43A920() {
 	int result; // eax
 
-	sub_46B500(*(int*)&byte_5D4594[814980]);
+	sub_46B500(*(int*)&dword_5d4594_814980);
 	if (*(_DWORD*)&byte_587000[87404] == 1) {
 		sub_554D10();
 		nox_set_draw_unk1(sub_41E210);
@@ -9487,9 +9488,9 @@ int sub_43A9D0() {
 		sub_46C4E0(*(_DWORD**)&byte_5D4594[815000]);
 		*(_DWORD*)&byte_5D4594[815000] = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[814980]) {
-		sub_46C4E0(*(_DWORD**)&byte_5D4594[814980]);
-		*(_DWORD*)&byte_5D4594[814980] = 0;
+	if (dword_5d4594_814980) {
+		sub_46C4E0(*(_DWORD**)&dword_5d4594_814980);
+		dword_5d4594_814980 = 0;
 	}
 	sub_43A920();
 	sub_46B500(0);
@@ -9638,10 +9639,10 @@ void sub_43ACC0() {
 		sub_44A400();
 		if (nox_common_gameFlags_check_40A5C0(0x2000000) && *(int*)&byte_587000[87412] == -1) {
 			v6 = sub_4A7F20() + 10053;
-			v7 = sub_46B0C0(*(_DWORD**)&byte_5D4594[814980], 10002);
-			nox_window_call_field_94(*(int*)&byte_5D4594[814980], 16391, (int)v7, 0);
-			v8 = sub_46B0C0(*(_DWORD**)&byte_5D4594[814980], v6);
-			nox_window_call_field_94(*(int*)&byte_5D4594[814980], 16391, (int)v8, 0);
+			v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10002);
+			nox_window_call_field_94(*(int*)&dword_5d4594_814980, 16391, (int)v7, 0);
+			v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, v6);
+			nox_window_call_field_94(*(int*)&dword_5d4594_814980, 16391, (int)v8, 0);
 		}
 		if (*(_DWORD*)&byte_5D4594[815048])
 			sub_4375C0(0);
@@ -9883,7 +9884,7 @@ int sub_43B460() {
 int sub_43B490() {
 	if (sub_43BE10() == 1700)
 		return sub_438330();
-	nox_window_set_hidden(*(int*)&byte_5D4594[814980], 1);
+	nox_window_set_hidden(*(int*)&dword_5d4594_814980, 1);
 	nox_window_set_hidden(*(int*)&byte_5D4594[815000], 1);
 	nox_client_setCursorType_477610(0);
 	return 1;
