@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801804;
 extern _DWORD dword_5d4594_528256;
 extern _DWORD dword_5d4594_3798816;
 extern _DWORD dword_587000_154952;
@@ -7841,7 +7842,7 @@ int __cdecl sub_433F10(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a
 	ptr_5D4594_3799572->data[54] = a1;
 	ptr_5D4594_3799572->data[55] = a2;
 	ptr_5D4594_3799572->data[56] = a3;
-	if (*(_DWORD*)&byte_5D4594[3801804]) {
+	if (dword_5d4594_3801804) {
 		v4 = a1 | (a1 << 16);
 		HIDWORD(v4) = 0;
 		v4 <<= 16;

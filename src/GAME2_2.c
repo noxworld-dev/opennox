@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801804;
 extern _DWORD dword_5d4594_3798816;
 extern _DWORD dword_5d4594_1096640;
 extern _DWORD dword_587000_154952;
@@ -4255,7 +4256,7 @@ LPVOID sub_47D150() {
 int sub_47D200() {
 	if (dword_5d4594_3801780) {
 		if (dword_5d4594_3801780 == 1) {
-			if (*(_DWORD*)&byte_5D4594[3801804])
+			if (dword_5d4594_3801804)
 				*(_DWORD*)&byte_5D4594[3799500] = sub_4C7670;
 			else
 				*(_DWORD*)&byte_5D4594[3799500] = sub_4C7440;
@@ -6499,7 +6500,7 @@ int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7
 		return result;
 	}
 	v42 = (void(__cdecl*)(char*, char*, int, int*, int*))sub_480700;
-	if (!*(_DWORD*)&byte_5D4594[3801804])
+	if (!dword_5d4594_3801804)
 		v42 = (void(__cdecl*)(char*, char*, int, int*, int*))sub_480860;
 	result = (int*)sub_42FB30(a1);
 	if (!result) {
@@ -13102,7 +13103,7 @@ int __cdecl sub_48B6B0(int a1, int a2, int a3) {
 	ptr_5D4594_3799572->data[34] = (unsigned __int8)a1;
 	ptr_5D4594_3799572->data[35] = (unsigned __int8)a2;
 	ptr_5D4594_3799572->data[36] = (unsigned __int8)a3;
-	if (*(_DWORD*)&byte_5D4594[3801804]) {
+	if (dword_5d4594_3801804) {
 		v4 = (unsigned __int8)a1 | ((unsigned __int8)a1 << 16);
 		HIDWORD(v4) = 0;
 		v4 <<= 16;
