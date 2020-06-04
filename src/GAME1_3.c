@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_816452;
 extern _DWORD dword_5d4594_816432;
 extern _DWORD dword_5d4594_816440;
@@ -1711,9 +1712,9 @@ int map_download_loop(int first) {
 		sub_40DF90();
 	}
 	v1 = (unsigned __int8*)sub_430940();
-	for (*(_DWORD*)&byte_5D4594[2618912] = v1; *v1; *(_DWORD*)&byte_5D4594[2618912] = v1) {
+	for (dword_5d4594_2618912 = v1; *v1; dword_5d4594_2618912 = v1) {
 		sub_46B6B0(v1);
-		v1 = (unsigned __int8*)(*(_DWORD*)&byte_5D4594[2618912] + 8);
+		v1 = (unsigned __int8*)(dword_5d4594_2618912 + 8);
 	}
 	sub_43CCA0();
 	if (first)

@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_754056;
 extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_787164;
@@ -8853,7 +8854,7 @@ int sub_437060() {
 
 	if (!sub_46A4A0()) {
 		v0 = sub_430940();
-		*(_DWORD*)&byte_5D4594[2618912] = v0;
+		dword_5d4594_2618912 = v0;
 		for (i = *v0; *v0; i = *v0) {
 			if (v0[2] != 1 && v0[1] != 2) {
 				switch (i) {
@@ -8870,10 +8871,10 @@ int sub_437060() {
 				case 0x57:
 				case 0x58:
 					v2 = sub_477600() == 0;
-					v0 = *(char**)&byte_5D4594[2618912];
+					v0 = *(char**)&dword_5d4594_2618912;
 					if (v2) {
-						sub_4443B0(**(_BYTE**)&byte_5D4594[2618912]);
-						v0 = *(char**)&byte_5D4594[2618912];
+						sub_4443B0(**(_BYTE**)&dword_5d4594_2618912);
+						v0 = *(char**)&dword_5d4594_2618912;
 					}
 					break;
 				default:
@@ -8881,7 +8882,7 @@ int sub_437060() {
 				}
 			}
 			v0 += 8;
-			*(_DWORD*)&byte_5D4594[2618912] = v0;
+			dword_5d4594_2618912 = v0;
 		}
 	}
 	return 1;
