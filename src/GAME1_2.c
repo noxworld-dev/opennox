@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799624;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_787148;
 extern _DWORD dword_5d4594_810632;
@@ -5306,7 +5307,7 @@ int __cdecl sub_42FE30(int a1) {
 			free(v3);
 	}
 	result = v10;
-	if (v10 == *(_DWORD*)(v1 + 16) && *(_DWORD*)&byte_5D4594[3799624] == 2)
+	if (v10 == *(_DWORD*)(v1 + 16) && dword_5d4594_3799624 == 2)
 		result = sub_42FF90((_DWORD*)v1);
 	return result;
 }
@@ -7877,7 +7878,7 @@ int __cdecl sub_4344D0(_BYTE* a1) {
 
 	result = 0;
 	if (a1) {
-		if (*(_DWORD*)&byte_5D4594[3799624]) {
+		if (dword_5d4594_3799624) {
 			result = *(unsigned __int16*)a1 | (*(unsigned __int16*)a1 << 16);
 		} else {
 			LOBYTE(v2) = 0;
@@ -8146,10 +8147,10 @@ int sub_434DA0() {
 	void* result;    // eax
 	unsigned int v3; // esi
 
-	if (*(int*)&byte_5D4594[3799624] < 0)
+	if (*(int*)&dword_5d4594_3799624 < 0)
 		return 1;
-	if (*(_DWORD*)&byte_5D4594[3799624] > 1) {
-		if (*(_DWORD*)&byte_5D4594[3799624] == 2) {
+	if (dword_5d4594_3799624 > 1) {
+		if (dword_5d4594_3799624 == 2) {
 			v0 = 3;
 			v1 = 0xFFFF;
 			goto LABEL_6;
@@ -8199,7 +8200,7 @@ int sub_434F00() {
 	int result; // eax
 	int i;      // ebx
 
-	if (*(_DWORD*)&byte_5D4594[3799624])
+	if (dword_5d4594_3799624)
 		return 1;
 	if (*(_DWORD*)&byte_5D4594[810640] ||
 	    (result = (int)nox_calloc(0x8000u, 1u), (*(_DWORD*)&byte_5D4594[810640] = result) != 0)) {
