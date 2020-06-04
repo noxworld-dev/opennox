@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_251540;
 extern _DWORD dword_5d4594_1064912;
 extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_3799524;
@@ -3518,14 +3519,14 @@ BOOL __cdecl sub_46A010(_DWORD* a1, char* a2) {
 	nox_memfile_read(a2, 1u, v42, (int)v30);
 	a2[v42] = 0;
 	v5 = 0;
-	if (*(_DWORD*)&byte_5D4594[251540] > 0) {
+	if (dword_5d4594_251540 > 0) {
 		v6 = (const char*)&byte_5D4594[2692748];
 		v48 = &byte_5D4594[2692748];
 		while (strcmp(v6, v3)) {
 			++v5;
 			v6 = (const char*)(v48 + 12332);
 			v48 += 12332;
-			if (v5 >= *(int*)&byte_5D4594[251540])
+			if (v5 >= *(int*)&dword_5d4594_251540)
 				return 0;
 		}
 		v49 = v5;

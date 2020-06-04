@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_251540;
 extern _DWORD dword_5d4594_2487556;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
@@ -6870,13 +6871,13 @@ int __cdecl sub_526BF0(char* a1) {
 	if (!a1)
 		return -1;
 	v1 = 0;
-	if (*(int*)&byte_5D4594[251540] <= 0)
+	if (*(int*)&dword_5d4594_251540 <= 0)
 		return -1;
 	while (1) {
 		v2 = sub_410D40(v1);
 		if (!_strcmpi(v2, a1))
 			break;
-		if (++v1 >= *(int*)&byte_5D4594[251540])
+		if (++v1 >= *(int*)&dword_5d4594_251540)
 			return -1;
 	}
 	return v1;
@@ -6913,7 +6914,7 @@ int __cdecl sub_526CA0(char* a1) {
 	char* v3; // eax
 
 	v1 = 0;
-	for (i = 0; i < *(int*)&byte_5D4594[251540]; ++i) {
+	for (i = 0; i < *(int*)&dword_5d4594_251540; ++i) {
 		v3 = sub_410D40(i);
 		if (!_strcmpi(v3, a1)) {
 			*(_DWORD*)&byte_5D4594[3835376] = i;
@@ -6934,7 +6935,7 @@ int __cdecl sub_526CA0(char* a1) {
 int __cdecl sub_526D20(int a1) {
 	int result; // eax
 
-	if (a1 < 0 || a1 >= *(int*)&byte_5D4594[251540]) {
+	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_251540) {
 		*(_DWORD*)&byte_5D4594[3835376] = 0;
 		result = 0;
 	} else {
@@ -7529,7 +7530,7 @@ int* __cdecl sub_5277D0(int* a1, int a2) {
 			result = (int*)nox_server_getWallAtPoint_410580(*((unsigned __int8*)result + 5), *((unsigned __int8*)result + 6));
 			v3 = result;
 			if (result) {
-				if (a2 < *(int*)&byte_5D4594[251540]) {
+				if (a2 < *(int*)&dword_5d4594_251540) {
 					*((_BYTE*)result + 1) = a2;
 					if (*((_BYTE*)result + 2) >=
 					    sub_410DD0((unsigned __int8)a2, *(unsigned __int8*)result, 0))
