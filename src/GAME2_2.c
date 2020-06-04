@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096640;
 extern _DWORD dword_587000_154952;
 extern _DWORD dword_5d4594_3798808;
 extern _DWORD dword_5d4594_3799492;
@@ -871,8 +872,8 @@ int __cdecl sub_476F10_drawable(int a1) {
 	int result; // eax
 
 	result = a1;
-	if (*(_DWORD*)&byte_5D4594[1096640] == a1)
-		*(_DWORD*)&byte_5D4594[1096640] = 0;
+	if (dword_5d4594_1096640 == a1)
+		dword_5d4594_1096640 = 0;
 	if (*(_DWORD*)&byte_5D4594[1096644] == a1)
 		*(_DWORD*)&byte_5D4594[1096644] = 0;
 	return result;
@@ -882,8 +883,8 @@ int __cdecl sub_476F10_drawable(int a1) {
 unsigned int sub_476F40() {
 	unsigned int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1096640])
-		result = sub_578B00(*(int*)&byte_5D4594[1096640]);
+	if (dword_5d4594_1096640)
+		result = sub_578B00(*(int*)&dword_5d4594_1096640);
 	else
 		result = 0;
 	return result;
@@ -893,15 +894,15 @@ unsigned int sub_476F40() {
 int sub_476F60() {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1096640])
-		result = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1096640] + 128);
+	if (dword_5d4594_1096640)
+		result = *(_DWORD*)(dword_5d4594_1096640 + 128);
 	else
 		result = 0;
 	return result;
 }
 
 //----- (00476F80) --------------------------------------------------------
-int sub_476F80() { return *(_DWORD*)&byte_5D4594[1096640]; }
+int sub_476F80() { return dword_5d4594_1096640; }
 
 //----- (00476F90) --------------------------------------------------------
 int sub_476F90() { return *(_DWORD*)&byte_5D4594[1096644]; }
@@ -918,7 +919,7 @@ void sub_476FA0() {
 	sub_437250();
 	v1 = *v0;
 	sub_473970(&v1, &v1);
-	*(_DWORD*)&byte_5D4594[1096640] = 0;
+	dword_5d4594_1096640 = 0;
 	*(_DWORD*)&byte_5D4594[1096644] = 0;
 	*(_DWORD*)&byte_5D4594[1096628] = 0;
 	v2.field_0 = v1.field_0 - 96;
@@ -1033,8 +1034,7 @@ void __cdecl sub_477050(int arg0, int a2) {
 										    *(int*)&byte_5D4594[1096628]) {
 											*(_DWORD*)&byte_5D4594
 											    [1096628] = v22;
-											*(_DWORD*)&byte_5D4594
-											    [1096640] = v2;
+											dword_5d4594_1096640 = v2;
 										}
 										if (v2 != *(_DWORD*)&byte_5D4594
 											      [2614252] &&
