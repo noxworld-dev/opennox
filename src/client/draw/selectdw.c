@@ -1,6 +1,7 @@
 #include "selectdw.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1096640;
 
 //----- (004773C0) --------------------------------------------------------
 void __cdecl nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
@@ -10,9 +11,9 @@ void __cdecl nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 	int v4;     // eax
 	int v5;     // edx
 
-	if (*(_DWORD*)&byte_5D4594[1096640]) {
-		if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1096640] + 112) & 6 &&
-		    !sub_495A80(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1096640] + 128))) {
+	if (dword_5d4594_1096640) {
+		if (*(_BYTE*)(dword_5d4594_1096640 + 112) & 6 &&
+		    !sub_495A80(*(_DWORD*)(dword_5d4594_1096640 + 128))) {
 			v4 = sub_415FF0(0, 1, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 440);
 			if (!v4) {
 				v3 = *(_DWORD**)&byte_5D4594[2598268];
@@ -40,8 +41,8 @@ void __cdecl nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 		}
 		v3 = a1;
 	LABEL_15:
-		v5 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1096640] + 112);
+		v5 = *(_DWORD*)(dword_5d4594_1096640 + 112);
 		if (!(v5 & 0x200))
-			nox_video_drawCursorSelectCircle2_477470(a1, (int)v3, *(int*)&byte_5D4594[1096640]);
+			nox_video_drawCursorSelectCircle2_477470(a1, (int)v3, *(int*)&dword_5d4594_1096640);
 	}
 }
