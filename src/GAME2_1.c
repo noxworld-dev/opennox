@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1064912;
 extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_1064856;
@@ -4903,8 +4904,8 @@ void sub_46B740() {
 			goto LABEL_123;
 		}
 	}
-	if (*(_DWORD*)&byte_5D4594[1064912]) {
-		v23 = (wchar_t*)sub_46B5B0(**(_DWORD***)&byte_5D4594[1064912], v2->field_0, v2->field_4);
+	if (dword_5d4594_1064912) {
+		v23 = (wchar_t*)sub_46B5B0(**(_DWORD***)&dword_5d4594_1064912, v2->field_0, v2->field_4);
 		goto LABEL_98;
 	}
 	v24 = *(_DWORD**)&dword_5d4594_1064888;
@@ -5186,8 +5187,8 @@ void sub_46C200() {
 				sub_46ADE0(v0);
 			if (nox_win_unk2 == v0)
 				sub_46B500(0);
-			if (*(_DWORD*)&byte_5D4594[1064912] && v0 == **(_DWORD**)&byte_5D4594[1064912])
-				sub_46C6E0(**(_DWORD**)&byte_5D4594[1064912]);
+			if (dword_5d4594_1064912 && v0 == **(_DWORD**)&dword_5d4594_1064912)
+				sub_46C6E0(**(_DWORD**)&dword_5d4594_1064912);
 			if (*(_DWORD*)&byte_5D4594[1064900] == v0)
 				*(_DWORD*)&byte_5D4594[1064900] = 0;
 			if (dword_5d4594_1064916 == v0)
@@ -5333,8 +5334,8 @@ int __cdecl sub_46C4E0(_DWORD* a1) {
 			sub_46ADE0((int)a1);
 		if (nox_win_unk2 == a1)
 			sub_46B500(0);
-		if (*(_DWORD*)&byte_5D4594[1064912] && a1 == **(_DWORD***)&byte_5D4594[1064912])
-			sub_46C6E0(**(_DWORD**)&byte_5D4594[1064912]);
+		if (dword_5d4594_1064912 && a1 == **(_DWORD***)&dword_5d4594_1064912)
+			sub_46C6E0(**(_DWORD**)&dword_5d4594_1064912);
 		if (*(_DWORD**)&byte_5D4594[1064900] == a1)
 			*(_DWORD*)&byte_5D4594[1064900] = 0;
 		if (*(_DWORD**)&dword_5d4594_1064916 == a1)
@@ -5403,8 +5404,8 @@ int __cdecl sub_46C690(int a1) {
 	if (!v2)
 		return -1;
 	*v2 = a1;
-	v2[1] = *(_DWORD*)&byte_5D4594[1064912];
-	*(_DWORD*)&byte_5D4594[1064912] = v2;
+	v2[1] = dword_5d4594_1064912;
+	dword_5d4594_1064912 = v2;
 	return 0;
 }
 
@@ -5414,11 +5415,11 @@ int __cdecl sub_46C6E0(int a1) {
 
 	if (!a1)
 		return -2;
-	if (!*(_DWORD*)&byte_5D4594[1064912] || **(_DWORD**)&byte_5D4594[1064912] != a1)
+	if (!dword_5d4594_1064912 || **(_DWORD**)&dword_5d4594_1064912 != a1)
 		return -1;
-	v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1064912] + 4);
-	free(*(LPVOID*)&byte_5D4594[1064912]);
-	*(_DWORD*)&byte_5D4594[1064912] = v2;
+	v2 = *(_DWORD*)(dword_5d4594_1064912 + 4);
+	free(*(LPVOID*)&dword_5d4594_1064912);
+	dword_5d4594_1064912 = v2;
 	return 0;
 }
 
