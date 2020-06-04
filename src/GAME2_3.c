@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1301844;
 extern _DWORD dword_5d4594_1197320;
 extern _DWORD dword_587000_166704;
 extern _DWORD dword_5d4594_1197324;
@@ -5675,7 +5676,7 @@ int __cdecl sub_49ADD0(int a1) {
 	_DWORD* v2; // eax
 	int v3;     // ecx
 
-	*(_DWORD*)&byte_5D4594[1301844] = 0;
+	dword_5d4594_1301844 = 0;
 	dword_5d4594_1301848 = 0;
 	*(_DWORD*)&byte_5D4594[1301824] = 0;
 	*(_DWORD*)&byte_5D4594[1301832] = 0;
@@ -5690,8 +5691,8 @@ int __cdecl sub_49ADD0(int a1) {
 	*(_DWORD*)&byte_5D4594[1301808] = 0;
 	*(_DWORD*)&byte_5D4594[1301796] = 0;
 	*(_DWORD*)&byte_5D4594[1301820] = a1;
-	*(_DWORD*)&byte_5D4594[1301844] = nox_new_alloc_class("PixelSpan", 12, a1);
-	if (!*(_DWORD*)&byte_5D4594[1301844])
+	dword_5d4594_1301844 = nox_new_alloc_class("PixelSpan", 12, a1);
+	if (!dword_5d4594_1301844)
 		return 0;
 	*(_DWORD*)&byte_5D4594[1301824] = nox_win_height;
 	v2 = nox_malloc(4 * nox_win_height);
@@ -5712,9 +5713,9 @@ int __cdecl sub_49ADD0(int a1) {
 
 //----- (0049AEA0) --------------------------------------------------------
 int sub_49AEA0() {
-	if (*(_DWORD*)&byte_5D4594[1301844]) {
-		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1301844]);
-		*(_DWORD*)&byte_5D4594[1301844] = 0;
+	if (dword_5d4594_1301844) {
+		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1301844);
+		dword_5d4594_1301844 = 0;
 	}
 	if (dword_5d4594_1301848) {
 		free(*(LPVOID*)&dword_5d4594_1301848);
@@ -5756,7 +5757,7 @@ void sub_49AEE0() {
 		if (*(_DWORD*)&byte_5D4594[1301812] > *(int*)&byte_5D4594[1301804])
 			*(_DWORD*)&byte_5D4594[1301804] = *(_DWORD*)&byte_5D4594[1301812];
 	}
-	sub_4144D0(*(_DWORD**)&byte_5D4594[1301844]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_1301844);
 }
 
 //----- (0049AF80) --------------------------------------------------------
@@ -5781,7 +5782,7 @@ int* __cdecl sub_49AF80(int a1, int a2, int a3) {
 			**(_DWORD**)&dword_5d4594_1301800 = a2;
 			result = (int*)sub_49B1D0(*(int*)&byte_5D4594[1301828], *(int*)&dword_5d4594_1301800);
 		} else {
-			result = (int*)nox_alloc_class_new_obj(*(_DWORD**)&byte_5D4594[1301844]);
+			result = (int*)nox_alloc_class_new_obj(*(_DWORD**)&dword_5d4594_1301844);
 			v5 = result;
 			if (result) {
 				*result = a2;
@@ -5799,7 +5800,7 @@ int* __cdecl sub_49AF80(int a1, int a2, int a3) {
 			}
 		}
 	} else {
-		result = (int*)nox_alloc_class_new_obj(*(_DWORD**)&byte_5D4594[1301844]);
+		result = (int*)nox_alloc_class_new_obj(*(_DWORD**)&dword_5d4594_1301844);
 		if (result) {
 			*result = a2;
 			result[1] = a3;
@@ -5821,7 +5822,7 @@ int __cdecl sub_49B0A0(int a1, int a2, int a3) {
 		dword_5d4594_1301792 = 0;
 	}
 	*(_DWORD*)&byte_5D4594[1301836] = a1;
-	v3 = (int*)nox_alloc_class_new_obj(*(_DWORD**)&byte_5D4594[1301844]);
+	v3 = (int*)nox_alloc_class_new_obj(*(_DWORD**)&dword_5d4594_1301844);
 	dword_5d4594_1301792 = v3;
 	if (!v3)
 		return 0;
@@ -5879,7 +5880,7 @@ int __cdecl sub_49B1A0(int a1) {
 	if (a1) {
 		do {
 			v2 = *(_DWORD*)(result + 8);
-			sub_414330(*(unsigned int**)&byte_5D4594[1301844], (_QWORD*)result);
+			sub_414330(*(unsigned int**)&dword_5d4594_1301844, (_QWORD*)result);
 			result = v2;
 		} while (v2);
 	}
@@ -5896,7 +5897,7 @@ int __cdecl sub_49B1D0(int a1, int a2) {
 			if (result == a2)
 				break;
 			*(_DWORD*)(a1 + 8) = *(_DWORD*)(result + 8);
-			sub_414330(*(unsigned int**)&byte_5D4594[1301844], (_QWORD*)result);
+			sub_414330(*(unsigned int**)&dword_5d4594_1301844, (_QWORD*)result);
 		}
 	} else {
 		v2 = (int*)(dword_5d4594_1301848 + 4 * *(_DWORD*)&byte_5D4594[1301836]);
@@ -5905,7 +5906,7 @@ int __cdecl sub_49B1D0(int a1, int a2) {
 			if (result == a2)
 				break;
 			*v2 = *(_DWORD*)(result + 8);
-			sub_414330(*(unsigned int**)&byte_5D4594[1301844], (_QWORD*)result);
+			sub_414330(*(unsigned int**)&dword_5d4594_1301844, (_QWORD*)result);
 			result = *(_DWORD*)(dword_5d4594_1301848 + 4 * *(_DWORD*)&byte_5D4594[1301836]);
 		}
 	}
@@ -5948,7 +5949,7 @@ LABEL_11:
 	if (v0 != v1) {
 		while (*v0 <= v4) {
 			if (*v0 >= *v3) {
-				v5 = (int*)nox_alloc_class_new_obj(*(_DWORD**)&byte_5D4594[1301844]);
+				v5 = (int*)nox_alloc_class_new_obj(*(_DWORD**)&dword_5d4594_1301844);
 				if (!v5) {
 					sub_49B1A0(*(int*)&dword_5d4594_1301792);
 					dword_5d4594_1301792 = 0;
