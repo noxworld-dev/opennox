@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798156;
 extern _DWORD dword_5d4594_1189596;
 extern _DWORD dword_5d4594_1189592;
 extern _DWORD dword_5d4594_3801804;
@@ -7337,7 +7338,7 @@ LABEL_60:
 		v50 = v67.field_4 - 23 * v66.field_4 - *(_DWORD*)&byte_5D4594[2650680];
 		v78 = (unsigned __int8*)(v67.field_4 - 23 * v66.field_4 - *(_DWORD*)&byte_5D4594[2650680]);
 		v80 = dword_5d4594_3679320;
-		if (*(int*)&dword_5d4594_3679320 < *(int*)&byte_5D4594[3798156]) {
+		if (*(int*)&dword_5d4594_3679320 < *(int*)&dword_5d4594_3798156) {
 			v51 = &byte_5D4594[128 * dword_5d4594_3679320 + 3682956];
 			v76 = 4 * dword_5d4594_3679320 - 4;
 			for (j = (int)&byte_5D4594[128 * dword_5d4594_3679320 + 3682956];;
@@ -7402,7 +7403,7 @@ LABEL_60:
 					} while (v57 != 1);
 				}
 				++v78;
-				v18 = ++v80 < *(int*)&byte_5D4594[3798156];
+				v18 = ++v80 < *(int*)&dword_5d4594_3798156;
 				j += 128;
 				v76 += 4;
 				++v67.field_4;
@@ -7420,7 +7421,7 @@ LABEL_60:
 	} else {
 		result = dword_5d4594_3679320;
 		v79 = dword_5d4594_3679320;
-		if (*(int*)&dword_5d4594_3679320 < *(int*)&byte_5D4594[3798156]) {
+		if (*(int*)&dword_5d4594_3679320 < *(int*)&dword_5d4594_3798156) {
 			v78 = &byte_5D4594[128 * dword_5d4594_3679320 + 3682956];
 			do {
 				v35 = v78;
@@ -7473,7 +7474,7 @@ LABEL_60:
 					} while (!v46);
 				}
 				result = v79 + 1;
-				v18 = ++v79 < *(int*)&byte_5D4594[3798156];
+				v18 = ++v79 < *(int*)&dword_5d4594_3798156;
 				v78 += 128;
 				++v67.field_4;
 			} while (v18);
