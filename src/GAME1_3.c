@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830108;
 extern _DWORD dword_5d4594_816348;
 extern _DWORD dword_5d4594_829488;
 extern _DWORD dword_5d4594_815048;
@@ -5730,18 +5731,18 @@ int sub_449530() {
 	v17 = -1;
 	v1 = 0;
 	result = nox_new_window_from_file("servlist.wnd", sub_4497D0_wol_dialogs);
-	*(_DWORD*)&byte_5D4594[830108] = result;
+	dword_5d4594_830108 = result;
 	if (result) {
 		*(_DWORD*)(result + 56) = *(_DWORD*)&byte_5D4594[2650656];
-		sub_46B120(*(_DWORD**)&byte_5D4594[830108], 0);
-		sub_46A8C0(*(int*)&byte_5D4594[830108]);
-		sub_46C690(*(int*)&byte_5D4594[830108]);
-		sub_46B500(*(int*)&byte_5D4594[830108]);
+		sub_46B120(*(_DWORD**)&dword_5d4594_830108, 0);
+		sub_46A8C0(*(int*)&dword_5d4594_830108);
+		sub_46C690(*(int*)&dword_5d4594_830108);
+		sub_46B500(*(int*)&dword_5d4594_830108);
 		if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 			v16 = sub_4A7F10();
 			v0 = v16;
 		}
-		v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830108], 1961);
+		v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1961);
 		v4 = sub_4200F0();
 		for (i = sub_4205B0(v4); i; i = (const char*)sub_4206B0((int)i)) {
 			if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
@@ -5759,14 +5760,14 @@ int sub_449530() {
 		}
 		v8 = sub_4200F0();
 		if (sub_4207A0(v8) <= 0) {
-			v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830108], 1962);
+			v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1962);
 			sub_46ABB0((int)v9, 0);
 		} else {
 			nox_window_call_field_94((int)v3, 16403, 0, 0);
 		}
-		v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830108], 1964);
-		v11 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830108], 1965);
-		v12 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830108], 1966);
+		v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1964);
+		v11 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1965);
+		v12 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1966);
 		v13 = (_DWORD*)v3[8];
 		v19 = (int)v12;
 		v18 = sub_42F970("UISlider");
@@ -5781,9 +5782,9 @@ int sub_449530() {
 		*(_DWORD*)(v10[100] + 8) = 16;
 		*(_DWORD*)(v10[100] + 12) = 10;
 		if (nox_common_gameFlags_check_40A5C0(0x2000000) && v16 && v17 != -1) {
-			*(_DWORD*)(sub_46B0C0(*(_DWORD**)&byte_5D4594[830108], 1961)[8] + 48) = v17;
-			v15 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830108], 1962);
-			nox_window_call_field_94(*(int*)&byte_5D4594[830108], 16391, (int)v15, 0);
+			*(_DWORD*)(sub_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1961)[8] + 48) = v17;
+			v15 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1962);
+			nox_window_call_field_94(*(int*)&dword_5d4594_830108, 16391, (int)v15, 0);
 		}
 		result = 1;
 	}
