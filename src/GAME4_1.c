@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650652;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
 //----- (005098A0) --------------------------------------------------------
@@ -11428,7 +11429,7 @@ int __cdecl sub_518EE0(_DWORD* a3) {
 	if (v3 != 31 &&
 	    !((*(_DWORD*)&byte_5D4594[2598000] + v3) % (unsigned int)(15 * *(_DWORD*)&byte_5D4594[2649704])))
 		sub_4D9020(v3, (int)a3);
-	if (!*(_DWORD*)&byte_5D4594[2650652] || !(*(_DWORD*)&byte_5D4594[2598000] % (unsigned int)sub_40A6C0()) ||
+	if (!dword_5d4594_2650652 || !(*(_DWORD*)&byte_5D4594[2598000] % (unsigned int)sub_40A6C0()) ||
 	    nox_common_gameFlags_check_40A5C0(8)) {
 		if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 0x40) {
 			v19[0] = 40;
@@ -11441,7 +11442,7 @@ int __cdecl sub_518EE0(_DWORD* a3) {
 			sub_40EF40(v3, v17, 3);
 		}
 	}
-	if (!*(_DWORD*)&byte_5D4594[2650652] || a3 == *(_DWORD**)&byte_5D4594[3843628] ||
+	if (!dword_5d4594_2650652 || a3 == *(_DWORD**)&byte_5D4594[3843628] ||
 	    nox_common_gameFlags_check_40A5C0(8) || !(*(_DWORD*)&byte_5D4594[2598000] % (unsigned int)sub_40A6C0())) {
 		if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 3 || *(_DWORD*)&nox_common_engineFlags & 0x400000) {
 			result = sub_519330((int)a3);
@@ -11517,7 +11518,7 @@ int __cdecl sub_518EE0(_DWORD* a3) {
 			v1 = a3;
 		}
 	}
-	if (!*(_DWORD*)&byte_5D4594[2650652] || !(*(_DWORD*)&byte_5D4594[2598000] % (unsigned int)sub_40A6C0()) ||
+	if (!dword_5d4594_2650652 || !(*(_DWORD*)&byte_5D4594[2598000] % (unsigned int)sub_40A6C0()) ||
 	    nox_common_gameFlags_check_40A5C0(8)) {
 		sub_4FF7B0(*(_DWORD*)(v2 + 276));
 		sub_511100(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064));

@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2650652;
 
 //----- (005528B0) --------------------------------------------------------
 int __cdecl sub_5528B0(unsigned int a1, char a2) {
@@ -4137,7 +4138,7 @@ char __cdecl sub_57A1E0(int* a1, const char* a2, int* a3, char a4, __int16 a5) {
 			sub_57A3F0(v14, (int)a1, (int)v5, v6);
 		}
 	}
-	if (*(_DWORD*)&byte_5D4594[2650652] && a4 & 4)
+	if (dword_5d4594_2650652 && a4 & 4)
 		sub_57A3F0((char*)&byte_587000[312400], (int)a1, (int)v5, v6);
 	result = a5;
 	if (a5 & 0x40)
@@ -4394,7 +4395,7 @@ char __cdecl sub_57AAA0(const char* a1, char* a2, int* a3) {
 		v3 = fopen(FileName, "w");
 		v4 = v3;
 		if (v3) {
-			if (*(_DWORD*)&byte_5D4594[2650652]) {
+			if (dword_5d4594_2650652) {
 				strcpy(v21, a2);
 				strcpy(v19, a2);
 				sub_57A1E0((int*)v21, 0, 0, 4, *((_WORD*)a2 + 26));
@@ -4413,7 +4414,7 @@ char __cdecl sub_57AAA0(const char* a1, char* a2, int* a3) {
 			v8 = 136;
 			do {
 				if (sub_424B50(v7) && !sub_454000((int)(a2 + 24), v7) && sub_424A70(v7) & 0x7000000 &&
-				    (!*(_DWORD*)&byte_5D4594[2650652] || sub_454000((int)v22, v7) ||
+				    (!dword_5d4594_2650652 || sub_454000((int)v22, v7) ||
 				     !sub_454000((int)v20, v7))) {
 					v9 = sub_424870(v7);
 					nox_sprintf(v23, "%s %s \"%s\" %s\n", &byte_587000[312616],
