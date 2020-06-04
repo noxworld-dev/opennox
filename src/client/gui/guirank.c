@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_5d4594_1090048;
 extern _DWORD dword_5d4594_1090120;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -152,13 +153,13 @@ int sub_46E870() {
 	} while ((int)v15 < (int)&byte_5D4594[1084056]);
 	*(_DWORD*)&byte_5D4594[1090040] = v14;
 	*(_DWORD*)&byte_5D4594[1090044] = 439 - v0;
-	*(_DWORD*)&byte_5D4594[1090048] = nox_window_new(0, 1560, 0, v0 + 40, 1, 1, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1090048], sub_46F060, sub_46F080, 0);
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1090048] + 56) = 0x80000000;
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1090048] + 64) = 0x80000000;
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1090048] + 72) = 0x80000000;
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1090048] + 80) = 0x80000000;
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1090048] + 88) = 0x80000000;
+	dword_5d4594_1090048 = nox_window_new(0, 1560, 0, v0 + 40, 1, 1, 0);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090048, sub_46F060, sub_46F080, 0);
+	*(_DWORD*)(dword_5d4594_1090048 + 56) = 0x80000000;
+	*(_DWORD*)(dword_5d4594_1090048 + 64) = 0x80000000;
+	*(_DWORD*)(dword_5d4594_1090048 + 72) = 0x80000000;
+	*(_DWORD*)(dword_5d4594_1090048 + 80) = 0x80000000;
+	*(_DWORD*)(dword_5d4594_1090048 + 88) = 0x80000000;
 	memset(v49, 0, sizeof(v49));
 	nox_wcscpy((wchar_t*)&v49[72], (const wchar_t*)&byte_5D4594[1090136]);
 	*(_DWORD*)&v49[68] = *(_DWORD*)&byte_5D4594[2650644];
@@ -181,7 +182,7 @@ int sub_46E870() {
 	v19 = 2 * (v0 + 1);
 	v20 = 2 * v0;
 	do {
-		v21 = sub_4A4310(*(int*)&byte_5D4594[1090048], 1088, v17 * *(_DWORD*)&byte_5D4594[1090040], v18,
+		v21 = sub_4A4310(*(int*)&dword_5d4594_1090048, 1088, v17 * *(_DWORD*)&byte_5D4594[1090040], v18,
 				 *(int*)&byte_5D4594[1090040], *(_DWORD*)&byte_5D4594[1090044] - v19, (int)v49,
 				 (__int16*)v48);
 		v22 = *(_DWORD*)&byte_5D4594[1084036];
@@ -225,23 +226,23 @@ int sub_46E870() {
 	v45[1] = 0;
 	v45[2] = 0;
 	*(_DWORD*)&byte_5D4594[1090100] =
-	    sub_489300(*(int*)&byte_5D4594[1090048], 1088, 0, v46, *(int*)&byte_5D4594[1090040], v46 + 1, v49, v45);
+	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v46, *(int*)&byte_5D4594[1090040], v46 + 1, v49, v45);
 	*(_DWORD*)&v49[68] = *(_DWORD*)&byte_5D4594[2523948];
 	v45[0] =
 	    loadString_sub_40F1D0((char*)&byte_587000[146312], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1782);
 	*(_DWORD*)&byte_5D4594[1090112] =
-	    sub_489300(*(int*)&byte_5D4594[1090048], 1088, 0, v20, *(int*)&byte_5D4594[1090040], v30, v49, v45);
+	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v20, *(int*)&byte_5D4594[1090040], v30, v49, v45);
 	*(_DWORD*)&v49[68] = *(_DWORD*)&byte_5D4594[2650644];
 	v45[0] =
 	    loadString_sub_40F1D0((char*)&byte_587000[146364], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1790);
 	*(_DWORD*)&byte_5D4594[1090108] =
-	    sub_489300(*(int*)&byte_5D4594[1090048], 1088, 0, v47, *(int*)&byte_5D4594[1090040], v30, v49, v45);
+	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v47, *(int*)&byte_5D4594[1090040], v30, v49, v45);
 	*(_DWORD*)&v49[68] = *(_DWORD*)&byte_5D4594[2618904];
 	v45[0] =
 	    loadString_sub_40F1D0((char*)&byte_587000[146416], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1798);
 	*(_DWORD*)&byte_5D4594[1090104] =
-	    sub_489300(*(int*)&byte_5D4594[1090048], 1088, 0, 0, *(int*)&byte_5D4594[1090040], v30, v49, v45);
-	result = *(_DWORD*)&byte_5D4594[1090048];
+	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, 0, *(int*)&byte_5D4594[1090040], v30, v49, v45);
+	result = dword_5d4594_1090048;
 	*(_DWORD*)&byte_587000[145664] = 1;
 	return result;
 }
