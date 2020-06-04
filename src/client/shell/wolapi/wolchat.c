@@ -2,6 +2,7 @@
 
 #include "../../../common/wolapi/wolchnl.h"
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_829484;
 extern _DWORD dword_5d4594_829508;
 extern _DWORD dword_5d4594_829488;
 extern _DWORD dword_5d4594_829492;
@@ -252,7 +253,7 @@ int sub_447620_wol_chat() {
 			*(_DWORD*)result = 1900;
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[829520] + 48) = sub_446A90;
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[829520] + 56) = sub_447BD0;
-			*(_DWORD*)&byte_5D4594[829484] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1908);
+			dword_5d4594_829484 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1908);
 			dword_5d4594_829488 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1909);
 			dword_5d4594_829492 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1907);
 			*(_DWORD*)&byte_5D4594[829496] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1916);
@@ -316,12 +317,12 @@ int sub_447620_wol_chat() {
 			dword_5d4594_829508 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1920);
 			*(_DWORD*)&byte_5D4594[829512] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1921);
 			*(_DWORD*)&byte_5D4594[829516] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1922);
-			v8 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[829484] + 32);
+			v8 = *(_DWORD**)(dword_5d4594_829484 + 32);
 			sub_4B5700(*(int*)&dword_5d4594_829508, 0, 0, (int)v6, (int)v7, (int)v7);
-			sub_46B280(*(int*)&dword_5d4594_829508, *(int*)&byte_5D4594[829484]);
-			sub_46B280(*(int*)&byte_5D4594[829512], *(int*)&byte_5D4594[829484]);
-			sub_46B280(*(int*)&byte_5D4594[829516], *(int*)&byte_5D4594[829484]);
-			sub_46B300(*(int*)&byte_5D4594[829484], sub_447BF0);
+			sub_46B280(*(int*)&dword_5d4594_829508, *(int*)&dword_5d4594_829484);
+			sub_46B280(*(int*)&byte_5D4594[829512], *(int*)&dword_5d4594_829484);
+			sub_46B280(*(int*)&byte_5D4594[829516], *(int*)&dword_5d4594_829484);
+			sub_46B300(*(int*)&dword_5d4594_829484, sub_447BF0);
 			v8[9] = dword_5d4594_829508;
 			v8[7] = *(_DWORD*)&byte_5D4594[829512];
 			v8[8] = *(_DWORD*)&byte_5D4594[829516];
