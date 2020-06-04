@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1311140;
 extern _DWORD dword_5d4594_3798720;
 extern _DWORD dword_5d4594_1307716;
 extern _DWORD dword_5d4594_1312484;
@@ -7480,8 +7481,8 @@ int sub_4AF8D0() {
 
 	*(_DWORD*)&byte_5D4594[3798628] = &byte_587000[174348];
 	dword_5d4594_1311148 = 512;
-	*(_DWORD*)&byte_5D4594[1311140] = nox_calloc(0x200u, 0x88u);
-	if (!*(_DWORD*)&byte_5D4594[1311140])
+	dword_5d4594_1311140 = nox_calloc(0x200u, 0x88u);
+	if (!dword_5d4594_1311140)
 		return 0;
 	dword_5d4594_1311144 = nox_calloc(0x200u, 1u);
 	if (!dword_5d4594_1311144)
@@ -7499,9 +7500,9 @@ int sub_4AF8D0() {
 
 //----- (004AF950) --------------------------------------------------------
 void sub_4AF950() {
-	if (*(_DWORD*)&byte_5D4594[1311140]) {
-		free(*(LPVOID*)&byte_5D4594[1311140]);
-		*(_DWORD*)&byte_5D4594[1311140] = 0;
+	if (dword_5d4594_1311140) {
+		free(*(LPVOID*)&dword_5d4594_1311140);
+		dword_5d4594_1311140 = 0;
 	}
 	if (dword_5d4594_1311144) {
 		free(*(LPVOID*)&dword_5d4594_1311144);
@@ -7574,9 +7575,9 @@ char* __cdecl sub_4AFA70(int a1) {
 	result = (char*)memchr(*(const void**)&dword_5d4594_1311144, 255, *(size_t*)&dword_5d4594_1311148);
 	for (i = result; result; i = result) {
 		v3 = (int)&i[-dword_5d4594_1311144];
-		if (*(_DWORD*)(*(_DWORD*)&byte_5D4594[1311140] + 136 * (_DWORD)&i[-dword_5d4594_1311144] +
+		if (*(_DWORD*)(dword_5d4594_1311140 + 136 * (_DWORD)&i[-dword_5d4594_1311144] +
 			       8) == a1)
-			sub_4AFA40(*(_DWORD*)&byte_5D4594[1311140] +
+			sub_4AFA40(dword_5d4594_1311140 +
 				   136 * (_DWORD)&i[-dword_5d4594_1311144]);
 		result = (char*)(dword_5d4594_1311148 - v3 - 1);
 		if (dword_5d4594_1311148 - v3 == 1)
@@ -7857,11 +7858,11 @@ void sub_4AFD40() {
 	for (i = (char*)memchr(*(const void**)&dword_5d4594_1311144, 255, *(size_t*)&dword_5d4594_1311148); i;
 	     i = (char*)memchr(i + 1, 255, dword_5d4594_1311148 - v1 - 1)) {
 		v1 = (int)&i[-dword_5d4594_1311144];
-		v2 = *(_DWORD*)&byte_5D4594[1311140] + 136 * (_DWORD)&i[-dword_5d4594_1311144];
+		v2 = dword_5d4594_1311140 + 136 * (_DWORD)&i[-dword_5d4594_1311144];
 		if (!(*(_BYTE*)(v2 + 56) & 8)) {
 			v3 = *(void(__cdecl**)(int))(v2 + 124);
 			if (v3)
-				v3(*(_DWORD*)&byte_5D4594[1311140] +
+				v3(dword_5d4594_1311140 +
 				   136 * (_DWORD)&i[-dword_5d4594_1311144]);
 		}
 		v4 = *(void(__cdecl**)(int))(v2 + 128);
@@ -8120,7 +8121,7 @@ char* sub_4B01B0() {
 	}
 	v2 = (int)&v0[-dword_5d4594_1311144];
 	*(_BYTE*)(dword_5d4594_1311144 + v2) = -1;
-	result = (char*)(*(_DWORD*)&byte_5D4594[1311140] + 136 * v2);
+	result = (char*)(dword_5d4594_1311140 + 136 * v2);
 	*((_DWORD*)result + 15) = v2;
 	return result;
 }
@@ -8131,9 +8132,9 @@ int __cdecl sub_4B0220(size_t a1) {
 	int result;      // eax
 
 	v1 = a1 - dword_5d4594_1311148;
-	result = realloc(*(LPVOID*)&byte_5D4594[1311140], 136 * a1);
+	result = realloc(*(LPVOID*)&dword_5d4594_1311140, 136 * a1);
 	if (result) {
-		*(_DWORD*)&byte_5D4594[1311140] = result;
+		dword_5d4594_1311140 = result;
 		memset((void*)(result + 136 * dword_5d4594_1311148), 0, 136 * v1);
 		result = realloc(*(LPVOID*)&dword_5d4594_1311144, a1);
 		if (result) {
