@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1064296;
 extern _DWORD dword_5d4594_1064816;
 
 //----- (00468890) --------------------------------------------------------
@@ -162,7 +163,7 @@ int sub_468F30_wol_reg() {
 	v0 = loadString_sub_40F1D0((char*)&byte_587000[142272], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolreg.c",
 				   472);
 	sub_468840(v0);
-	*(_DWORD*)&byte_5D4594[1064296] = 4;
+	dword_5d4594_1064296 = 4;
 	nox_window_set_hidden(*(int*)&byte_5D4594[1064820], 1);
 	return sub_46ABB0(*(int*)&dword_5d4594_1064816, 1);
 }
