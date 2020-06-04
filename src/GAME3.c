@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799624;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_810632;
 extern _DWORD dword_5d4594_2650652;
@@ -3874,7 +3875,7 @@ __int16 __cdecl sub_4A9B70(__int16* a1) {
 	int v1; // eax
 
 	if (dword_5d4594_3801780) {
-		if (*(_DWORD*)&byte_5D4594[3799624] == 2)
+		if (dword_5d4594_3799624 == 2)
 			v1 = *a1 & 0x1F | (*a1 >> 1) & 0x7FE0;
 		else
 			LOWORD(v1) = *a1;
@@ -3888,7 +3889,7 @@ __int16 __cdecl sub_4A9B70(__int16* a1) {
 int __cdecl sub_4A9BC0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3) {
 	if (dword_5d4594_3801780 != 1)
 		return sub_4A9A30(a1, a2, a3);
-	if (*(_DWORD*)&byte_5D4594[3799624] == 1)
+	if (dword_5d4594_3799624 == 1)
 		return (a3 >> 3) | (4 * (a2 & 0xF8 | (32 * (a1 & 0xF8))));
 	return (a3 >> 3) | (8 * (a2 & 0xFC | (32 * (a1 & 0xF8))));
 }
