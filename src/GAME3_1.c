@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_1522600;
 extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_3679320;
@@ -1320,7 +1321,7 @@ int __cdecl nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
 	sub_4739E0(a1, (int2*)&dr->field_3, &a3);
 	a3.field_0 -= 64;
 	a3.field_4 -= 79;
-	v2 = (_BYTE*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])((int2*)&dr->field_3);
+	v2 = (_BYTE*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)((int2*)&dr->field_3);
 	v3 = sub_4345F0(1);
 	LOBYTE(v4) = v2[8];
 	LOBYTE(v3) = v2[4];
@@ -5967,7 +5968,7 @@ LABEL_33:
 	if (*((_DWORD*)a2 + 28) & 0x80000 && *((_DWORD*)a2 + 30) & 0x1000000 || *((_DWORD*)a2 + 30) & 0x40000000)
 		v28 = &byte_587000[185472];
 	else
-		v28 = (unsigned __int8*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])((int2*)(a2 + 12));
+		v28 = (unsigned __int8*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)((int2*)(a2 + 12));
 	v29 = *((_WORD*)a2 + 52);
 	a2a.field_0 = 0;
 	if (v29 >= 0) {
