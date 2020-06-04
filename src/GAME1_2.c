@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815048;
 extern _DWORD dword_5d4594_3798804;
 extern _DWORD dword_587000_87404;
 extern _DWORD dword_587000_87412;
@@ -9239,7 +9240,7 @@ int sub_438C80(int a1, int a2) {
 		sub_4A2890();
 		sub_46B500(*(int*)&dword_5d4594_814980);
 	}
-	if (*(_DWORD*)&byte_5D4594[815048] && sub_438DD0(v0->field_0, v0->field_4)) {
+	if (dword_5d4594_815048 && sub_438DD0(v0->field_0, v0->field_4)) {
 		nox_client_setCursorType_477610(9);
 	} else if (!sub_44A4A0()) {
 		nox_client_setCursorType_477610(0);
@@ -9427,7 +9428,7 @@ int __cdecl sub_439D00(int* a1, int a2, unsigned int a3, int a4) {
 	int2* v4; // eax
 
 	if (a2 == 5) {
-		if (sub_46B0A0(a1) == 10020 && *(_DWORD*)&byte_5D4594[815048] == 1) {
+		if (sub_46B0A0(a1) == 10020 && dword_5d4594_815048 == 1) {
 			sub_439D90((unsigned __int16)a3, a3 >> 16);
 			return 1;
 		}
@@ -9536,7 +9537,7 @@ char* sub_43AA70() {
 
 	if (*(_DWORD*)&byte_5D4594[528252] && *(_DWORD*)&byte_5D4594[528256])
 		sub_413D30((char*)&byte_587000[90708]);
-	*(_DWORD*)&byte_5D4594[815048] = 0;
+	dword_5d4594_815048 = 0;
 	*(_DWORD*)&byte_5D4594[815052] = 1;
 	v0 = sub_416590(0);
 	v1 = sub_416640();
@@ -9663,7 +9664,7 @@ void sub_43ACC0() {
 			v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, v6);
 			nox_window_call_field_94(*(int*)&dword_5d4594_814980, 16391, (int)v8, 0);
 		}
-		if (*(_DWORD*)&byte_5D4594[815048])
+		if (dword_5d4594_815048)
 			sub_4375C0(0);
 	}
 }
@@ -9672,7 +9673,7 @@ void sub_43ACC0() {
 int sub_43AF30() { return *(_DWORD*)&byte_5D4594[815052]; }
 
 //----- (0043AF40) --------------------------------------------------------
-int sub_43AF40() { return *(_DWORD*)&byte_5D4594[815048]; }
+int sub_43AF40() { return dword_5d4594_815048; }
 
 //----- (0043AF50) --------------------------------------------------------
 int __cdecl sub_43AF50(int a1) {
@@ -9911,7 +9912,7 @@ int sub_43B490() {
 
 //----- (0043B4D0) --------------------------------------------------------
 _DWORD* sub_43B4D0() {
-	if (*(_DWORD*)&byte_5D4594[815048]) {
+	if (dword_5d4594_815048) {
 		sub_43B510();
 		sub_43A9D0();
 		sub_4A24A0();
