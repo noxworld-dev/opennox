@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80820;
 extern _DWORD dword_5d4594_830104;
 extern _DWORD dword_5d4594_816456;
 extern _DWORD dword_5d4594_830108;
@@ -3929,7 +3930,7 @@ void sub_4445C0() {
 				v6 = *(_DWORD*)&nox_common_engineFlags;
 				*(_DWORD*)&byte_5D4594[805844] = 0;
 				BYTE1(v6) &= 0xFBu;
-				*(_DWORD*)&byte_587000[80820] = 0;
+				dword_587000_80820 = 0;
 				*(_DWORD*)&byte_587000[154952] = 0;
 				*(_DWORD*)&byte_5D4594[1193152] = 0;
 				*(_DWORD*)&byte_587000[154956] = 1;
@@ -3951,7 +3952,7 @@ void sub_4445C0() {
 		v5 = 100;
 		*(_DWORD*)&byte_587000[80812] = 1;
 		*(_DWORD*)&byte_5D4594[805844] = 1;
-		*(_DWORD*)&byte_587000[80820] = 1;
+		dword_587000_80820 = 1;
 		*(_DWORD*)&byte_587000[154952] = 1;
 		*(_DWORD*)&byte_5D4594[1193152] = 0;
 		*(_DWORD*)&byte_587000[154956] = 1;
@@ -3963,7 +3964,7 @@ void sub_4445C0() {
 		v5 = 100;
 		*(_DWORD*)&byte_587000[80812] = 1;
 		*(_DWORD*)&byte_5D4594[805844] = 1;
-		*(_DWORD*)&byte_587000[80820] = 1;
+		dword_587000_80820 = 1;
 		*(_DWORD*)&byte_587000[154952] = 1;
 		*(_DWORD*)&byte_5D4594[1193152] = 1;
 		*(_DWORD*)&byte_587000[154956] = 1;
