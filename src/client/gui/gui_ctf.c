@@ -3,6 +3,7 @@
 #include "gamewin/gamewin.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1045604;
 
 //----- (00455C30) --------------------------------------------------------
 int sub_455C30() {
@@ -11,10 +12,10 @@ int sub_455C30() {
 	wchar_t* v2; // esi
 	wchar_t* v3; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1045604])
+	if (dword_5d4594_1045604)
 		return 1;
 	result = nox_new_window_from_file("GUI_CTF.wnd", 0);
-	*(_DWORD*)&byte_5D4594[1045604] = result;
+	dword_5d4594_1045604 = result;
 	if (result) {
 		v1 = 8811;
 		while (1) {
@@ -25,7 +26,7 @@ int sub_455C30() {
 			sub_46B000(v2 + 18, v3);
 			if (++v1 > 8826)
 				break;
-			result = *(_DWORD*)&byte_5D4594[1045604];
+			result = dword_5d4594_1045604;
 		}
 		sub_455A00(0);
 		*(_DWORD*)&byte_5D4594[1045632] = sub_42F970("FlagTeamBorder");
@@ -41,7 +42,7 @@ wchar_t* __cdecl sub_455D80(unsigned __int8 a1, char a2) {
 	wchar_t* v4;     // eax
 
 	byte_5D4594[a1 + 1045611] = a2;
-	result = (wchar_t*)sub_46B0C0(*(_DWORD**)&byte_5D4594[1045604], a1 + 8810);
+	result = (wchar_t*)sub_46B0C0(*(_DWORD**)&dword_5d4594_1045604, a1 + 8810);
 	v3 = result;
 	if (result) {
 		if (result[2] & 0x20) {
