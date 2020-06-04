@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_587000_60356;
 extern _DWORD dword_5d4594_528256;
 extern _DWORD dword_5d4594_534808;
 extern _DWORD dword_5d4594_529340;
@@ -5654,10 +5655,10 @@ char* sub_420CA0() {
 	unsigned __int8* i; // ecx
 
 	v0 = 1;
-	if (*(_DWORD*)&byte_587000[60356] <= 1u)
+	if (dword_587000_60356 <= 1u)
 		return 0;
 	for (i = &byte_5D4594[535872]; !*(_DWORD*)i; i += 16) {
-		if ((unsigned int)++v0 >= *(int*)&byte_587000[60356])
+		if ((unsigned int)++v0 >= *(int*)&dword_587000_60356)
 			return 0;
 	}
 	return (char*)&byte_5D4594[16 * v0 + 535844];
@@ -5669,10 +5670,10 @@ char* __cdecl sub_420CD0(_DWORD* a1) {
 	unsigned __int8* i; // ecx
 
 	v1 = *a1 + 1;
-	if (v1 >= *(int*)&byte_587000[60356])
+	if (v1 >= *(int*)&dword_587000_60356)
 		return 0;
 	for (i = &byte_5D4594[16 * v1 + 535856]; !*(_DWORD*)i; i += 16) {
-		if (++v1 >= *(int*)&byte_587000[60356])
+		if (++v1 >= *(int*)&dword_587000_60356)
 			return 0;
 	}
 	return (char*)&byte_5D4594[16 * v1 + 535844];
@@ -5684,11 +5685,11 @@ int sub_420D10() {
 	unsigned __int8* i; // ecx
 
 	result = 1;
-	if (*(_DWORD*)&byte_587000[60356] <= 1u)
-		return (*(_DWORD*)&byte_587000[60356])++;
+	if (dword_587000_60356 <= 1u)
+		return (dword_587000_60356)++;
 	for (i = &byte_5D4594[535872]; *(_DWORD*)i; i += 16) {
-		if ((unsigned int)++result >= *(int*)&byte_587000[60356])
-			return (*(_DWORD*)&byte_587000[60356])++;
+		if ((unsigned int)++result >= *(int*)&dword_587000_60356)
+			return (dword_587000_60356)++;
 	}
 	return result;
 }
@@ -5700,11 +5701,11 @@ unsigned int* __cdecl sub_420D40(int a1, int a2, unsigned int a3, int a4) {
 
 	if (a4)
 		sub_420C40(a3, a4);
-	v4 = a3 < *(int*)&byte_587000[60356];
+	v4 = a3 < *(int*)&dword_587000_60356;
 	result = (unsigned int*)&byte_5D4594[16 * a3 + 535844];
 	*result = a3;
 	if (!v4)
-		*(_DWORD*)&byte_587000[60356] = a3 + 1;
+		dword_587000_60356 = a3 + 1;
 	*(_DWORD*)&byte_5D4594[16 * a3 + 535848] = a1;
 	*(_DWORD*)&byte_5D4594[16 * a3 + 535852] = a2;
 	*(_DWORD*)&byte_5D4594[16 * a3 + 535856] = 1;
@@ -5753,9 +5754,9 @@ int __cdecl sub_420E80(float a1, float a2, float a3) {
 	double v7;           // st5
 
 	v3 = 0;
-	if (*(_DWORD*)&byte_587000[60356] > 1u) {
+	if (dword_587000_60356 > 1u) {
 		v4 = &byte_5D4594[535864];
-		v5 = *(_DWORD*)&byte_587000[60356] - 1;
+		v5 = dword_587000_60356 - 1;
 		do {
 			if (*((_DWORD*)v4 + 2)) {
 				v6 = *((float*)v4 + 1) - a2;
@@ -5838,7 +5839,7 @@ char* sub_421010() {
 		*(_DWORD*)result = 0;
 		result += 16;
 	} while ((int)result < (int)&byte_5D4594[552240]);
-	*(_DWORD*)&byte_587000[60356] = 1;
+	dword_587000_60356 = 1;
 	return result;
 }
 
