@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_10956;
 extern _DWORD dword_5d4594_2660652;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_2650652;
@@ -3529,13 +3530,13 @@ int sub_40CE60() {
 			   (int)&byte_5D4594[10964]);
 	}
 	CoCreateInstance((const IID* const) & byte_581450[5816], 0, 1u, (const IID* const) & byte_581450[5688],
-			 (LPVOID*)&byte_5D4594[10956]);
-	if (!*(_DWORD*)&byte_5D4594[10956])
+			 (LPVOID*)&dword_5d4594_10956);
+	if (!dword_5d4594_10956)
 		goto LABEL_27;
 	sub_40E800(&v3);
-	sub_40E260(*(int(__stdcall****)(_DWORD, void*, int*)) & byte_5D4594[10956], (int)v3, (int)&byte_581450[5704],
+	sub_40E260(*(int(__stdcall****)(_DWORD, void*, int*)) & dword_5d4594_10956, (int)v3, (int)&byte_581450[5704],
 		   (int)&byte_5D4594[10968]);
-	if (!*(_DWORD*)&byte_5D4594[10956])
+	if (!dword_5d4594_10956)
 		goto LABEL_27;
 	if (*(_DWORD*)&byte_5D4594[4808] && (v1 = dword_5d4594_4668) != 0 &&
 	    (v3 = v6, *(_DWORD*)&byte_5D4594[10976] = 1, strcpy(v6, "SOFTWARE\\Westwood\\Nox"),
@@ -3561,11 +3562,11 @@ void sub_40D0F0() {
 
 	LOBYTE(v0) = byte_5D4594[10976];
 	if (*(_DWORD*)&byte_5D4594[10976]) {
-		if (*(_DWORD*)&byte_5D4594[10956]) {
-			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & byte_5D4594[10956],
+		if (dword_5d4594_10956) {
+			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & dword_5d4594_10956,
 				   (int)&byte_581450[5704], *(int*)&byte_5D4594[10968]);
-			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[10956] + 8))(
-			    *(_DWORD*)&byte_5D4594[10956]);
+			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_10956 + 8))(
+			    dword_5d4594_10956);
 		}
 		if (*(_DWORD*)&byte_5D4594[4808]) {
 			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & byte_5D4594[4808],
@@ -4352,57 +4353,57 @@ int __stdcall sub_40DE90(int a1, int a2, int a3, int a4) {
 
 //----- (0040DEA0) --------------------------------------------------------
 BOOL __cdecl sub_40DEA0(int a1, int a2, int a3, int a4) {
-	return (*(int(__stdcall**)(_DWORD, int, int, int, int))(**(_DWORD**)&byte_5D4594[10956] + 12))(
-		   *(_DWORD*)&byte_5D4594[10956], a1, a2, a3, a4) >= 0;
+	return (*(int(__stdcall**)(_DWORD, int, int, int, int))(**(_DWORD**)&dword_5d4594_10956 + 12))(
+		   dword_5d4594_10956, a1, a2, a3, a4) >= 0;
 }
 
 //----- (0040DED0) --------------------------------------------------------
 BOOL __cdecl sub_40DED0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9) {
 	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int, int, int, int))(
-		   **(_DWORD**)&byte_5D4594[10956] + 16))(*(_DWORD*)&byte_5D4594[10956], a1, a2, a3, a4, a5, a6, a7, a8,
+		   **(_DWORD**)&dword_5d4594_10956 + 16))(dword_5d4594_10956, a1, a2, a3, a4, a5, a6, a7, a8,
 							  a9) >= 0;
 }
 
 //----- (0040DF20) --------------------------------------------------------
 BOOL __cdecl sub_40DF20(int a1, int a2, int a3, int a4, int a5, int a6, int a7) {
-	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int, int))(**(_DWORD**)&byte_5D4594[10956] + 20))(
-		   *(_DWORD*)&byte_5D4594[10956], a1, a2, a3, a4, a5, a6, a7) >= 0;
+	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int, int))(**(_DWORD**)&dword_5d4594_10956 + 20))(
+		   dword_5d4594_10956, a1, a2, a3, a4, a5, a6, a7) >= 0;
 }
 
 //----- (0040DF60) --------------------------------------------------------
 BOOL __cdecl sub_40DF60(int a1, int a2, int a3) {
-	return (*(int(__stdcall**)(_DWORD, int, int, int))(**(_DWORD**)&byte_5D4594[10956] + 24))(
-		   *(_DWORD*)&byte_5D4594[10956], a1, a2, a3) >= 0;
+	return (*(int(__stdcall**)(_DWORD, int, int, int))(**(_DWORD**)&dword_5d4594_10956 + 24))(
+		   dword_5d4594_10956, a1, a2, a3) >= 0;
 }
 
 //----- (0040DF90) --------------------------------------------------------
 BOOL sub_40DF90() {
 	return !*(_DWORD*)&byte_5D4594[10984] &&
-	       (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[10956] + 28))(*(_DWORD*)&byte_5D4594[10956]) >= 0;
+	       (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_10956 + 28))(dword_5d4594_10956) >= 0;
 }
 
 //----- (0040DFC0) --------------------------------------------------------
 BOOL __cdecl sub_40DFC0(int a1, int a2) {
-	return (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[10956] + 32))(
-		   *(_DWORD*)&byte_5D4594[10956], a1, a2) >= 0;
+	return (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_10956 + 32))(
+		   dword_5d4594_10956, a1, a2) >= 0;
 }
 
 //----- (0040DFE0) --------------------------------------------------------
 BOOL __cdecl sub_40DFE0(int a1, int a2, int a3, int a4, int a5, int a6) {
-	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int))(**(_DWORD**)&byte_5D4594[10956] + 36))(
-		   *(_DWORD*)&byte_5D4594[10956], a1, a2, a3, a4, a5, a6) >= 0;
+	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int))(**(_DWORD**)&dword_5d4594_10956 + 36))(
+		   dword_5d4594_10956, a1, a2, a3, a4, a5, a6) >= 0;
 }
 
 //----- (0040E020) --------------------------------------------------------
 BOOL __cdecl sub_40E020(int a1, int a2, int a3, int a4) {
-	return (*(int(__stdcall**)(_DWORD, int, int, int, int))(**(_DWORD**)&byte_5D4594[10956] + 40))(
-		   *(_DWORD*)&byte_5D4594[10956], a1, a2, a3, a4) >= 0;
+	return (*(int(__stdcall**)(_DWORD, int, int, int, int))(**(_DWORD**)&dword_5d4594_10956 + 40))(
+		   dword_5d4594_10956, a1, a2, a3, a4) >= 0;
 }
 
 //----- (0040E050) --------------------------------------------------------
 BOOL __cdecl sub_40E050(int a1, int a2) {
-	return (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[10956] + 44))(
-		   *(_DWORD*)&byte_5D4594[10956], a1, a2) >= 0;
+	return (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_10956 + 44))(
+		   dword_5d4594_10956, a1, a2) >= 0;
 }
 
 //----- (0040E070) --------------------------------------------------------
