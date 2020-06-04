@@ -1,4 +1,5 @@
 #include "../../proto.h"
+extern _DWORD dword_5d4594_3821964;
 
 //----- (00512E80) --------------------------------------------------------
 int __cdecl sub_512E80(int a1) {
@@ -62,10 +63,10 @@ int sub_512B10() {
 	wchar_t* v1; // eax
 
 	v0 = script_pop();
-	if (*(_DWORD*)&byte_5D4594[3821964] && *(_BYTE*)(*(_DWORD*)&byte_5D4594[3821964] + 8) & 4) {
+	if (dword_5d4594_3821964 && *(_BYTE*)(dword_5d4594_3821964 + 8) & 4) {
 		v1 = loadString_sub_40F1D0(*(char**)&byte_5D4594[4 * v0 + 3831212], 0,
 					   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1285);
-		sub_4D9EB0(*(int*)&byte_5D4594[3821964], v1);
+		sub_4D9EB0(*(int*)&dword_5d4594_3821964, v1);
 	}
 	return 0;
 }
