@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
 extern _DWORD dword_5d4594_3798784;
 extern int nox_win_width;
@@ -51,7 +52,7 @@ int sub_48C4D0() {
 		v3 = (unsigned __int8)*(_DWORD*)(*(_DWORD*)&byte_5D4594[3804668] + v2);
 		result = *(_DWORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 				    2 * ((unsigned int)(*(_DWORD*)(&obj_5D4594_3800716.data[34]) * v3) >> 8)) |
-			 *(_DWORD*)(*(_DWORD*)&byte_5D4594[3804656] +
+			 *(_DWORD*)(dword_5d4594_3804656 +
 				    2 * ((unsigned int)(*(_DWORD*)(&obj_5D4594_3800716.data[35]) * v3) >> 8)) |
 			 *(_DWORD*)(dword_5d4594_3804664 +
 				    2 * ((unsigned int)(*(_DWORD*)(&obj_5D4594_3800716.data[36]) * v3) >> 8));
@@ -6927,7 +6928,7 @@ void __cdecl sub_49D370(int a1, int a2, int a3, int a4) {
 												<< byte_5D4594
 												       [3804384])) >>
 									     1))) |
-					    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
+					    *(_WORD*)(dword_5d4594_3804656 +
 						      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)&byte_5D4594
 												    [3804368] &
 												v12) >>
@@ -7302,7 +7303,7 @@ int __cdecl sub_49D8E0(int a1, int a2, int a3, int a4) {
 					    v10); //__CFADD__(obj_5D4594_3800716.data[56], (_BYTE)v10) ? -1 : (unsigned
 						  //__int8)(obj_5D4594_3800716.data[56] + v10);
 			result = *(_DWORD*)(dword_5d4594_3804664 + 2 * v10) |
-				 *(_DWORD*)(*(_DWORD*)&byte_5D4594[3804656] + 2 * v9) |
+				 *(_DWORD*)(dword_5d4594_3804656 + 2 * v9) |
 				 *(_DWORD*)(*(_DWORD*)&byte_5D4594[3804672] + 2 * v8);
 			*v6 = result;
 			++v6;
@@ -7524,7 +7525,7 @@ int __cdecl sub_49DBB0(int a1, int a2, int a3, int a4) {
 			     (unsigned __int64)*(unsigned int*)&obj_5D4594_3800716.data[56];
 			result =
 			    *(_DWORD*)(dword_5d4594_3804664 + 2 * (~HIDWORD(v8) & v8)) |
-			    *(_DWORD*)(*(_DWORD*)&byte_5D4594[3804656] + 2 * (~HIDWORD(v7) & v7)) |
+			    *(_DWORD*)(dword_5d4594_3804656 + 2 * (~HIDWORD(v7) & v7)) |
 			    *(_DWORD*)(*(_DWORD*)&byte_5D4594[3804672] +
 				       2 * (~((__PAIR64__(*(unsigned int*)&byte_5D4594[3804376],
 							  (unsigned __int16)(*(_WORD*)&byte_5D4594[3804364] & *v6) >>
@@ -7909,7 +7910,7 @@ int4* __cdecl sub_49E060(__int16 a1, int a2, int a3, int a4, int a5) {
 							v24 = v33;
 						v11 = v34;
 						v12 = v47;
-						v25 = *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] + 2 * v23) |
+						v25 = *(_WORD*)(dword_5d4594_3804656 + 2 * v23) |
 						      *(_WORD*)(dword_5d4594_3804664 + 2 * v24);
 						v9 = a1;
 						*v38[4] = *(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] + 2 * v22) | v25;
@@ -8482,7 +8483,7 @@ int __cdecl sub_49EAB0(int a1) {
 						v14 = (__int16*)(v29 + *(_DWORD*)(v2 + 4 * v30));
 						v15 = *v14;
 						*v14 =
-						    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
+						    *(_WORD*)(dword_5d4594_3804656 +
 							      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)(&obj_5D4594_3800716
 														       .data
 															   [259]) *
@@ -8548,7 +8549,7 @@ int __cdecl sub_49EAB0(int a1) {
 					     i = (__int16*)((char*)i + v19)) {
 						v10 = *i;
 						*i =
-						    *(_WORD*)(*(_DWORD*)&byte_5D4594[3804656] +
+						    *(_WORD*)(dword_5d4594_3804656 +
 							      2 * (unsigned __int8)(((unsigned __int16)(*(_WORD*)(&obj_5D4594_3800716
 														       .data
 															   [259]) *
