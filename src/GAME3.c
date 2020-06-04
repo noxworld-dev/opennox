@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815132;
 extern _DWORD dword_5d4594_1307780;
 extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1309812;
@@ -59,7 +60,7 @@ int sub_4A19D0() {
 	int result; // eax
 
 	result = sub_43DDD0(0);
-	*(_DWORD*)&byte_5D4594[815132] = 0;
+	dword_5d4594_815132 = 0;
 	return result;
 }
 
@@ -166,7 +167,7 @@ int sub_4A2210() {
 	const char* v2;      // eax
 	unsigned __int8* v3; // esi
 
-	*(_DWORD*)&byte_5D4594[815132] = 1;
+	dword_5d4594_815132 = 1;
 	nox_win_main_bg = nox_new_window_from_file("MainBG.wnd", sub_4A2490);
 	result = sub_4A1A60();
 	if (result) {
@@ -196,7 +197,7 @@ BOOL __cdecl sub_4A2490(int a1, int a2, int a3, int a4) { return a2 == 23; }
 int sub_4A24A0() {
 	sub_4A1BD0();
 	sub_46C5D0();
-	*(_DWORD*)&byte_5D4594[815132] = 0;
+	dword_5d4594_815132 = 0;
 	return 1;
 }
 
@@ -4667,7 +4668,7 @@ int sub_4AB0F0() // playmovielogo
 	if (nox_common_gameFlags_check_40A5C0(0x2000000) || !sub_4CB230("NoxLogo.vqa", v1)) {
 		if (!sub_4CC4E0()) {
 			sub_43DDD0(0);
-			*(_DWORD*)&byte_5D4594[815132] = 0;
+			dword_5d4594_815132 = 0;
 		}
 		result = 1;
 	} else {
