@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251572;
 extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_10956;
 extern _DWORD dword_5d4594_2660652;
@@ -6758,7 +6759,7 @@ int sub_410FF0() {
 				v5 = obj->field_5;
 				while (v5) {
 					v6 = v5[2];
-					if (v6 >= *(int*)&byte_5D4594[251572] ||
+					if (v6 >= *(int*)&dword_5d4594_251572 ||
 					    v5[3] >= (int)*(unsigned __int16*)&byte_5D4594[60 * v6 + 2678392]) {
 						v0 = 1;
 						obj->field_5 = v5[4];
@@ -6782,7 +6783,7 @@ int sub_410FF0() {
 				v7 = obj->field_10;
 				while (v7) {
 					v8 = v7[2];
-					if (v8 >= *(int*)&byte_5D4594[251572] ||
+					if (v8 >= *(int*)&dword_5d4594_251572 ||
 					    v7[3] >= (int)*(unsigned __int16*)&byte_5D4594[60 * v8 + 2678392]) {
 						v0 = 1;
 						obj->field_10 = v7[4];
@@ -7172,7 +7173,7 @@ int __cdecl sub_411850(int a1, _BYTE* a2) {
 	unsigned __int8 v30;  // [esp+3Ch] [ebp+4h]
 	unsigned __int8 v31;  // [esp+3Ch] [ebp+4h]
 
-	if (*(int*)&byte_5D4594[251572] >= 64)
+	if (*(int*)&dword_5d4594_251572 >= 64)
 		return 0;
 	v3 = a1;
 	v27 = a1;
@@ -7181,32 +7182,32 @@ int __cdecl sub_411850(int a1, _BYTE* a2) {
 	v30 = *v4;
 	*(_DWORD*)(v3 + 8) = v4 + 1;
 	nox_memfile_read(v29, 1u, v30, v27);
-	v5 = 3 * *(_DWORD*)&byte_5D4594[251572];
+	v5 = 3 * dword_5d4594_251572;
 	v29[v30] = 0;
 	strcpy((char*)&byte_5D4594[20 * v5 + 2678348], v29);
 	v6 = *(int**)(v3 + 8);
 	v7 = *v6;
 	*(_DWORD*)(v3 + 8) = v6 + 1;
-	*(_DWORD*)&byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251572] + 2678384] = v7;
+	*(_DWORD*)&byte_5D4594[60 * dword_5d4594_251572 + 2678384] = v7;
 	v8 = *(int**)(v3 + 8);
 	v9 = *v8;
 	*(_DWORD*)(v3 + 8) = v8 + 1;
-	*(_DWORD*)&byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251572] + 2678388] = v9;
+	*(_DWORD*)&byte_5D4594[60 * dword_5d4594_251572 + 2678388] = v9;
 	v10 = *(_BYTE**)(v3 + 8);
 	LOBYTE(v9) = *v10;
 	*(_DWORD*)(v3 + 8) = v10 + 1;
-	byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251572] + 2678405] = v9;
+	byte_5D4594[60 * dword_5d4594_251572 + 2678405] = v9;
 	v11 = *(_BYTE**)(v3 + 8);
 	LOBYTE(v9) = *v11;
 	*(_DWORD*)(v3 + 8) = v11 + 1;
 	v28 = v9;
-	v12 = 60 * *(_DWORD*)&byte_5D4594[251572];
+	v12 = 60 * dword_5d4594_251572;
 	byte_5D4594[v12 + 2678402] = v9;
 	*(_WORD*)&byte_5D4594[v12 + 2678394] = 0;
 	v13 = *(_BYTE**)(v3 + 8);
 	LOBYTE(v9) = *v13;
 	*(_DWORD*)(v3 + 8) = v13 + 1;
-	v14 = 60 * *(_DWORD*)&byte_5D4594[251572];
+	v14 = 60 * dword_5d4594_251572;
 	byte_5D4594[v14 + 2678403] = v9;
 	byte_5D4594[v14 + 2678404] = v9;
 	v15 = *(_BYTE**)(v3 + 8);
@@ -7217,11 +7218,11 @@ int __cdecl sub_411850(int a1, _BYTE* a2) {
 		return 0;
 	v17 = *v16;
 	*(_DWORD*)(v3 + 8) = v16 + 1;
-	byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251572] + 2678401] = v17;
+	byte_5D4594[60 * dword_5d4594_251572 + 2678401] = v17;
 	v18 = *(unsigned __int8**)(v3 + 8);
 	v19 = *v18;
 	*(_DWORD*)(v3 + 8) = v18 + 1;
-	v20 = 60 * *(_DWORD*)&byte_5D4594[251572];
+	v20 = 60 * dword_5d4594_251572;
 	byte_5D4594[v20 + 2678400] = v19;
 	*(_WORD*)&byte_5D4594[v20 + 2678392] = 2 * (v17 + v19);
 	*(_DWORD*)&byte_5D4594[v20 + 2678380] = 0;
@@ -7248,7 +7249,7 @@ int __cdecl sub_411850(int a1, _BYTE* a2) {
 	*(_DWORD*)(v3 + 8) = v25 + 1;
 	if (v26 != 1162757152)
 		return 0;
-	++*(_DWORD*)&byte_5D4594[251572];
+	++dword_5d4594_251572;
 	return 1;
 }
 // 411850: using guessed type char var_20[32];
@@ -9737,7 +9738,7 @@ bool __cdecl sub_415470(void) {
 	sub_40AD10(things, 0, 0);
 	*(_DWORD*)&byte_5D4594[251540] = 0;
 	*(_DWORD*)&byte_5D4594[251568] = 0;
-	*(_DWORD*)&byte_5D4594[251572] = 0;
+	dword_5d4594_251572 = 0;
 	while (nox_memfile_read(&v4, 4u, 1, things)) {
 		switch (v4) {
 		case 1397769548:
