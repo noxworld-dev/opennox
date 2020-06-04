@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487236;
 extern _DWORD dword_5d4594_2386176;
 extern _DWORD dword_5d4594_2386944;
 extern _DWORD dword_5d4594_2650652;
@@ -12227,13 +12228,13 @@ void sub_51AC60() {
 	int v0; // ecx
 	int i;  // eax
 
-	v0 = *(_DWORD*)&byte_5D4594[2487236];
-	if (*(_DWORD*)&byte_5D4594[2487236]) {
-		for (i = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2487236] + 24); i; i = *(_DWORD*)(i + 24))
+	v0 = dword_5d4594_2487236;
+	if (dword_5d4594_2487236) {
+		for (i = *(_DWORD*)(dword_5d4594_2487236 + 24); i; i = *(_DWORD*)(i + 24))
 			v0 = i;
 		*(_DWORD*)(v0 + 24) = *(_DWORD*)&byte_5D4594[2487240];
-		*(_DWORD*)&byte_5D4594[2487240] = *(_DWORD*)&byte_5D4594[2487236];
-		*(_DWORD*)&byte_5D4594[2487236] = 0;
+		*(_DWORD*)&byte_5D4594[2487240] = dword_5d4594_2487236;
+		dword_5d4594_2487236 = 0;
 	}
 }
 
@@ -12256,14 +12257,14 @@ int __cdecl sub_51ACA0(int a1, int a2, int a3) {
 	v3[5] = 0;
 	v3[6] = 0;
 	sub_507230(v5);
-	result = *(_DWORD*)&byte_5D4594[2487236];
-	if (*(_DWORD*)&byte_5D4594[2487236]) {
-		for (i = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2487236] + 24); i; i = *(_DWORD*)(i + 24))
+	result = dword_5d4594_2487236;
+	if (dword_5d4594_2487236) {
+		for (i = *(_DWORD*)(dword_5d4594_2487236 + 24); i; i = *(_DWORD*)(i + 24))
 			result = i;
 		*(_DWORD*)(result + 24) = v3;
 		v3[7] = result;
 	} else {
-		*(_DWORD*)&byte_5D4594[2487236] = v3;
+		dword_5d4594_2487236 = v3;
 		v3[7] = 0;
 	}
 	return result;
@@ -12296,8 +12297,8 @@ void* sub_51AD40() {
 int __cdecl sub_51AD60(int a1) {
 	int v1; // eax
 
-	v1 = *(_DWORD*)&byte_5D4594[2487236];
-	if (!*(_DWORD*)&byte_5D4594[2487236])
+	v1 = dword_5d4594_2487236;
+	if (!dword_5d4594_2487236)
 		return 0;
 	while (*(_DWORD*)(v1 + 12) != a1) {
 		v1 = *(_DWORD*)(v1 + 24);
@@ -12322,8 +12323,8 @@ int __cdecl sub_51AD90(int a1) {
 	v3 = *(_DWORD*)(a1 + 28);
 	if (v3)
 		*(_DWORD*)(v3 + 24) = *v2;
-	if (a1 == *(_DWORD*)&byte_5D4594[2487236])
-		*(_DWORD*)&byte_5D4594[2487236] = *v2;
+	if (a1 == dword_5d4594_2487236)
+		dword_5d4594_2487236 = *v2;
 	result = *v2;
 	*v2 = *(_DWORD*)&byte_5D4594[2487240];
 	*(_DWORD*)&byte_5D4594[2487240] = a1;
@@ -12335,8 +12336,8 @@ int __cdecl sub_51AD90(int a1) {
 _DWORD* __cdecl sub_51AE60(int a1) {
 	_DWORD* result; // eax
 
-	result = *(_DWORD**)&byte_5D4594[2487236];
-	if (*(_DWORD*)&byte_5D4594[2487236]) {
+	result = *(_DWORD**)&dword_5d4594_2487236;
+	if (dword_5d4594_2487236) {
 		do {
 			if (result[4] == a1) {
 				result = (_DWORD*)sub_51AD90((int)result);
@@ -12363,11 +12364,11 @@ int sub_51AEA0() {
 	v7 = 1;
 	sub_426AC0_file3_fread(&v7, 2u);
 	sub_426AC0_file3_fread(&byte_5D4594[2598000], 4u);
-	v0 = *(_DWORD*)&byte_5D4594[2487236];
+	v0 = dword_5d4594_2487236;
 	for (i = 0; v0; v0 = *(_DWORD*)(v0 + 24))
 		++i;
 	sub_426AC0_file3_fread(&i, 4u);
-	for (j = *(_DWORD*)&byte_5D4594[2487236]; j; j = *(_DWORD*)(j + 24)) {
+	for (j = dword_5d4594_2487236; j; j = *(_DWORD*)(j + 24)) {
 		sub_426AC0_file3_fread((_BYTE*)j, 4u);
 		sub_426AC0_file3_fread((_BYTE*)(j + 4), 4u);
 		sub_426AC0_file3_fread((_BYTE*)(j + 8), 4u);
@@ -12430,14 +12431,14 @@ int sub_51AF80() {
 			v2[4] = v12;
 			v2[5] = v13;
 			v2[6] = 0;
-			v3 = *(_DWORD*)&byte_5D4594[2487236];
-			if (*(_DWORD*)&byte_5D4594[2487236]) {
-				for (i = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2487236] + 24); i; i = *(_DWORD*)(i + 24))
+			v3 = dword_5d4594_2487236;
+			if (dword_5d4594_2487236) {
+				for (i = *(_DWORD*)(dword_5d4594_2487236 + 24); i; i = *(_DWORD*)(i + 24))
 					v3 = i;
 				*(_DWORD*)(v3 + 24) = v2;
 				v2[7] = v3;
 			} else {
-				*(_DWORD*)&byte_5D4594[2487236] = v2;
+				dword_5d4594_2487236 = v2;
 				v2[7] = 0;
 			}
 			if (++v0 >= v7)
@@ -12451,8 +12452,8 @@ int sub_51AF80() {
 void sub_51B0C0() {
 	int* v0; // esi
 
-	v0 = *(int**)&byte_5D4594[2487236];
-	if (*(_DWORD*)&byte_5D4594[2487236]) {
+	v0 = *(int**)&dword_5d4594_2487236;
+	if (dword_5d4594_2487236) {
 		do {
 			if (v0[4])
 				v0[4] = nox_server_scriptValToObjectPtr_511B60(v0[4]);
