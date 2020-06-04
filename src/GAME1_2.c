@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_815020;
 extern _DWORD dword_587000_154956;
 extern _DWORD dword_5d4594_787156;
@@ -8222,10 +8223,10 @@ int sub_434F00() {
 
 	if (dword_5d4594_3799624)
 		return 1;
-	if (*(_DWORD*)&byte_5D4594[810640] ||
-	    (result = (int)nox_calloc(0x8000u, 1u), (*(_DWORD*)&byte_5D4594[810640] = result) != 0)) {
+	if (dword_5d4594_810640 ||
+	    (result = (int)nox_calloc(0x8000u, 1u), (dword_5d4594_810640 = result) != 0)) {
 		for (i = 0; i <= 0x7FFF; ++i)
-			*(_BYTE*)(*(_DWORD*)&byte_5D4594[810640] + i) = sub_434630(
+			*(_BYTE*)(dword_5d4594_810640 + i) = sub_434630(
 			    (unsigned __int16)(i & 0x7C00) >> 7, (unsigned __int16)(i & 0x3E0) >> 2, 8 * (i & 0x1F));
 		result = 1;
 	}
