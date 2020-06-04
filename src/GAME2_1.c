@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80820;
 extern _DWORD dword_5d4594_1049800;
 extern _DWORD dword_5d4594_1064296;
 extern _DWORD dword_5d4594_1064888;
@@ -8583,11 +8584,11 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 			goto LABEL_64;
 		}
 		if (*(_DWORD*)&byte_5D4594[805848] && *(_DWORD*)&byte_5D4594[805844]) {
-			if (!*(_DWORD*)&byte_587000[80820] && *(_DWORD*)&byte_587000[154952])
+			if (!dword_587000_80820 && *(_DWORD*)&byte_587000[154952])
 				goto LABEL_61;
 			v72 = 8;
 		}
-		if (*(_DWORD*)&byte_587000[80820]) {
+		if (dword_587000_80820) {
 		LABEL_62:
 			v29 = (v27 & 8 | 4u) >> 2;
 		LABEL_64:
@@ -8721,7 +8722,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 						goto LABEL_106;
 					nox_client_drawEnableAlpha_434560(1);
 					nox_client_drawSetAlpha_434580(0x80u);
-					sub_47D400(*(_DWORD*)&byte_587000[80820] == 0, a1[5]);
+					sub_47D400(dword_587000_80820 == 0, a1[5]);
 					v68 = v47;
 					v67 = v46;
 					v51 = sub_46A3B0(v3[1], v84, v3[2], v73);
@@ -8742,7 +8743,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 				sub_433CD0(v60, v58, v59);
 				if (!(v72 & 2)) {
 					if (sub_47D380(a3, a4)) {
-						sub_47D400(*(_DWORD*)&byte_587000[80820] == 0, a1[5]);
+						sub_47D400(dword_587000_80820 == 0, a1[5]);
 						v61 = sub_46A3B0(v3[1], v84, v3[2], v73);
 						nox_client_drawImageAt_47D2C0(v61, v56, v57);
 						sub_47D400(0, 0);
@@ -8760,7 +8761,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 				}
 				nox_client_drawEnableAlpha_434560(1);
 				nox_client_drawSetAlpha_434580(0x80u);
-				sub_47D400(*(_DWORD*)&byte_587000[80820] == 0, a1[5]);
+				sub_47D400(dword_587000_80820 == 0, a1[5]);
 				v68 = v57;
 				v67 = v56;
 				v51 = sub_46A3B0(v3[1], v84, v3[2], v73);
