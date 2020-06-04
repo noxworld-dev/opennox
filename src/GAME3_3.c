@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_1568024;
 extern _DWORD dword_5d4594_1565512;
 extern _DWORD dword_5d4594_2650652;
@@ -3567,7 +3568,7 @@ unsigned __int8* __cdecl sub_4E62F0(int a1) {
 					}
 				}
 				if (*(_DWORD*)&nox_common_engineFlags & 0x40000 &&
-				    v1 == *(_DWORD*)&byte_5D4594[3843628])
+				    v1 == dword_5d4594_3843628)
 					goto LABEL_52;
 				if (!sub_4DDF30(v1)) {
 					sub_4DF3C0(v4);
