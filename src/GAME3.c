@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798696;
 extern _DWORD dword_5d4594_815132;
 extern _DWORD dword_5d4594_1307780;
 extern _DWORD dword_5d4594_1308084;
@@ -6367,8 +6368,8 @@ int sub_4AE420() {
 	int result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[3798692] >= 3)
-		nox_client_drawAddPoint_49F500(*(_DWORD*)(*(_DWORD*)&byte_5D4594[3798696] + 8 * *(_DWORD*)&byte_5D4594[3798692] - 24),
-			   *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798696] + 8 * *(_DWORD*)&byte_5D4594[3798692] - 20));
+		nox_client_drawAddPoint_49F500(*(_DWORD*)(dword_5d4594_3798696 + 8 * *(_DWORD*)&byte_5D4594[3798692] - 24),
+			   *(_DWORD*)(dword_5d4594_3798696 + 8 * *(_DWORD*)&byte_5D4594[3798692] - 20));
 	result = (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3798716])(1);
 	if (result) {
 		result = (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3798716])(1);
@@ -6387,8 +6388,8 @@ int sub_4AE470() {
 
 	sub_4AEBD0();
 	if (*(_DWORD*)&byte_5D4594[3798692] >= 3)
-		nox_client_drawAddPoint_49F500(*(_DWORD*)(*(_DWORD*)&byte_5D4594[3798696] + 8 * *(_DWORD*)&byte_5D4594[3798692] - 24),
-			   *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798696] + 8 * *(_DWORD*)&byte_5D4594[3798692] - 20));
+		nox_client_drawAddPoint_49F500(*(_DWORD*)(dword_5d4594_3798696 + 8 * *(_DWORD*)&byte_5D4594[3798692] - 24),
+			   *(_DWORD*)(dword_5d4594_3798696 + 8 * *(_DWORD*)&byte_5D4594[3798692] - 20));
 	result = sub_4AEC20(1, 0);
 	if (result) {
 		result = sub_4AEC20(1, 0);
@@ -6442,8 +6443,8 @@ void sub_4AE540() {
 int __cdecl sub_4AE580(int a1) {
 	if (*(_DWORD*)&byte_5D4594[3798692] >= a1)
 		nox_client_drawAddPoint_49F500(
-		    *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798696] + 8 * (*(_DWORD*)&byte_5D4594[3798692] - a1)),
-		    *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798696] + 8 * (*(_DWORD*)&byte_5D4594[3798692] - a1) + 4));
+		    *(_DWORD*)(dword_5d4594_3798696 + 8 * (*(_DWORD*)&byte_5D4594[3798692] - a1)),
+		    *(_DWORD*)(dword_5d4594_3798696 + 8 * (*(_DWORD*)&byte_5D4594[3798692] - a1) + 4));
 	return sub_49E510(a1);
 }
 
@@ -6502,8 +6503,8 @@ BOOL __cdecl sub_4AE5E0(int a1, int a2) {
 	v2 = a1;
 	if (*(_DWORD*)&byte_5D4594[3798692] >= a1)
 		nox_client_drawAddPoint_49F500(
-		    *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798696] + 8 * (*(_DWORD*)&byte_5D4594[3798692] - a1)),
-		    *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798696] + 8 * (*(_DWORD*)&byte_5D4594[3798692] - a1) + 4));
+		    *(_DWORD*)(dword_5d4594_3798696 + 8 * (*(_DWORD*)&byte_5D4594[3798692] - a1)),
+		    *(_DWORD*)(dword_5d4594_3798696 + 8 * (*(_DWORD*)&byte_5D4594[3798692] - a1) + 4));
 	if (a2)
 		sub_4AEBD0();
 	if (a1 <= 1)
