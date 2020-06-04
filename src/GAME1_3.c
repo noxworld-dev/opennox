@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_127004;
 extern _DWORD dword_5d4594_829484;
 extern _DWORD dword_5d4594_814624;
 extern _DWORD dword_5d4594_826028;
@@ -1907,7 +1908,7 @@ int __cdecl sub_43E9C0() {
 _DWORD* __stdcall sub_43E9D0(int a1) {
 	sub_486EF0();
 	sub_43D2D0();
-	return sub_486620(*(_DWORD**)&byte_587000[127004]);
+	return sub_486620(*(_DWORD**)&dword_587000_127004);
 }
 
 //----- (0043E9F0) --------------------------------------------------------
