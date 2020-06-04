@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_3798796;
 extern _DWORD dword_5d4594_3798844;
@@ -2342,7 +2343,7 @@ int sub_47A270() {
 	int result; // eax
 
 	sub_47D150();
-	if (!*(_DWORD*)&byte_5D4594[3801780])
+	if (!dword_5d4594_3801780)
 		return 0;
 	sub_47A310((LPCSTR)&byte_587000[153712]);
 	sub_47A650();
@@ -4221,8 +4222,8 @@ LPVOID sub_47D150() {
 
 //----- (0047D200) --------------------------------------------------------
 int sub_47D200() {
-	if (*(_DWORD*)&byte_5D4594[3801780]) {
-		if (*(_DWORD*)&byte_5D4594[3801780] == 1) {
+	if (dword_5d4594_3801780) {
+		if (dword_5d4594_3801780 == 1) {
 			if (*(_DWORD*)&byte_5D4594[3801804])
 				*(_DWORD*)&byte_5D4594[3799500] = sub_4C7670;
 			else
@@ -5620,9 +5621,9 @@ int sub_4800F0() {
 		sub_47FEF0();
 		sub_49F6D0(1);
 		sub_437290();
-		*(_DWORD*)&byte_5D4594[3804680] = *(_DWORD*)&byte_5D4594[3801780];
+		*(_DWORD*)&byte_5D4594[3804680] = dword_5d4594_3801780;
 		*(_DWORD*)&byte_5D4594[3805488] = *(_DWORD*)&byte_5D4594[3801808] * nox_backbuffer_height;
-		*(_DWORD*)&byte_5D4594[3807124] = *(_DWORD*)&byte_5D4594[3801780] == 1;
+		*(_DWORD*)&byte_5D4594[3807124] = dword_5d4594_3801780 == 1;
 		sub_430B50(0, 0, 639, 479);
 		sub_4453A0_poll_events();
 		result = 1;

@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
@@ -158,7 +159,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	if (!v9) {
 		*(_DWORD*)&byte_5D4594[3799624] = 0;
 		*(_DWORD*)&byte_5D4594[3801808] = w & 0xFFFFFFE0;
-		*(_DWORD*)&byte_5D4594[3801780] = 0;
+		dword_5d4594_3801780 = 0;
 		*(_DWORD*)&byte_5D4594[3801776] = v8 >> 2;
 		nox_backbuffer_width32 = v8 >> 5;
 		*(_DWORD*)&byte_5D4594[3801804] = sub_444D90();
@@ -172,7 +173,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	} else {
 		*(_DWORD*)&byte_5D4594[3799624] = 1;
 	}
-	*(_DWORD*)&byte_5D4594[3801780] = 1;
+	dword_5d4594_3801780 = 1;
 	*(_DWORD*)&byte_5D4594[3801808] = 2 * v8;
 	*(_DWORD*)&byte_5D4594[3801776] = v8 >> 1;
 	nox_backbuffer_width32 = v8 >> 4;
@@ -1574,8 +1575,8 @@ int nox_video_initCursorDrawVars_48B1F0() {
 	nox_video_pauseThreadedDrawCursor = 0;
 	nox_video_allowCursorDrawThread = 0;
 	sub_48C110();
-	if (*(_DWORD*)&byte_5D4594[3801780]) {
-		if (*(_DWORD*)&byte_5D4594[3801780] == 1) {
+	if (dword_5d4594_3801780) {
+		if (dword_5d4594_3801780 == 1) {
 			dword_6F7C10 = sub_48C200;
 			dword_6F7C40 = sub_48C480;
 			dword_6F7C34 = sub_48C4D0;
@@ -2399,7 +2400,7 @@ int sub_48A5E0() {
 //----- (0048A3D0) --------------------------------------------------------
 int sub_48A3D0() {
 #ifdef USE_SDL
-	*(_DWORD*)&byte_5D4594[3801780] = 2;
+	dword_5d4594_3801780 = 2;
 	*(_DWORD*)&byte_5D4594[3801796] = 0;
 	if (g_backbuffer1) {
 		nox_backbuffer_width = g_backbuffer1->w;
@@ -2410,7 +2411,7 @@ int sub_48A3D0() {
 		if (g_format == SDL_PIXELFORMAT_RGBA5551 || g_format == SDL_PIXELFORMAT_RGB565) {
 			nox_backbuffer_width32 = g_backbuffer1->w >> 4;
 			*(_DWORD*)&byte_5D4594[3801776] = g_backbuffer1->w >> 1;
-			*(_DWORD*)&byte_5D4594[3801780] = 1;
+			dword_5d4594_3801780 = 1;
 			*(_DWORD*)&byte_5D4594[3801808] = 2 * g_backbuffer1->w;
 			nox_backbuffer_pitch32 = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
 
@@ -2437,7 +2438,7 @@ int sub_48A3D0() {
 	int j;             // ecx
 	DDSURFACEDESC v12; // [esp+4h] [ebp-6Ch]
 
-	*(_DWORD*)&byte_5D4594[3801780] = 2;
+	dword_5d4594_3801780 = 2;
 	*(_DWORD*)&byte_5D4594[3801796] = 0;
 	if (g_backbuffer1) {
 		if (g_backbuffer1->lpVtbl->IsLost(g_backbuffer1)) {
@@ -2472,7 +2473,7 @@ int sub_48A3D0() {
 				v6 = v12.ddpfPixelFormat.dwRBitMask;
 				*(_DWORD*)&byte_5D4594[3801776] = v4 >> 1;
 				v7 = 0;
-				*(_DWORD*)&byte_5D4594[3801780] = 1;
+				dword_5d4594_3801780 = 1;
 				*(_DWORD*)&byte_5D4594[3801808] = v3;
 				for (nox_backbuffer_pitch32 = v5; v6; v6 >>= 1) {
 					if (v6 & 1)
@@ -2501,7 +2502,7 @@ int sub_48A3D0() {
 				return 1;
 			}
 			if (v12.ddpfPixelFormat.dwRGBBitCount == 8) {
-				*(_DWORD*)&byte_5D4594[3801780] = 0;
+				dword_5d4594_3801780 = 0;
 				*(_DWORD*)&byte_5D4594[3801776] = v1 >> 2;
 				*(_DWORD*)&byte_5D4594[3799624] = 0;
 				*(_DWORD*)&byte_5D4594[3801808] = v1;
@@ -2510,7 +2511,7 @@ int sub_48A3D0() {
 				return 1;
 			}
 		}
-		if (*(_DWORD*)&byte_5D4594[3801780] != 2)
+		if (dword_5d4594_3801780 != 2)
 			return 1;
 	}
 	if (!(nox_video_renderTargetFlags & 4)) {
@@ -3119,7 +3120,7 @@ int sub_434CC0() {
 	int i;        // esi
 	int v3;       // [esp+4h] [ebp-4h]
 
-	if (!*(_DWORD*)&byte_5D4594[3801780]) {
+	if (!dword_5d4594_3801780) {
 		v0 = dword_69A014;
 		dword_69A014 = sub_4351C0;
 	}
@@ -3143,7 +3144,7 @@ int sub_434CC0() {
 		*(_WORD*)(dword_5d4594_3804656 + 2 * i) = sub_4344A0(0, i, 0);
 		*(_WORD*)(dword_5d4594_3804664 + 2 * i) = sub_4344A0(0, 0, i);
 	}
-	if (!*(_DWORD*)&byte_5D4594[3801780])
+	if (!dword_5d4594_3801780)
 		dword_69A014 = v0;
 	return 1;
 }
@@ -3203,8 +3204,8 @@ int __cdecl sub_4B0340(int a1) // draw general
 	v12 = sub_48B3E0(0);
 	unacquireMouse_sub_47D8B0();
 	sub_48A7F0();
-	v2 = *(_DWORD*)&byte_5D4594[3801780];
-	if (*(_DWORD*)&byte_5D4594[3801780]) {
+	v2 = dword_5d4594_3801780;
+	if (dword_5d4594_3801780) {
 		v3 = a1;
 		v4 = a1;
 	LABEL_13:
@@ -3267,7 +3268,7 @@ int __cdecl sub_4B0340(int a1) // draw general
 		return 1;
 	}
 	sub_48B590(&v11, &v10, &v9);
-	v2 = *(_DWORD*)&byte_5D4594[3801780];
+	v2 = dword_5d4594_3801780;
 	v3 = windowHandle_dword_973FE0;
 	v4 = nox_video_renderTargetFlags;
 	v8 = nox_backbuffer_width;

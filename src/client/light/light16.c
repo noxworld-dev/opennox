@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_3798796;
 extern _DWORD dword_5d4594_3798844;
 extern int nox_win_width;
@@ -193,7 +194,7 @@ void __cdecl sub_484F90(int a1) {
 					   v2 & 4 && *(_DWORD*)(a1 + 144) > 0) {
 		if (!sub_57AF20() || a1 == *(_DWORD*)&byte_5D4594[2614252] ||
 		    *(int(__cdecl**)(int*, int))(a1 + 300) == nox_thing_glow_orb_draw) {
-			if (*(_DWORD*)(a1 + 120) & 0x20000000 && *(_DWORD*)&byte_5D4594[3801780] == 1) {
+			if (*(_DWORD*)(a1 + 120) & 0x20000000 && dword_5d4594_3801780 == 1) {
 				a5 = sub_416090(0.89999998, 1.1) * *(float*)(a1 + 140);
 				v3 = (double)sub_484C60(a5);
 			} else {
@@ -979,7 +980,7 @@ BOOL sub_430CC0() {
 
 //----- (00430BA0) --------------------------------------------------------
 int nox_video_initFloorBuffer_430BA0() {
-	if (*(_DWORD*)&byte_5D4594[3801780] == 1)
+	if (dword_5d4594_3801780 == 1)
 		sub_430CC0();
 	else
 		sub_430D60();

@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_787148;
 extern _DWORD dword_5d4594_810632;
 extern _DWORD dword_587000_80828;
@@ -5883,7 +5884,7 @@ char* __cdecl sub_430B80(_DWORD* a1) {
 void __cdecl sub_430BB0(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 	*a1 = nox_backbuffer_width;
 	*a2 = nox_backbuffer_height;
-	*a3 = *(_DWORD*)&byte_5D4594[3801780] != 0 ? 16 : 8;
+	*a3 = dword_5d4594_3801780 != 0 ? 16 : 8;
 }
 
 //----- (00430BE0) --------------------------------------------------------
