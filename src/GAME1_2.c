@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_154956;
 extern _DWORD dword_5d4594_787156;
 extern _DWORD dword_587000_80820;
 extern _DWORD dword_5d4594_815024;
@@ -6842,11 +6843,11 @@ int sub_4322E0() {
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
 	if (v0) {
-		*(_DWORD*)&byte_587000[154956] = atoi(v0);
-		*(_DWORD*)&byte_587000[154956] = *(_DWORD*)&byte_587000[154956] != 0;
+		dword_587000_154956 = atoi(v0);
+		dword_587000_154956 = dword_587000_154956 != 0;
 		sub_481420();
 		*(_DWORD*)&byte_5D4594[1193156] = 0;
-		*(_DWORD*)&byte_587000[154960] = *(_DWORD*)&byte_587000[154956];
+		*(_DWORD*)&byte_587000[154960] = dword_587000_154956;
 	}
 	return 1;
 }
@@ -7682,7 +7683,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "HighResFrontWalls = %d\n", dword_587000_80820);
 	fprintf(a1, "HighResFloors = %d\n", *(_DWORD*)&byte_587000[154952]);
 	fprintf(a1, "LockHighResFloors = %d\n", *(_DWORD*)&byte_5D4594[1193152]);
-	fprintf(a1, "TexturedFloors = %d\n", *(_DWORD*)&byte_587000[154956]);
+	fprintf(a1, "TexturedFloors = %d\n", dword_587000_154956);
 	fprintf(a1, "TranslucentConsole = %d\n", *(_DWORD*)&byte_587000[80824]);
 	fprintf(a1, "RenderGlow = %d\n", *(_DWORD*)&byte_5D4594[805852]);
 	fprintf(a1, "RenderGUI = %d\n", dword_587000_80828);
