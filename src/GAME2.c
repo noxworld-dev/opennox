@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045468;
 extern _DWORD dword_5d4594_833720;
 extern _DWORD dword_5d4594_1045532;
 extern _DWORD dword_5d4594_1045536;
@@ -3035,7 +3036,7 @@ _DWORD* sub_4532E0() {
 	v1 = 1520;
 	v2 = *(_DWORD*)(dword_5d4594_1045464 + 20) + v0 + 2;
 	do {
-		result = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], v1);
+		result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045468, v1);
 		result[5] = v2;
 		v2 += v0;
 		++v1;
@@ -3073,8 +3074,8 @@ int __cdecl sub_4533D0(int a1, int a2, int a3, int a4) {
 	wchar_t* v11; // [esp-4h] [ebp-Ch]
 
 	if (a2 == 0x4000) {
-		if ((_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], 1513) ||
-		    (_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], 1514)) {
+		if ((_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1045468, 1513) ||
+		    (_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1045468, 1514)) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 0x4000, a3, 0);
 		LABEL_35:
 			sub_453750();
@@ -3296,7 +3297,7 @@ char sub_453750() {
 
 	v0 = sub_4A4800(*(_DWORD*)(dword_5d4594_1045464 + 32));
 	for (i = 1520; i <= 1533; ++i) {
-		for (j = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], i); (1 << v0) & 0x33; ++v0)
+		for (j = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045468, i); (1 << v0) & 0x33; ++v0)
 			;
 		if (v0 >= *(int*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1045460] + 1045472]) {
 			LOBYTE(v4) = nox_window_set_hidden((int)j, 1);
