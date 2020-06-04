@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1062480;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -95,7 +96,7 @@ int __cdecl sub_4617C0(int a1, int a2, const void* a3, int2* a4) {
 						a4->field_0 = v7;
 						a4->field_4 = v8;
 					}
-					if (sub_461930() && !*(_DWORD*)&byte_5D4594[1062480]) {
+					if (sub_461930() && !dword_5d4594_1062480) {
 						if ((v13 = *(_DWORD*)v9, v14 = *(_DWORD*)(*(_DWORD*)v9 + 112),
 						     v14 & 0x1000000) &&
 							!(*(_BYTE*)(v13 + 116) & 2) ||
@@ -1374,7 +1375,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 				     7 * *(_DWORD*)&byte_5D4594[1049804]);
 			*(_DWORD*)&byte_5D4594[v46 + 1050156] = v45;
 			*(_DWORD*)&byte_5D4594[4 * v44 + 1050156] = 0;
-			*(_DWORD*)&byte_5D4594[1062480] = &byte_5D4594[v46 + 1050020];
+			dword_5d4594_1062480 = &byte_5D4594[v46 + 1050020];
 		}
 		sub_461B50();
 	LABEL_121:
@@ -1490,8 +1491,8 @@ int sub_4661D0() {
 	wchar_t* v0; // eax
 	wchar_t* v2; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1062480]) {
-		v0 = sub_4BF050(**(wchar_t***)&byte_5D4594[1062480]);
+	if (dword_5d4594_1062480) {
+		v0 = sub_4BF050(**(wchar_t***)&dword_5d4594_1062480);
 		sub_4776B0(v0);
 	} else {
 		v2 = loadString_sub_40F1D0((char*)&byte_587000[139672], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c",
@@ -1709,9 +1710,9 @@ int __cdecl sub_467750(int a1, char a2) {
 	int* v6;     // eax
 
 	if (!a1) {
-		if (*(_DWORD*)&byte_5D4594[1062480]) {
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1062480] + 136) = 0;
-			*(_DWORD*)&byte_5D4594[1062480] = 0;
+		if (dword_5d4594_1062480) {
+			*(_DWORD*)(dword_5d4594_1062480 + 136) = 0;
+			dword_5d4594_1062480 = 0;
 		}
 	LABEL_8:
 		if (a2) {
@@ -1734,10 +1735,10 @@ int __cdecl sub_467750(int a1, char a2) {
 	v2 = sub_461EF0(a1);
 	if (!v2)
 		goto LABEL_8;
-	if (*(_DWORD*)&byte_5D4594[1062480])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1062480] + 136) = 0;
+	if (dword_5d4594_1062480)
+		*(_DWORD*)(dword_5d4594_1062480 + 136) = 0;
 	v3 = *(_DWORD*)v2;
-	*(_DWORD*)&byte_5D4594[1062480] = v3;
+	dword_5d4594_1062480 = v3;
 	*(_DWORD*)(v3 + 136) = 1;
 	return 1;
 }
