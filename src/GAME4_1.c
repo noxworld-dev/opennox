@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3821636;
 extern _DWORD dword_5d4594_3821640;
 extern _DWORD dword_5d4594_2386152;
 extern _DWORD dword_5d4594_2386224;
@@ -5350,8 +5351,8 @@ int sub_511EB0() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	if (*(_DWORD*)&byte_5D4594[3821636] || dword_5d4594_3821640) {
-		v1 = (*(int*)&byte_5D4594[3821636] + 23 * v1) / 23;
+	if (dword_5d4594_3821636 || dword_5d4594_3821640) {
+		v1 = (*(int*)&dword_5d4594_3821636 + 23 * v1) / 23;
 		v0 = (*(int*)&dword_5d4594_3821640 + 23 * v0) / 23;
 	}
 	if (nox_server_getWallAtPoint_410580(v1, v0))
@@ -6650,7 +6651,7 @@ int sub_5136A0() {
 	v0 = script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
-		v3.field_0 = (double)*(int*)&byte_5D4594[3821636] + v3.field_0;
+		v3.field_0 = (double)*(int*)&dword_5d4594_3821636 + v3.field_0;
 		v3.field_4 = (double)*(int*)&dword_5d4594_3821640 + v4;
 		sub_4E7010(v1, &v3);
 	}
@@ -6669,7 +6670,7 @@ int sub_513700() {
 	v0 = script_pop();
 	v1 = (float*)nox_server_getWaypointById_579C40(v0);
 	if (v1) {
-		v1[2] = (double)*(int*)&byte_5D4594[3821636] + v3;
+		v1[2] = (double)*(int*)&dword_5d4594_3821636 + v3;
 		v1[3] = (double)*(int*)&dword_5d4594_3821640 + v4;
 	}
 	return 0;
@@ -6747,7 +6748,7 @@ int sub_513820() {
 	v0 = script_pop();
 	v1 = (float*)nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
-		v2 = v1[14] - v8 + (double)*(int*)&byte_5D4594[3821636];
+		v2 = v1[14] - v8 + (double)*(int*)&dword_5d4594_3821636;
 		v3 = v1[15] - v5 + (double)*(int*)&dword_5d4594_3821640;
 		v6 = v3;
 		v9 = sqrt(v3 * v6 + v2 * v2);
@@ -7216,7 +7217,7 @@ int sub_5140B0() {
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		*(float*)&v4 = (double)*(int*)&dword_5d4594_3821640 + v5;
-		*(float*)&v3 = (double)*(int*)&byte_5D4594[3821636] + v6;
+		*(float*)&v3 = (double)*(int*)&dword_5d4594_3821636 + v6;
 		sub_514110(v1, v3, v4);
 	}
 	return 0;
@@ -7263,7 +7264,7 @@ int sub_514170() {
 			v3 = sub_4ED020(*i);
 			if (v3) {
 				*(float*)&v5 = (double)*(int*)&dword_5d4594_3821640 + v6;
-				*(float*)&v4 = (double)*(int*)&byte_5D4594[3821636] + v7;
+				*(float*)&v4 = (double)*(int*)&dword_5d4594_3821636 + v7;
 				sub_514110(v3, v4, v5);
 			}
 		}
@@ -7312,7 +7313,7 @@ int sub_514210() {
 	v14 = COERCE_FLOAT(script_pop());
 	v1 = *(const char**)&byte_5D4594[4 * script_pop() + 3831212];
 	strcpy(v20, "MSG_FX_");
-	v17.field_0 = (double)*(int*)&byte_5D4594[3821636] + v14;
+	v17.field_0 = (double)*(int*)&dword_5d4594_3821636 + v14;
 	v17.field_4 = (double)*(int*)&dword_5d4594_3821640 + v15;
 	v2 = v1;
 	v3 = strlen(v1) + 1;
@@ -7355,9 +7356,9 @@ int sub_514210() {
 	case 0x91u:
 	case 0x94u:
 	case 0x95u:
-		v19[0] = *(_DWORD*)&byte_5D4594[3821636] + nox_float2int(v14);
+		v19[0] = dword_5d4594_3821636 + nox_float2int(v14);
 		v19[1] = dword_5d4594_3821640 + nox_float2int(v15);
-		v19[2] = *(_DWORD*)&byte_5D4594[3821636] + nox_float2int(*(float*)&v0);
+		v19[2] = dword_5d4594_3821636 + nox_float2int(*(float*)&v0);
 		v19[3] = dword_5d4594_3821640 + nox_float2int(*(float*)&v16);
 		sub_5232F0(v9, (int)v19);
 		result = 0;
@@ -7377,9 +7378,9 @@ int sub_514210() {
 		result = 0;
 		break;
 	case 0xA2u:
-		v19[0] = *(_DWORD*)&byte_5D4594[3821636] + nox_float2int(v14);
+		v19[0] = dword_5d4594_3821636 + nox_float2int(v14);
 		v19[1] = dword_5d4594_3821640 + nox_float2int(v15);
-		v19[2] = *(_DWORD*)&byte_5D4594[3821636] + nox_float2int(*(float*)&v0);
+		v19[2] = dword_5d4594_3821636 + nox_float2int(*(float*)&v0);
 		v19[3] = dword_5d4594_3821640 + nox_float2int(*(float*)&v16);
 		sub_523270(v9, (__int16*)v19, 100);
 		result = 0;
