@@ -6,6 +6,7 @@
 #include "../gui/guispell.h"
 #include "../gui/servopts/guiserv.h"
 
+extern _DWORD dword_5d4594_754036;
 extern _DWORD dword_587000_80828;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -93,7 +94,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 		*(_QWORD*)&byte_5D4594[747876] += sub_42E630();
 	v2 = *(_DWORD*)&byte_5D4594[2618908];
 	if (!nox_common_gameFlags_check_40A5C0(1))
-		*(_DWORD*)&byte_5D4594[754036] = 0;
+		dword_5d4594_754036 = 0;
 	for (i = a4; i; i = *(_DWORD*)(i + 84)) {
 		for (j = 0; j < *(int*)(i + 68); ++j) {
 			switch (*(_DWORD*)(i + 4 * j + 36)) {
@@ -388,7 +389,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 			*(_DWORD*)&byte_5D4594[754048] = v20;
 			*(_DWORD*)&byte_5D4594[754044] = v21;
 		}
-		for (k = v20; k != *(_DWORD*)&byte_5D4594[754036]; k = (k + 1) % 128) {
+		for (k = v20; k != dword_5d4594_754036; k = (k + 1) % 128) {
 			v25 = 0;
 			if (v23 > 0) {
 				v26 = &byte_5D4594[750972];
@@ -405,9 +406,9 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 		LABEL_137:;
 		}
 	} else {
-		v27 = *(_DWORD*)&byte_5D4594[754036];
+		v27 = dword_5d4594_754036;
 		v28 = 0;
-		if (*(_DWORD*)&byte_5D4594[754036] > 0) {
+		if (dword_5d4594_754036 > 0) {
 			v29 = *(_DWORD*)&byte_5D4594[754044];
 			v30 = &byte_5D4594[747900];
 			do {
@@ -423,7 +424,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 					}
 					if (sub_42D4B0(*((_DWORD*)v30 - 2)))
 						*(_DWORD*)v30 = 0;
-					v27 = *(_DWORD*)&byte_5D4594[754036];
+					v27 = dword_5d4594_754036;
 					v29 = *(_DWORD*)&byte_5D4594[754044];
 				}
 			LABEL_149:
@@ -439,11 +440,11 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 	*(_DWORD*)&byte_5D4594[754064] = 0;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		result = *(_DWORD*)&byte_5D4594[754040];
-		v34 = *(_DWORD*)&byte_5D4594[754036];
-		if (*(_DWORD*)&byte_5D4594[754036] < *(int*)&byte_5D4594[754040])
-			v34 = *(_DWORD*)&byte_5D4594[754036] + 128;
+		v34 = dword_5d4594_754036;
+		if (dword_5d4594_754036 < *(int*)&byte_5D4594[754040])
+			v34 = dword_5d4594_754036 + 128;
 	} else {
-		v34 = *(_DWORD*)&byte_5D4594[754036];
+		v34 = dword_5d4594_754036;
 		result = 0;
 	}
 	v43 = v34;
