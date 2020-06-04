@@ -1,6 +1,7 @@
 #include "objlst.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1045464;
 
 //----- (004530C0) --------------------------------------------------------
 int __cdecl sub_4530C0(int a1, int a2) {
@@ -22,9 +23,9 @@ int __cdecl sub_4530C0(int a1, int a2) {
 	sub_46B340(*(int*)&byte_5D4594[1045468], sub_453350);
 	sub_46B120(*(_DWORD**)&byte_5D4594[1045468], a1);
 	sub_46B280(*(int*)&byte_5D4594[1045468], a1);
-	*(_DWORD*)&byte_5D4594[1045464] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], 1510);
+	dword_5d4594_1045464 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], 1510);
 	sub_4532E0();
-	nox_window_call_field_94(*(int*)&byte_5D4594[1045464], 16399, 0, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16399, 0, 0);
 	if (a2 == 0x1000000) {
 		*(_DWORD*)&byte_5D4594[1045460] = 0;
 		v7 = loadString_sub_40F1D0((char*)&byte_587000[127380], 0,
@@ -35,7 +36,7 @@ int __cdecl sub_4530C0(int a1, int a2) {
 		do {
 			v10 = sub_4159F0(v8);
 			if (v10) {
-				nox_window_call_field_94(*(int*)&byte_5D4594[1045464], 16397, v10, -1);
+				nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16397, v10, -1);
 				++v2;
 			}
 			v8 *= 2;
@@ -51,18 +52,18 @@ int __cdecl sub_4530C0(int a1, int a2) {
 		do {
 			v6 = sub_415E80(v4);
 			if (v6) {
-				nox_window_call_field_94(*(int*)&byte_5D4594[1045464], 16397, v6, -1);
+				nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16397, v6, -1);
 				++v2;
 			}
 			v4 *= 2;
 			--v5;
 		} while (v5);
 	}
-	nox_window_call_field_94(*(int*)&byte_5D4594[1045464], 16385, (int)v14, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16385, (int)v14, 0);
 	v11 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], 1513);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1045464], 16408, (int)v11, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16408, (int)v11, 0);
 	v12 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], 1514);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1045464], 16409, (int)v12, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16409, (int)v12, 0);
 	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1045460] + 1045472] = v2;
 	sub_453750();
 	if (!nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152))

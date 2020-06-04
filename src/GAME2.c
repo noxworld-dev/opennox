@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045464;
 extern _DWORD dword_5d4594_1049520;
 extern _DWORD dword_5d4594_1045528;
 extern _DWORD dword_5d4594_831088;
@@ -3019,10 +3020,10 @@ _DWORD* sub_4532E0() {
 	int v2;         // ebx
 	_DWORD* result; // eax
 
-	v0 = sub_43F320(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045464] + 236)) + 1;
-	sub_46AB20(*(_DWORD**)&byte_5D4594[1045464], *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045464] + 8), 15 * v0 + 2);
+	v0 = sub_43F320(*(_DWORD*)(dword_5d4594_1045464 + 236)) + 1;
+	sub_46AB20(*(_DWORD**)&dword_5d4594_1045464, *(_DWORD*)(dword_5d4594_1045464 + 8), 15 * v0 + 2);
 	v1 = 1520;
-	v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045464] + 20) + v0 + 2;
+	v2 = *(_DWORD*)(dword_5d4594_1045464 + 20) + v0 + 2;
 	do {
 		result = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], v1);
 		result[5] = v2;
@@ -3064,7 +3065,7 @@ int __cdecl sub_4533D0(int a1, int a2, int a3, int a4) {
 	if (a2 == 0x4000) {
 		if ((_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], 1513) ||
 		    (_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], 1514)) {
-			nox_window_call_field_94(*(int*)&byte_5D4594[1045464], 0x4000, a3, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 0x4000, a3, 0);
 		LABEL_35:
 			sub_453750();
 		}
@@ -3076,7 +3077,7 @@ int __cdecl sub_4533D0(int a1, int a2, int a3, int a4) {
 	switch (v3) {
 	case 1513:
 	case 1514:
-		nox_window_call_field_94(*(int*)&byte_5D4594[1045464], 0x4000, a3, 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 0x4000, a3, 0);
 		goto LABEL_35;
 	case 1515:
 		if (*(_DWORD*)&byte_5D4594[1045460])
@@ -3106,8 +3107,8 @@ int __cdecl sub_4533D0(int a1, int a2, int a3, int a4) {
 	case 1531:
 	case 1532:
 	case 1533:
-		v5 = sub_4A4800(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045464] + 32));
-		v11 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1045464], 16406, v5 + v3 - 1520, 0);
+		v5 = sub_4A4800(*(_DWORD*)(dword_5d4594_1045464 + 32));
+		v11 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16406, v5 + v3 - 1520, 0);
 		if (*(_DWORD*)&byte_5D4594[1045460])
 			v6 = sub_415DA0(v11);
 		else
@@ -3283,7 +3284,7 @@ char sub_453750() {
 	bool v3;   // zf
 	int v4;    // eax
 
-	v0 = sub_4A4800(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045464] + 32));
+	v0 = sub_4A4800(*(_DWORD*)(dword_5d4594_1045464 + 32));
 	for (i = 1520; i <= 1533; ++i) {
 		for (j = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045468], i); (1 << v0) & 0x33; ++v0)
 			;
