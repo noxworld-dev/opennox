@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_815032;
 extern _DWORD dword_5d4594_815020;
 extern _DWORD dword_5d4594_815024;
 extern _DWORD dword_5d4594_815028;
@@ -209,7 +210,7 @@ int sub_4379F0() {
 				dword_5d4594_815020 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10039);
 				dword_5d4594_815024 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10040);
 				dword_5d4594_815028 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10041);
-				*(_DWORD*)&byte_5D4594[815032] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10042);
+				dword_5d4594_815032 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10042);
 				v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10002);
 				if (nox_common_gameFlags_check_40A5C0(0x1000000))
 					sub_46ABB0((int)v2, 0);
@@ -777,7 +778,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_815020, a2, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_815024, a2, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_815028, a2, (int)a3, 0);
-			nox_window_call_field_94(*(int*)&byte_5D4594[815032], a2, (int)a3, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_815032, a2, (int)a3, 0);
 		}
 		return 0;
 	}
@@ -799,7 +800,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_815020, 0x4000, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_815024, 0x4000, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_815028, 0x4000, (int)a3, 0);
-			nox_window_call_field_94(*(int*)&byte_5D4594[815032], 0x4000, (int)a3, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_815032, 0x4000, (int)a3, 0);
 			return 0;
 		}
 		return 0;
@@ -1204,7 +1205,7 @@ _DWORD* __cdecl sub_43B7C0(int a1) {
 							    "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3501);
 			nox_wcscat(WideCharStr, v11);
 		}
-		result = (_DWORD*)nox_window_call_field_94(*(int*)&byte_5D4594[815032], 16397, (int)WideCharStr, 4);
+		result = (_DWORD*)nox_window_call_field_94(*(int*)&dword_5d4594_815032, 16397, (int)WideCharStr, 4);
 	} else {
 		memset(v14, 0, sizeof(v14));
 		*(_DWORD*)&v14[8] = 257;
