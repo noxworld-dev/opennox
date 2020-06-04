@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1320940;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -32,33 +33,33 @@ int sub_4C09D0() {
 	wchar_t* v21;         // eax
 
 	v0 = nox_new_window_from_file("Trade.wnd", sub_4C0C90);
-	*(_DWORD*)&byte_5D4594[1320940] = v0;
+	dword_5d4594_1320940 = v0;
 	if (!v0)
 		return 0;
 	nox_window_set_all_funcs(v0, sub_4C0630, sub_4C0D00, 0);
 	v2 = loadString_sub_40F1D0((char*)&byte_587000[183764], 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 692);
-	sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1320940] + 36), v2);
-	v3 = (wchar_t*)sub_46B0C0(*(_DWORD**)&byte_5D4594[1320940], 3702);
+	sub_46B000((wchar_t*)(dword_5d4594_1320940 + 36), v2);
+	v3 = (wchar_t*)sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3702);
 	v4 = loadString_sub_40F1D0((char*)&byte_587000[183816], 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 695);
 	sub_46B000(v3 + 18, v4);
-	v5 = (wchar_t*)sub_46B0C0(*(_DWORD**)&byte_5D4594[1320940], 3703);
+	v5 = (wchar_t*)sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3703);
 	v6 = loadString_sub_40F1D0((char*)&byte_587000[183872], 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 698);
 	sub_46B000(v5 + 18, v6);
-	v7 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1320940], 3704);
+	v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3704);
 	sub_46B070((int)v7, sub_4C1120);
-	v8 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1320940], 3705);
+	v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3705);
 	sub_46B070((int)v8, sub_4C1120);
-	v9 = (wchar_t*)sub_46B0C0(*(_DWORD**)&byte_5D4594[1320940], 3708);
+	v9 = (wchar_t*)sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3708);
 	v10 = loadString_sub_40F1D0((char*)&byte_587000[183928], 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 709);
 	sub_46B000(v9 + 18, v10);
-	v11 = (wchar_t*)sub_46B0C0(*(_DWORD**)&byte_5D4594[1320940], 3709);
+	v11 = (wchar_t*)sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3709);
 	v12 = loadString_sub_40F1D0((char*)&byte_587000[183988], 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 712);
 	sub_46B000(v11 + 18, v12);
-	v13 = (wchar_t*)sub_46B0C0(*(_DWORD**)&byte_5D4594[1320940], 3710);
+	v13 = (wchar_t*)sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3710);
 	v14 = loadString_sub_40F1D0((char*)&byte_587000[184048], 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 715);
 	sub_46B000(v13 + 18, v14);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1320940], 1);
-	sub_46ABB0(*(int*)&byte_5D4594[1320940], 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1320940, 1);
+	sub_46ABB0(*(int*)&dword_5d4594_1320940, 0);
 	v15 = &byte_5D4594[1319288];
 	do {
 		v16 = v15;
