@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386224;
 extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_2386940;
 extern _DWORD dword_5d4594_2487236;
@@ -2744,7 +2745,7 @@ int sub_50D780() {
 		result = nox_new_alloc_class("MonsterListClass", 148, 96);
 		*(_DWORD*)&byte_5D4594[2386220] = result;
 		if (result) {
-			*(_DWORD*)&byte_5D4594[2386224] = 0;
+			dword_5d4594_2386224 = 0;
 			*(_DWORD*)&byte_5D4594[2386228] = 0;
 			result = 1;
 		}
@@ -2757,7 +2758,7 @@ void sub_50D7E0() {
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2386216]);
 	*(_DWORD*)&byte_5D4594[2386212] = 0;
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2386220]);
-	*(_DWORD*)&byte_5D4594[2386224] = 0;
+	dword_5d4594_2386224 = 0;
 	*(_DWORD*)&byte_5D4594[2386228] = 0;
 }
 
@@ -2768,7 +2769,7 @@ void sub_50D820() {
 	*(_DWORD*)&byte_5D4594[2386212] = 0;
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386220]);
 	*(_DWORD*)&byte_5D4594[2386220] = 0;
-	*(_DWORD*)&byte_5D4594[2386224] = 0;
+	dword_5d4594_2386224 = 0;
 	*(_DWORD*)&byte_5D4594[2386228] = 0;
 }
 
@@ -2889,12 +2890,11 @@ int sub_50D960() {
 									v5 = v6;
 									if (!v6)
 										break;
-									v6[35] = *(_DWORD*)&byte_5D4594[2386224];
-									if (*(_DWORD*)&byte_5D4594[2386224])
-										*(_DWORD*)(*(_DWORD*)&byte_5D4594
-											       [2386224] +
+									v6[35] = dword_5d4594_2386224;
+									if (dword_5d4594_2386224)
+										*(_DWORD*)(dword_5d4594_2386224 +
 											   144) = v6;
-									*(_DWORD*)&byte_5D4594[2386224] = v6;
+									dword_5d4594_2386224 = v6;
 									++*(_DWORD*)&byte_5D4594[2386228];
 									*v6 = *v3;
 								}
@@ -2918,7 +2918,7 @@ int sub_50D960() {
 			v0 = sub_4DA7F0(v0);
 		} while (v0);
 		if (v36) {
-			for (i = *(_DWORD*)&byte_5D4594[2386224]; i; i = *(_DWORD*)(i + 140)) {
+			for (i = dword_5d4594_2386224; i; i = *(_DWORD*)(i + 140)) {
 				v9 = 0.0;
 				v10 = 0;
 				v11 = (float*)(i + 12);
@@ -2933,7 +2933,7 @@ int sub_50D960() {
 				} while (v12);
 				*(float*)(i + 4) = v9 / (double)v10;
 			}
-			for (j = *(_DWORD*)&byte_5D4594[2386224]; j; j = *(_DWORD*)(j + 140)) {
+			for (j = dword_5d4594_2386224; j; j = *(_DWORD*)(j + 140)) {
 				for (k = *(_DWORD*)(j + 140); k; k = *(_DWORD*)(k + 140)) {
 					if (*(float*)(k + 4) > (double)*(float*)(j + 4)) {
 						v15 = *(_DWORD*)(j + 140);
@@ -2965,8 +2965,8 @@ int sub_50D960() {
 							*(_DWORD*)(k + 144) = v18;
 							*(_DWORD*)(k + 140) = v15;
 						}
-						if (j == *(_DWORD*)&byte_5D4594[2386224])
-							*(_DWORD*)&byte_5D4594[2386224] = k;
+						if (j == dword_5d4594_2386224)
+							dword_5d4594_2386224 = k;
 						v21 = k;
 						k = j;
 						j = v21;
@@ -2988,9 +2988,9 @@ int sub_50D960() {
 				} while ((int)v25 < (int)&byte_5D4594[2386360]);
 				if (v22 <= v35)
 					break;
-				v26 = *(int**)&byte_5D4594[2386224];
+				v26 = *(int**)&dword_5d4594_2386224;
 				v37 = 1;
-				if (*(_DWORD*)&byte_5D4594[2386224]) {
+				if (dword_5d4594_2386224) {
 					do {
 						if (v37 != 1)
 							break;
@@ -3012,7 +3012,7 @@ int sub_50D960() {
 							if (v31)
 								*(_DWORD*)(v31 + 140) = v26[35];
 							else
-								*(_DWORD*)&byte_5D4594[2386224] = v26[35];
+								dword_5d4594_2386224 = v26[35];
 							sub_414330(*(unsigned int**)&byte_5D4594[2386220], v26);
 							v32 = *(_DWORD*)&byte_5D4594[4 * v23 + 2386232];
 							--*(_DWORD*)&byte_5D4594[2386228];
@@ -3033,17 +3033,17 @@ int sub_50DE10() {
 	int result; // eax
 	int v1;     // esi
 
-	result = *(_DWORD*)&byte_5D4594[2386224];
-	if (*(_DWORD*)&byte_5D4594[2386224]) {
+	result = dword_5d4594_2386224;
+	if (dword_5d4594_2386224) {
 		do {
 			v1 = *(_DWORD*)(result + 140);
 			sub_414330(*(unsigned int**)&byte_5D4594[2386220], (_QWORD*)result);
 			result = v1;
 			--*(_DWORD*)&byte_5D4594[2386228];
 		} while (v1);
-		*(_DWORD*)&byte_5D4594[2386224] = 0;
+		dword_5d4594_2386224 = 0;
 	} else {
-		*(_DWORD*)&byte_5D4594[2386224] = 0;
+		dword_5d4594_2386224 = 0;
 	}
 	return result;
 }
@@ -3052,8 +3052,8 @@ int sub_50DE10() {
 _DWORD* __cdecl sub_50DE60(int a1) {
 	_DWORD* result; // eax
 
-	result = *(_DWORD**)&byte_5D4594[2386224];
-	if (!*(_DWORD*)&byte_5D4594[2386224])
+	result = *(_DWORD**)&dword_5d4594_2386224;
+	if (!dword_5d4594_2386224)
 		return 0;
 	while (*result != a1) {
 		result = (_DWORD*)result[35];
