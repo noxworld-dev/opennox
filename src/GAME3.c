@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1307716;
 extern _DWORD dword_5d4594_1312484;
 extern _DWORD dword_587000_127004;
 extern _DWORD dword_5d4594_1308088;
@@ -302,14 +303,14 @@ int __cdecl sub_4A2610(int a1, _DWORD* a2, int* a3) {
 		}
 	}
 	if (*(_DWORD*)&byte_5D4594[1307720] > 0) {
-		*(_DWORD*)&byte_5D4594[1307716] = nox_new_window_from_file("proxlist.wnd", *(_DWORD*)(a1 + 376));
+		dword_5d4594_1307716 = nox_new_window_from_file("proxlist.wnd", *(_DWORD*)(a1 + 376));
 		sub_4A2830(*a2 + 216, a2[1] + 27, v15);
-		sub_46A9B0(*(_DWORD**)&byte_5D4594[1307716], v15[0], v15[1]);
-		sub_46B280(*(int*)&byte_5D4594[1307716], a1);
-		v5 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307716], 10064);
-		v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307716], 10062);
-		v13 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307716], 10063);
-		v7 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307716], 10061);
+		sub_46A9B0(*(_DWORD**)&dword_5d4594_1307716, v15[0], v15[1]);
+		sub_46B280(*(int*)&dword_5d4594_1307716, a1);
+		v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307716, 10064);
+		v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307716, 10062);
+		v13 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307716, 10063);
+		v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307716, 10061);
 		v8 = (_DWORD*)v7[8];
 		v14 = sub_42F970("UISlider");
 		v9 = sub_42F970("UISliderLit");
@@ -339,7 +340,7 @@ int __cdecl sub_4A2610(int a1, _DWORD* a2, int* a3) {
 			} while (v10 < *(int*)&byte_5D4594[1307720]);
 		}
 	}
-	return *(_DWORD*)&byte_5D4594[1307716];
+	return dword_5d4594_1307716;
 }
 
 //----- (004A2830) --------------------------------------------------------
@@ -364,16 +365,16 @@ _DWORD* __cdecl sub_4A2830(int a1, int a2, _DWORD* a3) {
 int sub_4A2890() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1307716];
-	if (*(_DWORD*)&byte_5D4594[1307716]) {
-		result = sub_46C4E0(*(_DWORD**)&byte_5D4594[1307716]);
-		*(_DWORD*)&byte_5D4594[1307716] = 0;
+	result = dword_5d4594_1307716;
+	if (dword_5d4594_1307716) {
+		result = sub_46C4E0(*(_DWORD**)&dword_5d4594_1307716);
+		dword_5d4594_1307716 = 0;
 	}
 	return result;
 }
 
 //----- (004A28B0) --------------------------------------------------------
-BOOL sub_4A28B0() { return *(_DWORD*)&byte_5D4594[1307716] != 0; }
+BOOL sub_4A28B0() { return dword_5d4594_1307716 != 0; }
 
 //----- (004A28C0) --------------------------------------------------------
 int __cdecl sub_4A28C0(int a1) {
