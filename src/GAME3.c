@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1313800;
 extern _DWORD dword_5d4594_1309720;
 extern _DWORD dword_5d4594_1311144;
 extern _DWORD dword_5d4594_3798636;
@@ -12292,11 +12293,11 @@ int sub_4B8220() {
 	*(_DWORD*)&byte_5D4594[1313792] = 0;
 	if (*(_DWORD*)&byte_5D4594[1313796])
 		sub_45A4B0(*(_QWORD**)&byte_5D4594[1313796]);
-	result = *(_DWORD*)&byte_5D4594[1313800];
-	if (*(_DWORD*)&byte_5D4594[1313800])
-		result = sub_45A4B0(*(_QWORD**)&byte_5D4594[1313800]);
+	result = dword_5d4594_1313800;
+	if (dword_5d4594_1313800)
+		result = sub_45A4B0(*(_QWORD**)&dword_5d4594_1313800);
 	*(_DWORD*)&byte_5D4594[1313796] = 0;
-	*(_DWORD*)&byte_5D4594[1313800] = 0;
+	dword_5d4594_1313800 = 0;
 	return result;
 }
 
@@ -12537,15 +12538,15 @@ LABEL_37:
 			v36[9] = nox_win_height;
 			v36[4] = 0;
 			v36[5] = 0;
-			if (!*(_DWORD*)&byte_5D4594[1313800]) {
+			if (!dword_5d4594_1313800) {
 				v25 = sub_44CFC0((CHAR*)&byte_587000[177424]);
-				*(_DWORD*)&byte_5D4594[1313800] = nox_new_drawable_for_thing(v25);
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[1313800] + 120) |= 0x1000000u;
+				dword_5d4594_1313800 = nox_new_drawable_for_thing(v25);
+				*(_DWORD*)(dword_5d4594_1313800 + 120) |= 0x1000000u;
 			}
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1313800] + 12) = *v10 + dr->field_3 - v10[4];
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1313800] + 16) = v10[1] - v10[5] + dr->field_4 - 50;
-			(*(void(__cdecl**)(int*, _DWORD))(*(_DWORD*)&byte_5D4594[1313800] + 300))(
-			    v36, *(_DWORD*)&byte_5D4594[1313800]);
+			*(_DWORD*)(dword_5d4594_1313800 + 12) = *v10 + dr->field_3 - v10[4];
+			*(_DWORD*)(dword_5d4594_1313800 + 16) = v10[1] - v10[5] + dr->field_4 - 50;
+			(*(void(__cdecl**)(int*, _DWORD))(dword_5d4594_1313800 + 300))(
+			    v36, dword_5d4594_1313800);
 		}
 		do
 			sub_4341D0(v12++, *(int*)&byte_5D4594[2523948]);
