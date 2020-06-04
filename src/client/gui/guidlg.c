@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1123524;
 extern _DWORD dword_587000_80828;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -24,37 +25,37 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	int v18;      // [esp+Ch] [ebp-8h]
 	int v19;      // [esp+10h] [ebp-4h]
 
-	v5 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3901);
-	v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3910);
+	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3901);
+	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3910);
 	sub_445C20();
 	nox_window_call_field_94((int)v5, 16399, 0, 0);
-	nox_window_get_size(*(int*)&byte_5D4594[1123524], &v19, &v18);
-	sub_46A9B0(*(_DWORD**)&byte_5D4594[1123524], nox_win_width - v19, nox_win_height - v18);
+	nox_window_get_size(*(int*)&dword_5d4594_1123524, &v19, &v18);
+	sub_46A9B0(*(_DWORD**)&dword_5d4594_1123524, nox_win_width - v19, nox_win_height - v18);
 	sub_47A020(a3);
 	nox_wcscpy((wchar_t*)&byte_5D4594[1107056], a1);
 	v17 = sub_42F970(a4);
-	v7 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3905);
+	v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3905);
 	sub_46AE60((int)v7, (int)v17);
 	nox_window_call_field_94((int)v6, 16385, (int)&byte_5D4594[1107056], 0);
-	v8 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3908);
+	v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3908);
 	if (a5 & 1) {
 		sub_46ABB0((int)v8, 1);
 		nox_window_set_hidden((int)v8, 0);
 		v8[5] = 5;
-		v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3909);
+		v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3909);
 		sub_46ABB0((int)v9, 1);
 		nox_window_set_hidden((int)v9, 0);
 		v9[5] = 35;
-		v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3906);
+		v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3906);
 		v11 = loadString_sub_40F1D0((char*)&byte_587000[153524], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c",
 					    460);
 	} else {
 		sub_46ABB0((int)v8, 0);
 		nox_window_set_hidden((int)v8, 1);
-		v12 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3909);
+		v12 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3909);
 		sub_46ABB0((int)v12, 0);
 		nox_window_set_hidden((int)v12, 1);
-		v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3906);
+		v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3906);
 		v11 = loadString_sub_40F1D0((char*)&byte_587000[153576], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c",
 					    483);
 	}
@@ -62,12 +63,12 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	sub_46ABB0((int)v10, 1);
 	nox_window_set_hidden((int)v10, 0);
 	v10[5] = 95;
-	v13 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3907);
+	v13 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3907);
 	sub_46ABB0((int)v13, 1);
 	nox_window_set_hidden((int)v13, 0);
 	v13[5] = 65;
 	if (a5 & 2) {
-		v14 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3906);
+		v14 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3906);
 		v15 = loadString_sub_40F1D0((char*)&byte_587000[153628], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c",
 					    503);
 		sub_46AEE0((int)v14, (int)v15);
@@ -76,8 +77,8 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	sub_45ACA0(0);
 	*(_DWORD*)&byte_587000[153436] = dword_587000_80828;
 	dword_587000_80828 = 0;
-	sub_46ABB0(*(int*)&byte_5D4594[1123524], 1);
-	sub_46A8C0(*(int*)&byte_5D4594[1123524]);
+	sub_46ABB0(*(int*)&dword_5d4594_1123524, 1);
+	sub_46A8C0(*(int*)&dword_5d4594_1123524);
 	*(_DWORD*)&byte_5D4594[1123528] = a2;
 	result = sub_44D900(*(int*)&byte_5D4594[1115312], 100);
 	*(_DWORD*)&byte_5D4594[1123520] = 1;
@@ -102,7 +103,7 @@ wchar_t* __cdecl sub_47A020(char* a1) {
 
 	*(_DWORD*)v13 = *(_DWORD*)&byte_587000[153644];
 	v13[2] = *(_WORD*)&byte_587000[153648];
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3901);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3901);
 	v2 = (int)v1;
 	v3 = 0;
 	v12 = (__int16*)v1[8];
