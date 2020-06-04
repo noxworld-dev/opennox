@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1090276;
 extern _DWORD dword_5d4594_1062476;
 extern _DWORD dword_5d4594_1047932;
 extern _DWORD dword_5d4594_1049512;
@@ -7283,15 +7284,15 @@ int __cdecl sub_4721A0(int a1) {
 	int result; // eax
 
 	if (a1)
-		result = nox_window_set_hidden(*(int*)&byte_5D4594[1090276], 0);
+		result = nox_window_set_hidden(*(int*)&dword_5d4594_1090276, 0);
 	else
-		result = nox_window_set_hidden(*(int*)&byte_5D4594[1090276], 1);
+		result = nox_window_set_hidden(*(int*)&dword_5d4594_1090276, 1);
 	return result;
 }
 
 //----- (004721D0) --------------------------------------------------------
 int sub_4721D0() {
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1090276]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1090276);
 	sub_46C4E0(*(_DWORD**)&byte_5D4594[1093076]);
 	if (*(_DWORD*)&byte_5D4594[1093096])
 		sub_46C4E0(*(_DWORD**)&byte_5D4594[1093096]);

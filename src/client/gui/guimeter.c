@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1090276;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -111,9 +112,9 @@ int sub_4714E0() {
 		*(_DWORD*)&byte_5D4594[1096280] = sub_44CFC0((CHAR*)&byte_587000[148644]);
 		*(_DWORD*)&byte_5D4594[1096284] = sub_44CFC0((CHAR*)&byte_587000[148656]);
 	}
-	*(_DWORD*)&byte_5D4594[1090276] = nox_window_new(0, 136, nox_win_width - 91, nox_win_height - 201, 91, 201, 0);
-	sub_46AE60(*(int*)&byte_5D4594[1090276], *(int*)&byte_5D4594[1092996]);
-	*(_DWORD*)&byte_5D4594[1091364] = nox_window_new(*(int*)&byte_5D4594[1090276], 8, 6, 166, 28, 30, 0);
+	dword_5d4594_1090276 = nox_window_new(0, 136, nox_win_width - 91, nox_win_height - 201, 91, 201, 0);
+	sub_46AE60(*(int*)&dword_5d4594_1090276, *(int*)&byte_5D4594[1092996]);
+	*(_DWORD*)&byte_5D4594[1091364] = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 6, 166, 28, 30, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1091364], sub_471B90, sub_471A80, 0);
 	v3 = loadString_sub_40F1D0((char*)&byte_587000[148704], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1029);
 	sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1091364] + 36), v3);
@@ -129,7 +130,7 @@ int sub_4714E0() {
 		*(_DWORD*)&byte_5D4594[1091368] = 0;
 	}
 	*(_DWORD*)&byte_5D4594[1091380] = *(_DWORD*)&byte_5D4594[1096276];
-	*(_DWORD*)&byte_5D4594[1090292] = nox_window_new(*(int*)&byte_5D4594[1090276], 8, 34, 166, 28, 30, 0);
+	*(_DWORD*)&byte_5D4594[1090292] = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 34, 166, 28, 30, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1090292], sub_471B90, sub_471A80, 0);
 	v5 = loadString_sub_40F1D0((char*)&byte_587000[148764], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1060);
 	sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1090292] + 36), v5);
@@ -138,7 +139,7 @@ int sub_4714E0() {
 	*(_DWORD*)&byte_5D4594[1090296] = 0;
 	*(_DWORD*)&byte_5D4594[1090308] = 0;
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251)) {
-		*(_DWORD*)&byte_5D4594[1090828] = nox_window_new(*(int*)&byte_5D4594[1090276], 8, 62, 166, 28, 30, 0);
+		*(_DWORD*)&byte_5D4594[1090828] = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 62, 166, 28, 30, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1090828], sub_471B90, sub_471A80, 0);
 		v6 = loadString_sub_40F1D0((char*)&byte_587000[148820], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c",
 					   1083);
@@ -156,7 +157,7 @@ int sub_4714E0() {
 		}
 		*(_DWORD*)&byte_5D4594[1090844] = *(_DWORD*)&byte_5D4594[1096272];
 		*(_DWORD*)&byte_5D4594[1091900] = sub_42F970("PoisonTube");
-		v8 = nox_window_new(*(int*)&byte_5D4594[1090276], 136, 0, 0, 91, 159, 0);
+		v8 = nox_window_new(*(int*)&dword_5d4594_1090276, 136, 0, 0, 91, 159, 0);
 		v9 = sub_42F970("HealthManaTubes");
 		sub_46AE60((int)v8, (int)v9);
 		*(_DWORD*)&byte_5D4594[1093056] = nox_window_new((int)v8, 8, 60, 34, 25, 125, 0);
@@ -180,7 +181,7 @@ int sub_4714E0() {
 		*(_DWORD*)&byte_5D4594[1093176] = 1;
 	} else {
 		*(_DWORD*)&byte_5D4594[1091900] = sub_42F970("WarriorPoisonTube");
-		v12 = nox_window_new(*(int*)&byte_5D4594[1090276], 136, 0, 0, 91, 159, 0);
+		v12 = nox_window_new(*(int*)&dword_5d4594_1090276, 136, 0, 0, 91, 159, 0);
 		v13 = sub_42F970("WarriorHealthTube");
 		sub_46AE60((int)v12, (int)v13);
 		*(_DWORD*)&byte_5D4594[1093036] = nox_window_new((int)v12, 8, 34, 34, 25, 125, 0);
@@ -235,7 +236,7 @@ int __cdecl sub_471D10(int xLeft) {
 	v3 = &byte_5D4594[20 * v18 + 1093036];
 	v20 = &byte_5D4594[20 * v18 + 1093036];
 	if (!v18 && *(_DWORD*)&byte_5D4594[1096264]) {
-		nox_client_wndGetPosition_46AA60(*(_DWORD**)&byte_5D4594[1090276], &xLeft, &yTop);
+		nox_client_wndGetPosition_46AA60(*(_DWORD**)&dword_5d4594_1090276, &xLeft, &yTop);
 		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1091900], xLeft, yTop);
 	}
 	nox_client_wndGetPosition_46AA60(v1, &xLeft, &yTop);
@@ -328,7 +329,7 @@ int __cdecl sub_471D10(int xLeft) {
 					*(_DWORD*)&byte_5D4594[1096256] = 0;
 				}
 			}
-			sub_46AE60(*(int*)&byte_5D4594[1090276], *(_DWORD*)&byte_5D4594[4 * v16 + 1092996]);
+			sub_46AE60(*(int*)&dword_5d4594_1090276, *(_DWORD*)&byte_5D4594[4 * v16 + 1092996]);
 		}
 		sub_472080();
 		result = 1;
