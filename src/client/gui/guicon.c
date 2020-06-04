@@ -3,6 +3,7 @@
 #include "../system/parsecmd.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_833712;
 extern _DWORD dword_5d4594_833716;
 
 //----- (00450C30) --------------------------------------------------------
@@ -61,12 +62,12 @@ int sub_451350() {
 	int result;  // eax
 	wchar_t* v1; // eax
 
-	if (!(sub_46ADA0(*(int*)&byte_5D4594[833712]) & 0x10))
+	if (!(sub_46ADA0(*(int*)&dword_5d4594_833712) & 0x10))
 		return sub_4512B0();
 	result = sub_446360();
 	if (!result) {
-		sub_46A8C0(*(int*)&byte_5D4594[833712]);
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833712] + 4) |= 8u;
+		sub_46A8C0(*(int*)&dword_5d4594_833712);
+		*(_DWORD*)(dword_5d4594_833712 + 4) |= 8u;
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833720] + 4) |= 8u;
 		*(_DWORD*)(dword_5d4594_833716 + 4) |= 8u;
 		*(_DWORD*)(dword_5d4594_833716 + 4) |= 1u;
