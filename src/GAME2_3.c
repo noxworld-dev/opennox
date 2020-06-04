@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_810632;
 extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_1217448;
@@ -6587,7 +6588,7 @@ BOOL sub_49CB40() { return *(_DWORD*)&byte_5D4594[1305684] != 0; }
 
 //----- (0049CB50) --------------------------------------------------------
 int nox_video_initRectDrawingFuncs_49CB50() {
-	if (!*(_DWORD*)&byte_5D4594[3801780]) {
+	if (!dword_5d4594_3801780) {
 		*(_DWORD*)&byte_5D4594[1305704] = sub_49D1E0; 
 		*(_DWORD*)&byte_5D4594[1305712] = sub_49D680; 
 		*(_DWORD*)&byte_5D4594[1305720] = sub_49D880; // seems to be unused
@@ -6597,7 +6598,7 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 		*(_DWORD*)&byte_5D4594[1305708] = sub_49E380; // cursor?
 		return 1;
 	}
-	if (*(_DWORD*)&byte_5D4594[3801780] != 1)
+	if (dword_5d4594_3801780 != 1)
 		return 1;
 	*(_DWORD*)&byte_5D4594[1305704] = sub_49D270; // alpha filled
 	if (*(_DWORD*)&byte_5D4594[3801804]) {
@@ -7986,7 +7987,7 @@ void __cdecl sub_49E3C0(_DWORD* a1, int a2, unsigned int a3) {
 
 //----- (0049E3F0) --------------------------------------------------------
 int nox_video_initLineDrawingFuncs_49E3F0() {
-	if (!*(_DWORD*)&byte_5D4594[3801780]) {
+	if (!dword_5d4594_3801780) {
 		*(_DWORD*)&byte_5D4594[3798716] = sub_49E540;
 		*(_DWORD*)&byte_5D4594[3798700] = sub_49EFC0;
 		*(_DWORD*)&byte_5D4594[3798704] = sub_49ED80;
@@ -7995,7 +7996,7 @@ int nox_video_initLineDrawingFuncs_49E3F0() {
 		*(_DWORD*)&byte_5D4594[3798712] = sub_49F3A0;
 		return 1;
 	}
-	if (*(_DWORD*)&byte_5D4594[3801780] != 1)
+	if (dword_5d4594_3801780 != 1)
 		return 1;
 	*(_DWORD*)&byte_5D4594[3798720] = sub_49F180;
 	*(_DWORD*)&byte_5D4594[3798708] = sub_49F210;
