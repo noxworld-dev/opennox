@@ -2,6 +2,7 @@
 
 #include "../../client/shell/wolapi/wolreg.h"
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2660652;
 
 //----- (0041DAC0) --------------------------------------------------------
 wchar_t* __cdecl sub_41DAC0(int a1) {
@@ -51,9 +52,9 @@ int sub_41DDB0() {
 			v1 = sub_41E2F0();
 			switch (sub_41DCC0(v1)) {
 			case 5:
-				if (*(_DWORD*)&byte_5D4594[2660652]) {
+				if (dword_5d4594_2660652) {
 					if (!*(_WORD*)&byte_5D4594[2660140]) {
-						switch (*(_DWORD*)&byte_5D4594[2660652] + 2147221403) {
+						switch (dword_5d4594_2660652 + 2147221403) {
 						case 0:
 							v2 = loadString_sub_40F1D0(
 							    (char*)&byte_587000[58748], 0,
