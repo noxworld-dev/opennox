@@ -1,6 +1,7 @@
 #include "spelllst.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1045484;
 extern _DWORD dword_5d4594_2650652;
 
 //----- (00453850) --------------------------------------------------------
@@ -17,12 +18,12 @@ int __cdecl sub_453850(int a1) {
 	_DWORD* v10;       // esi
 	wchar_t v12[64];   // [esp+Ch] [ebp-80h]
 
-	*(_DWORD*)&byte_5D4594[1045484] = nox_new_window_from_file("spelllst.wnd", sub_453C00);
-	sub_46B340(*(int*)&byte_5D4594[1045484], sub_453B80);
-	sub_46B120(*(_DWORD**)&byte_5D4594[1045484], a1);
-	sub_46B280(*(int*)&byte_5D4594[1045484], a1);
-	*(_DWORD*)&byte_5D4594[1045480] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045484], 1110);
-	*(_DWORD*)&byte_5D4594[1045508] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045484], 1112);
+	dword_5d4594_1045484 = nox_new_window_from_file("spelllst.wnd", sub_453C00);
+	sub_46B340(*(int*)&dword_5d4594_1045484, sub_453B80);
+	sub_46B120(*(_DWORD**)&dword_5d4594_1045484, a1);
+	sub_46B280(*(int*)&dword_5d4594_1045484, a1);
+	*(_DWORD*)&byte_5D4594[1045480] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1110);
+	*(_DWORD*)&byte_5D4594[1045508] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1112);
 	sub_453B00();
 	nox_window_call_field_94(*(int*)&byte_5D4594[1045480], 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&byte_5D4594[1045508], 16399, 0, 0);
@@ -63,17 +64,17 @@ int __cdecl sub_453850(int a1) {
 	LABEL_14:
 		++v1;
 	} while (v1 < 137);
-	v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045484], 1113);
+	v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113);
 	nox_window_call_field_94(*(int*)&byte_5D4594[1045480], 16408, (int)v9, 0);
 	nox_window_call_field_94(*(int*)&byte_5D4594[1045508], 16408, (int)v9, 0);
-	v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045484], 1114);
+	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1114);
 	nox_window_call_field_94(*(int*)&byte_5D4594[1045480], 16409, (int)v10, 0);
 	nox_window_call_field_94(*(int*)&byte_5D4594[1045508], 16409, (int)v10, 0);
 	sub_454040(&byte_5D4594[1045488]);
 	sub_454120();
 	if (!nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152))
-		sub_46AD20(*(_DWORD**)&byte_5D4594[1045484], 1115, 1133, 0);
-	return *(_DWORD*)&byte_5D4594[1045484];
+		sub_46AD20(*(_DWORD**)&dword_5d4594_1045484, 1115, 1133, 0);
+	return dword_5d4594_1045484;
 }
 
 //----- (00453C00) --------------------------------------------------------
@@ -99,8 +100,8 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 	int v21;      // [esp+58h] [ebp+Ch]
 
 	if (a2 == 0x4000) {
-		if (a3 == sub_46B0C0(*(_DWORD**)&byte_5D4594[1045484], 1113) ||
-		    a3 == sub_46B0C0(*(_DWORD**)&byte_5D4594[1045484], 1114)) {
+		if (a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113) ||
+		    a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1114)) {
 			nox_window_call_field_94(*(int*)&byte_5D4594[1045480], 0x4000, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[1045508], 0x4000, (int)a3, 0);
 		LABEL_37:
@@ -182,7 +183,7 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 							    "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 226);
 				v16 = loadString_sub_40F1D0((char*)&byte_587000[127816], 0,
 							    "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 225);
-				sub_449A10(*(int*)&byte_5D4594[1045484], (int)v16, (int)v18, 33, 0, 0);
+				sub_449A10(*(int*)&dword_5d4594_1045484, (int)v16, (int)v18, 33, 0, 0);
 				sub_44A360(1);
 			} else {
 				if (v3[9] & 4)
@@ -198,7 +199,7 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 						    "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 211);
 			v14 = loadString_sub_40F1D0((char*)&byte_587000[127692], 0,
 						    "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 210);
-			sub_449A10(*(int*)&byte_5D4594[1045484], (int)v14, (int)v17, 33, 0, 0);
+			sub_449A10(*(int*)&dword_5d4594_1045484, (int)v14, (int)v17, 33, 0, 0);
 			sub_44A360(1);
 		}
 	LABEL_20:
