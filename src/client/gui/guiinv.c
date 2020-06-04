@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1063116;
 extern _DWORD dword_5d4594_1062480;
 extern int nox_win_width;
@@ -942,7 +943,7 @@ int* __cdecl sub_463880(int* a1) {
 		sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 + 45, SLODWORD(v69), 200, 0);
 		sub_434390(*(int*)&byte_5D4594[2523948]);
 		v30 = 2 * v1 + 2 + v25;
-		if (*(_DWORD*)&byte_587000[26048] == 6 || *(_DWORD*)&byte_587000[26048] == 8)
+		if (dword_587000_26048 == 6 || dword_587000_26048 == 8)
 			v10 += 39;
 		sub_434390(v72);
 		v31 = loadString_sub_40F1D0((char*)&byte_587000[138932], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c",

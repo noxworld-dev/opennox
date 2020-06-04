@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1193380;
 extern _DWORD dword_5d4594_1189584;
 extern _DWORD dword_5d4594_3801780;
@@ -4660,7 +4661,7 @@ void sub_47DBD0() {
 	*(_WORD*)&byte_5D4594[1192066] = *(_WORD*)&byte_5D4594[1192064];
 	*(_WORD*)&byte_5D4594[1192068] = 0;
 	*(_WORD*)&byte_5D4594[1191918] = 0;
-	switch (*(_DWORD*)&byte_587000[26048]) {
+	switch (dword_587000_26048) {
 	case 0:
 	case 4:
 	case 6:
@@ -11836,9 +11837,9 @@ int __cdecl sub_487D70(_DWORD* a1, int a2, int a3, int a4) {
 		case 211:
 			if (a3 == 14)
 				goto LABEL_13;
-			if (*(_DWORD*)&byte_587000[26048] == 6)
+			if (dword_587000_26048 == 6)
 				goto LABEL_19;
-			if (*(_DWORD*)&byte_587000[26048] == 8)
+			if (dword_587000_26048 == 8)
 				goto LABEL_17;
 		LABEL_13:
 			if (a4 != 2)
@@ -11853,7 +11854,7 @@ int __cdecl sub_487D70(_DWORD* a1, int a2, int a3, int a4) {
 				return 1;
 			}
 		LABEL_17:
-			if (*(_DWORD*)&byte_587000[26048] != 6 && *(_DWORD*)&byte_587000[26048] != 8)
+			if (dword_587000_26048 != 6 && dword_587000_26048 != 8)
 				goto LABEL_24;
 		LABEL_19:
 			if (!*(_DWORD*)(v4 + 1036) && !*(_DWORD*)(v4 + 1032) && !*(_DWORD*)(v4 + 1028)) {
@@ -12078,7 +12079,7 @@ _DWORD* __cdecl sub_488500(int a1, int a2, int a3, int a4, int a5, int a6, int a
 		v10 = (int*)nox_malloc(0x420u);
 		qmemcpy(v10, a8, 0x420u);
 		v8[8] = v10;
-		if (*(_DWORD*)&byte_587000[26048] != 8 && *(_DWORD*)&byte_587000[26048] != 6) {
+		if (dword_587000_26048 != 8 && dword_587000_26048 != 6) {
 			result = v8;
 			v10[262] = 0;
 			return result;
@@ -12310,7 +12311,7 @@ void __cdecl sub_488BD0(unsigned __int16 a1) {
 	if (*(_DWORD*)&byte_5D4594[1193348]) {
 		if (*(_DWORD*)&byte_5D4594[1193352]) {
 			v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1193352] + 32);
-			if (*(_DWORD*)&byte_587000[26048] == 6 || *(_DWORD*)&byte_587000[26048] == 8) {
+			if (dword_587000_26048 == 6 || dword_587000_26048 == 8) {
 				if (!*(DWORD*)(v2 + 1036)) {
 					if (!*(DWORD*)(v2 + 1032)) {
 						if (!*(DWORD*)(v2 + 1028)) {

@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_825760;
@@ -2354,7 +2355,7 @@ int sub_43F1C0() {
 		v1 -= 4;
 		*(_DWORD*)v1 = 0;
 	} while (v1 != &byte_5D4594[816464]);
-	if (*(_DWORD*)&byte_587000[26048] == 6 || (v2 = &byte_587000[94112], *(_DWORD*)&byte_587000[26048] == 8))
+	if (dword_587000_26048 == 6 || (v2 = &byte_587000[94112], dword_587000_26048 == 8))
 		v2 = &byte_587000[94176];
 	*(_DWORD*)&byte_5D4594[816488] = v2;
 	v3 = 0;
@@ -2541,9 +2542,9 @@ _DWORD* __cdecl sub_43F3B0(char* a1) {
 				++v1[7];
 				v14 = (_BYTE*)sub_43FE30((int)v1, 0x20u);
 				v15 = v14;
-				if (v14 && *(_DWORD*)&byte_587000[26048] == 8)
+				if (v14 && dword_587000_26048 == 8)
 					++*v14;
-				if (*(_DWORD*)&byte_587000[26048] == 6) {
+				if (dword_587000_26048 == 6) {
 					v16 = (_BYTE*)sub_43FE30((int)v1, 0x3000u);
 					if (v16) {
 						if (v15) {
@@ -5787,7 +5788,7 @@ _DWORD* __cdecl sub_449A10(int a1, int a2, int a3, int a4, int (*a5)(void), int 
 	_DWORD* v10;    // eax
 	_DWORD* v11;    // eax
 
-	v6 = *(_DWORD*)&byte_587000[26048];
+	v6 = dword_587000_26048;
 	if (dword_5d4594_830224 && *(_DWORD*)&byte_5D4594[830216])
 		(*(void (**)(void)) & byte_5D4594[830216])();
 	*(_DWORD*)&byte_5D4594[830228] = a1;
