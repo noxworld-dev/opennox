@@ -2,6 +2,7 @@
 
 #include "../../../common/wolapi/wolchnl.h"
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_829488;
 extern _DWORD dword_5d4594_829492;
 extern _DWORD dword_5d4594_829480;
 
@@ -93,7 +94,7 @@ void __cdecl sub_446F80_wol_chat(wchar_t* a1) {
 		return;
 	if (sub_41EC00()) {
 		if (sub_446C90()) {
-			v2 = (int*)nox_window_call_field_94(*(int*)&byte_5D4594[829488], 16404, 0, 0);
+			v2 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_829488, 16404, 0, 0);
 			v3 = v2;
 			for (i = *v2; i != -1; ++v3) {
 				v5 = sub_446F40(i);
@@ -137,7 +138,7 @@ void __cdecl sub_447090_wol_chat(wchar_t* a1) {
 		return;
 	if (sub_41EC00()) {
 		if (sub_446C90()) {
-			v2 = (int*)nox_window_call_field_94(*(int*)&byte_5D4594[829488], 16404, 0, 0);
+			v2 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_829488, 16404, 0, 0);
 			v3 = v2;
 			for (i = *v2; i != -1; ++v3) {
 				v5 = sub_446F40(i);
@@ -251,7 +252,7 @@ int sub_447620_wol_chat() {
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[829520] + 48) = sub_446A90;
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[829520] + 56) = sub_447BD0;
 			*(_DWORD*)&byte_5D4594[829484] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1908);
-			*(_DWORD*)&byte_5D4594[829488] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1909);
+			dword_5d4594_829488 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1909);
 			dword_5d4594_829492 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1907);
 			*(_DWORD*)&byte_5D4594[829496] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1916);
 			*(_DWORD*)&byte_5D4594[829500] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1910);
@@ -328,12 +329,12 @@ int sub_447620_wol_chat() {
 			*(_DWORD*)&byte_5D4594[829508] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1923);
 			*(_DWORD*)&byte_5D4594[829512] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1924);
 			*(_DWORD*)&byte_5D4594[829516] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1925);
-			v9 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[829488] + 32);
+			v9 = *(_DWORD**)(dword_5d4594_829488 + 32);
 			sub_4B5700(*(int*)&byte_5D4594[829508], 0, 0, (int)v6, (int)v7, (int)v7);
-			sub_46B280(*(int*)&byte_5D4594[829508], *(int*)&byte_5D4594[829488]);
-			sub_46B280(*(int*)&byte_5D4594[829512], *(int*)&byte_5D4594[829488]);
-			sub_46B280(*(int*)&byte_5D4594[829516], *(int*)&byte_5D4594[829488]);
-			sub_46B300(*(int*)&byte_5D4594[829488], sub_447BF0);
+			sub_46B280(*(int*)&byte_5D4594[829508], *(int*)&dword_5d4594_829488);
+			sub_46B280(*(int*)&byte_5D4594[829512], *(int*)&dword_5d4594_829488);
+			sub_46B280(*(int*)&byte_5D4594[829516], *(int*)&dword_5d4594_829488);
+			sub_46B300(*(int*)&dword_5d4594_829488, sub_447BF0);
 			v9[9] = *(_DWORD*)&byte_5D4594[829508];
 			v9[7] = *(_DWORD*)&byte_5D4594[829512];
 			v9[8] = *(_DWORD*)&byte_5D4594[829516];
