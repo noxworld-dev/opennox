@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1321240;
 extern _DWORD dword_5d4594_1321252;
 extern _DWORD dword_5d4594_1321232;
 extern _DWORD dword_5d4594_1321248;
@@ -26,10 +27,10 @@ char* sub_4C3620() {
 	char* result;  // eax
 	char v12[256]; // [esp+8h] [ebp-100h]
 
-	v0 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1321240] + 32);
+	v0 = *(_DWORD*)(dword_5d4594_1321240 + 32);
 	sub_42CD90();
 	for (i = 0; i < *(__int16*)(v0 + 44); ++i) {
-		v2 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1321240], 16406, i, 0);
+		v2 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16406, i, 0);
 		v3 = sub_42EA40(v2);
 		v4 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16406, i, 0);
 		v5 = sub_42E960(v4);
@@ -74,7 +75,7 @@ int sub_4C3760() {
 	dword_5d4594_1321228 = result;
 	if (result) {
 		*(_DWORD*)&byte_5D4594[1321236] = sub_46B0C0((_DWORD*)result, 910);
-		*(_DWORD*)&byte_5D4594[1321240] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 911);
+		dword_5d4594_1321240 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 911);
 		dword_5d4594_1321244 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 912);
 		dword_5d4594_1321248 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 913);
 		result = *(_DWORD*)&byte_5D4594[1321236];
@@ -84,17 +85,17 @@ int sub_4C3760() {
 			*v1[8] = 922;
 			*v1[9] = 920;
 			sub_46B2C0(*(int*)&byte_5D4594[1321236], sub_4C3CD0);
-			sub_46B120(*(_DWORD**)&byte_5D4594[1321240], *(int*)&byte_5D4594[1321236]);
+			sub_46B120(*(_DWORD**)&dword_5d4594_1321240, *(int*)&byte_5D4594[1321236]);
 			sub_46B120(*(_DWORD**)&dword_5d4594_1321244, *(int*)&byte_5D4594[1321236]);
 			sub_46B120(*(_DWORD**)&dword_5d4594_1321248, *(int*)&byte_5D4594[1321236]);
 			sub_46B300(*(int*)&dword_5d4594_1321244, sub_4C3A60);
 			sub_46B300(*(int*)&dword_5d4594_1321248, sub_4C3A60);
 			v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 921);
-			nox_window_call_field_94(*(int*)&byte_5D4594[1321240], 16408, (int)v2, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16408, (int)v2, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16408, (int)v2, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16408, (int)v2, 0);
 			v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 922);
-			nox_window_call_field_94(*(int*)&byte_5D4594[1321240], 16409, (int)v3, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16409, (int)v3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16409, (int)v3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16409, (int)v3, 0);
 			v4 = 971;
@@ -146,14 +147,14 @@ int __cdecl sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 			v7 = *(_DWORD*)(a1 + 32);
 			sub_4A30D0(a1, 0x4009u, (wchar_t*)a3, a4);
 			v8 = sub_4A4800(v7);
-			nox_window_call_field_94(*(int*)&byte_5D4594[1321240], 16412, v8, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16412, v8, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16412, v8, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16412, v8, 0);
 		} else if (a2 == 16400) {
 			v5 = *(_DWORD*)(a3 + 32);
 			if ((int)*(_DWORD*)(v5 + 48) >= 0) {
 				dword_5d4594_1321252 = a3;
-				v9 = nox_window_call_field_94(*(int*)&byte_5D4594[1321240], 16406, *(_DWORD*)(v5 + 48),
+				v9 = nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16406, *(_DWORD*)(v5 + 48),
 							      0);
 				v6 = loadString_sub_40F1D0((char*)&byte_587000[185404], 0,
 							   "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 436);
@@ -173,7 +174,7 @@ int __cdecl sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 		}
 		if ((_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 921) ||
 		    (_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 922)) {
-			nox_window_call_field_94(*(int*)&byte_5D4594[1321240], a2, a3, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1321240, a2, a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1321244, a2, a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1321248, a2, a3, 0);
 			return sub_4A30D0(a1, a2, (wchar_t*)a3, a4);
