@@ -146,6 +146,7 @@ extern int nox_drawable_list_4_size;
 extern nox_drawable*** nox_drawable_2d_index;
 extern int nox_drawable_2d_index_size;
 extern _DWORD dword_5d4594_3798784;
+extern _DWORD dword_5d4594_1599636;
 
 typedef struct mem_mapping {
 	uintptr_t base;
@@ -156,6 +157,7 @@ typedef struct mem_mapping {
 
 mem_mapping mappings[] = {
     // overrides
+	{0x5D4594+1599636, (void*)&dword_5d4594_1599636, sizeof(dword_5d4594_1599636), 1},
 	{0x5D4594+3798784, (void*)&dword_5d4594_3798784, sizeof(dword_5d4594_3798784), 1},
     {0x5D4594 + 260, (void*)&nox_loaded_thing_bin, sizeof(nox_loaded_thing_bin), 1},
     {0x5D4594 + 1296, (void*)&nox_file_10, sizeof(nox_file_10), 1},
