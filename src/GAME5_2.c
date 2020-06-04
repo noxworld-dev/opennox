@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523912;
 extern _DWORD dword_5d4594_2523780;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2516344;
@@ -5468,7 +5469,7 @@ int __cdecl nox_server_addNewMapGroup_57C3B0(int a1) {
 }
 
 //----- (0057C3E0) --------------------------------------------------------
-int sub_57C3E0() { return *(_DWORD*)&byte_5D4594[2523912]; }
+int sub_57C3E0() { return dword_5d4594_2523912; }
 
 //----- (0057C3F0) --------------------------------------------------------
 int __cdecl sub_57C3F0(int a1) {
@@ -5490,7 +5491,7 @@ BOOL sub_57C410() {
 //----- (0057C440) --------------------------------------------------------
 void sub_57C440() {
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2523908]);
-	*(_DWORD*)&byte_5D4594[2523912] = 0;
+	dword_5d4594_2523912 = 0;
 }
 
 //----- (0057C460) --------------------------------------------------------
@@ -5499,7 +5500,7 @@ int sub_57C460() {
 		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2523908]);
 		*(_DWORD*)&byte_5D4594[2523908] = 0;
 	}
-	*(_DWORD*)&byte_5D4594[2523912] = 0;
+	dword_5d4594_2523912 = 0;
 	return 1;
 }
 
@@ -5507,8 +5508,8 @@ int sub_57C460() {
 int __cdecl sub_57C490(const char* a1) {
 	int v1; // edi
 
-	v1 = *(_DWORD*)&byte_5D4594[2523912];
-	if (!*(_DWORD*)&byte_5D4594[2523912])
+	v1 = dword_5d4594_2523912;
+	if (!dword_5d4594_2523912)
 		return 0;
 	while (strcmp(a1, (const char*)v1)) {
 		v1 = *(_DWORD*)(v1 + 336);
@@ -5528,10 +5529,10 @@ int __cdecl sub_57C500(const char* a1, const char* a2) {
 	strcpy(v2, a1);
 	strcpy(v2 + 80, a2);
 	*((_DWORD*)v2 + 85) = 0;
-	*((_DWORD*)v2 + 84) = *(_DWORD*)&byte_5D4594[2523912];
-	if (*(_DWORD*)&byte_5D4594[2523912])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[2523912] + 340) = v2;
-	*(_DWORD*)&byte_5D4594[2523912] = v2;
+	*((_DWORD*)v2 + 84) = dword_5d4594_2523912;
+	if (dword_5d4594_2523912)
+		*(_DWORD*)(dword_5d4594_2523912 + 340) = v2;
+	dword_5d4594_2523912 = v2;
 	return 1;
 }
 
@@ -5541,8 +5542,8 @@ void __cdecl sub_57C5A0(const char* a1) {
 	int v2; // eax
 	int v3; // eax
 
-	v1 = *(_DWORD*)&byte_5D4594[2523912];
-	if (*(_DWORD*)&byte_5D4594[2523912]) {
+	v1 = dword_5d4594_2523912;
+	if (dword_5d4594_2523912) {
 		while (strcmp(a1, (const char*)v1)) {
 			v1 = *(_DWORD*)(v1 + 336);
 			if (!v1)
@@ -5552,7 +5553,7 @@ void __cdecl sub_57C5A0(const char* a1) {
 		if (v2)
 			*(_DWORD*)(v2 + 336) = *(_DWORD*)(v1 + 336);
 		else
-			*(_DWORD*)&byte_5D4594[2523912] = *(_DWORD*)(v1 + 336);
+			dword_5d4594_2523912 = *(_DWORD*)(v1 + 336);
 		v3 = *(_DWORD*)(v1 + 336);
 		if (v3)
 			*(_DWORD*)(v3 + 340) = *(_DWORD*)(v1 + 340);
