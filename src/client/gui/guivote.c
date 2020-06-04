@@ -1,6 +1,7 @@
 #include "guivote.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1197320;
 extern _DWORD dword_5d4594_1197324;
 extern _DWORD dword_5d4594_1197312;
 
@@ -36,7 +37,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 
 	v25 = 0;
 	nox_window_call_field_94(*(int*)&byte_5D4594[1197316], 16399, 0, 0);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1197320], 16399, 0, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16399, 0, 0);
 	result = (_DWORD*)a1;
 	*(_DWORD*)&byte_5D4594[1197308] = a1;
 	switch (a1) {
@@ -49,7 +50,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 			return sub_449A10(0, (int)v2, (int)v24, 33, 0, 0);
 		}
 		nox_window_set_hidden(*(int*)&byte_5D4594[1197316], 1);
-		nox_window_set_hidden(*(int*)&byte_5D4594[1197320], 0);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1197320, 0);
 		v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1197312, 4301);
 		v4 = loadString_sub_40F1D0((char*)&byte_587000[156632], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					   465);
@@ -61,7 +62,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 		v6 = loadString_sub_40F1D0((char*)&byte_587000[156740], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					   470);
 		nox_wcscat(v27, v6);
-		nox_window_call_field_94(*(int*)&byte_5D4594[1197320], 16397, (int)v27, 4);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16397, (int)v27, 4);
 		v7 = loadString_sub_40F1D0((char*)&byte_587000[156792], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					   474);
 		nox_wcscpy(v27, v7);
@@ -69,31 +70,31 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 		v8 = loadString_sub_40F1D0((char*)&byte_587000[156848], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					   476);
 		nox_wcscat(v27, v8);
-		nox_window_call_field_94(*(int*)&byte_5D4594[1197320], 16397, (int)v27, 4);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16397, (int)v27, 4);
 		return (_DWORD*)sub_46A8C0(*(int*)&dword_5d4594_1197312);
 	case 2:
 		nox_window_set_hidden(*(int*)&byte_5D4594[1197316], 1);
-		nox_window_set_hidden(*(int*)&byte_5D4594[1197320], 0);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1197320, 0);
 		v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1197312, 4301);
 		v10 = loadString_sub_40F1D0((char*)&byte_587000[156900], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					    491);
 		sub_46AEE0((int)v9, (int)v10);
 		v11 = loadString_sub_40F1D0((char*)&byte_587000[156952], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					    495);
-		nox_window_call_field_94(*(int*)&byte_5D4594[1197320], 16397, (int)v11, 4);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16397, (int)v11, 4);
 		v12 = loadString_sub_40F1D0((char*)&byte_587000[157004], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					    498);
-		nox_window_call_field_94(*(int*)&byte_5D4594[1197320], 16397, (int)v12, 4);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16397, (int)v12, 4);
 		if (*(_DWORD*)&byte_5D4594[1197332] == 1)
-			nox_window_call_field_94(*(int*)&byte_5D4594[1197320], 16403, 0, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16403, 0, 0);
 		else
-			nox_window_call_field_94(*(int*)&byte_5D4594[1197320], 16403, 1, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16403, 1, 0);
 		return (_DWORD*)sub_46A8C0(*(int*)&dword_5d4594_1197312);
 	case 0:
 	case 1:
 	case 3:
 		nox_window_set_hidden(*(int*)&byte_5D4594[1197316], 0);
-		nox_window_set_hidden(*(int*)&byte_5D4594[1197320], 1);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1197320, 1);
 		v13 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1197312, 4301);
 		v14 = loadString_sub_40F1D0((char*)&byte_587000[157056], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					    520);
