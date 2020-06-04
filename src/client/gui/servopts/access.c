@@ -1,6 +1,7 @@
 #include "access.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1045516;
 
 //----- (00454640) --------------------------------------------------------
 int sub_454640() {
@@ -16,7 +17,7 @@ int sub_454640() {
 	int v9;               // [esp+4h] [ebp-8h]
 	int v10;              // [esp+8h] [ebp-4h]
 
-	v0 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045516], 10123);
+	v0 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10123);
 	v1 = v0;
 	v2 = sub_43F320(v0[59]) + 1;
 	v1[7] = v1[5] + 4 * v2 + 2;
@@ -61,7 +62,7 @@ int* sub_454740() {
 	WCHAR WideCharStr[18]; // [esp+Ch] [ebp-24h]
 
 	v0 = sub_416640();
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045516], 10136);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10136);
 	v2 = sub_40A630();
 	nox_window_call_field_94((int)v1, 16414, (int)v2, 0);
 	if (*(short*)(v0 + 105) != -1) {
@@ -76,7 +77,7 @@ int* sub_454740() {
 		_itow(*(unsigned __int16*)(v0 + 107), WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&byte_5D4594[1045588], 16414, (int)WideCharStr, 0);
 	}
-	v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045516], 10124);
+	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10124);
 	if ((int)v0[102] < 0)
 		v3[9] |= 4u;
 	if (v0[100] & 0x20) {
@@ -91,11 +92,11 @@ int* sub_454740() {
 		if (v0[100] & 0x10) {
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045520] + 36) = 4;
 		} else {
-			v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045516], 10206);
+			v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10206);
 			sub_46ABB0((int)v4, 0);
 		}
 	}
-	v5 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1045516], 10207);
+	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10207);
 	v5[9] |= 4u;
 	*(_DWORD*)&byte_5D4594[1045596] = *(_DWORD*)&byte_5D4594[1045528];
 	v6 = loadString_sub_40F1D0((char*)&byte_587000[128200], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
