@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801804;
 extern _DWORD dword_5d4594_3799492;
 extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_1193516;
@@ -151,7 +152,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	if (!(v7 & 4)) {
 		if (!sub_48A040(wnd, v8, h, depth))
 			return 0;
-		*(_DWORD*)&byte_5D4594[3801804] = sub_444D90();
+		dword_5d4594_3801804 = sub_444D90();
 		return 1;
 	}
 	v9 = (v7 & 0x17) - 20;
@@ -166,7 +167,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 		dword_5d4594_3801780 = 0;
 		*(_DWORD*)&byte_5D4594[3801776] = v8 >> 2;
 		nox_backbuffer_width32 = v8 >> 5;
-		*(_DWORD*)&byte_5D4594[3801804] = sub_444D90();
+		dword_5d4594_3801804 = sub_444D90();
 		return 1;
 	}
 	v10 = v9 - 1;
@@ -181,7 +182,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	*(_DWORD*)&byte_5D4594[3801808] = 2 * v8;
 	*(_DWORD*)&byte_5D4594[3801776] = v8 >> 1;
 	nox_backbuffer_width32 = v8 >> 4;
-	*(_DWORD*)&byte_5D4594[3801804] = sub_444D90();
+	dword_5d4594_3801804 = sub_444D90();
 	return 1;
 }
 
@@ -1914,8 +1915,8 @@ void __cdecl sub_4340A0(int a1, int a2, int a3, int a4) {
 		*(_DWORD*)(v5 + 24) = (unsigned __int8)a2;
 		*(_DWORD*)(v5 + 28) = (unsigned __int8)a3;
 		dword_69A014(a2, a3, a4, (DWORD*)(v5 + 40));
-		LODWORD(v4) = *(_DWORD*)&byte_5D4594[3801804];
-		if (*(_DWORD*)&byte_5D4594[3801804]) {
+		LODWORD(v4) = dword_5d4594_3801804;
+		if (dword_5d4594_3801804) {
 			v6 = ((unsigned __int8)a2 |
 			      (((unsigned __int8)a2 | ((unsigned __int64)(unsigned __int8)a2 << 16)) << 16))
 			     << 16;
@@ -2824,7 +2825,7 @@ int __cdecl sub_433CD0(BYTE a1, BYTE a2, BYTE a3) {
 	ptr_5D4594_3799572->data[25] = a2;
 	ptr_5D4594_3799572->data[26] = a3;
 	ptr_5D4594_3799572->data[16] = a1 == 0xFF && a2 == 0xFF && a3 == 0xFF;
-	if (*(_DWORD*)&byte_5D4594[3801804]) {
+	if (dword_5d4594_3801804) {
 		v5 = a1 | (a1 << 16);
 		v5 <<= 16;
 		LODWORD(v5) = a1 | (unsigned int)v5;
@@ -2894,8 +2895,8 @@ int __cdecl sub_4341D0(int a1, int a2) {
 			v5 = (unsigned __int8)v10;
 			*(_DWORD*)(v4 + 40) = v3;
 			*(_DWORD*)(v4 + 32) = v5;
-			result = *(_DWORD*)&byte_5D4594[3801804];
-			if (*(_DWORD*)&byte_5D4594[3801804]) {
+			result = dword_5d4594_3801804;
+			if (dword_5d4594_3801804) {
 				v6 = (unsigned __int64)((unsigned __int8)a1 | ((unsigned __int8)a1 << 16)) << 16;
 				LODWORD(v6) = (unsigned __int8)a1 | (unsigned int)v6;
 				*(_QWORD*)v4 = (unsigned __int8)a1 | (v6 << 16);
