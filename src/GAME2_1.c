@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_154952;
 extern _DWORD dword_5d4594_1062528;
 extern _DWORD dword_5d4594_1062524;
 extern _DWORD dword_5d4594_251540;
@@ -8593,7 +8594,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 			goto LABEL_64;
 		}
 		if (*(_DWORD*)&byte_5D4594[805848] && *(_DWORD*)&byte_5D4594[805844]) {
-			if (!dword_587000_80820 && *(_DWORD*)&byte_587000[154952])
+			if (!dword_587000_80820 && dword_587000_154952)
 				goto LABEL_61;
 			v72 = 8;
 		}
