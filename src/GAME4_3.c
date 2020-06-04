@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_251572;
 extern _DWORD dword_5d4594_2650652;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
@@ -13432,10 +13433,10 @@ int __cdecl sub_543FB0(const char* a1) {
 	if (!a1)
 		return -1;
 	v1 = 0;
-	if (*(int*)&byte_5D4594[251572] <= 0)
+	if (*(int*)&dword_5d4594_251572 <= 0)
 		return -1;
 	for (i = (const char*)&byte_5D4594[2678348]; strcmp(i, a1); i += 60) {
-		if (++v1 >= *(int*)&byte_5D4594[251572])
+		if (++v1 >= *(int*)&dword_5d4594_251572)
 			return -1;
 	}
 	return v1;
@@ -13459,7 +13460,7 @@ int __cdecl sub_544020(char* a1) {
 
 //----- (00544070) --------------------------------------------------------
 int __cdecl sub_544070(int a1) {
-	if (a1 < 0 || a1 >= *(int*)&byte_5D4594[251572])
+	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_251572)
 		return 0;
 	*(_DWORD*)&byte_5D4594[3835356] = a1;
 	*(_DWORD*)&byte_5D4594[2489436] = 1;
@@ -13548,7 +13549,7 @@ LABEL_24:
 int __cdecl sub_544240(int a1) {
 	int result; // eax
 
-	if (a1 < 0 || a1 >= *(int*)&byte_5D4594[251572])
+	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_251572)
 		result = 0;
 	else
 		result = byte_5D4594[60 * a1 + 2678400] - 2;
@@ -13561,10 +13562,10 @@ int __cdecl sub_544270(const char* a1) {
 	const char* i; // edi
 
 	v1 = 0;
-	if (*(int*)&byte_5D4594[251572] <= 0)
+	if (*(int*)&dword_5d4594_251572 <= 0)
 		return -1;
 	for (i = (const char*)&byte_5D4594[2678348]; strcmp(i, a1); i += 60) {
-		if (++v1 >= *(int*)&byte_5D4594[251572])
+		if (++v1 >= *(int*)&dword_5d4594_251572)
 			return -1;
 	}
 	return v1;
