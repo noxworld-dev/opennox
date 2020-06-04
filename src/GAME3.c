@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309812;
 extern _DWORD dword_5d4594_1309820;
 extern _DWORD dword_5d4594_3799624;
 extern _DWORD dword_5d4594_3801780;
@@ -5824,7 +5825,7 @@ int sub_4AD570() {
 
 	v0 = nox_client_getMousePos_4309F0();
 	if (sub_43AF70() == 1) {
-		v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1309812], 10317);
+		v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10317);
 		if (!wndIsShown_sub_46ACC0((int)v1) && !sub_46AAB0(v1, v0->field_0, v0->field_4)) {
 			sub_46ADE0((int)v1);
 			nox_window_set_hidden((int)v1, 1);
@@ -5880,7 +5881,7 @@ int __cdecl sub_4AD5D0(int a1, int a2, int* a3, int a4) {
 			result = 0;
 			break;
 		case 10316:
-			v13 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1309812], 10317);
+			v13 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10317);
 			nox_window_set_hidden((int)v13, 0);
 			sub_46A8C0((int)v13);
 			sub_46ADC0((int)v13);
@@ -5896,7 +5897,7 @@ int __cdecl sub_4AD5D0(int a1, int a2, int* a3, int a4) {
 		sub_40A6D0(4 - a4);
 		result = 0;
 	} else if (a2 != 16400 || sub_46B0A0(a3) != 10317 ||
-		   (v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1309812], 10316),
+		   (v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10316),
 		    v5 = nox_window_call_field_94((int)a3, 16404, 0, 0), v6 = v5, v5 < 0) ||
 		   v5 >= *(__int16*)(a3[8] + 44)) {
 	LABEL_24:
@@ -5908,7 +5909,7 @@ int __cdecl sub_4AD5D0(int a1, int a2, int* a3, int a4) {
 		v8 = sub_40A710(v6 + 1);
 		sub_40A6D0(v8);
 		v9 = 4 - sub_40A6C0();
-		v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1309812], 10312);
+		v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10312);
 		nox_window_call_field_94((int)v10, 16394, v9, 0);
 		nox_window_set_hidden((int)a3, 1);
 		sub_46ADE0((int)a3);
@@ -5919,8 +5920,8 @@ int __cdecl sub_4AD5D0(int a1, int a2, int* a3, int a4) {
 
 //----- (004AD820) --------------------------------------------------------
 int sub_4AD820() {
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1309812]);
-	*(_DWORD*)&byte_5D4594[1309812] = 0;
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1309812);
+	dword_5d4594_1309812 = 0;
 	return sub_4BE610();
 }
 
