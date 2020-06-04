@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1063636;
 extern _DWORD dword_5d4594_1049796;
 extern _DWORD dword_5d4594_1062512;
 extern _DWORD dword_5d4594_1049864;
@@ -786,7 +787,7 @@ int* __cdecl sub_463880(int* a1) {
 	wchar_t v77[256];      // [esp+40h] [ebp-200h]
 
 	v1 = sub_43F320(0);
-	v2 = sub_43F320(*(int*)&byte_5D4594[1063636]);
+	v2 = sub_43F320(*(int*)&dword_5d4594_1063636);
 	v68 = v1 - v2;
 	v51 = (double)(v1 - v2) * 0.5 + 0.5;
 	v3 = nox_float2int(v51);
@@ -841,12 +842,12 @@ int* __cdecl sub_463880(int* a1) {
 		v17 = loadString_sub_40F1D0((char*)&byte_587000[138544], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c",
 					    1914);
 		nox_swprintf(v77, v17, v42, v56);
-		sub_43F840(*(int*)&byte_5D4594[1063636], v77, &v67, 0, 0);
+		sub_43F840(*(int*)&dword_5d4594_1063636, v77, &v67, 0, 0);
 		LODWORD(v69) = v15 + v73;
-		sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 - v67 + 193, v15 + v73, 200, 0);
+		sub_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 - v67 + 193, v15 + v73, 200, 0);
 		v18 = sub_470CC0();
 		nox_swprintf(v77, L"%d", v18);
-		sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 + 45, SLODWORD(v69), 200, 0);
+		sub_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 + 45, SLODWORD(v69), 200, 0);
 		v19 = v15 + v1 + 1;
 		if (*(_BYTE*)(v4 + 2251)) {
 			nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650648]);
@@ -869,11 +870,11 @@ int* __cdecl sub_463880(int* a1) {
 			v21 = loadString_sub_40F1D0((char*)&byte_587000[138652], 0,
 						    "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1952);
 			nox_swprintf(v77, v21, v43, v59);
-			sub_43F840(*(int*)&byte_5D4594[1063636], v77, &v67, 0, 0);
-			sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 - v67 + 193, v19 + v73, 200, 0);
+			sub_43F840(*(int*)&dword_5d4594_1063636, v77, &v67, 0, 0);
+			sub_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 - v67 + 193, v19 + v73, 200, 0);
 			v22 = sub_470DD0();
 			nox_swprintf(v77, L"%d", v22);
-			sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 + 45, v19 + v73, 200, 0);
+			sub_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 + 45, v19 + v73, 200, 0);
 			v19 += v1 + 1;
 		}
 		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650660]);
@@ -891,10 +892,10 @@ int* __cdecl sub_463880(int* a1) {
 		v24 = loadString_sub_40F1D0((char*)&byte_587000[138764], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c",
 					    1982);
 		nox_swprintf(v77, v24, v44, v61);
-		sub_43F840(*(int*)&byte_5D4594[1063636], v77, &v67, 0, 0);
-		sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 - v67 + 193, v19 + v73, 200, 0);
+		sub_43F840(*(int*)&dword_5d4594_1063636, v77, &v67, 0, 0);
+		sub_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 - v67 + 193, v19 + v73, 200, 0);
 		nox_swprintf(v77, L"%d", *(_DWORD*)(v4 + 2239));
-		sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 + 45, v19 + v73, 200, 0);
+		sub_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 + 45, v19 + v73, 200, 0);
 		v25 = v19 + v1 + 1;
 		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2614256]);
 		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v25, 90, v1);
@@ -936,14 +937,14 @@ int* __cdecl sub_463880(int* a1) {
 		v28 = loadString_sub_40F1D0((char*)&byte_587000[138872], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c",
 					    2045);
 		nox_swprintf(v77, v28, v48, v64);
-		sub_43F840(*(int*)&byte_5D4594[1063636], v77, &v76, 0, 0);
+		sub_43F840(*(int*)&dword_5d4594_1063636, v77, &v76, 0, 0);
 		LODWORD(v69) = v25 + v73;
-		sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 - v76 + 193, v25 + v73, 200, 0);
+		sub_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 - v76 + 193, v25 + v73, 200, 0);
 		sub_434390(*(int*)&byte_5D4594[2523948]);
 		v65 = (double)*(int*)(v4 + 2235) * 100.0 / v71[2] + *(float*)&v68 + 0.5;
 		v29 = nox_float2int(v65);
 		nox_swprintf(v77, L"%d", v29);
-		sub_43FAF0(*(int*)&byte_5D4594[1063636], v77, v10 + 45, SLODWORD(v69), 200, 0);
+		sub_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 + 45, SLODWORD(v69), 200, 0);
 		sub_434390(*(int*)&byte_5D4594[2523948]);
 		v30 = 2 * v1 + 2 + v25;
 		if (dword_587000_26048 == 6 || dword_587000_26048 == 8)
