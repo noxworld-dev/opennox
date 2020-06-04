@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045432;
 extern _DWORD dword_5d4594_1046924;
 extern _DWORD dword_587000_127004;
 extern _DWORD dword_5d4594_1045468;
@@ -1860,7 +1861,7 @@ int __cdecl sub_451850(int a2, int a3) {
 	sub_4864A0(&byte_5D4594[1045228]);
 	result = 1;
 	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045428] + 184) = &byte_5D4594[1045228];
-	*(_DWORD*)&byte_5D4594[1045432] = 1;
+	dword_5d4594_1045432 = 1;
 	return result;
 }
 
@@ -1895,7 +1896,7 @@ void sub_451970() {
 		sub_4BD2D0(*(LPVOID*)&byte_5D4594[1045436]);
 		*(_DWORD*)&byte_5D4594[1045436] = 0;
 	}
-	*(_DWORD*)&byte_5D4594[1045432] = 0;
+	dword_5d4594_1045432 = 0;
 }
 
 //----- (004519C0) --------------------------------------------------------
@@ -1912,8 +1913,8 @@ int sub_4519C0() {
 	int v9;              // eax
 	int v10;             // eax
 
-	result = *(_DWORD*)&byte_5D4594[1045432];
-	if (*(_DWORD*)&byte_5D4594[1045432]) {
+	result = dword_5d4594_1045432;
+	if (dword_5d4594_1045432) {
 		result = *(_DWORD*)&byte_5D4594[1045448];
 		if (!*(_DWORD*)&byte_5D4594[1045448]) {
 			*(_DWORD*)&byte_5D4594[1045448] = 1;
@@ -2258,8 +2259,8 @@ int sub_4521F0() {
 	unsigned __int8* v1; // esi
 	unsigned __int8* v2; // edi
 
-	result = *(_DWORD*)&byte_5D4594[1045432];
-	if (*(_DWORD*)&byte_5D4594[1045432]) {
+	result = dword_5d4594_1045432;
+	if (dword_5d4594_1045432) {
 		v1 = *(unsigned __int8**)&byte_5D4594[840612];
 		if (*(unsigned __int8**)&byte_5D4594[840612] != &byte_5D4594[840612]) {
 			do {
@@ -2278,8 +2279,8 @@ int***** sub_452230() {
 	int***** result; // eax
 	int**** v1;      // esi
 
-	result = *(int******)&byte_5D4594[1045432];
-	if (*(_DWORD*)&byte_5D4594[1045432]) {
+	result = *(int******)&dword_5d4594_1045432;
+	if (dword_5d4594_1045432) {
 		result = *(int******)&byte_5D4594[840612];
 		if (*(unsigned __int8**)&byte_5D4594[840612] != &byte_5D4594[840612]) {
 			do {
@@ -2297,7 +2298,7 @@ int***** sub_452230() {
 char* __cdecl sub_452270(int a1) {
 	char* result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1045432] && a1 >= 0 && a1 < 1023)
+	if (dword_5d4594_1045432 && a1 >= 0 && a1 < 1023)
 		result = (char*)&byte_5D4594[200 * a1 + 840628];
 	else
 		result = 0;
@@ -2308,7 +2309,7 @@ char* __cdecl sub_452270(int a1) {
 int __cdecl sub_4522A0(int a1) {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1045432])
+	if (dword_5d4594_1045432)
 		result = *(_DWORD*)(a1 + 64);
 	else
 		result = 0;
@@ -2319,7 +2320,7 @@ int __cdecl sub_4522A0(int a1) {
 int __cdecl sub_4522C0(int a1) {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1045432])
+	if (dword_5d4594_1045432)
 		result = *(_DWORD*)(a1 + 8);
 	else
 		result = 0;
@@ -2330,7 +2331,7 @@ int __cdecl sub_4522C0(int a1) {
 char* __cdecl sub_4522E0(int a1) {
 	char* result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1045432])
+	if (dword_5d4594_1045432)
 		result = *(char**)(a1 + 84);
 	else
 		result = (char*)&byte_587000[127128];
@@ -2341,7 +2342,7 @@ char* __cdecl sub_4522E0(int a1) {
 _DWORD* __cdecl sub_452300(_DWORD* a1) {
 	_DWORD* v1; // esi
 
-	if (!*(_DWORD*)&byte_5D4594[1045432])
+	if (!dword_5d4594_1045432)
 		return 0;
 	if (!*(_DWORD*)&byte_587000[126996])
 		return 0;
