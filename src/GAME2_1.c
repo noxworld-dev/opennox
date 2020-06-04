@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_1064916;
 extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_1062480;
@@ -5543,7 +5544,7 @@ int sub_46D830() {
 		return 0;
 	v5 = *(_DWORD*)&byte_5D4594[1082896];
 	v7 = *(_DWORD*)&byte_587000[145540];
-	if (*(_DWORD*)&byte_5D4594[3801780] == 1) {
+	if (dword_5d4594_3801780 == 1) {
 		v7 = 2 * *(_DWORD*)&byte_587000[145540];
 		v5 = 2 * *(_DWORD*)&byte_5D4594[1082896];
 	}
@@ -8584,7 +8585,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					v77.field_0 = 23 * v3[5];
 					v77.field_4 = 23 * (v31 + 1);
 					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
-					if (*(_DWORD*)&byte_5D4594[3801780] == 1 && v32 != (int*)31) {
+					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
 						v33 = v32[2];
@@ -8601,7 +8602,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					v77.field_0 = 23 * v3[5];
 					v77.field_4 = 23 * v35;
 					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
-					if (*(_DWORD*)&byte_5D4594[3801780] == 1 && v32 != (int*)31) {
+					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
 						v36 = v32[2];
@@ -8616,7 +8617,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					v77.field_0 = 23 * v3[5];
 					v77.field_4 = 23 * v37;
 					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
-					if (*(_DWORD*)&byte_5D4594[3801780] == 1 && v32 != (int*)31) {
+					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
 						v38 = v32[2];
@@ -8631,7 +8632,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					v77.field_0 = 23 * v3[5] + 11;
 					v77.field_4 = 23 * v39 + 11;
 					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
-					if (*(_DWORD*)&byte_5D4594[3801780] == 1 && v32 != (int*)31) {
+					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
 						v40 = v32[2];
@@ -8646,7 +8647,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					v77.field_0 = 23 * v3[5];
 					v77.field_4 = 23 * (v41 + 1);
 					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
-					if (*(_DWORD*)&byte_5D4594[3801780] == 1 && v32 != (int*)31) {
+					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
 						v42 = v32[2];
@@ -8662,7 +8663,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					v77.field_0 = 23 * v3[5];
 					v77.field_4 = 23 * (v43 + 1);
 					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
-					if (*(_DWORD*)&byte_5D4594[3801780] == 1 && v32 != (int*)31) {
+					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
 						v44 = v32[2];
