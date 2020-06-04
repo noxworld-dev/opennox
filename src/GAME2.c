@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831088;
 extern _DWORD dword_5d4594_1046936;
 extern _DWORD dword_5d4594_1047540;
 extern _DWORD dword_5d4594_831236;
@@ -435,13 +436,13 @@ void sub_44D3A0() {
 		case 3:
 			if (!*(_DWORD*)&byte_587000[122848] || !*(_DWORD*)&byte_5D4594[830972] ||
 			    *(_DWORD*)&byte_5D4594[830872] != *(_DWORD*)&byte_5D4594[830972] ||
-			    !*(_DWORD*)&byte_5D4594[831088] || AIL_stream_status(*(_DWORD*)&byte_5D4594[831088]) == 2) {
+			    !dword_5d4594_831088 || AIL_stream_status(dword_5d4594_831088) == 2) {
 				*(_DWORD*)&byte_5D4594[830864] = 4;
 				sub_486350((int)&byte_5D4594[830876], 0);
 			}
 			break;
 		case 4:
-			if (!*(_DWORD*)&byte_5D4594[831088] || AIL_stream_status(*(_DWORD*)&byte_5D4594[831088]) == 2 ||
+			if (!dword_5d4594_831088 || AIL_stream_status(dword_5d4594_831088) == 2 ||
 			    !(*(_DWORD*)&byte_5D4594[830880] & 0xFFFF0000)) {
 				sub_44D640();
 				*(_DWORD*)&byte_5D4594[830864] = 0;
@@ -459,9 +460,9 @@ void sub_44D3A0() {
 		}
 		sub_486520((unsigned int*)&byte_5D4594[830980]);
 		sub_486520((unsigned int*)&byte_5D4594[830876]);
-		if (*(_DWORD*)&byte_5D4594[831088] &&
+		if (dword_5d4594_831088 &&
 		    (**(_BYTE**)&byte_587000[81128] & 2 || byte_5D4594[830876] & 2 || byte_5D4594[830980] & 2)) {
-			sub_44D5C0(*(int*)&byte_5D4594[831088], *(int*)&byte_5D4594[830860]);
+			sub_44D5C0(*(int*)&dword_5d4594_831088, *(int*)&byte_5D4594[830860]);
 		}
 	}
 }
@@ -487,10 +488,10 @@ void __cdecl sub_44D5C0(int a1, int a2) {
 int sub_44D640() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[831088];
-	if (*(_DWORD*)&byte_5D4594[831088]) {
-		AIL_close_stream(*(_DWORD*)&byte_5D4594[831088]);
-		*(_DWORD*)&byte_5D4594[831088] = 0;
+	result = dword_5d4594_831088;
+	if (dword_5d4594_831088) {
+		AIL_close_stream(dword_5d4594_831088);
+		dword_5d4594_831088 = 0;
 	}
 	return result;
 }
@@ -516,12 +517,12 @@ BOOL __cdecl sub_44D660(const char* a1) {
 		v2[4] = v1;
 	}
 	v3 = AIL_open_stream(*(_DWORD*)&byte_5D4594[831092], v7, 51200);
-	*(_DWORD*)&byte_5D4594[831088] = v3;
+	dword_5d4594_831088 = v3;
 	if (v3)
 		return v3 != 0;
 	v4 = sub_413890();
 	if (!v4) {
-		v3 = *(_DWORD*)&byte_5D4594[831088];
+		v3 = dword_5d4594_831088;
 		return v3 != 0;
 	}
 	*(_DWORD*)&byte_587000[122856] = 1;
@@ -531,17 +532,17 @@ BOOL __cdecl sub_44D660(const char* a1) {
 	if (v5 != 1 && v7[v5 + 38] != 92)
 		*(_WORD*)&v7[strlen(&v7[40]) + 40] = *(_WORD*)&byte_587000[122876];
 	strcat(&v7[40], v7);
-	*(_DWORD*)&byte_5D4594[831088] = AIL_open_stream(*(_DWORD*)&byte_5D4594[831092], &v7[40], 51200);
-	return *(_DWORD*)&byte_5D4594[831088] != 0;
+	dword_5d4594_831088 = AIL_open_stream(*(_DWORD*)&byte_5D4594[831092], &v7[40], 51200);
+	return dword_5d4594_831088 != 0;
 }
 // 581408: using guessed type int __stdcall AIL_open_stream(_DWORD, _DWORD, _DWORD);
 
 //----- (0044D7E0) --------------------------------------------------------
 int __cdecl sub_44D7E0(int a1) {
-	if (!*(_DWORD*)&byte_5D4594[831088])
+	if (!dword_5d4594_831088)
 		return 0;
-	sub_44D5C0(*(int*)&byte_5D4594[831088], a1);
-	AIL_start_stream(*(_DWORD*)&byte_5D4594[831088]);
+	sub_44D5C0(*(int*)&dword_5d4594_831088, a1);
+	AIL_start_stream(dword_5d4594_831088);
 	return 1;
 }
 // 581410: using guessed type int __stdcall AIL_start_stream(_DWORD);
@@ -584,7 +585,7 @@ int __cdecl sub_44D900(int a1, int a2) {
 int sub_44D930() {
 	if (!*(_DWORD*)&byte_587000[122848])
 		return 0;
-	if (*(_DWORD*)&byte_5D4594[830872] || *(_DWORD*)&byte_5D4594[831088])
+	if (*(_DWORD*)&byte_5D4594[830872] || dword_5d4594_831088)
 		return 1;
 	return 0;
 }
