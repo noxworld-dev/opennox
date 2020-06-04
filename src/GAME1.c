@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251548;
 extern _DWORD dword_5d4594_251568;
 extern _DWORD dword_5d4594_251572;
 extern _DWORD dword_5d4594_2650672;
@@ -5977,14 +5978,14 @@ int sub_410160() {
 	for (int i = 0; i < 8192; i++) {
 		int v1 = dword_5D4594_251544[i];
 		if (v1) {
-			int v2 = *(_DWORD*)&byte_5D4594[251548];
+			int v2 = dword_5d4594_251548;
 			int v3 = 0;
 			do {
 				v3 = *(_DWORD*)(v1 + 16);
 				*(_DWORD*)(v1 + 20) = v2;
 				v2 = v1;
 				v1 = v3;
-				*(_DWORD*)&byte_5D4594[251548] = v2;
+				dword_5d4594_251548 = v2;
 			} while (v3);
 		}
 		dword_5D4594_251544[i] = 0;
@@ -6014,8 +6015,8 @@ int sub_4101D0() {
 		if (!v2)
 			break;
 		++v1;
-		v2[5] = *(_DWORD*)&byte_5D4594[251548];
-		*(_DWORD*)&byte_5D4594[251548] = v2;
+		v2[5] = dword_5d4594_251548;
+		dword_5d4594_251548 = v2;
 		if (v1 >= 0x2000) {
 			sub_410160();
 			return 1;
@@ -6037,10 +6038,10 @@ LPVOID __cdecl sub_410250(int a1, int a2) {
 	result = (LPVOID)nox_server_getWallAtPoint_410580(a1, a2);
 	if (result)
 		return result;
-	v3 = *(_DWORD*)&byte_5D4594[251548];
-	if (!*(_DWORD*)&byte_5D4594[251548])
+	v3 = dword_5d4594_251548;
+	if (!dword_5d4594_251548)
 		return 0;
-	*(_DWORD*)&byte_5D4594[251548] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[251548] + 20);
+	dword_5d4594_251548 = *(_DWORD*)(dword_5d4594_251548 + 20);
 	memset((void*)v3, 0, 0x24u);
 	*(_BYTE*)(v3 + 6) = a2;
 	*(_BYTE*)(v3 + 5) = a1;
@@ -6165,15 +6166,15 @@ _DWORD* __cdecl sub_410430(int a1, int a2) {
 		} while (v8);
 		if (v7) {
 			*(_DWORD*)(v7 + 24) = v5[6];
-			result = *(_DWORD**)&byte_5D4594[251548];
-			v5[5] = *(_DWORD*)&byte_5D4594[251548];
-			*(_DWORD*)&byte_5D4594[251548] = v5;
+			result = *(_DWORD**)&dword_5d4594_251548;
+			v5[5] = dword_5d4594_251548;
+			dword_5d4594_251548 = v5;
 		} else {
 		LABEL_25:
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[251556] + 4 * a2) = v5[6];
-			result = *(_DWORD**)&byte_5D4594[251548];
-			v5[5] = *(_DWORD*)&byte_5D4594[251548];
-			*(_DWORD*)&byte_5D4594[251548] = v5;
+			result = *(_DWORD**)&dword_5d4594_251548;
+			v5[5] = dword_5d4594_251548;
+			dword_5d4594_251548 = v5;
 		}
 	}
 	return result;
@@ -6317,8 +6318,8 @@ void sub_4106C0() {
 			} while (v2);
 		}
 	}
-	v3 = *(_DWORD**)&byte_5D4594[251548];
-	if (*(_DWORD*)&byte_5D4594[251548]) {
+	v3 = *(_DWORD**)&dword_5d4594_251548;
+	if (dword_5d4594_251548) {
 		do {
 			v4 = (_DWORD*)v3[5];
 			free(v3);
