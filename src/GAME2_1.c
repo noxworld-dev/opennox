@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1049500;
 extern _DWORD dword_5d4594_1062512;
 extern _DWORD dword_5d4594_1049864;
 extern _DWORD dword_5d4594_1062508;
@@ -83,8 +84,8 @@ int sub_460D50() {
 	unsigned __int8* v3; // esi
 	int result;          // eax
 
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1049500]);
-	*(_DWORD*)&byte_5D4594[1049500] = 0;
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1049500);
+	dword_5d4594_1049500 = 0;
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1049504);
 	dword_5d4594_1049504 = 0;
 	sub_46C4E0(*(_DWORD**)&byte_5D4594[1049520]);
@@ -169,7 +170,7 @@ _DWORD* sub_461010() {
 	if (*(_DWORD*)&byte_5D4594[1049484]) {
 		nox_window_set_hidden(*(int*)&byte_5D4594[1048148], 1);
 		nox_window_set_hidden(*(int*)&byte_5D4594[1049512], 0);
-		sub_46AE10(*(int*)&byte_5D4594[1049500], 0);
+		sub_46AE10(*(int*)&dword_5d4594_1049500, 0);
 		result = sub_452D80(797, 100);
 		*(_DWORD*)&byte_5D4594[1049484] = 0;
 	}
@@ -186,7 +187,7 @@ _DWORD* sub_461060() {
 		sub_4606B0();
 	nox_window_set_hidden(*(int*)&byte_5D4594[1048148], 0);
 	nox_window_set_hidden(*(int*)&byte_5D4594[1049512], 1);
-	sub_46AE10(*(int*)&byte_5D4594[1049500], 1);
+	sub_46AE10(*(int*)&dword_5d4594_1049500, 1);
 	result = sub_452D80(796, 100);
 	*(_DWORD*)&byte_5D4594[1049484] = 1;
 	return result;
