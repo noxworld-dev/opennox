@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1098624;
 extern _DWORD dword_5d4594_2650676;
 extern _DWORD dword_5d4594_3798156;
 extern _DWORD dword_5d4594_1189596;
@@ -1415,13 +1416,13 @@ int sub_478000() {
 }
 
 //----- (00478030) --------------------------------------------------------
-int sub_478030() { return *(_DWORD*)&byte_5D4594[1098624]; }
+int sub_478030() { return dword_5d4594_1098624; }
 
 //----- (00478040) --------------------------------------------------------
 int sub_478040() {
 	__int16 v2; // [esp+0h] [ebp-2h]
 
-	if (!*(_DWORD*)&byte_5D4594[1098624])
+	if (!dword_5d4594_1098624)
 		return 0;
 	v2 = 4809;
 	sub_40EBC0(31, 0, &v2, 2);
@@ -1434,7 +1435,7 @@ int __cdecl sub_478080(int a1) {
 	char* v1;   // eax
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1098624] && (v1 = sub_4780A0(a1)) != 0)
+	if (dword_5d4594_1098624 && (v1 = sub_4780A0(a1)) != 0)
 		result = *(_DWORD*)v1;
 	else
 		result = 0;
@@ -1581,13 +1582,13 @@ int __cdecl sub_478480(int a1, int a2, int* a3, int a4) {
 	sub_452D80(766, 100);
 	switch (v5) {
 	case 3801:
-		if (!*(_DWORD*)&byte_5D4594[1098624])
+		if (!dword_5d4594_1098624)
 			return 0;
 		sub_478040();
 		result = 0;
 		break;
 	case 3802:
-		if (!*(_DWORD*)&byte_5D4594[1098624])
+		if (!dword_5d4594_1098624)
 			return 0;
 		if (dword_5d4594_1098628 == 4)
 			sub_467680();
@@ -1599,14 +1600,14 @@ int __cdecl sub_478480(int a1, int a2, int* a3, int a4) {
 		result = 0;
 		break;
 	case 3803:
-		if (!*(_DWORD*)&byte_5D4594[1098624])
+		if (!dword_5d4594_1098624)
 			return 0;
 		sub_467650();
 		dword_5d4594_1098628 = 4;
 		result = 0;
 		break;
 	case 3804:
-		if (*(_DWORD*)&byte_5D4594[1098624]) {
+		if (dword_5d4594_1098624) {
 			if (dword_5d4594_1098628 == 4)
 				sub_467680();
 			nox_client_setCursorType_477610(11);
@@ -1870,7 +1871,7 @@ int sub_478F80() {
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1098576);
 	result = 0;
 	dword_5d4594_1098576 = 0;
-	*(_DWORD*)&byte_5D4594[1098624] = 0;
+	dword_5d4594_1098624 = 0;
 	dword_5d4594_1098628 = 1;
 	*(_DWORD*)&byte_5D4594[1098596] = 0;
 	*(_DWORD*)&byte_5D4594[1098600] = 0;
@@ -1932,10 +1933,10 @@ char* __cdecl sub_4790F0(int a1) {
 int sub_479280() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1098624];
-	if (*(_DWORD*)&byte_5D4594[1098624]) {
+	result = dword_5d4594_1098624;
+	if (dword_5d4594_1098624) {
 		sub_467680();
-		*(_DWORD*)&byte_5D4594[1098624] = 0;
+		dword_5d4594_1098624 = 0;
 		dword_5d4594_1098628 = 0;
 		sub_478F10();
 		sub_44D8F0();
