@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
 extern _DWORD dword_5d4594_3798784;
@@ -2153,9 +2154,9 @@ void sub_433C20() {
 		free(*(LPVOID*)&byte_5D4594[3804668]);
 		*(_DWORD*)&byte_5D4594[3804668] = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[3804672]) {
-		free(*(LPVOID*)&byte_5D4594[3804672]);
-		*(_DWORD*)&byte_5D4594[3804672] = 0;
+	if (dword_5d4594_3804672) {
+		free(*(LPVOID*)&dword_5d4594_3804672);
+		dword_5d4594_3804672 = 0;
 	}
 	if (dword_5d4594_3804656) {
 		free(*(LPVOID*)&dword_5d4594_3804656);
@@ -3123,7 +3124,7 @@ int sub_434CC0() {
 		dword_69A014 = sub_4351C0;
 	}
 	result = calloc(257, 2);
-	*(_DWORD*)&byte_5D4594[3804672] = result;
+	dword_5d4594_3804672 = result;
 	if (!result) {
 		return 0;
 	}
@@ -3138,7 +3139,7 @@ int sub_434CC0() {
 		return 0;
 	}
 	for (i = 0; i < 256; ++i) {
-		*(_WORD*)(*(_DWORD*)&byte_5D4594[3804672] + 2 * i) = sub_4344A0(i, 0, 0);
+		*(_WORD*)(dword_5d4594_3804672 + 2 * i) = sub_4344A0(i, 0, 0);
 		*(_WORD*)(dword_5d4594_3804656 + 2 * i) = sub_4344A0(0, i, 0);
 		*(_WORD*)(dword_5d4594_3804664 + 2 * i) = sub_4344A0(0, 0, i);
 	}
