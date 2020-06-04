@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_1193516;
 extern _DWORD dword_5d4594_3799624;
 extern _DWORD dword_5d4594_3801780;
@@ -2149,9 +2150,9 @@ void sub_433C20() {
 	sub_435380(&g_ddraw_gamma_control);
 	sub_4353A0(&g_ddraw_palette);
 #endif
-	if (*(_DWORD*)&byte_5D4594[810640]) {
-		free(*(LPVOID*)&byte_5D4594[810640]);
-		*(_DWORD*)&byte_5D4594[810640] = 0;
+	if (dword_5d4594_810640) {
+		free(*(LPVOID*)&dword_5d4594_810640);
+		dword_5d4594_810640 = 0;
 	}
 	if (*(_DWORD*)&byte_5D4594[3804668]) {
 		free(*(LPVOID*)&byte_5D4594[3804668]);
