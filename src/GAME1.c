@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_2660652;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_4668;
@@ -2862,7 +2863,7 @@ int __stdcall sub_40C140(int a1, int a2, _DWORD* a3) {
 
 	if (a2 == -2147221396 || a2) {
 		if (sub_41E300(11)) {
-			*(_DWORD*)&byte_5D4594[2660652] = a2;
+			dword_5d4594_2660652 = a2;
 			v5 = sub_41E2F0();
 			sub_41DA70(v5, 5);
 			v6 = sub_41E2F0();
@@ -2883,7 +2884,7 @@ int __stdcall sub_40C1B0(int a1, int a2, int a3) {
 	int v3; // eax
 
 	if (a2 == -2147221402 && (sub_41E2F0() == 7 || sub_41E2F0() == 5)) {
-		*(_DWORD*)&byte_5D4594[2660652] = -2147221402;
+		dword_5d4594_2660652 = -2147221402;
 		v3 = sub_41E2F0();
 		sub_41DA70(v3, 5);
 	}
@@ -2940,7 +2941,7 @@ int __stdcall sub_40C2E0(int a1, int a2, int a3, const char* a4) {
 	if (a2 <= -2147221390) {
 		if (a2 >= -2147221392) {
 		LABEL_10:
-			*(_DWORD*)&byte_5D4594[2660652] = a2;
+			dword_5d4594_2660652 = a2;
 			v7 = sub_41E2F0();
 			sub_41DA70(v7, 5);
 			return 0;
@@ -2951,7 +2952,7 @@ int __stdcall sub_40C2E0(int a1, int a2, int a3, const char* a4) {
 			goto LABEL_10;
 		}
 		if (sub_41E300(11)) {
-			*(_DWORD*)&byte_5D4594[2660652] = -2147221396;
+			dword_5d4594_2660652 = -2147221396;
 			v5 = sub_41E2F0();
 			sub_41DA70(v5, 5);
 			v6 = sub_41E2F0();
@@ -2999,7 +3000,7 @@ int __stdcall sub_40C420(int a1, int a2, int a3, int* a4) {
 
 	if (sub_41E2F0() == 7 || sub_41E2F0() == 8) {
 		if (a2 == -2147220994) {
-			*(_DWORD*)&byte_5D4594[2660652] = -2147220994;
+			dword_5d4594_2660652 = -2147220994;
 			v6 = sub_41E2F0();
 			sub_41DA70(v6, 5);
 		} else if (!a2) {
@@ -3165,7 +3166,7 @@ int __stdcall sub_40C830(int a1, int a2, int a3) {
 	int v4; // eax
 
 	if (sub_41E2F0() == 7 && !a2 && sub_41E300(11)) {
-		*(_DWORD*)&byte_5D4594[2660652] = 1;
+		dword_5d4594_2660652 = 1;
 		v3 = sub_41E2F0();
 		sub_41DA70(v3, 5);
 		v4 = sub_41E2F0();
@@ -3222,7 +3223,7 @@ int __stdcall sub_40C960(int a1, int a2, _DWORD* a3) {
 		if (a2) {
 			if (!sub_41E300(11))
 				return 0;
-			*(_DWORD*)&byte_5D4594[2660652] = a2;
+			dword_5d4594_2660652 = a2;
 			v3 = sub_41E2F0();
 			sub_41DA70(v3, 5);
 			v6 = 9;
@@ -3283,7 +3284,7 @@ BOOL __stdcall sub_40CA60(int a1, int a2, const void* a3) {
 				return 0;
 			}
 			if (sub_41E300(11)) {
-				*(_DWORD*)&byte_5D4594[2660652] = a2;
+				dword_5d4594_2660652 = a2;
 				v4 = sub_41E2F0();
 				sub_41DA70(v4, 6);
 				v5 = sub_41E2F0();
@@ -3375,7 +3376,7 @@ int __stdcall sub_40CBE0(int a1, int a2) {
 	case 15:
 		if (!sub_41E300(11))
 			return 0;
-		*(_DWORD*)&byte_5D4594[2660652] = a2;
+		dword_5d4594_2660652 = a2;
 		v2 = sub_41E2F0();
 		sub_41DA70(v2, 5);
 		v3 = sub_41E2F0();
@@ -4291,7 +4292,7 @@ int __stdcall sub_40DD70(int a1, int a2, int a3, const char* a4, const char* a5)
 		v5 = sub_41E2F0();
 		sub_41DA70(v5, 5);
 		result = a3;
-		*(_DWORD*)&byte_5D4594[2660652] = a2;
+		dword_5d4594_2660652 = a2;
 		if (a3) {
 			nox_swprintf((wchar_t*)&byte_5D4594[2660140], L"%S", a3);
 			result = 0;
@@ -4320,7 +4321,7 @@ int __stdcall sub_40DE10(int a1, int a2, int a3, int a4) {
 	int v7; // eax
 	int v8; // eax
 
-	*(_DWORD*)&byte_5D4594[2660652] = a2;
+	dword_5d4594_2660652 = a2;
 	if (a2) {
 		*(_WORD*)&byte_5D4594[2660140] = 0;
 		v4 = sub_41E2F0();
@@ -4345,7 +4346,7 @@ int __stdcall sub_40DE10(int a1, int a2, int a3, int a4) {
 
 //----- (0040DE90) --------------------------------------------------------
 int __stdcall sub_40DE90(int a1, int a2, int a3, int a4) {
-	*(_DWORD*)&byte_5D4594[2660652] = a2;
+	dword_5d4594_2660652 = a2;
 	return 0;
 }
 
