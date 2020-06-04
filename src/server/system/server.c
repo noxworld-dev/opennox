@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1599640;
 extern _DWORD dword_5d4594_1548476;
 extern _DWORD dword_5d4594_2487236;
 extern _DWORD dword_5d4594_1599656;
@@ -1271,7 +1272,7 @@ int sub_4FC590() {
 		result = sub_4DA7C0();
 		if (result) {
 			v1 = 0;
-			if (*(_DWORD*)&byte_5D4594[1599640] > 0) {
+			if (dword_5d4594_1599640 > 0) {
 				v2 = 0;
 				do {
 					if (!strncmp("MapInitialize",
@@ -1279,7 +1280,7 @@ int sub_4FC590() {
 						nox_server_doMapScript_507310(v1, 0, 0);
 					++v1;
 					v2 += 48;
-				} while (v1 < *(int*)&byte_5D4594[1599640]);
+				} while (v1 < *(int*)&dword_5d4594_1599640);
 			}
 			result = sub_4FC570(0);
 		}
@@ -1298,7 +1299,7 @@ int sub_4FC600() {
 		result = sub_4DA7C0();
 		if (result) {
 			v1 = 0;
-			if (*(_DWORD*)&byte_5D4594[1599640] > 0) {
+			if (dword_5d4594_1599640 > 0) {
 				v2 = 0;
 				do {
 					if (!strncmp("MapEntry", *(const char**)(v2 + dword_5d4594_1599636),
@@ -1306,7 +1307,7 @@ int sub_4FC600() {
 						nox_server_doMapScript_507310(v1, 0, 0);
 					++v1;
 					v2 += 48;
-				} while (v1 < *(int*)&byte_5D4594[1599640]);
+				} while (v1 < *(int*)&dword_5d4594_1599640);
 			}
 			result = sub_4FC580(0);
 		}
@@ -2339,14 +2340,14 @@ int sub_4D1860_server() {
 	sub_4D22B0();
 	sub_4D9800(0, 1);
 	v0 = 0;
-	if (*(_DWORD*)&byte_5D4594[1599640] > 0) {
+	if (dword_5d4594_1599640 > 0) {
 		v1 = 0;
 		do {
 			if (!strncmp("MapExit", *(const char**)(v1 + dword_5d4594_1599636), 7u))
 				nox_server_doMapScript_507310(v0, 0, 0);
 			++v0;
 			v1 += 48;
-		} while (v0 < *(int*)&byte_5D4594[1599640]);
+		} while (v0 < *(int*)&dword_5d4594_1599640);
 	}
 	v2 = sub_409B40();
 	sub_500510(v2);
@@ -2790,7 +2791,7 @@ int sub_4D2580_server() {
 					v23 = 0;
 					v24 = (*(_DWORD*)(v22 + 16) >> 15) & 1;
 					if (!v24) {
-						if (*(_DWORD*)&byte_5D4594[1599640] > 0) {
+						if (dword_5d4594_1599640 > 0) {
 							v25 = 0;
 							do {
 								if (!strncmp(
@@ -2800,7 +2801,7 @@ int sub_4D2580_server() {
 									nox_server_doMapScript_507310(v23, 0, 0);
 								++v23;
 								v25 += 48;
-							} while (v23 < *(int*)&byte_5D4594[1599640]);
+							} while (v23 < *(int*)&dword_5d4594_1599640);
 						}
 						sub_40A4D0(0x8000000);
 						v26 = sub_4DB160();
