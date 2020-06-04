@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599656;
 extern _DWORD dword_5d4594_1569648;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_1599636;
@@ -10869,7 +10870,7 @@ int sub_5066D0() {
 	result = nox_new_alloc_class("VoteClass", 52, 64);
 	*(_DWORD*)&byte_5D4594[1599652] = result;
 	if (result) {
-		*(_DWORD*)&byte_5D4594[1599656] = 0;
+		dword_5d4594_1599656 = 0;
 		result = 1;
 	}
 	return result;
@@ -10878,7 +10879,7 @@ int sub_5066D0() {
 //----- (00506700) --------------------------------------------------------
 void sub_506700() {
 	sub_4144D0(*(_DWORD**)&byte_5D4594[1599652]);
-	*(_DWORD*)&byte_5D4594[1599656] = 0;
+	dword_5d4594_1599656 = 0;
 }
 
 //----- (00506720) --------------------------------------------------------
@@ -10888,7 +10889,7 @@ int sub_506720() {
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1599652]);
 	result = 0;
 	*(_DWORD*)&byte_5D4594[1599652] = 0;
-	*(_DWORD*)&byte_5D4594[1599656] = 0;
+	dword_5d4594_1599656 = 0;
 	return result;
 }
 
@@ -10902,9 +10903,9 @@ int __cdecl sub_506740(int a1) {
 	result = a1;
 	if (a1) {
 		if (*(_BYTE*)(a1 + 8) & 4) {
-			result = *(_DWORD*)&byte_5D4594[1599656];
+			result = dword_5d4594_1599656;
 			v2 = 1 << *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064);
-			if (*(_DWORD*)&byte_5D4594[1599656]) {
+			if (dword_5d4594_1599656) {
 				do {
 					v3 = *(_DWORD*)(result + 8);
 					v4 = *(_DWORD*)(result + 44);
@@ -10937,7 +10938,7 @@ void __cdecl sub_5067B0(int a1) {
 		}
 		sub_506810(a1);
 		sub_414330(*(unsigned int**)&byte_5D4594[1599652], (_QWORD*)a1);
-		if (!*(_DWORD*)&byte_5D4594[1599656])
+		if (!dword_5d4594_1599656)
 			sub_507190(255, 0);
 	}
 }
@@ -10957,7 +10958,7 @@ int __cdecl sub_506810(int a1) {
 		result = *(_DWORD*)(a1 + 44);
 		*(_DWORD*)(v3 + 44) = result;
 	} else {
-		*(_DWORD*)&byte_5D4594[1599656] = *(_DWORD*)(a1 + 44);
+		dword_5d4594_1599656 = *(_DWORD*)(a1 + 44);
 	}
 	return result;
 }
@@ -11031,8 +11032,8 @@ char __cdecl sub_5068E0(int a1, int a2, wchar_t* a3) {
 								if (a2 != v6) {
 									if (!sub_417DA0(4) ||
 									    (v3 = sub_419150(a2 + 48, v6 + 48)) != 0) {
-										v7 = *(_DWORD*)&byte_5D4594[1599656];
-										if (!*(_DWORD*)&byte_5D4594[1599656])
+										v7 = dword_5d4594_1599656;
+										if (!dword_5d4594_1599656)
 											goto LABEL_21;
 										while (*(_DWORD*)v7 != a1 ||
 										       *(_DWORD*)(v7 + 28) != v6) {
@@ -11077,7 +11078,7 @@ _DWORD* __cdecl sub_506A20(int a1, int a2) {
 	v2 = 0;
 	if (!a2 || !(*(_BYTE*)(a2 + 8) & 4))
 		return 0;
-	if (!*(_DWORD*)&byte_5D4594[1599656])
+	if (!dword_5d4594_1599656)
 		v2 = 1;
 	v3 = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1599652]);
 	if (!v3)
@@ -11110,10 +11111,10 @@ int __cdecl sub_506AD0(int a1) {
 
 	result = a1;
 	*(_DWORD*)(a1 + 48) = 0;
-	*(_DWORD*)(a1 + 44) = *(_DWORD*)&byte_5D4594[1599656];
-	if (*(_DWORD*)&byte_5D4594[1599656])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1599656] + 48) = a1;
-	*(_DWORD*)&byte_5D4594[1599656] = a1;
+	*(_DWORD*)(a1 + 44) = dword_5d4594_1599656;
+	if (dword_5d4594_1599656)
+		*(_DWORD*)(dword_5d4594_1599656 + 48) = a1;
+	dword_5d4594_1599656 = a1;
 	return result;
 }
 
@@ -11129,8 +11130,8 @@ _DWORD* __cdecl sub_506B00(int a1, int a2) {
 			result = *(_DWORD**)(*(_DWORD*)(a2 + 748) + 276);
 			v3 = 1 << *((_BYTE*)result + 2064);
 			if (result[1198]) {
-				result = *(_DWORD**)&byte_5D4594[1599656];
-				if (!*(_DWORD*)&byte_5D4594[1599656])
+				result = *(_DWORD**)&dword_5d4594_1599656;
+				if (!dword_5d4594_1599656)
 					goto LABEL_9;
 				while (*result != a1) {
 					result = (_DWORD*)result[11];
@@ -11192,8 +11193,8 @@ _DWORD* __cdecl sub_506B80(int a1, int a2, wchar_t* a3) {
 								if (v6) {
 									if (a2 != v6) {
 										result =
-										    *(_DWORD**)&byte_5D4594[1599656];
-										if (!*(_DWORD*)&byte_5D4594[1599656])
+										    *(_DWORD**)&dword_5d4594_1599656;
+										if (!dword_5d4594_1599656)
 											goto LABEL_20;
 										while (*result != a1 ||
 										       result[7] != v6) {
@@ -11269,10 +11270,10 @@ void __cdecl sub_506D00(int a1, wchar_t* a2) {
 					if (v2[2064] != 31) {
 						v3 = *((_DWORD*)v2 + 514);
 						if (v3) {
-							v4 = *(_DWORD*)&byte_5D4594[1599656];
+							v4 = dword_5d4594_1599656;
 							v5 = 1 << *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) +
 									    2064);
-							if (*(_DWORD*)&byte_5D4594[1599656]) {
+							if (dword_5d4594_1599656) {
 								while (*(_DWORD*)v4 || *(_DWORD*)(v4 + 28) != v3 ||
 								       !(v5 & *(_DWORD*)(v4 + 8))) {
 									v4 = *(_DWORD*)(v4 + 44);
@@ -11304,9 +11305,9 @@ void __cdecl sub_506DE0(int a1) {
 
 	if (a1) {
 		if (*(_BYTE*)(a1 + 8) & 4) {
-			result = *(_DWORD*)&byte_5D4594[1599656];
+			result = dword_5d4594_1599656;
 			v2 = 1 << *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064);
-			if (*(_DWORD*)&byte_5D4594[1599656]) {
+			if (dword_5d4594_1599656) {
 				while (*(_DWORD*)result != 2) {
 					result = *(_DWORD*)(result + 44);
 					if (!result)
@@ -11347,10 +11348,10 @@ void __cdecl sub_506E50(int a1, wchar_t* a2) {
 					if (v2[2064] != 31) {
 						v3 = *((_DWORD*)v2 + 514);
 						if (v3) {
-							v4 = *(_DWORD*)&byte_5D4594[1599656];
+							v4 = dword_5d4594_1599656;
 							v5 = 1 << *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) +
 									    2064);
-							if (*(_DWORD*)&byte_5D4594[1599656]) {
+							if (dword_5d4594_1599656) {
 								while (*(_DWORD*)v4 != 3 || *(_DWORD*)(v4 + 28) != v3 ||
 								       !(v5 & *(_DWORD*)(v4 + 8))) {
 									v4 = *(_DWORD*)(v4 + 44);
@@ -11485,7 +11486,7 @@ int __cdecl sub_507190(int a1, char a2) {
 }
 
 //----- (005071C0) --------------------------------------------------------
-BOOL sub_5071C0() { return *(_DWORD*)&byte_5D4594[1599656] != 0; }
+BOOL sub_5071C0() { return dword_5d4594_1599656 != 0; }
 
 //----- (005071D0) --------------------------------------------------------
 int __cdecl sub_5071D0(const char* a1) {
