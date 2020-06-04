@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386212;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_2386180;
 extern _DWORD dword_5d4594_2386496;
@@ -2750,7 +2751,7 @@ int sub_50D780() {
 	result = nox_new_alloc_class("SpawnClass", 12, 96);
 	*(_DWORD*)&byte_5D4594[2386216] = result;
 	if (result) {
-		*(_DWORD*)&byte_5D4594[2386212] = 0;
+		dword_5d4594_2386212 = 0;
 		result = nox_new_alloc_class("MonsterListClass", 148, 96);
 		*(_DWORD*)&byte_5D4594[2386220] = result;
 		if (result) {
@@ -2765,7 +2766,7 @@ int sub_50D780() {
 //----- (0050D7E0) --------------------------------------------------------
 void sub_50D7E0() {
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2386216]);
-	*(_DWORD*)&byte_5D4594[2386212] = 0;
+	dword_5d4594_2386212 = 0;
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2386220]);
 	dword_5d4594_2386224 = 0;
 	*(_DWORD*)&byte_5D4594[2386228] = 0;
@@ -2775,7 +2776,7 @@ void sub_50D7E0() {
 void sub_50D820() {
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386216]);
 	*(_DWORD*)&byte_5D4594[2386216] = 0;
-	*(_DWORD*)&byte_5D4594[2386212] = 0;
+	dword_5d4594_2386212 = 0;
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386220]);
 	*(_DWORD*)&byte_5D4594[2386220] = 0;
 	dword_5d4594_2386224 = 0;
@@ -2799,8 +2800,8 @@ void sub_50D8D0() {
 	int v3;  // esi
 	int v4;  // eax
 
-	v0 = *(int**)&byte_5D4594[2386212];
-	if (*(_DWORD*)&byte_5D4594[2386212]) {
+	v0 = *(int**)&dword_5d4594_2386212;
+	if (dword_5d4594_2386212) {
 		do {
 			v1 = (int*)v0[1];
 			v2 = 1;
@@ -2875,7 +2876,7 @@ int sub_50D960() {
 			*(_DWORD*)&byte_5D4594[4 * *(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064) + 2386232] = 0;
 			v2 = *(_DWORD*)(v1 + 276);
 			if (*(_DWORD*)(v2 + 4792)) {
-				v3 = *(int**)&byte_5D4594[2386212];
+				v3 = *(int**)&dword_5d4594_2386212;
 				a2.field_0 = *(float*)(v0 + 56) - (double)*(unsigned __int16*)(v2 + 10) - 100.0;
 				a2.field_4 = *(float*)(v0 + 60) -
 					     (double)*(unsigned __int16*)(*(_DWORD*)(v1 + 276) + 12) - 100.0;
@@ -2883,7 +2884,7 @@ int sub_50D960() {
 					     *(float*)(v0 + 56) + 100.0;
 				a2.field_C = (double)*(unsigned __int16*)(*(_DWORD*)(v1 + 276) + 12) +
 					     *(float*)(v0 + 60) + 100.0;
-				if (*(_DWORD*)&byte_5D4594[2386212]) {
+				if (dword_5d4594_2386212) {
 					do {
 						if (sub_428220((float2*)(*v3 + 56), &a2)) {
 							v39.field_0 = *(float*)(v0 + 56);
@@ -3200,10 +3201,10 @@ int __cdecl sub_50E110(int a1) {
 
 	result = a1;
 	*(_DWORD*)(a1 + 8) = 0;
-	*(_DWORD*)(a1 + 4) = *(_DWORD*)&byte_5D4594[2386212];
-	if (*(_DWORD*)&byte_5D4594[2386212])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[2386212] + 8) = a1;
-	*(_DWORD*)&byte_5D4594[2386212] = a1;
+	*(_DWORD*)(a1 + 4) = dword_5d4594_2386212;
+	if (dword_5d4594_2386212)
+		*(_DWORD*)(dword_5d4594_2386212 + 8) = a1;
+	dword_5d4594_2386212 = a1;
 	return result;
 }
 
@@ -3242,7 +3243,7 @@ int __cdecl sub_50E1B0(int a1) {
 		result = *(_DWORD*)(a1 + 4);
 		*(_DWORD*)(v3 + 4) = result;
 	} else {
-		*(_DWORD*)&byte_5D4594[2386212] = *(_DWORD*)(a1 + 4);
+		dword_5d4594_2386212 = *(_DWORD*)(a1 + 4);
 	}
 	return result;
 }
