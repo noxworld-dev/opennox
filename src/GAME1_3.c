@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_829480;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_587000_80828;
@@ -5297,7 +5298,7 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4) {
 		return 1;
 	}
 	if (a2 == 16387) {
-		if (!sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], a4))
+		if (!sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, a4))
 			return 0;
 		return 0;
 	}
@@ -5423,8 +5424,8 @@ int sub_448450() {
 	result = nox_common_gameFlags_check_40A5C0(0x2000000);
 	if (result) {
 		sub_446970_wol_chat();
-		v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1905);
-		result = nox_window_call_field_94(*(int*)&byte_5D4594[829480], 16391, (int)v1, 0);
+		v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1905);
+		result = nox_window_call_field_94(*(int*)&dword_5d4594_829480, 16391, (int)v1, 0);
 	}
 	return result;
 }
@@ -5433,10 +5434,10 @@ int sub_448450() {
 int sub_448490() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[829480];
-	if (*(_DWORD*)&byte_5D4594[829480]) {
-		result = sub_46C4E0(*(_DWORD**)&byte_5D4594[829480]);
-		*(_DWORD*)&byte_5D4594[829480] = 0;
+	result = dword_5d4594_829480;
+	if (dword_5d4594_829480) {
+		result = sub_46C4E0(*(_DWORD**)&dword_5d4594_829480);
+		dword_5d4594_829480 = 0;
 		*(_DWORD*)&byte_5D4594[829484] = 0;
 		*(_DWORD*)&byte_5D4594[829488] = 0;
 		*(_DWORD*)&byte_5D4594[829492] = 0;
