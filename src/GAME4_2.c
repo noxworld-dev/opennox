@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487712;
 extern _DWORD dword_5d4594_2487524;
 extern _DWORD dword_5d4594_251540;
 extern _DWORD dword_5d4594_2487556;
@@ -10450,10 +10451,10 @@ int __cdecl sub_52C3E0(int a1, int a2, int a3, int a4, int a5) {
 	float v17;  // [esp+0h] [ebp-24h]
 	float4 v18; // [esp+14h] [ebp-10h]
 
-	v5 = *(_DWORD*)&byte_5D4594[2487712];
-	if (!*(_DWORD*)&byte_5D4594[2487712]) {
+	v5 = dword_5d4594_2487712;
+	if (!dword_5d4594_2487712) {
 		v5 = sub_4E3AA0((CHAR*)&byte_587000[258664]);
-		*(_DWORD*)&byte_5D4594[2487712] = v5;
+		dword_5d4594_2487712 = v5;
 	}
 	v6 = a5;
 	if (!a5 || !a4)
@@ -10532,10 +10533,10 @@ int __cdecl sub_52C5A0(int a1, int a2, int a3, int a4, int* a5, int a6) {
 
 	if (!*a5)
 		return 0;
-	v7 = *(_DWORD*)&byte_5D4594[2487712];
-	if (!*(_DWORD*)&byte_5D4594[2487712]) {
+	v7 = dword_5d4594_2487712;
+	if (!dword_5d4594_2487712) {
 		v7 = sub_4E3AA0((CHAR*)&byte_587000[258752]);
-		*(_DWORD*)&byte_5D4594[2487712] = v7;
+		dword_5d4594_2487712 = v7;
 	}
 	if (a4 && *(unsigned __int16*)(a4 + 4) == v7) {
 		v10 = sub_419D70(&byte_587000[258760], a6 - 1);
@@ -10771,10 +10772,10 @@ int __cdecl sub_52CA80(int a1, int a2, int a3, int a4) {
 	int v15;            // eax
 	const char* v17[4]; // [esp+0h] [ebp-10h]
 
-	v4 = *(_DWORD*)&byte_5D4594[2487712];
-	if (!*(_DWORD*)&byte_5D4594[2487712]) {
+	v4 = dword_5d4594_2487712;
+	if (!dword_5d4594_2487712) {
 		v4 = sub_4E3AA0((CHAR*)&byte_587000[259072]);
-		*(_DWORD*)&byte_5D4594[2487712] = v4;
+		dword_5d4594_2487712 = v4;
 	}
 	if (a4 && *(unsigned __int16*)(a4 + 4) == v4) {
 		v5 = a3;
@@ -10845,10 +10846,10 @@ int __cdecl sub_52CBD0(int a1, int a2, int a3, int a4) {
 	int v16;    // [esp+A4h] [ebp-24h]
 	const char* v17[4];
 
-	v4 = *(_DWORD*)&byte_5D4594[2487712];
-	if (!*(_DWORD*)&byte_5D4594[2487712]) {
+	v4 = dword_5d4594_2487712;
+	if (!dword_5d4594_2487712) {
 		v4 = sub_4E3AA0((CHAR*)&byte_587000[259208]);
-		*(_DWORD*)&byte_5D4594[2487712] = v4;
+		dword_5d4594_2487712 = v4;
 	}
 	if (!a4 || (v5 = a4 + 56, *(unsigned __int16*)(a4 + 4) != v4))
 		v5 = a3 + 56;
