@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_87412;
 extern _DWORD dword_5d4594_829492;
 extern _DWORD dword_5d4594_816364;
 extern _DWORD dword_5d4594_815700;
@@ -86,8 +87,8 @@ char* sub_43B510() {
 	sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
 	v6 = *(_DWORD*)&byte_5D4594[814916];
 	if (*(_DWORD*)&byte_587000[87404] == 1) {
-		v0 = *(_WORD*)&byte_5D4594[814916] - *(_WORD*)&byte_587000[8 * *(_DWORD*)&byte_587000[87412] + 87528];
-		HIWORD(v6) -= *(_WORD*)&byte_587000[8 * *(_DWORD*)&byte_587000[87412] + 87530];
+		v0 = *(_WORD*)&byte_5D4594[814916] - *(_WORD*)&byte_587000[8 * dword_587000_87412 + 87528];
+		HIWORD(v6) -= *(_WORD*)&byte_587000[8 * dword_587000_87412 + 87530];
 		LOWORD(v6) = v0;
 	}
 	strcpy(v7, sub_49FF40((__int16*)&v6));
