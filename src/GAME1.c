@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_4668;
 extern SDL_GLContext g_ddraw;
 #endif
 
@@ -3511,10 +3512,10 @@ int sub_40CE60() {
 		}
 	}
 	CoCreateInstance((const IID* const) & byte_581450[5784], 0, 1u, (const IID* const) & byte_581450[5624],
-			 (LPVOID*)&byte_5D4594[4668]);
-	if (*(_DWORD*)&byte_5D4594[4668]) {
+			 (LPVOID*)&dword_5d4594_4668);
+	if (dword_5d4594_4668) {
 		sub_40E3E0(&v5);
-		sub_40E260(*(int(__stdcall****)(_DWORD, void*, int*)) & byte_5D4594[4668], v5, (int)&byte_581450[5640],
+		sub_40E260(*(int(__stdcall****)(_DWORD, void*, int*)) & dword_5d4594_4668, v5, (int)&byte_581450[5640],
 			   (int)&byte_5D4594[10960]);
 	}
 	CoCreateInstance((const IID* const) & byte_581450[5800], 0, 1u, (const IID* const) & byte_581450[5656],
@@ -3533,7 +3534,7 @@ int sub_40CE60() {
 		   (int)&byte_5D4594[10968]);
 	if (!*(_DWORD*)&byte_5D4594[10956])
 		goto LABEL_27;
-	if (*(_DWORD*)&byte_5D4594[4808] && (v1 = *(_DWORD*)&byte_5D4594[4668]) != 0 &&
+	if (*(_DWORD*)&byte_5D4594[4808] && (v1 = dword_5d4594_4668) != 0 &&
 	    (v3 = v6, *(_DWORD*)&byte_5D4594[10976] = 1, strcpy(v6, "SOFTWARE\\Westwood\\Nox"),
 	     (*(void(__stdcall**)(int, unsigned __int8*, char*))(*(_DWORD*)v1 + 164))(v1, &byte_587000[25772], v6),
 	     sub_420030(), sub_4200E0() != -1)) {
@@ -3569,11 +3570,11 @@ void sub_40D0F0() {
 			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4808] + 8))(
 			    *(_DWORD*)&byte_5D4594[4808]);
 		}
-		if (*(_DWORD*)&byte_5D4594[4668]) {
-			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & byte_5D4594[4668],
+		if (dword_5d4594_4668) {
+			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & dword_5d4594_4668,
 				   (int)&byte_581450[5640], *(int*)&byte_5D4594[10960]);
-			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4668] + 8))(
-			    *(_DWORD*)&byte_5D4594[4668]);
+			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 8))(
+			    dword_5d4594_4668);
 		}
 		v0 = &byte_5D4594[4676];
 		if (true) // TODO: byte_5D4594 != (unsigned __int8*)-4676
@@ -3626,7 +3627,7 @@ void sub_40D0F0() {
 //----- (0040D250) --------------------------------------------------------
 BOOL sub_40D250() {
 	return *(_DWORD*)&byte_5D4594[10976] && !*(_DWORD*)&byte_5D4594[10984] &&
-	       (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4668] + 12))(*(_DWORD*)&byte_5D4594[4668]) >= 0;
+	       (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 12))(dword_5d4594_4668) >= 0;
 }
 
 //----- (0040D280) --------------------------------------------------------
@@ -3634,8 +3635,8 @@ BOOL __cdecl sub_40D280(int a1, int a2, int a3, int a4, int a5) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int, int, int, int))(**(_DWORD**)&byte_5D4594[4668] + 16))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2, a3, a4, a5) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int, int, int, int))(**(_DWORD**)&dword_5d4594_4668 + 16))(
+			     dword_5d4594_4668, a1, a2, a3, a4, a5) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3646,8 +3647,8 @@ BOOL __cdecl sub_40D2C0(int a1, int a2, int a3) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int, int))(**(_DWORD**)&byte_5D4594[4668] + 20))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2, a3) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int, int))(**(_DWORD**)&dword_5d4594_4668 + 20))(
+			     dword_5d4594_4668, a1, a2, a3) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3658,8 +3659,8 @@ BOOL __cdecl sub_40D2F0(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 24))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 24))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3670,8 +3671,8 @@ BOOL __cdecl sub_40D320(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 28))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 28))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3682,8 +3683,8 @@ BOOL __cdecl sub_40D350(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 32))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 32))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3694,8 +3695,8 @@ BOOL sub_40D380() {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4668] + 36))(
-			     *(_DWORD*)&byte_5D4594[4668]) >= 0;
+		result = (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 36))(
+			     dword_5d4594_4668) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3706,8 +3707,8 @@ BOOL sub_40D3B0() {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4668] + 40))(
-			     *(_DWORD*)&byte_5D4594[4668]) >= 0;
+		result = (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 40))(
+			     dword_5d4594_4668) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3718,8 +3719,8 @@ BOOL __cdecl sub_40D3E0(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 44))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 44))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3730,8 +3731,8 @@ BOOL __cdecl sub_40D410(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 48))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 48))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3742,7 +3743,7 @@ int sub_40D440() {
 	int result; // eax
 
 	if (!*(_DWORD*)&byte_5D4594[10976] ||
-	    (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4668] + 52))(*(_DWORD*)&byte_5D4594[4668]) < 0) {
+	    (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 52))(dword_5d4594_4668) < 0) {
 		return 0;
 	}
 	result = 1;
@@ -3755,8 +3756,8 @@ BOOL __cdecl sub_40D470(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 56))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 56))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3767,8 +3768,8 @@ BOOL __cdecl sub_40D4A0(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 60))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 60))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3779,8 +3780,8 @@ BOOL __cdecl sub_40D4D0(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 64))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 64))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3791,8 +3792,8 @@ BOOL __cdecl sub_40D500(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 68))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 68))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3803,8 +3804,8 @@ BOOL __cdecl sub_40D530(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 72))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 72))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3816,7 +3817,7 @@ int __cdecl sub_40D560(int a1) {
 
 	if (!*(_DWORD*)&byte_5D4594[10976])
 		return 0;
-	v2 = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 76))(*(_DWORD*)&byte_5D4594[4668], a1);
+	v2 = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 76))(dword_5d4594_4668, a1);
 	if (v2 <= -2147220995) {
 		return 0;
 	}
@@ -3830,8 +3831,8 @@ BOOL __cdecl sub_40D5B0(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 80))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 80))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3842,8 +3843,8 @@ BOOL __cdecl sub_40D5E0(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 84))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 84))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3854,8 +3855,8 @@ BOOL __cdecl sub_40D610(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 88))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 88))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3866,8 +3867,8 @@ BOOL __cdecl sub_40D640(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 188))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 188))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3878,8 +3879,8 @@ BOOL __cdecl sub_40D670(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 184))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 184))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3890,8 +3891,8 @@ BOOL __cdecl sub_40D6A0(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 192))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 192))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3902,8 +3903,8 @@ BOOL __cdecl sub_40D6D0(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 180))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 180))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3915,8 +3916,8 @@ BOOL __cdecl sub_40D700(int a1, int a2, int a3, int a4, int a5, int a6) {
 
 	if (*(_DWORD*)&byte_5D4594[10976])
 		result =
-		    (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int))(**(_DWORD**)&byte_5D4594[4668] + 92))(
-			*(_DWORD*)&byte_5D4594[4668], a1, a2, a3, a4, a5, a6) >= 0;
+		    (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int))(**(_DWORD**)&dword_5d4594_4668 + 92))(
+			dword_5d4594_4668, a1, a2, a3, a4, a5, a6) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3927,8 +3928,8 @@ BOOL __cdecl sub_40D740(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 96))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 96))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3939,8 +3940,8 @@ BOOL __cdecl sub_40D770(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 100))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 100))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3951,8 +3952,8 @@ BOOL __cdecl sub_40D7A0(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 104))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 104))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3963,8 +3964,8 @@ BOOL __cdecl sub_40D7D0(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 108))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 108))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3975,8 +3976,8 @@ BOOL __cdecl sub_40D800(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 112))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 112))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3987,8 +3988,8 @@ BOOL __cdecl sub_40D830(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 116))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 116))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -3999,8 +4000,8 @@ BOOL sub_40D860() {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4668] + 120))(
-			     *(_DWORD*)&byte_5D4594[4668]) >= 0;
+		result = (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 120))(
+			     dword_5d4594_4668) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4011,8 +4012,8 @@ BOOL __cdecl sub_40D890(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 124))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 124))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4023,8 +4024,8 @@ BOOL __cdecl sub_40D8C0(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 128))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 128))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4035,8 +4036,8 @@ BOOL __cdecl sub_40D8F0(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 132))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 132))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4047,8 +4048,8 @@ BOOL __cdecl sub_40D920(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 136))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 136))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4059,8 +4060,8 @@ BOOL __cdecl sub_40D950(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 140))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 140))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4071,8 +4072,8 @@ BOOL __cdecl sub_40D980(int a1, int a2, int a3) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int, int))(**(_DWORD**)&byte_5D4594[4668] + 144))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2, a3) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int, int))(**(_DWORD**)&dword_5d4594_4668 + 144))(
+			     dword_5d4594_4668, a1, a2, a3) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4083,8 +4084,8 @@ BOOL __cdecl sub_40D9C0(int a1, int a2, int a3, int a4) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int, int, int))(**(_DWORD**)&byte_5D4594[4668] + 148))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2, a3, a4) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int, int, int))(**(_DWORD**)&dword_5d4594_4668 + 148))(
+			     dword_5d4594_4668, a1, a2, a3, a4) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4095,8 +4096,8 @@ BOOL __cdecl sub_40DA00(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 152))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 152))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4107,8 +4108,8 @@ BOOL __cdecl sub_40DA30(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 156))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 156))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4119,8 +4120,8 @@ BOOL __cdecl sub_40DA60(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 160))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 160))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4131,8 +4132,8 @@ BOOL __cdecl sub_40DA90(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 164))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 164))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4143,8 +4144,8 @@ BOOL __cdecl sub_40DAC0(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 168))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 168))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4155,8 +4156,8 @@ BOOL sub_40DAF0() {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4668] + 172))(
-			     *(_DWORD*)&byte_5D4594[4668]) >= 0;
+		result = (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 172))(
+			     dword_5d4594_4668) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4167,8 +4168,8 @@ BOOL __cdecl sub_40DB20(int a1) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&byte_5D4594[4668] + 176))(
-			     *(_DWORD*)&byte_5D4594[4668], a1) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int))(**(_DWORD**)&dword_5d4594_4668 + 176))(
+			     dword_5d4594_4668, a1) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4179,8 +4180,8 @@ BOOL __cdecl sub_40DB50(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 196))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 196))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
@@ -4191,8 +4192,8 @@ BOOL __cdecl sub_40DB80(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[10976])
-		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&byte_5D4594[4668] + 200))(
-			     *(_DWORD*)&byte_5D4594[4668], a1, a2) >= 0;
+		result = (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_4668 + 200))(
+			     dword_5d4594_4668, a1, a2) >= 0;
 	else
 		result = 0;
 	return result;
