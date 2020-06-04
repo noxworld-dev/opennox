@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798796;
 extern _DWORD dword_5d4594_3798844;
 extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
@@ -524,8 +525,8 @@ void __cdecl sub_476850(int a1, unsigned __int8* a2) {
 				v12 = dword_5d4594_3798844;
 				v13 = (_BYTE*)(v9 + 1);
 				v28 = dword_5d4594_3798844;
-				v25 = dword_5d4594_3798844 - *(_DWORD*)&byte_5D4594[3798796];
-				v14 = v8 + *(_DWORD*)&byte_5D4594[3798796] + *(_DWORD*)&byte_5D4594[3798836] +
+				v25 = dword_5d4594_3798844 - dword_5d4594_3798796;
+				v14 = v8 + dword_5d4594_3798796 + *(_DWORD*)&byte_5D4594[3798836] +
 				      *(_DWORD*)&byte_5D4594[3798804] *
 					  (v10 + *(_DWORD*)&byte_5D4594[3798840] - *(_DWORD*)&byte_5D4594[3798824]) -
 				      v7;
@@ -560,10 +561,10 @@ void __cdecl sub_476850(int a1, unsigned __int8* a2) {
 										v20 = (unsigned int)&v15[v16 - v12];
 										v19 -= v20;
 										qmemcpy(v15, v13, v19);
-										v21 = *(_DWORD*)&byte_5D4594[3798796];
+										v21 = dword_5d4594_3798796;
 										v22 = &v13[v19];
 										v13 += v20 + v19;
-										qmemcpy(*(void**)&byte_5D4594[3798796],
+										qmemcpy(*(void**)&dword_5d4594_3798796,
 											v22, v20);
 										v15 = (char*)(v20 + v21);
 										v14 = v31;
@@ -667,12 +668,12 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2) {
 				v11 = dword_5d4594_3798844;
 				v12 = v8 + 1;
 				v29 = dword_5d4594_3798844;
-				v26 = dword_5d4594_3798844 - *(_DWORD*)&byte_5D4594[3798796];
+				v26 = dword_5d4594_3798844 - dword_5d4594_3798796;
 				v13 = *(_DWORD*)&byte_5D4594[3798804] *
 				      ((_DWORD)result + *(_DWORD*)&byte_5D4594[3798840] - v9);
 				v14 = v7 + *(_DWORD*)&byte_5D4594[3798836] - *(_DWORD*)&byte_5D4594[3798820];
-				v15 = v13 + *(_DWORD*)&byte_5D4594[3798796] + 2 * v14;
-				v25 = v13 + *(_DWORD*)&byte_5D4594[3798796] + 2 * v14;
+				v15 = v13 + dword_5d4594_3798796 + 2 * v14;
+				v25 = v13 + dword_5d4594_3798796 + 2 * v14;
 				if (v15 >= *(int*)&dword_5d4594_3798844) {
 					v15 -= v26;
 					v25 = v15;
@@ -701,11 +702,9 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2) {
 											v21 = v16 + v20 - v29;
 											v22 = v29 - v16;
 											v33(v16, v12, v29 - v16);
-											v23 = *(_DWORD*)&byte_5D4594
-												  [3798796];
+											v23 = dword_5d4594_3798796;
 											v24 = (int)&v12[v22];
-											v33(*(_DWORD*)&byte_5D4594
-												[3798796],
+											v33(dword_5d4594_3798796,
 											    (_BYTE*)v24, v21);
 											v12 = (_BYTE*)(v21 + v24);
 											v16 = v21 + v23;
@@ -5798,7 +5797,7 @@ unsigned int __cdecl sub_480290(__m64 * a1, int a2, int a3, unsigned int* a4, un
             v35 = _m_paddw(v24, v66);
             v36 = _m_por(_m_psrlw(_m_pand(v31, *(__m64*) & byte_5D4594[2598036]), *(__m64*) & byte_5D4594[2598132]), v33);
             if ((int)v32 >= *(int*)& dword_5d4594_3798844)
-                v32 = (__m64*)((char*)v32 + *(_DWORD*)& byte_5D4594[3798796] - *(_DWORD*)& dword_5d4594_3798844);
+                v32 = (__m64*)((char*)v32 + *(_DWORD*)& dword_5d4594_3798796 - *(_DWORD*)& dword_5d4594_3798844);
             v37 = _m_paddw(v25, v67);
             v26 += 8;
             v38 = _m_por(v36, _m_psrlwi(_m_pand(v34, *(__m64*) & byte_5D4594[2598100]), 0xBu));
@@ -5825,7 +5824,7 @@ unsigned int __cdecl sub_480290(__m64 * a1, int a2, int a3, unsigned int* a4, un
             v24 = _m_paddw(v35, v66);
             v46 = _m_por(_m_psrlw(_m_pand(v43, *(__m64*) & byte_5D4594[2598036]), *(__m64*) & byte_5D4594[2598132]), v44);
             if ((int)v6 >= *(int*)& dword_5d4594_3798844)
-                v6 = (__m64*)((char*)v6 + *(_DWORD*)& byte_5D4594[3798796] - *(_DWORD*)& dword_5d4594_3798844);
+                v6 = (__m64*)((char*)v6 + *(_DWORD*)& dword_5d4594_3798796 - *(_DWORD*)& dword_5d4594_3798844);
             v25 = _m_paddw(v37, v67);
             v26 += 8;
             v38 = _m_por(v46, _m_psrlwi(_m_pand(v45, *(__m64*) & byte_5D4594[2598100]), 0xBu));
@@ -5867,7 +5866,7 @@ unsigned int __cdecl sub_480290(__m64 * a1, int a2, int a3, unsigned int* a4, un
                     _m_pand(_m_pmullw(v59, _m_psrlwi(v56, 8u)), *(__m64*) & byte_5D4594[2598068]),
                     *(__m64*) & byte_5D4594[2598164]));
             if ((int)v48 >= *(int*)& dword_5d4594_3798844)
-                v48 = (__m64*)((char*)v48 + *(_DWORD*)& byte_5D4594[3798796] - *(_DWORD*)& dword_5d4594_3798844);
+                v48 = (__m64*)((char*)v48 + *(_DWORD*)& dword_5d4594_3798796 - *(_DWORD*)& dword_5d4594_3798844);
             v26 += 8;
             v38 = _m_por(v62, _m_psrlwi(_m_pand(v61, *(__m64*) & byte_5D4594[2598100]), 0xBu));
             v63 = v15 < 4;
@@ -6181,9 +6180,9 @@ int __cdecl sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 	v7 = *a1 - *(_DWORD*)&byte_5D4594[3798820];
 	if (v7 >= 0 && result >= 0 && v7 < *(int*)&byte_5D4594[3798800] && result < *(int*)&byte_5D4594[3798808]) {
 		v8 = *(_DWORD*)&byte_5D4594[3798804] * (*(_DWORD*)&byte_5D4594[3798840] + result) +
-		     *(_DWORD*)&byte_5D4594[3798796] + 2 * (*(_DWORD*)&byte_5D4594[3798836] + v7);
+		     dword_5d4594_3798796 + 2 * (*(_DWORD*)&byte_5D4594[3798836] + v7);
 		if (v8 >= *(int*)&dword_5d4594_3798844)
-			v8 += *(_DWORD*)&byte_5D4594[3798796] - dword_5d4594_3798844;
+			v8 += dword_5d4594_3798796 - dword_5d4594_3798844;
 		if (*(_WORD*)&nox_common_engineFlags & 0x800) {
 			if (2 * a4 + v8 < *(int*)&dword_5d4594_3798844) {
 				result =
@@ -6193,7 +6192,7 @@ int __cdecl sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 				(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) &
 				 byte_5D4594[3807160])(a5, v8, dword_5d4594_3798844 - v8);
 				result = (*(int(__cdecl**)(_DWORD, _DWORD, _DWORD)) &
-					  byte_5D4594[3807160])(a5 + v9, *(_DWORD*)&byte_5D4594[3798796], 2 * a4 - v9);
+					  byte_5D4594[3807160])(a5 + v9, dword_5d4594_3798796, 2 * a4 - v9);
 			}
 		} else {
 			v23 = (__m64*)v8;
@@ -6242,7 +6241,7 @@ int __cdecl sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 				a5 += 2 * v17;
 				if ((unsigned int)v18 >= *(int*)&dword_5d4594_3798844)
 					v18 = (__m64*)((char*)v18 - 2 * ((*(int*)&dword_5d4594_3798844 -
-									  *(int*)&byte_5D4594[3798796]) >>
+									  *(int*)&dword_5d4594_3798796) >>
 									 1));
 				result = a4 - v17;
 				a4 -= v17;
@@ -6295,11 +6294,11 @@ void __cdecl sub_480BE0(_DWORD* a1, int* a2, int a3, int a4, int a5) {
 	int v26;   // [esp+30h] [ebp+Ch]
 	// void(__cdecl * maprgb)(const BYTE*, WORD*);
 	BYTE* x1 = *(_BYTE**)&dword_5d4594_3798844;
-	BYTE* x2 = *(_BYTE**)&byte_5D4594[3798796];
+	BYTE* x2 = *(_BYTE**)&dword_5d4594_3798796;
 
 	v6 = (_BYTE*)(*(_DWORD*)&byte_5D4594[3798804] *
 			  (*(_DWORD*)&byte_5D4594[3798840] + a1[1] - *(_DWORD*)&byte_5D4594[3798824]) +
-		      *(_DWORD*)&byte_5D4594[3798796] +
+		      dword_5d4594_3798796 +
 		      2 * (*(_DWORD*)&byte_5D4594[3798836] + *a1 - *(_DWORD*)&byte_5D4594[3798820]));
 	if (v6 >= x1)
 		v6 += x2 - x1;
@@ -6310,7 +6309,7 @@ void __cdecl sub_480BE0(_DWORD* a1, int* a2, int a3, int a4, int a5) {
 			v7 = x1 - v6;
 			(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & byte_5D4594[3807160])(a5, v6, x1 - v6);
 			(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD)) &
-			 byte_5D4594[3807160])(a5 + v7, *(_DWORD*)&byte_5D4594[3798796], 2 * a4 - v7);
+			 byte_5D4594[3807160])(a5 + v7, dword_5d4594_3798796, 2 * a4 - v7);
 		}
 	} else {
 		v9 = *a1 - 23 * *a2 - *(_DWORD*)&byte_5D4594[2650676];
@@ -6737,10 +6736,10 @@ char __cdecl sub_4815E0(_DWORD* a1, int a2) {
 
 	v2 = *(_DWORD*)&byte_5D4594[3798804] *
 		 (*(_DWORD*)&byte_5D4594[3798840] + a1[1] - *(_DWORD*)&byte_5D4594[3798824]) +
-	     *(_DWORD*)&byte_5D4594[3798796] +
+	     dword_5d4594_3798796 +
 	     ((*(_DWORD*)&byte_5D4594[3798836] + *a1 - *(_DWORD*)&byte_5D4594[3798820]) << byte_5D4594[3807124]);
 	if (v2 >= *(int*)&dword_5d4594_3798844)
-		v2 += *(_DWORD*)&byte_5D4594[3798796] - dword_5d4594_3798844;
+		v2 += dword_5d4594_3798796 - dword_5d4594_3798844;
 	v3 = sub_42FB30(a2);
 	v4 = (char*)v3;
 	v14 = (char*)v3;
@@ -6760,12 +6759,12 @@ char __cdecl sub_4815E0(_DWORD* a1, int a2) {
 					v9 = v5 - v7 - v2;
 					if (v9 > 0) {
 						qmemcpy((void*)(v7 + v2), v4, v9);
-						qmemcpy(*(void**)&byte_5D4594[3798796], &v14[v9], v8 - v9);
+						qmemcpy(*(void**)&dword_5d4594_3798796, &v14[v9], v8 - v9);
 						v5 = dword_5d4594_3798844;
-						v2 += *(_DWORD*)&byte_5D4594[3798796] - dword_5d4594_3798844;
+						v2 += dword_5d4594_3798796 - dword_5d4594_3798844;
 						goto LABEL_13;
 					}
-					v2 += *(_DWORD*)&byte_5D4594[3798796] - v5;
+					v2 += dword_5d4594_3798796 - v5;
 					qmemcpy((void*)(v7 + v2), v4, 4 * (v8 >> 2));
 					v11 = &v4[4 * (v8 >> 2)];
 					v10 = (char*)(v7 + v2 + 4 * (v8 >> 2));
@@ -6812,10 +6811,10 @@ char* __cdecl sub_481770(_DWORD* a1, int a2, unsigned __int16 a3) {
 	v5 = dword_5d4594_3798844;
 	v6 = *(_DWORD*)&byte_5D4594[3798804] *
 		 (*(_DWORD*)&byte_5D4594[3798840] + a1[1] - *(_DWORD*)&byte_5D4594[3798824]) +
-	     *(_DWORD*)&byte_5D4594[3798796] +
+	     dword_5d4594_3798796 +
 	     ((*(_DWORD*)&byte_5D4594[3798836] + *a1 - *(_DWORD*)&byte_5D4594[3798820]) << byte_5D4594[3807124]);
 	if (v6 >= *(int*)&dword_5d4594_3798844)
-		v6 += *(_DWORD*)&byte_5D4594[3798796] - dword_5d4594_3798844;
+		v6 += dword_5d4594_3798796 - dword_5d4594_3798844;
 	if (v6 + *(_DWORD*)&byte_5D4594[3799236] < *(int*)&dword_5d4594_3798844) {
 		if (*(_DWORD*)&byte_5D4594[3799624])
 			result = (char*)sub_484450(v3, v6);
@@ -6833,18 +6832,18 @@ char* __cdecl sub_481770(_DWORD* a1, int a2, unsigned __int16 a3) {
 			} else {
 				v10 = v5 - v8 - v6;
 				if (v10 <= 0) {
-					v6 += *(_DWORD*)&byte_5D4594[3798796] - v5;
+					v6 += dword_5d4594_3798796 - v5;
 					result = (char*)sub_49D1C0(v6 + v8, v3, v9);
 					v5 = dword_5d4594_3798844;
 					v7 = v12;
 				} else {
 					sub_49D1C0(v6 + v8, v3, v5 - v8 - v6);
-					sub_49D1C0(*(int*)&byte_5D4594[3798796], v3, v9 - v10);
+					sub_49D1C0(*(int*)&dword_5d4594_3798796, v3, v9 - v10);
 					v5 = dword_5d4594_3798844;
 					v7 = v12;
 					result =
-					    (char*)(*(_DWORD*)&byte_5D4594[3798796] - dword_5d4594_3798844);
-					v6 += *(_DWORD*)&byte_5D4594[3798796] - dword_5d4594_3798844;
+					    (char*)(dword_5d4594_3798796 - dword_5d4594_3798844);
+					v6 += dword_5d4594_3798796 - dword_5d4594_3798844;
 				}
 			}
 			v7 += 4;
@@ -6902,7 +6901,7 @@ char __cdecl sub_481900(_DWORD* a1, _DWORD* a2) {
 	v6 = *(_DWORD*)addr;
 	v7 = *(_DWORD*)&byte_5D4594[3798840];
 	*(_DWORD*)&byte_5D4594[4 * v4 + 2523980] = 1;
-	v8 = *(_DWORD*)&byte_5D4594[3798804] * (v7 + a1[1] - v2) + *(_DWORD*)&byte_5D4594[3798796] +
+	v8 = *(_DWORD*)&byte_5D4594[3798804] * (v7 + a1[1] - v2) + dword_5d4594_3798796 +
 	     ((v5 + *a1 - *(_DWORD*)&byte_5D4594[3798820]) << byte_5D4594[3807124]);
 	v9 = sub_42FB30(v6);
 	if (v9) {
@@ -6919,7 +6918,7 @@ char __cdecl sub_481900(_DWORD* a1, _DWORD* a2) {
 			v14 = (char*)((*(_DWORD*)&byte_5D4594[4 * v32 + 3798860] << byte_5D4594[3807124]) + v11);
 			v27 = v14;
 			if (v13 >= *(int*)&dword_5d4594_3798844) {
-				v13 += *(_DWORD*)&byte_5D4594[3798796] - dword_5d4594_3798844;
+				v13 += dword_5d4594_3798796 - dword_5d4594_3798844;
 				v31 = v13;
 			}
 			v28 = v32;
@@ -6944,7 +6943,7 @@ char __cdecl sub_481900(_DWORD* a1, _DWORD* a2) {
 									v17 = v15;
 								} else {
 									qmemcpy(v15, v33, v12 - (_DWORD)v15);
-									v17 = *(char**)&byte_5D4594[3798796];
+									v17 = *(char**)&dword_5d4594_3798796;
 									v18 = v16 - (v12 - (_DWORD)v15);
 									v19 = &v33[v12 - (_DWORD)v15];
 								}
@@ -6960,7 +6959,7 @@ char __cdecl sub_481900(_DWORD* a1, _DWORD* a2) {
 									v20 = v12 - (_DWORD)v15;
 									qmemcpy(v15, v14, v20);
 									v14 = v26;
-									qmemcpy(*(void**)&byte_5D4594[3798796],
+									qmemcpy(*(void**)&dword_5d4594_3798796,
 										&v26[v20], v16 - v20);
 								}
 								v12 = dword_5d4594_3798844;
@@ -6977,7 +6976,7 @@ char __cdecl sub_481900(_DWORD* a1, _DWORD* a2) {
 							v24 -= v29;
 							v26 = v14;
 							if ((unsigned int)v15 >= v12)
-								v15 += *(_DWORD*)&byte_5D4594[3798796] - v12;
+								v15 += dword_5d4594_3798796 - v12;
 							v10 = v33;
 						} while (v22 > 0);
 						v9 = v28;
@@ -6987,7 +6986,7 @@ char __cdecl sub_481900(_DWORD* a1, _DWORD* a2) {
 					v27 += *(_DWORD*)&byte_5D4594[4 * v9 + 3799244] << byte_5D4594[3807124];
 					v31 = v13;
 					if (v13 >= v12) {
-						v13 += *(_DWORD*)&byte_5D4594[3798796] - v12;
+						v13 += dword_5d4594_3798796 - v12;
 						v31 = v13;
 					}
 					v28 = ++v9;
@@ -7404,12 +7403,12 @@ LABEL_60:
 						v39 = (char*)(*(_DWORD*)&byte_5D4594[3798804] *
 								  (v67.field_4 + *(_DWORD*)&byte_5D4594[3798840] -
 								   *(_DWORD*)&byte_5D4594[3798824]) +
-							      *(_DWORD*)&byte_5D4594[3798796] +
+							      dword_5d4594_3798796 +
 							      ((v37 + v72 + *(_DWORD*)&byte_5D4594[3798836] -
 								*(_DWORD*)&byte_5D4594[3798820])
 							       << byte_5D4594[3807124]));
 						if ((unsigned int)v39 >= *(int*)&dword_5d4594_3798844)
-							v39 += *(_DWORD*)&byte_5D4594[3798796] -
+							v39 += dword_5d4594_3798796 -
 							       dword_5d4594_3798844;
 						v76 = i + (v37 << byte_5D4594[3807124]);
 						v40 = v38 << byte_5D4594[3807124];
@@ -7422,10 +7421,10 @@ LABEL_60:
 							v41 = dword_5d4594_3798844 - (_DWORD)v39;
 							qmemcpy((void*)v76, v39,
 								dword_5d4594_3798844 - (_DWORD)v39);
-							v39 = *(char**)&byte_5D4594[3798796];
+							v39 = *(char**)&dword_5d4594_3798796;
 							v42 = (char*)(v41 + v76);
 							v40 = (v38 << byte_5D4594[3807124]) - v41;
-							qmemcpy(v42, *(const void**)&byte_5D4594[3798796],
+							qmemcpy(v42, *(const void**)&dword_5d4594_3798796,
 								4 * (v40 >> 2));
 						}
 						v44 = &v39[4 * (v40 >> 2)];

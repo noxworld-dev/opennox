@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798796;
 extern _DWORD dword_5d4594_815012;
 extern _DWORD dword_5d4594_815004;
 extern _DWORD dword_5d4594_2650652;
@@ -5941,7 +5942,7 @@ int __cdecl sub_430DB0(int a1, int a2) {
 	*(_DWORD*)&byte_5D4594[3798836] = 0;
 	*(_DWORD*)&byte_5D4594[3798840] = 0;
 	v3 = (char*)nox_malloc(v2);
-	*(_DWORD*)&byte_5D4594[3798796] = v3;
+	dword_5d4594_3798796 = v3;
 	if (!v3)
 		return 0;
 	dword_5d4594_3798844 = &v3[v2];
@@ -5970,9 +5971,9 @@ int sub_430E70() {
 
 //----- (00430EC0) --------------------------------------------------------
 int nox_video_freeFloorBuffer_430EC0() {
-	if (*(_DWORD*)&byte_5D4594[3798796]) {
-		free(*(LPVOID*)&byte_5D4594[3798796]);
-		*(_DWORD*)&byte_5D4594[3798796] = 0;
+	if (dword_5d4594_3798796) {
+		free(*(LPVOID*)&dword_5d4594_3798796);
+		dword_5d4594_3798796 = 0;
 	}
 	sub_444C50();
 	return 1;
