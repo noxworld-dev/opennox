@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1522612;
 extern _DWORD dword_5d4594_1522604;
 extern _DWORD dword_587000_154952;
 extern _DWORD dword_5d4594_3799492;
@@ -11001,12 +11002,12 @@ int sub_4CB880() {
 				v7 = sub_430AF0();
 				v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, v7 + 971);
 				nox_window_call_field_94((int)v8, 16392, 1, 0);
-				*(_DWORD*)&byte_5D4594[1522612] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 980);
-				sub_46B120(*(_DWORD**)&byte_5D4594[1522612], 0);
-				sub_46B2C0(*(int*)&byte_5D4594[1522612], sub_4CBE70);
-				sub_46B300(*(int*)&byte_5D4594[1522612], sub_4CC170);
-				nox_window_set_hidden(*(int*)&byte_5D4594[1522612], 1);
-				v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522612], 981);
+				dword_5d4594_1522612 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 980);
+				sub_46B120(*(_DWORD**)&dword_5d4594_1522612, 0);
+				sub_46B2C0(*(int*)&dword_5d4594_1522612, sub_4CBE70);
+				sub_46B300(*(int*)&dword_5d4594_1522612, sub_4CC170);
+				nox_window_set_hidden(*(int*)&dword_5d4594_1522612, 1);
+				v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522612, 981);
 				sub_46AEE0((int)v9, (int)&byte_5D4594[1522636]);
 				result = 1;
 			}
@@ -11033,7 +11034,7 @@ int sub_4CBBB0() {
 	v0 = *(void (**)(void))(*(_DWORD*)&byte_5D4594[1522608] + 52);
 	sub_43C570(*(LPVOID*)&byte_5D4594[1522608]);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1522604);
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1522612]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1522612);
 	v0();
 	return 1;
 }
@@ -11158,8 +11159,8 @@ int __cdecl sub_4CC170(int a1, int a2, char* a3, int a4) {
 		if (a3 == (char*)1) {
 			if (a4 == 2) {
 				sub_46B500(0);
-				sub_46C6E0(*(int*)&byte_5D4594[1522612]);
-				nox_window_set_hidden(*(int*)&byte_5D4594[1522612], 1);
+				sub_46C6E0(*(int*)&dword_5d4594_1522612);
+				nox_window_set_hidden(*(int*)&dword_5d4594_1522612, 1);
 				if (*(_DWORD*)&byte_5D4594[1522632])
 					nox_window_call_field_94(*(int*)&byte_5D4594[1522632], 16403, -1, 0);
 			}
@@ -11169,8 +11170,8 @@ int __cdecl sub_4CC170(int a1, int a2, char* a3, int a4) {
 			sub_4CC3C0((char*)0x10000);
 		LABEL_15:
 			sub_46B500(0);
-			sub_46C6E0(*(int*)&byte_5D4594[1522612]);
-			nox_window_set_hidden(*(int*)&byte_5D4594[1522612], 1);
+			sub_46C6E0(*(int*)&dword_5d4594_1522612);
+			nox_window_set_hidden(*(int*)&dword_5d4594_1522612, 1);
 			result = 1;
 		} else {
 		LABEL_5:
