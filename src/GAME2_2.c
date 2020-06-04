@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_251572;
 extern _DWORD dword_5d4594_1098628;
 extern _DWORD dword_5d4594_3798804;
 extern _DWORD dword_5d4594_1098576;
@@ -10221,7 +10222,7 @@ int __cdecl sub_485D40(int a1, char* a2) {
 	LOBYTE(a1) = *v3;
 	*(_DWORD*)(v2 + 8) = v3 + 1;
 	nox_memfile_read(v26, 1u, (unsigned __int8)a1, v22);
-	v4 = *(_DWORD*)&byte_5D4594[251572];
+	v4 = dword_5d4594_251572;
 	v5 = 0;
 	v26[(unsigned __int8)a1] = 0;
 	if (v4 <= 0) {
@@ -10232,12 +10233,12 @@ int __cdecl sub_485D40(int a1, char* a2) {
 		while (strcmp(v6, v26)) {
 			++v5;
 			v6 += 60;
-			if (v5 >= *(int*)&byte_5D4594[251572])
+			if (v5 >= *(int*)&dword_5d4594_251572)
 				goto LABEL_5;
 		}
 		v7 = v5;
 	}
-	if (v5 == *(_DWORD*)&byte_5D4594[251572])
+	if (v5 == dword_5d4594_251572)
 		return 0;
 	v9 = (_BYTE*)(*(_DWORD*)(v2 + 8) + 9);
 	*(_DWORD*)(v2 + 8) = v9;
@@ -10295,7 +10296,7 @@ int sub_485F30() {
 	LPVOID* v1; // esi
 
 	v0 = 0;
-	if (*(int*)&byte_5D4594[251572] <= 0)
+	if (*(int*)&dword_5d4594_251572 <= 0)
 		return 1;
 	v1 = (LPVOID*)&byte_5D4594[2678380];
 	do {
@@ -10305,7 +10306,7 @@ int sub_485F30() {
 		}
 		++v0;
 		v1 += 15;
-	} while (v0 < *(int*)&byte_5D4594[251572]);
+	} while (v0 < *(int*)&dword_5d4594_251572);
 	return 1;
 }
 
