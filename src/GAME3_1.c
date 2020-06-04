@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799492;
 extern _DWORD dword_5d4594_1319256;
 extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_1522600;
@@ -7058,7 +7059,7 @@ void __cdecl sub_4C60D0(int a1, int a2, int a3) {
 	RECT rc;      // [esp+20h] [ebp-10h]
 	int v19;      // [esp+3Ch] [ebp+Ch]
 
-	result = (int4*)(*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(a1);
+	result = (int4*)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(a1);
 	*(_DWORD*)&byte_5D4594[3799444] = result;
 	if (result) {
 		v4 = result->field_0;
@@ -7149,7 +7150,7 @@ int __cdecl sub_4C6260(int a1, int a2, int a3) {
 	int v21;        // [esp+38h] [ebp+8h]
 	int4* v22;      // [esp+3Ch] [ebp+Ch]
 
-	result = (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(a1);
+	result = (*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(a1);
 	*(_DWORD*)&byte_5D4594[3799444] = result;
 	if (result) {
 		v4 = *(_DWORD*)result;
@@ -8282,7 +8283,7 @@ void __cdecl sub_4C7860(int a1, int a2, int a3) {
 	RECT rc;      // [esp+20h] [ebp-10h]
 	int v20;      // [esp+3Ch] [ebp+Ch]
 
-	result = (int4*)(*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(a1);
+	result = (int4*)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(a1);
 	*(_DWORD*)&byte_5D4594[3799444] = result;
 	if (result) {
 		v4 = result->field_0;
@@ -8375,7 +8376,7 @@ int __cdecl sub_4C79F0(int a1, int a2, int a3) {
 	int v23;    // [esp+38h] [ebp+8h]
 	int v24;    // [esp+3Ch] [ebp+Ch]
 
-	result = (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(a1);
+	result = (*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(a1);
 	*(_DWORD*)&byte_5D4594[3799444] = result;
 	if (result) {
 		v4 = *(_DWORD*)result;

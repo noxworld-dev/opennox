@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799492;
 extern _DWORD dword_5d4594_3798832;
 extern _DWORD dword_5d4594_1193384;
 extern _DWORD dword_5d4594_1123532;
@@ -527,7 +528,7 @@ void __cdecl sub_476850(int a1, unsigned __int8* a2) {
 	} else {
 		v2 = *(_DWORD*)(*(_DWORD*)(*((_DWORD*)a2 + 76) + 4) + 4 * *((_DWORD*)a2 + 77));
 	}
-	v3 = (int*)(*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(v2);
+	v3 = (int*)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(v2);
 	if (v3) {
 		v4 = *v3;
 		v5 = v3[1];
@@ -667,7 +668,7 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2) {
 	} else {
 		v4 = *(_DWORD*)(*(_DWORD*)(*((_DWORD*)a2 + 76) + 4) + 4 * *((_DWORD*)a2 + 77));
 	}
-	result = (int)(*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(v4);
+	result = (int)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(v4);
 	if (result) {
 		if (dword_5d4594_3799624 == 1 ||
 		    (v33 = (void(__cdecl*)(unsigned int, _BYTE*, int))sub_476DA0, !dword_587000_154956)) {
@@ -4277,7 +4278,7 @@ int sub_47D200() {
 	*(_DWORD*)&byte_5D4594[3799468] = 0;
 	*(_DWORD*)&byte_5D4594[3799552] = 0;
 	*(_DWORD*)&byte_5D4594[3799508] = 0;
-	*(_DWORD*)&byte_5D4594[3799492] = sub_42FB30;
+	dword_5d4594_3799492 = sub_42FB30;
 	return 1;
 }
 
@@ -4494,8 +4495,8 @@ LABEL_2:
 int(__cdecl* __cdecl sub_47D5B0(int a1))(_DWORD) {
 	int(__cdecl * result)(_DWORD); // eax
 
-	result = *(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492];
-	*(_DWORD*)&byte_5D4594[3799492] = a1;
+	result = *(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492;
+	dword_5d4594_3799492 = a1;
 	return result;
 }
 
@@ -4511,7 +4512,7 @@ int __cdecl sub_47D5C0(int a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, _DWORD* a5) {
 		*a5 = 0;
 	if (!a1)
 		return 0;
-	v5 = (_DWORD*)(*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(a1);
+	v5 = (_DWORD*)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(a1);
 	if (!v5)
 		return 0;
 	if (a4)
@@ -13201,7 +13202,7 @@ int __cdecl sub_48C0C0(int a1, _DWORD* a2, _DWORD* a3) {
 	_DWORD* v4; // eax
 	_DWORD* v5; // eax
 
-	result = (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(a1);
+	result = (*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(a1);
 	dword_5d4594_1193516 = result;
 	if (result) {
 		v4 = (_DWORD*)(result + 8);
