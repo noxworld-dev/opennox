@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1064856;
 extern _DWORD dword_5d4594_1049856;
 extern _DWORD dword_5d4594_1049520;
 extern _DWORD dword_587000_80820;
@@ -3670,8 +3671,8 @@ void __cdecl sub_46A430(int a1) {
 		if (!*(_DWORD*)&byte_5D4594[1064868]) {
 			**(_WORD**)&byte_5D4594[1064864] = 0;
 			*(_WORD*)(*(_DWORD*)&byte_5D4594[1064864] + 1052) = 0;
-			sub_46A8C0(*(int*)&byte_5D4594[1064856]);
-			sub_46C690(*(int*)&byte_5D4594[1064856]);
+			sub_46A8C0(*(int*)&dword_5d4594_1064856);
+			sub_46C690(*(int*)&dword_5d4594_1064856);
 			sub_46B500(*(int*)&byte_5D4594[1064860]);
 			*(_DWORD*)&byte_5D4594[1064868] = 1;
 			*(_DWORD*)&byte_5D4594[1064872] = a1;
@@ -3737,7 +3738,7 @@ int __cdecl sub_46A5D0(_DWORD* a1, int a2) {
 
 	v5 = 0;
 	v6 = 0;
-	sub_46A8C0(*(int*)&byte_5D4594[1064856]);
+	sub_46A8C0(*(int*)&dword_5d4594_1064856);
 	sub_46B500(*(int*)&byte_5D4594[1064860]);
 	sub_43F840(0, *(unsigned __int16**)&byte_5D4594[1064864], &v5, 0, 0);
 	sub_43F840(0, (unsigned __int16*)(*(_DWORD*)&byte_5D4594[1064864] + 512), &v6, 0, 0);
@@ -3755,21 +3756,21 @@ int __cdecl sub_46A5D0(_DWORD* a1, int a2) {
 		goto LABEL_5;
 	}
 LABEL_6:
-	sub_46A9B0(*(_DWORD**)&byte_5D4594[1064856], (nox_win_width - v2) / 2,
-		   *(_DWORD*)(*(_DWORD*)&byte_5D4594[1064856] + 20));
+	sub_46A9B0(*(_DWORD**)&dword_5d4594_1064856, (nox_win_width - v2) / 2,
+		   *(_DWORD*)(dword_5d4594_1064856 + 20));
 	sub_46AB20(a1, v5, 20);
 	return sub_488160((int)a1, a2);
 }
 
 //----- (0046A6A0) --------------------------------------------------------
 int sub_46A6A0() {
-	if (wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[1064856]))
+	if (wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1064856))
 		return 0;
 	if (sub_46B4F0() == *(_DWORD*)&byte_5D4594[1064860])
 		sub_46B500(0);
-	sub_46C6E0(*(int*)&byte_5D4594[1064856]);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1064856], 1);
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1064856] + 4) &= 0xFFFFFFF7;
+	sub_46C6E0(*(int*)&dword_5d4594_1064856);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1064856, 1);
+	*(_DWORD*)(dword_5d4594_1064856 + 4) &= 0xFFFFFFF7;
 	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1064860] + 4) &= 0xFFFFFFF7;
 	*(_DWORD*)&byte_5D4594[3799524] = 1;
 	*(_DWORD*)&byte_5D4594[1064868] = 0;
@@ -3783,15 +3784,15 @@ _DWORD* sub_46A730() {
 	*(_DWORD*)&byte_5D4594[1064876] = nox_win_width / 2;
 	*(_DWORD*)&byte_5D4594[1064880] = 2 * nox_win_height / 3;
 	result = nox_new_window_from_file("GuiChat.wnd", sub_46A820);
-	*(_DWORD*)&byte_5D4594[1064856] = result;
+	dword_5d4594_1064856 = result;
 	if (result) {
 		sub_46A9B0(result, *(int*)&byte_5D4594[1064876], *(int*)&byte_5D4594[1064880]);
-		result = sub_46B0C0(*(_DWORD**)&byte_5D4594[1064856], 9201);
+		result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064856, 9201);
 		*(_DWORD*)&byte_5D4594[1064860] = result;
 		if (result) {
 			sub_46B340((int)result, sub_46A5D0);
 			sub_46B300(*(int*)&byte_5D4594[1064860], sub_46A7E0);
-			result = *(_DWORD**)&byte_5D4594[1064856];
+			result = *(_DWORD**)&dword_5d4594_1064856;
 			*(_DWORD*)&byte_5D4594[1064864] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1064860] + 32);
 		}
 	}
@@ -3821,10 +3822,10 @@ int __cdecl sub_46A820(int a1, int a2, int a3, int a4) {
 int sub_46A860() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1064856];
-	if (*(_DWORD*)&byte_5D4594[1064856]) {
-		result = sub_46C4E0(*(_DWORD**)&byte_5D4594[1064856]);
-		*(_DWORD*)&byte_5D4594[1064856] = 0;
+	result = dword_5d4594_1064856;
+	if (dword_5d4594_1064856) {
+		result = sub_46C4E0(*(_DWORD**)&dword_5d4594_1064856);
+		dword_5d4594_1064856 = 0;
 	}
 	*(_DWORD*)&byte_5D4594[1064860] = 0;
 	*(_DWORD*)&byte_5D4594[1064864] = 0;
