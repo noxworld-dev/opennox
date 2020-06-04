@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1569756;
 extern _DWORD dword_5d4594_1599624;
 extern _DWORD dword_5d4594_1569672;
 extern _DWORD dword_5d4594_3821964;
@@ -5977,7 +5978,7 @@ void __cdecl sub_4FF620(int a1) {
 
 //----- (004FF730) --------------------------------------------------------
 BOOL sub_4FF730() {
-	*(_DWORD*)&byte_5D4594[1569756] = 0;
+	dword_5d4594_1569756 = 0;
 	*(_DWORD*)&byte_5D4594[1569748] =
 	    nox_new_alloc_class("MagicWall", 32, (*(_DWORD*)&byte_587000[217844] << 6) + 32);
 	return *(_DWORD*)&byte_5D4594[1569748] != 0;
@@ -5991,7 +5992,7 @@ int sub_4FF770() {
 	result = 0;
 	*(_DWORD*)&byte_5D4594[1569748] = 0;
 	dword_5d4594_1569752 = 0;
-	*(_DWORD*)&byte_5D4594[1569756] = 0;
+	dword_5d4594_1569756 = 0;
 	return result;
 }
 
@@ -6549,7 +6550,7 @@ int __cdecl sub_5000B0(_DWORD* a1) {
 		if ((_BYTE)v5) {
 			sub_5002D0(a1);
 			v4 = 0;
-			*(_DWORD*)&byte_5D4594[1569756] = 0;
+			dword_5d4594_1569756 = 0;
 			if ((_BYTE)v5) {
 				do {
 					sub_426AC0_file3_fread(&v13, 4u);
@@ -6605,9 +6606,9 @@ void __cdecl sub_500330(char a1, char a2, int a3, char a4, char a5, char a6, cha
 	int v11; // ecx
 	int result;
 
-	if (*(int*)&byte_5D4594[1569756] < 15) {
-		result = 16 * *(_DWORD*)&byte_5D4594[1569756];
-		v11 = *(_DWORD*)&byte_5D4594[1569756] + 1;
+	if (*(int*)&dword_5d4594_1569756 < 15) {
+		result = 16 * dword_5d4594_1569756;
+		v11 = dword_5d4594_1569756 + 1;
 		byte_5D4594[result + 1569764] = a1;
 		byte_5D4594[result + 1569765] = a2;
 		*(_DWORD*)&byte_5D4594[result + 1569768] = a3;
@@ -6618,7 +6619,7 @@ void __cdecl sub_500330(char a1, char a2, int a3, char a4, char a5, char a6, cha
 		byte_5D4594[result + 1569776] = a8;
 		byte_5D4594[result + 1569777] = a9;
 		byte_5D4594[result + 1569778] = a10;
-		*(_DWORD*)&byte_5D4594[1569756] = v11;
+		dword_5d4594_1569756 = v11;
 	}
 }
 
