@@ -1,6 +1,7 @@
 #include "selcolor.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1307784;
 
 //----- (004A5D00) --------------------------------------------------------
@@ -19,10 +20,10 @@ int sub_4A5D00() {
 	dword_5d4594_1307784 = v0;
 	v0[67] = 0;
 	result = nox_new_window_from_file("SelColor.wnd", sub_4A7330);
-	*(_DWORD*)&byte_5D4594[1308084] = result;
+	dword_5d4594_1308084 = result;
 	if (result) {
 		sub_46B300(result, sub_4A18E0);
-		result = sub_43C5B0(*(_DWORD**)&byte_5D4594[1308084], 0, 0, 0, -440, 0, 20, 0, -40);
+		result = sub_43C5B0(*(_DWORD**)&dword_5d4594_1308084, 0, 0, 0, -440, 0, 20, 0, -40);
 		*(_DWORD*)&byte_5D4594[1308092] = result;
 		if (result) {
 			*(_DWORD*)result = 700;
@@ -30,11 +31,11 @@ int sub_4A5D00() {
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308092] + 56) = sub_4A6C90;
 			sub_4A5E90();
 			for (i = 720; i <= 729; ++i) {
-				v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], i);
+				v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, i);
 				sub_46B340((int)v3, sub_4A6D20);
 			}
 			for (j = 761; j <= 792; ++j) {
-				v5 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], j);
+				v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, j);
 				sub_46B340((int)v5, sub_4A6D20);
 			}
 			if (*(_DWORD*)&byte_587000[171388]) {
@@ -43,12 +44,12 @@ int sub_4A5D00() {
 				nox_window_call_field_94(*(int*)&byte_5D4594[1308152], 16414, (int)v6, 0);
 			}
 			sub_46A8A0();
-			*(_DWORD*)&byte_5D4594[1308088] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 760);
+			*(_DWORD*)&byte_5D4594[1308088] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 760);
 			sub_46B2C0(*(int*)&byte_5D4594[1308088], sub_4A7330);
 			sub_46B300(*(int*)&byte_5D4594[1308088], sub_4A7270);
 			sub_46B120(*(_DWORD**)&byte_5D4594[1308088], 0);
 			sub_4BFAD0();
-			v7 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 740);
+			v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 740);
 			sub_46B340((int)v7, sub_4A6DC0);
 			result = 1;
 		}
