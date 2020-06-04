@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_197424;
 extern _DWORD dword_5d4594_2650652;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -2196,8 +2197,8 @@ void sub_4D3360() { nox_srand(0x141Fu); }
 
 //----- (004D3370) --------------------------------------------------------
 int __cdecl sub_4D3370(char* a1) {
-	*(_DWORD*)&byte_587000[197424] = _open(a1, 33537, 384);
-	if (*(int*)&byte_587000[197424] == -1)
+	dword_587000_197424 = _open(a1, 33537, 384);
+	if (*(int*)&dword_587000_197424 == -1)
 		return 0;
 	*(_DWORD*)&nox_common_engineFlags |= 0x200000u;
 	return 1;
@@ -2207,9 +2208,9 @@ int __cdecl sub_4D3370(char* a1) {
 unsigned int sub_4D33B0() {
 	unsigned int result; // eax
 
-	if (*(int*)&byte_587000[197424] != -1)
-		_close(*(int*)&byte_587000[197424]);
-	*(_DWORD*)&byte_587000[197424] = -1;
+	if (*(int*)&dword_587000_197424 != -1)
+		_close(*(int*)&dword_587000_197424);
+	dword_587000_197424 = -1;
 	result = *(_DWORD*)&nox_common_engineFlags & 0xFFDFFFFF;
 	*(_DWORD*)&nox_common_engineFlags &= 0xFFDFFFFF;
 	return result;
@@ -2219,12 +2220,12 @@ unsigned int sub_4D33B0() {
 int __cdecl sub_4D33E0(void* a1, int a2) {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_587000[197424];
-	if (*(int*)&byte_587000[197424] != -1 && a1 && a2 >= 1) {
-		_write(*(int*)&byte_587000[197424], &byte_5D4594[2598000], 4u);
-		_write(*(int*)&byte_587000[197424], &byte_587000[197432], 1u);
-		_write(*(int*)&byte_587000[197424], &a2, 4u);
-		result = _write(*(int*)&byte_587000[197424], a1, 2 * a2);
+	result = dword_587000_197424;
+	if (*(int*)&dword_587000_197424 != -1 && a1 && a2 >= 1) {
+		_write(*(int*)&dword_587000_197424, &byte_5D4594[2598000], 4u);
+		_write(*(int*)&dword_587000_197424, &byte_587000[197432], 1u);
+		_write(*(int*)&dword_587000_197424, &a2, 4u);
+		result = _write(*(int*)&dword_587000_197424, a1, 2 * a2);
 	}
 	return result;
 }
@@ -2233,13 +2234,13 @@ int __cdecl sub_4D33E0(void* a1, int a2) {
 int __cdecl sub_4D3450(int a1, void* a2, unsigned int a3) {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_587000[197424];
-	if (*(int*)&byte_587000[197424] != -1) {
-		_write(*(int*)&byte_587000[197424], &byte_5D4594[2598000], 4u);
-		_write(*(int*)&byte_587000[197424], &byte_587000[197433], 1u);
-		_write(*(int*)&byte_587000[197424], (const void*)(a1 + 2064), 1u);
-		_write(*(int*)&byte_587000[197424], &a3, 4u);
-		result = _write(*(int*)&byte_587000[197424], a2, a3);
+	result = dword_587000_197424;
+	if (*(int*)&dword_587000_197424 != -1) {
+		_write(*(int*)&dword_587000_197424, &byte_5D4594[2598000], 4u);
+		_write(*(int*)&dword_587000_197424, &byte_587000[197433], 1u);
+		_write(*(int*)&dword_587000_197424, (const void*)(a1 + 2064), 1u);
+		_write(*(int*)&dword_587000_197424, &a3, 4u);
+		result = _write(*(int*)&dword_587000_197424, a2, a3);
 	}
 	return result;
 }
@@ -2277,9 +2278,9 @@ void sub_4D3530() {
 
 //----- (004D3860) --------------------------------------------------------
 void __cdecl sub_4D3860(void* a1) {
-	if (*(_DWORD*)&nox_common_engineFlags & 0x200000 && (*(int*)&byte_587000[197424] != -1)) {
-		sub_415F30(*(int*)&byte_587000[197424]);
-		_write(*(int*)&byte_587000[197424], a1, 0x99u);
+	if (*(_DWORD*)&nox_common_engineFlags & 0x200000 && (*(int*)&dword_587000_197424 != -1)) {
+		sub_415F30(*(int*)&dword_587000_197424);
+		_write(*(int*)&dword_587000_197424, a1, 0x99u);
 	} else if (*(_DWORD*)&nox_common_engineFlags & 0x400000) {
 		if (*(int*)&byte_587000[197428] != -1) {
 			sub_415F50(*(int*)&byte_587000[197428]);
@@ -2293,15 +2294,15 @@ int sub_4D38D0() {
 	int result; // eax
 	int v2;     // [esp+0h] [ebp-4h]
 
-	if (*(_DWORD*)&nox_common_engineFlags & 0x200000 && *(int*)&byte_587000[197424] != -1) {
-		_write(*(int*)&byte_587000[197424], &byte_5D4594[2598000], 4u);
-		_write(*(int*)&byte_587000[197424], &byte_587000[197434], 1u);
+	if (*(_DWORD*)&nox_common_engineFlags & 0x200000 && *(int*)&dword_587000_197424 != -1) {
+		_write(*(int*)&dword_587000_197424, &byte_5D4594[2598000], 4u);
+		_write(*(int*)&dword_587000_197424, &byte_587000[197434], 1u);
 		*(_DWORD*)&byte_5D4594[1549764] = nox_server_currentMapGetFilename_409B30();
 		byte_5D4594[1548725] = strlen(*(const char**)&byte_5D4594[1549764]) + 1;
-		_write(*(int*)&byte_587000[197424], &byte_5D4594[1548725], 1u);
-		_write(*(int*)&byte_587000[197424], *(const void**)&byte_5D4594[1549764], byte_5D4594[1548725]);
+		_write(*(int*)&dword_587000_197424, &byte_5D4594[1548725], 1u);
+		_write(*(int*)&dword_587000_197424, *(const void**)&byte_5D4594[1549764], byte_5D4594[1548725]);
 		v2 = 66458;
-		_write(*(int*)&byte_587000[197424], &v2, 4u);
+		_write(*(int*)&dword_587000_197424, &v2, 4u);
 		result = 0;
 	} else if (*(_DWORD*)&nox_common_engineFlags & 0x400000 && *(int*)&byte_587000[197428] != -1) {
 		result = sub_4D3580_net_playback(0);
@@ -2314,9 +2315,9 @@ int sub_4D38D0() {
 //----- (004D39B0) --------------------------------------------------------
 void sub_4D39B0() {
 	if (*(_DWORD*)&nox_common_engineFlags & 0x200000) {
-		if (*(int*)&byte_587000[197424] != -1) {
-			_write(*(int*)&byte_587000[197424], &byte_5D4594[2598000], 4u);
-			_write(*(int*)&byte_587000[197424], &byte_587000[197435], 1u);
+		if (*(int*)&dword_587000_197424 != -1) {
+			_write(*(int*)&dword_587000_197424, &byte_5D4594[2598000], 4u);
+			_write(*(int*)&dword_587000_197424, &byte_587000[197435], 1u);
 		}
 	}
 }
