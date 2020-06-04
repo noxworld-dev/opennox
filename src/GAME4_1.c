@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386576;
 extern _DWORD dword_5d4594_2386212;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_2386180;
@@ -4898,8 +4899,8 @@ int __cdecl sub_511660(_DWORD* a1, int a2) {
 		v3 = *(_DWORD*)&byte_5D4594[2598000] + a2;
 		v4 = 0;
 		a1[34] = *(_DWORD*)&byte_5D4594[2598000] + a2;
-		v5 = *(_DWORD*)&byte_5D4594[2386576];
-		if (!*(_DWORD*)&byte_5D4594[2386576])
+		v5 = dword_5d4594_2386576;
+		if (!dword_5d4594_2386576)
 			goto LABEL_14;
 		do {
 			if (v3 < *(int*)(v5 + 136))
@@ -4918,7 +4919,7 @@ int __cdecl sub_511660(_DWORD* a1, int a2) {
 			}
 		} else {
 		LABEL_14:
-			*(_DWORD*)&byte_5D4594[2386576] = a1;
+			dword_5d4594_2386576 = a1;
 		}
 		a1[117] = v5;
 		result = a1[4] | 0x400000;
@@ -4936,8 +4937,8 @@ int __cdecl sub_5116F0(int a1) {
 	if (result & 0x400000) {
 		v2 = 0;
 		*(_DWORD*)(a1 + 16) = result & 0xFFBFFFFF;
-		result = *(_DWORD*)&byte_5D4594[2386576];
-		if (*(_DWORD*)&byte_5D4594[2386576]) {
+		result = dword_5d4594_2386576;
+		if (dword_5d4594_2386576) {
 			while (result != a1) {
 				v2 = result;
 				result = *(_DWORD*)(result + 468);
@@ -4949,7 +4950,7 @@ int __cdecl sub_5116F0(int a1) {
 					result = *(_DWORD*)(a1 + 468);
 					*(_DWORD*)(v2 + 468) = result;
 				} else {
-					*(_DWORD*)&byte_5D4594[2386576] = *(_DWORD*)(a1 + 468);
+					dword_5d4594_2386576 = *(_DWORD*)(a1 + 468);
 				}
 			}
 		}
@@ -4963,8 +4964,8 @@ void sub_511750() {
 	_DWORD* v1; // edi
 	int v2;     // edx
 
-	v0 = *(_DWORD**)&byte_5D4594[2386576];
-	if (*(_DWORD*)&byte_5D4594[2386576]) {
+	v0 = *(_DWORD**)&dword_5d4594_2386576;
+	if (dword_5d4594_2386576) {
 		do {
 			v1 = (_DWORD*)v0[117];
 			if (v0[123]) {
@@ -4988,16 +4989,16 @@ int sub_5117B0() {
 	int result; // eax
 	int v1;     // esi
 
-	result = *(_DWORD*)&byte_5D4594[2386576];
-	if (*(_DWORD*)&byte_5D4594[2386576]) {
+	result = dword_5d4594_2386576;
+	if (dword_5d4594_2386576) {
 		do {
 			v1 = *(_DWORD*)(result + 468);
 			sub_5116F0(result);
 			result = v1;
 		} while (v1);
-		*(_DWORD*)&byte_5D4594[2386576] = 0;
+		dword_5d4594_2386576 = 0;
 	} else {
-		*(_DWORD*)&byte_5D4594[2386576] = 0;
+		dword_5d4594_2386576 = 0;
 	}
 	return result;
 }
