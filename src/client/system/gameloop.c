@@ -9,6 +9,7 @@
 #include "../../platform.h"
 #endif
 
+extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_815132;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -104,7 +105,7 @@ int sub_43DEB0() {
 		sub_4DD180(31);
 	}
 	if (!(*(_DWORD*)&nox_common_engineFlags & 0x40000)) {
-		*(_DWORD*)&byte_5D4594[2650672] = 1;
+		dword_5d4594_2650672 = 1;
 		sub_44DA60(1);
 	}
 LABEL_16:
@@ -140,7 +141,7 @@ int map_download_finish() {
 	}
 	sub_43E1A0(0);
 	if (!(*(_DWORD*)&nox_common_engineFlags & 0x40000)) {
-		*(_DWORD*)&byte_5D4594[2650672] = 1;
+		dword_5d4594_2650672 = 1;
 		sub_44DA60(1);
 	}
 	if (!sub_4AC2B0(nox_server_currentMapGetFilename_409B30())) {
