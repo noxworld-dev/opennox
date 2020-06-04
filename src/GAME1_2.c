@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_754056;
 extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_787164;
 extern _DWORD dword_5d4594_815032;
@@ -3579,14 +3580,14 @@ char* __cdecl sub_42CD50(_BYTE* a1) {
 }
 
 //----- (0042CD70) --------------------------------------------------------
-LPVOID sub_42CD70() { return *(LPVOID*)&byte_5D4594[754056]; }
+LPVOID sub_42CD70() { return *(LPVOID*)&dword_5d4594_754056; }
 
 //----- (0042CD80) --------------------------------------------------------
 void* __cdecl sub_42CD80(void* a1) {
 	void* result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[754056] = a1;
+	dword_5d4594_754056 = a1;
 	return result;
 }
 
@@ -3595,7 +3596,7 @@ void sub_42CD90() {
 	_DWORD* result; // eax
 	_DWORD* v1;     // esi
 
-	result = *(_DWORD**)&byte_5D4594[754056];
+	result = *(_DWORD**)&dword_5d4594_754056;
 	if (result) {
 		do {
 			v1 = (_DWORD*)result[19];
@@ -3603,7 +3604,7 @@ void sub_42CD90() {
 			result = v1;
 		} while (v1);
 	}
-	*(_DWORD*)&byte_5D4594[754056] = 0;
+	dword_5d4594_754056 = 0;
 	byte_5D4594[747848] = 0;
 	byte_5D4594[750956] = 0;
 	dword_5d4594_754036 = 0;
@@ -3632,10 +3633,10 @@ _DWORD* __cdecl sub_42CDF0(FILE* a1) {
 	v1 = sub_430AF0();
 	v2 = a1;
 	fprintf(a1, "MousePickup = %s\n", *(_DWORD*)&byte_587000[4 * v1 + 73652]);
-	result = *(_DWORD**)&byte_5D4594[754056];
-	v4 = *(_DWORD**)&byte_5D4594[754056];
-	if (*(_DWORD*)&byte_5D4594[754056]) {
-		for (result = *(_DWORD**)(*(_DWORD*)&byte_5D4594[754056] + 76); result; result = (_DWORD*)result[19])
+	result = *(_DWORD**)&dword_5d4594_754056;
+	v4 = *(_DWORD**)&dword_5d4594_754056;
+	if (dword_5d4594_754056) {
+		for (result = *(_DWORD**)(dword_5d4594_754056 + 76); result; result = (_DWORD*)result[19])
 			v4 = result;
 		for (; v4; v4 = (_DWORD*)v4[18]) {
 			v5 = 0;
@@ -3802,10 +3803,10 @@ int __cdecl sub_42CF50(const char* a1) {
 					}
 				}
 				v3[18] = 0;
-				v3[19] = *(_DWORD*)&byte_5D4594[754056];
-				if (*(_DWORD*)&byte_5D4594[754056])
-					*(_DWORD*)(*(_DWORD*)&byte_5D4594[754056] + 72) = v3;
-				*(_DWORD*)&byte_5D4594[754056] = v3;
+				v3[19] = dword_5d4594_754056;
+				if (dword_5d4594_754056)
+					*(_DWORD*)(dword_5d4594_754056 + 72) = v3;
+				dword_5d4594_754056 = v3;
 				result = 1;
 			}
 		}
@@ -3842,8 +3843,8 @@ unsigned int sub_42D220() {
 	v21 = 0;
 	v1 = nox_client_getMousePos_4309F0();
 	v22 = v1;
-	v2 = *(_DWORD*)&byte_5D4594[754056];
-	if (*(_DWORD*)&byte_5D4594[754056]) {
+	v2 = dword_5d4594_754056;
+	if (dword_5d4594_754056) {
 		while (1) {
 			v19 = 0;
 			if (*(_DWORD*)(v2 + 32) > 0)
@@ -4282,8 +4283,8 @@ char* __cdecl sub_42E8E0(int a1, int a2) {
 	int v6;              // ecx
 	unsigned __int8* v7; // eax
 
-	v2 = *(_DWORD**)&byte_5D4594[754056];
-	if (!*(_DWORD*)&byte_5D4594[754056])
+	v2 = *(_DWORD**)&dword_5d4594_754056;
+	if (!dword_5d4594_754056)
 		return (char*)&byte_5D4594[754072];
 	while (1) {
 		v3 = v2[17];
