@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831232;
 extern _DWORD dword_5d4594_1045432;
 extern _DWORD dword_5d4594_1046924;
 extern _DWORD dword_587000_127004;
@@ -1177,12 +1178,12 @@ _DWORD* sub_44E560() {
 		sub_46B300((int)result, nox_client_wndQuestBriefProc_44E630);
 		*(_DWORD*)(dword_5d4594_831236 + 56) = *(_DWORD*)&byte_5D4594[2650656];
 		result = nox_new_window_from_file("Briefing.wnd", 0);
-		*(_DWORD*)&byte_5D4594[831232] = result;
+		dword_5d4594_831232 = result;
 		if (result) {
 			sub_46B120(result, *(int*)&dword_5d4594_831236);
-			sub_46A9B0(*(_DWORD**)&byte_5D4594[831232], *(int*)&byte_5D4594[831284],
+			sub_46A9B0(*(_DWORD**)&dword_5d4594_831232, *(int*)&byte_5D4594[831284],
 				   *(int*)&byte_5D4594[831288]);
-			v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[831232], 1010);
+			v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_831232, 1010);
 			sub_46B340((int)v1, sub_44E6F0);
 			sub_44E410();
 			result = *(_DWORD**)&dword_5d4594_831236;
@@ -1307,12 +1308,12 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	sub_46ADC0(*(int*)&dword_5d4594_831236);
 	sub_46B500(*(int*)&dword_5d4594_831236);
 	sub_46B300(*(int*)&dword_5d4594_831236, nox_client_wndQuestBriefProc_44E630);
-	v5 = sub_46B0C0(*(_DWORD**)&byte_5D4594[831232], 1010);
+	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_831232, 1010);
 	sub_46B340((int)v5, sub_44E6F0);
 	*(_DWORD*)&byte_5D4594[831220] = a2;
 	v15 = (unsigned __int16**)v5[8];
 	if (v3 == 255) {
-		sub_46AE60(*(int*)&byte_5D4594[831232], 0);
+		sub_46AE60(*(int*)&dword_5d4594_831232, 0);
 		nox_window_call_field_94((int)v5, 16385, *(int*)&byte_5D4594[831268], 0);
 		sub_46AD80((int)v5, 0x2000);
 		*(_DWORD*)&byte_5D4594[831240] = sub_578D80();
@@ -1321,24 +1322,24 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	} else if (v3 == 254) {
 		nox_server_currentMapGetFilename_409B30();
 		v7 = sub_42F970("GauntletStartMines");
-		sub_46AE60(*(int*)&byte_5D4594[831232], (int)v7);
+		sub_46AE60(*(int*)&dword_5d4594_831232, (int)v7);
 		nox_window_call_field_94((int)v5, 16385, (int)&byte_5D4594[832540], 0);
 		v6 = 0;
 		if (a3 & 1) {
 			*(_DWORD*)&byte_5D4594[832472] = 1;
 			v8 = sub_42F970("MenuSystemBG");
-			sub_46AE60(*(int*)&byte_5D4594[831232], (int)v8);
+			sub_46AE60(*(int*)&dword_5d4594_831232, (int)v8);
 			sub_431510();
 			sub_45ACA0(1);
 		} else if (a3 & 4) {
 			*(_DWORD*)&byte_5D4594[832472] = 4;
 			v9 = sub_42F970("GauntletInstructionBackground");
-			sub_46AE60(*(int*)&byte_5D4594[831232], (int)v9);
+			sub_46AE60(*(int*)&dword_5d4594_831232, (int)v9);
 			sub_431510();
 			sub_45ACA0(1);
 		} else {
 			*(_DWORD*)&byte_5D4594[832472] = 2;
-			sub_46AE60(*(int*)&byte_5D4594[831232], *(int*)&byte_5D4594[832460]);
+			sub_46AE60(*(int*)&dword_5d4594_831232, *(int*)&byte_5D4594[832460]);
 			if (*(_DWORD*)&byte_5D4594[832464])
 				nox_window_call_field_94((int)v5, 16385, *(int*)&byte_5D4594[832464], 0);
 			sub_431510();
@@ -1351,12 +1352,12 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	} else {
 		v10 = 32 * (v3 + v4 + 10 * v4);
 		if (a2) {
-			sub_46AE60(*(int*)&byte_5D4594[831232], *(_DWORD*)&byte_5D4594[v10 + 831300]);
+			sub_46AE60(*(int*)&dword_5d4594_831232, *(_DWORD*)&byte_5D4594[v10 + 831300]);
 			nox_window_call_field_94((int)v5, 16385, *(_DWORD*)&byte_5D4594[v10 + 831304], 0);
 			v11 = *(_DWORD*)&byte_5D4594[v10 + 831308];
 			v6 = *(_DWORD*)&byte_5D4594[v10 + 831312];
 		} else {
-			sub_46AE60(*(int*)&byte_5D4594[831232], *(_DWORD*)&byte_5D4594[v10 + 831316]);
+			sub_46AE60(*(int*)&dword_5d4594_831232, *(_DWORD*)&byte_5D4594[v10 + 831316]);
 			nox_window_call_field_94((int)v5, 16385, *(_DWORD*)&byte_5D4594[v10 + 831320], 0);
 			v11 = *(_DWORD*)&byte_5D4594[v10 + 831324];
 			v6 = *(_DWORD*)&byte_5D4594[v10 + 831328];
@@ -1438,7 +1439,7 @@ int sub_4505E0() {
 	if (dword_5d4594_831236) {
 		sub_46C4E0(*(_DWORD**)&dword_5d4594_831236);
 		dword_5d4594_831236 = 0;
-		*(_DWORD*)&byte_5D4594[831232] = 0;
+		dword_5d4594_831232 = 0;
 	}
 	*(_DWORD*)&byte_5D4594[831260] = 0;
 	dword_5d4594_832484 = 0;

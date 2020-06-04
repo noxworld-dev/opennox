@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_831232;
 extern _DWORD dword_5d4594_832476;
 extern _DWORD dword_5d4594_832484;
 extern int nox_win_width;
@@ -636,7 +637,7 @@ int __cdecl sub_450770(int a1) {
 	} while ((int)v2 < (int)&byte_5D4594[832464]);
 	qsort(&byte_5D4594[832364], v1, 0x10u, sub_450960);
 	if (!dword_5d4594_832476) {
-		v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[831232], 1010);
+		v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_831232, 1010);
 		v5 = loadString_sub_40F1D0((char*)&byte_587000[126092], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
 					   1656);
 		sub_43F840(v4[59], v5, &a1, 0, 0);
