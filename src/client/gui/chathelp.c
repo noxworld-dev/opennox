@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "servopts/guiserv.h"
 
+extern _DWORD dword_587000_26048;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -18,7 +19,7 @@ _DWORD* sub_49C560() {
 	char* v7;       // [esp-4h] [ebp-8h]
 	char* v8;       // [esp-4h] [ebp-8h]
 
-	v0 = *(_DWORD*)&byte_587000[26048];
+	v0 = dword_587000_26048;
 	if (sub_43F320(0) > 10)
 		v0 = 2;
 	result = nox_new_window_from_file(*(const char**)&byte_587000[4 * v0 + 164512], sub_49C760);

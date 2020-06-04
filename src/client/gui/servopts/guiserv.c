@@ -5,6 +5,7 @@
 #include "../gamewin/gamewin.h"
 #include "playrlst.h"
 
+extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1046492;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -60,7 +61,7 @@ int sub_457500() {
 			if (*(_DWORD*)&byte_587000[129656])
 				sub_425760(&byte_5D4594[1045956]);
 		}
-		v1 = *(_DWORD*)&byte_587000[26048];
+		v1 = dword_587000_26048;
 		if (sub_43F320(0) > 10)
 			v1 = 2;
 		dword_5d4594_1046492 =

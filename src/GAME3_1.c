@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_3799536;
 extern _DWORD dword_5d4594_810632;
 extern _DWORD dword_587000_80828;
@@ -2244,7 +2245,7 @@ int sub_4BDFD0() {
 	int v10;    // [esp+Ch] [ebp-4h]
 
 	v0 = sub_416640();
-	v1 = *(_DWORD*)&byte_587000[26048];
+	v1 = dword_587000_26048;
 	v2 = (int)v0;
 	if (sub_43F320(0) > 10)
 		v1 = 2;

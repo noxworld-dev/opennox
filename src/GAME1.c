@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_4668;
 extern SDL_GLContext g_ddraw;
@@ -396,7 +397,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	sub_40B890(32);
 	sub_40B170(32);
 	sub_4134D0();
-	if (*(_DWORD*)&byte_587000[26048] == 6 || *(_DWORD*)&byte_587000[26048] == 8)
+	if (dword_587000_26048 == 6 || dword_587000_26048 == 8)
 		sub_43F680(0);
 	sub_413920();
 	result = sub_431390();
@@ -5527,7 +5528,7 @@ int __cdecl sub_40F7A0(char* a1) {
 		*(_DWORD*)&byte_5D4594[251496] = *(_DWORD*)&v5[12];
 		string_entries_cnt = *(_DWORD*)&v5[8];
 		v1 = 1;
-		*(_DWORD*)&byte_587000[26048] = *(int*)&v5[4] < 2 ? 0 : *(_DWORD*)&v5[20];
+		dword_587000_26048 = *(int*)&v5[4] < 2 ? 0 : *(_DWORD*)&v5[20];
 	}
 	fclose(v3);
 	return v1;
@@ -5955,7 +5956,7 @@ BOOL sub_410120() {
 	const char* v0; // eax
 	BOOL result;    // eax
 
-	v0 = *(const char**)&byte_587000[16 * *(_DWORD*)&byte_587000[26048] + 25900];
+	v0 = *(const char**)&byte_587000[16 * dword_587000_26048 + 25900];
 	if (v0)
 		result = _strcmpi(v0, "e") == 0;
 	else
