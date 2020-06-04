@@ -4,6 +4,7 @@
 #include "noxworld.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_815132;
 extern nox_window* nox_win_main_menu;
 
 //----- (004A1DC0) --------------------------------------------------------
@@ -45,7 +46,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 					sub_472520(1110);
 					if (!sub_4D1630()) {
 						sub_43DDD0(0);
-						*(_DWORD*)&byte_5D4594[815132] = 0;
+						dword_5d4594_815132 = 0;
 						return 0;
 					}
 					if (sub_4DC550()) {
@@ -86,7 +87,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 				if (sub_4D1630())
 					goto LABEL_26;
 				sub_43DDD0(0);
-				*(_DWORD*)&byte_5D4594[815132] = 0;
+				dword_5d4594_815132 = 0;
 				return 0;
 			case 121:
 				if (!sub_4CB230("Intro.vqa", v10))
@@ -133,7 +134,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_461440(0);
 				if (!sub_4D1630()) {
 					sub_43DDD0(0);
-					*(_DWORD*)&byte_5D4594[815132] = 0;
+					dword_5d4594_815132 = 0;
 					return 0;
 				}
 			LABEL_26:

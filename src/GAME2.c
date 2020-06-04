@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815132;
 extern _DWORD dword_5d4594_1045636;
 extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1047516;
@@ -1102,7 +1103,7 @@ void sub_44E320() {
 	sub_43DDA0();
 	*(_DWORD*)&byte_5D4594[2650672] = 0;
 	if (*(_DWORD*)&byte_5D4594[831220] == 255) {
-		if (*(_DWORD*)&byte_5D4594[815132] == 1) {
+		if (dword_5d4594_815132 == 1) {
 			sub_4505E0();
 			sub_4A2500();
 			sub_578E00();
