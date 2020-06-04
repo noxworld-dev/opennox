@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_5d4594_2650676;
 extern _DWORD dword_5d4594_3798808;
 extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_3798836;
@@ -70,7 +71,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 				qmemcpy(v11, v8, result);
 			}
 		} else {
-			v12 = *a1 - 23 * *a2 - *(_DWORD*)&byte_5D4594[2650676];
+			v12 = *a1 - 23 * *a2 - dword_5d4594_2650676;
 			v13 = 12 * a3;
 			v14 = *(_DWORD*)&byte_5D4594[280 * *a2 + 2598288 + 12 * a3];
 			*(_DWORD*)&byte_5D4594[1193176] = v14;
@@ -216,7 +217,7 @@ void __cdecl sub_484F90(int a1) {
 					v37 = 31.0;
 				v4 = *(_DWORD*)(v1 + 16);
 				v5 = *(_DWORD*)(v1 + 168);
-				v6 = *(_DWORD*)(v1 + 12) - *(_DWORD*)&byte_5D4594[2650676];
+				v6 = *(_DWORD*)(v1 + 12) - dword_5d4594_2650676;
 				v39 = a5 * a5;
 				v7 = v4 - *(_DWORD*)&byte_5D4594[2650680];
 				a4 = v6;
@@ -371,7 +372,7 @@ void __cdecl sub_484E60(int a1) {
 	int4 v10;           // [esp+10h] [ebp-10h]
 
 	v1 = (_DWORD*)a1;
-	*(_DWORD*)&byte_5D4594[2650676] = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
+	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	*(_DWORD*)&byte_5D4594[2650680] = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_engineFlags & 0x800) {
 		memset(&byte_5D4594[2616332], 0x1Fu, 0xA04u);
@@ -417,7 +418,7 @@ char* __cdecl sub_485740(_DWORD* a1) {
 
 	if (nox_common_engineFlags & 0x800)
 		return (char*)&byte_587000[155000];
-	v1 = *a1 - *(_DWORD*)&byte_5D4594[2650676];
+	v1 = *a1 - dword_5d4594_2650676;
 	v2 = a1[1] - *(_DWORD*)&byte_5D4594[2650680];
 	v3 = v1 / 23;
 	v4 = v2 / 23;
@@ -723,11 +724,11 @@ void __cdecl sub_469140(int arg0) {
 				v33 = *(_DWORD*)&byte_587000[142320];
 				if ((unsigned int)v3 <= *(int*)&byte_587000[142320])
 					v33 = v3;
-				v5 = *(_DWORD*)(arg0 + 12) - *(_DWORD*)&byte_5D4594[2650676];
+				v5 = *(_DWORD*)(arg0 + 12) - dword_5d4594_2650676;
 				v36 = (v3 >> 16) * (v3 >> 16);
 				v6 = *(_DWORD*)(arg0 + 168);
 				v7 = *(_DWORD*)(arg0 + 16) - *(_DWORD*)&byte_5D4594[2650680];
-				a4.field_0 = *(_DWORD*)(arg0 + 12) - *(_DWORD*)&byte_5D4594[2650676];
+				a4.field_0 = *(_DWORD*)(arg0 + 12) - dword_5d4594_2650676;
 				a4.field_4 = v7;
 				if (v6 == 0xFFFF) {
 					v35 = v4 * v4;
@@ -871,7 +872,7 @@ void __cdecl sub_468F80(int a1) {
 	int v22;              // [esp+2Ch] [ebp-4h]
 
 	v1 = (_DWORD*)a1;
-	*(_DWORD*)&byte_5D4594[2650676] = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
+	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	*(_DWORD*)&byte_5D4594[2650680] = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_engineFlags & 0x800) {
 		v2 = 2464;
