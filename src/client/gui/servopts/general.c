@@ -1,6 +1,7 @@
 #include "general.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_587000_26048;
 
 //----- (004AD320) --------------------------------------------------------
 int __cdecl sub_4AD320(int a1) {
@@ -14,7 +15,7 @@ int __cdecl sub_4AD320(int a1) {
 	_DWORD* v9;  // eax
 	_DWORD* v10; // eax
 
-	v1 = *(_DWORD*)&byte_587000[26048];
+	v1 = dword_587000_26048;
 	if (sub_43F320(0) > 10)
 		v1 = 2;
 	if (*(_DWORD*)&byte_5D4594[1309812])

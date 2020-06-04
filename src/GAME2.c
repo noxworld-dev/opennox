@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1046868;
 extern _DWORD dword_5d4594_1049504;
 extern _DWORD dword_587000_80828;
@@ -3511,7 +3512,7 @@ int __cdecl sub_4541D0(int a1) {
 
 	if (dword_5d4594_1045516)
 		return 0;
-	v2 = *(_DWORD*)&byte_587000[26048];
+	v2 = dword_587000_26048;
 	if (sub_43F320(0) > 10)
 		v2 = 2;
 	dword_5d4594_1045516 =
