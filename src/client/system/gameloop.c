@@ -9,6 +9,7 @@
 #include "../../platform.h"
 #endif
 
+extern _DWORD dword_5d4594_815132;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -265,7 +266,7 @@ void mainloop() {
 	sub_4312C0();
 	sub_495430();
 	if (nox_common_gameFlags_check_40A5C0(1) && *(_DWORD*)&byte_587000[93200] == 1) {
-		if (*(_DWORD*)&byte_5D4594[815132])
+		if (dword_5d4594_815132)
 			goto LABEL_24;
 		if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 			if (sub_40A680()) {
@@ -284,7 +285,7 @@ void mainloop() {
 			}
 		}
 	}
-	if (*(_DWORD*)&byte_5D4594[815132]) {
+	if (dword_5d4594_815132) {
 	LABEL_24:
 		sub_43C380();
 		*(_DWORD*)&nox_common_engineFlags &= 0x7FFFFFFFu;
@@ -355,7 +356,7 @@ void mainloop() {
 		sub_437180();
 		if (!*(_DWORD*)&byte_5D4594[1556112])
 			mainloop_draw(); // Draw game windows
-		if (*(_DWORD*)&byte_5D4594[815132]) {
+		if (dword_5d4594_815132) {
 			v28[0] = 0;
 			v28[1] = 0;
 			v28[2] = nox_win_width;
@@ -368,13 +369,13 @@ void mainloop() {
 			sub_431720(v25);
 		}
 		if (!(nox_common_engineFlags & 0x40000) || nox_common_engineFlags & 0x100 ||
-		    *(_DWORD*)&byte_5D4594[815132])
+		    dword_5d4594_815132)
 			nox_client_drawCursorAndTooltips_477830(); // Draw cursor
 		sub_44D9F0(1);
 		if (!sub_409F40(4096)) // CheckRuleFlags and smth
 			sub_46D830();
 		if (!(nox_common_engineFlags & 0x40000) || nox_common_engineFlags & 0x100 ||
-		    *(_DWORD*)&byte_5D4594[815132]) {
+		    dword_5d4594_815132) {
 			sub_48A220();
 			sub_4AD170_call_copy_backbuffer();
 			sub_48A290_call_present();

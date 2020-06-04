@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815132;
 extern _DWORD dword_5d4594_1305684;
 extern _DWORD dword_5d4594_1193516;
 extern _DWORD dword_5d4594_1217464;
@@ -10249,7 +10250,7 @@ _DWORD* __cdecl sub_4A0D80_parse_window(FILE* a1, char* a2, int (*a3)(int, int, 
 	*(_DWORD*)&v22[52] = *(_DWORD*)&byte_5D4594[1307280];
 	*(_DWORD*)&v22[68] = *(_DWORD*)&byte_5D4594[1307284];
 	if (!*(_DWORD*)&byte_5D4594[1307288]) {
-		if (*(_DWORD*)&byte_5D4594[815132])
+		if (dword_5d4594_815132)
 			v3 = sub_43F360((char*)&byte_587000[167936]);
 		else
 			v3 = sub_43F360((char*)&byte_587000[167944]);
