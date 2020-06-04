@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1197316;
 extern _DWORD dword_5d4594_3798720;
 extern _DWORD dword_5d4594_1217460;
 extern _DWORD dword_5d4594_3801804;
@@ -330,7 +331,7 @@ int sub_48D000() {
 	dword_5d4594_1197312 = v0;
 	if (!v0)
 		return 0;
-	*(_DWORD*)&byte_5D4594[1197316] = sub_46B0C0(v0, 4320);
+	dword_5d4594_1197316 = sub_46B0C0(v0, 4320);
 	dword_5d4594_1197320 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1197312, 4321);
 	sub_46A9B0(*(_DWORD**)&dword_5d4594_1197312, (nox_win_width - *(int*)(dword_5d4594_1197312 + 8)) / 2,
 		   *(_DWORD*)(dword_5d4594_1197312 + 20));
@@ -395,10 +396,10 @@ int sub_48D120() {
 	*(_DWORD*)&byte_5D4594[1197328] = dword_5d4594_1197324;
 	qmemcpy(&byte_5D4594[1195512], &byte_5D4594[1193720], 0x700u);
 	dword_5d4594_1197324 = 0;
-	v1 = (int*)nox_window_call_field_94(*(int*)&byte_5D4594[1197316], 16404, 0, 0);
+	v1 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16404, 0, 0);
 	v2 = v1;
 	for (i = *v1; i != -1; ++v2) {
-		v4 = (const wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1197316], 16406, i, 0);
+		v4 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16406, i, 0);
 		if (v4) {
 			nox_wcscpy((wchar_t*)&byte_5D4594[56 * dword_5d4594_1197324 + 1193720], v4);
 			++dword_5d4594_1197324;
@@ -559,7 +560,7 @@ int sub_48D450() {
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1197312);
 	result = 0;
 	dword_5d4594_1197312 = 0;
-	*(_DWORD*)&byte_5D4594[1197316] = 0;
+	dword_5d4594_1197316 = 0;
 	dword_5d4594_1197320 = 0;
 	dword_5d4594_1197324 = 0;
 	*(_DWORD*)&byte_5D4594[1197328] = 0;
