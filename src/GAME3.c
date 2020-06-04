@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1307764;
 extern _DWORD dword_5d4594_3798696;
 extern _DWORD dword_5d4594_815132;
 extern _DWORD dword_5d4594_1307780;
@@ -1621,7 +1622,7 @@ int sub_4A50D0() {
 
 	v0 = *(void (**)(void))(*(_DWORD*)&byte_5D4594[1307748] + 52);
 	sub_43C570(*(LPVOID*)&byte_5D4594[1307748]);
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1307764]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1307764);
 	if (v0) {
 		v0();
 		return 1;
