@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "guimsg.h"
+extern _DWORD dword_5d4594_1107036;
 extern _DWORD dword_5d4594_1098628;
 extern _DWORD dword_5d4594_1098576;
 extern _DWORD dword_587000_80828;
@@ -24,7 +25,7 @@ _DWORD* __cdecl sub_478730(int* a1) {
 	int v14;             // [esp-18h] [ebp-28h]
 
 	v1 = (*a1 - *(_DWORD*)&byte_5D4594[1098380]) / 50;
-	v2 = (a1[1] - *(_DWORD*)&byte_5D4594[1098384] + *(_DWORD*)&byte_5D4594[1107036]) / 50;
+	v2 = (a1[1] - *(_DWORD*)&byte_5D4594[1098384] + dword_5d4594_1107036) / 50;
 	if (v1 >= 6)
 		v1 = 5;
 	if (v2 >= 10)
@@ -168,7 +169,7 @@ int __cdecl sub_478FD0(const wchar_t* a1, char* a2, int a3) {
 	sub_4790F0(a3);
 	if (*(_DWORD*)&byte_5D4594[1098608])
 		sub_44D900(*(int*)&byte_5D4594[1098608], 100);
-	*(_DWORD*)&byte_5D4594[1107036] = 0;
+	dword_5d4594_1107036 = 0;
 	return nox_window_call_field_94(*(int*)&byte_5D4594[1098580], 16394, *(int*)&byte_5D4594[1098592], 0);
 }
 
