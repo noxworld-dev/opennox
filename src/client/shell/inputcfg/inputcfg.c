@@ -1,6 +1,7 @@
 #include "inputcfg.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1522632;
 extern _DWORD dword_5d4594_1522612;
 extern _DWORD dword_5d4594_1522604;
 extern _DWORD dword_5d4594_1522628;
@@ -72,7 +73,7 @@ int __cdecl sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 		} else if (a2 == 16400) {
 			v5 = *(_DWORD*)(a3 + 32);
 			if ((int)*(_DWORD*)(v5 + 48) >= 0) {
-				*(_DWORD*)&byte_5D4594[1522632] = a3;
+				dword_5d4594_1522632 = a3;
 				v9 = nox_window_call_field_94(*(int*)&byte_5D4594[1522620], 16406, *(_DWORD*)(v5 + 48),
 							      0);
 				v6 =
