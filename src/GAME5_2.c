@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2516344;
 extern _DWORD dword_5d4594_2523900;
 extern _DWORD dword_5d4594_2523756;
@@ -320,9 +321,9 @@ int __cdecl sub_552E70(unsigned int a1) {
 			v7 = *(_DWORD**)v6;
 			if (*(_DWORD*)v6) {
 				if (v7[5] == v5) {
-					v8 = *(_DWORD*)&byte_5D4594[2495920];
-					v7[22] = *(_DWORD*)&byte_5D4594[2495920];
-					v7[23] = *(_DWORD*)&byte_5D4594[2495920];
+					v8 = dword_5d4594_2495920;
+					v7[22] = dword_5d4594_2495920;
+					v7[23] = dword_5d4594_2495920;
 					*(_DWORD*)&v9[1] = v8;
 					sub_552640(v3, v9, 5, 2);
 				}
@@ -368,7 +369,7 @@ int __cdecl sub_552F20(unsigned int a1) {
 				if (v7[5] == v5) {
 					v8 = v7[25] + 1;
 					v7[25] = v8;
-					v7[26] = *(_DWORD*)&byte_5D4594[2495920];
+					v7[26] = dword_5d4594_2495920;
 					*(_DWORD*)&v9[1] = v8;
 					sub_552640(v3, v9, 256, 2);
 				}
@@ -718,7 +719,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 			case 7:
 				if (!*(_DWORD*)(v8 + 100))
 					return 0;
-				v31 = *(_DWORD*)&byte_5D4594[2495920] - *(_DWORD*)(v8 + 104) - *(_DWORD*)(v8 + 96);
+				v31 = dword_5d4594_2495920 - *(_DWORD*)(v8 + 104) - *(_DWORD*)(v8 + 96);
 				if (v31 >= 1)
 					v32 = 256000 / v31;
 				else
@@ -735,7 +736,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 			case 8:
 				if (*(_DWORD*)v9 != *(_DWORD*)(v8 + 88))
 					return 0;
-				*(_DWORD*)(v8 + 96) = *(_DWORD*)&byte_5D4594[2495920] - *(_DWORD*)(v8 + 92);
+				*(_DWORD*)(v8 + 96) = dword_5d4594_2495920 - *(_DWORD*)(v8 + 92);
 				*(_BYTE*)v4 = 36;
 				*(_DWORD*)(v4 + 1) = *(_DWORD*)(v8 + 96);
 				if (*(int*)(v7 + 20) == -1)
@@ -747,7 +748,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 				v20 = *(_BYTE*)(*(_DWORD*)(v72 + 48) + 1);
 				*(_BYTE*)(v4 + 2) = 9;
 				*(_BYTE*)(v4 + 1) = v20;
-				*(_DWORD*)(v4 + 3) = *(_DWORD*)&byte_5D4594[2495920];
+				*(_DWORD*)(v4 + 3) = dword_5d4594_2495920;
 				return 7;
 			case 9:
 				v21 = 32 * v6;
@@ -1968,7 +1969,7 @@ int __cdecl sub_5551F0(unsigned int a1, char a2, int a3) {
 		if (a3) {
 			if (*((_BYTE*)i + 21) == a2)
 				goto LABEL_10;
-		} else if (i[1] <= *(int*)&byte_5D4594[2495920]) {
+		} else if (i[1] <= *(int*)&dword_5d4594_2495920) {
 		LABEL_10:
 			i[3] = 1;
 			continue;
@@ -2030,7 +2031,7 @@ int __cdecl sub_5552D0(unsigned int a1, char a2, int a3) {
 		LABEL_10:
 			v6 = i[4];
 			i[3] = 0;
-			i[1] = *(_DWORD*)&byte_5D4594[2495920] + 2000;
+			i[1] = dword_5d4594_2495920 + 2000;
 			if (sub_551F90(*(_DWORD*)v3, (char*)i + 20, v6, 0, (struct sockaddr*)(v3 + 4), 16) == -1)
 				return 0;
 			continue;

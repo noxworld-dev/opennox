@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_1568024;
 extern _DWORD dword_5d4594_2388648;
 extern _DWORD dword_5d4594_1599640;
@@ -2228,7 +2229,7 @@ void sub_5524C0() {
 	unsigned int v0;  // edi
 	unsigned int* v1; // esi
 
-	*(_DWORD*)&byte_5D4594[2495920] = nox_get_ticks();
+	dword_5d4594_2495920 = nox_get_ticks();
 	v0 = 0;
 	v1 = (unsigned int*)&byte_5D4594[3843788];
 	do {
