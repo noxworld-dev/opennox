@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046496;
 extern _DWORD dword_5d4594_1046872;
 extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_833716;
@@ -5220,14 +5221,14 @@ int sub_459700() {
 
 	sub_416580();
 	v0 = sub_4165B0();
-	v1 = nox_window_call_field_94(*(int*)&byte_5D4594[1046496], 16404, 0, 0);
+	v1 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16404, 0, 0);
 	v2 = v1;
-	v3 = (const wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1046496], 16406, v1, 0);
+	v3 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16406, v1, 0);
 	nox_wcscpy(v5, v3);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1046496], 16398, v2, 0);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1046496], 16402, v2, 0);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1046496], 16397, (int)v5, -1);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1046496], 16403, v2, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16398, v2, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16402, v2, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16397, (int)v5, -1);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16403, v2, 0);
 	sub_57A9F0(v0, "user.rul");
 	sub_57A1E0((int*)v0, "user.rul", 0, 5, *((_WORD*)v0 + 26));
 	sub_459880((int)v0);
@@ -5299,8 +5300,8 @@ char* __cdecl sub_459AA0(int a1) {
 	if (*v3)
 		*(_BYTE*)(a1 + 56) = nox_wcstol(v3, 0, 10);
 	*(_BYTE*)(a1 + 57) = (sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10122)[9] >> 2) & 1;
-	result = (char*)nox_window_call_field_94(*(int*)&byte_5D4594[1046496], 16404, 0, 0);
-	if ((int)result >= 0 && (v5 = nox_window_call_field_94(*(int*)&byte_5D4594[1046496], 16406, (int)result, 0),
+	result = (char*)nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16404, 0, 0);
+	if ((int)result >= 0 && (v5 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16406, (int)result, 0),
 				 nox_sprintf(v7, "%S", v5), (result = strtok(v7, "\t")) != 0)) {
 		v6 = result;
 		result = 0;
