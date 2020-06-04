@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1046924;
 extern _DWORD dword_5d4594_1047520;
 extern _DWORD dword_587000_132132;
 extern _DWORD dword_5d4594_1046936;
@@ -123,7 +124,7 @@ int __cdecl sub_45BD40(int a1) {
 		goto LABEL_75;
 	}
 	if (dword_5d4594_1046868 == 2) {
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1046924], v1, v2);
+		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&dword_5d4594_1046924, v1, v2);
 		goto LABEL_75;
 	}
 	if (dword_587000_132132) {
