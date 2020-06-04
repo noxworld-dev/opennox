@@ -2,6 +2,7 @@
 #include "../../../proto.h"
 #include "wolchat.h"
 
+extern _DWORD dword_5d4594_830108;
 extern _DWORD dword_5d4594_830124;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -310,9 +311,9 @@ int __cdecl sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			v7 = v6 - 10;
 			if (v7) {
 				if (v7 == 1) {
-					sub_46C6E0(*(int*)&byte_5D4594[830108]);
-					sub_46C4E0(*(_DWORD**)&byte_5D4594[830108]);
-					*(_DWORD*)&byte_5D4594[830108] = 0;
+					sub_46C6E0(*(int*)&dword_5d4594_830108);
+					sub_46C4E0(*(_DWORD**)&dword_5d4594_830108);
+					dword_5d4594_830108 = 0;
 					if (sub_41E2F0() != 7) {
 						sub_468020();
 						sub_452D80(921, 100);
@@ -321,7 +322,7 @@ int __cdecl sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 				}
 			} else {
 				v8 = 0;
-				v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830108], 1961);
+				v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1961);
 				v10 = nox_window_call_field_94((int)v9, 16404, 0, 0);
 				if (v10 >= 0) {
 					v11 = sub_4200F0();
@@ -338,9 +339,9 @@ int __cdecl sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 					v13 = sub_41E2F0();
 					sub_41DA70(v13, 3);
 				}
-				sub_46C6E0(*(int*)&byte_5D4594[830108]);
-				sub_46C4E0(*(_DWORD**)&byte_5D4594[830108]);
-				*(_DWORD*)&byte_5D4594[830108] = 0;
+				sub_46C6E0(*(int*)&dword_5d4594_830108);
+				sub_46C4E0(*(_DWORD**)&dword_5d4594_830108);
+				dword_5d4594_830108 = 0;
 				if (v8) {
 					v15 = loadString_sub_40F1D0(
 					    (char*)&byte_587000[112880], 0,
@@ -364,7 +365,7 @@ int __cdecl sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 		result = 1;
 	} else {
 		if (a2 == 16400 && sub_46B0A0(a3) == 1961) {
-			v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830108], 1962);
+			v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1962);
 			v4 = nox_window_call_field_94((int)a3, 16404, 0, 0);
 			sub_46ABB0((int)v3, v4 >= 0);
 		}
