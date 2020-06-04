@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193516;
 extern _DWORD dword_5d4594_3798820;
 extern _DWORD dword_5d4594_3798824;
 extern _DWORD dword_587000_155144;
@@ -13184,13 +13185,13 @@ int __cdecl sub_48C0C0(int a1, _DWORD* a2, _DWORD* a3) {
 	_DWORD* v5; // eax
 
 	result = (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(a1);
-	*(_DWORD*)&byte_5D4594[1193516] = result;
+	dword_5d4594_1193516 = result;
 	if (result) {
 		v4 = (_DWORD*)(result + 8);
-		*(_DWORD*)&byte_5D4594[1193516] = v4;
+		dword_5d4594_1193516 = v4;
 		*a2 -= *v4;
-		v5 = (_DWORD*)(*(_DWORD*)&byte_5D4594[1193516] + 4);
-		*(_DWORD*)&byte_5D4594[1193516] = v5;
+		v5 = (_DWORD*)(dword_5d4594_1193516 + 4);
+		dword_5d4594_1193516 = v5;
 		*a3 -= *v5;
 		result = 1;
 	}
@@ -13222,7 +13223,7 @@ char sub_48C420() {
 	int v6;             // edx
 	int v7;             // edx
 
-	v0 = *(_BYTE**)&byte_5D4594[1193516];
+	v0 = *(_BYTE**)&dword_5d4594_1193516;
 	v1 = *(_BYTE**)&byte_5D4594[1193584];
 	v2 = byte_5D4594[1193520];
 	v3 = *(_DWORD*)&byte_5D4594[1193520] >> 2;
@@ -13248,7 +13249,7 @@ char sub_48C420() {
 			}
 		}
 	}
-	*(_DWORD*)&byte_5D4594[1193516] = v0;
+	dword_5d4594_1193516 = v0;
 	*(_DWORD*)&byte_5D4594[1193584] = v1;
 	return v4;
 }
@@ -13261,7 +13262,7 @@ __int16 sub_48C480() {
 	int v3;     // ecx
 	int v4;     // eax
 
-	v0 = *(int**)&byte_5D4594[1193516];
+	v0 = *(int**)&dword_5d4594_1193516;
 	v1 = *(_DWORD**)&byte_5D4594[1193584];
 	v2 = byte_5D4594[1193520] & 1;
 	v3 = *(_DWORD*)&byte_5D4594[1193520] >> 1;
@@ -13279,7 +13280,7 @@ __int16 sub_48C480() {
 		*(_WORD*)v1 = v4;
 		v1 = (_DWORD*)((char*)v1 + 2);
 	}
-	*(_DWORD*)&byte_5D4594[1193516] = v0;
+	dword_5d4594_1193516 = v0;
 	*(_DWORD*)&byte_5D4594[1193584] = v1;
 	return v4;
 }
