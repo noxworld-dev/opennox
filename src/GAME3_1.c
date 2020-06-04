@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_810632;
 extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_1320940;
 extern _DWORD dword_5d4594_3804672;
@@ -7668,8 +7669,8 @@ void sub_4C6B50() {
 	v0 = *(_DWORD*)&byte_5D4594[3799456];
 	v1 = *(unsigned __int8**)&byte_5D4594[3799444];
 	v2 = *(unsigned __int8**)&dword_5d4594_3799540;
-	v3 = *(_DWORD*)&byte_5D4594[810632];
-	if (*(_DWORD*)&byte_5D4594[810632]) {
+	v3 = dword_5d4594_810632;
+	if (dword_5d4594_810632) {
 		do {
 			v4 = *v1++ << 8;
 			v5 = *v2++ + v4;
@@ -7717,7 +7718,7 @@ void sub_4C6BF0() {
 	v1 = *(unsigned __int8**)&dword_5d4594_3799540;
 	v7 = *(_DWORD*)&byte_5D4594[3799456];
 	v2 = (*(_DWORD*)&byte_5D4594[3801748] >> 3) + *(_DWORD*)&byte_5D4594[810636];
-	v3 = *(_DWORD*)&byte_5D4594[810632];
+	v3 = dword_5d4594_810632;
 	do {
 		v4 = (*(unsigned __int8*)(v2 + 32 * *v0++) << 8) + *v1;
 		result = *(_BYTE*)(v3 + v4);
@@ -7881,7 +7882,7 @@ void sub_4C6FD0() {
 			    *(_BYTE*)(((unsigned __int8)*result << 8) +
 				      *(unsigned __int8*)(32 * v2 + (unsigned __int8)**(_BYTE**)&byte_5D4594[3799444] +
 							  *(_DWORD*)&byte_5D4594[810636]) +
-				      *(_DWORD*)&byte_5D4594[810632]);
+				      dword_5d4594_810632);
 			result = (_BYTE*)(dword_5d4594_3799540 + 1);
 			--v1;
 			++*(_DWORD*)&byte_5D4594[3799444];
