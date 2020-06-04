@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1320964;
 extern _DWORD dword_5d4594_1320940;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -118,10 +119,10 @@ int __cdecl sub_4C15D0(int a1) {
 	wchar_t* v11;         // eax
 	unsigned __int8* v12; // [esp+8h] [ebp-4h]
 
-	result = *(_DWORD*)&byte_5D4594[1320964];
+	result = dword_5d4594_1320964;
 	v2 = 0;
 	v12 = 0;
-	if (*(_DWORD*)&byte_5D4594[1320964]) {
+	if (dword_5d4594_1320964) {
 		v3 = &byte_5D4594[1319284];
 		while (2) {
 			v4 = 0;
