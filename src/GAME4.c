@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599624;
 extern _DWORD dword_5d4594_1569672;
 extern _DWORD dword_5d4594_3821964;
 extern _DWORD dword_5d4594_1599660;
@@ -8158,10 +8159,10 @@ unsigned __int8* __cdecl sub_502490(int* a1, int a2, int a3) {
 		nox_server_doMapScript_507310(v4, a2, a3);
 		if (*(_DWORD*)(48 * a1[1] + dword_5d4594_1599636 + 4))
 			*(_DWORD*)&byte_5D4594[1599076] = script_pop();
-		v6 = *(_DWORD*)&byte_5D4594[1599624];
+		v6 = dword_5d4594_1599624;
 		dword_5d4594_1599660 = 0;
-		if (*(_DWORD*)&byte_5D4594[1599624] < *(int*)&byte_5D4594[1599632]) {
-			v7 = (LPVOID*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1599624] + 3831212];
+		if (dword_5d4594_1599624 < *(int*)&byte_5D4594[1599632]) {
+			v7 = (LPVOID*)&byte_5D4594[4 * dword_5d4594_1599624 + 3831212];
 			do {
 				free(*v7);
 				v8 = *(_DWORD*)&byte_5D4594[1599632];
@@ -8169,7 +8170,7 @@ unsigned __int8* __cdecl sub_502490(int* a1, int a2, int a3) {
 				++v6;
 				++v7;
 			} while (v6 < v8);
-			v6 = *(_DWORD*)&byte_5D4594[1599624];
+			v6 = dword_5d4594_1599624;
 		}
 		*(_DWORD*)&byte_5D4594[1599632] = v6;
 		sub_5025E0((int)a1, a2, a3);
@@ -10177,9 +10178,9 @@ int sub_505360() {
 	if (!sub_505870("STRG"))
 		goto LABEL_9;
 	v1 = 0;
-	*(_DWORD*)&byte_5D4594[1599624] = sub_505800();
-	*(_DWORD*)&byte_5D4594[1599632] = *(_DWORD*)&byte_5D4594[1599624];
-	if (*(_DWORD*)&byte_5D4594[1599624] > 0) {
+	dword_5d4594_1599624 = sub_505800();
+	*(_DWORD*)&byte_5D4594[1599632] = dword_5d4594_1599624;
+	if (dword_5d4594_1599624 > 0) {
 		v3 = &byte_5D4594[3831212];
 		do {
 			v4 = sub_505800();
@@ -10190,7 +10191,7 @@ int sub_505360() {
 				goto LABEL_45;
 			++v1;
 			v3 += 4;
-		} while (v1 < *(int*)&byte_5D4594[1599624]);
+		} while (v1 < *(int*)&dword_5d4594_1599624);
 	}
 	if (!sub_505870("CODE")) {
 	LABEL_9:
@@ -10368,9 +10369,9 @@ char* sub_5058F0() {
 	int v7;       // edi
 	int v8;       // esi
 
-	v0 = *(_DWORD*)&byte_5D4594[1599624];
-	if (*(_DWORD*)&byte_5D4594[1599624] < *(int*)&byte_5D4594[1599632]) {
-		v1 = (LPVOID*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1599624] + 3831212];
+	v0 = dword_5d4594_1599624;
+	if (dword_5d4594_1599624 < *(int*)&byte_5D4594[1599632]) {
+		v1 = (LPVOID*)&byte_5D4594[4 * dword_5d4594_1599624 + 3831212];
 		do {
 			free(*v1);
 			v2 = *(_DWORD*)&byte_5D4594[1599632];
@@ -10378,7 +10379,7 @@ char* sub_5058F0() {
 			++v0;
 			++v1;
 		} while (v0 < v2);
-		v0 = *(_DWORD*)&byte_5D4594[1599624];
+		v0 = dword_5d4594_1599624;
 	}
 	if (v0) {
 		v3 = 0;
@@ -10386,7 +10387,7 @@ char* sub_5058F0() {
 			v4 = (LPVOID*)&byte_5D4594[3831212];
 			do {
 				free(*v4);
-				v5 = *(_DWORD*)&byte_5D4594[1599624];
+				v5 = dword_5d4594_1599624;
 				*v4 = 0;
 				++v3;
 				++v4;
@@ -10394,7 +10395,7 @@ char* sub_5058F0() {
 		}
 	}
 	result = *(char**)&dword_5d4594_1599636;
-	*(_DWORD*)&byte_5D4594[1599624] = 0;
+	dword_5d4594_1599624 = 0;
 	*(_DWORD*)&byte_5D4594[1599628] = 0;
 	*(_DWORD*)&byte_5D4594[1599632] = 0;
 	if (dword_5d4594_1599636) {
