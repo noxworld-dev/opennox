@@ -1,6 +1,7 @@
 #include "pausefx.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2523780;
 
 //----- (0057AF30) --------------------------------------------------------
 void __cdecl sub_57AF30(int a1, int a2) {
@@ -12,9 +13,9 @@ void __cdecl sub_57AF30(int a1, int a2) {
 	if (*(_DWORD*)&byte_5D4594[2523804] != 1 && !sub_413A50()) {
 		v2 = a1;
 		if (a1)
-			*(_DWORD*)&byte_5D4594[2523780] = a1;
+			dword_5d4594_2523780 = a1;
 		else
-			v2 = *(_DWORD*)&byte_5D4594[2523780];
+			v2 = dword_5d4594_2523780;
 		if (a2) {
 			if (a2 != 1) {
 				v3 = *(_DWORD**)&byte_5D4594[2523776];
@@ -26,11 +27,11 @@ void __cdecl sub_57AF30(int a1, int a2) {
 						sub_4E38A0((int)v3);
 						*(_DWORD*)&byte_5D4594[2523776] = 0;
 					}
-					v2 = *(_DWORD*)&byte_5D4594[2523780];
+					v2 = dword_5d4594_2523780;
 				}
 				if ((!a2 || a2 == 1) && v2) {
 					sub_522FF0(154, (float2*)(v2 + 56));
-					v2 = *(_DWORD*)&byte_5D4594[2523780];
+					v2 = dword_5d4594_2523780;
 				}
 				if (!a2) {
 					if (!v2) {
@@ -48,8 +49,8 @@ void __cdecl sub_57AF30(int a1, int a2) {
 					v4 =
 					    loadString_sub_40F1D0((char*)&byte_587000[312764], 0,
 								  "C:\\NoxPost\\src\\common\\GameMech\\PauseFX.c", 109);
-					sub_4D9EB0(*(int*)&byte_5D4594[2523780], v4);
-					v2 = *(_DWORD*)&byte_5D4594[2523780];
+					sub_4D9EB0(*(int*)&dword_5d4594_2523780, v4);
+					v2 = dword_5d4594_2523780;
 				}
 				if (v2) {
 					v5 = *(_DWORD*)(v2 + 748);
@@ -67,7 +68,7 @@ void __cdecl sub_57AF30(int a1, int a2) {
 		} else {
 			v3 = sub_4E3810((CHAR*)&byte_587000[312700]);
 		}
-		v2 = *(_DWORD*)&byte_5D4594[2523780];
+		v2 = dword_5d4594_2523780;
 		*(_DWORD*)&byte_5D4594[2523776] = v3;
 		goto LABEL_12;
 	}
