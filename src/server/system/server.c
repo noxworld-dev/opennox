@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1569756;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_1568024;
@@ -1430,7 +1431,7 @@ int __cdecl sub_5003B0(int a1) {
 	unsigned __int8* v4; // esi
 	_BYTE* v5;           // eax
 
-	if (*(int*)&byte_5D4594[1569756] <= 0) {
+	if (*(int*)&dword_5d4594_1569756 <= 0) {
 		v1 = a1;
 	} else {
 		v1 = sub_4FE930();
@@ -1450,7 +1451,7 @@ int __cdecl sub_5003B0(int a1) {
 		*(_DWORD*)(v1 + 48) = 0;
 	}
 	v3 = 0;
-	if (*(_DWORD*)&byte_5D4594[1569756] > 0) {
+	if (dword_5d4594_1569756 > 0) {
 		v4 = &byte_5D4594[1569764];
 		do {
 			v5 = (_BYTE*)nox_server_getWallAtPoint_410580(*v4, v4[1]);
@@ -1469,9 +1470,9 @@ int __cdecl sub_5003B0(int a1) {
 			sub_4FFE80(v1, v5, *((_DWORD*)v4 + 1), v4[8], v4[9], v4[10]);
 			++v3;
 			v4 += 16;
-		} while (v3 < *(int*)&byte_5D4594[1569756]);
+		} while (v3 < *(int*)&dword_5d4594_1569756);
 	}
-	*(_DWORD*)&byte_5D4594[1569756] = 0;
+	dword_5d4594_1569756 = 0;
 	return 1;
 }
 
