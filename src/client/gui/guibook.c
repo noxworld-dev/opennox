@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1046872;
 extern _DWORD dword_5d4594_1047516;
 extern _DWORD dword_5d4594_1046868;
 extern int nox_win_width;
@@ -110,7 +111,7 @@ int __cdecl sub_45BD40(int a1) {
 	*(_DWORD*)&byte_5D4594[1046656] = v3 + 2;
 	sub_434390(*(int*)&byte_5D4594[1046880]);
 	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1046856], v1, v2);
-	if (*(_DWORD*)&byte_5D4594[1046872])
+	if (dword_5d4594_1046872)
 		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1046660], v1, v2);
 	else
 		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1046644], v1, v2);
