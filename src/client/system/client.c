@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_815132;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -43,7 +44,7 @@ void sub_436100_draw() {
 		sub_416D40();
 	}
 	if (!(!*(_DWORD*)&byte_587000[85724] || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
-	      *(_DWORD*)&byte_5D4594[815132] || sub_413A50() || *(_DWORD*)&nox_common_engineFlags & 0x40000)) {
+	      dword_5d4594_815132 || sub_413A50() || *(_DWORD*)&nox_common_engineFlags & 0x40000)) {
 		*(_DWORD*)&nox_common_engineFlags |= 0x80000000;
 		return;
 	}

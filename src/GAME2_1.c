@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815132;
 extern _DWORD dword_5d4594_1049796;
 extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1090048;
@@ -3025,7 +3026,7 @@ int __cdecl sub_467F70(int a1, int a2, int a3, int a4) {
 		return 0;
 	if (a4 == 2) {
 		sub_452D80(231, 100);
-		if (*(_DWORD*)&byte_5D4594[815132])
+		if (dword_5d4594_815132)
 			sub_4207F0(1);
 	}
 	return 1;
@@ -3054,7 +3055,7 @@ int __cdecl sub_467FC0(int a1, int a2, int* a3, int a4) {
 //----- (00468020) --------------------------------------------------------
 void sub_468020() {
 	sub_46B0C0(0, 1700);
-	if (*(_DWORD*)&byte_5D4594[815132]) {
+	if (dword_5d4594_815132) {
 		sub_468060();
 		sub_4207F0(1);
 		sub_44A560_wol_login();
@@ -4762,7 +4763,7 @@ void sub_46B740() {
 	v66[3] = v7;
 	v60 = v8;
 	sub_4776B0(0);
-	if (*(_DWORD*)&byte_5D4594[815132] || sub_477600())
+	if (dword_5d4594_815132 || sub_477600())
 		nox_client_setCursorType_477610(0);
 	else
 		nox_client_setCursorType_477610(14);
