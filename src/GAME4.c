@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599564;
 extern _DWORD dword_5d4594_3835396;
 extern _DWORD dword_5d4594_1599588;
 extern _DWORD dword_5d4594_1599596;
@@ -8359,7 +8360,7 @@ char* sub_5028E0() {
 	*(_DWORD*)&byte_5D4594[1599560] = 0;
 	*(_DWORD*)&byte_5D4594[1599548] = 0;
 	*(_DWORD*)&byte_5D4594[1599552] = 0;
-	*(_DWORD*)&byte_5D4594[1599564] = 0;
+	dword_5d4594_1599564 = 0;
 	*(_DWORD*)&byte_5D4594[1599568] = 0;
 	*(_DWORD*)&byte_5D4594[1599484] = 0;
 	*(_DWORD*)&byte_5D4594[1599488] = 0;
@@ -9222,8 +9223,8 @@ char* sub_503F40() {
 			v8 = v9;
 		} while (v9);
 	}
-	v10 = *(_QWORD***)&byte_5D4594[1599564];
-	if (*(_DWORD*)&byte_5D4594[1599564]) {
+	v10 = *(_QWORD***)&dword_5d4594_1599564;
+	if (dword_5d4594_1599564) {
 		do {
 			v11 = (_QWORD**)v10[1];
 			if (*(_DWORD*)&byte_5D4594[1599476]) {
@@ -9244,7 +9245,7 @@ char* sub_503F40() {
 		} while (v11);
 	}
 	*(_DWORD*)&byte_5D4594[1599568] = 0;
-	*(_DWORD*)&byte_5D4594[1599564] = 0;
+	dword_5d4594_1599564 = 0;
 	return sub_5028E0();
 }
 
@@ -9544,10 +9545,10 @@ _DWORD* __cdecl sub_504600(const char* a1, int a2, char a3) {
 	if (!v5)
 		return 0;
 	v3[2] = 0;
-	v3[1] = *(_DWORD*)&byte_5D4594[1599564];
-	if (*(_DWORD*)&byte_5D4594[1599564])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1599564] + 8) = v3;
-	*(_DWORD*)&byte_5D4594[1599564] = v3;
+	v3[1] = dword_5d4594_1599564;
+	if (dword_5d4594_1599564)
+		*(_DWORD*)(dword_5d4594_1599564 + 8) = v3;
+	dword_5d4594_1599564 = v3;
 	*(_DWORD*)(*v3 + 88) = 0;
 	*(_DWORD*)(*v3 + 92) = 0;
 	*(_DWORD*)(*v3 + 84) = 0;
@@ -9573,8 +9574,8 @@ int __cdecl sub_5046A0(_DWORD* a1, int a2) {
 	char v5;    // cl
 	int v6;     // ecx
 
-	v2 = *(char***)&byte_5D4594[1599564];
-	if (!*(_DWORD*)&byte_5D4594[1599564])
+	v2 = *(char***)&dword_5d4594_1599564;
+	if (!dword_5d4594_1599564)
 		return 0;
 	while (*((_DWORD*)*v2 + 1) != a2) {
 		v2 = (char**)v2[1];
@@ -9608,8 +9609,8 @@ int __cdecl sub_504720(int a1, int a2) {
 	int* v2; // esi
 
 	sub_504760(a1, a2);
-	v2 = *(int**)&byte_5D4594[1599564];
-	if (*(_DWORD*)&byte_5D4594[1599564]) {
+	v2 = *(int**)&dword_5d4594_1599564;
+	if (dword_5d4594_1599564) {
 		do {
 			nox_server_addNewMapGroup_57C3B0(*v2);
 			v2 = (int*)v2[1];
@@ -9630,9 +9631,9 @@ int __cdecl sub_504760(int a1, int a2) {
 	char v9[76]; // [esp+8h] [ebp-4Ch]
 
 	result = sub_57BF80();
-	v3 = *(char***)&byte_5D4594[1599564];
+	v3 = *(char***)&dword_5d4594_1599564;
 	v8 = result;
-	if (*(_DWORD*)&byte_5D4594[1599564]) {
+	if (dword_5d4594_1599564) {
 		while (1) {
 			v4 = **v3;
 			nox_sprintf(v9, "%s%%%d", *v3 + 8, *(_DWORD*)&byte_5D4594[3835312]);
