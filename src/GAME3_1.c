@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798156;
 extern _DWORD dword_5d4594_1522612;
 extern _DWORD dword_5d4594_1522604;
 extern _DWORD dword_587000_154952;
@@ -6354,7 +6355,7 @@ int __cdecl sub_4C52E0(int* a1, int a2) {
 	result = a2;
 	v4 = 0;
 	dword_5d4594_3679320 = v2;
-	*(_DWORD*)&byte_5D4594[3798156] = 0;
+	dword_5d4594_3798156 = 0;
 	v21 = 0;
 	if (a2 > 0) {
 		v5 = a1;
@@ -6464,8 +6465,8 @@ void __cdecl sub_4C5430(int a1, int a2) {
 		*(_DWORD*)&byte_5D4594[4 * (v3 + 32 * a2) + 3682956] = a1;
 		if (a2 < *(int*)&dword_5d4594_3679320)
 			dword_5d4594_3679320 = a2;
-		if (a2 > *(int*)&byte_5D4594[3798156])
-			*(_DWORD*)&byte_5D4594[3798156] = a2;
+		if (a2 > *(int*)&dword_5d4594_3798156)
+			dword_5d4594_3798156 = a2;
 	}
 }
 
@@ -6513,8 +6514,8 @@ int __cdecl sub_4C5500(int* a1) {
 		nox_client_drawRectFilledOpaque_49CE30(v2, v3, a1[8], dword_5d4594_3679320 - v3);
 		v4 = dword_5d4594_3679320;
 	}
-	v5 = *(_DWORD*)&byte_5D4594[3798156];
-	if (v4 < *(int*)&byte_5D4594[3798156]) {
+	v5 = dword_5d4594_3798156;
+	if (v4 < *(int*)&dword_5d4594_3798156) {
 		v13 = &byte_5D4594[4 * v4 + 3679340];
 		v6 = &byte_5D4594[128 * v4 + 3682956];
 		do {
@@ -6533,11 +6534,11 @@ int __cdecl sub_4C5500(int* a1) {
 				v2 = v14;
 			}
 			(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & byte_5D4594[3798720])(v8, v4, v2 + a1[8]);
-			v5 = *(_DWORD*)&byte_5D4594[3798156];
+			v5 = dword_5d4594_3798156;
 			++v4;
 			v6 += 128;
 			v13 += 4;
-		} while (v4 < *(int*)&byte_5D4594[3798156]);
+		} while (v4 < *(int*)&dword_5d4594_3798156);
 		v3 = v15;
 		v1 = a1;
 	}
@@ -6620,10 +6621,10 @@ int __cdecl sub_4C56D0(_DWORD* a1) {
 	result = nox_win_height;
 	if (v3 + v4 > 5865)
 		result = nox_win_height - v3 - v4 + 5865;
-	*(_DWORD*)&byte_5D4594[3798156] = result;
+	dword_5d4594_3798156 = result;
 	if (result < 0) {
 		result = 0;
-		*(_DWORD*)&byte_5D4594[3798156] = 0;
+		dword_5d4594_3798156 = 0;
 	}
 	v6 = a1[4];
 	if (v6 >= 0) {
