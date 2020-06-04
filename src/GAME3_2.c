@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650652;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -8738,7 +8739,7 @@ _DWORD* __cdecl sub_4DD320(int a1, int a2) {
 				*((_DWORD*)v8 + 1161) = sub_56F400(v25);
 				*((_DWORD*)v8 + 1162) = -1;
 				*((_DWORD*)v8 + 1175) = 1;
-				if (*(_DWORD*)&byte_5D4594[2650652])
+				if (dword_5d4594_2650652)
 					sub_41D670((int)(v8 + 2096));
 				sub_4D7F10(a1);
 				if (nox_common_gameFlags_check_40A5C0(4096)) {
@@ -9829,7 +9830,7 @@ int __cdecl sub_4DF630(int a1, char* a2, unsigned int a3) {
 		}
 	}
 	for (i = sub_40EEB0(v4, 1, &a3); i; i = sub_40EEB0(v4, 1, &a3)) {
-		if (*(char*)i != -107 || *(int*)&byte_5D4594[2650652] != 1 ||
+		if (*(char*)i != -107 || *(int*)&dword_5d4594_2650652 != 1 ||
 		    !(*(_DWORD*)&byte_5D4594[2598000] % (unsigned int)sub_40A6C0())) {
 			v16 = sub_4DFAF0(v3, (int)v5, i, a3);
 			if (!v16)
@@ -9838,7 +9839,7 @@ int __cdecl sub_4DF630(int a1, char* a2, unsigned int a3) {
 		}
 	}
 	*(_DWORD*)&byte_5D4594[1563312] = v3 - a2;
-	if (!*(_DWORD*)&byte_5D4594[2650652] || !(*(_DWORD*)&byte_5D4594[2598000] % (unsigned int)sub_40A6C0()) ||
+	if (!dword_5d4594_2650652 || !(*(_DWORD*)&byte_5D4594[2598000] % (unsigned int)sub_40A6C0()) ||
 	    nox_common_gameFlags_check_40A5C0(8)) {
 		sub_4E5770(v4, 1);
 		for (j = sub_40EEB0(v4, 1, &a3); j; j = sub_40EEB0(v4, 1, &a3)) {

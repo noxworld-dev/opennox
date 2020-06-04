@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_4668;
 extern SDL_GLContext g_ddraw;
 #endif
@@ -235,7 +236,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	nox_common_gameFlags_unset_40A540(-1);
 	sub_40A4D0(3);
 	nox_common_engineFlags = 1024;
-	*(_DWORD*)&byte_5D4594[2650652] = 0;
+	dword_5d4594_2650652 = 0;
 	BOOL v2 = nox_common_gameFlags_check_40A5C0(1);
 	*(_DWORD*)&byte_5D4594[2649704] = 30;
 	*(_DWORD*)&byte_5D4594[2598000] = v2;

@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_1599636;
 extern int nox_win_width;
 
@@ -1345,7 +1346,7 @@ __int16 __cdecl sub_4F7EF0(int a1) {
 				sub_501960(1006, a1, 0, 0);
 			else
 				sub_501960(148, a1, 0, 0);
-			if (!*(_DWORD*)&byte_5D4594[2650652] || *(_DWORD*)(v2 + 58))
+			if (!dword_5d4594_2650652 || *(_DWORD*)(v2 + 58))
 				sub_53FBC0((float*)(a1 + 56), *(__int16*)(a1 + 124));
 			v5 = *(float*)(a1 + 60);
 			v9.field_0 = *(float*)(a1 + 56);
@@ -3123,7 +3124,7 @@ int __cdecl sub_4FAC70(int a1) {
 			return 1;
 		sub_4FA700(a1);
 		sub_4EF7D0(a1, 1, 0);
-		if (!*(_DWORD*)&byte_5D4594[2650652] || *(_DWORD*)(v2 + 58))
+		if (!dword_5d4594_2650652 || *(_DWORD*)(v2 + 58))
 			sub_53FBC0((float*)(a1 + 56), *(__int16*)(a1 + 124));
 		sub_4F7AB0(&v4, a1);
 		sub_4E7010(a1, &v4);
@@ -3963,7 +3964,7 @@ void sub_4FCB80() {
 				LOBYTE(v27) = sub_424A20(*(_DWORD*)(v0 + 4 * *(unsigned __int8*)(v0 + 28) +
 								    8))[*(unsigned __int8*)(v0 + 36)];
 				v20 = v27;
-				if (!*(_DWORD*)&byte_5D4594[2650652] || *(_DWORD*)(v19 + 62))
+				if (!dword_5d4594_2650652 || *(_DWORD*)(v19 + 62))
 					sub_4FC960(*(_DWORD*)(v0 + 4), v27);
 				v21 = sub_424830(*(_DWORD*)(v0 + 32), v20);
 				v22 = *(_DWORD*)(v0 + 4);

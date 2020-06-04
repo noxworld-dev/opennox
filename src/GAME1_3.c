@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_830224;
 extern _DWORD dword_5d4594_3798784;
 extern nox_memfile* nox_loaded_thing_bin;
@@ -962,7 +963,7 @@ int sub_43CCA0() {
 	sub_49C4B0();
 	v0 = *(_DWORD*)&byte_5D4594[2598000];
 	sub_552A80(*(unsigned int*)&byte_5D4594[815700], 1);
-	if (v0 != *(_DWORD*)&byte_5D4594[2598000] && *(_DWORD*)&byte_5D4594[2650652] == 1 &&
+	if (v0 != *(_DWORD*)&byte_5D4594[2598000] && dword_5d4594_2650652 == 1 &&
 	    !nox_common_gameFlags_check_40A5C0(1)) {
 		v1 = sub_40A710(1);
 		if (sub_43C790() > v1) {

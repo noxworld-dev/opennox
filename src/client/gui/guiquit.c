@@ -6,6 +6,7 @@
 #include "guivote.h"
 #include "servopts/guiserv.h"
 
+extern _DWORD dword_5d4594_2650652;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -365,7 +366,7 @@ void sub_446190() {
 		sub_446380();
 	}
 LABEL_20:
-	if (*(_DWORD*)&byte_5D4594[2650652]) {
+	if (dword_5d4594_2650652) {
 		if (sub_41E2F0() == 9) {
 			sub_41F4B0();
 			sub_41EC30();

@@ -1,6 +1,7 @@
 #include "spelllst.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_2650652;
 
 //----- (00453850) --------------------------------------------------------
 int __cdecl sub_453850(int a1) {
@@ -143,7 +144,7 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 				v7 += 524;
 			} while (v6 < *v5);
 		}
-		if (*(_DWORD*)&byte_5D4594[2650652]) {
+		if (dword_5d4594_2650652) {
 			sub_57A1E0(v19, 0, 0, 4, 6128);
 			for (i = 0; i < 5; ++i)
 				*(_DWORD*)&byte_5D4594[i * 4 + 1045488] &= v19[i + 6];
@@ -172,7 +173,7 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 		v13 = sub_424960(v12);
 		if (!v13)
 			goto LABEL_19;
-		if (!*(_DWORD*)&byte_5D4594[2650652] ||
+		if (!dword_5d4594_2650652 ||
 		    (sub_57A1E0(v19, 0, 0, 4, 6128), sub_454000((int)&v19[6], v13))) {
 			v15 = sub_4165B0();
 			if ((nox_common_gameFlags_check_40A5C0(64) || v15[52] & 0x40) && v13 == 132) {
