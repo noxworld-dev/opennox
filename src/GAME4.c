@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1570272;
 extern _DWORD dword_5d4594_1599656;
 extern _DWORD dword_5d4594_1569648;
 extern _DWORD dword_5d4594_2650652;
@@ -6643,11 +6644,11 @@ char* __cdecl sub_500540(char* a1, int a2) {
 			*((_DWORD*)result + 33) = 0;
 			*((_DWORD*)result + 34) = a2;
 			*((_DWORD*)result + 36) = 0;
-			*((_DWORD*)result + 35) = *(_DWORD*)&byte_5D4594[1570272];
-			result = *(char**)&byte_5D4594[1570272];
-			if (*(_DWORD*)&byte_5D4594[1570272])
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[1570272] + 144) = v3;
-			*(_DWORD*)&byte_5D4594[1570272] = v3;
+			*((_DWORD*)result + 35) = dword_5d4594_1570272;
+			result = *(char**)&dword_5d4594_1570272;
+			if (dword_5d4594_1570272)
+				*(_DWORD*)(dword_5d4594_1570272 + 144) = v3;
+			dword_5d4594_1570272 = v3;
 		}
 	}
 	return result;
@@ -6684,7 +6685,7 @@ char* __cdecl sub_5005E0(char* a1) {
 		v5 = v1;
 	}
 	qmemcpy(v3, v4, v5 & 3);
-	for (i = *(_DWORD*)&byte_5D4594[1570272]; i; i = *(_DWORD*)(i + 140)) {
+	for (i = dword_5d4594_1570272; i; i = *(_DWORD*)(i + 140)) {
 		if (!_strcmpi((const char*)i, (const char*)&byte_5D4594[1570140]))
 			break;
 	}
@@ -6707,11 +6708,11 @@ char* __cdecl sub_5006B0(char* a1, int a2) {
 			*((_DWORD*)result + 33) = 1;
 			*((_DWORD*)result + 34) = a2;
 			*((_DWORD*)result + 36) = 0;
-			*((_DWORD*)result + 35) = *(_DWORD*)&byte_5D4594[1570272];
-			result = *(char**)&byte_5D4594[1570272];
-			if (*(_DWORD*)&byte_5D4594[1570272])
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[1570272] + 144) = v3;
-			*(_DWORD*)&byte_5D4594[1570272] = v3;
+			*((_DWORD*)result + 35) = dword_5d4594_1570272;
+			result = *(char**)&dword_5d4594_1570272;
+			if (dword_5d4594_1570272)
+				*(_DWORD*)(dword_5d4594_1570272 + 144) = v3;
+			dword_5d4594_1570272 = v3;
 		}
 	}
 	return result;
@@ -6754,8 +6755,8 @@ void __cdecl sub_500790(LPVOID lpMem) {
 	v2 = *((_DWORD*)lpMem + 35);
 	if (v2)
 		*(_DWORD*)(v2 + 144) = *((_DWORD*)lpMem + 36);
-	if (lpMem == *(LPVOID*)&byte_5D4594[1570272])
-		*(_DWORD*)&byte_5D4594[1570272] = *((_DWORD*)lpMem + 35);
+	if (lpMem == *(LPVOID*)&dword_5d4594_1570272)
+		dword_5d4594_1570272 = *((_DWORD*)lpMem + 35);
 	free(lpMem);
 }
 
@@ -6785,8 +6786,8 @@ char* __cdecl sub_5007E0(char* a1) {
 		v3 = strlen((const char*)&byte_5D4594[1570140]) + 1;
 		result = 0;
 		if (!strcmp((const char*)&byte_5D4594[1570140], "*:*")) {
-			result = *(char**)&byte_5D4594[1570272];
-			if (*(_DWORD*)&byte_5D4594[1570272]) {
+			result = *(char**)&dword_5d4594_1570272;
+			if (dword_5d4594_1570272) {
 				do {
 					v4 = (char*)*((_DWORD*)result + 35);
 					sub_500790(result);
@@ -6794,8 +6795,8 @@ char* __cdecl sub_5007E0(char* a1) {
 				} while (v4);
 			}
 		} else if (v1 == &byte_5D4594[v3 + 1570138]) {
-			v5 = *(_DWORD*)&byte_5D4594[1570272];
-			if (*(_DWORD*)&byte_5D4594[1570272]) {
+			v5 = dword_5d4594_1570272;
+			if (dword_5d4594_1570272) {
 				do {
 					v6 = *(_DWORD*)(v5 + 140);
 					result = (char*)_strnicmp((const char*)v5, (const char*)&byte_5D4594[1570140],
@@ -6806,8 +6807,8 @@ char* __cdecl sub_5007E0(char* a1) {
 				} while (v6);
 			}
 		} else if (v1 == &byte_5D4594[1570140]) {
-			v7 = *(_DWORD*)&byte_5D4594[1570272];
-			if (*(_DWORD*)&byte_5D4594[1570272]) {
+			v7 = dword_5d4594_1570272;
+			if (dword_5d4594_1570272) {
 				do {
 					v8 = *(_DWORD*)(v7 + 140);
 					result = strstr((const char*)v7, (const char*)&byte_5D4594[1570141]);
@@ -6824,9 +6825,9 @@ char* __cdecl sub_5007E0(char* a1) {
 			v10 = strchr((const char*)&byte_5D4594[1570140], 58);
 			result = 0;
 			v11 = v10 + 2;
-			v12 = *(_DWORD*)&byte_5D4594[1570272];
+			v12 = dword_5d4594_1570272;
 			v13 = strlen(v10 + 2) + 1;
-			if (*(_DWORD*)&byte_5D4594[1570272]) {
+			if (dword_5d4594_1570272) {
 				v14 = v10 - (char*)&byte_5D4594[1570140];
 				v17 = v10 - (char*)&byte_5D4594[1570140];
 				do {
@@ -6897,12 +6898,12 @@ int sub_500A60() {
 	sub_426AC0_file3_fread(&v5, 2u);
 	if ((__int16)v5 > 1)
 		return 0;
-	v1 = *(_DWORD*)&byte_5D4594[1570272];
+	v1 = dword_5d4594_1570272;
 	for (i = 0; v1; ++i)
 		v1 = *(_DWORD*)(v1 + 140);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		sub_426AC0_file3_fread(&i, 4u);
-		for (j = *(_DWORD*)&byte_5D4594[1570272]; j; j = *(_DWORD*)(j + 140)) {
+		for (j = dword_5d4594_1570272; j; j = *(_DWORD*)(j + 140)) {
 			LOBYTE(v6) = strlen((const char*)j);
 			sub_426AC0_file3_fread(&v6, 1u);
 			sub_426AC0_file3_fread((_BYTE*)j, (unsigned __int8)v6);
