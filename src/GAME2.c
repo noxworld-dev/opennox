@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1049496;
 extern _DWORD dword_5d4594_1047932;
 extern _DWORD dword_5d4594_1049512;
 extern _DWORD dword_5d4594_831232;
@@ -7542,7 +7543,7 @@ int __cdecl sub_45E110(int a1) {
 	int result; // eax
 
 	result = a1;
-	if (a1 >= 0 && a1 < 5 && !*(_DWORD*)&byte_5D4594[1049476] && !*(_DWORD*)&byte_5D4594[1049496]) {
+	if (a1 >= 0 && a1 < 5 && !*(_DWORD*)&byte_5D4594[1049476] && !dword_5d4594_1049496) {
 		*(_BYTE*)(dword_587000_133480 + 200) = a1;
 		*(_DWORD*)(dword_587000_133480 + 204) =
 		    dword_587000_133480 + 40 * *(unsigned __int8*)(dword_587000_133480 + 200);
@@ -7948,16 +7949,16 @@ _DWORD* sub_45F900() {
 
 	result = *(_DWORD**)&dword_587000_133480;
 	if (dword_587000_133480) {
-		if (*(_DWORD*)&byte_5D4594[1049496]) {
+		if (dword_5d4594_1049496) {
 			result = (_DWORD*)sub_430B40_get_mouse_prev_seq();
 			if (*(_DWORD**)&byte_5D4594[1049492] == result)
 				return result;
-			*(_DWORD*)&byte_5D4594[1049496] = 0;
+			dword_5d4594_1049496 = 0;
 		} else {
 			result = (_DWORD*)sub_430B40_get_mouse_prev_seq();
 			if (*(_DWORD**)&byte_5D4594[1049492] != result)
 				return result;
-			*(_DWORD*)&byte_5D4594[1049496] = 1;
+			dword_5d4594_1049496 = 1;
 		}
 		for (i = 0; i < 5; ++i) {
 			v2 = *(_DWORD*)(dword_587000_133480 + 204);
@@ -8183,8 +8184,8 @@ int sub_4604F0() {
 
 	result = *(_DWORD*)&byte_5D4594[1049476];
 	if (!*(_DWORD*)&byte_5D4594[1049476]) {
-		result = *(_DWORD*)&byte_5D4594[1049496];
-		if (!*(_DWORD*)&byte_5D4594[1049496]) {
+		result = dword_5d4594_1049496;
+		if (!dword_5d4594_1049496) {
 			result = sub_57AF20();
 			if (!result) {
 				sub_45DAD0(-1);
@@ -8205,8 +8206,8 @@ int sub_460540() {
 
 	result = *(_DWORD*)&byte_5D4594[1049476];
 	if (!*(_DWORD*)&byte_5D4594[1049476]) {
-		result = *(_DWORD*)&byte_5D4594[1049496];
-		if (!*(_DWORD*)&byte_5D4594[1049496]) {
+		result = dword_5d4594_1049496;
+		if (!dword_5d4594_1049496) {
 			result = sub_57AF20();
 			if (!result) {
 				sub_45DAD0(-1);
@@ -8226,8 +8227,8 @@ void sub_460590() {
 
 	result = *(_DWORD*)&byte_5D4594[1049476];
 	if (!*(_DWORD*)&byte_5D4594[1049476]) {
-		result = *(_DWORD*)&byte_5D4594[1049496];
-		if (!*(_DWORD*)&byte_5D4594[1049496]) {
+		result = dword_5d4594_1049496;
+		if (!dword_5d4594_1049496) {
 			if (sub_4160F0(7u, *(_DWORD*)&byte_5D4594[2649704] >> 1)) {
 				LOBYTE(result) = 0;
 				*(_DWORD*)&byte_5D4594[1049712] = 0;
@@ -8336,8 +8337,8 @@ _DWORD* sub_460920() {
 
 	if (*(_DWORD*)&byte_5D4594[1049476])
 		return (_DWORD*)sub_4606B0();
-	result = *(_DWORD**)&byte_5D4594[1049496];
-	if (!*(_DWORD*)&byte_5D4594[1049496]) {
+	result = *(_DWORD**)&dword_5d4594_1049496;
+	if (!dword_5d4594_1049496) {
 		result = (_DWORD*)sub_57AF20();
 		if (!result) {
 			result = *(_DWORD**)&byte_5D4594[1049476];
