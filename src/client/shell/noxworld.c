@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_815088;
 extern _DWORD dword_5d4594_814624;
 extern _DWORD dword_5d4594_815032;
 extern _DWORD dword_5d4594_815020;
@@ -98,7 +99,7 @@ int sub_4378B0() {
 		sub_4379C0();
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16399, 0, 0);
 		sub_49FFA0(1);
-		*(_DWORD*)&byte_5D4594[815088] = 0;
+		dword_5d4594_815088 = 0;
 		if (dword_587000_87404) {
 			sub_41F370(1);
 			v3 = sub_41E2F0();
@@ -294,7 +295,7 @@ int sub_4379F0() {
 					sub_4383A0();
 				if (!dword_587000_87404)
 					sub_554B40(0);
-				*(_DWORD*)&byte_5D4594[815088] = 0;
+				dword_5d4594_815088 = 0;
 				sub_4158C0();
 				sub_415D50();
 				sub_430C30_set_video_max(NOX_MAX_WIDTH, NOX_MAX_HEIGHT);

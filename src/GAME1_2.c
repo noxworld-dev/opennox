@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815088;
 extern _DWORD dword_587000_127004;
 extern _DWORD dword_5d4594_814624;
 extern _DWORD dword_5d4594_3801804;
@@ -9029,8 +9030,8 @@ int __cdecl sub_437320(int a1) {
 
 //----- (004375C0) --------------------------------------------------------
 void __cdecl sub_4375C0(int a1) {
-	if (*(_DWORD*)&byte_5D4594[815088])
-		sub_46AD20(*(_DWORD**)&dword_5d4594_814980, 10070, *(_DWORD*)&byte_5D4594[815088] + 10069, a1);
+	if (dword_5d4594_815088)
+		sub_46AD20(*(_DWORD**)&dword_5d4594_814980, 10070, dword_5d4594_815088 + 10069, a1);
 }
 
 //----- (004375F0) --------------------------------------------------------
@@ -9046,7 +9047,7 @@ int __cdecl sub_4375F0(const char* a1, __int16 a2, char* a3, int a4) {
 	char v13[172]; // [esp+14h] [ebp-CCh]
 	char v14[32];  // [esp+C0h] [ebp-20h]
 
-	if (*(_DWORD*)&byte_5D4594[815088] < 0x9C4u && !*(_DWORD*)&byte_5D4594[815044] &&
+	if (dword_5d4594_815088 < 0x9C4u && !*(_DWORD*)&byte_5D4594[815044] &&
 	    !*(_DWORD*)&byte_5D4594[815060]) {
 		if (memcmp(a1, &byte_5D4594[815108], 1u)) {
 			if (*(_DWORD*)(a4 + 44) == *(_DWORD*)&byte_5D4594[814964]) {
@@ -9086,7 +9087,7 @@ int __cdecl sub_4375F0(const char* a1, __int16 a2, char* a3, int a4) {
 					    sub_437860(*(__int16*)&v13[44], *(__int16*)&v13[46]) ==
 						dword_587000_87412) {
 						if (sub_4899C0((int)v13)) {
-							*(_DWORD*)&v13[36] = *(_DWORD*)&byte_5D4594[815088];
+							*(_DWORD*)&v13[36] = dword_5d4594_815088;
 							*(_DWORD*)&v13[28] = 0;
 							strcpy(&v13[12], a1);
 							*(_WORD*)&v13[109] = a2;
@@ -9098,7 +9099,7 @@ int __cdecl sub_4375F0(const char* a1, __int16 a2, char* a3, int a4) {
 								strcpy(v14, a3);
 							else
 								sub_43BC80((int)a1, a2, v14);
-							++*(_DWORD*)&byte_5D4594[815088];
+							++dword_5d4594_815088;
 						}
 					}
 				}
@@ -9358,7 +9359,7 @@ int __cdecl sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4) {
 				nox_window_call_field_94(*(int*)&dword_5d4594_815024, 16403, a4, 0);
 				nox_window_call_field_94(*(int*)&dword_5d4594_815028, 16403, a4, 0);
 				nox_window_call_field_94(*(int*)&dword_5d4594_815032, 16403, a4, 0);
-				if (a4 < *(int*)&byte_5D4594[815088]) {
+				if (a4 < *(int*)&dword_5d4594_815088) {
 					v8 = *nox_client_getMousePos_4309F0();
 					dword_5d4594_814624 = sub_4A04C0(a4);
 					sub_439370(&v8, *(int*)&dword_5d4594_814624);
@@ -9538,7 +9539,7 @@ int sub_43A9D0() {
 	}
 	sub_43A920();
 	sub_46B500(0);
-	*(_DWORD*)&byte_5D4594[815088] = 0;
+	dword_5d4594_815088 = 0;
 	sub_49FFA0(0);
 	sub_554D10();
 	nox_client_setCursorType_477610(0);
@@ -9638,7 +9639,7 @@ void sub_43ACC0() {
 	char v10[32];      // [esp+ACh] [ebp-40h]
 	char v11[32];      // [esp+CCh] [ebp-20h]
 
-	if (!*(_DWORD*)&byte_5D4594[815088] && !*(_DWORD*)&byte_5D4594[815044]) {
+	if (!dword_5d4594_815088 && !*(_DWORD*)&byte_5D4594[815044]) {
 		v0 = sub_41FA40();
 		nox_sprintf(v11, "%s%s", v0, &byte_587000[90768]);
 		for (i = sub_41F0E0(); i; i = sub_41F0C0()) {
@@ -9663,7 +9664,7 @@ void sub_43ACC0() {
 						v5 = *((_DWORD*)v4 + 3);
 						*(_DWORD*)&v9[32] = i;
 						*(_DWORD*)&v9[24] = v5;
-						*(_DWORD*)&v9[36] = *(_DWORD*)&byte_5D4594[815088];
+						*(_DWORD*)&v9[36] = dword_5d4594_815088;
 						*(_DWORD*)&v9[44] = *(_DWORD*)(i + 32);
 						sub_4A0030(v9);
 						if (v9[120]) {
@@ -9672,13 +9673,13 @@ void sub_43ACC0() {
 						} else {
 							sub_43BC80((int)&v9[12], *(unsigned __int16*)&v9[109], v10);
 						}
-						if (++*(_DWORD*)&byte_5D4594[815088] >= 0x9C4u)
+						if (++dword_5d4594_815088 >= 0x9C4u)
 							break;
 					}
 				}
 			}
 		}
-		if (*(_DWORD*)&byte_5D4594[815088])
+		if (dword_5d4594_815088)
 			sub_4A0360();
 		sub_44A400();
 		if (nox_common_gameFlags_check_40A5C0(0x2000000) && *(int*)&dword_587000_87412 == -1) {
