@@ -32,3 +32,4 @@ void nullsub_67();
 void nullsub_68();
 void nullsub_69();
 void nullsub_70();
+_DWORD dword_5d4594_3798784 = 0;
