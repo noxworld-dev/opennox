@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_5d4594_1090120;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -302,12 +303,12 @@ int __cdecl sub_46F080(int a1, int a2) {
 	v2 = 0;
 	v35 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(8) && *(_DWORD*)&byte_587000[145668] != 6) {
-		*(_DWORD*)&byte_5D4594[1090120] = *(_DWORD*)&byte_587000[145668] - 1;
+		dword_5d4594_1090120 = *(_DWORD*)&byte_587000[145668] - 1;
 		if (*(int*)&byte_587000[145668] - 1 < 0)
-			*(_DWORD*)&byte_5D4594[1090120] = 5;
+			dword_5d4594_1090120 = 5;
 		sub_4703F0();
 		*(_DWORD*)&byte_587000[145668] = 6;
-		if (!*(_DWORD*)&byte_5D4594[1090120])
+		if (!dword_5d4594_1090120)
 			return 1;
 	}
 	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
@@ -345,9 +346,9 @@ int __cdecl sub_46F080(int a1, int a2) {
 			if (!(v8 & 1) || v8 & 0x20)
 				v33 = 1;
 		}
-		v9 = *(_DWORD*)&byte_5D4594[1090120];
+		v9 = dword_5d4594_1090120;
 		if (byte_5D4594[1090116] &&
-		    (*(_DWORD*)&byte_5D4594[1090120] == 2 || *(_DWORD*)&byte_5D4594[1090120] == 3)) {
+		    (dword_5d4594_1090120 == 2 || dword_5d4594_1090120 == 3)) {
 			v10 = loadString_sub_40F1D0((char*)&byte_587000[146504], 0,
 						    "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1338);
 			sub_46DC60(*(int*)&byte_5D4594[1090060], 9u, (int)v10);
@@ -380,13 +381,13 @@ int __cdecl sub_46F080(int a1, int a2) {
 			sub_46DC30(*(int*)&byte_5D4594[1090076], v13, (wchar_t*)&byte_587000[146604]);
 			sub_46DC30(*(int*)&byte_5D4594[1090084], v13, (wchar_t*)&byte_587000[146608]);
 			sub_46DC30(*(int*)&byte_5D4594[1090092], v13, (wchar_t*)&byte_587000[146612]);
-			v9 = *(_DWORD*)&byte_5D4594[1090120];
+			v9 = dword_5d4594_1090120;
 		}
 		v36 = *(__int16*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1090060] + 32) + 46);
 		if (byte_5D4594[1090117] && (v9 == 2 || v9 == 4 || v9 == 5)) {
 			sub_46F8F0(0, 0);
-			v9 = *(_DWORD*)&byte_5D4594[1090120];
-			if (*(_DWORD*)&byte_5D4594[1090120] == 4) {
+			v9 = dword_5d4594_1090120;
+			if (dword_5d4594_1090120 == 4) {
 				if (byte_5D4594[1090117] <= 3u)
 					LOBYTE(a2) = byte_5D4594[1090117];
 				else
@@ -434,7 +435,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 					    *(_DWORD*)&byte_5D4594[4 * v16 + 1090076], v40,
 					    (wchar_t*)&byte_587000[146624],
 					    *(_DWORD*)&byte_5D4594[4 * byte_5D4594[80 * v32 + 1084188] + 1084056]);
-					if (*(_DWORD*)&byte_5D4594[1090120] != 5 ||
+					if (dword_5d4594_1090120 != 5 ||
 					    *(_DWORD*)&byte_5D4594[80 * v32 + 1084196] > 0)
 						sub_46DC30(*(_DWORD*)&byte_5D4594[4 * v16 + 1090084], v40,
 							   (wchar_t*)&byte_587000[146632],
@@ -445,7 +446,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 					sub_46DC30(*(_DWORD*)&byte_5D4594[4 * v16 + 1090092], v40,
 						   (wchar_t*)&byte_587000[146648],
 						   *(_DWORD*)&byte_5D4594[80 * v32 + 1084200]);
-					if (*(_DWORD*)&byte_5D4594[1090120] == 5) {
+					if (dword_5d4594_1090120 == 5) {
 						v20 = sub_417040(*(_DWORD*)&byte_5D4594[80 * v32 + 1084192]);
 						if (v20)
 							sub_46DC30(*(_DWORD*)&byte_5D4594[4 * v16 + 1090068], v40,
@@ -456,12 +457,12 @@ int __cdecl sub_46F080(int a1, int a2) {
 					}
 					++v32;
 				} while (v32 < (unsigned __int8)a2);
-				v9 = *(_DWORD*)&byte_5D4594[1090120];
+				v9 = dword_5d4594_1090120;
 				v2 = v35;
 			}
 		} else if (v9 == 1) {
 			sub_46FFD0();
-			v9 = *(_DWORD*)&byte_5D4594[1090120];
+			v9 = dword_5d4594_1090120;
 		}
 		switch (v9) {
 		case 1:
@@ -490,7 +491,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 				break;
 			}
 			if (!nox_common_gameFlags_check_40A5C0(1) || !(*(_DWORD*)&nox_common_engineFlags & 0x40000)) {
-				if (*(_DWORD*)&byte_5D4594[1090120] == 1) {
+				if (dword_5d4594_1090120 == 1) {
 					v28 = sub_450B10();
 					v23 = loadString_sub_40F1D0((char*)&byte_587000[146900], 0,
 								    "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1499);
@@ -563,19 +564,19 @@ wchar_t* __cdecl sub_46F8F0(int a1, int a2) {
 	v3 = loadString_sub_40F1D0((char*)&byte_587000[147180], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 189);
 	sub_46DC60(*(_DWORD*)&byte_5D4594[4 * a1 + 1090060], 9u, (int)v3);
 	sub_46DC60(*(_DWORD*)&byte_5D4594[4 * a1 + 1090068], 9u, (int)&byte_587000[147188]);
-	if (*(_DWORD*)&byte_5D4594[1090120] == 1)
+	if (dword_5d4594_1090120 == 1)
 		v6 = loadString_sub_40F1D0((char*)&byte_587000[147228], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c",
 					   193);
 	else
 		v6 = loadString_sub_40F1D0((char*)&byte_587000[147280], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c",
 					   195);
 	sub_46DC60(*(_DWORD*)&byte_5D4594[4 * a1 + 1090076], 9u, (int)v6);
-	if (*(_DWORD*)&byte_5D4594[1090120] == 5) {
+	if (dword_5d4594_1090120 == 5) {
 		v7 = loadString_sub_40F1D0((char*)&byte_587000[147324], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c",
 					   199);
 		sub_46DC60(*(_DWORD*)&byte_5D4594[4 * a1 + 1090084], 9u, (int)v7);
 	} else {
-		if (*(_DWORD*)&byte_5D4594[1090120] == 1)
+		if (dword_5d4594_1090120 == 1)
 			v8 = loadString_sub_40F1D0((char*)&byte_587000[147368], 0,
 						   "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 201);
 		else
@@ -583,7 +584,7 @@ wchar_t* __cdecl sub_46F8F0(int a1, int a2) {
 						   "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 203);
 		sub_46DC60(*(_DWORD*)&byte_5D4594[4 * a1 + 1090084], 9u, (int)v8);
 	}
-	if (*(_DWORD*)&byte_5D4594[1090120] == 1)
+	if (dword_5d4594_1090120 == 1)
 		v4 = loadString_sub_40F1D0((char*)&byte_587000[147464], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c",
 					   207);
 	else
