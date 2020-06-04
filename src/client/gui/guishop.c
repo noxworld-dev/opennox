@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "guimsg.h"
+extern _DWORD dword_5d4594_1098628;
 extern _DWORD dword_5d4594_1098576;
 extern _DWORD dword_587000_80828;
 
@@ -145,7 +146,7 @@ int __cdecl sub_478FD0(const wchar_t* a1, char* a2, int a3) {
 	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3810);
 	sub_445C20();
 	*(_DWORD*)&byte_5D4594[1098624] = 1;
-	*(_DWORD*)&byte_5D4594[1098628] = 1;
+	dword_5d4594_1098628 = 1;
 	nox_window_set_hidden(*(int*)&dword_5d4594_1098576, 0);
 	sub_46ABB0(*(int*)&dword_5d4594_1098576, 1);
 	sub_46A8C0(*(int*)&dword_5d4594_1098576);
