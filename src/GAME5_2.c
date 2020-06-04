@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523900;
 extern _DWORD dword_5d4594_2523756;
 extern _DWORD dword_5d4594_2523752;
 extern _DWORD dword_5d4594_2516328;
@@ -5263,7 +5264,7 @@ void sub_57C000() {
 	*(_DWORD*)&byte_5D4594[2523904] = 0;
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2523896]);
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2523892]);
-	*(_DWORD*)&byte_5D4594[2523900] = 0;
+	dword_5d4594_2523900 = 0;
 }
 
 //----- (0057C030) --------------------------------------------------------
@@ -5277,12 +5278,12 @@ int sub_57C030() {
 		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2523896]);
 		*(_DWORD*)&byte_5D4594[2523896] = 0;
 	}
-	*(_DWORD*)&byte_5D4594[2523900] = 0;
+	dword_5d4594_2523900 = 0;
 	return 1;
 }
 
 //----- (0057C080) --------------------------------------------------------
-int nox_server_getFirstMapGroup_57C080() { return *(_DWORD*)&byte_5D4594[2523900]; }
+int nox_server_getFirstMapGroup_57C080() { return dword_5d4594_2523900; }
 
 //----- (0057C090) --------------------------------------------------------
 int __cdecl nox_server_getNextMapGroup_57C090(int a1) {
@@ -5299,8 +5300,8 @@ int __cdecl nox_server_getNextMapGroup_57C090(int a1) {
 int __cdecl nox_server_scriptGetGroup_57C0A0(int a1) {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[2523900];
-	if (!*(_DWORD*)&byte_5D4594[2523900])
+	result = dword_5d4594_2523900;
+	if (!dword_5d4594_2523900)
 		return 0;
 	while (*(_DWORD*)(result + 4) != a1) {
 		result = *(_DWORD*)(result + 88);
@@ -5324,12 +5325,12 @@ int __cdecl nox_server_mapLoadAddGroup_57C0C0(char* a1, int a2, char a3) {
 		strncpy((char*)(result + 8), a1, 0x4Cu);
 		*(_BYTE*)(v4 + 83) = 0;
 		*(_DWORD*)(v4 + 84) = 0;
-		v5 = *(_DWORD*)&byte_5D4594[2523900];
+		v5 = dword_5d4594_2523900;
 		*(_DWORD*)(v4 + 92) = 0;
 		*(_DWORD*)(v4 + 88) = v5;
-		if (*(_DWORD*)&byte_5D4594[2523900])
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[2523900] + 92) = v4;
-		*(_DWORD*)&byte_5D4594[2523900] = v4;
+		if (dword_5d4594_2523900)
+			*(_DWORD*)(dword_5d4594_2523900 + 92) = v4;
+		dword_5d4594_2523900 = v4;
 		result = 1;
 	}
 	return result;
@@ -5345,8 +5346,8 @@ int __cdecl sub_57C130(_DWORD* a1, int a2) {
 
 	if (!a1)
 		return 0;
-	v3 = *(char**)&byte_5D4594[2523900];
-	if (!*(_DWORD*)&byte_5D4594[2523900])
+	v3 = *(char**)&dword_5d4594_2523900;
+	if (!dword_5d4594_2523900)
 		return 0;
 	while (*((_DWORD*)v3 + 1) != a2) {
 		v3 = (char*)*((_DWORD*)v3 + 22);
@@ -5389,12 +5390,12 @@ int __cdecl sub_57C1E0(_DWORD* a1, int a2) {
 	int v7;   // eax
 
 	v2 = 0;
-	v3 = *(char**)&byte_5D4594[2523900];
-	if (!*(_DWORD*)&byte_5D4594[2523900])
+	v3 = *(char**)&dword_5d4594_2523900;
+	if (!dword_5d4594_2523900)
 		return 0;
-	while (*(_DWORD*)(*(_DWORD*)&byte_5D4594[2523900] + 4) != a2)
+	while (*(_DWORD*)(dword_5d4594_2523900 + 4) != a2)
 		;
-	for (i = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2523900] + 84); i; i = *(_DWORD*)(i + 8)) {
+	for (i = *(_DWORD*)(dword_5d4594_2523900 + 84); i; i = *(_DWORD*)(i + 8)) {
 		v5 = *v3;
 		if (*v3 && v5 != 1 && v5 != 3) {
 			if (v5 == 2 && *(_DWORD*)i == *a1 && *(_DWORD*)(i + 4) == a1[1]) {
@@ -5456,10 +5457,10 @@ int __cdecl nox_server_addNewMapGroup_57C3B0(int a1) {
 
 	result = a1;
 	*(_DWORD*)(a1 + 92) = 0;
-	*(_DWORD*)(a1 + 88) = *(_DWORD*)&byte_5D4594[2523900];
-	if (*(_DWORD*)&byte_5D4594[2523900])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[2523900] + 92) = a1;
-	*(_DWORD*)&byte_5D4594[2523900] = a1;
+	*(_DWORD*)(a1 + 88) = dword_5d4594_2523900;
+	if (dword_5d4594_2523900)
+		*(_DWORD*)(dword_5d4594_2523900 + 92) = a1;
+	dword_5d4594_2523900 = a1;
 	return result;
 }
 
