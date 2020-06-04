@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_810632;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_1307784;
@@ -3744,7 +3745,7 @@ FILE* __cdecl sub_4A96C0_video_read_palette(char* a1) {
 	strcpy(v4, "SHADEMAP");
 	strcpy(v5, "TRANSMAP");
 	strcpy(v3, "PALETTE");
-	if (*(_DWORD*)&byte_5D4594[3801780] != 1) {
+	if (dword_5d4594_3801780 != 1) {
 		result = fopen(a1, "rb");
 		v2 = result;
 		if (!result)
@@ -3860,7 +3861,7 @@ int __cdecl sub_4A9A30(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a
 __int16 __cdecl sub_4A9B20(int a1) {
 	int v1; // eax
 
-	if (*(_DWORD*)&byte_5D4594[3801780] == 1)
+	if (dword_5d4594_3801780 == 1)
 		LOWORD(v1) = 0;
 	else
 		v1 = (byte_5D4594[3 * a1 + 1308750] >> 3) |
@@ -3872,7 +3873,7 @@ __int16 __cdecl sub_4A9B20(int a1) {
 __int16 __cdecl sub_4A9B70(__int16* a1) {
 	int v1; // eax
 
-	if (*(_DWORD*)&byte_5D4594[3801780]) {
+	if (dword_5d4594_3801780) {
 		if (*(_DWORD*)&byte_5D4594[3799624] == 2)
 			v1 = *a1 & 0x1F | (*a1 >> 1) & 0x7FE0;
 		else
@@ -3885,7 +3886,7 @@ __int16 __cdecl sub_4A9B70(__int16* a1) {
 
 //----- (004A9BC0) --------------------------------------------------------
 int __cdecl sub_4A9BC0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3) {
-	if (*(_DWORD*)&byte_5D4594[3801780] != 1)
+	if (dword_5d4594_3801780 != 1)
 		return sub_4A9A30(a1, a2, a3);
 	if (*(_DWORD*)&byte_5D4594[3799624] == 1)
 		return (a3 >> 3) | (4 * (a2 & 0xF8 | (32 * (a1 & 0xF8))));
@@ -8376,8 +8377,8 @@ int __cdecl sub_4B0B20(int a1) { return *(_DWORD*)a1; }
 
 //----- (004B0B30) --------------------------------------------------------
 int nox_video_assignCircleDrawFuncs_4B0B30() {
-	if (*(_DWORD*)&byte_5D4594[3801780]) {
-		if (*(_DWORD*)&byte_5D4594[3801780] == 1) {
+	if (dword_5d4594_3801780) {
+		if (dword_5d4594_3801780 == 1) {
 			*(_DWORD*)&byte_5D4594[1312468] = nox_video_drawCircle16Opaque_4B1380;
 			*(_DWORD*)&byte_5D4594[1312464] = nox_video_drawCircle16Alpha_4B2480;
 			return 1;
