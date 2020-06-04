@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816432;
 extern _DWORD dword_5d4594_816440;
 extern _DWORD dword_587000_154956;
 extern _DWORD dword_587000_80820;
@@ -1845,10 +1846,10 @@ void sub_43E8D0() { nox_srand(0x1E76u); }
 
 //----- (0043E8E0) --------------------------------------------------------
 void sub_43E8E0(int a1) {
-	if (*(_DWORD*)&byte_5D4594[816432]) {
+	if (dword_5d4594_816432) {
 		if (!*(_DWORD*)&byte_5D4594[816436]) {
 			*(_DWORD*)&byte_5D4594[816436] = 1;
-			AIL_digital_handle_release(*(_DWORD*)&byte_5D4594[816432]);
+			AIL_digital_handle_release(dword_5d4594_816432);
 		}
 	}
 }
@@ -1856,9 +1857,9 @@ void sub_43E8E0(int a1) {
 
 //----- (0043E910) --------------------------------------------------------
 void sub_43E910(int a1) {
-	if (*(_DWORD*)&byte_5D4594[816432]) {
+	if (dword_5d4594_816432) {
 		if (*(_DWORD*)&byte_5D4594[816436]) {
-			AIL_digital_handle_reacquire(*(_DWORD*)&byte_5D4594[816432]);
+			AIL_digital_handle_reacquire(dword_5d4594_816432);
 			*(_DWORD*)&byte_5D4594[816436] = 0;
 		}
 	}
@@ -1921,8 +1922,8 @@ int __cdecl sub_43EA20(int a1) {
 
 	sub_43EA90((int)v2, a1 + 60);
 	AIL_set_preference(35, 125);
-	*(_DWORD*)&byte_5D4594[816432] = sub_43EAD0((int)v2);
-	if (!*(_DWORD*)&byte_5D4594[816432])
+	dword_5d4594_816432 = sub_43EAD0((int)v2);
+	if (!dword_5d4594_816432)
 		return -2147221504;
 	*(_DWORD*)&byte_587000[93948] = AIL_get_preference(42);
 	*(_DWORD*)(a1 + 196) = 24;
@@ -2003,10 +2004,10 @@ int __cdecl sub_43EAD0(int a1) {
 int sub_43EC10() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[816432];
-	if (*(_DWORD*)&byte_5D4594[816432]) {
-		AIL_waveOutClose(*(_DWORD*)&byte_5D4594[816432]);
-		*(_DWORD*)&byte_5D4594[816432] = 0;
+	result = dword_5d4594_816432;
+	if (dword_5d4594_816432) {
+		AIL_waveOutClose(dword_5d4594_816432);
+		dword_5d4594_816432 = 0;
 	}
 	return result;
 }
@@ -2021,10 +2022,10 @@ int __cdecl sub_43EC30(int a1) {
 	memset(v1, 0, 0x20u);
 	*(_DWORD*)(a1 + 272) = v1;
 	v1[1] = a1;
-	*v1 = *(_DWORD*)&byte_5D4594[816432];
+	*v1 = dword_5d4594_816432;
 	v1[5] = nox_malloc(0x4000u);
 	v1[6] = nox_malloc(0x4000u);
-	v2 = AIL_allocate_sample_handle(*(_DWORD*)&byte_5D4594[816432]);
+	v2 = AIL_allocate_sample_handle(dword_5d4594_816432);
 	v1[2] = v2;
 	if (!v2 || !v1[5] || !v1[6])
 		return -2147221504;
@@ -2304,14 +2305,14 @@ int __cdecl sub_43F0E0(_DWORD* a1) {
 }
 
 //----- (0043F130) --------------------------------------------------------
-int sub_43F130() { return *(_DWORD*)&byte_5D4594[816432]; }
+int sub_43F130() { return dword_5d4594_816432; }
 
 //----- (0043F140) --------------------------------------------------------
 void __cdecl sub_43F140(int a1) {
 	int result; // eax
 	int v2;     // esi
 
-	if (*(_DWORD*)&byte_5D4594[816432]) {
+	if (dword_5d4594_816432) {
 		result = AIL_get_preference(34);
 		if (result) {
 			v2 = a1 / result;
@@ -2335,8 +2336,8 @@ void __cdecl sub_43F140(int a1) {
 int sub_43F1A0() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[816432];
-	if (*(_DWORD*)&byte_5D4594[816432]) {
+	result = dword_5d4594_816432;
+	if (dword_5d4594_816432) {
 		AIL_set_preference(42, *(_DWORD*)&byte_587000[93948]);
 		AIL_serve();
 	}
