@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523752;
 extern _DWORD dword_5d4594_2516328;
 extern _DWORD dword_5d4594_2516348;
 extern _DWORD dword_5d4594_2650652;
@@ -3543,7 +3544,7 @@ int __cdecl sub_579750(int a1) {
 int sub_5797E0() { return *(_DWORD*)&byte_5D4594[2523744]; }
 
 //----- (00579860) --------------------------------------------------------
-LPVOID sub_579860() { return *(LPVOID*)&byte_5D4594[2523752]; }
+LPVOID sub_579860() { return *(LPVOID*)&dword_5d4594_2523752; }
 
 //----- (00579870) --------------------------------------------------------
 int __cdecl sub_579870(int a1) {
@@ -3575,9 +3576,9 @@ unsigned int sub_5798C0() {
 	_DWORD* v0;          // ecx
 	unsigned int result; // eax
 
-	v0 = *(_DWORD**)&byte_5D4594[2523752];
+	v0 = *(_DWORD**)&dword_5d4594_2523752;
 	result = 1;
-	if (*(_DWORD*)&byte_5D4594[2523752]) {
+	if (dword_5d4594_2523752) {
 		do {
 			if (result <= *v0)
 				result = *v0 + 1;
@@ -3600,10 +3601,10 @@ _DWORD* __cdecl sub_5798F0(float a1, float a2) {
 	*((float*)v2 + 2) = a1;
 	*((float*)v2 + 3) = a2;
 	v2[120] = v4 | 1;
-	v2[121] = *(_DWORD*)&byte_5D4594[2523752];
-	if (*(_DWORD*)&byte_5D4594[2523752])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[2523752] + 488) = v2;
-	*(_DWORD*)&byte_5D4594[2523752] = v2;
+	v2[121] = dword_5d4594_2523752;
+	if (dword_5d4594_2523752)
+		*(_DWORD*)(dword_5d4594_2523752 + 488) = v2;
+	dword_5d4594_2523752 = v2;
 	if (nox_common_gameFlags_check_40A5C0(1))
 		sub_5179B0((int)v2);
 	return v2;
@@ -3634,10 +3635,10 @@ char* sub_5799C0() {
 	if (*(_DWORD*)&byte_5D4594[2523756]) {
 		do {
 			v1 = *(_DWORD*)(v0 + 484);
-			*(_DWORD*)(v0 + 484) = *(_DWORD*)&byte_5D4594[2523752];
-			if (*(_DWORD*)&byte_5D4594[2523752])
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[2523752] + 488) = v0;
-			*(_DWORD*)&byte_5D4594[2523752] = v0;
+			*(_DWORD*)(v0 + 484) = dword_5d4594_2523752;
+			if (dword_5d4594_2523752)
+				*(_DWORD*)(dword_5d4594_2523752 + 488) = v0;
+			dword_5d4594_2523752 = v0;
 			if (nox_common_gameFlags_check_40A5C0(1))
 				sub_5179B0(v0);
 			v0 = v1;
@@ -3697,7 +3698,7 @@ float* __cdecl sub_579AD0(float a1, float a2) {
 	double v6; // st5
 	float i;   // [esp+0h] [ebp-4h]
 
-	v2 = *(_DWORD*)&byte_5D4594[2523752];
+	v2 = dword_5d4594_2523752;
 	v3 = 0;
 	for (i = 100.0; v2; v2 = *(_DWORD*)(v2 + 484)) {
 		v4 = *(float*)(v2 + 8) - a1;
@@ -3722,7 +3723,7 @@ void __cdecl sub_579B30(LPVOID lpMem) {
 	int v7;     // eax
 	int v8;     // eax
 
-	for (i = *(_DWORD*)&byte_5D4594[2523752]; i; i = *(_DWORD*)(i + 484)) {
+	for (i = dword_5d4594_2523752; i; i = *(_DWORD*)(i + 484)) {
 		v2 = 0;
 		v3 = *(unsigned __int8*)(i + 476);
 		if (v3 > 0) {
@@ -3754,7 +3755,7 @@ void __cdecl sub_579B30(LPVOID lpMem) {
 	if (v8)
 		*(_DWORD*)(v8 + 484) = *((_DWORD*)lpMem + 121);
 	else
-		*(_DWORD*)&byte_5D4594[2523752] = *((_DWORD*)lpMem + 121);
+		dword_5d4594_2523752 = *((_DWORD*)lpMem + 121);
 	if (nox_common_gameFlags_check_40A5C0(1))
 		sub_517A70((int)lpMem);
 	free(lpMem);
@@ -3765,16 +3766,16 @@ _DWORD* sub_579C00() {
 	_DWORD* result; // eax
 	_DWORD* v1;     // esi
 
-	result = *(_DWORD**)&byte_5D4594[2523752];
-	if (*(_DWORD*)&byte_5D4594[2523752]) {
+	result = *(_DWORD**)&dword_5d4594_2523752;
+	if (dword_5d4594_2523752) {
 		do {
 			v1 = (_DWORD*)result[121];
 			free(result);
 			result = v1;
 		} while (v1);
-		*(_DWORD*)&byte_5D4594[2523752] = 0;
+		dword_5d4594_2523752 = 0;
 	} else {
-		*(_DWORD*)&byte_5D4594[2523752] = 0;
+		dword_5d4594_2523752 = 0;
 	}
 	return result;
 }
@@ -3783,8 +3784,8 @@ _DWORD* sub_579C00() {
 _DWORD* __cdecl nox_server_getWaypointById_579C40(int a1) {
 	_DWORD* result; // eax
 
-	result = *(_DWORD**)&byte_5D4594[2523752];
-	if (!*(_DWORD*)&byte_5D4594[2523752])
+	result = *(_DWORD**)&dword_5d4594_2523752;
+	if (!dword_5d4594_2523752)
 		return 0;
 	while (*result != a1) {
 		result = (_DWORD*)result[121];
@@ -3923,8 +3924,8 @@ void sub_579DD0() {
 	_DWORD* v0; // esi
 	_DWORD* v1; // edi
 
-	v0 = *(_DWORD**)&byte_5D4594[2523752];
-	if (*(_DWORD*)&byte_5D4594[2523752]) {
+	v0 = *(_DWORD**)&dword_5d4594_2523752;
+	if (dword_5d4594_2523752) {
 		do {
 			v1 = (_DWORD*)v0[121];
 			if (nox_common_gameFlags_check_40A5C0(1))
@@ -3933,7 +3934,7 @@ void sub_579DD0() {
 			v0 = v1;
 		} while (v1);
 	}
-	*(_DWORD*)&byte_5D4594[2523752] = 0;
+	dword_5d4594_2523752 = 0;
 	*(_DWORD*)&byte_5D4594[2523756] = 0;
 	*(_DWORD*)&byte_5D4594[2523760] = 0;
 }
