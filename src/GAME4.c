@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_251568;
 extern _DWORD dword_5d4594_1569728;
 extern _DWORD dword_5d4594_1570272;
 extern _DWORD dword_5d4594_1599656;
@@ -1656,7 +1657,7 @@ void __cdecl sub_4F8460(int a1) {
 			goto LABEL_90;
 		}
 		v26 = sub_411160((float2*)(v1 + 56));
-		if (v26 < 0 || v26 >= *(int*)&byte_5D4594[251568])
+		if (v26 < 0 || v26 >= *(int*)&dword_5d4594_251568)
 			goto LABEL_90;
 		v27 = *(_DWORD*)&byte_5D4594[60 * v26 + 2682224];
 		if (v27 <= 0x80) {
@@ -1713,7 +1714,7 @@ void __cdecl sub_4F8460(int a1) {
 			if ((!nox_common_playerIsAbilityActive_4FC250(v1, 4) || a1) && v33 != v32 &&
 			    (v33 == 3 || v33 == 9)) {
 				v34 = sub_411160((float2*)(v1 + 56));
-				if (v34 >= 0 && v34 < *(int*)&byte_5D4594[251568]) {
+				if (v34 >= 0 && v34 < *(int*)&dword_5d4594_251568) {
 					v35 = *(_DWORD*)&byte_5D4594[60 * v34 + 2682224];
 					if (v35 <= 0x80) {
 						if (v35 == 128) {
@@ -9291,12 +9292,12 @@ int __cdecl sub_504150(int a1, int a2) {
 
 	if (*(int*)&byte_587000[229704] == -1) {
 		v2 = 0;
-		if (*(int*)&byte_5D4594[251568] > 0) {
+		if (*(int*)&dword_5d4594_251568 > 0) {
 			v3 = (const char*)&byte_5D4594[2682188];
 			while (strcmp(v3, "TransparentFloor")) {
 				++v2;
 				v3 += 60;
-				if (v2 >= *(int*)&byte_5D4594[251568])
+				if (v2 >= *(int*)&dword_5d4594_251568)
 					goto LABEL_8;
 			}
 			*(_DWORD*)&byte_587000[229704] = v2;
