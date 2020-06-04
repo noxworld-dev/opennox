@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_width;
@@ -6528,7 +6529,7 @@ int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7
 	if (v40 <= 0) {
 		return result;
 	}
-	v21 = *(int*)(*(_DWORD*)&byte_5D4594[3798784] + 4 * v17) + 2 * ((int)result + v20);
+	v21 = *(int*)(dword_5d4594_3798784 + 4 * v17) + 2 * ((int)result + v20);
 	v22 = a4[1];
 	v52 = (char*)v21;
 	v23 = *a4;
@@ -7302,7 +7303,7 @@ LABEL_60:
 			v76 = 4 * *(_DWORD*)&byte_5D4594[3679320] - 4;
 			for (j = (int)&byte_5D4594[128 * *(_DWORD*)&byte_5D4594[3679320] + 3682956];;
 			     v51 = (unsigned __int8*)j) {
-				i = *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + 4 * v49);
+				i = *(_DWORD*)(dword_5d4594_3798784 + 4 * v49);
 				if (v50 == 23) {
 					v78 = 0;
 					++v66.field_4;
@@ -7356,7 +7357,7 @@ LABEL_60:
 						qmemcpy(
 						    (void*)(i + (v54 << byte_5D4594[3807124])),
 						    (const void*)((v54 << byte_5D4594[3807124]) +
-								  *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + v76)),
+								  *(_DWORD*)(dword_5d4594_3798784 + v76)),
 						    v56);
 						v74 = v57 - 1;
 					} while (v57 != 1);
@@ -7385,7 +7386,7 @@ LABEL_60:
 			do {
 				v35 = v78;
 				v36 = *(_DWORD*)&byte_5D4594[4 * v79 + 3679340];
-				i = *(_DWORD*)(*(_DWORD*)&byte_5D4594[3798784] + 4 * v79);
+				i = *(_DWORD*)(dword_5d4594_3798784 + 4 * v79);
 				if (v36 > 0) {
 					j = (unsigned int)(v36 + 1) >> 1;
 					do {
@@ -10371,9 +10372,9 @@ LPVOID sub_486110() {
 			*(_DWORD*)&byte_5D4594[3798788] = 0;
 		}
 	}
-	if (*(_DWORD*)&byte_5D4594[3798784]) {
-		free(*(LPVOID*)&byte_5D4594[3798784]);
-		*(_DWORD*)&byte_5D4594[3798784] = 0;
+	if (dword_5d4594_3798784) {
+		free(*(LPVOID*)&dword_5d4594_3798784);
+		dword_5d4594_3798784 = 0;
 	}
 	result = *(LPVOID*)&byte_5D4594[3798776];
 	if (*(_DWORD*)&byte_5D4594[3798776]) {
@@ -10401,9 +10402,9 @@ void* sub_4861A0() {
 
 	v0 = *(_DWORD*)&byte_5D4594[3798788];
 	*(_DWORD*)&byte_5D4594[3798788] = *(_DWORD*)&byte_5D4594[3798780];
-	result = *(void**)&byte_5D4594[3798784];
+	result = *(void**)&dword_5d4594_3798784;
 	*(_DWORD*)&byte_5D4594[3798780] = v0;
-	*(_DWORD*)&byte_5D4594[3798784] = *(_DWORD*)&byte_5D4594[3798776];
+	dword_5d4594_3798784 = *(_DWORD*)&byte_5D4594[3798776];
 	*(_DWORD*)&byte_5D4594[3798776] = result;
 	return result;
 }
@@ -10433,7 +10434,7 @@ int sub_486230() {
 	int v5;     // edx
 
 	result = (int)nox_malloc(4 * nox_backbuffer_height);
-	*(_DWORD*)&byte_5D4594[3798784] = result;
+	dword_5d4594_3798784 = result;
 	if (result) {
 		v1 = nox_backbuffer_height;
 		v2 = *(_DWORD*)&byte_5D4594[3798780];
@@ -10445,7 +10446,7 @@ int sub_486230() {
 				v2 += *(_DWORD*)&byte_5D4594[3801808];
 				if (++v3 >= nox_backbuffer_height)
 					break;
-				result = *(_DWORD*)&byte_5D4594[3798784];
+				result = dword_5d4594_3798784;
 			}
 		}
 		if (nox_video_renderTargetFlags & 0x40) {

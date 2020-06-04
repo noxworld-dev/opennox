@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798784;
 extern int nox_enable_audio;
 
 extern int nox_win_width;
@@ -2320,7 +2321,7 @@ void sub_4AD1E0() {
 		return;
 	}
 	v2 = nox_backbuffer_height;
-	v3 = *(_WORD***)&byte_5D4594[3798784];
+	v3 = *(_WORD***)&dword_5d4594_3798784;
 	while (v2 > 0) {
 		v4 = *v3;
 		v5 = nox_backbuffer_width32;
@@ -2351,7 +2352,7 @@ void sub_4AD2A0() {
 		return;
 	}
 	_DWORD* dst = (_DWORD*)nox_backbuffer_pix;
-	_DWORD** src = *(_DWORD***)&byte_5D4594[3798784];
+	_DWORD** src = *(_DWORD***)&dword_5d4594_3798784;
 	for (int y = 0; y < nox_backbuffer_height; y++) {
 		_DWORD* row = src[y];
 		for (int x = 0; x < nox_backbuffer_width32; x++) {
