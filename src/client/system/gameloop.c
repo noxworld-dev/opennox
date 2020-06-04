@@ -9,6 +9,7 @@
 #include "../../platform.h"
 #endif
 
+extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_815132;
 extern int nox_win_width;
@@ -250,9 +251,9 @@ void mainloop() {
 	nox_client_processMouseInput_4308A0(1);
 	sub_46B740();
 	v0 = (unsigned __int8*)sub_430940();
-	for (*(_DWORD*)&byte_5D4594[2618912] = v0; *v0; *(_DWORD*)&byte_5D4594[2618912] = v0) {
+	for (dword_5d4594_2618912 = v0; *v0; dword_5d4594_2618912 = v0) {
 		sub_46B6B0(v0);
-		v0 = (unsigned __int8*)(*(_DWORD*)&byte_5D4594[2618912] + 8);
+		v0 = (unsigned __int8*)(dword_5d4594_2618912 + 8);
 	}
 	if (!nox_draw_unk1()) {
 		mainloop_exit();
