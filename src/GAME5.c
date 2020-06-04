@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2650652;
 
@@ -1380,9 +1381,9 @@ char __cdecl sub_546A70(int a1) {
 						goto LABEL_89;
 					goto LABEL_90;
 				case 0x43:
-					if (!*(_DWORD*)&byte_5D4594[3843628])
+					if (!dword_5d4594_3843628)
 						goto LABEL_89;
-					v18 = sub_54AF40(*(int*)&byte_5D4594[3843628]) == v1;
+					v18 = sub_54AF40(*(int*)&dword_5d4594_3843628) == v1;
 				LABEL_41:
 					if (!v18)
 					LABEL_89:
@@ -1571,15 +1572,15 @@ char __cdecl sub_547210(int a1) {
 		if (nox_common_gameFlags_check_40A5C0(2048)) {
 			if (!sub_477600()) {
 				if (*(_BYTE*)(v1 + 20) & 0x10) {
-					if (*(_DWORD*)&byte_5D4594[3843628]) {
-						if (!(*(_BYTE*)(*(_DWORD*)&byte_5D4594[3843628] + 16) & 2) &&
+					if (dword_5d4594_3843628) {
+						if (!(*(_BYTE*)(dword_5d4594_3843628 + 16) & 2) &&
 						    !sub_50A0D0(v1, 2)) {
-							v7 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[3843628] + 748);
+							v7 = *(_DWORD**)(dword_5d4594_3843628 + 748);
 							v8 = v7[69];
 							v9 = (double)*(int*)(v8 + 2284) - *(float*)(v1 + 56);
 							v10 = (double)*(int*)(v8 + 2288) - *(float*)(v1 + 60);
 							if (v10 * v10 + v9 * v9 < 100.0 &&
-							    sub_54AF40(*(int*)&byte_5D4594[3843628]) == v1) {
+							    sub_54AF40(*(int*)&dword_5d4594_3843628) == v1) {
 								v11 = *(_DWORD*)(v1 + 60);
 								*(_DWORD*)(v1 + 72) = *(_DWORD*)(v1 + 56);
 								*(_DWORD*)(v1 + 92) = 0;
@@ -1599,7 +1600,7 @@ char __cdecl sub_547210(int a1) {
 									v13[1] = 999999;
 								v3 = sub_50A260(v1, 26);
 								if (v3)
-									v3[1] = *(_DWORD*)&byte_5D4594[3843628];
+									v3[1] = dword_5d4594_3843628;
 								if (!v7[71] && !v7[70]) {
 									LOBYTE(v3) = (_BYTE)v44;
 									if (v44)
