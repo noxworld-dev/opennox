@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816452;
 extern _DWORD dword_5d4594_816432;
 extern _DWORD dword_5d4594_816440;
 extern _DWORD dword_587000_154956;
@@ -2365,7 +2366,7 @@ int sub_43F1C0() {
 	*(_DWORD*)&byte_5D4594[816484] = 1;
 	dword_5d4594_816440 = 1;
 	*(_DWORD*)&byte_5D4594[816460] = 0;
-	*(_DWORD*)&byte_5D4594[816452] = 0;
+	dword_5d4594_816452 = 0;
 	v1 = &byte_5D4594[816484];
 	*(_DWORD*)&byte_5D4594[816444] = 0;
 	do {
@@ -2604,8 +2605,8 @@ int __cdecl sub_43F620(LPVOID lpMem) {
 int __cdecl sub_43F670(int a1) {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[816452];
-	*(_DWORD*)&byte_5D4594[816452] = a1;
+	result = dword_5d4594_816452;
+	dword_5d4594_816452 = a1;
 	return result;
 }
 
@@ -3188,11 +3189,11 @@ int __cdecl sub_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 			goto LABEL_92;
 		}
 	LABEL_97:
-		if (*(_DWORD*)&byte_5D4594[816452]) {
+		if (dword_5d4594_816452) {
 			nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], v11, v5, v67, *(_DWORD*)(v7 + 8));
-			*(_DWORD*)&byte_5D4594[816452] = 0;
+			dword_5d4594_816452 = 0;
 			sub_43FE90(v7, a2, v11, v5);
-			*(_DWORD*)&byte_5D4594[816452] = 1;
+			dword_5d4594_816452 = 1;
 		}
 		return v11 + dword_5d4594_816440 + v67;
 	}
@@ -3289,11 +3290,11 @@ int __cdecl sub_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 		break;
 	}
 LABEL_60:
-	if (*(_DWORD*)&byte_5D4594[816452]) {
+	if (dword_5d4594_816452) {
 		nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], xLeft, v71, v67, v72.field_C - v72.field_4);
-		*(_DWORD*)&byte_5D4594[816452] = 0;
+		dword_5d4594_816452 = 0;
 		sub_43FE90(a1, a2, xLeft, v71);
-		*(_DWORD*)&byte_5D4594[816452] = 1;
+		dword_5d4594_816452 = 1;
 	}
 	return xLeft + dword_5d4594_816440 + v67;
 }
@@ -3402,11 +3403,11 @@ int __cdecl sub_440360(int a1, int a2, int xLeft, int yTop) {
 		v44 = v7 - 1;
 		if (!v43) {
 		LABEL_95:
-			if (*(_DWORD*)&byte_5D4594[816452]) {
+			if (dword_5d4594_816452) {
 				nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], xLeft, yTop, v67, *(_DWORD*)(a1 + 8));
-				*(_DWORD*)&byte_5D4594[816452] = 0;
+				dword_5d4594_816452 = 0;
 				sub_440360(a1, a2, xLeft, yTop);
-				*(_DWORD*)&byte_5D4594[816452] = 1;
+				dword_5d4594_816452 = 1;
 			}
 			return xLeft + dword_5d4594_816440 + v67;
 		}
@@ -3586,12 +3587,12 @@ int __cdecl sub_440360(int a1, int a2, int xLeft, int yTop) {
 		break;
 	}
 LABEL_61:
-	if (*(_DWORD*)&byte_5D4594[816452]) {
+	if (dword_5d4594_816452) {
 		v42 = v70;
 		nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], xLeft, v70, v67, v71.field_C - v71.field_4);
-		*(_DWORD*)&byte_5D4594[816452] = 0;
+		dword_5d4594_816452 = 0;
 		sub_440360(a1, a2, xLeft, v42);
-		*(_DWORD*)&byte_5D4594[816452] = 1;
+		dword_5d4594_816452 = 1;
 	}
 	return xLeft + dword_5d4594_816440 + v67;
 }
