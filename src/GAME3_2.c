@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1523024;
 extern _DWORD dword_5d4594_1556844;
 extern _DWORD dword_5d4594_1556860;
 extern _DWORD dword_5d4594_1523028;
@@ -369,22 +370,22 @@ int __cdecl sub_4CEBA0(int a1, char* a2) {
 	_DWORD* v8; // [esp+10h] [ebp-4h]
 	char* v9;   // [esp+18h] [ebp+4h]
 
-	*(_DWORD*)&byte_5D4594[1523024] = nox_new_window_from_file("rulelist.wnd", sub_4CF060);
-	dword_5d4594_1523028 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], 10170);
-	*(_DWORD*)&byte_5D4594[1523032] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], 10171);
-	*(_DWORD*)&byte_5D4594[1523036] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], 10172);
-	*(_DWORD*)&byte_5D4594[1523040] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], 10173);
-	*(_DWORD*)&byte_5D4594[1523044] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], 10174);
-	*(_DWORD*)&byte_5D4594[1523048] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], 10175);
-	v2 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], 10176);
+	dword_5d4594_1523024 = nox_new_window_from_file("rulelist.wnd", sub_4CF060);
+	dword_5d4594_1523028 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10170);
+	*(_DWORD*)&byte_5D4594[1523032] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10171);
+	*(_DWORD*)&byte_5D4594[1523036] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10172);
+	*(_DWORD*)&byte_5D4594[1523040] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10173);
+	*(_DWORD*)&byte_5D4594[1523044] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10174);
+	*(_DWORD*)&byte_5D4594[1523048] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10175);
+	v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10176);
 	sub_46B340((int)v2, sub_4CEED0);
-	sub_46B120(*(_DWORD**)&byte_5D4594[1523024], a1);
+	sub_46B120(*(_DWORD**)&dword_5d4594_1523024, a1);
 	v3 = *(_DWORD**)(dword_5d4594_1523028 + 32);
 	v9 = sub_42F970("UISlider");
 	v4 = sub_42F970("UISliderLit");
-	v5 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], 10179);
-	v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], 10177);
-	v8 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], 10178);
+	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10179);
+	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10177);
+	v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10178);
 	*(_DWORD*)(v5[100] + 8) = 16;
 	*(_DWORD*)(v5[100] + 12) = 10;
 	sub_4B5700((int)v5, 0, 0, (int)v9, (int)v4, (int)v4);
@@ -395,7 +396,7 @@ int __cdecl sub_4CEBA0(int a1, char* a2) {
 	v3[7] = v6;
 	v3[8] = v8;
 	sub_4CED40(a2);
-	return *(_DWORD*)&byte_5D4594[1523024];
+	return dword_5d4594_1523024;
 }
 
 //----- (004CED40) --------------------------------------------------------
@@ -513,7 +514,7 @@ int __cdecl sub_4CF060(int a1, unsigned int a2, int* a3, int a4) {
 	}
 	if (a2 != 16391) {
 		if (a2 != 23 && a2 == 16387) {
-			v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1523024], a4);
+			v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, a4);
 			sub_416630();
 			sub_416640();
 			if (!v4)
