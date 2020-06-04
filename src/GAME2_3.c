@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_1217448;
 extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
@@ -1110,7 +1111,7 @@ bool __cdecl sub_48E000(int4* a1, _DWORD* a2) {
 			goto LABEL_12;
 	}
 LABEL_13:
-	if (*(_DWORD*)&byte_587000[80828]) {
+	if (dword_587000_80828) {
 		v11.field_0 = 0;
 		v11.field_C = nox_win_height;
 		v11.field_8 = 111;
