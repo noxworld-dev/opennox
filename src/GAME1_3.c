@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_154956;
 extern _DWORD dword_587000_80820;
 extern _DWORD dword_5d4594_830104;
 extern _DWORD dword_5d4594_816456;
@@ -3932,7 +3933,7 @@ void sub_4445C0() {
 				dword_587000_80820 = 0;
 				*(_DWORD*)&byte_587000[154952] = 0;
 				*(_DWORD*)&byte_5D4594[1193152] = 0;
-				*(_DWORD*)&byte_587000[154956] = 1;
+				dword_587000_154956 = 1;
 				*(_DWORD*)&byte_587000[80824] = 0;
 				*(_DWORD*)&byte_5D4594[805852] = 0;
 				*(_DWORD*)&byte_587000[80836] = 0;
@@ -3954,7 +3955,7 @@ void sub_4445C0() {
 		dword_587000_80820 = 1;
 		*(_DWORD*)&byte_587000[154952] = 1;
 		*(_DWORD*)&byte_5D4594[1193152] = 0;
-		*(_DWORD*)&byte_587000[154956] = 1;
+		dword_587000_154956 = 1;
 		*(_DWORD*)&byte_587000[80824] = 0;
 		goto LABEL_28;
 	}
@@ -3966,7 +3967,7 @@ void sub_4445C0() {
 		dword_587000_80820 = 1;
 		*(_DWORD*)&byte_587000[154952] = 1;
 		*(_DWORD*)&byte_5D4594[1193152] = 1;
-		*(_DWORD*)&byte_587000[154956] = 1;
+		dword_587000_154956 = 1;
 		*(_DWORD*)&byte_587000[80824] = 1;
 	LABEL_28:
 		v7 = *(_DWORD*)&nox_common_engineFlags;
