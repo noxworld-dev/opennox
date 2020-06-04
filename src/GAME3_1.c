@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_3679320;
 extern _DWORD dword_5d4594_1522628;
 extern _DWORD dword_5d4594_810640;
@@ -4671,7 +4672,7 @@ int __cdecl sub_4C26F0(int yTop) {
 	sub_49F570(0, v5 - 2);
 	nox_client_drawLineFromPoints_49E4B0();
 	result = 1;
-	*(_DWORD*)&byte_5D4594[3799524] = 1;
+	dword_5d4594_3799524 = 1;
 	return result;
 }
 
