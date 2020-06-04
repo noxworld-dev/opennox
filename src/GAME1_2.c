@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_87404;
 extern _DWORD dword_587000_87412;
 extern _DWORD dword_5d4594_3798820;
 extern _DWORD dword_5d4594_3798824;
@@ -9187,7 +9188,7 @@ int sub_438A90() {
 	memset(&buf[0], 0, 100);
 	/*if (*/ sub_420120((LPBYTE)&buf[56]); //)
 	{
-		/*if ( !*(_DWORD *)&byte_587000[87404] )
+		/*if ( !*(_DWORD *)&dword_587000_87404 )
 		  sub_40E0D0((int)&buf[56], (LPCSTR)&byte_587000[89088], 0);*/
 		v3 = sub_40ABD0();
 		buf[55] = byte_5D4594[2661960];
@@ -9208,7 +9209,7 @@ int sub_438A90() {
 	  v0 = loadString_sub_40F1D0((char *)&byte_587000[89028], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 	541); sub_449E00((int)v0); v1 = loadString_sub_40F1D0((char *)&byte_587000[89076], 0,
 	"C:\\NoxPost\\src\\client\\shell\\noxworld.c", 542); sub_449E30((int)v1); sub_449EA0(1); sub_43AF90(1); result =
-	*(_DWORD *)&byte_587000[87404]; if ( *(_DWORD *)&byte_587000[87404] == 1 ) result = sub_40D380();
+	*(_DWORD *)&dword_587000_87404; if ( *(_DWORD *)&dword_587000_87404 == 1 ) result = sub_40D380();
 	}*/
 	return result;
 }
@@ -9484,7 +9485,7 @@ int sub_43A920() {
 	int result; // eax
 
 	sub_46B500(*(int*)&dword_5d4594_814980);
-	if (*(_DWORD*)&byte_587000[87404] == 1) {
+	if (dword_587000_87404 == 1) {
 		sub_554D10();
 		nox_set_draw_unk1(sub_41E210);
 	}
@@ -9570,7 +9571,7 @@ char* sub_43AA70() {
 	*((_DWORD*)v1 + 11) = *(_DWORD*)&byte_5D4594[814916];
 	*(_WORD*)(v1 + 109) = sub_40A430();
 	sub_435720((char*)&byte_587000[90740]);
-	if (*(_DWORD*)&byte_587000[87404] == 1) {
+	if (dword_587000_87404 == 1) {
 		memset(v10, 0, sizeof(v10));
 		v6 = sub_41FA40();
 		nox_sprintf(v9, "%s%s", v6, &byte_587000[90752]);
@@ -9677,13 +9678,13 @@ int __cdecl sub_43AF50(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_587000[87404] = a1;
+	dword_587000_87404 = a1;
 	dword_5d4594_2650652 = a1 == 1;
 	return result;
 }
 
 //----- (0043AF70) --------------------------------------------------------
-int sub_43AF70() { return *(_DWORD*)&byte_587000[87404]; }
+int sub_43AF70() { return dword_587000_87404; }
 
 //----- (0043AF80) --------------------------------------------------------
 int sub_43AF80() { return *(_DWORD*)&byte_5D4594[814548]; }
@@ -9883,7 +9884,7 @@ int sub_43B360() // client connecting draw handler
 
 //----- (0043B440) --------------------------------------------------------
 int sub_43B440() {
-	if (*(_DWORD*)&byte_587000[87404] == 1)
+	if (dword_587000_87404 == 1)
 		sub_554B40(0);
 	sub_438A90();
 	return 1;
