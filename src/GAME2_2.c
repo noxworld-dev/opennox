@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650676;
 extern _DWORD dword_5d4594_3798156;
 extern _DWORD dword_5d4594_1189596;
 extern _DWORD dword_5d4594_1189592;
@@ -6233,7 +6234,7 @@ int __cdecl sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 			}
 		} else {
 			v23 = (__m64*)v8;
-			v10 = v5 - 23 * *a2 - *(_DWORD*)&byte_5D4594[2650676];
+			v10 = v5 - 23 * *a2 - dword_5d4594_2650676;
 			v11 = 12 * a3 + 280 * *a2;
 			v12 = (int*)&byte_5D4594[v11 + 2598288];
 			v13 = *(_DWORD*)&byte_5D4594[4 * ((*(int*)&byte_5D4594[v11 + 2598568] -
@@ -6349,7 +6350,7 @@ void __cdecl sub_480BE0(_DWORD* a1, int* a2, int a3, int a4, int a5) {
 			 byte_5D4594[3807160])(a5 + v7, dword_5d4594_3798796, 2 * a4 - v7);
 		}
 	} else {
-		v9 = *a1 - 23 * *a2 - *(_DWORD*)&byte_5D4594[2650676];
+		v9 = *a1 - 23 * *a2 - dword_5d4594_2650676;
 		v21 = 12 * a3;
 		v10 = 12 * a3 + 280 * *a2;
 		v11 = *(_DWORD*)&byte_5D4594[v10 + 2598288];
@@ -7360,10 +7361,10 @@ LABEL_60:
 							v59 = v69 + v72;
 							v53 += 2;
 							v67.field_0 = v69 + v72;
-							v60 = (v69 + v72 - *(int*)&byte_5D4594[2650676]) / 23;
+							v60 = (v69 + v72 - *(int*)&dword_5d4594_2650676) / 23;
 							v66.field_0 = v60;
-							v70 = (v69 + v72 - *(int*)&byte_5D4594[2650676]) / 23;
-							v61 = *(_DWORD*)&byte_5D4594[2650676] + 23 * v60;
+							v70 = (v69 + v72 - *(int*)&dword_5d4594_2650676) / 23;
+							v61 = dword_5d4594_2650676 + 23 * v60;
 							v74 = v58 - v69;
 							v75 = &byte_5D4594[280 * v60 + 2598284];
 							if (v61 < v58 + v72 + 23) {
