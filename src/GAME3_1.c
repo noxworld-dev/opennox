@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1319256;
 extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_1522600;
 extern _DWORD dword_5d4594_3799524;
@@ -3290,10 +3291,10 @@ int sub_4BFD40() {
 		nox_window_set_hidden(*(int*)&dword_5d4594_1319228, 1);
 		sub_46ABB0(*(int*)&dword_5d4594_1319228, 0);
 		sub_46C6E0(*(int*)&dword_5d4594_1319228);
-		result = *(_DWORD*)&byte_5D4594[1319256];
-		if (*(_DWORD*)&byte_5D4594[1319256])
-			result = sub_45A4B0(*(_QWORD**)&byte_5D4594[1319256]);
-		*(_DWORD*)&byte_5D4594[1319256] = 0;
+		result = dword_5d4594_1319256;
+		if (dword_5d4594_1319256)
+			result = sub_45A4B0(*(_QWORD**)&dword_5d4594_1319256);
+		dword_5d4594_1319256 = 0;
 		*(_DWORD*)&byte_5D4594[1319268] = 0;
 	} else {
 		sub_46ABB0(*(int*)&dword_5d4594_1319228, 1);
@@ -3403,10 +3404,10 @@ int __cdecl sub_4C0030(int a1) {
 	if (!*(_DWORD*)&byte_5D4594[1319264])
 		v1 = *(_DWORD*)&byte_5D4594[1319216];
 	nox_client_drawImageAt_47D2C0(v1, v5, v6);
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1319256] + 12) = v5 + *(_DWORD*)&byte_587000[183456];
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1319256] + 16) = v6 + *(_DWORD*)&byte_587000[183460];
-	(*(void(__cdecl**)(unsigned __int8*, _DWORD))(*(_DWORD*)&byte_5D4594[1319256] + 300))(
-	    &byte_5D4594[1319108], *(_DWORD*)&byte_5D4594[1319256]);
+	*(_DWORD*)(dword_5d4594_1319256 + 12) = v5 + *(_DWORD*)&byte_587000[183456];
+	*(_DWORD*)(dword_5d4594_1319256 + 16) = v6 + *(_DWORD*)&byte_587000[183460];
+	(*(void(__cdecl**)(unsigned __int8*, _DWORD))(dword_5d4594_1319256 + 300))(
+	    &byte_5D4594[1319108], dword_5d4594_1319256);
 	if (sub_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3603)[9] & 4)
 		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1319204], v5, v6);
 	if (sub_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3602)[9] & 4)
@@ -3503,9 +3504,9 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4) {
 int sub_4C03E0() {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1319256])
-		sub_45A4B0(*(_QWORD**)&byte_5D4594[1319256]);
-	*(_DWORD*)&byte_5D4594[1319256] = 0;
+	if (dword_5d4594_1319256)
+		sub_45A4B0(*(_QWORD**)&dword_5d4594_1319256);
+	dword_5d4594_1319256 = 0;
 	result = sub_46C4E0(*(_DWORD**)&dword_5d4594_1319228);
 	dword_5d4594_1319228 = 0;
 	*(_DWORD*)&byte_5D4594[1319232] = 0;
@@ -3521,10 +3522,10 @@ int __cdecl sub_4C0430(int a1, int a2, int a3, int a4, int a5, const void* a6, i
 
 	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3606);
 	sub_46AEE0((int)v10, a1);
-	*(_DWORD*)&byte_5D4594[1319256] = nox_new_drawable_for_thing(a5);
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1319256] + 120) |= 0x40000000u;
+	dword_5d4594_1319256 = nox_new_drawable_for_thing(a5);
+	*(_DWORD*)(dword_5d4594_1319256 + 120) |= 0x40000000u;
 	if (a6)
-		qmemcpy((void*)(*(_DWORD*)&byte_5D4594[1319256] + 432), a6, 0x14u);
+		qmemcpy((void*)(dword_5d4594_1319256 + 432), a6, 0x14u);
 	*(_DWORD*)&byte_5D4594[1319160] = a9;
 	*(_DWORD*)&byte_5D4594[1319100] = a10;
 	*(_DWORD*)&byte_5D4594[1319240] = a5;
