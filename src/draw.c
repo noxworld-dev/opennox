@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799624;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
@@ -157,7 +158,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	nox_backbuffer_pitch32 = 0;
 	dword_973C64 = 0;
 	if (!v9) {
-		*(_DWORD*)&byte_5D4594[3799624] = 0;
+		dword_5d4594_3799624 = 0;
 		*(_DWORD*)&byte_5D4594[3801808] = w & 0xFFFFFFE0;
 		dword_5d4594_3801780 = 0;
 		*(_DWORD*)&byte_5D4594[3801776] = v8 >> 2;
@@ -169,9 +170,9 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	if (v10) {
 		if (v10 != 1)
 			return 0;
-		*(_DWORD*)&byte_5D4594[3799624] = 2;
+		dword_5d4594_3799624 = 2;
 	} else {
-		*(_DWORD*)&byte_5D4594[3799624] = 1;
+		dword_5d4594_3799624 = 1;
 	}
 	dword_5d4594_3801780 = 1;
 	*(_DWORD*)&byte_5D4594[3801808] = 2 * v8;
@@ -1973,7 +1974,7 @@ int sub_434FB0() {
 	PALETTEENTRY v1[256]; // [esp+0h] [ebp-400h]
 
 	g_ddraw_palette = 0;
-	if (nox_video_renderTargetFlags & 4 || *(_DWORD*)&byte_5D4594[3799624])
+	if (nox_video_renderTargetFlags & 4 || dword_5d4594_3799624)
 		return 1;
 
 	sub_4350E0(v1, &byte_5D4594[3803308]);
@@ -2073,7 +2074,7 @@ void sub_4353F0() {
 	*(_WORD*)plpal = 768;
 	*(_WORD*)&plpal[2] = 256;
 	memset(&plpal[4], 0, 0x400u);
-	if (!*(_DWORD*)&byte_5D4594[3799624] && nox_video_renderTargetFlags & 0x10) {
+	if (!dword_5d4594_3799624 && nox_video_renderTargetFlags & 0x10) {
 		sub_435550();
 		v1 = &plpal[5];
 		v2 = 256;
@@ -2116,7 +2117,7 @@ void sub_4354F0() {
 #else
 	HDC v1; // esi
 
-	if (!*(_DWORD*)&byte_5D4594[3799624] && nox_video_renderTargetFlags & 0x10) {
+	if (!dword_5d4594_3799624 && nox_video_renderTargetFlags & 0x10) {
 		if (*(_DWORD*)&byte_5D4594[809596]) {
 			v1 = GetDC(windowHandle_dword_973FE0);
 			SelectPalette(v1, *(HPALETTE*)&byte_5D4594[809596], 0);
@@ -2416,9 +2417,9 @@ int sub_48A3D0() {
 			nox_backbuffer_pitch32 = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
 
 			if (g_format == SDL_PIXELFORMAT_RGBA5551)
-				*(_DWORD*)&byte_5D4594[3799624] = 1;
+				dword_5d4594_3799624 = 1;
 			else if (g_format == SDL_PIXELFORMAT_RGB565)
-				*(_DWORD*)&byte_5D4594[3799624] = 2;
+				dword_5d4594_3799624 = 2;
 			return 1;
 		}
 	}
@@ -2493,18 +2494,18 @@ int sub_48A3D0() {
 					return 1;
 				if (i == 5) {
 					if (j == 5)
-						*(_DWORD*)&byte_5D4594[3799624] = 1;
+						dword_5d4594_3799624 = 1;
 					return 1;
 				}
 				if (i != 6 || j != 5)
 					return 1;
-				*(_DWORD*)&byte_5D4594[3799624] = 2;
+				dword_5d4594_3799624 = 2;
 				return 1;
 			}
 			if (v12.ddpfPixelFormat.dwRGBBitCount == 8) {
 				dword_5d4594_3801780 = 0;
 				*(_DWORD*)&byte_5D4594[3801776] = v1 >> 2;
-				*(_DWORD*)&byte_5D4594[3799624] = 0;
+				dword_5d4594_3799624 = 0;
 				*(_DWORD*)&byte_5D4594[3801808] = v1;
 				nox_backbuffer_width32 = v1 >> 5;
 				nox_backbuffer_pitch32 = v2 - v1;
@@ -2621,12 +2622,12 @@ BOOL sub_48BDE0() {
 	if (g_cursor_surf) {
 #if USE_SDL
 		// FIXME use SDL_MapRGB instead?
-		v0 = *(_DWORD*)&byte_5D4594[3799624] ? (unsigned __int16)v0 : (unsigned __int8)v0;
+		v0 = dword_5d4594_3799624 ? (unsigned __int16)v0 : (unsigned __int8)v0;
 		SDL_SetColorKey(g_cursor_surf, SDL_TRUE, v0);
 #else
 		DDCOLORKEY v2; // [esp+0h] [ebp-8h]
 
-		v0 = *(_DWORD*)&byte_5D4594[3799624] ? (unsigned __int16)v0 : (unsigned __int8)v0;
+		v0 = dword_5d4594_3799624 ? (unsigned __int16)v0 : (unsigned __int8)v0;
 		v2.dwColorSpaceHighValue = v0;
 		v2.dwColorSpaceLowValue = v0;
 		if (g_cursor_surf->lpVtbl->SetColorKey(g_cursor_surf, DDCKEY_SRCBLT, &v2))
@@ -2716,7 +2717,7 @@ int sub_4338D0() {
 	int result;          // eax
 	pixel888 v2[256];    // [esp+Ch] [ebp-300h]
 
-	switch (*(_DWORD*)&byte_5D4594[3799624]) {
+	switch (dword_5d4594_3799624) {
 	case 0:
 		dword_69A014 = sub_435180;
 		dword_975240 = sub_435240;
@@ -3086,7 +3087,7 @@ LABEL_6:
 	// FIXME gamma control
 	return 0;
 #else
-	if (*(_DWORD*)&byte_5D4594[3799624])
+	if (dword_5d4594_3799624)
 		return g_ddraw_gamma_control &&
 		       !g_ddraw_gamma_control->lpVtbl->SetGammaRamp(g_ddraw_gamma_control, 0, &v14);
 	sub_434920();

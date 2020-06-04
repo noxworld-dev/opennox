@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799624;
 extern _DWORD dword_5d4594_1082856;
 extern _DWORD dword_5d4594_1049504;
 extern _DWORD dword_5d4594_1090120;
@@ -8850,7 +8851,7 @@ int __cdecl sub_4745F0(_DWORD* a1) {
 	int v5;                                    // eax
 
 	v1 = sub_476850;
-	if (*(_DWORD*)&byte_5D4594[3799624])
+	if (dword_5d4594_3799624)
 		v1 = (void(__cdecl*)(int, unsigned __int8*))sub_476AE0;
 	result = nox_drawable_list_2_size;
 	for (i = nox_drawable_list_2; nox_drawable_list_2_size > 0; --nox_drawable_list_2_size) {
