@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_787208;
 extern _DWORD dword_5d4594_815088;
 extern _DWORD dword_587000_127004;
 extern _DWORD dword_5d4594_814624;
@@ -4527,12 +4528,12 @@ int __cdecl nox_video_read_videobag(int a1) {
 				*(_DWORD*)&byte_5D4594[787168] = *(_DWORD*)&v9[16];
 				*(_DWORD*)&byte_5D4594[787172] = *(_DWORD*)&v9[12];
 				*(_DWORD*)&byte_5D4594[787184] = *(_DWORD*)&v9[4];
-				if (*(_DWORD*)&byte_5D4594[787208]) {
-					free(*(LPVOID*)&byte_5D4594[787208]);
-					*(_DWORD*)&byte_5D4594[787208] = 0;
+				if (dword_5d4594_787208) {
+					free(*(LPVOID*)&dword_5d4594_787208);
+					dword_5d4594_787208 = 0;
 				}
 				if (*(_DWORD*)&byte_5D4594[754144])
-					*(_DWORD*)&byte_5D4594[787208] = nox_malloc(*(size_t*)&byte_5D4594[787184]);
+					dword_5d4594_787208 = nox_malloc(*(size_t*)&byte_5D4594[787184]);
 				if (!*(_DWORD*)&byte_5D4594[787212])
 					*(_DWORD*)&byte_5D4594[787212] = sub_578BF0();
 				if (*(_DWORD*)&byte_5D4594[2650640] == 1)
@@ -4793,12 +4794,12 @@ int __cdecl nox_video_parse_videobag(int is8bit) {
 				sub_47A270();
 			sub_42F200(v6, is8bit);
 			free(v4);
-			if (*(_DWORD*)&byte_5D4594[787208]) {
-				free(*(LPVOID*)&byte_5D4594[787208]);
-				*(_DWORD*)&byte_5D4594[787208] = 0;
+			if (dword_5d4594_787208) {
+				free(*(LPVOID*)&dword_5d4594_787208);
+				dword_5d4594_787208 = 0;
 			}
 			if (*(_DWORD*)&byte_5D4594[754144])
-				*(_DWORD*)&byte_5D4594[787208] = nox_malloc(*(size_t*)&byte_5D4594[787184]);
+				dword_5d4594_787208 = nox_malloc(*(size_t*)&byte_5D4594[787184]);
 			sub_42EFF0();
 			result = 1;
 			*(_DWORD*)&byte_5D4594[787144] = 1;
@@ -4875,9 +4876,9 @@ void sub_42F4D0() {
 		sub_578C40(*(LPVOID*)&byte_5D4594[787212]);
 		*(_DWORD*)&byte_5D4594[787212] = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[787208]) {
-		free(*(LPVOID*)&byte_5D4594[787208]);
-		*(_DWORD*)&byte_5D4594[787208] = 0;
+	if (dword_5d4594_787208) {
+		free(*(LPVOID*)&dword_5d4594_787208);
+		dword_5d4594_787208 = 0;
 	}
 }
 
@@ -5324,8 +5325,8 @@ int __cdecl sub_42FE30(int a1) {
 			v10 = sub_40ADD0_fread(v3, 1u, *(_DWORD*)(v1 + 16), fp);
 			v6 = v3;
 		} else {
-			v5 = sub_40ADD0_fread(*(char**)&byte_5D4594[787208], 1u, v2, fp);
-			v6 = *(char**)&byte_5D4594[787208];
+			v5 = sub_40ADD0_fread(*(char**)&dword_5d4594_787208, 1u, v2, fp);
+			v6 = *(char**)&dword_5d4594_787208;
 			v10 = v5;
 		}
 		v7 = *(_DWORD*)(v1 + 12);
