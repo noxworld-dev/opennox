@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1569648;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_1599636;
 
@@ -1212,8 +1213,8 @@ void sub_4FBEE0() {
 			}
 		}
 	}
-	v4 = *(int**)&byte_5D4594[1569648];
-	if (*(_DWORD*)&byte_5D4594[1569648]) {
+	v4 = *(int**)&dword_5d4594_1569648;
+	if (dword_5d4594_1569648) {
 		while (1) {
 			v5 = v4[4];
 			v6 = (int*)v4[4];
@@ -1235,7 +1236,7 @@ void sub_4FBEE0() {
 					goto LABEL_24;
 				}
 			LABEL_23:
-				*(_DWORD*)&byte_5D4594[1569648] = v4[4];
+				dword_5d4594_1569648 = v4[4];
 				goto LABEL_24;
 			}
 		LABEL_25:
