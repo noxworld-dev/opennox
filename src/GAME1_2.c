@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_787152;
 extern _DWORD dword_5d4594_815044;
 extern _DWORD dword_5d4594_787208;
 extern _DWORD dword_5d4594_815088;
@@ -4540,7 +4541,7 @@ int __cdecl nox_video_read_videobag(int a1) {
 				if (*(_DWORD*)&byte_5D4594[2650640] == 1)
 					sub_47A270();
 				dword_5d4594_787148 = nox_malloc(36 * *(_DWORD*)&byte_5D4594[787172]);
-				*(_DWORD*)&byte_5D4594[787152] = nox_malloc(12 * *(_DWORD*)&byte_5D4594[787168]);
+				dword_5d4594_787152 = nox_malloc(12 * *(_DWORD*)&byte_5D4594[787168]);
 				sub_42F200(v6, a1);
 				free(v4);
 				v7 = 0x800000;
@@ -4740,18 +4741,18 @@ int __cdecl sub_42F200(unsigned __int8* a1, int a2) {
 				v18 = v8;
 				v17 += v8;
 				do {
-					*(_WORD*)(v11 + *(_DWORD*)&byte_5D4594[787152] + 8) = v19;
+					*(_WORD*)(v11 + dword_5d4594_787152 + 8) = v19;
 					v12 = &v2[*v2 + 1];
 					v13 = *v12;
 					v14 = v12 + 1;
-					*(_BYTE*)(v11 + *(_DWORD*)&byte_5D4594[787152] + 10) = v13;
+					*(_BYTE*)(v11 + dword_5d4594_787152 + 10) = v13;
 					if (a2 == 1)
 						v15 = *v14;
 					else
 						v15 = v14[1];
 					v2 = (unsigned __int8*)(v14 + 2);
 					v11 += 12;
-					*(_DWORD*)(v11 + *(_DWORD*)&byte_5D4594[787152] - 12) = v9;
+					*(_DWORD*)(v11 + dword_5d4594_787152 - 12) = v9;
 					v9 += v15;
 					--v18;
 				} while (v18);
@@ -4840,9 +4841,9 @@ void sub_42F4D0() {
 		free(*(LPVOID*)&dword_5d4594_787148);
 		dword_5d4594_787148 = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[787152]) {
-		free(*(LPVOID*)&byte_5D4594[787152]);
-		*(_DWORD*)&byte_5D4594[787152] = 0;
+	if (dword_5d4594_787152) {
+		free(*(LPVOID*)&dword_5d4594_787152);
+		dword_5d4594_787152 = 0;
 	}
 	v0 = *(_BYTE**)&dword_5d4594_787156;
 	if (dword_5d4594_787156) {
@@ -5023,7 +5024,7 @@ int __cdecl sub_42F660(int a1, void* a2) {
 									    sub_47A8C0((const char*)a2, v28);
 								} else {
 									*(_DWORD*)(v13[1] + v19) =
-									    *(_DWORD*)&byte_5D4594[787152] + 12 * v21;
+									    dword_5d4594_787152 + 12 * v21;
 								}
 								v19 += 4;
 								--v27;
@@ -5069,7 +5070,7 @@ char* __cdecl sub_42F970(const char* a1) {
 			return sub_47A8C0(v5, (char*)(v4 + 32));
 		return 0;
 	}
-	return (char*)(*(_DWORD*)&byte_5D4594[787152] + 12 * (_DWORD)v5);
+	return (char*)(dword_5d4594_787152 + 12 * (_DWORD)v5);
 }
 
 //----- (0042FA20) --------------------------------------------------------
@@ -5096,7 +5097,7 @@ char* __cdecl sub_42FAA0(int a1, const char* a2, char* a3) {
 	if (a1 == -1)
 		result = sub_47A8C0(a2, a3);
 	else
-		result = (char*)(*(_DWORD*)&byte_5D4594[787152] + 12 * a1);
+		result = (char*)(dword_5d4594_787152 + 12 * a1);
 	return result;
 }
 
@@ -5368,12 +5369,12 @@ int __cdecl sub_42FF90(_DWORD* a1) {
 		v4 = 12 * result;
 		v5 = v3 - result;
 		do {
-			result = v4 + *(_DWORD*)&byte_5D4594[787152];
-			v6 = *(_BYTE*)(v4 + *(_DWORD*)&byte_5D4594[787152] + 10);
+			result = v4 + dword_5d4594_787152;
+			v6 = *(_BYTE*)(v4 + dword_5d4594_787152 + 10);
 			if (v6) {
 				if (v6 != 1)
 					result = sub_47D480((int*)(*a1 + *(_DWORD*)result),
-							    v4 + *(_DWORD*)&byte_5D4594[787152]);
+							    v4 + dword_5d4594_787152);
 			}
 			v4 += 12;
 			--v5;
