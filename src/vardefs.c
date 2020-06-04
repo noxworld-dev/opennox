@@ -135,3 +135,4 @@ _DWORD dword_587000_197428 = 0xffffffff;
 _DWORD dword_587000_60352 = 0x1;
 _DWORD dword_5d4594_833716 = 0;
 _DWORD dword_5d4594_1319228 = 0;
+_DWORD dword_5d4594_10956 = 0;
