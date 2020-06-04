@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487556;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
 //----- (0051DA70) --------------------------------------------------------
@@ -2626,12 +2627,12 @@ int __cdecl sub_5212B0(int a1, _DWORD* a2) {
 
 //----- (005213E0) --------------------------------------------------------
 BOOL sub_5213E0() {
-	*(_DWORD*)&byte_5D4594[2487556] = nox_malloc(0x2000u);
-	return *(_DWORD*)&byte_5D4594[2487556] != 0;
+	dword_5d4594_2487556 = nox_malloc(0x2000u);
+	return dword_5d4594_2487556 != 0;
 }
 
 //----- (00521400) --------------------------------------------------------
-void sub_521400() { free(*(LPVOID*)&byte_5D4594[2487556]); }
+void sub_521400() { free(*(LPVOID*)&dword_5d4594_2487556); }
 
 //----- (00521410) --------------------------------------------------------
 LPVOID __cdecl sub_521410(int* a1, _DWORD* a2, int a3, int* a4) {
@@ -2654,13 +2655,13 @@ LPVOID __cdecl sub_521410(int* a1, _DWORD* a2, int a3, int* a4) {
 		sub_521600(a2, a1);
 		if (*(_DWORD*)&byte_5D4594[2487552] <= 1) {
 			*a4 = a3;
-			result = *(LPVOID*)&byte_5D4594[2487556];
+			result = *(LPVOID*)&dword_5d4594_2487556;
 		} else {
-			v5 = *(_DWORD*)&byte_5D4594[2487556];
+			v5 = dword_5d4594_2487556;
 			v6 = 1;
-			v7 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2487556] + 8) - **(_DWORD**)&byte_5D4594[2487556];
-			v8 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2487556] + 12) -
-			     *(_DWORD*)(*(_DWORD*)&byte_5D4594[2487556] + 4);
+			v7 = *(_DWORD*)(dword_5d4594_2487556 + 8) - **(_DWORD**)&dword_5d4594_2487556;
+			v8 = *(_DWORD*)(dword_5d4594_2487556 + 12) -
+			     *(_DWORD*)(dword_5d4594_2487556 + 4);
 			v15 = 1;
 			v9 = 1;
 			if (*(_DWORD*)&byte_5D4594[2487552] - 1 > 1) {
@@ -2670,8 +2671,8 @@ LPVOID __cdecl sub_521410(int* a1, _DWORD* a2, int a3, int* a4) {
 					v12 = *(_DWORD*)(v5 + 8 * v9 + 4) - *(_DWORD*)(v5 + 8 * v9 - 4);
 					if (v11 != v7 || v12 != v8) {
 						*(_DWORD*)(v5 + 8 * v15++) = *v10;
-						*(_DWORD*)(*(_DWORD*)&byte_5D4594[2487556] + 8 * v15 - 4) = v10[1];
-						v5 = *(_DWORD*)&byte_5D4594[2487556];
+						*(_DWORD*)(dword_5d4594_2487556 + 8 * v15 - 4) = v10[1];
+						v5 = dword_5d4594_2487556;
 					}
 					v7 = v11;
 					++v9;
@@ -2682,9 +2683,9 @@ LPVOID __cdecl sub_521410(int* a1, _DWORD* a2, int a3, int* a4) {
 			v13 = (_DWORD*)(v5 + 8 * v9);
 			v14 = v6 + 1;
 			*(_DWORD*)(v5 + 8 * v14 - 8) = *v13;
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[2487556] + 8 * v14 - 4) = v13[1];
+			*(_DWORD*)(dword_5d4594_2487556 + 8 * v14 - 4) = v13[1];
 			*a4 = v14;
-			result = *(LPVOID*)&byte_5D4594[2487556];
+			result = *(LPVOID*)&dword_5d4594_2487556;
 		}
 	}
 	return result;
@@ -2770,8 +2771,8 @@ _DWORD* __cdecl sub_521600(_DWORD* a1, int* a2) {
 	v3 = (_DWORD*)(sub_520FD0(&v13) - 1);
 	v4 = v13;
 	while (1) {
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[2487556] + 8 * *(_DWORD*)&byte_5D4594[2487552]) = v4;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[2487556] + 8 * *(_DWORD*)&byte_5D4594[2487552] + 4) = v14;
+		*(_DWORD*)(dword_5d4594_2487556 + 8 * *(_DWORD*)&byte_5D4594[2487552]) = v4;
+		*(_DWORD*)(dword_5d4594_2487556 + 8 * *(_DWORD*)&byte_5D4594[2487552] + 4) = v14;
 		result = (_DWORD*)(*(_DWORD*)&byte_5D4594[2487552] + 1);
 		if (++*(_DWORD*)&byte_5D4594[2487552] == 1024)
 			break;
