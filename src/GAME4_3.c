@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650652;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
 //----- (0052F8A0) --------------------------------------------------------
@@ -11008,7 +11009,7 @@ _DWORD* __cdecl sub_53FBC0(float* a1, int a2) {
 		v6 = result;
 		if (!result)
 			break;
-		if (*(_DWORD*)&byte_5D4594[2650652]) {
+		if (dword_5d4594_2650652) {
 			if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 				v7 = v6[4];
 				LOBYTE(v7) = v7 | 0x40;

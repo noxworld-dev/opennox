@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_3798844;
 extern _DWORD dword_5d4594_814980;
 extern int nox_enable_audio;
@@ -9662,7 +9663,7 @@ int __cdecl sub_43AF50(int a1) {
 
 	result = a1;
 	*(_DWORD*)&byte_587000[87404] = a1;
-	*(_DWORD*)&byte_5D4594[2650652] = a1 == 1;
+	dword_5d4594_2650652 = a1 == 1;
 	return result;
 }
 

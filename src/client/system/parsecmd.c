@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2650652;
 
 #ifdef NOX_DEBUG
 int nox_cheats_disabled = 0;
@@ -2498,7 +2499,7 @@ int __cdecl nox_cmd_window(int a1, unsigned __int8 a2, int a3) {
 int nox_cmd_set_qual_modem() {
 	int v0; // eax
 
-	*(_DWORD*)&byte_5D4594[2650652] = 1;
+	dword_5d4594_2650652 = 1;
 	v0 = sub_40A710(4);
 	sub_40A6D0(v0);
 	*(_DWORD*)&byte_5D4594[3596] = 4;
@@ -2510,7 +2511,7 @@ int nox_cmd_set_qual_modem() {
 int nox_cmd_set_qual_isdn() {
 	int v0; // eax
 
-	*(_DWORD*)&byte_5D4594[2650652] = 1;
+	dword_5d4594_2650652 = 1;
 	v0 = sub_40A710(3);
 	sub_40A6D0(v0);
 	*(_DWORD*)&byte_5D4594[3596] = 3;
@@ -2522,7 +2523,7 @@ int nox_cmd_set_qual_isdn() {
 int nox_cmd_set_qual_cable() {
 	int v0; // eax
 
-	*(_DWORD*)&byte_5D4594[2650652] = 1;
+	dword_5d4594_2650652 = 1;
 	v0 = sub_40A710(2);
 	sub_40A6D0(v0);
 	*(_DWORD*)&byte_5D4594[3596] = 2;
@@ -2534,7 +2535,7 @@ int nox_cmd_set_qual_cable() {
 int nox_cmd_set_qual_t1() {
 	int v0; // eax
 
-	*(_DWORD*)&byte_5D4594[2650652] = 1;
+	dword_5d4594_2650652 = 1;
 	v0 = sub_40A710(1);
 	sub_40A6D0(v0);
 	*(_DWORD*)&byte_5D4594[3596] = 1;
@@ -2546,7 +2547,7 @@ int nox_cmd_set_qual_t1() {
 int nox_cmd_set_qual_lan() {
 	int v0; // eax
 
-	*(_DWORD*)&byte_5D4594[2650652] = 0;
+	dword_5d4594_2650652 = 0;
 	v0 = sub_40A710(1);
 	sub_40A6D0(v0);
 	*(_DWORD*)&byte_5D4594[3596] = 1;
