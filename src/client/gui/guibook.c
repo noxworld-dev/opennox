@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_587000_132132;
 extern _DWORD dword_5d4594_1046936;
 extern _DWORD dword_5d4594_1046872;
 extern _DWORD dword_5d4594_1047516;
@@ -124,7 +125,7 @@ int __cdecl sub_45BD40(int a1) {
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1046924], v1, v2);
 		goto LABEL_75;
 	}
-	if (*(_DWORD*)&byte_587000[132132]) {
+	if (dword_587000_132132) {
 		v4 = dword_5d4594_1046936;
 		*(_DWORD*)WideCharStr = 141 / *(_DWORD*)&byte_5D4594[1046656] - 1;
 		if (!dword_5d4594_1046936) {
@@ -353,7 +354,7 @@ int __cdecl sub_45BD40(int a1) {
 		}
 	}
 LABEL_75:
-	if (!*(_DWORD*)&byte_587000[132132] &&
+	if (!dword_587000_132132 &&
 	    *(int*)&byte_5D4594[1046932] >= *(int*)&byte_5D4594[1047508] - *(int*)&byte_5D4594[1047512] - 1) {
 		nox_window_set_hidden(*(int*)&byte_5D4594[1046948], 1);
 	}
