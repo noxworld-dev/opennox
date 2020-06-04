@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816340;
 extern _DWORD dword_5d4594_816488;
 extern _DWORD dword_5d4594_815044;
 extern _DWORD dword_587000_93156;
@@ -1149,7 +1150,7 @@ void sub_43D2C0() { nox_srand(0x2711u); }
 void sub_43D2D0() {
 	int v1; // esi
 
-	if (*(_DWORD*)&byte_5D4594[816340]) {
+	if (dword_5d4594_816340) {
 		if (dword_5d4594_816364) {
 			sub_486520((unsigned int*)&byte_5D4594[816244]);
 			sub_486520((unsigned int*)&byte_5D4594[816148]);
@@ -1195,8 +1196,8 @@ int sub_43D440() {
 	int result; // eax
 
 	v0 = (int*)&byte_5D4594[20 * *(_DWORD*)&byte_5D4594[816352] + 816108];
-	result = *(_DWORD*)&byte_5D4594[816340];
-	if (*(_DWORD*)&byte_5D4594[816340]) {
+	result = dword_5d4594_816340;
+	if (dword_5d4594_816340) {
 		result = dword_5d4594_816348;
 		switch (dword_5d4594_816348) {
 		case 0:
@@ -1378,7 +1379,7 @@ int sub_43D8E0() {
 	int result; // eax
 	int v1;     // eax
 
-	if (*(_DWORD*)&byte_5D4594[816340])
+	if (dword_5d4594_816340)
 		return 1;
 	v1 = sub_43F130();
 	*(_DWORD*)&byte_5D4594[816376] = v1;
@@ -1394,7 +1395,7 @@ int sub_43D8E0() {
 	*(_DWORD*)&byte_5D4594[816368] = 0;
 	dword_5d4594_816364 = 0;
 	result = 1;
-	*(_DWORD*)&byte_5D4594[816340] = 1;
+	dword_5d4594_816340 = 1;
 	return result;
 }
 
@@ -1402,10 +1403,10 @@ int sub_43D8E0() {
 int sub_43D970() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[816340];
-	if (*(_DWORD*)&byte_5D4594[816340]) {
+	result = dword_5d4594_816340;
+	if (dword_5d4594_816340) {
 		result = sub_43DCC0();
-		*(_DWORD*)&byte_5D4594[816340] = 0;
+		dword_5d4594_816340 = 0;
 	}
 	return result;
 }
@@ -1567,7 +1568,7 @@ int sub_43DC30() { return dword_587000_93156; }
 int sub_43DC40() {
 	int result; // eax
 
-	if (!*(_DWORD*)&byte_5D4594[816340] || (result = 1, dword_5d4594_816348 != 1) &&
+	if (!dword_5d4594_816340 || (result = 1, dword_5d4594_816348 != 1) &&
 						   dword_5d4594_816348 != 4 &&
 						   dword_5d4594_816348 != 2) {
 		result = 0;
@@ -1579,7 +1580,7 @@ int sub_43DC40() {
 int sub_43DC80() {
 	unsigned __int8* v0; // eax
 
-	if (dword_587000_93156 && *(_DWORD*)&byte_5D4594[816340]) {
+	if (dword_587000_93156 && dword_5d4594_816340) {
 		while (1) {
 			v0 = &byte_5D4594[20 * *(_DWORD*)&byte_5D4594[816352] + 816108];
 			if (*(_DWORD*)v0) {
@@ -1598,8 +1599,8 @@ int sub_43DCC0() {
 
 	result = dword_587000_93156;
 	if (dword_587000_93156) {
-		result = *(_DWORD*)&byte_5D4594[816340];
-		if (*(_DWORD*)&byte_5D4594[816340]) {
+		result = dword_5d4594_816340;
+		if (dword_5d4594_816340) {
 			sub_43D990();
 			for (result = dword_5d4594_816348; dword_5d4594_816348;
 			     result = dword_5d4594_816348) {
