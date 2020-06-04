@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1522600;
 extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_3679320;
 extern _DWORD dword_5d4594_1522628;
@@ -10723,98 +10724,98 @@ _DWORD* sub_4CB330() {
 	_DWORD* result;   // eax
 	int v40;          // ecx
 
-	v0 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2010);
+	v0 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2010);
 	v1 = v0[9];
 	if (nox_video_dxUnlockSurface)
 		v2 = v1 | 4;
 	else
 		v2 = v1 & 0xFFFFFFFB;
 	v0[9] = v2;
-	v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2012);
+	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2012);
 	v4 = v3[9];
 	if (nox_common_engineFlags & 0x400)
 		v5 = v4 | 4;
 	else
 		v5 = v4 & 0xFFFFFFFB;
 	v3[9] = v5;
-	v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2020);
+	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2020);
 	v7 = v6[9];
 	if (*(_DWORD*)&byte_587000[80812])
 		v8 = v7 | 4;
 	else
 		v8 = v7 & 0xFFFFFFFB;
 	v6[9] = v8;
-	v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2021);
+	v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2021);
 	v10 = v9[9];
 	if (*(_DWORD*)&byte_5D4594[805844])
 		v11 = v10 | 4;
 	else
 		v11 = v10 & 0xFFFFFFFB;
 	v9[9] = v11;
-	v12 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2022);
+	v12 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2022);
 	v13 = v12[9];
 	if (dword_587000_80820)
 		v14 = v13 | 4;
 	else
 		v14 = v13 & 0xFFFFFFFB;
 	v12[9] = v14;
-	v15 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2031);
+	v15 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2031);
 	v16 = v15[9];
 	if (*(_DWORD*)&byte_587000[154952])
 		v17 = v16 | 4;
 	else
 		v17 = v16 & 0xFFFFFFFB;
 	v15[9] = v17;
-	v18 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2032);
+	v18 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2032);
 	v19 = v18[9];
 	if (*(_DWORD*)&byte_5D4594[1193152])
 		v20 = v19 | 4;
 	else
 		v20 = v19 & 0xFFFFFFFB;
 	v18[9] = v20;
-	v21 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2014);
+	v21 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2014);
 	v22 = v21[9];
 	if (*(_DWORD*)&byte_587000[80824])
 		v23 = v22 | 4;
 	else
 		v23 = v22 & 0xFFFFFFFB;
 	v21[9] = v23;
-	v24 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2015);
+	v24 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2015);
 	v25 = v24[9];
 	if (*(_DWORD*)&byte_5D4594[805852])
 		v26 = v25 | 4;
 	else
 		v26 = v25 & 0xFFFFFFFB;
 	v24[9] = v26;
-	v27 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2040);
+	v27 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2040);
 	v28 = v27[9];
 	if (dword_587000_80828)
 		v29 = v28 | 4;
 	else
 		v29 = v28 & 0xFFFFFFFB;
 	v27[9] = v29;
-	v30 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2016);
+	v30 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2016);
 	v31 = v30[9];
 	if (*(_DWORD*)&byte_587000[80836])
 		v32 = v31 | 4;
 	else
 		v32 = v31 & 0xFFFFFFFB;
 	v30[9] = v32;
-	v33 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2017);
+	v33 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2017);
 	v34 = v33[9];
 	if (*(_DWORD*)&byte_587000[80840])
 		v35 = v34 | 4;
 	else
 		v35 = v34 & 0xFFFFFFFB;
 	v33[9] = v35;
-	v36 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2041);
+	v36 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2041);
 	v37 = v36[9];
 	if (*(_DWORD*)&byte_587000[80844])
 		v38 = v37 | 4;
 	else
 		v38 = v37 & 0xFFFFFFFB;
 	v36[9] = v38;
-	result = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522600], 2033);
+	result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2033);
 	v40 = result[9];
 	if (*(_DWORD*)&byte_587000[154960])
 		result[9] = v40 | 4;
@@ -10825,8 +10826,8 @@ _DWORD* sub_4CB330() {
 
 //----- (004CB590) --------------------------------------------------------
 int __cdecl sub_4CB590(int a1) {
-	*(_DWORD*)&byte_5D4594[1522600] = nox_new_window_from_file("advidopt.wnd", sub_4CB5D0);
-	sub_46B120(*(_DWORD**)&byte_5D4594[1522600], a1);
+	dword_5d4594_1522600 = nox_new_window_from_file("advidopt.wnd", sub_4CB5D0);
+	sub_46B120(*(_DWORD**)&dword_5d4594_1522600, a1);
 	sub_46A8A0();
 	sub_4CB330();
 	return 1;
