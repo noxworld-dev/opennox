@@ -10,6 +10,7 @@ void f(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
 // defined in GAME1.c
+extern _DWORD dword_5d4594_815700;
 extern void (*mainloop_enter)(void*);
 extern void* mainloop_enter_args;
 extern void (*mainloop_exit)();
@@ -220,7 +221,7 @@ void CONNECT_SERVER(sm_args_t* args) {
 	sub_5520B0(200, 1024);
 	*(_DWORD*)&v7[36] = sub_43C860;
 	v4 = sub_5546F0((size_t*)v7);
-	*(_DWORD*)&byte_5D4594[815700] = v4;
+	dword_5d4594_815700 = v4;
 
 	GOTO_NET_CONNECT(v4, cp, hostshort, args->connect_server.data);
 }
@@ -360,8 +361,8 @@ void CONNECT_WAIT_LOOP(sm_args_t* args) {
 	if (sub_416BB0() >= args->connect_wait_loop.timeout)
 		GOTO_CONNECT_WAIT_THEN(0);
 
-	sub_552A80(*(unsigned int*)&byte_5D4594[815700], 1);
-	sub_40EE10(*(unsigned int*)&byte_5D4594[815700], 31, 0);
+	sub_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
+	sub_40EE10(*(unsigned int*)&dword_5d4594_815700, 31, 0);
 	sub_40ED10(31, 0);
 	sub_552460();
 	if (sub_40A370())
