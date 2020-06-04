@@ -1,6 +1,7 @@
 #include "inputcfg.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1522612;
 extern _DWORD dword_5d4594_1522604;
 extern _DWORD dword_5d4594_1522628;
 extern _DWORD dword_5d4594_1522624;
@@ -78,9 +79,9 @@ int __cdecl sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 				    loadString_sub_40F1D0((char*)&byte_587000[187784], 0,
 							  "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 424);
 				nox_swprintf((wchar_t*)&byte_5D4594[1522636], L"%s\n'%s'", v6, v9);
-				sub_46A8C0(*(int*)&byte_5D4594[1522612]);
-				sub_46B500(*(int*)&byte_5D4594[1522612]);
-				sub_46C690(*(int*)&byte_5D4594[1522612]);
+				sub_46A8C0(*(int*)&dword_5d4594_1522612);
+				sub_46B500(*(int*)&dword_5d4594_1522612);
+				sub_46C690(*(int*)&dword_5d4594_1522612);
 				return sub_4A30D0(a1, 0x4010u, (wchar_t*)a3, a4);
 			}
 		}
