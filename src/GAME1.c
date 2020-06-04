@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_3624;
 extern _DWORD dword_5d4594_528256;
 extern _DWORD dword_5d4594_371692;
 extern _DWORD dword_5d4594_251540;
@@ -2104,17 +2105,17 @@ int __cdecl sub_40B170(int a1) {
 	} else {
 		v1 = 16;
 	}
-	*(_DWORD*)&byte_5D4594[3624] = v1;
+	dword_5d4594_3624 = v1;
 	*(_DWORD*)&byte_5D4594[3620] = nox_malloc(168 * v1);
-	result = *(_DWORD*)&byte_5D4594[3624];
+	result = dword_5d4594_3624;
 	LOBYTE(a1) = 0;
-	if (*(_DWORD*)&byte_5D4594[3624] > 0) {
+	if (dword_5d4594_3624 > 0) {
 		LOBYTE(result) = 0;
 		do {
 			sub_40B1F0(result);
 			LOBYTE(a1) = a1 + 1;
 			result = a1;
-		} while ((int)(unsigned __int8)a1 < *(int*)&byte_5D4594[3624]);
+		} while ((int)(unsigned __int8)a1 < *(int*)&dword_5d4594_3624);
 	}
 	return result;
 }
@@ -2158,7 +2159,7 @@ void __cdecl sub_40B250(int a1, unsigned __int8 a2, unsigned __int16 a3, const v
 
 	if (a4) {
 		if (a5) {
-			if ((int)a2 < *(int*)&byte_5D4594[3624]) {
+			if ((int)a2 < *(int*)&dword_5d4594_3624) {
 				v5 = *(_DWORD*)&byte_5D4594[3620] + 168 * a2;
 				if (*(_DWORD*)(v5 + 16)) {
 					*(_DWORD*)(v5 + 156) = *(_DWORD*)&byte_5D4594[2598000];
@@ -2340,7 +2341,7 @@ char* __cdecl sub_40B6D0(_BYTE* a1) {
 	char* result; // eax
 
 	v1 = 0;
-	if (*(int*)&byte_5D4594[3624] <= 0) {
+	if (*(int*)&dword_5d4594_3624 <= 0) {
 	LABEL_5:
 		result = 0;
 		*a1 = 0;
@@ -2349,7 +2350,7 @@ char* __cdecl sub_40B6D0(_BYTE* a1) {
 		while (*v2) {
 			++v1;
 			v2 += 42;
-			if (v1 >= *(int*)&byte_5D4594[3624])
+			if (v1 >= *(int*)&dword_5d4594_3624)
 				goto LABEL_5;
 		}
 		*a1 = v1;
@@ -2370,12 +2371,12 @@ void sub_40B740() {
 	unsigned __int8 v2; // [esp+0h] [ebp-4h]
 
 	v2 = 0;
-	if (*(_DWORD*)&byte_5D4594[3624] > 0) {
+	if (dword_5d4594_3624 > 0) {
 		v0 = 0;
 		do {
 			sub_40B4E0(v0);
 			v0 = ++v2;
-		} while ((int)v2 < *(int*)&byte_5D4594[3624]);
+		} while ((int)v2 < *(int*)&dword_5d4594_3624);
 	}
 	free(*(LPVOID*)&byte_5D4594[3620]);
 }
@@ -2388,9 +2389,9 @@ int sub_40B790() {
 	int v3;             // eax
 	unsigned __int8 v4; // [esp+0h] [ebp-4h]
 
-	result = *(_DWORD*)&byte_5D4594[3624];
+	result = dword_5d4594_3624;
 	v4 = 0;
-	if (*(_DWORD*)&byte_5D4594[3624] > 0) {
+	if (dword_5d4594_3624 > 0) {
 		v1 = 0;
 		v2 = 0;
 		do {
@@ -2399,10 +2400,10 @@ int sub_40B790() {
 				if (*(_DWORD*)&byte_5D4594[2598000] > (unsigned int)(*(_DWORD*)(v3 + 156) + 900))
 					sub_40B530(v1, 3);
 			}
-			result = *(_DWORD*)&byte_5D4594[3624];
+			result = dword_5d4594_3624;
 			v1 = ++v4;
 			v2 = v4;
-		} while ((int)v4 < *(int*)&byte_5D4594[3624]);
+		} while ((int)v4 < *(int*)&dword_5d4594_3624);
 	}
 	return result;
 }
