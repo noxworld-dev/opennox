@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3679320;
 extern _DWORD dword_5d4594_1193360;
 extern _DWORD dword_587000_154956;
 extern _DWORD dword_587000_80820;
@@ -7311,7 +7312,7 @@ LABEL_36:
 		}
 	}
 LABEL_60:
-	v67.field_4 = (int)&v78[*(_DWORD*)&byte_5D4594[3679320]];
+	v67.field_4 = (int)&v78[dword_5d4594_3679320];
 	sub_4745F0(a1);
 	if (dword_587000_154956) {
 		v48 = &byte_5D4594[2598284];
@@ -7320,14 +7321,14 @@ LABEL_60:
 			v48 += 280;
 		} while ((int)v48 < (int)&byte_5D4594[2614244]);
 		v66.field_4 = (v67.field_4 - *(int*)&byte_5D4594[2650680]) / 23;
-		v49 = *(_DWORD*)&byte_5D4594[3679320];
+		v49 = dword_5d4594_3679320;
 		v50 = v67.field_4 - 23 * v66.field_4 - *(_DWORD*)&byte_5D4594[2650680];
 		v78 = (unsigned __int8*)(v67.field_4 - 23 * v66.field_4 - *(_DWORD*)&byte_5D4594[2650680]);
-		v80 = *(_DWORD*)&byte_5D4594[3679320];
-		if (*(int*)&byte_5D4594[3679320] < *(int*)&byte_5D4594[3798156]) {
-			v51 = &byte_5D4594[128 * *(_DWORD*)&byte_5D4594[3679320] + 3682956];
-			v76 = 4 * *(_DWORD*)&byte_5D4594[3679320] - 4;
-			for (j = (int)&byte_5D4594[128 * *(_DWORD*)&byte_5D4594[3679320] + 3682956];;
+		v80 = dword_5d4594_3679320;
+		if (*(int*)&dword_5d4594_3679320 < *(int*)&byte_5D4594[3798156]) {
+			v51 = &byte_5D4594[128 * dword_5d4594_3679320 + 3682956];
+			v76 = 4 * dword_5d4594_3679320 - 4;
+			for (j = (int)&byte_5D4594[128 * dword_5d4594_3679320 + 3682956];;
 			     v51 = (unsigned __int8*)j) {
 				i = *(_DWORD*)(dword_5d4594_3798784 + 4 * v49);
 				if (v50 == 23) {
@@ -7405,10 +7406,10 @@ LABEL_60:
             _m_femms();
 #endif
 	} else {
-		result = *(_DWORD*)&byte_5D4594[3679320];
-		v79 = *(_DWORD*)&byte_5D4594[3679320];
-		if (*(int*)&byte_5D4594[3679320] < *(int*)&byte_5D4594[3798156]) {
-			v78 = &byte_5D4594[128 * *(_DWORD*)&byte_5D4594[3679320] + 3682956];
+		result = dword_5d4594_3679320;
+		v79 = dword_5d4594_3679320;
+		if (*(int*)&dword_5d4594_3679320 < *(int*)&byte_5D4594[3798156]) {
+			v78 = &byte_5D4594[128 * dword_5d4594_3679320 + 3682956];
 			do {
 				v35 = v78;
 				v36 = *(_DWORD*)&byte_5D4594[4 * v79 + 3679340];

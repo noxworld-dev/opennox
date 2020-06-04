@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3679320;
 extern _DWORD dword_5d4594_1522628;
 extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_1522624;
@@ -6344,7 +6345,7 @@ int __cdecl sub_4C52E0(int* a1, int a2) {
 	memset(&byte_5D4594[3679340], 0, 4 * nox_win_height);
 	result = a2;
 	v4 = 0;
-	*(_DWORD*)&byte_5D4594[3679320] = v2;
+	dword_5d4594_3679320 = v2;
 	*(_DWORD*)&byte_5D4594[3798156] = 0;
 	v21 = 0;
 	if (a2 > 0) {
@@ -6453,8 +6454,8 @@ void __cdecl sub_4C5430(int a1, int a2) {
 		}
 		*(_DWORD*)&byte_5D4594[4 * a2 + 3679340] = v2 + 1;
 		*(_DWORD*)&byte_5D4594[4 * (v3 + 32 * a2) + 3682956] = a1;
-		if (a2 < *(int*)&byte_5D4594[3679320])
-			*(_DWORD*)&byte_5D4594[3679320] = a2;
+		if (a2 < *(int*)&dword_5d4594_3679320)
+			dword_5d4594_3679320 = a2;
 		if (a2 > *(int*)&byte_5D4594[3798156])
 			*(_DWORD*)&byte_5D4594[3798156] = a2;
 	}
@@ -6499,10 +6500,10 @@ int __cdecl sub_4C5500(int* a1) {
 	v15 = a1[1];
 	v16 = sub_49F6D0(0);
 	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
-	v4 = *(_DWORD*)&byte_5D4594[3679320];
-	if (*(_DWORD*)&byte_5D4594[3679320] > v3) {
-		nox_client_drawRectFilledOpaque_49CE30(v2, v3, a1[8], *(_DWORD*)&byte_5D4594[3679320] - v3);
-		v4 = *(_DWORD*)&byte_5D4594[3679320];
+	v4 = dword_5d4594_3679320;
+	if (dword_5d4594_3679320 > v3) {
+		nox_client_drawRectFilledOpaque_49CE30(v2, v3, a1[8], dword_5d4594_3679320 - v3);
+		v4 = dword_5d4594_3679320;
 	}
 	v5 = *(_DWORD*)&byte_5D4594[3798156];
 	if (v4 < *(int*)&byte_5D4594[3798156]) {
@@ -6605,7 +6606,7 @@ int __cdecl sub_4C56D0(_DWORD* a1) {
 	} else {
 		v2 = 46 - v1;
 	}
-	*(_DWORD*)&byte_5D4594[3679320] = v2;
+	dword_5d4594_3679320 = v2;
 	v3 = a1[9];
 	v4 = a1[5];
 	result = nox_win_height;
@@ -6636,7 +6637,7 @@ int __cdecl sub_4C56D0(_DWORD* a1) {
 	v10 = v2 < result;
 	if (v2 > result) {
 		v2 = result;
-		*(_DWORD*)&byte_5D4594[3679320] = result;
+		dword_5d4594_3679320 = result;
 		v10 = 0;
 	}
 	if (v10) {
