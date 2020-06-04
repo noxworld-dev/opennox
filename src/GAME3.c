@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1307780;
 extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1309812;
 extern _DWORD dword_5d4594_1309820;
@@ -1685,7 +1686,7 @@ int sub_4A5C70() {
 	if (nox_common_gameFlags_check_40A5C0(2048))
 		sub_4DBE10((int)&byte_5D4594[1307752], 1);
 	else
-		DeleteFileA((LPCSTR)(*(_DWORD*)&byte_5D4594[1307780] + 1278 * *(_DWORD*)&byte_5D4594[1307772] + 4));
+		DeleteFileA((LPCSTR)(dword_5d4594_1307780 + 1278 * *(_DWORD*)&byte_5D4594[1307772] + 4));
 	nox_window_call_field_94(*(int*)&byte_5D4594[1307744], 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&byte_5D4594[1307776], 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&byte_5D4594[1307768], 16399, 0, 0);
