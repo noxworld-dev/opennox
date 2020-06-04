@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830248;
 extern _DWORD dword_5d4594_829480;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_3801780;
@@ -6240,9 +6241,9 @@ int sub_44AA70() {
 
 	v0 = *(void (**)(void))(*(_DWORD*)&byte_5D4594[830244] + 52);
 	sub_43C570(*(LPVOID*)&byte_5D4594[830244]);
-	if (*(_DWORD*)&byte_5D4594[830248]) {
-		sub_46C4E0(*(_DWORD**)&byte_5D4594[830248]);
-		*(_DWORD*)&byte_5D4594[830248] = 0;
+	if (dword_5d4594_830248) {
+		sub_46C4E0(*(_DWORD**)&dword_5d4594_830248);
+		dword_5d4594_830248 = 0;
 	}
 	sub_43BE40(1);
 	v0();
@@ -6333,7 +6334,7 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 					if (v8 == 2) {
 						sub_41E300(6);
 						sub_4207F0(6);
-						sub_46ABB0(*(int*)&byte_5D4594[830248], 0);
+						sub_46ABB0(*(int*)&dword_5d4594_830248, 0);
 						sub_40E090();
 						sub_4A1BE0(0);
 					}
@@ -6364,7 +6365,7 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 			v13 = sub_41FC40();
 			sub_40DB50(v13 + 1, (int)&v17);
 			if (!v17) {
-				sub_4B5770_wol_locale(*(int*)&byte_5D4594[830248]);
+				sub_4B5770_wol_locale(*(int*)&dword_5d4594_830248);
 			LABEL_42:
 				sub_452D80(921, 100);
 				return 1;
@@ -6377,7 +6378,7 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 		sub_41DA70(v15, 0);
 		sub_4207F0(2);
 		sub_40E090();
-		sub_46ABB0(*(int*)&byte_5D4594[830248], 0);
+		sub_46ABB0(*(int*)&dword_5d4594_830248, 0);
 		sub_4A1BE0(0);
 		goto LABEL_42;
 	}
@@ -6386,12 +6387,12 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 		return 1;
 	}
 	if (a2 == 2) {
-		*(_DWORD*)&byte_5D4594[830248] = 0;
+		dword_5d4594_830248 = 0;
 		return 0;
 	}
 	if (a2 != 16387)
 		return 0;
-	result = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], a4);
+	result = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, a4);
 	if (!result)
 		return result;
 	if ((unsigned __int16)a3 != 1)
@@ -6414,7 +6415,7 @@ int sub_44AF70() {
 	sub_452D80(923, 100);
 	result = 1;
 	*(_DWORD*)(*(_DWORD*)&byte_5D4594[830244] + 52) = sub_447620_wol_chat;
-	*(_DWORD*)&byte_5D4594[830248] = 0;
+	dword_5d4594_830248 = 0;
 	return result;
 }
 
@@ -6423,9 +6424,9 @@ _DWORD* __cdecl sub_44AFB0(int a1, int a2, int a3) {
 	_DWORD* result; // eax
 
 	if (a3 < -2147221388 || a3 > -2147221386)
-		result = sub_449A10(*(int*)&byte_5D4594[830248], a1, a2, 33, 0, 0);
+		result = sub_449A10(*(int*)&dword_5d4594_830248, a1, a2, 33, 0, 0);
 	else
-		result = sub_449A10(*(int*)&byte_5D4594[830248], a1, a2, 545, 0, 0);
+		result = sub_449A10(*(int*)&dword_5d4594_830248, a1, a2, 545, 0, 0);
 	*(_DWORD*)&byte_5D4594[830280] = a3;
 	return result;
 }
