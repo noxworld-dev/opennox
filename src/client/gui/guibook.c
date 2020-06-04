@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1046868;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -112,11 +113,11 @@ int __cdecl sub_45BD40(int a1) {
 		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1046660], v1, v2);
 	else
 		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1046644], v1, v2);
-	if (*(_DWORD*)&byte_5D4594[1046868] == 3) {
+	if (dword_5d4594_1046868 == 3) {
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1046928], v1, v2);
 		goto LABEL_75;
 	}
-	if (*(_DWORD*)&byte_5D4594[1046868] == 2) {
+	if (dword_5d4594_1046868 == 2) {
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1046924], v1, v2);
 		goto LABEL_75;
 	}
@@ -141,7 +142,7 @@ int __cdecl sub_45BD40(int a1) {
 				}
 				sub_434390(*(int*)&byte_5D4594[1046880]);
 				v9 = *(_BYTE*)(*(_DWORD*)&byte_5D4594[1047516] + 2251);
-				if (*(_DWORD*)&byte_5D4594[1046868] == 1) {
+				if (dword_5d4594_1046868 == 1) {
 					if (v9 == 2 && !sub_424B70(*(_DWORD*)&byte_5D4594[4 * v8 + 1046960] + 74))
 						sub_434390(*(int*)&byte_5D4594[1046884]);
 					v10 = (unsigned __int16*)sub_427240(*(_DWORD*)&byte_5D4594[4 * v8 + 1046960]);
@@ -173,7 +174,7 @@ int __cdecl sub_45BD40(int a1) {
 		}
 		goto LABEL_75;
 	}
-	if (*(_DWORD*)&byte_5D4594[1046868] == 1) {
+	if (dword_5d4594_1046868 == 1) {
 		v14 = v67 + 51;
 		v15 = loadString_sub_40F1D0((char*)&byte_587000[132380], 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c",
 					    978);
