@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835396;
 extern _DWORD dword_5d4594_1599588;
 extern _DWORD dword_5d4594_1599596;
 extern _DWORD dword_5d4594_3821636;
@@ -8520,7 +8521,7 @@ int sub_502B10() {
 BOOL __cdecl sub_502D70(int a1) {
 	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_1599596)
 		return 0;
-	*(_DWORD*)&byte_5D4594[3835396] = a1;
+	dword_5d4594_3835396 = a1;
 	return sub_503830(a1) == 0;
 }
 
@@ -9017,7 +9018,7 @@ int __cdecl sub_503830(int a1) {
 	sub_426A50(0);
 	*(_DWORD*)&byte_5D4594[1599480] = a1;
 	*(_DWORD*)&byte_5D4594[1599476] = 0;
-	*(_DWORD*)&byte_5D4594[3835396] = a1;
+	dword_5d4594_3835396 = a1;
 	sub_502DF0();
 	return 1;
 }
@@ -9045,13 +9046,13 @@ int __cdecl sub_503B30(float2* a1) {
 
 	result = sub_4D3D90(a1, &a2);
 	if (result) {
-		v2 = *(_DWORD*)&byte_5D4594[3835396];
-		if (*(_DWORD*)&byte_5D4594[1599480] != *(_DWORD*)&byte_5D4594[3835396] ||
+		v2 = dword_5d4594_3835396;
+		if (*(_DWORD*)&byte_5D4594[1599480] != dword_5d4594_3835396 ||
 		    *(int*)&byte_5D4594[1599480] == -1 || *(_DWORD*)&byte_5D4594[1599476] == 1) {
-			result = sub_503830(*(int*)&byte_5D4594[3835396]);
+			result = sub_503830(*(int*)&dword_5d4594_3835396);
 			if (!result)
 				return result;
-			v2 = *(_DWORD*)&byte_5D4594[3835396];
+			v2 = dword_5d4594_3835396;
 		}
 		v18[2] = (__int64)a2.field_0;
 		v18[3] = (__int64)a2.field_4;
@@ -9060,7 +9061,7 @@ int __cdecl sub_503B30(float2* a1) {
 		sub_4D3D90(&v13, &v14);
 		v18[4] = (__int64)v14.field_0;
 		v18[5] = (__int64)v14.field_4;
-		v3 = *(float*)(dword_5d4594_1599576 + 76 * *(_DWORD*)&byte_5D4594[3835396] + 64) +
+		v3 = *(float*)(dword_5d4594_1599576 + 76 * dword_5d4594_3835396 + 64) +
 		     a1->field_0;
 		v13.field_4 = a1->field_4;
 		v13.field_0 = v3;
@@ -9069,7 +9070,7 @@ int __cdecl sub_503B30(float2* a1) {
 		v4 = a1->field_0;
 		v18[1] = (__int64)v14.field_4;
 		v13.field_0 = v4;
-		v13.field_4 = *(float*)(dword_5d4594_1599576 + 76 * *(_DWORD*)&byte_5D4594[3835396] + 68) +
+		v13.field_4 = *(float*)(dword_5d4594_1599576 + 76 * dword_5d4594_3835396 + 68) +
 			      a1->field_4;
 		sub_4D3D90(&v13, &v14);
 		v18[6] = (__int64)v14.field_0;
@@ -9143,7 +9144,7 @@ int __cdecl sub_503EC0(int a1, float* a2) {
 	float2 v4;  // [esp+8h] [ebp-10h]
 	float2 a2a; // [esp+10h] [ebp-8h]
 
-	if (*(_DWORD*)&byte_5D4594[1599480] != *(_DWORD*)&byte_5D4594[3835396] || *(int*)&byte_5D4594[1599480] == -1 ||
+	if (*(_DWORD*)&byte_5D4594[1599480] != dword_5d4594_3835396 || *(int*)&byte_5D4594[1599480] == -1 ||
 	    *(_DWORD*)&byte_5D4594[1599476] == 1) {
 		return 0;
 	}
@@ -9506,9 +9507,9 @@ int __cdecl sub_504560(int a1, int a2) {
 int sub_5045B0() {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1599480] == *(_DWORD*)&byte_5D4594[3835396] && *(int*)&byte_5D4594[1599480] != -1 &&
+	if (*(_DWORD*)&byte_5D4594[1599480] == dword_5d4594_3835396 && *(int*)&byte_5D4594[1599480] != -1 &&
 		*(_DWORD*)&byte_5D4594[1599476] != 1 ||
-	    (result = sub_503830(*(int*)&byte_5D4594[3835396])) != 0) {
+	    (result = sub_503830(*(int*)&dword_5d4594_3835396)) != 0) {
 		result = **(_DWORD**)&byte_5D4594[1599548];
 	}
 	return result;
@@ -9733,9 +9734,9 @@ int __cdecl sub_504910(int a1, int a2) {
 int sub_504980() {
 	int result; // eax
 
-	if ((*(_DWORD*)&byte_5D4594[1599480] == *(_DWORD*)&byte_5D4594[3835396] && *(int*)&byte_5D4594[1599480] != -1 &&
+	if ((*(_DWORD*)&byte_5D4594[1599480] == dword_5d4594_3835396 && *(int*)&byte_5D4594[1599480] != -1 &&
 		 *(_DWORD*)&byte_5D4594[1599476] != 1 ||
-	     sub_503830(*(int*)&byte_5D4594[3835396])) &&
+	     sub_503830(*(int*)&dword_5d4594_3835396)) &&
 	    dword_5d4594_1599540) {
 		result = **(_DWORD**)&dword_5d4594_1599540;
 	} else {
