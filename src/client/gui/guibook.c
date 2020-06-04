@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1047520;
 extern _DWORD dword_587000_132132;
 extern _DWORD dword_5d4594_1046936;
 extern _DWORD dword_5d4594_1046872;
@@ -414,7 +415,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 	int v25;    // [esp+8h] [ebp-4h]
 
 	v1 = *(_DWORD*)&byte_5D4594[1046652] != 0 ? 3 : 0;
-	if (!*(_DWORD*)&byte_5D4594[1047520])
+	if (!dword_5d4594_1047520)
 		return 1;
 	if (*(_DWORD*)&byte_5D4594[1046648] && sub_430B40_get_mouse_prev_seq() - *(_DWORD*)&byte_5D4594[1046648] <
 						   (unsigned int)(2 * *(_DWORD*)&byte_5D4594[2649704])) {
@@ -509,8 +510,8 @@ int sub_45D870() {
 	int v9;     // [esp+0h] [ebp-8h]
 	int v10;    // [esp+4h] [ebp-4h]
 
-	result = *(_DWORD*)&byte_5D4594[1047520];
-	if (*(_DWORD*)&byte_5D4594[1047520]) {
+	result = dword_5d4594_1047520;
+	if (dword_5d4594_1047520) {
 		v1 = *(_DWORD*)&byte_5D4594[1046652] != 1 ? 0 : 3;
 		v9 = ((int)*(_DWORD*)&byte_5D4594[1046668] - nox_float2int(*(float*)&byte_5D4594[1046636])) / 50;
 		v10 = ((int)*(_DWORD*)&byte_5D4594[1046672] - nox_float2int(*(float*)&byte_5D4594[1046640])) / 50;
