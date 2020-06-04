@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816488;
 extern _DWORD dword_5d4594_815044;
 extern _DWORD dword_587000_93156;
 extern _DWORD dword_587000_127004;
@@ -2385,7 +2386,7 @@ int sub_43F1C0() {
 	} while (v1 != &byte_5D4594[816464]);
 	if (dword_587000_26048 == 6 || (v2 = &byte_587000[94112], dword_587000_26048 == 8))
 		v2 = &byte_587000[94176];
-	*(_DWORD*)&byte_5D4594[816488] = v2;
+	dword_5d4594_816488 = v2;
 	v3 = 0;
 	do {
 		if (*(_DWORD*)&v2[v0 + 4]) {
@@ -2393,20 +2394,20 @@ int sub_43F1C0() {
 			if (v0 > 0) {
 				v5 = 0;
 				while (_strcmpi(*(const char**)&v2[v0 + 4], *(const char**)&v2[v5 + 4])) {
-					v2 = *(unsigned __int8**)&byte_5D4594[816488];
+					v2 = *(unsigned __int8**)&dword_5d4594_816488;
 					++v4;
 					v5 += 12;
 					if (v4 >= v3)
 						goto LABEL_18;
 				}
-				*(_DWORD*)(v0 + *(_DWORD*)&byte_5D4594[816488] + 8) =
-				    *(_DWORD*)(*(_DWORD*)&byte_5D4594[816488] + 12 * v4 + 8);
-				v2 = *(unsigned __int8**)&byte_5D4594[816488];
+				*(_DWORD*)(v0 + dword_5d4594_816488 + 8) =
+				    *(_DWORD*)(dword_5d4594_816488 + 12 * v4 + 8);
+				v2 = *(unsigned __int8**)&dword_5d4594_816488;
 			}
 		LABEL_18:
 			if (*(_DWORD*)&v2[v0 + 4] && !*(_DWORD*)&v2[v0 + 8]) {
-				*(_DWORD*)(v0 + *(_DWORD*)&byte_5D4594[816488] + 8) = sub_43F3B0(*(char**)&v2[v0 + 4]);
-				v2 = *(unsigned __int8**)&byte_5D4594[816488];
+				*(_DWORD*)(v0 + dword_5d4594_816488 + 8) = sub_43F3B0(*(char**)&v2[v0 + 4]);
+				v2 = *(unsigned __int8**)&dword_5d4594_816488;
 			}
 		}
 		v0 += 12;
@@ -2428,7 +2429,7 @@ void sub_43F2E0() {
 	do {
 		result = *v1;
 		v3 = *v1 == 0;
-		*(_DWORD*)(v0 + *(_DWORD*)&byte_5D4594[816488] + 8) = 0;
+		*(_DWORD*)(v0 + dword_5d4594_816488 + 8) = 0;
 		if (!v3) {
 			*v1 = 0;
 			sub_440840(result);
@@ -2468,12 +2469,12 @@ int __cdecl sub_43F360(char* a1) {
 	int v2;         // esi
 	const char* v3; // eax
 
-	if (!*(_DWORD*)&byte_5D4594[816488])
+	if (!dword_5d4594_816488)
 		return 0;
 	v1 = 0;
 	v2 = 0;
 	while (1) {
-		v3 = *(const char**)(v2 + *(_DWORD*)&byte_5D4594[816488]);
+		v3 = *(const char**)(v2 + dword_5d4594_816488);
 		if (v3) {
 			if (!_strcmpi(v3, a1))
 				break;
@@ -2483,7 +2484,7 @@ int __cdecl sub_43F360(char* a1) {
 		if (v2 >= 60)
 			return 0;
 	}
-	return *(_DWORD*)(*(_DWORD*)&byte_5D4594[816488] + 12 * v1 + 8);
+	return *(_DWORD*)(dword_5d4594_816488 + 12 * v1 + 8);
 }
 
 //----- (0043F3B0) --------------------------------------------------------
@@ -2566,7 +2567,7 @@ _DWORD* __cdecl sub_43F3B0(char* a1) {
 			*(_DWORD*)&byte_5D4594[4 * v11 + 816464] = v1;
 			*(_DWORD*)&byte_5D4594[816444] = v13 + 1;
 		LABEL_21:
-			if (*(unsigned __int8**)&byte_5D4594[816488] == &byte_587000[94176]) {
+			if (*(unsigned __int8**)&dword_5d4594_816488 == &byte_587000[94176]) {
 				++v1[7];
 				v14 = (_BYTE*)sub_43FE30((int)v1, 0x20u);
 				v15 = v14;
