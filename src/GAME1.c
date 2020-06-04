@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251568;
 extern _DWORD dword_5d4594_251572;
 extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_10956;
@@ -6747,7 +6748,7 @@ int sub_410FF0() {
 			obj_5D4594_2650668_t* obj = &ptr_5D4594_2650668[j][i];
 			v3 = *(_BYTE*)(&obj->field_0);
 			if (v3 & 1) {
-				if (obj->field_1 >= *(int*)&byte_5D4594[251568]) {
+				if (obj->field_1 >= *(int*)&dword_5d4594_251568) {
 					v0 = 1;
 					obj->field_1 = 0;
 				}
@@ -6771,7 +6772,7 @@ int sub_410FF0() {
 				}
 			}
 			if (v3 & 2) {
-				if (obj->field_6 >= *(int*)&byte_5D4594[251568]) {
+				if (obj->field_6 >= *(int*)&dword_5d4594_251568) {
 					v0 = 1;
 					obj->field_6 = 0;
 				}
@@ -7030,7 +7031,7 @@ int __cdecl sub_411540(int a1, _BYTE* a2) {
 	unsigned __int8 v32;  // [esp+2Ch] [ebp+4h]
 	unsigned __int8 v33;  // [esp+2Ch] [ebp+4h]
 
-	if (*(int*)&byte_5D4594[251568] >= 176)
+	if (*(int*)&dword_5d4594_251568 >= 176)
 		return 0;
 	v3 = a1;
 	v28 = a1;
@@ -7039,7 +7040,7 @@ int __cdecl sub_411540(int a1, _BYTE* a2) {
 	v32 = *v4;
 	*(_DWORD*)(v3 + 8) = v4 + 1;
 	nox_memfile_read(v31, 1u, v32, v28);
-	v5 = 3 * *(_DWORD*)&byte_5D4594[251568];
+	v5 = 3 * dword_5d4594_251568;
 	v31[v32] = 0;
 	strncpy((char*)&byte_5D4594[20 * v5 + 2682188], v31, 0x1Fu);
 	v6 = *(char**)(v3 + 8);
@@ -7053,45 +7054,45 @@ int __cdecl sub_411540(int a1, _BYTE* a2) {
 	v29[2] = *v6;
 	*(_DWORD*)(v3 + 8) = v6 + 1;
 	if (v7 != -1 || v29[1] || v9 != -1) {
-		v10 = 60 * *(_DWORD*)&byte_5D4594[251568];
+		v10 = 60 * dword_5d4594_251568;
 		*(_DWORD*)&byte_5D4594[v10 + 2682236] = sub_4344A0(*(int*)v29, *(int*)&v29[1], *(int*)&v29[2]);
 	} else {
-		v10 = 60 * *(_DWORD*)&byte_5D4594[251568];
-		*(_DWORD*)&byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251568] + 2682236] = 2147483648;
+		v10 = 60 * dword_5d4594_251568;
+		*(_DWORD*)&byte_5D4594[60 * dword_5d4594_251568 + 2682236] = 2147483648;
 	}
 	byte_5D4594[v10 + 2682246] = 0;
 	if (sub_4117E0((const char*)&byte_5D4594[v10 + 2682188]) == 1)
-		byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251568] + 2682246] |= 1u;
+		byte_5D4594[60 * dword_5d4594_251568 + 2682246] |= 1u;
 	v11 = *(int**)(v3 + 8);
 	v12 = *v11;
 	*(_DWORD*)(v3 + 8) = v11 + 1;
-	*(_DWORD*)&byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251568] + 2682224] = v12;
+	*(_DWORD*)&byte_5D4594[60 * dword_5d4594_251568 + 2682224] = v12;
 	v13 = *(int**)(v3 + 8);
 	v14 = *v13;
 	*(_DWORD*)(v3 + 8) = v13 + 1;
-	*(_DWORD*)&byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251568] + 2682228] = v14;
+	*(_DWORD*)&byte_5D4594[60 * dword_5d4594_251568 + 2682228] = v14;
 	v15 = *(_BYTE**)(v3 + 8);
 	LOBYTE(v14) = *v15;
 	*(_DWORD*)(v3 + 8) = v15 + 1;
-	byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251568] + 2682245] = v14;
+	byte_5D4594[60 * dword_5d4594_251568 + 2682245] = v14;
 	v16 = *(_BYTE**)(v3 + 8);
 	LOBYTE(v14) = *v16;
 	*(_DWORD*)(v3 + 8) = v16 + 1;
-	byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251568] + 2682241] = v14;
+	byte_5D4594[60 * dword_5d4594_251568 + 2682241] = v14;
 	v17 = *(_BYTE**)(v3 + 8);
 	LOBYTE(v14) = *v17;
 	*(_DWORD*)(v3 + 8) = v17 + 1;
-	byte_5D4594[60 * *(_DWORD*)&byte_5D4594[251568] + 2682240] = v14;
+	byte_5D4594[60 * dword_5d4594_251568 + 2682240] = v14;
 	v18 = *(_BYTE**)(v3 + 8);
 	LOBYTE(v14) = *v18;
 	*(_DWORD*)(v3 + 8) = v18 + 1;
-	v19 = 60 * *(_DWORD*)&byte_5D4594[251568];
+	v19 = 60 * dword_5d4594_251568;
 	byte_5D4594[v19 + 2682242] = v14;
 	*(_WORD*)&byte_5D4594[v19 + 2682234] = 0;
 	v20 = *(_BYTE**)(v3 + 8);
 	LOBYTE(v14) = *v20;
 	*(_DWORD*)(v3 + 8) = v20 + 1;
-	v21 = 60 * *(_DWORD*)&byte_5D4594[251568];
+	v21 = 60 * dword_5d4594_251568;
 	byte_5D4594[v21 + 2682243] = v14;
 	byte_5D4594[v21 + 2682244] = v14;
 	*(_WORD*)&byte_5D4594[v21 + 2682232] = byte_5D4594[v21 + 2682240] * byte_5D4594[v21 + 2682241];
@@ -7117,7 +7118,7 @@ int __cdecl sub_411540(int a1, _BYTE* a2) {
 			--v30;
 		} while (v30);
 	}
-	++*(_DWORD*)&byte_5D4594[251568];
+	++dword_5d4594_251568;
 	return 1;
 }
 // 411618: variable 'v29' is possibly undefined
@@ -9737,7 +9738,7 @@ bool __cdecl sub_415470(void) {
 
 	sub_40AD10(things, 0, 0);
 	*(_DWORD*)&byte_5D4594[251540] = 0;
-	*(_DWORD*)&byte_5D4594[251568] = 0;
+	dword_5d4594_251568 = 0;
 	dword_5d4594_251572 = 0;
 	while (nox_memfile_read(&v4, 4u, 1, things)) {
 		switch (v4) {
