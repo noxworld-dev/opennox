@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799544;
 extern _DWORD dword_5d4594_1319060;
 extern _DWORD dword_5d4594_3798720;
 extern _DWORD dword_5d4594_1522632;
@@ -6987,7 +6988,7 @@ void __cdecl sub_4C5EB0(int a1, int a2, int a3) {
 		case 4:
 		case 5:
 		case 6:
-			*(_DWORD*)&byte_5D4594[3799544] = sub_4C7110;
+			dword_5d4594_3799544 = sub_4C7110;
 			*(_DWORD*)&byte_5D4594[3799488] = sub_4C6E40;
 			if (!ptr_5D4594_3799572->data[13]) {
 				if (ptr_5D4594_3799572->data[14]) {
@@ -6998,7 +6999,7 @@ void __cdecl sub_4C5EB0(int a1, int a2, int a3) {
 				}
 				goto LABEL_21;
 			}
-			*(_DWORD*)&byte_5D4594[3799544] = sub_4C7240;
+			dword_5d4594_3799544 = sub_4C7240;
 			if (ptr_5D4594_3799572->data[14]) {
 				v3 = ptr_5D4594_3799572->data[259];
 				if (v3 == 255) {
@@ -7248,7 +7249,7 @@ int __cdecl sub_4C6260(int a1, int a2, int a3) {
 								(*(void (**)(void)) & dword_5d4594_3799432)();
 								goto LABEL_26;
 							case 5:
-								(*(void (**)(void)) & byte_5D4594[3799544])();
+								(*(void (**)(void)) & dword_5d4594_3799544)();
 								goto LABEL_26;
 							case 6:
 								(*(void (**)(void)) & byte_5D4594[3799488])();
@@ -7460,7 +7461,7 @@ unsigned __int8* __cdecl sub_4C64E0(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v32 > v5) {
 							*(_DWORD*)&byte_5D4594[3799456] = v5 - v13;
 						LABEL_65:
-							(*(void (**)(void)) & byte_5D4594[3799544])();
+							(*(void (**)(void)) & dword_5d4594_3799544)();
 						}
 						result = &v37[2 * v43];
 						v21 = v38 + v43;
@@ -8112,11 +8113,11 @@ void __cdecl sub_4C7440(int a1, int a2, int a3) {
 		case 4:
 		case 5:
 		case 6:
-			*(_DWORD*)&byte_5D4594[3799544] = sub_4C96A0;
+			dword_5d4594_3799544 = sub_4C96A0;
 			*(_DWORD*)&byte_5D4594[3799488] = nullsub_7;
 			if (!ptr_5D4594_3799572->data[13]) {
 				if (ptr_5D4594_3799572->data[14]) {
-					*(_DWORD*)&byte_5D4594[3799544] = sub_4C9970;
+					dword_5d4594_3799544 = sub_4C9970;
 					dword_5d4594_3799536 = sub_4C86B0;
 					dword_5d4594_3799432 = sub_4C91C0;
 					sub_4C79F0(a1, a2, a3);
@@ -8128,7 +8129,7 @@ void __cdecl sub_4C7440(int a1, int a2, int a3) {
 					goto LABEL_23;
 				goto LABEL_22;
 			}
-			*(_DWORD*)&byte_5D4594[3799544] = sub_4C97F0;
+			dword_5d4594_3799544 = sub_4C97F0;
 			if (ptr_5D4594_3799572->data[14]) {
 				v3 = ptr_5D4594_3799572->data[259];
 				if (v3 == 255) {
@@ -8198,11 +8199,11 @@ void __cdecl sub_4C7670(int a1, int a2, int a3) {
 		case 4:
 		case 5:
 		case 6:
-			*(_DWORD*)&byte_5D4594[3799544] = sub_4C96A0;
+			dword_5d4594_3799544 = sub_4C96A0;
 			*(_DWORD*)&byte_5D4594[3799488] = nullsub_7;
 			if (!ptr_5D4594_3799572->data[13]) {
 				if (ptr_5D4594_3799572->data[14]) {
-					*(_DWORD*)&byte_5D4594[3799544] = sub_4C9970;
+					dword_5d4594_3799544 = sub_4C9970;
 					dword_5d4594_3799536 = sub_4C8760;
 					dword_5d4594_3799432 = sub_4C91C0;
 					v3 = 1;
@@ -8214,7 +8215,7 @@ void __cdecl sub_4C7670(int a1, int a2, int a3) {
 					goto LABEL_22;
 				goto LABEL_21;
 			}
-			*(_DWORD*)&byte_5D4594[3799544] = sub_4C97F0;
+			dword_5d4594_3799544 = sub_4C97F0;
 			if (ptr_5D4594_3799572->data[14]) {
 				v4 = ptr_5D4594_3799572->data[259];
 				if (v4 == 255) {
@@ -8472,7 +8473,7 @@ int __cdecl sub_4C79F0(int a1, int a2, int a3) {
 								(*(void (**)(void)) & dword_5d4594_3799432)();
 								break;
 							case 5:
-								(*(void (**)(void)) & byte_5D4594[3799544])();
+								(*(void (**)(void)) & dword_5d4594_3799544)();
 								break;
 							case 6:
 								(*(void (**)(void)) & byte_5D4594[3799488])();
@@ -8689,7 +8690,7 @@ unsigned __int8* __cdecl sub_4C7C80(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v31 > v5) {
 							*(_DWORD*)&byte_5D4594[3799456] = v5 - v13;
 						LABEL_52:
-							(*(void (**)(void)) & byte_5D4594[3799544])();
+							(*(void (**)(void)) & dword_5d4594_3799544)();
 						}
 						result = &v38[2 * v44];
 						v21 = v39 + 2 * v44;
