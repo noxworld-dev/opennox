@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_787156;
 extern _DWORD dword_587000_80820;
 extern _DWORD dword_5d4594_815024;
 extern _DWORD dword_5d4594_815028;
@@ -4824,23 +4825,23 @@ void sub_42F4D0() {
 		free(*(LPVOID*)&byte_5D4594[787152]);
 		*(_DWORD*)&byte_5D4594[787152] = 0;
 	}
-	v0 = *(_BYTE**)&byte_5D4594[787156];
-	if (*(_DWORD*)&byte_5D4594[787156]) {
+	v0 = *(_BYTE**)&dword_5d4594_787156;
+	if (dword_5d4594_787156) {
 		v1 = 0;
 		if (*(_DWORD*)&byte_5D4594[787164] > 0) {
 			v2 = 0;
 			do {
 				if (v0[v2 + 101] == 2) {
 					free(*(LPVOID*)(*(_DWORD*)&v0[v2 + 96] + 4));
-					free(*(LPVOID*)(v2 + *(_DWORD*)&byte_5D4594[787156] + 96));
-					v0 = *(_BYTE**)&byte_5D4594[787156];
+					free(*(LPVOID*)(v2 + dword_5d4594_787156 + 96));
+					v0 = *(_BYTE**)&dword_5d4594_787156;
 				}
 				++v1;
 				v2 += 104;
 			} while (v1 < *(int*)&byte_5D4594[787164]);
 		}
 		free(v0);
-		*(_DWORD*)&byte_5D4594[787156] = 0;
+		dword_5d4594_787156 = 0;
 		*(_DWORD*)&byte_5D4594[787160] = 0;
 		*(_DWORD*)&byte_5D4594[787164] = 0;
 	}
@@ -4870,7 +4871,7 @@ int __cdecl sub_42F610(int a1) {
 	if (a1 < 0)
 		return 0;
 	result = (int)nox_malloc(104 * a1);
-	*(_DWORD*)&byte_5D4594[787156] = result;
+	dword_5d4594_787156 = result;
 	if (result) {
 		*(_DWORD*)&byte_5D4594[787160] = a1;
 		*(_DWORD*)&byte_5D4594[787164] = 0;
@@ -4922,11 +4923,11 @@ int __cdecl sub_42F660(int a1, void* a2) {
 		*(_DWORD*)(v26 + 8) = v4 + 1;
 		nox_memfile_read(a2, 1u, v29, v26);
 		*((_BYTE*)a2 + v29) = 0;
-		strcpy((char*)(*(_DWORD*)&byte_5D4594[787156] + 104 * *(_DWORD*)&byte_5D4594[787164]), (const char*)a2);
+		strcpy((char*)(dword_5d4594_787156 + 104 * *(_DWORD*)&byte_5D4594[787164]), (const char*)a2);
 		v5 = *(char**)(v2 + 8);
 		v6 = *v5;
 		*(_DWORD*)(v2 + 8) = v5 + 1;
-		*(_BYTE*)(*(_DWORD*)&byte_5D4594[787156] + 104 * *(_DWORD*)&byte_5D4594[787164] + 101) = v6;
+		*(_BYTE*)(dword_5d4594_787156 + 104 * *(_DWORD*)&byte_5D4594[787164] + 101) = v6;
 		if (v6 == 1) {
 			v7 = *(_DWORD**)(v2 + 8);
 			v8 = *v7;
@@ -4942,18 +4943,18 @@ int __cdecl sub_42F660(int a1, void* a2) {
 				nox_memfile_read(v3, 1u, v30, v2);
 				*((_BYTE*)v3 + v30) = 0;
 				if (sub_47A8C0((const char*)a2, (char*)v3)) {
-					strcpy((char*)(*(_DWORD*)&byte_5D4594[787156] +
+					strcpy((char*)(dword_5d4594_787156 +
 						       104 * *(_DWORD*)&byte_5D4594[787164] + 32),
 					       (const char*)v3);
 					v8 = -1;
-					*(_BYTE*)(*(_DWORD*)&byte_5D4594[787156] +
+					*(_BYTE*)(dword_5d4594_787156 +
 						  104 * *(_DWORD*)&byte_5D4594[787164] + 100) = (_BYTE)a2;
 				} else {
-					*(_BYTE*)(*(_DWORD*)&byte_5D4594[787156] +
+					*(_BYTE*)(dword_5d4594_787156 +
 						  104 * *(_DWORD*)&byte_5D4594[787164] + 100) = -1;
 				}
 			}
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[787156] + 104 * *(_DWORD*)&byte_5D4594[787164] + 96) = v8;
+			*(_DWORD*)(dword_5d4594_787156 + 104 * *(_DWORD*)&byte_5D4594[787164] + 96) = v8;
 		LABEL_22:
 			++*(_DWORD*)&byte_5D4594[787164];
 			return 1;
@@ -5009,7 +5010,7 @@ int __cdecl sub_42F660(int a1, void* a2) {
 								--v27;
 							} while (v27);
 						}
-						*(_DWORD*)(*(_DWORD*)&byte_5D4594[787156] +
+						*(_DWORD*)(dword_5d4594_787156 +
 							   104 * *(_DWORD*)&byte_5D4594[787164] + 96) = v13;
 						goto LABEL_22;
 					}
@@ -5037,11 +5038,11 @@ char* __cdecl sub_42F970(const char* a1) {
 	v1 = 0;
 	if (*(int*)&byte_5D4594[787164] <= 0)
 		return 0;
-	for (i = *(const char**)&byte_5D4594[787156]; strcmp(a1, i); i += 104) {
+	for (i = *(const char**)&dword_5d4594_787156; strcmp(a1, i); i += 104) {
 		if (++v1 >= *(int*)&byte_5D4594[787164])
 			return 0;
 	}
-	v4 = *(_DWORD*)&byte_5D4594[787156] + 104 * v1;
+	v4 = dword_5d4594_787156 + 104 * v1;
 	v5 = *(const char**)(v4 + 96);
 	if ((int)v5 == -1) {
 		LOBYTE(v5) = *(_BYTE*)(v4 + 100);
@@ -5062,11 +5063,11 @@ char* __cdecl sub_42FA20(const char* a1) {
 	v1 = 0;
 	if (*(int*)&byte_5D4594[787164] <= 0)
 		return 0;
-	for (i = *(const char**)&byte_5D4594[787156]; strcmp(a1, i); i += 104) {
+	for (i = *(const char**)&dword_5d4594_787156; strcmp(a1, i); i += 104) {
 		if (++v1 >= *(int*)&byte_5D4594[787164])
 			return 0;
 	}
-	return (char*)(*(_DWORD*)&byte_5D4594[787156] + 104 * v1);
+	return (char*)(dword_5d4594_787156 + 104 * v1);
 }
 
 //----- (0042FAA0) --------------------------------------------------------
