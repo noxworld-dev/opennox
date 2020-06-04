@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1064888;
 extern _DWORD dword_587000_149232;
 extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_1062456;
@@ -3841,8 +3842,8 @@ int __cdecl sub_46A8C0(int a1) {
 
 	if (!a1)
 		return -2;
-	v2 = *(_DWORD*)&byte_5D4594[1064888];
-	if (*(_DWORD*)&byte_5D4594[1064888] == a1) {
+	v2 = dword_5d4594_1064888;
+	if (dword_5d4594_1064888 == a1) {
 	LABEL_6:
 		sub_46A960(a1);
 		sub_46A920(a1);
@@ -3868,12 +3869,12 @@ int __cdecl sub_46A920(int a1) {
 
 	result = a1;
 	*(_DWORD*)(a1 + 392) = 0;
-	*(_DWORD*)(a1 + 388) = *(_DWORD*)&byte_5D4594[1064888];
-	if (*(_DWORD*)&byte_5D4594[1064888])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1064888] + 392) = a1;
+	*(_DWORD*)(a1 + 388) = dword_5d4594_1064888;
+	if (dword_5d4594_1064888)
+		*(_DWORD*)(dword_5d4594_1064888 + 392) = a1;
 	else
 		nox_win_unk4 = a1;
-	*(_DWORD*)&byte_5D4594[1064888] = a1;
+	dword_5d4594_1064888 = a1;
 	return result;
 }
 
@@ -3889,7 +3890,7 @@ void __cdecl sub_46A960(nox_window* win) {
 	if (v3) {
 		v3->field_97 = win->field_97;
 	} else {
-		*(_DWORD*)&byte_5D4594[1064888] = win->field_97;
+		dword_5d4594_1064888 = win->field_97;
 	}
 }
 
@@ -4316,8 +4317,8 @@ _DWORD* __cdecl sub_46B0C0(_DWORD* a1, int a2) {
 
 	v2 = a1;
 	if (!a1) {
-		v2 = *(_DWORD**)&byte_5D4594[1064888];
-		if (!*(_DWORD*)&byte_5D4594[1064888])
+		v2 = *(_DWORD**)&dword_5d4594_1064888;
+		if (!dword_5d4594_1064888)
 			return 0;
 	}
 	while (*v2 != a2) {
@@ -4335,7 +4336,7 @@ _DWORD* __cdecl sub_46B0C0(_DWORD* a1, int a2) {
 }
 
 //----- (0046B110) --------------------------------------------------------
-int sub_46B110() { return *(_DWORD*)&byte_5D4594[1064888]; }
+int sub_46B110() { return dword_5d4594_1064888; }
 
 //----- (0046B120) --------------------------------------------------------
 int __cdecl sub_46B120(nox_window* win, int a2) {
@@ -4898,8 +4899,8 @@ void sub_46B740() {
 		v23 = (wchar_t*)sub_46B5B0(**(_DWORD***)&byte_5D4594[1064912], v2->field_0, v2->field_4);
 		goto LABEL_98;
 	}
-	v24 = *(_DWORD**)&byte_5D4594[1064888];
-	if (!*(_DWORD*)&byte_5D4594[1064888])
+	v24 = *(_DWORD**)&dword_5d4594_1064888;
+	if (!dword_5d4594_1064888)
 		goto LABEL_69;
 	while (1) {
 		v25 = v24[1];
@@ -4926,8 +4927,8 @@ void sub_46B740() {
 	v1 = (wchar_t*)sub_46B5B0(v24, v2->field_0, v2->field_4);
 	if (!v1) {
 	LABEL_69:
-		v29 = *(_DWORD*)&byte_5D4594[1064888];
-		if (!*(_DWORD*)&byte_5D4594[1064888])
+		v29 = dword_5d4594_1064888;
+		if (!dword_5d4594_1064888)
 			goto LABEL_83;
 		while (1) {
 			if (!(*(_BYTE*)(v29 + 4) & 0x70)) {
@@ -4951,8 +4952,8 @@ void sub_46B740() {
 		v1 = (wchar_t*)sub_46B5B0((_DWORD*)v29, v2->field_0, v2->field_4);
 		if (!v1) {
 		LABEL_83:
-			v1 = *(wchar_t**)&byte_5D4594[1064888];
-			if (!*(_DWORD*)&byte_5D4594[1064888])
+			v1 = *(wchar_t**)&dword_5d4594_1064888;
+			if (!dword_5d4594_1064888)
 				goto LABEL_113;
 			while (1) {
 				v33 = *((_DWORD*)v1 + 1);
@@ -5060,8 +5061,8 @@ LABEL_123:
 			    *(_DWORD*)(v44 + 112) & 2 && *(_BYTE*)(v44 + 116) & 8 ||
 			    *(_DWORD*)(v44 + 112) & 2 && *(_BYTE*)(v44 + 280) & 0x10) {
 				v46 = sub_4676A0();
-				v47 = *(_DWORD*)&byte_5D4594[1064888];
-				if (*(_DWORD*)&byte_5D4594[1064888]) {
+				v47 = dword_5d4594_1064888;
+				if (dword_5d4594_1064888) {
 					while (1) {
 						if (!(*(_BYTE*)(v47 + 4) & 0x10) && v2->field_0 >= *(int*)(v47 + 16) &&
 						    v2->field_0 <= *(int*)(v47 + 24)) {
@@ -5354,8 +5355,8 @@ int sub_46C5D0() {
 	_DWORD* v0; // eax
 	_DWORD* v1; // esi
 
-	v0 = *(_DWORD**)&byte_5D4594[1064888];
-	if (*(_DWORD*)&byte_5D4594[1064888]) {
+	v0 = *(_DWORD**)&dword_5d4594_1064888;
+	if (dword_5d4594_1064888) {
 		do {
 			v1 = (_DWORD*)v0[97];
 			sub_46C4E0(v0);
