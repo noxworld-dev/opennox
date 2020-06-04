@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798804;
 extern _DWORD dword_587000_87404;
 extern _DWORD dword_587000_87412;
 extern _DWORD dword_5d4594_3798820;
@@ -5951,7 +5952,7 @@ int __cdecl sub_430DB0(int a1, int a2) {
 	*(_DWORD*)&byte_5D4594[3798832] = 0;
 	*(_DWORD*)&byte_5D4594[3798808] = 46 * *(_DWORD*)&byte_5D4594[3798816];
 	v2 = ((46 * *(_DWORD*)&byte_5D4594[3798812]) << byte_5D4594[3807124]) * 46 * *(_DWORD*)&byte_5D4594[3798816];
-	*(_DWORD*)&byte_5D4594[3798804] = (46 * *(_DWORD*)&byte_5D4594[3798812]) << byte_5D4594[3807124];
+	dword_5d4594_3798804 = (46 * *(_DWORD*)&byte_5D4594[3798812]) << byte_5D4594[3807124];
 	*(_DWORD*)&byte_5D4594[3798836] = 0;
 	dword_5d4594_3798840 = 0;
 	v3 = (char*)nox_malloc(v2);
