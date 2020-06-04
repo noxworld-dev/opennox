@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045480;
 extern _DWORD dword_5d4594_1047520;
 extern _DWORD dword_587000_132132;
 extern _DWORD dword_5d4594_3799524;
@@ -3352,11 +3353,11 @@ _DWORD* sub_453B00() {
 	int v2;         // ebx
 	_DWORD* result; // eax
 
-	v0 = sub_43F320(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045480] + 236)) + 1;
-	sub_46AB20(*(_DWORD**)&byte_5D4594[1045480], *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045480] + 8), 15 * v0 + 2);
+	v0 = sub_43F320(*(_DWORD*)(dword_5d4594_1045480 + 236)) + 1;
+	sub_46AB20(*(_DWORD**)&dword_5d4594_1045480, *(_DWORD*)(dword_5d4594_1045480 + 8), 15 * v0 + 2);
 	sub_46AB20(*(_DWORD**)&byte_5D4594[1045508], *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045508] + 8), 15 * v0 + 2);
 	v1 = 1120;
-	v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045480] + 20) + v0 + 2;
+	v2 = *(_DWORD*)(dword_5d4594_1045480 + 20) + v0 + 2;
 	do {
 		result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, v1);
 		result[5] = v2;
@@ -3480,7 +3481,7 @@ char sub_454120() {
 	int v6;     // eax
 	int v8;     // [esp+10h] [ebp-4h]
 
-	v8 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045480] + 32);
+	v8 = *(_DWORD*)(dword_5d4594_1045480 + 32);
 	v0 = 1120;
 	v1 = 524 * sub_4A4800(v8);
 	do {
