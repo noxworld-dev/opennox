@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815004;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_3798844;
 extern _DWORD dword_5d4594_814980;
@@ -9126,9 +9127,9 @@ int sub_438480() {
 	sub_46B300(*(int*)&byte_5D4594[815028], sub_438EF0);
 	sub_46B120(*(_DWORD**)&byte_5D4594[815032], *(int*)&byte_5D4594[815012]);
 	sub_46B300(*(int*)&byte_5D4594[815032], sub_438EF0);
-	**(_DWORD**)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[815004] + 32) + 28) = 10035;
-	**(_DWORD**)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[815004] + 32) + 32) = 10036;
-	**(_DWORD**)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[815004] + 32) + 36) = 10032;
+	**(_DWORD**)(*(_DWORD*)(dword_5d4594_815004 + 32) + 28) = 10035;
+	**(_DWORD**)(*(_DWORD*)(dword_5d4594_815004 + 32) + 32) = 10036;
+	**(_DWORD**)(*(_DWORD*)(dword_5d4594_815004 + 32) + 36) = 10032;
 	nox_window_call_field_94(*(int*)&byte_5D4594[815016], 16408,
 				 *(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[815012] + 32) + 28), 0);
 	nox_window_call_field_94(*(int*)&byte_5D4594[815020], 16408,
