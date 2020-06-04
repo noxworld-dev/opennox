@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799492;
 extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_1193516;
 extern _DWORD dword_5d4594_3799624;
@@ -3364,7 +3365,7 @@ unsigned __int8* __cdecl sub_48C200(int a1, int a2, int a3) {
 	int v22;                 // [esp+18h] [ebp+8h]
 	int v23;                 // [esp+1Ch] [ebp+Ch]
 
-	result = (unsigned __int8*)(*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(a1);
+	result = (unsigned __int8*)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(a1);
 	dword_5d4594_1193516 = result;
 	if (result) {
 		v4 = *(_DWORD*)result;
@@ -3449,7 +3450,7 @@ unsigned __int8* __cdecl sub_48C320(int a1, int a2, int a3) {
 	void (*v19)(void);       // [esp+14h] [ebp+4h]
 	int v20;                 // [esp+18h] [ebp+8h]
 
-	result = (unsigned __int8*)(*(int(__cdecl**)(_DWORD)) & byte_5D4594[3799492])(a1);
+	result = (unsigned __int8*)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(a1);
 	dword_5d4594_1193516 = result;
 	if (result) {
 		v4 = *(_DWORD*)result;
