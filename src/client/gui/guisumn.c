@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
 
+extern _DWORD dword_5d4594_1321040;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -41,18 +42,18 @@ int sub_4C1D80() {
 	*(_DWORD*)&byte_5D4594[1321028] = sub_42F970("CreatureCageEscortButton");
 	v4 = nox_window_new(0, 168, *(_DWORD*)&byte_5D4594[1320988] + 27, *(_DWORD*)&byte_5D4594[1320992] + 12, 34, 34,
 			    0);
-	*(_DWORD*)&byte_5D4594[1321040] = v4;
+	dword_5d4594_1321040 = v4;
 	v5 = v4[11];
 	BYTE1(v5) |= 1u;
 	v4[11] = v5;
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1321040], sub_4C24B0, 0, sub_4C2CE0);
-	sub_46AE60(*(int*)&byte_5D4594[1321040], *(int*)&byte_5D4594[1321028]);
-	sub_46AEC0(*(int*)&byte_5D4594[1321040], *(int*)&byte_5D4594[1321024]);
-	sub_46AEA0(*(int*)&byte_5D4594[1321040], *(int*)&byte_5D4594[1321024]);
-	sub_46AE40(*(int*)&byte_5D4594[1321040], -27, -12);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1321040, sub_4C24B0, 0, sub_4C2CE0);
+	sub_46AE60(*(int*)&dword_5d4594_1321040, *(int*)&byte_5D4594[1321028]);
+	sub_46AEC0(*(int*)&dword_5d4594_1321040, *(int*)&byte_5D4594[1321024]);
+	sub_46AEA0(*(int*)&dword_5d4594_1321040, *(int*)&byte_5D4594[1321024]);
+	sub_46AE40(*(int*)&dword_5d4594_1321040, -27, -12);
 	byte_5D4594[1321200] = 0;
 	nox_window_set_hidden(*(int*)&byte_5D4594[1321032], 1);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1321040], 1);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1321040, 1);
 	v6 = &byte_5D4594[1321060];
 	do {
 		*(_DWORD*)v6 = 0;
