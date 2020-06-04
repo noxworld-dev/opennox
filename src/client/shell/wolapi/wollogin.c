@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_830248;
 
 //----- (0044A560) --------------------------------------------------------
 int sub_44A560_wol_login() {
@@ -30,12 +31,12 @@ int sub_44A560_wol_login() {
 	sub_4A1A40(0);
 	sub_41D4C0();
 	sub_41D440();
-	if (*(_DWORD*)&byte_5D4594[830248]) {
-		sub_46ABB0(*(int*)&byte_5D4594[830248], 1);
+	if (dword_5d4594_830248) {
+		sub_46ABB0(*(int*)&dword_5d4594_830248, 1);
 	} else {
 		sub_43BDD0(1700);
 		result = nox_new_window_from_file("wolapi.wnd", sub_44AB30);
-		*(_DWORD*)&byte_5D4594[830248] = result;
+		dword_5d4594_830248 = result;
 		if (!result)
 			return result;
 		result = sub_43C5B0((_DWORD*)result, 0, 0, 0, -480, 0, 20, 0, -40);
@@ -45,10 +46,10 @@ int sub_44A560_wol_login() {
 		*(_DWORD*)result = 1700;
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[830244] + 48) = sub_44AA40;
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[830244] + 56) = sub_44AA70;
-		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[830248], sub_44AAC0, 0, 0);
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_830248, sub_44AAC0, 0, 0);
 	}
 	sub_41FCF0();
-	*(_DWORD*)&byte_5D4594[830264] = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], 1708);
+	*(_DWORD*)&byte_5D4594[830264] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1708);
 	nox_window_call_field_94(*(int*)&byte_5D4594[830264], 16399, 0, 0);
 	for (i = 0; i < 128; ++i) {
 		sub_41FB90(i, &v16, &v17);
@@ -64,28 +65,28 @@ int sub_44A560_wol_login() {
 	}
 	nox_window_call_field_94(*(int*)&byte_5D4594[830264], 16403, v2, 0);
 	sub_41FB90(v2, &v16, &v17);
-	*(_DWORD*)&byte_5D4594[830256] = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], 1701);
+	*(_DWORD*)&byte_5D4594[830256] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1701);
 	if (v16 && *v16) {
 		nox_swprintf(v19, L"%S", v16);
 		nox_window_call_field_94(*(int*)&byte_5D4594[830256], 16414, (int)v19, 0);
 	}
-	*(_DWORD*)&byte_5D4594[830260] = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], 1702);
+	*(_DWORD*)&byte_5D4594[830260] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1702);
 	sub_46B300(*(int*)&byte_5D4594[830260], sub_44AAD0);
-	v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], 1703);
+	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1703);
 	*(_DWORD*)&byte_5D4594[830252] = v3;
 	if (v17 && *v17) {
 		nox_swprintf(v19, L"%S", v17);
 		nox_window_call_field_94(*(int*)&byte_5D4594[830260], 16414, (int)v19, 0);
-		v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], 1703);
+		v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1703);
 		v4[9] |= 4u;
 		*(_DWORD*)&byte_5D4594[830276] = 1;
 	} else {
 		v3[9] &= 0xFFFFFFFB;
 		*(_DWORD*)&byte_5D4594[830276] = 0;
 	}
-	v5 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], 1709);
-	v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], 1710);
-	v7 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], 1711);
+	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1709);
+	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1710);
+	v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1711);
 	v8 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[830264] + 32);
 	v18 = sub_42F970("UISlider");
 	v9 = sub_42F970("UISliderLit");
@@ -115,7 +116,7 @@ int sub_44A560_wol_login() {
 					    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
 		v11 = loadString_sub_40F1D0((char*)&byte_587000[113684], 0,
 					    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
-		sub_449A10(*(int*)&byte_5D4594[830248], (int)v11, (int)v15, 33, 0, 0);
+		sub_449A10(*(int*)&dword_5d4594_830248, (int)v11, (int)v15, 33, 0, 0);
 		sub_44A4B0();
 		*(_DWORD*)&byte_5D4594[830272] = 0;
 	}
@@ -125,11 +126,11 @@ int sub_44A560_wol_login() {
 	}
 	*(_DWORD*)&byte_5D4594[830268] = 0;
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-		v12 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], 1708);
+		v12 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1708);
 		v13 = sub_4A7F00();
-		nox_window_call_field_94(*(int*)&byte_5D4594[830248], 16400, (int)v12, v13 - 1);
-		v14 = sub_46B0C0(*(_DWORD**)&byte_5D4594[830248], 1706);
-		nox_window_call_field_94(*(int*)&byte_5D4594[830248], 16391, (int)v14, 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_830248, 16400, (int)v12, v13 - 1);
+		v14 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1706);
+		nox_window_call_field_94(*(int*)&dword_5d4594_830248, 16391, (int)v14, 0);
 	}
 	return 1;
 }
