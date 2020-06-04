@@ -2,6 +2,7 @@
 
 #include "../../../common/wolapi/wolchnl.h"
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_829480;
 
 //----- (00446970) --------------------------------------------------------
 char* sub_446970_wol_chat() {
@@ -41,7 +42,7 @@ int __cdecl sub_446A20_wol_chat(wchar_t* a1) {
 				   212);
 	v1 = loadString_sub_40F1D0((char*)&byte_587000[110324], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 				   211);
-	sub_449A10(*(int*)&byte_5D4594[829480], (int)v1, (int)v3, 288, 0, 0);
+	sub_449A10(*(int*)&dword_5d4594_829480, (int)v1, (int)v3, 288, 0, 0);
 	return sub_44A4B0();
 }
 
@@ -234,25 +235,25 @@ int sub_447620_wol_chat() {
 	sub_43BDD0(1900);
 	nox_set_draw_unk1(sub_41E210);
 	sub_43FE20(150);
-	*(_DWORD*)&byte_5D4594[829480] = nox_new_window_from_file("wolchat.wnd", sub_447CC0);
+	dword_5d4594_829480 = nox_new_window_from_file("wolchat.wnd", sub_447CC0);
 	sub_446970_wol_chat();
-	result = *(_DWORD*)&byte_5D4594[829480];
-	if (*(_DWORD*)&byte_5D4594[829480]) {
-		sub_46A8C0(*(int*)&byte_5D4594[829480]);
+	result = dword_5d4594_829480;
+	if (dword_5d4594_829480) {
+		sub_46A8C0(*(int*)&dword_5d4594_829480);
 		sub_44A4B0();
-		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[829480], sub_447C70, 0, 0);
-		sub_46B340(*(int*)&byte_5D4594[829480], sub_4483A0);
-		result = sub_43C5B0(*(_DWORD**)&byte_5D4594[829480], 0, 0, 0, -480, 0, 20, 0, -40);
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_829480, sub_447C70, 0, 0);
+		sub_46B340(*(int*)&dword_5d4594_829480, sub_4483A0);
+		result = sub_43C5B0(*(_DWORD**)&dword_5d4594_829480, 0, 0, 0, -480, 0, 20, 0, -40);
 		*(_DWORD*)&byte_5D4594[829520] = result;
 		if (result) {
 			*(_DWORD*)result = 1900;
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[829520] + 48) = sub_446A90;
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[829520] + 56) = sub_447BD0;
-			*(_DWORD*)&byte_5D4594[829484] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1908);
-			*(_DWORD*)&byte_5D4594[829488] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1909);
-			*(_DWORD*)&byte_5D4594[829492] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1907);
-			*(_DWORD*)&byte_5D4594[829496] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1916);
-			*(_DWORD*)&byte_5D4594[829500] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1910);
+			*(_DWORD*)&byte_5D4594[829484] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1908);
+			*(_DWORD*)&byte_5D4594[829488] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1909);
+			*(_DWORD*)&byte_5D4594[829492] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1907);
+			*(_DWORD*)&byte_5D4594[829496] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1916);
+			*(_DWORD*)&byte_5D4594[829500] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1910);
 			*(_DWORD*)&byte_5D4594[829528] = loadString_sub_40F1D0(
 			    (char*)&byte_587000[110916], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1415);
 			*(_DWORD*)&byte_5D4594[829532] = loadString_sub_40F1D0(
@@ -293,9 +294,9 @@ int sub_447620_wol_chat() {
 				} while (*v4);
 			}
 			sub_41FFF0();
-			*(_DWORD*)&byte_5D4594[829508] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1917);
-			*(_DWORD*)&byte_5D4594[829512] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1918);
-			*(_DWORD*)&byte_5D4594[829516] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1919);
+			*(_DWORD*)&byte_5D4594[829508] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1917);
+			*(_DWORD*)&byte_5D4594[829512] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1918);
+			*(_DWORD*)&byte_5D4594[829516] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1919);
 			v5 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[829492] + 32);
 			v6 = sub_42F970("ShopInventorySlider");
 			v7 = sub_42F970("ShopInventorySliderSelected");
@@ -309,9 +310,9 @@ int sub_447620_wol_chat() {
 			v5[8] = *(_DWORD*)&byte_5D4594[829516];
 			*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[829508] + 400) + 8) = 16;
 			*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[829508] + 400) + 12) = 46;
-			*(_DWORD*)&byte_5D4594[829508] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1920);
-			*(_DWORD*)&byte_5D4594[829512] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1921);
-			*(_DWORD*)&byte_5D4594[829516] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1922);
+			*(_DWORD*)&byte_5D4594[829508] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1920);
+			*(_DWORD*)&byte_5D4594[829512] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1921);
+			*(_DWORD*)&byte_5D4594[829516] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1922);
 			v8 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[829484] + 32);
 			sub_4B5700(*(int*)&byte_5D4594[829508], 0, 0, (int)v6, (int)v7, (int)v7);
 			sub_46B280(*(int*)&byte_5D4594[829508], *(int*)&byte_5D4594[829484]);
@@ -323,9 +324,9 @@ int sub_447620_wol_chat() {
 			v8[8] = *(_DWORD*)&byte_5D4594[829516];
 			*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[829508] + 400) + 8) = 16;
 			*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[829508] + 400) + 12) = 46;
-			*(_DWORD*)&byte_5D4594[829508] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1923);
-			*(_DWORD*)&byte_5D4594[829512] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1924);
-			*(_DWORD*)&byte_5D4594[829516] = sub_46B0C0(*(_DWORD**)&byte_5D4594[829480], 1925);
+			*(_DWORD*)&byte_5D4594[829508] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1923);
+			*(_DWORD*)&byte_5D4594[829512] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1924);
+			*(_DWORD*)&byte_5D4594[829516] = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1925);
 			v9 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[829488] + 32);
 			sub_4B5700(*(int*)&byte_5D4594[829508], 0, 0, (int)v6, (int)v7, (int)v7);
 			sub_46B280(*(int*)&byte_5D4594[829508], *(int*)&byte_5D4594[829488]);
