@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1313796;
 extern _DWORD dword_587000_154956;
 extern _DWORD dword_587000_80820;
 extern _DWORD dword_5d4594_1321232;
@@ -174,17 +175,17 @@ int __cdecl nox_thing_npc_draw(int* a1, int a2) {
 					sub_4B8960(v21, v4, v33[327], v33 + 170, v19, v20);
 				}
 				if (sub_4356C0(v4, 16)) {
-					if (!*(_DWORD*)&byte_5D4594[1313796]) {
+					if (!dword_5d4594_1313796) {
 						v23 = sub_44CFC0((CHAR*)&byte_587000[177452]);
-						*(_DWORD*)&byte_5D4594[1313796] = nox_new_drawable_for_thing(v23);
-						*(_DWORD*)(*(_DWORD*)&byte_5D4594[1313796] + 120) |= 0x1000000u;
+						dword_5d4594_1313796 = nox_new_drawable_for_thing(v23);
+						*(_DWORD*)(dword_5d4594_1313796 + 120) |= 0x1000000u;
 					}
-					*(_DWORD*)(*(_DWORD*)&byte_5D4594[1313796] + 12) =
+					*(_DWORD*)(dword_5d4594_1313796 + 12) =
 					    *v21 + *(_DWORD*)(v4 + 12) - v21[4];
-					*(_DWORD*)(*(_DWORD*)&byte_5D4594[1313796] + 16) =
+					*(_DWORD*)(dword_5d4594_1313796 + 16) =
 					    v21[1] - v21[5] + *(_DWORD*)(v4 + 16) - 50;
-					v31 = *(_DWORD*)&byte_5D4594[1313796];
-					v24 = (void(__cdecl**)(char*, int))(*(_DWORD*)&byte_5D4594[1313796] + 300);
+					v31 = dword_5d4594_1313796;
+					v24 = (void(__cdecl**)(char*, int))(dword_5d4594_1313796 + 300);
 					v25 = sub_437250();
 					(*v24)(v25, v31);
 				}
