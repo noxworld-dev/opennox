@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1049856;
 extern _DWORD dword_5d4594_1049800;
 extern _DWORD dword_5d4594_1062456;
 extern _DWORD dword_5d4594_1063636;
@@ -182,7 +183,7 @@ void __cdecl sub_461A80(int a1) {
 			}
 			sub_45A4B0(v4);
 			*(_DWORD*)&byte_5D4594[1049848] = 0;
-			*(_DWORD*)&byte_5D4594[1049856] = 0;
+			dword_5d4594_1049856 = 0;
 			sub_4776A0();
 		} else {
 			v5 = loadString_sub_40F1D0((char*)&byte_587000[136616], 0,
@@ -1256,7 +1257,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 		    (v31 = sub_4281F0(&v56, (int4*)&byte_587000[136400]), v31)) {
 			v58 = v59;
 			sub_473970(&v58, &v57);
-			if (*(_DWORD*)&byte_5D4594[1049856] == 1) {
+			if (dword_5d4594_1049856 == 1) {
 				if (!sub_4C12C0())
 					sub_465BE0(&v57);
 			} else {
@@ -1280,7 +1281,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 					sub_465BE0(&v57);
 				}
 			}
-			if (*(_DWORD*)&byte_5D4594[1049856])
+			if (dword_5d4594_1049856)
 				goto LABEL_121;
 		LABEL_119:
 			v55 = dword_5d4594_1049800;
@@ -1317,7 +1318,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 		}
 		v36 = sub_4281F0(&v56, (int4*)&byte_587000[136336]);
 		if (v36 && !byte_5D4594[1049870]) {
-			if (!*(_DWORD*)&byte_5D4594[1049856]) {
+			if (!dword_5d4594_1049856) {
 				sub_4623B0(*(int*)&byte_5D4594[1049848]);
 				sub_4649B0(*(int*)&byte_5D4594[1049848], *(int*)&dword_5d4594_1049796,
 					   *(int*)&dword_5d4594_1049800);
@@ -1339,7 +1340,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 		*(_DWORD*)&byte_5D4594[1049808] = (dword_5d4594_1062512 + v56.field_4 - 13) / 50;
 		if (!sub_464B40((v56.field_0 - 314) / 50, (dword_5d4594_1062512 + v56.field_4 - 13) / 50))
 			goto LABEL_121;
-		if (*(_DWORD*)&byte_5D4594[1049856]) {
+		if (dword_5d4594_1049856) {
 			v39 = 148 * (*(_DWORD*)&byte_5D4594[1049808] + 14 * *(_DWORD*)&byte_5D4594[1049804] +
 				     7 * *(_DWORD*)&byte_5D4594[1049804]);
 			if (byte_5D4594[v39 + 1050160] && (v40 = *(_DWORD**)&byte_5D4594[v39 + 1050020]) != 0 &&
@@ -1388,10 +1389,10 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 		sub_461B50();
 	LABEL_121:
 		sub_4776A0();
-		if (!*(_DWORD*)&byte_5D4594[1049856])
+		if (!dword_5d4594_1049856)
 			sub_45A4B0(*(_QWORD**)&byte_5D4594[1049848]);
 		*(_DWORD*)&byte_5D4594[1049848] = 0;
-		*(_DWORD*)&byte_5D4594[1049856] = 0;
+		dword_5d4594_1049856 = 0;
 		return 1;
 	case 8:
 		return 1;
