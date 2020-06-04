@@ -1,6 +1,7 @@
 #include "selcolor.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1307784;
 
@@ -44,10 +45,10 @@ int sub_4A5D00() {
 				nox_window_call_field_94(*(int*)&byte_5D4594[1308152], 16414, (int)v6, 0);
 			}
 			sub_46A8A0();
-			*(_DWORD*)&byte_5D4594[1308088] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 760);
-			sub_46B2C0(*(int*)&byte_5D4594[1308088], sub_4A7330);
-			sub_46B300(*(int*)&byte_5D4594[1308088], sub_4A7270);
-			sub_46B120(*(_DWORD**)&byte_5D4594[1308088], 0);
+			dword_5d4594_1308088 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 760);
+			sub_46B2C0(*(int*)&dword_5d4594_1308088, sub_4A7330);
+			sub_46B300(*(int*)&dword_5d4594_1308088, sub_4A7270);
+			sub_46B120(*(_DWORD**)&dword_5d4594_1308088, 0);
 			sub_4BFAD0();
 			v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 740);
 			sub_46B340((int)v7, sub_4A6DC0);
