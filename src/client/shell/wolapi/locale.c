@@ -1,5 +1,6 @@
 #include "../../../proto.h"
 
+extern _DWORD dword_5d4594_1312484;
 extern _DWORD dword_5d4594_1312480;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -23,29 +24,29 @@ int __cdecl sub_4B5770_wol_locale(int a1) {
 	sub_46A8C0(*(int*)&dword_5d4594_1312480);
 	sub_46C690(*(int*)&dword_5d4594_1312480);
 	sub_46B500(*(int*)&dword_5d4594_1312480);
-	*(_DWORD*)&byte_5D4594[1312484] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1981);
+	dword_5d4594_1312484 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1981);
 	sub_4B5990();
 	for (i = 0; i < *(int*)&byte_5D4594[1312472]; ++i)
-		nox_window_call_field_94(*(int*)&byte_5D4594[1312484], 16397,
+		nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397,
 					 *(_DWORD*)(*(_DWORD*)&byte_5D4594[1312476] + 4 * i), -1);
 	v2 = loadString_sub_40F1D0((char*)&byte_587000[174848], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c",
 				   213);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1312484], 16397, (int)v2, -1);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1312484], 16403, 0, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397, (int)v2, -1);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16403, 0, 0);
 	v3 = loadString_sub_40F1D0((char*)&byte_587000[174900], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c",
 				   216);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1312484], 16397, (int)v3, -1);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1312484], 16403, 0, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397, (int)v3, -1);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16403, 0, 0);
 	v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1982);
 	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1983);
 	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1984);
-	v7 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[1312484] + 32);
+	v7 = *(_DWORD**)(dword_5d4594_1312484 + 32);
 	v10 = sub_42F970("UISlider");
 	v8 = sub_42F970("UISliderLit");
 	sub_4B5700((int)v4, 0, 0, (int)v10, (int)v8, (int)v8);
-	sub_46B280((int)v4, *(int*)&byte_5D4594[1312484]);
-	sub_46B280((int)v5, *(int*)&byte_5D4594[1312484]);
-	sub_46B280((int)v6, *(int*)&byte_5D4594[1312484]);
+	sub_46B280((int)v4, *(int*)&dword_5d4594_1312484);
+	sub_46B280((int)v5, *(int*)&dword_5d4594_1312484);
+	sub_46B280((int)v6, *(int*)&dword_5d4594_1312484);
 	v7[9] = v4;
 	v7[7] = v5;
 	v7[8] = v6;
