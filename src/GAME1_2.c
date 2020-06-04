@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_93164;
 extern _DWORD dword_5d4594_787152;
 extern _DWORD dword_5d4594_815044;
 extern _DWORD dword_5d4594_787208;
@@ -6044,7 +6045,7 @@ int __cdecl nox_audio_initall(int a3) {
 		}
 	}
 	sub_4864A0(&byte_5D4594[805884]);
-	sub_4864A0(*(_DWORD**)&byte_587000[93164]);
+	sub_4864A0(*(_DWORD**)&dword_587000_93164);
 	sub_4864A0(*(_DWORD**)&byte_587000[122852]);
 	sub_4864A0(*(_DWORD**)&dword_587000_127004);
 	sub_44D810();
@@ -6053,7 +6054,7 @@ int __cdecl nox_audio_initall(int a3) {
 	v1 = sub_4866A0(2);
 	if (!v1)
 		sub_43DC00();
-	sub_486320(*(_DWORD**)&byte_587000[93164], v1);
+	sub_486320(*(_DWORD**)&dword_587000_93164, v1);
 	v2 = sub_4866A0(1);
 	if (!v2)
 		sub_44D960();
@@ -7688,7 +7689,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 		v4 = 0;
 	fprintf(a1, "DialogVolume = %d\n", v4);
 	if (sub_43DC30() == 1)
-		v5 = *(_DWORD*)(*(_DWORD*)&byte_587000[93164] + 4) >> 16;
+		v5 = *(_DWORD*)(dword_587000_93164 + 4) >> 16;
 	else
 		v5 = 0;
 	fprintf(a1, "MusicVolume = %d\n", v5);
