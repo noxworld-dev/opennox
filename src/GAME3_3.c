@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_1599636;
 extern nox_memfile* nox_loaded_thing_bin;
 
@@ -2477,7 +2478,7 @@ int __cdecl sub_4E4E50(int a1) {
 	int result;          // eax
 
 	v1 = 1;
-	if (*(_DWORD*)&byte_5D4594[2650652] == 1)
+	if (dword_5d4594_2650652 == 1)
 		v1 = sub_40A6C0();
 	v2 = byte_5D4594[12 * a1 + 1565125];
 	v3 = &byte_5D4594[12 * a1 + 1565124];
@@ -3541,7 +3542,7 @@ unsigned __int8* __cdecl sub_4E62F0(int a1) {
 						goto LABEL_72;
 					}
 				}
-				if (*(_DWORD*)&byte_5D4594[2650652] && nox_common_gameFlags_check_40A5C0(49152) &&
+				if (dword_5d4594_2650652 && nox_common_gameFlags_check_40A5C0(49152) &&
 				    !sub_509CF0((const char*)(v4 + 2096), *(_BYTE*)(v4 + 2251),
 						*(_DWORD*)(v4 + 2068))) {
 					sub_4DA0F0(*(unsigned __int8*)(v4 + 2064), 17, 0);
@@ -6361,7 +6362,7 @@ void __cdecl sub_4EA490(int a1, int a2) {
 						if (sub_419130(v3 + 48)) {
 							v10 = sub_418AB0(*(unsigned __int8*)(v3 + 52));
 							sub_419090((int)v10, *((_DWORD*)v10 + 13) + 1);
-							if (*(_DWORD*)&byte_5D4594[2650652]) {
+							if (dword_5d4594_2650652) {
 								if (a2)
 									sub_425CA0(*(_DWORD*)(a2 + 276), 0);
 							}
@@ -6506,7 +6507,7 @@ __int16 __cdecl sub_4EA800(int a1, int a2) {
 				sub_4D8E90(v7, 1);
 				sub_4D8EF0(v7);
 				sub_419090(v6, *(_DWORD*)(v6 + 52) + 1);
-				if (*(_DWORD*)&byte_5D4594[2650652]) {
+				if (dword_5d4594_2650652) {
 					v9 = *(_DWORD*)(v7 + 748);
 					if (v9)
 						sub_425CA0(*(_DWORD*)(v9 + 276), 0);
@@ -7315,7 +7316,7 @@ __int16 __cdecl sub_4EBB80(int a1, int a2) {
 			}
 			if (v5) {
 				sub_419090((int)v5, *((_DWORD*)v5 + 13) + 1);
-				if (*(_DWORD*)&byte_5D4594[2650652]) {
+				if (dword_5d4594_2650652) {
 					v7 = *v4;
 					if (v7) {
 						v8 = *(_DWORD*)(v7 + 748);

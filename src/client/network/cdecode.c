@@ -20,6 +20,7 @@
 #include "../gui/servopts/playrlst.h"
 #include "../shell/noxworld.h"
 #include "inform.h"
+extern _DWORD dword_5d4594_2650652;
 
 //----- (0048EA70) --------------------------------------------------------
 int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
@@ -506,7 +507,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_409B10(*(_DWORD*)(v3 + 33));
 				if (!nox_common_gameFlags_check_40A5C0(1)) {
 					nox_common_gameFlags_unset_40A540(8);
-					if (*(_DWORD*)&byte_5D4594[2650652])
+					if (dword_5d4594_2650652)
 						sub_41D6C0();
 				}
 				sub_40A4D0(0x800000);
@@ -555,7 +556,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					*((_DWORD*)v211 + 920) |= *(_DWORD*)(v3 + 112);
 					qmemcpy(v211 + 2185, (const void*)(v3 + 3), 0x61u);
 					nox_swprintf((wchar_t*)v211 + 2352, L"%s%s", v211 + 2185, v211 + 2274);
-					if (*(_DWORD*)&byte_5D4594[2650652]) {
+					if (dword_5d4594_2650652) {
 						*((_DWORD*)v211 + 527) = 0;
 						sub_41D670((int)(v211 + 2096));
 					}
