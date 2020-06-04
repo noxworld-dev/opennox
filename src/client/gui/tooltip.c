@@ -1,6 +1,7 @@
 #include "tooltip.h"
 
 #include "../../proto.h"
+extern _DWORD dword_587000_26048;
 
 //----- (004BF050) --------------------------------------------------------
 wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
@@ -65,7 +66,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 				goto LABEL_93;
 			}
 			if (v19 != 137) {
-				if (*(_DWORD*)&byte_587000[26048] != 6) {
+				if (dword_587000_26048 != 6) {
 					v22 = loadString_sub_40F1D0((char*)&byte_587000[180736], 0,
 								    "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 292);
 					nox_swprintf((wchar_t*)&byte_5D4594[1317000], L"%s ", v22);
@@ -93,7 +94,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			}
 			if (v24 == 41)
 				return (wchar_t*)&byte_5D4594[1317000];
-			if (*(_DWORD*)&byte_587000[26048] == 3 || *(_DWORD*)&byte_587000[26048] == 5) {
+			if (dword_587000_26048 == 3 || dword_587000_26048 == 5) {
 				v27 = loadString_sub_40F1D0((char*)&byte_587000[180788], 0,
 							    "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 313);
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v27);
@@ -118,7 +119,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			}
 			if (v29 == 6)
 				return (wchar_t*)&byte_5D4594[1317000];
-			if (*(_DWORD*)&byte_587000[26048] == 6) {
+			if (dword_587000_26048 == 6) {
 				v30 = (const wchar_t*)sub_425260(v1[108]);
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v30);
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
@@ -184,7 +185,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 					a1 = v16;
 			}
 		}
-		switch (*(_DWORD*)&byte_587000[26048]) {
+		switch (dword_587000_26048) {
 		case 2:
 			nox_wcscat((wchar_t*)&byte_5D4594[1317000], v12);
 			if (v35) {

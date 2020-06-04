@@ -2,6 +2,7 @@
 
 #include "../../../common/system/team.h"
 #include "../../../proto.h"
+extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1045684;
 
 //----- (00456270) --------------------------------------------------------
@@ -22,7 +23,7 @@ int __cdecl sub_456270(int a1) {
 	_DWORD* v15;  // [esp+14h] [ebp+4h]
 	_DWORD* v16;  // [esp+14h] [ebp+4h]
 
-	v1 = *(_DWORD*)&byte_587000[26048];
+	v1 = dword_587000_26048;
 	if (sub_43F320(0) > 10)
 		v1 = 2;
 	if (dword_5d4594_1045684)

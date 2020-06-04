@@ -2,6 +2,7 @@
 #include "../objutil.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_587000_26048;
 
 // TODO: convert table_274080
 
@@ -20,7 +21,7 @@ void __cdecl sub_54E170_obj_die(int a1) {
 
 	v1 = a1;
 	v2 = 0;
-	if (!*(_DWORD*)&byte_587000[26048] || *(_DWORD*)&byte_587000[26048] == 1) {
+	if (!dword_587000_26048 || dword_587000_26048 == 1) {
 		v3 = sub_413270(*(unsigned __int16*)(a1 + 4));
 		if (v3) {
 			v4 = *(_WORD*)(v3[2] + 2 * nox_wcslen((const wchar_t*)v3[2]) - 2);
