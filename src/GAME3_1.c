@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1321232;
 extern _DWORD dword_5d4594_1313800;
 extern _DWORD dword_5d4594_1316712;
 extern _DWORD dword_5d4594_1321248;
@@ -5375,8 +5376,8 @@ int __cdecl sub_4C3EB0(int a1, int a2, char* a3, int a4) {
 		if (a3 == (char*)1) {
 			if (a4 == 2) {
 				sub_46B500(0);
-				sub_46C6E0(*(int*)&byte_5D4594[1321232]);
-				nox_window_set_hidden(*(int*)&byte_5D4594[1321232], 1);
+				sub_46C6E0(*(int*)&dword_5d4594_1321232);
+				nox_window_set_hidden(*(int*)&dword_5d4594_1321232, 1);
 				if (*(_DWORD*)&byte_5D4594[1321252])
 					nox_window_call_field_94(*(int*)&byte_5D4594[1321252], 16403, -1, 0);
 			}
@@ -5386,8 +5387,8 @@ int __cdecl sub_4C3EB0(int a1, int a2, char* a3, int a4) {
 			sub_4C4100((char*)0x10000);
 		LABEL_15:
 			sub_46B500(0);
-			sub_46C6E0(*(int*)&byte_5D4594[1321232]);
-			nox_window_set_hidden(*(int*)&byte_5D4594[1321232], 1);
+			sub_46C6E0(*(int*)&dword_5d4594_1321232);
+			nox_window_set_hidden(*(int*)&dword_5d4594_1321232, 1);
 			result = 1;
 		} else {
 		LABEL_5:
@@ -5508,10 +5509,10 @@ int sub_4C4220() {
 	int result; // eax
 
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1321228);
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1321232]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1321232);
 	result = 0;
 	dword_5d4594_1321228 = 0;
-	*(_DWORD*)&byte_5D4594[1321232] = 0;
+	dword_5d4594_1321232 = 0;
 	*(_DWORD*)&byte_5D4594[1321236] = 0;
 	*(_DWORD*)&byte_5D4594[1321240] = 0;
 	dword_5d4594_1321244 = 0;

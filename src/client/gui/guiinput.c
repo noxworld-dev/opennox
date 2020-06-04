@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1321232;
 extern _DWORD dword_5d4594_1321248;
 extern _DWORD dword_5d4594_1321244;
 extern _DWORD dword_5d4594_1321228;
@@ -109,15 +110,15 @@ int sub_4C3760() {
 			nox_window_call_field_94((int)v8, 16392, 1, 0);
 			sub_46A9B0(*(_DWORD**)&dword_5d4594_1321228,
 				   (nox_win_width - *(_DWORD*)(dword_5d4594_1321228 + 8)) / 2, 0);
-			*(_DWORD*)&byte_5D4594[1321232] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 980);
-			sub_46B120(*(_DWORD**)&byte_5D4594[1321232], 0);
-			sub_46B2C0(*(int*)&byte_5D4594[1321232], sub_4C3A90);
-			sub_46B300(*(int*)&byte_5D4594[1321232], sub_4C3EB0);
-			nox_window_set_hidden(*(int*)&byte_5D4594[1321232], 1);
-			sub_46A9B0(*(_DWORD**)&byte_5D4594[1321232],
-				   (nox_win_width - *(_DWORD*)(*(_DWORD*)&byte_5D4594[1321232] + 8)) / 2,
-				   *(_DWORD*)(*(_DWORD*)&byte_5D4594[1321232] + 20));
-			v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321232], 981);
+			dword_5d4594_1321232 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 980);
+			sub_46B120(*(_DWORD**)&dword_5d4594_1321232, 0);
+			sub_46B2C0(*(int*)&dword_5d4594_1321232, sub_4C3A90);
+			sub_46B300(*(int*)&dword_5d4594_1321232, sub_4C3EB0);
+			nox_window_set_hidden(*(int*)&dword_5d4594_1321232, 1);
+			sub_46A9B0(*(_DWORD**)&dword_5d4594_1321232,
+				   (nox_win_width - *(_DWORD*)(dword_5d4594_1321232 + 8)) / 2,
+				   *(_DWORD*)(dword_5d4594_1321232 + 20));
+			v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321232, 981);
 			sub_46AEE0((int)v9, (int)&byte_5D4594[1321256]);
 			v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 932);
 			v11 = loadString_sub_40F1D0((char*)&byte_587000[185316], 0,
@@ -156,9 +157,9 @@ int __cdecl sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 				v6 = loadString_sub_40F1D0((char*)&byte_587000[185404], 0,
 							   "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 436);
 				nox_swprintf((wchar_t*)&byte_5D4594[1321256], L"%s\n'%s'", v6, v9);
-				sub_46A8C0(*(int*)&byte_5D4594[1321232]);
-				sub_46B500(*(int*)&byte_5D4594[1321232]);
-				sub_46C690(*(int*)&byte_5D4594[1321232]);
+				sub_46A8C0(*(int*)&dword_5d4594_1321232);
+				sub_46B500(*(int*)&dword_5d4594_1321232);
+				sub_46C690(*(int*)&dword_5d4594_1321232);
 				return sub_4A30D0(a1, 0x4010u, (wchar_t*)a3, a4);
 			}
 		}
