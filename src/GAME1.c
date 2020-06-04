@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_10956;
 extern _DWORD dword_5d4594_2660652;
 extern _DWORD dword_587000_26048;
@@ -234,7 +235,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	sub_416B20();
 	*(_DWORD*)&byte_5D4594[2650640] = 0;
 	*(_DWORD*)&byte_5D4594[2618916] = 0;
-	*(_DWORD*)&byte_5D4594[2650672] = 0;
+	dword_5d4594_2650672 = 0;
 	sub_43BDD0(10);
 	nox_common_gameFlags_unset_40A540(-1);
 	sub_40A4D0(3);

@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_833716;
 extern _DWORD dword_5d4594_815132;
 extern _DWORD dword_5d4594_1045636;
@@ -677,7 +678,7 @@ int __cdecl sub_44DA60(int a1) {
 
 //----- (0044DAB0) --------------------------------------------------------
 int __cdecl nox_client_screenFadeTimeout_44DAB0(int a1, int a2, void (*a3)(void)) {
-	if (*(_DWORD*)&byte_5D4594[2650672] == 1) {
+	if (dword_5d4594_2650672 == 1) {
 		if (a3)
 			a3();
 		return 1;
@@ -930,7 +931,7 @@ int __cdecl sub_44DFD0(int a1) {
 //----- (0044E000) --------------------------------------------------------
 void sub_44E000() {
 	if (!sub_44DFD0(sub_44DD70))
-		*(_DWORD*)&byte_5D4594[2650672] = 1;
+		dword_5d4594_2650672 = 1;
 }
 
 //----- (0044E020) --------------------------------------------------------
@@ -944,7 +945,7 @@ void sub_44E040() {
 	sub_44E070();
 	sub_44E090();
 	sub_44DF90(sub_44DDC0);
-	*(_DWORD*)&byte_5D4594[2650672] = 0;
+	dword_5d4594_2650672 = 0;
 	sub_413A00(0);
 }
 
@@ -964,7 +965,7 @@ int sub_44E090() {
 int __cdecl sub_44E0B0(int a1) {
 	sub_44E070();
 	sub_44E090();
-	*(_DWORD*)&byte_5D4594[2650672] = 1;
+	dword_5d4594_2650672 = 1;
 	return sub_44DA60(a1);
 }
 
@@ -974,7 +975,7 @@ BOOL sub_44E0D0() {
 		return 1;
 	if (sub_44DFD0(sub_44DD20))
 		return 1;
-	return *(_DWORD*)&byte_5D4594[2650672] != 0;
+	return dword_5d4594_2650672 != 0;
 }
 
 //----- (0044E110) --------------------------------------------------------
@@ -1102,7 +1103,7 @@ void sub_44E320() {
 	nox_window_set_hidden(*(int*)&byte_5D4594[831236], 1);
 	sub_450580();
 	sub_43DDA0();
-	*(_DWORD*)&byte_5D4594[2650672] = 0;
+	dword_5d4594_2650672 = 0;
 	if (*(_DWORD*)&byte_5D4594[831220] == 255) {
 		if (dword_5d4594_815132 == 1) {
 			sub_4505E0();
@@ -1175,10 +1176,10 @@ int __cdecl nox_client_wndQuestBriefProc_44E630(int a1, int a2, int a3, int a4) 
 		sub_450580();
 		if (*(_DWORD*)&byte_5D4594[831220]) {
 			if (*(_DWORD*)&byte_5D4594[831220] == 255) {
-				*(_DWORD*)&byte_5D4594[2650672] = 0;
+				dword_5d4594_2650672 = 0;
 				v2 = nox_client_getIntroScreenDuration_44E3B0();
 				nox_client_screenFadeTimeout_44DAB0(v2, 1, sub_44E320);
-				*(_DWORD*)&byte_5D4594[2650672] = 1;
+				dword_5d4594_2650672 = 1;
 			}
 		} else {
 			sub_46ADE0(*(int*)&byte_5D4594[831236]);
@@ -1221,10 +1222,10 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 			sub_452D80(582, 100);
 		sub_450580();
 		if (*(_DWORD*)&byte_5D4594[831220]) {
-			*(_DWORD*)&byte_5D4594[2650672] = 0;
+			dword_5d4594_2650672 = 0;
 			v3 = nox_client_getIntroScreenDuration_44E3B0();
 			nox_client_screenFadeTimeout_44DAB0(v3, 1, sub_44E320);
-			*(_DWORD*)&byte_5D4594[2650672] = 1;
+			dword_5d4594_2650672 = 1;
 		} else if (!*(_DWORD*)&byte_5D4594[831256]) {
 			sub_46ADE0(*(int*)&byte_5D4594[831236]);
 			*(_DWORD*)&byte_5D4594[831256] = 1;
@@ -1400,10 +1401,10 @@ int sub_4505B0() {
 	int result; // eax
 
 	sub_450580();
-	*(_DWORD*)&byte_5D4594[2650672] = 0;
+	dword_5d4594_2650672 = 0;
 	v0 = nox_client_getIntroScreenDuration_44E3B0();
 	result = nox_client_screenFadeTimeout_44DAB0(v0, 1, sub_44E320);
-	*(_DWORD*)&byte_5D4594[2650672] = 1;
+	dword_5d4594_2650672 = 1;
 	return result;
 }
 
