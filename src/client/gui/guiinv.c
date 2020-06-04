@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1062456;
 extern _DWORD dword_5d4594_1063636;
 extern _DWORD dword_5d4594_1049796;
 extern _DWORD dword_5d4594_1062512;
@@ -318,7 +319,7 @@ int sub_462740() {
 	nox_wcscpy((wchar_t*)&byte_5D4594[1063124], v0);
 	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1062476], 9156);
 	nox_window_call_field_94((int)v1, 16399, 0, 0);
-	sub_46ADE0(*(int*)&byte_5D4594[1062456]);
+	sub_46ADE0(*(int*)&dword_5d4594_1062456);
 	dword_5d4594_1049864 = 0;
 	nox_client_setCursorType_477610(0);
 	return 1;
@@ -411,7 +412,7 @@ int __cdecl sub_4627F0(_DWORD* a1) {
 	sub_43F320(0);
 	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 	nox_client_drawRectFilledOpaque_49CE30(*a1 + 11, a1[1] + 15, 200, 200);
-	sub_463370(*(_DWORD**)&byte_5D4594[1062456], v1, &v74);
+	sub_463370(*(_DWORD**)&dword_5d4594_1062456, v1, &v74);
 	if (sub_4281F0(&v74, (int4*)&byte_587000[136352]) || sub_4281F0(&v74, (int4*)&byte_587000[136368])) {
 		if (sub_4281F0(&v74, (int4*)&byte_587000[136368]) && (v74.field_4 - 13) / 50 != 1) {
 			nox_client_setCursorType_477610(7);
@@ -1119,7 +1120,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 
 	v59.field_4 = a3 >> 16;
 	v59.field_0 = (unsigned __int16)a3;
-	sub_463370(*(_DWORD**)&byte_5D4594[1062456], &v59, &v56);
+	sub_463370(*(_DWORD**)&dword_5d4594_1062456, &v59, &v56);
 	if (sub_45D9B0() || byte_5D4594[1049868] != 2)
 		return 1;
 	switch (a2) {
@@ -1180,11 +1181,11 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 				if (sub_4281F0(&v56, (int4*)&byte_587000[136400]) == 1)
 					return 0;
 			} else {
-				sub_46ADC0(*(int*)&byte_5D4594[1062456]);
+				sub_46ADC0(*(int*)&dword_5d4594_1062456);
 				if (sub_479590() == 3)
 					sub_4657E0(&v56);
 				else
-					sub_4658A0(*(int*)&byte_5D4594[1062456], &v56);
+					sub_4658A0(*(int*)&dword_5d4594_1062456, &v56);
 				if (*(_DWORD*)&byte_5D4594[1049848]) {
 					sub_477690(*(int*)&byte_5D4594[1049848]);
 					sub_4160D0(0);
@@ -1221,7 +1222,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 			if (sub_477630() == 7)
 				goto LABEL_5;
 		} else {
-			sub_46ADE0(*(int*)&byte_5D4594[1062456]);
+			sub_46ADE0(*(int*)&dword_5d4594_1062456);
 		}
 		if (dword_5d4594_1049864 == 4) {
 			v58 = v59;
@@ -1249,7 +1250,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 		}
 		if (!*(_DWORD*)&byte_5D4594[1049848])
 			return 1;
-		if (!sub_46AAB0(*(_DWORD**)&byte_5D4594[1062456], v59.field_0, v59.field_4) ||
+		if (!sub_46AAB0(*(_DWORD**)&dword_5d4594_1062456, v59.field_0, v59.field_4) ||
 		    (v30 = sub_4281F0(&v56, (int4*)&byte_587000[136384]), v30) ||
 		    (v31 = sub_4281F0(&v56, (int4*)&byte_587000[136400]), v31)) {
 			v58 = v59;
@@ -1263,7 +1264,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 				v48 = byte_5D4594[148 * v47 + 1050160];
 				if (byte_5D4594[148 * v47 + 1050160]) {
 					v49 = 0;
-					sub_46ADE0(*(int*)&byte_5D4594[1062456]);
+					sub_46ADE0(*(int*)&dword_5d4594_1062456);
 					if (*(_DWORD*)(*(_DWORD*)&byte_5D4594[1049848] + 112) & 0x13001000)
 						v49 = (const void*)(*(_DWORD*)&byte_5D4594[1049848] + 432);
 					sub_4C05F0(0, 0);
@@ -1406,7 +1407,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 		v7 = sub_4281F0(&v56, (int4*)&byte_587000[136400]);
 		if (v7)
 			goto LABEL_124;
-		nox_window_call_field_94(*(int*)&byte_5D4594[1062456], 16391, *(int*)&byte_5D4594[1062500], 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1062456, 16391, *(int*)&byte_5D4594[1062500], 0);
 		return 1;
 	case 20:
 		if (sub_4372B0())
@@ -1417,7 +1418,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 		v5 = sub_4281F0(&v56, (int4*)&byte_587000[136400]);
 		if (v5)
 			goto LABEL_124;
-		nox_window_call_field_94(*(int*)&byte_5D4594[1062456], 16391, *(int*)&byte_5D4594[1062504], 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1062456, 16391, *(int*)&byte_5D4594[1062504], 0);
 		return 1;
 	default:
 	LABEL_124:
