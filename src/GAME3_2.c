@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1548476;
 extern _DWORD dword_587000_197424;
 extern _DWORD dword_5d4594_2650652;
 extern int nox_win_width;
@@ -1482,29 +1483,29 @@ int sub_4D0E00() {
 	int v13;              // [esp+10h] [ebp-4h]
 
 	nox_srand_time();
-	*(_DWORD*)&byte_5D4594[1548476] = 0;
+	dword_5d4594_1548476 = 0;
 	for (i = sub_4D09B0(); i; i = sub_4D09C0(i)) {
 		if (i[6]) {
 			if (sub_4CFFC0((int)i) & 0x1000) {
-				if (*(int*)&byte_5D4594[1548476] < 128) {
-					v3 = 32 * *(_DWORD*)&byte_5D4594[1548476];
-					strcpy((char*)&byte_5D4594[32 * *(_DWORD*)&byte_5D4594[1548476] + 1525136],
+				if (*(int*)&dword_5d4594_1548476 < 128) {
+					v3 = 32 * dword_5d4594_1548476;
+					strcpy((char*)&byte_5D4594[32 * dword_5d4594_1548476 + 1525136],
 					       (const char*)i + 12);
 					v4 = byte_587000[192004];
 					v5 = &byte_5D4594[v3 + 1525136 +
 							  strlen((const char*)&byte_5D4594[v3 + 1525136])];
 					*(_DWORD*)v5 = *(_DWORD*)&byte_587000[192000];
 					v5[4] = v4;
-					v6 = *(_DWORD*)&byte_5D4594[1548476] + 1;
+					v6 = dword_5d4594_1548476 + 1;
 					*(_DWORD*)&byte_5D4594[v3 + 1525132] = 0;
-					*(_DWORD*)&byte_5D4594[1548476] = v6;
+					dword_5d4594_1548476 = v6;
 				}
 			}
 		}
 	}
-	result = *(_DWORD*)&byte_5D4594[1548476];
+	result = dword_5d4594_1548476;
 	v8 = 1;
-	if (*(_DWORD*)&byte_5D4594[1548476] > 0) {
+	if (dword_5d4594_1548476 > 0) {
 		v9 = 1;
 		v10 = &byte_5D4594[1525132];
 		do {
@@ -1517,10 +1518,10 @@ int sub_4D0E00() {
 					do {
 						if (!_strnicmp((const char*)v10 + 4, (const char*)(v12 + 4), 6u))
 							*(_DWORD*)v12 = *(_DWORD*)v10;
-						result = *(_DWORD*)&byte_5D4594[1548476];
+						result = dword_5d4594_1548476;
 						++v11;
 						v12 += 32;
-					} while (v11 < *(int*)&byte_5D4594[1548476]);
+					} while (v11 < *(int*)&dword_5d4594_1548476);
 					v8 = v13;
 				}
 			}
@@ -1537,9 +1538,9 @@ void sub_4D0F30() {
 	int v0;              // ecx
 	unsigned __int8* v1; // eax
 
-	v0 = *(_DWORD*)&byte_5D4594[1548476];
+	v0 = dword_5d4594_1548476;
 	*(_DWORD*)&byte_5D4594[1548480] = 1000;
-	if (*(_DWORD*)&byte_5D4594[1548476] > 0) {
+	if (dword_5d4594_1548476 > 0) {
 		v1 = &byte_5D4594[1525160];
 		do {
 			*((_DWORD*)v1 - 1) = 0;
@@ -1570,17 +1571,17 @@ char* sub_4D0F60() // quest setup 2
 	unsigned __int8* i;   // ecx
 	int v16;              // [esp+4h] [ebp-8h]
 
-	if (!*(_DWORD*)&byte_5D4594[1548476])
+	if (!dword_5d4594_1548476)
 		return 0;
-	if (*(_DWORD*)&byte_5D4594[1548476] == 1)
+	if (dword_5d4594_1548476 == 1)
 		return (char*)&byte_5D4594[1525136];
 	v1 = 0;
 	v16 = 0;
-	if (*(int*)&byte_5D4594[1548476] <= 0)
-		return (char*)&byte_5D4594[32 * nox_common_randomInt_415FA0(0, *(_DWORD*)&byte_5D4594[1548476] - 1) +
+	if (*(int*)&dword_5d4594_1548476 <= 0)
+		return (char*)&byte_5D4594[32 * nox_common_randomInt_415FA0(0, dword_5d4594_1548476 - 1) +
 					   1525136];
 	v2 = &byte_5D4594[1525156];
-	v3 = *(_DWORD*)&byte_5D4594[1548476];
+	v3 = dword_5d4594_1548476;
 	do {
 		if (*(_DWORD*)v2 > v1) {
 			v16 = *(_DWORD*)v2;
@@ -1590,15 +1591,15 @@ char* sub_4D0F60() // quest setup 2
 		--v3;
 	} while (v3);
 	if (!v1)
-		return (char*)&byte_5D4594[32 * nox_common_randomInt_415FA0(0, *(_DWORD*)&byte_5D4594[1548476] - 1) +
+		return (char*)&byte_5D4594[32 * nox_common_randomInt_415FA0(0, dword_5d4594_1548476 - 1) +
 					   1525136];
 	v4 = 1;
 	v5 = &byte_5D4594[1525156];
-	v6 = *(_DWORD*)&byte_5D4594[1548476];
+	v6 = dword_5d4594_1548476;
 	do {
-		if (*(_DWORD*)&byte_5D4594[1548476] > 1) {
+		if (dword_5d4594_1548476 > 1) {
 			v7 = &byte_5D4594[1525188];
-			v8 = *(_DWORD*)&byte_5D4594[1548476] - 1;
+			v8 = dword_5d4594_1548476 - 1;
 			do {
 				if (*(_DWORD*)v5 != *(_DWORD*)v7)
 					v4 = 0;
@@ -1622,11 +1623,11 @@ char* sub_4D0F60() // quest setup 2
 		}
 		++v10;
 		v11 += 32;
-	} while (v10 < *(int*)&byte_5D4594[1548476]);
+	} while (v10 < *(int*)&dword_5d4594_1548476);
 	v12 = nox_common_randomInt_415FA0(0, v9 - 1);
 	v13 = 0;
 	v14 = 0;
-	if (*(int*)&byte_5D4594[1548476] <= 0)
+	if (*(int*)&dword_5d4594_1548476 <= 0)
 		return (char*)&byte_5D4594[32 * v12 + 1525136];
 	for (i = &byte_5D4594[1525132];; i += 32) {
 		if (*((_DWORD*)i + 6) >= v16 || v14 == *(_DWORD*)&byte_587000[191880] ||
@@ -1638,7 +1639,7 @@ char* sub_4D0F60() // quest setup 2
 			break;
 		++v13;
 	LABEL_36:
-		if (++v14 >= *(int*)&byte_5D4594[1548476])
+		if (++v14 >= *(int*)&dword_5d4594_1548476)
 			return (char*)&byte_5D4594[32 * v12 + 1525136];
 	}
 	return (char*)&byte_5D4594[32 * v14 + 1525136];
