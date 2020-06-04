@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1217456;
 extern _DWORD dword_5d4594_1301800;
 extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_1305680;
@@ -2769,7 +2770,7 @@ int sub_4960B0() {
 	int result; // eax
 
 	result = (int)nox_malloc(4 * (4 * nox_win_width / 23 * (nox_win_height / 23) / 2));
-	*(_DWORD*)&byte_5D4594[1217456] = result;
+	dword_5d4594_1217456 = result;
 	if (result) {
 		sub_4CA860();
 		result = 1;
@@ -2779,9 +2780,9 @@ int sub_4960B0() {
 
 //----- (00496120) --------------------------------------------------------
 int sub_496120() {
-	if (*(_DWORD*)&byte_5D4594[1217456]) {
-		free(*(LPVOID*)&byte_5D4594[1217456]);
-		*(_DWORD*)&byte_5D4594[1217456] = 0;
+	if (dword_5d4594_1217456) {
+		free(*(LPVOID*)&dword_5d4594_1217456);
+		dword_5d4594_1217456 = 0;
 	}
 	return 1;
 }
@@ -2976,7 +2977,7 @@ LABEL_32:
 	} else {
 		do {
 			v18 = 0;
-			v19 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1217456] + 4 * v72);
+			v19 = *(_DWORD*)(dword_5d4594_1217456 + 4 * v72);
 			switch (*(unsigned __int8*)(v19 + 56)) {
 			case 0u:
 				v20 = 25736 * *(int*)(v19 + 40) / 75000;
@@ -3965,10 +3966,10 @@ int __cdecl sub_498130(int a1) {
 	int v2; // esi
 
 	for (i = sub_498290(a1); i < *(int*)&byte_5D4594[1217460]; ++i) {
-		v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1217456] + 4 * i);
+		v2 = *(_DWORD*)(dword_5d4594_1217456 + 4 * i);
 		if (*(int*)(v2 + 40) > *(int*)(a1 + 44))
 			break;
-		sub_498380(a1, *(_DWORD*)(*(_DWORD*)&byte_5D4594[1217456] + 4 * i));
+		sub_498380(a1, *(_DWORD*)(dword_5d4594_1217456 + 4 * i));
 		if (!*(_BYTE*)(a1 + 48) || *(int*)(a1 + 44) - *(int*)(a1 + 40) < 0)
 			return sub_4CAE40(a1);
 		if (!*(_BYTE*)(v2 + 48) || *(int*)(v2 + 44) - *(int*)(v2 + 40) < 0) {
@@ -3990,7 +3991,7 @@ int __cdecl sub_4981D0(int a1) {
 	v2 = 0;
 	while (v2 <= v1) {
 		v3 = (v1 + v2) / 2;
-		if (*(int*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1217456] + 4 * v3) + 40) >= *(int*)(a1 + 40))
+		if (*(int*)(*(_DWORD*)(dword_5d4594_1217456 + 4 * v3) + 40) >= *(int*)(a1 + 40))
 			v1 = v3 - 1;
 		else
 			v2 = v3 + 1;
@@ -4001,10 +4002,10 @@ int __cdecl sub_4981D0(int a1) {
 //----- (00498220) --------------------------------------------------------
 int __cdecl sub_498220(int a1, int a2) {
 	if (a2 < *(int*)&byte_5D4594[1217460])
-		memmove(*(_DWORD*)&byte_5D4594[1217456] + 4 * a2 + 4,
-			(_BYTE*)(*(_DWORD*)&byte_5D4594[1217456] + 4 * a2),
+		memmove(dword_5d4594_1217456 + 4 * a2 + 4,
+			(_BYTE*)(dword_5d4594_1217456 + 4 * a2),
 			4 * (*(_DWORD*)&byte_5D4594[1217460] + 0x3FFFFFFF * a2));
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1217456] + 4 * a2) = a1;
+	*(_DWORD*)(dword_5d4594_1217456 + 4 * a2) = a1;
 	return ++*(_DWORD*)&byte_5D4594[1217460];
 }
 
@@ -4021,7 +4022,7 @@ int __cdecl sub_498290(int a1) {
 		goto LABEL_11;
 	do {
 		v3 = (v2 + v1) / 2;
-		if (*(int*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1217456] + 4 * v3) + 44) >= *(int*)(a1 + 40))
+		if (*(int*)(*(_DWORD*)(dword_5d4594_1217456 + 4 * v3) + 44) >= *(int*)(a1 + 40))
 			v2 = v3 - 1;
 		else
 			v1 = v3 + 1;
@@ -4039,7 +4040,7 @@ int __cdecl sub_4982E0(int a1) {
 	int v1; // esi
 
 	v1 = sub_498330(a1);
-	memmove(*(_DWORD*)&byte_5D4594[1217456] + 4 * v1, (_BYTE*)(*(_DWORD*)&byte_5D4594[1217456] + 4 * (v1 + 1)),
+	memmove(dword_5d4594_1217456 + 4 * v1, (_BYTE*)(dword_5d4594_1217456 + 4 * (v1 + 1)),
 		4 * (*(_DWORD*)&byte_5D4594[1217460] + 0x3FFFFFFF * (v1 + 1)));
 	--*(_DWORD*)&byte_5D4594[1217460];
 	return v1;
@@ -4058,7 +4059,7 @@ int __cdecl sub_498330(int a1) {
 	v3 = *(_DWORD*)&byte_5D4594[1217460] - 1;
 	while (1) {
 		result = (v3 + v2) / 2;
-		v5 = *(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1217456] + 4 * result) + 40);
+		v5 = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1217456 + 4 * result) + 40);
 		if (v5 == v1)
 			break;
 		if (v5 >= v1)
