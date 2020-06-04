@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815044;
 extern _DWORD dword_587000_93156;
 extern _DWORD dword_587000_127004;
 extern _DWORD dword_5d4594_829484;
@@ -153,7 +154,7 @@ _DWORD* sub_43B670() {
 }
 
 //----- (0043B6D0) --------------------------------------------------------
-int sub_43B6D0() { return *(_DWORD*)&byte_5D4594[815044]; }
+int sub_43B6D0() { return dword_5d4594_815044; }
 
 //----- (0043BC10) --------------------------------------------------------
 unsigned __int16* __cdecl sub_43BC10(wchar_t* a1, unsigned __int8 a2) {
