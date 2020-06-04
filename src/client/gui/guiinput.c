@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1321252;
 extern _DWORD dword_5d4594_1321232;
 extern _DWORD dword_5d4594_1321248;
 extern _DWORD dword_5d4594_1321244;
@@ -151,7 +152,7 @@ int __cdecl sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 		} else if (a2 == 16400) {
 			v5 = *(_DWORD*)(a3 + 32);
 			if ((int)*(_DWORD*)(v5 + 48) >= 0) {
-				*(_DWORD*)&byte_5D4594[1321252] = a3;
+				dword_5d4594_1321252 = a3;
 				v9 = nox_window_call_field_94(*(int*)&byte_5D4594[1321240], 16406, *(_DWORD*)(v5 + 48),
 							      0);
 				v6 = loadString_sub_40F1D0((char*)&byte_587000[185404], 0,
