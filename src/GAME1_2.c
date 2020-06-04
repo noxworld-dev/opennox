@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_814624;
 extern _DWORD dword_5d4594_3801804;
 extern _DWORD dword_5d4594_528256;
 extern _DWORD dword_5d4594_3798816;
@@ -9358,8 +9359,8 @@ int __cdecl sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4) {
 				nox_window_call_field_94(*(int*)&dword_5d4594_815032, 16403, a4, 0);
 				if (a4 < *(int*)&byte_5D4594[815088]) {
 					v8 = *nox_client_getMousePos_4309F0();
-					*(_DWORD*)&byte_5D4594[814624] = sub_4A04C0(a4);
-					sub_439370(&v8, *(int*)&byte_5D4594[814624]);
+					dword_5d4594_814624 = sub_4A04C0(a4);
+					sub_439370(&v8, *(int*)&dword_5d4594_814624);
 				}
 			}
 		} else if (a2 == 16403 || a2 == 16412) {
@@ -9749,7 +9750,7 @@ void __cdecl sub_43AFC0(int a1) {
 		sub_43A920();
 		v10.field_0 = *((__int16*)v1 + 22) + 216;
 		v10.field_4 = *((__int16*)v1 + 23) + 27;
-		*(_DWORD*)&byte_5D4594[814624] = v1;
+		dword_5d4594_814624 = v1;
 		sub_439370(&v10, (int)v1);
 		sub_430B10_set_mouse_pos(v10.field_0, v10.field_4);
 		return;
@@ -9765,7 +9766,7 @@ void __cdecl sub_43AFC0(int a1) {
 	v7 = *(_DWORD*)(v4 + 24);
 	v8 = *(__int16*)(v4 + 54);
 	v9 = *(_DWORD*)(v7 + 4 * v6);
-	*(_DWORD*)&byte_5D4594[814624] = v1;
+	dword_5d4594_814624 = v1;
 	v10.field_4 = v9 - v8 + v5 + 27;
 	sub_439370(&v10, (int)v1);
 	sub_430B10_set_mouse_pos(v10.field_0, v10.field_4);
@@ -9854,7 +9855,7 @@ unsigned int sub_43B300() {
 	unsigned int result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[815056])
-		result = inet_addr((const char*)(*(_DWORD*)&byte_5D4594[814624] + 12));
+		result = inet_addr((const char*)(dword_5d4594_814624 + 12));
 	else
 		result = 0;
 	return result;
@@ -9868,7 +9869,7 @@ int sub_43B340() {
 	int result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[815056])
-		result = *(unsigned __int16*)(*(_DWORD*)&byte_5D4594[814624] + 163);
+		result = *(unsigned __int16*)(dword_5d4594_814624 + 163);
 	else
 		result = 0;
 	return result;
@@ -9884,8 +9885,8 @@ int sub_43B360() // client connecting draw handler
 
 	sub_40A4D0(4);
 	nox_common_gameFlags_unset_40A540(1);
-	v0 = (char*)(*(_DWORD*)&byte_5D4594[814624] + 12);
-	if (!memcmp((const void*)(*(_DWORD*)&byte_5D4594[814624] + 12), &byte_5D4594[815116], 1u)) {
+	v0 = (char*)(dword_5d4594_814624 + 12);
+	if (!memcmp((const void*)(dword_5d4594_814624 + 12), &byte_5D4594[815116], 1u)) {
 		sub_435720((char*)&byte_587000[90828]);
 	} else {
 		v1 = sub_43B320();
@@ -9894,7 +9895,7 @@ int sub_43B360() // client connecting draw handler
 		sub_435720(v0);
 	}
 	nox_common_writecfgfile((char*)&byte_587000[90848]);
-	v2 = *(_BYTE*)(*(_DWORD*)&byte_5D4594[814624] + 102);
+	v2 = *(_BYTE*)(dword_5d4594_814624 + 102);
 	nox_video_mode* v3;
 	if (v2 < 0 && (v3 = sub_43BE80_video_mode_by_id(v2 & 0x7F)) != 0)
 		sub_430C30_set_video_max(v3->width, v3->height);
