@@ -1,6 +1,7 @@
 #include "guivote.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1197312;
 
 //----- (0048CB10) --------------------------------------------------------
 _DWORD* __cdecl sub_48CB10(int a1) {
@@ -48,7 +49,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 		}
 		nox_window_set_hidden(*(int*)&byte_5D4594[1197316], 1);
 		nox_window_set_hidden(*(int*)&byte_5D4594[1197320], 0);
-		v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1197312], 4301);
+		v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1197312, 4301);
 		v4 = loadString_sub_40F1D0((char*)&byte_587000[156632], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					   465);
 		sub_46AEE0((int)v3, (int)v4);
@@ -68,11 +69,11 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 					   476);
 		nox_wcscat(v27, v8);
 		nox_window_call_field_94(*(int*)&byte_5D4594[1197320], 16397, (int)v27, 4);
-		return (_DWORD*)sub_46A8C0(*(int*)&byte_5D4594[1197312]);
+		return (_DWORD*)sub_46A8C0(*(int*)&dword_5d4594_1197312);
 	case 2:
 		nox_window_set_hidden(*(int*)&byte_5D4594[1197316], 1);
 		nox_window_set_hidden(*(int*)&byte_5D4594[1197320], 0);
-		v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1197312], 4301);
+		v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1197312, 4301);
 		v10 = loadString_sub_40F1D0((char*)&byte_587000[156900], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					    491);
 		sub_46AEE0((int)v9, (int)v10);
@@ -86,13 +87,13 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 			nox_window_call_field_94(*(int*)&byte_5D4594[1197320], 16403, 0, 0);
 		else
 			nox_window_call_field_94(*(int*)&byte_5D4594[1197320], 16403, 1, 0);
-		return (_DWORD*)sub_46A8C0(*(int*)&byte_5D4594[1197312]);
+		return (_DWORD*)sub_46A8C0(*(int*)&dword_5d4594_1197312);
 	case 0:
 	case 1:
 	case 3:
 		nox_window_set_hidden(*(int*)&byte_5D4594[1197316], 0);
 		nox_window_set_hidden(*(int*)&byte_5D4594[1197320], 1);
-		v13 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1197312], 4301);
+		v13 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1197312, 4301);
 		v14 = loadString_sub_40F1D0((char*)&byte_587000[157056], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					    520);
 		sub_46AEE0((int)v13, (int)v14);
@@ -152,7 +153,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 				}
 			}
 		}
-		return (_DWORD*)sub_46A8C0(*(int*)&byte_5D4594[1197312]);
+		return (_DWORD*)sub_46A8C0(*(int*)&dword_5d4594_1197312);
 	}
 	return result;
 }
