@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_3632;
 extern _DWORD dword_5d4594_3624;
 extern _DWORD dword_5d4594_528256;
 extern _DWORD dword_5d4594_371692;
@@ -2441,11 +2442,11 @@ void* __cdecl sub_40B890(int a1) {
 	}
 	result = nox_malloc(160 * *(unsigned __int16*)&byte_5D4594[4660]);
 	v2 = 0;
-	*(_DWORD*)&byte_5D4594[3632] = result;
+	dword_5d4594_3632 = result;
 	if (*(_WORD*)&byte_5D4594[4660]) {
 		v3 = 0;
 		do {
-			sub_40B930(v3 + *(_DWORD*)&byte_5D4594[3632]);
+			sub_40B930(v3 + dword_5d4594_3632);
 			++v2;
 			result = (void*)*(unsigned __int16*)&byte_5D4594[4660];
 			v3 += 160;
@@ -2492,8 +2493,8 @@ void sub_40B970() {
 		v7 = 0;
 		if (*(_WORD*)&byte_5D4594[4660] > 0u) {
 			do {
-				v1 = *(_DWORD*)&byte_5D4594[3632] + v0;
-				if (*(_WORD*)(*(_DWORD*)&byte_5D4594[3632] + v0 + 6) == 2) {
+				v1 = dword_5d4594_3632 + v0;
+				if (*(_WORD*)(dword_5d4594_3632 + v0 + 6) == 2) {
 					v2 = *(_DWORD*)(v1 + 152);
 					v3 = 0;
 					if (v2) {
@@ -2614,11 +2615,11 @@ char* __cdecl sub_40BC10(int a1, char a2) {
 	v2 = 0;
 	if ((int)*(unsigned __int16*)&byte_5D4594[4660] <= 0)
 		return 0;
-	for (i = *(_DWORD*)&byte_5D4594[3632]; *(_DWORD*)i != a1 || *(_BYTE*)(i + 4) != a2; i += 160) {
+	for (i = dword_5d4594_3632; *(_DWORD*)i != a1 || *(_BYTE*)(i + 4) != a2; i += 160) {
 		if (++v2 >= *(unsigned __int16*)&byte_5D4594[4660])
 			return 0;
 	}
-	return (char*)(*(_DWORD*)&byte_5D4594[3632] + 160 * v2);
+	return (char*)(dword_5d4594_3632 + 160 * v2);
 }
 
 //----- (0040BC60) --------------------------------------------------------
@@ -2745,12 +2746,12 @@ char* __cdecl sub_40BF10(_BYTE* a1) {
 	v1 = 0;
 	if ((int)*(unsigned __int16*)&byte_5D4594[4660] <= 0)
 		return 0;
-	for (i = (_DWORD*)(*(_DWORD*)&byte_5D4594[3632] + 8); *((_WORD*)i - 1) || *i; i += 40) {
+	for (i = (_DWORD*)(dword_5d4594_3632 + 8); *((_WORD*)i - 1) || *i; i += 40) {
 		if (++v1 >= *(unsigned __int16*)&byte_5D4594[4660])
 			return 0;
 	}
 	*a1 = v1;
-	return (char*)(*(_DWORD*)&byte_5D4594[3632] + 160 * v1);
+	return (char*)(dword_5d4594_3632 + 160 * v1);
 }
 
 //----- (0040BF60) --------------------------------------------------------
@@ -2792,7 +2793,7 @@ char* __cdecl sub_40BFF0(int a1, char a2, char* a3) {
 
 	result = a3;
 	if ((unsigned __int8)a3 < (unsigned int)*(_WORD*)&byte_5D4594[4660]) {
-		result = (char*)(*(_DWORD*)&byte_5D4594[3632] + 160 * (unsigned __int8)a3);
+		result = (char*)(dword_5d4594_3632 + 160 * (unsigned __int8)a3);
 		result[4] = a2;
 		*((_WORD*)result + 3) = 2;
 	}
@@ -2840,7 +2841,7 @@ char* __cdecl sub_40C070(int a1, int a2, char a3) {
 }
 
 //----- (0040C0D0) --------------------------------------------------------
-void sub_40C0D0() { free(*(LPVOID*)&byte_5D4594[3632]); }
+void sub_40C0D0() { free(*(LPVOID*)&dword_5d4594_3632); }
 
 //----- (0040C0E0) --------------------------------------------------------
 void __cdecl sub_40C0E0(int a1) {
@@ -2850,12 +2851,12 @@ void __cdecl sub_40C0E0(int a1) {
 
 	v1 = 0;
 	if (*(_WORD*)&byte_5D4594[4660]) {
-		v2 = *(_DWORD*)&byte_5D4594[3632];
+		v2 = dword_5d4594_3632;
 		v3 = 0;
 		do {
 			if (*(_WORD*)(v3 + v2 + 6) == 2 && *(_DWORD*)(v3 + v2) == a1) {
 				sub_40BB20(*(_DWORD*)(v3 + v2), *(_BYTE*)(v3 + v2 + 4), 1);
-				v2 = *(_DWORD*)&byte_5D4594[3632];
+				v2 = dword_5d4594_3632;
 			}
 			++v1;
 			v3 += 160;
