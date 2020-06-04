@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_2388648;
 extern _DWORD dword_5d4594_1599640;
 extern _DWORD dword_5d4594_1548476;
 extern _DWORD dword_5d4594_2487236;
@@ -1722,7 +1723,7 @@ void sub_519990() {
 	int v0;              // edi
 	unsigned __int8* v1; // esi
 
-	if (*(_DWORD*)&byte_5D4594[2388648]) {
+	if (dword_5d4594_2388648) {
 		if (!*(_DWORD*)&byte_5D4594[2388644])
 			sub_519EB0_net_mapsend();
 		v0 = 0;
