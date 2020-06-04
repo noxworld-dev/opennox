@@ -5,6 +5,7 @@
 #include "../gamewin/gamewin.h"
 #include "playrlst.h"
 
+extern _DWORD dword_5d4594_1046508;
 extern _DWORD dword_5d4594_1046496;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1046492;
@@ -76,7 +77,7 @@ int sub_457500() {
 		dword_5d4594_1046496 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10114);
 		*(_DWORD*)&byte_5D4594[1046500] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10183);
 		*(_DWORD*)&byte_5D4594[1046504] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10197);
-		*(_DWORD*)&byte_5D4594[1046508] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10199);
+		dword_5d4594_1046508 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10199);
 		*(_DWORD*)&byte_5D4594[1046524] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10150);
 		*(_DWORD*)&byte_5D4594[1046516] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10134);
 		*(_DWORD*)&byte_5D4594[1046520] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10135);
@@ -90,13 +91,13 @@ int sub_457500() {
 		sub_46B280(*(int*)&byte_5D4594[1046536], *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&byte_5D4594[1046500], *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&byte_5D4594[1046504], *(int*)&dword_5d4594_1046492);
-		sub_46B280(*(int*)&byte_5D4594[1046508], *(int*)&dword_5d4594_1046492);
+		sub_46B280(*(int*)&dword_5d4594_1046508, *(int*)&dword_5d4594_1046492);
 		sub_46B2C0(*(int*)&byte_5D4594[1046524], sub_4585D0);
 		sub_46B2C0(*(int*)&byte_5D4594[1046532], sub_4585D0);
 		sub_46B2C0(*(int*)&byte_5D4594[1046536], sub_4585D0);
 		sub_46B2C0(*(int*)&byte_5D4594[1046500], sub_4585D0);
 		sub_46B2C0(*(int*)&byte_5D4594[1046504], sub_4585D0);
-		sub_46B2C0(*(int*)&byte_5D4594[1046508], sub_4585D0);
+		sub_46B2C0(*(int*)&dword_5d4594_1046508, sub_4585D0);
 		*(_DWORD*)&byte_5D4594[1046352] = sub_42F970("UITabs1");
 		*(_DWORD*)&byte_5D4594[1046356] = sub_42F970("UITabs2");
 		*(_DWORD*)&byte_5D4594[1046360] = sub_42F970("UITabs3");
@@ -136,7 +137,7 @@ int sub_457500() {
 			sub_46B000(v10 + 18, v12);
 			v13 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10149);
 			nox_window_set_hidden((int)v13, 0);
-			nox_window_set_hidden(*(int*)&byte_5D4594[1046508], 1);
+			nox_window_set_hidden(*(int*)&dword_5d4594_1046508, 1);
 			sub_46ACE0(*(_DWORD**)&dword_5d4594_1046492, 10145, 10146, 1);
 		}
 		if (*(_DWORD*)&byte_587000[129656]) {
@@ -569,7 +570,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4) {
 			if (sub_417DA0(4)) {
 				sub_418690(0);
 				sub_419030(1);
-				sub_46AD20(*(_DWORD**)&byte_5D4594[1046508], 10331, 10333, 0);
+				sub_46AD20(*(_DWORD**)&dword_5d4594_1046508, 10331, 10333, 0);
 				result = 1;
 			} else {
 				sub_4185B0();
@@ -577,7 +578,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4) {
 					sub_4181F0(0);
 				else
 					sub_418690(1);
-				sub_46AD20(*(_DWORD**)&byte_5D4594[1046508], 10331, 10333, 1);
+				sub_46AD20(*(_DWORD**)&dword_5d4594_1046508, 10331, 10333, 1);
 				result = 1;
 			}
 			return result;
