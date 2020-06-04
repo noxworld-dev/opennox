@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_832484;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -394,38 +395,38 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v6 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[124596], 0,
 					     "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 792);
 	sub_434390(*(int*)&byte_5D4594[2614256]);
-	sub_43F6E0(*(int*)&byte_5D4594[832484], v6, v34.field_0, v34.field_4);
-	sub_43F840(*(int*)&byte_5D4594[832484], (unsigned __int16*)v6, &v27, 0, 0);
+	sub_43F6E0(*(int*)&dword_5d4594_832484, v6, v34.field_0, v34.field_4);
+	sub_43F840(*(int*)&dword_5d4594_832484, (unsigned __int16*)v6, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
 	sub_434390(*(int*)&byte_5D4594[2523948]);
 	v7 = loadString_sub_40F1D0((char*)&byte_587000[124664], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 799);
-	sub_43FAF0(*(int*)&byte_5D4594[832484], v7, v34.field_0, v34.field_4, v3 - v34.field_0 + 520, 0);
+	sub_43FAF0(*(int*)&dword_5d4594_832484, v7, v34.field_0, v34.field_4, v3 - v34.field_0 + 520, 0);
 	v34.field_0 = v3 + 565;
 	v34.field_4 = v4 + 117;
 	sub_473A10(v2, &v34, (_DWORD*)(*(_DWORD*)&byte_5D4594[832496] + 12));
 	(*(void(__cdecl**)(char*, _DWORD))(*(_DWORD*)&byte_5D4594[832496] + 300))(v2, *(_DWORD*)&byte_5D4594[832496]);
 	v29 = loadString_sub_40F1D0((char*)&byte_587000[124732], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 809);
-	sub_43F840(*(int*)&byte_5D4594[832484], v29, &v27, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v29, &v27, 0, 0);
 	v30 = loadString_sub_40F1D0((char*)&byte_587000[124800], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 811);
-	sub_43F840(*(int*)&byte_5D4594[832484], v30, &v28, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v30, &v28, 0, 0);
 	v8 = v3 + 520;
 	if (v28 + v27 <= 390) {
 		v34.field_4 = v4 + 115;
 		v34.field_0 = v8 - v28 - v27 - 4;
 		sub_434390(*(int*)&byte_5D4594[2614256]);
-		sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v29, v34.field_0, v34.field_4);
+		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 = v8 - v28;
 		v34.field_4 = v4 + 115;
 		sub_434390(*(int*)&byte_5D4594[2523948]);
-		sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v30, v34.field_0, v34.field_4);
+		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v30, v34.field_0, v34.field_4);
 	} else {
 		v34.field_0 = v3 + 199;
 		v34.field_4 = v4 + 115;
 		sub_434390(*(int*)&byte_5D4594[2614256]);
-		sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v29, v34.field_0, v34.field_4);
+		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 += v27 + 4;
 		sub_434390(*(int*)&byte_5D4594[2523948]);
-		sub_43FAF0(*(int*)&byte_5D4594[832484], v30, v34.field_0, v34.field_4, v8 - v34.field_0, 0);
+		sub_43FAF0(*(int*)&dword_5d4594_832484, v30, v34.field_0, v34.field_4, v8 - v34.field_0, 0);
 	}
 	v34.field_0 = v3 + 133;
 	v34.field_4 = v4 + 192;
@@ -436,38 +437,38 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v9 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[124868], 0,
 					     "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 862);
 	sub_434390(*(int*)&byte_5D4594[2614256]);
-	sub_43F6E0(*(int*)&byte_5D4594[832484], v9, v34.field_0, v34.field_4);
-	sub_43F840(*(int*)&byte_5D4594[832484], (unsigned __int16*)v9, &v27, 0, 0);
+	sub_43F6E0(*(int*)&dword_5d4594_832484, v9, v34.field_0, v34.field_4);
+	sub_43F840(*(int*)&dword_5d4594_832484, (unsigned __int16*)v9, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
 	sub_434390(*(int*)&byte_5D4594[2523948]);
 	v10 = loadString_sub_40F1D0((char*)&byte_587000[124936], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 869);
-	sub_43FAF0(*(int*)&byte_5D4594[832484], v10, v34.field_0, v34.field_4, v4 - v34.field_0 + 630, 0);
+	sub_43FAF0(*(int*)&dword_5d4594_832484, v10, v34.field_0, v34.field_4, v4 - v34.field_0 + 630, 0);
 	v34.field_0 = v3 + 525;
 	v34.field_4 = v4 + 222;
 	sub_473A10(v2, &v34, (_DWORD*)(*(_DWORD*)&byte_5D4594[832500] + 12));
 	(*(void(__cdecl**)(char*, _DWORD))(*(_DWORD*)&byte_5D4594[832500] + 300))(v2, *(_DWORD*)&byte_5D4594[832500]);
 	v29 = loadString_sub_40F1D0((char*)&byte_587000[125004], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 879);
-	sub_43F840(*(int*)&byte_5D4594[832484], v29, &v27, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v29, &v27, 0, 0);
 	v30 = loadString_sub_40F1D0((char*)&byte_587000[125072], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 881);
-	sub_43F840(*(int*)&byte_5D4594[832484], v30, &v28, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v30, &v28, 0, 0);
 	v11 = v3 + 500;
 	if (v28 + v27 <= 215) {
 		v34.field_4 = v4 + 198;
 		v34.field_0 = v11 - v28 - v27 - 4;
 		sub_434390(*(int*)&byte_5D4594[2614256]);
-		sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v29, v34.field_0, v34.field_4);
+		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 = v11 - v28;
 		v34.field_4 = v4 + 198;
 		sub_434390(*(int*)&byte_5D4594[2523948]);
-		sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v30, v34.field_0, v34.field_4);
+		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v30, v34.field_0, v34.field_4);
 	} else {
 		v34.field_0 = v3 + 250;
 		v34.field_4 = v4 + 198;
 		sub_434390(*(int*)&byte_5D4594[2614256]);
-		sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v29, v34.field_0, v34.field_4);
+		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 += v27 + 4;
 		sub_434390(*(int*)&byte_5D4594[2523948]);
-		sub_43FAF0(*(int*)&byte_5D4594[832484], v30, v34.field_0, v34.field_4, v11 - v34.field_0, 0);
+		sub_43FAF0(*(int*)&dword_5d4594_832484, v30, v34.field_0, v34.field_4, v11 - v34.field_0, 0);
 	}
 	v34.field_0 = v3 + 182;
 	v34.field_4 = v4 + 262;
@@ -486,12 +487,12 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v12 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[125140], 0,
 					      "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 942);
 	sub_434390(*(int*)&byte_5D4594[2614256]);
-	sub_43F6E0(*(int*)&byte_5D4594[832484], v12, v34.field_0, v34.field_4);
-	sub_43F840(*(int*)&byte_5D4594[832484], (unsigned __int16*)v12, &v27, 0, 0);
+	sub_43F6E0(*(int*)&dword_5d4594_832484, v12, v34.field_0, v34.field_4);
+	sub_43F840(*(int*)&dword_5d4594_832484, (unsigned __int16*)v12, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
 	sub_434390(*(int*)&byte_5D4594[2523948]);
 	v13 = loadString_sub_40F1D0((char*)&byte_587000[125208], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 949);
-	sub_43FAF0(*(int*)&byte_5D4594[832484], v13, v34.field_0, v34.field_4, v3 - v34.field_0 + 470, 0);
+	sub_43FAF0(*(int*)&dword_5d4594_832484, v13, v34.field_0, v34.field_4, v3 - v34.field_0 + 470, 0);
 	v34.field_0 = v3 + 484;
 	v34.field_4 = v4 + 278;
 	sub_473A10(v2, &v34, (_DWORD*)(*(_DWORD*)&byte_5D4594[832516] + 12));
@@ -501,27 +502,27 @@ int __cdecl sub_44F300(int a1, int a2) {
 	sub_473A10(v2, &v34, (_DWORD*)(*(_DWORD*)&byte_5D4594[832520] + 12));
 	(*(void(__cdecl**)(char*, _DWORD))(*(_DWORD*)&byte_5D4594[832520] + 300))(v2, *(_DWORD*)&byte_5D4594[832520]);
 	v29 = loadString_sub_40F1D0((char*)&byte_587000[125276], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 964);
-	sub_43F840(*(int*)&byte_5D4594[832484], v29, &v27, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v29, &v27, 0, 0);
 	v30 = loadString_sub_40F1D0((char*)&byte_587000[125344], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 966);
-	sub_43F840(*(int*)&byte_5D4594[832484], v30, &v28, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v30, &v28, 0, 0);
 	v14 = v3 + 462;
 	if (v28 + v27 <= 350) {
 		v34.field_4 = v4 + 286;
 		v34.field_0 = v14 - v28 - v27 - 4;
 		sub_434390(*(int*)&byte_5D4594[2614256]);
-		sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v29, v34.field_0, v34.field_4);
+		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 = v14 - v28;
 		v34.field_4 = v4 + 286;
 		sub_434390(*(int*)&byte_5D4594[2523948]);
-		sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v30, v34.field_0, v34.field_4);
+		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v30, v34.field_0, v34.field_4);
 	} else {
 		v34.field_0 = v3 + 113;
 		v34.field_4 = v4 + 286;
 		sub_434390(*(int*)&byte_5D4594[2614256]);
-		sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v29, v34.field_0, v34.field_4);
+		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 += v27 + 4;
 		sub_434390(*(int*)&byte_5D4594[2523948]);
-		sub_43FAF0(*(int*)&byte_5D4594[832484], v30, v34.field_0, v34.field_4, v14 - v34.field_0, 0);
+		sub_43FAF0(*(int*)&dword_5d4594_832484, v30, v34.field_0, v34.field_4, v14 - v34.field_0, 0);
 	}
 	v34.field_0 = v3 + 186;
 	v34.field_4 = v4 + 333;
@@ -540,45 +541,45 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v15 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[125412], 0,
 					      "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1027);
 	sub_434390(*(int*)&byte_5D4594[2614256]);
-	sub_43F6E0(*(int*)&byte_5D4594[832484], v15, v34.field_0, v34.field_4);
-	sub_43F840(*(int*)&byte_5D4594[832484], (unsigned __int16*)v15, &v27, 0, 0);
+	sub_43F6E0(*(int*)&dword_5d4594_832484, v15, v34.field_0, v34.field_4);
+	sub_43F840(*(int*)&dword_5d4594_832484, (unsigned __int16*)v15, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
 	sub_434390(*(int*)&byte_5D4594[2523948]);
 	v16 = loadString_sub_40F1D0((char*)&byte_587000[125480], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1034);
-	sub_43FAF0(*(int*)&byte_5D4594[832484], v16, v34.field_0, v34.field_4, v3 - v34.field_0 + 550, 0);
+	sub_43FAF0(*(int*)&dword_5d4594_832484, v16, v34.field_0, v34.field_4, v3 - v34.field_0 + 550, 0);
 	v17 = loadString_sub_40F1D0((char*)&byte_587000[125548], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1040);
 	v18 = loadString_sub_40F1D0((char*)&byte_587000[125616], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1041);
-	sub_43F840(*(int*)&byte_5D4594[832484], v17, &v27, 0, 0);
-	sub_43F840(*(int*)&byte_5D4594[832484], v18, &v28, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v17, &v27, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v18, &v28, 0, 0);
 	v34.field_0 = v3 - (v27 + v28) / 2 + 320;
 	v34.field_4 = v4 + 370;
 	sub_434390(*(int*)&byte_5D4594[2614256]);
-	sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v17, v34.field_0, v34.field_4);
+	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v17, v34.field_0, v34.field_4);
 	v34.field_0 += v27 + 4;
 	sub_434390(*(int*)&byte_5D4594[2523948]);
-	sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v18, v34.field_0, v34.field_4);
+	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v18, v34.field_0, v34.field_4);
 	v19 = loadString_sub_40F1D0((char*)&byte_587000[125684], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1055);
 	v20 = loadString_sub_40F1D0((char*)&byte_587000[125752], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1056);
-	sub_43F840(*(int*)&byte_5D4594[832484], v19, &v27, 0, 0);
-	sub_43F840(*(int*)&byte_5D4594[832484], v20, &v28, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v19, &v27, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v20, &v28, 0, 0);
 	v34.field_0 = v3 - (v28 + v27) / 2 + 320;
 	v34.field_4 = v4 + 395;
 	sub_434390(*(int*)&byte_5D4594[2614256]);
-	sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v19, v34.field_0, v34.field_4);
+	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v19, v34.field_0, v34.field_4);
 	v34.field_0 += v27 + 4;
 	sub_434390(*(int*)&byte_5D4594[2523948]);
-	sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v20, v34.field_0, v34.field_4);
+	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v20, v34.field_0, v34.field_4);
 	v21 = loadString_sub_40F1D0((char*)&byte_587000[125820], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1070);
 	v22 = loadString_sub_40F1D0((char*)&byte_587000[125888], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1071);
-	sub_43F840(*(int*)&byte_5D4594[832484], v21, &v27, 0, 0);
-	sub_43F840(*(int*)&byte_5D4594[832484], v22, &v28, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v21, &v27, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v22, &v28, 0, 0);
 	v34.field_0 = v3 - (v28 + v27) / 2 + 320;
 	v34.field_4 = v4 + 420;
 	sub_434390(*(int*)&byte_5D4594[2614256]);
-	sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v21, v34.field_0, v34.field_4);
+	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v21, v34.field_0, v34.field_4);
 	v34.field_0 += v27 + 4;
 	sub_434390(*(int*)&byte_5D4594[2523948]);
-	sub_43F6E0(*(int*)&byte_5D4594[832484], (__int16*)v22, v34.field_0, v34.field_4);
+	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v22, v34.field_0, v34.field_4);
 	result = *(_DWORD*)&byte_5D4594[2598000] / 0x1Eu;
 	if (*(_DWORD*)&byte_5D4594[2598000] % 0x1Eu) {
 		if (*(_DWORD*)&byte_587000[123012] != 1)
@@ -593,7 +594,7 @@ int __cdecl sub_44F300(int a1, int a2) {
 	}
 	v24 = *(_DWORD*)&byte_5D4594[2523948];
 	v25 = loadString_sub_40F1D0((char*)&byte_587000[125956], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1097);
-	sub_43F840(*(int*)&byte_5D4594[832484], v25, &v27, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_832484, v25, &v27, 0, 0);
 	v34.field_4 = v4 + 450;
 	v34.field_0 = v3 - v27 / 2 + 320;
 	sub_434390(v24);
