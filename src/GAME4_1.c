@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2388648;
 extern _DWORD dword_5d4594_3821636;
 extern _DWORD dword_5d4594_3821640;
 extern _DWORD dword_5d4594_2386152;
@@ -11758,7 +11759,7 @@ int sub_519870() {
 	*(_WORD*)&byte_5D4594[2388636] = 0;
 	*(_WORD*)&byte_5D4594[2388638] = 0;
 	*(_DWORD*)&byte_5D4594[2388640] = 0;
-	*(_DWORD*)&byte_5D4594[2388648] = 0;
+	dword_5d4594_2388648 = 0;
 	do {
 		result = sub_519830((int)v1, v0);
 		v1 += 48;
@@ -11825,7 +11826,7 @@ _DWORD* __cdecl sub_519E80(int a1) {
 LPVOID sub_51A100() {
 	LPVOID result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[2388648])
+	if (dword_5d4594_2388648)
 		sub_5198B0(0);
 	result = *(LPVOID*)&byte_5D4594[2388640];
 	if (*(_DWORD*)&byte_5D4594[2388640])
@@ -11835,7 +11836,7 @@ LPVOID sub_51A100() {
 }
 
 //----- (0051A130) --------------------------------------------------------
-int sub_51A130() { return *(_DWORD*)&byte_5D4594[2388648]; }
+int sub_51A130() { return dword_5d4594_2388648; }
 
 //----- (0051A140) --------------------------------------------------------
 BOOL __cdecl sub_51A140(int a1) {
