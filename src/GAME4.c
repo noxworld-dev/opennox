@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3821640;
 extern _DWORD dword_5d4594_1599540;
 extern _DWORD dword_5d4594_1599640;
 extern _DWORD dword_5d4594_1569752;
@@ -11553,7 +11554,7 @@ double __cdecl sub_507280(float** a1) {
 LPVOID sub_507290() {
 	LPVOID result; // eax
 
-	*(_DWORD*)&byte_5D4594[3821640] = 0;
+	dword_5d4594_3821640 = 0;
 	byte_5D4594[3821644] = byte_5D4594[1599668];
 	result = *(LPVOID*)&dword_5d4594_1599636;
 	*(_DWORD*)&byte_5D4594[3821636] = 0;
@@ -12451,11 +12452,11 @@ int __cdecl nox_server_scriptCallBuiltinFn_508B70(int a1, int a2) {
 		strcpy((char*)&byte_5D4594[3821644], *(const char**)(v2 + dword_5d4594_1599636 + 36));
 	if (sub_508C70(a2)) {
 		*(_DWORD*)&byte_5D4594[3821636] = *(_DWORD*)(v2 + dword_5d4594_1599636 + 40);
-		*(_DWORD*)&byte_5D4594[3821640] = *(_DWORD*)(v2 + dword_5d4594_1599636 + 44);
+		dword_5d4594_3821640 = *(_DWORD*)(v2 + dword_5d4594_1599636 + 44);
 	}
 	result = (*(int(__cdecl**)()) & byte_587000[4 * a2 + 245900])();
 	byte_5D4594[3821644] = byte_5D4594[1599672];
-	*(_DWORD*)&byte_5D4594[3821640] = 0;
+	dword_5d4594_3821640 = 0;
 	*(_DWORD*)&byte_5D4594[3821636] = 0;
 	return result;
 }
