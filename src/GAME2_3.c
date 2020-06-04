@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_166704;
 extern _DWORD dword_5d4594_1197324;
 extern _DWORD dword_5d4594_1217456;
 extern _DWORD dword_5d4594_1301800;
@@ -9693,7 +9694,7 @@ int __cdecl sub_4A0030(const void* a1) {
 	v1 = nox_calloc(1u, 0xA9u);
 	qmemcpy(v1, a1, 0xA9u);
 	v2 = 0;
-	switch (*(_DWORD*)&byte_587000[166704]) {
+	switch (dword_587000_166704) {
 	case 0:
 		if (*(unsigned __int8**)&byte_5D4594[1305800] == &byte_5D4594[1305796])
 			return sub_425790((int*)&byte_5D4594[1305796], v1);
@@ -9791,21 +9792,21 @@ int __cdecl sub_4A0290(int a1) {
 	result = a1 - 10047;
 	switch (a1) {
 	case 10047:
-		result = *(_DWORD*)&byte_587000[166704];
-		*(_DWORD*)&byte_587000[166704] = *(_DWORD*)&byte_587000[166704] == 0;
+		result = dword_587000_166704;
+		dword_587000_166704 = dword_587000_166704 == 0;
 		break;
 	case 10048:
-		*(_DWORD*)&byte_587000[166704] = (*(_DWORD*)&byte_587000[166704] == 2) + 2;
+		dword_587000_166704 = (dword_587000_166704 == 2) + 2;
 		break;
 	case 10049:
-		result = (*(_DWORD*)&byte_587000[166704] == 4) + 4;
-		*(_DWORD*)&byte_587000[166704] = (*(_DWORD*)&byte_587000[166704] == 4) + 4;
+		result = (dword_587000_166704 == 4) + 4;
+		dword_587000_166704 = (dword_587000_166704 == 4) + 4;
 		break;
 	case 10050:
-		*(_DWORD*)&byte_587000[166704] = (*(_DWORD*)&byte_587000[166704] == 6) + 6;
+		dword_587000_166704 = (dword_587000_166704 == 6) + 6;
 		break;
 	case 10051:
-		*(_DWORD*)&byte_587000[166704] = (*(_DWORD*)&byte_587000[166704] == 8) + 8;
+		dword_587000_166704 = (dword_587000_166704 == 8) + 8;
 		break;
 	default:
 		return result;
@@ -9941,7 +9942,7 @@ void __cdecl sub_4A0540(LPVOID lpMem) {
 }
 
 //----- (004A0560) --------------------------------------------------------
-int sub_4A0560() { return *(_DWORD*)&byte_587000[166704]; }
+int sub_4A0560() { return dword_587000_166704; }
 
 //----- (004A0570) --------------------------------------------------------
 int __cdecl sub_4A0570(int* a1, char* a2) {
