@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599660;
 extern _DWORD dword_5d4594_1599564;
 extern _DWORD dword_5d4594_3835396;
 extern _DWORD dword_5d4594_1599588;
@@ -8148,7 +8149,7 @@ unsigned __int8* __cdecl sub_502490(int* a1, int a2, int a3) {
 		LOBYTE(v3) = v3 | 1;
 		*a1 = v3;
 	}
-	if (*(_DWORD*)&byte_5D4594[1599660]) {
+	if (dword_5d4594_1599660) {
 		sub_5025A0((int)a1, a2, a3);
 		result = &byte_5D4594[1599076];
 	} else {
@@ -8156,7 +8157,7 @@ unsigned __int8* __cdecl sub_502490(int* a1, int a2, int a3) {
 		if (*(_DWORD*)(48 * a1[1] + dword_5d4594_1599636 + 4))
 			*(_DWORD*)&byte_5D4594[1599076] = script_pop();
 		v6 = *(_DWORD*)&byte_5D4594[1599624];
-		*(_DWORD*)&byte_5D4594[1599660] = 0;
+		dword_5d4594_1599660 = 0;
 		if (*(_DWORD*)&byte_5D4594[1599624] < *(int*)&byte_5D4594[1599632]) {
 			v7 = (LPVOID*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1599624] + 3831212];
 			do {
@@ -11520,10 +11521,10 @@ int __cdecl sub_5071D0(const char* a1) {
 int __cdecl sub_507230(int a1) {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1599660];
-	if (*(int*)&byte_5D4594[1599660] < 1024) {
-		*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1599660] + 3821996] = a1;
-		*(_DWORD*)&byte_5D4594[1599660] = ++result;
+	result = dword_5d4594_1599660;
+	if (*(int*)&dword_5d4594_1599660 < 1024) {
+		*(_DWORD*)&byte_5D4594[4 * dword_5d4594_1599660 + 3821996] = a1;
+		dword_5d4594_1599660 = ++result;
 	}
 	return result;
 }
@@ -11532,9 +11533,9 @@ int __cdecl sub_507230(int a1) {
 int script_pop() {
 	int v0; // eax
 
-	v0 = *(_DWORD*)&byte_5D4594[1599660];
-	if (*(_DWORD*)&byte_5D4594[1599660] > 0)
-		v0 = --*(_DWORD*)&byte_5D4594[1599660];
+	v0 = dword_5d4594_1599660;
+	if (dword_5d4594_1599660 > 0)
+		v0 = --dword_5d4594_1599660;
 	return *(_DWORD*)&byte_5D4594[4 * v0 + 3821996];
 }
 
@@ -11757,7 +11758,7 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 		} while (v6 < *(int*)(dword_5d4594_1599636 + v5 + 8));
 	}
 	v8 = *(_DWORD*)(v4 + v5 + 32);
-	v163 = *(_DWORD*)&byte_5D4594[1599660];
+	v163 = dword_5d4594_1599660;
 	v160 = v8;
 	while (1) {
 		switch (sub_507270((int**)&v160)) {
@@ -12427,18 +12428,18 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 		LABEL_199:
 			v124 = v163;
 			result = *(_DWORD*)(dword_5d4594_1599636 + v5 + 4);
-			if (*(_DWORD*)&byte_5D4594[1599660] != result + v163) {
+			if (dword_5d4594_1599660 != result + v163) {
 				if (result) {
-					if (*(_DWORD*)&byte_5D4594[1599660]) {
+					if (dword_5d4594_1599660) {
 						v126 = script_pop();
-						*(_DWORD*)&byte_5D4594[1599660] = v124;
+						dword_5d4594_1599660 = v124;
 						result = sub_507230(v126);
 					} else {
-						*(_DWORD*)&byte_5D4594[1599660] = v163;
+						dword_5d4594_1599660 = v163;
 						result = sub_507230(0);
 					}
 				} else {
-					*(_DWORD*)&byte_5D4594[1599660] = v163;
+					dword_5d4594_1599660 = v163;
 				}
 			}
 			return result;
