@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1305684;
 extern _DWORD dword_5d4594_1193516;
 extern _DWORD dword_5d4594_1217464;
 extern _DWORD dword_5d4594_3801780;
@@ -6566,19 +6567,19 @@ int __cdecl sub_49CA60(int a1, int a2, int* a3, int a4) {
 		v3 = sub_46B0A0(a3);
 		sub_452D80(766, 100);
 		if (v3 == 10353) {
-			sub_46C6E0(*(int*)&byte_5D4594[1305684]);
-			sub_46ADE0(*(int*)&byte_5D4594[1305684]);
+			sub_46C6E0(*(int*)&dword_5d4594_1305684);
+			sub_46ADE0(*(int*)&dword_5d4594_1305684);
 			if (nox_common_gameFlags_check_40A5C0(128) && *(_DWORD*)&byte_587000[54276])
 				sub_49C560();
 			else
 				sub_459D80(0);
-			v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1305684], 10352);
+			v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1305684, 10352);
 			v5 = nox_window_call_field_94((int)v4, 16404, 0, 0);
 			*(_DWORD*)&byte_5D4594[3596] = v5 + 1;
 			v6 = sub_40A710(v5 + 1);
 			sub_40A6D0(v6);
-			sub_46C4E0(*(_DWORD**)&byte_5D4594[1305684]);
-			*(_DWORD*)&byte_5D4594[1305684] = 0;
+			sub_46C4E0(*(_DWORD**)&dword_5d4594_1305684);
+			dword_5d4594_1305684 = 0;
 			sub_46B500(0);
 		}
 	}
@@ -6586,7 +6587,7 @@ int __cdecl sub_49CA60(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (0049CB40) --------------------------------------------------------
-BOOL sub_49CB40() { return *(_DWORD*)&byte_5D4594[1305684] != 0; }
+BOOL sub_49CB40() { return dword_5d4594_1305684 != 0; }
 
 //----- (0049CB50) --------------------------------------------------------
 int nox_video_initRectDrawingFuncs_49CB50() {
