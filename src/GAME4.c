@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599596;
 extern _DWORD dword_5d4594_3821636;
 extern _DWORD dword_5d4594_1599576;
 extern _DWORD dword_5d4594_3821640;
@@ -8379,10 +8380,10 @@ int __cdecl sub_5029A0(char* a1) {
 	int i;  // esi
 
 	v1 = 0;
-	if (*(int*)&byte_5D4594[1599596] <= 0)
+	if (*(int*)&dword_5d4594_1599596 <= 0)
 		return -1;
 	for (i = 0; _strcmpi(a1, (const char*)(i + dword_5d4594_1599576)); i += 76) {
-		if (++v1 >= *(int*)&byte_5D4594[1599596])
+		if (++v1 >= *(int*)&dword_5d4594_1599596)
 			return -1;
 	}
 	return v1;
@@ -8392,7 +8393,7 @@ int __cdecl sub_5029A0(char* a1) {
 int __cdecl sub_5029F0(int a1) {
 	int result; // eax
 
-	if (a1 < 0 || a1 > *(int*)&byte_5D4594[1599596])
+	if (a1 < 0 || a1 > *(int*)&dword_5d4594_1599596)
 		result = 0;
 	else
 		result = dword_5d4594_1599576 + 76 * a1;
@@ -8400,7 +8401,7 @@ int __cdecl sub_5029F0(int a1) {
 }
 
 //----- (00502A20) --------------------------------------------------------
-int sub_502A20() { return *(_DWORD*)&byte_5D4594[1599596]; }
+int sub_502A20() { return dword_5d4594_1599596; }
 
 //----- (00502A30) --------------------------------------------------------
 BOOL __cdecl sub_502A30(char* a1) {
@@ -8460,7 +8461,7 @@ int sub_502B10() {
 	float v10;    // [esp+24h] [ebp-44h]
 	char v11[64]; // [esp+28h] [ebp-40h]
 
-	*(_DWORD*)&byte_5D4594[1599596] = 0;
+	dword_5d4594_1599596 = 0;
 	if (!*(_DWORD*)&byte_5D4594[1599588])
 		*(_DWORD*)&byte_5D4594[1599588] = nox_malloc(0x800u);
 	if (!*(_DWORD*)&byte_5D4594[1599592])
@@ -8479,26 +8480,26 @@ int sub_502B10() {
 					v1 = v6;
 					if (!v6)
 						break;
-					if (*(_DWORD*)&byte_5D4594[1599596] >= 2048)
+					if (dword_5d4594_1599596 >= 2048)
 						goto LABEL_10;
 					*(_DWORD*)(dword_5d4594_1599576 +
-						   76 * *(_DWORD*)&byte_5D4594[1599596] + 72) = ftell(nox_file_8) - 4;
+						   76 * dword_5d4594_1599596 + 72) = ftell(nox_file_8) - 4;
 					fread(&v7, 1u, 1u, nox_file_8);
 					fread(v11, (unsigned __int8)v7, 1u, nox_file_8);
 					v2 = -1 - (unsigned __int8)v7;
 					v11[(unsigned __int8)v7] = 0;
 					v3 = v2 + v1;
 					strcpy((char*)(dword_5d4594_1599576 +
-						       76 * *(_DWORD*)&byte_5D4594[1599596]),
+						       76 * dword_5d4594_1599596),
 					       v11);
 					fread(&v4, 1u, 1u, nox_file_8);
 					fread(&v5, 1u, 1u, nox_file_8);
 					fread(&v9, 4u, 1u, nox_file_8);
 					fread(&v10, 4u, 1u, nox_file_8);
 					*(float*)(dword_5d4594_1599576 +
-						  76 * *(_DWORD*)&byte_5D4594[1599596] + 64) = v9;
+						  76 * dword_5d4594_1599596 + 64) = v9;
 					*(float*)(dword_5d4594_1599576 +
-						  76 * (*(_DWORD*)&byte_5D4594[1599596])++ + 68) = v10;
+						  76 * (dword_5d4594_1599596)++ + 68) = v10;
 					fseek(nox_file_8, v3 - 10, 1);
 				}
 				sub_502DF0();
@@ -8516,7 +8517,7 @@ int sub_502B10() {
 
 //----- (00502D70) --------------------------------------------------------
 BOOL __cdecl sub_502D70(int a1) {
-	if (a1 < 0 || a1 >= *(int*)&byte_5D4594[1599596])
+	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_1599596)
 		return 0;
 	*(_DWORD*)&byte_5D4594[3835396] = a1;
 	return sub_503830(a1) == 0;
@@ -8549,7 +8550,7 @@ FILE* sub_502DF0() {
 
 //----- (00502E10) --------------------------------------------------------
 FILE* __cdecl sub_502E10(int a1) {
-	if (!nox_file_8 || a1 < 0 || a1 >= *(int*)&byte_5D4594[1599596])
+	if (!nox_file_8 || a1 < 0 || a1 >= *(int*)&dword_5d4594_1599596)
 		return 0;
 	fseek(nox_file_8, *(_DWORD*)(dword_5d4594_1599576 + 76 * a1 + 72), 0);
 	return nox_file_8;
@@ -8572,7 +8573,7 @@ FILE* __cdecl sub_502E50(char* a1) {
 double __cdecl sub_502E70(int a1) {
 	double result; // st7
 
-	if (a1 < 0 || a1 >= *(int*)&byte_5D4594[1599596])
+	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_1599596)
 		result = -1.0;
 	else
 		result = *(float*)(dword_5d4594_1599576 + 76 * a1 + 64);
@@ -8583,7 +8584,7 @@ double __cdecl sub_502E70(int a1) {
 double __cdecl sub_502EA0(int a1) {
 	double result; // st7
 
-	if (a1 < 0 || a1 >= *(int*)&byte_5D4594[1599596])
+	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_1599596)
 		result = -1.0;
 	else
 		result = *(float*)(dword_5d4594_1599576 + 76 * a1 + 68);
@@ -8950,7 +8951,7 @@ int __cdecl sub_503830(int a1) {
 
 	if (a1 < 0)
 		return 0;
-	if (a1 >= *(int*)&byte_5D4594[1599596])
+	if (a1 >= *(int*)&dword_5d4594_1599596)
 		return 0;
 	sub_503F40();
 	*(_DWORD*)&byte_5D4594[1599572] = -1;
