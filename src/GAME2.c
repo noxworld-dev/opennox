@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046508;
 extern _DWORD dword_5d4594_833712;
 extern _DWORD dword_5d4594_1045480;
 extern _DWORD dword_5d4594_1047520;
@@ -4845,7 +4846,7 @@ int __cdecl sub_457B60(int a1) {
 		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10119);
 	nox_window_set_hidden((int)v2, 1);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
-		sub_46ABB0(*(int*)&byte_5D4594[1046508], 1);
+		sub_46ABB0(*(int*)&dword_5d4594_1046508, 1);
 		if (nox_common_gameFlags_check_40A5C0(128)) {
 			v3 = sub_416590(1);
 			v4 = *((_WORD*)v3 + 26) & 0x17F0;
@@ -4853,18 +4854,18 @@ int __cdecl sub_457B60(int a1) {
 			v5 = sub_4165B0();
 			*((_WORD*)v5 + 26) = v4 | *((_WORD*)v5 + 26) & 0xE80F;
 			if (sub_40A740()) {
-				sub_46ABB0(*(int*)&byte_5D4594[1046508], 0);
+				sub_46ABB0(*(int*)&dword_5d4594_1046508, 0);
 			} else if (sub_417DA0(4)) {
-				v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1046508], 10330);
+				v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046508, 10330);
 				v6[9] |= 4u;
 			} else {
-				sub_46AD20(*(_DWORD**)&byte_5D4594[1046508], 10331, 10333, 0);
+				sub_46AD20(*(_DWORD**)&dword_5d4594_1046508, 10331, 10333, 0);
 			}
 		} else {
 			if (sub_417DA0(4))
-				sub_46AD20(*(_DWORD**)&byte_5D4594[1046508], 10330, 10331, 0);
+				sub_46AD20(*(_DWORD**)&dword_5d4594_1046508, 10330, 10331, 0);
 			else
-				sub_46AD20(*(_DWORD**)&byte_5D4594[1046508], 10330, 10333, 0);
+				sub_46AD20(*(_DWORD**)&dword_5d4594_1046508, 10330, 10333, 0);
 			v5 = (char*)a1;
 			sub_458230(*(unsigned __int16*)(a1 + 52), (char*)a1, 0);
 		}
@@ -4895,13 +4896,13 @@ int __cdecl sub_457B60(int a1) {
 			sub_457FE0();
 		}
 	}
-	v11 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1046508], 10331);
+	v11 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046508, 10331);
 	if (sub_417DA0(2)) {
 		v12 = v11[9];
 		LOBYTE(v12) = v12 | 4;
 		v11[9] = v12;
 	}
-	v13 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1046508], 10333);
+	v13 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046508, 10333);
 	if (sub_417DA0(1)) {
 		v14 = v13[9];
 		LOBYTE(v14) = v14 | 4;
