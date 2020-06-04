@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599640;
 extern _DWORD dword_5d4594_1569752;
 extern _DWORD dword_5d4594_251568;
 extern _DWORD dword_5d4594_1569728;
@@ -2014,7 +2015,7 @@ void __cdecl sub_4F8460(int a1) {
 			*(_DWORD*)(v1 + 100) = 0;
 			*(_DWORD*)(v1 + 96) = 0;
 			v39 = 0;
-			if (*(_DWORD*)&byte_5D4594[1599640] > 0) {
+			if (dword_5d4594_1599640 > 0) {
 				v40 = 0;
 				do {
 					if (!strncmp("PlayerDeath",
@@ -2022,7 +2023,7 @@ void __cdecl sub_4F8460(int a1) {
 						nox_server_doMapScript_507310(v39, 0, 0);
 					++v39;
 					v40 += 48;
-				} while (v39 < *(int*)&byte_5D4594[1599640]);
+				} while (v39 < *(int*)&dword_5d4594_1599640);
 			}
 		}
 		return;
@@ -10185,10 +10186,10 @@ int sub_505360() {
 		return 0;
 	}
 	v9 = sub_505800();
-	*(_DWORD*)&byte_5D4594[1599640] = v9;
+	dword_5d4594_1599640 = v9;
 	if (v9) {
 		dword_5d4594_1599636 = nox_calloc(1u, 48 * v9);
-		v9 = *(_DWORD*)&byte_5D4594[1599640];
+		v9 = dword_5d4594_1599640;
 	}
 	v10 = 0;
 	v37 = 0;
@@ -10292,7 +10293,7 @@ int sub_505360() {
 				fclose(nox_file_7);
 				return 0;
 			}
-			if (++v37 >= *(int*)&byte_5D4594[1599640])
+			if (++v37 >= *(int*)&dword_5d4594_1599640)
 				goto LABEL_44;
 			v10 = v37;
 		}
@@ -10386,7 +10387,7 @@ char* sub_5058F0() {
 	*(_DWORD*)&byte_5D4594[1599632] = 0;
 	if (dword_5d4594_1599636) {
 		v7 = 0;
-		if (*(_DWORD*)&byte_5D4594[1599640] > 0) {
+		if (dword_5d4594_1599640 > 0) {
 			v8 = 0;
 			do {
 				if (*(_DWORD*)&result[v8]) {
@@ -10415,12 +10416,12 @@ char* sub_5058F0() {
 				}
 				++v7;
 				v8 += 48;
-			} while (v7 < *(int*)&byte_5D4594[1599640]);
+			} while (v7 < *(int*)&dword_5d4594_1599640);
 		}
 		free(result);
 		dword_5d4594_1599636 = 0;
 	}
-	*(_DWORD*)&byte_5D4594[1599640] = 0;
+	dword_5d4594_1599640 = 0;
 	return result;
 }
 
@@ -11497,10 +11498,10 @@ int __cdecl sub_5071D0(const char* a1) {
 	const char** i; // edi
 
 	v1 = 0;
-	if (*(int*)&byte_5D4594[1599640] <= 0)
+	if (*(int*)&dword_5d4594_1599640 <= 0)
 		return -1;
 	for (i = *(const char***)&dword_5d4594_1599636; strcmp(*i, a1); i += 12) {
-		if (++v1 >= *(int*)&byte_5D4594[1599640])
+		if (++v1 >= *(int*)&dword_5d4594_1599640)
 			return -1;
 	}
 	return v1;
