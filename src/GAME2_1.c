@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1090048;
 extern _DWORD dword_5d4594_1049500;
 extern _DWORD dword_5d4594_1062512;
@@ -75,7 +76,7 @@ obj_5D4594_2650668_t** ptr_5D4594_2650668 = 0;
 const int ptr_5D4594_2650668_cap = 128;
 
 //----- (00460D40) --------------------------------------------------------
-BOOL sub_460D40() { return *(_DWORD*)&byte_5D4594[1049508] != 0; }
+BOOL sub_460D40() { return dword_5d4594_1049508 != 0; }
 
 //----- (00460D50) --------------------------------------------------------
 int sub_460D50() {
@@ -91,8 +92,8 @@ int sub_460D50() {
 	dword_5d4594_1049504 = 0;
 	sub_46C4E0(*(_DWORD**)&byte_5D4594[1049520]);
 	*(_DWORD*)&byte_5D4594[1049520] = 0;
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1049508]);
-	*(_DWORD*)&byte_5D4594[1049508] = 0;
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1049508);
+	dword_5d4594_1049508 = 0;
 	sub_46C4E0(*(_DWORD**)&byte_5D4594[1049512]);
 	*(_DWORD*)&byte_5D4594[1049512] = 0;
 	sub_46C4E0(*(_DWORD**)&byte_5D4594[1049516]);
