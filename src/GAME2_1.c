@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_1064856;
 extern _DWORD dword_5d4594_1049856;
 extern _DWORD dword_5d4594_1049520;
@@ -3772,7 +3773,7 @@ int sub_46A6A0() {
 	nox_window_set_hidden(*(int*)&dword_5d4594_1064856, 1);
 	*(_DWORD*)(dword_5d4594_1064856 + 4) &= 0xFFFFFFF7;
 	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1064860] + 4) &= 0xFFFFFFF7;
-	*(_DWORD*)&byte_5D4594[3799524] = 1;
+	dword_5d4594_3799524 = 1;
 	*(_DWORD*)&byte_5D4594[1064868] = 0;
 	return 1;
 }
@@ -4045,7 +4046,7 @@ int __cdecl nox_window_set_hidden(nox_window* win, int hidden) {
 
 	if (*(_DWORD*)&byte_5D4594[3799468]) {
 		if (!(win->flags & NOX_WIN_HIDDEN))
-			*(_DWORD*)&byte_5D4594[3799524] = 1;
+			dword_5d4594_3799524 = 1;
 	}
 	win->flags |= NOX_WIN_HIDDEN;
 	return 0;
@@ -8073,7 +8074,7 @@ char sub_473610() {
 			v0 = *(_DWORD*)&byte_5D4594[1096424];
 			LOBYTE(v0) = byte_5D4594[1096424] | 1;
 		}
-		*(_DWORD*)&byte_5D4594[3799524] = 1;
+		dword_5d4594_3799524 = 1;
 		*(_DWORD*)&byte_5D4594[1096424] = v0;
 	}
 	return v0;
@@ -9241,13 +9242,13 @@ int4* __cdecl sub_475810_draw(int* a1) {
 		v3 = v1[3];
 		v4 = v1[2] + 1;
 		sub_437290();
-		if (*(_DWORD*)&byte_5D4594[3799524]) {
+		if (dword_5d4594_3799524) {
 			nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 			nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_backbuffer_width, v2);
 			nox_client_drawRectFilledOpaque_49CE30(0, v3, nox_backbuffer_width, nox_backbuffer_height - v3);
 			nox_client_drawRectFilledOpaque_49CE30(0, v2, v39, v3 - v2);
 			nox_client_drawRectFilledOpaque_49CE30(v4, v2, nox_backbuffer_width - v4, v3 - v2);
-			*(_DWORD*)&byte_5D4594[3799524] = 0;
+			dword_5d4594_3799524 = 0;
 		}
 		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650660]);
 		nox_client_drawBorderLines_49CC70(v39 - 2, v2 - 2, v4 - v39 + 4, v3 - v2 + 4);
@@ -9279,7 +9280,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 		sub_434350(*(int*)&byte_5D4594[2650656]);
 		sub_440900();
 		result = sub_437290();
-		*(_DWORD*)&byte_5D4594[3799524] = 1;
+		dword_5d4594_3799524 = 1;
 		return result;
 	}
 	if (*(_DWORD*)&byte_5D4594[1096520]) {
@@ -9288,7 +9289,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 		sub_434350(*(int*)&byte_5D4594[2650656]);
 		*(_DWORD*)&byte_5D4594[1096520] = 0;
 		result = sub_437290();
-		*(_DWORD*)&byte_5D4594[3799524] = 1;
+		dword_5d4594_3799524 = 1;
 		return result;
 	}
 	(*(void(__cdecl**)(_DWORD)) & byte_5D4594[3807132])(v1);

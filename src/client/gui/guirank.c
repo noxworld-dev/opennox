@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_1090048;
 extern _DWORD dword_5d4594_1090120;
 extern int nox_win_width;
@@ -330,7 +331,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 	if (*(_DWORD*)&byte_587000[145664] ||
 	    *(_DWORD*)&byte_5D4594[2598000] >
 		(unsigned int)(*(_DWORD*)&byte_5D4594[1090124] + *(_DWORD*)&byte_5D4594[2649704])) {
-		*(_DWORD*)&byte_5D4594[3799524] = 1;
+		dword_5d4594_3799524 = 1;
 		*(_DWORD*)&byte_5D4594[1090124] = *(_DWORD*)&byte_5D4594[2598000];
 		*(_DWORD*)&byte_587000[145672] = -1;
 		v33 = 0;
