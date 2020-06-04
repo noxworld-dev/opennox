@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1599636;
 
 void nullsub_21(void) {}
 void nullsub_25(_DWORD a1) {}
@@ -1269,7 +1270,7 @@ int sub_4FC590() {
 				v2 = 0;
 				do {
 					if (!strncmp("MapInitialize",
-						     *(const char**)(v2 + *(_DWORD*)&byte_5D4594[1599636]), 0xDu))
+						     *(const char**)(v2 + dword_5d4594_1599636), 0xDu))
 						nox_server_doMapScript_507310(v1, 0, 0);
 					++v1;
 					v2 += 48;
@@ -1295,7 +1296,7 @@ int sub_4FC600() {
 			if (*(_DWORD*)&byte_5D4594[1599640] > 0) {
 				v2 = 0;
 				do {
-					if (!strncmp("MapEntry", *(const char**)(v2 + *(_DWORD*)&byte_5D4594[1599636]),
+					if (!strncmp("MapEntry", *(const char**)(v2 + dword_5d4594_1599636),
 						     8u))
 						nox_server_doMapScript_507310(v1, 0, 0);
 					++v1;
@@ -1891,7 +1892,7 @@ void sub_51ADF0() {
 				v1 = v0[1];
 				v2 = v0[5];
 				v3 = v0[4];
-				if (*(_DWORD*)(48 * v1 + *(_DWORD*)&byte_5D4594[1599636] + 8))
+				if (*(_DWORD*)(48 * v1 + dword_5d4594_1599636 + 8))
 					sub_507230(v0[2]);
 				v0 = (_DWORD*)sub_51AD90((int)v0);
 				nox_server_doMapScript_507310(v1, v2, v3);
@@ -2336,7 +2337,7 @@ int sub_4D1860_server() {
 	if (*(_DWORD*)&byte_5D4594[1599640] > 0) {
 		v1 = 0;
 		do {
-			if (!strncmp("MapExit", *(const char**)(v1 + *(_DWORD*)&byte_5D4594[1599636]), 7u))
+			if (!strncmp("MapExit", *(const char**)(v1 + dword_5d4594_1599636), 7u))
 				nox_server_doMapScript_507310(v0, 0, 0);
 			++v0;
 			v1 += 48;
@@ -2789,8 +2790,7 @@ int sub_4D2580_server() {
 							do {
 								if (!strncmp(
 									"MapShutdown",
-									*(const char**)(v25 + *(_DWORD*)&byte_5D4594
-												  [1599636]),
+									*(const char**)(v25 + dword_5d4594_1599636),
 									0xBu))
 									nox_server_doMapScript_507310(v23, 0, 0);
 								++v23;
