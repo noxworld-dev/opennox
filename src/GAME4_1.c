@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386496;
 extern _DWORD dword_5d4594_2386184;
 extern _DWORD dword_5d4594_3821964;
 extern _DWORD dword_5d4594_2388648;
@@ -3288,8 +3289,8 @@ int sub_50E2A0() {
 	result = nox_new_alloc_class("TradeSessions", 64, 64);
 	*(_DWORD*)&byte_5D4594[2386492] = result;
 	if (result) {
-		*(_DWORD*)&byte_5D4594[2386496] = nox_new_alloc_class("TradeItems", 16, 500);
-		if (*(_DWORD*)&byte_5D4594[2386496]) {
+		dword_5d4594_2386496 = nox_new_alloc_class("TradeItems", 16, 500);
+		if (dword_5d4594_2386496) {
 			memset(&byte_5D4594[2386364], 0, 0x80u);
 			*(_DWORD*)&byte_5D4594[2386500] = 0;
 			result = 1;
@@ -3308,11 +3309,11 @@ int sub_50E300() {
 	if (*(_DWORD*)&byte_5D4594[2386492])
 		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386492]);
 	*(_DWORD*)&byte_5D4594[2386492] = 0;
-	if (*(_DWORD*)&byte_5D4594[2386496])
-		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386496]);
+	if (dword_5d4594_2386496)
+		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386496);
 	result = 0;
 	memset(&byte_5D4594[2386364], 0, 0x80u);
-	*(_DWORD*)&byte_5D4594[2386496] = 0;
+	dword_5d4594_2386496 = 0;
 	*(_DWORD*)&byte_5D4594[2386500] = 0;
 	return result;
 }
@@ -3335,7 +3336,7 @@ int sub_50E360() {
 		} while (v0);
 	}
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2386492]);
-	sub_4144D0(*(_DWORD**)&byte_5D4594[2386496]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_2386496);
 	result = 0;
 	memset(&byte_5D4594[2386364], 0, 0x80u);
 	*(_DWORD*)&byte_5D4594[2386500] = 0;
@@ -3751,7 +3752,7 @@ float* __cdecl sub_50EE00(int a1, float a2) {
 	_DWORD* i;       // eax
 	int v7;          // eax
 
-	result = (float*)nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[2386496]);
+	result = (float*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386496);
 	v3 = result;
 	if (result) {
 		*result = a2;
@@ -3983,7 +3984,7 @@ int __cdecl sub_50F6B0(int a1) {
 	if (a1) {
 		do {
 			v2 = *(_DWORD*)(result + 8);
-			sub_414330(*(unsigned int**)&byte_5D4594[2386496], (_QWORD*)result);
+			sub_414330(*(unsigned int**)&dword_5d4594_2386496, (_QWORD*)result);
 			result = v2;
 		} while (v2);
 	}
@@ -4261,7 +4262,7 @@ int __cdecl sub_50FE20(int a1, int a2) {
 		sub_50FF90(*(_DWORD*)(a1 + 12), a1, *v2);
 		sub_50F720(*(_DWORD*)(a1 + 12), (_DWORD*)a1);
 	}
-	sub_414330(*(unsigned int**)&byte_5D4594[2386496], v2);
+	sub_414330(*(unsigned int**)&dword_5d4594_2386496, v2);
 	return 1;
 }
 
@@ -4303,7 +4304,7 @@ void __cdecl sub_510000(int a1) {
 		do {
 			v2 = (int*)v1[2];
 			sub_4E38A0(*v1);
-			sub_414330(*(unsigned int**)&byte_5D4594[2386496], v1);
+			sub_414330(*(unsigned int**)&dword_5d4594_2386496, v1);
 			v1 = v2;
 		} while (v2);
 	}
