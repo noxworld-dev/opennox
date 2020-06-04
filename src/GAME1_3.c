@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816364;
 extern _DWORD dword_5d4594_815700;
 extern _DWORD dword_5d4594_830248;
 extern _DWORD dword_5d4594_829480;
@@ -1124,7 +1125,7 @@ void sub_43D2D0() {
 	int v1; // esi
 
 	if (*(_DWORD*)&byte_5D4594[816340]) {
-		if (*(_DWORD*)&byte_5D4594[816364]) {
+		if (dword_5d4594_816364) {
 			sub_486520((unsigned int*)&byte_5D4594[816244]);
 			sub_486520((unsigned int*)&byte_5D4594[816148]);
 			v1 = *(_DWORD*)(*(_DWORD*)&byte_587000[81128] + 4) >> 16;
@@ -1138,10 +1139,10 @@ void sub_43D2D0() {
 				*(_QWORD*)&byte_5D4594[816380] = sub_416BB0();
 				*(_DWORD*)&byte_587000[93168] = v1;
 			}
-			if (*(_DWORD*)&byte_5D4594[816364]) {
+			if (dword_5d4594_816364) {
 				if (**(_BYTE**)&byte_587000[81128] & 2 || byte_5D4594[816148] & 2 ||
 				    byte_5D4594[816244] & 2)
-					sub_43D3C0(*(int*)&byte_5D4594[816364], *(int*)&byte_5D4594[816096]);
+					sub_43D3C0(*(int*)&dword_5d4594_816364, *(int*)&byte_5D4594[816096]);
 			}
 		}
 	}
@@ -1196,7 +1197,7 @@ int sub_43D440() {
 			break;
 		case 1:
 			if (*(_DWORD*)&byte_587000[93156] && *v0 == *(_DWORD*)&byte_5D4594[816092] &&
-			    *(_DWORD*)&byte_5D4594[816364] && AIL_stream_status(*(_DWORD*)&byte_5D4594[816364]) != 2) {
+			    dword_5d4594_816364 && AIL_stream_status(dword_5d4594_816364) != 2) {
 				result = *(_DWORD*)&byte_5D4594[816356];
 				if (*(_DWORD*)&byte_5D4594[816356]) {
 					*(_DWORD*)&byte_5D4594[816348] = 4;
@@ -1208,11 +1209,11 @@ int sub_43D440() {
 			}
 			break;
 		case 2:
-			if (!*(_DWORD*)&byte_5D4594[816364]) {
+			if (!dword_5d4594_816364) {
 				result = sub_43D650();
 				*(_DWORD*)&byte_5D4594[816348] = 0;
 			} else {
-				result = AIL_stream_status(*(_DWORD*)&byte_5D4594[816364]);
+				result = AIL_stream_status(dword_5d4594_816364);
 				if (result == 2 || !(*(_DWORD*)&byte_5D4594[816152] & 0xFFFF0000)) {
 					result = sub_43D650();
 					*(_DWORD*)&byte_5D4594[816348] = 0;
@@ -1222,8 +1223,8 @@ int sub_43D440() {
 		case 3:
 			if (!*(_DWORD*)&byte_5D4594[816356] || (result = *(_DWORD*)&byte_587000[93156]) == 0) {
 				if (!*(_DWORD*)&byte_587000[93156] || *v0 != *(_DWORD*)&byte_5D4594[816092] ||
-				    !*(_DWORD*)&byte_5D4594[816364] ||
-				    AIL_stream_status(*(_DWORD*)&byte_5D4594[816364]) == 2) {
+				    !dword_5d4594_816364 ||
+				    AIL_stream_status(dword_5d4594_816364) == 2) {
 					result = sub_43D650();
 					*(_DWORD*)&byte_5D4594[816348] = 0;
 				} else {
@@ -1234,8 +1235,8 @@ int sub_43D440() {
 			}
 			break;
 		case 4:
-			if (*(_DWORD*)&byte_5D4594[816364] &&
-			    (result = AIL_stream_status(*(_DWORD*)&byte_5D4594[816364]), result != 2)) {
+			if (dword_5d4594_816364 &&
+			    (result = AIL_stream_status(dword_5d4594_816364), result != 2)) {
 				if (!(*(_DWORD*)&byte_5D4594[816152] & 0xFFFF0000)) {
 					result = sub_43D680();
 					*(_DWORD*)&byte_5D4594[816348] = 3;
@@ -1257,9 +1258,9 @@ int sub_43D440() {
 int sub_43D650() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[816364];
-	if (*(_DWORD*)&byte_5D4594[816364]) {
-		*(_DWORD*)&byte_5D4594[816364] = 0;
+	result = dword_5d4594_816364;
+	if (dword_5d4594_816364) {
+		dword_5d4594_816364 = 0;
 		AIL_close_stream(result);
 	}
 	*(_DWORD*)&byte_5D4594[816092] = 0;
@@ -1271,9 +1272,9 @@ int sub_43D650() {
 int sub_43D680() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[816364];
-	if (*(_DWORD*)&byte_5D4594[816364])
-		AIL_pause_stream(*(_DWORD*)&byte_5D4594[816364], 1);
+	result = dword_5d4594_816364;
+	if (dword_5d4594_816364)
+		AIL_pause_stream(dword_5d4594_816364, 1);
 	return result;
 }
 // 581414: using guessed type int __stdcall AIL_pause_stream(_DWORD, _DWORD);
@@ -1282,9 +1283,9 @@ int sub_43D680() {
 int sub_43D6A0() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[816364];
-	if (*(_DWORD*)&byte_5D4594[816364])
-		AIL_pause_stream(*(_DWORD*)&byte_5D4594[816364], 0);
+	result = dword_5d4594_816364;
+	if (dword_5d4594_816364)
+		AIL_pause_stream(dword_5d4594_816364, 0);
 	return result;
 }
 // 581414: using guessed type int __stdcall AIL_pause_stream(_DWORD, _DWORD);
@@ -1340,7 +1341,7 @@ int __cdecl sub_43D6C0(int* a1) {
 	*(_DWORD*)&byte_5D4594[816100] = a1[2];
 	*(_DWORD*)&byte_5D4594[816104] = a1[3];
 	a1[2] = 0;
-	*(_DWORD*)&byte_5D4594[816364] = v4;
+	dword_5d4594_816364 = v4;
 	return 1;
 }
 // 581408: using guessed type int __stdcall AIL_open_stream(_DWORD, _DWORD, _DWORD);
@@ -1366,7 +1367,7 @@ int sub_43D8E0() {
 	*(_DWORD*)&byte_5D4594[816356] = 0;
 	*(_DWORD*)&byte_5D4594[816372] = 0;
 	*(_DWORD*)&byte_5D4594[816368] = 0;
-	*(_DWORD*)&byte_5D4594[816364] = 0;
+	dword_5d4594_816364 = 0;
 	result = 1;
 	*(_DWORD*)&byte_5D4594[816340] = 1;
 	return result;
@@ -1601,11 +1602,11 @@ int __cdecl sub_43DD10(int* a1) {
 	a1[1] = *((_DWORD*)v1 + 1);
 	a1[2] = *((_DWORD*)v1 + 2);
 	a1[3] = *((_DWORD*)v1 + 3);
-	result = *(_DWORD*)&byte_5D4594[816364];
-	if (*(_DWORD*)&byte_5D4594[816364]) {
+	result = dword_5d4594_816364;
+	if (dword_5d4594_816364) {
 		result = *a1;
 		if (*(_DWORD*)&byte_5D4594[816092] == *a1) {
-			result = AIL_stream_position(*(_DWORD*)&byte_5D4594[816364]);
+			result = AIL_stream_position(dword_5d4594_816364);
 			a1[2] = result;
 		}
 	}
