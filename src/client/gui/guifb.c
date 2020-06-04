@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
+extern _DWORD dword_5d4594_1045636;
 
 //----- (00456140) --------------------------------------------------------
 wchar_t* __cdecl sub_456140(unsigned __int8 a1) {
@@ -14,7 +15,7 @@ wchar_t* __cdecl sub_456140(unsigned __int8 a1) {
 
 	byte_5D4594[1045644] = a1;
 	result = (wchar_t*)a1;
-	v2 = *(_DWORD*)&byte_5D4594[1045636] + 36;
+	v2 = dword_5d4594_1045636 + 36;
 	switch (a1) {
 	case 0u:
 		*(_DWORD*)(v2 + 24) = sub_42F970("BallAtHome");

@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045636;
 extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1047516;
 extern _DWORD dword_5d4594_1049500;
@@ -4270,10 +4271,10 @@ int sub_455EE0() {
 int __cdecl sub_455F10(int a1) {
 	int result; // eax
 
-	if (a1 && *(_DWORD*)&byte_5D4594[1045640] && sub_46ADA0(*(int*)&byte_5D4594[1045636]) & 0x10)
-		result = sub_46A8C0(*(int*)&byte_5D4594[1045636]);
+	if (a1 && *(_DWORD*)&byte_5D4594[1045640] && sub_46ADA0(*(int*)&dword_5d4594_1045636) & 0x10)
+		result = sub_46A8C0(*(int*)&dword_5d4594_1045636);
 	else
-		result = nox_window_set_hidden(*(int*)&byte_5D4594[1045636], 1);
+		result = nox_window_set_hidden(*(int*)&dword_5d4594_1045636, 1);
 	return result;
 }
 
@@ -4288,7 +4289,7 @@ int sub_455F60() {
 	int v6;     // [esp+10h] [ebp-4h]
 
 	sub_418C80(*(int*)&byte_5D4594[2616328]);
-	if (*(_DWORD*)&byte_5D4594[1045636] || (result = sub_456070()) != 0) {
+	if (dword_5d4594_1045636 || (result = sub_456070()) != 0) {
 		sub_43BEB0_get_video_mode(&v3, &v2, &v6);
 		sub_430C50_get_video_max(&v4, &v5);
 		v1 = v3;
@@ -4299,15 +4300,15 @@ int sub_455F60() {
 		if (v2 > v5)
 			v2 = v5;
 		*(_DWORD*)&byte_5D4594[1045640] = 1;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045636] + 16) =
-		    v1 - *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045636] + 8) / 3 - 91;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045636] + 24) =
-		    *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045636] + 8) + *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045636] + 16);
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045636] + 20) = v2 - 120;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045636] + 28) =
-		    *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045636] + 12) + *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045636] + 20);
+		*(_DWORD*)(dword_5d4594_1045636 + 16) =
+		    v1 - *(_DWORD*)(dword_5d4594_1045636 + 8) / 3 - 91;
+		*(_DWORD*)(dword_5d4594_1045636 + 24) =
+		    *(_DWORD*)(dword_5d4594_1045636 + 8) + *(_DWORD*)(dword_5d4594_1045636 + 16);
+		*(_DWORD*)(dword_5d4594_1045636 + 20) = v2 - 120;
+		*(_DWORD*)(dword_5d4594_1045636 + 28) =
+		    *(_DWORD*)(dword_5d4594_1045636 + 12) + *(_DWORD*)(dword_5d4594_1045636 + 20);
 		byte_5D4594[1045644] = 0;
-		result = sub_46A8C0(*(int*)&byte_5D4594[1045636]);
+		result = sub_46A8C0(*(int*)&dword_5d4594_1045636);
 	}
 	return result;
 }
@@ -4320,10 +4321,10 @@ int sub_456050() {
 
 //----- (00456070) --------------------------------------------------------
 int sub_456070() {
-	if (!*(_DWORD*)&byte_5D4594[1045636]) {
-		*(_DWORD*)&byte_5D4594[1045636] = nox_new_window_from_file("gui_fb.wnd", 0);
-		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1045636], 0, sub_4560D0, 0);
-		if (!*(_DWORD*)&byte_5D4594[1045636])
+	if (!dword_5d4594_1045636) {
+		dword_5d4594_1045636 = nox_new_window_from_file("gui_fb.wnd", 0);
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1045636, 0, sub_4560D0, 0);
+		if (!dword_5d4594_1045636)
 			return 0;
 		sub_455F10(0);
 		*(_DWORD*)&byte_5D4594[1045648] = sub_42F970("FlagTeamBorder");
@@ -4350,10 +4351,10 @@ int __cdecl sub_4560D0(int a1, int a2) {
 int sub_456240() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1045636];
-	if (*(_DWORD*)&byte_5D4594[1045636])
-		result = sub_46C4E0(*(_DWORD**)&byte_5D4594[1045636]);
-	*(_DWORD*)&byte_5D4594[1045636] = 0;
+	result = dword_5d4594_1045636;
+	if (dword_5d4594_1045636)
+		result = sub_46C4E0(*(_DWORD**)&dword_5d4594_1045636);
+	dword_5d4594_1045636 = 0;
 	*(_DWORD*)&byte_5D4594[1045640] = 0;
 	return result;
 }
