@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816348;
 extern _DWORD dword_5d4594_829488;
 extern _DWORD dword_5d4594_815048;
 extern _DWORD dword_5d4594_815132;
@@ -1178,11 +1179,11 @@ int sub_43D440() {
 	v0 = (int*)&byte_5D4594[20 * *(_DWORD*)&byte_5D4594[816352] + 816108];
 	result = *(_DWORD*)&byte_5D4594[816340];
 	if (*(_DWORD*)&byte_5D4594[816340]) {
-		result = *(_DWORD*)&byte_5D4594[816348];
-		switch (*(_DWORD*)&byte_5D4594[816348]) {
+		result = dword_5d4594_816348;
+		switch (dword_5d4594_816348) {
 		case 0:
 			if (*(_DWORD*)&byte_5D4594[816356] && (result = *(_DWORD*)&byte_587000[93156]) != 0) {
-				*(_DWORD*)&byte_5D4594[816348] = 3;
+				dword_5d4594_816348 = 3;
 			} else {
 				result = *v0;
 				if (*v0) {
@@ -1192,7 +1193,7 @@ int sub_43D440() {
 						result = sub_43D6C0(v0);
 						if (result) {
 							result = 1;
-							*(_DWORD*)&byte_5D4594[816348] = 1;
+							dword_5d4594_816348 = 1;
 							v0[4] = 1;
 						} else {
 							*v0 = 0;
@@ -1206,23 +1207,23 @@ int sub_43D440() {
 			    dword_5d4594_816364 && AIL_stream_status(dword_5d4594_816364) != 2) {
 				result = *(_DWORD*)&byte_5D4594[816356];
 				if (*(_DWORD*)&byte_5D4594[816356]) {
-					*(_DWORD*)&byte_5D4594[816348] = 4;
+					dword_5d4594_816348 = 4;
 					result = sub_486350((int)&byte_5D4594[816148], 0);
 				}
 			} else {
-				*(_DWORD*)&byte_5D4594[816348] = 2;
+				dword_5d4594_816348 = 2;
 				result = sub_486350((int)&byte_5D4594[816148], 0);
 			}
 			break;
 		case 2:
 			if (!dword_5d4594_816364) {
 				result = sub_43D650();
-				*(_DWORD*)&byte_5D4594[816348] = 0;
+				dword_5d4594_816348 = 0;
 			} else {
 				result = AIL_stream_status(dword_5d4594_816364);
 				if (result == 2 || !(*(_DWORD*)&byte_5D4594[816152] & 0xFFFF0000)) {
 					result = sub_43D650();
-					*(_DWORD*)&byte_5D4594[816348] = 0;
+					dword_5d4594_816348 = 0;
 				}
 			}
 			break;
@@ -1232,11 +1233,11 @@ int sub_43D440() {
 				    !dword_5d4594_816364 ||
 				    AIL_stream_status(dword_5d4594_816364) == 2) {
 					result = sub_43D650();
-					*(_DWORD*)&byte_5D4594[816348] = 0;
+					dword_5d4594_816348 = 0;
 				} else {
 					sub_486350((int)&byte_5D4594[816148], 0x4000);
 					result = sub_43D6A0();
-					*(_DWORD*)&byte_5D4594[816348] = 1;
+					dword_5d4594_816348 = 1;
 				}
 			}
 			break;
@@ -1245,11 +1246,11 @@ int sub_43D440() {
 			    (result = AIL_stream_status(dword_5d4594_816364), result != 2)) {
 				if (!(*(_DWORD*)&byte_5D4594[816152] & 0xFFFF0000)) {
 					result = sub_43D680();
-					*(_DWORD*)&byte_5D4594[816348] = 3;
+					dword_5d4594_816348 = 3;
 				}
 			} else {
 				result = sub_43D650();
-				*(_DWORD*)&byte_5D4594[816348] = 0;
+				dword_5d4594_816348 = 0;
 			}
 			break;
 		default:
@@ -1366,7 +1367,7 @@ int sub_43D8E0() {
 	*(_DWORD*)&byte_587000[93156] = v1 != 0;
 	sub_4864A0(&byte_5D4594[816148]);
 	sub_486380(&byte_5D4594[816148], 0x3E8u, 0, 0x4000);
-	*(_DWORD*)&byte_5D4594[816348] = 0;
+	dword_5d4594_816348 = 0;
 	*(_DWORD*)&byte_5D4594[816092] = 0;
 	*(_DWORD*)&byte_5D4594[816352] = 0;
 	*(_DWORD*)&byte_5D4594[816108] = 0;
@@ -1548,9 +1549,9 @@ int sub_43DC30() { return *(_DWORD*)&byte_587000[93156]; }
 int sub_43DC40() {
 	int result; // eax
 
-	if (!*(_DWORD*)&byte_5D4594[816340] || (result = 1, *(_DWORD*)&byte_5D4594[816348] != 1) &&
-						   *(_DWORD*)&byte_5D4594[816348] != 4 &&
-						   *(_DWORD*)&byte_5D4594[816348] != 2) {
+	if (!*(_DWORD*)&byte_5D4594[816340] || (result = 1, dword_5d4594_816348 != 1) &&
+						   dword_5d4594_816348 != 4 &&
+						   dword_5d4594_816348 != 2) {
 		result = 0;
 	}
 	return result;
@@ -1582,11 +1583,11 @@ int sub_43DCC0() {
 		result = *(_DWORD*)&byte_5D4594[816340];
 		if (*(_DWORD*)&byte_5D4594[816340]) {
 			sub_43D990();
-			for (result = *(_DWORD*)&byte_5D4594[816348]; *(_DWORD*)&byte_5D4594[816348];
-			     result = *(_DWORD*)&byte_5D4594[816348]) {
-				if (*(_DWORD*)&byte_5D4594[816348] == 3) {
+			for (result = dword_5d4594_816348; dword_5d4594_816348;
+			     result = dword_5d4594_816348) {
+				if (dword_5d4594_816348 == 3) {
 					sub_43D650();
-					*(_DWORD*)&byte_5D4594[816348] = 0;
+					dword_5d4594_816348 = 0;
 				}
 				sub_4312C0();
 #ifdef __EMSCRIPTEN__
