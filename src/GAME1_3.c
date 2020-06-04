@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_825760;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_830224;
 extern _DWORD dword_5d4594_3798784;
@@ -4354,7 +4355,7 @@ int sub_445B20() {
 // 445B20: using guessed type int sub_445B20();
 
 //----- (00445B30) --------------------------------------------------------
-int sub_445B30() { return sub_46ADC0(*(int*)&byte_5D4594[825760]); }
+int sub_445B30() { return sub_46ADC0(*(int*)&dword_5d4594_825760); }
 
 //----- (00445BA0) --------------------------------------------------------
 int sub_445BA0() { return sub_413A00(0); }
@@ -4376,7 +4377,7 @@ int __cdecl sub_445BC0(_DWORD* a1) {
 int sub_445C00() {
 	int result; // eax
 
-	result = sub_46ADA0(*(int*)&byte_5D4594[825760]);
+	result = sub_46ADA0(*(int*)&dword_5d4594_825760);
 	if (result & 0x10)
 		result = sub_445C40();
 	return result;
@@ -4386,7 +4387,7 @@ int sub_445C00() {
 int sub_445C20() {
 	int result; // eax
 
-	result = sub_46ADA0(*(int*)&byte_5D4594[825760]);
+	result = sub_46ADA0(*(int*)&dword_5d4594_825760);
 	if (!(result & 0x10))
 		result = sub_445C40();
 	return result;
@@ -4397,10 +4398,10 @@ _DWORD* sub_445FF0() {
 	int i;          // esi
 	_DWORD* result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[825760])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[825760] + 56) = *(_DWORD*)&byte_5D4594[2650656];
+	if (dword_5d4594_825760)
+		*(_DWORD*)(dword_5d4594_825760 + 56) = *(_DWORD*)&byte_5D4594[2650656];
 	for (i = 9001; i <= 9006; ++i) {
-		result = sub_46B0C0(*(_DWORD**)&byte_5D4594[825760], i);
+		result = sub_46B0C0(*(_DWORD**)&dword_5d4594_825760, i);
 		if (result)
 			result[26] = *(_DWORD*)&byte_5D4594[2614256];
 	}
@@ -4490,8 +4491,8 @@ int sub_446180() { return *(_DWORD*)&byte_5D4594[825764]; }
 unsigned int sub_446360() {
 	unsigned int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[825760])
-		result = ((unsigned int)~sub_46ADA0(*(int*)&byte_5D4594[825760]) >> 4) & 1;
+	if (dword_5d4594_825760)
+		result = ((unsigned int)~sub_46ADA0(*(int*)&dword_5d4594_825760) >> 4) & 1;
 	else
 		result = 0;
 	return result;
