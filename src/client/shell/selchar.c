@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../gui/guisave.h"
 #include "optsback.h"
+extern _DWORD dword_5d4594_1307780;
 
 //----- (004A4DB0) --------------------------------------------------------
 int sub_4A4DB0() {
@@ -118,9 +119,9 @@ int sub_4A5150() {
 	strcat(PathName, "\\Save\\");
 	CreateDirectoryA(PathName, 0);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		*(_DWORD*)&byte_5D4594[1307780] = nox_calloc(0xEu, 0x4FEu);
+		dword_5d4594_1307780 = nox_calloc(0xEu, 0x4FEu);
 		result = sub_46CE40(*(int*)&byte_5D4594[1307744], *(int*)&byte_5D4594[1307776],
-				    *(int*)&byte_5D4594[1307768], *(_BYTE**)&byte_5D4594[1307780]);
+				    *(int*)&byte_5D4594[1307768], *(_BYTE**)&dword_5d4594_1307780);
 	} else {
 		SetCurrentDirectoryA(PathName);
 		strcpy(v32, PathName);
@@ -137,14 +138,14 @@ int sub_4A5150() {
 			}
 			FindClose(v8);
 		}
-		*(_DWORD*)&byte_5D4594[1307780] = nox_calloc(v0, 0x4FEu);
+		dword_5d4594_1307780 = nox_calloc(v0, 0x4FEu);
 		v9 = 0;
 		v10 = FindFirstFileA("*.plr", &FindFileData);
 		if (v10 != (HANDLE)-1) {
 			if (!(FindFileData.dwFileAttributes & 0x10)) {
 				nox_sprintf(PathName, "%s%s", v32, FindFileData.cFileName);
-				sub_41A000(PathName, *(_BYTE**)&byte_5D4594[1307780]);
-				if (sub_4A5690(*(_BYTE**)&byte_5D4594[1307780]) == 1)
+				sub_41A000(PathName, *(_BYTE**)&dword_5d4594_1307780);
+				if (sub_4A5690(*(_BYTE**)&dword_5d4594_1307780) == 1)
 					v9 = 1;
 			}
 			if (FindNextFileA(v10, &FindFileData)) {
@@ -152,8 +153,8 @@ int sub_4A5150() {
 				do {
 					if (!(FindFileData.dwFileAttributes & 0x10)) {
 						nox_sprintf(PathName, "%s%s", v32, FindFileData.cFileName);
-						sub_41A000(PathName, (_BYTE*)(v11 + *(_DWORD*)&byte_5D4594[1307780]));
-						if (sub_4A5690((_BYTE*)(v11 + *(_DWORD*)&byte_5D4594[1307780])) == 1) {
+						sub_41A000(PathName, (_BYTE*)(v11 + dword_5d4594_1307780));
+						if (sub_4A5690((_BYTE*)(v11 + dword_5d4594_1307780)) == 1) {
 							++v9;
 							v11 += 1278;
 						}
@@ -162,22 +163,22 @@ int sub_4A5150() {
 			}
 			FindClose(v10);
 		}
-		qsort(*(void**)&byte_5D4594[1307780], v9, 0x4FEu, sub_4A4CB0);
+		qsort(*(void**)&dword_5d4594_1307780, v9, 0x4FEu, sub_4A4CB0);
 		if (v9) {
 			v12 = 0;
 			v13 = v9;
 			do {
 				nox_sprintf(v28, "nox.str:%s",
 					    *(_DWORD*)&byte_587000
-						[4 * *(unsigned __int8*)(v12 + *(_DWORD*)&byte_5D4594[1307780] + 1274) +
+						[4 * *(unsigned __int8*)(v12 + dword_5d4594_1307780 + 1274) +
 						 29456]);
 				v26 = loadString_sub_40F1D0(v28, 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 285);
-				v24 = v12 + *(_DWORD*)&byte_5D4594[1307780] + 1224;
+				v24 = v12 + dword_5d4594_1307780 + 1224;
 				v14 = loadString_sub_40F1D0((char*)&byte_587000[170600], 0,
 							    "C:\\NoxPost\\src\\client\\shell\\selchar.c", 283);
 				nox_swprintf(v30, v14, v24, v26);
-				if (*(_BYTE*)(v12 + *(_DWORD*)&byte_5D4594[1307780]) & 4) {
-					v15 = *(unsigned __int8*)(v12 + *(_DWORD*)&byte_5D4594[1307780] + 1277);
+				if (*(_BYTE*)(v12 + dword_5d4594_1307780) & 4) {
+					v15 = *(unsigned __int8*)(v12 + dword_5d4594_1307780 + 1277);
 					if (v15 < 1)
 						v15 = 1;
 					nox_wcscat(v30, L" - ");
@@ -190,7 +191,7 @@ int sub_4A5150() {
 				nox_window_call_field_94(*(int*)&byte_5D4594[1307744], 16397, (int)&byte_587000[170708],
 							 14);
 				nox_window_call_field_94(*(int*)&byte_5D4594[1307768], 16397, (int)v30, 14);
-				if (*(_BYTE*)(v12 + *(_DWORD*)&byte_5D4594[1307780]) & 4)
+				if (*(_BYTE*)(v12 + dword_5d4594_1307780) & 4)
 					v25 = loadString_sub_40F1D0((char*)&byte_587000[170752], 0,
 								    "C:\\NoxPost\\src\\client\\shell\\selchar.c", 316);
 				else
@@ -255,7 +256,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 		if (a2 != 16391) {
 			if (a2 == 2) {
 				if (sub_46B0A0(a3) == 500) {
-					free(*(LPVOID*)&byte_5D4594[1307780]);
+					free(*(LPVOID*)&dword_5d4594_1307780);
 					return 0;
 				}
 			} else if (a2 == 16389) {
@@ -274,13 +275,13 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 			v7 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1307776] + 32);
 			v8 = *(_DWORD*)(v7 + 48);
 			if (v8 != -1) {
-				if (!strlen((const char*)(*(_DWORD*)&byte_5D4594[1307780] + 1278 * v8 + 4)))
+				if (!strlen((const char*)(dword_5d4594_1307780 + 1278 * v8 + 4)))
 					goto LABEL_38;
-				sub_4DC970((char*)(*(_DWORD*)&byte_5D4594[1307780] + 1278 * v8 + 4), v20);
+				sub_4DC970((char*)(dword_5d4594_1307780 + 1278 * v8 + 4), v20);
 				if ((!nox_common_gameFlags_check_40A5C0(2048) ||
 				     sub_4DC100((int)v20, (int)&byte_587000[171268])) &&
 				    sub_41A000(
-					(char*)(*(_DWORD*)&byte_5D4594[1307780] + 1278 * *(_DWORD*)(v7 + 48) + 4),
+					(char*)(dword_5d4594_1307780 + 1278 * *(_DWORD*)(v7 + 48) + 4),
 					v23)) {
 					qmemcpy(&byte_5D4594[2660684], v23, 0x4FCu);
 					*(_WORD*)&byte_5D4594[2661960] = *(_WORD*)&v23[1276];
@@ -298,12 +299,12 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 						sub_4DB220(1);
 						sub_4DB230(1);
 						nox_sprintf(v21, "%s.map",
-							    *(_DWORD*)&byte_5D4594[1307780] +
+							    dword_5d4594_1307780 +
 								1278 * *(_DWORD*)(v7 + 48) + 1156);
 						v9 = sub_4DB2A0(v21) == 0;
 						v10 = *(_DWORD*)(v7 + 48);
-						v19 = *(_DWORD*)&byte_5D4594[1307780] + 1278 * v10 + 1156;
-						v18 = *(_DWORD*)&byte_5D4594[1307780] + 1278 * v10 + 1156;
+						v19 = dword_5d4594_1307780 + 1278 * v10 + 1156;
+						v18 = dword_5d4594_1307780 + 1278 * v10 + 1156;
 						if (v9) {
 							v12 = sub_409E10();
 							nox_sprintf(v22, "%s\\Maps\\%s\\%s.map", v12, v18, v19);
@@ -315,15 +316,15 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 						sub_4DB270(v22);
 						sub_409D70(v21);
 						sub_4DCC70(1);
-						v13 = sub_41D090((char*)(*(_DWORD*)&byte_5D4594[1307780] +
+						v13 = sub_41D090((char*)(dword_5d4594_1307780 +
 									 1278 * *(_DWORD*)(v7 + 48) + 4));
 						sub_4E3C60(v13);
 					} else if (sub_4D6F30()) {
-						sub_4DCE60(*(unsigned __int8*)(*(_DWORD*)&byte_5D4594[1307780] +
+						sub_4DCE60(*(unsigned __int8*)(dword_5d4594_1307780 +
 									       1278 * *(_DWORD*)(v7 + 48) + 1277));
-						sub_4DCE80((const char*)(*(_DWORD*)&byte_5D4594[1307780] +
+						sub_4DCE80((const char*)(dword_5d4594_1307780 +
 									 1278 * *(_DWORD*)(v7 + 48) + 1156));
-						v14 = sub_41D090((char*)(*(_DWORD*)&byte_5D4594[1307780] +
+						v14 = sub_41D090((char*)(dword_5d4594_1307780 +
 									 1278 * *(_DWORD*)(v7 + 48) + 4));
 						sub_4E3C60(v14);
 					}
@@ -339,7 +340,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 				goto LABEL_40;
 			*(_DWORD*)&byte_5D4594[1307772] =
 			    *(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1307776] + 32) + 48);
-			sub_4DC970((char*)(*(_DWORD*)&byte_5D4594[1307780] + 1278 * v5 + 4),
+			sub_4DC970((char*)(dword_5d4594_1307780 + 1278 * v5 + 4),
 				   (char*)&byte_5D4594[1307752]);
 			if (nox_common_gameFlags_check_40A5C0(2048) &&
 			    !strcmp((const char*)&byte_5D4594[1307752], "AUTOSAVE")) {
@@ -351,7 +352,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 				v6 = loadString_sub_40F1D0((char*)&byte_587000[170952], 0,
 							   "C:\\NoxPost\\src\\client\\shell\\selchar.c", 465);
 			} else {
-				if (!strlen((const char*)(*(_DWORD*)&byte_5D4594[1307780] +
+				if (!strlen((const char*)(dword_5d4594_1307780 +
 							  1278 * *(_DWORD*)&byte_5D4594[1307772] + 4))) {
 				LABEL_38:
 					sub_452D80(925, 100);
