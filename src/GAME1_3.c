@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815048;
 extern _DWORD dword_5d4594_815132;
 extern _DWORD dword_587000_87404;
 extern _DWORD dword_587000_87412;
@@ -120,7 +121,7 @@ _DWORD* sub_43B670() {
 	char* v0; // esi
 
 	v0 = sub_416640();
-	if (*(_DWORD*)&byte_5D4594[815048]) {
+	if (dword_5d4594_815048) {
 		sub_44A400();
 		sub_43B510();
 		sub_43A9D0();
