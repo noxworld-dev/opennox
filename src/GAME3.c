@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1309812;
 extern _DWORD dword_5d4594_1309820;
 extern _DWORD dword_5d4594_3799624;
@@ -1719,41 +1720,41 @@ int sub_4A5E90() {
 			*(_DWORD*)&byte_5D4594[1308164] = i;
 		}
 	}
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 720);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 720);
 	*(_DWORD*)&byte_5D4594[1308096] = v1;
 	v1[8] = 131074;
-	v2 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 721);
+	v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 721);
 	*(_DWORD*)&byte_5D4594[1308100] = v2;
 	v2[8] = 589825;
-	v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 722);
+	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 722);
 	*(_DWORD*)&byte_5D4594[1308104] = v3;
 	v3[8] = 589825;
-	v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 723);
+	v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 723);
 	*(_DWORD*)&byte_5D4594[1308108] = v4;
 	v4[8] = 589825;
-	v5 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 724);
+	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 724);
 	*(_DWORD*)&byte_5D4594[1308112] = v5;
 	v5[8] = 589825;
-	v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 725);
+	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 725);
 	*(_DWORD*)&byte_5D4594[1308116] = v6;
 	v6[8] = *(unsigned __int16*)&byte_587000[171372] << 16;
-	v7 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 726);
+	v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 726);
 	*(_DWORD*)&byte_5D4594[1308120] = v7;
 	v7[8] = *(unsigned __int16*)&byte_587000[171374] << 16;
-	v8 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 727);
+	v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 727);
 	*(_DWORD*)&byte_5D4594[1308124] = v8;
 	v8[8] = *(unsigned __int16*)&byte_587000[171376] << 16;
-	v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 728);
+	v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 728);
 	*(_DWORD*)&byte_5D4594[1308128] = v9;
 	v9[8] = *(unsigned __int16*)&byte_587000[171378] << 16;
-	v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 729);
+	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 729);
 	*(_DWORD*)&byte_5D4594[1308132] = v10;
 	v10[8] = *(unsigned __int16*)&byte_587000[171380] << 16;
-	*(_DWORD*)&byte_5D4594[1308136] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 711);
-	*(_DWORD*)&byte_5D4594[1308140] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 712);
-	*(_DWORD*)&byte_5D4594[1308144] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 713);
-	*(_DWORD*)&byte_5D4594[1308148] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 714);
-	*(_DWORD*)&byte_5D4594[1308152] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], 751);
+	*(_DWORD*)&byte_5D4594[1308136] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 711);
+	*(_DWORD*)&byte_5D4594[1308140] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 712);
+	*(_DWORD*)&byte_5D4594[1308144] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 713);
+	*(_DWORD*)&byte_5D4594[1308148] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 714);
+	*(_DWORD*)&byte_5D4594[1308152] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 751);
 	result = *(_DWORD*)&byte_587000[171388];
 	if (!*(_DWORD*)&byte_587000[171388]) {
 		nox_window_call_field_94(*(int*)&byte_5D4594[1308152], 16414, *(int*)&dword_5d4594_1307784, 0);
@@ -1792,14 +1793,14 @@ unsigned __int8* __cdecl sub_4A61E0(_DWORD* a1, int a2, unsigned __int8* a3) {
 			goto LABEL_9;
 	}
 	if (a2 == 1) {
-		v5 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], *a1 - 10);
+		v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, *a1 - 10);
 		sub_46ABB0((int)v5, 1);
-		result = (unsigned __int8*)sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], *a1 + 10);
+		result = (unsigned __int8*)sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, *a1 + 10);
 		*((_DWORD*)result + 9) |= 6u;
 	}
 LABEL_9:
 	if (v3 == 32 && a2 == 1) {
-		v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], *a1 - 10);
+		v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, *a1 - 10);
 		result = (unsigned __int8*)sub_46ABB0((int)v6, 0);
 		LOWORD(v3) = 9;
 	}
@@ -2118,7 +2119,7 @@ int sub_4A6C90() {
 
 	v0 = *(void (**)(void))(*(_DWORD*)&byte_5D4594[1308092] + 52);
 	sub_43C570(*(LPVOID*)&byte_5D4594[1308092]);
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1308084]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1308084);
 	sub_46C4E0(*(_DWORD**)&byte_5D4594[1308088]);
 	if (v0) {
 		v0();
@@ -2451,7 +2452,7 @@ int __cdecl sub_4A7330(int a1, int a2, int* a3, unsigned int a4) {
 		case 732:
 		case 733:
 		case 734:
-			v7 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1308084], v6 - 20);
+			v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, v6 - 20);
 			if (v7)
 				sub_46ABB0((int)v7, ((unsigned int)~v7[1] >> 3) & 1);
 			break;
