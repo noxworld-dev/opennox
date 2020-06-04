@@ -1,6 +1,7 @@
 #include "access.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1045528;
 extern _DWORD dword_5d4594_1045516;
 
 //----- (00454640) --------------------------------------------------------
@@ -98,7 +99,7 @@ int* sub_454740() {
 	}
 	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10207);
 	v5[9] |= 4u;
-	*(_DWORD*)&byte_5D4594[1045596] = *(_DWORD*)&byte_5D4594[1045528];
+	*(_DWORD*)&byte_5D4594[1045596] = dword_5d4594_1045528;
 	v6 = loadString_sub_40F1D0((char*)&byte_587000[128200], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
 				   242);
 	nox_window_call_field_94(*(int*)&byte_5D4594[1045552], 16397, (int)v6, -1);
@@ -110,7 +111,7 @@ int* sub_454740() {
 	nox_window_call_field_94(*(int*)&byte_5D4594[1045552], 16397, (int)v8, -1);
 	if (v0[100] & 0x10) {
 		nox_window_set_hidden(*(int*)&byte_5D4594[1045532], 0);
-		nox_window_set_hidden(*(int*)&byte_5D4594[1045528], 1);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1045528, 1);
 	}
 	v9 = v0[100];
 	if (v9) {
