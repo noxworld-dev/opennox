@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_127004;
 extern _DWORD dword_5d4594_814624;
 extern _DWORD dword_5d4594_3801804;
 extern _DWORD dword_5d4594_528256;
@@ -6041,7 +6042,7 @@ int __cdecl nox_audio_initall(int a3) {
 	sub_4864A0(&byte_5D4594[805884]);
 	sub_4864A0(*(_DWORD**)&byte_587000[93164]);
 	sub_4864A0(*(_DWORD**)&byte_587000[122852]);
-	sub_4864A0(*(_DWORD**)&byte_587000[127004]);
+	sub_4864A0(*(_DWORD**)&dword_587000_127004);
 	sub_44D810();
 	sub_43D8E0();
 	sub_451850(*(int*)&byte_5D4594[805984], *(int*)&byte_5D4594[805980]);
@@ -6056,7 +6057,7 @@ int __cdecl nox_audio_initall(int a3) {
 	v3 = sub_4866A0(0);
 	if (!v3)
 		sub_453050();
-	sub_486320(*(_DWORD**)&byte_587000[127004], v3);
+	sub_486320(*(_DWORD**)&dword_587000_127004, v3);
 	return 1;
 }
 
@@ -7673,7 +7674,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "Gamma2 = %f\n", draw_gamma);
 	fprintf(a1, "InputSensitivity = %f\n", input_sensitivity);
 	if (sub_453070() == 1)
-		v3 = *(_DWORD*)(*(_DWORD*)&byte_587000[127004] + 4) >> 16;
+		v3 = *(_DWORD*)(dword_587000_127004 + 4) >> 16;
 	else
 		v3 = 0;
 	fprintf(a1, "FXVolume = %d\n", v3);

@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_127004;
 extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1312480;
 extern _DWORD dword_5d4594_3799492;
@@ -4272,7 +4273,7 @@ int sub_4AA6B0() {
 				sub_4B5700((int)v1, 0, 0, (int)v2, (int)v16, (int)v19);
 				nox_window_call_field_94((int)v1, 16395, 0, 0x4000);
 				nox_window_call_field_94((int)v1, 16394,
-							 *(_DWORD*)(*(_DWORD*)&byte_587000[127004] + 4) >> 16, 0);
+							 *(_DWORD*)(dword_587000_127004 + 4) >> 16, 0);
 				*(_DWORD*)&byte_5D4594[1309728] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 361);
 				v3 = sub_453070();
 				v4 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1309728] + 36);
@@ -4535,7 +4536,7 @@ int __cdecl sub_4AABE0(int a1, int a2, int* a3, int a4) {
 		v8 = sub_46C720();
 		switch (v7) {
 		case 351:
-			sub_486320(*(_DWORD**)&byte_587000[127004], a4);
+			sub_486320(*(_DWORD**)&dword_587000_127004, a4);
 			if (v8 && *(int**)(v8 + 396) == a3)
 				goto LABEL_76;
 			if (a4) {
@@ -4632,7 +4633,7 @@ int __cdecl sub_4AABE0(int a1, int a2, int* a3, int a4) {
 				result = 0;
 			}
 		} else {
-			sub_486320(*(_DWORD**)&byte_587000[127004], a4);
+			sub_486320(*(_DWORD**)&dword_587000_127004, a4);
 			if (a4) {
 				if (!sub_453070()) {
 					v15 = *(_DWORD*)&byte_5D4594[1309728];
@@ -6044,7 +6045,7 @@ int sub_4ADAD0() {
 			v2 = sub_42F970("OptionsVolumeSlider");
 			sub_4B5700((int)v1, 0, 0, (int)v2, (int)v25, (int)v28);
 			nox_window_call_field_94((int)v1, 16395, 0, 0x4000);
-			nox_window_call_field_94((int)v1, 16394, *(_DWORD*)(*(_DWORD*)&byte_587000[127004] + 4) >> 16,
+			nox_window_call_field_94((int)v1, 16394, *(_DWORD*)(dword_587000_127004 + 4) >> 16,
 						 0);
 			*(_DWORD*)&byte_5D4594[1309828] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 361);
 			v3 = sub_453070();
@@ -6224,7 +6225,7 @@ int __cdecl sub_4ADF30(int a1, int a2, int* a3, int a4) {
 		v6 = sub_46C720();
 		switch (v5) {
 		case 351:
-			sub_486320(*(_DWORD**)&byte_587000[127004], a4);
+			sub_486320(*(_DWORD**)&dword_587000_127004, a4);
 			if (v6 && *(int**)(v6 + 396) == a3)
 				goto LABEL_64;
 			if (a4) {
@@ -6321,7 +6322,7 @@ int __cdecl sub_4ADF30(int a1, int a2, int* a3, int a4) {
 				result = 0;
 			}
 		} else {
-			sub_486320(*(_DWORD**)&byte_587000[127004], a4);
+			sub_486320(*(_DWORD**)&dword_587000_127004, a4);
 			if (a4) {
 				if (!sub_453070()) {
 					v13 = *(_DWORD*)&byte_5D4594[1309828];
