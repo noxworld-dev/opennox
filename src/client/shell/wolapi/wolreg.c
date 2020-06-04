@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1064816;
 
 //----- (00468890) --------------------------------------------------------
 int __cdecl sub_468890_wol_reg(char* a1, char* a2, char* a3, _BYTE* a4, _BYTE* a5, wchar_t* a6) {
@@ -24,18 +25,18 @@ int __cdecl sub_468890_wol_reg(char* a1, char* a2, char* a3, _BYTE* a4, _BYTE* a
 	wchar_t* v25; // [esp-4h] [ebp-60h]
 	char v26[80]; // [esp+Ch] [ebp-50h]
 
-	*a4 = (sub_46B0C0(*(_DWORD**)&byte_5D4594[1064816], 1766)[9] >> 2) & 1;
-	*a5 = (sub_46B0C0(*(_DWORD**)&byte_5D4594[1064816], 1767)[9] >> 2) & 1;
-	v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1064816], 1762);
+	*a4 = (sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1766)[9] >> 2) & 1;
+	*a5 = (sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1767)[9] >> 2) & 1;
+	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1762);
 	v7 = nox_window_call_field_94((int)v6, 16413, 0, 0);
 	nox_sprintf(a1, "%S", v7);
-	v8 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1064816], 1763);
+	v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1763);
 	v9 = nox_window_call_field_94((int)v8, 16413, 0, 0);
 	nox_sprintf(a2, "%S", v9);
-	v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1064816], 1764);
+	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1764);
 	v11 = nox_window_call_field_94((int)v10, 16413, 0, 0);
 	nox_sprintf(v26, "%S", v11);
-	v12 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1064816], 1765);
+	v12 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1765);
 	v13 = nox_window_call_field_94((int)v12, 16413, 0, 0);
 	nox_sprintf(a3, "%S", v13);
 	v14 = *a1;
@@ -111,13 +112,13 @@ int __cdecl sub_468BB0_wol_reg(int* a1, int* a2, int* a3, wchar_t* a4) {
 	wchar_t* v18;      // [esp-4h] [ebp-14h]
 
 	*a4 = 0;
-	v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1064816], 1758);
+	v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1758);
 	v5 = (const wchar_t*)nox_window_call_field_94((int)v4, 16413, 0, 0);
-	v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1064816], 1759);
+	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1759);
 	v7 = (const wchar_t*)nox_window_call_field_94((int)v6, 16413, 0, 0);
-	v8 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1064816], 1760);
+	v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1760);
 	v9 = (const wchar_t*)nox_window_call_field_94((int)v8, 16413, 0, 0);
-	v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1064816], 1761);
+	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1761);
 	v11 = nox_window_call_field_94((int)v10, 16413, 0, 0);
 	nox_sprintf((char*)&byte_5D4594[1064196], "%S", v11);
 	if (v5 && v7 && nox_wcslen(v9) == 4) {
@@ -163,5 +164,5 @@ int sub_468F30_wol_reg() {
 	sub_468840(v0);
 	*(_DWORD*)&byte_5D4594[1064296] = 4;
 	nox_window_set_hidden(*(int*)&byte_5D4594[1064820], 1);
-	return sub_46ABB0(*(int*)&byte_5D4594[1064816], 1);
+	return sub_46ABB0(*(int*)&dword_5d4594_1064816, 1);
 }
