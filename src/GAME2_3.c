@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1197312;
 extern _DWORD dword_5d4594_1303452;
 extern _DWORD dword_5d4594_3798696;
 extern _DWORD dword_5d4594_815132;
@@ -301,10 +302,10 @@ int sub_48CAB0() {
 
 //----- (0048CAD0) --------------------------------------------------------
 int sub_48CAD0() {
-	if (wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[1197312]))
+	if (wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1197312))
 		return 0;
-	sub_46C6E0(*(int*)&byte_5D4594[1197312]);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1197312], 1);
+	sub_46C6E0(*(int*)&dword_5d4594_1197312);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1197312, 1);
 	return 1;
 }
 
@@ -313,14 +314,14 @@ int sub_48D000() {
 	_DWORD* v0; // eax
 
 	v0 = nox_new_window_from_file("GuiKick.wnd", sub_48D0A0);
-	*(_DWORD*)&byte_5D4594[1197312] = v0;
+	dword_5d4594_1197312 = v0;
 	if (!v0)
 		return 0;
 	*(_DWORD*)&byte_5D4594[1197316] = sub_46B0C0(v0, 4320);
-	*(_DWORD*)&byte_5D4594[1197320] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1197312], 4321);
-	sub_46A9B0(*(_DWORD**)&byte_5D4594[1197312], (nox_win_width - *(int*)(*(_DWORD*)&byte_5D4594[1197312] + 8)) / 2,
-		   *(_DWORD*)(*(_DWORD*)&byte_5D4594[1197312] + 20));
-	nox_window_set_hidden(*(int*)&byte_5D4594[1197312], 1);
+	*(_DWORD*)&byte_5D4594[1197320] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1197312, 4321);
+	sub_46A9B0(*(_DWORD**)&dword_5d4594_1197312, (nox_win_width - *(int*)(dword_5d4594_1197312 + 8)) / 2,
+		   *(_DWORD*)(dword_5d4594_1197312 + 20));
+	nox_window_set_hidden(*(int*)&dword_5d4594_1197312, 1);
 	*(_DWORD*)&byte_5D4594[1197324] = 0;
 	*(_DWORD*)&byte_5D4594[1197328] = 0;
 	*(_DWORD*)&byte_5D4594[1197332] = 0;
@@ -540,11 +541,11 @@ _DWORD* sub_48D410() {
 int sub_48D450() {
 	int result; // eax
 
-	sub_46C6E0(*(int*)&byte_5D4594[1197312]);
-	sub_46ADE0(*(int*)&byte_5D4594[1197312]);
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1197312]);
+	sub_46C6E0(*(int*)&dword_5d4594_1197312);
+	sub_46ADE0(*(int*)&dword_5d4594_1197312);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1197312);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1197312] = 0;
+	dword_5d4594_1197312 = 0;
 	*(_DWORD*)&byte_5D4594[1197316] = 0;
 	*(_DWORD*)&byte_5D4594[1197320] = 0;
 	*(_DWORD*)&byte_5D4594[1197324] = 0;
