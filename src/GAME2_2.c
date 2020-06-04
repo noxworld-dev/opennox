@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1189592;
 extern _DWORD dword_5d4594_3801804;
 extern _DWORD dword_5d4594_3798816;
 extern _DWORD dword_5d4594_1096640;
@@ -2386,7 +2387,7 @@ int sub_47A270() {
 		*(_DWORD*)&byte_5D4594[1189588] = result;
 		if (result) {
 			result = (int)nox_malloc(0x12C000u);
-			*(_DWORD*)&byte_5D4594[1189592] = result;
+			dword_5d4594_1189592 = result;
 			if (result) {
 				result = (int)nox_malloc(0x12C000u);
 				*(_DWORD*)&byte_5D4594[1189596] = result;
@@ -2645,7 +2646,7 @@ int __cdecl sub_47A960(const char* a1, int a2) {
 				v13[4] = v12;
 				v4 = fopen(v16, "rb");
 				if (v4) {
-					if (!sub_4C57C0(v4, *(int*)&byte_5D4594[1189592], &v19, &v18)) {
+					if (!sub_4C57C0(v4, *(int*)&dword_5d4594_1189592, &v19, &v18)) {
 					LABEL_26:
 						fclose(v4);
 						SetCurrentDirectoryA(Buffer);
@@ -3656,7 +3657,7 @@ int __cdecl sub_47B7F0(int a1, int a2, int a3, unsigned __int8 a4) {
 			    v130 <
 				*(unsigned __int8*)(*(_DWORD*)&byte_5D4594[1189588] + ((5 * v37 + 6400) << 7) + v18) -
 				    5) {
-				v52 = *(_BYTE*)(v101 + *(_DWORD*)&byte_5D4594[1189592] + v18);
+				v52 = *(_BYTE*)(v101 + dword_5d4594_1189592 + v18);
 				if (v52 == -1) {
 					HIBYTE(v55) = 0;
 					if (dword_5d4594_3799624 == 2)
@@ -3691,7 +3692,7 @@ int __cdecl sub_47B7F0(int a1, int a2, int a3, unsigned __int8 a4) {
 					v134 = 1;
 					*v34 = (16 * v52) | 4;
 					v53 = v34 + 1;
-					v54 = *(unsigned __int8*)(*(_DWORD*)&byte_5D4594[1189592] + v101 + v18);
+					v54 = *(unsigned __int8*)(dword_5d4594_1189592 + v101 + v18);
 					v18 = v106;
 					v148 = (16 * v54) | 4;
 					v51 = v53++;
@@ -3755,7 +3756,7 @@ int __cdecl sub_47B7F0(int a1, int a2, int a3, unsigned __int8 a4) {
 					}
 					v51 = v140;
 				}
-				v61 = *(_BYTE*)(v101 + *(_DWORD*)&byte_5D4594[1189592] + v144);
+				v61 = *(_BYTE*)(v101 + dword_5d4594_1189592 + v144);
 				if (v61 == -1) {
 					if (dword_5d4594_3799624 == 2)
 						v63 = 8 * ((32 * (v116 & 0xF8)) |
@@ -3980,7 +3981,7 @@ int __cdecl sub_47B7F0(int a1, int a2, int a3, unsigned __int8 a4) {
 			    v130 <
 				*(unsigned __int8*)(*(_DWORD*)&byte_5D4594[1189588] + ((5 * v37 + 6400) << 7) + v18) -
 				    5) {
-				v83 = *(_BYTE*)(v103 + *(_DWORD*)&byte_5D4594[1189592] + v18);
+				v83 = *(_BYTE*)(v103 + dword_5d4594_1189592 + v18);
 				v35 += 4;
 				if (v83 == -1) {
 					v150 = 5;
@@ -4003,7 +4004,7 @@ int __cdecl sub_47B7F0(int a1, int a2, int a3, unsigned __int8 a4) {
 				} else {
 					*v34 = (16 * v83) | 6;
 					v84 = v34 + 1;
-					v85 = *(unsigned __int8*)(*(_DWORD*)&byte_5D4594[1189592] + v103 + v18);
+					v85 = *(unsigned __int8*)(dword_5d4594_1189592 + v103 + v18);
 					v142 = v84++;
 					*v84 = *(_BYTE*)(*(_DWORD*)&byte_5D4594[1189588] + v103 + v106);
 					v18 = v106;
@@ -4075,7 +4076,7 @@ int __cdecl sub_47B7F0(int a1, int a2, int a3, unsigned __int8 a4) {
 			}
 			v82 = v138;
 		LABEL_192:
-			v90 = *(_BYTE*)(v103 + *(_DWORD*)&byte_5D4594[1189592] + v146);
+			v90 = *(_BYTE*)(v103 + dword_5d4594_1189592 + v146);
 			if (v90 == -1) {
 				HIWORD(v94) = *(_WORD*)&byte_5D4594[1189590];
 				HIWORD(v95) = HIWORD(v146);
@@ -4175,7 +4176,7 @@ int __cdecl sub_47D090(int a1, int a2) {
 
 	result = a2;
 	if (a2 > 0) {
-		v3 = *(_DWORD*)&byte_5D4594[1189592];
+		v3 = dword_5d4594_1189592;
 		v4 = 0;
 		v9 = a2;
 		do {
@@ -4191,7 +4192,7 @@ int __cdecl sub_47D090(int a1, int a2) {
 						    *(_BYTE*)(v4 + v3 + 819200 + v5 - 409600) == *v8 &&
 						    *(_BYTE*)(v4 + v3 + 819200 + v5) == v8[1]) {
 							*(_BYTE*)(v3 + v6) = v7;
-							v3 = *(_DWORD*)&byte_5D4594[1189592];
+							v3 = dword_5d4594_1189592;
 							v10 = 1;
 						}
 						v8 += 3;
@@ -4199,7 +4200,7 @@ int __cdecl sub_47D090(int a1, int a2) {
 					} while ((int)v8 < (int)&byte_587000[153710]);
 					if (!v10) {
 						*(_BYTE*)(v4 + v3 + v5) = -1;
-						v3 = *(_DWORD*)&byte_5D4594[1189592];
+						v3 = dword_5d4594_1189592;
 					}
 					++v5;
 					++v6;
@@ -4223,9 +4224,9 @@ LPVOID sub_47D150() {
 		free(*(LPVOID*)&byte_5D4594[1189588]);
 		*(_DWORD*)&byte_5D4594[1189588] = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[1189592]) {
-		free(*(LPVOID*)&byte_5D4594[1189592]);
-		*(_DWORD*)&byte_5D4594[1189592] = 0;
+	if (dword_5d4594_1189592) {
+		free(*(LPVOID*)&dword_5d4594_1189592);
+		dword_5d4594_1189592 = 0;
 	}
 	result = *(LPVOID*)&byte_5D4594[1189596];
 	if (*(_DWORD*)&byte_5D4594[1189596]) {
