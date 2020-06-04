@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804664;
 extern _DWORD dword_5d4594_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -6128,7 +6129,7 @@ LABEL_7:
 //----- (00480860) --------------------------------------------------------
 void __cdecl sub_480860(WORD* a1, WORD* a2, int a3, int* a4, int* a5) {
 	WORD* dword_975384 = *(_DWORD*)&byte_5D4594[3804656];
-	WORD* dword_97538C = *(_DWORD*)&byte_5D4594[3804664];
+	WORD* dword_97538C = dword_5d4594_3804664;
 	WORD* dword_975394 = *(_DWORD*)&byte_5D4594[3804672];
 	WORD dword_975260 = *(_WORD*)&byte_5D4594[3804364];
 	WORD dword_975264 = *(_WORD*)&byte_5D4594[3804368];
