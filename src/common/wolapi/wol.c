@@ -1,6 +1,7 @@
 #include "wol.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2660652;
 
 //----- (0041D1D0) --------------------------------------------------------
 _DWORD* __cdecl sub_41D1D0(int a1) {
@@ -13,8 +14,8 @@ _DWORD* __cdecl sub_41D1D0(int a1) {
 	_DWORD* result;      // eax
 
 	v1 = loadString_sub_40F1D0((char*)&byte_587000[57204], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 41);
-	if (*(int*)&byte_5D4594[2660652] > -2147221247) {
-		if (*(_DWORD*)&byte_5D4594[2660652])
+	if (*(int*)&dword_5d4594_2660652 > -2147221247) {
+		if (dword_5d4594_2660652)
 		LABEL_21:
 			v2 = loadString_sub_40F1D0((char*)&byte_587000[58048], 0,
 						   "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 123);
@@ -22,11 +23,11 @@ _DWORD* __cdecl sub_41D1D0(int a1) {
 			v2 = loadString_sub_40F1D0((char*)&byte_587000[57996], 0,
 						   "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 117);
 	} else {
-		if (*(int*)&byte_5D4594[2660652] >= -2147221248) {
+		if (*(int*)&dword_5d4594_2660652 >= -2147221248) {
 			v6 = &byte_5D4594[2660140];
 			goto LABEL_24;
 		}
-		switch (*(int*)&byte_5D4594[2660652] + 2147221404) {
+		switch (*(int*)&dword_5d4594_2660652 + 2147221404) {
 		case 0:
 			v2 = loadString_sub_40F1D0((char*)&byte_587000[57516], 0,
 						   "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 64);
@@ -100,7 +101,7 @@ LABEL_24:
 		sub_43DE60();
 	}
 	if (a1)
-		result = sub_44AFB0((int)v1, (int)v6, *(int*)&byte_5D4594[2660652]);
+		result = sub_44AFB0((int)v1, (int)v6, *(int*)&dword_5d4594_2660652);
 	else
 		result = sub_449A10(0, (int)v1, (int)v6, 33, 0, 0);
 	return result;
