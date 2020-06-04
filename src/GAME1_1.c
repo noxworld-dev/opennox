@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_531648;
 extern _DWORD dword_587000_60356;
 extern _DWORD dword_5d4594_528256;
 extern _DWORD dword_5d4594_534808;
@@ -4507,8 +4508,8 @@ int sub_41F4B0() {
 	int result; // eax
 	int v3;     // eax
 
-	v0 = *(_DWORD*)&byte_5D4594[531648];
-	if (*(_DWORD*)&byte_5D4594[531648]) {
+	v0 = dword_5d4594_531648;
+	if (dword_5d4594_531648) {
 		do {
 			v1 = *(_DWORD*)(v0 + 20);
 			if (*(_DWORD*)v0)
@@ -4517,7 +4518,7 @@ int sub_41F4B0() {
 			v0 = v1;
 		} while (v1);
 	}
-	*(_DWORD*)&byte_5D4594[531648] = 0;
+	dword_5d4594_531648 = 0;
 	*(_DWORD*)&byte_5D4594[531652] = 0;
 	*(_DWORD*)&byte_5D4594[531656] = 0;
 	result = sub_41E2F0();
@@ -4545,9 +4546,9 @@ void __cdecl sub_41F520(const char* a1) {
 		else
 			*v1 = 0;
 		v1[4] = sub_427880(a1 + 36);
-		v3 = *(int**)&byte_5D4594[531648];
+		v3 = *(int**)&dword_5d4594_531648;
 		v4 = 0;
-		if (*(_DWORD*)&byte_5D4594[531648]) {
+		if (dword_5d4594_531648) {
 			while (sub_41F460((int)a1, *v3) > 0) {
 				v3 = (int*)v3[5];
 				++v4;
@@ -4566,7 +4567,7 @@ void __cdecl sub_41F520(const char* a1) {
 			if (v5)
 				*(_DWORD*)(v5 + 20) = v1;
 			else
-				*(_DWORD*)&byte_5D4594[531648] = v1;
+				dword_5d4594_531648 = v1;
 			v1[6] = v3[6];
 			v1[5] = v3;
 			v3[6] = (int)v1;
@@ -4575,7 +4576,7 @@ void __cdecl sub_41F520(const char* a1) {
 				sub_41F440((int)v1, *(_DWORD*)*v1, v4);
 		} else {
 			*(_DWORD*)&byte_5D4594[531652] = v1;
-			*(_DWORD*)&byte_5D4594[531648] = v1;
+			dword_5d4594_531648 = v1;
 			v1[6] = 0;
 			v1[5] = 0;
 		}
@@ -4612,7 +4613,7 @@ char* __cdecl sub_41F740(int a1, char a2) {
 
 //----- (0041F780) --------------------------------------------------------
 char* sub_41F780() {
-	*(_DWORD*)&byte_5D4594[531656] = *(_DWORD*)&byte_5D4594[531648];
+	*(_DWORD*)&byte_5D4594[531656] = dword_5d4594_531648;
 	return sub_41F710();
 }
 
@@ -4620,8 +4621,8 @@ char* sub_41F780() {
 _DWORD* __cdecl sub_41F790(const char* a1) {
 	_DWORD* v1; // edi
 
-	v1 = *(_DWORD**)&byte_5D4594[531648];
-	if (!a1 || !*(_DWORD*)&byte_5D4594[531648])
+	v1 = *(_DWORD**)&dword_5d4594_531648;
+	if (!a1 || !dword_5d4594_531648)
 		return 0;
 	while (strcmp((const char*)(*v1 + 36), a1)) {
 		v1 = (_DWORD*)v1[5];

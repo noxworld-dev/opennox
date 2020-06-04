@@ -1,6 +1,7 @@
 #include "woluser.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_531648;
 
 //----- (0041F620) --------------------------------------------------------
 void __cdecl sub_41F620(int a1) {
@@ -12,9 +13,9 @@ void __cdecl sub_41F620(int a1) {
 	int v6;      // edi
 	wchar_t* v7; // eax
 
-	v1 = *(_DWORD**)&byte_5D4594[531648];
+	v1 = *(_DWORD**)&dword_5d4594_531648;
 	v2 = 0;
-	if (*(_DWORD*)&byte_5D4594[531648]) {
+	if (dword_5d4594_531648) {
 		while (1) {
 			v3 = (_DWORD*)v1[5];
 			if (!_strcmpi((const char*)(*v1 + 36), (const char*)(a1 + 36)))
@@ -28,7 +29,7 @@ void __cdecl sub_41F620(int a1) {
 		if (v4)
 			*(_DWORD*)(v4 + 20) = v1[5];
 		else
-			*(_DWORD*)&byte_5D4594[531648] = v1[5];
+			dword_5d4594_531648 = v1[5];
 		v5 = v1[5];
 		if (v5)
 			*(_DWORD*)(v5 + 24) = v1[6];
