@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045536;
 extern _DWORD dword_5d4594_1046508;
 extern _DWORD dword_5d4594_833712;
 extern _DWORD dword_5d4594_1045480;
@@ -3548,7 +3549,7 @@ int __cdecl sub_4541D0(int a1) {
 	*(_DWORD*)&byte_5D4594[1045524] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10103);
 	*(_DWORD*)&byte_5D4594[1045532] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10109);
 	dword_5d4594_1045528 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10105);
-	*(_DWORD*)&byte_5D4594[1045536] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10200);
+	dword_5d4594_1045536 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10200);
 	*(_DWORD*)&byte_5D4594[1045540] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10111);
 	*(_DWORD*)&byte_5D4594[1045544] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10112);
 	*(_DWORD*)&byte_5D4594[1045548] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10113);
@@ -3591,7 +3592,7 @@ int __cdecl sub_4541D0(int a1) {
 	v7[9] = v8;
 	v7[7] = v16;
 	v7[8] = v13;
-	v9 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[1045536] + 32);
+	v9 = *(_DWORD**)(dword_5d4594_1045536 + 32);
 	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10203);
 	v17 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10201);
 	v11 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10202);
@@ -3599,9 +3600,9 @@ int __cdecl sub_4541D0(int a1) {
 	v14 = (int)v11;
 	*(_DWORD*)(v10[100] + 12) = 10;
 	sub_4B5700((int)v10, 0, 0, (int)v4, (int)v5, (int)v5);
-	sub_46B280((int)v10, *(int*)&byte_5D4594[1045536]);
-	sub_46B280((int)v17, *(int*)&byte_5D4594[1045536]);
-	sub_46B280(v14, *(int*)&byte_5D4594[1045536]);
+	sub_46B280((int)v10, *(int*)&dword_5d4594_1045536);
+	sub_46B280((int)v17, *(int*)&dword_5d4594_1045536);
+	sub_46B280(v14, *(int*)&dword_5d4594_1045536);
 	v9[9] = v10;
 	v9[7] = v17;
 	v9[8] = v14;
@@ -3873,13 +3874,13 @@ int __cdecl sub_454BA0(int a1, int a2, int* a3, int a4) {
 			result = 0;
 			break;
 		case 10191:
-			v33 = (int*)nox_window_call_field_94(*(int*)&byte_5D4594[1045536], 16404, 0, 0);
+			v33 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16404, 0, 0);
 			v34 = v33;
 			v35 = *v33;
 			if (v35 < 0)
 				goto LABEL_101;
 			do {
-				v36 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1045536], 16406, v35, 0);
+				v36 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v35, 0);
 				v37 = sub_4170D0(v36);
 				v38 = v37;
 				if (v37 && v37[2064] != 31) {
@@ -3893,13 +3894,13 @@ int __cdecl sub_454BA0(int a1, int a2, int* a3, int a4) {
 			} while (v35 >= 0);
 			return 0;
 		case 10192:
-			v26 = (int*)nox_window_call_field_94(*(int*)&byte_5D4594[1045536], 16404, 0, 0);
+			v26 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16404, 0, 0);
 			v27 = v26;
 			v28 = *v26;
 			if (v28 < 0)
 				goto LABEL_101;
 			do {
-				v29 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1045536], 16406, v28, 0);
+				v29 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v28, 0);
 				v30 = v29;
 				v31 = sub_4170D0(v29);
 				v32 = v31;
@@ -4025,13 +4026,13 @@ int sub_455770() {
 	wchar_t* v3; // eax
 	char* v4;    // eax
 
-	v0 = (int*)nox_window_call_field_94(*(int*)&byte_5D4594[1045536], 16404, 0, 0);
+	v0 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16404, 0, 0);
 	v1 = v0;
 	v2 = *v0;
 	if (v2 < 0)
 		return 0;
 	while (1) {
-		v3 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1045536], 16406, v2, 0);
+		v3 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v2, 0);
 		v4 = sub_4170D0(v3);
 		if (v4) {
 			if (v4[2064] != 31)
@@ -4115,7 +4116,7 @@ void __cdecl sub_455950(wchar_t* a1) {
 	if (dword_5d4594_1045516) {
 		v1 = sub_4559B0(a1);
 		if (v1 != -1) {
-			nox_window_call_field_94(*(int*)&byte_5D4594[1045536], 16398, v1, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16398, v1, 0);
 			if (!sub_455770())
 				sub_46AD20(*(_DWORD**)&dword_5d4594_1045516, 10191, 10192, 0);
 		}
@@ -4129,11 +4130,11 @@ int __cdecl sub_4559B0(wchar_t* a1) {
 	const wchar_t* v3; // eax
 
 	v1 = 0;
-	v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045536] + 32);
+	v2 = *(_DWORD*)(dword_5d4594_1045536 + 32);
 	if (*(short*)(v2 + 44) <= 0)
 		return -1;
 	while (1) {
-		v3 = (const wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1045536], 16406, v1, 0);
+		v3 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v1, 0);
 		if (!nox_wcscmp(v3, a1))
 			break;
 		if (++v1 >= *(__int16*)(v2 + 44))
