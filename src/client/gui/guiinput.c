@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1321228;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -66,12 +67,12 @@ int sub_4C3760() {
 	wchar_t* v11; // eax
 
 	result = nox_new_window_from_file("InputCfg.wnd", sub_4C3A90);
-	*(_DWORD*)&byte_5D4594[1321228] = result;
+	dword_5d4594_1321228 = result;
 	if (result) {
 		*(_DWORD*)&byte_5D4594[1321236] = sub_46B0C0((_DWORD*)result, 910);
-		*(_DWORD*)&byte_5D4594[1321240] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], 911);
-		*(_DWORD*)&byte_5D4594[1321244] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], 912);
-		*(_DWORD*)&byte_5D4594[1321248] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], 913);
+		*(_DWORD*)&byte_5D4594[1321240] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 911);
+		*(_DWORD*)&byte_5D4594[1321244] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 912);
+		*(_DWORD*)&byte_5D4594[1321248] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 913);
 		result = *(_DWORD*)&byte_5D4594[1321236];
 		if (*(_DWORD*)&byte_5D4594[1321236]) {
 			v1 = *(_DWORD***)(*(_DWORD*)&byte_5D4594[1321236] + 32);
@@ -84,11 +85,11 @@ int sub_4C3760() {
 			sub_46B120(*(_DWORD**)&byte_5D4594[1321248], *(int*)&byte_5D4594[1321236]);
 			sub_46B300(*(int*)&byte_5D4594[1321244], sub_4C3A60);
 			sub_46B300(*(int*)&byte_5D4594[1321248], sub_4C3A60);
-			v2 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], 921);
+			v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 921);
 			nox_window_call_field_94(*(int*)&byte_5D4594[1321240], 16408, (int)v2, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[1321244], 16408, (int)v2, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[1321248], 16408, (int)v2, 0);
-			v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], 922);
+			v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 922);
 			nox_window_call_field_94(*(int*)&byte_5D4594[1321240], 16409, (int)v3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[1321244], 16409, (int)v3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[1321248], 16409, (int)v3, 0);
@@ -96,17 +97,17 @@ int sub_4C3760() {
 			v5 = sub_47DBC0() + 971;
 			if (v5 > 971) {
 				do {
-					v6 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], v4);
+					v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, v4);
 					sub_46ABB0((int)v6, 1);
 					++v4;
 				} while (v4 < v5);
 			}
 			v7 = sub_430AF0();
-			v8 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], v7 + 971);
+			v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, v7 + 971);
 			nox_window_call_field_94((int)v8, 16392, 1, 0);
-			sub_46A9B0(*(_DWORD**)&byte_5D4594[1321228],
-				   (nox_win_width - *(_DWORD*)(*(_DWORD*)&byte_5D4594[1321228] + 8)) / 2, 0);
-			*(_DWORD*)&byte_5D4594[1321232] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], 980);
+			sub_46A9B0(*(_DWORD**)&dword_5d4594_1321228,
+				   (nox_win_width - *(_DWORD*)(dword_5d4594_1321228 + 8)) / 2, 0);
+			*(_DWORD*)&byte_5D4594[1321232] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 980);
 			sub_46B120(*(_DWORD**)&byte_5D4594[1321232], 0);
 			sub_46B2C0(*(int*)&byte_5D4594[1321232], sub_4C3A90);
 			sub_46B300(*(int*)&byte_5D4594[1321232], sub_4C3EB0);
@@ -116,12 +117,12 @@ int sub_4C3760() {
 				   *(_DWORD*)(*(_DWORD*)&byte_5D4594[1321232] + 20));
 			v9 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321232], 981);
 			sub_46AEE0((int)v9, (int)&byte_5D4594[1321256]);
-			v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], 932);
+			v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 932);
 			v11 = loadString_sub_40F1D0((char*)&byte_587000[185316], 0,
 						    "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 603);
 			sub_46AEE0((int)v10, (int)v11);
 			sub_46ABB0((int)v10, 1);
-			nox_window_set_hidden(*(int*)&byte_5D4594[1321228], 1);
+			nox_window_set_hidden(*(int*)&dword_5d4594_1321228, 1);
 			result = 1;
 		}
 	}
@@ -166,8 +167,8 @@ int __cdecl sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 			if (a2 != 0x4000)
 				return sub_4A30D0(a1, a2, (wchar_t*)a3, a4);
 		}
-		if ((_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], 921) ||
-		    (_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&byte_5D4594[1321228], 922)) {
+		if ((_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 921) ||
+		    (_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 922)) {
 			nox_window_call_field_94(*(int*)&byte_5D4594[1321240], a2, a3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[1321244], a2, a3, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[1321248], a2, a3, 0);
