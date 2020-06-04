@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_815000;
 extern _DWORD dword_5d4594_815012;
 extern _DWORD dword_5d4594_815004;
 extern _DWORD dword_5d4594_814980;
@@ -18,10 +19,10 @@ void sub_4373A0() {
 	wchar_t* v1; // eax
 	wchar_t* v2; // eax
 
-	if (!wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[815000])) {
-		nox_window_set_hidden(*(int*)&byte_5D4594[815000], 1);
+	if (!wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815000)) {
+		nox_window_set_hidden(*(int*)&dword_5d4594_815000, 1);
 		*(_DWORD*)&byte_5D4594[815056] = 0;
-		sub_46C6E0(*(int*)&byte_5D4594[815000]);
+		sub_46C6E0(*(int*)&dword_5d4594_815000);
 		sub_46B500(*(int*)&dword_5d4594_814980);
 	}
 	if (*(int*)&byte_587000[87408] == 1 || *(int*)&byte_587000[87412] == -1) {
@@ -161,7 +162,7 @@ int sub_4379F0() {
 		sub_43BE40(3);
 		sub_452D80(922, 100);
 		nox_window_set_hidden(*(int*)&dword_5d4594_814980, 0);
-		nox_window_set_hidden(*(int*)&byte_5D4594[815000], 0);
+		nox_window_set_hidden(*(int*)&dword_5d4594_815000, 0);
 		sub_46ABB0(*(int*)&byte_5D4594[814984], 1);
 		if (*(_DWORD*)&byte_5D4594[815048])
 			sub_4375C0(0);
@@ -193,7 +194,7 @@ int sub_4379F0() {
 				*(_DWORD*)&byte_5D4594[814996] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10011);
 				dword_5d4594_815012 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10037);
 				dword_5d4594_815004 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10034);
-				*(_DWORD*)&byte_5D4594[815000] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10033);
+				dword_5d4594_815000 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10033);
 				*(_DWORD*)&byte_5D4594[814992] = sub_489B80(*(int*)&dword_5d4594_814980);
 				*(_DWORD*)&byte_5D4594[815008] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10001);
 				*(_DWORD*)&byte_5D4594[815016] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10038);
@@ -210,7 +211,7 @@ int sub_4379F0() {
 				sub_46B340((int)v4, sub_438C80);
 				sub_46B2C0(*(int*)&dword_5d4594_815012, sub_439E70);
 				nox_window_set_hidden(*(int*)&dword_5d4594_815012, 1);
-				nox_window_set_hidden(*(int*)&byte_5D4594[815000], 1);
+				nox_window_set_hidden(*(int*)&dword_5d4594_815000, 1);
 				sub_46B280(*(int*)&byte_5D4594[815008], *(int*)&dword_5d4594_814980);
 				if (*(_DWORD*)&byte_587000[87404]) {
 					nox_set_draw_unk1(sub_41E210);
@@ -259,9 +260,9 @@ int sub_4379F0() {
 				*(_DWORD*)(v8[100] + 8) = 16;
 				*(_DWORD*)(v8[100] + 12) = 12;
 				sub_46AE40(v8[100], 0, -15);
-				v12 = sub_46B0C0(*(_DWORD**)&byte_5D4594[815000], 10032);
-				v13 = sub_46B0C0(*(_DWORD**)&byte_5D4594[815000], 10035);
-				v14 = sub_46B0C0(*(_DWORD**)&byte_5D4594[815000], 10036);
+				v12 = sub_46B0C0(*(_DWORD**)&dword_5d4594_815000, 10032);
+				v13 = sub_46B0C0(*(_DWORD**)&dword_5d4594_815000, 10035);
+				v14 = sub_46B0C0(*(_DWORD**)&dword_5d4594_815000, 10036);
 				v15 = *(_DWORD**)(dword_5d4594_815004 + 32);
 				sub_46B280((int)v12, *(int*)&dword_5d4594_815004);
 				sub_46B280((int)v13, *(int*)&dword_5d4594_815004);
@@ -450,7 +451,7 @@ int sub_438770() {
 		     !wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[814988]) ||
 		     !wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815012)) &&
 		    !*(_DWORD*)&byte_5D4594[815048] && !*(_DWORD*)&byte_5D4594[815044] &&
-		    !*(_DWORD*)&byte_5D4594[815052] && wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[815000])) {
+		    !*(_DWORD*)&byte_5D4594[815052] && wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815000)) {
 			if ((unsigned __int64)sub_416BB0() > *(_QWORD*)&byte_5D4594[815068]) {
 				sub_4378B0();
 				return 1;
@@ -504,10 +505,10 @@ int __cdecl sub_439370(int2* a1, int a2) {
 
 	if (!(*(_BYTE*)(a2 + 164) & 0x10) || (LOBYTE(v2) = nox_client_checkQuestExp_SKU2_4D7700(), v2)) {
 		sub_439450(a1->field_0, a1->field_4, a1);
-		sub_46B120(*(_DWORD**)&byte_5D4594[815000], 0);
-		sub_46A8C0(*(int*)&byte_5D4594[815000]);
-		sub_46C690(*(int*)&byte_5D4594[815000]);
-		sub_46A9B0(*(_DWORD**)&byte_5D4594[815000], a1->field_0, a1->field_4);
+		sub_46B120(*(_DWORD**)&dword_5d4594_815000, 0);
+		sub_46A8C0(*(int*)&dword_5d4594_815000);
+		sub_46C690(*(int*)&dword_5d4594_815000);
+		sub_46A9B0(*(_DWORD**)&dword_5d4594_815000, a1->field_0, a1->field_4);
 		sub_4394D0(a2);
 		*(_DWORD*)&byte_5D4594[815056] = 1;
 		*(_WORD*)&byte_5D4594[814604] = *(_WORD*)(a2 + 109);
@@ -1091,7 +1092,7 @@ int sub_43A980() {
 _DWORD* sub_43B630() {
 	wchar_t* v0; // eax
 
-	sub_46C6E0(*(int*)&byte_5D4594[815000]);
+	sub_46C6E0(*(int*)&dword_5d4594_815000);
 	v0 = loadString_sub_40F1D0((char*)&byte_587000[90904], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1284);
 	return sub_449A10(*(int*)&dword_5d4594_814980, 0, (int)v0, 34, 0, 0);
 }

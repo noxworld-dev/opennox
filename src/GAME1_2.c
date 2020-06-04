@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815000;
 extern _DWORD dword_5d4594_741676;
 extern _DWORD dword_5d4594_754036;
 extern _DWORD dword_5d4594_3798840;
@@ -9215,17 +9216,17 @@ int sub_438C80(int a1, int a2) {
 	char v2[404]; // [esp+4h] [ebp-194h]
 
 	v0 = nox_client_getMousePos_4309F0();
-	if (!wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[815000])) {
-		qmemcpy(v2, *(const void**)&byte_5D4594[815000], sizeof(v2));
+	if (!wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815000)) {
+		qmemcpy(v2, *(const void**)&dword_5d4594_815000, sizeof(v2));
 		*(_DWORD*)&v2[16] -= 32;
 		*(_DWORD*)&v2[20] -= 32;
 		*(_DWORD*)&v2[8] += 64;
 		*(_DWORD*)&v2[12] += 64;
 		if (!*(_DWORD*)&byte_5D4594[815044] && !sub_46AAB0(v2, v0->field_0, v0->field_4)) {
-			nox_window_set_hidden(*(int*)&byte_5D4594[815000], 1);
+			nox_window_set_hidden(*(int*)&dword_5d4594_815000, 1);
 			nox_window_call_field_94(*(int*)&dword_5d4594_815012, 16403, -1, 0);
 			*(_DWORD*)&byte_5D4594[815056] = 0;
-			sub_46C6E0(*(int*)&byte_5D4594[815000]);
+			sub_46C6E0(*(int*)&dword_5d4594_815000);
 			sub_46B500(*(int*)&dword_5d4594_814980);
 		}
 	}
@@ -9496,10 +9497,10 @@ int sub_43A9D0() {
 	sub_46ADE0(*(int*)&byte_5D4594[814984]);
 	sub_489FB0();
 	sub_4A2890();
-	if (*(_DWORD*)&byte_5D4594[815000] && !*(_DWORD*)(*(_DWORD*)&byte_5D4594[815000] + 396)) {
-		sub_46C6E0(*(int*)&byte_5D4594[815000]);
-		sub_46C4E0(*(_DWORD**)&byte_5D4594[815000]);
-		*(_DWORD*)&byte_5D4594[815000] = 0;
+	if (dword_5d4594_815000 && !*(_DWORD*)(dword_5d4594_815000 + 396)) {
+		sub_46C6E0(*(int*)&dword_5d4594_815000);
+		sub_46C4E0(*(_DWORD**)&dword_5d4594_815000);
+		dword_5d4594_815000 = 0;
 	}
 	if (dword_5d4594_814980) {
 		sub_46C4E0(*(_DWORD**)&dword_5d4594_814980);
@@ -9889,7 +9890,7 @@ int sub_43B440() {
 int sub_43B460() {
 	sub_438370();
 	*(_DWORD*)(*(_DWORD*)&byte_5D4594[815040] + 56) = sub_43B490;
-	sub_46C6E0(*(int*)&byte_5D4594[815000]);
+	sub_46C6E0(*(int*)&dword_5d4594_815000);
 	return sub_46ABB0(*(int*)&byte_5D4594[814984], 0);
 }
 
@@ -9898,7 +9899,7 @@ int sub_43B490() {
 	if (sub_43BE10() == 1700)
 		return sub_438330();
 	nox_window_set_hidden(*(int*)&dword_5d4594_814980, 1);
-	nox_window_set_hidden(*(int*)&byte_5D4594[815000], 1);
+	nox_window_set_hidden(*(int*)&dword_5d4594_815000, 1);
 	nox_client_setCursorType_477610(0);
 	return 1;
 }
