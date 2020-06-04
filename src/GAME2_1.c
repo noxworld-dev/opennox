@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_1064856;
 extern _DWORD dword_5d4594_1049856;
@@ -8611,7 +8612,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					v31 = v3[6];
 					v77.field_0 = 23 * v3[5];
 					v77.field_4 = 23 * (v31 + 1);
-					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+					v32 = (int*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
@@ -8621,14 +8622,14 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					}
 					v77.field_0 += 23;
 					v77.field_4 -= 23;
-					v34 = (*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+					v34 = (*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 					goto LABEL_96;
 				case 1:
 				case 4:
 					v35 = v3[6];
 					v77.field_0 = 23 * v3[5];
 					v77.field_4 = 23 * v35;
-					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+					v32 = (int*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
@@ -8643,7 +8644,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					v37 = v3[6];
 					v77.field_0 = 23 * v3[5];
 					v77.field_4 = 23 * v37;
-					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+					v32 = (int*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
@@ -8652,13 +8653,13 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 						v83[2] = v38;
 					}
 					v77.field_0 += 23;
-					v34 = (*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+					v34 = (*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 					goto LABEL_96;
 				case 8:
 					v39 = v3[6];
 					v77.field_0 = 23 * v3[5] + 11;
 					v77.field_4 = 23 * v39 + 11;
-					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+					v32 = (int*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
@@ -8673,7 +8674,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					v41 = v3[6];
 					v77.field_0 = 23 * v3[5];
 					v77.field_4 = 23 * (v41 + 1);
-					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+					v32 = (int*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
@@ -8683,13 +8684,13 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					}
 					v77.field_0 += 11;
 					v77.field_4 -= 11;
-					v34 = (*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+					v34 = (*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 					goto LABEL_96;
 				default:
 					v43 = v3[6];
 					v77.field_0 = 23 * v3[5];
 					v77.field_4 = 23 * (v43 + 1);
-					v32 = (int*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+					v32 = (int*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 					if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
 						v83[0] = *v32;
 						v83[1] = v32[1];
@@ -8699,7 +8700,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					}
 					v77.field_0 += 23;
 				LABEL_95:
-					v34 = (*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+					v34 = (*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 				LABEL_96:
 					v74 = v34;
 					v45 = sub_46A3F0(v3[1], v84, v3[2], v73);
@@ -8736,7 +8737,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 				v53 = v3[6];
 				v77.field_0 = 23 * v3[5] + 11;
 				v77.field_4 = 23 * v53 + 11;
-				v54 = (_BYTE*)(*(int(__cdecl**)(int2*)) & byte_5D4594[3807156])(&v77);
+				v54 = (_BYTE*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 				v55 = sub_46A3F0(v3[1], v84, v3[2], v73);
 				v56 = v82 + *(_DWORD*)v55 - 50;
 				v57 = -72 - *((_DWORD*)v55 + 1) + v7;
