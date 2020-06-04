@@ -2,6 +2,7 @@
 
 #include "../../common/gamemech/pausefx.h"
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2516328;
 extern _DWORD dword_5d4594_2516348;
 
 //----- (0056F980) --------------------------------------------------------
@@ -13,10 +14,10 @@ _DWORD* __cdecl sub_56F980(int a1, unsigned __int8 a2) {
 	if (a1 >= 657757279) {
 		result = sub_56F590(a1);
 		if (result) {
-			*(_DWORD*)&byte_5D4594[2516328] ^= result[1];
+			dword_5d4594_2516328 ^= result[1];
 			v3 = dword_5d4594_2516348 ^ (a2 + (dword_5d4594_2516348 ^ result[1]));
 			result[1] = v3;
-			*(_DWORD*)&byte_5D4594[2516328] ^= v3;
+			dword_5d4594_2516328 ^= v3;
 			result = (_DWORD*)sub_56F5C0();
 		}
 	}
