@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_528256;
 extern _DWORD dword_5d4594_534808;
 extern _DWORD dword_5d4594_529340;
 extern _DWORD dword_587000_60352;
@@ -3552,7 +3553,7 @@ int __cdecl sub_41E300(int a1) {
 	int result; // eax
 
 	if (a1 == 11 && nox_common_gameFlags_check_40A5C0(0x2000000) && sub_43C710()) {
-		if (*(_DWORD*)&byte_5D4594[528256])
+		if (dword_5d4594_528256)
 			sub_41E470();
 		else
 			sub_41E400();
@@ -3575,7 +3576,7 @@ int sub_41E370() {
 
 	result = 0;
 	*(_DWORD*)&byte_5D4594[528252] = 0;
-	*(_DWORD*)&byte_5D4594[528256] = 0;
+	dword_5d4594_528256 = 0;
 	*(_DWORD*)&byte_5D4594[528260] = 0;
 	*(_DWORD*)&byte_5D4594[528264] = 0;
 	return result;
@@ -3589,13 +3590,13 @@ int sub_41E390() {
 	    (unsigned int)(3600 * *(_DWORD*)&byte_5D4594[2649704])) {
 		result = *(_DWORD*)&byte_5D4594[528252];
 		if (*(_DWORD*)&byte_5D4594[528252]) {
-			result = *(_DWORD*)&byte_5D4594[528256];
-			if (!*(_DWORD*)&byte_5D4594[528256]) {
+			result = dword_5d4594_528256;
+			if (!dword_5d4594_528256) {
 				sub_413D30((char*)&byte_587000[58968]);
 				sub_40E090();
 				result = sub_41FDE0();
 				if (result == 1)
-					*(_DWORD*)&byte_5D4594[528256] = 1;
+					dword_5d4594_528256 = 1;
 				else
 					result = sub_41E470();
 			}
@@ -3609,12 +3610,12 @@ int sub_41E390() {
 
 //----- (0041E400) --------------------------------------------------------
 void sub_41E400() {
-	if (*(_DWORD*)&byte_5D4594[528252] != 1 && *(_DWORD*)&byte_5D4594[528256] != 1) {
+	if (*(_DWORD*)&byte_5D4594[528252] != 1 && dword_5d4594_528256 != 1) {
 		if (!*(_DWORD*)&byte_5D4594[528260]) {
 			if (!*(_DWORD*)&byte_5D4594[528264]) {
 				sub_413D30((char*)&byte_587000[59000], *(_DWORD*)&byte_5D4594[2598000]);
 				*(_DWORD*)&byte_5D4594[528252] = 1;
-				*(_DWORD*)&byte_5D4594[528256] = 0;
+				dword_5d4594_528256 = 0;
 				*(_DWORD*)&byte_5D4594[528264] = *(_DWORD*)&byte_5D4594[2598000];
 				*(_DWORD*)&byte_5D4594[528260] =
 				    *(_DWORD*)&byte_5D4594[2598000] + 120 * *(_DWORD*)&byte_5D4594[2649704];
@@ -3628,7 +3629,7 @@ int sub_41E470() {
 	int result; // eax
 
 	sub_413D30((char*)&byte_587000[59048], *(_DWORD*)&byte_5D4594[2598000]);
-	*(_DWORD*)&byte_5D4594[528256] = 0;
+	dword_5d4594_528256 = 0;
 	result = *(_DWORD*)&byte_5D4594[2598000] + 120 * *(_DWORD*)&byte_5D4594[2649704];
 	*(_DWORD*)&byte_5D4594[528260] = *(_DWORD*)&byte_5D4594[2598000] + 120 * *(_DWORD*)&byte_5D4594[2649704];
 	return result;
