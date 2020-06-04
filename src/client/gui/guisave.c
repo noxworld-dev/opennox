@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1082856;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -16,25 +17,25 @@ int sub_46C730() {
 	wchar_t* v6; // eax
 
 	result = nox_new_window_from_file("SelChar.wnd", sub_46C920);
-	*(_DWORD*)&byte_5D4594[1082856] = result;
+	dword_5d4594_1082856 = result;
 	if (result) {
 		*(_DWORD*)(result + 4) |= 0x20u;
-		sub_46B300(*(int*)&byte_5D4594[1082856], sub_46CCA0);
-		*(_DWORD*)&byte_5D4594[1082860] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 510);
-		*(_DWORD*)&byte_5D4594[1082864] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 511);
-		*(_DWORD*)&byte_5D4594[1082868] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 512);
+		sub_46B300(*(int*)&dword_5d4594_1082856, sub_46CCA0);
+		*(_DWORD*)&byte_5D4594[1082860] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 510);
+		*(_DWORD*)&byte_5D4594[1082864] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 511);
+		*(_DWORD*)&byte_5D4594[1082868] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 512);
 		sub_46B2C0(*(int*)&byte_5D4594[1082860], sub_46C920);
 		sub_46B120(*(_DWORD**)&byte_5D4594[1082864], *(int*)&byte_5D4594[1082860]);
 		sub_46B120(*(_DWORD**)&byte_5D4594[1082868], *(int*)&byte_5D4594[1082860]);
-		*(_DWORD*)&byte_5D4594[1082872] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 501);
-		*(_DWORD*)&byte_5D4594[1082876] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 502);
-		*(_DWORD*)&byte_5D4594[1082880] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 503);
-		v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 504);
+		*(_DWORD*)&byte_5D4594[1082872] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 501);
+		*(_DWORD*)&byte_5D4594[1082876] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 502);
+		*(_DWORD*)&byte_5D4594[1082880] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 503);
+		v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 504);
 		nox_window_set_hidden((int)v1, 1);
-		v2 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 505);
+		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 505);
 		nox_window_set_hidden((int)v2, 1);
 		for (i = 500; i <= 512; ++i) {
-			v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], i);
+			v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, i);
 			if (v4)
 				sub_46AD60((int)v4, 1024);
 		}
@@ -44,10 +45,10 @@ int sub_46C730() {
 		v6 = loadString_sub_40F1D0((char*)&byte_587000[143408], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
 					   342);
 		sub_46AEE0(*(int*)&byte_5D4594[1082876], (int)v6);
-		sub_46A9B0(*(_DWORD**)&byte_5D4594[1082856],
-			   (nox_win_width - *(int*)(*(_DWORD*)&byte_5D4594[1082856] + 8)) / 2, 0);
-		nox_window_set_hidden(*(int*)&byte_5D4594[1082856], 1);
-		sub_46ABB0(*(int*)&byte_5D4594[1082856], 0);
+		sub_46A9B0(*(_DWORD**)&dword_5d4594_1082856,
+			   (nox_win_width - *(int*)(dword_5d4594_1082856 + 8)) / 2, 0);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1082856, 1);
+		sub_46ABB0(*(int*)&dword_5d4594_1082856, 0);
 		result = 1;
 	}
 	return result;
@@ -89,12 +90,12 @@ int __cdecl sub_46C920(_DWORD* a1, int a2, int* a3, int a4) {
 			}
 			if (strlen((const char*)&byte_5D4594[1278 * v8 + 1064952])) {
 				sub_4DC970((char*)&byte_5D4594[1278 * v8 + 1064952], (char*)&byte_5D4594[1082840]);
-				sub_46ADE0(*(int*)&byte_5D4594[1082856]);
+				sub_46ADE0(*(int*)&dword_5d4594_1082856);
 				v13 = loadString_sub_40F1D0((char*)&byte_587000[143456], 0,
 							    "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 184);
 				v11 = loadString_sub_40F1D0((char*)&byte_587000[143524], 0,
 							    "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 183);
-				sub_449A10(*(int*)&byte_5D4594[1082856], (int)v11, (int)v13, 56, sub_46CC70,
+				sub_449A10(*(int*)&dword_5d4594_1082856, (int)v11, (int)v13, 56, sub_46CC70,
 					   sub_46CC90);
 				return 0;
 			}
@@ -399,15 +400,15 @@ int __cdecl sub_46CE40(int a1, int a2, int a3, _BYTE* a4) {
 			break;
 		v6 = a4;
 	}
-	v22 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 503);
+	v22 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 503);
 	if (v4 <= 0) {
 		sub_46ABB0((int)v22, 0);
-		v24 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 502);
+		v24 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 502);
 		sub_46ABB0((int)v24, 0);
-		sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 501);
+		sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 501);
 	} else {
 		sub_46ABB0((int)v22, 1);
-		v23 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 502);
+		v23 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 502);
 		sub_46ABB0((int)v23, 1);
 	}
 	result = sub_46CDC0((int)a4);
@@ -435,10 +436,10 @@ int sub_46D580() {
 		memset(&byte_5D4594[1064948], 0, 0x45E4u);
 		sub_46CE40(*(int*)&byte_5D4594[1082860], *(int*)&byte_5D4594[1082864], *(int*)&byte_5D4594[1082868],
 			   &byte_5D4594[1064948]);
-		sub_46A8C0(*(int*)&byte_5D4594[1082856]);
-		sub_46ABB0(*(int*)&byte_5D4594[1082856], 1);
-		sub_46ADC0(*(int*)&byte_5D4594[1082856]);
-		v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 501);
+		sub_46A8C0(*(int*)&dword_5d4594_1082856);
+		sub_46ABB0(*(int*)&dword_5d4594_1082856, 1);
+		sub_46ADC0(*(int*)&dword_5d4594_1082856);
+		v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 501);
 		if (sub_450560() && !sub_450570() ||
 		    (v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 276), v2 == 2) || v2 == 1 || v2 == 51) {
 			sub_46ABB0((int)v1, 0);
@@ -449,14 +450,14 @@ int sub_46D580() {
 			v3 = loadString_sub_40F1D0((char*)&byte_587000[145376], 0,
 						   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 860);
 			sub_46AEE0(*(int*)&byte_5D4594[1082880], (int)v3);
-			v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 509);
+			v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 509);
 			v5 = loadString_sub_40F1D0((char*)&byte_587000[145424], 0,
 						   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 862);
 		} else {
 			v6 = loadString_sub_40F1D0((char*)&byte_587000[145472], 0,
 						   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 866);
 			sub_46AEE0(*(int*)&byte_5D4594[1082880], (int)v6);
-			v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1082856], 509);
+			v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 509);
 			v5 = loadString_sub_40F1D0((char*)&byte_587000[145524], 0,
 						   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 868);
 		}
