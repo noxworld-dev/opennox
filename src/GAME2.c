@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1049512;
 extern _DWORD dword_5d4594_831232;
 extern _DWORD dword_5d4594_1045432;
 extern _DWORD dword_5d4594_1046924;
@@ -8314,7 +8315,7 @@ int sub_4606B0() {
 	*(_DWORD*)(dword_587000_133480 + 204) =
 	    dword_587000_133480 + 40 * *(unsigned __int8*)(dword_587000_133480 + 200);
 	sub_45DDF0(*(int*)&dword_587000_133480);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1049512], 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1049512, 0);
 	sub_452D80(800, 100);
 	*(_DWORD*)&byte_5D4594[1049476] = 0;
 	return 1;
@@ -8372,7 +8373,7 @@ _DWORD* sub_460920() {
 				    dword_587000_133480 +
 				    40 * *(unsigned __int8*)(dword_587000_133480 + 200);
 				sub_45DDF0(*(int*)&dword_587000_133480);
-				nox_window_set_hidden(*(int*)&byte_5D4594[1049512], 1);
+				nox_window_set_hidden(*(int*)&dword_5d4594_1049512, 1);
 				result = sub_452D80(799, 100);
 				*(_DWORD*)&byte_5D4594[1049476] = 1;
 			}
@@ -8482,14 +8483,14 @@ int __cdecl sub_460B90(int a1) {
 		nox_window_set_hidden(*(int*)&dword_5d4594_1049504, 0);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1049520, 0);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1049508, 0);
-		nox_window_set_hidden(*(int*)&byte_5D4594[1049512], 0);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1049512, 0);
 		for (i = 232; i < 252; i += 4) {
 			nox_window_set_hidden(*(_DWORD*)(i + dword_587000_133480 - 20), 0);
 			nox_window_set_hidden(*(_DWORD*)(i + dword_587000_133480), 0);
 			if (*(_DWORD*)&byte_5D4594[1049484]) {
 				nox_window_set_hidden(*(_DWORD*)&byte_5D4594[i + 1047920], 0);
 				nox_window_set_hidden(*(_DWORD*)&byte_5D4594[i + 1047940], 0);
-				nox_window_set_hidden(*(int*)&byte_5D4594[1049512], 1);
+				nox_window_set_hidden(*(int*)&dword_5d4594_1049512, 1);
 			}
 		}
 		if (*(_DWORD*)&byte_5D4594[1049484])
@@ -8502,7 +8503,7 @@ int __cdecl sub_460B90(int a1) {
 		nox_window_set_hidden(*(int*)&dword_5d4594_1049504, 1);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1049520, 1);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1049508, 1);
-		nox_window_set_hidden(*(int*)&byte_5D4594[1049512], 1);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1049512, 1);
 		for (j = 232; j < 252; j += 4) {
 			nox_window_set_hidden(*(_DWORD*)(j + dword_587000_133480 - 20), 1);
 			nox_window_set_hidden(*(_DWORD*)(j + dword_587000_133480), 1);

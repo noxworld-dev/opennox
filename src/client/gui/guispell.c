@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1049512;
 extern _DWORD dword_5d4594_1047548;
 extern _DWORD dword_5d4594_1049520;
 extern _DWORD dword_5d4594_1049508;
@@ -387,11 +388,11 @@ int sub_45E190() {
 		sub_46B000(v43 + 18, v45);
 		*(_DWORD*)&byte_5D4594[1049516] = nox_window_new(0, 1032, 0, 0, 1, 1, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1049516], sub_45EF40, sub_45F8F0, 0);
-		*(_DWORD*)&byte_5D4594[1049512] =
+		dword_5d4594_1049512 =
 		    nox_window_new(0, 1152, *(int*)&dword_5d4594_1047548, *(int*)&byte_5D4594[1047552], 2, 2, 0);
 		v46 = sub_42F970("QuickBarTitle");
-		sub_46AE60(*(int*)&byte_5D4594[1049512], (int)v46);
-		v47 = nox_window_new(*(int*)&byte_5D4594[1049512], 8, 115, 6, 101, 14, 0);
+		sub_46AE60(*(int*)&dword_5d4594_1049512, (int)v46);
+		v47 = nox_window_new(*(int*)&dword_5d4594_1049512, 8, 115, 6, 101, 14, 0);
 		nox_window_set_all_funcs(v47, 0, sub_45F9B0, 0);
 	}
 	v64 = 0;
