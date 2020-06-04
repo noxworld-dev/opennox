@@ -3,6 +3,7 @@
 #include "../system/parsecmd.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_833716;
 
 //----- (00450C30) --------------------------------------------------------
 wchar_t* __cdecl sub_450C30(unsigned __int8 a1, int a2) {
@@ -24,8 +25,8 @@ int sub_450FD0() {
 	wchar_t* v4;     // [esp-14h] [ebp-218h]
 	wchar_t v5[256]; // [esp+4h] [ebp-200h]
 
-	if (!*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[833716] + 32) + 1044)) {
-		v0 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[833716], 16413, 0, 0);
+	if (!*(_DWORD*)(*(_DWORD*)(dword_5d4594_833716 + 32) + 1044)) {
+		v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_833716, 16413, 0, 0);
 		if (*(_DWORD*)&byte_5D4594[833732] && *(_WORD*)&byte_5D4594[832552]) {
 			if (_nox_wcsicmp(v0, (const wchar_t*)&byte_5D4594[832552])) {
 				v4 = loadString_sub_40F1D0((char*)&byte_587000[126560], 0,
@@ -37,7 +38,7 @@ int sub_450FD0() {
 							   "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 121);
 				sub_450C30(6u, (int)v3);
 			}
-			nox_window_call_field_94(*(int*)&byte_5D4594[833716], 16414, (int)&byte_5D4594[833744], 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_833716, 16414, (int)&byte_5D4594[833744], 0);
 		} else {
 			nox_wcscpy(v5, L"> ");
 			nox_wcscat(v5, v0);
@@ -49,7 +50,7 @@ int sub_450FD0() {
 				}
 				nox_server_parseCmdText_443C80(v0, 0);
 			}
-			nox_window_call_field_94(*(int*)&byte_5D4594[833716], 16414, (int)&byte_5D4594[833748], 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_833716, 16414, (int)&byte_5D4594[833748], 0);
 		}
 	}
 	return 1;
@@ -67,9 +68,9 @@ int sub_451350() {
 		sub_46A8C0(*(int*)&byte_5D4594[833712]);
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833712] + 4) |= 8u;
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833720] + 4) |= 8u;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833716] + 4) |= 8u;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[833716] + 4) |= 1u;
-		sub_46B500(*(int*)&byte_5D4594[833716]);
+		*(_DWORD*)(dword_5d4594_833716 + 4) |= 8u;
+		*(_DWORD*)(dword_5d4594_833716 + 4) |= 1u;
+		sub_46B500(*(int*)&dword_5d4594_833716);
 		result = *(_DWORD*)&byte_5D4594[833728];
 		if (*(_DWORD*)&byte_5D4594[833728]) {
 			sub_450B70();
