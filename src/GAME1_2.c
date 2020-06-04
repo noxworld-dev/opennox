@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_3798796;
 extern _DWORD dword_5d4594_815012;
 extern _DWORD dword_5d4594_815004;
@@ -6880,11 +6881,11 @@ int sub_4323E0() {
 	if (!v0)
 		return 1;
 	v1 = atoi(v0);
-	*(_DWORD*)&byte_587000[80828] = v1;
+	dword_587000_80828 = v1;
 	v2 = v1 == 0;
 	result = 1;
 	if (!v2)
-		*(_DWORD*)&byte_587000[80828] = 1;
+		dword_587000_80828 = 1;
 	return result;
 }
 
@@ -7662,7 +7663,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "TexturedFloors = %d\n", *(_DWORD*)&byte_587000[154956]);
 	fprintf(a1, "TranslucentConsole = %d\n", *(_DWORD*)&byte_587000[80824]);
 	fprintf(a1, "RenderGlow = %d\n", *(_DWORD*)&byte_5D4594[805852]);
-	fprintf(a1, "RenderGUI = %d\n", *(_DWORD*)&byte_587000[80828]);
+	fprintf(a1, "RenderGUI = %d\n", dword_587000_80828);
 	fprintf(a1, "FadeObjects = %d\n", *(_DWORD*)&byte_587000[80836]);
 	fprintf(a1, "RenderBubbles = %d\n", *(_DWORD*)&byte_587000[80844]);
 	v7 = sub_578DF0();
@@ -8514,7 +8515,7 @@ BOOL __cdecl sub_4357D0(int argc, const char** argv) {
 #ifdef __EMSCRIPTEN__
 	*(_DWORD*)&byte_587000[85724] = 0;
 #endif
-	*(_DWORD*)&byte_5D4594[811064] = *(_DWORD*)&byte_587000[80828];
+	*(_DWORD*)&byte_5D4594[811064] = dword_587000_80828;
 	sub_40EE60();
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		sub_416E30();
@@ -8861,19 +8862,19 @@ int sub_437060() {
 int sub_437100() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_587000[80828];
-	if (*(_DWORD*)&byte_5D4594[811064] != *(_DWORD*)&byte_587000[80828] &&
+	result = dword_587000_80828;
+	if (*(_DWORD*)&byte_5D4594[811064] != dword_587000_80828 &&
 	    !(*(_DWORD*)&nox_common_engineFlags & 0x40000)) {
-		*(_DWORD*)&byte_5D4594[811064] = *(_DWORD*)&byte_587000[80828];
-		sub_4721A0(*(int*)&byte_587000[80828]);
-		sub_460EA0(*(int*)&byte_587000[80828]);
-		nox_window_set_visible_unk5(*(int*)&byte_587000[80828]);
-		sub_45D500(*(int*)&byte_587000[80828]);
-		sub_455A00(*(int*)&byte_587000[80828]);
-		sub_455F10(*(int*)&byte_587000[80828]);
-		sub_4706C0(*(int*)&byte_587000[80828]);
-		result = *(_DWORD*)&byte_587000[80828];
-		if (!*(_DWORD*)&byte_587000[80828])
+		*(_DWORD*)&byte_5D4594[811064] = dword_587000_80828;
+		sub_4721A0(*(int*)&dword_587000_80828);
+		sub_460EA0(*(int*)&dword_587000_80828);
+		nox_window_set_visible_unk5(*(int*)&dword_587000_80828);
+		sub_45D500(*(int*)&dword_587000_80828);
+		sub_455A00(*(int*)&dword_587000_80828);
+		sub_455F10(*(int*)&dword_587000_80828);
+		sub_4706C0(*(int*)&dword_587000_80828);
+		result = dword_587000_80828;
+		if (!dword_587000_80828)
 			result = sub_478000();
 	}
 	return result;
