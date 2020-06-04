@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1123532;
 extern _DWORD dword_5d4594_1193348;
 extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_3679320;
@@ -2371,7 +2372,7 @@ int sub_47A270() {
 		return 0;
 	sub_47A310((LPCSTR)&byte_587000[153712]);
 	sub_47A650();
-	result = (int)nox_malloc(336 * *(_DWORD*)&byte_5D4594[1123532]);
+	result = (int)nox_malloc(336 * dword_5d4594_1123532);
 	dword_5d4594_1189584 = result;
 	if (result) {
 		result = (int)nox_malloc(0x12C000u);
@@ -2480,7 +2481,7 @@ int sub_47A650() {
 	char FileName[260];                    // [esp+150h] [ebp-104h]
 
 	result = *(_DWORD*)&byte_5D4594[1189600];
-	*(_DWORD*)&byte_5D4594[1123532] = 0;
+	dword_5d4594_1123532 = 0;
 	v7 = 0;
 	if (*(_DWORD*)&byte_5D4594[1189600] > 0) {
 		v1 = (const char*)&byte_5D4594[1124048];
@@ -2497,25 +2498,25 @@ int sub_47A650() {
 			if (v5 != (HANDLE)-1) {
 				if (dword_5d4594_1189584) {
 					strcpy((char*)(dword_5d4594_1189584 +
-						       336 * *(_DWORD*)&byte_5D4594[1123532]),
+						       336 * dword_5d4594_1123532),
 					       v1);
-					strcpy((char*)(336 * *(_DWORD*)&byte_5D4594[1123532] +
+					strcpy((char*)(336 * dword_5d4594_1123532 +
 						       dword_5d4594_1189584 + 260),
 					       FindFileData.cFileName);
-					*(_DWORD*)(336 * *(_DWORD*)&byte_5D4594[1123532] +
+					*(_DWORD*)(336 * dword_5d4594_1123532 +
 						   dword_5d4594_1189584 + 324) = 0;
 				}
-				++*(_DWORD*)&byte_5D4594[1123532];
-				for (; FindNextFileA(v5, &FindFileData); ++*(_DWORD*)&byte_5D4594[1123532]) {
+				++dword_5d4594_1123532;
+				for (; FindNextFileA(v5, &FindFileData); ++dword_5d4594_1123532) {
 					if (dword_5d4594_1189584) {
 						strcpy((char*)(dword_5d4594_1189584 +
-							       336 * *(_DWORD*)&byte_5D4594[1123532]),
+							       336 * dword_5d4594_1123532),
 						       v1);
-						strcpy((char*)(336 * *(_DWORD*)&byte_5D4594[1123532] +
+						strcpy((char*)(336 * dword_5d4594_1123532 +
 							       dword_5d4594_1189584 + 260),
 						       FindFileData.cFileName);
 						v5 = v6;
-						*(_DWORD*)(336 * *(_DWORD*)&byte_5D4594[1123532] +
+						*(_DWORD*)(336 * dword_5d4594_1123532 +
 							   dword_5d4594_1189584 + 324) = 0;
 					}
 				}
@@ -2539,10 +2540,10 @@ char* __cdecl sub_47A8C0(const char* a1, char* a2) {
 	if (!dword_5d4594_1189584)
 		return 0;
 	v2 = 0;
-	if (*(int*)&byte_5D4594[1123532] <= 0)
+	if (*(int*)&dword_5d4594_1123532 <= 0)
 		return 0;
 	for (i = 0; _strcmpi((const char*)(i + dword_5d4594_1189584 + 260), a2); i += 336) {
-		if (++v2 >= *(int*)&byte_5D4594[1123532])
+		if (++v2 >= *(int*)&dword_5d4594_1123532)
 			return 0;
 	}
 	result = (char*)(336 * v2 + dword_5d4594_1189584 + 324);
@@ -4227,7 +4228,7 @@ LPVOID sub_47D150() {
 	v1 = *(char**)&dword_5d4594_1189584;
 	if (dword_5d4594_1189584) {
 		v2 = 0;
-		if (*(_DWORD*)&byte_5D4594[1123532] > 0) {
+		if (dword_5d4594_1123532 > 0) {
 			v3 = 0;
 			do {
 				if (*(_DWORD*)&v1[v3 + 324]) {
@@ -4236,7 +4237,7 @@ LPVOID sub_47D150() {
 				}
 				++v2;
 				v3 += 336;
-			} while (v2 < *(int*)&byte_5D4594[1123532]);
+			} while (v2 < *(int*)&dword_5d4594_1123532);
 		}
 		free(v1);
 		dword_5d4594_1189584 = 0;
