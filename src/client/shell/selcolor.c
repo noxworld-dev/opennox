@@ -1,6 +1,7 @@
 #include "selcolor.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1307784;
 
 //----- (004A5D00) --------------------------------------------------------
 int sub_4A5D00() {
@@ -15,7 +16,7 @@ int sub_4A5D00() {
 
 	sub_43BDD0(700);
 	v0 = sub_431770();
-	*(_DWORD*)&byte_5D4594[1307784] = v0;
+	dword_5d4594_1307784 = v0;
 	v0[67] = 0;
 	result = nox_new_window_from_file("SelColor.wnd", sub_4A7330);
 	*(_DWORD*)&byte_5D4594[1308084] = result;
@@ -85,76 +86,76 @@ wchar_t* sub_4A68C0() {
 					   "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 225);
 		nox_wcscpy(v0, v1);
 	}
-	nox_wcscpy(*(wchar_t**)&byte_5D4594[1307784], v0);
-	if (!sub_4A6B50(*(wchar_t**)&byte_5D4594[1307784])) {
+	nox_wcscpy(*(wchar_t**)&dword_5d4594_1307784, v0);
+	if (!sub_4A6B50(*(wchar_t**)&dword_5d4594_1307784)) {
 		v2 = loadString_sub_40F1D0((char*)&byte_587000[171604], 0,
 					   "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 232);
-		nox_wcscpy(*(wchar_t**)&byte_5D4594[1307784], v2);
+		nox_wcscpy(*(wchar_t**)&dword_5d4594_1307784, v2);
 	}
 	v3 = &byte_5D4594[3 * ((*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308096] + 32) >> 16) +
 			       32 * (unsigned __int16)*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308096] + 32)) +
 			  1307796];
-	v4 = *(_DWORD*)&byte_5D4594[1307784] + 71;
-	*(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 71) = *(_WORD*)v3;
+	v4 = dword_5d4594_1307784 + 71;
+	*(_WORD*)(dword_5d4594_1307784 + 71) = *(_WORD*)v3;
 	*(_BYTE*)(v4 + 2) = v3[2];
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1308136] + 4) & 8) {
 		v7 = &byte_5D4594[3 * ((*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308100] + 32) >> 16) +
 				       32 * (unsigned __int16)*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308100] + 32)) +
 				  1307796];
-		v8 = *(_DWORD*)&byte_5D4594[1307784] + 68;
-		*(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 68) = *(_WORD*)v7;
+		v8 = dword_5d4594_1307784 + 68;
+		*(_WORD*)(dword_5d4594_1307784 + 68) = *(_WORD*)v7;
 		*(_BYTE*)(v8 + 2) = v7[2];
 	} else {
-		v5 = *(_DWORD*)&byte_5D4594[1307784] + 71;
-		v6 = *(_DWORD*)&byte_5D4594[1307784] + 68;
-		*(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 68) = *(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 71);
+		v5 = dword_5d4594_1307784 + 71;
+		v6 = dword_5d4594_1307784 + 68;
+		*(_WORD*)(dword_5d4594_1307784 + 68) = *(_WORD*)(dword_5d4594_1307784 + 71);
 		*(_BYTE*)(v6 + 2) = *(_BYTE*)(v5 + 2);
 	}
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1308140] + 4) & 8) {
-		v11 = *(_DWORD*)&byte_5D4594[1307784] + 74;
+		v11 = dword_5d4594_1307784 + 74;
 		v12 = &byte_5D4594[3 * ((*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308104] + 32) >> 16) +
 					32 * (unsigned __int16)*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308104] + 32)) +
 				   1307796];
-		*(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 74) = *(_WORD*)v12;
+		*(_WORD*)(dword_5d4594_1307784 + 74) = *(_WORD*)v12;
 		*(_BYTE*)(v11 + 2) = v12[2];
 	} else {
-		v9 = *(_DWORD*)&byte_5D4594[1307784] + 71;
-		v10 = *(_DWORD*)&byte_5D4594[1307784] + 74;
-		*(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 74) = *(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 71);
+		v9 = dword_5d4594_1307784 + 71;
+		v10 = dword_5d4594_1307784 + 74;
+		*(_WORD*)(dword_5d4594_1307784 + 74) = *(_WORD*)(dword_5d4594_1307784 + 71);
 		*(_BYTE*)(v10 + 2) = *(_BYTE*)(v9 + 2);
 	}
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1308144] + 4) & 8) {
-		v15 = *(_DWORD*)&byte_5D4594[1307784] + 77;
+		v15 = dword_5d4594_1307784 + 77;
 		v16 = &byte_5D4594[3 * ((*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308108] + 32) >> 16) +
 					32 * (unsigned __int16)*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308108] + 32)) +
 				   1307796];
-		*(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 77) = *(_WORD*)v16;
+		*(_WORD*)(dword_5d4594_1307784 + 77) = *(_WORD*)v16;
 		*(_BYTE*)(v15 + 2) = v16[2];
 	} else {
-		v13 = *(_DWORD*)&byte_5D4594[1307784] + 71;
-		v14 = *(_DWORD*)&byte_5D4594[1307784] + 77;
-		*(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 77) = *(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 71);
+		v13 = dword_5d4594_1307784 + 71;
+		v14 = dword_5d4594_1307784 + 77;
+		*(_WORD*)(dword_5d4594_1307784 + 77) = *(_WORD*)(dword_5d4594_1307784 + 71);
 		*(_BYTE*)(v14 + 2) = *(_BYTE*)(v13 + 2);
 	}
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1308148] + 4) & 8) {
-		v19 = *(_DWORD*)&byte_5D4594[1307784] + 80;
+		v19 = dword_5d4594_1307784 + 80;
 		v20 = &byte_5D4594[3 * ((*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308112] + 32) >> 16) +
 					32 * (unsigned __int16)*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308112] + 32)) +
 				   1307796];
-		*(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 80) = *(_WORD*)v20;
+		*(_WORD*)(dword_5d4594_1307784 + 80) = *(_WORD*)v20;
 		*(_BYTE*)(v19 + 2) = v20[2];
 	} else {
-		v17 = *(_DWORD*)&byte_5D4594[1307784] + 71;
-		v18 = *(_DWORD*)&byte_5D4594[1307784] + 80;
-		*(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 80) = *(_WORD*)(*(_DWORD*)&byte_5D4594[1307784] + 71);
+		v17 = dword_5d4594_1307784 + 71;
+		v18 = dword_5d4594_1307784 + 80;
+		*(_WORD*)(dword_5d4594_1307784 + 80) = *(_WORD*)(dword_5d4594_1307784 + 71);
 		*(_BYTE*)(v18 + 2) = *(_BYTE*)(v17 + 2);
 	}
-	*(_BYTE*)(*(_DWORD*)&byte_5D4594[1307784] + 83) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308116] + 32) >> 16;
-	*(_BYTE*)(*(_DWORD*)&byte_5D4594[1307784] + 84) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308120] + 32) >> 16;
-	*(_BYTE*)(*(_DWORD*)&byte_5D4594[1307784] + 85) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308124] + 32) >> 16;
-	*(_BYTE*)(*(_DWORD*)&byte_5D4594[1307784] + 86) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308128] + 32) >> 16;
-	result = *(wchar_t**)&byte_5D4594[1307784];
-	*(_BYTE*)(*(_DWORD*)&byte_5D4594[1307784] + 87) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308132] + 32) >> 16;
+	*(_BYTE*)(dword_5d4594_1307784 + 83) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308116] + 32) >> 16;
+	*(_BYTE*)(dword_5d4594_1307784 + 84) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308120] + 32) >> 16;
+	*(_BYTE*)(dword_5d4594_1307784 + 85) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308124] + 32) >> 16;
+	*(_BYTE*)(dword_5d4594_1307784 + 86) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308128] + 32) >> 16;
+	result = *(wchar_t**)&dword_5d4594_1307784;
+	*(_BYTE*)(dword_5d4594_1307784 + 87) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308132] + 32) >> 16;
 	return result;
 }
 
@@ -202,7 +203,7 @@ int sub_4A75C0() {
 					   "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 612);
 		nox_wcscpy((wchar_t*)&v25[1224], v2);
 	}
-	v3 = *(_BYTE*)(*(_DWORD*)&byte_5D4594[1307784] + 66);
+	v3 = *(_BYTE*)(dword_5d4594_1307784 + 66);
 	v25[1276] = 1;
 	v25[1274] = v3;
 	v4 = &byte_5D4594[3 * ((*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308096] + 32) >> 16) +
