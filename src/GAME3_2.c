@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_197428;
 extern _DWORD dword_5d4594_1548476;
 extern _DWORD dword_587000_197424;
 extern _DWORD dword_5d4594_2650652;
@@ -2250,8 +2251,8 @@ int __cdecl sub_4D3450(int a1, void* a2, unsigned int a3) {
 int __cdecl sub_4D34C0(char* a1) {
 	char* v2; // eax
 
-	*(_DWORD*)&byte_587000[197428] = _open(a1, 0x8000);
-	if (*(int*)&byte_587000[197428] == -1)
+	dword_587000_197428 = _open(a1, 0x8000);
+	if (*(int*)&dword_587000_197428 == -1)
 		return 0;
 	*(_DWORD*)&byte_5D4594[1548732] = 0;
 	*(_DWORD*)&byte_5D4594[1548736] = 0;
@@ -2267,9 +2268,9 @@ int __cdecl sub_4D34C0(char* a1) {
 void sub_4D3530() {
 	char* v0; // eax
 
-	if (*(int*)&byte_587000[197428] != -1)
-		_close(*(int*)&byte_587000[197428]);
-	*(_DWORD*)&byte_587000[197428] = -1;
+	if (*(int*)&dword_587000_197428 != -1)
+		_close(*(int*)&dword_587000_197428);
+	dword_587000_197428 = -1;
 	*(_DWORD*)&byte_5D4594[1548732] = 0;
 	*(_DWORD*)&byte_5D4594[1548736] = 0;
 	*(_DWORD*)&nox_common_engineFlags &= 0xFFBFFFFF;
@@ -2283,9 +2284,9 @@ void __cdecl sub_4D3860(void* a1) {
 		sub_415F30(*(int*)&dword_587000_197424);
 		_write(*(int*)&dword_587000_197424, a1, 0x99u);
 	} else if (*(_DWORD*)&nox_common_engineFlags & 0x400000) {
-		if (*(int*)&byte_587000[197428] != -1) {
-			sub_415F50(*(int*)&byte_587000[197428]);
-			_read(*(int*)&byte_587000[197428], a1, 0x99u);
+		if (*(int*)&dword_587000_197428 != -1) {
+			sub_415F50(*(int*)&dword_587000_197428);
+			_read(*(int*)&dword_587000_197428, a1, 0x99u);
 		}
 	}
 }
@@ -2305,7 +2306,7 @@ int sub_4D38D0() {
 		v2 = 66458;
 		_write(*(int*)&dword_587000_197424, &v2, 4u);
 		result = 0;
-	} else if (*(_DWORD*)&nox_common_engineFlags & 0x400000 && *(int*)&byte_587000[197428] != -1) {
+	} else if (*(_DWORD*)&nox_common_engineFlags & 0x400000 && *(int*)&dword_587000_197428 != -1) {
 		result = sub_4D3580_net_playback(0);
 	} else {
 		result = 0;
