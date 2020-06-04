@@ -2,6 +2,7 @@
 #include "sdecode.h"
 
 #include "../../proto.h"
+extern _DWORD dword_587000_197428;
 
 //----- (004D3580) --------------------------------------------------------
 int __cdecl sub_4D3580_net_playback(int a1) {
@@ -18,7 +19,7 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 	char v11[512];   // [esp+6Ch] [ebp-200h]
 
 	v1 = 0;
-	if (*(int*)&byte_587000[197428] == -1) {
+	if (*(int*)&dword_587000_197428 == -1) {
 		v1 = 1;
 	LABEL_30:
 		sub_4D3530();
@@ -27,13 +28,13 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 		return v1;
 	}
 	if (!*(_DWORD*)&byte_5D4594[1548732]) {
-		if (_read(*(int*)&byte_587000[197428], &byte_5D4594[1548728], 4u))
+		if (_read(*(int*)&dword_587000_197428, &byte_5D4594[1548728], 4u))
 			*(_DWORD*)&byte_5D4594[1548732] = 1;
 		else
 			v1 = 1;
 	}
 	if (!*(_DWORD*)&byte_5D4594[1548736]) {
-		if (!_read(*(int*)&byte_587000[197428], &byte_5D4594[1548724], 1u)) {
+		if (!_read(*(int*)&dword_587000_197428, &byte_5D4594[1548724], 1u)) {
 			v1 = 1;
 			goto LABEL_30;
 		}
@@ -46,18 +47,18 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 		case 1u:
 			if (a1 == 1)
 				return v1;
-			_read(*(int*)&byte_587000[197428], &v9, 1u);
-			_read(*(int*)&byte_587000[197428], &v5, 4u);
-			_read(*(int*)&byte_587000[197428], &byte_5D4594[1548740], v5);
+			_read(*(int*)&dword_587000_197428, &v9, 1u);
+			_read(*(int*)&dword_587000_197428, &v5, 4u);
+			_read(*(int*)&dword_587000_197428, &byte_5D4594[1548740], v5);
 			sub_51BAD0_net_sdecode((unsigned __int8)v9, &byte_5D4594[1548740], v5);
 			break;
 		case 2u:
 			if (a1 == 1)
 				return v1;
-			_read(*(int*)&byte_587000[197428], &v6, 1u);
-			_read(*(int*)&byte_587000[197428], v10, (unsigned __int8)v6);
+			_read(*(int*)&dword_587000_197428, &v6, 1u);
+			_read(*(int*)&dword_587000_197428, v10, (unsigned __int8)v6);
 			sub_409D70(v10);
-			_read(*(int*)&byte_587000[197428], &v7, 4u);
+			_read(*(int*)&dword_587000_197428, &v7, 4u);
 			if ((v7 & 0xFF0000) != 0x10000) {
 				v2 = loadString_sub_40F1D0((char*)&byte_587000[197480], 0,
 							   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 355);
@@ -71,8 +72,8 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 			break;
 		case 3u:
 			if (a1 == 1) {
-				_read(*(int*)&byte_587000[197428], &v8, 4u);
-				_read(*(int*)&byte_587000[197428], v11, 2 * v8);
+				_read(*(int*)&dword_587000_197428, &v8, 4u);
+				_read(*(int*)&dword_587000_197428, v11, 2 * v8);
 				nox_server_parseCmdText_443C80((wchar_t*)v11, 0);
 			}
 			break;
@@ -85,12 +86,12 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 		default:
 			break;
 		}
-		if (!_read(*(int*)&byte_587000[197428], &byte_5D4594[1548728], 4u)) {
+		if (!_read(*(int*)&dword_587000_197428, &byte_5D4594[1548728], 4u)) {
 			result = v1;
 			*(_DWORD*)&byte_5D4594[1548732] = 0;
 			return result;
 		}
-		if (!_read(*(int*)&byte_587000[197428], &byte_5D4594[1548724], 1u)) {
+		if (!_read(*(int*)&dword_587000_197428, &byte_5D4594[1548724], 1u)) {
 			result = v1;
 			*(_DWORD*)&byte_5D4594[1548736] = 0;
 			return result;
