@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1123524;
 extern _DWORD dword_5d4594_3799624;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1193380;
@@ -2166,7 +2167,7 @@ int __cdecl sub_4798A0(_DWORD* a1) {
 int sub_479950() {
 	void* v2; // [esp+0h] [ebp-4h]
 
-	if (wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[1123524]) == 1)
+	if (wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1123524) == 1)
 		return 0;
 	byte_5D4594[1123516] = 0;
 	LOWORD(v2) = 720;
@@ -2191,15 +2192,15 @@ int sub_4799A0() {
 
 	*(_DWORD*)&byte_5D4594[1107052] = sub_4344A0(240, 128, 64);
 	result = nox_new_window_from_file("Dialog.wnd", sub_479B00);
-	*(_DWORD*)&byte_5D4594[1123524] = result;
+	dword_5d4594_1123524 = result;
 	if (result) {
 		sub_46B300(result, sub_479BE0);
-		sub_46B340(*(int*)&byte_5D4594[1123524], sub_479CB0);
-		sub_46B070(*(int*)&byte_5D4594[1123524], sub_479D00);
-		v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3904);
-		v2 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3903);
-		v10 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3902);
-		v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3901);
+		sub_46B340(*(int*)&dword_5d4594_1123524, sub_479CB0);
+		sub_46B070(*(int*)&dword_5d4594_1123524, sub_479D00);
+		v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3904);
+		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3903);
+		v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3902);
+		v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3901);
 		v4 = (int)v3;
 		v5 = (_DWORD*)v3[8];
 		v9 = sub_42F970("UISliderLit");
@@ -2212,10 +2213,10 @@ int sub_4799A0() {
 		v5[9] = v1;
 		v5[7] = v2;
 		v5[8] = v10;
-		v7 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3906);
+		v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3906);
 		sub_46B340((int)v7, sub_479C40);
-		sub_46ABB0(*(int*)&byte_5D4594[1123524], 0);
-		nox_window_set_hidden(*(int*)&byte_5D4594[1123524], 1);
+		sub_46ABB0(*(int*)&dword_5d4594_1123524, 0);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1123524, 1);
 		*(_DWORD*)&byte_5D4594[1123520] = 0;
 		result = 1;
 	}
@@ -2303,7 +2304,7 @@ int __cdecl sub_479CB0(int a1, int a2) {
 	int v5; // [esp+8h] [ebp-4h]
 
 	v2 = *(_DWORD*)(a2 + 24);
-	nox_client_wndGetPosition_46AA60(*(_DWORD**)&byte_5D4594[1123524], &v4, &v5);
+	nox_client_wndGetPosition_46AA60(*(_DWORD**)&dword_5d4594_1123524, &v4, &v5);
 	nox_client_drawImageAt_47D2C0(v2, nox_win_width - NOX_DEFAULT_WIDTH, nox_win_height - NOX_DEFAULT_HEIGHT);
 	return 1;
 }
@@ -2315,9 +2316,9 @@ int sub_479D00() { return 1; }
 int sub_479D10() {
 	int result; // eax
 
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1123524]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1123524);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1123524] = 0;
+	dword_5d4594_1123524 = 0;
 	*(_DWORD*)&byte_5D4594[1123520] = 0;
 	return result;
 }
@@ -2327,10 +2328,10 @@ int sub_47A1F0() {
 	_DWORD* v0; // eax
 	int result; // eax
 
-	v0 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1123524], 3901);
+	v0 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3901);
 	nox_window_call_field_94((int)v0, 16399, 0, 0);
-	sub_46ABB0(*(int*)&byte_5D4594[1123524], 0);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1123524], 1);
+	sub_46ABB0(*(int*)&dword_5d4594_1123524, 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1123524, 1);
 	sub_44D8F0();
 	result = dword_587000_80828;
 	*(_DWORD*)&byte_5D4594[1123520] = 0;
