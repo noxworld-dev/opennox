@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_2660652;
 extern _DWORD dword_5d4594_529316;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
@@ -2983,7 +2984,7 @@ int sub_41D530() {
 	v0 = sub_420020();
 	if (v0 == -1) {
 		if (sub_41E300(11)) {
-			*(_DWORD*)&byte_5D4594[2660652] = -2147221396;
+			dword_5d4594_2660652 = -2147221396;
 			v3 = sub_41E2F0();
 			sub_41DA70(v3, 5);
 			v4 = sub_41E2F0();
@@ -3210,7 +3211,7 @@ int __cdecl sub_41DA70(int a1, __int16 a2) {
 	} else {
 		result = sub_41E300(11);
 		if (result)
-			*(_DWORD*)&byte_5D4594[2660652] = 0;
+			dword_5d4594_2660652 = 0;
 	}
 	return result;
 }
@@ -3348,7 +3349,7 @@ int sub_41DFC0() {
 				sub_41FF10();
 				break;
 			case 5:
-				sub_41DAC0(*(int*)&byte_5D4594[2660652]);
+				sub_41DAC0(*(int*)&dword_5d4594_2660652);
 				break;
 			case 10:
 				sub_446E60();
@@ -3415,7 +3416,7 @@ int sub_41E0D0() {
 			v1 = sub_41E2F0();
 			switch (sub_41DCC0(v1)) {
 			case 5:
-				if (*(int*)&byte_5D4594[2660652] == -2147221394)
+				if (*(int*)&dword_5d4594_2660652 == -2147221394)
 					sub_43AFA0(11);
 				break;
 			case 10:
