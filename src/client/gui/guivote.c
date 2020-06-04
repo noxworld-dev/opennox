@@ -1,6 +1,7 @@
 #include "guivote.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1197324;
 extern _DWORD dword_5d4594_1197312;
 
 //----- (0048CB10) --------------------------------------------------------
@@ -113,7 +114,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 								    *(_DWORD*)&byte_587000
 									[8 * ((unsigned __int8)v16[57] % 10) + 156400]);
 								v19 = 0;
-								if (*(_DWORD*)&byte_5D4594[1197324] > 0) {
+								if (dword_5d4594_1197324 > 0) {
 									v20 = (const wchar_t*)&byte_5D4594[1193720];
 									do {
 										if (!nox_wcscmp(v20, (const wchar_t*)i +
@@ -124,7 +125,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 											    16405, v25, 0);
 										++v19;
 										v20 += 28;
-									} while (v19 < *(int*)&byte_5D4594[1197324]);
+									} while (v19 < *(int*)&dword_5d4594_1197324);
 									v16 = v26;
 								}
 								++v25;
@@ -139,7 +140,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 					nox_window_call_field_94(*(int*)&byte_5D4594[1197316], 16397, (int)(j + 4704),
 								 4);
 					v22 = 0;
-					if (*(_DWORD*)&byte_5D4594[1197324] > 0) {
+					if (dword_5d4594_1197324 > 0) {
 						v23 = (const wchar_t*)&byte_5D4594[1193720];
 						do {
 							if (!nox_wcscmp(v23, (const wchar_t*)j + 2352))
@@ -147,7 +148,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 											 16405, v25, 0);
 							++v22;
 							v23 += 28;
-						} while (v22 < *(int*)&byte_5D4594[1197324]);
+						} while (v22 < *(int*)&dword_5d4594_1197324);
 					}
 					++v25;
 				}
