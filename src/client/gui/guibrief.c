@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_832496;
 extern _DWORD dword_5d4594_832516;
 extern _DWORD dword_5d4594_832508;
 extern _DWORD dword_5d4594_832504;
@@ -411,8 +412,8 @@ int __cdecl sub_44F300(int a1, int a2) {
 	sub_43FAF0(*(int*)&dword_5d4594_832484, v7, v34.field_0, v34.field_4, v3 - v34.field_0 + 520, 0);
 	v34.field_0 = v3 + 565;
 	v34.field_4 = v4 + 117;
-	sub_473A10(v2, &v34, (_DWORD*)(*(_DWORD*)&byte_5D4594[832496] + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(*(_DWORD*)&byte_5D4594[832496] + 300))(v2, *(_DWORD*)&byte_5D4594[832496]);
+	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832496 + 12));
+	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832496 + 300))(v2, dword_5d4594_832496);
 	v29 = loadString_sub_40F1D0((char*)&byte_587000[124732], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 809);
 	sub_43F840(*(int*)&dword_5d4594_832484, v29, &v27, 0, 0);
 	v30 = loadString_sub_40F1D0((char*)&byte_587000[124800], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 811);
