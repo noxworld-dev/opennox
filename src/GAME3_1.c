@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1319236;
 extern _DWORD dword_5d4594_1320972;
 extern _DWORD dword_5d4594_3679316;
 extern _DWORD dword_5d4594_1316704;
@@ -3418,7 +3419,7 @@ int sub_4BFEF0() {
 		return 0;
 	nox_window_set_all_funcs(v0, sub_4BFDD0, sub_4C0030, 0);
 	dword_5d4594_1319232 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3601);
-	*(_DWORD*)&byte_5D4594[1319236] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3607);
+	dword_5d4594_1319236 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3607);
 	nox_window_set_hidden(*(int*)&dword_5d4594_1319228, 1);
 	sub_46ABB0(*(int*)&dword_5d4594_1319228, 0);
 	*(_DWORD*)&byte_5D4594[1319108] = 0;
@@ -3507,7 +3508,7 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4) {
 		if (!dword_5d4594_1319264)
 			return 0;
 		nox_swprintf((wchar_t*)&byte_5D4594[1319068], L"%d", *(_DWORD*)&byte_5D4594[1319260] * v8);
-		sub_46AEE0(*(int*)&byte_5D4594[1319236], (int)&byte_5D4594[1319068]);
+		sub_46AEE0(*(int*)&dword_5d4594_1319236, (int)&byte_5D4594[1319068]);
 		result = 0;
 		break;
 	case 3603:
@@ -3520,7 +3521,7 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4) {
 			if (dword_5d4594_1319264) {
 				nox_swprintf((wchar_t*)&byte_5D4594[1319068], L"%d",
 					     *(_DWORD*)&byte_5D4594[1319260] * (v11 - 1));
-				sub_46AEE0(*(int*)&byte_5D4594[1319236], (int)&byte_5D4594[1319068]);
+				sub_46AEE0(*(int*)&dword_5d4594_1319236, (int)&byte_5D4594[1319068]);
 			}
 		}
 		return 0;
@@ -3560,7 +3561,7 @@ int sub_4C03E0() {
 	result = sub_46C4E0(*(_DWORD**)&dword_5d4594_1319228);
 	dword_5d4594_1319228 = 0;
 	dword_5d4594_1319232 = 0;
-	*(_DWORD*)&byte_5D4594[1319236] = 0;
+	dword_5d4594_1319236 = 0;
 	dword_5d4594_1319264 = 0;
 	return result;
 }
@@ -3588,10 +3589,10 @@ int __cdecl sub_4C0430(int a1, int a2, int a3, int a4, int a5, const void* a6, i
 	sub_46AEE0(*(int*)&dword_5d4594_1319232, (int)&byte_5D4594[1319164]);
 	if (dword_5d4594_1319264) {
 		nox_swprintf((wchar_t*)&byte_5D4594[1319068], L"%d", *(_DWORD*)&byte_5D4594[1319260]);
-		result = sub_46AEE0(*(int*)&byte_5D4594[1319236], (int)&byte_5D4594[1319068]);
+		result = sub_46AEE0(*(int*)&dword_5d4594_1319236, (int)&byte_5D4594[1319068]);
 	} else {
 		nox_swprintf((wchar_t*)&byte_5D4594[1319068], (const wchar_t*)&byte_5D4594[1319272]);
-		result = sub_46AEE0(*(int*)&byte_5D4594[1319236], (int)&byte_5D4594[1319068]);
+		result = sub_46AEE0(*(int*)&dword_5d4594_1319236, (int)&byte_5D4594[1319068]);
 	}
 	return result;
 }
