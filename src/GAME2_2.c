@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798800;
 extern _DWORD dword_5d4594_1193584;
 extern _DWORD dword_5d4594_3801808;
 extern _DWORD dword_5d4594_3798828;
@@ -555,7 +556,7 @@ void __cdecl sub_476850(int a1, unsigned __int8* a2) {
 		v30 = v4;
 		v10 = *(_DWORD*)(v9 - 4) + *((_DWORD*)a2 + 4) - *((__int16*)a2 + 53) - *((__int16*)a2 + 52) - a2[1];
 		if (v8 < *(int*)&dword_5d4594_3798820 ||
-		    v8 + v4 >= *(int*)&dword_5d4594_3798820 + *(_DWORD*)&byte_5D4594[3798800] ||
+		    v8 + v4 >= *(int*)&dword_5d4594_3798820 + dword_5d4594_3798800 ||
 		    v10 < *(int*)&dword_5d4594_3798824 ||
 		    v10 + v26 >= *(int*)&dword_5d4594_3798824 + dword_5d4594_3798808) {
 			*((_DWORD*)a2 + 86) = 0;
@@ -698,7 +699,7 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2) {
 			       *((__int16*)v2 + 52) - v2[1]);
 		v31 = v5;
 		if (v7 < *(int*)&dword_5d4594_3798820 ||
-		    v7 + v5 >= *(int*)&dword_5d4594_3798820 + *(_DWORD*)&byte_5D4594[3798800] ||
+		    v7 + v5 >= *(int*)&dword_5d4594_3798820 + dword_5d4594_3798800 ||
 		    (v9 = dword_5d4594_3798824, (int)result < *(int*)&dword_5d4594_3798824) ||
 		    (int)result + v6 >= *(int*)&dword_5d4594_3798824 + dword_5d4594_3798808) {
 			*((_DWORD*)v2 + 86) = 0;
@@ -6222,7 +6223,7 @@ int __cdecl sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 	v5 = *a1;
 	result = a1[1] - dword_5d4594_3798824;
 	v7 = *a1 - dword_5d4594_3798820;
-	if (v7 >= 0 && result >= 0 && v7 < *(int*)&byte_5D4594[3798800] && result < *(int*)&dword_5d4594_3798808) {
+	if (v7 >= 0 && result >= 0 && v7 < *(int*)&dword_5d4594_3798800 && result < *(int*)&dword_5d4594_3798808) {
 		v8 = dword_5d4594_3798804 * (dword_5d4594_3798840 + result) +
 		     dword_5d4594_3798796 + 2 * (dword_5d4594_3798836 + v7);
 		if (v8 >= *(int*)&dword_5d4594_3798844)
@@ -7161,11 +7162,11 @@ LABEL_9:
 	}
 	if (v3 >= *(int*)&dword_5d4594_3798820 + 23) {
 		v71 = nox_backbuffer_width + v3;
-		if (nox_backbuffer_width + v3 <= *(int*)&byte_5D4594[3798800] + dword_5d4594_3798820 - 46 ||
+		if (nox_backbuffer_width + v3 <= *(int*)&dword_5d4594_3798800 + dword_5d4594_3798820 - 46 ||
 		    *(int*)&byte_5D4594[3798812] + *(int*)&dword_5d4594_3798828 - 1 >= 128) {
 			goto LABEL_36;
 		}
-		if (v71 > *(int*)&byte_5D4594[3798800] + *(int*)&dword_5d4594_3798820) {
+		if (v71 > *(int*)&dword_5d4594_3798800 + *(int*)&dword_5d4594_3798820) {
 			sub_4826A0(a1);
 			goto LABEL_36;
 		}
@@ -7176,13 +7177,13 @@ LABEL_9:
 		j = *(_DWORD*)&byte_5D4594[3798812] + v7 - 2;
 		v9 = dword_5d4594_3798836 + 46;
 		dword_5d4594_3798836 += 46;
-		if (*(int*)&dword_5d4594_3798836 >= *(int*)&byte_5D4594[3798800]) {
-			dword_5d4594_3798836 = v9 - *(_DWORD*)&byte_5D4594[3798800];
+		if (*(int*)&dword_5d4594_3798836 >= *(int*)&dword_5d4594_3798800) {
+			dword_5d4594_3798836 = v9 - dword_5d4594_3798800;
 			v10 = ++dword_5d4594_3798840;
 			if (*(int*)&dword_5d4594_3798840 >= *(int*)&dword_5d4594_3798808)
 				dword_5d4594_3798840 = v10 - dword_5d4594_3798808;
 		}
-		v4 = *(_DWORD*)&byte_5D4594[3798800] + v8 - 92;
+		v4 = dword_5d4594_3798800 + v8 - 92;
 	} else {
 		if (*(int*)&dword_5d4594_3798828 <= 0)
 			goto LABEL_36;
@@ -7197,7 +7198,7 @@ LABEL_9:
 		if (*(int*)&dword_5d4594_3798836 < 0) {
 			v6 = *(int*)&dword_5d4594_3798840 - 1;
 			v5 = *(int*)&dword_5d4594_3798840 - 1 < 0;
-			dword_5d4594_3798836 += *(_DWORD*)&byte_5D4594[3798800];
+			dword_5d4594_3798836 += dword_5d4594_3798800;
 			--*(int*)&dword_5d4594_3798840;
 			if (v5)
 				*(int*)&dword_5d4594_3798840 = *(int*)&dword_5d4594_3798808 + v6;
