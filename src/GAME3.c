@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1307736;
 extern _DWORD dword_5d4594_3798648;
 extern _DWORD dword_5d4594_1309776;
 extern _DWORD dword_5d4594_1309708;
@@ -1570,22 +1571,22 @@ int sub_4A4840() {
 	*(_DWORD*)&byte_5D4594[1307724] = sub_431770();
 	sub_43BDD0(600);
 	result = nox_new_window_from_file("SelClass.wnd", sub_4A4A20);
-	*(_DWORD*)&byte_5D4594[1307736] = result;
+	dword_5d4594_1307736 = result;
 	if (result) {
 		sub_46B300(result, sub_4A18E0);
-		result = sub_43C5B0(*(_DWORD**)&byte_5D4594[1307736], 0, 0, 0, -460, 0, 20, 0, -40);
+		result = sub_43C5B0(*(_DWORD**)&dword_5d4594_1307736, 0, 0, 0, -460, 0, 20, 0, -40);
 		*(_DWORD*)&byte_5D4594[1307732] = result;
 		if (result) {
 			*(_DWORD*)result = 600;
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1307732] + 48) = sub_4A4970;
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1307732] + 56) = sub_4A49A0;
-			v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307736], 601);
+			v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 601);
 			sub_46B340((int)v1, sub_4A49D0);
-			v2 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307736], 603);
+			v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 603);
 			sub_46B340((int)v2, sub_4A49D0);
-			v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307736], 602);
+			v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 602);
 			sub_46B340((int)v3, sub_4A49D0);
-			*(_DWORD*)&byte_5D4594[1307728] = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307736], 610);
+			*(_DWORD*)&byte_5D4594[1307728] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 610);
 			sub_46A8A0();
 			*(_DWORD*)&byte_5D4594[1307740] = 0;
 			sub_4A19F0((char*)&byte_587000[170188]);
@@ -1611,7 +1612,7 @@ int sub_4A49A0() {
 
 	v0 = *(int (**)(void))(*(_DWORD*)&byte_5D4594[1307732] + 52);
 	sub_43C570(*(LPVOID*)&byte_5D4594[1307732]);
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1307736]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1307736);
 	v0();
 	return 1;
 }
