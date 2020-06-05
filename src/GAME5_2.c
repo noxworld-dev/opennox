@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2516356;
 extern _DWORD dword_587000_311372;
 extern _DWORD dword_5d4594_2523908;
 extern _DWORD dword_5d4594_2523744;
@@ -2475,7 +2476,7 @@ int sub_56F1C0() {
 	dword_5d4594_2516348 = *(_DWORD*)&byte_5D4594[2598000];
 	dword_5d4594_2516344 = 0;
 	*(_WORD*)&byte_587000[311204] = 0;
-	*(_DWORD*)&byte_5D4594[2516356] = 657757279;
+	dword_5d4594_2516356 = 657757279;
 	dword_5d4594_2516348 ^= sub_56F240();
 	dword_5d4594_2516328 = ~dword_5d4594_2516348;
 	*(_DWORD*)&byte_5D4594[2516340] = sub_56F400(0);
@@ -2495,9 +2496,9 @@ int sub_56F250() {
 
 	v0 = 7;
 	do {
-		result = sub_56F280(*(int*)&byte_5D4594[2516356], 0);
+		result = sub_56F280(*(int*)&dword_5d4594_2516356, 0);
 		--v0;
-		++*(_DWORD*)&byte_5D4594[2516356];
+		++dword_5d4594_2516356;
 	} while (v0);
 	return result;
 }
@@ -2586,8 +2587,8 @@ _DWORD* sub_56F3B0() {
 
 //----- (0056F400) --------------------------------------------------------
 int __cdecl sub_56F400(int a1) {
-	if (sub_56F280(*(int*)&byte_5D4594[2516356], a1))
-		return (*(_DWORD*)&byte_5D4594[2516356])++;
+	if (sub_56F280(*(int*)&dword_5d4594_2516356, a1))
+		return (dword_5d4594_2516356)++;
 	nullsub_31(1);
 	return 0;
 }
@@ -2595,8 +2596,8 @@ int __cdecl sub_56F400(int a1) {
 
 //----- (0056F440) --------------------------------------------------------
 int __cdecl sub_56F440(int a1) {
-	if (sub_56F480(*(int*)&byte_5D4594[2516356], a1))
-		return (*(_DWORD*)&byte_5D4594[2516356])++;
+	if (sub_56F480(*(int*)&dword_5d4594_2516356, a1))
+		return (dword_5d4594_2516356)++;
 	nullsub_31(1);
 	return 0;
 }
