@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599692;
 extern _DWORD dword_5d4594_1569664;
 extern _DWORD dword_5d4594_3821968;
 extern _DWORD dword_5d4594_2386572;
@@ -507,7 +508,7 @@ char __cdecl sub_50A160(int a1) {
 			}
 		}
 	}
-	*(_DWORD*)&byte_5D4594[1599692] = 1;
+	dword_5d4594_1599692 = 1;
 	v8 = *(_BYTE*)(v1 + 544) - 1;
 	v9 = v8;
 	*(_BYTE*)(v1 + 544) = v8;
@@ -580,7 +581,7 @@ int* __cdecl sub_50A260(int a1, int a2) {
 	v10 = sub_4E39D0(a1);
 	sub_5341A0((char*)&byte_587000[233916], *(_DWORD*)&byte_5D4594[2598000], v10, v11, v12);
 	result = v9;
-	*(_DWORD*)&byte_5D4594[1599692] = 1;
+	dword_5d4594_1599692 = 1;
 	return result;
 }
 // 50A2CD: variable 'v6' is possibly undefined
@@ -722,7 +723,7 @@ int __cdecl sub_50A5C0(float a1) {
 	sub_50CDD0(SLODWORD(a1));
 	result = *(_DWORD*)(LODWORD(a1) + 16);
 	if (result & 0x1000000) {
-		*(_DWORD*)&byte_5D4594[1599692] = 0;
+		dword_5d4594_1599692 = 0;
 		result = *(_DWORD*)(v2 + 484);
 		if (result) {
 			if (!(*(_DWORD*)(LODWORD(a1) + 16) & 0x8020)) {
@@ -762,8 +763,8 @@ int __cdecl sub_50A5C0(float a1) {
 			sub_547210(SLODWORD(a1));
 			sub_546A70(SLODWORD(a1));
 			sub_50A850(SLODWORD(a1));
-			v12 = *(_DWORD*)&byte_5D4594[1599692];
-			v21 = *(_DWORD*)&byte_5D4594[1599692];
+			v12 = dword_5d4594_1599692;
+			v21 = dword_5d4594_1599692;
 			while (1) {
 				v13 = *(char*)(v2 + 544);
 				v14 = 3 * v13 + 69;
@@ -774,12 +775,12 @@ int __cdecl sub_50A5C0(float a1) {
 				if (v16)
 					break;
 				*v17 = 1;
-				*(_DWORD*)&byte_5D4594[1599692] = 0;
+				dword_5d4594_1599692 = 0;
 				v18 = *(void(__cdecl**)(int)) & byte_587000[16 * v15 + 233160];
 				if (v18) {
 					v18(v1);
-					v12 = *(_DWORD*)&byte_5D4594[1599692];
-					if (*(_DWORD*)&byte_5D4594[1599692])
+					v12 = dword_5d4594_1599692;
+					if (dword_5d4594_1599692)
 						continue;
 				}
 				goto LABEL_30;
@@ -787,10 +788,10 @@ int __cdecl sub_50A5C0(float a1) {
 			if (v12)
 				goto LABEL_31;
 		LABEL_30:
-			*(_DWORD*)&byte_5D4594[1599692] = v21;
+			dword_5d4594_1599692 = v21;
 		LABEL_31:
 			(*(void(__cdecl**)(int)) & byte_587000[16 * v15 + 233164])(v1);
-			if (*(_DWORD*)&byte_5D4594[1599692])
+			if (dword_5d4594_1599692)
 				sub_509F60(v1, (int)&byte_587000[234084]);
 			v19 = *(_DWORD*)(v2 + 1440);
 			BYTE1(v19) &= 0xFDu;
