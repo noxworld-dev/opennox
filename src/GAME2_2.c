@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_3799508;
 extern _DWORD dword_5d4594_3798812;
 extern _DWORD dword_5d4594_3798800;
@@ -7423,9 +7424,9 @@ LABEL_60:
 				v50 = (int)v78;
 			}
 		}
-		result = *(_DWORD*)&byte_5D4594[805836];
+		result = dword_5d4594_805836;
 #if 0
-        if (*(_DWORD*)& byte_5D4594[805836])
+        if (*(_DWORD*)& dword_5d4594_805836)
             _m_femms();
 #endif
 	} else {
