@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1047552;
 extern _DWORD dword_5d4594_1049512;
 extern _DWORD dword_5d4594_1047548;
 extern _DWORD dword_5d4594_1049520;
@@ -189,22 +190,22 @@ int sub_45E190() {
 	byte_5D4594[1049488] = 0;
 	v68 = sub_43F320(0);
 	dword_5d4594_1047548 = (nox_win_width - 320) / 2;
-	*(_DWORD*)&byte_5D4594[1047552] = nox_win_height - 74;
+	dword_5d4594_1047552 = nox_win_height - 74;
 	*(_DWORD*)&byte_5D4594[1049684] = sub_43F360((char*)&byte_587000[133840]);
 	*(_DWORD*)&byte_587000[133656] = dword_5d4594_1047548;
 	v1 = dword_5d4594_1047548 + 69;
-	*(_DWORD*)&byte_587000[133660] = *(_DWORD*)&byte_5D4594[1047552] - 17;
-	v2 = *(_DWORD*)&byte_5D4594[1047552] + 32;
+	*(_DWORD*)&byte_587000[133660] = dword_5d4594_1047552 - 17;
+	v2 = dword_5d4594_1047552 + 32;
 	*(_DWORD*)&byte_587000[133664] = dword_5d4594_1047548 + 320;
 	*(_DWORD*)&byte_587000[133668] = nox_win_height;
 	if (!*(_DWORD*)&byte_5D4594[2618908])
 		return 0;
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251))
 		sub_4601F0(*(int*)&dword_587000_133480, dword_5d4594_1047548 + 69,
-			   *(_DWORD*)&byte_5D4594[1047552] + 32, 5, 0, sub_45EF50, sub_45FDE0);
+			   dword_5d4594_1047552 + 32, 5, 0, sub_45EF50, sub_45FDE0);
 	else
 		sub_4601F0(*(int*)&dword_587000_133480, dword_5d4594_1047548 + 69,
-			   *(_DWORD*)&byte_5D4594[1047552] + 32, 5, 0, sub_45EF50, sub_45FBD0);
+			   dword_5d4594_1047552 + 32, 5, 0, sub_45EF50, sub_45FBD0);
 	v4 = &byte_5D4594[1048964];
 	do {
 		v2 -= 60;
@@ -216,7 +217,7 @@ int sub_45E190() {
 	} while ((int)v4 >= (int)&byte_5D4594[1048196]);
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251)) {
 		dword_5d4594_1049504 = nox_window_new(0, 1160, dword_5d4594_1047548 + 260,
-								 *(int*)&byte_5D4594[1047552], 45, 66, 0);
+								 *(int*)&dword_5d4594_1047552, 45, 66, 0);
 		sub_46AE40(*(int*)&dword_5d4594_1049504, -263, 0);
 		*(_DWORD*)&byte_5D4594[1049536] = nox_win_height - 74;
 		sub_46B300(*(int*)&dword_5d4594_1049504, sub_45F8D0);
@@ -231,7 +232,7 @@ int sub_45E190() {
 		sub_46AEA0(*(int*)&dword_5d4594_1049500, (int)v6);
 	} else {
 		dword_5d4594_1049504 = nox_window_new(0, 1672, dword_5d4594_1047548 + 260,
-								 *(int*)&byte_5D4594[1047552], 45, 66, 0);
+								 *(int*)&dword_5d4594_1047552, 45, 66, 0);
 		sub_46AE40(*(int*)&dword_5d4594_1049504, -263, 0);
 		*(_DWORD*)&byte_5D4594[1049536] = nox_win_height - 74;
 		sub_46B300(*(int*)&dword_5d4594_1049504, sub_45F8D0);
@@ -296,7 +297,7 @@ int sub_45E190() {
 	}
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251)) {
 		sub_4601F0((int)&byte_5D4594[1047940], dword_5d4594_1047548 + 122,
-			   *(_DWORD*)&byte_5D4594[1047552] - 17, 3, 21, sub_45EF50, sub_45FDE0);
+			   dword_5d4594_1047552 - 17, 3, 21, sub_45EF50, sub_45FDE0);
 		v21 = sub_42F970("QuickBarTrapTray");
 		sub_46AE60(*(int*)&byte_5D4594[1048148], (int)v21);
 		sub_46AE40(*(int*)&byte_5D4594[1048148], -40, -20);
@@ -328,7 +329,7 @@ int sub_45E190() {
 		sub_46B000(v27 + 18, v29);
 		*((_DWORD*)v27 + 92) = 4;
 		dword_5d4594_1049508 = nox_window_new(0, 1032, dword_5d4594_1047548 - 1,
-								 *(_DWORD*)&byte_5D4594[1047552] + 26, 61, 48, 0);
+								 dword_5d4594_1047552 + 26, 61, 48, 0);
 		sub_46AE40(*(int*)&dword_5d4594_1049508, 1, -26);
 		v30 = sub_42F970("QuickBarSpellSetBase");
 		sub_46AE60(*(int*)&dword_5d4594_1049508, (int)v30);
@@ -338,7 +339,7 @@ int sub_45E190() {
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1049508, sub_45F8D0, sub_45F6F0, 0);
 	} else {
 		dword_5d4594_1049508 = nox_window_new(0, 1032, dword_5d4594_1047548 - 1,
-								 *(_DWORD*)&byte_5D4594[1047552] + 26, 61, 48, 0);
+								 dword_5d4594_1047552 + 26, 61, 48, 0);
 		sub_46AE40(*(int*)&dword_5d4594_1049508, 1, -26);
 		v32 = sub_42F970("QuickBarWarriorLeft");
 		sub_46AE60(*(int*)&dword_5d4594_1049508, (int)v32);
@@ -389,7 +390,7 @@ int sub_45E190() {
 		*(_DWORD*)&byte_5D4594[1049516] = nox_window_new(0, 1032, 0, 0, 1, 1, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1049516], sub_45EF40, sub_45F8F0, 0);
 		dword_5d4594_1049512 =
-		    nox_window_new(0, 1152, *(int*)&dword_5d4594_1047548, *(int*)&byte_5D4594[1047552], 2, 2, 0);
+		    nox_window_new(0, 1152, *(int*)&dword_5d4594_1047548, *(int*)&dword_5d4594_1047552, 2, 2, 0);
 		v46 = sub_42F970("QuickBarTitle");
 		sub_46AE60(*(int*)&dword_5d4594_1049512, (int)v46);
 		v47 = nox_window_new(*(int*)&dword_5d4594_1049512, 8, 115, 6, 101, 14, 0);
