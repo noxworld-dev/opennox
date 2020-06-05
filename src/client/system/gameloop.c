@@ -9,6 +9,7 @@
 #include "../../platform.h"
 #endif
 
+extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_587000_93200;
 extern _DWORD dword_587000_93196;
 extern _DWORD dword_587000_173328;
@@ -360,7 +361,7 @@ void mainloop() {
 	}
 	if (!(*(_DWORD*)&nox_common_engineFlags & 0x80000000)) {
 		sub_437180();
-		if (!*(_DWORD*)&byte_5D4594[1556112])
+		if (!dword_5d4594_1556112)
 			mainloop_draw(); // Draw game windows
 		if (dword_5d4594_815132) {
 			v28[0] = 0;

@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_5d4594_754044;
 extern _DWORD dword_5d4594_811372;
 extern _DWORD dword_5d4594_787200;
@@ -8695,7 +8696,7 @@ int sub_435CC0() {
 	sub_45DB90();
 	sub_41D1A0(0);
 	sub_435570();
-	*(_DWORD*)&byte_5D4594[1556112] = 0;
+	dword_5d4594_1556112 = 0;
 
 	if (!nox_alloc_drawable_init(5000))
 		return 0;
