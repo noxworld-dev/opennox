@@ -9,6 +9,7 @@
 #include "../../platform.h"
 #endif
 
+extern _DWORD dword_587000_173328;
 extern _DWORD dword_587000_173332;
 extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_2650672;
@@ -28,7 +29,7 @@ extern int (*nox_draw_unk1)(void);
 void map_download_start() {
 	sub_467DF0(1);
 	sub_4CC770();
-	*(_DWORD*)&byte_587000[173328] = 1;
+	dword_587000_173328 = 1;
 	dword_587000_173332 = 1;
 	map_download_loop(1);
 }
@@ -211,7 +212,7 @@ void mainloop() {
 	last_tick = cur_tick;
 #endif
 
-	if (*(_DWORD*)&byte_587000[173328]) {
+	if (dword_587000_173328) {
 		int ret = map_download_loop(0);
 		if (ret == -1) {
 			return;
@@ -226,7 +227,7 @@ void mainloop() {
 		_control87(0x300u, 0x300u);
 		if (!sub_43DEB0()) {
 			// XXX
-			if (*(_DWORD*)&byte_587000[173328])
+			if (dword_587000_173328)
 				return;
 			*(_DWORD*)&byte_587000[93196] = 0;
 			*(_DWORD*)&byte_587000[93200] = 0;
