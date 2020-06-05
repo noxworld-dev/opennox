@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_261388;
 extern _DWORD dword_5d4594_2487948;
 extern _DWORD dword_5d4594_2488640;
 extern _DWORD dword_5d4594_3835312;
@@ -1811,13 +1812,13 @@ int* __cdecl sub_532130(int a1) {
 			else
 				*(_BYTE*)(v1 + 1128) = 0;
 		}
-		v14.field_0 = *(float*)(a1 + 56) - *(float*)&byte_587000[261388];
-		v14.field_4 = *(float*)(a1 + 60) - *(float*)&byte_587000[261388];
-		v14.field_8 = *(float*)&byte_587000[261388] + *(float*)(a1 + 56);
-		v5 = *(float*)&byte_587000[261388] + *(float*)(a1 + 60);
+		v14.field_0 = *(float*)(a1 + 56) - *(float*)&dword_587000_261388;
+		v14.field_4 = *(float*)(a1 + 60) - *(float*)&dword_587000_261388;
+		v14.field_8 = *(float*)&dword_587000_261388 + *(float*)(a1 + 56);
+		v5 = *(float*)&dword_587000_261388 + *(float*)(a1 + 60);
 		dword_5d4594_2487948 = 0;
 		v14.field_C = v5;
-		*(float*)&byte_5D4594[2487952] = *(float*)&byte_587000[261388] + 1.0;
+		*(float*)&byte_5D4594[2487952] = *(float*)&dword_587000_261388 + 1.0;
 		sub_517C10(&v14, (void(__cdecl*)(float*, int))sub_532390, a1);
 		if (dword_5d4594_2487948 && !sub_5330C0(a1, *(int*)&dword_5d4594_2487948) &&
 		    *(_BYTE*)(a1 + 12) & 0x10 && (v6 = *(_DWORD*)(v1 + 2064)) != 0 &&
