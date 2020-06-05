@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1046948;
 extern _DWORD dword_5d4594_1046636;
 extern _DWORD dword_5d4594_1046928;
 extern _DWORD dword_5d4594_1047512;
@@ -362,7 +363,7 @@ int __cdecl sub_45BD40(int a1) {
 LABEL_75:
 	if (!dword_587000_132132 &&
 	    *(int*)&byte_5D4594[1046932] >= *(int*)&byte_5D4594[1047508] - *(int*)&dword_5d4594_1047512 - 1) {
-		nox_window_set_hidden(*(int*)&byte_5D4594[1046948], 1);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1046948, 1);
 	}
 	return 1;
 }
