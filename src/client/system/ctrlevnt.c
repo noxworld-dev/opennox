@@ -6,6 +6,7 @@
 #include "../gui/guispell.h"
 #include "../gui/servopts/guiserv.h"
 
+extern _DWORD dword_5d4594_754044;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_754036;
@@ -385,11 +386,11 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 		} while (v19 != v20);
 		if (v21 <= 0) {
 		LABEL_226:
-			v23 = *(_DWORD*)&byte_5D4594[754044];
+			v23 = dword_5d4594_754044;
 		} else {
 			v23 = v21;
 			*(_DWORD*)&byte_5D4594[754048] = v20;
-			*(_DWORD*)&byte_5D4594[754044] = v21;
+			dword_5d4594_754044 = v21;
 		}
 		for (k = v20; k != dword_5d4594_754036; k = (k + 1) % 128) {
 			v25 = 0;
@@ -403,7 +404,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				}
 				if (sub_42D4B0(*(_DWORD*)&byte_5D4594[24 * k + 747892]))
 					*(_DWORD*)&byte_5D4594[24 * k + 747900] = 0;
-				v23 = *(_DWORD*)&byte_5D4594[754044];
+				v23 = dword_5d4594_754044;
 			}
 		LABEL_137:;
 		}
@@ -411,7 +412,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 		v27 = dword_5d4594_754036;
 		v28 = 0;
 		if (dword_5d4594_754036 > 0) {
-			v29 = *(_DWORD*)&byte_5D4594[754044];
+			v29 = dword_5d4594_754044;
 			v30 = &byte_5D4594[747900];
 			do {
 				v31 = 0;
@@ -427,7 +428,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 					if (sub_42D4B0(*((_DWORD*)v30 - 2)))
 						*(_DWORD*)v30 = 0;
 					v27 = dword_5d4594_754036;
-					v29 = *(_DWORD*)&byte_5D4594[754044];
+					v29 = dword_5d4594_754044;
 				}
 			LABEL_149:
 				++v28;
@@ -437,7 +438,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				qmemcpy(&byte_5D4594[750964], &byte_5D4594[747884],
 					4 * ((unsigned int)(24 * v27) >> 2));
 		}
-		*(_DWORD*)&byte_5D4594[754044] = v27;
+		dword_5d4594_754044 = v27;
 	}
 	*(_DWORD*)&byte_5D4594[754064] = 0;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
