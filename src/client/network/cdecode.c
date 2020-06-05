@@ -20,6 +20,7 @@
 #include "../gui/servopts/playrlst.h"
 #include "../shell/noxworld.h"
 #include "inform.h"
+extern _DWORD dword_5d4594_1200804;
 extern _DWORD dword_587000_80836;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_587000_312800;
@@ -507,8 +508,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v3 += 3;
 			break;
 		case 0x2Bu:
-			k = *(_DWORD*)&byte_5D4594[1200804];
-			if (*(_DWORD*)(v3 + 37) > *(int*)&byte_5D4594[1200804]) {
+			k = dword_5d4594_1200804;
+			if (*(_DWORD*)(v3 + 37) > *(int*)&dword_5d4594_1200804) {
 				sub_40A360(*(_DWORD*)(v3 + 37));
 				sub_467DF0(1);
 				sub_409D70((char*)(v3 + 1));
@@ -519,7 +520,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 						sub_41D6C0();
 				}
 				sub_40A4D0(0x800000);
-				*(_DWORD*)&byte_5D4594[1200804] = *(_DWORD*)&byte_5D4594[2598000];
+				dword_5d4594_1200804 = *(_DWORD*)&byte_5D4594[2598000];
 				sub_43C720(0);
 				sub_49C7A0();
 				sub_4597E0(0);
@@ -538,7 +539,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			}
 			if (!nox_common_gameFlags_check_40A5C0(1))
 				sub_57B920(&byte_5D4594[1198020]);
-			*(_DWORD*)&byte_5D4594[1200804] = 0;
+			dword_5d4594_1200804 = 0;
 			v3 += 7;
 			*(_DWORD*)&byte_5D4594[2618900] = 0;
 			*(_DWORD*)&byte_5D4594[2649824] = 0;
@@ -1126,7 +1127,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_602;
 			HIDWORD(v5) = *(_DWORD*)(v3 + 4);
-			if (HIDWORD(v5) <= *(int*)&byte_5D4594[1200804])
+			if (HIDWORD(v5) <= *(int*)&dword_5d4594_1200804)
 				goto LABEL_602;
 			if ((nox_common_engineFlags & 0x8000) != 0)
 				sub_578B70(*(unsigned __int16*)(v3 + 1));
@@ -1159,8 +1160,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v172 = sub_418AB0(*(unsigned __int16*)(v3 + 1));
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_602;
-			k = *(_DWORD*)&byte_5D4594[1200804];
-			if (*(_DWORD*)(v3 + 4) <= *(int*)&byte_5D4594[1200804])
+			k = dword_5d4594_1200804;
+			if (*(_DWORD*)(v3 + 4) <= *(int*)&dword_5d4594_1200804)
 				goto LABEL_602;
 			v393[0] = 0;
 			if (*(_BYTE*)(v3 + 3) == 1) {
@@ -1201,7 +1202,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_602;
 			HIDWORD(v5) = *(_DWORD*)(v3 + 4);
-			if (HIDWORD(v5) <= *(int*)&byte_5D4594[1200804])
+			if (HIDWORD(v5) <= *(int*)&dword_5d4594_1200804)
 				goto LABEL_602;
 			v391[0] = 0;
 			if (*(_BYTE*)(v3 + 3) == 1) {
@@ -1294,8 +1295,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v160 = sub_418AB0(*(unsigned __int16*)(v3 + 1));
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_602;
-			k = *(_DWORD*)&byte_5D4594[1200804];
-			if (*(_DWORD*)(v3 + 4) <= *(int*)&byte_5D4594[1200804])
+			k = dword_5d4594_1200804;
+			if (*(_DWORD*)(v3 + 4) <= *(int*)&dword_5d4594_1200804)
 				goto LABEL_602;
 			v394[0] = 0;
 			if (*(_BYTE*)(v3 + 3) == 1) {
