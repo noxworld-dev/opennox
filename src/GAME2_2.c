@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193336;
 extern _DWORD dword_587000_80840;
 extern _DWORD dword_5d4594_1097192;
 extern _DWORD dword_5d4594_3799452;
@@ -11110,8 +11111,8 @@ void* sub_486EF0() {
 	int* v1;      // esi
 	int i;        // edi
 
-	result = *(void**)&byte_5D4594[1193336];
-	if (*(_DWORD*)&byte_5D4594[1193336]) {
+	result = *(void**)&dword_5d4594_1193336;
+	if (dword_5d4594_1193336) {
 		result = *(void**)&dword_587000_155144;
 		if (!*(_DWORD*)(dword_587000_155144 + 24)) {
 			v1 = *(int**)(dword_587000_155144 + 12);
@@ -11131,7 +11132,7 @@ int sub_486F30() {
 	*(_DWORD*)(dword_587000_155144 + 24) = 0;
 	*(_DWORD*)&byte_5D4594[1193340] = dword_587000_155144 + 32;
 	sub_4864A0((_DWORD*)(dword_587000_155144 + 32));
-	*(_DWORD*)&byte_5D4594[1193336] = 1;
+	dword_5d4594_1193336 = 1;
 	return 0;
 }
 
