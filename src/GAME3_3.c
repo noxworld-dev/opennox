@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_1568024;
 extern _DWORD dword_5d4594_1565512;
@@ -6855,7 +6856,7 @@ void __cdecl sub_4EAF00(int a1, int a2, float* a3) {
 					sub_538840(v3, v11, (int)v22);
 					sub_538290(v7, v11, v3, (int)v22);
 					(*(void(__cdecl**)(int, int, int, _DWORD, _DWORD))(v7 + 716))(
-					    v7, v11, v3, (__int64)(*(float*)v22 + *(double*)&byte_581450[9544]), 0);
+					    v7, v11, v3, (__int64)(*(float*)v22 + *(double*)&qword_581450_9544), 0);
 					if (!(*(_DWORD*)(v7 + 16) & 0x8020))
 						*(_DWORD*)(v4 + 12) = v7;
 					if (*(_BYTE*)(v4 + 4))
@@ -7065,7 +7066,7 @@ void __cdecl sub_4EB490(int a1, int a2) {
 		if (*(_DWORD*)(v2 + 508) != a2)
 			sub_538290(a2, *(_DWORD*)(v22 + 4), v2, (int)v21);
 		v20 = LOBYTE(v21[1]);
-		v18 = (__int64)(*(float*)v21 + *(double*)&byte_581450[9544]);
+		v18 = (__int64)(*(float*)v21 + *(double*)&qword_581450_9544);
 		v13 = sub_4EC580(v2);
 		v14 = (*(int(__cdecl**)(int, int, int, int, int))(a2 + 716))(a2, v13, v2, v18, v20);
 		if (*(unsigned __int16*)(v2 + 4) == *(_DWORD*)&byte_5D4594[1568000]) {

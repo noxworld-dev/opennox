@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_1090276;
 extern _DWORD dword_5d4594_1062476;
 extern _DWORD dword_5d4594_1047932;
@@ -1443,7 +1444,7 @@ int __cdecl sub_4643B0(int a1, int a2) {
 			v25 = *(unsigned __int16*)(v7 + 294);
 			v9 = (double)v25;
 			if (v8 >= v9 * *(double*)&byte_581450[9608]) {
-				if (v8 >= v9 * *(double*)&byte_581450[9544])
+				if (v8 >= v9 * *(double*)&qword_581450_9544)
 					goto LABEL_16;
 				v10 = *(_DWORD*)&byte_5D4594[2589772];
 			} else {
@@ -6995,7 +6996,7 @@ int __cdecl sub_470F40_draw(nox_window* win) {
 			if (v8 < v9 * *(double*)&byte_581450[9608]) {
 				*((_DWORD*)v3 + 4) = *(_DWORD*)&byte_5D4594[2650644];
 				v12 = 1;
-			} else if (v8 < v9 * *(double*)&byte_581450[9544]) {
+			} else if (v8 < v9 * *(double*)&qword_581450_9544) {
 				*((_DWORD*)v3 + 4) = *(_DWORD*)&byte_5D4594[2589772];
 				v12 = 1;
 			} else {
