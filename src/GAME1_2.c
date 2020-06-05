@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193156;
 extern _DWORD dword_587000_80800;
 extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_814552;
@@ -6913,7 +6914,7 @@ int sub_4322E0() {
 		dword_587000_154956 = atoi(v0);
 		dword_587000_154956 = dword_587000_154956 != 0;
 		sub_481420();
-		*(_DWORD*)&byte_5D4594[1193156] = 0;
+		dword_5d4594_1193156 = 0;
 		dword_587000_154960 = dword_587000_154956;
 	}
 	return 1;
