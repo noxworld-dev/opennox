@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815056;
 extern _DWORD dword_5d4594_811100;
 extern _DWORD dword_5d4594_808568;
 extern _DWORD dword_5d4594_787184;
@@ -9303,7 +9304,7 @@ int sub_438C80(int a1, int a2) {
 		if (!dword_5d4594_815044 && !sub_46AAB0(v2, v0->field_0, v0->field_4)) {
 			nox_window_set_hidden(*(int*)&dword_5d4594_815000, 1);
 			nox_window_call_field_94(*(int*)&dword_5d4594_815012, 16403, -1, 0);
-			*(_DWORD*)&byte_5D4594[815056] = 0;
+			dword_5d4594_815056 = 0;
 			sub_46C6E0(*(int*)&dword_5d4594_815000);
 			sub_46B500(*(int*)&dword_5d4594_814980);
 		}
@@ -9903,7 +9904,7 @@ int __cdecl sub_43B2A0(int a1) {
 unsigned int sub_43B300() {
 	unsigned int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[815056])
+	if (dword_5d4594_815056)
 		result = inet_addr((const char*)(dword_5d4594_814624 + 12));
 	else
 		result = 0;
@@ -9911,13 +9912,13 @@ unsigned int sub_43B300() {
 }
 
 //----- (0043B320) --------------------------------------------------------
-int sub_43B320() { return *(_DWORD*)&byte_5D4594[815056] != 0 ? *(_DWORD*)&byte_5D4594[814604] : 0; }
+int sub_43B320() { return dword_5d4594_815056 != 0 ? *(_DWORD*)&byte_5D4594[814604] : 0; }
 
 //----- (0043B340) --------------------------------------------------------
 int sub_43B340() {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[815056])
+	if (dword_5d4594_815056)
 		result = *(unsigned __int16*)(dword_5d4594_814624 + 163);
 	else
 		result = 0;
