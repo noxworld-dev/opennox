@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_806052;
 extern _DWORD dword_587000_80844;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_805852;
@@ -6202,7 +6203,7 @@ int sub_431390() {
 					       (dword_5d4594_806044 = result) != 0)) {
 		sub_4144D0((_DWORD*)result);
 		dword_5d4594_806048 = 0;
-		*(_DWORD*)&byte_5D4594[806052] = 0;
+		dword_5d4594_806052 = 0;
 		sub_4313E0();
 		result = 1;
 	}
@@ -6233,7 +6234,7 @@ void sub_4314D0() {
 		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_806044);
 	dword_5d4594_806044 = 0;
 	dword_5d4594_806048 = 0;
-	*(_DWORD*)&byte_5D4594[806052] = 0;
+	dword_5d4594_806052 = 0;
 }
 
 //----- (00431510) --------------------------------------------------------
@@ -6241,7 +6242,7 @@ int sub_431510() {
 	if (dword_5d4594_806044)
 		sub_4144D0(*(_DWORD**)&dword_5d4594_806044);
 	dword_5d4594_806048 = 0;
-	*(_DWORD*)&byte_5D4594[806052] = 0;
+	dword_5d4594_806052 = 0;
 	return sub_4313E0();
 }
 
@@ -6280,10 +6281,10 @@ _DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char 
 	v12 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_806044);
 	if (v12)
 		goto LABEL_11;
-	v12 = *(_DWORD**)&byte_5D4594[806052];
-	if (!*(_DWORD*)&byte_5D4594[806052])
+	v12 = *(_DWORD**)&dword_5d4594_806052;
+	if (!dword_5d4594_806052)
 		return 0;
-	sub_4316C0(*(int*)&byte_5D4594[806052]);
+	sub_4316C0(*(int*)&dword_5d4594_806052);
 LABEL_11:
 	v12[6] = a2 << 16;
 	v12[7] = a3 << 16;
@@ -6318,7 +6319,7 @@ int __cdecl sub_431680(int a1) {
 	if (dword_5d4594_806048)
 		*(_DWORD*)(dword_5d4594_806048 + 48) = a1;
 	else
-		*(_DWORD*)&byte_5D4594[806052] = a1;
+		dword_5d4594_806052 = a1;
 	dword_5d4594_806048 = a1;
 	return result;
 }
@@ -6330,8 +6331,8 @@ int __cdecl sub_4316C0(int a1) {
 	int v3;     // ecx
 
 	result = a1;
-	if (a1 == *(_DWORD*)&byte_5D4594[806052])
-		*(_DWORD*)&byte_5D4594[806052] = *(_DWORD*)(a1 + 48);
+	if (a1 == dword_5d4594_806052)
+		dword_5d4594_806052 = *(_DWORD*)(a1 + 48);
 	v2 = *(_DWORD*)(a1 + 44);
 	if (v2)
 		*(_DWORD*)(v2 + 48) = *(_DWORD*)(a1 + 48);
