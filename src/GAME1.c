@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_3484;
 extern _DWORD dword_5d4594_251560;
 extern _DWORD dword_5d4594_251600;
 extern _DWORD dword_5d4594_251608;
@@ -1279,23 +1280,23 @@ int __cdecl sub_409E40(int a1) {
 	int result; // eax
 
 	result = a1;
-	if (*(_DWORD*)&byte_5D4594[3484] != a1) {
-		*(_DWORD*)&byte_5D4594[3484] = a1;
+	if (dword_5d4594_3484 != a1) {
+		dword_5d4594_3484 = a1;
 		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
 	}
 	return result;
 }
 
 //----- (00409E60) --------------------------------------------------------
-int sub_409E60() { return *(_DWORD*)&byte_5D4594[3484]; }
+int sub_409E60() { return dword_5d4594_3484; }
 
 //----- (00409E70) --------------------------------------------------------
 int __cdecl sub_409E70(int a1) {
 	int result; // eax
 
-	result = a1 & *(_DWORD*)&byte_5D4594[3484];
-	if ((a1 & *(_DWORD*)&byte_5D4594[3484]) != a1) {
-		*(_DWORD*)&byte_5D4594[3484] |= a1;
+	result = a1 & dword_5d4594_3484;
+	if ((a1 & dword_5d4594_3484) != a1) {
+		dword_5d4594_3484 |= a1;
 		result = nox_common_gameFlags_check_40A5C0(1);
 		if (result) {
 			if (a1 & 0x2000)
@@ -1311,10 +1312,10 @@ int __cdecl sub_409EC0(int a1) {
 	int result; // eax
 
 	result = a1;
-	if (*(_DWORD*)&byte_5D4594[3484] & a1) {
+	if (dword_5d4594_3484 & a1) {
 		result = ~a1;
 		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
-		*(_DWORD*)&byte_5D4594[3484] &= ~a1;
+		dword_5d4594_3484 &= ~a1;
 	}
 	return result;
 }
@@ -1323,11 +1324,11 @@ int __cdecl sub_409EC0(int a1) {
 int __cdecl sub_409EF0(int a1) {
 	int result; // eax
 
-	*(_DWORD*)&byte_5D4594[3484] ^= a1;
+	dword_5d4594_3484 ^= a1;
 	result = nox_common_gameFlags_check_40A5C0(1);
 	if (result) {
 		if (a1 & 0x2000) {
-			result = *(_DWORD*)&byte_5D4594[3484];
+			result = dword_5d4594_3484;
 			if (result & 0x2000)
 				result = sub_4D7EA0();
 		}
@@ -1343,7 +1344,7 @@ BOOL __cdecl sub_409F40(int a1) {
 	if (a1 == 0x2000 && nox_common_gameFlags_check_40A5C0(1056))
 		result = 1;
 	else
-		result = (a1 & *(_DWORD*)&byte_5D4594[3484]) != 0;
+		result = (a1 & dword_5d4594_3484) != 0;
 	return result;
 }
 
