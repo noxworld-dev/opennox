@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_5d4594_754044;
 extern _DWORD dword_5d4594_811372;
@@ -8655,7 +8656,7 @@ int __cdecl sub_435A10(signed int* a1) {
 		Data[152] |= 0x80u;
 	strcpy((char*)&Data[142], (const char*)&byte_5D4594[2660099]);
 	strcpy((char*)&Data[128], sub_41FA40());
-	*(_DWORD*)&Data[138] = *(_DWORD*)&byte_5D4594[2660032];
+	*(_DWORD*)&Data[138] = dword_5d4594_2660032;
 	qmemcpy(Data, v1, 0x61u);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		sub_4D3860(Data);
@@ -9265,7 +9266,7 @@ int sub_438A90() {
 		buf[54] = byte_5D4594[2661958];
 		buf[98] = !v3;
 		*(_DWORD*)&buf[80] = 0x1039A;
-		*(_DWORD*)&buf[84] = *(_DWORD*)&byte_5D4594[2660032];
+		*(_DWORD*)&buf[84] = dword_5d4594_2660032;
 		strcpy(&buf[88], (const char*)&byte_5D4594[2660048]);
 		nox_wcscpy((wchar_t*)&buf[4], (const wchar_t*)&byte_5D4594[2661908]);
 		sub_43AF90(3);
