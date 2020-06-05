@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830120;
 extern _DWORD dword_5d4594_830256;
 extern _DWORD dword_587000_93944;
 extern _DWORD dword_5d4594_830204;
@@ -5675,7 +5676,7 @@ int sub_449280() {
 		return 0;
 	if (dword_5d4594_830116)
 		return 0;
-	if (*(_DWORD*)&byte_5D4594[830120])
+	if (dword_5d4594_830120)
 		return 0;
 	result = nox_new_window_from_file("wolopt.wnd", sub_4493D0);
 	dword_5d4594_830104 = result;
@@ -5709,7 +5710,7 @@ int sub_449280() {
 		else
 			v9 = v8 & 0xFFFFFFFB;
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[830200] + 36) = v9;
-		*(_DWORD*)&byte_5D4594[830120] = 1;
+		dword_5d4594_830120 = 1;
 		sub_46B120(*(_DWORD**)&dword_5d4594_830104, 0);
 		sub_46A8C0(*(int*)&dword_5d4594_830104);
 		sub_46C690(*(int*)&dword_5d4594_830104);
@@ -5743,7 +5744,7 @@ int __cdecl sub_4493D0(int a1, int a2, int* a3, int a4) {
 		sub_46C6E0(*(int*)&dword_5d4594_830104);
 		sub_46C4E0(*(_DWORD**)&dword_5d4594_830104);
 		sub_447600();
-		*(_DWORD*)&byte_5D4594[830120] = 0;
+		dword_5d4594_830120 = 0;
 		result = 0;
 		break;
 	case 1996:
@@ -5763,7 +5764,7 @@ void sub_4494A0() {
 	sub_41FFD0((*(_BYTE*)(*(_DWORD*)&byte_5D4594[830200] + 36) & 4) == 4);
 	sub_46C6E0(*(int*)&dword_5d4594_830104);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_830104);
-	*(_DWORD*)&byte_5D4594[830120] = 0;
+	dword_5d4594_830120 = 0;
 	sub_447600();
 }
 
