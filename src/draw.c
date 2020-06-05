@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801808;
 extern _DWORD dword_5d4594_3801804;
 extern _DWORD dword_5d4594_3799492;
 extern _DWORD dword_5d4594_810640;
@@ -163,7 +164,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	dword_973C64 = 0;
 	if (!v9) {
 		dword_5d4594_3799624 = 0;
-		*(_DWORD*)&byte_5D4594[3801808] = w & 0xFFFFFFE0;
+		dword_5d4594_3801808 = w & 0xFFFFFFE0;
 		dword_5d4594_3801780 = 0;
 		*(_DWORD*)&byte_5D4594[3801776] = v8 >> 2;
 		nox_backbuffer_width32 = v8 >> 5;
@@ -179,7 +180,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 		dword_5d4594_3799624 = 1;
 	}
 	dword_5d4594_3801780 = 1;
-	*(_DWORD*)&byte_5D4594[3801808] = 2 * v8;
+	dword_5d4594_3801808 = 2 * v8;
 	*(_DWORD*)&byte_5D4594[3801776] = v8 >> 1;
 	nox_backbuffer_width32 = v8 >> 4;
 	dword_5d4594_3801804 = sub_444D90();
@@ -2417,7 +2418,7 @@ int sub_48A3D0() {
 			nox_backbuffer_width32 = g_backbuffer1->w >> 4;
 			*(_DWORD*)&byte_5D4594[3801776] = g_backbuffer1->w >> 1;
 			dword_5d4594_3801780 = 1;
-			*(_DWORD*)&byte_5D4594[3801808] = 2 * g_backbuffer1->w;
+			dword_5d4594_3801808 = 2 * g_backbuffer1->w;
 			nox_backbuffer_pitch32 = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
 
 			if (g_format == SDL_PIXELFORMAT_RGBA5551)
@@ -2479,7 +2480,7 @@ int sub_48A3D0() {
 				*(_DWORD*)&byte_5D4594[3801776] = v4 >> 1;
 				v7 = 0;
 				dword_5d4594_3801780 = 1;
-				*(_DWORD*)&byte_5D4594[3801808] = v3;
+				dword_5d4594_3801808 = v3;
 				for (nox_backbuffer_pitch32 = v5; v6; v6 >>= 1) {
 					if (v6 & 1)
 						++v7;
@@ -2510,7 +2511,7 @@ int sub_48A3D0() {
 				dword_5d4594_3801780 = 0;
 				*(_DWORD*)&byte_5D4594[3801776] = v1 >> 2;
 				dword_5d4594_3799624 = 0;
-				*(_DWORD*)&byte_5D4594[3801808] = v1;
+				dword_5d4594_3801808 = v1;
 				nox_backbuffer_width32 = v1 >> 5;
 				nox_backbuffer_pitch32 = v2 - v1;
 				return 1;
