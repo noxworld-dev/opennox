@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_527684;
 extern _DWORD dword_5d4594_741292;
 extern _DWORD dword_5d4594_588068;
 extern _DWORD dword_5d4594_608316;
@@ -825,7 +826,7 @@ int sub_419B30() {
 	char v11[1024]; // [esp+488h] [ebp-400h]
 
 	result = sub_426590();
-	*(_DWORD*)&byte_5D4594[527684] = result;
+	dword_5d4594_527684 = result;
 	if (result) {
 		result = sub_408CC0_fopen((char*)&byte_587000[55748], 0);
 		v1 = (FILE*)result;
@@ -876,7 +877,7 @@ int sub_419B30() {
 							*v5 = nox_malloc(4 * v2);
 							for (i = 0; i < v2; ++i)
 								*(_DWORD*)(*v6 + 4 * i) = v10[i];
-							if (!sub_4267B0(*(int*)&byte_5D4594[527684], v8, (int)v6)) {
+							if (!sub_4267B0(*(int*)&dword_5d4594_527684, v8, (int)v6)) {
 							LABEL_28:
 								fclose(v1);
 								return 0;
@@ -899,7 +900,7 @@ double __cdecl sub_419D40(void* a1) {
 	float** v1;    // eax
 	double result; // st7
 
-	v1 = (float**)sub_426890(*(int*)&byte_5D4594[527684], a1);
+	v1 = (float**)sub_426890(*(int*)&dword_5d4594_527684, a1);
 	if (v1)
 		result = **v1;
 	else
@@ -912,7 +913,7 @@ double __cdecl sub_419D70(void* a1, int a2) {
 	int v2;        // eax
 	double result; // st7
 
-	v2 = sub_426890(*(int*)&byte_5D4594[527684], a1);
+	v2 = sub_426890(*(int*)&dword_5d4594_527684, a1);
 	if (v2 && a2 < *(unsigned __int8*)(v2 + 4))
 		result = *(float*)(*(_DWORD*)v2 + 4 * a2);
 	else
@@ -922,10 +923,10 @@ double __cdecl sub_419D70(void* a1, int a2) {
 
 //----- (00419DB0) --------------------------------------------------------
 void sub_419DB0() {
-	if (*(_DWORD*)&byte_5D4594[527684]) {
-		sub_426600(*(int*)&byte_5D4594[527684], (void(__cdecl*)(_DWORD, _DWORD))sub_419DE0);
-		sub_4265A0(*(LPVOID*)&byte_5D4594[527684]);
-		*(_DWORD*)&byte_5D4594[527684] = 0;
+	if (dword_5d4594_527684) {
+		sub_426600(*(int*)&dword_5d4594_527684, (void(__cdecl*)(_DWORD, _DWORD))sub_419DE0);
+		sub_4265A0(*(LPVOID*)&dword_5d4594_527684);
+		dword_5d4594_527684 = 0;
 	}
 }
 
