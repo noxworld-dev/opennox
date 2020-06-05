@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599632;
 extern _DWORD dword_5d4594_1569756;
 extern _DWORD dword_5d4594_1599624;
 extern _DWORD dword_5d4594_1569672;
@@ -8162,18 +8163,18 @@ unsigned __int8* __cdecl sub_502490(int* a1, int a2, int a3) {
 			*(_DWORD*)&byte_5D4594[1599076] = script_pop();
 		v6 = dword_5d4594_1599624;
 		dword_5d4594_1599660 = 0;
-		if (dword_5d4594_1599624 < *(int*)&byte_5D4594[1599632]) {
+		if (dword_5d4594_1599624 < *(int*)&dword_5d4594_1599632) {
 			v7 = (LPVOID*)&byte_5D4594[4 * dword_5d4594_1599624 + 3831212];
 			do {
 				free(*v7);
-				v8 = *(_DWORD*)&byte_5D4594[1599632];
+				v8 = dword_5d4594_1599632;
 				*v7 = 0;
 				++v6;
 				++v7;
 			} while (v6 < v8);
 			v6 = dword_5d4594_1599624;
 		}
-		*(_DWORD*)&byte_5D4594[1599632] = v6;
+		dword_5d4594_1599632 = v6;
 		sub_5025E0((int)a1, a2, a3);
 		if (*(_DWORD*)&byte_5D4594[1599468] > 0)
 			sub_502490(*(int**)&byte_5D4594[1599084], *(int*)&byte_5D4594[1599088],
@@ -10180,7 +10181,7 @@ int sub_505360() {
 		goto LABEL_9;
 	v1 = 0;
 	dword_5d4594_1599624 = sub_505800();
-	*(_DWORD*)&byte_5D4594[1599632] = dword_5d4594_1599624;
+	dword_5d4594_1599632 = dword_5d4594_1599624;
 	if (dword_5d4594_1599624 > 0) {
 		v3 = &byte_5D4594[3831212];
 		do {
@@ -10371,11 +10372,11 @@ char* sub_5058F0() {
 	int v8;       // esi
 
 	v0 = dword_5d4594_1599624;
-	if (dword_5d4594_1599624 < *(int*)&byte_5D4594[1599632]) {
+	if (dword_5d4594_1599624 < *(int*)&dword_5d4594_1599632) {
 		v1 = (LPVOID*)&byte_5D4594[4 * dword_5d4594_1599624 + 3831212];
 		do {
 			free(*v1);
-			v2 = *(_DWORD*)&byte_5D4594[1599632];
+			v2 = dword_5d4594_1599632;
 			*v1 = 0;
 			++v0;
 			++v1;
@@ -10398,7 +10399,7 @@ char* sub_5058F0() {
 	result = *(char**)&dword_5d4594_1599636;
 	dword_5d4594_1599624 = 0;
 	*(_DWORD*)&byte_5D4594[1599628] = 0;
-	*(_DWORD*)&byte_5D4594[1599632] = 0;
+	dword_5d4594_1599632 = 0;
 	if (dword_5d4594_1599636) {
 		v7 = 0;
 		if (dword_5d4594_1599640 > 0) {

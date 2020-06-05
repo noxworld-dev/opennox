@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599632;
 extern _DWORD dword_5d4594_2386576;
 extern _DWORD dword_5d4594_2386212;
 extern _DWORD dword_5d4594_3843628;
@@ -6239,12 +6240,12 @@ int __cdecl sub_512E40(char* a1) {
 	char* v1; // eax
 	int v2;   // ecx
 
-	if (*(_DWORD*)&byte_5D4594[1599632] >= 1024)
-		return *(_DWORD*)&byte_5D4594[1599632] - 1;
+	if (dword_5d4594_1599632 >= 1024)
+		return dword_5d4594_1599632 - 1;
 	v1 = _strdup(a1);
-	v2 = *(_DWORD*)&byte_5D4594[1599632];
-	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1599632] + 3831212] = v1;
-	*(_DWORD*)&byte_5D4594[1599632] = v2 + 1;
+	v2 = dword_5d4594_1599632;
+	*(_DWORD*)&byte_5D4594[4 * dword_5d4594_1599632 + 3831212] = v1;
+	dword_5d4594_1599632 = v2 + 1;
 	return v2;
 }
 
