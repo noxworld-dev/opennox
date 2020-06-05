@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096288;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_1047936;
 extern _DWORD dword_5d4594_1062488;
@@ -7164,9 +7165,9 @@ int __cdecl sub_471450(_DWORD* a1) {
 	v1 = a1;
 	_itow(*(_DWORD*)&byte_5D4594[20 * a1[8] + 1093040], WideCharStr, 10);
 	sub_434390(*(int*)&byte_5D4594[2523948]);
-	sub_43F840(*(int*)&byte_5D4594[1096288], WideCharStr, &v3, 0, 0);
+	sub_43F840(*(int*)&dword_5d4594_1096288, WideCharStr, &v3, 0, 0);
 	nox_client_wndGetPosition_46AA60(v1, &v4, &a1);
-	sub_43F6E0(*(int*)&byte_5D4594[1096288], (__int16*)WideCharStr, v4 - v3 / 2 + 8, (int)a1 + 1);
+	sub_43F6E0(*(int*)&dword_5d4594_1096288, (__int16*)WideCharStr, v4 - v3 / 2 + 8, (int)a1 + 1);
 	return 1;
 }
 
@@ -7194,13 +7195,13 @@ int __cdecl sub_471A80(_DWORD* a1) {
 		}
 		sub_434390(*(int*)&byte_5D4594[2523948]);
 		nox_swprintf(v9, L"%d", *(unsigned __int16*)&byte_5D4594[v2 + 1090312]);
-		v4 = sub_43F320(*(int*)&byte_5D4594[1096288]);
-		sub_43F6E0(*(int*)&byte_5D4594[1096288], (__int16*)v9, v8 - 2, (int)((char*)a1 - v4 + 10));
+		v4 = sub_43F320(*(int*)&dword_5d4594_1096288);
+		sub_43F6E0(*(int*)&dword_5d4594_1096288, (__int16*)v9, v8 - 2, (int)((char*)a1 - v4 + 10));
 	}
 	v5 = (__int16*)&byte_5D4594[v2 + 1090300];
 	if (v5) {
-		v6 = sub_43F320(*(int*)&byte_5D4594[1096288]);
-		sub_43F6E0(*(int*)&byte_5D4594[1096288], v5, v8 - 2, (int)((char*)a1 - v6 + 33));
+		v6 = sub_43F320(*(int*)&dword_5d4594_1096288);
+		sub_43F6E0(*(int*)&dword_5d4594_1096288, v5, v8 - 2, (int)((char*)a1 - v6 + 33));
 	}
 	return 1;
 }
