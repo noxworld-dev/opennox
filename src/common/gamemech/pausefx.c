@@ -1,6 +1,7 @@
 #include "pausefx.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2523776;
 extern _DWORD dword_5d4594_2523780;
 
 //----- (0057AF30) --------------------------------------------------------
@@ -18,14 +19,14 @@ void __cdecl sub_57AF30(int a1, int a2) {
 			v2 = dword_5d4594_2523780;
 		if (a2) {
 			if (a2 != 1) {
-				v3 = *(_DWORD**)&byte_5D4594[2523776];
+				v3 = *(_DWORD**)&dword_5d4594_2523776;
 			LABEL_12:
 				if (v3) {
 					if (v2) {
 						sub_4DAA50((int)v3, 0, *(float*)(v2 + 56), *(float*)(v2 + 60));
 					} else {
 						sub_4E38A0((int)v3);
-						*(_DWORD*)&byte_5D4594[2523776] = 0;
+						dword_5d4594_2523776 = 0;
 					}
 					v2 = dword_5d4594_2523780;
 				}
@@ -69,7 +70,7 @@ void __cdecl sub_57AF30(int a1, int a2) {
 			v3 = sub_4E3810((CHAR*)&byte_587000[312700]);
 		}
 		v2 = dword_5d4594_2523780;
-		*(_DWORD*)&byte_5D4594[2523776] = v3;
+		dword_5d4594_2523776 = v3;
 		goto LABEL_12;
 	}
 }
