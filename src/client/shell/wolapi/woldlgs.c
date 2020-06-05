@@ -2,6 +2,7 @@
 #include "../../../proto.h"
 #include "wolchat.h"
 
+extern _DWORD dword_5d4594_830208;
 extern _DWORD dword_5d4594_830132;
 extern _DWORD dword_587000_111668;
 extern _DWORD dword_5d4594_830148;
@@ -106,7 +107,7 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			sub_46ABB0(*(int*)&byte_5D4594[830152], 1);
 			sub_46ABB0(*(int*)&byte_5D4594[830156], 0);
 			dword_587000_111668 = 0;
-			if (*(_DWORD*)&byte_5D4594[830208])
+			if (dword_5d4594_830208)
 				sub_46ABB0(*(int*)&dword_5d4594_830148, 0);
 			else
 				sub_46ABB0(*(int*)&dword_5d4594_830148, 1);
@@ -196,7 +197,7 @@ int sub_448CF0_wol_dialogs() {
 		sub_40D770((int)v6, (int)v8);
 		nox_swprintf((wchar_t*)&byte_5D4594[829840], *(const wchar_t**)&byte_5D4594[830188], v0);
 		nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)&byte_5D4594[829840], 0);
-		*(_DWORD*)&byte_5D4594[830208] = 1;
+		dword_5d4594_830208 = 1;
 		sub_4160D0(19);
 		sub_46ABB0(*(int*)&dword_5d4594_830148, 0);
 		result = nox_window_call_field_94(*(int*)&dword_5d4594_830132, 16414, (int)&byte_5D4594[830212], 0);
