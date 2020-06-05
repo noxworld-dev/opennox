@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312788;
 extern _DWORD dword_5d4594_1563660;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_587000_312800;
@@ -13105,7 +13106,7 @@ int __cdecl sub_4F37D0(int a1, int a2, int a3) {
 			v11 = (double)v17 * *(float*)&dword_587000_312804;
 		}
 	} else {
-		v11 = (double)v17 * *(float*)&byte_587000[312788];
+		v11 = (double)v17 * *(float*)&dword_587000_312788;
 	}
 	v14 = v11;
 	v5 = nox_float2int(v14);

@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312788;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_5d4594_2487984;
 extern _DWORD dword_5d4594_2487248;
@@ -8846,7 +8847,7 @@ signed int __cdecl sub_53C580(int a1) {
 					v14 = nox_float2int(*(float*)&dword_587000_312804);
 				}
 			} else {
-				v14 = nox_float2int(*(float*)&byte_587000[312788]);
+				v14 = nox_float2int(*(float*)&dword_587000_312788);
 			}
 			v12 = v14;
 		}
@@ -10626,7 +10627,7 @@ int __cdecl sub_53EF70(int a1, int a2) {
 					v11 = (double)v25 * *(float*)&dword_587000_312804;
 				}
 			} else {
-				v11 = (double)v25 * *(float*)&byte_587000[312788];
+				v11 = (double)v25 * *(float*)&dword_587000_312788;
 			}
 			v24 = v11;
 			v3 = nox_float2int(v24);

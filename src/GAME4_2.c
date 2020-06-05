@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312788;
 extern _DWORD dword_5d4594_2487532;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_5d4594_2487248;
@@ -11960,7 +11961,7 @@ int __cdecl sub_52E450(int a1, int a2, int a3) {
 					v9 = (double)a3 * *(float*)&dword_587000_312804;
 				}
 			} else {
-				v9 = (double)a3 * *(float*)&byte_587000[312788];
+				v9 = (double)a3 * *(float*)&dword_587000_312788;
 			}
 			v11 = v9;
 			LOWORD(v6) = nox_float2int(v11);
