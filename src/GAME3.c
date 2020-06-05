@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309704;
 extern _DWORD dword_5d4594_1308144;
 extern _DWORD dword_5d4594_1309696;
 extern _DWORD dword_5d4594_1311936;
@@ -4074,14 +4075,14 @@ __int16 __cdecl sub_4A9E90(int a1, int a2, int a3, int a4) {
 		v12 += 20;
 	}
 	if (v8 - v12 >= 10) {
-		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1309704], v15, v12);
-		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1309704], v9, v12);
+		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309704, v15, v12);
+		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309704, v9, v12);
 		v12 += 10;
 	}
 	if (v12 < v8) {
 		v16 = v12 + ((v8 - v12 + 1) & 0xFFFFFFFE) - 10;
-		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1309704], v15, v16);
-		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1309704], v9, v16);
+		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309704, v15, v16);
+		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309704, v9, v16);
 	}
 	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1309676], v15, v21);
 	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1309680], v9, v21);
@@ -4201,7 +4202,7 @@ char* sub_4AA1F0() {
 	dword_5d4594_1309696 = sub_42F970("BorderHorizontalShort");
 	*(_DWORD*)&byte_5D4594[1309700] = sub_42F970("BorderVertical");
 	result = sub_42F970("BorderVerticalShort");
-	*(_DWORD*)&byte_5D4594[1309704] = result;
+	dword_5d4594_1309704 = result;
 	return result;
 }
 
