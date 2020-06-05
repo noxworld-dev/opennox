@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_826036;
 extern _DWORD dword_5d4594_829520;
 extern _DWORD dword_5d4594_816356;
 extern _DWORD dword_5d4594_826032;
@@ -4578,7 +4579,7 @@ int __cdecl sub_4463E0(int a1) {
 	char* v3;     // eax
 	int result2 = 0;
 
-	*(_DWORD*)&byte_5D4594[826036] = 0;
+	dword_5d4594_826036 = 0;
 	*(_DWORD*)&byte_5D4594[4 * a1 + 826040] = 0;
 	result = fopen("motd.txt", "rb");
 	v2 = result;
@@ -4587,10 +4588,10 @@ int __cdecl sub_4463E0(int a1) {
 		*(_DWORD*)&byte_5D4594[4 * a1 + 826040] = ftell(v2);
 		fseek(v2, 0, 0);
 		v3 = (char*)nox_calloc(*(_DWORD*)&byte_5D4594[4 * a1 + 826040] + 1, 1u);
-		*(_DWORD*)&byte_5D4594[826036] = v3;
+		dword_5d4594_826036 = v3;
 		if (v3) {
 			sub_40ADD0_fread(v3, *(_DWORD*)&byte_5D4594[4 * a1 + 826040], 1u, v2);
-			v3 = *(char**)&byte_5D4594[826036];
+			v3 = *(char**)&dword_5d4594_826036;
 		}
 		v3[(*(_DWORD*)&byte_5D4594[4 * a1 + 826040])++] = 0;
 		result2 = fclose(v2);
@@ -4602,12 +4603,12 @@ int __cdecl sub_4463E0(int a1) {
 LPVOID __cdecl sub_446490(void* a1) {
 	LPVOID result; // eax
 
-	result = *(LPVOID*)&byte_5D4594[826036];
-	if (*(_DWORD*)&byte_5D4594[826036]) {
-		free(*(LPVOID*)&byte_5D4594[826036]);
+	result = *(LPVOID*)&dword_5d4594_826036;
+	if (dword_5d4594_826036) {
+		free(*(LPVOID*)&dword_5d4594_826036);
 		result = a1;
 	}
-	*(_DWORD*)&byte_5D4594[826036] = 0;
+	dword_5d4594_826036 = 0;
 	*(_DWORD*)&byte_5D4594[4 * (_DWORD)a1 + 826040] = 0;
 	return result;
 }
@@ -4615,7 +4616,7 @@ LPVOID __cdecl sub_446490(void* a1) {
 //----- (004464D0) --------------------------------------------------------
 LPVOID __cdecl sub_4464D0(int a1, _DWORD* a2) {
 	*a2 = *(_DWORD*)&byte_5D4594[4 * a1 + 826040];
-	return *(LPVOID*)&byte_5D4594[826036];
+	return *(LPVOID*)&dword_5d4594_826036;
 }
 
 //----- (004464F0) --------------------------------------------------------
