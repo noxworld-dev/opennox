@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487532;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_5d4594_2487248;
 extern _DWORD dword_587000_312800;
@@ -2297,7 +2298,7 @@ int __cdecl sub_520E60(int2* a1) {
 	if (v1 < 0 || v1 >= *(int*)&dword_5d4594_2487540 || v2 < 0 || v2 >= *(int*)&dword_5d4594_2487540)
 		result = 0;
 	else
-		result = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2487532] + 4 * v1) + 20 * v2;
+		result = *(_DWORD*)(dword_5d4594_2487532 + 4 * v1) + 20 * v2;
 	return result;
 }
 
@@ -2312,15 +2313,15 @@ int __cdecl sub_520EA0(int a1) {
 
 	dword_5d4594_2487540 = 2 * *(_DWORD*)(a1 + 68) + 1;
 	*(_DWORD*)&byte_5D4594[2487536] = *(_DWORD*)(a1 + 68);
-	*(_DWORD*)&byte_5D4594[2487532] = nox_malloc(4 * dword_5d4594_2487540);
-	if (!*(_DWORD*)&byte_5D4594[2487532])
+	dword_5d4594_2487532 = nox_malloc(4 * dword_5d4594_2487540);
+	if (!dword_5d4594_2487532)
 		return 0;
 	v2 = dword_5d4594_2487540;
 	v3 = 0;
 	if (dword_5d4594_2487540 > 0) {
 		do {
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[2487532] + 4 * v3) = nox_malloc(20 * v2);
-			if (!*(_DWORD*)(*(_DWORD*)&byte_5D4594[2487532] + 4 * v3))
+			*(_DWORD*)(dword_5d4594_2487532 + 4 * v3) = nox_malloc(20 * v2);
+			if (!*(_DWORD*)(dword_5d4594_2487532 + 4 * v3))
 				return 0;
 			v2 = dword_5d4594_2487540;
 		} while (++v3 < *(int*)&dword_5d4594_2487540);
@@ -2332,11 +2333,11 @@ int __cdecl sub_520EA0(int a1) {
 			v6 = 0;
 			if (v2 > 0) {
 				do {
-					*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[2487532] + 4 * v6) + v5 + 4) =
+					*(_DWORD*)(*(_DWORD*)(dword_5d4594_2487532 + 4 * v6) + v5 + 4) =
 					    v6 - *(_DWORD*)&byte_5D4594[2487536];
-					v7 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2487532] + 4 * v6++);
+					v7 = *(_DWORD*)(dword_5d4594_2487532 + 4 * v6++);
 					*(_DWORD*)(v7 + v5 + 8) = v4 - *(_DWORD*)&byte_5D4594[2487536];
-					*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[2487532] + 4 * v6 - 4) + v5 + 16) =
+					*(_DWORD*)(*(_DWORD*)(dword_5d4594_2487532 + 4 * v6 - 4) + v5 + 16) =
 					    0;
 					v2 = dword_5d4594_2487540;
 				} while (v6 < *(int*)&dword_5d4594_2487540);
@@ -2353,8 +2354,8 @@ void sub_520F80() {
 	int i; // esi
 
 	for (i = 0; i < *(int*)&dword_5d4594_2487540; ++i)
-		free(*(LPVOID*)(*(_DWORD*)&byte_5D4594[2487532] + 4 * i));
-	free(*(LPVOID*)&byte_5D4594[2487532]);
+		free(*(LPVOID*)(dword_5d4594_2487532 + 4 * i));
+	free(*(LPVOID*)&dword_5d4594_2487532);
 }
 
 //----- (00520FC0) --------------------------------------------------------
