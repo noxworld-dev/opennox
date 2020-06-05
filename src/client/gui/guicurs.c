@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_3798728;
 extern int nox_win_width;
 extern int nox_win_height;
 int nox_client_mouseCursorType = 0;
@@ -30,7 +31,7 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	v3 = a2 - 64;
 	v4 = a3 - 64;
 	*(_DWORD*)&byte_5D4594[3799496] = 0;
-	*(_DWORD*)&byte_5D4594[3798728] = 1;
+	dword_5d4594_3798728 = 1;
 	*(_DWORD*)&byte_5D4594[1097212] = a2 - 64;
 	*(_DWORD*)&byte_5D4594[1097216] = a3 - 64;
 	if (byte_5D4594[2598000] & 1)
@@ -39,7 +40,7 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	v5 = sub_43F320(0);
 	if (sub_460650() || sub_4611A0()) {
 		LOWORD(result) = nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097240], v3, v4);
-		*(_DWORD*)&byte_5D4594[3798728] = 0;
+		dword_5d4594_3798728 = 0;
 		*(_DWORD*)&byte_587000[151528] = 5;
 		*(_DWORD*)&byte_5D4594[3799496] = v18;
 	} else {
@@ -137,7 +138,7 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			break;
 		}
 		result = v18;
-		*(_DWORD*)&byte_5D4594[3798728] = 0;
+		dword_5d4594_3798728 = 0;
 		*(_DWORD*)&byte_587000[151528] = nox_client_mouseCursorType;
 		*(_DWORD*)&byte_5D4594[3799496] = v18;
 	}

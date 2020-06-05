@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798728;
 extern _DWORD dword_5d4594_808568;
 extern _DWORD dword_5d4594_1193668;
 extern _DWORD dword_5d4594_787144;
@@ -1582,7 +1583,7 @@ int nox_video_initCursorDrawVars_48B1F0() {
 	SetRect((LPRECT)&byte_5D4594[1193548], 0, 0, 0, 0);
 	SetRect((LPRECT)&byte_5D4594[1193604], 0, 0, 0, 0);
 	*(_DWORD*)&byte_5D4594[1193624] = 0;
-	*(_DWORD*)&byte_5D4594[3798728] = 0;
+	dword_5d4594_3798728 = 0;
 	*(_DWORD*)&byte_5D4594[1193664] = 0;
 	dword_5d4594_1193668 = 0;
 	*(_DWORD*)&byte_5D4594[1193672] = 0;

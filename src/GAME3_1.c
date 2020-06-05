@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798728;
 extern _DWORD dword_5d4594_1319236;
 extern _DWORD dword_5d4594_1320972;
 extern _DWORD dword_5d4594_3679316;
@@ -2596,7 +2597,7 @@ __int16 __cdecl nox_video_drawAnimatedImageOrCursorAt_4BE6D0(int a1, int a2, int
 
 	v3 = sub_4BE640(a1, 0);
 	if (v3) {
-		if (*(_DWORD*)&byte_5D4594[3798728])
+		if (dword_5d4594_3798728)
 			LOWORD(v3) = sub_48B3F0(v3, a2, a3);
 		else
 			LOWORD(v3) = nox_client_drawImageAt_47D2C0(v3, a2, a3);
@@ -2610,7 +2611,7 @@ __int16 __cdecl sub_4BE710(int a1, int a2, int a3, int a4) {
 	int v5;         // [esp-Ch] [ebp-Ch]
 
 	v5 = *(_DWORD*)(*(_DWORD*)(*(_DWORD*)(a1 + 96) + 4) + 4 * a4);
-	if (*(_DWORD*)&byte_5D4594[3798728])
+	if (dword_5d4594_3798728)
 		result = sub_48B3F0(v5, a2, a3);
 	else
 		result = nox_client_drawImageAt_47D2C0(v5, a2, a3);
