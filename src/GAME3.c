@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309732;
 extern _QWORD qword_581450_9552;
 extern _DWORD dword_587000_93164;
 extern _DWORD dword_5d4594_1311140;
@@ -4298,14 +4299,14 @@ int sub_4AA6B0() {
 				nox_window_call_field_94((int)v6, 16395, 0, 0x4000);
 				nox_window_call_field_94((int)v6, 16394,
 							 *(_DWORD*)(*(_DWORD*)&byte_587000[122852] + 4) >> 16, 0);
-				*(_DWORD*)&byte_5D4594[1309732] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 362);
+				dword_5d4594_1309732 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 362);
 				v8 = sub_44D990();
-				v9 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1309732] + 36);
+				v9 = *(_DWORD*)(dword_5d4594_1309732 + 36);
 				if (v8 == 1)
 					v10 = v9 | 4;
 				else
 					v10 = v9 & 0xFFFFFFFB;
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309732] + 36) = v10;
+				*(_DWORD*)(dword_5d4594_1309732 + 36) = v10;
 				v11 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 353);
 				*(_DWORD*)(v11[100] + 8) = 24;
 				*(_DWORD*)(v11[100] + 12) = 20;
@@ -4567,18 +4568,18 @@ int __cdecl sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			if (a4) {
 				if (sub_44D990())
 					goto LABEL_49;
-				v12 = *(void**)&byte_5D4594[1309732];
-				v13 = *(void(__cdecl**)(void*, int, int, int))(*(_DWORD*)&byte_5D4594[1309732] + 372);
+				v12 = *(void**)&dword_5d4594_1309732;
+				v13 = *(void(__cdecl**)(void*, int, int, int))(dword_5d4594_1309732 + 372);
 				if (!v13)
 					goto LABEL_49;
 				goto LABEL_48;
 			}
 			if (sub_44D990() != 1)
 				goto LABEL_76;
-			v11 = *(void(__cdecl**)(_DWORD, int, int, int))(*(_DWORD*)&byte_5D4594[1309732] + 372);
+			v11 = *(void(__cdecl**)(_DWORD, int, int, int))(dword_5d4594_1309732 + 372);
 			if (!v11)
 				goto LABEL_76;
-			v11(*(_DWORD*)&byte_5D4594[1309732], 21, 28, 2);
+			v11(dword_5d4594_1309732, 21, 28, 2);
 			result = 0;
 			break;
 		case 353:
@@ -4619,8 +4620,8 @@ int __cdecl sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			sub_486320(*(_DWORD**)&byte_587000[122852], a4);
 			if (a4) {
 				if (!sub_44D990()) {
-					v12 = *(void**)&byte_5D4594[1309732];
-					v13 = *(void(__cdecl**)(void*, int, int, int))(*(_DWORD*)&byte_5D4594[1309732] +
+					v12 = *(void**)&dword_5d4594_1309732;
+					v13 = *(void(__cdecl**)(void*, int, int, int))(dword_5d4594_1309732 +
 										       372);
 					if (v13)
 					LABEL_48:
@@ -4632,10 +4633,10 @@ int __cdecl sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			} else {
 				if (sub_44D990() != 1)
 					goto LABEL_76;
-				v18 = *(void(__cdecl**)(_DWORD, int, int, int))(*(_DWORD*)&byte_5D4594[1309732] + 372);
+				v18 = *(void(__cdecl**)(_DWORD, int, int, int))(dword_5d4594_1309732 + 372);
 				if (!v18)
 					goto LABEL_76;
-				v18(*(_DWORD*)&byte_5D4594[1309732], 21, 28, 2);
+				v18(dword_5d4594_1309732, 21, 28, 2);
 				result = 0;
 			}
 		} else {
