@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312816;
 extern _DWORD dword_587000_312804;
 extern _DWORD dword_587000_312820;
 extern _DWORD dword_5d4594_2649712;
@@ -13069,7 +13070,7 @@ int __cdecl sub_4F37D0(int a1, int a2, int a3) {
 		v7 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251);
 		if (v7) {
 			if (v7 == 1) {
-				v8 = (double)v17 * *(float*)&byte_587000[312816];
+				v8 = (double)v17 * *(float*)&dword_587000_312816;
 			} else {
 				if (v7 != 2)
 					goto LABEL_17;
