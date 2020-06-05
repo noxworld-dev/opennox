@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_230092;
 extern _DWORD dword_5d4594_2386156;
 extern _DWORD dword_5d4594_3835348;
 extern _DWORD dword_5d4594_2386492;
@@ -309,15 +310,15 @@ int __cdecl sub_509E20(int a1, int2* a2) {
 	int result; // eax
 
 	v2 = *(int*)&byte_587000[8 * a1 + 192088];
-	if (v2 <= *(int*)&byte_587000[230092])
-		a2->field_0 = (v2 >= -*(int*)&byte_587000[230092]) - 1;
+	if (v2 <= *(int*)&dword_587000_230092)
+		a2->field_0 = (v2 >= -*(int*)&dword_587000_230092) - 1;
 	else
 		a2->field_0 = 1;
 	v3 = *(int*)&byte_587000[8 * a1 + 192092];
-	result = *(_DWORD*)&byte_587000[230092];
-	if (v3 <= *(int*)&byte_587000[230092]) {
-		result = -*(int*)&byte_587000[230092];
-		if (v3 >= -*(int*)&byte_587000[230092])
+	result = dword_587000_230092;
+	if (v3 <= *(int*)&dword_587000_230092) {
+		result = -*(int*)&dword_587000_230092;
+		if (v3 >= -*(int*)&dword_587000_230092)
 			a2->field_4 = 0;
 		else
 			a2->field_4 = -1;
