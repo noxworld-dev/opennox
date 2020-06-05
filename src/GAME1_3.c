@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816372;
 extern _DWORD dword_5d4594_805852;
 extern _DWORD dword_587000_80824;
 extern _DWORD dword_5d4594_815212;
@@ -1408,7 +1409,7 @@ int sub_43D8E0() {
 	*(_DWORD*)&byte_5D4594[816352] = 0;
 	*(_DWORD*)&byte_5D4594[816108] = 0;
 	*(_DWORD*)&byte_5D4594[816356] = 0;
-	*(_DWORD*)&byte_5D4594[816372] = 0;
+	dword_5d4594_816372 = 0;
 	dword_5d4594_816368 = 0;
 	dword_5d4594_816364 = 0;
 	result = 1;
@@ -1475,7 +1476,7 @@ int sub_43DA80() {
 
 	if (*(int*)&dword_5d4594_816368 < 6) {
 		sub_43DD10(
-		    (int*)&byte_5D4594[16 * (dword_5d4594_816368 + 6 * *(_DWORD*)&byte_5D4594[816372]) +
+		    (int*)&byte_5D4594[16 * (dword_5d4594_816368 + 6 * dword_5d4594_816372) +
 				       815772]);
 		++dword_5d4594_816368;
 		result = 1;
@@ -1490,7 +1491,7 @@ int sub_43DA80() {
 void sub_43DAD0() {
 	if (dword_5d4594_816368 > 0)
 		sub_43D9E0(
-		    (int4*)&byte_5D4594[16 * (--dword_5d4594_816368 + 6 * *(_DWORD*)&byte_5D4594[816372]) +
+		    (int4*)&byte_5D4594[16 * (--dword_5d4594_816368 + 6 * dword_5d4594_816372) +
 					815772]);
 	dword_5d4594_816368 = 0;
 }
@@ -1515,7 +1516,7 @@ int __cdecl sub_43DB30(int a1) {
 
 //----- (0043DB40) --------------------------------------------------------
 char* __cdecl sub_43DB40(int a1) {
-	return (char*)&byte_5D4594[16 * (a1 + 6 * *(_DWORD*)&byte_5D4594[816372]) + 815772];
+	return (char*)&byte_5D4594[16 * (a1 + 6 * dword_5d4594_816372) + 815772];
 }
 
 //----- (0043DB60) --------------------------------------------------------
@@ -1525,16 +1526,16 @@ int sub_43DB60() {
 	int v2;     // ecx
 
 	result = 3;
-	if (*(int*)&byte_5D4594[816372] < 3) {
+	if (*(int*)&dword_5d4594_816372 < 3) {
 		sub_43DA80();
-		v1 = *(_DWORD*)&byte_5D4594[816372];
+		v1 = dword_5d4594_816372;
 		v2 = dword_5d4594_816368;
 		dword_5d4594_816368 = 0;
-		*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[816372] + 816076] = v2;
+		*(_DWORD*)&byte_5D4594[4 * dword_5d4594_816372 + 816076] = v2;
 		result = v1 + 1;
-		*(_DWORD*)&byte_5D4594[816372] = result;
+		dword_5d4594_816372 = result;
 	} else {
-		*(_DWORD*)&byte_5D4594[816372] = 3;
+		dword_5d4594_816372 = 3;
 	}
 	return result;
 }
@@ -1542,13 +1543,13 @@ int sub_43DB60() {
 //----- (0043DBA0) --------------------------------------------------------
 void sub_43DBA0() {
 	int v1; // eax
-	if (*(_DWORD*)&byte_5D4594[816372] > 0) {
-		v1 = *(_DWORD*)&byte_5D4594[816372] - 1;
-		*(_DWORD*)&byte_5D4594[816372] = v1;
+	if (dword_5d4594_816372 > 0) {
+		v1 = dword_5d4594_816372 - 1;
+		dword_5d4594_816372 = v1;
 		dword_5d4594_816368 = *(_DWORD*)&byte_5D4594[4 * v1 + 816076];
 		sub_43DAD0();
 	} else {
-		*(_DWORD*)&byte_5D4594[816372] = 0;
+		dword_5d4594_816372 = 0;
 	}
 }
 
