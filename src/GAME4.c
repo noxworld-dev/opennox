@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599480;
 extern _DWORD dword_5d4594_1599532;
 extern _DWORD dword_5d4594_1599476;
 extern _DWORD dword_5d4594_1599632;
@@ -8357,7 +8358,7 @@ int __cdecl sub_502790(FILE* a1, char* a2) {
 char* sub_5028E0() {
 	char* result; // eax
 
-	*(_DWORD*)&byte_5D4594[1599480] = -1;
+	dword_5d4594_1599480 = -1;
 	*(_DWORD*)&byte_5D4594[1599572] = -1;
 	dword_5d4594_1599476 = 0;
 	dword_5d4594_1599540 = 0;
@@ -9025,7 +9026,7 @@ int __cdecl sub_503830(int a1) {
 		}
 	}
 	sub_426A50(0);
-	*(_DWORD*)&byte_5D4594[1599480] = a1;
+	dword_5d4594_1599480 = a1;
 	dword_5d4594_1599476 = 0;
 	dword_5d4594_3835396 = a1;
 	sub_502DF0();
@@ -9056,8 +9057,8 @@ int __cdecl sub_503B30(float2* a1) {
 	result = sub_4D3D90(a1, &a2);
 	if (result) {
 		v2 = dword_5d4594_3835396;
-		if (*(_DWORD*)&byte_5D4594[1599480] != dword_5d4594_3835396 ||
-		    *(int*)&byte_5D4594[1599480] == -1 || dword_5d4594_1599476 == 1) {
+		if (dword_5d4594_1599480 != dword_5d4594_3835396 ||
+		    *(int*)&dword_5d4594_1599480 == -1 || dword_5d4594_1599476 == 1) {
 			result = sub_503830(*(int*)&dword_5d4594_3835396);
 			if (!result)
 				return result;
@@ -9153,7 +9154,7 @@ int __cdecl sub_503EC0(int a1, float* a2) {
 	float2 v4;  // [esp+8h] [ebp-10h]
 	float2 a2a; // [esp+10h] [ebp-8h]
 
-	if (*(_DWORD*)&byte_5D4594[1599480] != dword_5d4594_3835396 || *(int*)&byte_5D4594[1599480] == -1 ||
+	if (dword_5d4594_1599480 != dword_5d4594_3835396 || *(int*)&dword_5d4594_1599480 == -1 ||
 	    dword_5d4594_1599476 == 1) {
 		return 0;
 	}
@@ -9516,7 +9517,7 @@ int __cdecl sub_504560(int a1, int a2) {
 int sub_5045B0() {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1599480] == dword_5d4594_3835396 && *(int*)&byte_5D4594[1599480] != -1 &&
+	if (dword_5d4594_1599480 == dword_5d4594_3835396 && *(int*)&dword_5d4594_1599480 != -1 &&
 		dword_5d4594_1599476 != 1 ||
 	    (result = sub_503830(*(int*)&dword_5d4594_3835396)) != 0) {
 		result = **(_DWORD**)&byte_5D4594[1599548];
@@ -9743,7 +9744,7 @@ int __cdecl sub_504910(int a1, int a2) {
 int sub_504980() {
 	int result; // eax
 
-	if ((*(_DWORD*)&byte_5D4594[1599480] == dword_5d4594_3835396 && *(int*)&byte_5D4594[1599480] != -1 &&
+	if ((dword_5d4594_1599480 == dword_5d4594_3835396 && *(int*)&dword_5d4594_1599480 != -1 &&
 		 dword_5d4594_1599476 != 1 ||
 	     sub_503830(*(int*)&dword_5d4594_3835396)) &&
 	    dword_5d4594_1599540) {
