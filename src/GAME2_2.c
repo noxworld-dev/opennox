@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1097208;
 extern _DWORD dword_5d4594_3799552;
 extern _DWORD dword_5d4594_1193648;
 extern _DWORD dword_5d4594_1193668;
@@ -1321,7 +1322,7 @@ char* nox_client_drawCursorAndTooltips_477830() {
 	v9[4] = 0;
 	v9[5] = 0;
 	*(_DWORD*)&byte_5D4594[1097204] = 0;
-	*(_DWORD*)&byte_5D4594[1097208] = sub_43F320(0) + 4;
+	dword_5d4594_1097208 = sub_43F320(0) + 4;
 	if (dword_5d4594_1097188) // Dragging item
 	{
 		*(_DWORD*)(dword_5d4594_1097188 + 12) = v0->field_0;
@@ -1351,7 +1352,7 @@ LABEL_12:
 	if (*(_WORD*)&byte_5D4594[1096676] && *(_DWORD*)&byte_587000[80840] == 1) {
 		sub_43F840(0, (unsigned __int16*)&byte_5D4594[1096676], &v8, &v7, 0);
 		v4 = v0->field_0 - *(_DWORD*)&byte_5D4594[1097204];
-		v5 = v0->field_4 - *(_DWORD*)&byte_5D4594[1097208];
+		v5 = v0->field_4 - dword_5d4594_1097208;
 		v6 = v7 + 4;
 		v7 += 4;
 		if (v4 + v8 + 4 >= nox_win_width)
