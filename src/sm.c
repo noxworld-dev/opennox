@@ -10,6 +10,7 @@ void f(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
 // defined in GAME1.c
+extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_811372;
 extern _DWORD dword_5d4594_815704;
 extern _DWORD dword_5d4594_815708;
@@ -193,7 +194,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 		Data[152] |= 0x80u;
 	strcpy((char*)&Data[142], (const char*)&byte_5D4594[2660099]);
 	strcpy((char*)&Data[128], sub_41FA40());
-	*(_DWORD*)&Data[138] = *(_DWORD*)&byte_5D4594[2660032];
+	*(_DWORD*)&Data[138] = dword_5d4594_2660032;
 	qmemcpy(Data, v1, 0x61u);
 
 	if (nox_common_gameFlags_check_40A5C0(1)) {
