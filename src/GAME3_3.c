@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1563660;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_587000_312800;
 extern _DWORD dword_587000_312816;
@@ -793,8 +794,8 @@ int sub_4E2A20() {
 	int v2;   // eax
 	void* v3; // eax
 
-	v0 = *(_DWORD*)&byte_5D4594[1563660];
-	if (*(_DWORD*)&byte_5D4594[1563660]) {
+	v0 = dword_5d4594_1563660;
+	if (dword_5d4594_1563660) {
 		do {
 			v1 = *(_DWORD*)(v0 + 220);
 			if (*(_DWORD*)(v0 + 4))
@@ -822,7 +823,7 @@ int sub_4E2A20() {
 			v0 = v1;
 		} while (v1);
 	}
-	*(_DWORD*)&byte_5D4594[1563660] = 0;
+	dword_5d4594_1563660 = 0;
 	if (*(_DWORD*)&byte_5D4594[1563456]) {
 		free(*(LPVOID*)&byte_5D4594[1563456]);
 		*(_DWORD*)&byte_5D4594[1563456] = 0;
@@ -872,7 +873,7 @@ void* __cdecl sub_4E2B60(void) {
 	void* v21;           // [esp+4h] [ebp-4h]
 	unsigned __int8 v22; // [esp+Ch] [ebp+4h]
 
-	if (*(_DWORD*)&byte_5D4594[1563660])
+	if (dword_5d4594_1563660)
 		sub_4E2A20();
 	sub_4E3010();
 	*(_DWORD*)&byte_5D4594[1563664] = 0;
@@ -993,8 +994,8 @@ void* __cdecl sub_4E2B60(void) {
 			*((_DWORD*)v5 + 4) = 1;
 			*((float*)v5 + 14) = v16;
 			*(_DWORD*)&byte_5D4594[1563664] ^= sub_4E31A0((int)v5);
-			*((_DWORD*)v5 + 55) = *(_DWORD*)&byte_5D4594[1563660];
-			*(_DWORD*)&byte_5D4594[1563660] = v5;
+			*((_DWORD*)v5 + 55) = dword_5d4594_1563660;
+			dword_5d4594_1563660 = v5;
 			sub_4E3080(*((CHAR**)v5 + 1));
 			v3 = v21;
 			break;
@@ -1016,7 +1017,7 @@ void* __cdecl sub_4E2B60(void) {
 		if (result) {
 			sub_4E3040();
 			v17 = *(_DWORD*)&byte_587000[201384];
-			v18 = *(_DWORD*)&byte_5D4594[1563660];
+			v18 = dword_5d4594_1563660;
 			v19 = 1;
 			for (i = 1; i < *(int*)&byte_587000[201384]; ++i) {
 				*(_DWORD*)(*(_DWORD*)&byte_5D4594[1563456] + 4 * (v17 - v19)) = v18;
@@ -1209,9 +1210,9 @@ void sub_4E3320() {
 	int v1;     // edx
 	int v2;     // esi
 
-	v0 = *(_DWORD**)&byte_5D4594[1563660];
+	v0 = *(_DWORD**)&dword_5d4594_1563660;
 	v1 = 0;
-	if (*(_DWORD*)&byte_5D4594[1563660]) {
+	if (dword_5d4594_1563660) {
 		do {
 			v2 = v0[37];
 			if (v1 < v2 + v0[45] + v0[49] + v0[52])
@@ -1546,7 +1547,7 @@ BOOL __cdecl sub_4E3AD0(int a1) {
 }
 
 //----- (004E3B30) --------------------------------------------------------
-LPVOID sub_4E3B30() { return *(LPVOID*)&byte_5D4594[1563660]; }
+LPVOID sub_4E3B30() { return *(LPVOID*)&dword_5d4594_1563660; }
 
 //----- (004E3B40) --------------------------------------------------------
 int __cdecl sub_4E3B40(int a1) {
