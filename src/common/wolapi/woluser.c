@@ -1,6 +1,7 @@
 #include "woluser.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_531652;
 extern _DWORD dword_5d4594_531648;
 
 //----- (0041F620) --------------------------------------------------------
@@ -34,7 +35,7 @@ void __cdecl sub_41F620(int a1) {
 		if (v5)
 			*(_DWORD*)(v5 + 24) = v1[6];
 		else
-			*(_DWORD*)&byte_5D4594[531652] = v1[6];
+			dword_5d4594_531652 = v1[6];
 		if (sub_41E2F0() == 7) {
 			v6 = sub_446C70();
 			sub_448620(v2);
