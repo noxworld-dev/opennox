@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046648;
 extern _DWORD dword_5d4594_1046596;
 extern _DWORD dword_5d4594_1046640;
 extern _DWORD dword_5d4594_1045692;
@@ -7254,7 +7255,7 @@ int __cdecl sub_45D570(int a1, int a2) {
 					sub_46A8C0(*(int*)&dword_5d4594_1046956);
 					if (nox_common_gameFlags_check_40A5C0(2048))
 						sub_57AF30(0, a1);
-					*(_DWORD*)&byte_5D4594[1046648] = sub_430B40_get_mouse_prev_seq();
+					dword_5d4594_1046648 = sub_430B40_get_mouse_prev_seq();
 					if (!nox_common_gameFlags_check_40A5C0(2048) || sub_446360() == 1 ||
 					    (result = sub_4DB1B0(), result == 1))
 						result = sub_45D870();
@@ -7291,7 +7292,7 @@ int sub_45D810() {
 	if (dword_5d4594_1047520) {
 		dword_5d4594_1047520 = 0;
 		nox_window_set_hidden(*(int*)&dword_5d4594_1046956, 1);
-		*(_DWORD*)&byte_5D4594[1046648] = 0;
+		dword_5d4594_1046648 = 0;
 		sub_45E110(*(int*)&byte_5D4594[1046612]);
 		result = nox_common_gameFlags_check_40A5C0(2048);
 		if (result) {
