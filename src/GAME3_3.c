@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2649712;
 extern _QWORD qword_581450_10176;
 extern _QWORD qword_581450_10256;
 extern _QWORD qword_5d4594_1567940;
@@ -2595,7 +2596,7 @@ int __cdecl sub_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, ch
 	int v13;              // edi
 	int v14;              // ecx
 
-	if (a1 == 255 || (a1 & 0x80u) == 0 || *(_DWORD*)&byte_5D4594[2649712] & ~(1 << (a1 & 0x7F))) {
+	if (a1 == 255 || (a1 & 0x80u) == 0 || dword_5d4594_2649712 & ~(1 << (a1 & 0x7F))) {
 		if (a3 > 150)
 			return 0;
 		v7 = *(char**)&byte_5D4594[1565508];
@@ -2627,7 +2628,7 @@ int __cdecl sub_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, ch
 		*((_DWORD*)v8 + 43) = 0;
 		*((_DWORD*)v8 + 42) = 0;
 		v8[164] = 0;
-		*((_DWORD*)v8 + 44) = *(_DWORD*)&byte_5D4594[2649712];
+		*((_DWORD*)v8 + 44) = dword_5d4594_2649712;
 		memset(v8 + 4, 0, 0x80u);
 		v9 = v8 + 186;
 		*(_DWORD*)v8 = *(_DWORD*)&byte_5D4594[2598000];
@@ -2798,7 +2799,7 @@ void __cdecl sub_4E54D0(int a1, int a2, int a3) {
 		if (v4 == 49 || v4 == 50 || v4 == 51)
 			*(_DWORD*)(v3 + 148) &= ~a1;
 	}
-	v5 = *(_DWORD*)&byte_5D4594[2649712] & *(_DWORD*)(a2 + 176);
+	v5 = dword_5d4594_2649712 & *(_DWORD*)(a2 + 176);
 	v6 = *(_BYTE*)(a2 + 250);
 	if (v6 == -1) {
 		v7 = a1 | *(_DWORD*)(a2 + 168);
@@ -2977,7 +2978,7 @@ void __cdecl sub_4E5770(unsigned __int8 a1, int a2) {
 				}
 				v7 = *(_DWORD*)(v4 + 404);
 				if (v7 && !(v2 & *(_DWORD*)(v7 + 148)) ||
-				    *(_DWORD*)(v4 + 180) && !(v2 & *(_DWORD*)&byte_5D4594[2649712])) {
+				    *(_DWORD*)(v4 + 180) && !(v2 & dword_5d4594_2649712)) {
 					sub_4E54D0(v2, v4, a1);
 					return;
 				}
