@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835388;
 extern _DWORD dword_5d4594_2487652;
 extern _DWORD dword_5d4594_3835348;
 extern _DWORD dword_5d4594_2487576;
@@ -7633,13 +7634,13 @@ int __cdecl sub_527940(char* a1) {
 
 	if (_strcmpi(a1, "NONE")) {
 		if (a1) {
-			*(_DWORD*)&byte_5D4594[3835388] = sub_4E3AA0(a1);
+			dword_5d4594_3835388 = sub_4E3AA0(a1);
 			result = 1;
 		} else {
 			result = 0;
 		}
 	} else {
-		*(_DWORD*)&byte_5D4594[3835388] = 0;
+		dword_5d4594_3835388 = 0;
 		result = 1;
 	}
 	return result;
@@ -7649,7 +7650,7 @@ int __cdecl sub_527940(char* a1) {
 int __cdecl sub_527980(int a1) {
 	if (a1 < 0 || a1 > sub_4E3AC0())
 		return 0;
-	*(_DWORD*)&byte_5D4594[3835388] = a1;
+	dword_5d4594_3835388 = a1;
 	return 1;
 }
 
@@ -7658,11 +7659,11 @@ float* __cdecl sub_5279B0(float2* a1) {
 	float* result; // eax
 	float2 a2;     // [esp+4h] [ebp-8h]
 
-	if (!*(_DWORD*)&byte_5D4594[3835388])
+	if (!dword_5d4594_3835388)
 		return 0;
 	result = (float*)sub_4D3D90(a1, &a2);
 	if (result) {
-		result = (float*)sub_4E3450(*(int*)&byte_5D4594[3835388]);
+		result = (float*)sub_4E3450(*(int*)&dword_5d4594_3835388);
 		if (result)
 			result = sub_527A10(result, &a1->field_0);
 	}
