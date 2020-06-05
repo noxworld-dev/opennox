@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_587000_311480;
 extern _DWORD dword_587000_312800;
 extern _DWORD dword_587000_312816;
 extern _DWORD dword_587000_312804;
@@ -3446,15 +3447,15 @@ SOCKET sub_578E10() {
 	*(_WORD*)name.sa_data = htons(*(u_short*)&byte_5D4594[2523736]);
 	*(_DWORD*)&name.sa_data[2] = 0;
 	result = socket(2, 1, 0);
-	*(_DWORD*)&byte_587000[311480] = result;
+	dword_587000_311480 = result;
 	if (result != -1) {
 		if (bind(result, &name, 16) == -1) {
 			result = -2;
-		} else if (ioctlsocket(*(SOCKET*)&byte_587000[311480], -2147195266, &argp) == -1) {
+		} else if (ioctlsocket(*(SOCKET*)&dword_587000_311480, -2147195266, &argp) == -1) {
 			sub_578F20(-5);
 			result = -5;
 		} else {
-			if (listen(*(SOCKET*)&byte_587000[311480], 1) == -1) {
+			if (listen(*(SOCKET*)&dword_587000_311480, 1) == -1) {
 				WSAGetLastError();
 				sub_578F20(-3);
 			}
