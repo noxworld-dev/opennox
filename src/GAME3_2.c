@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1550916;
 extern _DWORD dword_587000_312820;
 extern _DWORD dword_5d4594_2649712;
 extern _DWORD dword_5d4594_3843628;
@@ -2774,7 +2775,7 @@ int __cdecl sub_4D42D0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1550916] = a1;
+	dword_5d4594_1550916 = a1;
 	return result;
 }
 
@@ -2864,7 +2865,7 @@ int sub_4D44E0() {
 	int* k;         // esi
 	float2 a2;      // [esp+4h] [ebp-8h]
 
-	*(_DWORD*)&byte_5D4594[1550916] = 0;
+	dword_5d4594_1550916 = 0;
 	v0 = (const char*)sub_57C490("theme");
 	if (v0)
 		sub_4D42E0(v0);
@@ -2892,8 +2893,8 @@ int sub_4D44E0() {
 							sub_520D50(&byte_5D4594[1549796]);
 							return v2;
 						}
-						sub_5259F0(*(int*)&byte_5D4594[1550916], 0, 0.0);
-						sub_525AF0(*(int*)&byte_5D4594[1550916]);
+						sub_5259F0(*(int*)&dword_5d4594_1550916, 0, 0.0);
+						sub_525AF0(*(int*)&dword_5d4594_1550916);
 						if (*(_DWORD*)&byte_5D4594[1549980]) {
 							v3 = (__int64)(*(float*)&byte_5D4594[1549860] * 0.030743772);
 							v4 = sub_521940(2 * v3 + 1, 2 * v3 + 1);
@@ -3409,7 +3410,7 @@ float* __cdecl sub_4D4F40(_DWORD* a1) {
 							v20 += sub_526AC0(1, v19);
 						} while (v20 < v18);
 						result = (float*)v30[v18 - 1];
-						*(_DWORD*)&byte_5D4594[1550916] = v30[v18 - 1];
+						dword_5d4594_1550916 = v30[v18 - 1];
 						return result;
 					}
 				}
@@ -3418,16 +3419,16 @@ float* __cdecl sub_4D4F40(_DWORD* a1) {
 		}
 	} else {
 		result = sub_521990((int)a1);
-		*(_DWORD*)&byte_5D4594[1550916] = result;
+		dword_5d4594_1550916 = result;
 		if (result) {
 			v3 = (double)(int)a1[17];
 			v22.field_0 = 0.0;
 			v22.field_4 = v3 * 32.526913 - result[8] + 97.580734;
 			sub_521880(result, &v22);
-			sub_521730(*(_DWORD**)&byte_5D4594[1550916]);
-			result = *(float**)&byte_5D4594[1550916];
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1550916] + 84) = *(_DWORD*)&byte_5D4594[1550912];
-			*(_DWORD*)&byte_5D4594[1550912] = *(_DWORD*)&byte_5D4594[1550916];
+			sub_521730(*(_DWORD**)&dword_5d4594_1550916);
+			result = *(float**)&dword_5d4594_1550916;
+			*(_DWORD*)(dword_5d4594_1550916 + 84) = *(_DWORD*)&byte_5D4594[1550912];
+			*(_DWORD*)&byte_5D4594[1550912] = dword_5d4594_1550916;
 		}
 	}
 	return result;
