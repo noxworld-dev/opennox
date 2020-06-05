@@ -5,6 +5,7 @@
 #include "../gamewin/gamewin.h"
 #include "playrlst.h"
 
+extern _DWORD dword_5d4594_1046516;
 extern _DWORD dword_5d4594_1046532;
 extern _DWORD dword_5d4594_1046508;
 extern _DWORD dword_5d4594_1046496;
@@ -80,7 +81,7 @@ int sub_457500() {
 		*(_DWORD*)&byte_5D4594[1046504] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10197);
 		dword_5d4594_1046508 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10199);
 		*(_DWORD*)&byte_5D4594[1046524] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10150);
-		*(_DWORD*)&byte_5D4594[1046516] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10134);
+		dword_5d4594_1046516 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10134);
 		*(_DWORD*)&byte_5D4594[1046520] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10135);
 		*(_DWORD*)&byte_5D4594[1046536] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10153);
 		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10331);
@@ -663,7 +664,7 @@ int __cdecl sub_459880(int a1) {
 	v1 = *(_WORD*)(a1 + 52);
 	if (v1 & 0x20) {
 		if (!*(_BYTE*)(a1 + 57) && nox_common_gameFlags_check_40A5C0(1)) {
-			sub_46ABB0(*(int*)&byte_5D4594[1046516], 1);
+			sub_46ABB0(*(int*)&dword_5d4594_1046516, 1);
 			sub_46ABB0(*(int*)&byte_5D4594[1046520], 1);
 		}
 		v2 = loadString_sub_40F1D0((char*)&byte_587000[131772], 0,
@@ -672,7 +673,7 @@ int __cdecl sub_459880(int a1) {
 		LOBYTE(v1) = *(_BYTE*)(a1 + 57);
 		if (v1 & 0x400) {
 			if (!LOBYTE(v1) && nox_common_gameFlags_check_40A5C0(1)) {
-				sub_46ABB0(*(int*)&byte_5D4594[1046516], 1);
+				sub_46ABB0(*(int*)&dword_5d4594_1046516, 1);
 				sub_46ABB0(*(int*)&byte_5D4594[1046520], 1);
 			}
 			v2 = loadString_sub_40F1D0((char*)&byte_587000[131848], 0,
@@ -680,14 +681,14 @@ int __cdecl sub_459880(int a1) {
 		} else {
 			if (!LOBYTE(v1) && nox_common_gameFlags_check_40A5C0(1) &&
 			    !nox_common_gameFlags_check_40A5C0(49152)) {
-				sub_46ABB0(*(int*)&byte_5D4594[1046516], 1);
+				sub_46ABB0(*(int*)&dword_5d4594_1046516, 1);
 				sub_46ABB0(*(int*)&byte_5D4594[1046520], 1);
 			}
 			v2 = loadString_sub_40F1D0((char*)&byte_587000[131920], 0,
 						   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1926);
 		}
 	}
-	nox_wcscpy((wchar_t*)(*(_DWORD*)&byte_5D4594[1046516] + 108), v2);
+	nox_wcscpy((wchar_t*)(dword_5d4594_1046516 + 108), v2);
 	sub_4580E0(a1);
 	sub_459A40((char*)(a1 + 9));
 	if (nox_common_gameFlags_check_40A5C0(1) && !nox_common_gameFlags_check_40A5C0(49152)) {
