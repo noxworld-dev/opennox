@@ -20,6 +20,7 @@
 #include "../gui/servopts/playrlst.h"
 #include "../shell/noxworld.h"
 #include "inform.h"
+extern _DWORD dword_587000_80836;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_587000_312800;
 extern _DWORD dword_587000_312816;
@@ -744,7 +745,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			*(_DWORD*)(v5 + 484) = 1;
 			*(_DWORD*)(v5 + 480) = 1;
 			*(_DWORD*)(v5 + 488) = 1;
-			if (*(_DWORD*)&byte_587000[80836]) {
+			if (dword_587000_80836) {
 				if ((_DWORD)v5 != *(_DWORD*)&byte_5D4594[2614252])
 					sub_49B950((_DWORD*)v5, *(int*)&byte_5D4594[2649704]);
 			} else if (*(int(__cdecl**)(int*, int))(v5 + 300) != nox_thing_animate_draw ||
