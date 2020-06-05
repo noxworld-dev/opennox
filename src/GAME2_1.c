@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1064864;
 extern _DWORD dword_5d4594_1093136;
 extern _DWORD dword_5d4594_3799468;
 extern _DWORD dword_5d4594_1064824;
@@ -3702,8 +3703,8 @@ char* __cdecl sub_46A3F0(int a1, int a2, int a3, int a4) {
 void __cdecl sub_46A430(int a1) {
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
 		if (!*(_DWORD*)&byte_5D4594[1064868]) {
-			**(_WORD**)&byte_5D4594[1064864] = 0;
-			*(_WORD*)(*(_DWORD*)&byte_5D4594[1064864] + 1052) = 0;
+			**(_WORD**)&dword_5d4594_1064864 = 0;
+			*(_WORD*)(dword_5d4594_1064864 + 1052) = 0;
 			sub_46A8C0(*(int*)&dword_5d4594_1064856);
 			sub_46C690(*(int*)&dword_5d4594_1064856);
 			sub_46B500(*(int*)&byte_5D4594[1064860]);
@@ -3773,8 +3774,8 @@ int __cdecl sub_46A5D0(_DWORD* a1, int a2) {
 	v6 = 0;
 	sub_46A8C0(*(int*)&dword_5d4594_1064856);
 	sub_46B500(*(int*)&byte_5D4594[1064860]);
-	sub_43F840(0, *(unsigned __int16**)&byte_5D4594[1064864], &v5, 0, 0);
-	sub_43F840(0, (unsigned __int16*)(*(_DWORD*)&byte_5D4594[1064864] + 512), &v6, 0, 0);
+	sub_43F840(0, *(unsigned __int16**)&dword_5d4594_1064864, &v5, 0, 0);
+	sub_43F840(0, (unsigned __int16*)(dword_5d4594_1064864 + 512), &v6, 0, 0);
 	v3 = v5 + v6 - 90 < 0;
 	v5 += v6 + 10;
 	v2 = v5;
@@ -3826,7 +3827,7 @@ _DWORD* sub_46A730() {
 			sub_46B340((int)result, sub_46A5D0);
 			sub_46B300(*(int*)&byte_5D4594[1064860], sub_46A7E0);
 			result = *(_DWORD**)&dword_5d4594_1064856;
-			*(_DWORD*)&byte_5D4594[1064864] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1064860] + 32);
+			dword_5d4594_1064864 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1064860] + 32);
 		}
 	}
 	return result;
@@ -3844,8 +3845,8 @@ int __cdecl sub_46A7E0(_DWORD* a1, int a2, int a3, int a4) {
 //----- (0046A820) --------------------------------------------------------
 int __cdecl sub_46A820(int a1, int a2, int a3, int a4) {
 	if (a2 == 16415) {
-		if (*(_WORD*)(*(_DWORD*)&byte_5D4594[1064864] + 1052))
-			sub_46A4B0(*(wchar_t**)&byte_5D4594[1064864], *(int*)&byte_5D4594[1064872]);
+		if (*(_WORD*)(dword_5d4594_1064864 + 1052))
+			sub_46A4B0(*(wchar_t**)&dword_5d4594_1064864, *(int*)&byte_5D4594[1064872]);
 		sub_46A6A0();
 	}
 	return 0;
@@ -3861,7 +3862,7 @@ int sub_46A860() {
 		dword_5d4594_1064856 = 0;
 	}
 	*(_DWORD*)&byte_5D4594[1064860] = 0;
-	*(_DWORD*)&byte_5D4594[1064864] = 0;
+	dword_5d4594_1064864 = 0;
 	*(_DWORD*)&byte_5D4594[1064868] = 0;
 	*(_DWORD*)&byte_5D4594[1064872] = 0;
 	return result;
