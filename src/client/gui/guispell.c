@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1049524;
 extern _DWORD dword_5d4594_1049536;
 extern _DWORD dword_5d4594_1048144;
 extern _DWORD dword_5d4594_1049484;
@@ -350,12 +351,12 @@ int sub_45E190() {
 		sub_46AEA0(*(int*)&dword_5d4594_1049508, (int)v33);
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1049508, sub_45F8D0, sub_45F6F0, 0);
 	}
-	*(_DWORD*)&byte_5D4594[1049524] = nox_window_new(*(int*)&dword_5d4594_1049508, 1160, 0, 9, 29, 30, 0);
+	dword_5d4594_1049524 = nox_window_new(*(int*)&dword_5d4594_1049508, 1160, 0, 9, 29, 30, 0);
 	v34 = sub_42F970("SpellbookButton");
-	sub_46AE60(*(int*)&byte_5D4594[1049524], (int)v34);
+	sub_46AE60(*(int*)&dword_5d4594_1049524, (int)v34);
 	v35 = sub_42F970("SpellbookButtonLit");
-	sub_46AEA0(*(int*)&byte_5D4594[1049524], (int)v35);
-	*(_DWORD*)&byte_5D4594[1049528] = nox_window_new(*(int*)&byte_5D4594[1049524], 1064, 1, 2, 28, 28, 0);
+	sub_46AEA0(*(int*)&dword_5d4594_1049524, (int)v35);
+	*(_DWORD*)&byte_5D4594[1049528] = nox_window_new(*(int*)&dword_5d4594_1049524, 1064, 1, 2, 28, 28, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1049528], sub_45F450, sub_45EF30, sub_45F3F0);
 	v36 = loadString_sub_40F1D0((char*)&byte_587000[134692], 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1931);
 	sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1049528] + 36), v36);
