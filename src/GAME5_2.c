@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523760;
 extern _DWORD dword_587000_312796;
 extern _DWORD dword_587000_312812;
 extern _DWORD dword_587000_312828;
@@ -3966,7 +3967,7 @@ void sub_579DD0() {
 	}
 	dword_5d4594_2523752 = 0;
 	dword_5d4594_2523756 = 0;
-	*(_DWORD*)&byte_5D4594[2523760] = 0;
+	dword_5d4594_2523760 = 0;
 }
 
 //----- (00579E30) --------------------------------------------------------
@@ -4032,14 +4033,14 @@ int __cdecl sub_579F00(_DWORD* a1, int a2) {
 		}
 	}
 LABEL_9:
-	*(_DWORD*)&byte_5D4594[2523760] = 0;
+	dword_5d4594_2523760 = 0;
 	for (i = sub_579860(); i; i = (_BYTE*)sub_579870((int)i)) {
 		if (sub_579EE0((int)i, 0x80u) && i[480] & 1)
-			++*(_DWORD*)&byte_5D4594[2523760];
+			++dword_5d4594_2523760;
 	}
-	if (!*(_DWORD*)&byte_5D4594[2523760])
+	if (!dword_5d4594_2523760)
 		return 0;
-	v5 = nox_common_randomInt_415FA0(0, *(_DWORD*)&byte_5D4594[2523760] - 1);
+	v5 = nox_common_randomInt_415FA0(0, dword_5d4594_2523760 - 1);
 	v6 = sub_579860();
 	if (!v6)
 		return 0;
