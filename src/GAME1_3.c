@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816092;
 extern _DWORD dword_5d4594_830208;
 extern _DWORD dword_5d4594_816376;
 extern _DWORD dword_587000_111668;
@@ -1264,7 +1265,7 @@ int sub_43D440() {
 			}
 			break;
 		case 1:
-			if (dword_587000_93156 && *v0 == *(_DWORD*)&byte_5D4594[816092] &&
+			if (dword_587000_93156 && *v0 == dword_5d4594_816092 &&
 			    dword_5d4594_816364 && AIL_stream_status(dword_5d4594_816364) != 2) {
 				result = dword_5d4594_816356;
 				if (dword_5d4594_816356) {
@@ -1290,7 +1291,7 @@ int sub_43D440() {
 			break;
 		case 3:
 			if (!dword_5d4594_816356 || (result = dword_587000_93156) == 0) {
-				if (!dword_587000_93156 || *v0 != *(_DWORD*)&byte_5D4594[816092] ||
+				if (!dword_587000_93156 || *v0 != dword_5d4594_816092 ||
 				    !dword_5d4594_816364 ||
 				    AIL_stream_status(dword_5d4594_816364) == 2) {
 					result = sub_43D650();
@@ -1331,7 +1332,7 @@ int sub_43D650() {
 		dword_5d4594_816364 = 0;
 		AIL_close_stream(result);
 	}
-	*(_DWORD*)&byte_5D4594[816092] = 0;
+	dword_5d4594_816092 = 0;
 	return result;
 }
 // 581418: using guessed type int __stdcall AIL_close_stream(_DWORD);
@@ -1404,7 +1405,7 @@ int __cdecl sub_43D6C0(int* a1) {
 	sub_486350((int)&byte_5D4594[816148], 0x4000);
 	sub_43D3C0(v4, a1[1]);
 	AIL_start_stream(v4);
-	*(_DWORD*)&byte_5D4594[816092] = *a1;
+	dword_5d4594_816092 = *a1;
 	*(_DWORD*)&byte_5D4594[816096] = a1[1];
 	*(_DWORD*)&byte_5D4594[816100] = a1[2];
 	*(_DWORD*)&byte_5D4594[816104] = a1[3];
@@ -1429,7 +1430,7 @@ int sub_43D8E0() {
 	sub_4864A0(&byte_5D4594[816148]);
 	sub_486380(&byte_5D4594[816148], 0x3E8u, 0, 0x4000);
 	dword_5d4594_816348 = 0;
-	*(_DWORD*)&byte_5D4594[816092] = 0;
+	dword_5d4594_816092 = 0;
 	*(_DWORD*)&byte_5D4594[816352] = 0;
 	*(_DWORD*)&byte_5D4594[816108] = 0;
 	dword_5d4594_816356 = 0;
@@ -1673,7 +1674,7 @@ int __cdecl sub_43DD10(int* a1) {
 	result = dword_5d4594_816364;
 	if (dword_5d4594_816364) {
 		result = *a1;
-		if (*(_DWORD*)&byte_5D4594[816092] == *a1) {
+		if (dword_5d4594_816092 == *a1) {
 			result = AIL_stream_position(dword_5d4594_816364);
 			a1[2] = result;
 		}
