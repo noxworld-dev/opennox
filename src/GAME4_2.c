@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487880;
 extern _DWORD dword_587000_312788;
 extern _DWORD dword_5d4594_2487532;
 extern _DWORD dword_587000_312784;
@@ -12163,14 +12164,14 @@ int __cdecl sub_52E850(float a1) {
 		if (*(_DWORD*)(v1 + 48))
 			goto LABEL_32;
 		*(_DWORD*)&byte_5D4594[2487832] = 0;
-		*(_DWORD*)&byte_5D4594[2487880] = 0;
+		dword_5d4594_2487880 = 0;
 		v14 = *(_DWORD*)(v1 + 16);
 		*(_DWORD*)&byte_5D4594[2487868] = *(_DWORD*)(v14 + 56);
 		v15 = *(_DWORD*)(v14 + 60);
 		*(float*)&byte_5D4594[2487884] = v31 * v31;
 		*(_DWORD*)&byte_5D4594[2487872] = v15;
 		sub_517F90((float2*)(*(_DWORD*)(v1 + 16) + 56), v31, sub_52EC60, *(_DWORD*)(v1 + 16));
-		*(_DWORD*)(v1 + 48) = *(_DWORD*)&byte_5D4594[2487880];
+		*(_DWORD*)(v1 + 48) = dword_5d4594_2487880;
 	LABEL_31:
 		if (!*(_DWORD*)(v1 + 48)) {
 			if (*(_DWORD*)(v1 + 36)) {
@@ -12230,21 +12231,21 @@ int __cdecl sub_52E850(float a1) {
 	v29.field_0 = *(float*)(v1 + 28);
 	*(_DWORD*)&byte_5D4594[2487868] = v29.field_0;
 	*(_DWORD*)&byte_5D4594[2487872] = v4;
-	*(_DWORD*)&byte_5D4594[2487880] = 0;
+	dword_5d4594_2487880 = 0;
 	*(float*)&byte_5D4594[2487884] = v31 * v31;
 	*(_DWORD*)&byte_5D4594[2487832] = 1;
 	v5 = *(_DWORD*)(v1 + 16);
 	v29.field_4 = v4;
 	sub_517F90(&v29, v31, sub_52EC60, v5);
-	if (*(_DWORD*)&byte_5D4594[2487880]) {
-		v6 = (void(__cdecl**)(_DWORD, _DWORD, _DWORD, int, int))(*(_DWORD*)&byte_5D4594[2487880] + 716);
+	if (dword_5d4594_2487880) {
+		v6 = (void(__cdecl**)(_DWORD, _DWORD, _DWORD, int, int))(dword_5d4594_2487880 + 716);
 		v27 = sub_419D40(&byte_587000[260456]);
 		v7 = nox_float2int(v27);
-		(*v6)(*(_DWORD*)&byte_5D4594[2487880], *(_DWORD*)(v1 + 12), 0, v7, 17);
-		v26 = *(_DWORD*)&byte_5D4594[2487880];
+		(*v6)(dword_5d4594_2487880, *(_DWORD*)(v1 + 12), 0, v7, 17);
+		v26 = dword_5d4594_2487880;
 		v8 = sub_424800(24, 0);
 		sub_501960(v8, v26, 0, 0);
-		sub_522FF0(130, (float2*)(*(_DWORD*)&byte_5D4594[2487880] + 56));
+		sub_522FF0(130, (float2*)(dword_5d4594_2487880 + 56));
 	}
 	return 1;
 }
@@ -12272,7 +12273,7 @@ void __cdecl sub_52EC60(int a1, int a2) {
 					v6 = v5 * v5 + v4 * v4;
 					if (v6 < *(float*)&byte_5D4594[2487884]) {
 						*(float*)&byte_5D4594[2487884] = v6;
-						*(_DWORD*)&byte_5D4594[2487880] = a1;
+						dword_5d4594_2487880 = a1;
 					}
 				}
 			}
