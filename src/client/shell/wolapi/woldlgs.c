@@ -2,6 +2,7 @@
 #include "../../../proto.h"
 #include "wolchat.h"
 
+extern _DWORD dword_587000_111668;
 extern _DWORD dword_5d4594_830148;
 extern _DWORD dword_5d4594_830116;
 extern _DWORD dword_5d4594_830140;
@@ -56,7 +57,7 @@ int sub_448730_wol_dialogs() {
 		    (char*)&byte_587000[112136], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 585);
 		*(_DWORD*)&byte_5D4594[830188] = loadString_sub_40F1D0(
 		    (char*)&byte_587000[112196], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 586);
-		*(_DWORD*)&byte_587000[111668] = 1;
+		dword_587000_111668 = 1;
 		dword_5d4594_830116 = 1;
 		sub_46B120(*(_DWORD**)&dword_5d4594_830124, 0);
 		sub_46A8C0(*(int*)&dword_5d4594_830124);
@@ -92,7 +93,7 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 				sub_46ABB0(*(int*)&dword_5d4594_830148, 0);
 			else
 				sub_46ABB0(*(int*)&dword_5d4594_830148, 1);
-			*(_DWORD*)&byte_587000[111668] = 1;
+			dword_587000_111668 = 1;
 			result = 0;
 			break;
 		case 1932:
@@ -103,7 +104,7 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_830148, 16385, *(int*)&byte_5D4594[830180], 0);
 			sub_46ABB0(*(int*)&byte_5D4594[830152], 1);
 			sub_46ABB0(*(int*)&byte_5D4594[830156], 0);
-			*(_DWORD*)&byte_587000[111668] = 0;
+			dword_587000_111668 = 0;
 			if (*(_DWORD*)&byte_5D4594[830208])
 				sub_46ABB0(*(int*)&dword_5d4594_830148, 0);
 			else
@@ -167,7 +168,7 @@ int sub_448CF0_wol_dialogs() {
 	char v8[256]; // [esp+70h] [ebp-100h]
 
 	v0 = (_WORD*)nox_window_call_field_94(*(int*)&byte_5D4594[830128], 16413, 0, 0);
-	if (*(_DWORD*)&byte_587000[111668]) {
+	if (dword_587000_111668) {
 		if (v0 && *v0) {
 			nox_sprintf(v7, "%S", v0);
 			sub_40D740((int)v6);
