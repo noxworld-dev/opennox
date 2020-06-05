@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1523032;
 extern _DWORD dword_5d4594_1563088;
 extern _DWORD dword_5d4594_1556848;
 extern _DWORD dword_587000_312796;
@@ -405,7 +406,7 @@ int __cdecl sub_4CEBA0(int a1, char* a2) {
 
 	dword_5d4594_1523024 = nox_new_window_from_file("rulelist.wnd", sub_4CF060);
 	dword_5d4594_1523028 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10170);
-	*(_DWORD*)&byte_5D4594[1523032] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10171);
+	dword_5d4594_1523032 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10171);
 	dword_5d4594_1523036 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10172);
 	*(_DWORD*)&byte_5D4594[1523040] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10173);
 	*(_DWORD*)&byte_5D4594[1523044] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10174);
@@ -498,7 +499,7 @@ int __cdecl sub_4CEED0(int a1, int a2) {
 		if (!(*(_BYTE*)(*(_DWORD*)&byte_5D4594[1523048] + 4) & 8))
 			sub_46ABB0(*(int*)&byte_5D4594[1523048], 1);
 	}
-	v4 = (_WORD*)nox_window_call_field_94(*(int*)&byte_5D4594[1523032], 16413, 0, 0);
+	v4 = (_WORD*)nox_window_call_field_94(*(int*)&dword_5d4594_1523032, 16413, 0, 0);
 	v5 = (_DWORD*)sub_46B4F0();
 	if (v5 && *v5 == 10171) {
 		if (v4 && *v4) {
@@ -576,7 +577,7 @@ int __cdecl sub_4CF060(int a1, unsigned int a2, int* a3, int a4) {
 	switch (v9) {
 	case 10172:
 		sub_416580();
-		v22 = (const wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1523032], 16413, 0, 0);
+		v22 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1523032, 16413, 0, 0);
 		nox_sprintf(v28, "%S%s", v22, &byte_587000[191640]);
 		v23 = sub_4165B0();
 		sub_459AA0((int)v23);
@@ -632,12 +633,12 @@ int __cdecl sub_4CF060(int a1, unsigned int a2, int* a3, int a4) {
 		if (++v25 >= *(__int16*)(v26 + 44)) {
 		LABEL_22:
 			nox_window_call_field_94(*(int*)&dword_5d4594_1523028, 16397, (int)v22, -1);
-			nox_window_call_field_94(*(int*)&byte_5D4594[1523032], 16414, (int)&byte_5D4594[1523056], 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1523032, 16414, (int)&byte_5D4594[1523056], 0);
 			sub_46ABB0(*(int*)&dword_5d4594_1523036, 0);
 			return 1;
 		}
 	}
-	nox_window_call_field_94(*(int*)&byte_5D4594[1523032], 16414, (int)&byte_5D4594[1523052], 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1523032, 16414, (int)&byte_5D4594[1523052], 0);
 	return 1;
 }
 
