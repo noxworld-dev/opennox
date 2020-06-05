@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1565616;
 extern _DWORD dword_587000_202404;
 extern _DWORD dword_587000_312788;
 extern _DWORD dword_5d4594_1563660;
@@ -3349,8 +3350,8 @@ int __cdecl sub_4E6150(int a1) {
 	int result; // eax
 	char* v6;   // eax
 
-	if (!*(_DWORD*)&byte_5D4594[1565616])
-		*(_DWORD*)&byte_5D4594[1565616] = sub_4E3AA0((CHAR*)&byte_587000[202408]);
+	if (!dword_5d4594_1565616)
+		dword_5d4594_1565616 = sub_4E3AA0((CHAR*)&byte_587000[202408]);
 	v1 = *(_DWORD*)(a1 + 3628);
 	if (v1) {
 		if (*(_BYTE*)(v1 + 8) & 4) {
@@ -3395,12 +3396,12 @@ LABEL_7:
 int sub_4E6230() {
 	int result; // eax
 
-	if (!*(_DWORD*)&byte_5D4594[1565616])
-		*(_DWORD*)&byte_5D4594[1565616] = sub_4E3AA0((CHAR*)&byte_587000[202420]);
+	if (!dword_5d4594_1565616)
+		dword_5d4594_1565616 = sub_4E3AA0((CHAR*)&byte_587000[202420]);
 	result = sub_4DA790();
 	if (!result)
 		return 0;
-	while (*(unsigned __int16*)(result + 4) != *(_DWORD*)&byte_5D4594[1565616]) {
+	while (*(unsigned __int16*)(result + 4) != dword_5d4594_1565616) {
 		result = sub_4DA7A0(result);
 		if (!result)
 			return 0;
@@ -3679,14 +3680,14 @@ int __cdecl sub_4E6860(int a1, int a2, int a3) {
 			if (nox_common_gameFlags_check_40A5C0(112)) {
 				if (!*(_DWORD*)&byte_5D4594[1565620])
 					*(_DWORD*)&byte_5D4594[1565620] = sub_4E3AA0((CHAR*)&byte_587000[202480]);
-				if (!*(_DWORD*)&byte_5D4594[1565616])
-					*(_DWORD*)&byte_5D4594[1565616] = sub_4E3AA0((CHAR*)&byte_587000[202488]);
+				if (!dword_5d4594_1565616)
+					dword_5d4594_1565616 = sub_4E3AA0((CHAR*)&byte_587000[202488]);
 				for (i = *(_DWORD*)(*(_DWORD*)(v3 + 2056) + 516); i; i = *(_DWORD*)(i + 512)) {
 					v8 = *(unsigned __int16*)(i + 4);
 					if ((unsigned __int16)v8 == *(_DWORD*)&byte_5D4594[1565620]) {
 						sub_4ED5E0(*(_DWORD*)(v3 + 2056), i,
 							   (int*)(*(_DWORD*)(v3 + 2056) + 56));
-					} else if (v8 == *(_DWORD*)&byte_5D4594[1565616]) {
+					} else if (v8 == dword_5d4594_1565616) {
 						v9 = *(_DWORD*)(i + 16) & 0xFFFFFFBF;
 						*(_DWORD*)(i + 520) = 0;
 						*(_DWORD*)(i + 16) = v9;
