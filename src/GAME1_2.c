@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_806044;
 extern _DWORD dword_5d4594_3798828;
 extern _DWORD dword_5d4594_805844;
 extern _QWORD qword_5d4594_814956;
@@ -6174,9 +6175,9 @@ void sub_431380() {
 int sub_431390() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[806044];
-	if (*(_DWORD*)&byte_5D4594[806044] || (result = nox_new_alloc_class("ScreenParticles", 52, 2000),
-					       (*(_DWORD*)&byte_5D4594[806044] = result) != 0)) {
+	result = dword_5d4594_806044;
+	if (dword_5d4594_806044 || (result = nox_new_alloc_class("ScreenParticles", 52, 2000),
+					       (dword_5d4594_806044 = result) != 0)) {
 		sub_4144D0((_DWORD*)result);
 		*(_DWORD*)&byte_5D4594[806048] = 0;
 		*(_DWORD*)&byte_5D4594[806052] = 0;
@@ -6206,17 +6207,17 @@ int sub_4313E0() {
 
 //----- (004314D0) --------------------------------------------------------
 void sub_4314D0() {
-	if (*(_DWORD*)&byte_5D4594[806044])
-		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[806044]);
-	*(_DWORD*)&byte_5D4594[806044] = 0;
+	if (dword_5d4594_806044)
+		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_806044);
+	dword_5d4594_806044 = 0;
 	*(_DWORD*)&byte_5D4594[806048] = 0;
 	*(_DWORD*)&byte_5D4594[806052] = 0;
 }
 
 //----- (00431510) --------------------------------------------------------
 int sub_431510() {
-	if (*(_DWORD*)&byte_5D4594[806044])
-		sub_4144D0(*(_DWORD**)&byte_5D4594[806044]);
+	if (dword_5d4594_806044)
+		sub_4144D0(*(_DWORD**)&dword_5d4594_806044);
 	*(_DWORD*)&byte_5D4594[806048] = 0;
 	*(_DWORD*)&byte_5D4594[806052] = 0;
 	return sub_4313E0();
@@ -6228,7 +6229,7 @@ _DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char 
 	int v11;     // ebx
 	_DWORD* v12; // esi
 
-	if (!*(_DWORD*)&byte_5D4594[806044])
+	if (!dword_5d4594_806044)
 		return 0;
 	switch (a1) {
 	case 0:
@@ -6254,7 +6255,7 @@ _DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char 
 	default:
 		return 0;
 	}
-	v12 = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[806044]);
+	v12 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_806044);
 	if (v12)
 		goto LABEL_11;
 	v12 = *(_DWORD**)&byte_5D4594[806052];
@@ -6325,7 +6326,7 @@ int __cdecl sub_4316C0(int a1) {
 //----- (00431700) --------------------------------------------------------
 void __cdecl sub_431700(_QWORD* a1) {
 	sub_4316C0((int)a1);
-	sub_414330(*(unsigned int**)&byte_5D4594[806044], a1);
+	sub_414330(*(unsigned int**)&dword_5d4594_806044, a1);
 }
 
 //----- (00431720) --------------------------------------------------------
