@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _QWORD qword_5d4594_815068;
 extern _DWORD dword_5d4594_815044;
 extern _DWORD dword_5d4594_815088;
 extern _DWORD dword_5d4594_814624;
@@ -117,7 +118,7 @@ int sub_4378B0() {
 		}
 		*(_DWORD*)&byte_5D4594[815104] = 0;
 		result = (unsigned __int64)(*(_QWORD*)&byte_5D4594[815076] + (__int64)120000) >> 32;
-		*(_QWORD*)&byte_5D4594[815068] = *(_QWORD*)&byte_5D4594[815076] + (__int64)120000;
+		*(_QWORD*)&qword_5d4594_815068 = *(_QWORD*)&byte_5D4594[815076] + (__int64)120000;
 	}
 	return result;
 }
@@ -291,7 +292,7 @@ int sub_4379F0() {
 				dword_5d4594_815044 = 0;
 				*(_DWORD*)&byte_5D4594[815052] = 0;
 				*(_DWORD*)&byte_5D4594[814548] = 0;
-				*(_QWORD*)&byte_5D4594[815068] = sub_416BB0() + 1000;
+				*(_QWORD*)&qword_5d4594_815068 = sub_416BB0() + 1000;
 				if (*(_DWORD*)&byte_587000[87408] == 1)
 					sub_4383A0();
 				if (!dword_587000_87404)
@@ -464,7 +465,7 @@ int sub_438770() {
 		     !wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815012)) &&
 		    !dword_5d4594_815048 && !dword_5d4594_815044 &&
 		    !*(_DWORD*)&byte_5D4594[815052] && wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815000)) {
-			if ((unsigned __int64)sub_416BB0() > *(_QWORD*)&byte_5D4594[815068]) {
+			if ((unsigned __int64)sub_416BB0() > *(_QWORD*)&qword_5d4594_815068) {
 				sub_4378B0();
 				return 1;
 			}
@@ -1018,7 +1019,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 			return 0;
 		}
 		if (*(_DWORD*)&byte_5D4594[815104]) {
-			*(_QWORD*)&byte_5D4594[815068] = sub_416BB0() + 1000;
+			*(_QWORD*)&qword_5d4594_815068 = sub_416BB0() + 1000;
 			return 0;
 		}
 		return 0;
