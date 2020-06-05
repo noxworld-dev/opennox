@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1312472;
 extern _DWORD dword_5d4594_1309740;
 extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_5d4594_1309716;
@@ -11139,7 +11140,7 @@ void* sub_4B5990() {
 	memset(&v6[1], 0, 0x1Cu);
 	v6[15] = 0;
 	v1 = 0;
-	*(_DWORD*)&byte_5D4594[1312472] = 0;
+	dword_5d4594_1312472 = 0;
 	if (!*(_DWORD*)&byte_587000[174360])
 		return *(void**)&byte_5D4594[1312476];
 	v2 = &byte_587000[174360];
@@ -11148,18 +11149,18 @@ void* sub_4B5990() {
 		v2 += 8;
 		++v1;
 	} while (v3);
-	*(_DWORD*)&byte_5D4594[1312472] = v1;
+	dword_5d4594_1312472 = v1;
 	if (v1 <= 0)
 		return *(void**)&byte_5D4594[1312476];
 	result = nox_malloc(4 * v1);
 	*(_DWORD*)&byte_5D4594[1312476] = result;
 	v5 = v6;
-	if (*(_DWORD*)&byte_5D4594[1312472] > 0) {
+	if (dword_5d4594_1312472 > 0) {
 		do {
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1312476] + 4 * v0) = sub_4B5A30_wol_locale((wchar_t*)v5);
 			result = *(void**)&byte_5D4594[1312476];
 			v5 = *(__int16**)(*(_DWORD*)&byte_5D4594[1312476] + 4 * v0++);
-		} while (v0 < *(int*)&byte_5D4594[1312472]);
+		} while (v0 < *(int*)&dword_5d4594_1312472);
 	}
 	return result;
 }
@@ -11202,7 +11203,7 @@ void sub_4B5BF0() {
 	*(_DWORD*)&byte_5D4594[1312488] = 0;
 	dword_5d4594_1312484 = 0;
 	free(*(LPVOID*)&byte_5D4594[1312476]);
-	*(_DWORD*)&byte_5D4594[1312472] = 0;
+	dword_5d4594_1312472 = 0;
 }
 
 //----- (004B5C40) --------------------------------------------------------
