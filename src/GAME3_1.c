@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1320932;
 extern _DWORD dword_5d4594_1321032;
 extern _DWORD dword_587000_80844;
 extern _DWORD dword_5d4594_1522932;
@@ -4081,7 +4082,7 @@ int sub_4C1410() {
 	*(_DWORD*)&byte_5D4594[1320948] = 0;
 	dword_5d4594_1320968 = 0;
 	*(_DWORD*)&byte_5D4594[1320972] = 0;
-	*(_DWORD*)&byte_5D4594[1320932] = 0;
+	dword_5d4594_1320932 = 0;
 	*(_DWORD*)&byte_5D4594[1320936] = 0;
 	return result;
 }
@@ -4162,9 +4163,9 @@ char* __cdecl sub_4C1790(int a1) {
 	*(_DWORD*)&byte_5D4594[1320944] = 0;
 	*(_DWORD*)&byte_5D4594[1320948] = 0;
 	if (*(_BYTE*)(a1 + 2) == 1) {
-		v3 = *(char**)&byte_5D4594[1320932];
-		if (*(_DWORD*)&byte_5D4594[1320932]) {
-			result = (char*)sub_4C18E0(*(unsigned __int16*)(a1 + 3), *(_DWORD**)&byte_5D4594[1320932]);
+		v3 = *(char**)&dword_5d4594_1320932;
+		if (dword_5d4594_1320932) {
+			result = (char*)sub_4C18E0(*(unsigned __int16*)(a1 + 3), *(_DWORD**)&dword_5d4594_1320932);
 			if (result)
 				goto LABEL_12;
 			result = sub_4C1910(*(unsigned __int16*)(a1 + 3));
@@ -4213,7 +4214,7 @@ LABEL_12:
 		++*((_DWORD*)v3 + 1);
 		result = (char*)(*(_DWORD*)(v2 + 7) + v9);
 		*((_DWORD*)v3 + 34) = result;
-		*(_DWORD*)&byte_5D4594[1320932] = 0;
+		dword_5d4594_1320932 = 0;
 		*(_DWORD*)&byte_5D4594[1320936] = 0;
 	}
 	return result;
@@ -4354,15 +4355,15 @@ char* __cdecl sub_4C1A70(int a1, int* a2) {
 	LOBYTE(v4) = sub_4C0910(&a1a);
 	v5 = v4;
 	if (sub_4C18E0(*(_DWORD*)(a1 + 108), v4)) {
-		*(_DWORD*)&byte_5D4594[1320932] = v5;
+		dword_5d4594_1320932 = v5;
 		v6 = sub_4C1910(*(_DWORD*)(a1 + 108));
 		if (v6) {
 			if (*((_DWORD*)v6 + 1))
-				*(_DWORD*)&byte_5D4594[1320932] = v6;
+				dword_5d4594_1320932 = v6;
 		}
 	} else {
 		result = sub_4C1910(*(_DWORD*)(a1 + 108));
-		*(_DWORD*)&byte_5D4594[1320932] = result;
+		dword_5d4594_1320932 = result;
 		if (!result)
 			return result;
 	}
