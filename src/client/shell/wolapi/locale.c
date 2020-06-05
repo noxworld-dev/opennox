@@ -1,5 +1,6 @@
 #include "../../../proto.h"
 
+extern _DWORD dword_5d4594_1312472;
 extern _DWORD dword_5d4594_1312484;
 extern _DWORD dword_5d4594_1312480;
 extern int nox_win_width;
@@ -26,7 +27,7 @@ int __cdecl sub_4B5770_wol_locale(int a1) {
 	sub_46B500(*(int*)&dword_5d4594_1312480);
 	dword_5d4594_1312484 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1981);
 	sub_4B5990();
-	for (i = 0; i < *(int*)&byte_5D4594[1312472]; ++i)
+	for (i = 0; i < *(int*)&dword_5d4594_1312472; ++i)
 		nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397,
 					 *(_DWORD*)(*(_DWORD*)&byte_5D4594[1312476] + 4 * i), -1);
 	v2 = loadString_sub_40F1D0((char*)&byte_587000[174848], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c",
@@ -66,7 +67,7 @@ wchar_t* __cdecl sub_4B5A30_wol_locale(wchar_t* a1) {
 	v1 = 0;
 	memset(v6, 0xFFu, sizeof(v6));
 	v2 = v6;
-	if (*(int*)&byte_5D4594[1312472] <= 0)
+	if (*(int*)&dword_5d4594_1312472 <= 0)
 		return (wchar_t*)v6;
 	v3 = (char**)&byte_587000[174360];
 	do {
@@ -75,7 +76,7 @@ wchar_t* __cdecl sub_4B5A30_wol_locale(wchar_t* a1) {
 			v2 = (__int16*)v4;
 		++v1;
 		v3 += 2;
-	} while (v1 < *(int*)&byte_5D4594[1312472]);
+	} while (v1 < *(int*)&dword_5d4594_1312472);
 	return (wchar_t*)v2;
 }
 
@@ -88,7 +89,7 @@ int __cdecl sub_4B5B70_wol_locale(wchar_t* a1) {
 	int result;  // eax
 
 	v1 = 0;
-	if (*(int*)&byte_5D4594[1312472] <= 0) {
+	if (*(int*)&dword_5d4594_1312472 <= 0) {
 	LABEL_5:
 		v4 = loadString_sub_40F1D0((char*)&byte_587000[175064], 0,
 					   "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c", 78);
@@ -101,7 +102,7 @@ int __cdecl sub_4B5B70_wol_locale(wchar_t* a1) {
 				break;
 			++v1;
 			v2 += 2;
-			if (v1 >= *(int*)&byte_5D4594[1312472])
+			if (v1 >= *(int*)&dword_5d4594_1312472)
 				goto LABEL_5;
 		}
 		result = *(_DWORD*)&byte_587000[8 * v1 + 174364];
