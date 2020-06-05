@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312784;
 extern _DWORD dword_5d4594_2487984;
 extern _DWORD dword_5d4594_2487248;
 extern _DWORD dword_587000_312800;
@@ -10640,7 +10641,7 @@ int __cdecl sub_53EF70(int a1, int a2) {
 			v7 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251);
 			switch (v7) {
 			case 0:
-				v8 = (double)v25 * *(float*)&byte_587000[312784];
+				v8 = (double)v25 * *(float*)&dword_587000_312784;
 			LABEL_13:
 				v23 = v8;
 				v3 = nox_float2int(v23);
