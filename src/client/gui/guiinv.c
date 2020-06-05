@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1063120;
 extern _DWORD dword_5d4594_1062488;
 extern _DWORD dword_5d4594_1062516;
 extern _DWORD dword_5d4594_1062476;
@@ -319,7 +320,7 @@ int sub_462740() {
 		return 0;
 	nox_window_set_hidden(*(int*)&dword_5d4594_1062476, 1);
 	dword_5d4594_1063116 = 0;
-	*(_DWORD*)&byte_5D4594[1063120] = 0;
+	dword_5d4594_1063120 = 0;
 	v0 = loadString_sub_40F1D0((char*)&byte_587000[136832], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2361);
 	nox_wcscpy((wchar_t*)&byte_5D4594[1063124], v0);
 	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1062476, 9156);
@@ -441,8 +442,8 @@ int __cdecl sub_4627F0(_DWORD* a1) {
 LABEL_14:
 	result = dword_5d4594_1063116;
 	if (!dword_5d4594_1063116) {
-		if (*(_DWORD*)&byte_5D4594[1063120]) {
-			*(_DWORD*)&byte_5D4594[1063120] = 0;
+		if (dword_5d4594_1063120) {
+			dword_5d4594_1063120 = 0;
 			v5 = loadString_sub_40F1D0((char*)&byte_587000[136900], 0,
 						   "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2529);
 			nox_wcscpy((wchar_t*)&byte_5D4594[1063124], v5);
@@ -451,15 +452,15 @@ LABEL_14:
 		}
 		return result;
 	}
-	if (*(_DWORD*)&byte_5D4594[1063120] == dword_5d4594_1063116)
+	if (dword_5d4594_1063120 == dword_5d4594_1063116)
 		return result;
-	*(_DWORD*)&byte_5D4594[1063120] = dword_5d4594_1063116;
+	dword_5d4594_1063120 = dword_5d4594_1063116;
 	v7 = loadString_sub_40F1D0((char*)&byte_587000[136968], 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2545);
 	nox_swprintf((wchar_t*)&byte_5D4594[1063124], L"%s ", v7);
 	v8 = sub_4BF050(*(wchar_t**)&dword_5d4594_1063116);
 	nox_wcscpy(v75, v8);
 	if (!nox_wcscmp(v75, (const wchar_t*)&byte_5D4594[1063652]))
-		*(_DWORD*)&byte_5D4594[1063120] = 0;
+		dword_5d4594_1063120 = 0;
 	nox_wcscat((wchar_t*)&byte_5D4594[1063124], v75);
 	v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1062476, 9151);
 	sub_46AEE0((int)v9, (int)&byte_5D4594[1063124]);
