@@ -1,5 +1,6 @@
 #include "guimsg.h"
 #include "../../proto.h"
+extern _DWORD dword_5d4594_825736;
 
 //----- (00445490) --------------------------------------------------------
 void __cdecl sub_445490(wchar_t* a1) {
@@ -8,13 +9,13 @@ void __cdecl sub_445490(wchar_t* a1) {
 	unsigned short* v3; // eax
 
 	if (a1) {
-		v1 = ++*(unsigned int*)&byte_5D4594[825736];
-		if (*(unsigned int*)&byte_5D4594[825736] == 3) {
+		v1 = ++*(unsigned int*)&dword_5d4594_825736;
+		if (*(unsigned int*)&dword_5d4594_825736 == 3) {
 			v1 = 0;
-			*(unsigned int*)&byte_5D4594[825736] = 0;
+			*(unsigned int*)&dword_5d4594_825736 = 0;
 		}
 		nox_wcscpy((unsigned short*)&byte_5D4594[644 * v1 + 823804], a1);
-		v2 = 644 * *(unsigned int*)&byte_5D4594[825736];
+		v2 = 644 * *(unsigned int*)&dword_5d4594_825736;
 		*(unsigned int*)&byte_5D4594[v2 + 824440] = *(unsigned int*)&byte_5D4594[2598000] +
 							    4 * *(unsigned int*)&byte_5D4594[2649704] +
 							    *(unsigned int*)&byte_5D4594[2649704];
