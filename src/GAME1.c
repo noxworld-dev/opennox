@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_3616;
 extern _DWORD dword_587000_93200;
 extern _DWORD dword_5d4594_252276;
 extern _DWORD dword_5d4594_251720;
@@ -2021,23 +2022,23 @@ int __cdecl sub_40AEB0(const void* a1, const void* a2) { return _strcmpi((const 
 
 //----- (0040AED0) --------------------------------------------------------
 void sub_40AED0() {
-	if (*(_DWORD*)&byte_5D4594[3616]) {
+	if (dword_5d4594_3616) {
 		return;
 	}
 	_DWORD* v0 = nox_calloc(1023, 8);
-	*(_DWORD*)&byte_5D4594[3616] = v0;
+	dword_5d4594_3616 = v0;
 	for (int i = 0; i < 1023; i++) {
 		v0[2 * i + 0] = i;
 		v0[2 * i + 1] = (_DWORD)table_5184[i];
 	}
-	qsort(*(void**)&byte_5D4594[3616], 1023, 8, sub_40AE90);
+	qsort(*(void**)&dword_5d4594_3616, 1023, 8, sub_40AE90);
 }
 
 //----- (0040AF30) --------------------------------------------------------
 void sub_40AF30() {
-	if (*(_DWORD*)&byte_5D4594[3616]) {
-		free(*(LPVOID*)&byte_5D4594[3616]);
-		*(_DWORD*)&byte_5D4594[3616] = 0;
+	if (dword_5d4594_3616) {
+		free(*(LPVOID*)&dword_5d4594_3616);
+		dword_5d4594_3616 = 0;
 	}
 }
 
@@ -2046,7 +2047,7 @@ int __cdecl sub_40AF50(void* a1) {
 	int* v1;    // eax
 	int result; // eax
 
-	v1 = (int*)bsearch(a1, *(const void**)&byte_5D4594[3616], 0x3FFu, 8u, sub_40AEB0);
+	v1 = (int*)bsearch(a1, *(const void**)&dword_5d4594_3616, 0x3FFu, 8u, sub_40AEB0);
 	if (v1)
 		result = *v1;
 	else
