@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "noxworld.h"
 #include "wolapi/wollogin.h"
+extern _DWORD dword_5d4594_1309708;
 extern _DWORD dword_5d4594_1309716;
 
 //----- (004AA4D0) --------------------------------------------------------
@@ -16,7 +17,7 @@ int __cdecl sub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
 	if (a2 != 16389) {
 		if (a2 != 16391)
 			return 0;
-		if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1309708] + 64) && !nox_common_gameFlags_check_40A5C0(0x2000000) &&
+		if (*(_BYTE*)(dword_5d4594_1309708 + 64) && !nox_common_gameFlags_check_40A5C0(0x2000000) &&
 		    !sub_4D6F30())
 			goto LABEL_17;
 		v4 = sub_46B0A0(a3) - 411;
@@ -27,7 +28,7 @@ int __cdecl sub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
 				return 1;
 			}
 			sub_4AA450();
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309708] + 52) = sub_4379F0;
+			*(_DWORD*)(dword_5d4594_1309708 + 52) = sub_4379F0;
 			sub_43AF50(0);
 		} else {
 			if (!sub_41D440()) {
@@ -49,7 +50,7 @@ int __cdecl sub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
 			}
 			sub_4A1A40(0);
 			sub_4AA450();
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309708] + 52) = sub_44A560_wol_login;
+			*(_DWORD*)(dword_5d4594_1309708 + 52) = sub_44A560_wol_login;
 		}
 		nox_common_gameFlags_unset_40A540(0x1000000);
 		goto LABEL_17;
