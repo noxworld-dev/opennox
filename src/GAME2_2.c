@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193648;
 extern _DWORD dword_5d4594_1193668;
 extern _DWORD dword_5d4594_1096644;
 extern _DWORD dword_5d4594_787144;
@@ -13107,7 +13108,7 @@ void __cdecl sub_48B590(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 	if (a1)
 		*a1 = *(_DWORD*)&byte_5D4594[1193624];
 	if (a2)
-		*a2 = *(_DWORD*)&byte_5D4594[1193648];
+		*a2 = dword_5d4594_1193648;
 	if (a3)
 		*a3 = *(_DWORD*)&byte_5D4594[1193524];
 }
