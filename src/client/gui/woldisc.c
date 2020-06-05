@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_830292;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -23,10 +24,10 @@ void sub_44B010() {
 		else
 			sub_4460C0();
 	} else if (nox_common_gameFlags_check_40A5C0(1)) {
-		*(_DWORD*)&byte_5D4594[830292] = nox_new_window_from_file("woldisc.wnd", sub_44B0F0);
-		sub_46A9B0(*(_DWORD**)&byte_5D4594[830292],
-			   nox_win_width / 2 - *(int*)(*(_DWORD*)&byte_5D4594[830292] + 24) / 2,
-			   nox_win_height / 2 - *(int*)(*(_DWORD*)&byte_5D4594[830292] + 28) / 2);
+		dword_5d4594_830292 = nox_new_window_from_file("woldisc.wnd", sub_44B0F0);
+		sub_46A9B0(*(_DWORD**)&dword_5d4594_830292,
+			   nox_win_width / 2 - *(int*)(dword_5d4594_830292 + 24) / 2,
+			   nox_win_height / 2 - *(int*)(dword_5d4594_830292 + 28) / 2);
 	} else {
 		v1 = loadString_sub_40F1D0((char*)&byte_587000[113840], 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c",
 					   100);
