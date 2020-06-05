@@ -9,6 +9,7 @@
 #include "../../platform.h"
 #endif
 
+extern _DWORD dword_587000_93196;
 extern _DWORD dword_587000_173328;
 extern _DWORD dword_587000_173332;
 extern _DWORD dword_5d4594_2618912;
@@ -218,7 +219,7 @@ void mainloop() {
 			return;
 		} else if (ret == 0) {
 			// map error
-			*(_DWORD*)&byte_587000[93196] = 0;
+			dword_587000_93196 = 0;
 			*(_DWORD*)&byte_587000[93200] = 0;
 			mainloop_exit();
 			return;
@@ -229,7 +230,7 @@ void mainloop() {
 			// XXX
 			if (dword_587000_173328)
 				return;
-			*(_DWORD*)&byte_587000[93196] = 0;
+			dword_587000_93196 = 0;
 			*(_DWORD*)&byte_587000[93200] = 0;
 			mainloop_exit();
 			return;
