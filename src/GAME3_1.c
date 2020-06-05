@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1321216;
 extern _DWORD dword_587000_80824;
 extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_1522616;
@@ -5207,11 +5208,11 @@ int __cdecl sub_4C32A0(int a1, int a2, int a3, int a4) {
 //----- (004C3390) --------------------------------------------------------
 int sub_4C3390() {
 	*(_DWORD*)&byte_5D4594[1321220] = sub_42F970("VoteInProgress");
-	*(_DWORD*)&byte_5D4594[1321216] =
+	dword_5d4594_1321216 =
 	    nox_window_new(0, 136, nox_win_width - 50, nox_win_height / 2 - 100, 50, 50, 0);
-	sub_46AE60(*(int*)&byte_5D4594[1321216], *(int*)&byte_5D4594[1321220]);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1321216], 0, sub_4C3410, 0);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1321216], 1);
+	sub_46AE60(*(int*)&dword_5d4594_1321216, *(int*)&byte_5D4594[1321220]);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1321216, 0, sub_4C3410, 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1321216, 1);
 	return 1;
 }
 
@@ -5230,17 +5231,17 @@ int __cdecl sub_4C3410(int* a1) {
 }
 
 //----- (004C3460) --------------------------------------------------------
-int __cdecl sub_4C3460(int a1) { return nox_window_set_hidden(*(int*)&byte_5D4594[1321216], a1); }
+int __cdecl sub_4C3460(int a1) { return nox_window_set_hidden(*(int*)&dword_5d4594_1321216, a1); }
 
 //----- (004C3480) --------------------------------------------------------
-BOOL sub_4C3480() { return *(_DWORD*)&byte_5D4594[1321216] && !wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[1321216]); }
+BOOL sub_4C3480() { return dword_5d4594_1321216 && !wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1321216); }
 
 //----- (004C34A0) --------------------------------------------------------
 int sub_4C34A0() {
 	int result; // eax
 
-	result = sub_46C4E0(*(_DWORD**)&byte_5D4594[1321216]);
-	*(_DWORD*)&byte_5D4594[1321216] = 0;
+	result = sub_46C4E0(*(_DWORD**)&dword_5d4594_1321216);
+	dword_5d4594_1321216 = 0;
 	return result;
 }
 
