@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386220;
 extern _DWORD dword_5d4594_2386192;
 extern _DWORD dword_5d4594_2388640;
 extern _DWORD dword_5d4594_2487240;
@@ -2767,7 +2768,7 @@ int sub_50D780() {
 	if (result) {
 		dword_5d4594_2386212 = 0;
 		result = nox_new_alloc_class("MonsterListClass", 148, 96);
-		*(_DWORD*)&byte_5D4594[2386220] = result;
+		dword_5d4594_2386220 = result;
 		if (result) {
 			dword_5d4594_2386224 = 0;
 			*(_DWORD*)&byte_5D4594[2386228] = 0;
@@ -2781,7 +2782,7 @@ int sub_50D780() {
 void sub_50D7E0() {
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2386216]);
 	dword_5d4594_2386212 = 0;
-	sub_4144D0(*(_DWORD**)&byte_5D4594[2386220]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_2386220);
 	dword_5d4594_2386224 = 0;
 	*(_DWORD*)&byte_5D4594[2386228] = 0;
 }
@@ -2791,8 +2792,8 @@ void sub_50D820() {
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386216]);
 	*(_DWORD*)&byte_5D4594[2386216] = 0;
 	dword_5d4594_2386212 = 0;
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386220]);
-	*(_DWORD*)&byte_5D4594[2386220] = 0;
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386220);
+	dword_5d4594_2386220 = 0;
 	dword_5d4594_2386224 = 0;
 	*(_DWORD*)&byte_5D4594[2386228] = 0;
 }
@@ -2910,7 +2911,7 @@ int sub_50D960() {
 								v5 = sub_50DE60(*v3);
 								if (!v5) {
 									v6 = nox_alloc_class_new_obj_zero(
-									    *(_DWORD**)&byte_5D4594[2386220]);
+									    *(_DWORD**)&dword_5d4594_2386220);
 									v5 = v6;
 									if (!v6)
 										break;
@@ -3037,7 +3038,7 @@ int sub_50D960() {
 								*(_DWORD*)(v31 + 140) = v26[35];
 							else
 								dword_5d4594_2386224 = v26[35];
-							sub_414330(*(unsigned int**)&byte_5D4594[2386220], v26);
+							sub_414330(*(unsigned int**)&dword_5d4594_2386220, v26);
 							v32 = *(_DWORD*)&byte_5D4594[4 * v23 + 2386232];
 							--*(_DWORD*)&byte_5D4594[2386228];
 							if (v32 <= v35)
@@ -3061,7 +3062,7 @@ int sub_50DE10() {
 	if (dword_5d4594_2386224) {
 		do {
 			v1 = *(_DWORD*)(result + 140);
-			sub_414330(*(unsigned int**)&byte_5D4594[2386220], (_QWORD*)result);
+			sub_414330(*(unsigned int**)&dword_5d4594_2386220, (_QWORD*)result);
 			result = v1;
 			--*(_DWORD*)&byte_5D4594[2386228];
 		} while (v1);
