@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1197352;
 extern _DWORD dword_5d4594_1197336;
 extern _DWORD dword_5d4594_1197356;
 extern _DWORD dword_5d4594_1303468;
@@ -662,7 +663,7 @@ _DWORD* __cdecl sub_48D5A0(int a1) {
 				*((_QWORD*)v2 + 2) = sub_416BB0();
 				qmemcpy(v2 + 8, (const void*)(a1 + 4), *(unsigned __int8*)(a1 + 3));
 				if (*(_WORD*)&byte_5D4594[1197360] == *(_WORD*)(a1 + 1))
-					*(_DWORD*)&byte_5D4594[1197352] = v2;
+					dword_5d4594_1197352 = v2;
 				result = (_DWORD*)sub_425790((int*)&byte_5D4594[1197340], v2);
 			}
 		}
@@ -676,20 +677,20 @@ int sub_48D660() {
 	int* v1;             // esi
 	int* v2;             // edi
 
-	LODWORD(v0) = *(_DWORD*)&byte_5D4594[1197352];
-	if (!*(_DWORD*)&byte_5D4594[1197352]) {
+	LODWORD(v0) = dword_5d4594_1197352;
+	if (!dword_5d4594_1197352) {
 		if (dword_5d4594_1197356) {
 			v0 = sub_416BB0() - *(_QWORD*)(dword_5d4594_1197356 + 16);
 			if (v0 > 0x7530) {
 				*(_WORD*)&byte_5D4594[1197360] = *(_WORD*)(dword_5d4594_1197356 + 8);
-				*(_DWORD*)&byte_5D4594[1197352] = dword_5d4594_1197356;
+				dword_5d4594_1197352 = dword_5d4594_1197356;
 				LODWORD(v0) = sub_4258A0(*(int**)&dword_5d4594_1197356);
 				dword_5d4594_1197356 = v0;
 			}
 		}
 	}
-	v1 = *(int**)&byte_5D4594[1197352];
-	if (*(_DWORD*)&byte_5D4594[1197352]) {
+	v1 = *(int**)&dword_5d4594_1197352;
+	if (dword_5d4594_1197352) {
 		do {
 			LODWORD(v0) = v1[2];
 			if ((_DWORD)v0 != *(unsigned __int16*)&byte_5D4594[1197360])
@@ -708,7 +709,7 @@ int sub_48D660() {
 		} while (v2);
 	}
 	dword_5d4594_1197356 = v1;
-	*(_DWORD*)&byte_5D4594[1197352] = 0;
+	dword_5d4594_1197352 = 0;
 	return v0;
 }
 
@@ -718,7 +719,7 @@ int sub_48D740() {
 
 	sub_425760(&byte_5D4594[1197340]);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1197352] = 0;
+	dword_5d4594_1197352 = 0;
 	dword_5d4594_1197356 = 0;
 	*(_WORD*)&byte_5D4594[1197360] = 0;
 	return result;
