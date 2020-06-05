@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830264;
 extern _DWORD dword_5d4594_829504;
 extern _DWORD dword_5d4594_825744;
 extern _DWORD dword_5d4594_816372;
@@ -6390,7 +6391,7 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 					*(_DWORD*)&byte_5D4594[830276] ^= 1u;
 					if (*(_DWORD*)&byte_5D4594[830276]) {
 						v10 = sub_41F9A0();
-						nox_window_call_field_94(*(int*)&byte_5D4594[830264], 16403, v10, 0);
+						nox_window_call_field_94(*(int*)&dword_5d4594_830264, 16403, v10, 0);
 						sub_41FC20(v10);
 					} else {
 						v9 = sub_41FB60();
