@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1097208;
 extern _DWORD dword_5d4594_3798728;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -86,7 +87,7 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 							      "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 214);
 			sub_43F6E0(0, v12, v3 + 49, a3 - v5);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097252], v3, v4);
-			*(_DWORD*)&byte_5D4594[1097208] = 2 * v5 + 4;
+			dword_5d4594_1097208 = 2 * v5 + 4;
 			break;
 		case 9:
 		case 10:
@@ -100,7 +101,7 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			sub_43F6E0(0, v13, v3 + 54, v5 + a3);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097272], v3, v4);
 		LABEL_16:
-			*(_DWORD*)&byte_5D4594[1097208] = -2 * v5;
+			dword_5d4594_1097208 = -2 * v5;
 			break;
 		case 14:
 			v14 = nox_client_getMousePos_4309F0();
@@ -127,11 +128,11 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			break;
 		case 15:
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(_DWORD*)&byte_5D4594[4 * v6 + 1097220], v3, v4);
-			*(_DWORD*)&byte_5D4594[1097208] = -2 * v5;
+			dword_5d4594_1097208 = -2 * v5;
 			break;
 		case 16:
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(_DWORD*)&byte_5D4594[4 * v6 + 1097220], v3, v4);
-			*(_DWORD*)&byte_5D4594[1097208] = -v5;
+			dword_5d4594_1097208 = -v5;
 			break;
 		default:
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097220], v3, v4);
