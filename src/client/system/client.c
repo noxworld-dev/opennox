@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_811072;
 extern _DWORD dword_5d4594_811100;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_811104;
@@ -61,11 +62,11 @@ void sub_436100_draw() {
 		v6 = (nox_win_width - dword_5d4594_811100) / 2;
 		*(_DWORD*)&byte_5D4594[811068] = v6;
 		v7 = (nox_win_height - dword_5d4594_811104) / 2;
-		*(_DWORD*)&byte_5D4594[811072] = v7;
+		dword_5d4594_811072 = v7;
 		*(_DWORD*)&byte_5D4594[811076] = v6 + dword_5d4594_811100 - 1;
 		*(_DWORD*)&byte_5D4594[811080] = v7 + dword_5d4594_811104 - 1;
 	} else {
-		v7 = *(_DWORD*)&byte_5D4594[811072];
+		v7 = dword_5d4594_811072;
 		v6 = *(_DWORD*)&byte_5D4594[811068];
 	}
 	sub_430B50(v6, v7, *(int*)&byte_5D4594[811076], *(int*)&byte_5D4594[811080]);
