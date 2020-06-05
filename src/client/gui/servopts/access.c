@@ -1,6 +1,7 @@
 #include "access.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1045552;
 extern _DWORD dword_5d4594_1045584;
 extern _DWORD dword_5d4594_1045588;
 extern _DWORD dword_5d4594_1045532;
@@ -105,13 +106,13 @@ int* sub_454740() {
 	*(_DWORD*)&byte_5D4594[1045596] = dword_5d4594_1045528;
 	v6 = loadString_sub_40F1D0((char*)&byte_587000[128200], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
 				   242);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1045552], 16397, (int)v6, -1);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1045552, 16397, (int)v6, -1);
 	v7 = loadString_sub_40F1D0((char*)&byte_587000[128252], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
 				   243);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1045552], 16397, (int)v7, -1);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1045552, 16397, (int)v7, -1);
 	v8 = loadString_sub_40F1D0((char*)&byte_587000[128304], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
 				   244);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1045552], 16397, (int)v8, -1);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1045552, 16397, (int)v8, -1);
 	if (v0[100] & 0x10) {
 		nox_window_set_hidden(*(int*)&dword_5d4594_1045532, 0);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1045528, 1);
@@ -119,7 +120,7 @@ int* sub_454740() {
 	v9 = v0[100];
 	if (v9) {
 		v10 = 0;
-		v11 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1045552] + 32);
+		v11 = *(_DWORD*)(dword_5d4594_1045552 + 32);
 		if (v9 & 1) {
 			**(_DWORD**)(v11 + 48) = 0;
 			v10 = 1;
