@@ -1,6 +1,7 @@
 #include "litning.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1316472;
 extern _DWORD dword_5d4594_1316436;
 extern _DWORD dword_5d4594_1316476;
 extern _DWORD dword_5d4594_1316492;
@@ -79,7 +80,7 @@ int __cdecl sub_4BB070(int a1, int a2) {
 		sub_49E4F0(v23);
 		v23 = 1;
 	} else {
-		sub_434040(*(int*)&byte_5D4594[1316472]);
+		sub_434040(*(int*)&dword_5d4594_1316472);
 		sub_434080(3);
 		v4 = SHIWORD(a1);
 		v5 = (__int16)a1;
@@ -89,7 +90,7 @@ int __cdecl sub_4BB070(int a1, int a2) {
 		nox_client_drawAddPoint_49F500((__int16)a2, SHIWORD(a2));
 		sub_49E4F0(32);
 	}
-	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[1316472]);
+	nox_client_drawSetColor_434460(*(int*)&dword_5d4594_1316472);
 	nox_client_drawAddPoint_49F500(v5, v4);
 	nox_client_drawAddPoint_49F500(v7, v6);
 	nox_client_drawLineFromPoints_49E4B0();
@@ -239,17 +240,17 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
 	HIWORD(v21) = v7->field_4;
 	if (a6) {
 		dword_5d4594_1316492 = 1;
-		*(_DWORD*)&byte_5D4594[1316472] = *(_DWORD*)&byte_5D4594[1316456];
+		dword_5d4594_1316472 = *(_DWORD*)&byte_5D4594[1316456];
 		*(_DWORD*)&byte_5D4594[1316508] = 0;
 		sub_4BB070((int)v22, (int)v21);
 		dword_5d4594_1316492 = 1;
-		*(_DWORD*)&byte_5D4594[1316472] = *(_DWORD*)&byte_5D4594[1316452];
+		dword_5d4594_1316472 = *(_DWORD*)&byte_5D4594[1316452];
 		sub_4BB070((int)v22, (int)v21);
 	}
 	result = a7;
 	if (a7) {
 		dword_5d4594_1316492 = 1;
-		*(_DWORD*)&byte_5D4594[1316472] = dword_5d4594_1316436;
+		dword_5d4594_1316472 = dword_5d4594_1316436;
 		*(_DWORD*)&byte_5D4594[1316440] = *(_DWORD*)&byte_5D4594[1316484];
 		*(_DWORD*)&byte_5D4594[1316508] = 1;
 		result = sub_4BB070((int)v22, (int)v21);
