@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_534816;
 extern _DWORD dword_5d4594_740072;
 extern _DWORD dword_5d4594_531652;
 extern _DWORD dword_5d4594_741244;
@@ -5336,12 +5337,12 @@ void __cdecl sub_420830(_DWORD* a1) {
 	_DWORD* v1; // esi
 	_DWORD* v2; // eax
 
-	if (*(_DWORD*)&byte_5D4594[534816]) {
+	if (dword_5d4594_534816) {
 		v1 = (_DWORD*)*a1;
 		if (*a1) {
 			do {
 				if (*v1)
-					(*(void(__cdecl**)(_DWORD)) & byte_5D4594[534816])(*v1);
+					(*(void(__cdecl**)(_DWORD)) & dword_5d4594_534816)(*v1);
 				*v1 = 0;
 				v1[1] = 0;
 				v1 = (_DWORD*)v1[3];
@@ -5376,7 +5377,7 @@ _DWORD* __cdecl sub_420890(int a1, int a2) {
 	v2[4] = 0;
 	v2[5] = 0;
 	result = v2;
-	*(_DWORD*)&byte_5D4594[534816] = a2;
+	dword_5d4594_534816 = a2;
 	return result;
 }
 
@@ -5384,12 +5385,12 @@ _DWORD* __cdecl sub_420890(int a1, int a2) {
 void __cdecl sub_4208F0(LPVOID lpMem) {
 	_DWORD* v1; // esi
 
-	if (*(_DWORD*)&byte_5D4594[534816]) {
+	if (dword_5d4594_534816) {
 		v1 = *(_DWORD**)lpMem;
 		if (*(_DWORD*)lpMem) {
 			do {
 				if (*v1)
-					(*(void(__cdecl**)(_DWORD)) & byte_5D4594[534816])(*v1);
+					(*(void(__cdecl**)(_DWORD)) & dword_5d4594_534816)(*v1);
 				v1 = (_DWORD*)v1[3];
 			} while (v1);
 		}
