@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "fx.h"
+extern _DWORD dword_5d4594_1313536;
 extern _DWORD dword_5d4594_1313540;
 
 //----- (004B6770) --------------------------------------------------------
@@ -62,7 +63,7 @@ int __cdecl nox_thing_magic_sparkle_draw(int* a1, int a2) {
 	if (sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5)
 		result = sub_4B6770(a1, a2, *(int*)&byte_5D4594[2523948], *(int*)&dword_5d4594_1313540);
 	else
-		result = sub_4B6770(a1, a2, *(int*)&dword_5d4594_1313540, *(int*)&byte_5D4594[1313536]);
+		result = sub_4B6770(a1, a2, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
 	return result;
 }
 
@@ -214,7 +215,7 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, int a2) {
 		v18 = *(_DWORD*)(a2 + 108);
 		xLeft.field_4 = v15 + v16 - v3;
 		if (v18 != *(_DWORD*)&byte_5D4594[1313692])
-			v17 = *(_DWORD*)&byte_5D4594[1313536];
+			v17 = dword_5d4594_1313536;
 		sub_4B6720(&xLeft, v17, *(unsigned __int8*)(a2 + 442), 5);
 		v19 = *(__int16*)(a2 + 104) - *(__int16*)(a2 + 440);
 		nox_client_drawSetColor_434460(v17);
