@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1307292;
 extern _DWORD dword_5d4594_1308160;
 extern _DWORD dword_5d4594_1309824;
 extern _DWORD dword_5d4594_1308092;
@@ -123,7 +124,7 @@ int sub_4A19D0() {
 int __cdecl sub_4A1A40(int a1) {
 	_DWORD* v1; // eax
 
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307292], 151);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307292, 151);
 	return sub_46ABB0((int)v1, a1);
 }
 
@@ -132,7 +133,7 @@ int sub_4A1A60() {
 	_DWORD* v0; // eax
 
 	v0 = nox_new_window_from_file("OptsBack.wnd", sub_4A1AA0);
-	*(_DWORD*)&byte_5D4594[1307292] = v0;
+	dword_5d4594_1307292 = v0;
 	if (!v0)
 		return 0;
 	sub_46B300((int)v0, sub_4A18E0);
@@ -141,10 +142,10 @@ int sub_4A1A60() {
 // 4A18E0: using guessed type int __cdecl sub_4A18E0(int, int, int, int);
 
 //----- (004A1BD0) --------------------------------------------------------
-int sub_4A1BD0() { return sub_46C4E0(*(_DWORD**)&byte_5D4594[1307292]); }
+int sub_4A1BD0() { return sub_46C4E0(*(_DWORD**)&dword_5d4594_1307292); }
 
 //----- (004A1BE0) --------------------------------------------------------
-int __cdecl sub_4A1BE0(int a1) { return sub_46ABB0(*(int*)&byte_5D4594[1307292], a1); }
+int __cdecl sub_4A1BE0(int a1) { return sub_46ABB0(*(int*)&dword_5d4594_1307292, a1); }
 
 //----- (004A1C00) --------------------------------------------------------
 int sub_4A1C00() {
