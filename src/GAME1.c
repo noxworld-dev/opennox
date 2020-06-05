@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251720;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_251496;
 extern _DWORD dword_5d4594_3620;
@@ -8225,7 +8226,7 @@ int sub_4134D0() {
 	*(_DWORD*)&byte_5D4594[251708] = 0;
 	*(_DWORD*)&byte_5D4594[251712] = 0;
 	*(_DWORD*)&byte_5D4594[251716] = 0;
-	*(_DWORD*)&byte_5D4594[251720] = 0;
+	dword_5d4594_251720 = 0;
 	return sub_413850();
 }
 
@@ -8236,7 +8237,7 @@ void sub_4134F0() {
 	*(_DWORD*)&byte_5D4594[251708] = 0;
 	*(_DWORD*)&byte_5D4594[251712] = 0;
 	*(_DWORD*)&byte_5D4594[251716] = 0;
-	*(_DWORD*)&byte_5D4594[251720] = 0;
+	dword_5d4594_251720 = 0;
 }
 
 //----- (00413760) --------------------------------------------------------
@@ -8274,9 +8275,9 @@ BOOL sub_4137A0() {
 int sub_4137C0() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[251720];
-	if (!*(_DWORD*)&byte_5D4594[251720]) {
-		*(_DWORD*)&byte_5D4594[251720] = 1;
+	result = dword_5d4594_251720;
+	if (!dword_5d4594_251720) {
+		dword_5d4594_251720 = 1;
 		result = sub_43DBD0();
 	}
 	return result;
@@ -8286,9 +8287,9 @@ int sub_4137C0() {
 int sub_4137E0() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[251720];
-	if (*(_DWORD*)&byte_5D4594[251720]) {
-		*(_DWORD*)&byte_5D4594[251720] = 0;
+	result = dword_5d4594_251720;
+	if (dword_5d4594_251720) {
+		dword_5d4594_251720 = 0;
 		result = sub_43DBE0();
 	}
 	return result;
