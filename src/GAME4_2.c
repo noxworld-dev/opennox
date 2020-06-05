@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487624;
 extern _DWORD dword_5d4594_3835352;
 extern _DWORD dword_5d4594_2487620;
 extern _DWORD dword_5d4594_2487708;
@@ -6276,12 +6277,12 @@ LABEL_10:
 			*(float*)&byte_5D4594[2487612] = v8;
 			*(float*)&byte_5D4594[2487616] = sub_526BC0(v15, v16);
 			*(float*)&dword_5d4594_2487620 = v16;
-			*(float*)&byte_5D4594[2487624] = sub_526BC0(v15, v16);
+			*(float*)&dword_5d4594_2487624 = sub_526BC0(v15, v16);
 		} else {
 			*(float*)&byte_5D4594[2487612] = sub_526BC0(v15, v16);
 			*(float*)&byte_5D4594[2487616] = v15;
 			*(float*)&dword_5d4594_2487620 = sub_526BC0(v15, v16);
-			*(float*)&byte_5D4594[2487624] = v16;
+			*(float*)&dword_5d4594_2487624 = v16;
 		}
 		break;
 	case 3:
@@ -6293,14 +6294,14 @@ LABEL_10:
 					*(float*)&byte_5D4594[2487612] = v12;
 					*(float*)&byte_5D4594[2487616] = v12;
 					*(float*)&dword_5d4594_2487620 = v12;
-					*(float*)&byte_5D4594[2487624] = v16;
+					*(float*)&dword_5d4594_2487624 = v16;
 					*(float*)&byte_5D4594[2487628] = v16;
 				} else {
 					*(float*)&byte_5D4594[2487616] = v12;
 					*(float*)&byte_5D4594[2487628] = v12;
 					*(float*)&byte_5D4594[2487612] = v16;
 					*(float*)&dword_5d4594_2487620 = v16;
-					*(float*)&byte_5D4594[2487624] = v16;
+					*(float*)&dword_5d4594_2487624 = v16;
 				}
 				*(_DWORD*)&byte_5D4594[2487632] = 0;
 			} else {
@@ -6309,14 +6310,14 @@ LABEL_10:
 				*(float*)&byte_5D4594[2487632] = v11;
 				*(float*)&byte_5D4594[2487616] = v16;
 				*(float*)&dword_5d4594_2487620 = v16;
-				*(float*)&byte_5D4594[2487624] = v16;
+				*(float*)&dword_5d4594_2487624 = v16;
 				*(_DWORD*)&byte_5D4594[2487628] = 0;
 			}
 		} else {
 			v10 = -v16;
 			*(float*)&byte_5D4594[2487612] = v10;
 			*(float*)&byte_5D4594[2487616] = v10;
-			*(float*)&byte_5D4594[2487624] = v10;
+			*(float*)&dword_5d4594_2487624 = v10;
 			*(float*)&dword_5d4594_2487620 = v16;
 			*(_DWORD*)&byte_5D4594[2487628] = 0;
 			*(float*)&byte_5D4594[2487632] = v16;
@@ -6328,7 +6329,7 @@ LABEL_10:
 		v13 = -v16;
 		*(float*)&byte_5D4594[2487612] = v13;
 		*(float*)&byte_5D4594[2487616] = v13;
-		*(float*)&byte_5D4594[2487624] = v13;
+		*(float*)&dword_5d4594_2487624 = v13;
 		*(float*)&byte_5D4594[2487628] = v13;
 		*(float*)&dword_5d4594_2487620 = v16;
 		*(float*)&byte_5D4594[2487632] = v16;
