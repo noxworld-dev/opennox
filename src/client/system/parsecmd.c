@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1563664;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_823700;
@@ -980,7 +981,7 @@ int __cdecl sub_4E3BC0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1563664] ^= *(_DWORD*)(a1 + 16);
+	dword_5d4594_1563664 ^= *(_DWORD*)(a1 + 16);
 	*(_DWORD*)(a1 + 16) = 0;
 	return result;
 }
