@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_587000_93200;
 extern _DWORD dword_5d4594_252276;
 extern _DWORD dword_5d4594_251720;
 extern _DWORD dword_5d4594_3804680;
@@ -180,7 +181,7 @@ void cleanup() {
 }
 
 void mainloop_exit_1() {
-	if (!*(_DWORD*)&byte_587000[93200]) {
+	if (!dword_587000_93200) {
 		cleanup();
 		nox_exit(0);
 	}
