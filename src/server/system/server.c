@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1599060;
 extern _DWORD dword_5d4594_2386160;
 extern _DWORD dword_5d4594_251744;
 extern _DWORD dword_5d4594_528252;
@@ -1490,7 +1491,7 @@ void __cdecl sub_500510(const char* a1) {
 //----- (00502100) --------------------------------------------------------
 void sub_502100() {
 	sub_4144D0(*(_DWORD**)&byte_5D4594[1599056]);
-	*(_DWORD*)&byte_5D4594[1599060] = 0;
+	dword_5d4594_1599060 = 0;
 }
 
 //----- (00506F30) --------------------------------------------------------
