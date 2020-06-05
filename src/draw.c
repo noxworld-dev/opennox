@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193704;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_1193584;
 extern _DWORD dword_5d4594_3801808;
@@ -2590,7 +2591,7 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3) {
 			*(_DWORD*)&byte_5D4594[1193624] = a1;
 			sub_48A670(g_cursor_surf);
 			for (i = 0; i < 512; i += 4)
-				sub_49D1C0(*(_DWORD*)(i + *(_DWORD*)&byte_5D4594[1193704]),
+				sub_49D1C0(*(_DWORD*)(i + dword_5d4594_1193704),
 					   *(int*)&byte_5D4594[1193592], 128);
 			a3 = 0;
 			a2 = 0;
@@ -2652,7 +2653,7 @@ int sub_48C060() {
 
 	if (g_cursor_surf && dword_6F7C74) {
 		result = (int)malloc(0x200u);
-		*(_DWORD*)&byte_5D4594[1193704] = result;
+		dword_5d4594_1193704 = result;
 		if (!result)
 			return result;
 		v1 = dword_6F7C74;
@@ -2663,7 +2664,7 @@ int sub_48C060() {
 			v1 += dword_6F7BF8;
 			if (v2 >= 512)
 				break;
-			result = *(_DWORD*)&byte_5D4594[1193704];
+			result = dword_5d4594_1193704;
 		}
 	}
 	return 1;
@@ -2692,9 +2693,9 @@ void nox_video_stopCursorDrawThread_48B350() {
 		dword_6F7C48 = 0;
 	}
 #endif
-	if (*(_DWORD*)&byte_5D4594[1193704]) {
-		free(*(LPVOID*)&byte_5D4594[1193704]);
-		*(_DWORD*)&byte_5D4594[1193704] = 0;
+	if (dword_5d4594_1193704) {
+		free(*(LPVOID*)&dword_5d4594_1193704);
+		dword_5d4594_1193704 = 0;
 	}
 	*(_DWORD*)&byte_5D4594[1193624] = 0;
 }
@@ -3401,9 +3402,9 @@ unsigned __int8* __cdecl sub_48C200(int a1, int a2, int a3) {
 			do {
 				v14 += 4;
 				v15 = v4;
-				v16 = v23 + *(_DWORD*)(v14 + *(_DWORD*)&byte_5D4594[1193704] - 4);
+				v16 = v23 + *(_DWORD*)(v14 + dword_5d4594_1193704 - 4);
 				for (dword_5d4594_1193584 =
-					 v23 + *(_DWORD*)(v14 + *(_DWORD*)&byte_5D4594[1193704] - 4);
+					 v23 + *(_DWORD*)(v14 + dword_5d4594_1193704 - 4);
 				     v15 > 0; v15 -= v19) {
 					v17 = *result;
 					v18 = result + 1;
@@ -3485,7 +3486,7 @@ unsigned __int8* __cdecl sub_48C320(int a1, int a2, int a3) {
 				v13 += 4;
 				v14 = v4;
 				for (dword_5d4594_1193584 =
-					 v8 + *(_DWORD*)(*(_DWORD*)&byte_5D4594[1193704] + v13 - 4);
+					 v8 + *(_DWORD*)(dword_5d4594_1193704 + v13 - 4);
 				     v14 > 0; v14 -= v17) {
 					v15 = *result;
 					v16 = result + 1;
