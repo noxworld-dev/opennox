@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_202404;
 extern _DWORD dword_587000_312788;
 extern _DWORD dword_5d4594_1563660;
 extern _DWORD dword_587000_312784;
@@ -3495,25 +3496,25 @@ unsigned __int8* __cdecl sub_4E62F0(int a1) {
 						if (v14 == 1) {
 							v16 = *(float*)(v4 + 3632) - (double)*(int*)(v4 + 2284);
 							v19 = *(float*)(v4 + 3636) - (double)*(int*)(v4 + 2288);
-							if (v16 <= *(float*)&byte_587000[202404]) {
-								if (v16 >= -*(float*)&byte_587000[202404])
+							if (v16 <= *(float*)&dword_587000_202404) {
+								if (v16 >= -*(float*)&dword_587000_202404)
 									v20 = *(float*)(v4 + 3632);
 								else
 									v20 =
 									    *(float*)(v4 + 3632) -
-									    (*(float*)&byte_587000[202404] + v16) * 0.1;
+									    (*(float*)&dword_587000_202404 + v16) * 0.1;
 							} else {
 								v20 = *(float*)(v4 + 3632) -
-								      (v16 - *(float*)&byte_587000[202404]) * 0.1;
+								      (v16 - *(float*)&dword_587000_202404) * 0.1;
 							}
-							if (v19 > (double)*(float*)&byte_587000[202404]) {
-								v17 = v19 - *(float*)&byte_587000[202404];
+							if (v19 > (double)*(float*)&dword_587000_202404) {
+								v17 = v19 - *(float*)&dword_587000_202404;
 								goto LABEL_65;
 							}
-							if (-*(float*)&byte_587000[202404] <= v19) {
+							if (-*(float*)&dword_587000_202404 <= v19) {
 								v21 = *(float*)(v4 + 3636);
 							} else {
-								v17 = *(float*)&byte_587000[202404] + v19;
+								v17 = *(float*)&dword_587000_202404 + v19;
 							LABEL_65:
 								v21 = *(float*)(v4 + 3636) - v17 * 0.1;
 							}
