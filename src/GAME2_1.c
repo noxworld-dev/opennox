@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_1064900;
 extern _DWORD dword_5d4594_1062516;
 extern _DWORD dword_587000_80812;
@@ -9110,7 +9111,7 @@ void __cdecl sub_475560_draw(nox_drawable* dr, int a2) {
 	} else if (sub_4757A0_drawable(dr)) {
 		if (nox_drawable_list_4_size < nox_drawable_lists_cap)
 			nox_drawable_list_4[nox_drawable_list_4_size++] = dr;
-	} else if (sub_4757D0_drawable(dr) && (*(_DWORD*)&byte_587000[80836] || dr == *(_DWORD*)&byte_5D4594[2614252] ||
+	} else if (sub_4757D0_drawable(dr) && (dword_587000_80836 || dr == *(_DWORD*)&byte_5D4594[2614252] ||
 					       sub_4984B0_drawable(dr))) {
 		if (!dr->field_122) {
 			if (sub_4984B0_drawable(dr)) {
