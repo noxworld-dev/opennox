@@ -5,6 +5,7 @@
 #include "../gamewin/gamewin.h"
 #include "playrlst.h"
 
+extern _DWORD dword_5d4594_1046524;
 extern _DWORD dword_5d4594_1046356;
 extern _DWORD dword_5d4594_1046540;
 extern _DWORD dword_5d4594_1046536;
@@ -87,7 +88,7 @@ int sub_457500() {
 		dword_5d4594_1046500 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10183);
 		dword_5d4594_1046504 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10197);
 		dword_5d4594_1046508 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10199);
-		*(_DWORD*)&byte_5D4594[1046524] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10150);
+		dword_5d4594_1046524 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10150);
 		dword_5d4594_1046516 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10134);
 		dword_5d4594_1046520 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10135);
 		dword_5d4594_1046536 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10153);
@@ -95,13 +96,13 @@ int sub_457500() {
 		sub_46B070((int)v2, sub_457AA0);
 		v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10333);
 		sub_46B070((int)v3, sub_457B00);
-		sub_46B280(*(int*)&byte_5D4594[1046524], *(int*)&dword_5d4594_1046492);
+		sub_46B280(*(int*)&dword_5d4594_1046524, *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&dword_5d4594_1046532, *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&dword_5d4594_1046536, *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&dword_5d4594_1046500, *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&dword_5d4594_1046504, *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&dword_5d4594_1046508, *(int*)&dword_5d4594_1046492);
-		sub_46B2C0(*(int*)&byte_5D4594[1046524], sub_4585D0);
+		sub_46B2C0(*(int*)&dword_5d4594_1046524, sub_4585D0);
 		sub_46B2C0(*(int*)&dword_5d4594_1046532, sub_4585D0);
 		sub_46B2C0(*(int*)&dword_5d4594_1046536, sub_4585D0);
 		sub_46B2C0(*(int*)&dword_5d4594_1046500, sub_4585D0);
@@ -541,7 +542,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4) {
 				dword_5d4594_1046532 = sub_456270(*(int*)&dword_5d4594_1046492);
 				sub_46ACE0(*(_DWORD**)&dword_5d4594_1046492, 10141, 10141, 1);
 			}
-			nox_window_set_hidden(*(int*)&byte_5D4594[1046524], 1);
+			nox_window_set_hidden(*(int*)&dword_5d4594_1046524, 1);
 			return 1;
 		case 10160:
 			v16 = *(_DWORD*)(a3 + 396);
@@ -564,7 +565,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4) {
 				sub_46ACE0(*(_DWORD**)&dword_5d4594_1046492, 10141, 10141, 0);
 			v17 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10196);
 			nox_window_set_hidden((int)v17, 1);
-			nox_window_set_hidden(*(int*)&byte_5D4594[1046524], 0);
+			nox_window_set_hidden(*(int*)&dword_5d4594_1046524, 0);
 			return 1;
 		case 10161:
 			sub_4593B0(1);
