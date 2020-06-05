@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3821968;
 extern _DWORD dword_5d4594_1599548;
 extern _DWORD dword_5d4594_1599480;
 extern _DWORD dword_5d4594_1599532;
@@ -11754,7 +11755,7 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 	v3 = a3;
 	dword_5d4594_3821964 = a2;
 	v4 = dword_5d4594_1599636;
-	*(_DWORD*)&byte_5D4594[3821968] = a3;
+	dword_5d4594_3821968 = a3;
 	v5 = 48 * index;
 	v6 = 0;
 	v7 = *(_DWORD*)(dword_5d4594_1599636 + 48 * index + 8);
