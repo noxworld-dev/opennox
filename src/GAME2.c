@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831084;
 extern _DWORD dword_5d4594_1046956;
 extern _DWORD dword_5d4594_1047936;
 extern _DWORD dword_5d4594_1046576;
@@ -479,14 +480,14 @@ void sub_44D3A0() {
 				if (!sub_44D660(*(const char**)&dword_5d4594_830872))
 					goto LABEL_29;
 				if (!*(_DWORD*)&byte_587000[122856] || !*(_DWORD*)&byte_587000[93160] ||
-				    *(_DWORD*)&byte_5D4594[831084])
+				    dword_5d4594_831084)
 					goto LABEL_16;
-				*(_DWORD*)&byte_5D4594[831084] = 1;
+				dword_5d4594_831084 = 1;
 				sub_43DBD0();
 				dword_5d4594_830864 = 1;
-			} else if (*(_DWORD*)&byte_5D4594[831084]) {
+			} else if (dword_5d4594_831084) {
 				sub_43DBE0();
-				*(_DWORD*)&byte_5D4594[831084] = 0;
+				dword_5d4594_831084 = 0;
 			}
 			break;
 		case 1:
@@ -517,9 +518,9 @@ void sub_44D3A0() {
 			    !(*(_DWORD*)&byte_5D4594[830880] & 0xFFFF0000)) {
 				sub_44D640();
 				dword_5d4594_830864 = 0;
-				if (*(_DWORD*)&byte_5D4594[831084]) {
+				if (dword_5d4594_831084) {
 					sub_43DBE0();
-					*(_DWORD*)&byte_5D4594[831084] = 0;
+					dword_5d4594_831084 = 0;
 				}
 				if (*(_DWORD*)&byte_5D4594[830972] == dword_5d4594_830872)
 				LABEL_29:
