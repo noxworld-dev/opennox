@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1308108;
 extern _DWORD dword_5d4594_1308120;
 extern _DWORD dword_5d4594_1308156;
 extern _DWORD dword_5d4594_1309764;
@@ -1799,7 +1800,7 @@ int sub_4A5E90() {
 	*(_DWORD*)&byte_5D4594[1308104] = v3;
 	v3[8] = 589825;
 	v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 723);
-	*(_DWORD*)&byte_5D4594[1308108] = v4;
+	dword_5d4594_1308108 = v4;
 	v4[8] = 589825;
 	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 724);
 	*(_DWORD*)&byte_5D4594[1308112] = v5;
@@ -1830,7 +1831,7 @@ int sub_4A5E90() {
 		sub_4A61E0(*(_DWORD**)&byte_5D4594[1308096], 2, (_BYTE*)(dword_5d4594_1307784 + 71));
 		sub_4A61E0(*(_DWORD**)&byte_5D4594[1308100], 1, (_BYTE*)(dword_5d4594_1307784 + 68));
 		sub_4A61E0(*(_DWORD**)&byte_5D4594[1308104], 1, (_BYTE*)(dword_5d4594_1307784 + 74));
-		sub_4A61E0(*(_DWORD**)&byte_5D4594[1308108], 1, (_BYTE*)(dword_5d4594_1307784 + 77));
+		sub_4A61E0(*(_DWORD**)&dword_5d4594_1308108, 1, (_BYTE*)(dword_5d4594_1307784 + 77));
 		sub_4A61E0(*(_DWORD**)&byte_5D4594[1308112], 1, (_BYTE*)(dword_5d4594_1307784 + 80));
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308116] + 32) =
 		    *(unsigned __int8*)(dword_5d4594_1307784 + 83) << 16;
@@ -2319,12 +2320,12 @@ int __cdecl sub_4A6DC0(_DWORD* a1, int a2) {
 	sub_4341D0(1, v8);
 	v9 = *(_DWORD*)&byte_5D4594[1308144];
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1308144] + 4) & 8) {
-		v10 = (unsigned __int16)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308108] + 32) >> 16);
-		v11 = v10 + 32 * *(unsigned __int16*)(*(_DWORD*)&byte_5D4594[1308108] + 32);
+		v10 = (unsigned __int16)(*(_DWORD*)(dword_5d4594_1308108 + 32) >> 16);
+		v11 = v10 + 32 * *(unsigned __int16*)(dword_5d4594_1308108 + 32);
 		LOBYTE(v9) = byte_5D4594[3 * v11 + 1307797];
 		v12 = sub_4344A0(
 		    byte_5D4594[3 * v11 + 1307796], v9,
-		    byte_5D4594[3 * (v10 + 32 * *(unsigned __int16*)(*(_DWORD*)&byte_5D4594[1308108] + 32)) + 1307798]);
+		    byte_5D4594[3 * (v10 + 32 * *(unsigned __int16*)(dword_5d4594_1308108 + 32)) + 1307798]);
 		sub_4341D0(2, v12);
 	} else {
 		sub_4341D0(2, v4);
