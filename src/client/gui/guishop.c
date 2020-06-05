@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "guimsg.h"
+extern _DWORD dword_5d4594_1098616;
 extern _DWORD dword_5d4594_1098604;
 extern _DWORD dword_5d4594_1098592;
 extern _DWORD dword_5d4594_1098580;
@@ -189,7 +190,7 @@ _DWORD* __cdecl sub_479520(int a1) {
 	return sub_452D80(925, 100);
 }
 
-void sub_479680() { *(_DWORD*)&byte_5D4594[1098616] = 0; }
+void sub_479680() { dword_5d4594_1098616 = 0; }
 
 //----- (004795E0) --------------------------------------------------------
 int __cdecl sub_4795E0(int a1, int a2) {
@@ -205,8 +206,8 @@ int __cdecl sub_4795E0(int a1, int a2) {
 
 	v2 = 0;
 	v3 = nox_client_getMousePos_4309F0();
-	result = *(_DWORD*)&byte_5D4594[1098616];
-	if (*(_DWORD*)&byte_5D4594[1098616] != 1) {
+	result = dword_5d4594_1098616;
+	if (dword_5d4594_1098616 != 1) {
 		result = sub_4676D0(a1);
 		v5 = result;
 		if (result) {
@@ -220,7 +221,7 @@ int __cdecl sub_4795E0(int a1, int a2) {
 			v6 = loadString_sub_40F1D0((char*)&byte_587000[153376], 0,
 						   "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1504);
 			result = sub_4C0430((int)v6, v7, v8, a1, v9, v2, v10, 0, sub_479690, (int)&sub_479680);
-			*(_DWORD*)&byte_5D4594[1098616] = 1;
+			dword_5d4594_1098616 = 1;
 		}
 	}
 	return result;
