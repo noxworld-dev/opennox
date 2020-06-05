@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309780;
 extern _DWORD dword_5d4594_1307768;
 extern _DWORD dword_5d4594_1313792;
 extern _DWORD dword_5d4594_1307744;
@@ -4899,7 +4900,7 @@ LPCSTR sub_4AB580() {
 	nox_file_9 = 0;
 	*(_DWORD*)&byte_5D4594[1309764] = 0;
 	*(_DWORD*)&byte_5D4594[1309784] = 0;
-	*(_DWORD*)&byte_5D4594[1309780] = 0;
+	dword_5d4594_1309780 = 0;
 	*(_DWORD*)&byte_5D4594[1309772] = 0;
 	*(_DWORD*)&byte_5D4594[1309768] = 0;
 	*(_DWORD*)&byte_587000[173336] = 1;
@@ -4970,13 +4971,13 @@ int sub_4AB720() {
 
 	fclose(nox_file_9);
 	_unlink(*(LPCSTR*)&byte_5D4594[1309776]);
-	v0 = *(_DWORD*)&byte_5D4594[1309780];
+	v0 = dword_5d4594_1309780;
 	nox_file_9 = 0;
 	*(_DWORD*)&byte_5D4594[1309764] = 0;
 	*(_DWORD*)&byte_587000[173336] = 1;
 	*(_DWORD*)&byte_5D4594[1309772] = 0;
 	*(_DWORD*)&byte_5D4594[1309768] = 0;
-	if (*(_DWORD*)&byte_5D4594[1309780]) {
+	if (dword_5d4594_1309780) {
 		do {
 			v1 = *(_DWORD*)(v0 + 12);
 			free(*(LPVOID*)(v0 + 4));
@@ -4987,7 +4988,7 @@ int sub_4AB720() {
 	if (*(_DWORD*)&byte_5D4594[1309776])
 		free(*(LPVOID*)&byte_5D4594[1309776]);
 	*(_DWORD*)&byte_5D4594[1309784] = 0;
-	*(_DWORD*)&byte_5D4594[1309780] = 0;
+	dword_5d4594_1309780 = 0;
 	sub_4AB560(0);
 	return sub_4AB570(1);
 }
@@ -5021,13 +5022,13 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void* a2, size_t a3) {
 					if (*(_DWORD*)&byte_5D4594[1309784])
 						*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309784] + 12) = v3;
 					*(_DWORD*)&byte_5D4594[1309784] = v3;
-					if (!*(_DWORD*)&byte_5D4594[1309780])
-						*(_DWORD*)&byte_5D4594[1309780] = v3;
+					if (!dword_5d4594_1309780)
+						dword_5d4594_1309780 = v3;
 				}
 			}
 		}
-		v5 = *(unsigned __int16**)&byte_5D4594[1309780];
-		if (*(_DWORD*)&byte_5D4594[1309780]) {
+		v5 = *(unsigned __int16**)&dword_5d4594_1309780;
+		if (dword_5d4594_1309780) {
 			do {
 				if (*(_DWORD*)&byte_587000[173336] == *v5) {
 					fwrite(*((void**)v5 + 1), *((_DWORD*)v5 + 2), 1u, nox_file_9);
@@ -5037,7 +5038,7 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void* a2, size_t a3) {
 					if (v6)
 						*(_DWORD*)(v6 + 12) = *((_DWORD*)v5 + 3);
 					else
-						*(_DWORD*)&byte_5D4594[1309780] = *((_DWORD*)v5 + 3);
+						dword_5d4594_1309780 = *((_DWORD*)v5 + 3);
 					v7 = *((_DWORD*)v5 + 3);
 					if (v7)
 						*(_DWORD*)(v7 + 16) = *((_DWORD*)v5 + 4);
@@ -5119,7 +5120,7 @@ int __cdecl sub_4ABAD0(char* a1, unsigned int a2) {
 	*(_DWORD*)&byte_587000[173336] = 1;
 	*(_DWORD*)&byte_5D4594[1309772] = a2;
 	*(_DWORD*)&byte_5D4594[1309768] = 0;
-	*(_DWORD*)&byte_5D4594[1309780] = 0;
+	dword_5d4594_1309780 = 0;
 	*(_DWORD*)&byte_5D4594[1309784] = 0;
 	if (strchr(a1, 92)) {
 		strcpy(v11, "maps\\");
