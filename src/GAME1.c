@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251744;
 extern _DWORD dword_5d4594_251504;
 extern _DWORD dword_5d4594_251556;
 extern _DWORD dword_5d4594_4808;
@@ -8372,18 +8373,18 @@ void sub_413900(int a1) {
 int sub_413920() {
 	sub_42EBB0(1u, sub_413900, 0, "Pause");
 	sub_42EBB0(2u, sub_4138E0, 0, "Pause");
-	*(_DWORD*)&byte_5D4594[251744] = 0;
+	dword_5d4594_251744 = 0;
 	return 1;
 }
 
 //----- (00413960) --------------------------------------------------------
 void sub_413960() {
-	*(_DWORD*)&byte_5D4594[251744] = 0;
+	dword_5d4594_251744 = 0;
 	sub_413A00(0);
 }
 
 //----- (004139B0) --------------------------------------------------------
-BOOL sub_4139B0() { return *(_DWORD*)&byte_5D4594[251744] != 0; }
+BOOL sub_4139B0() { return dword_5d4594_251744 != 0; }
 
 //----- (00413A00) --------------------------------------------------------
 int __cdecl sub_413A00(int a1) {
@@ -8394,8 +8395,8 @@ int __cdecl sub_413A00(int a1) {
 		if (a1) {
 			result = sub_40A4D0(0x40000);
 		} else {
-			result = *(_DWORD*)&byte_5D4594[251744];
-			if (!*(_DWORD*)&byte_5D4594[251744]) {
+			result = dword_5d4594_251744;
+			if (!dword_5d4594_251744) {
 				nox_common_gameFlags_unset_40A540(0x40000);
 				result = sub_416D40();
 			}
