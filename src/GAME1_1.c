@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_741260;
 extern _DWORD dword_5d4594_534816;
 extern _DWORD dword_5d4594_740072;
 extern _DWORD dword_5d4594_531652;
@@ -10242,11 +10243,11 @@ int __cdecl sub_4278B0(float* a1, float* a2, float* a3) {
 	*(float*)&dword_5d4594_741248 = a1[3] - a1[1];
 	*(float*)&dword_5d4594_741252 = a2[2] - *a2;
 	*(float*)&dword_5d4594_741256 = a2[3] - a2[1];
-	*(float*)&byte_5D4594[741260] = *a2 - *a1;
+	*(float*)&dword_5d4594_741260 = *a2 - *a1;
 	v3 = a2[1] - a1[1];
 	*(float*)&byte_5D4594[741264] = v3;
 	*(float*)&dword_5d4594_741292 =
-	    v3 * *(float*)&dword_5d4594_741244 - *(float*)&byte_5D4594[741260] * *(float*)&dword_5d4594_741248;
+	    v3 * *(float*)&dword_5d4594_741244 - *(float*)&dword_5d4594_741260 * *(float*)&dword_5d4594_741248;
 	v4 = *(float*)&dword_5d4594_741252 * *(float*)&dword_5d4594_741248 -
 	     *(float*)&dword_5d4594_741256 * *(float*)&dword_5d4594_741244;
 	*(float*)&dword_5d4594_741284 = v4;
@@ -10312,11 +10313,11 @@ int __cdecl sub_427980(float4* a1, float4* a2) {
 	*(float*)&dword_5d4594_741248 = a1->field_C - a1->field_4;
 	*(float*)&dword_5d4594_741252 = a2->field_8 - a2->field_0;
 	*(float*)&dword_5d4594_741256 = a2->field_C - a2->field_4;
-	*(float*)&byte_5D4594[741260] = a2->field_0 - a1->field_0;
+	*(float*)&dword_5d4594_741260 = a2->field_0 - a1->field_0;
 	v7 = a2->field_4 - a1->field_4;
 	*(float*)&byte_5D4594[741264] = v7;
 	*(float*)&dword_5d4594_741292 =
-	    v7 * *(float*)&dword_5d4594_741244 - *(float*)&byte_5D4594[741260] * *(float*)&dword_5d4594_741248;
+	    v7 * *(float*)&dword_5d4594_741244 - *(float*)&dword_5d4594_741260 * *(float*)&dword_5d4594_741248;
 	*(float*)&dword_5d4594_741284 = *(float*)&dword_5d4594_741252 * *(float*)&dword_5d4594_741248 -
 					*(float*)&dword_5d4594_741256 * *(float*)&dword_5d4594_741244;
 	if (*(float*)&dword_5d4594_741292 == 0.0 || *(float*)&dword_5d4594_741284 == 0.0 ||
@@ -10327,7 +10328,7 @@ int __cdecl sub_427980(float4* a1, float4* a2) {
 	    (v8 = sub_419A10(*(float*)&dword_5d4594_741292), sub_419A10(*(float*)&dword_5d4594_741284) < v8) ||
 	    (*(_DWORD*)&byte_5D4594[741288] = dword_5d4594_741284,
 	     *(float*)&byte_5D4594[741296] = *(float*)&byte_5D4594[741264] * *(float*)&dword_5d4594_741252 -
-					     *(float*)&byte_5D4594[741260] * *(float*)&dword_5d4594_741256,
+					     *(float*)&dword_5d4594_741260 * *(float*)&dword_5d4594_741256,
 	     *(float*)&byte_5D4594[741296] < 0.0) &&
 		*(float*)&dword_5d4594_741284 > 0.0 ||
 	    *(float*)&byte_5D4594[741296] > 0.0 && *(float*)&dword_5d4594_741284 < 0.0 ||
