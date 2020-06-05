@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_1097208;
 extern _DWORD dword_5d4594_3799552;
 extern _DWORD dword_5d4594_1193648;
@@ -6559,12 +6560,12 @@ int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7
 	if (!((int)result <= *(int*)&byte_5D4594[3807116] && v17 <= *(int*)&byte_5D4594[3807152])) {
 		return result;
 	}
-	if ((int)result < *(int*)&byte_5D4594[3807140]) {
-		if ((int)result + v12 < *(int*)&byte_5D4594[3807140])
+	if ((int)result < *(int*)&dword_5d4594_3807140) {
+		if ((int)result + v12 < *(int*)&dword_5d4594_3807140)
 			return result;
-		v10 = *(int*)&byte_5D4594[3807140] - (int)result;
-		v40 = v12 - (*(int*)&byte_5D4594[3807140] - (int)result);
-		result = *(int**)&byte_5D4594[3807140];
+		v10 = *(int*)&dword_5d4594_3807140 - (int)result;
+		v40 = v12 - (*(int*)&dword_5d4594_3807140 - (int)result);
+		result = *(int**)&dword_5d4594_3807140;
 	}
 	if ((int)result + v40 > *(int*)&byte_5D4594[3807116])
 		v40 = *(int*)&byte_5D4594[3807116] - (int)result;
