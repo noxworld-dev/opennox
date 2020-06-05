@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1062560;
 extern _DWORD dword_5d4594_1049804;
 extern _DWORD dword_5d4594_1062496;
 extern _DWORD dword_5d4594_1063120;
@@ -34,7 +35,7 @@ int __cdecl sub_461660(int a1, int a2, const void* a3) {
 	int v8;      // eax
 	int2 a4;     // [esp+8h] [ebp-8h]
 
-	if (a2 != *(_DWORD*)&byte_5D4594[1062560] && a2 != *(_DWORD*)&byte_5D4594[1049728] &&
+	if (a2 != dword_5d4594_1062560 && a2 != *(_DWORD*)&byte_5D4594[1049728] &&
 	    a2 != *(_DWORD*)&byte_5D4594[1049724] && a2 != *(_DWORD*)&byte_5D4594[1062556] &&
 	    a2 != *(_DWORD*)&byte_5D4594[1062564]) {
 		v3 = sub_461970(a1, a2);
@@ -1335,7 +1336,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 		if (!v37)
 			goto LABEL_119;
 		v38 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1049848] + 108);
-		if (v38 == *(_DWORD*)&byte_5D4594[1062560] || v38 == *(_DWORD*)&byte_5D4594[1049728] ||
+		if (v38 == dword_5d4594_1062560 || v38 == *(_DWORD*)&byte_5D4594[1049728] ||
 		    v38 == *(_DWORD*)&byte_5D4594[1049724] || v38 == *(_DWORD*)&byte_5D4594[1062556] ||
 		    v38 == *(_DWORD*)&byte_5D4594[1062564]) {
 			sub_4649B0(*(int*)&byte_5D4594[1049848], *(int*)&dword_5d4594_1049796,
