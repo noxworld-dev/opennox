@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830872;
 extern _DWORD dword_5d4594_1046516;
 extern _DWORD dword_5d4594_839888;
 extern _DWORD dword_5d4594_832536;
@@ -433,8 +434,8 @@ void sub_44D3A0() {
 	if (*(_DWORD*)&byte_5D4594[831076]) {
 		switch (*(_DWORD*)&byte_5D4594[830864]) {
 		case 0:
-			if (*(_DWORD*)&byte_5D4594[830872] && *(_DWORD*)&byte_587000[122848]) {
-				if (!sub_44D660(*(const char**)&byte_5D4594[830872]))
+			if (dword_5d4594_830872 && *(_DWORD*)&byte_587000[122848]) {
+				if (!sub_44D660(*(const char**)&dword_5d4594_830872))
 					goto LABEL_29;
 				if (!*(_DWORD*)&byte_587000[122856] || !*(_DWORD*)&byte_587000[93160] ||
 				    *(_DWORD*)&byte_5D4594[831084])
@@ -459,12 +460,12 @@ void sub_44D3A0() {
 				goto LABEL_29;
 			}
 			*(_DWORD*)&byte_5D4594[830864] = 3;
-			*(_DWORD*)&byte_5D4594[830972] = *(_DWORD*)&byte_5D4594[830872];
+			*(_DWORD*)&byte_5D4594[830972] = dword_5d4594_830872;
 			*(_DWORD*)&byte_5D4594[830860] = *(_DWORD*)&byte_5D4594[830868];
 			break;
 		case 3:
 			if (!*(_DWORD*)&byte_587000[122848] || !*(_DWORD*)&byte_5D4594[830972] ||
-			    *(_DWORD*)&byte_5D4594[830872] != *(_DWORD*)&byte_5D4594[830972] ||
+			    dword_5d4594_830872 != *(_DWORD*)&byte_5D4594[830972] ||
 			    !dword_5d4594_831088 || AIL_stream_status(dword_5d4594_831088) == 2) {
 				*(_DWORD*)&byte_5D4594[830864] = 4;
 				sub_486350((int)&byte_5D4594[830876], 0);
@@ -479,9 +480,9 @@ void sub_44D3A0() {
 					sub_43DBE0();
 					*(_DWORD*)&byte_5D4594[831084] = 0;
 				}
-				if (*(_DWORD*)&byte_5D4594[830972] == *(_DWORD*)&byte_5D4594[830872])
+				if (*(_DWORD*)&byte_5D4594[830972] == dword_5d4594_830872)
 				LABEL_29:
-					*(_DWORD*)&byte_5D4594[830872] = 0;
+					dword_5d4594_830872 = 0;
 			}
 			break;
 		default:
@@ -591,7 +592,7 @@ int sub_44D8F0() {
 	int result; // eax
 
 	result = 0;
-	*(_DWORD*)&byte_5D4594[830872] = 0;
+	dword_5d4594_830872 = 0;
 	*(_DWORD*)&byte_5D4594[830972] = 0;
 	return result;
 }
@@ -604,7 +605,7 @@ int __cdecl sub_44D900(int a1, int a2) {
 		v2 = a2;
 		if (a2 > 100)
 			v2 = 100;
-		*(_DWORD*)&byte_5D4594[830872] = a1;
+		dword_5d4594_830872 = a1;
 		*(_DWORD*)&byte_5D4594[830868] = v2;
 	}
 	return 1;
@@ -614,7 +615,7 @@ int __cdecl sub_44D900(int a1, int a2) {
 int sub_44D930() {
 	if (!*(_DWORD*)&byte_587000[122848])
 		return 0;
-	if (*(_DWORD*)&byte_5D4594[830872] || dword_5d4594_831088)
+	if (dword_5d4594_830872 || dword_5d4594_831088)
 		return 1;
 	return 0;
 }
