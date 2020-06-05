@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_111668;
 extern _DWORD dword_5d4594_825768;
 extern _DWORD dword_5d4594_825736;
 extern _DWORD dword_587000_93200;
@@ -5594,7 +5595,7 @@ int __cdecl sub_448F00(_DWORD* a1, int a2, int a3, int a4) {
 	if (a2 != 21 || a3 != 28)
 		return sub_487D70(a1, a2, a3, a4);
 	if (a4 == 2) {
-		if (*(_DWORD*)&byte_587000[111668] == 1) {
+		if (dword_587000_111668 == 1) {
 			if (*(_DWORD*)&byte_5D4594[830204] != 1) {
 				sub_448CF0_wol_dialogs();
 				return 1;
@@ -5611,7 +5612,7 @@ int __cdecl sub_448F60(_DWORD* a1, int a2, int a3, int a4) {
 	if (a2 != 21 || a3 != 28)
 		return sub_487D70(a1, a2, a3, a4);
 	if (a4 == 2) {
-		if (*(_DWORD*)&byte_587000[111668] == 1) {
+		if (dword_587000_111668 == 1) {
 			if (*(_DWORD*)&byte_5D4594[830204] != 1) {
 				sub_448CF0_wol_dialogs();
 				return 1;
@@ -5637,7 +5638,7 @@ int __cdecl sub_448FC0(int a1, int a2) {
 	} else {
 		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
 	}
-	if (*(_DWORD*)&byte_587000[111668]) {
+	if (dword_587000_111668) {
 		if (*(_DWORD*)&byte_5D4594[830204] && sub_4160F0(0x12u, 10 * *(_DWORD*)&byte_5D4594[2649704])) {
 			sub_46ABB0(*(int*)&dword_5d4594_830148, 1);
 			*(_DWORD*)&byte_5D4594[830204] = 0;
