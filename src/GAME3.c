@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1308160;
 extern _DWORD dword_5d4594_1309824;
 extern _DWORD dword_5d4594_1308092;
 extern _DWORD dword_5d4594_1307720;
@@ -1771,7 +1772,7 @@ int sub_4A5E90() {
 		if (!strcmp(*i, "StreetPants")) {
 			*(_DWORD*)&byte_5D4594[1308156] = i;
 		} else if (!strcmp(*i, "StreetShirt")) {
-			*(_DWORD*)&byte_5D4594[1308160] = i;
+			dword_5d4594_1308160 = i;
 		} else if (!strcmp(*i, "StreetSneakers")) {
 			dword_5d4594_1308164 = i;
 		}
@@ -2377,10 +2378,10 @@ int __cdecl sub_4A6DC0(_DWORD* a1, int a2) {
 		} else if (v26 == 1024) {
 			v33 = 1;
 			for (j = 3; j < 21; j += 3) {
-				v35 = *(_DWORD*)&byte_5D4594[1308160];
-				LOBYTE(v25) = *(_BYTE*)(*(_DWORD*)&byte_5D4594[1308160] + j + 14);
-				LOBYTE(v23) = *(_BYTE*)(*(_DWORD*)&byte_5D4594[1308160] + j + 13);
-				LOBYTE(v35) = *(_BYTE*)(*(_DWORD*)&byte_5D4594[1308160] + j + 12);
+				v35 = dword_5d4594_1308160;
+				LOBYTE(v25) = *(_BYTE*)(dword_5d4594_1308160 + j + 14);
+				LOBYTE(v23) = *(_BYTE*)(dword_5d4594_1308160 + j + 13);
+				LOBYTE(v35) = *(_BYTE*)(dword_5d4594_1308160 + j + 12);
 				sub_4340A0(v33++, v35, v23, v25);
 			}
 			v36 = ((unsigned __int16)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308120] + 32) >> 16)) +
@@ -2389,14 +2390,14 @@ int __cdecl sub_4A6DC0(_DWORD* a1, int a2) {
 			LOBYTE(v23) = byte_5D4594[3 * v36 + 1307797];
 			LOBYTE(v36) = byte_5D4594[3 * v36 + 1307796];
 			v38 = sub_4344A0(v36, v23, v37);
-			sub_4341D0(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308160] + 40), v38);
+			sub_4341D0(*(_DWORD*)(dword_5d4594_1308160 + 40), v38);
 			v39 = ((unsigned __int16)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308124] + 32) >> 16)) +
 			      32 * *(unsigned __int16*)(*(_DWORD*)&byte_5D4594[1308124] + 32);
 			v40 = byte_5D4594[3 * v39 + 1307798];
 			LOBYTE(v41) = byte_5D4594[3 * v39 + 1307797];
 			LOBYTE(v39) = byte_5D4594[3 * v39 + 1307796];
 			v52 = sub_4344A0(v39, v41, v40);
-			sub_4341D0(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308160] + 44), v52);
+			sub_4341D0(*(_DWORD*)(dword_5d4594_1308160 + 44), v52);
 		} else {
 			if (v26 != 1)
 				goto LABEL_27;
