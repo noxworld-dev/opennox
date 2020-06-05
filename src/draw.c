@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1311936;
 extern _DWORD dword_5d4594_1193672;
 extern _DWORD dword_5d4594_1193624;
 extern _DWORD dword_5d4594_1193664;
@@ -3201,7 +3202,7 @@ int __cdecl sub_4B0340(int a1) // draw general
 	int v12;             // [esp+24h] [ebp-30h]
 	int v13[11];         // [esp+28h] [ebp-2Ch]
 
-	*(_DWORD*)&byte_5D4594[1311936] = 1;
+	dword_5d4594_1311936 = 1;
 	*(_DWORD*)&byte_5D4594[1311932] = a1;
 #ifdef USE_SDL
 	// FIXME
@@ -3312,9 +3313,9 @@ int __cdecl sub_4B0340(int a1) // draw general
 
 //----- (004B05D0) --------------------------------------------------------
 void sub_4B05D0() {
-	if (*(_DWORD*)&byte_5D4594[1311936]) {
+	if (dword_5d4594_1311936) {
 		sub_555500(1);
-		*(_DWORD*)&byte_5D4594[1311936] = 0;
+		dword_5d4594_1311936 = 0;
 		*(_DWORD*)&byte_5D4594[1311928] = 0;
 		if (*(_DWORD*)&byte_5D4594[1311924]) {
 			sub_440900();
