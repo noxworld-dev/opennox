@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1203832;
 extern _DWORD dword_5d4594_1305720;
 extern _DWORD dword_5d4594_1200796;
 extern _DWORD dword_5d4594_1305788;
@@ -2180,7 +2181,7 @@ int sub_495430() {
 	int i;      // edi
 	__int64 v4; // rtt
 
-	*(_DWORD*)&byte_5D4594[1203832] = 0;
+	dword_5d4594_1203832 = 0;
 	nox_client_drawEnableAlpha_434560(0);
 	sub_4345F0(0);
 	sub_434600(0);
@@ -2188,13 +2189,13 @@ int sub_495430() {
 	v1 = dword_5d4594_1203840;
 	result = dword_5d4594_1203836;
 	for (i = nox_win_height / 4 / 36; v1 != dword_5d4594_1203836; v1 = (v1 + 1) % 100) {
-		if (*(_DWORD*)&byte_5D4594[1203832] > i)
+		if (dword_5d4594_1203832 > i)
 			break;
 		if ((unsigned int)(*(_DWORD*)&byte_5D4594[2598000] - *(_DWORD*)&byte_5D4594[24 * v0 + 1201448]) <=
 		    0x5A) {
 			sub_495500((int*)&byte_5D4594[24 * v1 + 1201428]);
 			v0 = dword_5d4594_1203840;
-			++*(_DWORD*)&byte_5D4594[1203832];
+			++dword_5d4594_1203832;
 		} else {
 			v4 = v0 + 1;
 			v0 = (v0 + 1) % 100;
@@ -2322,8 +2323,8 @@ LABEL_28:
 	v13 = v12 + v23 + v21 + 20;
 	v14 = nox_win_width - (v12 + v23 + v21 + 10);
 	v15 = v14 / 2;
-	v16 = 36 * *(_DWORD*)&byte_5D4594[1203832];
-	nox_client_drawRectFilledAlpha_49CF10(v14 / 2 - 5, 36 * *(_DWORD*)&byte_5D4594[1203832], v13, 36);
+	v16 = 36 * dword_5d4594_1203832;
+	nox_client_drawRectFilledAlpha_49CF10(v14 / 2 - 5, 36 * dword_5d4594_1203832, v13, 36);
 	v17 = v16 + (36 - v22) / 2;
 	if (*a1) {
 		sub_434390(*(int*)&byte_5D4594[2597996]);
