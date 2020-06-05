@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1321204;
 extern _DWORD dword_5d4594_805844;
 extern _DWORD dword_5d4594_1522620;
 extern _DWORD dword_5d4594_1316408;
@@ -4630,7 +4631,7 @@ int sub_4C2470() {
 
 	sub_46C4E0(*(_DWORD**)&byte_5D4594[1321044]);
 	*(_DWORD*)&byte_5D4594[1321044] = 0;
-	*(_DWORD*)&byte_5D4594[1321204] = 0;
+	dword_5d4594_1321204 = 0;
 	sub_452D80(920, 100);
 	result = dword_5d4594_1321040;
 	*(_DWORD*)(dword_5d4594_1321040 + 36) &= 0xFFFFFFFD;
@@ -4649,7 +4650,7 @@ int __cdecl sub_4C24B0(int a1, int a2, unsigned int a3) {
 	case 6:
 		return 1;
 	case 7:
-		*(_DWORD*)&byte_5D4594[1321204] = 0;
+		dword_5d4594_1321204 = 0;
 		a1a.field_4 = a3 >> 16;
 		a1a.field_0 = (unsigned __int16)a3;
 		sub_4C2560(&a1a);
@@ -4722,8 +4723,8 @@ int __cdecl sub_4C2A60(int a1, unsigned int a2) {
 			result = *(_DWORD*)(a1 + 32);
 			if (result == 2)
 				return 1;
-			if (*(_DWORD*)&byte_5D4594[1321204]) {
-				*(_WORD*)((char*)&a2 + 1) = **(_WORD**)&byte_5D4594[1321204];
+			if (dword_5d4594_1321204) {
+				*(_WORD*)((char*)&a2 + 1) = **(_WORD**)&dword_5d4594_1321204;
 			} else {
 				if (result == 1)
 					return result;
@@ -4757,8 +4758,8 @@ int __cdecl sub_4C2B10(_DWORD* a1, unsigned int a2, unsigned int a3) {
 			nox_client_wndGetPosition_46AA60(a1, &a2, &a3);
 			a1a.field_0 = (v5.field_0 - (int)a2) / 38;
 			a1a.field_4 = (v5.field_4 - (int)a3) / 38;
-			*(_DWORD*)&byte_5D4594[1321204] = sub_4C2410(&a1a);
-			if (*(_DWORD*)&byte_5D4594[1321204])
+			dword_5d4594_1321204 = sub_4C2410(&a1a);
+			if (dword_5d4594_1321204)
 				sub_4C2560(&v5);
 			return 1;
 		}
@@ -5103,7 +5104,7 @@ int* __cdecl sub_4C3140(int a1, void* a2) {
 	result = (int*)sub_4C31D0(a1);
 	v3 = result;
 	if (result) {
-		if (result == *(int**)&byte_5D4594[1321204])
+		if (result == *(int**)&dword_5d4594_1321204)
 			sub_4C2470();
 		v4 = sub_45A6F0(a1);
 		if (v4)
