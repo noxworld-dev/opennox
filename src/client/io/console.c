@@ -1,4 +1,5 @@
 #include "../../proto.h"
+extern _DWORD dword_5d4594_823776;
 
 FILE* nox_file_log = 0;
 
@@ -65,7 +66,7 @@ void sub_4516C0(unsigned short* a1, ...) {
 	nullsub_4(v2, &byte_5D4594[833752], v3, 0);
 	fprintf(nox_file_log, "exiting..\n");
 	fclose(nox_file_log);
-	if (*(unsigned int*)&byte_5D4594[823776])
+	if (*(unsigned int*)&dword_5d4594_823776)
 		sub_430EF0();
 	sub_4453A0_poll_events();
 	sub_4453A0_poll_events();

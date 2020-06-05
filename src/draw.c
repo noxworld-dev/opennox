@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_823776;
 extern _DWORD dword_5d4594_3798780;
 extern _DWORD dword_5d4594_1193704;
 extern _DWORD dword_5d4594_3804668;
@@ -2183,7 +2184,7 @@ void sub_433C20() {
 
 //----- (00444930) --------------------------------------------------------
 int __cdecl sub_444930(HWND wnd, int w, int h, int depth, int flags) {
-	*(_DWORD*)&byte_5D4594[823776] = 0;
+	dword_5d4594_823776 = 0;
 	ptr_5D4594_3799572 = &obj_5D4594_3799660;
 	int result = sub_4449D0(wnd, w, h, depth, flags);
 	printf("%s: %d\n", __FUNCTION__, result);
@@ -2201,14 +2202,14 @@ int __cdecl sub_444930(HWND wnd, int w, int h, int depth, int flags) {
 #endif
 	}
 	result = 1;
-	*(_DWORD*)&byte_5D4594[823776] = 1;
+	dword_5d4594_823776 = 1;
 	++*(_DWORD*)&byte_5D4594[823772];
 	return 1;
 }
 
 //----- (00444C50) --------------------------------------------------------
 void sub_444C50() {
-	if (*(_DWORD*)&byte_5D4594[823776]) {
+	if (dword_5d4594_823776) {
 		nox_video_stopCursorDrawThread_48B350();
 		nullsub_6();
 		sub_486110();
@@ -2231,7 +2232,7 @@ void sub_444C50() {
 		nullsub_16();
 		sub_49F4D0();
 		windowHandle_dword_973FE0 = 0;
-		*(_DWORD*)&byte_5D4594[823776] = 0;
+		dword_5d4594_823776 = 0;
 		if (*(_DWORD*)&byte_5D4594[823780]) {
 			DeleteCriticalSection((LPCRITICAL_SECTION)&byte_5D4594[3799596]);
 			*(_DWORD*)&byte_5D4594[823780] = 0;
@@ -3328,7 +3329,7 @@ int __cdecl nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	int v3;     // esi
 
 	result = 0;
-	if (!*(_DWORD*)&byte_5D4594[1193708] && nox_video_drawCursorThreadOk && *(_DWORD*)&byte_5D4594[823776] &&
+	if (!*(_DWORD*)&byte_5D4594[1193708] && nox_video_drawCursorThreadOk && dword_5d4594_823776 &&
 	    nox_video_cursorDrawIsThreaded && *(_DWORD*)&byte_5D4594[1193672] && *(_DWORD*)&byte_5D4594[1193108] &&
 	    *(_DWORD*)&byte_5D4594[787144]) {
 		*(_DWORD*)&byte_5D4594[1193708] = 1;
