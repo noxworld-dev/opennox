@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798712;
 extern _DWORD dword_587000_54276;
 extern _DWORD dword_5d4594_1303536;
 extern _DWORD dword_5d4594_1197308;
@@ -6689,10 +6690,10 @@ void __cdecl nox_client_drawBorderLines_49CC70(int xLeft, int yTop, int a3, int 
 				v4 = xLeft + a3 - 1;
 				(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798720)(xLeft, yTop, v4);
 				v5 = yTop + a4 - 1;
-				(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & byte_5D4594[3798712])(v4, yTop + 1, v5);
+				(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798712)(v4, yTop + 1, v5);
 				(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798720)(xLeft, v5,
 												    xLeft + a3 - 2);
-				(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & byte_5D4594[3798712])(xLeft, yTop + 1,
+				(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798712)(xLeft, yTop + 1,
 												    yTop + a4 - 2);
 			}
 		}
@@ -8049,7 +8050,7 @@ int nox_video_initLineDrawingFuncs_49E3F0() {
 		*(_DWORD*)&byte_5D4594[3798704] = sub_49ED80;
 		dword_5d4594_3798720 = sub_49F060;
 		*(_DWORD*)&byte_5D4594[3798708] = sub_49F0F0;
-		*(_DWORD*)&byte_5D4594[3798712] = sub_49F3A0;
+		dword_5d4594_3798712 = sub_49F3A0;
 		return 1;
 	}
 	if (dword_5d4594_3801780 != 1)
@@ -8058,7 +8059,7 @@ int nox_video_initLineDrawingFuncs_49E3F0() {
 	*(_DWORD*)&byte_5D4594[3798708] = sub_49F210;
 	if (!dword_5d4594_3801804)
 		*(_DWORD*)&byte_5D4594[3798708] = sub_49F180;
-	*(_DWORD*)&byte_5D4594[3798712] = sub_49F420;
+	dword_5d4594_3798712 = sub_49F420;
 	dword_5d4594_3798716 = sub_49E930;
 	*(_DWORD*)&byte_5D4594[3798700] = sub_49F010;
 	*(_DWORD*)&byte_5D4594[3798704] = sub_49ED80;
@@ -8131,7 +8132,7 @@ int __cdecl sub_49E540(int a1) {
 				v3 = v26;
 				v4 = v24;
 				if (v26 == v25) {
-					(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & byte_5D4594[3798712])(v26, v24,
+					(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798712)(v26, v24,
 													    v23);
 				} else if (v24 == v23) {
 					(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798720)(v26, v24,
@@ -8398,7 +8399,7 @@ int __cdecl sub_49E930(int a1) {
 				v2 = dword_5d4594_3798784;
 				v3 = v24;
 				if (v26 == v25) {
-					(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & byte_5D4594[3798712])(v26, v24,
+					(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798712)(v26, v24,
 													    v23);
 				} else if (v24 == v23) {
 					(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798720)(v26, v24,
