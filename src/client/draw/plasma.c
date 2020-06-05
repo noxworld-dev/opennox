@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "fx.h"
+extern _DWORD dword_5d4594_1316408;
 
 //----- (004BA230) --------------------------------------------------------
 int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
@@ -70,9 +71,9 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 	}
 	sub_4BA670(a1, a2, a3, a4, a5);
 	for (i = 0; i < 3; ++i) {
-		result = *(_DWORD*)&byte_5D4594[1316408];
+		result = dword_5d4594_1316408;
 		v10 = 0;
-		if (*(int*)&byte_5D4594[1316408] + 1 <= 0)
+		if (*(int*)&dword_5d4594_1316408 + 1 <= 0)
 			continue;
 		do {
 			v11 = 28 * (30 * i + v10);
@@ -127,9 +128,9 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 					}
 				}
 			}
-			result = *(_DWORD*)&byte_5D4594[1316408];
+			result = dword_5d4594_1316408;
 			++v10;
-		} while (v10 < *(int*)&byte_5D4594[1316408] + 1);
+		} while (v10 < *(int*)&dword_5d4594_1316408 + 1);
 		v5 = 0;
 	}
 	for (j = 0; j < 3; ++j) {
@@ -167,10 +168,10 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 					sub_4BEAD0(&a1a, &a2a, &a3a, &a4a, 8, 1);
 				else
 					sub_4BEAD0(&a1a, &a2a, &a3a, &a4a, 8, 0);
-				result = *(_DWORD*)&byte_5D4594[1316408];
+				result = dword_5d4594_1316408;
 				++v5;
 				v17 += 28;
-			} while (v5 < *(int*)&byte_5D4594[1316408]);
+			} while (v5 < *(int*)&dword_5d4594_1316408);
 			v5 = 0;
 		}
 	}
