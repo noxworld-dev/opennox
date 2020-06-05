@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_806048;
 extern _DWORD dword_587000_87408;
 extern _DWORD dword_5d4594_3798812;
 extern _DWORD dword_5d4594_3798800;
@@ -6187,7 +6188,7 @@ int sub_431390() {
 	if (dword_5d4594_806044 || (result = nox_new_alloc_class("ScreenParticles", 52, 2000),
 					       (dword_5d4594_806044 = result) != 0)) {
 		sub_4144D0((_DWORD*)result);
-		*(_DWORD*)&byte_5D4594[806048] = 0;
+		dword_5d4594_806048 = 0;
 		*(_DWORD*)&byte_5D4594[806052] = 0;
 		sub_4313E0();
 		result = 1;
@@ -6218,7 +6219,7 @@ void sub_4314D0() {
 	if (dword_5d4594_806044)
 		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_806044);
 	dword_5d4594_806044 = 0;
-	*(_DWORD*)&byte_5D4594[806048] = 0;
+	dword_5d4594_806048 = 0;
 	*(_DWORD*)&byte_5D4594[806052] = 0;
 }
 
@@ -6226,7 +6227,7 @@ void sub_4314D0() {
 int sub_431510() {
 	if (dword_5d4594_806044)
 		sub_4144D0(*(_DWORD**)&dword_5d4594_806044);
-	*(_DWORD*)&byte_5D4594[806048] = 0;
+	dword_5d4594_806048 = 0;
 	*(_DWORD*)&byte_5D4594[806052] = 0;
 	return sub_4313E0();
 }
@@ -6299,13 +6300,13 @@ int __cdecl sub_431680(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)(a1 + 44) = *(_DWORD*)&byte_5D4594[806048];
+	*(_DWORD*)(a1 + 44) = dword_5d4594_806048;
 	*(_DWORD*)(a1 + 48) = 0;
-	if (*(_DWORD*)&byte_5D4594[806048])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[806048] + 48) = a1;
+	if (dword_5d4594_806048)
+		*(_DWORD*)(dword_5d4594_806048 + 48) = a1;
 	else
 		*(_DWORD*)&byte_5D4594[806052] = a1;
-	*(_DWORD*)&byte_5D4594[806048] = a1;
+	dword_5d4594_806048 = a1;
 	return result;
 }
 
@@ -6326,7 +6327,7 @@ int __cdecl sub_4316C0(int a1) {
 		result = *(_DWORD*)(a1 + 44);
 		*(_DWORD*)(v3 + 44) = result;
 	} else {
-		*(_DWORD*)&byte_5D4594[806048] = *(_DWORD*)(a1 + 44);
+		dword_5d4594_806048 = *(_DWORD*)(a1 + 44);
 	}
 	return result;
 }
@@ -6344,8 +6345,8 @@ void __cdecl sub_431720(int* a1) {
 
 	if (a1) {
 		sub_430B50(*a1, a1[1], a1[2], a1[3]);
-		v1 = *(_DWORD*)&byte_5D4594[806048];
-		if (*(_DWORD*)&byte_5D4594[806048]) {
+		v1 = dword_5d4594_806048;
+		if (dword_5d4594_806048) {
 			do {
 				dword_5d4594_3799524 = 1;
 				v2 = *(_DWORD*)(v1 + 44);
