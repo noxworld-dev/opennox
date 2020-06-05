@@ -1,6 +1,7 @@
 #include "spelllst.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1045508;
 extern _DWORD dword_5d4594_1045480;
 extern _DWORD dword_5d4594_1045484;
 extern _DWORD dword_5d4594_2650652;
@@ -24,10 +25,10 @@ int __cdecl sub_453850(int a1) {
 	sub_46B120(*(_DWORD**)&dword_5d4594_1045484, a1);
 	sub_46B280(*(int*)&dword_5d4594_1045484, a1);
 	dword_5d4594_1045480 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1110);
-	*(_DWORD*)&byte_5D4594[1045508] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1112);
+	dword_5d4594_1045508 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1112);
 	sub_453B00();
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16399, 0, 0);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1045508], 16399, 0, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16399, 0, 0);
 	v1 = 1;
 	do {
 		if (sub_424B50(v1)) {
@@ -56,7 +57,7 @@ int __cdecl sub_453850(int a1) {
 						nox_wcscat(v12, v6);
 					}
 				}
-				nox_window_call_field_94(*(int*)&byte_5D4594[1045508], 16397, (int)v12, -1);
+				nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16397, (int)v12, -1);
 				v8 = (const wchar_t*)sub_424930(v1);
 				nox_wcsncpy(v12, v8, 0x3Fu);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16397, (int)v12, -1);
@@ -67,10 +68,10 @@ int __cdecl sub_453850(int a1) {
 	} while (v1 < 137);
 	v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16408, (int)v9, 0);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1045508], 16408, (int)v9, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16408, (int)v9, 0);
 	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1114);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16409, (int)v10, 0);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1045508], 16409, (int)v10, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16409, (int)v10, 0);
 	sub_454040(&byte_5D4594[1045488]);
 	sub_454120();
 	if (!nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152))
@@ -104,7 +105,7 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 		if (a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113) ||
 		    a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1114)) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 0x4000, (int)a3, 0);
-			nox_window_call_field_94(*(int*)&byte_5D4594[1045508], 0x4000, (int)a3, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 0x4000, (int)a3, 0);
 		LABEL_37:
 			sub_454120();
 		}
@@ -119,7 +120,7 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 	case 1113:
 	case 1114:
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 0x4000, (int)v3, 0);
-		nox_window_call_field_94(*(int*)&byte_5D4594[1045508], 0x4000, (int)v3, 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 0x4000, (int)v3, 0);
 		goto LABEL_37;
 	case 1115:
 	case 1116:
