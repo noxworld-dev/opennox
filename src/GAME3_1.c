@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1316704;
 extern _DWORD dword_5d4594_3799488;
 extern _DWORD dword_5d4594_1321208;
 extern _DWORD dword_587000_80832;
@@ -2157,13 +2158,13 @@ int __cdecl sub_4BDC70(int* a1) {
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1316708, 10167);
 		v1[9] |= 4u;
-		*(_DWORD*)&byte_5D4594[1316704] = 0;
+		dword_5d4594_1316704 = 0;
 	} else {
 		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1316708, 10164);
 		v2[9] |= 4u;
 		v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1316708, 10167);
 		sub_46ABB0((int)v3, 0);
-		*(_DWORD*)&byte_5D4594[1316704] = 1;
+		dword_5d4594_1316704 = 1;
 	}
 	sub_453F70(a1 + 6);
 	sub_4535E0(a1 + 11);
@@ -2176,7 +2177,7 @@ int sub_4BDD10() {
 	int v1;   // eax
 	char* v2; // eax
 
-	switch (*(_DWORD*)&byte_5D4594[1316704]) {
+	switch (dword_5d4594_1316704) {
 	case 0:
 		v2 = sub_4165B0();
 		v1 = sub_4CEBA0(*(int*)&dword_5d4594_1316708, v2);
@@ -2226,7 +2227,7 @@ int __cdecl sub_4BDDB0(int a1, int a2, int* a3, int a4) {
 			sub_46C4E0(*(_DWORD**)&dword_5d4594_1316712);
 			dword_5d4594_1316712 = 0;
 		}
-		*(_DWORD*)&byte_5D4594[1316704] = 1;
+		dword_5d4594_1316704 = 1;
 		sub_4BDD10();
 		result = 1;
 		break;
@@ -2235,7 +2236,7 @@ int __cdecl sub_4BDDB0(int a1, int a2, int* a3, int a4) {
 			sub_46C4E0(*(_DWORD**)&dword_5d4594_1316712);
 			dword_5d4594_1316712 = 0;
 		}
-		*(_DWORD*)&byte_5D4594[1316704] = 2;
+		dword_5d4594_1316704 = 2;
 		sub_4BDD10();
 		result = 1;
 		break;
@@ -2244,7 +2245,7 @@ int __cdecl sub_4BDDB0(int a1, int a2, int* a3, int a4) {
 			sub_46C4E0(*(_DWORD**)&dword_5d4594_1316712);
 			dword_5d4594_1316712 = 0;
 		}
-		*(_DWORD*)&byte_5D4594[1316704] = 3;
+		dword_5d4594_1316704 = 3;
 		sub_4BDD10();
 		result = 1;
 		break;
@@ -2253,7 +2254,7 @@ int __cdecl sub_4BDDB0(int a1, int a2, int* a3, int a4) {
 			sub_46C4E0(*(_DWORD**)&dword_5d4594_1316712);
 			dword_5d4594_1316712 = 0;
 		}
-		*(_DWORD*)&byte_5D4594[1316704] = 0;
+		dword_5d4594_1316704 = 0;
 		sub_4BDD10();
 		result = 1;
 		break;
@@ -2296,7 +2297,7 @@ int __cdecl sub_4BDF90(int* a1) {
 	sub_453F70(a1 + 6);
 	sub_4535E0(a1 + 11);
 	sub_4535F0(a1[12]);
-	result2 = *(int (**)(void)) & byte_587000[4 * *(_DWORD*)&byte_5D4594[1316704] + 180016];
+	result2 = *(int (**)(void)) & byte_587000[4 * dword_5d4594_1316704 + 180016];
 	if (result2)
 		result = result2();
 	return result;
