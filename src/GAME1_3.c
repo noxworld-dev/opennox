@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816376;
 extern _DWORD dword_587000_111668;
 extern _DWORD dword_5d4594_825768;
 extern _DWORD dword_5d4594_825736;
@@ -1369,7 +1370,7 @@ int __cdecl sub_43D6C0(int* a1) {
 	v1 = *(const char**)&byte_587000[4 * *a1 + 92792];
 	sub_43D650();
 	*(_DWORD*)&byte_587000[93160] = 0;
-	if (!*(_DWORD*)&byte_5D4594[816376])
+	if (!dword_5d4594_816376)
 		return 0;
 	strcpy(v8, "music\\");
 	strcat(v8, v1);
@@ -1379,7 +1380,7 @@ int __cdecl sub_43D6C0(int* a1) {
 		*(_DWORD*)v3 = *(_DWORD*)&byte_587000[93180];
 		v3[4] = v2;
 	}
-	v4 = AIL_open_stream(*(_DWORD*)&byte_5D4594[816376], v8, 204800);
+	v4 = AIL_open_stream(dword_5d4594_816376, v8, 204800);
 	if (!v4) {
 		if (*(_DWORD*)&byte_587000[122856] && sub_44D930())
 			return 0;
@@ -1393,7 +1394,7 @@ int __cdecl sub_43D6C0(int* a1) {
 		if (v6 != 1 && v8[v6 + 38] != 92)
 			*(_WORD*)&v8[strlen(&v8[40]) + 40] = *(_WORD*)&byte_587000[93188];
 		strcat(&v8[40], v8);
-		v4 = AIL_open_stream(*(_DWORD*)&byte_5D4594[816376], &v8[40], 204800);
+		v4 = AIL_open_stream(dword_5d4594_816376, &v8[40], 204800);
 		if (!v4)
 			return 0;
 	}
@@ -1422,7 +1423,7 @@ int sub_43D8E0() {
 	if (dword_5d4594_816340)
 		return 1;
 	v1 = sub_43F130();
-	*(_DWORD*)&byte_5D4594[816376] = v1;
+	dword_5d4594_816376 = v1;
 	dword_587000_93156 = v1 != 0;
 	sub_4864A0(&byte_5D4594[816148]);
 	sub_486380(&byte_5D4594[816148], 0x3E8u, 0, 0x4000);
@@ -1595,8 +1596,8 @@ void sub_43DC00() { dword_587000_93156 = 0; }
 int sub_43DC10() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[816376];
-	if (*(_DWORD*)&byte_5D4594[816376])
+	result = dword_5d4594_816376;
+	if (dword_5d4594_816376)
 		dword_587000_93156 = 1;
 	return result;
 }
