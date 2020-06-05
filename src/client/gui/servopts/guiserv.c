@@ -5,6 +5,7 @@
 #include "../gamewin/gamewin.h"
 #include "playrlst.h"
 
+extern _DWORD dword_5d4594_1046540;
 extern _DWORD dword_5d4594_1046536;
 extern _DWORD dword_5d4594_1046528;
 extern _DWORD dword_5d4594_1046500;
@@ -555,7 +556,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4) {
 			}
 			if (dword_5d4594_1046536) {
 				sub_4AD820();
-				*(_DWORD*)&byte_5D4594[1046540] = 0;
+				dword_5d4594_1046540 = 0;
 			}
 			sub_46ACE0(*(_DWORD**)&dword_5d4594_1046492, 10161, 10163, 1);
 			if (nox_common_gameFlags_check_40A5C0(1))
