@@ -3,6 +3,7 @@
 #include "../../../proto.h"
 #include "../console.h"
 
+extern _DWORD dword_5d4594_3798780;
 extern _DWORD dword_5d4594_3801808;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
@@ -24,7 +25,7 @@ int sub_430F00_screenshot() {
 		return sub_4517A0(v2, path);
 	}
 	fprintf(file, "P3\n#Nox Bitmap data\n640 480 256\n");
-	v4 = *(_DWORD*)&byte_5D4594[3798780];
+	v4 = dword_5d4594_3798780;
 	for (int v5 = nox_backbuffer_height; v5 > 0; v5--) {
 		for (int v7 = 0; v7 < nox_backbuffer_width; v7++) {
 			if (v7 != 0 && (v7 % 60) == 0)

@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798780;
 extern _DWORD dword_5d4594_1193704;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_1193584;
@@ -3234,8 +3235,8 @@ int __cdecl sub_4B0340(int a1) // draw general
 		v13[0] = windowHandle_dword_973FE0;
 		v13[4] = g_backbuffer1;
 		v13[2] = g_ddraw;
-		v13[5] = *(_DWORD*)&byte_5D4594[3798780];
-		v13[6] = *(_DWORD*)&byte_5D4594[3798780];
+		v13[5] = dword_5d4594_3798780;
+		v13[6] = dword_5d4594_3798780;
 		v13[3] = g_frontbuffer;
 		v13[7] = nox_backbuffer_width;
 		v13[8] = nox_backbuffer_height;
