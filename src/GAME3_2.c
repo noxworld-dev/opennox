@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2649712;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_3835396;
 extern _DWORD dword_5d4594_1523024;
@@ -1906,7 +1907,7 @@ int sub_4D1660() {
 	int v1;     // eax
 
 	sub_4D15C0();
-	*(_DWORD*)&byte_5D4594[2649712] = 2147483648;
+	dword_5d4594_2649712 = 2147483648;
 	dword_5d4594_3843628 = 0;
 	sub_4D7B40();
 	sub_41E4B0(0);
@@ -2027,7 +2028,7 @@ int sub_4D23C0() {
 
 	for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
 		if (*((_DWORD*)i + 514)) {
-			*(_DWORD*)&byte_5D4594[2649712] &= ~(1 << i[2064]);
+			dword_5d4594_2649712 &= ~(1 << i[2064]);
 			v2 = *((_DWORD*)i + 514);
 			i[3676] = 2;
 			sub_4EF7D0(v2, 1, 0);
@@ -9037,7 +9038,7 @@ int __cdecl sub_4DDF60(int a1) {
 	}
 	sub_57B920(v2 + 16);
 	v13 = *((_DWORD*)v2 + 514);
-	*(_DWORD*)&byte_5D4594[2649712] |= 1 << v1;
+	dword_5d4594_2649712 |= 1 << v1;
 	v4 = *(_DWORD*)(v13 + 56);
 	v5 = *(_DWORD*)(v13 + 60);
 	sub_4DE300(v1);
@@ -9292,7 +9293,7 @@ char __cdecl sub_4DE530(int a1, char a2) {
 		v11 = v13;
 		*(_DWORD*)(v4 + 2140) = 0;
 		*(_DWORD*)(v4 + 2136) = 0;
-		*(_DWORD*)&byte_5D4594[2649712] &= ~v11;
+		dword_5d4594_2649712 &= ~v11;
 		*(_BYTE*)(v4 + 3676) = 2;
 		result = sub_417530(v4, 16);
 	}
