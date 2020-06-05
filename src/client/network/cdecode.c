@@ -20,6 +20,7 @@
 #include "../gui/servopts/playrlst.h"
 #include "../shell/noxworld.h"
 #include "inform.h"
+extern _DWORD dword_5d4594_1200768;
 extern _DWORD dword_587000_312796;
 extern _DWORD dword_587000_54276;
 extern _DWORD dword_587000_312812;
@@ -2460,7 +2461,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v3 += 3;
 			break;
 		case 0xAFu:
-			*(_DWORD*)&byte_5D4594[1200768] = 0;
+			dword_5d4594_1200768 = 0;
 			v34 = *(_DWORD*)(v3 + 1);
 			if (sub_40A350() < v34) {
 				sub_40A340(v34);
@@ -2477,7 +2478,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					v35 = sub_416590(0);
 					if (v35[56] != *(_BYTE*)(v3 + 19) ||
 					    *((_WORD*)v35 + 27) != *(unsigned __int8*)(v3 + 18))
-						*(_DWORD*)&byte_5D4594[1200768] = 1;
+						dword_5d4594_1200768 = 1;
 					*((_WORD*)v35 + 27) = *(unsigned __int8*)(v3 + 18);
 					v35[56] = *(_BYTE*)(v3 + 19);
 					if ((signed char)*(_BYTE*)(v3 + 9) >= 0) {
@@ -2513,10 +2514,10 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				v37 = sub_416590(0);
 				strncpy(v37 + 9, (const char*)(v3 + 1), 0xFu);
 				if (memcmp(&byte_5D4594[1200732], (const void*)(v3 + 17), 0x14u))
-					*(_DWORD*)&byte_5D4594[1200768] = 1;
+					dword_5d4594_1200768 = 1;
 				if (*(_DWORD*)&byte_5D4594[1200752] != *(_DWORD*)(v3 + 37) ||
 				    *(_DWORD*)&byte_5D4594[1200756] != *(_DWORD*)(v3 + 41)) {
-					*(_DWORD*)&byte_5D4594[1200768] = 1;
+					dword_5d4594_1200768 = 1;
 				}
 				qmemcpy(v37 + 24, (const void*)(v3 + 17), 0x14u);
 				sub_4540E0((int)(v37 + 24));
@@ -2529,7 +2530,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					sub_40A1F0(0);
 				}
 				qmemcpy(&byte_5D4594[1200708], v37, 0x3Au);
-				if (nox_client_isConnected_43C700() && *(_DWORD*)&byte_5D4594[1200768]) {
+				if (nox_client_isConnected_43C700() && dword_5d4594_1200768) {
 					v38 =
 					    loadString_sub_40F1D0((char*)&byte_587000[157156], 0,
 								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 1429);
