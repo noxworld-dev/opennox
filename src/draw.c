@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193524;
 extern _DWORD dword_5d4594_1193648;
 extern _DWORD dword_5d4594_3798728;
 extern _DWORD dword_5d4594_808568;
@@ -1575,7 +1576,7 @@ int nox_video_initCursorDrawVars_48B1F0() {
 	*(_DWORD*)&byte_5D4594[1193640] = 0;
 	*(_DWORD*)&byte_5D4594[1193628] = 0;
 	dword_5d4594_1193648 = 0;
-	*(_DWORD*)&byte_5D4594[1193524] = 0;
+	dword_5d4594_1193524 = 0;
 	*(_DWORD*)&byte_5D4594[1193580] = 0;
 	*(_DWORD*)&byte_5D4594[1193636] = 0;
 	*(_DWORD*)&byte_5D4594[1193600] = 0;
@@ -1649,7 +1650,7 @@ int sdl_drawCursorThreaded(int a1) {
 
 	r1->left = dword_5d4594_1193648 - *(_DWORD*)&byte_5D4594[1193580];
 	r1->right = r1->left + *(_DWORD*)&byte_5D4594[1193600];
-	r1->top = *(_DWORD*)&byte_5D4594[1193524] - *(_DWORD*)&byte_5D4594[1193636];
+	r1->top = dword_5d4594_1193524 - *(_DWORD*)&byte_5D4594[1193636];
 	r1->bottom = r1->top + *(_DWORD*)&byte_5D4594[1193620];
 
 	if ((!a1 || dword_5d4594_1193668 || *(_DWORD*)&byte_5D4594[1193664]) &&
@@ -1747,8 +1748,8 @@ int __cdecl sub_48B840(int a1)
     *(_DWORD*)& byte_5D4594[1193540] = *(_DWORD*)& dword_5d4594_1193648
         - *(_DWORD*)& byte_5D4594[1193580]
         + *(_DWORD*)& byte_5D4594[1193600];
-    *(_DWORD*)& byte_5D4594[1193536] = *(_DWORD*)& byte_5D4594[1193524] - *(_DWORD*)& byte_5D4594[1193636];
-    *(_DWORD*)& byte_5D4594[1193544] = *(_DWORD*)& byte_5D4594[1193524]
+    *(_DWORD*)& byte_5D4594[1193536] = *(_DWORD*)& dword_5d4594_1193524 - *(_DWORD*)& byte_5D4594[1193636];
+    *(_DWORD*)& byte_5D4594[1193544] = *(_DWORD*)& dword_5d4594_1193524
         - *(_DWORD*)& byte_5D4594[1193636]
         + *(_DWORD*)& byte_5D4594[1193620];
     if ((!a1 || *(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& byte_5D4594[1193664])
@@ -1826,8 +1827,8 @@ int __cdecl sub_48BA50(int a1)
     *(_DWORD*)& byte_5D4594[1193540] = *(_DWORD*)& dword_5d4594_1193648
         - *(_DWORD*)& byte_5D4594[1193580]
         + *(_DWORD*)& byte_5D4594[1193600];
-    *(_DWORD*)& byte_5D4594[1193536] = *(_DWORD*)& byte_5D4594[1193524] - *(_DWORD*)& byte_5D4594[1193636];
-    *(_DWORD*)& byte_5D4594[1193544] = *(_DWORD*)& byte_5D4594[1193524]
+    *(_DWORD*)& byte_5D4594[1193536] = *(_DWORD*)& dword_5d4594_1193524 - *(_DWORD*)& byte_5D4594[1193636];
+    *(_DWORD*)& byte_5D4594[1193544] = *(_DWORD*)& dword_5d4594_1193524
         - *(_DWORD*)& byte_5D4594[1193636]
         + *(_DWORD*)& byte_5D4594[1193620];
     if ((!a1 || *(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& byte_5D4594[1193664])
@@ -2591,9 +2592,9 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3) {
 	if (nox_video_cursorDrawIsThreaded) {
 		EnterCriticalSection((LPCRITICAL_SECTION)&byte_5D4594[3799596]);
 		*(_DWORD*)&byte_5D4594[1193640] = dword_5d4594_1193648;
-		*(_DWORD*)&byte_5D4594[1193628] = *(_DWORD*)&byte_5D4594[1193524];
+		*(_DWORD*)&byte_5D4594[1193628] = dword_5d4594_1193524;
 		dword_5d4594_1193648 = a2;
-		*(_DWORD*)&byte_5D4594[1193524] = a3;
+		dword_5d4594_1193524 = a3;
 		if (a1 && a1 != *(_DWORD*)&byte_5D4594[1193624]) {
 			*(_DWORD*)&byte_5D4594[1193624] = a1;
 			sub_48A670(g_cursor_surf);
@@ -2617,7 +2618,7 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3) {
 			sub_48A6B0(g_cursor_surf);
 		}
 		if (dword_5d4594_1193648 != *(_DWORD*)&byte_5D4594[1193640] ||
-		    *(_DWORD*)&byte_5D4594[1193524] != *(_DWORD*)&byte_5D4594[1193628]) {
+		    dword_5d4594_1193524 != *(_DWORD*)&byte_5D4594[1193628]) {
 			dword_5d4594_1193668 = 1;
 		}
 		LeaveCriticalSection((LPCRITICAL_SECTION)&byte_5D4594[3799596]);
