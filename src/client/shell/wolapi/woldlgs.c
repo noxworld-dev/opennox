@@ -2,6 +2,7 @@
 #include "../../../proto.h"
 #include "wolchat.h"
 
+extern _DWORD dword_5d4594_830120;
 extern _DWORD dword_5d4594_830204;
 extern _DWORD dword_5d4594_830208;
 extern _DWORD dword_5d4594_830132;
@@ -22,7 +23,7 @@ int sub_448730_wol_dialogs() {
 		return 0;
 	if (dword_5d4594_830116)
 		return 0;
-	if (*(_DWORD*)&byte_5D4594[830120])
+	if (dword_5d4594_830120)
 		return 0;
 	result = nox_new_window_from_file("wolfind.wnd", sub_4489C0_wol_dialogs);
 	dword_5d4594_830124 = result;
