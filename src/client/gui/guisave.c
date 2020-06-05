@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1082860;
 extern _DWORD dword_5d4594_1082864;
 extern _DWORD dword_5d4594_1082856;
 extern int nox_win_width;
@@ -22,12 +23,12 @@ int sub_46C730() {
 	if (result) {
 		*(_DWORD*)(result + 4) |= 0x20u;
 		sub_46B300(*(int*)&dword_5d4594_1082856, sub_46CCA0);
-		*(_DWORD*)&byte_5D4594[1082860] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 510);
+		dword_5d4594_1082860 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 510);
 		dword_5d4594_1082864 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 511);
 		*(_DWORD*)&byte_5D4594[1082868] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 512);
-		sub_46B2C0(*(int*)&byte_5D4594[1082860], sub_46C920);
-		sub_46B120(*(_DWORD**)&dword_5d4594_1082864, *(int*)&byte_5D4594[1082860]);
-		sub_46B120(*(_DWORD**)&byte_5D4594[1082868], *(int*)&byte_5D4594[1082860]);
+		sub_46B2C0(*(int*)&dword_5d4594_1082860, sub_46C920);
+		sub_46B120(*(_DWORD**)&dword_5d4594_1082864, *(int*)&dword_5d4594_1082860);
+		sub_46B120(*(_DWORD**)&byte_5D4594[1082868], *(int*)&dword_5d4594_1082860);
 		*(_DWORD*)&byte_5D4594[1082872] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 501);
 		*(_DWORD*)&byte_5D4594[1082876] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 502);
 		*(_DWORD*)&byte_5D4594[1082880] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 503);
@@ -71,7 +72,7 @@ int __cdecl sub_46C920(_DWORD* a1, int a2, int* a3, int a4) {
 
 	if (a2 != 16391) {
 		if (a2 == 16400) {
-			nox_window_call_field_94(*(int*)&byte_5D4594[1082860], 16403, a4, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1082860, 16403, a4, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1082864, 16403, a4, 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[1082868], 16403, a4, 0);
 			return 0;
@@ -435,7 +436,7 @@ int sub_46D580() {
 	result = nox_common_gameFlags_check_40A5C0(4096);
 	if (!result) {
 		memset(&byte_5D4594[1064948], 0, 0x45E4u);
-		sub_46CE40(*(int*)&byte_5D4594[1082860], *(int*)&dword_5d4594_1082864, *(int*)&byte_5D4594[1082868],
+		sub_46CE40(*(int*)&dword_5d4594_1082860, *(int*)&dword_5d4594_1082864, *(int*)&byte_5D4594[1082868],
 			   &byte_5D4594[1064948]);
 		sub_46A8C0(*(int*)&dword_5d4594_1082856);
 		sub_46ABB0(*(int*)&dword_5d4594_1082856, 1);
