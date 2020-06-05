@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_2523912;
 extern _DWORD dword_5d4594_2523780;
 extern _DWORD dword_5d4594_2495920;
@@ -4586,7 +4587,7 @@ int __cdecl sub_57B190(unsigned __int16 a1, unsigned __int16 a2) {
 		return 0;
 	v3 = (double)a1;
 	v4 = (double)a2;
-	if (v3 >= v4 * *(double*)&byte_581450[9544])
+	if (v3 >= v4 * *(double*)&qword_581450_9544)
 		return 1;
 	result = 2;
 	if (v3 < v4 * *(double*)&byte_581450[9608])

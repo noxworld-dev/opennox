@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_1320968;
 extern _DWORD dword_5d4594_1321240;
 extern _DWORD dword_5d4594_3799544;
@@ -10263,7 +10264,7 @@ int sub_4CA860() {
 	v0 = &byte_5D4594[1322584];
 	do {
 		v1 = (__int64)(atan2((double)v3 * *(double*)&byte_581450[9960], 1.0) * *(double*)&byte_581450[9952] +
-			       *(double*)&byte_581450[9544]);
+			       *(double*)&qword_581450_9544);
 		*(_WORD*)v0 = v1;
 		v0 += 2;
 		++v3;
@@ -10404,7 +10405,7 @@ void __cdecl sub_4CAA90(int2* a1, float4* a2, float2* a3, int a4, int a5) {
 			v19 = nox_double2float(v16);
 			v17 = nox_double2float(v21);
 			a3->field_0 = v17;
-			if (v19 <= *(double*)&byte_581450[9544]) {
+			if (v19 <= *(double*)&qword_581450_9544) {
 				if (v19 < *(double*)&byte_581450[9968])
 					a3->field_0 = v17 - 1.0;
 			} else {
@@ -10462,7 +10463,7 @@ void __cdecl sub_4CAC30(int2* a1, float4* a2, float2* a3, int a4, int a5) {
 		v14 = nox_double2float(v11);
 		v12 = nox_double2float(v16);
 		a3->field_0 = v12;
-		if (v14 <= *(double*)&byte_581450[9544]) {
+		if (v14 <= *(double*)&qword_581450_9544) {
 			if (v14 < *(double*)&byte_581450[9968])
 				a3->field_0 = v12 - 1.0;
 		} else {
