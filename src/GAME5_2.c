@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2513920;
 extern _DWORD dword_587000_312820;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_2523912;
@@ -1699,8 +1700,8 @@ int __cdecl sub_554B40(u_short hostshort) {
 		return -14;
 	result = WSAStartup(0x101u, &WSAData);
 	if (result != -1) {
-		*(_DWORD*)&byte_5D4594[2513920] = socket(2, 2, 0);
-		if (*(int*)&byte_5D4594[2513920] == -1) {
+		dword_5d4594_2513920 = socket(2, 2, 0);
+		if (*(int*)&dword_5d4594_2513920 == -1) {
 			WSACleanup();
 			result = -1;
 		} else {
@@ -1714,12 +1715,12 @@ int __cdecl sub_554B40(u_short hostshort) {
 				*(_DWORD*)&name.sa_data[10] = 0;
 				*(_WORD*)name.sa_data = htons(hostshort);
 				*(_DWORD*)&name.sa_data[2] = 0;
-				if (bind(*(SOCKET*)&byte_5D4594[2513920], &name, 16) == -1) {
+				if (bind(*(SOCKET*)&dword_5d4594_2513920, &name, 16) == -1) {
 					WSACleanup();
 					result = -1;
 				} else {
 					*(_DWORD*)optval = 1;
-					result = setsockopt(*(SOCKET*)&byte_5D4594[2513920], 0xFFFF, 32, optval, 4);
+					result = setsockopt(*(SOCKET*)&dword_5d4594_2513920, 0xFFFF, 32, optval, 4);
 					if (result != -1) {
 						nox_set_draw_unk1((int)sub_554FF0);
 						*(_DWORD*)&byte_5D4594[2513916] = 1;
@@ -1747,7 +1748,7 @@ int __cdecl sub_554C80(u_short hostshort, char* buf, int a3) {
 	*(_WORD*)to.sa_data = htons(hostshort);
 	*(_DWORD*)&to.sa_data[2] = -1;
 	if (!buf || (unsigned __int16)a3 < 2u ||
-	    (result = sendto(*(SOCKET*)&byte_5D4594[2513920], buf, (unsigned __int16)a3, 0, &to, 16), v3 = result,
+	    (result = sendto(*(SOCKET*)&dword_5d4594_2513920, buf, (unsigned __int16)a3, 0, &to, 16), v3 = result,
 	     result != -1)) {
 		result = v3;
 	}
@@ -1757,9 +1758,9 @@ int __cdecl sub_554C80(u_short hostshort, char* buf, int a3) {
 //----- (00554D10) --------------------------------------------------------
 int sub_554D10() {
 	if (*(_DWORD*)&byte_5D4594[2513916]) {
-		closesocket(*(SOCKET*)&byte_5D4594[2513920]);
+		closesocket(*(SOCKET*)&dword_5d4594_2513920);
 		closesocket(*(SOCKET*)&byte_5D4594[2513924]);
-		*(_DWORD*)&byte_5D4594[2513920] = 0;
+		dword_5d4594_2513920 = 0;
 		*(_DWORD*)&byte_5D4594[2513924] = 0;
 		*(_DWORD*)&byte_5D4594[2513916] = 0;
 		nox_set_draw_unk1(0);
@@ -1792,7 +1793,7 @@ int __cdecl sub_554D70(char a1) {
 		return -17;
 	v11 = a1 & 1;
 	if (a1 & 1) {
-		result = ioctlsocket(*(SOCKET*)&byte_5D4594[2513920], 1074030207, &argp);
+		result = ioctlsocket(*(SOCKET*)&dword_5d4594_2513920, 1074030207, &argp);
 		if (result == -1)
 			return result;
 		if (argp)
@@ -1801,7 +1802,7 @@ int __cdecl sub_554D70(char a1) {
 		argp = 1;
 	LABEL_8:
 		while (1) {
-			v2 = mix_recvfrom(*(SOCKET*)&byte_5D4594[2513920], buf, 256, 0, &from, &fromlen);
+			v2 = mix_recvfrom(*(SOCKET*)&dword_5d4594_2513920, buf, 256, 0, &from, &fromlen);
 			if (v2 == -1)
 				break;
 			v3 = buf[2];
@@ -1858,7 +1859,7 @@ int __cdecl sub_554D70(char a1) {
 				}
 			}
 			if (v11 && !(a1 & 4)) {
-				if (ioctlsocket(*(SOCKET*)&byte_5D4594[2513920], 1074030207, &argp) == -1)
+				if (ioctlsocket(*(SOCKET*)&dword_5d4594_2513920, 1074030207, &argp) == -1)
 					return -1;
 				if (argp)
 					continue;
@@ -1900,7 +1901,7 @@ int __cdecl sub_555010(int a1, u_short hostshort, char* buf, int a4) {
 	*(_WORD*)to.sa_data = htons(hostshort);
 	*(_DWORD*)&to.sa_data[2] = a1;
 	if (!buf || (unsigned __int16)a4 < 2u ||
-	    (result = sendto(*(SOCKET*)&byte_5D4594[2513920], buf, (unsigned __int16)a4, 0, &to, 16), v4 = result,
+	    (result = sendto(*(SOCKET*)&dword_5d4594_2513920, buf, (unsigned __int16)a4, 0, &to, 16), v4 = result,
 	     result != -1)) {
 		result = v4;
 	}
