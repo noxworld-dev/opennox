@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1305748;
 extern _DWORD dword_5d4594_1197328;
 extern _DWORD dword_5d4594_1303472;
 extern _DWORD dword_5d4594_1197352;
@@ -9242,7 +9243,7 @@ int sub_49F610() {
 	ptr_5D4594_3799572->data[6] = 0;
 	ptr_5D4594_3799572->data[7] = nox_backbuffer_width - 1;
 	ptr_5D4594_3799572->data[8] = nox_backbuffer_height - 1;
-	*(_DWORD*)&byte_5D4594[1305748] = 0;
+	dword_5d4594_1305748 = 0;
 	return 1;
 }
 
@@ -9306,8 +9307,8 @@ int sub_49F7F0() {
 	int result; // eax
 	int v1;     // edx
 
-	result = *(_DWORD*)&byte_5D4594[1305748];
-	if (!*(_DWORD*)&byte_5D4594[1305748]) {
+	result = dword_5d4594_1305748;
+	if (!dword_5d4594_1305748) {
 		*(_DWORD*)&byte_5D4594[1305772] = ptr_5D4594_3799572->data[0];
 		result = (_DWORD)(&ptr_5D4594_3799572->data[5]);
 		*(_DWORD*)&byte_5D4594[1305756] = ptr_5D4594_3799572->data[1];
@@ -9318,7 +9319,7 @@ int sub_49F7F0() {
 		*(_DWORD*)&byte_5D4594[1305736] = ptr_5D4594_3799572->data[6];
 		*(_DWORD*)&byte_5D4594[1305740] = ptr_5D4594_3799572->data[7];
 		v1 = ptr_5D4594_3799572->data[8];
-		*(_DWORD*)&byte_5D4594[1305748] = 1;
+		dword_5d4594_1305748 = 1;
 		*(_DWORD*)&byte_5D4594[1305744] = v1;
 	}
 	return result;
@@ -9330,8 +9331,8 @@ int sub_49F860() {
 	_DWORD* v1; // edx
 	_DWORD* v2; // edx
 
-	result = *(_DWORD*)&byte_5D4594[1305748];
-	if (*(_DWORD*)&byte_5D4594[1305748]) {
+	result = dword_5d4594_1305748;
+	if (dword_5d4594_1305748) {
 		ptr_5D4594_3799572->data[0] = *(_DWORD*)&byte_5D4594[1305772];
 		v1 = &ptr_5D4594_3799572->data[1];
 		ptr_5D4594_3799572->data[1] = *(_DWORD*)&byte_5D4594[1305756];
@@ -9344,7 +9345,7 @@ int sub_49F860() {
 		result = *(_DWORD*)&byte_5D4594[1305740];
 		v2[2] = *(_DWORD*)&byte_5D4594[1305740];
 		v2[3] = *(_DWORD*)&byte_5D4594[1305744];
-		*(_DWORD*)&byte_5D4594[1305748] = 0;
+		dword_5d4594_1305748 = 0;
 	}
 	return result;
 }
