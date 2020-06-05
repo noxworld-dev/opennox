@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9568;
 extern _DWORD dword_5d4594_1049496;
 extern _DWORD dword_5d4594_1047932;
 extern _DWORD dword_5d4594_1049512;
@@ -339,7 +340,7 @@ int __cdecl nox_drawable_link_thing(nox_drawable* a1, int i) {
 	a1->field_24 = *(float*)(v5 + 56);
 	a1->field_25 = *(float*)(v5 + 60);
 	v9 = *(float*)(v5 + 32);
-	if (v9 >= *(double*)&byte_581450[9568]) {
+	if (v9 >= *(double*)&qword_581450_9568) {
 		*(_DWORD*)((char*)v2 + 172) = 0;
 	} else {
 		v9 = -v9;
