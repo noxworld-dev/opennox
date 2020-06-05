@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1319264;
 extern _DWORD dword_5d4594_1321044;
 extern _DWORD dword_5d4594_805852;
 extern _DWORD dword_5d4594_1319232;
@@ -3394,7 +3395,7 @@ int sub_4BFE40() {
 int sub_4BFEF0() {
 	_DWORD* v0; // eax
 
-	*(_DWORD*)&byte_5D4594[1319264] = 0;
+	dword_5d4594_1319264 = 0;
 	v0 = nox_new_window_from_file("MultMove.wnd", sub_4C01C0);
 	dword_5d4594_1319228 = v0;
 	if (!v0)
@@ -3434,7 +3435,7 @@ int __cdecl sub_4C0030(int a1) {
 	nox_client_drawRectFilledAlpha_49CF10(0, 0, nox_win_width, nox_win_height);
 	sub_46AA20(a1, &v5, &v6);
 	v1 = *(_DWORD*)&byte_5D4594[1319196];
-	if (!*(_DWORD*)&byte_5D4594[1319264])
+	if (!dword_5d4594_1319264)
 		v1 = *(_DWORD*)&byte_5D4594[1319216];
 	nox_client_drawImageAt_47D2C0(v1, v5, v6);
 	*(_DWORD*)(dword_5d4594_1319256 + 12) = v5 + *(_DWORD*)&byte_587000[183456];
@@ -3447,13 +3448,13 @@ int __cdecl sub_4C0030(int a1) {
 		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1319200], v5, v6);
 	if (sub_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3604)[9] & 4) {
 		v2 = *(_DWORD*)&byte_5D4594[1319208];
-		if (!*(_DWORD*)&byte_5D4594[1319264])
+		if (!dword_5d4594_1319264)
 			v2 = *(_DWORD*)&byte_5D4594[1319220];
 		nox_client_drawImageAt_47D2C0(v2, v5, v6);
 	}
 	if (sub_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3605)[9] & 4) {
 		v3 = *(_DWORD*)&byte_5D4594[1319212];
-		if (!*(_DWORD*)&byte_5D4594[1319264])
+		if (!dword_5d4594_1319264)
 			v3 = *(_DWORD*)&byte_5D4594[1319224];
 		nox_client_drawImageAt_47D2C0(v3, v5, v6);
 	}
@@ -3487,7 +3488,7 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4) {
 			return 0;
 		nox_swprintf((wchar_t*)&byte_5D4594[1319164], L"%d", v8);
 		sub_46AEE0(*(int*)&dword_5d4594_1319232, (int)&byte_5D4594[1319164]);
-		if (!*(_DWORD*)&byte_5D4594[1319264])
+		if (!dword_5d4594_1319264)
 			return 0;
 		nox_swprintf((wchar_t*)&byte_5D4594[1319068], L"%d", *(_DWORD*)&byte_5D4594[1319260] * v8);
 		sub_46AEE0(*(int*)&byte_5D4594[1319236], (int)&byte_5D4594[1319068]);
@@ -3500,7 +3501,7 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4) {
 		if (v10 > 1) {
 			nox_swprintf((wchar_t*)&byte_5D4594[1319164], L"%d", v10 - 1);
 			sub_46AEE0(*(int*)&dword_5d4594_1319232, (int)&byte_5D4594[1319164]);
-			if (*(_DWORD*)&byte_5D4594[1319264]) {
+			if (dword_5d4594_1319264) {
 				nox_swprintf((wchar_t*)&byte_5D4594[1319068], L"%d",
 					     *(_DWORD*)&byte_5D4594[1319260] * (v11 - 1));
 				sub_46AEE0(*(int*)&byte_5D4594[1319236], (int)&byte_5D4594[1319068]);
@@ -3544,7 +3545,7 @@ int sub_4C03E0() {
 	dword_5d4594_1319228 = 0;
 	dword_5d4594_1319232 = 0;
 	*(_DWORD*)&byte_5D4594[1319236] = 0;
-	*(_DWORD*)&byte_5D4594[1319264] = 0;
+	dword_5d4594_1319264 = 0;
 	return result;
 }
 
@@ -3569,7 +3570,7 @@ int __cdecl sub_4C0430(int a1, int a2, int a3, int a4, int a5, const void* a6, i
 	sub_4C0560(a2, a3);
 	nox_swprintf((wchar_t*)&byte_5D4594[1319164], L"%d", 1);
 	sub_46AEE0(*(int*)&dword_5d4594_1319232, (int)&byte_5D4594[1319164]);
-	if (*(_DWORD*)&byte_5D4594[1319264]) {
+	if (dword_5d4594_1319264) {
 		nox_swprintf((wchar_t*)&byte_5D4594[1319068], L"%d", *(_DWORD*)&byte_5D4594[1319260]);
 		result = sub_46AEE0(*(int*)&byte_5D4594[1319236], (int)&byte_5D4594[1319068]);
 	} else {
@@ -3605,7 +3606,7 @@ int __cdecl sub_4C05F0(int a1, int a2) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1319264] = a1;
+	dword_5d4594_1319264 = a1;
 	*(_DWORD*)&byte_5D4594[1319260] = a2;
 	return result;
 }
