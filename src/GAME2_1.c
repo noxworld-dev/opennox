@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1062488;
 extern _DWORD dword_5d4594_1093156;
 extern _DWORD dword_5d4594_1062452;
 extern _DWORD dword_5d4594_1096496;
@@ -1531,7 +1532,7 @@ int __cdecl sub_4643B0(int a1, int a2) {
 					v4 = v29;
 					goto LABEL_43;
 				}
-				if (*((_DWORD*)v4 - 34) != *(_DWORD*)&byte_5D4594[1062488])
+				if (*((_DWORD*)v4 - 34) != dword_5d4594_1062488)
 					goto LABEL_27;
 				if (!dword_5d4594_1062480)
 					goto LABEL_27;
@@ -2691,7 +2692,7 @@ int __cdecl sub_467740(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1062488] = a1;
+	dword_5d4594_1062488 = a1;
 	return result;
 }
 
@@ -2742,7 +2743,7 @@ int sub_4678B0() {
 }
 
 //----- (004678C0) --------------------------------------------------------
-int sub_4678C0() { return *(_DWORD*)&byte_5D4594[1062488]; }
+int sub_4678C0() { return dword_5d4594_1062488; }
 
 //----- (004678D0) --------------------------------------------------------
 int sub_4678D0() {
@@ -2824,7 +2825,7 @@ int sub_467980() {
 	sub_462740();
 	dword_5d4594_1049864 = 0;
 	sub_461550(0);
-	*(_DWORD*)&byte_5D4594[1062488] = 0;
+	dword_5d4594_1062488 = 0;
 	memset(&byte_5D4594[1049872], 0, 0x24u);
 	*(_DWORD*)&byte_5D4594[1062492] = 0;
 	*(_DWORD*)&byte_5D4594[1062496] = 0;
