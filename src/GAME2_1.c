@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1090140;
 extern _DWORD dword_5d4594_1062564;
 extern _DWORD dword_5d4594_1090280;
 extern _DWORD dword_5d4594_1064896;
@@ -6668,7 +6669,7 @@ int sub_470710() {
 		sub_46B340(result, sub_470770);
 		sub_46A9B0(*(_DWORD**)&dword_5d4594_1090176, 121,
 			   nox_win_height - *(_DWORD*)(dword_5d4594_1090176 + 12) - 5);
-		*(_DWORD*)&byte_5D4594[1090140] = sub_43F360((char*)&byte_587000[147880]);
+		dword_5d4594_1090140 = sub_43F360((char*)&byte_587000[147880]);
 		sub_4706C0(0);
 		result = 1;
 	}
@@ -6712,8 +6713,8 @@ int __cdecl sub_470770(int a1, int a2) {
 	nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, *(_DWORD*)(v1 + 8), *(_DWORD*)(v1 + 12));
 	sub_434390(*(int*)&byte_5D4594[2523948]);
 	nox_swprintf((wchar_t*)&byte_5D4594[1090144], L"%d", *(_DWORD*)&byte_5D4594[1090260]);
-	sub_43F840(*(int*)&byte_5D4594[1090140], (unsigned __int16*)&byte_5D4594[1090144], &a1, 0, 0);
-	sub_43F6E0(*(int*)&byte_5D4594[1090140], (__int16*)&byte_5D4594[1090144], xLeft + (*(int*)(v1 + 8) - a1) / 2,
+	sub_43F840(*(int*)&dword_5d4594_1090140, (unsigned __int16*)&byte_5D4594[1090144], &a1, 0, 0);
+	sub_43F6E0(*(int*)&dword_5d4594_1090140, (__int16*)&byte_5D4594[1090144], xLeft + (*(int*)(v1 + 8) - a1) / 2,
 		   yTop + 3);
 	v6 = xLeft + 1;
 	v7 = yTop + 14;
@@ -6751,8 +6752,8 @@ int __cdecl sub_470770(int a1, int a2) {
 		sub_434390(*(int*)&byte_5D4594[2618904]);
 	}
 	nox_swprintf((wchar_t*)&byte_5D4594[1090144], L"%d", dword_5d4594_2614264);
-	sub_43F840(*(int*)&byte_5D4594[1090140], (unsigned __int16*)&byte_5D4594[1090144], &a1, 0, 0);
-	sub_43F6E0(*(int*)&byte_5D4594[1090140], (__int16*)&byte_5D4594[1090144], xLeft + (*(int*)(v1 + 8) - a1) / 2,
+	sub_43F840(*(int*)&dword_5d4594_1090140, (unsigned __int16*)&byte_5D4594[1090144], &a1, 0, 0);
+	sub_43F6E0(*(int*)&dword_5d4594_1090140, (__int16*)&byte_5D4594[1090144], xLeft + (*(int*)(v1 + 8) - a1) / 2,
 		   yTop + 22);
 	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2614248]);
 	nox_client_drawBorderLines_49CC70(xLeft, yTop, *(_DWORD*)(v1 + 8), *(_DWORD*)(v1 + 12));
