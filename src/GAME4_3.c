@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487248;
 extern _DWORD dword_587000_312800;
 extern _DWORD dword_587000_312816;
 extern _DWORD dword_587000_312804;
@@ -13179,7 +13180,7 @@ BOOL __cdecl sub_5437E0(int* a1, int a2, int a3) {
 	v8 = (int)(__int64)v3 % 46;
 	*(_DWORD*)&byte_5D4594[3821628] = 0;
 	v9 = (__int64)v24 % 46;
-	*(_DWORD*)&byte_5D4594[2487248] = 0;
+	dword_5d4594_2487248 = 0;
 	if (v5 <= 0 || v5 >= 127 || v7 <= 0 || v7 >= 127) {
 		v11 = a3;
 	} else if (v8 <= v9) {
@@ -13203,7 +13204,7 @@ BOOL __cdecl sub_5437E0(int* a1, int a2, int a3) {
 		sub_51DD50(v5, v7 - 1, 2, *(_DWORD*)(v10 + 44 * v7 - 20));
 	}
 	v16 = 0;
-	if (*(_DWORD*)&byte_5D4594[2487248] > 0) {
+	if (dword_5d4594_2487248 > 0) {
 		v17 = &byte_5D4594[3815632];
 		do {
 			v18 = *((_DWORD*)v17 + 1);
@@ -13225,7 +13226,7 @@ BOOL __cdecl sub_5437E0(int* a1, int a2, int a3) {
 			}
 			++v16;
 			v17 += 12;
-		} while (v16 < *(int*)&byte_5D4594[2487248]);
+		} while (v16 < *(int*)&dword_5d4594_2487248);
 	}
 	if (sub_51DE30(&v23, &a1, &a3)) {
 		v21 = a2;
