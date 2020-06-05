@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798828;
 extern _QWORD qword_581450_9552;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_1098624;
@@ -7159,15 +7160,15 @@ LABEL_9:
 	if (v3 >= *(int*)&dword_5d4594_3798820 + 23) {
 		v71 = nox_backbuffer_width + v3;
 		if (nox_backbuffer_width + v3 <= *(int*)&byte_5D4594[3798800] + dword_5d4594_3798820 - 46 ||
-		    *(int*)&byte_5D4594[3798812] + *(int*)&byte_5D4594[3798828] - 1 >= 128) {
+		    *(int*)&byte_5D4594[3798812] + *(int*)&dword_5d4594_3798828 - 1 >= 128) {
 			goto LABEL_36;
 		}
 		if (v71 > *(int*)&byte_5D4594[3798800] + *(int*)&dword_5d4594_3798820) {
 			sub_4826A0(a1);
 			goto LABEL_36;
 		}
-		v7 = *(_DWORD*)&byte_5D4594[3798828] + 1;
-		*(_DWORD*)&byte_5D4594[3798828] = v7;
+		v7 = dword_5d4594_3798828 + 1;
+		dword_5d4594_3798828 = v7;
 		v8 = dword_5d4594_3798820 + 46;
 		dword_5d4594_3798820 += 46;
 		j = *(_DWORD*)&byte_5D4594[3798812] + v7 - 2;
@@ -7181,14 +7182,14 @@ LABEL_9:
 		}
 		v4 = *(_DWORD*)&byte_5D4594[3798800] + v8 - 92;
 	} else {
-		if (*(int*)&byte_5D4594[3798828] <= 0)
+		if (*(int*)&dword_5d4594_3798828 <= 0)
 			goto LABEL_36;
 		if (v3 < *(int*)&dword_5d4594_3798820 - 23) {
 			sub_4826A0(a1);
 			goto LABEL_36;
 		}
 		v4 = dword_5d4594_3798820 - 46;
-		j = --*(_DWORD*)&byte_5D4594[3798828];
+		j = --dword_5d4594_3798828;
 		dword_5d4594_3798820 -= 46;
 		dword_5d4594_3798836 -= 46;
 		if (*(int*)&dword_5d4594_3798836 < 0) {
@@ -7283,11 +7284,11 @@ LABEL_36:
 		v76 = v20;
 	}
 	sub_481410();
-	v25 = *(_DWORD*)&byte_5D4594[3798828];
+	v25 = dword_5d4594_3798828;
 	v26 = dword_5d4594_3798820;
-	i = *(_DWORD*)&byte_5D4594[3798828];
-	j = *(_DWORD*)&byte_5D4594[3798812] + *(_DWORD*)&byte_5D4594[3798828] - 1;
-	if (*(_DWORD*)&byte_5D4594[3798828] < j) {
+	i = dword_5d4594_3798828;
+	j = *(_DWORD*)&byte_5D4594[3798812] + dword_5d4594_3798828 - 1;
+	if (dword_5d4594_3798828 < j) {
 		v27 = 44 * v19;
 		v71 = 44 * v19;
 		while (1) {
@@ -7606,7 +7607,7 @@ int __cdecl sub_4826A0(_DWORD* a1) {
 	v5 = v25;
 	dword_5d4594_3798824 = 46 * result - 11;
 	v6 = 46 * result - 57;
-	*(_DWORD*)&byte_5D4594[3798828] = v25;
+	dword_5d4594_3798828 = v25;
 	dword_5d4594_3798820 = 46 * v25 - 11;
 	dword_5d4594_3798832 = result;
 	if (result < v4) {
