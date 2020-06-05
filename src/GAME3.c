@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798648;
 extern _DWORD dword_5d4594_1309776;
 extern _DWORD dword_5d4594_1309708;
 extern _DWORD dword_5d4594_805852;
@@ -6767,7 +6768,7 @@ int sub_4AEBD0() {
 	int v0;     // eax
 	int result; // eax
 
-	*(_DWORD*)&byte_5D4594[3798648] = *(_DWORD*)&byte_5D4594[3798644];
+	dword_5d4594_3798648 = *(_DWORD*)&byte_5D4594[3798644];
 	v0 = 0;
 	dword_5d4594_3798640 = 0;
 	for (dword_5d4594_3798636 = 0; dword_5d4594_3798636 < nox_backbuffer_height;
@@ -6826,10 +6827,10 @@ int __cdecl sub_4AEC20(int a1, int a2) {
 					do {
 						v8 = *(_DWORD*)(dword_5d4594_3798632 + 4 * v4);
 						*(_DWORD*)(dword_5d4594_3798632 + 4 * v4) =
-						    *(_DWORD*)&byte_5D4594[3798648];
-						**(_WORD**)&byte_5D4594[3798648] = HIWORD(v10);
-						*(_DWORD*)(*(_DWORD*)&byte_5D4594[3798648] + 4) = v8;
-						*(_DWORD*)&byte_5D4594[3798648] += 8;
+						    dword_5d4594_3798648;
+						**(_WORD**)&dword_5d4594_3798648 = HIWORD(v10);
+						*(_DWORD*)(dword_5d4594_3798648 + 4) = v8;
+						dword_5d4594_3798648 += 8;
 						v4 = v6 + v11;
 						--v7;
 						v10 += v5;
@@ -6839,10 +6840,10 @@ int __cdecl sub_4AEC20(int a1, int a2) {
 				if (a2) {
 					v9 = *(_DWORD*)(dword_5d4594_3798632 + 4 * v4);
 					*(_DWORD*)(dword_5d4594_3798632 + 4 * v4) =
-					    *(_DWORD*)&byte_5D4594[3798648];
-					**(_WORD**)&byte_5D4594[3798648] = v12;
-					*(_DWORD*)(*(_DWORD*)&byte_5D4594[3798648] + 4) = v9;
-					*(_DWORD*)&byte_5D4594[3798648] += 8;
+					    dword_5d4594_3798648;
+					**(_WORD**)&dword_5d4594_3798648 = v12;
+					*(_DWORD*)(dword_5d4594_3798648 + 4) = v9;
+					dword_5d4594_3798648 += 8;
 				}
 				result = 1;
 			} else {
