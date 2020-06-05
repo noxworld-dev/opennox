@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1064820;
 extern _DWORD dword_5d4594_1064296;
 extern _DWORD dword_5d4594_1064816;
 
@@ -164,6 +165,6 @@ int sub_468F30_wol_reg() {
 				   472);
 	sub_468840(v0);
 	dword_5d4594_1064296 = 4;
-	nox_window_set_hidden(*(int*)&byte_5D4594[1064820], 1);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1064820, 1);
 	return sub_46ABB0(*(int*)&dword_5d4594_1064816, 1);
 }
