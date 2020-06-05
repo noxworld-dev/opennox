@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_371264;
 extern _DWORD dword_5d4594_1308;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_3616;
@@ -10342,7 +10343,7 @@ int sub_415F70() {
 
 	result = time(0) % 4096;
 	*(_DWORD*)&byte_5D4594[371260] = result;
-	*(_DWORD*)&byte_5D4594[371264] = result;
+	dword_5d4594_371264 = result;
 	return result;
 }
 
@@ -10365,9 +10366,9 @@ int __cdecl nox_common_randomInt_415FA0(int a1, int a2) {
 int __cdecl sub_415FF0(int a1, int a2, const char* a3, int a4) {
 	int v4; // edx
 
-	v4 = (*(int*)&byte_5D4594[371264])++;
-	if (*(int*)&byte_5D4594[371264] >= 4096)
-		*(int*)&byte_5D4594[371264] = 0;
+	v4 = (*(int*)&dword_5d4594_371264)++;
+	if (*(int*)&dword_5d4594_371264 >= 4096)
+		*(int*)&dword_5d4594_371264 = 0;
 	return a1 + *(int*)&byte_587000[4 * v4 + 37892] % (a2 - a1 + 1);
 }
 
@@ -10389,9 +10390,9 @@ double __cdecl sub_416030(float a1, float a2) {
 double __cdecl sub_416090(float a1, float a2) {
 	int v2; // ecx
 
-	v2 = (*(_DWORD*)&byte_5D4594[371264])++;
-	if (*(int*)&byte_5D4594[371264] >= 4096)
-		*(_DWORD*)&byte_5D4594[371264] = 0;
+	v2 = (dword_5d4594_371264)++;
+	if (*(int*)&dword_5d4594_371264 >= 4096)
+		dword_5d4594_371264 = 0;
 	return (a2 - a1) * ((double)*(int*)&byte_587000[4 * v2 + 37892] * 0.000030518509) + a1;
 }
 
