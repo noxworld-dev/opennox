@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096252;
 extern _DWORD dword_5d4594_1064864;
 extern _DWORD dword_5d4594_1093136;
 extern _DWORD dword_5d4594_3799468;
@@ -6747,14 +6748,14 @@ int sub_470A60() {
 void sub_470A80() { ++*(_WORD*)&byte_5D4594[1090246]; }
 
 //----- (00470A90) --------------------------------------------------------
-int sub_470A90() { return *(_DWORD*)&byte_5D4594[1096252]; }
+int sub_470A90() { return dword_5d4594_1096252; }
 
 //----- (00470AA0) --------------------------------------------------------
 int __cdecl sub_470AA0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1096252] = a1;
+	dword_5d4594_1096252 = a1;
 	if (*(_DWORD*)&byte_5D4594[1093176]) {
 		if (a1) {
 			nox_window_set_hidden(*(int*)&dword_5d4594_1093076, 0);
@@ -7280,11 +7281,11 @@ int __cdecl sub_472100(int a1, int a2) {
 
 	switch (a2) {
 	case 7:
-		v3 = *(_DWORD*)&byte_5D4594[1096252] == 1;
-		*(_DWORD*)&byte_5D4594[1096252] = 1 - *(_DWORD*)&byte_5D4594[1096252];
+		v3 = dword_5d4594_1096252 == 1;
+		dword_5d4594_1096252 = 1 - dword_5d4594_1096252;
 		nox_window_set_hidden(*(int*)&dword_5d4594_1093076, v3);
 		if (byte_5D4594[2661958])
-			nox_window_set_hidden(*(int*)&dword_5d4594_1093096, *(_DWORD*)&byte_5D4594[1096252] == 0);
+			nox_window_set_hidden(*(int*)&dword_5d4594_1093096, dword_5d4594_1096252 == 0);
 		sub_452D80(901, 100);
 		goto LABEL_6;
 	case 8:
