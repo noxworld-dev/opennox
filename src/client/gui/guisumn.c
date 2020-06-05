@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
 
+extern _DWORD dword_5d4594_1321044;
 extern _DWORD dword_587000_184452;
 extern _DWORD dword_5d4594_1320992;
 extern _DWORD dword_5d4594_1321204;
@@ -63,7 +64,7 @@ int sub_4C1D80() {
 		v6 += 32;
 	} while ((int)v6 < (int)&byte_5D4594[1321188]);
 	sub_4C2BF0();
-	*(_DWORD*)&byte_5D4594[1321044] = 0;
+	dword_5d4594_1321044 = 0;
 	dword_5d4594_1321204 = 0;
 	*(_DWORD*)&byte_5D4594[1321196] = 0;
 	return 1;
@@ -123,13 +124,13 @@ LABEL_11:
 		goto LABEL_15;
 	}
 LABEL_16:
-	*(_DWORD*)&byte_5D4594[1321044] = nox_window_new(0, 40, v5, v7, *(int*)&dword_587000_184452, 5 * v3 + 12, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1321044], 0, sub_4C26F0, 0);
-	sub_46A8C0(*(int*)&byte_5D4594[1321044]);
+	dword_5d4594_1321044 = nox_window_new(0, 40, v5, v7, *(int*)&dword_587000_184452, 5 * v3 + 12, 0);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1321044, 0, sub_4C26F0, 0);
+	sub_46A8C0(*(int*)&dword_5d4594_1321044);
 	v8 = 0;
 	for (i = 0; i < 6; ++i) {
 		if (i != 2) {
-			v10 = nox_window_new(*(int*)&byte_5D4594[1321044], 8, 0, v8, *(int*)&dword_587000_184452,
+			v10 = nox_window_new(*(int*)&dword_5d4594_1321044, 8, 0, v8, *(int*)&dword_587000_184452,
 					     v3 + 1, 0);
 			nox_window_set_all_funcs(v10, sub_4C2A60, sub_4C27F0, 0);
 			v10[8] = i;
