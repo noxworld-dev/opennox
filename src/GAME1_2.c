@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80844;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_805852;
 extern _DWORD dword_5d4594_787172;
@@ -6989,11 +6990,11 @@ int sub_432480() {
 	if (!v0)
 		return 1;
 	v1 = atoi(v0);
-	*(_DWORD*)&byte_587000[80844] = v1;
+	dword_587000_80844 = v1;
 	v2 = v1 == 0;
 	result = 1;
 	if (!v2)
-		*(_DWORD*)&byte_587000[80844] = 1;
+		dword_587000_80844 = 1;
 	return result;
 }
 
@@ -7733,7 +7734,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "RenderGlow = %d\n", dword_5d4594_805852);
 	fprintf(a1, "RenderGUI = %d\n", dword_587000_80828);
 	fprintf(a1, "FadeObjects = %d\n", dword_587000_80836);
-	fprintf(a1, "RenderBubbles = %d\n", *(_DWORD*)&byte_587000[80844]);
+	fprintf(a1, "RenderBubbles = %d\n", dword_587000_80844);
 	v7 = sub_578DF0();
 	fprintf(a1, "TrackData = %d\n", v7);
 	v8 = sub_40A630();
