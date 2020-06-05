@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386572;
 extern _DWORD dword_5d4594_2386500;
 extern _DWORD dword_5d4594_1599632;
 extern _DWORD dword_5d4594_2386576;
@@ -4746,14 +4747,14 @@ BOOL sub_5112C0() {
 
 //----- (005112F0) --------------------------------------------------------
 void sub_5112F0() {
-	*(_DWORD*)&byte_5D4594[2386572] = 0;
+	dword_5d4594_2386572 = 0;
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2386568]);
 }
 
 //----- (00511310) --------------------------------------------------------
 int sub_511310() {
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386568]);
-	*(_DWORD*)&byte_5D4594[2386572] = 0;
+	dword_5d4594_2386572 = 0;
 	return 1;
 }
 
@@ -4761,8 +4762,8 @@ int sub_511310() {
 void __cdecl sub_511330(int a1) {
 	int v1; // eax
 
-	v1 = *(_DWORD*)&byte_5D4594[2386572];
-	if (*(_DWORD*)&byte_5D4594[2386572]) {
+	v1 = dword_5d4594_2386572;
+	if (dword_5d4594_2386572) {
 		while (*(_DWORD*)(v1 + 8) != a1) {
 			v1 = *(_DWORD*)(v1 + 44);
 			if (!v1)
@@ -4782,7 +4783,7 @@ void __cdecl sub_511360(int a1) {
 	if (v1)
 		*(_DWORD*)(v1 + 44) = *(_DWORD*)(a1 + 44);
 	else
-		*(_DWORD*)&byte_5D4594[2386572] = *(_DWORD*)(a1 + 44);
+		dword_5d4594_2386572 = *(_DWORD*)(a1 + 44);
 	v2 = *(_DWORD*)(a1 + 44);
 	if (v2)
 		*(_DWORD*)(v2 + 48) = *(_DWORD*)(a1 + 48);
@@ -4808,8 +4809,8 @@ void sub_5113A0() {
 	float v14;      // [esp+18h] [ebp-4h]
 	float v15;      // [esp+18h] [ebp-4h]
 
-	v0 = *(_DWORD*)&byte_5D4594[2386572];
-	if (*(_DWORD*)&byte_5D4594[2386572]) {
+	v0 = dword_5d4594_2386572;
+	if (dword_5d4594_2386572) {
 		do {
 			v1 = *(_DWORD*)(v0 + 8);
 			v2 = *(_DWORD*)(v0 + 44);
@@ -4879,10 +4880,10 @@ int __cdecl sub_511560(int a1) {
 
 	result = a1;
 	*(_DWORD*)(a1 + 48) = 0;
-	*(_DWORD*)(a1 + 44) = *(_DWORD*)&byte_5D4594[2386572];
-	if (*(_DWORD*)&byte_5D4594[2386572])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[2386572] + 48) = a1;
-	*(_DWORD*)&byte_5D4594[2386572] = a1;
+	*(_DWORD*)(a1 + 44) = dword_5d4594_2386572;
+	if (dword_5d4594_2386572)
+		*(_DWORD*)(dword_5d4594_2386572 + 48) = a1;
+	dword_5d4594_2386572 = a1;
 	return result;
 }
 
