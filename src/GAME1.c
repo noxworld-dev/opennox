@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_251496;
 extern _DWORD dword_5d4594_3620;
 extern _DWORD dword_5d4594_251508;
@@ -388,7 +389,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	}
 	sub_434350(*(int*)&byte_5D4594[2650656]);
 	sub_440900();
-	result = nox_video_read_videobag(*(int*)&byte_5D4594[3804680]);
+	result = nox_video_read_videobag(*(int*)&dword_5d4594_3804680);
 	if (!result) {
 		return result;
 	}
