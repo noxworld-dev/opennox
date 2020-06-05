@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1062488;
 extern _DWORD dword_5d4594_1062516;
 extern _DWORD dword_5d4594_1062476;
 extern _DWORD dword_5d4594_1049856;
@@ -266,7 +267,7 @@ void __cdecl sub_462040(int a1) {
 	}
 	if (v6[28] & 0x1000000 && v6[29] & 0xC) {
 		v10 = 1;
-		if (*(_DWORD*)&byte_5D4594[1062488] && (v11 = sub_461EF0(*(int*)&byte_5D4594[1062488])) != 0) {
+		if (dword_5d4594_1062488 && (v11 = sub_461EF0(*(int*)&dword_5d4594_1062488)) != 0) {
 			*(_DWORD*)(**(_DWORD**)v11 + 128) = *(_DWORD*)(*(_DWORD*)v11 + 4);
 			sub_4623B0(**(_DWORD**)v11);
 		} else {
@@ -295,7 +296,7 @@ void __cdecl sub_462040(int a1) {
 		}
 	}
 	if (!v20)
-		*(_DWORD*)&byte_5D4594[1062488] = v6[32];
+		dword_5d4594_1062488 = v6[32];
 	v16 = *((_WORD*)v6 + 224);
 	if (v16 >= 0)
 		sub_470D90(v16, *((__int16*)v6 + 225));
