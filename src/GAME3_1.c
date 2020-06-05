@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_180480;
 extern _DWORD dword_5d4594_3798728;
 extern _DWORD dword_5d4594_1319236;
 extern _DWORD dword_5d4594_1320972;
@@ -2737,9 +2738,9 @@ int __cdecl sub_4BE840(int* a1, int* a2, int* a3, int* a4, int a5) {
 	*(float*)&byte_587000[180484] = v6;
 	v14 = &byte_587000[180468];
 	v15 = 0;
-	*(float*)&byte_587000[180480] = v6 * v6;
+	*(float*)&dword_587000_180480 = v6 * v6;
 	*(float*)&byte_587000[180476] = v6 * v6 * v6;
-	*(float*)&byte_587000[180496] = *(float*)&byte_587000[180480] + *(float*)&byte_587000[180480];
+	*(float*)&byte_587000[180496] = *(float*)&dword_587000_180480 + *(float*)&dword_587000_180480;
 	v16 = *(float*)&byte_587000[180476] * 6.0;
 	*(float*)&byte_587000[180492] = v16;
 	*(float*)&byte_587000[180508] = v16;
@@ -2869,9 +2870,9 @@ void __cdecl sub_4BEAD0(int2* a1, int2* a2, int2* a3, int2* a4, int a5, int a6) 
 	*(float*)&byte_587000[180484] = v7;
 	v16 = &byte_587000[180468];
 	v17 = 0;
-	*(float*)&byte_587000[180480] = v7 * v7;
+	*(float*)&dword_587000_180480 = v7 * v7;
 	*(float*)&byte_587000[180476] = v7 * v7 * v7;
-	*(float*)&byte_587000[180496] = *(float*)&byte_587000[180480] + *(float*)&byte_587000[180480];
+	*(float*)&byte_587000[180496] = *(float*)&dword_587000_180480 + *(float*)&dword_587000_180480;
 	v18 = *(float*)&byte_587000[180476] * 6.0;
 	*(float*)&byte_587000[180492] = v18;
 	*(float*)&byte_587000[180508] = v18;
