@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1301812;
 extern _DWORD dword_5d4594_1305748;
 extern _DWORD dword_5d4594_1197328;
 extern _DWORD dword_5d4594_1303472;
@@ -5715,7 +5716,7 @@ int __cdecl sub_49ADD0(int a1) {
 	dword_5d4594_1301840 = 0;
 	dword_5d4594_1301792 = 0;
 	dword_5d4594_1301836 = 0;
-	*(_DWORD*)&byte_5D4594[1301812] = 0;
+	dword_5d4594_1301812 = 0;
 	*(_DWORD*)&byte_5D4594[1301804] = 0;
 	*(_DWORD*)&byte_5D4594[1301816] = 0;
 	*(_DWORD*)&byte_5D4594[1301808] = 0;
@@ -5762,7 +5763,7 @@ void sub_49AEE0() {
 
 	v0 = 0;
 	dword_5d4594_1301792 = 0;
-	*(_DWORD*)&byte_5D4594[1301812] = 0;
+	dword_5d4594_1301812 = 0;
 	*(_DWORD*)&byte_5D4594[1301816] = 0;
 	*(_DWORD*)&byte_5D4594[1301796] = 0;
 	if (*(_DWORD*)&byte_5D4594[1301824] > 0) {
@@ -5781,11 +5782,11 @@ void sub_49AEE0() {
 				}
 			}
 			++v0;
-			*(_DWORD*)&byte_5D4594[1301812] += v1;
+			dword_5d4594_1301812 += v1;
 			*(_DWORD*)(dword_5d4594_1301848 + 4 * v0 - 4) = 0;
 		} while (v0 < *(int*)&byte_5D4594[1301824]);
-		if (*(_DWORD*)&byte_5D4594[1301812] > *(int*)&byte_5D4594[1301804])
-			*(_DWORD*)&byte_5D4594[1301804] = *(_DWORD*)&byte_5D4594[1301812];
+		if (dword_5d4594_1301812 > *(int*)&byte_5D4594[1301804])
+			*(_DWORD*)&byte_5D4594[1301804] = dword_5d4594_1301812;
 	}
 	sub_4144D0(*(_DWORD**)&dword_5d4594_1301844);
 }
@@ -6008,7 +6009,7 @@ int sub_49B370() { return *(_DWORD*)&byte_5D4594[1301796]; }
 int sub_49B380() { return *(_DWORD*)&byte_5D4594[1301816]; }
 
 //----- (0049B3A0) --------------------------------------------------------
-int sub_49B3A0() { return *(_DWORD*)&byte_5D4594[1301812]; }
+int sub_49B3A0() { return dword_5d4594_1301812; }
 
 //----- (0049B3B0) --------------------------------------------------------
 int sub_49B3B0() { return *(_DWORD*)&byte_5D4594[1301820]; }
@@ -6018,7 +6019,7 @@ int sub_49B3C0() {
 	int result; // eax
 
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1301812] = 0;
+	dword_5d4594_1301812 = 0;
 	*(_DWORD*)&byte_5D4594[1301816] = 0;
 	*(_DWORD*)&byte_5D4594[1301808] = 0;
 	*(_DWORD*)&byte_5D4594[1301796] = 0;
