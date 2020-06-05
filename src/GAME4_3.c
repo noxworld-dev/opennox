@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2488652;
 extern _DWORD dword_5d4594_3835348;
 extern _DWORD dword_5d4594_3835352;
 extern _DWORD dword_5d4594_2489432;
@@ -6093,7 +6094,7 @@ int __cdecl sub_538330(int a1, int a2) {
 		v21 = 25;
 	} else {
 		dword_5d4594_2488660 = 0;
-		*(_DWORD*)&byte_5D4594[2488652] = *(_DWORD*)(a2 + 8);
+		dword_5d4594_2488652 = *(_DWORD*)(a2 + 8);
 		sub_518040(a1 + 56, *(float*)(a2 + 8), sub_5386A0, a1);
 		if (dword_5d4594_2488660)
 			sub_538510(*(int*)&dword_5d4594_2488660, a2);
@@ -6234,7 +6235,7 @@ void __cdecl sub_5386A0(int a3, int a2) {
 					v3 = *(_DWORD*)(a3 + 16);
 					if ((v3 & 0x8000) == 0) {
 						if (sub_5370E0(a2, a3, 1)) {
-							if (*(float*)&byte_5D4594[2488652] > 0.0) {
+							if (*(float*)&dword_5d4594_2488652 > 0.0) {
 								a4.field_0 = *(float*)(a3 + 56) - *(float*)(a2 + 56);
 								v4 = *(float*)(a3 + 60) - *(float*)(a2 + 60);
 								a4.field_4 = v4;
@@ -6251,19 +6252,16 @@ void __cdecl sub_5386A0(int a3, int a2) {
 										} else if (*(_DWORD*)(a3 + 172) == 3) {
 											v7 = sub_54A990(
 											    (float2*)(a2 + 56),
-											    *(float*)&byte_5D4594
-												[2488652],
+											    *(float*)&dword_5d4594_2488652,
 											    a3, &a4);
 											if (v7 < 0.0)
 												return;
-											v5 = *(float*)&byte_5D4594
-												 [2488652] -
+											v5 = *(float*)&dword_5d4594_2488652 -
 											     v7;
 										}
 										if (v5 < 0.0)
 											v5 = 0.0;
-										if ((v5 < *(float*)&byte_5D4594
-											      [2488652] ||
+										if ((v5 < *(float*)&dword_5d4594_2488652 ||
 										     dword_5d4594_2488660 &&
 											 !(*(_BYTE*)(dword_5d4594_2488660 +
 												     8) &
@@ -6274,7 +6272,7 @@ void __cdecl sub_5386A0(int a3, int a2) {
 										     !(*(_BYTE*)(dword_5d4594_2488660 +
 												 8) &
 										       2))) {
-											*(float*)&byte_5D4594[2488652] =
+											*(float*)&dword_5d4594_2488652 =
 											    v5;
 											dword_5d4594_2488660 = a3;
 										}
