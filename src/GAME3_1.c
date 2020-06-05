@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1319268;
 extern _DWORD dword_5d4594_1321024;
 extern _DWORD dword_5d4594_1320936;
 extern _DWORD dword_587000_80840;
@@ -3350,7 +3351,7 @@ int sub_4BFD30() { return dword_5d4594_1319056; }
 int sub_4BFD40() {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1319268] == 1) {
+	if (dword_5d4594_1319268 == 1) {
 		nox_window_set_hidden(*(int*)&dword_5d4594_1319228, 1);
 		sub_46ABB0(*(int*)&dword_5d4594_1319228, 0);
 		sub_46C6E0(*(int*)&dword_5d4594_1319228);
@@ -3358,12 +3359,12 @@ int sub_4BFD40() {
 		if (dword_5d4594_1319256)
 			result = sub_45A4B0(*(_QWORD**)&dword_5d4594_1319256);
 		dword_5d4594_1319256 = 0;
-		*(_DWORD*)&byte_5D4594[1319268] = 0;
+		dword_5d4594_1319268 = 0;
 	} else {
 		sub_46ABB0(*(int*)&dword_5d4594_1319228, 1);
 		sub_46C690(*(int*)&dword_5d4594_1319228);
 		result = sub_46A8C0(*(int*)&dword_5d4594_1319228);
-		*(_DWORD*)&byte_5D4594[1319268] = 1;
+		dword_5d4594_1319268 = 1;
 	}
 	return result;
 }
@@ -3403,7 +3404,7 @@ int sub_4BFE40() {
 	int v4;            // [esp+4h] [ebp-Ch]
 	int2 v5;           // [esp+8h] [ebp-8h]
 
-	if (*(_DWORD*)&byte_5D4594[1319268] != 1)
+	if (dword_5d4594_1319268 != 1)
 		return 0;
 	v0 = (const wchar_t*)sub_46AF00(*(int*)&dword_5d4594_1319232);
 	v1 = nox_wcstol(v0, 0, 10);
@@ -3505,7 +3506,7 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4) {
 	int v13;           // [esp+8h] [ebp-Ch]
 	int2 v14;          // [esp+Ch] [ebp-8h]
 
-	if (a2 != 16391 || *(_DWORD*)&byte_5D4594[1319268] != 1)
+	if (a2 != 16391 || dword_5d4594_1319268 != 1)
 		return 0;
 	v3 = sub_46B0A0(a3);
 	sub_452D80(766, 100);
