@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_2488604;
 extern _DWORD dword_587000_264364;
 extern _DWORD dword_5d4594_2487904;
@@ -3750,7 +3751,7 @@ LABEL_10:
 							if (!v29 || v30 <= 0.0 ||
 							    (v21 = sqrt(v30) + 0.5, v27 = v26 / v21,
 							     v28 / v21 * v34[1] + v27 * *v34 >
-								 *(double*)&byte_581450[9544])) {
+								 *(double*)&qword_581450_9544)) {
 								v22 = *(float*)(a2 + 4);
 								v38.field_0 = *(float*)a2;
 								v38.field_4 = v22;
