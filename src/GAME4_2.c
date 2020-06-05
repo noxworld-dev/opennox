@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312784;
 extern _DWORD dword_5d4594_2487248;
 extern _DWORD dword_587000_312800;
 extern _DWORD dword_587000_312816;
@@ -11598,7 +11599,7 @@ int __cdecl sub_52DD50(int a1, int a2, int a3, int a4, float a5) {
 		v10 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a3 + 748) + 276) + 2251);
 		switch (v10) {
 		case 0:
-			v11 = *(float*)&byte_587000[312784];
+			v11 = *(float*)&dword_587000_312784;
 		LABEL_14:
 			v15 = v11 * v15;
 			break;
@@ -12601,7 +12602,7 @@ int __cdecl sub_52F2E0(float a1) {
 		v8 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(v7 + 748) + 276) + 2251);
 		switch (v8) {
 		case 0:
-			v9 = *(float*)&byte_587000[312784];
+			v9 = *(float*)&dword_587000_312784;
 		LABEL_27:
 			v11 = v9 * v11;
 			break;
