@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1321236;
 extern _DWORD dword_5d4594_1321240;
 extern _DWORD dword_5d4594_1321252;
 extern _DWORD dword_5d4594_1321232;
@@ -74,20 +75,20 @@ int sub_4C3760() {
 	result = nox_new_window_from_file("InputCfg.wnd", sub_4C3A90);
 	dword_5d4594_1321228 = result;
 	if (result) {
-		*(_DWORD*)&byte_5D4594[1321236] = sub_46B0C0((_DWORD*)result, 910);
+		dword_5d4594_1321236 = sub_46B0C0((_DWORD*)result, 910);
 		dword_5d4594_1321240 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 911);
 		dword_5d4594_1321244 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 912);
 		dword_5d4594_1321248 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 913);
-		result = *(_DWORD*)&byte_5D4594[1321236];
-		if (*(_DWORD*)&byte_5D4594[1321236]) {
-			v1 = *(_DWORD***)(*(_DWORD*)&byte_5D4594[1321236] + 32);
+		result = dword_5d4594_1321236;
+		if (dword_5d4594_1321236) {
+			v1 = *(_DWORD***)(dword_5d4594_1321236 + 32);
 			*v1[7] = 921;
 			*v1[8] = 922;
 			*v1[9] = 920;
-			sub_46B2C0(*(int*)&byte_5D4594[1321236], sub_4C3CD0);
-			sub_46B120(*(_DWORD**)&dword_5d4594_1321240, *(int*)&byte_5D4594[1321236]);
-			sub_46B120(*(_DWORD**)&dword_5d4594_1321244, *(int*)&byte_5D4594[1321236]);
-			sub_46B120(*(_DWORD**)&dword_5d4594_1321248, *(int*)&byte_5D4594[1321236]);
+			sub_46B2C0(*(int*)&dword_5d4594_1321236, sub_4C3CD0);
+			sub_46B120(*(_DWORD**)&dword_5d4594_1321240, *(int*)&dword_5d4594_1321236);
+			sub_46B120(*(_DWORD**)&dword_5d4594_1321244, *(int*)&dword_5d4594_1321236);
+			sub_46B120(*(_DWORD**)&dword_5d4594_1321248, *(int*)&dword_5d4594_1321236);
 			sub_46B300(*(int*)&dword_5d4594_1321244, sub_4C3A60);
 			sub_46B300(*(int*)&dword_5d4594_1321248, sub_4C3A60);
 			v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 921);
