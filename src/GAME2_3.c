@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1305712;
 extern _DWORD dword_5d4594_1203832;
 extern _DWORD dword_5d4594_1305720;
 extern _DWORD dword_5d4594_1200796;
@@ -6652,7 +6653,7 @@ BOOL sub_49CB40() { return dword_5d4594_1305684 != 0; }
 int nox_video_initRectDrawingFuncs_49CB50() {
 	if (!dword_5d4594_3801780) {
 		*(_DWORD*)&byte_5D4594[1305704] = sub_49D1E0; 
-		*(_DWORD*)&byte_5D4594[1305712] = sub_49D680; 
+		dword_5d4594_1305712 = sub_49D680; 
 		dword_5d4594_1305720 = sub_49D880; // seems to be unused
 		*(_DWORD*)&byte_5D4594[1305700] = sub_49DA90; // seems to be unused
 		*(_DWORD*)&byte_5D4594[1305716] = sub_49DB20; // opaque filled
@@ -6665,13 +6666,13 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 	*(_DWORD*)&byte_5D4594[1305704] = sub_49D270; // alpha filled
 	if (dword_5d4594_3801804) {
 		*(_DWORD*)&byte_5D4594[1305692] = sub_49D540; 
-		*(_DWORD*)&byte_5D4594[1305712] = sub_49D770;
+		dword_5d4594_1305712 = sub_49D770;
 		dword_5d4594_1305720 = sub_49D770;
 		*(_DWORD*)&byte_5D4594[1305700] = sub_49D9A0;
 		*(_DWORD*)&byte_5D4594[1305716] = sub_49DC70;
 	} else {
 		*(_DWORD*)&byte_5D4594[1305692] = sub_49D370;
-		*(_DWORD*)&byte_5D4594[1305712] = sub_49D6F0;
+		dword_5d4594_1305712 = sub_49D6F0;
 		dword_5d4594_1305720 = sub_49D6F0;
 		*(_DWORD*)&byte_5D4594[1305700] = sub_49D8E0;
 		*(_DWORD*)&byte_5D4594[1305716] = sub_49DBB0;
@@ -6781,13 +6782,13 @@ int4* __cdecl nox_client_drawRectFilledAlpha_49CF10(int xLeft, int yTop, int a3,
 	RECT rc;      // [esp+4h] [ebp-10h]
 	
 	if (!ptr_5D4594_3799572->data[0])
-		return (int4*)(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) & byte_5D4594[1305712])(xLeft, yTop,
+		return (int4*)(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_1305712)(xLeft, yTop,
 													 a3, a4);
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
 	result = sub_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1]));
 	if (result)
 		result = (int4*)(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
-				 byte_5D4594[1305712])(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
+				 dword_5d4594_1305712)(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
 	return result;
 }
 
