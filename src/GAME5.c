@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_2491552;
 extern _DWORD dword_5d4594_2491616;
 extern _DWORD dword_587000_292492;
 extern _DWORD dword_5d4594_3843628;
@@ -2379,8 +2380,8 @@ void sub_548740() {
 //----- (00548830) --------------------------------------------------------
 void __cdecl sub_548830(int a1) {
 	if (!*(_DWORD*)(a1 + 28)) {
-		*(_DWORD*)(a1 + 36) = *(_DWORD*)&byte_5D4594[2491552];
-		*(_DWORD*)&byte_5D4594[2491552] = a1;
+		*(_DWORD*)(a1 + 36) = dword_5d4594_2491552;
+		dword_5d4594_2491552 = a1;
 		*(_DWORD*)(a1 + 28) = 1;
 	}
 }
@@ -2518,8 +2519,8 @@ void sub_548B60() {
 	int v8;     // eax
 	float v9;   // [esp+0h] [ebp-14h]
 
-	v0 = *(_DWORD*)&byte_5D4594[2491552];
-	if (*(_DWORD*)&byte_5D4594[2491552]) {
+	v0 = dword_5d4594_2491552;
+	if (dword_5d4594_2491552) {
 		while (1) {
 			v9 = *(float*)(v0 + 32) + *(float*)(v0 + 32) + 0.5;
 			v1 = nox_float2int(v9);
@@ -2567,12 +2568,12 @@ void sub_548B60() {
 			*(_DWORD*)(v0 + 32) = 0;
 			v0 = *(_DWORD*)(v0 + 36);
 			if (!v0) {
-				*(_DWORD*)&byte_5D4594[2491552] = 0;
+				dword_5d4594_2491552 = 0;
 				return;
 			}
 		}
 	}
-	*(_DWORD*)&byte_5D4594[2491552] = 0;
+	dword_5d4594_2491552 = 0;
 }
 
 //----- (00548C80) --------------------------------------------------------
