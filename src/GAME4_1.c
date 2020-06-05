@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_234176;
 extern _DWORD dword_5d4594_2487244;
 extern _DWORD dword_587000_249172;
 extern _DWORD dword_5d4594_2386840;
@@ -1244,14 +1245,14 @@ int __cdecl sub_50B2C0(int a1) {
 		if (result & 0x10000) {
 			qmemcpy(v25, (const void*)(a1 + 172), sizeof(v25));
 			if (*(_DWORD*)(a1 + 172) == 2) {
-				v3 = *(float*)&byte_587000[234176] + *(float*)(a1 + 176);
+				v3 = *(float*)&dword_587000_234176 + *(float*)(a1 + 176);
 				*(float*)(a1 + 176) = v3;
 				*(float*)(a1 + 180) = v3 * v3;
 			} else if (*(_DWORD*)(a1 + 172) == 3) {
 				*(float*)(a1 + 184) =
-				    *(float*)&byte_587000[234176] + *(float*)&byte_587000[234176] + *(float*)(a1 + 184);
+				    *(float*)&dword_587000_234176 + *(float*)&dword_587000_234176 + *(float*)(a1 + 184);
 				*(float*)(a1 + 188) =
-				    *(float*)&byte_587000[234176] + *(float*)&byte_587000[234176] + *(float*)(a1 + 188);
+				    *(float*)&dword_587000_234176 + *(float*)&dword_587000_234176 + *(float*)(a1 + 188);
 				nox_shape_box_calc((nox_shape*)(a1 + 172));
 			}
 			sub_4E7290(a1);
