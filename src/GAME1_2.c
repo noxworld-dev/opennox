@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80800;
 extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_814552;
 extern _DWORD dword_5d4594_815056;
@@ -6043,8 +6044,8 @@ int __cdecl sub_430DB0(int a1, int a2) {
 int sub_430E70() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_587000[80800];
-	if (*(_DWORD*)&byte_587000[80800]) {
+	result = dword_587000_80800;
+	if (dword_587000_80800) {
 		result = dword_5d4594_805836;
 		if (dword_5d4594_805836) {
 			dword_5d4594_805836 = 0;

@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_587000_80800;
 extern _DWORD dword_5d4594_251708;
 extern _DWORD dword_5d4594_251716;
 extern _DWORD dword_5d4594_10984;
@@ -322,7 +323,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 			nox_enable_audio = 0;
 			nox_video_dxUnlockSurface = 1;
 			nox_common_engineFlags = v11;
-			*(_DWORD*)&byte_587000[80800] = 0;
+			dword_587000_80800 = 0;
 			*(_DWORD*)&byte_5D4594[805840] = 1;
 			nox_enable_threads = 0;
 			int v12 = 16;
@@ -337,7 +338,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-noaudio")) {
 			nox_enable_audio = 0;
 		} else if (!_strcmpi(flag, "-noMMX")) {
-			*(_DWORD*)&byte_587000[80800] = 0;
+			dword_587000_80800 = 0;
 			*(_DWORD*)&byte_5D4594[805840] = 1;
 		} else if (!_strcmpi(flag, "-nothread")) {
 			nox_enable_threads = 0;
