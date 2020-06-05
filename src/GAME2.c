@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831092;
 extern _DWORD dword_5d4594_1046540;
 extern _DWORD dword_5d4594_1045588;
 extern _DWORD dword_5d4594_831276;
@@ -595,7 +596,7 @@ BOOL __cdecl sub_44D660(const char* a1) {
 		*(_DWORD*)v2 = *(_DWORD*)&byte_587000[122868];
 		v2[4] = v1;
 	}
-	v3 = AIL_open_stream(*(_DWORD*)&byte_5D4594[831092], v7, 51200);
+	v3 = AIL_open_stream(dword_5d4594_831092, v7, 51200);
 	dword_5d4594_831088 = v3;
 	if (v3)
 		return v3 != 0;
@@ -611,7 +612,7 @@ BOOL __cdecl sub_44D660(const char* a1) {
 	if (v5 != 1 && v7[v5 + 38] != 92)
 		*(_WORD*)&v7[strlen(&v7[40]) + 40] = *(_WORD*)&byte_587000[122876];
 	strcat(&v7[40], v7);
-	dword_5d4594_831088 = AIL_open_stream(*(_DWORD*)&byte_5D4594[831092], &v7[40], 51200);
+	dword_5d4594_831088 = AIL_open_stream(dword_5d4594_831092, &v7[40], 51200);
 	return dword_5d4594_831088 != 0;
 }
 // 581408: using guessed type int __stdcall AIL_open_stream(_DWORD, _DWORD, _DWORD);
@@ -676,8 +677,8 @@ void sub_44D960() { dword_587000_122848 = 0; }
 int sub_44D970() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[831092];
-	if (*(_DWORD*)&byte_5D4594[831092])
+	result = dword_5d4594_831092;
+	if (dword_5d4594_831092)
 		dword_587000_122848 = 1;
 	return result;
 }
