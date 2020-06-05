@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096284;
 extern _DWORD dword_5d4594_1082864;
 extern _DWORD dword_587000_145664;
 extern _DWORD dword_5d4594_1096288;
@@ -7411,24 +7412,24 @@ unsigned __int8* sub_472310() {
 		}
 		*(_DWORD*)&byte_5D4594[1090308] = *(_DWORD*)&byte_5D4594[1096268];
 	} else {
-		*(_WORD*)&byte_5D4594[1090312] = sub_467850(*(int*)&byte_5D4594[1096284]);
+		*(_WORD*)&byte_5D4594[1090312] = sub_467850(*(int*)&dword_5d4594_1096284);
 		if (*(_WORD*)&byte_5D4594[1090312]) {
-			nox_thing* t1 = nox_get_thing(*(int*)&byte_5D4594[1096284]);
+			nox_thing* t1 = nox_get_thing(*(int*)&dword_5d4594_1096284);
 			if (t1) {
 				nox_drawable_link_thing(&byte_5D4594[1090316], t1->field_1c);
 				*(_DWORD*)&byte_5D4594[1090296] = &byte_5D4594[1090316];
 				if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
 				{
 					*(_DWORD*)&byte_5D4594[1090436] |= 0x40000000u;
-					result = *(unsigned __int8**)&byte_5D4594[1096284];
-					*(_DWORD*)&byte_5D4594[1090308] = *(_DWORD*)&byte_5D4594[1096284];
+					result = *(unsigned __int8**)&dword_5d4594_1096284;
+					*(_DWORD*)&byte_5D4594[1090308] = dword_5d4594_1096284;
 					return result;
 				}
 			} else {
 				*(_DWORD*)&byte_5D4594[1090296] = 0;
 			}
-			result = *(unsigned __int8**)&byte_5D4594[1096284];
-			*(_DWORD*)&byte_5D4594[1090308] = *(_DWORD*)&byte_5D4594[1096284];
+			result = *(unsigned __int8**)&dword_5d4594_1096284;
+			*(_DWORD*)&byte_5D4594[1090308] = dword_5d4594_1096284;
 		} else {
 			result = (unsigned __int8*)sub_467850(*(int*)&byte_5D4594[1096280]);
 			*(_WORD*)&byte_5D4594[1090312] = (_WORD)result;
