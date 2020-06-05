@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_173336;
 extern _DWORD dword_587000_173328;
 extern _DWORD dword_5d4594_1309784;
 extern _DWORD dword_5d4594_1312476;
@@ -4918,7 +4919,7 @@ LPCSTR sub_4AB580() {
 	dword_5d4594_1309780 = 0;
 	*(_DWORD*)&byte_5D4594[1309772] = 0;
 	*(_DWORD*)&byte_5D4594[1309768] = 0;
-	*(_DWORD*)&byte_587000[173336] = 1;
+	dword_587000_173336 = 1;
 	if (dword_5d4594_1309776)
 		free(*(LPVOID*)&dword_5d4594_1309776);
 	return result;
@@ -4989,7 +4990,7 @@ int sub_4AB720() {
 	v0 = dword_5d4594_1309780;
 	nox_file_9 = 0;
 	*(_DWORD*)&byte_5D4594[1309764] = 0;
-	*(_DWORD*)&byte_587000[173336] = 1;
+	dword_587000_173336 = 1;
 	*(_DWORD*)&byte_5D4594[1309772] = 0;
 	*(_DWORD*)&byte_5D4594[1309768] = 0;
 	if (dword_5d4594_1309780) {
@@ -5016,13 +5017,13 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void* a2, size_t a3) {
 	int v6;               // eax
 	int v7;               // eax
 
-	// fprintf(stderr, "a1=%d, a2=%d, a3=%d, expected=%d\n", a1, a2, a3, *(_DWORD *)&byte_587000[173336]);
+	// fprintf(stderr, "a1=%d, a2=%d, a3=%d, expected=%d\n", a1, a2, a3, *(_DWORD *)&dword_587000_173336);
 
 	if (a2 && a3) {
-		if (a1 == *(_DWORD*)&byte_587000[173336]) {
+		if (a1 == dword_587000_173336) {
 			fwrite(a2, a3, 1u, nox_file_9);
 			*(_DWORD*)&byte_5D4594[1309768] += a3;
-			++*(_DWORD*)&byte_587000[173336];
+			++dword_587000_173336;
 		} else {
 			v3 = nox_malloc(0x14u);
 			if (v3) {
@@ -5045,10 +5046,10 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void* a2, size_t a3) {
 		v5 = *(unsigned __int16**)&dword_5d4594_1309780;
 		if (dword_5d4594_1309780) {
 			do {
-				if (*(_DWORD*)&byte_587000[173336] == *v5) {
+				if (dword_587000_173336 == *v5) {
 					fwrite(*((void**)v5 + 1), *((_DWORD*)v5 + 2), 1u, nox_file_9);
 					*(_DWORD*)&byte_5D4594[1309768] += *((_DWORD*)v5 + 2);
-					++*(_DWORD*)&byte_587000[173336];
+					++dword_587000_173336;
 					v6 = *((_DWORD*)v5 + 4);
 					if (v6)
 						*(_DWORD*)(v6 + 12) = *((_DWORD*)v5 + 3);
@@ -5132,7 +5133,7 @@ int __cdecl sub_4ABAD0(char* a1, unsigned int a2) {
 	if (!a1 || a2 <= 0)
 		return 0;
 	*(_DWORD*)&byte_5D4594[1309764] = 1;
-	*(_DWORD*)&byte_587000[173336] = 1;
+	dword_587000_173336 = 1;
 	*(_DWORD*)&byte_5D4594[1309772] = a2;
 	*(_DWORD*)&byte_5D4594[1309768] = 0;
 	dword_5d4594_1309780 = 0;
@@ -5177,7 +5178,7 @@ int __cdecl sub_4ABAD0(char* a1, unsigned int a2) {
 		nox_file_9 = fopen(*(const char**)&dword_5d4594_1309776, "wb");
 		if (nox_file_9) {
 			result = 1;
-			*(_DWORD*)&byte_587000[173336] = 1;
+			dword_587000_173336 = 1;
 			return result;
 		}
 	}
