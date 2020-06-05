@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193624;
 extern _DWORD dword_5d4594_1193664;
 extern _DWORD dword_5d4594_1193524;
 extern _DWORD dword_5d4594_1193648;
@@ -1585,7 +1586,7 @@ int nox_video_initCursorDrawVars_48B1F0() {
 	SetRect((LPRECT)&byte_5D4594[1193532], 0, 0, 0, 0);
 	SetRect((LPRECT)&byte_5D4594[1193548], 0, 0, 0, 0);
 	SetRect((LPRECT)&byte_5D4594[1193604], 0, 0, 0, 0);
-	*(_DWORD*)&byte_5D4594[1193624] = 0;
+	dword_5d4594_1193624 = 0;
 	dword_5d4594_3798728 = 0;
 	dword_5d4594_1193664 = 0;
 	dword_5d4594_1193668 = 0;
@@ -2596,8 +2597,8 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3) {
 		*(_DWORD*)&byte_5D4594[1193628] = dword_5d4594_1193524;
 		dword_5d4594_1193648 = a2;
 		dword_5d4594_1193524 = a3;
-		if (a1 && a1 != *(_DWORD*)&byte_5D4594[1193624]) {
-			*(_DWORD*)&byte_5D4594[1193624] = a1;
+		if (a1 && a1 != dword_5d4594_1193624) {
+			dword_5d4594_1193624 = a1;
 			sub_48A670(g_cursor_surf);
 			for (i = 0; i < 512; i += 4)
 				sub_49D1C0(*(_DWORD*)(i + dword_5d4594_1193704),
@@ -2706,7 +2707,7 @@ void nox_video_stopCursorDrawThread_48B350() {
 		free(*(LPVOID*)&dword_5d4594_1193704);
 		dword_5d4594_1193704 = 0;
 	}
-	*(_DWORD*)&byte_5D4594[1193624] = 0;
+	dword_5d4594_1193624 = 0;
 }
 
 #ifdef USE_SDL
