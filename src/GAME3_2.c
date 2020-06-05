@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1556148;
 extern _DWORD dword_5d4594_3835388;
 extern _DWORD dword_587000_312808;
 extern _DWORD dword_5d4594_1563092;
@@ -4650,12 +4651,12 @@ int __cdecl sub_4D6FB0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1556148] = a1;
+	dword_5d4594_1556148 = a1;
 	return result;
 }
 
 //----- (004D6FC0) --------------------------------------------------------
-int sub_4D6FC0() { return *(_DWORD*)&byte_5D4594[1556148]; }
+int sub_4D6FC0() { return dword_5d4594_1556148; }
 
 //----- (004D7080) --------------------------------------------------------
 int nox_server_conCmdHandler_startSoloQuest_4D7080() {
