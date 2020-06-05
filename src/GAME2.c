@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831276;
 extern _DWORD dword_5d4594_1046648;
 extern _DWORD dword_5d4594_1046596;
 extern _DWORD dword_5d4594_1046640;
@@ -1282,8 +1283,8 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 	int v2; // eax
 	int v3; // eax
 
-	*(float*)&byte_5D4594[831276] = *(float*)&byte_5D4594[831276] - sub_44E8B0();
-	v2 = nox_float2int(*(float*)&byte_5D4594[831276]);
+	*(float*)&dword_5d4594_831276 = *(float*)&dword_5d4594_831276 - sub_44E8B0();
+	v2 = nox_float2int(*(float*)&dword_5d4594_831276);
 	sub_46A9B0(a1, 0, v2);
 	nox_client_copyRect_49F6F0(*(int*)&byte_5D4594[831284], *(int*)&byte_5D4594[831288], NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT);
 	if (byte_5D4594[832472] & 1) {
@@ -1296,7 +1297,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 		sub_488D00((int)a1, xLeft);
 	}
 	nox_client_copyRect_49F6F0(0, 0, nox_backbuffer_width, nox_backbuffer_height);
-	if ((__int64)*(float*)&byte_5D4594[831276] <= *(int*)&byte_5D4594[831280] &&
+	if ((__int64)*(float*)&dword_5d4594_831276 <= *(int*)&byte_5D4594[831280] &&
 	    *(_DWORD*)&byte_5D4594[831244] == 1 && !sub_44D930() &&
 	    (unsigned __int64)(sub_416BB0() - *(_QWORD*)&byte_5D4594[831292]) > 0x3A98 &&
 	    (*(_DWORD*)&byte_5D4594[832488] == 1 || !(byte_5D4594[832472] & 5))) {
@@ -1425,11 +1426,11 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	sub_43F840(v5[59], *v15, 0, &byte_5D4594[831280], NOX_DEFAULT_HEIGHT);
 	sub_46AB20(v5, NOX_DEFAULT_WIDTH, *(int*)&byte_5D4594[831280]);
 	if (v3 == 255) {
-		*(_DWORD*)&byte_5D4594[831276] = 1140457472;
+		dword_5d4594_831276 = 1140457472;
 		*(_DWORD*)&byte_5D4594[831280] = -20 - *(_DWORD*)&byte_5D4594[831280];
 	} else {
 		*(_DWORD*)&byte_5D4594[831280] = (480 - *(_DWORD*)(v5[59] + 8) - *(int*)&byte_5D4594[831280]) / 2;
-		*(float*)&byte_5D4594[831276] = (double)*(int*)&byte_5D4594[831280];
+		*(float*)&dword_5d4594_831276 = (double)*(int*)&byte_5D4594[831280];
 	}
 	sub_431290();
 	dword_5d4594_831224 = 0;
