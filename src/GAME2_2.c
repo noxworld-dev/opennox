@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798788;
 extern _DWORD dword_5d4594_1097188;
 extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_3799476;
@@ -10435,9 +10436,9 @@ LPVOID sub_486110() {
 			free(*(LPVOID*)&dword_5d4594_3798780);
 			dword_5d4594_3798780 = 0;
 		}
-		if (*(_DWORD*)&byte_5D4594[3798788]) {
-			free(*(LPVOID*)&byte_5D4594[3798788]);
-			*(_DWORD*)&byte_5D4594[3798788] = 0;
+		if (dword_5d4594_3798788) {
+			free(*(LPVOID*)&dword_5d4594_3798788);
+			dword_5d4594_3798788 = 0;
 		}
 	}
 	if (dword_5d4594_3798784) {
@@ -10468,8 +10469,8 @@ void* sub_4861A0() {
 	int v0;       // ecx
 	void* result; // eax
 
-	v0 = *(_DWORD*)&byte_5D4594[3798788];
-	*(_DWORD*)&byte_5D4594[3798788] = dword_5d4594_3798780;
+	v0 = dword_5d4594_3798788;
+	dword_5d4594_3798788 = dword_5d4594_3798780;
 	result = *(void**)&dword_5d4594_3798784;
 	dword_5d4594_3798780 = v0;
 	dword_5d4594_3798784 = dword_5d4594_3798776;
@@ -10486,7 +10487,7 @@ int sub_4861D0() {
 	     (dword_5d4594_3798780 = result) != 0) &&
 		(!(nox_video_renderTargetFlags & 0x40) ||
 		 (result = (int)nox_calloc(dword_5d4594_3801808 * nox_backbuffer_height, 1u),
-		  (*(_DWORD*)&byte_5D4594[3798788] = result) != 0))) {
+		  (dword_5d4594_3798788 = result) != 0))) {
 		result = 1;
 	}
 	return result;
@@ -10522,7 +10523,7 @@ int sub_486230() {
 			dword_5d4594_3798776 = result;
 			if (!result)
 				return result;
-			v4 = *(_DWORD*)&byte_5D4594[3798788];
+			v4 = dword_5d4594_3798788;
 			v5 = 0;
 			if (nox_backbuffer_height > 0) {
 				while (1) {
