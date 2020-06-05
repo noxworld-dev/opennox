@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_832500;
 extern _DWORD dword_5d4594_832528;
 extern _DWORD dword_5d4594_1045688;
 extern _DWORD dword_5d4594_823776;
@@ -1079,11 +1080,11 @@ _DWORD* sub_44E110() {
 		dword_5d4594_832492 = v2;
 	}
 	v2[30] |= 0x1000000u;
-	v4 = *(_DWORD**)&byte_5D4594[832500];
-	if (!*(_DWORD*)&byte_5D4594[832500]) {
+	v4 = *(_DWORD**)&dword_5d4594_832500;
+	if (!dword_5d4594_832500) {
 		v5 = sub_44CFC0((CHAR*)&byte_587000[123088]);
 		v4 = nox_new_drawable_for_thing(v5);
-		*(_DWORD*)&byte_5D4594[832500] = v4;
+		dword_5d4594_832500 = v4;
 	}
 	v4[30] |= 0x1000000u;
 	v6 = *(_DWORD**)&dword_5d4594_832504;
@@ -1483,9 +1484,9 @@ int sub_4505E0() {
 	if (dword_5d4594_832492)
 		sub_45A4B0(*(_QWORD**)&dword_5d4594_832492);
 	dword_5d4594_832492 = 0;
-	if (*(_DWORD*)&byte_5D4594[832500])
-		sub_45A4B0(*(_QWORD**)&byte_5D4594[832500]);
-	*(_DWORD*)&byte_5D4594[832500] = 0;
+	if (dword_5d4594_832500)
+		sub_45A4B0(*(_QWORD**)&dword_5d4594_832500);
+	dword_5d4594_832500 = 0;
 	if (dword_5d4594_832496)
 		sub_45A4B0(*(_QWORD**)&dword_5d4594_832496);
 	dword_5d4594_832496 = 0;
