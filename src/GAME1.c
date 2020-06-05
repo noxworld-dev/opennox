@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251552;
 extern _DWORD dword_5d4594_251700;
 extern _DWORD dword_5d4594_251564;
 extern _DWORD dword_5d4594_528252;
@@ -6002,7 +6003,7 @@ int sub_410160() {
 		}
 		dword_5D4594_251544[i] = 0;
 	}
-	*(_DWORD*)&byte_5D4594[251552] = 0;
+	dword_5d4594_251552 = 0;
 	int j = 0;
 	for (j = 0; j < 1024; j += 4) {
 		*(_DWORD*)(j + *(_DWORD*)&byte_5D4594[251556]) = 0;
@@ -6020,7 +6021,7 @@ int sub_4101D0() {
 	if (!*(_DWORD*)&byte_5D4594[251556]) {
 		return 0;
 	}
-	*(_DWORD*)&byte_5D4594[251552] = 0;
+	dword_5d4594_251552 = 0;
 	int v1 = 0;
 	while (1) {
 		_DWORD* v2 = nox_malloc(36);
@@ -6060,8 +6061,8 @@ LPVOID __cdecl sub_410250(int a1, int a2) {
 	v4 = ((_WORD)a2 + ((_WORD)a1 << 8)) & 0x1FFF;
 	*(_DWORD*)(v3 + 16) = dword_5D4594_251544[v4];
 	dword_5D4594_251544[v4] = v3;
-	*(_DWORD*)(v3 + 20) = *(_DWORD*)&byte_5D4594[251552];
-	*(_DWORD*)&byte_5D4594[251552] = v3;
+	*(_DWORD*)(v3 + 20) = dword_5d4594_251552;
+	dword_5d4594_251552 = v3;
 	v5 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[251556] + 4 * a2);
 	if (v5) {
 		v6 = 0;
@@ -6151,9 +6152,9 @@ _DWORD* __cdecl sub_410430(int a1, int a2) {
 			v3[4] = result[4];
 		else
 			dword_5D4594_251544[v2] = result[4];
-		v5 = *(_DWORD**)&byte_5D4594[251552];
+		v5 = *(_DWORD**)&dword_5d4594_251552;
 		v6 = 0;
-		if (!*(_DWORD*)&byte_5D4594[251552])
+		if (!dword_5d4594_251552)
 			goto LABEL_24;
 		do {
 			if (v5 == result)
@@ -6165,7 +6166,7 @@ _DWORD* __cdecl sub_410430(int a1, int a2) {
 			v6[5] = v5[5];
 		else
 		LABEL_24:
-			*(_DWORD*)&byte_5D4594[251552] = v5[5];
+			dword_5d4594_251552 = v5[5];
 		v7 = 0;
 		v8 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[251556] + 4 * a2);
 		if (!v8)
@@ -6273,8 +6274,8 @@ int __cdecl sub_410640(void(__cdecl* a1)(int, int), int a2) {
 	int result; // eax
 	int v3;     // esi
 
-	result = *(_DWORD*)&byte_5D4594[251552];
-	if (*(_DWORD*)&byte_5D4594[251552]) {
+	result = dword_5d4594_251552;
+	if (dword_5d4594_251552) {
 		do {
 			v3 = *(_DWORD*)(result + 20);
 			if (!(*(_BYTE*)(result + 4) & 0x30))
@@ -6290,8 +6291,8 @@ int __cdecl sub_410670(void(__cdecl* a1)(int, int), int a2) {
 	int result; // eax
 	int v3;     // esi
 
-	result = *(_DWORD*)&byte_5D4594[251552];
-	if (*(_DWORD*)&byte_5D4594[251552]) {
+	result = dword_5d4594_251552;
+	if (dword_5d4594_251552) {
 		do {
 			v3 = *(_DWORD*)(result + 20);
 			if (*(_BYTE*)(result + 4) & 0x20)
