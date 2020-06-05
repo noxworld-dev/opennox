@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_808568;
 extern _DWORD dword_5d4594_787184;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_1556112;
@@ -8061,7 +8062,7 @@ unsigned __int8 __cdecl sub_434630(unsigned __int8 a1, unsigned __int8 a2, unsig
 
 	v3 = 0;
 	v4 = &byte_5D4594[3804524];
-	if (*(int*)&byte_5D4594[808568] <= 0) {
+	if (*(int*)&dword_5d4594_808568 <= 0) {
 	LABEL_6:
 		v5 = a1;
 		v6 = a1 | ((a2 | (a3 << 8)) << 8);
@@ -8099,15 +8100,15 @@ unsigned __int8 __cdecl sub_434630(unsigned __int8 a1, unsigned __int8 a2, unsig
 		v14[1] = a2;
 		v14[2] = a3;
 		v14[3] = v18;
-		if (*(int*)&byte_5D4594[808568] < 32)
-			++*(_DWORD*)&byte_5D4594[808568];
+		if (*(int*)&dword_5d4594_808568 < 32)
+			++dword_5d4594_808568;
 		if (++*(int*)&byte_5D4594[810628] >= 32)
 			*(_DWORD*)&byte_5D4594[810628] = 0;
 		result = v18;
 	} else {
 		while (a1 != *v4 || a2 != v4[1] || a3 != v4[2]) {
 			v4 += 4;
-			if (++v3 >= *(int*)&byte_5D4594[808568])
+			if (++v3 >= *(int*)&dword_5d4594_808568)
 				goto LABEL_6;
 		}
 		result = v4[3];
@@ -8314,7 +8315,7 @@ void sub_435040() {
 		data[4 * i + 3] = 0;
 		byte_5D4594[i + 808304] = buf[i].field_0;
 	}
-	*(_DWORD*)&byte_5D4594[808568] = 0;
+	dword_5d4594_808568 = 0;
 	*(_DWORD*)&byte_5D4594[810628] = 0;
 }
 
