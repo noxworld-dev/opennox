@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_93944;
 extern _DWORD dword_5d4594_830204;
 extern _DWORD dword_5d4594_825752;
 extern _DWORD dword_5d4594_816092;
@@ -1931,11 +1932,11 @@ int __cdecl sub_43E940(int a1) {
 	_onexit(sub_43E9C0);
 	AIL_startup();
 	v1 = AIL_register_timer(sub_43E9D0);
-	*(_DWORD*)&byte_587000[93944] = v1;
+	dword_587000_93944 = v1;
 	if (v1 == -1)
 		return -2147221504;
 	AIL_set_timer_frequency(v1, 30);
-	AIL_start_timer(*(_DWORD*)&byte_587000[93944]);
+	AIL_start_timer(dword_587000_93944);
 	sub_42EBB0(1u, sub_43E910, 0, "Audio");
 	sub_42EBB0(2u, sub_43E8E0, 0, "Audio");
 	result = 0;
@@ -1962,10 +1963,10 @@ _DWORD* __stdcall sub_43E9D0(int a1) {
 
 //----- (0043E9F0) --------------------------------------------------------
 void sub_43E9F0() {
-	if (*(int*)&byte_587000[93944] != -1) {
-		AIL_stop_timer(*(_DWORD*)&byte_587000[93944]);
-		AIL_release_timer_handle(*(_DWORD*)&byte_587000[93944]);
-		*(_DWORD*)&byte_587000[93944] = -1;
+	if (*(int*)&dword_587000_93944 != -1) {
+		AIL_stop_timer(dword_587000_93944);
+		AIL_release_timer_handle(dword_587000_93944);
+		dword_587000_93944 = -1;
 	}
 	AIL_shutdown();
 }
