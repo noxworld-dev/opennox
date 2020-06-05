@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804684;
 extern _DWORD dword_5d4594_1193156;
 extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_1097208;
@@ -5563,22 +5564,22 @@ int __stdcall sub_47FCE0(_DWORD* a1, int a2) {
 	int v5;              // esi
 
 	v2 = 0;
-	if (*(int*)&byte_5D4594[3804684] <= 0) {
+	if (*(int*)&dword_5d4594_3804684 <= 0) {
 	LABEL_8:
-		v4 = 16 * *(_DWORD*)&byte_5D4594[3804684];
-		v5 = *(_DWORD*)&byte_5D4594[3804684] + 1;
+		v4 = 16 * dword_5d4594_3804684;
+		v5 = dword_5d4594_3804684 + 1;
 		*(_DWORD*)&byte_5D4594[v4 + 3805516] = a1[3];
 		*(_DWORD*)&byte_5D4594[v4 + 3805520] = a1[2];
 		*(_DWORD*)&byte_5D4594[v4 + 3805524] = a1[21];
 		*(_DWORD*)&byte_5D4594[v4 + 3805528] = a1[26];
-		*(_DWORD*)&byte_5D4594[3804684] = v5;
+		dword_5d4594_3804684 = v5;
 	} else {
 		v3 = &byte_5D4594[3805520];
 		while (*((_DWORD*)v3 - 1) != a1[3] || *(_DWORD*)v3 != a1[2] || *((_DWORD*)v3 + 1) != a1[21] ||
 		       *((_DWORD*)v3 + 2) != a1[26]) {
 			++v2;
 			v3 += 16;
-			if (v2 >= *(int*)&byte_5D4594[3804684])
+			if (v2 >= *(int*)&dword_5d4594_3804684)
 				goto LABEL_8;
 		}
 	}
