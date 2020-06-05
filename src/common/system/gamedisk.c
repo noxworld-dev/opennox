@@ -1,4 +1,5 @@
 #include "../../proto.h"
+extern _DWORD dword_5d4594_251700;
 
 //----- (00413520) --------------------------------------------------------
 int sub_413520_gamedisk() {
@@ -11,8 +12,8 @@ int sub_413520_gamedisk() {
 	int (*v7)();         // [esp-8h] [ebp-14h]
 	int (*v8)();         // [esp-4h] [ebp-10h]
 
-	LODWORD(v0) = *(_DWORD*)&byte_5D4594[251700];
-	switch (*(_DWORD*)&byte_5D4594[251700]) {
+	LODWORD(v0) = dword_5d4594_251700;
+	switch (dword_5d4594_251700) {
 	case 1:
 		// XXX NO CD
 		// v1 = sub_423CF0();
@@ -47,7 +48,7 @@ int sub_413520_gamedisk() {
 		}
 		sub_4137E0();
 		LODWORD(v0) = sub_413800();
-		*(_DWORD*)&byte_5D4594[251700] = 6;
+		dword_5d4594_251700 = 6;
 		*(_DWORD*)&byte_5D4594[251728] = 0;
 		break;
 	case 2:
@@ -57,7 +58,7 @@ int sub_413520_gamedisk() {
 		if (v0 > 0x7D0) {
 			sub_423C60();
 			LODWORD(v0) = *(_DWORD*)&byte_5D4594[251628];
-			*(_DWORD*)&byte_5D4594[251700] = 3;
+			dword_5d4594_251700 = 3;
 			*(_DWORD*)&byte_5D4594[251732] = *(_DWORD*)&byte_5D4594[251628];
 			*(_DWORD*)&byte_5D4594[251736] = *(_DWORD*)&byte_5D4594[251632];
 		}
@@ -69,9 +70,9 @@ int sub_413520_gamedisk() {
 			*(_DWORD*)&byte_5D4594[251708] = 0;
 			if (*(_DWORD*)&byte_5D4594[251712]) {
 				*(_DWORD*)&byte_5D4594[251712] = 0;
-				*(_DWORD*)&byte_5D4594[251700] = 1;
+				dword_5d4594_251700 = 1;
 			} else {
-				*(_DWORD*)&byte_5D4594[251700] = 2;
+				dword_5d4594_251700 = 2;
 			}
 		}
 		break;
@@ -87,7 +88,7 @@ int sub_413520_gamedisk() {
 		sub_449A10(0, (int)v2, (int)v5, v6, v7, v8);
 		sub_44A360(0);
 		LODWORD(v0) = sub_44A4B0();
-		*(_DWORD*)&byte_5D4594[251700] = 6;
+		dword_5d4594_251700 = 6;
 		break;
 	case 6:
 		return v0;
