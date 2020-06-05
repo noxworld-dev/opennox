@@ -6,6 +6,7 @@
 #include "../gui/guispell.h"
 #include "../gui/servopts/guiserv.h"
 
+extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_754036;
 extern _DWORD dword_587000_80828;
 extern int nox_win_width;
@@ -370,9 +371,9 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 		sub_42E670(28, 0);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		v19 = *(_DWORD*)&byte_5D4594[754048];
-		v20 = *(_DWORD*)&byte_5D4594[754040];
+		v20 = dword_5d4594_754040;
 		v21 = 0;
-		if (*(_DWORD*)&byte_5D4594[754048] == *(_DWORD*)&byte_5D4594[754040])
+		if (*(_DWORD*)&byte_5D4594[754048] == dword_5d4594_754040)
 			goto LABEL_226;
 		v22 = &byte_5D4594[750964];
 		do {
@@ -439,9 +440,9 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 	}
 	*(_DWORD*)&byte_5D4594[754064] = 0;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
-		result = *(_DWORD*)&byte_5D4594[754040];
+		result = dword_5d4594_754040;
 		v34 = dword_5d4594_754036;
-		if (dword_5d4594_754036 < *(int*)&byte_5D4594[754040])
+		if (dword_5d4594_754036 < *(int*)&dword_5d4594_754040)
 			v34 = dword_5d4594_754036 + 128;
 	} else {
 		v34 = dword_5d4594_754036;
