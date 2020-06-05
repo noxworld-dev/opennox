@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046944;
 extern _DWORD dword_5d4594_1046600;
 extern _DWORD dword_5d4594_1045424;
 extern _DWORD dword_5d4594_1045584;
@@ -6316,7 +6317,7 @@ int __cdecl sub_45B070(int a1, int a2) {
 	}
 	if (a2 != 5)
 		return 0;
-	nox_window_set_hidden(*(int*)&byte_5D4594[1046944], 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1046944, 0);
 	if (dword_587000_132132) {
 		if (dword_5d4594_1046936 + 1 < *(int*)&byte_5D4594[1046940]) {
 			++dword_5d4594_1046936;
@@ -6628,7 +6629,7 @@ int __cdecl sub_45B930(int a1) {
 	*(_DWORD*)(*(_DWORD*)(dword_5d4594_1046924 + 96) + 12) = sub_430B40_get_mouse_prev_seq();
 	sub_452D80(788, 100);
 	nox_window_set_hidden(*(int*)&dword_5d4594_1046952, 0);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1046944], 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1046944, 0);
 	return nox_window_set_hidden(*(int*)&dword_5d4594_1046948, 0);
 }
 
@@ -6727,10 +6728,10 @@ int sub_45B9D0() {
 
 	nox_window_set_all_funcs((_DWORD*)result, sub_45B360, sub_45BD30, sub_45CF00);
 	*v2 = 1310;
-	*(_DWORD*)&byte_5D4594[1046944] = nox_window_new(nox_win_unk1, 136, 24, 138, 20, 20, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1046944], sub_45B210, 0, 0);
+	dword_5d4594_1046944 = nox_window_new(nox_win_unk1, 136, 24, 138, 20, 20, 0);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1046944, sub_45B210, 0, 0);
 	v3 = sub_42F970("ArrowW");
-	sub_46AE60(*(int*)&byte_5D4594[1046944], (int)v3);
+	sub_46AE60(*(int*)&dword_5d4594_1046944, (int)v3);
 	dword_5d4594_1046948 = nox_window_new(nox_win_unk1, 136, 233, 138, 20, 20, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1046948, sub_45B070, 0, 0);
 	v4 = sub_42F970("ArrowE");
