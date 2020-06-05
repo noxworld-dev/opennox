@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046656;
 extern _DWORD dword_587000_80824;
 extern _DWORD dword_5d4594_1049484;
 extern _DWORD dword_5d4594_830872;
@@ -6183,10 +6184,10 @@ int __cdecl sub_45ADF0(int a1) {
 	int v9; // [esp+Ch] [ebp-4h]
 
 	v1 = 0;
-	*(_DWORD*)&byte_5D4594[1046656] = sub_43F320(0) + 2;
+	dword_5d4594_1046656 = sub_43F320(0) + 2;
 	*(_DWORD*)&byte_5D4594[1047508] = 0;
 	*(_DWORD*)&byte_5D4594[1047512] = 0;
-	v9 = 2 * (141 / *(_DWORD*)&byte_5D4594[1046656]) - 2;
+	v9 = 2 * (141 / dword_5d4594_1046656) - 2;
 	if (dword_5d4594_1046868 == 1) {
 		for (i = sub_427300(); i; i = sub_427320(i)) {
 			if (nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096) ||
@@ -6471,8 +6472,8 @@ int __cdecl sub_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 		}
 		return 0;
 	}
-	*(_DWORD*)&byte_5D4594[1046656] = sub_43F320(0) + 2;
-	v5 = 141 / *(_DWORD*)&byte_5D4594[1046656] - 1;
+	dword_5d4594_1046656 = sub_43F320(0) + 2;
+	v5 = 141 / dword_5d4594_1046656 - 1;
 	sub_46AA20(a1, &v14, &a3);
 	switch (a2) {
 	case 5u:
@@ -6486,8 +6487,8 @@ int __cdecl sub_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 			*(_DWORD*)&byte_587000[132136] = -1;
 			return 1;
 		}
-		v9 = v8 / *(int*)&byte_5D4594[1046656];
-		if (v8 / *(int*)&byte_5D4594[1046656] >= v5)
+		v9 = v8 / *(int*)&dword_5d4594_1046656;
+		if (v8 / *(int*)&dword_5d4594_1046656 >= v5)
 			goto LABEL_14;
 		if (v4 - v14 > 145)
 			v9 += v5;
