@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_528252;
 extern _DWORD dword_5d4594_3484;
 extern _DWORD dword_5d4594_251560;
 extern _DWORD dword_5d4594_251600;
@@ -2917,7 +2918,7 @@ int __stdcall sub_40C1F0(int a1, int a2, const void* a3) {
 //----- (0040C240) --------------------------------------------------------
 int __stdcall sub_40C240(int a1, int a2, int a3) {
 	if (a2) {
-		if (*(_DWORD*)&byte_5D4594[528252] && dword_5d4594_528256) {
+		if (dword_5d4594_528252 && dword_5d4594_528256) {
 			sub_41E470();
 			return 0;
 		}
@@ -2931,7 +2932,7 @@ int __stdcall sub_40C240(int a1, int a2, int a3) {
 			sub_416690();
 		}
 		sub_41F230(0, 1);
-		if (*(_DWORD*)&byte_5D4594[528252] && dword_5d4594_528256) {
+		if (dword_5d4594_528252 && dword_5d4594_528256) {
 			sub_41E370();
 			sub_41E4B0(0);
 		}
@@ -3293,7 +3294,7 @@ BOOL __stdcall sub_40CA60(int a1, int a2, const void* a3) {
 	result = sub_40E0B0();
 	if (result) {
 		if (a2) {
-			if (*(_DWORD*)&byte_5D4594[528252] && dword_5d4594_528256) {
+			if (dword_5d4594_528252 && dword_5d4594_528256) {
 				sub_41E470();
 				return 0;
 			}
@@ -3325,7 +3326,7 @@ BOOL __stdcall sub_40CA60(int a1, int a2, const void* a3) {
 				sub_41DA70(v8, 7);
 				return 0;
 			}
-			if (*(_DWORD*)&byte_5D4594[528252] && dword_5d4594_528256)
+			if (dword_5d4594_528252 && dword_5d4594_528256)
 				sub_43AA70();
 		}
 		result = 0;
