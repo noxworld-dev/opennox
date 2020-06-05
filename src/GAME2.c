@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830864;
 extern _DWORD dword_5d4594_1047528;
 extern _DWORD dword_5d4594_1046636;
 extern _DWORD dword_5d4594_832520;
@@ -458,7 +459,7 @@ int nox_get_things_count() { return nox_things_count; }
 //----- (0044D3A0) --------------------------------------------------------
 void sub_44D3A0() {
 	if (*(_DWORD*)&byte_5D4594[831076]) {
-		switch (*(_DWORD*)&byte_5D4594[830864]) {
+		switch (dword_5d4594_830864) {
 		case 0:
 			if (dword_5d4594_830872 && *(_DWORD*)&byte_587000[122848]) {
 				if (!sub_44D660(*(const char**)&dword_5d4594_830872))
@@ -468,7 +469,7 @@ void sub_44D3A0() {
 					goto LABEL_16;
 				*(_DWORD*)&byte_5D4594[831084] = 1;
 				sub_43DBD0();
-				*(_DWORD*)&byte_5D4594[830864] = 1;
+				dword_5d4594_830864 = 1;
 			} else if (*(_DWORD*)&byte_5D4594[831084]) {
 				sub_43DBE0();
 				*(_DWORD*)&byte_5D4594[831084] = 0;
@@ -477,15 +478,15 @@ void sub_44D3A0() {
 		case 1:
 			if (!sub_43DC40())
 			LABEL_16:
-				*(_DWORD*)&byte_5D4594[830864] = 2;
+				dword_5d4594_830864 = 2;
 			break;
 		case 2:
 			sub_486320(&byte_5D4594[830876], 0x4000);
 			if (!sub_44D7E0(*(int*)&byte_5D4594[830868])) {
-				*(_DWORD*)&byte_5D4594[830864] = 0;
+				dword_5d4594_830864 = 0;
 				goto LABEL_29;
 			}
-			*(_DWORD*)&byte_5D4594[830864] = 3;
+			dword_5d4594_830864 = 3;
 			*(_DWORD*)&byte_5D4594[830972] = dword_5d4594_830872;
 			*(_DWORD*)&byte_5D4594[830860] = *(_DWORD*)&byte_5D4594[830868];
 			break;
@@ -493,7 +494,7 @@ void sub_44D3A0() {
 			if (!*(_DWORD*)&byte_587000[122848] || !*(_DWORD*)&byte_5D4594[830972] ||
 			    dword_5d4594_830872 != *(_DWORD*)&byte_5D4594[830972] ||
 			    !dword_5d4594_831088 || AIL_stream_status(dword_5d4594_831088) == 2) {
-				*(_DWORD*)&byte_5D4594[830864] = 4;
+				dword_5d4594_830864 = 4;
 				sub_486350((int)&byte_5D4594[830876], 0);
 			}
 			break;
@@ -501,7 +502,7 @@ void sub_44D3A0() {
 			if (!dword_5d4594_831088 || AIL_stream_status(dword_5d4594_831088) == 2 ||
 			    !(*(_DWORD*)&byte_5D4594[830880] & 0xFFFF0000)) {
 				sub_44D640();
-				*(_DWORD*)&byte_5D4594[830864] = 0;
+				dword_5d4594_830864 = 0;
 				if (*(_DWORD*)&byte_5D4594[831084]) {
 					sub_43DBE0();
 					*(_DWORD*)&byte_5D4594[831084] = 0;
