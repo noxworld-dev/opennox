@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_833728;
 extern _DWORD dword_5d4594_833732;
 extern _DWORD dword_5d4594_823708;
 extern _DWORD dword_5d4594_823684;
@@ -40,7 +41,7 @@ wchar_t* __cdecl sub_450B20(wchar_t* a1) {
 	if (a1) {
 		if (*a1) {
 			result = nox_wcscpy((wchar_t*)&byte_5D4594[832552], a1);
-			*(_DWORD*)&byte_5D4594[833728] = 1;
+			dword_5d4594_833728 = 1;
 		}
 	}
 	return result;
@@ -66,7 +67,7 @@ int sub_450B50() {
 
 	result = 0;
 	*(_WORD*)&byte_5D4594[832552] = 0;
-	*(_DWORD*)&byte_5D4594[833728] = 0;
+	dword_5d4594_833728 = 0;
 	dword_5d4594_833732 = 0;
 	return result;
 }
