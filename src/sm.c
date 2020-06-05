@@ -10,6 +10,7 @@ void f(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
 // defined in GAME1.c
+extern _DWORD dword_5d4594_2649712;
 extern _DWORD dword_5d4594_815700;
 extern void (*mainloop_enter)(void*);
 extern void* mainloop_enter_args;
@@ -350,7 +351,7 @@ void NET_CONNECT_THEN(sm_args_t* args) {
 		GOTO_CONNECT_RESULT(v5);
 
 	if (!nox_common_gameFlags_check_40A5C0(1))
-		*(_DWORD*)&byte_5D4594[2649712] |= 0x80000000;
+		dword_5d4594_2649712 |= 0x80000000;
 	sub_40ED10(31, 0);
 	sub_40A340(0);
 	sub_40A360(0);

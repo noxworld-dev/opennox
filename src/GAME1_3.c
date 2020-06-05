@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2649712;
 extern _DWORD dword_5d4594_805844;
 extern _QWORD qword_5d4594_815724;
 extern _QWORD qword_581450_9552;
@@ -809,7 +810,7 @@ int __cdecl sub_43C7B0(char* cp, int hostshort, int a3, signed int* a4) {
 	v5 = sub_554760(v4, cp, hostshort, a3, 153);
 	OnLibraryNotice(258, 0);
 	if (!nox_common_gameFlags_check_40A5C0(1))
-		*(_DWORD*)&byte_5D4594[2649712] |= 0x80000000;
+		dword_5d4594_2649712 |= 0x80000000;
 	return 1;
 }
 
@@ -987,7 +988,7 @@ int sub_43CC80() {
 	int result; // eax
 
 	result = sub_5549F0(*(unsigned int*)&dword_5d4594_815700);
-	*(_DWORD*)&byte_5D4594[2649712] = 0;
+	dword_5d4594_2649712 = 0;
 	return result;
 }
 
