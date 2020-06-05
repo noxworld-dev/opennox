@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798708;
 extern _DWORD dword_587000_171388;
 extern _DWORD dword_5d4594_1308140;
 extern _DWORD dword_5d4594_1309704;
@@ -6656,7 +6657,7 @@ int __cdecl sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 		nox_client_drawAddPoint_49F500(a1, a2);
 		nox_client_drawAddPoint_49F500(a1 + v7, a2 + v8);
 		sub_4AEC20(0, 1);
-		v10 = *(void(__cdecl**)(int, int, int)) & byte_5D4594[3798708];
+		v10 = *(void(__cdecl**)(int, int, int)) & dword_5d4594_3798708;
 		if (!ptr_5D4594_3799572->data[13])
 			v10 = *(void(__cdecl**)(int, int, int)) & dword_5d4594_3798720;
 		v11 = a2 + a3;
@@ -8507,7 +8508,7 @@ int __cdecl sub_4B0BC0(int a1, int a2, int a3) {
 
 	v3 = a3;
 	v16 = 1 - a3;
-	v4 = *(int(__cdecl**)(int, int, int)) & byte_5D4594[3798708];
+	v4 = *(int(__cdecl**)(int, int, int)) & dword_5d4594_3798708;
 	v10 = 5 - 2 * v3;
 	v12 = 0;
 	v13 = v3;
