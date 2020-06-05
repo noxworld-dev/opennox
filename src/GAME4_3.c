@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2489428;
 extern _DWORD dword_5d4594_2489420;
 extern _DWORD dword_5d4594_2487900;
 extern _DWORD dword_587000_261388;
@@ -12211,7 +12212,7 @@ size_t __cdecl sub_5417C0(FILE* a1, FILE* a2, FILE* a3) {
 
 	dword_5d4594_2489420 = 0;
 	*(_DWORD*)&byte_5D4594[2489424] = 0;
-	*(_DWORD*)&byte_5D4594[2489428] = 0;
+	dword_5d4594_2489428 = 0;
 	strcpy(v6, "SCRIPT03");
 	v3 = strlen(v6) + 1;
 	fread(v6, v3 - 1, 1u, a1);
@@ -12288,7 +12289,7 @@ FILE* __cdecl sub_541A50(FILE* a1, FILE* a2, FILE* a3) {
 	fwrite(v14, v3 - 1, 1u, a3);
 	fread(&v11, 4u, 1u, a1);
 	fread(&v10, 4u, 1u, a2);
-	*(_DWORD*)&byte_5D4594[2489428] = v11;
+	dword_5d4594_2489428 = v11;
 	v13 = v10 + v11 - 2;
 	fwrite(&v13, 4u, 1u, a3);
 	result = sub_541E40(a1, a2, a3);
@@ -12742,13 +12743,13 @@ FILE* __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 					fseek(v4, -4, 1);
 					fread(&a2, 4u, 1u, v4);
 					fseek(v4, -4, 1);
-					a2 = (FILE*)((char*)a2 + *(_DWORD*)&byte_5D4594[2489428] - 2);
+					a2 = (FILE*)((char*)a2 + dword_5d4594_2489428 - 2);
 					fwrite(&a2, 4u, 1u, v4);
 					if (*(int (**)()) & byte_587000[4 * (_DWORD)v13 + 245900] == sub_514D90) {
 						fseek(v4, -12, 1);
 						fread(&a2, 4u, 1u, v4);
 						fseek(v4, -4, 1);
-						a2 = (FILE*)((char*)a2 + *(_DWORD*)&byte_5D4594[2489428] - 2);
+						a2 = (FILE*)((char*)a2 + dword_5d4594_2489428 - 2);
 						fwrite(&a2, 4u, 1u, v4);
 						fseek(v4, 8, 1);
 					}
@@ -12760,7 +12761,7 @@ FILE* __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 		case 0x46u:
 			v15 = sub_542B70(v3);
 			if (a3)
-				v15 = (FILE*)((char*)v15 + *(_DWORD*)&byte_5D4594[2489428] - 2);
+				v15 = (FILE*)((char*)v15 + dword_5d4594_2489428 - 2);
 			sub_542BB0(70, v4);
 			sub_542BB0((char)v15, v4);
 			continue;
