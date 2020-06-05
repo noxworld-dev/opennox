@@ -1,6 +1,7 @@
 #include "access.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1045588;
 extern _DWORD dword_5d4594_1045532;
 extern _DWORD dword_5d4594_1045528;
 extern _DWORD dword_5d4594_1045516;
@@ -74,10 +75,10 @@ int* sub_454740() {
 		nox_window_call_field_94(*(int*)&byte_5D4594[1045584], 16414, (int)WideCharStr, 0);
 	}
 	if (*(short*)(v0 + 107) != -1) {
-		sub_46ABB0(*(int*)&byte_5D4594[1045588], 1);
+		sub_46ABB0(*(int*)&dword_5d4594_1045588, 1);
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1045572] + 36) |= 4u;
 		_itow(*(unsigned __int16*)(v0 + 107), WideCharStr, 10);
-		nox_window_call_field_94(*(int*)&byte_5D4594[1045588], 16414, (int)WideCharStr, 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1045588, 16414, (int)WideCharStr, 0);
 	}
 	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10124);
 	if ((int)v0[102] < 0)
