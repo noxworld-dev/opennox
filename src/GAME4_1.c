@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386156;
 extern _DWORD dword_5d4594_3835348;
 extern _DWORD dword_5d4594_2386492;
 extern _DWORD dword_5d4594_2386564;
@@ -1364,10 +1365,10 @@ int __cdecl sub_50B580(int a1, float4* a3) {
 		a1a.field_4 = a3->field_C;
 	}
 	a1a.field_C = v4;
-	*(_DWORD*)&byte_5D4594[2386156] = 1;
+	dword_5d4594_2386156 = 1;
 	*(_DWORD*)&byte_5D4594[2386148] = a1;
 	sub_517C10(&a1a, (void(__cdecl*)(float*, int))sub_50B600, (int)a3);
-	return *(_DWORD*)&byte_5D4594[2386156];
+	return dword_5d4594_2386156;
 }
 
 //----- (0050B600) --------------------------------------------------------
@@ -1387,7 +1388,7 @@ void __cdecl sub_50B600(float* arg0, float4* a1) {
 	float2 a3; // [esp+28h] [ebp-18h]
 	float4 a2; // [esp+30h] [ebp-10h]
 
-	if (*(_DWORD*)&byte_5D4594[2386156] && *(float**)&byte_5D4594[2386148] != arg0) {
+	if (dword_5d4594_2386156 && *(float**)&byte_5D4594[2386148] != arg0) {
 		v2 = *((_DWORD*)arg0 + 2);
 		if (v2 & 6) {
 			if (sub_5330C0(*(int*)&byte_5D4594[2386148], (int)arg0))
@@ -1401,7 +1402,7 @@ void __cdecl sub_50B600(float* arg0, float4* a1) {
 				if (sub_57C8A0(a1, (float2*)arg0 + 7, &a3)) {
 					v4 = a3.field_4 - arg0[15];
 					if (v4 * v4 + (a3.field_0 - arg0[14]) * (a3.field_0 - arg0[14]) <= arg0[45])
-						*(_DWORD*)&byte_5D4594[2386156] = 0;
+						dword_5d4594_2386156 = 0;
 				}
 			} else if (v3 == 3) {
 				v12 = arg0[48] + arg0[14];
@@ -1420,7 +1421,7 @@ void __cdecl sub_50B600(float* arg0, float4* a1) {
 				a3.field_0 = arg0[54] + arg0[14];
 				a3.field_4 = arg0[55] + arg0[15];
 				if (sub_427980(a1, &a2)) {
-					*(_DWORD*)&byte_5D4594[2386156] = 0;
+					dword_5d4594_2386156 = 0;
 				} else {
 					a2.field_0 = v12;
 					a2.field_4 = v13;
@@ -1436,7 +1437,7 @@ void __cdecl sub_50B600(float* arg0, float4* a1) {
 					    (a2.field_0 = a3.field_0, a2.field_4 = a3.field_4, a2.field_8 = v9,
 					     a2.field_C = v10, sub_427980(a1, &a2))) {
 					LABEL_22:
-						*(_DWORD*)&byte_5D4594[2386156] = 0;
+						dword_5d4594_2386156 = 0;
 					}
 				}
 			}
