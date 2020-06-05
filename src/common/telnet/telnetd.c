@@ -2,6 +2,7 @@
 
 #include "../../client/system/parsecmd.h"
 #include "../../proto.h"
+extern _DWORD dword_587000_311480;
 
 //----- (00578FF0) --------------------------------------------------------
 int sub_578FF0() {
@@ -33,7 +34,7 @@ int sub_578FF0() {
 	}
 	if (v0 != -1) {
 		addrlen = 16;
-		v2 = accept(*(SOCKET*)&byte_587000[311480], &addr, &addrlen);
+		v2 = accept(*(SOCKET*)&dword_587000_311480, &addr, &addrlen);
 		if (v2 == -1) {
 			result = WSAGetLastError();
 			if (result != 10035)

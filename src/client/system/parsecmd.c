@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_587000_311480;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_823692;
 extern _DWORD dword_587000_80828;
@@ -93,17 +94,17 @@ int sub_578F30() {
 	int result;          // eax
 	unsigned __int8* v1; // esi
 
-	result = *(_DWORD*)&byte_587000[311480];
-	if (*(int*)&byte_587000[311480] != -1) {
-		shutdown(*(SOCKET*)&byte_587000[311480], 2);
-		result = closesocket(*(SOCKET*)&byte_587000[311480]);
+	result = dword_587000_311480;
+	if (*(int*)&dword_587000_311480 != -1) {
+		shutdown(*(SOCKET*)&dword_587000_311480, 2);
+		result = closesocket(*(SOCKET*)&dword_587000_311480);
 	}
-	*(_DWORD*)&byte_587000[311480] = -1;
+	dword_587000_311480 = -1;
 	*(_WORD*)&byte_5D4594[2523738] = 0;
 	v1 = &byte_5D4594[2516484];
 	do {
 		if (*(int*)v1 != -1) {
-			shutdown(*(SOCKET*)&byte_587000[311480], 2);
+			shutdown(*(SOCKET*)&dword_587000_311480, 2);
 			result = closesocket(*(_DWORD*)v1);
 		}
 		*(_DWORD*)v1 = -1;
