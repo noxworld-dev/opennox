@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1301840;
 extern _DWORD dword_5d4594_1197364;
 extern _DWORD dword_5d4594_1203864;
 extern _DWORD dword_5d4594_1217452;
@@ -5700,7 +5701,7 @@ int __cdecl sub_49ADD0(int a1) {
 	dword_5d4594_1301832 = 0;
 	dword_5d4594_1301800 = 0;
 	dword_5d4594_1301828 = 0;
-	*(_DWORD*)&byte_5D4594[1301840] = 0;
+	dword_5d4594_1301840 = 0;
 	dword_5d4594_1301792 = 0;
 	dword_5d4594_1301836 = 0;
 	*(_DWORD*)&byte_5D4594[1301812] = 0;
@@ -5794,7 +5795,7 @@ int* __cdecl sub_49AF80(int a1, int a2, int a3) {
 				else
 					v4 = a3;
 				*(_DWORD*)(dword_5d4594_1301832 + 4) = v4;
-				result = (int*)sub_49B1D0(*(int*)&dword_5d4594_1301832, *(int*)&byte_5D4594[1301840]);
+				result = (int*)sub_49B1D0(*(int*)&dword_5d4594_1301832, *(int*)&dword_5d4594_1301840);
 			}
 		} else if (dword_5d4594_1301800) {
 			**(_DWORD**)&dword_5d4594_1301800 = a2;
@@ -5805,7 +5806,7 @@ int* __cdecl sub_49AF80(int a1, int a2, int a3) {
 			if (result) {
 				*result = a2;
 				result[1] = a3;
-				sub_49B1D0(*(int*)&dword_5d4594_1301828, *(int*)&byte_5D4594[1301840]);
+				sub_49B1D0(*(int*)&dword_5d4594_1301828, *(int*)&dword_5d4594_1301840);
 				result = *(int**)&dword_5d4594_1301828;
 				if (dword_5d4594_1301828) {
 					*(_DWORD*)(dword_5d4594_1301828 + 8) = v5;
@@ -5814,7 +5815,7 @@ int* __cdecl sub_49AF80(int a1, int a2, int a3) {
 					*(_DWORD*)(dword_5d4594_1301848 +
 						   4 * dword_5d4594_1301836) = v5;
 				}
-				v5[2] = *(_DWORD*)&byte_5D4594[1301840];
+				v5[2] = dword_5d4594_1301840;
 			}
 		}
 	} else {
@@ -5870,7 +5871,7 @@ int __cdecl sub_49B0A0(int a1, int a2, int a3) {
 		v6 = *(int**)(dword_5d4594_1301848 + 4 * dword_5d4594_1301836);
 LABEL_13:
 	dword_5d4594_1301800 = 0;
-	*(_DWORD*)&byte_5D4594[1301840] = 0;
+	dword_5d4594_1301840 = 0;
 	if (v6) {
 		while (*v6 - 1 <= a3) {
 			if (v6[1] >= a3) {
@@ -5880,12 +5881,12 @@ LABEL_13:
 			}
 			v6 = (int*)v6[2];
 			if (!v6) {
-				*(_DWORD*)&byte_5D4594[1301840] = 0;
+				dword_5d4594_1301840 = 0;
 				return sub_49B260();
 			}
 		}
 	}
-	*(_DWORD*)&byte_5D4594[1301840] = v6;
+	dword_5d4594_1301840 = v6;
 	return sub_49B260();
 }
 
@@ -5951,7 +5952,7 @@ int sub_49B260() {
 			goto LABEL_11;
 		}
 	LABEL_10:
-		v1 = *(int**)&byte_5D4594[1301840];
+		v1 = *(int**)&dword_5d4594_1301840;
 		goto LABEL_11;
 	}
 	v0 = *(int**)&dword_5d4594_1301828;
