@@ -2,6 +2,7 @@
 #include "sdecode.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1548732;
 extern _DWORD dword_587000_197428;
 
 //----- (004D3580) --------------------------------------------------------
@@ -27,9 +28,9 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 		sub_43DE60();
 		return v1;
 	}
-	if (!*(_DWORD*)&byte_5D4594[1548732]) {
+	if (!dword_5d4594_1548732) {
 		if (_read(*(int*)&dword_587000_197428, &byte_5D4594[1548728], 4u))
-			*(_DWORD*)&byte_5D4594[1548732] = 1;
+			dword_5d4594_1548732 = 1;
 		else
 			v1 = 1;
 	}
@@ -88,7 +89,7 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 		}
 		if (!_read(*(int*)&dword_587000_197428, &byte_5D4594[1548728], 4u)) {
 			result = v1;
-			*(_DWORD*)&byte_5D4594[1548732] = 0;
+			dword_5d4594_1548732 = 0;
 			return result;
 		}
 		if (!_read(*(int*)&dword_587000_197428, &byte_5D4594[1548724], 1u)) {
