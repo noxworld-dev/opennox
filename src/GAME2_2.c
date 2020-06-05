@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799476;
 extern _DWORD dword_5d4594_3799468;
 extern _DWORD dword_587000_154948;
 extern _DWORD dword_5d4594_3798776;
@@ -4295,7 +4296,7 @@ int sub_47D200() {
 	dword_5d4594_3799484 = 0;
 	*(_DWORD*)&byte_5D4594[3799480] = 0;
 	*(_DWORD*)&byte_5D4594[3799440] = 0;
-	*(_DWORD*)&byte_5D4594[3799476] = 0;
+	dword_5d4594_3799476 = 0;
 	*(_DWORD*)&byte_5D4594[3799452] = 0;
 	*(_DWORD*)&byte_5D4594[3799472] = 0;
 	*(_DWORD*)&byte_5D4594[3799532] = 0;

@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799476;
 extern _DWORD dword_5d4594_3799556;
 extern _DWORD dword_5d4594_1321224;
 extern _DWORD dword_5d4594_1319056;
@@ -6163,7 +6164,7 @@ LABEL_105:
 	v51 = a2a.field_0;
 	if (a2a.field_0) {
 		sub_49F7F0();
-		sub_49F7C0(*(int*)&byte_5D4594[3799476]);
+		sub_49F7C0(*(int*)&dword_5d4594_3799476);
 	} else {
 		sub_47D370(v30);
 	}
@@ -7123,7 +7124,7 @@ void __cdecl sub_4C60D0(int a1, int a2, int a3) {
 			v6 = (int4*)((char*)v6 - dword_5d4594_3799484);
 			if ((int)v6 <= 0)
 				return;
-			*(_DWORD*)&byte_5D4594[3799476] = (char*)v6 + v10;
+			dword_5d4594_3799476 = (char*)v6 + v10;
 		}
 		*(_DWORD*)&byte_5D4594[3799520] = v8 + a2;
 		*(_DWORD*)&byte_5D4594[3799444] = (char*)result + 1;
@@ -7213,7 +7214,7 @@ int __cdecl sub_4C6260(int a1, int a2, int a3) {
 			v5 -= dword_5d4594_3799484;
 			if (v5 <= 0)
 				return result;
-			*(_DWORD*)&byte_5D4594[3799476] = v5 + v10;
+			dword_5d4594_3799476 = v5 + v10;
 		}
 		*(_DWORD*)&byte_5D4594[3799444] = v11 + 1;
 		*(_DWORD*)&byte_5D4594[3799520] = v8;
@@ -7362,7 +7363,7 @@ unsigned __int8* __cdecl sub_4C64E0(int a1, int a2, int a3, int* a4) {
 		v9 -= dword_5d4594_3799484;
 		if ((int)v9 <= 0)
 			return result;
-		*(_DWORD*)&byte_5D4594[3799476] = &v9[a2];
+		dword_5d4594_3799476 = &v9[a2];
 	}
 	if (v8) {
 		v7 = v8 + a2;
@@ -8347,7 +8348,7 @@ void __cdecl sub_4C7860(int a1, int a2, int a3) {
 			v6 = (int4*)((char*)v6 - dword_5d4594_3799484);
 			if ((int)v6 <= 0)
 				return;
-			*(_DWORD*)&byte_5D4594[3799476] = (char*)v6 + v10;
+			dword_5d4594_3799476 = (char*)v6 + v10;
 		}
 		*(_DWORD*)&byte_5D4594[3799520] = v8 + a2;
 		*(_DWORD*)&byte_5D4594[3799444] = (char*)result + 1;
@@ -8439,7 +8440,7 @@ int __cdecl sub_4C79F0(int a1, int a2, int a3) {
 			v5 -= dword_5d4594_3799484;
 			if (v5 <= 0)
 				return result;
-			*(_DWORD*)&byte_5D4594[3799476] = v5 + v10;
+			dword_5d4594_3799476 = v5 + v10;
 		}
 		*(_DWORD*)&byte_5D4594[3799444] = v11 + 1;
 		*(_DWORD*)&byte_5D4594[3799520] = v8;
@@ -8589,7 +8590,7 @@ unsigned __int8* __cdecl sub_4C7C80(int a1, int a2, int a3, int* a4) {
 		v9 -= dword_5d4594_3799484;
 		if ((int)v9 <= 0)
 			return result;
-		*(_DWORD*)&byte_5D4594[3799476] = &v9[a2];
+		dword_5d4594_3799476 = &v9[a2];
 	}
 	if (v8) {
 		v7 = v8 + a2;
