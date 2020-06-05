@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_10984;
 extern _DWORD dword_5d4594_371264;
 extern _DWORD dword_5d4594_1308;
 extern _DWORD dword_5d4594_2660032;
@@ -3662,7 +3663,7 @@ void sub_40D0F0() {
 
 //----- (0040D250) --------------------------------------------------------
 BOOL sub_40D250() {
-	return *(_DWORD*)&byte_5D4594[10976] && !*(_DWORD*)&byte_5D4594[10984] &&
+	return *(_DWORD*)&byte_5D4594[10976] && !dword_5d4594_10984 &&
 	       (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 12))(dword_5d4594_4668) >= 0;
 }
 
@@ -4290,7 +4291,7 @@ BOOL __cdecl sub_40DC90(int a1, int a2, int a3, int a4, int a5, int a6) {
 
 //----- (0040DCD0) --------------------------------------------------------
 BOOL sub_40DCD0() {
-	return !*(_DWORD*)&byte_5D4594[10984] &&
+	return !dword_5d4594_10984 &&
 	       (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4808 + 20))(dword_5d4594_4808) >= 0;
 }
 
@@ -4410,7 +4411,7 @@ BOOL __cdecl sub_40DF60(int a1, int a2, int a3) {
 
 //----- (0040DF90) --------------------------------------------------------
 BOOL sub_40DF90() {
-	return !*(_DWORD*)&byte_5D4594[10984] &&
+	return !dword_5d4594_10984 &&
 	       (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_10956 + 28))(dword_5d4594_10956) >= 0;
 }
 
@@ -4449,13 +4450,13 @@ void sub_40E070() {
 }
 
 //----- (0040E090) --------------------------------------------------------
-void sub_40E090() { *(_DWORD*)&byte_5D4594[10984] = 0; }
+void sub_40E090() { dword_5d4594_10984 = 0; }
 
 //----- (0040E0A0) --------------------------------------------------------
-void sub_40E0A0() { *(_DWORD*)&byte_5D4594[10984] = 1; }
+void sub_40E0A0() { dword_5d4594_10984 = 1; }
 
 //----- (0040E0B0) --------------------------------------------------------
-BOOL sub_40E0B0() { return *(_DWORD*)&byte_5D4594[10984] == 0; }
+BOOL sub_40E0B0() { return dword_5d4594_10984 == 0; }
 
 //----- (0040E0C0) --------------------------------------------------------
 int sub_40E0C0() { return *(_DWORD*)&byte_5D4594[10976]; }
