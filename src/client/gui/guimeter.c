@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1096252;
 extern _DWORD dword_5d4594_1093136;
 extern _DWORD dword_5d4594_3799468;
 extern _DWORD dword_5d4594_1093096;
@@ -202,9 +203,9 @@ int sub_4714E0() {
 	sub_472280();
 	sub_470B00();
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		*(_DWORD*)&byte_5D4594[1096252] = 1;
+		dword_5d4594_1096252 = 1;
 	} else {
-		*(_DWORD*)&byte_5D4594[1096252] = 0;
+		dword_5d4594_1096252 = 0;
 		nox_window_set_hidden(*(int*)&dword_5d4594_1093076, 1);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1093096, 1);
 	}
