@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815040;
 extern _DWORD dword_5d4594_805984;
 extern _DWORD dword_5d4594_1193152;
 extern _DWORD dword_5d4594_3804668;
@@ -9158,8 +9159,8 @@ void sub_4379C0() {
 int sub_438330() {
 	void (*v0)(void); // esi
 
-	v0 = *(void (**)(void))(*(_DWORD*)&byte_5D4594[815040] + 52);
-	sub_43C570(*(LPVOID*)&byte_5D4594[815040]);
+	v0 = *(void (**)(void))(dword_5d4594_815040 + 52);
+	sub_43C570(*(LPVOID*)&dword_5d4594_815040);
 	if (!nox_common_gameFlags_check_40A5C0(0x10000000))
 		sub_43A9D0();
 	if (v0)
@@ -9169,9 +9170,9 @@ int sub_438330() {
 
 //----- (00438370) --------------------------------------------------------
 int sub_438370() {
-	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[815040] + 64) == 1)
+	if (*(_BYTE*)(dword_5d4594_815040 + 64) == 1)
 		return sub_438330();
-	*(_BYTE*)(*(_DWORD*)&byte_5D4594[815040] + 64) = 2;
+	*(_BYTE*)(dword_5d4594_815040 + 64) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
 	return 1;
@@ -9942,7 +9943,7 @@ int sub_43B440() {
 //----- (0043B460) --------------------------------------------------------
 int sub_43B460() {
 	sub_438370();
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[815040] + 56) = sub_43B490;
+	*(_DWORD*)(dword_5d4594_815040 + 56) = sub_43B490;
 	sub_46C6E0(*(int*)&dword_5d4594_815000);
 	return sub_46ABB0(*(int*)&dword_5d4594_814984, 0);
 }
