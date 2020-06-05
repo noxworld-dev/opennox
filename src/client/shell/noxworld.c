@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_814996;
 extern _DWORD dword_5d4594_815040;
 extern _DWORD dword_5d4594_814988;
 extern _DWORD dword_587000_87408;
@@ -48,7 +49,7 @@ void sub_4373A0() {
 			sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
 			v2 = loadString_sub_40F1D0((char*)&byte_587000[87876], 0,
 						   "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 619);
-			nox_window_call_field_94(*(int*)&byte_5D4594[814996], 16385, (int)v2, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v2, 0);
 			sub_452D80(231, 100);
 		} else {
 			sub_43C1E0();
@@ -68,7 +69,7 @@ void sub_4373A0() {
 		sub_4375C0(1);
 		v0 = loadString_sub_40F1D0((char*)&byte_587000[87928], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 					   643);
-		nox_window_call_field_94(*(int*)&byte_5D4594[814996], 16385, (int)v0, 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v0, 0);
 		sub_452D80(231, 100);
 	} else {
 		sub_49FF20();
@@ -79,7 +80,7 @@ void sub_4373A0() {
 			nox_window_set_hidden(*(int*)&dword_5d4594_814988, 0);
 			v1 = loadString_sub_40F1D0((char*)&byte_587000[87980], 0,
 						   "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 660);
-			nox_window_call_field_94(*(int*)&byte_5D4594[814996], 16385, (int)v1, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v1, 0);
 			sub_4378B0();
 			sub_452D80(231, 100);
 		} else {
@@ -208,7 +209,7 @@ int sub_4379F0() {
 				sub_46B300(*(int*)&dword_5d4594_814984, sub_439D00);
 				sub_46B300(*(int*)&dword_5d4594_814988, sub_439D00);
 				sub_46B2C0(*(int*)&dword_5d4594_814988, sub_439E70);
-				*(_DWORD*)&byte_5D4594[814996] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10011);
+				dword_5d4594_814996 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10011);
 				dword_5d4594_815012 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10037);
 				dword_5d4594_815004 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10034);
 				dword_5d4594_815000 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10033);
@@ -238,13 +239,13 @@ int sub_4379F0() {
 					nox_window_set_hidden(*(int*)&dword_5d4594_814984, 1);
 					v7 = loadString_sub_40F1D0((char*)&byte_587000[88164], 0,
 								   "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2530);
-					nox_window_call_field_94(*(int*)&byte_5D4594[814996], 16385, (int)v7, 0);
+					nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v7, 0);
 				} else {
 					dword_587000_87412 = 0;
 					nox_window_set_hidden(*(int*)&dword_5d4594_814988, 1);
 					v5 = loadString_sub_40F1D0((char*)&byte_587000[88112], 0,
 								   "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2517);
-					nox_window_call_field_94(*(int*)&byte_5D4594[814996], 16385, (int)v5, 0);
+					nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v5, 0);
 					sub_46ACE0(*(_DWORD**)&dword_5d4594_814984, 10620, 10631, 1);
 					sub_49FDB0(0);
 				}
@@ -374,7 +375,7 @@ int sub_4383A0() {
 	sub_46AD20(*(_DWORD**)&dword_5d4594_814980, 10006, 10007, 1);
 	sub_46ACE0(*(_DWORD**)&dword_5d4594_814980, 10047, 10051, 0);
 	v0 = loadString_sub_40F1D0((char*)&byte_587000[88760], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 418);
-	nox_window_call_field_94(*(int*)&byte_5D4594[814996], 16385, (int)v0, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v0, 0);
 	result = dword_587000_87404;
 	dword_587000_87408 = 1;
 	if (dword_587000_87404 == 1)
@@ -934,7 +935,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 				sub_46ACE0(*(_DWORD**)&dword_5d4594_814980, 10047, 10051, 1);
 				v21 = loadString_sub_40F1D0((char*)&byte_587000[90440], 0,
 							    "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2186);
-				nox_window_call_field_94(*(int*)&byte_5D4594[814996], 16385, (int)v21, 0);
+				nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v21, 0);
 				return 0;
 			}
 			return 0;
@@ -1080,7 +1081,7 @@ void sub_43A810() {
 	else
 		v2 = loadString_sub_40F1D0((char*)&byte_587000[90596], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 					   382);
-	nox_window_call_field_94(*(int*)&byte_5D4594[814996], 16385, (int)v2, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v2, 0);
 	if (dword_587000_87404 == 1) {
 		sub_46ACE0(*(_DWORD**)&dword_5d4594_814984, 10600, 10611, 1);
 		v0 = 0;
