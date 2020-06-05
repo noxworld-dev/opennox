@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096644;
 extern _DWORD dword_5d4594_787144;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_3798788;
@@ -910,8 +911,8 @@ int __cdecl sub_476F10_drawable(int a1) {
 	result = a1;
 	if (dword_5d4594_1096640 == a1)
 		dword_5d4594_1096640 = 0;
-	if (*(_DWORD*)&byte_5D4594[1096644] == a1)
-		*(_DWORD*)&byte_5D4594[1096644] = 0;
+	if (dword_5d4594_1096644 == a1)
+		dword_5d4594_1096644 = 0;
 	return result;
 }
 
@@ -941,7 +942,7 @@ int sub_476F60() {
 int sub_476F80() { return dword_5d4594_1096640; }
 
 //----- (00476F90) --------------------------------------------------------
-int sub_476F90() { return *(_DWORD*)&byte_5D4594[1096644]; }
+int sub_476F90() { return dword_5d4594_1096644; }
 
 //----- (00476FA0) --------------------------------------------------------
 void sub_476FA0() {
@@ -956,7 +957,7 @@ void sub_476FA0() {
 	v1 = *v0;
 	sub_473970(&v1, &v1);
 	dword_5d4594_1096640 = 0;
-	*(_DWORD*)&byte_5D4594[1096644] = 0;
+	dword_5d4594_1096644 = 0;
 	*(_DWORD*)&byte_5D4594[1096628] = 0;
 	v2.field_0 = v1.field_0 - 96;
 	v2.field_8 = v1.field_0 + 96;
@@ -1085,10 +1086,8 @@ void __cdecl sub_477050(int arg0, int a2) {
 											    *(_DWORD*)(v2 + 108) ==
 												*(_DWORD*)&byte_5D4594
 												    [1096632]) {
-												if (!*(_DWORD*)&byte_5D4594
-													 [1096644]) {
-													*(_DWORD*)&byte_5D4594
-													    [1096644] =
+												if (!dword_5d4594_1096644) {
+													dword_5d4594_1096644 =
 													    v2;
 													*(_DWORD*)&byte_5D4594
 													    [1096636] =
@@ -1097,8 +1096,7 @@ void __cdecl sub_477050(int arg0, int a2) {
 											} else {
 												*(_DWORD*)&byte_5D4594
 												    [1096636] = v22;
-												*(_DWORD*)&byte_5D4594
-												    [1096644] = v2;
+												dword_5d4594_1096644 = v2;
 											}
 										}
 										return;
