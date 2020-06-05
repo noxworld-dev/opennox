@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1096260;
 extern _DWORD dword_5d4594_1096284;
 extern _DWORD dword_5d4594_1096288;
 extern _DWORD dword_5d4594_1093156;
@@ -98,7 +99,7 @@ int sub_4714E0() {
 	dword_5d4594_1096288 = sub_43F360((char*)&byte_587000[148576]);
 	*(_DWORD*)&byte_5D4594[1096264] = 0;
 	*(_DWORD*)&byte_5D4594[1096256] = 0;
-	*(_DWORD*)&byte_5D4594[1096260] = 0;
+	dword_5d4594_1096260 = 0;
 	*(_DWORD*)&byte_5D4594[1091908] = 0;
 	*(_DWORD*)&byte_5D4594[1091912] = 0;
 	*(_DWORD*)&byte_5D4594[1091916] = nox_win_width;
@@ -326,12 +327,12 @@ int __cdecl sub_471D10(int xLeft) {
 			}
 		}
 		if (!v2) {
-			if (*(int*)&byte_5D4594[1096260] <= 0) {
+			if (*(int*)&dword_5d4594_1096260 <= 0) {
 				v16 = *(_DWORD*)&byte_5D4594[1096256] >> 3;
 			} else {
-				v15 = *(_DWORD*)&byte_5D4594[1096260] + *(_DWORD*)&byte_5D4594[1096256];
+				v15 = dword_5d4594_1096260 + *(_DWORD*)&byte_5D4594[1096256];
 				*(_DWORD*)&byte_5D4594[1096256] = v15;
-				--*(_DWORD*)&byte_5D4594[1096260];
+				--dword_5d4594_1096260;
 				v16 = v15 >> 3;
 				if (v16 >= 10) {
 					v16 = 0;
