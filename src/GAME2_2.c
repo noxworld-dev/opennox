@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798812;
 extern _DWORD dword_5d4594_3798800;
 extern _DWORD dword_5d4594_1193584;
 extern _DWORD dword_5d4594_3801808;
@@ -7163,7 +7164,7 @@ LABEL_9:
 	if (v3 >= *(int*)&dword_5d4594_3798820 + 23) {
 		v71 = nox_backbuffer_width + v3;
 		if (nox_backbuffer_width + v3 <= *(int*)&dword_5d4594_3798800 + dword_5d4594_3798820 - 46 ||
-		    *(int*)&byte_5D4594[3798812] + *(int*)&dword_5d4594_3798828 - 1 >= 128) {
+		    *(int*)&dword_5d4594_3798812 + *(int*)&dword_5d4594_3798828 - 1 >= 128) {
 			goto LABEL_36;
 		}
 		if (v71 > *(int*)&dword_5d4594_3798800 + *(int*)&dword_5d4594_3798820) {
@@ -7174,7 +7175,7 @@ LABEL_9:
 		dword_5d4594_3798828 = v7;
 		v8 = dword_5d4594_3798820 + 46;
 		dword_5d4594_3798820 += 46;
-		j = *(_DWORD*)&byte_5D4594[3798812] + v7 - 2;
+		j = dword_5d4594_3798812 + v7 - 2;
 		v9 = dword_5d4594_3798836 + 46;
 		dword_5d4594_3798836 += 46;
 		if (*(int*)&dword_5d4594_3798836 >= *(int*)&dword_5d4594_3798800) {
@@ -7290,7 +7291,7 @@ LABEL_36:
 	v25 = dword_5d4594_3798828;
 	v26 = dword_5d4594_3798820;
 	i = dword_5d4594_3798828;
-	j = *(_DWORD*)&byte_5D4594[3798812] + dword_5d4594_3798828 - 1;
+	j = dword_5d4594_3798812 + dword_5d4594_3798828 - 1;
 	if (dword_5d4594_3798828 < j) {
 		v27 = 44 * v19;
 		v71 = 44 * v19;
@@ -7512,10 +7513,10 @@ int __cdecl sub_482570(_DWORD* a1) {
 	v2 = (a1[4] - *a1 - 11) / 46;
 	if (v2 < 0)
 		v2 = 0;
-	v12 = *(_DWORD*)&byte_5D4594[3798812] + v2 - 1;
+	v12 = dword_5d4594_3798812 + v2 - 1;
 	if (v12 >= 128) {
 		v12 = 127;
-		v2 = 127 - *(_DWORD*)&byte_5D4594[3798812];
+		v2 = 127 - dword_5d4594_3798812;
 	}
 	v3 = (v1 - 11) / 46 - 1;
 	if (v3 < 0)
@@ -7594,10 +7595,10 @@ int __cdecl sub_4826A0(_DWORD* a1) {
 	v25 = (v1 - 11) / 46;
 	if (v25 < 0)
 		v25 = 0;
-	v20 = *(_DWORD*)&byte_5D4594[3798812] + v25 - 1;
+	v20 = dword_5d4594_3798812 + v25 - 1;
 	if (v20 >= 128) {
 		v20 = 127;
-		v25 = 127 - *(_DWORD*)&byte_5D4594[3798812];
+		v25 = 127 - dword_5d4594_3798812;
 	}
 	result = (v2 - 11) / 46 - 1;
 	if (result < 0)
