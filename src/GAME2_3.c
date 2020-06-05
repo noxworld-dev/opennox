@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193712;
 extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_810636;
@@ -309,17 +310,17 @@ int __cdecl nox_client_winVerGetMajor_48C870(LPSTR printOut) {
 }
 
 //----- (0048CA70) --------------------------------------------------------
-int __cdecl sub_48CA70(int a1) { return nox_window_set_hidden(*(int*)&byte_5D4594[1193712], a1); }
+int __cdecl sub_48CA70(int a1) { return nox_window_set_hidden(*(int*)&dword_5d4594_1193712, a1); }
 
 //----- (0048CA90) --------------------------------------------------------
-BOOL sub_48CA90() { return *(_DWORD*)&byte_5D4594[1193712] && !wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[1193712]); }
+BOOL sub_48CA90() { return dword_5d4594_1193712 && !wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1193712); }
 
 //----- (0048CAB0) --------------------------------------------------------
 int sub_48CAB0() {
 	int result; // eax
 
-	result = sub_46C4E0(*(_DWORD**)&byte_5D4594[1193712]);
-	*(_DWORD*)&byte_5D4594[1193712] = 0;
+	result = sub_46C4E0(*(_DWORD**)&dword_5d4594_1193712);
+	dword_5d4594_1193712 = 0;
 	return result;
 }
 
