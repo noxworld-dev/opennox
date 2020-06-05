@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046636;
 extern _DWORD dword_5d4594_832520;
 extern _DWORD dword_5d4594_832500;
 extern _DWORD dword_5d4594_832528;
@@ -7197,7 +7198,7 @@ int __cdecl sub_45D570(int a1, int a2) {
 						dword_5d4594_1046872 = 1;
 					}
 					sub_45D550(&byte_5D4594[1046844]);
-					*(float*)&byte_5D4594[1046636] = (double)*(int*)&byte_5D4594[1046844];
+					*(float*)&dword_5d4594_1046636 = (double)*(int*)&byte_5D4594[1046844];
 					*(float*)&byte_5D4594[1046640] = (double)*(int*)&byte_5D4594[1046848];
 					sub_46A9B0(*(_DWORD**)&byte_5D4594[1046956], *(int*)&byte_5D4594[1046844],
 						   *(int*)&byte_5D4594[1046848]);
