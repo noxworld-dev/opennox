@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801808;
 extern _DWORD dword_5d4594_3798828;
 extern _QWORD qword_581450_9552;
 extern _QWORD qword_581450_9544;
@@ -5662,7 +5663,7 @@ int sub_4800F0() {
 		sub_49F6D0(1);
 		sub_437290();
 		*(_DWORD*)&byte_5D4594[3804680] = dword_5d4594_3801780;
-		*(_DWORD*)&byte_5D4594[3805488] = *(_DWORD*)&byte_5D4594[3801808] * nox_backbuffer_height;
+		*(_DWORD*)&byte_5D4594[3805488] = dword_5d4594_3801808 * nox_backbuffer_height;
 		*(_DWORD*)&byte_5D4594[3807124] = dword_5d4594_3801780 == 1;
 		sub_430B50(0, 0, 639, 479);
 		sub_4453A0_poll_events();
@@ -6694,7 +6695,7 @@ int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7
 			}
 		}
 		v31 = v52;
-		v52 += *(int*)&byte_5D4594[3801808];
+		v52 += *(int*)&dword_5d4594_3801808;
 		++v45.field_4;
 		result = (int*)--v56;
 		if (!v56)
@@ -10459,10 +10460,10 @@ int sub_4861D0() {
 	int result; // eax
 
 	if (*(_DWORD*)&byte_5D4594[1193200] ||
-	    (result = (int)nox_calloc(*(_DWORD*)&byte_5D4594[3801808] * nox_backbuffer_height, 1u),
+	    (result = (int)nox_calloc(dword_5d4594_3801808 * nox_backbuffer_height, 1u),
 	     (*(_DWORD*)&byte_5D4594[3798780] = result) != 0) &&
 		(!(nox_video_renderTargetFlags & 0x40) ||
-		 (result = (int)nox_calloc(*(_DWORD*)&byte_5D4594[3801808] * nox_backbuffer_height, 1u),
+		 (result = (int)nox_calloc(dword_5d4594_3801808 * nox_backbuffer_height, 1u),
 		  (*(_DWORD*)&byte_5D4594[3798788] = result) != 0))) {
 		result = 1;
 	}
@@ -10488,7 +10489,7 @@ int sub_486230() {
 			while (1) {
 				*(_DWORD*)(result + 4 * v3) = v2;
 				v1 = nox_backbuffer_height;
-				v2 += *(_DWORD*)&byte_5D4594[3801808];
+				v2 += dword_5d4594_3801808;
 				if (++v3 >= nox_backbuffer_height)
 					break;
 				result = dword_5d4594_3798784;
@@ -10504,7 +10505,7 @@ int sub_486230() {
 			if (nox_backbuffer_height > 0) {
 				while (1) {
 					*(_DWORD*)(result + 4 * v5) = v4;
-					v4 += *(_DWORD*)&byte_5D4594[3801808];
+					v4 += dword_5d4594_3801808;
 					if (++v5 >= nox_backbuffer_height)
 						break;
 					result = *(_DWORD*)&byte_5D4594[3798776];
