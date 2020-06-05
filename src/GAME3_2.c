@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1523048;
 extern _DWORD dword_5d4594_1563096;
 extern _DWORD dword_5d4594_1523044;
 extern _DWORD dword_5d4594_1523032;
@@ -412,7 +413,7 @@ int __cdecl sub_4CEBA0(int a1, char* a2) {
 	dword_5d4594_1523036 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10172);
 	*(_DWORD*)&byte_5D4594[1523040] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10173);
 	dword_5d4594_1523044 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10174);
-	*(_DWORD*)&byte_5D4594[1523048] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10175);
+	dword_5d4594_1523048 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10175);
 	v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1523024, 10176);
 	sub_46B340((int)v2, sub_4CEED0);
 	sub_46B120(*(_DWORD**)&dword_5d4594_1523024, a1);
@@ -491,15 +492,15 @@ int __cdecl sub_4CEED0(int a1, int a2) {
 			sub_46ABB0(*(int*)&byte_5D4594[1523040], 0);
 		if (*(_BYTE*)(dword_5d4594_1523044 + 4) & 8)
 			sub_46ABB0(*(int*)&dword_5d4594_1523044, 0);
-		if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1523048] + 4) & 8)
-			sub_46ABB0(*(int*)&byte_5D4594[1523048], 0);
+		if (*(_BYTE*)(dword_5d4594_1523048 + 4) & 8)
+			sub_46ABB0(*(int*)&dword_5d4594_1523048, 0);
 	} else {
 		if (!(v3 & 8))
 			sub_46ABB0(*(int*)&byte_5D4594[1523040], 1);
 		if (!(*(_BYTE*)(dword_5d4594_1523044 + 4) & 8) && !nox_common_gameFlags_check_40A5C0(49152))
 			sub_46ABB0(*(int*)&dword_5d4594_1523044, 1);
-		if (!(*(_BYTE*)(*(_DWORD*)&byte_5D4594[1523048] + 4) & 8))
-			sub_46ABB0(*(int*)&byte_5D4594[1523048], 1);
+		if (!(*(_BYTE*)(dword_5d4594_1523048 + 4) & 8))
+			sub_46ABB0(*(int*)&dword_5d4594_1523048, 1);
 	}
 	v4 = (_WORD*)nox_window_call_field_94(*(int*)&dword_5d4594_1523032, 16413, 0, 0);
 	v5 = (_DWORD*)sub_46B4F0();
