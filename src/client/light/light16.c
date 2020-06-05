@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_5d4594_3805484;
 extern _DWORD dword_587000_80800;
 extern _DWORD dword_5d4594_1193184;
 extern _DWORD dword_5d4594_2650680;
@@ -461,7 +462,7 @@ int sub_430D60() {
 	int result; // eax
 
 	result = 0;
-	*(_DWORD*)&byte_5D4594[3805484] = sub_485880;
+	dword_5d4594_3805484 = sub_485880;
 	dword_587000_80800 = 0;
 	dword_5d4594_805836 = 0;
 	*(_DWORD*)&byte_5D4594[3807124] = 0;
@@ -981,11 +982,11 @@ BOOL sub_430CC0() {
 	dword_587000_80800 = result;
 	if (result) {
 		dword_5d4594_805836 = 1;
-		*(_DWORD*)&byte_5D4594[3805484] = sub_480950;
+		dword_5d4594_3805484 = sub_480950;
 		*(_DWORD*)&byte_5D4594[3805492] = sub_4805A0;
 	} else {
 		dword_5d4594_805836 = 0;
-		*(_DWORD*)&byte_5D4594[3805484] = sub_480BE0;
+		dword_5d4594_3805484 = sub_480BE0;
 		*(_DWORD*)&byte_5D4594[3805492] = sub_480860;
 	}
 	return result;
