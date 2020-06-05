@@ -1,6 +1,7 @@
 #include "selcolor.h"
 
 #include "../../proto.h"
+extern _DWORD dword_587000_171388;
 extern _DWORD dword_5d4594_1308140;
 extern _DWORD dword_5d4594_1308144;
 extern _DWORD dword_5d4594_1308152;
@@ -50,7 +51,7 @@ int sub_4A5D00() {
 				v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, j);
 				sub_46B340((int)v5, sub_4A6D20);
 			}
-			if (*(_DWORD*)&byte_587000[171388]) {
+			if (dword_587000_171388) {
 				v6 = loadString_sub_40F1D0((char*)&byte_587000[171448], 0,
 							   "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 1138);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16414, (int)v6, 0);
