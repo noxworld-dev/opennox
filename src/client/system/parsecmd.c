@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_823692;
 extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_2650652;
@@ -461,7 +462,7 @@ int __cdecl nox_cmd_show_game(int a1, char a2) {
 int nox_cmd_show_mmx() {
 	wchar_t* v0; // eax
 
-	if (*(_DWORD*)&byte_5D4594[805836])
+	if (dword_5d4594_805836)
 		v0 = loadString_sub_40F1D0((char*)&byte_587000[103208], 0,
 					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1869);
 	else
