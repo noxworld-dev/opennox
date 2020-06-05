@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799488;
 extern _DWORD dword_5d4594_1321208;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_1321800;
@@ -7025,7 +7026,7 @@ void __cdecl sub_4C5EB0(int a1, int a2, int a3) {
 		case 5:
 		case 6:
 			dword_5d4594_3799544 = sub_4C7110;
-			*(_DWORD*)&byte_5D4594[3799488] = sub_4C6E40;
+			dword_5d4594_3799488 = sub_4C6E40;
 			if (!ptr_5D4594_3799572->data[13]) {
 				if (ptr_5D4594_3799572->data[14]) {
 					dword_5d4594_3799536 = sub_4C6BA0;
@@ -7288,7 +7289,7 @@ int __cdecl sub_4C6260(int a1, int a2, int a3) {
 								(*(void (**)(void)) & dword_5d4594_3799544)();
 								goto LABEL_26;
 							case 6:
-								(*(void (**)(void)) & byte_5D4594[3799488])();
+								(*(void (**)(void)) & dword_5d4594_3799488)();
 							LABEL_26:
 								v15 -= *(_DWORD*)&byte_5D4594[3799456];
 								if (v15 <= 0)
@@ -7527,7 +7528,7 @@ unsigned __int8* __cdecl sub_4C64E0(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v34 > v5) {
 							*(_DWORD*)&byte_5D4594[3799456] = v5 - v13;
 						LABEL_78:
-							(*(void (**)(void)) & byte_5D4594[3799488])();
+							(*(void (**)(void)) & dword_5d4594_3799488)();
 						}
 					LABEL_79:
 						v27 = v43;
@@ -8150,7 +8151,7 @@ void __cdecl sub_4C7440(int a1, int a2, int a3) {
 		case 5:
 		case 6:
 			dword_5d4594_3799544 = sub_4C96A0;
-			*(_DWORD*)&byte_5D4594[3799488] = nullsub_7;
+			dword_5d4594_3799488 = nullsub_7;
 			if (!ptr_5D4594_3799572->data[13]) {
 				if (ptr_5D4594_3799572->data[14]) {
 					dword_5d4594_3799544 = sub_4C9970;
@@ -8236,7 +8237,7 @@ void __cdecl sub_4C7670(int a1, int a2, int a3) {
 		case 5:
 		case 6:
 			dword_5d4594_3799544 = sub_4C96A0;
-			*(_DWORD*)&byte_5D4594[3799488] = nullsub_7;
+			dword_5d4594_3799488 = nullsub_7;
 			if (!ptr_5D4594_3799572->data[13]) {
 				if (ptr_5D4594_3799572->data[14]) {
 					dword_5d4594_3799544 = sub_4C9970;
@@ -8512,7 +8513,7 @@ int __cdecl sub_4C79F0(int a1, int a2, int a3) {
 								(*(void (**)(void)) & dword_5d4594_3799544)();
 								break;
 							case 6:
-								(*(void (**)(void)) & byte_5D4594[3799488])();
+								(*(void (**)(void)) & dword_5d4594_3799488)();
 								break;
 							default:
 								break;
@@ -8756,7 +8757,7 @@ unsigned __int8* __cdecl sub_4C7C80(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v34 > v5) {
 							*(_DWORD*)&byte_5D4594[3799456] = v5 - v13;
 						LABEL_65:
-							(*(void (**)(void)) & byte_5D4594[3799488])();
+							(*(void (**)(void)) & dword_5d4594_3799488)();
 						}
 					LABEL_66:
 						v30 = v44;
