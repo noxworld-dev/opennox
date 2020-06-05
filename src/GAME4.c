@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599652;
 extern _DWORD dword_5d4594_1569724;
 extern _DWORD dword_5d4594_1599616;
 extern _DWORD dword_5d4594_1599064;
@@ -10900,7 +10901,7 @@ int sub_5066D0() {
 	int result; // eax
 
 	result = nox_new_alloc_class("VoteClass", 52, 64);
-	*(_DWORD*)&byte_5D4594[1599652] = result;
+	dword_5d4594_1599652 = result;
 	if (result) {
 		dword_5d4594_1599656 = 0;
 		result = 1;
@@ -10910,7 +10911,7 @@ int sub_5066D0() {
 
 //----- (00506700) --------------------------------------------------------
 void sub_506700() {
-	sub_4144D0(*(_DWORD**)&byte_5D4594[1599652]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_1599652);
 	dword_5d4594_1599656 = 0;
 }
 
@@ -10918,9 +10919,9 @@ void sub_506700() {
 int sub_506720() {
 	int result; // eax
 
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1599652]);
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1599652);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1599652] = 0;
+	dword_5d4594_1599652 = 0;
 	dword_5d4594_1599656 = 0;
 	return result;
 }
@@ -10969,7 +10970,7 @@ void __cdecl sub_5067B0(int a1) {
 			} while (v1 < 32);
 		}
 		sub_506810(a1);
-		sub_414330(*(unsigned int**)&byte_5D4594[1599652], (_QWORD*)a1);
+		sub_414330(*(unsigned int**)&dword_5d4594_1599652, (_QWORD*)a1);
 		if (!dword_5d4594_1599656)
 			sub_507190(255, 0);
 	}
@@ -11112,7 +11113,7 @@ _DWORD* __cdecl sub_506A20(int a1, int a2) {
 		return 0;
 	if (!dword_5d4594_1599656)
 		v2 = 1;
-	v3 = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1599652]);
+	v3 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1599652);
 	if (!v3)
 		return 0;
 	*v3 = a1;
