@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_823700;
 extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_587000_311480;
@@ -124,10 +125,10 @@ int sub_578F30() {
 int sub_579830() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[2523744];
-	if (*(_DWORD*)&byte_5D4594[2523744]) {
+	result = dword_5d4594_2523744;
+	if (dword_5d4594_2523744) {
 		result = sub_578F30();
-		*(_DWORD*)&byte_5D4594[2523744] = 0;
+		dword_5d4594_2523744 = 0;
 	}
 	return result;
 }
@@ -151,11 +152,11 @@ int __cdecl nox_cmd_telnet_off(int a1, char a2) {
 SOCKET __cdecl sub_5797F0(unsigned __int16 a1) {
 	SOCKET result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[2523744] != 1) {
+	if (dword_5d4594_2523744 != 1) {
 		if (!a1 || (*(_WORD*)&byte_5D4594[2523736] = a1, a1 <= 0x400u))
 			*(_WORD*)&byte_5D4594[2523736] = 18500;
 		result = sub_578E10();
-		*(_DWORD*)&byte_5D4594[2523744] = 1;
+		dword_5d4594_2523744 = 1;
 	}
 	return result;
 }
