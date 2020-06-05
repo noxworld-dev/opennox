@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096508;
 extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_1064900;
 extern _DWORD dword_5d4594_1062516;
@@ -8392,7 +8393,7 @@ int sub_473A40() {
 	*(_DWORD*)&byte_5D4594[1096504] = nox_malloc(0x400u);
 	if (!*(_DWORD*)&byte_5D4594[1096504])
 		return 0;
-	*(_DWORD*)&byte_5D4594[1096508] = 0;
+	dword_5d4594_1096508 = 0;
 	*(_DWORD*)&byte_5D4594[1096512] = nox_malloc(0x400u);
 	if (!*(_DWORD*)&byte_5D4594[1096512])
 		return 0;
@@ -8430,7 +8431,7 @@ int sub_473B30_free() {
 	if (*(_DWORD*)&byte_5D4594[1096504]) {
 		free(*(LPVOID*)&byte_5D4594[1096504]);
 		*(_DWORD*)&byte_5D4594[1096504] = 0;
-		*(_DWORD*)&byte_5D4594[1096508] = 0;
+		dword_5d4594_1096508 = 0;
 	}
 	if (*(_DWORD*)&byte_5D4594[1096512]) {
 		free(*(LPVOID*)&byte_5D4594[1096512]);
@@ -9094,7 +9095,7 @@ void __cdecl sub_4754F0(_DWORD* a1) {
 	nox_drawable_list_2_size = 0;
 	nox_drawable_list_4_size = 0;
 	*(_DWORD*)&byte_5D4594[1096500] = 0;
-	*(_DWORD*)&byte_5D4594[1096508] = 0;
+	dword_5d4594_1096508 = 0;
 	sub_49AB00(&v4, sub_475560_draw, (int)a1);
 }
 
@@ -9338,9 +9339,9 @@ int4* __cdecl sub_475810_draw(int* a1) {
 				v17 = nox_server_getWallAtPoint_410580(i, v7);
 				if (v17 && !(byte_5D4594[12332 * *(unsigned __int8*)(v17 + 1) + 2692780] & 4)) {
 					if (*(_BYTE*)(v17 + 4) & 2) {
-						if (*(int*)&byte_5D4594[1096508] < 256)
+						if (*(int*)&dword_5d4594_1096508 < 256)
 							*(_DWORD*)(*(_DWORD*)&byte_5D4594[1096504] +
-								   4 * (*(_DWORD*)&byte_5D4594[1096508])++) = v17;
+								   4 * (dword_5d4594_1096508)++) = v17;
 					} else if (*(int*)&byte_5D4594[1096500] < 256) {
 						*(_DWORD*)(*(_DWORD*)&byte_5D4594[1096496] +
 							   4 * (*(_DWORD*)&byte_5D4594[1096500])++) = v17;
@@ -9441,19 +9442,19 @@ int4* __cdecl sub_475810_draw(int* a1) {
 	sub_4AFD40();
 	sub_4C5060(v1);
 	v30 = *(unsigned __int8***)&byte_5D4594[1096504];
-	v31 = *(_DWORD*)&byte_5D4594[1096508];
+	v31 = dword_5d4594_1096508;
 	if (dword_587000_80812) {
-		--*(_DWORD*)&byte_5D4594[1096508];
+		--dword_5d4594_1096508;
 		if (v31) {
 			do {
 				v32 = *v30;
 				++v30;
 				sub_473C10(v1, v32);
-				j = (*(_DWORD*)&byte_5D4594[1096508])-- == 0;
+				j = (dword_5d4594_1096508)-- == 0;
 			} while (!j);
 		}
 	} else {
-		--*(_DWORD*)&byte_5D4594[1096508];
+		--dword_5d4594_1096508;
 		if (v31) {
 			do {
 				v33 = *v30;
@@ -9461,7 +9462,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 				v34 = v33[4];
 				v33[3] = 0;
 				v33[4] = v34 & 0xFC;
-				j = (*(_DWORD*)&byte_5D4594[1096508])-- == 0;
+				j = (dword_5d4594_1096508)-- == 0;
 			} while (!j);
 		}
 	}
