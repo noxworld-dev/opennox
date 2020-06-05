@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799508;
 extern _DWORD dword_5d4594_1522892;
 extern _DWORD dword_587000_80812;
 extern _DWORD dword_5d4594_1321236;
@@ -7214,7 +7215,7 @@ int __cdecl sub_4C6260(int a1, int a2, int a3) {
 		LABEL_30:
 			result = v10 & 1;
 			v20 = 0;
-			*(_DWORD*)&byte_5D4594[3799508] ^= result;
+			dword_5d4594_3799508 ^= result;
 			v12 = v5;
 			v13 = (int4*)(v5 - 1);
 			v22 = v13;
@@ -7227,7 +7228,7 @@ int __cdecl sub_4C6260(int a1, int a2, int a3) {
 					dword_5d4594_3799540 =
 					    *(_DWORD*)(v14 + dword_5d4594_3798784) + v8;
 					if (*(_DWORD*)&byte_5D4594[3799552] &&
-					    (*(_DWORD*)&byte_5D4594[3799508] ^= 1u) != 0) {
+					    (dword_5d4594_3799508 ^= 1u) != 0) {
 						if (v20) {
 							qmemcpy(
 							    v16,
@@ -7350,7 +7351,7 @@ unsigned __int8* __cdecl sub_4C64E0(int a1, int a2, int a3, int* a4) {
 		sub_4C6900(a3, v8);
 	}
 	v39 = 0;
-	*(_DWORD*)&byte_5D4594[3799508] ^= v7 & 1;
+	dword_5d4594_3799508 ^= v7 & 1;
 	result = v9;
 	v10 = (int)(v9 - 1);
 	if (result) {
@@ -7362,7 +7363,7 @@ unsigned __int8* __cdecl sub_4C64E0(int a1, int a2, int a3, int* a4) {
 			v12 = a3;
 			v13 = a1;
 			v41 = a3;
-			if (!*(_DWORD*)&byte_5D4594[3799552] || (*(_DWORD*)&byte_5D4594[3799508] ^= 1u) == 0) {
+			if (!*(_DWORD*)&byte_5D4594[3799552] || (dword_5d4594_3799508 ^= 1u) == 0) {
 				v21 = a1 + *(_DWORD*)(v11 + dword_5d4594_3798784);
 				dword_5d4594_3799540 =
 				    a1 + *(_DWORD*)(v11 + dword_5d4594_3798784);
@@ -8440,7 +8441,7 @@ int __cdecl sub_4C79F0(int a1, int a2, int a3) {
 		LABEL_33:
 			result = v10 & 1;
 			v22 = 0;
-			*(_DWORD*)&byte_5D4594[3799508] ^= result;
+			dword_5d4594_3799508 ^= result;
 			v12 = v5;
 			v13 = v5 - 1;
 			if (v12) {
@@ -8454,7 +8455,7 @@ int __cdecl sub_4C79F0(int a1, int a2, int a3) {
 					dword_5d4594_3799540 =
 					    v14 + *(_DWORD*)(v15 + dword_5d4594_3798784);
 					if (*(_DWORD*)&byte_5D4594[3799552] &&
-					    (*(_DWORD*)&byte_5D4594[3799508] ^= 1u) != 0) {
+					    (dword_5d4594_3799508 ^= 1u) != 0) {
 						if (v22)
 							qmemcpy(
 							    v17,
@@ -8577,7 +8578,7 @@ unsigned __int8* __cdecl sub_4C7C80(int a1, int a2, int a3, int* a4) {
 		sub_4C8040(a3, v8);
 	}
 	v40 = 0;
-	*(_DWORD*)&byte_5D4594[3799508] ^= v7 & 1;
+	dword_5d4594_3799508 ^= v7 & 1;
 	result = v9;
 	v10 = (int)(v9 - 1);
 	if (result) {
@@ -8589,7 +8590,7 @@ unsigned __int8* __cdecl sub_4C7C80(int a1, int a2, int a3, int* a4) {
 			v12 = a3;
 			v13 = a1;
 			v42 = a3;
-			if (!*(_DWORD*)&byte_5D4594[3799552] || (*(_DWORD*)&byte_5D4594[3799508] ^= 1u) == 0) {
+			if (!*(_DWORD*)&byte_5D4594[3799552] || (dword_5d4594_3799508 ^= 1u) == 0) {
 				v21 = *(_DWORD*)(v11 + dword_5d4594_3798784) + 2 * a1;
 				dword_5d4594_3799540 =
 				    *(_DWORD*)(v11 + dword_5d4594_3798784) + 2 * a1;
