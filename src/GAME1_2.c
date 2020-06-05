@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_787144;
 extern _DWORD dword_5d4594_741356;
 extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_741332;
@@ -4550,7 +4551,7 @@ int __cdecl nox_video_read_videobag(int a1) {
 	signed int v8;       // [esp-4h] [ebp-40h]
 	char v9[20];         // [esp+8h] [ebp-34h]
 
-	*(_DWORD*)&byte_5D4594[787144] = 0;
+	dword_5d4594_787144 = 0;
 	v1 = nox_video_getbagfilename(a1);
 	result = (int)fopen(v1, "rb");
 	nox_video_bag_fileptr = result;
@@ -4587,7 +4588,7 @@ int __cdecl nox_video_read_videobag(int a1) {
 				*(_DWORD*)&byte_5D4594[787200] = result;
 				if (result) {
 					*(_DWORD*)&byte_5D4594[3807164] = &byte_5D4594[754148];
-					*(_DWORD*)&byte_5D4594[787144] = 1;
+					dword_5d4594_787144 = 1;
 					sub_42EFF0();
 					result = 1;
 				}
@@ -4813,7 +4814,7 @@ int __cdecl nox_video_parse_videobag(int is8bit) {
 
 	if (!nox_video_bag_fileptr)
 		return 1;
-	*(_DWORD*)&byte_5D4594[787144] = 0;
+	dword_5d4594_787144 = 0;
 	v2 = nox_video_getbagfilename(is8bit);
 	if (is8bit != *(_DWORD*)&byte_587000[80720]) {
 		*(_DWORD*)&byte_587000[80720] = is8bit;
@@ -4838,7 +4839,7 @@ int __cdecl nox_video_parse_videobag(int is8bit) {
 				dword_5d4594_787208 = nox_malloc(*(size_t*)&byte_5D4594[787184]);
 			sub_42EFF0();
 			result = 1;
-			*(_DWORD*)&byte_5D4594[787144] = 1;
+			dword_5d4594_787144 = 1;
 		} else {
 			free(v4);
 			fclose(nox_video_bag_fileptr);
@@ -4865,7 +4866,7 @@ void sub_42F4D0() {
 	int v1;    // edi
 	int v2;    // esi
 
-	*(_DWORD*)&byte_5D4594[787144] = 0;
+	dword_5d4594_787144 = 0;
 	sub_42F030();
 	if (*(_DWORD*)&byte_5D4594[787200]) {
 		free(*(LPVOID*)&byte_5D4594[787200]);
