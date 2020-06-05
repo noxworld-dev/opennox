@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2488660;
 extern _QWORD qword_581450_10176;
 extern _QWORD qword_581450_9512;
 extern _QWORD qword_581450_9568;
@@ -6069,17 +6070,17 @@ int __cdecl sub_538330(int a1, int a2) {
 	if (!a1 || !a2)
 		return 0;
 	*(_DWORD*)&byte_5D4594[2488656] = 0;
-	*(_DWORD*)&byte_5D4594[2488660] = 0;
+	dword_5d4594_2488660 = 0;
 	v3 = *(_DWORD*)(a2 + 28);
 	if (v3 && (v4 = *(_DWORD*)(v3 + 12), BYTE1(v4) & 0x40)) {
 		sub_518040(a2 + 16, *(float*)(a2 + 8), sub_538510, a2);
 		v21 = 25;
 	} else {
-		*(_DWORD*)&byte_5D4594[2488660] = 0;
+		dword_5d4594_2488660 = 0;
 		*(_DWORD*)&byte_5D4594[2488652] = *(_DWORD*)(a2 + 8);
 		sub_518040(a1 + 56, *(float*)(a2 + 8), sub_5386A0, a1);
-		if (*(_DWORD*)&byte_5D4594[2488660])
-			sub_538510(*(int*)&byte_5D4594[2488660], a2);
+		if (dword_5d4594_2488660)
+			sub_538510(*(int*)&dword_5d4594_2488660, a2);
 	}
 	v23 = (double)v21;
 	v15 = *(float*)(a2 + 16) - *(float*)(a2 + 8) - v23;
@@ -6103,8 +6104,8 @@ int __cdecl sub_538330(int a1, int a2) {
 		if (*(_DWORD*)&byte_5D4594[2488656]) {
 			v20 = *(unsigned __int8*)(a2 + 4);
 			v19 = sub_419D40(&byte_587000[277176]) * *(float*)a2;
-			sub_4E1560(*(_DWORD*)(a2 + 28), *(_DWORD*)(a2 + 12), *(int*)&byte_5D4594[2488660],
-				   *(int*)&byte_5D4594[2488660], v19, v20);
+			sub_4E1560(*(_DWORD*)(a2 + 28), *(_DWORD*)(a2 + 12), *(int*)&dword_5d4594_2488660,
+				   *(int*)&dword_5d4594_2488660, v19, v20);
 		}
 	}
 	return *(_DWORD*)&byte_5D4594[2488656];
@@ -6247,22 +6248,19 @@ void __cdecl sub_5386A0(int a3, int a2) {
 											v5 = 0.0;
 										if ((v5 < *(float*)&byte_5D4594
 											      [2488652] ||
-										     *(_DWORD*)&byte_5D4594[2488660] &&
-											 !(*(_BYTE*)(*(_DWORD*)&byte_5D4594
-													 [2488660] +
+										     dword_5d4594_2488660 &&
+											 !(*(_BYTE*)(dword_5d4594_2488660 +
 												     8) &
 											   2) &&
 											 (*(_BYTE*)(a3 + 8) & 2) ==
 											     2) &&
-										    (!*(_DWORD*)&byte_5D4594[2488660] ||
-										     !(*(_BYTE*)(*(_DWORD*)&byte_5D4594
-												     [2488660] +
+										    (!dword_5d4594_2488660 ||
+										     !(*(_BYTE*)(dword_5d4594_2488660 +
 												 8) &
 										       2))) {
 											*(float*)&byte_5D4594[2488652] =
 											    v5;
-											*(_DWORD*)&byte_5D4594
-											    [2488660] = a3;
+											dword_5d4594_2488660 = a3;
 										}
 									}
 								}
