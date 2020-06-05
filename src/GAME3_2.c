@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1556848;
 extern _DWORD dword_587000_312796;
 extern _DWORD dword_587000_54276;
 extern _DWORD dword_5d4594_3835312;
@@ -7251,7 +7252,7 @@ int __cdecl sub_4DA7F0(int a1) {
 }
 
 //----- (004DA840) --------------------------------------------------------
-int sub_4DA840() { return *(_DWORD*)&byte_5D4594[1556848]; }
+int sub_4DA840() { return dword_5d4594_1556848; }
 
 //----- (004DA850) --------------------------------------------------------
 int __cdecl sub_4DA850(int a1) {
@@ -7463,10 +7464,10 @@ void sub_4DAC00() {
 			}
 			if (*(_BYTE*)(v0 + 8) & 1) {
 				*(_DWORD*)(v0 + 448) = 0;
-				*(_DWORD*)(v0 + 444) = *(_DWORD*)&byte_5D4594[1556848];
-				if (*(_DWORD*)&byte_5D4594[1556848])
-					*(_DWORD*)(*(_DWORD*)&byte_5D4594[1556848] + 448) = v0;
-				*(_DWORD*)&byte_5D4594[1556848] = v0;
+				*(_DWORD*)(v0 + 444) = dword_5d4594_1556848;
+				if (dword_5d4594_1556848)
+					*(_DWORD*)(dword_5d4594_1556848 + 448) = v0;
+				dword_5d4594_1556848 = v0;
 			} else {
 				v3 = *(_DWORD*)(v0 + 16);
 				if (v3 & 0x10000) {
@@ -7561,7 +7562,7 @@ int __cdecl sub_4DAE50(int a1) {
 				*(_DWORD*)(result + 448) = *(_DWORD*)(a1 + 448);
 		} else {
 			result = *(_DWORD*)(a1 + 444);
-			*(_DWORD*)&byte_5D4594[1556848] = *(_DWORD*)(a1 + 444);
+			dword_5d4594_1556848 = *(_DWORD*)(a1 + 444);
 			v3 = *(_DWORD*)(a1 + 444);
 			if (v3)
 				*(_DWORD*)(v3 + 448) = 0;
