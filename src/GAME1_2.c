@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80824;
 extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_5d4594_815040;
@@ -6905,11 +6906,11 @@ int sub_432340() {
 	if (!v0)
 		return 1;
 	v1 = atoi(v0);
-	*(_DWORD*)&byte_587000[80824] = v1;
+	dword_587000_80824 = v1;
 	v2 = v1 == 0;
 	result = 1;
 	if (!v2)
-		*(_DWORD*)&byte_587000[80824] = 1;
+		dword_587000_80824 = 1;
 	return result;
 }
 
@@ -7725,7 +7726,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "HighResFloors = %d\n", dword_587000_154952);
 	fprintf(a1, "LockHighResFloors = %d\n", dword_5d4594_1193152);
 	fprintf(a1, "TexturedFloors = %d\n", dword_587000_154956);
-	fprintf(a1, "TranslucentConsole = %d\n", *(_DWORD*)&byte_587000[80824]);
+	fprintf(a1, "TranslucentConsole = %d\n", dword_587000_80824);
 	fprintf(a1, "RenderGlow = %d\n", *(_DWORD*)&byte_5D4594[805852]);
 	fprintf(a1, "RenderGUI = %d\n", dword_587000_80828);
 	fprintf(a1, "FadeObjects = %d\n", dword_587000_80836);
