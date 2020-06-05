@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1319248;
 extern _DWORD dword_5d4594_1193156;
 extern _DWORD dword_5d4594_3799552;
 extern _DWORD dword_587000_180480;
@@ -3399,8 +3400,8 @@ int sub_4BFE40() {
 		return 0;
 	v0 = (const wchar_t*)sub_46AF00(*(int*)&dword_5d4594_1319232);
 	v1 = nox_wcstol(v0, 0, 10);
-	if (v1 > *(int*)&byte_5D4594[1319248])
-		v1 = *(_DWORD*)&byte_5D4594[1319248];
+	if (v1 > *(int*)&dword_5d4594_1319248)
+		v1 = dword_5d4594_1319248;
 	sub_46AA20(*(int*)&dword_5d4594_1319228, &v3, &v4);
 	v5.field_0 = v3 + *(_DWORD*)&byte_587000[183456];
 	v5.field_4 = v4 + *(_DWORD*)&byte_587000[183460];
@@ -3505,7 +3506,7 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4) {
 	case 3602:
 		v7 = (const wchar_t*)sub_46AF00(*(int*)&dword_5d4594_1319232);
 		v8 = nox_wcstol(v7, 0, 10) + 1;
-		if (v8 > *(int*)&byte_5D4594[1319248])
+		if (v8 > *(int*)&dword_5d4594_1319248)
 			return 0;
 		nox_swprintf((wchar_t*)&byte_5D4594[1319164], L"%d", v8);
 		sub_46AEE0(*(int*)&dword_5d4594_1319232, (int)&byte_5D4594[1319164]);
@@ -3533,8 +3534,8 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4) {
 	case 3606:
 		v5 = (const wchar_t*)sub_46AF00(*(int*)&dword_5d4594_1319232);
 		v6 = nox_wcstol(v5, 0, 10);
-		if (v6 > *(int*)&byte_5D4594[1319248])
-			v6 = *(_DWORD*)&byte_5D4594[1319248];
+		if (v6 > *(int*)&dword_5d4594_1319248)
+			v6 = dword_5d4594_1319248;
 		sub_46AA20(*(int*)&dword_5d4594_1319228, &v12, &v13);
 		v14.field_0 = v12 + *(_DWORD*)&byte_587000[183456];
 		v14.field_4 = v13 + *(_DWORD*)&byte_587000[183460];
@@ -3585,7 +3586,7 @@ int __cdecl sub_4C0430(int a1, int a2, int a3, int a4, int a5, const void* a6, i
 	*(_DWORD*)&byte_5D4594[1319100] = a10;
 	*(_DWORD*)&byte_5D4594[1319240] = a5;
 	*(_DWORD*)&byte_5D4594[1319244] = a4;
-	*(_DWORD*)&byte_5D4594[1319248] = a7;
+	dword_5d4594_1319248 = a7;
 	*(_DWORD*)&byte_5D4594[1319252] = a8;
 	sub_4BFD40();
 	sub_4C0560(a2, a3);
