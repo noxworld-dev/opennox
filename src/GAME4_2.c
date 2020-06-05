@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487672;
 extern _DWORD dword_5d4594_2487676;
 extern _DWORD dword_5d4594_3835388;
 extern _DWORD dword_5d4594_2487652;
@@ -6774,7 +6775,7 @@ int __cdecl sub_5268F0(const char* a1) {
 	v1 = 0;
 	if (*(int*)&dword_5d4594_2487676 <= 0)
 		return -1;
-	for (i = *(const char**)&byte_5D4594[2487672]; strcmp(i, a1); i += 64) {
+	for (i = *(const char**)&dword_5d4594_2487672; strcmp(i, a1); i += 64) {
 		if (++v1 >= *(int*)&dword_5d4594_2487676)
 			return -1;
 	}
@@ -6797,14 +6798,14 @@ char* sub_526950() {
 	dword_5d4594_2487676 = v0;
 	result = (char*)nox_calloc(v0, 0x40u);
 	v2 = 0;
-	*(_DWORD*)&byte_5D4594[2487672] = result;
+	dword_5d4594_2487672 = result;
 	if (result) {
 		v7 = 0;
 		if (dword_5d4594_2487676 > 0) {
 			while (1) {
 				v3 = &result[v2];
 				strcpy(v8, (const char*)sub_5029F0(v7));
-				strcpy((char*)(*(_DWORD*)&byte_5D4594[2487672] + v2), v8);
+				strcpy((char*)(dword_5d4594_2487672 + v2), v8);
 				strtok(v8, "-");
 				strtok(0, "-");
 				v4 = strtok(0, "-");
@@ -6822,7 +6823,7 @@ char* sub_526950() {
 				v2 += 64;
 				if (++v7 >= *(int*)&dword_5d4594_2487676)
 					break;
-				result = *(char**)&byte_5D4594[2487672];
+				result = *(char**)&dword_5d4594_2487672;
 			}
 		}
 	} else {
@@ -6832,7 +6833,7 @@ char* sub_526950() {
 }
 
 //----- (00526AA0) --------------------------------------------------------
-char* __cdecl sub_526AA0(int a1) { return (char*)(*(_DWORD*)&byte_5D4594[2487672] + (a1 << 6)); }
+char* __cdecl sub_526AA0(int a1) { return (char*)(dword_5d4594_2487672 + (a1 << 6)); }
 
 //----- (00526AB0) --------------------------------------------------------
 void __cdecl sub_526AB0(unsigned int a1) { nox_srand(a1); }

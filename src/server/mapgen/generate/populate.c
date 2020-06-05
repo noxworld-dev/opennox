@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_2487672;
 extern _DWORD dword_5d4594_2487576;
 extern _DWORD dword_5d4594_1550916;
 
@@ -143,7 +144,7 @@ int __cdecl sub_522A40(int a1) {
 double sub_5259D0() { return *(float*)&byte_5D4594[2487580]; }
 
 //----- (00526A90) --------------------------------------------------------
-void sub_526A90() { free(*(LPVOID*)&byte_5D4594[2487672]); }
+void sub_526A90() { free(*(LPVOID*)&dword_5d4594_2487672); }
 
 //----- (005228B0) --------------------------------------------------------
 void __cdecl sub_5228B0_mapgen_populate(int a1) {
