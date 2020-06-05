@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599064;
 extern _DWORD dword_5d4594_1569748;
 extern _DWORD dword_5d4594_1599060;
 extern _DWORD dword_5d4594_1599592;
@@ -7531,7 +7532,7 @@ int sub_501860() {
 	int result;          // eax
 	unsigned __int8* v1; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1599064])
+	if (dword_5d4594_1599064)
 		return 1;
 	*(_DWORD*)&byte_5D4594[1599056] = nox_new_alloc_class("AudEvent", 36, 128);
 	if (!*(_DWORD*)&byte_5D4594[1599056])
@@ -7547,16 +7548,16 @@ int sub_501860() {
 		v1 += 28;
 	} while ((int)v1 < (int)&byte_5D4594[1598936]);
 	result = 1;
-	*(_DWORD*)&byte_5D4594[1599064] = 1;
+	dword_5d4594_1599064 = 1;
 	return result;
 }
 
 //----- (005018D0) --------------------------------------------------------
 void sub_5018D0() {
-	if (*(_DWORD*)&byte_5D4594[1599064]) {
+	if (dword_5d4594_1599064) {
 		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1599056]);
 		dword_5d4594_1599060 = 0;
-		*(_DWORD*)&byte_5D4594[1599064] = 0;
+		dword_5d4594_1599064 = 0;
 	}
 }
 
@@ -7978,7 +7979,7 @@ BOOL __cdecl sub_502120(int a1, void* a2) {
 	unsigned __int8 v19; // [esp+20h] [ebp+4h]
 
 	v2 = a1;
-	v3 = *(_DWORD*)&byte_5D4594[1599064];
+	v3 = dword_5d4594_1599064;
 	v4 = *(unsigned __int8**)(a1 + 8);
 	v15 = a1;
 	v19 = *v4;
@@ -8101,7 +8102,7 @@ int __cdecl sub_502370(int a1, void* a2) {
 	nox_memfile_read(a2, 1u, v3, a1);
 	*((_BYTE*)a2 + v3) = 0;
 	v4 = sub_40AF50(a2);
-	if (v4 && *(_DWORD*)&byte_5D4594[1599064]) {
+	if (v4 && dword_5d4594_1599064) {
 		v5 = *(unsigned __int8**)(a1 + 8);
 		v6 = *(_WORD*)v5;
 		v5 += 2;
