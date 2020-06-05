@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816448;
 extern _DWORD dword_5d4594_815704;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_587000_93196;
@@ -2403,9 +2404,9 @@ int sub_43F1C0() {
 	v0 = 0;
 	if (dword_5d4594_3801780) {
 		if (dword_5d4594_3801780 == 1)
-			*(_DWORD*)&byte_5D4594[816448] = sub_43FE90;
+			dword_5d4594_816448 = sub_43FE90;
 	} else {
-		*(_DWORD*)&byte_5D4594[816448] = sub_440360;
+		dword_5d4594_816448 = sub_440360;
 	}
 	dword_5d4594_816456 = 64;
 	*(_DWORD*)&byte_5D4594[816484] = 1;
@@ -2673,7 +2674,7 @@ int __cdecl sub_43F690(int a1, int a2, int a3, int a4) {
 	result = a1;
 	if (a1 || (result = dword_5d4594_816492) != 0) {
 		dword_5d4594_816460 = a3;
-		result = (*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) & byte_5D4594[816448])(result, a2, a3, a4);
+		result = (*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_816448)(result, a2, a3, a4);
 	}
 	return result;
 }
@@ -2921,7 +2922,7 @@ int __cdecl sub_43FAF0(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 				if ((_WORD)v8 == 13)
 					goto LABEL_14;
 				for (i = a3; v13 < v9; i = (*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
-							    byte_5D4594[816448])(v7, v8, i, a4)) {
+							    dword_5d4594_816448)(v7, v8, i, a4)) {
 					LOWORD(v8) = *v13;
 					++v13;
 				}
@@ -2955,7 +2956,7 @@ int __cdecl sub_43FAF0(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 				else
 					--v9;
 				for (j = a3; v13 < v9; j = (*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
-							    byte_5D4594[816448])(v7, v17, j, a4)) {
+							    dword_5d4594_816448)(v7, v17, j, a4)) {
 					LOWORD(v17) = *v13;
 					++v13;
 				}
@@ -2982,7 +2983,7 @@ int __cdecl sub_43FAF0(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 						LOWORD(v8) = *v13;
 						++v13;
 						v19 = (*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
-						       byte_5D4594[816448])(v7, v8, v19, a4);
+						       dword_5d4594_816448)(v7, v8, v19, a4);
 					} while (v13 < v9);
 				}
 				break;
@@ -3656,7 +3657,7 @@ int __cdecl sub_4407F0(int a1, __int16* a2, int a3, int a4) {
 	result = a3;
 	do {
 		if (v4 != 13 && v4 != 10)
-			result = (*(int(__cdecl**)(_DWORD, _WORD, _DWORD, _DWORD)) & byte_5D4594[816448])(a1, v4,
+			result = (*(int(__cdecl**)(_DWORD, _WORD, _DWORD, _DWORD)) & dword_5d4594_816448)(a1, v4,
 													  result, a4);
 		v4 = *v5;
 		++v5;
