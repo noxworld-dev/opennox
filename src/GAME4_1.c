@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386216;
 extern _DWORD dword_587000_230092;
 extern _DWORD dword_5d4594_2386156;
 extern _DWORD dword_5d4594_3835348;
@@ -2771,7 +2772,7 @@ int sub_50D780() {
 	int result; // eax
 
 	result = nox_new_alloc_class("SpawnClass", 12, 96);
-	*(_DWORD*)&byte_5D4594[2386216] = result;
+	dword_5d4594_2386216 = result;
 	if (result) {
 		dword_5d4594_2386212 = 0;
 		result = nox_new_alloc_class("MonsterListClass", 148, 96);
@@ -2787,7 +2788,7 @@ int sub_50D780() {
 
 //----- (0050D7E0) --------------------------------------------------------
 void sub_50D7E0() {
-	sub_4144D0(*(_DWORD**)&byte_5D4594[2386216]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_2386216);
 	dword_5d4594_2386212 = 0;
 	sub_4144D0(*(_DWORD**)&dword_5d4594_2386220);
 	dword_5d4594_2386224 = 0;
@@ -2796,8 +2797,8 @@ void sub_50D7E0() {
 
 //----- (0050D820) --------------------------------------------------------
 void sub_50D820() {
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386216]);
-	*(_DWORD*)&byte_5D4594[2386216] = 0;
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386216);
+	dword_5d4594_2386216 = 0;
 	dword_5d4594_2386212 = 0;
 	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386220);
 	dword_5d4594_2386220 = 0;
@@ -3174,7 +3175,7 @@ int __cdecl sub_50E030(int a1, _DWORD* a2) {
 	v2 = *(_DWORD*)(a1 + 748);
 	v3 = (_DWORD*)a2[187];
 	if (!v3[549]) {
-		result = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[2386216]);
+		result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386216);
 		v5 = (_DWORD*)result;
 		if (!result)
 			return result;
@@ -3244,7 +3245,7 @@ void __cdecl sub_50E140(int a1) {
 		}
 		if (*(_DWORD*)(v1 + 2196)) {
 			sub_50E1B0(*(_DWORD*)(v1 + 2196));
-			sub_414330(*(unsigned int**)&byte_5D4594[2386216], *(_QWORD**)(v1 + 2196));
+			sub_414330(*(unsigned int**)&dword_5d4594_2386216, *(_QWORD**)(v1 + 2196));
 			*(_DWORD*)(v1 + 2196) = 0;
 		}
 	}
