@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_173328;
 extern _DWORD dword_587000_80844;
 extern _DWORD dword_5d4594_830276;
 extern _DWORD dword_5d4594_3804680;
@@ -1756,7 +1757,7 @@ int map_download_loop(int first) {
 	if (*(_DWORD*)&byte_5D4594[2598000] % 0x1Eu)
 		sub_43CA20();
 
-	if (!*(_DWORD*)&byte_587000[173328])
+	if (!dword_587000_173328)
 		return map_download_finish();
 
 	mainloop_draw();
@@ -1765,7 +1766,7 @@ int map_download_loop(int first) {
 	sub_4AD170_call_copy_backbuffer();
 	sub_48A290_call_present();
 
-	if (!*(_DWORD*)&byte_587000[173328])
+	if (!dword_587000_173328)
 		return map_download_finish();
 	return -1;
 }
