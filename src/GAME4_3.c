@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_10176;
 extern _QWORD qword_581450_9512;
 extern _QWORD qword_581450_9568;
 extern _QWORD qword_581450_9544;
@@ -8263,7 +8264,7 @@ void __cdecl sub_53B940(int a1) {
 			v18 = *(float*)(v9 + 56) - *(float*)(a1 + 56);
 			v10 = *(float*)(v9 + 60) - *(float*)(v1 + 60);
 			v17 = v10;
-			v11 = nox_double2float(sqrt(v10 * v17 + v18 * v18) + *(double*)&byte_581450[10176]);
+			v11 = nox_double2float(sqrt(v10 * v17 + v18 * v18) + *(double*)&qword_581450_10176);
 			v12 = v18 * *(float*)(v1 + 544);
 			*(_DWORD*)(v1 + 112) = 1063675494;
 			*(float*)(v1 + 88) = v12 / v11;
@@ -8271,7 +8272,7 @@ void __cdecl sub_53B940(int a1) {
 		} else {
 			v13 = nox_double2float(
 			    sqrt(*(float*)(a1 + 80) * *(float*)(a1 + 80) + *(float*)(a1 + 84) * *(float*)(a1 + 84)) +
-			    *(double*)&byte_581450[10176]);
+			    *(double*)&qword_581450_10176);
 			v14 = *(float*)(a1 + 544) * *(float*)(a1 + 80);
 			*(_DWORD*)(a1 + 112) = 1063675494;
 			*(float*)(a1 + 88) = v14 / v13;
@@ -9723,7 +9724,7 @@ void __cdecl sub_53DCC0(int a1) {
 					v8 = *(float*)(v2 + 16) - *(float*)(a1 + 56);
 					v9 = *(float*)(v2 + 20) - *(float*)(a1 + 60);
 					v11 = v9;
-					v10 = sqrt(v9 * v11 + v8 * v8) + *(double*)&byte_581450[10176];
+					v10 = sqrt(v9 * v11 + v8 * v8) + *(double*)&qword_581450_10176;
 					*(float*)(v1 + 80) = v8 * *(float*)(v1 + 544) / v10;
 					*(float*)(v1 + 84) = v11 * *(float*)(v1 + 544) / v10;
 				}
