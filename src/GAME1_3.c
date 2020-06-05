@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_93200;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_830292;
 extern _DWORD dword_5d4594_816448;
@@ -1694,7 +1695,7 @@ void sub_43DDC0() { nox_srand(0x1E77u); }
 
 //----- (0043DDD0) --------------------------------------------------------
 int __cdecl sub_43DDD0(int a1) {
-	*(_DWORD*)&byte_587000[93200] = a1;
+	dword_587000_93200 = a1;
 	return a1;
 }
 
@@ -1828,7 +1829,7 @@ int sub_43E230() {
 //-------------------------------------------------------------------------
 void mainloop_stop() {
 	if (*(_DWORD*)&byte_5D4594[805872]) {
-		*(_DWORD*)&byte_587000[93200] = 1;
+		dword_587000_93200 = 1;
 		mainloop_exit();
 		return;
 	}
@@ -1856,7 +1857,7 @@ void mainloop_wait_and_exit(int flags) {
 
 void sub_43E290() {
 	dword_587000_93196 = 1;
-	*(_DWORD*)&byte_587000[93200] = 1;
+	dword_587000_93200 = 1;
 	*(_DWORD*)&byte_5D4594[816400] = 60 * *(_DWORD*)&byte_5D4594[2649704];
 
 	// XXX
