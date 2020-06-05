@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_54276;
 extern _DWORD dword_5d4594_814548;
 extern _DWORD dword_5d4594_3804684;
 extern _DWORD dword_5d4594_1193156;
@@ -7088,7 +7089,7 @@ int sub_432620() {
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
 	if (v0)
-		*(_DWORD*)&byte_587000[54276] = atoi(v0) != 0;
+		dword_587000_54276 = atoi(v0) != 0;
 	return 1;
 }
 
@@ -7765,7 +7766,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "SysopPassword = %S\n", v8);
 	fprintf(a1, "ServerPassword = %S\n", v1 + 78);
 	fprintf(a1, "Profiled = %d\n", *(_DWORD*)&byte_5D4594[805856] != 0);
-	fprintf(a1, "SanctuaryHelp = %d\n", *(_DWORD*)&byte_587000[54276]);
+	fprintf(a1, "SanctuaryHelp = %d\n", dword_587000_54276);
 	fprintf(a1, "MaxPacketLossPct = %d\n", *(_DWORD*)&byte_587000[81280]);
 	fprintf(a1, "SendMessageOfTheDay = %d\n", *(_DWORD*)&byte_587000[108752]);
 	v9 = sub_4D0D70();
