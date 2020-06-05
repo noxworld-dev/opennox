@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193624;
 extern _DWORD dword_5d4594_1193664;
 extern _DWORD dword_5d4594_1193524;
 extern _DWORD dword_5d4594_3805484;
@@ -13114,7 +13115,7 @@ int __cdecl sub_48B3E0(int a1) {
 //----- (0048B590) --------------------------------------------------------
 void __cdecl sub_48B590(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 	if (a1)
-		*a1 = *(_DWORD*)&byte_5D4594[1193624];
+		*a1 = dword_5d4594_1193624;
 	if (a2)
 		*a2 = dword_5d4594_1193648;
 	if (a3)
@@ -13184,7 +13185,7 @@ void __cdecl sub_48BD90(int a1) {
 		SetRect((LPRECT)&byte_5D4594[1193532], 0, 0, 0, 0);
 	dword_5d4594_1193664 = 1;
 	dword_5d4594_1193668 = 1;
-	*(_DWORD*)&byte_5D4594[1193624] = 0;
+	dword_5d4594_1193624 = 0;
 	LeaveCriticalSection((LPCRITICAL_SECTION)&byte_5D4594[3799596]);
 }
 
