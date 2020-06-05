@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386920;
 extern _DWORD dword_5d4594_2386568;
 extern _DWORD dword_5d4594_2386220;
 extern _DWORD dword_5d4594_2386192;
@@ -9822,7 +9823,7 @@ int sub_516EA0() {
 
 //----- (00516EE0) --------------------------------------------------------
 BOOL sub_516EE0() {
-	*(_DWORD*)&byte_5D4594[2386920] = 0;
+	dword_5d4594_2386920 = 0;
 	*(_DWORD*)&byte_5D4594[2386916] = nox_new_alloc_class("PendingOwn", 12, 512);
 	return *(_DWORD*)&byte_5D4594[2386916] != 0;
 }
@@ -9834,14 +9835,14 @@ int sub_516F10() {
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386916]);
 	result = 0;
 	*(_DWORD*)&byte_5D4594[2386916] = 0;
-	*(_DWORD*)&byte_5D4594[2386920] = 0;
+	dword_5d4594_2386920 = 0;
 	return result;
 }
 
 //----- (00516F30) --------------------------------------------------------
 void sub_516F30() {
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2386916]);
-	*(_DWORD*)&byte_5D4594[2386920] = 0;
+	dword_5d4594_2386920 = 0;
 }
 
 //----- (00516F50) --------------------------------------------------------
@@ -9868,8 +9869,8 @@ _DWORD* __cdecl sub_516F90(int a1, int a2) {
 	if (result) {
 		*result = a1;
 		result[1] = a2;
-		result[2] = *(_DWORD*)&byte_5D4594[2386920];
-		*(_DWORD*)&byte_5D4594[2386920] = result;
+		result[2] = dword_5d4594_2386920;
+		dword_5d4594_2386920 = result;
 	}
 	return result;
 }
@@ -9880,8 +9881,8 @@ void sub_516FC0() {
 	int v1;  // edi
 	int v2;  // eax
 
-	v0 = *(int**)&byte_5D4594[2386920];
-	if (*(_DWORD*)&byte_5D4594[2386920]) {
+	v0 = *(int**)&dword_5d4594_2386920;
+	if (dword_5d4594_2386920) {
 		do {
 			v1 = sub_4ECF10(*v0);
 			v2 = sub_4ECF10(v0[1]);
