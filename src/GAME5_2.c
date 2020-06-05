@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523764;
 extern _DWORD dword_5d4594_2513932;
 extern _DWORD dword_5d4594_2523760;
 extern _DWORD dword_587000_312796;
@@ -4190,7 +4191,7 @@ int __cdecl sub_57A3F0(char* a1, int a2, int a3, int a4) {
 	char v8[256];    // [esp+4h] [ebp-300h]
 	wchar_t v9[256]; // [esp+104h] [ebp-200h]
 
-	*(_DWORD*)&byte_5D4594[2523764] = 6128;
+	dword_5d4594_2523764 = 6128;
 	v4 = fopen(a1, "r");
 	v5 = v4;
 	if (!v4)
@@ -4296,12 +4297,12 @@ BOOL __cdecl sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4) 
 	v17 = 0;
 	do {
 		if (!strcmp(*(const char**)&byte_587000[8 * v17 + 312208], v16)) {
-			*(_DWORD*)&byte_5D4594[2523764] = *(_DWORD*)&byte_587000[8 * v17 + 312212];
-			return a4 == *(_DWORD*)&byte_5D4594[2523764];
+			dword_5d4594_2523764 = *(_DWORD*)&byte_587000[8 * v17 + 312212];
+			return a4 == dword_5d4594_2523764;
 		}
 		v17 = ++v5;
 	} while (v5 < 7u);
-	if (!(*(_DWORD*)&byte_5D4594[2523764] & a4) || _nox_wcsicmp(*v4, L"set") || a1 <= 1u)
+	if (!(dword_5d4594_2523764 & a4) || _nox_wcsicmp(*v4, L"set") || a1 <= 1u)
 		return 0;
 	if (_nox_wcsicmp(v4[1], L"spell")) {
 		if (_nox_wcsicmp(v4[1], L"weapon")) {
@@ -4369,7 +4370,7 @@ BOOL __cdecl sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4) 
 				sub_453FA0(a3 + 24, v6, 0);
 		}
 	}
-	if (a4 == *(_DWORD*)&byte_5D4594[2523764])
+	if (a4 == dword_5d4594_2523764)
 		return 1;
 	return 0;
 }
