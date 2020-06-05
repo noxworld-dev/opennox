@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9568;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_2488604;
 extern _DWORD dword_587000_264364;
@@ -3953,7 +3954,7 @@ int __cdecl sub_535250(float4* a1, float2* a2, int2* a3, char a4) {
 						modf(v30 / v31, &v73);
 						v32 = *(float*)&dword_587000_264364;
 						v33 = nox_double2float(v32 * v73);
-						if (v51 <= *(double*)&byte_581450[9568]) {
+						if (v51 <= *(double*)&qword_581450_9568) {
 							v70 = v33;
 							v35 = *(float*)&dword_587000_264364;
 							v74 = v33 + v35;
@@ -3964,13 +3965,13 @@ int __cdecl sub_535250(float4* a1, float2* a2, int2* a3, char a4) {
 						}
 						a1b = nox_double2int(v73);
 						v36 = v74 * v62 + v63;
-						if (v49 > *(double*)&byte_581450[9568] && v36 < a1->field_4 ||
-						    v49 < *(double*)&byte_581450[9568] && v36 > a1->field_4) {
+						if (v49 > *(double*)&qword_581450_9568 && v36 < a1->field_4 ||
+						    v49 < *(double*)&qword_581450_9568 && v36 > a1->field_4) {
 							v36 = a1->field_4;
 						}
 						v72 = v70 * v62 + v63;
-						if (v49 > *(double*)&byte_581450[9568] && v72 > (double)a1->field_C ||
-						    v49 < *(double*)&byte_581450[9568] && v72 < (double)a1->field_C) {
+						if (v49 > *(double*)&qword_581450_9568 && v72 > (double)a1->field_C ||
+						    v49 < *(double*)&qword_581450_9568 && v72 < (double)a1->field_C) {
 							v72 = a1->field_C;
 						}
 						v37 = *(float*)&dword_587000_264364;
@@ -4026,7 +4027,7 @@ int __cdecl sub_535250(float4* a1, float2* a2, int2* a3, char a4) {
 						modf(v15 / v16, &v73);
 						v17 = *(float*)&dword_587000_264364;
 						v18 = v17 * v73;
-						if (v50 <= *(double*)&byte_581450[9568]) {
+						if (v50 <= *(double*)&qword_581450_9568) {
 							v20 = nox_double2float(v18);
 							v71 = v20;
 							v21 = *(float*)&dword_587000_264364;
@@ -4038,13 +4039,13 @@ int __cdecl sub_535250(float4* a1, float2* a2, int2* a3, char a4) {
 						}
 						a1a = nox_double2int(v73);
 						v22 = (v75 - v63) / v62;
-						if (v48 > *(double*)&byte_581450[9568] && v22 < a1->field_0 ||
-						    v48 < *(double*)&byte_581450[9568] && v22 > a1->field_0) {
+						if (v48 > *(double*)&qword_581450_9568 && v22 < a1->field_0 ||
+						    v48 < *(double*)&qword_581450_9568 && v22 > a1->field_0) {
 							v22 = a1->field_0;
 						}
 						v69 = (v71 - v63) / v62;
-						if (v48 > *(double*)&byte_581450[9568] && v69 > (double)a1->field_8 ||
-						    v48 < *(double*)&byte_581450[9568] && v69 < (double)a1->field_8) {
+						if (v48 > *(double*)&qword_581450_9568 && v69 > (double)a1->field_8 ||
+						    v48 < *(double*)&qword_581450_9568 && v69 < (double)a1->field_8) {
 							v69 = a1->field_8;
 						}
 						v23 = *(float*)&dword_587000_264364;
