@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045520;
 extern _DWORD dword_5d4594_831244;
 extern _DWORD dword_5d4594_831076;
 extern _DWORD dword_5d4594_1045552;
@@ -3631,7 +3632,7 @@ int __cdecl sub_4541D0(int a1) {
 	sub_43FE20(100);
 	sub_416640();
 	sub_46B120(*(_DWORD**)&dword_5d4594_1045516, a1);
-	*(_DWORD*)&byte_5D4594[1045520] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10102);
+	dword_5d4594_1045520 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10102);
 	*(_DWORD*)&byte_5D4594[1045524] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10103);
 	dword_5d4594_1045532 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10109);
 	dword_5d4594_1045528 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10105);
@@ -3892,7 +3893,7 @@ int __cdecl sub_454BA0(int a1, int a2, int* a3, int a4) {
 			return 0;
 		case 10113:
 			sub_416640();
-			if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1045520] + 36) & 4) {
+			if (*(_BYTE*)(dword_5d4594_1045520 + 36) & 4) {
 				v23 = nox_window_call_field_94(*(int*)&dword_5d4594_1045532, 16404, 0, 0);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1045532, 16398, v23, 0);
 				sub_416860(v23);
