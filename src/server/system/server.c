@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _QWORD qword_581450_10256;
 extern _DWORD dword_5d4594_1569756;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_2495920;
@@ -2023,19 +2024,19 @@ char sub_51B100() {
 				v59 = *(float*)(v2 + 68) - *(float*)(v2 + 60);
 				v62 = sub_419A10(v59);
 				if (*(float*)(v2 + 88) <= *(double*)&byte_581450[10392] ||
-				    *(float*)(v2 + 88) >= *(double*)&byte_581450[10256] ||
+				    *(float*)(v2 + 88) >= *(double*)&qword_581450_10256 ||
 				    *(float*)(v2 + 92) <= *(double*)&byte_581450[10392] ||
-				    *(float*)(v2 + 92) >= *(double*)&byte_581450[10256] ||
+				    *(float*)(v2 + 92) >= *(double*)&qword_581450_10256 ||
 				    *(float*)(v2 + 80) <= *(double*)&byte_581450[10392] ||
-				    *(float*)(v2 + 80) >= *(double*)&byte_581450[10256] ||
+				    *(float*)(v2 + 80) >= *(double*)&qword_581450_10256 ||
 				    *(float*)(v2 + 84) <= *(double*)&byte_581450[10392] ||
-				    *(float*)(v2 + 84) >= *(double*)&byte_581450[10256] ||
-				    v61 <= *(double*)&byte_581450[10392] || v61 >= *(double*)&byte_581450[10256] ||
-				    v62 <= *(double*)&byte_581450[10392] || v62 >= *(double*)&byte_581450[10256] ||
+				    *(float*)(v2 + 84) >= *(double*)&qword_581450_10256 ||
+				    v61 <= *(double*)&byte_581450[10392] || v61 >= *(double*)&qword_581450_10256 ||
+				    v62 <= *(double*)&byte_581450[10392] || v62 >= *(double*)&qword_581450_10256 ||
 				    *(float*)(v2 + 104) <= *(double*)&byte_581450[10392] ||
-				    *(float*)(v2 + 104) >= *(double*)&byte_581450[10256] ||
+				    *(float*)(v2 + 104) >= *(double*)&qword_581450_10256 ||
 				    *(float*)(v2 + 108) <= *(double*)&byte_581450[10392] ||
-				    *(float*)(v2 + 108) >= *(double*)&byte_581450[10256]) {
+				    *(float*)(v2 + 108) >= *(double*)&qword_581450_10256) {
 					sub_537610(v2);
 					*(_DWORD*)(v2 + 16) &= 0xF7FFFFFF;
 				} else {
