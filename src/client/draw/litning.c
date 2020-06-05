@@ -1,6 +1,7 @@
 #include "litning.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1316476;
 extern _DWORD dword_5d4594_1316492;
 
 //----- (0049F5A0) --------------------------------------------------------
@@ -51,12 +52,12 @@ int __cdecl sub_4BB070(int a1, int a2) {
 			} while (v16);
 		}
 		LOWORD(v24) = v15 *
-				  sub_415FF0(-*(_DWORD*)&byte_5D4594[1316476], *(int*)&byte_5D4594[1316476],
+				  sub_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
 					     "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 193) /
 				  v14 +
 			      (((__int16)a1 + (__int16)a2) >> 1);
 		HIWORD(v24) = v15 *
-				  sub_415FF0(-*(_DWORD*)&byte_5D4594[1316476], *(int*)&byte_5D4594[1316476],
+				  sub_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
 					     "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 196) /
 				  v14 +
 			      ((SHIWORD(a1) + SHIWORD(a2)) >> 1);
@@ -188,10 +189,10 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
 		v11 = v10 - a1->field_4;
 	v12 = (__int64)sqrt((double)(v9 * v9 + v11 * v11));
 	if ((int)v12 >= 512) {
-		*(_DWORD*)&byte_5D4594[1316476] = *(_DWORD*)&byte_587000[178204];
+		dword_5d4594_1316476 = *(_DWORD*)&byte_587000[178204];
 		*(_DWORD*)&byte_5D4594[1316448] = *(_DWORD*)&byte_587000[178216];
 	} else {
-        *(_DWORD *) &byte_5D4594[1316476] =
+        *(_DWORD *) &dword_5d4594_1316476 =
                 *(_DWORD *) &byte_587000[178208] +
                 (int) v12 * (*(_DWORD *) &byte_587000[178204] - *(_DWORD *) &byte_587000[178208]) / 512;
         bool v13p = 0;
