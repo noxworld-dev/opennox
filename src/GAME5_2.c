@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2513916;
 extern _DWORD dword_5d4594_2523896;
 extern _DWORD dword_587000_312788;
 extern _DWORD dword_587000_312784;
@@ -1704,7 +1705,7 @@ int __cdecl sub_554B40(u_short hostshort) {
 	char optval[4];         // [esp+14h] [ebp-194h]
 	struct WSAData WSAData; // [esp+18h] [ebp-190h]
 
-	if (*(_DWORD*)&byte_5D4594[2513916] == 1)
+	if (dword_5d4594_2513916 == 1)
 		return -14;
 	result = WSAStartup(0x101u, &WSAData);
 	if (result != -1) {
@@ -1731,7 +1732,7 @@ int __cdecl sub_554B40(u_short hostshort) {
 					result = setsockopt(*(SOCKET*)&dword_5d4594_2513920, 0xFFFF, 32, optval, 4);
 					if (result != -1) {
 						nox_set_draw_unk1((int)sub_554FF0);
-						*(_DWORD*)&byte_5D4594[2513916] = 1;
+						dword_5d4594_2513916 = 1;
 						result = 0;
 					}
 				}
@@ -1748,7 +1749,7 @@ int __cdecl sub_554C80(u_short hostshort, char* buf, int a3) {
 	struct sockaddr to; // [esp+4h] [ebp-10h]
 
 	v3 = 0;
-	if (!*(_DWORD*)&byte_5D4594[2513916])
+	if (!dword_5d4594_2513916)
 		return -17;
 	to.sa_family = 2;
 	*(_DWORD*)&to.sa_data[6] = 0;
@@ -1765,12 +1766,12 @@ int __cdecl sub_554C80(u_short hostshort, char* buf, int a3) {
 
 //----- (00554D10) --------------------------------------------------------
 int sub_554D10() {
-	if (*(_DWORD*)&byte_5D4594[2513916]) {
+	if (dword_5d4594_2513916) {
 		closesocket(*(SOCKET*)&dword_5d4594_2513920);
 		closesocket(*(SOCKET*)&byte_5D4594[2513924]);
 		dword_5d4594_2513920 = 0;
 		*(_DWORD*)&byte_5D4594[2513924] = 0;
-		*(_DWORD*)&byte_5D4594[2513916] = 0;
+		dword_5d4594_2513916 = 0;
 		nox_set_draw_unk1(0);
 		sub_555000(0);
 		WSACleanup();
@@ -1797,7 +1798,7 @@ int __cdecl sub_554D70(char a1) {
 	char in[256];         // [esp+130h] [ebp-100h]
 
 	fromlen = 16;
-	if (!*(_DWORD*)&byte_5D4594[2513916])
+	if (!dword_5d4594_2513916)
 		return -17;
 	v11 = a1 & 1;
 	if (a1 & 1) {
@@ -1901,7 +1902,7 @@ int __cdecl sub_555010(int a1, u_short hostshort, char* buf, int a4) {
 	struct sockaddr to; // [esp+4h] [ebp-10h]
 
 	v4 = 0;
-	if (!*(_DWORD*)&byte_5D4594[2513916])
+	if (!dword_5d4594_2513916)
 		return -17;
 	to.sa_family = 2;
 	*(_DWORD*)&to.sa_data[6] = 0;
@@ -1933,7 +1934,7 @@ int __cdecl sub_5550D0(int a1, u_short hostshort, char* buf) {
 }
 
 //----- (00555100) --------------------------------------------------------
-int sub_555100() { return *(_DWORD*)&byte_5D4594[2513916]; }
+int sub_555100() { return dword_5d4594_2513916; }
 
 //----- (00555110) --------------------------------------------------------
 void sub_555110() { nox_srand(0x911u); }
