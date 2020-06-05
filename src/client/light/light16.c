@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_587000_142328;
 extern _DWORD dword_587000_154968;
 extern _DWORD dword_5d4594_3805484;
 extern _DWORD dword_587000_80800;
@@ -758,7 +759,7 @@ void __cdecl sub_469140(int arg0) {
 					v10 = 23 * v8;
 					v39 = 23 * v8;
 					if (v8 <= v9) {
-						v11 = *(_DWORD*)&byte_587000[142328];
+						v11 = dword_587000_142328;
 						v12 = 23 * v43;
 						while (1) {
 							v13 = v7 - v10;
@@ -775,18 +776,16 @@ void __cdecl sub_469140(int arg0) {
 												[142324] /
 											    v36 +
 											0x10000);
-										v11 = *(_DWORD*)&byte_587000[142328];
-										if (v16 > *(int*)&byte_587000[142328]) {
+										v11 = dword_587000_142328;
+										if (v16 > *(int*)&dword_587000_142328) {
 											sub_4695E0(
 											    v29, v31, (int*)(v1 + 152),
 											    8 * (v16 -
-												 *(_DWORD*)&byte_587000
-												     [142328]),
+												 dword_587000_142328),
 											    *(_DWORD*)(v1 + 172));
 											v7 = a4.field_4;
 											v5 = a4.field_0;
-											v11 = *(_DWORD*)&byte_587000
-												  [142328];
+											v11 = dword_587000_142328;
 										} else {
 											v7 = a4.field_4;
 											v5 = a4.field_0;
