@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1049532;
 extern _DWORD dword_5d4594_832508;
 extern _DWORD dword_5d4594_832504;
 extern _DWORD dword_5d4594_831224;
@@ -7683,7 +7684,7 @@ int __cdecl sub_45EF50(int a1, int a2, unsigned int a3) {
 					}
 				}
 				if (v10 == v4) {
-					*(_DWORD*)&byte_5D4594[1049532] = a1;
+					dword_5d4594_1049532 = a1;
 					if (!*(_DWORD*)&byte_5D4594[2618908] || v3 == (int*)&byte_5D4594[1047940])
 						goto LABEL_53;
 					if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251)) {
@@ -7703,7 +7704,7 @@ int __cdecl sub_45EF50(int a1, int a2, unsigned int a3) {
 						goto LABEL_54;
 				LABEL_53:
 					sub_46ADE0(a1);
-					*(_DWORD*)&byte_5D4594[1049532] = 0;
+					dword_5d4594_1049532 = 0;
 				LABEL_54:
 					sub_477660();
 					return 1;
@@ -7916,7 +7917,7 @@ int __cdecl sub_45F7A0(_DWORD* a1, unsigned int a2, unsigned int a3) {
 		if (!sub_46AAB0(a1, (unsigned __int16)a3, a3 >> 16))
 			sub_45E040();
 		sub_46ADE0((int)a1);
-		*(_DWORD*)&byte_5D4594[1049532] = 0;
+		dword_5d4594_1049532 = 0;
 		*(_DWORD*)&byte_5D4594[1047928] = 0;
 		return 1;
 	}
@@ -7925,7 +7926,7 @@ int __cdecl sub_45F7A0(_DWORD* a1, unsigned int a2, unsigned int a3) {
 		return 1;
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251) == 1 && sub_45F890()) {
 		sub_46ADC0((int)a1);
-		*(_DWORD*)&byte_5D4594[1049532] = a1;
+		dword_5d4594_1049532 = a1;
 		*(_DWORD*)&byte_5D4594[1047928] = 1;
 		result = 1;
 	} else {
@@ -8286,10 +8287,10 @@ int sub_460650() { return *(_DWORD*)&byte_5D4594[1047928]; }
 int sub_460660() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1049532];
-	if (*(_DWORD*)&byte_5D4594[1049532] || *(_DWORD*)&byte_5D4594[1047928] || dword_5d4594_1047932) {
-		sub_46ADE0(*(int*)&byte_5D4594[1049532]);
-		*(_DWORD*)&byte_5D4594[1049532] = 0;
+	result = dword_5d4594_1049532;
+	if (dword_5d4594_1049532 || *(_DWORD*)&byte_5D4594[1047928] || dword_5d4594_1047932) {
+		sub_46ADE0(*(int*)&dword_5d4594_1049532);
+		dword_5d4594_1049532 = 0;
 		*(_DWORD*)&byte_5D4594[1047928] = 0;
 		dword_5d4594_1047932 = 0;
 		result = 1;
