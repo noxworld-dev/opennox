@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523892;
 extern _DWORD dword_5d4594_2516356;
 extern _DWORD dword_587000_311372;
 extern _DWORD dword_5d4594_2523908;
@@ -5271,7 +5272,7 @@ char* sub_57BFB0() {
 
 	*(_DWORD*)&byte_5D4594[2523904] = 0;
 	result = nox_new_alloc_class("ItemGroupInfo", 96, 512);
-	*(_DWORD*)&byte_5D4594[2523892] = result;
+	dword_5d4594_2523892 = result;
 	if (result) {
 		dword_5d4594_2523896 = nox_new_alloc_class("ItemGroupElement", 16, 5000);
 		result = (char*)(dword_5d4594_2523896 != 0);
@@ -5283,16 +5284,16 @@ char* sub_57BFB0() {
 void sub_57C000() {
 	*(_DWORD*)&byte_5D4594[2523904] = 0;
 	sub_4144D0(*(_DWORD**)&dword_5d4594_2523896);
-	sub_4144D0(*(_DWORD**)&byte_5D4594[2523892]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_2523892);
 	dword_5d4594_2523900 = 0;
 }
 
 //----- (0057C030) --------------------------------------------------------
 int sub_57C030() {
 	*(_DWORD*)&byte_5D4594[2523904] = 0;
-	if (*(_DWORD*)&byte_5D4594[2523892]) {
-		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2523892]);
-		*(_DWORD*)&byte_5D4594[2523892] = 0;
+	if (dword_5d4594_2523892) {
+		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2523892);
+		dword_5d4594_2523892 = 0;
 	}
 	if (dword_5d4594_2523896) {
 		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2523896);
@@ -5457,7 +5458,7 @@ void* sub_57C330() {
 
 	v0 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(2097153) ||
-	    (result = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[2523892]), (v0 = result) != 0))
+	    (result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2523892), (v0 = result) != 0))
 		result = v0;
 	return result;
 }
@@ -5466,7 +5467,7 @@ void* sub_57C330() {
 void* sub_57C360() { return nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2523896); }
 
 //----- (0057C370) --------------------------------------------------------
-void __cdecl sub_57C370(_QWORD* a1) { sub_414330(*(unsigned int**)&byte_5D4594[2523892], a1); }
+void __cdecl sub_57C370(_QWORD* a1) { sub_414330(*(unsigned int**)&dword_5d4594_2523892, a1); }
 
 //----- (0057C390) --------------------------------------------------------
 void __cdecl sub_57C390(_QWORD* a1) { sub_414330(*(unsigned int**)&dword_5d4594_2523896, a1); }
