@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_2386568;
 extern _DWORD dword_587000_93196;
 extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_608316;
@@ -1703,7 +1704,7 @@ void __cdecl sub_511590(int a1, int a2) {
 	if (a1) {
 		if (a2) {
 			if (!(*(_BYTE*)(a1 + 16) & 0x20) && !(*(_BYTE*)(a2 + 16) & 0x20)) {
-				v3 = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[2386568]);
+				v3 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386568);
 				v4 = (int)v3;
 				if (v3) {
 					v3[2] = a1;
