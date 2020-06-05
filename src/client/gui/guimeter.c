@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1096284;
 extern _DWORD dword_5d4594_1096288;
 extern _DWORD dword_5d4594_1093156;
 extern _DWORD dword_5d4594_1096252;
@@ -118,7 +119,7 @@ int sub_4714E0() {
 		*(_DWORD*)&byte_5D4594[1096272] = sub_44CFC0((CHAR*)&byte_587000[148612]);
 		*(_DWORD*)&byte_5D4594[1096276] = sub_44CFC0((CHAR*)&byte_587000[148624]);
 		*(_DWORD*)&byte_5D4594[1096280] = sub_44CFC0((CHAR*)&byte_587000[148644]);
-		*(_DWORD*)&byte_5D4594[1096284] = sub_44CFC0((CHAR*)&byte_587000[148656]);
+		dword_5d4594_1096284 = sub_44CFC0((CHAR*)&byte_587000[148656]);
 	}
 	dword_5d4594_1090276 = nox_window_new(0, 136, nox_win_width - 91, nox_win_height - 201, 91, 201, 0);
 	sub_46AE60(*(int*)&dword_5d4594_1090276, *(int*)&byte_5D4594[1092996]);
