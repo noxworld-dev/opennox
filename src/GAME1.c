@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_3616;
 extern _DWORD dword_587000_93200;
 extern _DWORD dword_5d4594_252276;
@@ -3229,7 +3230,7 @@ int __stdcall sub_40C8F0(int a1, int a2, int a3, int a4) {
 	int v5; // eax
 
 	if (sub_41E2F0() == 8 && !a2) {
-		*(_DWORD*)&byte_5D4594[2660032] = *(_DWORD*)a4;
+		dword_5d4594_2660032 = *(_DWORD*)a4;
 		strncpy((char*)&byte_5D4594[2660099], (const char*)(a4 + 401), 9u);
 		byte_5D4594[2660108] = 0;
 		if (*(_DWORD*)&byte_5D4594[10980]) {

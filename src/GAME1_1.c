@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_531656;
 extern _DWORD dword_5d4594_527684;
 extern _DWORD dword_5d4594_741292;
@@ -3033,9 +3034,9 @@ unsigned __int8* sub_41D5E0() {
 	result = (unsigned __int8*)sub_417090(31);
 	v1 = result;
 	if (result) {
-		result = *(unsigned __int8**)&byte_5D4594[2660032];
-		if (*(_DWORD*)&byte_5D4594[2660032]) {
-			*((_DWORD*)v1 + 517) = *(_DWORD*)&byte_5D4594[2660032];
+		result = *(unsigned __int8**)&dword_5d4594_2660032;
+		if (dword_5d4594_2660032) {
+			*((_DWORD*)v1 + 517) = dword_5d4594_2660032;
 			nox_swprintf((wchar_t*)v1 + 1036, L"%S", &byte_5D4594[2660099]);
 			v2 = sub_425A70(*((_DWORD*)v1 + 517));
 			if (!v2)
