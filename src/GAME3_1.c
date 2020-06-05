@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9512;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_1320968;
 extern _DWORD dword_5d4594_1321240;
@@ -10400,7 +10401,7 @@ void __cdecl sub_4CAA90(int2* a1, float4* a2, float2* a3, int a4, int a5) {
 			v14 = (double)v8;
 			v20 = v14;
 			v15 = nox_double2float((v14 - (a2->field_4 - v13 * a2->field_0)) /
-					       (v13 + *(double*)&byte_581450[9512]));
+					       (v13 + *(double*)&qword_581450_9512));
 			v16 = modf(v15, &v21);
 			v19 = nox_double2float(v16);
 			v17 = nox_double2float(v21);
@@ -10458,7 +10459,7 @@ void __cdecl sub_4CAC30(int2* a1, float4* a2, float2* a3, int a4, int a5) {
 			v8 = 0.99000001;
 		v9 = (double)v7;
 		v15 = v9;
-		v10 = nox_double2float((v9 - (a2->field_4 - v8 * a2->field_0)) / (v8 - *(double*)&byte_581450[9512]));
+		v10 = nox_double2float((v9 - (a2->field_4 - v8 * a2->field_0)) / (v8 - *(double*)&qword_581450_9512));
 		v11 = modf(v10, &v16);
 		v14 = nox_double2float(v11);
 		v12 = nox_double2float(v16);
