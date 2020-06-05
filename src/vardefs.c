@@ -522,3 +522,4 @@ _DWORD dword_5d4594_1197364 = 0;
 _DWORD dword_5d4594_1046520 = 0;
 _DWORD dword_5d4594_829512 = 0;
 _DWORD dword_5d4594_832516 = 0;
+_DWORD dword_587000_132136 = 0xffffffff;
