@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
 
+extern _DWORD dword_5d4594_1320988;
 extern _DWORD dword_5d4594_1321208;
 extern _DWORD dword_5d4594_1321032;
 extern _DWORD dword_5d4594_1321044;
@@ -25,7 +26,7 @@ int sub_4C1D80() {
 
 	*(_DWORD*)&byte_5D4594[1321004] = 0;
 	*(_DWORD*)&byte_5D4594[1321000] = -145;
-	*(_DWORD*)&byte_5D4594[1320988] = nox_win_width - 95;
+	dword_5d4594_1320988 = nox_win_width - 95;
 	dword_5d4594_1320992 = -145;
 	dword_5d4594_1321032 = nox_window_new(0, 8, nox_win_width - 95, -145, 87, 115, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1321032, sub_4C2BD0, sub_4C24A0, 0);
@@ -46,7 +47,7 @@ int sub_4C1D80() {
 	*(_DWORD*)&byte_5D4594[1321020] = sub_42F970("CreatureCageGuardButton");
 	*(_DWORD*)&byte_5D4594[1321024] = sub_42F970("CreatureCageEscortButtonLit");
 	*(_DWORD*)&byte_5D4594[1321028] = sub_42F970("CreatureCageEscortButton");
-	v4 = nox_window_new(0, 168, *(_DWORD*)&byte_5D4594[1320988] + 27, dword_5d4594_1320992 + 12, 34, 34,
+	v4 = nox_window_new(0, 168, dword_5d4594_1320988 + 27, dword_5d4594_1320992 + 12, 34, 34,
 			    0);
 	dword_5d4594_1321040 = v4;
 	v5 = v4[11];
