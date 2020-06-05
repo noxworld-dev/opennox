@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_787144;
 extern _DWORD dword_5d4594_823776;
 extern _DWORD dword_5d4594_3798780;
 extern _DWORD dword_5d4594_1193704;
@@ -3331,7 +3332,7 @@ int __cdecl nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	result = 0;
 	if (!*(_DWORD*)&byte_5D4594[1193708] && nox_video_drawCursorThreadOk && dword_5d4594_823776 &&
 	    nox_video_cursorDrawIsThreaded && *(_DWORD*)&byte_5D4594[1193672] && *(_DWORD*)&byte_5D4594[1193108] &&
-	    *(_DWORD*)&byte_5D4594[787144]) {
+	    dword_5d4594_787144) {
 		*(_DWORD*)&byte_5D4594[1193708] = 1;
 		EnterCriticalSection((LPCRITICAL_SECTION)&byte_5D4594[3799596]);
 #ifdef USE_SDL
