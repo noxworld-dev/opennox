@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_829504;
 extern _DWORD dword_5d4594_825744;
 extern _DWORD dword_5d4594_816372;
 extern _DWORD dword_5d4594_805852;
@@ -5305,7 +5306,7 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4) {
 		case 0x4011u:
 			if (sub_46B0A0(a3) != 1909)
 				return 0;
-			if (a4 == -1 || *(_DWORD*)&byte_5D4594[829504]) {
+			if (a4 == -1 || dword_5d4594_829504) {
 				*(_DWORD*)&byte_587000[109280] = -1;
 				result = 0;
 			} else {
@@ -5314,11 +5315,11 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4) {
 				v9 = v8->field_0;
 				v10 = v8->field_4;
 				v11 = sub_43F320(0);
-				*(_DWORD*)&byte_5D4594[829504] =
+				dword_5d4594_829504 =
 				    nox_window_new(0, 40, v9 - 40, v10 - (v11 + 4) / 2, 80, v11 + 4, 0);
-				nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[829504], 0, sub_448140, 0);
-				sub_46A8C0(*(int*)&byte_5D4594[829504]);
-				v12 = nox_window_new(*(int*)&byte_5D4594[829504], 8, 0, v11 / 2, 80, v11 + 2, 0);
+				nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_829504, 0, sub_448140, 0);
+				sub_46A8C0(*(int*)&dword_5d4594_829504);
+				v12 = nox_window_new(*(int*)&dword_5d4594_829504, 8, 0, v11 / 2, 80, v11 + 2, 0);
 				nox_window_set_all_funcs(v12, sub_448340, sub_448240, 0);
 				v12[8] = 0;
 				result = 0;
@@ -5435,8 +5436,8 @@ int __cdecl sub_448340(int a1, unsigned int a2) {
 
 //----- (00448380) --------------------------------------------------------
 void sub_448380() {
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[829504]);
-	*(_DWORD*)&byte_5D4594[829504] = 0;
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_829504);
+	dword_5d4594_829504 = 0;
 	sub_447600();
 }
 
@@ -5447,9 +5448,9 @@ int __cdecl sub_4483A0(int a1, int a2) {
 	int xLeft;  // [esp+0h] [ebp-8h]
 	int yTop;   // [esp+4h] [ebp-4h]
 
-	if (*(_DWORD*)&byte_5D4594[829504]) {
+	if (dword_5d4594_829504) {
 		v2 = nox_client_getMousePos_4309F0();
-		if (!sub_46AAB0(*(_DWORD**)&byte_5D4594[829504], v2->field_0, v2->field_4))
+		if (!sub_46AAB0(*(_DWORD**)&dword_5d4594_829504, v2->field_0, v2->field_4))
 			sub_448380();
 	}
 	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
