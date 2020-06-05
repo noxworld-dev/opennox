@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650680;
 extern _DWORD dword_5d4594_1049484;
 extern _DWORD dword_5d4594_1096508;
 extern _DWORD dword_587000_80836;
@@ -3417,7 +3418,7 @@ char* __cdecl sub_469920(_DWORD* a1) {
 	if (nox_common_engineFlags & 0x800)
 		return (char*)&byte_587000[142336];
 	v1 = *a1 - dword_5d4594_2650676;
-	v2 = a1[1] - *(_DWORD*)&byte_5D4594[2650680];
+	v2 = a1[1] - dword_5d4594_2650680;
 	v3 = v1 / 23;
 	v4 = v2 / 23;
 	if (v1 / 23 < 0 || v4 < 0 || v3 > 56 || v4 > 44)

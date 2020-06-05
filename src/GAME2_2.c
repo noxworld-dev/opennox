@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2650680;
 extern _DWORD dword_5d4594_1193152;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_3799508;
@@ -7345,10 +7346,10 @@ LABEL_60:
 			*(_DWORD*)v48 = -1;
 			v48 += 280;
 		} while ((int)v48 < (int)&byte_5D4594[2614244]);
-		v66.field_4 = (v67.field_4 - *(int*)&byte_5D4594[2650680]) / 23;
+		v66.field_4 = (v67.field_4 - *(int*)&dword_5d4594_2650680) / 23;
 		v49 = dword_5d4594_3679320;
-		v50 = v67.field_4 - 23 * v66.field_4 - *(_DWORD*)&byte_5D4594[2650680];
-		v78 = (unsigned __int8*)(v67.field_4 - 23 * v66.field_4 - *(_DWORD*)&byte_5D4594[2650680]);
+		v50 = v67.field_4 - 23 * v66.field_4 - dword_5d4594_2650680;
+		v78 = (unsigned __int8*)(v67.field_4 - 23 * v66.field_4 - dword_5d4594_2650680);
 		v80 = dword_5d4594_3679320;
 		if (*(int*)&dword_5d4594_3679320 < *(int*)&dword_5d4594_3798156) {
 			v51 = &byte_5D4594[128 * dword_5d4594_3679320 + 3682956];
