@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1556148;
 extern _DWORD dword_5d4594_825768;
 extern _DWORD dword_5d4594_2386568;
 extern _DWORD dword_587000_93196;
@@ -533,10 +534,10 @@ char* nox_server_switchQuestIfRequested_4D6FD0() {
 	char* v4;            // eax
 	char v5[64];         // [esp+0h] [ebp-40h]
 
-	result = *(char**)&byte_5D4594[1556148];
-	if (*(_DWORD*)&byte_5D4594[1556148]) {
-		result = (char*)(*(_DWORD*)&byte_5D4594[1556148] - 1);
-		*(_DWORD*)&byte_5D4594[1556148] = result;
+	result = *(char**)&dword_5d4594_1556148;
+	if (dword_5d4594_1556148) {
+		result = (char*)(dword_5d4594_1556148 - 1);
+		dword_5d4594_1556148 = result;
 		if (!result) {
 			v1 = sub_4DCED0();
 			nox_server_setupQuestGame_4D6C70();
