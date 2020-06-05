@@ -9,6 +9,7 @@
 #include "../../platform.h"
 #endif
 
+extern _DWORD dword_587000_173332;
 extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_2650672;
 extern _DWORD dword_5d4594_815132;
@@ -28,7 +29,7 @@ void map_download_start() {
 	sub_467DF0(1);
 	sub_4CC770();
 	*(_DWORD*)&byte_587000[173328] = 1;
-	*(_DWORD*)&byte_587000[173332] = 1;
+	dword_587000_173332 = 1;
 	map_download_loop(1);
 }
 
@@ -125,15 +126,15 @@ int map_download_finish() {
 	char* v13;   // [esp-4h] [ebp-10Ch]
 
 	sub_4CC930();
-	result = *(_DWORD*)&byte_587000[173332];
-	if (*(_DWORD*)&byte_587000[173332]) {
+	result = dword_587000_173332;
+	if (dword_587000_173332) {
 		int v3; // [esp+4h] [ebp-Ch]
 		int v4; // [esp+8h] [ebp-8h]
 		int v5; // [esp+Ch] [ebp-4h]
 		sub_43BEB0_get_video_mode(&v3, &v5, &v4);
 		if (!v3)
 			sub_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
-		result = *(_DWORD*)&byte_587000[173332];
+		result = dword_587000_173332;
 	}
 
 	if (!result) {

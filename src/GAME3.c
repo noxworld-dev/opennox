@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_173332;
 extern _DWORD dword_5d4594_1312472;
 extern _DWORD dword_5d4594_1309740;
 extern _DWORD dword_5d4594_3596;
@@ -4890,7 +4891,7 @@ int __cdecl sub_4AB570(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_587000[173332] = a1;
+	dword_587000_173332 = a1;
 	return result;
 }
 
@@ -4926,7 +4927,7 @@ int sub_4AB5E0() {
 	sub_467DF0(1);
 	sub_4CC770();
 	*(_DWORD*)&byte_587000[173328] = 1;
-	*(_DWORD*)&byte_587000[173332] = 1;
+	dword_587000_173332 = 1;
 	do {
 		sub_416C70(30);
 		sub_4453A0_poll_events();
@@ -4957,12 +4958,12 @@ int sub_4AB5E0() {
 			;
 	} while (*(_DWORD*)&byte_587000[173328]);
 	sub_4CC930();
-	result = *(_DWORD*)&byte_587000[173332];
-	if (*(_DWORD*)&byte_587000[173332]) {
+	result = dword_587000_173332;
+	if (dword_587000_173332) {
 		sub_43BEB0_get_video_mode(&v3, &v5, &v4);
 		if (!v3)
 			sub_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
-		result = *(_DWORD*)&byte_587000[173332];
+		result = dword_587000_173332;
 	}
 	return result;
 }
