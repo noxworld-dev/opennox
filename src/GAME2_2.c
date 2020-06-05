@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799468;
 extern _DWORD dword_587000_154948;
 extern _DWORD dword_5d4594_3798776;
 extern _DWORD dword_5d4594_3807160;
@@ -1359,8 +1360,8 @@ LABEL_12:
 		nox_client_drawRectFilledAlpha_49CF10(v4, v5, v8 + 4, v6);
 		sub_434390(*(int*)&byte_5D4594[2589772]);
 		sub_43FAF0(0, &byte_5D4594[1096676], v4 + 2, v5 + 2, 0, 0);
-		result = *(char**)&byte_5D4594[3799468];
-		if (*(_DWORD*)&byte_5D4594[3799468]) {
+		result = *(char**)&dword_5d4594_3799468;
+		if (dword_5d4594_3799468) {
 			result = sub_437250();
 			if (v4 < *(int*)result || v4 + v8 + 4 > *((_DWORD*)result + 2) || v5 < *((_DWORD*)result + 1) ||
 			    v7 + v5 > *((_DWORD*)result + 3)) {
@@ -1405,7 +1406,7 @@ void sub_477F80() {
 	char* v0; // eax
 
 	if (!nox_video_cursorDrawIsThreaded) {
-		if (*(_DWORD*)&byte_5D4594[3799468]) {
+		if (dword_5d4594_3799468) {
 			v0 = sub_437250();
 			if (*(int*)&byte_5D4594[1097212] < *(int*)v0 ||
 			    *(int*)&byte_5D4594[1097212] + 64 >= *((int*)v0 + 2) ||
@@ -4306,7 +4307,7 @@ int sub_47D200() {
 	*(_DWORD*)&byte_5D4594[3799548] = 0;
 	*(_DWORD*)&byte_5D4594[3799496] = 0;
 	dword_5d4594_3799524 = 0;
-	*(_DWORD*)&byte_5D4594[3799468] = 0;
+	dword_5d4594_3799468 = 0;
 	*(_DWORD*)&byte_5D4594[3799552] = 0;
 	dword_5d4594_3799508 = 0;
 	dword_5d4594_3799492 = sub_42FB30;
