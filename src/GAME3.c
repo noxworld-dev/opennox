@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309776;
 extern _DWORD dword_5d4594_1309708;
 extern _DWORD dword_5d4594_805852;
 extern _DWORD dword_5d4594_3798716;
@@ -4904,7 +4905,7 @@ LPCSTR sub_4AB580() {
 
 	if (nox_file_9)
 		fclose(nox_file_9);
-	result = *(LPCSTR*)&byte_5D4594[1309776];
+	result = *(LPCSTR*)&dword_5d4594_1309776;
 	nox_file_9 = 0;
 	*(_DWORD*)&byte_5D4594[1309764] = 0;
 	*(_DWORD*)&byte_5D4594[1309784] = 0;
@@ -4912,8 +4913,8 @@ LPCSTR sub_4AB580() {
 	*(_DWORD*)&byte_5D4594[1309772] = 0;
 	*(_DWORD*)&byte_5D4594[1309768] = 0;
 	*(_DWORD*)&byte_587000[173336] = 1;
-	if (*(_DWORD*)&byte_5D4594[1309776])
-		free(*(LPVOID*)&byte_5D4594[1309776]);
+	if (dword_5d4594_1309776)
+		free(*(LPVOID*)&dword_5d4594_1309776);
 	return result;
 }
 
@@ -4978,7 +4979,7 @@ int sub_4AB720() {
 	int v1; // edi
 
 	fclose(nox_file_9);
-	_unlink(*(LPCSTR*)&byte_5D4594[1309776]);
+	_unlink(*(LPCSTR*)&dword_5d4594_1309776);
 	v0 = dword_5d4594_1309780;
 	nox_file_9 = 0;
 	*(_DWORD*)&byte_5D4594[1309764] = 0;
@@ -4993,8 +4994,8 @@ int sub_4AB720() {
 			v0 = v1;
 		} while (v1);
 	}
-	if (*(_DWORD*)&byte_5D4594[1309776])
-		free(*(LPVOID*)&byte_5D4594[1309776]);
+	if (dword_5d4594_1309776)
+		free(*(LPVOID*)&dword_5d4594_1309776);
 	*(_DWORD*)&byte_5D4594[1309784] = 0;
 	dword_5d4594_1309780 = 0;
 	sub_4AB560(0);
@@ -5102,7 +5103,7 @@ LPCSTR sub_4ABA90() {
 		sub_43CAB0();
 		if (nox_file_9)
 			fclose(nox_file_9);
-		sub_4AB9B0(*(char**)&byte_5D4594[1309776]);
+		sub_4AB9B0(*(char**)&dword_5d4594_1309776);
 		result = sub_4AB580();
 	}
 	return result;
@@ -5164,10 +5165,10 @@ int __cdecl sub_4ABAD0(char* a1, unsigned int a2) {
 	if (_access(PathName, 0) == -1)
 		CreateDirectoryA(PathName, 0);
 	v8 = (char*)nox_malloc(strlen(v11) + 1);
-	*(_DWORD*)&byte_5D4594[1309776] = v8;
+	dword_5d4594_1309776 = v8;
 	if (v8) {
 		strcpy(v8, v11);
-		nox_file_9 = fopen(*(const char**)&byte_5D4594[1309776], "wb");
+		nox_file_9 = fopen(*(const char**)&dword_5d4594_1309776, "wb");
 		if (nox_file_9) {
 			result = 1;
 			*(_DWORD*)&byte_587000[173336] = 1;
