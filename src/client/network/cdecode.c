@@ -20,6 +20,7 @@
 #include "../gui/servopts/playrlst.h"
 #include "../shell/noxworld.h"
 #include "inform.h"
+extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_587000_312788;
@@ -3491,7 +3492,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			case 0xCu:
 				if (nox_client_isConnected_43C700())
 					sub_450770(v3);
-				*(_DWORD*)&byte_5D4594[1556112] = 0;
+				dword_5d4594_1556112 = 0;
 				v3 += 90;
 				break;
 			case 0xDu:
@@ -3502,7 +3503,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				if (nox_client_isConnected_43C700())
 					nox_client_showQuestBriefing_450A30(v3, 1);
 			LABEL_1119:
-				*(_DWORD*)&byte_5D4594[1556112] = 0;
+				dword_5d4594_1556112 = 0;
 				v3 += 69;
 				break;
 			case 0xFu:
