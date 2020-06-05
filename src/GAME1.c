@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_3620;
 extern _DWORD dword_5d4594_251508;
 extern _DWORD dword_5d4594_251744;
 extern _DWORD dword_5d4594_251504;
@@ -2120,7 +2121,7 @@ int __cdecl sub_40B170(int a1) {
 		v1 = 16;
 	}
 	dword_5d4594_3624 = v1;
-	*(_DWORD*)&byte_5D4594[3620] = nox_malloc(168 * v1);
+	dword_5d4594_3620 = nox_malloc(168 * v1);
 	result = dword_5d4594_3624;
 	LOBYTE(a1) = 0;
 	if (dword_5d4594_3624 > 0) {
@@ -2138,7 +2139,7 @@ int __cdecl sub_40B170(int a1) {
 char* __cdecl sub_40B1F0(unsigned __int8 a1) {
 	char* result; // eax
 
-	result = (char*)(*(_DWORD*)&byte_5D4594[3620] + 168 * a1);
+	result = (char*)(dword_5d4594_3620 + 168 * a1);
 	result[4] = 0;
 	result[5] = a1;
 	*((_DWORD*)result + 4) = 0;
@@ -2174,7 +2175,7 @@ void __cdecl sub_40B250(int a1, unsigned __int8 a2, unsigned __int16 a3, const v
 	if (a4) {
 		if (a5) {
 			if ((int)a2 < *(int*)&dword_5d4594_3624) {
-				v5 = *(_DWORD*)&byte_5D4594[3620] + 168 * a2;
+				v5 = dword_5d4594_3620 + 168 * a2;
 				if (*(_DWORD*)(v5 + 16)) {
 					*(_DWORD*)(v5 + 156) = *(_DWORD*)&byte_5D4594[2598000];
 					if (a3 == *(_DWORD*)(v5 + 8)) {
@@ -2270,7 +2271,7 @@ int __cdecl sub_40B4E0(unsigned __int8 a1) {
 	int v3;     // edi
 
 	result = 21 * a1;
-	v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[3620] + 168 * a1 + 160);
+	v2 = *(_DWORD*)(dword_5d4594_3620 + 168 * a1 + 160);
 	if (v2) {
 		do {
 			v3 = *(_DWORD*)(v2 + 20);
@@ -2286,7 +2287,7 @@ int __cdecl sub_40B4E0(unsigned __int8 a1) {
 char* __cdecl sub_40B530(unsigned __int8 a1, char a2) {
 	char* result; // eax
 
-	result = (char*)(*(_DWORD*)&byte_5D4594[3620] + 168 * a1);
+	result = (char*)(dword_5d4594_3620 + 168 * a1);
 	if (*((_DWORD*)result + 4)) {
 		sub_40B590(*(_DWORD*)result, result[5], a2);
 		if (byte_5D4594[3628])
@@ -2360,7 +2361,7 @@ char* __cdecl sub_40B6D0(_BYTE* a1) {
 		result = 0;
 		*a1 = 0;
 	} else {
-		v2 = (_DWORD*)(*(_DWORD*)&byte_5D4594[3620] + 16);
+		v2 = (_DWORD*)(dword_5d4594_3620 + 16);
 		while (*v2) {
 			++v1;
 			v2 += 42;
@@ -2368,7 +2369,7 @@ char* __cdecl sub_40B6D0(_BYTE* a1) {
 				goto LABEL_5;
 		}
 		*a1 = v1;
-		result = (char*)(*(_DWORD*)&byte_5D4594[3620] + 168 * v1);
+		result = (char*)(dword_5d4594_3620 + 168 * v1);
 	}
 	return result;
 }
@@ -2392,7 +2393,7 @@ void sub_40B740() {
 			v0 = ++v2;
 		} while ((int)v2 < *(int*)&dword_5d4594_3624);
 	}
-	free(*(LPVOID*)&byte_5D4594[3620]);
+	free(*(LPVOID*)&dword_5d4594_3620);
 }
 
 //----- (0040B790) --------------------------------------------------------
@@ -2409,7 +2410,7 @@ int sub_40B790() {
 		v1 = 0;
 		v2 = 0;
 		do {
-			v3 = *(_DWORD*)&byte_5D4594[3620] + 168 * v2;
+			v3 = dword_5d4594_3620 + 168 * v2;
 			if (*(_DWORD*)(v3 + 16)) {
 				if (*(_DWORD*)&byte_5D4594[2598000] > (unsigned int)(*(_DWORD*)(v3 + 156) + 900))
 					sub_40B530(v1, 3);
