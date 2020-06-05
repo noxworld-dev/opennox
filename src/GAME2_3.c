@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1197364;
 extern _DWORD dword_5d4594_1203864;
 extern _DWORD dword_5d4594_1217452;
 extern _DWORD dword_5d4594_3798716;
@@ -746,15 +747,15 @@ int* sub_48D7B0() {
 
 //----- (0048D7D0) --------------------------------------------------------
 BOOL sub_48D7D0() {
-	*(_DWORD*)&byte_5D4594[1197364] = nox_new_alloc_class("Chat", 692, 64);
-	return *(_DWORD*)&byte_5D4594[1197364] != 0;
+	dword_5d4594_1197364 = nox_new_alloc_class("Chat", 692, 64);
+	return dword_5d4594_1197364 != 0;
 }
 
 //----- (0048D800) --------------------------------------------------------
 int sub_48D800() {
-	if (*(_DWORD*)&byte_5D4594[1197364])
-		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1197364]);
-	*(_DWORD*)&byte_5D4594[1197364] = 0;
+	if (dword_5d4594_1197364)
+		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1197364);
+	dword_5d4594_1197364 = 0;
 	*(_DWORD*)&byte_5D4594[1197368] = 0;
 	return 1;
 }
@@ -789,7 +790,7 @@ wchar_t* __cdecl sub_48D880(int a1, wchar_t* a2) {
 	if (v2) {
 		v3 = 0;
 	} else {
-		result = (wchar_t*)nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1197364]);
+		result = (wchar_t*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1197364);
 		v2 = result;
 		if (!result)
 			return result;
@@ -1058,7 +1059,7 @@ void __cdecl sub_48DCF0(_DWORD* a1) {
 					*(_DWORD*)(v23 + 688) = *(_DWORD*)(v2 + 688);
 				else
 					*(_DWORD*)&byte_5D4594[1197372] = *(_DWORD*)(v2 + 688);
-				sub_414330(*(unsigned int**)&byte_5D4594[1197364], (_QWORD*)v2);
+				sub_414330(*(unsigned int**)&dword_5d4594_1197364, (_QWORD*)v2);
 			}
 			v2 = v25;
 			if (!v25) {
@@ -1481,13 +1482,13 @@ void __cdecl sub_48E8E0(int a1) {
 		v3 = *(_DWORD*)(v1 + 684);
 		if (v3)
 			*(_DWORD*)(v3 + 688) = *(_DWORD*)(v1 + 688);
-		sub_414330(*(unsigned int**)&byte_5D4594[1197364], (_QWORD*)v1);
+		sub_414330(*(unsigned int**)&dword_5d4594_1197364, (_QWORD*)v1);
 	}
 }
 
 //----- (0048E940) --------------------------------------------------------
 void sub_48E940() {
-	sub_4144D0(*(_DWORD**)&byte_5D4594[1197364]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_1197364);
 	*(_DWORD*)&byte_5D4594[1197368] = 0;
 }
 
