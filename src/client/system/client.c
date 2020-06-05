@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_811100;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_811104;
 extern _DWORD dword_5d4594_805836;
@@ -56,12 +57,12 @@ void sub_436100_draw() {
 	*(_DWORD*)&byte_5D4594[814536] = v1;
 	*(_DWORD*)&byte_5D4594[811916] = *(_DWORD*)&byte_5D4594[2598000];
 	if (*(_DWORD*)&byte_587000[85744]) {
-		dword_5d4594_811104 = *(_DWORD*)&byte_5D4594[811100] * nox_win_height / nox_win_width;
-		v6 = (nox_win_width - *(_DWORD*)&byte_5D4594[811100]) / 2;
+		dword_5d4594_811104 = dword_5d4594_811100 * nox_win_height / nox_win_width;
+		v6 = (nox_win_width - dword_5d4594_811100) / 2;
 		*(_DWORD*)&byte_5D4594[811068] = v6;
 		v7 = (nox_win_height - dword_5d4594_811104) / 2;
 		*(_DWORD*)&byte_5D4594[811072] = v7;
-		*(_DWORD*)&byte_5D4594[811076] = v6 + *(_DWORD*)&byte_5D4594[811100] - 1;
+		*(_DWORD*)&byte_5D4594[811076] = v6 + dword_5d4594_811100 - 1;
 		*(_DWORD*)&byte_5D4594[811080] = v7 + dword_5d4594_811104 - 1;
 	} else {
 		v7 = *(_DWORD*)&byte_5D4594[811072];

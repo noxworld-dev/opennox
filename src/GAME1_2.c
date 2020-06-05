@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_811100;
 extern _DWORD dword_5d4594_808568;
 extern _DWORD dword_5d4594_787184;
 extern _DWORD dword_5d4594_2660032;
@@ -8485,7 +8486,7 @@ int __cdecl sub_435600(int a1, int a2) {
 	result = v2 + dword_5d4594_811104 / 2;
 	*(_DWORD*)&byte_5D4594[811092] = a1;
 	*(_DWORD*)&byte_5D4594[811096] = v2 + dword_5d4594_811104 / 2;
-	*(_DWORD*)&byte_5D4594[811084] = a1 - *(_DWORD*)&byte_5D4594[811100] / 2;
+	*(_DWORD*)&byte_5D4594[811084] = a1 - dword_5d4594_811100 / 2;
 	*(_DWORD*)&byte_5D4594[811088] = a2 + *(_DWORD*)&byte_5D4594[811116] - dword_5d4594_811104 / 2;
 	return result;
 }
@@ -8763,7 +8764,7 @@ int sub_435CC0() {
 	*(_DWORD*)&byte_5D4594[811076] = nox_win_width - 1;
 	*(_DWORD*)&byte_5D4594[811068] = 0;
 	*(_DWORD*)&byte_5D4594[811072] = 0;
-	*(_DWORD*)&byte_5D4594[811100] = nox_win_width;
+	dword_5d4594_811100 = nox_win_width;
 	*(_DWORD*)&byte_5D4594[811080] = nox_win_height - 1;
 	dword_5d4594_811104 = nox_win_height;
 	byte_5D4594[811108] = 0;
@@ -9006,7 +9007,7 @@ char* sub_437250() { return (char*)&byte_5D4594[811068]; }
 
 //----- (00437260) --------------------------------------------------------
 int4* sub_437260() {
-	return nox_client_copyRect_49F6F0(*(int*)&byte_5D4594[811068], *(int*)&byte_5D4594[811072], *(int*)&byte_5D4594[811100],
+	return nox_client_copyRect_49F6F0(*(int*)&byte_5D4594[811068], *(int*)&byte_5D4594[811072], *(int*)&dword_5d4594_811100,
 			  *(int*)&dword_5d4594_811104);
 }
 
