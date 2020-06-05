@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_814552;
 extern _DWORD dword_5d4594_815056;
 extern _DWORD dword_5d4594_811100;
@@ -5951,7 +5952,7 @@ int sub_430B40_get_mouse_prev_seq() { return nox_mouse_prev_seq; }
 int __cdecl sub_430B50(int a1, int a2, int a3, int a4) {
 	int result; // eax
 
-	*(_DWORD*)&byte_5D4594[3807140] = a1;
+	dword_5d4594_3807140 = a1;
 	result = a4;
 	*(_DWORD*)&byte_5D4594[3807136] = a2;
 	*(_DWORD*)&byte_5D4594[3807116] = a3;
