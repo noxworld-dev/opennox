@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1048144;
 extern _DWORD dword_5d4594_1049484;
 extern _DWORD dword_5d4594_1047552;
 extern _DWORD dword_5d4594_1049512;
@@ -64,8 +65,8 @@ _DWORD* sub_45E040() {
 	char v8;        // al
 	int v9[5];      // [esp+8h] [ebp-14h]
 
-	v0 = *(_DWORD***)&byte_5D4594[1048144];
-	v1 = *(_DWORD**)&byte_5D4594[1048144];
+	v0 = *(_DWORD***)&dword_5d4594_1048144;
+	v1 = *(_DWORD**)&dword_5d4594_1048144;
 	v2 = 0;
 	for (i = 0; i < 3; ++i) {
 		if (*v1)
