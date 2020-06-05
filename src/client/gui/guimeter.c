@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1093076;
 extern _DWORD dword_5d4594_1090276;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -172,9 +173,9 @@ int sub_4714E0() {
 					    1135);
 		sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1093036] + 36), v11);
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1093036] + 32) = 0;
-		*(_DWORD*)&byte_5D4594[1093076] = nox_window_new(0, 8, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1093076], 0, sub_471C00, 0);
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1093076] + 32) = 0;
+		dword_5d4594_1093076 = nox_window_new(0, 8, 0, 0, 0, 0, 0);
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1093076, 0, sub_471C00, 0);
+		*(_DWORD*)(dword_5d4594_1093076 + 32) = 0;
 		*(_DWORD*)&byte_5D4594[1093096] = nox_window_new(0, 8, 0, 0, 0, 0, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1093096], 0, sub_471C00, 0);
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1093096] + 32) = 1;
@@ -190,9 +191,9 @@ int sub_4714E0() {
 					    1173);
 		sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1093036] + 36), v14);
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1093036] + 32) = 0;
-		*(_DWORD*)&byte_5D4594[1093076] = nox_window_new(0, 24, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1093076], 0, sub_471C00, 0);
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1093076] + 32) = 0;
+		dword_5d4594_1093076 = nox_window_new(0, 24, 0, 0, 0, 0, 0);
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1093076, 0, sub_471C00, 0);
+		*(_DWORD*)(dword_5d4594_1093076 + 32) = 0;
 	}
 	sub_472280();
 	sub_470B00();
@@ -200,7 +201,7 @@ int sub_4714E0() {
 		*(_DWORD*)&byte_5D4594[1096252] = 1;
 	} else {
 		*(_DWORD*)&byte_5D4594[1096252] = 0;
-		nox_window_set_hidden(*(int*)&byte_5D4594[1093076], 1);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1093076, 1);
 		nox_window_set_hidden(*(int*)&byte_5D4594[1093096], 1);
 	}
 	return 1;
