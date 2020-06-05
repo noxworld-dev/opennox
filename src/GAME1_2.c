@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_5d4594_814956;
 extern _DWORD dword_587000_93164;
 extern _DWORD dword_5d4594_787152;
 extern _DWORD dword_5d4594_815044;
@@ -9230,7 +9231,7 @@ int sub_438A90() {
 		strcpy(&buf[88], (const char*)&byte_5D4594[2660048]);
 		nox_wcscpy((wchar_t*)&buf[4], (const wchar_t*)&byte_5D4594[2661908]);
 		sub_43AF90(3);
-		*(_QWORD*)&byte_5D4594[814956] = sub_416BB0() + 20000;
+		*(_QWORD*)&qword_5d4594_814956 = sub_416BB0() + 20000;
 		v5 = sub_43B320();
 		v4 = sub_43B300();
 		result = sub_5550A0(v4, v5, buf);
