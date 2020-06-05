@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309740;
 extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_5d4594_1309716;
 extern _DWORD dword_5d4594_1309780;
@@ -4278,11 +4279,11 @@ int sub_4AA6B0() {
 			sub_46B300(*(int*)&dword_5d4594_1309720, sub_4A18E0);
 			sub_43FE20(15);
 			result = sub_43C5B0(*(_DWORD**)&dword_5d4594_1309720, 0, 0, 0, -480, 0, 20, 0, -40);
-			*(_DWORD*)&byte_5D4594[1309740] = result;
+			dword_5d4594_1309740 = result;
 			if (result) {
 				*(_DWORD*)result = 300;
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309740] + 48) = sub_4AA9C0;
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309740] + 56) = sub_4AAA10;
+				*(_DWORD*)(dword_5d4594_1309740 + 48) = sub_4AA9C0;
+				*(_DWORD*)(dword_5d4594_1309740 + 56) = sub_4AAA10;
 				v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 351);
 				*(_DWORD*)(v1[100] + 8) = 24;
 				*(_DWORD*)(v1[100] + 12) = 20;
@@ -4355,7 +4356,7 @@ int sub_4AA9C0() {
 	sub_43BEF0_set_video_mode(*(int*)&byte_587000[172876], *(int*)&byte_587000[172872],
 				  *(int*)&byte_587000[172880]);
 	nox_common_writecfgfile((char*)&byte_587000[173256]);
-	*(_BYTE*)(*(_DWORD*)&byte_5D4594[1309740] + 64) = 2;
+	*(_BYTE*)(dword_5d4594_1309740 + 64) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
 	return 1;
@@ -4365,8 +4366,8 @@ int sub_4AA9C0() {
 int sub_4AAA10() {
 	void (*v0)(void); // esi
 
-	v0 = *(void (**)(void))(*(_DWORD*)&byte_5D4594[1309740] + 52);
-	sub_43C570(*(LPVOID*)&byte_5D4594[1309740]);
+	v0 = *(void (**)(void))(dword_5d4594_1309740 + 52);
+	sub_43C570(*(LPVOID*)&dword_5d4594_1309740);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1309720);
 	sub_4A1A40(1);
 	if (nox_win_depth_1 == nox_win_depth_2) {
@@ -4505,8 +4506,8 @@ int __cdecl sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			}
 		} else if (v4 == 341) {
 			sub_4AA9C0();
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309740] + 56) = sub_4AB0C0;
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309740] + 52) = sub_4CB880;
+			*(_DWORD*)(dword_5d4594_1309740 + 56) = sub_4AB0C0;
+			*(_DWORD*)(dword_5d4594_1309740 + 52) = sub_4CB880;
 		} else {
 			switch (v4) {
 			case 311:
@@ -4688,8 +4689,8 @@ int __cdecl sub_4AABE0(int a1, int a2, int* a3, int a4) {
 int sub_4AB0C0() {
 	void (*v0)(void); // esi
 
-	v0 = *(void (**)(void))(*(_DWORD*)&byte_5D4594[1309740] + 52);
-	sub_43C570(*(LPVOID*)&byte_5D4594[1309740]);
+	v0 = *(void (**)(void))(dword_5d4594_1309740 + 52);
+	sub_43C570(*(LPVOID*)&dword_5d4594_1309740);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1309720);
 	v0();
 	return 1;
