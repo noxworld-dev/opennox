@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599532;
 extern _DWORD dword_5d4594_1599476;
 extern _DWORD dword_5d4594_1599632;
 extern _DWORD dword_5d4594_1569756;
@@ -8361,7 +8362,7 @@ char* sub_5028E0() {
 	dword_5d4594_1599476 = 0;
 	dword_5d4594_1599540 = 0;
 	*(_DWORD*)&byte_5D4594[1599544] = 0;
-	*(_DWORD*)&byte_5D4594[1599532] = 0;
+	dword_5d4594_1599532 = 0;
 	*(_DWORD*)&byte_5D4594[1599536] = 0;
 	*(_DWORD*)&byte_5D4594[1599556] = 0;
 	*(_DWORD*)&byte_5D4594[1599560] = 0;
@@ -9219,8 +9220,8 @@ char* sub_503F40() {
 			v4 = v5;
 		} while (v5);
 	}
-	v8 = *(LPVOID**)&byte_5D4594[1599532];
-	if (*(_DWORD*)&byte_5D4594[1599532]) {
+	v8 = *(LPVOID**)&dword_5d4594_1599532;
+	if (dword_5d4594_1599532) {
 		do {
 			v9 = (LPVOID*)v8[1];
 			if (!dword_5d4594_1599476 && *((_BYTE*)*v8 + 4) & 4)
@@ -9360,10 +9361,10 @@ _DWORD* __cdecl sub_504290(char a1, char a2) {
 	v3 = result;
 	if (result) {
 		result[2] = 0;
-		result[1] = *(_DWORD*)&byte_5D4594[1599532];
-		if (*(_DWORD*)&byte_5D4594[1599532])
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1599532] + 8) = result;
-		*(_DWORD*)&byte_5D4594[1599532] = result;
+		result[1] = dword_5d4594_1599532;
+		if (dword_5d4594_1599532)
+			*(_DWORD*)(dword_5d4594_1599532 + 8) = result;
+		dword_5d4594_1599532 = result;
 		v4 = nox_calloc(1u, 0x24u);
 		*v3 = v4;
 		v4[5] = a1;
@@ -9377,8 +9378,8 @@ _DWORD* __cdecl sub_504290(char a1, char a2) {
 _DWORD* __cdecl sub_5042F0(int a1, int a2) {
 	_DWORD* result; // eax
 
-	result = *(_DWORD**)&byte_5D4594[1599532];
-	if (!*(_DWORD*)&byte_5D4594[1599532])
+	result = *(_DWORD**)&dword_5d4594_1599532;
+	if (!dword_5d4594_1599532)
 		return 0;
 	while (*(unsigned __int8*)(*result + 5) != a1 || *(unsigned __int8*)(*result + 6) != a2) {
 		result = (_DWORD*)result[1];
@@ -9400,8 +9401,8 @@ int __cdecl sub_504330(int a1, int a2) {
 	_DWORD* v11;          // [esp-4h] [ebp-14h]
 	int v12;              // [esp-4h] [ebp-14h]
 
-	v2 = *(unsigned __int8***)&byte_5D4594[1599532];
-	if (!*(_DWORD*)&byte_5D4594[1599532])
+	v2 = *(unsigned __int8***)&dword_5d4594_1599532;
+	if (!dword_5d4594_1599532)
 		return 1;
 	while (1) {
 		v3 = (a1 + 23 * (*v2)[5]) / 23;
