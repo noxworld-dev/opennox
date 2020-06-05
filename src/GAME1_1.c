@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_741244;
 extern _DWORD dword_587000_66116;
 extern _DWORD dword_5d4594_741256;
 extern _DWORD dword_5d4594_740004;
@@ -10234,7 +10235,7 @@ int __cdecl sub_4278B0(float* a1, float* a2, float* a3) {
 	double v3; // st7
 	double v4; // st7
 
-	*(float*)&byte_5D4594[741244] = a1[2] - *a1;
+	*(float*)&dword_5d4594_741244 = a1[2] - *a1;
 	*(float*)&dword_5d4594_741248 = a1[3] - a1[1];
 	*(float*)&dword_5d4594_741252 = a2[2] - *a2;
 	*(float*)&dword_5d4594_741256 = a2[3] - a2[1];
@@ -10242,9 +10243,9 @@ int __cdecl sub_4278B0(float* a1, float* a2, float* a3) {
 	v3 = a2[1] - a1[1];
 	*(float*)&byte_5D4594[741264] = v3;
 	*(float*)&dword_5d4594_741292 =
-	    v3 * *(float*)&byte_5D4594[741244] - *(float*)&byte_5D4594[741260] * *(float*)&dword_5d4594_741248;
+	    v3 * *(float*)&dword_5d4594_741244 - *(float*)&byte_5D4594[741260] * *(float*)&dword_5d4594_741248;
 	v4 = *(float*)&dword_5d4594_741252 * *(float*)&dword_5d4594_741248 -
-	     *(float*)&dword_5d4594_741256 * *(float*)&byte_5D4594[741244];
+	     *(float*)&dword_5d4594_741256 * *(float*)&dword_5d4594_741244;
 	*(float*)&dword_5d4594_741284 = v4;
 	if (v4 == 0.0)
 		return 0;
@@ -10304,7 +10305,7 @@ int __cdecl sub_427980(float4* a1, float4* a2) {
 	}
 	if (a1->field_4 == a1->field_C && a2->field_4 == a2->field_C)
 		return 1;
-	*(float*)&byte_5D4594[741244] = a1->field_8 - a1->field_0;
+	*(float*)&dword_5d4594_741244 = a1->field_8 - a1->field_0;
 	*(float*)&dword_5d4594_741248 = a1->field_C - a1->field_4;
 	*(float*)&dword_5d4594_741252 = a2->field_8 - a2->field_0;
 	*(float*)&dword_5d4594_741256 = a2->field_C - a2->field_4;
@@ -10312,9 +10313,9 @@ int __cdecl sub_427980(float4* a1, float4* a2) {
 	v7 = a2->field_4 - a1->field_4;
 	*(float*)&byte_5D4594[741264] = v7;
 	*(float*)&dword_5d4594_741292 =
-	    v7 * *(float*)&byte_5D4594[741244] - *(float*)&byte_5D4594[741260] * *(float*)&dword_5d4594_741248;
+	    v7 * *(float*)&dword_5d4594_741244 - *(float*)&byte_5D4594[741260] * *(float*)&dword_5d4594_741248;
 	*(float*)&dword_5d4594_741284 = *(float*)&dword_5d4594_741252 * *(float*)&dword_5d4594_741248 -
-					*(float*)&dword_5d4594_741256 * *(float*)&byte_5D4594[741244];
+					*(float*)&dword_5d4594_741256 * *(float*)&dword_5d4594_741244;
 	if (*(float*)&dword_5d4594_741292 == 0.0 || *(float*)&dword_5d4594_741284 == 0.0 ||
 	    *(float*)&dword_5d4594_741292 < 0.0 && *(float*)&dword_5d4594_741284 > 0.0) {
 		goto LABEL_36;
