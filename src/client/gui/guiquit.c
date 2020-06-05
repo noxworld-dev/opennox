@@ -6,6 +6,7 @@
 #include "guivote.h"
 #include "servopts/guiserv.h"
 
+extern _DWORD dword_5d4594_825752;
 extern _DWORD dword_5d4594_825768;
 extern _DWORD dword_5d4594_825760;
 extern _DWORD dword_5d4594_2650652;
@@ -27,7 +28,7 @@ int sub_445790() {
 		*(_DWORD*)(dword_5d4594_825760 + 24) =
 		    *(_DWORD*)(dword_5d4594_825760 + 8) + *(_DWORD*)(dword_5d4594_825760 + 16);
 		sub_445C40();
-		*(_DWORD*)&byte_5D4594[825752] = 0;
+		dword_5d4594_825752 = 0;
 		dword_5d4594_825768 = 0;
 		v1 = loadString_sub_40F1D0((char*)&byte_587000[108044], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
 					   309);
@@ -341,7 +342,7 @@ void sub_446190() {
 		sub_4D6F90(0);
 	}
 	if (!dword_5d4594_825768) {
-		*(_DWORD*)&byte_5D4594[825752] = 0;
+		dword_5d4594_825752 = 0;
 		dword_5d4594_825768 = *(_DWORD*)&byte_5D4594[2598000];
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			if (sub_43AF70() == 1 && nox_common_gameFlags_check_40A5C0(49152))
@@ -349,9 +350,9 @@ void sub_446190() {
 			sub_509CB0();
 		}
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			*(_DWORD*)&byte_5D4594[825752] = sub_416F40() - 1;
+			dword_5d4594_825752 = sub_416F40() - 1;
 			sub_467440(0);
-			if (*(_DWORD*)&byte_5D4594[825752] > 0) {
+			if (dword_5d4594_825752 > 0) {
 				v4 = -57;
 				sub_4E5420(159, &v4, 1, 0, 1);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[108672], 0,
