@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045460;
 extern _DWORD dword_587000_122848;
 extern _DWORD dword_5d4594_1046932;
 extern _DWORD dword_5d4594_1046528;
@@ -3064,7 +3065,7 @@ int sub_453070() { return *(_DWORD*)&byte_587000[126996]; }
 BOOL __cdecl sub_453080(char a1) {
 	BOOL result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1045460])
+	if (dword_5d4594_1045460)
 		result = sub_453690(1 << a1);
 	else
 		result = sub_453660(1 << a1);
@@ -3138,13 +3139,13 @@ int __cdecl sub_4533D0(int a1, int a2, int a3, int a4) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 0x4000, a3, 0);
 		goto LABEL_35;
 	case 1515:
-		if (*(_DWORD*)&byte_5D4594[1045460])
+		if (dword_5d4594_1045460)
 			*(_DWORD*)&byte_5D4594[1045456] = -1;
 		else
 			*(_DWORD*)&byte_5D4594[1045452] = -1;
 		goto LABEL_6;
 	case 1516:
-		if (*(_DWORD*)&byte_5D4594[1045460])
+		if (dword_5d4594_1045460)
 			*(_DWORD*)&byte_5D4594[1045456] = 0;
 		else
 			*(_DWORD*)&byte_5D4594[1045452] = 0;
@@ -3167,12 +3168,12 @@ int __cdecl sub_4533D0(int a1, int a2, int a3, int a4) {
 	case 1533:
 		v5 = sub_4A4800(*(_DWORD*)(dword_5d4594_1045464 + 32));
 		v11 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16406, v5 + v3 - 1520, 0);
-		if (*(_DWORD*)&byte_5D4594[1045460])
+		if (dword_5d4594_1045460)
 			v6 = sub_415DA0(v11);
 		else
 			v6 = sub_415960(v11);
 		if (*(_BYTE*)(a3 + 36) & 4) {
-			if (*(_DWORD*)&byte_5D4594[1045460]) {
+			if (dword_5d4594_1045460) {
 				sub_453640(&byte_5D4594[1045456], v6, 0);
 			} else {
 				v7 = 0;
@@ -3186,7 +3187,7 @@ int __cdecl sub_4533D0(int a1, int a2, int a3, int a4) {
 				}
 				sub_453620(&byte_5D4594[v7 + 1045451], v6, 0);
 			}
-		} else if (*(_DWORD*)&byte_5D4594[1045460]) {
+		} else if (dword_5d4594_1045460) {
 			sub_453640(&byte_5D4594[1045456], v6, 1);
 		} else {
 			v9 = 0;
@@ -3346,7 +3347,7 @@ char sub_453750() {
 	for (i = 1520; i <= 1533; ++i) {
 		for (j = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045468, i); (1 << v0) & 0x33; ++v0)
 			;
-		if (v0 >= *(int*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1045460] + 1045472]) {
+		if (v0 >= *(int*)&byte_5D4594[4 * dword_5d4594_1045460 + 1045472]) {
 			LOBYTE(v4) = nox_window_set_hidden((int)j, 1);
 		} else {
 			nox_window_set_hidden((int)j, 0);

@@ -1,6 +1,7 @@
 #include "objlst.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1045460;
 extern _DWORD dword_5d4594_1045468;
 extern _DWORD dword_5d4594_1045464;
 
@@ -28,7 +29,7 @@ int __cdecl sub_4530C0(int a1, int a2) {
 	sub_4532E0();
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16399, 0, 0);
 	if (a2 == 0x1000000) {
-		*(_DWORD*)&byte_5D4594[1045460] = 0;
+		dword_5d4594_1045460 = 0;
 		v7 = loadString_sub_40F1D0((char*)&byte_587000[127380], 0,
 					   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\objlst.c", 321);
 		nox_wcscpy(v14, v7);
@@ -44,7 +45,7 @@ int __cdecl sub_4530C0(int a1, int a2) {
 			--v9;
 		} while (v9);
 	} else if (a2 == 0x2000000) {
-		*(_DWORD*)&byte_5D4594[1045460] = 1;
+		dword_5d4594_1045460 = 1;
 		v3 = loadString_sub_40F1D0((char*)&byte_587000[127316], 0,
 					   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\objlst.c", 308);
 		nox_wcscpy(v14, v3);
@@ -65,7 +66,7 @@ int __cdecl sub_4530C0(int a1, int a2) {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16408, (int)v11, 0);
 	v12 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045468, 1514);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16409, (int)v12, 0);
-	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1045460] + 1045472] = v2;
+	*(_DWORD*)&byte_5D4594[4 * dword_5d4594_1045460 + 1045472] = v2;
 	sub_453750();
 	if (!nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152))
 		sub_46AD20(*(_DWORD**)&dword_5d4594_1045468, 1515, 1533, 0);
