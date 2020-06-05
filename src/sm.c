@@ -10,6 +10,7 @@ void f(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
 // defined in GAME1.c
+extern _DWORD dword_5d4594_811372;
 extern _DWORD dword_5d4594_815704;
 extern _DWORD dword_5d4594_815708;
 extern _DWORD dword_5d4594_3844304;
@@ -200,7 +201,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 		*(_DWORD*)&byte_5D4594[2616328] = sub_4DD320(31, Data);
 		sub_409AE0(66458);
 		sub_494E90(31);
-		*(_DWORD*)&byte_5D4594[811372] = 2;
+		dword_5d4594_811372 = 2;
 		GOTO_CONNECT_RESULT(0);
 	} else {
 		v3 = sub_43B320();
@@ -378,7 +379,7 @@ void CONNECT_WAIT_THEN(sm_args_t* args) {
 		GOTO_CONNECT_RESULT(-19);
 	if (sub_409AD0() != 66458)
 		GOTO_CONNECT_RESULT(-20);
-	*(_DWORD*)&byte_5D4594[811372] = 2;
+	dword_5d4594_811372 = 2;
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		sub_417C60();
 	GOTO_CONNECT_RESULT(0);
