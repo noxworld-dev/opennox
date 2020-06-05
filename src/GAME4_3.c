@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835356;
 extern _DWORD dword_5d4594_2487852;
 extern _DWORD dword_5d4594_2487848;
 extern _DWORD dword_587000_312788;
@@ -13100,14 +13101,14 @@ int __cdecl sub_543680(float* a1) {
 	int2 v3;    // [esp+8h] [ebp-28h]
 	int v4[8];  // [esp+10h] [ebp-20h]
 
-	if (*(_DWORD*)&byte_5D4594[3835356] == 255)
+	if (dword_5d4594_3835356 == 255)
 		return 1;
 	result = sub_4D3D90((float2*)a1, &a2);
 	if (result) {
 		v4[0] = *(_DWORD*)&byte_5D4594[3835340];
 		*(_DWORD*)&byte_5D4594[3835352] = 1;
 		v4[1] = *(_DWORD*)&byte_5D4594[3835348];
-		v4[6] = *(_DWORD*)&byte_5D4594[3835356];
+		v4[6] = dword_5d4594_3835356;
 		v4[7] = *(_DWORD*)&byte_5D4594[3835360];
 		v3.field_0 = (__int64)a2.field_0;
 		v3.field_4 = (__int64)a2.field_4;
@@ -13468,7 +13469,7 @@ int __cdecl sub_544020(char* a1) {
 		v1 = sub_543FB0(a1);
 		result = sub_544070(v1);
 	} else {
-		*(_DWORD*)&byte_5D4594[3835356] = 255;
+		dword_5d4594_3835356 = 255;
 		result = 1;
 	}
 	return result;
@@ -13478,7 +13479,7 @@ int __cdecl sub_544020(char* a1) {
 int __cdecl sub_544070(int a1) {
 	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_251572)
 		return 0;
-	*(_DWORD*)&byte_5D4594[3835356] = a1;
+	dword_5d4594_3835356 = a1;
 	*(_DWORD*)&byte_5D4594[2489436] = 1;
 	return 1;
 }
@@ -13487,7 +13488,7 @@ int __cdecl sub_544070(int a1) {
 int __cdecl sub_5440A0(int a1) {
 	if (!*(_DWORD*)&byte_5D4594[2489436])
 		return 1;
-	if (*(int*)&byte_5D4594[3835356] == -1 || a1 < 0 || a1 >= *(unsigned __int16*)&byte_5D4594[60 * a1 + 2678392])
+	if (*(int*)&dword_5d4594_3835356 == -1 || a1 < 0 || a1 >= *(unsigned __int16*)&byte_5D4594[60 * a1 + 2678392])
 		return 0;
 	*(_DWORD*)&byte_5D4594[3835360] = a1;
 	return 1;
@@ -13502,12 +13503,12 @@ int __cdecl sub_5440F0(int a1, signed int a2) {
 	int v6;        // eax
 	int result;    // eax
 
-	if (a1 < 0 || a1 >= 12 || *(int*)&byte_5D4594[3835356] == -1)
+	if (a1 < 0 || a1 >= 12 || *(int*)&dword_5d4594_3835356 == -1)
 		return 0;
 	v2 = *(_DWORD*)&byte_587000[4 * a1 + 283312];
-	v3 = byte_5D4594[60 * *(_DWORD*)&byte_5D4594[3835356] + 2678401];
-	v4 = byte_5D4594[60 * *(_DWORD*)&byte_5D4594[3835356] + 2678400];
-	if (v4 != 3 || v3 != byte_5D4594[60 * *(_DWORD*)&byte_5D4594[3835356] + 2678400]) {
+	v3 = byte_5D4594[60 * dword_5d4594_3835356 + 2678401];
+	v4 = byte_5D4594[60 * dword_5d4594_3835356 + 2678400];
+	if (v4 != 3 || v3 != byte_5D4594[60 * dword_5d4594_3835356 + 2678400]) {
 		switch (a1) {
 		case 0:
 		case 3:
@@ -13531,7 +13532,7 @@ int __cdecl sub_5440F0(int a1, signed int a2) {
 	}
 	v5 = a2;
 	if (a2 == -1) {
-		v6 = sub_544240(*(int*)&byte_5D4594[3835356]);
+		v6 = sub_544240(*(int*)&dword_5d4594_3835356);
 		if (a1 && a1 != 2 && a1 != 4 && a1 != 6)
 			return sub_5440A0(v2);
 		v5 = sub_526AC0(0, v6 - 1);
@@ -13620,7 +13621,7 @@ int __cdecl sub_544310(float2* a1) {
 	LOBYTE(v8[5]) = 0;
 	v8[3] = -1;
 	v8[4] = -1;
-	v8[6] = *(_DWORD*)&byte_5D4594[3835356];
+	v8[6] = dword_5d4594_3835356;
 	v8[7] = *(_DWORD*)&byte_5D4594[3835360];
 	v2 = a1->field_4 + 11.5;
 	v3 = (__int64)(v1 * 0.021739131);
