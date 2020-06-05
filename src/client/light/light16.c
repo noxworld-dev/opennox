@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_587000_142316;
 extern _DWORD dword_5d4594_1193176;
 extern _DWORD dword_587000_142328;
 extern _DWORD dword_587000_154968;
@@ -574,7 +575,7 @@ int __cdecl sub_4697C0(int* a1, int* a2, int2* a3, signed int a4, int* a5) {
 		if (result < v7) {
 			v10 = &v6[result + 2];
 			v11 = (char*)((char*)a1 - (char*)v6);
-			v12 = *(_DWORD*)&byte_587000[142316];
+			v12 = dword_587000_142316;
 			v22 = v10;
 			for (i = v11;; v11 = i) {
 				v13 = *(int*)((char*)v10 + (_DWORD)v11);
@@ -586,11 +587,11 @@ int __cdecl sub_4697C0(int* a1, int* a2, int2* a3, signed int a4, int* a5) {
 						v17 = sub_4C1C70(v12 + v23, 66 * *(_DWORD*)&byte_587000[142312] *
 										    (v16 + v14 * v14) / v21 +
 										0x10000);
-						v12 = *(_DWORD*)&byte_587000[142316];
-						if (v17 > *(int*)&byte_587000[142316]) {
+						v12 = dword_587000_142316;
+						if (v17 > *(int*)&dword_587000_142316) {
 							sub_4695E0(v15, v9, a5,
-								   8 * (v17 - *(_DWORD*)&byte_587000[142316]), 0);
-							v12 = *(_DWORD*)&byte_587000[142316];
+								   8 * (v17 - dword_587000_142316), 0);
+							v12 = dword_587000_142316;
 						}
 						v14 += 23;
 						if (++v15 >= *v22)
