@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_145672;
 extern _DWORD dword_5d4594_1064868;
 extern _DWORD dword_5d4594_1049996;
 extern _DWORD dword_5d4594_1049904;
@@ -6232,7 +6233,7 @@ void sub_46FAE0() {
 
 	nox_client_wndGetPosition_46AA60(*(_DWORD**)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1088996] + 1090060], &v1, &yTop);
 	yTop +=
-	    *(_DWORD*)&byte_587000[145672] *
+	    dword_587000_145672 *
 		*(__int16*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1088996] + 1090060] + 32) +
 			    2) +
 	    *(__int16*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1088996] + 1090060] + 32) + 2) / 2;
@@ -6397,7 +6398,7 @@ unsigned __int8 sub_46FFD0() {
 					LOBYTE(v21) = sub_46FEB0(v5);
 				}
 				if (*((_DWORD*)v2 + 2) == *(_DWORD*)&byte_5D4594[2616328]) {
-					*(_DWORD*)&byte_587000[145672] =
+					dword_587000_145672 =
 					    *(__int16*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1090060] + 32) + 46);
 					*(_DWORD*)&byte_5D4594[1088996] = 0;
 				}
