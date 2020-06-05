@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_787212;
 extern _DWORD dword_5d4594_811104;
 extern _DWORD dword_5d4594_806052;
 extern _DWORD dword_587000_80844;
@@ -4565,8 +4566,8 @@ int __cdecl nox_video_read_videobag(int a1) {
 				}
 				if (*(_DWORD*)&byte_5D4594[754144])
 					dword_5d4594_787208 = nox_malloc(*(size_t*)&byte_5D4594[787184]);
-				if (!*(_DWORD*)&byte_5D4594[787212])
-					*(_DWORD*)&byte_5D4594[787212] = sub_578BF0();
+				if (!dword_5d4594_787212)
+					dword_5d4594_787212 = sub_578BF0();
 				if (*(_DWORD*)&byte_5D4594[2650640] == 1)
 					sub_47A270();
 				dword_5d4594_787148 = nox_malloc(36 * dword_5d4594_787172);
@@ -4903,9 +4904,9 @@ void sub_42F4D0() {
 	sub_47D150();
 	fclose(nox_video_bag_fileptr);
 	nox_video_bag_fileptr = 0;
-	if (*(_DWORD*)&byte_5D4594[787212]) {
-		sub_578C40(*(LPVOID*)&byte_5D4594[787212]);
-		*(_DWORD*)&byte_5D4594[787212] = 0;
+	if (dword_5d4594_787212) {
+		sub_578C40(*(LPVOID*)&dword_5d4594_787212);
+		dword_5d4594_787212 = 0;
 	}
 	if (dword_5d4594_787208) {
 		free(*(LPVOID*)&dword_5d4594_787208);
@@ -5363,10 +5364,10 @@ int __cdecl sub_42FE30(int a1) {
 		v7 = *(_DWORD*)(v1 + 12);
 		a1 = *(_DWORD*)(v1 + 16);
 		v9 = v7;
-		sub_578C30(*(int*)&byte_5D4594[787212]);
-		if (sub_578C10(*(_DWORD**)&byte_5D4594[787212], &v4[*(_DWORD*)(v1 + 12) - v9], &v9,
+		sub_578C30(*(int*)&dword_5d4594_787212);
+		if (sub_578C10(*(_DWORD**)&dword_5d4594_787212, &v4[*(_DWORD*)(v1 + 12) - v9], &v9,
 			       (unsigned int)&v6[*(_DWORD*)(v1 + 16) - a1], &a1)) {
-			while (a1 > 0 && sub_578C10(*(_DWORD**)&byte_5D4594[787212], &v4[*(_DWORD*)(v1 + 12) - v9], &v9,
+			while (a1 > 0 && sub_578C10(*(_DWORD**)&dword_5d4594_787212, &v4[*(_DWORD*)(v1 + 12) - v9], &v9,
 						    (unsigned int)&v6[*(_DWORD*)(v1 + 16) - a1], &a1))
 				;
 		}
