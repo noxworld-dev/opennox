@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046956;
 extern _DWORD dword_5d4594_1047936;
 extern _DWORD dword_5d4594_1046576;
 extern _DWORD dword_5d4594_1048144;
@@ -6723,9 +6724,9 @@ int sub_45B9D0() {
 	dword_5d4594_1046952 = nox_window_new(nox_win_unk1, 8, 63, 19, 30, 30, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1046952, sub_45CC10, sub_45CB30, 0);
 	nox_window_set_hidden(*(int*)&dword_5d4594_1046952, 1);
-	*(_DWORD*)&byte_5D4594[1046956] = nox_window_new(0, 40, 0, 0, 30, 30, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1046956], 0, sub_45C7D0, 0);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1046956], 1);
+	dword_5d4594_1046956 = nox_window_new(0, 40, 0, 0, 30, 30, 0);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1046956, 0, sub_45C7D0, 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1046956, 1);
 	dword_5d4594_1046868 = 0;
 	dword_5d4594_1046872 = 0;
 	dword_587000_132132 = 1;
@@ -7215,7 +7216,7 @@ int __cdecl sub_45D570(int a1, int a2) {
 					sub_45D550(&byte_5D4594[1046844]);
 					*(float*)&dword_5d4594_1046636 = (double)*(int*)&byte_5D4594[1046844];
 					*(float*)&byte_5D4594[1046640] = (double)*(int*)&byte_5D4594[1046848];
-					sub_46A9B0(*(_DWORD**)&byte_5D4594[1046956], *(int*)&byte_5D4594[1046844],
+					sub_46A9B0(*(_DWORD**)&dword_5d4594_1046956, *(int*)&byte_5D4594[1046844],
 						   *(int*)&byte_5D4594[1046848]);
 					sub_461320(*(int*)&byte_5D4594[1046852], &byte_5D4594[1046668]);
 					a3.field_0 = 400;
@@ -7245,8 +7246,8 @@ int __cdecl sub_45D570(int a1, int a2) {
 					}
 					*(float*)&byte_5D4594[1046620] = *(float*)&byte_5D4594[1046620] * v3;
 					*(float*)&dword_5d4594_1046624 = *(float*)&dword_5d4594_1046624 * v3;
-					nox_window_set_hidden(*(int*)&byte_5D4594[1046956], 0);
-					sub_46A8C0(*(int*)&byte_5D4594[1046956]);
+					nox_window_set_hidden(*(int*)&dword_5d4594_1046956, 0);
+					sub_46A8C0(*(int*)&dword_5d4594_1046956);
 					if (nox_common_gameFlags_check_40A5C0(2048))
 						sub_57AF30(0, a1);
 					*(_DWORD*)&byte_5D4594[1046648] = sub_430B40_get_mouse_prev_seq();
@@ -7285,7 +7286,7 @@ int sub_45D810() {
 	result = dword_5d4594_1047520;
 	if (dword_5d4594_1047520) {
 		dword_5d4594_1047520 = 0;
-		nox_window_set_hidden(*(int*)&byte_5D4594[1046956], 1);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1046956, 1);
 		*(_DWORD*)&byte_5D4594[1046648] = 0;
 		sub_45E110(*(int*)&byte_5D4594[1046612]);
 		result = nox_common_gameFlags_check_40A5C0(2048);
