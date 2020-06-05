@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_811372;
 extern _DWORD dword_5d4594_787200;
 extern _DWORD dword_5d4594_787180;
 extern _DWORD dword_5d4594_787144;
@@ -8498,7 +8499,7 @@ _DWORD* __cdecl sub_435690(_DWORD* a1) {
 }
 
 //----- (004356B0) --------------------------------------------------------
-int sub_4356B0() { return *(_DWORD*)&byte_5D4594[811372]; }
+int sub_4356B0() { return dword_5d4594_811372; }
 
 //----- (004356C0) --------------------------------------------------------
 BOOL __cdecl sub_4356C0(int a1, char a2) {
@@ -8678,7 +8679,7 @@ int __cdecl sub_435A10(signed int* a1) {
 		}
 		printf("foo 7\n");
 	}
-	*(_DWORD*)&byte_5D4594[811372] = 2;
+	dword_5d4594_811372 = 2;
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		sub_417C60();
 	return 1;
@@ -8752,7 +8753,7 @@ int sub_435CC0() {
 	else
 		sub_43CB00();
 	nox_set_draw_unk1(sub_435F80_draw);
-	*(_DWORD*)&byte_5D4594[811372] = 3;
+	dword_5d4594_811372 = 3;
 	*(_DWORD*)&byte_587000[85720] = 1;
 	*(_DWORD*)&byte_5D4594[811076] = nox_win_width - 1;
 	*(_DWORD*)&byte_5D4594[811068] = 0;
@@ -8803,7 +8804,7 @@ int sub_435EB0() {
 	sub_49AEA0();
 	sub_49A2E0();
 	sub_4951C0();
-	*(_DWORD*)&byte_5D4594[811372] = 2;
+	dword_5d4594_811372 = 2;
 	return 1;
 }
 // 49A2E0: using guessed type int sub_49A2E0(void);
@@ -8979,7 +8980,7 @@ int sub_437190() {
 	sub_44DF70();
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		sub_43CC80();
-	*(_DWORD*)&byte_5D4594[811372] = 0;
+	dword_5d4594_811372 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		sub_4E4DE0();
 	sub_40A380();
