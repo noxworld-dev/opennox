@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487564;
 extern _DWORD dword_5d4594_2487672;
 extern _DWORD dword_5d4594_2487676;
 extern _DWORD dword_5d4594_3835388;
@@ -4162,18 +4163,18 @@ int __cdecl sub_5235F0(char a1) {
 
 	result = nox_common_gameFlags_check_40A5C0(0x200000);
 	if (!result) {
-		*(_DWORD*)&byte_5D4594[2487564] = clock();
-		if (*(_DWORD*)&byte_5D4594[2487568] > *(int*)&byte_5D4594[2487564])
+		dword_5d4594_2487564 = clock();
+		if (*(_DWORD*)&byte_5D4594[2487568] > *(int*)&dword_5d4594_2487564)
 			*(_DWORD*)&byte_5D4594[2487568] = 0;
 		sub_4453A0_poll_events();
-		result = *(_DWORD*)&byte_5D4594[2487564] - *(_DWORD*)&byte_5D4594[2487568];
-		if (*(_DWORD*)&byte_5D4594[2487564] - *(_DWORD*)&byte_5D4594[2487568] > *(int*)&byte_587000[254948]) {
+		result = dword_5d4594_2487564 - *(_DWORD*)&byte_5D4594[2487568];
+		if (dword_5d4594_2487564 - *(_DWORD*)&byte_5D4594[2487568] > *(int*)&byte_587000[254948]) {
 			*(_WORD*)((char*)&v3 + 1) = *(_WORD*)&byte_5D4594[2487572];
 			LOBYTE(v3) = a1;
 			++*(_DWORD*)&byte_5D4594[2487572];
 			sub_4A9D00((unsigned __int8*)&v3);
-			result = *(_DWORD*)&byte_5D4594[2487564];
-			*(_DWORD*)&byte_5D4594[2487568] = *(_DWORD*)&byte_5D4594[2487564];
+			result = dword_5d4594_2487564;
+			*(_DWORD*)&byte_5D4594[2487568] = dword_5d4594_2487564;
 		}
 	}
 	return result;
