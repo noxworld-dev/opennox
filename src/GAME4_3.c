@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487912;
 extern _DWORD dword_5d4594_2487980;
 extern _DWORD dword_5d4594_3835356;
 extern _DWORD dword_5d4594_2487852;
@@ -126,7 +127,7 @@ int __cdecl sub_52F8A0(float a1) {
 		 ? (v13 = dword_5d4594_2487908)
 		 : (v13 = v12, dword_5d4594_2487908 = v12),
 	     !v13)) {
-		*(float*)&byte_5D4594[2487912] = v41 * v41;
+		*(float*)&dword_5d4594_2487912 = v41 * v41;
 		sub_517F90((float2*)(v1 + 28), v41, sub_52FF10, *(_DWORD*)(v1 + 16));
 		v13 = dword_5d4594_2487908;
 		if (!dword_5d4594_2487908) {
@@ -151,7 +152,7 @@ int __cdecl sub_52F8A0(float a1) {
 	dword_5d4594_2487904 = v14 + 1;
 	if (v9 > 1) {
 		dword_5d4594_2487908 = 0;
-		*(float*)&byte_5D4594[2487912] = v41 * v41;
+		*(float*)&dword_5d4594_2487912 = v41 * v41;
 		v35 = v41 * 0.94999999;
 		sub_517F90((float2*)(*(_DWORD*)&byte_5D4594[2487844] + 56), v35, sub_52FF10,
 			   *(int*)&byte_5D4594[2487844]);
@@ -164,7 +165,7 @@ int __cdecl sub_52F8A0(float a1) {
 	}
 	if (v9 > 2) {
 		dword_5d4594_2487908 = 0;
-		*(float*)&byte_5D4594[2487912] = v41 * v41;
+		*(float*)&dword_5d4594_2487912 = v41 * v41;
 		v36 = v41 * 0.89999998;
 		sub_517F90((float2*)(*(_DWORD*)&byte_5D4594[2487844] + 56), v36, sub_52FF10,
 			   *(int*)&byte_5D4594[2487844]);
@@ -178,7 +179,7 @@ int __cdecl sub_52F8A0(float a1) {
 	if (dword_5d4594_2487848) {
 		if (v9 > 3) {
 			dword_5d4594_2487908 = 0;
-			*(float*)&byte_5D4594[2487912] = v41 * v41;
+			*(float*)&dword_5d4594_2487912 = v41 * v41;
 			v37 = v41 * 0.85000002;
 			sub_517F90((float2*)(dword_5d4594_2487848 + 56), v37, sub_52FF10,
 				   *(int*)&dword_5d4594_2487848);
@@ -194,7 +195,7 @@ int __cdecl sub_52F8A0(float a1) {
 		if (v9 > 4) {
 			dword_5d4594_2487908 = 0;
 			v40 = v41 * v41;
-			*(float*)&byte_5D4594[2487912] = v40 * v40;
+			*(float*)&dword_5d4594_2487912 = v40 * v40;
 			v38 = v41 * 0.80000001;
 			sub_517F90((float2*)(dword_5d4594_2487852 + 56), v38, sub_52FF10,
 				   *(int*)&dword_5d4594_2487852);
@@ -324,8 +325,8 @@ void __cdecl sub_52FF10(int a1, int a2) {
 						v6 = *(float*)(a1 + 56) - *(float*)(a2 + 56);
 						v7 = *(float*)(a1 + 60) - *(float*)(a2 + 60);
 						v8 = v7 * v7 + v6 * v6;
-						if (v8 < *(float*)&byte_5D4594[2487912]) {
-							*(float*)&byte_5D4594[2487912] = v8;
+						if (v8 < *(float*)&dword_5d4594_2487912) {
+							*(float*)&dword_5d4594_2487912 = v8;
 							dword_5d4594_2487908 = a1;
 						}
 					}
