@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_815040;
 extern _DWORD dword_5d4594_814988;
 extern _DWORD dword_587000_87408;
 extern _QWORD qword_5d4594_814956;
@@ -173,8 +174,8 @@ int sub_4379F0() {
 		sub_49FDB0(0);
 	if (dword_5d4594_814980) {
 		dword_5d4594_815044 = 0;
-		*(_BYTE*)(*(_DWORD*)&byte_5D4594[815040] + 64) = 3;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[815040] + 56) = sub_438330;
+		*(_BYTE*)(dword_5d4594_815040 + 64) = 3;
+		*(_DWORD*)(dword_5d4594_815040 + 56) = sub_438330;
 		sub_43BE40(3);
 		sub_452D80(922, 100);
 		nox_window_set_hidden(*(int*)&dword_5d4594_814980, 0);
@@ -197,11 +198,11 @@ int sub_4379F0() {
 			sub_46A8C0(*(int*)&dword_5d4594_814980);
 			nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_814980, sub_439D00, 0, 0);
 			v1 = sub_43C5B0(*(_DWORD**)&dword_5d4594_814980, 0, 0, 0, -480, 0, 20, 0, -40);
-			*(_DWORD*)&byte_5D4594[815040] = v1;
+			dword_5d4594_815040 = v1;
 			if (v1) {
 				*v1 = 10000;
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[815040] + 48) = sub_438370;
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[815040] + 56) = sub_438330;
+				*(_DWORD*)(dword_5d4594_815040 + 48) = sub_438370;
+				*(_DWORD*)(dword_5d4594_815040 + 56) = sub_438330;
 				dword_5d4594_814984 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10020);
 				dword_5d4594_814988 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10021);
 				sub_46B300(*(int*)&dword_5d4594_814984, sub_439D00);
