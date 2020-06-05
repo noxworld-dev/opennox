@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309696;
 extern _DWORD dword_5d4594_1311936;
 extern _DWORD dword_5d4594_1308152;
 extern _DWORD dword_5d4594_1313536;
@@ -4050,14 +4051,14 @@ __int16 __cdecl sub_4A9E90(int a1, int a2, int a3, int a4) {
 	}
 	v9 = v4 - 10;
 	if (v4 - 10 - v5 >= 10) {
-		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1309696], v5, v6);
-		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1309696], v5, v8);
+		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309696, v5, v6);
+		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309696, v5, v8);
 		v5 += 10;
 	}
 	if (v5 < v9) {
 		v10 = v5 + ((v9 - v5 + 1) & 0xFFFFFFFE) - 10;
-		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1309696], v10, v6);
-		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1309696], v10, v8);
+		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309696, v10, v6);
+		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309696, v10, v8);
 	}
 	v11 = a2 + a4 - 30;
 	v12 = a2 + 10;
@@ -4196,7 +4197,7 @@ char* sub_4AA1F0() {
 	*(_DWORD*)&byte_5D4594[1309684] = sub_42F970("BorderCornerLL");
 	*(_DWORD*)&byte_5D4594[1309688] = sub_42F970("BorderCornerLR");
 	*(_DWORD*)&byte_5D4594[1309692] = sub_42F970("BorderHorizontal");
-	*(_DWORD*)&byte_5D4594[1309696] = sub_42F970("BorderHorizontalShort");
+	dword_5d4594_1309696 = sub_42F970("BorderHorizontalShort");
 	*(_DWORD*)&byte_5D4594[1309700] = sub_42F970("BorderVertical");
 	result = sub_42F970("BorderVerticalShort");
 	*(_DWORD*)&byte_5D4594[1309704] = result;
