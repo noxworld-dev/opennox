@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2489420;
 extern _DWORD dword_5d4594_2487900;
 extern _DWORD dword_587000_261388;
 extern _DWORD dword_5d4594_2487948;
@@ -12208,7 +12209,7 @@ size_t __cdecl sub_5417C0(FILE* a1, FILE* a2, FILE* a3) {
 	unsigned int v4; // kr08_4
 	char v6[1024];   // [esp+10h] [ebp-400h]
 
-	*(_DWORD*)&byte_5D4594[2489420] = 0;
+	dword_5d4594_2489420 = 0;
 	*(_DWORD*)&byte_5D4594[2489424] = 0;
 	*(_DWORD*)&byte_5D4594[2489428] = 0;
 	strcpy(v6, "SCRIPT03");
@@ -12442,7 +12443,7 @@ FILE* __cdecl sub_541E40(FILE* a1, FILE* a2, FILE* a3) {
 	fwrite(&v17, v4, 1u, a3);
 	fread(&v7, 4u, 1u, a1);
 	fread(&v11, 4u, 1u, a2);
-	*(_DWORD*)&byte_5D4594[2489420] = v7;
+	dword_5d4594_2489420 = v7;
 	v12 = v11 + v7 - 4;
 	fwrite(&v12, 4u, 1u, a3);
 	fread(&v10, 4u, 1u, a1);
@@ -12499,21 +12500,21 @@ FILE* __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 			v6 = sub_542B70(v3);
 			v7 = sub_542B70(v3);
 			if (v6 && a3 && v7 >= 4)
-				v7 = v7 + *(_DWORD*)&byte_5D4594[2489420] - 4;
+				v7 = v7 + dword_5d4594_2489420 - 4;
 			sub_542BB0(0, v4);
 			goto LABEL_8;
 		case 1u:
 			v6 = sub_542B70(v3);
 			v7 = sub_542B70(v3);
 			if (v6 && a3 && v7 >= 4)
-				v7 = v7 + *(_DWORD*)&byte_5D4594[2489420] - 4;
+				v7 = v7 + dword_5d4594_2489420 - 4;
 			sub_542BB0(1, v4);
 			goto LABEL_8;
 		case 2u:
 			v6 = sub_542B70(v3);
 			v7 = sub_542B70(v3);
 			if (v6 && a3 && v7 >= 4)
-				v7 = v7 + *(_DWORD*)&byte_5D4594[2489420] - 4;
+				v7 = v7 + dword_5d4594_2489420 - 4;
 			sub_542BB0(2, v4);
 		LABEL_8:
 			sub_542BB0((char)v6, v4);
