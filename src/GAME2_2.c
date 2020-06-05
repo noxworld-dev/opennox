@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_3798780;
 extern _DWORD dword_5d4594_1098580;
 extern _DWORD dword_587000_154940;
@@ -5663,8 +5664,8 @@ int sub_4800F0() {
 	int v5;     // [esp-4h] [ebp-4h]
 
 	sub_48A210(sub_47FCE0);
-	v5 = (*(_DWORD*)&byte_5D4594[3804680] != 0) + 20;
-	v4 = *(_DWORD*)&byte_5D4594[3804680] != 0 ? 16 : 8;
+	v5 = (dword_5d4594_3804680 != 0) + 20;
+	v4 = dword_5d4594_3804680 != 0 ? 16 : 8;
 	v3 = nox_win_height;
 	v2 = nox_win_width;
 	if (sub_444930(getWindowHandle_sub_401FD0(), v2, v3, v4, v5)) {
@@ -5672,7 +5673,7 @@ int sub_4800F0() {
 		sub_47FEF0();
 		sub_49F6D0(1);
 		sub_437290();
-		*(_DWORD*)&byte_5D4594[3804680] = dword_5d4594_3801780;
+		dword_5d4594_3804680 = dword_5d4594_3801780;
 		*(_DWORD*)&byte_5D4594[3805488] = dword_5d4594_3801808 * nox_backbuffer_height;
 		*(_DWORD*)&byte_5D4594[3807124] = dword_5d4594_3801780 == 1;
 		sub_430B50(0, 0, 639, 479);

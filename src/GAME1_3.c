@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_830264;
 extern _DWORD dword_5d4594_829504;
 extern _DWORD dword_5d4594_825744;
@@ -309,7 +310,7 @@ int __cdecl sub_43BF10_upd_video_mode(int defaults) {
 		return 1;
 	}
 	sub_48BE50(1);
-	if (v3 == nox_backbuffer_depth || (result = nox_video_parse_videobag(*(int*)&byte_5D4594[3804680])) != 0) {
+	if (v3 == nox_backbuffer_depth || (result = nox_video_parse_videobag(*(int*)&dword_5d4594_3804680)) != 0) {
 		result = nox_video_recreateBuffersAndTarget_430BA0();
 		if (result) {
 			sub_4A96C0_video_read_palette("default.pal");
