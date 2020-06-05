@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_1062468;
 extern _DWORD dword_5d4594_1064860;
 extern _DWORD dword_5d4594_1064820;
@@ -8298,7 +8299,7 @@ int sub_473840() {
 	sub_4597E0(1);
 	sub_467980();
 	sub_46C5D0();
-	dword_587000_80828 = *(_DWORD*)&byte_587000[80832];
+	dword_587000_80828 = dword_587000_80832;
 	return 1;
 }
 
