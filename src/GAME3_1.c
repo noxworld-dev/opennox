@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1320972;
 extern _DWORD dword_5d4594_3679316;
 extern _DWORD dword_5d4594_1316704;
 extern _DWORD dword_5d4594_3799488;
@@ -3670,7 +3671,7 @@ int __cdecl sub_4C0630(int a1, unsigned int a2, unsigned int a3) {
 				v14[1] = v15;
 				if (!v15)
 					*v14 = 0;
-				*(_DWORD*)&byte_5D4594[1320972] = v14;
+				dword_5d4594_1320972 = v14;
 				*(_DWORD*)&byte_5D4594[1320304] = 0;
 				sub_452D80(791, 100);
 			}
@@ -3709,13 +3710,13 @@ int __cdecl sub_4C0630(int a1, unsigned int a2, unsigned int a3) {
 			sub_4C08E0(*(int*)&dword_5d4594_1320968);
 		}
 	}
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1320972] + 4 * (*(_DWORD*)(*(_DWORD*)&byte_5D4594[1320972] + 4))++ + 8) =
+	*(_DWORD*)(dword_5d4594_1320972 + 4 * (*(_DWORD*)(dword_5d4594_1320972 + 4))++ + 8) =
 	    *(_DWORD*)(dword_5d4594_1320968 + 128);
-	if (*(_DWORD*)(*(_DWORD*)&byte_5D4594[1320972] + 4) == 1)
-		**(_DWORD**)&byte_5D4594[1320972] = dword_5d4594_1320968;
+	if (*(_DWORD*)(dword_5d4594_1320972 + 4) == 1)
+		**(_DWORD**)&dword_5d4594_1320972 = dword_5d4594_1320968;
 	sub_4776A0();
 	dword_5d4594_1320968 = 0;
-	*(_DWORD*)&byte_5D4594[1320972] = 0;
+	dword_5d4594_1320972 = 0;
 	return 1;
 }
 // 4C0836: variable 'v13' is possibly undefined
@@ -4092,7 +4093,7 @@ int sub_4C1410() {
 	*(_DWORD*)&byte_5D4594[1320944] = 0;
 	*(_DWORD*)&byte_5D4594[1320948] = 0;
 	dword_5d4594_1320968 = 0;
-	*(_DWORD*)&byte_5D4594[1320972] = 0;
+	dword_5d4594_1320972 = 0;
 	dword_5d4594_1320932 = 0;
 	*(_DWORD*)&byte_5D4594[1320936] = 0;
 	return result;
