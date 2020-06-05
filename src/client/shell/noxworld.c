@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_587000_87408;
 extern _QWORD qword_5d4594_814956;
 extern _QWORD qword_5d4594_815068;
 extern _DWORD dword_5d4594_815044;
@@ -39,7 +40,7 @@ void sub_4373A0() {
 		sub_46C6E0(*(int*)&dword_5d4594_815000);
 		sub_46B500(*(int*)&dword_5d4594_814980);
 	}
-	if (*(int*)&byte_587000[87408] == 1 || *(int*)&dword_587000_87412 == -1) {
+	if (*(int*)&dword_587000_87408 == 1 || *(int*)&dword_587000_87412 == -1) {
 		if (dword_5d4594_815048 == 1) {
 			dword_5d4594_815048 = 0;
 			sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
@@ -180,7 +181,7 @@ int sub_4379F0() {
 		sub_46ABB0(*(int*)&dword_5d4594_814984, 1);
 		if (dword_5d4594_815048)
 			sub_4375C0(0);
-		sub_46ACE0(*(_DWORD**)&dword_5d4594_814980, 10047, 10051, *(_DWORD*)&byte_587000[87408] == 0);
+		sub_46ACE0(*(_DWORD**)&dword_5d4594_814980, 10047, 10051, dword_587000_87408 == 0);
 		if (sub_4D6FA0() == 2) {
 			v25 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10010);
 			nox_window_call_field_94(*(int*)&dword_5d4594_814980, 16391, (int)v25, 0);
@@ -294,7 +295,7 @@ int sub_4379F0() {
 				*(_DWORD*)&byte_5D4594[815052] = 0;
 				*(_DWORD*)&byte_5D4594[814548] = 0;
 				*(_QWORD*)&qword_5d4594_815068 = sub_416BB0() + 1000;
-				if (*(_DWORD*)&byte_587000[87408] == 1)
+				if (dword_587000_87408 == 1)
 					sub_4383A0();
 				if (!dword_587000_87404)
 					sub_554B40(0);
@@ -336,7 +337,7 @@ int sub_4379F0() {
 				sub_46B340((int)v21, sub_438E30);
 				v22 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10057);
 				sub_46B340((int)v22, sub_438E30);
-				if (!*(_DWORD*)&byte_587000[87408])
+				if (!dword_587000_87408)
 					sub_46ACE0(*(_DWORD**)&dword_5d4594_814980, 10047, 10051, 1);
 				if (sub_4D6FA0() == 1) {
 					v23 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10002);
@@ -373,7 +374,7 @@ int sub_4383A0() {
 	v0 = loadString_sub_40F1D0((char*)&byte_587000[88760], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 418);
 	nox_window_call_field_94(*(int*)&byte_5D4594[814996], 16385, (int)v0, 0);
 	result = dword_587000_87404;
-	*(_DWORD*)&byte_587000[87408] = 1;
+	dword_587000_87408 = 1;
 	if (dword_587000_87404 == 1)
 		dword_587000_87412 = -1;
 	return result;
@@ -1163,7 +1164,7 @@ _DWORD* __cdecl sub_43B7C0(int a1) {
 	char v13[32];          // [esp+88h] [ebp-16Ch]
 	char v14[332];         // [esp+A8h] [ebp-14Ch]
 
-	if (*(_DWORD*)&byte_587000[87408]) {
+	if (dword_587000_87408) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_815012, 16397, (int)&byte_587000[91164], 4);
 		strncpy(v14, (const char*)(a1 + 120), 0xFu);
 		v14[15] = 0;
