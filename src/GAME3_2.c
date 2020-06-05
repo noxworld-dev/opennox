@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1548700;
 extern _DWORD dword_5d4594_3835356;
 extern _DWORD dword_587000_312788;
 extern _DWORD dword_5d4594_3596;
@@ -2108,22 +2109,22 @@ char* sub_4D3050() {
 	char v3[5];   // [esp+0h] [ebp-8h]
 
 	v3[0] = -41;
-	if (!*(_DWORD*)&byte_5D4594[1548700] ||
-	    (result = sub_416EE0(*(int*)&byte_5D4594[1548700]), (*(_DWORD*)&byte_5D4594[1548700] = result) == 0)) {
+	if (!dword_5d4594_1548700 ||
+	    (result = sub_416EE0(*(int*)&dword_5d4594_1548700), (dword_5d4594_1548700 = result) == 0)) {
 		result = sub_416EA0();
-		*(_DWORD*)&byte_5D4594[1548700] = result;
+		dword_5d4594_1548700 = result;
 	}
 	if (result) {
 		while (result[2064] != 31) {
 			v1 = sub_554240((unsigned __int8)result[2064]) == 0;
-			result = *(char**)&byte_5D4594[1548700];
+			result = *(char**)&dword_5d4594_1548700;
 			if (!v1)
 				break;
-			result = sub_416EE0(*(int*)&byte_5D4594[1548700]);
-			*(_DWORD*)&byte_5D4594[1548700] = result;
+			result = sub_416EE0(*(int*)&dword_5d4594_1548700);
+			dword_5d4594_1548700 = result;
 			if (!result) {
 				result = sub_416EA0();
-				*(_DWORD*)&byte_5D4594[1548700] = result;
+				dword_5d4594_1548700 = result;
 			}
 		}
 		if (result) {
