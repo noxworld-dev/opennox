@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_5d4594_1090044;
 extern _DWORD dword_5d4594_1090100;
 extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_1090048;
@@ -154,7 +155,7 @@ int sub_46E870() {
 		v14 += v16;
 	} while ((int)v15 < (int)&byte_5D4594[1084056]);
 	*(_DWORD*)&byte_5D4594[1090040] = v14;
-	*(_DWORD*)&byte_5D4594[1090044] = 439 - v0;
+	dword_5d4594_1090044 = 439 - v0;
 	dword_5d4594_1090048 = nox_window_new(0, 1560, 0, v0 + 40, 1, 1, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090048, sub_46F060, sub_46F080, 0);
 	*(_DWORD*)(dword_5d4594_1090048 + 56) = 0x80000000;
@@ -185,17 +186,17 @@ int sub_46E870() {
 	v20 = 2 * v0;
 	do {
 		v21 = sub_4A4310(*(int*)&dword_5d4594_1090048, 1088, v17 * *(_DWORD*)&byte_5D4594[1090040], v18,
-				 *(int*)&byte_5D4594[1090040], *(_DWORD*)&byte_5D4594[1090044] - v19, (int)v49,
+				 *(int*)&byte_5D4594[1090040], dword_5d4594_1090044 - v19, (int)v49,
 				 (__int16*)v48);
 		v22 = *(_DWORD*)&byte_5D4594[1084036];
-		v23 = *(_DWORD*)&byte_5D4594[1090044] - v19;
+		v23 = dword_5d4594_1090044 - v19;
 		*(_DWORD*)&byte_5D4594[4 * v17 + 1090052] = v21;
 		v24 = sub_4A4310((int)v21, 1088, 0, v20, v22, v23, (int)v49, (__int16*)v48);
-		v25 = *(_DWORD*)&byte_5D4594[1090044];
+		v25 = dword_5d4594_1090044;
 		*(_DWORD*)&byte_5D4594[4 * v17 + 1090060] = v24;
 		v26 = sub_4A4310(*(_DWORD*)&byte_5D4594[4 * v17 + 1090052], 1088, *(int*)&byte_5D4594[1084036], v20,
 				 *(int*)&byte_5D4594[1084040], v25 - v19, (int)v49, (__int16*)v48);
-		v27 = *(_DWORD*)&byte_5D4594[1090044];
+		v27 = dword_5d4594_1090044;
 		*(_DWORD*)&byte_5D4594[4 * v17 + 1090068] = v26;
 		*(_DWORD*)&byte_5D4594[4 * v17 + 1090076] =
 		    sub_4A4310(*(_DWORD*)&byte_5D4594[4 * v17 + 1090052], 1088,
@@ -204,8 +205,8 @@ int sub_46E870() {
 		v28 = sub_4A4310(
 		    *(_DWORD*)&byte_5D4594[4 * v17 + 1090052], 1088,
 		    *(_DWORD*)&byte_5D4594[1084036] + *(_DWORD*)&byte_5D4594[1084040] + *(_DWORD*)&byte_5D4594[1084044],
-		    v20, *(int*)&byte_5D4594[1084048], *(_DWORD*)&byte_5D4594[1090044] - v19, (int)v49, (__int16*)v48);
-		v29 = *(_DWORD*)&byte_5D4594[1090044];
+		    v20, *(int*)&byte_5D4594[1084048], dword_5d4594_1090044 - v19, (int)v49, (__int16*)v48);
+		v29 = dword_5d4594_1090044;
 		*(_DWORD*)&byte_5D4594[4 * v17 + 1090084] = v28;
 		*(_DWORD*)&byte_5D4594[4 * v17 + 1090092] =
 		    sub_4A4310(*(_DWORD*)&byte_5D4594[4 * v17 + 1090052], 1088,
