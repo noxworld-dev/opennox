@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_587000_154968;
 extern _DWORD dword_5d4594_3805484;
 extern _DWORD dword_587000_80800;
 extern _DWORD dword_5d4594_1193184;
@@ -216,7 +217,7 @@ void __cdecl sub_484F90(int a1) {
 				a5 = *(float*)(a1 + 140);
 			}
 			*(float*)&v44 = v3;
-			if (a5 > (double)*(float*)&byte_587000[154968]) {
+			if (a5 > (double)*(float*)&dword_587000_154968) {
 				if (a5 <= 31.0)
 					v37 = a5;
 				else
@@ -474,7 +475,7 @@ int sub_430D60() {
 }
 
 //----- (00484BD0) --------------------------------------------------------
-double sub_484BD0() { return *(float*)&byte_587000[154968]; }
+double sub_484BD0() { return *(float*)&dword_587000_154968; }
 
 //----- (004C1C70) --------------------------------------------------------
 int __fastcall sub_4C1C70(int a1, int a2) { return ((__int64)a1 << 16) / a2; }
