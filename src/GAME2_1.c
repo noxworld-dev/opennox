@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1064868;
 extern _DWORD dword_5d4594_1049996;
 extern _DWORD dword_5d4594_1049904;
 extern _DWORD dword_5d4594_1062492;
@@ -3727,20 +3728,20 @@ char* __cdecl sub_46A3F0(int a1, int a2, int a3, int a4) {
 //----- (0046A430) --------------------------------------------------------
 void __cdecl sub_46A430(int a1) {
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
-		if (!*(_DWORD*)&byte_5D4594[1064868]) {
+		if (!dword_5d4594_1064868) {
 			**(_WORD**)&dword_5d4594_1064864 = 0;
 			*(_WORD*)(dword_5d4594_1064864 + 1052) = 0;
 			sub_46A8C0(*(int*)&dword_5d4594_1064856);
 			sub_46C690(*(int*)&dword_5d4594_1064856);
 			sub_46B500(*(int*)&dword_5d4594_1064860);
-			*(_DWORD*)&byte_5D4594[1064868] = 1;
+			dword_5d4594_1064868 = 1;
 			*(_DWORD*)&byte_5D4594[1064872] = a1;
 		}
 	}
 }
 
 //----- (0046A4A0) --------------------------------------------------------
-int sub_46A4A0() { return *(_DWORD*)&byte_5D4594[1064868]; }
+int sub_46A4A0() { return dword_5d4594_1064868; }
 
 //----- (0046A4B0) --------------------------------------------------------
 size_t __cdecl sub_46A4B0(wchar_t* a1, int a2) {
@@ -3832,7 +3833,7 @@ int sub_46A6A0() {
 	*(_DWORD*)(dword_5d4594_1064856 + 4) &= 0xFFFFFFF7;
 	*(_DWORD*)(dword_5d4594_1064860 + 4) &= 0xFFFFFFF7;
 	dword_5d4594_3799524 = 1;
-	*(_DWORD*)&byte_5D4594[1064868] = 0;
+	dword_5d4594_1064868 = 0;
 	return 1;
 }
 
@@ -3888,7 +3889,7 @@ int sub_46A860() {
 	}
 	dword_5d4594_1064860 = 0;
 	dword_5d4594_1064864 = 0;
-	*(_DWORD*)&byte_5D4594[1064868] = 0;
+	dword_5d4594_1064868 = 0;
 	*(_DWORD*)&byte_5D4594[1064872] = 0;
 	return result;
 }
