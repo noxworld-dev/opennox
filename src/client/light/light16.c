@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_5d4594_1193176;
 extern _DWORD dword_587000_142328;
 extern _DWORD dword_587000_154968;
 extern _DWORD dword_5d4594_3805484;
@@ -82,7 +83,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 			v12 = *a1 - 23 * *a2 - dword_5d4594_2650676;
 			v13 = 12 * a3;
 			v14 = *(_DWORD*)&byte_5D4594[280 * *a2 + 2598288 + 12 * a3];
-			*(_DWORD*)&byte_5D4594[1193176] = v14;
+			dword_5d4594_1193176 = v14;
 			v15 = *(
 			    _DWORD*)&byte_5D4594[4 * ((*(int*)&byte_5D4594[280 * *a2 + 2598568 + 12 * a3] - v14) >> 8) +
 						 2615304];
@@ -91,7 +92,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 				v16 = 23;
 			} else {
 				v16 = 23 - v12;
-				*(_DWORD*)&byte_5D4594[1193176] = v12 * v15 + v14;
+				dword_5d4594_1193176 = v12 * v15 + v14;
 				v23 = 23 - v12;
 			}
 			if (v16 <= a4)
@@ -121,9 +122,9 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 				v19 = v18;
 				*a2 = v18;
 				v9 = *(char**)&dword_5d4594_1193184;
-				*(_DWORD*)&byte_5D4594[1193176] = *(_DWORD*)&byte_5D4594[280 * v19 + 2598288 + v13];
+				dword_5d4594_1193176 = *(_DWORD*)&byte_5D4594[280 * v19 + 2598288 + v13];
 				v15 = *(_DWORD*)&byte_5D4594[4 * ((*(int*)&byte_5D4594[280 * *a2 + 2598568 + v13] -
-								   *(int*)&byte_5D4594[1193176]) >>
+								   *(int*)&dword_5d4594_1193176) >>
 								  8) +
 							     2615304];
 			}
