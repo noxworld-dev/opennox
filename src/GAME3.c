@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1313536;
 extern _DWORD dword_5d4594_1308116;
 extern _DWORD dword_5d4594_1313740;
 extern _DWORD dword_5d4594_1308100;
@@ -11582,7 +11583,7 @@ int sub_4B64C0() {
 	*(_DWORD*)&byte_5D4594[1313524] = sub_4344A0(255, 255, 0);
 	*(_DWORD*)&byte_5D4594[1313528] = sub_4344A0(255, 100, 0);
 	*(_DWORD*)&byte_5D4594[1313532] = sub_4344A0(255, 255, 0);
-	*(_DWORD*)&byte_5D4594[1313536] = sub_4344A0(0, 0, 255);
+	dword_5d4594_1313536 = sub_4344A0(0, 0, 255);
 	dword_5d4594_1313540 = sub_4344A0(0, 200, 255);
 	*(_DWORD*)&byte_5D4594[1313544] = sub_4344A0(0, 200, 200);
 	*(_DWORD*)&byte_5D4594[1313548] = sub_4344A0(50, 255, 255);
@@ -11728,7 +11729,7 @@ int __cdecl nox_thing_red_spark_draw(_DWORD* a1, int a2) {
 
 //----- (004B6A80) --------------------------------------------------------
 int __cdecl nox_thing_blue_spark_draw(_DWORD* a1, int a2) {
-	return sub_4B6970(a1, a2, *(int*)&dword_5d4594_1313540, *(int*)&byte_5D4594[1313536]);
+	return sub_4B6970(a1, a2, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
 }
 
 //----- (004B6AA0) --------------------------------------------------------
@@ -11783,7 +11784,7 @@ int __cdecl sub_4B6B80(int* a1, int a2, int a3) {
 	v4 = *(_DWORD*)(a2 + 108);
 	if (v4 == *(_DWORD*)&byte_5D4594[1313660] || v4 == *(_DWORD*)&byte_5D4594[1313684]) {
 		v5 = dword_5d4594_1313540;
-		v21 = *(_DWORD*)&byte_5D4594[1313536];
+		v21 = dword_5d4594_1313536;
 		goto LABEL_13;
 	}
 	if (v4 == *(_DWORD*)&byte_5D4594[1313668]) {
