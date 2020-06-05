@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798708;
 extern _DWORD dword_5d4594_1305712;
 extern _DWORD dword_5d4594_1203832;
 extern _DWORD dword_5d4594_1305720;
@@ -8055,16 +8056,16 @@ int nox_video_initLineDrawingFuncs_49E3F0() {
 		*(_DWORD*)&byte_5D4594[3798700] = sub_49EFC0;
 		*(_DWORD*)&byte_5D4594[3798704] = sub_49ED80;
 		dword_5d4594_3798720 = sub_49F060;
-		*(_DWORD*)&byte_5D4594[3798708] = sub_49F0F0;
+		dword_5d4594_3798708 = sub_49F0F0;
 		dword_5d4594_3798712 = sub_49F3A0;
 		return 1;
 	}
 	if (dword_5d4594_3801780 != 1)
 		return 1;
 	dword_5d4594_3798720 = sub_49F180;
-	*(_DWORD*)&byte_5D4594[3798708] = sub_49F210;
+	dword_5d4594_3798708 = sub_49F210;
 	if (!dword_5d4594_3801804)
-		*(_DWORD*)&byte_5D4594[3798708] = sub_49F180;
+		dword_5d4594_3798708 = sub_49F180;
 	dword_5d4594_3798712 = sub_49F420;
 	dword_5d4594_3798716 = sub_49E930;
 	*(_DWORD*)&byte_5D4594[3798700] = sub_49F010;
