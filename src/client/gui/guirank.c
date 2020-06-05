@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_587000_145668;
 extern _DWORD dword_5d4594_1090040;
 extern _DWORD dword_587000_145664;
 extern _DWORD dword_5d4594_1090044;
@@ -80,7 +81,7 @@ int sub_46E870() {
 	char v49[332];         // [esp+6Ch] [ebp-16Ch]
 	wchar_t v50[16];       // [esp+1B8h] [ebp-20h]
 
-	*(_DWORD*)&byte_587000[145668] = 6;
+	dword_587000_145668 = 6;
 	sub_46F030();
 	v0 = sub_43F320(0);
 	v46 = v0;
@@ -308,12 +309,12 @@ int __cdecl sub_46F080(int a1, int a2) {
 
 	v2 = 0;
 	v35 = 0;
-	if (!nox_common_gameFlags_check_40A5C0(8) && *(_DWORD*)&byte_587000[145668] != 6) {
-		dword_5d4594_1090120 = *(_DWORD*)&byte_587000[145668] - 1;
-		if (*(int*)&byte_587000[145668] - 1 < 0)
+	if (!nox_common_gameFlags_check_40A5C0(8) && dword_587000_145668 != 6) {
+		dword_5d4594_1090120 = dword_587000_145668 - 1;
+		if (*(int*)&dword_587000_145668 - 1 < 0)
 			dword_5d4594_1090120 = 5;
 		sub_4703F0();
-		*(_DWORD*)&byte_587000[145668] = 6;
+		dword_587000_145668 = 6;
 		if (!dword_5d4594_1090120)
 			return 1;
 	}
