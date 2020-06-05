@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1568868;
 extern _DWORD dword_5d4594_1569668;
 extern _DWORD dword_5d4594_1569644;
 extern _DWORD dword_5d4594_1599652;
@@ -1178,12 +1179,12 @@ _DWORD* __cdecl sub_4F7AB0(float2* a1, int a2) {
 	float v17;      // [esp+18h] [ebp-8h]
 	int v18;        // [esp+1Ch] [ebp-4h]
 
-	result = *(_DWORD**)&byte_5D4594[1568868];
+	result = *(_DWORD**)&dword_5d4594_1568868;
 	v3 = 0;
 	v16 = 0;
-	if (!*(_DWORD*)&byte_5D4594[1568868]) {
+	if (!dword_5d4594_1568868) {
 		result = (_DWORD*)sub_4E3AA0((CHAR*)&byte_587000[215948]);
-		*(_DWORD*)&byte_5D4594[1568868] = result;
+		dword_5d4594_1568868 = result;
 	}
 	if (a2) {
 		if (sub_419130(a2 + 48)) {
@@ -1197,7 +1198,7 @@ _DWORD* __cdecl sub_4F7AB0(float2* a1, int a2) {
 		if (!v6)
 			goto LABEL_13;
 		do {
-			if (*(unsigned __int16*)(v6 + 4) == *(_DWORD*)&byte_5D4594[1568868]) {
+			if (*(unsigned __int16*)(v6 + 4) == dword_5d4594_1568868) {
 				v5 = (float2*)v6;
 				if (sub_4F7CE0(v6, v3))
 					++v4;
@@ -1213,7 +1214,7 @@ _DWORD* __cdecl sub_4F7AB0(float2* a1, int a2) {
 			if (!v9)
 				goto LABEL_39;
 			do {
-				if (*(unsigned __int16*)(v9 + 4) == *(_DWORD*)&byte_5D4594[1568868] &&
+				if (*(unsigned __int16*)(v9 + 4) == dword_5d4594_1568868 &&
 				    sub_4F7CE0(v9, v16)) {
 					v15 = 10000000.0;
 					for (i = sub_4DA7C0(); i; i = sub_4DA7F0(i)) {
@@ -1237,7 +1238,7 @@ _DWORD* __cdecl sub_4F7AB0(float2* a1, int a2) {
 			LABEL_39:
 				v14 = nox_common_randomInt_415FA0(0, v18 - 1);
 				for (j = sub_4DA790(); j; j = sub_4DA7A0(j)) {
-					if (*(unsigned __int16*)(j + 4) == *(_DWORD*)&byte_5D4594[1568868] &&
+					if (*(unsigned __int16*)(j + 4) == dword_5d4594_1568868 &&
 					    sub_4F7CE0(j, v16)) {
 						if (!v14)
 							break;
