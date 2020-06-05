@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_608316;
 extern _DWORD dword_5d4594_1599060;
 extern _DWORD dword_5d4594_2386160;
@@ -2257,8 +2258,8 @@ void sub_5524C0() {
 char* sub_578FC0() {
 	char* result; // eax
 
-	result = *(char**)&byte_5D4594[2523744];
-	if (*(_DWORD*)&byte_5D4594[2523744]) {
+	result = *(char**)&dword_5d4594_2523744;
+	if (dword_5d4594_2523744) {
 		result = (char*)sub_578FF0();
 		if (*(_WORD*)&byte_5D4594[2523738] > 0) {
 			if (byte_5D4594[2598000] & 1)
