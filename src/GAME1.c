@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251564;
 extern _DWORD dword_5d4594_528252;
 extern _DWORD dword_5d4594_3484;
 extern _DWORD dword_5d4594_251560;
@@ -6411,16 +6412,16 @@ _DWORD* sub_410810() {
 	_DWORD* result; // eax
 	_DWORD* v1;     // esi
 
-	result = *(_DWORD**)&byte_5D4594[251564];
-	if (*(_DWORD*)&byte_5D4594[251564]) {
+	result = *(_DWORD**)&dword_5d4594_251564;
+	if (dword_5d4594_251564) {
 		do {
 			v1 = (_DWORD*)*result;
 			free(result);
 			result = v1;
 		} while (v1);
-		*(_DWORD*)&byte_5D4594[251564] = 0;
+		dword_5d4594_251564 = 0;
 	} else {
-		*(_DWORD*)&byte_5D4594[251564] = 0;
+		dword_5d4594_251564 = 0;
 	}
 	return result;
 }
@@ -6431,13 +6432,13 @@ _DWORD* __cdecl sub_410840(int a1) {
 
 	result = nox_calloc(1u, 8u);
 	result[1] = a1;
-	*result = *(_DWORD*)&byte_5D4594[251564];
-	*(_DWORD*)&byte_5D4594[251564] = result;
+	*result = dword_5d4594_251564;
+	dword_5d4594_251564 = result;
 	return result;
 }
 
 //----- (00410870) --------------------------------------------------------
-LPVOID sub_410870() { return *(LPVOID*)&byte_5D4594[251564]; }
+LPVOID sub_410870() { return *(LPVOID*)&dword_5d4594_251564; }
 
 //----- (00410880) --------------------------------------------------------
 int __cdecl sub_410880(int* a1) {
@@ -6455,17 +6456,17 @@ int* __cdecl sub_410890(int* lpMem) {
 	int* result; // eax
 	int* v2;     // esi
 
-	result = *(int**)&byte_5D4594[251564];
+	result = *(int**)&dword_5d4594_251564;
 	v2 = 0;
-	if (*(_DWORD*)&byte_5D4594[251564]) {
+	if (dword_5d4594_251564) {
 		while (result != lpMem) {
 			v2 = result;
 			result = (int*)sub_410880(result);
 			if (!result)
 				return result;
 		}
-		if (result == *(int**)&byte_5D4594[251564])
-			*(_DWORD*)&byte_5D4594[251564] = sub_410880(result);
+		if (result == *(int**)&dword_5d4594_251564)
+			dword_5d4594_251564 = sub_410880(result);
 		else
 			*v2 = sub_410880(result);
 		free(lpMem);
