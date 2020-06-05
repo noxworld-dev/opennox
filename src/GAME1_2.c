@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_810636;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_806048;
@@ -8188,7 +8189,7 @@ _DWORD* __cdecl sub_434A10(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 
 //----- (00434A60) --------------------------------------------------------
 char __cdecl sub_434A60(int a1) {
-	return *(_BYTE*)(*(_DWORD*)&byte_5D4594[3804668] +
+	return *(_BYTE*)(dword_5d4594_3804668 +
 			 (((unsigned __int8)(byte_5D4594[4 * a1 + 3803310] & 0xF8) >> 3) |
 			  (4 * (byte_5D4594[4 * a1 + 3803309] & 0xF8)) |
 			  ((byte_5D4594[4 * a1 + 3803308] & 0xF8) << 7)));
@@ -8215,7 +8216,7 @@ int sub_434DA0() {
 	v1 = 0x7FFF;
 LABEL_6:
 	result = (int)nox_calloc(v1 + 3, 1u);
-	*(_DWORD*)&byte_5D4594[3804668] = result;
+	dword_5d4594_3804668 = result;
 	if (result) {
 		v3 = 0;
 		while (1) {
@@ -8230,7 +8231,7 @@ LABEL_6:
 			    8;
 			if ((int)++v3 > v1)
 				break;
-			result = *(_DWORD*)&byte_5D4594[3804668];
+			result = dword_5d4594_3804668;
 		}
 		result = 1;
 	}
@@ -8239,13 +8240,13 @@ LABEL_6:
 
 //----- (00434E80) --------------------------------------------------------
 char __cdecl sub_434E80(char a1, char a2, char a3) {
-	return *(_BYTE*)(*(_DWORD*)&byte_5D4594[3804668] +
+	return *(_BYTE*)(dword_5d4594_3804668 +
 			 (((unsigned __int8)(a3 & 0xF8) >> 3) | (4 * (a2 & 0xF8)) | ((a1 & 0xF8) << 7)));
 }
 
 //----- (00434EC0) --------------------------------------------------------
 char __cdecl sub_434EC0(char a1, char a2, char a3) {
-	return *(_BYTE*)(*(_DWORD*)&byte_5D4594[3804668] +
+	return *(_BYTE*)(dword_5d4594_3804668 +
 			 (((unsigned __int8)(a3 & 0xF8) >> 3) | (8 * (a2 & 0xFC)) | ((a1 & 0xF8) << 8)));
 }
 
