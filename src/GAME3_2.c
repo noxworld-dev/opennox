@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312812;
 extern _DWORD dword_587000_312828;
 extern _DWORD dword_5d4594_1556852;
 extern _DWORD dword_587000_312824;
@@ -4424,7 +4425,7 @@ int sub_4D6A60() {
 	dword_587000_312800 = 1077936128;
 	dword_587000_312804 = 1077936128;
 	dword_587000_312808 = 1065353216;
-	*(_DWORD*)&byte_587000[312812] = 1065353216;
+	dword_587000_312812 = 1065353216;
 	dword_587000_312816 = 1077936128;
 	dword_587000_312820 = 1077936128;
 	dword_587000_312824 = 1065353216;
@@ -4451,7 +4452,7 @@ int __cdecl sub_4D6B10(int a1) {
 	dword_587000_312800 = *(_DWORD*)&byte_5D4594[1556060];
 	dword_587000_312804 = *(_DWORD*)&byte_5D4594[1556096];
 	dword_587000_312808 = *(_DWORD*)&byte_5D4594[1550932];
-	*(_DWORD*)&byte_587000[312812] = *(_DWORD*)&byte_5D4594[1556080];
+	dword_587000_312812 = *(_DWORD*)&byte_5D4594[1556080];
 	dword_587000_312816 = *(_DWORD*)&byte_5D4594[1556088];
 	dword_587000_312820 = *(_DWORD*)&byte_5D4594[1556068];
 	dword_587000_312824 = *(_DWORD*)&byte_5D4594[1556100];
@@ -4479,7 +4480,7 @@ int sub_4D6BE0() {
 	*(_DWORD*)&byte_5D4594[1556096] = dword_587000_312804;
 	*(_DWORD*)&byte_5D4594[1550932] = dword_587000_312808;
 	result = dword_587000_312820;
-	*(_DWORD*)&byte_5D4594[1556080] = *(_DWORD*)&byte_587000[312812];
+	*(_DWORD*)&byte_5D4594[1556080] = dword_587000_312812;
 	*(_DWORD*)&byte_5D4594[1556088] = dword_587000_312816;
 	*(_DWORD*)&byte_5D4594[1556068] = dword_587000_312820;
 	*(_DWORD*)&byte_5D4594[1556100] = dword_587000_312824;
@@ -6705,7 +6706,7 @@ int __cdecl sub_4D9C20(int a1) {
 					return result;
 				*(_DWORD*)&v4[1] = dword_587000_312800;
 				*(_DWORD*)&v4[5] = dword_587000_312804;
-				v3 = *(_DWORD*)&byte_587000[312812];
+				v3 = dword_587000_312812;
 				*(_DWORD*)&v4[9] = dword_587000_312808;
 			}
 		} else {
