@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815212;
 extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_1193152;
 extern _DWORD dword_5d4594_815708;
@@ -544,8 +545,8 @@ void sub_43C380() {
 	int v13;          // [esp+4h] [ebp-8h]
 	int v14;          // [esp+8h] [ebp-4h]
 
-	v0 = *(_DWORD*)&byte_5D4594[815212];
-	if (*(_DWORD*)&byte_5D4594[815212]) {
+	v0 = dword_5d4594_815212;
+	if (dword_5d4594_815212) {
 		while (1) {
 			v1 = *(_DWORD*)(v0 + 40);
 			v2 = 0;
@@ -637,7 +638,7 @@ void sub_43C380() {
 }
 
 //----- (0043C500) --------------------------------------------------------
-int sub_43C500() { return *(_DWORD*)&byte_5D4594[815212]; }
+int sub_43C500() { return dword_5d4594_815212; }
 
 //----- (0043C510) --------------------------------------------------------
 int __cdecl sub_43C510(int a1) {
@@ -654,8 +655,8 @@ int __cdecl sub_43C510(int a1) {
 _DWORD* __cdecl sub_43C520(int a1) {
 	_DWORD* result; // eax
 
-	result = *(_DWORD**)&byte_5D4594[815212];
-	if (!*(_DWORD*)&byte_5D4594[815212])
+	result = *(_DWORD**)&dword_5d4594_815212;
+	if (!dword_5d4594_815212)
 		return 0;
 	while (*result != a1) {
 		result = (_DWORD*)result[10];
@@ -671,10 +672,10 @@ _DWORD* sub_43C540() {
 
 	result = nox_calloc(1u, 0x44u);
 	if (result) {
-		result[10] = *(_DWORD*)&byte_5D4594[815212];
-		if (*(_DWORD*)&byte_5D4594[815212])
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[815212] + 44) = result;
-		*(_DWORD*)&byte_5D4594[815212] = result;
+		result[10] = dword_5d4594_815212;
+		if (dword_5d4594_815212)
+			*(_DWORD*)(dword_5d4594_815212 + 44) = result;
+		dword_5d4594_815212 = result;
 	}
 	return result;
 }
@@ -691,7 +692,7 @@ void __cdecl sub_43C570(LPVOID lpMem) {
 	if (v2)
 		*(_DWORD*)(v2 + 40) = *((_DWORD*)lpMem + 10);
 	else
-		*(_DWORD*)&byte_5D4594[815212] = *((_DWORD*)lpMem + 10);
+		dword_5d4594_815212 = *((_DWORD*)lpMem + 10);
 	free(lpMem);
 }
 
