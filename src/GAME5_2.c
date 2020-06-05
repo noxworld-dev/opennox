@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2516372;
 extern _DWORD dword_5d4594_2523764;
 extern _DWORD dword_5d4594_2513932;
 extern _DWORD dword_5d4594_2523760;
@@ -3221,7 +3222,7 @@ void __cdecl sub_56FF00(int a1) {
 	} while (v4);
 	*(_DWORD*)&byte_5D4594[2516380] = 0;
 	*(_DWORD*)&byte_5D4594[2516376] = 99;
-	*(_DWORD*)&byte_5D4594[2516372] = 100;
+	dword_5d4594_2516372 = 100;
 }
 
 //----- (0056FF80) --------------------------------------------------------
@@ -3231,12 +3232,12 @@ int __cdecl sub_56FF80(int a1, int a2) {
 
 	*(_DWORD*)&byte_5D4594[2516376] = a2;
 	*(_DWORD*)&byte_5D4594[2516380] = a1;
-	*(_DWORD*)&byte_5D4594[2516372] = a2 - a1 + 1;
-	v2 = (__int64)(sub_56FE30() * (double)*(unsigned int*)&byte_5D4594[2516372]);
-	if ((unsigned int)v2 < *(int*)&byte_5D4594[2516372])
+	dword_5d4594_2516372 = a2 - a1 + 1;
+	v2 = (__int64)(sub_56FE30() * (double)*(unsigned int*)&dword_5d4594_2516372);
+	if ((unsigned int)v2 < *(int*)&dword_5d4594_2516372)
 		result = *(_DWORD*)&byte_5D4594[2516380] + v2;
 	else
-		result = *(_DWORD*)&byte_5D4594[2516372] + *(_DWORD*)&byte_5D4594[2516380];
+		result = dword_5d4594_2516372 + *(_DWORD*)&byte_5D4594[2516380];
 	return result;
 }
 
