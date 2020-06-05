@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1203864;
 extern _DWORD dword_5d4594_1217452;
 extern _DWORD dword_5d4594_3798716;
 extern _DWORD dword_5d4594_1193712;
@@ -2351,7 +2352,7 @@ BOOL sub_495980() {
 //----- (004959B0) --------------------------------------------------------
 void sub_4959B0() {
 	sub_4144D0(*(_DWORD**)&byte_5D4594[1203860]);
-	*(_DWORD*)&byte_5D4594[1203864] = 0;
+	dword_5d4594_1203864 = 0;
 }
 
 //----- (004959D0) --------------------------------------------------------
@@ -2361,7 +2362,7 @@ int sub_4959D0() {
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1203860]);
 	result = 0;
 	*(_DWORD*)&byte_5D4594[1203860] = 0;
-	*(_DWORD*)&byte_5D4594[1203864] = 0;
+	dword_5d4594_1203864 = 0;
 	return result;
 }
 
@@ -2372,8 +2373,8 @@ _DWORD* __cdecl sub_4959F0(int a1) {
 	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1203860]);
 	if (result) {
 		*result = a1;
-		result[1] = *(_DWORD*)&byte_5D4594[1203864];
-		*(_DWORD*)&byte_5D4594[1203864] = result;
+		result[1] = dword_5d4594_1203864;
+		dword_5d4594_1203864 = result;
 	}
 	return result;
 }
@@ -2383,9 +2384,9 @@ void __cdecl sub_495A20(int a1) {
 	int v1; // eax
 	int v2; // ecx
 
-	v1 = *(_DWORD*)&byte_5D4594[1203864];
+	v1 = dword_5d4594_1203864;
 	v2 = 0;
-	if (*(_DWORD*)&byte_5D4594[1203864]) {
+	if (dword_5d4594_1203864) {
 		while (*(_DWORD*)v1 != a1) {
 			v2 = v1;
 			v1 = *(_DWORD*)(v1 + 4);
@@ -2395,7 +2396,7 @@ void __cdecl sub_495A20(int a1) {
 		if (v2)
 			*(_DWORD*)(v2 + 4) = *(_DWORD*)(v1 + 4);
 		else
-			*(_DWORD*)&byte_5D4594[1203864] = *(_DWORD*)(v1 + 4);
+			dword_5d4594_1203864 = *(_DWORD*)(v1 + 4);
 		sub_414330(*(unsigned int**)&byte_5D4594[1203860], (_QWORD*)v1);
 	}
 }
@@ -2404,8 +2405,8 @@ void __cdecl sub_495A20(int a1) {
 int __cdecl sub_495A80(int a1) {
 	_DWORD* v1; // eax
 
-	v1 = *(_DWORD**)&byte_5D4594[1203864];
-	if (!*(_DWORD*)&byte_5D4594[1203864])
+	v1 = *(_DWORD**)&dword_5d4594_1203864;
+	if (!dword_5d4594_1203864)
 		return 0;
 	while (*v1 != a1) {
 		v1 = (_DWORD*)v1[1];
