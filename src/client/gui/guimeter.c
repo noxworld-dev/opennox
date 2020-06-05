@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_3799468;
 extern _DWORD dword_5d4594_1093096;
 extern _DWORD dword_587000_80844;
 extern _DWORD dword_5d4594_1093076;
@@ -244,7 +245,7 @@ int __cdecl sub_471D10(int xLeft) {
 	}
 	nox_client_wndGetPosition_46AA60(v1, &xLeft, &yTop);
 	xLeft += 5;
-	if (*(_DWORD*)&byte_5D4594[3799468]) {
+	if (dword_5d4594_3799468) {
 		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 15, 125);
 	}
