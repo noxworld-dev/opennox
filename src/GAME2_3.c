@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1305800;
 extern _DWORD dword_5d4594_1301816;
 extern _DWORD dword_5d4594_1203860;
 extern _DWORD dword_5d4594_1301812;
@@ -9731,7 +9732,7 @@ int __cdecl sub_4A0030(const void* a1) {
 	v2 = 0;
 	switch (dword_587000_166704) {
 	case 0:
-		if (*(unsigned __int8**)&byte_5D4594[1305800] == &byte_5D4594[1305796])
+		if (*(unsigned __int8**)&dword_5d4594_1305800 == &byte_5D4594[1305796])
 			return sub_425790((int*)&byte_5D4594[1305796], v1);
 		v3 = sub_425890((int*)&byte_5D4594[1305796]);
 		if (!v3)
@@ -9744,7 +9745,7 @@ int __cdecl sub_4A0030(const void* a1) {
 		} while (v3);
 		goto LABEL_6;
 	case 1:
-		if (*(unsigned __int8**)&byte_5D4594[1305800] == &byte_5D4594[1305796])
+		if (*(unsigned __int8**)&dword_5d4594_1305800 == &byte_5D4594[1305796])
 			return sub_425790((int*)&byte_5D4594[1305796], v1);
 		v3 = sub_425890((int*)&byte_5D4594[1305796]);
 		if (!v3)
@@ -9763,7 +9764,7 @@ int __cdecl sub_4A0030(const void* a1) {
 		v1[2] = 32 - *((unsigned __int8*)v1 + 103);
 		return sub_425790((int*)&byte_5D4594[1305796], v1);
 	case 4:
-		if (*(unsigned __int8**)&byte_5D4594[1305800] == &byte_5D4594[1305796])
+		if (*(unsigned __int8**)&dword_5d4594_1305800 == &byte_5D4594[1305796])
 			return sub_425790((int*)&byte_5D4594[1305796], v1);
 		v6 = sub_43BCB0(*(_WORD*)((char*)v1 + 163));
 		v3 = sub_425890((int*)&byte_5D4594[1305796]);
@@ -9779,7 +9780,7 @@ int __cdecl sub_4A0030(const void* a1) {
 				goto LABEL_6;
 		}
 	case 5:
-		if (*(unsigned __int8**)&byte_5D4594[1305800] == &byte_5D4594[1305796])
+		if (*(unsigned __int8**)&dword_5d4594_1305800 == &byte_5D4594[1305796])
 			return sub_425790((int*)&byte_5D4594[1305796], v1);
 		v8 = sub_43BCB0(*(_WORD*)((char*)v1 + 163));
 		v3 = sub_425890((int*)&byte_5D4594[1305796]);
@@ -9885,9 +9886,9 @@ int* sub_4A0390() {
 	_DWORD* v5; // [esp+4h] [ebp-8h]
 
 	sub_425760(&v4);
-	v0 = *(_DWORD**)&byte_5D4594[1305800];
+	v0 = *(_DWORD**)&dword_5d4594_1305800;
 	v4[0] = *(_DWORD*)&byte_5D4594[1305796];
-	v5 = *(_DWORD**)&byte_5D4594[1305800];
+	v5 = *(_DWORD**)&dword_5d4594_1305800;
 	if (*(_DWORD*)&byte_5D4594[1305796]) {
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1305796] + 4) = &v4;
 		v0 = v5;
