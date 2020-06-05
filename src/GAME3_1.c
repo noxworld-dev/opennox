@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1316408;
 extern _QWORD qword_581450_9512;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_1320968;
@@ -749,9 +750,9 @@ void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5) {
 	v6 = a4 - a2;
 	v7 = a5 - a3;
 	v8 = sub_48C6B0(a4 - a2, a5 - a3);
-	*(_DWORD*)&byte_5D4594[1316408] = v8 / 40 + 1;
+	dword_5d4594_1316408 = v8 / 40 + 1;
 	if (v8 / 40 + 2 >= 30)
-		*(_DWORD*)&byte_5D4594[1316408] = 28;
+		dword_5d4594_1316408 = 28;
 	a1a.field_0 = a2;
 	v9 = *(float*)&byte_587000[8 * a1 + 194136];
 	v10 = *(float*)&byte_587000[8 * a1 + 194140];
@@ -783,10 +784,10 @@ void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5) {
 			*(float*)&byte_5D4594[4 * v17 + 1313856] = *(float*)&byte_5D4594[4 * v17 + 1313856] + 0.25;
 		else
 			*(float*)&byte_5D4594[1313856] = *(float*)&byte_5D4594[1313856] + 0.2;
-		v18 = *(_DWORD*)&byte_5D4594[1316408];
+		v18 = dword_5d4594_1316408;
 		if (*(float*)&byte_5D4594[4 * v17 + 1313856] >= 1.0) {
-			v19 = *(_DWORD*)&byte_5D4594[1316408] + 1;
-			if (*(_DWORD*)&byte_5D4594[1316408] + 1 > 0) {
+			v19 = dword_5d4594_1316408 + 1;
+			if (dword_5d4594_1316408 + 1 > 0) {
 				v20 = &byte_5D4594[28 * (v19 + 30 * v17) + 1313872];
 				do {
 					*((_DWORD*)v20 + 6) = *((_DWORD*)v20 - 1);
