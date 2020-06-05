@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1049804;
 extern _DWORD dword_5d4594_1062496;
 extern _DWORD dword_5d4594_1063120;
 extern _DWORD dword_5d4594_1062488;
@@ -1341,13 +1342,13 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 				   *(int*)&dword_5d4594_1049800);
 			goto LABEL_121;
 		}
-		*(_DWORD*)&byte_5D4594[1049804] = (v56.field_0 - 314) / 50;
+		dword_5d4594_1049804 = (v56.field_0 - 314) / 50;
 		*(_DWORD*)&byte_5D4594[1049808] = (dword_5d4594_1062512 + v56.field_4 - 13) / 50;
 		if (!sub_464B40((v56.field_0 - 314) / 50, (dword_5d4594_1062512 + v56.field_4 - 13) / 50))
 			goto LABEL_121;
 		if (dword_5d4594_1049856) {
-			v39 = 148 * (*(_DWORD*)&byte_5D4594[1049808] + 14 * *(_DWORD*)&byte_5D4594[1049804] +
-				     7 * *(_DWORD*)&byte_5D4594[1049804]);
+			v39 = 148 * (*(_DWORD*)&byte_5D4594[1049808] + 14 * dword_5d4594_1049804 +
+				     7 * dword_5d4594_1049804);
 			if (byte_5D4594[v39 + 1050160] && (v40 = *(_DWORD**)&byte_5D4594[v39 + 1050020]) != 0 &&
 			    ((v41 = v40[28], v41 & 0x2000000) &&
 				 *(_DWORD*)(*(_DWORD*)&byte_5D4594[1049848] + 112) & 0x2000000 &&
@@ -1372,7 +1373,7 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 			sub_4649B0(*(int*)&byte_5D4594[1049848], v54, v55);
 			goto LABEL_121;
 		}
-		if (!sub_4649B0(*(int*)&byte_5D4594[1049848], *(int*)&byte_5D4594[1049804],
+		if (!sub_4649B0(*(int*)&byte_5D4594[1049848], *(int*)&dword_5d4594_1049804,
 				*(int*)&byte_5D4594[1049808])) {
 		LABEL_80:
 			sub_4649B0(*(int*)&byte_5D4594[1049848], *(int*)&dword_5d4594_1049796,
@@ -1385,8 +1386,8 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 		v44 = 37 * v43;
 		v45 = *(_DWORD*)&byte_5D4594[148 * v43 + 1050156];
 		if (v45) {
-			v46 = 148 * (*(_DWORD*)&byte_5D4594[1049808] + 14 * *(_DWORD*)&byte_5D4594[1049804] +
-				     7 * *(_DWORD*)&byte_5D4594[1049804]);
+			v46 = 148 * (*(_DWORD*)&byte_5D4594[1049808] + 14 * dword_5d4594_1049804 +
+				     7 * dword_5d4594_1049804);
 			*(_DWORD*)&byte_5D4594[v46 + 1050156] = v45;
 			*(_DWORD*)&byte_5D4594[4 * v44 + 1050156] = 0;
 			dword_5d4594_1062480 = &byte_5D4594[v46 + 1050020];
