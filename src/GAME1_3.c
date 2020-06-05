@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_5d4594_815724;
 extern _QWORD qword_581450_9552;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_830148;
@@ -958,8 +959,8 @@ int sub_43CB50() {
 //----- (0043CBB0) --------------------------------------------------------
 int sub_43CBB0() {
 	sub_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
-	if ((unsigned __int64)(sub_416BB0() - *(_QWORD*)&byte_5D4594[815724]) >= 0x7D0) {
-		*(_QWORD*)&byte_5D4594[815724] = sub_416BB0();
+	if ((unsigned __int64)(sub_416BB0() - *(_QWORD*)&qword_5d4594_815724) >= 0x7D0) {
+		*(_QWORD*)&qword_5d4594_815724 = sub_416BB0();
 		sub_552E70(*(unsigned int*)&dword_5d4594_815700);
 	}
 	sub_552460();
@@ -1016,10 +1017,10 @@ int sub_43CCA0() {
 			}
 		}
 	}
-	v3 = sub_416BB0() - *(_QWORD*)&byte_5D4594[815724];
+	v3 = sub_416BB0() - *(_QWORD*)&qword_5d4594_815724;
 	*(_DWORD*)&v7[4] = HIDWORD(v3);
 	if (v3 >= 0x7D0) {
-		*(_QWORD*)&byte_5D4594[815724] = sub_416BB0();
+		*(_QWORD*)&qword_5d4594_815724 = sub_416BB0();
 		sub_552E70(*(unsigned int*)&dword_5d4594_815700);
 	}
 	if (!nox_common_gameFlags_check_40A5C0(1))
