@@ -1,6 +1,7 @@
 #include "guivote.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1197332;
 extern _DWORD dword_5d4594_1197316;
 extern _DWORD dword_5d4594_1197320;
 extern _DWORD dword_5d4594_1197324;
@@ -86,7 +87,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 		v12 = loadString_sub_40F1D0((char*)&byte_587000[157004], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c",
 					    498);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16397, (int)v12, 4);
-		if (*(_DWORD*)&byte_5D4594[1197332] == 1)
+		if (dword_5d4594_1197332 == 1)
 			nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16403, 0, 0);
 		else
 			nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16403, 1, 0);
