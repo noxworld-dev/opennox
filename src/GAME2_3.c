@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1217452;
 extern _DWORD dword_5d4594_3798716;
 extern _DWORD dword_5d4594_1193712;
 extern _DWORD dword_5d4594_3596;
@@ -4623,7 +4624,7 @@ int __cdecl sub_498C20(int2* a1, int2* a2, int a3) {
 		return 0;
 	if (!a3)
 		return 0;
-	*(_DWORD*)&byte_5D4594[1217452] = 0;
+	dword_5d4594_1217452 = 0;
 	v5 = sub_4990D0(a1, a2);
 	v6 = v5;
 	v37 = v5;
@@ -4741,7 +4742,7 @@ int __cdecl sub_498C20(int2* a1, int2* a2, int a3) {
 		}
 	}
 	sub_4991E0(v3);
-	return *(_DWORD*)&byte_5D4594[1217452];
+	return dword_5d4594_1217452;
 }
 // 498EE0: variable 'v29' is possibly undefined
 // 498EFA: variable 'v31' is possibly undefined
@@ -4797,12 +4798,12 @@ char __cdecl sub_4990D0(_DWORD* a1, _DWORD* a2) {
 int __cdecl sub_499130(int* a1) {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1217452];
-	if (*(int*)&byte_5D4594[1217452] < 32) {
-		result = *(_DWORD*)&byte_5D4594[1217452] + 1;
+	result = dword_5d4594_1217452;
+	if (*(int*)&dword_5d4594_1217452 < 32) {
+		result = dword_5d4594_1217452 + 1;
 		*(_DWORD*)&byte_5D4594[8 * result + 1212060] = *a1;
 		*(_DWORD*)&byte_5D4594[8 * result + 1212064] = a1[1];
-		*(_DWORD*)&byte_5D4594[1217452] = result;
+		dword_5d4594_1217452 = result;
 	}
 	return result;
 }
@@ -4866,8 +4867,8 @@ void __cdecl sub_4991E0(_DWORD* a1) {
 	int v12;             // [esp+4h] [ebp-4h]
 	int v13;             // [esp+Ch] [ebp+4h]
 
-	v1 = *(_DWORD*)&byte_5D4594[1217452];
-	if (*(_DWORD*)&byte_5D4594[1217452] > 0) {
+	v1 = dword_5d4594_1217452;
+	if (dword_5d4594_1217452 > 0) {
 		v2 = a1;
 		v3 = 1;
 		v12 = 1;
@@ -4893,7 +4894,7 @@ void __cdecl sub_4991E0(_DWORD* a1) {
 					v7 += 2;
 					--v13;
 				} while (v13);
-				v1 = *(_DWORD*)&byte_5D4594[1217452];
+				v1 = dword_5d4594_1217452;
 				v3 = v12;
 			}
 			++v3;
