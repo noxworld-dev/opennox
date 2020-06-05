@@ -1,6 +1,7 @@
 #include "selcolor.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1308124;
 extern _DWORD dword_5d4594_1308092;
 extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1308084;
@@ -155,7 +156,7 @@ wchar_t* sub_4A68C0() {
 	}
 	*(_BYTE*)(dword_5d4594_1307784 + 83) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308116] + 32) >> 16;
 	*(_BYTE*)(dword_5d4594_1307784 + 84) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308120] + 32) >> 16;
-	*(_BYTE*)(dword_5d4594_1307784 + 85) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308124] + 32) >> 16;
+	*(_BYTE*)(dword_5d4594_1307784 + 85) = *(_DWORD*)(dword_5d4594_1308124 + 32) >> 16;
 	*(_BYTE*)(dword_5d4594_1307784 + 86) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308128] + 32) >> 16;
 	result = *(wchar_t**)&dword_5d4594_1307784;
 	*(_BYTE*)(dword_5d4594_1307784 + 87) = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308132] + 32) >> 16;
@@ -260,7 +261,7 @@ int sub_4A75C0() {
 	}
 	v25[1219] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308116] + 32) >> 16;
 	v25[1220] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308120] + 32) >> 16;
-	v25[1221] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308124] + 32) >> 16;
+	v25[1221] = *(_DWORD*)(dword_5d4594_1308124 + 32) >> 16;
 	v25[1222] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308128] + 32) >> 16;
 	v25[1223] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1308132] + 32) >> 16;
 	v13 = sub_409E10();
