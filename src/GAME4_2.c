@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835352;
 extern _DWORD dword_5d4594_2487620;
 extern _DWORD dword_5d4594_2487708;
 extern _DWORD dword_5d4594_2487552;
@@ -106,7 +107,7 @@ LABEL_11:
 	v5 = a4;
 LABEL_19:
 	if (v5 == 2) {
-		if (*(_DWORD*)&byte_5D4594[3835352] == 1) {
+		if (dword_5d4594_3835352 == 1) {
 			if (v7) {
 				v19 = v7[6];
 				v20 = v7[7];
@@ -135,7 +136,7 @@ LABEL_19:
 	}
 	if (v5 != 1)
 		return 0;
-	if (*(_DWORD*)&byte_5D4594[3835352] == 1) {
+	if (dword_5d4594_3835352 == 1) {
 		if (v7) {
 			v24 = v7[6];
 			v25 = v7[7];
