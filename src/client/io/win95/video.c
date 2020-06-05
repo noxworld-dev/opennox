@@ -3,6 +3,7 @@
 #include "../../../proto.h"
 #include "../console.h"
 
+extern _DWORD dword_5d4594_3801808;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
@@ -32,7 +33,7 @@ int sub_430F00_screenshot() {
 				byte_5D4594[3 * *(unsigned __int8*)(v7 + v4) + 3804717],
 				byte_5D4594[3 * *(unsigned __int8*)(v7 + v4) + 3804718]);
 		}
-		v4 += *(_DWORD*)&byte_5D4594[3801808];
+		v4 += dword_5d4594_3801808;
 	}
 	v8 = loadString_sub_40F1D0((char*)&byte_587000[81068], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 399);
 	sub_4517A0(v8, path);

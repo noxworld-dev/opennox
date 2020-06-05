@@ -2,6 +2,7 @@
 
 #include "../../../proto.h"
 
+extern _DWORD dword_5d4594_3801808;
 extern _DWORD dword_5d4594_3801780;
 extern int nox_enable_threads;
 
@@ -56,7 +57,7 @@ int nox_video_recreateRenderTarget_47FD70() {
 	sub_49F6D0(1);
 	sub_437290();
 	*(_DWORD*)&byte_5D4594[3804680] = dword_5d4594_3801780;
-	*(_DWORD*)&byte_5D4594[3805488] = *(_DWORD*)&byte_5D4594[3801808] * nox_backbuffer_height;
+	*(_DWORD*)&byte_5D4594[3805488] = dword_5d4594_3801808 * nox_backbuffer_height;
 	*(_DWORD*)&byte_5D4594[3807124] = dword_5d4594_3801780 == 1;
 	sub_430B50(0, 0, NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1);
 	sub_4453A0_poll_events();
