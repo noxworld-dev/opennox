@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_608316;
 extern _DWORD dword_5d4594_1599060;
 extern _DWORD dword_5d4594_2386160;
 extern _DWORD dword_5d4594_251744;
@@ -75,7 +76,7 @@ LPVOID sub_426060() {
 	char* v6;      // esi
 	int v7;        // [esp-4h] [ebp-4h]
 
-	*(_DWORD*)&byte_5D4594[608316] = 0;
+	dword_5d4594_608316 = 0;
 	*(_DWORD*)&byte_5D4594[600116] = time(0);
 	v7 = sub_5545A0();
 	v0 = sub_554230();

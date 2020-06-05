@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_608316;
 extern _DWORD dword_5d4594_830276;
 extern _DWORD dword_5d4594_588084;
 extern _DWORD dword_5d4594_588120;
@@ -9021,7 +9022,7 @@ char* __cdecl sub_425CA0(int a1, int a2) {
 			if (a1) {
 				v3 = a2;
 				if (*(int*)(a1 + 4648) == -1) {
-					v4 = (*(_DWORD*)&byte_5D4594[608316])++;
+					v4 = (dword_5d4594_608316)++;
 					v13 = v4;
 					v5 = 32 * v4;
 					strcpy((char*)&byte_5D4594[v5 + 600124], (const char*)(a1 + 2096));
@@ -9038,7 +9039,7 @@ char* __cdecl sub_425CA0(int a1, int a2) {
 				}
 				if (v3) {
 					if (*(int*)(v3 + 4648) == -1) {
-						v12 = (*(_DWORD*)&byte_5D4594[608316])++;
+						v12 = (dword_5d4594_608316)++;
 						strcpy((char*)&byte_5D4594[32 * v13 + 600124],
 						       (const char*)(v3 + 2096));
 						if (*(_BYTE*)(v3 + 2064) == 31) {
@@ -9064,8 +9065,8 @@ char* __cdecl sub_425CA0(int a1, int a2) {
 				byte_5D4594[2 * *(_DWORD*)&byte_5D4594[739392] + 608320] = v13;
 				byte_5D4594[2 * v11 + 608321] = v12;
 				*(_DWORD*)&byte_5D4594[739392] = v11 + 1;
-				result = *(char**)&byte_5D4594[608316];
-				if (*(_DWORD*)&byte_5D4594[608316] >= 0xFFu)
+				result = *(char**)&dword_5d4594_608316;
+				if (dword_5d4594_608316 >= 0xFFu)
 					result = sub_4263C0();
 			}
 		}
@@ -9133,7 +9134,7 @@ int __cdecl sub_425F10(int a1) {
 				result = *(_DWORD*)(a1 + 4648);
 				v3 = -1;
 				if (result == -1) {
-					v4 = (*(_DWORD*)&byte_5D4594[608316])++;
+					v4 = (dword_5d4594_608316)++;
 					v12 = v4;
 					v5 = (_BYTE*)(v2 + 2096);
 					v6 = 32 * v4;
@@ -9263,13 +9264,13 @@ char* sub_4263C0() {
 		result = (char*)nox_common_gameFlags_check_40A5C0(4096);
 		if (!result) {
 			sub_4282F0((int)&byte_5D4594[599476], (int)&byte_5D4594[600124],
-				   *(size_t*)&byte_5D4594[608316]);
+				   *(size_t*)&dword_5d4594_608316);
 			sub_428540((int)&byte_5D4594[599476], (char*)&byte_5D4594[608320], *(int*)&byte_5D4594[739392]);
 			*(_DWORD*)&byte_5D4594[599504] = time(0) - *(_DWORD*)&byte_5D4594[600116];
 			sub_428810((int)&byte_5D4594[599476], 1);
 			memset(&byte_5D4594[600124], 0, 0x2000u);
 			memset(&byte_5D4594[608320], 0, 0x20000u);
-			*(_DWORD*)&byte_5D4594[608316] = 0;
+			dword_5d4594_608316 = 0;
 			*(_DWORD*)&byte_5D4594[739392] = 0;
 			for (i = sub_416EA0(); i; i = sub_416EE0((int)i))
 				*((_DWORD*)i + 1162) = -1;
