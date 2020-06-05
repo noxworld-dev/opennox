@@ -1,5 +1,6 @@
 #include "auddiag.h"
 #include "../../proto.h"
+extern _DWORD dword_5d4594_831084;
 extern _DWORD dword_587000_122848;
 extern _DWORD dword_5d4594_830864;
 extern _DWORD dword_5d4594_830872;
@@ -17,7 +18,7 @@ int sub_44D810() {
 		*(unsigned int*)&byte_5D4594[830972] = 0;
 		*(unsigned int*)&dword_5d4594_830872 = 0;
 		*(unsigned int*)&byte_5D4594[831080] = 0;
-		*(unsigned int*)&byte_5D4594[831084] = 0;
+		*(unsigned int*)&dword_5d4594_831084 = 0;
 		*(unsigned int*)&byte_5D4594[831076] = 1;
 		loadString_sub_40F1D0((char*)&byte_587000[122920], &v1, "C:\\NoxPost\\src\\client\\Audio\\AudDiag.c",
 				      279);
