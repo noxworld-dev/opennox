@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523896;
 extern _DWORD dword_587000_312788;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_587000_311480;
@@ -5267,8 +5268,8 @@ char* sub_57BFB0() {
 	result = nox_new_alloc_class("ItemGroupInfo", 96, 512);
 	*(_DWORD*)&byte_5D4594[2523892] = result;
 	if (result) {
-		*(_DWORD*)&byte_5D4594[2523896] = nox_new_alloc_class("ItemGroupElement", 16, 5000);
-		result = (char*)(*(_DWORD*)&byte_5D4594[2523896] != 0);
+		dword_5d4594_2523896 = nox_new_alloc_class("ItemGroupElement", 16, 5000);
+		result = (char*)(dword_5d4594_2523896 != 0);
 	}
 	return result;
 }
@@ -5276,7 +5277,7 @@ char* sub_57BFB0() {
 //----- (0057C000) --------------------------------------------------------
 void sub_57C000() {
 	*(_DWORD*)&byte_5D4594[2523904] = 0;
-	sub_4144D0(*(_DWORD**)&byte_5D4594[2523896]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_2523896);
 	sub_4144D0(*(_DWORD**)&byte_5D4594[2523892]);
 	dword_5d4594_2523900 = 0;
 }
@@ -5288,9 +5289,9 @@ int sub_57C030() {
 		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2523892]);
 		*(_DWORD*)&byte_5D4594[2523892] = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[2523896]) {
-		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2523896]);
-		*(_DWORD*)&byte_5D4594[2523896] = 0;
+	if (dword_5d4594_2523896) {
+		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2523896);
+		dword_5d4594_2523896 = 0;
 	}
 	dword_5d4594_2523900 = 0;
 	return 1;
@@ -5375,7 +5376,7 @@ int __cdecl sub_57C130(_DWORD* a1, int a2) {
 	if (result) {
 		if (v4 && v4 != 1 && v4 != 3) {
 			if (v4 != 2) {
-				sub_414330(*(unsigned int**)&byte_5D4594[2523896], (_QWORD*)result);
+				sub_414330(*(unsigned int**)&dword_5d4594_2523896, (_QWORD*)result);
 				return 0;
 			}
 			*(_DWORD*)result = *a1;
@@ -5457,13 +5458,13 @@ void* sub_57C330() {
 }
 
 //----- (0057C360) --------------------------------------------------------
-void* sub_57C360() { return nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[2523896]); }
+void* sub_57C360() { return nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2523896); }
 
 //----- (0057C370) --------------------------------------------------------
 void __cdecl sub_57C370(_QWORD* a1) { sub_414330(*(unsigned int**)&byte_5D4594[2523892], a1); }
 
 //----- (0057C390) --------------------------------------------------------
-void __cdecl sub_57C390(_QWORD* a1) { sub_414330(*(unsigned int**)&byte_5D4594[2523896], a1); }
+void __cdecl sub_57C390(_QWORD* a1) { sub_414330(*(unsigned int**)&dword_5d4594_2523896, a1); }
 
 //----- (0057C3B0) --------------------------------------------------------
 int __cdecl nox_server_addNewMapGroup_57C3B0(int a1) {
