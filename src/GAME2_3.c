@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193584;
 extern _DWORD dword_5d4594_1301832;
 extern _DWORD dword_5d4594_1301836;
 extern _DWORD dword_5d4594_1301776;
@@ -74,7 +75,7 @@ int sub_48C4D0() {
 	int v6;               // [esp-4h] [ebp-10h]
 
 	v0 = *(unsigned __int16**)&dword_5d4594_1193516;
-	v1 = *(_WORD**)&byte_5D4594[1193584];
+	v1 = *(_WORD**)&dword_5d4594_1193584;
 	v6 = *(_DWORD*)&byte_5D4594[1193520];
 	do {
 		v2 = *v0;
@@ -91,7 +92,7 @@ int sub_48C4D0() {
 	} while ((*(_DWORD*)&byte_5D4594[1193520])-- > 1);
 	*(_DWORD*)&byte_5D4594[1193520] = v6;
 	dword_5d4594_1193516 = v0;
-	*(_DWORD*)&byte_5D4594[1193584] = v1;
+	dword_5d4594_1193584 = v1;
 	return result;
 }
 
