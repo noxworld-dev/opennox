@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1049536;
 extern _DWORD dword_5d4594_1048144;
 extern _DWORD dword_5d4594_1049484;
 extern _DWORD dword_5d4594_1047552;
@@ -221,7 +222,7 @@ int sub_45E190() {
 		dword_5d4594_1049504 = nox_window_new(0, 1160, dword_5d4594_1047548 + 260,
 								 *(int*)&dword_5d4594_1047552, 45, 66, 0);
 		sub_46AE40(*(int*)&dword_5d4594_1049504, -263, 0);
-		*(_DWORD*)&byte_5D4594[1049536] = nox_win_height - 74;
+		dword_5d4594_1049536 = nox_win_height - 74;
 		sub_46B300(*(int*)&dword_5d4594_1049504, sub_45F8D0);
 		dword_5d4594_1049520 = nox_window_new(*(int*)&dword_5d4594_1049504, 1032, 9, 33, 32, 32, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1049520, sub_45F7A0, sub_460000, 0);
@@ -236,7 +237,7 @@ int sub_45E190() {
 		dword_5d4594_1049504 = nox_window_new(0, 1672, dword_5d4594_1047548 + 260,
 								 *(int*)&dword_5d4594_1047552, 45, 66, 0);
 		sub_46AE40(*(int*)&dword_5d4594_1049504, -263, 0);
-		*(_DWORD*)&byte_5D4594[1049536] = nox_win_height - 74;
+		dword_5d4594_1049536 = nox_win_height - 74;
 		sub_46B300(*(int*)&dword_5d4594_1049504, sub_45F8D0);
 	}
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251)) {
@@ -805,7 +806,7 @@ _DWORD* __cdecl sub_460EC0(int a1) {
 	result = *(_DWORD**)&dword_5d4594_1049500;
 	if (!(*(_BYTE*)(dword_5d4594_1049500 + 4) & 8)) {
 		v2 = 50;
-		*(_DWORD*)&byte_5D4594[1049536] = nox_win_height + 1;
+		dword_5d4594_1049536 = nox_win_height + 1;
 		do {
 			v8 = sub_415FF0(4, 6, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2732);
 			v7 = sub_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2731);
