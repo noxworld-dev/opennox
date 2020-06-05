@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830972;
 extern _DWORD dword_5d4594_1049696;
 extern _DWORD dword_5d4594_831092;
 extern _DWORD dword_5d4594_1046540;
@@ -511,12 +512,12 @@ void sub_44D3A0() {
 				goto LABEL_29;
 			}
 			dword_5d4594_830864 = 3;
-			*(_DWORD*)&byte_5D4594[830972] = dword_5d4594_830872;
+			dword_5d4594_830972 = dword_5d4594_830872;
 			*(_DWORD*)&byte_5D4594[830860] = *(_DWORD*)&byte_5D4594[830868];
 			break;
 		case 3:
-			if (!dword_587000_122848 || !*(_DWORD*)&byte_5D4594[830972] ||
-			    dword_5d4594_830872 != *(_DWORD*)&byte_5D4594[830972] ||
+			if (!dword_587000_122848 || !dword_5d4594_830972 ||
+			    dword_5d4594_830872 != dword_5d4594_830972 ||
 			    !dword_5d4594_831088 || AIL_stream_status(dword_5d4594_831088) == 2) {
 				dword_5d4594_830864 = 4;
 				sub_486350((int)&byte_5D4594[830876], 0);
@@ -531,7 +532,7 @@ void sub_44D3A0() {
 					sub_43DBE0();
 					dword_5d4594_831084 = 0;
 				}
-				if (*(_DWORD*)&byte_5D4594[830972] == dword_5d4594_830872)
+				if (dword_5d4594_830972 == dword_5d4594_830872)
 				LABEL_29:
 					dword_5d4594_830872 = 0;
 			}
@@ -644,7 +645,7 @@ int sub_44D8F0() {
 
 	result = 0;
 	dword_5d4594_830872 = 0;
-	*(_DWORD*)&byte_5D4594[830972] = 0;
+	dword_5d4594_830972 = 0;
 	return result;
 }
 
