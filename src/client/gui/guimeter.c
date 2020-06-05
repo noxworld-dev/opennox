@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1096264;
 extern _DWORD dword_5d4594_1096256;
 extern _DWORD dword_5d4594_1096280;
 extern _DWORD dword_5d4594_1096260;
@@ -99,7 +100,7 @@ int sub_4714E0() {
 	if (!*(_DWORD*)&byte_5D4594[2618908])
 		return 0;
 	dword_5d4594_1096288 = sub_43F360((char*)&byte_587000[148576]);
-	*(_DWORD*)&byte_5D4594[1096264] = 0;
+	dword_5d4594_1096264 = 0;
 	dword_5d4594_1096256 = 0;
 	dword_5d4594_1096260 = 0;
 	*(_DWORD*)&byte_5D4594[1091908] = 0;
@@ -247,7 +248,7 @@ int __cdecl sub_471D10(int xLeft) {
 	v2 = v18;
 	v3 = &byte_5D4594[20 * v18 + 1093036];
 	v20 = &byte_5D4594[20 * v18 + 1093036];
-	if (!v18 && *(_DWORD*)&byte_5D4594[1096264]) {
+	if (!v18 && dword_5d4594_1096264) {
 		nox_client_wndGetPosition_46AA60(*(_DWORD**)&dword_5d4594_1090276, &xLeft, &yTop);
 		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1091900], xLeft, yTop);
 	}
@@ -276,7 +277,7 @@ int __cdecl sub_471D10(int xLeft) {
 				if (v7[2]) {
 					v8 = *(v7 - 1) >> 4;
 					if (v8 >= 125 - v6) {
-						if (*(_DWORD*)&byte_5D4594[1096264])
+						if (dword_5d4594_1096264)
 							nox_client_drawSetColor_434460(*((_DWORD*)v20 + 3));
 						else
 							nox_client_drawSetColor_434460(v7[3]);
