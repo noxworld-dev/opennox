@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_251744;
 extern _DWORD dword_5d4594_528252;
 extern _QWORD qword_581450_10392;
 extern _QWORD qword_581450_10256;
@@ -31,17 +32,17 @@ void nullsub_25(_DWORD a1) {}
 void __cdecl sub_413980(int a1) {
 	if (a1) {
 		sub_413A00(1);
-		*(_DWORD*)&byte_5D4594[251744] = a1 + sub_430B40_get_mouse_prev_seq();
+		dword_5d4594_251744 = a1 + sub_430B40_get_mouse_prev_seq();
 	} else {
-		*(_DWORD*)&byte_5D4594[251744] = 0;
+		dword_5d4594_251744 = 0;
 	}
 }
 
 //----- (004139C0) --------------------------------------------------------
 void sub_4139C0() {
-	if (*(_DWORD*)&byte_5D4594[251744]) {
-		if (sub_430B40_get_mouse_prev_seq() >= *(int*)&byte_5D4594[251744]) {
-			*(_DWORD*)&byte_5D4594[251744] = 0;
+	if (dword_5d4594_251744) {
+		if (sub_430B40_get_mouse_prev_seq() >= *(int*)&dword_5d4594_251744) {
+			dword_5d4594_251744 = 0;
 			if (!sub_450560())
 				sub_413A00(0);
 		}
