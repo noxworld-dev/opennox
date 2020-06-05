@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "fx.h"
+extern _DWORD dword_5d4594_1313540;
 
 //----- (004B6770) --------------------------------------------------------
 int __cdecl sub_4B6770(int* a1, int a2, int a3, int a4) {
@@ -59,9 +60,9 @@ int __cdecl nox_thing_magic_sparkle_draw(int* a1, int a2) {
 	int result; // eax
 
 	if (sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5)
-		result = sub_4B6770(a1, a2, *(int*)&byte_5D4594[2523948], *(int*)&byte_5D4594[1313540]);
+		result = sub_4B6770(a1, a2, *(int*)&byte_5D4594[2523948], *(int*)&dword_5d4594_1313540);
 	else
-		result = sub_4B6770(a1, a2, *(int*)&byte_5D4594[1313540], *(int*)&byte_5D4594[1313536]);
+		result = sub_4B6770(a1, a2, *(int*)&dword_5d4594_1313540, *(int*)&byte_5D4594[1313536]);
 	return result;
 }
 
@@ -138,7 +139,7 @@ int __cdecl nox_thing_blue_rain_spark_draw(_DWORD* a1, int a2) {
 	int v4;     // eax
 	int v5;     // edi
 
-	result = sub_4B6970(a1, a2, *(int*)&byte_5D4594[2523948], *(int*)&byte_5D4594[1313540]);
+	result = sub_4B6970(a1, a2, *(int*)&byte_5D4594[2523948], *(int*)&dword_5d4594_1313540);
 	if (result == 1 && *(_BYTE*)(a2 + 296) >= 5) {
 		v3 = *(_DWORD*)&byte_5D4594[1313688];
 		if (!*(_DWORD*)&byte_5D4594[1313688]) {
