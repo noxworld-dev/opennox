@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_823708;
 extern _DWORD dword_5d4594_823684;
 extern _DWORD dword_5d4594_1563664;
 extern _DWORD dword_587000_80832;
@@ -1661,10 +1662,10 @@ int __cdecl sub_443E40(wchar_t* a1) {
 	const wchar_t** i; // edi
 
 	v1 = 0;
-	if (*(int*)&byte_5D4594[823708] <= 0)
+	if (*(int*)&dword_5d4594_823708 <= 0)
 		return 0;
 	for (i = (const wchar_t**)&byte_5D4594[816504]; _nox_wcsicmp(a1, *i); i += 2) {
-		if (++v1 >= *(int*)&byte_5D4594[823708])
+		if (++v1 >= *(int*)&dword_5d4594_823708)
 			return 0;
 	}
 	return *(_DWORD*)&byte_5D4594[8 * v1 + 816500];
@@ -1917,11 +1918,11 @@ int __cdecl sub_4444C0(int a1, int a2) {
 	int v2;     // eax
 	int result; // eax
 
-	v2 = *(_DWORD*)&byte_5D4594[823708];
-	*(_DWORD*)&byte_5D4594[8 * *(_DWORD*)&byte_5D4594[823708] + 816500] = a1;
+	v2 = dword_5d4594_823708;
+	*(_DWORD*)&byte_5D4594[8 * dword_5d4594_823708 + 816500] = a1;
 	*(_DWORD*)&byte_5D4594[8 * v2 + 816504] = a2;
 	result = v2 + 1;
-	*(_DWORD*)&byte_5D4594[823708] = result;
+	dword_5d4594_823708 = result;
 	return result;
 }
 
@@ -1971,7 +1972,7 @@ int sub_444570() {
 }
 
 //----- (00444560) --------------------------------------------------------
-void sub_444560() { *(_DWORD*)&byte_5D4594[823708] = 0; }
+void sub_444560() { dword_5d4594_823708 = 0; }
 
 //----- (004444F0) --------------------------------------------------------
 int sub_4444F0() {
