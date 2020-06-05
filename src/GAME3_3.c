@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312804;
 extern _DWORD dword_587000_312820;
 extern _DWORD dword_5d4594_2649712;
 extern _QWORD qword_581450_10176;
@@ -13097,7 +13098,7 @@ int __cdecl sub_4F37D0(int a1, int a2, int a3) {
 		} else {
 			if (v10 != 2)
 				goto LABEL_28;
-			v11 = (double)v17 * *(float*)&byte_587000[312804];
+			v11 = (double)v17 * *(float*)&dword_587000_312804;
 		}
 	} else {
 		v11 = (double)v17 * *(float*)&byte_587000[312788];
