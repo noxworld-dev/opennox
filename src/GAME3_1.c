@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1321236;
 extern _DWORD dword_5d4594_1320992;
 extern _DWORD dword_5d4594_1321204;
 extern _DWORD dword_5d4594_805844;
@@ -5341,7 +5342,7 @@ char* sub_4C3B70() {
 	char* v2;     // edi
 	char* v3;     // ebx
 
-	nox_window_call_field_94(*(int*)&byte_5D4594[1321236], 16399, 0, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1321236, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16399, 0, 0);
@@ -5351,7 +5352,7 @@ char* sub_4C3B70() {
 		do {
 			if (*v1 != 44) {
 				nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16397, v1[1], -1);
-				nox_window_call_field_94(*(int*)&byte_5D4594[1321236], 16397, (int)&byte_587000[185340],
+				nox_window_call_field_94(*(int*)&dword_5d4594_1321236, 16397, (int)&byte_587000[185340],
 							 -1);
 				v2 = sub_42E8E0(*v1, 1);
 				v3 = sub_42E8E0(*v1, 2);
@@ -5543,7 +5544,7 @@ int sub_4C4220() {
 	result = 0;
 	dword_5d4594_1321228 = 0;
 	dword_5d4594_1321232 = 0;
-	*(_DWORD*)&byte_5D4594[1321236] = 0;
+	dword_5d4594_1321236 = 0;
 	dword_5d4594_1321240 = 0;
 	dword_5d4594_1321244 = 0;
 	dword_5d4594_1321248 = 0;
