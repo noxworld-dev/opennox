@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1301776;
 extern _DWORD dword_5d4594_1307204;
 extern _DWORD dword_5d4594_1197316;
 extern _DWORD dword_5d4594_3798720;
@@ -5290,7 +5291,7 @@ int sub_49A5F0() {
 //----- (0049A630) --------------------------------------------------------
 void sub_49A630() {
 	sub_4144D0(*(_DWORD**)&byte_5D4594[1301772]);
-	*(_DWORD*)&byte_5D4594[1301776] = 0;
+	dword_5d4594_1301776 = 0;
 }
 
 //----- (0049A650) --------------------------------------------------------
@@ -5304,12 +5305,12 @@ _WORD* __cdecl sub_49A650(int a1, __int16 a2) {
 		*(_DWORD*)result = a1;
 		result[2] = a2;
 		*((_DWORD*)result + 2) = sub_430B40_get_mouse_prev_seq();
-		*((_DWORD*)v3 + 3) = *(_DWORD*)&byte_5D4594[1301776];
+		*((_DWORD*)v3 + 3) = dword_5d4594_1301776;
 		*((_DWORD*)v3 + 4) = 0;
-		result = *(_WORD**)&byte_5D4594[1301776];
-		if (*(_DWORD*)&byte_5D4594[1301776])
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1301776] + 16) = v3;
-		*(_DWORD*)&byte_5D4594[1301776] = v3;
+		result = *(_WORD**)&dword_5d4594_1301776;
+		if (dword_5d4594_1301776)
+			*(_DWORD*)(dword_5d4594_1301776 + 16) = v3;
+		dword_5d4594_1301776 = v3;
 	}
 	return result;
 }
@@ -5334,9 +5335,9 @@ void __cdecl sub_49A6A0(_DWORD* a1, int a2) {
 		v9 = *(_DWORD*)&byte_5D4594[2650644];
 	else
 		v9 = *(_DWORD*)&byte_5D4594[2589772];
-	v2 = *(_DWORD**)&byte_5D4594[1301776];
-	v8 = *(_DWORD**)&byte_5D4594[1301776];
-	if (*(_DWORD*)&byte_5D4594[1301776]) {
+	v2 = *(_DWORD**)&dword_5d4594_1301776;
+	v8 = *(_DWORD**)&dword_5d4594_1301776;
+	if (dword_5d4594_1301776) {
 		while (1) {
 			v3 = v2[2];
 			v4 = (_DWORD*)v2[3];
@@ -5381,7 +5382,7 @@ void __cdecl sub_49A880(int a1) {
 	if (v1)
 		*(_DWORD*)(v1 + 12) = *(_DWORD*)(a1 + 12);
 	else
-		*(_DWORD*)&byte_5D4594[1301776] = *(_DWORD*)(a1 + 12);
+		dword_5d4594_1301776 = *(_DWORD*)(a1 + 12);
 	v2 = *(_DWORD*)(a1 + 12);
 	if (v2)
 		*(_DWORD*)(v2 + 16) = *(_DWORD*)(a1 + 16);
@@ -5395,7 +5396,7 @@ int sub_49A8C0() {
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1301772]);
 	result = 0;
 	*(_DWORD*)&byte_5D4594[1301772] = 0;
-	*(_DWORD*)&byte_5D4594[1301776] = 0;
+	dword_5d4594_1301776 = 0;
 	*(_DWORD*)&byte_5D4594[1301780] = 0;
 	return result;
 }
