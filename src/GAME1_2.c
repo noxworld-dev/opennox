@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_811072;
 extern _DWORD dword_5d4594_3807152;
 extern _DWORD dword_5d4594_3807136;
 extern _DWORD dword_5d4594_3805484;
@@ -8774,7 +8775,7 @@ int sub_435CC0() {
 	*(_DWORD*)&byte_587000[85720] = 1;
 	*(_DWORD*)&byte_5D4594[811076] = nox_win_width - 1;
 	*(_DWORD*)&byte_5D4594[811068] = 0;
-	*(_DWORD*)&byte_5D4594[811072] = 0;
+	dword_5d4594_811072 = 0;
 	dword_5d4594_811100 = nox_win_width;
 	*(_DWORD*)&byte_5D4594[811080] = nox_win_height - 1;
 	dword_5d4594_811104 = nox_win_height;
@@ -8863,7 +8864,7 @@ int sub_435F80_draw() {
 		sub_430880(0);
 	sub_476FA0();
 	if (!sub_43C8F0(31, *(_DWORD*)&byte_5D4594[811084] + v0->field_0 - *(_DWORD*)&byte_5D4594[811068],
-			*(_DWORD*)&byte_5D4594[811088] + v0->field_4 - *(_DWORD*)&byte_5D4594[811072]))
+			*(_DWORD*)&byte_5D4594[811088] + v0->field_4 - dword_5d4594_811072))
 		return 1;
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		sub_40B970();
@@ -9018,7 +9019,7 @@ char* sub_437250() { return (char*)&byte_5D4594[811068]; }
 
 //----- (00437260) --------------------------------------------------------
 int4* sub_437260() {
-	return nox_client_copyRect_49F6F0(*(int*)&byte_5D4594[811068], *(int*)&byte_5D4594[811072], *(int*)&dword_5d4594_811100,
+	return nox_client_copyRect_49F6F0(*(int*)&byte_5D4594[811068], *(int*)&dword_5d4594_811072, *(int*)&dword_5d4594_811100,
 			  *(int*)&dword_5d4594_811104);
 }
 
