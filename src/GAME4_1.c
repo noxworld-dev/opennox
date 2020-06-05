@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386492;
 extern _DWORD dword_5d4594_2386564;
 extern _DWORD dword_5d4594_2386920;
 extern _DWORD dword_5d4594_2386568;
@@ -3308,7 +3309,7 @@ int sub_50E2A0() {
 	int result; // eax
 
 	result = nox_new_alloc_class("TradeSessions", 64, 64);
-	*(_DWORD*)&byte_5D4594[2386492] = result;
+	dword_5d4594_2386492 = result;
 	if (result) {
 		dword_5d4594_2386496 = nox_new_alloc_class("TradeItems", 16, 500);
 		if (dword_5d4594_2386496) {
@@ -3327,9 +3328,9 @@ int sub_50E2A0() {
 int sub_50E300() {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[2386492])
-		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386492]);
-	*(_DWORD*)&byte_5D4594[2386492] = 0;
+	if (dword_5d4594_2386492)
+		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386492);
+	dword_5d4594_2386492 = 0;
 	if (dword_5d4594_2386496)
 		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386496);
 	result = 0;
@@ -3356,7 +3357,7 @@ int sub_50E360() {
 			v0 = (_DWORD*)v0[14];
 		} while (v0);
 	}
-	sub_4144D0(*(_DWORD**)&byte_5D4594[2386492]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_2386492);
 	sub_4144D0(*(_DWORD**)&dword_5d4594_2386496);
 	result = 0;
 	memset(&byte_5D4594[2386364], 0, 0x80u);
@@ -3530,7 +3531,7 @@ _DWORD* sub_50E870() {
 	_DWORD* v0; // eax
 	_DWORD* v1; // esi
 
-	v0 = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[2386492]);
+	v0 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386492);
 	v1 = v0;
 	if (!v0)
 		return 0;
@@ -4341,7 +4342,7 @@ void __cdecl sub_510000(int a1) {
 		*(_DWORD*)(v4 + 56) = *(_DWORD*)(a1 + 56);
 	if (a1 == dword_5d4594_2386500)
 		dword_5d4594_2386500 = *(_DWORD*)(a1 + 56);
-	sub_414330(*(unsigned int**)&byte_5D4594[2386492], (_QWORD*)a1);
+	sub_414330(*(unsigned int**)&dword_5d4594_2386492, (_QWORD*)a1);
 }
 
 //----- (005100A0) --------------------------------------------------------
