@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815704;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_587000_93196;
 extern _DWORD dword_5d4594_826036;
@@ -768,7 +769,7 @@ int sub_43C650() {
 }
 
 //----- (0043C6E0) --------------------------------------------------------
-BOOL sub_43C6E0() { return !*(_DWORD*)&byte_5D4594[815704] && !dword_5d4594_815708; }
+BOOL sub_43C6E0() { return !dword_5d4594_815704 && !dword_5d4594_815708; }
 
 //----- (0043C700) --------------------------------------------------------
 int nox_client_isConnected_43C700() { return *(_DWORD*)&byte_5D4594[815764]; }
@@ -823,7 +824,7 @@ int __cdecl sub_43C7B0(char* cp, int hostshort, int a3, signed int* a4) {
 	char v7[40]; // [esp+8h] [ebp-28h]
 
 	memset(v7, 0, sizeof(v7));
-	*(_DWORD*)&byte_5D4594[815704] = 0;
+	dword_5d4594_815704 = 0;
 	dword_5d4594_815708 = 0;
 	*(_DWORD*)&v7[20] = 2048;
 	*(_DWORD*)&v7[8] = hostshort;
@@ -858,9 +859,9 @@ int __cdecl sub_43C860(int a1, unsigned __int8* a2, int a3) {
 			sub_48D660();
 	}
 	*(_QWORD*)&byte_5D4594[815716] = sub_416BB0();
-	if (*(_DWORD*)&byte_5D4594[815704] == 1) {
+	if (dword_5d4594_815704 == 1) {
 		sub_4AB4A0(0);
-		*(_DWORD*)&byte_5D4594[815704] = 0;
+		dword_5d4594_815704 = 0;
 	}
 	if (dword_5d4594_815708 == 1)
 		sub_43CF40();
@@ -1057,8 +1058,8 @@ int sub_43CCA0() {
 	if (*(_DWORD*)&byte_5D4594[815720] || (LODWORD(v4) = *(_DWORD*)&byte_5D4594[815716]) != 0) {
 		v5 = sub_416BB0() - *(_QWORD*)&byte_5D4594[815716];
 		*(_DWORD*)&v7[4] = HIDWORD(v5);
-		if (v5 > 0x7D0 && !*(_DWORD*)&byte_5D4594[815704]) {
-			*(_DWORD*)&byte_5D4594[815704] = 1;
+		if (v5 > 0x7D0 && !dword_5d4594_815704) {
+			dword_5d4594_815704 = 1;
 			sub_4AB4A0(1);
 			*(_QWORD*)&byte_5D4594[815732] = sub_416BB0();
 		}
