@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1046640;
 extern _DWORD dword_5d4594_1046624;
 extern _DWORD dword_5d4594_1046932;
 extern _DWORD dword_5d4594_1046948;
@@ -464,9 +465,9 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 		v9 = sub_424A90(*(int*)&byte_5D4594[1047524]);
 	nox_client_drawImageAt_47D2C0(v9, v21, v22);
 	*(float*)&dword_5d4594_1046636 = *(float*)&dword_5d4594_1046636 + *(float*)&byte_5D4594[1046620];
-	*(float*)&byte_5D4594[1046640] = *(float*)&byte_5D4594[1046640] + *(float*)&dword_5d4594_1046624;
+	*(float*)&dword_5d4594_1046640 = *(float*)&dword_5d4594_1046640 + *(float*)&dword_5d4594_1046624;
 	if ((double)*(int*)&byte_5D4594[1046668] <= *(float*)&dword_5d4594_1046636 &&
-	    (double)*(int*)&byte_5D4594[1046672] <= *(float*)&byte_5D4594[1046640]) {
+	    (double)*(int*)&byte_5D4594[1046672] <= *(float*)&dword_5d4594_1046640) {
 	LABEL_26:
 		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&byte_5D4594[1047524], *(int*)&byte_5D4594[1046852]);
 		sub_45D810();
@@ -499,7 +500,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 		goto LABEL_26;
 	}
 LABEL_27:
-	v23 = nox_float2int(*(float*)&byte_5D4594[1046640]);
+	v23 = nox_float2int(*(float*)&dword_5d4594_1046640);
 	v12 = nox_float2int(*(float*)&dword_5d4594_1046636);
 	sub_46A9B0(a1, v12, v23);
 	return 1;
@@ -522,9 +523,9 @@ int sub_45D870() {
 	if (dword_5d4594_1047520) {
 		v1 = *(_DWORD*)&byte_5D4594[1046652] != 1 ? 0 : 3;
 		v9 = ((int)*(_DWORD*)&byte_5D4594[1046668] - nox_float2int(*(float*)&dword_5d4594_1046636)) / 50;
-		v10 = ((int)*(_DWORD*)&byte_5D4594[1046672] - nox_float2int(*(float*)&byte_5D4594[1046640])) / 50;
+		v10 = ((int)*(_DWORD*)&byte_5D4594[1046672] - nox_float2int(*(float*)&dword_5d4594_1046640)) / 50;
 		v3 = nox_float2int(*(float*)&dword_5d4594_1046636);
-		v4 = nox_float2int(*(float*)&byte_5D4594[1046640]);
+		v4 = nox_float2int(*(float*)&dword_5d4594_1046640);
 		v5 = 50;
 		do {
 			v8 = sub_415FF0(3, 4, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2483);
