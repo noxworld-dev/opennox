@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251508;
 extern _DWORD dword_5d4594_251744;
 extern _DWORD dword_5d4594_251504;
 extern _DWORD dword_5d4594_251556;
@@ -5297,7 +5298,7 @@ wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int
 		else
 			v11 = nox_common_randomInt_415FA0(0, (unsigned __int8)v9[49] - 1);
 		if (a2)
-			*a2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[251508] + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
+			*a2 = *(_DWORD*)(dword_5d4594_251508 + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
 		return *(wchar_t**)(dword_5d4594_251504 + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
 	}
 	nox_missing_string* v12 = (nox_missing_string*)nox_malloc(sizeof(nox_missing_string));
@@ -5352,8 +5353,8 @@ int __cdecl nox_strman_readfile(char* a1) {
 	dword_5d4594_251504 = nox_calloc(*(size_t*)&byte_5D4594[251496], 4);
 	if (!dword_5d4594_251504)
 		return 0;
-	*(_DWORD*)&byte_5D4594[251508] = nox_calloc(*(size_t*)&byte_5D4594[251496], 4);
-	if (!*(_DWORD*)&byte_5D4594[251508])
+	dword_5d4594_251508 = nox_calloc(*(size_t*)&byte_5D4594[251496], 4);
+	if (!dword_5d4594_251508)
 		return 0;
 	if (v6) {
 		sub_40F830((int)&byte_5D4594[226804]);
@@ -5650,8 +5651,8 @@ int __cdecl sub_40F830(const char* path) {
 					}
 					file_buffer[sz] = 0;
 					if (sz > 0) {
-						*(_DWORD*)(v9 + *(_DWORD*)&byte_5D4594[251508]) = nox_calloc(sz + 1, 1);
-						strcpy(*(char**)(v9 + *(_DWORD*)&byte_5D4594[251508]),
+						*(_DWORD*)(v9 + dword_5d4594_251508) = nox_calloc(sz + 1, 1);
+						strcpy(*(char**)(v9 + dword_5d4594_251508),
 						       (const char*)file_buffer);
 					}
 				}
@@ -5754,8 +5755,8 @@ int sub_40FBE0() {
 			nox_wcscpy(*(wchar_t**)(dword_5d4594_251504 + v4), (const wchar_t*)file_buffer_w);
 			v7 = strlen((const char*)&byte_5D4594[222708]) + 1;
 			if (v7 > 1) {
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[251508] + v4) = nox_calloc(v7, 1u);
-				strcpy(*(char**)(*(_DWORD*)&byte_5D4594[251508] + v4),
+				*(_DWORD*)(dword_5d4594_251508 + v4) = nox_calloc(v7, 1u);
+				strcpy(*(char**)(dword_5d4594_251508 + v4),
 				       (const char*)&byte_5D4594[222708]);
 			}
 			++v3;
@@ -5932,12 +5933,12 @@ void sub_410020() {
 		}
 		free(v0);
 	}
-	v2 = *(LPVOID**)&byte_5D4594[251508];
-	if (*(_DWORD*)&byte_5D4594[251508]) {
+	v2 = *(LPVOID**)&dword_5d4594_251508;
+	if (dword_5d4594_251508) {
 		for (j = 0; j < *(int*)&byte_5D4594[251496]; ++j) {
 			if (v2[j]) {
 				free(v2[j]);
-				v2 = *(LPVOID**)&byte_5D4594[251508];
+				v2 = *(LPVOID**)&dword_5d4594_251508;
 			}
 		}
 		free(v2);
