@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096512;
 extern _DWORD dword_5d4594_1049532;
 extern _DWORD dword_5d4594_1090100;
 extern _DWORD dword_5d4594_2650680;
@@ -8398,8 +8399,8 @@ int sub_473A40() {
 	if (!*(_DWORD*)&byte_5D4594[1096504])
 		return 0;
 	dword_5d4594_1096508 = 0;
-	*(_DWORD*)&byte_5D4594[1096512] = nox_malloc(0x400u);
-	if (!*(_DWORD*)&byte_5D4594[1096512])
+	dword_5d4594_1096512 = nox_malloc(0x400u);
+	if (!dword_5d4594_1096512)
 		return 0;
 	dword_5d4594_1096516 = 0;
 	return 1;
@@ -8437,9 +8438,9 @@ int sub_473B30_free() {
 		*(_DWORD*)&byte_5D4594[1096504] = 0;
 		dword_5d4594_1096508 = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[1096512]) {
-		free(*(LPVOID*)&byte_5D4594[1096512]);
-		*(_DWORD*)&byte_5D4594[1096512] = 0;
+	if (dword_5d4594_1096512) {
+		free(*(LPVOID*)&dword_5d4594_1096512);
+		dword_5d4594_1096512 = 0;
 		dword_5d4594_1096516 = 0;
 	}
 	return 1;
@@ -9074,7 +9075,7 @@ size_t __cdecl sub_4754C0(int a1) {
 
 	result = dword_5d4594_1096516;
 	if (*(int*)&dword_5d4594_1096516 < 256) {
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1096512] + 4 * dword_5d4594_1096516) = a1;
+		*(_DWORD*)(dword_5d4594_1096512 + 4 * dword_5d4594_1096516) = a1;
 		result = ++dword_5d4594_1096516;
 	}
 	return result;
@@ -9367,8 +9368,8 @@ int4* __cdecl sub_475810_draw(int* a1) {
 	sub_475FE0(v1);
 	nox_video_drawCursorSelectCircle_4773C0(v1);
 	qsort(nox_drawable_list_1, (size_t)nox_drawable_list_1_size, sizeof(void*), sub_476160);
-	qsort(*(void**)&byte_5D4594[1096512], *(size_t*)&dword_5d4594_1096516, 4u, sub_476240);
-	v37 = *(unsigned __int8***)&byte_5D4594[1096512];
+	qsort(*(void**)&dword_5d4594_1096512, *(size_t*)&dword_5d4594_1096516, 4u, sub_476240);
+	v37 = *(unsigned __int8***)&dword_5d4594_1096512;
 	v21 = 0x7FFFFFFF;
 	if (nox_drawable_list_1_size)
 		v41 = *(_DWORD*)(*(_DWORD*)nox_drawable_list_1 + 16);
@@ -9376,7 +9377,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 		v41 = 0x7FFFFFFF;
 	nox_drawable** v35 = nox_drawable_list_1;
 	if (dword_5d4594_1096516) {
-		v22 = **(unsigned __int8***)&byte_5D4594[1096512];
+		v22 = **(unsigned __int8***)&dword_5d4594_1096512;
 	LABEL_51:
 		v21 = sub_476080(v22);
 	}
