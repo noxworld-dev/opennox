@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_526276;
 extern _DWORD dword_5d4594_251704;
 extern _DWORD dword_5d4594_1304;
 extern _DWORD dword_5d4594_371756;
@@ -11735,7 +11736,7 @@ int sub_417D90() { return *(_DWORD*)&byte_5D4594[526284]; }
 BOOL __cdecl sub_417DA0(int a1) { return (a1 & *(_DWORD*)&byte_5D4594[526284]) != 0; }
 
 //----- (00417DC0) --------------------------------------------------------
-int sub_417DC0() { return *(_DWORD*)&byte_5D4594[526276]; }
+int sub_417DC0() { return dword_5d4594_526276; }
 
 //----- (00417DD0) --------------------------------------------------------
 unsigned __int8 sub_417DD0() { return byte_5D4594[526280]; }
@@ -11771,14 +11772,14 @@ bool sub_417EC0() {
 	int i; // eax
 
 	sub_416640();
-	*(_DWORD*)&byte_5D4594[526276] = 0;
+	dword_5d4594_526276 = 0;
 	for (i = sub_4DA790(); i; i = sub_4DA7A0(i)) {
 		if (*(_DWORD*)(i + 8) & 0x10000000)
-			++*(_DWORD*)&byte_5D4594[526276];
+			++dword_5d4594_526276;
 	}
-	if (*(_DWORD*)&byte_5D4594[526276] > 0 && !nox_common_gameFlags_check_40A5C0(0x8000))
+	if (dword_5d4594_526276 > 0 && !nox_common_gameFlags_check_40A5C0(0x8000))
 		sub_4181F0(0);
-	return *(_DWORD*)&byte_5D4594[526276] > 0;
+	return dword_5d4594_526276 > 0;
 }
 
 //----- (00417F30) --------------------------------------------------------
