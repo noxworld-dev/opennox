@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_740004;
 extern _DWORD dword_5d4594_528272;
 extern _DWORD dword_5d4594_741252;
 extern _DWORD dword_5d4594_741248;
@@ -9595,7 +9596,7 @@ int __cdecl sub_426A50(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[740004] = a1;
+	dword_5d4594_740004 = a1;
 	return result;
 }
 
@@ -9626,7 +9627,7 @@ size_t __cdecl sub_426AC0_file3_fread(_BYTE* a1, size_t a2) {
 	size_t v5;     // esi
 
 	if (*(_DWORD*)&byte_5D4594[3803300]) {
-		if (*(_DWORD*)&byte_5D4594[740004]) {
+		if (dword_5d4594_740004) {
 			v5 = fread(a1, a2, 1, nox_file_3);
 			sub_56FDD0(126, a1, a2);
 		} else {
@@ -9637,7 +9638,7 @@ size_t __cdecl sub_426AC0_file3_fread(_BYTE* a1, size_t a2) {
 		result = v5;
 	} else {
 		sub_426BD0(a1, a2);
-		if (*(_DWORD*)&byte_5D4594[740004]) {
+		if (dword_5d4594_740004) {
 			v2 = nox_calloc(a2, 1u);
 			if (v2) {
 				qmemcpy(v2, a1, a2);
@@ -9681,7 +9682,7 @@ int __cdecl sub_426BD0(unsigned __int8* a1, int a2) {
 //----- (00426C20) --------------------------------------------------------
 void __cdecl sub_426C20(_BYTE* a1, size_t a2) {
 	if (*(_DWORD*)&byte_5D4594[3803300] == 1) {
-		if (*(_DWORD*)&byte_5D4594[740004]) {
+		if (dword_5d4594_740004) {
 			fread(a1, a2, 1u, nox_file_3);
 			sub_56FDD0(126, a1, a2);
 		} else if (sub_426A40()) {
@@ -9700,7 +9701,7 @@ void __cdecl sub_426C90() {
 	void* v5; // [esp+0h] [ebp-4h]
 
 	if (!*(_DWORD*)&byte_5D4594[3803300]) {
-		if (*(_DWORD*)&byte_5D4594[740004]) {
+		if (dword_5d4594_740004) {
 			v2 = (void*)ftell(nox_file_3);
 			*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[740072] + 740008] = v2;
 			v5 = v2;
@@ -9728,7 +9729,7 @@ void __cdecl sub_426D40() {
 	--*(_DWORD*)&byte_5D4594[740072];
 	if (*(_DWORD*)&byte_5D4594[3803300])
 		return;
-	if (*(_DWORD*)&byte_5D4594[740004]) {
+	if (dword_5d4594_740004) {
 		v1 = ftell(nox_file_3);
 		v2 = *(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[740072] + 740008];
 		v3 = (void*)(v1 - v2 - 4);
