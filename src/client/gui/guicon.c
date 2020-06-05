@@ -3,6 +3,7 @@
 #include "../system/parsecmd.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_833728;
 extern _DWORD dword_5d4594_833732;
 extern _DWORD dword_5d4594_833720;
 extern _DWORD dword_5d4594_833712;
@@ -74,8 +75,8 @@ int sub_451350() {
 		*(_DWORD*)(dword_5d4594_833716 + 4) |= 8u;
 		*(_DWORD*)(dword_5d4594_833716 + 4) |= 1u;
 		sub_46B500(*(int*)&dword_5d4594_833716);
-		result = *(_DWORD*)&byte_5D4594[833728];
-		if (*(_DWORD*)&byte_5D4594[833728]) {
+		result = dword_5d4594_833728;
+		if (dword_5d4594_833728) {
 			sub_450B70();
 			v1 = loadString_sub_40F1D0((char*)&byte_587000[126620], 0,
 						   "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 459);
