@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_5d4594_2650680;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_3798800;
 extern _DWORD dword_5d4594_2650676;
@@ -221,7 +222,7 @@ void __cdecl sub_484F90(int a1) {
 				v5 = *(_DWORD*)(v1 + 168);
 				v6 = *(_DWORD*)(v1 + 12) - dword_5d4594_2650676;
 				v39 = a5 * a5;
-				v7 = v4 - *(_DWORD*)&byte_5D4594[2650680];
+				v7 = v4 - dword_5d4594_2650680;
 				a4 = v6;
 				v42 = v7;
 				if (v5 == 0xFFFF) {
@@ -375,7 +376,7 @@ void __cdecl sub_484E60(int a1) {
 
 	v1 = (_DWORD*)a1;
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
-	*(_DWORD*)&byte_5D4594[2650680] = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
+	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_engineFlags & 0x800) {
 		memset(&byte_5D4594[2616332], 0x1Fu, 0xA04u);
 		byte_5D4594[2618896] = 31;
@@ -421,7 +422,7 @@ char* __cdecl sub_485740(_DWORD* a1) {
 	if (nox_common_engineFlags & 0x800)
 		return (char*)&byte_587000[155000];
 	v1 = *a1 - dword_5d4594_2650676;
-	v2 = a1[1] - *(_DWORD*)&byte_5D4594[2650680];
+	v2 = a1[1] - dword_5d4594_2650680;
 	v3 = v1 / 23;
 	v4 = v2 / 23;
 	if (v1 / 23 < 0 || v4 < 0 || v3 > 56 || v4 > 44)
@@ -729,7 +730,7 @@ void __cdecl sub_469140(int arg0) {
 				v5 = *(_DWORD*)(arg0 + 12) - dword_5d4594_2650676;
 				v36 = (v3 >> 16) * (v3 >> 16);
 				v6 = *(_DWORD*)(arg0 + 168);
-				v7 = *(_DWORD*)(arg0 + 16) - *(_DWORD*)&byte_5D4594[2650680];
+				v7 = *(_DWORD*)(arg0 + 16) - dword_5d4594_2650680;
 				a4.field_0 = *(_DWORD*)(arg0 + 12) - dword_5d4594_2650676;
 				a4.field_4 = v7;
 				if (v6 == 0xFFFF) {
@@ -875,7 +876,7 @@ void __cdecl sub_468F80(int a1) {
 
 	v1 = (_DWORD*)a1;
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
-	*(_DWORD*)&byte_5D4594[2650680] = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
+	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_engineFlags & 0x800) {
 		v2 = 2464;
 		v3 = &byte_5D4594[2618924];
