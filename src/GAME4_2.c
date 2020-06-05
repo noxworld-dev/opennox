@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487620;
 extern _DWORD dword_5d4594_2487708;
 extern _DWORD dword_5d4594_2487552;
 extern _DWORD dword_5d4594_2487880;
@@ -6273,12 +6274,12 @@ LABEL_10:
 		if (sub_526AC0(0, 100) >= 50) {
 			*(float*)&byte_5D4594[2487612] = v8;
 			*(float*)&byte_5D4594[2487616] = sub_526BC0(v15, v16);
-			*(float*)&byte_5D4594[2487620] = v16;
+			*(float*)&dword_5d4594_2487620 = v16;
 			*(float*)&byte_5D4594[2487624] = sub_526BC0(v15, v16);
 		} else {
 			*(float*)&byte_5D4594[2487612] = sub_526BC0(v15, v16);
 			*(float*)&byte_5D4594[2487616] = v15;
-			*(float*)&byte_5D4594[2487620] = sub_526BC0(v15, v16);
+			*(float*)&dword_5d4594_2487620 = sub_526BC0(v15, v16);
 			*(float*)&byte_5D4594[2487624] = v16;
 		}
 		break;
@@ -6290,14 +6291,14 @@ LABEL_10:
 				if (v9 >= 75) {
 					*(float*)&byte_5D4594[2487612] = v12;
 					*(float*)&byte_5D4594[2487616] = v12;
-					*(float*)&byte_5D4594[2487620] = v12;
+					*(float*)&dword_5d4594_2487620 = v12;
 					*(float*)&byte_5D4594[2487624] = v16;
 					*(float*)&byte_5D4594[2487628] = v16;
 				} else {
 					*(float*)&byte_5D4594[2487616] = v12;
 					*(float*)&byte_5D4594[2487628] = v12;
 					*(float*)&byte_5D4594[2487612] = v16;
-					*(float*)&byte_5D4594[2487620] = v16;
+					*(float*)&dword_5d4594_2487620 = v16;
 					*(float*)&byte_5D4594[2487624] = v16;
 				}
 				*(_DWORD*)&byte_5D4594[2487632] = 0;
@@ -6306,7 +6307,7 @@ LABEL_10:
 				*(float*)&byte_5D4594[2487612] = v11;
 				*(float*)&byte_5D4594[2487632] = v11;
 				*(float*)&byte_5D4594[2487616] = v16;
-				*(float*)&byte_5D4594[2487620] = v16;
+				*(float*)&dword_5d4594_2487620 = v16;
 				*(float*)&byte_5D4594[2487624] = v16;
 				*(_DWORD*)&byte_5D4594[2487628] = 0;
 			}
@@ -6315,7 +6316,7 @@ LABEL_10:
 			*(float*)&byte_5D4594[2487612] = v10;
 			*(float*)&byte_5D4594[2487616] = v10;
 			*(float*)&byte_5D4594[2487624] = v10;
-			*(float*)&byte_5D4594[2487620] = v16;
+			*(float*)&dword_5d4594_2487620 = v16;
 			*(_DWORD*)&byte_5D4594[2487628] = 0;
 			*(float*)&byte_5D4594[2487632] = v16;
 		}
@@ -6328,7 +6329,7 @@ LABEL_10:
 		*(float*)&byte_5D4594[2487616] = v13;
 		*(float*)&byte_5D4594[2487624] = v13;
 		*(float*)&byte_5D4594[2487628] = v13;
-		*(float*)&byte_5D4594[2487620] = v16;
+		*(float*)&dword_5d4594_2487620 = v16;
 		*(float*)&byte_5D4594[2487632] = v16;
 		*(float*)&byte_5D4594[2487636] = v16;
 		*(float*)&byte_5D4594[2487640] = v16;
