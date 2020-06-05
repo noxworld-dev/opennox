@@ -12,6 +12,7 @@ HWND g_hwnd;
 #endif
 DWORD dword_974854;
 int g_fullscreen = -4; // -4 means "unset"
+extern _DWORD dword_5d4594_823776;
 extern int nox_video_dxFullScreen;
 
 const char* g_argv[21];
@@ -260,7 +261,7 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 			sub_413870(wParam);
 			return 1;
 		case 0x201u:
-			if (*(_DWORD*)&byte_5D4594[823776])
+			if (dword_5d4594_823776)
 				sub_4B0610(0);
 			break;
 		case 0x30Fu:
@@ -294,21 +295,21 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 		v5 = (_WORD)wParam == 1 || (_WORD)wParam == 2;
 		goto LABEL_13;
 	case WM_SETFOCUS:
-		if (*(_DWORD*)&byte_5D4594[823776])
+		if (dword_5d4594_823776)
 			sub_48A820(0);
 		goto LABEL_23;
 	case WM_ACTIVATEAPP:
 	LABEL_13:
 		*(_DWORD*)&byte_5D4594[823792] = v5;
 		if (v5) {
-			if (*(_DWORD*)&byte_5D4594[823776]) {
+			if (dword_5d4594_823776) {
 				if (sub_48A2A0())
 					dword_974854 = 0;
 			}
 			sub_42ED20();
 			result = DefWindowProcA(hWnd, v6, v5, v4);
 		} else {
-			if (*(_DWORD*)&byte_5D4594[823776])
+			if (dword_5d4594_823776)
 				sub_48A9C0(1);
 			sub_42ED70();
 			result = DefWindowProcA(hWnd, v6, 0, v4);
@@ -318,7 +319,7 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 		SetCursor(0);
 		return 1;
 	case WM_KEYDOWN:
-		if (!*(_DWORD*)&byte_5D4594[823776])
+		if (!dword_5d4594_823776)
 			goto LABEL_23;
 		v5 = wParam;
 		if (wParam == 27) {
