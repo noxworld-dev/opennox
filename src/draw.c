@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_808564;
 extern _DWORD dword_5d4594_1311936;
 extern _DWORD dword_5d4594_1193672;
 extern _DWORD dword_5d4594_1193624;
@@ -2819,7 +2820,7 @@ int sub_4338D0() {
 #else
 				g_ddraw_gamma_control = 0;
 #endif
-				*(_DWORD*)&byte_5D4594[808564] = 0;
+				dword_5d4594_808564 = 0;
 				sub_4348C0();
 				sub_4352E0();
 				*(_DWORD*)&byte_5D4594[3804660] = 0;
