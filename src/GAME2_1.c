@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80812;
 extern _DWORD dword_5d4594_1093076;
 extern _DWORD dword_5d4594_805844;
 extern _QWORD qword_581450_9512;
@@ -9438,7 +9439,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 	sub_4C5060(v1);
 	v30 = *(unsigned __int8***)&byte_5D4594[1096504];
 	v31 = *(_DWORD*)&byte_5D4594[1096508];
-	if (*(_DWORD*)&byte_587000[80812]) {
+	if (dword_587000_80812) {
 		--*(_DWORD*)&byte_5D4594[1096508];
 		if (v31) {
 			do {
