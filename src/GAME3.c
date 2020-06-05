@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309832;
 extern _DWORD dword_5d4594_1313540;
 extern _DWORD dword_5d4594_1307732;
 extern _DWORD dword_5d4594_1307292;
@@ -6124,14 +6125,14 @@ int sub_4ADAD0() {
 			nox_window_call_field_94((int)v11, 16395, 0, 0x4000);
 			nox_window_call_field_94((int)v11, 16394, *(_DWORD*)(dword_587000_93164 + 4) >> 16,
 						 0);
-			*(_DWORD*)&byte_5D4594[1309832] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 363);
+			dword_5d4594_1309832 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 363);
 			v13 = sub_43DC30();
-			v14 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1309832] + 36);
+			v14 = *(_DWORD*)(dword_5d4594_1309832 + 36);
 			if (v13 == 1)
 				v15 = v14 | 4;
 			else
 				v15 = v14 & 0xFFFFFFFB;
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309832] + 36) = v15;
+			*(_DWORD*)(dword_5d4594_1309832 + 36) = v15;
 			sub_43BEB0_get_video_mode(&v32, &v34, &v33);
 			if (v34 == 480)
 				v31 = 321;
@@ -6310,18 +6311,18 @@ int __cdecl sub_4ADF30(int a1, int a2, int* a3, int a4) {
 			if (a4) {
 				if (sub_43DC30())
 					goto LABEL_64;
-				v8 = *(void(__cdecl**)(_DWORD, int, int, int))(*(_DWORD*)&byte_5D4594[1309832] + 372);
+				v8 = *(void(__cdecl**)(_DWORD, int, int, int))(dword_5d4594_1309832 + 372);
 				if (!v8)
 					goto LABEL_64;
-				v8(*(_DWORD*)&byte_5D4594[1309832], 21, 28, 2);
+				v8(dword_5d4594_1309832, 21, 28, 2);
 				result = 0;
 			} else {
 				if (sub_43DC30() != 1)
 					goto LABEL_64;
-				v7 = *(void(__cdecl**)(_DWORD, int, int, int))(*(_DWORD*)&byte_5D4594[1309832] + 372);
+				v7 = *(void(__cdecl**)(_DWORD, int, int, int))(dword_5d4594_1309832 + 372);
 				if (!v7)
 					goto LABEL_64;
-				v7(*(_DWORD*)&byte_5D4594[1309832], 21, 28, 2);
+				v7(dword_5d4594_1309832, 21, 28, 2);
 				result = 0;
 			}
 			break;
