@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "guimsg.h"
+extern _DWORD dword_5d4594_1098604;
 extern _DWORD dword_5d4594_1098592;
 extern _DWORD dword_5d4594_1098580;
 extern _DWORD dword_5d4594_1098624;
@@ -163,10 +164,10 @@ int __cdecl sub_478FD0(const wchar_t* a1, char* a2, int a3) {
 		nox_wcscpy((wchar_t*)&byte_5D4594[1097300], (const wchar_t*)&byte_5D4594[1107044]);
 	sub_46AEE0((int)v3, (int)&byte_5D4594[1097300]);
 	if (strlen(a2)) {
-		*(_DWORD*)&byte_5D4594[1098604] =
+		dword_5d4594_1098604 =
 		    loadString_sub_40F1D0(a2, &byte_5D4594[1098608], "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1128);
 	} else {
-		*(_DWORD*)&byte_5D4594[1098604] = 0;
+		dword_5d4594_1098604 = 0;
 		*(_DWORD*)&byte_5D4594[1098608] = 0;
 	}
 	sub_4790F0(a3);
