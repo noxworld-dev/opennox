@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_830264;
 extern _DWORD dword_5d4594_830248;
 
 //----- (0044A560) --------------------------------------------------------
@@ -49,21 +50,21 @@ int sub_44A560_wol_login() {
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_830248, sub_44AAC0, 0, 0);
 	}
 	sub_41FCF0();
-	*(_DWORD*)&byte_5D4594[830264] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1708);
-	nox_window_call_field_94(*(int*)&byte_5D4594[830264], 16399, 0, 0);
+	dword_5d4594_830264 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1708);
+	nox_window_call_field_94(*(int*)&dword_5d4594_830264, 16399, 0, 0);
 	for (i = 0; i < 128; ++i) {
 		sub_41FB90(i, &v16, &v17);
 		nox_swprintf(v19, L"%S", v16);
 		if (!v19[0])
 			nox_swprintf(v19, L" ");
-		nox_window_call_field_94(*(int*)&byte_5D4594[830264], 16397, (int)v19, -1);
+		nox_window_call_field_94(*(int*)&dword_5d4594_830264, 16397, (int)v19, -1);
 	}
 	v2 = sub_41FC40();
 	if (v2 == -1) {
 		sub_41FC20(0);
 		v2 = 0;
 	}
-	nox_window_call_field_94(*(int*)&byte_5D4594[830264], 16403, v2, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_830264, 16403, v2, 0);
 	sub_41FB90(v2, &v16, &v17);
 	*(_DWORD*)&byte_5D4594[830256] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1701);
 	if (v16 && *v16) {
@@ -87,13 +88,13 @@ int sub_44A560_wol_login() {
 	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1709);
 	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1710);
 	v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1711);
-	v8 = *(_DWORD**)(*(_DWORD*)&byte_5D4594[830264] + 32);
+	v8 = *(_DWORD**)(dword_5d4594_830264 + 32);
 	v18 = sub_42F970("UISlider");
 	v9 = sub_42F970("UISliderLit");
 	sub_4B5700((int)v5, 0, 0, (int)v18, (int)v9, (int)v9);
-	sub_46B280((int)v5, *(int*)&byte_5D4594[830264]);
-	sub_46B280((int)v6, *(int*)&byte_5D4594[830264]);
-	sub_46B280((int)v7, *(int*)&byte_5D4594[830264]);
+	sub_46B280((int)v5, *(int*)&dword_5d4594_830264);
+	sub_46B280((int)v6, *(int*)&dword_5d4594_830264);
+	sub_46B280((int)v7, *(int*)&dword_5d4594_830264);
 	v8[9] = v5;
 	v8[7] = v6;
 	v8[8] = v7;
