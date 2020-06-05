@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830276;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_830264;
 extern _DWORD dword_5d4594_829504;
@@ -6355,13 +6356,13 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 						if (v17) {
 							if (*v17) {
 								*(_DWORD*)(*(_DWORD*)&byte_5D4594[830252] + 36) |= 4u;
-								*(_DWORD*)&byte_5D4594[830276] = 1;
+								dword_5d4594_830276 = 1;
 								return 0;
 							}
 						}
 					}
 					*(_DWORD*)(*(_DWORD*)&byte_5D4594[830252] + 36) &= 0xFFFFFFFB;
-					*(_DWORD*)&byte_5D4594[830276] = 0;
+					dword_5d4594_830276 = 0;
 				}
 			}
 			return 0;
@@ -6389,8 +6390,8 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 						sub_4A1BE0(0);
 					}
 				} else {
-					*(_DWORD*)&byte_5D4594[830276] ^= 1u;
-					if (*(_DWORD*)&byte_5D4594[830276]) {
+					dword_5d4594_830276 ^= 1u;
+					if (dword_5d4594_830276) {
 						v10 = sub_41F9A0();
 						nox_window_call_field_94(*(int*)&dword_5d4594_830264, 16403, v10, 0);
 						sub_41FC20(v10);
@@ -6403,7 +6404,7 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 				goto LABEL_42;
 			}
 			v17 = 0;
-			if (!*(_DWORD*)&byte_5D4594[830276])
+			if (!dword_5d4594_830276)
 				sub_41FC20(128);
 			v11 = nox_window_call_field_94(*(int*)&byte_5D4594[830256], 16413, 0, 0);
 			nox_sprintf(v20, "%S", v11);
@@ -6421,7 +6422,7 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 				return 1;
 			}
 		}
-		*(_DWORD*)&byte_5D4594[830276] =
+		dword_5d4594_830276 =
 		    (unsigned __int8)(*(_BYTE*)(*(_DWORD*)&byte_5D4594[830252] + 36) & 4) >> 2;
 		sub_41E300(2);
 		v15 = sub_41E2F0();

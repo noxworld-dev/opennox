@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_830276;
 extern _DWORD dword_5d4594_588084;
 extern _DWORD dword_5d4594_588120;
 extern _DWORD dword_5d4594_529324;
@@ -4929,7 +4930,7 @@ int sub_41FDE0() {
 		else
 			nox_common_gameFlags_unset_40A540(0x1000000);
 	}
-	if (!*(_DWORD*)&byte_5D4594[830276])
+	if (!dword_5d4594_830276)
 		sub_41FEE0();
 	return 1;
 }
