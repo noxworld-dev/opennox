@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9552;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_1098624;
 extern _DWORD dword_5d4594_2650676;
@@ -9838,7 +9839,7 @@ _DWORD* __cdecl sub_484BE0(_DWORD* a1, int a2, int a3, int a4) {
 __int64 __cdecl sub_484C00(int a1, int a2) {
 	__int64 result; // rax
 
-	result = (__int64)((double)a2 * 0.0027777778 * *(double*)&byte_581450[9552] + *(double*)&qword_581450_9544);
+	result = (__int64)((double)a2 * 0.0027777778 * *(double*)&qword_581450_9552 + *(double*)&qword_581450_9544);
 	*(_WORD*)(a1 + 28) = result;
 	*(_DWORD*)(a1 + 32) = 0;
 	return result;
@@ -9848,7 +9849,7 @@ __int64 __cdecl sub_484C00(int a1, int a2) {
 __int64 __cdecl sub_484C30(int a1, int a2) {
 	__int64 result; // rax
 
-	result = (__int64)((double)a2 * 0.0027777778 * *(double*)&byte_581450[9552] + *(double*)&qword_581450_9544);
+	result = (__int64)((double)a2 * 0.0027777778 * *(double*)&qword_581450_9552 + *(double*)&qword_581450_9544);
 	*(_WORD*)(a1 + 30) = result;
 	return result;
 }
@@ -9887,7 +9888,7 @@ int __cdecl sub_484D20(int a1, float a2) {
 
 	if (a2 > 63.0)
 		a2 = 63.0;
-	*(_DWORD*)(a1 + 12) = (__int64)(a2 * *(double*)&byte_581450[9552] + *(double*)&qword_581450_9544);
+	*(_DWORD*)(a1 + 12) = (__int64)(a2 * *(double*)&qword_581450_9552 + *(double*)&qword_581450_9544);
 	result = sub_484C60(a2);
 	*(_DWORD*)(a1 + 8) = result;
 	return result;
@@ -9900,7 +9901,7 @@ int __cdecl sub_484D70_light_intensity(int a1, float a2) {
 	if (a2 > 63.0)
 		a2 = 63.0;
 	*(float*)(a1 + 4) = a2;
-	*(_DWORD*)(a1 + 12) = (__int64)(a2 * *(double*)&byte_581450[9552] + *(double*)&qword_581450_9544);
+	*(_DWORD*)(a1 + 12) = (__int64)(a2 * *(double*)&qword_581450_9552 + *(double*)&qword_581450_9544);
 	result = sub_484C60(a2);
 	*(_DWORD*)(a1 + 8) = result;
 	return result;

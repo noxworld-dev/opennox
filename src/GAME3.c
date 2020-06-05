@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9552;
 extern _DWORD dword_587000_93164;
 extern _DWORD dword_5d4594_1311140;
 extern _DWORD dword_5d4594_3798720;
@@ -6876,7 +6877,7 @@ __int64 sub_4AEE30() {
 	do {
 		result =
 		    (__int64)(sin((double)(v0 + 192) * *(double*)&byte_581450[9768] * *(double*)&byte_581450[9760]) *
-			      *(double*)&byte_581450[9552]);
+			      *(double*)&qword_581450_9552);
 		*(_DWORD*)v1 = result;
 		v1 += 4;
 		++v0;
