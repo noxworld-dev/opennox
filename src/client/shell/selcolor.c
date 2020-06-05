@@ -1,6 +1,7 @@
 #include "selcolor.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1308152;
 extern _DWORD dword_5d4594_1308116;
 extern _DWORD dword_5d4594_1308100;
 extern _DWORD dword_5d4594_1308132;
@@ -50,7 +51,7 @@ int sub_4A5D00() {
 			if (*(_DWORD*)&byte_587000[171388]) {
 				v6 = loadString_sub_40F1D0((char*)&byte_587000[171448], 0,
 							   "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 1138);
-				nox_window_call_field_94(*(int*)&byte_5D4594[1308152], 16414, (int)v6, 0);
+				nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16414, (int)v6, 0);
 			}
 			sub_46A8A0();
 			dword_5d4594_1308088 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 760);
@@ -90,7 +91,7 @@ wchar_t* sub_4A68C0() {
 	unsigned __int8* v20; // eax
 	wchar_t* result;      // eax
 
-	v0 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1308152], 16413, 0, 0);
+	v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16413, 0, 0);
 	if (!*v0) {
 		v1 = loadString_sub_40F1D0((char*)&byte_587000[171552], 0,
 					   "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 225);
@@ -201,7 +202,7 @@ int sub_4A75C0() {
 		sub_4DBE10((int)&byte_587000[171652], 0);
 	memset(v25, 0, 0x4FCu);
 	*(_WORD*)&v25[1276] = 0;
-	v0 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1308152], 16413, 0, 0);
+	v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16413, 0, 0);
 	if (!*v0) {
 		v1 = loadString_sub_40F1D0((char*)&byte_587000[171700], 0,
 					   "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 605);
