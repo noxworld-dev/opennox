@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386924;
 extern _DWORD dword_5d4594_1599692;
 extern _DWORD dword_5d4594_1569664;
 extern _DWORD dword_5d4594_3821968;
@@ -9890,7 +9891,7 @@ int sub_517010() {
 	FILE* v1;     // esi
 	char v2[256]; // [esp+4h] [ebp-100h]
 
-	*(_DWORD*)&byte_5D4594[2386924] = 0;
+	dword_5d4594_2386924 = 0;
 	result = sub_408CC0_fopen((char*)&byte_587000[249116], 0);
 	v1 = (FILE*)result;
 	if (result) {
@@ -9980,8 +9981,8 @@ int __cdecl sub_517170(FILE* a1, const char* a2) {
 		strcpy((char*)result, a2);
 		while (1) {
 			if (!sub_517090(a1, v10) || !_strcmpi("END", v10)) {
-				v3[61] = *(_DWORD*)&byte_5D4594[2386924];
-				*(_DWORD*)&byte_5D4594[2386924] = v3;
+				v3[61] = dword_5d4594_2386924;
+				dword_5d4594_2386924 = v3;
 				return 1;
 			}
 			if (nox_common_gameFlags_check_40A5C0(2048) || nox_common_gameFlags_check_40A5C0(0x200000)) {
@@ -10085,14 +10086,14 @@ _DWORD* sub_5174F0() {
 	_DWORD* result; // eax
 	_DWORD* v1;     // esi
 
-	result = *(_DWORD**)&byte_5D4594[2386924];
-	if (*(_DWORD*)&byte_5D4594[2386924]) {
+	result = *(_DWORD**)&dword_5d4594_2386924;
+	if (dword_5d4594_2386924) {
 		do {
 			v1 = (_DWORD*)result[61];
 			free(result);
 			result = v1;
 		} while (v1);
-		*(_DWORD*)&byte_5D4594[2386924] = 0;
+		dword_5d4594_2386924 = 0;
 	}
 	return result;
 }
@@ -10102,8 +10103,8 @@ int sub_517520() {
 	int v0; // esi
 	int v1; // eax
 
-	v0 = *(_DWORD*)&byte_5D4594[2386924];
-	if (!*(_DWORD*)&byte_5D4594[2386924])
+	v0 = dword_5d4594_2386924;
+	if (!dword_5d4594_2386924)
 		return 1;
 	while (1) {
 		v1 = sub_4E3AA0((CHAR*)v0);
@@ -10122,8 +10123,8 @@ int sub_517520() {
 _DWORD* __cdecl sub_517560(int a1) {
 	_DWORD* result; // eax
 
-	result = *(_DWORD**)&byte_5D4594[2386924];
-	if (!*(_DWORD*)&byte_5D4594[2386924])
+	result = *(_DWORD**)&dword_5d4594_2386924;
+	if (!dword_5d4594_2386924)
 		return 0;
 	while (result[60] != a1) {
 		result = (_DWORD*)result[61];
