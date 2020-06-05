@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_814992;
 extern _DWORD dword_5d4594_814552;
 extern _DWORD dword_5d4594_815056;
 extern _DWORD dword_5d4594_814996;
@@ -215,7 +216,7 @@ int sub_4379F0() {
 				dword_5d4594_815012 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10037);
 				dword_5d4594_815004 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10034);
 				dword_5d4594_815000 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10033);
-				*(_DWORD*)&byte_5D4594[814992] = sub_489B80(*(int*)&dword_5d4594_814980);
+				dword_5d4594_814992 = sub_489B80(*(int*)&dword_5d4594_814980);
 				*(_DWORD*)&byte_5D4594[815008] = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10001);
 				dword_5d4594_815016 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10038);
 				dword_5d4594_815020 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10039);
@@ -367,8 +368,8 @@ int sub_4383A0() {
 	wchar_t* v0; // eax
 	int result;  // eax
 
-	if (!wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[814992])) {
-		nox_window_set_hidden(*(int*)&byte_5D4594[814992], 1);
+	if (!wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_814992)) {
+		nox_window_set_hidden(*(int*)&dword_5d4594_814992, 1);
 		sub_489870();
 	}
 	nox_window_set_hidden(*(int*)&dword_5d4594_815012, 0);
@@ -932,7 +933,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 				nox_window_set_hidden(*(int*)&dword_5d4594_815012, 1);
 				nox_window_set_hidden(*(int*)&dword_5d4594_814984, 1);
 				nox_window_set_hidden(*(int*)&dword_5d4594_814988, 1);
-				nox_window_set_hidden(*(int*)&byte_5D4594[814992], 0);
+				nox_window_set_hidden(*(int*)&dword_5d4594_814992, 0);
 				sub_46AD20(*(_DWORD**)&dword_5d4594_814980, 10006, 10007, 0);
 				sub_46ACE0(*(_DWORD**)&dword_5d4594_814980, 10047, 10051, 1);
 				v21 = loadString_sub_40F1D0((char*)&byte_587000[90440], 0,
@@ -955,7 +956,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 		nox_common_gameFlags_unset_40A540(0x10000);
 		sub_430B10_set_mouse_pos(408, 239);
 		sub_4375C0(0);
-		if (!wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[814992]))
+		if (!wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_814992))
 			sub_489870();
 		sub_4D6F60(1);
 		sub_470AA0(1);
@@ -978,7 +979,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 		sub_470AA0(0);
 		sub_430B10_set_mouse_pos(408, 239);
 		sub_4375C0(0);
-		if (!wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[814992]))
+		if (!wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_814992))
 			sub_489870();
 		if (nox_common_gameFlags_check_40A5C0(0x2000000) || sub_4D6F30())
 			return 0;
