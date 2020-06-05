@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251504;
 extern _DWORD dword_5d4594_251556;
 extern _DWORD dword_5d4594_4808;
 extern _DWORD dword_5d4594_251552;
@@ -5296,7 +5297,7 @@ wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int
 			v11 = nox_common_randomInt_415FA0(0, (unsigned __int8)v9[49] - 1);
 		if (a2)
 			*a2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[251508] + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
-		return *(wchar_t**)(*(_DWORD*)&byte_5D4594[251504] + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
+		return *(wchar_t**)(dword_5d4594_251504 + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
 	}
 	nox_missing_string* v12 = (nox_missing_string*)nox_malloc(sizeof(nox_missing_string));
 	nox_swprintf(v12->data, L"MISSING:'%S'", v5, v8, a4);
@@ -5347,8 +5348,8 @@ int __cdecl nox_strman_readfile(char* a1) {
 	string_entries = (nox_string_entry*)nox_calloc(string_entries_cnt, sizeof(nox_string_entry));
 	if (!string_entries)
 		return 0;
-	*(_DWORD*)&byte_5D4594[251504] = nox_calloc(*(size_t*)&byte_5D4594[251496], 4);
-	if (!*(_DWORD*)&byte_5D4594[251504])
+	dword_5d4594_251504 = nox_calloc(*(size_t*)&byte_5D4594[251496], 4);
+	if (!dword_5d4594_251504)
 		return 0;
 	*(_DWORD*)&byte_5D4594[251508] = nox_calloc(*(size_t*)&byte_5D4594[251496], 4);
 	if (!*(_DWORD*)&byte_5D4594[251508])
@@ -5636,8 +5637,8 @@ int __cdecl sub_40F830(const char* path) {
 				}
 				sub_40FB60(file_buffer_w);
 				v13 = nox_wcslen((const wchar_t*)file_buffer_w);
-				*(_DWORD*)(v9 + *(_DWORD*)&byte_5D4594[251504]) = nox_calloc(v13 + 1, 2);
-				nox_wcscpy(*(wchar_t**)(v9 + *(_DWORD*)&byte_5D4594[251504]),
+				*(_DWORD*)(v9 + dword_5d4594_251504) = nox_calloc(v13 + 1, 2);
+				nox_wcscpy(*(wchar_t**)(v9 + dword_5d4594_251504),
 					   (const wchar_t*)file_buffer_w);
 				if (v16 == 0x53545257 || v16 == 0x53747257) // "STRW" || "StrW"
 				{
@@ -5748,8 +5749,8 @@ int sub_40FBE0() {
 			sub_40FE00(file_buffer_w, &byte_5D4594[218612]);
 			sub_40FB60(file_buffer_w);
 			v6 = nox_wcslen((const wchar_t*)file_buffer_w);
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[251504] + v4) = nox_calloc(v6 + 1, 2u);
-			nox_wcscpy(*(wchar_t**)(*(_DWORD*)&byte_5D4594[251504] + v4), (const wchar_t*)file_buffer_w);
+			*(_DWORD*)(dword_5d4594_251504 + v4) = nox_calloc(v6 + 1, 2u);
+			nox_wcscpy(*(wchar_t**)(dword_5d4594_251504 + v4), (const wchar_t*)file_buffer_w);
 			v7 = strlen((const char*)&byte_5D4594[222708]) + 1;
 			if (v7 > 1) {
 				*(_DWORD*)(*(_DWORD*)&byte_5D4594[251508] + v4) = nox_calloc(v7, 1u);
@@ -5920,12 +5921,12 @@ void sub_410020() {
 	LPVOID* v2; // ecx
 	int j;      // esi
 
-	v0 = *(LPVOID**)&byte_5D4594[251504];
-	if (*(_DWORD*)&byte_5D4594[251504]) {
+	v0 = *(LPVOID**)&dword_5d4594_251504;
+	if (dword_5d4594_251504) {
 		for (i = 0; i < *(int*)&byte_5D4594[251496]; ++i) {
 			if (v0[i]) {
 				free(v0[i]);
-				v0 = *(LPVOID**)&byte_5D4594[251504];
+				v0 = *(LPVOID**)&dword_5d4594_251504;
 			}
 		}
 		free(v0);
