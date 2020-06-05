@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_815132;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -182,7 +183,7 @@ int sub_4365C0() {
 	sub_436AA0(*(int*)&byte_587000[85732]);
 	sub_436C40();
 	sub_436DF0(*(int*)&byte_5D4594[2614264]);
-	if (*(_DWORD*)&byte_5D4594[805836]) {
+	if (dword_5d4594_805836) {
 		sub_434390(*(int*)&byte_5D4594[2618904]);
 		v23 = v1;
 		v18 = v0;
