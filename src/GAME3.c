@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1308164;
 extern _DWORD dword_587000_173336;
 extern _DWORD dword_587000_173328;
 extern _DWORD dword_5d4594_1309784;
@@ -1769,7 +1770,7 @@ int sub_4A5E90() {
 		} else if (!strcmp(*i, "StreetShirt")) {
 			*(_DWORD*)&byte_5D4594[1308160] = i;
 		} else if (!strcmp(*i, "StreetSneakers")) {
-			*(_DWORD*)&byte_5D4594[1308164] = i;
+			dword_5d4594_1308164 = i;
 		}
 	}
 	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 720);
@@ -2398,10 +2399,10 @@ int __cdecl sub_4A6DC0(_DWORD* a1, int a2) {
 				goto LABEL_27;
 			v42 = 1;
 			for (k = 3; k < 21; k += 3) {
-				v44 = *(_DWORD*)&byte_5D4594[1308164];
-				LOBYTE(v25) = *(_BYTE*)(k + *(_DWORD*)&byte_5D4594[1308164] + 14);
-				LOBYTE(v23) = *(_BYTE*)(k + *(_DWORD*)&byte_5D4594[1308164] + 13);
-				LOBYTE(v44) = *(_BYTE*)(k + *(_DWORD*)&byte_5D4594[1308164] + 12);
+				v44 = dword_5d4594_1308164;
+				LOBYTE(v25) = *(_BYTE*)(k + dword_5d4594_1308164 + 14);
+				LOBYTE(v23) = *(_BYTE*)(k + dword_5d4594_1308164 + 13);
+				LOBYTE(v44) = *(_BYTE*)(k + dword_5d4594_1308164 + 12);
 				sub_4340A0(v42++, v44, v23, v25);
 			}
 			v45 = ((unsigned __int16)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308128] + 32) >> 16)) +
@@ -2410,14 +2411,14 @@ int __cdecl sub_4A6DC0(_DWORD* a1, int a2) {
 			LOBYTE(v23) = byte_5D4594[3 * v45 + 1307797];
 			LOBYTE(v45) = byte_5D4594[3 * v45 + 1307796];
 			v47 = sub_4344A0(v45, v23, v46);
-			sub_4341D0(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308164] + 40), v47);
+			sub_4341D0(*(_DWORD*)(dword_5d4594_1308164 + 40), v47);
 			v48 = ((unsigned __int16)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308132] + 32) >> 16)) +
 			      32 * *(unsigned __int16*)(*(_DWORD*)&byte_5D4594[1308132] + 32);
 			v49 = byte_5D4594[3 * v48 + 1307798];
 			LOBYTE(v50) = byte_5D4594[3 * v48 + 1307797];
 			LOBYTE(v48) = byte_5D4594[3 * v48 + 1307796];
 			v53 = sub_4344A0(v48, v50, v49);
-			sub_4341D0(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308164] + 36), v53);
+			sub_4341D0(*(_DWORD*)(dword_5d4594_1308164 + 36), v53);
 		}
 		nox_client_drawImageAt_47D2C0(*v24, v54, v55);
 	LABEL_27:
