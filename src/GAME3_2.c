@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1550912;
 extern _DWORD dword_5d4594_1523036;
 extern _DWORD dword_5d4594_1548700;
 extern _DWORD dword_5d4594_3835356;
@@ -3297,7 +3298,7 @@ float* __cdecl sub_4D4F40(_DWORD* a1) {
 	int v30[128];   // [esp+30h] [ebp-200h]
 
 	v1 = 0;
-	*(_DWORD*)&byte_5D4594[1550912] = 0;
+	dword_5d4594_1550912 = 0;
 	if (*a1 == 1) {
 		v26 = 0;
 		v24 = 0;
@@ -3414,8 +3415,8 @@ float* __cdecl sub_4D4F40(_DWORD* a1) {
 						v20 = sub_526AC0(0, v19);
 						do {
 							v21 = v30[v20];
-							*(_DWORD*)(v21 + 84) = *(_DWORD*)&byte_5D4594[1550912];
-							*(_DWORD*)&byte_5D4594[1550912] = v21;
+							*(_DWORD*)(v21 + 84) = dword_5d4594_1550912;
+							dword_5d4594_1550912 = v21;
 							v20 += sub_526AC0(1, v19);
 						} while (v20 < v18);
 						result = (float*)v30[v18 - 1];
@@ -3436,8 +3437,8 @@ float* __cdecl sub_4D4F40(_DWORD* a1) {
 			sub_521880(result, &v22);
 			sub_521730(*(_DWORD**)&dword_5d4594_1550916);
 			result = *(float**)&dword_5d4594_1550916;
-			*(_DWORD*)(dword_5d4594_1550916 + 84) = *(_DWORD*)&byte_5D4594[1550912];
-			*(_DWORD*)&byte_5D4594[1550912] = dword_5d4594_1550916;
+			*(_DWORD*)(dword_5d4594_1550916 + 84) = dword_5d4594_1550912;
+			dword_5d4594_1550912 = dword_5d4594_1550916;
 		}
 	}
 	return result;
@@ -3448,8 +3449,8 @@ float* __cdecl sub_4D4F40(_DWORD* a1) {
 void sub_4D52F0() {
 	_DWORD* v0; // esi
 
-	v0 = *(_DWORD**)&byte_5D4594[1550912];
-	if (*(_DWORD*)&byte_5D4594[1550912]) {
+	v0 = *(_DWORD**)&dword_5d4594_1550912;
+	if (dword_5d4594_1550912) {
 		do {
 			switch (*v0) {
 			case 1:
