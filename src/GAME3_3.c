@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1568020;
 extern _DWORD dword_5d4594_1563344;
 extern _DWORD dword_5d4594_1565616;
 extern _DWORD dword_587000_202404;
@@ -7783,7 +7784,7 @@ int __cdecl sub_4EC580(int a1) {
 //----- (004EC5B0) --------------------------------------------------------
 void sub_4EC5B0() {
 	dword_5d4594_1568024 = 0;
-	sub_4144D0(*(_DWORD**)&byte_5D4594[1568020]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_1568020);
 	*(_DWORD*)&byte_587000[205200] = 1;
 }
 
@@ -7796,7 +7797,7 @@ _DWORD* __cdecl sub_4EC5E0(int a1) {
 
 	result = *(_DWORD**)&byte_587000[205200];
 	if (*(_DWORD*)&byte_587000[205200]) {
-		result = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1568020]);
+		result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1568020);
 		v2 = result;
 		if (result) {
 			v3 = *(_WORD*)(a1 + 4);
@@ -7838,7 +7839,7 @@ void __cdecl sub_4EC6A0(int a1) {
 		v3 = *(_DWORD*)(v1 + 52);
 		if (v3)
 			*(_DWORD*)(v3 + 56) = 0;
-		sub_414330(*(unsigned int**)&byte_5D4594[1568020], v2);
+		sub_414330(*(unsigned int**)&dword_5d4594_1568020, v2);
 	} else if (dword_5d4594_1568024) {
 		while (*(_DWORD*)(v1 + 4) != a1) {
 			v1 = *(_DWORD*)(v1 + 52);
@@ -7851,18 +7852,18 @@ void __cdecl sub_4EC6A0(int a1) {
 		v5 = *(_DWORD*)(v1 + 52);
 		if (v5)
 			*(_DWORD*)(v5 + 56) = *(_DWORD*)(v1 + 56);
-		sub_414330(*(unsigned int**)&byte_5D4594[1568020], (_QWORD*)v1);
+		sub_414330(*(unsigned int**)&dword_5d4594_1568020, (_QWORD*)v1);
 	}
 }
 
 //----- (004ECA60) --------------------------------------------------------
 BOOL sub_4ECA60() {
-	*(_DWORD*)&byte_5D4594[1568020] = nox_new_alloc_class("Respawn", 60, 384);
-	return *(_DWORD*)&byte_5D4594[1568020] != 0;
+	dword_5d4594_1568020 = nox_new_alloc_class("Respawn", 60, 384);
+	return dword_5d4594_1568020 != 0;
 }
 
 //----- (004ECA90) --------------------------------------------------------
-void sub_4ECA90() { nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1568020]); }
+void sub_4ECA90() { nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1568020); }
 
 //----- (004ECAA0) --------------------------------------------------------
 char* __cdecl sub_4ECAA0(char a1) {
