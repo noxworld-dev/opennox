@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_587000_145664;
 extern _DWORD dword_5d4594_1090044;
 extern _DWORD dword_5d4594_1090100;
 extern _DWORD dword_5d4594_3799524;
@@ -246,7 +247,7 @@ int sub_46E870() {
 	*(_DWORD*)&byte_5D4594[1090104] =
 	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, 0, *(int*)&byte_5D4594[1090040], v30, v49, v45);
 	result = dword_5d4594_1090048;
-	*(_DWORD*)&byte_587000[145664] = 1;
+	dword_587000_145664 = 1;
 	return result;
 }
 
@@ -330,7 +331,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 	} else {
 		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
 	}
-	if (*(_DWORD*)&byte_587000[145664] ||
+	if (dword_587000_145664 ||
 	    *(_DWORD*)&byte_5D4594[2598000] >
 		(unsigned int)(*(_DWORD*)&byte_5D4594[1090124] + *(_DWORD*)&byte_5D4594[2649704])) {
 		dword_5d4594_3799524 = 1;
@@ -339,7 +340,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 		v33 = 0;
 		sub_46DB80();
 		sub_46DCC0();
-		*(_DWORD*)&byte_587000[145664] = 0;
+		dword_587000_145664 = 0;
 		v7 = sub_418C80(*(int*)&byte_5D4594[2616328]);
 		if (v7) {
 			v2 = sub_418AB0(*((unsigned __int8*)v7 + 4));
