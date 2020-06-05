@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193664;
 extern _DWORD dword_5d4594_1193524;
 extern _DWORD dword_5d4594_3805484;
 extern _DWORD dword_5d4594_3804684;
@@ -13181,7 +13182,7 @@ void __cdecl sub_48BD90(int a1) {
 	EnterCriticalSection((LPCRITICAL_SECTION)&byte_5D4594[3799596]);
 	if (!a1)
 		SetRect((LPRECT)&byte_5D4594[1193532], 0, 0, 0, 0);
-	*(_DWORD*)&byte_5D4594[1193664] = 1;
+	dword_5d4594_1193664 = 1;
 	dword_5d4594_1193668 = 1;
 	*(_DWORD*)&byte_5D4594[1193624] = 0;
 	LeaveCriticalSection((LPCRITICAL_SECTION)&byte_5D4594[3799596]);
