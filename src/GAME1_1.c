@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_531656;
 extern _DWORD dword_5d4594_527684;
 extern _DWORD dword_5d4594_741292;
 extern _DWORD dword_5d4594_588068;
@@ -4532,7 +4533,7 @@ int sub_41F4B0() {
 	}
 	dword_5d4594_531648 = 0;
 	*(_DWORD*)&byte_5D4594[531652] = 0;
-	*(_DWORD*)&byte_5D4594[531656] = 0;
+	dword_5d4594_531656 = 0;
 	result = sub_41E2F0();
 	if (result == 7) {
 		v3 = sub_41E2F0();
@@ -4608,10 +4609,10 @@ void __cdecl sub_41F6F0(int a1) {
 char* sub_41F710() {
 	char* result; // eax
 
-	if (!*(_DWORD*)&byte_5D4594[531656])
+	if (!dword_5d4594_531656)
 		return 0;
-	result = sub_41F740(**(_DWORD**)&byte_5D4594[531656] + 36, ***(_DWORD***)&byte_5D4594[531656]);
-	*(_DWORD*)&byte_5D4594[531656] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[531656] + 20);
+	result = sub_41F740(**(_DWORD**)&dword_5d4594_531656 + 36, ***(_DWORD***)&dword_5d4594_531656);
+	dword_5d4594_531656 = *(_DWORD*)(dword_5d4594_531656 + 20);
 	return result;
 }
 
@@ -4625,7 +4626,7 @@ char* __cdecl sub_41F740(int a1, char a2) {
 
 //----- (0041F780) --------------------------------------------------------
 char* sub_41F780() {
-	*(_DWORD*)&byte_5D4594[531656] = dword_5d4594_531648;
+	dword_5d4594_531656 = dword_5d4594_531648;
 	return sub_41F710();
 }
 
