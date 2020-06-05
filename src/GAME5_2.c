@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2513932;
 extern _DWORD dword_5d4594_2523760;
 extern _DWORD dword_587000_312796;
 extern _DWORD dword_587000_312812;
@@ -2023,7 +2024,7 @@ int __cdecl sub_555250(unsigned int a1, _DWORD* a2) {
 	v4 = *(_DWORD*)(v3 + 16);
 	result = v3 + 22;
 	*a2 = v4;
-	*(_DWORD*)&byte_5D4594[2513932] = *(_DWORD*)(result - 22);
+	dword_5d4594_2513932 = *(_DWORD*)(result - 22);
 	return result;
 }
 
@@ -2031,11 +2032,11 @@ int __cdecl sub_555250(unsigned int a1, _DWORD* a2) {
 int __cdecl sub_555290(unsigned int a1, _DWORD* a2) {
 	int result; // eax
 
-	if (!*(_DWORD*)&byte_5D4594[2513932] || a1 >= 0x80 || !*(_DWORD*)&byte_5D4594[4 * a1 + 3843788])
+	if (!dword_5d4594_2513932 || a1 >= 0x80 || !*(_DWORD*)&byte_5D4594[4 * a1 + 3843788])
 		return 0;
-	result = *(_DWORD*)&byte_5D4594[2513932] + 22;
-	*a2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2513932] + 16);
-	*(_DWORD*)&byte_5D4594[2513932] = *(_DWORD*)(result - 22);
+	result = dword_5d4594_2513932 + 22;
+	*a2 = *(_DWORD*)(dword_5d4594_2513932 + 16);
+	dword_5d4594_2513932 = *(_DWORD*)(result - 22);
 	return result;
 }
 
