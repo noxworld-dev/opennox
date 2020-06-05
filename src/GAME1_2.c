@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_787184;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_5d4594_754044;
@@ -4570,13 +4571,13 @@ int __cdecl nox_video_read_videobag(int a1) {
 				v6 = (unsigned __int8*)v4 + v5;
 				*(_DWORD*)&byte_5D4594[787168] = *(_DWORD*)&v9[16];
 				dword_5d4594_787172 = *(_DWORD*)&v9[12];
-				*(_DWORD*)&byte_5D4594[787184] = *(_DWORD*)&v9[4];
+				dword_5d4594_787184 = *(_DWORD*)&v9[4];
 				if (dword_5d4594_787208) {
 					free(*(LPVOID*)&dword_5d4594_787208);
 					dword_5d4594_787208 = 0;
 				}
 				if (*(_DWORD*)&byte_5D4594[754144])
-					dword_5d4594_787208 = nox_malloc(*(size_t*)&byte_5D4594[787184]);
+					dword_5d4594_787208 = nox_malloc(*(size_t*)&dword_5d4594_787184);
 				if (!dword_5d4594_787212)
 					dword_5d4594_787212 = sub_578BF0();
 				if (*(_DWORD*)&byte_5D4594[2650640] == 1)
@@ -4618,7 +4619,7 @@ int sub_42EFF0() {
 	sub_42F030();
 	if (dword_5d4594_3804680) {
 		result = *(_DWORD*)&byte_5D4594[787192];
-		*(_DWORD*)&byte_5D4594[787176] = *(_DWORD*)&byte_5D4594[787184];
+		*(_DWORD*)&byte_5D4594[787176] = dword_5d4594_787184;
 	} else {
 		result = dword_5d4594_787180;
 		*(_DWORD*)&byte_5D4594[787176] = dword_5d4594_787180;
@@ -4803,8 +4804,8 @@ int __cdecl sub_42F200(unsigned __int8* a1, int a2) {
 			v19 = v10 + 1;
 		} while (v10 + 1 < *(int*)&dword_5d4594_787172);
 	}
-	if (dword_5d4594_787180 > *(int*)&byte_5D4594[787184])
-		dword_5d4594_787180 = *(_DWORD*)&byte_5D4594[787184];
+	if (dword_5d4594_787180 > *(int*)&dword_5d4594_787184)
+		dword_5d4594_787180 = dword_5d4594_787184;
 	return result;
 }
 
@@ -4842,7 +4843,7 @@ int __cdecl nox_video_parse_videobag(int is8bit) {
 				dword_5d4594_787208 = 0;
 			}
 			if (*(_DWORD*)&byte_5D4594[754144])
-				dword_5d4594_787208 = nox_malloc(*(size_t*)&byte_5D4594[787184]);
+				dword_5d4594_787208 = nox_malloc(*(size_t*)&dword_5d4594_787184);
 			sub_42EFF0();
 			result = 1;
 			dword_5d4594_787144 = 1;
@@ -5363,7 +5364,7 @@ int __cdecl sub_42FE30(int a1) {
 	} else {
 		v3 = 0;
 		v4 = *(char**)v1;
-		if (v2 > *(int*)&byte_5D4594[787184]) {
+		if (v2 > *(int*)&dword_5d4594_787184) {
 			v3 = (char*)nox_malloc(v2);
 			v10 = sub_40ADD0_fread(v3, 1u, *(_DWORD*)(v1 + 16), fp);
 			v6 = v3;
