@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1308156;
 extern _DWORD dword_5d4594_1309764;
 extern _DWORD dword_5d4594_1308128;
 extern _DWORD dword_5d4594_1308124;
@@ -1780,7 +1781,7 @@ int sub_4A5E90() {
 		sub_4A62B0();
 	for (i = (const char**)sub_413390(); i; i = (const char**)sub_4133A0((int)i)) {
 		if (!strcmp(*i, "StreetPants")) {
-			*(_DWORD*)&byte_5D4594[1308156] = i;
+			dword_5d4594_1308156 = i;
 		} else if (!strcmp(*i, "StreetShirt")) {
 			dword_5d4594_1308160 = i;
 		} else if (!strcmp(*i, "StreetSneakers")) {
@@ -2372,10 +2373,10 @@ int __cdecl sub_4A6DC0(_DWORD* a1, int a2) {
 		if (1 << v21 == 4) {
 			v27 = 1;
 			for (i = 3; i < 21; i += 3) {
-				v29 = *(_DWORD*)&byte_5D4594[1308156];
-				LOBYTE(v25) = *(_BYTE*)(i + *(_DWORD*)&byte_5D4594[1308156] + 14);
-				LOBYTE(v23) = *(_BYTE*)(i + *(_DWORD*)&byte_5D4594[1308156] + 13);
-				LOBYTE(v29) = *(_BYTE*)(i + *(_DWORD*)&byte_5D4594[1308156] + 12);
+				v29 = dword_5d4594_1308156;
+				LOBYTE(v25) = *(_BYTE*)(i + dword_5d4594_1308156 + 14);
+				LOBYTE(v23) = *(_BYTE*)(i + dword_5d4594_1308156 + 13);
+				LOBYTE(v29) = *(_BYTE*)(i + dword_5d4594_1308156 + 12);
 				sub_4340A0(v27++, v29, v23, v25);
 			}
 			v30 = ((unsigned __int16)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308116] + 32) >> 16)) +
@@ -2384,7 +2385,7 @@ int __cdecl sub_4A6DC0(_DWORD* a1, int a2) {
 			LOBYTE(v23) = byte_5D4594[3 * v30 + 1307797];
 			LOBYTE(v30) = byte_5D4594[3 * v30 + 1307796];
 			v32 = sub_4344A0(v30, v23, v31);
-			sub_4341D0(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308156] + 40), v32);
+			sub_4341D0(*(_DWORD*)(dword_5d4594_1308156 + 40), v32);
 		} else if (v26 == 1024) {
 			v33 = 1;
 			for (j = 3; j < 21; j += 3) {
