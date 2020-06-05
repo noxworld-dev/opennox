@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830292;
 extern _DWORD dword_5d4594_816448;
 extern _DWORD dword_5d4594_815704;
 extern _DWORD dword_587000_80832;
@@ -6505,15 +6506,15 @@ int __cdecl sub_44B0F0(int a1, int a2, int* a3, int a4) {
 			v3 = sub_46B0A0(a3) - 581;
 			if (!v3) {
 				sub_44B000();
-				sub_46C4E0(*(_DWORD**)&byte_5D4594[830292]);
+				sub_46C4E0(*(_DWORD**)&dword_5d4594_830292);
 				goto LABEL_7;
 			}
 			if (v3 == 1) {
 				sub_4460C0();
 				sub_44A400();
-				sub_46C4E0(*(_DWORD**)&byte_5D4594[830292]);
+				sub_46C4E0(*(_DWORD**)&dword_5d4594_830292);
 			LABEL_7:
-				*(_DWORD*)&byte_5D4594[830292] = 0;
+				dword_5d4594_830292 = 0;
 				return 0;
 			}
 		}
