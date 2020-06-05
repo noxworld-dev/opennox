@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_811104;
 extern _DWORD dword_5d4594_806052;
 extern _DWORD dword_587000_80844;
 extern _DWORD dword_5d4594_3804680;
@@ -8464,14 +8465,14 @@ int __cdecl sub_435600(int a1, int a2) {
 	int v2;     // ecx
 	int result; // eax
 
-	v2 = a2 + *(_DWORD*)&byte_5D4594[811116] - *(_DWORD*)&byte_5D4594[811104] / 2;
+	v2 = a2 + *(_DWORD*)&byte_5D4594[811116] - dword_5d4594_811104 / 2;
 	*(_DWORD*)&byte_5D4594[811364] = *(_DWORD*)&byte_5D4594[811092];
 	*(_DWORD*)&byte_5D4594[811368] = *(_DWORD*)&byte_5D4594[811096];
-	result = v2 + *(_DWORD*)&byte_5D4594[811104] / 2;
+	result = v2 + dword_5d4594_811104 / 2;
 	*(_DWORD*)&byte_5D4594[811092] = a1;
-	*(_DWORD*)&byte_5D4594[811096] = v2 + *(_DWORD*)&byte_5D4594[811104] / 2;
+	*(_DWORD*)&byte_5D4594[811096] = v2 + dword_5d4594_811104 / 2;
 	*(_DWORD*)&byte_5D4594[811084] = a1 - *(_DWORD*)&byte_5D4594[811100] / 2;
-	*(_DWORD*)&byte_5D4594[811088] = a2 + *(_DWORD*)&byte_5D4594[811116] - *(_DWORD*)&byte_5D4594[811104] / 2;
+	*(_DWORD*)&byte_5D4594[811088] = a2 + *(_DWORD*)&byte_5D4594[811116] - dword_5d4594_811104 / 2;
 	return result;
 }
 
@@ -8750,7 +8751,7 @@ int sub_435CC0() {
 	*(_DWORD*)&byte_5D4594[811072] = 0;
 	*(_DWORD*)&byte_5D4594[811100] = nox_win_width;
 	*(_DWORD*)&byte_5D4594[811080] = nox_win_height - 1;
-	*(_DWORD*)&byte_5D4594[811104] = nox_win_height;
+	dword_5d4594_811104 = nox_win_height;
 	byte_5D4594[811108] = 0;
 	*(_DWORD*)&byte_5D4594[811112] = 0;
 	*(_DWORD*)&byte_5D4594[811116] = 0;
@@ -8992,7 +8993,7 @@ char* sub_437250() { return (char*)&byte_5D4594[811068]; }
 //----- (00437260) --------------------------------------------------------
 int4* sub_437260() {
 	return nox_client_copyRect_49F6F0(*(int*)&byte_5D4594[811068], *(int*)&byte_5D4594[811072], *(int*)&byte_5D4594[811100],
-			  *(int*)&byte_5D4594[811104]);
+			  *(int*)&dword_5d4594_811104);
 }
 
 //----- (00437290) --------------------------------------------------------
