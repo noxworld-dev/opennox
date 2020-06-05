@@ -20,6 +20,7 @@
 #include "../gui/servopts/playrlst.h"
 #include "../shell/noxworld.h"
 #include "inform.h"
+extern _DWORD dword_587000_80832;
 extern _DWORD dword_587000_312788;
 extern _DWORD dword_5d4594_1200804;
 extern _DWORD dword_587000_80836;
@@ -1642,7 +1643,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			} else {
 				if (v119[3680] & 1) {
 					dword_587000_80828 = 0;
-				} else if (*(_DWORD*)&byte_587000[80832] == 1) {
+				} else if (dword_587000_80832 == 1) {
 					dword_587000_80828 = 1;
 				}
 				sub_470C40((*((_DWORD*)v119 + 920) >> 10) & 1);
