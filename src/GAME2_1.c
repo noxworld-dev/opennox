@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1064900;
 extern _DWORD dword_5d4594_1062516;
 extern _DWORD dword_587000_80812;
 extern _DWORD dword_5d4594_1093076;
@@ -5057,16 +5058,16 @@ LABEL_113:
 		}
 	}
 LABEL_123:
-	if (!dword_5d4594_1064916 && v1 != *(wchar_t**)&byte_5D4594[1064900]) {
+	if (!dword_5d4594_1064916 && v1 != *(wchar_t**)&dword_5d4594_1064900) {
 		if (nox_win_unk3) {
-			if (nox_window_is_child(nox_win_unk3, *(int*)&byte_5D4594[1064900]))
-				nox_window_call_field_93(*(int*)&byte_5D4594[1064900], 18, v60, 0);
-		} else if (*(_DWORD*)&byte_5D4594[1064900]) {
-			nox_window_call_field_93(*(int*)&byte_5D4594[1064900], 18, v60, 0);
+			if (nox_window_is_child(nox_win_unk3, *(int*)&dword_5d4594_1064900))
+				nox_window_call_field_93(*(int*)&dword_5d4594_1064900, 18, v60, 0);
+		} else if (dword_5d4594_1064900) {
+			nox_window_call_field_93(*(int*)&dword_5d4594_1064900, 18, v60, 0);
 		}
 		if (v1)
 			nox_window_call_field_93((int)v1, 17, v60, 0);
-		*(_DWORD*)&byte_5D4594[1064900] = v1;
+		dword_5d4594_1064900 = v1;
 	}
 	if (sub_4356B0() == 3 && !*(_DWORD*)&byte_5D4594[1064940] && !sub_4372B0() && !sub_413A50() && !sub_477600() &&
 	    !sub_4372E0()) {
@@ -5205,8 +5206,8 @@ void sub_46C200() {
 				sub_46B500(0);
 			if (dword_5d4594_1064912 && v0 == **(_DWORD**)&dword_5d4594_1064912)
 				sub_46C6E0(**(_DWORD**)&dword_5d4594_1064912);
-			if (*(_DWORD*)&byte_5D4594[1064900] == v0)
-				*(_DWORD*)&byte_5D4594[1064900] = 0;
+			if (dword_5d4594_1064900 == v0)
+				dword_5d4594_1064900 = 0;
 			if (dword_5d4594_1064916 == v0)
 				dword_5d4594_1064916 = 0;
 			nox_window_call_field_94(v0, 2, 0, 0);
@@ -5352,8 +5353,8 @@ int __cdecl sub_46C4E0(_DWORD* a1) {
 			sub_46B500(0);
 		if (dword_5d4594_1064912 && a1 == **(_DWORD***)&dword_5d4594_1064912)
 			sub_46C6E0(**(_DWORD**)&dword_5d4594_1064912);
-		if (*(_DWORD**)&byte_5D4594[1064900] == a1)
-			*(_DWORD*)&byte_5D4594[1064900] = 0;
+		if (*(_DWORD**)&dword_5d4594_1064900 == a1)
+			dword_5d4594_1064900 = 0;
 		if (*(_DWORD**)&dword_5d4594_1064916 == a1)
 			dword_5d4594_1064916 = 0;
 		v3 = (_DWORD*)a1[100];
