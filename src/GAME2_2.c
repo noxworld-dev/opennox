@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1097188;
 extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_3799476;
 extern _DWORD dword_5d4594_3799468;
@@ -1237,19 +1238,19 @@ int sub_477660() {
 int sub_477670() { return *(_DWORD*)&byte_5D4594[1097196]; }
 
 //----- (00477680) --------------------------------------------------------
-int sub_477680() { return *(_DWORD*)&byte_5D4594[1097188]; }
+int sub_477680() { return dword_5d4594_1097188; }
 
 //----- (00477690) --------------------------------------------------------
 int __cdecl sub_477690(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1097188] = a1;
+	dword_5d4594_1097188 = a1;
 	return result;
 }
 
 //----- (004776A0) --------------------------------------------------------
-void sub_4776A0() { *(_DWORD*)&byte_5D4594[1097188] = 0; }
+void sub_4776A0() { dword_5d4594_1097188 = 0; }
 
 //----- (004776B0) --------------------------------------------------------
 void __cdecl sub_4776B0(wchar_t* a1) {
@@ -1317,12 +1318,12 @@ char* nox_client_drawCursorAndTooltips_477830() {
 	v9[5] = 0;
 	*(_DWORD*)&byte_5D4594[1097204] = 0;
 	*(_DWORD*)&byte_5D4594[1097208] = sub_43F320(0) + 4;
-	if (*(_DWORD*)&byte_5D4594[1097188]) // Dragging item
+	if (dword_5d4594_1097188) // Dragging item
 	{
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1097188] + 12) = v0->field_0;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1097188] + 16) = v0->field_4;
-		(*(void(__cdecl**)(int*, _DWORD))(*(_DWORD*)&byte_5D4594[1097188] + 300))(
-		    v9, *(_DWORD*)&byte_5D4594[1097188]);
+		*(_DWORD*)(dword_5d4594_1097188 + 12) = v0->field_0;
+		*(_DWORD*)(dword_5d4594_1097188 + 16) = v0->field_4;
+		(*(void(__cdecl**)(int*, _DWORD))(dword_5d4594_1097188 + 300))(
+		    v9, dword_5d4594_1097188);
 	}
 	if (*(_DWORD*)&byte_5D4594[1097192]) // Player is dragging spell or ability
 	{
