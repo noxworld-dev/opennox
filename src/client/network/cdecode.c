@@ -20,6 +20,7 @@
 #include "../gui/servopts/playrlst.h"
 #include "../shell/noxworld.h"
 #include "inform.h"
+extern _DWORD dword_5d4594_1200796;
 extern _DWORD dword_5d4594_1200768;
 extern _DWORD dword_587000_312796;
 extern _DWORD dword_587000_54276;
@@ -1843,7 +1844,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			break;
 		case 0x84u:
 			if (nox_client_isConnected_43C700())
-				sub_499610(*(int*)&byte_5D4594[1200796], 25, 500, 25, *(__int16*)(v3 + 1),
+				sub_499610(*(int*)&dword_5d4594_1200796, 25, 500, 25, *(__int16*)(v3 + 1),
 					   *(__int16*)(v3 + 3));
 		LABEL_797:
 			v3 += 5;
@@ -2033,7 +2034,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					do {
 						v243 = *(unsigned __int16*)(v3 + 1) + v363 / v371;
 						v244 = *(unsigned __int16*)(v3 + 3) + v360 / v371;
-						v245 = sub_45A360_drawable(*(int*)&byte_5D4594[1200796], v243, v244);
+						v245 = sub_45A360_drawable(*(int*)&dword_5d4594_1200796, v243, v244);
 						v362 = v245;
 						if (v245) {
 							v246 = (_DWORD*)(v245 + 432);
@@ -2103,7 +2104,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 						v229 = 1;
 					v230 = *(unsigned __int16*)(v3 + 5) - 4 * v227 / v229;
 					v231 = *(unsigned __int16*)(v3 + 7) - 4 * v228 / v229;
-					LODWORD(v5) = sub_45A360_drawable(*(int*)&byte_5D4594[1200796], v230, v231);
+					LODWORD(v5) = sub_45A360_drawable(*(int*)&dword_5d4594_1200796, v230, v231);
 					v362 = v5;
 					if ((_DWORD)v5) {
 						v232 = (_DWORD*)(v5 + 432);
