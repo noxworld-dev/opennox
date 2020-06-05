@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1522932;
 extern _DWORD dword_5d4594_1319264;
 extern _DWORD dword_5d4594_1321044;
 extern _DWORD dword_5d4594_805852;
@@ -11412,8 +11413,8 @@ int sub_4CC770() {
 	int v6; // [esp+Ch] [ebp-8h]
 	int v7; // [esp+10h] [ebp-4h]
 
-	*(_DWORD*)&byte_5D4594[1522932] = nox_new_window_from_file("mapdnld.wnd", sub_4CC890);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1522932], sub_4CC830, 0, 0);
+	dword_5d4594_1522932 = nox_new_window_from_file("mapdnld.wnd", sub_4CC890);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1522932, sub_4CC830, 0, 0);
 	sub_43BEB0_get_video_mode(&v3, &v4, &v7);
 	sub_430C50_get_video_max(&v5, &v6);
 	v0 = v3;
@@ -11426,8 +11427,8 @@ int sub_4CC770() {
 		v1 = v6;
 		v4 = v6;
 	}
-	sub_46A9B0(*(_DWORD**)&byte_5D4594[1522932], (v0 - 1024) / 2, (v1 - 768) / 2);
-	sub_46A8C0(*(int*)&byte_5D4594[1522932]);
+	sub_46A9B0(*(_DWORD**)&dword_5d4594_1522932, (v0 - 1024) / 2, (v1 - 768) / 2);
+	sub_46A8C0(*(int*)&dword_5d4594_1522932);
 	sub_46A8A0();
 	return 1;
 }
@@ -11473,7 +11474,7 @@ int __cdecl sub_4CC890(int a1, int a2, int* a3, int a4) {
 int __cdecl sub_4CC900(unsigned __int8 a1) {
 	_DWORD* v1; // eax
 
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1522932], 1603);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522932, 1603);
 	return nox_window_call_field_94((int)v1, 16416, a1, 0);
 }
 
@@ -11481,10 +11482,10 @@ int __cdecl sub_4CC900(unsigned __int8 a1) {
 int sub_4CC930() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1522932];
-	if (*(_DWORD*)&byte_5D4594[1522932])
-		result = sub_46C4E0(*(_DWORD**)&byte_5D4594[1522932]);
-	*(_DWORD*)&byte_5D4594[1522932] = 0;
+	result = dword_5d4594_1522932;
+	if (dword_5d4594_1522932)
+		result = sub_46C4E0(*(_DWORD**)&dword_5d4594_1522932);
+	dword_5d4594_1522932 = 0;
 	return result;
 }
 
