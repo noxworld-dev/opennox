@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1321224;
 extern _DWORD dword_5d4594_1319056;
 extern _DWORD dword_5d4594_1320932;
 extern _DWORD dword_5d4594_1321032;
@@ -5258,9 +5259,9 @@ int sub_4C34A0() {
 void __cdecl sub_4C34C0(int a1) {
 	_DWORD* v1; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1321224]) {
+	if (dword_5d4594_1321224) {
 		if (a1) {
-			v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1321224], 8901);
+			v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1321224, 8901);
 			nox_window_call_field_94((int)v1, 16385, a1, 0);
 		}
 	}
@@ -5271,23 +5272,23 @@ int sub_4C3500() {
 	_DWORD* v0; // ecx
 
 	v0 = nox_new_window_from_file("yesno.wnd", 0);
-	*(_DWORD*)&byte_5D4594[1321224] = v0;
+	dword_5d4594_1321224 = v0;
 	if (v0) {
 		sub_46A9B0(v0, (nox_win_width - 320) / 2, (nox_win_height - 240) / 2);
-		v0 = *(_DWORD**)&byte_5D4594[1321224];
+		v0 = *(_DWORD**)&dword_5d4594_1321224;
 	}
 	nox_window_set_hidden((int)v0, 1);
-	return *(_DWORD*)&byte_5D4594[1321224];
+	return dword_5d4594_1321224;
 }
 
 //----- (004C3560) --------------------------------------------------------
 int sub_4C3560() {
-	sub_46A8C0(*(int*)&byte_5D4594[1321224]);
-	return *(_DWORD*)&byte_5D4594[1321224];
+	sub_46A8C0(*(int*)&dword_5d4594_1321224);
+	return dword_5d4594_1321224;
 }
 
 //----- (004C3580) --------------------------------------------------------
-int sub_4C3580() { return nox_window_set_hidden(*(int*)&byte_5D4594[1321224], 1); }
+int sub_4C3580() { return nox_window_set_hidden(*(int*)&dword_5d4594_1321224, 1); }
 
 //----- (004C35B0) --------------------------------------------------------
 int __cdecl sub_4C35B0(int a1) {
