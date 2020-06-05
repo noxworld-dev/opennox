@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_740072;
 extern _DWORD dword_5d4594_531652;
 extern _DWORD dword_5d4594_741244;
 extern _DWORD dword_587000_66116;
@@ -9557,7 +9558,7 @@ int __cdecl sub_426910(char* a1, int a2, int a3) {
 			if (a2 == 2 && sub_409050(nox_file_3, 0, 2)) {
 				result = 0;
 			} else {
-				*(_DWORD*)&byte_5D4594[740072] = 0;
+				dword_5d4594_740072 = 0;
 				memset(&byte_5D4594[740040], 0, 0x20u);
 				memset(&byte_5D4594[740008], 0, 0x20u);
 				result = 1;
@@ -9707,17 +9708,17 @@ void __cdecl sub_426C90() {
 	if (!*(_DWORD*)&byte_5D4594[3803300]) {
 		if (dword_5d4594_740004) {
 			v2 = (void*)ftell(nox_file_3);
-			*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[740072] + 740008] = v2;
+			*(_DWORD*)&byte_5D4594[4 * dword_5d4594_740072 + 740008] = v2;
 			v5 = v2;
 			sub_56FDD0(126, &v5, 4);
 			fwrite(&v5, 4u, 1u, nox_file_3);
-			++*(_DWORD*)&byte_5D4594[740072];
+			++dword_5d4594_740072;
 		} else {
-			*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[740072] + 740040] = sub_409110(nox_file_3);
+			*(_DWORD*)&byte_5D4594[4 * dword_5d4594_740072 + 740040] = sub_409110(nox_file_3);
 			v3 = sub_409390();
-			v4 = *(_DWORD*)&byte_5D4594[740072];
-			*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[740072] + 740008] = v3;
-			*(_DWORD*)&byte_5D4594[740072] = v4 + 1;
+			v4 = dword_5d4594_740072;
+			*(_DWORD*)&byte_5D4594[4 * dword_5d4594_740072 + 740008] = v3;
+			dword_5d4594_740072 = v4 + 1;
 		}
 	}
 }
@@ -9730,12 +9731,12 @@ void __cdecl sub_426D40() {
 	int v5;   // eax
 	void* v6; // [esp+0h] [ebp-4h]
 
-	--*(_DWORD*)&byte_5D4594[740072];
+	--dword_5d4594_740072;
 	if (*(_DWORD*)&byte_5D4594[3803300])
 		return;
 	if (dword_5d4594_740004) {
 		v1 = ftell(nox_file_3);
-		v2 = *(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[740072] + 740008];
+		v2 = *(_DWORD*)&byte_5D4594[4 * dword_5d4594_740072 + 740008];
 		v3 = (void*)(v1 - v2 - 4);
 		fseek(nox_file_3, v2, 0);
 		v6 = v3;
@@ -9744,9 +9745,9 @@ void __cdecl sub_426D40() {
 		fseek(nox_file_3, v1, 0);
 	} else {
 		v5 = sub_409390();
-		v3 = (void*)(v5 - *(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[740072] + 740008]);
-		sub_409190(nox_file_3, v5 - *(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[740072] + 740008],
-			   *(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[740072] + 740040]);
+		v3 = (void*)(v5 - *(_DWORD*)&byte_5D4594[4 * dword_5d4594_740072 + 740008]);
+		sub_409190(nox_file_3, v5 - *(_DWORD*)&byte_5D4594[4 * dword_5d4594_740072 + 740008],
+			   *(_DWORD*)&byte_5D4594[4 * dword_5d4594_740072 + 740040]);
 	}
 }
 
