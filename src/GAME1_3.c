@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_829520;
 extern _DWORD dword_5d4594_816356;
 extern _DWORD dword_5d4594_826032;
 extern _DWORD dword_5d4594_830244;
@@ -4827,11 +4828,11 @@ wchar_t* __cdecl sub_4469D0(int a1) {
 int sub_446A90() {
 	int result; // eax
 
-	*(_BYTE*)(*(_DWORD*)&byte_5D4594[829520] + 64) = 2;
+	*(_BYTE*)(dword_5d4594_829520 + 64) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
 	result = 1;
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[829520] + 52) = sub_4379F0;
+	*(_DWORD*)(dword_5d4594_829520 + 52) = sub_4379F0;
 	return result;
 }
 
@@ -4840,7 +4841,7 @@ int __cdecl sub_446AD0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[829520] + 52) = a1;
+	*(_DWORD*)(dword_5d4594_829520 + 52) = a1;
 	return result;
 }
 
@@ -5169,8 +5170,8 @@ void sub_447600() {
 int sub_447BD0() {
 	void (*v0)(void); // esi
 
-	v0 = *(void (**)(void))(*(_DWORD*)&byte_5D4594[829520] + 52);
-	sub_43C570(*(LPVOID*)&byte_5D4594[829520]);
+	v0 = *(void (**)(void))(dword_5d4594_829520 + 52);
+	sub_43C570(*(LPVOID*)&dword_5d4594_829520);
 	sub_448490();
 	v0();
 	return 1;
