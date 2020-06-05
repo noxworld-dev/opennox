@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_529324;
 extern _DWORD dword_5d4594_528252;
 extern _DWORD dword_587000_60044;
 extern _DWORD dword_5d4594_741284;
@@ -4002,7 +4003,7 @@ int* sub_41EAC0() {
 	v0 = sub_41E9D0(0, "Chat Channels", 0, 0, 1);
 	dword_5d4594_529316 = v0;
 	v0[5] = 0;
-	*(_DWORD*)&byte_5D4594[529324] = v0;
+	dword_5d4594_529324 = v0;
 	v1 = sub_420100();
 	result = sub_41E9D0(0, "Nox", 0, v1, 0);
 	if (result) {
@@ -4305,7 +4306,7 @@ wchar_t* sub_41F070() {
 
 //----- (0041F0A0) --------------------------------------------------------
 wchar_t* sub_41F0A0() {
-	dword_5d4594_529328 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[529324] + 28);
+	dword_5d4594_529328 = *(_DWORD*)(dword_5d4594_529324 + 28);
 	return sub_41F070();
 }
 
@@ -4323,9 +4324,9 @@ int sub_41F0C0() {
 
 //----- (0041F0E0) --------------------------------------------------------
 int sub_41F0E0() {
-	if (!*(_DWORD*)&byte_5D4594[529324])
+	if (!dword_5d4594_529324)
 		return 0;
-	dword_5d4594_529328 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[529324] + 28);
+	dword_5d4594_529328 = *(_DWORD*)(dword_5d4594_529324 + 28);
 	return sub_41F0C0();
 }
 
@@ -4337,14 +4338,14 @@ int __cdecl sub_41F100(char* a1) {
 	if (a1) {
 		v2 = sub_41E990(a1);
 		if (v2) {
-			*(_DWORD*)&byte_5D4594[529324] = v2;
+			dword_5d4594_529324 = v2;
 			dword_5d4594_529328 = v2[7];
 			result = 1;
 		} else {
 			result = 0;
 		}
 	} else {
-		*(_DWORD*)&byte_5D4594[529324] = dword_5d4594_529316;
+		dword_5d4594_529324 = dword_5d4594_529316;
 		result = 1;
 	}
 	return result;
@@ -4399,7 +4400,7 @@ int __cdecl sub_41F1E0(int a1) {
 	int v2; // eax
 
 	v1 = 0;
-	v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[529324] + 28);
+	v2 = *(_DWORD*)(dword_5d4594_529324 + 28);
 	if (!v2)
 		return 0;
 	while (a1 != v1) {
@@ -4465,7 +4466,7 @@ wchar_t* __cdecl sub_41F330(int a1, int a2) {
 }
 
 //----- (0041F360) --------------------------------------------------------
-int sub_41F360() { return *(_DWORD*)(*(_DWORD*)&byte_5D4594[529324] + 20); }
+int sub_41F360() { return *(_DWORD*)(dword_5d4594_529324 + 20); }
 
 //----- (0041F370) --------------------------------------------------------
 _DWORD* __cdecl sub_41F370(int a1) {
@@ -4478,10 +4479,10 @@ _DWORD* __cdecl sub_41F370(int a1) {
 			if (!result)
 				goto LABEL_4;
 		}
-		*(_DWORD*)&byte_5D4594[529324] = result;
+		dword_5d4594_529324 = result;
 	} else {
 	LABEL_4:
-		*(_DWORD*)&byte_5D4594[529324] = dword_5d4594_529316;
+		dword_5d4594_529324 = dword_5d4594_529316;
 	}
 	return result;
 }
