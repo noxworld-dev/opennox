@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835352;
 extern _DWORD dword_5d4594_2489432;
 extern _DWORD dword_5d4594_2487912;
 extern _DWORD dword_5d4594_2487980;
@@ -13109,14 +13110,14 @@ int __cdecl sub_543680(float* a1) {
 	result = sub_4D3D90((float2*)a1, &a2);
 	if (result) {
 		v4[0] = *(_DWORD*)&byte_5D4594[3835340];
-		*(_DWORD*)&byte_5D4594[3835352] = 1;
+		dword_5d4594_3835352 = 1;
 		v4[1] = *(_DWORD*)&byte_5D4594[3835348];
 		v4[6] = dword_5d4594_3835356;
 		v4[7] = *(_DWORD*)&byte_5D4594[3835360];
 		v3.field_0 = (__int64)a2.field_0;
 		v3.field_4 = (__int64)a2.field_4;
 		result = sub_5437E0(&v3.field_0, (int)v4, 46);
-		*(_DWORD*)&byte_5D4594[3835352] = 0;
+		dword_5d4594_3835352 = 0;
 	}
 	return result;
 }
@@ -13616,7 +13617,7 @@ int __cdecl sub_544310(float2* a1) {
 	int v8[8];  // [esp+10h] [ebp-20h]
 	float v9;   // [esp+34h] [ebp+4h]
 
-	*(_DWORD*)&byte_5D4594[3835352] = 1;
+	dword_5d4594_3835352 = 1;
 	v1 = a1->field_0 + 11.5;
 	v8[1] = *(_DWORD*)&byte_5D4594[3835348];
 	v8[0] = *(_DWORD*)&byte_5D4594[3835340];
@@ -13636,7 +13637,7 @@ int __cdecl sub_544310(float2* a1) {
 		result = sub_51D9C0(v3, v4, v5, v6, 0);
 	else
 		result = sub_51D9C0(v3, v4, v5, v6, (int)v8);
-	*(_DWORD*)&byte_5D4594[3835352] = 0;
+	dword_5d4594_3835352 = 0;
 	return result;
 }
 
