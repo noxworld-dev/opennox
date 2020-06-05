@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487552;
 extern _DWORD dword_5d4594_2487880;
 extern _DWORD dword_587000_312788;
 extern _DWORD dword_5d4594_2487532;
@@ -2667,7 +2668,7 @@ LPVOID __cdecl sub_521410(int* a1, _DWORD* a2, int a3, int* a4) {
 	result = (LPVOID)sub_521500(a2, a1, a3);
 	if (result) {
 		sub_521600(a2, a1);
-		if (*(_DWORD*)&byte_5D4594[2487552] <= 1) {
+		if (dword_5d4594_2487552 <= 1) {
 			*a4 = a3;
 			result = *(LPVOID*)&dword_5d4594_2487556;
 		} else {
@@ -2678,7 +2679,7 @@ LPVOID __cdecl sub_521410(int* a1, _DWORD* a2, int a3, int* a4) {
 			     *(_DWORD*)(dword_5d4594_2487556 + 4);
 			v15 = 1;
 			v9 = 1;
-			if (*(_DWORD*)&byte_5D4594[2487552] - 1 > 1) {
+			if (dword_5d4594_2487552 - 1 > 1) {
 				do {
 					v10 = (_DWORD*)(v5 + 8 * v9 - 8);
 					v11 = *(_DWORD*)(v5 + 8 * v9) - *v10;
@@ -2691,7 +2692,7 @@ LPVOID __cdecl sub_521410(int* a1, _DWORD* a2, int a3, int* a4) {
 					v7 = v11;
 					++v9;
 					v8 = v12;
-				} while (v9 < *(int*)&byte_5D4594[2487552] - 1);
+				} while (v9 < *(int*)&dword_5d4594_2487552 - 1);
 				v6 = v15;
 			}
 			v13 = (_DWORD*)(v5 + 8 * v9);
@@ -2777,7 +2778,7 @@ _DWORD* __cdecl sub_521600(_DWORD* a1, int* a2) {
 	int v15;             // [esp+1Ch] [ebp-8h]
 	int v16;             // [esp+20h] [ebp-4h]
 
-	*(_DWORD*)&byte_5D4594[2487552] = 0;
+	dword_5d4594_2487552 = 0;
 	v2 = a2[1];
 	v12 = -1;
 	v13 = *a2;
@@ -2785,10 +2786,10 @@ _DWORD* __cdecl sub_521600(_DWORD* a1, int* a2) {
 	v3 = (_DWORD*)(sub_520FD0(&v13) - 1);
 	v4 = v13;
 	while (1) {
-		*(_DWORD*)(dword_5d4594_2487556 + 8 * *(_DWORD*)&byte_5D4594[2487552]) = v4;
-		*(_DWORD*)(dword_5d4594_2487556 + 8 * *(_DWORD*)&byte_5D4594[2487552] + 4) = v14;
-		result = (_DWORD*)(*(_DWORD*)&byte_5D4594[2487552] + 1);
-		if (++*(_DWORD*)&byte_5D4594[2487552] == 1024)
+		*(_DWORD*)(dword_5d4594_2487556 + 8 * dword_5d4594_2487552) = v4;
+		*(_DWORD*)(dword_5d4594_2487556 + 8 * dword_5d4594_2487552 + 4) = v14;
+		result = (_DWORD*)(dword_5d4594_2487552 + 1);
+		if (++dword_5d4594_2487552 == 1024)
 			break;
 		result = a1;
 		if (v13 == *a1 && v14 == a1[1])
