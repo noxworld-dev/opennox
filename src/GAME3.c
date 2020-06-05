@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1313740;
 extern _DWORD dword_5d4594_1308100;
 extern _DWORD dword_5d4594_1308132;
 extern _DWORD dword_5d4594_3798644;
@@ -12149,12 +12150,12 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, _DWORD* a2) {
 	v4 = a2[4];
 	v5 = a2[76];
 	v18 = a2[77];
-	v6 = *(_DWORD*)&byte_5D4594[1313740];
+	v6 = dword_5d4594_1313740;
 	v15 = v3;
 	v17 = v4;
-	if (!*(_DWORD*)&byte_5D4594[1313740]) {
+	if (!dword_5d4594_1313740) {
 		v6 = sub_44CFC0((CHAR*)&byte_587000[177040]);
-		*(_DWORD*)&byte_5D4594[1313740] = v6;
+		dword_5d4594_1313740 = v6;
 	}
 	v7 = *(_DWORD*)&byte_5D4594[2598000] - v2[79];
 	v8 = *((unsigned __int16*)v2 + 218);
@@ -12206,8 +12207,8 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, _DWORD* a2) {
 void __cdecl sub_4B7EE0(__int16 a1) {
 	if (!*(_DWORD*)&byte_5D4594[1313744])
 		*(_DWORD*)&byte_5D4594[1313744] = sub_44CFC0((CHAR*)&byte_587000[177052]);
-	if (!*(_DWORD*)&byte_5D4594[1313740])
-		*(_DWORD*)&byte_5D4594[1313740] = sub_44CFC0((CHAR*)&byte_587000[177068]);
+	if (!dword_5d4594_1313740)
+		dword_5d4594_1313740 = sub_44CFC0((CHAR*)&byte_587000[177068]);
 
 	int v2 = sub_45A060();
 	if (!v2)
@@ -12218,7 +12219,7 @@ void __cdecl sub_4B7EE0(__int16 a1) {
 		if (!v2)
 			return;
 	}
-	sub_499610(*(int*)&byte_5D4594[1313740], 50, 1000, 30, *(_DWORD*)(v2 + 12), *(_DWORD*)(v2 + 16));
+	sub_499610(*(int*)&dword_5d4594_1313740, 50, 1000, 30, *(_DWORD*)(v2 + 12), *(_DWORD*)(v2 + 16));
 	sub_45A4B0(*(_QWORD**)(v2 + 432));
 	sub_45A4E0_drawable(v2);
 }
