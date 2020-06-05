@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_4808;
 extern _DWORD dword_5d4594_251552;
 extern _DWORD dword_5d4594_251700;
 extern _DWORD dword_5d4594_251564;
@@ -3540,10 +3541,10 @@ int sub_40CE60() {
 			   (int)&byte_5D4594[10960]);
 	}
 	CoCreateInstance((const IID* const) & byte_581450[5800], 0, 1u, (const IID* const) & byte_581450[5656],
-			 (LPVOID*)&byte_5D4594[4808]);
-	if (*(_DWORD*)&byte_5D4594[4808]) {
+			 (LPVOID*)&dword_5d4594_4808);
+	if (dword_5d4594_4808) {
 		sub_40E630(&v4);
-		sub_40E260(*(int(__stdcall****)(_DWORD, void*, int*)) & byte_5D4594[4808], v4, (int)&byte_581450[5672],
+		sub_40E260(*(int(__stdcall****)(_DWORD, void*, int*)) & dword_5d4594_4808, v4, (int)&byte_581450[5672],
 			   (int)&byte_5D4594[10964]);
 	}
 	CoCreateInstance((const IID* const) & byte_581450[5816], 0, 1u, (const IID* const) & byte_581450[5688],
@@ -3555,7 +3556,7 @@ int sub_40CE60() {
 		   (int)&byte_5D4594[10968]);
 	if (!dword_5d4594_10956)
 		goto LABEL_27;
-	if (*(_DWORD*)&byte_5D4594[4808] && (v1 = dword_5d4594_4668) != 0 &&
+	if (dword_5d4594_4808 && (v1 = dword_5d4594_4668) != 0 &&
 	    (v3 = v6, *(_DWORD*)&byte_5D4594[10976] = 1, strcpy(v6, "SOFTWARE\\Westwood\\Nox"),
 	     (*(void(__stdcall**)(int, unsigned __int8*, char*))(*(_DWORD*)v1 + 164))(v1, &byte_587000[25772], v6),
 	     sub_420030(), sub_4200E0() != -1)) {
@@ -3585,11 +3586,11 @@ void sub_40D0F0() {
 			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_10956 + 8))(
 			    dword_5d4594_10956);
 		}
-		if (*(_DWORD*)&byte_5D4594[4808]) {
-			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & byte_5D4594[4808],
+		if (dword_5d4594_4808) {
+			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & dword_5d4594_4808,
 				   (int)&byte_581450[5672], *(int*)&byte_5D4594[10964]);
-			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4808] + 8))(
-			    *(_DWORD*)&byte_5D4594[4808]);
+			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4808 + 8))(
+			    dword_5d4594_4808);
 		}
 		if (dword_5d4594_4668) {
 			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & dword_5d4594_4668,
@@ -4264,19 +4265,19 @@ int __stdcall sub_40DC60(int a1) { return 0; }
 
 //----- (0040DC70) --------------------------------------------------------
 BOOL sub_40DC70() {
-	return (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4808] + 16))(*(_DWORD*)&byte_5D4594[4808]) >= 0;
+	return (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4808 + 16))(dword_5d4594_4808) >= 0;
 }
 
 //----- (0040DC90) --------------------------------------------------------
 BOOL __cdecl sub_40DC90(int a1, int a2, int a3, int a4, int a5, int a6) {
-	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int))(**(_DWORD**)&byte_5D4594[4808] + 12))(
-		   *(_DWORD*)&byte_5D4594[4808], a1, a2, a3, a4, a5, a6) >= 0;
+	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int))(**(_DWORD**)&dword_5d4594_4808 + 12))(
+		   dword_5d4594_4808, a1, a2, a3, a4, a5, a6) >= 0;
 }
 
 //----- (0040DCD0) --------------------------------------------------------
 BOOL sub_40DCD0() {
 	return !*(_DWORD*)&byte_5D4594[10984] &&
-	       (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&byte_5D4594[4808] + 20))(*(_DWORD*)&byte_5D4594[4808]) >= 0;
+	       (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4808 + 20))(dword_5d4594_4808) >= 0;
 }
 
 //----- (0040DD00) --------------------------------------------------------
