@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_814552;
 extern _DWORD dword_5d4594_815056;
 extern _DWORD dword_5d4594_814996;
 extern _DWORD dword_5d4594_815040;
@@ -497,13 +498,13 @@ int sub_438BD0() {
 
 	if (!sub_44A4A0())
 		sub_449A10(*(int*)&dword_5d4594_814980, 0, 0, 0, 0, 0);
-	v0 = *(_DWORD*)&byte_5D4594[814552];
-	if (*(_DWORD*)&byte_5D4594[814552] != 8 && *(_DWORD*)&byte_5D4594[814552] != 9 &&
-	    *(_DWORD*)&byte_5D4594[814552] != 10) {
+	v0 = dword_5d4594_814552;
+	if (dword_5d4594_814552 != 8 && dword_5d4594_814552 != 9 &&
+	    dword_5d4594_814552 != 10) {
 		v1 = loadString_sub_40F1D0((char*)&byte_587000[89152], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 					   1262);
 		sub_449E00((int)v1);
-		v0 = *(_DWORD*)&byte_5D4594[814552];
+		v0 = dword_5d4594_814552;
 	}
 	v2 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * v0 + 87416], 0,
 				   "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1265);
