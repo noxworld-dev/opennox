@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_5d4594_1090112;
 extern _DWORD dword_587000_145668;
 extern _DWORD dword_5d4594_1090040;
 extern _DWORD dword_587000_145664;
@@ -236,7 +237,7 @@ int sub_46E870() {
 	*(_DWORD*)&v49[68] = *(_DWORD*)&byte_5D4594[2523948];
 	v45[0] =
 	    loadString_sub_40F1D0((char*)&byte_587000[146312], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1782);
-	*(_DWORD*)&byte_5D4594[1090112] =
+	dword_5d4594_1090112 =
 	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v20, *(int*)&dword_5d4594_1090040, v30, v49, v45);
 	*(_DWORD*)&v49[68] = *(_DWORD*)&byte_5D4594[2650644];
 	v45[0] =
@@ -687,12 +688,12 @@ int sub_46FD80() {
 	int v4;      // [esp-4h] [ebp-4h]
 
 	if (nox_common_gameFlags_check_40A5C0(4224)) {
-		result = wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[1090112]);
+		result = wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1090112);
 		if (!result)
-			result = nox_window_set_hidden(*(int*)&byte_5D4594[1090112], 1);
+			result = nox_window_set_hidden(*(int*)&dword_5d4594_1090112, 1);
 	} else {
-		if (wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[1090112]))
-			nox_window_set_hidden(*(int*)&byte_5D4594[1090112], 0);
+		if (wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1090112))
+			nox_window_set_hidden(*(int*)&dword_5d4594_1090112, 0);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			v1 = nox_common_gameFlags_getVal_40A5B0();
 			v2 = (unsigned __int16)sub_40A020(v1);
@@ -703,7 +704,7 @@ int sub_46FD80() {
 		v3 = loadString_sub_40F1D0((char*)&byte_587000[147816], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c",
 					   390);
 		nox_swprintf((wchar_t*)&byte_5D4594[1083972], v3, v4);
-		result = nox_window_call_field_94(*(int*)&byte_5D4594[1090112], 16385, (int)&byte_5D4594[1083972], 0);
+		result = nox_window_call_field_94(*(int*)&dword_5d4594_1090112, 16385, (int)&byte_5D4594[1083972], 0);
 	}
 	return result;
 }
