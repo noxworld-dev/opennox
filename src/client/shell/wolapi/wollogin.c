@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_830256;
 extern _DWORD dword_5d4594_830244;
 extern _DWORD dword_5d4594_830276;
 extern _DWORD dword_5d4594_830264;
@@ -68,10 +69,10 @@ int sub_44A560_wol_login() {
 	}
 	nox_window_call_field_94(*(int*)&dword_5d4594_830264, 16403, v2, 0);
 	sub_41FB90(v2, &v16, &v17);
-	*(_DWORD*)&byte_5D4594[830256] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1701);
+	dword_5d4594_830256 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1701);
 	if (v16 && *v16) {
 		nox_swprintf(v19, L"%S", v16);
-		nox_window_call_field_94(*(int*)&byte_5D4594[830256], 16414, (int)v19, 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_830256, 16414, (int)v19, 0);
 	}
 	*(_DWORD*)&byte_5D4594[830260] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1702);
 	sub_46B300(*(int*)&byte_5D4594[830260], sub_44AAD0);
@@ -125,7 +126,7 @@ int sub_44A560_wol_login() {
 	}
 	if (!sub_44A4A0()) {
 		sub_46A8A0();
-		sub_46B500(*(int*)&byte_5D4594[830256]);
+		sub_46B500(*(int*)&dword_5d4594_830256);
 	}
 	*(_DWORD*)&byte_5D4594[830268] = 0;
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
