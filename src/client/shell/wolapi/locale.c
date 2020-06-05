@@ -1,5 +1,6 @@
 #include "../../../proto.h"
 
+extern _DWORD dword_5d4594_1312476;
 extern _DWORD dword_5d4594_1312472;
 extern _DWORD dword_5d4594_1312484;
 extern _DWORD dword_5d4594_1312480;
@@ -29,7 +30,7 @@ int __cdecl sub_4B5770_wol_locale(int a1) {
 	sub_4B5990();
 	for (i = 0; i < *(int*)&dword_5d4594_1312472; ++i)
 		nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397,
-					 *(_DWORD*)(*(_DWORD*)&byte_5D4594[1312476] + 4 * i), -1);
+					 *(_DWORD*)(dword_5d4594_1312476 + 4 * i), -1);
 	v2 = loadString_sub_40F1D0((char*)&byte_587000[174848], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c",
 				   213);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397, (int)v2, -1);
