@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251600;
 extern _DWORD dword_5d4594_251608;
 extern _DWORD dword_5d4594_3632;
 extern _DWORD dword_5d4594_3624;
@@ -7762,7 +7763,7 @@ int __cdecl sub_412930(char* a1, char* a2) {
 	byte_5D4594_251584[1] = 0;
 	byte_5D4594_251584[2] = 0;
 	byte_5D4594_251596 = 0;
-	*(_DWORD*)&byte_5D4594[251600] = 0;
+	dword_5d4594_251600 = 0;
 	*(_DWORD*)&byte_5D4594[251604] = 0;
 	dword_5d4594_251608 = 0;
 	*(_DWORD*)&byte_5D4594[251612] = 0;
@@ -7882,11 +7883,11 @@ int __cdecl sub_412D40(int a1, FILE* a2, char* a3) {
 		if (!v3)
 			return 0;
 		v3[21] = 0;
-		v3[20] = *(char**)&byte_5D4594[251600];
-		if (*(_DWORD*)&byte_5D4594[251600])
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[251600] + 84) = v3;
+		v3[20] = *(char**)&dword_5d4594_251600;
+		if (dword_5d4594_251600)
+			*(_DWORD*)(dword_5d4594_251600 + 84) = v3;
 		++*(_DWORD*)&byte_5D4594[251604];
-		*(_DWORD*)&byte_5D4594[251600] = v3;
+		dword_5d4594_251600 = v3;
 		v5 = (char*)nox_malloc(strlen(v9) + 1);
 		*v4 = v5;
 		if (!v5)
@@ -7968,8 +7969,8 @@ int __cdecl sub_412ED0(int a1, FILE* a2, char* a3) {
 
 //----- (00413060) --------------------------------------------------------
 void sub_413060() {
-	sub_4130C0(*(LPVOID*)&byte_5D4594[251600]);
-	*(_DWORD*)&byte_5D4594[251600] = 0;
+	sub_4130C0(*(LPVOID*)&dword_5d4594_251600);
+	dword_5d4594_251600 = 0;
 	*(_DWORD*)&byte_5D4594[251604] = 0;
 	sub_413100(*(LPVOID*)&dword_5d4594_251608);
 	dword_5d4594_251608 = 0;
@@ -8048,7 +8049,7 @@ CHAR* sub_4131A0() {
 
 	result = *(CHAR**)&byte_5D4594[251616];
 	if (*(_DWORD*)&byte_5D4594[251616] != 1) {
-		for (i = *(_DWORD*)&byte_5D4594[251600]; i; i = *(_DWORD*)(i + 80)) {
+		for (i = dword_5d4594_251600; i; i = *(_DWORD*)(i + 80)) {
 			if (nox_common_gameFlags_check_40A5C0(2097153)) {
 				result = (CHAR*)sub_4E3AA0(*(CHAR**)i);
 			} else {
@@ -8079,8 +8080,8 @@ CHAR* sub_4131A0() {
 _DWORD* __cdecl sub_413250(int a1) {
 	_DWORD* result; // eax
 
-	result = *(_DWORD**)&byte_5D4594[251600];
-	if (!*(_DWORD*)&byte_5D4594[251600])
+	result = *(_DWORD**)&dword_5d4594_251600;
+	if (!dword_5d4594_251600)
 		return 0;
 	while (result[1] != a1) {
 		result = (_DWORD*)result[20];
@@ -8143,7 +8144,7 @@ obj_412ae0_t* __cdecl sub_413330(int a1) {
 }
 
 //----- (00413370) --------------------------------------------------------
-LPVOID sub_413370() { return *(LPVOID*)&byte_5D4594[251600]; }
+LPVOID sub_413370() { return *(LPVOID*)&dword_5d4594_251600; }
 
 //----- (00413380) --------------------------------------------------------
 int __cdecl sub_413380(int a1) { return *(_DWORD*)(a1 + 80); }
