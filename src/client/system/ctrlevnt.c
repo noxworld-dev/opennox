@@ -6,6 +6,7 @@
 #include "../gui/guispell.h"
 #include "../gui/servopts/guiserv.h"
 
+extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_754036;
 extern _DWORD dword_587000_80828;
@@ -652,7 +653,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				if (*(_DWORD*)&nox_common_engineFlags & 0x40000)
 					goto LABEL_211;
 				dword_587000_80828 ^= 1u;
-				*(_DWORD*)&byte_587000[80832] = dword_587000_80828;
+				dword_587000_80832 = dword_587000_80828;
 				sub_452D80(921, 100);
 				*(_DWORD*)&byte_5D4594[v36 + 747900] = 0;
 				break;

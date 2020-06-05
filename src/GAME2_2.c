@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_3798788;
 extern _DWORD dword_5d4594_1097188;
 extern _DWORD dword_587000_154960;
@@ -1191,7 +1192,7 @@ unsigned __int8 __cdecl sub_477530(int a1) {
 		result = byte_5D4594[1096656];
 		if (*(_DWORD*)&byte_5D4594[1096656])
 			result = sub_473610();
-		if (*(_DWORD*)&byte_587000[80832] == 1)
+		if (dword_587000_80832 == 1)
 			dword_587000_80828 = 1;
 	}
 	return result;
