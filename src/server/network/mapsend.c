@@ -1,4 +1,5 @@
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2388640;
 extern _DWORD dword_5d4594_2388648;
 
 //----- (005199F0) --------------------------------------------------------
@@ -57,7 +58,7 @@ void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
 				v6 = *((_DWORD*)a1 + 6);
 			} else {
 				v5 = *((_DWORD*)a1 + 6);
-				v6 = *(_DWORD*)&byte_5D4594[2388640];
+				v6 = dword_5d4594_2388640;
 			}
 			qmemcpy(v3 + 3, (const void*)(v6 + v5), v4);
 			sub_552640(*a1 + 1, v3, v4 + 6, 3);
@@ -204,7 +205,7 @@ int sub_519EB0_net_mapsend() {
 				v2 = nox_malloc(*(size_t*)&byte_5D4594[2388644]);
 				*(_DWORD*)v1 = v2;
 				if (v2) {
-					v3 = *(const void**)&byte_5D4594[2388640];
+					v3 = *(const void**)&dword_5d4594_2388640;
 					v4 = *(_DWORD*)&byte_5D4594[2388644];
 					*((_WORD*)v1 - 2) = 1;
 					qmemcpy(v2, v3, v4);
@@ -239,8 +240,8 @@ int sub_519EB0_net_mapsend() {
 		fseek(v8, 0, 2);
 		*(_DWORD*)&byte_5D4594[2388644] = ftell(v8);
 		fseek(v8, 0, 0);
-		*(_DWORD*)&byte_5D4594[2388640] = nox_malloc(*(size_t*)&byte_5D4594[2388644]);
-		sub_40ADD0_fread(*(char**)&byte_5D4594[2388640], 1u, *(size_t*)&byte_5D4594[2388644], v8);
+		dword_5d4594_2388640 = nox_malloc(*(size_t*)&byte_5D4594[2388644]);
+		sub_40ADD0_fread(*(char**)&dword_5d4594_2388640, 1u, *(size_t*)&byte_5D4594[2388644], v8);
 		fclose(v8);
 		result = 1;
 	} else {
