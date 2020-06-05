@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_1522616;
 extern _DWORD dword_5d4594_1193152;
 extern _DWORD dword_5d4594_3804668;
@@ -10825,7 +10826,7 @@ _DWORD* sub_4CB330() {
 	v27[9] = v29;
 	v30 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2016);
 	v31 = v30[9];
-	if (*(_DWORD*)&byte_587000[80836])
+	if (dword_587000_80836)
 		v32 = v31 | 4;
 	else
 		v32 = v31 & 0xFFFFFFFB;
@@ -10902,7 +10903,7 @@ int __cdecl sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			break;
 		case 2016:
 			result = 0;
-			*(_DWORD*)&byte_587000[80836] = 1 - *(_DWORD*)&byte_587000[80836];
+			dword_587000_80836 = 1 - dword_587000_80836;
 			break;
 		case 2017:
 			*(_DWORD*)&byte_587000[80840] = 1 - *(_DWORD*)&byte_587000[80840];
