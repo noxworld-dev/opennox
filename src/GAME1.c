@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_371756;
 extern _DWORD dword_5d4594_251712;
 extern _DWORD dword_5d4594_1280;
 extern _DWORD dword_587000_80800;
@@ -10890,10 +10891,10 @@ __int64 sub_416BF0() {
 	DWORD i;  // ebx
 	DWORD v3; // eax
 
-	v0 = ++*(_DWORD*)&byte_5D4594[371756];
+	v0 = ++dword_5d4594_371756;
 	v1 = *(_DWORD*)&byte_587000[54420];
-	for (i = *(_DWORD*)&byte_587000[54416]; *(_DWORD*)&byte_5D4594[371756] != *(_DWORD*)&byte_5D4594[371756];
-	     v0 = *(_DWORD*)&byte_5D4594[371756]) {
+	for (i = *(_DWORD*)&byte_587000[54416]; dword_5d4594_371756 != dword_5d4594_371756;
+	     v0 = dword_5d4594_371756) {
 		;
 	}
 	while (1) {
@@ -10902,9 +10903,9 @@ __int64 sub_416BF0() {
 			++v1;
 		*(_DWORD*)&byte_587000[54420] = v1;
 		*(_DWORD*)&byte_587000[54416] = v3;
-		if (v0 == *(_DWORD*)&byte_5D4594[371756])
+		if (v0 == dword_5d4594_371756)
 			break;
-		v0 = *(_DWORD*)&byte_5D4594[371756];
+		v0 = dword_5d4594_371756;
 	}
 	return *(_QWORD*)&byte_587000[54416];
 }
