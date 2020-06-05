@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798644;
 extern _DWORD dword_5d4594_1308108;
 extern _DWORD dword_5d4594_1308120;
 extern _DWORD dword_5d4594_1308156;
@@ -6498,9 +6499,9 @@ void sub_4AE540() {
 		free(*(LPVOID*)&dword_5d4594_3798632);
 		dword_5d4594_3798632 = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[3798644]) {
-		free(*(LPVOID*)&byte_5D4594[3798644]);
-		*(_DWORD*)&byte_5D4594[3798644] = 0;
+	if (dword_5d4594_3798644) {
+		free(*(LPVOID*)&dword_5d4594_3798644);
+		dword_5d4594_3798644 = 0;
 	}
 }
 
@@ -6792,7 +6793,7 @@ int sub_4AEBD0() {
 	int v0;     // eax
 	int result; // eax
 
-	dword_5d4594_3798648 = *(_DWORD*)&byte_5D4594[3798644];
+	dword_5d4594_3798648 = dword_5d4594_3798644;
 	v0 = 0;
 	dword_5d4594_3798640 = 0;
 	for (dword_5d4594_3798636 = 0; dword_5d4594_3798636 < nox_backbuffer_height;
@@ -6905,8 +6906,8 @@ void* sub_4AEDF0() {
 	result = nox_malloc(4 * nox_backbuffer_height);
 	dword_5d4594_3798632 = result;
 	if (result) {
-		*(_DWORD*)&byte_5D4594[3798644] = nox_malloc(nox_backbuffer_height << 6);
-		result = (void*)(*(_DWORD*)&byte_5D4594[3798644] != 0);
+		dword_5d4594_3798644 = nox_malloc(nox_backbuffer_height << 6);
+		result = (void*)(dword_5d4594_3798644 != 0);
 	}
 	return result;
 }
