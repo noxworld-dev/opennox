@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_587000_292492;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2650652;
@@ -2461,9 +2462,9 @@ void __cdecl sub_5488B0(int* a1, float* a2, int a3) {
 			v32 = a2[44] - v31;
 			v24 = -(v27.field_4 * v7[21]) - v27.field_0 * v7[20];
 			v12 = sub_4E4A70((int)v7);
-			v13 = *(float*)&byte_587000[292492];
+			v13 = *(float*)&dword_587000_292492;
 			v14 = sqrt(v12 * v13 * 4.0);
-			v15 = *(float*)&byte_587000[292492];
+			v15 = *(float*)&dword_587000_292492;
 			v16 = v14 * v24 * 0.25 + v15 * v32;
 			v22 = v16 * v27.field_4;
 			v21 = v16 * v27.field_0;
@@ -7245,7 +7246,7 @@ int __cdecl sub_550380(int a1, int a2, float2* a3) {
 		v3[20] = v16 * v13.field_0 + v3[20];
 		v3[21] = v16 * v13.field_4 + v3[21];
 	}
-	v9 = (v3[44] - v14) * *(float*)&byte_587000[292492];
+	v9 = (v3[44] - v14) * *(float*)&dword_587000_292492;
 	v12 = v9 * v13.field_4;
 	v11 = v9 * v13.field_0;
 	sub_548600((int)v3, v11, v12);
@@ -7429,16 +7430,16 @@ int __cdecl sub_550760(int a1, float2* a2, float2* a3, float4* a4, float2* a5, f
 	v31 = (*(float*)(a1 + 84) - *(float*)(a1 + 80)) * 0.70710677;
 	if (v9 >= 0.0) {
 		v28 = v6->field_4 - v7->field_4;
-		v15 = *(float*)&byte_587000[292492];
+		v15 = *(float*)&dword_587000_292492;
 		v14 = v15 * v28;
 	} else {
 		v28 = v7->field_C - v6->field_4;
-		v13 = *(float*)&byte_587000[292492];
+		v13 = *(float*)&dword_587000_292492;
 		v14 = -(v13 * v28);
 	}
 	v33 = v14;
 	v16 = sub_4E4A70(a1);
-	v17 = *(float*)&byte_587000[292492];
+	v17 = *(float*)&dword_587000_292492;
 	v18 = (sqrt(v16 * v17 * 4.0) * -v31 * 0.5 + v33) * v26;
 	v23.field_0 = v18 * -0.70710677;
 	v23.field_4 = v18 * 0.70710677;
@@ -7531,16 +7532,16 @@ int __cdecl sub_550A10(int a1, float2* a2, float2* a3, float4* a4, float2* a5, f
 	v32 = (*(float*)(a1 + 80) + *(float*)(a1 + 84)) * 0.70710677;
 	if (v10 >= 0.0) {
 		v29 = v6->field_0 - v7->field_0;
-		v16 = *(float*)&byte_587000[292492];
+		v16 = *(float*)&dword_587000_292492;
 		v15 = v16 * v29;
 	} else {
 		v29 = v7->field_8 - v6->field_0;
-		v14 = *(float*)&byte_587000[292492];
+		v14 = *(float*)&dword_587000_292492;
 		v15 = -(v14 * v29);
 	}
 	v34 = v15;
 	v17 = sub_4E4A70(a1);
-	v18 = *(float*)&byte_587000[292492];
+	v18 = *(float*)&dword_587000_292492;
 	v19 = (sqrt(v17 * v18 * 4.0) * -v32 * 0.5 + v34) * v27 * 0.70710677;
 	v24.field_0 = v19;
 	v24.field_4 = v19;
@@ -7897,9 +7898,9 @@ void __cdecl sub_551250(unsigned int a1, float* a2, int a3) {
 							if (a3 == 1) {
 								v41 = -(v29.field_4 * a2[21]) - v29.field_0 * a2[20];
 								v16 = sub_4E4A70((int)v4);
-								v17 = *(float*)&byte_587000[292492];
+								v17 = *(float*)&dword_587000_292492;
 								v18 = sqrt(v16 * v17 * 4.0);
-								v19 = *(float*)&byte_587000[292492];
+								v19 = *(float*)&dword_587000_292492;
 								v20 = v18 * v41 * 0.25 + v40 * v19;
 								v28 = v20 * v29.field_4;
 								v27 = v20 * v29.field_0;
