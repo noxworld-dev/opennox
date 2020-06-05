@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_823700;
 extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_587000_311480;
 extern _DWORD dword_5d4594_805836;
@@ -642,9 +643,9 @@ int nox_cmd_set_obs() {
 	sub_450C00(6u, v0);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		v2 = sub_417040(*(int*)&byte_5D4594[2616328]);
-		sub_443E90((int)v2, 0, *(wchar_t**)&byte_5D4594[823700]);
+		sub_443E90((int)v2, 0, *(wchar_t**)&dword_5d4594_823700);
 	} else {
-		sub_440950(0, *(wchar_t**)&byte_5D4594[823700]);
+		sub_440950(0, *(wchar_t**)&dword_5d4594_823700);
 	}
 	return 1;
 }
@@ -1479,12 +1480,12 @@ int __cdecl nox_cmd_exec(int a1, char a2) {
 	if (a2 != 2)
 		return 0;
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		v4 = *(_DWORD*)&byte_5D4594[823700];
+		v4 = dword_5d4594_823700;
 		v3 = loadString_sub_40F1D0((char*)&byte_587000[106860], 0,
 					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3979);
 		sub_450C00(6u, v3, v4);
 	}
-	sub_440950(1, *(wchar_t**)&byte_5D4594[823700]);
+	sub_440950(1, *(wchar_t**)&dword_5d4594_823700);
 	return 1;
 }
 
@@ -1519,7 +1520,7 @@ int __cdecl sub_4439B0(int a1, unsigned __int8 a2) {
 		result = 1;
 	} else {
 		if (a2 > 1u && *(_DWORD*)&byte_5D4594[823688]) {
-			v4 = nox_wcsstr(*(const wchar_t**)&byte_5D4594[823700], L" ");
+			v4 = nox_wcsstr(*(const wchar_t**)&dword_5d4594_823700, L" ");
 			if (v4)
 				sub_440950(2, v4);
 		}
@@ -1686,7 +1687,7 @@ int __cdecl nox_server_parseCmdText_443C80(wchar_t* a1, int a2) {
 	v11 = 0;
 	LOBYTE(v10) = 0;
 	if (a1) {
-		*(_DWORD*)&byte_5D4594[823700] = a1;
+		dword_5d4594_823700 = a1;
 		memset(&byte_5D4594[820276], 0, 0x800u);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			*(_DWORD*)&byte_5D4594[823684] = 1;
@@ -1742,7 +1743,7 @@ int __cdecl nox_server_parseCmdText_443C80(wchar_t* a1, int a2) {
 		}
 	}
 	result = v11;
-	*(_DWORD*)&byte_5D4594[823700] = 0;
+	dword_5d4594_823700 = 0;
 	return result;
 }
 // 443DEE: variable 'v10' is possibly undefined
@@ -2022,7 +2023,7 @@ int __cdecl nox_cmd_broadcast(int a1, unsigned __int8 a2, int a3) {
 int __cdecl nox_cmd_say(int a1, char a2) {
 	if (a2 == 1)
 		return 0;
-	sub_46A4B0((wchar_t*)(*(_DWORD*)&byte_5D4594[823700] + 8), 0);
+	sub_46A4B0((wchar_t*)(dword_5d4594_823700 + 8), 0);
 	return 1;
 }
 
