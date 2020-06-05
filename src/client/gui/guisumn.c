@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
 
+extern _DWORD dword_5d4594_1321204;
 extern _DWORD dword_5d4594_1321040;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -61,7 +62,7 @@ int sub_4C1D80() {
 	} while ((int)v6 < (int)&byte_5D4594[1321188]);
 	sub_4C2BF0();
 	*(_DWORD*)&byte_5D4594[1321044] = 0;
-	*(_DWORD*)&byte_5D4594[1321204] = 0;
+	dword_5d4594_1321204 = 0;
 	*(_DWORD*)&byte_5D4594[1321196] = 0;
 	return 1;
 }
@@ -153,7 +154,7 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 
 	if (!*(_DWORD*)&byte_5D4594[1321208])
 		*(_DWORD*)&byte_5D4594[1321208] = sub_4E3AA0((CHAR*)&byte_587000[184840]);
-	if (*(_DWORD*)&byte_5D4594[1321204] || (result = 1, a1[8] != 1)) {
+	if (dword_5d4594_1321204 || (result = 1, a1[8] != 1)) {
 		v2 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * a1[8] + 184344], 0,
 					   "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);
 		nox_client_wndGetPosition_46AA60(a1, &v11, &v10);
@@ -171,8 +172,8 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 			}
 			return 1;
 		}
-		if (*(_DWORD*)&byte_5D4594[1321204]) {
-			if (sub_4C2DD0(*(int*)&byte_5D4594[1321204])) {
+		if (dword_5d4594_1321204) {
+			if (sub_4C2DD0(*(int*)&dword_5d4594_1321204)) {
 				sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2523948],
 					   *(int*)&byte_5D4594[2650656], (__int16*)v2);
 				return 1;
