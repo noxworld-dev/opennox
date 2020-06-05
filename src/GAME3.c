@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309784;
 extern _DWORD dword_5d4594_1312476;
 extern _DWORD dword_5d4594_1307748;
 extern _DWORD dword_5d4594_1307736;
@@ -4912,7 +4913,7 @@ LPCSTR sub_4AB580() {
 	result = *(LPCSTR*)&dword_5d4594_1309776;
 	nox_file_9 = 0;
 	*(_DWORD*)&byte_5D4594[1309764] = 0;
-	*(_DWORD*)&byte_5D4594[1309784] = 0;
+	dword_5d4594_1309784 = 0;
 	dword_5d4594_1309780 = 0;
 	*(_DWORD*)&byte_5D4594[1309772] = 0;
 	*(_DWORD*)&byte_5D4594[1309768] = 0;
@@ -5000,7 +5001,7 @@ int sub_4AB720() {
 	}
 	if (dword_5d4594_1309776)
 		free(*(LPVOID*)&dword_5d4594_1309776);
-	*(_DWORD*)&byte_5D4594[1309784] = 0;
+	dword_5d4594_1309784 = 0;
 	dword_5d4594_1309780 = 0;
 	sub_4AB560(0);
 	return sub_4AB570(1);
@@ -5031,10 +5032,10 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void* a2, size_t a3) {
 					*(_WORD*)v3 = a1;
 					v3[2] = a3;
 					v3[3] = 0;
-					v3[4] = *(_DWORD*)&byte_5D4594[1309784];
-					if (*(_DWORD*)&byte_5D4594[1309784])
-						*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309784] + 12) = v3;
-					*(_DWORD*)&byte_5D4594[1309784] = v3;
+					v3[4] = dword_5d4594_1309784;
+					if (dword_5d4594_1309784)
+						*(_DWORD*)(dword_5d4594_1309784 + 12) = v3;
+					dword_5d4594_1309784 = v3;
 					if (!dword_5d4594_1309780)
 						dword_5d4594_1309780 = v3;
 				}
@@ -5056,7 +5057,7 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void* a2, size_t a3) {
 					if (v7)
 						*(_DWORD*)(v7 + 16) = *((_DWORD*)v5 + 4);
 					else
-						*(_DWORD*)&byte_5D4594[1309784] = *((_DWORD*)v5 + 4);
+						dword_5d4594_1309784 = *((_DWORD*)v5 + 4);
 					free(*((LPVOID*)v5 + 1));
 					free(v5);
 				}
@@ -5134,7 +5135,7 @@ int __cdecl sub_4ABAD0(char* a1, unsigned int a2) {
 	*(_DWORD*)&byte_5D4594[1309772] = a2;
 	*(_DWORD*)&byte_5D4594[1309768] = 0;
 	dword_5d4594_1309780 = 0;
-	*(_DWORD*)&byte_5D4594[1309784] = 0;
+	dword_5d4594_1309784 = 0;
 	if (strchr(a1, 92)) {
 		strcpy(v11, "maps\\");
 		v4 = strrchr(a1, 92) + 1;
