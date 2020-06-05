@@ -1,6 +1,7 @@
 #include "guivote.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1197308;
 extern _DWORD dword_5d4594_1197332;
 extern _DWORD dword_5d4594_1197316;
 extern _DWORD dword_5d4594_1197320;
@@ -41,7 +42,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16399, 0, 0);
 	result = (_DWORD*)a1;
-	*(_DWORD*)&byte_5D4594[1197308] = a1;
+	dword_5d4594_1197308 = a1;
 	switch (a1) {
 	case 4:
 		if (*(_DWORD*)&byte_5D4594[2618908] && !*(_DWORD*)(*(_DWORD*)&byte_5D4594[2618908] + 4792)) {
