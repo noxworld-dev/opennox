@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1563052;
 extern _DWORD dword_5d4594_1569644;
 extern _DWORD dword_5d4594_1556148;
 extern _DWORD dword_5d4594_825768;
@@ -770,14 +771,14 @@ int sub_4DCF20() {
 	int result; // eax
 
 	v0 = sub_417090(31);
-	result = *(_DWORD*)&byte_5D4594[1563052];
-	if (*(_DWORD*)&byte_5D4594[1563052]) {
+	result = dword_5d4594_1563052;
+	if (dword_5d4594_1563052) {
 		result = sub_4D6FC0();
 		if (!result) {
 			if (v0) {
 				if (v0[3680] & 0x10) {
 					sub_41A2E0((char*)&byte_5D4594[1560984], 31);
-					*(_DWORD*)&byte_5D4594[1563052] = 0;
+					dword_5d4594_1563052 = 0;
 					result = DeleteFileA((LPCSTR)&byte_5D4594[1560984]);
 				}
 			}
