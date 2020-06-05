@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523776;
 extern _DWORD dword_587000_312808;
 extern _DWORD dword_5d4594_2523892;
 extern _DWORD dword_5d4594_2516356;
@@ -4576,11 +4577,11 @@ void sub_57B0A0() {
 		sub_522FF0(154, (float2*)(dword_5d4594_2523780 + 56));
 		v1 = *(_DWORD**)&dword_5d4594_2523780;
 	}
-	if (*(_DWORD*)&byte_5D4594[2523776]) {
-		sub_4E5CC0(*(int*)&byte_5D4594[2523776]);
+	if (dword_5d4594_2523776) {
+		sub_4E5CC0(*(int*)&dword_5d4594_2523776);
 		v1 = *(_DWORD**)&dword_5d4594_2523780;
 	}
-	*(_DWORD*)&byte_5D4594[2523776] = 0;
+	dword_5d4594_2523776 = 0;
 	if (v1)
 		sub_4FA020(v1, 13);
 	dword_5d4594_2523780 = 0;
