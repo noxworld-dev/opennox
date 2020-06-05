@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045552;
 extern _DWORD dword_5d4594_1049524;
 extern _DWORD dword_5d4594_833728;
 extern _DWORD dword_5d4594_1047524;
@@ -3645,7 +3646,7 @@ int __cdecl sub_4541D0(int a1) {
 	*(_DWORD*)&byte_5D4594[1045580] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10128);
 	dword_5d4594_1045584 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10130);
 	dword_5d4594_1045588 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10132);
-	*(_DWORD*)&byte_5D4594[1045552] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10123);
+	dword_5d4594_1045552 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10123);
 	*(_DWORD*)&byte_5D4594[1045592] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10133);
 	v3 = *(_DWORD**)(dword_5d4594_1045532 + 32);
 	v4 = sub_42F970("UISlider");
