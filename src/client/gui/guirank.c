@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_587000_145672;
 extern _DWORD dword_5d4594_1084040;
 extern _DWORD dword_5d4594_1090108;
 extern _DWORD dword_5d4594_1090112;
@@ -341,7 +342,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 		(unsigned int)(*(_DWORD*)&byte_5D4594[1090124] + *(_DWORD*)&byte_5D4594[2649704])) {
 		dword_5d4594_3799524 = 1;
 		*(_DWORD*)&byte_5D4594[1090124] = *(_DWORD*)&byte_5D4594[2598000];
-		*(_DWORD*)&byte_587000[145672] = -1;
+		dword_587000_145672 = -1;
 		v33 = 0;
 		sub_46DB80();
 		sub_46DCC0();
@@ -433,7 +434,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 					}
 					if (*(_DWORD*)&byte_5D4594[80 * v32 + 1084192] ==
 					    *(_DWORD*)&byte_5D4594[2616328]) {
-						*(_DWORD*)&byte_587000[145672] =
+						dword_587000_145672 =
 						    *(__int16*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[4 * v16 + 1090060] +
 									   32) +
 								46);
@@ -546,7 +547,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 		sub_46FC50();
 		sub_46FD80();
 	}
-	if ((int)*(_DWORD*)&byte_587000[145672] >= 0)
+	if ((int)dword_587000_145672 >= 0)
 		sub_46FAE0();
 	return 1;
 }
