@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_587000_311372;
 extern _DWORD dword_5d4594_2523908;
 extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_2513916;
@@ -3365,7 +3366,7 @@ int sub_578C60() {
 
 //----- (00578C90) --------------------------------------------------------
 int __cdecl sub_578C90(int a1) {
-	*(_DWORD*)&byte_587000[311372] = a1;
+	dword_587000_311372 = a1;
 	byte_5D4594[2516476] |= 1 << a1;
 	sub_44E0B0(1);
 	sub_413960();
@@ -3381,10 +3382,10 @@ int sub_578CD0() {
 	char v3[16];        // [esp+0h] [ebp-90h]
 	char v4[128];       // [esp+10h] [ebp-80h]
 
-	result = *(_DWORD*)&byte_587000[311372];
-	if (*(int*)&byte_587000[311372] != -1) {
+	result = dword_587000_311372;
+	if (*(int*)&dword_587000_311372 != -1) {
 		v1 = byte_587000[311380];
-		strcpy(v3, *(const char**)&byte_587000[4 * *(_DWORD*)&byte_587000[311372] + 29456]);
+		strcpy(v3, *(const char**)&byte_587000[4 * dword_587000_311372 + 29456]);
 		v2 = &v3[strlen(v3)];
 		*(_DWORD*)v2 = *(_DWORD*)&byte_587000[311376];
 		v2[4] = v1;
@@ -3402,13 +3403,13 @@ int sub_578CD0() {
 
 //----- (00578D80) --------------------------------------------------------
 char* sub_578D80() {
-	if (*(_DWORD*)&byte_587000[311372]) {
-		if (*(_DWORD*)&byte_587000[311372] == 1) {
+	if (dword_587000_311372) {
+		if (dword_587000_311372 == 1) {
 			if (!(byte_5D4594[2516476] & 1))
 				return (char*)&byte_587000[311416];
 			if (!(byte_5D4594[2516476] & 4))
 				return (char*)&byte_587000[311432];
-		} else if (*(_DWORD*)&byte_587000[311372] == 2) {
+		} else if (dword_587000_311372 == 2) {
 			if (!(byte_5D4594[2516476] & 2))
 				return (char*)&byte_587000[311448];
 			if (!(byte_5D4594[2516476] & 1))
@@ -3436,7 +3437,7 @@ char __cdecl sub_578DE0(char a1) {
 unsigned __int8 sub_578DF0() { return byte_5D4594[2516476]; }
 
 //----- (00578E00) --------------------------------------------------------
-void sub_578E00() { *(_DWORD*)&byte_587000[311372] = -1; }
+void sub_578E00() { dword_587000_311372 = -1; }
 
 //----- (00578E10) --------------------------------------------------------
 SOCKET sub_578E10() {
