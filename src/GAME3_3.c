@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1563344;
 extern _DWORD dword_5d4594_1565616;
 extern _DWORD dword_587000_202404;
 extern _DWORD dword_587000_312788;
@@ -1238,7 +1239,7 @@ int __cdecl sub_4E3360(unsigned int a1) {
 	v1 = 0;
 	v2 = 1;
 	result = nox_new_alloc_class("objectMemClass", 772, a1);
-	*(_DWORD*)&byte_5D4594[1563344] = result;
+	dword_5d4594_1563344 = result;
 	if (result) {
 		if (a1) {
 			while (1) {
@@ -1253,18 +1254,18 @@ int __cdecl sub_4E3360(unsigned int a1) {
 						v5 = v1;
 						v1 = (_DWORD*)v1[111];
 						v6 = v5[9];
-						sub_414330(*(unsigned int**)&byte_5D4594[1563344], v5);
+						sub_414330(*(unsigned int**)&dword_5d4594_1563344, v5);
 						v5[9] = v6;
 					} while (v1);
-					result = *(_DWORD*)&byte_5D4594[1563344];
+					result = dword_5d4594_1563344;
 					goto LABEL_9;
 				}
-				result = *(_DWORD*)&byte_5D4594[1563344];
+				result = dword_5d4594_1563344;
 			}
 			while (v1) {
 				v7 = v1;
 				v1 = (_DWORD*)v1[111];
-				sub_414330(*(unsigned int**)&byte_5D4594[1563344], v7);
+				sub_414330(*(unsigned int**)&dword_5d4594_1563344, v7);
 			}
 			result = 0;
 		} else {
@@ -1278,7 +1279,7 @@ int __cdecl sub_4E3360(unsigned int a1) {
 
 //----- (004E3420) --------------------------------------------------------
 int sub_4E3420() {
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1563344]);
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1563344);
 	return 1;
 }
 
@@ -1297,7 +1298,7 @@ _DWORD* __cdecl sub_4E3470(int a1) {
 	int v8;                      // eax
 	int v9;                      // [esp+10h] [ebp-4h]
 
-	result = (_DWORD*)nox_alloc_class_new_obj(*(_DWORD**)&byte_5D4594[1563344]);
+	result = (_DWORD*)nox_alloc_class_new_obj(*(_DWORD**)&dword_5d4594_1563344);
 	v2 = result;
 	if (result) {
 		v9 = result[9];
@@ -1487,7 +1488,7 @@ int __cdecl sub_4E38A0(int a1) {
 	if (*(_DWORD*)(a1 + 748))
 		free(*(LPVOID*)(a1 + 748));
 	v6 = *(_DWORD*)(a1 + 36);
-	sub_414400(*(unsigned int**)&byte_5D4594[1563344], (_QWORD*)a1);
+	sub_414400(*(unsigned int**)&dword_5d4594_1563344, (_QWORD*)a1);
 	*(_DWORD*)(a1 + 36) = v6;
 	return --*(_DWORD*)&byte_5D4594[1563900];
 }
