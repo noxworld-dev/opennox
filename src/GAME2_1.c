@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1062560;
 extern _DWORD dword_5d4594_1096280;
 extern _DWORD dword_587000_145672;
 extern _DWORD dword_5d4594_1064868;
@@ -1973,12 +1974,12 @@ int sub_465E00() {
 	v5 = nox_window_new(nox_win_unk5, 8, 5, 11, 28, 29, 0);
 	nox_window_set_all_funcs(v5, sub_466550, sub_4661C0, sub_466160);
 	memset(&byte_5D4594[1050020], 0, 0x3090u);
-	if (!*(_DWORD*)&byte_5D4594[1062560]) {
-		*(_DWORD*)&byte_5D4594[1062560] = sub_44CFC0((CHAR*)&byte_587000[139468]);
+	if (!dword_5d4594_1062560) {
+		dword_5d4594_1062560 = sub_44CFC0((CHAR*)&byte_587000[139468]);
 		*(_DWORD*)&byte_5D4594[1049728] = sub_44CFC0((CHAR*)&byte_587000[139476]);
 		*(_DWORD*)&byte_5D4594[1049724] = sub_44CFC0((CHAR*)&byte_587000[139492]);
 	}
-	*(_DWORD*)&byte_5D4594[1052980] = nox_new_drawable_for_thing(*(int*)&byte_5D4594[1062560]);
+	*(_DWORD*)&byte_5D4594[1052980] = nox_new_drawable_for_thing(*(int*)&dword_5d4594_1062560);
 	if (*(_DWORD*)&byte_5D4594[1052980])
 		byte_5D4594[1053120] = 1;
 	v6 = *(_DWORD*)&byte_5D4594[1062564];
