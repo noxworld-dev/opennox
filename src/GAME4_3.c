@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312800;
 extern _DWORD dword_587000_312816;
 extern _DWORD dword_587000_312804;
 extern _DWORD dword_587000_312820;
@@ -10647,7 +10648,7 @@ int __cdecl sub_53EF70(int a1, int a2) {
 				v8 = (double)v25 * *(float*)&dword_587000_312816;
 				goto LABEL_13;
 			case 2:
-				v8 = (double)v25 * *(float*)&byte_587000[312800];
+				v8 = (double)v25 * *(float*)&dword_587000_312800;
 				goto LABEL_13;
 			}
 		}
