@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80824;
 extern _DWORD dword_5d4594_1049484;
 extern _DWORD dword_5d4594_830872;
 extern _DWORD dword_5d4594_1046516;
@@ -1657,7 +1658,7 @@ int __cdecl sub_450E90(int a1, int a2) {
 		return 1;
 	}
 	if (*(_DWORD*)(a2 + 20) != 0x80000000) {
-		if (*(_DWORD*)&byte_587000[80824]) {
+		if (dword_587000_80824) {
 			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
 			return 1;
 		}
