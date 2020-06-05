@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_587000_66116;
 extern _DWORD dword_5d4594_741256;
 extern _DWORD dword_5d4594_740004;
 extern _DWORD dword_5d4594_528272;
@@ -8222,7 +8223,7 @@ char __cdecl sub_424CB0(int a1) {
 
 	v1 = 0;
 	v2 = 0;
-	if (*(int*)&byte_587000[66116] <= 0)
+	if (*(int*)&dword_587000_66116 <= 0)
 		return 0;
 	v3 = &byte_587000[66000];
 	do {
@@ -8230,7 +8231,7 @@ char __cdecl sub_424CB0(int a1) {
 			++v1;
 		++v2;
 		v3 += 4;
-	} while (v2 < *(int*)&byte_587000[66116]);
+	} while (v2 < *(int*)&dword_587000_66116);
 	return v1;
 }
 
@@ -8238,7 +8239,7 @@ char __cdecl sub_424CB0(int a1) {
 int sub_424D00() {
 	int result; // eax
 
-	if (*(int*)&byte_587000[66116] <= 0)
+	if (*(int*)&dword_587000_66116 <= 0)
 		result = -1;
 	else
 		result = *(_DWORD*)&byte_587000[66000];
@@ -8251,10 +8252,10 @@ int __cdecl sub_424D20(int a1) {
 	unsigned __int8* i; // edx
 
 	v1 = 0;
-	if (*(int*)&byte_587000[66116] <= 0)
+	if (*(int*)&dword_587000_66116 <= 0)
 		return -1;
-	for (i = &byte_587000[66000]; *(int*)i != a1 || v1 >= *(int*)&byte_587000[66116] - 1; i += 4) {
-		if (++v1 >= *(int*)&byte_587000[66116])
+	for (i = &byte_587000[66000]; *(int*)i != a1 || v1 >= *(int*)&dword_587000_66116 - 1; i += 4) {
+		if (++v1 >= *(int*)&dword_587000_66116)
 			return -1;
 	}
 	return *(_DWORD*)&byte_587000[4 * v1 + 66004];
