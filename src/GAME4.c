@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1569724;
 extern _DWORD dword_5d4594_1599616;
 extern _DWORD dword_5d4594_1599064;
 extern _DWORD dword_5d4594_1569748;
@@ -5235,13 +5236,13 @@ void sub_4FE840() { nox_srand(0x1447u); }
 
 //----- (004FE850) --------------------------------------------------------
 BOOL sub_4FE850() {
-	*(_DWORD*)&byte_5D4594[1569724] = nox_new_alloc_class("spellDuration", 120, 512);
-	return *(_DWORD*)&byte_5D4594[1569724] != 0;
+	dword_5d4594_1569724 = nox_new_alloc_class("spellDuration", 120, 512);
+	return dword_5d4594_1569724 != 0;
 }
 
 //----- (004FE880) --------------------------------------------------------
 void sub_4FE880() {
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1569724]);
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1569724);
 	dword_5d4594_1569728 = 0;
 }
 
@@ -5265,7 +5266,7 @@ void __cdecl sub_4FE8A0(int a1) {
 			} while (v3);
 		}
 	} else {
-		sub_4144D0(*(_DWORD**)&byte_5D4594[1569724]);
+		sub_4144D0(*(_DWORD**)&dword_5d4594_1569724);
 		dword_5d4594_1569728 = 0;
 	}
 }
@@ -5298,7 +5299,7 @@ int __cdecl sub_4FE940(int a1) { return *(_DWORD*)(a1 + 116); }
 _WORD* sub_4FE950() {
 	_WORD* result; // eax
 
-	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1569724]);
+	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1569724);
 	if (result)
 		*result = ++*(_WORD*)&byte_5D4594[1569732];
 	return result;
@@ -5327,7 +5328,7 @@ void __cdecl sub_4FE980(int a1) {
 			v3 = v4;
 		} while (v4);
 	}
-	sub_414330(*(unsigned int**)&byte_5D4594[1569724], (_QWORD*)a1);
+	sub_414330(*(unsigned int**)&dword_5d4594_1569724, (_QWORD*)a1);
 }
 
 //----- (004FE9D0) --------------------------------------------------------
