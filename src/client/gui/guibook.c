@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1046656;
 extern _DWORD dword_5d4594_1046924;
 extern _DWORD dword_5d4594_1047520;
 extern _DWORD dword_587000_132132;
@@ -112,7 +113,7 @@ int __cdecl sub_45BD40(int a1) {
 	v1 = v66 - 24;
 	v2 = v67 - 76;
 	v3 = sub_43F320(0);
-	*(_DWORD*)&byte_5D4594[1046656] = v3 + 2;
+	dword_5d4594_1046656 = v3 + 2;
 	sub_434390(*(int*)&byte_5D4594[1046880]);
 	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1046856], v1, v2);
 	if (dword_5d4594_1046872)
@@ -129,7 +130,7 @@ int __cdecl sub_45BD40(int a1) {
 	}
 	if (dword_587000_132132) {
 		v4 = dword_5d4594_1046936;
-		*(_DWORD*)WideCharStr = 141 / *(_DWORD*)&byte_5D4594[1046656] - 1;
+		*(_DWORD*)WideCharStr = 141 / dword_5d4594_1046656 - 1;
 		if (!dword_5d4594_1046936) {
 			nox_window_set_hidden(*(int*)&byte_5D4594[1046944], 1);
 			v4 = dword_5d4594_1046936;
@@ -172,7 +173,7 @@ int __cdecl sub_45BD40(int a1) {
 					v11 = (__int16*)sub_425260(*(_DWORD*)&byte_5D4594[4 * v8 + 1046960]);
 				}
 				sub_43F6E0(0, v11, v60, v62);
-				v7 += *(_DWORD*)&byte_5D4594[1046656];
+				v7 += dword_5d4594_1046656;
 				if (++v5 >= 2 * *(_DWORD*)WideCharStr)
 					break;
 				v4 = dword_5d4594_1046936;
