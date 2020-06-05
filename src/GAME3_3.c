@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_10256;
 extern _QWORD qword_5d4594_1567940;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_3843628;
@@ -10420,7 +10421,7 @@ int __cdecl sub_4F04B0(int a1) {
 			v7 = v4;
 		}
 		v9 = v8 / (double)v7;
-		v6 = nox_common_randomInt_415FA0((__int64)(v9 * *(double*)&byte_581450[10256]),
+		v6 = nox_common_randomInt_415FA0((__int64)(v9 * *(double*)&qword_581450_10256),
 						 (__int64)(v9 * *(double*)&byte_581450[10264])) -
 		     (unsigned __int64)(__int64)(v9 * *(double*)&byte_581450[10248]);
 		result = nox_common_randomInt_415FA0(15, 30);
