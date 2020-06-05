@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1047528;
 extern _DWORD dword_5d4594_1046636;
 extern _DWORD dword_5d4594_832520;
 extern _DWORD dword_5d4594_832500;
@@ -6521,18 +6522,18 @@ int __cdecl sub_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 			goto LABEL_14;
 		v11 = *(_BYTE*)(dword_5d4594_1047516 + 2251);
 		if (!v11 && !dword_5d4594_1046868) {
-			*(_DWORD*)&byte_5D4594[1047528] =
+			dword_5d4594_1047528 =
 			    *(_DWORD*)&byte_5D4594[4 * dword_587000_132136 + 1046960];
-			sub_477640(*(int*)&byte_5D4594[1047528], 1);
+			sub_477640(*(int*)&dword_5d4594_1047528, 1);
 			sub_452D80(793, 100);
 			return 1;
 		}
 		if (v11 != 2 || dword_5d4594_1046868 != 1) {
 			if (dword_5d4594_1046868)
 				return 1;
-			*(_DWORD*)&byte_5D4594[1047528] =
+			dword_5d4594_1047528 =
 			    *(_DWORD*)&byte_5D4594[4 * dword_587000_132136 + 1046960];
-			sub_477640(*(int*)&byte_5D4594[1047528], 1);
+			sub_477640(*(int*)&dword_5d4594_1047528, 1);
 			sub_452D80(793, 100);
 			result = 1;
 		} else {
@@ -6541,15 +6542,15 @@ int __cdecl sub_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 				    nox_common_gameFlags_check_40A5C0(4096)) {
 					sub_46ADE0(a1);
 					sub_45B930(*(int*)&dword_587000_132136);
-					*(_DWORD*)&byte_5D4594[1047528] = 0;
+					dword_5d4594_1047528 = 0;
 				LABEL_14:
 					dword_587000_132136 = -1;
 					return 1;
 				}
 				v10 = dword_587000_132136;
 			}
-			*(_DWORD*)&byte_5D4594[1047528] = *(_DWORD*)&byte_5D4594[4 * v10 + 1046960] + 74;
-			sub_477640(*(int*)&byte_5D4594[1047528], 1);
+			dword_5d4594_1047528 = *(_DWORD*)&byte_5D4594[4 * v10 + 1046960] + 74;
+			sub_477640(*(int*)&dword_5d4594_1047528, 1);
 			sub_452D80(793, 100);
 			result = 1;
 		}
@@ -6567,7 +6568,7 @@ int __cdecl sub_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 				v13 = v3 - *(_DWORD*)&byte_5D4594[1047536];
 			if (v13 >= 5)
 			LABEL_52:
-				sub_45DCA0(*(int*)&byte_5D4594[1047528], 0, v4, v3, 0);
+				sub_45DCA0(*(int*)&dword_5d4594_1047528, 0, v4, v3, 0);
 			else
 				sub_45B930(*(int*)&dword_587000_132136);
 		}
