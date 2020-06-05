@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815708;
 extern _DWORD dword_5d4594_816460;
 extern _DWORD dword_587000_80812;
 extern _DWORD dword_587000_81128;
@@ -747,7 +748,7 @@ int sub_43C650() {
 }
 
 //----- (0043C6E0) --------------------------------------------------------
-BOOL sub_43C6E0() { return !*(_DWORD*)&byte_5D4594[815704] && !*(_DWORD*)&byte_5D4594[815708]; }
+BOOL sub_43C6E0() { return !*(_DWORD*)&byte_5D4594[815704] && !dword_5d4594_815708; }
 
 //----- (0043C700) --------------------------------------------------------
 int nox_client_isConnected_43C700() { return *(_DWORD*)&byte_5D4594[815764]; }
@@ -803,7 +804,7 @@ int __cdecl sub_43C7B0(char* cp, int hostshort, int a3, signed int* a4) {
 
 	memset(v7, 0, sizeof(v7));
 	*(_DWORD*)&byte_5D4594[815704] = 0;
-	*(_DWORD*)&byte_5D4594[815708] = 0;
+	dword_5d4594_815708 = 0;
 	*(_DWORD*)&v7[20] = 2048;
 	*(_DWORD*)&v7[8] = hostshort;
 	sub_5520B0(200, 1024);
@@ -841,7 +842,7 @@ int __cdecl sub_43C860(int a1, unsigned __int8* a2, int a3) {
 		sub_4AB4A0(0);
 		*(_DWORD*)&byte_5D4594[815704] = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[815708] == 1)
+	if (dword_5d4594_815708 == 1)
 		sub_43CF40();
 	return 1;
 }
@@ -1045,8 +1046,8 @@ int sub_43CCA0() {
 			v4 = sub_416BB0() - *(_QWORD*)&byte_5D4594[815716];
 			*(_DWORD*)&v7[4] = HIDWORD(v4);
 			if (v4 > 0x4E20) {
-				LODWORD(v4) = *(_DWORD*)&byte_5D4594[815708];
-				if (!*(_DWORD*)&byte_5D4594[815708]) {
+				LODWORD(v4) = dword_5d4594_815708;
+				if (!dword_5d4594_815708) {
 					v4 = sub_416BB0() - *(_QWORD*)&byte_5D4594[815732];
 					*(_DWORD*)&v7[4] = HIDWORD(v4);
 					if (v4 > 0x4E20)
@@ -1105,7 +1106,7 @@ int sub_43CEB0() {
 //----- (0043CF40) --------------------------------------------------------
 int sub_43CF40() {
 	*(_QWORD*)&byte_5D4594[815732] = sub_416BB0();
-	*(_DWORD*)&byte_5D4594[815708] = 0;
+	dword_5d4594_815708 = 0;
 	return sub_4AB4D0(0);
 }
 
@@ -1114,10 +1115,10 @@ int sub_43CF70() {
 	int result; // eax
 	char v2;    // [esp+1h] [ebp-1h]
 
-	result = *(_DWORD*)&byte_5D4594[815708];
-	if (!*(_DWORD*)&byte_5D4594[815708]) {
+	result = dword_5d4594_815708;
+	if (!dword_5d4594_815708) {
 		sub_4AB4D0(1);
-		*(_DWORD*)&byte_5D4594[815708] = 1;
+		dword_5d4594_815708 = 1;
 		result = *(_DWORD*)&byte_5D4594[2618908];
 		if (*(_DWORD*)&byte_5D4594[2618908]) {
 			sub_4174F0(*(int*)&byte_5D4594[2618908], 64);
