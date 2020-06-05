@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1203860;
 extern _DWORD dword_5d4594_1301812;
 extern _DWORD dword_5d4594_1305748;
 extern _DWORD dword_5d4594_1197328;
@@ -2359,13 +2360,13 @@ int sub_4958F0() {
 
 //----- (00495980) --------------------------------------------------------
 BOOL sub_495980() {
-	*(_DWORD*)&byte_5D4594[1203860] = nox_new_alloc_class("FriendListClass", 8, 128);
-	return *(_DWORD*)&byte_5D4594[1203860] != 0;
+	dword_5d4594_1203860 = nox_new_alloc_class("FriendListClass", 8, 128);
+	return dword_5d4594_1203860 != 0;
 }
 
 //----- (004959B0) --------------------------------------------------------
 void sub_4959B0() {
-	sub_4144D0(*(_DWORD**)&byte_5D4594[1203860]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_1203860);
 	dword_5d4594_1203864 = 0;
 }
 
@@ -2373,9 +2374,9 @@ void sub_4959B0() {
 int sub_4959D0() {
 	int result; // eax
 
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1203860]);
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1203860);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1203860] = 0;
+	dword_5d4594_1203860 = 0;
 	dword_5d4594_1203864 = 0;
 	return result;
 }
@@ -2384,7 +2385,7 @@ int sub_4959D0() {
 _DWORD* __cdecl sub_4959F0(int a1) {
 	_DWORD* result; // eax
 
-	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1203860]);
+	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1203860);
 	if (result) {
 		*result = a1;
 		result[1] = dword_5d4594_1203864;
@@ -2411,7 +2412,7 @@ void __cdecl sub_495A20(int a1) {
 			*(_DWORD*)(v2 + 4) = *(_DWORD*)(v1 + 4);
 		else
 			dword_5d4594_1203864 = *(_DWORD*)(v1 + 4);
-		sub_414330(*(unsigned int**)&byte_5D4594[1203860], (_QWORD*)v1);
+		sub_414330(*(unsigned int**)&dword_5d4594_1203860, (_QWORD*)v1);
 	}
 }
 
