@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_823776;
 extern _DWORD dword_5d4594_832524;
 extern _DWORD dword_5d4594_832512;
 extern _DWORD dword_5d4594_832496;
@@ -1837,8 +1838,8 @@ int sub_4514F0() {
 	int v2;              // esi
 	unsigned __int8* v3; // ebx
 
-	result = *(_DWORD*)&byte_5D4594[823776];
-	if (*(_DWORD*)&byte_5D4594[823776]) {
+	result = dword_5d4594_823776;
+	if (dword_5d4594_823776) {
 		v1 = sub_43F320(0);
 		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 		nox_client_drawRectFilledOpaque_49CE30(*(int*)&byte_5D4594[839884], *(int*)&dword_5d4594_839888, 320, 21 * v1);
