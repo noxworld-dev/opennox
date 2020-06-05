@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_87408;
 extern _DWORD dword_5d4594_3798812;
 extern _DWORD dword_5d4594_3798800;
 extern _DWORD dword_587000_80812;
@@ -9143,7 +9144,7 @@ int __cdecl sub_437860(int a1, int a2) {
 
 //----- (004379C0) --------------------------------------------------------
 void sub_4379C0() {
-	if (*(_DWORD*)&byte_587000[87408] == 1)
+	if (dword_587000_87408 == 1)
 		nox_window_call_field_94(*(int*)&dword_5d4594_815012, 16399, 0, 0);
 }
 
@@ -9436,7 +9437,7 @@ _DWORD* __cdecl sub_439450(int a1, int a2, _DWORD* a3) {
 		*a3 = 470;
 	if (a2 - 20 + 120 > 451)
 		a3[1] = 331;
-	if (*(_DWORD*)&byte_587000[87408] == 1) {
+	if (dword_587000_87408 == 1) {
 		v4 = 55;
 		if (a3[1] >= 55)
 			goto LABEL_10;
@@ -9763,7 +9764,7 @@ void __cdecl sub_43AFC0(int a1) {
 		sub_43AFA0(9);
 		return;
 	}
-	if (!*(_DWORD*)&byte_587000[87408]) {
+	if (!dword_587000_87408) {
 		sub_43A920();
 		v10.field_0 = *((__int16*)v1 + 22) + 216;
 		v10.field_4 = *((__int16*)v1 + 23) + 27;
@@ -9807,7 +9808,7 @@ void __cdecl sub_43B0E0(int a1) {
 				if (v4 >= 0) {
 					*(_DWORD*)(v3 + 96) = v4;
 					v5 = sub_4A0330((int*)v3);
-					if (*(_DWORD*)&byte_587000[87408] == 1) {
+					if (dword_587000_87408 == 1) {
 						if (sub_4899C0(v3)) {
 							nox_swprintf((wchar_t*)&byte_5D4594[814756], L"%d",
 								     *(_DWORD*)(v3 + 96));
