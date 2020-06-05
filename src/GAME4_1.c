@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386500;
 extern _DWORD dword_5d4594_1599632;
 extern _DWORD dword_5d4594_2386576;
 extern _DWORD dword_5d4594_2386212;
@@ -3297,7 +3298,7 @@ int sub_50E2A0() {
 		dword_5d4594_2386496 = nox_new_alloc_class("TradeItems", 16, 500);
 		if (dword_5d4594_2386496) {
 			memset(&byte_5D4594[2386364], 0, 0x80u);
-			*(_DWORD*)&byte_5D4594[2386500] = 0;
+			dword_5d4594_2386500 = 0;
 			result = 1;
 		} else {
 			sub_50E300();
@@ -3319,7 +3320,7 @@ int sub_50E300() {
 	result = 0;
 	memset(&byte_5D4594[2386364], 0, 0x80u);
 	dword_5d4594_2386496 = 0;
-	*(_DWORD*)&byte_5D4594[2386500] = 0;
+	dword_5d4594_2386500 = 0;
 	return result;
 }
 
@@ -3329,8 +3330,8 @@ int sub_50E360() {
 	int* i;     // esi
 	int result; // eax
 
-	v0 = *(_DWORD**)&byte_5D4594[2386500];
-	if (*(_DWORD*)&byte_5D4594[2386500]) {
+	v0 = *(_DWORD**)&dword_5d4594_2386500;
+	if (dword_5d4594_2386500) {
 		do {
 			if (v0[4]) {
 				for (i = (int*)v0[5]; i; i = (int*)i[2])
@@ -3344,7 +3345,7 @@ int sub_50E360() {
 	sub_4144D0(*(_DWORD**)&dword_5d4594_2386496);
 	result = 0;
 	memset(&byte_5D4594[2386364], 0, 0x80u);
-	*(_DWORD*)&byte_5D4594[2386500] = 0;
+	dword_5d4594_2386500 = 0;
 	return result;
 }
 
@@ -3530,10 +3531,10 @@ _DWORD* sub_50E870() {
 	v0[12] = sub_4E3810((CHAR*)&byte_587000[235776]);
 	v1[13] = sub_4E3810((CHAR*)&byte_587000[235784]);
 	v1[15] = 0;
-	v1[14] = *(_DWORD*)&byte_5D4594[2386500];
-	if (*(_DWORD*)&byte_5D4594[2386500])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[2386500] + 60) = v1;
-	*(_DWORD*)&byte_5D4594[2386500] = v1;
+	v1[14] = dword_5d4594_2386500;
+	if (dword_5d4594_2386500)
+		*(_DWORD*)(dword_5d4594_2386500 + 60) = v1;
+	dword_5d4594_2386500 = v1;
 	return v1;
 }
 
@@ -4323,8 +4324,8 @@ void __cdecl sub_510000(int a1) {
 	v4 = *(_DWORD*)(a1 + 60);
 	if (v4)
 		*(_DWORD*)(v4 + 56) = *(_DWORD*)(a1 + 56);
-	if (a1 == *(_DWORD*)&byte_5D4594[2386500])
-		*(_DWORD*)&byte_5D4594[2386500] = *(_DWORD*)(a1 + 56);
+	if (a1 == dword_5d4594_2386500)
+		dword_5d4594_2386500 = *(_DWORD*)(a1 + 56);
 	sub_414330(*(unsigned int**)&byte_5D4594[2386492], (_QWORD*)a1);
 }
 
