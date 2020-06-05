@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_823684;
 extern _DWORD dword_5d4594_1563664;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_2523744;
@@ -1328,7 +1329,7 @@ int nox_cmd_list_users() {
 	for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
 		v5[0] = 0;
 		nox_wcscat(v5, (const wchar_t*)i + 2352);
-		if (*(_DWORD*)&byte_5D4594[823684] && i[3680] & 4) {
+		if (dword_5d4594_823684 && i[3680] & 4) {
 			nox_wcscat(v5, L", ");
 			v2 = loadString_sub_40F1D0((char*)&byte_587000[106532], 0,
 						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3851);
@@ -1383,7 +1384,7 @@ int __cdecl nox_cmd_unmute(int a1, unsigned __int8 a2, int a3) {
 
 	if (a2 < 2u || a2 > 3u)
 		return 0;
-	if (!*(_DWORD*)&byte_5D4594[823684]) {
+	if (!dword_5d4594_823684) {
 		v3 = (wchar_t**)(a3 + 4 * a1);
 		goto LABEL_8;
 	}
@@ -1448,7 +1449,7 @@ int __cdecl nox_cmd_mute(int a1, unsigned __int8 a2, int a3) {
 
 	if (a2 < 2u || a2 > 3u)
 		return 0;
-	if (!*(_DWORD*)&byte_5D4594[823684]) {
+	if (!dword_5d4594_823684) {
 		v3 = (wchar_t**)(a3 + 4 * a1);
 		goto LABEL_8;
 	}
@@ -1603,7 +1604,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5) {
 	}
 	if (!(*(_DWORD*)&nox_common_engineFlags & 0x40000) && nox_cheats_disabled && (int)a4[6 * v7 + 3] & 0x10)
 		return 0;
-	if (*(_DWORD*)&byte_5D4594[823684]) {
+	if (dword_5d4594_823684) {
 		v12 = &a4[6 * v7];
 		v13 = (char)a4[6 * v7 + 3];
 		if (!(v13 & 1)) {
@@ -1693,10 +1694,10 @@ int __cdecl nox_server_parseCmdText_443C80(wchar_t* a1, int a2) {
 		dword_5d4594_823700 = a1;
 		memset(&byte_5D4594[820276], 0, 0x800u);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			*(_DWORD*)&byte_5D4594[823684] = 1;
+			dword_5d4594_823684 = 1;
 			*(_DWORD*)&byte_5D4594[823688] = 0;
 		} else {
-			*(_DWORD*)&byte_5D4594[823684] = 0;
+			dword_5d4594_823684 = 0;
 			*(_DWORD*)&byte_5D4594[823688] = 1;
 		}
 		if (*(_DWORD*)&byte_5D4594[823696]) {
