@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_5d4594_3835352;
 extern _DWORD dword_5d4594_1550912;
 extern _DWORD dword_5d4594_1523036;
@@ -4654,7 +4655,7 @@ int sub_4D6FC0() { return *(_DWORD*)&byte_5D4594[1556148]; }
 
 //----- (004D7080) --------------------------------------------------------
 int nox_server_conCmdHandler_startSoloQuest_4D7080() {
-	*(_DWORD*)&byte_5D4594[1556112] = 1;
+	dword_5d4594_1556112 = 1;
 	sub_44E0B0(1);
 	*(_DWORD*)&byte_5D4594[1556152] = sub_416A00();
 	sub_4169E0();
