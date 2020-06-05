@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_154948;
 extern _DWORD dword_5d4594_3798776;
 extern _DWORD dword_5d4594_3807160;
 extern _DWORD dword_5d4594_1098592;
@@ -576,11 +577,11 @@ void __cdecl sub_476850(int a1, unsigned __int8* a2) {
 		    v10 + v26 >= *(int*)&dword_5d4594_3798824 + dword_5d4594_3798808) {
 			*((_DWORD*)a2 + 86) = 0;
 		} else {
-			v11 = *(_DWORD*)&byte_587000[154948];
-			if (*(int*)&byte_587000[154948] <= 0) {
+			v11 = dword_587000_154948;
+			if (*(int*)&dword_587000_154948 <= 0) {
 				*((_DWORD*)a2 + 86) = 0;
 				v7 = dword_5d4594_3798820;
-				v11 = *(_DWORD*)&byte_587000[154948];
+				v11 = dword_587000_154948;
 			}
 			if (v11 - *((int*)a2 + 86) > 1 || v11 <= 0) {
 				v12 = dword_5d4594_3798844;
@@ -719,11 +720,11 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2) {
 		    (int)result + v6 >= *(int*)&dword_5d4594_3798824 + dword_5d4594_3798808) {
 			*((_DWORD*)v2 + 86) = 0;
 		} else {
-			v10 = *(_DWORD*)&byte_587000[154948];
-			if (*(int*)&byte_587000[154948] <= 0) {
+			v10 = dword_587000_154948;
+			if (*(int*)&dword_587000_154948 <= 0) {
 				*((_DWORD*)v2 + 86) = 0;
 				v9 = dword_5d4594_3798824;
-				v10 = *(_DWORD*)&byte_587000[154948];
+				v10 = dword_587000_154948;
 			}
 			if (v10 - *((int*)v2 + 86) > 1 || v10 <= 0) {
 				v11 = dword_5d4594_3798844;
@@ -6723,7 +6724,7 @@ int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7
 }
 
 //----- (00481410) --------------------------------------------------------
-void sub_481410() { *(_DWORD*)&byte_587000[154948] = -1; }
+void sub_481410() { dword_587000_154948 = -1; }
 
 //----- (00481420) --------------------------------------------------------
 int sub_481420() {
@@ -7150,7 +7151,7 @@ int __cdecl sub_481C20(int* a1) {
 	int v79;              // [esp+54h] [ebp+8h]
 	int v80;              // [esp+54h] [ebp+8h]
 
-	++*(_DWORD*)&byte_587000[154948];
+	++dword_587000_154948;
 	v1 = a1[4];
 	v2 = *a1;
 	v78 = (unsigned __int8*)(a1[5] - a1[1]);
