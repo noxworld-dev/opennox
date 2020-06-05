@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251708;
 extern _DWORD dword_5d4594_251716;
 extern _DWORD dword_5d4594_10984;
 extern _DWORD dword_5d4594_371264;
@@ -8231,7 +8232,7 @@ void sub_4134C0() { nox_srand(0x963u); }
 //----- (004134D0) --------------------------------------------------------
 int sub_4134D0() {
 	*(_DWORD*)&byte_5D4594[251704] = 0;
-	*(_DWORD*)&byte_5D4594[251708] = 0;
+	dword_5d4594_251708 = 0;
 	*(_DWORD*)&byte_5D4594[251712] = 0;
 	dword_5d4594_251716 = 0;
 	dword_5d4594_251720 = 0;
@@ -8242,7 +8243,7 @@ int sub_4134D0() {
 void sub_4134F0() {
 	dword_5d4594_251700 = 0;
 	*(_DWORD*)&byte_5D4594[251704] = 0;
-	*(_DWORD*)&byte_5D4594[251708] = 0;
+	dword_5d4594_251708 = 0;
 	*(_DWORD*)&byte_5D4594[251712] = 0;
 	dword_5d4594_251716 = 0;
 	dword_5d4594_251720 = 0;
@@ -8340,7 +8341,7 @@ int sub_413850() {
 BOOL __cdecl sub_413870(int a1) {
 	BOOL result; // eax
 
-	*(_DWORD*)&byte_5D4594[251708] = 1;
+	dword_5d4594_251708 = 1;
 	result = sub_423CC0(a1);
 	*(_DWORD*)&byte_5D4594[251712] = result;
 	return result;
