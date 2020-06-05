@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1301772;
 extern _DWORD dword_5d4594_3798712;
 extern _DWORD dword_587000_54276;
 extern _DWORD dword_5d4594_1303536;
@@ -5314,7 +5315,7 @@ int sub_49A5F0() {
 	int result; // eax
 
 	result = nox_new_alloc_class("HealthChange", 20, 32);
-	*(_DWORD*)&byte_5D4594[1301772] = result;
+	dword_5d4594_1301772 = result;
 	if (result) {
 		dword_5d4594_1301780 = sub_43F360((char*)&byte_587000[163264]);
 		result = 1;
@@ -5324,7 +5325,7 @@ int sub_49A5F0() {
 
 //----- (0049A630) --------------------------------------------------------
 void sub_49A630() {
-	sub_4144D0(*(_DWORD**)&byte_5D4594[1301772]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_1301772);
 	dword_5d4594_1301776 = 0;
 }
 
@@ -5333,7 +5334,7 @@ _WORD* __cdecl sub_49A650(int a1, __int16 a2) {
 	_WORD* result; // eax
 	_WORD* v3;     // esi
 
-	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1301772]);
+	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1301772);
 	v3 = result;
 	if (result) {
 		*(_DWORD*)result = a1;
@@ -5420,16 +5421,16 @@ void __cdecl sub_49A880(int a1) {
 	v2 = *(_DWORD*)(a1 + 12);
 	if (v2)
 		*(_DWORD*)(v2 + 16) = *(_DWORD*)(a1 + 16);
-	sub_414330(*(unsigned int**)&byte_5D4594[1301772], (_QWORD*)a1);
+	sub_414330(*(unsigned int**)&dword_5d4594_1301772, (_QWORD*)a1);
 }
 
 //----- (0049A8C0) --------------------------------------------------------
 int sub_49A8C0() {
 	int result; // eax
 
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1301772]);
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1301772);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1301772] = 0;
+	dword_5d4594_1301772 = 0;
 	dword_5d4594_1301776 = 0;
 	dword_5d4594_1301780 = 0;
 	return result;
