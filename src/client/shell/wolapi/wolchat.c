@@ -2,6 +2,7 @@
 
 #include "../../../common/wolapi/wolchnl.h"
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_829520;
 extern _DWORD dword_5d4594_829516;
 extern _DWORD dword_5d4594_829512;
 extern _DWORD dword_5d4594_829484;
@@ -250,11 +251,11 @@ int sub_447620_wol_chat() {
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_829480, sub_447C70, 0, 0);
 		sub_46B340(*(int*)&dword_5d4594_829480, sub_4483A0);
 		result = sub_43C5B0(*(_DWORD**)&dword_5d4594_829480, 0, 0, 0, -480, 0, 20, 0, -40);
-		*(_DWORD*)&byte_5D4594[829520] = result;
+		dword_5d4594_829520 = result;
 		if (result) {
 			*(_DWORD*)result = 1900;
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[829520] + 48) = sub_446A90;
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[829520] + 56) = sub_447BD0;
+			*(_DWORD*)(dword_5d4594_829520 + 48) = sub_446A90;
+			*(_DWORD*)(dword_5d4594_829520 + 56) = sub_447BD0;
 			dword_5d4594_829484 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1908);
 			dword_5d4594_829488 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1909);
 			dword_5d4594_829492 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1907);
