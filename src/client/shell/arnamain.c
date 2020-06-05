@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "noxworld.h"
 #include "wolapi/wollogin.h"
+extern _DWORD dword_5d4594_1309716;
 
 //----- (004AA4D0) --------------------------------------------------------
 int __cdecl sub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
@@ -34,7 +35,7 @@ int __cdecl sub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
 							   "C:\\NoxPost\\src\\client\\shell\\ArnaMain.c", 100);
 				v5 = loadString_sub_40F1D0((char*)&byte_587000[172756], 0,
 							   "C:\\NoxPost\\src\\client\\shell\\ArnaMain.c", 100);
-				sub_449A10(*(int*)&byte_5D4594[1309716], (int)v5, (int)v7, 33, 0, 0);
+				sub_449A10(*(int*)&dword_5d4594_1309716, (int)v5, (int)v7, 33, 0, 0);
 				return 0;
 			}
 			if (sub_40D5B0((int)&a2) && a2 < 0x10009) {
@@ -43,7 +44,7 @@ int __cdecl sub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
 							   "C:\\NoxPost\\src\\client\\shell\\ArnaMain.c", 111);
 				v6 = loadString_sub_40F1D0((char*)&byte_587000[172864], 0,
 							   "C:\\NoxPost\\src\\client\\shell\\ArnaMain.c", 111);
-				sub_449A10(*(int*)&byte_5D4594[1309716], (int)v6, (int)v8, 33, 0, 0);
+				sub_449A10(*(int*)&dword_5d4594_1309716, (int)v6, (int)v8, 33, 0, 0);
 				return 0;
 			}
 			sub_4A1A40(0);

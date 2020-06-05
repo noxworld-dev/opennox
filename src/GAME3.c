@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309716;
 extern _DWORD dword_5d4594_1309780;
 extern _DWORD dword_5d4594_1307768;
 extern _DWORD dword_5d4594_1313792;
@@ -4179,10 +4180,10 @@ int sub_4AA270() {
 		sub_41D4C0();
 	sub_43AF50(2);
 	result = nox_new_window_from_file("ArnaMain.wnd", sub_4AA4D0);
-	*(_DWORD*)&byte_5D4594[1309716] = result;
+	dword_5d4594_1309716 = result;
 	if (result) {
 		sub_46B300(result, sub_4A18E0);
-		v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1309716], 410);
+		v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309716, 410);
 		sub_46B2C0((int)v1, sub_4AA4D0);
 		result = sub_43C5B0(v1, 0, 0, 0, -240, 0, 20, 0, -40);
 		*(_DWORD*)&byte_5D4594[1309708] = result;
@@ -4190,7 +4191,7 @@ int sub_4AA270() {
 			*(_DWORD*)result = 400;
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309708] + 48) = sub_4AA450;
 			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1309708] + 56) = sub_4AA490;
-			v2 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1309716], 420);
+			v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309716, 420);
 			sub_46B2C0((int)v2, sub_4AA4D0);
 			result = sub_43C5B0(v2, 0, 240, 0, 480, 0, -20, 0, 40);
 			*(_DWORD*)&byte_5D4594[1309712] = result;
@@ -4198,12 +4199,12 @@ int sub_4AA270() {
 				sub_4A19F0((char*)&byte_587000[172636]);
 				sub_46A8A0();
 				if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-					v3 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1309716], 411);
-					nox_window_call_field_94(*(int*)&byte_5D4594[1309716], 16391, (int)v3, 0);
+					v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309716, 411);
+					nox_window_call_field_94(*(int*)&dword_5d4594_1309716, 16391, (int)v3, 0);
 					result = 1;
 				} else if (sub_4D6FA0() == 1) {
-					v4 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1309716], 421);
-					nox_window_call_field_94(*(int*)&byte_5D4594[1309716], 16391, (int)v4, 0);
+					v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309716, 421);
+					nox_window_call_field_94(*(int*)&dword_5d4594_1309716, 16391, (int)v4, 0);
 					result = 1;
 				} else {
 					if (sub_4D6FA0() == 2) {
@@ -4237,7 +4238,7 @@ int sub_4AA490() {
 	v0 = *(int (**)(void))(*(_DWORD*)&byte_5D4594[1309708] + 52);
 	sub_43C570(*(LPVOID*)&byte_5D4594[1309708]);
 	sub_43C570(*(LPVOID*)&byte_5D4594[1309712]);
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1309716]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1309716);
 	v0();
 	return 1;
 }
