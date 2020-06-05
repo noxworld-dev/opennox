@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1307204;
 extern _DWORD dword_5d4594_1197316;
 extern _DWORD dword_5d4594_3798720;
 extern _DWORD dword_5d4594_1217460;
@@ -10206,7 +10207,7 @@ int sub_4A0CF0() {
 
 	result = 0;
 	memset(&byte_5D4594[1307208], 0, 0x28u);
-	*(_DWORD*)&byte_5D4594[1307204] = &byte_5D4594[1307208];
+	dword_5d4594_1307204 = &byte_5D4594[1307208];
 	return result;
 }
 
@@ -10367,10 +10368,10 @@ nox_window* __cdecl sub_4A1440_parse_window(const char* a1, int a2, int a3, wcha
 int sub_4A14F0() {
 	int result; // eax
 
-	if (*(unsigned __int8**)&byte_5D4594[1307204] == &byte_5D4594[1307208])
+	if (*(unsigned __int8**)&dword_5d4594_1307204 == &byte_5D4594[1307208])
 		result = 0;
 	else
-		result = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1307204] - 4);
+		result = *(_DWORD*)(dword_5d4594_1307204 - 4);
 	return result;
 }
 
@@ -10469,21 +10470,21 @@ BOOL __cdecl sub_4A1780(int a1, FILE* a2, char* a3) {
 
 //----- (004A18A0) --------------------------------------------------------
 int sub_4A18A0() {
-	if (*(unsigned __int8**)&byte_5D4594[1307204] == &byte_5D4594[1307208])
+	if (*(unsigned __int8**)&dword_5d4594_1307204 == &byte_5D4594[1307208])
 		return 0;
-	*(_DWORD*)&byte_5D4594[1307204] -= 4;
-	return **(_DWORD**)&byte_5D4594[1307204];
+	dword_5d4594_1307204 -= 4;
+	return **(_DWORD**)&dword_5d4594_1307204;
 }
 
 //----- (004A18C0) --------------------------------------------------------
 int __cdecl sub_4A18C0(int a1) {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1307204];
-	if (*(unsigned __int8**)&byte_5D4594[1307204] != &byte_5D4594[1307244]) {
-		**(_DWORD**)&byte_5D4594[1307204] = a1;
-		result = *(_DWORD*)&byte_5D4594[1307204] + 4;
-		*(_DWORD*)&byte_5D4594[1307204] += 4;
+	result = dword_5d4594_1307204;
+	if (*(unsigned __int8**)&dword_5d4594_1307204 != &byte_5D4594[1307244]) {
+		**(_DWORD**)&dword_5d4594_1307204 = a1;
+		result = dword_5d4594_1307204 + 4;
+		dword_5d4594_1307204 += 4;
 	}
 	return result;
 }
