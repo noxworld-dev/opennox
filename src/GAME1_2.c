@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_805984;
 extern _DWORD dword_5d4594_1193152;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_810636;
@@ -6057,7 +6058,7 @@ int __cdecl nox_audio_initall(int a3) {
 	if (a3) {
 		sub_486F30();
 		if (sub_4311F0()) {
-			dword_587000_81128 = *(_DWORD*)&byte_5D4594[805984] + 88;
+			dword_587000_81128 = dword_5d4594_805984 + 88;
 			*(_DWORD*)&byte_5D4594[805980] = sub_4866F0("audio", "audio");
 		}
 	}
@@ -6067,7 +6068,7 @@ int __cdecl nox_audio_initall(int a3) {
 	sub_4864A0(*(_DWORD**)&dword_587000_127004);
 	sub_44D810();
 	sub_43D8E0();
-	sub_451850(*(int*)&byte_5D4594[805984], *(int*)&byte_5D4594[805980]);
+	sub_451850(*(int*)&dword_5d4594_805984, *(int*)&byte_5D4594[805980]);
 	v1 = sub_4866A0(2);
 	if (!v1)
 		sub_43DC00();
@@ -6115,16 +6116,16 @@ BOOL sub_4311F0() {
 	v2[0] = 4;
 	sub_487D00(v2);
 	v0 = sub_487150(-1, v2);
-	*(_DWORD*)&byte_5D4594[805984] = v0;
+	dword_5d4594_805984 = v0;
 	return v0 && sub_487790((int)v0, 16) == 16;
 }
 // 487CF0: using guessed type void __cdecl nullsub_10(_DWORD);
 
 //----- (00431270) --------------------------------------------------------
 void sub_431270() {
-	if (*(_DWORD*)&byte_5D4594[805984]) {
-		sub_487680(*(LPVOID*)&byte_5D4594[805984]);
-		*(_DWORD*)&byte_5D4594[805984] = 0;
+	if (dword_5d4594_805984) {
+		sub_487680(*(LPVOID*)&dword_5d4594_805984);
+		dword_5d4594_805984 = 0;
 	}
 }
 
@@ -6132,9 +6133,9 @@ void sub_431270() {
 int* sub_431290() {
 	int* result; // eax
 
-	result = *(int**)&byte_5D4594[805984];
-	if (*(_DWORD*)&byte_5D4594[805984])
-		result = sub_487970(*(int*)&byte_5D4594[805984], -1);
+	result = *(int**)&dword_5d4594_805984;
+	if (dword_5d4594_805984)
+		result = sub_487970(*(int*)&dword_5d4594_805984, -1);
 	return result;
 }
 
@@ -6170,7 +6171,7 @@ int sub_4312C0() {
 }
 
 //----- (00431330) --------------------------------------------------------
-BOOL sub_431330() { return *(_DWORD*)&byte_5D4594[805984] != 0; }
+BOOL sub_431330() { return dword_5d4594_805984 != 0; }
 
 //----- (00431340) --------------------------------------------------------
 int sub_431340() { return 1; }
