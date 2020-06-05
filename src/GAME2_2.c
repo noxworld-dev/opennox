@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1098580;
 extern _DWORD dword_587000_154940;
 extern _DWORD dword_5d4594_2650680;
 extern _DWORD dword_5d4594_1193152;
@@ -1556,7 +1557,7 @@ int sub_478110() {
 	*(_DWORD*)&byte_5D4594[1098472] = sub_42F970("ShopkeeperWizardPic");
 	*(_DWORD*)&byte_5D4594[1098476] = sub_42F970("ShopkeeperLandOfTheDeadPic");
 	*(_DWORD*)&byte_5D4594[1098480] = sub_42F970("ShopkeeperMagicShopPic");
-	*(_DWORD*)&byte_5D4594[1098580] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3807);
+	dword_5d4594_1098580 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3807);
 	*(_DWORD*)&byte_5D4594[1098584] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3808);
 	*(_DWORD*)&byte_5D4594[1098588] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3809);
 	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3806);
@@ -1564,13 +1565,13 @@ int sub_478110() {
 	nox_window_get_size((int)v6, &byte_5D4594[1098388], &byte_5D4594[1098392]);
 	*(_DWORD*)&byte_5D4594[1098388] += *(_DWORD*)&byte_5D4594[1098380];
 	*(_DWORD*)&byte_5D4594[1098392] += *(_DWORD*)&byte_5D4594[1098384];
-	*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1098580] + 400) + 8) = 16;
-	*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1098580] + 400) + 12) = 12;
-	sub_46AE40(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1098580] + 400), 0, -15);
-	sub_4B5700(*(int*)&byte_5D4594[1098580], 0, 0, *(int*)&byte_5D4594[1098432], *(int*)&byte_5D4594[1098436],
+	*(_DWORD*)(*(_DWORD*)(dword_5d4594_1098580 + 400) + 8) = 16;
+	*(_DWORD*)(*(_DWORD*)(dword_5d4594_1098580 + 400) + 12) = 12;
+	sub_46AE40(*(_DWORD*)(dword_5d4594_1098580 + 400), 0, -15);
+	sub_4B5700(*(int*)&dword_5d4594_1098580, 0, 0, *(int*)&byte_5D4594[1098432], *(int*)&byte_5D4594[1098436],
 		   *(int*)&byte_5D4594[1098436]);
 	result = 1;
-	*(_DWORD*)&byte_5D4594[1098592] = *(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1098580] + 32) + 4);
+	*(_DWORD*)&byte_5D4594[1098592] = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1098580 + 32) + 4);
 	return result;
 }
 
@@ -1632,7 +1633,7 @@ int __cdecl sub_478480(int a1, int a2, int* a3, int a4) {
 		else
 			v8 = 0;
 		dword_5d4594_1107036 = v8;
-		nox_window_call_field_94(*(int*)&byte_5D4594[1098580], 16394, *(_DWORD*)&byte_5D4594[1098592] - v8, 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1098580, 16394, *(_DWORD*)&byte_5D4594[1098592] - v8, 0);
 		result = 0;
 		break;
 	case 3809:
@@ -1644,7 +1645,7 @@ int __cdecl sub_478480(int a1, int a2, int* a3, int a4) {
 			v7 = *(_DWORD*)&byte_5D4594[1098592];
 			dword_5d4594_1107036 = *(_DWORD*)&byte_5D4594[1098592];
 		}
-		nox_window_call_field_94(*(int*)&byte_5D4594[1098580], 16394, *(_DWORD*)&byte_5D4594[1098592] - v7, 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1098580, 16394, *(_DWORD*)&byte_5D4594[1098592] - v7, 0);
 		result = 0;
 		break;
 	default:
