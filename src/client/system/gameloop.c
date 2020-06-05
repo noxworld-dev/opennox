@@ -9,6 +9,7 @@
 #include "../../platform.h"
 #endif
 
+extern _DWORD dword_587000_93200;
 extern _DWORD dword_587000_93196;
 extern _DWORD dword_587000_173328;
 extern _DWORD dword_587000_173332;
@@ -220,7 +221,7 @@ void mainloop() {
 		} else if (ret == 0) {
 			// map error
 			dword_587000_93196 = 0;
-			*(_DWORD*)&byte_587000[93200] = 0;
+			dword_587000_93200 = 0;
 			mainloop_exit();
 			return;
 		}
@@ -231,7 +232,7 @@ void mainloop() {
 			if (dword_587000_173328)
 				return;
 			dword_587000_93196 = 0;
-			*(_DWORD*)&byte_587000[93200] = 0;
+			dword_587000_93200 = 0;
 			mainloop_exit();
 			return;
 		}
@@ -270,7 +271,7 @@ void mainloop() {
 	sub_4519C0();
 	sub_4312C0();
 	sub_495430();
-	if (nox_common_gameFlags_check_40A5C0(1) && *(_DWORD*)&byte_587000[93200] == 1) {
+	if (nox_common_gameFlags_check_40A5C0(1) && dword_587000_93200 == 1) {
 		if (dword_5d4594_815132)
 			goto LABEL_24;
 		if (nox_common_gameFlags_check_40A5C0(0x2000)) {
