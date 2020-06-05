@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_183456;
 extern _DWORD dword_5d4594_1320988;
 extern _DWORD dword_5d4594_1522596;
 extern _DWORD dword_5d4594_1522608;
@@ -3406,7 +3407,7 @@ int sub_4BFE40() {
 	if (v1 > *(int*)&dword_5d4594_1319248)
 		v1 = dword_5d4594_1319248;
 	sub_46AA20(*(int*)&dword_5d4594_1319228, &v3, &v4);
-	v5.field_0 = v3 + *(_DWORD*)&byte_587000[183456];
+	v5.field_0 = v3 + dword_587000_183456;
 	v5.field_4 = v4 + *(_DWORD*)&byte_587000[183460];
 	if (*(_DWORD*)&byte_5D4594[1319100])
 		(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD)) &
@@ -3463,7 +3464,7 @@ int __cdecl sub_4C0030(int a1) {
 	if (!dword_5d4594_1319264)
 		v1 = *(_DWORD*)&byte_5D4594[1319216];
 	nox_client_drawImageAt_47D2C0(v1, v5, v6);
-	*(_DWORD*)(dword_5d4594_1319256 + 12) = v5 + *(_DWORD*)&byte_587000[183456];
+	*(_DWORD*)(dword_5d4594_1319256 + 12) = v5 + dword_587000_183456;
 	*(_DWORD*)(dword_5d4594_1319256 + 16) = v6 + *(_DWORD*)&byte_587000[183460];
 	(*(void(__cdecl**)(unsigned __int8*, _DWORD))(dword_5d4594_1319256 + 300))(
 	    &byte_5D4594[1319108], dword_5d4594_1319256);
@@ -3540,7 +3541,7 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4) {
 		if (v6 > *(int*)&dword_5d4594_1319248)
 			v6 = dword_5d4594_1319248;
 		sub_46AA20(*(int*)&dword_5d4594_1319228, &v12, &v13);
-		v14.field_0 = v12 + *(_DWORD*)&byte_587000[183456];
+		v14.field_0 = v12 + dword_587000_183456;
 		v14.field_4 = v13 + *(_DWORD*)&byte_587000[183460];
 		if (*(_DWORD*)&byte_5D4594[1319160])
 			(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD)) &
@@ -3613,9 +3614,9 @@ int __cdecl sub_4C0560(int a1, int a2) {
 	int v6; // [esp+Ch] [ebp-4h]
 
 	nox_window_get_size(*(int*)&dword_5d4594_1319228, &v5, &v6);
-	v2 = a1 - *(_DWORD*)&byte_587000[183456];
+	v2 = a1 - dword_587000_183456;
 	v3 = a2 - *(_DWORD*)&byte_587000[183460];
-	if (a1 - *(int*)&byte_587000[183456] < 0)
+	if (a1 - *(int*)&dword_587000_183456 < 0)
 		v2 = 0;
 	if (v3 < 0)
 		v3 = 0;
