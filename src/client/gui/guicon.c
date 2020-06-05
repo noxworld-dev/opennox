@@ -3,6 +3,7 @@
 #include "../system/parsecmd.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_833732;
 extern _DWORD dword_5d4594_833720;
 extern _DWORD dword_5d4594_833712;
 extern _DWORD dword_5d4594_833716;
@@ -29,13 +30,13 @@ int sub_450FD0() {
 
 	if (!*(_DWORD*)(*(_DWORD*)(dword_5d4594_833716 + 32) + 1044)) {
 		v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_833716, 16413, 0, 0);
-		if (*(_DWORD*)&byte_5D4594[833732] && *(_WORD*)&byte_5D4594[832552]) {
+		if (dword_5d4594_833732 && *(_WORD*)&byte_5D4594[832552]) {
 			if (_nox_wcsicmp(v0, (const wchar_t*)&byte_5D4594[832552])) {
 				v4 = loadString_sub_40F1D0((char*)&byte_587000[126560], 0,
 							   "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 124);
 				sub_450C30(4u, (int)v4);
 			} else {
-				*(_DWORD*)&byte_5D4594[833732] = 0;
+				dword_5d4594_833732 = 0;
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[126508], 0,
 							   "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 121);
 				sub_450C30(6u, (int)v3);
@@ -79,7 +80,7 @@ int sub_451350() {
 			v1 = loadString_sub_40F1D0((char*)&byte_587000[126620], 0,
 						   "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 459);
 			result = sub_450C00(4u, v1);
-			*(_DWORD*)&byte_5D4594[833732] = 1;
+			dword_5d4594_833732 = 1;
 		}
 	}
 	return result;
