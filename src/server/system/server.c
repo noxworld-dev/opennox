@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1569644;
 extern _DWORD dword_5d4594_1556148;
 extern _DWORD dword_5d4594_825768;
 extern _DWORD dword_5d4594_2386568;
@@ -1271,7 +1272,7 @@ void sub_4FBEE0() {
 		if (v7) {
 			*(_DWORD*)(v7 + 16) = v4[4];
 		LABEL_24:
-			sub_414330(*(unsigned int**)&byte_5D4594[1569644], v4);
+			sub_414330(*(unsigned int**)&dword_5d4594_1569644, v4);
 			goto LABEL_25;
 		}
 		goto LABEL_23;
