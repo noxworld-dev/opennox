@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816356;
 extern _DWORD dword_5d4594_826032;
 extern _DWORD dword_5d4594_830244;
 extern _DWORD dword_587000_173328;
@@ -1228,7 +1229,7 @@ int sub_43D440() {
 		result = dword_5d4594_816348;
 		switch (dword_5d4594_816348) {
 		case 0:
-			if (*(_DWORD*)&byte_5D4594[816356] && (result = dword_587000_93156) != 0) {
+			if (dword_5d4594_816356 && (result = dword_587000_93156) != 0) {
 				dword_5d4594_816348 = 3;
 			} else {
 				result = *v0;
@@ -1251,8 +1252,8 @@ int sub_43D440() {
 		case 1:
 			if (dword_587000_93156 && *v0 == *(_DWORD*)&byte_5D4594[816092] &&
 			    dword_5d4594_816364 && AIL_stream_status(dword_5d4594_816364) != 2) {
-				result = *(_DWORD*)&byte_5D4594[816356];
-				if (*(_DWORD*)&byte_5D4594[816356]) {
+				result = dword_5d4594_816356;
+				if (dword_5d4594_816356) {
 					dword_5d4594_816348 = 4;
 					result = sub_486350((int)&byte_5D4594[816148], 0);
 				}
@@ -1274,7 +1275,7 @@ int sub_43D440() {
 			}
 			break;
 		case 3:
-			if (!*(_DWORD*)&byte_5D4594[816356] || (result = dword_587000_93156) == 0) {
+			if (!dword_5d4594_816356 || (result = dword_587000_93156) == 0) {
 				if (!dword_587000_93156 || *v0 != *(_DWORD*)&byte_5D4594[816092] ||
 				    !dword_5d4594_816364 ||
 				    AIL_stream_status(dword_5d4594_816364) == 2) {
@@ -1417,7 +1418,7 @@ int sub_43D8E0() {
 	*(_DWORD*)&byte_5D4594[816092] = 0;
 	*(_DWORD*)&byte_5D4594[816352] = 0;
 	*(_DWORD*)&byte_5D4594[816108] = 0;
-	*(_DWORD*)&byte_5D4594[816356] = 0;
+	dword_5d4594_816356 = 0;
 	dword_5d4594_816372 = 0;
 	dword_5d4594_816368 = 0;
 	dword_5d4594_816364 = 0;
@@ -1564,14 +1565,14 @@ void sub_43DBA0() {
 
 //----- (0043DBD0) --------------------------------------------------------
 int sub_43DBD0() {
-	++*(_DWORD*)&byte_5D4594[816356];
+	++dword_5d4594_816356;
 	return sub_43D440();
 }
 
 //----- (0043DBE0) --------------------------------------------------------
 int sub_43DBE0() {
-	if (--*(int*)&byte_5D4594[816356] < 0)
-		*(_DWORD*)&byte_5D4594[816356] = 0;
+	if (--*(int*)&dword_5d4594_816356 < 0)
+		dword_5d4594_816356 = 0;
 	return sub_43D440();
 }
 
