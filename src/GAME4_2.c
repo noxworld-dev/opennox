@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312820;
 extern _DWORD dword_5d4594_2487712;
 extern _DWORD dword_5d4594_2487524;
 extern _DWORD dword_5d4594_251540;
@@ -11941,7 +11942,7 @@ int __cdecl sub_52E450(int a1, int a2, int a3) {
 			v8 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251);
 			if (v8) {
 				if (v8 == 1) {
-					v9 = (double)a3 * *(float*)&byte_587000[312820];
+					v9 = (double)a3 * *(float*)&dword_587000_312820;
 				} else {
 					if (v8 != 2) {
 					LABEL_33:
