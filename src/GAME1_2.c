@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_808564;
 extern _DWORD dword_5d4594_741680;
 extern _DWORD dword_5d4594_1193336;
 extern _DWORD dword_5d4594_811072;
@@ -8179,19 +8180,19 @@ int __cdecl sub_434870(int a1, _BYTE* a2, _BYTE* a3, _BYTE* a4) {
 int sub_434920() {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[808564])
+	if (dword_5d4594_808564)
 		return 0;
 	result = 1;
 	qmemcpy(&byte_5D4594[808572], &byte_5D4594[3803308], 0x400u);
-	*(_DWORD*)&byte_5D4594[808564] = 1;
+	dword_5d4594_808564 = 1;
 	return result;
 }
 
 //----- (00434950) --------------------------------------------------------
 int sub_434950() {
-	if (!*(_DWORD*)&byte_5D4594[808564])
+	if (!dword_5d4594_808564)
 		return 0;
-	*(_DWORD*)&byte_5D4594[808564] = 0;
+	dword_5d4594_808564 = 0;
 	qmemcpy(&byte_5D4594[3803308], &byte_5D4594[808572], 0x400u);
 	sub_435040();
 	sub_434F00();
