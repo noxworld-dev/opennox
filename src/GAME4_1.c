@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_249172;
 extern _DWORD dword_5d4594_2386840;
 extern _DWORD dword_5d4594_1599696;
 extern _DWORD dword_587000_237036;
@@ -10507,14 +10508,14 @@ void __cdecl sub_517C10(float4* a1, void(__cdecl* a2)(float*, int), int a3) {
 	int v27;                         // [esp+1Ch] [ebp+8h]
 	int v28;                         // [esp+20h] [ebp+Ch]
 
-	v4 = *(_DWORD*)&byte_587000[249172];
+	v4 = dword_587000_249172;
 	v3 = v4;
 	if (v4 < 1) {
 		v5 = a2;
 		if (a2) {
 			v6 = v3 + 1;
 			v7 = *(_DWORD*)&byte_5D4594[4 * v6 + 2386964];
-			*(_DWORD*)&byte_587000[249172] = v6;
+			dword_587000_249172 = v6;
 			*(_DWORD*)&byte_5D4594[4 * v6 + 2386964] = v7 + 1;
 			v8 = a1;
 			sub_5175E0(a1->field_0, (int)&v24);
@@ -10554,7 +10555,7 @@ void __cdecl sub_517C10(float4* a1, void(__cdecl* a2)(float*, int), int a3) {
 									 v15 + 4);
 							if (v16) {
 								do {
-									v17 = *(_DWORD*)&byte_587000[249172];
+									v17 = dword_587000_249172;
 									v18 = (_DWORD*)(*(_DWORD*)(v16 + 12) + 4 * v17 +
 											248);
 									v19 = *(_DWORD*)&byte_5D4594[4 * v17 + 2386964];
@@ -10582,8 +10583,8 @@ void __cdecl sub_517C10(float4* a1, void(__cdecl* a2)(float*, int), int a3) {
 					v26 = ++v12;
 				} while (v12 <= v23);
 			}
-			v21 = *(_DWORD*)&byte_587000[249172];
-			*(_DWORD*)&byte_587000[249172] = v21 - 1;
+			v21 = dword_587000_249172;
+			dword_587000_249172 = v21 - 1;
 		}
 	}
 }
