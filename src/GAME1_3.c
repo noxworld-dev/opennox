@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80824;
 extern _DWORD dword_5d4594_815212;
 extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_1193152;
@@ -3964,7 +3965,7 @@ void sub_4445C0() {
 				dword_587000_154952 = 0;
 				dword_5d4594_1193152 = 0;
 				dword_587000_154956 = 1;
-				*(_DWORD*)&byte_587000[80824] = 0;
+				dword_587000_80824 = 0;
 				*(_DWORD*)&byte_5D4594[805852] = 0;
 				dword_587000_80836 = 0;
 				*(_DWORD*)&nox_common_engineFlags = v6;
@@ -3986,7 +3987,7 @@ void sub_4445C0() {
 		dword_587000_154952 = 1;
 		dword_5d4594_1193152 = 0;
 		dword_587000_154956 = 1;
-		*(_DWORD*)&byte_587000[80824] = 0;
+		dword_587000_80824 = 0;
 		goto LABEL_28;
 	}
 	if (v0 == 450) {
@@ -3998,7 +3999,7 @@ void sub_4445C0() {
 		dword_587000_154952 = 1;
 		dword_5d4594_1193152 = 1;
 		dword_587000_154956 = 1;
-		*(_DWORD*)&byte_587000[80824] = 1;
+		dword_587000_80824 = 1;
 	LABEL_28:
 		v7 = *(_DWORD*)&nox_common_engineFlags;
 		*(_DWORD*)&byte_5D4594[805852] = 1;
