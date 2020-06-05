@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835312;
 extern _DWORD dword_5d4594_1568868;
 extern _DWORD dword_5d4594_1569668;
 extern _DWORD dword_5d4594_1569644;
@@ -9134,7 +9135,7 @@ int __cdecl sub_503B30(float2* a1) {
 							dword_5d4594_1599476 = 1;
 							if (*(_DWORD*)&byte_5D4594[1599644]) {
 								++*(_DWORD*)&byte_5D4594[3835308];
-								sub_542BF0(*(int*)&byte_5D4594[3835312], v8, v9);
+								sub_542BF0(*(int*)&dword_5d4594_3835312, v8, v9);
 								v16.field_0 = v8;
 								v16.field_4 = v9;
 								sub_543110((LPCSTR)&byte_5D4594[3830188], &v16);
@@ -9151,7 +9152,7 @@ int __cdecl sub_503B30(float2* a1) {
 									       (LPCSTR)&byte_5D4594[3837484]);
 								}
 							}
-							++*(_DWORD*)&byte_5D4594[3835312];
+							++dword_5d4594_3835312;
 							result = 1;
 						}
 					}
@@ -9659,7 +9660,7 @@ int __cdecl sub_504760(int a1, int a2) {
 	if (dword_5d4594_1599564) {
 		while (1) {
 			v4 = **v3;
-			nox_sprintf(v9, "%s%%%d", *v3 + 8, *(_DWORD*)&byte_5D4594[3835312]);
+			nox_sprintf(v9, "%s%%%d", *v3 + 8, dword_5d4594_3835312);
 			strcpy(*v3 + 8, v9);
 			result = (int)*v3;
 			*((_DWORD*)*v3 + 1) += v8;

@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835312;
 extern _DWORD dword_5d4594_2488608;
 extern _DWORD dword_5d4594_2488652;
 extern _DWORD dword_5d4594_3835348;
@@ -12996,7 +12997,7 @@ FILE* __cdecl sub_543110(LPCSTR lpExistingFileName, int2* a2) {
 	char v19[2048];         // [esp+2Ch] [ebp-1000h]
 	char NewFileName[2048]; // [esp+82Ch] [ebp-800h]
 
-	sub_542BF0(*(int*)&byte_5D4594[3835312], a2->field_0, a2->field_4);
+	sub_542BF0(*(int*)&dword_5d4594_3835312, a2->field_0, a2->field_4);
 	v2 = *(_DWORD*)&byte_587000[282612];
 	strcpy(NewFileName, (const char*)&byte_5D4594[3841580]);
 	v3 = *(_DWORD*)&byte_587000[282616];
@@ -13042,7 +13043,7 @@ FILE* __cdecl sub_543110(LPCSTR lpExistingFileName, int2* a2) {
 				fread(v19, v12, 1u, v6);
 				v19[v12] = 0;
 				if (v10 > 1) {
-					sub_5435C0((int)&v19, *(int*)&byte_5D4594[3835312], a2->field_0, a2->field_4);
+					sub_5435C0((int)&v19, *(int*)&dword_5d4594_3835312, a2->field_0, a2->field_4);
 					strcpy((char*)&v19, (const char*)&byte_5D4594[2489164]);
 					v10 = j;
 					v12 = strlen((const char*)&v19);
