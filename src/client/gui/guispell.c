@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1049484;
 extern _DWORD dword_5d4594_1047552;
 extern _DWORD dword_5d4594_1049512;
 extern _DWORD dword_5d4594_1047548;
@@ -305,7 +306,7 @@ int sub_45E190() {
 		LOBYTE(v22) = byte_5D4594[1048192] | 1;
 		*(_DWORD*)&byte_5D4594[1048192] = v22;
 		nox_window_set_hidden(*(int*)&byte_5D4594[1048148], 1);
-		*(_DWORD*)&byte_5D4594[1049484] = 0;
+		dword_5d4594_1049484 = 0;
 		v23 = nox_window_new(*(int*)&byte_5D4594[1048148], 1032, 20, -7, 110, v68, 0);
 		nox_window_set_all_funcs(v23, 0, sub_45FAC0, 0);
 		v24 = (wchar_t*)nox_window_new(*(int*)&byte_5D4594[1048148], 1032, 15, 12, 10, 14, 0);
