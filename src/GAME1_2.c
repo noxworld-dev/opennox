@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_814548;
 extern _DWORD dword_5d4594_3804684;
 extern _DWORD dword_5d4594_1193156;
 extern _DWORD dword_587000_80800;
@@ -9767,14 +9768,14 @@ int __cdecl sub_43AF50(int a1) {
 int sub_43AF70() { return dword_587000_87404; }
 
 //----- (0043AF80) --------------------------------------------------------
-int sub_43AF80() { return *(_DWORD*)&byte_5D4594[814548]; }
+int sub_43AF80() { return dword_5d4594_814548; }
 
 //----- (0043AF90) --------------------------------------------------------
 int __cdecl sub_43AF90(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[814548] = a1;
+	dword_5d4594_814548 = a1;
 	return result;
 }
 
