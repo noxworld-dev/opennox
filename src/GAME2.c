@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831076;
 extern _DWORD dword_5d4594_1045552;
 extern _DWORD dword_5d4594_1049524;
 extern _DWORD dword_5d4594_833728;
@@ -496,7 +497,7 @@ int nox_get_things_count() { return nox_things_count; }
 
 //----- (0044D3A0) --------------------------------------------------------
 void sub_44D3A0() {
-	if (*(_DWORD*)&byte_5D4594[831076]) {
+	if (dword_5d4594_831076) {
 		switch (dword_5d4594_830864) {
 		case 0:
 			if (dword_5d4594_830872 && dword_587000_122848) {
@@ -644,11 +645,11 @@ int __cdecl sub_44D7E0(int a1) {
 
 //----- (0044D8C0) --------------------------------------------------------
 void sub_44D8C0() {
-	if (*(_DWORD*)&byte_5D4594[831076]) {
+	if (dword_5d4594_831076) {
 		sub_44D8F0();
 		sub_44D640();
 		sub_44D3A0();
-		*(_DWORD*)&byte_5D4594[831076] = 0;
+		dword_5d4594_831076 = 0;
 	}
 }
 
