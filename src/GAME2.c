@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831220;
 extern _DWORD dword_5d4594_1045460;
 extern _DWORD dword_587000_122848;
 extern _DWORD dword_5d4594_1046932;
@@ -1172,7 +1173,7 @@ void sub_44E320() {
 	sub_450580();
 	sub_43DDA0();
 	dword_5d4594_2650672 = 0;
-	if (*(_DWORD*)&byte_5D4594[831220] == 255) {
+	if (dword_5d4594_831220 == 255) {
 		if (dword_5d4594_815132 == 1) {
 			sub_4505E0();
 			sub_4A2500();
@@ -1242,8 +1243,8 @@ int __cdecl nox_client_wndQuestBriefProc_44E630(int a1, int a2, int a3, int a4) 
 
 	if (*(_DWORD*)&byte_5D4594[831248] && a2 != 18 && a2 != 17 && sub_41D1B0() != 1) {
 		sub_450580();
-		if (*(_DWORD*)&byte_5D4594[831220]) {
-			if (*(_DWORD*)&byte_5D4594[831220] == 255) {
+		if (dword_5d4594_831220) {
+			if (dword_5d4594_831220 == 255) {
 				dword_5d4594_2650672 = 0;
 				v2 = nox_client_getIntroScreenDuration_44E3B0();
 				nox_client_screenFadeTimeout_44DAB0(v2, 1, sub_44E320);
@@ -1289,7 +1290,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 		if (byte_5D4594[832472] & 2 && *(_DWORD*)&byte_5D4594[832480])
 			sub_452D80(582, 100);
 		sub_450580();
-		if (*(_DWORD*)&byte_5D4594[831220]) {
+		if (dword_5d4594_831220) {
 			dword_5d4594_2650672 = 0;
 			v3 = nox_client_getIntroScreenDuration_44E3B0();
 			nox_client_screenFadeTimeout_44DAB0(v3, 1, sub_44E320);
@@ -1309,7 +1310,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 double sub_44E8B0() {
 	double result; // st7
 
-	if (*(_DWORD*)&byte_5D4594[831220] == 255)
+	if (dword_5d4594_831220 == 255)
 		result = 1.0;
 	else
 		result = 0.0;
@@ -1354,7 +1355,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	sub_46B300(*(int*)&dword_5d4594_831236, nox_client_wndQuestBriefProc_44E630);
 	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_831232, 1010);
 	sub_46B340((int)v5, sub_44E6F0);
-	*(_DWORD*)&byte_5D4594[831220] = a2;
+	dword_5d4594_831220 = a2;
 	v15 = (unsigned __int16**)v5[8];
 	if (v3 == 255) {
 		sub_46AE60(*(int*)&dword_5d4594_831232, 0);
@@ -1362,7 +1363,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		sub_46AD80((int)v5, 0x2000);
 		*(_DWORD*)&byte_5D4594[831240] = sub_578D80();
 		v6 = 24;
-		*(_DWORD*)&byte_5D4594[831220] = 255;
+		dword_5d4594_831220 = 255;
 	} else if (v3 == 254) {
 		nox_server_currentMapGetFilename_409B30();
 		v7 = sub_42F970("GauntletStartMines");
@@ -1448,7 +1449,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 int sub_450560() { return *(_DWORD*)&byte_5D4594[831260]; }
 
 //----- (00450570) --------------------------------------------------------
-int sub_450570() { return *(_DWORD*)&byte_5D4594[831220]; }
+int sub_450570() { return dword_5d4594_831220; }
 
 //----- (00450580) --------------------------------------------------------
 int sub_450580() {
