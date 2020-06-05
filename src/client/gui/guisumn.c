@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
 
+extern _DWORD dword_5d4594_1321208;
 extern _DWORD dword_5d4594_1321032;
 extern _DWORD dword_5d4594_1321044;
 extern _DWORD dword_587000_184452;
@@ -156,8 +157,8 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 	int v11;              // [esp+4h] [ebp-8h]
 	int v12;              // [esp+8h] [ebp-4h]
 
-	if (!*(_DWORD*)&byte_5D4594[1321208])
-		*(_DWORD*)&byte_5D4594[1321208] = sub_4E3AA0((CHAR*)&byte_587000[184840]);
+	if (!dword_5d4594_1321208)
+		dword_5d4594_1321208 = sub_4E3AA0((CHAR*)&byte_587000[184840]);
 	if (dword_5d4594_1321204 || (result = 1, a1[8] != 1)) {
 		v2 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * a1[8] + 184344], 0,
 					   "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);
