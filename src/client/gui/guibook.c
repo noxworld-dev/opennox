@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1047524;
 extern _DWORD dword_5d4594_1046944;
 extern _DWORD dword_5d4594_1046648;
 extern _DWORD dword_5d4594_1046640;
@@ -462,16 +463,16 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 	v22 = v24;
 	v21 = v25;
 	if (*(_DWORD*)&byte_5D4594[1046652] == 1)
-		v9 = sub_425310(*(int*)&byte_5D4594[1047524], 0);
+		v9 = sub_425310(*(int*)&dword_5d4594_1047524, 0);
 	else
-		v9 = sub_424A90(*(int*)&byte_5D4594[1047524]);
+		v9 = sub_424A90(*(int*)&dword_5d4594_1047524);
 	nox_client_drawImageAt_47D2C0(v9, v21, v22);
 	*(float*)&dword_5d4594_1046636 = *(float*)&dword_5d4594_1046636 + *(float*)&byte_5D4594[1046620];
 	*(float*)&dword_5d4594_1046640 = *(float*)&dword_5d4594_1046640 + *(float*)&dword_5d4594_1046624;
 	if ((double)*(int*)&byte_5D4594[1046668] <= *(float*)&dword_5d4594_1046636 &&
 	    (double)*(int*)&byte_5D4594[1046672] <= *(float*)&dword_5d4594_1046640) {
 	LABEL_26:
-		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&byte_5D4594[1047524], *(int*)&byte_5D4594[1046852]);
+		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&dword_5d4594_1047524, *(int*)&byte_5D4594[1046852]);
 		sub_45D810();
 		goto LABEL_27;
 	}
@@ -538,7 +539,7 @@ int sub_45D870() {
 			v4 += v10;
 			--v5;
 		} while (v5);
-		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&byte_5D4594[1047524], *(int*)&byte_5D4594[1046852]);
+		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&dword_5d4594_1047524, *(int*)&byte_5D4594[1046852]);
 		result = sub_45D810();
 	}
 	return result;
