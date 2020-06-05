@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1312460;
 extern _DWORD dword_5d4594_1309728;
 extern _DWORD dword_5d4594_1309732;
 extern _QWORD qword_581450_9552;
@@ -8169,15 +8170,15 @@ void __cdecl sub_4B0610(int a1) {
 
 //----- (004B0650) --------------------------------------------------------
 int sub_4B0650() {
-	*(_DWORD*)&byte_5D4594[1312460] = 0;
+	dword_5d4594_1312460 = 0;
 	return 1;
 }
 
 //----- (004B0660) --------------------------------------------------------
 void sub_4B0660() {
 	void* result; // eax
-	for (result = *(void**)&byte_5D4594[1312460]; *(_DWORD*)&byte_5D4594[1312460];
-	     result = *(void**)&byte_5D4594[1312460])
+	for (result = *(void**)&dword_5d4594_1312460; dword_5d4594_1312460;
+	     result = *(void**)&dword_5d4594_1312460)
 		sub_4B07D0(result);
 }
 
@@ -8190,10 +8191,10 @@ int* __cdecl sub_4B0680(unsigned __int8 a1, unsigned __int8 a2) {
 	size_t v6;          // eax
 	int* v7;            // [esp+14h] [ebp+4h]
 
-	result = *(int**)&byte_5D4594[1312460];
+	result = *(int**)&dword_5d4594_1312460;
 	v3 = a1;
 	v4 = ptr_5D4594_3799572->data[262];
-	if (*(_DWORD*)&byte_5D4594[1312460]) {
+	if (dword_5d4594_1312460) {
 		while (1) {
 			v7 = result;
 			if (*result == v4 && result[1] == v3 && result[2] == a2 &&
@@ -8211,9 +8212,9 @@ int* __cdecl sub_4B0680(unsigned __int8 a1, unsigned __int8 a2) {
 		}
 		++result[4];
 	} else {
-		*(_DWORD*)&byte_5D4594[1312460] = nox_calloc(1u, 0x50u);
-		v5 = *(int**)&byte_5D4594[1312460];
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1312460] + 68) = 0;
+		dword_5d4594_1312460 = nox_calloc(1u, 0x50u);
+		v5 = *(int**)&dword_5d4594_1312460;
+		*(_DWORD*)(dword_5d4594_1312460 + 68) = 0;
 	LABEL_11:
 		*v5 = v4;
 		v5[1] = v3;
@@ -8247,8 +8248,8 @@ int __cdecl sub_4B07D0(LPVOID lpMem) {
 		v3 = *((_DWORD*)lpMem + 18);
 		if (v3)
 			*(_DWORD*)(v3 + 68) = *((_DWORD*)lpMem + 17);
-		if (lpMem == *(LPVOID*)&byte_5D4594[1312460])
-			*(_DWORD*)&byte_5D4594[1312460] = *((_DWORD*)lpMem + 18);
+		if (lpMem == *(LPVOID*)&dword_5d4594_1312460)
+			dword_5d4594_1312460 = *((_DWORD*)lpMem + 18);
 		free(*((LPVOID*)lpMem + 16));
 		free(lpMem);
 	}
