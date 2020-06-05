@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096504;
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_5d4594_1096284;
 extern _DWORD dword_5d4594_1082864;
@@ -8418,8 +8419,8 @@ int sub_473A40() {
 	if (!dword_5d4594_1096496)
 		return 0;
 	dword_5d4594_1096500 = 0;
-	*(_DWORD*)&byte_5D4594[1096504] = nox_malloc(0x400u);
-	if (!*(_DWORD*)&byte_5D4594[1096504])
+	dword_5d4594_1096504 = nox_malloc(0x400u);
+	if (!dword_5d4594_1096504)
 		return 0;
 	dword_5d4594_1096508 = 0;
 	dword_5d4594_1096512 = nox_malloc(0x400u);
@@ -8456,9 +8457,9 @@ int sub_473B30_free() {
 		dword_5d4594_1096496 = 0;
 		dword_5d4594_1096500 = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[1096504]) {
-		free(*(LPVOID*)&byte_5D4594[1096504]);
-		*(_DWORD*)&byte_5D4594[1096504] = 0;
+	if (dword_5d4594_1096504) {
+		free(*(LPVOID*)&dword_5d4594_1096504);
+		dword_5d4594_1096504 = 0;
 		dword_5d4594_1096508 = 0;
 	}
 	if (dword_5d4594_1096512) {
@@ -9368,7 +9369,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 				if (v17 && !(byte_5D4594[12332 * *(unsigned __int8*)(v17 + 1) + 2692780] & 4)) {
 					if (*(_BYTE*)(v17 + 4) & 2) {
 						if (*(int*)&dword_5d4594_1096508 < 256)
-							*(_DWORD*)(*(_DWORD*)&byte_5D4594[1096504] +
+							*(_DWORD*)(dword_5d4594_1096504 +
 								   4 * (dword_5d4594_1096508)++) = v17;
 					} else if (*(int*)&dword_5d4594_1096500 < 256) {
 						*(_DWORD*)(dword_5d4594_1096496 +
@@ -9469,7 +9470,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 	}
 	sub_4AFD40();
 	sub_4C5060(v1);
-	v30 = *(unsigned __int8***)&byte_5D4594[1096504];
+	v30 = *(unsigned __int8***)&dword_5d4594_1096504;
 	v31 = dword_5d4594_1096508;
 	if (dword_587000_80812) {
 		--dword_5d4594_1096508;
