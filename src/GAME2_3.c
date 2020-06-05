@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1303472;
 extern _DWORD dword_5d4594_1197352;
 extern _DWORD dword_5d4594_1197336;
 extern _DWORD dword_5d4594_1197356;
@@ -6217,10 +6218,10 @@ _DWORD* __cdecl sub_49BAB0_drawable(_DWORD* a1) {
 
 	result = a1;
 	a1[84] = 0;
-	a1[83] = *(_DWORD*)&byte_5D4594[1303472];
-	if (*(_DWORD*)&byte_5D4594[1303472])
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1303472] + 336) = a1;
-	*(_DWORD*)&byte_5D4594[1303472] = a1;
+	a1[83] = dword_5d4594_1303472;
+	if (dword_5d4594_1303472)
+		*(_DWORD*)(dword_5d4594_1303472 + 336) = a1;
+	dword_5d4594_1303472 = a1;
 	a1[30] |= 0x200000u;
 	return result;
 }
@@ -6237,7 +6238,7 @@ _DWORD* __cdecl sub_49BAF0(_DWORD* a1) {
 		if (v2)
 			*(_DWORD*)(v2 + 332) = a1[83];
 		else
-			*(_DWORD*)&byte_5D4594[1303472] = a1[83];
+			dword_5d4594_1303472 = a1[83];
 		v3 = a1[83];
 		if (v3)
 			*(_DWORD*)(v3 + 336) = a1[84];
@@ -6251,8 +6252,8 @@ void sub_49BB40() {
 	int v0; // esi
 	int v1; // edi
 
-	v0 = *(_DWORD*)&byte_5D4594[1303472];
-	if (*(_DWORD*)&byte_5D4594[1303472]) {
+	v0 = dword_5d4594_1303472;
+	if (dword_5d4594_1303472) {
 		do {
 			v1 = *(_DWORD*)(v0 + 332);
 			if (*(_DWORD*)(v0 + 340) < (unsigned int)sub_435590())
