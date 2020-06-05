@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_136184;
 extern _DWORD dword_5d4594_1093096;
 extern _DWORD dword_5d4594_1096512;
 extern _DWORD dword_5d4594_1049532;
@@ -1256,7 +1257,7 @@ int __cdecl sub_463430(int a1) {
 	int2 v16;        // [esp+10h] [ebp-28h]
 	wchar_t v17[16]; // [esp+18h] [ebp-20h]
 
-	v1 = *(_DWORD*)&byte_587000[136184];
+	v1 = dword_587000_136184;
 	sub_46A9B0(*(_DWORD**)(a1 + 396), 0, v1);
 	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &v16, &v16.field_4);
 	sub_43F320(0);
@@ -1339,17 +1340,17 @@ int __cdecl sub_463430(int a1) {
 		}
 	}
 	if (byte_5D4594[1049868] == 1) {
-		v14 = *(_DWORD*)&byte_587000[136184];
-		*(_DWORD*)&byte_587000[136184] = v14 + 64;
+		v14 = dword_587000_136184;
+		dword_587000_136184 = v14 + 64;
 		if (v14 + 64 > 0) {
-			*(_DWORD*)&byte_587000[136184] = 0;
+			dword_587000_136184 = 0;
 			byte_5D4594[1049868] = 2;
 		}
 	} else if (byte_5D4594[1049868] == 3) {
-		v13 = *(_DWORD*)&byte_587000[136184];
-		*(_DWORD*)&byte_587000[136184] = v13 - 32;
+		v13 = dword_587000_136184;
+		dword_587000_136184 = v13 - 32;
 		if (v13 - 32 <= -225) {
-			*(_DWORD*)&byte_587000[136184] = -225;
+			dword_587000_136184 = -225;
 			byte_5D4594[1049868] = 0;
 			if (byte_5D4594[1049869]) {
 				if (byte_5D4594[1049869] == 1)
@@ -2820,7 +2821,7 @@ int sub_467980() {
 	*(_DWORD*)&byte_5D4594[1062548] = 0;
 	*(_DWORD*)&byte_5D4594[1062552] = 0;
 	sub_472310();
-	*(_DWORD*)&byte_587000[136184] = -225;
+	dword_587000_136184 = -225;
 	byte_5D4594[1049868] = 0;
 	byte_5D4594[1049869] = 0;
 	dword_5d4594_1062516 = 0;
