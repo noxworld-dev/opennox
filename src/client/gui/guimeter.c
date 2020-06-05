@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1096288;
 extern _DWORD dword_5d4594_1093156;
 extern _DWORD dword_5d4594_1096252;
 extern _DWORD dword_5d4594_1093136;
@@ -93,7 +94,7 @@ int sub_4714E0() {
 
 	if (!*(_DWORD*)&byte_5D4594[2618908])
 		return 0;
-	*(_DWORD*)&byte_5D4594[1096288] = sub_43F360((char*)&byte_587000[148576]);
+	dword_5d4594_1096288 = sub_43F360((char*)&byte_587000[148576]);
 	*(_DWORD*)&byte_5D4594[1096264] = 0;
 	*(_DWORD*)&byte_5D4594[1096256] = 0;
 	*(_DWORD*)&byte_5D4594[1096260] = 0;
