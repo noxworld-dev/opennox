@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_1193584;
 extern _DWORD dword_5d4594_3801808;
 extern _DWORD dword_5d4594_3801804;
@@ -2158,9 +2159,9 @@ void sub_433C20() {
 		free(*(LPVOID*)&dword_5d4594_810640);
 		dword_5d4594_810640 = 0;
 	}
-	if (*(_DWORD*)&byte_5D4594[3804668]) {
-		free(*(LPVOID*)&byte_5D4594[3804668]);
-		*(_DWORD*)&byte_5D4594[3804668] = 0;
+	if (dword_5d4594_3804668) {
+		free(*(LPVOID*)&dword_5d4594_3804668);
+		dword_5d4594_3804668 = 0;
 	}
 	if (dword_5d4594_3804672) {
 		free(*(LPVOID*)&dword_5d4594_3804672);

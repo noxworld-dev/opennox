@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_810636;
 extern _DWORD dword_5d4594_1301828;
 extern _DWORD dword_5d4594_1193584;
@@ -82,7 +83,7 @@ int sub_48C4D0() {
 	do {
 		v2 = *v0;
 		++v0;
-		v3 = (unsigned __int8)*(_DWORD*)(*(_DWORD*)&byte_5D4594[3804668] + v2);
+		v3 = (unsigned __int8)*(_DWORD*)(dword_5d4594_3804668 + v2);
 		result = *(_DWORD*)(dword_5d4594_3804672 +
 				    2 * ((unsigned int)(*(_DWORD*)(&obj_5D4594_3800716.data[34]) * v3) >> 8)) |
 			 *(_DWORD*)(dword_5d4594_3804656 +
