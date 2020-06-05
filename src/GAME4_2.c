@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487708;
 extern _DWORD dword_5d4594_2487552;
 extern _DWORD dword_5d4594_2487880;
 extern _DWORD dword_587000_312788;
@@ -10986,21 +10987,21 @@ int __cdecl sub_52CE90(int a1, int a2, int a3, int a4) {
 	v9.field_4 = *(float*)(a3 + 60) - 150.0;
 	v9.field_8 = *(float*)(a3 + 56) + 150.0;
 	v9.field_C = *(float*)(a3 + 60) + 150.0;
-	*(_DWORD*)&byte_5D4594[2487708] = 0;
+	dword_5d4594_2487708 = 0;
 	*(_DWORD*)&byte_5D4594[2487704] = 1287568416;
 	sub_517C10(&v9, (void(__cdecl*)(float*, int))sub_52CF90, a4);
-	if (!*(_DWORD*)&byte_5D4594[2487708])
+	if (!dword_5d4594_2487708)
 		return 0;
-	v5 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2487708] + 508);
+	v5 = *(_DWORD*)(dword_5d4594_2487708 + 508);
 	if (v5 && v5 != a3) {
 		sub_4DA2C0(a3, "ExecSpel.c:DoorAlreadyLocked", 0);
 		return 0;
 	}
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[2487708] + 508) = a3;
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[2487708] + 136) =
+	*(_DWORD*)(dword_5d4594_2487708 + 508) = a3;
+	*(_DWORD*)(dword_5d4594_2487708 + 136) =
 	    *(_DWORD*)&byte_5D4594[2598000] + 60 * *(_DWORD*)&byte_5D4594[2649704];
-	sub_52D060(*(int*)&byte_5D4594[2487708], a3);
-	v8 = *(_DWORD*)&byte_5D4594[2487708];
+	sub_52D060(*(int*)&dword_5d4594_2487708, a3);
+	v8 = dword_5d4594_2487708;
 	v7 = sub_424800(a1, 0);
 	sub_501960(v7, v8, 0, 0);
 	return 1;
@@ -11031,7 +11032,7 @@ void __cdecl sub_52CF90(int a1, int a2) {
 			v7.field_C =
 			    (double)*(int*)&byte_587000[8 * *(_DWORD*)(v5 + 12) + 196188] * 0.5 + *(float*)(v2 + 60);
 			if (sub_535250(&v7, 0, 0, 0)) {
-				*(_DWORD*)&byte_5D4594[2487708] = v2;
+				dword_5d4594_2487708 = v2;
 				*(float*)&byte_5D4594[2487704] = v4 * v4 + v3 * v3;
 			}
 		}
