@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1301780;
 extern _DWORD dword_5d4594_1203836;
 extern _DWORD dword_5d4594_1203840;
 extern _DWORD dword_5d4594_1197332;
@@ -5298,7 +5299,7 @@ int sub_49A5F0() {
 	result = nox_new_alloc_class("HealthChange", 20, 32);
 	*(_DWORD*)&byte_5D4594[1301772] = result;
 	if (result) {
-		*(_DWORD*)&byte_5D4594[1301780] = sub_43F360((char*)&byte_587000[163264]);
+		dword_5d4594_1301780 = sub_43F360((char*)&byte_587000[163264]);
 		result = 1;
 	}
 	return result;
@@ -5364,18 +5365,18 @@ void __cdecl sub_49A6A0(_DWORD* a1, int a2) {
 					v6 = *(_DWORD*)(a2 + 16) + a1[1] + 2 * (v3 - v10) - *(__int16*)(a2 + 104) -
 					     (unsigned __int64)(__int64)*(float*)(a2 + 100) - a1[5];
 					nox_swprintf(v13, L"%d", abs32(*((__int16*)v8 + 2)));
-					sub_43F840(*(int*)&byte_5D4594[1301780], v13, &v12, 0, 0);
+					sub_43F840(*(int*)&dword_5d4594_1301780, v13, &v12, 0, 0);
 					v7 = v12 / -2 + v5;
 					sub_434390(*(int*)&byte_5D4594[2650656]);
-					sub_43F6E0(*(int*)&byte_5D4594[1301780], (__int16*)v13, v7 - 1, v6 - 1);
-					sub_43F6E0(*(int*)&byte_5D4594[1301780], (__int16*)v13, v7 - 1, v6 + 1);
-					sub_43F6E0(*(int*)&byte_5D4594[1301780], (__int16*)v13, v7 + 1, v6 - 1);
-					sub_43F6E0(*(int*)&byte_5D4594[1301780], (__int16*)v13, v7 + 1, v6 + 1);
+					sub_43F6E0(*(int*)&dword_5d4594_1301780, (__int16*)v13, v7 - 1, v6 - 1);
+					sub_43F6E0(*(int*)&dword_5d4594_1301780, (__int16*)v13, v7 - 1, v6 + 1);
+					sub_43F6E0(*(int*)&dword_5d4594_1301780, (__int16*)v13, v7 + 1, v6 - 1);
+					sub_43F6E0(*(int*)&dword_5d4594_1301780, (__int16*)v13, v7 + 1, v6 + 1);
 					if (*((short*)v8 + 2) <= 0)
 						sub_434390(v9);
 					else
 						sub_434390(*(int*)&byte_5D4594[2618904]);
-					sub_43F6E0(*(int*)&byte_5D4594[1301780], (__int16*)v13, v7, v6);
+					sub_43F6E0(*(int*)&dword_5d4594_1301780, (__int16*)v13, v7, v6);
 					v4 = v11;
 				}
 			} else {
@@ -5413,7 +5414,7 @@ int sub_49A8C0() {
 	result = 0;
 	*(_DWORD*)&byte_5D4594[1301772] = 0;
 	dword_5d4594_1301776 = 0;
-	*(_DWORD*)&byte_5D4594[1301780] = 0;
+	dword_5d4594_1301780 = 0;
 	return result;
 }
 
