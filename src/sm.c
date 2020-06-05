@@ -10,6 +10,7 @@ void f(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
 // defined in GAME1.c
+extern _DWORD dword_5d4594_815708;
 extern _DWORD dword_5d4594_3844304;
 extern _DWORD dword_5d4594_2649712;
 extern _DWORD dword_5d4594_815700;
@@ -217,7 +218,7 @@ void CONNECT_SERVER(sm_args_t* args) {
 
 	memset(v7, 0, sizeof(v7));
 	*(_DWORD*)&byte_5D4594[815704] = 0;
-	*(_DWORD*)&byte_5D4594[815708] = 0;
+	dword_5d4594_815708 = 0;
 	*(_DWORD*)&v7[20] = 2048;
 	*(_DWORD*)&v7[8] = hostshort;
 	sub_5520B0(200, 1024);
