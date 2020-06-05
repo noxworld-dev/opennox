@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_3844304;
 extern _DWORD dword_5d4594_2513920;
 extern _DWORD dword_587000_312820;
 extern _QWORD qword_581450_9544;
@@ -682,19 +683,19 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 				LOBYTE(v12) = *v13;
 				v9 = v13 + 1;
 				*(_BYTE*)(v7 + 148) = (_BYTE)v12;
-				*(_DWORD*)&byte_5D4594[3844304] = 1;
+				dword_5d4594_3844304 = 1;
 				goto LABEL_9;
 			case 2:
 				*(_DWORD*)(v7 + 20) = -18;
-				*(_DWORD*)&byte_5D4594[3844304] = 1;
+				dword_5d4594_3844304 = 1;
 				goto LABEL_9;
 			case 3:
 				*(_DWORD*)(v7 + 20) = -12;
-				*(_DWORD*)&byte_5D4594[3844304] = 1;
+				dword_5d4594_3844304 = 1;
 				goto LABEL_9;
 			case 4:
 				*(_DWORD*)(v7 + 20) = -13;
-				*(_DWORD*)&byte_5D4594[3844304] = 1;
+				dword_5d4594_3844304 = 1;
 				goto LABEL_9;
 			case 5:
 				result = 7;
@@ -1608,13 +1609,13 @@ int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 		}
 		*(_WORD*)name.sa_data = htons(++v10);
 	}
-	*(_DWORD*)&byte_5D4594[3844304] = 0;
+	dword_5d4594_3844304 = 0;
 	v12 = 0;
 	v11 = sub_552640(a1, &v12, 1, 3);
 	if (sub_5525B0(a1, v11, 60, 6))
 		return -23;
-	printf("bar %d\n", *(_DWORD*)&byte_5D4594[3844304]);
-	if (*(_DWORD*)&byte_5D4594[3844304] && (int)v5[5] >= 0) {
+	printf("bar %d\n", dword_5d4594_3844304);
+	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
 		memset(&byte_5D4594[2512892], 0, 0x400u);
 		byte_5D4594[2512892] = 31;
 		byte_5D4594[2512893] = *(_BYTE*)(v5[12] + 1);
@@ -1677,7 +1678,7 @@ void __cdecl sub_554AA0(u_short hostshort, int a2, int a3, int a4) {
 		*((_WORD*)v5 + 2) = a3;
 		v4 = a3 + 12;
 	}
-	*(_DWORD*)&byte_5D4594[3844304] = 0;
+	dword_5d4594_3844304 = 0;
 	sub_554C80(hostshort, v5, v4);
 	v6[0] = hostshort;
 	v6[1] = v5;
