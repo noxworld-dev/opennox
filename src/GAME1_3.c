@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830216;
 extern _DWORD dword_5d4594_830120;
 extern _DWORD dword_5d4594_830256;
 extern _DWORD dword_587000_93944;
@@ -5867,12 +5868,12 @@ _DWORD* __cdecl sub_449A10(int a1, int a2, int a3, int a4, int (*a5)(void), int 
 	_DWORD* v11;    // eax
 
 	v6 = dword_587000_26048;
-	if (dword_5d4594_830224 && *(_DWORD*)&byte_5D4594[830216])
-		(*(void (**)(void)) & byte_5D4594[830216])();
+	if (dword_5d4594_830224 && dword_5d4594_830216)
+		(*(void (**)(void)) & dword_5d4594_830216)();
 	*(_DWORD*)&byte_5D4594[830228] = a1;
 	*(_DWORD*)&byte_5D4594[830232] = 0;
 	*(_DWORD*)&byte_5D4594[830220] = a5;
-	*(_DWORD*)&byte_5D4594[830216] = a6;
+	dword_5d4594_830216 = a6;
 	if (dword_5d4594_830224) {
 		sub_449EA0(a4);
 		if (a2)
@@ -5974,8 +5975,8 @@ int __cdecl sub_449CA0(int a1, int a2, int* a3, int a4) {
 		if (byte_5D4594[830240] & 0x20)
 			sub_46C6E0(*(int*)&dword_5d4594_830224);
 		nox_window_call_field_94(*(int*)&byte_5D4594[830228], 16391, (int)a3, a4);
-		if (*(_DWORD*)&byte_5D4594[830216])
-			(*(void (**)(void)) & byte_5D4594[830216])();
+		if (dword_5d4594_830216)
+			(*(void (**)(void)) & dword_5d4594_830216)();
 		if (!(byte_5D4594[830240] & 0x20))
 			return 0;
 		sub_44A400();
