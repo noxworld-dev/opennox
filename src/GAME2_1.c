@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9512;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_1090276;
 extern _DWORD dword_5d4594_1062476;
@@ -7075,11 +7076,11 @@ int __cdecl sub_471250(_DWORD* a1) {
 					v11 = 1;
 				v12 = v22 + v21;
 				v22 = v12;
-				if (v12 >= *(double*)&byte_581450[9512]) {
+				if (v12 >= *(double*)&qword_581450_9512) {
 					--v8;
 					--v10;
 					++v11;
-					v22 = v22 - *(double*)&byte_581450[9512];
+					v22 = v22 - *(double*)&qword_581450_9512;
 				}
 				nox_client_drawSetColor_434460(v9);
 				nox_client_drawEnableAlpha_434560(1);
