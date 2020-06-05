@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835348;
 extern _DWORD dword_5d4594_2386492;
 extern _DWORD dword_5d4594_2386564;
 extern _DWORD dword_5d4594_2386920;
@@ -12886,10 +12887,10 @@ int __cdecl sub_51D570(int a1) {
 	if (a1 <= byte_5D4594[60 * *(_DWORD*)&byte_5D4594[3835340] + 2682240] *
 			  byte_5D4594[60 * *(_DWORD*)&byte_5D4594[3835340] + 2682241] -
 		      1) {
-		*(_DWORD*)&byte_5D4594[3835348] = a1;
+		dword_5d4594_3835348 = a1;
 		result = 1;
 	} else {
-		*(_DWORD*)&byte_5D4594[3835348] = 0;
+		dword_5d4594_3835348 = 0;
 		result = 0;
 	}
 	return result;
@@ -13054,7 +13055,7 @@ int __cdecl sub_51D8F0(float2* a1) {
 	int v15;    // [esp+2Ch] [ebp-4h]
 	float v16;  // [esp+34h] [ebp+4h]
 
-	v9 = *(_DWORD*)&byte_5D4594[3835348];
+	v9 = dword_5d4594_3835348;
 	v1 = a1->field_0 + 11.5;
 	v8 = *(_DWORD*)&byte_5D4594[3835340];
 	v10 = 0;
