@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_93196;
 extern _DWORD dword_5d4594_826036;
 extern _DWORD dword_5d4594_829520;
 extern _DWORD dword_5d4594_816356;
@@ -1729,7 +1730,7 @@ int __cdecl sub_43DE40(int (*a1)(void)) {
 int sub_43DE60() {
 	int result; // eax
 
-	*(_DWORD*)&byte_587000[93196] = 0;
+	dword_587000_93196 = 0;
 	sub_43C720(0);
 	result = sub_43AF70();
 	if (result == 1) {
@@ -1828,7 +1829,7 @@ void mainloop_stop() {
 	}
 
 	// "exit the loop" ?
-	if (*(_DWORD*)&byte_587000[93196]) {
+	if (dword_587000_93196) {
 		return;
 	}
 	mainloop_exit();
@@ -1849,7 +1850,7 @@ void mainloop_wait_and_exit(int flags) {
 }
 
 void sub_43E290() {
-	*(_DWORD*)&byte_587000[93196] = 1;
+	dword_587000_93196 = 1;
 	*(_DWORD*)&byte_587000[93200] = 1;
 	*(_DWORD*)&byte_5D4594[816400] = 60 * *(_DWORD*)&byte_5D4594[2649704];
 
@@ -1864,7 +1865,7 @@ void sub_43E290() {
 	return;
 	// never get here
 #else
-	while (*(_DWORD*)&byte_587000[93196])
+	while (dword_587000_93196)
 		mainloop();
 #endif
 }
