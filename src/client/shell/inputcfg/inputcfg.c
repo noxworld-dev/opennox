@@ -1,6 +1,7 @@
 #include "inputcfg.h"
 
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1522620;
 extern _DWORD dword_5d4594_1522632;
 extern _DWORD dword_5d4594_1522612;
 extern _DWORD dword_5d4594_1522604;
@@ -23,10 +24,10 @@ char* sub_4CBD30() {
 	char* result;  // eax
 	char v12[256]; // [esp+8h] [ebp-100h]
 
-	v0 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1522620] + 32);
+	v0 = *(_DWORD*)(dword_5d4594_1522620 + 32);
 	sub_42CD90();
 	for (i = 0; i < *(__int16*)(v0 + 44); ++i) {
-		v2 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1522620], 16406, i, 0);
+		v2 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16406, i, 0);
 		v3 = sub_42EA40(v2);
 		v4 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16406, i, 0);
 		v5 = sub_42E960(v4);
@@ -67,14 +68,14 @@ int __cdecl sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 			v7 = *(_DWORD*)(a1 + 32);
 			sub_4A30D0(a1, 0x4009u, (wchar_t*)a3, a4);
 			v8 = sub_4A4800(v7);
-			nox_window_call_field_94(*(int*)&byte_5D4594[1522620], 16412, v8, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16412, v8, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16412, v8, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522628, 16412, v8, 0);
 		} else if (a2 == 16400) {
 			v5 = *(_DWORD*)(a3 + 32);
 			if ((int)*(_DWORD*)(v5 + 48) >= 0) {
 				dword_5d4594_1522632 = a3;
-				v9 = nox_window_call_field_94(*(int*)&byte_5D4594[1522620], 16406, *(_DWORD*)(v5 + 48),
+				v9 = nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16406, *(_DWORD*)(v5 + 48),
 							      0);
 				v6 =
 				    loadString_sub_40F1D0((char*)&byte_587000[187784], 0,
@@ -95,7 +96,7 @@ int __cdecl sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 		}
 		if ((_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 921) ||
 		    (_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 922)) {
-			nox_window_call_field_94(*(int*)&byte_5D4594[1522620], a2, a3, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1522620, a2, a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522624, a2, a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522628, a2, a3, 0);
 			return sub_4A30D0(a1, a2, (wchar_t*)a3, a4);
