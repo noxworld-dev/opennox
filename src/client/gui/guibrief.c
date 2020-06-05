@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_832504;
 extern _DWORD dword_5d4594_832492;
 extern _DWORD dword_5d4594_832532;
 extern _DWORD dword_5d4594_832536;
@@ -435,8 +436,8 @@ int __cdecl sub_44F300(int a1, int a2) {
 	}
 	v34.field_0 = v3 + 133;
 	v34.field_4 = v4 + 192;
-	sub_473A10(v2, &v34, (_DWORD*)(*(_DWORD*)&byte_5D4594[832504] + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(*(_DWORD*)&byte_5D4594[832504] + 300))(v2, *(_DWORD*)&byte_5D4594[832504]);
+	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832504 + 12));
+	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832504 + 300))(v2, dword_5d4594_832504);
 	v34.field_0 = v3 + 157;
 	v34.field_4 = v4 + 156;
 	v9 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[124868], 0,
