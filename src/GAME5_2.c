@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_587000_312788;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_587000_311480;
 extern _DWORD dword_587000_312800;
@@ -4610,7 +4611,7 @@ void sub_57B200() {
 	*(float*)&byte_5D4594[2523824] = sub_419D40(&byte_587000[312856]);
 	*(float*)&byte_5D4594[2523820] = sub_419D40(&byte_587000[312872]);
 	*(float*)&byte_5D4594[2523828] = sub_419D40(&byte_587000[312884]) * *(float*)&dword_587000_312784;
-	*(float*)&byte_5D4594[2523832] = sub_419D40(&byte_587000[312904]) * *(float*)&byte_587000[312788];
+	*(float*)&byte_5D4594[2523832] = sub_419D40(&byte_587000[312904]) * *(float*)&dword_587000_312788;
 	*(float*)&byte_5D4594[2523840] = sub_419D40(&byte_587000[312920]) * *(float*)&byte_587000[312792];
 	*(float*)&byte_5D4594[2523836] = sub_419D40(&byte_587000[312940]) * *(float*)&byte_587000[312796];
 	*(float*)&byte_5D4594[2523860] = sub_419D40(&byte_587000[312956]) * *(float*)&dword_587000_312800;
