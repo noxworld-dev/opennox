@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_741680;
 extern _DWORD dword_5d4594_1193336;
 extern _DWORD dword_5d4594_811072;
 extern _DWORD dword_5d4594_3807152;
@@ -2854,7 +2855,7 @@ int sub_42BF10() {
 			return 0;
 		v1 = nox_get_things_count();
 	}
-	*(_DWORD*)&byte_5D4594[741680] = v1;
+	dword_5d4594_741680 = v1;
 	dword_5d4594_741676 = nox_malloc(2 * v1);
 	if (dword_5d4594_741676) {
 		sub_42BFB0();
@@ -2872,7 +2873,7 @@ LPVOID sub_42BF80() {
 		free(*(LPVOID*)&dword_5d4594_741676);
 		dword_5d4594_741676 = 0;
 	}
-	*(_DWORD*)&byte_5D4594[741680] = 0;
+	dword_5d4594_741680 = 0;
 	return result;
 }
 
@@ -2881,7 +2882,7 @@ int sub_42BFB0() {
 	int result; // eax
 
 	result = 0;
-	memset(*(void**)&dword_5d4594_741676, 0, 2 * *(_DWORD*)&byte_5D4594[741680]);
+	memset(*(void**)&dword_5d4594_741676, 0, 2 * dword_5d4594_741680);
 	*(_WORD*)&byte_5D4594[741684] = 0;
 	return result;
 }
@@ -3031,11 +3032,11 @@ __int16 __cdecl sub_42C2B0(__int16 a1) {
 	unsigned int v2; // eax
 
 	v1 = *(_WORD**)&dword_5d4594_741676;
-	if (dword_5d4594_741676 && (v2 = 0, *(_DWORD*)&byte_5D4594[741680])) {
+	if (dword_5d4594_741676 && (v2 = 0, dword_5d4594_741680)) {
 		while (*v1 != a1) {
 			++v2;
 			++v1;
-			if (v2 >= *(int*)&byte_5D4594[741680])
+			if (v2 >= *(int*)&dword_5d4594_741680)
 				goto LABEL_5;
 		}
 	} else {
