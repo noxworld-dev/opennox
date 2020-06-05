@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1307720;
 extern _DWORD dword_5d4594_1308164;
 extern _DWORD dword_587000_173336;
 extern _DWORD dword_587000_173328;
@@ -326,15 +327,15 @@ int __cdecl sub_4A2610(int a1, _DWORD* a2, int* a3) {
 	char v16[64];         // [esp+1Ch] [ebp-140h]
 	wchar_t v17[128];     // [esp+5Ch] [ebp-100h]
 
-	*(_DWORD*)&byte_5D4594[1307720] = 0;
+	dword_5d4594_1307720 = 0;
 	for (i = sub_425890(a3); i; i = sub_4258A0(i)) {
 		if (sub_4A2560(a2, (int)i)) {
-			v4 = *(_DWORD*)&byte_5D4594[1307720];
-			*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1307720] + 1307316] = i;
-			*(_DWORD*)&byte_5D4594[1307720] = v4 + 1;
+			v4 = dword_5d4594_1307720;
+			*(_DWORD*)&byte_5D4594[4 * dword_5d4594_1307720 + 1307316] = i;
+			dword_5d4594_1307720 = v4 + 1;
 		}
 	}
-	if (*(_DWORD*)&byte_5D4594[1307720] > 0) {
+	if (dword_5d4594_1307720 > 0) {
 		dword_5d4594_1307716 = nox_new_window_from_file("proxlist.wnd", *(_DWORD*)(a1 + 376));
 		sub_4A2830(*a2 + 216, a2[1] + 27, v15);
 		sub_46A9B0(*(_DWORD**)&dword_5d4594_1307716, v15[0], v15[1]);
@@ -356,7 +357,7 @@ int __cdecl sub_4A2610(int a1, _DWORD* a2, int* a3) {
 		*(_DWORD*)(v5[100] + 8) = 16;
 		*(_DWORD*)(v5[100] + 12) = 10;
 		v10 = 0;
-		if (*(_DWORD*)&byte_5D4594[1307720] > 0) {
+		if (dword_5d4594_1307720 > 0) {
 			v11 = &byte_5D4594[1307316];
 			do {
 				if (*(_BYTE*)(*(_DWORD*)v11 + 120)) {
@@ -369,7 +370,7 @@ int __cdecl sub_4A2610(int a1, _DWORD* a2, int* a3) {
 				nox_window_call_field_94((int)v7, 16397, (int)v17, -1);
 				++v10;
 				v11 += 4;
-			} while (v10 < *(int*)&byte_5D4594[1307720]);
+			} while (v10 < *(int*)&dword_5d4594_1307720);
 		}
 	}
 	return dword_5d4594_1307716;
@@ -412,7 +413,7 @@ BOOL sub_4A28B0() { return dword_5d4594_1307716 != 0; }
 int __cdecl sub_4A28C0(int a1) {
 	int result; // eax
 
-	if (a1 < *(int*)&byte_5D4594[1307720])
+	if (a1 < *(int*)&dword_5d4594_1307720)
 		result = *(_DWORD*)&byte_5D4594[4 * a1 + 1307316];
 	else
 		result = 0;
