@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_252276;
 extern _DWORD dword_5d4594_251720;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_251496;
@@ -8962,19 +8963,19 @@ void __cdecl sub_4144D0(_DWORD* a1) {
 	if (a1) {
 		if (a1[30])
 			nox_free_alloc_class_f30(a1);
-		*(_DWORD*)&byte_5D4594[252276] = a1[28];
-		v1 = *(_DWORD*)&byte_5D4594[252276];
-		if (*(_DWORD*)&byte_5D4594[252276]) {
+		dword_5d4594_252276 = a1[28];
+		v1 = dword_5d4594_252276;
+		if (dword_5d4594_252276) {
 			do {
 				*(_DWORD*)&byte_5D4594[338300] = *(_DWORD*)(v1 + 8);
 				memset((void*)(v1 + 16), 0xACu, a1[22]);
 				v2 = a1[24];
 				if (!v2)
-					a1[25] = *(_DWORD*)&byte_5D4594[252276];
-				*(_DWORD*)(*(_DWORD*)&byte_5D4594[252276] + 8) = v2;
-				a1[24] = *(_DWORD*)&byte_5D4594[252276];
+					a1[25] = dword_5d4594_252276;
+				*(_DWORD*)(dword_5d4594_252276 + 8) = v2;
+				a1[24] = dword_5d4594_252276;
 				v1 = *(_DWORD*)&byte_5D4594[338300];
-				*(_DWORD*)&byte_5D4594[252276] = *(_DWORD*)&byte_5D4594[338300];
+				dword_5d4594_252276 = *(_DWORD*)&byte_5D4594[338300];
 			} while (*(_DWORD*)&byte_5D4594[338300]);
 		}
 		a1[28] = 0;
