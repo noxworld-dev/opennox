@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "guimsg.h"
+extern _DWORD dword_5d4594_1098596;
 extern _DWORD dword_5d4594_1098600;
 extern _DWORD dword_5d4594_1098616;
 extern _DWORD dword_5d4594_1098604;
@@ -112,11 +113,11 @@ wchar_t* __cdecl sub_478B10(int2* a1) {
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
 	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1098456], a1->field_0, a1->field_4);
-	result = *(wchar_t**)&byte_5D4594[1098596];
-	if (*(_DWORD*)&byte_5D4594[1098596] ||
-	    (result = loadString_sub_40F1D0((char*)&byte_587000[152740], *(_DWORD**)&byte_5D4594[1098596],
+	result = *(wchar_t**)&dword_5d4594_1098596;
+	if (dword_5d4594_1098596 ||
+	    (result = loadString_sub_40F1D0((char*)&byte_587000[152740], *(_DWORD**)&dword_5d4594_1098596,
 					    "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 597),
-	     (*(_DWORD*)&byte_5D4594[1098596] = result) != 0)) {
+	     (dword_5d4594_1098596 = result) != 0)) {
 		result = (wchar_t*)sub_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
 	}
 	return result;
