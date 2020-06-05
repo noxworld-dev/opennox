@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1189600;
 extern _DWORD dword_5d4594_823776;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_3798780;
@@ -2434,13 +2435,13 @@ DWORD __cdecl sub_47A310(LPCSTR lpPathName) {
 	struct _WIN32_FIND_DATAA FindFileData; // [esp+18h] [ebp-340h]
 	CHAR Buffer[512];                      // [esp+158h] [ebp-200h]
 
-	*(_DWORD*)&byte_5D4594[1189600] = 0;
+	dword_5d4594_1189600 = 0;
 	v8 = 0;
 	if (SetCurrentDirectoryA(lpPathName) || (result = GetLastError()) == 0) {
 		GetCurrentDirectoryA(0x200u, Buffer);
-		v3 = (char*)&byte_5D4594[512 * (*(_DWORD*)&byte_5D4594[1189600])++ + 1124048];
+		v3 = (char*)&byte_5D4594[512 * (dword_5d4594_1189600)++ + 1124048];
 		strcpy(v3, Buffer);
-		if (*(int*)&byte_5D4594[1189600] <= 0) {
+		if (*(int*)&dword_5d4594_1189600 <= 0) {
 		LABEL_27:
 			SetCurrentDirectoryA(Buffer);
 			result = SetCurrentDirectoryA((LPCSTR)&byte_587000[153752]);
@@ -2453,7 +2454,7 @@ DWORD __cdecl sub_47A310(LPCSTR lpPathName) {
 					if (FindFileData.dwFileAttributes & 0x10 &&
 					    strcmp(FindFileData.cFileName, ".") &&
 					    strcmp(FindFileData.cFileName, "..")) {
-						v6 = (char*)&byte_5D4594[512 * *(_DWORD*)&byte_5D4594[1189600] +
+						v6 = (char*)&byte_5D4594[512 * dword_5d4594_1189600 +
 									 1124048];
 						strcpy(v6, v4);
 						if (v4[strlen(v4) - 1] != 92)
@@ -2461,14 +2462,14 @@ DWORD __cdecl sub_47A310(LPCSTR lpPathName) {
 						strcat(v6, FindFileData.cFileName);
 						if (strlen(v6) >= 0x200)
 							nox_exit(1);
-						if (++*(int*)&byte_5D4594[1189600] >= 128)
+						if (++*(int*)&dword_5d4594_1189600 >= 128)
 							nox_exit(1);
 					}
 					while (FindNextFileA(v5, &FindFileData)) {
 						if (FindFileData.dwFileAttributes & 0x10 &&
 						    strcmp(FindFileData.cFileName, ".") &&
 						    strcmp(FindFileData.cFileName, "..")) {
-							v7 = (char*)&byte_5D4594[512 * *(_DWORD*)&byte_5D4594[1189600] +
+							v7 = (char*)&byte_5D4594[512 * dword_5d4594_1189600 +
 										 1124048];
 							strcpy(v7, v4);
 							if (v4[strlen(v4) - 1] != 92)
@@ -2477,7 +2478,7 @@ DWORD __cdecl sub_47A310(LPCSTR lpPathName) {
 							strcat(v7, FindFileData.cFileName);
 							if (strlen(v7) >= 0x200)
 								nox_exit(1);
-							if (++*(int*)&byte_5D4594[1189600] >= 128)
+							if (++*(int*)&dword_5d4594_1189600 >= 128)
 								nox_exit(1);
 							v5 = v9;
 						}
@@ -2485,7 +2486,7 @@ DWORD __cdecl sub_47A310(LPCSTR lpPathName) {
 					FindClose(v5);
 				}
 				v4 += 512;
-				if (++v8 >= *(int*)&byte_5D4594[1189600])
+				if (++v8 >= *(int*)&dword_5d4594_1189600)
 					goto LABEL_27;
 			}
 			SetCurrentDirectoryA(Buffer);
@@ -2508,10 +2509,10 @@ int sub_47A650() {
 	struct _WIN32_FIND_DATAA FindFileData; // [esp+10h] [ebp-244h]
 	char FileName[260];                    // [esp+150h] [ebp-104h]
 
-	result = *(_DWORD*)&byte_5D4594[1189600];
+	result = dword_5d4594_1189600;
 	dword_5d4594_1123532 = 0;
 	v7 = 0;
-	if (*(_DWORD*)&byte_5D4594[1189600] > 0) {
+	if (dword_5d4594_1189600 > 0) {
 		v1 = (const char*)&byte_5D4594[1124048];
 		do {
 			v2 = *(_WORD*)&byte_587000[153760];
@@ -2553,7 +2554,7 @@ int sub_47A650() {
 			result = v7 + 1;
 			v1 += 512;
 			++v7;
-		} while (v7 < *(int*)&byte_5D4594[1189600]);
+		} while (v7 < *(int*)&dword_5d4594_1189600);
 	}
 	return result;
 }
