@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309756;
 extern _DWORD dword_5d4594_1309832;
 extern _DWORD dword_5d4594_1313540;
 extern _DWORD dword_5d4594_1307732;
@@ -4781,9 +4782,9 @@ int sub_4AB1F0() {
 //----- (004AB260) --------------------------------------------------------
 int sub_4AB260() {
 	*(_DWORD*)&byte_5D4594[1309752] = sub_42F970("DisconnectIcon");
-	*(_DWORD*)&byte_5D4594[1309756] = nox_window_new(0, 136, nox_win_width - 50, nox_win_height / 2 + 3, 50, 50, 0);
-	sub_46AE60(*(int*)&byte_5D4594[1309756], *(int*)&byte_5D4594[1309752]);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1309756], 0, sub_4AB420, 0);
+	dword_5d4594_1309756 = nox_window_new(0, 136, nox_win_width - 50, nox_win_height / 2 + 3, 50, 50, 0);
+	sub_46AE60(*(int*)&dword_5d4594_1309756, *(int*)&byte_5D4594[1309752]);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1309756, 0, sub_4AB420, 0);
 	dword_5d4594_1309748 = nox_new_window_from_file("discon.wnd", sub_4AB390);
 	sub_46B300(*(int*)&dword_5d4594_1309748, sub_4AB340);
 	sub_46B120(*(_DWORD**)&dword_5d4594_1309748, 0);
@@ -4859,9 +4860,9 @@ int sub_4AB470() {
 	int result; // eax
 
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1309748);
-	sub_46C4E0(*(_DWORD**)&byte_5D4594[1309756]);
+	sub_46C4E0(*(_DWORD**)&dword_5d4594_1309756);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1309756] = 0;
+	dword_5d4594_1309756 = 0;
 	dword_5d4594_1309748 = 0;
 	return result;
 }
@@ -4871,9 +4872,9 @@ int __cdecl sub_4AB4A0(int a1) {
 	int result; // eax
 
 	if (a1)
-		result = nox_window_set_hidden(*(int*)&byte_5D4594[1309756], 0);
+		result = nox_window_set_hidden(*(int*)&dword_5d4594_1309756, 0);
 	else
-		result = nox_window_set_hidden(*(int*)&byte_5D4594[1309756], 1);
+		result = nox_window_set_hidden(*(int*)&dword_5d4594_1309756, 1);
 	return result;
 }
 
