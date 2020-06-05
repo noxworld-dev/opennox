@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_2513916;
 extern _DWORD dword_5d4594_2523896;
 extern _DWORD dword_587000_312788;
@@ -3559,7 +3560,7 @@ int __cdecl sub_579750(int a1) {
 }
 
 //----- (005797E0) --------------------------------------------------------
-int sub_5797E0() { return *(_DWORD*)&byte_5D4594[2523744]; }
+int sub_5797E0() { return dword_5d4594_2523744; }
 
 //----- (00579860) --------------------------------------------------------
 LPVOID sub_579860() { return *(LPVOID*)&dword_5d4594_2523752; }
