@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_1308;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_3616;
 extern _DWORD dword_587000_93200;
@@ -785,7 +786,7 @@ void sub_4093A0() {
 	*(_DWORD*)&byte_5D4594[1276] = 0;
 	*(_DWORD*)&byte_5D4594[1292] = 0;
 	*(_DWORD*)&byte_5D4594[1280] = 0;
-	*(_DWORD*)&byte_5D4594[1308] = 0;
+	dword_5d4594_1308 = 0;
 }
 
 //----- (004093E0) --------------------------------------------------------
@@ -882,7 +883,7 @@ int __cdecl sub_409520(FILE* a1) {
 
 //----- (00409560) --------------------------------------------------------
 void sub_409560() {
-	if (*(_DWORD*)&byte_5D4594[1308])
+	if (dword_5d4594_1308)
 		sub_409580(0, 0);
 }
 
@@ -961,9 +962,9 @@ void __cdecl sub_409580(int* a1, int a2) {
 				--v21;
 			} while (v21);
 		} while ((int)v20 < (int)&byte_5D4594[2659824]);
-		*(_DWORD*)&byte_5D4594[1308] = 1;
+		dword_5d4594_1308 = 1;
 	} else {
-		*(_DWORD*)&byte_5D4594[1308] = 0;
+		dword_5d4594_1308 = 0;
 	}
 }
 
@@ -1013,7 +1014,7 @@ int __cdecl sub_4097C0(_BYTE* a1, signed int a2, _BYTE* a3) {
 	v4 = a3;
 	if (!a3)
 		v4 = a1;
-	if (*(_DWORD*)&byte_5D4594[1308]) {
+	if (dword_5d4594_1308) {
 		v5 = a2 / 8;
 		if (a2 / 8 > 0) {
 			v6 = a2 / 8;
@@ -1105,7 +1106,7 @@ int __cdecl sub_4099C0(_BYTE* a1, signed int a2, _BYTE* a3) {
 	v4 = a3;
 	if (!a3)
 		v4 = a1;
-	if (*(_DWORD*)&byte_5D4594[1308]) {
+	if (dword_5d4594_1308) {
 		v5 = a2 / 8;
 		if (a2 / 8 > 0) {
 			v6 = a2 / 8;
@@ -1130,7 +1131,7 @@ int __cdecl sub_4099C0(_BYTE* a1, signed int a2, _BYTE* a3) {
 }
 
 //----- (00409A60) --------------------------------------------------------
-int sub_409A60() { return *(_DWORD*)&byte_5D4594[1308]; }
+int sub_409A60() { return dword_5d4594_1308; }
 
 //----- (00409A70) --------------------------------------------------------
 int __cdecl sub_409A70(__int16 a1) {
