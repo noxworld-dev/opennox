@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3679316;
 extern _DWORD dword_5d4594_1316704;
 extern _DWORD dword_5d4594_3799488;
 extern _DWORD dword_5d4594_1321208;
@@ -6727,7 +6728,7 @@ int __cdecl sub_4C57C0(FILE* a1, int a2, _DWORD* a3, _DWORD* a4) {
 		}
 		fclose(a1);
 		*a3 = *(_DWORD*)&byte_5D4594[3679312];
-		*a4 = *(_DWORD*)&byte_5D4594[3679316];
+		*a4 = dword_5d4594_3679316;
 		result = 1;
 	}
 	return result;
@@ -6768,13 +6769,13 @@ BOOL __cdecl sub_4C5850(FILE* a1) {
 	*(_DWORD*)&byte_5D4594[3679312] = (unsigned __int16)v3;
 	if (fscanf(v1, "%2c", &v3) != 1)
 		return 0;
-	*(_DWORD*)&byte_5D4594[3679316] = (unsigned __int16)v3;
+	dword_5d4594_3679316 = (unsigned __int16)v3;
 	if (*(_DWORD*)&byte_5D4594[3679312] > 639)
 		return 0;
 	if ((int)(unsigned __int16)v3 > 639)
 		return 0;
 	++*(_DWORD*)&byte_5D4594[3679312];
-	*(_DWORD*)&byte_5D4594[3679316] = (unsigned __int16)v3 + 1;
+	dword_5d4594_3679316 = (unsigned __int16)v3 + 1;
 	fseek(v1, 65, 0);
 	if (fscanf(v1, "%c", &a1) != 1)
 		return 0;
@@ -6813,7 +6814,7 @@ int __cdecl sub_4C5A60(FILE* a1, int a2) {
 	LOBYTE(v11) = 0;
 	fseek(a1, 128, 0);
 	v13 = 0;
-	if (*(_DWORD*)&byte_5D4594[3679316] > 0) {
+	if (dword_5d4594_3679316 > 0) {
 		v3 = a2;
 		v4 = *(_DWORD*)&byte_5D4594[3679308];
 		v14 = a2;
@@ -6841,7 +6842,7 @@ int __cdecl sub_4C5A60(FILE* a1, int a2) {
 				v3 += 409600;
 			}
 			v3 = v14 + 640;
-			v9 = ++v13 < *(int*)&byte_5D4594[3679316];
+			v9 = ++v13 < *(int*)&dword_5d4594_3679316;
 			v14 += 640;
 			if (v9)
 				continue;
@@ -6957,7 +6958,7 @@ int __cdecl sub_4C5D20(FILE* a1, int a2) {
 	LOBYTE(v18) = 0;
 	fseek(a1, 128, 0);
 	v20 = 0;
-	if (*(int*)&byte_5D4594[3679316] <= 0) {
+	if (*(int*)&dword_5d4594_3679316 <= 0) {
 	LABEL_7:
 		sub_4C5B80(a1, 0, &v18, &v19);
 		result = 1;
@@ -6970,7 +6971,7 @@ int __cdecl sub_4C5D20(FILE* a1, int a2) {
 				break;
 		LABEL_6:
 			v4 += 640;
-			if (++v20 >= *(int*)&byte_5D4594[3679316])
+			if (++v20 >= *(int*)&dword_5d4594_3679316)
 				goto LABEL_7;
 		}
 		while (sub_4C5B80(a1, v5, &v18, &v19)) {
