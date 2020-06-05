@@ -5,6 +5,7 @@
 #include "../gamewin/gamewin.h"
 #include "playrlst.h"
 
+extern _DWORD dword_5d4594_1046536;
 extern _DWORD dword_5d4594_1046528;
 extern _DWORD dword_5d4594_1046500;
 extern _DWORD dword_5d4594_1046520;
@@ -87,20 +88,20 @@ int sub_457500() {
 		*(_DWORD*)&byte_5D4594[1046524] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10150);
 		dword_5d4594_1046516 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10134);
 		dword_5d4594_1046520 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10135);
-		*(_DWORD*)&byte_5D4594[1046536] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10153);
+		dword_5d4594_1046536 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10153);
 		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10331);
 		sub_46B070((int)v2, sub_457AA0);
 		v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10333);
 		sub_46B070((int)v3, sub_457B00);
 		sub_46B280(*(int*)&byte_5D4594[1046524], *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&dword_5d4594_1046532, *(int*)&dword_5d4594_1046492);
-		sub_46B280(*(int*)&byte_5D4594[1046536], *(int*)&dword_5d4594_1046492);
+		sub_46B280(*(int*)&dword_5d4594_1046536, *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&dword_5d4594_1046500, *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&dword_5d4594_1046504, *(int*)&dword_5d4594_1046492);
 		sub_46B280(*(int*)&dword_5d4594_1046508, *(int*)&dword_5d4594_1046492);
 		sub_46B2C0(*(int*)&byte_5D4594[1046524], sub_4585D0);
 		sub_46B2C0(*(int*)&dword_5d4594_1046532, sub_4585D0);
-		sub_46B2C0(*(int*)&byte_5D4594[1046536], sub_4585D0);
+		sub_46B2C0(*(int*)&dword_5d4594_1046536, sub_4585D0);
 		sub_46B2C0(*(int*)&dword_5d4594_1046500, sub_4585D0);
 		sub_46B2C0(*(int*)&dword_5d4594_1046504, sub_4585D0);
 		sub_46B2C0(*(int*)&dword_5d4594_1046508, sub_4585D0);
@@ -552,7 +553,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4) {
 				sub_4557D0(1);
 				dword_5d4594_1046528 = 0;
 			}
-			if (*(_DWORD*)&byte_5D4594[1046536]) {
+			if (dword_5d4594_1046536) {
 				sub_4AD820();
 				*(_DWORD*)&byte_5D4594[1046540] = 0;
 			}
