@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_588084;
 extern _DWORD dword_5d4594_588120;
 extern _DWORD dword_5d4594_529324;
 extern _DWORD dword_5d4594_528252;
@@ -6676,18 +6677,18 @@ int* __cdecl sub_422160(int a1, int a2, int a3, int a4) {
 	char* v5;    // eax
 	int i;       // ecx
 
-	result = *(int**)&byte_5D4594[588084];
-	if (!*(_DWORD*)&byte_5D4594[588084]) {
+	result = *(int**)&dword_5d4594_588084;
+	if (!dword_5d4594_588084) {
 		v5 = (char*)nox_malloc(0xC8u);
-		*(_DWORD*)&byte_5D4594[588084] = v5;
+		dword_5d4594_588084 = v5;
 		for (i = 0; i < 180; i += 20) {
 			*(_DWORD*)&v5[i + 16] = &v5[i + 20];
-			v5 = *(char**)&byte_5D4594[588084];
+			v5 = *(char**)&dword_5d4594_588084;
 		}
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[588084] + 196) = 0;
-		result = *(int**)&byte_5D4594[588084];
+		*(_DWORD*)(dword_5d4594_588084 + 196) = 0;
+		result = *(int**)&dword_5d4594_588084;
 	}
-	*(_DWORD*)&byte_5D4594[588084] = result[4];
+	dword_5d4594_588084 = result[4];
 	*result = a1;
 	result[1] = a2;
 	result[2] = a3;
@@ -6701,8 +6702,8 @@ int __cdecl sub_4221E0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)(a1 + 16) = *(_DWORD*)&byte_5D4594[588084];
-	*(_DWORD*)&byte_5D4594[588084] = a1;
+	*(_DWORD*)(a1 + 16) = dword_5d4594_588084;
+	dword_5d4594_588084 = a1;
 	return result;
 }
 
