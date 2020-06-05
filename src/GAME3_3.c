@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_10176;
 extern _QWORD qword_581450_10256;
 extern _QWORD qword_5d4594_1567940;
 extern _QWORD qword_581450_9544;
@@ -6924,7 +6925,7 @@ int __cdecl sub_4EB250(int a1) {
 		v4 = *(float*)(*(_DWORD*)&byte_5D4594[1567928] + 56) - *(float*)(a1 + 56);
 		v5 = *(float*)(*(_DWORD*)&byte_5D4594[1567928] + 60) - *(float*)(a1 + 60);
 		v8 = v5;
-		v6 = sqrt(v5 * v8 + v4 * v4) + *(double*)&byte_581450[10176];
+		v6 = sqrt(v5 * v8 + v4 * v4) + *(double*)&qword_581450_10176;
 		v1[20] = v4 * v1[136] / v6;
 		v1[21] = v8 * v1[136] / v6;
 	}
