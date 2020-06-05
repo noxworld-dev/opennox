@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798716;
 extern _DWORD dword_5d4594_1193712;
 extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_5d4594_3804668;
@@ -8019,7 +8020,7 @@ void __cdecl sub_49E3C0(_DWORD* a1, int a2, unsigned int a3) {
 //----- (0049E3F0) --------------------------------------------------------
 int nox_video_initLineDrawingFuncs_49E3F0() {
 	if (!dword_5d4594_3801780) {
-		*(_DWORD*)&byte_5D4594[3798716] = sub_49E540;
+		dword_5d4594_3798716 = sub_49E540;
 		*(_DWORD*)&byte_5D4594[3798700] = sub_49EFC0;
 		*(_DWORD*)&byte_5D4594[3798704] = sub_49ED80;
 		dword_5d4594_3798720 = sub_49F060;
@@ -8034,20 +8035,20 @@ int nox_video_initLineDrawingFuncs_49E3F0() {
 	if (!dword_5d4594_3801804)
 		*(_DWORD*)&byte_5D4594[3798708] = sub_49F180;
 	*(_DWORD*)&byte_5D4594[3798712] = sub_49F420;
-	*(_DWORD*)&byte_5D4594[3798716] = sub_49E930;
+	dword_5d4594_3798716 = sub_49E930;
 	*(_DWORD*)&byte_5D4594[3798700] = sub_49F010;
 	*(_DWORD*)&byte_5D4594[3798704] = sub_49ED80;
 	return 1;
 }
 
 //----- (0049E4B0) --------------------------------------------------------
-int nox_client_drawLineFromPoints_49E4B0() { return (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3798716])(0); }
+int nox_client_drawLineFromPoints_49E4B0() { return (*(int(__cdecl**)(_DWORD)) & dword_5d4594_3798716)(0); }
 
 //----- (0049E4C0) --------------------------------------------------------
 int __cdecl sub_49E4C0(int a1, int a2, int a3, int a4) {
 	nox_client_drawAddPoint_49F500(a1, a2);
 	nox_client_drawAddPoint_49F500(a3, a4);
-	return (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3798716])(0);
+	return (*(int(__cdecl**)(_DWORD)) & dword_5d4594_3798716)(0);
 }
 
 //----- (0049E4F0) --------------------------------------------------------
@@ -8058,10 +8059,10 @@ int __cdecl sub_49E510(int a1) {
 	int i; // esi
 
 	for (i = a1 - 1; i > 0; --i) {
-		if (!(*(int(__cdecl**)(_DWORD)) & byte_5D4594[3798716])(1))
+		if (!(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3798716)(1))
 			break;
 	}
-	return (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3798716])(0);
+	return (*(int(__cdecl**)(_DWORD)) & dword_5d4594_3798716)(0);
 }
 
 //----- (0049E540) --------------------------------------------------------

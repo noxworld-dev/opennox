@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798716;
 extern _DWORD dword_587000_173332;
 extern _DWORD dword_5d4594_1312472;
 extern _DWORD dword_5d4594_1309740;
@@ -6406,11 +6407,11 @@ int sub_4AE420() {
 	if (*(_DWORD*)&byte_5D4594[3798692] >= 3)
 		nox_client_drawAddPoint_49F500(*(_DWORD*)(dword_5d4594_3798696 + 8 * *(_DWORD*)&byte_5D4594[3798692] - 24),
 			   *(_DWORD*)(dword_5d4594_3798696 + 8 * *(_DWORD*)&byte_5D4594[3798692] - 20));
-	result = (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3798716])(1);
+	result = (*(int(__cdecl**)(_DWORD)) & dword_5d4594_3798716)(1);
 	if (result) {
-		result = (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3798716])(1);
+		result = (*(int(__cdecl**)(_DWORD)) & dword_5d4594_3798716)(1);
 		if (result)
-			result = (*(int(__cdecl**)(_DWORD)) & byte_5D4594[3798716])(0);
+			result = (*(int(__cdecl**)(_DWORD)) & dword_5d4594_3798716)(0);
 	}
 	return result;
 }
