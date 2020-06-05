@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_741332;
 extern _DWORD dword_5d4594_741364;
 extern _DWORD dword_5d4594_787212;
 extern _DWORD dword_5d4594_811104;
@@ -350,7 +351,7 @@ void* __cdecl sub_4282F0(int a1, int a2, size_t a3) {
 	v3 = a1;
 	v4 = 0;
 	if (*(_DWORD*)(a1 + 608)) {
-		for (i = 0; i < *(int*)&byte_5D4594[741332]; ++i) {
+		for (i = 0; i < *(int*)&dword_5d4594_741332; ++i) {
 			free(*(LPVOID*)(*(_DWORD*)(a1 + 608) + 4 * i));
 			*(_DWORD*)(*(_DWORD*)(a1 + 608) + 4 * i) = 0;
 		}
@@ -416,10 +417,10 @@ void* __cdecl sub_4282F0(int a1, int a2, size_t a3) {
 				break;
 		}
 		*(_WORD*)(v3 + 6) = a3;
-		*(_DWORD*)&byte_5D4594[741332] = a3;
+		dword_5d4594_741332 = a3;
 	} else {
 		*(_WORD*)(a1 + 6) = 0;
-		*(_DWORD*)&byte_5D4594[741332] = 0;
+		dword_5d4594_741332 = 0;
 	}
 	return result;
 }
@@ -479,7 +480,7 @@ char* __cdecl sub_4285C0(__int16* a1) {
 	v2 = a1;
 	*a1 = (__int16)result;
 	if ((__int16)result <= 0) {
-		*(_DWORD*)&byte_5D4594[741332] = *a1;
+		dword_5d4594_741332 = *a1;
 	} else {
 		v3 = nox_malloc(4 * (__int16)result);
 		v4 = 0;
@@ -535,9 +536,9 @@ char* __cdecl sub_4285C0(__int16* a1) {
 				v12 = sub_416EE0((int)v12);
 			} while (v12);
 			result = (char*)*v2;
-			*(_DWORD*)&byte_5D4594[741332] = *v2;
+			dword_5d4594_741332 = *v2;
 		} else {
-			*(_DWORD*)&byte_5D4594[741332] = *v2;
+			dword_5d4594_741332 = *v2;
 		}
 	}
 	return result;
@@ -583,7 +584,7 @@ LPVOID __cdecl sub_428910(LPVOID* a1) {
 	LPVOID result;  // eax
 
 	if (a1[152]) {
-		for (i = 0; i < *(int*)&byte_5D4594[741332]; ++i) {
+		for (i = 0; i < *(int*)&dword_5d4594_741332; ++i) {
 			free(*((LPVOID*)a1[152] + i));
 			*((_DWORD*)a1[152] + i) = 0;
 		}
@@ -616,7 +617,7 @@ LPVOID __cdecl sub_4289D0(LPVOID* a1) {
 	LPVOID result;  // eax
 
 	if (a1[134]) {
-		for (i = 0; i < *(int*)&byte_5D4594[741332]; ++i) {
+		for (i = 0; i < *(int*)&dword_5d4594_741332; ++i) {
 			free(*((LPVOID*)a1[134] + i));
 			*((_DWORD*)a1[134] + i) = 0;
 		}
