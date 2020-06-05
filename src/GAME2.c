@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_122848;
 extern _DWORD dword_5d4594_1046932;
 extern _DWORD dword_5d4594_1046528;
 extern _DWORD dword_5d4594_1046948;
@@ -464,7 +465,7 @@ void sub_44D3A0() {
 	if (*(_DWORD*)&byte_5D4594[831076]) {
 		switch (dword_5d4594_830864) {
 		case 0:
-			if (dword_5d4594_830872 && *(_DWORD*)&byte_587000[122848]) {
+			if (dword_5d4594_830872 && dword_587000_122848) {
 				if (!sub_44D660(*(const char**)&dword_5d4594_830872))
 					goto LABEL_29;
 				if (!*(_DWORD*)&byte_587000[122856] || !*(_DWORD*)&byte_587000[93160] ||
@@ -494,7 +495,7 @@ void sub_44D3A0() {
 			*(_DWORD*)&byte_5D4594[830860] = *(_DWORD*)&byte_5D4594[830868];
 			break;
 		case 3:
-			if (!*(_DWORD*)&byte_587000[122848] || !*(_DWORD*)&byte_5D4594[830972] ||
+			if (!dword_587000_122848 || !*(_DWORD*)&byte_5D4594[830972] ||
 			    dword_5d4594_830872 != *(_DWORD*)&byte_5D4594[830972] ||
 			    !dword_5d4594_831088 || AIL_stream_status(dword_5d4594_831088) == 2) {
 				dword_5d4594_830864 = 4;
@@ -631,7 +632,7 @@ int sub_44D8F0() {
 int __cdecl sub_44D900(int a1, int a2) {
 	int v2; // eax
 
-	if (*(_DWORD*)&byte_587000[122848] && a1) {
+	if (dword_587000_122848 && a1) {
 		v2 = a2;
 		if (a2 > 100)
 			v2 = 100;
@@ -643,7 +644,7 @@ int __cdecl sub_44D900(int a1, int a2) {
 
 //----- (0044D930) --------------------------------------------------------
 int sub_44D930() {
-	if (!*(_DWORD*)&byte_587000[122848])
+	if (!dword_587000_122848)
 		return 0;
 	if (dword_5d4594_830872 || dword_5d4594_831088)
 		return 1;
@@ -651,7 +652,7 @@ int sub_44D930() {
 }
 
 //----- (0044D960) --------------------------------------------------------
-void sub_44D960() { *(_DWORD*)&byte_587000[122848] = 0; }
+void sub_44D960() { dword_587000_122848 = 0; }
 
 //----- (0044D970) --------------------------------------------------------
 int sub_44D970() {
@@ -659,12 +660,12 @@ int sub_44D970() {
 
 	result = *(_DWORD*)&byte_5D4594[831092];
 	if (*(_DWORD*)&byte_5D4594[831092])
-		*(_DWORD*)&byte_587000[122848] = 1;
+		dword_587000_122848 = 1;
 	return result;
 }
 
 //----- (0044D990) --------------------------------------------------------
-int sub_44D990() { return *(_DWORD*)&byte_587000[122848]; }
+int sub_44D990() { return dword_587000_122848; }
 
 //----- (0044D9A0) --------------------------------------------------------
 int sub_44D9A0() {
