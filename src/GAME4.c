@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599616;
 extern _DWORD dword_5d4594_1599064;
 extern _DWORD dword_5d4594_1569748;
 extern _DWORD dword_5d4594_1599060;
@@ -10027,16 +10028,16 @@ int nox_server_mapRWScriptData_504F90() {
 }
 
 //----- (00505050) --------------------------------------------------------
-LPVOID sub_505050() { return *(LPVOID*)&byte_5D4594[1599616]; }
+LPVOID sub_505050() { return *(LPVOID*)&dword_5d4594_1599616; }
 
 //----- (00505060) --------------------------------------------------------
 LPVOID sub_505060() {
 	LPVOID result; // eax
 
-	result = *(LPVOID*)&byte_5D4594[1599616];
-	if (*(_DWORD*)&byte_5D4594[1599616]) {
-		free(*(LPVOID*)&byte_5D4594[1599616]);
-		*(_DWORD*)&byte_5D4594[1599616] = 0;
+	result = *(LPVOID*)&dword_5d4594_1599616;
+	if (dword_5d4594_1599616) {
+		free(*(LPVOID*)&dword_5d4594_1599616);
+		dword_5d4594_1599616 = 0;
 	}
 	return result;
 }
@@ -10106,7 +10107,7 @@ int nox_server_mapRWMapIntro_505080() {
 				}
 			} else {
 				v13 = nox_malloc(v17);
-				*(_DWORD*)&byte_5D4594[1599616] = v13;
+				dword_5d4594_1599616 = v13;
 				if (v13) {
 					v14 = v13;
 				LABEL_18:
