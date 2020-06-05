@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1046648;
 extern _DWORD dword_5d4594_1046640;
 extern _DWORD dword_5d4594_1046624;
 extern _DWORD dword_5d4594_1046932;
@@ -426,12 +427,12 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 	v1 = *(_DWORD*)&byte_5D4594[1046652] != 0 ? 3 : 0;
 	if (!dword_5d4594_1047520)
 		return 1;
-	if (*(_DWORD*)&byte_5D4594[1046648] && sub_430B40_get_mouse_prev_seq() - *(_DWORD*)&byte_5D4594[1046648] <
+	if (dword_5d4594_1046648 && sub_430B40_get_mouse_prev_seq() - dword_5d4594_1046648 <
 						   (unsigned int)(2 * *(_DWORD*)&byte_5D4594[2649704])) {
 		return 1;
 	}
 	nox_client_wndGetPosition_46AA60(a1, &v25, &v24);
-	if (*(_DWORD*)&byte_5D4594[1046648]) {
+	if (dword_5d4594_1046648) {
 		v3 = 50;
 		do {
 			v19 = sub_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1287);
@@ -445,7 +446,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 			--v3;
 		} while (v3);
 		sub_452D80(795, 100);
-		*(_DWORD*)&byte_5D4594[1046648] = 0;
+		dword_5d4594_1046648 = 0;
 	}
 	v6 = 2;
 	do {
