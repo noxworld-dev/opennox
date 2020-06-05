@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_81128;
 extern _DWORD dword_587000_122852;
 extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_528252;
@@ -6047,7 +6048,7 @@ int __cdecl nox_audio_initall(int a3) {
 	if (a3) {
 		sub_486F30();
 		if (sub_4311F0()) {
-			*(_DWORD*)&byte_587000[81128] = *(_DWORD*)&byte_5D4594[805984] + 88;
+			dword_587000_81128 = *(_DWORD*)&byte_5D4594[805984] + 88;
 			*(_DWORD*)&byte_5D4594[805980] = sub_4866F0("audio", "audio");
 		}
 	}
@@ -6082,7 +6083,7 @@ void sub_4311B0() {
 	sub_451970();
 	if (*(_DWORD*)&byte_5D4594[805980])
 		sub_4869C0(*(LPVOID*)&byte_5D4594[805980]);
-	*(_DWORD*)&byte_587000[81128] = 0;
+	dword_587000_81128 = 0;
 	sub_431270();
 	if (*(_DWORD*)&byte_5D4594[1193336]) {
 		sub_4875F0();
