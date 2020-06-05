@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1197328;
 extern _DWORD dword_5d4594_1303472;
 extern _DWORD dword_5d4594_1197352;
 extern _DWORD dword_5d4594_1197336;
@@ -361,7 +362,7 @@ int sub_48D000() {
 		   *(_DWORD*)(dword_5d4594_1197312 + 20));
 	nox_window_set_hidden(*(int*)&dword_5d4594_1197312, 1);
 	dword_5d4594_1197324 = 0;
-	*(_DWORD*)&byte_5D4594[1197328] = 0;
+	dword_5d4594_1197328 = 0;
 	dword_5d4594_1197332 = 0;
 	dword_5d4594_1197336 = 0;
 	return 1;
@@ -417,7 +418,7 @@ int sub_48D120() {
 	const wchar_t* v12; // edi
 
 	v0 = 0;
-	*(_DWORD*)&byte_5D4594[1197328] = dword_5d4594_1197324;
+	dword_5d4594_1197328 = dword_5d4594_1197324;
 	qmemcpy(&byte_5D4594[1195512], &byte_5D4594[1193720], 0x700u);
 	dword_5d4594_1197324 = 0;
 	v1 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16404, 0, 0);
@@ -430,7 +431,7 @@ int sub_48D120() {
 		}
 		i = v2[1];
 	}
-	if (*(int*)&byte_5D4594[1197328] > 0) {
+	if (*(int*)&dword_5d4594_1197328 > 0) {
 		v5 = (wchar_t*)&byte_5D4594[1195512];
 		do {
 			v6 = 0;
@@ -448,7 +449,7 @@ int sub_48D120() {
 			}
 			++v0;
 			v5 += 28;
-		} while (v0 < *(int*)&byte_5D4594[1197328]);
+		} while (v0 < *(int*)&dword_5d4594_1197328);
 	}
 	result = dword_5d4594_1197324;
 	v9 = 0;
@@ -456,7 +457,7 @@ int sub_48D120() {
 		v10 = (wchar_t*)&byte_5D4594[1193720];
 		do {
 			v11 = 0;
-			if (*(int*)&byte_5D4594[1197328] <= 0) {
+			if (*(int*)&dword_5d4594_1197328 <= 0) {
 			LABEL_19:
 				sub_48D2D0(v10);
 			} else {
@@ -464,7 +465,7 @@ int sub_48D120() {
 				while (nox_wcscmp(v10, v12)) {
 					++v11;
 					v12 += 28;
-					if (v11 >= *(int*)&byte_5D4594[1197328])
+					if (v11 >= *(int*)&dword_5d4594_1197328)
 						goto LABEL_19;
 				}
 			}
@@ -587,7 +588,7 @@ int sub_48D450() {
 	dword_5d4594_1197316 = 0;
 	dword_5d4594_1197320 = 0;
 	dword_5d4594_1197324 = 0;
-	*(_DWORD*)&byte_5D4594[1197328] = 0;
+	dword_5d4594_1197328 = 0;
 	dword_5d4594_1197332 = 0;
 	dword_5d4594_1197336 = 0;
 	return result;
