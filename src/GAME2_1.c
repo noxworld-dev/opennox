@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1064896;
 extern _DWORD dword_5d4594_1062560;
 extern _DWORD dword_5d4594_1096280;
 extern _DWORD dword_587000_145672;
@@ -5237,9 +5238,9 @@ void sub_46C200() {
 	bool v1; // zf
 	int v2;  // edi
 
-	v0 = *(_DWORD*)&byte_5D4594[1064896];
-	v1 = *(_DWORD*)&byte_5D4594[1064896] == 0;
-	*(_DWORD*)&byte_5D4594[1064896] = 0;
+	v0 = dword_5d4594_1064896;
+	v1 = dword_5d4594_1064896 == 0;
+	dword_5d4594_1064896 = 0;
 	if (!v1) {
 		do {
 			v2 = *(_DWORD*)(v0 + 388);
@@ -5413,8 +5414,8 @@ int __cdecl sub_46C4E0(_DWORD* a1) {
 		else
 			sub_46A960((int)a1);
 		a1[98] = 0;
-		a1[97] = *(_DWORD*)&byte_5D4594[1064896];
-		*(_DWORD*)&byte_5D4594[1064896] = a1;
+		a1[97] = dword_5d4594_1064896;
+		dword_5d4594_1064896 = a1;
 	}
 	return 0;
 }
