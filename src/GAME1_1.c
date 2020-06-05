@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_529336;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_531656;
 extern _DWORD dword_5d4594_527684;
@@ -4106,7 +4107,7 @@ int sub_41EC30() {
 
 	v0 = *(_DWORD**)&dword_5d4594_529316;
 	*(_DWORD*)&byte_5D4594[529332] = 0;
-	*(_DWORD*)&byte_5D4594[529336] = 0;
+	dword_5d4594_529336 = 0;
 	if (dword_5d4594_529316) {
 		do {
 			v1 = v0[7];
@@ -4219,7 +4220,7 @@ void __cdecl sub_41ECB0(int a1) {
 				}
 			LABEL_24:
 				++*(_DWORD*)&byte_5D4594[529332];
-				*(_DWORD*)&byte_5D4594[529336] += *(_DWORD*)(*(_DWORD*)v5 + 12);
+				dword_5d4594_529336 += *(_DWORD*)(*(_DWORD*)v5 + 12);
 				++v3[6];
 				if (sub_41E2F0() == 7)
 					sub_41E710(v5, v13);
@@ -4260,7 +4261,7 @@ void __cdecl sub_41EEA0(int a1) {
 				else
 					v1[8] = v2[11];
 				--*(_DWORD*)&byte_5D4594[529332];
-				*(_DWORD*)&byte_5D4594[529336] -= *(_DWORD*)(a1 + 12);
+				dword_5d4594_529336 -= *(_DWORD*)(a1 + 12);
 				--v1[6];
 				if (sub_41E2F0() == 7)
 					sub_448550(v5);
@@ -4422,7 +4423,7 @@ int __cdecl sub_41F1E0(int a1) {
 }
 
 //----- (0041F210) --------------------------------------------------------
-int sub_41F210() { return *(_DWORD*)&byte_5D4594[529336]; }
+int sub_41F210() { return dword_5d4594_529336; }
 
 //----- (0041F220) --------------------------------------------------------
 int sub_41F220() { return *(_DWORD*)&byte_5D4594[529332]; }
@@ -4443,7 +4444,7 @@ void __cdecl sub_41F230(int a1, int a2) {
 		if (v3) {
 			v5 = a2;
 			*(_DWORD*)(*v3 + 12) += a2;
-			*(_DWORD*)&byte_5D4594[529336] += v5;
+			dword_5d4594_529336 += v5;
 			if (!*(_DWORD*)(*v3 + 12))
 				sub_41EEA0(*v3);
 			if (sub_41E2F0() == 7)
@@ -4452,7 +4453,7 @@ void __cdecl sub_41F230(int a1, int a2) {
 	} else if (dword_5d4594_529340) {
 		v2 = a2;
 		*(_DWORD*)(**(_DWORD**)&dword_5d4594_529340 + 12) += a2;
-		*(_DWORD*)&byte_5D4594[529336] += v2;
+		dword_5d4594_529336 += v2;
 		if (*(_DWORD*)(**(_DWORD**)&dword_5d4594_529340 + 12)) {
 			if (sub_41E2F0() == 7) {
 				sub_448550(*(int*)&byte_587000[59616]);
