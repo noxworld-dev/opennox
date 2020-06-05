@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1563092;
 extern _DWORD dword_5d4594_3835348;
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_5d4594_3835352;
@@ -7700,7 +7701,7 @@ int sub_4DB0A0() {
 	*(_DWORD*)&byte_5D4594[1563084] = 0;
 	*(_DWORD*)&byte_5D4594[1563096] = 0;
 	*(_DWORD*)&byte_5D4594[1563064] = 0;
-	*(_DWORD*)&byte_5D4594[1563092] = 0;
+	dword_5d4594_1563092 = 0;
 	*(_DWORD*)&byte_5D4594[1563088] = 0;
 	*(_DWORD*)&byte_5D4594[1563044] = 0;
 	*(_DWORD*)&byte_5D4594[1563048] = 0;
@@ -7719,7 +7720,7 @@ int sub_4DB100() {
 	*(_DWORD*)&byte_5D4594[1563084] = 0;
 	*(_DWORD*)&byte_5D4594[1563096] = 0;
 	*(_DWORD*)&byte_5D4594[1563064] = 0;
-	*(_DWORD*)&byte_5D4594[1563092] = 0;
+	dword_5d4594_1563092 = 0;
 	*(_DWORD*)&byte_5D4594[1563088] = 0;
 	*(_DWORD*)&byte_5D4594[1563072] = 0;
 	*(_DWORD*)&byte_5D4594[1563068] = 0;
@@ -7739,7 +7740,7 @@ unsigned int __cdecl sub_4DB130(const char* a1) {
 int __cdecl sub_4DB170(int a1, int a2, int a3) {
 	int result; // eax
 
-	*(_DWORD*)&byte_5D4594[1563092] = a3;
+	dword_5d4594_1563092 = a3;
 	*(_DWORD*)&byte_5D4594[1563088] = *(_DWORD*)&byte_5D4594[2598000];
 	result = a1;
 	*(_DWORD*)&byte_5D4594[1563084] = a2;
@@ -8354,8 +8355,8 @@ int __cdecl sub_4DCC10(int a1) {
 	int result; // eax
 
 	v1 = 1;
-	if (*(_DWORD*)&byte_5D4594[1563092] &&
-	    (unsigned int)(*(_DWORD*)&byte_5D4594[1563092] + *(_DWORD*)&byte_5D4594[1563088]) >
+	if (dword_5d4594_1563092 &&
+	    (unsigned int)(dword_5d4594_1563092 + *(_DWORD*)&byte_5D4594[1563088]) >
 		*(int*)&byte_5D4594[2598000]) {
 		v1 = 0;
 	}
@@ -8388,7 +8389,7 @@ BOOL sub_4DCC90() {
 
 	result = 1;
 	if (*(_DWORD*)&byte_5D4594[1563080] != 1)
-		result = *(_DWORD*)&byte_5D4594[1563092] != 0;
+		result = dword_5d4594_1563092 != 0;
 	return result;
 }
 
