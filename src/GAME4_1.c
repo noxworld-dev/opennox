@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386916;
 extern _DWORD dword_5d4594_2386228;
 extern _DWORD dword_5d4594_2386216;
 extern _DWORD dword_587000_230092;
@@ -9831,24 +9832,24 @@ int sub_516EA0() {
 //----- (00516EE0) --------------------------------------------------------
 BOOL sub_516EE0() {
 	dword_5d4594_2386920 = 0;
-	*(_DWORD*)&byte_5D4594[2386916] = nox_new_alloc_class("PendingOwn", 12, 512);
-	return *(_DWORD*)&byte_5D4594[2386916] != 0;
+	dword_5d4594_2386916 = nox_new_alloc_class("PendingOwn", 12, 512);
+	return dword_5d4594_2386916 != 0;
 }
 
 //----- (00516F10) --------------------------------------------------------
 int sub_516F10() {
 	int result; // eax
 
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386916]);
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386916);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[2386916] = 0;
+	dword_5d4594_2386916 = 0;
 	dword_5d4594_2386920 = 0;
 	return result;
 }
 
 //----- (00516F30) --------------------------------------------------------
 void sub_516F30() {
-	sub_4144D0(*(_DWORD**)&byte_5D4594[2386916]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_2386916);
 	dword_5d4594_2386920 = 0;
 }
 
@@ -9872,7 +9873,7 @@ int __cdecl sub_516F50(int a1, int a2) {
 _DWORD* __cdecl sub_516F90(int a1, int a2) {
 	_DWORD* result; // eax
 
-	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[2386916]);
+	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386916);
 	if (result) {
 		*result = a1;
 		result[1] = a2;
