@@ -1,6 +1,7 @@
 #include "selcolor.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1308092;
 extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1307784;
@@ -25,11 +26,11 @@ int sub_4A5D00() {
 	if (result) {
 		sub_46B300(result, sub_4A18E0);
 		result = sub_43C5B0(*(_DWORD**)&dword_5d4594_1308084, 0, 0, 0, -440, 0, 20, 0, -40);
-		*(_DWORD*)&byte_5D4594[1308092] = result;
+		dword_5d4594_1308092 = result;
 		if (result) {
 			*(_DWORD*)result = 700;
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308092] + 48) = sub_4A6890;
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308092] + 56) = sub_4A6C90;
+			*(_DWORD*)(dword_5d4594_1308092 + 48) = sub_4A6890;
+			*(_DWORD*)(dword_5d4594_1308092 + 56) = sub_4A6C90;
 			sub_4A5E90();
 			for (i = 720; i <= 729; ++i) {
 				v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, i);
