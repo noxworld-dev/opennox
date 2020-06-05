@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_587000_311480;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_823692;
@@ -2506,7 +2507,7 @@ int nox_cmd_set_qual_modem() {
 	dword_5d4594_2650652 = 1;
 	v0 = sub_40A710(4);
 	sub_40A6D0(v0);
-	*(_DWORD*)&byte_5D4594[3596] = 4;
+	dword_5d4594_3596 = 4;
 	sub_4AD840();
 	return 1;
 }
@@ -2518,7 +2519,7 @@ int nox_cmd_set_qual_isdn() {
 	dword_5d4594_2650652 = 1;
 	v0 = sub_40A710(3);
 	sub_40A6D0(v0);
-	*(_DWORD*)&byte_5D4594[3596] = 3;
+	dword_5d4594_3596 = 3;
 	sub_4AD840();
 	return 1;
 }
@@ -2530,7 +2531,7 @@ int nox_cmd_set_qual_cable() {
 	dword_5d4594_2650652 = 1;
 	v0 = sub_40A710(2);
 	sub_40A6D0(v0);
-	*(_DWORD*)&byte_5D4594[3596] = 2;
+	dword_5d4594_3596 = 2;
 	sub_4AD840();
 	return 1;
 }
@@ -2542,7 +2543,7 @@ int nox_cmd_set_qual_t1() {
 	dword_5d4594_2650652 = 1;
 	v0 = sub_40A710(1);
 	sub_40A6D0(v0);
-	*(_DWORD*)&byte_5D4594[3596] = 1;
+	dword_5d4594_3596 = 1;
 	sub_4AD840();
 	return 1;
 }
@@ -2554,7 +2555,7 @@ int nox_cmd_set_qual_lan() {
 	dword_5d4594_2650652 = 0;
 	v0 = sub_40A710(1);
 	sub_40A6D0(v0);
-	*(_DWORD*)&byte_5D4594[3596] = 1;
+	dword_5d4594_3596 = 1;
 	sub_4AD840();
 	return 1;
 }

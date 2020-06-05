@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_5d4594_815040;
 extern _DWORD dword_5d4594_805984;
 extern _DWORD dword_5d4594_1193152;
@@ -7555,7 +7556,7 @@ int sub_433050() {
 			}
 			if (v1 < 0 && v1 > 4)
 				v1 = 4;
-			*(_DWORD*)&byte_5D4594[3596] = v1;
+			dword_5d4594_3596 = v1;
 		}
 	}
 	return 1;
@@ -7739,7 +7740,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "SendMessageOfTheDay = %d\n", *(_DWORD*)&byte_587000[108752]);
 	v9 = sub_4D0D70();
 	fprintf(a1, "MapCycle = %d\n", v9);
-	fprintf(a1, "ConnectionType = %d\n", *(_DWORD*)&byte_5D4594[3596]);
+	fprintf(a1, "ConnectionType = %d\n", dword_5d4594_3596);
 	v10 = sub_40A6C0();
 	fprintf(a1, "InternetUpdateRate = %d\n", v10);
 	fprintf(a1, "LessonLimit =");
