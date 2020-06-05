@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1049696;
 extern _DWORD dword_5d4594_831092;
 extern _DWORD dword_5d4594_1046540;
 extern _DWORD dword_5d4594_1045588;
@@ -7664,7 +7665,7 @@ int __cdecl sub_45EF50(int a1, int a2, unsigned int a3) {
 			sub_46ADC0(a1);
 			sub_477640(*(_DWORD*)v14.field_0, 2);
 			*(_DWORD*)&byte_5D4594[1049692] = v3;
-			*(_DWORD*)&byte_5D4594[1049696] = v3[51];
+			dword_5d4594_1049696 = v3[51];
 			sub_452D80(793, 100);
 			return 1;
 		case 6:
@@ -7692,8 +7693,8 @@ int __cdecl sub_45EF50(int a1, int a2, unsigned int a3) {
 					v14.field_0 = v7;
 					v14.field_4 = v15;
 					v13 = sub_4281F0(&v14, (int4*)&byte_587000[133656]);
-					if (v13 || *(_DWORD*)&byte_5D4594[1049696] &&
-						       *(_DWORD*)&byte_5D4594[1049696] != v3[51])
+					if (v13 || dword_5d4594_1049696 &&
+						       dword_5d4594_1049696 != v3[51])
 						goto LABEL_51;
 					*(_DWORD*)(v3[51] + 8 * v4) = 0;
 					*(_BYTE*)(v3[51] + v8 + 4) = 0;
@@ -7709,10 +7710,10 @@ int __cdecl sub_45EF50(int a1, int a2, unsigned int a3) {
 				if (*(_DWORD*)&byte_5D4594[1049692]) {
 					if (*(int**)&byte_5D4594[1049692] == v3 &&
 					    *(_DWORD*)&byte_5D4594[1049692] == dword_587000_133480) {
-						if (*(_DWORD*)&byte_5D4594[1049696]) {
+						if (dword_5d4594_1049696) {
 							v11 = v3[51];
-							if (*(_DWORD*)&byte_5D4594[1049696] != v11) {
-								sub_45F390(*(int*)&byte_5D4594[1049696], v11, v4, v10);
+							if (dword_5d4594_1049696 != v11) {
+								sub_45F390(*(int*)&dword_5d4594_1049696, v11, v4, v10);
 								sub_452D80(794, 100);
 								sub_45DDF0((int)v3);
 								goto LABEL_51;
