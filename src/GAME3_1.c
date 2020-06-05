@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1321032;
 extern _DWORD dword_587000_80844;
 extern _DWORD dword_5d4594_1522932;
 extern _DWORD dword_5d4594_1319264;
@@ -4510,11 +4511,11 @@ int __cdecl sub_4C1FE0(_DWORD* a1) {
 		if (dword_5d4594_1320992 <= *(int*)&byte_5D4594[1321000]) {
 			dword_5d4594_1320992 = *(_DWORD*)&byte_5D4594[1321000];
 			byte_5D4594[1321200] = 0;
-			nox_window_set_hidden(*(int*)&byte_5D4594[1321032], 1);
+			nox_window_set_hidden(*(int*)&dword_5d4594_1321032, 1);
 			nox_window_set_hidden(*(int*)&dword_5d4594_1321040, 1);
 		}
 	}
-	sub_46A9B0(*(_DWORD**)&byte_5D4594[1321032], *(int*)&byte_5D4594[1320988], *(int*)&dword_5d4594_1320992);
+	sub_46A9B0(*(_DWORD**)&dword_5d4594_1321032, *(int*)&byte_5D4594[1320988], *(int*)&dword_5d4594_1320992);
 	sub_46A9B0(*(_DWORD**)&dword_5d4594_1321040, *(_DWORD*)&byte_5D4594[1320988] + 27,
 		   dword_5d4594_1320992 + 12);
 	nox_client_wndGetPosition_46AA60(a1, &v28, &v29);
@@ -4928,7 +4929,7 @@ char __cdecl sub_4C2E50(int a1, int a2, int a3) {
 				if (!a3)
 					sub_452D80(801, 100);
 				byte_5D4594[1321200] = 1;
-				nox_window_set_hidden(*(int*)&byte_5D4594[1321032], 0);
+				nox_window_set_hidden(*(int*)&dword_5d4594_1321032, 0);
 				LOBYTE(v3) = nox_window_set_hidden(*(int*)&dword_5d4594_1321040, 0);
 			}
 			++*(_DWORD*)&byte_5D4594[1321196];

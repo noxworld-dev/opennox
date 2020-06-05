@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
 
+extern _DWORD dword_5d4594_1321032;
 extern _DWORD dword_5d4594_1321044;
 extern _DWORD dword_587000_184452;
 extern _DWORD dword_5d4594_1320992;
@@ -25,9 +26,9 @@ int sub_4C1D80() {
 	*(_DWORD*)&byte_5D4594[1321000] = -145;
 	*(_DWORD*)&byte_5D4594[1320988] = nox_win_width - 95;
 	dword_5d4594_1320992 = -145;
-	*(_DWORD*)&byte_5D4594[1321032] = nox_window_new(0, 8, nox_win_width - 95, -145, 87, 115, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1321032], sub_4C2BD0, sub_4C24A0, 0);
-	*(_DWORD*)&byte_5D4594[1321036] = nox_window_new(*(int*)&byte_5D4594[1321032], 136, 5, 38, 76, 76, 0);
+	dword_5d4594_1321032 = nox_window_new(0, 8, nox_win_width - 95, -145, 87, 115, 0);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1321032, sub_4C2BD0, sub_4C24A0, 0);
+	*(_DWORD*)&byte_5D4594[1321036] = nox_window_new(*(int*)&dword_5d4594_1321032, 136, 5, 38, 76, 76, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1321036], sub_4C2B10, sub_4C1FE0, sub_4C2C20);
 	v0 = loadString_sub_40F1D0((char*)&byte_587000[184592], 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 818);
 	sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1321036] + 36), v0);
@@ -36,7 +37,7 @@ int sub_4C1D80() {
 	v2 = sub_42F970("CreatureCageTop");
 	sub_46AE60((int)v1, (int)v2);
 	sub_46AE40((int)v1, -5, -38);
-	v3 = nox_window_new(*(int*)&byte_5D4594[1321032], 8, 19, 0, 48, 39, 0);
+	v3 = nox_window_new(*(int*)&dword_5d4594_1321032, 8, 19, 0, 48, 39, 0);
 	nox_window_set_all_funcs(v3, sub_4C2BE0, sub_4C24A0, 0);
 	*(_DWORD*)&byte_5D4594[1321008] = sub_42F970("CreatureCageHuntButtonLit");
 	*(_DWORD*)&byte_5D4594[1321012] = sub_42F970("CreatureCageHuntButton");
@@ -56,7 +57,7 @@ int sub_4C1D80() {
 	sub_46AEA0(*(int*)&dword_5d4594_1321040, *(int*)&byte_5D4594[1321024]);
 	sub_46AE40(*(int*)&dword_5d4594_1321040, -27, -12);
 	byte_5D4594[1321200] = 0;
-	nox_window_set_hidden(*(int*)&byte_5D4594[1321032], 1);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1321032, 1);
 	nox_window_set_hidden(*(int*)&dword_5d4594_1321040, 1);
 	v6 = &byte_5D4594[1321060];
 	do {
