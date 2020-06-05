@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../gui/guisave.h"
 #include "optsback.h"
+extern _DWORD dword_5d4594_1307748;
 extern _DWORD dword_5d4594_1307768;
 extern _DWORD dword_5d4594_1307744;
 extern _DWORD dword_5d4594_1307776;
@@ -32,11 +33,11 @@ int sub_4A4DB0() {
 	if (result) {
 		sub_46B300(result, sub_4A18E0);
 		result = sub_43C5B0(*(_DWORD**)&dword_5d4594_1307764, 0, 0, 0, -440, 0, 20, 0, -40);
-		*(_DWORD*)&byte_5D4594[1307748] = result;
+		dword_5d4594_1307748 = result;
 		if (result) {
 			*(_DWORD*)result = 500;
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1307748] + 48) = sub_4A50A0;
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1307748] + 56) = sub_4A50D0;
+			*(_DWORD*)(dword_5d4594_1307748 + 48) = sub_4A50A0;
+			*(_DWORD*)(dword_5d4594_1307748 + 56) = sub_4A50D0;
 			dword_5d4594_1307744 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 510);
 			dword_5d4594_1307776 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 511);
 			dword_5d4594_1307768 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 512);
@@ -273,7 +274,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 		case 501:
 			sub_4E3C60(1000000000);
 			sub_4A50A0();
-			*(_DWORD*)(*(_DWORD*)&byte_5D4594[1307748] + 52) = sub_4A4840;
+			*(_DWORD*)(dword_5d4594_1307748 + 52) = sub_4A4840;
 			goto LABEL_40;
 		case 502:
 			v7 = *(_DWORD*)(dword_5d4594_1307776 + 32);
@@ -334,7 +335,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 					}
 					sub_4A24C0(0);
 					sub_4A50A0();
-					*(_DWORD*)(*(_DWORD*)&byte_5D4594[1307748] + 52) = 0;
+					*(_DWORD*)(dword_5d4594_1307748 + 52) = 0;
 				}
 			}
 			goto LABEL_40;
