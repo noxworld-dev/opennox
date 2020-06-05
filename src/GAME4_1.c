@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386840;
 extern _DWORD dword_5d4594_1599696;
 extern _DWORD dword_587000_237036;
 extern _DWORD dword_5d4594_2386916;
@@ -5429,7 +5430,7 @@ void __cdecl sub_511F80(int a1) {
 			v8 = 23 * *(_DWORD*)(v2 + 8);
 			v7.field_0 = (double)(23 * v4) + 11.5;
 			v7.field_4 = (double)v8 + 11.5;
-			if (!*(_DWORD*)&byte_5D4594[2386840]) {
+			if (!dword_5d4594_2386840) {
 				v5 = sub_410EE0(*(unsigned __int8*)(v1 + 1));
 				v6 = sub_40AF50(v5);
 				sub_501A30(v6, &v7, 0, 0);
@@ -5482,7 +5483,7 @@ void __cdecl sub_512070(int a1) {
 			v8 = 23 * *(_DWORD*)(v2 + 8);
 			v7.field_0 = (double)(23 * v4) + 11.5;
 			v7.field_4 = (double)v8 + 11.5;
-			if (!*(_DWORD*)&byte_5D4594[2386840]) {
+			if (!dword_5d4594_2386840) {
 				v5 = sub_410F20(*(unsigned __int8*)(v1 + 1));
 				v6 = sub_40AF50(v5);
 				sub_501A30(v6, &v7, 0, 0);
@@ -5532,7 +5533,7 @@ void __cdecl sub_512160(int a1) {
 			*(_BYTE*)(v1 + 21) = 4;
 			v7.field_0 = (double)(23 * v5) + 11.5;
 			v7.field_4 = (double)(int)(23 * *(_DWORD*)(v1 + 8)) + 11.5;
-			if (*(_DWORD*)&byte_5D4594[2386840])
+			if (dword_5d4594_2386840)
 				return;
 			v4 = sub_410EE0(*(unsigned __int8*)(a1 + 1));
 		} else {
@@ -5540,7 +5541,7 @@ void __cdecl sub_512160(int a1) {
 			*(_BYTE*)(v1 + 21) = 2;
 			v7.field_0 = (double)(23 * v3) + 11.5;
 			v7.field_4 = (double)(int)(23 * *(_DWORD*)(v1 + 8)) + 11.5;
-			if (*(_DWORD*)&byte_5D4594[2386840])
+			if (dword_5d4594_2386840)
 				return;
 			v4 = sub_410F20(*(unsigned __int8*)(a1 + 1));
 		}
@@ -9466,7 +9467,7 @@ int sub_516920() {
 
 //----- (00516960) --------------------------------------------------------
 int sub_516960() {
-	*(_DWORD*)&byte_5D4594[2386840] = script_pop();
+	dword_5d4594_2386840 = script_pop();
 	return 0;
 }
 
