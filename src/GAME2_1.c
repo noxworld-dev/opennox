@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1090436;
 extern _DWORD dword_5d4594_1082868;
 extern _DWORD dword_5d4594_1049992;
 extern _DWORD dword_5d4594_1062556;
@@ -7424,9 +7425,9 @@ unsigned __int8* sub_472310() {
 			*(_DWORD*)&byte_5D4594[1090296] = &byte_5D4594[1090316];
 			if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
 			{
-				result = (unsigned __int8*)(*(_DWORD*)&byte_5D4594[1090436] | 0x40000000);
+				result = (unsigned __int8*)(dword_5d4594_1090436 | 0x40000000);
 				*(_DWORD*)&byte_5D4594[1090308] = *(_DWORD*)&byte_5D4594[1096268];
-				*(_DWORD*)&byte_5D4594[1090436] |= 0x40000000u;
+				dword_5d4594_1090436 |= 0x40000000u;
 				return result;
 			}
 		} else {
@@ -7442,7 +7443,7 @@ unsigned __int8* sub_472310() {
 				*(_DWORD*)&byte_5D4594[1090296] = &byte_5D4594[1090316];
 				if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
 				{
-					*(_DWORD*)&byte_5D4594[1090436] |= 0x40000000u;
+					dword_5d4594_1090436 |= 0x40000000u;
 					result = *(unsigned __int8**)&dword_5d4594_1096284;
 					*(_DWORD*)&byte_5D4594[1090308] = dword_5d4594_1096284;
 					return result;
@@ -7464,9 +7465,9 @@ unsigned __int8* sub_472310() {
 					if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
 					{
 						result =
-						    (unsigned __int8*)(*(_DWORD*)&byte_5D4594[1090436] | 0x40000000);
+						    (unsigned __int8*)(dword_5d4594_1090436 | 0x40000000);
 						*(_DWORD*)&byte_5D4594[1090308] = dword_5d4594_1096280;
-						*(_DWORD*)&byte_5D4594[1090436] |= 0x40000000u;
+						dword_5d4594_1090436 |= 0x40000000u;
 						return result;
 					}
 				} else {
