@@ -1,6 +1,7 @@
 #include "litning.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1316492;
 
 //----- (0049F5A0) --------------------------------------------------------
 void sub_49F5A0() { *(_DWORD*)&byte_5D4594[3798692] = 0; }
@@ -34,10 +35,10 @@ int __cdecl sub_4BB070(int a1, int a2) {
 	int v27;            // [esp+2Ch] [ebp+8h]
 	int v28;            // [esp+2Ch] [ebp+8h]
 
-	v2 = *(_DWORD*)&byte_5D4594[1316492] + 1;
-	v3 = *(_DWORD*)&byte_5D4594[1316492] + 1 == *(_DWORD*)&byte_5D4594[1316448];
+	v2 = dword_5d4594_1316492 + 1;
+	v3 = dword_5d4594_1316492 + 1 == *(_DWORD*)&byte_5D4594[1316448];
 	v23 = 0;
-	++*(_DWORD*)&byte_5D4594[1316492];
+	++dword_5d4594_1316492;
 	if (!v3) {
 		v14 = 1;
 		v15 = 1;
@@ -61,7 +62,7 @@ int __cdecl sub_4BB070(int a1, int a2) {
 			      ((SHIWORD(a1) + SHIWORD(a2)) >> 1);
 		sub_4BB070(a1, v24);
 		sub_4BB070(v24, a2);
-		return --*(_DWORD*)&byte_5D4594[1316492];
+		return --dword_5d4594_1316492;
 	}
 	if (*(_DWORD*)&byte_5D4594[1316508]) {
 		LOBYTE(v23) = byte_5D4594[1316420] + 48;
@@ -91,7 +92,7 @@ int __cdecl sub_4BB070(int a1, int a2) {
 	nox_client_drawAddPoint_49F500(v7, v6);
 	nox_client_drawLineFromPoints_49E4B0();
 	if (!v23)
-		return --*(_DWORD*)&byte_5D4594[1316492];
+		return --dword_5d4594_1316492;
 	v8 = byte_5D4594[1316420];
 	v25 = 1;
 	if ((byte_5D4594[1316420] & 0xFEu) > 2) {
@@ -125,7 +126,7 @@ int __cdecl sub_4BB070(int a1, int a2) {
 	}
 	v26 = 1;
 	if ((v8 & 0xFEu) <= 2)
-		return --*(_DWORD*)&byte_5D4594[1316492];
+		return --dword_5d4594_1316492;
 	v20 = v7 - 1;
 	v18 = v5 - 1;
 	v22 = v4 - 1;
@@ -152,7 +153,7 @@ int __cdecl sub_4BB070(int a1, int a2) {
 		++v26;
 		--v20;
 	} while (v26 < (byte_5D4594[1316420] >> 1));
-	return --*(_DWORD*)&byte_5D4594[1316492];
+	return --dword_5d4594_1316492;
 }
 
 //----- (004BAE60) --------------------------------------------------------
@@ -235,17 +236,17 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
 	HIWORD(v22) = v8->field_4;
 	HIWORD(v21) = v7->field_4;
 	if (a6) {
-		*(_DWORD*)&byte_5D4594[1316492] = 1;
+		dword_5d4594_1316492 = 1;
 		*(_DWORD*)&byte_5D4594[1316472] = *(_DWORD*)&byte_5D4594[1316456];
 		*(_DWORD*)&byte_5D4594[1316508] = 0;
 		sub_4BB070((int)v22, (int)v21);
-		*(_DWORD*)&byte_5D4594[1316492] = 1;
+		dword_5d4594_1316492 = 1;
 		*(_DWORD*)&byte_5D4594[1316472] = *(_DWORD*)&byte_5D4594[1316452];
 		sub_4BB070((int)v22, (int)v21);
 	}
 	result = a7;
 	if (a7) {
-		*(_DWORD*)&byte_5D4594[1316492] = 1;
+		dword_5d4594_1316492 = 1;
 		*(_DWORD*)&byte_5D4594[1316472] = *(_DWORD*)&byte_5D4594[1316436];
 		*(_DWORD*)&byte_5D4594[1316440] = *(_DWORD*)&byte_5D4594[1316484];
 		*(_DWORD*)&byte_5D4594[1316508] = 1;
