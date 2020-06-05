@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386568;
 extern _DWORD dword_5d4594_2386220;
 extern _DWORD dword_5d4594_2386192;
 extern _DWORD dword_5d4594_2388640;
@@ -4752,19 +4753,19 @@ int __cdecl sub_511250(int a1, float* a2) {
 
 //----- (005112C0) --------------------------------------------------------
 BOOL sub_5112C0() {
-	*(_DWORD*)&byte_5D4594[2386568] = nox_new_alloc_class("Springs", 52, 256);
-	return *(_DWORD*)&byte_5D4594[2386568] != 0;
+	dword_5d4594_2386568 = nox_new_alloc_class("Springs", 52, 256);
+	return dword_5d4594_2386568 != 0;
 }
 
 //----- (005112F0) --------------------------------------------------------
 void sub_5112F0() {
 	dword_5d4594_2386572 = 0;
-	sub_4144D0(*(_DWORD**)&byte_5D4594[2386568]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_2386568);
 }
 
 //----- (00511310) --------------------------------------------------------
 int sub_511310() {
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386568]);
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386568);
 	dword_5d4594_2386572 = 0;
 	return 1;
 }
@@ -4798,7 +4799,7 @@ void __cdecl sub_511360(int a1) {
 	v2 = *(_DWORD*)(a1 + 44);
 	if (v2)
 		*(_DWORD*)(v2 + 48) = *(_DWORD*)(a1 + 48);
-	sub_414330(*(unsigned int**)&byte_5D4594[2386568], (_QWORD*)a1);
+	sub_414330(*(unsigned int**)&dword_5d4594_2386568, (_QWORD*)a1);
 }
 
 //----- (005113A0) --------------------------------------------------------
@@ -4867,7 +4868,7 @@ void __cdecl sub_5114D0(int a1, int a2, int a3, int a4, int a5, int a6) {
 	long double v9; // st7
 
 	if (a1 && a2 && !(*(_BYTE*)(a1 + 16) & 0x20) && !(*(_BYTE*)(a2 + 16) & 0x20)) {
-		v6 = (float*)nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[2386568]);
+		v6 = (float*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386568);
 		if (v6) {
 			*((_DWORD*)v6 + 4) = a3;
 			*((_DWORD*)v6 + 5) = a4;
