@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046624;
 extern _DWORD dword_5d4594_839884;
 extern _DWORD dword_5d4594_1046536;
 extern _DWORD dword_5d4594_1045436;
@@ -7228,7 +7229,7 @@ int __cdecl sub_45D570(int a1, int a2) {
 					*(_DWORD*)&byte_5D4594[1046628] = 0;
 					*(float*)&byte_5D4594[1046620] =
 					    *(float*)&byte_5D4594[1046692] - *(float*)&byte_5D4594[1046684];
-					*(float*)&byte_5D4594[1046624] =
+					*(float*)&dword_5d4594_1046624 =
 					    *(float*)&byte_5D4594[1046696] - *(float*)&byte_5D4594[1046688];
 					sub_509F20((float2*)&byte_5D4594[1046620]);
 					if (nox_win_width < 1000) {
@@ -7240,7 +7241,7 @@ int __cdecl sub_45D570(int a1, int a2) {
 						v3 = 10.0;
 					}
 					*(float*)&byte_5D4594[1046620] = *(float*)&byte_5D4594[1046620] * v3;
-					*(float*)&byte_5D4594[1046624] = *(float*)&byte_5D4594[1046624] * v3;
+					*(float*)&dword_5d4594_1046624 = *(float*)&dword_5d4594_1046624 * v3;
 					nox_window_set_hidden(*(int*)&byte_5D4594[1046956], 0);
 					sub_46A8C0(*(int*)&byte_5D4594[1046956]);
 					if (nox_common_gameFlags_check_40A5C0(2048))
