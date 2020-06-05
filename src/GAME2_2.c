@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1097192;
 extern _DWORD dword_5d4594_3799452;
 extern _DWORD dword_5d4594_1098600;
 extern _DWORD dword_5d4594_3807152;
@@ -1239,7 +1240,7 @@ int __cdecl sub_477640(int a1, int a2) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1097192] = a1;
+	dword_5d4594_1097192 = a1;
 	*(_DWORD*)&byte_5D4594[1097196] = a2;
 	return result;
 }
@@ -1249,7 +1250,7 @@ int sub_477660() {
 	int result; // eax
 
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1097192] = 0;
+	dword_5d4594_1097192 = 0;
 	*(_DWORD*)&byte_5D4594[1097196] = 0;
 	return result;
 }
@@ -1345,17 +1346,17 @@ char* nox_client_drawCursorAndTooltips_477830() {
 		(*(void(__cdecl**)(int*, _DWORD))(dword_5d4594_1097188 + 300))(
 		    v9, dword_5d4594_1097188);
 	}
-	if (*(_DWORD*)&byte_5D4594[1097192]) // Player is dragging spell or ability
+	if (dword_5d4594_1097192) // Player is dragging spell or ability
 	{
 		v1 = sub_417040(*(int*)&byte_5D4594[2616328]);
 		if (!v1 || v1[2251]) {
-			v2 = sub_424A90(*(int*)&byte_5D4594[1097192]); // Spell icon
+			v2 = sub_424A90(*(int*)&dword_5d4594_1097192); // Spell icon
 			if (v2) {
 				nox_client_drawImageAt_47D2C0(v2, v0->field_0 - 15, v0->field_4 - 15);
 				goto LABEL_12;
 			}
 		} else {
-			v2 = sub_425310(*(int*)&byte_5D4594[1097192], 0); // Ability icon
+			v2 = sub_425310(*(int*)&dword_5d4594_1097192, 0); // Ability icon
 			if (v2) {
 				nox_client_drawImageAt_47D2C0(v2, v0->field_0 - 15, v0->field_4 - 15);
 				goto LABEL_12;
