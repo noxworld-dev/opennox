@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "noxworld.h"
+extern _DWORD dword_5d4594_1307292;
 
 //----- (004A18E0) --------------------------------------------------------
 int __cdecl sub_4A18E0(int a1, int a2, int a3, int a4) {
@@ -27,7 +28,7 @@ int __cdecl sub_4A18E0(int a1, int a2, int a3, int a4) {
 							   "C:\\NoxPost\\src\\client\\shell\\OptsBack.c", 65);
 				v5 = loadString_sub_40F1D0((char*)&byte_587000[168608], 0,
 							   "C:\\NoxPost\\src\\client\\shell\\OptsBack.c", 64);
-				sub_449A10(*(int*)&byte_5D4594[1307292], (int)v5, (int)v6, 56, sub_4A19D0, 0);
+				sub_449A10(*(int*)&dword_5d4594_1307292, (int)v5, (int)v6, 56, sub_4A19D0, 0);
 			} else {
 				if (sub_43BE10() == 700)
 					sub_4A7A60(1);
@@ -43,7 +44,7 @@ int __cdecl sub_4A19F0(char* a1) {
 	_DWORD* v1;  // esi
 	wchar_t* v2; // eax
 
-	v1 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307292], 152);
+	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307292, 152);
 	v2 = loadString_sub_40F1D0(a1, 0, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c", 171);
 	return nox_window_call_field_94((int)v1, 16385, (int)v2, -1);
 }
@@ -70,7 +71,7 @@ int __cdecl sub_4A1AA0(int a1, int a2, int* a3, int a4) {
 						v4 = loadString_sub_40F1D0(
 						    (char*)&byte_587000[168800], 0,
 						    "C:\\NoxPost\\src\\client\\shell\\OptsBack.c", 141);
-						sub_449A10(*(int*)&byte_5D4594[1307292], (int)v4, (int)v6, 56,
+						sub_449A10(*(int*)&dword_5d4594_1307292, (int)v4, (int)v6, 56,
 							   sub_4A19D0, 0);
 					} else {
 						if (sub_4D6F30())
