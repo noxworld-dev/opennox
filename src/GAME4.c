@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1569644;
 extern _DWORD dword_5d4594_1599652;
 extern _DWORD dword_5d4594_1569724;
 extern _DWORD dword_5d4594_1599616;
@@ -3332,7 +3333,7 @@ char* sub_4FB990() {
 
 	memset(&byte_5D4594[1568876], 0, 0x300u);
 	result = nox_new_alloc_class("executingAbilityClass", 24, 64);
-	*(_DWORD*)&byte_5D4594[1569644] = result;
+	dword_5d4594_1569644 = result;
 	return result;
 }
 
@@ -3468,7 +3469,7 @@ LABEL_25:
 		sub_4D8100((int)v2, v3, 0);
 	v10 = sub_425470(v3);
 	if (v10 > 0) {
-		v11 = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1569644]);
+		v11 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1569644);
 		if (v11) {
 			v12 = *(_DWORD*)&byte_5D4594[2598000];
 			v11[1] = v2;
@@ -3575,7 +3576,7 @@ void __cdecl sub_4FC0B0(int a1, int a2) {
 								*(_DWORD*)(v7 + 16) = *(_DWORD*)(v3 + 16);
 							else
 								dword_5d4594_1569648 = *(_DWORD*)(v3 + 16);
-							sub_414330(*(unsigned int**)&byte_5D4594[1569644], (_QWORD*)v3);
+							sub_414330(*(unsigned int**)&dword_5d4594_1569644, (_QWORD*)v3);
 						}
 						v3 = v5;
 					} while (v5);
@@ -3620,7 +3621,7 @@ void __cdecl sub_4FC180(int a1) {
 								*(_DWORD*)(v8 + 16) = *(_DWORD*)(v4 + 16);
 							else
 								dword_5d4594_1569648 = *(_DWORD*)(v4 + 16);
-							sub_414330(*(unsigned int**)&byte_5D4594[1569644], (_QWORD*)v4);
+							sub_414330(*(unsigned int**)&dword_5d4594_1569644, (_QWORD*)v4);
 						}
 						v4 = v6;
 					} while (v6);
@@ -3710,7 +3711,7 @@ void __cdecl sub_4FC300(_DWORD* a1, int a2) {
 						*(_DWORD*)(v4 + 16) = *(_DWORD*)(v2 + 16);
 					else
 						dword_5d4594_1569648 = *(_DWORD*)(v2 + 16);
-					sub_414330(*(unsigned int**)&byte_5D4594[1569644], (_QWORD*)v2);
+					sub_414330(*(unsigned int**)&dword_5d4594_1569644, (_QWORD*)v2);
 				}
 				v2 = v3;
 			} while (v3);
