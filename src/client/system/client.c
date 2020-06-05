@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_811104;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_815132;
@@ -183,7 +184,7 @@ int sub_4365C0() {
 	}
 	sub_436AA0(*(int*)&byte_587000[85732]);
 	sub_436C40();
-	sub_436DF0(*(int*)&byte_5D4594[2614264]);
+	sub_436DF0(*(int*)&dword_5d4594_2614264);
 	if (dword_5d4594_805836) {
 		sub_434390(*(int*)&byte_5D4594[2618904]);
 		v23 = v1;
@@ -225,7 +226,7 @@ int sub_4365C0() {
 	sub_43F6E0(0, (__int16*)&byte_5D4594[810900], v0, v5);
 	v5 += 10;
 	v27 = *(_DWORD*)&byte_587000[85732];
-	v20 = *(_DWORD*)&byte_5D4594[2614264];
+	v20 = dword_5d4594_2614264;
 	v11 = loadString_sub_40F1D0((char*)&byte_587000[86912], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1181);
 	nox_swprintf((wchar_t*)&byte_5D4594[810900], v11, v20, v27);
 	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
