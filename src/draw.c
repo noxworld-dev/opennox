@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193664;
 extern _DWORD dword_5d4594_1193524;
 extern _DWORD dword_5d4594_1193648;
 extern _DWORD dword_5d4594_3798728;
@@ -1586,7 +1587,7 @@ int nox_video_initCursorDrawVars_48B1F0() {
 	SetRect((LPRECT)&byte_5D4594[1193604], 0, 0, 0, 0);
 	*(_DWORD*)&byte_5D4594[1193624] = 0;
 	dword_5d4594_3798728 = 0;
-	*(_DWORD*)&byte_5D4594[1193664] = 0;
+	dword_5d4594_1193664 = 0;
 	dword_5d4594_1193668 = 0;
 	*(_DWORD*)&byte_5D4594[1193672] = 0;
 	nox_video_pauseThreadedDrawCursor = 0;
@@ -1641,7 +1642,7 @@ int sdl_drawCursorThreaded(int a1) {
 	RECT v4;
 	SDL_Rect src, dst;
 
-	if (a1 && (dword_5d4594_1193668 || *(_DWORD*)&byte_5D4594[1193664]) && !IsRectEmpty(r1)) {
+	if (a1 && (dword_5d4594_1193668 || dword_5d4594_1193664) && !IsRectEmpty(r1)) {
 		// FIXME frontbuffer?
 		rect_to_sdl(r2, &src);
 		rect_to_sdl(r1, &dst);
@@ -1653,7 +1654,7 @@ int sdl_drawCursorThreaded(int a1) {
 	r1->top = dword_5d4594_1193524 - *(_DWORD*)&byte_5D4594[1193636];
 	r1->bottom = r1->top + *(_DWORD*)&byte_5D4594[1193620];
 
-	if ((!a1 || dword_5d4594_1193668 || *(_DWORD*)&byte_5D4594[1193664]) &&
+	if ((!a1 || dword_5d4594_1193668 || dword_5d4594_1193664) &&
 	    sub_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.data[9]))) {
 		r2->left = 0;
 		r2->top = 0;
@@ -1720,7 +1721,7 @@ int sdl_drawCursorThreaded(int a1) {
 		*r1 = v4;
 	}
 
-	*(_DWORD*)&byte_5D4594[1193664] = 0;
+	dword_5d4594_1193664 = 0;
 	dword_5d4594_1193668 = 0;
 	return 1;
 }
@@ -1734,7 +1735,7 @@ int __cdecl sub_48B840(int a1)
     RECT v4; // [esp+30h] [ebp-10h]
 
     if (a1
-        && (*(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& byte_5D4594[1193664])
+        && (*(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& dword_5d4594_1193664)
         && !IsRectEmpty((const RECT*)& byte_5D4594[1193532]))
     {
         g_frontbuffer->lpVtbl->Blt(g_frontbuffer,
@@ -1752,7 +1753,7 @@ int __cdecl sub_48B840(int a1)
     *(_DWORD*)& byte_5D4594[1193544] = *(_DWORD*)& dword_5d4594_1193524
         - *(_DWORD*)& byte_5D4594[1193636]
         + *(_DWORD*)& byte_5D4594[1193620];
-    if ((!a1 || *(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& byte_5D4594[1193664])
+    if ((!a1 || *(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& dword_5d4594_1193664)
         && sub_49F930((int4*)& v4, (int4*)& byte_5D4594[1193532],(int4*)(&obj_5D4594_3800716.data[9])))
     {
         *(_DWORD*)& byte_5D4594[1193556] = v4.right - v4.left;
@@ -1792,7 +1793,7 @@ int __cdecl sub_48B840(int a1)
         }
         *(RECT*)& byte_5D4594[1193532] = v4;
     }
-    *(_DWORD*)& byte_5D4594[1193664] = 0;
+    *(_DWORD*)& dword_5d4594_1193664 = 0;
     *(_DWORD*)& dword_5d4594_1193668 = 0;
     return 1;
 }
@@ -1807,7 +1808,7 @@ int __cdecl sub_48BA50(int a1)
     int v6[4]; // [esp+50h] [ebp-10h]
 
     if (a1
-        && (*(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& byte_5D4594[1193664])
+        && (*(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& dword_5d4594_1193664)
         && !IsRectEmpty((const RECT*)& byte_5D4594[1193532]))
     {
         sub_48C170((int4*)& rc, (int4*)& byte_5D4594[1193532]);
@@ -1831,7 +1832,7 @@ int __cdecl sub_48BA50(int a1)
     *(_DWORD*)& byte_5D4594[1193544] = *(_DWORD*)& dword_5d4594_1193524
         - *(_DWORD*)& byte_5D4594[1193636]
         + *(_DWORD*)& byte_5D4594[1193620];
-    if ((!a1 || *(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& byte_5D4594[1193664])
+    if ((!a1 || *(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& dword_5d4594_1193664)
         && sub_49F930((int4*)& v4, (int4*)& byte_5D4594[1193532], (int4*)(&obj_5D4594_3800716.data[9])))
     {
         *(_DWORD*)& byte_5D4594[1193556] = v4.right - v4.left;
@@ -1903,7 +1904,7 @@ int __cdecl sub_48BA50(int a1)
             return 0;
         *(RECT*)& byte_5D4594[1193532] = v4;
     }
-    *(_DWORD*)& byte_5D4594[1193664] = 0;
+    *(_DWORD*)& dword_5d4594_1193664 = 0;
     *(_DWORD*)& dword_5d4594_1193668 = 0;
     return 1;
 }
@@ -2613,7 +2614,7 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3) {
 				*(_DWORD*)&byte_5D4594[1193608] = 0;
 				*(_DWORD*)&byte_5D4594[1193612] = *(_DWORD*)&byte_5D4594[1193568];
 				*(_DWORD*)&byte_5D4594[1193616] = *(_DWORD*)&byte_5D4594[1193576];
-				*(_DWORD*)&byte_5D4594[1193664] = 1;
+				dword_5d4594_1193664 = 1;
 			}
 			sub_48A6B0(g_cursor_surf);
 		}
