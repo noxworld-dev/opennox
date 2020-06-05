@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096500;
 extern _DWORD dword_587000_136184;
 extern _DWORD dword_5d4594_1093096;
 extern _DWORD dword_5d4594_1096512;
@@ -8396,7 +8397,7 @@ int sub_473A40() {
 	*(_DWORD*)&byte_5D4594[1096496] = nox_malloc(0x400u);
 	if (!*(_DWORD*)&byte_5D4594[1096496])
 		return 0;
-	*(_DWORD*)&byte_5D4594[1096500] = 0;
+	dword_5d4594_1096500 = 0;
 	*(_DWORD*)&byte_5D4594[1096504] = nox_malloc(0x400u);
 	if (!*(_DWORD*)&byte_5D4594[1096504])
 		return 0;
@@ -8433,7 +8434,7 @@ int sub_473B30_free() {
 	if (*(_DWORD*)&byte_5D4594[1096496]) {
 		free(*(LPVOID*)&byte_5D4594[1096496]);
 		*(_DWORD*)&byte_5D4594[1096496] = 0;
-		*(_DWORD*)&byte_5D4594[1096500] = 0;
+		dword_5d4594_1096500 = 0;
 	}
 	if (*(_DWORD*)&byte_5D4594[1096504]) {
 		free(*(LPVOID*)&byte_5D4594[1096504]);
@@ -9101,7 +9102,7 @@ void __cdecl sub_4754F0(_DWORD* a1) {
 	nox_drawable_list_3_size = 0;
 	nox_drawable_list_2_size = 0;
 	nox_drawable_list_4_size = 0;
-	*(_DWORD*)&byte_5D4594[1096500] = 0;
+	dword_5d4594_1096500 = 0;
 	dword_5d4594_1096508 = 0;
 	sub_49AB00(&v4, sub_475560_draw, (int)a1);
 }
@@ -9349,9 +9350,9 @@ int4* __cdecl sub_475810_draw(int* a1) {
 						if (*(int*)&dword_5d4594_1096508 < 256)
 							*(_DWORD*)(*(_DWORD*)&byte_5D4594[1096504] +
 								   4 * (dword_5d4594_1096508)++) = v17;
-					} else if (*(int*)&byte_5D4594[1096500] < 256) {
+					} else if (*(int*)&dword_5d4594_1096500 < 256) {
 						*(_DWORD*)(*(_DWORD*)&byte_5D4594[1096496] +
-							   4 * (*(_DWORD*)&byte_5D4594[1096500])++) = v17;
+							   4 * (dword_5d4594_1096500)++) = v17;
 					}
 				}
 			}
@@ -9361,11 +9362,11 @@ int4* __cdecl sub_475810_draw(int* a1) {
 		}
 	}
 	v18 = *(unsigned __int8***)&byte_5D4594[1096496];
-	for (j = (*(_DWORD*)&byte_5D4594[1096500])-- == 0; !j; --*(_DWORD*)&byte_5D4594[1096500]) {
+	for (j = (dword_5d4594_1096500)-- == 0; !j; --dword_5d4594_1096500) {
 		v20 = *v18;
 		++v18;
 		sub_473C10(v1, v20);
-		j = *(_DWORD*)&byte_5D4594[1096500] == 0;
+		j = dword_5d4594_1096500 == 0;
 	}
 	sub_475FE0(v1);
 	nox_video_drawCursorSelectCircle_4773C0(v1);
