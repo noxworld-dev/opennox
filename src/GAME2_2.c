@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3805484;
 extern _DWORD dword_5d4594_3804684;
 extern _DWORD dword_5d4594_1193156;
 extern _DWORD dword_5d4594_3807140;
@@ -7417,7 +7418,7 @@ LABEL_60:
 							}
 							v66.field_0 = v70;
 							(*(void(__cdecl**)(int2*, int*, _DWORD, _DWORD, _DWORD)) &
-							 byte_5D4594[3805484])(&v67, &v66.field_0, v78, v74,
+							 dword_5d4594_3805484)(&v67, &v66.field_0, v78, v74,
 									       i + (v69 << byte_5D4594[3807124]));
 							--v71;
 						} while (v71);
