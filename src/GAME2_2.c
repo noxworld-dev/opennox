@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80840;
 extern _DWORD dword_5d4594_1097192;
 extern _DWORD dword_5d4594_3799452;
 extern _DWORD dword_5d4594_1098600;
@@ -1365,7 +1366,7 @@ char* nox_client_drawCursorAndTooltips_477830() {
 	}
 LABEL_12:
 	result = (char*)nox_video_cursorDrawImpl_477A30(*(int*)&byte_5D4594[2523948], v0->field_0, v0->field_4);
-	if (*(_WORD*)&byte_5D4594[1096676] && *(_DWORD*)&byte_587000[80840] == 1) {
+	if (*(_WORD*)&byte_5D4594[1096676] && dword_587000_80840 == 1) {
 		sub_43F840(0, (unsigned __int16*)&byte_5D4594[1096676], &v8, &v7, 0);
 		v4 = v0->field_0 - *(_DWORD*)&byte_5D4594[1097204];
 		v5 = v0->field_4 - dword_5d4594_1097208;
