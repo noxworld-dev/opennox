@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1569668;
 extern _DWORD dword_5d4594_1569644;
 extern _DWORD dword_5d4594_1599652;
 extern _DWORD dword_5d4594_1569724;
@@ -3875,7 +3876,7 @@ int sub_4FC9B0() {
 	result = sub_4FE850();
 	if (result) {
 		result = nox_new_alloc_class("magicEntityClass", 60, 64);
-		*(_DWORD*)&byte_5D4594[1569668] = result;
+		dword_5d4594_1569668 = result;
 		if (result) {
 			result = sub_4E3810((CHAR*)&byte_587000[217476]);
 			dword_5d4594_1569664 = result;
@@ -3898,7 +3899,7 @@ int sub_4FC9B0() {
 //----- (004FCA80) --------------------------------------------------------
 int sub_4FCA80() {
 	sub_4FE880();
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1569668]);
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1569668);
 	dword_5d4594_1569672 = 0;
 	sub_4E5CC0(*(int*)&dword_5d4594_1569664);
 	dword_5d4594_1569664 = 0;
@@ -3912,7 +3913,7 @@ int __cdecl sub_4FCAC0(int a1, int a2) {
 	_DWORD* v4; // eax
 
 	sub_4FE8A0(a1);
-	sub_4144D0(*(_DWORD**)&byte_5D4594[1569668]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_1569668);
 	dword_5d4594_1569672 = 0;
 	for (i = sub_4DA7C0(); i; i = sub_4DA7F0(i)) {
 		v3 = *(_DWORD*)(i + 748);
@@ -4045,7 +4046,7 @@ void sub_4FCB80() {
 			*(_DWORD*)(v17 + 52) = *(_DWORD*)(v0 + 52);
 		LABEL_40:
 			v18 = *(_DWORD*)(v0 + 52);
-			sub_414330(*(unsigned int**)&byte_5D4594[1569668], (_QWORD*)v0);
+			sub_414330(*(unsigned int**)&dword_5d4594_1569668, (_QWORD*)v0);
 			v0 = v18;
 		LABEL_48:
 			if (!v0)
@@ -5117,7 +5118,7 @@ LABEL_36:
 	v19 = *(_DWORD*)&byte_5D4594[2598000];
 	*(_BYTE*)(v9 + 188) = 1;
 	*(_DWORD*)(v9 + 216) = v19;
-	v20 = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1569668]);
+	v20 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1569668);
 	if (!v20)
 		return 0;
 	v21 = a5;
@@ -5196,7 +5197,7 @@ void __cdecl sub_4FE680(int a1, float a2) {
 				else
 					dword_5d4594_1569672 = *(_DWORD*)(v2 + 52);
 				v12 = *(_DWORD*)(v2 + 52);
-				sub_414330(*(unsigned int**)&byte_5D4594[1569668], (_QWORD*)v2);
+				sub_414330(*(unsigned int**)&dword_5d4594_1569668, (_QWORD*)v2);
 				v2 = v12;
 			} else {
 				v2 = *(_DWORD*)(v2 + 52);
