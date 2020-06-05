@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1305720;
 extern _DWORD dword_5d4594_1200796;
 extern _DWORD dword_5d4594_1305788;
 extern _DWORD dword_5d4594_1301772;
@@ -6651,7 +6652,7 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 	if (!dword_5d4594_3801780) {
 		*(_DWORD*)&byte_5D4594[1305704] = sub_49D1E0; 
 		*(_DWORD*)&byte_5D4594[1305712] = sub_49D680; 
-		*(_DWORD*)&byte_5D4594[1305720] = sub_49D880; // seems to be unused
+		dword_5d4594_1305720 = sub_49D880; // seems to be unused
 		*(_DWORD*)&byte_5D4594[1305700] = sub_49DA90; // seems to be unused
 		*(_DWORD*)&byte_5D4594[1305716] = sub_49DB20; // opaque filled
 		*(_DWORD*)&byte_5D4594[1305696] = sub_49DD60; // string size
@@ -6664,13 +6665,13 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 	if (dword_5d4594_3801804) {
 		*(_DWORD*)&byte_5D4594[1305692] = sub_49D540; 
 		*(_DWORD*)&byte_5D4594[1305712] = sub_49D770;
-		*(_DWORD*)&byte_5D4594[1305720] = sub_49D770;
+		dword_5d4594_1305720 = sub_49D770;
 		*(_DWORD*)&byte_5D4594[1305700] = sub_49D9A0;
 		*(_DWORD*)&byte_5D4594[1305716] = sub_49DC70;
 	} else {
 		*(_DWORD*)&byte_5D4594[1305692] = sub_49D370;
 		*(_DWORD*)&byte_5D4594[1305712] = sub_49D6F0;
-		*(_DWORD*)&byte_5D4594[1305720] = sub_49D6F0;
+		dword_5d4594_1305720 = sub_49D6F0;
 		*(_DWORD*)&byte_5D4594[1305700] = sub_49D8E0;
 		*(_DWORD*)&byte_5D4594[1305716] = sub_49DBB0;
 	}
@@ -6796,13 +6797,13 @@ int4* __cdecl sub_49CFB0(int xLeft, int yTop, int a3, int a4) {
 	RECT rc;      // [esp+4h] [ebp-10h]
 	
 	if (!ptr_5D4594_3799572->data[0])
-		return (int4*)(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) & byte_5D4594[1305720])(xLeft, yTop,
+		return (int4*)(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_1305720)(xLeft, yTop,
 													 a3, a4);
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
 	result = sub_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1]));
 	if (result)
 		result = (int4*)(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
-				 byte_5D4594[1305720])(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
+				 dword_5d4594_1305720)(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
 	return result;
 }
 
