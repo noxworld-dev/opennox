@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_5d4594_1193184;
 extern _DWORD dword_5d4594_2650680;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_3798800;
@@ -57,11 +58,11 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 		v21 = dword_5d4594_3798796;
 		v20 = dword_5d4594_3798844;
 		v22 = dword_5d4594_3798844 - dword_5d4594_3798796;
-		*(_DWORD*)&byte_5D4594[1193184] = v9;
+		dword_5d4594_1193184 = v9;
 		*(_DWORD*)&byte_5D4594[1193180] = a5;
 		if ((unsigned int)v9 >= *(int*)&dword_5d4594_3798844) {
 			v9 -= dword_5d4594_3798844 - dword_5d4594_3798796;
-			*(_DWORD*)&byte_5D4594[1193184] = v9;
+			dword_5d4594_1193184 = v9;
 		}
 		if (nox_common_engineFlags & 0x800) {
 			if ((unsigned int)&v9[a4] < *(int*)&dword_5d4594_3798844) {
@@ -100,11 +101,11 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 				} else {
 					v17 = (int)&v9[v16 - v20];
 					sub_485AE0(v17, v15);
-					*(_DWORD*)&byte_5D4594[1193184] = v21;
+					dword_5d4594_1193184 = v21;
 					sub_485AE0(v23 - v17, v15);
 				}
-				if (*(int*)&byte_5D4594[1193184] >= v20)
-					*(_DWORD*)&byte_5D4594[1193184] -= v22;
+				if (*(int*)&dword_5d4594_1193184 >= v20)
+					dword_5d4594_1193184 -= v22;
 				result = a4 - v23;
 				a4 -= v23;
 				if (a4 <= 0)
@@ -115,7 +116,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 				v18 = *a2 + 1;
 				v19 = v18;
 				*a2 = v18;
-				v9 = *(char**)&byte_5D4594[1193184];
+				v9 = *(char**)&dword_5d4594_1193184;
 				*(_DWORD*)&byte_5D4594[1193176] = *(_DWORD*)&byte_5D4594[280 * v19 + 2598288 + v13];
 				v15 = *(_DWORD*)&byte_5D4594[4 * ((*(int*)&byte_5D4594[280 * *a2 + 2598568 + v13] -
 								   *(int*)&byte_5D4594[1193176]) >>
