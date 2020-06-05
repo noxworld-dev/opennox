@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835348;
 extern _DWORD dword_5d4594_2487576;
 extern _DWORD dword_5d4594_2487624;
 extern _DWORD dword_5d4594_3835352;
@@ -102,7 +103,7 @@ LABEL_11:
 	if (v17 < 0)
 		v17 += v16;
 	if (*(_DWORD*)&byte_5D4594[3835344] == 1)
-		v10 = *(_DWORD*)&byte_5D4594[3835348];
+		v10 = dword_5d4594_3835348;
 	else
 		v10 = v18 + v17 * v15;
 	v8 = a1;
