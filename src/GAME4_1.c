@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386188;
 extern _DWORD dword_5d4594_2386160;
 extern _DWORD dword_5d4594_1599712;
 extern _DWORD dword_5d4594_2386924;
@@ -2269,11 +2270,11 @@ char* __cdecl sub_50CD40(int a1, int a2, _DWORD* a3) {
 
 	result = (char*)sub_501900(a1);
 	if (result) {
-		if (*(_DWORD*)&byte_5D4594[2386188] || (result = nox_new_alloc_class("MonsterListen", 24, 128),
-							(*(_DWORD*)&byte_5D4594[2386188] = result) != 0)) {
+		if (dword_5d4594_2386188 || (result = nox_new_alloc_class("MonsterListen", 24, 128),
+							(dword_5d4594_2386188 = result) != 0)) {
 			result = (char*)sub_534160(a2);
 			if (result) {
-				result = (char*)nox_alloc_class_new_obj(*(_DWORD**)&byte_5D4594[2386188]);
+				result = (char*)nox_alloc_class_new_obj(*(_DWORD**)&dword_5d4594_2386188);
 				if (result) {
 					*(_DWORD*)result = a1;
 					*((_DWORD*)result + 1) = a2;
@@ -2330,7 +2331,7 @@ unsigned __int8* __cdecl sub_50CDD0(int a1) {
 								else
 									*(_DWORD*)&byte_5D4594[2386192] =
 									    *(_DWORD*)(v4 + 20);
-								sub_414330(*(unsigned int**)&byte_5D4594[2386188],
+								sub_414330(*(unsigned int**)&dword_5d4594_2386188,
 									   (_QWORD*)v4);
 							} else {
 								v7 = *(_DWORD*)(v4 + 4);
@@ -2494,18 +2495,18 @@ _DWORD* __cdecl sub_50D190(int a1, _DWORD* a2, _DWORD* a3) {
 int sub_50D1C0() {
 	int result; // eax
 
-	sub_4144D0(*(_DWORD**)&byte_5D4594[2386188]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_2386188);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[2386188] = 0;
+	dword_5d4594_2386188 = 0;
 	*(_DWORD*)&byte_5D4594[2386192] = 0;
 	return result;
 }
 
 //----- (0050D1E0) --------------------------------------------------------
 void sub_50D1E0() {
-	if (*(_DWORD*)&byte_5D4594[2386188]) {
-		nox_free_alloc_class(*(LPVOID*)&byte_5D4594[2386188]);
-		*(_DWORD*)&byte_5D4594[2386188] = 0;
+	if (dword_5d4594_2386188) {
+		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386188);
+		dword_5d4594_2386188 = 0;
 	}
 	*(_DWORD*)&byte_5D4594[2386192] = 0;
 }
