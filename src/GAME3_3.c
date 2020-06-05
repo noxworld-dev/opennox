@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1565520;
 extern _DWORD dword_587000_205696;
 extern _DWORD dword_5d4594_1568260;
 extern _DWORD dword_5d4594_1565516;
@@ -2618,13 +2619,13 @@ int __cdecl sub_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, ch
 		v7 = *(char**)&byte_5D4594[1565508];
 		if (!*(_DWORD*)&byte_5D4594[1565508]) {
 			if (nox_common_gameFlags_check_40A5C0(2048))
-				*(_DWORD*)&byte_5D4594[1565520] = 512;
+				dword_5d4594_1565520 = 512;
 			else
-				*(_DWORD*)&byte_5D4594[1565520] = nox_common_gameFlags_check_40A5C0(1) ? 3072 : 256;
+				dword_5d4594_1565520 = nox_common_gameFlags_check_40A5C0(1) ? 3072 : 256;
 			if (nox_common_gameFlags_check_40A5C0(2048))
-				v7 = nox_new_alloc_class_f30("importantClass", 416, *(int*)&byte_5D4594[1565520]);
+				v7 = nox_new_alloc_class_f30("importantClass", 416, *(int*)&dword_5d4594_1565520);
 			else
-				v7 = nox_new_alloc_class("importantClass", 416, *(int*)&byte_5D4594[1565520]);
+				v7 = nox_new_alloc_class("importantClass", 416, *(int*)&dword_5d4594_1565520);
 			*(_DWORD*)&byte_5D4594[1565508] = v7;
 		}
 		v8 = (char*)nox_alloc_class_new_obj_zero(v7);
@@ -3073,7 +3074,7 @@ int sub_4E5A90() {
 	v0 = dword_5d4594_1565512;
 	for (i = 0; v0; ++i)
 		v0 = *(_DWORD*)(v0 + 408);
-	return *(_DWORD*)&byte_5D4594[1565520] - i;
+	return dword_5d4594_1565520 - i;
 }
 
 //----- (004E5AC0) --------------------------------------------------------
