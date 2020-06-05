@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3821968;
 extern _DWORD dword_5d4594_2386572;
 extern _DWORD dword_5d4594_2386500;
 extern _DWORD dword_5d4594_1599632;
@@ -5189,8 +5190,8 @@ int __cdecl nox_server_scriptValToObjectPtr_511B60(int a1) {
 		sub_511D70(v3);
 		return v3;
 	}
-	result = *(_DWORD*)&byte_5D4594[3821968];
-	if (!*(_DWORD*)&byte_5D4594[3821968] || *(_BYTE*)(*(_DWORD*)&byte_5D4594[3821968] + 16) & 0x20)
+	result = dword_5d4594_3821968;
+	if (!dword_5d4594_3821968 || *(_BYTE*)(dword_5d4594_3821968 + 16) & 0x20)
 		return 0;
 	return result;
 }
@@ -7806,8 +7807,8 @@ int sub_514CB0() {
 	v0 = script_pop();
 	v1 = 0;
 	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v2 && *(_DWORD*)&byte_5D4594[3821968] &&
-	    *(_DWORD*)(v2 + 44) == *(_DWORD*)(*(_DWORD*)&byte_5D4594[3821968] + 44)) {
+	if (v2 && dword_5d4594_3821968 &&
+	    *(_DWORD*)(v2 + 44) == *(_DWORD*)(dword_5d4594_3821968 + 44)) {
 		v1 = 1;
 	}
 	sub_507230(v1);
@@ -7833,10 +7834,10 @@ int sub_514CF0() {
 
 //----- (00514D30) --------------------------------------------------------
 int sub_514D30() {
-	if (*(_DWORD*)&byte_5D4594[3821968])
-		sub_507230(*(_DWORD*)(*(_DWORD*)&byte_5D4594[3821968] + 44));
+	if (dword_5d4594_3821968)
+		sub_507230(*(_DWORD*)(dword_5d4594_3821968 + 44));
 	else
-		sub_507230(*(int*)&byte_5D4594[3821968]);
+		sub_507230(*(int*)&dword_5d4594_3821968);
 	return 0;
 }
 
@@ -7913,7 +7914,7 @@ int sub_514E90() {
 	v1 = script_pop();
 	v4 = *(const char**)&byte_5D4594[4 * v0 + 3831212];
 	v2 = sub_40AF50(*(void**)&byte_5D4594[4 * v1 + 3831212]);
-	sub_548DE0(*(int*)&dword_5d4594_3821964, *(int*)&byte_5D4594[3821968], v2, v4);
+	sub_548DE0(*(int*)&dword_5d4594_3821964, *(int*)&dword_5d4594_3821968, v2, v4);
 	return 0;
 }
 
