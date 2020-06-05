@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599592;
 extern _DWORD dword_5d4594_1599556;
 extern _DWORD dword_5d4594_1569664;
 extern _DWORD dword_5d4594_3821968;
@@ -8382,10 +8383,10 @@ char* sub_5028E0() {
 	memset(&byte_5D4594[1599500], 0, 0x20u);
 	if (!dword_5d4594_1599588)
 		dword_5d4594_1599588 = nox_malloc(0x800u);
-	result = *(char**)&byte_5D4594[1599592];
-	if (!*(_DWORD*)&byte_5D4594[1599592]) {
+	result = *(char**)&dword_5d4594_1599592;
+	if (!dword_5d4594_1599592) {
 		result = (char*)nox_malloc(0x800u);
-		*(_DWORD*)&byte_5D4594[1599592] = result;
+		dword_5d4594_1599592 = result;
 	}
 	return result;
 }
@@ -8450,17 +8451,17 @@ int __cdecl sub_502AB0(char* a1) {
 	int result; // eax
 
 	if (a1) {
-		strncpy(*(char**)&byte_5D4594[1599592], a1, 0x7FFu);
+		strncpy(*(char**)&dword_5d4594_1599592, a1, 0x7FFu);
 		result = 1;
 	} else {
-		**(_BYTE**)&byte_5D4594[1599592] = byte_5D4594[1599612];
+		**(_BYTE**)&dword_5d4594_1599592 = byte_5D4594[1599612];
 		result = 0;
 	}
 	return result;
 }
 
 //----- (00502AF0) --------------------------------------------------------
-int sub_502AF0() { return strlen(*(const char**)&byte_5D4594[1599592]) != 0 ? *(_DWORD*)&byte_5D4594[1599592] : 0; }
+int sub_502AF0() { return strlen(*(const char**)&dword_5d4594_1599592) != 0 ? dword_5d4594_1599592 : 0; }
 
 //----- (00502B10) --------------------------------------------------------
 int sub_502B10() {
@@ -8480,8 +8481,8 @@ int sub_502B10() {
 	dword_5d4594_1599596 = 0;
 	if (!dword_5d4594_1599588)
 		dword_5d4594_1599588 = nox_malloc(0x800u);
-	if (!*(_DWORD*)&byte_5D4594[1599592])
-		*(_DWORD*)&byte_5D4594[1599592] = nox_malloc(0x800u);
+	if (!dword_5d4594_1599592)
+		dword_5d4594_1599592 = nox_malloc(0x800u);
 	if (!dword_5d4594_1599576)
 		dword_5d4594_1599576 = nox_malloc(0x26000u);
 	result = 0;
