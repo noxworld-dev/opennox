@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_122852;
 extern _DWORD dword_5d4594_1046532;
 extern _QWORD qword_581450_9568;
 extern _DWORD dword_5d4594_1049496;
@@ -501,7 +502,7 @@ void __cdecl sub_44D5C0(int a1, int a2) {
 		       ((a2 * (unsigned int)*(unsigned __int16*)&byte_5D4594[830986]) >> 14)) >>
 		      14);
 		*(_DWORD*)&byte_5D4594[830876] &= 0xFFFFFFFD;
-		**(_DWORD**)&byte_587000[122852] &= 0xFFFFFFFD;
+		**(_DWORD**)&dword_587000_122852 &= 0xFFFFFFFD;
 		AIL_set_stream_volume(a1, (int)(127 * (v2 >> 14)) / 100);
 	}
 }
