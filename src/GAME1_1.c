@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_588120;
 extern _DWORD dword_5d4594_529324;
 extern _DWORD dword_5d4594_528252;
 extern _DWORD dword_587000_60044;
@@ -7822,9 +7823,9 @@ int __cdecl sub_424170(char* a1) {
 		if (result) {
 			while (sub_409470(v2, v6)) {
 				v3 = nox_calloc(1u, 0x54u);
-				v3[19] = *(_DWORD*)&byte_5D4594[588120];
+				v3[19] = dword_5d4594_588120;
 				v3[20] = 0;
-				*(_DWORD*)&byte_5D4594[588120] = v3;
+				dword_5d4594_588120 = v3;
 				v4 = (char*)nox_malloc(strlen(v6) + 1);
 				*v3 = v4;
 				strcpy(v4, v6);
@@ -7847,17 +7848,17 @@ void sub_4242C0() {
 	int v0; // esi
 	int v1; // edi
 
-	v0 = *(_DWORD*)&byte_5D4594[588120];
-	if (*(_DWORD*)&byte_5D4594[588120]) {
+	v0 = dword_5d4594_588120;
+	if (dword_5d4594_588120) {
 		do {
 			v1 = *(_DWORD*)(v0 + 76);
 			free(*(LPVOID*)v0);
 			free((LPVOID)v0);
 			v0 = v1;
 		} while (v1);
-		*(_DWORD*)&byte_5D4594[588120] = 0;
+		dword_5d4594_588120 = 0;
 	} else {
-		*(_DWORD*)&byte_5D4594[588120] = 0;
+		dword_5d4594_588120 = 0;
 	}
 }
 
@@ -7897,8 +7898,8 @@ const char** __cdecl sub_424350(const char* a1) {
 
 	if (!a1)
 		return 0;
-	v1 = *(_DWORD*)&byte_5D4594[588120];
-	if (!*(_DWORD*)&byte_5D4594[588120])
+	v1 = dword_5d4594_588120;
+	if (!dword_5d4594_588120)
 		return 0;
 	while (strcmp(*(const char**)v1, a1)) {
 		v1 = *(_DWORD*)(v1 + 76);
@@ -7909,7 +7910,7 @@ const char** __cdecl sub_424350(const char* a1) {
 }
 
 //----- (004243C0) --------------------------------------------------------
-LPVOID sub_4243C0() { return *(LPVOID*)&byte_5D4594[588120]; }
+LPVOID sub_4243C0() { return *(LPVOID*)&dword_5d4594_588120; }
 
 //----- (004243D0) --------------------------------------------------------
 int __cdecl sub_4243D0(int a1) {
