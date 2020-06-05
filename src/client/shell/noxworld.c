@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _QWORD qword_5d4594_814956;
 extern _QWORD qword_5d4594_815068;
 extern _DWORD dword_5d4594_815044;
 extern _DWORD dword_5d4594_815088;
@@ -397,7 +398,7 @@ int sub_438770() {
 			result = 1;
 			break;
 		case 3:
-			if ((unsigned __int64)sub_416BB0() < *(_QWORD*)&byte_5D4594[814956])
+			if ((unsigned __int64)sub_416BB0() < *(_QWORD*)&qword_5d4594_814956)
 				goto LABEL_29;
 			sub_43AFA0(8);
 			result = 1;
@@ -407,7 +408,7 @@ int sub_438770() {
 			v2 = loadString_sub_40F1D0((char*)&byte_587000[88816], 0,
 						   "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1343);
 			sub_449E30((int)v2);
-			*(_QWORD*)&byte_5D4594[814956] = sub_416BB0() + 20000;
+			*(_QWORD*)&qword_5d4594_814956 = sub_416BB0() + 20000;
 			result = 1;
 			break;
 		case 5:
@@ -996,7 +997,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 			v13 = sub_43B300();
 			sub_5550D0(v13, v28, buf);
 			sub_43AF90(3);
-			*(_QWORD*)&byte_5D4594[814956] = sub_416BB0() + 20000;
+			*(_QWORD*)&qword_5d4594_814956 = sub_416BB0() + 20000;
 			sub_449EA0(0);
 			return 0;
 		}
