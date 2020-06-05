@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487676;
 extern _DWORD dword_5d4594_3835388;
 extern _DWORD dword_5d4594_2487652;
 extern _DWORD dword_5d4594_3835348;
@@ -6771,10 +6772,10 @@ int __cdecl sub_5268F0(const char* a1) {
 	const char* i; // edi
 
 	v1 = 0;
-	if (*(int*)&byte_5D4594[2487676] <= 0)
+	if (*(int*)&dword_5d4594_2487676 <= 0)
 		return -1;
 	for (i = *(const char**)&byte_5D4594[2487672]; strcmp(i, a1); i += 64) {
-		if (++v1 >= *(int*)&byte_5D4594[2487676])
+		if (++v1 >= *(int*)&dword_5d4594_2487676)
 			return -1;
 	}
 	return v1;
@@ -6793,13 +6794,13 @@ char* sub_526950() {
 	char v8[256];       // [esp+8h] [ebp-100h]
 
 	v0 = sub_502A20();
-	*(_DWORD*)&byte_5D4594[2487676] = v0;
+	dword_5d4594_2487676 = v0;
 	result = (char*)nox_calloc(v0, 0x40u);
 	v2 = 0;
 	*(_DWORD*)&byte_5D4594[2487672] = result;
 	if (result) {
 		v7 = 0;
-		if (*(_DWORD*)&byte_5D4594[2487676] > 0) {
+		if (dword_5d4594_2487676 > 0) {
 			while (1) {
 				v3 = &result[v2];
 				strcpy(v8, (const char*)sub_5029F0(v7));
@@ -6819,13 +6820,13 @@ char* sub_526950() {
 				}
 				result = (char*)(v7 + 1);
 				v2 += 64;
-				if (++v7 >= *(int*)&byte_5D4594[2487676])
+				if (++v7 >= *(int*)&dword_5d4594_2487676)
 					break;
 				result = *(char**)&byte_5D4594[2487672];
 			}
 		}
 	} else {
-		*(_DWORD*)&byte_5D4594[2487676] = 0;
+		dword_5d4594_2487676 = 0;
 	}
 	return result;
 }
