@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_1304;
 extern _DWORD dword_5d4594_371756;
 extern _DWORD dword_5d4594_251712;
 extern _DWORD dword_5d4594_1280;
@@ -516,7 +517,7 @@ FILE* __cdecl sub_408CC0_fopen(const char* path, int mode) {
 	*(_DWORD*)&byte_5D4594[1284] = 0;
 	*(_DWORD*)&byte_5D4594[1292] = 0;
 	dword_5d4594_1280 = 0;
-	*(_DWORD*)&byte_5D4594[1304] = 0;
+	dword_5d4594_1304 = 0;
 	return f;
 }
 
@@ -597,7 +598,7 @@ signed int __cdecl sub_408E40_fread(char* a1, int a2, signed int a3, FILE* a4) {
 		v7 = sub_40ADD0_fread(&a1[v4], 1u, 8 * (v10 / 8), a4);
 		sub_4099C0(&a1[v4], v6, &a1[v4]);
 		if (v7 <= 0) {
-			*(_DWORD*)&byte_5D4594[1304] = 1;
+			dword_5d4594_1304 = 1;
 		} else {
 			v7 = a3;
 			*(_DWORD*)&byte_5D4594[1284] += v6;
@@ -616,7 +617,7 @@ signed int __cdecl sub_408E40_fread(char* a1, int a2, signed int a3, FILE* a4) {
 			*(_DWORD*)&byte_5D4594[1284] += v11;
 			return a3;
 		}
-		*(_DWORD*)&byte_5D4594[1304] = 1;
+		dword_5d4594_1304 = 1;
 	}
 	return v7;
 }
@@ -640,7 +641,7 @@ int __cdecl sub_409050(FILE* a1, int a2, int a3) {
 	int v4; // eax
 	int v5; // edi
 
-	*(_DWORD*)&byte_5D4594[1304] = 0;
+	dword_5d4594_1304 = 0;
 	if (nox_file_10_mode) {
 		if (!a2) {
 			fseek(a1, 0, 2);
@@ -781,7 +782,7 @@ size_t __cdecl sub_409200(char* a1, int a2, int a3, FILE* a4) {
 }
 
 //----- (00409370) --------------------------------------------------------
-int sub_409370() { return -(*(_DWORD*)&byte_5D4594[1304] != 0); }
+int sub_409370() { return -(dword_5d4594_1304 != 0); }
 
 //----- (00409390) --------------------------------------------------------
 int sub_409390() { return *(_DWORD*)&byte_5D4594[1284]; }
