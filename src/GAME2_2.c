@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1098604;
 extern _DWORD dword_587000_154968;
 extern _DWORD dword_5d4594_1193624;
 extern _DWORD dword_5d4594_1193664;
@@ -1774,9 +1775,9 @@ int __cdecl sub_478A70(int2* a1) {
 	nox_window_get_size((int)v1, &v4, &v3);
 	sub_434390(*(int*)&byte_5D4594[2523948]);
 	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1098456], a1->field_0, a1->field_4);
-	result = *(_DWORD*)&byte_5D4594[1098604];
-	if (*(_DWORD*)&byte_5D4594[1098604])
-		result = sub_43FAF0(0, *(_WORD**)&byte_5D4594[1098604], v5 + 8, v6 + 8, v4 - 16, v3 - 16);
+	result = dword_5d4594_1098604;
+	if (dword_5d4594_1098604)
+		result = sub_43FAF0(0, *(_WORD**)&dword_5d4594_1098604, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
 	return result;
 }
 
@@ -1914,7 +1915,7 @@ int sub_478F80() {
 	dword_5d4594_1098628 = 1;
 	*(_DWORD*)&byte_5D4594[1098596] = 0;
 	*(_DWORD*)&byte_5D4594[1098600] = 0;
-	*(_DWORD*)&byte_5D4594[1098604] = 0;
+	dword_5d4594_1098604 = 0;
 	*(_DWORD*)&byte_5D4594[1098608] = 0;
 	*(_DWORD*)&byte_5D4594[1098616] = 0;
 	return result;
