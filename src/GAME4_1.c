@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487244;
 extern _DWORD dword_587000_249172;
 extern _DWORD dword_5d4594_2386840;
 extern _DWORD dword_5d4594_1599696;
@@ -12622,7 +12623,7 @@ void sub_51BAC0() { nox_srand(0x2308u); }
 void sub_51D0D0() { nox_srand(0x2309u); }
 
 //----- (0051D0E0) --------------------------------------------------------
-void sub_51D0E0() { *(_DWORD*)&byte_5D4594[2487244] = 0; }
+void sub_51D0E0() { dword_5d4594_2487244 = 0; }
 
 //----- (0051D0F0) --------------------------------------------------------
 int __cdecl sub_51D0F0(char a1) {
@@ -12649,13 +12650,13 @@ _DWORD* __cdecl sub_51D120(float* a1) {
 		result = sub_5798F0(v3.field_0, v3.field_4);
 		v2 = result;
 		if (result) {
-			if (*(_DWORD*)&byte_5D4594[2487244]) {
+			if (dword_5d4594_2487244) {
 				if (*(_DWORD*)&byte_5D4594[3835404] == 1) {
-					sub_51D300(*(int*)&byte_5D4594[2487244], (int)result, byte_5D4594[3835400]);
-					sub_51D300((int)v2, *(int*)&byte_5D4594[2487244], byte_5D4594[3835400]);
+					sub_51D300(*(int*)&dword_5d4594_2487244, (int)result, byte_5D4594[3835400]);
+					sub_51D300((int)v2, *(int*)&dword_5d4594_2487244, byte_5D4594[3835400]);
 				}
 			}
-			*(_DWORD*)&byte_5D4594[2487244] = v2;
+			dword_5d4594_2487244 = v2;
 			result = v2;
 		}
 	}
