@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_826032;
 extern _DWORD dword_5d4594_830244;
 extern _DWORD dword_587000_173328;
 extern _DWORD dword_587000_80844;
@@ -4666,7 +4667,7 @@ int sub_4465C0() {
 	v0 = nox_new_window_from_file("motd.wnd", sub_4466C0);
 	dword_5d4594_826028 = v0;
 	v1 = sub_46B0C0(v0, 4203);
-	*(_DWORD*)&byte_5D4594[826032] = v1;
+	dword_5d4594_826032 = v1;
 	v2 = (_DWORD*)v1[8];
 	v7 = sub_42F970("UISlider");
 	v3 = sub_42F970("UISliderLit");
@@ -4676,9 +4677,9 @@ int sub_4465C0() {
 	*(_DWORD*)(v4[100] + 8) = 16;
 	*(_DWORD*)(v4[100] + 12) = 10;
 	sub_4B5700((int)v4, 0, 0, (int)v7, (int)v3, (int)v3);
-	sub_46B280((int)v4, *(int*)&byte_5D4594[826032]);
-	sub_46B280((int)v5, *(int*)&byte_5D4594[826032]);
-	sub_46B280((int)v8, *(int*)&byte_5D4594[826032]);
+	sub_46B280((int)v4, *(int*)&dword_5d4594_826032);
+	sub_46B280((int)v5, *(int*)&dword_5d4594_826032);
+	sub_46B280((int)v8, *(int*)&dword_5d4594_826032);
 	v2[9] = v4;
 	v2[7] = v5;
 	v2[8] = v8;
@@ -4736,7 +4737,7 @@ _BYTE* __cdecl sub_446730(_BYTE* a1) {
 	result = a1;
 	if (*a1) {
 		nox_swprintf(v2, L"%S", a1);
-		result = (_BYTE*)nox_window_call_field_94(*(int*)&byte_5D4594[826032], 16397, (int)v2, -1);
+		result = (_BYTE*)nox_window_call_field_94(*(int*)&dword_5d4594_826032, 16397, (int)v2, -1);
 	}
 	return result;
 }
@@ -4748,8 +4749,8 @@ int sub_446780() {
 	sub_46B500(0);
 	nox_window_set_hidden(*(int*)&dword_5d4594_826028, 1);
 	*(_DWORD*)(dword_5d4594_826028 + 4) &= 0xFFFFFFF7;
-	*(_DWORD*)(*(_DWORD*)&byte_5D4594[826032] + 4) &= 0xFFFFFFF7;
-	nox_window_call_field_94(*(int*)&byte_5D4594[826032], 16399, 0, 0);
+	*(_DWORD*)(dword_5d4594_826032 + 4) &= 0xFFFFFFF7;
+	nox_window_call_field_94(*(int*)&dword_5d4594_826032, 16399, 0, 0);
 	return 1;
 }
 
@@ -4779,7 +4780,7 @@ void sub_4467F0() {
 								if (v1)
 									sub_46A8C0((int)v1);
 								*(_DWORD*)(dword_5d4594_826028 + 4) |= 8u;
-								*(_DWORD*)(*(_DWORD*)&byte_5D4594[826032] + 4) |= 8u;
+								*(_DWORD*)(dword_5d4594_826032 + 4) |= 8u;
 								v2 = *(char**)&byte_5D4594[826060];
 								if (*(_DWORD*)&byte_5D4594[826060]) {
 									while (1) {
