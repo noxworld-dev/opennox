@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_5d4594_1090100;
 extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_1090048;
 extern _DWORD dword_5d4594_1090120;
@@ -226,7 +227,7 @@ int sub_46E870() {
 	v30 = v46 + 1;
 	v45[1] = 0;
 	v45[2] = 0;
-	*(_DWORD*)&byte_5D4594[1090100] =
+	dword_5d4594_1090100 =
 	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v46, *(int*)&byte_5D4594[1090040], v46 + 1, v49, v45);
 	*(_DWORD*)&v49[68] = *(_DWORD*)&byte_5D4594[2523948];
 	v45[0] =
@@ -528,11 +529,11 @@ int __cdecl sub_46F080(int a1, int a2) {
 			break;
 		}
 		if (v33) {
-			if (wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[1090100]))
-				nox_window_set_hidden(*(int*)&byte_5D4594[1090100], 0);
-			nox_window_call_field_94(*(int*)&byte_5D4594[1090100], 16385, (int)&byte_5D4594[1086692], 0);
-		} else if (!wndIsShown_sub_46ACC0(*(int*)&byte_5D4594[1090100])) {
-			nox_window_set_hidden(*(int*)&byte_5D4594[1090100], 1);
+			if (wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1090100))
+				nox_window_set_hidden(*(int*)&dword_5d4594_1090100, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1090100, 16385, (int)&byte_5D4594[1086692], 0);
+		} else if (!wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1090100)) {
+			nox_window_set_hidden(*(int*)&dword_5d4594_1090100, 1);
 		}
 		nox_window_call_field_94(*(int*)&byte_5D4594[1090104], 16385, (int)v22, 0);
 		sub_46FC50();
