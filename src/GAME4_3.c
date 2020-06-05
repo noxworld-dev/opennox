@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2488608;
 extern _DWORD dword_5d4594_2488652;
 extern _DWORD dword_5d4594_3835348;
 extern _DWORD dword_5d4594_3835352;
@@ -5449,8 +5450,8 @@ void __cdecl sub_5375A0(int a1) {
 					*(_DWORD*)(v2 + 460) = *(_DWORD*)(a1 + 460);
 				else
 					dword_5d4594_2488604 = *(_DWORD*)(a1 + 460);
-				if (a1 == *(_DWORD*)&byte_5D4594[2488608])
-					*(_DWORD*)&byte_5D4594[2488608] = v2;
+				if (a1 == dword_5d4594_2488608)
+					dword_5d4594_2488608 = v2;
 				v3 = *(_BYTE*)(a1 + 464);
 				*(_DWORD*)(a1 + 460) = -1;
 				*(_BYTE*)(a1 + 464) = v3 & 0xFE;
@@ -5480,11 +5481,11 @@ char __cdecl sub_537610(int a1) {
 				nullsub_30(a1);
 				LOBYTE(v1) = *(_BYTE*)(a1 + 464);
 				if (!(v1 & 1)) {
-					if (*(_DWORD*)&byte_5D4594[2488608])
-						*(_DWORD*)(*(_DWORD*)&byte_5D4594[2488608] + 460) = a1;
+					if (dword_5d4594_2488608)
+						*(_DWORD*)(dword_5d4594_2488608 + 460) = a1;
 					else
 						dword_5d4594_2488604 = a1;
-					*(_DWORD*)&byte_5D4594[2488608] = a1;
+					dword_5d4594_2488608 = a1;
 					LOBYTE(v1) = *(_BYTE*)(a1 + 464) | 1;
 					*(_DWORD*)(a1 + 460) = 0;
 					*(_BYTE*)(a1 + 464) = v1;
@@ -5505,7 +5506,7 @@ int sub_537700() {
 	v1 = (_DWORD*)(dword_5d4594_2488604 + 460);
 	dword_5d4594_2488604 = *(_DWORD*)(dword_5d4594_2488604 + 460);
 	if (!dword_5d4594_2488604)
-		*(_DWORD*)&byte_5D4594[2488608] = 0;
+		dword_5d4594_2488608 = 0;
 	*v1 = -1;
 	*(_BYTE*)(result + 464) &= 0xFEu;
 	return result;
