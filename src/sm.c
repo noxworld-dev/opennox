@@ -10,6 +10,7 @@ void f(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
 // defined in GAME1.c
+extern _DWORD dword_5d4594_3844304;
 extern _DWORD dword_5d4594_2649712;
 extern _DWORD dword_5d4594_815700;
 extern void (*mainloop_enter)(void*);
@@ -291,7 +292,7 @@ void NET_CONNECT(sm_args_t* args) {
 		}
 		*(_WORD*)name.sa_data = htons(++v10);
 	}
-	*(_DWORD*)&byte_5D4594[3844304] = 0;
+	dword_5d4594_3844304 = 0;
 	v12 = 0;
 	v11 = sub_552640(a1, &v12, 1, 3);
 	GOTO_NET_CONNECT_WAIT_LOOP(args->net_connect.data, a1, v11, 60, 6);
@@ -333,7 +334,7 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 		GOTO_NET_CONNECT_THEN(-23);
 
 	v5 = *(int**)&byte_5D4594[4 * a1 + 3843788];
-	if (*(_DWORD*)&byte_5D4594[3844304] && (int)v5[5] >= 0) {
+	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
 		memset(&byte_5D4594[2512892], 0, 0x400u);
 		byte_5D4594[2512892] = 31;
 		byte_5D4594[2512893] = *(_BYTE*)(v5[12] + 1);
