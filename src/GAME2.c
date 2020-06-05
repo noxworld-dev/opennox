@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1049536;
 extern _DWORD dword_5d4594_1046944;
 extern _DWORD dword_5d4594_1046600;
 extern _DWORD dword_5d4594_1045424;
@@ -8063,12 +8064,12 @@ int sub_460000() {
 	int result; // eax
 
 	v0 = *(_DWORD*)(dword_5d4594_1049504 + 20);
-	v1 = *(_DWORD*)(dword_5d4594_1049504 + 20) - *(_DWORD*)&byte_5D4594[1049536];
+	v1 = *(_DWORD*)(dword_5d4594_1049504 + 20) - dword_5d4594_1049536;
 	if (v1 >= 0) {
 		if (v1 <= 0) {
-			if (*(_DWORD*)&byte_5D4594[1049536] > nox_win_height) {
+			if (dword_5d4594_1049536 > nox_win_height) {
 				sub_460070();
-				*(_DWORD*)&byte_5D4594[1049536] = nox_win_height - 74;
+				dword_5d4594_1049536 = nox_win_height - 74;
 			}
 			result = 1;
 		} else {
