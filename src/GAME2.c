@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046928;
 extern _DWORD dword_5d4594_1045508;
 extern _DWORD dword_5d4594_1046504;
 extern _DWORD dword_5d4594_832492;
@@ -6352,11 +6353,11 @@ int __cdecl sub_45B210(int a1, int a2) {
 		}
 	LABEL_18:
 		if (dword_5d4594_1046872)
-			**(_DWORD**)(*(_DWORD*)&byte_5D4594[1046928] + 96) = sub_45B200;
+			**(_DWORD**)(dword_5d4594_1046928 + 96) = sub_45B200;
 		else
-			**(_DWORD**)(*(_DWORD*)&byte_5D4594[1046928] + 96) = sub_45B1F0;
+			**(_DWORD**)(dword_5d4594_1046928 + 96) = sub_45B1F0;
 		dword_5d4594_1046868 = 3;
-		*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1046928] + 96) + 12) = sub_430B40_get_mouse_prev_seq();
+		*(_DWORD*)(*(_DWORD*)(dword_5d4594_1046928 + 96) + 12) = sub_430B40_get_mouse_prev_seq();
 		sub_452D80(788, 100);
 		return 1;
 	}
@@ -6399,9 +6400,9 @@ int __cdecl sub_45B360(_DWORD* a1, unsigned int a2) {
 			dword_5d4594_1046936 = 0;
 			sub_452D80(788, 100);
 			dword_5d4594_1046868 = 3;
-			*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1046928] + 96) + 12) =
+			*(_DWORD*)(*(_DWORD*)(dword_5d4594_1046928 + 96) + 12) =
 			    sub_430B40_get_mouse_prev_seq();
-			**(_DWORD**)(*(_DWORD*)&byte_5D4594[1046928] + 96) = sub_45B1F0;
+			**(_DWORD**)(dword_5d4594_1046928 + 96) = sub_45B1F0;
 			nox_window_set_hidden(*(int*)&dword_5d4594_1046952, 1);
 			nox_window_set_hidden(*(int*)&byte_5D4594[1046948], 0);
 			sub_46ADE0(nox_win_unk1);
@@ -6434,8 +6435,8 @@ int __cdecl sub_45B360(_DWORD* a1, unsigned int a2) {
 		**(_DWORD**)(dword_5d4594_1046924 + 96) = sub_45B200;
 	} else {
 		dword_5d4594_1046868 = 3;
-		*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1046928] + 96) + 12) = sub_430B40_get_mouse_prev_seq();
-		**(_DWORD**)(*(_DWORD*)&byte_5D4594[1046928] + 96) = sub_45B200;
+		*(_DWORD*)(*(_DWORD*)(dword_5d4594_1046928 + 96) + 12) = sub_430B40_get_mouse_prev_seq();
+		**(_DWORD**)(dword_5d4594_1046928 + 96) = sub_45B200;
 	}
 	nox_window_set_hidden(*(int*)&dword_5d4594_1046952, 1);
 	nox_window_set_hidden(*(int*)&byte_5D4594[1046948], 0);
@@ -6658,7 +6659,7 @@ int sub_45B9D0() {
 
 	**(_DWORD**)(result + 96) = sub_45B1F0;
 	result = sub_42FA20("BookPageBackward");
-	*(_DWORD*)&byte_5D4594[1046928] = result;
+	dword_5d4594_1046928 = result;
 	if (!result)
 		return 0;
 
