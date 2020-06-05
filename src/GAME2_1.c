@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1062556;
 extern _DWORD dword_5d4594_1096264;
 extern _DWORD dword_5d4594_1090140;
 extern _DWORD dword_5d4594_1062564;
@@ -1995,10 +1996,10 @@ int sub_465E00() {
 	*(_DWORD*)&byte_5D4594[1056088] = nox_new_drawable_for_thing(v6);
 	if (*(_DWORD*)&byte_5D4594[1056088])
 		byte_5D4594[1056228] = 1;
-	v7 = *(_DWORD*)&byte_5D4594[1062556];
-	if (!*(_DWORD*)&byte_5D4594[1062556]) {
+	v7 = dword_5d4594_1062556;
+	if (!dword_5d4594_1062556) {
 		v7 = sub_44CFC0((CHAR*)&byte_587000[139520]);
-		*(_DWORD*)&byte_5D4594[1062556] = v7;
+		dword_5d4594_1062556 = v7;
 	}
 	*(_DWORD*)&byte_5D4594[1059196] = nox_new_drawable_for_thing(v7);
 	if (*(_DWORD*)&byte_5D4594[1059196])
