@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799468;
 extern _DWORD dword_5d4594_1064824;
 extern _DWORD dword_5d4594_1096500;
 extern _DWORD dword_587000_136184;
@@ -4074,7 +4075,7 @@ int __cdecl nox_window_set_hidden(nox_window* win, int hidden) {
 	if ((win->flags & 0x8000) == 0)
 		sub_46AC60(win);
 
-	if (*(_DWORD*)&byte_5D4594[3799468]) {
+	if (dword_5d4594_3799468) {
 		if (!(win->flags & NOX_WIN_HIDDEN))
 			dword_5d4594_3799524 = 1;
 	}
@@ -9268,7 +9269,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 	v2 = a1[1];
 	v39 = a1[0];
 	if (v39) {
-		*(_DWORD*)&byte_5D4594[3799468] = 1;
+		dword_5d4594_3799468 = 1;
 		v3 = v1[3];
 		v4 = v1[2] + 1;
 		sub_437290();
@@ -9283,7 +9284,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650660]);
 		nox_client_drawBorderLines_49CC70(v39 - 2, v2 - 2, v4 - v39 + 4, v3 - v2 + 4);
 	} else {
-		*(_DWORD*)&byte_5D4594[3799468] = 0;
+		dword_5d4594_3799468 = 0;
 	}
 	sub_437260();
 	v5 = v1[12];
