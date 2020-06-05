@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_5d4594_1090040;
 extern _DWORD dword_587000_145664;
 extern _DWORD dword_5d4594_1090044;
 extern _DWORD dword_5d4594_1090100;
@@ -155,7 +156,7 @@ int sub_46E870() {
 		v15 += 4;
 		v14 += v16;
 	} while ((int)v15 < (int)&byte_5D4594[1084056]);
-	*(_DWORD*)&byte_5D4594[1090040] = v14;
+	dword_5d4594_1090040 = v14;
 	dword_5d4594_1090044 = 439 - v0;
 	dword_5d4594_1090048 = nox_window_new(0, 1560, 0, v0 + 40, 1, 1, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090048, sub_46F060, sub_46F080, 0);
@@ -186,8 +187,8 @@ int sub_46E870() {
 	v19 = 2 * (v0 + 1);
 	v20 = 2 * v0;
 	do {
-		v21 = sub_4A4310(*(int*)&dword_5d4594_1090048, 1088, v17 * *(_DWORD*)&byte_5D4594[1090040], v18,
-				 *(int*)&byte_5D4594[1090040], dword_5d4594_1090044 - v19, (int)v49,
+		v21 = sub_4A4310(*(int*)&dword_5d4594_1090048, 1088, v17 * dword_5d4594_1090040, v18,
+				 *(int*)&dword_5d4594_1090040, dword_5d4594_1090044 - v19, (int)v49,
 				 (__int16*)v48);
 		v22 = *(_DWORD*)&byte_5D4594[1084036];
 		v23 = dword_5d4594_1090044 - v19;
@@ -230,22 +231,22 @@ int sub_46E870() {
 	v45[1] = 0;
 	v45[2] = 0;
 	dword_5d4594_1090100 =
-	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v46, *(int*)&byte_5D4594[1090040], v46 + 1, v49, v45);
+	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v46, *(int*)&dword_5d4594_1090040, v46 + 1, v49, v45);
 	*(_DWORD*)&v49[68] = *(_DWORD*)&byte_5D4594[2523948];
 	v45[0] =
 	    loadString_sub_40F1D0((char*)&byte_587000[146312], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1782);
 	*(_DWORD*)&byte_5D4594[1090112] =
-	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v20, *(int*)&byte_5D4594[1090040], v30, v49, v45);
+	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v20, *(int*)&dword_5d4594_1090040, v30, v49, v45);
 	*(_DWORD*)&v49[68] = *(_DWORD*)&byte_5D4594[2650644];
 	v45[0] =
 	    loadString_sub_40F1D0((char*)&byte_587000[146364], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1790);
 	*(_DWORD*)&byte_5D4594[1090108] =
-	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v47, *(int*)&byte_5D4594[1090040], v30, v49, v45);
+	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v47, *(int*)&dword_5d4594_1090040, v30, v49, v45);
 	*(_DWORD*)&v49[68] = *(_DWORD*)&byte_5D4594[2618904];
 	v45[0] =
 	    loadString_sub_40F1D0((char*)&byte_587000[146416], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1798);
 	*(_DWORD*)&byte_5D4594[1090104] =
-	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, 0, *(int*)&byte_5D4594[1090040], v30, v49, v45);
+	    sub_489300(*(int*)&dword_5d4594_1090048, 1088, 0, 0, *(int*)&dword_5d4594_1090040, v30, v49, v45);
 	result = dword_5d4594_1090048;
 	dword_587000_145664 = 1;
 	return result;
