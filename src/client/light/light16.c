@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_5d4594_3798800;
 extern _DWORD dword_5d4594_2650676;
 extern _DWORD dword_5d4594_3798808;
 extern _DWORD dword_5d4594_3807156;
@@ -46,7 +47,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 	result = dword_5d4594_3798820;
 	v6 = a1[1] - dword_5d4594_3798824;
 	v7 = *a1 - dword_5d4594_3798820;
-	if (v7 >= 0 && v6 >= 0 && v7 < *(int*)&byte_5D4594[3798800] && v6 < *(int*)&dword_5d4594_3798808) {
+	if (v7 >= 0 && v6 >= 0 && v7 < *(int*)&dword_5d4594_3798800 && v6 < *(int*)&dword_5d4594_3798808) {
 		v8 = *(const void**)&dword_5d4594_3798796;
 		result = dword_5d4594_3798844;
 		v9 = (char*)(v7 + dword_5d4594_3798796 + dword_5d4594_3798836 +
