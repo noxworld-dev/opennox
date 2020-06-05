@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _QWORD qword_581450_9512;
 extern _QWORD qword_581450_9568;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_2488604;
@@ -9972,7 +9973,7 @@ int __cdecl sub_53E300(_DWORD* a1) {
 				v4 = sub_415C00((int)i) + v4;
 		}
 	}
-	if (v4 > *(double*)&byte_581450[9512])
+	if (v4 > *(double*)&qword_581450_9512)
 		v4 = 1.0;
 	result = a1[2];
 	if (result & 4) {
