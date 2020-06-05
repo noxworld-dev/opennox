@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1090176;
 extern _DWORD dword_587000_145540;
 extern _DWORD dword_5d4594_1096260;
 extern _DWORD dword_5d4594_1096504;
@@ -6638,10 +6639,10 @@ BOOL sub_4706A0() { return dword_5d4594_1090048 && dword_5d4594_1090120; }
 int __cdecl sub_4706C0(int a1) {
 	int result; // eax
 
-	if (a1 && *(_DWORD*)&byte_5D4594[1090180] && sub_46ADA0(*(int*)&byte_5D4594[1090176]) & 0x10)
-		result = sub_46A8C0(*(int*)&byte_5D4594[1090176]);
+	if (a1 && *(_DWORD*)&byte_5D4594[1090180] && sub_46ADA0(*(int*)&dword_5d4594_1090176) & 0x10)
+		result = sub_46A8C0(*(int*)&dword_5d4594_1090176);
 	else
-		result = nox_window_set_hidden(*(int*)&byte_5D4594[1090176], 1);
+		result = nox_window_set_hidden(*(int*)&dword_5d4594_1090176, 1);
 	return result;
 }
 
@@ -6650,11 +6651,11 @@ int sub_470710() {
 	int result; // eax
 
 	result = nox_new_window_from_file("GuiFps.wnd", 0);
-	*(_DWORD*)&byte_5D4594[1090176] = result;
+	dword_5d4594_1090176 = result;
 	if (result) {
 		sub_46B340(result, sub_470770);
-		sub_46A9B0(*(_DWORD**)&byte_5D4594[1090176], 121,
-			   nox_win_height - *(_DWORD*)(*(_DWORD*)&byte_5D4594[1090176] + 12) - 5);
+		sub_46A9B0(*(_DWORD**)&dword_5d4594_1090176, 121,
+			   nox_win_height - *(_DWORD*)(dword_5d4594_1090176 + 12) - 5);
 		*(_DWORD*)&byte_5D4594[1090140] = sub_43F360((char*)&byte_587000[147880]);
 		sub_4706C0(0);
 		result = 1;
