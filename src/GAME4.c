@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1569748;
 extern _DWORD dword_5d4594_1599060;
 extern _DWORD dword_5d4594_1599592;
 extern _DWORD dword_5d4594_1599556;
@@ -5989,18 +5990,18 @@ void __cdecl sub_4FF620(int a1) {
 //----- (004FF730) --------------------------------------------------------
 BOOL sub_4FF730() {
 	dword_5d4594_1569756 = 0;
-	*(_DWORD*)&byte_5D4594[1569748] =
+	dword_5d4594_1569748 =
 	    nox_new_alloc_class("MagicWall", 32, (*(_DWORD*)&byte_587000[217844] << 6) + 32);
-	return *(_DWORD*)&byte_5D4594[1569748] != 0;
+	return dword_5d4594_1569748 != 0;
 }
 
 //----- (004FF770) --------------------------------------------------------
 int sub_4FF770() {
 	int result; // eax
 
-	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1569748]);
+	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1569748);
 	result = 0;
-	*(_DWORD*)&byte_5D4594[1569748] = 0;
+	dword_5d4594_1569748 = 0;
 	dword_5d4594_1569752 = 0;
 	dword_5d4594_1569756 = 0;
 	return result;
@@ -6008,7 +6009,7 @@ int sub_4FF770() {
 
 //----- (004FF790) --------------------------------------------------------
 void sub_4FF790() {
-	sub_4144D0(*(_DWORD**)&byte_5D4594[1569748]);
+	sub_4144D0(*(_DWORD**)&dword_5d4594_1569748);
 	dword_5d4594_1569752 = 0;
 }
 
@@ -6089,7 +6090,7 @@ void __cdecl sub_4FF870(int a1) {
 	v3 = *(_DWORD*)(a1 + 24);
 	if (v3)
 		*(_DWORD*)(v3 + 28) = *(_DWORD*)(a1 + 28);
-	sub_414330(*(unsigned int**)&byte_5D4594[1569748], (_QWORD*)a1);
+	sub_414330(*(unsigned int**)&dword_5d4594_1569748, (_QWORD*)a1);
 }
 
 //----- (004FF900) --------------------------------------------------------
@@ -6339,7 +6340,7 @@ BOOL __cdecl sub_4FFD00(int a1, int a2, int a3, unsigned __int8 a4) {
 _DWORD* __cdecl sub_4FFE80(int a1, _BYTE* a2, int a3, char a4, char a5, char a6) {
 	_DWORD* result; // eax
 
-	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[1569748]);
+	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1569748);
 	if (result) {
 		result[2] = a2;
 		*result = a3;
