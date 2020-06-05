@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1313792;
 extern _DWORD dword_5d4594_1307744;
 extern _DWORD dword_587000_122852;
 extern _DWORD dword_5d4594_1307308;
@@ -12313,9 +12314,9 @@ void __cdecl sub_4B81E0(int a1, int a2) {
 int sub_4B8220() {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[1313792])
-		sub_45A4B0(*(_QWORD**)&byte_5D4594[1313792]);
-	*(_DWORD*)&byte_5D4594[1313792] = 0;
+	if (dword_5d4594_1313792)
+		sub_45A4B0(*(_QWORD**)&dword_5d4594_1313792);
+	dword_5d4594_1313792 = 0;
 	if (dword_5d4594_1313796)
 		sub_45A4B0(*(_QWORD**)&dword_5d4594_1313796);
 	result = dword_5d4594_1313800;
@@ -12405,7 +12406,7 @@ LABEL_15:
 	}
 	v36[2] = nox_win_width;
 	v36[8] = nox_win_width;
-	v11 = *(_DWORD**)&byte_5D4594[1313792];
+	v11 = *(_DWORD**)&dword_5d4594_1313792;
 	v12 = 0;
 	v36[0] = 0;
 	v36[1] = 0;
@@ -12413,9 +12414,9 @@ LABEL_15:
 	v36[9] = nox_win_height;
 	v36[4] = 0;
 	v36[5] = 0;
-	if (*(_DWORD*)&byte_5D4594[1313792] ||
+	if (dword_5d4594_1313792 ||
 	    (v13 = sub_44CFC0((CHAR*)&byte_587000[177400]), v11 = nox_new_drawable_for_thing(v13),
-	     (*(_DWORD*)&byte_5D4594[1313792] = v11) != 0)) {
+	     (dword_5d4594_1313792 = v11) != 0)) {
 		v14 = 0;
 		v15 = v3 + 2324;
 		while (*v15 != 1) {
@@ -12425,13 +12426,13 @@ LABEL_15:
 				goto LABEL_23;
 		}
 		qmemcpy(v11 + 108, &v3[24 * v14 + 2328], 0x14u);
-		v11 = *(_DWORD**)&byte_5D4594[1313792];
+		v11 = *(_DWORD**)&dword_5d4594_1313792;
 		v3 = v32;
 	LABEL_23:
 		v11[3] = dr->field_3 - v10[4] + *v10 + 15;
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1313792] + 16) = v10[1] - v10[5] + dr->field_4 - 25;
-		(*(void(__cdecl**)(int*, _DWORD))(*(_DWORD*)&byte_5D4594[1313792] + 300))(
-		    v36, *(_DWORD*)&byte_5D4594[1313792]);
+		*(_DWORD*)(dword_5d4594_1313792 + 16) = v10[1] - v10[5] + dr->field_4 - 25;
+		(*(void(__cdecl**)(int*, _DWORD))(dword_5d4594_1313792 + 300))(
+		    v36, dword_5d4594_1313792);
 		goto LABEL_24;
 	}
 LABEL_25:
