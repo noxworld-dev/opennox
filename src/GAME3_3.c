@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1565516;
 extern _DWORD dword_5d4594_1563664;
 extern _DWORD dword_5d4594_1567928;
 extern _DWORD dword_5d4594_1568020;
@@ -2477,7 +2478,7 @@ int sub_4E4DE0() {
 	memset(&byte_5D4594[1565524], 0, 0x40u);
 	memset(&byte_5D4594[1565124], 0, 0x180u);
 	dword_5d4594_1565512 = 0;
-	*(_DWORD*)&byte_5D4594[1565516] = 0;
+	dword_5d4594_1565516 = 0;
 	v0 = 0;
 	v1 = &byte_5D4594[1565124];
 	do {
@@ -2594,7 +2595,7 @@ void __cdecl sub_4E4FC0(int a1) {
 	if (v2)
 		*(_DWORD*)(v2 + 412) = *(_DWORD*)(a1 + 412);
 	else
-		*(_DWORD*)&byte_5D4594[1565516] = *(_DWORD*)(a1 + 412);
+		dword_5d4594_1565516 = *(_DWORD*)(a1 + 412);
 	sub_414330(*(unsigned int**)&byte_5D4594[1565508], (_QWORD*)a1);
 }
 
@@ -2679,7 +2680,7 @@ int __cdecl sub_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, ch
 			dword_5d4594_1565512 = v8;
 			return 1;
 		}
-		*(_DWORD*)&byte_5D4594[1565516] = v8;
+		dword_5d4594_1565516 = v8;
 		dword_5d4594_1565512 = v8;
 	}
 	return 1;
@@ -2889,8 +2890,8 @@ unsigned int __cdecl sub_4E5670(unsigned __int8 a1) {
 
 	v1 = 0;
 	sub_417090(a1);
-	v2 = *(_DWORD*)&byte_5D4594[1565516];
-	if (*(_DWORD*)&byte_5D4594[1565516]) {
+	v2 = dword_5d4594_1565516;
+	if (dword_5d4594_1565516) {
 		do {
 			v3 = *(_DWORD*)(v2 + 412);
 			if (!(*(_DWORD*)(v2 + 168) & (1 << a1))) {
@@ -2971,8 +2972,8 @@ void __cdecl sub_4E5770(unsigned __int8 a1, int a2) {
 	if (a1 != 31)
 		v13 = sub_40ECA0;
 	if (!v3 || !nox_common_gameFlags_check_40A5C0(1) || v3[3680] & 0x10) {
-		v4 = *(_DWORD*)&byte_5D4594[1565516];
-		if (*(_DWORD*)&byte_5D4594[1565516]) {
+		v4 = dword_5d4594_1565516;
+		if (dword_5d4594_1565516) {
 			while (1) {
 				v17 = *(_DWORD*)(v4 + 412);
 				v5 = *(_DWORD*)(v4 + 404);
