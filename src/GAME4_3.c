@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_312820;
 extern _DWORD dword_5d4594_2488660;
 extern _QWORD qword_581450_10176;
 extern _QWORD qword_581450_9512;
@@ -8832,7 +8833,7 @@ signed int __cdecl sub_53C580(int a1) {
 			v13 = *(_BYTE*)(*(_DWORD*)(v5 + 276) + 2251);
 			if (v13) {
 				if (v13 == 1) {
-					v14 = nox_float2int(*(float*)&byte_587000[312820]);
+					v14 = nox_float2int(*(float*)&dword_587000_312820);
 				} else {
 					if (v13 != 2)
 						goto LABEL_36;
@@ -10607,7 +10608,7 @@ int __cdecl sub_53EF70(int a1, int a2) {
 			v10 = *(_BYTE*)(*(_DWORD*)(v9 + 276) + 2251);
 			if (v10) {
 				if (v10 == 1) {
-					v11 = (double)v25 * *(float*)&byte_587000[312820];
+					v11 = (double)v25 * *(float*)&dword_587000_312820;
 				} else {
 					if (v10 != 2) {
 					LABEL_26:
