@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599712;
 extern _DWORD dword_5d4594_2386924;
 extern _DWORD dword_5d4594_1599692;
 extern _DWORD dword_5d4594_1569664;
@@ -1508,8 +1509,8 @@ int __cdecl sub_50B950(int a1, int a2, int a3) {
 int __cdecl sub_50B9A0(int a1, int a2, int a3, float* a4) {
 	*(_BYTE*)(*(_DWORD*)(a3 + 748) + 2172) = 0;
 	sub_50BA00(0, a3, (float*)(a3 + 56), a4, 0, 0);
-	if (dword_5d4594_2386180 > a2 && !*(_DWORD*)&byte_5D4594[1599712])
-		*(_DWORD*)&byte_5D4594[1599712] = 1;
+	if (dword_5d4594_2386180 > a2 && !dword_5d4594_1599712)
+		dword_5d4594_1599712 = 1;
 	return sub_50C990(a1, 0, a2);
 }
 
@@ -1592,7 +1593,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
 	v64 = 0;
 	v65 = 0;
 	v59 = a1 != 0 ? 0 : 999999;
-	*(_DWORD*)&byte_5D4594[1599712] = 0;
+	dword_5d4594_1599712 = 0;
 	++*(_DWORD*)&byte_5D4594[2386160];
 	if (!*(_DWORD*)&byte_5D4594[2386168])
 		sub_50B520();
@@ -1616,7 +1617,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
 	result = *(LPVOID*)&dword_5d4594_2386184;
 	if (!dword_5d4594_2386184) {
 		dword_5d4594_2386180 = 0;
-		*(_DWORD*)&byte_5D4594[1599712] = 2;
+		dword_5d4594_1599712 = 2;
 		return result;
 	}
 	sub_4144D0(*(_DWORD**)&dword_5d4594_2386184);
@@ -1654,7 +1655,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
 					      ((unsigned __int16)v17 - v74) * ((unsigned __int16)v17 - v74);
 				}
 				if (!v63 && !v61 && v16 == v73 && v17 == v74) {
-					*(_DWORD*)&byte_5D4594[1599712] = 0;
+					dword_5d4594_1599712 = 0;
 					return (LPVOID)sub_50C320(a2, (int)v15, a4);
 				}
 			}
@@ -1787,7 +1788,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
 					sub_5341A0((char*)&byte_587000[234404], *(_DWORD*)&byte_5D4594[2598000], v47,
 						   v55);
 				LABEL_130:
-					*(_DWORD*)&byte_5D4594[1599712] = 1;
+					dword_5d4594_1599712 = 1;
 					return (LPVOID)sub_50C320(v30, v67, 0);
 				}
 				*v31 = v23;
@@ -1874,7 +1875,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
 	sub_5341A0((char*)&byte_587000[234508], *(_DWORD*)&byte_5D4594[2598000], v49, v57);
 LABEL_134:
 	v30 = a2;
-	*(_DWORD*)&byte_5D4594[1599712] = 2;
+	dword_5d4594_1599712 = 2;
 	return (LPVOID)sub_50C320(v30, v67, 0);
 }
 
@@ -2142,8 +2143,8 @@ int __cdecl sub_50C990(int a1, int a2, int a3) {
 int __cdecl sub_50CA00(int a1, int a2, int a3, float* a4) {
 	*(_BYTE*)(*(_DWORD*)(a3 + 748) + 2172) = 0;
 	sub_50BA00(1, a3, (float*)(a3 + 56), a4, sub_50CA60, 6);
-	if (dword_5d4594_2386180 > a2 && !*(_DWORD*)&byte_5D4594[1599712])
-		*(_DWORD*)&byte_5D4594[1599712] = 1;
+	if (dword_5d4594_2386180 > a2 && !dword_5d4594_1599712)
+		dword_5d4594_1599712 = 1;
 	return sub_50C990(a1, 0, a2);
 }
 
@@ -2167,7 +2168,7 @@ void __cdecl sub_50CAC0(int a1, int a2) {
 }
 
 //----- (0050CAF0) --------------------------------------------------------
-int sub_50CAF0() { return *(_DWORD*)&byte_5D4594[1599712]; }
+int sub_50CAF0() { return dword_5d4594_1599712; }
 
 //----- (0050CB00) --------------------------------------------------------
 int sub_50CB00() { return dword_5d4594_2386180; }
