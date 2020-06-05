@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_805852;
 extern _DWORD dword_5d4594_787172;
 extern _DWORD dword_587000_80824;
@@ -4600,7 +4601,7 @@ int sub_42EFF0() {
 	int result; // eax
 
 	sub_42F030();
-	if (*(_DWORD*)&byte_5D4594[3804680]) {
+	if (dword_5d4594_3804680) {
 		result = *(_DWORD*)&byte_5D4594[787192];
 		*(_DWORD*)&byte_5D4594[787176] = *(_DWORD*)&byte_5D4594[787184];
 	} else {
@@ -5965,7 +5966,7 @@ BOOL __cdecl nox_video_resizewnd(int a1, int a2, int a3) {
 		nox_win_height = nox_max_height;
 	a3 = 16;
 	result = a3 != 8;
-	*(_DWORD*)&byte_5D4594[3804680] = a3 != 8;
+	dword_5d4594_3804680 = a3 != 8;
 	return result;
 }
 
