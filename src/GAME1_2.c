@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_787172;
 extern _DWORD dword_587000_80824;
 extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_3596;
@@ -4551,7 +4552,7 @@ int __cdecl nox_video_read_videobag(int a1) {
 			if (v5) {
 				v6 = (unsigned __int8*)v4 + v5;
 				*(_DWORD*)&byte_5D4594[787168] = *(_DWORD*)&v9[16];
-				*(_DWORD*)&byte_5D4594[787172] = *(_DWORD*)&v9[12];
+				dword_5d4594_787172 = *(_DWORD*)&v9[12];
 				*(_DWORD*)&byte_5D4594[787184] = *(_DWORD*)&v9[4];
 				if (dword_5d4594_787208) {
 					free(*(LPVOID*)&dword_5d4594_787208);
@@ -4563,13 +4564,13 @@ int __cdecl nox_video_read_videobag(int a1) {
 					*(_DWORD*)&byte_5D4594[787212] = sub_578BF0();
 				if (*(_DWORD*)&byte_5D4594[2650640] == 1)
 					sub_47A270();
-				dword_5d4594_787148 = nox_malloc(36 * *(_DWORD*)&byte_5D4594[787172]);
+				dword_5d4594_787148 = nox_malloc(36 * dword_5d4594_787172);
 				dword_5d4594_787152 = nox_malloc(12 * *(_DWORD*)&byte_5D4594[787168]);
 				sub_42F200(v6, a1);
 				free(v4);
 				v7 = 0x800000;
-				if (*(_DWORD*)&v9[4] * *(_DWORD*)&byte_5D4594[787172] < 0x800000)
-					v7 = *(_DWORD*)&v9[4] * *(_DWORD*)&byte_5D4594[787172];
+				if (*(_DWORD*)&v9[4] * dword_5d4594_787172 < 0x800000)
+					v7 = *(_DWORD*)&v9[4] * dword_5d4594_787172;
 				v8 = *(_DWORD*)&v9[4] * (v7 / *(_DWORD*)&v9[4]);
 				*(_DWORD*)&byte_5D4594[787192] = v8 / *(_DWORD*)&v9[4];
 				result = (int)nox_malloc(v8);
@@ -4615,9 +4616,9 @@ char* sub_42F030() {
 	int v1;       // edi
 	int v2;       // esi
 
-	result = *(char**)&byte_5D4594[787172];
+	result = *(char**)&dword_5d4594_787172;
 	v1 = 0;
-	if (*(_DWORD*)&byte_5D4594[787172] > 0) {
+	if (dword_5d4594_787172 > 0) {
 		result = *(char**)&dword_5d4594_787148;
 		v2 = 0;
 		do {
@@ -4631,7 +4632,7 @@ char* sub_42F030() {
 			}
 			++v1;
 			v2 += 36;
-		} while (v1 < *(int*)&byte_5D4594[787172]);
+		} while (v1 < *(int*)&dword_5d4594_787172);
 	}
 	*(_DWORD*)&byte_5D4594[787136] = 0;
 	*(_DWORD*)&byte_5D4594[787140] = &byte_5D4594[754108];
@@ -4728,7 +4729,7 @@ int __cdecl sub_42F200(unsigned __int8* a1, int a2) {
 	v16 = 0;
 	*(_DWORD*)&byte_5D4594[787180] = 0;
 	v19 = 0;
-	if (*(_DWORD*)&byte_5D4594[787172] > 0) {
+	if (dword_5d4594_787172 > 0) {
 		v4 = 0;
 		do {
 			v5 = *((_DWORD*)v2 + 1);
@@ -4783,7 +4784,7 @@ int __cdecl sub_42F200(unsigned __int8* a1, int a2) {
 			}
 			v4 += 36;
 			v19 = v10 + 1;
-		} while (v10 + 1 < *(int*)&byte_5D4594[787172]);
+		} while (v10 + 1 < *(int*)&dword_5d4594_787172);
 	}
 	if (*(_DWORD*)&byte_5D4594[787180] > *(int*)&byte_5D4594[787184])
 		*(_DWORD*)&byte_5D4594[787180] = *(_DWORD*)&byte_5D4594[787184];
