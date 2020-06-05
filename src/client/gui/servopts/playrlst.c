@@ -2,6 +2,7 @@
 
 #include "../../../common/system/team.h"
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1045692;
 extern _DWORD dword_5d4594_1045688;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1045684;
@@ -32,7 +33,7 @@ int __cdecl sub_456270(int a1) {
 	dword_5d4594_1045684 =
 	    nox_new_window_from_file(*(const char**)&byte_587000[4 * v1 + 129048], sub_4567C0);
 	dword_5d4594_1045688 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10507);
-	*(_DWORD*)&byte_5D4594[1045692] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10509);
+	dword_5d4594_1045692 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10509);
 	sub_46B120(*(_DWORD**)&dword_5d4594_1045684, a1);
 	sub_46B340(*(int*)&dword_5d4594_1045684, sub_456640);
 	sub_46A8A0();
@@ -115,13 +116,13 @@ int __cdecl sub_4567C0(int a1, int a2, int* a3, int a4) {
 			v3 = sub_4165B0();
 			if (nox_window_call_field_94((int)a3, 16404, 0, 0) < 0) {
 				sub_46ABB0(*(int*)&dword_5d4594_1045688, 0);
-				sub_46ABB0(*(int*)&byte_5D4594[1045692], 0);
+				sub_46ABB0(*(int*)&dword_5d4594_1045692, 0);
 			} else if (nox_common_gameFlags_check_40A5C0(0x8000) || v3[53] < 0) {
 				sub_46ABB0(*(int*)&dword_5d4594_1045688, 0);
-				sub_46ABB0(*(int*)&byte_5D4594[1045692], 0);
+				sub_46ABB0(*(int*)&dword_5d4594_1045692, 0);
 			} else {
 				if (nox_common_gameFlags_check_40A5C0(1))
-					sub_46ABB0(*(int*)&byte_5D4594[1045692], 1);
+					sub_46ABB0(*(int*)&dword_5d4594_1045692, 1);
 				if (nox_common_gameFlags_check_40A5C0(128) || !*(_DWORD*)&byte_5D4594[1045696])
 					sub_46ABB0(*(int*)&dword_5d4594_1045688, 1);
 				else
