@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_825768;
 extern _DWORD dword_5d4594_2386568;
 extern _DWORD dword_587000_93196;
 extern _DWORD dword_5d4594_2523744;
@@ -124,7 +125,7 @@ LPVOID sub_426060() {
 BOOL sub_43DEA0() { return dword_587000_93196 == 0; }
 
 //----- (00446040) --------------------------------------------------------
-int sub_446040() { return *(_DWORD*)&byte_5D4594[825768]; }
+int sub_446040() { return dword_5d4594_825768; }
 
 int sub_46DCB0(void) { return sub_46DCC0(); }
 
