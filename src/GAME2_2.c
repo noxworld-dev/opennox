@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_787144;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_3798788;
 extern _DWORD dword_5d4594_1097188;
@@ -13216,7 +13217,7 @@ int nox_video_cursorThreadWorker_48BEB0() {
 		nox_sleep(33);
 		if (!nox_video_pauseThreadedDrawCursor && nox_video_drawCursorThreadOk &&
 		    dword_5d4594_823776 && *(_DWORD*)&byte_5D4594[1193672] &&
-		    *(_DWORD*)&byte_5D4594[1193108] && *(_DWORD*)&byte_5D4594[787144] && !sub_430890()) {
+		    *(_DWORD*)&byte_5D4594[1193108] && dword_5d4594_787144 && !sub_430890()) {
 			nox_client_readMouseBuffer_4306A0(0);
 			v1 = nox_client_getMousePos_4309F0();
 			if (nox_client_getCursorType_477620() == 10) {
