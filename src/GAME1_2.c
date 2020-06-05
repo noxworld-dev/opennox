@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_741356;
 extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_741332;
 extern _DWORD dword_5d4594_741364;
@@ -1293,7 +1294,7 @@ int __cdecl nox_server_mapRWWallMap_429B20(_DWORD* a1) {
 			sub_428170(a1, &v33);
 			*(_DWORD*)&byte_5D4594[741360] = v33.field_0 / 23;
 			v3 = v33.field_8 / 23;
-			*(_DWORD*)&byte_5D4594[741356] = v33.field_8 / 23;
+			dword_5d4594_741356 = v33.field_8 / 23;
 			*(_DWORD*)&byte_5D4594[741368] = v33.field_4 / 23;
 			v5 = v33.field_C / 23;
 			dword_5d4594_741364 = v5;
@@ -1301,9 +1302,9 @@ int __cdecl nox_server_mapRWWallMap_429B20(_DWORD* a1) {
 			*(_DWORD*)&byte_5D4594[741368] = 256;
 			*(_DWORD*)&byte_5D4594[741360] = 256;
 			dword_5d4594_741364 = 0;
-			*(_DWORD*)&byte_5D4594[741356] = 0;
+			dword_5d4594_741356 = 0;
 			sub_410640((void(__cdecl*)(int, int))sub_42A0F0, 0);
-			v3 = *(_DWORD*)&byte_5D4594[741356];
+			v3 = dword_5d4594_741356;
 			v5 = dword_5d4594_741364;
 		}
 		v25 = v3 - *(_DWORD*)&byte_5D4594[741360] + 1;
@@ -1444,8 +1445,8 @@ int __cdecl sub_42A0F0(int a1) {
 
 	if ((int)*(unsigned __int8*)(a1 + 5) < *(int*)&byte_5D4594[741360])
 		*(_DWORD*)&byte_5D4594[741360] = *(unsigned __int8*)(a1 + 5);
-	if ((int)*(unsigned __int8*)(a1 + 5) > *(int*)&byte_5D4594[741356])
-		*(_DWORD*)&byte_5D4594[741356] = *(unsigned __int8*)(a1 + 5);
+	if ((int)*(unsigned __int8*)(a1 + 5) > *(int*)&dword_5d4594_741356)
+		dword_5d4594_741356 = *(unsigned __int8*)(a1 + 5);
 	if ((int)*(unsigned __int8*)(a1 + 6) < *(int*)&byte_5D4594[741368])
 		*(_DWORD*)&byte_5D4594[741368] = *(unsigned __int8*)(a1 + 6);
 	result = *(unsigned __int8*)(a1 + 6);
@@ -1497,7 +1498,7 @@ int __cdecl sub_42A150(__int16 a1, _DWORD* a2) {
 			sub_428170(a2, &v33);
 			*(_DWORD*)&byte_5D4594[741360] = v33.field_0 / 23;
 			v5 = v33.field_8 / 23;
-			*(_DWORD*)&byte_5D4594[741356] = v33.field_8 / 23;
+			dword_5d4594_741356 = v33.field_8 / 23;
 			*(_DWORD*)&byte_5D4594[741368] = v33.field_4 / 23;
 			v6 = v33.field_C / 23;
 			dword_5d4594_741364 = v33.field_C / 23;
@@ -1505,9 +1506,9 @@ int __cdecl sub_42A150(__int16 a1, _DWORD* a2) {
 			*(_DWORD*)&byte_5D4594[741368] = 256;
 			*(_DWORD*)&byte_5D4594[741360] = 256;
 			dword_5d4594_741364 = 0;
-			*(_DWORD*)&byte_5D4594[741356] = 0;
+			dword_5d4594_741356 = 0;
 			sub_410640((void(__cdecl*)(int, int))sub_42A0F0, 0);
-			v5 = *(_DWORD*)&byte_5D4594[741356];
+			v5 = dword_5d4594_741356;
 			v6 = dword_5d4594_741364;
 		}
 		v28 = v5 - *(_DWORD*)&byte_5D4594[741360] + 1;
