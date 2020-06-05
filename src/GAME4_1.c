@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487240;
 extern _DWORD dword_5d4594_2386188;
 extern _DWORD dword_5d4594_2386160;
 extern _DWORD dword_5d4594_1599712;
@@ -12255,8 +12256,8 @@ void sub_51AC60() {
 	if (dword_5d4594_2487236) {
 		for (i = *(_DWORD*)(dword_5d4594_2487236 + 24); i; i = *(_DWORD*)(i + 24))
 			v0 = i;
-		*(_DWORD*)(v0 + 24) = *(_DWORD*)&byte_5D4594[2487240];
-		*(_DWORD*)&byte_5D4594[2487240] = dword_5d4594_2487236;
+		*(_DWORD*)(v0 + 24) = dword_5d4594_2487240;
+		dword_5d4594_2487240 = dword_5d4594_2487236;
 		dword_5d4594_2487236 = 0;
 	}
 }
@@ -12309,10 +12310,10 @@ int sub_51AD20() {
 void* sub_51AD40() {
 	void* result; // eax
 
-	result = *(void**)&byte_5D4594[2487240];
-	if (!*(_DWORD*)&byte_5D4594[2487240])
+	result = *(void**)&dword_5d4594_2487240;
+	if (!dword_5d4594_2487240)
 		return nox_malloc(0x20u);
-	*(_DWORD*)&byte_5D4594[2487240] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2487240] + 24);
+	dword_5d4594_2487240 = *(_DWORD*)(dword_5d4594_2487240 + 24);
 	return result;
 }
 
@@ -12349,8 +12350,8 @@ int __cdecl sub_51AD90(int a1) {
 	if (a1 == dword_5d4594_2487236)
 		dword_5d4594_2487236 = *v2;
 	result = *v2;
-	*v2 = *(_DWORD*)&byte_5D4594[2487240];
-	*(_DWORD*)&byte_5D4594[2487240] = a1;
+	*v2 = dword_5d4594_2487240;
+	dword_5d4594_2487240 = a1;
 	*(_DWORD*)(a1 + 28) = 0;
 	return result;
 }
