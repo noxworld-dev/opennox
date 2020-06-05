@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831224;
 extern _DWORD dword_5d4594_1046928;
 extern _DWORD dword_5d4594_1045508;
 extern _DWORD dword_5d4594_1046504;
@@ -1177,9 +1178,9 @@ int sub_44E3C0() {
 int sub_44E3E0() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[831224];
+	result = dword_5d4594_831224;
 	*(_DWORD*)&byte_5D4594[831248] = 1;
-	if (*(_DWORD*)&byte_5D4594[831224]) {
+	if (dword_5d4594_831224) {
 		result = sub_44D900(*(int*)&byte_5D4594[831240], 100);
 		*(_DWORD*)&byte_5D4594[831244] = 1;
 	}
@@ -1369,7 +1370,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		sub_446780();
 		*(_DWORD*)&byte_5D4594[831240] = 0;
 		*(_DWORD*)&byte_5D4594[831244] = 1;
-		*(_DWORD*)&byte_5D4594[831224] = 0;
+		dword_5d4594_831224 = 0;
 	} else {
 		v10 = 32 * (v3 + v4 + 10 * v4);
 		if (a2) {
@@ -1395,10 +1396,10 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		*(float*)&byte_5D4594[831276] = (double)*(int*)&byte_5D4594[831280];
 	}
 	sub_431290();
-	*(_DWORD*)&byte_5D4594[831224] = 0;
+	dword_5d4594_831224 = 0;
 	if (a2 || v3 == 255) {
 		if (v3 != 254)
-			*(_DWORD*)&byte_5D4594[831224] = 1;
+			dword_5d4594_831224 = 1;
 	} else if (v3 != 254) {
 		if (*(_DWORD*)(v14 + 4 * v3 + 4408)) {
 			sub_46ADE0(*(int*)&dword_5d4594_831236);
@@ -1406,7 +1407,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 			sub_46D580();
 			sub_46B300(*(int*)&dword_5d4594_831236, 0);
 		} else {
-			*(_DWORD*)&byte_5D4594[831224] = 1;
+			dword_5d4594_831224 = 1;
 			*(_DWORD*)(v14 + 4 * v3 + 4408) = 1;
 		}
 	}
@@ -1415,8 +1416,8 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	*(_DWORD*)&byte_5D4594[831248] = 0;
 	v12 = nox_client_getIntroScreenDuration_44E3B0();
 	sub_44DB30(v12, 1, sub_44E3E0);
-	result = *(_DWORD*)&byte_5D4594[831224];
-	if (*(_DWORD*)&byte_5D4594[831224])
+	result = dword_5d4594_831224;
+	if (dword_5d4594_831224)
 		*(_DWORD*)&byte_5D4594[831244] = 0;
 	return result;
 }
@@ -1434,7 +1435,7 @@ int sub_450580() {
 	sub_44D8F0();
 	result = 0;
 	*(_DWORD*)&byte_5D4594[832488] = 1;
-	*(_DWORD*)&byte_5D4594[831224] = 0;
+	dword_5d4594_831224 = 0;
 	*(_DWORD*)&byte_5D4594[831292] = 0;
 	*(_DWORD*)&byte_5D4594[831296] = 0;
 	return result;
