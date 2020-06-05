@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1569664;
 extern _DWORD dword_5d4594_3821968;
 extern _DWORD dword_5d4594_1599548;
 extern _DWORD dword_5d4594_1599480;
@@ -3868,7 +3869,7 @@ int sub_4FC9B0() {
 		*(_DWORD*)&byte_5D4594[1569668] = result;
 		if (result) {
 			result = sub_4E3810((CHAR*)&byte_587000[217476]);
-			*(_DWORD*)&byte_5D4594[1569664] = result;
+			dword_5d4594_1569664 = result;
 			if (result) {
 				sub_4DAA50(result, 0, 2944.0, 2944.0);
 				*(_DWORD*)&byte_5D4594[1569676] = sub_4E3AA0((CHAR*)&byte_587000[217492]);
@@ -3890,8 +3891,8 @@ int sub_4FCA80() {
 	sub_4FE880();
 	nox_free_alloc_class(*(LPVOID*)&byte_5D4594[1569668]);
 	dword_5d4594_1569672 = 0;
-	sub_4E5CC0(*(int*)&byte_5D4594[1569664]);
-	*(_DWORD*)&byte_5D4594[1569664] = 0;
+	sub_4E5CC0(*(int*)&dword_5d4594_1569664);
+	dword_5d4594_1569664 = 0;
 	return 1;
 }
 
@@ -3917,7 +3918,7 @@ int __cdecl sub_4FCAC0(int a1, int a2) {
 	}
 	if (a2) {
 		v4 = sub_4E3810((CHAR*)&byte_587000[217572]);
-		*(_DWORD*)&byte_5D4594[1569664] = v4;
+		dword_5d4594_1569664 = v4;
 		if (!v4)
 			return 0;
 		sub_4DAA50((int)v4, 0, 2944.0, 2944.0);

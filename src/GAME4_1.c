@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1569664;
 extern _DWORD dword_5d4594_3821968;
 extern _DWORD dword_5d4594_2386572;
 extern _DWORD dword_5d4594_2386500;
@@ -8025,14 +8026,14 @@ int sub_515060() {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 		if (v3) {
 			v6 = v5;
-			sub_4E7010(*(int*)&byte_5D4594[1569664], &v6);
+			sub_4E7010(*(int*)&dword_5d4594_1569664, &v6);
 			v6.field_0 = *(float*)(v3 + 56) - v5.field_0;
 			v6.field_4 = *(float*)(v3 + 60) - v5.field_4;
-			*(_WORD*)(*(_DWORD*)&byte_5D4594[1569664] + 124) = sub_509ED0(&v6);
+			*(_WORD*)(dword_5d4594_1569664 + 124) = sub_509ED0(&v6);
 			v7[0] = v3;
 			v7[1] = *(_DWORD*)(v3 + 56);
 			v7[2] = *(_DWORD*)(v3 + 60);
-			sub_4FDD20(v2, *(_DWORD**)&byte_5D4594[1569664], &v7);
+			sub_4FDD20(v2, *(_DWORD**)&dword_5d4594_1569664, &v7);
 		}
 	}
 	return 0;
@@ -8056,14 +8057,14 @@ int sub_515130() {
 	v1 = sub_4243F0(*(const char**)&byte_5D4594[4 * v0 + 3831212]);
 	if (v1) {
 		v6 = v3;
-		sub_4E7010(*(int*)&byte_5D4594[1569664], &v6);
+		sub_4E7010(*(int*)&dword_5d4594_1569664, &v6);
 		v6.field_0 = v4 - v3.field_0;
 		v6.field_4 = v5 - v3.field_4;
-		*(_WORD*)(*(_DWORD*)&byte_5D4594[1569664] + 124) = sub_509ED0(&v6);
+		*(_WORD*)(dword_5d4594_1569664 + 124) = sub_509ED0(&v6);
 		v7[1] = v4;
 		v7[0] = 0.0;
 		v7[2] = v5;
-		sub_4FDD20(v1, *(_DWORD**)&byte_5D4594[1569664], &v7);
+		sub_4FDD20(v1, *(_DWORD**)&dword_5d4594_1569664, &v7);
 	}
 	return 0;
 }
