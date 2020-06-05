@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_237036;
 extern _DWORD dword_5d4594_2386916;
 extern _DWORD dword_5d4594_2386228;
 extern _DWORD dword_5d4594_2386216;
@@ -5220,7 +5221,7 @@ int __cdecl nox_server_scriptValToObjectPtr_511B60(int a1) {
 int __cdecl sub_511C50(int a1) {
 	_DWORD* v1; // esi
 
-	if (*(_DWORD*)&byte_587000[237036])
+	if (dword_587000_237036)
 		sub_511D20();
 	v1 = *(_DWORD**)&byte_5D4594[2386820];
 	if (!*(_DWORD*)&byte_5D4594[2386820])
@@ -5286,7 +5287,7 @@ int sub_511D20() {
 		result = sub_511CB0(&byte_5D4594[2386620], (int)v0);
 		v0 += 12;
 	} while ((int)v0 < (int)&byte_5D4594[2386820]);
-	*(_DWORD*)&byte_587000[237036] = 0;
+	dword_587000_237036 = 0;
 	return result;
 }
 
@@ -5327,8 +5328,8 @@ int __cdecl sub_511DE0(int a1) {
 	int result; // eax
 	_DWORD* v2; // esi
 
-	result = *(_DWORD*)&byte_587000[237036];
-	if (!*(_DWORD*)&byte_587000[237036]) {
+	result = dword_587000_237036;
+	if (!dword_587000_237036) {
 		v2 = *(_DWORD**)&byte_5D4594[2386820];
 		if (*(_DWORD*)&byte_5D4594[2386820]) {
 			result = a1;
@@ -5350,8 +5351,8 @@ int sub_511E20() {
 	int v1;     // esi
 	int v2;     // edi
 
-	result = *(_DWORD*)&byte_587000[237036];
-	if (!*(_DWORD*)&byte_587000[237036]) {
+	result = dword_587000_237036;
+	if (!dword_587000_237036) {
 		v1 = *(_DWORD*)&byte_5D4594[2386820];
 		if (*(_DWORD*)&byte_5D4594[2386820]) {
 			do {
