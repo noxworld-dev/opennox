@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193156;
 extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_1097208;
 extern _DWORD dword_5d4594_3799552;
@@ -6876,7 +6877,7 @@ char* __cdecl sub_481770(_DWORD* a1, int a2, unsigned __int16 a3) {
 	int v12;            // [esp+Ch] [ebp+Ch]
 
 	if (!dword_587000_154956 && (byte_5D4594[60 * a3 + 2682246] & 1) == 1)
-		*(_DWORD*)&byte_5D4594[1193156] = 1;
+		dword_5d4594_1193156 = 1;
 	v3 = *(_DWORD*)&byte_5D4594[60 * a3 + 2682236];
 	v4 = byte_5D4594[3807124];
 	v5 = dword_5d4594_3798844;
@@ -7168,15 +7169,15 @@ int __cdecl sub_481C20(int* a1) {
 	v3 = v1 - v2;
 	v72 = v3;
 	if (!dword_587000_154956) {
-		if (*(_DWORD*)&byte_5D4594[1193156] != 1)
+		if (dword_5d4594_1193156 != 1)
 			goto LABEL_9;
 		dword_587000_154960 = 0;
 		dword_587000_154956 = 1;
 		sub_481420();
 	}
-	if (*(_DWORD*)&byte_5D4594[1193156] == 1 && !dword_587000_154960 &&
+	if (dword_5d4594_1193156 == 1 && !dword_587000_154960 &&
 	    !(*(_DWORD*)&byte_5D4594[2598000] % 0x1Eu) && !sub_482570(a1)) {
-		*(_DWORD*)&byte_5D4594[1193156] = 0;
+		dword_5d4594_1193156 = 0;
 		dword_587000_154956 = dword_587000_154960;
 		sub_481420();
 	}
