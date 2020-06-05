@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "selcolor.h"
+extern _DWORD dword_5d4594_1307736;
 
 //----- (004A4A20) --------------------------------------------------------
 int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
@@ -37,7 +38,7 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
 	v7 = v6;
 	if (v6 >= 601 && v6 <= 603) {
 		sub_46ABB0(*(int*)&byte_5D4594[1307728], 1);
-		v8 = sub_46B0C0(*(_DWORD**)&byte_5D4594[1307736], 605);
+		v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 605);
 		*(_BYTE*)(*(_DWORD*)&byte_5D4594[1307724] + 66) = v7 - 89;
 		v9 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * (unsigned __int8)(v7 - 89) + 170208], 0,
 					   "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 279);
