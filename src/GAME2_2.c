@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_154968;
 extern _DWORD dword_5d4594_1193624;
 extern _DWORD dword_5d4594_1193664;
 extern _DWORD dword_5d4594_1193524;
@@ -9854,9 +9855,9 @@ int __cdecl sub_484450(int a1, int a2) {
 //----- (00484BA0) --------------------------------------------------------
 void __cdecl sub_484BA0(float a1) {
 	if (a1 >= 1.0)
-		*(float*)&byte_587000[154968] = a1;
+		*(float*)&dword_587000_154968 = a1;
 	else
-		*(_DWORD*)&byte_587000[154968] = 1065353216;
+		dword_587000_154968 = 1065353216;
 }
 
 //----- (00484BE0) --------------------------------------------------------
@@ -9894,14 +9895,14 @@ __int64 __cdecl sub_484C30(int a1, int a2) {
 int __cdecl sub_484C60(float a1) {
 	double v2; // st7
 
-	if (a1 <= (double)*(float*)&byte_587000[154968])
+	if (a1 <= (double)*(float*)&dword_587000_154968)
 		return 0;
 	if (a1 <= 31.0)
 		v2 = a1;
 	else
 		v2 = 31.0;
 	return nox_double2int(sqrt(
-	    ((*(float*)&byte_587000[154980] + v2) / (*(float*)&byte_587000[154980] + *(float*)&byte_587000[154968]) +
+	    ((*(float*)&byte_587000[154980] + v2) / (*(float*)&byte_587000[154980] + *(float*)&dword_587000_154968) +
 	     1.0) *
 	    (a1 * a1 / (*(float*)&byte_587000[154976] * *(float*)&byte_587000[154972]))));
 }
