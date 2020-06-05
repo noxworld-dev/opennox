@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1062452;
 extern _DWORD dword_5d4594_1096496;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_1062468;
@@ -1911,14 +1912,14 @@ int sub_465E00() {
 	*(_DWORD*)&byte_5D4594[1049768] = nox_win_height;
 	*(_DWORD*)&byte_5D4594[1049748] = 0;
 	*(_DWORD*)&byte_5D4594[1049752] = 0;
-	*(_DWORD*)&byte_5D4594[1062452] = nox_window_new(0, 552, 0, 0, 563, 264, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1062452], 0, sub_4661C0, 0);
-	v0 = nox_window_new(*(int*)&byte_5D4594[1062452], 8, 0, 224, nox_win_width, 40, 0);
+	dword_5d4594_1062452 = nox_window_new(0, 552, 0, 0, 563, 264, 0);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1062452, 0, sub_4661C0, 0);
+	v0 = nox_window_new(*(int*)&dword_5d4594_1062452, 8, 0, 224, nox_win_width, 40, 0);
 	nox_window_set_all_funcs(v0, sub_464BA0, sub_4661C0, sub_4667E0);
-	dword_5d4594_1062456 = nox_window_new(*(int*)&byte_5D4594[1062452], 40, 0, 0, 563, 224, sub_466220);
+	dword_5d4594_1062456 = nox_window_new(*(int*)&dword_5d4594_1062452, 40, 0, 0, 563, 224, sub_466220);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1062456, sub_464BD0, sub_463430, sub_466620);
 	*(_DWORD*)(dword_5d4594_1062456 + 44) |= 0x100u;
-	*(_DWORD*)&byte_5D4594[1062472] = nox_window_new(*(int*)&byte_5D4594[1062452], 40, 0, 0, 1, 1, 0);
+	*(_DWORD*)&byte_5D4594[1062472] = nox_window_new(*(int*)&dword_5d4594_1062452, 40, 0, 0, 1, 1, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1062472], sub_464BD0, sub_4661C0, 0);
 	dword_5d4594_1062468 = nox_window_new(*(int*)&dword_5d4594_1062456, 40, 173, 174, 50, 50, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1062468, sub_464770, sub_4625D0, sub_4661D0);
@@ -2650,7 +2651,7 @@ void sub_467680() {
 }
 
 //----- (004676A0) --------------------------------------------------------
-int sub_4676A0() { return *(_DWORD*)&byte_5D4594[1062452]; }
+int sub_4676A0() { return dword_5d4594_1062452; }
 
 //----- (004676B0) --------------------------------------------------------
 char* sub_4676B0() { return (char*)&byte_587000[136384]; }
@@ -3008,7 +3009,7 @@ int sub_467CD0() {
 		v0 = 1;
 	}
 	v5 = sub_46AE00();
-	if (nox_window_is_child(*(int*)&byte_5D4594[1062452], v5) == 1) {
+	if (nox_window_is_child(*(int*)&dword_5d4594_1062452, v5) == 1) {
 		v6 = sub_46AE00();
 		sub_46ADE0(v6);
 	}
