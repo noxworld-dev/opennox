@@ -1,5 +1,6 @@
 #include "auddiag.h"
 #include "../../proto.h"
+extern _DWORD dword_587000_122848;
 extern _DWORD dword_5d4594_830864;
 extern _DWORD dword_5d4594_830872;
 
@@ -9,7 +10,7 @@ int sub_44D810() {
 
 	if (!*(unsigned int*)&byte_5D4594[831076]) {
 		*(unsigned int*)&byte_5D4594[831092] = sub_43F130();
-		*(unsigned int*)&byte_587000[122848] = *(unsigned int*)&byte_5D4594[831092] != 0;
+		*(unsigned int*)&dword_587000_122848 = *(unsigned int*)&byte_5D4594[831092] != 0;
 		sub_4864A0(&byte_5D4594[830876]);
 		sub_486380(&byte_5D4594[830876], 0x1F4u, 0, 0x4000);
 		*(unsigned int*)&dword_5d4594_830864 = 0;
