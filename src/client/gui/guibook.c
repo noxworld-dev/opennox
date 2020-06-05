@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1046636;
 extern _DWORD dword_5d4594_1046928;
 extern _DWORD dword_5d4594_1047512;
 extern _DWORD dword_5d4594_1046656;
@@ -459,16 +460,16 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 	else
 		v9 = sub_424A90(*(int*)&byte_5D4594[1047524]);
 	nox_client_drawImageAt_47D2C0(v9, v21, v22);
-	*(float*)&byte_5D4594[1046636] = *(float*)&byte_5D4594[1046636] + *(float*)&byte_5D4594[1046620];
+	*(float*)&dword_5d4594_1046636 = *(float*)&dword_5d4594_1046636 + *(float*)&byte_5D4594[1046620];
 	*(float*)&byte_5D4594[1046640] = *(float*)&byte_5D4594[1046640] + *(float*)&byte_5D4594[1046624];
-	if ((double)*(int*)&byte_5D4594[1046668] <= *(float*)&byte_5D4594[1046636] &&
+	if ((double)*(int*)&byte_5D4594[1046668] <= *(float*)&dword_5d4594_1046636 &&
 	    (double)*(int*)&byte_5D4594[1046672] <= *(float*)&byte_5D4594[1046640]) {
 	LABEL_26:
 		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&byte_5D4594[1047524], *(int*)&byte_5D4594[1046852]);
 		sub_45D810();
 		goto LABEL_27;
 	}
-	if (*(float*)&byte_5D4594[1046636] >
+	if (*(float*)&dword_5d4594_1046636 >
 	    (double)*(float*)&byte_5D4594[8 * *(_DWORD*)&byte_5D4594[1046628] + 1046692]) {
 		v10 = *(_DWORD*)&byte_5D4594[1046628] + 1;
 		*(_DWORD*)&byte_5D4594[1046628] = v10;
@@ -496,7 +497,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 	}
 LABEL_27:
 	v23 = nox_float2int(*(float*)&byte_5D4594[1046640]);
-	v12 = nox_float2int(*(float*)&byte_5D4594[1046636]);
+	v12 = nox_float2int(*(float*)&dword_5d4594_1046636);
 	sub_46A9B0(a1, v12, v23);
 	return 1;
 }
@@ -517,9 +518,9 @@ int sub_45D870() {
 	result = dword_5d4594_1047520;
 	if (dword_5d4594_1047520) {
 		v1 = *(_DWORD*)&byte_5D4594[1046652] != 1 ? 0 : 3;
-		v9 = ((int)*(_DWORD*)&byte_5D4594[1046668] - nox_float2int(*(float*)&byte_5D4594[1046636])) / 50;
+		v9 = ((int)*(_DWORD*)&byte_5D4594[1046668] - nox_float2int(*(float*)&dword_5d4594_1046636)) / 50;
 		v10 = ((int)*(_DWORD*)&byte_5D4594[1046672] - nox_float2int(*(float*)&byte_5D4594[1046640])) / 50;
-		v3 = nox_float2int(*(float*)&byte_5D4594[1046636]);
+		v3 = nox_float2int(*(float*)&dword_5d4594_1046636);
 		v4 = nox_float2int(*(float*)&byte_5D4594[1046640]);
 		v5 = 50;
 		do {
