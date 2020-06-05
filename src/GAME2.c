@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831244;
 extern _DWORD dword_5d4594_831076;
 extern _DWORD dword_5d4594_1045552;
 extern _DWORD dword_5d4594_1049524;
@@ -1238,7 +1239,7 @@ int sub_44E3E0() {
 	*(_DWORD*)&byte_5D4594[831248] = 1;
 	if (dword_5d4594_831224) {
 		result = sub_44D900(*(int*)&byte_5D4594[831240], 100);
-		*(_DWORD*)&byte_5D4594[831244] = 1;
+		dword_5d4594_831244 = 1;
 	}
 	return result;
 }
@@ -1317,7 +1318,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 	}
 	nox_client_copyRect_49F6F0(0, 0, nox_backbuffer_width, nox_backbuffer_height);
 	if ((__int64)*(float*)&dword_5d4594_831276 <= *(int*)&byte_5D4594[831280] &&
-	    *(_DWORD*)&byte_5D4594[831244] == 1 && !sub_44D930() &&
+	    dword_5d4594_831244 == 1 && !sub_44D930() &&
 	    (unsigned __int64)(sub_416BB0() - *(_QWORD*)&byte_5D4594[831292]) > 0x3A98 &&
 	    (*(_DWORD*)&byte_5D4594[832488] == 1 || !(byte_5D4594[832472] & 5))) {
 		if (byte_5D4594[832472] & 2 && *(_DWORD*)&byte_5D4594[832480])
@@ -1372,7 +1373,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 
 	v3 = a1;
 	*(_DWORD*)&byte_5D4594[831260] = 1;
-	*(_DWORD*)&byte_5D4594[831244] = 1;
+	dword_5d4594_831244 = 1;
 	v14 = *(_DWORD*)&byte_5D4594[2618908];
 	*(_DWORD*)&byte_5D4594[832488] = 0;
 	*(_DWORD*)&byte_5D4594[832472] = 0;
@@ -1425,7 +1426,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		}
 		sub_446780();
 		*(_DWORD*)&byte_5D4594[831240] = 0;
-		*(_DWORD*)&byte_5D4594[831244] = 1;
+		dword_5d4594_831244 = 1;
 		dword_5d4594_831224 = 0;
 	} else {
 		v10 = 32 * (v3 + v4 + 10 * v4);
@@ -1474,7 +1475,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	sub_44DB30(v12, 1, sub_44E3E0);
 	result = dword_5d4594_831224;
 	if (dword_5d4594_831224)
-		*(_DWORD*)&byte_5D4594[831244] = 0;
+		dword_5d4594_831244 = 0;
 	return result;
 }
 
