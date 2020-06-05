@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1049996;
 extern _DWORD dword_5d4594_1062492;
 extern _DWORD dword_5d4594_1062496;
 extern _DWORD dword_587000_145668;
@@ -1396,7 +1397,7 @@ int __cdecl sub_463430(int a1) {
 			sub_46B080(*(_DWORD**)&dword_5d4594_1062528, 9105);
 			byte_5D4594[1049870] = 0;
 			sub_46AE60(*(int*)&dword_5d4594_1062524, *(int*)&byte_5D4594[1049992]);
-			sub_46AEC0(*(int*)&dword_5d4594_1062524, *(int*)&byte_5D4594[1049996]);
+			sub_46AEC0(*(int*)&dword_5d4594_1062524, *(int*)&dword_5d4594_1049996);
 			sub_46B080(*(_DWORD**)&dword_5d4594_1062524, 9107);
 			nox_window_set_hidden(*(int*)&dword_5d4594_1062468, 0);
 		}
@@ -2080,7 +2081,7 @@ int __cdecl sub_466220(int a1, int a2, int* a3, int a4) {
 			if (dword_5d4594_1049864 != 5) {
 				byte_5D4594[1049870] = 0;
 				sub_46AE60(*(int*)&dword_5d4594_1062524, *(int*)&byte_5D4594[1049992]);
-				sub_46AEC0(*(int*)&dword_5d4594_1062524, *(int*)&byte_5D4594[1049996]);
+				sub_46AEC0(*(int*)&dword_5d4594_1062524, *(int*)&dword_5d4594_1049996);
 				sub_46B080(*(_DWORD**)&dword_5d4594_1062524, 9107);
 				nox_window_set_hidden(*(int*)&dword_5d4594_1062468, 0);
 			}
@@ -2276,7 +2277,7 @@ int __cdecl sub_466C40(int a1) {
 	*(_DWORD*)&v5[48] = 0;
 	*(_DWORD*)&v5[32] = 0;
 	*(_DWORD*)&v5[40] = 0;
-	*(_DWORD*)&v5[56] = *(_DWORD*)&byte_5D4594[1049996];
+	*(_DWORD*)&v5[56] = dword_5d4594_1049996;
 	*(_DWORD*)&v5[60] = -5;
 	*(_DWORD*)&v5[64] = -186;
 	*(_DWORD*)&v5[16] = a1;
@@ -2410,7 +2411,7 @@ char* sub_467050() {
 	*(_DWORD*)&byte_5D4594[1049984] = sub_42F970("InventoryInventoryButtonLit");
 	*(_DWORD*)&byte_5D4594[1049988] = sub_42F970("InventoryDollButtonLit");
 	*(_DWORD*)&byte_5D4594[1049992] = sub_42F970("InventoryStatsButton");
-	*(_DWORD*)&byte_5D4594[1049996] = sub_42F970("InventoryStatsButtonLit");
+	dword_5d4594_1049996 = sub_42F970("InventoryStatsButtonLit");
 	*(_DWORD*)&byte_5D4594[1050000] = sub_42F970("GUIFist");
 	*(_DWORD*)&byte_5D4594[1050004] = sub_42F970("SharedKeyMode");
 	result = sub_42FA20("ExtraLives");
@@ -2862,7 +2863,7 @@ int sub_467980() {
 	sub_46B080(*(_DWORD**)&dword_5d4594_1062528, 9105);
 	byte_5D4594[1049870] = 0;
 	sub_46AE60(*(int*)&dword_5d4594_1062524, *(int*)&byte_5D4594[1049992]);
-	sub_46AEC0(*(int*)&dword_5d4594_1062524, *(int*)&byte_5D4594[1049996]);
+	sub_46AEC0(*(int*)&dword_5d4594_1062524, *(int*)&dword_5d4594_1049996);
 	sub_46B080(*(_DWORD**)&dword_5d4594_1062524, 9107);
 	return nox_window_set_hidden(*(int*)&dword_5d4594_1062468, 0);
 }
