@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487848;
 extern _DWORD dword_587000_312788;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_5d4594_2487984;
@@ -111,7 +112,7 @@ int __cdecl sub_52F8A0(float a1) {
 	v8 = *(_DWORD*)(v1 + 16);
 	*(_DWORD*)&byte_5D4594[2487844] = 0;
 	v9 = *(_DWORD*)&byte_587000[4 * v7 + 260380];
-	*(_DWORD*)&byte_5D4594[2487848] = 0;
+	dword_5d4594_2487848 = 0;
 	*(_DWORD*)&byte_5D4594[2487900] = v8;
 	*(_DWORD*)&byte_5D4594[2487852] = 0;
 	*(_DWORD*)&byte_5D4594[2487856] = 0;
@@ -171,13 +172,13 @@ int __cdecl sub_52F8A0(float a1) {
 			dword_5d4594_2487904 = v16 + 1;
 		}
 	}
-	if (*(_DWORD*)&byte_5D4594[2487848]) {
+	if (dword_5d4594_2487848) {
 		if (v9 > 3) {
 			dword_5d4594_2487908 = 0;
 			*(float*)&byte_5D4594[2487912] = v41 * v41;
 			v37 = v41 * 0.85000002;
-			sub_517F90((float2*)(*(_DWORD*)&byte_5D4594[2487848] + 56), v37, sub_52FF10,
-				   *(int*)&byte_5D4594[2487848]);
+			sub_517F90((float2*)(dword_5d4594_2487848 + 56), v37, sub_52FF10,
+				   *(int*)&dword_5d4594_2487848);
 			if (dword_5d4594_2487908) {
 				v17 = dword_5d4594_2487904;
 				*(_DWORD*)&byte_5D4594[4 * dword_5d4594_2487904 + 2487844] =
@@ -203,16 +204,16 @@ int __cdecl sub_52F8A0(float a1) {
 		}
 	}
 	sub_52FFD0(v1, *(_DWORD*)(v1 + 16), *(int*)&byte_5D4594[2487844]);
-	if (v9 > 1 && *(_DWORD*)&byte_5D4594[2487848])
-		sub_52FFD0(v1, *(int*)&byte_5D4594[2487844], *(int*)&byte_5D4594[2487848]);
+	if (v9 > 1 && dword_5d4594_2487848)
+		sub_52FFD0(v1, *(int*)&byte_5D4594[2487844], *(int*)&dword_5d4594_2487848);
 	v19 = *(_DWORD*)&byte_5D4594[2487852];
 	if (v9 > 2 && *(_DWORD*)&byte_5D4594[2487852]) {
 		sub_52FFD0(v1, *(int*)&byte_5D4594[2487844], *(int*)&byte_5D4594[2487852]);
 		v19 = *(_DWORD*)&byte_5D4594[2487852];
 	}
 	if (v9 > 3 && *(_DWORD*)&byte_5D4594[2487856]) {
-		if (*(_DWORD*)&byte_5D4594[2487848]) {
-			sub_52FFD0(v1, *(int*)&byte_5D4594[2487848], *(int*)&byte_5D4594[2487856]);
+		if (dword_5d4594_2487848) {
+			sub_52FFD0(v1, *(int*)&dword_5d4594_2487848, *(int*)&byte_5D4594[2487856]);
 		LABEL_54:
 			v19 = *(_DWORD*)&byte_5D4594[2487852];
 			goto LABEL_55;
@@ -225,7 +226,7 @@ int __cdecl sub_52F8A0(float a1) {
 LABEL_55:
 	if (v9 > 4) {
 		if (*(_DWORD*)&byte_5D4594[2487860]) {
-			if (v19 || (v19 = *(_DWORD*)&byte_5D4594[2487848]) != 0)
+			if (v19 || (v19 = dword_5d4594_2487848) != 0)
 				sub_52FFD0(v1, v19, *(int*)&byte_5D4594[2487860]);
 		}
 	}
