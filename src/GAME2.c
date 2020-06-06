@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045580;
 extern _DWORD dword_5d4594_1046548;
 extern _DWORD dword_5d4594_1046512;
 extern _DWORD dword_5d4594_1045548;
@@ -3658,7 +3659,7 @@ int __cdecl sub_4541D0(int a1) {
 	*(_DWORD*)&byte_5D4594[1045568] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10129);
 	*(_DWORD*)&byte_5D4594[1045572] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10131);
 	*(_DWORD*)&byte_5D4594[1045576] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10126);
-	*(_DWORD*)&byte_5D4594[1045580] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10128);
+	dword_5d4594_1045580 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10128);
 	dword_5d4594_1045584 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10130);
 	dword_5d4594_1045588 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10132);
 	dword_5d4594_1045552 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10123);
@@ -3935,12 +3936,12 @@ int __cdecl sub_454BA0(int a1, int a2, int* a3, int a4) {
 		case 10127:
 			v10 = sub_416630();
 			if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1045564] + 36) & 4) {
-				sub_46ABB0(*(int*)&byte_5D4594[1045580], 0);
+				sub_46ABB0(*(int*)&dword_5d4594_1045580, 0);
 				v10[1] |= 0xF0u;
 				return 0;
 			}
-			sub_46ABB0(*(int*)&byte_5D4594[1045580], 1);
-			v11 = (const wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1045580], 16413, 0, 0);
+			sub_46ABB0(*(int*)&dword_5d4594_1045580, 1);
+			v11 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045580, 16413, 0, 0);
 			if (!*v11)
 				goto LABEL_101;
 			v10[1] = v10[1] & 0xF | nox_wcstol(v11, 0, 10);
