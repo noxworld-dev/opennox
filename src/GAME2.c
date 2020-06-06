@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045544;
 extern _DWORD dword_5d4594_1045520;
 extern _DWORD dword_5d4594_831244;
 extern _DWORD dword_5d4594_831076;
@@ -3638,7 +3639,7 @@ int __cdecl sub_4541D0(int a1) {
 	dword_5d4594_1045528 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10105);
 	dword_5d4594_1045536 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10200);
 	*(_DWORD*)&byte_5D4594[1045540] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10111);
-	*(_DWORD*)&byte_5D4594[1045544] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10112);
+	dword_5d4594_1045544 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10112);
 	*(_DWORD*)&byte_5D4594[1045548] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10113);
 	*(_DWORD*)&byte_5D4594[1045556] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10104);
 	*(_DWORD*)&byte_5D4594[1045560] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10125);
@@ -3719,10 +3720,10 @@ int __cdecl sub_454A90(int a1, int a2) {
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1045540] + 4) & 8) {
 		v2 = (_WORD*)nox_window_call_field_94(*(int*)&byte_5D4594[1045540], 16413, 0, 0);
 		if (v2 && *v2) {
-			if (!(*(_BYTE*)(*(_DWORD*)&byte_5D4594[1045544] + 4) & 8))
-				sub_46ABB0(*(int*)&byte_5D4594[1045544], 1);
-		} else if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1045544] + 4) & 8) {
-			sub_46ABB0(*(int*)&byte_5D4594[1045544], 0);
+			if (!(*(_BYTE*)(dword_5d4594_1045544 + 4) & 8))
+				sub_46ABB0(*(int*)&dword_5d4594_1045544, 1);
+		} else if (*(_BYTE*)(dword_5d4594_1045544 + 4) & 8) {
+			sub_46ABB0(*(int*)&dword_5d4594_1045544, 0);
 		}
 	}
 	v3 = nox_window_call_field_94(*(int*)&byte_5D4594[1045596], 16404, 0, 0);
