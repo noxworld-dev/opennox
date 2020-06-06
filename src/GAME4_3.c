@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2488720;
 extern _DWORD dword_5d4594_2487932;
 extern _DWORD dword_5d4594_2489428;
 extern _DWORD dword_5d4594_2489420;
@@ -10226,7 +10227,7 @@ int __cdecl sub_53E7F0(int a1, int a2, int a3, int a4) {
 	if (!*(_DWORD*)&byte_5D4594[2488712]) {
 		*(_DWORD*)&byte_5D4594[2488712] = sub_4E3AA0((CHAR*)&byte_587000[279312]);
 		*(_DWORD*)&byte_5D4594[2488716] = sub_4E3AA0((CHAR*)&byte_587000[279328]);
-		*(_DWORD*)&byte_5D4594[2488720] = sub_4E3AA0((CHAR*)&byte_587000[279340]);
+		dword_5d4594_2488720 = sub_4E3AA0((CHAR*)&byte_587000[279340]);
 		*(_DWORD*)&byte_5D4594[2488724] = sub_4E3AA0((CHAR*)&byte_587000[279356]);
 	}
 	if (!nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) && sub_409F40(2) &&
@@ -10251,7 +10252,7 @@ int __cdecl sub_53E7F0(int a1, int a2, int a3, int a4) {
 		if (!v8) {
 			if (v7) {
 				LOWORD(v8) = *((_WORD*)v7 + 2);
-				if (v8 != *(_DWORD*)&byte_5D4594[2488720] && v8 != *(_DWORD*)&byte_5D4594[2488724] &&
+				if (v8 != dword_5d4594_2488720 && v8 != *(_DWORD*)&byte_5D4594[2488724] &&
 				    v8 != *(_DWORD*)&byte_5D4594[2488712] && v8 != *(_DWORD*)&byte_5D4594[2488716]) {
 					goto LABEL_40;
 				}
@@ -10277,10 +10278,10 @@ int __cdecl sub_53E7F0(int a1, int a2, int a3, int a4) {
 			}
 			v12 = (_DWORD*)v7[173];
 			v13 = *((unsigned __int16*)v7 + 2);
-			if ((unsigned __int16)v13 != *(_DWORD*)&byte_5D4594[2488720]) {
+			if ((unsigned __int16)v13 != dword_5d4594_2488720) {
 				if (v13 == *(_DWORD*)&byte_5D4594[2488724]) {
 					v16 = *(unsigned __int16*)(a2 + 4);
-					if ((unsigned __int16)v16 == *(_DWORD*)&byte_5D4594[2488720]) {
+					if ((unsigned __int16)v16 == dword_5d4594_2488720) {
 						for (j = 0; j < 4; ++j) {
 							if (*v12)
 								break;
