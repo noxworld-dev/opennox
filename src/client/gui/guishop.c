@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "guimsg.h"
+extern _DWORD dword_5d4594_1098456;
 extern _DWORD dword_5d4594_1098620;
 extern _DWORD dword_5d4594_1098596;
 extern _DWORD dword_5d4594_1098600;
@@ -113,7 +114,7 @@ wchar_t* __cdecl sub_478B10(int2* a1) {
 	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3806);
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
-	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1098456], a1->field_0, a1->field_4);
+	nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1098456, a1->field_0, a1->field_4);
 	result = *(wchar_t**)&dword_5d4594_1098596;
 	if (dword_5d4594_1098596 ||
 	    (result = loadString_sub_40F1D0((char*)&byte_587000[152740], *(_DWORD**)&dword_5d4594_1098596,
@@ -137,7 +138,7 @@ wchar_t* __cdecl sub_478BC0(int* a1) {
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
 	sub_434390(*(int*)&byte_5D4594[2523948]);
-	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1098456], *a1, a1[1]);
+	nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1098456, *a1, a1[1]);
 	result = *(wchar_t**)&dword_5d4594_1098600;
 	if (dword_5d4594_1098600 ||
 	    (result = loadString_sub_40F1D0((char*)&byte_587000[152796], *(_DWORD**)&dword_5d4594_1098600,
