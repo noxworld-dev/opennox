@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096272;
 extern _DWORD dword_587000_145548;
 extern _DWORD dword_5d4594_1096432;
 extern _DWORD dword_5d4594_1064300;
@@ -7425,7 +7426,7 @@ unsigned __int8* sub_472310() {
 	unsigned __int8* result; // eax
 
 	*(_WORD*)&byte_5D4594[1091384] = sub_467850(*(int*)&dword_5d4594_1096276);
-	*(_WORD*)&byte_5D4594[1090848] = sub_467850(*(int*)&byte_5D4594[1096272]);
+	*(_WORD*)&byte_5D4594[1090848] = sub_467850(*(int*)&dword_5d4594_1096272);
 	*(_WORD*)&byte_5D4594[1091384] = sub_467850(*(int*)&dword_5d4594_1096276);
 	*(_WORD*)&byte_5D4594[1090312] = sub_467850(*(int*)&byte_5D4594[1096268]);
 	if (*(_WORD*)&byte_5D4594[1090312]) {
