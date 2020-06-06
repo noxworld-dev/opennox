@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599644;
 extern _DWORD dword_5d4594_1599068;
 extern _DWORD dword_5d4594_3835392;
 extern _DWORD dword_5d4594_1569652;
@@ -8985,7 +8986,7 @@ int __cdecl sub_503830(int a1) {
 		return 0;
 	sub_503F40();
 	*(_DWORD*)&byte_5D4594[1599572] = -1;
-	*(_DWORD*)&byte_5D4594[1599644] = 0;
+	dword_5d4594_1599644 = 0;
 	sub_502DA0(*(char**)&dword_5d4594_1599588);
 	if (!sub_502E10(a1))
 		return 0;
@@ -9136,7 +9137,7 @@ int __cdecl sub_503B30(float2* a1) {
 							sub_5799C0();
 							sub_4DB030();
 							dword_5d4594_1599476 = 1;
-							if (*(_DWORD*)&byte_5D4594[1599644]) {
+							if (dword_5d4594_1599644) {
 								++*(_DWORD*)&byte_5D4594[3835308];
 								sub_542BF0(*(int*)&dword_5d4594_3835312, v8, v9);
 								v16.field_0 = v8;
@@ -10480,7 +10481,7 @@ int nox_server_mapRWScriptObject_505A40() {
 	sub_426A30();
 	v1 = sub_409E10();
 	nox_sprintf((char*)&byte_5D4594[3830188], "%s\\nc.obj", v1);
-	*(_DWORD*)&byte_5D4594[1599644] = 0;
+	dword_5d4594_1599644 = 0;
 	sub_426AC0_file3_fread(&v10, 2u);
 	if ((__int16)v10 < 1)
 		return 0;
@@ -10512,7 +10513,7 @@ int nox_server_mapRWScriptObject_505A40() {
 	if (!v5)
 		return 0;
 	sub_426AC0_file3_fread(&v9, 4u);
-	*(_DWORD*)&byte_5D4594[1599644] = v9;
+	dword_5d4594_1599644 = v9;
 	if (nox_common_gameFlags_check_40A5C0(0x400000)) {
 		for (i = 0; i < v9; ++i) {
 			sub_426AC0_file3_fread(&v8, 1u);
