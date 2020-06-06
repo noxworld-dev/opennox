@@ -1,6 +1,7 @@
 #include "magicdrw.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1313804;
 
 //----- (004B98A0) --------------------------------------------------------
 int __cdecl nox_thing_magic_draw(int* a1, int a2) {
@@ -13,10 +14,10 @@ int __cdecl nox_thing_magic_draw(int* a1, int a2) {
 	float v9; // [esp+0h] [ebp-1Ch]
 	int2 v10; // [esp+14h] [ebp-8h]
 
-	if (!*(_DWORD*)&byte_5D4594[1313804]) {
+	if (!dword_5d4594_1313804) {
 		*(_DWORD*)&byte_5D4594[1313808] = sub_4344A0(0, 200, 255);
 		*(_DWORD*)&byte_5D4594[1313812] = sub_4344A0(255, 255, 50);
-		*(_DWORD*)&byte_5D4594[1313804] = 1;
+		dword_5d4594_1313804 = 1;
 	}
 	v2 = *a1;
 	v3 = a1[1];
@@ -48,10 +49,10 @@ int __cdecl nox_thing_magic_missle_draw(int* a1, int a2) {
 	float v9; // [esp+0h] [ebp-1Ch]
 	int2 v10; // [esp+14h] [ebp-8h]
 
-	if (!*(_DWORD*)&byte_5D4594[1313804]) {
+	if (!dword_5d4594_1313804) {
 		*(_DWORD*)&byte_5D4594[1313808] = sub_4344A0(0, 200, 255);
 		*(_DWORD*)&byte_5D4594[1313812] = sub_4344A0(255, 255, 50);
-		*(_DWORD*)&byte_5D4594[1313804] = 1;
+		dword_5d4594_1313804 = 1;
 	}
 	v2 = *a1;
 	v3 = a1[1];
