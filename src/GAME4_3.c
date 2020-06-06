@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2488648;
 extern _DWORD dword_5d4594_3835360;
 extern _DWORD dword_5d4594_2488728;
 extern _DWORD dword_5d4594_2488644;
@@ -6001,15 +6002,15 @@ int __cdecl sub_537FA0(int a1, int a2, int a3, int a4, int a5) {
 			}
 			v12 = sub_500D70(v5, 5);
 			if (v12) {
-				if (!*(_DWORD*)&byte_5D4594[2488648])
-					*(_DWORD*)&byte_5D4594[2488648] = sub_4E3AA0((CHAR*)&byte_587000[277168]);
+				if (!dword_5d4594_2488648)
+					dword_5d4594_2488648 = sub_4E3AA0((CHAR*)&byte_587000[277168]);
 				v13 = a4;
 				sub_4ED970(50.0, (float2*)(a4 + 56), &v22);
 				if (v5)
-					v14 = sub_5016C0(*(int*)&byte_5D4594[2488648], (int*)&v22, v5,
+					v14 = sub_5016C0(*(int*)&dword_5d4594_2488648, (int*)&v22, v5,
 							 *(_BYTE*)(v5 + 124));
 				else
-					v14 = sub_5016C0(*(int*)&byte_5D4594[2488648], (int*)&v22, 0, 0);
+					v14 = sub_5016C0(*(int*)&dword_5d4594_2488648, (int*)&v22, 0, 0);
 				if (v14)
 					sub_4F3070((int)v14, v21, 1);
 				sub_501960(367, v13, 0, 0);
