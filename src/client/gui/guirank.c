@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
+extern _DWORD dword_5d4594_1084044;
 extern _DWORD dword_587000_145672;
 extern _DWORD dword_5d4594_1084040;
 extern _DWORD dword_5d4594_1090108;
@@ -154,7 +155,7 @@ int sub_46E870() {
 		v41 = v42;
 	}
 	v14 = 0;
-	*(_DWORD*)&byte_5D4594[1084044] = v13 + 7;
+	dword_5d4594_1084044 = v13 + 7;
 	v15 = &byte_5D4594[1084036];
 	do {
 		v16 = *(_DWORD*)v15;
@@ -208,17 +209,17 @@ int sub_46E870() {
 		*(_DWORD*)&byte_5D4594[4 * v17 + 1090076] =
 		    sub_4A4310(*(_DWORD*)&byte_5D4594[4 * v17 + 1090052], 1088,
 			       *(_DWORD*)&byte_5D4594[1084036] + dword_5d4594_1084040, v20,
-			       *(int*)&byte_5D4594[1084044], v27 - v19, (int)v49, (__int16*)v48);
+			       *(int*)&dword_5d4594_1084044, v27 - v19, (int)v49, (__int16*)v48);
 		v28 = sub_4A4310(
 		    *(_DWORD*)&byte_5D4594[4 * v17 + 1090052], 1088,
-		    *(_DWORD*)&byte_5D4594[1084036] + dword_5d4594_1084040 + *(_DWORD*)&byte_5D4594[1084044],
+		    *(_DWORD*)&byte_5D4594[1084036] + dword_5d4594_1084040 + dword_5d4594_1084044,
 		    v20, *(int*)&byte_5D4594[1084048], dword_5d4594_1090044 - v19, (int)v49, (__int16*)v48);
 		v29 = dword_5d4594_1090044;
 		*(_DWORD*)&byte_5D4594[4 * v17 + 1090084] = v28;
 		*(_DWORD*)&byte_5D4594[4 * v17 + 1090092] =
 		    sub_4A4310(*(_DWORD*)&byte_5D4594[4 * v17 + 1090052], 1088,
 			       *(_DWORD*)&byte_5D4594[1084036] + dword_5d4594_1084040 +
-				   *(_DWORD*)&byte_5D4594[1084048] + *(_DWORD*)&byte_5D4594[1084044],
+				   *(_DWORD*)&byte_5D4594[1084048] + dword_5d4594_1084044,
 			       v20, *(int*)&byte_5D4594[1084052], v29 - v19, (int)v49, (__int16*)v48);
 		sub_46B2C0(*(_DWORD*)&byte_5D4594[4 * v17 + 1090052], sub_46F070);
 		sub_46B120(*(_DWORD**)&byte_5D4594[4 * v17 + 1090060], *(_DWORD*)&byte_5D4594[4 * v17 + 1090052]);
