@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2489160;
 extern _DWORD dword_5d4594_2487992;
 extern _DWORD dword_5d4594_2488720;
 extern _DWORD dword_5d4594_2487932;
@@ -11979,16 +11980,16 @@ int __cdecl sub_5411A0(int a3) {
 	if (!(v2 & 0x1000))
 		return 0;
 	v6 = nox_common_gameFlags_check_40A5C0(4096);
-	*(_DWORD*)&byte_5D4594[2489160] = 0;
+	dword_5d4594_2489160 = 0;
 	v7 = (double)(v6 ? 640 : 250);
 	a1.field_0 = *(float*)(a3 + 56) - v7;
 	a1.field_4 = *(float*)(a3 + 60) - v7;
 	a1.field_8 = v7 + *(float*)(a3 + 56);
 	a1.field_C = v7 + *(float*)(a3 + 60);
 	sub_517C10(&a1, sub_5412A0, a3);
-	if (!*(_DWORD*)&byte_5D4594[2489160])
+	if (!dword_5d4594_2489160)
 		return 0;
-	sub_540A30(a3, 41, *(int*)&byte_5D4594[2489160]);
+	sub_540A30(a3, 41, *(int*)&dword_5d4594_2489160);
 	return 1;
 }
 
@@ -12003,7 +12004,7 @@ void __cdecl sub_5412A0(float* a1, int a2) {
 				if (sub_5370E0(a2, (int)a1, 0)) {
 					if (**((_WORD**)a1 + 139) <
 					    (unsigned int)(*(_WORD*)(*((_DWORD*)a1 + 139) + 4) >> 1))
-						*(_DWORD*)&byte_5D4594[2489160] = a1;
+						dword_5d4594_2489160 = a1;
 				}
 			}
 		}
