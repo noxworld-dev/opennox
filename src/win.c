@@ -12,6 +12,7 @@ HWND g_hwnd;
 #endif
 DWORD dword_974854;
 int g_fullscreen = -4; // -4 means "unset"
+extern _DWORD dword_5d4594_371712;
 extern _DWORD dword_5d4594_805860;
 extern _DWORD dword_5d4594_823776;
 extern int nox_video_dxFullScreen;
@@ -383,11 +384,11 @@ int sub_416A10() {
 	HWND v0;    // esi
 	int result; // eax
 	HWND v2;    // eax
-	*(_DWORD*)&byte_5D4594[371712] = CreateMutexA(0, 0, "843ED62B-354B-11d3-8F70-0060089C05B1");
+	dword_5d4594_371712 = CreateMutexA(0, 0, "843ED62B-354B-11d3-8F70-0060089C05B1");
 	if (GetLastError() == 183) {
-		if (*(_DWORD*)&byte_5D4594[371712]) {
-			CloseHandle(*(HANDLE*)&byte_5D4594[371712]);
-			*(_DWORD*)&byte_5D4594[371712] = 0;
+		if (dword_5d4594_371712) {
+			CloseHandle(*(HANDLE*)&dword_5d4594_371712);
+			dword_5d4594_371712 = 0;
 		}
 		v0 = FindWindowA("Nox Game Window", 0);
 		if (v0 || (v0 = FindWindowA("NOX Setup", 0)) != 0) {
@@ -406,9 +407,9 @@ int sub_416A10() {
 				CloseHandle(*(HANDLE*)&byte_5D4594[371708]);
 				*(_DWORD*)&byte_5D4594[371708] = 0;
 			}
-			if (*(_DWORD*)&byte_5D4594[371712]) {
-				CloseHandle(*(HANDLE*)&byte_5D4594[371712]);
-				*(_DWORD*)&byte_5D4594[371712] = 0;
+			if (dword_5d4594_371712) {
+				CloseHandle(*(HANDLE*)&dword_5d4594_371712);
+				dword_5d4594_371712 = 0;
 			}
 			result = 0;
 		} else {
@@ -423,10 +424,10 @@ int sub_416A10() {
 HANDLE sub_416B00() {
 	HANDLE result; // eax
 
-	result = *(HANDLE*)&byte_5D4594[371712];
-	if (*(_DWORD*)&byte_5D4594[371712]) {
-		result = (HANDLE)CloseHandle(*(HANDLE*)&byte_5D4594[371712]);
-		*(_DWORD*)&byte_5D4594[371712] = 0;
+	result = *(HANDLE*)&dword_5d4594_371712;
+	if (dword_5d4594_371712) {
+		result = (HANDLE)CloseHandle(*(HANDLE*)&dword_5d4594_371712);
+		dword_5d4594_371712 = 0;
 	}
 	return result;
 }
