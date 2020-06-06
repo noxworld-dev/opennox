@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1062552;
 extern _DWORD dword_5d4594_1049844;
 extern _DWORD dword_5d4594_1090180;
 extern _DWORD dword_5d4594_1050008;
@@ -1471,7 +1472,7 @@ int __cdecl sub_4643B0(int a1, int a2) {
 
 	v2 = a2;
 	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1049928], a1, a2);
-	_itow(*(int*)&byte_5D4594[1062552], WideCharStr, 10);
+	_itow(*(int*)&dword_5d4594_1062552, WideCharStr, 10);
 	sub_434390(*(int*)&byte_5D4594[2589772]);
 	sub_43F840(*(int*)&dword_5d4594_1063636, WideCharStr, &v24, 0, 0);
 	sub_43F6E0(*(int*)&dword_5d4594_1063636, (__int16*)WideCharStr, a1 - v24 + 43, a2 + 36);
@@ -2575,12 +2576,12 @@ int __cdecl sub_467490(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1062552] = a1;
+	dword_5d4594_1062552 = a1;
 	return result;
 }
 
 //----- (004674A0) --------------------------------------------------------
-int sub_4674A0() { return *(_DWORD*)&byte_5D4594[1062552]; }
+int sub_4674A0() { return dword_5d4594_1062552; }
 
 //----- (004674B0) --------------------------------------------------------
 void __cdecl nox_window_set_visible_unk5(int visible) {
@@ -2877,7 +2878,7 @@ int sub_467980() {
 	*(_DWORD*)&byte_5D4594[1062540] = 0;
 	*(_DWORD*)&byte_5D4594[1062544] = 0;
 	*(_DWORD*)&byte_5D4594[1062548] = 0;
-	*(_DWORD*)&byte_5D4594[1062552] = 0;
+	dword_5d4594_1062552 = 0;
 	sub_472310();
 	dword_587000_136184 = -225;
 	byte_5D4594[1049868] = 0;
