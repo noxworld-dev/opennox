@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1556144;
 extern _DWORD dword_5d4594_2386164;
 extern _DWORD dword_5d4594_1569660;
 extern _DWORD dword_5d4594_1568300;
@@ -577,7 +578,7 @@ int __cdecl sub_4D7140(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1556144] = a1;
+	dword_5d4594_1556144 = a1;
 	return result;
 }
 
