@@ -1,6 +1,7 @@
 #include "speltree.h"
 
 #include "../../proto.h"
+extern _DWORD dword_587000_66120;
 
 //----- (00424460) --------------------------------------------------------
 int __cdecl sub_424460(int a1, void* a2) {
@@ -70,7 +71,7 @@ int __cdecl sub_424460(int a1, void* a2) {
 	v9 = *v8;
 	*(_DWORD*)(a1 + 8) = v8 + 1;
 	v6[61] = v9;
-	v10 = *(int**)&byte_587000[66120];
+	v10 = *(int**)&dword_587000_66120;
 	v42 = v9;
 	if ((int)v9 > 0) {
 		do {
