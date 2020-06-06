@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "guimsg.h"
+extern _DWORD dword_5d4594_1098620;
 extern _DWORD dword_5d4594_1098596;
 extern _DWORD dword_5d4594_1098600;
 extern _DWORD dword_5d4594_1098616;
@@ -244,7 +245,7 @@ void __cdecl sub_479740(int a1, unsigned int a2) {
 	v2 = 0;
 	v3 = nox_client_getMousePos_4309F0();
 	v10 = sub_4674A0();
-	if (*(_DWORD*)&byte_5D4594[1098620] != 1) {
+	if (dword_5d4594_1098620 != 1) {
 		v4 = sub_4676D0(a1);
 		v5 = v4;
 		if (v4) {
@@ -261,7 +262,7 @@ void __cdecl sub_479740(int a1, unsigned int a2) {
 				v6 = loadString_sub_40F1D0((char*)&byte_587000[153424], 0,
 							   "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1580);
 				sub_4C0430((int)v6, v7, v8, a1, v9, v2, 1, 0, sub_479820, sub_479810);
-				*(_DWORD*)&byte_5D4594[1098620] = 1;
+				dword_5d4594_1098620 = 1;
 			}
 		}
 	}
