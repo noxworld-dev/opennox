@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_108752;
 extern _DWORD dword_5d4594_1309772;
 extern _DWORD dword_5d4594_1308148;
 extern _DWORD dword_5d4594_3798708;
@@ -5946,7 +5947,7 @@ int __cdecl sub_4AD5D0(int a1, int a2, int* a3, int a4) {
 			result = 0;
 			break;
 		case 10302:
-			*(_DWORD*)&byte_587000[108752] ^= 1u;
+			dword_587000_108752 ^= 1u;
 			result = 0;
 			break;
 		case 10304:
