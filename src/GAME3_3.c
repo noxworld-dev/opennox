@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1568308;
 extern _DWORD dword_5d4594_1567988;
 extern _DWORD dword_5d4594_1565628;
 extern _DWORD dword_5d4594_1565632;
@@ -12470,9 +12471,9 @@ int __cdecl sub_4F2960(int a1) {
 	int v16;              // [esp+10h] [ebp-4h]
 
 	v16 = *(_DWORD*)(a1 + 692);
-	if (!*(_DWORD*)&byte_5D4594[1568308]) {
+	if (!dword_5d4594_1568308) {
 		v1 = sub_413290("Replenishment1");
-		*(_DWORD*)&byte_5D4594[1568308] = sub_413330(v1);
+		dword_5d4594_1568308 = sub_413330(v1);
 		v2 = sub_413290("Replenishment2");
 		*(_DWORD*)&byte_5D4594[1568312] = sub_413330(v2);
 		v3 = sub_413290("Replenishment3");
@@ -12510,14 +12511,14 @@ int __cdecl sub_4F2960(int a1) {
 		v9 = &byte_587000[24 * v10 + 209336];
 		if (!v9) {
 		LABEL_18:
-			if (v7 == *(_DWORD*)&byte_5D4594[1568308])
+			if (v7 == dword_5d4594_1568308)
 				break;
 			if (v7 != *(_DWORD*)&byte_5D4594[1568312] && v7 != *(_DWORD*)&byte_5D4594[1568316] &&
 			    v7 != *(_DWORD*)&byte_5D4594[1568320]) {
 				return 0;
 			}
 		}
-		if (v7 == *(_DWORD*)&byte_5D4594[1568308] || v7 == *(_DWORD*)&byte_5D4594[1568312] ||
+		if (v7 == dword_5d4594_1568308 || v7 == *(_DWORD*)&byte_5D4594[1568312] ||
 		    v7 == *(_DWORD*)&byte_5D4594[1568316] || v7 == *(_DWORD*)&byte_5D4594[1568320]) {
 			break;
 		}
