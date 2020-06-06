@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487536;
 extern _DWORD dword_5d4594_2487628;
 extern _DWORD dword_5d4594_2487584;
 extern _DWORD dword_5d4594_2487564;
@@ -2309,8 +2310,8 @@ int __cdecl sub_520E60(int2* a1) {
 	int v2;     // ecx
 	int result; // eax
 
-	v1 = *(_DWORD*)&byte_5D4594[2487536] + a1->field_0;
-	v2 = *(_DWORD*)&byte_5D4594[2487536] + a1->field_4;
+	v1 = dword_5d4594_2487536 + a1->field_0;
+	v2 = dword_5d4594_2487536 + a1->field_4;
 	if (v1 < 0 || v1 >= *(int*)&dword_5d4594_2487540 || v2 < 0 || v2 >= *(int*)&dword_5d4594_2487540)
 		result = 0;
 	else
@@ -2328,7 +2329,7 @@ int __cdecl sub_520EA0(int a1) {
 	int v7; // ebx
 
 	dword_5d4594_2487540 = 2 * *(_DWORD*)(a1 + 68) + 1;
-	*(_DWORD*)&byte_5D4594[2487536] = *(_DWORD*)(a1 + 68);
+	dword_5d4594_2487536 = *(_DWORD*)(a1 + 68);
 	dword_5d4594_2487532 = nox_malloc(4 * dword_5d4594_2487540);
 	if (!dword_5d4594_2487532)
 		return 0;
@@ -2350,9 +2351,9 @@ int __cdecl sub_520EA0(int a1) {
 			if (v2 > 0) {
 				do {
 					*(_DWORD*)(*(_DWORD*)(dword_5d4594_2487532 + 4 * v6) + v5 + 4) =
-					    v6 - *(_DWORD*)&byte_5D4594[2487536];
+					    v6 - dword_5d4594_2487536;
 					v7 = *(_DWORD*)(dword_5d4594_2487532 + 4 * v6++);
-					*(_DWORD*)(v7 + v5 + 8) = v4 - *(_DWORD*)&byte_5D4594[2487536];
+					*(_DWORD*)(v7 + v5 + 8) = v4 - dword_5d4594_2487536;
 					*(_DWORD*)(*(_DWORD*)(dword_5d4594_2487532 + 4 * v6 - 4) + v5 + 16) =
 					    0;
 					v2 = dword_5d4594_2487540;
