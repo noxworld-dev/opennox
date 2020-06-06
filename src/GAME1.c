@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_527656;
 extern _DWORD dword_5d4594_251728;
 extern _DWORD dword_5d4594_251480;
 extern _DWORD dword_5d4594_3592;
@@ -11811,14 +11812,14 @@ int __cdecl sub_417F50(int a1) {
 	int i;      // edi
 	float v10;  // [esp+0h] [ebp-14h]
 
-	if (!*(_DWORD*)&byte_5D4594[527656])
-		*(_DWORD*)&byte_5D4594[527656] = sub_4E3AA0((CHAR*)&byte_587000[55172]);
+	if (!dword_5d4594_527656)
+		dword_5d4594_527656 = sub_4E3AA0((CHAR*)&byte_587000[55172]);
 	v1 = 0;
 	v2 = sub_4DA790();
 	if (!v2)
 		return 0;
 	do {
-		if (*(unsigned __int16*)(v2 + 4) == *(_DWORD*)&byte_5D4594[527656])
+		if (*(unsigned __int16*)(v2 + 4) == dword_5d4594_527656)
 			++v1;
 		v2 = sub_4DA7A0(v2);
 	} while (v2);
@@ -11828,7 +11829,7 @@ int __cdecl sub_417F50(int a1) {
 	v4 = sub_4DA790();
 	if (!v4)
 		return 0;
-	while (*(unsigned __int16*)(v4 + 4) != *(_DWORD*)&byte_5D4594[527656]) {
+	while (*(unsigned __int16*)(v4 + 4) != dword_5d4594_527656) {
 	LABEL_12:
 		v4 = sub_4DA7A0(v4);
 		if (!v4)
