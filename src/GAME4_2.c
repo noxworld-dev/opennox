@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487804;
 extern _DWORD dword_5d4594_2487632;
 extern _DWORD dword_5d4594_3835364;
 extern _DWORD dword_5d4594_2487884;
@@ -11453,10 +11454,10 @@ int __cdecl sub_52D9D0(int a1, int a2, int a3, int a4, int a5, int a6) {
 	float v23;   // [esp+0h] [ebp-24h]
 	float4 v24;  // [esp+14h] [ebp-10h]
 
-	v6 = *(_DWORD*)&byte_5D4594[2487804];
-	if (!*(_DWORD*)&byte_5D4594[2487804]) {
+	v6 = dword_5d4594_2487804;
+	if (!dword_5d4594_2487804) {
 		v6 = sub_4E3AA0((CHAR*)&byte_587000[260136]);
-		*(_DWORD*)&byte_5D4594[2487804] = v6;
+		dword_5d4594_2487804 = v6;
 	}
 	v7 = *(_DWORD*)(a3 + 516);
 	if (v7) {
@@ -11481,7 +11482,7 @@ int __cdecl sub_52D9D0(int a1, int a2, int a3, int a4, int a5, int a6) {
 		v24.field_C = v13;
 		v14 = nox_common_gameFlags_check_40A5C0(2048);
 		if (sub_535250(&v24, 0, 0, !v14 ? 73 : 9)) {
-			v17 = sub_4E3450(*(int*)&byte_5D4594[2487804]);
+			v17 = sub_4E3450(*(int*)&dword_5d4594_2487804);
 			v18 = (int)v17;
 			if (v17) {
 				v19 = (int*)v17[187];
