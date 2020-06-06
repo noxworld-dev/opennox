@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1563320;
 extern _DWORD dword_587000_201380;
 extern _DWORD dword_5d4594_1568308;
 extern _DWORD dword_5d4594_1567988;
@@ -176,15 +177,15 @@ int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a
 	}
 	if (!a2)
 		goto LABEL_120;
-	v17 = *(_DWORD*)&byte_5D4594[1563320];
-	if (!*(_DWORD*)&byte_5D4594[1563320]) {
-		*(_DWORD*)&byte_5D4594[1563320] = sub_4E3AA0((CHAR*)&byte_587000[201156]);
+	v17 = dword_5d4594_1563320;
+	if (!dword_5d4594_1563320) {
+		dword_5d4594_1563320 = sub_4E3AA0((CHAR*)&byte_587000[201156]);
 		*(_DWORD*)&byte_5D4594[1563324] = sub_4E3AA0((CHAR*)&byte_587000[201168]);
 		*(_DWORD*)&byte_5D4594[1563328] = sub_4E3AA0((CHAR*)&byte_587000[201180]);
 		*(_DWORD*)&byte_5D4594[1563332] = sub_4E3AA0((CHAR*)&byte_587000[201192]);
 		*(_DWORD*)&byte_5D4594[1563336] = sub_4E3AA0((CHAR*)&byte_587000[201200]);
 		v18 = sub_4E3AA0((CHAR*)&byte_587000[201212]);
-		v17 = *(_DWORD*)&byte_5D4594[1563320];
+		v17 = dword_5d4594_1563320;
 		*(_DWORD*)&byte_5D4594[1563340] = v18;
 	}
 	v19 = a3;
