@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_811904;
 extern _DWORD dword_5d4594_805988;
 extern _DWORD dword_5d4594_3805492;
 extern _DWORD dword_5d4594_805856;
@@ -8862,8 +8863,8 @@ int sub_435F40() {
 int sub_435F60() {
 	int result; // eax
 
-	result = 1 - *(_DWORD*)&byte_5D4594[811904];
-	*(_DWORD*)&byte_5D4594[811904] = 1 - *(_DWORD*)&byte_5D4594[811904];
+	result = 1 - dword_5d4594_811904;
+	dword_5d4594_811904 = 1 - dword_5d4594_811904;
 	return result;
 }
 
