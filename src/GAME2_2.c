@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_151528;
 extern _DWORD dword_5d4594_1123520;
 extern _DWORD dword_5d4594_1193188;
 extern _DWORD dword_5d4594_1097196;
@@ -1240,7 +1241,7 @@ int __cdecl nox_client_setCursorType_477610(int a1) {
 int nox_client_getCursorType_477620() { return nox_client_mouseCursorType; }
 
 //----- (00477630) --------------------------------------------------------
-int sub_477630() { return *(_DWORD*)&byte_587000[151528]; }
+int sub_477630() { return dword_587000_151528; }
 
 //----- (00477640) --------------------------------------------------------
 int __cdecl sub_477640(int a1, int a2) {
