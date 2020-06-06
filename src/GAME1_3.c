@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815748;
 extern _DWORD dword_5d4594_830196;
 extern _DWORD dword_5d4594_830252;
 extern _DWORD dword_5d4594_830236;
@@ -792,9 +793,9 @@ int sub_43C650() {
 		*(_DWORD*)&byte_5D4594[8 * v1 + 815224] = HIDWORD(v0);
 	}
 	*(_QWORD*)&byte_5D4594[815756] = (__PAIR64__(*(unsigned int*)&byte_5D4594[815760], v1) + 1) % 0x3C;
-	result = *(_DWORD*)&byte_5D4594[815748] + 1;
+	result = dword_5d4594_815748 + 1;
 	*(_QWORD*)&byte_5D4594[815740] = v0;
-	++*(_DWORD*)&byte_5D4594[815748];
+	++dword_5d4594_815748;
 	return result;
 }
 
@@ -1122,8 +1123,8 @@ int sub_43CEB0() {
 	unsigned int v7;     // kr08_4
 	unsigned int v9;     // [esp+0h] [ebp-8h]
 
-	LODWORD(v0) = *(_DWORD*)&byte_5D4594[815748];
-	if (*(int*)&byte_5D4594[815748] >= 60)
+	LODWORD(v0) = dword_5d4594_815748;
+	if (*(int*)&dword_5d4594_815748 >= 60)
 		LODWORD(v0) = 60;
 	v1 = 0;
 	v2 = 0;
