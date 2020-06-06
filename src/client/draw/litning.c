@@ -1,6 +1,7 @@
 #include "litning.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1316456;
 extern _DWORD dword_587000_178216;
 extern _DWORD dword_5d4594_1316484;
 extern _DWORD dword_5d4594_1316472;
@@ -242,7 +243,7 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
 	HIWORD(v21) = v7->field_4;
 	if (a6) {
 		dword_5d4594_1316492 = 1;
-		dword_5d4594_1316472 = *(_DWORD*)&byte_5D4594[1316456];
+		dword_5d4594_1316472 = dword_5d4594_1316456;
 		*(_DWORD*)&byte_5D4594[1316508] = 0;
 		sub_4BB070((int)v22, (int)v21);
 		dword_5d4594_1316492 = 1;
@@ -321,7 +322,7 @@ int __cdecl nox_thing_lightning_draw(int* a1, int a2) {
     }
     *(_DWORD*)&byte_5D4594[1316452] = *(_DWORD*)&byte_5D4594[1316428];
     dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316464];
-    *(_DWORD*)&byte_5D4594[1316456] = *(_DWORD*)&byte_5D4594[1316424];
+    dword_5d4594_1316456 = *(_DWORD*)&byte_5D4594[1316424];
     dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316488];
     byte_5D4594[1316420] = 1;
     sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
@@ -393,7 +394,7 @@ int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, int a2) {
     }
     *(_DWORD*)&byte_5D4594[1316452] = *(_DWORD*)&byte_5D4594[1316428];
     dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316464];
-    *(_DWORD*)&byte_5D4594[1316456] = *(_DWORD*)&byte_5D4594[1316424];
+    dword_5d4594_1316456 = *(_DWORD*)&byte_5D4594[1316424];
     dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316488];
     byte_5D4594[1316420] = 1;
     sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
@@ -547,7 +548,7 @@ int __cdecl nox_thing_green_bolt_draw(int* a1, int a2) {
 	}
 	*(_DWORD*)&byte_5D4594[1316452] = *(_DWORD*)&byte_5D4594[1316444];
 	dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316504];
-	*(_DWORD*)&byte_5D4594[1316456] = *(_DWORD*)&byte_5D4594[1316460];
+	dword_5d4594_1316456 = *(_DWORD*)&byte_5D4594[1316460];
 	dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316480];
 	byte_5D4594[1316420] = 1;
 	sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
