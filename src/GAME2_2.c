@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_154944;
 extern _DWORD dword_5d4594_1096636;
 extern _DWORD dword_5d4594_1097216;
 extern _DWORD dword_5d4594_3799500;
@@ -6769,10 +6770,10 @@ int sub_481420() {
 	result = dword_587000_154956;
 	if (dword_587000_154956) {
 		dword_587000_154940 = sub_4815E0;
-		*(_DWORD*)&byte_587000[154944] = sub_481900;
+		dword_587000_154944 = sub_481900;
 	} else {
 		dword_587000_154940 = sub_481770;
-		*(_DWORD*)&byte_587000[154944] = nullsub_8;
+		dword_587000_154944 = nullsub_8;
 	}
 	dword_5d4594_1193188 = 1;
 	return result;
@@ -7099,7 +7100,7 @@ void __cdecl sub_481BF0(int a1, int a2) {
 	int i; // esi
 
 	for (i = a2; i; i = *(_DWORD*)(i + 16))
-		(*(int(__cdecl**)(int, int)) & byte_587000[154944])(a1, i);
+		(*(int(__cdecl**)(int, int)) & dword_587000_154944)(a1, i);
 }
 // 5ACD40: invalid function type has been ignored
 
