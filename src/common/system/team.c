@@ -3,6 +3,7 @@
 #include "../../client/gui/guimsg.h"
 #include "../../client/gui/servopts/guiserv.h"
 #include "../../proto.h"
+extern _DWORD dword_5d4594_527660;
 
 //----- (00417C60) --------------------------------------------------------
 int sub_417C60() {
@@ -139,10 +140,10 @@ char* __cdecl sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 	char* v23;        // [esp+Ch] [ebp-104h]
 	wchar_t v24[128]; // [esp+10h] [ebp-100h]
 
-	result = *(char**)&byte_5D4594[527660];
-	if (!*(_DWORD*)&byte_5D4594[527660]) {
+	result = *(char**)&dword_5d4594_527660;
+	if (!dword_5d4594_527660) {
 		result = (char*)sub_4E3AA0((CHAR*)&byte_587000[55500]);
-		*(_DWORD*)&byte_5D4594[527660] = result;
+		dword_5d4594_527660 = result;
 	}
 	if (a2) {
 		v6 = sub_418AB0(a1);
@@ -191,7 +192,7 @@ char* __cdecl sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 					}
 				}
 				if (a3 && v7 &&
-				    (v8 || *(unsigned __int16*)(v7 + 4) == *(_DWORD*)&byte_5D4594[527660])) {
+				    (v8 || *(unsigned __int16*)(v7 + 4) == dword_5d4594_527660)) {
 					v12 = *(_WORD*)(v7 + 4);
 					v13 = (unsigned __int8)v6[57];
 					LOWORD(v21.field_0) = 452;
