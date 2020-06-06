@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1568300;
 extern _DWORD dword_5d4594_1548664;
 extern _DWORD dword_5d4594_1548480;
 extern _DWORD dword_5d4594_528260;
@@ -1152,8 +1153,8 @@ void sub_4F1F20() {
 	float2 a3;  // [esp+8h] [ebp-8h]
 
 	v9 = sub_4E3CC0();
-	if (!*(_DWORD*)&byte_5D4594[1568300]) {
-		*(_DWORD*)&byte_5D4594[1568300] = sub_4E3AA0((CHAR*)&byte_587000[214944]);
+	if (!dword_5d4594_1568300) {
+		dword_5d4594_1568300 = sub_4E3AA0((CHAR*)&byte_587000[214944]);
 		*(_DWORD*)&byte_5D4594[1568304] = sub_4E3AA0((CHAR*)&byte_587000[214960]);
 	}
 	sub_4F2110();
@@ -1163,7 +1164,7 @@ void sub_4F1F20() {
 		do {
 			v10 = sub_4DA7A0(v0);
 			v1 = *(unsigned __int16*)(v0 + 4);
-			if ((unsigned __int16)v1 == *(_DWORD*)&byte_5D4594[1568300] ||
+			if ((unsigned __int16)v1 == dword_5d4594_1568300 ||
 			    v1 == *(_DWORD*)&byte_5D4594[1568304]) {
 				if (*(_BYTE*)(*(_DWORD*)(v0 + 692) + 216) & 0x80) {
 					v7 = nox_server_rewardgen_activateMarker_4F0720(v0, v9);
@@ -1188,7 +1189,7 @@ void sub_4F1F20() {
 					do {
 						v3 = sub_4E7990(v2);
 						v4 = *(unsigned __int16*)(v2 + 4);
-						if ((unsigned __int16)v4 == *(_DWORD*)&byte_5D4594[1568300] ||
+						if ((unsigned __int16)v4 == dword_5d4594_1568300 ||
 						    v4 == *(_DWORD*)&byte_5D4594[1568304]) {
 							v5 = nox_server_rewardgen_activateMarker_4F0720(v2, v9 + 1);
 							sub_4ED0C0(v0, (int*)v2);
