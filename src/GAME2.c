@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_126996;
 extern _DWORD dword_5d4594_1045428;
 extern _DWORD dword_5d4594_1045544;
 extern _DWORD dword_5d4594_1045520;
@@ -2427,7 +2428,7 @@ _DWORD* __cdecl sub_452300(_DWORD* a1) {
 
 	if (!dword_5d4594_1045432)
 		return 0;
-	if (!*(_DWORD*)&byte_587000[126996])
+	if (!dword_587000_126996)
 		return 0;
 	if (!*a1)
 		return 0;
@@ -2518,7 +2519,7 @@ int __cdecl sub_452510(int a3) {
 	int v2;              // eax
 	unsigned __int64 v3; // rax
 
-	if (!*(_DWORD*)&byte_587000[126996])
+	if (!dword_587000_126996)
 		*(_DWORD*)(a3 + 28) = 4;
 	while (1) {
 		v1 = *(_DWORD*)(a3 + 28);
@@ -3091,13 +3092,13 @@ int __cdecl sub_453000(_DWORD* a1, unsigned int a2, int a3) {
 }
 
 //----- (00453050) --------------------------------------------------------
-void sub_453050() { *(_DWORD*)&byte_587000[126996] = 0; }
+void sub_453050() { dword_587000_126996 = 0; }
 
 //----- (00453060) --------------------------------------------------------
-void sub_453060() { *(_DWORD*)&byte_587000[126996] = 1; }
+void sub_453060() { dword_587000_126996 = 1; }
 
 //----- (00453070) --------------------------------------------------------
-int sub_453070() { return *(_DWORD*)&byte_587000[126996]; }
+int sub_453070() { return dword_587000_126996; }
 
 //----- (00453080) --------------------------------------------------------
 BOOL __cdecl sub_453080(char a1) {
