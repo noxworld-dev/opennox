@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046548;
 extern _DWORD dword_5d4594_1046512;
 extern _DWORD dword_5d4594_1045548;
 extern _DWORD dword_5d4594_1045640;
@@ -4843,7 +4844,7 @@ int __cdecl sub_4573C0(__int16 a1) {
 	unsigned __int8* i; // eax
 	int v3;             // esi
 
-	if (!*(_DWORD*)&byte_5D4594[1046548])
+	if (!dword_5d4594_1046548)
 		sub_457410();
 	v1 = 0;
 	if (!*(_DWORD*)&byte_587000[129668])

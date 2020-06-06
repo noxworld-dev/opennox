@@ -5,6 +5,7 @@
 #include "../gamewin/gamewin.h"
 #include "playrlst.h"
 
+extern _DWORD dword_5d4594_1046548;
 extern _DWORD dword_5d4594_1046512;
 extern _DWORD dword_587000_129656;
 extern _DWORD dword_5d4594_1046360;
@@ -30,8 +31,8 @@ char* sub_457410() {
 	char* result;        // eax
 	unsigned __int8* v1; // esi
 
-	result = *(char**)&byte_5D4594[1046548];
-	if (!*(_DWORD*)&byte_5D4594[1046548]) {
+	result = *(char**)&dword_5d4594_1046548;
+	if (!dword_5d4594_1046548) {
 		result = *(char**)&byte_587000[129664];
 		if (*(_DWORD*)&byte_587000[129664]) {
 			v1 = &byte_587000[129664];
@@ -42,7 +43,7 @@ char* sub_457410() {
 				v1 += 12;
 			} while (result);
 		}
-		*(_DWORD*)&byte_5D4594[1046548] = 1;
+		dword_5d4594_1046548 = 1;
 	}
 	return result;
 }
