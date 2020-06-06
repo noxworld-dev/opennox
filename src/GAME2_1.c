@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1093120;
 extern _DWORD dword_5d4594_1062552;
 extern _DWORD dword_5d4594_1049844;
 extern _DWORD dword_5d4594_1090180;
@@ -6930,7 +6931,7 @@ int __cdecl sub_470D20(int a1, int a2) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1093120] = a1;
+	dword_5d4594_1093120 = a1;
 	*(_DWORD*)&byte_5D4594[1093124] = a2;
 	if (a1 != a2)
 		result = sub_4160D0(17);
@@ -7309,12 +7310,12 @@ int __cdecl sub_471C00(int a1) {
 int sub_472080() {
 	int result; // eax
 
-	result = *(int*)&byte_5D4594[1093120];
-	if (*(int*)&byte_5D4594[1093120] != *(int*)&byte_5D4594[1093124]) {
+	result = *(int*)&dword_5d4594_1093120;
+	if (*(int*)&dword_5d4594_1093120 != *(int*)&byte_5D4594[1093124]) {
 		result = sub_416120(0x11u);
 		if (result) {
 			result = 0x64u / *(int*)&byte_5D4594[2649704];
-			*(int*)&byte_5D4594[1093120] += 0x64u / *(int*)&byte_5D4594[2649704];
+			*(int*)&dword_5d4594_1093120 += 0x64u / *(int*)&byte_5D4594[2649704];
 		}
 	}
 	return result;
