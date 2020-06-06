@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_129656;
 extern _DWORD dword_5d4594_832480;
 extern _DWORD dword_5d4594_1046360;
 extern _DWORD dword_5d4594_1045540;
@@ -5365,7 +5366,7 @@ int* __cdecl sub_4597E0(int a1) {
 	result = (int*)a1;
 	if (a1) {
 		result = sub_57ADF0((int*)&byte_5D4594[1045956]);
-		*(_DWORD*)&byte_587000[129656] = 1;
+		dword_587000_129656 = 1;
 	}
 	return result;
 }

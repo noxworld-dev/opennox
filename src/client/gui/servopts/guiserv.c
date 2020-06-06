@@ -5,6 +5,7 @@
 #include "../gamewin/gamewin.h"
 #include "playrlst.h"
 
+extern _DWORD dword_587000_129656;
 extern _DWORD dword_5d4594_1046360;
 extern _DWORD dword_5d4594_1046524;
 extern _DWORD dword_5d4594_1046356;
@@ -71,7 +72,7 @@ int sub_457500() {
 		}
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			sub_459D50(1);
-			if (*(_DWORD*)&byte_587000[129656])
+			if (dword_587000_129656)
 				sub_425760(&byte_5D4594[1045956]);
 		}
 		v1 = dword_587000_26048;
@@ -151,14 +152,14 @@ int sub_457500() {
 			nox_window_set_hidden(*(int*)&dword_5d4594_1046508, 1);
 			sub_46ACE0(*(_DWORD**)&dword_5d4594_1046492, 10145, 10146, 1);
 		}
-		if (*(_DWORD*)&byte_587000[129656]) {
+		if (dword_587000_129656) {
 			if (sub_4D6F30() || sub_4D6F50()) {
 				nox_server_parseCmdText_443C80((wchar_t*)&byte_587000[130244], 1);
 			} else if (*(_DWORD*)&nox_common_engineFlags & 0x40000) {
 				nox_server_parseCmdText_443C80((wchar_t*)&byte_587000[130284], 1);
 			}
 		}
-		*(_DWORD*)&byte_587000[129656] = 0;
+		dword_587000_129656 = 0;
 	}
 	return 1;
 }
