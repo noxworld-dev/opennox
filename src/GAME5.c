@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_2491676;
 extern _DWORD dword_5d4594_2491588;
 extern _DWORD dword_5d4594_2491592;
 extern _DWORD dword_5d4594_2491704;
@@ -5243,15 +5244,15 @@ void __cdecl sub_54D080(int a1) {
 	v17 = 0;
 	v13 = 0;
 	v15 = 0;
-	if (!*(_DWORD*)&byte_5D4594[2491676]) {
-		*(_DWORD*)&byte_5D4594[2491676] = sub_4E3AA0((CHAR*)&byte_587000[290536]);
+	if (!dword_5d4594_2491676) {
+		dword_5d4594_2491676 = sub_4E3AA0((CHAR*)&byte_587000[290536]);
 		*(_DWORD*)&byte_5D4594[2491680] = sub_4E3AA0((CHAR*)&byte_587000[290544]);
 		*(_DWORD*)&byte_5D4594[2491684] = sub_4E3AA0((CHAR*)&byte_587000[290552]);
 	}
 	v2 = a1;
 	for (i = sub_4E7980(a1); i; i = sub_4E7990(i)) {
 		v4 = *(unsigned __int16*)(i + 4);
-		if ((unsigned __int16)v4 == *(_DWORD*)&byte_5D4594[2491676]) {
+		if ((unsigned __int16)v4 == dword_5d4594_2491676) {
 			++v17;
 		} else if (v4 == *(_DWORD*)&byte_5D4594[2491680]) {
 			++v13;
@@ -5282,7 +5283,7 @@ void __cdecl sub_54D080(int a1) {
 		while (1) {
 			v19 = sub_4E7990(v8);
 			v9 = *(unsigned __int16*)(v8 + 4);
-			if ((unsigned __int16)v9 == *(_DWORD*)&byte_5D4594[2491676]) {
+			if ((unsigned __int16)v9 == dword_5d4594_2491676) {
 				if (v1 & 1) {
 					v10 = sub_50E3D0(1, 0, *(float*)&v8);
 					sub_4E5CC0(v8);
