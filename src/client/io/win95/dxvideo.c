@@ -2,6 +2,7 @@
 
 #include "../../../proto.h"
 
+extern _DWORD dword_5d4594_805860;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_3801808;
 extern _DWORD dword_5d4594_3801780;
@@ -28,7 +29,7 @@ int nox_video_recreateRenderTarget_47FD70() {
 	} else {
 		flags = 0x10;
 	}
-	if (*(_DWORD*)&byte_5D4594[805860])
+	if (dword_5d4594_805860)
 		flags |= 0x18u;
 	if (*(_DWORD*)&nox_common_engineFlags & 0x2000000 && nox_video_dxFullScreen)
 		flags &= 0xFFFFFFDF;

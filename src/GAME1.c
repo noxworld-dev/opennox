@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_805860;
 extern _DWORD dword_5d4594_526276;
 extern _DWORD dword_5d4594_251704;
 extern _DWORD dword_5d4594_1304;
@@ -477,10 +478,10 @@ void __cdecl sub_401B20(char* a1) {
 		do {
 			if (!strcmp("-window", v1)) {
 				*(_DWORD*)&nox_video_dxFullScreen = 0;
-				*(_DWORD*)&byte_5D4594[805860] = 0;
+				dword_5d4594_805860 = 0;
 			} else if (!strcmp("-swindow", v1)) {
 				*(_DWORD*)&nox_video_dxFullScreen = 0;
-				*(_DWORD*)&byte_5D4594[805860] = 1;
+				dword_5d4594_805860 = 1;
 			} else if (!strcmp("-minimize", v1)) {
 				*(_DWORD*)&byte_5D4594[805864] = 1;
 			} else {
