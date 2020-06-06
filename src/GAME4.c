@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_229988;
 extern _DWORD dword_5d4594_1599644;
 extern _DWORD dword_5d4594_1599068;
 extern _DWORD dword_5d4594_3835392;
@@ -11165,8 +11166,8 @@ _DWORD* __cdecl sub_506B00(int a1, int a2) {
 	int v3;         // esi
 	char v4;        // cl
 
-	result = *(_DWORD**)&byte_587000[229988];
-	if (*(_DWORD*)&byte_587000[229988]) {
+	result = *(_DWORD**)&dword_587000_229988;
+	if (dword_587000_229988) {
 		if (a2) {
 			result = *(_DWORD**)(*(_DWORD*)(a2 + 748) + 276);
 			v3 = 1 << *((_BYTE*)result + 2064);

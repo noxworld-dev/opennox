@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_229988;
 extern _DWORD dword_587000_108752;
 extern _DWORD dword_5d4594_787224;
 extern _DWORD dword_5d4594_754144;
@@ -7154,7 +7155,7 @@ int sub_432740() {
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
 	if (v0)
-		*(_DWORD*)&byte_587000[229988] = atoi(v0);
+		dword_587000_229988 = atoi(v0);
 	return 1;
 }
 
@@ -7807,7 +7808,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	v15 = sub_409F40(2);
 	fprintf(a1, "ItemRespawn = %d\n", v15);
 	fprintf(a1, "MinKickVotes = %d\n", *(_DWORD*)&byte_587000[229980]);
-	fprintf(a1, "ResetQuestMinVotes = %d\n", *(_DWORD*)&byte_587000[229988]);
+	fprintf(a1, "ResetQuestMinVotes = %d\n", dword_587000_229988);
 	fprintf(a1, "KickQuestPlayerMinVotes = %d\n", *(_DWORD*)&byte_587000[229992]);
 	v16 = sub_48A020(0, &v23);
 	fprintf(a1, "LANFilters = %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n", v16, *v23, v23[1], v23[2], v23[3], v23[4],
