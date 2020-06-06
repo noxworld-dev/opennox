@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1046852;
 extern _DWORD dword_5d4594_1046652;
 extern _DWORD dword_5d4594_1047524;
 extern _DWORD dword_5d4594_1046944;
@@ -473,7 +474,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 	if ((double)*(int*)&byte_5D4594[1046668] <= *(float*)&dword_5d4594_1046636 &&
 	    (double)*(int*)&byte_5D4594[1046672] <= *(float*)&dword_5d4594_1046640) {
 	LABEL_26:
-		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&dword_5d4594_1047524, *(int*)&byte_5D4594[1046852]);
+		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&dword_5d4594_1047524, *(int*)&dword_5d4594_1046852);
 		sub_45D810();
 		goto LABEL_27;
 	}
@@ -540,7 +541,7 @@ int sub_45D870() {
 			v4 += v10;
 			--v5;
 		} while (v5);
-		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&dword_5d4594_1047524, *(int*)&byte_5D4594[1046852]);
+		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&dword_5d4594_1047524, *(int*)&dword_5d4594_1046852);
 		result = sub_45D810();
 	}
 	return result;
