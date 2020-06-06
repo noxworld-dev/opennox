@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386928;
 extern _DWORD dword_587000_234176;
 extern _DWORD dword_5d4594_2487244;
 extern _DWORD dword_587000_249172;
@@ -10967,7 +10968,7 @@ int __cdecl sub_518460(float2* a1, unsigned __int8 a2, int a3) {
 	int4 v10; // [esp+1Ch] [ebp-10h]
 
 	++*(_DWORD*)&byte_5D4594[2386960];
-	*(_DWORD*)&byte_5D4594[2386928] = 1148846080;
+	dword_5d4594_2386928 = 1148846080;
 	v9 = 0.0;
 	v3 = 0;
 	do {
@@ -10983,7 +10984,7 @@ int __cdecl sub_518460(float2* a1, unsigned __int8 a2, int a3) {
 		sub_518550(&v10, (int*)a1, a2, a3);
 		if (*(_DWORD*)&byte_5D4594[2386948]) {
 			v3 = *(_DWORD*)&byte_5D4594[2386948];
-			v9 = *(float*)&byte_5D4594[2386928];
+			v9 = *(float*)&dword_5d4594_2386928;
 		} else {
 			if (v3)
 				return v3;
@@ -11074,8 +11075,7 @@ int __cdecl sub_518550(int* a1, int* a2, unsigned __int8 a3, int a4) {
 											      *(float*)(v12 + 12);
 											v18 =
 											    sqrt(v17 * v17 + v16 * v16);
-											if (v18 < *(float*)&byte_5D4594
-												      [2386928]) {
+											if (v18 < *(float*)&dword_5d4594_2386928) {
 												v23.field_8 =
 												    *(float*)(v12 + 8);
 												v23.field_C =
@@ -11086,8 +11086,7 @@ int __cdecl sub_518550(int* a1, int* a2, unsigned __int8 a3, int a4) {
 													    [2386948] =
 													    v12;
 													v22 = v18;
-													*(float*)&byte_5D4594
-													    [2386928] =
+													*(float*)&dword_5d4594_2386928 =
 													    v22;
 												}
 											}
