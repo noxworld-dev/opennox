@@ -20,6 +20,7 @@
 #include "../gui/servopts/playrlst.h"
 #include "../shell/noxworld.h"
 #include "inform.h"
+extern _DWORD dword_5d4594_2618900;
 extern _DWORD dword_5d4594_1200776;
 extern _DWORD dword_5d4594_1200796;
 extern _DWORD dword_5d4594_1200768;
@@ -512,12 +513,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			}
 			v364 = v12;
 			if (!nox_common_gameFlags_check_40A5C0(1) && !v9) {
-				--*(_DWORD*)&byte_5D4594[2618900];
+				--dword_5d4594_2618900;
 				++*(_DWORD*)&byte_5D4594[2649824];
 				return 1;
 			}
 			if (*(_DWORD*)&byte_5D4594[2598000] > (unsigned int)(v10 + 1))
-				*(_DWORD*)&byte_5D4594[2618900] += *(_DWORD*)&byte_5D4594[2598000] - v10;
+				dword_5d4594_2618900 += *(_DWORD*)&byte_5D4594[2598000] - v10;
 			sub_43C650();
 			v3 += 3;
 			break;
@@ -555,7 +556,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_57B920(&byte_5D4594[1198020]);
 			dword_5d4594_1200804 = 0;
 			v3 += 7;
-			*(_DWORD*)&byte_5D4594[2618900] = 0;
+			dword_5d4594_2618900 = 0;
 			*(_DWORD*)&byte_5D4594[2649824] = 0;
 			dword_5d4594_2614264 = 0;
 			*(_DWORD*)&byte_5D4594[1200832] = 0;
