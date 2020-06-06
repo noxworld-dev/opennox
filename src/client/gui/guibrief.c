@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_587000_123008;
 extern _DWORD dword_5d4594_832480;
 extern _DWORD dword_5d4594_832520;
 extern _DWORD dword_5d4594_832500;
@@ -324,15 +325,15 @@ int __cdecl sub_44F0F0(int a1, int a2) {
 	}
 	result = *(_DWORD*)&byte_5D4594[2598000] / 0x1Eu;
 	if (*(_DWORD*)&byte_5D4594[2598000] % 0x1Eu) {
-		if (*(_DWORD*)&byte_587000[123008] != 1)
+		if (dword_587000_123008 != 1)
 			return result;
 	} else {
 		result = 1;
-		if (*(_DWORD*)&byte_587000[123008] == 1) {
-			*(_DWORD*)&byte_587000[123008] = *(_DWORD*)&byte_5D4594[2598000] % 0x1Eu;
+		if (dword_587000_123008 == 1) {
+			dword_587000_123008 = *(_DWORD*)&byte_5D4594[2598000] % 0x1Eu;
 			return result;
 		}
-		*(_DWORD*)&byte_587000[123008] = 1;
+		dword_587000_123008 = 1;
 	}
 	v12 = *(_DWORD*)&byte_5D4594[2523948];
 	v6 = (nox_win_width - NOX_DEFAULT_WIDTH) / 2;
