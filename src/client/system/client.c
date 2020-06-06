@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_811904;
 extern _DWORD dword_5d4594_811896;
 extern _DWORD dword_5d4594_2618900;
 extern _DWORD dword_5d4594_811072;
@@ -106,7 +107,7 @@ void sub_436100_draw() {
 	}
 	if (dword_5d4594_811896)
 		sub_4365C0();
-	if (*(_DWORD*)&byte_5D4594[811904])
+	if (dword_5d4594_811904)
 		sub_436F50();
 	if (nox_common_gameFlags_check_40A5C0(8)) {
 		v13 = sub_416BB0() - *(_QWORD*)&byte_5D4594[811908];
