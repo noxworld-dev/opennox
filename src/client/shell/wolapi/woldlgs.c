@@ -2,6 +2,7 @@
 #include "../../../proto.h"
 #include "wolchat.h"
 
+extern _DWORD dword_5d4594_830136;
 extern _DWORD dword_5d4594_830120;
 extern _DWORD dword_5d4594_830204;
 extern _DWORD dword_5d4594_830208;
@@ -35,7 +36,7 @@ int sub_448730_wol_dialogs() {
 		    *(_DWORD*)(dword_5d4594_830124 + 8) + *(_DWORD*)(dword_5d4594_830124 + 16);
 		*(_DWORD*)&byte_5D4594[830128] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1933);
 		sub_46B300(*(int*)&byte_5D4594[830128], sub_448F00);
-		*(_DWORD*)&byte_5D4594[830136] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1934);
+		dword_5d4594_830136 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1934);
 		dword_5d4594_830132 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1935);
 		sub_46B300(*(int*)&dword_5d4594_830132, sub_448F60);
 		*(_DWORD*)&byte_5D4594[830152] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1931);
@@ -86,7 +87,7 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 		sub_452D80(766, 100);
 		switch (v8) {
 		case 1931:
-			nox_window_set_hidden(*(int*)&byte_5D4594[830136], 0);
+			nox_window_set_hidden(*(int*)&dword_5d4594_830136, 0);
 			nox_window_set_hidden(*(int*)&dword_5d4594_830132, 1);
 			nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, *(int*)&byte_5D4594[830160], 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[830144], 16385, *(int*)&byte_5D4594[830168], 0);
@@ -101,7 +102,7 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			result = 0;
 			break;
 		case 1932:
-			nox_window_set_hidden(*(int*)&byte_5D4594[830136], 1);
+			nox_window_set_hidden(*(int*)&dword_5d4594_830136, 1);
 			nox_window_set_hidden(*(int*)&dword_5d4594_830132, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, *(int*)&byte_5D4594[830164], 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[830144], 16385, *(int*)&byte_5D4594[830172], 0);
@@ -232,13 +233,13 @@ void __cdecl sub_4490C0_wol_dialogs(int a1) {
 		sub_4491B0_wol_dialogs();
 		return;
 	}
-	nox_window_call_field_94(*(int*)&byte_5D4594[830136], 16399, 0, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_830136, 16399, 0, 0);
 	if (a1) {
 		v4 = (const char*)(a1 + 52);
 		do {
 			if (!strncmp(v4, v3, strlen(v3))) {
 				v5 = sub_41E7A0(v4);
-				nox_window_call_field_94(*(int*)&byte_5D4594[830136], 16397, (int)v5, 9);
+				nox_window_call_field_94(*(int*)&dword_5d4594_830136, 16397, (int)v5, 9);
 				++v1;
 			}
 		} while (*(_DWORD*)(a1 + 48));
