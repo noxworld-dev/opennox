@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_183460;
 extern _DWORD dword_5d4594_1316412;
 extern _DWORD dword_5d4594_1522968;
 extern _DWORD dword_5d4594_3679312;
@@ -3416,7 +3417,7 @@ int sub_4BFE40() {
 		v1 = dword_5d4594_1319248;
 	sub_46AA20(*(int*)&dword_5d4594_1319228, &v3, &v4);
 	v5.field_0 = v3 + dword_587000_183456;
-	v5.field_4 = v4 + *(_DWORD*)&byte_587000[183460];
+	v5.field_4 = v4 + dword_587000_183460;
 	if (*(_DWORD*)&byte_5D4594[1319100])
 		(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD)) &
 		 byte_5D4594[1319100])(&v5, *(_DWORD*)&byte_5D4594[1319244], *(_DWORD*)&byte_5D4594[1319240], v1,
@@ -3473,7 +3474,7 @@ int __cdecl sub_4C0030(int a1) {
 		v1 = *(_DWORD*)&byte_5D4594[1319216];
 	nox_client_drawImageAt_47D2C0(v1, v5, v6);
 	*(_DWORD*)(dword_5d4594_1319256 + 12) = v5 + dword_587000_183456;
-	*(_DWORD*)(dword_5d4594_1319256 + 16) = v6 + *(_DWORD*)&byte_587000[183460];
+	*(_DWORD*)(dword_5d4594_1319256 + 16) = v6 + dword_587000_183460;
 	(*(void(__cdecl**)(unsigned __int8*, _DWORD))(dword_5d4594_1319256 + 300))(
 	    &byte_5D4594[1319108], dword_5d4594_1319256);
 	if (sub_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3603)[9] & 4)
@@ -3550,7 +3551,7 @@ int __cdecl sub_4C01C0(int a1, int a2, int* a3, int a4) {
 			v6 = dword_5d4594_1319248;
 		sub_46AA20(*(int*)&dword_5d4594_1319228, &v12, &v13);
 		v14.field_0 = v12 + dword_587000_183456;
-		v14.field_4 = v13 + *(_DWORD*)&byte_587000[183460];
+		v14.field_4 = v13 + dword_587000_183460;
 		if (*(_DWORD*)&byte_5D4594[1319160])
 			(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD)) &
 			 byte_5D4594[1319160])(&v14, *(_DWORD*)&byte_5D4594[1319244], *(_DWORD*)&byte_5D4594[1319240],
@@ -3623,7 +3624,7 @@ int __cdecl sub_4C0560(int a1, int a2) {
 
 	nox_window_get_size(*(int*)&dword_5d4594_1319228, &v5, &v6);
 	v2 = a1 - dword_587000_183456;
-	v3 = a2 - *(_DWORD*)&byte_587000[183460];
+	v3 = a2 - dword_587000_183460;
 	if (a1 - *(int*)&dword_587000_183456 < 0)
 		v2 = 0;
 	if (v3 < 0)
