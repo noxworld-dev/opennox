@@ -20,6 +20,7 @@
 #include "../gui/servopts/playrlst.h"
 #include "../shell/noxworld.h"
 #include "inform.h"
+extern _DWORD dword_5d4594_1200832;
 extern _DWORD dword_5d4594_2618900;
 extern _DWORD dword_5d4594_1200776;
 extern _DWORD dword_5d4594_1200796;
@@ -559,7 +560,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			dword_5d4594_2618900 = 0;
 			*(_DWORD*)&byte_5D4594[2649824] = 0;
 			dword_5d4594_2614264 = 0;
-			*(_DWORD*)&byte_5D4594[1200832] = 0;
+			dword_5d4594_1200832 = 0;
 			sub_4169D0(0);
 			break;
 		case 0x2Du:
@@ -597,7 +598,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					sub_445490(v399);
 				if (v210 == *(_DWORD*)&byte_5D4594[2616328] &&
 				    nox_wcscmp((const wchar_t*)&byte_5D4594[2661908], v212))
-					*(_DWORD*)&byte_5D4594[1200832] = 1;
+					dword_5d4594_1200832 = 1;
 				OnLibraryNotice(263, v211);
 			}
 			v3 += 129;
@@ -2555,14 +2556,14 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					if (*(_BYTE*)(v3 + 1) == 1)
 						sub_4165F0(1, 0);
 					if (nox_common_gameFlags_check_40A5C0(128)) {
-						if (*(_DWORD*)&byte_5D4594[1200832]) {
+						if (dword_5d4594_1200832) {
 							v330 = *(_DWORD*)&byte_5D4594[2618908] + 4704;
 							v41 = loadString_sub_40F1D0(
 							    (char*)&byte_587000[157212], 0,
 							    "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 1470);
 							nox_swprintf(v401, v41, v330);
 							sub_445490(v401);
-							*(_DWORD*)&byte_5D4594[1200832] = 0;
+							dword_5d4594_1200832 = 0;
 						}
 						if (dword_587000_54276)
 							sub_49C560();
