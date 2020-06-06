@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_815096;
 extern _DWORD dword_5d4594_815060;
 extern _DWORD dword_5d4594_815052;
 extern _DWORD dword_5d4594_815100;
@@ -314,7 +315,7 @@ int sub_4379F0() {
 				sub_415D50();
 				sub_430C30_set_video_max(NOX_MAX_WIDTH, NOX_MAX_HEIGHT);
 				nox_client_setCursorType_477610(0);
-				if (*(_DWORD*)&byte_5D4594[815096]) {
+				if (dword_5d4594_815096) {
 					v27 =
 					    loadString_sub_40F1D0((char*)&byte_587000[88552], 0,
 								  "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2616);
@@ -323,7 +324,7 @@ int sub_4379F0() {
 								  "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2616);
 					sub_449A10(0, (int)v17, (int)v27, 33, 0, 0);
 					sub_44A360(1);
-					*(_DWORD*)&byte_5D4594[815096] = 0;
+					dword_5d4594_815096 = 0;
 				} else if (dword_5d4594_815100) {
 					v28 =
 					    loadString_sub_40F1D0((char*)&byte_587000[88656], 0,
@@ -1133,9 +1134,9 @@ void sub_43B6E0() {
 					   3331);
 		sub_449A10(0, (int)v1, (int)v2, 33, 0, 0);
 		sub_44A360(1);
-		*(_DWORD*)&byte_5D4594[815096] = 0;
+		dword_5d4594_815096 = 0;
 	} else {
-		*(_DWORD*)&byte_5D4594[815096] = 1;
+		dword_5d4594_815096 = 1;
 	}
 }
 
