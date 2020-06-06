@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_741648;
 extern _DWORD dword_5d4594_815060;
 extern _DWORD dword_5d4594_815052;
 extern _DWORD dword_5d4594_805980;
@@ -1943,14 +1944,14 @@ double __cdecl sub_42AAA0(int* a1) {
 			} while ((int)v7 <= (int)&byte_5D4594[741604]);
 			--v5;
 		} while (v5);
-		*(_DWORD*)&byte_5D4594[741648] = 0;
+		dword_5d4594_741648 = 0;
 		dword_5d4594_741652 = 31;
 		*a1 = 1;
 	}
-	v9 = ++*(_DWORD*)&byte_5D4594[741648];
-	if (*(_DWORD*)&byte_5D4594[741648] == 56) {
+	v9 = ++dword_5d4594_741648;
+	if (dword_5d4594_741648 == 56) {
 		v9 = 1;
-		*(_DWORD*)&byte_5D4594[741648] = 1;
+		dword_5d4594_741648 = 1;
 	}
 	v10 = ++dword_5d4594_741652;
 	if (dword_5d4594_741652 == 56) {
