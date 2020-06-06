@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_338300;
 extern _DWORD dword_5d4594_805856;
 extern _DWORD dword_5d4594_1292;
 extern _DWORD dword_5d4594_3612;
@@ -8991,16 +8992,16 @@ void __cdecl sub_4144D0(_DWORD* a1) {
 		v1 = dword_5d4594_252276;
 		if (dword_5d4594_252276) {
 			do {
-				*(_DWORD*)&byte_5D4594[338300] = *(_DWORD*)(v1 + 8);
+				dword_5d4594_338300 = *(_DWORD*)(v1 + 8);
 				memset((void*)(v1 + 16), 0xACu, a1[22]);
 				v2 = a1[24];
 				if (!v2)
 					a1[25] = dword_5d4594_252276;
 				*(_DWORD*)(dword_5d4594_252276 + 8) = v2;
 				a1[24] = dword_5d4594_252276;
-				v1 = *(_DWORD*)&byte_5D4594[338300];
-				dword_5d4594_252276 = *(_DWORD*)&byte_5D4594[338300];
-			} while (*(_DWORD*)&byte_5D4594[338300]);
+				v1 = dword_5d4594_338300;
+				dword_5d4594_252276 = dword_5d4594_338300;
+			} while (dword_5d4594_338300);
 		}
 		a1[28] = 0;
 		a1[26] = 0;
