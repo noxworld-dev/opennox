@@ -1,6 +1,7 @@
 #include "../dbase/objdb.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2386552;
 extern _DWORD dword_5d4594_2386548;
 extern _DWORD dword_5d4594_2386560;
 extern _DWORD dword_5d4594_2386496;
@@ -599,8 +600,8 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 	v15 = a1;
 	v20 = *(_DWORD*)(a1 + 748);
 	v19 = sub_4FA6B0(v15);
-	if (!*(_DWORD*)&byte_5D4594[2386552])
-		*(_DWORD*)&byte_5D4594[2386552] = sub_4E3AA0((CHAR*)&byte_587000[236388]);
+	if (!dword_5d4594_2386552)
+		dword_5d4594_2386552 = sub_4E3AA0((CHAR*)&byte_587000[236388]);
 	result = a4;
 	v18 = 0;
 	if (a4) {
@@ -629,7 +630,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 				}
 				v6 = (_DWORD*)a2;
 			}
-			if (*(unsigned __int16*)(v7 + 4) == *(_DWORD*)&byte_5D4594[2386552]) {
+			if (*(unsigned __int16*)(v7 + 4) == dword_5d4594_2386552) {
 				v16 = sub_419D40(&byte_587000[236468]);
 				if (*(_DWORD*)(v20 + 320) >= nox_float2int(v16))
 					break;
@@ -649,7 +650,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 				}
 			}
 			if (nox_common_gameFlags_check_40A5C0(4096) &&
-			    (sub_5105D0(v7) || *(unsigned __int16*)(v7 + 4) == *(_DWORD*)&byte_5D4594[2386552]))
+			    (sub_5105D0(v7) || *(unsigned __int16*)(v7 + 4) == dword_5d4594_2386552))
 				v12 = sub_4E3450(*(unsigned __int16*)(v7 + 4));
 			else
 				v12 = (_DWORD*)v7;
