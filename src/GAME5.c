@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_2491588;
 extern _DWORD dword_5d4594_2491592;
 extern _DWORD dword_5d4594_2491704;
 extern _DWORD dword_5d4594_2490508;
@@ -3591,7 +3592,7 @@ void __cdecl sub_54A4C0(int a1) {
 		v20 = v6;
 		v18 = 0;
 		if (v6 > 0) {
-			v8 = *(_DWORD*)&byte_5D4594[2491588];
+			v8 = dword_5d4594_2491588;
 			do {
 				v9 = (float*)sub_4E3810(*(CHAR**)&byte_587000[4 * v8 + 288868]);
 				if (!v9)
@@ -3610,10 +3611,10 @@ void __cdecl sub_54A4C0(int a1) {
 				v12 = nox_common_gameFlags_check_40A5C0(2048) ? nox_common_randomInt_415FA0(10, 20)
 									      : nox_common_randomInt_415FA0(2, 5);
 				sub_511660(v9, *(_DWORD*)&byte_5D4594[2649704] * v12);
-				v8 = (*(_DWORD*)&byte_5D4594[2491588] + 1) % *(_DWORD*)&byte_587000[287348];
+				v8 = (dword_5d4594_2491588 + 1) % *(_DWORD*)&byte_587000[287348];
 				v13 = ++v18 < v20;
-				*(_DWORD*)&byte_5D4594[2491588] =
-				    (*(_DWORD*)&byte_5D4594[2491588] + 1) % *(_DWORD*)&byte_587000[287348];
+				dword_5d4594_2491588 =
+				    (dword_5d4594_2491588 + 1) % *(_DWORD*)&byte_587000[287348];
 			} while (v13);
 		}
 	}
