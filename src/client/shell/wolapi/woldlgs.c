@@ -2,6 +2,7 @@
 #include "../../../proto.h"
 #include "wolchat.h"
 
+extern _DWORD dword_5d4594_830152;
 extern _DWORD dword_5d4594_830112;
 extern _DWORD dword_5d4594_830136;
 extern _DWORD dword_5d4594_830120;
@@ -40,9 +41,9 @@ int sub_448730_wol_dialogs() {
 		dword_5d4594_830136 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1934);
 		dword_5d4594_830132 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1935);
 		sub_46B300(*(int*)&dword_5d4594_830132, sub_448F60);
-		*(_DWORD*)&byte_5D4594[830152] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1931);
+		dword_5d4594_830152 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1931);
 		*(_DWORD*)&byte_5D4594[830156] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1932);
-		sub_46ABB0(*(int*)&byte_5D4594[830152], 0);
+		sub_46ABB0(*(int*)&dword_5d4594_830152, 0);
 		dword_5d4594_830140 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1938);
 		*(_DWORD*)&byte_5D4594[830144] = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1939);
 		dword_5d4594_830148 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1936);
@@ -93,7 +94,7 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, *(int*)&byte_5D4594[830160], 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[830144], 16385, *(int*)&byte_5D4594[830168], 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_830148, 16385, *(int*)&byte_5D4594[830176], 0);
-			sub_46ABB0(*(int*)&byte_5D4594[830152], 0);
+			sub_46ABB0(*(int*)&dword_5d4594_830152, 0);
 			sub_46ABB0(*(int*)&byte_5D4594[830156], 1);
 			if (dword_5d4594_830204)
 				sub_46ABB0(*(int*)&dword_5d4594_830148, 0);
@@ -108,7 +109,7 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, *(int*)&byte_5D4594[830164], 0);
 			nox_window_call_field_94(*(int*)&byte_5D4594[830144], 16385, *(int*)&byte_5D4594[830172], 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_830148, 16385, *(int*)&byte_5D4594[830180], 0);
-			sub_46ABB0(*(int*)&byte_5D4594[830152], 1);
+			sub_46ABB0(*(int*)&dword_5d4594_830152, 1);
 			sub_46ABB0(*(int*)&byte_5D4594[830156], 0);
 			dword_587000_111668 = 0;
 			if (dword_5d4594_830208)
