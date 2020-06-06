@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_830272;
 extern _DWORD dword_5d4594_830268;
 extern _DWORD dword_5d4594_830252;
 extern _DWORD dword_5d4594_830260;
@@ -106,9 +107,9 @@ int sub_44A560_wol_login() {
 	v8[8] = v7;
 	*(_DWORD*)(v5[100] + 8) = 16;
 	*(_DWORD*)(v5[100] + 12) = 10;
-	if (*(_DWORD*)&byte_5D4594[830272] == 1 || sub_4D3320() == 1) {
+	if (dword_5d4594_830272 == 1 || sub_4D3320() == 1) {
 		if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-			if (*(_DWORD*)&byte_5D4594[830272] == 1) {
+			if (dword_5d4594_830272 == 1) {
 				v10 = loadString_sub_40F1D0((char*)&byte_587000[113496], 0,
 							    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 485);
 				sub_413D30((char*)&byte_587000[113524], v10);
@@ -125,7 +126,7 @@ int sub_44A560_wol_login() {
 					    "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
 		sub_449A10(*(int*)&dword_5d4594_830248, (int)v11, (int)v15, 33, 0, 0);
 		sub_44A4B0();
-		*(_DWORD*)&byte_5D4594[830272] = 0;
+		dword_5d4594_830272 = 0;
 	}
 	if (!sub_44A4A0()) {
 		sub_46A8A0();
