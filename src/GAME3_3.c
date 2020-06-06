@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1565628;
 extern _DWORD dword_5d4594_1565632;
 extern _DWORD dword_5d4594_1565612;
 extern _DWORD dword_5d4594_1565520;
@@ -3841,13 +3842,13 @@ int __cdecl sub_4E6CE0(float2* a1, float2* a2) {
 	int v6;     // eax
 	int result; // eax
 
-	*(float*)&byte_5D4594[1565628] = a2->field_0 - a1->field_0;
+	*(float*)&dword_5d4594_1565628 = a2->field_0 - a1->field_0;
 	*(float*)&dword_5d4594_1565632 = a2->field_4 - a1->field_4;
-	*(float*)&byte_5D4594[1565652] = *(float*)&byte_5D4594[1565628] * 0.41304299 - *(float*)&dword_5d4594_1565632;
-	v2 = *(float*)&byte_5D4594[1565628] * 2.4210529 - *(float*)&dword_5d4594_1565632;
+	*(float*)&byte_5D4594[1565652] = *(float*)&dword_5d4594_1565628 * 0.41304299 - *(float*)&dword_5d4594_1565632;
+	v2 = *(float*)&dword_5d4594_1565628 * 2.4210529 - *(float*)&dword_5d4594_1565632;
 	*(float*)&byte_5D4594[1565656] = v2;
-	*(float*)&byte_5D4594[1565636] = *(float*)&byte_5D4594[1565628] * -2.4210529 - *(float*)&dword_5d4594_1565632;
-	*(float*)&byte_5D4594[1567708] = *(float*)&byte_5D4594[1565628] * -0.41304299 - *(float*)&dword_5d4594_1565632;
+	*(float*)&byte_5D4594[1565636] = *(float*)&dword_5d4594_1565628 * -2.4210529 - *(float*)&dword_5d4594_1565632;
+	*(float*)&byte_5D4594[1567708] = *(float*)&dword_5d4594_1565628 * -0.41304299 - *(float*)&dword_5d4594_1565632;
 	if (*(float*)&byte_5D4594[1565652] < 0.0)
 		v3 = 0;
 	else
