@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1313532;
 extern _DWORD dword_5d4594_3798672;
 extern _DWORD dword_5d4594_1313564;
 extern _DWORD dword_5d4594_1308096;
@@ -11603,7 +11604,7 @@ int sub_4B64C0() {
 
 	*(_DWORD*)&byte_5D4594[1313524] = sub_4344A0(255, 255, 0);
 	*(_DWORD*)&byte_5D4594[1313528] = sub_4344A0(255, 100, 0);
-	*(_DWORD*)&byte_5D4594[1313532] = sub_4344A0(255, 255, 0);
+	dword_5d4594_1313532 = sub_4344A0(255, 255, 0);
 	dword_5d4594_1313536 = sub_4344A0(0, 0, 255);
 	dword_5d4594_1313540 = sub_4344A0(0, 200, 255);
 	*(_DWORD*)&byte_5D4594[1313544] = sub_4344A0(0, 200, 200);
@@ -11745,7 +11746,7 @@ __int16 __cdecl sub_4B69F0(int a1) {
 
 //----- (004B6A60) --------------------------------------------------------
 int __cdecl nox_thing_red_spark_draw(_DWORD* a1, int a2) {
-	return sub_4B6970(a1, a2, *(int*)&byte_5D4594[1313532], *(int*)&byte_5D4594[1313528]);
+	return sub_4B6970(a1, a2, *(int*)&dword_5d4594_1313532, *(int*)&byte_5D4594[1313528]);
 }
 
 //----- (004B6A80) --------------------------------------------------------
@@ -11765,7 +11766,7 @@ int __cdecl nox_thing_green_spark_draw(_DWORD* a1, int a2) {
 
 //----- (004B6AE0) --------------------------------------------------------
 int __cdecl nox_thing_yellow_spark_draw(_DWORD* a1, int a2) {
-	return sub_4B6970(a1, a2, *(int*)&byte_5D4594[1313532], *(int*)&byte_5D4594[1313576]);
+	return sub_4B6970(a1, a2, *(int*)&dword_5d4594_1313532, *(int*)&byte_5D4594[1313576]);
 }
 
 //----- (004B6B60) --------------------------------------------------------
@@ -11821,7 +11822,7 @@ int __cdecl sub_4B6B80(int* a1, int a2, int a3) {
 		v19 = *(_DWORD*)&byte_5D4594[1313592];
 	} else {
 		v21 = *(_DWORD*)&byte_5D4594[1313528];
-		v19 = *(_DWORD*)&byte_5D4594[1313532];
+		v19 = dword_5d4594_1313532;
 	}
 LABEL_14:
 	if (a3) {
