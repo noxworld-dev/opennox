@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1556316;
 extern _DWORD dword_5d4594_1548524;
 extern _DWORD dword_5d4594_1556136;
 extern _DWORD dword_5d4594_3835372;
@@ -5290,7 +5291,7 @@ int sub_4D7C60() {
 	float v1;   // [esp+0h] [ebp-4h]
 	float v2;   // [esp+0h] [ebp-4h]
 
-	*(_DWORD*)&byte_5D4594[1556316] = 0;
+	dword_5d4594_1556316 = 0;
 	*(float*)&byte_5D4594[1556308] = sub_419D40(&byte_587000[198788]);
 	v1 = sub_419D40(&byte_587000[198804]);
 	*(_DWORD*)&byte_5D4594[1556312] = nox_float2int(v1);
@@ -5314,7 +5315,7 @@ int sub_4D7CC0() {
 	sub_416BB0();
 	result = sub_409F40(0x2000);
 	if (result) {
-		if ((unsigned int)(*(_DWORD*)&byte_5D4594[2598000] - *(_DWORD*)&byte_5D4594[1556316]) >
+		if ((unsigned int)(*(_DWORD*)&byte_5D4594[2598000] - dword_5d4594_1556316) >
 		    *(int*)&byte_5D4594[1556312]) {
 			for (i = sub_4DA7C0(); i; i = sub_4DA7F0(i)) {
 				if (!(*(_DWORD*)(i + 16) & 0x8020)) {
@@ -5329,7 +5330,7 @@ int sub_4D7CC0() {
 					}
 				}
 			}
-			*(_DWORD*)&byte_5D4594[1556316] = *(_DWORD*)&byte_5D4594[2598000];
+			dword_5d4594_1556316 = *(_DWORD*)&byte_5D4594[2598000];
 		}
 		result = sub_4DA7C0();
 		for (j = result; result; j = result) {
@@ -5337,7 +5338,7 @@ int sub_4D7CC0() {
 				v6 = *(_DWORD**)(j + 748);
 				if (!(*(_BYTE*)(v6[69] + 3680) & 1)) {
 					v7 = v6[65];
-					if ((unsigned int)(*(_DWORD*)&byte_5D4594[1556316] - v6[64]) >
+					if ((unsigned int)(dword_5d4594_1556316 - v6[64]) >
 					    *(int*)&byte_5D4594[1556304]) {
 						if (v7) {
 							sub_4D7BE0(j);
