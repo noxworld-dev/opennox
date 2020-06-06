@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_108752;
 extern _DWORD dword_5d4594_1548736;
 extern _DWORD dword_5d4594_1563084;
 extern _DWORD dword_5d4594_1563080;
@@ -9091,7 +9092,7 @@ int __cdecl sub_4DDF60(int a1) {
 		*((_DWORD*)v2 + 908) = v4;
 		*((_DWORD*)v2 + 909) = v5;
 	}
-	if (*(_DWORD*)&byte_587000[108752] && nox_common_gameFlags_check_40A5C0(0x2000) &&
+	if (dword_587000_108752 && nox_common_gameFlags_check_40A5C0(0x2000) &&
 	    !nox_common_gameFlags_check_40A5C0(4096))
 		sub_4DD140(v1);
 	for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
