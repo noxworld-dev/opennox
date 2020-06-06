@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1047532;
 extern _DWORD dword_587000_122856;
 extern _DWORD dword_5d4594_1045596;
 extern _DWORD dword_5d4594_1049692;
@@ -6570,7 +6571,7 @@ int __cdecl sub_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 		dword_5d4594_1047536 = v3;
 		v7 = (int)(-19 - a3 + v3) < 0;
 		v8 = -19 - a3 + v3;
-		*(_DWORD*)&byte_5D4594[1047532] = v4;
+		dword_5d4594_1047532 = v4;
 		if (v7) {
 			dword_587000_132136 = -1;
 			return 1;
@@ -6623,9 +6624,9 @@ int __cdecl sub_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 	case 6u:
 	case 7u:
 		if ((int)dword_587000_132136 >= 0) {
-			v12 = *(_DWORD*)&byte_5D4594[1047532] - v4;
-			if (*(int*)&byte_5D4594[1047532] - v4 < 0)
-				v12 = v4 - *(_DWORD*)&byte_5D4594[1047532];
+			v12 = dword_5d4594_1047532 - v4;
+			if (*(int*)&dword_5d4594_1047532 - v4 < 0)
+				v12 = v4 - dword_5d4594_1047532;
 			if (v12 >= 5)
 				goto LABEL_52;
 			v13 = dword_5d4594_1047536 - v3;
