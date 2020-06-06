@@ -1237,6 +1237,7 @@ extern _DWORD dword_5d4594_1548532;
 extern _DWORD dword_5d4594_1045580;
 extern _DWORD dword_5d4594_1567956;
 extern _DWORD dword_5d4594_1313532;
+extern _DWORD dword_5d4594_805820;
 
 typedef struct mem_mapping {
 	uintptr_t base;
@@ -1247,6 +1248,7 @@ typedef struct mem_mapping {
 
 mem_mapping mappings[] = {
     // overrides
+	{0x5D4594+805820, (void*)&dword_5d4594_805820, sizeof(dword_5d4594_805820), 1},
 	{0x5D4594+1313532, (void*)&dword_5d4594_1313532, sizeof(dword_5d4594_1313532), 1},
 	{0x5D4594+1567956, (void*)&dword_5d4594_1567956, sizeof(dword_5d4594_1567956), 1},
 	{0x5D4594+1045580, (void*)&dword_5d4594_1045580, sizeof(dword_5d4594_1045580), 1},
