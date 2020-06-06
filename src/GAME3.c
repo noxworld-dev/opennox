@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1307792;
 extern _DWORD dword_587000_172876;
 extern _DWORD dword_587000_172872;
 extern _DWORD dword_5d4594_1313788;
@@ -2509,7 +2510,7 @@ _DWORD* __cdecl sub_4A72D0(unsigned __int16 a1) {
 	sub_46C6E0(*(int*)&dword_5d4594_1308088);
 	result = (_DWORD*)nox_window_set_hidden(*(int*)&dword_5d4594_1308088, 1);
 	if (a1 < 0x20u) {
-		result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308088, *(int*)&byte_5D4594[1307792]);
+		result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308088, *(int*)&dword_5d4594_1307792);
 		if (result)
 			result[8] = *(unsigned __int16*)&byte_5D4594[1307788] | (a1 << 16);
 	}
@@ -2531,7 +2532,7 @@ int __cdecl sub_4A7330(int a1, int a2, int* a3, unsigned int a4) {
 		v6 = sub_46B0A0(a3);
 		switch (v6) {
 		case 720:
-			*(_DWORD*)&byte_5D4594[1307792] = v6;
+			dword_5d4594_1307792 = v6;
 			sub_4A7530(2u);
 			sub_4A7580((unsigned __int16)a4, v5);
 			break;
@@ -2539,7 +2540,7 @@ int __cdecl sub_4A7330(int a1, int a2, int* a3, unsigned int a4) {
 		case 722:
 		case 723:
 		case 724:
-			*(_DWORD*)&byte_5D4594[1307792] = v6;
+			dword_5d4594_1307792 = v6;
 			sub_4A7530(1u);
 			sub_4A7580((unsigned __int16)a4, v5);
 			break;
@@ -2548,7 +2549,7 @@ int __cdecl sub_4A7330(int a1, int a2, int* a3, unsigned int a4) {
 		case 727:
 		case 728:
 		case 729:
-			*(_DWORD*)&byte_5D4594[1307792] = v6;
+			dword_5d4594_1307792 = v6;
 			sub_4A7530(0);
 			sub_4A7580((unsigned __int16)a4, v5);
 			break;
