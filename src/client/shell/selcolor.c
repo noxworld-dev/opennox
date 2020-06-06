@@ -1,6 +1,7 @@
 #include "selcolor.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1308096;
 extern _DWORD dword_5d4594_1308112;
 extern _DWORD dword_5d4594_1308148;
 extern _DWORD dword_587000_171388;
@@ -108,8 +109,8 @@ wchar_t* sub_4A68C0() {
 					   "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 232);
 		nox_wcscpy(*(wchar_t**)&dword_5d4594_1307784, v2);
 	}
-	v3 = &byte_5D4594[3 * ((*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308096] + 32) >> 16) +
-			       32 * (unsigned __int16)*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308096] + 32)) +
+	v3 = &byte_5D4594[3 * ((*(_DWORD*)(dword_5d4594_1308096 + 32) >> 16) +
+			       32 * (unsigned __int16)*(_DWORD*)(dword_5d4594_1308096 + 32)) +
 			  1307796];
 	v4 = dword_5d4594_1307784 + 71;
 	*(_WORD*)(dword_5d4594_1307784 + 71) = *(_WORD*)v3;
@@ -222,8 +223,8 @@ int sub_4A75C0() {
 	v3 = *(_BYTE*)(dword_5d4594_1307784 + 66);
 	v25[1276] = 1;
 	v25[1274] = v3;
-	v4 = &byte_5D4594[3 * ((*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308096] + 32) >> 16) +
-			       32 * (unsigned __int16)*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308096] + 32)) +
+	v4 = &byte_5D4594[3 * ((*(_DWORD*)(dword_5d4594_1308096 + 32) >> 16) +
+			       32 * (unsigned __int16)*(_DWORD*)(dword_5d4594_1308096 + 32)) +
 			  1307796];
 	*(_WORD*)&v25[1204] = *(_WORD*)v4;
 	v5 = *(_WORD*)v4;
