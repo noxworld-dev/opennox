@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3798672;
 extern _DWORD dword_5d4594_1313564;
 extern _DWORD dword_5d4594_1308096;
 extern _DWORD dword_5d4594_1311924;
@@ -12501,7 +12502,7 @@ LABEL_25:
 	if (!sub_4356C0(dr, 23)) {
 		if (!sub_4356C0(dr, 25)) {
 			*(_DWORD*)&byte_5D4594[3798668] = *((_DWORD*)v3 + 574);
-			*(_DWORD*)&byte_5D4594[3798672] = *((_DWORD*)v3 + 576);
+			dword_5d4594_3798672 = *((_DWORD*)v3 + 576);
 			dword_5d4594_3798676 = *((_DWORD*)v3 + 578);
 			dword_5d4594_3798680 = *((_DWORD*)v3 + 577);
 			dword_5d4594_3798684 = *((_DWORD*)v3 + 575);
@@ -12528,7 +12529,7 @@ LABEL_25:
 	if (!(byte_5D4594[2598000] & 1)) {
 	LABEL_29:
 		*(_DWORD*)&byte_5D4594[3798668] = *(_DWORD*)&byte_5D4594[2650684];
-		*(_DWORD*)&byte_5D4594[3798672] = *(_DWORD*)&byte_5D4594[2650684];
+		dword_5d4594_3798672 = *(_DWORD*)&byte_5D4594[2650684];
 		dword_5d4594_3798676 = *(_DWORD*)&byte_5D4594[2650684];
 		dword_5d4594_3798680 = *(_DWORD*)&byte_5D4594[2650684];
 		dword_5d4594_3798684 = *(_DWORD*)&byte_5D4594[2650684];
@@ -12536,14 +12537,14 @@ LABEL_25:
 		goto LABEL_37;
 	}
 	*(_DWORD*)&byte_5D4594[3798668] = *(_DWORD*)&byte_5D4594[2523948];
-	*(_DWORD*)&byte_5D4594[3798672] = *(_DWORD*)&byte_5D4594[2523948];
+	dword_5d4594_3798672 = *(_DWORD*)&byte_5D4594[2523948];
 	dword_5d4594_3798676 = *(_DWORD*)&byte_5D4594[2523948];
 	dword_5d4594_3798680 = *(_DWORD*)&byte_5D4594[2523948];
 	dword_5d4594_3798684 = *(_DWORD*)&byte_5D4594[2523948];
 	*(_DWORD*)&byte_5D4594[3798688] = *(_DWORD*)&byte_5D4594[2523948];
 LABEL_37:
 	sub_4341D0(1, *(int*)&byte_5D4594[3798668]);
-	sub_4341D0(2, *(int*)&byte_5D4594[3798672]);
+	sub_4341D0(2, *(int*)&dword_5d4594_3798672);
 	sub_4341D0(3, *(int*)&dword_5d4594_3798676);
 	sub_4341D0(4, *(int*)&dword_5d4594_3798680);
 	sub_4341D0(5, *(int*)&dword_5d4594_3798684);
