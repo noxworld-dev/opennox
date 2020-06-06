@@ -128,7 +128,7 @@ int __cdecl sub_44E8E0(int a1, int a2) {
 	int v50;               // [esp+44h] [ebp-630h]
 	int v51;               // [esp+48h] [ebp-62Ch]
 	int v52;               // [esp+4Ch] [ebp-628h]
-	char v53;              // [esp+50h] [ebp-624h]
+	int v53;              // [esp+50h] [ebp-624h]
 	WCHAR WideCharStr[11]; // [esp+54h] [ebp-620h]
 	wchar_t v55[257];      // [esp+72h] [ebp-602h]
 	wchar_t v56[256];      // [esp+274h] [ebp-400h]
