@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_830252;
 extern _DWORD dword_5d4594_830260;
 extern _DWORD dword_5d4594_830256;
 extern _DWORD dword_5d4594_830244;
@@ -78,7 +79,7 @@ int sub_44A560_wol_login() {
 	dword_5d4594_830260 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1702);
 	sub_46B300(*(int*)&dword_5d4594_830260, sub_44AAD0);
 	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830248, 1703);
-	*(_DWORD*)&byte_5D4594[830252] = v3;
+	dword_5d4594_830252 = v3;
 	if (v17 && *v17) {
 		nox_swprintf(v19, L"%S", v17);
 		nox_window_call_field_94(*(int*)&dword_5d4594_830260, 16414, (int)v19, 0);
