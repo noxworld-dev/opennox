@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599708;
 extern _DWORD dword_5d4594_2386860;
 extern _DWORD dword_5d4594_2386168;
 extern _DWORD dword_5d4594_2386164;
@@ -2181,18 +2182,18 @@ int __cdecl sub_50CA00(int a1, int a2, int a3, float* a4) {
 BOOL __cdecl sub_50CA60(int a4, int a2, int a3) {
 	float2 a1; // [esp+0h] [ebp-8h]
 
-	*(_DWORD*)&byte_5D4594[1599708] = 0;
+	dword_5d4594_1599708 = 0;
 	a1.field_0 = (double)a2 * 23.0 + 11.5;
 	a1.field_4 = (double)a3 * 23.0 + 11.5;
 	sub_517F90(&a1, 100.0, sub_50CAC0, a4);
-	return *(_DWORD*)&byte_5D4594[1599708] == 0;
+	return dword_5d4594_1599708 == 0;
 }
 
 //----- (0050CAC0) --------------------------------------------------------
 void __cdecl sub_50CAC0(int a1, int a2) {
-	if (*(_DWORD*)&byte_5D4594[1599708] != 1) {
+	if (dword_5d4594_1599708 != 1) {
 		if (sub_5330C0(a2, a1))
-			*(_DWORD*)&byte_5D4594[1599708] = 1;
+			dword_5d4594_1599708 = 1;
 	}
 }
 
