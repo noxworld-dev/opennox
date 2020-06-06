@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_1292;
 extern _DWORD dword_5d4594_3612;
 extern _DWORD dword_5d4594_10988;
 extern _DWORD dword_5d4594_527656;
@@ -524,7 +525,7 @@ FILE* __cdecl sub_408CC0_fopen(const char* path, int mode) {
 	*(_DWORD*)&byte_5D4594[1276] = 0;
 	nox_file_10 = f;
 	*(_DWORD*)&byte_5D4594[1284] = 0;
-	*(_DWORD*)&byte_5D4594[1292] = 0;
+	dword_5d4594_1292 = 0;
 	dword_5d4594_1280 = 0;
 	dword_5d4594_1304 = 0;
 	return f;
@@ -561,7 +562,7 @@ int __cdecl sub_408D90(FILE* a1) {
 	*(_DWORD*)&byte_5D4594[1288] = 0;
 	nox_file_10 = 0;
 	*(_DWORD*)&byte_5D4594[1284] = 0;
-	*(_DWORD*)&byte_5D4594[1292] = 0;
+	dword_5d4594_1292 = 0;
 	dword_5d4594_1280 = 0;
 	sub_409580(0, 0);
 	return 1;
@@ -759,7 +760,7 @@ size_t __cdecl sub_409200(char* a1, int a2, int a3, FILE* a4) {
 			v12 = fwrite(&byte_5D4594[1276], 8u, 1u, a4);
 			*(_DWORD*)&byte_5D4594[1288] = 0;
 			v7 = v12;
-			*(_DWORD*)&byte_5D4594[1292] = 0;
+			dword_5d4594_1292 = 0;
 		}
 		v6 = v19;
 	}
@@ -802,7 +803,7 @@ void sub_4093A0() {
 	*(_DWORD*)&byte_5D4594[1284] = 0;
 	*(_DWORD*)&byte_5D4594[1288] = 0;
 	*(_DWORD*)&byte_5D4594[1276] = 0;
-	*(_DWORD*)&byte_5D4594[1292] = 0;
+	dword_5d4594_1292 = 0;
 	dword_5d4594_1280 = 0;
 	dword_5d4594_1308 = 0;
 }
