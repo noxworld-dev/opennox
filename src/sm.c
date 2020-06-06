@@ -10,6 +10,7 @@ void f(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
 // defined in GAME1.c
+extern _DWORD dword_5d4594_805872;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_811372;
 extern _DWORD dword_5d4594_815704;
@@ -470,7 +471,7 @@ void f(int reentrant) {
 		}
 		reentrant = 0;
 
-		if (*(_DWORD*)&byte_5D4594[805872]) {
+		if (dword_5d4594_805872) {
 			sub_437190();
 			sub_43BF10_upd_video_mode(1);
 			sub_431390();

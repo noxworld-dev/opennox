@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_805872;
 extern _DWORD dword_5d4594_830112;
 extern _DWORD dword_5d4594_830192;
 extern _DWORD dword_5d4594_816444;
@@ -341,7 +342,7 @@ int __cdecl sub_43BF10_upd_video_mode(int defaults) {
 		v3 = nox_win_depth_1;
 	}
 	nox_video_resizewnd(v1, v2, v3);
-	*(_DWORD*)&byte_5D4594[805872] = 0;
+	dword_5d4594_805872 = 0;
 	if (v1 == nox_backbuffer_width && v2 == nox_backbuffer_height && v3 == nox_backbuffer_depth) {
 		return 1;
 	}
@@ -1849,7 +1850,7 @@ int sub_43E230() {
 
 //-------------------------------------------------------------------------
 void mainloop_stop() {
-	if (*(_DWORD*)&byte_5D4594[805872]) {
+	if (dword_5d4594_805872) {
 		dword_587000_93200 = 1;
 		mainloop_exit();
 		return;
