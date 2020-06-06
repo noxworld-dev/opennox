@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2513924;
 extern _DWORD dword_5d4594_2523888;
 extern _DWORD dword_5d4594_2496472;
 extern _DWORD dword_5d4594_2523904;
@@ -1735,8 +1736,8 @@ int __cdecl sub_554B40(u_short hostshort) {
 			WSACleanup();
 			result = -1;
 		} else {
-			*(_DWORD*)&byte_5D4594[2513924] = socket(2, 2, 0);
-			if (*(int*)&byte_5D4594[2513924] == -1) {
+			dword_5d4594_2513924 = socket(2, 2, 0);
+			if (*(int*)&dword_5d4594_2513924 == -1) {
 				WSACleanup();
 				result = -1;
 			} else {
@@ -1789,9 +1790,9 @@ int __cdecl sub_554C80(u_short hostshort, char* buf, int a3) {
 int sub_554D10() {
 	if (dword_5d4594_2513916) {
 		closesocket(*(SOCKET*)&dword_5d4594_2513920);
-		closesocket(*(SOCKET*)&byte_5D4594[2513924]);
+		closesocket(*(SOCKET*)&dword_5d4594_2513924);
 		dword_5d4594_2513920 = 0;
-		*(_DWORD*)&byte_5D4594[2513924] = 0;
+		dword_5d4594_2513924 = 0;
 		dword_5d4594_2513916 = 0;
 		nox_set_draw_unk1(0);
 		sub_555000(0);
