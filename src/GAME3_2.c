@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1548480;
 extern _DWORD dword_5d4594_1563044;
 extern _DWORD dword_5d4594_1548732;
 extern _DWORD dword_5d4594_1548704;
@@ -1584,7 +1585,7 @@ void sub_4D0F30() {
 	unsigned __int8* v1; // eax
 
 	v0 = dword_5d4594_1548476;
-	*(_DWORD*)&byte_5D4594[1548480] = 1000;
+	dword_5d4594_1548480 = 1000;
 	if (dword_5d4594_1548476 > 0) {
 		v1 = &byte_5D4594[1525160];
 		do {
@@ -1663,7 +1664,7 @@ char* sub_4D0F60() // quest setup 2
 	do {
 		if (*((_DWORD*)v11 + 6) < v16 && v10 != *(_DWORD*)&byte_587000[191880] &&
 		    *(_DWORD*)v11 != *(_DWORD*)&byte_5D4594[32 * *(_DWORD*)&byte_587000[191880] + 1525132] &&
-		    *(_DWORD*)&byte_5D4594[1548480] - *((_DWORD*)v11 + 7) > 4) {
+		    dword_5d4594_1548480 - *((_DWORD*)v11 + 7) > 4) {
 			++v9;
 		}
 		++v10;
@@ -1677,7 +1678,7 @@ char* sub_4D0F60() // quest setup 2
 	for (i = &byte_5D4594[1525132];; i += 32) {
 		if (*((_DWORD*)i + 6) >= v16 || v14 == *(_DWORD*)&byte_587000[191880] ||
 		    *(_DWORD*)i == *(_DWORD*)&byte_5D4594[32 * *(_DWORD*)&byte_587000[191880] + 1525132] ||
-		    *(_DWORD*)&byte_5D4594[1548480] - *((_DWORD*)i + 7) <= 4) {
+		    dword_5d4594_1548480 - *((_DWORD*)i + 7) <= 4) {
 			goto LABEL_36;
 		}
 		if (v13 == v12)
