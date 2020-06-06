@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_587000_60064;
 extern _DWORD dword_5d4594_600116;
 extern _DWORD dword_587000_60068;
 extern _DWORD dword_5d4594_528264;
@@ -4992,11 +4993,11 @@ BOOL __cdecl sub_41FF70(int a1) {
 }
 
 //----- (0041FF90) --------------------------------------------------------
-int sub_41FF90() { return *(_DWORD*)&byte_587000[60064]; }
+int sub_41FF90() { return dword_587000_60064; }
 
 //----- (0041FFA0) --------------------------------------------------------
 BOOL __cdecl sub_41FFA0(int a1) {
-	*(_DWORD*)&byte_587000[60064] = a1;
+	dword_587000_60064 = a1;
 	return sub_40D7A0(a1, *(int*)&dword_587000_60068);
 }
 
@@ -5006,13 +5007,13 @@ int sub_41FFC0() { return dword_587000_60068; }
 //----- (0041FFD0) --------------------------------------------------------
 BOOL __cdecl sub_41FFD0(int a1) {
 	dword_587000_60068 = a1;
-	return sub_40D7A0(*(int*)&byte_587000[60064], a1);
+	return sub_40D7A0(*(int*)&dword_587000_60064, a1);
 }
 
 //----- (0041FFF0) --------------------------------------------------------
 BOOL sub_41FFF0() {
 	sub_40D890(*(int*)&byte_5D4594[534800]);
-	return sub_40D7A0(*(int*)&byte_587000[60064], *(int*)&dword_587000_60068);
+	return sub_40D7A0(*(int*)&dword_587000_60064, *(int*)&dword_587000_60068);
 }
 
 //----- (00420020) --------------------------------------------------------
