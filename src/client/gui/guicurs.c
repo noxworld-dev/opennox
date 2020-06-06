@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1097216;
 extern _DWORD dword_587000_151528;
 extern _DWORD dword_5d4594_1097208;
 extern _DWORD dword_5d4594_3798728;
@@ -35,7 +36,7 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	*(_DWORD*)&byte_5D4594[3799496] = 0;
 	dword_5d4594_3798728 = 1;
 	*(_DWORD*)&byte_5D4594[1097212] = a2 - 64;
-	*(_DWORD*)&byte_5D4594[1097216] = a3 - 64;
+	dword_5d4594_1097216 = a3 - 64;
 	if (byte_5D4594[2598000] & 1)
 		++*(_DWORD*)&byte_5D4594[1097288];
 	sub_434390(*(int*)&byte_5D4594[2589772]);
