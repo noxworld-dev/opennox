@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_739996;
 extern _DWORD dword_5d4594_528260;
 extern _DWORD dword_5d4594_741260;
 extern _DWORD dword_5d4594_534816;
@@ -9532,7 +9533,7 @@ void sub_4268D0() { nox_srand(0x9C4u); }
 int sub_4268E0() { return sub_409110(nox_file_3); }
 
 //----- (004268F0) --------------------------------------------------------
-int __cdecl sub_4268F0(int a1) { return sub_409190(nox_file_3, *(int*)&byte_5D4594[739996], a1); }
+int __cdecl sub_4268F0(int a1) { return sub_409190(nox_file_3, *(int*)&dword_5d4594_739996, a1); }
 
 //----- (00426910) --------------------------------------------------------
 int __cdecl sub_426910(char* a1, int a2, int a3) {
@@ -9544,7 +9545,7 @@ int __cdecl sub_426910(char* a1, int a2, int a3) {
 	sub_426A50(0);
 	*(_DWORD*)&byte_5D4594[3803300] = a2;
 	*(_DWORD*)&byte_5D4594[740000] = a3 == -1;
-	*(_DWORD*)&byte_5D4594[739996] = -1;
+	dword_5d4594_739996 = -1;
 	if (a2 == 1) {
 		v3 = 0;
 	} else if (a2 == 2) {
@@ -9674,15 +9675,15 @@ int __cdecl sub_426BD0(unsigned __int8* a1, int a2) {
 
 	result = nox_file_3;
 	if (nox_file_3) {
-		v3 = *(_DWORD*)&byte_5D4594[739996];
+		v3 = dword_5d4594_739996;
 		v4 = a1;
-		for (i = a2; i; *(_DWORD*)&byte_5D4594[739996] = v3) {
+		for (i = a2; i; dword_5d4594_739996 = v3) {
 			v6 = *v4++;
 			result = *(_DWORD*)&byte_581450[4 * (v6 ^ (unsigned __int8)v3) + 7288];
 			v3 = result ^ (v3 >> 8);
 			--i;
 		}
-		*(_DWORD*)&byte_5D4594[739996] = ~v3;
+		dword_5d4594_739996 = ~v3;
 	}
 	return result;
 }
