@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1568280;
 extern _DWORD dword_5d4594_1568288;
 extern _DWORD dword_5d4594_1563320;
 extern _DWORD dword_587000_201380;
@@ -12001,13 +12002,13 @@ void sub_4F2110() {
 	_DWORD* v7; // eax
 
 	v0 = 0;
-	if (!*(_DWORD*)&byte_5D4594[1568280]) {
-		*(_DWORD*)&byte_5D4594[1568280] = sub_4E3AA0((CHAR*)&byte_587000[214996]);
+	if (!dword_5d4594_1568280) {
+		dword_5d4594_1568280 = sub_4E3AA0((CHAR*)&byte_587000[214996]);
 		*(_DWORD*)&byte_5D4594[1568284] = sub_4E3AA0((CHAR*)&byte_587000[215012]);
 	}
 	for (i = sub_4DA790(); i; i = sub_4DA7A0(i)) {
 		v2 = *(unsigned __int16*)(i + 4);
-		if (((unsigned __int16)v2 == *(_DWORD*)&byte_5D4594[1568280] ||
+		if (((unsigned __int16)v2 == dword_5d4594_1568280 ||
 		     v2 == *(_DWORD*)&byte_5D4594[1568284]) &&
 		    (**(_BYTE**)(i + 692) & 0x80)) {
 			++v0;
@@ -12017,7 +12018,7 @@ void sub_4F2110() {
 	v4 = 0;
 	for (j = sub_4DA790(); j; j = sub_4DA7A0(j)) {
 		v6 = *(unsigned __int16*)(j + 4);
-		if (((unsigned __int16)v6 == *(_DWORD*)&byte_5D4594[1568280] ||
+		if (((unsigned __int16)v6 == dword_5d4594_1568280 ||
 		     v6 == *(_DWORD*)&byte_5D4594[1568284]) &&
 		    (**(_BYTE**)(j + 692) & 0x80)) {
 			if (v4 == v3) {
