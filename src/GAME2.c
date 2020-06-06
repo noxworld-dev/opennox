@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046604;
 extern _DWORD dword_5d4594_823772;
 extern _DWORD dword_5d4594_1045580;
 extern _DWORD dword_5d4594_1046548;
@@ -5893,10 +5894,10 @@ void __cdecl sub_45A670(unsigned int a1) {
 	_DWORD* v2; // esi
 	_DWORD* v3; // edi
 
-	result = *(_DWORD*)&byte_5D4594[1046604];
-	if (!*(_DWORD*)&byte_5D4594[1046604]) {
+	result = dword_5d4594_1046604;
+	if (!dword_5d4594_1046604) {
 		result = sub_44CFC0((CHAR*)&byte_587000[132084]);
-		*(_DWORD*)&byte_5D4594[1046604] = result;
+		dword_5d4594_1046604 = result;
 	}
 	v2 = nox_drawable_head_unk1;
 	if (!v2)
@@ -5906,7 +5907,7 @@ void __cdecl sub_45A670(unsigned int a1) {
 		v3 = (_DWORD*)v2[92];
 		if (!(result & 0x20400006)) {
 			if (!sub_49C520((int)v2)) {
-				if (v2[27] != *(_DWORD*)&byte_5D4594[1046604] && v2[80] < a1)
+				if (v2[27] != dword_5d4594_1046604 && v2[80] < a1)
 					sub_45A4E0_drawable((int)v2);
 			}
 		}
