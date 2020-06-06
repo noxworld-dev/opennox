@@ -6,6 +6,7 @@
 #include "guivote.h"
 #include "servopts/guiserv.h"
 
+extern _DWORD dword_5d4594_825764;
 extern _DWORD dword_5d4594_825752;
 extern _DWORD dword_5d4594_825768;
 extern _DWORD dword_5d4594_825760;
@@ -324,7 +325,7 @@ void sub_446190() {
 	wchar_t* v3; // [esp-12h] [ebp-14h]
 	char v4;     // [esp+1h] [ebp-1h]
 
-	*(_DWORD*)&byte_5D4594[825764] = 0;
+	dword_5d4594_825764 = 0;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		v1 = loadString_sub_40F1D0((char*)&byte_587000[108608], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
 					   667);
