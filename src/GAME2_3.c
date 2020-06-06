@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1301808;
 extern _DWORD dword_5d4594_1303508;
 extern _DWORD dword_5d4594_1200776;
 extern _DWORD dword_5d4594_1305716;
@@ -5740,7 +5741,7 @@ int __cdecl sub_49ADD0(int a1) {
 	dword_5d4594_1301812 = 0;
 	*(_DWORD*)&byte_5D4594[1301804] = 0;
 	dword_5d4594_1301816 = 0;
-	*(_DWORD*)&byte_5D4594[1301808] = 0;
+	dword_5d4594_1301808 = 0;
 	dword_5d4594_1301796 = 0;
 	*(_DWORD*)&byte_5D4594[1301820] = a1;
 	dword_5d4594_1301844 = nox_new_alloc_class("PixelSpan", 12, a1);
@@ -5790,11 +5791,11 @@ void sub_49AEE0() {
 	if (dword_5d4594_1301824 > 0) {
 		do {
 			v1 = 0;
-			*(_DWORD*)&byte_5D4594[1301808] = 0;
+			dword_5d4594_1301808 = 0;
 			v2 = *(_DWORD*)(dword_5d4594_1301848 + 4 * v0);
 			if (v2) {
 				do {
-					*(_DWORD*)&byte_5D4594[1301808] = ++v1;
+					dword_5d4594_1301808 = ++v1;
 					v2 = *(_DWORD*)(v2 + 8);
 				} while (v2);
 				if (v1 > *(int*)&dword_5d4594_1301816) {
@@ -6042,7 +6043,7 @@ int sub_49B3C0() {
 	result = 0;
 	dword_5d4594_1301812 = 0;
 	dword_5d4594_1301816 = 0;
-	*(_DWORD*)&byte_5D4594[1301808] = 0;
+	dword_5d4594_1301808 = 0;
 	dword_5d4594_1301796 = 0;
 	return result;
 }
