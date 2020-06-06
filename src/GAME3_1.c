@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3799560;
 extern _DWORD dword_5d4594_1319260;
 extern _DWORD dword_5d4594_1321196;
 extern _DWORD dword_587000_185504;
@@ -7147,7 +7148,7 @@ void __cdecl sub_4C60D0(int a1, int a2, int a3) {
 		*(_DWORD*)&byte_5D4594[3799444] = v5;
 		v8 = *v5;
 		++v5;
-		*(_DWORD*)&byte_5D4594[3799560] = v8;
+		dword_5d4594_3799560 = v8;
 		v9 = v8 + a2;
 		*(_DWORD*)&byte_5D4594[3799444] = v5;
 		dword_5d4594_3799556 = *v5;
@@ -7236,7 +7237,7 @@ int __cdecl sub_4C6260(int a1, int a2, int a3) {
 		*(_DWORD*)&byte_5D4594[3799444] = v6;
 		v7 = *(_DWORD*)(result + 8);
 		++v6;
-		*(_DWORD*)&byte_5D4594[3799560] = v7;
+		dword_5d4594_3799560 = v7;
 		v8 = v7 + a2;
 		*(_DWORD*)&byte_5D4594[3799444] = v6;
 		v9 = *v6;
@@ -8371,7 +8372,7 @@ void __cdecl sub_4C7860(int a1, int a2, int a3) {
 		*(_DWORD*)&byte_5D4594[3799444] = v5;
 		v8 = *v5;
 		++v5;
-		*(_DWORD*)&byte_5D4594[3799560] = v8;
+		dword_5d4594_3799560 = v8;
 		v9 = v8 + a2;
 		*(_DWORD*)&byte_5D4594[3799444] = v5;
 		dword_5d4594_3799556 = *v5;
@@ -8462,7 +8463,7 @@ int __cdecl sub_4C79F0(int a1, int a2, int a3) {
 		*(_DWORD*)&byte_5D4594[3799444] = v6;
 		v7 = *(_DWORD*)(result + 8);
 		++v6;
-		*(_DWORD*)&byte_5D4594[3799560] = v7;
+		dword_5d4594_3799560 = v7;
 		v8 = v7 + a2;
 		*(_DWORD*)&byte_5D4594[3799444] = v6;
 		v9 = *v6;
