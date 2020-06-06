@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830232;
 extern _DWORD dword_5d4594_825764;
 extern _DWORD dword_5d4594_830200;
 extern _DWORD dword_5d4594_830268;
@@ -5890,7 +5891,7 @@ _DWORD* __cdecl sub_449A10(int a1, int a2, int a3, int a4, int (*a5)(void), int 
 	if (dword_5d4594_830224 && dword_5d4594_830216)
 		(*(void (**)(void)) & dword_5d4594_830216)();
 	dword_5d4594_830228 = a1;
-	*(_DWORD*)&byte_5D4594[830232] = 0;
+	dword_5d4594_830232 = 0;
 	*(_DWORD*)&byte_5D4594[830220] = a5;
 	dword_5d4594_830216 = a6;
 	if (dword_5d4594_830224) {
@@ -6258,8 +6259,8 @@ int sub_44A400() {
 		sub_46C6E0(*(int*)&dword_5d4594_830224);
 		sub_46ADE0(*(int*)&dword_5d4594_830224);
 		sub_46C4E0(*(_DWORD**)&dword_5d4594_830224);
-		if (*(_DWORD*)&byte_5D4594[830232])
-			sub_46B500(*(int*)&byte_5D4594[830232]);
+		if (dword_5d4594_830232)
+			sub_46B500(*(int*)&dword_5d4594_830232);
 		dword_5d4594_830224 = 0;
 		dword_5d4594_830228 = 0;
 		nox_client_setCursorType_477610(0);
@@ -6286,7 +6287,7 @@ int __cdecl sub_44A4D0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[830232] = a1;
+	dword_5d4594_830232 = a1;
 	return result;
 }
 
