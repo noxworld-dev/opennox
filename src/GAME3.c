@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1308104;
 extern _DWORD dword_5d4594_1313532;
 extern _DWORD dword_5d4594_3798672;
 extern _DWORD dword_5d4594_1313564;
@@ -1825,7 +1826,7 @@ int sub_4A5E90() {
 	dword_5d4594_1308100 = v2;
 	v2[8] = 589825;
 	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 722);
-	*(_DWORD*)&byte_5D4594[1308104] = v3;
+	dword_5d4594_1308104 = v3;
 	v3[8] = 589825;
 	v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 723);
 	dword_5d4594_1308108 = v4;
@@ -1858,7 +1859,7 @@ int sub_4A5E90() {
 		nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16414, *(int*)&dword_5d4594_1307784, 0);
 		sub_4A61E0(*(_DWORD**)&dword_5d4594_1308096, 2, (_BYTE*)(dword_5d4594_1307784 + 71));
 		sub_4A61E0(*(_DWORD**)&dword_5d4594_1308100, 1, (_BYTE*)(dword_5d4594_1307784 + 68));
-		sub_4A61E0(*(_DWORD**)&byte_5D4594[1308104], 1, (_BYTE*)(dword_5d4594_1307784 + 74));
+		sub_4A61E0(*(_DWORD**)&dword_5d4594_1308104, 1, (_BYTE*)(dword_5d4594_1307784 + 74));
 		sub_4A61E0(*(_DWORD**)&dword_5d4594_1308108, 1, (_BYTE*)(dword_5d4594_1307784 + 77));
 		sub_4A61E0(*(_DWORD**)&dword_5d4594_1308112, 1, (_BYTE*)(dword_5d4594_1307784 + 80));
 		*(_DWORD*)(dword_5d4594_1308116 + 32) =
@@ -2374,13 +2375,13 @@ int __cdecl sub_4A6DC0(_DWORD* a1, int a2) {
 	}
 	v17 = dword_5d4594_1308140;
 	if (*(_BYTE*)(dword_5d4594_1308140 + 4) & 8) {
-		v18 = (unsigned __int16)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308104] + 32) >> 16);
-		v19 = v18 + 32 * *(unsigned __int16*)(*(_DWORD*)&byte_5D4594[1308104] + 32);
+		v18 = (unsigned __int16)(*(_DWORD*)(dword_5d4594_1308104 + 32) >> 16);
+		v19 = v18 + 32 * *(unsigned __int16*)(dword_5d4594_1308104 + 32);
 		LOBYTE(v17) = byte_5D4594[3 * v19 + 1307797];
 		LOBYTE(v19) = byte_5D4594[3 * v19 + 1307796];
 		v20 = sub_4344A0(
 		    v19, v17,
-		    byte_5D4594[3 * (v18 + 32 * *(unsigned __int16*)(*(_DWORD*)&byte_5D4594[1308104] + 32)) + 1307798]);
+		    byte_5D4594[3 * (v18 + 32 * *(unsigned __int16*)(dword_5d4594_1308104 + 32)) + 1307798]);
 		sub_4341D0(5, v20);
 	} else {
 		sub_4341D0(5, v4);
