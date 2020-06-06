@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_587000_66120;
 extern _DWORD dword_5d4594_739996;
 extern _DWORD dword_5d4594_528260;
 extern _DWORD dword_5d4594_741260;
@@ -7976,7 +7977,7 @@ int __cdecl sub_4243F0(const char* a1) {
 int __cdecl sub_424800(int a1, int a2) { return *(_DWORD*)&byte_5D4594[4 * (a2 + 20 * a1) + 588192]; }
 
 //----- (00424820) --------------------------------------------------------
-void* sub_424820() { return *(void**)&byte_587000[66120]; }
+void* sub_424820() { return *(void**)&dword_587000_66120; }
 
 //----- (00424830) --------------------------------------------------------
 int __cdecl sub_424830(int a1, int a2) {
