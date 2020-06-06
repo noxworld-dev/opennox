@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045540;
 extern _DWORD dword_587000_126996;
 extern _DWORD dword_5d4594_1045428;
 extern _DWORD dword_5d4594_1045544;
@@ -3640,7 +3641,7 @@ int __cdecl sub_4541D0(int a1) {
 	dword_5d4594_1045532 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10109);
 	dword_5d4594_1045528 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10105);
 	dword_5d4594_1045536 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10200);
-	*(_DWORD*)&byte_5D4594[1045540] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10111);
+	dword_5d4594_1045540 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10111);
 	dword_5d4594_1045544 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10112);
 	*(_DWORD*)&byte_5D4594[1045548] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10113);
 	*(_DWORD*)&byte_5D4594[1045556] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10104);
@@ -3719,8 +3720,8 @@ int __cdecl sub_454A90(int a1, int a2) {
 	} else {
 		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
 	}
-	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1045540] + 4) & 8) {
-		v2 = (_WORD*)nox_window_call_field_94(*(int*)&byte_5D4594[1045540], 16413, 0, 0);
+	if (*(_BYTE*)(dword_5d4594_1045540 + 4) & 8) {
+		v2 = (_WORD*)nox_window_call_field_94(*(int*)&dword_5d4594_1045540, 16413, 0, 0);
 		if (v2 && *v2) {
 			if (!(*(_BYTE*)(dword_5d4594_1045544 + 4) & 8))
 				sub_46ABB0(*(int*)&dword_5d4594_1045544, 1);
@@ -3887,12 +3888,12 @@ int __cdecl sub_454BA0(int a1, int a2, int* a3, int a4) {
 			*v21 ^= 0x20u;
 			return 0;
 		case 10112:
-			v22 = (wchar_t*)nox_window_call_field_94(*(int*)&byte_5D4594[1045540], 16413, 0, 0);
+			v22 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045540, 16413, 0, 0);
 			if (wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1045528))
 				sub_4168A0(v22);
 			else
 				sub_416770(0, v22, 0);
-			nox_window_call_field_94(*(int*)&byte_5D4594[1045540], 16414, (int)&byte_5D4594[1045600], 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1045540, 16414, (int)&byte_5D4594[1045600], 0);
 			return 0;
 		case 10113:
 			sub_416640();
