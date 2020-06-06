@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1064828;
 extern _DWORD dword_5d4594_1049976;
 extern _DWORD dword_5d4594_1090284;
 extern _DWORD dword_5d4594_1062484;
@@ -3238,7 +3239,7 @@ int sub_4683B0() {
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1064816, sub_468480, 0, 0);
 	dword_5d4594_1064820 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1755);
 	dword_5d4594_1064824 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1756);
-	*(_DWORD*)&byte_5D4594[1064828] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1754);
+	dword_5d4594_1064828 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1754);
 	v0 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1766);
 	v0[9] |= 4u;
 	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1767);
@@ -3283,12 +3284,12 @@ int sub_4684C0() {
 		break;
 	case 2:
 		dword_5d4594_1064296 = 0;
-		nox_window_set_hidden(*(int*)&byte_5D4594[1064828], 1);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1064828, 1);
 		result = nox_window_set_hidden(*(int*)&dword_5d4594_1064820, 0);
 		break;
 	case 3:
 		dword_5d4594_1064296 = 1;
-		nox_window_set_hidden(*(int*)&byte_5D4594[1064828], 1);
+		nox_window_set_hidden(*(int*)&dword_5d4594_1064828, 1);
 		result = nox_window_set_hidden(*(int*)&dword_5d4594_1064824, 0);
 		break;
 	case 4:
@@ -3382,7 +3383,7 @@ int __cdecl sub_468840(wchar_t* a1) {
 	_DWORD* v1; // eax
 
 	nox_wcscpy((wchar_t*)&byte_5D4594[1064304], a1);
-	nox_window_set_hidden(*(int*)&byte_5D4594[1064828], 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1064828, 0);
 	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1768);
 	return nox_window_call_field_94((int)v1, 16385, (int)&byte_5D4594[1064304], 6);
 }
@@ -3397,7 +3398,7 @@ int sub_468DC0() {
 		dword_5d4594_1064816 = 0;
 		dword_5d4594_1064820 = 0;
 		dword_5d4594_1064824 = 0;
-		*(_DWORD*)&byte_5D4594[1064828] = 0;
+		dword_5d4594_1064828 = 0;
 	}
 	return result;
 }
