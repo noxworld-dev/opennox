@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1096272;
 extern _DWORD dword_5d4594_1090292;
 extern _DWORD dword_5d4594_1091364;
 extern _DWORD dword_5d4594_1096276;
@@ -123,7 +124,7 @@ int sub_4714E0() {
 	} while ((int)v2 < (int)&byte_5D4594[1093036]);
 	if (!*(_DWORD*)&byte_5D4594[1096268]) {
 		*(_DWORD*)&byte_5D4594[1096268] = sub_44CFC0((CHAR*)&byte_587000[148600]);
-		*(_DWORD*)&byte_5D4594[1096272] = sub_44CFC0((CHAR*)&byte_587000[148612]);
+		dword_5d4594_1096272 = sub_44CFC0((CHAR*)&byte_587000[148612]);
 		dword_5d4594_1096276 = sub_44CFC0((CHAR*)&byte_587000[148624]);
 		dword_5d4594_1096280 = sub_44CFC0((CHAR*)&byte_587000[148644]);
 		dword_5d4594_1096284 = sub_44CFC0((CHAR*)&byte_587000[148656]);
@@ -162,7 +163,7 @@ int sub_4714E0() {
 		sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1090828] + 36), v6);
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1090828] + 32) = 1;
 		*(_WORD*)&byte_5D4594[1090848] = 0;
-		nox_thing* t7 = nox_get_thing(*(int*)&byte_5D4594[1096272]);
+		nox_thing* t7 = nox_get_thing(*(int*)&dword_5d4594_1096272);
 		if (t7) {
 			nox_drawable_link_thing(&byte_5D4594[1090852], t7->field_1c);
 			*(_DWORD*)&byte_5D4594[1090832] = &byte_5D4594[1090852];
@@ -171,7 +172,7 @@ int sub_4714E0() {
 		} else {
 			*(_DWORD*)&byte_5D4594[1090832] = 0;
 		}
-		*(_DWORD*)&byte_5D4594[1090844] = *(_DWORD*)&byte_5D4594[1096272];
+		*(_DWORD*)&byte_5D4594[1090844] = dword_5d4594_1096272;
 		*(_DWORD*)&byte_5D4594[1091900] = sub_42F970("PoisonTube");
 		v8 = nox_window_new(*(int*)&dword_5d4594_1090276, 136, 0, 0, 91, 159, 0);
 		v9 = sub_42F970("HealthManaTubes");
