@@ -5,6 +5,7 @@
 #include "../gamewin/gamewin.h"
 #include "playrlst.h"
 
+extern _DWORD dword_5d4594_1046512;
 extern _DWORD dword_587000_129656;
 extern _DWORD dword_5d4594_1046360;
 extern _DWORD dword_5d4594_1046524;
@@ -85,7 +86,7 @@ int sub_457500() {
 			   nox_win_width - *(_DWORD*)(dword_5d4594_1046492 + 8) - 10, 0);
 		sub_46B300(*(int*)&dword_5d4594_1046492, sub_458590);
 		sub_46B340(*(int*)&dword_5d4594_1046492, sub_458500);
-		*(_DWORD*)&byte_5D4594[1046512] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10101);
+		dword_5d4594_1046512 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10101);
 		dword_5d4594_1046496 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10114);
 		dword_5d4594_1046500 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10183);
 		dword_5d4594_1046504 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10197);
