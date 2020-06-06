@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_3592;
 extern _DWORD dword_5d4594_805860;
 extern _DWORD dword_5d4594_526276;
 extern _DWORD dword_5d4594_251704;
@@ -1404,7 +1405,7 @@ BOOL sub_40A1A0() {
 	__int16 v0; // ax
 
 	v0 = nox_common_gameFlags_getVal_40A5B0();
-	return (sub_40A180(v0) || *(_DWORD*)&byte_5D4594[3592]) && *(_DWORD*)&byte_587000[4660] &&
+	return (sub_40A180(v0) || dword_5d4594_3592) && *(_DWORD*)&byte_587000[4660] &&
 	       (unsigned __int64)sub_416BB0() > *(_QWORD*)&byte_5D4594[3468];
 }
 
@@ -1449,12 +1450,12 @@ const char* __cdecl sub_40A2A0(int a1, const char* a2) {
 	result = a2;
 	if (a2)
 		result = (const char*)sub_4DA390(a2);
-	*(_DWORD*)&byte_5D4594[3592] = 1;
+	dword_5d4594_3592 = 1;
 	return result;
 }
 
 //----- (0040A300) --------------------------------------------------------
-int sub_40A300() { return *(_DWORD*)&byte_5D4594[3592]; }
+int sub_40A300() { return dword_5d4594_3592; }
 
 //----- (0040A310) --------------------------------------------------------
 __int64 __cdecl sub_40A310(int a1) {
@@ -1593,7 +1594,7 @@ void __cdecl nox_common_gameFlags_unset_40A540(int a1) {
 			*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
 	}
 	if (a1 & 0x4000000)                       // sudden death
-		*(_DWORD*)&byte_5D4594[3592] = 0; // countdown is ticking/set
+		dword_5d4594_3592 = 0; // countdown is ticking/set
 }
 
 //----- (0040A590) --------------------------------------------------------
