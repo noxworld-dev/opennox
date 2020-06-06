@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_825764;
 extern _DWORD dword_5d4594_830200;
 extern _DWORD dword_5d4594_830268;
 extern _DWORD dword_5d4594_805856;
@@ -4559,7 +4560,7 @@ int sub_4460C0() {
 			result = sub_4460A0(1);
 		}
 	} else {
-		*(_DWORD*)&byte_5D4594[825764] = 1;
+		dword_5d4594_825764 = 1;
 		result = nox_common_gameFlags_check_40A5C0(4096);
 		if (result) {
 			result = nox_common_gameFlags_check_40A5C0(1);
@@ -4574,7 +4575,7 @@ int sub_4460C0() {
 int sub_446140() {
 	int result; // eax
 
-	*(_DWORD*)&byte_5D4594[825764] = 1;
+	dword_5d4594_825764 = 1;
 	result = nox_common_gameFlags_check_40A5C0(4096);
 	if (result) {
 		result = nox_common_gameFlags_check_40A5C0(1);
@@ -4585,7 +4586,7 @@ int sub_446140() {
 }
 
 //----- (00446180) --------------------------------------------------------
-int sub_446180() { return *(_DWORD*)&byte_5D4594[825764]; }
+int sub_446180() { return dword_5d4594_825764; }
 
 //----- (00446360) --------------------------------------------------------
 unsigned int sub_446360() {
