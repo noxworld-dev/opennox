@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_829544;
 extern _DWORD dword_5d4594_816412;
 extern _DWORD dword_5d4594_829500;
 extern _DWORD dword_587000_80840;
@@ -5046,8 +5047,8 @@ const wchar_t* __cdecl sub_4471A0(const char* a1, int a2, int a3, int a4) {
 	if (!result) {
 		result = *(const wchar_t**)&dword_5d4594_829492;
 		if (dword_5d4594_829492) {
-			result = *(const wchar_t**)&byte_5D4594[829544];
-			if (*(_DWORD*)&byte_5D4594[829544]) {
+			result = *(const wchar_t**)&dword_5d4594_829544;
+			if (dword_5d4594_829544) {
 				if (a2) {
 					if (a3) {
 						if (a4 == 1) {
@@ -5139,8 +5140,8 @@ wchar_t* __cdecl sub_447380(const char* a1, char* a2) {
 	if (!result) {
 		result = *(wchar_t**)&dword_5d4594_829492;
 		if (dword_5d4594_829492) {
-			result = *(wchar_t**)&byte_5D4594[829544];
-			if (*(_DWORD*)&byte_5D4594[829544]) {
+			result = *(wchar_t**)&dword_5d4594_829544;
+			if (dword_5d4594_829544) {
 				if (a2) {
 					v3 = *(const wchar_t**)&byte_5D4594[829540];
 					sub_447410(a2);
