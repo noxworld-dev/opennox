@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386168;
 extern _DWORD dword_5d4594_2386164;
 extern _DWORD dword_5d4594_1599688;
 extern _DWORD dword_5d4594_2386948;
@@ -1325,14 +1326,14 @@ int __cdecl sub_50B2C0(int a1) {
 }
 
 //----- (0050B500) --------------------------------------------------------
-void sub_50B500() { *(_DWORD*)&byte_5D4594[2386168] = 0; }
+void sub_50B500() { dword_5d4594_2386168 = 0; }
 
 //----- (0050B510) --------------------------------------------------------
 int sub_50B510() {
 	int result; // eax
 
 	result = 0;
-	*(_DWORD*)&byte_5D4594[2386168] = 0;
+	dword_5d4594_2386168 = 0;
 	*(_DWORD*)&byte_5D4594[2386172] = 0;
 	return result;
 }
@@ -1351,7 +1352,7 @@ int sub_50B520() {
 			sub_50B2C0(i);
 			result = sub_4DA7A0(i);
 		}
-		*(_DWORD*)&byte_5D4594[2386168] = 1;
+		dword_5d4594_2386168 = 1;
 	}
 	return result;
 }
@@ -1622,7 +1623,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
 	v59 = a1 != 0 ? 0 : 999999;
 	dword_5d4594_1599712 = 0;
 	++dword_5d4594_2386160;
-	if (!*(_DWORD*)&byte_5D4594[2386168])
+	if (!dword_5d4594_2386168)
 		sub_50B520();
 	v51 = *a3 * 0.043478262;
 	v6 = nox_float2int(v51);
