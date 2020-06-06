@@ -1,6 +1,7 @@
 #include "litning.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1316452;
 extern _DWORD dword_5d4594_1316448;
 extern _DWORD dword_5d4594_1316456;
 extern _DWORD dword_587000_178216;
@@ -248,7 +249,7 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
 		*(_DWORD*)&byte_5D4594[1316508] = 0;
 		sub_4BB070((int)v22, (int)v21);
 		dword_5d4594_1316492 = 1;
-		dword_5d4594_1316472 = *(_DWORD*)&byte_5D4594[1316452];
+		dword_5d4594_1316472 = dword_5d4594_1316452;
 		sub_4BB070((int)v22, (int)v21);
 	}
 	result = a7;
@@ -321,7 +322,7 @@ int __cdecl nox_thing_lightning_draw(int* a1, int a2) {
         a2a.field_4 = v9[4] - v12 + v13 - 20;
         a3 = *(int2 *) (v9 + 3);
     }
-    *(_DWORD*)&byte_5D4594[1316452] = *(_DWORD*)&byte_5D4594[1316428];
+    dword_5d4594_1316452 = *(_DWORD*)&byte_5D4594[1316428];
     dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316464];
     dword_5d4594_1316456 = *(_DWORD*)&byte_5D4594[1316424];
     dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316488];
@@ -393,7 +394,7 @@ int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, int a2) {
         a2a.field_4 = v11[4] - v14 + v15 - 20;
         a3 = *(int2 *) (v11 + 3);
     }
-    *(_DWORD*)&byte_5D4594[1316452] = *(_DWORD*)&byte_5D4594[1316428];
+    dword_5d4594_1316452 = *(_DWORD*)&byte_5D4594[1316428];
     dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316464];
     dword_5d4594_1316456 = *(_DWORD*)&byte_5D4594[1316424];
     dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316488];
@@ -547,7 +548,7 @@ int __cdecl nox_thing_green_bolt_draw(int* a1, int a2) {
 		a3.field_4 = *(unsigned __int16*)(a2 + 443);
 		a2a.field_4 = a3.field_4 - v7 + v21 - 20;
 	}
-	*(_DWORD*)&byte_5D4594[1316452] = *(_DWORD*)&byte_5D4594[1316444];
+	dword_5d4594_1316452 = *(_DWORD*)&byte_5D4594[1316444];
 	dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316504];
 	dword_5d4594_1316456 = *(_DWORD*)&byte_5D4594[1316460];
 	dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316480];
