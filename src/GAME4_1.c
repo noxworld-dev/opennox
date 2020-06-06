@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386164;
 extern _DWORD dword_5d4594_1599688;
 extern _DWORD dword_5d4594_2386948;
 extern _DWORD dword_5d4594_2386872;
@@ -1291,7 +1292,7 @@ int __cdecl sub_50B2C0(int a1) {
 						if ((int)v11 >= (int)&byte_587000[234180])
 							goto LABEL_25;
 					}
-					*((_DWORD*)v10 - 1) = *(_DWORD*)&byte_5D4594[2386164];
+					*((_DWORD*)v10 - 1) = dword_5d4594_2386164;
 					v12 = *(_DWORD*)(v1 + 8);
 					if (v12 & 8 || *(_BYTE*)(v1 + 16) & 2) {
 						v13 = *(_WORD*)v10 | 0x100;
@@ -1344,7 +1345,7 @@ int sub_50B520() {
 	result = *(_DWORD*)&byte_5D4594[2598000];
 	if ((unsigned int)(*(_DWORD*)&byte_5D4594[2598000] - *(_DWORD*)&byte_5D4594[2386172]) >= 0xF) {
 		*(_DWORD*)&byte_5D4594[2386172] = *(_DWORD*)&byte_5D4594[2598000];
-		++*(_DWORD*)&byte_5D4594[2386164];
+		++dword_5d4594_2386164;
 		result = sub_4DA790();
 		for (i = result; result; i = result) {
 			sub_50B2C0(i);
@@ -1500,7 +1501,7 @@ unsigned int __cdecl sub_50B8E0(int a1, int a2, int a3) {
 	unsigned int result; // eax
 
 	v3 = 12 * (a3 + (a2 << 8));
-	if (*(_DWORD*)&byte_5D4594[v3 + 1599720] != *(_DWORD*)&byte_5D4594[2386164])
+	if (*(_DWORD*)&byte_5D4594[v3 + 1599720] != dword_5d4594_2386164)
 		goto LABEL_12;
 	HIWORD(v4) = HIWORD(a1);
 	v5 = *(_DWORD*)(a1 + 16);
