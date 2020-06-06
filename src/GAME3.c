@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1308136;
 extern _DWORD dword_587000_172880;
 extern _DWORD dword_5d4594_1308104;
 extern _DWORD dword_5d4594_1313532;
@@ -1850,7 +1851,7 @@ int sub_4A5E90() {
 	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 729);
 	dword_5d4594_1308132 = v10;
 	v10[8] = *(unsigned __int16*)&byte_587000[171380] << 16;
-	*(_DWORD*)&byte_5D4594[1308136] = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 711);
+	dword_5d4594_1308136 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 711);
 	dword_5d4594_1308140 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 712);
 	dword_5d4594_1308144 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 713);
 	dword_5d4594_1308148 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 714);
@@ -2387,7 +2388,7 @@ int __cdecl sub_4A6DC0(_DWORD* a1, int a2) {
 	} else {
 		sub_4341D0(5, v4);
 	}
-	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[1308136] + 4) & 8)
+	if (*(_BYTE*)(dword_5d4594_1308136 + 4) & 8)
 		nox_client_drawImageAt_47D2C0(
 		    *(_DWORD*)&byte_5D4594[4 * *(unsigned __int8*)(dword_5d4594_1307784 + 67) + 3798172],
 		    v54, v55);
