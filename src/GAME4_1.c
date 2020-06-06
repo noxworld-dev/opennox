@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386852;
 extern _DWORD dword_5d4594_1599708;
 extern _DWORD dword_5d4594_2386860;
 extern _DWORD dword_5d4594_2386168;
@@ -5387,7 +5388,7 @@ void sub_511E60() {
 	sub_51AC60();
 	*(_DWORD*)&byte_5D4594[2386844] = 0;
 	*(_DWORD*)&byte_5D4594[2386848] = 0;
-	*(_DWORD*)&byte_5D4594[2386852] = 0;
+	dword_5d4594_2386852 = 0;
 }
 
 //----- (00511EB0) --------------------------------------------------------
@@ -6900,7 +6901,7 @@ int sub_5139A0() {
 		    *(_DWORD*)&byte_5D4594[2386844] != *(_DWORD*)&byte_5D4594[2598000]) {
 			*(_DWORD*)&byte_5D4594[2386844] = *(_DWORD*)&byte_5D4594[2598000];
 			*(_DWORD*)&byte_5D4594[2386848] = 0;
-			*(_DWORD*)&byte_5D4594[2386852] = 0;
+			dword_5d4594_2386852 = 0;
 		}
 		if (*(_BYTE*)(v2 + 8) & 4) {
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
@@ -6959,9 +6960,9 @@ void __cdecl sub_513B00(int a1, int a2) {
 			if (v2) {
 				sub_4ED970(50.0, (float2*)(a1 + 56), &v7);
 				sub_4ED790(a1, v2, &v7);
-				if (!*(_DWORD*)&byte_5D4594[2386852]) {
+				if (!dword_5d4594_2386852) {
 					sub_4DA2C0(a1, "pickup.c:CarryingTooMuch", 0);
-					*(_DWORD*)&byte_5D4594[2386852] = 1;
+					dword_5d4594_2386852 = 1;
 				}
 			}
 		}
