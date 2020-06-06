@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1549844;
 extern _DWORD dword_5d4594_3835364;
 extern _DWORD dword_5d4594_1563064;
 extern _DWORD dword_5d4594_1548532;
@@ -3640,7 +3641,7 @@ int __cdecl sub_4D53B0(int a1, int a2, int a3, int a4, int a5) {
 			v14 = v28;
 		}
 		if (sub_5238F0(v23) || *(_BYTE*)(v24 + 52) & 2 || v24 == a5 ||
-		    sub_526AC0(1, 100) > *(int*)&byte_5D4594[1549844] || !sub_523A10((int)v18, (float*)v24)) {
+		    sub_526AC0(1, 100) > *(int*)&dword_5d4594_1549844 || !sub_523A10((int)v18, (float*)v24)) {
 			goto LABEL_17;
 		}
 		sub_521730(v18);
@@ -3790,7 +3791,7 @@ int __cdecl sub_4D5630(int a1, int a2, int a3, int a4, int a5) {
 		goto LABEL_34;
 	}
 	if (*(_DWORD*)v17 != 1 || *(_BYTE*)(v17 + 52) & 2 || v17 == a5 ||
-	    sub_526AC0(1, 100) > *(int*)&byte_5D4594[1549844]) {
+	    sub_526AC0(1, 100) > *(int*)&dword_5d4594_1549844) {
 	LABEL_100:
 		v43 = 0;
 		goto LABEL_41;
@@ -3861,7 +3862,7 @@ LABEL_43:
 		goto LABEL_62;
 	}
 	if (*(_DWORD*)v26 != 1 || *(_BYTE*)(v26 + 52) & 2 || v26 == a5 ||
-	    sub_526AC0(1, 100) > *(int*)&byte_5D4594[1549844]) {
+	    sub_526AC0(1, 100) > *(int*)&dword_5d4594_1549844) {
 	LABEL_101:
 		v44 = 0;
 		goto LABEL_69;
@@ -3944,7 +3945,7 @@ LABEL_71:
 					goto LABEL_94;
 				}
 				if (*(_DWORD*)v38 == 1 && !(*(_BYTE*)(v38 + 52) & 2) && v38 != a5 &&
-				    sub_526AC0(1, 100) <= *(int*)&byte_5D4594[1549844]) {
+				    sub_526AC0(1, 100) <= *(int*)&dword_5d4594_1549844) {
 					v40 = 1;
 					if (sub_523A10((int)v32, v39))
 						goto LABEL_89;
