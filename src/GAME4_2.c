@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835372;
 extern _DWORD dword_5d4594_3835392;
 extern _DWORD dword_5d4594_2487580;
 extern _DWORD dword_5d4594_2487568;
@@ -6926,7 +6927,7 @@ int __cdecl sub_526C40(int a1) {
 int __cdecl sub_526C60(int a1) {
 	if (a1 != 1 && a1)
 		return 0;
-	*(_DWORD*)&byte_5D4594[3835372] = a1;
+	dword_5d4594_3835372 = a1;
 	return 1;
 }
 
@@ -7070,7 +7071,7 @@ int __cdecl sub_526E60(float* a1) {
 				else
 					v10 = byte_5D4594[3835380];
 				*v6 = v10;
-				if (*(_DWORD*)&byte_5D4594[3835372])
+				if (dword_5d4594_3835372)
 					v11 = v6[5] % (__int16)sub_410E00(v6[1]);
 				else
 					LOBYTE(v11) = byte_5D4594[3835384];
@@ -7087,7 +7088,7 @@ int __cdecl sub_526E60(float* a1) {
 			if (v7) {
 				v7[1] = byte_5D4594[3835376];
 				*v7 = byte_5D4594[3835380];
-				if (*(_DWORD*)&byte_5D4594[3835372])
+				if (dword_5d4594_3835372)
 					v9 = v2 % sub_410E00(v7[1]);
 				else
 					LOBYTE(v9) = byte_5D4594[3835384];
