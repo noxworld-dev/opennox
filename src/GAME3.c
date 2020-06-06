@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_172876;
 extern _DWORD dword_587000_172872;
 extern _DWORD dword_5d4594_1313788;
 extern _DWORD dword_5d4594_1308136;
@@ -4417,7 +4418,7 @@ int sub_4AA6B0() {
 //----- (004AA9C0) --------------------------------------------------------
 int sub_4AA9C0() {
 	sub_44D8F0();
-	sub_43BEF0_set_video_mode(*(int*)&byte_587000[172876], *(int*)&dword_587000_172872,
+	sub_43BEF0_set_video_mode(*(int*)&dword_587000_172876, *(int*)&dword_587000_172872,
 				  *(int*)&dword_587000_172880);
 	nox_common_writecfgfile((char*)&byte_587000[173256]);
 	*(_BYTE*)(dword_5d4594_1309740 + 64) = 2;
@@ -4587,15 +4588,15 @@ int __cdecl sub_4AABE0(int a1, int a2, int* a3, int a4) {
 				sub_4766A0(100);
 				break;
 			case 321:
-				*(_DWORD*)&byte_587000[172876] = 848;
+				dword_587000_172876 = 848;
 				dword_587000_172872 = 480;
 				break;
 			case 322:
-				*(_DWORD*)&byte_587000[172876] = 1024;
+				dword_587000_172876 = 1024;
 				dword_587000_172872 = 576;
 				break;
 			case 323:
-				*(_DWORD*)&byte_587000[172876] = 1024;
+				dword_587000_172876 = 1024;
 				dword_587000_172872 = 768;
 				break;
 			case 332:
