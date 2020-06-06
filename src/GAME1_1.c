@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_741296;
 extern _DWORD dword_5d4594_599496;
 extern _DWORD dword_587000_66120;
 extern _DWORD dword_5d4594_739996;
@@ -10331,12 +10332,12 @@ int __cdecl sub_427980(float4* a1, float4* a2) {
 	if (*(float*)&dword_5d4594_741292 > 0.0 && *(float*)&dword_5d4594_741284 < 0.0 ||
 	    (v8 = sub_419A10(*(float*)&dword_5d4594_741292), sub_419A10(*(float*)&dword_5d4594_741284) < v8) ||
 	    (*(_DWORD*)&byte_5D4594[741288] = dword_5d4594_741284,
-	     *(float*)&byte_5D4594[741296] = *(float*)&byte_5D4594[741264] * *(float*)&dword_5d4594_741252 -
+	     *(float*)&dword_5d4594_741296 = *(float*)&byte_5D4594[741264] * *(float*)&dword_5d4594_741252 -
 					     *(float*)&dword_5d4594_741260 * *(float*)&dword_5d4594_741256,
-	     *(float*)&byte_5D4594[741296] < 0.0) &&
+	     *(float*)&dword_5d4594_741296 < 0.0) &&
 		*(float*)&dword_5d4594_741284 > 0.0 ||
-	    *(float*)&byte_5D4594[741296] > 0.0 && *(float*)&dword_5d4594_741284 < 0.0 ||
-	    (v9 = sub_419A10(*(float*)&byte_5D4594[741296]), sub_419A10(*(float*)&byte_5D4594[741288]) < v9)) {
+	    *(float*)&dword_5d4594_741296 > 0.0 && *(float*)&dword_5d4594_741284 < 0.0 ||
+	    (v9 = sub_419A10(*(float*)&dword_5d4594_741296), sub_419A10(*(float*)&byte_5D4594[741288]) < v9)) {
 	LABEL_36:
 		result = 0;
 	} else {
