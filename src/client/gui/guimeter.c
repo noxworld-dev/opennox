@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1090828;
 extern _DWORD dword_5d4594_1096272;
 extern _DWORD dword_5d4594_1090292;
 extern _DWORD dword_5d4594_1091364;
@@ -156,12 +157,12 @@ int sub_4714E0() {
 	*(_DWORD*)&byte_5D4594[1090296] = 0;
 	*(_DWORD*)&byte_5D4594[1090308] = 0;
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251)) {
-		*(_DWORD*)&byte_5D4594[1090828] = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 62, 166, 28, 30, 0);
-		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1090828], sub_471B90, sub_471A80, 0);
+		dword_5d4594_1090828 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 62, 166, 28, 30, 0);
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090828, sub_471B90, sub_471A80, 0);
 		v6 = loadString_sub_40F1D0((char*)&byte_587000[148820], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c",
 					   1083);
-		sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1090828] + 36), v6);
-		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1090828] + 32) = 1;
+		sub_46B000((wchar_t*)(dword_5d4594_1090828 + 36), v6);
+		*(_DWORD*)(dword_5d4594_1090828 + 32) = 1;
 		*(_WORD*)&byte_5D4594[1090848] = 0;
 		nox_thing* t7 = nox_get_thing(*(int*)&dword_5d4594_1096272);
 		if (t7) {
