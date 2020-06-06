@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1563044;
 extern _DWORD dword_5d4594_1548732;
 extern _DWORD dword_5d4594_1548704;
 extern _DWORD dword_5d4594_1523048;
@@ -7723,7 +7724,7 @@ int sub_4DB0A0() {
 	*(_DWORD*)&byte_5D4594[1563064] = 0;
 	dword_5d4594_1563092 = 0;
 	dword_5d4594_1563088 = 0;
-	*(_DWORD*)&byte_5D4594[1563044] = 0;
+	dword_5d4594_1563044 = 0;
 	*(_DWORD*)&byte_5D4594[1563048] = 0;
 	dword_5d4594_1563052 = 0;
 	*(_DWORD*)&byte_5D4594[1563100] = 0;
@@ -8444,7 +8445,7 @@ int sub_4DCD40() {
 
 	*(_DWORD*)&byte_5D4594[1563048] = sub_416A00();
 	sub_4169E0();
-	*(_DWORD*)&byte_5D4594[1563044] = 1;
+	dword_5d4594_1563044 = 1;
 	v0 = sub_409E10();
 	nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v0);
 	result = sub_4DA7C0();
@@ -8465,12 +8466,12 @@ int sub_4DCD40() {
 int sub_4DCE00() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1563044];
-	if (*(_DWORD*)&byte_5D4594[1563044]) {
+	result = dword_5d4594_1563044;
+	if (dword_5d4594_1563044) {
 		result = sub_419F00();
 		if (!result) {
 			result = sub_4DCE30();
-			*(_DWORD*)&byte_5D4594[1563044] = 0;
+			dword_5d4594_1563044 = 0;
 		}
 	}
 	return result;
