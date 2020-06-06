@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_205200;
 extern _DWORD dword_5d4594_1567960;
 extern _DWORD dword_5d4594_1568240;
 extern _DWORD dword_5d4594_1567956;
@@ -7802,7 +7803,7 @@ int __cdecl sub_4EC580(int a1) {
 void sub_4EC5B0() {
 	dword_5d4594_1568024 = 0;
 	sub_4144D0(*(_DWORD**)&dword_5d4594_1568020);
-	*(_DWORD*)&byte_587000[205200] = 1;
+	dword_587000_205200 = 1;
 }
 
 //----- (004EC5E0) --------------------------------------------------------
@@ -7812,8 +7813,8 @@ _DWORD* __cdecl sub_4EC5E0(int a1) {
 	unsigned __int16 v3; // cx
 	_BYTE* v4;           // ebp
 
-	result = *(_DWORD**)&byte_587000[205200];
-	if (*(_DWORD*)&byte_587000[205200]) {
+	result = *(_DWORD**)&dword_587000_205200;
+	if (dword_587000_205200) {
 		result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1568020);
 		v2 = result;
 		if (result) {
