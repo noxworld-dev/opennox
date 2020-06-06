@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_2490504;
 extern _DWORD dword_5d4594_2491548;
 extern _DWORD dword_5d4594_2491580;
 extern _DWORD dword_587000_292488;
@@ -2011,10 +2012,10 @@ int __cdecl sub_547F70(_DWORD* a1, int a2, _DWORD* a3, int a4) {
 
 	v4 = a1;
 	if (sub_547EE0((int)a1, 0x80u) && sub_547EE0(a2, 0x80u)) {
-		++*(_DWORD*)&byte_5D4594[2490504];
+		++dword_5d4594_2490504;
 		a1[127] = 0;
 		a1[128] = 0;
-		a1[126] = *(_DWORD*)&byte_5D4594[2490504];
+		a1[126] = dword_5d4594_2490504;
 		do {
 			v14 = 0;
 			if (!v4)
@@ -2060,12 +2061,12 @@ int __cdecl sub_547F70(_DWORD* a1, int a2, _DWORD* a3, int a4) {
 					v6 = (int)(v4 + 23);
 					do {
 						v7 = *(_DWORD**)v6;
-						if (*(_DWORD*)(*(_DWORD*)v6 + 504) != *(_DWORD*)&byte_5D4594[2490504]) {
+						if (*(_DWORD*)(*(_DWORD*)v6 + 504) != dword_5d4594_2490504) {
 							if (sub_547EE0((int)v7, 0x80u)) {
 								v7[127] = v4;
 								v7[128] = v14;
 								v14 = v7;
-								v7[126] = *(_DWORD*)&byte_5D4594[2490504];
+								v7[126] = dword_5d4594_2490504;
 							}
 						}
 						++v5;
