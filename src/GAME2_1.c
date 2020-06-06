@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_145548;
 extern _DWORD dword_5d4594_1096432;
 extern _DWORD dword_5d4594_1064300;
 extern _DWORD dword_5d4594_1049516;
@@ -5624,7 +5625,7 @@ int __cdecl sub_46D750(int a1, int a2, int a3, int a4, int a5, int a6, int a7, i
 	dword_587000_145540 = v10;
 	*(_DWORD*)&byte_5D4594[1082892] = a3;
 	*(_DWORD*)&byte_587000[145544] = v11;
-	*(_DWORD*)&byte_587000[145548] = v11;
+	dword_587000_145548 = v11;
 	*(_DWORD*)&byte_587000[145552] = v12;
 	*(_DWORD*)&byte_5D4594[1082908] = a4;
 	*(_DWORD*)&byte_5D4594[1082912] = a5;
@@ -5643,9 +5644,9 @@ int sub_46D830() {
 	int v6;      // [esp+8h] [ebp-8h]
 	int v7;      // [esp+Ch] [ebp-4h]
 
-	if ((int)*(_DWORD*)&byte_587000[145548] < 0)
+	if ((int)dword_587000_145548 < 0)
 		return 0;
-	if ((int)--*(_DWORD*)&byte_587000[145548] >= 0)
+	if ((int)--dword_587000_145548 >= 0)
 		goto LABEL_15;
 	v1 = *(__int16**)&dword_5d4594_1082916;
 	if (!dword_5d4594_1082916)
@@ -5674,7 +5675,7 @@ int sub_46D830() {
 	}
 	if ((int)*(_DWORD*)&byte_587000[145552] >= 0) {
 		if (--*(int*)&byte_587000[145552] >= 0)
-			*(_DWORD*)&byte_587000[145548] = *(_DWORD*)&byte_587000[145544];
+			dword_587000_145548 = *(_DWORD*)&byte_587000[145544];
 	LABEL_15:
 		if (*(_DWORD*)&byte_5D4594[1082904])
 			(*(void(__cdecl**)(_DWORD)) & byte_5D4594[1082904])(*(_DWORD*)&byte_5D4594[1082900]);
