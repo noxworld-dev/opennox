@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "fx.h"
+extern _DWORD dword_5d4594_1313564;
 extern _DWORD dword_5d4594_1313692;
 extern _DWORD dword_5d4594_1313536;
 extern _DWORD dword_5d4594_1313540;
@@ -115,7 +116,7 @@ LABEL_7:
 			v9 = v15.field_0 - 20 * v11 / (int)v13;
 			v10 = v15.field_4 - 20 * v12 / (int)v13;
 		}
-		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[1313564]);
+		nox_client_drawSetColor_434460(*(int*)&dword_5d4594_1313564);
 		nox_client_drawAddPoint_49F500(v15.field_0, v15.field_4);
 		nox_client_drawAddPoint_49F500(v9, v10);
 		nox_client_drawLineFromPoints_49E4B0();
@@ -128,9 +129,9 @@ int __cdecl nox_thing_pixie_dust_draw(int* a1, int a2) {
 	int result; // eax
 
 	if (sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5)
-		result = sub_4B6770(a1, a2, *(int*)&byte_5D4594[2523948], *(int*)&byte_5D4594[1313564]);
+		result = sub_4B6770(a1, a2, *(int*)&byte_5D4594[2523948], *(int*)&dword_5d4594_1313564);
 	else
-		result = sub_4B6770(a1, a2, *(int*)&byte_5D4594[1313564], *(int*)&byte_5D4594[1313560]);
+		result = sub_4B6770(a1, a2, *(int*)&dword_5d4594_1313564, *(int*)&byte_5D4594[1313560]);
 	return result;
 }
 
