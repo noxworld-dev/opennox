@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1064300;
 extern _DWORD dword_5d4594_1049516;
 extern _DWORD dword_5d4594_1062520;
 extern _DWORD dword_5d4594_1082916;
@@ -3342,7 +3343,7 @@ int __cdecl sub_4685D0(int a1, int a2, int* a3, int a4) {
 	switch (dword_5d4594_1064296) {
 	case 0:
 		if (sub_468BB0_wol_reg(&v7, &v6, &v8, File)) {
-			*(_DWORD*)&byte_5D4594[1064300] = 0;
+			dword_5d4594_1064300 = 0;
 			sub_40E020(v7, v6, v8, (int)&byte_5D4594[1064196]);
 			sub_46ABB0(*(int*)&dword_5d4594_1064816, 0);
 		} else {
@@ -3441,11 +3442,11 @@ int __cdecl sub_468E60(int a1) {
 		}
 	} else {
 		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1765);
-		*(_DWORD*)&byte_5D4594[1064300] = a1;
+		dword_5d4594_1064300 = a1;
 		dword_5d4594_1064296 = 1;
 		nox_window_set_hidden(*(int*)&dword_5d4594_1064820, 1);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1064824, 0);
-		if (*(_DWORD*)&byte_5D4594[1064300])
+		if (dword_5d4594_1064300)
 			result = nox_window_set_hidden((int)v2, 0);
 		else
 			result = nox_window_set_hidden((int)v2, 1);

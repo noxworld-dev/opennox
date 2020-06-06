@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1064300;
 extern _DWORD dword_5d4594_1064820;
 extern _DWORD dword_5d4594_1064296;
 extern _DWORD dword_5d4594_1064816;
@@ -46,7 +47,7 @@ int __cdecl sub_468890_wol_reg(char* a1, char* a2, char* a3, _BYTE* a4, _BYTE* a
 		if ((unsigned __int8)v14 < 0x31u || (unsigned __int8)v14 > 0x39u) {
 			if (strlen(a2) == 8) {
 				if (!strcmp(a2, v26)) {
-					if (!*(_DWORD*)&byte_5D4594[1064300] || *a3) {
+					if (!dword_5d4594_1064300 || *a3) {
 						result = 1;
 					} else {
 						v25 = loadString_sub_40F1D0(
