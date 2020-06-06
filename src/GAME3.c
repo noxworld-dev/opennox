@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1307724;
 extern _DWORD dword_5d4594_3798684;
 extern _DWORD dword_5d4594_3798680;
 extern _DWORD dword_5d4594_3798676;
@@ -1612,7 +1613,7 @@ int sub_4A4840() {
 
 	sub_5007E0((char*)&byte_587000[170168]);
 	sub_4A1BE0(1);
-	*(_DWORD*)&byte_5D4594[1307724] = sub_431770();
+	dword_5d4594_1307724 = sub_431770();
 	sub_43BDD0(600);
 	result = nox_new_window_from_file("SelClass.wnd", sub_4A4A20);
 	dword_5d4594_1307736 = result;
