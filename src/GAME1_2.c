@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_80772;
 extern _DWORD dword_5d4594_811904;
 extern _DWORD dword_5d4594_805988;
 extern _DWORD dword_5d4594_3805492;
@@ -5951,15 +5952,15 @@ int __cdecl sub_430AA0(int a1) {
 	result = a1 - 1;
 	if (a1 == 1) {
 		dword_5d4594_805820 = 1;
-		*(_DWORD*)&byte_587000[80772] = 9;
+		dword_587000_80772 = 9;
 	} else {
 		result = a1 - 2;
 		if (a1 == 2) {
 			dword_5d4594_805820 = 2;
-			*(_DWORD*)&byte_587000[80772] = 13;
+			dword_587000_80772 = 13;
 		} else {
 			dword_5d4594_805820 = 0;
-			*(_DWORD*)&byte_587000[80772] = 5;
+			dword_587000_80772 = 5;
 		}
 	}
 	return result;
@@ -5969,7 +5970,7 @@ int __cdecl sub_430AA0(int a1) {
 int sub_430AF0() { return dword_5d4594_805820; }
 
 //----- (00430B00) --------------------------------------------------------
-int sub_430B00() { return *(_DWORD*)&byte_587000[80772]; }
+int sub_430B00() { return dword_587000_80772; }
 
 //----- (00430B10) --------------------------------------------------------
 void __cdecl sub_430B10_set_mouse_pos(int x, int y) { sub_430A00_change_mouse_pos(x, y, 1); }
