@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835368;
 extern _DWORD dword_5d4594_1569656;
 extern _DWORD dword_5d4594_1599628;
 extern _DWORD dword_587000_229992;
@@ -9437,7 +9438,7 @@ int __cdecl sub_504330(int a1, int a2) {
 		v7 = (unsigned __int8*)nox_server_getWallAtPoint_410580(v3, v6);
 		if (v7) {
 			v8 = **v2;
-			if (*(_DWORD*)&byte_5D4594[3835368])
+			if (dword_5d4594_3835368)
 				*v7 = sub_42A6C0(*v7, v8);
 			else
 				*v7 = v8;
