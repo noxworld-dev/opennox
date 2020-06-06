@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1313816;
 extern _DWORD dword_5d4594_3801748;
 extern _DWORD dword_5d4594_1320948;
 extern _DWORD dword_587000_183460;
@@ -720,7 +721,7 @@ int __cdecl nox_thing_vortex_draw(int* a1, int a2) {
 	int2 a3;    // [esp+20h] [ebp-8h]
 
 	if (!*(_DWORD*)&byte_5D4594[1313820]) {
-		*(_DWORD*)&byte_5D4594[1313816] = sub_4344A0(170, 170, 170);
+		dword_5d4594_1313816 = sub_4344A0(170, 170, 170);
 		*(_DWORD*)&byte_5D4594[1313820] = 1;
 	}
 	v2 = 8 * *(unsigned __int8*)(a2 + 448);
@@ -738,8 +739,8 @@ int __cdecl nox_thing_vortex_draw(int* a1, int a2) {
 		nox_client_drawSetColor_434460(*(_DWORD*)(a2 + 436));
 		sub_499B70(xLeft.field_0, xLeft.field_4, 3);
 	} else {
-		sub_4B6720(&xLeft, *(int*)&byte_5D4594[1313816], 2, 4);
-		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[1313816]);
+		sub_4B6720(&xLeft, *(int*)&dword_5d4594_1313816, 2, 4);
+		nox_client_drawSetColor_434460(*(int*)&dword_5d4594_1313816);
 		sub_499B70(xLeft.field_0, xLeft.field_4, 2);
 	}
 	nox_client_drawAddPoint_49F500(xLeft.field_0, xLeft.field_4);
@@ -759,7 +760,7 @@ int __cdecl nox_thing_vortex_draw(int* a1, int a2) {
 	if (a2a.field_4 >= *(int*)(a2 + 444))
 		nox_client_drawSetColor_434460(*(_DWORD*)(a2 + 436));
 	else
-		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[1313816]);
+		nox_client_drawSetColor_434460(*(int*)&dword_5d4594_1313816);
 	nox_client_drawLineFromPoints_49E4B0();
 	*(_BYTE*)(a2 + 448) += *(_BYTE*)(a2 + 449);
 	*(_WORD*)(a2 + 104) += *(unsigned __int8*)(a2 + 451);
