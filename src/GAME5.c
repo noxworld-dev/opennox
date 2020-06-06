@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_2491748;
 extern _DWORD dword_5d4594_2490504;
 extern _DWORD dword_5d4594_2491548;
 extern _DWORD dword_5d4594_2491580;
@@ -6582,8 +6583,8 @@ void __cdecl sub_54F380(int a1) {
 	float4 v13;     // [esp+10h] [ebp-10h]
 
 	if (a1 && *(_DWORD*)(a1 + 508)) {
-		if (*(float*)&byte_5D4594[2491748] == 0.0) {
-			*(float*)&byte_5D4594[2491748] = sub_419D40(&byte_587000[292268]);
+		if (*(float*)&dword_5d4594_2491748 == 0.0) {
+			*(float*)&dword_5d4594_2491748 = sub_419D40(&byte_587000[292268]);
 			*(float*)&byte_5D4594[2491752] = sub_419D40(&byte_587000[292288]);
 			*(float*)&byte_5D4594[2491756] = sub_419D40(&byte_587000[292308]);
 			*(float*)&byte_5D4594[2491760] = sub_419D40(&byte_587000[292336]);
@@ -6608,7 +6609,7 @@ void __cdecl sub_54F380(int a1) {
 				v5 = *(_DWORD*)(v3 + 276);
 				v13.field_0 = (double)*(int*)(v5 + 2284);
 				v13.field_4 = (double)*(int*)(v5 + 2288);
-				v6 = (float2*)sub_540610((float2*)&v13, a1, 32, *(float*)&byte_5D4594[2491748], 0, v1);
+				v6 = (float2*)sub_540610((float2*)&v13, a1, 32, *(float*)&dword_5d4594_2491748, 0, v1);
 				*v2 = v6;
 				if (v6) {
 					if (!(nox_server_testTwoPointsAndDirection_4E6E50(
@@ -6628,7 +6629,7 @@ void __cdecl sub_54F380(int a1) {
 		v7 = sub_4E6C00(a1, *(_DWORD*)(a1 + 508));
 		v8 = *(_DWORD*)(v3 + 132);
 		if (v8) {
-			if (v7 > *(float*)&byte_5D4594[2491748]) {
+			if (v7 > *(float*)&dword_5d4594_2491748) {
 				sub_537520(*(_DWORD**)(a1 + 508));
 				return;
 			}
