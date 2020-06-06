@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096636;
 extern _DWORD dword_5d4594_1097216;
 extern _DWORD dword_5d4594_3799500;
 extern _DWORD dword_5d4594_3807116;
@@ -995,7 +996,7 @@ void sub_476FA0() {
 	v2.field_8 = v1.field_0 + 96;
 	v2.field_C = v1.field_4 + 96;
 	v2.field_4 = v1.field_4 - 96;
-	*(_DWORD*)&byte_5D4594[1096636] = 0;
+	dword_5d4594_1096636 = 0;
 	sub_49AB00(&v2, sub_477050, (int)&v1);
 }
 
@@ -1108,7 +1109,7 @@ void __cdecl sub_477050(int arg0, int a2) {
 										if (v2 != *(_DWORD*)&byte_5D4594
 											      [2614252] &&
 										    v22 >
-											*(int*)&byte_5D4594[1096636] &&
+											*(int*)&dword_5d4594_1096636 &&
 										    sub_57B400(v2)) {
 											if (*(_DWORD*)&byte_5D4594
 												[2618908] &&
@@ -1121,13 +1122,11 @@ void __cdecl sub_477050(int arg0, int a2) {
 												if (!dword_5d4594_1096644) {
 													dword_5d4594_1096644 =
 													    v2;
-													*(_DWORD*)&byte_5D4594
-													    [1096636] =
+													dword_5d4594_1096636 =
 													    0;
 												}
 											} else {
-												*(_DWORD*)&byte_5D4594
-												    [1096636] = v22;
+												dword_5d4594_1096636 = v22;
 												dword_5d4594_1096644 = v2;
 											}
 										}
