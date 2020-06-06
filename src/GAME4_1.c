@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386872;
 extern _DWORD dword_5d4594_2386928;
 extern _DWORD dword_587000_234176;
 extern _DWORD dword_5d4594_2487244;
@@ -8120,13 +8121,13 @@ int sub_515240() {
 	int i;   // eax
 	int v9;  // ecx
 
-	if (!*(_DWORD*)&byte_5D4594[2386872])
-		*(_DWORD*)&byte_5D4594[2386872] = sub_4E3AA0((CHAR*)&byte_587000[247228]);
+	if (!dword_5d4594_2386872)
+		dword_5d4594_2386872 = sub_4E3AA0((CHAR*)&byte_587000[247228]);
 	if (script_pop() != 1) {
 		if (sub_44DCA0(16, 30))
 			sub_477530(0);
 		for (i = sub_4DA790(); i; i = sub_4DA7A0(i)) {
-			if (*(unsigned __int16*)(i + 4) == *(_DWORD*)&byte_5D4594[2386872]) {
+			if (*(unsigned __int16*)(i + 4) == dword_5d4594_2386872) {
 				v9 = *(_DWORD*)(i + 16);
 				if (v9 & 0x40)
 					*(_DWORD*)(i + 16) = v9 & 0xFFFFFFBF;
@@ -8169,7 +8170,7 @@ int sub_515240() {
 		     v5 == *(_DWORD*)&byte_5D4594[2386896])) {
 			sub_4E5CC0(v3);
 		} else {
-			if (*(unsigned __int16*)(v3 + 4) == *(_DWORD*)&byte_5D4594[2386872]) {
+			if (*(unsigned __int16*)(v3 + 4) == dword_5d4594_2386872) {
 				v6 = *(_DWORD*)(v3 + 16);
 				if (!(v6 & 0x40)) {
 					LOBYTE(v6) = v6 | 0x40;
