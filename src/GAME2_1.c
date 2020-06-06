@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1096432;
 extern _DWORD dword_5d4594_1064300;
 extern _DWORD dword_5d4594_1049516;
 extern _DWORD dword_5d4594_1062520;
@@ -8387,7 +8388,7 @@ int sub_473960() {
 //----- (00473970) --------------------------------------------------------
 void __cdecl sub_473970(int2* a1, int2* a2) {
 	a2->field_0 = *(_DWORD*)&byte_5D4594[1096428] + a1->field_0;
-	a2->field_4 = *(_DWORD*)&byte_5D4594[1096432] + a1->field_4;
+	a2->field_4 = dword_5d4594_1096432 + a1->field_4;
 }
 
 //----- (004739A0) --------------------------------------------------------
@@ -8395,13 +8396,13 @@ int __cdecl sub_4739A0(int2* a1, int2* a2) {
 	int result; // eax
 
 	a2->field_0 = a1->field_0 - *(_DWORD*)&byte_5D4594[1096428];
-	result = a1->field_4 - *(_DWORD*)&byte_5D4594[1096432];
+	result = a1->field_4 - dword_5d4594_1096432;
 	a2->field_4 = result;
 	return result;
 }
 
 //----- (004739D0) --------------------------------------------------------
-int __cdecl sub_4739D0(int a1) { return a1 - *(_DWORD*)&byte_5D4594[1096432]; }
+int __cdecl sub_4739D0(int a1) { return a1 - dword_5d4594_1096432; }
 
 //----- (004739E0) --------------------------------------------------------
 int __cdecl sub_4739E0(_DWORD* a1, int2* a2, int2* a3) {
@@ -9344,7 +9345,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 			v1[12] = 1 - v5;
 	}
 	*(_DWORD*)&byte_5D4594[1096428] = v1[4] - *v1;
-	*(_DWORD*)&byte_5D4594[1096432] = v1[5] - v1[1];
+	dword_5d4594_1096432 = v1[5] - v1[1];
 	v6 = v1[5];
 	v36 = v1[4] / 23;
 	dword_5d4594_1096516 = 0;
