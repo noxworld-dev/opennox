@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2489436;
 extern _DWORD dword_5d4594_2488724;
 extern _DWORD dword_5d4594_2489160;
 extern _DWORD dword_5d4594_2487992;
@@ -13480,7 +13481,7 @@ int __cdecl sub_544020(char* a1) {
 	int v1;     // eax
 	int result; // eax
 
-	*(_DWORD*)&byte_5D4594[2489436] = 0;
+	dword_5d4594_2489436 = 0;
 	if (_strcmpi("NONE", a1)) {
 		v1 = sub_543FB0(a1);
 		result = sub_544070(v1);
@@ -13496,13 +13497,13 @@ int __cdecl sub_544070(int a1) {
 	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_251572)
 		return 0;
 	dword_5d4594_3835356 = a1;
-	*(_DWORD*)&byte_5D4594[2489436] = 1;
+	dword_5d4594_2489436 = 1;
 	return 1;
 }
 
 //----- (005440A0) --------------------------------------------------------
 int __cdecl sub_5440A0(int a1) {
-	if (!*(_DWORD*)&byte_5D4594[2489436])
+	if (!dword_5d4594_2489436)
 		return 1;
 	if (*(int*)&dword_5d4594_3835356 == -1 || a1 < 0 || a1 >= *(unsigned __int16*)&byte_5D4594[60 * a1 + 2678392])
 		return 0;
@@ -13609,7 +13610,7 @@ int __cdecl sub_5442D0(float* a1) {
 	int result; // eax
 	float2 a2;  // [esp+0h] [ebp-8h]
 
-	if (!*(_DWORD*)&byte_5D4594[2489436])
+	if (!dword_5d4594_2489436)
 		return 1;
 	result = sub_4D3D90((float2*)a1, &a2);
 	if (result)
