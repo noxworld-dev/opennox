@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1548524;
 extern _DWORD dword_5d4594_1556136;
 extern _DWORD dword_5d4594_3835372;
 extern _DWORD dword_5d4594_1556144;
@@ -2106,7 +2107,7 @@ char* __cdecl sub_4D2450(char* a1) {
 	sub_4CFE10(v4);
 	sub_4CFDF0(*(int*)&byte_5D4594[3803228]);
 	qmemcpy(&byte_5D4594[3801836], v5, 0x5B8u);
-	*(_DWORD*)&byte_5D4594[1548524] = 1;
+	dword_5d4594_1548524 = 1;
 	strcpy(v3, a1);
 	v1 = strchr(v3, 58);
 	if (v1) {

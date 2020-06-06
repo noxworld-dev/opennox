@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1548524;
 extern _DWORD dword_5d4594_1568028;
 extern _DWORD dword_5d4594_600116;
 extern _DWORD dword_5d4594_1556144;
@@ -2530,7 +2531,7 @@ int sub_4D1860_server() {
 			}
 		}
 	}
-	*(_DWORD*)&byte_5D4594[1548524] = 0;
+	dword_5d4594_1548524 = 0;
 	v41 = sub_409B40();
 	sub_500510(v41);
 	if (!sub_4DB240())
@@ -2724,7 +2725,7 @@ int sub_4D2580_server() {
 		if ((unsigned __int64)sub_416BB0() > *(_QWORD*)&byte_5D4594[1548676] && !v2) {
 			*(_DWORD*)&byte_5D4594[1548676] = 0;
 			*(_DWORD*)&byte_5D4594[1548680] = 0;
-			*(_DWORD*)&byte_5D4594[1548524] = 1;
+			dword_5d4594_1548524 = 1;
 			sub_416170(12);
 			nox_common_gameFlags_unset_40A540(8);
 			for (i = (_DWORD*)sub_4DA7C0(); i; i = (_DWORD*)sub_4DA7F0((int)i)) {
@@ -2762,7 +2763,7 @@ int sub_4D2580_server() {
 		}
 		goto LABEL_72;
 	}
-	if (*(_DWORD*)&byte_5D4594[1548524]) {
+	if (dword_5d4594_1548524) {
 		if (!sub_43AF70() || !v2) {
 			sub_4EDD70();
 			sub_417160();
