@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1569656;
 extern _DWORD dword_5d4594_1563064;
 extern _DWORD dword_5d4594_1548532;
 extern _DWORD dword_5d4594_1548524;
@@ -1328,8 +1329,8 @@ int sub_4FC600() {
 	int v1;     // esi
 	int v2;     // edi
 
-	result = *(_DWORD*)&byte_5D4594[1569656];
-	if (*(_DWORD*)&byte_5D4594[1569656]) {
+	result = dword_5d4594_1569656;
+	if (dword_5d4594_1569656) {
 		result = sub_4DA7C0();
 		if (result) {
 			v1 = 0;
@@ -1376,7 +1377,7 @@ int sub_4FC6D0() {
 	CHAR FileName[1024]; // [esp+Ch] [ebp-400h]
 
 	result = dword_5d4594_1569652;
-	if (dword_5d4594_1569652 == 1 || *(_DWORD*)&byte_5D4594[1569656] == 1) {
+	if (dword_5d4594_1569652 == 1 || dword_5d4594_1569656 == 1) {
 		result = sub_4DA7C0();
 		if (result) {
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
