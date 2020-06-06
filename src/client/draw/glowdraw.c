@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "fx.h"
+extern _DWORD dword_5d4594_1313692;
 extern _DWORD dword_5d4594_1313536;
 extern _DWORD dword_5d4594_1313540;
 
@@ -201,8 +202,8 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, int a2) {
 	int v25;        // [esp+34h] [ebp+8h]
 
 	v2 = (_DWORD*)a2;
-	if (!*(_DWORD*)&byte_5D4594[1313692]) {
-		*(_DWORD*)&byte_5D4594[1313692] = sub_44CFC0((CHAR*)&byte_587000[176396]);
+	if (!dword_5d4594_1313692) {
+		dword_5d4594_1313692 = sub_44CFC0((CHAR*)&byte_587000[176396]);
 		*(_DWORD*)&byte_5D4594[1313696] = sub_44CFC0((CHAR*)&byte_587000[176412]);
 	}
 	v3 = *(_WORD*)(a2 + 104);
@@ -214,7 +215,7 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, int a2) {
 		v17 = *(_DWORD*)&byte_5D4594[1313588];
 		v18 = *(_DWORD*)(a2 + 108);
 		xLeft.field_4 = v15 + v16 - v3;
-		if (v18 != *(_DWORD*)&byte_5D4594[1313692])
+		if (v18 != dword_5d4594_1313692)
 			v17 = dword_5d4594_1313536;
 		sub_4B6720(&xLeft, v17, *(unsigned __int8*)(a2 + 442), 5);
 		v19 = *(__int16*)(a2 + 104) - *(__int16*)(a2 + 440);
@@ -249,7 +250,7 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, int a2) {
 		v10 = nox_float2int(v21);
 		v11 = *(_DWORD*)&byte_5D4594[1313700];
 		v23[1] = v10;
-		if (v2[27] != *(_DWORD*)&byte_5D4594[1313692])
+		if (v2[27] != dword_5d4594_1313692)
 			v11 = *(_DWORD*)&byte_5D4594[1313704];
 		v12 = sub_415FF0(6, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 793);
 		sub_499490(v11, v23, 0, 0, v12, 1);
