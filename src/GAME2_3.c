@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1305716;
 extern _DWORD dword_5d4594_1305700;
 extern _DWORD dword_5d4594_1301796;
 extern _DWORD dword_5d4594_3798708;
@@ -6659,7 +6660,7 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 		dword_5d4594_1305712 = sub_49D680; 
 		dword_5d4594_1305720 = sub_49D880; // seems to be unused
 		dword_5d4594_1305700 = sub_49DA90; // seems to be unused
-		*(_DWORD*)&byte_5D4594[1305716] = sub_49DB20; // opaque filled
+		dword_5d4594_1305716 = sub_49DB20; // opaque filled
 		*(_DWORD*)&byte_5D4594[1305696] = sub_49DD60; // string size
 		*(_DWORD*)&byte_5D4594[1305708] = sub_49E380; // cursor?
 		return 1;
@@ -6672,13 +6673,13 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 		dword_5d4594_1305712 = sub_49D770;
 		dword_5d4594_1305720 = sub_49D770;
 		dword_5d4594_1305700 = sub_49D9A0;
-		*(_DWORD*)&byte_5D4594[1305716] = sub_49DC70;
+		dword_5d4594_1305716 = sub_49DC70;
 	} else {
 		*(_DWORD*)&byte_5D4594[1305692] = sub_49D370;
 		dword_5d4594_1305712 = sub_49D6F0;
 		dword_5d4594_1305720 = sub_49D6F0;
 		dword_5d4594_1305700 = sub_49D8E0;
-		*(_DWORD*)&byte_5D4594[1305716] = sub_49DBB0;
+		dword_5d4594_1305716 = sub_49DBB0;
 	}
 	*(_DWORD*)&byte_5D4594[1305696] = sub_49E060; // string size
 	*(_DWORD*)&byte_5D4594[1305708] = sub_49E3C0; // cursor?
@@ -6836,13 +6837,13 @@ int4* __cdecl nox_client_drawRectFadingScreen_49D0F0(int xLeft, int yTop, int a3
 	RECT rc;      // [esp+4h] [ebp-10h]
 	
 	if (!ptr_5D4594_3799572->data[0])
-		return (int4*)(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) & byte_5D4594[1305716])(xLeft, yTop,
+		return (int4*)(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_1305716)(xLeft, yTop,
 													 a3, a4);
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
 	result = sub_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1]));
 	if (result)
 		result = (int4*)(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
-				 byte_5D4594[1305716])(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
+				 dword_5d4594_1305716)(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
 	return result;
 }
 
