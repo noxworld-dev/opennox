@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_251480;
 extern _DWORD dword_5d4594_3592;
 extern _DWORD dword_5d4594_805860;
 extern _DWORD dword_5d4594_526276;
@@ -5341,7 +5342,7 @@ int __cdecl nox_strman_readfile(char* a1) {
 	if (*(_DWORD*)&byte_5D4594[251512])
 		return 1;
 	*(_DWORD*)&byte_5D4594[251512] = 1;
-	*(_DWORD*)&byte_5D4594[251480] = 0;
+	dword_5d4594_251480 = 0;
 	if (!a1 || !*a1)
 		return 0;
 	strcpy((char*)&byte_5D4594[226804], a1);
@@ -5623,8 +5624,8 @@ int __cdecl sub_40F830(const char* path) {
 		}
 		file_buffer[sz] = 0;
 		strcpy((char*)(string_entries[i].data), (const char*)file_buffer);
-		if (sz > *(int*)&byte_5D4594[251480])
-			*(_DWORD*)&byte_5D4594[251480] = sz;
+		if (sz > *(int*)&dword_5d4594_251480)
+			dword_5d4594_251480 = sz;
 		v7 = v18;
 		v19 = 0;
 		*(_BYTE*)(&string_entries[i].data[49]) = v17;
@@ -5756,8 +5757,8 @@ int sub_40FBE0() {
 	} while (*(_WORD*)file_buffer == 12079 || !file_buffer[0]);
 	strcpy((char*)(string_entries[v1].data), (const char*)file_buffer);
 	v2 = strlen((const char*)file_buffer) + 1;
-	if ((int)(v2 - 1) > *(int*)&byte_5D4594[251480])
-		*(_DWORD*)&byte_5D4594[251480] = v2 - 1;
+	if ((int)(v2 - 1) > *(int*)&dword_5d4594_251480)
+		dword_5d4594_251480 = v2 - 1;
 	string_entries[v1].field_50 = v0;
 	v3 = 0;
 	v4 = 4 * v0;
