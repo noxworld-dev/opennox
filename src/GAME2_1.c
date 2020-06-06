@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1082916;
 extern _DWORD dword_5d4594_1096276;
 extern _DWORD dword_5d4594_1064828;
 extern _DWORD dword_5d4594_1049976;
@@ -5613,7 +5614,7 @@ int __cdecl sub_46D750(int a1, int a2, int a3, int a4, int a5, int a6, int a7, i
 	if (a8 < 0)
 		v12 = 0;
 	*(_DWORD*)&byte_5D4594[1082924] = a5 - a3;
-	*(_DWORD*)&byte_5D4594[1082916] = a1;
+	dword_5d4594_1082916 = a1;
 	*(_DWORD*)&byte_5D4594[1082920] = a4 - a2 - (a4 - a2) % 4;
 	*(_DWORD*)&byte_5D4594[1082896] = a2;
 	dword_587000_145540 = v10;
@@ -5642,8 +5643,8 @@ int sub_46D830() {
 		return 0;
 	if ((int)--*(_DWORD*)&byte_587000[145548] >= 0)
 		goto LABEL_15;
-	v1 = *(__int16**)&byte_5D4594[1082916];
-	if (!*(_DWORD*)&byte_5D4594[1082916])
+	v1 = *(__int16**)&dword_5d4594_1082916;
+	if (!dword_5d4594_1082916)
 		return 0;
 	v5 = *(_DWORD*)&byte_5D4594[1082896];
 	v7 = dword_587000_145540;
@@ -5688,7 +5689,7 @@ void __cdecl sub_46D950(_DWORD* a1) {
 			nox_sprintf(v3, "%s%d.bmp", a1, v2);
 		else
 			nox_sprintf(v3, "%s.bmp", a1);
-		sub_46D9D0((int)v3, *(int*)&byte_5D4594[1082916], *(LPVOID*)&byte_5D4594[1082920],
+		sub_46D9D0((int)v3, *(int*)&dword_5d4594_1082916, *(LPVOID*)&byte_5D4594[1082920],
 			   *(int*)&byte_5D4594[1082924]);
 	}
 }
