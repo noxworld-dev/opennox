@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1049976;
 extern _DWORD dword_5d4594_1090284;
 extern _DWORD dword_5d4594_1062484;
 extern _DWORD dword_5d4594_1090436;
@@ -1411,7 +1412,7 @@ int __cdecl sub_463430(int a1) {
 						     dword_5d4594_1062512,
 						 0);
 			sub_46AE60(*(int*)&dword_5d4594_1062528, 0);
-			sub_46AEC0(*(int*)&dword_5d4594_1062528, *(int*)&byte_5D4594[1049976]);
+			sub_46AEC0(*(int*)&dword_5d4594_1062528, *(int*)&dword_5d4594_1049976);
 			sub_46B080(*(_DWORD**)&dword_5d4594_1062528, 9105);
 			byte_5D4594[1049870] = 0;
 			sub_46AE60(*(int*)&dword_5d4594_1062524, *(int*)&dword_5d4594_1049992);
@@ -2081,7 +2082,7 @@ int __cdecl sub_466220(int a1, int a2, int* a3, int a4) {
 						     dword_5d4594_1062512,
 						 0);
 			sub_46AE60(*(int*)&dword_5d4594_1062528, 0);
-			sub_46AEC0(*(int*)&dword_5d4594_1062528, *(int*)&byte_5D4594[1049976]);
+			sub_46AEC0(*(int*)&dword_5d4594_1062528, *(int*)&dword_5d4594_1049976);
 			sub_46B080(*(_DWORD**)&dword_5d4594_1062528, 9105);
 			result = 0;
 			break;
@@ -2279,7 +2280,7 @@ int __cdecl sub_466C40(int a1) {
 	*(_DWORD*)&v5[48] = 0;
 	*(_DWORD*)&v5[32] = 0;
 	*(_DWORD*)&v5[40] = 0;
-	*(_DWORD*)&v5[56] = *(_DWORD*)&byte_5D4594[1049976];
+	*(_DWORD*)&v5[56] = dword_5d4594_1049976;
 	*(_DWORD*)&v5[60] = -243;
 	*(_DWORD*)&v5[64] = -170;
 	*(_DWORD*)&v5[16] = a1;
@@ -2424,7 +2425,7 @@ char* sub_467050() {
 	*(_DWORD*)&byte_5D4594[1049964] = sub_42F970("InventoryEquipRing");
 	*(_DWORD*)&byte_5D4594[1049968] = sub_42F970("InventoryQuickItemRing");
 	*(_DWORD*)&byte_5D4594[1049972] = sub_42F970("InventoryCloseButtonLit");
-	*(_DWORD*)&byte_5D4594[1049976] = sub_42F970("InventoryJournalButtonLit");
+	dword_5d4594_1049976 = sub_42F970("InventoryJournalButtonLit");
 	*(_DWORD*)&byte_5D4594[1049980] = sub_42F970("InventoryInventoryButton");
 	*(_DWORD*)&byte_5D4594[1049984] = sub_42F970("InventoryInventoryButtonLit");
 	*(_DWORD*)&byte_5D4594[1049988] = sub_42F970("InventoryDollButtonLit");
@@ -2877,7 +2878,7 @@ int sub_467980() {
 	    *(int*)&dword_5d4594_1062508, 16394,
 	    *(_DWORD*)(*(_DWORD*)(dword_5d4594_1062508 + 32) + 4) - dword_5d4594_1062512, 0);
 	sub_46AE60(*(int*)&dword_5d4594_1062528, 0);
-	sub_46AEC0(*(int*)&dword_5d4594_1062528, *(int*)&byte_5D4594[1049976]);
+	sub_46AEC0(*(int*)&dword_5d4594_1062528, *(int*)&dword_5d4594_1049976);
 	sub_46B080(*(_DWORD**)&dword_5d4594_1062528, 9105);
 	byte_5D4594[1049870] = 0;
 	sub_46AE60(*(int*)&dword_5d4594_1062524, *(int*)&dword_5d4594_1049992);
