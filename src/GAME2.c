@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045420;
 extern _DWORD dword_5d4594_1045556;
 extern _DWORD dword_5d4594_831240;
 extern _DWORD dword_5d4594_1046604;
@@ -1945,13 +1946,13 @@ int __cdecl sub_451850(int a2, int a3) {
 		v3 += 200;
 		++v2;
 	} while ((int)v3 < (int)&byte_5D4594[1045312]);
-	*(_DWORD*)&byte_5D4594[1045420] = a3;
+	dword_5d4594_1045420 = a3;
 	dword_5d4594_1045428 = a2;
 	if (a3) {
 		dword_5d4594_1045424 = sub_4BD340(a3, 0x100000, 200, 0x2000);
 		dword_5d4594_1045436 = sub_4BD280(200, 576);
 	}
-	if (!dword_5d4594_1045424 || !*(_DWORD*)&byte_5D4594[1045420] || !dword_5d4594_1045428 ||
+	if (!dword_5d4594_1045424 || !dword_5d4594_1045420 || !dword_5d4594_1045428 ||
 	    !dword_5d4594_1045436) {
 		return 0;
 	}
@@ -2718,7 +2719,7 @@ BOOL __cdecl sub_452890(int a1, void* a2) {
 					nox_memfile_read(a2, 1u, v29, v2);
 					*((_BYTE*)a2 + v29) = 0;
 					if (v9 < 32) {
-						v11 = sub_486A10(*(int*)&byte_5D4594[1045420], a2);
+						v11 = sub_486A10(*(int*)&dword_5d4594_1045420, a2);
 						*v22 = v11;
 						if (v11 != -1) {
 							++v9;
@@ -2911,7 +2912,7 @@ int __cdecl sub_452BD0(int a1, char* a2) {
 				v25 = strrchr(v3, 46);
 				if (v25)
 					*v25 = 0;
-				v26 = sub_486A10(*(int*)&byte_5D4594[1045420], v3);
+				v26 = sub_486A10(*(int*)&dword_5d4594_1045420, v3);
 				*v31 = v26;
 				if (v26 != -1) {
 					++v32;
