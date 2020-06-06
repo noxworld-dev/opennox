@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_2490508;
 extern _DWORD dword_5d4594_2489460;
 extern _DWORD dword_5d4594_2491544;
 extern _DWORD dword_5d4594_2491552;
@@ -2198,10 +2199,10 @@ int __cdecl sub_548360(int a1, int a2) {
 	int v13;                // [esp+4h] [ebp-8h]
 	int v14;                // [esp+14h] [ebp+8h]
 
-	if (*(_DWORD*)&byte_5D4594[2490508]) {
+	if (dword_5d4594_2490508) {
 		v2 = *(_DWORD*)&byte_5D4594[2490516];
 	} else {
-		*(_DWORD*)&byte_5D4594[2490508] = sub_4E3AA0((CHAR*)&byte_587000[286928]);
+		dword_5d4594_2490508 = sub_4E3AA0((CHAR*)&byte_587000[286928]);
 		*(_DWORD*)&byte_5D4594[2490512] = sub_4E3AA0((CHAR*)&byte_587000[286936]);
 		v2 = sub_4E3AA0((CHAR*)&byte_587000[286948]);
 		*(_DWORD*)&byte_5D4594[2490516] = v2;
@@ -2245,8 +2246,8 @@ int __cdecl sub_548360(int a1, int a2) {
 	if (v9 & 0x2000 && *(unsigned __int16*)(a1 + 4) == *(_DWORD*)&byte_5D4594[2490512])
 		return 1;
 	if ((v11 = *(_DWORD*)(a1 + 16), v13 & 8) && v8 & 8 || v12 && v8 & 8 || v14 & 0x80 && v13 & 8 ||
-	    *(unsigned __int16*)(a1 + 4) != *(_DWORD*)&byte_5D4594[2490508] &&
-		*(unsigned __int16*)(v3 + 4) != *(_DWORD*)&byte_5D4594[2490508] &&
+	    *(unsigned __int16*)(a1 + 4) != dword_5d4594_2490508 &&
+		*(unsigned __int16*)(v3 + 4) != dword_5d4594_2490508 &&
 		(v13 & 0x11 && v8 & 0x24000 || v8 & 0x11 && v11 & 0x24000) ||
 	    v12 && v14 & 0x80 || v6 & 0x4000 && v14 & 0x4000 || (v6 & 0x8000) != 0 && (v14 & 0x8000) != 0 ||
 	    v11 & 0x400 && sub_4EC520(a1, v3)) {
