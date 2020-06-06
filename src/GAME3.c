@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1309772;
 extern _DWORD dword_5d4594_1308148;
 extern _DWORD dword_5d4594_3798708;
 extern _DWORD dword_587000_171388;
@@ -4950,7 +4951,7 @@ LPCSTR sub_4AB580() {
 	dword_5d4594_1309764 = 0;
 	dword_5d4594_1309784 = 0;
 	dword_5d4594_1309780 = 0;
-	*(_DWORD*)&byte_5D4594[1309772] = 0;
+	dword_5d4594_1309772 = 0;
 	dword_5d4594_1309768 = 0;
 	dword_587000_173336 = 1;
 	if (dword_5d4594_1309776)
@@ -5024,7 +5025,7 @@ int sub_4AB720() {
 	nox_file_9 = 0;
 	dword_5d4594_1309764 = 0;
 	dword_587000_173336 = 1;
-	*(_DWORD*)&byte_5D4594[1309772] = 0;
+	dword_5d4594_1309772 = 0;
 	dword_5d4594_1309768 = 0;
 	if (dword_5d4594_1309780) {
 		do {
@@ -5100,9 +5101,9 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void* a2, size_t a3) {
 			} while (v5);
 		}
 		// fprintf(stderr, "foo %d %d %d\n", *(_DWORD *)&dword_5d4594_1309764, *(_DWORD *)&dword_5d4594_1309768,
-		// *(_DWORD *)&byte_5D4594[1309772]);
+		// *(_DWORD *)&dword_5d4594_1309772);
 		if (dword_5d4594_1309764 &&
-		    *(unsigned int*)&dword_5d4594_1309768 >= *(unsigned int*)&byte_5D4594[1309772]) {
+		    *(unsigned int*)&dword_5d4594_1309768 >= *(unsigned int*)&dword_5d4594_1309772) {
 			sub_4AB580();
 			sub_4AB560(0);
 			sub_4AB570(1);
@@ -5110,7 +5111,7 @@ void __cdecl sub_4AB7C0(unsigned __int16 a1, void* a2, size_t a3) {
 			sub_43CA80();
 		} else {
 			sub_4CC900((__int64)((double)*(unsigned int*)&dword_5d4594_1309768 /
-					     (double)*(int*)&byte_5D4594[1309772] * 100.0));
+					     (double)*(int*)&dword_5d4594_1309772 * 100.0));
 		}
 	}
 }
@@ -5167,7 +5168,7 @@ int __cdecl sub_4ABAD0(char* a1, unsigned int a2) {
 		return 0;
 	dword_5d4594_1309764 = 1;
 	dword_587000_173336 = 1;
-	*(_DWORD*)&byte_5D4594[1309772] = a2;
+	dword_5d4594_1309772 = a2;
 	dword_5d4594_1309768 = 0;
 	dword_5d4594_1309780 = 0;
 	dword_5d4594_1309784 = 0;
