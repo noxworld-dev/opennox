@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_815060;
 extern _DWORD dword_5d4594_815052;
 extern _DWORD dword_5d4594_815100;
 extern _DWORD dword_5d4594_814548;
@@ -108,7 +109,7 @@ int sub_4378B0() {
 		*(_DWORD*)&byte_5D4594[815104] = 1;
 	} else {
 		*(_QWORD*)&byte_5D4594[815076] = sub_416BB0();
-		*(_DWORD*)&byte_5D4594[815060] = 0;
+		dword_5d4594_815060 = 0;
 		sub_4379C0();
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16399, 0, 0);
 		sub_49FFA0(1);
@@ -481,11 +482,11 @@ int sub_438770() {
 				return 1;
 			}
 			if ((unsigned __int64)(sub_416BB0() - *(_QWORD*)&byte_5D4594[815076]) > 0x3E8 &&
-			    !*(_DWORD*)&byte_5D4594[815060] && !dword_587000_87404) {
+			    !dword_5d4594_815060 && !dword_587000_87404) {
 				sub_44A400();
 				sub_4379C0();
 				sub_4A0360();
-				*(_DWORD*)&byte_5D4594[815060] = 1;
+				dword_5d4594_815060 = 1;
 			}
 		}
 	LABEL_29:
