@@ -2,6 +2,7 @@
 
 #include "../../../common/wolapi/wolchnl.h"
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_829544;
 extern _DWORD dword_5d4594_829500;
 extern _DWORD dword_5d4594_829520;
 extern _DWORD dword_5d4594_829516;
@@ -269,7 +270,7 @@ int sub_447620_wol_chat() {
 			*(_DWORD*)&byte_5D4594[829536] = &byte_587000[110992];
 			*(_DWORD*)&byte_5D4594[829540] = loadString_sub_40F1D0(
 			    (char*)&byte_587000[111048], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1418);
-			*(_DWORD*)&byte_5D4594[829544] = &byte_587000[111056];
+			dword_5d4594_829544 = &byte_587000[111056];
 			*(_DWORD*)&byte_5D4594[829548] = loadString_sub_40F1D0(
 			    (char*)&byte_587000[111120], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1420);
 			*(_DWORD*)&byte_5D4594[829552] = loadString_sub_40F1D0(
