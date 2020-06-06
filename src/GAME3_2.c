@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1563276;
 extern _DWORD dword_5d4594_1548664;
 extern _DWORD dword_5d4594_3835392;
 extern _DWORD dword_587000_108752;
@@ -8992,14 +8993,14 @@ _DWORD* __cdecl sub_4DDE10(int a1, int a2) {
 
 	result = *(_DWORD**)(a2 + 2056);
 	if (result) {
-		if (!*(_DWORD*)&byte_5D4594[1563276])
-			*(_DWORD*)&byte_5D4594[1563276] = sub_4E3AA0((CHAR*)&byte_587000[200132]);
+		if (!dword_5d4594_1563276)
+			dword_5d4594_1563276 = sub_4E3AA0((CHAR*)&byte_587000[200132]);
 		result = *(_DWORD**)(a2 + 2056);
 		for (i = result[126]; i; i = *(_DWORD*)(i + 496)) {
 			v4 = *(_DWORD*)(i + 16);
 			if (!(v4 & 0x100)) {
-				result = *(_DWORD**)&byte_5D4594[1563276];
-				if (*(unsigned __int16*)(i + 4) != *(_DWORD*)&byte_5D4594[1563276])
+				result = *(_DWORD**)&dword_5d4594_1563276;
+				if (*(unsigned __int16*)(i + 4) != dword_5d4594_1563276)
 					continue;
 			}
 			result = sub_4D82F0(a1, (_DWORD*)i);
