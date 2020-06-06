@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_534768;
 extern _DWORD dword_5d4594_739392;
 extern _DWORD dword_5d4594_527988;
 extern _DWORD dword_5d4594_529332;
@@ -4911,7 +4912,7 @@ int sub_41FCF0() {
 	const char* v7;      // [esp+14h] [ebp-4h]
 
 	v0 = 0;
-	*(_DWORD*)&byte_5D4594[534768] = 0;
+	dword_5d4594_534768 = 0;
 	v1 = &byte_5D4594[531670];
 	do {
 		v2 = v0 + 1;
@@ -4919,12 +4920,12 @@ int sub_41FCF0() {
 			v3 = v7;
 			strcpy((char*)v1 - 10, v6);
 			strcpy((char*)v1, v3);
-			v4 = *(_DWORD*)&byte_5D4594[534768];
+			v4 = dword_5d4594_534768;
 			if (*v3)
 				*(_DWORD*)(v1 + 10) = 1;
 			else
 				*(_DWORD*)(v1 + 10) = 0;
-			*(_DWORD*)&byte_5D4594[534768] = v4 + 1;
+			dword_5d4594_534768 = v4 + 1;
 		} else {
 			*(v1 - 10) = 0;
 			*v1 = 0;
@@ -4933,7 +4934,7 @@ int sub_41FCF0() {
 		v1 += 24;
 		v0 = v2;
 	} while ((int)v1 <= (int)&byte_5D4594[534742]);
-	if (!*(_DWORD*)&byte_5D4594[534768])
+	if (!dword_5d4594_534768)
 		sub_41FC20(0);
 	return 1;
 }
