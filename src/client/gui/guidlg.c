@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_1123520;
 extern _DWORD dword_5d4594_1123524;
 extern _DWORD dword_587000_80828;
 extern int nox_win_width;
@@ -81,7 +82,7 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	sub_46A8C0(*(int*)&dword_5d4594_1123524);
 	*(_DWORD*)&byte_5D4594[1123528] = a2;
 	result = sub_44D900(*(int*)&byte_5D4594[1115312], 100);
-	*(_DWORD*)&byte_5D4594[1123520] = 1;
+	dword_5d4594_1123520 = 1;
 	return result;
 }
 
