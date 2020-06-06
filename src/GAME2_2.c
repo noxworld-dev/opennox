@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1098456;
 extern _DWORD dword_5d4594_1193180;
 extern _DWORD dword_5d4594_1097212;
 extern _DWORD dword_5d4594_1193352;
@@ -1599,7 +1600,7 @@ int sub_478110() {
 	*(_DWORD*)&byte_5D4594[1098452] = sub_42F970("ShopInventoryUpSelected");
 	*(_DWORD*)&byte_5D4594[1098440] = sub_42F970("ShopInventorydown");
 	*(_DWORD*)&byte_5D4594[1098444] = sub_42F970("ShopInventorydownSelected");
-	*(_DWORD*)&byte_5D4594[1098456] = sub_42F970("ShopTextBorder");
+	dword_5d4594_1098456 = sub_42F970("ShopTextBorder");
 	*(_DWORD*)&byte_5D4594[1098460] = sub_42F970("ShopkeeperPic");
 	*(_DWORD*)&byte_5D4594[1098464] = sub_42F970("ShopkeeperWarriorPic");
 	*(_DWORD*)&byte_5D4594[1098468] = sub_42F970("ShopkeeperConjurerPic");
@@ -1796,7 +1797,7 @@ int __cdecl sub_478A70(int2* a1) {
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
 	sub_434390(*(int*)&byte_5D4594[2523948]);
-	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1098456], a1->field_0, a1->field_4);
+	nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1098456, a1->field_0, a1->field_4);
 	result = dword_5d4594_1098604;
 	if (dword_5d4594_1098604)
 		result = sub_43FAF0(0, *(_WORD**)&dword_5d4594_1098604, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
