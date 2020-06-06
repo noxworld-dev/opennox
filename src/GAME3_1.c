@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1313880;
 extern _DWORD dword_5d4594_1320944;
 extern _DWORD dword_5d4594_1313816;
 extern _DWORD dword_5d4594_3801748;
@@ -819,11 +820,11 @@ void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5) {
 	a1a.field_4 = a3;
 	a2a.field_0 = a4;
 	a2a.field_4 = v5;
-	*(float*)&byte_5D4594[1313880] = v12;
-	v26 = sqrt(v12 * *(float*)&byte_5D4594[1313880] + v11 * v11) + 0.0099999998;
+	*(float*)&dword_5d4594_1313880 = v12;
+	v26 = sqrt(v12 * *(float*)&dword_5d4594_1313880 + v11 * v11) + 0.0099999998;
 	*(float*)&byte_5D4594[1313876] = v11 / v26;
-	v13 = *(float*)&byte_5D4594[1313880] / v26;
-	*(float*)&byte_5D4594[1313880] = v13;
+	v13 = *(float*)&dword_5d4594_1313880 / v26;
+	*(float*)&dword_5d4594_1313880 = v13;
 	v14 = v13 * v10 + *(float*)&byte_5D4594[1313876] * v9;
 	if (v14 < 0.0)
 		v14 = v14 * 0.2;
