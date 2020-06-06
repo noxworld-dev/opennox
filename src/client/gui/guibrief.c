@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_587000_122956;
 extern _DWORD dword_587000_123008;
 extern _DWORD dword_5d4594_832480;
 extern _DWORD dword_5d4594_832520;
@@ -275,15 +276,15 @@ int __cdecl sub_44E8E0(int a1, int a2) {
 	sub_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)v57, v30, v31);
 	result = *(_DWORD*)&byte_5D4594[2598000] / 0x1Eu;
 	if (*(_DWORD*)&byte_5D4594[2598000] % 0x1Eu) {
-		if (*(_DWORD*)&byte_587000[122956] != 1)
+		if (dword_587000_122956 != 1)
 			return result;
 	} else {
 		result = 1;
-		if (*(_DWORD*)&byte_587000[122956] == 1) {
-			*(_DWORD*)&byte_587000[122956] = *(_DWORD*)&byte_5D4594[2598000] % 0x1Eu;
+		if (dword_587000_122956 == 1) {
+			dword_587000_122956 = *(_DWORD*)&byte_5D4594[2598000] % 0x1Eu;
 			return result;
 		}
-		*(_DWORD*)&byte_587000[122956] = 1;
+		dword_587000_122956 = 1;
 	}
 	v33 = *(_DWORD*)&byte_5D4594[2523948];
 	v34 = loadString_sub_40F1D0((char*)&byte_587000[124324], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 642);
