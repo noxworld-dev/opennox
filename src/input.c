@@ -12,6 +12,7 @@ extern int nox_win_height;
 
 #ifdef USE_SDL
 #include "sdl2_scancode_to_dinput.h"
+extern _DWORD dword_5d4594_1193132;
 
 enum { MOUSE_MOTION,
        MOUSE_BUTTON0,
@@ -340,7 +341,7 @@ void sub_47FB10() {
 
 	// On non-IME languages, Nox uses this input for text input. This sets up
 	// current SHIFT state and the mapping from DIK code -> wide character.
-	*(_DWORD*)&byte_5D4594[1193132] = (SDL_GetModState() & (KMOD_LSHIFT | KMOD_RSHIFT)) != 0;
+	dword_5d4594_1193132 = (SDL_GetModState() & (KMOD_LSHIFT | KMOD_RSHIFT)) != 0;
 	sub_47DBD0();
 }
 
@@ -364,7 +365,7 @@ unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1) {
 		} else if (*(_DWORD*)&byte_5D4594[1193140]) {
 			result = *(_WORD*)&byte_5D4594[6 * (unsigned __int8)a1 + 1191576];
 		} else if (*(_DWORD*)&byte_5D4594[1193136] ||
-			   *(_DWORD*)&byte_5D4594[1193132] &&
+			   dword_5d4594_1193132 &&
 			       iswalpha(*(_WORD*)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572])) {
 
 			if (scrollLockStatus) {
@@ -384,7 +385,7 @@ unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1) {
 	if (sub_430950(a1))
 		return 0;
 	if (sub_430970(a1) == 2)
-		*(_DWORD*)&byte_5D4594[1193132] = 1 - *(_DWORD*)&byte_5D4594[1193132];
+		dword_5d4594_1193132 = 1 - dword_5d4594_1193132;
 	sub_4309B0(a1, 1);
 	return 0;
 }
@@ -766,8 +767,8 @@ void sub_47FB10() {
 		sub_4516C0(v7);
 	}
 
-	byte_5D4594[1193132] = GetKeyState(20) & 1;
-	*(_DWORD*)&byte_5D4594[1193132] = byte_5D4594[1193132];
+	dword_5d4594_1193132 = GetKeyState(20) & 1;
+	dword_5d4594_1193132 = dword_5d4594_1193132;
 	sub_47DBD0();
 }
 
@@ -798,7 +799,7 @@ void sub_47FB10() {
       result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191576];
     }
     else if ( *(_DWORD *)&byte_5D4594[1193136]
-	   || *(_DWORD *)&byte_5D4594[1193132]
+	   || *(_DWORD *)&dword_5d4594_1193132
 	   && iswalpha(*(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572]) )
     {
 
@@ -827,7 +828,7 @@ void sub_47FB10() {
   if ( sub_430950(a1) )
     return 0;
   if ( sub_430970(a1) == 2 )
-    *(_DWORD *)&byte_5D4594[1193132] = 1 - *(_DWORD *)&byte_5D4594[1193132];
+    *(_DWORD *)&dword_5d4594_1193132 = 1 - *(_DWORD *)&dword_5d4594_1193132;
   sub_4309B0(a1, 1);
   return 0;
 }*/
