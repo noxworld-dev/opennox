@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1097216;
 extern _DWORD dword_5d4594_3799500;
 extern _DWORD dword_5d4594_3807116;
 extern _DWORD dword_5d4594_1098620;
@@ -1445,10 +1446,10 @@ void sub_477F80() {
 			v0 = sub_437250();
 			if (*(int*)&byte_5D4594[1097212] < *(int*)v0 ||
 			    *(int*)&byte_5D4594[1097212] + 64 >= *((int*)v0 + 2) ||
-			    *(int*)&byte_5D4594[1097216] < *((int*)v0 + 1) ||
-			    *(int*)&byte_5D4594[1097216] + 64 >= *((int*)v0 + 3)) {
+			    *(int*)&dword_5d4594_1097216 < *((int*)v0 + 1) ||
+			    *(int*)&dword_5d4594_1097216 + 64 >= *((int*)v0 + 3)) {
 				nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
-				nox_client_drawRectFilledOpaque_49CE30(*(_DWORD*)&byte_5D4594[1097212] + 32, *(_DWORD*)&byte_5D4594[1097216] + 32,
+				nox_client_drawRectFilledOpaque_49CE30(*(_DWORD*)&byte_5D4594[1097212] + 32, dword_5d4594_1097216 + 32,
 					   64, 64);
 			}
 		}
