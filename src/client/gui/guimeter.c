@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1096276;
 extern _DWORD dword_5d4594_1096264;
 extern _DWORD dword_5d4594_1096256;
 extern _DWORD dword_5d4594_1096280;
@@ -121,7 +122,7 @@ int sub_4714E0() {
 	if (!*(_DWORD*)&byte_5D4594[1096268]) {
 		*(_DWORD*)&byte_5D4594[1096268] = sub_44CFC0((CHAR*)&byte_587000[148600]);
 		*(_DWORD*)&byte_5D4594[1096272] = sub_44CFC0((CHAR*)&byte_587000[148612]);
-		*(_DWORD*)&byte_5D4594[1096276] = sub_44CFC0((CHAR*)&byte_587000[148624]);
+		dword_5d4594_1096276 = sub_44CFC0((CHAR*)&byte_587000[148624]);
 		dword_5d4594_1096280 = sub_44CFC0((CHAR*)&byte_587000[148644]);
 		dword_5d4594_1096284 = sub_44CFC0((CHAR*)&byte_587000[148656]);
 	}
@@ -133,7 +134,7 @@ int sub_4714E0() {
 	sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1091364] + 36), v3);
 	*(_DWORD*)(*(_DWORD*)&byte_5D4594[1091364] + 32) = 2;
 	*(_WORD*)&byte_5D4594[1091384] = 0;
-	nox_thing* t4 = nox_get_thing(*(int*)&byte_5D4594[1096276]);
+	nox_thing* t4 = nox_get_thing(*(int*)&dword_5d4594_1096276);
 	if (t4) {
 		nox_drawable_link_thing(&byte_5D4594[1091388], t4->field_1c);
 		*(_DWORD*)&byte_5D4594[1091368] = &byte_5D4594[1091388];
@@ -142,7 +143,7 @@ int sub_4714E0() {
 	} else {
 		*(_DWORD*)&byte_5D4594[1091368] = 0;
 	}
-	*(_DWORD*)&byte_5D4594[1091380] = *(_DWORD*)&byte_5D4594[1096276];
+	*(_DWORD*)&byte_5D4594[1091380] = dword_5d4594_1096276;
 	*(_DWORD*)&byte_5D4594[1090292] = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 34, 166, 28, 30, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1090292], sub_471B90, sub_471A80, 0);
 	v5 = loadString_sub_40F1D0((char*)&byte_587000[148764], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1060);
