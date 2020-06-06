@@ -5,6 +5,7 @@
 #include "../gamewin/gamewin.h"
 #include "playrlst.h"
 
+extern _DWORD dword_5d4594_1046360;
 extern _DWORD dword_5d4594_1046524;
 extern _DWORD dword_5d4594_1046356;
 extern _DWORD dword_5d4594_1046540;
@@ -110,7 +111,7 @@ int sub_457500() {
 		sub_46B2C0(*(int*)&dword_5d4594_1046508, sub_4585D0);
 		*(_DWORD*)&byte_5D4594[1046352] = sub_42F970("UITabs1");
 		dword_5d4594_1046356 = sub_42F970("UITabs2");
-		*(_DWORD*)&byte_5D4594[1046360] = sub_42F970("UITabs3");
+		dword_5d4594_1046360 = sub_42F970("UITabs3");
 		v4 = *(_DWORD**)(dword_5d4594_1046496 + 32);
 		v14 = sub_42F970("UISlider");
 		v5 = sub_42F970("UISliderLit");
