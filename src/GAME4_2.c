@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487580;
 extern _DWORD dword_5d4594_2487568;
 extern _DWORD dword_5d4594_2487536;
 extern _DWORD dword_5d4594_2487628;
@@ -6046,13 +6047,13 @@ float* __cdecl sub_525AF0(int a1) {
 
 	v1 = 0;
 	v2 = 0;
-	*(_DWORD*)&byte_5D4594[2487580] = 0;
+	dword_5d4594_2487580 = 0;
 	dword_5d4594_2487576 = a1;
 	sub_525BF0(a1);
 	*(_DWORD*)(dword_5d4594_2487576 + 52) |= 1u;
 	for (i = (float*)sub_521710(); i; i = (float*)sub_521720((int)i)) {
 		++v1;
-		i[90] = i[89] / *(float*)&byte_5D4594[2487580];
+		i[90] = i[89] / *(float*)&dword_5d4594_2487580;
 	}
 	dword_5d4594_2487584 = 0;
 	result = sub_525C90();
@@ -6099,10 +6100,10 @@ void __cdecl sub_525BF0(int a1) {
 	int v7;    // [esp+4h] [ebp+4h]
 
 	if (*(_BYTE*)(a1 + 220) != 2) {
-		if (*(float*)&byte_5D4594[2487580] < (double)*(float*)(a1 + 356) && *(_DWORD*)a1 == 1) {
+		if (*(float*)&dword_5d4594_2487580 < (double)*(float*)(a1 + 356) && *(_DWORD*)a1 == 1) {
 			v1 = *(_DWORD*)(a1 + 356);
 			dword_5d4594_2487576 = a1;
-			*(_DWORD*)&byte_5D4594[2487580] = v1;
+			dword_5d4594_2487580 = v1;
 		}
 		v2 = -216 - a1;
 		*(_BYTE*)(a1 + 220) = 2;
