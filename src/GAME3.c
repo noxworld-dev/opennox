@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_805872;
 extern _DWORD dword_5d4594_1307724;
 extern _DWORD dword_5d4594_3798684;
 extern _DWORD dword_5d4594_3798680;
@@ -4427,7 +4428,7 @@ int sub_4AAA10() {
 		v0();
 	} else {
 		nox_win_depth_2 = nox_win_depth_1;
-		*(_DWORD*)&byte_5D4594[805872] = 1;
+		dword_5d4594_805872 = 1;
 	}
 	return 1;
 }
