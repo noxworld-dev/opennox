@@ -6,6 +6,7 @@
 #include "../gui/gamewin/gamewin.h"
 #include "selchar.h"
 
+extern _DWORD dword_5d4594_815052;
 extern _DWORD dword_5d4594_815100;
 extern _DWORD dword_5d4594_814548;
 extern _DWORD dword_5d4594_814992;
@@ -300,7 +301,7 @@ int sub_4379F0() {
 				sub_40A3C0(v16);
 				dword_5d4594_815048 = 0;
 				dword_5d4594_815044 = 0;
-				*(_DWORD*)&byte_5D4594[815052] = 0;
+				dword_5d4594_815052 = 0;
 				dword_5d4594_814548 = 0;
 				*(_QWORD*)&qword_5d4594_815068 = sub_416BB0() + 1000;
 				if (dword_587000_87408 == 1)
@@ -474,7 +475,7 @@ int sub_438770() {
 		     !wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_814988) ||
 		     !wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815012)) &&
 		    !dword_5d4594_815048 && !dword_5d4594_815044 &&
-		    !*(_DWORD*)&byte_5D4594[815052] && wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815000)) {
+		    !dword_5d4594_815052 && wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815000)) {
 			if ((unsigned __int64)sub_416BB0() > *(_QWORD*)&qword_5d4594_815068) {
 				sub_4378B0();
 				return 1;

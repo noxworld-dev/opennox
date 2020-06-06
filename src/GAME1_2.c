@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_815052;
 extern _DWORD dword_5d4594_805980;
 extern _DWORD dword_5d4594_741652;
 extern _DWORD dword_5d4594_787192;
@@ -9635,7 +9636,7 @@ char* sub_43AA70() {
 	if (dword_5d4594_528252 && dword_5d4594_528256)
 		sub_413D30((char*)&byte_587000[90708]);
 	dword_5d4594_815048 = 0;
-	*(_DWORD*)&byte_5D4594[815052] = 1;
+	dword_5d4594_815052 = 1;
 	v0 = sub_416590(0);
 	v1 = sub_416640();
 	qmemcpy(v1 + 111, v0, 0x3Au);
@@ -9767,7 +9768,7 @@ void sub_43ACC0() {
 }
 
 //----- (0043AF30) --------------------------------------------------------
-int sub_43AF30() { return *(_DWORD*)&byte_5D4594[815052]; }
+int sub_43AF30() { return dword_5d4594_815052; }
 
 //----- (0043AF40) --------------------------------------------------------
 int sub_43AF40() { return dword_5d4594_815048; }
