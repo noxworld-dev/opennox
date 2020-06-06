@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1308096;
 extern _DWORD dword_5d4594_1311924;
 extern _DWORD dword_5d4594_805872;
 extern _DWORD dword_5d4594_1307724;
@@ -1815,7 +1816,7 @@ int sub_4A5E90() {
 		}
 	}
 	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 720);
-	*(_DWORD*)&byte_5D4594[1308096] = v1;
+	dword_5d4594_1308096 = v1;
 	v1[8] = 131074;
 	v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 721);
 	dword_5d4594_1308100 = v2;
@@ -1852,7 +1853,7 @@ int sub_4A5E90() {
 	result = dword_587000_171388;
 	if (!dword_587000_171388) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16414, *(int*)&dword_5d4594_1307784, 0);
-		sub_4A61E0(*(_DWORD**)&byte_5D4594[1308096], 2, (_BYTE*)(dword_5d4594_1307784 + 71));
+		sub_4A61E0(*(_DWORD**)&dword_5d4594_1308096, 2, (_BYTE*)(dword_5d4594_1307784 + 71));
 		sub_4A61E0(*(_DWORD**)&dword_5d4594_1308100, 1, (_BYTE*)(dword_5d4594_1307784 + 68));
 		sub_4A61E0(*(_DWORD**)&byte_5D4594[1308104], 1, (_BYTE*)(dword_5d4594_1307784 + 74));
 		sub_4A61E0(*(_DWORD**)&dword_5d4594_1308108, 1, (_BYTE*)(dword_5d4594_1307784 + 77));
@@ -2328,8 +2329,8 @@ int __cdecl sub_4A6DC0(_DWORD* a1, int a2) {
 	int v55;  // [esp+14h] [ebp-4h]
 
 	nox_client_wndGetPosition_46AA60(a1, &v54, &v55);
-	v1 = ((unsigned __int16)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1308096] + 32) >> 16)) +
-	     32 * *(unsigned __int16*)(*(_DWORD*)&byte_5D4594[1308096] + 32);
+	v1 = ((unsigned __int16)(*(_DWORD*)(dword_5d4594_1308096 + 32) >> 16)) +
+	     32 * *(unsigned __int16*)(dword_5d4594_1308096 + 32);
 	v2 = byte_5D4594[3 * v1 + 1307798];
 	LOBYTE(v3) = byte_5D4594[3 * v1 + 1307797];
 	LOBYTE(v1) = byte_5D4594[3 * v1 + 1307796];
