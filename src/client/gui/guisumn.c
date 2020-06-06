@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
 
+extern _DWORD dword_5d4594_1321196;
 extern _DWORD dword_5d4594_1321036;
 extern _DWORD dword_5d4594_1321024;
 extern _DWORD dword_5d4594_1320988;
@@ -71,7 +72,7 @@ int sub_4C1D80() {
 	sub_4C2BF0();
 	dword_5d4594_1321044 = 0;
 	dword_5d4594_1321204 = 0;
-	*(_DWORD*)&byte_5D4594[1321196] = 0;
+	dword_5d4594_1321196 = 0;
 	return 1;
 }
 
