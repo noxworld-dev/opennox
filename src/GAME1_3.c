@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816436;
 extern _DWORD dword_5d4594_829532;
 extern _DWORD dword_5d4594_830232;
 extern _DWORD dword_5d4594_825764;
@@ -1929,8 +1930,8 @@ void sub_43E8D0() { nox_srand(0x1E76u); }
 //----- (0043E8E0) --------------------------------------------------------
 void sub_43E8E0(int a1) {
 	if (dword_5d4594_816432) {
-		if (!*(_DWORD*)&byte_5D4594[816436]) {
-			*(_DWORD*)&byte_5D4594[816436] = 1;
+		if (!dword_5d4594_816436) {
+			dword_5d4594_816436 = 1;
 			AIL_digital_handle_release(dword_5d4594_816432);
 		}
 	}
@@ -1940,9 +1941,9 @@ void sub_43E8E0(int a1) {
 //----- (0043E910) --------------------------------------------------------
 void sub_43E910(int a1) {
 	if (dword_5d4594_816432) {
-		if (*(_DWORD*)&byte_5D4594[816436]) {
+		if (dword_5d4594_816436) {
 			AIL_digital_handle_reacquire(dword_5d4594_816432);
-			*(_DWORD*)&byte_5D4594[816436] = 0;
+			dword_5d4594_816436 = 0;
 		}
 	}
 }
