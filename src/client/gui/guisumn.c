@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
 
+extern _DWORD dword_5d4594_1321036;
 extern _DWORD dword_5d4594_1321024;
 extern _DWORD dword_5d4594_1320988;
 extern _DWORD dword_5d4594_1321208;
@@ -31,12 +32,12 @@ int sub_4C1D80() {
 	dword_5d4594_1320992 = -145;
 	dword_5d4594_1321032 = nox_window_new(0, 8, nox_win_width - 95, -145, 87, 115, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1321032, sub_4C2BD0, sub_4C24A0, 0);
-	*(_DWORD*)&byte_5D4594[1321036] = nox_window_new(*(int*)&dword_5d4594_1321032, 136, 5, 38, 76, 76, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1321036], sub_4C2B10, sub_4C1FE0, sub_4C2C20);
+	dword_5d4594_1321036 = nox_window_new(*(int*)&dword_5d4594_1321032, 136, 5, 38, 76, 76, 0);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1321036, sub_4C2B10, sub_4C1FE0, sub_4C2C20);
 	v0 = loadString_sub_40F1D0((char*)&byte_587000[184592], 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 818);
-	sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1321036] + 36), v0);
+	sub_46B000((wchar_t*)(dword_5d4594_1321036 + 36), v0);
 	*(_DWORD*)&byte_5D4594[1320996] = sub_42F970("CreatureCageBottom");
-	v1 = nox_window_new(*(int*)&byte_5D4594[1321036], 160, 0, 0, 1, 1, 0);
+	v1 = nox_window_new(*(int*)&dword_5d4594_1321036, 160, 0, 0, 1, 1, 0);
 	v2 = sub_42F970("CreatureCageTop");
 	sub_46AE60((int)v1, (int)v2);
 	sub_46AE40((int)v1, -5, -38);
