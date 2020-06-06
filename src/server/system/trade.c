@@ -1,6 +1,7 @@
 #include "../dbase/objdb.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2386548;
 extern _DWORD dword_5d4594_2386560;
 extern _DWORD dword_5d4594_2386496;
 
@@ -510,8 +511,8 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 	v15 = a1;
 	v18 = *(_DWORD*)(a1 + 748);
 	v4 = sub_4FA6B0(v15);
-	if (!*(_DWORD*)&byte_5D4594[2386548])
-		*(_DWORD*)&byte_5D4594[2386548] = sub_4E3AA0((CHAR*)&byte_587000[236144]);
+	if (!dword_5d4594_2386548)
+		dword_5d4594_2386548 = sub_4E3AA0((CHAR*)&byte_587000[236144]);
 	result = (float*)a2[5];
 	if (result) {
 		while (!*(_DWORD*)result || *(_DWORD*)(*(_DWORD*)result + 36) != a3) {
@@ -533,7 +534,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 					return (float*)sub_4D9EB0(v3, v10);
 				}
 			}
-			if (*(unsigned __int16*)(v6 + 4) == *(_DWORD*)&byte_5D4594[2386548]) {
+			if (*(unsigned __int16*)(v6 + 4) == dword_5d4594_2386548) {
 				v16 = sub_419D40(&byte_587000[236224]);
 				if (*(_DWORD*)(v18 + 320) >= nox_float2int(v16)) {
 					sub_4DA2C0(v3, "pickup.c:MaxTradableAnkhsReached", 0);
@@ -554,7 +555,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 				}
 			}
 			if (nox_common_gameFlags_check_40A5C0(4096) &&
-			    (sub_5105D0(v6) || *(unsigned __int16*)(v6 + 4) == *(_DWORD*)&byte_5D4594[2386548]))
+			    (sub_5105D0(v6) || *(unsigned __int16*)(v6 + 4) == dword_5d4594_2386548))
 				v13 = sub_4E3450(*(unsigned __int16*)(v6 + 4));
 			else
 				v13 = (_DWORD*)v6;
