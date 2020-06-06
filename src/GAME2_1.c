@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1050008;
 extern _DWORD dword_5d4594_1096272;
 extern _DWORD dword_587000_145548;
 extern _DWORD dword_5d4594_1096432;
@@ -1337,13 +1338,13 @@ int __cdecl sub_463430(int a1) {
 		}
 		++v7;
 	} while (v7 < 6);
-	if (nox_common_gameFlags_check_40A5C0(4096) && *(_DWORD*)&byte_5D4594[1050008]) {
+	if (nox_common_gameFlags_check_40A5C0(4096) && dword_5d4594_1050008) {
 		v4 += 5;
 		v3 += 6;
 		nox_client_drawImageAt_47D2C0(
-		    *(_DWORD*)(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1050008] + 96) + 4) +
+		    *(_DWORD*)(*(_DWORD*)(*(_DWORD*)(dword_5d4594_1050008 + 96) + 4) +
 			       4 * (*(_DWORD*)&byte_5D4594[2598000] %
-				    (unsigned int)*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1050008] + 96) +
+				    (unsigned int)*(unsigned __int8*)(*(_DWORD*)(dword_5d4594_1050008 + 96) +
 								      8))),
 		    v3 - 58, v4 - 53);
 		nox_swprintf(v17, L"X %d", *(_DWORD*)&byte_5D4594[1050012]);
@@ -2443,7 +2444,7 @@ char* sub_467050() {
 	*(_DWORD*)&byte_5D4594[1050000] = sub_42F970("GUIFist");
 	*(_DWORD*)&byte_5D4594[1050004] = sub_42F970("SharedKeyMode");
 	result = sub_42FA20("ExtraLives");
-	*(_DWORD*)&byte_5D4594[1050008] = result;
+	dword_5d4594_1050008 = result;
 	return result;
 }
 
