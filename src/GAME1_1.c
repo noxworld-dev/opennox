@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_599496;
 extern _DWORD dword_587000_66120;
 extern _DWORD dword_5d4594_739996;
 extern _DWORD dword_5d4594_528260;
@@ -9223,7 +9224,7 @@ char* sub_426150() {
 			byte_5D4594[599502] = (v2[53] & 0xC0) != 0;
 			v3 = *((_WORD*)v2 + 26);
 			if (v3 & 0x100) {
-				*(_DWORD*)&byte_5D4594[599496] = 0;
+				dword_5d4594_599496 = 0;
 			LABEL_14:
 				byte_5D4594[599500] = (v2[53] & 0x40) == 0;
 				*(_DWORD*)&byte_5D4594[599508] = *((unsigned __int16*)v2 + 27);
@@ -9254,18 +9255,18 @@ char* sub_426150() {
 				v4 = 1;
 			} else {
 				if (v3 & 0x40) {
-					*(_DWORD*)&byte_5D4594[599496] = 2;
+					dword_5d4594_599496 = 2;
 					goto LABEL_14;
 				}
 				if (v3 & 0x10) {
-					*(_DWORD*)&byte_5D4594[599496] = 3;
+					dword_5d4594_599496 = 3;
 					goto LABEL_14;
 				}
 				if (!(v3 & 0x400))
 					goto LABEL_14;
 				v4 = 4;
 			}
-			*(_DWORD*)&byte_5D4594[599496] = v4;
+			dword_5d4594_599496 = v4;
 			goto LABEL_14;
 		}
 	}
