@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193180;
 extern _DWORD dword_5d4594_1097212;
 extern _DWORD dword_5d4594_1193352;
 extern _DWORD dword_587000_154944;
@@ -10148,7 +10149,7 @@ unsigned int __cdecl sub_485AE0(int a1, int a2) {
 
 	v2 = *(unsigned __int8**)&dword_5d4594_1193184;
 	v3 = a1;
-	v4 = (_BYTE*)(*(_DWORD*)&byte_5D4594[1193180] - 1);
+	v4 = (_BYTE*)(dword_5d4594_1193180 - 1);
 	v5 = dword_5d4594_1193176;
 	do {
 		v6 = *v2++ << 13;
@@ -10160,7 +10161,7 @@ unsigned int __cdecl sub_485AE0(int a1, int a2) {
 	} while (!v8);
 	dword_5d4594_1193176 = v5;
 	dword_5d4594_1193184 = v2;
-	*(_DWORD*)&byte_5D4594[1193180] = v4 + 1;
+	dword_5d4594_1193180 = v4 + 1;
 	return result;
 }
 
