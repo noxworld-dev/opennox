@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_832480;
 extern _DWORD dword_5d4594_1046360;
 extern _DWORD dword_5d4594_1045540;
 extern _DWORD dword_587000_126996;
@@ -1327,7 +1328,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 	    dword_5d4594_831244 == 1 && !sub_44D930() &&
 	    (unsigned __int64)(sub_416BB0() - *(_QWORD*)&byte_5D4594[831292]) > 0x3A98 &&
 	    (*(_DWORD*)&byte_5D4594[832488] == 1 || !(byte_5D4594[832472] & 5))) {
-		if (byte_5D4594[832472] & 2 && *(_DWORD*)&byte_5D4594[832480])
+		if (byte_5D4594[832472] & 2 && dword_5d4594_832480)
 			sub_452D80(582, 100);
 		sub_450580();
 		if (dword_5d4594_831220) {
