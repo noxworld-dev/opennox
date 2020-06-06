@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_832480;
 extern _DWORD dword_5d4594_832520;
 extern _DWORD dword_5d4594_832500;
 extern _DWORD dword_5d4594_832528;
@@ -685,7 +686,7 @@ int __cdecl sub_450980(int a1, int a2) {
 	wchar_t* v3; // eax
 	int result;  // eax
 
-	*(_DWORD*)&byte_5D4594[832480] = 0;
+	dword_5d4594_832480 = 0;
 	sub_431510();
 	sub_45ACA0(1);
 	sub_446780();
@@ -699,7 +700,7 @@ int __cdecl sub_450980(int a1, int a2) {
 	}
 	sub_450B00(*(unsigned __int16*)(a1 + 2));
 	if (*(_BYTE*)(a1 + 4) & 2)
-		*(_DWORD*)&byte_5D4594[832480] = 1;
+		dword_5d4594_832480 = 1;
 	result = a2;
 	if (a2)
 		result = nox_client_lockScreenBriefing_450160(254, 1, 2);
@@ -712,7 +713,7 @@ int __cdecl nox_client_showQuestBriefing_450A30(int a1, int a2) {
 	wchar_t* v3; // eax
 	int result;  // eax
 
-	*(_DWORD*)&byte_5D4594[832480] = 0;
+	dword_5d4594_832480 = 0;
 	sub_431510();
 	sub_45ACA0(1);
 	sub_446780();
