@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_830228;
 extern _DWORD dword_5d4594_830260;
 extern _DWORD dword_5d4594_829544;
 extern _DWORD dword_5d4594_816412;
@@ -5875,7 +5876,7 @@ _DWORD* __cdecl sub_449A10(int a1, int a2, int a3, int a4, int (*a5)(void), int 
 	v6 = dword_587000_26048;
 	if (dword_5d4594_830224 && dword_5d4594_830216)
 		(*(void (**)(void)) & dword_5d4594_830216)();
-	*(_DWORD*)&byte_5D4594[830228] = a1;
+	dword_5d4594_830228 = a1;
 	*(_DWORD*)&byte_5D4594[830232] = 0;
 	*(_DWORD*)&byte_5D4594[830220] = a5;
 	dword_5d4594_830216 = a6;
@@ -5967,7 +5968,7 @@ int __cdecl sub_449CA0(int a1, int a2, int* a3, int a4) {
 	case 4007:
 		if (byte_5D4594[830240] & 0x20)
 			sub_46C6E0(*(int*)&dword_5d4594_830224);
-		nox_window_call_field_94(*(int*)&byte_5D4594[830228], 16391, (int)a3, a4);
+		nox_window_call_field_94(*(int*)&dword_5d4594_830228, 16391, (int)a3, a4);
 		if (*(_DWORD*)&byte_5D4594[830220])
 			(*(void (**)(void)) & byte_5D4594[830220])();
 		if (!(byte_5D4594[830240] & 0x20))
@@ -5979,7 +5980,7 @@ int __cdecl sub_449CA0(int a1, int a2, int* a3, int a4) {
 	case 4006:
 		if (byte_5D4594[830240] & 0x20)
 			sub_46C6E0(*(int*)&dword_5d4594_830224);
-		nox_window_call_field_94(*(int*)&byte_5D4594[830228], 16391, (int)a3, a4);
+		nox_window_call_field_94(*(int*)&dword_5d4594_830228, 16391, (int)a3, a4);
 		if (dword_5d4594_830216)
 			(*(void (**)(void)) & dword_5d4594_830216)();
 		if (!(byte_5D4594[830240] & 0x20))
@@ -5996,7 +5997,7 @@ int __cdecl sub_449CA0(int a1, int a2, int* a3, int a4) {
 		sub_44A400();
 		return 0;
 	case 4010:
-		nox_window_call_field_94(*(int*)&byte_5D4594[830228], 16391, (int)a3, a4);
+		nox_window_call_field_94(*(int*)&dword_5d4594_830228, 16391, (int)a3, a4);
 		result = 0;
 		break;
 	default:
@@ -6247,7 +6248,7 @@ int sub_44A400() {
 		if (*(_DWORD*)&byte_5D4594[830232])
 			sub_46B500(*(int*)&byte_5D4594[830232]);
 		dword_5d4594_830224 = 0;
-		*(_DWORD*)&byte_5D4594[830228] = 0;
+		dword_5d4594_830228 = 0;
 		nox_client_setCursorType_477610(0);
 		result = sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
 	}
