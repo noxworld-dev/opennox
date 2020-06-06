@@ -12,6 +12,7 @@ HWND g_hwnd;
 #endif
 DWORD dword_974854;
 int g_fullscreen = -4; // -4 means "unset"
+extern _DWORD dword_5d4594_805860;
 extern _DWORD dword_5d4594_823776;
 extern int nox_video_dxFullScreen;
 
@@ -41,11 +42,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	for (v4 = strtok(lpCmdLine, " \t"); v4; v4 = strtok(0, " \t")) {
 		if (!strcmp("-window", v4)) {
 			*(_DWORD*)&nox_video_dxFullScreen = 0;
-			*(_DWORD*)&byte_5D4594[805860] = 0;
+			dword_5d4594_805860 = 0;
 			g_fullscreen = -2;
 		} else if (!strcmp("-swindow", v4)) {
 			*(_DWORD*)&nox_video_dxFullScreen = 0;
-			*(_DWORD*)&byte_5D4594[805860] = 1;
+			dword_5d4594_805860 = 1;
 			g_fullscreen = -3;
 		} else if (!strcmp("-fullscreen", v4)) {
 			g_fullscreen = -1;
