@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "fx.h"
+extern _DWORD dword_5d4594_1316412;
 extern _DWORD dword_5d4594_1316408;
 
 //----- (004BA230) --------------------------------------------------------
@@ -189,14 +190,14 @@ char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3) {
 	v4 = sub_437250();
 	if (!*(_DWORD*)&byte_5D4594[1316416])
 		*(_DWORD*)&byte_5D4594[1316416] = sub_44CFC0((CHAR*)&byte_587000[178156]);
-	v6 = 28 * (*(_DWORD*)&byte_5D4594[1316412] + 30 * v3);
-	v5 = *(_DWORD*)&byte_5D4594[1316412] + 1;
+	v6 = 28 * (dword_5d4594_1316412 + 30 * v3);
+	v5 = dword_5d4594_1316412 + 1;
 	*(_DWORD*)&byte_5D4594[v6 + 1313884] = *a1;
 	*(_DWORD*)&byte_5D4594[v6 + 1313888] = a1[1];
 	*(_DWORD*)&byte_5D4594[v6 + 1313912] = *a2;
 	*(_DWORD*)&byte_5D4594[v6 + 1313916] = a2[1];
 	LOBYTE(v6) = byte_5D4594[2598000];
-	*(_DWORD*)&byte_5D4594[1316412] = v5;
+	dword_5d4594_1316412 = v5;
 	if (byte_5D4594[2598000] & 4) {
 		v6 = sub_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
 		if (v6 > 5)

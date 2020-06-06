@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1316412;
 extern _DWORD dword_5d4594_1522968;
 extern _DWORD dword_5d4594_3679312;
 extern _DWORD dword_5d4594_1321520;
@@ -855,7 +856,7 @@ void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5) {
 			*(_DWORD*)&byte_5D4594[840 * v17 + 1313908] = 0;
 		}
 		v21 = *(float*)&byte_5D4594[4 * v17 + 1313856];
-		*(_DWORD*)&byte_5D4594[1316412] = 0;
+		dword_5d4594_1316412 = 0;
 		sub_4BEDE0(&a1a, &a2a, &a3a, &a4a, v18, v21, sub_4BA8B0, (int)&a5);
 		v17 = ++a5;
 	} while (a5 < 3);
