@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2496472;
 extern _DWORD dword_5d4594_2523904;
 extern _DWORD dword_5d4594_2516380;
 extern _DWORD dword_5d4594_2523804;
@@ -1088,7 +1089,7 @@ __int64 __cdecl sub_553DC0(int a1) {
 	unsigned int v2; // ecx
 	int v3;          // edx
 
-	v1 = *(_DWORD*)&byte_5D4594[2496472];
+	v1 = dword_5d4594_2496472;
 	v2 = 0;
 	v3 = 127;
 	do {
@@ -1177,7 +1178,7 @@ void __cdecl sub_553F40(int a1, int a2) {
 	*(_DWORD*)&byte_5D4594[2495956] += a2;
 	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[2497504] + 2496992] = a1;
 	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[2498020] + 2497508] = a2;
-	*(_DWORD*)&byte_5D4594[2497504] = (*(_DWORD*)&byte_5D4594[2496472] + 1) % 128;
+	*(_DWORD*)&byte_5D4594[2497504] = (dword_5d4594_2496472 + 1) % 128;
 	*(_DWORD*)&byte_5D4594[2498020] = (*(_DWORD*)&byte_5D4594[2496988] + 1) % 128;
 }
 
@@ -1188,11 +1189,11 @@ void __cdecl sub_553FC0(int a1, int a2) {
 
 	*(_DWORD*)&byte_5D4594[2495944] += a1;
 	*(_DWORD*)&byte_5D4594[2495948] += a2;
-	v2 = *(_DWORD*)&byte_5D4594[2496472];
-	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[2496472] + 2495960] = a1;
+	v2 = dword_5d4594_2496472;
+	*(_DWORD*)&byte_5D4594[4 * dword_5d4594_2496472 + 2495960] = a1;
 	v3 = *(_DWORD*)&byte_5D4594[2496988];
 	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[2496988] + 2496476] = a2;
-	*(_DWORD*)&byte_5D4594[2496472] = (v2 + 1) % 128;
+	dword_5d4594_2496472 = (v2 + 1) % 128;
 	*(_DWORD*)&byte_5D4594[2496988] = (v3 + 1) % 128;
 }
 
