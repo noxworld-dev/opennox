@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 #include "fx.h"
+extern _DWORD dword_5d4594_1304328;
 
 //----- (0049BDD0) --------------------------------------------------------
 int __cdecl sub_49BDD0(unsigned __int8* a1) {
@@ -33,7 +34,7 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 			*(_DWORD*)&byte_5D4594[1304320] = sub_44CFC0((CHAR*)&byte_587000[163632]);
 			*(_DWORD*)&byte_5D4594[1304324] = sub_44CFC0((CHAR*)&byte_587000[163656]);
 			*(_DWORD*)&byte_5D4594[1304348] = sub_44CFC0((CHAR*)&byte_587000[163676]);
-			*(_DWORD*)&byte_5D4594[1304328] = sub_44CFC0((CHAR*)&byte_587000[163688]);
+			dword_5d4594_1304328 = sub_44CFC0((CHAR*)&byte_587000[163688]);
 			*(_DWORD*)&byte_5D4594[1304332] = sub_44CFC0((CHAR*)&byte_587000[163696]);
 			*(_DWORD*)&byte_5D4594[1304336] = sub_44CFC0((CHAR*)&byte_587000[163708]);
 			*(_DWORD*)&byte_5D4594[1304340] = sub_44CFC0((CHAR*)&byte_587000[163724]);
@@ -59,7 +60,7 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 			goto LABEL_17;
 		case 0x8Fu:
 			v18 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 137);
-			v20 = *(_DWORD*)&byte_5D4594[1304328];
+			v20 = dword_5d4594_1304328;
 			if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 140) < 50) {
 				v15 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 143);
 				v10 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 142);
@@ -68,7 +69,7 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 			goto LABEL_17;
 		case 0x90u:
 			v16 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 101);
-			v20 = *(_DWORD*)&byte_5D4594[1304328];
+			v20 = dword_5d4594_1304328;
 			if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 104) < 50) {
 				v12 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 107);
 				v6 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 106);
@@ -85,7 +86,7 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 			goto LABEL_17;
 		case 0x91u:
 			v17 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 123);
-			v20 = *(_DWORD*)&byte_5D4594[1304328];
+			v20 = dword_5d4594_1304328;
 			if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 126) < 50) {
 				v14 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 129);
 				v9 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 128);
