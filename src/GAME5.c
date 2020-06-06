@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_587000_292488;
 extern _DWORD dword_5d4594_2491676;
 extern _DWORD dword_5d4594_2491588;
 extern _DWORD dword_5d4594_2491592;
@@ -3879,7 +3880,7 @@ void __cdecl sub_54AD50(int a1, int a2, int a3) {
 			if (a3 || !(*(_BYTE*)(a1 + 8) & 6) || (v11 = *(_DWORD*)(a2 + 16), !(v11 & 0x2000))) {
 				if (v5) {
 					a3c = v6;
-					v12 = *(float*)&byte_587000[292488] * a3c;
+					v12 = *(float*)&dword_587000_292488 * a3c;
 					a1a.field_4 = a4.field_0;
 					*(float*)&v22 = a4.field_0 * v12;
 					*(float*)&a3a = a4.field_4 * v12;
@@ -7669,7 +7670,7 @@ void __cdecl sub_550D00(int a1, int a2) {
 					v11 = sub_4E4A70(v3);
 				else
 					v11 = sub_4E4A70(v2);
-				v12 = *(float*)&byte_587000[292488] * v20;
+				v12 = *(float*)&dword_587000_292488 * v20;
 				v21 = -(v12 * a1a.field_0);
 				v24 = -(v12 * a1a.field_4);
 				if (!(*(_BYTE*)(v2 + 8) & 6) || !(*(_BYTE*)(v3 + 8) & 6)) {
@@ -7781,9 +7782,9 @@ void __cdecl sub_550F80(float* a1, int a2) {
 						v11 = -v11;
 					v20 = 0.0;
 				}
-				v12 = *(float*)&byte_587000[292488];
+				v12 = *(float*)&dword_587000_292488;
 				v13 = v11 * v12;
-				v14 = *(float*)&byte_587000[292488];
+				v14 = *(float*)&dword_587000_292488;
 				v15 = v20 * v14;
 				v19 = (v13 - v15) * 0.70710677;
 				v20 = (v15 + v13) * 0.70710677;
