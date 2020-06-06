@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_805856;
 extern _DWORD dword_5d4594_815748;
 extern _DWORD dword_5d4594_830196;
 extern _DWORD dword_5d4594_830252;
@@ -4069,7 +4070,7 @@ LABEL_30:
 	sub_4766A0(v5);
 	if (nox_common_gameFlags_check_40A5C0(0x10000000))
 		sub_476700(v5, 0);
-	*(_DWORD*)&byte_5D4594[805856] = 1;
+	dword_5d4594_805856 = 1;
 }
 BOOL sub_444830() {
 	DebugBreak();
