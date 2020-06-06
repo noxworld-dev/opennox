@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487656;
 extern _DWORD dword_5d4594_3835368;
 extern _DWORD dword_5d4594_2487804;
 extern _DWORD dword_5d4594_2487632;
@@ -6190,8 +6191,8 @@ int __cdecl sub_525D20(int a1) {
 	_DWORD* j; // esi
 
 	v1 = 0;
-	if (!*(_DWORD*)&byte_5D4594[2487656]) {
-		*(_DWORD*)&byte_5D4594[2487656] = sub_4E3AA0((CHAR*)&byte_587000[254968]);
+	if (!dword_5d4594_2487656) {
+		dword_5d4594_2487656 = sub_4E3AA0((CHAR*)&byte_587000[254968]);
 		*(_DWORD*)&byte_5D4594[2487660] = sub_4E3AA0((CHAR*)&byte_587000[254984]);
 		*(_DWORD*)&byte_5D4594[2487664] = sub_4E3AA0((CHAR*)&byte_587000[255000]);
 		*(_DWORD*)&byte_5D4594[2487668] = sub_4E3AA0((CHAR*)&byte_587000[255016]);
@@ -6468,7 +6469,7 @@ int __cdecl sub_5262F0(int a1, int a2) {
 		v28.field_4 = v26.field_4 - 1.0;
 		sub_520DF0(&v28, &v24);
 		v6 = *(unsigned __int16*)(i + 4);
-		if ((unsigned __int16)v6 == *(_DWORD*)&byte_5D4594[2487656]) {
+		if ((unsigned __int16)v6 == dword_5d4594_2487656) {
 			if (*(_DWORD*)(a2 + 92)) {
 				if (v24.field_0 < *(int*)(a2 + 80))
 					*(_DWORD*)(a2 + 80) = v24.field_0;
@@ -6763,7 +6764,7 @@ int __cdecl sub_526830(int a1) {
 				do {
 					v3 = sub_5049C0(v2);
 					v4 = *(unsigned __int16*)(v2 + 4);
-					if ((unsigned __int16)v4 == *(_DWORD*)&byte_5D4594[2487656] ||
+					if ((unsigned __int16)v4 == dword_5d4594_2487656 ||
 					    v4 == *(_DWORD*)&byte_5D4594[2487660] ||
 					    v4 == *(_DWORD*)&byte_5D4594[2487664] ||
 					    v4 == *(_DWORD*)&byte_5D4594[2487668]) {
