@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1563084;
 extern _DWORD dword_5d4594_1563080;
 extern _DWORD dword_5d4594_1556856;
 extern _DWORD dword_5d4594_1548480;
@@ -7722,7 +7723,7 @@ int sub_4DB090() { return *(_DWORD*)&byte_587000[201376]; }
 int sub_4DB0A0() {
 	byte_5D4594[1560984] = byte_5D4594[1563136];
 	dword_5d4594_1563080 = 0;
-	*(_DWORD*)&byte_5D4594[1563084] = 0;
+	dword_5d4594_1563084 = 0;
 	dword_5d4594_1563096 = 0;
 	*(_DWORD*)&byte_5D4594[1563064] = 0;
 	dword_5d4594_1563092 = 0;
@@ -7741,7 +7742,7 @@ int sub_4DB100() {
 
 	result = 0;
 	dword_5d4594_1563080 = 0;
-	*(_DWORD*)&byte_5D4594[1563084] = 0;
+	dword_5d4594_1563084 = 0;
 	dword_5d4594_1563096 = 0;
 	*(_DWORD*)&byte_5D4594[1563064] = 0;
 	dword_5d4594_1563092 = 0;
@@ -7767,7 +7768,7 @@ int __cdecl sub_4DB170(int a1, int a2, int a3) {
 	dword_5d4594_1563092 = a3;
 	dword_5d4594_1563088 = *(_DWORD*)&byte_5D4594[2598000];
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1563084] = a2;
+	dword_5d4594_1563084 = a2;
 	dword_5d4594_1563080 = a1;
 	dword_5d4594_1563096 = a2 != 0;
 	if (!a1)
@@ -7779,7 +7780,7 @@ int __cdecl sub_4DB170(int a1, int a2, int a3) {
 int sub_4DB1B0() { return dword_5d4594_1563080; }
 
 //----- (004DB1C0) --------------------------------------------------------
-int sub_4DB1C0() { return *(_DWORD*)&byte_5D4594[1563084]; }
+int sub_4DB1C0() { return dword_5d4594_1563084; }
 
 //----- (004DB220) --------------------------------------------------------
 int __cdecl sub_4DB220(int a1) {
