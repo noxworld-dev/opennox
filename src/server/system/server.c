@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1569660;
 extern _DWORD dword_5d4594_1568300;
 extern _DWORD dword_5d4594_1548664;
 extern _DWORD dword_5d4594_1548480;
@@ -1346,11 +1347,11 @@ void sub_4FC680() {
 	int v0; // eax
 
 	if (nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(0x80000) &&
-	    *(_DWORD*)&byte_5D4594[1569660]) {
+	    dword_5d4594_1569660) {
 		v0 = sub_4DA7C0();
 		if (v0) {
-			sub_4FBB70(v0, *(int*)&byte_5D4594[1569660]);
-			*(_DWORD*)&byte_5D4594[1569660] = 0;
+			sub_4FBB70(v0, *(int*)&dword_5d4594_1569660);
+			dword_5d4594_1569660 = 0;
 		}
 	}
 }
