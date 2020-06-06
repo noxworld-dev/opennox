@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386836;
 extern _DWORD dword_5d4594_2386172;
 extern _DWORD dword_5d4594_3835364;
 extern _DWORD dword_5d4594_2386852;
@@ -5384,8 +5385,8 @@ int sub_511E20() {
 
 //----- (00511E60) --------------------------------------------------------
 void sub_511E60() {
-	if (!*(_DWORD*)&byte_5D4594[2386836])
-		*(_DWORD*)&byte_5D4594[2386836] = sub_4E3AA0((CHAR*)&byte_587000[246804]);
+	if (!dword_5d4594_2386836)
+		dword_5d4594_2386836 = sub_4E3AA0((CHAR*)&byte_587000[246804]);
 	sub_5058F0();
 	sub_51AC60();
 	*(_DWORD*)&byte_5D4594[2386844] = 0;
@@ -5684,12 +5685,12 @@ int* __cdecl nox_server_scriptMoveTo_5123C0(int a1, int a2) {
 				result[2] = *(_DWORD*)(a2 + 12);
 				result[3] = 0;
 			}
-		} else if (*(unsigned __int16*)(a1 + 4) == *(_DWORD*)&byte_5D4594[2386836]) {
+		} else if (*(unsigned __int16*)(a1 + 4) == dword_5d4594_2386836) {
 			result = (int*)sub_5124C0((_DWORD*)a1, (_DWORD*)a2);
 		} else {
 			result = (int*)sub_4DA790();
 			for (i = result; result; i = result) {
-				if (*((unsigned __int16*)i + 2) == *(_DWORD*)&byte_5D4594[2386836] &&
+				if (*((unsigned __int16*)i + 2) == dword_5d4594_2386836 &&
 				    *(_DWORD*)(i[187] + 32) == *(_DWORD*)(a1 + 40)) {
 					sub_5124C0(i, (_DWORD*)a2);
 				}
