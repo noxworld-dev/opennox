@@ -1,6 +1,7 @@
 #include "../../client/gui/guimsg.h"
 #include "../../client/system/parsecmd.h"
 #include "../../proto.h"
+extern _DWORD dword_5d4594_3592;
 
 //----- (00409FB0) --------------------------------------------------------
 void __cdecl sub_409FB0_settings(__int16 a1, unsigned __int16 a2) {
@@ -33,7 +34,7 @@ void __cdecl sub_40A040_settings(__int16 a1, unsigned __int8 a2) {
 
 	v2 = sub_409A70(a1);
 	if (byte_5D4594[v2 + 3500] != a2) {
-		if (!nox_common_gameFlags_check_40A5C0(0x4000000) && !*(_DWORD*)&byte_5D4594[3592]) {
+		if (!nox_common_gameFlags_check_40A5C0(0x4000000) && !dword_5d4594_3592) {
 			*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
 			if (nox_client_isConnected_43C700()) {
 				if (!a2) {
