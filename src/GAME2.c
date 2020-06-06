@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1047536;
 extern _DWORD dword_5d4594_1045420;
 extern _DWORD dword_5d4594_1045556;
 extern _DWORD dword_5d4594_831240;
@@ -6562,7 +6563,7 @@ int __cdecl sub_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 	case 5u:
 		if (*(_DWORD*)&byte_5D4594[2614252] && (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2614252] + 120) & 2) == 2)
 			return 1;
-		*(_DWORD*)&byte_5D4594[1047536] = v3;
+		dword_5d4594_1047536 = v3;
 		v7 = (int)(-19 - a3 + v3) < 0;
 		v8 = -19 - a3 + v3;
 		*(_DWORD*)&byte_5D4594[1047532] = v4;
@@ -6623,9 +6624,9 @@ int __cdecl sub_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 				v12 = v4 - *(_DWORD*)&byte_5D4594[1047532];
 			if (v12 >= 5)
 				goto LABEL_52;
-			v13 = *(_DWORD*)&byte_5D4594[1047536] - v3;
-			if (*(int*)&byte_5D4594[1047536] - v3 < 0)
-				v13 = v3 - *(_DWORD*)&byte_5D4594[1047536];
+			v13 = dword_5d4594_1047536 - v3;
+			if (*(int*)&dword_5d4594_1047536 - v3 < 0)
+				v13 = v3 - dword_5d4594_1047536;
 			if (v13 >= 5)
 			LABEL_52:
 				sub_45DCA0(*(int*)&dword_5d4594_1047528, 0, v4, v3, 0);
