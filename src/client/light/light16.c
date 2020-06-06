@@ -3,6 +3,7 @@
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 
+extern _DWORD dword_5d4594_1193180;
 extern _DWORD dword_587000_142316;
 extern _DWORD dword_5d4594_1193176;
 extern _DWORD dword_587000_142328;
@@ -65,7 +66,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 		v20 = dword_5d4594_3798844;
 		v22 = dword_5d4594_3798844 - dword_5d4594_3798796;
 		dword_5d4594_1193184 = v9;
-		*(_DWORD*)&byte_5D4594[1193180] = a5;
+		dword_5d4594_1193180 = a5;
 		if ((unsigned int)v9 >= *(int*)&dword_5d4594_3798844) {
 			v9 -= dword_5d4594_3798844 - dword_5d4594_3798796;
 			dword_5d4594_1193184 = v9;
@@ -76,7 +77,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 			} else {
 				v10 = dword_5d4594_3798844 - (_DWORD)v9;
 				qmemcpy(a5, v9, dword_5d4594_3798844 - (_DWORD)v9);
-				v11 = (void*)(*(_DWORD*)&byte_5D4594[1193180] + v10);
+				v11 = (void*)(dword_5d4594_1193180 + v10);
 				result = a4 - v10;
 				qmemcpy(v11, v8, result);
 			}
