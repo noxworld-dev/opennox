@@ -6,6 +6,7 @@
 #include "../gui/servopts/guiserv.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_823696;
 extern _DWORD dword_5d4594_833728;
 extern _DWORD dword_5d4594_833732;
 extern _DWORD dword_5d4594_823708;
@@ -1520,7 +1521,7 @@ int __cdecl sub_4439B0(int a1, unsigned __int8 a2) {
 	wchar_t* v4; // eax
 
 	if (a2 == 1) {
-		*(_DWORD*)&byte_5D4594[823696] = 1;
+		dword_5d4594_823696 = 1;
 		v2 = loadString_sub_40F1D0((char*)&byte_587000[107008], 0,
 					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4014);
 		sub_450C00(6u, v2);
@@ -1703,10 +1704,10 @@ int __cdecl nox_server_parseCmdText_443C80(wchar_t* a1, int a2) {
 			dword_5d4594_823684 = 0;
 			*(_DWORD*)&byte_5D4594[823688] = 1;
 		}
-		if (*(_DWORD*)&byte_5D4594[823696]) {
+		if (dword_5d4594_823696) {
 			sub_4409D0(a1);
 			result = 1;
-			*(_DWORD*)&byte_5D4594[823696] = 0;
+			dword_5d4594_823696 = 0;
 			return result;
 		}
 		nox_wcscpy((wchar_t*)&byte_5D4594[820276], a1);
@@ -1990,7 +1991,7 @@ int sub_4444F0() {
 		sub_4444C0(*v0, (int)v1);
 		++v0;
 	} while ((int)v0 < (int)&byte_587000[94500]);
-	*(_DWORD*)&byte_5D4594[823696] = 0;
+	dword_5d4594_823696 = 0;
 	sub_444440((int*)&byte_587000[97368]);
 	return sub_444570();
 }
