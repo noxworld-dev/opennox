@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1045596;
 extern _DWORD dword_5d4594_1049692;
 extern _DWORD dword_5d4594_1046652;
 extern _DWORD dword_5d4594_1047536;
@@ -3746,7 +3747,7 @@ int __cdecl sub_454A90(int a1, int a2) {
 			sub_46ABB0(*(int*)&dword_5d4594_1045544, 0);
 		}
 	}
-	v3 = nox_window_call_field_94(*(int*)&byte_5D4594[1045596], 16404, 0, 0);
+	v3 = nox_window_call_field_94(*(int*)&dword_5d4594_1045596, 16404, 0, 0);
 	v4 = *(_BYTE*)(dword_5d4594_1045548 + 4);
 	if (v3 < 0) {
 		if (v4 & 8)
@@ -4028,14 +4029,14 @@ int __cdecl sub_454BA0(int a1, int a2, int* a3, int a4) {
 			sub_46ACE0(*(_DWORD**)&dword_5d4594_1045516, 10188, 10190, 0);
 			nox_window_set_hidden(*(int*)&dword_5d4594_1045528, 1);
 			sub_46ACE0(*(_DWORD**)&dword_5d4594_1045516, 10185, 10187, 1);
-			*(_DWORD*)&byte_5D4594[1045596] = dword_5d4594_1045532;
+			dword_5d4594_1045596 = dword_5d4594_1045532;
 			return 0;
 		case 10207:
 			nox_window_set_hidden(*(int*)&dword_5d4594_1045532, 1);
 			sub_46ACE0(*(_DWORD**)&dword_5d4594_1045516, 10188, 10190, 1);
 			nox_window_set_hidden(*(int*)&dword_5d4594_1045528, 0);
 			sub_46ACE0(*(_DWORD**)&dword_5d4594_1045516, 10185, 10187, 0);
-			*(_DWORD*)&byte_5D4594[1045596] = dword_5d4594_1045528;
+			dword_5d4594_1045596 = dword_5d4594_1045528;
 			return 0;
 		default:
 			goto LABEL_101;
