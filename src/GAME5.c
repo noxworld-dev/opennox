@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_2491592;
 extern _DWORD dword_5d4594_2491704;
 extern _DWORD dword_5d4594_2490508;
 extern _DWORD dword_5d4594_2489460;
@@ -3922,7 +3923,7 @@ int __cdecl sub_54AF40(int a1) {
 	v1 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 276);
 	a1a.field_0 = (double)*(int*)(v1 + 2284);
 	v2 = (double)*(int*)(v1 + 2288);
-	*(_DWORD*)&byte_5D4594[2491592] = a1;
+	dword_5d4594_2491592 = a1;
 	a1a.field_4 = v2;
 	*(_DWORD*)&byte_5D4594[2491596] = 0;
 	*(_DWORD*)&byte_5D4594[2491600] = 0;
@@ -3952,10 +3953,10 @@ void __cdecl sub_54AFB0(int a1, float* a2) {
 	if (!*(_DWORD*)&byte_5D4594[2491604])
 		*(_DWORD*)&byte_5D4594[2491604] = sub_4E3AA0((CHAR*)&byte_587000[290008]);
 	v2 = (float*)a1;
-	if (a1 != *(_DWORD*)&byte_5D4594[2491592] && !(*(_DWORD*)(a1 + 16) & 0x8020) &&
-	    (!sub_4FF350(a1, 0) || sub_4FF350(*(int*)&byte_5D4594[2491592], 21)) &&
+	if (a1 != dword_5d4594_2491592 && !(*(_DWORD*)(a1 + 16) & 0x8020) &&
+	    (!sub_4FF350(a1, 0) || sub_4FF350(*(int*)&dword_5d4594_2491592, 21)) &&
 	    (*(_DWORD*)(a1 + 8) & 0x80000206 || *(unsigned __int16*)(a1 + 4) == *(_DWORD*)&byte_5D4594[2491604])) {
-		if (sub_537110(a1, *(int*)&byte_5D4594[2491592])) {
+		if (sub_537110(a1, *(int*)&dword_5d4594_2491592)) {
 			if (!(*(_BYTE*)(a1 + 8) & 4) || (*(_DWORD*)(a1 + 36) != *(_DWORD*)&byte_5D4594[2616328] ||
 							 !(*(_DWORD*)&nox_common_engineFlags & 0x40000)) &&
 							    (v3 = sub_417040(*(_DWORD*)(a1 + 36))) != 0 &&
