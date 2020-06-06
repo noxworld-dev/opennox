@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_811896;
 extern _DWORD dword_5d4594_2618900;
 extern _DWORD dword_5d4594_811072;
 extern _DWORD dword_5d4594_811100;
@@ -103,7 +104,7 @@ void sub_436100_draw() {
 		sub_434350(*(int*)&byte_5D4594[2650656]);
 		sub_440900();
 	}
-	if (*(_DWORD*)&byte_5D4594[811896])
+	if (dword_5d4594_811896)
 		sub_4365C0();
 	if (*(_DWORD*)&byte_5D4594[811904])
 		sub_436F50();
