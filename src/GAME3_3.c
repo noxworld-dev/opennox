@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1568288;
 extern _DWORD dword_5d4594_1563320;
 extern _DWORD dword_587000_201380;
 extern _DWORD dword_5d4594_1568308;
@@ -12072,8 +12073,8 @@ int sub_4F2210() {
 	lpMem = 0;
 	v1 = sub_4E3CC0();
 	v2 = sub_4E3CE0();
-	if (!*(_DWORD*)&byte_5D4594[1568288]) {
-		*(_DWORD*)&byte_5D4594[1568288] = sub_4E3AA0((CHAR*)&byte_587000[215080]);
+	if (!dword_5d4594_1568288) {
+		dword_5d4594_1568288 = sub_4E3AA0((CHAR*)&byte_587000[215080]);
 		*(_DWORD*)&byte_5D4594[1568292] = sub_4E3AA0((CHAR*)&byte_587000[215096]);
 		*(_DWORD*)&byte_5D4594[1568296] = sub_4E3AA0((CHAR*)&byte_587000[215116]);
 	}
@@ -12103,7 +12104,7 @@ int sub_4F2210() {
 	if (result) {
 		do {
 			v6 = *(unsigned __int16*)(result + 4);
-			if ((unsigned __int16)v6 == *(_DWORD*)&byte_5D4594[1568288]) {
+			if ((unsigned __int16)v6 == dword_5d4594_1568288) {
 				if (!(*(_BYTE*)(*(_DWORD*)(result + 692) + 216) & 1))
 					++v3;
 			} else if (v6 == *(_DWORD*)&byte_5D4594[1568296]) {
@@ -12128,7 +12129,7 @@ int sub_4F2210() {
 			v9 = v0;
 			do {
 				v10 = *(unsigned __int16*)(result + 4);
-				if ((unsigned __int16)v10 == *(_DWORD*)&byte_5D4594[1568288]) {
+				if ((unsigned __int16)v10 == dword_5d4594_1568288) {
 					v11 = *(_DWORD*)(result + 692);
 					v12 = *(_BYTE*)(v11 + 216);
 					if (v12 & 1) {
