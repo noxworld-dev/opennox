@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3805492;
 extern _DWORD dword_5d4594_805856;
 extern _DWORD dword_5d4594_754048;
 extern _DWORD dword_5d4594_811896;
@@ -6078,11 +6079,11 @@ int sub_430E70() {
 		if (dword_5d4594_805836) {
 			dword_5d4594_805836 = 0;
 			dword_5d4594_3805484 = sub_480BE0;
-			*(_DWORD*)&byte_5D4594[3805492] = sub_480860;
+			dword_5d4594_3805492 = sub_480860;
 		} else {
 			dword_5d4594_805836 = 1;
 			dword_5d4594_3805484 = sub_480950;
-			*(_DWORD*)&byte_5D4594[3805492] = sub_4805A0;
+			dword_5d4594_3805492 = sub_4805A0;
 		}
 	}
 	return result;
