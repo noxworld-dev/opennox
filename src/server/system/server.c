@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_1568028;
 extern _DWORD dword_5d4594_600116;
 extern _DWORD dword_5d4594_1556144;
 extern _DWORD dword_5d4594_2386164;
@@ -977,8 +978,8 @@ void sub_4EC720() {
 	int v17;    // ecx
 	int v18;    // eax
 
-	if (!*(_DWORD*)&byte_5D4594[1568028])
-		*(_DWORD*)&byte_5D4594[1568028] = sub_4E3AA0((CHAR*)&byte_587000[205204]);
+	if (!dword_5d4594_1568028)
+		dword_5d4594_1568028 = sub_4E3AA0((CHAR*)&byte_587000[205204]);
 	if (!nox_common_gameFlags_check_40A5C0(4608)) {
 		v0 = dword_5d4594_1568024;
 		*(_DWORD*)&byte_587000[205200] = 0;
@@ -1029,13 +1030,13 @@ void sub_4EC720() {
 					if (v2)
 						goto LABEL_16;
 				} else if (v3 & 0x3001000 ||
-					   *(unsigned __int16*)(v1 + 4) == *(_DWORD*)&byte_5D4594[1568028]) {
+					   *(unsigned __int16*)(v1 + 4) == dword_5d4594_1568028) {
 					if (*(_DWORD*)(v1 + 492) || !sub_4E3BA0(*(unsigned __int16*)(v1 + 4))) {
 						v18 = *(_DWORD*)(v0 + 4);
 						if (*(_DWORD*)(v18 + 492) &&
 						    sub_4E3BA0(*(unsigned __int16*)(v18 + 4)) &&
 						    *(unsigned __int16*)(*(_DWORD*)(v0 + 4) + 4) !=
-							*(_DWORD*)&byte_5D4594[1568028] &&
+							dword_5d4594_1568028 &&
 						    sub_409F40(2)) {
 							goto LABEL_16;
 						}
