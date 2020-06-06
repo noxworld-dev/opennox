@@ -1,4 +1,5 @@
 #include "../../proto.h"
+extern _DWORD dword_5d4594_251728;
 extern _DWORD dword_5d4594_251704;
 extern _DWORD dword_5d4594_251712;
 extern _DWORD dword_5d4594_251708;
@@ -52,7 +53,7 @@ int sub_413520_gamedisk() {
 		sub_4137E0();
 		LODWORD(v0) = sub_413800();
 		dword_5d4594_251700 = 6;
-		*(_DWORD*)&byte_5D4594[251728] = 0;
+		dword_5d4594_251728 = 0;
 		break;
 	case 2:
 		v3 = sub_416BB0();
