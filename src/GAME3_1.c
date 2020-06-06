@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3679312;
 extern _DWORD dword_5d4594_1321520;
 extern _DWORD dword_5d4594_1319268;
 extern _DWORD dword_5d4594_1321024;
@@ -6743,7 +6744,7 @@ int __cdecl sub_4C57C0(FILE* a1, int a2, _DWORD* a3, _DWORD* a4) {
 			return 0;
 		}
 		fclose(a1);
-		*a3 = *(_DWORD*)&byte_5D4594[3679312];
+		*a3 = dword_5d4594_3679312;
 		*a4 = dword_5d4594_3679316;
 		result = 1;
 	}
@@ -6782,15 +6783,15 @@ BOOL __cdecl sub_4C5850(FILE* a1) {
 		return 0;
 	if (fscanf(v1, "%2c", &v3) != 1)
 		return 0;
-	*(_DWORD*)&byte_5D4594[3679312] = (unsigned __int16)v3;
+	dword_5d4594_3679312 = (unsigned __int16)v3;
 	if (fscanf(v1, "%2c", &v3) != 1)
 		return 0;
 	dword_5d4594_3679316 = (unsigned __int16)v3;
-	if (*(_DWORD*)&byte_5D4594[3679312] > 639)
+	if (dword_5d4594_3679312 > 639)
 		return 0;
 	if ((int)(unsigned __int16)v3 > 639)
 		return 0;
-	++*(_DWORD*)&byte_5D4594[3679312];
+	++dword_5d4594_3679312;
 	dword_5d4594_3679316 = (unsigned __int16)v3 + 1;
 	fseek(v1, 65, 0);
 	if (fscanf(v1, "%c", &a1) != 1)
