@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487632;
 extern _DWORD dword_5d4594_3835364;
 extern _DWORD dword_5d4594_2487884;
 extern _DWORD dword_5d4594_3835372;
@@ -6319,11 +6320,11 @@ LABEL_10:
 					*(float*)&dword_5d4594_2487620 = v16;
 					*(float*)&dword_5d4594_2487624 = v16;
 				}
-				*(_DWORD*)&byte_5D4594[2487632] = 0;
+				dword_5d4594_2487632 = 0;
 			} else {
 				v11 = -v16;
 				*(float*)&byte_5D4594[2487612] = v11;
-				*(float*)&byte_5D4594[2487632] = v11;
+				*(float*)&dword_5d4594_2487632 = v11;
 				*(float*)&byte_5D4594[2487616] = v16;
 				*(float*)&dword_5d4594_2487620 = v16;
 				*(float*)&dword_5d4594_2487624 = v16;
@@ -6336,7 +6337,7 @@ LABEL_10:
 			*(float*)&dword_5d4594_2487624 = v10;
 			*(float*)&dword_5d4594_2487620 = v16;
 			dword_5d4594_2487628 = 0;
-			*(float*)&byte_5D4594[2487632] = v16;
+			*(float*)&dword_5d4594_2487632 = v16;
 		}
 		break;
 	case 4:
@@ -6348,7 +6349,7 @@ LABEL_10:
 		*(float*)&dword_5d4594_2487624 = v13;
 		*(float*)&dword_5d4594_2487628 = v13;
 		*(float*)&dword_5d4594_2487620 = v16;
-		*(float*)&byte_5D4594[2487632] = v16;
+		*(float*)&dword_5d4594_2487632 = v16;
 		*(float*)&byte_5D4594[2487636] = v16;
 		*(float*)&byte_5D4594[2487640] = v16;
 		*(_DWORD*)&byte_5D4594[2487648] = 0;
