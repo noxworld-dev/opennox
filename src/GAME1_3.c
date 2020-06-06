@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_122856;
 extern _DWORD dword_5d4594_830272;
 extern _DWORD dword_5d4594_816436;
 extern _DWORD dword_5d4594_829532;
@@ -1413,7 +1414,7 @@ int __cdecl sub_43D6C0(int* a1) {
 	}
 	v4 = AIL_open_stream(dword_5d4594_816376, v8, 204800);
 	if (!v4) {
-		if (*(_DWORD*)&byte_587000[122856] && sub_44D930())
+		if (dword_587000_122856 && sub_44D930())
 			return 0;
 		v5 = sub_413890();
 		if (!v5)

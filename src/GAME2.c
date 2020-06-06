@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_122856;
 extern _DWORD dword_5d4594_1045596;
 extern _DWORD dword_5d4594_1049692;
 extern _DWORD dword_5d4594_1046652;
@@ -527,7 +528,7 @@ void sub_44D3A0() {
 			if (dword_5d4594_830872 && dword_587000_122848) {
 				if (!sub_44D660(*(const char**)&dword_5d4594_830872))
 					goto LABEL_29;
-				if (!*(_DWORD*)&byte_587000[122856] || !*(_DWORD*)&byte_587000[93160] ||
+				if (!dword_587000_122856 || !*(_DWORD*)&byte_587000[93160] ||
 				    dword_5d4594_831084)
 					goto LABEL_16;
 				dword_5d4594_831084 = 1;
@@ -628,7 +629,7 @@ BOOL __cdecl sub_44D660(const char* a1) {
 
 	sub_44D640();
 	strcpy(v7, "dialog\\");
-	*(_DWORD*)&byte_587000[122856] = 0;
+	dword_587000_122856 = 0;
 	strcat(v7, a1);
 	if (!strchr(v7, 46)) {
 		v1 = byte_587000[122872];
@@ -645,7 +646,7 @@ BOOL __cdecl sub_44D660(const char* a1) {
 		v3 = dword_5d4594_831088;
 		return v3 != 0;
 	}
-	*(_DWORD*)&byte_587000[122856] = 1;
+	dword_587000_122856 = 1;
 	strncpy(&v7[40], v4, 0x1F4u);
 	v7[539] = 0;
 	v5 = strlen(&v7[40]) + 1;
