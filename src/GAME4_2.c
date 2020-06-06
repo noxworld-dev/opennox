@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2487884;
 extern _DWORD dword_5d4594_3835372;
 extern _DWORD dword_5d4594_3835392;
 extern _DWORD dword_5d4594_2487580;
@@ -12187,7 +12188,7 @@ int __cdecl sub_52E850(float a1) {
 		v14 = *(_DWORD*)(v1 + 16);
 		*(_DWORD*)&byte_5D4594[2487868] = *(_DWORD*)(v14 + 56);
 		v15 = *(_DWORD*)(v14 + 60);
-		*(float*)&byte_5D4594[2487884] = v31 * v31;
+		*(float*)&dword_5d4594_2487884 = v31 * v31;
 		*(_DWORD*)&byte_5D4594[2487872] = v15;
 		sub_517F90((float2*)(*(_DWORD*)(v1 + 16) + 56), v31, sub_52EC60, *(_DWORD*)(v1 + 16));
 		*(_DWORD*)(v1 + 48) = dword_5d4594_2487880;
@@ -12251,7 +12252,7 @@ int __cdecl sub_52E850(float a1) {
 	*(_DWORD*)&byte_5D4594[2487868] = v29.field_0;
 	*(_DWORD*)&byte_5D4594[2487872] = v4;
 	dword_5d4594_2487880 = 0;
-	*(float*)&byte_5D4594[2487884] = v31 * v31;
+	*(float*)&dword_5d4594_2487884 = v31 * v31;
 	*(_DWORD*)&byte_5D4594[2487832] = 1;
 	v5 = *(_DWORD*)(v1 + 16);
 	v29.field_4 = v4;
@@ -12290,8 +12291,8 @@ void __cdecl sub_52EC60(int a1, int a2) {
 					v4 = *(float*)(a1 + 56) - *(float*)&byte_5D4594[2487868];
 					v5 = *(float*)(a1 + 60) - *(float*)&byte_5D4594[2487872];
 					v6 = v5 * v5 + v4 * v4;
-					if (v6 < *(float*)&byte_5D4594[2487884]) {
-						*(float*)&byte_5D4594[2487884] = v6;
+					if (v6 < *(float*)&dword_5d4594_2487884) {
+						*(float*)&dword_5d4594_2487884 = v6;
 						dword_5d4594_2487880 = a1;
 					}
 				}
