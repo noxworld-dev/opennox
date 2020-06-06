@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816412;
 extern _DWORD dword_5d4594_829500;
 extern _DWORD dword_587000_80840;
 extern _DWORD dword_5d4594_830216;
@@ -1803,13 +1804,13 @@ _DWORD* __cdecl sub_43E1A0(int a1) {
 
 	if (a1) {
 		result = nox_window_new(0, 552, 0, 0, nox_win_width, nox_win_height, 0);
-		*(_DWORD*)&byte_5D4594[816412] = result;
+		dword_5d4594_816412 = result;
 		result[14] = *(_DWORD*)&byte_5D4594[2650656];
 	} else {
-		result = *(_DWORD**)&byte_5D4594[816412];
-		if (*(_DWORD*)&byte_5D4594[816412]) {
-			result = (_DWORD*)sub_46C4E0(*(_DWORD**)&byte_5D4594[816412]);
-			*(_DWORD*)&byte_5D4594[816412] = 0;
+		result = *(_DWORD**)&dword_5d4594_816412;
+		if (dword_5d4594_816412) {
+			result = (_DWORD*)sub_46C4E0(*(_DWORD**)&dword_5d4594_816412);
+			dword_5d4594_816412 = 0;
 		}
 	}
 	return result;
