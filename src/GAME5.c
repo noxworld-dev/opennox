@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_2491548;
 extern _DWORD dword_5d4594_2491580;
 extern _DWORD dword_587000_292488;
 extern _DWORD dword_5d4594_2491676;
@@ -2317,7 +2318,7 @@ void __cdecl sub_548630(int a1, unsigned int a2, float2* a3) {
 		}
 	} else {
 	LABEL_9:
-		v7 = (int*)nox_alloc_class_new_obj_zero(*(_DWORD**)&byte_5D4594[2491548]);
+		v7 = (int*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2491548);
 		if (v7) {
 			v7[2] = a1;
 			v7[3] = a2;
@@ -2337,10 +2338,10 @@ void sub_5486D0() {
 	char* v0; // edx
 	int i;    // eax
 
-	v0 = *(char**)&byte_5D4594[2491548];
-	if (!*(_DWORD*)&byte_5D4594[2491548]) {
+	v0 = *(char**)&dword_5d4594_2491548;
+	if (!dword_5d4594_2491548) {
 		v0 = nox_new_alloc_class("Hit", 28, 1024);
-		*(_DWORD*)&byte_5D4594[2491548] = v0;
+		dword_5d4594_2491548 = v0;
 		memset(&byte_5D4594[2490520], 0, 0x400u);
 	}
 	for (i = dword_5d4594_2491544; i; i = *(_DWORD*)(i + 4))
