@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831240;
 extern _DWORD dword_5d4594_1046604;
 extern _DWORD dword_5d4594_823772;
 extern _DWORD dword_5d4594_1045580;
@@ -1254,7 +1255,7 @@ int sub_44E3E0() {
 	result = dword_5d4594_831224;
 	*(_DWORD*)&byte_5D4594[831248] = 1;
 	if (dword_5d4594_831224) {
-		result = sub_44D900(*(int*)&byte_5D4594[831240], 100);
+		result = sub_44D900(*(int*)&dword_5d4594_831240, 100);
 		dword_5d4594_831244 = 1;
 	}
 	return result;
@@ -1411,7 +1412,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		sub_46AE60(*(int*)&dword_5d4594_831232, 0);
 		nox_window_call_field_94((int)v5, 16385, *(int*)&byte_5D4594[831268], 0);
 		sub_46AD80((int)v5, 0x2000);
-		*(_DWORD*)&byte_5D4594[831240] = sub_578D80();
+		dword_5d4594_831240 = sub_578D80();
 		v6 = 24;
 		dword_5d4594_831220 = 255;
 	} else if (v3 == 254) {
@@ -1441,7 +1442,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 			sub_45ACA0(1);
 		}
 		sub_446780();
-		*(_DWORD*)&byte_5D4594[831240] = 0;
+		dword_5d4594_831240 = 0;
 		dword_5d4594_831244 = 1;
 		dword_5d4594_831224 = 0;
 	} else {
@@ -1457,7 +1458,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 			v11 = *(_DWORD*)&byte_5D4594[v10 + 831324];
 			v6 = *(_DWORD*)&byte_5D4594[v10 + 831328];
 		}
-		*(_DWORD*)&byte_5D4594[831240] = v11;
+		dword_5d4594_831240 = v11;
 	}
 	sub_43F840(v5[59], *v15, 0, &byte_5D4594[831280], NOX_DEFAULT_HEIGHT);
 	sub_46AB20(v5, NOX_DEFAULT_WIDTH, *(int*)&byte_5D4594[831280]);
