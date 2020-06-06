@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_5d4594_2618900;
 extern _DWORD dword_5d4594_811072;
 extern _DWORD dword_5d4594_811100;
 extern _DWORD dword_5d4594_2614264;
@@ -222,7 +223,7 @@ int sub_4365C0() {
 	sub_43F6E0(0, (__int16*)&byte_5D4594[810900], v0, v5);
 	v5 += 10;
 	v26 = *(_DWORD*)&byte_5D4594[2649824];
-	v19 = *(_DWORD*)&byte_5D4594[2618900];
+	v19 = dword_5d4594_2618900;
 	v10 = loadString_sub_40F1D0((char*)&byte_587000[86860], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1177);
 	nox_swprintf((wchar_t*)&byte_5D4594[810900], v10, v19, v26);
 	sub_43F6E0(0, (__int16*)&byte_5D4594[810900], v0, v5);
