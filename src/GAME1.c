@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_10988;
 extern _DWORD dword_5d4594_527656;
 extern _DWORD dword_5d4594_251728;
 extern _DWORD dword_5d4594_251480;
@@ -3406,12 +3407,12 @@ int __stdcall sub_40CBE0(int a1, int a2) {
 		}
 		if (sub_41E2F0() == 9) {
 			sub_40E0A0();
-			*(_DWORD*)&byte_5D4594[10988] = 0;
+			dword_5d4594_10988 = 0;
 			return 0;
 		}
 		if (sub_41E2F0() == 3)
 			sub_41FDE0();
-		*(_DWORD*)&byte_5D4594[10988] = 0;
+		dword_5d4594_10988 = 0;
 		return 0;
 	}
 	switch (a2 + 2147221401) {
@@ -3442,7 +3443,7 @@ int sub_40CD00() {
 	int result; // eax
 
 	if (sub_41E2F0() == 2 || sub_41E2F0() == 4 || sub_41E2F0() == 11 || sub_41E2F0() == 5 || sub_41E2F0() == 3 ||
-	    (result = 1, *(_DWORD*)&byte_5D4594[10988] == 1)) {
+	    (result = 1, dword_5d4594_10988 == 1)) {
 		result = 0;
 	}
 	return result;
@@ -3798,7 +3799,7 @@ int sub_40D440() {
 		return 0;
 	}
 	result = 1;
-	*(_DWORD*)&byte_5D4594[10988] = 1;
+	dword_5d4594_10988 = 1;
 	return result;
 }
 
