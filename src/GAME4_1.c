@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2386860;
 extern _DWORD dword_5d4594_2386168;
 extern _DWORD dword_5d4594_2386164;
 extern _DWORD dword_5d4594_1599688;
@@ -6883,8 +6884,8 @@ int sub_5139A0() {
 	int v5; // eax
 	int v6; // edi
 
-	if (!*(_DWORD*)&byte_5D4594[2386860]) {
-		*(_DWORD*)&byte_5D4594[2386860] = sub_4E3AA0((CHAR*)&byte_587000[247024]);
+	if (!dword_5d4594_2386860) {
+		dword_5d4594_2386860 = sub_4E3AA0((CHAR*)&byte_587000[247024]);
 		*(_DWORD*)&byte_5D4594[2386864] = sub_4E3AA0((CHAR*)&byte_587000[247032]);
 		*(_DWORD*)&byte_5D4594[2386868] = sub_4E3AA0((CHAR*)&byte_587000[247048]);
 	}
@@ -6903,7 +6904,7 @@ int sub_5139A0() {
 		if (*(_BYTE*)(v2 + 8) & 4) {
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
 				v5 = *(unsigned __int16*)(v2 + 4);
-				if ((unsigned __int16)v5 != *(_DWORD*)&byte_5D4594[2386860] &&
+				if ((unsigned __int16)v5 != dword_5d4594_2386860 &&
 				    v5 != *(_DWORD*)&byte_5D4594[2386864] && v5 != *(_DWORD*)&byte_5D4594[2386868]) {
 					sub_513B00(v2, v4);
 				}
@@ -6911,7 +6912,7 @@ int sub_5139A0() {
 		}
 		v6 = sub_4F36F0(v2, v4, 1, 1);
 		if (v6 == 1 && *(_BYTE*)(v2 + 8) & 4 && nox_common_gameFlags_check_40A5C0(2048) &&
-		    *(unsigned __int16*)(v4 + 4) != *(_DWORD*)&byte_5D4594[2386860]) {
+		    *(unsigned __int16*)(v4 + 4) != dword_5d4594_2386860) {
 			++*(_DWORD*)&byte_5D4594[2386848];
 			sub_507230(1);
 			return 0;
