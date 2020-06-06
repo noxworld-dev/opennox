@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_831260;
 extern _DWORD dword_587000_129656;
 extern _DWORD dword_5d4594_832480;
 extern _DWORD dword_5d4594_1046360;
@@ -1235,7 +1236,7 @@ int nox_client_getIntroScreenDuration_44E3B0() { return 25; }
 //----- (0044E3C0) --------------------------------------------------------
 int sub_44E3C0() {
 	sub_450580();
-	*(_DWORD*)&byte_5D4594[831260] = 0;
+	dword_5d4594_831260 = 0;
 	return sub_413A00(0);
 }
 
@@ -1380,7 +1381,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	unsigned __int16** v15; // [esp+14h] [ebp+4h]
 
 	v3 = a1;
-	*(_DWORD*)&byte_5D4594[831260] = 1;
+	dword_5d4594_831260 = 1;
 	dword_5d4594_831244 = 1;
 	v14 = *(_DWORD*)&byte_5D4594[2618908];
 	*(_DWORD*)&byte_5D4594[832488] = 0;
@@ -1488,7 +1489,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 }
 
 //----- (00450560) --------------------------------------------------------
-int sub_450560() { return *(_DWORD*)&byte_5D4594[831260]; }
+int sub_450560() { return dword_5d4594_831260; }
 
 //----- (00450570) --------------------------------------------------------
 int sub_450570() { return dword_5d4594_831220; }
@@ -1528,7 +1529,7 @@ int sub_4505E0() {
 		dword_5d4594_831236 = 0;
 		dword_5d4594_831232 = 0;
 	}
-	*(_DWORD*)&byte_5D4594[831260] = 0;
+	dword_5d4594_831260 = 0;
 	dword_5d4594_832484 = 0;
 	if (dword_5d4594_832504)
 		sub_45A4B0(*(_QWORD**)&dword_5d4594_832504);
