@@ -21,6 +21,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_805980;
 extern _DWORD dword_5d4594_741652;
 extern _DWORD dword_5d4594_787192;
 extern _DWORD dword_587000_229992;
@@ -6108,7 +6109,7 @@ int __cdecl nox_audio_initall(int a3) {
 		sub_486F30();
 		if (sub_4311F0()) {
 			dword_587000_81128 = dword_5d4594_805984 + 88;
-			*(_DWORD*)&byte_5D4594[805980] = sub_4866F0("audio", "audio");
+			dword_5d4594_805980 = sub_4866F0("audio", "audio");
 		}
 	}
 	sub_4864A0(&byte_5D4594[805884]);
@@ -6117,7 +6118,7 @@ int __cdecl nox_audio_initall(int a3) {
 	sub_4864A0(*(_DWORD**)&dword_587000_127004);
 	sub_44D810();
 	sub_43D8E0();
-	sub_451850(*(int*)&dword_5d4594_805984, *(int*)&byte_5D4594[805980]);
+	sub_451850(*(int*)&dword_5d4594_805984, *(int*)&dword_5d4594_805980);
 	v1 = sub_4866A0(2);
 	if (!v1)
 		sub_43DC00();
@@ -6140,8 +6141,8 @@ void sub_4311B0() {
 	sub_43D970();
 	sub_44D8C0();
 	sub_451970();
-	if (*(_DWORD*)&byte_5D4594[805980])
-		sub_4869C0(*(LPVOID*)&byte_5D4594[805980]);
+	if (dword_5d4594_805980)
+		sub_4869C0(*(LPVOID*)&dword_5d4594_805980);
 	dword_587000_81128 = 0;
 	sub_431270();
 	if (dword_5d4594_1193336) {
