@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_816444;
 extern _DWORD dword_5d4594_830228;
 extern _DWORD dword_5d4594_830260;
 extern _DWORD dword_5d4594_829544;
@@ -2435,7 +2436,7 @@ int sub_43F1C0() {
 	dword_5d4594_816460 = 0;
 	dword_5d4594_816452 = 0;
 	v1 = &byte_5D4594[816484];
-	*(_DWORD*)&byte_5D4594[816444] = 0;
+	dword_5d4594_816444 = 0;
 	do {
 		v1 -= 4;
 		*(_DWORD*)v1 = 0;
@@ -2564,7 +2565,7 @@ _DWORD* __cdecl sub_43F3B0(char* a1) {
 	unsigned __int8 v18[76]; // [esp+20h] [ebp-4Ch]
 
 	v1 = 0;
-	if (*(int*)&byte_5D4594[816444] >= 5)
+	if (*(int*)&dword_5d4594_816444 >= 5)
 		return 0;
 	v3 = fopen(a1, "rb");
 	if (v3) {
@@ -2619,9 +2620,9 @@ _DWORD* __cdecl sub_43F3B0(char* a1) {
 				if ((int)v12 >= (int)&byte_5D4594[816484])
 					goto LABEL_21;
 			}
-			v13 = *(_DWORD*)&byte_5D4594[816444];
+			v13 = dword_5d4594_816444;
 			*(_DWORD*)&byte_5D4594[4 * v11 + 816464] = v1;
-			*(_DWORD*)&byte_5D4594[816444] = v13 + 1;
+			dword_5d4594_816444 = v13 + 1;
 		LABEL_21:
 			if (*(unsigned __int8**)&dword_5d4594_816488 == &byte_587000[94176]) {
 				++v1[7];
@@ -2664,7 +2665,7 @@ int __cdecl sub_43F620(LPVOID lpMem) {
 	}
 	*(_DWORD*)&byte_5D4594[4 * v1 + 816464] = 0;
 	sub_440840(lpMem);
-	--*(_DWORD*)&byte_5D4594[816444];
+	--dword_5d4594_816444;
 	return 1;
 }
 
