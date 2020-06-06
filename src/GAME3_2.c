@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1556144;
 extern _DWORD dword_5d4594_1523040;
 extern _DWORD dword_5d4594_1563276;
 extern _DWORD dword_5d4594_1548664;
@@ -4722,9 +4723,9 @@ int sub_4D7150() {
 	int* v2;    // esi
 	int v3;     // eax
 
-	result = *(_DWORD*)&byte_5D4594[1556144];
-	if (*(_DWORD*)&byte_5D4594[1556144]) {
-		if (*(_DWORD*)&byte_5D4594[2598000] > *(int*)&byte_5D4594[1556144]) {
+	result = dword_5d4594_1556144;
+	if (dword_5d4594_1556144) {
+		if (*(_DWORD*)&byte_5D4594[2598000] > *(int*)&dword_5d4594_1556144) {
 			result = sub_4DA7C0();
 			for (i = result; result; i = result) {
 				v2 = *(int**)(i + 748);
