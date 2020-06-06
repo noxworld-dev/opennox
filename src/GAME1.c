@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_526284;
 extern _DWORD dword_5d4594_338300;
 extern _DWORD dword_5d4594_805856;
 extern _DWORD dword_5d4594_1292;
@@ -11726,7 +11727,7 @@ int __cdecl sub_417D50(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[526284] |= a1;
+	dword_5d4594_526284 |= a1;
 	return result;
 }
 
@@ -11735,15 +11736,15 @@ int __cdecl sub_417D70(int a1) {
 	int result; // eax
 
 	result = ~a1;
-	*(_DWORD*)&byte_5D4594[526284] &= ~a1;
+	dword_5d4594_526284 &= ~a1;
 	return result;
 }
 
 //----- (00417D90) --------------------------------------------------------
-int sub_417D90() { return *(_DWORD*)&byte_5D4594[526284]; }
+int sub_417D90() { return dword_5d4594_526284; }
 
 //----- (00417DA0) --------------------------------------------------------
-BOOL __cdecl sub_417DA0(int a1) { return (a1 & *(_DWORD*)&byte_5D4594[526284]) != 0; }
+BOOL __cdecl sub_417DA0(int a1) { return (a1 & dword_5d4594_526284) != 0; }
 
 //----- (00417DC0) --------------------------------------------------------
 int sub_417DC0() { return dword_5d4594_526276; }
