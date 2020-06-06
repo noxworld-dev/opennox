@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1062484;
 extern _DWORD dword_5d4594_1062556;
 extern _DWORD dword_5d4594_1062564;
 extern _DWORD dword_5d4594_1062560;
@@ -1739,15 +1740,15 @@ int __cdecl sub_467750(int a1, char a2) {
 			v5 = loadString_sub_40F1D0((char*)&byte_587000[140892], 0,
 						   "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 5379);
 			sub_445490(v5);
-			if (!*(_DWORD*)&byte_5D4594[1062484])
+			if (!dword_5d4594_1062484)
 				return 0;
-			v6 = (int*)sub_461EF0(*(int*)&byte_5D4594[1062484]);
+			v6 = (int*)sub_461EF0(*(int*)&dword_5d4594_1062484);
 			if (v6) {
 				sub_461550(*v6);
 				return 0;
 			}
 		}
-		*(_DWORD*)&byte_5D4594[1062484] = 0;
+		dword_5d4594_1062484 = 0;
 		return 0;
 	}
 	v2 = sub_461EF0(a1);
