@@ -2,6 +2,7 @@
 
 #include "../../proto.h"
 
+extern _DWORD dword_587000_151528;
 extern _DWORD dword_5d4594_1097208;
 extern _DWORD dword_5d4594_3798728;
 extern int nox_win_width;
@@ -42,11 +43,11 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	if (sub_460650() || sub_4611A0()) {
 		LOWORD(result) = nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097240], v3, v4);
 		dword_5d4594_3798728 = 0;
-		*(_DWORD*)&byte_587000[151528] = 5;
+		dword_587000_151528 = 5;
 		*(_DWORD*)&byte_5D4594[3799496] = v18;
 	} else {
 		v6 = nox_client_mouseCursorType;
-		if (nox_client_mouseCursorType != *(_DWORD*)&byte_587000[151528] && nox_client_mouseCursorType != 14) {
+		if (nox_client_mouseCursorType != dword_587000_151528 && nox_client_mouseCursorType != 14) {
 			sub_48B680(0);
 			v6 = nox_client_mouseCursorType;
 		}
@@ -140,7 +141,7 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 		}
 		result = v18;
 		dword_5d4594_3798728 = 0;
-		*(_DWORD*)&byte_587000[151528] = nox_client_mouseCursorType;
+		dword_587000_151528 = nox_client_mouseCursorType;
 		*(_DWORD*)&byte_5D4594[3799496] = v18;
 	}
 	return result;
