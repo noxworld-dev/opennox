@@ -19,6 +19,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1556136;
 extern _DWORD dword_5d4594_3835372;
 extern _DWORD dword_5d4594_1556144;
 extern _DWORD dword_5d4594_1523040;
@@ -4749,7 +4750,7 @@ int __cdecl sub_4D71E0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&byte_5D4594[1556136] = a1;
+	dword_5d4594_1556136 = a1;
 	return result;
 }
 
@@ -4759,9 +4760,9 @@ unsigned int sub_4D71F0() {
 	int v1;              // esi
 	char v2;             // al
 
-	result = *(_DWORD*)&byte_5D4594[1556136];
-	if (*(_DWORD*)&byte_5D4594[1556136]) {
-		if ((unsigned int)(*(_DWORD*)&byte_5D4594[2598000] - *(_DWORD*)&byte_5D4594[1556136]) >= 0x2328) {
+	result = dword_5d4594_1556136;
+	if (dword_5d4594_1556136) {
+		if ((unsigned int)(*(_DWORD*)&byte_5D4594[2598000] - dword_5d4594_1556136) >= 0x2328) {
 			v1 = 0;
 			result = sub_4DA7C0();
 			if (result) {
