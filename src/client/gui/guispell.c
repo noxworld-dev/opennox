@@ -4,6 +4,7 @@
 #include "gamewin/gamewin.h"
 #include "guimsg.h"
 
+extern _DWORD dword_5d4594_1049516;
 extern _DWORD dword_5d4594_1049524;
 extern _DWORD dword_5d4594_1049536;
 extern _DWORD dword_5d4594_1048144;
@@ -391,8 +392,8 @@ int sub_45E190() {
 		v45 = loadString_sub_40F1D0((char*)&byte_587000[134940], 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 					    1963);
 		sub_46B000(v43 + 18, v45);
-		*(_DWORD*)&byte_5D4594[1049516] = nox_window_new(0, 1032, 0, 0, 1, 1, 0);
-		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1049516], sub_45EF40, sub_45F8F0, 0);
+		dword_5d4594_1049516 = nox_window_new(0, 1032, 0, 0, 1, 1, 0);
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1049516, sub_45EF40, sub_45F8F0, 0);
 		dword_5d4594_1049512 =
 		    nox_window_new(0, 1152, *(int*)&dword_5d4594_1047548, *(int*)&dword_5d4594_1047552, 2, 2, 0);
 		v46 = sub_42F970("QuickBarTitle");
