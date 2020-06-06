@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835360;
 extern _DWORD dword_5d4594_2488728;
 extern _DWORD dword_5d4594_2488644;
 extern _DWORD dword_5d4594_2487856;
@@ -13129,7 +13130,7 @@ int __cdecl sub_543680(float* a1) {
 		dword_5d4594_3835352 = 1;
 		v4[1] = dword_5d4594_3835348;
 		v4[6] = dword_5d4594_3835356;
-		v4[7] = *(_DWORD*)&byte_5D4594[3835360];
+		v4[7] = dword_5d4594_3835360;
 		v3.field_0 = (__int64)a2.field_0;
 		v3.field_4 = (__int64)a2.field_4;
 		result = sub_5437E0(&v3.field_0, (int)v4, 46);
@@ -13510,7 +13511,7 @@ int __cdecl sub_5440A0(int a1) {
 		return 1;
 	if (*(int*)&dword_5d4594_3835356 == -1 || a1 < 0 || a1 >= *(unsigned __int16*)&byte_5D4594[60 * a1 + 2678392])
 		return 0;
-	*(_DWORD*)&byte_5D4594[3835360] = a1;
+	dword_5d4594_3835360 = a1;
 	return 1;
 }
 
@@ -13642,7 +13643,7 @@ int __cdecl sub_544310(float2* a1) {
 	v8[3] = -1;
 	v8[4] = -1;
 	v8[6] = dword_5d4594_3835356;
-	v8[7] = *(_DWORD*)&byte_5D4594[3835360];
+	v8[7] = dword_5d4594_3835360;
 	v2 = a1->field_4 + 11.5;
 	v3 = (__int64)(v1 * 0.021739131);
 	v9 = v2;
