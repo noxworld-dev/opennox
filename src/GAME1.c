@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_805856;
 extern _DWORD dword_5d4594_1292;
 extern _DWORD dword_5d4594_3612;
 extern _DWORD dword_5d4594_10988;
@@ -398,7 +399,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	if (!result) {
 		return result;
 	}
-	if (!*(_DWORD*)&byte_5D4594[805856])
+	if (!dword_5d4594_805856)
 		sub_4445C0();
 	sub_416190();
 	sub_415F70();
