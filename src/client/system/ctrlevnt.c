@@ -6,6 +6,7 @@
 #include "../gui/guispell.h"
 #include "../gui/servopts/guiserv.h"
 
+extern _DWORD dword_5d4594_754060;
 extern _DWORD dword_5d4594_754048;
 extern _DWORD dword_5d4594_754044;
 extern _DWORD dword_587000_80832;
@@ -355,18 +356,18 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 			v18 =
 			    (__int64)((atan2((double)(v17 - nox_win_height / 2), (double)a4) + 6.2831855) * 40.743664 +
 				      0.5);
-			*(_DWORD*)&byte_5D4594[754060] = v18;
+			dword_5d4594_754060 = v18;
 			if ((int)v18 < 0) {
 				LODWORD(v18) = ((unsigned int)(255 - v18) >> 8 << 8) + v18;
-				*(_DWORD*)&byte_5D4594[754060] = v18;
+				dword_5d4594_754060 = v18;
 			}
 			if ((int)v18 >= 256) {
 				LODWORD(v18) = -256 * ((unsigned int)v18 >> 8) + v18;
-				*(_DWORD*)&byte_5D4594[754060] = v18;
+				dword_5d4594_754060 = v18;
 			}
 			sub_42E670(1, v18);
 		}
-		sub_42E670(1, *(int*)&byte_5D4594[754060]);
+		sub_42E670(1, *(int*)&dword_5d4594_754060);
 	}
 	if (byte_5D4594[2661958])
 		sub_45DBB0();
