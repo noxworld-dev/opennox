@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_109280;
 extern _DWORD dword_5d4594_805872;
 extern _DWORD dword_5d4594_830112;
 extern _DWORD dword_5d4594_830192;
@@ -5346,11 +5347,11 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4) {
 			if (sub_46B0A0(a3) != 1909)
 				return 0;
 			if (a4 == -1 || dword_5d4594_829504) {
-				*(_DWORD*)&byte_587000[109280] = -1;
+				dword_587000_109280 = -1;
 				result = 0;
 			} else {
 				v8 = nox_client_getMousePos_4309F0();
-				*(_DWORD*)&byte_587000[109280] = a4;
+				dword_587000_109280 = a4;
 				v9 = v8->field_0;
 				v10 = v8->field_4;
 				v11 = sub_43F320(0);
@@ -5467,7 +5468,7 @@ int __cdecl sub_448340(int a1, unsigned int a2) {
 		return 1;
 	if (a2 > 5 && a2 <= 7) {
 		sub_448380();
-		(*(void(__cdecl**)(int)) & byte_587000[12 * *(_DWORD*)(a1 + 32) + 108832])(*(int*)&byte_587000[109280]);
+		(*(void(__cdecl**)(int)) & byte_587000[12 * *(_DWORD*)(a1 + 32) + 108832])(*(int*)&dword_587000_109280);
 		return 1;
 	}
 	return 0;
