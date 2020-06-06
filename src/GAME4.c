@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835392;
 extern _DWORD dword_5d4594_1569652;
 extern _DWORD dword_5d4594_3835312;
 extern _DWORD dword_5d4594_1568868;
@@ -9123,8 +9124,8 @@ int __cdecl sub_503B30(float2* a1) {
 						sub_579D20();
 						for (i = sub_579890(); i; i = sub_5798A0(i))
 							*(_DWORD*)(i + 480) |= 0x80000000;
-						*(_DWORD*)&byte_5D4594[3835392] =
-						    sub_4D0010(&v17, *(int*)&byte_5D4594[3835392]);
+						dword_5d4594_3835392 =
+						    sub_4D0010(&v17, *(int*)&dword_5d4594_3835392);
 						result = sub_504720(v8, v9);
 						if (result) {
 							for (j = sub_579890(); j; j = sub_5798A0(j))
