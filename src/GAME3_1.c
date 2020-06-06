@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1320944;
 extern _DWORD dword_5d4594_1313816;
 extern _DWORD dword_5d4594_3801748;
 extern _DWORD dword_5d4594_1320948;
@@ -3857,7 +3858,7 @@ int sub_4C0D00() {
 	nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1320184], v21 + *(_DWORD*)&byte_587000[183704] - 64,
 		   v22 + *(_DWORD*)&byte_587000[183708] - 64);
 	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3708);
-	if (*(_DWORD*)&byte_5D4594[1320944]) {
+	if (dword_5d4594_1320944) {
 		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1320172], v21, v22);
 	} else if (v3[9] & 4) {
 		nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[1320168], v21, v22);
@@ -4112,7 +4113,7 @@ int sub_4C1410() {
 	nox_window_call_field_94((int)v9, 16385, (int)v12, 0);
 	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3713);
 	result = nox_window_call_field_94((int)v10, 16385, (int)v12, 0);
-	*(_DWORD*)&byte_5D4594[1320944] = 0;
+	dword_5d4594_1320944 = 0;
 	dword_5d4594_1320948 = 0;
 	dword_5d4594_1320968 = 0;
 	dword_5d4594_1320972 = 0;
@@ -4194,7 +4195,7 @@ char* __cdecl sub_4C1790(int a1) {
 	if (!dword_5d4594_1320964)
 		return result;
 	v2 = a1;
-	*(_DWORD*)&byte_5D4594[1320944] = 0;
+	dword_5d4594_1320944 = 0;
 	dword_5d4594_1320948 = 0;
 	if (*(_BYTE*)(a1 + 2) == 1) {
 		v3 = *(char**)&dword_5d4594_1320932;
@@ -4432,7 +4433,7 @@ int __cdecl sub_4C1BC0(int a1) {
 	result = dword_5d4594_1320964;
 	if (dword_5d4594_1320964) {
 		result = a1;
-		*(_DWORD*)&byte_5D4594[1320944] = *(_BYTE*)(a1 + 2) & 1;
+		dword_5d4594_1320944 = *(_BYTE*)(a1 + 2) & 1;
 		LOBYTE(v1) = *(_BYTE*)(a1 + 2);
 		dword_5d4594_1320948 = (v1 >> 1) & 1;
 	}
