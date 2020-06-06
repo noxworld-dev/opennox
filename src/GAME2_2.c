@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193352;
 extern _DWORD dword_587000_154944;
 extern _DWORD dword_5d4594_1096636;
 extern _DWORD dword_5d4594_1097216;
@@ -12234,14 +12235,14 @@ int __cdecl sub_488710(int a1, unsigned int a2, wchar_t* a3, int a4) {
 	if (a2 != 23)
 		return 0;
 	if (a3) {
-		*(_DWORD*)&byte_5D4594[1193352] = a1;
+		dword_5d4594_1193352 = a1;
 		sub_5700CA(*(int***)&dword_5d4594_1193348, getWindowHandle_sub_401FD0());
 		v6 = *(_DWORD*)(a1 + 36);
 		LOBYTE(v6) = v6 | 6;
 		*(_DWORD*)(a1 + 36) = v6;
 	} else {
 		sub_5700F6(*(int***)&dword_5d4594_1193348);
-		*(_DWORD*)&byte_5D4594[1193352] = 0;
+		dword_5d4594_1193352 = 0;
 		v4 = *(_DWORD*)(a1 + 36);
 		LOBYTE(v4) = v4 & 0xF9;
 		*(_DWORD*)(a1 + 36) = v4;
@@ -12402,8 +12403,8 @@ void __cdecl sub_488BD0(unsigned __int16 a1) {
 	unsigned __int8* v4; // eax
 
 	if (dword_5d4594_1193348) {
-		if (*(_DWORD*)&byte_5D4594[1193352]) {
-			v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1193352] + 32);
+		if (dword_5d4594_1193352) {
+			v2 = *(_DWORD*)(dword_5d4594_1193352 + 32);
 			if (dword_587000_26048 == 6 || dword_587000_26048 == 8) {
 				if (!*(DWORD*)(v2 + 1036)) {
 					if (!*(DWORD*)(v2 + 1032)) {
