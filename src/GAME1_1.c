@@ -21,6 +21,7 @@
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 
+extern _DWORD dword_5d4594_527712;
 extern _DWORD dword_5d4594_534768;
 extern _DWORD dword_5d4594_739392;
 extern _DWORD dword_5d4594_527988;
@@ -974,10 +975,10 @@ int __cdecl sub_419E10(int a1, int a2) {
 	if (a1 && !(*(_BYTE*)(a1 + 16) & 0x20)) {
 		result = 1 << *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064);
 		if (a2) {
-			*(_DWORD*)&byte_5D4594[527712] |= result;
+			dword_5d4594_527712 |= result;
 		} else {
 			result = ~result;
-			*(_DWORD*)&byte_5D4594[527712] &= result;
+			dword_5d4594_527712 &= result;
 		}
 	}
 	return result;
@@ -988,7 +989,7 @@ BOOL __cdecl sub_419E60(int a1) {
 	BOOL result; // eax
 
 	if (a1 && *(_BYTE*)(a1 + 8) & 4)
-		result = (*(_DWORD*)&byte_5D4594[527712] &
+		result = (dword_5d4594_527712 &
 			  (1 << *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064))) != 0;
 	else
 		result = 0;
@@ -996,7 +997,7 @@ BOOL __cdecl sub_419E60(int a1) {
 }
 
 //----- (00419EA0) --------------------------------------------------------
-BOOL sub_419EA0() { return *(_DWORD*)&byte_5D4594[527712] != 0; }
+BOOL sub_419EA0() { return dword_5d4594_527712 != 0; }
 
 //----- (00419EB0) --------------------------------------------------------
 int __cdecl sub_419EB0(char a1, int a2) {
