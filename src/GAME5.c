@@ -7,6 +7,7 @@
 #include <float.h>
 
 #include "proto.h"
+extern _DWORD dword_5d4594_2491580;
 extern _DWORD dword_587000_292488;
 extern _DWORD dword_5d4594_2491676;
 extern _DWORD dword_5d4594_2491588;
@@ -3396,7 +3397,7 @@ int __cdecl sub_549FA0(int a1) {
 		v11 = 6;
 	v2 = 0;
 	if (v11 > 0) {
-		v3 = *(_DWORD*)&byte_5D4594[2491580];
+		v3 = dword_5d4594_2491580;
 		do {
 			v4 = (float*)sub_4E3810(*(CHAR**)&byte_587000[4 * v3 + 288240]);
 			if (!v4)
@@ -3406,7 +3407,7 @@ int __cdecl sub_549FA0(int a1) {
 			v8 = sub_416030(10.0, 70.0);
 			sub_4E46F0((int)v4, v8);
 			v4[27] = sub_416030(-2.0, 0.0);
-			v5 = (double)byte_587000[*(_DWORD*)&byte_5D4594[2491580] + 287332];
+			v5 = (double)byte_587000[dword_5d4594_2491580 + 287332];
 			*((_DWORD*)v4 + 4) |= 0x800000;
 			v4[29] = v5;
 			v9 = sub_416030(5.0, 20.0);
@@ -3414,10 +3415,10 @@ int __cdecl sub_549FA0(int a1) {
 			v6 = nox_common_gameFlags_check_40A5C0(2048) ? nox_common_randomInt_415FA0(10, 20)
 								     : nox_common_randomInt_415FA0(5, 10);
 			sub_511660(v4, *(_DWORD*)&byte_5D4594[2649704] * v6);
-			v3 = (*(_DWORD*)&byte_5D4594[2491580] + 1) % *(_DWORD*)&byte_587000[287344];
+			v3 = (dword_5d4594_2491580 + 1) % *(_DWORD*)&byte_587000[287344];
 			++v2;
-			*(_DWORD*)&byte_5D4594[2491580] =
-			    (*(_DWORD*)&byte_5D4594[2491580] + 1) % *(_DWORD*)&byte_587000[287344];
+			dword_5d4594_2491580 =
+			    (dword_5d4594_2491580 + 1) % *(_DWORD*)&byte_587000[287344];
 		} while (v2 < v11);
 	}
 	return 1;
