@@ -7,6 +7,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_2488620;
 extern _DWORD dword_5d4594_2488656;
 extern _DWORD dword_5d4594_2488648;
 extern _DWORD dword_5d4594_3835360;
@@ -5545,7 +5546,7 @@ int __cdecl sub_537750(int a1) {
 }
 
 //----- (00537760) --------------------------------------------------------
-unsigned int sub_537760() { return *(_DWORD*)&byte_5D4594[2488620] != 0 ? (unsigned int)&byte_5D4594[2488612] : 0; }
+unsigned int sub_537760() { return dword_5d4594_2488620 != 0 ? (unsigned int)&byte_5D4594[2488612] : 0; }
 
 //----- (00537770) --------------------------------------------------------
 char __cdecl sub_537770(int a1) {
@@ -5561,7 +5562,7 @@ char __cdecl sub_537770(int a1) {
 		*(_DWORD*)&byte_5D4594[2488632] = v1;
 	}
 	if (!(*(_BYTE*)(a1 + 16) & 0x60)) {
-		*(_DWORD*)&byte_5D4594[2488620] = 0;
+		dword_5d4594_2488620 = 0;
 		LOBYTE(v1) = sub_537850(a1, &v3, &v4);
 		if ((_BYTE)v1) {
 			if (!v3 || (v1 = *(unsigned __int16*)(v3 + 4),
@@ -5569,7 +5570,7 @@ char __cdecl sub_537770(int a1) {
 				       v1 != *(_DWORD*)&byte_5D4594[2488628] && v1 != *(_DWORD*)&byte_5D4594[2488632]) {
 				(*(void(__cdecl**)(int, int, float2*))(a1 + 696))(a1, v3, &v4);
 				LOBYTE(v1) = v3;
-				*(_DWORD*)&byte_5D4594[2488620] = 0;
+				dword_5d4594_2488620 = 0;
 				if (v3) {
 					v4.field_0 = -v4.field_0;
 					v4.field_4 = -v4.field_4;
@@ -5674,7 +5675,7 @@ LABEL_4:
 	} else {
 		*(int2*)&byte_5D4594[2488612] = a3a;
 		*(float2*)&a1a.field_8 = a2a;
-		*(_DWORD*)&byte_5D4594[2488620] = 1;
+		dword_5d4594_2488620 = 1;
 		v13 = sub_57CDB0(&a3a, &a1a.field_0, &v31) != 0;
 		v14 = *(_DWORD*)(v3 + 60);
 		*(_DWORD*)(v3 + 64) = *(_DWORD*)(v3 + 56);
