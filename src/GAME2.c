@@ -20,6 +20,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1046512;
 extern _DWORD dword_5d4594_1045548;
 extern _DWORD dword_5d4594_1045640;
 extern _DWORD dword_5d4594_831260;
@@ -4936,7 +4937,7 @@ int __cdecl sub_457B60(int a1) {
 	sub_416640();
 	v1 = sub_40A4C0();
 	nox_swprintf(v20, L"%S", v1);
-	nox_window_call_field_94(*(int*)&byte_5D4594[1046512], 16414, (int)v20, 0);
+	nox_window_call_field_94(*(int*)&dword_5d4594_1046512, 16414, (int)v20, 0);
 	sub_459CD0();
 	if (nox_common_gameFlags_check_40A5C0(128))
 		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10122);
@@ -5385,7 +5386,7 @@ int __cdecl sub_459A40(char* a1) {
 	strncpy(v2, a1, 0xFu);
 	v2[15] = 0;
 	nox_swprintf(v3, L"%S", v2);
-	return nox_window_call_field_94(*(int*)&byte_5D4594[1046512], 16414, (int)v3, 0);
+	return nox_window_call_field_94(*(int*)&dword_5d4594_1046512, 16414, (int)v3, 0);
 }
 
 //----- (00459AA0) --------------------------------------------------------
@@ -5398,7 +5399,7 @@ char* __cdecl sub_459AA0(int a1) {
 	const char* v6;    // edi
 	char v7[100];      // [esp+Ch] [ebp-64h]
 
-	v1 = nox_window_call_field_94(*(int*)&byte_5D4594[1046512], 16413, 0, 0);
+	v1 = nox_window_call_field_94(*(int*)&dword_5d4594_1046512, 16413, 0, 0);
 	nox_sprintf(v7, "%S", v1);
 	strncpy((char*)(a1 + 9), v7, 0xFu);
 	*(_WORD*)(a1 + 52) = sub_459C10();
