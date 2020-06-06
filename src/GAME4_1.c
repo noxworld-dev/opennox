@@ -5,6 +5,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1599688;
 extern _DWORD dword_5d4594_2386948;
 extern _DWORD dword_5d4594_2386872;
 extern _DWORD dword_5d4594_2386928;
@@ -249,9 +250,9 @@ char sub_509A60() {
 _DWORD* __cdecl sub_509C30(int a1) {
 	char* v1; // edx
 
-	if (!*(_DWORD*)&byte_5D4594[1599688]) {
+	if (!dword_5d4594_1599688) {
 		sub_425760(&byte_5D4594[1599676]);
-		*(_DWORD*)&byte_5D4594[1599688] = 1;
+		dword_5d4594_1599688 = 1;
 	}
 	v1 = (char*)nox_malloc(0x20u);
 	*((_DWORD*)v1 + 6) = *(_DWORD*)(a1 + 2068);
@@ -266,8 +267,8 @@ int* sub_509CB0() {
 	int* v1;     // esi
 	int* v2;     // edi
 
-	result = *(int**)&byte_5D4594[1599688];
-	if (*(_DWORD*)&byte_5D4594[1599688]) {
+	result = *(int**)&dword_5d4594_1599688;
+	if (dword_5d4594_1599688) {
 		result = sub_425890((int*)&byte_5D4594[1599676]);
 		v1 = result;
 		if (result) {
