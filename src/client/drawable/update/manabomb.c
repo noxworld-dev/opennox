@@ -2,6 +2,7 @@
 
 #include "../../../proto.h"
 #include "../../draw/fx.h"
+extern _DWORD dword_5d4594_1522956;
 
 //----- (004CCAC0) --------------------------------------------------------
 int __cdecl sub_4CCAC0(int a1, _DWORD* a2) {
@@ -25,8 +26,8 @@ int __cdecl sub_4CCAC0(int a1, _DWORD* a2) {
 
 	v14 = sub_419D40(&byte_587000[188052]);
 	v2 = nox_float2int(v14);
-	if (!*(_DWORD*)&byte_5D4594[1522956]) {
-		*(_DWORD*)&byte_5D4594[1522956] = sub_44CFC0((CHAR*)&byte_587000[188072]);
+	if (!dword_5d4594_1522956) {
+		dword_5d4594_1522956 = sub_44CFC0((CHAR*)&byte_587000[188072]);
 		*(_DWORD*)&byte_5D4594[1522960] = sub_44CFC0((CHAR*)&byte_587000[188084]);
 	}
 	v3 = a2;
@@ -71,8 +72,8 @@ int __cdecl sub_4CCAC0(int a1, _DWORD* a2) {
 					v12 = v18 * *(_WORD*)v11;
 					v16 = i + v18 * *((_WORD*)v11 - 2);
 					v17 = HIWORD(i) + v12;
-					sub_499520(*(int*)&byte_5D4594[1522956], (unsigned __int16*)&i, v10, 0, 0);
-					sub_499520(*(int*)&byte_5D4594[1522956], (unsigned __int16*)&i, v10, 1, 0);
+					sub_499520(*(int*)&dword_5d4594_1522956, (unsigned __int16*)&i, v10, 0, 0);
+					sub_499520(*(int*)&dword_5d4594_1522956, (unsigned __int16*)&i, v10, 1, 0);
 					v11 += 408;
 					LOWORD(v10) = v10 + 51;
 				} while ((int)v11 < (int)&byte_587000[194140]);
