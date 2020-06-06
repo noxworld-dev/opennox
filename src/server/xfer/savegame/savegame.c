@@ -1,4 +1,5 @@
 #include "../../../proto.h"
+extern _DWORD dword_5d4594_1563084;
 extern _DWORD dword_5d4594_1563088;
 extern _DWORD dword_5d4594_1563092;
 
@@ -179,7 +180,7 @@ int __cdecl sub_4DB370_savegame(const char* a1) {
 	v5 = sub_409B40();
 	if (!sub_4DB5A0((int)&byte_587000[199184], (int)v5))
 		return 0;
-	if (!sub_4DB600(*(int*)&byte_5D4594[1563084]))
+	if (!sub_4DB600(*(int*)&dword_5d4594_1563084))
 		return 0;
 	v13 = sub_409B40();
 	v12 = sub_409B40();
