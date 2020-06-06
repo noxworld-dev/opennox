@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1567988;
 extern _DWORD dword_5d4594_1565628;
 extern _DWORD dword_5d4594_1565632;
 extern _DWORD dword_5d4594_1565612;
@@ -6558,18 +6559,18 @@ __int16 __cdecl sub_4EA800(int a1, int a2) {
 					}
 				}
 			LABEL_27:
-				if (!*(_DWORD*)&byte_5D4594[1567988])
-					*(_DWORD*)&byte_5D4594[1567988] = sub_4E3AA0((CHAR*)&byte_587000[204748]);
+				if (!dword_5d4594_1567988)
+					dword_5d4594_1567988 = sub_4E3AA0((CHAR*)&byte_587000[204748]);
 				v11 = 0;
 				for (i = sub_4DA790(); i; i = sub_4DA7A0(i)) {
-					if (*(unsigned __int16*)(i + 4) == *(_DWORD*)&byte_5D4594[1567988])
+					if (*(unsigned __int16*)(i + 4) == dword_5d4594_1567988)
 						++v11;
 				}
 				v13 = nox_common_randomInt_415FA0(0, v11 - 1);
 				v2 = (char*)sub_4DA790();
 				for (j = (int)v2; v2; j = (int)v2) {
 					LOWORD(v2) = *(_WORD*)(j + 4);
-					if ((unsigned __int16)v2 == *(_DWORD*)&byte_5D4594[1567988]) {
+					if ((unsigned __int16)v2 == dword_5d4594_1567988) {
 						if (!v13) {
 							if (j) {
 								v15 = *(_DWORD*)(v3 + 748);
