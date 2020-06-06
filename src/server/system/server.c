@@ -8,6 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
+extern _DWORD dword_5d4594_528260;
 extern _DWORD dword_5d4594_1548704;
 extern _DWORD dword_5d4594_1563096;
 extern _DWORD dword_5d4594_1569652;
@@ -411,7 +412,7 @@ int __cdecl sub_4D2DA0(__int64 a1) {
 	float v9;             // [esp+0h] [ebp-10h]
 	unsigned __int8* v10; // [esp+4h] [ebp-Ch]
 
-	if (dword_5d4594_528252 == 1 && *(_DWORD*)&byte_5D4594[2598000] == *(_DWORD*)&byte_5D4594[528260])
+	if (dword_5d4594_528252 == 1 && *(_DWORD*)&byte_5D4594[2598000] == dword_5d4594_528260)
 		sub_41E390();
 	sub_5096F0();
 	result = nox_common_gameFlags_check_40A5C0(8);
