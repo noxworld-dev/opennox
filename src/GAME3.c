@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_172880;
 extern _DWORD dword_5d4594_1308104;
 extern _DWORD dword_5d4594_1313532;
 extern _DWORD dword_5d4594_3798672;
@@ -4414,7 +4415,7 @@ int sub_4AA6B0() {
 int sub_4AA9C0() {
 	sub_44D8F0();
 	sub_43BEF0_set_video_mode(*(int*)&byte_587000[172876], *(int*)&byte_587000[172872],
-				  *(int*)&byte_587000[172880]);
+				  *(int*)&dword_587000_172880);
 	nox_common_writecfgfile((char*)&byte_587000[173256]);
 	*(_BYTE*)(dword_5d4594_1309740 + 64) = 2;
 	sub_43BE40(2);
@@ -4452,7 +4453,7 @@ _DWORD* sub_4AAA70() {
 	int v10;        // [esp+8h] [ebp-4h]
 
 	sub_43BEB0_get_video_mode(&v8, &v10, &v9);
-	v9 = *(_DWORD*)&byte_587000[172880];
+	v9 = dword_587000_172880;
 	if (v10 == 480)
 		v6 = 321;
 	else if (v10 == 576)
@@ -4595,12 +4596,12 @@ int __cdecl sub_4AABE0(int a1, int a2, int* a3, int a4) {
 				*(_DWORD*)&byte_587000[172872] = 768;
 				break;
 			case 332:
-				*(_DWORD*)&byte_587000[172880] = 16;
+				dword_587000_172880 = 16;
 			case 333:
 				g_fullscreen = 1;
 				break;
 			case 331:
-				*(_DWORD*)&byte_587000[172880] = 8;
+				dword_587000_172880 = 8;
 			case 334:
 				g_fullscreen = 0;
 				break;
