@@ -1,14 +1,15 @@
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1599628;
 extern _DWORD dword_5d4594_3821964;
 
 //----- (00512E80) --------------------------------------------------------
 int __cdecl sub_512E80(int a1) {
 	int v1; // eax
 
-	v1 = *(_DWORD*)&byte_5D4594[1599628];
-	if (*(int*)&byte_5D4594[1599628] < 1024) {
-		*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1599628] + 3826092] = a1;
-		*(_DWORD*)&byte_5D4594[1599628] = ++v1;
+	v1 = dword_5d4594_1599628;
+	if (*(int*)&dword_5d4594_1599628 < 1024) {
+		*(_DWORD*)&byte_5D4594[4 * dword_5d4594_1599628 + 3826092] = a1;
+		dword_5d4594_1599628 = ++v1;
 	}
 	return v1 - 1;
 }
