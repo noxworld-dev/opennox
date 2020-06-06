@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1313788;
 extern _DWORD dword_5d4594_1308136;
 extern _DWORD dword_587000_172880;
 extern _DWORD dword_5d4594_1308104;
@@ -12350,10 +12351,10 @@ _DWORD* __cdecl sub_4B8090(unsigned int a1, int a2) {
 		v7.field_4 = result[4] - 10;
 		v7.field_8 = result[3] + 10;
 		v7.field_C = result[4] + 10;
-		*(_DWORD*)&byte_5D4594[1313788] = 0;
+		dword_5d4594_1313788 = 0;
 		sub_49AB00(&v7, sub_4B81E0, (int)&a1);
-		result = *(_DWORD**)&byte_5D4594[1313788];
-		if (*(_DWORD*)&byte_5D4594[1313788] != 1) {
+		result = *(_DWORD**)&dword_5d4594_1313788;
+		if (dword_5d4594_1313788 != 1) {
 			result =
 			    (_DWORD*)sub_45A360_drawable(*(_DWORD*)&byte_5D4594[4 * v2 + 1313748], v6[3], v6[4] + 3);
 			if (result)
@@ -12372,7 +12373,7 @@ void __cdecl sub_4B81E0(int a1, int a2) {
 	v2 = &byte_5D4594[1313748];
 	do {
 		if (*(_DWORD*)(a1 + 108) == *(_DWORD*)v2 && *(_DWORD*)(a1 + 432) == *(_DWORD*)a2)
-			*(_DWORD*)&byte_5D4594[1313788] = 1;
+			dword_5d4594_1313788 = 1;
 		v2 += 4;
 	} while ((int)v2 < (int)&byte_5D4594[1313784]);
 }
