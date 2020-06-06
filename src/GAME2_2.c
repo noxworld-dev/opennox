@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1193188;
 extern _DWORD dword_5d4594_1097196;
 extern _DWORD dword_5d4594_1193176;
 extern _DWORD dword_5d4594_1098596;
@@ -549,7 +550,7 @@ void __cdecl sub_476700(int a1, int a2) {
 	v13 = *((_DWORD*)v3 + 3) - *((_DWORD*)v3 + 1) + 1;
 	*((_DWORD*)v3 + 8) = *((_DWORD*)v3 + 2) - *(_DWORD*)v3 + 1;
 	*((_DWORD*)v3 + 9) = v13;
-	*(_DWORD*)&byte_5D4594[1193188] = 1;
+	dword_5d4594_1193188 = 1;
 	dword_5d4594_3799524 = 1;
 }
 
@@ -6768,7 +6769,7 @@ int sub_481420() {
 		dword_587000_154940 = sub_481770;
 		*(_DWORD*)&byte_587000[154944] = nullsub_8;
 	}
-	*(_DWORD*)&byte_5D4594[1193188] = 1;
+	dword_5d4594_1193188 = 1;
 	return result;
 }
 // 481BE0: using guessed type void nullsub_8();
@@ -7201,9 +7202,9 @@ int __cdecl sub_481C20(int* a1) {
 		sub_481420();
 	}
 LABEL_9:
-	if (*(_DWORD*)&byte_5D4594[1193188]) {
+	if (dword_5d4594_1193188) {
 		sub_4826A0(a1);
-		*(_DWORD*)&byte_5D4594[1193188] = 0;
+		dword_5d4594_1193188 = 0;
 		goto LABEL_60;
 	}
 	if (v3 >= *(int*)&dword_5d4594_3798820 + 23) {
@@ -10446,7 +10447,7 @@ unsigned int sub_485F80() {
 int sub_486060() {
 	int result; // eax
 
-	*(_DWORD*)&byte_5D4594[1193188] = 1;
+	dword_5d4594_1193188 = 1;
 	result = 45 * dword_5d4594_3798804;
 	*(_DWORD*)&byte_5D4594[3799236] = 45 * dword_5d4594_3798804 + (46 << byte_5D4594[3807124]);
 	return result;
