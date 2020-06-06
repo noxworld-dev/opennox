@@ -20,6 +20,7 @@
 #include "../gui/servopts/playrlst.h"
 #include "../shell/noxworld.h"
 #include "inform.h"
+extern _DWORD dword_5d4594_1200776;
 extern _DWORD dword_5d4594_1200796;
 extern _DWORD dword_5d4594_1200768;
 extern _DWORD dword_587000_312796;
@@ -1794,10 +1795,10 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v377.field_4 = WORD2(v5);
 			LOBYTE(v5) = *(_BYTE*)v3;
 			if (*(_BYTE*)v3 == (_BYTE)-116 || (_BYTE)v5 == (_BYTE)-114) {
-				sub_4999D0(*(int*)&byte_5D4594[1200776], &v379, &v377);
+				sub_4999D0(*(int*)&dword_5d4594_1200776, &v379, &v377);
 			} else if ((_BYTE)v5 == 125) {
 				sub_499710(*(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7), 10,
-					   *(int*)&byte_5D4594[1200776]);
+					   *(int*)&dword_5d4594_1200776);
 				v3 += 9;
 				break;
 			}
@@ -1826,7 +1827,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 		case 0x81u:
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_797;
-			sub_499610(*(int*)&byte_5D4594[1200776], 50, 1000, 30, *(__int16*)(v3 + 1),
+			sub_499610(*(int*)&dword_5d4594_1200776, 50, 1000, 30, *(__int16*)(v3 + 1),
 				   *(__int16*)(v3 + 3));
 			v3 += 5;
 			break;
