@@ -22,6 +22,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3801748;
 extern _DWORD dword_5d4594_1320948;
 extern _DWORD dword_587000_183460;
 extern _DWORD dword_5d4594_1316412;
@@ -7790,7 +7791,7 @@ void sub_4C6BA0() {
 	v0 = *(_DWORD*)&byte_5D4594[3799456];
 	v1 = *(unsigned __int8**)&byte_5D4594[3799444];
 	v2 = *(_BYTE**)&dword_5d4594_3799540;
-	v3 = (*(_DWORD*)&byte_5D4594[3801748] >> 3) + dword_5d4594_810636;
+	v3 = (dword_5d4594_3801748 >> 3) + dword_5d4594_810636;
 	do {
 		v4 = *v1++;
 		result = 32 * v4;
@@ -7813,7 +7814,7 @@ void sub_4C6BF0() {
 	v0 = *(unsigned __int8**)&byte_5D4594[3799444];
 	v1 = *(unsigned __int8**)&dword_5d4594_3799540;
 	v7 = *(_DWORD*)&byte_5D4594[3799456];
-	v2 = (*(_DWORD*)&byte_5D4594[3801748] >> 3) + dword_5d4594_810636;
+	v2 = (dword_5d4594_3801748 >> 3) + dword_5d4594_810636;
 	v3 = dword_5d4594_810632;
 	do {
 		v4 = (*(unsigned __int8*)(v2 + 32 * *v0++) << 8) + *v1;
@@ -7842,7 +7843,7 @@ void sub_4C6C60() {
 	unsigned __int8 v13; // [esp+20h] [ebp-4h]
 
 	result = *(_DWORD*)&byte_5D4594[3799456] - 1;
-	v9 = *(_DWORD*)&byte_5D4594[3801748] >> 3;
+	v9 = dword_5d4594_3801748 >> 3;
 	if (*(_DWORD*)&byte_5D4594[3799456]) {
 		v1 = v9;
 		v8 = *(_BYTE*)(&ptr_5D4594_3799572->data[259]);
@@ -8000,7 +8001,7 @@ void sub_4C7060() {
 	if (*(_DWORD*)&byte_5D4594[3799456]) {
 		result = 32 * *(unsigned __int8*)(48 * (*(_DWORD*)&byte_5D4594[3799428] >> 4) +
 						  (_DWORD)(&ptr_5D4594_3799572->data[76]));
-		v1 = (unsigned __int8)(*(_DWORD*)&byte_5D4594[3801748] >> 3);
+		v1 = (unsigned __int8)(dword_5d4594_3801748 >> 3);
 		v2 = *(_DWORD*)&byte_5D4594[3799456];
 		do {
 			v3 = *(_BYTE*)(result + (unsigned __int8)**(_BYTE**)&byte_5D4594[3799444] +
