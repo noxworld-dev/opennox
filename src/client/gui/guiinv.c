@@ -6,6 +6,7 @@
 #include "guimsg.h"
 #include "tooltip.h"
 
+extern _DWORD dword_5d4594_1049844;
 extern _DWORD dword_5d4594_1049808;
 extern _DWORD dword_5d4594_1062484;
 extern _DWORD dword_5d4594_1062556;
@@ -1700,8 +1701,8 @@ int sub_4671E0() {
 
 	nox_wcscpy((wchar_t*)&byte_5D4594[1062588], (const wchar_t*)&byte_5D4594[1063676]);
 	if (nox_common_gameFlags_check_40A5C0(4096) || sub_4D6F50() || (result = sub_4D6F70()) != 0) {
-		result = *(_DWORD*)&byte_5D4594[1049844];
-		if (*(_DWORD*)&byte_5D4594[1049844] > 0xAu)
+		result = dword_5d4594_1049844;
+		if (dword_5d4594_1049844 > 0xAu)
 			result = 10;
 		v1 = *(_DWORD*)&byte_5D4594[2618908];
 	} else {

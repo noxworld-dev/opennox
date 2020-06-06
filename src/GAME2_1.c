@@ -25,6 +25,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1049844;
 extern _DWORD dword_5d4594_1090180;
 extern _DWORD dword_5d4594_1050008;
 extern _DWORD dword_5d4594_1096272;
@@ -1927,13 +1928,13 @@ int __cdecl sub_465D50_draw(int a1) {
 
 //----- (00465DE0) --------------------------------------------------------
 int __cdecl sub_465DE0(int a1) {
-	*(_DWORD*)&byte_5D4594[1049844] = a1;
+	dword_5d4594_1049844 = a1;
 	return sub_467460();
 }
 // 467460: using guessed type int sub_467460(void);
 
 //----- (00465DF0) --------------------------------------------------------
-int sub_465DF0() { return *(_DWORD*)&byte_5D4594[1049844]; }
+int sub_465DF0() { return dword_5d4594_1049844; }
 
 //----- (00465E00) --------------------------------------------------------
 int sub_465E00() {
