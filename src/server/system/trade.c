@@ -1,6 +1,7 @@
 #include "../dbase/objdb.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_2386560;
 extern _DWORD dword_5d4594_2386496;
 
 //----- (0050E7A0) --------------------------------------------------------
@@ -723,11 +724,11 @@ _DWORD* __cdecl sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
 	int v8;         // eax
 
 	sub_4FA6B0((int)a1);
-	result = *(_DWORD**)&byte_5D4594[2386560];
+	result = *(_DWORD**)&dword_5d4594_2386560;
 	v4 = a1[187];
-	if (!*(_DWORD*)&byte_5D4594[2386560]) {
+	if (!dword_5d4594_2386560) {
 		result = (_DWORD*)sub_4E3AA0((CHAR*)&byte_587000[236692]);
-		*(_DWORD*)&byte_5D4594[2386560] = result;
+		dword_5d4594_2386560 = result;
 	}
 	v5 = a1[126];
 	if (v5) {
@@ -742,7 +743,7 @@ _DWORD* __cdecl sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
 						   "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3413);
 			sub_4D9EB0((int)a1, v6);
 			result = sub_501960(925, (int)a1, 2, a1[9]);
-		} else if (*(unsigned __int16*)(v5 + 4) == *(_DWORD*)&byte_5D4594[2386560]) {
+		} else if (*(unsigned __int16*)(v5 + 4) == dword_5d4594_2386560) {
 			v7 = loadString_sub_40F1D0((char*)&byte_587000[236800], 0,
 						   "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3423);
 			sub_4D9EB0((int)a1, v7);
