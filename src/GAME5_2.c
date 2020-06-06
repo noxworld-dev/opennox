@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_3843632;
 extern _DWORD dword_5d4594_2513924;
 extern _DWORD dword_5d4594_2523888;
 extern _DWORD dword_5d4594_2496472;
@@ -1292,7 +1293,7 @@ int __cdecl sub_554200(unsigned int a1) {
 	if (a1 > 0x80)
 		goto LABEL_9;
 	if (!a1)
-		return *(_DWORD*)&byte_5D4594[3843632];
+		return dword_5d4594_3843632;
 	v2 = *(_DWORD*)&byte_5D4594[4 * a1 + 3843788];
 	if (v2)
 		result = *(_DWORD*)(v2 + 8);
@@ -1413,7 +1414,7 @@ int __cdecl sub_554380(size_t* a1) {
 		return -2;
 	v2 = 0;
 	byte_5D4594[3843644] = 0;
-	*(_DWORD*)&byte_5D4594[3843632] = 0;
+	dword_5d4594_3843632 = 0;
 	byte_5D4594[3843660] = 0;
 	v3 = &byte_5D4594[3843788];
 	while (*(_DWORD*)v3) {
@@ -1464,9 +1465,9 @@ int __cdecl sub_554380(size_t* a1) {
 			if (gethostname((char*)&byte_5D4594[3843660], 128) != -1) {
 				v10 = gethostbyname((const char*)&byte_5D4594[3843660]);
 				if (v10) {
-					*(_DWORD*)&byte_5D4594[3843632] = **(_DWORD**)v10->h_addr_list;
+					dword_5d4594_3843632 = **(_DWORD**)v10->h_addr_list;
 					strcpy((char*)&byte_5D4594[3843644],
-					       inet_ntoa(*(struct in_addr*)&byte_5D4594[3843632]));
+					       inet_ntoa(*(struct in_addr*)&dword_5d4594_3843632));
 				}
 			}
 			result = v2;
