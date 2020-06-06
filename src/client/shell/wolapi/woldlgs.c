@@ -2,6 +2,7 @@
 #include "../../../proto.h"
 #include "wolchat.h"
 
+extern _DWORD dword_5d4594_830112;
 extern _DWORD dword_5d4594_830136;
 extern _DWORD dword_5d4594_830120;
 extern _DWORD dword_5d4594_830204;
@@ -20,7 +21,7 @@ extern int nox_win_height;
 int sub_448730_wol_dialogs() {
 	int result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[830112])
+	if (dword_5d4594_830112)
 		return 0;
 	if (dword_5d4594_830116)
 		return 0;
@@ -367,7 +368,7 @@ int __cdecl sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 		} else {
 			sub_46C6E0(*(int*)&byte_5D4594[830096]);
 			sub_46C4E0(*(_DWORD**)&byte_5D4594[830096]);
-			*(_DWORD*)&byte_5D4594[830112] = 0;
+			dword_5d4594_830112 = 0;
 			sub_447600();
 		}
 		sub_452D80(921, 100);
