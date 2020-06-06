@@ -11,6 +11,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_587000_149360;
 extern _DWORD dword_5d4594_1098456;
 extern _DWORD dword_5d4594_1193180;
 extern _DWORD dword_5d4594_1097212;
@@ -484,16 +485,16 @@ int __cdecl sub_4766A0(int a1) {
 	if (a1 >= 65) {
 		if (a1 > 100)
 			result = 100;
-		*(_DWORD*)&byte_587000[149360] = result;
+		dword_587000_149360 = result;
 	} else {
 		result = 65;
-		*(_DWORD*)&byte_587000[149360] = 65;
+		dword_587000_149360 = 65;
 	}
 	return result;
 }
 
 //----- (004766D0) --------------------------------------------------------
-int sub_4766D0() { return *(_DWORD*)&byte_587000[149360]; }
+int sub_4766D0() { return dword_587000_149360; }
 
 //----- (004766E0) --------------------------------------------------------
 void sub_4766E0() { sub_476700(0, 2); }
@@ -540,7 +541,7 @@ void __cdecl sub_476700(int a1, int a2) {
 	} else {
 		v5 = 40;
 	}
-	*(_DWORD*)&byte_587000[149360] = v5;
+	dword_587000_149360 = v5;
 	v8 = v5 * nox_backbuffer_height / 100;
 	v9 = ((nox_backbuffer_width - v5 * nox_backbuffer_width / 100) / 2) & 0xFFFFFFFC;
 	*(_DWORD*)v3 = v9;
