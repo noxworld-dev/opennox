@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523804;
 extern _DWORD dword_5d4594_2516372;
 extern _DWORD dword_5d4594_2523764;
 extern _DWORD dword_5d4594_2513932;
@@ -4569,14 +4570,14 @@ BOOL __cdecl sub_57AEE0(int a1, int a2) { return a1 < 75 || a1 > 114 || sub_500D
 void sub_57AF10() { nox_srand(0x9DDu); }
 
 //----- (0057AF20) --------------------------------------------------------
-int sub_57AF20() { return *(_DWORD*)&byte_5D4594[2523804]; }
+int sub_57AF20() { return dword_5d4594_2523804; }
 
 //----- (0057B0A0) --------------------------------------------------------
 void sub_57B0A0() {
 	int result; // eax
 	_DWORD* v1; // ecx
 
-	result = *(_DWORD*)&byte_5D4594[2523804];
+	result = dword_5d4594_2523804;
 	if (!result) {
 		return;
 	}
@@ -4596,7 +4597,7 @@ void sub_57B0A0() {
 	dword_5d4594_2523780 = 0;
 	if (!sub_45D9B0())
 		sub_413A00(0);
-	*(_DWORD*)&byte_5D4594[2523804] = 0;
+	dword_5d4594_2523804 = 0;
 }
 
 //----- (0057B180) --------------------------------------------------------
