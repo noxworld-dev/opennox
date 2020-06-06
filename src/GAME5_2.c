@@ -7,6 +7,7 @@
 #include "proto.h"
 
 #include <float.h>
+extern _DWORD dword_5d4594_2523904;
 extern _DWORD dword_5d4594_2516380;
 extern _DWORD dword_5d4594_2523804;
 extern _DWORD dword_5d4594_2516372;
@@ -5262,7 +5263,7 @@ BOOL __cdecl sub_57BF40(int a1, int a2) { return a1 && a2; }
 int sub_57BF60() { return 0; }
 
 //----- (0057BF70) --------------------------------------------------------
-int sub_57BF70() { return *(_DWORD*)&byte_5D4594[2523904]; }
+int sub_57BF70() { return dword_5d4594_2523904; }
 
 //----- (0057BF80) --------------------------------------------------------
 unsigned int sub_57BF80() {
@@ -5283,7 +5284,7 @@ unsigned int sub_57BF80() {
 char* sub_57BFB0() {
 	char* result; // eax
 
-	*(_DWORD*)&byte_5D4594[2523904] = 0;
+	dword_5d4594_2523904 = 0;
 	result = nox_new_alloc_class("ItemGroupInfo", 96, 512);
 	dword_5d4594_2523892 = result;
 	if (result) {
@@ -5295,7 +5296,7 @@ char* sub_57BFB0() {
 
 //----- (0057C000) --------------------------------------------------------
 void sub_57C000() {
-	*(_DWORD*)&byte_5D4594[2523904] = 0;
+	dword_5d4594_2523904 = 0;
 	sub_4144D0(*(_DWORD**)&dword_5d4594_2523896);
 	sub_4144D0(*(_DWORD**)&dword_5d4594_2523892);
 	dword_5d4594_2523900 = 0;
@@ -5303,7 +5304,7 @@ void sub_57C000() {
 
 //----- (0057C030) --------------------------------------------------------
 int sub_57C030() {
-	*(_DWORD*)&byte_5D4594[2523904] = 0;
+	dword_5d4594_2523904 = 0;
 	if (dword_5d4594_2523892) {
 		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2523892);
 		dword_5d4594_2523892 = 0;
