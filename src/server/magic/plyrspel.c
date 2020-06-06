@@ -1,9 +1,10 @@
 #include "../../client/gui/guimsg.h"
 
 #include "../../proto.h"
+extern _DWORD dword_587000_66120;
 
 //----- (00424850) --------------------------------------------------------
-BOOL __cdecl sub_424850(void* a1) { return a1 == *(void**)&byte_587000[66120]; }
+BOOL __cdecl sub_424850(void* a1) { return a1 == *(void**)&dword_587000_66120; }
 
 //----- (004D7F90) --------------------------------------------------------
 int __cdecl sub_4D7F90(int a1, int a2, char a3, int a4) {
