@@ -2,6 +2,7 @@
 
 #include "../../../proto.h"
 #include "gamewin.h"
+extern _DWORD dword_5d4594_1306860;
 
 //----- (004A0800) --------------------------------------------------------
 int __cdecl sub_4A0800(wchar_t* a1, char* a2) {
@@ -90,10 +91,10 @@ int __cdecl sub_4A10A0(_DWORD* a1, const char* a2, char* a3) {
 			*(_WORD*)&byte_5D4594[1306878] = -1;
 		v13 = strtok(0, " \t\n\r");
 		if (v13) {
-			*(_DWORD*)&byte_5D4594[1306860] = atoi(v13);
-			*(_DWORD*)&byte_5D4594[1306860] = *(_DWORD*)&byte_5D4594[1306860] != 0;
+			dword_5d4594_1306860 = atoi(v13);
+			dword_5d4594_1306860 = dword_5d4594_1306860 != 0;
 		} else {
-			*(_DWORD*)&byte_5D4594[1306860] = 0;
+			dword_5d4594_1306860 = 0;
 		}
 		v14 = strtok(0, " \t\n\r");
 		v15 = v14;
