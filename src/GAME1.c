@@ -21,6 +21,7 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+extern _DWORD dword_5d4594_3612;
 extern _DWORD dword_5d4594_10988;
 extern _DWORD dword_5d4594_527656;
 extern _DWORD dword_5d4594_251728;
@@ -2000,11 +2001,11 @@ unsigned int __cdecl sub_40AD60(char* a1, int a2, int a3, _DWORD* a4) {
 signed int __cdecl sub_40ADD0_fread(char* buf, size_t size, size_t count, FILE* file) {
 
 	int left = count * size;
-	if (*(_DWORD*)&byte_5D4594[3612])
+	if (dword_5d4594_3612)
 		return fread(buf, size, count, file);
-	*(_DWORD*)&byte_5D4594[3612] = 1;
+	dword_5d4594_3612 = 1;
 	if (left == 0) {
-		*(_DWORD*)&byte_5D4594[3612] = 0;
+		dword_5d4594_3612 = 0;
 		return 0;
 	}
 	unsigned int total = 0;
@@ -2027,7 +2028,7 @@ signed int __cdecl sub_40ADD0_fread(char* buf, size_t size, size_t count, FILE* 
 		result = total / size;
 		break;
 	}
-	*(_DWORD*)&byte_5D4594[3612] = 0;
+	dword_5d4594_3612 = 0;
 	return result;
 }
 
