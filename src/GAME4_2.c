@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835392;
 extern _DWORD dword_5d4594_2487580;
 extern _DWORD dword_5d4594_2487568;
 extern _DWORD dword_5d4594_2487536;
@@ -7691,9 +7692,9 @@ float* __cdecl sub_527A10(float* a1, float2* a2) {
 	if (!a1)
 		return 0;
 	v3 = v7.field_4;
-	a1[10] = *(float*)&byte_5D4594[3835392];
+	a1[10] = *(float*)&dword_5d4594_3835392;
 	v4 = v7.field_0;
-	++*(_DWORD*)&byte_5D4594[3835392];
+	++dword_5d4594_3835392;
 	a1[15] = v3;
 	v5 = *((_DWORD*)a1 + 4) | 0x1000000;
 	a1[14] = v4;
