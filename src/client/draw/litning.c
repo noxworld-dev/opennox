@@ -1,6 +1,7 @@
 #include "litning.h"
 
 #include "../../proto.h"
+extern _DWORD dword_5d4594_1316448;
 extern _DWORD dword_5d4594_1316456;
 extern _DWORD dword_587000_178216;
 extern _DWORD dword_5d4594_1316484;
@@ -42,7 +43,7 @@ int __cdecl sub_4BB070(int a1, int a2) {
 	int v28;            // [esp+2Ch] [ebp+8h]
 
 	v2 = dword_5d4594_1316492 + 1;
-	v3 = dword_5d4594_1316492 + 1 == *(_DWORD*)&byte_5D4594[1316448];
+	v3 = dword_5d4594_1316492 + 1 == dword_5d4594_1316448;
 	v23 = 0;
 	++dword_5d4594_1316492;
 	if (!v3) {
@@ -195,7 +196,7 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
 	v12 = (__int64)sqrt((double)(v9 * v9 + v11 * v11));
 	if ((int)v12 >= 512) {
 		dword_5d4594_1316476 = *(_DWORD*)&byte_587000[178204];
-		*(_DWORD*)&byte_5D4594[1316448] = dword_587000_178216;
+		dword_5d4594_1316448 = dword_587000_178216;
 	} else {
         *(_DWORD *) &dword_5d4594_1316476 =
                 *(_DWORD *) &byte_587000[178208] +
@@ -212,9 +213,9 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
             v13p = 1;
         }
         if (v13 >= 1 || v13p) {
-            *(_DWORD *) &byte_5D4594[1316448] = v13;
+            *(_DWORD *) &dword_5d4594_1316448 = v13;
         } else {
-            *(_DWORD *) &byte_5D4594[1316448] = 1;
+            *(_DWORD *) &dword_5d4594_1316448 = 1;
         }
     }
 	*(_DWORD*)&byte_5D4594[1316532] = a3;
