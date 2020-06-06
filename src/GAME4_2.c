@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_3835364;
 extern _DWORD dword_5d4594_2487884;
 extern _DWORD dword_5d4594_3835372;
 extern _DWORD dword_5d4594_3835392;
@@ -6920,7 +6921,7 @@ int __cdecl sub_526BF0(char* a1) {
 int __cdecl sub_526C40(int a1) {
 	if (a1 != 1 && a1)
 		return 0;
-	*(_DWORD*)&byte_5D4594[3835364] = a1;
+	dword_5d4594_3835364 = a1;
 	return 1;
 }
 
