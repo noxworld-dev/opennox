@@ -16,6 +16,7 @@
 
 #include "proto.h"
 
+extern _DWORD dword_5d4594_1305724;
 extern _DWORD dword_5d4594_1301808;
 extern _DWORD dword_5d4594_1303508;
 extern _DWORD dword_5d4594_1200776;
@@ -9196,7 +9197,7 @@ void __cdecl sub_49F420(int a1, int a2, int a3) {
 
 //----- (0049F4A0) --------------------------------------------------------
 BOOL sub_49F4A0() {
-	*(_DWORD*)&byte_5D4594[1305724] = 32;
+	dword_5d4594_1305724 = 32;
 	*(_DWORD*)&byte_5D4594[3798692] = 0;
 	dword_5d4594_3798696 = nox_calloc(0x20u, 8u);
 	return dword_5d4594_3798696 != 0;
@@ -9213,10 +9214,10 @@ void sub_49F4D0() {
 
 //----- (0049F500) --------------------------------------------------------
 int __cdecl nox_client_drawAddPoint_49F500(int a1, int a2) {
-	if (*(_DWORD*)&byte_5D4594[3798692] >= *(int*)&byte_5D4594[1305724]) {
-		*(_DWORD*)&byte_5D4594[1305724] += 16;
+	if (*(_DWORD*)&byte_5D4594[3798692] >= *(int*)&dword_5d4594_1305724) {
+		dword_5d4594_1305724 += 16;
 		dword_5d4594_3798696 =
-		    realloc(*(LPVOID*)&dword_5d4594_3798696, 8 * *(_DWORD*)&byte_5D4594[1305724]);
+		    realloc(*(LPVOID*)&dword_5d4594_3798696, 8 * dword_5d4594_1305724);
 	}
 	*(_DWORD*)(dword_5d4594_3798696 + 8 * *(_DWORD*)&byte_5D4594[3798692]) = a1;
 	*(_DWORD*)(dword_5d4594_3798696 + 8 * *(_DWORD*)&byte_5D4594[3798692] + 4) = a2;
