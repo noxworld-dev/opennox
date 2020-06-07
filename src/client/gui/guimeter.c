@@ -19,7 +19,6 @@ extern _DWORD dword_5d4594_1093156;
 extern _DWORD dword_5d4594_1096252;
 extern _DWORD dword_5d4594_1093136;
 extern _DWORD dword_5d4594_3799468;
-extern _DWORD dword_5d4594_1093096;
 extern _DWORD dword_587000_80844;
 extern _DWORD dword_5d4594_1090276;
 extern int nox_win_width;
@@ -192,9 +191,9 @@ int sub_4714E0() {
 		*(_DWORD*)&byte_5D4594[1093076] = nox_window_new(0, 8, 0, 0, 0, 0, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1093076], 0, sub_471C00, 0);
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1093076] + 32) = 0;
-		dword_5d4594_1093096 = nox_window_new(0, 8, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1093096, 0, sub_471C00, 0);
-		*(_DWORD*)(dword_5d4594_1093096 + 32) = 1;
+		*(_DWORD*)&byte_5D4594[1093096] = nox_window_new(0, 8, 0, 0, 0, 0, 0);
+		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1093096], 0, sub_471C00, 0);
+		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1093096] + 32) = 1;
 		*(_DWORD*)&byte_5D4594[1093176] = 1;
 	} else {
 		*(_DWORD*)&byte_5D4594[1091900] = sub_42F970("WarriorPoisonTube");
@@ -218,7 +217,7 @@ int sub_4714E0() {
 	} else {
 		dword_5d4594_1096252 = 0;
 		nox_window_set_hidden(*(int*)&byte_5D4594[1093076], 1);
-		nox_window_set_hidden(*(int*)&dword_5d4594_1093096, 1);
+		nox_window_set_hidden(*(int*)&byte_5D4594[1093096], 1);
 	}
 	return 1;
 }
