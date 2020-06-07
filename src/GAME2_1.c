@@ -86,7 +86,6 @@ extern _DWORD dword_5d4594_3799468;
 extern _DWORD dword_5d4594_1064824;
 extern _DWORD dword_5d4594_1096500;
 extern _DWORD dword_587000_136184;
-extern _DWORD dword_5d4594_1093096;
 extern _DWORD dword_5d4594_1096512;
 extern _DWORD dword_5d4594_1049532;
 extern _DWORD dword_5d4594_1090100;
@@ -6812,10 +6811,10 @@ int __cdecl sub_470AA0(int a1) {
 	if (*(_DWORD*)&byte_5D4594[1093176]) {
 		if (a1) {
 			nox_window_set_hidden(*(int*)&byte_5D4594[1093076], 0);
-			result = nox_window_set_hidden(*(int*)&dword_5d4594_1093096, 0);
+			result = nox_window_set_hidden(*(int*)&byte_5D4594[1093096], 0);
 		} else {
 			nox_window_set_hidden(*(int*)&byte_5D4594[1093076], 1);
-			result = nox_window_set_hidden(*(int*)&dword_5d4594_1093096, 1);
+			result = nox_window_set_hidden(*(int*)&byte_5D4594[1093096], 1);
 		}
 	}
 	return result;
@@ -7338,7 +7337,7 @@ int __cdecl sub_472100(int a1, int a2) {
 		dword_5d4594_1096252 = 1 - dword_5d4594_1096252;
 		nox_window_set_hidden(*(int*)&byte_5D4594[1093076], v3);
 		if (byte_5D4594[2661958])
-			nox_window_set_hidden(*(int*)&dword_5d4594_1093096, dword_5d4594_1096252 == 0);
+			nox_window_set_hidden(*(int*)&byte_5D4594[1093096], dword_5d4594_1096252 == 0);
 		sub_452D80(901, 100);
 		goto LABEL_6;
 	case 8:
@@ -7369,8 +7368,8 @@ int __cdecl sub_4721A0(int a1) {
 int sub_4721D0() {
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1090276);
 	sub_46C4E0(*(_DWORD**)&byte_5D4594[1093076]);
-	if (dword_5d4594_1093096)
-		sub_46C4E0(*(_DWORD**)&dword_5d4594_1093096);
+	if (*(_DWORD*)&byte_5D4594[1093096])
+		sub_46C4E0(*(_DWORD**)&byte_5D4594[1093096]);
 	sub_4714E0();
 	sub_472310();
 	return sub_4721A0(*(int*)&dword_587000_80828);
