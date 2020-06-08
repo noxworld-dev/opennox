@@ -1170,7 +1170,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 	case 265:
 		a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1;
 		result = (_DWORD*)((unsigned __int8)vaArg2 - 2);
-		if ((unsigned __int8)vaArg2 == 2 && (_DWORD*)MEMACCESS(0x6D8555) == result) {
+		if ((unsigned __int8)vaArg2 == 2 && (_DWORD*)MEMACCESS(0x6D8555-1) == result) { // TODO: memaccess was 1 byte off
 			if ((MEMACCESS(0x98085A) >> 3) & 1) {
 				result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
 				if (result) {
