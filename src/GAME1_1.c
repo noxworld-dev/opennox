@@ -1181,7 +1181,9 @@ int __cdecl sub_41A230(char* a1) {
 	if (result) {
 		if (sub_45D9B0())
 			sub_45D870();
-		strcpy((char*)&byte_5D4594[2660688], v1);
+		if ((char*)&byte_5D4594[2660688] != v1) { // FIXME: strcpy overlap
+            strcpy((char*)&byte_5D4594[2660688], v1);
+		}
 		if (*(_DWORD*)&byte_587000[55936]) {
 			v3 = &byte_587000[55944];
 			while (1) {
