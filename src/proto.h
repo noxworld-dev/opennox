@@ -2561,7 +2561,7 @@ int __cdecl nox_window_is_child(nox_window* a1, nox_window* a2);
 int __cdecl sub_46B280(int a1, int a2);
 int __cdecl sub_46B2B0(int a1);
 int __cdecl sub_46B2C0(int a1, int (*a2)(int, int, int, int));
-int sub_46B2F0();
+int sub_46B2F0(int a1, int a2, int a3, int a4);
 int __cdecl sub_46B300(int a1, int (*a2)(int, int, int, int));
 int sub_46B330(int a1, int a2, int a3, int a4);
 int __cdecl sub_46B340(int a1, int (*a2)(int, int));
