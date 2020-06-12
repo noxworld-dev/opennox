@@ -4376,134 +4376,127 @@ int __cdecl sub_4FD400(int a1, int a2, _DWORD* a3, int a4, int* a5, int a6) {
 	if (!*a5 || sub_4FDC10(a1, *a5)) {
 		switch (a1) {
 		case 1:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C390;
+			v7 = sub_52C390;
 			goto LABEL_95;
 		case 2:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52DC80;
+			v7 = sub_52DC80;
 			goto LABEL_95;
 		case 3:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C750;
+			v7 = sub_52C750;
 			goto LABEL_95;
 		case 4:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_530310, sub_530380, 0, 0);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_530310, sub_530380, 0, 0);
 		case 5:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C3E0;
+			v7 = sub_52C3E0;
 			goto LABEL_95;
 		case 6:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52BBA0;
+			v7 = sub_52BBA0;
 			goto LABEL_95;
 		case 8:
 			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, 0, sub_52F460, 0, 0);
 		case 9:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_5011F0, sub_5013E0,
-					  sub_501690, 0);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_5011F0, sub_5013E0, sub_501690, 0);
 		case 10:
 		case 11:
 			v7 = sub_52D5C0;
 			goto LABEL_95;
 		case 12:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C1E0;
+			v7 = sub_52C1E0;
 			goto LABEL_95;
 		case 13:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52BBB0;
+			v7 = sub_52BBB0;
 			goto LABEL_95;
 		case 14:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52CDB0;
+			v7 = sub_52CDB0;
 			goto LABEL_95;
 		case 15:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C920;
+			v7 = sub_52C920;
 			goto LABEL_95;
 		case 16:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52D1E0;
+			v7 = sub_52D1E0;
 			goto LABEL_95;
 		case 17:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C8D0;
+			v7 = sub_52C8D0;
 			goto LABEL_95;
 		case 18:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52BF00;
+			v7 = sub_52BF00;
 			goto LABEL_95;
 		case 19:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_537E60;
+			v7 = sub_537E60;
 			goto LABEL_95;
 		case 21:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_531310, sub_531410,
-					  sub_531420, 70);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_531310, sub_531410, sub_531420, 70);
 		case 22:
 			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, 0, sub_52E210, 0, 0);
 		case 23:
 			v7 = sub_52DE40;
 			goto LABEL_95;
 		case 24:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_52E820, sub_52E850,
-					  (int)nullsub_29, 30);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_52E820, sub_52E850, (int)nullsub_29, 30);
 		case 26:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52DF40;
+			v7 = sub_52DF40;
 			goto LABEL_95;
 		case 27:
 			v7 = sub_52C790;
 			goto LABEL_95;
 		case 28:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, 0, sub_52ED40, 0,
-					  3 * *(_DWORD*)&byte_5D4594[2649704]);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, 0, sub_52ED40, 0, 3 * *(_DWORD*)&byte_5D4594[2649704]);
 		case 29:
 			v7 = sub_52D3C0;
 			goto LABEL_95;
 		case 31:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_52EF30, sub_52EFD0,
-					  sub_52F1D0, 2 * *(_DWORD*)&byte_5D4594[2649704] / 3u);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_52EF30, sub_52EFD0, sub_52F1D0, 2 * *(_DWORD*)&byte_5D4594[2649704] / 3u);
 		case 32:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C350;
+			v7 = sub_52C350;
 			goto LABEL_95;
 		case 33:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C060;
+			v7 = sub_52C060;
 			goto LABEL_95;
 		case 34:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_537FA0;
+			v7 = sub_537FA0;
 			goto LABEL_95;
 		case 35:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_52F220, sub_52F2E0, 0, 0);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_52F220, sub_52F2E0, 0, 0);
 		case 36:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C640;
+			v7 = sub_52C640;
 			goto LABEL_95;
 		case 37:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52CA30;
+			v7 = sub_52CA30;
 			goto LABEL_95;
 		case 38:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52BEB0;
+			v7 = sub_52BEB0;
 			goto LABEL_95;
 		case 39:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C980;
+			v7 = sub_52C980;
 			goto LABEL_95;
 		case 40:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C9E0;
+			v7 = sub_52C9E0;
 			goto LABEL_95;
 		case 41:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52DD50;
+			v7 = sub_52DD50;
 			goto LABEL_95;
 		case 42:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C6D0;
+			v7 = sub_52C6D0;
 			goto LABEL_95;
 		case 43:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_52F820, sub_52F8A0,
-					  sub_530100, 30);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_52F820, sub_52F8A0, sub_530100, 30);
 		case 44:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52CE90;
+			v7 = sub_52CE90;
 			goto LABEL_95;
 		case 45:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52CA80;
+			v7 = sub_52CA80;
 			goto LABEL_95;
 		case 46:
 		case 47:
 		case 48:
 		case 49:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52CBD0;
+			v7 = sub_52CBD0;
 			goto LABEL_95;
 		case 50:
 			v7 = sub_540160;
 			goto LABEL_95;
 		case 51:
-			return sub_4FEBA0(a1, a2, (_DWORD*)*a5, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_52F5A0,
-					  sub_52F650, sub_52F670, 0);
+			return sub_4FEBA0(a1, a2, (_DWORD*)*a5, a4, a5, a6, sub_52F5A0, sub_52F650, sub_52F670, 0);
 		case 52:
 			v7 = sub_52D9D0;
 			goto LABEL_95;
@@ -4511,38 +4504,35 @@ int __cdecl sub_4FD400(int a1, int a2, _DWORD* a3, int a4, int* a5, int a6) {
 			v7 = sub_52D8A0;
 			goto LABEL_95;
 		case 54:
-			return sub_4FEBA0(a1, a2, (_DWORD*)*a5, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_531A00, 0,
-					  sub_531AF0, 0);
+			return sub_4FEBA0(a1, a2, (_DWORD*)*a5, a4, a5, a6, sub_531A00, 0, sub_531AF0, 0);
 		case 55:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C230;
+			v7 = sub_52C230;
 			goto LABEL_95;
 		case 56:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_530F90, sub_5310C0,
-					  sub_531290, 0);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_530F90, sub_5310C0, sub_531290, 0);
 		case 57:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52CA70;
+			v7 = sub_52CA70;
 			goto LABEL_95;
 		case 58:
 			v7 = sub_540440;
 			goto LABEL_95;
 		case 59:
 			v8 = sub_419D40(&byte_587000[217640]);
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_531580, sub_531600,
-					  sub_5319E0, (__int64)v8);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_531580, sub_531600, sub_5319E0, (__int64)v8);
 		case 60:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C720;
+			v7 = sub_52C720;
 			goto LABEL_95;
 		case 61:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52D150;
+			v7 = sub_52D150;
 			goto LABEL_95;
 		case 62:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52D110;
+			v7 = sub_52D110;
 			goto LABEL_95;
 		case 63:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52D190;
+			v7 = sub_52D190;
 			goto LABEL_95;
 		case 64:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52D1A0;
+			v7 = sub_52D1A0;
 			goto LABEL_95;
 		case 65:
 			v7 = sub_52BFA0;
@@ -4551,26 +4541,25 @@ int __cdecl sub_4FD400(int a1, int a2, _DWORD* a3, int a4, int* a5, int a6) {
 			v7 = sub_52C000;
 			goto LABEL_95;
 		case 67:
-			return sub_4FEBA0(a1, a2, (_DWORD*)*a5, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_531490,
-					  sub_5314F0, sub_531560, 0);
+			return sub_4FEBA0(a1, a2, (_DWORD*)*a5, a4, a5, a6, sub_531490, sub_5314F0, sub_531560, 0);
 		case 68:
 		case 133:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52BF20;
+			v7 = sub_52BF20;
 			goto LABEL_95;
 		case 69:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52BF50;
+			v7 = sub_52BF50;
 			goto LABEL_95;
 		case 70:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C680;
+			v7 = sub_52C680;
 			goto LABEL_95;
 		case 71:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C5A0;
+			v7 = sub_52C5A0;
 			goto LABEL_95;
 		case 72:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C190;
+			v7 = sub_52C190;
 			goto LABEL_95;
 		case 74:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C2C0;
+			v7 = sub_52C2C0;
 			goto LABEL_95;
 		case 75:
 		case 76:
@@ -4611,13 +4600,11 @@ int __cdecl sub_4FD400(int a1, int a2, _DWORD* a3, int a4, int* a5, int a6) {
 		case 112:
 		case 113:
 		case 114:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_500DA0, sub_5010D0,
-					  sub_5011C0, 0);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_500DA0, sub_5010D0, sub_5011C0, 0);
 		case 115:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_530CA0, sub_530D30, 0, 0);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_530CA0, sub_530D30, 0, 0);
 		case 116:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_530160, sub_530250,
-					  sub_530270, 0);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_530160, sub_530250, sub_530270, 0);
 		case 117:
 		case 118:
 		case 119:
@@ -4626,26 +4613,25 @@ int __cdecl sub_4FD400(int a1, int a2, _DWORD* a3, int a4, int* a5, int a6) {
 		case 123:
 		case 124:
 		case 125:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_5305D0, sub_530650, 0, 0);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_5305D0, sub_530650, 0, 0);
 		case 121:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_530820, sub_530880, 0, 0);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_530820, sub_530880, 0, 0);
 		case 126:
-			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_530A30_spell_execdur,
-					  sub_530B70, 0, 0);
+			return sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_530A30_spell_execdur, sub_530B70, 0, 0);
 		case 127:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52D330;
+			v7 = sub_52D330;
 			goto LABEL_95;
 		case 128:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52DB60;
+			v7 = sub_52DB60;
 			goto LABEL_95;
 		case 129:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52CCD0;
+			v7 = sub_52CCD0;
 			goto LABEL_95;
 		case 130:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C530;
+			v7 = sub_52C530;
 			goto LABEL_95;
 		case 131:
-			v7 = (int(__cdecl*)(int, int, int, int, int, int))sub_52C270;
+			v7 = sub_52C270;
 		LABEL_95:
 			v9 = v7(a1, a2, (int)a3, a4, (int)a5, a6);
 			if (!v9)
@@ -4653,8 +4639,7 @@ int __cdecl sub_4FD400(int a1, int a2, _DWORD* a3, int a4, int* a5, int a6) {
 			result = v9;
 			break;
 		case 132:
-			result = sub_4FEBA0(a1, a2, a3, a4, a5, a6, (int(__cdecl*)(_WORD*))sub_4FFA90, sub_500070,
-					    sub_500080, 0);
+			result = sub_4FEBA0(a1, a2, a3, a4, a5, a6, sub_4FFA90, sub_500070, sub_500080, 0);
 			break;
 		default:
 			result = 1;

@@ -7549,8 +7549,8 @@ int __cdecl sub_412380_parse_attack_effect(const char* a1, char* a2, obj_412ae0_
 	char* v3 = strtok(a2, v9);
 	if (!v3)
 		return 0;
-	if (!table_26792)
-		return 0;
+//	if (!table_26792)
+//		return 0;
 
 	table_26792_t* ent = 0;
 	for (int i = 0; i < table_26792_cnt; i++) {
@@ -7585,8 +7585,8 @@ int __cdecl sub_412490_parse_defend_effect(const char* a1, char* a2, obj_412ae0_
 		return 0;
 
 	table_27008_t* ent = 0;
-	if (!table_27008)
-		return 0;
+//	if (!table_27008)
+//		return 0;
 	for (int i = 0; i < table_27008_cnt; i++) {
 		if (strcmp(table_27008[i].name, v3) == 0) {
 			ent = &table_27008[i];
@@ -7614,8 +7614,8 @@ int __cdecl sub_412580_parse_engage_effect(const char* a1, char* a2, obj_412ae0_
 	char* v3 = strtok(a2, v9);
 	if (!v3)
 		return 0;
-	if (!table_27168)
-		return 0;
+//	if (!table_27168)
+//		return 0;
 
 	table_27168_t* ent = 0;
 	for (int i = 0; i < table_27168_cnt; i++) {
@@ -7645,8 +7645,8 @@ int __cdecl sub_412670_parse_update_effect(const char* a1, char* a2, obj_412ae0_
 	char* v3 = strtok(a2, v8);
 	if (!v3)
 		return 0;
-	if (!table_27104)
-		return 0;
+//	if (!table_27104)
+//		return 0;
 
 	table_27104_t* ent = 0;
 	for (int i = 0; i < table_27104_cnt; i++) {

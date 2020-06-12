@@ -1037,9 +1037,9 @@ int __cdecl nox_server_mapRWWindowWalls_4292C0(_DWORD* a1) {
 		result = 1;
 	} else {
 		*(_WORD*)&byte_5D4594[741336] = 0;
-		sub_410640((void(__cdecl*)(int, int))sub_429450, (int)a1);
+		sub_410640(sub_429450, (int)a1);
 		sub_426AC0_file3_fread(&byte_5D4594[741336], 2u);
-		sub_410640((void(__cdecl*)(int, int))sub_4294B0, (int)a1);
+		sub_410640(sub_4294B0, (int)a1);
 		result = 1;
 	}
 	return result;
@@ -1125,9 +1125,9 @@ int __cdecl nox_server_mapRWDestructableWalls_429530(_DWORD* a1) {
 		result = 1;
 	} else {
 		*(_WORD*)&byte_5D4594[741340] = 0;
-		sub_410640((void(__cdecl*)(int, int))sub_4296E0, (int)a1);
+		sub_410640(sub_4296E0, (int)a1);
 		sub_426AC0_file3_fread(&byte_5D4594[741340], 2u);
-		sub_410640((void(__cdecl*)(int, int))sub_429740, (int)a1);
+		sub_410640(sub_429740, (int)a1);
 		result = 1;
 	}
 	return result;
@@ -1185,9 +1185,9 @@ int __cdecl nox_server_mapRWSecretWalls_4297C0(_DWORD* a1) {
 		return 0;
 	if (!*(_DWORD*)&byte_5D4594[3803300]) {
 		*(_WORD*)&byte_5D4594[741348] = 0;
-		sub_410640((void(__cdecl*)(int, int))sub_429A00, (int)a1);
+		sub_410640(sub_429A00, (int)a1);
 		sub_426AC0_file3_fread(&byte_5D4594[741348], 2u);
-		sub_410640((void(__cdecl*)(int, int))sub_429A60, (int)a1);
+		sub_410640(sub_429A60, (int)a1);
 		return 1;
 	}
 	sub_426AC0_file3_fread(&byte_5D4594[741348], 2u);
@@ -1350,7 +1350,7 @@ int __cdecl nox_server_mapRWWallMap_429B20(_DWORD* a1) {
 			*(_DWORD*)&byte_5D4594[741360] = 256;
 			dword_5d4594_741364 = 0;
 			dword_5d4594_741356 = 0;
-			sub_410640((void(__cdecl*)(int, int))sub_42A0F0, 0);
+			sub_410640(sub_42A0F0, 0);
 			v3 = dword_5d4594_741356;
 			v5 = dword_5d4594_741364;
 		}
@@ -1554,7 +1554,7 @@ int __cdecl sub_42A150(__int16 a1, _DWORD* a2) {
 			*(_DWORD*)&byte_5D4594[741360] = 256;
 			dword_5d4594_741364 = 0;
 			dword_5d4594_741356 = 0;
-			sub_410640((void(__cdecl*)(int, int))sub_42A0F0, 0);
+			sub_410640(sub_42A0F0, 0);
 			v5 = dword_5d4594_741356;
 			v6 = dword_5d4594_741364;
 		}

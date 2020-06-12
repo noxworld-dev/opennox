@@ -81,7 +81,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4) {
 						    "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 199);
 			v15 = loadString_sub_40F1D0((char*)&byte_587000[108288], 0,
 						    "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 198);
-			sub_449A10(0, (int)v15, (int)v23, 56, (int (*)(void))sub_445B40, sub_445BA0);
+			sub_449A10(0, (int)v15, (int)v23, 56, sub_445B40, sub_445BA0);
 			v16 = a3[9];
 			LOBYTE(v16) = v16 & 0xFD;
 			a3[9] = v16;

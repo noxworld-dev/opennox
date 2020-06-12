@@ -682,7 +682,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 					v40 =
 					    loadString_sub_40F1D0((char*)&byte_587000[80372], 0,
 								  "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 1866);
-					sub_449A10(0, (int)v40, (int)v41, 56, (int (*)(void))sub_42E600, sub_42E620);
+					sub_449A10(0, (int)v40, (int)v41, 56, sub_42E600, sub_42E620);
 					*(_DWORD*)&byte_5D4594[v36 + 747900] = 0;
 				} else {
 				LABEL_210:

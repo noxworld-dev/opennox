@@ -1835,7 +1835,7 @@ int* __cdecl sub_532130(int a1) {
 		dword_5d4594_2487948 = 0;
 		v14.field_C = v5;
 		*(float*)&byte_5D4594[2487952] = *(float*)&dword_587000_261388 + 1.0;
-		sub_517C10(&v14, (void(__cdecl*)(float*, int))sub_532390, a1);
+		sub_517C10(&v14, sub_532390, a1);
 		if (dword_5d4594_2487948 && !sub_5330C0(a1, *(int*)&dword_5d4594_2487948) &&
 		    *(_BYTE*)(a1 + 12) & 0x10 && (v6 = *(_DWORD*)(v1 + 2064)) != 0 &&
 		    (v7 = *(_DWORD*)(v6 + 12), BYTE1(v7) & 0x40)) {
