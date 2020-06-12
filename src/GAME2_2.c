@@ -750,8 +750,8 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2) {
 	result = (int)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(v4);
 	if (result) {
 		if (dword_5d4594_3799624 == 1 ||
-		    (v33 = (void(__cdecl*)(unsigned int, _BYTE*, int))sub_476DA0, !dword_587000_154956)) {
-			v33 = (void(__cdecl*)(unsigned int, _BYTE*, int))sub_476D70;
+		    (v33 = sub_476DA0, !dword_587000_154956)) {
+			v33 = sub_476D70;
 		}
 		v5 = *(_DWORD*)result;
 		v6 = *((_DWORD*)result + 1);
@@ -6568,9 +6568,9 @@ int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7
 	if ((v11 & 0x3F) != 3) {
 		return result;
 	}
-	v42 = (void(__cdecl*)(char*, char*, int, int*, int*))sub_480700;
+	v42 = sub_480700;
 	if (!dword_5d4594_3801804)
-		v42 = (void(__cdecl*)(char*, char*, int, int*, int*))sub_480860;
+		v42 = sub_480860;
 	result = (int*)sub_42FB30(a1);
 	if (!result) {
 		return result;

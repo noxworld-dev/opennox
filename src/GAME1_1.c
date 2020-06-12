@@ -952,7 +952,7 @@ double __cdecl sub_419D70(void* a1, int a2) {
 //----- (00419DB0) --------------------------------------------------------
 void sub_419DB0() {
 	if (dword_5d4594_527684) {
-		sub_426600(*(int*)&dword_5d4594_527684, (void(__cdecl*)(_DWORD, _DWORD))sub_419DE0);
+		sub_426600(*(int*)&dword_5d4594_527684, sub_419DE0);
 		sub_4265A0(*(LPVOID*)&dword_5d4594_527684);
 		dword_5d4594_527684 = 0;
 	}

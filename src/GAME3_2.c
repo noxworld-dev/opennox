@@ -9849,7 +9849,7 @@ int __cdecl sub_4DF5E0(int a1, int a2) {
 	v3[1] = *(_DWORD*)&byte_5D4594[1563296];
 	v3[2] = a2;
 	*(_DWORD*)&byte_5D4594[1563300] = 0;
-	sub_40F0F0(a1, (int(__cdecl*)(_DWORD, int))sub_4DF580, (int)v3);
+	sub_40F0F0(a1, sub_4DF580, (int)v3);
 	return *(_DWORD*)&byte_5D4594[1563300];
 }
 

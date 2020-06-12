@@ -358,7 +358,7 @@ int sub_51E140() {
 
 	*(_DWORD*)&byte_5D4594[2487252] = 256;
 	*(_DWORD*)&byte_5D4594[2487256] = 256;
-	sub_410640((void(__cdecl*)(int, int))sub_51DEA0, 0);
+	sub_410640(sub_51DEA0, 0);
 	sub_426AC0_file3_fread(&byte_5D4594[2487252], 4u);
 	sub_426AC0_file3_fread(&byte_5D4594[2487256], 4u);
 	sub_426A80((int*)&byte_5D4594[2487252]);
@@ -11012,7 +11012,7 @@ int __cdecl sub_52CE90(int a1, int a2, int a3, int a4) {
 	v9.field_C = *(float*)(a3 + 60) + 150.0;
 	dword_5d4594_2487708 = 0;
 	*(_DWORD*)&byte_5D4594[2487704] = 1287568416;
-	sub_517C10(&v9, (void(__cdecl*)(float*, int))sub_52CF90, a4);
+	sub_517C10(&v9, sub_52CF90, a4);
 	if (!dword_5d4594_2487708)
 		return 0;
 	v5 = *(_DWORD*)(dword_5d4594_2487708 + 508);
@@ -11075,7 +11075,7 @@ void __cdecl sub_52D060(int a1, int a2) {
 	v3 = *(_DWORD*)(v2 + 20);
 	*(_DWORD*)&byte_5D4594[2487716] = a2;
 	v5.field_C = (double)(23 * v3) + 34.0;
-	sub_517C10(&v5, (void(__cdecl*)(float*, int))sub_52CE60, 0);
+	sub_517C10(&v5, sub_52CE60, 0);
 	*(_DWORD*)&byte_5D4594[2487716] = 0;
 }
 
