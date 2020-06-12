@@ -2126,7 +2126,7 @@ void __cdecl sub_5481C0(int a1) {
 	*(_DWORD*)(a1 + 96) = 0;
 	*(_DWORD*)(a1 + 100) = 0;
 	if (!(*(_BYTE*)(a1 + 16) & 0x60)) {
-		sub_517C10((float4*)(a1 + 232), (void(__cdecl*)(float*, int))sub_548220, a1);
+		sub_517C10((float4*)(a1 + 232), sub_548220, a1);
 		if (!(*(_BYTE*)(a1 + 16) & 8)) {
 			if (*(_DWORD*)(a1 + 172) == 2) {
 				sub_54FEF0(a1);

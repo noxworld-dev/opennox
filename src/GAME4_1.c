@@ -1390,7 +1390,7 @@ int __cdecl sub_50B580(int a1, float4* a3) {
 	a1a.field_C = v4;
 	dword_5d4594_2386156 = 1;
 	*(_DWORD*)&byte_5D4594[2386148] = a1;
-	sub_517C10(&a1a, (void(__cdecl*)(float*, int))sub_50B600, (int)a3);
+	sub_517C10(&a1a, sub_50B600, (int)a3);
 	return dword_5d4594_2386156;
 }
 
@@ -5462,7 +5462,7 @@ int sub_512010() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, (void(__cdecl*)(int, int))sub_511F80, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, sub_511F80, 0);
 	return 0;
 }
 
@@ -5515,7 +5515,7 @@ int sub_512100() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, (void(__cdecl*)(int, int))sub_512070, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, sub_512070, 0);
 	return 0;
 }
 
@@ -5573,7 +5573,7 @@ int sub_512260() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, (void(__cdecl*)(int, int))sub_512160, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, sub_512160, 0);
 	return 0;
 }
 
@@ -5607,7 +5607,7 @@ int sub_5122F0() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, (void(__cdecl*)(int, int))sub_5122C0, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, sub_5122C0, 0);
 	return 0;
 }
 
@@ -5828,7 +5828,7 @@ int sub_512690() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_5126C0, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_5126C0, 0);
 	return 0;
 }
 
@@ -5854,7 +5854,7 @@ int sub_5126F0() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, (void(__cdecl*)(int, int))sub_512720, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, sub_512720, 0);
 	return 0;
 }
 
@@ -5886,7 +5886,7 @@ int sub_512750() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_512780, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_512780, 0);
 	return 0;
 }
 
@@ -5912,7 +5912,7 @@ int sub_5127B0() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, (void(__cdecl*)(int, int))sub_5127E0, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, sub_5127E0, 0);
 	return 0;
 }
 
@@ -5944,7 +5944,7 @@ int sub_512810() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_512840, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_512840, 0);
 	return 0;
 }
 
@@ -5970,7 +5970,7 @@ int sub_512870() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, (void(__cdecl*)(int, int))sub_5128A0, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, sub_5128A0, 0);
 	return 0;
 }
 
@@ -6002,7 +6002,7 @@ int sub_5128D0() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_512900, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_512900, 0);
 	return 0;
 }
 
@@ -6052,7 +6052,7 @@ int sub_512990() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_512930, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_512930, 0);
 	return 0;
 }
 
@@ -6395,7 +6395,7 @@ int sub_513010() {
 	v6[1] = v1;
 	v6[2] = v0;
 	v4 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v3);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v4, 0, (void(__cdecl*)(int, int))sub_512FE0, (int)v6);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v4, 0, sub_512FE0, (int)v6);
 	return 0;
 }
 
@@ -6465,7 +6465,7 @@ int sub_513160() {
 	v5[1] = v0;
 	v5[0] = (__int64)v4;
 	v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, (void(__cdecl*)(int, int))sub_5130E0, (int)v5);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, sub_5130E0, (int)v5);
 	return 0;
 }
 
@@ -6509,7 +6509,7 @@ int sub_513230() {
 	v4 = sub_4243F0(*(const char**)&byte_5D4594[4 * v0 + 3831212]);
 	if (v4) {
 		v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
-		nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, (void(__cdecl*)(int, int))sub_513280, (int)&v4);
+		nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, sub_513280, (int)&v4);
 	}
 	return 0;
 }
@@ -6574,7 +6574,7 @@ int sub_5133B0() {
 		v6[0] = v2;
 		v6[1] = (__int64)((double)*(unsigned int*)&byte_5D4594[2649704] * v5);
 		v3 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
-		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, (void(__cdecl*)(int, int))sub_513390, (int)v6);
+		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, sub_513390, (int)v6);
 	}
 	return 0;
 }
@@ -8408,7 +8408,7 @@ int sub_5157D0() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_5157A0, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_5157A0, 0);
 	return 0;
 }
 
@@ -8444,7 +8444,7 @@ int sub_515850() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515820, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515820, 0);
 	return 0;
 }
 
@@ -8547,7 +8547,7 @@ int sub_5159B0() {
 	v3 = script_pop();
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515980, (int)&v3);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515980, (int)&v3);
 	return 0;
 }
 
@@ -8618,7 +8618,7 @@ int sub_515AE0() {
 	v0 = script_pop();
 	v4 = v3;
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515A30, (int)&v4);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515A30, (int)&v4);
 	return 0;
 }
 
@@ -8681,7 +8681,7 @@ int sub_515BF0() {
 	v0 = script_pop();
 	*(_QWORD*)v4 = *(_QWORD*)v3;
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515B80, (int)v4);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515B80, (int)v4);
 	return 0;
 }
 
@@ -8728,7 +8728,7 @@ int sub_515CB0() {
 	v1 = script_pop();
 	v4 = v0;
 	v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, (void(__cdecl*)(int, int))sub_515C80, (int)&v4);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, sub_515C80, (int)&v4);
 	return 0;
 }
 
@@ -8834,7 +8834,7 @@ int sub_515E50() {
 	v3 = script_pop();
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515E20, (int)&v3);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515E20, (int)&v3);
 	return 0;
 }
 
@@ -8875,7 +8875,7 @@ int sub_515EE0() {
 	v3 = script_pop();
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_515EB0, (int)&v3);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515EB0, (int)&v3);
 	return 0;
 }
 
@@ -8948,7 +8948,7 @@ int nox_server_scriptMonsterGroupFleeFrom_516000() {
 	if (v5[0]) {
 		v5[1] = v0;
 		v3 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v2);
-		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, (void(__cdecl*)(int, int))nox_server_scriptFleeFrom_515F70, (int)v5);
+		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, nox_server_scriptFleeFrom_515F70, (int)v5);
 	}
 	return 0;
 }
@@ -8999,7 +8999,7 @@ int sub_5160F0() {
 	v3 = script_pop();
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_516090, (int)&v3);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_516090, (int)&v3);
 	return 0;
 }
 
@@ -9718,7 +9718,7 @@ int sub_516CB0() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_516C90, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_516C90, 0);
 	return 0;
 }
 
@@ -9757,7 +9757,7 @@ int sub_516D40() {
 
 	v0 = script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, (void(__cdecl*)(int, int))sub_516D00, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_516D00, 0);
 	return 0;
 }
 
@@ -10674,7 +10674,7 @@ void __cdecl sub_517DC0(float4* a1, void(__cdecl* a2)(int, int), int a3) {
 //----- (00517ED0) --------------------------------------------------------
 void __cdecl sub_517ED0(float4* a1, void(__cdecl* a2)(float*, int), int a3) {
 	sub_517C10(a1, a2, a3);
-	sub_517DC0(a1, (void(__cdecl*)(int, int))a2, a3);
+	sub_517DC0(a1, a2, a3);
 }
 
 //----- (00517F00) --------------------------------------------------------

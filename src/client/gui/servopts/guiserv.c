@@ -478,7 +478,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4) {
 						    (char*)&byte_587000[131412], 0,
 						    "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1363);
 						sub_449A10(*(int*)&dword_5d4594_1046492, (int)&byte_5D4594[1046560],
-							   (int)v22, 56, (int (*)(void))sub_459150, 0);
+							   (int)v22, 56, sub_459150, 0);
 						sub_44A360(1);
 						return 1;
 					}
@@ -637,7 +637,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4) {
 	}
 	v7 = nox_window_call_field_94((int)v4, 16413, 0, 0);
 	nox_sprintf(v41, "%S", v7);
-	if (!v41 || !v41[0])
+	if (!v41[0]) // TODO: was if (!v41 || ...
 		return 1;
 	v8 = atoi(v41);
 	if (v8 < 0)
