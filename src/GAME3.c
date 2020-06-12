@@ -6977,7 +6977,7 @@ unsigned __int8* __cdecl sub_4AEEA0(unsigned __int8** a1) {
 	result = a1[1];
 	if (result) {
 		sub_4AF890(a1);
-		result = (unsigned __int8*)sub_4AF690(a1, (void(__cdecl*)(_DWORD*, _DWORD*, int))sub_4AEED0);
+		result = (unsigned __int8*)sub_4AF690(a1, sub_4AEED0);
 	}
 	return result;
 }
@@ -7222,7 +7222,7 @@ unsigned __int8* __cdecl sub_4AF2A0(unsigned __int8** a1) {
 	result = a1[1];
 	if (result) {
 		sub_4AF890(a1);
-		result = (unsigned __int8*)sub_4AF690(a1, (void(__cdecl*)(_DWORD*, _DWORD*, int))sub_4AF2D0);
+		result = (unsigned __int8*)sub_4AF690(a1, sub_4AF2D0);
 	}
 	return result;
 }
@@ -7261,7 +7261,7 @@ void __cdecl sub_4AF2D0(int* a1, int a2, int a3) {
 //----- (004AF3D0) --------------------------------------------------------
 _DWORD* __cdecl sub_4AF3D0(_DWORD* a1) {
 	sub_434430(255, 255, 255);
-	return sub_4AF690(a1, (void(__cdecl*)(_DWORD*, _DWORD*, int))sub_4AF400);
+	return sub_4AF690(a1, sub_4AF400);
 }
 
 //----- (004AF400) --------------------------------------------------------

@@ -4241,7 +4241,7 @@ const wchar_t* __cdecl sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 	v11 = 0;
 	sub_416580();
 	result = nox_wcscpy(v13, a1);
-	if (v13) {
+	if (true) { // TODO: was if (v13)
 		if (v13[0] == 34) {
 			result = nox_wcstok(&v13[1], L"\"\n\r");
 			v7 = result;

@@ -811,7 +811,7 @@ unsigned int invalidIpChecker(unsigned int interval, void* param) {
 	while (sub_44A4A0())
 		return 1;
 	if (isInvalidIp) {
-		sub_449A10(0, 0, (int)L"Invalid Address", 33, (int (*)(void))playErrSoundClient, 0);
+		sub_449A10(0, 0, (int)L"Invalid Address", 33, playErrSoundClient, 0);
 		return 0;
 	}
 	sub_4378B0();

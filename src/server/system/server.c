@@ -2245,7 +2245,7 @@ char sub_51B100() {
 					v66.field_4 = v65 - 42.5;
 					v66.field_8 = v56 + 42.5;
 					v66.field_C = v65 + 42.5;
-					sub_517C10(&v66, (void(__cdecl*)(float*, int))sub_51B860, 0);
+					sub_517C10(&v66, sub_51B860, 0);
 				}
 				break;
 			}
