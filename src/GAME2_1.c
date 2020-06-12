@@ -156,7 +156,7 @@ nox_window* nox_win_unk4 = 0;
 nox_window* nox_win_unk5 = 0;
 nox_window* nox_win_cur_weapon = 0;
 
-const nox_drawable_lists_cap = 512;
+const int nox_drawable_lists_cap = 512;
 
 nox_drawable** nox_drawable_list_2 = 0;
 int nox_drawable_list_2_size = 0;
@@ -167,7 +167,7 @@ int nox_drawable_list_3_size = 0;
 nox_drawable** nox_drawable_list_4 = 0;
 int nox_drawable_list_4_size = 0;
 
-const nox_drawable_list_1_cap = 8192;
+const int nox_drawable_list_1_cap = 8192;
 nox_drawable** nox_drawable_list_1 = 0;
 int nox_drawable_list_1_size = 0;
 
