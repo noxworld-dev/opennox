@@ -1,6 +1,9 @@
 cmake_minimum_required (VERSION 3.11)
 project (nox-port)
 
+# Search 32bit libs first
+set( CMAKE_FIND_LIBRARY_CUSTOM_LIB_SUFFIX 32 )
+
 # Set default build type
 if (NOT CMAKE_BUILD_TYPE)
     message (STATUS "Build type not set - defaulting to Release")
@@ -49,16 +52,23 @@ else ()
 endif ()
 include_directories (external/include)
 link_directories (${PROJECT_SOURCE_DIR}/external/lib)
+
+find_package(SDL2 CONFIG REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+
+find_package(OpenGL REQUIRED)
+include_directories(${OPENGL_INCLUDE_DIR})
+
+find_package(GLEW REQUIRED)
+include_directories(${GLEW_INCLUDE_DIRS})
+
+find_package(OpenAL REQUIRED)
+include_directories(${OPENAL_INCLUDE_DIR})
+
 if (WIN32)
-    set (OPENAL_LIBRARIES openal)
-    set (OPENGL_LIBRARIES glew32 opengl32)
     set (WIN32_LIBRARIES ws2_32 winmm)
 elseif (APPLE)
-    set (OPENAL_LIBRARIES "-framework OpenAL")
-    set (OPENGL_LIBRARIES "-framework OpenGL")
 else ()
-    set (OPENAL_LIBRARIES openal)
-    set (OPENGL_LIBRARIES GL)
     set (PTHREAD_LIBRARIES pthread)
 endif ()
 
@@ -260,11 +270,12 @@ add_executable (
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM_FLAGS "-g -o out.html --pre-js ${CMAKE_SOURCE_DIR}/pre.js -lidbfs.js -s CASE_INSENSITIVE_FS=1 -s ASYNCIFY -s TOTAL_MEMORY=201326592 -s EMULATE_FUNCTION_POINTER_CASTS=1 -s ASSERTIONS=2 -mnontrapping-fptoint -s EXIT_RUNTIME=1")
 endif ()
+
 target_link_libraries (
     out
     "${WASM_FLAGS}"
-    SDL2
-    "${OPENAL_LIBRARIES}"
+    "${SDL2_LIBRARIES}"
+    "${OPENAL_LIBRARY}"
     "${OPENGL_LIBRARIES}"
     "${PTHREAD_LIBRARIES}"
     "${WIN32_LIBRARIES}"
