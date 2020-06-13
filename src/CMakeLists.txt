@@ -50,27 +50,6 @@ else ()
         add_compile_options (-s USE_SDL=2)
     endif ()
 endif ()
-include_directories (external/include)
-link_directories (${PROJECT_SOURCE_DIR}/external/lib)
-
-find_package(SDL2 CONFIG REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
-
-find_package(OpenGL REQUIRED)
-include_directories(${OPENGL_INCLUDE_DIR})
-
-find_package(GLEW REQUIRED)
-include_directories(${GLEW_INCLUDE_DIRS})
-
-find_package(OpenAL REQUIRED)
-include_directories(${OPENAL_INCLUDE_DIR})
-
-if (WIN32)
-    set (WIN32_LIBRARIES ws2_32 winmm)
-elseif (APPLE)
-else ()
-    set (PTHREAD_LIBRARIES pthread)
-endif ()
 
 if (WIN32)
     set (COMPAT_SOURCES compat_mss.c)
@@ -271,12 +250,42 @@ if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM_FLAGS "-g -o out.html --pre-js ${CMAKE_SOURCE_DIR}/pre.js -lidbfs.js -s CASE_INSENSITIVE_FS=1 -s ASYNCIFY -s TOTAL_MEMORY=201326592 -s EMULATE_FUNCTION_POINTER_CASTS=1 -s ASSERTIONS=2 -mnontrapping-fptoint -s EXIT_RUNTIME=1")
 endif ()
 
+include_directories (external/include)
+link_directories (${PROJECT_SOURCE_DIR}/external/lib)
+
+find_package(SDL2 CONFIG REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+
+find_package(OpenGL REQUIRED)
+include_directories(${OPENGL_INCLUDE_DIR})
+
+find_package(GLEW REQUIRED)
+include_directories(${GLEW_INCLUDE_DIRS})
+
+find_package(OpenAL REQUIRED)
+include_directories(${OPENAL_INCLUDE_DIR})
+
+if (WIN32)
+    set (WIN32_LIBRARIES ws2_32 winmm)
+
+    # vcpkg recommends these. They should perhaps be different if these packages are installed via other means.
+    target_link_libraries( out PRIVATE SDL2::SDL2 SDL2::SDL2main )
+    target_link_libraries( out PRIVATE GLEW::GLEW )
+    target_link_libraries( out PRIVATE OpenAL::OpenAL )
+elseif (APPLE)
+    target_link_libraries( out
+        ${SDL2_LIBRARIES}
+        ${OPENAL_LIBRARY}
+        ${OPENGL_LIBRARIES}
+        ${GLEW_LIBRARIES}
+    )
+else ()
+    set (PTHREAD_LIBRARIES pthread)
+endif ()
+
 target_link_libraries (
     out
     "${WASM_FLAGS}"
-    "${SDL2_LIBRARIES}"
-    "${OPENAL_LIBRARY}"
-    "${OPENGL_LIBRARIES}"
     "${PTHREAD_LIBRARIES}"
     "${WIN32_LIBRARIES}"
 )
