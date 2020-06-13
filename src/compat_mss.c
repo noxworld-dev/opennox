@@ -5,7 +5,7 @@
 #include <AL/al.h>
 #include <AL/alc.h>
 #endif
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #define MINIMP3_ONLY_MP3
 #define MINIMP3_NO_SIMD

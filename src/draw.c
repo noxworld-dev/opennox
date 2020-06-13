@@ -11,11 +11,11 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glext.h>
 #include <OpenGL/glu.h>
-#include <SDL2/SDL_opengl.h>
+#include <SDL_opengl.h>
 #else
 #include <GL/gl.h>
-#include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_opengl_glext.h>
+#include <SDL_opengl.h>
+#include <SDL_opengl_glext.h>
 #endif
 
 #ifdef __EMSCRIPTEN__

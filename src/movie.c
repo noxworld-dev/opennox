@@ -1,5 +1,5 @@
 #include "proto.h"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #ifdef NO_MOVIE
 

@@ -1,7 +1,7 @@
 #ifndef NOX_PLATFORM_H
 #define NOX_PLATFORM_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 int nox_rand();
 void nox_srand(unsigned int seed);

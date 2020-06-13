@@ -23,7 +23,7 @@
 #define NOX_MAX_HEIGHT 768
 
 #define USE_SDL 1
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include "platform.h"
 

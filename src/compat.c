@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <wctype.h>
 
-#include <SDL2/SDL_stdinc.h>
+#include <SDL_stdinc.h>
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
