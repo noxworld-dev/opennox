@@ -4985,7 +4985,7 @@ int __cdecl sub_4C2EF0(int a1) {
 	int v1; // eax
 	int v3; // eax
 
-	v1 = *(_DWORD*)(nox_get_thing(a1) + 36);
+	v1 = nox_get_thing(a1)->sub_class;
 	if (v1 & 1)
 		return 1;
 	v3 = -((v1 & 2) != 0);
