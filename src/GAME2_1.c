@@ -705,7 +705,7 @@ int* __cdecl sub_461970(int a1, int a2) {
 	int v3;      // ecx
 	int* result; // eax
 
-	if (!(*(_DWORD*)(nox_get_thing(a2) + 32) & 0x4000000)) {
+	if (!(nox_get_thing(a2)->pri_class & 0x4000000)) {
 		v2 = (int*)&byte_5D4594[1050020];
 		while (1) {
 			v3 = 0;
