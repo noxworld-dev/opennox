@@ -50,13 +50,16 @@ endif ()
 include_directories (external/include)
 link_directories (${PROJECT_SOURCE_DIR}/external/lib)
 if (WIN32)
-    set (OPENAL_LIBRARIES openal)
-    set (OPENGL_LIBRARIES glew32 opengl32)
+    find_library (SDL2_LIBRARIES SDL2.lib)
+    find_library (OPENAL_LIBRARIES OpenAL32.lib)
+    find_library (GLEW_LIBRARIES glew32.lib)
+    find_library (OPENGL_LIBRARIES OpenGL32.lib)
     set (WIN32_LIBRARIES ws2_32 winmm)
 elseif (APPLE)
     set (OPENAL_LIBRARIES "-framework OpenAL")
     set (OPENGL_LIBRARIES "-framework OpenGL")
 else ()
+    set (SDL2_LIBRARIES SDL2)
     set (OPENAL_LIBRARIES openal)
     set (OPENGL_LIBRARIES GL)
     set (PTHREAD_LIBRARIES pthread)
@@ -263,13 +266,22 @@ endif ()
 target_link_libraries (
     out
     "${WASM_FLAGS}"
-    SDL2
+    "${SDL2_LIBRARIES}"
+    "${OPENAL_LIBRARIES}"
+    "${GLEW_LIBRARIES}"
+    "${OPENGL_LIBRARIES}"
     "${OPENAL_LIBRARIES}"
     "${OPENGL_LIBRARIES}"
     "${PTHREAD_LIBRARIES}"
     "${WIN32_LIBRARIES}"
 )
 if (MSVC)
+    find_path(SDL_INCLUDE_DIR SDL2/SDL.h)
+    find_path(GLEW_INCLUDE_DIR GL/glew.h)
+    find_path(OPENAL_INCLUDE_DIR AL/al.h)
+    include_directories("${SDL_INCLUDE_DIR}")
+    include_directories("${GLEW_INCLUDE_DIR}")
+    include_directories("${OPENAL_INCLUDE_DIR}")
 else ()
     target_link_options (out PUBLIC -m32)
     if (USE_ASAN)
