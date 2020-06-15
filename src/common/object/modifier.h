@@ -3,7 +3,7 @@
 
 #include "../../defs.h"
 
-int __cdecl sub_411B90(int a1, char* a2, int a3);
+int __cdecl sub_411B90(const char* a1, char* a2, obj_412ae0_t* obj);
 int __cdecl sub_412100_parse_desc(const char* a1, char* a2, obj_412ae0_t* a3);
 int __cdecl sub_4121B0_parse_second_desc(const char* a1, char* a2, obj_412ae0_t* a3);
 int __cdecl sub_412260_parse_ident_desc(const char* a1, char* a2, obj_412ae0_t* a3);
