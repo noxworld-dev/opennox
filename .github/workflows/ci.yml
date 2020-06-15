@@ -82,3 +82,48 @@ jobs:
           buildWithCMakeArgs: ''
           buildDirectory: '${{ runner.workspace }}/b/gmake/'
           cmakeWrapperCommand: emcmake
+
+  windows_native_hosted:
+    name: Windows on ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        config:
+          - {
+            name: "Windows Server 2019",
+            os: windows-2019,
+            vcpkg: {
+              triplet: x86-windows,
+              commitId: '2020.04',
+              packages: "openal-soft sdl2 opengl glew"
+            }
+            }
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - uses: lukka/get-cmake@latest
+
+      - name: Restore artifacts, or run vcpkg, build and cache artifacts
+        uses: lukka/run-vcpkg@v3
+        id: runvcpkg
+        with:
+          vcpkgArguments: '${{ matrix.config.vcpkg.packages }}'
+          vcpkgTriplet: '${{ matrix.config.vcpkg.triplet }}'
+          vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
+          vcpkgGitCommitId: '${{ matrix.config.vcpkg.commitId }}'
+
+      - name: Run CMake+gmake
+        uses: lukka/run-cmake@v2
+        id: runcmake
+        with:
+          useVcpkgToolchainFile: true
+          cmakeGenerator: 'VS16Win32'
+          cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
+          cmakeListsTxtPath: '${{ github.workspace }}/src/CMakeLists.txt'
+          buildWithCMakeArgs: ''
+          buildDirectory: '${{ runner.workspace }}/b/gmake/'
