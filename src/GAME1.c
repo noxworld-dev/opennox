@@ -5253,50 +5253,54 @@ unsigned __int8* __cdecl sub_40F120(int a1, _DWORD* a2) {
 }
 
 //----- (0040F1D0) --------------------------------------------------------
-wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int a4) {
-	char* v5;        // ebx
-	unsigned int v6; // ecx
-	char v7;         // al
-	const char* v8;  // edi
-	_BYTE* v9;       // eax
-	_BYTE* v10;      // esi
-	int v11;         // eax
-
-	if (a2)
-		*a2 = 0;
-	if (!string_entries)
+wchar_t* __cdecl loadString_sub_40F1D0(const char* stringName, char** storeTo, const char* srcLocation, int srcLine) {
+	if (storeTo) {
+		*storeTo = 0;
+	}
+	if (!string_entries) {
 		return (wchar_t*)&byte_587000[26204];
-	v5 = a1;
-	if (strchr(a1, ':')) {
-		v8 = a3;
+	}
+	char* fullStringName = stringName;
+	const char* srcFilename;
+	if (strchr(stringName, ':')) {
+		srcFilename = srcLocation;
 	} else {
-		v6 = strlen(a3) - 1;
-		if (a3[v6] != '\\') {
-			do
-				v7 = a3[--v6];
-			while (v7 != '\\');
+		unsigned int separatorPos = strlen(srcLocation) - 1;
+		if (srcLocation[separatorPos] != '\\') {
+			char ch;
+			do {
+				ch = srcLocation[--separatorPos];
+			} while (ch != '\\');
 		}
-		v8 = &a3[v6 + 1];
-		nox_sprintf((char*)&byte_5D4594[243288], "%s:%s", v8, a1);
-		v5 = (char*)&byte_5D4594[243288];
+		srcFilename = &srcLocation[separatorPos + 1];
+		nox_sprintf((char*)&byte_5D4594[243288], "%s:%s", srcFilename, stringName);
+		fullStringName = (char*)&byte_5D4594[243288];
 	}
-	v9 = bsearch(v5, (const void*)string_entries, string_entries_cnt, sizeof(nox_string_entry),
-		     (int(__cdecl*)(const void*, const void*))_strcmpi);
-	v10 = v9;
-	if (v9) {
-		if (v9[49] <= 1u)
-			v11 = 0;
-		else
-			v11 = nox_common_randomInt_415FA0(0, (unsigned __int8)v9[49] - 1);
-		if (a2)
-			*a2 = *(_DWORD*)(dword_5d4594_251508 + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
-		return *(wchar_t**)(dword_5d4594_251504 + 4 * (v11 + *((unsigned __int16*)v10 + 25)));
+	const nox_string_entry* entry =
+	    bsearch(fullStringName, (const void*)string_entries, string_entries_cnt, sizeof(nox_string_entry),
+		    (int(__cdecl*)(const void*, const void*))_strcmpi);
+	if (!entry) {
+		nox_missing_string* v12 = (nox_missing_string*)nox_malloc(sizeof(nox_missing_string));
+		nox_swprintf(v12->data, L"MISSING:'%S'", fullStringName, srcFilename, srcLine);
+		v12->next = missing_strings;
+		missing_strings = v12;
+
+		return v12->data;
 	}
-	nox_missing_string* v12 = (nox_missing_string*)nox_malloc(sizeof(nox_missing_string));
-	nox_swprintf(v12->data, L"MISSING:'%S'", v5, v8, a4);
-	v12->next = missing_strings;
-	missing_strings = v12;
-	return v12->data;
+
+	const _BYTE variantCnt = *(_BYTE*)(&entry->data[49]);
+	int variant;
+	if (variantCnt <= 1u) {
+		variant = 0;
+	} else {
+		variant = nox_common_randomInt_415FA0(0, variantCnt - 1);
+	}
+	const int offset = 4 * (variant + entry->field_50);
+	if (storeTo) {
+		*storeTo = *(char**)(dword_5d4594_251508 + offset);
+	}
+
+	return *(wchar_t**)(dword_5d4594_251504 + offset);
 }
 
 //----- (0040F300) --------------------------------------------------------

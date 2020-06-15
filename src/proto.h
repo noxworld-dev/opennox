@@ -416,7 +416,7 @@ int __cdecl sub_40F0B0(int a1);
 int __cdecl sub_40F0D0(int a1);
 void __cdecl sub_40F0F0(int a1, int(__cdecl* a2)(_DWORD, int), int a3);
 unsigned __int8* __cdecl sub_40F120(int a1, _DWORD* a2);
-wchar_t* __cdecl loadString_sub_40F1D0(char* a1, _DWORD* a2, const char* a3, int a4);
+wchar_t* __cdecl loadString_sub_40F1D0(const char* stringName, char** storeTo, const char* srcLocation, int srcLine);
 int __cdecl nox_strman_readfile(char* a1);
 int sub_40F4E0();
 char __cdecl sub_40F5C0(_BYTE* a1);
