@@ -143,7 +143,7 @@ void process_textinput_keyboard_event(const SDL_KeyboardEvent* event) {
 		}
 		break;
 	case SDLK_RETURN:
-		if (g_ime_raw && event->state == SDL_PRESSED) {
+		if (g_ime_raw[0] && event->state == SDL_PRESSED) {
 			update_ime(1);
 		}
 		break;
