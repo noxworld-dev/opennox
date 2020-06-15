@@ -1,32 +1,27 @@
 #include "../../proto.h"
 
 //----- (00411B90) --------------------------------------------------------
-int __cdecl sub_411B90(int a1, char* a2, int a3) {
-	int result;  // eax
-	char* v4;    // ebx
-	wchar_t* v5; // eax
-	size_t v6;   // eax
-	size_t v7;   // esi
-	wchar_t* v8; // eax
-	char v9[8];  // [esp+Ch] [ebp-8h]
-
-	strcpy(v9, " =\n\r\t");
-	result = (int)strtok(a2, v9);
-	v4 = (char*)result;
-	if (result) {
-		v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 418);
-		v6 = nox_wcslen(v5);
-		v7 = v6;
-		result = (int)nox_malloc(2 * v6 + 2);
-		*(_DWORD*)(a3 + 8) = result;
-		if (result) {
-			v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 426);
-			nox_wcsncpy(*(wchar_t**)(a3 + 8), v8, v7);
-			*(_WORD*)(*(_DWORD*)(a3 + 8) + 2 * v7) = 0;
-			result = 1;
-		}
+int __cdecl sub_411B90(const char* a1, char* a2, obj_412ae0_t* obj) {
+	// a1 is of the form "= modifier.db:SomethingDesc".
+	// Parse out the string name (after the separators " =\n\r\t")
+	const char* stringName = strtok(a2, " =\n\r\t");
+	if (!stringName) {
+		return 0;
 	}
-	return result;
+
+	// POST_CLEANUP: Why load the string twice?
+	const wchar_t* str1 = loadString_sub_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 418);
+	const size_t str1len = nox_wcslen(str1);
+	obj->field_2 = nox_malloc(2 * str1len + 2);
+	if (!obj->field_2) {
+		return 0;
+	}
+
+	const wchar_t* str2 = loadString_sub_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 426);
+	nox_wcsncpy(obj->field_2, str2, str1len);
+	obj->field_2[str1len] = 0;
+
+	return 1;
 }
 
 //----- (00412100) --------------------------------------------------------
