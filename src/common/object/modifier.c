@@ -71,31 +71,25 @@ int __cdecl sub_4121B0_parse_second_desc(const char* a1, char* a2, obj_412ae0_t*
 }
 
 //----- (00412260) --------------------------------------------------------
-int __cdecl sub_412260_parse_ident_desc(const char* a1, char* a2, obj_412ae0_t* a3) {
-	int result;  // eax
-	char* v4;    // ebx
-	wchar_t* v5; // eax
-	size_t v6;   // eax
-	size_t v7;   // esi
-	wchar_t* v8; // eax
-	char v9[8];  // [esp+Ch] [ebp-8h]
+int __cdecl sub_412260_parse_ident_desc(const char* a1, char* a2, obj_412ae0_t* obj) {
+	// a1 is of the form "= modifier.db:SomethingDesc".
+	// Parse out the string name (after the separators " =\n\r\t")
+	const char* stringName = strtok(a2, " =\n\r\t");
+	if (!stringName) {
+		return 0;
+	}
 
-	strcpy(v9, " =\n\r\t");
-	result = (int)strtok(a2, v9);
-	v4 = (char*)result;
-	if (!result) {
+	const wchar_t* str1 = loadString_sub_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
+	const size_t str1len = nox_wcslen(str1);
+	obj->field_4 = nox_malloc(2 * str1len + 2);
+	if (!obj->field_4) {
 		return 0;
 	}
-	v5 = loadString_sub_40F1D0((char*)result, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
-	v6 = nox_wcslen(v5);
-	v7 = v6;
-	a3->field_4 = (wchar_t*)nox_malloc(2 * v6 + 2);
-	if (!a3->field_4) {
-		return 0;
-	}
-	v8 = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 809);
-	nox_wcsncpy(*(wchar_t**)(&a3->field_4), v8, v7);
-	*(_WORD*)(*(_DWORD*)(&a3->field_4) + 2 * v7) = 0;
+
+	const wchar_t* str2 = loadString_sub_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 809);
+	nox_wcsncpy(obj->field_4, str2, str1len);
+	obj->field_4[str1len] = 0;
+
 	return 1;
 }
 
