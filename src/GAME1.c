@@ -1948,46 +1948,6 @@ BOOL sub_40ABD0() {
 	return _stat((LPCSTR)&byte_587000[5160], (int)&v1) == 0;
 }
 
-//----- (0040AD10) --------------------------------------------------------
-unsigned int __cdecl sub_40AD10(unsigned int* a1, int a2, int a3) {
-	unsigned int v3;     // ecx
-	int v4;              // edx
-	unsigned int v5;     // ecx
-	unsigned int v6;     // esi
-	unsigned int result; // eax
-	unsigned int v8;     // edx
-
-	if (!a3) {
-		v3 = *a1;
-		v4 = a2;
-		goto LABEL_8;
-	}
-	if (a3 != 1) {
-		if (a3 != 2)
-			goto LABEL_9;
-		v3 = a1[3];
-		v4 = a2;
-		goto LABEL_8;
-	}
-	v4 = a2;
-	v3 = a1[2];
-LABEL_8:
-	a1[2] = v4 + v3;
-LABEL_9:
-	v5 = a1[2];
-	v6 = *a1;
-	if (v5 >= *a1) {
-		v8 = a1[3];
-		if (v5 > v8)
-			a1[2] = v8;
-		result = a1[2] - v6;
-	} else {
-		a1[2] = v6;
-		result = 0;
-	}
-	return result;
-}
-
 //----- (0040AD60) --------------------------------------------------------
 unsigned int __cdecl sub_40AD60(char* a1, int a2, int a3, _DWORD* a4) {
 	unsigned int result; // eax
@@ -9786,7 +9746,7 @@ bool __cdecl sub_415470(void) {
 	if (!things)
 		return 0;
 
-	sub_40AD10(things, 0, 0);
+	nox_memfile_seek_40AD10(things, 0, 0);
 	dword_5d4594_251540 = 0;
 	dword_5d4594_251568 = 0;
 	dword_5d4594_251572 = 0;

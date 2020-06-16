@@ -908,7 +908,7 @@ void* __cdecl sub_4E2B60(void) {
 	nox_memfile* things = nox_open_thing_bin();
 	if (!things)
 		return 0;
-	sub_40AD10(things, 0, 0);
+	nox_memfile_seek_40AD10(things, 0, 0);
 	while (nox_memfile_read(&i, 4u, 1, things)) {
 		switch (i) {
 		case 1397769548:
