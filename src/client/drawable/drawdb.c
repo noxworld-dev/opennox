@@ -55,7 +55,7 @@ void* __cdecl sub_44C840_read_things(void) {
 	nox_memfile* things = nox_open_thing_bin();
 	if (!things)
 		return 0;
-	sub_40AD10(things, 0, 0);
+	nox_memfile_seek_40AD10(things, 0, 0);
 	while (nox_memfile_read(&i, 4u, 1, things)) {
 		switch (i) {
 		case 0x5350454C: // "SPEL"

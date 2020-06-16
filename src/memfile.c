@@ -74,3 +74,23 @@ unsigned int nox_memfile_read(void* dst, unsigned int sz, int cnt, nox_memfile* 
 	f->cur += n;
 	return n / sz;
 }
+
+//----- (0040AD10) --------------------------------------------------------
+unsigned int __cdecl nox_memfile_seek_40AD10(nox_memfile* memfile, const int offset, const int fromStartOrEnd) {
+	if (fromStartOrEnd == 0) {
+		memfile->cur = offset + memfile->data;
+	} else if (fromStartOrEnd == 2) {
+		memfile->cur = offset + memfile->end;
+	}
+
+	if (memfile->cur < memfile->data) {
+		memfile->cur = memfile->data;
+		return 0;
+	}
+
+	if (memfile->cur > memfile->end) {
+		memfile->cur = memfile->end;
+	}
+
+	return memfile->cur - memfile->data;
+}
