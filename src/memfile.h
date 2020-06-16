@@ -15,5 +15,6 @@ void nox_memfile_free(nox_memfile* f);
 uint8_t nox_memfile_read_u8(nox_memfile* f);
 uint32_t nox_memfile_read_u32(nox_memfile* f);
 unsigned int nox_memfile_read(void* dst, unsigned int sz, int cnt, nox_memfile* f);
+unsigned int nox_memfile_seek_40AD10(nox_memfile* memfile, const int offset, const int fromStartOrEnd);
 
 #endif // NOX_MEMFILE_H
