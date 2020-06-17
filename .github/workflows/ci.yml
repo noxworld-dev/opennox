@@ -90,7 +90,7 @@ jobs:
             vcpkg: {
               triplet: x86-windows,
               commitId: '2020.04',
-              packages: "openal-soft sdl2 opengl glew"
+              responseFile: 'vcpkg.txt'
             }
             }
 
@@ -102,11 +102,20 @@ jobs:
 
       - uses: lukka/get-cmake@latest
 
+      - name: Cache vcpkg artifacts
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/vcpkg/
+          # Ensure the cache is invalidated any time vcpkg version changes, or a different set of packages is being used.
+          key: ${{ matrix.config.name }}-vcpkg-${{ hashFiles( format('{0}/{1}', github.workspace, matrix.config.vcpkg.responseFile )) }}
+          restore-keys: |
+            ${{ matrix.config.name }}-vcpkg-
+
       - name: Restore artifacts, or run vcpkg, build and cache artifacts
         uses: lukka/run-vcpkg@v3
         id: runvcpkg
         with:
-          vcpkgArguments: '${{ matrix.config.vcpkg.packages }}'
+          vcpkgArguments: '@${{ github.workspace }}/${{ matrix.config.vcpkg.responseFile }}'
           vcpkgTriplet: '${{ matrix.config.vcpkg.triplet }}'
           vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
           vcpkgGitCommitId: '${{ matrix.config.vcpkg.commitId }}'
