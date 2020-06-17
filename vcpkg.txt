@@ -1,0 +1,4 @@
+openal-soft
+sdl2
+opengl
+glew
