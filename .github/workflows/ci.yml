@@ -29,6 +29,22 @@ jobs:
           fetch-depth: 0
           submodules: true
 
+      - name: Set up cache for ccache
+        uses: actions/cache@v2
+        with:
+          path: ccache
+          key: ${{ matrix.config.name }}-ccache-gcc-i386-${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            ${{ matrix.config.name }}-ccache-gcc-i386-${{ github.ref }}-
+            ${{ matrix.config.name }}-ccache-gcc-i386-
+
+      - name: Set ccache settings
+        run: |
+          echo "::set-env name=CCACHE_BASEDIR::${{github.workspace}}"
+          echo "::set-env name=CCACHE_DIR::${{github.workspace}}/ccache"
+          echo "::set-env name=CCACHE_MAXSIZE::2G"
+          echo "::set-env name=CCACHE_SLOPPINESS::time_macros"
+
       - uses: lukka/get-cmake@latest
 
       - name: Install dependencies
@@ -43,6 +59,9 @@ jobs:
           cmakeListsTxtPath: '${{ github.workspace }}/src/CMakeLists.txt'
           buildWithCMakeArgs: ''
           buildDirectory: '${{ runner.workspace }}/b/gmake/'
+
+      - name: Print ccache statistics
+        run: ccache -s
 
   ubuntu_wasm_hosted:
     name: WASM on ${{ matrix.config.name }}
