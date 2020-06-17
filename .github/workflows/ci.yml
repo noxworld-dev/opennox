@@ -11,7 +11,7 @@ on:
 
 jobs:
   ubuntu_x86_hosted:
-    name: Linux/GCC on ${{ matrix.config.name }}
+    name: ${{ matrix.config.target }} on ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
     strategy:
       fail-fast: true
@@ -19,7 +19,15 @@ jobs:
         config:
           - {
             name: "Ubuntu 20.04-LTS",
+            target: "Linux/GCC",
             os: ubuntu-20.04,
+            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
+            }
+          - {
+            name: "Ubuntu 20.04-LTS",
+            target: "WASM",
+            os: ubuntu-20.04,
+            cmakeSetupCommand: "emcmake",
             packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
             }
 
@@ -33,10 +41,11 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ccache
-          key: ${{ matrix.config.name }}-ccache-gcc-i386-${{ github.ref }}-${{ github.sha }}
+          key: ${{ matrix.config.name }}-ccache-${{ matrix.config.target }}-i386-${{ github.ref }}-${{ github.sha }}
           restore-keys: |
-            ${{ matrix.config.name }}-ccache-gcc-i386-${{ github.ref }}-
-            ${{ matrix.config.name }}-ccache-gcc-i386-
+            ${{ matrix.config.name }}-ccache-${{ matrix.config.target }}-i386-${{ github.ref }}-
+            ${{ matrix.config.name }}-ccache-${{ matrix.config.target }}-i386-
+            ${{ matrix.config.name }}-ccache-
 
       - name: Set ccache settings
         run: |
@@ -49,57 +58,24 @@ jobs:
       - name: Install dependencies
         run: sudo dpkg --add-architecture i386 && sudo apt-get update -m && sudo apt-get install -y ${{ matrix.config.packages }}
 
+      - name: Install emscripten
+        if: "contains( matrix.config.target, 'WASM')"
+        uses: lovasoa/setup-emscripten@v1
+        with:
+          emscripten-version: '1.39.16'
+
       - name: Build
         run: |
           export PATH="/usr/lib/ccache:$PATH"
           mkdir -p "${{github.workspace}}/build"
           cd ${{github.workspace}}/build
-          cmake ../src
+          ${{ matrix.config.cmakeSetupCommand }} cmake ../src
           make
         env:
           MAKEFLAGS: "-j2"
 
       - name: Print ccache statistics
         run: ccache -s
-
-  ubuntu_wasm_hosted:
-    name: WASM on ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      fail-fast: true
-      matrix:
-        config:
-          - {
-            name: "Ubuntu 20.04-LTS",
-            os: ubuntu-20.04,
-            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
-            }
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
-      - uses: lukka/get-cmake@latest
-
-      - name: Install dependencies
-        run: sudo dpkg --add-architecture i386 && sudo apt-get update -m && sudo apt-get install -y ${{ matrix.config.packages }}
-
-      - uses: lovasoa/setup-emscripten@v1
-        with:
-          emscripten-version: '1.39.16'
-
-      - name: Run CMake+gmake
-        uses: lukka/run-cmake@v2
-        id: runcmake
-        with:
-          cmakeGenerator: 'UnixMakefiles'
-          cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
-          cmakeListsTxtPath: '${{ github.workspace }}/src/CMakeLists.txt'
-          buildWithCMakeArgs: ''
-          buildDirectory: '${{ runner.workspace }}/b/gmake/'
-          cmakeWrapperCommand: emcmake
 
   windows_native_hosted:
     name: Windows on ${{ matrix.config.name }}
