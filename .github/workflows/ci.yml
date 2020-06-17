@@ -20,7 +20,7 @@ jobs:
           - {
             name: "Ubuntu 20.04-LTS",
             os: ubuntu-20.04,
-            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
+            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
             }
 
     steps:
@@ -40,25 +40,24 @@ jobs:
 
       - name: Set ccache settings
         run: |
+          export PATH="/usr/lib/ccache:$PATH"
           echo "::set-env name=CCACHE_BASEDIR::${{github.workspace}}"
           echo "::set-env name=CCACHE_DIR::${{github.workspace}}/ccache"
           echo "::set-env name=CCACHE_MAXSIZE::2G"
           echo "::set-env name=CCACHE_SLOPPINESS::time_macros"
 
-      - uses: lukka/get-cmake@latest
-
       - name: Install dependencies
         run: sudo dpkg --add-architecture i386 && sudo apt-get update -m && sudo apt-get install -y ${{ matrix.config.packages }}
 
-      - name: Run CMake+gmake
-        uses: lukka/run-cmake@v2
-        id: runcmake
-        with:
-          cmakeGenerator: 'UnixMakefiles'
-          cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
-          cmakeListsTxtPath: '${{ github.workspace }}/src/CMakeLists.txt'
-          buildWithCMakeArgs: ''
-          buildDirectory: '${{ runner.workspace }}/b/gmake/'
+      - name: Build
+        run: |
+          export PATH="/usr/lib/ccache:$PATH"
+          mkdir -p "${{github.workspace}}/build"
+          cd ${{github.workspace}}/build
+          cmake ../src
+          make
+        env:
+          MAKEFLAGS: "-j2"
 
       - name: Print ccache statistics
         run: ccache -s
