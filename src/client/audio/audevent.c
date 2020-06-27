@@ -147,8 +147,7 @@ int __cdecl sub_452580(_DWORD* a1) {
 	result = sub_452810(*(_DWORD*)(v1 + 48) + v3, 0);
 	a1[44] = result;
 	if (result) {
-		v4 = sub_415FF0(*(_DWORD*)(v1 + 76), *(_DWORD*)(v1 + 80), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c",
-				1482);
+		v4 = sub_415FF0(*(_DWORD*)(v1 + 76), *(_DWORD*)(v1 + 80), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 1482);
 		sub_486320((_DWORD*)(a1[44] + 48), v4 + 100);
 		sub_4BDB20(a1[44]);
 		*(_DWORD*)(a1[44] + 152) = a1;
@@ -158,8 +157,8 @@ int __cdecl sub_452580(_DWORD* a1) {
 		a1[7] = 1;
 		*(_DWORD*)(a1[44] + 112) = a1 + 46;
 		if (*(_BYTE*)(v1 + 4) & 8) {
-			v5 = sub_415FF0(*(_DWORD*)(v1 + 68), *(_DWORD*)(v1 + 72),
-					"C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 1497);
+			v5 = sub_415FF0(*(_DWORD*)(v1 + 68), *(_DWORD*)(v1 + 72), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c",
+							1497);
 			if (v5 > 33)
 				sub_452690((int)a1, v5, 1);
 		}
@@ -184,8 +183,7 @@ int __cdecl sub_452770(_DWORD* a1) {
 	sub_4BDB90(a1, 0);
 	v4 = v1[9];
 	if (!(*(_BYTE*)(v4 + 4) & 8) || v2 || v1[142]) {
-		v5 = sub_415FF0(*(_DWORD*)(v4 + 68), *(_DWORD*)(v4 + 72), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c",
-				706);
+		v5 = sub_415FF0(*(_DWORD*)(v4 + 68), *(_DWORD*)(v4 + 72), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 706);
 		if (v5 < 0x21) {
 			sub_4BDB90(a1, v2);
 			return 0;

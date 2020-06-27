@@ -52,7 +52,7 @@ int __cdecl sub_528AC0(int a1, wchar_t* a2, wchar_t a3) {
 	result = sub_4DA7C0();
 	for (i = result; result; i = result) {
 		sub_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 2064), 1, v11,
-			   v8 * (unsigned __int8)v11[8] + 11);
+				   v8 * (unsigned __int8)v11[8] + 11);
 		result = sub_4DA7F0(i);
 	}
 	return result;
@@ -66,7 +66,7 @@ int sub_512B10() {
 	v0 = script_pop();
 	if (dword_5d4594_3821964 && *(_BYTE*)(dword_5d4594_3821964 + 8) & 4) {
 		v1 = loadString_sub_40F1D0(*(char**)&byte_5D4594[4 * v0 + 3831212], 0,
-					   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1285);
+								   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1285);
 		sub_4D9EB0(*(int*)&dword_5d4594_3821964, v1);
 	}
 	return 0;
@@ -79,7 +79,7 @@ int sub_512B60() {
 
 	v0 = script_pop();
 	v1 = loadString_sub_40F1D0(*(char**)&byte_5D4594[4 * v0 + 3831212], 0,
-				   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1310);
+							   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1310);
 	sub_4D9FD0(0, v1);
 	return 0;
 }
@@ -115,7 +115,7 @@ int sub_513F70() {
 
 	v0 = script_pop();
 	v1 = loadString_sub_40F1D0(*(char**)&byte_5D4594[4 * v0 + 3831212], 0,
-				   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 2901);
+							   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 2901);
 	v2 = sub_512E80((int)v1);
 	sub_507230(v2);
 	return 0;

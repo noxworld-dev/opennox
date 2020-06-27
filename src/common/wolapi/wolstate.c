@@ -10,28 +10,28 @@ wchar_t* __cdecl sub_41DAC0(int a1) {
 
 	switch (a1 + 2147221402) {
 	case 0:
-		result = loadString_sub_40F1D0((char*)&byte_587000[58600], 0,
-					       "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 196);
+		result =
+			loadString_sub_40F1D0((char*)&byte_587000[58600], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 196);
 		break;
 	case 8:
-		result = loadString_sub_40F1D0((char*)&byte_587000[58496], 0,
-					       "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 188);
+		result =
+			loadString_sub_40F1D0((char*)&byte_587000[58496], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 188);
 		break;
 	case 10:
-		result = loadString_sub_40F1D0((char*)&byte_587000[58376], 0,
-					       "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 180);
+		result =
+			loadString_sub_40F1D0((char*)&byte_587000[58376], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 180);
 		break;
 	case 11:
-		result = loadString_sub_40F1D0((char*)&byte_587000[58548], 0,
-					       "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 192);
+		result =
+			loadString_sub_40F1D0((char*)&byte_587000[58548], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 192);
 		break;
 	case 12:
-		result = loadString_sub_40F1D0((char*)&byte_587000[58436], 0,
-					       "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 184);
+		result =
+			loadString_sub_40F1D0((char*)&byte_587000[58436], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 184);
 		break;
 	default:
-		result = loadString_sub_40F1D0((char*)&byte_587000[58652], 0,
-					       "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 200);
+		result =
+			loadString_sub_40F1D0((char*)&byte_587000[58652], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 200);
 		break;
 	}
 	if (result)
@@ -56,30 +56,25 @@ int sub_41DDB0() {
 					if (!*(_WORD*)&byte_5D4594[2660140]) {
 						switch (dword_5d4594_2660652 + 2147221403) {
 						case 0:
-							v2 = loadString_sub_40F1D0(
-							    (char*)&byte_587000[58748], 0,
-							    "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 414);
+							v2 = loadString_sub_40F1D0((char*)&byte_587000[58748], 0,
+													   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 414);
 							nox_wcscpy((wchar_t*)&byte_5D4594[2660140], v2);
 							break;
 						case 1:
-							v3 = loadString_sub_40F1D0(
-							    (char*)&byte_587000[58800], 0,
-							    "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 418);
+							v3 = loadString_sub_40F1D0((char*)&byte_587000[58800], 0,
+													   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 418);
 							goto LABEL_14;
 						case 155:
-							v3 = loadString_sub_40F1D0(
-							    (char*)&byte_587000[58848], 0,
-							    "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 422);
+							v3 = loadString_sub_40F1D0((char*)&byte_587000[58848], 0,
+													   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 422);
 							goto LABEL_14;
 						case 156:
-							v3 = loadString_sub_40F1D0(
-							    (char*)&byte_587000[58904], 0,
-							    "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 426);
+							v3 = loadString_sub_40F1D0((char*)&byte_587000[58904], 0,
+													   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 426);
 							goto LABEL_14;
 						default:
-							v3 = loadString_sub_40F1D0(
-							    (char*)&byte_587000[58956], 0,
-							    "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 430);
+							v3 = loadString_sub_40F1D0((char*)&byte_587000[58956], 0,
+													   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 430);
 						LABEL_14:
 							nox_swprintf((wchar_t*)&byte_5D4594[2660140], v3);
 							break;

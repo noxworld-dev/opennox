@@ -46,8 +46,8 @@ _DWORD* __cdecl sub_50E8F0(int a1, int a2) {
 
 	v2 = 0;
 	if (nox_common_gameFlags_check_40A5C0(4096) &&
-	    (v3 = *(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064),
-	     v4 = *(_DWORD**)&byte_5D4594[4 * v3 + 2386364], *(_DWORD*)&byte_5D4594[4 * v3 + 2386364] = 0, v4)) {
+		(v3 = *(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064),
+		 v4 = *(_DWORD**)&byte_5D4594[4 * v3 + 2386364], *(_DWORD*)&byte_5D4594[4 * v3 + 2386364] = 0, v4)) {
 		v2 = 1;
 	} else {
 		result = sub_50E870();
@@ -291,7 +291,7 @@ int __cdecl sub_510540(int a1) {
 	}
 	v1 = *(unsigned __int16*)(a1 + 4);
 	if ((unsigned __int16)v1 == *(_DWORD*)&byte_5D4594[2386520] || v1 == *(_DWORD*)&byte_5D4594[2386524] ||
-	    v1 == *(_DWORD*)&byte_5D4594[2386528] || v1 == *(_DWORD*)&byte_5D4594[2386532]) {
+		v1 == *(_DWORD*)&byte_5D4594[2386528] || v1 == *(_DWORD*)&byte_5D4594[2386532]) {
 		result = 0;
 	} else {
 	LABEL_12:
@@ -311,7 +311,7 @@ BOOL __cdecl sub_5105D0(int a1) {
 	}
 	v1 = *(unsigned __int16*)(a1 + 4);
 	return (unsigned __int16)v1 == *(_DWORD*)&byte_5D4594[2386536] || v1 == *(_DWORD*)&byte_5D4594[2386540] ||
-	       v1 == *(_DWORD*)&byte_5D4594[2386544];
+		   v1 == *(_DWORD*)&byte_5D4594[2386544];
 }
 
 //----- (0050EF10) --------------------------------------------------------
@@ -334,8 +334,8 @@ _DWORD* __cdecl sub_50EF10_trade(int a1, int a2) {
 		v3 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 280);
 		if (v3) {
 			if (*(_DWORD*)(v3 + 12) != a2) {
-				v4 = loadString_sub_40F1D0((char*)&byte_587000[235924], 0,
-							   "C:\\NoxPost\\src\\Server\\System\\Trade.c", 1836);
+				v4 = loadString_sub_40F1D0((char*)&byte_587000[235924], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+										   1836);
 				sub_4D9EB0(a1, v4);
 			}
 			return 0;
@@ -347,8 +347,8 @@ _DWORD* __cdecl sub_50EF10_trade(int a1, int a2) {
 		if (*(_DWORD*)(v7 + 280)) {
 			if (v2) {
 				v13 = *(_DWORD*)(v7 + 276) + 4704;
-				v8 = loadString_sub_40F1D0((char*)&byte_587000[235988], 0,
-							   "C:\\NoxPost\\src\\Server\\System\\Trade.c", 1878);
+				v8 = loadString_sub_40F1D0((char*)&byte_587000[235988], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+										   1878);
 				nox_swprintf(v14, v8, v13);
 				sub_4D9EB0(a1, v14);
 			}
@@ -475,14 +475,13 @@ int __cdecl sub_50F820_trade(int a1, int a2, float a3) {
 		result = 1;
 	} else {
 		if (*(_BYTE*)(*(_DWORD*)(a1 + 8) + 8) & 4) {
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[236056], 0,
-						   "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2487);
+			v7 = loadString_sub_40F1D0((char*)&byte_587000[236056], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+									   2487);
 			sub_4D9EB0(*(_DWORD*)(a1 + 8), v7);
 		}
 		if (!(*(_BYTE*)(*(_DWORD*)(a1 + 12) + 8) & 4))
 			return 0;
-		v8 = loadString_sub_40F1D0((char*)&byte_587000[236120], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
-					   2490);
+		v8 = loadString_sub_40F1D0((char*)&byte_587000[236120], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2490);
 		sub_4D9EB0(*(_DWORD*)(a1 + 12), v8);
 		result = 0;
 	}
@@ -531,7 +530,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 				v9 = sub_4E7D30(v3, *(unsigned __int16*)(v6 + 4));
 				if (v9 >= (nox_common_gameFlags_check_40A5C0(6144) ? 9 : 3)) {
 					v10 = loadString_sub_40F1D0((char*)&byte_587000[236200], 0,
-								    "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2943);
+												"C:\\NoxPost\\src\\Server\\System\\Trade.c", 2943);
 					return (float*)sub_4D9EB0(v3, v10);
 				}
 			}
@@ -556,7 +555,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 				}
 			}
 			if (nox_common_gameFlags_check_40A5C0(4096) &&
-			    (sub_5105D0(v6) || *(unsigned __int16*)(v6 + 4) == dword_5d4594_2386548))
+				(sub_5105D0(v6) || *(unsigned __int16*)(v6 + 4) == dword_5d4594_2386548))
 				v13 = sub_4E3450(*(unsigned __int16*)(v6 + 4));
 			else
 				v13 = (_DWORD*)v6;
@@ -625,7 +624,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 				v9 = sub_4E7D30(v4, *(unsigned __int16*)(v7 + 4));
 				if (v9 >= (nox_common_gameFlags_check_40A5C0(6144) ? 9 : 3)) {
 					v14 = loadString_sub_40F1D0((char*)&byte_587000[236444], 0,
-								    "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3108);
+												"C:\\NoxPost\\src\\Server\\System\\Trade.c", 3108);
 					return (float*)sub_4D9EB0(v4, v14);
 				}
 				v6 = (_DWORD*)a2;
@@ -650,7 +649,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 				}
 			}
 			if (nox_common_gameFlags_check_40A5C0(4096) &&
-			    (sub_5105D0(v7) || *(unsigned __int16*)(v7 + 4) == dword_5d4594_2386552))
+				(sub_5105D0(v7) || *(unsigned __int16*)(v7 + 4) == dword_5d4594_2386552))
 				v12 = sub_4E3450(*(unsigned __int16*)(v7 + 4));
 			else
 				v12 = (_DWORD*)v7;
@@ -699,13 +698,13 @@ _DWORD* __cdecl sub_5109C0_trade(int* a1, int a2, _DWORD* a3) {
 				return result;
 		}
 		if (sub_53EBF0(v4) == 1) {
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[236616], 0,
-						   "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3298);
+			v6 = loadString_sub_40F1D0((char*)&byte_587000[236616], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+									   3298);
 			sub_4D9EB0((int)a1, v6);
 			result = sub_501960(925, (int)a1, 2, a1[9]);
 		} else if (*(unsigned __int16*)(v4 + 4) == *(_DWORD*)&byte_5D4594[2386556]) {
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[236676], 0,
-						   "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3308);
+			v7 = loadString_sub_40F1D0((char*)&byte_587000[236676], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+									   3308);
 			sub_4D9EB0((int)a1, v7);
 			result = sub_501960(925, (int)a1, 2, a1[9]);
 		} else {
@@ -741,13 +740,13 @@ _DWORD* __cdecl sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
 				return result;
 		}
 		if (sub_53EBF0(v5) == 1) {
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[236740], 0,
-						   "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3413);
+			v6 = loadString_sub_40F1D0((char*)&byte_587000[236740], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+									   3413);
 			sub_4D9EB0((int)a1, v6);
 			result = sub_501960(925, (int)a1, 2, a1[9]);
 		} else if (*(unsigned __int16*)(v5 + 4) == dword_5d4594_2386560) {
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[236800], 0,
-						   "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3423);
+			v7 = loadString_sub_40F1D0((char*)&byte_587000[236800], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+									   3423);
 			sub_4D9EB0((int)a1, v7);
 			result = sub_501960(925, (int)a1, 2, a1[9]);
 		} else {

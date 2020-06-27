@@ -5,11 +5,11 @@ int __cdecl nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format,
 	wchar_t ch;
 
 #define EMIT(c)                                                                                                        \
-	do {                                                                                                           \
-		if (buffer && out < count)                                                                             \
-			buffer[out++] = c;                                                                             \
-		else                                                                                                   \
-			out++;                                                                                         \
+	do {                                                                                                               \
+		if (buffer && out < count)                                                                                     \
+			buffer[out++] = c;                                                                                         \
+		else                                                                                                           \
+			out++;                                                                                                     \
 	} while (0)
 
 	if (count == 0)
@@ -149,11 +149,11 @@ int __cdecl nox_vsnprintf(char* buffer, size_t count, const char* format, va_lis
 	char ch;
 
 #define EMIT(c)                                                                                                        \
-	do {                                                                                                           \
-		if (buffer && out < count)                                                                             \
-			buffer[out++] = c;                                                                             \
-		else                                                                                                   \
-			out++;                                                                                         \
+	do {                                                                                                               \
+		if (buffer && out < count)                                                                                     \
+			buffer[out++] = c;                                                                                         \
+		else                                                                                                           \
+			out++;                                                                                                     \
 	} while (0)
 
 	if (count == 0)

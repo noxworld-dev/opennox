@@ -22,49 +22,44 @@ int main(int argc, char* argv[])
 extern "C" int main(int argc, char* argv[])
 #endif
 {
-    char cmdline[256];
-    int i;
+	char cmdline[256];
+	int i;
 
 #ifdef __EMSCRIPTEN__
-    EM_ASM({
-        var params = (new URL(document.location)).searchParams;
-        var lang = params.get('lang') || 'en';
-        if (lang != 'en' && lang != 'ko') {
-            window.alert('Unknown language: ' + lang);
-            return;
-        }
-        try {
-            FS.unlink('/assets/default.fnt');
-        }
-        catch (err) {
-        }
-        try {
-            FS.unlink('/assets/nox.csf');
-        }
-        catch (err) {
-        }
-        FS.symlink('/assets/' + lang + '/default.fnt', '/assets/default.fnt');
-        FS.symlink('/assets/' + lang + '/nox.csf', '/assets/nox.csf');
-    });
+	EM_ASM({
+		var params = (new URL(document.location)).searchParams;
+		var lang = params.get('lang') || 'en';
+		if (lang != 'en' && lang != 'ko') {
+			window.alert('Unknown language: ' + lang);
+			return;
+		}
+		try {
+			FS.unlink('/assets/default.fnt');
+		} catch (err) {
+		}
+		try {
+			FS.unlink('/assets/nox.csf');
+		} catch (err) {
+		}
+		FS.symlink('/assets/' + lang + '/default.fnt', '/assets/default.fnt');
+		FS.symlink('/assets/' + lang + '/nox.csf', '/assets/nox.csf');
+	});
 
-    EM_ASM(
-        FS.syncfs(false, function(err) {});
-    );
+	EM_ASM(FS.syncfs(false, function(err){}););
 
-    progname = "nox.js";
-    strcpy(cmdline, "nox.js -noskip -nolimit -nothread -sleep");
+	progname = "nox.js";
+	strcpy(cmdline, "nox.js -noskip -nolimit -nothread -sleep");
 
-    if (chdir("assets"))
-    {
-        fprintf(stderr, "Failed to enter Nox directory.\n");
-        return 1;
-    }
+	if (chdir("assets")) {
+		fprintf(stderr, "Failed to enter Nox directory.\n");
+		return 1;
+	}
 #else
-    progname = argv[0];
-    strcpy(cmdline, argv[0]);
-    for (i = 1; i < argc; i++)
-        sprintf(cmdline + strlen(cmdline), " %s", argv[i]);
+	progname = argv[0];
+	strcpy(cmdline, argv[0]);
+	for (i = 1; i < argc; i++)
+		sprintf(cmdline + strlen(cmdline), " %s", argv[i]);
 #endif
 
-    return WinMain(NULL, NULL, cmdline, 0);
+	return WinMain(NULL, NULL, cmdline, 0);
 }

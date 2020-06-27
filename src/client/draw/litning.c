@@ -59,15 +59,15 @@ int __cdecl sub_4BB070(int a1, int a2) {
 			} while (v16);
 		}
 		LOWORD(v24) = v15 *
-				  sub_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
-					     "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 193) /
-				  v14 +
-			      (((__int16)a1 + (__int16)a2) >> 1);
+						  sub_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
+									 "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 193) /
+						  v14 +
+					  (((__int16)a1 + (__int16)a2) >> 1);
 		HIWORD(v24) = v15 *
-				  sub_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
-					     "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 196) /
-				  v14 +
-			      ((SHIWORD(a1) + SHIWORD(a2)) >> 1);
+						  sub_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
+									 "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 196) /
+						  v14 +
+					  ((SHIWORD(a1) + SHIWORD(a2)) >> 1);
 		sub_4BB070(a1, v24);
 		sub_4BB070(v24, a2);
 		return --dword_5d4594_1316492;
@@ -199,26 +199,26 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
 		dword_5d4594_1316476 = *(_DWORD*)&byte_587000[178204];
 		dword_5d4594_1316448 = dword_587000_178216;
 	} else {
-        *(_DWORD *) &dword_5d4594_1316476 =
-                *(_DWORD *) &byte_587000[178208] +
-                (int) v12 * (*(_DWORD *) &byte_587000[178204] - *(_DWORD *) &byte_587000[178208]) / 512;
-        bool v13p = 0;
-        if ((int) v12 < 64) {
-            v13 = *(_DWORD *) &dword_587000_178216 - 3;
-        } else if ((int) v12 < 128) {
-            v13 = *(_DWORD *) &dword_587000_178216 - 2;
-        } else if ((int) v12 < 256) {
-            v13 = *(_DWORD *) &dword_587000_178216 - 1;
-        } else {
-            v13 = *(_DWORD *) &dword_587000_178216;
-            v13p = 1;
-        }
-        if (v13 >= 1 || v13p) {
-            *(_DWORD *) &dword_5d4594_1316448 = v13;
-        } else {
-            *(_DWORD *) &dword_5d4594_1316448 = 1;
-        }
-    }
+		*(_DWORD*)&dword_5d4594_1316476 =
+			*(_DWORD*)&byte_587000[178208] +
+			(int)v12 * (*(_DWORD*)&byte_587000[178204] - *(_DWORD*)&byte_587000[178208]) / 512;
+		bool v13p = 0;
+		if ((int)v12 < 64) {
+			v13 = *(_DWORD*)&dword_587000_178216 - 3;
+		} else if ((int)v12 < 128) {
+			v13 = *(_DWORD*)&dword_587000_178216 - 2;
+		} else if ((int)v12 < 256) {
+			v13 = *(_DWORD*)&dword_587000_178216 - 1;
+		} else {
+			v13 = *(_DWORD*)&dword_587000_178216;
+			v13p = 1;
+		}
+		if (v13 >= 1 || v13p) {
+			*(_DWORD*)&dword_5d4594_1316448 = v13;
+		} else {
+			*(_DWORD*)&dword_5d4594_1316448 = 1;
+		}
+	}
 	*(_DWORD*)&byte_5D4594[1316532] = a3;
 	if (a3 == 1 || a3 == 3) {
 		*(_WORD*)&byte_5D4594[1316432] = *a4;
@@ -299,38 +299,38 @@ int __cdecl nox_thing_lightning_draw(int* a1, int a2) {
 		a3.field_4 = *(unsigned __int16*)(a2 + 443);
 		a2a.field_4 = a3.field_4 - v4 + v19 - 20;
 	} else {
-        if (sub_578B70(*(_DWORD *) (a2 + 437)))
-            v7 = sub_45A720(*(_DWORD *) (a2 + 437));
-        else
-            v7 = sub_45A6F0(*(_DWORD *) (a2 + 437));
-        v8 = v7;
-        if (sub_578B70(*(_DWORD *) (a2 + 441)))
-            v9 = sub_45A720(*(_DWORD *) (a2 + 441));
-        else
-            v9 = sub_45A6F0(*(_DWORD *) (a2 + 441));
-        if (!(v8 && v9)) {
-            return 1;
-        }
-        v10 = a1[4];
-        v11 = *a1 - v10;
-        a1a.field_0 = *a1 + v8[3] - v10;
-        v12 = a1[5];
-        v13 = a1[1];
-        a1a.field_4 = v13 + v8[4] - v12 - 20;
-        v18 = *(int2 *) (v8 + 3);
-        a2a.field_0 = v9[3] + v11;
-        a2a.field_4 = v9[4] - v12 + v13 - 20;
-        a3 = *(int2 *) (v9 + 3);
-    }
-    dword_5d4594_1316452 = *(_DWORD*)&byte_5D4594[1316428];
-    dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316464];
-    dword_5d4594_1316456 = *(_DWORD*)&byte_5D4594[1316424];
-    dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316488];
-    byte_5D4594[1316420] = 1;
-    sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
-    if (!sub_413A50())
-        sub_4999D0(*(int*)&byte_5D4594[1316520], &v18, &a3);
-    return 1;
+		if (sub_578B70(*(_DWORD*)(a2 + 437)))
+			v7 = sub_45A720(*(_DWORD*)(a2 + 437));
+		else
+			v7 = sub_45A6F0(*(_DWORD*)(a2 + 437));
+		v8 = v7;
+		if (sub_578B70(*(_DWORD*)(a2 + 441)))
+			v9 = sub_45A720(*(_DWORD*)(a2 + 441));
+		else
+			v9 = sub_45A6F0(*(_DWORD*)(a2 + 441));
+		if (!(v8 && v9)) {
+			return 1;
+		}
+		v10 = a1[4];
+		v11 = *a1 - v10;
+		a1a.field_0 = *a1 + v8[3] - v10;
+		v12 = a1[5];
+		v13 = a1[1];
+		a1a.field_4 = v13 + v8[4] - v12 - 20;
+		v18 = *(int2*)(v8 + 3);
+		a2a.field_0 = v9[3] + v11;
+		a2a.field_4 = v9[4] - v12 + v13 - 20;
+		a3 = *(int2*)(v9 + 3);
+	}
+	dword_5d4594_1316452 = *(_DWORD*)&byte_5D4594[1316428];
+	dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316464];
+	dword_5d4594_1316456 = *(_DWORD*)&byte_5D4594[1316424];
+	dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316488];
+	byte_5D4594[1316420] = 1;
+	sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
+	if (!sub_413A50())
+		sub_4999D0(*(int*)&byte_5D4594[1316520], &v18, &a3);
+	return 1;
 }
 
 //----- (004BB3F0) --------------------------------------------------------
@@ -371,38 +371,38 @@ int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, int a2) {
 		a3.field_0 = v8;
 		a2a.field_4 = v8 - v5 + v6 - 20;
 	} else {
-        if (sub_578B70(*(_DWORD *) (a2 + 437)))
-            v9 = sub_45A720(*(_DWORD *) (a2 + 437));
-        else
-            v9 = sub_45A6F0(*(_DWORD *) (a2 + 437));
-        v10 = v9;
-        if (sub_578B70(*(_DWORD *) (a2 + 441)))
-            v11 = sub_45A720(*(_DWORD *) (a2 + 441));
-        else
-            v11 = sub_45A6F0(*(_DWORD *) (a2 + 441));
-        if (!(v10 && v11)) {
-            return 1;
-        }
-        v12 = a1[4];
-        v13 = *a1 - v12;
-        a1a.field_0 = *a1 + v10[3] - v12;
-        v14 = a1[5];
-        v15 = a1[1];
-        a1a.field_4 = v15 + v10[4] - v14 - 20;
-        v19 = *(int2 *) (v10 + 3);
-        a2a.field_0 = v11[3] + v13;
-        a2a.field_4 = v11[4] - v14 + v15 - 20;
-        a3 = *(int2 *) (v11 + 3);
-    }
-    dword_5d4594_1316452 = *(_DWORD*)&byte_5D4594[1316428];
-    dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316464];
-    dword_5d4594_1316456 = *(_DWORD*)&byte_5D4594[1316424];
-    dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316488];
-    byte_5D4594[1316420] = 1;
-    sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
-    if (!sub_413A50())
-        sub_4999D0(*(int*)&byte_5D4594[1316520], &v19, &a3);
-    return 1;
+		if (sub_578B70(*(_DWORD*)(a2 + 437)))
+			v9 = sub_45A720(*(_DWORD*)(a2 + 437));
+		else
+			v9 = sub_45A6F0(*(_DWORD*)(a2 + 437));
+		v10 = v9;
+		if (sub_578B70(*(_DWORD*)(a2 + 441)))
+			v11 = sub_45A720(*(_DWORD*)(a2 + 441));
+		else
+			v11 = sub_45A6F0(*(_DWORD*)(a2 + 441));
+		if (!(v10 && v11)) {
+			return 1;
+		}
+		v12 = a1[4];
+		v13 = *a1 - v12;
+		a1a.field_0 = *a1 + v10[3] - v12;
+		v14 = a1[5];
+		v15 = a1[1];
+		a1a.field_4 = v15 + v10[4] - v14 - 20;
+		v19 = *(int2*)(v10 + 3);
+		a2a.field_0 = v11[3] + v13;
+		a2a.field_4 = v11[4] - v14 + v15 - 20;
+		a3 = *(int2*)(v11 + 3);
+	}
+	dword_5d4594_1316452 = *(_DWORD*)&byte_5D4594[1316428];
+	dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316464];
+	dword_5d4594_1316456 = *(_DWORD*)&byte_5D4594[1316424];
+	dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316488];
+	byte_5D4594[1316420] = 1;
+	sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
+	if (!sub_413A50())
+		sub_4999D0(*(int*)&byte_5D4594[1316520], &v19, &a3);
+	return 1;
 }
 
 //----- (004BB5D0) --------------------------------------------------------
@@ -447,36 +447,36 @@ int __cdecl nox_thing_energy_bolt_draw(int* a1, int a2) {
 		a3.field_4 = *(unsigned __int16*)(v2 + 443);
 		a2a.field_4 = a3.field_4 - v6 + v21 - 20;
 	} else {
-        if (sub_578B70(*(_DWORD *) (v2 + 437)))
-            v9 = sub_45A720(*(_DWORD *) (v2 + 437));
-        else
-            v9 = sub_45A6F0(*(_DWORD *) (v2 + 437));
-        v10 = v9;
-        if (sub_578B70(*(_DWORD *) (v2 + 441)))
-            v11 = sub_45A720(*(_DWORD *) (v2 + 441));
-        else
-            v11 = sub_45A6F0(*(_DWORD *) (v2 + 441));
-        if (!(v10 && v11)) {
-            return 1;
-        }
-        v12 = *a1;
-        v13 = a1[4];
-        v14 = a1[5];
-        v15 = a1[1];
-        a1a.field_0 = v10[3] + *a1 - v13;
-        a1a.field_4 = v10[4] - v14 + v15 - 20;
-        v20 = *(int2 *) (v10 + 3);
-        a2a.field_0 = v12 + v11[3] - v13;
-        a2a.field_4 = v11[4] - v14 + v15 - 20;
-        a3 = *(int2 *) (v11 + 3);
-    }
-    byte_5D4594[1316420] = 2 * (v22 + 127);
-    dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316496];
-    dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316468];
-    sub_4BAE60(&a1a, &a2a, 2, 0, 0, 0, 1);
-    if (!sub_413A50())
-        sub_4999D0(*(int*)&byte_5D4594[1316524], &v20, &a3);
-    return 1;
+		if (sub_578B70(*(_DWORD*)(v2 + 437)))
+			v9 = sub_45A720(*(_DWORD*)(v2 + 437));
+		else
+			v9 = sub_45A6F0(*(_DWORD*)(v2 + 437));
+		v10 = v9;
+		if (sub_578B70(*(_DWORD*)(v2 + 441)))
+			v11 = sub_45A720(*(_DWORD*)(v2 + 441));
+		else
+			v11 = sub_45A6F0(*(_DWORD*)(v2 + 441));
+		if (!(v10 && v11)) {
+			return 1;
+		}
+		v12 = *a1;
+		v13 = a1[4];
+		v14 = a1[5];
+		v15 = a1[1];
+		a1a.field_0 = v10[3] + *a1 - v13;
+		a1a.field_4 = v10[4] - v14 + v15 - 20;
+		v20 = *(int2*)(v10 + 3);
+		a2a.field_0 = v12 + v11[3] - v13;
+		a2a.field_4 = v11[4] - v14 + v15 - 20;
+		a3 = *(int2*)(v11 + 3);
+	}
+	byte_5D4594[1316420] = 2 * (v22 + 127);
+	dword_5d4594_1316436 = *(_DWORD*)&byte_5D4594[1316496];
+	dword_5d4594_1316484 = *(_DWORD*)&byte_5D4594[1316468];
+	sub_4BAE60(&a1a, &a2a, 2, 0, 0, 0, 1);
+	if (!sub_413A50())
+		sub_4999D0(*(int*)&byte_5D4594[1316524], &v20, &a3);
+	return 1;
 }
 
 //----- (004BB7B0) --------------------------------------------------------

@@ -484,8 +484,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			} else if (v7 != 39) {
 				v14 = *(unsigned __int16*)(v373 + 1);
-				if ((unsigned __int16)v14 <
-				    (unsigned int)(*(_DWORD*)&byte_5D4594[1200800] + sub_43C790()))
+				if ((unsigned __int16)v14 < (unsigned int)(*(_DWORD*)&byte_5D4594[1200800] + sub_43C790()))
 					*(_DWORD*)&byte_5D4594[2598000] = v14;
 				v3 += 5;
 				break;
@@ -592,12 +591,11 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_457140(v210, v212);
 				sub_455920((int)v212);
 				v213 = loadString_sub_40F1D0((char*)&byte_587000[159072], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4661);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4661);
 				nox_swprintf(v399, v213, v212);
 				if (sub_4356B0() == 3)
 					sub_445490(v399);
-				if (v210 == *(_DWORD*)&byte_5D4594[2616328] &&
-				    nox_wcscmp((const wchar_t*)&byte_5D4594[2661908], v212))
+				if (v210 == *(_DWORD*)&byte_5D4594[2616328] && nox_wcscmp((const wchar_t*)&byte_5D4594[2661908], v212))
 					dword_5d4594_1200832 = 1;
 				OnLibraryNotice(263, v211);
 			}
@@ -611,9 +609,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				if (v216) {
 					sub_456DF0(v215);
 					sub_455950((wchar_t*)v216 + 2352);
-					v217 =
-					    loadString_sub_40F1D0((char*)&byte_587000[159128], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4744);
+					v217 = loadString_sub_40F1D0((char*)&byte_587000[159128], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4744);
 					nox_swprintf(v397, v217, v216 + 4704);
 					*((_DWORD*)v216 + 523) = 0;
 					v218 = sub_418C80(v215);
@@ -622,9 +619,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					if (v218 && sub_419130((int)v218))
 						sub_419570(v219, v215);
 				} else {
-					v220 =
-					    loadString_sub_40F1D0((char*)&byte_587000[159180], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4757);
+					v220 = loadString_sub_40F1D0((char*)&byte_587000[159180], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4757);
 					nox_swprintf(v397, v220);
 				}
 				if (sub_4356B0() == 3)
@@ -638,7 +634,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				if (*(_DWORD*)&nox_common_engineFlags & 0x10000000)
 					sub_578B70(*(unsigned __int16*)(v3 + 1));
 				LODWORD(v5) = sub_48E970(*(unsigned __int16*)(v3 + 3), *(unsigned __int16*)(v3 + 1),
-							 *(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
+										 *(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
 				if ((_DWORD)v5) {
 					k = *(_DWORD*)&byte_5D4594[2598000];
 					*(_DWORD*)(v5 + 288) = *(_DWORD*)&byte_5D4594[2598000];
@@ -656,7 +652,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_578B70(*(unsigned __int16*)(v3 + 1));
 			if (*(_WORD*)(v3 + 3) || *(_WORD*)(v3 + 1)) {
 				LODWORD(v5) = sub_48E970(*(unsigned __int16*)(v3 + 3), *(unsigned __int16*)(v3 + 1),
-							 *(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
+										 *(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
 				v29 = v5;
 				if ((_DWORD)v5) {
 					*(_DWORD*)(v5 + 288) = *(_DWORD*)&byte_5D4594[2598000];
@@ -766,7 +762,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				if ((_DWORD)v5 != *(_DWORD*)&byte_5D4594[2614252])
 					sub_49B950((_DWORD*)v5, *(int*)&byte_5D4594[2649704]);
 			} else if (*(int(__cdecl**)(int*, int))(v5 + 300) != nox_thing_animate_draw ||
-				   (v56 = *(_DWORD*)(v5 + 304)) == 0 || *(_DWORD*)(v56 + 12) != 1) {
+					   (v56 = *(_DWORD*)(v5 + 304)) == 0 || *(_DWORD*)(v56 + 12) != 1) {
 				if (v51 != *(_DWORD*)&byte_5D4594[2614252]) {
 					v53 = sub_578B70(*(unsigned __int16*)(v3 + 1));
 				LABEL_208:
@@ -897,7 +893,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			break;
 		case 0x3Eu:
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) = nox_server_getWallAtPoint_410580(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
+				LODWORD(v5) =
+					nox_server_getWallAtPoint_410580(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2));
 				if ((_DWORD)v5)
 					sub_410430(*(unsigned __int8*)(v5 + 5), *(unsigned __int8*)(v5 + 6));
 			}
@@ -1054,9 +1051,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					if (nox_common_gameFlags_check_40A5C0(1024)) {
 						k = *(_DWORD*)(v3 + 7);
 						if (k >= *((unsigned __int16*)v126 + 27)) {
-							v128 = loadString_sub_40F1D0(
-							    (char*)&byte_587000[157264], 0,
-							    "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3452);
+							v128 = loadString_sub_40F1D0((char*)&byte_587000[157264], 0,
+														 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3452);
 							nox_swprintf(v395, v128, v127 + 4704);
 							sub_452D80(312, 100);
 							sub_445490(v395);
@@ -1119,7 +1115,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				v142 = sub_417040(v141);
 				if (v142) {
 					if (!nox_common_gameFlags_check_40A5C0(1) &&
-					    *(_DWORD*)&byte_5D4594[2598000] > *((_DWORD*)v142 + 540)) {
+						*(_DWORD*)&byte_5D4594[2598000] > *((_DWORD*)v142 + 540)) {
 						HIWORD(v5) = 0;
 						*((_DWORD*)v142 + 538) = *(unsigned __int16*)(v3 + 3);
 						WORD2(v5) = *(_WORD*)(v3 + 5);
@@ -1128,9 +1124,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					}
 					k = *((_DWORD*)v142 + 539) - 1;
 					if (*((_DWORD*)v142 + 538) == k) {
-						v143 = loadString_sub_40F1D0(
-						    (char*)&byte_587000[157316], 0,
-						    "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3729);
+						v143 = loadString_sub_40F1D0((char*)&byte_587000[157316], 0,
+													 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3729);
 						nox_swprintf(v406, v143, v142 + 4704);
 						sub_445490(v406);
 					}
@@ -1156,15 +1151,15 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v145 = sub_418C80(*(int*)&byte_5D4594[2616328]);
 			if (v145 && sub_419180((int)v145, *(_BYTE*)(v3 + 1))) {
 				v146 = loadString_sub_40F1D0((char*)&byte_587000[157372], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3776);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3776);
 				nox_swprintf(v400, v146);
 				v147 = 0;
 			} else {
 				v148 = loadString_sub_40F1D0((char*)&byte_587000[157420], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3781);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3781);
 				nox_swprintf(v400, v148, v144);
 				v149 = loadString_sub_40F1D0((char*)&byte_587000[157472], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3782);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3782);
 				nox_swprintf(v400, v149, v400);
 				v147 = 1;
 			}
@@ -1182,7 +1177,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v393[0] = 0;
 			if (*(_BYTE*)(v3 + 3) == 1) {
 				v173 = loadString_sub_40F1D0((char*)&byte_587000[158612], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4055);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4055);
 				nox_swprintf(v393, v173);
 			}
 			sub_452D80(309, 100);
@@ -1194,7 +1189,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v174 = sub_418C80(*(int*)&byte_5D4594[2616328]);
 			if (v172) {
 				v175 = loadString_sub_40F1D0((char*)&byte_587000[158672], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4071);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4071);
 				nox_swprintf(v398, v175, v172);
 				if (!v174 || !sub_419180((int)v174, v172[57])) {
 					v176 = 1;
@@ -1202,7 +1197,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				}
 			} else {
 				v177 = loadString_sub_40F1D0((char*)&byte_587000[158724], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4083);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4083);
 				nox_swprintf(v398, v177);
 			}
 			v176 = 0;
@@ -1223,7 +1218,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v391[0] = 0;
 			if (*(_BYTE*)(v3 + 3) == 1) {
 				v151 = loadString_sub_40F1D0((char*)&byte_587000[157524], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3823);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3823);
 				nox_swprintf(v391, v151);
 			}
 			sub_452D80(309, 100);
@@ -1245,27 +1240,23 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					if (!*(_BYTE*)(v3 + 3))
 						sub_4947E0((int)v154);
 					if (v153 != *(_DWORD*)&byte_5D4594[2616328]) {
-						v159 = loadString_sub_40F1D0(
-						    (char*)&byte_587000[157884], 0,
-						    "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3899);
+						v159 = loadString_sub_40F1D0((char*)&byte_587000[157884], 0,
+													 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3899);
 						nox_swprintf(v389, v159, v154 + 4704);
 						v150 = 1;
 						goto LABEL_559;
 					}
 					if (!v154[2252]) {
-						v314 = loadString_sub_40F1D0(
-						    (char*)&byte_587000[157932], 0,
-						    "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3905);
+						v314 = loadString_sub_40F1D0((char*)&byte_587000[157932], 0,
+													 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3905);
 						nox_swprintf(v389, v314);
 						goto LABEL_558;
 					}
-					v155 =
-					    loadString_sub_40F1D0((char*)&byte_587000[157988], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3907);
+					v155 = loadString_sub_40F1D0((char*)&byte_587000[157988], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3907);
 				} else {
-					v155 =
-					    loadString_sub_40F1D0((char*)&byte_587000[157836], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3884);
+					v155 = loadString_sub_40F1D0((char*)&byte_587000[157836], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3884);
 				}
 			LABEL_557:
 				nox_swprintf(v389, v155);
@@ -1273,17 +1264,17 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			}
 			if (!*(_WORD*)(v3 + 1)) {
 				v155 = loadString_sub_40F1D0((char*)&byte_587000[157584], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3847);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3847);
 				goto LABEL_557;
 			}
-			v156 = loadString_sub_40F1D0((char*)&byte_587000[157632], 0,
-						     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3852);
+			v156 = loadString_sub_40F1D0((char*)&byte_587000[157632], 0, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
+										 3852);
 			nox_swprintf(v389, v156);
 			if (v153 == *(_DWORD*)&byte_5D4594[2616328]) {
 				v334 = loadString_sub_40F1D0((char*)&byte_587000[157684], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3855);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3855);
 				v157 = loadString_sub_40F1D0((char*)&byte_587000[157732], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3855);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3855);
 				nox_swprintf(v392, v157, v334);
 				nox_wcscat(v389, v392);
 			LABEL_558:
@@ -1292,7 +1283,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			}
 			if (v154) {
 				v158 = loadString_sub_40F1D0((char*)&byte_587000[157784], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3863);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3863);
 				nox_swprintf(v392, v158, v154 + 4704);
 				if (!*(_BYTE*)(v3 + 3))
 					sub_4947E0((int)v154);
@@ -1317,7 +1308,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v394[0] = 0;
 			if (*(_BYTE*)(v3 + 3) == 1) {
 				v161 = loadString_sub_40F1D0((char*)&byte_587000[158048], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3945);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3945);
 				nox_swprintf(v394, v161);
 			}
 			sub_452D80(309, 100);
@@ -1329,33 +1320,28 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v162 = sub_418C80(*(int*)&byte_5D4594[2616328]);
 			if (nox_common_gameFlags_check_40A5C0(1024)) {
 				if (!v160) {
-					v163 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158108], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3964);
+					v163 = loadString_sub_40F1D0((char*)&byte_587000[158108], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3964);
 					nox_swprintf(v390, v163);
 					v164 = 0;
 					goto LABEL_585;
 				}
 				v165 = loadString_sub_40F1D0((char*)&byte_587000[158156], 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3969);
+											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3969);
 				nox_swprintf(v390, v165);
 				if (v162 && sub_419180((int)v162, v160[57])) {
-					v335 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158208], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3973);
-					v166 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158260], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3973);
+					v335 = loadString_sub_40F1D0((char*)&byte_587000[158208], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3973);
+					v166 = loadString_sub_40F1D0((char*)&byte_587000[158260], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3973);
 					nox_swprintf(v388, v166, v335);
 					nox_wcscat(v390, v388);
 					v164 = 0;
 				} else {
-					v336 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158312], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3980);
-					v167 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158360], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3980);
+					v336 = loadString_sub_40F1D0((char*)&byte_587000[158312], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3980);
+					v167 = loadString_sub_40F1D0((char*)&byte_587000[158360], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3980);
 					nox_swprintf(v388, v167, v336);
 					nox_swprintf(v396, v388, v160);
 					nox_wcscat(v390, v396);
@@ -1365,27 +1351,23 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					goto LABEL_584;
 			} else {
 				if (!v160) {
-					v168 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158412], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3999);
+					v168 = loadString_sub_40F1D0((char*)&byte_587000[158412], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3999);
 					nox_swprintf(v390, v168);
 					v164 = 0;
 					goto LABEL_585;
 				}
 				if (v162 && sub_419180((int)v162, v160[57])) {
-					v169 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158460], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4006);
+					v169 = loadString_sub_40F1D0((char*)&byte_587000[158460], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4006);
 					nox_swprintf(v390, v169);
 					v164 = 0;
 				} else {
-					v170 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158516], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4011);
+					v170 = loadString_sub_40F1D0((char*)&byte_587000[158516], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4011);
 					nox_swprintf(v388, v170, v160);
-					v171 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158564], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4012);
+					v171 = loadString_sub_40F1D0((char*)&byte_587000[158564], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4012);
 					nox_swprintf(v390, v171, v388);
 					v164 = 1;
 				}
@@ -1416,8 +1398,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			*(_DWORD*)(v134 + 124) = HIDWORD(v5);
 			if (v134 == *(_DWORD*)&byte_5D4594[2614252])
 				sub_467410(*(_DWORD*)(v3 + 3));
-			if (v135 != 1 || sub_4356C0(v134, 15) ||
-			    v134 == *(_DWORD*)&byte_5D4594[2614252] && sub_467430() & 8)
+			if (v135 != 1 || sub_4356C0(v134, 15) || v134 == *(_DWORD*)&byte_5D4594[2614252] && sub_467430() & 8)
 				goto LABEL_1149;
 			nox_thing* v136 = nox_get_thing(*(_DWORD*)(v134 + 108));
 			sub_484D70_light_intensity(v134 + 136, v136->light_intensity);
@@ -1429,11 +1410,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				v130 = (v129 >> 3) & 1;
 				sub_467420(*(_BYTE*)(v3 + 1));
 				if (v130 == 1 && !(sub_467430() & 8) && *(_DWORD*)&byte_5D4594[2614252] &&
-				    !sub_4356C0(*(int*)&byte_5D4594[2614252], 15)) {
-					nox_thing* v131 =
-					    nox_get_thing(*(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 108));
-					sub_484D70_light_intensity(*(_DWORD*)&byte_5D4594[2614252] + 136,
-								   v131->light_intensity);
+					!sub_4356C0(*(int*)&byte_5D4594[2614252], 15)) {
+					nox_thing* v131 = nox_get_thing(*(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 108));
+					sub_484D70_light_intensity(*(_DWORD*)&byte_5D4594[2614252] + 136, v131->light_intensity);
 				}
 			}
 			v3 += 2;
@@ -1447,8 +1426,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_578B70(*(unsigned __int16*)(v3 + 1));
 			LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v89) : sub_45A6F0(v89);
 			if ((_DWORD)v5) {
-				sub_484BE0((_DWORD*)(v5 + 136), *(unsigned __int8*)(v3 + 3),
-					   *(unsigned __int8*)(v3 + 4), *(unsigned __int8*)(v3 + 5));
+				sub_484BE0((_DWORD*)(v5 + 136), *(unsigned __int8*)(v3 + 3), *(unsigned __int8*)(v3 + 4),
+						   *(unsigned __int8*)(v3 + 5));
 				v3 += 6;
 			} else {
 			LABEL_902:
@@ -1472,8 +1451,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v178 = sub_578B30(*(_WORD*)(v3 + 1));
 			v179 = v178;
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) =
-				    sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v179) : sub_45A6F0(v179);
+				LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v179) : sub_45A6F0(v179);
 				if ((_DWORD)v5) {
 					WORD2(v5) = *(unsigned __int8*)(v3 + 3);
 					*(_WORD*)(v5 + 104) = WORD2(v5);
@@ -1485,8 +1463,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v180 = sub_578B30(*(_WORD*)(v3 + 1));
 			v181 = v180;
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) =
-				    sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v181) : sub_45A6F0(v181);
+				LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v181) : sub_45A6F0(v181);
 				if ((_DWORD)v5) {
 					WORD2(v5) = *(unsigned __int8*)(v3 + 3);
 					HIDWORD(v5) = -HIDWORD(v5);
@@ -1650,8 +1627,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_4174F0((int)v119, *(_DWORD*)(v3 + 3) & 0x423);
 			}
 			if (*(_DWORD*)&nox_common_engineFlags & 0x40000 ||
-			    (HIDWORD(v5) = *(unsigned __int16*)(v3 + 1),
-			     WORD2(v5) != *(_DWORD*)&byte_5D4594[2616328])) {
+				(HIDWORD(v5) = *(unsigned __int16*)(v3 + 1), WORD2(v5) != *(_DWORD*)&byte_5D4594[2616328])) {
 			LABEL_1070:
 				v3 += 7;
 			} else {
@@ -1725,8 +1701,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			if (nox_client_isConnected_43C700()) {
 				if (*(_BYTE*)(v3 + 3) & 0x80)
 					v139 = 1;
-				sub_45CFE0(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2),
-					   *(_BYTE*)(v3 + 3) & 0x7F, v139);
+				sub_45CFE0(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2), *(_BYTE*)(v3 + 3) & 0x7F, v139);
 			}
 			v3 += 4;
 			break;
@@ -1800,7 +1775,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_4999D0(*(int*)&dword_5d4594_1200776, &v379, &v377);
 			} else if ((_BYTE)v5 == 125) {
 				sub_499710(*(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7), 10,
-					   *(int*)&dword_5d4594_1200776);
+						   *(int*)&dword_5d4594_1200776);
 				v3 += 9;
 				break;
 			}
@@ -1809,8 +1784,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			break;
 		case 0x7Eu:
 			if (nox_client_isConnected_43C700()) {
-				sub_4B7C40(*(_WORD*)(v3 + 5), (unsigned __int16*)(v3 + 1), *(_WORD*)(v3 + 7),
-					   *(_BYTE*)(v3 + 9), *(_WORD*)(v3 + 10));
+				sub_4B7C40(*(_WORD*)(v3 + 5), (unsigned __int16*)(v3 + 1), *(_WORD*)(v3 + 7), *(_BYTE*)(v3 + 9),
+						   *(_WORD*)(v3 + 10));
 				v3 += 12;
 			} else {
 			LABEL_1130:
@@ -1829,8 +1804,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 		case 0x81u:
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_797;
-			sub_499610(*(int*)&dword_5d4594_1200776, 50, 1000, 30, *(__int16*)(v3 + 1),
-				   *(__int16*)(v3 + 3));
+			sub_499610(*(int*)&dword_5d4594_1200776, 50, 1000, 30, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
 			v3 += 5;
 			break;
 		case 0x82u:
@@ -1847,8 +1821,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			break;
 		case 0x84u:
 			if (nox_client_isConnected_43C700())
-				sub_499610(*(int*)&dword_5d4594_1200796, 25, 500, 25, *(__int16*)(v3 + 1),
-					   *(__int16*)(v3 + 3));
+				sub_499610(*(int*)&dword_5d4594_1200796, 25, 500, 25, *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
 		LABEL_797:
 			v3 += 5;
 			break;
@@ -1904,13 +1877,10 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					goto LABEL_857;
 				case 138:
 					if (!*(_DWORD*)&byte_5D4594[1200900]) {
-						*(_DWORD*)&byte_5D4594[1200900] =
-						    sub_44CFC0((CHAR*)&byte_587000[160244]);
-						*(_DWORD*)&byte_5D4594[1200896] =
-						    sub_44CFC0((CHAR*)&byte_587000[160252]);
+						*(_DWORD*)&byte_5D4594[1200900] = sub_44CFC0((CHAR*)&byte_587000[160244]);
+						*(_DWORD*)&byte_5D4594[1200896] = sub_44CFC0((CHAR*)&byte_587000[160252]);
 					}
-					v259 = sub_45A360_drawable(*(int*)&byte_5D4594[1200900], *(__int16*)(v3 + 1),
-								   *(__int16*)(v3 + 3));
+					v259 = sub_45A360_drawable(*(int*)&byte_5D4594[1200900], *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
 					if (v259) {
 						*(_WORD*)(v259 + 104) = 20;
 						sub_45A110_drawable((_DWORD*)v259);
@@ -1918,16 +1888,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					v260 = 6;
 					do {
 						v341 = *(__int16*)(v3 + 3) +
-						       sub_415FF0(-15, 15,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5711);
-						v261 = sub_415FF0(-15, 15,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5710);
-						v262 = sub_45A360_drawable(*(int*)&byte_5D4594[1200896],
-									   *(__int16*)(v3 + 1) + v261, v341);
+							   sub_415FF0(-15, 15, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5711);
+						v261 = sub_415FF0(-15, 15, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5710);
+						v262 = sub_45A360_drawable(*(int*)&byte_5D4594[1200896], *(__int16*)(v3 + 1) + v261, v341);
 						if (v262) {
-							*(_WORD*)(v262 + 104) = sub_415FF0(
-							    5, 25, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-							    5712);
+							*(_WORD*)(v262 + 104) =
+								sub_415FF0(5, 25, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5712);
 							sub_45A110_drawable((_DWORD*)v262);
 						}
 						--v260;
@@ -1954,19 +1920,14 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					v357 = 150;
 					v253 = v252 >> 2;
 					for (i = v252 >> 2;; v253 = i) {
-						v254 = v253 + sub_415FF0(0, v252,
-									 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-									 5536);
+						v254 = v253 + sub_415FF0(0, v252, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5536);
 						if (v254 > (int)v252)
 							v254 = v252;
-						v255 = sub_415FF0(0, 255,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5541);
+						v255 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5541);
 						LODWORD(v5) = sub_45A360_drawable(
-						    *(int*)&byte_5D4594[1200784],
-						    *(__int16*)(v3 + 1) +
-							v254 * *(int*)&byte_587000[8 * v255 + 192088] / 16,
-						    *(__int16*)(v3 + 3) +
-							v254 * *(int*)&byte_587000[8 * v255 + 192092] / 16);
+							*(int*)&byte_5D4594[1200784],
+							*(__int16*)(v3 + 1) + v254 * *(int*)&byte_587000[8 * v255 + 192088] / 16,
+							*(__int16*)(v3 + 3) + v254 * *(int*)&byte_587000[8 * v255 + 192092] / 16);
 						v256 = v5;
 						if ((_DWORD)v5) {
 							*(_DWORD*)(v5 + 432) = *(_DWORD*)(v5 + 12) << 12;
@@ -1974,15 +1935,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 							*(_BYTE*)(v5 + 299) = 0;
 							*(_DWORD*)(v5 + 440) = 0;
 							*(_DWORD*)(v5 + 448) =
-							    *(_DWORD*)&byte_5D4594[2598000] +
-							    sub_415FF0(30, 40,
-								       "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-								       5562);
+								*(_DWORD*)&byte_5D4594[2598000] +
+								sub_415FF0(30, 40, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5562);
 							*(_DWORD*)(v256 + 444) = *(_DWORD*)&byte_5D4594[2598000];
 							*(_WORD*)(v256 + 104) = 0;
-							*(_BYTE*)(v256 + 296) = sub_415FF0(
-							    4, 10, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-							    5568);
+							*(_BYTE*)(v256 + 296) =
+								sub_415FF0(4, 10, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5568);
 							sub_45A110_drawable((_DWORD*)v256);
 						}
 						if (!--v357)
@@ -2044,31 +2002,18 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 							if (v245 != -432) {
 								*(_DWORD*)(v245 + 432) = v243 << 12;
 								*(_DWORD*)(v245 + 436) = v244 << 12;
-								v247 = sub_415FF0(
-								    0, 255,
-								    "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-								    5393);
+								v247 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5393);
 								*(_BYTE*)(v362 + 299) = v247;
-								v246[2] = sub_415FF0(
-								    1, 200,
-								    "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-								    5396);
-								v246[4] =
-								    *(_DWORD*)&byte_5D4594[2598000] +
-								    sub_415FF0(
-									20, 40,
-									"C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-									5399);
+								v246[2] = sub_415FF0(1, 200, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5396);
+								v246[4] = *(_DWORD*)&byte_5D4594[2598000] +
+										  sub_415FF0(20, 40, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5399);
 								v246[3] = *(_DWORD*)&byte_5D4594[2598000];
 							}
-							v248 = sub_415FF0(
-							    15, 30, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-							    5405);
+							v248 = sub_415FF0(15, 30, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5405);
 							v249 = v362;
 							*(_WORD*)(v362 + 104) = v248;
-							*(_BYTE*)(v249 + 296) = sub_415FF0(
-							    -4, 4, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-							    5406);
+							*(_BYTE*)(v249 + 296) =
+								sub_415FF0(-4, 4, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5406);
 							sub_45A110_drawable((_DWORD*)v249);
 						}
 						k = i;
@@ -2087,14 +2032,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_4C5020(v3);
 				if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4987) < 25) {
 					if (*(_DWORD*)&byte_5D4594[2614252]) {
-						v225 = *(unsigned __int16*)(v3 + 5) -
-						       *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 12);
-						v226 = nox_double2int(sqrt(
-						    (double)(v225 * v225 +
-							     (*(unsigned __int16*)(v3 + 7) -
-							      *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 16)) *
-								 (*(unsigned __int16*)(v3 + 7) -
-								  *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 16)))));
+						v225 = *(unsigned __int16*)(v3 + 5) - *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 12);
+						v226 = nox_double2int(
+							sqrt((double)(v225 * v225 + (*(unsigned __int16*)(v3 + 7) -
+														 *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 16)) *
+															(*(unsigned __int16*)(v3 + 7) -
+															 *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 16)))));
 						if (v226 < 600)
 							sub_452D80(297, 100 * (600 - v226) / 600);
 					}
@@ -2114,24 +2057,16 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 						if ((_DWORD)v5 != (_DWORD)-432) {
 							*(_DWORD*)(v5 + 432) = v230 << 12;
 							*(_DWORD*)(v5 + 436) = v231 << 12;
-							v233 = sub_415FF0(
-							    0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-							    5024);
+							v233 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5024);
 							*(_BYTE*)(v362 + 299) = v233;
-							v232[2] = sub_415FF0(
-							    1, 1500, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-							    5027);
-							v232[4] =
-							    *(_DWORD*)&byte_5D4594[2598000] +
-							    sub_415FF0(5, 20,
-								       "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-								       5030);
+							v232[2] = sub_415FF0(1, 1500, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5027);
+							v232[4] = *(_DWORD*)&byte_5D4594[2598000] +
+									  sub_415FF0(5, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5030);
 							v232[3] = *(_DWORD*)&byte_5D4594[2598000];
 						}
 						v234 = v362;
 						*(_WORD*)(v362 + 104) = 22;
-						*(_BYTE*)(v234 + 296) = sub_415FF0(
-						    -4, 4, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5037);
+						*(_BYTE*)(v234 + 296) = sub_415FF0(-4, 4, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5037);
 						sub_45A110_drawable((_DWORD*)v234);
 					}
 				}
@@ -2144,29 +2079,24 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					*(_DWORD*)&byte_5D4594[1200860] = sub_44CFC0((CHAR*)&byte_587000[159568]);
 				v239 = 5;
 				do {
-					LODWORD(v5) = sub_45A360_drawable(*(int*)&byte_5D4594[1200860],
-									  *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
+					LODWORD(v5) =
+						sub_45A360_drawable(*(int*)&byte_5D4594[1200860], *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
 					v240 = v5;
 					if ((_DWORD)v5) {
 						if ((_DWORD)v5 != (_DWORD)-432) {
 							*(_DWORD*)(v5 + 432) = *(_DWORD*)(v5 + 12) << 12;
 							*(_DWORD*)(v5 + 436) = *(_DWORD*)(v5 + 16) << 12;
-							*(_BYTE*)(v5 + 299) = sub_415FF0(
-							    0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-							    5338);
-							*(_DWORD*)(v240 + 440) = sub_415FF0(
-							    1333, 4000, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-							    5341);
+							*(_BYTE*)(v5 + 299) =
+								sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5338);
+							*(_DWORD*)(v240 + 440) =
+								sub_415FF0(1333, 4000, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5341);
 							*(_DWORD*)(v240 + 448) =
-							    *(_DWORD*)&byte_5D4594[2598000] +
-							    sub_415FF0(5, 20,
-								       "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-								       5344);
+								*(_DWORD*)&byte_5D4594[2598000] +
+								sub_415FF0(5, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5344);
 							*(_DWORD*)(v240 + 444) = *(_DWORD*)&byte_5D4594[2598000];
 						}
 						*(_WORD*)(v240 + 104) = 20;
-						*(_BYTE*)(v240 + 296) = sub_415FF0(
-						    -5, 5, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5351);
+						*(_BYTE*)(v240 + 296) = sub_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5351);
 						sub_45A110_drawable((_DWORD*)v240);
 					}
 					--v239;
@@ -2184,13 +2114,12 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				*(_DWORD*)&byte_5D4594[1200844] = sub_44CFC0((CHAR*)&byte_587000[159192]);
 			if (nox_client_isConnected_43C700()) {
 				LODWORD(v5) =
-				    sub_45A360_drawable(
-					*(int*)&byte_5D4594[1200844],
-					*(unsigned __int16*)(v3 + 1) +
-					    (*(unsigned __int16*)(v3 + 5) - *(unsigned __int16*)(v3 + 1)) / 2,
-					*(unsigned __int16*)(v3 + 3) +
-					    (*(unsigned __int16*)(v3 + 7) - *(unsigned __int16*)(v3 + 3)) / 2) +
-				    432;
+					sub_45A360_drawable(*(int*)&byte_5D4594[1200844],
+										*(unsigned __int16*)(v3 + 1) +
+											(*(unsigned __int16*)(v3 + 5) - *(unsigned __int16*)(v3 + 1)) / 2,
+										*(unsigned __int16*)(v3 + 3) +
+											(*(unsigned __int16*)(v3 + 7) - *(unsigned __int16*)(v3 + 3)) / 2) +
+					432;
 				*(_BYTE*)v5 = 0;
 				*(_DWORD*)(v5 + 5) = *(_DWORD*)(v3 + 1);
 				HIDWORD(v5) = *(_DWORD*)(v3 + 5);
@@ -2245,8 +2174,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v297 = sub_578B30(*(_WORD*)(v3 + 1));
 			v298 = v297;
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) =
-				    sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v298) : sub_45A6F0(v298);
+				LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v298) : sub_45A6F0(v298);
 				if ((_DWORD)v5) {
 					LODWORD(v5) = v5 + 432;
 					*(_DWORD*)v5 = *(_DWORD*)&byte_5D4594[2598000];
@@ -2309,15 +2237,11 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				v223 = v222 + 1;
 				if (v222 + 1 > 0) {
 					do {
-						LOBYTE(v368) = sub_415FF0(
-						    6, 12, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4957);
+						LOBYTE(v368) = sub_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4957);
 						v323 = v368;
-						v318 = sub_415FF0(-20, 20,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4961);
-						v224 = sub_415FF0(-20, 20,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4960);
-						sub_499490(*(int*)&byte_5D4594[1200848], (_WORD*)(v3 + 1), v224, v318,
-							   v323, 0);
+						v318 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4961);
+						v224 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4960);
+						sub_499490(*(int*)&byte_5D4594[1200848], (_WORD*)(v3 + 1), v224, v318, v323, 0);
 						--v223;
 					} while (v223);
 				}
@@ -2362,15 +2286,13 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			memset(&byte_5D4594[1197384], 0, 0x27Cu);
 			v200 = *(unsigned __int8*)(v3 + 3);
 			if (v200 & 8) {
-				v201 = loadString_sub_40F1D0((char*)(v3 + 11), 0,
-							     "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4486);
+				v201 = loadString_sub_40F1D0((char*)(v3 + 11), 0, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4486);
 				nox_wcscpy((wchar_t*)&byte_5D4594[1197384], v201);
 				v202 = 1;
 			} else if (v200 & 2) {
 				if (v200 & 1) {
-					v203 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158812], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4493);
+					v203 = loadString_sub_40F1D0((char*)&byte_587000[158812], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4493);
 					nox_swprintf((wchar_t*)&byte_5D4594[1197384], L"%s: %S", v203, v3 + 11);
 				} else {
 					nox_swprintf((wchar_t*)&byte_5D4594[1197384], L"%S", v3 + 11);
@@ -2378,9 +2300,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				v202 = 1;
 			} else {
 				if (v200 & 1) {
-					v204 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158892], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4506);
+					v204 = loadString_sub_40F1D0((char*)&byte_587000[158892], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4506);
 					nox_swprintf((wchar_t*)&byte_5D4594[1197384], L"%s: %s", v204, v3 + 11);
 				} else {
 					nox_wcscpy((wchar_t*)&byte_5D4594[1197384], (const wchar_t*)(v3 + 11));
@@ -2393,11 +2314,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_578B70(*(unsigned __int16*)(v3 + 1));
 			if (*(_BYTE*)(v3 + 3) & 0x10) {
 				if (sub_4356B0() == 3) {
-					nox_wcscpy((wchar_t*)&byte_5D4594[1200068],
-						   (const wchar_t*)&byte_5D4594[1197384]);
-					v205 =
-					    loadString_sub_40F1D0((char*)&byte_587000[158964], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4536);
+					nox_wcscpy((wchar_t*)&byte_5D4594[1200068], (const wchar_t*)&byte_5D4594[1197384]);
+					v205 = loadString_sub_40F1D0((char*)&byte_587000[158964], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4536);
 					sub_449A10(0, (int)v205, (int)&byte_5D4594[1200068], 33, 0, 0);
 					k = v202 * *(unsigned __int8*)(v3 + 8);
 					v3 += k + 11;
@@ -2409,8 +2328,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					v207 = v206;
 					if (v206) {
 						if (!sub_57A160((int)v206)) {
-							sub_450C00(0xFu, (wchar_t*)&byte_587000[158984], v207 + 4704,
-								   &byte_5D4594[1197384]);
+							sub_450C00(0xFu, (wchar_t*)&byte_587000[158984], v207 + 4704, &byte_5D4594[1197384]);
 							sub_48D880(v3, (wchar_t*)&byte_5D4594[1197384]);
 							k = v202 * *(unsigned __int8*)(v3 + 8);
 							v3 += k + 11;
@@ -2425,8 +2343,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 						if ((_DWORD)v5) {
 							v322 = *(unsigned __int16*)(v3 + 1);
 							v208 = nox_get_thing_pretty_name(*(_DWORD*)(v5 + 108));
-							sub_450C00(6u, (wchar_t*)&byte_587000[159000], v208, v322,
-								   &byte_5D4594[1197384]);
+							sub_450C00(6u, (wchar_t*)&byte_587000[159000], v208, v322, &byte_5D4594[1197384]);
 						}
 					}
 				}
@@ -2480,8 +2397,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					sub_409AE0(*(_DWORD*)(v3 + 5));
 					sub_409F80(*(unsigned __int8*)(v3 + 17));
 					v35 = sub_416590(0);
-					if (v35[56] != *(_BYTE*)(v3 + 19) ||
-					    *((_WORD*)v35 + 27) != *(unsigned __int8*)(v3 + 18))
+					if (v35[56] != *(_BYTE*)(v3 + 19) || *((_WORD*)v35 + 27) != *(unsigned __int8*)(v3 + 18))
 						dword_5d4594_1200768 = 1;
 					*((_WORD*)v35 + 27) = *(unsigned __int8*)(v3 + 18);
 					v35[56] = *(_BYTE*)(v3 + 19);
@@ -2520,7 +2436,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				if (memcmp(&byte_5D4594[1200732], (const void*)(v3 + 17), 0x14u))
 					dword_5d4594_1200768 = 1;
 				if (*(_DWORD*)&byte_5D4594[1200752] != *(_DWORD*)(v3 + 37) ||
-				    *(_DWORD*)&byte_5D4594[1200756] != *(_DWORD*)(v3 + 41)) {
+					*(_DWORD*)&byte_5D4594[1200756] != *(_DWORD*)(v3 + 41)) {
 					dword_5d4594_1200768 = 1;
 				}
 				qmemcpy(v37 + 24, (const void*)(v3 + 17), 0x14u);
@@ -2535,9 +2451,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				}
 				qmemcpy(&byte_5D4594[1200708], v37, 0x3Au);
 				if (nox_client_isConnected_43C700() && dword_5d4594_1200768) {
-					v38 =
-					    loadString_sub_40F1D0((char*)&byte_587000[157156], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 1429);
+					v38 = loadString_sub_40F1D0((char*)&byte_587000[157156], 0,
+												"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 1429);
 					sub_445490(v38);
 					sub_452D80(310, 100);
 				}
@@ -2558,9 +2473,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					if (nox_common_gameFlags_check_40A5C0(128)) {
 						if (dword_5d4594_1200832) {
 							v330 = *(_DWORD*)&byte_5D4594[2618908] + 4704;
-							v41 = loadString_sub_40F1D0(
-							    (char*)&byte_587000[157212], 0,
-							    "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 1470);
+							v41 = loadString_sub_40F1D0((char*)&byte_587000[157212], 0,
+														"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 1470);
 							nox_swprintf(v401, v41, v330);
 							sub_445490(v401);
 							dword_5d4594_1200832 = 0;
@@ -2578,8 +2492,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v18 = sub_578B30(*(_WORD*)(v3 + 1));
 			v19 = v18;
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) =
-				    sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v19) : sub_45A6F0(v19);
+				LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v19) : sub_45A6F0(v19);
 				if ((_DWORD)v5)
 					*(_BYTE*)(v5 + 299) = *(_BYTE*)(v3 + 3);
 			}
@@ -2589,8 +2502,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v20 = sub_578B30(*(_WORD*)(v3 + 1));
 			v21 = v20;
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) =
-				    sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v21) : sub_45A6F0(v21);
+				LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v21) : sub_45A6F0(v21);
 				v22 = v5;
 				if ((_DWORD)v5) {
 					sub_45A990_drawable(v5);
@@ -2607,8 +2519,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v24 = sub_578B30(*(_WORD*)(v3 + 1));
 			v25 = v24;
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) =
-				    sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v25) : sub_45A6F0(v25);
+				LODWORD(v5) = sub_578B70(*(unsigned __int16*)(v3 + 1)) ? sub_45A720(v25) : sub_45A6F0(v25);
 				v26 = v5;
 				if ((_DWORD)v5) {
 					if (*(_BYTE*)(v3 + 3)) {
@@ -2626,9 +2537,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			break;
 		case 0xB5u:
 			if (nox_client_isConnected_43C700() &&
-			    (v329 = *(unsigned __int16*)(v3 + 7), v320 = *(unsigned __int16*)(v3 + 5),
-			     v31 = sub_578B30(*(_WORD*)(v3 + 1)),
-			     LODWORD(v5) = sub_48E970(*(unsigned __int16*)(v3 + 3), v31, v320, v329), (_DWORD)v5)) {
+				(v329 = *(unsigned __int16*)(v3 + 7), v320 = *(unsigned __int16*)(v3 + 5),
+				 v31 = sub_578B30(*(_WORD*)(v3 + 1)),
+				 LODWORD(v5) = sub_48E970(*(unsigned __int16*)(v3 + 3), v31, v320, v329), (_DWORD)v5)) {
 				*(_WORD*)(v5 + 508) = *(_WORD*)(v3 + 9);
 				*(float*)(v5 + 468) = (double)*(char*)(v3 + 12) * 0.0625;
 				*(float*)(v5 + 472) = (double)*(char*)(v3 + 13) * 0.0625;
@@ -2664,13 +2575,11 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 		case 0xBDu:
 			if (nox_client_isConnected_43C700()) {
 				if (*(_BYTE*)(v3 + 1) == 1)
-					v290 =
-					    loadString_sub_40F1D0((char*)&byte_587000[160420], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 6351);
+					v290 = loadString_sub_40F1D0((char*)&byte_587000[160420], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 6351);
 				else
-					v290 =
-					    loadString_sub_40F1D0((char*)&byte_587000[160472], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 6356);
+					v290 = loadString_sub_40F1D0((char*)&byte_587000[160472], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 6356);
 				sub_450C00(6u, v290);
 			}
 			v3 += 2;
@@ -2745,7 +2654,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_578B70(*(unsigned __int16*)(v3 + 1));
 			if (*(_WORD*)(v3 + 3) || *(_WORD*)(v3 + 1)) {
 				v27 = sub_48E970(*(unsigned __int16*)(v3 + 3), *(unsigned __int16*)(v3 + 1),
-						 *(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
+								 *(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
 				if (v27) {
 					v27[72] = *(_DWORD*)&byte_5D4594[2598000];
 					sub_45AB80((int)v27, *(unsigned __int8*)(v3 + 10));
@@ -2822,10 +2731,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 						LODWORD(v5) = sub_418AB0(*(_DWORD*)(v3 + 2));
 						v277 = v5;
 						if ((_DWORD)v5) {
-							sub_4191D0(*(_BYTE*)(v5 + 57), v276, 0,
-								   *(unsigned __int16*)(v3 + 6), 0);
-							sub_4571A0(*(unsigned __int16*)(v3 + 6),
-								   *(unsigned __int8*)(v277 + 57));
+							sub_4191D0(*(_BYTE*)(v5 + 57), v276, 0, *(unsigned __int16*)(v3 + 6), 0);
+							sub_4571A0(*(unsigned __int16*)(v3 + 6), *(unsigned __int8*)(v277 + 57));
 						}
 					}
 				}
@@ -2848,8 +2755,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 						v279 = v5;
 						if ((_DWORD)v5) {
 							if (sub_4196D0((int)v278, v5, *(unsigned __int16*)(v3 + 6), 0))
-								sub_4571A0(*(unsigned __int16*)(v3 + 6),
-									   *(unsigned __int8*)(v279 + 57));
+								sub_4571A0(*(unsigned __int16*)(v3 + 6), *(unsigned __int8*)(v279 + 57));
 						}
 					}
 				}
@@ -2888,8 +2794,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				v3 += 2;
 				break;
 			case 8u:
-				if (nox_client_isConnected_43C700() &&
-				    (LODWORD(v5) = sub_418AB0(*(_DWORD*)(v3 + 2)), (_DWORD)v5)) {
+				if (nox_client_isConnected_43C700() && (LODWORD(v5) = sub_418AB0(*(_DWORD*)(v3 + 2)), (_DWORD)v5)) {
 					sub_419090(v5, *(_DWORD*)(v3 + 6));
 					v3 += 10;
 				} else {
@@ -2970,8 +2875,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			case 8u:
 				if (nox_client_isConnected_43C700())
-					sub_479300(*(unsigned __int16*)(v3 + 2), *(unsigned __int16*)(v3 + 4),
-						   *(_DWORD*)(v3 + 6), *(_DWORD*)(v3 + 10), v3 + 14);
+					sub_479300(*(unsigned __int16*)(v3 + 2), *(unsigned __int16*)(v3 + 4), *(_DWORD*)(v3 + 6),
+							   *(_DWORD*)(v3 + 10), v3 + 14);
 				v3 += 18;
 				break;
 			case 9u:
@@ -2987,8 +2892,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			case 0xDu:
 				if (nox_client_isConnected_43C700())
-					sub_478FD0((const wchar_t*)(v3 + 4), (char*)(v3 + 54),
-						   *(unsigned __int16*)(v3 + 2));
+					sub_478FD0((const wchar_t*)(v3 + 4), (char*)(v3 + 54), *(unsigned __int16*)(v3 + 2));
 				v3 += 86;
 				break;
 			case 0x1Bu:
@@ -3055,8 +2959,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 		case 0xD0u:
 			if (*(_BYTE*)(v3 + 1) == 3) {
 				if (nox_client_isConnected_43C700()) {
-					sub_479D30((wchar_t*)(v3 + 34), *(_DWORD*)(v3 + 98), (char*)(v3 + 2),
-						   (const char*)(v3 + 102), *(_BYTE*)(v3 + 134));
+					sub_479D30((wchar_t*)(v3 + 34), *(_DWORD*)(v3 + 98), (char*)(v3 + 2), (const char*)(v3 + 102),
+							   *(_BYTE*)(v3 + 134));
 					if (*(_DWORD*)&byte_5D4594[2618908])
 						sub_4174F0(*(int*)&byte_5D4594[2618908], 512);
 				}
@@ -3089,8 +2993,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				LODWORD(v5) = sub_45A6F0(v284);
 			}
 			if (*(_BYTE*)(v3 + 5) == 1) {
-				if ((_DWORD)v5 ||
-				    (LODWORD(v5) = sub_48E970(*(unsigned __int16*)(v3 + 3), v282, 0, 0), (_DWORD)v5)) {
+				if ((_DWORD)v5 || (LODWORD(v5) = sub_48E970(*(unsigned __int16*)(v3 + 3), v282, 0, 0), (_DWORD)v5)) {
 					sub_459DD0(v5, *(_BYTE*)(v3 + 6));
 					v3 += 7;
 					break;
@@ -3147,8 +3050,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			break;
 		case 0xD6u:
 			if (nox_client_isConnected_43C700())
-				nox_client_lockScreenBriefing_450160(*(unsigned __int8*)(v3 + 1),
-								     *(unsigned __int8*)(v3 + 2), 0);
+				nox_client_lockScreenBriefing_450160(*(unsigned __int8*)(v3 + 1), *(unsigned __int8*)(v3 + 2), 0);
 			v3 += 3;
 			break;
 		case 0xD7u:
@@ -3280,9 +3182,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				sub_578B70(*(unsigned __int16*)(v3 + 1));
 			LODWORD(v5) = sub_478080(v295);
 			if ((_DWORD)v5 || (LODWORD(v5) = sub_4676D0(v295), (_DWORD)v5) ||
-			    (!sub_578B70(*(unsigned __int16*)(v3 + 1)) ? (LODWORD(v5) = sub_45A6F0(v295))
-								       : (LODWORD(v5) = sub_45A720(v295)),
-			     (_DWORD)v5)) {
+				(!sub_578B70(*(unsigned __int16*)(v3 + 1)) ? (LODWORD(v5) = sub_45A6F0(v295))
+														   : (LODWORD(v5) = sub_45A720(v295)),
+				 (_DWORD)v5)) {
 				k = *(unsigned __int8*)(v3 + 3);
 				*(_DWORD*)(v5 + 432) = k;
 			}
@@ -3530,9 +3432,8 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				if (!*(_DWORD*)&byte_5D4594[1200904])
 					*(_DWORD*)&byte_5D4594[1200904] = sub_44CFC0((CHAR*)&byte_587000[160484]);
 				if (nox_client_isConnected_43C700()) {
-					v301 = sub_45A360_drawable(*(int*)&byte_5D4594[1200904],
-								   *(unsigned __int16*)(v3 + 6),
-								   *(unsigned __int16*)(v3 + 8));
+					v301 = sub_45A360_drawable(*(int*)&byte_5D4594[1200904], *(unsigned __int16*)(v3 + 6),
+											   *(unsigned __int16*)(v3 + 8));
 					*(_BYTE*)(v301 + 432) = 0;
 					*(_DWORD*)(v301 + 437) = *(_DWORD*)(v3 + 2);
 					*(_DWORD*)(v301 + 441) = *(_DWORD*)(v3 + 6);
@@ -3602,7 +3503,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					*(_DWORD*)&byte_5D4594[1200912] = sub_44CFC0((CHAR*)&byte_587000[160508]);
 				}
 				v302 = (_DWORD*)sub_45A360_drawable(*(int*)&byte_5D4594[1200912], *(__int16*)(v3 + 2),
-								    *(__int16*)(v3 + 4));
+													*(__int16*)(v3 + 4));
 				if (v302)
 					sub_45A110_drawable(v302);
 				if (nox_client_isConnected_43C700()) {
@@ -3613,8 +3514,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				goto LABEL_1149;
 			case 0x1Au:
 				if (nox_client_isConnected_43C700())
-					sub_499610(*(int*)&byte_5D4594[1200788], 25, 500, 25, *(__int16*)(v3 + 2),
-						   *(__int16*)(v3 + 4));
+					sub_499610(*(int*)&byte_5D4594[1200788], 25, 500, 25, *(__int16*)(v3 + 2), *(__int16*)(v3 + 4));
 				v3 += 6;
 				break;
 			case 0x1Cu:
@@ -3636,15 +3536,13 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				if (nox_client_isConnected_43C700() && v303) {
 					if (v303 == *(char**)&byte_5D4594[2618908]) {
 						v348 = sub_424930(*(unsigned __int8*)(v3 + 2));
-						v304 = loadString_sub_40F1D0(
-						    (char*)&byte_587000[160560], 0,
-						    "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8112);
+						v304 = loadString_sub_40F1D0((char*)&byte_587000[160560], 0,
+													 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8112);
 						nox_swprintf(v405, v304, v348);
 					} else {
 						v349 = sub_424930(*(unsigned __int8*)(v3 + 2));
-						v305 = loadString_sub_40F1D0(
-						    (char*)&byte_587000[160624], 0,
-						    "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8115);
+						v305 = loadString_sub_40F1D0((char*)&byte_587000[160624], 0,
+													 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8115);
 						nox_swprintf(v405, v305, v303 + 4704, v349);
 					}
 					sub_445490(v405);
@@ -3656,15 +3554,13 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					goto LABEL_1163;
 				if (v306 == *(char**)&byte_5D4594[2618908]) {
 					v350 = sub_427240(*(unsigned __int8*)(v3 + 2));
-					v307 =
-					    loadString_sub_40F1D0((char*)&byte_587000[160696], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8145);
+					v307 = loadString_sub_40F1D0((char*)&byte_587000[160696], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8145);
 					nox_swprintf(v403, v307, v350);
 				} else {
 					v351 = sub_427240(*(unsigned __int8*)(v3 + 2));
-					v308 =
-					    loadString_sub_40F1D0((char*)&byte_587000[160760], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8148);
+					v308 = loadString_sub_40F1D0((char*)&byte_587000[160760], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8148);
 					nox_swprintf(v403, v308, v306 + 4704, v351);
 				}
 				sub_445490(v403);
@@ -3676,15 +3572,13 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					goto LABEL_1163;
 				if (v309 == *(char**)&byte_5D4594[2618908]) {
 					v352 = sub_425260(*(unsigned __int8*)(v3 + 2));
-					v310 =
-					    loadString_sub_40F1D0((char*)&byte_587000[160832], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8178);
+					v310 = loadString_sub_40F1D0((char*)&byte_587000[160832], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8178);
 					nox_swprintf(v404, v310, v352);
 				} else {
 					v353 = sub_425260(*(unsigned __int8*)(v3 + 2));
-					v311 =
-					    loadString_sub_40F1D0((char*)&byte_587000[160896], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8181);
+					v311 = loadString_sub_40F1D0((char*)&byte_587000[160896], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8181);
 					nox_swprintf(v404, v311, v309 + 4704, v353);
 				}
 				sub_445490(v404);
@@ -3697,11 +3591,10 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					v383[2] = (int)&byte_587000[161028];
 					v383[3] = (int)&byte_587000[161068];
 					v383[4] = (int)&byte_587000[161112];
-					v354 =
-					    loadString_sub_40F1D0((char*)v383[*(unsigned __int8*)(v3 + 51)], 0,
-								  "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8217);
-					v312 = loadString_sub_40F1D0(
-					    (char*)(v3 + 2), 0, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8216);
+					v354 = loadString_sub_40F1D0((char*)v383[*(unsigned __int8*)(v3 + 51)], 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8217);
+					v312 =
+						loadString_sub_40F1D0((char*)(v3 + 2), 0, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8216);
 					nox_swprintf(v402, v312, v354);
 					sub_445490(v402);
 				}

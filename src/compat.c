@@ -16,10 +16,11 @@
 #include <emscripten/html5.h>
 #endif
 
-enum { HANDLE_FILE,
-       HANDLE_PROCESS,
-       HANDLE_THREAD,
-       HANDLE_MUTEX,
+enum {
+	HANDLE_FILE,
+	HANDLE_PROCESS,
+	HANDLE_THREAD,
+	HANDLE_MUTEX,
 };
 
 struct _REGKEY {
@@ -134,8 +135,8 @@ wchar_t* _itow(int val, wchar_t* s, int radix) {
 
 void _makepath(char* path, const char* drive, const char* dir, const char* fname, const char* ext) {
 	sprintf(path, "%s%s%s%s%s%s%s", drive, drive && drive[0] && (!dir || dir[0] != '\\') ? "\\" : "", dir,
-		dir && dir[0] && dir[strlen(dir) - 1] != '\\' ? "\\" : "", fname,
-		ext && ext[0] && ext[0] != '.' ? "." : "", ext);
+			dir && dir[0] && dir[strlen(dir) - 1] != '\\' ? "\\" : "", fname, ext && ext[0] && ext[0] != '.' ? "." : "",
+			ext);
 	// dprintf("%s: (\"%s\", \"%s\", \"%s\", \"%s\") = \"%s\"", __FUNCTION__, drive, dir, fname, ext, path);
 }
 
@@ -255,13 +256,13 @@ int WINAPI MulDiv(int nNumber, int nNumerator, int nDenominator) {
 }
 
 HINSTANCE WINAPI ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory,
-			       INT nShowCmd) {
+							   INT nShowCmd) {
 	DebugBreak();
 	return 0;
 }
 
 int WINAPI WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar,
-			       LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar) {
+							   LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar) {
 	DebugBreak();
 	return 0;
 }
@@ -385,29 +386,28 @@ int WINAPI bind(int sockfd, const struct sockaddr* addr, unsigned int addrlen)
 }
 
 int WINAPI recvfrom(int sockfd, void* buffer, unsigned int length, int flags, struct sockaddr* addr,
-		    unsigned int* addrlen)
+					unsigned int* addrlen)
 #undef recvfrom
 {
 #ifdef __EMSCRIPTEN__
 	int ret;
 	struct sockaddr_in* addr_in = addr;
 	ret = EM_ASM_INT(({
-				 const[remote, port, data] = network.recvfrom($4);
-				 if (remote == = null)
-					 return -1;
-				 const length = Math.min(data.length, $1);
-				 Module.HEAPU8.set(new Uint8Array(data, 0, length), $0);
-				 if ($2) {
-					 Module.HEAPU32[$2 >> 2] = remote;
-				 }
-				 if ($3) {
-					 Module.HEAPU8[$3] = port >> 8;
-					 Module.HEAPU8[$3 + 1] = port >> 0;
-				 }
-				 return length;
-			 }),
-			 buffer, length, addr_in ? &addr_in->sin_addr : NULL, addr_in ? &addr_in->sin_port : NULL,
-			 sockfd);
+						 const[remote, port, data] = network.recvfrom($4);
+						 if (remote == = null)
+							 return -1;
+						 const length = Math.min(data.length, $1);
+						 Module.HEAPU8.set(new Uint8Array(data, 0, length), $0);
+						 if ($2) {
+							 Module.HEAPU32[$2 >> 2] = remote;
+						 }
+						 if ($3) {
+							 Module.HEAPU8[$3] = port >> 8;
+							 Module.HEAPU8[$3 + 1] = port >> 0;
+						 }
+						 return length;
+					 }),
+					 buffer, length, addr_in ? &addr_in->sin_addr : NULL, addr_in ? &addr_in->sin_port : NULL, sockfd);
 	if (addr_in)
 		addr_in->sin_family = AF_INET;
 	return ret;
@@ -417,7 +417,7 @@ int WINAPI recvfrom(int sockfd, void* buffer, unsigned int length, int flags, st
 }
 
 int WINAPI sendto(int sockfd, void* buffer, unsigned int length, int flags, const struct sockaddr* addr,
-		  unsigned int addrlen)
+				  unsigned int addrlen)
 #undef sendto
 {
 #ifdef __EMSCRIPTEN__
@@ -434,11 +434,11 @@ int WINAPI sendto(int sockfd, void* buffer, unsigned int length, int flags, cons
 	}
 
 	return EM_ASM_INT(
-	    {
-		    network.sendto($3, $2, $4, Module.HEAPU8.slice($0, $0 + $1));
-		    return $1;
-	    },
-	    buffer, length, dest, sockfd, ntohs(addr_in->sin_port));
+		{
+			network.sendto($3, $2, $4, Module.HEAPU8.slice($0, $0 + $1));
+			return $1;
+		},
+		buffer, length, dest, sockfd, ntohs(addr_in->sin_port));
 #else
 	return sendto(sockfd, buffer, length, flags, addr, addrlen);
 #endif
@@ -450,7 +450,7 @@ int WINAPI WSAGetLastError() { return last_socket_error; }
 // compatGetDateFormatA(Locale=2048, dwFlags=1, lpDate=0x1708c6a4, lpFormat=0x00000000, lpDateStr="nox.str:Warrior",
 // cchDate=256) at compat.c:1001
 int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
-			  int cchDate) {
+						  int cchDate) {
 	if (Locale != 0x800 || dwFlags != 1 || lpFormat)
 		DebugBreak();
 
@@ -459,7 +459,7 @@ int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, 
 }
 
 int WINAPI GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR lpFormat, LPSTR lpTimeStr,
-			  int cchTime) {
+						  int cchTime) {
 	if (Locale != 0x800 || dwFlags != 14 || lpFormat)
 		DebugBreak();
 
@@ -616,8 +616,8 @@ BOOL WINAPI FindClose(HANDLE hFindFile) {
 }
 
 HANDLE WINAPI CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode,
-			  LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition,
-			  DWORD dwFlagsAndAttributes, HANDLE hTemplateFile) {
+						  LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition,
+						  DWORD dwFlagsAndAttributes, HANDLE hTemplateFile) {
 	char* converted = dos_to_unix(lpFileName);
 	int fd, flags;
 
@@ -660,7 +660,7 @@ HANDLE WINAPI CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShar
 }
 
 BOOL WINAPI ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead,
-		     LPOVERLAPPED lpOverlapped) {
+					 LPOVERLAPPED lpOverlapped) {
 	int fd = (int)hFile;
 	int ret;
 
@@ -902,8 +902,8 @@ char* fgets(char* str, int size, FILE* stream)
 
 // Registry functions
 LSTATUS WINAPI RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
-			       REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
-			       LPDWORD lpdwDisposition) {
+							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
+							   LPDWORD lpdwDisposition) {
 	DebugBreak();
 	return 0;
 }
@@ -925,11 +925,10 @@ LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM
 }
 
 LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
-				LPDWORD lpcbData) {
+								LPDWORD lpcbData) {
 	dprintf("%s: key=\"%s\", value=\"%s\"", __FUNCTION__, hKey->path, lpValueName);
 
-	if (strcmp(hKey->path, "HKEY_LOCAL_MACHINE\\SOFTWARE\\Westwood\\Nox") == 0 &&
-	    strcmp(lpValueName, "Serial") == 0) {
+	if (strcmp(hKey->path, "HKEY_LOCAL_MACHINE\\SOFTWARE\\Westwood\\Nox") == 0 && strcmp(lpValueName, "Serial") == 0) {
 		int i;
 		for (i = 0; i < *lpcbData - 1; i++)
 			lpData[i] = (nox_rand() % 10) + '0';
@@ -942,7 +941,7 @@ LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserve
 }
 
 LSTATUS WINAPI RegSetValueExA(HKEY hKey, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE* lpData,
-			      DWORD cbData) {
+							  DWORD cbData) {
 	DebugBreak();
 	return 0;
 }

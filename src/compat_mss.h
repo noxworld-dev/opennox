@@ -19,7 +19,7 @@ typedef struct {
 __attribute__((packed))
 #endif
 WAVEFORMAT2,
-    *LPWAVEFORMAT2;
+	*LPWAVEFORMAT2;
 
 typedef struct {
 	WORD wFormatTag;
@@ -108,4 +108,4 @@ DXDEC S32 AILCALL AIL_stream_position(HSTREAM stream);
 DXDEC S32 AILCALL AIL_stream_status(HSTREAM stream);
 DXDEC void AILCALL AIL_waveOutClose(HDIGDRIVER drvr);
 DXDEC S32 AILCALL AIL_waveOutOpen(HDIGDRIVER FAR* drvr, LPHWAVEOUT FAR* lphWaveOut, S32 wDeviceID,
-				  LPWAVEFORMAT lpFormat);
+								  LPWAVEFORMAT lpFormat);

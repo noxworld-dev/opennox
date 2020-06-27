@@ -29,8 +29,8 @@ int __cdecl nox_thing_blue_rain_draw(int a1, int a2) {
 			*(_DWORD*)(v7 + 436) = v6 << 12;
 			*(_BYTE*)(v7 + 299) = 0;
 			*(_DWORD*)(v7 + 440) = 0;
-			*(_DWORD*)(v7 + 448) = *(_DWORD*)&byte_5D4594[2598000] +
-					       sub_415FF0(90, 120, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 63);
+			*(_DWORD*)(v7 + 448) =
+				*(_DWORD*)&byte_5D4594[2598000] + sub_415FF0(90, 120, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 63);
 			*(_DWORD*)(v8 + 444) = *(_DWORD*)&byte_5D4594[2598000];
 			*(_WORD*)(v8 + 106) = 0;
 			*(_BYTE*)(v8 + 296) = -5;

@@ -20,8 +20,7 @@ int sub_430F00_screenshot() {
 	++screenshot_num;
 	FILE* file = fopen(path, "w");
 	if (!file) {
-		v2 = loadString_sub_40F1D0((char*)&byte_587000[80968], 0,
-					   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 375);
+		v2 = loadString_sub_40F1D0((char*)&byte_587000[80968], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 375);
 		return sub_4517A0(v2, path);
 	}
 	fprintf(file, "P3\n#Nox Bitmap data\n640 480 256\n");
@@ -31,8 +30,8 @@ int sub_430F00_screenshot() {
 			if (v7 != 0 && (v7 % 60) == 0)
 				fprintf(file, "\n");
 			fprintf(file, "%d %d %d ", byte_5D4594[3 * *(unsigned __int8*)(v7 + v4) + 3804716],
-				byte_5D4594[3 * *(unsigned __int8*)(v7 + v4) + 3804717],
-				byte_5D4594[3 * *(unsigned __int8*)(v7 + v4) + 3804718]);
+					byte_5D4594[3 * *(unsigned __int8*)(v7 + v4) + 3804717],
+					byte_5D4594[3 * *(unsigned __int8*)(v7 + v4) + 3804718]);
 		}
 		v4 += dword_5d4594_3801808;
 	}

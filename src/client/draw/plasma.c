@@ -110,21 +110,20 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 			*(_DWORD*)&byte_5D4594[v11 + 1313908] = v15;
 			if (v15 <= 0) {
 				*(_DWORD*)&byte_5D4594[v11 + 1313908] =
-				    sub_415FF0(10, 90, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 378);
+					sub_415FF0(10, 90, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 378);
 				*(_DWORD*)&byte_5D4594[v11 + 1313904] =
-				    sub_415FF0(4, 8, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 382);
+					sub_415FF0(4, 8, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 382);
 				if (sub_415FF0(0, 1, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 385))
 					*(_DWORD*)&byte_5D4594[v11 + 1313904] = -*(_DWORD*)&byte_5D4594[v11 + 1313904];
 				if (i == 1) {
 					*(_DWORD*)&byte_5D4594[28 * v10 + 1314732] =
-					    sub_415FF0(40, 50, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 392);
+						sub_415FF0(40, 50, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 392);
 				} else {
 					*(_DWORD*)&byte_5D4594[v11 + 1313892] =
-					    sub_415FF0(80, 110, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 395);
-					if (v10 < 4 &&
-					    sub_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 402) > 90) {
-						*(_DWORD*)&byte_5D4594[v11 + 1313892] = sub_415FF0(
-						    150, 200, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 407);
+						sub_415FF0(80, 110, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 395);
+					if (v10 < 4 && sub_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 402) > 90) {
+						*(_DWORD*)&byte_5D4594[v11 + 1313892] =
+							sub_415FF0(150, 200, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 407);
 						*(_DWORD*)&byte_5D4594[v11 + 1313908] *= 2;
 					}
 				}
@@ -163,8 +162,8 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 				v31 = v37 * *(float*)&byte_587000[8 * v27 + 194140];
 				a4a.field_4 = nox_float2int(v31);
 				sub_4BE800(*(_DWORD*)&byte_5D4594[4 * j + 1313828]);
-				sub_4BE810(1, *(_DWORD*)&byte_5D4594[4 * j + 1313828],
-					   *(_DWORD*)&byte_5D4594[4 * j + 1313844], byte_5D4594[j + 1313840]);
+				sub_4BE810(1, *(_DWORD*)&byte_5D4594[4 * j + 1313828], *(_DWORD*)&byte_5D4594[4 * j + 1313844],
+						   byte_5D4594[j + 1313840]);
 				if (j == 1)
 					sub_4BEAD0(&a1a, &a2a, &a3a, &a4a, 8, 1);
 				else
@@ -202,8 +201,7 @@ char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3) {
 		v6 = sub_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
 		if (v6 > 5)
 			LOBYTE(v6) = sub_499710(*a2 + *((_DWORD*)v4 + 4) - *(_DWORD*)v4,
-						a2[1] + *((_DWORD*)v4 + 5) - *((_DWORD*)v4 + 1), 8,
-						*(int*)&byte_5D4594[1316416]);
+									a2[1] + *((_DWORD*)v4 + 5) - *((_DWORD*)v4 + 1), 8, *(int*)&byte_5D4594[1316416]);
 	}
 	return v6;
 }

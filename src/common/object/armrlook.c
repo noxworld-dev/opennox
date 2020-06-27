@@ -9,8 +9,8 @@ wchar_t* __cdecl sub_415B60(int a1) {
 
 	v1 = 0;
 	if (!*(_DWORD*)&byte_587000[34848])
-		return loadString_sub_40F1D0((char*)&byte_587000[37836], 0,
-					     "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 263);
+		return loadString_sub_40F1D0((char*)&byte_587000[37836], 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c",
+									 263);
 	HIWORD(v2) = 0;
 	for (i = &byte_587000[34848];; i += 24) {
 		LOWORD(v2) = *(_WORD*)(a1 + 4);
@@ -19,11 +19,11 @@ wchar_t* __cdecl sub_415B60(int a1) {
 		v4 = *((_DWORD*)i + 6);
 		++v1;
 		if (!v4)
-			return loadString_sub_40F1D0((char*)&byte_587000[37836], 0,
-						     "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 263);
+			return loadString_sub_40F1D0((char*)&byte_587000[37836], 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c",
+										 263);
 	}
 	return loadString_sub_40F1D0(*(char**)&byte_587000[24 * v1 + 34852], 0,
-				     "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 261);
+								 "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 261);
 }
 
 //----- (00415D50) --------------------------------------------------------
@@ -39,8 +39,8 @@ char** sub_415D50() {
 			result = (char**)&byte_587000[35500];
 			v1 = &byte_587000[35500];
 			do {
-				*((_DWORD*)v1 - 1) = loadString_sub_40F1D0(
-				    *result, 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 380);
+				*((_DWORD*)v1 - 1) =
+					loadString_sub_40F1D0(*result, 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 380);
 				v2 = *((_DWORD*)v1 + 3);
 				v1 += 12;
 				result = (char**)v1;

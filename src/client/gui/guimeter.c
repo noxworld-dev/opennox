@@ -56,8 +56,7 @@ int sub_4710B0() {
 		sub_4776B0((wchar_t*)&byte_5D4594[1091968]);
 		result = 1;
 	} else {
-		v7 = loadString_sub_40F1D0((char*)&byte_587000[148444], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c",
-					   881);
+		v7 = loadString_sub_40F1D0((char*)&byte_587000[148444], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 881);
 		sub_4776B0(v7);
 		result = 1;
 	}
@@ -157,8 +156,7 @@ int sub_4714E0() {
 	if (*(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2251)) {
 		dword_5d4594_1090828 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 62, 166, 28, 30, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090828, sub_471B90, sub_471A80, 0);
-		v6 = loadString_sub_40F1D0((char*)&byte_587000[148820], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c",
-					   1083);
+		v6 = loadString_sub_40F1D0((char*)&byte_587000[148820], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1083);
 		sub_46B000((wchar_t*)(dword_5d4594_1090828 + 36), v6);
 		*(_DWORD*)(dword_5d4594_1090828 + 32) = 1;
 		*(_WORD*)&byte_5D4594[1090848] = 0;
@@ -178,14 +176,12 @@ int sub_4714E0() {
 		sub_46AE60((int)v8, (int)v9);
 		*(_DWORD*)&byte_5D4594[1093056] = nox_window_new((int)v8, 8, 60, 34, 25, 125, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1093056], sub_472100, sub_471D10, 0);
-		v10 = loadString_sub_40F1D0((char*)&byte_587000[148900], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c",
-					    1122);
+		v10 = loadString_sub_40F1D0((char*)&byte_587000[148900], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1122);
 		sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1093056] + 36), v10);
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1093056] + 32) = 1;
 		*(_DWORD*)&byte_5D4594[1093036] = nox_window_new((int)v8, 8, 34, 34, 25, 125, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1093036], sub_472100, sub_471D10, 0);
-		v11 = loadString_sub_40F1D0((char*)&byte_587000[148952], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c",
-					    1135);
+		v11 = loadString_sub_40F1D0((char*)&byte_587000[148952], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1135);
 		sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1093036] + 36), v11);
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1093036] + 32) = 0;
 		*(_DWORD*)&byte_5D4594[1093076] = nox_window_new(0, 8, 0, 0, 0, 0, 0);
@@ -202,8 +198,7 @@ int sub_4714E0() {
 		sub_46AE60((int)v12, (int)v13);
 		*(_DWORD*)&byte_5D4594[1093036] = nox_window_new((int)v12, 8, 34, 34, 25, 125, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&byte_5D4594[1093036], sub_472100, sub_471D10, 0);
-		v14 = loadString_sub_40F1D0((char*)&byte_587000[149048], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c",
-					    1173);
+		v14 = loadString_sub_40F1D0((char*)&byte_587000[149048], 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1173);
 		sub_46B000((wchar_t*)(*(_DWORD*)&byte_5D4594[1093036] + 36), v14);
 		*(_DWORD*)(*(_DWORD*)&byte_5D4594[1093036] + 32) = 0;
 		*(_DWORD*)&byte_5D4594[1093076] = nox_window_new(0, 24, 0, 0, 0, 0, 0);
@@ -302,24 +297,20 @@ int __cdecl sub_471D10(int xLeft) {
 				v10 = 64;
 				do {
 					if (!*((_DWORD*)v9 + 2)) {
-						v11 = sub_415FF0(1, 100, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c",
-								 668);
+						v11 = sub_415FF0(1, 100, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 668);
 						if (v11 >= 80)
 							*(_DWORD*)v9 = (v11 >= 95) + 2;
 						else
 							*(_DWORD*)v9 = 1;
-						v12 =
-						    sub_415FF0(0, 14, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 676);
+						v12 = sub_415FF0(0, 14, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 676);
 						v13 = *(_DWORD*)v9;
 						*((_DWORD*)v9 - 2) = v12;
 						if (v13 + v12 > 15)
 							*((_DWORD*)v9 - 2) = 15 - v13;
 						*((_DWORD*)v9 - 1) = 16 * (125 - v13);
-						*((_DWORD*)v9 + 1) =
-						    sub_415FF0(4, 48, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 684);
+						*((_DWORD*)v9 + 1) = sub_415FF0(4, 48, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 684);
 						*((_DWORD*)v9 + 2) = 1;
-						LOBYTE(v19) =
-						    sub_415FF0(0, 64, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 688);
+						LOBYTE(v19) = sub_415FF0(0, 64, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 688);
 						if (v18)
 							v14 = sub_4344A0(v19, v19, 255);
 						else

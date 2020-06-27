@@ -86,7 +86,7 @@ void* __cdecl sub_44C840_read_things(void) {
 			sub_415240(things);
 			break;
 		case 0x54484E47: // "THNG"
-		    ;
+			;
 			nox_thing* obj = (nox_thing*)nox_calloc(1, sizeof(nox_thing));
 			if (!obj)
 				return 0;
@@ -148,9 +148,8 @@ void* __cdecl sub_44C840_read_things(void) {
 					*((_DWORD*)v15 + 1) = v16;
 					*((_WORD*)v15 + 4) = v10;
 					v15[10] = v17;
-					cur->pretty_name =
-					    loadString_sub_40F1D0((char*)&byte_5D4594[830404], 0,
-								  "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
+					cur->pretty_name = loadString_sub_40F1D0((char*)&byte_5D4594[830404], 0,
+															 "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
 				}
 				if (!cur->desc) {
 					strcpy((char*)&byte_5D4594[830404], "thing.db:");
@@ -168,9 +167,8 @@ void* __cdecl sub_44C840_read_things(void) {
 					*(_DWORD*)--v25 = *(_DWORD*)&byte_587000[122784];
 					*((_DWORD*)v25 + 1) = v26;
 					*((_DWORD*)v25 + 2) = v24;
-					cur->desc =
-					    loadString_sub_40F1D0((char*)&byte_5D4594[830404], 0,
-								  "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
+					cur->desc = loadString_sub_40F1D0((char*)&byte_5D4594[830404], 0,
+													  "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
 				}
 			}
 			v6 = nox_things_count;

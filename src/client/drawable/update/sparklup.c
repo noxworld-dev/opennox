@@ -35,9 +35,8 @@ int __cdecl sub_4CDBF0(int a1, _DWORD* a2) {
 			*(_DWORD*)(v5 + 436) = v4 << 12;
 			*(_BYTE*)(v5 + 299) = 0;
 			*(_DWORD*)(v5 + 440) = 0;
-			*(_DWORD*)(v5 + 448) =
-			    *(_DWORD*)&byte_5D4594[2598000] +
-			    sub_415FF0(2, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 51);
+			*(_DWORD*)(v5 + 448) = *(_DWORD*)&byte_5D4594[2598000] +
+								   sub_415FF0(2, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 51);
 			*(_DWORD*)(v5 + 444) = *(_DWORD*)&byte_5D4594[2598000];
 			*(_WORD*)(v5 + 104) = *((_WORD*)v2 + 52);
 			*(_WORD*)(v5 + 106) = *((_WORD*)v2 + 53);

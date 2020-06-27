@@ -24,8 +24,8 @@ wchar_t* __cdecl sub_4E77E0_obj_util(int a1) {
 		v4 = v3;
 		if (!v3) {
 			v12 = sub_4E39D0(a1);
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[203812], 0,
-						   "C:\\NoxPost\\src\\Server\\Object\\objutil.c", 983);
+			v5 = loadString_sub_40F1D0((char*)&byte_587000[203812], 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c",
+									   983);
 			nox_swprintf((wchar_t*)&byte_5D4594[1565660], v5, v12);
 			return (wchar_t*)&byte_5D4594[1565660];
 		}
@@ -56,8 +56,8 @@ wchar_t* __cdecl sub_4E77E0_obj_util(int a1) {
 			return (wchar_t*)&byte_5D4594[1565660];
 		}
 	} else {
-		v11 = loadString_sub_40F1D0((char*)&byte_587000[203876], 0,
-					    "C:\\NoxPost\\src\\Server\\Object\\objutil.c", 1032);
+		v11 =
+			loadString_sub_40F1D0((char*)&byte_587000[203876], 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c", 1032);
 		nox_wcscpy((wchar_t*)&byte_5D4594[1565660], v11);
 	}
 	return (wchar_t*)&byte_5D4594[1565660];

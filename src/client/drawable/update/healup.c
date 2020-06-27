@@ -59,9 +59,9 @@ int __cdecl sub_4CD450(_DWORD* a1, int a2) {
 			if (a2 == -432)
 				return 1;
 			v2 = *(unsigned __int16*)(a2 + 441) +
-			     sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 31);
+				 sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 31);
 			v3 = *(unsigned __int16*)(a2 + 443) +
-			     sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 32);
+				 sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 32);
 			LOWORD(v22) = *(_WORD*)(a2 + 437);
 			LOWORD(v4) = *(_WORD*)(a2 + 439);
 		}
@@ -87,8 +87,7 @@ int __cdecl sub_4CD450(_DWORD* a1, int a2) {
 			*(_WORD*)(v19 + 432) = v22;
 			*(_WORD*)(v19 + 434) = v23;
 			*(_BYTE*)(v19 + 443) = v20;
-			*(_BYTE*)(v19 + 444) =
-			    sub_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 99);
+			*(_BYTE*)(v19 + 444) = sub_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 99);
 		}
 	}
 	return 1;

@@ -229,24 +229,28 @@ struct compat_stat {
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
 
-enum { CREATE_NEW = 1,
-       CREATE_ALWAYS,
-       OPEN_EXISTING,
-       OPEN_ALWAYS,
-       TRUNCATE_EXISTING,
+enum {
+	CREATE_NEW = 1,
+	CREATE_ALWAYS,
+	OPEN_EXISTING,
+	OPEN_ALWAYS,
+	TRUNCATE_EXISTING,
 };
 
-enum { GENERIC_READ = 0x80000000,
-       GENERIC_WRITE = 0x40000000,
+enum {
+	GENERIC_READ = 0x80000000,
+	GENERIC_WRITE = 0x40000000,
 };
 
-enum { FILE_ATTRIBUTE_DIRECTORY = 0x10,
-       FILE_ATTRIBUTE_NORMAL = 0x80,
+enum {
+	FILE_ATTRIBUTE_DIRECTORY = 0x10,
+	FILE_ATTRIBUTE_NORMAL = 0x80,
 };
 
 enum { FILE_BEGIN = 0, FILE_CURRENT, FILE_END };
 
-enum { ERROR_NO_MORE_FILES = 18,
+enum {
+	ERROR_NO_MORE_FILES = 18,
 };
 
 #define DebugBreak compatDebugBreak
@@ -348,10 +352,10 @@ HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileDat
 BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
 BOOL WINAPI FindClose(HANDLE hFindFile);
 HANDLE WINAPI CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode,
-			  LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition,
-			  DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
+						  LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition,
+						  DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
 BOOL WINAPI ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead,
-		     LPOVERLAPPED lpOverlapped);
+					 LPOVERLAPPED lpOverlapped);
 DWORD WINAPI SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanceToMoveHigh, DWORD dwMoveMethod);
 BOOL WINAPI CopyFileA(LPCSTR lpExistingFileName, LPCSTR lpNewFileName, BOOL bFailIfExists);
 BOOL WINAPI DeleteFileA(LPCSTR lpFileName);
@@ -361,16 +365,16 @@ BOOL WINAPI RemoveDirectoryA(LPCSTR lpPathName);
 DWORD WINAPI GetCurrentDirectoryA(DWORD nBufferLength, LPSTR lpBuffer);
 BOOL WINAPI SetCurrentDirectoryA(LPCSTR lpPathName);
 int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
-			  int cchDate);
+						  int cchDate);
 LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult);
 LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
-				LPDWORD lpcbData);
+								LPDWORD lpcbData);
 LSTATUS WINAPI RegSetValueExA(HKEY, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE* lpData, DWORD cbData);
 LSTATUS WINAPI RegCloseKey(HKEY hKey);
 int WINAPI MulDiv(int nNumber, int nNumerator, int nDenominator);
 LSTATUS WINAPI RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
-			       REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
-			       LPDWORD lpdwDisposition);
+							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
+							   LPDWORD lpdwDisposition);
 VOID WINAPI GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
 DWORD WINAPI GetModuleFileNameA(HMODULE hModule, LPSTR lpFileName, DWORD nSize);
 BOOL WINAPI QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount);
@@ -383,9 +387,9 @@ BOOL WINAPI HeapDestroy(HANDLE hHeap);
 BOOL WINAPI GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
 VOID WINAPI OutputDebugStringA(LPCSTR lpOutputString);
 HINSTANCE WINAPI ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory,
-			       INT nShowCmd);
+							   INT nShowCmd);
 int WINAPI GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR lpFormat, LPSTR lpTimeStr,
-			  int cchTime);
+						  int cchTime);
 BOOL WINAPI SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime);
 LONG WINAPI CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2);
 HANDLE WINAPI CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwner, LPCSTR lpName);
@@ -394,7 +398,7 @@ BOOL WINAPI SetEvent(HANDLE hEvent);
 DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds);
 char* WINAPI inet_ntoa(struct in_addr in);
 int WINAPI WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar,
-			       LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar);
+							   LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar);
 
 LONG InterlockedExchange(volatile LONG* Target, LONG Value);
 LONG InterlockedDecrement(volatile LONG* Addend);
@@ -409,9 +413,9 @@ SOCKET WINAPI socket(int domain, int type, int protocol);
 int WINAPI setsockopt(SOCKET s, int level, int opt, const void* value, unsigned int len);
 int WINAPI bind(int sockfd, const struct sockaddr* addr, unsigned int addrlen);
 int WINAPI recvfrom(int sockfd, void* buffer, unsigned int length, int flags, struct sockaddr* addr,
-		    unsigned int* addrlen);
+					unsigned int* addrlen);
 int WINAPI sendto(int sockfd, void* buffer, unsigned int length, int flags, const struct sockaddr* addr,
-		  unsigned int addrlen);
+				  unsigned int addrlen);
 
 unsigned int _control87(unsigned int new_, unsigned int mask);
 unsigned int _controlfp(unsigned int new_, unsigned int mask);

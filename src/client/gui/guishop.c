@@ -57,8 +57,8 @@ _DWORD* __cdecl sub_478730(int* a1) {
 			v13 = *(_DWORD*)&v5[4 * *((_DWORD*)v5 + 1) + 4];
 			v12 = a1[1];
 			v11 = *a1;
-			v10 = loadString_sub_40F1D0((char*)&byte_587000[152564], 0,
-						    "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 328);
+			v10 =
+				loadString_sub_40F1D0((char*)&byte_587000[152564], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 328);
 			result = (_DWORD*)sub_4C0430((int)v10, v11, v12, v13, v14, v9, v8, 0, sub_478850, 0);
 		} else {
 			result = sub_479520(v7 - v6);
@@ -77,8 +77,7 @@ void __cdecl sub_478880(int a1, __int16 a2) {
 		sub_40EBC0(31, 0, &a1, 4);
 	} else {
 		sub_452D80(925, 100);
-		v2 = loadString_sub_40F1D0((char*)&byte_587000[152612], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c",
-					   207);
+		v2 = loadString_sub_40F1D0((char*)&byte_587000[152612], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 207);
 		sub_445490(v2);
 	}
 }
@@ -96,8 +95,7 @@ void __cdecl sub_4788F0(int a1, int a2) {
 		sub_40EBC0(31, 0, v3, 5);
 	} else {
 		sub_452D80(925, 100);
-		v2 = loadString_sub_40F1D0((char*)&byte_587000[152676], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c",
-					   233);
+		v2 = loadString_sub_40F1D0((char*)&byte_587000[152676], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 233);
 		sub_445490(v2);
 	}
 }
@@ -117,9 +115,9 @@ wchar_t* __cdecl sub_478B10(int2* a1) {
 	nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1098456, a1->field_0, a1->field_4);
 	result = *(wchar_t**)&dword_5d4594_1098596;
 	if (dword_5d4594_1098596 ||
-	    (result = loadString_sub_40F1D0((char*)&byte_587000[152740], *(_DWORD**)&dword_5d4594_1098596,
-					    "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 597),
-	     (dword_5d4594_1098596 = result) != 0)) {
+		(result = loadString_sub_40F1D0((char*)&byte_587000[152740], *(_DWORD**)&dword_5d4594_1098596,
+										"C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 597),
+		 (dword_5d4594_1098596 = result) != 0)) {
 		result = (wchar_t*)sub_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
 	}
 	return result;
@@ -141,9 +139,9 @@ wchar_t* __cdecl sub_478BC0(int* a1) {
 	nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1098456, *a1, a1[1]);
 	result = *(wchar_t**)&dword_5d4594_1098600;
 	if (dword_5d4594_1098600 ||
-	    (result = loadString_sub_40F1D0((char*)&byte_587000[152796], *(_DWORD**)&dword_5d4594_1098600,
-					    "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 628),
-	     (dword_5d4594_1098600 = result) != 0)) {
+		(result = loadString_sub_40F1D0((char*)&byte_587000[152796], *(_DWORD**)&dword_5d4594_1098600,
+										"C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 628),
+		 (dword_5d4594_1098600 = result) != 0)) {
 		result = (wchar_t*)sub_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
 	}
 	return result;
@@ -170,7 +168,7 @@ int __cdecl sub_478FD0(const wchar_t* a1, char* a2, int a3) {
 	sub_46AEE0((int)v3, (int)&byte_5D4594[1097300]);
 	if (strlen(a2)) {
 		dword_5d4594_1098604 =
-		    loadString_sub_40F1D0(a2, &byte_5D4594[1098608], "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1128);
+			loadString_sub_40F1D0(a2, &byte_5D4594[1098608], "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1128);
 	} else {
 		dword_5d4594_1098604 = 0;
 		*(_DWORD*)&byte_5D4594[1098608] = 0;
@@ -222,8 +220,8 @@ int __cdecl sub_4795E0(int a1, int a2) {
 			v9 = *(_DWORD*)(v5 + 108);
 			v8 = v3->field_4;
 			v7 = v3->field_0;
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[153376], 0,
-						   "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1504);
+			v6 =
+				loadString_sub_40F1D0((char*)&byte_587000[153376], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1504);
 			result = sub_4C0430((int)v6, v7, v8, a1, v9, v2, v10, 0, sub_479690, (int)&sub_479680);
 			dword_5d4594_1098616 = 1;
 		}
@@ -260,8 +258,8 @@ void __cdecl sub_479740(int a1, unsigned int a2) {
 				v9 = *(_DWORD*)(v5 + 108);
 				v8 = v3->field_4;
 				v7 = v3->field_0;
-				v6 = loadString_sub_40F1D0((char*)&byte_587000[153424], 0,
-							   "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1580);
+				v6 = loadString_sub_40F1D0((char*)&byte_587000[153424], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c",
+										   1580);
 				sub_4C0430((int)v6, v7, v8, a1, v9, v2, 1, 0, sub_479820, sub_479810);
 				dword_5d4594_1098620 = 1;
 			}
