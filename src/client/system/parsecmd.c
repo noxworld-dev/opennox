@@ -56,8 +56,7 @@ int __cdecl nox_cmd_lock(int a1, char a2, int a3) {
 		return 0;
 	sub_450B20(*(wchar_t**)(a3 + 4));
 	sub_450B70();
-	v4 =
-	    loadString_sub_40F1D0((char*)&byte_587000[101668], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1329);
+	v4 = loadString_sub_40F1D0((char*)&byte_587000[101668], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1329);
 	sub_450C00(4u, v4);
 	return 1;
 }
@@ -80,8 +79,7 @@ int __cdecl nox_cmd_unlock(int a1, char a2) {
 	if (a2 != 1)
 		return 0;
 	sub_450B50();
-	v3 =
-	    loadString_sub_40F1D0((char*)&byte_587000[101724], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1340);
+	v3 = loadString_sub_40F1D0((char*)&byte_587000[101724], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1340);
 	sub_450C00(4u, v3);
 	return 1;
 }
@@ -93,8 +91,7 @@ int __cdecl nox_cmd_set_sysop(int a1, char a2, int a3) {
 	if (a2 != 3)
 		return 0;
 	sub_40A610(*(wchar_t**)(a3 + 4 * a1));
-	v4 =
-	    loadString_sub_40F1D0((char*)&byte_587000[101780], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1352);
+	v4 = loadString_sub_40F1D0((char*)&byte_587000[101780], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1352);
 	sub_450C00(6u, v4);
 	return 1;
 }
@@ -148,8 +145,8 @@ int __cdecl nox_cmd_telnet_off(int a1, char a2) {
 		return 0;
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
 		sub_579830();
-		v3 = loadString_sub_40F1D0((char*)&byte_587000[101840], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1368);
+		v3 =
+			loadString_sub_40F1D0((char*)&byte_587000[101840], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1368);
 		sub_450C00(6u, v3);
 	}
 	return 1;
@@ -188,8 +185,7 @@ int __cdecl nox_cmd_telnet_on(int a1, unsigned __int8 a2, int a3) {
 		sub_5797F0(v4);
 	}
 	v6 = sub_579850();
-	v5 =
-	    loadString_sub_40F1D0((char*)&byte_587000[101892], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1388);
+	v5 = loadString_sub_40F1D0((char*)&byte_587000[101892], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1388);
 	sub_450C00(6u, v5, v6);
 	return 1;
 }
@@ -201,8 +197,7 @@ int __cdecl nox_cmd_macros_on(int a1, char a2) {
 	if (a2 != 2)
 		return 0;
 	*(_DWORD*)&byte_587000[95416] = 1;
-	v3 =
-	    loadString_sub_40F1D0((char*)&byte_587000[101944], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1400);
+	v3 = loadString_sub_40F1D0((char*)&byte_587000[101944], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1400);
 	sub_450C00(6u, v3);
 	return 1;
 }
@@ -214,8 +209,7 @@ int __cdecl nox_cmd_macros_off(int a1, char a2) {
 	if (a2 != 2)
 		return 0;
 	*(_DWORD*)&byte_587000[95416] = 0;
-	v3 =
-	    loadString_sub_40F1D0((char*)&byte_587000[101996], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1411);
+	v3 = loadString_sub_40F1D0((char*)&byte_587000[101996], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1411);
 	sub_450C00(6u, v3);
 	return 1;
 }
@@ -231,10 +225,8 @@ int nox_cmd_list_weapons() {
 	int v7;      // [esp-Ch] [ebp-18h]
 	wchar_t* v8; // [esp-8h] [ebp-14h]
 
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[102048], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1460);
-	v1 =
-	    loadString_sub_40F1D0((char*)&byte_587000[102096], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1461);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[102048], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1460);
+	v1 = loadString_sub_40F1D0((char*)&byte_587000[102096], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1461);
 	v2 = (char**)sub_4E3B30();
 	if (!v2)
 		return 1;
@@ -246,15 +238,13 @@ int nox_cmd_list_weapons() {
 				if (sub_4E3BA0(*(unsigned __int16*)v2)) {
 					v8 = v0;
 					v7 = v4;
-					v5 =
-					    loadString_sub_40F1D0((char*)&byte_587000[102148], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1475);
+					v5 = loadString_sub_40F1D0((char*)&byte_587000[102148], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1475);
 				} else {
 					v8 = v1;
 					v7 = v4;
-					v5 =
-					    loadString_sub_40F1D0((char*)&byte_587000[102200], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1477);
+					v5 = loadString_sub_40F1D0((char*)&byte_587000[102200], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1477);
 				}
 				sub_450C00(6u, v5, v7, v8);
 			}
@@ -275,10 +265,8 @@ int nox_cmd_list_armor() {
 	int v7;      // [esp-Ch] [ebp-18h]
 	wchar_t* v8; // [esp-8h] [ebp-14h]
 
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[102252], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1492);
-	v1 =
-	    loadString_sub_40F1D0((char*)&byte_587000[102300], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1493);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[102252], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1492);
+	v1 = loadString_sub_40F1D0((char*)&byte_587000[102300], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1493);
 	v2 = (char**)sub_4E3B30();
 	if (!v2)
 		return 1;
@@ -290,15 +278,13 @@ int nox_cmd_list_armor() {
 				if (sub_4E3BA0(*(unsigned __int16*)v2)) {
 					v8 = v0;
 					v7 = v4;
-					v5 =
-					    loadString_sub_40F1D0((char*)&byte_587000[102352], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1508);
+					v5 = loadString_sub_40F1D0((char*)&byte_587000[102352], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1508);
 				} else {
 					v8 = v1;
 					v7 = v4;
-					v5 =
-					    loadString_sub_40F1D0((char*)&byte_587000[102404], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1510);
+					v5 = loadString_sub_40F1D0((char*)&byte_587000[102404], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1510);
 				}
 				sub_450C00(6u, v5, v7, v8);
 			}
@@ -318,10 +304,8 @@ int nox_cmd_list_spells() {
 	int v6;      // [esp-8h] [ebp-14h]
 	wchar_t* v7; // [esp-4h] [ebp-10h]
 
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[102456], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1524);
-	v1 =
-	    loadString_sub_40F1D0((char*)&byte_587000[102504], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1525);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[102456], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1524);
+	v1 = loadString_sub_40F1D0((char*)&byte_587000[102504], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1525);
 	v2 = 1;
 	do {
 		if (sub_424B50(v2)) {
@@ -330,13 +314,13 @@ int nox_cmd_list_spells() {
 				v6 = sub_4249A0(v2, 1);
 				v5 = sub_424930(v2);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[102556], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1531);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1531);
 			} else {
 				v7 = v1;
 				v6 = sub_4249A0(v2, 1);
 				v5 = sub_424930(v2);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[102608], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1533);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1533);
 			}
 			sub_450C00(6u, v3, v5, v6, v7);
 		}
@@ -357,10 +341,8 @@ int nox_cmd_list_staffs() {
 	int v8;               // [esp-Ch] [ebp-18h]
 	wchar_t* v9;          // [esp-8h] [ebp-14h]
 
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[102660], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1588);
-	v1 =
-	    loadString_sub_40F1D0((char*)&byte_587000[102708], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1589);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[102660], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1588);
+	v1 = loadString_sub_40F1D0((char*)&byte_587000[102708], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1589);
 	v2 = (unsigned __int16*)sub_4E3B30();
 	if (!v2)
 		return 1;
@@ -373,15 +355,13 @@ int nox_cmd_list_staffs() {
 				if (sub_4E3BA0(*v2)) {
 					v9 = v0;
 					v8 = v5;
-					v6 =
-					    loadString_sub_40F1D0((char*)&byte_587000[102760], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1604);
+					v6 = loadString_sub_40F1D0((char*)&byte_587000[102760], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1604);
 				} else {
 					v9 = v1;
 					v8 = v5;
-					v6 =
-					    loadString_sub_40F1D0((char*)&byte_587000[102812], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1606);
+					v6 = loadString_sub_40F1D0((char*)&byte_587000[102812], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1606);
 				}
 				sub_450C00(6u, v6, v8, v9);
 			}
@@ -405,11 +385,11 @@ int __cdecl nox_cmd_show_bindings(int a1, char a2) {
 		v3 += 76;
 	} while ((int)v3 < (int)&byte_587000[95428]);
 	if (*(_DWORD*)&byte_587000[95416])
-		v4 = loadString_sub_40F1D0((char*)&byte_587000[102880], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1630);
+		v4 =
+			loadString_sub_40F1D0((char*)&byte_587000[102880], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1630);
 	else
-		v4 = loadString_sub_40F1D0((char*)&byte_587000[102932], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1632);
+		v4 =
+			loadString_sub_40F1D0((char*)&byte_587000[102932], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1632);
 	sub_450C00(4u, v4);
 	return 1;
 }
@@ -446,20 +426,20 @@ int __cdecl nox_cmd_show_game(int a1, char a2) {
 	sub_450C00(6u, (wchar_t*)&byte_587000[102952], &byte_587000[102944], v5);
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		v15 = sub_40A4C0();
-		v6 = loadString_sub_40F1D0((char*)&byte_587000[103020], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1801);
+		v6 =
+			loadString_sub_40F1D0((char*)&byte_587000[103020], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1801);
 		sub_450C00(6u, (wchar_t*)&byte_587000[103028], v6, v15);
 		v7 = nox_common_gameFlags_getVal_40A5B0();
 		v16 = sub_4573C0(v7);
-		v8 = loadString_sub_40F1D0((char*)&byte_587000[103080], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1802);
+		v8 =
+			loadString_sub_40F1D0((char*)&byte_587000[103080], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1802);
 		sub_450C00(6u, (wchar_t*)&byte_587000[103088], v8, v16);
 		v17 = sub_40A180(*((_WORD*)v2 + 26));
 		v14 = (unsigned __int16)sub_40A020(*((_WORD*)v2 + 26));
 		v13 = sub_409FA0();
 		v12 = nox_server_currentMapGetFilename_409B30();
-		v9 = loadString_sub_40F1D0((char*)&byte_587000[103140], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1803);
+		v9 =
+			loadString_sub_40F1D0((char*)&byte_587000[103140], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1803);
 		sub_450C00(6u, v9, v12, v4, v13, v14, v17);
 		v10.S_un.S_addr = sub_554200(0);
 		v11 = inet_ntoa(v10);
@@ -474,11 +454,11 @@ int nox_cmd_show_mmx() {
 	wchar_t* v0; // eax
 
 	if (dword_5d4594_805836)
-		v0 = loadString_sub_40F1D0((char*)&byte_587000[103208], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1869);
+		v0 =
+			loadString_sub_40F1D0((char*)&byte_587000[103208], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1869);
 	else
-		v0 = loadString_sub_40F1D0((char*)&byte_587000[103260], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1871);
+		v0 =
+			loadString_sub_40F1D0((char*)&byte_587000[103260], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1871);
 	sub_450C00(6u, v0);
 	return 1;
 }
@@ -521,7 +501,7 @@ int __cdecl nox_cmd_load(int a1, char a2, int a3) {
 					sub_4185B0();
 			} else if (!(nox_common_gameFlags_getVal_40A5B0() & v5)) {
 				v6 = loadString_sub_40F1D0((char*)&byte_587000[103372], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2005);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2005);
 				sub_440A20(v6);
 				return 1;
 			}
@@ -538,18 +518,18 @@ int __cdecl nox_cmd_load(int a1, char a2, int a3) {
 			v8 = &v11[4];
 		}
 		if (!v8 || *v8 != 35 && (strcpy(FileName, "maps\\"), strncat(FileName, v8, strlen(v8) - 4),
-					 *(_WORD*)&FileName[strlen(FileName)] = *(_WORD*)&byte_587000[103416],
-					 strcat(FileName, v8), _stat(FileName, (int)&v12))) {
+								 *(_WORD*)&FileName[strlen(FileName)] = *(_WORD*)&byte_587000[103416],
+								 strcat(FileName, v8), _stat(FileName, (int)&v12))) {
 			v10 = v8;
-			v9 = loadString_sub_40F1D0((char*)&byte_587000[103512], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2076);
+			v9 = loadString_sub_40F1D0((char*)&byte_587000[103512], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2076);
 		} else {
 			sub_4DCC70(1);
 			sub_4D2450(v8);
 			sub_41D650();
 			v10 = v8;
-			v9 = loadString_sub_40F1D0((char*)&byte_587000[103460], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2072);
+			v9 = loadString_sub_40F1D0((char*)&byte_587000[103460], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2072);
 		}
 		sub_440A20(v9, v10);
 		return 1;
@@ -570,8 +550,7 @@ char** __cdecl sub_441B90(_DWORD* a1) {
 		v2 = (char**)(a1 + 2);
 		do {
 			if (!((_BYTE)result[3] & 4) && (!nox_cheats_disabled || !((_BYTE)v2[1] & 0x10))) {
-				v3 =
-				    loadString_sub_40F1D0(*v2, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2097);
+				v3 = loadString_sub_40F1D0(*v2, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2097);
 				sub_450C00(6u, (wchar_t*)&byte_587000[103568], *(v2 - 1), v3);
 			}
 			v2 += 6;
@@ -616,14 +595,12 @@ int __cdecl sub_441BF0(int a1, int a2, int a3, const wchar_t** a4) {
 				v10 = (const wchar_t**)a4[6 * v5 + 4];
 				v11 = &a4[6 * v5];
 				if (v10) {
-					if ((unsigned __int8)a2 <= a1 + 1 ||
-					    (result = sub_441BF0(a1 + 1, a2, a3, v10)) == 0) {
+					if ((unsigned __int8)a2 <= a1 + 1 || (result = sub_441BF0(a1 + 1, a2, a3, v10)) == 0) {
 						sub_441B90(v11[4]);
 						result = 1;
 					}
 				} else {
-					v12 = loadString_sub_40F1D0(
-					    (char*)v11[2], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2135);
+					v12 = loadString_sub_40F1D0((char*)v11[2], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2135);
 					sub_450C00(6u, v12);
 					result = 1;
 				}
@@ -646,8 +623,7 @@ int nox_cmd_set_obs() {
 	wchar_t* v0; // eax
 	char* v2;    // eax
 
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[103680], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2440);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[103680], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2440);
 	sub_450C00(6u, v0);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		v2 = sub_417040(*(int*)&byte_5D4594[2616328]);
@@ -663,8 +639,7 @@ int nox_cmd_set_save_debug() {
 	wchar_t* v0; // eax
 
 	*(_DWORD*)&nox_common_engineFlags |= 0x8000000u;
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[103744], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2541);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[103744], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2541);
 	sub_450C00(6u, v0);
 	return 1;
 }
@@ -675,8 +650,8 @@ int nox_cmd_set_god() {
 
 	if (!nox_common_gameFlags_check_40A5C0(4096)) {
 		sub_4EF500(1);
-		v0 = loadString_sub_40F1D0((char*)&byte_587000[103800], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2557);
+		v0 =
+			loadString_sub_40F1D0((char*)&byte_587000[103800], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2557);
 		sub_450C00(6u, v0);
 	}
 	return 1;
@@ -687,8 +662,7 @@ int nox_cmd_unset_god() {
 	wchar_t* v0; // eax
 
 	sub_4EF500(0);
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[103848], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2568);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[103848], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2568);
 	sub_450C00(6u, v0);
 	return 1;
 }
@@ -698,8 +672,8 @@ int nox_cmd_set_sage() {
 
 	if (!nox_common_gameFlags_check_40A5C0(4096)) {
 		nullsub_26(1);
-		v0 = loadString_sub_40F1D0((char*)&byte_587000[103900], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2585);
+		v0 =
+			loadString_sub_40F1D0((char*)&byte_587000[103900], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2585);
 		sub_450C00(6u, v0);
 	}
 	return 1;
@@ -711,8 +685,7 @@ int nox_cmd_unset_sage() {
 	wchar_t* v0; // eax
 
 	nullsub_26(0);
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[103948], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2597);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[103948], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2597);
 	sub_450C00(6u, v0);
 	return 1;
 }
@@ -726,8 +699,8 @@ int __cdecl nox_cmd_set_cycle(int a1, char a2, int a3) {
 	if (a2 == 3) {
 		if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *(const wchar_t**)&byte_587000[94468])) {
 			sub_4D0D90(1);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[104000], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2614);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[104000], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2614);
 		LABEL_6:
 			sub_450C00(6u, v3);
 			sub_4AD840();
@@ -735,8 +708,8 @@ int __cdecl nox_cmd_set_cycle(int a1, char a2, int a3) {
 		}
 		if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *(const wchar_t**)&byte_587000[94472])) {
 			sub_4D0D90(0);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[104052], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2621);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[104052], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2621);
 			goto LABEL_6;
 		}
 	}
@@ -752,10 +725,10 @@ int __cdecl nox_cmd_set_weapons(int a1, char a2, int a3) {
 		if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *(const wchar_t**)&byte_587000[94468])) {
 			sub_409E70(1);
 			sub_40A670();
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[104104], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2644);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[104160], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2645);
+			v5 = loadString_sub_40F1D0((char*)&byte_587000[104104], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2644);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[104160], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2645);
 		LABEL_6:
 			sub_450C00(6u, v3, v5);
 			return 1;
@@ -763,10 +736,10 @@ int __cdecl nox_cmd_set_weapons(int a1, char a2, int a3) {
 		if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *(const wchar_t**)&byte_587000[94472])) {
 			sub_409EC0(1);
 			sub_40A670();
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[104208], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2652);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[104264], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2653);
+			v5 = loadString_sub_40F1D0((char*)&byte_587000[104208], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2652);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[104264], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2653);
 			goto LABEL_6;
 		}
 	}
@@ -782,10 +755,10 @@ int __cdecl nox_cmd_set_staffs(int a1, char a2, int a3) {
 		if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *(const wchar_t**)&byte_587000[94468])) {
 			sub_409E70(16);
 			sub_40A670();
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[104312], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2674);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[104368], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2675);
+			v5 = loadString_sub_40F1D0((char*)&byte_587000[104312], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2674);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[104368], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2675);
 		LABEL_6:
 			sub_450C00(6u, v3, v5);
 			return 1;
@@ -793,10 +766,10 @@ int __cdecl nox_cmd_set_staffs(int a1, char a2, int a3) {
 		if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *(const wchar_t**)&byte_587000[94472])) {
 			sub_409EC0(16);
 			sub_40A670();
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[104416], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2682);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[104472], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2683);
+			v5 = loadString_sub_40F1D0((char*)&byte_587000[104416], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2682);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[104472], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   2683);
 			goto LABEL_6;
 		}
 	}
@@ -839,8 +812,8 @@ int __cdecl nox_cmd_set_name(int a1, unsigned __int8 a2, int a3) {
 		} while (v10 < a2);
 		if (v13[0]) {
 			sub_40A440(v13);
-			v11 = loadString_sub_40F1D0((char*)&byte_587000[104528], 0,
-						    "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2766);
+			v11 = loadString_sub_40F1D0((char*)&byte_587000[104528], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+										2766);
 			sub_450C00(6u, v11, v13);
 		}
 	}
@@ -860,18 +833,18 @@ int __cdecl nox_cmd_set_mnstrs(int a1, char a2, int a3) {
 				sub_409E70(4);
 				sub_40A670();
 				v5 = loadString_sub_40F1D0((char*)&byte_587000[104804], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2810);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2810);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[104860], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2811);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2811);
 				goto LABEL_13;
 			}
 			if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 4 * a1), *(const wchar_t**)&byte_587000[94472])) {
 				sub_409EC0(4);
 				sub_40A670();
 				v5 = loadString_sub_40F1D0((char*)&byte_587000[104912], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2818);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2818);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[104968], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2819);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2819);
 				goto LABEL_13;
 			}
 		} else if (a2 != 3) {
@@ -879,9 +852,9 @@ int __cdecl nox_cmd_set_mnstrs(int a1, char a2, int a3) {
 				sub_409E70(8);
 				sub_40A670();
 				v5 = loadString_sub_40F1D0((char*)&byte_587000[104580], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2788);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2788);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[104636], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2789);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2789);
 			LABEL_13:
 				sub_450C00(6u, v3, v5);
 				return 1;
@@ -890,9 +863,9 @@ int __cdecl nox_cmd_set_mnstrs(int a1, char a2, int a3) {
 				sub_409E70(8);
 				sub_40A670();
 				v5 = loadString_sub_40F1D0((char*)&byte_587000[104692], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2796);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2796);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[104748], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2797);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2797);
 				goto LABEL_13;
 			}
 		}
@@ -913,8 +886,8 @@ int __cdecl nox_cmd_set_spell(int a1, char a2, int a3) {
 	if (a2 == 4) {
 		if (nox_common_gameFlags_check_40A5C0(128)) {
 			v8 = *(_DWORD*)(a3 + 8);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[105020], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3293);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[105020], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   3293);
 			goto LABEL_16;
 		}
 		v4 = sub_424960(*(wchar_t**)(a3 + 8));
@@ -929,7 +902,7 @@ int __cdecl nox_cmd_set_spell(int a1, char a2, int a3) {
 				sub_40A670();
 				v8 = *(_DWORD*)(a3 + 8);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[105076], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3324);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3324);
 				goto LABEL_16;
 			}
 			if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 12), *(const wchar_t**)&byte_587000[94472])) {
@@ -939,15 +912,15 @@ int __cdecl nox_cmd_set_spell(int a1, char a2, int a3) {
 				sub_40A670();
 				v8 = *(_DWORD*)(a3 + 8);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[105132], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3333);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3333);
 			LABEL_16:
 				sub_450C00(6u, v3, v8);
 				return 1;
 			}
 		} else {
 			v9 = *(_DWORD*)(a3 + 8);
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[105188], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3342);
+			v7 = loadString_sub_40F1D0((char*)&byte_587000[105188], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   3342);
 			sub_450C00(6u, v7, v9);
 		}
 	}
@@ -1019,23 +992,21 @@ int __cdecl nox_cmd_set_weapon(int a1, char a2, int a3) {
 	if (a2 == 4) {
 		if (nox_common_gameFlags_check_40A5C0(128)) {
 			v8 = *(_DWORD*)(a3 + 8);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[105244], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3361);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[105244], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   3361);
 			goto LABEL_19;
 		}
 		if (_nox_wcsicmp(*(const wchar_t**)(a3 + 8), *(const wchar_t**)&byte_587000[94492])) {
 			v6 = (unsigned __int16*)sub_415A60(*(wchar_t**)(a3 + 8));
-			if (v6 || (nox_sprintf(v11, "%S", *(_DWORD*)(a3 + 8)),
-				   (v6 = (unsigned __int16*)sub_415A30(v11)) != 0)) {
+			if (v6 || (nox_sprintf(v11, "%S", *(_DWORD*)(a3 + 8)), (v6 = (unsigned __int16*)sub_415A30(v11)) != 0)) {
 				if (!_nox_wcsicmp(*(const wchar_t**)(a3 + 12), *(const wchar_t**)&byte_587000[94468])) {
 					if (sub_4E3BA0(*v6))
 						return 1;
 					sub_4E3BF0((int)v6);
 					sub_40A670();
 					v8 = *(_DWORD*)(a3 + 8);
-					v3 =
-					    loadString_sub_40F1D0((char*)&byte_587000[105412], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3401);
+					v3 = loadString_sub_40F1D0((char*)&byte_587000[105412], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3401);
 				LABEL_19:
 					sub_450C00(6u, v3, v8);
 					return 1;
@@ -1047,15 +1018,14 @@ int __cdecl nox_cmd_set_weapon(int a1, char a2, int a3) {
 					sub_4E5DB0(*v6);
 					sub_40A670();
 					v8 = *(_DWORD*)(a3 + 8);
-					v3 =
-					    loadString_sub_40F1D0((char*)&byte_587000[105468], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3414);
+					v3 = loadString_sub_40F1D0((char*)&byte_587000[105468], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3414);
 					goto LABEL_19;
 				}
 			} else {
 				v10 = *(_DWORD*)(a3 + 8);
 				v7 = loadString_sub_40F1D0((char*)&byte_587000[105524], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3423);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3423);
 				sub_450C00(6u, v7, v10);
 			}
 		} else {
@@ -1063,7 +1033,7 @@ int __cdecl nox_cmd_set_weapon(int a1, char a2, int a3) {
 				sub_409E70(2);
 				v9 = *(_DWORD*)(a3 + 12);
 				v4 = loadString_sub_40F1D0((char*)&byte_587000[105296], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3370);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3370);
 			LABEL_9:
 				sub_450C00(6u, v4, v9);
 				sub_4AD840();
@@ -1073,7 +1043,7 @@ int __cdecl nox_cmd_set_weapon(int a1, char a2, int a3) {
 				sub_409E70(2);
 				v9 = *(_DWORD*)(a3 + 12);
 				v4 = loadString_sub_40F1D0((char*)&byte_587000[105352], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3377);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3377);
 				goto LABEL_9;
 			}
 		}
@@ -1107,8 +1077,8 @@ int __cdecl nox_cmd_set_armor(int a1, char a2, int a3) {
 	if (a2 == 4) {
 		if (nox_common_gameFlags_check_40A5C0(128)) {
 			v7 = *(_DWORD*)(a3 + 8);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[105580], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3442);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[105580], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   3442);
 		LABEL_12:
 			sub_450C00(6u, v3, v7);
 			return 1;
@@ -1120,9 +1090,8 @@ int __cdecl nox_cmd_set_armor(int a1, char a2, int a3) {
 					sub_4E3BF0((int)v4);
 					sub_40A670();
 					v7 = *(_DWORD*)(a3 + 8);
-					v3 =
-					    loadString_sub_40F1D0((char*)&byte_587000[105636], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3462);
+					v3 = loadString_sub_40F1D0((char*)&byte_587000[105636], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3462);
 					goto LABEL_12;
 				}
 				return 1;
@@ -1133,17 +1102,16 @@ int __cdecl nox_cmd_set_armor(int a1, char a2, int a3) {
 					sub_4E5DB0(*v4);
 					sub_40A670();
 					v7 = *(_DWORD*)(a3 + 8);
-					v3 =
-					    loadString_sub_40F1D0((char*)&byte_587000[105692], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3473);
+					v3 = loadString_sub_40F1D0((char*)&byte_587000[105692], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3473);
 					goto LABEL_12;
 				}
 				return 1;
 			}
 		} else {
 			v8 = *(_DWORD*)(a3 + 8);
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[105748], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3481);
+			v6 = loadString_sub_40F1D0((char*)&byte_587000[105748], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   3481);
 			sub_450C00(6u, v6, v8);
 		}
 	}
@@ -1167,7 +1135,7 @@ int __cdecl nox_cmd_set_staff(int a1, char a2, int a3) {
 				sub_4E3BF0(v3);
 				v7 = *(_DWORD*)(a3 + 8);
 				v4 = loadString_sub_40F1D0((char*)&byte_587000[105808], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3535);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3535);
 			LABEL_7:
 				sub_450C00(6u, v4, v7);
 				return 1;
@@ -1176,13 +1144,13 @@ int __cdecl nox_cmd_set_staff(int a1, char a2, int a3) {
 				sub_4E3BC0(v3);
 				v7 = *(_DWORD*)(a3 + 8);
 				v4 = loadString_sub_40F1D0((char*)&byte_587000[105864], 0,
-							   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3541);
+										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3541);
 				goto LABEL_7;
 			}
 		} else {
 			v8 = *(_DWORD*)(a3 + 8);
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[105920], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3548);
+			v6 = loadString_sub_40F1D0((char*)&byte_587000[105920], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   3548);
 			sub_450C00(6u, v6, v8);
 		}
 	}
@@ -1205,8 +1173,8 @@ int __cdecl nox_cmd_ban(int a1, char a2, int a3) {
 	v6 = v5;
 	if (v5) {
 		if (v5[2064] == 31) {
-			v8 = loadString_sub_40F1D0((char*)&byte_587000[106024], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3580);
+			v8 = loadString_sub_40F1D0((char*)&byte_587000[106024], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   3580);
 			sub_440A20(v8);
 			return 1;
 		}
@@ -1216,13 +1184,13 @@ int __cdecl nox_cmd_ban(int a1, char a2, int a3) {
 			sub_4DEB00((unsigned __int8)v6[2064]);
 		sub_416770(0, v4, v6 + 2112);
 		v9 = (int)(v6 + 4704);
-		v7 = loadString_sub_40F1D0((char*)&byte_587000[105976], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3577);
+		v7 =
+			loadString_sub_40F1D0((char*)&byte_587000[105976], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3577);
 	} else {
 		sub_416770(0, v4, 0);
 		v9 = (int)v4;
-		v7 = loadString_sub_40F1D0((char*)&byte_587000[106080], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3585);
+		v7 =
+			loadString_sub_40F1D0((char*)&byte_587000[106080], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3585);
 	}
 	sub_440A20(v7, v9);
 	return 1;
@@ -1232,8 +1200,7 @@ int __cdecl nox_cmd_ban(int a1, char a2, int a3) {
 int nox_cmd_allow_user() {
 	wchar_t* v0; // eax
 
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[106132], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3698);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[106132], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3698);
 	sub_450C00(6u, v0);
 	return 1;
 }
@@ -1242,8 +1209,7 @@ int nox_cmd_allow_user() {
 int nox_cmd_allow_ip() {
 	wchar_t* v0; // eax
 
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[106192], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3704);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[106192], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3704);
 	sub_450C00(6u, v0);
 	return 1;
 }
@@ -1262,8 +1228,8 @@ int __cdecl nox_cmd_kick(int a1, char a2, int a3) {
 	if (!v4)
 		return 1;
 	if (v4[2064] == 31) {
-		v7 = loadString_sub_40F1D0((char*)&byte_587000[106300], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3745);
+		v7 =
+			loadString_sub_40F1D0((char*)&byte_587000[106300], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3745);
 		sub_440A20(v7);
 		return 1;
 	}
@@ -1271,8 +1237,8 @@ int __cdecl nox_cmd_kick(int a1, char a2, int a3) {
 		sub_4DCFB0(*((_DWORD*)v5 + 514));
 	} else {
 		sub_4DEAB0((unsigned __int8)v5[2064], 4);
-		v6 = loadString_sub_40F1D0((char*)&byte_587000[106252], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3739);
+		v6 =
+			loadString_sub_40F1D0((char*)&byte_587000[106252], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3739);
 		sub_440A20(v6, v5 + 4704);
 	}
 	return 1;
@@ -1303,8 +1269,7 @@ int __cdecl nox_cmd_set_players(int a1, char a2, int a3) {
 		sub_409F80(v3);
 		sub_455800();
 	}
-	v7 =
-	    loadString_sub_40F1D0((char*)&byte_587000[106360], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3779);
+	v7 = loadString_sub_40F1D0((char*)&byte_587000[106360], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3779);
 	sub_440A20(v7, v3);
 	return 1;
 }
@@ -1313,8 +1278,7 @@ int __cdecl nox_cmd_set_players(int a1, char a2, int a3) {
 int nox_cmd_set_spellpts() {
 	wchar_t* v0; // eax
 
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[106412], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3830);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[106412], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3830);
 	sub_450C00(6u, v0);
 	return 1;
 }
@@ -1327,22 +1291,21 @@ int nox_cmd_list_users() {
 	wchar_t* v3;     // eax
 	wchar_t v5[128]; // [esp+4h] [ebp-100h]
 
-	v0 =
-	    loadString_sub_40F1D0((char*)&byte_587000[106472], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3839);
+	v0 = loadString_sub_40F1D0((char*)&byte_587000[106472], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3839);
 	sub_450C00(6u, v0);
 	for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
 		v5[0] = 0;
 		nox_wcscat(v5, (const wchar_t*)i + 2352);
 		if (dword_5d4594_823684 && i[3680] & 4) {
 			nox_wcscat(v5, L", ");
-			v2 = loadString_sub_40F1D0((char*)&byte_587000[106532], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3851);
+			v2 = loadString_sub_40F1D0((char*)&byte_587000[106532], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   3851);
 			nox_wcscat(v5, v2);
 		}
 		if (i[3680] & 8) {
 			nox_wcscat(v5, L", ");
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[106592], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3857);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[106592], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   3857);
 			nox_wcscat(v5, v3);
 		}
 		sub_450C00(6u, (wchar_t*)&byte_587000[106604], v5);
@@ -1406,11 +1369,11 @@ int __cdecl nox_cmd_unmute(int a1, unsigned __int8 a2, int a3) {
 LABEL_9:
 	v8 = *v3;
 	if (v5)
-		v6 = loadString_sub_40F1D0((char*)&byte_587000[106708], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3923);
+		v6 =
+			loadString_sub_40F1D0((char*)&byte_587000[106708], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3923);
 	else
-		v6 = loadString_sub_40F1D0((char*)&byte_587000[106652], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3921);
+		v6 =
+			loadString_sub_40F1D0((char*)&byte_587000[106652], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3921);
 	sub_450C00(6u, v6, v8);
 	return 1;
 }
@@ -1471,11 +1434,11 @@ int __cdecl nox_cmd_mute(int a1, unsigned __int8 a2, int a3) {
 LABEL_9:
 	v8 = *v3;
 	if (v5)
-		v6 = loadString_sub_40F1D0((char*)&byte_587000[106812], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3961);
+		v6 =
+			loadString_sub_40F1D0((char*)&byte_587000[106812], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3961);
 	else
-		v6 = loadString_sub_40F1D0((char*)&byte_587000[106756], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3959);
+		v6 =
+			loadString_sub_40F1D0((char*)&byte_587000[106756], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3959);
 	sub_450C00(6u, v6, v8);
 	return 1;
 }
@@ -1489,8 +1452,8 @@ int __cdecl nox_cmd_exec(int a1, char a2) {
 		return 0;
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		v4 = dword_5d4594_823700;
-		v3 = loadString_sub_40F1D0((char*)&byte_587000[106860], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3979);
+		v3 =
+			loadString_sub_40F1D0((char*)&byte_587000[106860], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3979);
 		sub_450C00(6u, v3, v4);
 	}
 	sub_440950(1, *(wchar_t**)&dword_5d4594_823700);
@@ -1507,8 +1470,7 @@ int __cdecl nox_cmd_exec_rul(int a1, char a2, int a3) {
 	nox_wcscpy(v5, *(const wchar_t**)(a3 + 4));
 	if (!nox_wcschr(v5, 0x2Eu))
 		nox_wcscat(v5, L".rul");
-	v4 =
-	    loadString_sub_40F1D0((char*)&byte_587000[106924], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4002);
+	v4 = loadString_sub_40F1D0((char*)&byte_587000[106924], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4002);
 	sub_450C00(6u, v4, v5);
 	sub_4438A0((int)v5);
 	return 1;
@@ -1522,8 +1484,8 @@ int __cdecl sub_4439B0(int a1, unsigned __int8 a2) {
 
 	if (a2 == 1) {
 		dword_5d4594_823696 = 1;
-		v2 = loadString_sub_40F1D0((char*)&byte_587000[107008], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4014);
+		v2 =
+			loadString_sub_40F1D0((char*)&byte_587000[107008], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4014);
 		sub_450C00(6u, v2);
 		result = 1;
 	} else {
@@ -1553,7 +1515,7 @@ void __cdecl sub_443BF0(unsigned __int16* a1, char* a2) {
 				++v5;
 				v6 = (unsigned __int8)(v2++ * (v4 - 1) % v3);
 				*(unsigned __int16*)((char*)v5 - (char*)a1 + a2 - 2) =
-				    *(_WORD*)(*(_DWORD*)&byte_587000[98256] + 2 * v6);
+					*(_WORD*)(*(_DWORD*)&byte_587000[98256] + 2 * v6);
 				v4 = *v5;
 			} while (*v5);
 			*(_WORD*)&a2[2 * v2] = 0;
@@ -1612,8 +1574,8 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5) {
 		v12 = &a4[6 * v7];
 		v13 = (char)a4[6 * v7 + 3];
 		if (!(v13 & 1)) {
-			v14 = loadString_sub_40F1D0((char*)&byte_587000[107068], 0,
-						    "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4091);
+			v14 = loadString_sub_40F1D0((char*)&byte_587000[107068], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+										4091);
 		LABEL_21:
 			sub_450C00(6u, v14);
 			return 1;
@@ -1622,8 +1584,8 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5) {
 		v13 = (char)a4[6 * v7 + 3];
 		v12 = &a4[6 * v7];
 		if (!(v13 & 2)) {
-			v14 = loadString_sub_40F1D0((char*)&byte_587000[107120], 0,
-						    "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4097);
+			v14 = loadString_sub_40F1D0((char*)&byte_587000[107120], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+										4097);
 			goto LABEL_21;
 		}
 	}
@@ -1633,8 +1595,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5) {
 	if (v15) {
 		if ((unsigned __int8)a2 <= a1 + 1) {
 		LABEL_30:
-			v17 = loadString_sub_40F1D0((char*)v12[2], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
-						    4125);
+			v17 = loadString_sub_40F1D0((char*)v12[2], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4125);
 			sub_450C00(6u, v17);
 			return 1;
 		}
@@ -1742,9 +1703,8 @@ int __cdecl nox_server_parseCmdText_443C80(wchar_t* a1, int a2) {
 			if (v3) {
 				v11 = sub_443A20(0, v10, (int)v12, (const wchar_t**)&byte_587000[97368], a2);
 				if (!v11) {
-					v9 =
-					    loadString_sub_40F1D0((char*)&byte_587000[107236], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4226);
+					v9 = loadString_sub_40F1D0((char*)&byte_587000[107236], 0,
+											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4226);
 					sub_450C00(6u, v9);
 				}
 			}
@@ -1795,15 +1755,14 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 	}
 	switch (a2) {
 	case 0:
-		if (nox_common_gameFlags_check_40A5C0(8) || nox_common_gameFlags_check_40A5C0(4096) ||
-		    *(_BYTE*)(a1 + 3680) & 1)
+		if (nox_common_gameFlags_check_40A5C0(8) || nox_common_gameFlags_check_40A5C0(4096) || *(_BYTE*)(a1 + 3680) & 1)
 			goto LABEL_61;
 		v5 = *(short*)&byte_5D4594[818228] == -4083 && *(short*)&byte_5D4594[818230] == -3923 &&
-		     !*(_WORD*)&byte_5D4594[818232];
+			 !*(_WORD*)&byte_5D4594[818232];
 		if (sub_4E6860(a1, v5, 0) != 1)
 			goto LABEL_61;
-		v6 = loadString_sub_40F1D0((char*)&byte_587000[107288], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4287);
+		v6 =
+			loadString_sub_40F1D0((char*)&byte_587000[107288], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4287);
 		v7 = sub_40A8A0();
 		if (v7) {
 			if (!v5)
@@ -1815,13 +1774,13 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 		if (v8)
 			sub_419570(v8 + 48, *(_DWORD*)(a1 + 2060));
 		v21 = v6;
-		v9 = loadString_sub_40F1D0((char*)&byte_587000[107332], 0,
-					   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4308);
+		v9 =
+			loadString_sub_40F1D0((char*)&byte_587000[107332], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4308);
 		goto LABEL_38;
 	case 1:
 		if (!sub_4D12A0(*(unsigned __int8*)(a1 + 2064)) &&
-		    *(unsigned __int8*)(a1 + 2064) != *(_DWORD*)&byte_5D4594[2616328] &&
-		    !nox_common_gameFlags_check_40A5C0(2048)) {
+			*(unsigned __int8*)(a1 + 2064) != *(_DWORD*)&byte_5D4594[2616328] &&
+			!nox_common_gameFlags_check_40A5C0(2048)) {
 			goto LABEL_61;
 		}
 		nox_wcstok((wchar_t*)&byte_5D4594[818228], L" ");
@@ -1829,17 +1788,17 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 		nox_sprintf(v22, "%S", v10);
 		v11 = sub_5071D0(v22);
 		if (v11 != -1 && dword_5d4594_823692) {
-			v12 = loadString_sub_40F1D0((char*)&byte_587000[107456], 0,
-						    "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4332);
+			v12 = loadString_sub_40F1D0((char*)&byte_587000[107456], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+										4332);
 			sub_450C00(6u, v12, v10);
 			nox_server_doMapScript_507310(v11, *(_DWORD*)(dword_5d4594_823692 + 2056),
-						      *(_DWORD*)(dword_5d4594_823692 + 2056));
+										  *(_DWORD*)(dword_5d4594_823692 + 2056));
 			dword_5d4594_823692 = 0;
 			result = 1;
 		} else {
 			v21 = v10;
-			v9 = loadString_sub_40F1D0((char*)&byte_587000[107400], 0,
-						   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4329);
+			v9 = loadString_sub_40F1D0((char*)&byte_587000[107400], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+									   4329);
 		LABEL_38:
 			sub_450C00(6u, v9, v21);
 			dword_5d4594_823692 = 0;
@@ -1848,13 +1807,13 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 		return result;
 	case 2:
 		if (!sub_4D12A0(*(unsigned __int8*)(a1 + 2064)) &&
-		    *(unsigned __int8*)(a1 + 2064) != *(_DWORD*)&byte_5D4594[2616328] &&
-		    !nox_common_gameFlags_check_40A5C0(2048)) {
+			*(unsigned __int8*)(a1 + 2064) != *(_DWORD*)&byte_5D4594[2616328] &&
+			!nox_common_gameFlags_check_40A5C0(2048)) {
 			goto LABEL_61;
 		}
 		v19 = dword_5d4594_823692 + 4704;
-		v13 = loadString_sub_40F1D0((char*)&byte_587000[107516], 0,
-					    "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4345);
+		v13 =
+			loadString_sub_40F1D0((char*)&byte_587000[107516], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4345);
 		sub_450C00(6u, v13, v19, a3);
 		nox_server_parseCmdText_443C80(a3, 0);
 		dword_5d4594_823692 = 0;
@@ -1867,7 +1826,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 		if (!(*(_BYTE*)(v3 + 3680) & 1) && !(*(_DWORD*)&nox_common_engineFlags & 0x400000)) {
 			if (nox_common_gameFlags_check_40A5C0(1)) {
 				v16 = loadString_sub_40F1D0((char*)&byte_587000[107568], 0,
-							    "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4392);
+											"C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4392);
 				sub_450C00(6u, v16);
 				dword_5d4594_823692 = 0;
 				return 1;
@@ -1907,8 +1866,8 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 		return 1;
 	default:
 		v20 = v3 + 4704;
-		v18 = loadString_sub_40F1D0((char*)&byte_587000[107624], 0,
-					    "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4400);
+		v18 =
+			loadString_sub_40F1D0((char*)&byte_587000[107624], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4400);
 		sub_450C00(6u, v18, v20, a3);
 		goto LABEL_61;
 	}

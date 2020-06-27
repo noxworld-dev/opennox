@@ -155,13 +155,10 @@ int __cdecl nox_thing_blue_rain_spark_draw(_DWORD* a1, int a2) {
 			if (v4 != -432) {
 				*(_DWORD*)(v4 + 432) = *(_DWORD*)(a2 + 12) << 12;
 				*(_DWORD*)(v4 + 436) = *(_DWORD*)(a2 + 16) << 12;
-				*(_BYTE*)(v4 + 299) =
-				    sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
-				*(_DWORD*)(v5 + 440) =
-				    sub_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
-				*(_DWORD*)(v5 + 448) =
-				    *(_DWORD*)&byte_5D4594[2598000] +
-				    sub_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
+				*(_BYTE*)(v4 + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
+				*(_DWORD*)(v5 + 440) = sub_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
+				*(_DWORD*)(v5 + 448) = *(_DWORD*)&byte_5D4594[2598000] +
+									   sub_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
 				*(_DWORD*)(v5 + 444) = *(_DWORD*)&byte_5D4594[2598000];
 			}
 			*(_WORD*)(v5 + 104) = sub_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);

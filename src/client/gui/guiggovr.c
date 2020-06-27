@@ -69,16 +69,15 @@ int sub_49B6E0() {
 		result = wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1303452);
 		if (!result) {
 			v1 = *(_DWORD*)&byte_5D4594[1303456] + 30 * *(_DWORD*)&byte_5D4594[2649704] -
-			     *(_DWORD*)&byte_5D4594[2598000];
+				 *(_DWORD*)&byte_5D4594[2598000];
 			if (v1 < 0)
 				v1 = 0;
-			if (*(_DWORD*)&byte_5D4594[2618908] &&
-			    *(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2064) == 31) {
+			if (*(_DWORD*)&byte_5D4594[2618908] && *(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2064) == 31) {
 				nox_wcscpy((wchar_t*)&byte_5D4594[1301852], (const wchar_t*)&byte_5D4594[1303464]);
 			} else {
 				v4 = (unsigned int)v1 / *(_DWORD*)&byte_5D4594[2649704];
-				v2 = loadString_sub_40F1D0((char*)&byte_587000[163544], 0,
-							   "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 265);
+				v2 = loadString_sub_40F1D0((char*)&byte_587000[163544], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c",
+										   265);
 				nox_swprintf((wchar_t*)&byte_5D4594[1301852], L"%s - %d", v2, v4);
 			}
 			v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10712);

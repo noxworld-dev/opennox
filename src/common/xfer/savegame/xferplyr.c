@@ -40,13 +40,11 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 				else
 					byte_5D4594[2661961] = 0;
 				if (sub_41A230((char*)&byte_5D4594[2660688])) {
-					v9 = loadString_sub_40F1D0(
-					    (char*)&byte_587000[56752], 0,
-					    "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3420);
+					v9 = loadString_sub_40F1D0((char*)&byte_587000[56752], 0,
+											   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3420);
 					sub_450C00(0xCu, v9);
-					v10 = loadString_sub_40F1D0(
-					    (char*)&byte_587000[56816], 0,
-					    "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3421);
+					v10 = loadString_sub_40F1D0((char*)&byte_587000[56816], 0,
+												"C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3421);
 					sub_445490(v10);
 					result = 1;
 				} else {
@@ -63,10 +61,10 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 		}
 	} else {
 		v2 = loadString_sub_40F1D0((char*)&byte_587000[56392], 0,
-					   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3341);
+								   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3341);
 		sub_450C00(0xCu, v2);
 		v3 = loadString_sub_40F1D0((char*)&byte_587000[56460], 0,
-					   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3342);
+								   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3342);
 		sub_445490(v3);
 		sub_413D30((char*)&byte_587000[56480], &byte_5D4594[2660688]);
 		result = 0;

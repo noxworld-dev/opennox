@@ -107,5 +107,5 @@ wchar_t* __cdecl sub_413480(char a1) {
 			return 0;
 	}
 	return loadString_sub_40F1D0(*(char**)&byte_587000[20 * v1 + 27344], 0,
-				     "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 2087);
+								 "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 2087);
 }

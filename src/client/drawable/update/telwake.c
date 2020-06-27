@@ -21,7 +21,7 @@ int __cdecl sub_4CD8D0(int a1, int a2) {
 		*(_BYTE*)(v4 + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 43);
 		*(_DWORD*)(v5 + 440) = sub_415FF0(1, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 46);
 		*(_DWORD*)(v5 + 448) = *(_DWORD*)&byte_5D4594[2598000] +
-				       sub_415FF0(10, 32, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 49);
+							   sub_415FF0(10, 32, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 49);
 		*(_DWORD*)(v5 + 444) = *(_DWORD*)&byte_5D4594[2598000];
 		*(_WORD*)(v5 + 104) = 0;
 		*(_BYTE*)(v5 + 296) = sub_415FF0(3, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 55);

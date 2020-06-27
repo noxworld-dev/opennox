@@ -42,11 +42,11 @@ char* sub_4CBD30() {
 			sub_42CF50(v12);
 		}
 	}
-	v8 = loadString_sub_40F1D0((char*)&byte_587000[187620], 0,
-				   "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 192);
+	v8 = loadString_sub_40F1D0((char*)&byte_587000[187620], 0, "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c",
+							   192);
 	v9 = sub_42EA40(v8);
-	v10 = loadString_sub_40F1D0((char*)&byte_587000[187696], 0,
-				    "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 193);
+	v10 = loadString_sub_40F1D0((char*)&byte_587000[187696], 0, "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c",
+								193);
 	result = sub_42E960(v10);
 	if (result) {
 		nox_sprintf(v12, "%s = %s", result, v9);
@@ -75,11 +75,9 @@ int __cdecl sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 			v5 = *(_DWORD*)(a3 + 32);
 			if ((int)*(_DWORD*)(v5 + 48) >= 0) {
 				dword_5d4594_1522632 = a3;
-				v9 = nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16406, *(_DWORD*)(v5 + 48),
-							      0);
-				v6 =
-				    loadString_sub_40F1D0((char*)&byte_587000[187784], 0,
-							  "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 424);
+				v9 = nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16406, *(_DWORD*)(v5 + 48), 0);
+				v6 = loadString_sub_40F1D0((char*)&byte_587000[187784], 0,
+										   "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 424);
 				nox_swprintf((wchar_t*)&byte_5D4594[1522636], L"%s\n'%s'", v6, v9);
 				sub_46A8C0(*(int*)&dword_5d4594_1522612);
 				sub_46B500(*(int*)&dword_5d4594_1522612);
@@ -95,7 +93,7 @@ int __cdecl sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 				return sub_4A30D0(a1, a2, (wchar_t*)a3, a4);
 		}
 		if ((_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 921) ||
-		    (_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 922)) {
+			(_DWORD*)a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 922)) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522620, a2, a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522624, a2, a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522628, a2, a3, 0);

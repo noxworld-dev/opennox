@@ -156,7 +156,7 @@ void myFunction()
 // this header, so the following is here only for reference and commented out
 /*
  #ifndef DG_DYNARR_OUT_OF_MEMORY
-    #define DG_DYNARR_OUT_OF_MEMORY  DG_DYNARR_ASSERT(0, "Out of Memory!");
+	#define DG_DYNARR_OUT_OF_MEMORY  DG_DYNARR_ASSERT(0, "Out of Memory!");
  #endif
 */
 
@@ -172,7 +172,7 @@ void myFunction()
  // oldNumElems is not used for C's realloc, but maybe you need it for
  // your allocator to copy the old elements over
  #define DG_DYNARR_REALLOC(ptr, elemSize, oldNumElems, newCapacity) \
-    realloc(ptr, elemSize*newCapacity);
+	realloc(ptr, elemSize*newCapacity);
 
  #define DG_DYNARR_FREE(ptr)  free(ptr)
 */
@@ -355,9 +355,9 @@ void myFunction()
 
 // use like DG_DYNARR_TYPEDEF(int, MyIntArrType); MyIntArrType ia = {0}; dg_dynarr_push(ia, 42); ...
 #define DG_DYNARR_TYPEDEF(TYPE, NewArrayTypeName)                                                                      \
-	typedef struct {                                                                                               \
-		TYPE* p;                                                                                               \
-		dg__dynarr_md md;                                                                                      \
+	typedef struct {                                                                                                   \
+		TYPE* p;                                                                                                       \
+		dg__dynarr_md md;                                                                                              \
 	} NewArrayTypeName;
 
 // makes sure the array is initialized and can be used.
@@ -383,14 +383,14 @@ void myFunction()
 // append n elements to a and initialize them from array vals, doesn't return anything
 // ! vals (and all other args) are evaluated multiple times !
 #define dg_dynarr_addn(a, vals, n)                                                                                     \
-	do {                                                                                                           \
-		DG_DYNARR_ASSERT((vals) != NULL, "Don't pass NULL als vals to dg_dynarr_addn!");                       \
-		if ((vals) != NULL && dg__dynarr_add(dg__dynarr_unp(a), n, 0)) {                                       \
-			size_t i_ = (a).md.cnt - (n), v_ = 0;                                                          \
-			while (i_ < (a).md.cnt)                                                                        \
-				(a).p[i_++] = (vals)[v_++];                                                            \
-		}                                                                                                      \
-	}                                                                                                              \
+	do {                                                                                                               \
+		DG_DYNARR_ASSERT((vals) != NULL, "Don't pass NULL als vals to dg_dynarr_addn!");                               \
+		if ((vals) != NULL && dg__dynarr_add(dg__dynarr_unp(a), n, 0)) {                                               \
+			size_t i_ = (a).md.cnt - (n), v_ = 0;                                                                      \
+			while (i_ < (a).md.cnt)                                                                                    \
+				(a).p[i_++] = (vals)[v_++];                                                                            \
+		}                                                                                                              \
+	}                                                                                                                  \
 	DG__DYNARR_WHILE0
 
 // add n elements to the end of the array and zeroe them with memset()
@@ -405,34 +405,34 @@ void myFunction()
 
 // insert a single value v at index idx
 #define dg_dynarr_insert(a, idx, v)                                                                                    \
-	(dg__dynarr_checkidxle((a), (idx)), dg__dynarr_insert(dg__dynarr_unp(a), (idx), 1, 0),                         \
+	(dg__dynarr_checkidxle((a), (idx)), dg__dynarr_insert(dg__dynarr_unp(a), (idx), 1, 0),                             \
 	 (a).p[dg__dynarr_idx((a).md, (idx))] = (v))
 
 // insert n elements into a at idx, initialize them from array vals
 // doesn't return anything
 // ! vals (and all other args) is evaluated multiple times !
 #define dg_dynarr_insertn(a, idx, vals, n)                                                                             \
-	do {                                                                                                           \
-		DG_DYNARR_ASSERT((vals) != NULL, "Don't pass NULL as vals to dg_dynarr_insertn!");                     \
-		dg__dynarr_checkidxle((a), (idx));                                                                     \
-		if ((vals) != NULL && dg__dynarr_insert(dg__dynarr_unp(a), (idx), (n), 0)) {                           \
-			size_t i_ = (idx), v_ = 0, e_ = (idx) + (n);                                                   \
-			while (i_ < e_)                                                                                \
-				(a).p[i_++] = (vals)[v_++];                                                            \
-		}                                                                                                      \
-	}                                                                                                              \
+	do {                                                                                                               \
+		DG_DYNARR_ASSERT((vals) != NULL, "Don't pass NULL as vals to dg_dynarr_insertn!");                             \
+		dg__dynarr_checkidxle((a), (idx));                                                                             \
+		if ((vals) != NULL && dg__dynarr_insert(dg__dynarr_unp(a), (idx), (n), 0)) {                                   \
+			size_t i_ = (idx), v_ = 0, e_ = (idx) + (n);                                                               \
+			while (i_ < e_)                                                                                            \
+				(a).p[i_++] = (vals)[v_++];                                                                            \
+		}                                                                                                              \
+	}                                                                                                                  \
 	DG__DYNARR_WHILE0
 
 // insert n elements into a at idx and zeroe them with memset()
 // returns pointer to first inserted element or NULL if out of memory
 #define dg_dynarr_insertn_zeroed(a, idx, n)                                                                            \
-	(dg__dynarr_checkidxle((a), (idx)),                                                                            \
+	(dg__dynarr_checkidxle((a), (idx)),                                                                                \
 	 dg__dynarr_insert(dg__dynarr_unp(a), (idx), (n), 1) ? &(a).p[dg__dynarr_idx((a).md, (idx))] : NULL)
 
 // insert n uninitialized elements into a at idx;
 // returns pointer to first inserted element or NULL if out of memory
 #define dg_dynarr_insertn_uninit(a, idx, n)                                                                            \
-	(dg__dynarr_checkidxle((a), (idx)),                                                                            \
+	(dg__dynarr_checkidxle((a), (idx)),                                                                                \
 	 dg__dynarr_insert(dg__dynarr_unp(a), idx, n, 0) ? &(a).p[dg__dynarr_idx((a).md, (idx))] : NULL)
 
 // set a single value v at index idx - like "a.p[idx] = v;" but with checks (unless disabled)
@@ -442,18 +442,18 @@ void myFunction()
 // doesn't return anything
 // ! vals (and all other args) is evaluated multiple times !
 #define dg_dynarr_setn(a, idx, vals, n)                                                                                \
-	do {                                                                                                           \
-		DG_DYNARR_ASSERT((vals) != NULL, "Don't pass NULL as vals to dg_dynarr_setn!");                        \
-		size_t idx_ = (idx);                                                                                   \
-		size_t end_ = idx_ + (size_t)n;                                                                        \
-		dg__dynarr_checkidx((a), idx_);                                                                        \
-		dg__dynarr_checkidx((a), end_ - 1);                                                                    \
-		if ((vals) != NULL && idx_ < (a).md.cnt && end_ <= (a).md.cnt) {                                       \
-			size_t v_ = 0;                                                                                 \
-			while (idx_ < end_)                                                                            \
-				(a).p[idx_++] = (vals)[v_++];                                                          \
-		}                                                                                                      \
-	}                                                                                                              \
+	do {                                                                                                               \
+		DG_DYNARR_ASSERT((vals) != NULL, "Don't pass NULL as vals to dg_dynarr_setn!");                                \
+		size_t idx_ = (idx);                                                                                           \
+		size_t end_ = idx_ + (size_t)n;                                                                                \
+		dg__dynarr_checkidx((a), idx_);                                                                                \
+		dg__dynarr_checkidx((a), end_ - 1);                                                                            \
+		if ((vals) != NULL && idx_ < (a).md.cnt && end_ <= (a).md.cnt) {                                               \
+			size_t v_ = 0;                                                                                             \
+			while (idx_ < end_)                                                                                        \
+				(a).p[idx_++] = (vals)[v_++];                                                                          \
+		}                                                                                                              \
+	}                                                                                                                  \
 	DG__DYNARR_WHILE0
 
 // delete the element at idx, moving all following elements (=> keeps order)
@@ -500,7 +500,7 @@ void myFunction()
 
 // returns the last element of the array
 #define dg_dynarr_last(a)                                                                                              \
-	(dg__dynarr_check_notempty((a), "Don't call da_last() on an empty array!"),                                    \
+	(dg__dynarr_check_notempty((a), "Don't call da_last() on an empty array!"),                                        \
 	 (a).p[((a).md.cnt > 0) ? ((a).md.cnt - 1) : 0])
 
 #elif (DG_DYNARR_INDEX_CHECK_LEVEL == 0) || (DG_DYNARR_INDEX_CHECK_LEVEL == 2)
@@ -575,11 +575,11 @@ extern "C" {
 typedef struct {
 	size_t cnt; // logical number of elements
 	size_t cap; // cap & DG__DYNARR_SIZE_T_ALL_BUT_MSB is actual capacity (in elements, *not* bytes!)
-		    // if(cap & DG__DYNARR_SIZE_T_MSB) the current memory is not allocated by dg_dynarr,
-		    // but was set with dg_dynarr_init_external()
-		    // that's handy to give an array a base-element storage on the stack, for example
-		    // TODO: alternatively, we could introduce a flag field to this struct and use that,
-		    //       so we don't have to calculate & everytime cap is needed
+				// if(cap & DG__DYNARR_SIZE_T_MSB) the current memory is not allocated by dg_dynarr,
+				// but was set with dg_dynarr_init_external()
+				// that's handy to give an array a base-element storage on the stack, for example
+				// TODO: alternatively, we could introduce a flag field to this struct and use that,
+				//       so we don't have to calculate & everytime cap is needed
 } dg__dynarr_md;
 
 // I used to have the following in an enum, but MSVC assumes enums are always 32bit ints
@@ -594,10 +594,10 @@ static const size_t DG__DYNARR_SIZE_T_ALL_BUT_MSB = (((size_t)1) << (sizeof(size
 // do { ... } while(0) idiom in macros..
 #ifdef _MSC_VER
 #if _MSC_VER >= 1400 // MSVC 2005 and newer
-		     // people claim MSVC 2005 and newer support __pragma, even though it's only documented
-		     // for 2008+ (https://msdn.microsoft.com/en-us/library/d9x1s805%28v=vs.90%29.aspx)
-		     // the following workaround is based on
-		     // http://cnicholson.net/2009/03/stupid-c-tricks-dowhile0-and-c4127/
+					 // people claim MSVC 2005 and newer support __pragma, even though it's only documented
+					 // for 2008+ (https://msdn.microsoft.com/en-us/library/d9x1s805%28v=vs.90%29.aspx)
+					 // the following workaround is based on
+					 // http://cnicholson.net/2009/03/stupid-c-tricks-dowhile0-and-c4127/
 #define DG__DYNARR_WHILE0 __pragma(warning(push)) __pragma(warning(disable : 4127)) while (0) __pragma(warning(pop))
 #else // older MSVC versions don't support __pragma - I heard this helps for them
 #define DG__DYNARR_WHILE0 while (0, 0)
@@ -689,7 +689,7 @@ DG_DYNARR_INLINE int dg__dynarr_maybegrowadd(void** arr, dg__dynarr_md* md, size
 }
 
 DG_DYNARR_INLINE int dg__dynarr_insert(void** arr, dg__dynarr_md* md, size_t itemsize, size_t idx, size_t n,
-				       int init0) {
+									   int init0) {
 	// allow idx == md->cnt to append
 	size_t oldCount = md->cnt;
 	size_t newCount = oldCount + n;
@@ -801,8 +801,7 @@ DG_DYNARR_DEF void dg__dynarr_free(void** p, dg__dynarr_md* md) {
 DG_DYNARR_DEF int dg__dynarr_grow(void** arr, dg__dynarr_md* md, size_t itemsize, size_t min_needed) {
 	size_t cap = md->cap & DG__DYNARR_SIZE_T_ALL_BUT_MSB;
 
-	DG_DYNARR_ASSERT(min_needed > cap,
-			 "dg__dynarr_grow() should only be called if storage actually needs to grow!");
+	DG_DYNARR_ASSERT(min_needed > cap, "dg__dynarr_grow() should only be called if storage actually needs to grow!");
 
 	if (min_needed < DG__DYNARR_SIZE_T_MSB) {
 		size_t newcap = (cap > 4) ? (2 * cap) : 8; // allocate for at least 8 elements

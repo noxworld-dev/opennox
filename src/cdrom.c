@@ -64,8 +64,7 @@ BOOL sub_423C60() {
 	*(_DWORD*)&byte_5D4594[588100] = 4;
 	*(_DWORD*)&byte_5D4594[588104] = 0;
 	*(_DWORD*)&byte_5D4594[588096] = 0;
-	return mciSendCommandA(*(MCIDEVICEID*)&byte_5D4594[588108], 0x814u, 0x101u, (DWORD_PTR)&byte_5D4594[588092]) ==
-	       0;
+	return mciSendCommandA(*(MCIDEVICEID*)&byte_5D4594[588108], 0x814u, 0x101u, (DWORD_PTR)&byte_5D4594[588092]) == 0;
 }
 
 //----- (00423CF0) --------------------------------------------------------
@@ -87,7 +86,7 @@ int sub_423CF0() {
 	if (!strlen(Buffer))
 		return 0;
 	while (GetDriveTypeA(v0) != 5 || !sub_423ED0(v0, (DWORD)SectorsPerCluster) ||
-	       _strnicmp("NOX", (const char*)&SectorsPerCluster[4], 3u)) {
+		   _strnicmp("NOX", (const char*)&SectorsPerCluster[4], 3u)) {
 		v0 += strlen(v0) + 1;
 		if (!strlen(v0))
 			return 0;
@@ -152,16 +151,15 @@ BOOL __cdecl sub_423ED0(LPCSTR lpRootPathName, DWORD SectorsPerCluster) {
 	v3 = lpRootPathName;
 	*(_DWORD*)v2 = GetDriveTypeA(lpRootPathName);
 	result = GetDiskFreeSpaceA(v3, &SectorsPerCluster, (LPDWORD)&lpRootPathName, &NumberOfFreeClusters,
-				   &TotalNumberOfClusters);
+							   &TotalNumberOfClusters);
 	if (result) {
 		v5 = (_DWORD)lpRootPathName * SectorsPerCluster;
 		v6 = NumberOfFreeClusters == 0;
 		*(_DWORD*)(v2 + 136) = NumberOfFreeClusters * (_DWORD)lpRootPathName * SectorsPerCluster;
 		if (v6) {
 			*(_DWORD*)(v2 + 140) = TotalNumberOfClusters * v5;
-			result =
-			    GetVolumeInformationA(v3, (LPSTR)(v2 + 4), 0x40u, (LPDWORD)(v2 + 68),
-						  &MaximumComponentLength, &FileSystemFlags, (LPSTR)(v2 + 72), 0x40u);
+			result = GetVolumeInformationA(v3, (LPSTR)(v2 + 4), 0x40u, (LPDWORD)(v2 + 68), &MaximumComponentLength,
+										   &FileSystemFlags, (LPSTR)(v2 + 72), 0x40u);
 		} else {
 			result = 0;
 		}

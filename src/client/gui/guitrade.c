@@ -160,8 +160,7 @@ int __cdecl sub_4C15D0(int a1) {
 				continue;
 			break;
 		}
-		v11 = loadString_sub_40F1D0((char*)&byte_587000[184292], 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c",
-					    1141);
+		v11 = loadString_sub_40F1D0((char*)&byte_587000[184292], 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 1141);
 		sub_445490(v11);
 	LABEL_17:
 		v6 = v12;

@@ -228,8 +228,8 @@ int* __cdecl sub_555620(_DWORD* a1) {
 	result = *(int**)&byte_5D4594[2515920];
 	v31 = a1[8];
 	if (v3 != *(_DWORD*)&byte_5D4594[2513960] || v5 != *(void**)&byte_5D4594[2513952] ||
-	    v4 != *(_DWORD*)&byte_5D4594[2513956] || !*(_DWORD*)&byte_5D4594[2515916] ||
-	    !*(_DWORD*)&byte_5D4594[2515920] || !*(_DWORD*)&byte_5D4594[2515928] || !*(_DWORD*)&byte_5D4594[2515924]) {
+		v4 != *(_DWORD*)&byte_5D4594[2513956] || !*(_DWORD*)&byte_5D4594[2515916] || !*(_DWORD*)&byte_5D4594[2515920] ||
+		!*(_DWORD*)&byte_5D4594[2515928] || !*(_DWORD*)&byte_5D4594[2515924]) {
 		*(_DWORD*)&byte_5D4594[2513952] = 0;
 		*(_DWORD*)&byte_5D4594[2513956] = 0;
 		*(_DWORD*)&byte_5D4594[2513960] = 0;
@@ -569,10 +569,9 @@ int __cdecl sub_555C40(_DWORD* a1) {
 		if (*(_DWORD*)&byte_5D4594[2513988] == 1) {
 			if (*(_DWORD*)&byte_5D4594[2513972])
 				sub_558260(*(int**)&byte_5D4594[2513964], *(int*)&byte_5D4594[2513980], v14,
-					   *(int*)&byte_587000[293376]);
+						   *(int*)&byte_587000[293376]);
 			else
-				sub_558230(*(int**)&byte_5D4594[2513964], *(int*)&byte_5D4594[2513976],
-					   *(int*)&byte_587000[293376]);
+				sub_558230(*(int**)&byte_5D4594[2513964], *(int*)&byte_5D4594[2513976], *(int*)&byte_587000[293376]);
 		}
 	}
 	do {
@@ -663,21 +662,18 @@ _DWORD* sub_556050() {
 		if (!result) {
 			v6 = *(_DWORD**)&byte_5D4594[2513968];
 			v7 = *(_DWORD**)&byte_5D4594[2515928];
-			if (*(_DWORD*)(*(_DWORD*)&byte_5D4594[2513968] + 32) &&
-			    *(_DWORD*)(*(_DWORD*)&byte_5D4594[2515928] + 32)) {
+			if (*(_DWORD*)(*(_DWORD*)&byte_5D4594[2513968] + 32) && *(_DWORD*)(*(_DWORD*)&byte_5D4594[2515928] + 32)) {
 				v8 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2515928] + 8);
-				if (*(_DWORD*)(*(_DWORD*)&byte_5D4594[2515928] + 8) <=
-				    *(int*)(*(_DWORD*)&byte_5D4594[2513968] + 8))
+				if (*(_DWORD*)(*(_DWORD*)&byte_5D4594[2515928] + 8) <= *(int*)(*(_DWORD*)&byte_5D4594[2513968] + 8))
 					v8 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2513968] + 8);
 				v9 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2515928] + 4);
 				if (v9 <= *(int*)(*(_DWORD*)&byte_5D4594[2513968] + 4))
 					v9 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2513968] + 4);
-				result =
-				    (_DWORD*)sub_556890(*(_DWORD**)&byte_5D4594[2513968], *(int*)&byte_5D4594[2515928],
-							*(_DWORD*)(*(_DWORD*)&byte_5D4594[2513968] + 16),
-							*(_DWORD*)(*(_DWORD*)&byte_5D4594[2513968] + 20),
-							*(_DWORD*)(*(_DWORD*)&byte_5D4594[2515928] + 16),
-							*(_DWORD*)(*(_DWORD*)&byte_5D4594[2515928] + 20), v9, v8, 0);
+				result = (_DWORD*)sub_556890(*(_DWORD**)&byte_5D4594[2513968], *(int*)&byte_5D4594[2515928],
+											 *(_DWORD*)(*(_DWORD*)&byte_5D4594[2513968] + 16),
+											 *(_DWORD*)(*(_DWORD*)&byte_5D4594[2513968] + 20),
+											 *(_DWORD*)(*(_DWORD*)&byte_5D4594[2515928] + 16),
+											 *(_DWORD*)(*(_DWORD*)&byte_5D4594[2515928] + 20), v9, v8, 0);
 			} else {
 				if (sub_556710(*(_DWORD**)(*(_DWORD*)&byte_5D4594[2513968] + 28))) {
 					v10 = (_DWORD*)v6[7];
@@ -823,7 +819,7 @@ int __thiscall sub_5563A0(_DWORD* this, int a2, char a3) {
 	} else {
 		v6 = v3 + 13;
 		(*(void(__stdcall**)(_DWORD, _DWORD*, _DWORD*, _DWORD))(**(_DWORD**)&byte_5D4594[2515908] + 24))(
-		    *(_DWORD*)&byte_5D4594[2515908], v3 + 14, v3 + 13, 0);
+			*(_DWORD*)&byte_5D4594[2515908], v3 + 14, v3 + 13, 0);
 		v3[41] = 0;
 	}
 	result = sub_556AE0(&byte_5D4594[2514012], *v6);
@@ -917,8 +913,7 @@ int __thiscall sub_556650(_DWORD* this) {
 	if (this[8] && this[13]) {
 		if (this[9]) {
 			do {
-				if ((*(int(__stdcall**)(_DWORD, _DWORD))(*(_DWORD*)v1[13] + 128))(v1[13], 0) ==
-				    -2005532222) {
+				if ((*(int(__stdcall**)(_DWORD, _DWORD))(*(_DWORD*)v1[13] + 128))(v1[13], 0) == -2005532222) {
 					if (*(_DWORD*)&byte_5D4594[2515948])
 						(*(void (**)(void)) & byte_5D4594[2515948])();
 					sub_556C10(&byte_5D4594[2514012]);
@@ -962,8 +957,8 @@ int __thiscall sub_556710(_DWORD* this) {
 			} else {
 				if (v1[13]) {
 					while (v2 < 2) {
-						v5 = (*(int(__stdcall**)(_DWORD, _DWORD, _DWORD*, int, _DWORD))(
-						    *(_DWORD*)v1[13] + 100))(v1[13], 0, v1 + 14, 1, 0);
+						v5 = (*(int(__stdcall**)(_DWORD, _DWORD, _DWORD*, int, _DWORD))(*(_DWORD*)v1[13] + 100))(
+							v1[13], 0, v1 + 14, 1, 0);
 						if (v5 != -2005532222) {
 							if (v5) {
 								nullsub_31(v1);
@@ -1053,9 +1048,8 @@ int __thiscall sub_556890(_DWORD* this, int a2, int a3, int a4, int a5, int a6, 
 	v13[1] = a6;
 	v13[2] = a7 + a5;
 	v13[3] = a8 + a6;
-	return (
-	    *(int(__stdcall**)(_DWORD, int*, _DWORD, int*, int, _DWORD))(**(_DWORD**)(*(_DWORD*)(a2 + 28) + 52) + 20))(
-	    *(_DWORD*)(*(_DWORD*)(a2 + 28) + 52), v13, *(_DWORD*)(v10 + 52), v12, v9 | 0x1000200, 0);
+	return (*(int(__stdcall**)(_DWORD, int*, _DWORD, int*, int, _DWORD))(**(_DWORD**)(*(_DWORD*)(a2 + 28) + 52) + 20))(
+		*(_DWORD*)(*(_DWORD*)(a2 + 28) + 52), v13, *(_DWORD*)(v10 + 52), v12, v9 | 0x1000200, 0);
 }
 
 //----- (00556920) --------------------------------------------------------
@@ -1121,8 +1115,8 @@ int __cdecl sub_5569B0(HWND a1) {
 
 	*(_DWORD*)&byte_5D4594[2515892] = a1;
 	v1 = (*(int(__stdcall**)(_DWORD, int, unsigned __int8*, unsigned __int8*, _DWORD))(
-	    **(_DWORD**)&byte_5D4594[2515908] + 20))(*(_DWORD*)&byte_5D4594[2515908], 68, &byte_5D4594[2514100],
-						     &byte_5D4594[2515896], 0);
+		**(_DWORD**)&byte_5D4594[2515908] + 20))(*(_DWORD*)&byte_5D4594[2515908], 68, &byte_5D4594[2514100],
+												 &byte_5D4594[2515896], 0);
 	sub_556C60(v1, 0);
 	*(_DWORD*)&byte_5D4594[2515904] = 0;
 	return 1;
@@ -1171,13 +1165,12 @@ char* __cdecl sub_556A20(char* a1) {
 					*(v3 - 3) = v7;
 				} while ((int)v3 < (int)&byte_5D4594[2515125]);
 				if (!*(_DWORD*)&byte_5D4594[2515904]) {
-					(*(void(__stdcall**)(int, _DWORD))(*(_DWORD*)v2 + 124))(
-					    v2, *(_DWORD*)&byte_5D4594[2515896]);
+					(*(void(__stdcall**)(int, _DWORD))(*(_DWORD*)v2 + 124))(v2, *(_DWORD*)&byte_5D4594[2515896]);
 					*(_DWORD*)&byte_5D4594[2515904] = 1;
 				}
 				result = (char*)(*(int(__stdcall**)(_DWORD, _DWORD, _DWORD, int, unsigned __int8*))(
-				    **(_DWORD**)&byte_5D4594[2515896] + 24))(*(_DWORD*)&byte_5D4594[2515896], 0, 0, 256,
-									     &byte_5D4594[2514100]);
+					**(_DWORD**)&byte_5D4594[2515896] + 24))(*(_DWORD*)&byte_5D4594[2515896], 0, 0, 256,
+															 &byte_5D4594[2514100]);
 			}
 		}
 	}
@@ -1298,115 +1291,93 @@ int __cdecl sub_556C60(int a1, int a2) {
 			if (a1 > 0) {
 			LABEL_116:
 				sprintf(&Text, "Unrecognised Direct Draw result code: %d", (unsigned __int16)a1);
-				return MessageBoxA(*(HWND*)&byte_5D4594[2515892], &Text, (LPCSTR)&byte_587000[300280],
-						   0x30u);
+				return MessageBoxA(*(HWND*)&byte_5D4594[2515892], &Text, (LPCSTR)&byte_587000[300280], 0x30u);
 			}
 			if (a1) {
 				switch (a1 + 2005532103) {
 				case 0:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294468],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294468],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 1:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294856],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294856],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 2:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294968],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294968],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 3:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294288],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294288],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 4:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294236],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294236],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 5:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295292],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295292],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 6:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294644],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294644],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 7:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294572],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294572],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 8:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[293852],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[293852],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 9:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294336],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294336],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 10:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294672],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294672],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 11:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294164],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294164],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 12:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295088],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295088],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 13:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294096],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294096],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 14:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295176],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295176],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 15:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[293972],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[293972],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 16:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295256],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295256],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 17:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294600],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294600],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 18:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[293772],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[293772],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 19:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294776],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[294776],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 20:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[293916],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[293916],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				default:
 					goto LABEL_116;
@@ -1414,102 +1385,101 @@ int __cdecl sub_556C60(int a1, int a2) {
 			} else {
 				result = a2;
 				if (a2)
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[293740],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[293740],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 			}
 		} else if (a1 == -2005532104) {
 			result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295384],
-					     (LPCSTR)&byte_587000[300280], 0x30u);
+								 (LPCSTR)&byte_587000[300280], 0x30u);
 		} else {
 			switch (a1 + 2005532272) {
 			case 0:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296908],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 10:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296412],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 20:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296324],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 30:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296224],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 40:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296164],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 50:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295996],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 60:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295956],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 70:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295908],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 80:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295820],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 90:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295776],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 110:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295720],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 120:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295652],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 137:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295620],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 140:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295504],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 160:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[295432],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 161:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296732],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 162:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296816],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 163:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296628],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 164:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296540],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 165:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296592],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 166:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296488],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 167:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[296956],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			default:
 				goto LABEL_116;
@@ -1518,96 +1488,96 @@ int __cdecl sub_556C60(int a1, int a2) {
 	} else {
 		if (a1 == -2005532285)
 			return MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297052],
-					   (LPCSTR)&byte_587000[300280], 0x30u);
+							   (LPCSTR)&byte_587000[300280], 0x30u);
 		if (a1 > -2005532460) {
 			switch (a1 + 2005532457) {
 			case 0:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298896],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 5:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298792],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 10:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298684],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 15:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298640],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 25:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298612],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 35:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298524],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 40:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297676],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 45:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298428],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 65:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298320],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 75:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298224],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 95:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298136],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 101:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298028],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 102:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297908],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 105:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297812],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 115:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297708],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 120:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297560],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 125:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297468],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 135:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297340],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 145:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297264],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 165:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[300168],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 167:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297216],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			case 169:
 				result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[297152],
-						     (LPCSTR)&byte_587000[300280], 0x30u);
+									 (LPCSTR)&byte_587000[300280], 0x30u);
 				break;
 			default:
 				goto LABEL_116;
@@ -1615,58 +1585,48 @@ int __cdecl sub_556C60(int a1, int a2) {
 		} else {
 			if (a1 == -2005532460)
 				return MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[298940],
-						   (LPCSTR)&byte_587000[300280], 0x30u);
+								   (LPCSTR)&byte_587000[300280], 0x30u);
 			if (a1 > -2005532572) {
 				switch (a1 + 2005532562) {
 				case 0:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299560],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299560],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 10:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299512],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299512],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 20:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299440],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299440],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 35:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299396],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299396],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 40:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299364],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299364],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 50:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299288],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299288],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 60:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299264],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299264],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 70:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299160],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299160],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 95:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299136],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299136],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 100:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299032],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299032],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				default:
 					goto LABEL_116;
@@ -1674,64 +1634,53 @@ int __cdecl sub_556C60(int a1, int a2) {
 			} else {
 				if (a1 == -2005532572)
 					return MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299612],
-							   (LPCSTR)&byte_587000[300280], 0x30u);
+									   (LPCSTR)&byte_587000[300280], 0x30u);
 				if (a1 <= -2005532662) {
 					if (a1 == -2005532662)
-						return MessageBoxA(*(HWND*)&byte_5D4594[2515892],
-								   (LPCSTR)&byte_587000[300004],
-								   (LPCSTR)&byte_587000[300280], 0x30u);
+						return MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[300004],
+										   (LPCSTR)&byte_587000[300280], 0x30u);
 					if (a1 > -2147024882) {
 						if (a1 == -2147024809)
-							return MessageBoxA(*(HWND*)&byte_5D4594[2515892],
-									   (LPCSTR)&byte_587000[300064],
-									   (LPCSTR)&byte_587000[300280], 0x30u);
+							return MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[300064],
+											   (LPCSTR)&byte_587000[300280], 0x30u);
 						if (a1 == -2005532667)
-							return MessageBoxA(*(HWND*)&byte_5D4594[2515892],
-									   (LPCSTR)&byte_587000[300132],
-									   (LPCSTR)&byte_587000[300280], 0x30u);
+							return MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[300132],
+											   (LPCSTR)&byte_587000[300280], 0x30u);
 					} else {
 						switch (a1) {
 						case -2147024882:
-							return MessageBoxA(*(HWND*)&byte_5D4594[2515892],
-									   (LPCSTR)&byte_587000[300168],
-									   (LPCSTR)&byte_587000[300280], 0x30u);
+							return MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[300168],
+											   (LPCSTR)&byte_587000[300280], 0x30u);
 						case -2147467263:
-							return MessageBoxA(*(HWND*)&byte_5D4594[2515892],
-									   (LPCSTR)&byte_587000[300236],
-									   (LPCSTR)&byte_587000[300280], 0x30u);
+							return MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[300236],
+											   (LPCSTR)&byte_587000[300280], 0x30u);
 						case -2147467259:
-							return MessageBoxA(*(HWND*)&byte_5D4594[2515892],
-									   (LPCSTR)&byte_587000[300260],
-									   (LPCSTR)&byte_587000[300280], 0x30u);
+							return MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[300260],
+											   (LPCSTR)&byte_587000[300280], 0x30u);
 						}
 					}
 					goto LABEL_116;
 				}
 				switch (a1 + 2005532652) {
 				case 0:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299940],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299940],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 20:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299900],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299900],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 35:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299828],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299828],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 70:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299760],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299760],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				case 75:
-					result =
-					    MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299680],
-							(LPCSTR)&byte_587000[300280], 0x30u);
+					result = MessageBoxA(*(HWND*)&byte_5D4594[2515892], (LPCSTR)&byte_587000[299680],
+										 (LPCSTR)&byte_587000[300280], 0x30u);
 					break;
 				default:
 					goto LABEL_116;
@@ -2384,7 +2333,7 @@ int __cdecl sub_558A20(int a1, int a2, void* a3, unsigned int a4) {
 // 558810: using guessed type int __thiscall sub_558810(_DWORD);
 
 char __cdecl sub_558AA0(_DWORD* a1, _DWORD* a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7,
-			int a8, char a9) {
+						int a8, char a9) {
 	DebugBreak();
 	return 0;
 }
@@ -2621,7 +2570,7 @@ char __cdecl sub_558AA0(_DWORD * a1, _DWORD * a2, unsigned int a3, unsigned int 
 #endif
 
 void __cdecl sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9,
-			int a10, int a11, int a12) {
+						int a10, int a11, int a12) {
 	DebugBreak();
 }
 
@@ -3043,8 +2992,8 @@ int __cdecl sub_559E80(DWORD_PTR dwUser, int a2, int a3) {
 		v7 = *(_DWORD*)(dwUser + 112);
 		v8 = *(unsigned __int16*)(dwUser + 14);
 		*((_WORD*)v5 + 4) = v7 == (unsigned __int16)v8
-					? *(_WORD*)a2
-					: (unsigned __int16)(v7 * (unsigned int)*(unsigned __int16*)a2 / v8);
+								? *(_WORD*)a2
+								: (unsigned __int16)(v7 * (unsigned int)*(unsigned __int16*)a2 / v8);
 	} else {
 		*((_WORD*)v5 + 4) = v6;
 	}
@@ -3165,8 +3114,7 @@ int __cdecl sub_55A130(int a1) {
 		*((_WORD*)v1 + 67) = v8;
 		*((_DWORD*)v1 + 35) = v9 * v10;
 		AIL_lock();
-		g_dsound->lpVtbl->CreateSoundBuffer(g_dsound, (LPCDSBUFFERDESC)(v1 + 96),
-						    (LPDIRECTSOUNDBUFFER*)(v1 + 152), 0);
+		g_dsound->lpVtbl->CreateSoundBuffer(g_dsound, (LPCDSBUFFERDESC)(v1 + 96), (LPDIRECTSOUNDBUFFER*)(v1 + 152), 0);
 		AIL_unlock();
 		if (*v6) {
 			(*(void(__cdecl**)(_DWORD)) & byte_5D4594[2515980])(a1);
@@ -3245,8 +3193,8 @@ int __cdecl sub_55A3B0(int a1) {
 	int result; // eax
 
 	if (!*(_DWORD*)&byte_5D4594[200 * *(_DWORD*)(a1 + 52) + 2515988] ||
-	    (v1 = *(_DWORD*)&byte_5D4594[200 * *(_DWORD*)(a1 + 52) + 2516140]) == 0 ||
-	    (result = (*(int(__stdcall**)(int, _DWORD, _DWORD, int))(*(_DWORD*)v1 + 48))(v1, 0, 0, 1)) != 0) {
+		(v1 = *(_DWORD*)&byte_5D4594[200 * *(_DWORD*)(a1 + 52) + 2516140]) == 0 ||
+		(result = (*(int(__stdcall**)(int, _DWORD, _DWORD, int))(*(_DWORD*)v1 + 48))(v1, 0, 0, 1)) != 0) {
 		result = -13;
 	}
 	return result;
@@ -3301,7 +3249,7 @@ void __stdcall fptc(UINT uTimerID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2
 	EnterCriticalSection((LPCRITICAL_SECTION)(v6 + 172));
 	v7 = *((_DWORD*)v6 + 38);
 	if (!v7 || *((_DWORD*)v6 + 23) != uTimerID ||
-	    ((*(void(__stdcall**)(int, int*))(*(_DWORD*)v7 + 36))(v7, &v13), !(v13 & 5))) {
+		((*(void(__stdcall**)(int, int*))(*(_DWORD*)v7 + 36))(v7, &v13), !(v13 & 5))) {
 		LeaveCriticalSection(dwUsera);
 	LABEL_20:
 		InterlockedDecrement((volatile LONG*)v6 + 49);
@@ -3309,7 +3257,7 @@ void __stdcall fptc(UINT uTimerID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2
 	}
 	v8 = 0;
 	if ((*(int(__stdcall**)(_DWORD, int*, int*))(**((_DWORD**)v6 + 38) + 16))(*((_DWORD*)v6 + 38), &v14, &v16) ==
-	    -2005401450) {
+		-2005401450) {
 		(*(void(__stdcall**)(_DWORD))(**((_DWORD**)v6 + 38) + 80))(*((_DWORD*)v6 + 38));
 		(*(void(__stdcall**)(_DWORD))(**((_DWORD**)v6 + 38) + 72))(*((_DWORD*)v6 + 38));
 		v8 = 1;
@@ -3320,8 +3268,7 @@ void __stdcall fptc(UINT uTimerID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2
 	}
 	v9 = *((_DWORD*)v6 + 42);
 	if (v14 < v9 || (unsigned int)v14 >= *((_DWORD*)v6 + 39) >> 1 && !v9 || v8) {
-		(*(void(__cdecl**)(_DWORD, _DWORD)) &
-		 byte_5D4594[2515984])(v5, *(_DWORD*)&v6[4 * *((_DWORD*)v6 + 16) + 76]);
+		(*(void(__cdecl**)(_DWORD, _DWORD)) & byte_5D4594[2515984])(v5, *(_DWORD*)&v6[4 * *((_DWORD*)v6 + 16) + 76]);
 		v10 = *((_DWORD*)v6 + 16);
 		v11 = v10 + 1;
 		++*((_DWORD*)v6 + 40);
@@ -3332,8 +3279,8 @@ void __stdcall fptc(UINT uTimerID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2
 		if (*(_DWORD*)&v6[4 * v11 + 68])
 			*((_DWORD*)v6 + 16) = v11;
 		if (v12)
-			(*(void(__stdcall**)(_DWORD, _DWORD, _DWORD, int))(**((_DWORD**)v6 + 38) + 48))(
-			    *((_DWORD*)v6 + 38), 0, 0, 1);
+			(*(void(__stdcall**)(_DWORD, _DWORD, _DWORD, int))(**((_DWORD**)v6 + 38) + 48))(*((_DWORD*)v6 + 38), 0, 0,
+																							1);
 	}
 	LeaveCriticalSection(dwUsera);
 	InterlockedDecrement(lpAddend);
@@ -3373,7 +3320,7 @@ int __cdecl sub_55A610(char* a1) {
 	v4 = *(_DWORD*)result;
 	v23 = *((_DWORD*)v1 + 42);
 	if ((*(int(__stdcall**)(int, int, int, void**, unsigned int*, char**, int*, _DWORD))(v4 + 44))(
-		result, v23, v3, &v21, &v20, &a1, &v22, 0)) {
+			result, v23, v3, &v21, &v20, &a1, &v22, 0)) {
 		return 0;
 	}
 	v5 = *((_DWORD*)v1 + 15);
@@ -3407,7 +3354,7 @@ int __cdecl sub_55A610(char* a1) {
 LABEL_10:
 	qmemcpy(v12, v13, v14 & 3);
 	(*(void(__stdcall**)(_DWORD, void*, unsigned int, char*, int))(**((_DWORD**)v1 + 38) + 76))(*((_DWORD*)v1 + 38),
-												    v21, v20, a1, v22);
+																								v21, v20, a1, v22);
 	v17 = v23;
 	*((_DWORD*)v1 + 41) = v23;
 	v18 = *(_DWORD*)&v1[4 * v5 + 84] + v17;
@@ -3531,10 +3478,8 @@ LABEL_12:
 					if ((*v10)((int)v8, 5, (char*)v29, 8))
 						goto LABEL_109;
 					v13 = ((*(_DWORD*)&v29[4] << 16) | *(_WORD*)&v29[4] & 0xFF00) << 8;
-					v14 =
-					    v13 | ((*(unsigned __int16*)&v29[6] | *(_DWORD*)&v29[4] & 0xFF0000u) >> 8);
-					*(_DWORD*)&v29[4] =
-					    v13 | ((*(unsigned __int16*)&v29[6] | *(_DWORD*)&v29[4] & 0xFF0000u) >> 8);
+					v14 = v13 | ((*(unsigned __int16*)&v29[6] | *(_DWORD*)&v29[4] & 0xFF0000u) >> 8);
+					*(_DWORD*)&v29[4] = v13 | ((*(unsigned __int16*)&v29[6] | *(_DWORD*)&v29[4] & 0xFF0000u) >> 8);
 					if (*(_DWORD*)v29 <= 0x464E4950u)
 						break;
 					switch (*(_DWORD*)v29) {
@@ -3662,13 +3607,12 @@ LABEL_12:
 			if (*((_DWORD*)v8 + 446) > v23)
 				*((_DWORD*)v8 + 446) = v23;
 			if (*((_DWORD*)v8 + 446) > 0) {
-				v25 = (*((int(__cdecl**)(_WORD*, int, _DWORD, _DWORD))v8 + 17))(v8, 2, 0,
-												*((_DWORD*)v8 + 446));
+				v25 = (*((int(__cdecl**)(_WORD*, int, _DWORD, _DWORD))v8 + 17))(v8, 2, 0, *((_DWORD*)v8 + 446));
 				*((_DWORD*)v8 + 445) = v25;
 				if (!v25)
 					goto LABEL_95;
 				(*((void(__cdecl**)(_WORD*, int, _DWORD, _DWORD))v8 + 17))(v8, 4, *((_DWORD*)v8 + 445),
-											   *((_DWORD*)v8 + 446));
+																		   *((_DWORD*)v8 + 446));
 				v26 = *((_DWORD*)v8 + 446) + *((_DWORD*)v8 + 12);
 				*((_DWORD*)v8 + 85) |= 4u;
 				*((_DWORD*)v8 + 12) = v26;
@@ -3716,8 +3660,7 @@ int __cdecl sub_55AE50(int a1) {
 	if (*(_BYTE*)(a1 + 336) & 0x20) {
 		v1 = *(_DWORD*)(a1 + 344);
 		if (v1) {
-			(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 5, v1,
-									  *(_DWORD*)(a1 + 348) * *(_DWORD*)(a1 + 352));
+			(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 5, v1, *(_DWORD*)(a1 + 348) * *(_DWORD*)(a1 + 352));
 			(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 344), 0);
 		}
 	}
@@ -4737,7 +4680,7 @@ char* __cdecl sub_55BCB0(int a1, unsigned __int16* a2, char* a3, int a4, int a5,
 				v24 = 2 * v14;
 				++v8;
 				v25 = *(unsigned __int16*)(*(_DWORD*)&byte_5D4594[2516188] + 2 * v23) |
-				      (*(unsigned __int16*)(*(_DWORD*)&byte_5D4594[2516188] + 2 * v23) << 16);
+					  (*(unsigned __int16*)(*(_DWORD*)&byte_5D4594[2516188] + 2 * v23) << 16);
 				if (2 * v14)
 					memset32(v9, v25, v24);
 				if (v24)
@@ -5669,7 +5612,7 @@ int __cdecl sub_55CB20(int a1, char a2) {
 				if (v14 != sub_562A90)
 					v14((_DWORD*)v2, 7, 0, v3);
 				if ((*(int(__cdecl**)(int, int, int, int))(v2 + 64))(
-					v2, 5, *(_DWORD*)(v2 + 1780) + *(_DWORD*)(v2 + 1796), v13)) {
+						v2, 5, *(_DWORD*)(v2 + 1780) + *(_DWORD*)(v2 + 1796), v13)) {
 					return -4;
 				}
 				*(_DWORD*)(v2 + 1792) += v13;
@@ -5813,8 +5756,8 @@ int __cdecl sub_55CDB0(int a1, char a2) {
 					if ((*(int(__cdecl**)(int, int, int, int))(v2 + 64))(v2, 5, v2 + 408, 8))
 						return -2;
 					*(_DWORD*)&byte_5D4594[2516196] =
-					    ((*(_DWORD*)(v2 + 412) & 0xFF00 | (*(_DWORD*)(v2 + 412) << 16)) << 8) |
-					    (((*(_DWORD*)(v2 + 412) >> 16) | *(_DWORD*)(v2 + 412) & 0xFF0000u) >> 8);
+						((*(_DWORD*)(v2 + 412) & 0xFF00 | (*(_DWORD*)(v2 + 412) << 16)) << 8) |
+						(((*(_DWORD*)(v2 + 412) >> 16) | *(_DWORD*)(v2 + 412) & 0xFF0000u) >> 8);
 					*(_DWORD*)(v2 + 400) += *(_DWORD*)&byte_5D4594[2516196];
 				}
 				v20 = *(_DWORD*)(v2 + 408);
@@ -6343,7 +6286,7 @@ int __cdecl sub_55D910(int a1, int a2, int a3) {
 	if (v7 < 0)
 		return v12;
 	if ((*(int(__cdecl**)(int, int, _DWORD, int))(v3 + 64))(
-		v3, 7, 0, 2 * (*(_DWORD*)(*(_DWORD*)(v3 + 1892) + 4 * v7) & 0xFFFFFFF))) {
+			v3, 7, 0, 2 * (*(_DWORD*)(*(_DWORD*)(v3 + 1892) + 4 * v7) & 0xFFFFFFF))) {
 		return -6;
 	}
 	if (a3) {
@@ -6549,8 +6492,7 @@ int __cdecl sub_55DB20(_DWORD* a1, int a2, int a3, char a4, char a5, char* a6) {
 			result = -1;
 		return result;
 	}
-	if (((int(__cdecl*)(_DWORD*, int, _DWORD, int))v6[16])(v6, 7, 0,
-							       2 * (*(_DWORD*)(v6[473] + 4 * v9) & 0xFFFFFFF)))
+	if (((int(__cdecl*)(_DWORD*, int, _DWORD, int))v6[16])(v6, 7, 0, 2 * (*(_DWORD*)(v6[473] + 4 * v9) & 0xFFFFFFF)))
 		return -6;
 	result = -1;
 	v26 = v32 == 0;
@@ -6617,14 +6559,13 @@ int __cdecl sub_55DF50(int a1, int a2, int a3) {
 			v4 = 1;
 		*(_DWORD*)(a1 + 1796) = 0;
 	} else if ((*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 7, 0,
-								       2 * (*(_DWORD*)(v5 + 4 * a2) & 0xFFFFFFF))) {
+																   2 * (*(_DWORD*)(v5 + 4 * a2) & 0xFFFFFFF))) {
 		return -6;
 	}
-	if (a2 > 0 && (!(a3 & 0x10) || !(*(_BYTE*)(a1 + 234) & 0x10)) && (v3 = sub_55CB20(a1, a3 | 6), v3 != -1) ||
-	    !v4 ||
-	    (v7 = (*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(
-		      a1, 8, 0, *(_DWORD*)(a1 + 1788) + *(_DWORD*)(a1 + 1792)) == 0,
-	     result = -6, v7)) {
+	if (a2 > 0 && (!(a3 & 0x10) || !(*(_BYTE*)(a1 + 234) & 0x10)) && (v3 = sub_55CB20(a1, a3 | 6), v3 != -1) || !v4 ||
+		(v7 = (*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 8, 0,
+																  *(_DWORD*)(a1 + 1788) + *(_DWORD*)(a1 + 1792)) == 0,
+		 result = -6, v7)) {
 		result = v3;
 	}
 	return result;
@@ -6814,7 +6755,7 @@ int __cdecl sub_55E400(int a1) {
 	if (*(_DWORD*)v4 != 1213090124)
 		return -4;
 	if (sub_55E550(a1, (((*(_DWORD*)&v4[4] << 16) | *(_WORD*)&v4[4] & 0xFF00) << 8) |
-			       ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) != -1)
+						   ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) != -1)
 		return -4;
 	if (!*(_WORD*)(a1 + 1812))
 		goto LABEL_19;
@@ -6830,7 +6771,7 @@ int __cdecl sub_55E400(int a1) {
 	if (*(_DWORD*)v4 != 1145981260)
 		return -4;
 	if (sub_55E580(a1, (((*(_DWORD*)&v4[4] << 16) | *(_WORD*)&v4[4] & 0xFF00) << 8) |
-			       ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) != -1)
+						   ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) != -1)
 		result = -4;
 	else
 	LABEL_19:
@@ -6881,7 +6822,7 @@ int __cdecl sub_55E5B0(int a1) {
 	if (*(_DWORD*)v11 != 1212368461)
 		return -4;
 	if (sub_55E820(a1, (((*(_DWORD*)&v11[4] << 16) | *(_WORD*)&v11[4] & 0xFF00) << 8) |
-			       ((*(unsigned __int16*)&v11[6] | *(_DWORD*)&v11[4] & 0xFF0000u) >> 8)) != -1)
+						   ((*(unsigned __int16*)&v11[6] | *(_DWORD*)&v11[4] & 0xFF0000u) >> 8)) != -1)
 		return -4;
 	v2 = *(_DWORD*)(a1 + 1824);
 	if (v2) {
@@ -6897,7 +6838,7 @@ int __cdecl sub_55E5B0(int a1) {
 		if (*(_DWORD*)v11 != 1145259597)
 			return -4;
 		if (sub_55E850(a1, (((*(_DWORD*)&v11[4] << 16) | *(_WORD*)&v11[4] & 0xFF00) << 8) |
-				       ((*(unsigned __int16*)&v11[6] | *(_DWORD*)&v11[4] & 0xFF0000u) >> 8)) != -1)
+							   ((*(unsigned __int16*)&v11[6] | *(_DWORD*)&v11[4] & 0xFF0000u) >> 8)) != -1)
 			return -4;
 	}
 	v5 = *(_DWORD*)(a1 + 1828);
@@ -6915,7 +6856,7 @@ int __cdecl sub_55E5B0(int a1) {
 	if (*(_DWORD*)v11 != 1413695053)
 		return -4;
 	if (sub_55E880(a1, (((*(_DWORD*)&v11[4] << 16) | *(_WORD*)&v11[4] & 0xFF00) << 8) |
-			       ((*(unsigned __int16*)&v11[6] | *(_DWORD*)&v11[4] & 0xFF0000u) >> 8)) != -1)
+						   ((*(unsigned __int16*)&v11[6] | *(_DWORD*)&v11[4] & 0xFF0000u) >> 8)) != -1)
 		return -4;
 LABEL_34:
 	v8 = *(_DWORD*)(a1 + 1828);
@@ -6990,7 +6931,7 @@ int __cdecl sub_55E8B0(int a1) {
 	if (*(_DWORD*)v8 != 1212371789)
 		return -4;
 	if (sub_55EA60(a1, (((*(_DWORD*)&v8[4] << 16) | *(_WORD*)&v8[4] & 0xFF00) << 8) |
-			       ((*(unsigned __int16*)&v8[6] | *(_DWORD*)&v8[4] & 0xFF0000u) >> 8)) != -1)
+						   ((*(unsigned __int16*)&v8[6] | *(_DWORD*)&v8[4] & 0xFF0000u) >> 8)) != -1)
 		return -4;
 	v2 = *(_DWORD*)(a1 + 1852);
 	if (!v2)
@@ -7007,7 +6948,7 @@ int __cdecl sub_55E8B0(int a1) {
 	if (*(_DWORD*)v8 != 1413698381)
 		return -4;
 	if (sub_55EA90(a1, (((*(_DWORD*)&v8[4] << 16) | *(_WORD*)&v8[4] & 0xFF00) << 8) |
-			       ((*(unsigned __int16*)&v8[6] | *(_DWORD*)&v8[4] & 0xFF0000u) >> 8)) != -1)
+						   ((*(unsigned __int16*)&v8[6] | *(_DWORD*)&v8[4] & 0xFF0000u) >> 8)) != -1)
 		return -4;
 LABEL_25:
 	v5 = *(_DWORD*)(a1 + 1852);
@@ -7092,8 +7033,7 @@ int __cdecl sub_55EAC0(_DWORD* a1, int a2) {
 		v2[12] += v8;
 		v12 = v7 * ((v15 + 1) & 0xFFFFFFFE);
 		v9[2] = v16;
-		v13 = ((int(__cdecl*)(_DWORD*, int, _DWORD, unsigned int))v2[17])(v2, 2, 0,
-										  v7 * ((v15 + 1) & 0xFFFFFFFE));
+		v13 = ((int(__cdecl*)(_DWORD*, int, _DWORD, unsigned int))v2[17])(v2, 2, 0, v7 * ((v15 + 1) & 0xFFFFFFFE));
 		v17 = v13;
 		if (!v13)
 			return -8;
@@ -7213,8 +7153,7 @@ int __cdecl sub_55ECE0(_DWORD* a1, int a2) {
 		v2[12] += 12 * v3;
 		v5[2] = v12;
 		v8 = v3 * ((v11 + 1) & 0xFFFFFFFE);
-		v9 = ((int(__cdecl*)(_DWORD*, int, _DWORD, unsigned int))v2[17])(v2, 2, 0,
-										 v3 * ((v11 + 1) & 0xFFFFFFFE));
+		v9 = ((int(__cdecl*)(_DWORD*, int, _DWORD, unsigned int))v2[17])(v2, 2, 0, v3 * ((v11 + 1) & 0xFFFFFFFE));
 		v13 = v9;
 		if (!v9)
 			return -8;
@@ -7285,7 +7224,7 @@ int __cdecl sub_55EE60(int a1) {
 	if (*(_DWORD*)v4 != 1213090115)
 		return -4;
 	if (sub_55EFC0(a1, (((*(_DWORD*)&v4[4] << 16) | *(_WORD*)&v4[4] & 0xFF00) << 8) |
-			       ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) != -1)
+						   ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) != -1)
 		return -4;
 	if (*(_BYTE*)(a1 + 245) || !*(_WORD*)(a1 + 1868))
 		goto LABEL_20;
@@ -7301,7 +7240,7 @@ int __cdecl sub_55EE60(int a1) {
 	if (*(_DWORD*)v4 != 1145981251)
 		return -4;
 	if (sub_55EFF0(a1, (((*(_DWORD*)&v4[4] << 16) | *(_WORD*)&v4[4] & 0xFF00) << 8) |
-			       ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) == -1)
+						   ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) == -1)
 	LABEL_20:
 		result = -1;
 	else
@@ -7345,7 +7284,7 @@ int __cdecl sub_55F020(int a1) {
 	if (*(_DWORD*)v4 != 1213090128)
 		return -4;
 	if (sub_55F170(a1, (((*(_DWORD*)&v4[4] << 16) | *(_WORD*)&v4[4] & 0xFF00) << 8) |
-			       ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) != -1)
+						   ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) != -1)
 		return -4;
 	if (!*(_WORD*)(a1 + 1880))
 		goto LABEL_19;
@@ -7361,7 +7300,7 @@ int __cdecl sub_55F020(int a1) {
 	if (*(_DWORD*)v4 != 1145981264)
 		return -4;
 	if (sub_55F1A0(a1, (((*(_DWORD*)&v4[4] << 16) | *(_WORD*)&v4[4] & 0xFF00) << 8) |
-			       ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) != -1)
+						   ((*(unsigned __int16*)&v4[6] | *(_DWORD*)&v4[4] & 0xFF0000u) >> 8)) != -1)
 		result = -4;
 	else
 	LABEL_19:
@@ -7461,7 +7400,7 @@ int __cdecl sub_55F300(int a1, int a2) {
 	if (!*(_BYTE*)(a1 + 245) && !*(_DWORD*)(a1 + 376))
 		*(_DWORD*)(a1 + 380) = sub_55F3F0(a1, *(_DWORD*)(a1 + 384));
 	if ((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 376) + *v2,
-								      (a2 + 1) & 0xFFFFFFFE)) {
+																  (a2 + 1) & 0xFFFFFFFE)) {
 		return -4;
 	}
 	v4 = a2 + *(_DWORD*)(a1 + 376);
@@ -7611,7 +7550,7 @@ int __cdecl sub_55F600(int a1, int a2) {
 		*(_BYTE*)(v5 + a2 + 1) = -128;
 	if (*(_WORD*)(a1 + 1880) == 1) {
 		v8 = sub_562C9B((unsigned __int8*)(*(_DWORD*)(v3 + 8) + *(_DWORD*)(v3 + 36)), *(char**)(v3 + 8),
-				*(_DWORD*)(a1 + 1904));
+						*(_DWORD*)(a1 + 1904));
 		*(_DWORD*)(v3 + 20) &= 0xFFFFFFF7;
 		v9 = *(const void**)(v3 + 8);
 		*(_DWORD*)(v3 + 40) = v8;
@@ -7674,8 +7613,7 @@ int __cdecl sub_55F780(int a1, unsigned int a2) {
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	if (*(_BYTE*)(a1 + 132) & 1 && (v3 = *(_DWORD*)(a1 + 1932)) != 0) {
 		if (v2 <= *(int*)(a1 + 1972) || *(_DWORD*)(a1 + 1936)) {
-			if ((*(int(__cdecl**)(int, int, _DWORD, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1960),
-											 v2)) {
+			if ((*(int(__cdecl**)(int, int, _DWORD, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1960), v2)) {
 				result = -4;
 			} else {
 				*(_DWORD*)(a1 + 1968) = a2;
@@ -7723,13 +7661,12 @@ int __cdecl sub_55F860(int a1, int a2) {
 		v6 = v3 - 4;
 		if ((unsigned __int16)a1 <= v5 || *(_DWORD*)(v2 + 1936)) {
 			if ((_WORD)a1 == HIWORD(a1)) {
-				if ((*(int(__cdecl**)(int, int, _DWORD, int))(v2 + 64))(v2, 5, *(_DWORD*)(v2 + 1960),
-											v6))
+				if ((*(int(__cdecl**)(int, int, _DWORD, int))(v2 + 64))(v2, 5, *(_DWORD*)(v2 + 1960), v6))
 					return -4;
 			} else {
 				v10 = (_WORD*)(v5 + *(_DWORD*)(v2 + 1960) - v6);
-				if ((*(int(__cdecl**)(int, int, unsigned int, int))(v2 + 64))(
-					v2, 5, v5 + *(_DWORD*)(v2 + 1960) - v6, v6))
+				if ((*(int(__cdecl**)(int, int, unsigned int, int))(v2 + 64))(v2, 5, v5 + *(_DWORD*)(v2 + 1960) - v6,
+																			  v6))
 					return -4;
 				sub_562E30(v10, *(char**)(v2 + 1960), (unsigned __int16)a1);
 			}
@@ -7737,8 +7674,7 @@ int __cdecl sub_55F860(int a1, int a2) {
 			*(_DWORD*)(v2 + 1968) = (unsigned __int16)a1;
 		} else {
 			if ((_WORD)a1 == HIWORD(a1)) {
-				if ((*(int(__cdecl**)(int, int, _DWORD, int))(v2 + 64))(v2, 5, *(_DWORD*)(v2 + 1932),
-											v6))
+				if ((*(int(__cdecl**)(int, int, _DWORD, int))(v2 + 64))(v2, 5, *(_DWORD*)(v2 + 1932), v6))
 					return -4;
 			} else {
 				v7 = (_WORD*)(*(_DWORD*)(v2 + 1932) + *(_DWORD*)(v2 + 152) - v6);
@@ -7757,8 +7693,7 @@ int __cdecl sub_55F860(int a1, int a2) {
 			result = -1;
 		}
 	} else {
-		v11 =
-		    -((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, (a2 + 1) & 0xFFFFFFFE) != 0);
+		v11 = -((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, (a2 + 1) & 0xFFFFFFFE) != 0);
 		LOBYTE(v11) = v11 & 0xFB;
 		result = v11 - 1;
 	}
@@ -7785,23 +7720,21 @@ int __cdecl sub_55FA20(int a1, int a2) {
 		v5 = a2 * (*(unsigned __int8*)(a1 + 63) >> 2);
 		if (v5 <= v4 || *(_DWORD*)(a1 + 1936)) {
 			v10 = (unsigned __int16*)(v4 + *(_DWORD*)(a1 + 1960) - v2);
-			if ((*(int(__cdecl**)(int, int, unsigned int, int))(a1 + 64))(
-				a1, 5, v4 + *(_DWORD*)(a1 + 1960) - v2, v2)) {
+			if ((*(int(__cdecl**)(int, int, unsigned int, int))(a1 + 64))(a1, 5, v4 + *(_DWORD*)(a1 + 1960) - v2, v2)) {
 				result = -4;
 			} else {
-				sub_560881(v10, *(_WORD**)(a1 + 1960), *(unsigned __int8*)(a1 + 63),
-					   *(unsigned __int8*)(a1 + 62), v5, a1 + 2000);
+				sub_560881(v10, *(_WORD**)(a1 + 1960), *(unsigned __int8*)(a1 + 63), *(unsigned __int8*)(a1 + 62), v5,
+						   a1 + 2000);
 				*(_DWORD*)(a1 + 1968) = v5;
 				result = -1;
 			}
 		} else {
 			v6 = (unsigned __int16*)(v3 + *(_DWORD*)(a1 + 152) - v2);
-			if ((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, v3 + *(_DWORD*)(a1 + 152) - v2,
-									     v2)) {
+			if ((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, v3 + *(_DWORD*)(a1 + 152) - v2, v2)) {
 				result = -4;
 			} else {
-				sub_560881(v6, *(_WORD**)(a1 + 1932), *(unsigned __int8*)(a1 + 63),
-					   *(unsigned __int8*)(a1 + 62), v5, a1 + 2000);
+				sub_560881(v6, *(_WORD**)(a1 + 1932), *(unsigned __int8*)(a1 + 63), *(unsigned __int8*)(a1 + 62), v5,
+						   a1 + 2000);
 				v8 = *(_DWORD*)(a1 + 1964);
 				if (v8) {
 					v5 -= v8;
@@ -7993,8 +7926,7 @@ int __cdecl sub_55FE20(int a1, int a2) {
 				v18 = v8;
 				do {
 					if (v9[1] == a2)
-						(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v2 + 72))(v2, v5,
-													*(v9 - 1), *v9);
+						(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v2 + 72))(v2, v5, *(v9 - 1), *v9);
 					v9 += 3;
 					--v18;
 				} while (v18);
@@ -8020,8 +7952,7 @@ int __cdecl sub_55FE20(int a1, int a2) {
 				v21 = v16;
 				do {
 					if (v17[1] == a2)
-						(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v2 + 72))(
-						    v2, v13, *(v17 - 1), *v17);
+						(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v2 + 72))(v2, v13, *(v17 - 1), *v17);
 					v17 += 3;
 					--v21;
 				} while (v21);
@@ -8059,7 +7990,7 @@ char __cdecl sub_55FF30(int a1, int* a2) {
 	v16 = a2[1];
 	if (!(v4 & 2)) {
 		if ((v5 = *(int(__cdecl**)(int, int, _DWORD, _DWORD))(v2 + 72)) != 0 && (v4 = v5(v2, 6, 0, 0)) != 0 ||
-		    (v4 = *(_DWORD*)(v2 + 424)) != 0) {
+			(v4 = *(_DWORD*)(v2 + 424)) != 0) {
 			v6 = *(_DWORD*)(v2 + 1732);
 			v7 = *(_DWORD*)(v2 + 1736);
 			v8 = v4 + *(_DWORD*)(v2 + 444);
@@ -8177,16 +8108,14 @@ int __cdecl sub_560080(int a1) {
 							v14 = *(_DWORD*)(v2 + 20);
 							if (v14 & 4) {
 								if (v14 & 8) {
-									*(_DWORD*)(v2 + 40) = sub_562C9B(
-									    (unsigned __int8*)(*(_DWORD*)(v2 + 8) +
-											       *(_DWORD*)(v2 + 36)),
-									    *(char**)(v2 + 8), *(_DWORD*)(v1 + 1904));
+									*(_DWORD*)(v2 + 40) =
+										sub_562C9B((unsigned __int8*)(*(_DWORD*)(v2 + 8) + *(_DWORD*)(v2 + 36)),
+												   *(char**)(v2 + 8), *(_DWORD*)(v1 + 1904));
 									v15 = *(_DWORD*)(v2 + 20);
 									LOBYTE(v15) = v15 & 0xF7;
 									*(_DWORD*)(v2 + 20) = v15;
 								}
-								qmemcpy((void*)(v3 + 36), *(const void**)(v2 + 8),
-									*(_DWORD*)(v2 + 40));
+								qmemcpy((void*)(v3 + 36), *(const void**)(v2 + 8), *(_DWORD*)(v2 + 40));
 								v16 = *(_DWORD*)(v1 + 420);
 								LOBYTE(v16) = v16 | 1;
 								*(_DWORD*)(v1 + 448) = *(_DWORD*)(v2 + 40);
@@ -8196,17 +8125,15 @@ int __cdecl sub_560080(int a1) {
 							if (v17) {
 								v18 = *(_DWORD*)(v2 + 20);
 								if (v18 & 0x100) {
-									v17(v1, 4, *(_DWORD*)(v2 + 28),
-									    *(_DWORD*)(v1 + 288));
+									v17(v1, 4, *(_DWORD*)(v2 + 28), *(_DWORD*)(v1 + 288));
 									v19 = *(_DWORD*)(v2 + 20);
 									BYTE1(v19) &= 0xFEu;
 									*(_DWORD*)(v2 + 20) = v19;
 								}
 								v20 = *(_DWORD*)(v2 + 20);
 								if (v20 & 0x200) {
-									(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(
-									    v1 + 72))(v1, 5, *(_DWORD*)(v2 + 28),
-										      *(_DWORD*)(v1 + 288));
+									(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 72))(v1, 5, *(_DWORD*)(v2 + 28),
+																							*(_DWORD*)(v1 + 288));
 									v21 = *(_DWORD*)(v2 + 20);
 									BYTE1(v21) &= 0xFDu;
 									*(_DWORD*)(v2 + 20) = v21;
@@ -8245,8 +8172,7 @@ int __cdecl sub_560080(int a1) {
 				}
 				result = sub_5605C0(v1);
 			} else if (*(_BYTE*)(a1 + 420) & 4) {
-				if (sub_5603B0(a1, v4, a1 + 416, v2, v10) == *(_DWORD*)(a1 + 1744) &&
-				    *(_BYTE*)(v2 + 20) & 0x80) {
+				if (sub_5603B0(a1, v4, a1 + 416, v2, v10) == *(_DWORD*)(a1 + 1744) && *(_BYTE*)(v2 + 20) & 0x80) {
 					result = -1;
 					*(_DWORD*)(a1 + 1744) = *(_DWORD*)(v2 + 28);
 				} else {
@@ -8316,7 +8242,7 @@ signed int __cdecl sub_5603B0(int a1, int a2, int a3, int a4, int a5) {
 			v20 = *(_DWORD*)(v7 + 320);
 		do {
 			if ((*(_DWORD*)(a2 + 64) & 4 || result <= v20) &&
-			    (!(*(_DWORD*)(a2 + 64) & 4) || v6 != *(_DWORD*)(v7 + 296) || v10)) {
+				(!(*(_DWORD*)(a2 + 64) & 4) || v6 != *(_DWORD*)(v7 + 296) || v10)) {
 				break;
 			}
 			v11 = *(_DWORD*)(v7 + 296) - v20 - 1;
@@ -8431,15 +8357,15 @@ char __cdecl sub_560600(int a1) {
 			} else {
 				v5 = *(char**)v3;
 			}
-			*(_DWORD*)(v3 + 20) = sub_562C9B((unsigned __int8*)(*(_DWORD*)v3 + *(_DWORD*)(v3 + 16)), v5,
-							 *(_DWORD*)(a1 + 1908));
+			*(_DWORD*)(v3 + 20) =
+				sub_562C9B((unsigned __int8*)(*(_DWORD*)v3 + *(_DWORD*)(v3 + 16)), v5, *(_DWORD*)(a1 + 1908));
 			v6 = *(_DWORD*)(v3 + 12);
 			LOBYTE(v6) = v6 & 0xFD;
 			*(_DWORD*)(v3 + 12) = v6;
 		}
 		if (*(_BYTE*)(v1 + 20) & 8) {
 			*(_DWORD*)(v1 + 40) = sub_562C9B((unsigned __int8*)(*(_DWORD*)(v1 + 8) + *(_DWORD*)(v1 + 36)),
-							 *(char**)(v1 + 8), *(_DWORD*)(a1 + 1904));
+											 *(char**)(v1 + 8), *(_DWORD*)(a1 + 1904));
 			v7 = *(_DWORD*)(v1 + 20);
 			LOBYTE(v7) = v7 & 0xF7;
 			*(_DWORD*)(v1 + 20) = v7;
@@ -9564,9 +9490,9 @@ int __cdecl sub_561980(int a1) {
 	*(_DWORD*)(v1 + 1904) = 1020;
 	v18 = 0;
 	v19 = (2 * *(unsigned __int16*)(v1 + 240) / (int)*(unsigned __int8*)(v1 + 243) *
-		   (*(unsigned __int16*)(v1 + 238) / (int)*(unsigned __int8*)(v1 + 242)) +
-	       4) &
-	      0xFFFFFFFC;
+			   (*(unsigned __int16*)(v1 + 238) / (int)*(unsigned __int8*)(v1 + 242)) +
+		   4) &
+		  0xFFFFFFFC;
 	*(_DWORD*)(v1 + 1912) = v19;
 	if (*(_WORD*)(v1 + 254)) {
 		v20 = *(unsigned __int16*)(v1 + 254);
@@ -9592,11 +9518,11 @@ int __cdecl sub_561980(int a1) {
 	if (*(_DWORD*)(v1 + 136) > 0) {
 		while (1) {
 			v23 = (_DWORD*)(*(int(__cdecl**)(int, int, _DWORD, int))(v1 + 68))(
-			    v1, 2, 0, *(_DWORD*)(v1 + 1904) + *(_DWORD*)(v1 + 1900) + 44);
+				v1, 2, 0, *(_DWORD*)(v1 + 1904) + *(_DWORD*)(v1 + 1900) + 44);
 			if (!v23)
 				goto LABEL_75;
-			(*(void(__cdecl**)(int, int, _DWORD*, int))(v1 + 68))(
-			    v1, 4, v23, *(_DWORD*)(v1 + 1904) + *(_DWORD*)(v1 + 1900) + 44);
+			(*(void(__cdecl**)(int, int, _DWORD*, int))(v1 + 68))(v1, 4, v23,
+																  *(_DWORD*)(v1 + 1904) + *(_DWORD*)(v1 + 1900) + 44);
 			*(_DWORD*)(v1 + 48) += *(_DWORD*)(v1 + 1904) + *(_DWORD*)(v1 + 1900) + 44;
 			memset(v23, 0, 0x2Cu);
 			*v23 = v23 + 11;
@@ -9650,9 +9576,8 @@ int __cdecl sub_561980(int a1) {
 			}
 			if (*(int*)(v1 + 152) == -1)
 				*(_DWORD*)(v1 + 152) =
-				    *(_DWORD*)(v1 + 156) *
-				    ((unsigned int)(*(_DWORD*)(v1 + 1996) + (*(_DWORD*)(v1 + 1996) >> 1)) /
-				     *(_DWORD*)(v1 + 156));
+					*(_DWORD*)(v1 + 156) *
+					((unsigned int)(*(_DWORD*)(v1 + 1996) + (*(_DWORD*)(v1 + 1996) >> 1)) / *(_DWORD*)(v1 + 156));
 			if (*(int*)(v1 + 152) <= 0) {
 				sub_562120(v1);
 				return -18;
@@ -9661,8 +9586,7 @@ int __cdecl sub_561980(int a1) {
 			if (v32) {
 				*(_DWORD*)(v1 + 1932) = v32;
 			} else {
-				v33 = (*(int(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 2, 0,
-											     *(_DWORD*)(v1 + 152));
+				v33 = (*(int(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 2, 0, *(_DWORD*)(v1 + 152));
 				*(_DWORD*)(v1 + 1932) = v33;
 				if (!v33) {
 					sub_562120(v1);
@@ -9877,7 +9801,7 @@ int __cdecl sub_562120(int a1) {
 			v27 = *v25;
 			if (*v25) {
 				(*(void(__cdecl**)(int, int, int, unsigned int))(v1 + 68))(
-				    v1, 5, v27, v26 * ((*(_DWORD*)(*(_DWORD*)(v1 + 1860) + v47 + 4) + 1) & 0xFFFFFFFE));
+					v1, 5, v27, v26 * ((*(_DWORD*)(*(_DWORD*)(v1 + 1860) + v47 + 4) + 1) & 0xFFFFFFFE));
 				(*(void(__cdecl**)(int, int, int, _DWORD))(v1 + 68))(v1, 3, v27, 0);
 			}
 			if (v25) {
@@ -9916,7 +9840,7 @@ int __cdecl sub_562120(int a1) {
 			v36 = *v34;
 			if (*v34) {
 				(*(void(__cdecl**)(int, int, int, unsigned int))(v1 + 68))(
-				    v1, 5, v36, v35 * ((*(_DWORD*)(*(_DWORD*)(v1 + 1844) + v48 + 8) + 1) & 0xFFFFFFFE));
+					v1, 5, v36, v35 * ((*(_DWORD*)(*(_DWORD*)(v1 + 1844) + v48 + 8) + 1) & 0xFFFFFFFE));
 				(*(void(__cdecl**)(int, int, int, _DWORD))(v1 + 68))(v1, 3, v36, 0);
 			}
 			if (v34) {

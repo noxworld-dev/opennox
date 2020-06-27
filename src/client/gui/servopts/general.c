@@ -136,7 +136,7 @@ int sub_4AD840() {
 		if (result == 1) {
 			v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10316);
 			v7 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * dword_5d4594_3596 + 173536], 0,
-						   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 391);
+									   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 391);
 			nox_window_call_field_94((int)v6, 16385, (int)v7, -1);
 			v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10312);
 			v9 = sub_40A6C0();

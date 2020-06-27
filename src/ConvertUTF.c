@@ -22,19 +22,19 @@
 
 /* ---------------------------------------------------------------------
 
-    Conversions between UTF32, UTF-16, and UTF-8. Source code file.
-    Author: Mark E. Davis, 1994.
-    Rev History: Rick McGowan, fixes & updates May 2001.
-    Sept 2001: fixed const & error conditions per
-    mods suggested by S. Parent & A. Lillich.
-    June 2002: Tim Dodd added detection and handling of incomplete
-    source sequences, enhanced error detection, added casts
-    to eliminate compiler warnings.
-    July 2003: slight mods to back out aggressive FFFE detection.
-    Jan 2004: updated switches in from-UTF8 conversions.
-    Oct 2004: updated to use UNI_MAX_LEGAL_UTF32 in UTF-32 conversions.
+	Conversions between UTF32, UTF-16, and UTF-8. Source code file.
+	Author: Mark E. Davis, 1994.
+	Rev History: Rick McGowan, fixes & updates May 2001.
+	Sept 2001: fixed const & error conditions per
+	mods suggested by S. Parent & A. Lillich.
+	June 2002: Tim Dodd added detection and handling of incomplete
+	source sequences, enhanced error detection, added casts
+	to eliminate compiler warnings.
+	July 2003: slight mods to back out aggressive FFFE detection.
+	Jan 2004: updated switches in from-UTF8 conversions.
+	Oct 2004: updated to use UNI_MAX_LEGAL_UTF32 in UTF-32 conversions.
 
-    See the header file "ConvertUTF.h" for complete documentation.
+	See the header file "ConvertUTF.h" for complete documentation.
 
 ------------------------------------------------------------------------ */
 
@@ -58,7 +58,7 @@ static const UTF32 halfMask = 0x3FFUL;
 /* --------------------------------------------------------------------- */
 
 ConversionResult ConvertUTF32toUTF16(const UTF32** sourceStart, const UTF32* sourceEnd, UTF16** targetStart,
-				     UTF16* targetEnd, ConversionFlags flags) {
+									 UTF16* targetEnd, ConversionFlags flags) {
 	ConversionResult result = conversionOK;
 	const UTF32* source = *sourceStart;
 	UTF16* target = *targetStart;
@@ -108,7 +108,7 @@ ConversionResult ConvertUTF32toUTF16(const UTF32** sourceStart, const UTF32* sou
 /* --------------------------------------------------------------------- */
 
 ConversionResult ConvertUTF16toUTF32(const UTF16** sourceStart, const UTF16* sourceEnd, UTF32** targetStart,
-				     UTF32* targetEnd, ConversionFlags flags) {
+									 UTF32* targetEnd, ConversionFlags flags) {
 	ConversionResult result = conversionOK;
 	const UTF16* source = *sourceStart;
 	UTF32* target = *targetStart;
@@ -123,15 +123,14 @@ ConversionResult ConvertUTF16toUTF32(const UTF16** sourceStart, const UTF16* sou
 				ch2 = *source;
 				/* If it's a low surrogate, convert to UTF32. */
 				if (ch2 >= UNI_SUR_LOW_START && ch2 <= UNI_SUR_LOW_END) {
-					ch = ((ch - UNI_SUR_HIGH_START) << halfShift) + (ch2 - UNI_SUR_LOW_START) +
-					     halfBase;
+					ch = ((ch - UNI_SUR_HIGH_START) << halfShift) + (ch2 - UNI_SUR_LOW_START) + halfBase;
 					++source;
 				} else if (flags == strictConversion) { /* it's an unpaired high surrogate */
-					--source;                       /* return to the illegal value itself */
+					--source;                           /* return to the illegal value itself */
 					result = sourceIllegal;
 					break;
 				}
-			} else {          /* We don't have the 16 bits following the high surrogate. */
+			} else {      /* We don't have the 16 bits following the high surrogate. */
 				--source; /* return to the high surrogate */
 				result = sourceExhausted;
 				break;
@@ -172,13 +171,13 @@ ConversionResult ConvertUTF16toUTF32(const UTF16** sourceStart, const UTF16* sou
  * allowed in earlier algorithms.
  */
 static const char trailingBytesForUTF8[256] = {
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5};
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5};
 
 /*
  * Magic values subtracted from a buffer value during UTF8 conversion.
@@ -186,7 +185,7 @@ static const char trailingBytesForUTF8[256] = {
  * in a UTF-8 sequence.
  */
 static const UTF32 offsetsFromUTF8[6] = {0x00000000UL, 0x00003080UL, 0x000E2080UL,
-					 0x03C82080UL, 0xFA082080UL, 0x82082080UL};
+										 0x03C82080UL, 0xFA082080UL, 0x82082080UL};
 
 /*
  * Once the bits are split out into bytes of UTF-8, this is a mask OR-ed
@@ -210,7 +209,7 @@ static const UTF8 firstByteMark[7] = {0x00, 0x00, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC};
 /* --------------------------------------------------------------------- */
 
 ConversionResult ConvertUTF16toUTF8(const UTF16** sourceStart, const UTF16* sourceEnd, UTF8** targetStart,
-				    UTF8* targetEnd, ConversionFlags flags) {
+									UTF8* targetEnd, ConversionFlags flags) {
 	ConversionResult result = conversionOK;
 	const UTF16* source = *sourceStart;
 	UTF8* target = *targetStart;
@@ -228,15 +227,14 @@ ConversionResult ConvertUTF16toUTF8(const UTF16** sourceStart, const UTF16* sour
 				UTF32 ch2 = *source;
 				/* If it's a low surrogate, convert to UTF32. */
 				if (ch2 >= UNI_SUR_LOW_START && ch2 <= UNI_SUR_LOW_END) {
-					ch = ((ch - UNI_SUR_HIGH_START) << halfShift) + (ch2 - UNI_SUR_LOW_START) +
-					     halfBase;
+					ch = ((ch - UNI_SUR_HIGH_START) << halfShift) + (ch2 - UNI_SUR_LOW_START) + halfBase;
 					++source;
 				} else if (flags == strictConversion) { /* it's an unpaired high surrogate */
-					--source;                       /* return to the illegal value itself */
+					--source;                           /* return to the illegal value itself */
 					result = sourceIllegal;
 					break;
 				}
-			} else {          /* We don't have the 16 bits following the high surrogate. */
+			} else {      /* We don't have the 16 bits following the high surrogate. */
 				--source; /* return to the high surrogate */
 				result = sourceExhausted;
 				break;
@@ -369,7 +367,7 @@ Boolean isLegalUTF8Sequence(const UTF8* source, const UTF8* sourceEnd) {
 /* --------------------------------------------------------------------- */
 
 ConversionResult ConvertUTF8toUTF16(const UTF8** sourceStart, const UTF8* sourceEnd, UTF16** targetStart,
-				    UTF16* targetEnd, ConversionFlags flags) {
+									UTF16* targetEnd, ConversionFlags flags) {
 	ConversionResult result = conversionOK;
 	const UTF8* source = *sourceStart;
 	UTF16* target = *targetStart;
@@ -455,7 +453,7 @@ ConversionResult ConvertUTF8toUTF16(const UTF8** sourceStart, const UTF8* source
 /* --------------------------------------------------------------------- */
 
 ConversionResult ConvertUTF32toUTF8(const UTF32** sourceStart, const UTF32* sourceEnd, UTF8** targetStart,
-				    UTF8* targetEnd, ConversionFlags flags) {
+									UTF8* targetEnd, ConversionFlags flags) {
 	ConversionResult result = conversionOK;
 	const UTF32* source = *sourceStart;
 	UTF8* target = *targetStart;
@@ -521,7 +519,7 @@ ConversionResult ConvertUTF32toUTF8(const UTF32** sourceStart, const UTF32* sour
 /* --------------------------------------------------------------------- */
 
 ConversionResult ConvertUTF8toUTF32(const UTF8** sourceStart, const UTF8* sourceEnd, UTF32** targetStart,
-				    UTF32* targetEnd, ConversionFlags flags) {
+									UTF32* targetEnd, ConversionFlags flags) {
 	ConversionResult result = conversionOK;
 	const UTF8* source = *sourceStart;
 	UTF32* target = *targetStart;
@@ -594,19 +592,19 @@ ConversionResult ConvertUTF8toUTF32(const UTF8** sourceStart, const UTF8* source
 
 /* ---------------------------------------------------------------------
 
-    Note A.
-    The fall-through switches in UTF-8 reading code save a
-    temp variable, some decrements & conditionals.  The switches
-    are equivalent to the following loop:
-    {
+	Note A.
+	The fall-through switches in UTF-8 reading code save a
+	temp variable, some decrements & conditionals.  The switches
+	are equivalent to the following loop:
+	{
 	int tmpBytesToRead = extraBytesToRead+1;
 	do {
 	ch += *source++;
 	--tmpBytesToRead;
 	if (tmpBytesToRead) ch <<= 6;
 	} while (tmpBytesToRead > 0);
-    }
-    In UTF-8 writing code, the switches on "bytesToWrite" are
-    similarly unrolled loops.
+	}
+	In UTF-8 writing code, the switches on "bytesToWrite" are
+	similarly unrolled loops.
 
    --------------------------------------------------------------------- */

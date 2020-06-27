@@ -82,7 +82,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return 0;
 	}
 	g_window = SDL_CreateWindow("Nox Game Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, nox_win_width,
-				    nox_win_height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+								nox_win_height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	if (g_window == NULL) {
 		fprintf(stderr, "ERROR: SDL Window creation failed: %s\n", SDL_GetError());
 		return 0;
@@ -123,8 +123,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		g_wnd_class.hIconSm = 0;
 
 		RegisterClassExA(&g_wnd_class);
-		v13 = CreateWindowExA(0x40000u, "Nox Game Window", "NOX", 0x80000000, 0, 0, nox_win_width,
-				      nox_win_height, 0, 0, hInstance, 0);
+		v13 = CreateWindowExA(0x40000u, "Nox Game Window", "NOX", 0x80000000, 0, 0, nox_win_width, nox_win_height, 0, 0,
+							  hInstance, 0);
 		if (!v13)
 			return 0;
 		g_hwnd = v13;

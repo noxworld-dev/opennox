@@ -83,76 +83,76 @@ void CONNECT_WAIT_THEN(sm_args_t* args);
 void CONNECT_RESULT(sm_args_t* args);
 
 #define GOTO_(state, fps)                                                                                              \
-	do {                                                                                                           \
-		mainloop_enter = state;                                                                                \
-		mainloop_enter_args = args;                                                                            \
-		printf("goto %s\n", #state);                                                                           \
-		return;                                                                                                \
+	do {                                                                                                               \
+		mainloop_enter = state;                                                                                        \
+		mainloop_enter_args = args;                                                                                    \
+		printf("goto %s\n", #state);                                                                                   \
+		return;                                                                                                        \
 	} while (0)
 
 #define GOTO_CONNECT_PREPARE()                                                                                         \
-	do {                                                                                                           \
-		GOTO_(CONNECT_PREPARE, 0);                                                                             \
+	do {                                                                                                               \
+		GOTO_(CONNECT_PREPARE, 0);                                                                                     \
 	} while (0)
 
 #define GOTO_CONNECT_SERVER(hostname_, port_, data_)                                                                   \
-	do {                                                                                                           \
-		args->connect_server.hostname = hostname_;                                                             \
-		args->connect_server.port = port_;                                                                     \
-		memmove(args->connect_server.data, data_, sizeof(args->connect_server.data));                          \
-		GOTO_(CONNECT_SERVER, 0);                                                                              \
+	do {                                                                                                               \
+		args->connect_server.hostname = hostname_;                                                                     \
+		args->connect_server.port = port_;                                                                             \
+		memmove(args->connect_server.data, data_, sizeof(args->connect_server.data));                                  \
+		GOTO_(CONNECT_SERVER, 0);                                                                                      \
 	} while (0)
 
 #define GOTO_NET_CONNECT(id_, hostname_, port_, data_)                                                                 \
-	do {                                                                                                           \
-		args->net_connect.id = id_;                                                                            \
-		args->net_connect.hostname = hostname_;                                                                \
-		args->net_connect.port = port_;                                                                        \
-		memmove(args->net_connect.data, data_, sizeof(args->net_connect.data));                                \
-		GOTO_(NET_CONNECT, 0);                                                                                 \
+	do {                                                                                                               \
+		args->net_connect.id = id_;                                                                                    \
+		args->net_connect.hostname = hostname_;                                                                        \
+		args->net_connect.port = port_;                                                                                \
+		memmove(args->net_connect.data, data_, sizeof(args->net_connect.data));                                        \
+		GOTO_(NET_CONNECT, 0);                                                                                         \
 	} while (0)
 
 #define GOTO_NET_CONNECT_WAIT_LOOP(data_, id_, val_, retries_, flags_)                                                 \
-	do {                                                                                                           \
-		memmove(args->net_connect_wait_loop.data, data_, sizeof(args->net_connect_wait_loop.data));            \
-		args->net_connect_wait_loop.id = id_;                                                                  \
-		args->net_connect_wait_loop.val = val_;                                                                \
-		args->net_connect_wait_loop.retries = retries_;                                                        \
-		args->net_connect_wait_loop.flags = flags_;                                                            \
-		args->net_connect_wait_loop.counter = 0;                                                               \
-		GOTO_(NET_CONNECT_WAIT_LOOP, 0);                                                                       \
+	do {                                                                                                               \
+		memmove(args->net_connect_wait_loop.data, data_, sizeof(args->net_connect_wait_loop.data));                    \
+		args->net_connect_wait_loop.id = id_;                                                                          \
+		args->net_connect_wait_loop.val = val_;                                                                        \
+		args->net_connect_wait_loop.retries = retries_;                                                                \
+		args->net_connect_wait_loop.flags = flags_;                                                                    \
+		args->net_connect_wait_loop.counter = 0;                                                                       \
+		GOTO_(NET_CONNECT_WAIT_LOOP, 0);                                                                               \
 	} while (0)
 
 #define GOTO_NET_CONNECT_WAIT_THEN(data_, id_, result_)                                                                \
-	do {                                                                                                           \
-		memmove(args->net_connect_wait_then.data, data_, sizeof(args->net_connect_wait_then.data));            \
-		args->net_connect_wait_then.id = id_;                                                                  \
-		args->net_connect_wait_then.result = result_;                                                          \
-		GOTO_(NET_CONNECT_WAIT_THEN, 0);                                                                       \
+	do {                                                                                                               \
+		memmove(args->net_connect_wait_then.data, data_, sizeof(args->net_connect_wait_then.data));                    \
+		args->net_connect_wait_then.id = id_;                                                                          \
+		args->net_connect_wait_then.result = result_;                                                                  \
+		GOTO_(NET_CONNECT_WAIT_THEN, 0);                                                                               \
 	} while (0)
 
 #define GOTO_NET_CONNECT_THEN(result_)                                                                                 \
-	do {                                                                                                           \
-		args->net_connect_then.result = result_;                                                               \
-		GOTO_(NET_CONNECT_THEN, 0);                                                                            \
+	do {                                                                                                               \
+		args->net_connect_then.result = result_;                                                                       \
+		GOTO_(NET_CONNECT_THEN, 0);                                                                                    \
 	} while (0)
 
 #define GOTO_CONNECT_WAIT_LOOP(timeout_)                                                                               \
-	do {                                                                                                           \
-		args->connect_wait_loop.timeout = timeout_;                                                            \
-		GOTO_(CONNECT_WAIT_LOOP, 0);                                                                           \
+	do {                                                                                                               \
+		args->connect_wait_loop.timeout = timeout_;                                                                    \
+		GOTO_(CONNECT_WAIT_LOOP, 0);                                                                                   \
 	} while (0)
 
 #define GOTO_CONNECT_WAIT_THEN(result_)                                                                                \
-	do {                                                                                                           \
-		args->connect_wait_then.result = result_;                                                              \
-		GOTO_(CONNECT_WAIT_THEN, 0);                                                                           \
+	do {                                                                                                               \
+		args->connect_wait_then.result = result_;                                                                      \
+		GOTO_(CONNECT_WAIT_THEN, 0);                                                                                   \
 	} while (0)
 
 #define GOTO_CONNECT_RESULT(result_)                                                                                   \
-	do {                                                                                                           \
-		args->connect_result.result = result_;                                                                 \
-		GOTO_(CONNECT_RESULT, 0);                                                                              \
+	do {                                                                                                               \
+		args->connect_result.result = result_;                                                                         \
+		GOTO_(CONNECT_RESULT, 0);                                                                                      \
 	} while (0)
 
 void CONNECT_PREPARE(sm_args_t* args) {
@@ -495,7 +495,7 @@ void f(int reentrant) {
 		if (!sub_4357D0(g_argc2, g_argv2))
 			return;
 		if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x400000) &&
-		    (nox_common_engineFlags & 1) == 1) {
+			(nox_common_engineFlags & 1) == 1) {
 			v23 = sub_409E10();
 			sub_4D39F0(v23);
 			if (!sub_4D4320()) {

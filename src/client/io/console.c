@@ -27,10 +27,8 @@ unsigned __int8* sub_451630() {
 
 	nox_file_log = fopen("log", "w");
 	if (!nox_file_log) {
-		v4 = loadString_sub_40F1D0((char*)&byte_587000[126708], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c",
-					   272);
-		v3 = loadString_sub_40F1D0((char*)&byte_587000[126756], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c",
-					   271);
+		v4 = loadString_sub_40F1D0((char*)&byte_587000[126708], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 272);
+		v3 = loadString_sub_40F1D0((char*)&byte_587000[126756], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 271);
 		nullsub_4(getWindowHandle_sub_401FD0(), v3, v4, 0);
 		nox_exit(0);
 	}

@@ -37,14 +37,14 @@ void __cdecl sub_4CD150(int a1, _DWORD* a2, int a3, int a4) {
 			return;
 		if (a4) {
 			v5 = *(unsigned __int16*)(a3 + 441) +
-			     sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 28);
+				 sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 28);
 			v6 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 29);
 			LOWORD(v7) = *(_WORD*)(a3 + 437);
 			v8 = *(unsigned __int16*)(a3 + 443) + v6;
 			LOWORD(v9) = *(_WORD*)(a3 + 439);
 		} else {
 			v5 = *(unsigned __int16*)(a3 + 437) +
-			     sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 36);
+				 sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 36);
 			v10 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 37);
 			LOWORD(v7) = *(_WORD*)(a3 + 441);
 			v8 = *(unsigned __int16*)(a3 + 439) + v10;

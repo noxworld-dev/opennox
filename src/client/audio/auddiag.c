@@ -23,8 +23,7 @@ int sub_44D810() {
 		*(unsigned int*)&byte_5D4594[831080] = 0;
 		*(unsigned int*)&dword_5d4594_831084 = 0;
 		*(unsigned int*)&dword_5d4594_831076 = 1;
-		loadString_sub_40F1D0((char*)&byte_587000[122920], &v1, "C:\\NoxPost\\src\\client\\Audio\\AudDiag.c",
-				      279);
+		loadString_sub_40F1D0((char*)&byte_587000[122920], &v1, "C:\\NoxPost\\src\\client\\Audio\\AudDiag.c", 279);
 		if (v1)
 			sub_44D900(v1, 0);
 	}

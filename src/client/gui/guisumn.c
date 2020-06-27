@@ -50,8 +50,7 @@ int sub_4C1D80() {
 	*(_DWORD*)&byte_5D4594[1321020] = sub_42F970("CreatureCageGuardButton");
 	dword_5d4594_1321024 = sub_42F970("CreatureCageEscortButtonLit");
 	*(_DWORD*)&byte_5D4594[1321028] = sub_42F970("CreatureCageEscortButton");
-	v4 = nox_window_new(0, 168, dword_5d4594_1320988 + 27, dword_5d4594_1320992 + 12, 34, 34,
-			    0);
+	v4 = nox_window_new(0, 168, dword_5d4594_1320988 + 27, dword_5d4594_1320992 + 12, 34, 34, 0);
 	dword_5d4594_1321040 = v4;
 	v5 = v4[11];
 	BYTE1(v5) |= 1u;
@@ -136,8 +135,7 @@ LABEL_16:
 	v8 = 0;
 	for (i = 0; i < 6; ++i) {
 		if (i != 2) {
-			v10 = nox_window_new(*(int*)&dword_5d4594_1321044, 8, 0, v8, *(int*)&dword_587000_184452,
-					     v3 + 1, 0);
+			v10 = nox_window_new(*(int*)&dword_5d4594_1321044, 8, 0, v8, *(int*)&dword_587000_184452, v3 + 1, 0);
 			nox_window_set_all_funcs(v10, sub_4C2A60, sub_4C27F0, 0);
 			v10[8] = i;
 			v8 += v3 + 2;
@@ -165,15 +163,14 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 		dword_5d4594_1321208 = sub_4E3AA0((CHAR*)&byte_587000[184840]);
 	if (dword_5d4594_1321204 || (result = 1, a1[8] != 1)) {
 		v2 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * a1[8] + 184344], 0,
-					   "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);
+								   "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);
 		nox_client_wndGetPosition_46AA60(a1, &v11, &v10);
 		sub_43F840(0, v2, &v12, 0, 0);
 		v3 = nox_client_getMousePos_4309F0();
 		sub_43F320(0);
 		v4 = (dword_587000_184452 - v12) / 2 + 1;
 		if (sub_46AAB0(a1, v3->field_0, v3->field_4)) {
-			sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2589772], *(int*)&byte_5D4594[2650656],
-				   (__int16*)v2);
+			sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2589772], *(int*)&byte_5D4594[2650656], (__int16*)v2);
 			if (a1[8] != *(_DWORD*)&byte_587000[184552]) {
 				*(_DWORD*)&byte_587000[184552] = a1[8];
 				sub_452D80(920, 100);
@@ -183,14 +180,12 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 		}
 		if (dword_5d4594_1321204) {
 			if (sub_4C2DD0(*(int*)&dword_5d4594_1321204)) {
-				sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2523948],
-					   *(int*)&byte_5D4594[2650656], (__int16*)v2);
+				sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2523948], *(int*)&byte_5D4594[2650656], (__int16*)v2);
 				return 1;
 			}
 			v5 = a1[8];
 			if (v5 != 4 && v5 != 5) {
-				sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2523948],
-					   *(int*)&byte_5D4594[2650656], (__int16*)v2);
+				sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2523948], *(int*)&byte_5D4594[2650656], (__int16*)v2);
 				return 1;
 			}
 			v6 = *(_DWORD*)&byte_5D4594[2650660];
@@ -199,14 +194,12 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 		} else {
 			v7 = a1[8];
 			if (v7 != 4 && v7 != 5) {
-				sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2650684],
-					   *(int*)&byte_5D4594[2650656], (__int16*)v2);
+				sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2650684], *(int*)&byte_5D4594[2650656], (__int16*)v2);
 				return 1;
 			}
 			v9 = (__int16*)v2;
 			if (!sub_4C2E00()) {
-				sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2650660],
-					   *(int*)&byte_5D4594[2650656], (__int16*)v2);
+				sub_4C2A00(v11 + v4, v10 + 3, *(int*)&byte_5D4594[2650660], *(int*)&byte_5D4594[2650656], (__int16*)v2);
 				return 1;
 			}
 			v6 = *(_DWORD*)&byte_5D4594[2650684];
@@ -226,18 +219,15 @@ int sub_4C2CE0() {
 
 	switch (*(_DWORD*)&byte_587000[184448]) {
 	case 3:
-		v3 = loadString_sub_40F1D0((char*)&byte_587000[184980], 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c",
-					   785);
+		v3 = loadString_sub_40F1D0((char*)&byte_587000[184980], 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 785);
 		sub_4776B0(v3);
 		break;
 	case 4:
-		v2 = loadString_sub_40F1D0((char*)&byte_587000[184932], 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c",
-					   782);
+		v2 = loadString_sub_40F1D0((char*)&byte_587000[184932], 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 782);
 		sub_4776B0(v2);
 		return 1;
 	case 5:
-		v0 = loadString_sub_40F1D0((char*)&byte_587000[185028], 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c",
-					   788);
+		v0 = loadString_sub_40F1D0((char*)&byte_587000[185028], 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 788);
 		sub_4776B0(v0);
 		return 1;
 	}

@@ -60,9 +60,9 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 					sub_452D80(921, 100);
 				} else {
 					v9 = loadString_sub_40F1D0((char*)&byte_587000[169256], 0,
-								   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 341);
+											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 341);
 					v5 = loadString_sub_40F1D0((char*)&byte_587000[169304], 0,
-								   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 341);
+											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 341);
 					sub_449A10(nox_win_main_menu, (int)v5, (int)v9, 33, 0, 0);
 					sub_44A360(1);
 					sub_44A4B0();
@@ -71,8 +71,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 				return 1;
 			case 112:
 				sub_4A1D40();
-				*(_DWORD*)&nox_common_engineFlags =
-				    *(_DWORD*)&nox_common_engineFlags & 0xFFFFFFDF | 0x10;
+				*(_DWORD*)&nox_common_engineFlags = *(_DWORD*)&nox_common_engineFlags & 0xFFFFFFDF | 0x10;
 				sub_40A4D0(0x2000);
 				sub_40A4D0(0x10000);
 				nox_common_gameFlags_unset_40A540(2048);
@@ -112,7 +111,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 				LOBYTE(v6) = nox_client_checkQuestExp_SKU2_4D7700();
 				if (!v6) {
 					v7 = loadString_sub_40F1D0((char*)&byte_587000[169352], 0,
-								   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 416);
+											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 416);
 					sub_449A10(nox_win_main_menu, 0, (int)v7, 33, 0, 0);
 					sub_44A360(0);
 					sub_44A4B0();
@@ -120,8 +119,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 					return 1;
 				}
 				sub_4A1D40();
-				*(_DWORD*)&nox_common_engineFlags =
-				    *(_DWORD*)&nox_common_engineFlags & 0xFFFFFFDF | 0x10;
+				*(_DWORD*)&nox_common_engineFlags = *(_DWORD*)&nox_common_engineFlags & 0xFFFFFFDF | 0x10;
 				sub_40A4D0(0x2000);
 				sub_40A4D0(0x10000);
 				nox_common_gameFlags_unset_40A540(2048);
@@ -198,8 +196,7 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 			v6 = *((_DWORD*)v4 + 1);
 			if (v6) {
 				*((_DWORD*)v4 + 1) = v6 - 1;
-				*((_DWORD*)v4 + 2) =
-				    sub_415FF0(60, 120, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 180);
+				*((_DWORD*)v4 + 2) = sub_415FF0(60, 120, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 180);
 			}
 			v7 = (*(_DWORD*)v4)-- == 1;
 			v8 = *((_DWORD*)v4 - 5);
@@ -207,18 +204,16 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 				if (v8) {
 					*((_DWORD*)v4 - 5) = 0;
 					*(_DWORD*)v4 = sub_415FF0(*((_DWORD*)v4 - 4), *((_DWORD*)v4 - 3),
-								  "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 211);
-					*((_DWORD*)v4 + 2) =
-					    sub_415FF0(60, 90, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 214);
+											  "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 211);
+					*((_DWORD*)v4 + 2) = sub_415FF0(60, 90, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 214);
 				} else {
 					*((_DWORD*)v4 - 5) = 1;
 					*(_DWORD*)v4 = sub_415FF0(*((_DWORD*)v4 - 2), *((_DWORD*)v4 - 1),
-								  "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 199);
+											  "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 199);
 				}
 			} else if (!v8 && !*((_DWORD*)v4 + 2) && !*((_DWORD*)v4 + 1) &&
-				   sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 228) > 75) {
-				*((_DWORD*)v4 + 1) =
-				    sub_415FF0(4, 8, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 229);
+					   sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 228) > 75) {
+				*((_DWORD*)v4 + 1) = sub_415FF0(4, 8, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 229);
 			}
 			v9 = *((_DWORD*)v4 + 4);
 			v4 += 48;

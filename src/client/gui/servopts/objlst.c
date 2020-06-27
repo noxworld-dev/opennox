@@ -30,8 +30,8 @@ int __cdecl sub_4530C0(int a1, int a2) {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16399, 0, 0);
 	if (a2 == 0x1000000) {
 		dword_5d4594_1045460 = 0;
-		v7 = loadString_sub_40F1D0((char*)&byte_587000[127380], 0,
-					   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\objlst.c", 321);
+		v7 = loadString_sub_40F1D0((char*)&byte_587000[127380], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\objlst.c",
+								   321);
 		nox_wcscpy(v14, v7);
 		v8 = 4;
 		v9 = 25;
@@ -46,8 +46,8 @@ int __cdecl sub_4530C0(int a1, int a2) {
 		} while (v9);
 	} else if (a2 == 0x2000000) {
 		dword_5d4594_1045460 = 1;
-		v3 = loadString_sub_40F1D0((char*)&byte_587000[127316], 0,
-					   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\objlst.c", 308);
+		v3 = loadString_sub_40F1D0((char*)&byte_587000[127316], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\objlst.c",
+								   308);
 		nox_wcscpy(v14, v3);
 		v4 = 1;
 		v5 = 26;

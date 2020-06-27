@@ -19,7 +19,7 @@ void process_textediting_event(const SDL_TextEditingEvent* event) {
 	wchar_t* dst = g_ime_buf;
 
 	if (ConvertUTF8toUTF16(&src, event->text + strlen(event->text), &dst, g_ime_buf + 512, strictConversion) ==
-	    conversionOK) {
+		conversionOK) {
 		*dst = 0;
 	} else {
 		g_ime_buf[0] = UNI_REPLACEMENT_CHAR;
@@ -36,18 +36,18 @@ static void update_ime(int finished) {
 	complete[0] = 0;
 	tmp[0] = 0;
 	EM_ASM_(
-	    {
-		    var raw = Array.from(UTF8ToString($0));
-		    var assembled = Hangul.assemble(raw);
-		    if (assembled.length > 1) {
-			    stringToUTF8(assembled.slice(0, 1), $1, 512);
-			    raw = Hangul.disassemble(assembled.slice(1));
-			    stringToUTF8(raw.join(), $0, 512);
-			    assembled = Hangul.assemble(raw);
-		    }
-		    stringToUTF8(assembled, $2, 512);
-	    },
-	    g_ime_raw, complete, tmp);
+		{
+			var raw = Array.from(UTF8ToString($0));
+			var assembled = Hangul.assemble(raw);
+			if (assembled.length > 1) {
+				stringToUTF8(assembled.slice(0, 1), $1, 512);
+				raw = Hangul.disassemble(assembled.slice(1));
+				stringToUTF8(raw.join(), $0, 512);
+				assembled = Hangul.assemble(raw);
+			}
+			stringToUTF8(assembled, $2, 512);
+		},
+		g_ime_raw, complete, tmp);
 
 	dst = g_ime_buf;
 	src = tmp;
@@ -91,11 +91,11 @@ void process_textinput_event(const SDL_TextInputEvent* event) {
 	int hangul;
 
 	hangul = EM_ASM_INT(
-	    {
-		    var raw = Array.from(UTF8ToString($0));
-		    return Hangul.isCho(raw[0]) || Hangul.isJong(raw[0]) || Hangul.isVowel(raw[0]);
-	    },
-	    event->text);
+		{
+			var raw = Array.from(UTF8ToString($0));
+			return Hangul.isCho(raw[0]) || Hangul.isJong(raw[0]) || Hangul.isVowel(raw[0]);
+		},
+		event->text);
 	strcat(g_ime_raw, event->text);
 	update_ime(!hangul);
 #else
@@ -106,8 +106,7 @@ void process_textinput_event(const SDL_TextInputEvent* event) {
 	// g_ime_buf[g_ime_idx] = 0;
 	g_ime_buf[0] = 0;
 
-	if (ConvertUTF8toUTF16(&src, event->text + strlen(event->text), &dst, tmp + 3, strictConversion) ==
-	    conversionOK) {
+	if (ConvertUTF8toUTF16(&src, event->text + strlen(event->text), &dst, tmp + 3, strictConversion) == conversionOK) {
 		unsigned int i;
 		for (i = 0; &tmp[i] != dst; i++)
 			sub_488BD0(tmp[i]);
@@ -890,7 +889,7 @@ wstring* __thiscall sub_570D80(wstring* this, wstring* a2, unsigned int a3, unsi
 		sub_571040(this, _N + a3, 0xFFFFFFFF);
 		sub_571040(this, 0, a3);
 	} else if (_N && _N == wstring__size(a2) &&
-		   (v4 = sub_570920(a2), (int)*(unsigned __int8*)sub_576600((int)v4) < 254) && sub_571750()) {
+			   (v4 = sub_570920(a2), (int)*(unsigned __int8*)sub_576600((int)v4) < 254) && sub_571750()) {
 		sub_570F70(this, 1);
 		this->_Ptr = (int)sub_570920(a2);
 		this->_Len = wstring__size(a2);
@@ -1948,8 +1947,7 @@ LRESULT __thiscall sub_572E05(_DWORD* this, HWND hWnd, UINT Msg, WPARAM wParam, 
 			result = 1;
 			break;
 		case WM_IME_CHAR:
-			if (!sub_5727AC((void(__stdcall**)(HWND, int, _DWORD, LPARAM))this, hWnd,
-					(unsigned __int16)wParam, lParam))
+			if (!sub_5727AC((void(__stdcall**)(HWND, int, _DWORD, LPARAM))this, hWnd, (unsigned __int16)wParam, lParam))
 				goto LABEL_28;
 			result = 1;
 			break;
@@ -2814,8 +2812,8 @@ int* __thiscall sub_5749E0(int* this, int* a2, unsigned int a3, unsigned int a4)
 	if (v8 == a2) {
 		sub_576360(v8, v9 + a3, 0xFFFFFFFF);
 		sub_576360(v8, 0, a3);
-	} else if (v9 && v9 == sub_574B80(a2) &&
-		   (v4 = sub_573E70(a2), (int)*(unsigned __int8*)sub_576600((int)v4) < 254) && sub_571750()) {
+	} else if (v9 && v9 == sub_574B80(a2) && (v4 = sub_573E70(a2), (int)*(unsigned __int8*)sub_576600((int)v4) < 254) &&
+			   sub_571750()) {
 		sub_574CE0(v8, 1);
 		v8[1] = (int)sub_573E70(a2);
 		v8[2] = sub_574B80(a2);
@@ -3049,8 +3047,7 @@ unsigned int __thiscall sub_575190(unsigned int this, _DWORD* a2, unsigned int a
 		result = (*(_DWORD*)(this + 8) - (int)a2) / 36;
 		if (result >= a3) {
 			if (a3) {
-				sub_576870((_DWORD*)(*(_DWORD*)(this + 8) - 36 * a3), *(_DWORD**)(this + 8),
-					   *(char**)(this + 8));
+				sub_576870((_DWORD*)(*(_DWORD*)(this + 8) - 36 * a3), *(_DWORD**)(this + 8), *(char**)(this + 8));
 				sub_5785B0(a2, (_DWORD*)(*(_DWORD*)(v7 + 8) - 36 * a3), *(_DWORD**)(v7 + 8));
 				sub_578580(a2, &a2[9 * a3], a4);
 				result = v7;
@@ -3377,8 +3374,7 @@ _DWORD* __thiscall sub_5755F0(int* this, _DWORD* a2, int a3) {
 					v75 = *(_DWORD*)sub_576A00(*v44);
 				}
 				v45 = (int*)sub_5769E0(v75);
-				if (*(_DWORD*)sub_5769A0(*v45) != 1 ||
-				    (v46 = (int*)sub_576A00(v75), *(_DWORD*)sub_5769A0(*v46) != 1)) {
+				if (*(_DWORD*)sub_5769A0(*v45) != 1 || (v46 = (int*)sub_576A00(v75), *(_DWORD*)sub_5769A0(*v46) != 1)) {
 					v47 = (int*)sub_576A00(v75);
 					if (*(_DWORD*)sub_5769A0(*v47) == 1) {
 						v48 = (int*)sub_5769E0(v75);
@@ -3414,8 +3410,7 @@ _DWORD* __thiscall sub_5755F0(int* this, _DWORD* a2, int a3) {
 					v74 = *(_DWORD*)sub_5769E0(*v58);
 				}
 				v59 = (int*)sub_576A00(v74);
-				if (*(_DWORD*)sub_5769A0(*v59) != 1 ||
-				    (v60 = (int*)sub_5769E0(v74), *(_DWORD*)sub_5769A0(*v60) != 1)) {
+				if (*(_DWORD*)sub_5769A0(*v59) != 1 || (v60 = (int*)sub_5769E0(v74), *(_DWORD*)sub_5769A0(*v60) != 1)) {
 					v61 = (int*)sub_5769E0(v74);
 					if (*(_DWORD*)sub_5769A0(*v61) == 1) {
 						v62 = (int*)sub_576A00(v74);
@@ -3478,7 +3473,7 @@ _DWORD* __thiscall sub_575E60(int* this, _DWORD* a2, int a3, char a4) {
 	v15 = -858993460;
 	v9 = this;
 	if (!sub_5711E0(this) || (v4 = sub_575560(v9, &v14), sub_574560(&a3, v4)) ||
-	    (v5 = sub_5755B0(v9, &v13), sub_574560(&a4, v5))) {
+		(v5 = sub_5755B0(v9, &v13), sub_574560(&a4, v5))) {
 		while (sub_574560(&a3, &a4)) {
 			v6 = sub_577410(&a3, &v12, 0);
 			sub_5755F0(v9, &v11, *v6);
@@ -3721,8 +3716,7 @@ char* __thiscall sub_576620(int this, int* a2, unsigned int a3, int* a4) {
 	if ((*(_DWORD*)(this + 12) - *(_DWORD*)(this + 8)) >> 4 >= a3) {
 		if ((*(_DWORD*)(this + 8) - (int)a2) >> 4 >= a3) {
 			if (a3) {
-				sub_570A00((int*)(*(_DWORD*)(this + 8) - 16 * a3), *(int**)(this + 8),
-					   *(char**)(this + 8));
+				sub_570A00((int*)(*(_DWORD*)(this + 8) - 16 * a3), *(int**)(this + 8), *(char**)(this + 8));
 				sub_5786C0(a2, (int*)(*(_DWORD*)(v6 + 8) - 16 * a3), *(int**)(v6 + 8));
 				sub_578690(a2, &a2[4 * a3], a4);
 				result = (char*)v6;
@@ -4172,8 +4166,7 @@ unsigned int __thiscall sub_577460(unsigned int this, _DWORD* a2, unsigned int a
 		result = (*(_DWORD*)(this + 8) - (int)a2) >> 2;
 		if (result >= a3) {
 			if (a3) {
-				sub_576260((_DWORD*)(*(_DWORD*)(this + 8) - 4 * a3), *(_DWORD**)(this + 8),
-					   *(char**)(this + 8));
+				sub_576260((_DWORD*)(*(_DWORD*)(this + 8) - 4 * a3), *(_DWORD**)(this + 8), *(char**)(this + 8));
 				sub_578780(a2, (_DWORD*)(*(_DWORD*)(v6 + 8) - 4 * a3), *(_DWORD**)(v6 + 8));
 				sub_578750(a2, &a2[a3], a4);
 				result = a3;
@@ -4409,7 +4402,7 @@ _DWORD* __thiscall sub_577AA0(int* this, _DWORD* a2, int a3, int a4, _DWORD* a5)
 	sub_578210(v5, a5);
 	++v46[3];
 	if (a4 == v46[1] || a3 != *(_DWORD*)&byte_5D4594[2516468] ||
-	    (v45 = (_DWORD*)sub_5769B0(a4), v6 = (_DWORD*)sub_577A80((int)a5), sub_576970(v6, v45))) {
+		(v45 = (_DWORD*)sub_5769B0(a4), v6 = (_DWORD*)sub_577A80((int)a5), sub_576970(v6, v45))) {
 		v7 = (_DWORD*)sub_5769E0(a4);
 		*v7 = v50;
 		if (a4 == v46[1]) {

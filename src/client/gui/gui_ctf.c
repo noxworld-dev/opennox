@@ -21,8 +21,7 @@ int sub_455C30() {
 		while (1) {
 			v2 = (wchar_t*)sub_46B0C0((_DWORD*)result, v1);
 			nox_window_set_all_funcs(v2, 0, sub_455CD0, 0);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[128372], 0,
-						   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 201);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[128372], 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 201);
 			sub_46B000(v2 + 18, v3);
 			if (++v1 > 8826)
 				break;
@@ -49,30 +48,29 @@ wchar_t* __cdecl sub_455D80(unsigned __int8 a1, char a2) {
 			if (a2) {
 				if (a2 == 1) {
 					v4 = loadString_sub_40F1D0((char*)&byte_587000[128436], 0,
-								   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 234);
+											   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 234);
 				} else {
 					if (a2 != 2)
 						return result;
 					v4 = loadString_sub_40F1D0((char*)&byte_587000[128492], 0,
-								   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 238);
+											   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 238);
 				}
 			} else {
-				v4 = loadString_sub_40F1D0((char*)&byte_587000[128540], 0,
-							   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 242);
+				v4 = loadString_sub_40F1D0((char*)&byte_587000[128540], 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
+										   242);
 			}
 		} else if (a2) {
 			if (a2 == 1) {
-				v4 = loadString_sub_40F1D0((char*)&byte_587000[128588], 0,
-							   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 252);
+				v4 = loadString_sub_40F1D0((char*)&byte_587000[128588], 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
+										   252);
 			} else {
 				if (a2 != 2)
 					return result;
-				v4 = loadString_sub_40F1D0((char*)&byte_587000[128644], 0,
-							   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 256);
+				v4 = loadString_sub_40F1D0((char*)&byte_587000[128644], 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
+										   256);
 			}
 		} else {
-			v4 = loadString_sub_40F1D0((char*)&byte_587000[128692], 0,
-						   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 260);
+			v4 = loadString_sub_40F1D0((char*)&byte_587000[128692], 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 260);
 		}
 		result = sub_46B000(v3 + 18, v4);
 	}

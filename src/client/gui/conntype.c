@@ -19,9 +19,8 @@ int sub_49C820() {
 	sub_46C690(*(int*)&dword_5d4594_1305684);
 	sub_46B500(*(int*)&dword_5d4594_1305684);
 	sub_49C910();
-	sub_46A9B0(*(_DWORD**)&dword_5d4594_1305684,
-		   nox_win_width / 2 - *(int*)(dword_5d4594_1305684 + 8) / 2,
-		   nox_win_height / 2 - *(int*)(dword_5d4594_1305684 + 12) / 2);
+	sub_46A9B0(*(_DWORD**)&dword_5d4594_1305684, nox_win_width / 2 - *(int*)(dword_5d4594_1305684 + 8) / 2,
+			   nox_win_height / 2 - *(int*)(dword_5d4594_1305684 + 12) / 2);
 	sub_457500();
 	sub_459D80(1);
 	v0 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1305684, 10352);

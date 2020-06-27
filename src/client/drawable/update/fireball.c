@@ -47,16 +47,14 @@ void __cdecl sub_4CCEA0(_DWORD* a1, int a2) {
 					v14 += (unsigned int)(255 - v14) >> 8 << 8;
 				*(_BYTE*)(v12 + 299) = v14;
 				*(_DWORD*)(v12 + 440) =
-				    a2 *
-				    sub_415FF0(100, 300, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 74);
+					a2 * sub_415FF0(100, 300, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 74);
 				*(_DWORD*)(v12 + 448) =
-				    *(_DWORD*)&byte_5D4594[2598000] +
-				    sub_415FF0(30, 45, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 77);
+					*(_DWORD*)&byte_5D4594[2598000] +
+					sub_415FF0(30, 45, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 77);
 				*(_DWORD*)(v12 + 444) = *(_DWORD*)&byte_5D4594[2598000];
 				*(_WORD*)(v12 + 104) = 28;
 				*(_WORD*)(v12 + 106) = 0;
-				*(_BYTE*)(v12 + 296) =
-				    sub_415FF0(-2, 4, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 84);
+				*(_BYTE*)(v12 + 296) = sub_415FF0(-2, 4, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 84);
 				sub_45A110_drawable((_DWORD*)v12);
 			}
 			--v16;
