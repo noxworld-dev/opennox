@@ -15,22 +15,19 @@ _DWORD* __cdecl sub_4CDFA0(int a1, _DWORD* a2) {
 	if ((int)a2 > 0) {
 		v3 = a2;
 		do {
-			result = (_DWORD*)sub_45A360_drawable(*(int*)&byte_5D4594[1523008], *(_DWORD*)(a1 + 12),
-							      *(_DWORD*)(a1 + 16));
+			result =
+				(_DWORD*)sub_45A360_drawable(*(int*)&byte_5D4594[1523008], *(_DWORD*)(a1 + 12), *(_DWORD*)(a1 + 16));
 			v4 = result;
 			if (result) {
 				result[108] = *(_DWORD*)(a1 + 12) << 12;
 				result[109] = *(_DWORD*)(a1 + 16) << 12;
-				*((_BYTE*)result + 299) =
-				    sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 37);
-				v4[110] =
-				    sub_415FF0(1000, 3000, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 40);
+				*((_BYTE*)result + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 37);
+				v4[110] = sub_415FF0(1000, 3000, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 40);
 				v4[112] = *(_DWORD*)&byte_5D4594[2598000] +
-					  sub_415FF0(10, 40, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 43);
+						  sub_415FF0(10, 40, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 43);
 				v4[111] = *(_DWORD*)&byte_5D4594[2598000];
 				*((_WORD*)v4 + 52) = 22;
-				*((_BYTE*)v4 + 296) =
-				    sub_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 49);
+				*((_BYTE*)v4 + 296) = sub_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 49);
 				result = sub_45A110_drawable(v4);
 			}
 			v3 = (_DWORD*)((char*)v3 - 1);

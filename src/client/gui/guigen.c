@@ -29,16 +29,13 @@ __int16 __cdecl sub_4A9D00(unsigned __int8* a1) {
 	nox_client_drawImageAt_47D2C0(*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[1309672] + 1309516], v4, v3);
 	switch (*v1) {
 	case 0x9Bu:
-		v5 = loadString_sub_40F1D0((char*)&byte_587000[172368], 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c",
-					   89);
+		v5 = loadString_sub_40F1D0((char*)&byte_587000[172368], 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 89);
 		goto LABEL_8;
 	case 0x9Cu:
-		v5 = loadString_sub_40F1D0((char*)&byte_587000[172416], 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c",
-					   92);
+		v5 = loadString_sub_40F1D0((char*)&byte_587000[172416], 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 92);
 		goto LABEL_8;
 	case 0x9Du:
-		v5 = loadString_sub_40F1D0((char*)&byte_587000[172464], 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c",
-					   95);
+		v5 = loadString_sub_40F1D0((char*)&byte_587000[172464], 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 95);
 	LABEL_8:
 		*(_DWORD*)&byte_5D4594[1309660] = v5;
 		break;

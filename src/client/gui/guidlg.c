@@ -48,8 +48,7 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 		nox_window_set_hidden((int)v9, 0);
 		v9[5] = 35;
 		v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3906);
-		v11 = loadString_sub_40F1D0((char*)&byte_587000[153524], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c",
-					    460);
+		v11 = loadString_sub_40F1D0((char*)&byte_587000[153524], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 460);
 	} else {
 		sub_46ABB0((int)v8, 0);
 		nox_window_set_hidden((int)v8, 1);
@@ -57,8 +56,7 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 		sub_46ABB0((int)v12, 0);
 		nox_window_set_hidden((int)v12, 1);
 		v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3906);
-		v11 = loadString_sub_40F1D0((char*)&byte_587000[153576], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c",
-					    483);
+		v11 = loadString_sub_40F1D0((char*)&byte_587000[153576], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 483);
 	}
 	sub_46AEE0((int)v10, (int)v11);
 	sub_46ABB0((int)v10, 1);
@@ -70,8 +68,7 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	v13[5] = 65;
 	if (a5 & 2) {
 		v14 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3906);
-		v15 = loadString_sub_40F1D0((char*)&byte_587000[153628], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c",
-					    503);
+		v15 = loadString_sub_40F1D0((char*)&byte_587000[153628], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 503);
 		sub_46AEE0((int)v14, (int)v15);
 	}
 	sub_467C10();
@@ -138,8 +135,7 @@ wchar_t* __cdecl sub_47A020(char* a1) {
 					v7 = v6 - 1;
 					nox_wcsncpy((wchar_t*)&byte_5D4594[1115324], v3, v6);
 					*(_WORD*)&byte_5D4594[2 * v6 + 1115324] = 0;
-					sub_43F840(*(_DWORD*)(v2 + 236), (unsigned __int16*)&byte_5D4594[1115324],
-						   (int*)&a1, 0, 0);
+					sub_43F840(*(_DWORD*)(v2 + 236), (unsigned __int16*)&byte_5D4594[1115324], (int*)&a1, 0, 0);
 					if ((int)a1 <= v9)
 						goto LABEL_16;
 				}

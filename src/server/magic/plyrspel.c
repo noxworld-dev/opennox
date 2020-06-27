@@ -29,8 +29,8 @@ int __cdecl sub_4D7F90(int a1, int a2, char a3, int a4) {
 void __cdecl sub_4FB0B0_magic_plyrspel(int a1) {
 	wchar_t* v1; // eax
 
-	v1 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * a1 + 216380], 0,
-				   "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 86);
+	v1 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * a1 + 216380], 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c",
+							   86);
 	sub_445490(v1);
 }
 
@@ -99,8 +99,7 @@ int __cdecl sub_4FB2A0_magic_plyrspel(int a1) {
 						v12 = *(int**)(v3 + 184);
 						*(float*)&v14[2] = v11;
 						if (sub_4FDD20(*v12, v1, v14)) {
-							sub_4DA0F0(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), 1,
-								   *(int**)(v3 + 184));
+							sub_4DA0F0(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), 1, *(int**)(v3 + 184));
 						} else {
 							sub_4FD030((int)v1, v8);
 							a1 = 8;
@@ -113,16 +112,14 @@ int __cdecl sub_4FB2A0_magic_plyrspel(int a1) {
 	if (*(_BYTE*)(v3 + 88) == 2)
 		sub_4FA020(v1, 13);
 	if (v2) {
-		v13 = loadString_sub_40F1D0((char*)&byte_587000[216908], 0,
-					    "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 301);
+		v13 = loadString_sub_40F1D0((char*)&byte_587000[216908], 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 301);
 		result = sub_4D9EB0((int)v1, v13);
 	} else if (a1) {
 		result = sub_4D9630(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), **(_DWORD**)(v3 + 184), 0);
 	} else {
 		result = sub_424A50(**(_DWORD**)(v3 + 184), 0x100000);
 		if (!result)
-			result =
-			    sub_4D9630(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), **(_DWORD**)(v3 + 184), 15);
+			result = sub_4D9630(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), **(_DWORD**)(v3 + 184), 15);
 	}
 	return result;
 }
@@ -150,26 +147,22 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
 		return 0;
 	v6 = a2;
 	if (a2 <= 0 || a2 >= 137) {
-		v8 = loadString_sub_40F1D0((char*)&byte_587000[216964], 0,
-					   "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 339);
+		v8 = loadString_sub_40F1D0((char*)&byte_587000[216964], 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 339);
 		goto LABEL_76;
 	}
 	v7 = *(_DWORD*)(a1 + 748);
 	if (nox_common_gameFlags_check_40A5C0(6144) && *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) == 3 ||
-	    *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) == 5) {
-		v8 = loadString_sub_40F1D0((char*)&byte_587000[217020], 0,
-					   "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 351);
+		*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) == 5) {
+		v8 = loadString_sub_40F1D0((char*)&byte_587000[217020], 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 351);
 	LABEL_76:
 		sub_4D9EB0(a1, v8);
 		return 0;
 	}
 	if (nox_common_gameFlags_check_40A5C0(4096) &&
-	    (a2 == 34 || a2 == 134 || a2 == 45 || a2 == 46 || a2 == 47 || a2 == 48 || a2 == 49 || a2 == 117 ||
-	     a2 == 118 || a2 == 119 || a2 == 120 || a2 == 121 || a2 == 122 || a2 == 123 || a2 == 124 || a2 == 125 ||
-	     a2 == 19) &&
-	    *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696)) {
-		v8 = loadString_sub_40F1D0((char*)&byte_587000[217076], 0,
-					   "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 386);
+		(a2 == 34 || a2 == 134 || a2 == 45 || a2 == 46 || a2 == 47 || a2 == 48 || a2 == 49 || a2 == 117 || a2 == 118 ||
+		 a2 == 119 || a2 == 120 || a2 == 121 || a2 == 122 || a2 == 123 || a2 == 124 || a2 == 125 || a2 == 19) &&
+		*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696)) {
+		v8 = loadString_sub_40F1D0((char*)&byte_587000[217076], 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 386);
 		goto LABEL_76;
 	}
 	++*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696);
@@ -211,8 +204,7 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
 					if (*(_DWORD*)(v14 + 4 * v6 + 3696) > 3)
 						*(_DWORD*)(v14 + 4 * v6 + 3696) = 3;
 				}
-				sub_56FCE0(*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4636), v6,
-					   *(_DWORD*)(v12 + *(_DWORD*)(v7 + 276)));
+				sub_56FCE0(*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4636), v6, *(_DWORD*)(v12 + *(_DWORD*)(v7 + 276)));
 			}
 			v12 += 4;
 			++v11;

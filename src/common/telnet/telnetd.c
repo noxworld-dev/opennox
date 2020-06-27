@@ -48,13 +48,13 @@ int sub_578FF0() {
 			++*(_WORD*)&byte_5D4594[2523738];
 			*(_DWORD*)&byte_5D4594[v3 + 2516484] = v2;
 			v7 = inet_ntoa(*(struct in_addr*)&byte_5D4594[v3 + 2517520]);
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[311532], 0,
-						   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 142);
-			v4 = loadString_sub_40F1D0((char*)&byte_587000[311592], 0,
-						   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 142);
+			v6 = loadString_sub_40F1D0((char*)&byte_587000[311532], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+									   142);
+			v4 = loadString_sub_40F1D0((char*)&byte_587000[311592], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+									   142);
 			sub_413D30((char*)&byte_587000[311600], v4, v6, v7);
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[311652], 0,
-						   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 146);
+			v5 = loadString_sub_40F1D0((char*)&byte_587000[311652], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+									   146);
 			nox_sprintf(buf, "%S", v5);
 			send(*(_DWORD*)&byte_5D4594[v3 + 2516484], buf, strlen(buf), 0);
 			result = *(_DWORD*)&byte_5D4594[v3 + 2517524];
@@ -95,34 +95,29 @@ char* sub_579190() {
 					if (*v0 & 1) {
 						v3 = sub_40A630();
 						*(_DWORD*)v0 &= 0xFFFFFFFE;
-						if (nox_wcscmp(v3, (const wchar_t*)&byte_5D4594[2523748]) &&
-						    _nox_wcsicmp(v11, v3)) {
+						if (nox_wcscmp(v3, (const wchar_t*)&byte_5D4594[2523748]) && _nox_wcsicmp(v11, v3)) {
 							v8 = inet_ntoa(*(struct in_addr*)(v0 - 4));
-							v6 = loadString_sub_40F1D0(
-							    (char*)&byte_587000[311716], 0,
-							    "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
-							v4 = loadString_sub_40F1D0(
-							    (char*)&byte_587000[311768], 0,
-							    "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
+							v6 = loadString_sub_40F1D0((char*)&byte_587000[311716], 0,
+													   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
+							v4 = loadString_sub_40F1D0((char*)&byte_587000[311768], 0,
+													   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
 							sub_413D30((char*)&byte_587000[311776], v4, v6, v8);
 							result = (char*)sub_579350(v10);
 							goto LABEL_14;
 						}
 						send(*v2, "\r\n", 2, 0);
 						v9 = inet_ntoa(*(struct in_addr*)(v0 - 4));
-						v7 = loadString_sub_40F1D0(
-						    (char*)&byte_587000[311832], 0,
-						    "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
-						v5 = loadString_sub_40F1D0(
-						    (char*)&byte_587000[311888], 0,
-						    "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
+						v7 = loadString_sub_40F1D0((char*)&byte_587000[311832], 0,
+												   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
+						v5 = loadString_sub_40F1D0((char*)&byte_587000[311888], 0,
+												   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
 						sub_413D30((char*)&byte_587000[311896], v5, v7, v9);
 					} else {
 						nox_server_parseCmdText_443C80(v11, 0);
 					}
 				}
 				result = (char*)send(*v2, *(const char**)&byte_587000[311484],
-						     strlen(*(const char**)&byte_587000[311484]), 0);
+									 strlen(*(const char**)&byte_587000[311484]), 0);
 			}
 		}
 	LABEL_14:
@@ -166,10 +161,10 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 			v5 = a2;
 			sub_579350(a2);
 			v22 = inet_ntoa(*(struct in_addr*)&byte_5D4594[1044 * v5 + 2517520]);
-			v20 = loadString_sub_40F1D0((char*)&byte_587000[311948], 0,
-						    "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 211);
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[312012], 0,
-						   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 211);
+			v20 = loadString_sub_40F1D0((char*)&byte_587000[311948], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+										211);
+			v6 = loadString_sub_40F1D0((char*)&byte_587000[312012], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+									   211);
 			sub_413D30((char*)&byte_587000[312020], v6, v20, v22);
 			return 0;
 		}
@@ -203,7 +198,7 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 			v15 = v4 - v14;
 			if (v15 > 0)
 				qmemcpy((void*)(v2 + 4), &byte_5D4594[v13 + 2522712],
-					4 * ((unsigned int)v15 >> 2) + (((_BYTE)v4 - (_BYTE)v13) & 3));
+						4 * ((unsigned int)v15 >> 2) + (((_BYTE)v4 - (_BYTE)v13) & 3));
 			*(_WORD*)(v2 + 1030) = v4 - v13;
 		}
 		*(_WORD*)(v2 + 1032) += v4;

@@ -36,20 +36,19 @@ void sub_469BC0() {
 				if (v6) {
 					if (v6 == 4) {
 						v8 = loadString_sub_40F1D0((char*)&byte_587000[142564], 0,
-									   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c",
-									   64);
+												   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 64);
 						nox_wcscpy(v14, v8);
 					} else {
 						v14[0] = 0;
 					}
 				} else {
 					v9 = loadString_sub_40F1D0((char*)&byte_587000[142500], 0,
-								   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 60);
+											   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 60);
 					nox_wcscpy(v14, v9);
 				}
 			} else {
-				v10 = loadString_sub_40F1D0((char*)&byte_587000[142440], 0,
-							    "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 56);
+				v10 = loadString_sub_40F1D0((char*)&byte_587000[142440], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c",
+											56);
 				nox_wcscpy(v14, v10);
 			}
 			nox_wcscat(v14, L" ");
@@ -102,19 +101,19 @@ void __cdecl sub_469D40(int xLeft, int yTop, int a3) {
 				case 2:
 					v8 = *(_DWORD*)&byte_5D4594[2650644];
 					v9 = loadString_sub_40F1D0((char*)&byte_587000[142680], 0,
-								   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 135);
+											   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 135);
 					nox_wcscpy(v17, v9);
 					break;
 				case 4:
 					v8 = *(_DWORD*)&byte_5D4594[2650660];
 					v10 = loadString_sub_40F1D0((char*)&byte_587000[142740], 0,
-								    "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 140);
+												"C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 140);
 					nox_wcscpy(v17, v10);
 					break;
 				case 8:
 					v8 = *(_DWORD*)&byte_5D4594[2589772];
 					v11 = loadString_sub_40F1D0((char*)&byte_587000[142804], 0,
-								    "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 145);
+												"C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 145);
 					nox_wcscpy(v17, v11);
 					break;
 				default:
@@ -124,8 +123,7 @@ void __cdecl sub_469D40(int xLeft, int yTop, int a3) {
 					break;
 				}
 				nox_wcscat(v17, L" ");
-				v12 = loadString_sub_40F1D0((char*)&v16, 0, "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c",
-							    155);
+				v12 = loadString_sub_40F1D0((char*)&v16, 0, "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 155);
 				nox_wcscat(v17, v12);
 				sub_43F840(0, &v17, 0, &v15, 240);
 				v13 = v15 + v4;

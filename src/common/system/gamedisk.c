@@ -31,10 +31,10 @@ int sub_413520_gamedisk() {
 			v8 = sub_413760;
 			v7 = sub_413780;
 			v6 = 35;
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[32036], 0,
-						   "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 200);
-			v2 = loadString_sub_40F1D0((char*)&byte_587000[32088], 0,
-						   "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 199);
+			v5 = loadString_sub_40F1D0((char*)&byte_587000[32036], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+									   200);
+			v2 = loadString_sub_40F1D0((char*)&byte_587000[32088], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+									   199);
 			goto LABEL_9;
 		}
 		if (v1 == 1 && nox_common_gameFlags_check_40A5C0(2048)) {
@@ -44,10 +44,10 @@ int sub_413520_gamedisk() {
 			v8 = sub_413760;
 			v7 = sub_413780;
 			v6 = 35;
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[32140], 0,
-						   "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 219);
-			v2 = loadString_sub_40F1D0((char*)&byte_587000[32192], 0,
-						   "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 218);
+			v5 = loadString_sub_40F1D0((char*)&byte_587000[32140], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+									   219);
+			v2 = loadString_sub_40F1D0((char*)&byte_587000[32192], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+									   218);
 			goto LABEL_9;
 		}
 		sub_4137E0();
@@ -84,10 +84,8 @@ int sub_413520_gamedisk() {
 		v8 = 0;
 		v7 = sub_413760;
 		v6 = 33;
-		v5 = loadString_sub_40F1D0((char*)&byte_587000[32244], 0,
-					   "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 293);
-		v2 = loadString_sub_40F1D0((char*)&byte_587000[32296], 0,
-					   "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 292);
+		v5 = loadString_sub_40F1D0((char*)&byte_587000[32244], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 293);
+		v2 = loadString_sub_40F1D0((char*)&byte_587000[32296], 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 292);
 	LABEL_9:
 		sub_449A10(0, (int)v2, (int)v5, v6, v7, v8);
 		sub_44A360(0);

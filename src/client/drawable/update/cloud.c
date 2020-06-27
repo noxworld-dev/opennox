@@ -35,8 +35,7 @@ int __cdecl sub_4CE200(int a1, int a2, int a3, int a4) {
 			if (v11) {
 				*(_WORD*)(v11 + 104) = 0;
 				sub_45A110_drawable((_DWORD*)v11);
-				*(_BYTE*)(v12 + 432) =
-				    sub_415FF0(1, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 57);
+				*(_BYTE*)(v12 + 432) = sub_415FF0(1, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 57);
 				*(_DWORD*)(v12 + 460) = sub_4CE340;
 				v13 = sub_415FF0(10, 32, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 61);
 				sub_49B950((_DWORD*)v12, v13);

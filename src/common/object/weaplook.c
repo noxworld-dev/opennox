@@ -13,8 +13,8 @@ char** sub_4158C0() {
 			result = (char**)&byte_587000[33396];
 			v1 = &byte_587000[33396];
 			do {
-				*((_DWORD*)v1 - 1) = loadString_sub_40F1D0(
-				    *result, 0, "C:\\NoxPost\\src\\common\\Object\\WeapLook.c", 200);
+				*((_DWORD*)v1 - 1) =
+					loadString_sub_40F1D0(*result, 0, "C:\\NoxPost\\src\\common\\Object\\WeapLook.c", 200);
 				v2 = *((_DWORD*)v1 + 3);
 				v1 += 12;
 				result = (char**)v1;

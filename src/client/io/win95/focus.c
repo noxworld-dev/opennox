@@ -15,12 +15,12 @@ void __cdecl sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const ch
 	wchar_t* v8; // eax
 
 	if (a1 == 1) {
-		obj_5D4594_754088_t* arr = (obj_5D4594_754088_t*)realloc(
-		    ptr_5D4594_754088, sizeof(obj_5D4594_754088_t) * (ptr_5D4594_754088_cnt + 1));
+		obj_5D4594_754088_t* arr =
+			(obj_5D4594_754088_t*)realloc(ptr_5D4594_754088, sizeof(obj_5D4594_754088_t) * (ptr_5D4594_754088_cnt + 1));
 		ptr_5D4594_754088 = arr;
 		if (!arr) {
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[80600], 0,
-						   "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c", 37);
+			v6 = loadString_sub_40F1D0((char*)&byte_587000[80600], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c",
+									   37);
 			sub_4516C0(v6);
 			nox_exit(-1);
 		}
@@ -30,11 +30,11 @@ void __cdecl sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const ch
 		++ptr_5D4594_754088_cnt;
 	} else if (a1 == 2) {
 		obj_5D4594_754088_t* arr =
-		    realloc(ptr_5D4594_754092, sizeof(obj_5D4594_754088_t) * (ptr_5D4594_754092_cnt + 1));
+			realloc(ptr_5D4594_754092, sizeof(obj_5D4594_754088_t) * (ptr_5D4594_754092_cnt + 1));
 		ptr_5D4594_754092 = arr;
 		if (!arr) {
-			v8 = loadString_sub_40F1D0((char*)&byte_587000[80656], 0,
-						   "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c", 52);
+			v8 = loadString_sub_40F1D0((char*)&byte_587000[80656], 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c",
+									   52);
 			sub_4516C0(v8);
 			nox_exit(-1);
 		}

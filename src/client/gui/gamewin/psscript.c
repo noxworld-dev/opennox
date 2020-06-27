@@ -118,7 +118,7 @@ int __cdecl sub_4A10A0(_DWORD* a1, const char* a2, char* a3) {
 		*(_DWORD*)&byte_5D4594[1307260] = *(_DWORD*)&byte_5D4594[1307260] != 0;
 		v18 = strtok(0, " \t\n\r");
 		*(_DWORD*)&byte_5D4594[1307252] =
-		    loadString_sub_40F1D0(v18, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 542);
+			loadString_sub_40F1D0(v18, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 542);
 		result = 1;
 		*a1 = &byte_5D4594[1307252];
 	} else if (!strcmp(a2, "RADIOBUTTON")) {

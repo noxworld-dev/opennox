@@ -23,8 +23,7 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
 			if (v4 <= 603)
 				return 1;
 			if (v4 == 610) {
-				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
-				    !nox_common_gameFlags_check_40A5C0(4096)) {
+				if (nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096)) {
 					if (sub_4D6F50() || (v5 = sub_4D6F70()) != 0)
 						v5 = 1;
 					sub_4A4B70(v5);
@@ -43,7 +42,7 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
 		v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 605);
 		*(_BYTE*)(dword_5d4594_1307724 + 66) = v7 - 89;
 		v9 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * (unsigned __int8)(v7 - 89) + 170208], 0,
-					   "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 279);
+								   "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 279);
 		nox_window_call_field_94((int)v8, 16385, (int)v9, 0);
 		*(_DWORD*)&byte_5D4594[1307740] = v7;
 	}
@@ -102,8 +101,7 @@ void* __cdecl sub_4A4B70(int a1) {
 					if (a1 == 1)
 						result = sub_45DBE0((void*)3, 0, v4);
 					else
-						result =
-						    sub_45DBE0((void*)3, (unsigned __int8)v3[4 * v9 + v4 + v9], v4);
+						result = sub_45DBE0((void*)3, (unsigned __int8)v3[4 * v9 + v4 + v9], v4);
 					++v4;
 					--v5;
 				} while (v5);

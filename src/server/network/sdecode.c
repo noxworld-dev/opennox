@@ -170,7 +170,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 					sub_578B70(*(unsigned __int16*)(v4 + 1));
 				v7 = *(_DWORD*)(v85 + 276);
 				if (!(*(_BYTE*)(v7 + 3680) & 3) && !*(_DWORD*)(v85 + 280) && !*(_DWORD*)(v85 + 284) &&
-				    !(*(_BYTE*)(v9 + 16) & 2)) {
+					!(*(_BYTE*)(v9 + 16) & 2)) {
 					v20 = sub_4F7920(v9, v19);
 					if (v20) {
 						v21 = *(_WORD*)(v4 + 5);
@@ -261,8 +261,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				if (!v18)
 					goto LABEL_196;
 				v7 = v85;
-				if (*(_BYTE*)(v85 + 88) == 1 && *(_DWORD*)(v18 + 8) & 0x1000000 &&
-				    *(_BYTE*)(v18 + 12) & 8)
+				if (*(_BYTE*)(v85 + 88) == 1 && *(_DWORD*)(v18 + 8) & 0x1000000 && *(_BYTE*)(v18 + 12) & 8)
 					goto LABEL_196;
 				sub_4F2FB0((_DWORD*)v9, v18);
 				v10 = (int*)v85;
@@ -312,15 +311,12 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 						--v39;
 					} while (v39);
 					if ((v37 != 1 || !sub_424A50(*v36, 32) || !*(_DWORD*)(v85 + 288) ||
-					     sub_5330C0(v9, *(_DWORD*)(v85 + 288)) ||
-					     nox_common_gameFlags_check_40A5C0(4096)) &&
-					    !sub_4FE340(v9, (int*)(v4 + 1), v37, 3, v4[21]) && v37 == 1) {
+						 sub_5330C0(v9, *(_DWORD*)(v85 + 288)) || nox_common_gameFlags_check_40A5C0(4096)) &&
+						!sub_4FE340(v9, (int*)(v4 + 1), v37, 3, v4[21]) && v37 == 1) {
 						v40 = 5;
 						do {
 							if (*v36)
-								sub_4D9630(
-								    *(unsigned __int8*)(*(_DWORD*)(v85 + 276) + 2064),
-								    *v36, 0);
+								sub_4D9630(*(unsigned __int8*)(*(_DWORD*)(v85 + 276) + 2064), *v36, 0);
 							++v36;
 							--v40;
 						} while (v40);
@@ -343,7 +339,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 					sub_578B70(*(unsigned __int16*)(v4 + 1));
 				v7 = v85;
 				if (!(*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 3) && !*(_DWORD*)(v85 + 280) &&
-				    !*(_DWORD*)(v85 + 284)) {
+					!*(_DWORD*)(v85 + 284)) {
 					v29 = sub_4ECCB0(v28);
 					if (v29) {
 						v30 = *(void(__cdecl**)(int, int, _DWORD))(v29 + 696);
@@ -405,7 +401,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 					v49 = sub_417040(*(_DWORD*)(v48 + 36));
 					if (v49 && sub_419180(v48 + 48, v86[57])) {
 						if (nox_common_gameFlags_check_40A5C0(2) &&
-						    *(_DWORD*)(v48 + 36) == *(_DWORD*)&byte_5D4594[2616328]) {
+							*(_DWORD*)(v48 + 36) == *(_DWORD*)&byte_5D4594[2616328]) {
 							sub_48EA70((unsigned __int8)v49[2064], (unsigned int)v4, v45);
 						} else {
 							sub_552640((unsigned __int8)v49[2064] + 1, v4, v45, 0);
@@ -470,9 +466,8 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 					v87[1] = 1;
 					if (!sub_4D12A0(*(unsigned __int8*)(v8 + 2064))) {
 						sub_4D1210(*(unsigned __int8*)(v8 + 2064));
-						v43 = loadString_sub_40F1D0(
-						    (char*)&byte_587000[253012], 0,
-						    "C:\\NoxPost\\src\\Server\\Network\\sdecode.c", 735);
+						v43 = loadString_sub_40F1D0((char*)&byte_587000[253012], 0,
+													"C:\\NoxPost\\src\\Server\\Network\\sdecode.c", 735);
 						sub_450C00(6u, v43, v8 + 4704);
 					}
 				}
@@ -492,8 +487,8 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				++v4;
 				goto LABEL_273;
 			case 0xC1u:
-				if (nox_common_gameFlags_check_40A5C0(4096) && *(_BYTE*)(v8 + 2064) != 31 &&
-				    *(_DWORD*)(v8 + 2092) && *(_DWORD*)(v8 + 2056) && v10[138] == 1) {
+				if (nox_common_gameFlags_check_40A5C0(4096) && *(_BYTE*)(v8 + 2064) != 31 && *(_DWORD*)(v8 + 2092) &&
+					*(_DWORD*)(v8 + 2056) && v10[138] == 1) {
 					sub_4DEAB0(*(unsigned __int8*)(v8 + 2064), 2);
 					v4 += 3;
 				} else {
@@ -508,8 +503,8 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			case 0xC2u:
 				switch (v4[1]) {
 				case 0u:
-					sub_40B5D0(*(unsigned __int8*)(v8 + 2064) + 1, v4[2], (const char*)v4 + 8,
-						   *((_DWORD*)v4 + 1), v4[136]);
+					sub_40B5D0(*(unsigned __int8*)(v8 + 2064) + 1, v4[2], (const char*)v4 + 8, *((_DWORD*)v4 + 1),
+							   v4[136]);
 					v4 += 140;
 					break;
 				case 1u:
@@ -525,12 +520,11 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 					*(_WORD*)&v90[4] = *((_WORD*)v4 + 2);
 					sub_552640(v82, v90, 6, 3);
 					sub_40B250(*(unsigned __int8*)(v8 + 2064) + 1, v4[2], *((_WORD*)v4 + 2), v4 + 8,
-						   *((unsigned __int16*)v4 + 3));
+							   *((unsigned __int16*)v4 + 3));
 					v4 += *((unsigned __int16*)v4 + 3) + 8;
 					break;
 				case 3u:
-					sub_40BF60(*(unsigned __int8*)(v8 + 2064) + 1, v4[2],
-						   *((unsigned __int16*)v4 + 2));
+					sub_40BF60(*(unsigned __int8*)(v8 + 2064) + 1, v4[2], *((unsigned __int16*)v4 + 2));
 					v4 += 6;
 					break;
 				case 4u:
@@ -584,7 +578,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			case 0xD0u:
 				if (v4[1] == 1) {
 					if (sub_4DB1B0() || (v7 = v10[69], *(_BYTE*)(v7 + 3680) & 3) ||
-					    (v57 = sub_4ECCB0(*((unsigned __int16*)v4 + 1))) == 0) {
+						(v57 = sub_4ECCB0(*((unsigned __int16*)v4 + 1))) == 0) {
 					LABEL_232:
 						v4 += 4;
 					} else {

@@ -39,8 +39,7 @@ int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 	if (!(*(_BYTE*)(a1 + 8) & 4))
 		return 0;
 	if (a2 <= 0 || a2 >= 41) {
-		v16 = loadString_sub_40F1D0((char*)&byte_587000[216340], 0,
-					    "C:\\NoxPost\\src\\Server\\Magic\\PlyrGide.c", 39);
+		v16 = loadString_sub_40F1D0((char*)&byte_587000[216340], 0, "C:\\NoxPost\\src\\Server\\Magic\\PlyrGide.c", 39);
 		sub_4D9EB0(a1, v16);
 		return 0;
 	}
@@ -68,7 +67,7 @@ int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 					do {
 						*(_DWORD*)(*(_DWORD*)(v4 + 276) + 4 * v10 + 4244) = 1;
 						sub_56FCE0(*(_DWORD*)(*(_DWORD*)(v4 + 276) + 4640), *v11,
-							   *(_DWORD*)(*(_DWORD*)(v4 + 276) + 4 * *v11 + 4244));
+								   *(_DWORD*)(*(_DWORD*)(v4 + 276) + 4 * *v11 + 4244));
 						v10 = v11[1];
 						++v11;
 					} while (v10);

@@ -30,29 +30,24 @@ _DWORD* sub_49C560() {
 		sub_46A8C0(*(int*)&dword_5d4594_1305680);
 		sub_46C690(*(int*)&dword_5d4594_1305680);
 		sub_46B500(*(int*)&dword_5d4594_1305680);
-		sub_46A9B0(*(_DWORD**)&dword_5d4594_1305680,
-			   (nox_win_width - *(int*)(dword_5d4594_1305680 + 8)) / 2,
-			   (nox_win_height - *(int*)(dword_5d4594_1305680 + 12)) / 2);
+		sub_46A9B0(*(_DWORD**)&dword_5d4594_1305680, (nox_win_width - *(int*)(dword_5d4594_1305680 + 8)) / 2,
+				   (nox_win_height - *(int*)(dword_5d4594_1305680 + 12)) / 2);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1305680, 4102);
 			v6 = sub_42E8E0(45, 1);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[164712], 0,
-						   "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 85);
+			v3 = loadString_sub_40F1D0((char*)&byte_587000[164712], 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 85);
 			nox_swprintf((wchar_t*)&byte_5D4594[1304656], v3, v6);
 			nox_wcscat((wchar_t*)&byte_5D4594[1304656], L" ");
 			v7 = sub_42E8E0(8, 1);
-			v4 = loadString_sub_40F1D0((char*)&byte_587000[164776], 0,
-						   "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 87);
+			v4 = loadString_sub_40F1D0((char*)&byte_587000[164776], 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 87);
 		} else {
 			v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1305680, 4102);
 			v8 = sub_42E8E0(45, 1);
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[164836], 0,
-						   "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 94);
+			v5 = loadString_sub_40F1D0((char*)&byte_587000[164836], 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 94);
 			nox_swprintf((wchar_t*)&byte_5D4594[1304656], v5, v8);
 			nox_wcscat((wchar_t*)&byte_5D4594[1304656], L" ");
 			v7 = sub_42E8E0(8, 1);
-			v4 = loadString_sub_40F1D0((char*)&byte_587000[164904], 0,
-						   "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 96);
+			v4 = loadString_sub_40F1D0((char*)&byte_587000[164904], 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 96);
 		}
 		nox_swprintf((wchar_t*)&byte_5D4594[1304400], v4, v7);
 		nox_wcscat((wchar_t*)&byte_5D4594[1304656], (const wchar_t*)&byte_5D4594[1304400]);

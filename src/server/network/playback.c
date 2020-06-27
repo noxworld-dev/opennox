@@ -63,9 +63,9 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 			_read(*(int*)&dword_587000_197428, &v7, 4u);
 			if ((v7 & 0xFF0000) != 0x10000) {
 				v2 = loadString_sub_40F1D0((char*)&byte_587000[197480], 0,
-							   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 355);
+										   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 355);
 				v3 = loadString_sub_40F1D0((char*)&byte_587000[197540], 0,
-							   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 356);
+										   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 356);
 				nullsub_4(0, v2, v3, 1);
 				sub_43DDD0(0);
 				sub_43DE60();

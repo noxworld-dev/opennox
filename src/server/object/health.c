@@ -55,9 +55,8 @@ void __cdecl sub_4EE500_obj_health(int a1) {
 					LABEL_12:
 						v6 = sub_4EF270(v4, *(float*)(v1 + 28));
 						if (v6 > 0.0) {
-							v7 = loadString_sub_40F1D0(
-							    (char*)&byte_587000[206012], 0,
-							    "C:\\NoxPost\\src\\Server\\Object\\health.c", 172);
+							v7 = loadString_sub_40F1D0((char*)&byte_587000[206012], 0,
+													   "C:\\NoxPost\\src\\Server\\Object\\health.c", 172);
 							sub_4D9EB0(v4, v7, (unsigned int)(__int64)v6);
 						}
 						return;

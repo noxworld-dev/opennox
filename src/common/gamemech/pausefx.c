@@ -48,9 +48,8 @@ void __cdecl sub_57AF30(int a1, int a2) {
 						return;
 					}
 					sub_501960(902, v2, 2, *(_DWORD*)(v2 + 36));
-					v4 =
-					    loadString_sub_40F1D0((char*)&byte_587000[312764], 0,
-								  "C:\\NoxPost\\src\\common\\GameMech\\PauseFX.c", 109);
+					v4 = loadString_sub_40F1D0((char*)&byte_587000[312764], 0,
+											   "C:\\NoxPost\\src\\common\\GameMech\\PauseFX.c", 109);
 					sub_4D9EB0(*(int*)&dword_5d4594_2523780, v4);
 					v2 = dword_5d4594_2523780;
 				}
