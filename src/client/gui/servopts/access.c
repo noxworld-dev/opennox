@@ -30,16 +30,13 @@ int sub_454640() {
 	v2 = sub_43F320(v0[59]) + 1;
 	v1[7] = v1[5] + 4 * v2 + 2;
 	v1[3] = 4 * v2 + 2;
-	v3 = loadString_sub_40F1D0((char*)&byte_587000[128040], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
-				   88);
+	v3 = loadString_sub_40F1D0((char*)&byte_587000[128040], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 88);
 	sub_43F840(v1[59], v3, &v9, 0, 0);
-	v4 = loadString_sub_40F1D0((char*)&byte_587000[128092], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
-				   89);
+	v4 = loadString_sub_40F1D0((char*)&byte_587000[128092], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 89);
 	sub_43F840(v1[59], v4, &v10, 0, 0);
 	if (v10 > v9)
 		v9 = v10;
-	v5 = loadString_sub_40F1D0((char*)&byte_587000[128144], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
-				   94);
+	v5 = loadString_sub_40F1D0((char*)&byte_587000[128144], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 94);
 	sub_43F840(v1[59], v5, &v10, 0, 0);
 	v6 = v9;
 	if (v10 > v9)
@@ -107,14 +104,14 @@ int* sub_454740() {
 	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10207);
 	v5[9] |= 4u;
 	dword_5d4594_1045596 = dword_5d4594_1045528;
-	v6 = loadString_sub_40F1D0((char*)&byte_587000[128200], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
-				   242);
+	v6 =
+		loadString_sub_40F1D0((char*)&byte_587000[128200], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 242);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045552, 16397, (int)v6, -1);
-	v7 = loadString_sub_40F1D0((char*)&byte_587000[128252], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
-				   243);
+	v7 =
+		loadString_sub_40F1D0((char*)&byte_587000[128252], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 243);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045552, 16397, (int)v7, -1);
-	v8 = loadString_sub_40F1D0((char*)&byte_587000[128304], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c",
-				   244);
+	v8 =
+		loadString_sub_40F1D0((char*)&byte_587000[128304], 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 244);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045552, 16397, (int)v8, -1);
 	if (v0[100] & 0x10) {
 		nox_window_set_hidden(*(int*)&dword_5d4594_1045532, 0);

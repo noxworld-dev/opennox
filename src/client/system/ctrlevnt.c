@@ -27,21 +27,20 @@ char* sub_42EAE0() {
 	if (*(_DWORD*)&byte_587000[73672]) {
 		v0 = &byte_587000[73684];
 		do {
-			*(_DWORD*)v0 = loadString_sub_40F1D0(*((char**)v0 - 1), 0,
-							     "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2092);
+			*(_DWORD*)v0 =
+				loadString_sub_40F1D0(*((char**)v0 - 1), 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2092);
 			v1 = *((_DWORD*)v0 + 1);
 			v0 += 16;
 		} while (v1);
 	}
 	*(_DWORD*)&byte_587000[75888] =
-	    loadString_sub_40F1D0((char*)&byte_587000[80484], 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2095);
+		loadString_sub_40F1D0((char*)&byte_587000[80484], 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2095);
 	result = *(char**)&byte_587000[75892];
 	if (*(_DWORD*)&byte_587000[75892]) {
 		v3 = &byte_587000[75892];
 		do {
 			nox_sprintf(v4, "bindevent:%s", result);
-			*((_DWORD*)v3 + 2) =
-			    loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
+			*((_DWORD*)v3 + 2) = loadString_sub_40F1D0(v4, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
 			result = (char*)*((_DWORD*)v3 + 3);
 			v3 += 12;
 		} while (result);
@@ -290,21 +289,21 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				break;
 			case 0x2E:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
-				    sub_4160F0(0x15u, *(unsigned int*)&byte_5D4594[2649704])) {
+					sub_4160F0(0x15u, *(unsigned int*)&byte_5D4594[2649704])) {
 					sub_4160D0(21);
 					sub_42E670(47, 0);
 				}
 				break;
 			case 0x2F:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
-				    sub_4160F0(0x14u, 2 * *(_DWORD*)&byte_5D4594[2649704])) {
+					sub_4160F0(0x14u, 2 * *(_DWORD*)&byte_5D4594[2649704])) {
 					sub_4160D0(20);
 					sub_42E670(48, 0);
 				}
 				break;
 			case 0x30:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
-				    sub_4160F0(0x16u, *(unsigned int*)&byte_5D4594[2649704])) {
+					sub_4160F0(0x16u, *(unsigned int*)&byte_5D4594[2649704])) {
 					sub_4160D0(22);
 					sub_42E670(49, 0);
 				}
@@ -353,9 +352,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 			else
 				v17 = a3[1];
 			a4 = *v16 - nox_win_width / 2;
-			v18 =
-			    (__int64)((atan2((double)(v17 - nox_win_height / 2), (double)a4) + 6.2831855) * 40.743664 +
-				      0.5);
+			v18 = (__int64)((atan2((double)(v17 - nox_win_height / 2), (double)a4) + 6.2831855) * 40.743664 + 0.5);
 			dword_5d4594_754060 = v18;
 			if ((int)v18 < 0) {
 				LODWORD(v18) = ((unsigned int)(255 - v18) >> 8 << 8) + v18;
@@ -437,8 +434,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				v30 += 24;
 			} while (v28 < v27);
 			if (v27 > 0)
-				qmemcpy(&byte_5D4594[750964], &byte_5D4594[747884],
-					4 * ((unsigned int)(24 * v27) >> 2));
+				qmemcpy(&byte_5D4594[750964], &byte_5D4594[747884], 4 * ((unsigned int)(24 * v27) >> 2));
 		}
 		dword_5d4594_754044 = v27;
 	}
@@ -676,12 +672,10 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				if (sub_4DCCB0()) {
 					sub_452D80(921, 100);
 					sub_413A00(1);
-					v41 =
-					    loadString_sub_40F1D0((char*)&byte_587000[80304], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 1867);
-					v40 =
-					    loadString_sub_40F1D0((char*)&byte_587000[80372], 0,
-								  "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 1866);
+					v41 = loadString_sub_40F1D0((char*)&byte_587000[80304], 0,
+												"C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 1867);
+					v40 = loadString_sub_40F1D0((char*)&byte_587000[80372], 0,
+												"C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 1866);
 					sub_449A10(0, (int)v40, (int)v41, 56, sub_42E600, sub_42E620);
 					*(_DWORD*)&byte_5D4594[v36 + 747900] = 0;
 				} else {

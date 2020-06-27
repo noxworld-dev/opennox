@@ -68,7 +68,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			if (v19 != 137) {
 				if (dword_587000_26048 != 6) {
 					v22 = loadString_sub_40F1D0((char*)&byte_587000[180736], 0,
-								    "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 292);
+												"C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 292);
 					nox_swprintf((wchar_t*)&byte_5D4594[1317000], L"%s ", v22);
 					v23 = (const wchar_t*)sub_424930(v1[108]);
 					nox_wcscat((wchar_t*)&byte_5D4594[1317000], v23);
@@ -77,8 +77,8 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 				v20 = (const wchar_t*)sub_424930(v1[108]);
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v20);
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				v21 = loadString_sub_40F1D0((char*)&byte_587000[180692], 0,
-							    "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 288);
+				v21 = loadString_sub_40F1D0((char*)&byte_587000[180692], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+											288);
 				goto LABEL_90;
 			}
 			return (wchar_t*)&byte_5D4594[1317000];
@@ -95,8 +95,8 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			if (v24 == 41)
 				return (wchar_t*)&byte_5D4594[1317000];
 			if (dword_587000_26048 == 3 || dword_587000_26048 == 5) {
-				v27 = loadString_sub_40F1D0((char*)&byte_587000[180788], 0,
-							    "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 313);
+				v27 = loadString_sub_40F1D0((char*)&byte_587000[180788], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+											313);
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v27);
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
 				v28 = (const wchar_t*)sub_427240(v1[108]);
@@ -104,8 +104,8 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			} else {
 				v25 = sub_427240(v1[108]);
 				nox_swprintf((wchar_t*)&byte_5D4594[1317000], L"%s ", v25);
-				v26 = loadString_sub_40F1D0((char*)&byte_587000[180848], 0,
-							    "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 320);
+				v26 = loadString_sub_40F1D0((char*)&byte_587000[180848], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+											320);
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v26);
 			}
 		} else if (v18 & 4) {
@@ -123,14 +123,14 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 				v30 = (const wchar_t*)sub_425260(v1[108]);
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v30);
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				v21 = loadString_sub_40F1D0((char*)&byte_587000[180900], 0,
-							    "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 342);
+				v21 = loadString_sub_40F1D0((char*)&byte_587000[180900], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+											342);
 			LABEL_90:
 				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v21);
 				goto LABEL_93;
 			}
-			v31 = loadString_sub_40F1D0((char*)&byte_587000[180944], 0,
-						    "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
+			v31 =
+				loadString_sub_40F1D0((char*)&byte_587000[180944], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
 			nox_swprintf((wchar_t*)&byte_5D4594[1317000], L"%s ", v31);
 			v32 = (const wchar_t*)sub_425260(v1[108]);
 			nox_wcscat((wchar_t*)&byte_5D4594[1317000], v32);
@@ -289,8 +289,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 		}
 	} else {
 		v33 = nox_get_thing_name(v1[27]);
-		v5 = loadString_sub_40F1D0((char*)&byte_587000[180560], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
-					   53);
+		v5 = loadString_sub_40F1D0((char*)&byte_587000[180560], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 53);
 		nox_swprintf((wchar_t*)&byte_5D4594[1317000], v5, v33);
 		result = (wchar_t*)&byte_5D4594[1317000];
 	}

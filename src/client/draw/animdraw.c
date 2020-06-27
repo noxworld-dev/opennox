@@ -13,15 +13,13 @@ int __cdecl nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	v2 = dr->field_76;
 	switch (*(unsigned int*)(v2 + 12)) {
 	case 0:
-		v3 = (*(unsigned int*)&byte_5D4594[2598000] - dr->field_79) /
-		     ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
+		v3 = (*(unsigned int*)&byte_5D4594[2598000] - dr->field_79) / ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 		v7 = *(unsigned __int8*)(v2 + 8);
 		if (v3 >= v7)
 			v3 = v7 - 1;
 		goto LABEL_12;
 	case 1:
-		v3 = (*(unsigned int*)&byte_5D4594[2598000] - dr->field_79) /
-		     ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
+		v3 = (*(unsigned int*)&byte_5D4594[2598000] - dr->field_79) / ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 		if (v3 < *(unsigned __int8*)(v2 + 8))
 			goto LABEL_12;
 		sub_45A4E0_drawable(dr);
@@ -34,7 +32,7 @@ int __cdecl nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		if (nox_common_gameFlags_check_40A5C0(32)) {
 		LABEL_9:
 			v3 = (*(unsigned int*)&byte_5D4594[2598000] + dr->field_32) /
-			     ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
+				 ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 			goto LABEL_10;
 		}
 		if (dr->field_28 & 0x10000000)
@@ -45,8 +43,7 @@ int __cdecl nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	case 3:
 		v6 = 2 * *(unsigned __int8*)(v2 + 8);
 		nox_client_drawEnableAlpha_434560(1);
-		v3 = (*(unsigned int*)&byte_5D4594[2598000] - dr->field_79) /
-		     ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
+		v3 = (*(unsigned int*)&byte_5D4594[2598000] - dr->field_79) / ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 		if (v3 < v6) {
 			nox_client_drawSetAlpha_434580(-56 - 200 * v3 / v6);
 		LABEL_10:

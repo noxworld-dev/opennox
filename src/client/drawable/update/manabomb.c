@@ -39,22 +39,19 @@ int __cdecl sub_4CCAC0(int a1, _DWORD* a2) {
 		if (v5 > (int)v2)
 			v5 = v2;
 		v6 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 68);
-		v7 = sub_45A360_drawable(*(int*)&byte_5D4594[1522960],
-					 v3[3] + v5 * *(int*)&byte_587000[8 * v6 + 192088] / 16,
-					 v3[4] + v5 * *(int*)&byte_587000[8 * v6 + 192092] / 16);
+		v7 = sub_45A360_drawable(*(int*)&byte_5D4594[1522960], v3[3] + v5 * *(int*)&byte_587000[8 * v6 + 192088] / 16,
+								 v3[4] + v5 * *(int*)&byte_587000[8 * v6 + 192092] / 16);
 		v8 = v7;
 		if (v7) {
 			*(_DWORD*)(v7 + 432) = *(_DWORD*)(v7 + 12) << 12;
 			*(_DWORD*)(v7 + 436) = *(_DWORD*)(v7 + 16) << 12;
 			*(_BYTE*)(v7 + 299) = 0;
 			*(_DWORD*)(v7 + 440) = 0;
-			*(_DWORD*)(v7 + 448) =
-			    *(_DWORD*)&byte_5D4594[2598000] +
-			    sub_415FF0(10, 30, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 88);
+			*(_DWORD*)(v7 + 448) = *(_DWORD*)&byte_5D4594[2598000] +
+								   sub_415FF0(10, 30, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 88);
 			*(_DWORD*)(v8 + 444) = *(_DWORD*)&byte_5D4594[2598000];
 			*(_WORD*)(v8 + 104) = 0;
-			*(_BYTE*)(v8 + 296) =
-			    sub_415FF0(2, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 94);
+			*(_BYTE*)(v8 + 296) = sub_415FF0(2, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 94);
 			sub_45A110_drawable((_DWORD*)v8);
 		}
 		if (!--v19)

@@ -12,8 +12,7 @@ void __cdecl nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 	int v5;     // edx
 
 	if (dword_5d4594_1096640) {
-		if (*(_BYTE*)(dword_5d4594_1096640 + 112) & 6 &&
-		    !sub_495A80(*(_DWORD*)(dword_5d4594_1096640 + 128))) {
+		if (*(_BYTE*)(dword_5d4594_1096640 + 112) & 6 && !sub_495A80(*(_DWORD*)(dword_5d4594_1096640 + 128))) {
 			v4 = sub_415FF0(0, 1, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 440);
 			if (!v4) {
 				v3 = *(_DWORD**)&byte_5D4594[2598268];

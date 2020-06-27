@@ -52,18 +52,16 @@ int __cdecl sub_4746C0(_DWORD* a1, int a2) {
 				v18 = sub_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1051);
 				v14 = sub_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1050);
 				v10 = *(_DWORD*)(a2 + 16) + *(__int16*)(a2 + 104) +
-				      sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1048);
+					  sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1048);
 				v3 = sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1047);
-				sub_499F60(*(int*)&byte_5D4594[1096524], *(_DWORD*)(a2 + 12) + v3, v10, 1, v14, v18, 0,
-					   0, 0, v22);
+				sub_499F60(*(int*)&byte_5D4594[1096524], *(_DWORD*)(a2 + 12) + v3, v10, 1, v14, v18, 0, 0, 0, v22);
 				v23 = sub_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1066);
 				v19 = sub_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1062);
 				v15 = sub_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1061);
 				v11 = *(_DWORD*)(a2 + 16) + *(__int16*)(a2 + 104) +
-				      sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1059);
+					  sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1059);
 				v4 = sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1058);
-				sub_499F60(*(int*)&byte_5D4594[1096528], *(_DWORD*)(a2 + 12) + v4, v11, 1, v15, v19, 0,
-					   0, 0, v23);
+				sub_499F60(*(int*)&byte_5D4594[1096528], *(_DWORD*)(a2 + 12) + v4, v11, 1, v15, v19, 0, 0, 0, v23);
 				--v2;
 			} while (v2);
 		}
@@ -80,30 +78,25 @@ int __cdecl sub_4746C0(_DWORD* a1, int a2) {
 			v20 = sub_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1104);
 			v16 = sub_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1103);
 			v12 = *(_DWORD*)(a2 + 16) + *(__int16*)(a2 + 104) +
-			      sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1101);
+				  sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1101);
 			v6 = sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1100);
-			sub_499F60(*(int*)&byte_5D4594[1096532], *(_DWORD*)(a2 + 12) + v6, v12, 1, v16, v20, 0, 0, 0,
-				   v24);
+			sub_499F60(*(int*)&byte_5D4594[1096532], *(_DWORD*)(a2 + 12) + v6, v12, 1, v16, v20, 0, 0, 0, v24);
 			v25 = sub_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1119);
 			v21 = sub_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1115);
 			v17 = sub_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1114);
 			v13 = *(_DWORD*)(a2 + 16) + *(__int16*)(a2 + 104) +
-			      sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1112);
+				  sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1112);
 			v7 = sub_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1111);
-			sub_499F60(*(int*)&byte_5D4594[1096536], *(_DWORD*)(a2 + 12) + v7, v13, 1, v17, v21, 0, 0, 0,
-				   v25);
+			sub_499F60(*(int*)&byte_5D4594[1096536], *(_DWORD*)(a2 + 12) + v7, v13, 1, v17, v21, 0, 0, 0, v25);
 			--v5;
 		} while (v5);
 	}
 	if (sub_4356C0(a2, 17))
-		sub_474BE0(a1, (int*)(a2 + 12), a2, 0, 0, *(int*)&byte_5D4594[2650644], *(int*)&byte_5D4594[2589776],
-			   1);
+		sub_474BE0(a1, (int*)(a2 + 12), a2, 0, 0, *(int*)&byte_5D4594[2650644], *(int*)&byte_5D4594[2589776], 1);
 	if (sub_4356C0(a2, 18))
-		sub_474BE0(a1, (int*)(a2 + 12), a2, 85, 1, *(int*)&byte_5D4594[2618904], *(int*)&byte_5D4594[2614268],
-			   1);
+		sub_474BE0(a1, (int*)(a2 + 12), a2, 85, 1, *(int*)&byte_5D4594[2618904], *(int*)&byte_5D4594[2614268], 1);
 	if (sub_4356C0(a2, 20))
-		sub_474BE0(a1, (int*)(a2 + 12), a2, 170, 2, *(int*)&byte_5D4594[2650684], *(int*)&byte_5D4594[2523948],
-			   1);
+		sub_474BE0(a1, (int*)(a2 + 12), a2, 170, 2, *(int*)&byte_5D4594[2650684], *(int*)&byte_5D4594[2523948], 1);
 	if (!sub_4356C0(a2, 27) || (v8 = *(_BYTE*)(a2 + 297)) != 0 && v8 != 1 && v8 != 2)
 	LABEL_37:
 		result = 0;
@@ -187,7 +180,8 @@ int __cdecl sub_474E60(_DWORD* a1, int a2) {
 			sub_434600(1);
 			sub_433E40(*(int*)&byte_5D4594[2650684]);
 		}
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1096456], xLeft.field_0 - 64, xLeft.field_4 - 64);
+		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1096456], xLeft.field_0 - 64,
+													 xLeft.field_4 - 64);
 		sub_434600(0);
 	} else {
 		v4 = a1;
@@ -204,11 +198,9 @@ int __cdecl sub_474E60(_DWORD* a1, int a2) {
 			v36 = sub_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1303);
 			v34 = sub_415FF0(1, 2, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1302);
 			v32 = sub_415FF0(0, v44, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1301);
-			v30 = *(_DWORD*)(v2 + 16) +
-			      sub_415FF0(-v11, v11, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1300);
+			v30 = *(_DWORD*)(v2 + 16) + sub_415FF0(-v11, v11, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1300);
 			v13 = sub_415FF0(-v11, v11, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1299);
-			sub_499F60(*(int*)&byte_5D4594[1096544], *(_DWORD*)(v2 + 12) + v13, v30, v32, v34, v36, -5, 0,
-				   0, v40);
+			sub_499F60(*(int*)&byte_5D4594[1096544], *(_DWORD*)(v2 + 12) + v13, v30, v32, v34, v36, -5, 0, 0, v40);
 			--v12;
 		} while (v12);
 		v4 = a1;
@@ -251,14 +243,11 @@ int __cdecl sub_474E60(_DWORD* a1, int a2) {
 		} while (v16);
 	}
 	if (sub_4356C0(v2, 17))
-		sub_474BE0(v4, (int*)(v2 + 12), v2, 0, 0, *(int*)&byte_5D4594[2650644], *(int*)&byte_5D4594[2589776],
-			   0);
+		sub_474BE0(v4, (int*)(v2 + 12), v2, 0, 0, *(int*)&byte_5D4594[2650644], *(int*)&byte_5D4594[2589776], 0);
 	if (sub_4356C0(v2, 18))
-		sub_474BE0(v4, (int*)(v2 + 12), v2, 85, 1, *(int*)&byte_5D4594[2618904], *(int*)&byte_5D4594[2614268],
-			   0);
+		sub_474BE0(v4, (int*)(v2 + 12), v2, 85, 1, *(int*)&byte_5D4594[2618904], *(int*)&byte_5D4594[2614268], 0);
 	if (sub_4356C0(v2, 20))
-		sub_474BE0(v4, (int*)(v2 + 12), v2, 170, 2, *(int*)&byte_5D4594[2650684], *(int*)&byte_5D4594[2523948],
-			   0);
+		sub_474BE0(v4, (int*)(v2 + 12), v2, 170, 2, *(int*)&byte_5D4594[2650684], *(int*)&byte_5D4594[2523948], 0);
 	if (sub_4356C0(v2, 26)) {
 		sub_4739E0(v4, (int2*)(v2 + 12), &xLeft);
 		v23 = *(_DWORD*)(v2 + 276);

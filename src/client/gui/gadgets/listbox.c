@@ -84,7 +84,7 @@ _DWORD* __cdecl sub_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a
 				*(_DWORD*)&v25[52] = *(_DWORD*)&byte_5D4594[2589772];
 				*(_DWORD*)&v25[68] = *(_DWORD*)&byte_5D4594[2614256];
 				v16 = loadString_sub_40F1D0((char*)&byte_587000[169844], 0,
-							    "C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1483);
+											"C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1483);
 				nox_wcscpy((wchar_t*)&v25[72], v16);
 				v23 = 10;
 			} else {
@@ -108,7 +108,7 @@ _DWORD* __cdecl sub_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a
 				*(_DWORD*)&v25[52] = *(_DWORD*)&byte_5D4594[2589772];
 				*(_DWORD*)&v25[68] = *(_DWORD*)&byte_5D4594[2614256];
 				v18 = loadString_sub_40F1D0((char*)&byte_587000[169996], 0,
-							    "C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1519);
+											"C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1519);
 				nox_wcscpy((wchar_t*)&v25[72], v18);
 			} else {
 				*(_DWORD*)&v25[24] = sub_42F970("DefaultLBDownButton");
@@ -142,8 +142,7 @@ _DWORD* __cdecl sub_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a
 			*(_DWORD*)&v25[8] = 8;
 			v24[3] = 0;
 			*(_DWORD*)&v25[16] = v8;
-			*((_DWORD*)a8 + 9) =
-			    sub_4B4EE0((int)v8, v17, a5 - v19, v22 + v23, v19, v10 - 2 * v23, v25, (float*)v24);
+			*((_DWORD*)a8 + 9) = sub_4B4EE0((int)v8, v17, a5 - v19, v22 + v23, v19, v10 - 2 * v23, v25, (float*)v24);
 		}
 		v20 = (__int16*)nox_malloc(0x38u);
 		qmemcpy(v20, a8, 0x38u);

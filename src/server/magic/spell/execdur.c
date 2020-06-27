@@ -23,8 +23,8 @@ int __cdecl sub_530A30_spell_execdur(int a1) {
 	if (*(_BYTE*)(v3 + 8) & 4)
 		v2 = *(_DWORD*)(v3 + 748);
 	if (sub_411A90((float2*)(v1 + 52))) {
-		v4 = loadString_sub_40F1D0((char*)&byte_587000[260960], 0,
-					   "C:\\NoxPost\\src\\Server\\Magic\\Spell\\ExecDur.c", 2912);
+		v4 = loadString_sub_40F1D0((char*)&byte_587000[260960], 0, "C:\\NoxPost\\src\\Server\\Magic\\Spell\\ExecDur.c",
+								   2912);
 		sub_4D9EB0(*(_DWORD*)(v1 + 48), v4);
 		sub_501960(231, *(_DWORD*)(v1 + 48), 0, 0);
 		result = 1;

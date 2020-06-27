@@ -41,8 +41,8 @@ void __cdecl sub_41F620(int a1) {
 			sub_448620(v2);
 			if (v6 != -1 && sub_446C70() == -1) {
 				sub_452D80(226, 100);
-				v7 = loadString_sub_40F1D0((char*)&byte_587000[60020], 0,
-							   "C:\\NoxPost\\src\\common\\WolAPI\\woluser.c", 208);
+				v7 = loadString_sub_40F1D0((char*)&byte_587000[60020], 0, "C:\\NoxPost\\src\\common\\WolAPI\\woluser.c",
+										   208);
 				sub_447310(0, (int)v7);
 			}
 		}

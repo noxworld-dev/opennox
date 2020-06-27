@@ -14,10 +14,11 @@ extern int nox_win_height;
 #include "sdl2_scancode_to_dinput.h"
 extern _DWORD dword_5d4594_1193132;
 
-enum { MOUSE_MOTION,
-       MOUSE_BUTTON0,
-       MOUSE_BUTTON1,
-       MOUSE_BUTTON2,
+enum {
+	MOUSE_MOTION,
+	MOUSE_BUTTON0,
+	MOUSE_BUTTON1,
+	MOUSE_BUTTON2,
 };
 
 struct keyboard_event {
@@ -251,8 +252,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 		if (!finger)
 			return;
 
-		dist = sqrtf((event->x - finger->x) * (event->x - finger->x) +
-			     (event->y - finger->y) * (event->y - finger->y));
+		dist = sqrtf((event->x - finger->x) * (event->x - finger->x) + (event->y - finger->y) * (event->y - finger->y));
 		theta = atan2f(-event->y + finger->y, -event->x + finger->x) / M_PI;
 		ms = event->timestamp - finger->timestamp;
 
@@ -299,8 +299,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 		if (!finger)
 			return;
 
-		dist = sqrtf((event->x - finger->x) * (event->x - finger->x) +
-			     (event->y - finger->y) * (event->y - finger->y));
+		dist = sqrtf((event->x - finger->x) * (event->x - finger->x) + (event->y - finger->y) * (event->y - finger->y));
 		theta = atan2f(-event->y + finger->y, -event->x + finger->x) / M_PI;
 		ms = event->timestamp - finger->timestamp;
 
@@ -365,8 +364,7 @@ unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1) {
 		} else if (*(_DWORD*)&byte_5D4594[1193140]) {
 			result = *(_WORD*)&byte_5D4594[6 * (unsigned __int8)a1 + 1191576];
 		} else if (*(_DWORD*)&byte_5D4594[1193136] ||
-			   dword_5d4594_1193132 &&
-			       iswalpha(*(_WORD*)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572])) {
+				   dword_5d4594_1193132 && iswalpha(*(_WORD*)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572])) {
 
 			if (scrollLockStatus) {
 				result = asc_9800B0[3 * (unsigned __int8)a1 + 0x108];
@@ -527,18 +525,18 @@ signed int initMouse_sub_47D8D0() {
 
 	if (DirectInputCreateA(*(HINSTANCE*)&byte_5D4594[823784], 0x300u, &g_dinput_mouse, 0) < 0) {
 		v0 = loadString_sub_40F1D0("Dxinput.c:IM_CreateFailed", 0,
-					   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 73);
+								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 73);
 		sub_4516C0(v0);
 	}
 	if (g_dinput_mouse->lpVtbl->CreateDevice(g_dinput_mouse, &GUID_SysMouse, &g_device_mouse, 0) < 0) {
 		v0 = loadString_sub_40F1D0("Dxinput.c:IM_CreateDeviceFailed", 0,
-					   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 87);
+								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 87);
 		sub_4516C0(v0);
 	}
 	if (g_device_mouse->lpVtbl->SetCooperativeLevel(g_device_mouse, getWindowHandle_sub_401FD0(),
-							DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0) {
+													DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0) {
 		v0 = loadString_sub_40F1D0("Dxinput.c:IM_SetCoopFailed", 0,
-					   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 105);
+								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 105);
 		sub_4516C0(v0);
 	}
 	v4.diph.dwSize = 20;
@@ -548,17 +546,17 @@ signed int initMouse_sub_47D8D0() {
 	v4.dwData = 256;
 	if (g_device_mouse->lpVtbl->SetProperty(g_device_mouse, DIPROP_BUFFERSIZE, (LPCDIPROPHEADER)&v4) < 0) {
 		v0 = loadString_sub_40F1D0("Dxinput.c:IM_SetPropertyFailed", 0,
-					   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 123);
+								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 123);
 		sub_4516C0(v0);
 	}
 	if (g_device_mouse->lpVtbl->SetDataFormat(g_device_mouse, &c_dfDIMouse) < 0) {
 		v0 = loadString_sub_40F1D0("Dxinput.c:IM_SetFormatFailed", 0,
-					   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 135);
+								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 135);
 		sub_4516C0(v0);
 	}
 	if (g_device_mouse->lpVtbl->Acquire(g_device_mouse) < 0) {
 		v0 = loadString_sub_40F1D0("Dxinput.c:IM_AquireFailed", 0,
-					   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 147);
+								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 147);
 		sub_4516C0(v0);
 	}
 	v9.dwSize = 24;
@@ -660,14 +658,13 @@ UINT __cdecl sub_47D660(UINT uJoyID, int a2) {
 			*(_DWORD*)&byte_5D4594[v3 + 1189632] = 0;
 			if (joyGetDevCapsA(uJoyID, (LPJOYCAPSA)&byte_5D4594[404 * uJoyID + 1189700], 0x194u)) {
 				v4 = loadString_sub_40F1D0((char*)&byte_587000[153832], 0,
-							   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Jstick.c", 79);
+										   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Jstick.c", 79);
 				sub_4517A0(v4, uJoyID);
 				result = 0;
 			} else {
 				v6 = *(unsigned int*)&byte_5D4594[404 * uJoyID + 1189748];
 				*(_DWORD*)&byte_5D4594[48 * uJoyID + 1189636] =
-				    (__int64)(200.0 / (double)*(unsigned int*)&byte_5D4594[404 * uJoyID + 1189740] *
-					      1000000.0);
+					(__int64)(200.0 / (double)*(unsigned int*)&byte_5D4594[404 * uJoyID + 1189740] * 1000000.0);
 				v5 = (__int64)(200.0 / (double)v6 * 1000000.0);
 				HIDWORD(v5) = *(_DWORD*)&byte_5D4594[404 * uJoyID + 1189760];
 				*(_DWORD*)&byte_5D4594[48 * uJoyID + 1189640] = v5;
@@ -696,10 +693,10 @@ DWORD* __cdecl sub_47D7A0(DWORD* a1, UINT uJoyID) {
 	} else {
 		a1[2] = pji.dwButtons;
 		*a1 = *(_DWORD*)&byte_5D4594[48 * uJoyID + 1189636] *
-		      (pji.dwXpos - *(_DWORD*)&byte_5D4594[404 * uJoyID + 1189736]) / 0xF4240;
+			  (pji.dwXpos - *(_DWORD*)&byte_5D4594[404 * uJoyID + 1189736]) / 0xF4240;
 		v3 = *a1;
 		a1[1] = *(_DWORD*)&byte_5D4594[48 * uJoyID + 1189640] *
-			(pji.dwYpos - *(_DWORD*)&byte_5D4594[404 * uJoyID + 1189744]) / 0xF4240;
+				(pji.dwYpos - *(_DWORD*)&byte_5D4594[404 * uJoyID + 1189744]) / 0xF4240;
 		v4 = a1[1];
 		*a1 = *(_DWORD*)&byte_5D4594[48 * uJoyID + 1189604] + v3;
 		a1[1] = *(_DWORD*)&byte_5D4594[48 * uJoyID + 1189608] + v4;
@@ -725,28 +722,27 @@ void sub_47FB10() {
 	DIPROPDWORD v15; // [esp+24h] [ebp-14h]
 
 	if (DirectInputCreateA(*(HINSTANCE*)&byte_5D4594[823784], 0x300u, &g_dinput_keyboard, 0) < 0) {
-		v0 = loadString_sub_40F1D0("Dxinput.c:OK_CreateFailed", 0,
-					   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 827);
+		v0 = loadString_sub_40F1D0("Dxinput.c:OK_CreateFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
+								   827);
 		sub_4516C0(v0);
 	}
 
-	if (g_dinput_keyboard->lpVtbl->CreateDevice(g_dinput_keyboard, &GUID_SysKeyboard, &g_device_keyboard, NULL) <
-	    0) {
+	if (g_dinput_keyboard->lpVtbl->CreateDevice(g_dinput_keyboard, &GUID_SysKeyboard, &g_device_keyboard, NULL) < 0) {
 		v1 = loadString_sub_40F1D0("Dxinput.c:OK_CreateDeviceFailed", 0,
-					   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 841);
+								   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 841);
 		sub_4516C0(v1);
 	}
 
 	if (g_device_keyboard->lpVtbl->SetDataFormat(g_device_keyboard, &c_dfDIKeyboard) < 0) {
-		v2 = loadString_sub_40F1D0("Dxinput.c:OK_SetFormatFailed", 0,
-					   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 853);
+		v2 = loadString_sub_40F1D0("Dxinput.c:OK_SetFormatFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
+								   853);
 		sub_4516C0(v2);
 	}
 
 	if (g_device_keyboard->lpVtbl->SetCooperativeLevel(g_device_keyboard, getWindowHandle_sub_401FD0(),
-							   DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0) {
-		v5 = loadString_sub_40F1D0("Dxinput.c:OK_SetCoopFailed", 0,
-					   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 868);
+													   DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0) {
+		v5 = loadString_sub_40F1D0("Dxinput.c:OK_SetCoopFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
+								   868);
 		sub_4516C0(v5);
 	}
 
@@ -757,13 +753,13 @@ void sub_47FB10() {
 	v15.dwData = 256;
 	if (g_device_keyboard->lpVtbl->SetProperty(g_device_keyboard, DIPROP_BUFFERSIZE, &v15) < 0) {
 		v6 = loadString_sub_40F1D0("Dxinput.c:OK_SetPropertyFailed", 0,
-					   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 886);
+								   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 886);
 		sub_4516C0(v6);
 	}
 
 	if (g_device_keyboard->lpVtbl->Acquire(g_device_keyboard) < 0) {
-		v7 = loadString_sub_40F1D0("Dxinput.c:OK_AquireFailed", 0,
-					   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 899);
+		v7 = loadString_sub_40F1D0("Dxinput.c:OK_AquireFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
+								   899);
 		sub_4516C0(v7);
 	}
 
@@ -781,54 +777,54 @@ void sub_47FB10() {
 
   scrollLockStatus = GetKeyState(145);
   if ( a1 > 0xFFu )
-    return a1;
+	return a1;
   if ( a1 == 42 || a1 == 54 )
   {
-    *(_DWORD *)&byte_5D4594[1193136] = sub_430970(a1) == 2;
-    return 0;
+	*(_DWORD *)&byte_5D4594[1193136] = sub_430970(a1) == 2;
+	return 0;
   }
   if ( a1 != 58 )
   {
-    if ( (_BYTE)a1 == byte_5D4594[1193144] )
-    {
-      *(_DWORD *)&byte_5D4594[1193140] = sub_430970(a1) == 2;
-      result = 0;
-    }
-    else if ( *(_DWORD *)&byte_5D4594[1193140] )
-    {
-      result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191576];
-    }
-    else if ( *(_DWORD *)&byte_5D4594[1193136]
+	if ( (_BYTE)a1 == byte_5D4594[1193144] )
+	{
+	  *(_DWORD *)&byte_5D4594[1193140] = sub_430970(a1) == 2;
+	  result = 0;
+	}
+	else if ( *(_DWORD *)&byte_5D4594[1193140] )
+	{
+	  result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191576];
+	}
+	else if ( *(_DWORD *)&byte_5D4594[1193136]
 	   || *(_DWORD *)&dword_5d4594_1193132
 	   && iswalpha(*(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572]) )
-    {
+	{
 
 	if (scrollLockStatus)
 	{
-	    result = asc_9800B0[3 * (unsigned __int8)a1 + 0x108];
+		result = asc_9800B0[3 * (unsigned __int8)a1 + 0x108];
 	}
 	else
 	{
 	  result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191574];
 	}
-    }
-    else
-    {
-	if (scrollLockStatus)
-	{
-	    result = asc_9800B0[3 * (unsigned __int8)a1];
 	}
 	else
 	{
-	    result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572];
+	if (scrollLockStatus)
+	{
+		result = asc_9800B0[3 * (unsigned __int8)a1];
 	}
-    }
-    return result;
+	else
+	{
+		result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572];
+	}
+	}
+	return result;
   }
   if ( sub_430950(a1) )
-    return 0;
+	return 0;
   if ( sub_430970(a1) == 2 )
-    *(_DWORD *)&dword_5d4594_1193132 = 1 - *(_DWORD *)&dword_5d4594_1193132;
+	*(_DWORD *)&dword_5d4594_1193132 = 1 - *(_DWORD *)&dword_5d4594_1193132;
   sub_4309B0(a1, 1);
   return 0;
 }*/

@@ -12,109 +12,109 @@ extern int dword_5d4594_3484;
 // Data declarations
 
 keyCodeStruct keycodeArray[] = {
-    {183u, "print scren"},
-    {210u, "insert"},
-    {211u, "delete"},
-    {199u, "home"},
-    {207u, "end"},
-    {197u, "pause break"},
-    {41u, "~"},
-    {2u, "1"},
-    {3u, "2"},
-    {4u, "3"},
-    {5u, "4"},
-    {6u, "5"},
-    {7u, "6"},
-    {8u, "7"},
-    {9u, "8"},
-    {10u, "9"},
-    {11u, "0"},
-    {12u, "-"},
-    {13u, "="},
-    {14u, "backspace"},
-    {181u, "num /"},
-    {55u, "num *"},
-    {74u, "num -"},
-    {71u, "num 7"},
-    {72u, "num 8"},
-    {73u, "num 9"},
-    {75u, "num 4"},
-    {76u, "num 5"},
-    {77u, "num 6"},
-    {79u, "num 1"},
-    {80u, "num 2"},
-    {81u, "num 3"},
-    {78u, "num +"},
-    {82u, "num 0"},
-    {83u, "del"},
-    {156u, "enter2"},
-    {15u, "tab"},
-    {16u, "q"},
-    {17u, "w"},
-    {18u, "e"},
-    {19u, "r"},
-    {20u, "t"},
-    {21u, "y"},
-    {22u, "u"},
-    {23u, "i"},
-    {24u, "o"},
-    {25u, "p"},
-    {26u, "["},
-    {27u, "]"},
-    {28u, "enter"},
-    {30u, "a"},
-    {31u, "s"},
-    {32u, "d"},
-    {33u, "f"},
-    {34u, "g"},
-    {35u, "h"},
-    {36u, "j"},
-    {37u, "k"},
-    {38u, "l"},
-    {39u, ";"},
-    {40u, "'"},
-    {43u, "\\"},
-    {42u, "left shift"},
-    {86u, "|"},
-    {44u, "z"},
-    {45u, "x"},
-    {46u, "c"},
-    {47u, "v"},
-    {48u, "b"},
-    {49u, "n"},
-    {50u, "m"},
-    {51u, ","},
-    {52u, "."},
-    {53u, "/"},
-    {54u, "right shift"},
-    {29u, "left ctrl"},
-    {56u, "left alt"},
-    {57u, "spacebar"},
-    {184u, "right alt"},
-    {201u, "page up"},
-    {209u, "page down"},
-    {157u, "right ctrl"},
-    {200u, "up"},
-    {203u, "left"},
-    {208u, "down"},
-    {205u, "right"},
-    {0, 0},
+	{183u, "print scren"},
+	{210u, "insert"},
+	{211u, "delete"},
+	{199u, "home"},
+	{207u, "end"},
+	{197u, "pause break"},
+	{41u, "~"},
+	{2u, "1"},
+	{3u, "2"},
+	{4u, "3"},
+	{5u, "4"},
+	{6u, "5"},
+	{7u, "6"},
+	{8u, "7"},
+	{9u, "8"},
+	{10u, "9"},
+	{11u, "0"},
+	{12u, "-"},
+	{13u, "="},
+	{14u, "backspace"},
+	{181u, "num /"},
+	{55u, "num *"},
+	{74u, "num -"},
+	{71u, "num 7"},
+	{72u, "num 8"},
+	{73u, "num 9"},
+	{75u, "num 4"},
+	{76u, "num 5"},
+	{77u, "num 6"},
+	{79u, "num 1"},
+	{80u, "num 2"},
+	{81u, "num 3"},
+	{78u, "num +"},
+	{82u, "num 0"},
+	{83u, "del"},
+	{156u, "enter2"},
+	{15u, "tab"},
+	{16u, "q"},
+	{17u, "w"},
+	{18u, "e"},
+	{19u, "r"},
+	{20u, "t"},
+	{21u, "y"},
+	{22u, "u"},
+	{23u, "i"},
+	{24u, "o"},
+	{25u, "p"},
+	{26u, "["},
+	{27u, "]"},
+	{28u, "enter"},
+	{30u, "a"},
+	{31u, "s"},
+	{32u, "d"},
+	{33u, "f"},
+	{34u, "g"},
+	{35u, "h"},
+	{36u, "j"},
+	{37u, "k"},
+	{38u, "l"},
+	{39u, ";"},
+	{40u, "'"},
+	{43u, "\\"},
+	{42u, "left shift"},
+	{86u, "|"},
+	{44u, "z"},
+	{45u, "x"},
+	{46u, "c"},
+	{47u, "v"},
+	{48u, "b"},
+	{49u, "n"},
+	{50u, "m"},
+	{51u, ","},
+	{52u, "."},
+	{53u, "/"},
+	{54u, "right shift"},
+	{29u, "left ctrl"},
+	{56u, "left alt"},
+	{57u, "spacebar"},
+	{184u, "right alt"},
+	{201u, "page up"},
+	{209u, "page down"},
+	{157u, "right ctrl"},
+	{200u, "up"},
+	{203u, "left"},
+	{208u, "down"},
+	{205u, "right"},
+	{0, 0},
 };
 int keycodeArraySize = sizeof(keycodeArray) / sizeof(keyCodeStruct);
 char* EndOfKeyCodeArray = 0;                          // weak
 int DefaultPacket[4] = {171901697, 1, 347, 44391266}; // weak
 unsigned __int8 functionalKeyCodes[] = {2u, 3u, 4u, 5u, 6u, 156u, 0u};
 wchar_t wndEntryNames[5][35] = {
-    {119u, 97u,  114u, 114u, 105u, 111u, 114u, 115u, 32u, 108u, 105u, 107u, 101u, 32u, 115u, 104u, 105u, 101u,
-     108u, 100u, 115u, 0u,   0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u},
-    {119u, 97u, 108u, 107u, 105u, 110u, 103u, 32u, 119u, 105u, 116u, 104u, 32u, 115u, 119u, 111u, 114u, 100u,
-     32u,  98u, 108u, 111u, 99u,  107u, 0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u},
-    {119u, 101u, 97u, 112u, 111u, 110u, 32u, 114u, 111u, 108u, 108u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-     0u,   0u,   0u,  0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u, 0u, 0u, 0u, 0u, 0u},
-    {115u, 104u, 105u, 101u, 108u, 100u, 32u,  38u,  32u,  98u, 101u, 114u, 115u, 101u, 114u, 107u, 101u, 114u,
-     32u,  98u,  108u, 111u, 99u,  107u, 105u, 110u, 103u, 0u,  0u,   0u,   0u,   0u,   0u,   0u,   0u},
-    {101u, 120u, 116u, 101u, 110u, 115u, 105u, 111u, 110u, 32u, 109u, 101u, 115u, 115u, 97u, 103u, 101u, 115u,
-     0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u}};
+	{119u, 97u,  114u, 114u, 105u, 111u, 114u, 115u, 32u, 108u, 105u, 107u, 101u, 32u, 115u, 104u, 105u, 101u,
+	 108u, 100u, 115u, 0u,   0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u},
+	{119u, 97u, 108u, 107u, 105u, 110u, 103u, 32u, 119u, 105u, 116u, 104u, 32u, 115u, 119u, 111u, 114u, 100u,
+	 32u,  98u, 108u, 111u, 99u,  107u, 0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u},
+	{119u, 101u, 97u, 112u, 111u, 110u, 32u, 114u, 111u, 108u, 108u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	 0u,   0u,   0u,  0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u, 0u, 0u, 0u, 0u, 0u},
+	{115u, 104u, 105u, 101u, 108u, 100u, 32u,  38u,  32u,  98u, 101u, 114u, 115u, 101u, 114u, 107u, 101u, 114u,
+	 32u,  98u,  108u, 111u, 99u,  107u, 105u, 110u, 103u, 0u,  0u,   0u,   0u,   0u,   0u,   0u,   0u},
+	{101u, 120u, 116u, 101u, 110u, 115u, 105u, 111u, 110u, 32u, 109u, 101u, 115u, 115u, 97u, 103u, 101u, 115u,
+	 0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u}};
 unsigned __int8 serverData[64];
 char someSwitch = 0;        // weak
 char isInvalidIp = 0;       // weak
@@ -447,11 +447,11 @@ int __cdecl sendtoWrapper(char* buf, int len, int smth) {
 	int result; // eax
 
 	if (buf && len && (v3 = *(SOCKET**)getMem(4 * MEMACCESS(0x69B7E8) + 0x97EC60)) != 0 // 0x97EC60 = netstructList
-											    // 0x69B7E8 = netSocketData
-	    && 4 * MEMACCESS(0x69B7E8) != 0xFF6813A0                                        // Seems to be bug
-						     // lea     eax, ds:97EC60h[eax*4]
-						     // test    eax, eax
-	    && (v4 = *(_DWORD*)getMem(4 * MEMACCESS(0x69B7E8) + 0x97EC60)) != 0) {
+																						// 0x69B7E8 = netSocketData
+		&& 4 * MEMACCESS(0x69B7E8) != 0xFF6813A0                                        // Seems to be bug
+												 // lea     eax, ds:97EC60h[eax*4]
+												 // test    eax, eax
+		&& (v4 = *(_DWORD*)getMem(4 * MEMACCESS(0x69B7E8) + 0x97EC60)) != 0) {
 		result = sendto(*v3, buf, len, 0, (const struct sockaddr*)(v4 + 4), 16);
 	} else {
 		result = 0; // A call here is lost? - nope, as somehow the checks in ASM denies it completely
@@ -511,7 +511,7 @@ int __usercall copyServerMatchData(char* a1) {
 	a1[44] = MEMACCESS(0x62F136);
 	a1[45] = MEMACCESS(0x62F134);
 	a1[37] = sub_409F40(2);
-	//a1[38] = MEMACCESS(0x5D5331); // serverRuleFlags + 1
+	// a1[38] = MEMACCESS(0x5D5331); // serverRuleFlags + 1
 	a1[38] = *(int*)((char*)&dword_5d4594_3484 + 1);
 	*((_DWORD*)a1 + 12) = 65540;
 	*((_WORD*)a1 + 26) = nox_win_height_1;
@@ -628,14 +628,11 @@ char __cdecl playerDoAutoShield(int playerObj, char a2) {
 				weapFlags = sub_415820(v3); // weaponEquipFlags
 				if (weapFlags) {
 					if (weapFlags != 2) {
-						if (sub_57B3D0(v3,
-							       *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 748) + 276) +
-									 2251))) {
+						if (sub_57B3D0(v3, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 748) + 276) + 2251))) {
 							v11 = sub_4F3180(playerObj, v3);
 							if (v11) {
-								if (sub_4F2FB0((_DWORD*)playerObj, v3) &&
-								    sub_4F2F70((_DWORD*)playerObj,
-									       v3)) // dequip&equip item
+								if (sub_4F2FB0((_DWORD*)playerObj, v3) && sub_4F2F70((_DWORD*)playerObj,
+																					 v3)) // dequip&equip item
 									v16 = 1;
 								return v16;
 							}
@@ -648,9 +645,7 @@ char __cdecl playerDoAutoShield(int playerObj, char a2) {
 				v6 = sub_415820(i); // weaponEquipFlags
 				if (v6) {
 					if (v6 != 2) {
-						if (sub_57B3D0(
-							i, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114) +
-								     0x8CB))) {
+						if (sub_57B3D0(i, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114) + 0x8CB))) {
 							v8 = sub_4F3180(playerObj, i);
 							if (v8) {
 								if (sub_4F2F70((_DWORD*)playerObj, i))
@@ -690,7 +685,7 @@ char __cdecl playerDropATrap(int playerObj) {
 	// v5 = *(_DWORD *)(v2 + 0xE34);
 	v6 = &v4;
 	if (!(*(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114) + 0xE60) & 3) // check playerGameStatus/isObs
-	    && *(_BYTE*)(*(_DWORD*)(playerObj + 0x2EC) + 0x58) != 1) {
+		&& *(_BYTE*)(*(_DWORD*)(playerObj + 0x2EC) + 0x58) != 1) {
 		for (i = *(_DWORD*)(playerObj + 0x1F8); i; i = *(_DWORD*)(i + 0x1F0)) {
 			if (*(_BYTE*)(i + 0xA) == v7) // check if something from *(byte*)(unit+0xA)=17
 			{
@@ -737,7 +732,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 							break;
 						currentFileBufferPntr = *((_BYTE*)fileBuffer + fileBufferOffset);
 						if (currentFileBufferPntr == 44 || fileBufferOffset == fileSize ||
-						    currentFileBufferPntr == 32 || currentFileBufferPntr == 10) {
+							currentFileBufferPntr == 32 || currentFileBufferPntr == 10) {
 							if (v9) {
 								NumberOfBytesRead = inet_addr(cp);
 								sub_555010(NumberOfBytesRead, a2, (char*)a1, a3);
@@ -749,7 +744,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 								v9 = 0;
 							}
 						} else if (currentFileBufferPntr > 41 && currentFileBufferPntr < 64 ||
-							   currentFileBufferPntr == 46) {
+								   currentFileBufferPntr == 46) {
 							cp[v9++] = currentFileBufferPntr;
 						}
 						++fileBufferOffset;
@@ -770,7 +765,7 @@ unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a
 
 	for (it = da_begin(gameIps), end = da_end(gameIps); it != end; ++it) {
 		sub_555010(*it, a1, (char*)a2,
-			   a3); // Вызывает какую-то функцию которая создаёт структуру сокета и отпр 16 байт
+				   a3); // Вызывает какую-то функцию которая создаёт структуру сокета и отпр 16 байт
 	}
 	return end;
 }
@@ -1133,7 +1128,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 	*(_DWORD*)vaArg1_1 = vaArg1;
 	result = (_DWORD*)(a1 - 257);
 	switch (a1) // нет кейсов 256, 262, но на них есть ссылки из экзе
-		    //  -- видимо микс вырезал функционал
+				//  -- видимо микс вырезал функционал
 	{
 	case 257:
 		MEMACCESS(0x97EBC0) = 0;
@@ -1151,7 +1146,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 		GameIpParser(v4, a2, v3);
 		return (_DWORD*)pingAllServersInGameIp(v4, v1, a2, v4, v3);
 	case 261: // вызывается при обновлении параметров сервера через гуй
-		  // Просто копирует данные из сервера в переменную serverData
+			  // Просто копирует данные из сервера в переменную serverData
 		copyServerMatchData((char*)v24);
 		result = (_DWORD*)64;
 		v5 = 0;
@@ -1170,7 +1165,8 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 	case 265:
 		a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1;
 		result = (_DWORD*)((unsigned __int8)vaArg2 - 2);
-		if ((unsigned __int8)vaArg2 == 2 && (_DWORD*)MEMACCESS(0x6D8555-1) == result) { // TODO: memaccess was 1 byte off
+		if ((unsigned __int8)vaArg2 == 2 &&
+			(_DWORD*)MEMACCESS(0x6D8555 - 1) == result) { // TODO: memaccess was 1 byte off
 			if ((MEMACCESS(0x98085A) >> 3) & 1) {
 				result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
 				if (result) {
@@ -1182,8 +1178,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 							if (!(_BYTE)result) {
 								LOBYTE(result) = playerDoAutoShield(v6, a2a);
 								if ((_BYTE)result)
-									result =
-									    sub_452D80(895, 100); // clientPlaySound
+									result = sub_452D80(895, 100); // clientPlaySound
 							}
 						}
 					} else {
@@ -1208,8 +1203,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 		}
 		vaArg1_1[1] = v8;
 		if ((MEMACCESS(0x98085A) >> 3) & 1) {
-			result = (_DWORD*)nox_common_gameFlags_check_40A5C0(
-			    0x204); // проверяет какие-то неизвестные пока геймфлаги
+			result = (_DWORD*)nox_common_gameFlags_check_40A5C0(0x204); // проверяет какие-то неизвестные пока геймфлаги
 			if (result) {
 				if (MEMACCESS(0x6D8538) || MEMACCESS(0x6D855D))
 					return result;
@@ -1301,7 +1295,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 			memset(inputNewIpMsgBox, 0, 0x200u);
 			*(_DWORD*)&inputNewIpMsgBox[376] = inputNewIp_;
 			result = sub_449A10((int)inputNewIpMsgBox, (int)L"Ip Address", (int)L"Enter address", 163,
-					    (int (*)(void))startInvalidIpChecker, 0);
+								(int (*)(void))startInvalidIpChecker, 0);
 		}
 		return result;
 	case 420:

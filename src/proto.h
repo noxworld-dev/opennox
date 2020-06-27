@@ -2566,7 +2566,7 @@ int sub_46B330(int a1, int a2, int a3, int a4);
 int __cdecl sub_46B340(int a1, int (*a2)(int, int));
 int __cdecl sub_46B370(int a1, int* a2);
 int __cdecl nox_window_set_all_funcs(nox_window* win, int (*a2)(int, int, int, int), int (*draw)(nox_window*, void*),
-				     void* a4);
+									 void* a4);
 int __cdecl nox_window_call_field_94(nox_window* win, int a2, int a3, int a4);
 int __cdecl nox_window_call_field_93(nox_window* win, int a2, int a3, int a4);
 int sub_46B4F0();
@@ -2581,7 +2581,7 @@ int __cdecl sub_46C2A0(int a1);
 void mainloop_draw();
 int __cdecl nox_window_draw_recursive(nox_window* a1);
 nox_window* __cdecl nox_window_new(nox_window* a1, int flags, int a3, int a4, int w, int h,
-				   int (*fnc)(int, int, int, int));
+								   int (*fnc)(int, int, int, int));
 int __cdecl sub_46C4E0(_DWORD* a1);
 int sub_46C5D0();
 int sub_46C610();
@@ -3356,10 +3356,10 @@ int sub_4A0D10();
 BOOL __cdecl sub_4A0D40(int* a1, FILE* a2, char* a3);
 _DWORD* __cdecl sub_4A0D80_parse_window(FILE* a1, char* a2, int (*a3)(int, int, int, int));
 nox_window* __cdecl sub_4A1440_parse_window(const char* a1, int a2, int a3, wchar_t* a4, int a5, int a6, int a7,
-					    _DWORD* a8, float* a9, int (*a10)(int, int, int, int));
+											_DWORD* a8, float* a9, int (*a10)(int, int, int, int));
 int sub_4A14F0();
 nox_window* __cdecl sub_4A1510_parse_window(const char* a1, int a2, int a3, wchar_t* a4, int a5, int a6, int a7,
-					    _DWORD* a8, float* a9);
+											_DWORD* a8, float* a9);
 BOOL __cdecl sub_4A1780(int a1, FILE* a2, char* a3);
 int sub_4A18A0();
 int __cdecl sub_4A18C0(int a1);
@@ -5051,7 +5051,7 @@ int __cdecl sub_4FEAE0(int a1);
 _DWORD* __cdecl sub_4FEB10(int a1, int a2);
 unsigned int __cdecl sub_4FEB60(int a1, int a2);
 int __cdecl sub_4FEBA0(int a1, int a2, _DWORD* a3, int a4, _DWORD* a5, int a6, int(__cdecl* a7)(_WORD*), int a8, int a9,
-		       int a10);
+					   int a10);
 int __cdecl sub_4FED40(int a1);
 int sub_4FED70();
 void __cdecl sub_4FEDA0(int* a1);
@@ -5142,7 +5142,8 @@ int __cdecl sub_502370(int a1, void* a2);
 unsigned __int8* __cdecl sub_502490(int* a1, int a2, int a3);
 void __cdecl sub_5025A0(int a1, int a2, int a3);
 int __cdecl sub_5025E0(int a1, int a2, int a3);
-void __cdecl nox_server_scriptExecuteFnForEachGroupObj_502670(unsigned __int8* a1, int a2, void(__cdecl* a3)(int, int), int a4);
+void __cdecl nox_server_scriptExecuteFnForEachGroupObj_502670(unsigned __int8* a1, int a2, void(__cdecl* a3)(int, int),
+															  int a4);
 int __cdecl sub_502790(FILE* a1, char* a2);
 char* sub_5028E0();
 int __cdecl sub_5029A0(char* a1);
@@ -6881,9 +6882,9 @@ int __cdecl sub_558990(int a1, int a2, void* a3, unsigned int a4);
 _DWORD* __cdecl sub_5589B0(int a1, int a2, _DWORD* lpMem, size_t a4);
 int __cdecl sub_558A20(int a1, int a2, void* a3, unsigned int a4);
 char __cdecl sub_558AA0(_DWORD* a1, _DWORD* a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7,
-			int a8, char a9);
+						int a8, char a9);
 void __cdecl sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9,
-			int a10, int a11, int a12);
+						int a10, int a11, int a12);
 _DWORD* __thiscall sub_559AA0(_DWORD* this);
 int __thiscall sub_559AB0(int this);
 _BYTE* __thiscall sub_559AD0(_BYTE* this);

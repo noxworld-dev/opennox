@@ -56,38 +56,39 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 		switch (v6) {
 		case 1:
 			v10 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[151952], 0,
-							      "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 199);
+												  "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 199);
 			sub_43F6E0(0, v10, v3 + 54, a3 - v5);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097224], v3, v4);
 			break;
 		case 2:
 			v7 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[151816], 0,
-							     "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 176);
+												 "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 176);
 			sub_43F6E0(0, v7, v3 + 49, v5 + a3);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097228], v3, v4);
 			goto LABEL_16;
 		case 3:
 			v8 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[151860], 0,
-							     "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 185);
+												 "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 185);
 			sub_43F6E0(0, v8, v3 + 39, a3 - v5);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097232], v3, v4);
 			break;
 		case 4:
 			v9 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[151908], 0,
-							     "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 192);
+												 "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 192);
 			sub_43F6E0(0, v9, v3 + 49, a3 - v5);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097236], v3, v4);
 			break;
 		case 6:
 		case 7:
 			v11 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[151996], 0,
-							      "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 207);
+												  "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 207);
 			sub_43F6E0(0, v11, v3 + 49, v4 + 88);
-			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(_DWORD*)&byte_5D4594[4 * nox_client_mouseCursorType + 1097220], v3, v4);
+			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(
+				*(_DWORD*)&byte_5D4594[4 * nox_client_mouseCursorType + 1097220], v3, v4);
 			break;
 		case 8:
 			v12 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[152044], 0,
-							      "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 214);
+												  "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 214);
 			sub_43F6E0(0, v12, v3 + 49, a3 - v5);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097252], v3, v4);
 			dword_5d4594_1097208 = 2 * v5 + 4;
@@ -100,7 +101,7 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			break;
 		case 13:
 			v13 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[152088], 0,
-							      "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 223);
+												  "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 223);
 			sub_43F6E0(0, v13, v3 + 54, v5 + a3);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&byte_5D4594[1097272], v3, v4);
 		LABEL_16:
@@ -113,7 +114,7 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			// dprintf("cur %f %f %d", v19.field_0, v19.field_4, sub_509ED0(&v19));
 			v15 = sub_509ED0(&v19) / 8;
 			if (v19.field_4 * v19.field_4 + v19.field_0 * v19.field_0 > 10000.0 ||
-			    *(_DWORD*)&byte_5D4594[2614252] && *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 276) == 6) {
+				*(_DWORD*)&byte_5D4594[2614252] && *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 276) == 6) {
 				v15 += 32;
 			}
 			v16 = sub_476F80();

@@ -19,8 +19,7 @@ int __cdecl sub_4952E0(_WORD* a1) {
 
 	if (a1[1] && (v1 = sub_417040((unsigned __int16)a1[1])) != 0) {
 		v8 = (int)(v1 + 4704);
-		v2 = loadString_sub_40F1D0((char*)&byte_587000[161432], 0,
-					   "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 48);
+		v2 = loadString_sub_40F1D0((char*)&byte_587000[161432], 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 48);
 		nox_swprintf(v13, v2, v8);
 		if (a1[2]) {
 			v3 = sub_417040((unsigned __int16)a1[2]);
@@ -30,18 +29,16 @@ int __cdecl sub_4952E0(_WORD* a1) {
 			}
 		}
 	} else {
-		v9 = loadString_sub_40F1D0((char*)&byte_587000[161512], 0,
-					   "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 65);
-		v4 = loadString_sub_40F1D0((char*)&byte_587000[161576], 0,
-					   "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 64);
+		v9 = loadString_sub_40F1D0((char*)&byte_587000[161512], 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 65);
+		v4 = loadString_sub_40F1D0((char*)&byte_587000[161576], 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 64);
 		nox_swprintf(v13, v4, v9);
 	}
 	if (a1[3]) {
 		v5 = sub_417040((unsigned __int16)a1[3]);
 		if (v5) {
 			v10 = (int)(v5 + 4704);
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[161644], 0,
-						   "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 72);
+			v6 = loadString_sub_40F1D0((char*)&byte_587000[161644], 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c",
+									   72);
 			nox_swprintf(v11, v6, v10);
 		}
 	}

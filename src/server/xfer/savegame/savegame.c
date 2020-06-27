@@ -205,7 +205,7 @@ int __cdecl sub_4DB370_savegame(const char* a1) {
 		return 0;
 	if (strcmp(a1, "WORKING")) {
 		v10 = loadString_sub_40F1D0((char*)&byte_587000[199312], 0,
-					    "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 661);
+									"C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 661);
 		sub_4D9FD0(0, v10);
 		if (!sub_4DC100((int)&byte_587000[199332], (int)a1))
 			return 0;
@@ -237,7 +237,7 @@ char* __cdecl sub_4DB7E0_savegame(const char* a1) {
 			nox_sprintf(FileName, "%s\\Save\\%s\\Player.plr", v3, &byte_587000[199424]);
 			if (_access(FileName, 0) == -1) {
 				v4 = loadString_sub_40F1D0((char*)&byte_587000[199504], 0,
-							   "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 755);
+										   "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 755);
 				sub_4D9FD0(0, v4);
 				result = 0;
 			} else {
@@ -253,8 +253,8 @@ char* __cdecl sub_4DB7E0_savegame(const char* a1) {
 					nox_sprintf(v8, "%s.map", v1 + 4760);
 					sub_409D70(v8);
 					v6 = sub_409E10();
-					nox_sprintf((char*)&byte_5D4594[1559960], "%s\\Save\\%s\\%s\\%s.map", v6,
-						    &byte_587000[199532], v1 + 4760, v1 + 4760);
+					nox_sprintf((char*)&byte_5D4594[1559960], "%s\\Save\\%s\\%s\\%s.map", v6, &byte_587000[199532],
+								v1 + 4760, v1 + 4760);
 					sub_4D2450(v8);
 					sub_44E0B0(0);
 					result = (char*)sub_41A480(FileName);
@@ -262,9 +262,8 @@ char* __cdecl sub_4DB7E0_savegame(const char* a1) {
 						sub_450B70();
 						sub_445450();
 						sub_528D60();
-						v7 = loadString_sub_40F1D0(
-						    (char*)&byte_587000[199612], 0,
-						    "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 824);
+						v7 = loadString_sub_40F1D0((char*)&byte_587000[199612], 0,
+												   "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 824);
 						sub_4D9FD0(0, v7);
 						result = (char*)1;
 					}

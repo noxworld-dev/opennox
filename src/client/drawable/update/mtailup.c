@@ -54,9 +54,8 @@ void __cdecl sub_4CDD80(int a1, _DWORD* a2) {
 			*(_DWORD*)(v11 + 436) = v2[4] << 12;
 			*(_BYTE*)(v11 + 299) = 0;
 			*(_DWORD*)(v11 + 440) = 0;
-			*(_DWORD*)(v11 + 448) =
-			    *(_DWORD*)&byte_5D4594[2598000] +
-			    sub_415FF0(10, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 90);
+			*(_DWORD*)(v11 + 448) = *(_DWORD*)&byte_5D4594[2598000] +
+									sub_415FF0(10, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 90);
 			*(_DWORD*)(v11 + 444) = *(_DWORD*)&byte_5D4594[2598000];
 			*(_WORD*)(v11 + 104) = *((_WORD*)v2 + 52);
 			*(_WORD*)(v11 + 106) = *((_WORD*)v2 + 53);
