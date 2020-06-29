@@ -7675,30 +7675,21 @@ void __cdecl set_bitmask_flags_from_plus_separated_names_423930(const char* inpu
 
 	char* cur_value = strtok(input_copy, "+");
 	while (cur_value) {
-		sub_4239C0(cur_value, bitmask, allowed_names);
+		set_one_bitmask_flag_by_name_4239C0(cur_value, bitmask, allowed_names);
 		cur_value = strtok(0, "+");
 	}
 }
 
 //----- (004239C0) --------------------------------------------------------
-int __cdecl sub_4239C0(char* a1, _DWORD* a2, const char** a3) {
-	const char** v3; // esi
-	char v4;         // di
-	const char* v5;  // eax
-
-	v3 = a3;
-	v4 = 0;
-	if (!*a3)
-		return 0;
-	while (_strcmpi(*v3, a1)) {
-		v5 = v3[1];
-		++v3;
-		++v4;
-		if (!v5)
-			return 0;
+int __cdecl set_one_bitmask_flag_by_name_4239C0(char* name, _DWORD* bitmask, const char** allowed_names) {
+	for (char i = 0; allowed_names[i]; ++i) {
+		if (!_strcmpi(allowed_names[i], name)) {
+			*bitmask |= 1 << i;
+			return 1;
+		}
 	}
-	*a2 |= 1 << v4;
-	return 1;
+
+	return 0;
 }
 
 //----- (00423A10) --------------------------------------------------------
@@ -7719,7 +7710,7 @@ char* __cdecl sub_423A10(const char* a1, _DWORD* a2) {
 				v4 = (const char**)&byte_587000[61096];
 				v5 = &byte_587000[61096];
 				do {
-					if (sub_4239C0(i, a2, v4))
+					if (set_one_bitmask_flag_by_name_4239C0(i, a2, v4))
 						break;
 					v6 = *((_DWORD*)v5 + 32);
 					v5 += 128;
