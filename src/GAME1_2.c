@@ -5879,12 +5879,12 @@ int __cdecl sub_4309D0(unsigned __int8 a1, char a2) {
 int2* __cdecl nox_client_getMousePos_4309F0() { return &nox_mouse.pos; }
 
 //----- (00430A00) --------------------------------------------------------
-void __cdecl sub_430A00_change_mouse_pos(int x, int y, int abs) {
+void __cdecl sub_430A00_change_mouse_pos(int x, int y, int isAbs) {
 	mouse_pos_t p;
 	p.x = x;
 	p.y = y;
 
-	if (!abs) {
+	if (!isAbs) {
 		p.x += nox_mouse.pos.x;
 		p.y += nox_mouse.pos.y;
 	}
