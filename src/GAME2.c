@@ -281,32 +281,28 @@ void sub_44CDB0() {
 int __cdecl sub_44CDE0(const void* a1, const void* a2) { return _strcmpi(**(const char***)a1, **(const char***)a2); }
 
 //----- (0044CE00) --------------------------------------------------------
-int __cdecl nox_parse_thing(nox_memfile* f, char* a2, nox_thing* obj) {
-	char* v3;            // ebx
-	unsigned __int8* v4; // eax
-	char* v5;            // edi
-	char* v8;            // eax
-	unsigned __int8 v10; // [esp+18h] [ebp+8h]
-
-	v3 = a2;
-	while (1) {
-		v10 = nox_memfile_read_u8(f);
-		if (!v10)
-			return 1;
-		nox_memfile_read(v3, 1u, v10, f);
-		v3[v10] = 0;
-		v5 = strtok(v3, " \t\n\r");
+int __cdecl nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* thing) {
+	unsigned __int8 entry_len;
+	while ((entry_len = nox_memfile_read_u8(thing_file))) {
+		nox_memfile_read(scratch_buffer, 1u, entry_len, thing_file);
+		scratch_buffer[entry_len] = 0;
+		const char* attr_name = strtok(scratch_buffer, " \t\n\r");
 		for (int i = 0; i < nox_parse_thing_funcs_cnt; i++) {
-			nox_parse_thing_funcs_t* v6 = &nox_parse_thing_funcs[i];
-			if (strcmp(v5, v6->name) == 0) {
-				v8 = strtok(0, "=");
-				if (v8)
-					memmove(v3, v8 + 1, strlen(v8 + 1) + 1);
-				v6->parse_func(obj, f, v3);
-				break;
+			const nox_parse_thing_funcs_t* attr_parser = &nox_parse_thing_funcs[i];
+			if (strcmp(attr_name, attr_parser->name) != 0) {
+				continue;
 			}
+
+			const char* attr_value = strtok(0, "=");
+			if (attr_value) {
+				memmove(scratch_buffer, attr_value + 1, strlen(attr_value + 1) + 1);
+			}
+			attr_parser->parse_func(thing, thing_file, scratch_buffer);
+			break;
 		}
 	}
+
+	return 1;
 }
 
 //----- (0044CEF0) --------------------------------------------------------

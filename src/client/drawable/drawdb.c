@@ -8,14 +8,14 @@ extern nox_thing** nox_things_array;
 extern nox_memfile* nox_loaded_thing_bin;
 
 //----- (0044C480) --------------------------------------------------------
-bool __cdecl nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* a3) {
-	obj->pretty_name = loadString_sub_40F1D0(a3, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
+bool __cdecl nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value) {
+	obj->pretty_name = loadString_sub_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
 	return 1;
 }
 
 //----- (0044C4B0) --------------------------------------------------------
-bool __cdecl nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* a3) {
-	obj->desc = loadString_sub_40F1D0(a3, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
+bool __cdecl nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value) {
+	obj->desc = loadString_sub_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
 	return 1;
 }
 
