@@ -1031,7 +1031,7 @@ int __cdecl sub_4237B0(const char* a1, int a2, obj_412ae0_t* a3);
 int sub_4238F0_parse_int();
 void __cdecl set_bitmask_flags_from_plus_separated_names_423930(const char* input, _DWORD* bitmask,
 																const char** allowed_names);
-int __cdecl sub_4239C0(char* name, _DWORD* bitmask, const char** allowed_names);
+int __cdecl set_one_bitmask_flag_by_name_4239C0(char* name, _DWORD* bitmask, const char** allowed_names);
 char* __cdecl sub_423A10(const char* a1, _DWORD* a2);
 int __cdecl nox_parse_shape(nox_shape*, char*);
 int sub_423BB0();
