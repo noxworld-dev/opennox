@@ -4176,7 +4176,7 @@ int __cdecl sub_535B00(int a1, int a2, const char* a3) {
 //----- (00535B30) --------------------------------------------------------
 int __cdecl sub_535B30(int a1, int a2, const char* a3) {
 	*(_DWORD*)(a1 + 28) = 0;
-	sub_423A10(a3, (_DWORD*)(a1 + 28));
+	set_bitmask_flags_from_plus_separated_names_multiple_423A10(a3, (_DWORD*)(a1 + 28));
 	return 1;
 }
 

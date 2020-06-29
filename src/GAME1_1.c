@@ -7693,34 +7693,26 @@ int __cdecl set_one_bitmask_flag_by_name_4239C0(char* name, _DWORD* bitmask, con
 }
 
 //----- (00423A10) --------------------------------------------------------
-char* __cdecl sub_423A10(const char* a1, _DWORD* a2) {
-	char* result;        // eax
-	char* i;             // edi
-	const char** v4;     // eax
-	unsigned __int8* v5; // esi
-	int v6;              // ecx
-	char v7[256];        // [esp+8h] [ebp-100h]
-
-	strcpy(v7, a1);
-	result = (char*)strncmp(v7, "NULL", 4u);
-	if (result) {
-		result = strtok(v7, "+");
-		for (i = result; result; i = result) {
-			if (*(_DWORD*)&byte_587000[61096]) {
-				v4 = (const char**)&byte_587000[61096];
-				v5 = &byte_587000[61096];
-				do {
-					if (set_one_bitmask_flag_by_name_4239C0(i, a2, v4))
-						break;
-					v6 = *((_DWORD*)v5 + 32);
-					v5 += 128;
-					v4 = (const char**)v5;
-				} while (v6);
-			}
-			result = strtok(0, "+");
-		}
+void __cdecl set_bitmask_flags_from_plus_separated_names_multiple_423A10(const char* input, _DWORD* bitmask) {
+	char input_copy[256];
+	strcpy(input_copy, input);
+	if (strncmp(input_copy, "NULL", 4u) == 0) {
+		return;
 	}
-	return result;
+
+	char* cur_value = strtok(input_copy, "+");
+	while (cur_value) {
+		// Set of arrays of various types of data. Clothing types, NPC types, etc.
+		_DWORD* cur_allowed_values = (_DWORD*)&byte_587000[61096];
+
+		while (*cur_allowed_values) {
+			if (set_one_bitmask_flag_by_name_4239C0(cur_value, bitmask, (const char**)cur_allowed_values)) {
+				break;
+			}
+			cur_allowed_values += 32;
+		}
+		cur_value = strtok(0, "+");
+	}
 }
 
 //----- (00423AD0) --------------------------------------------------------
