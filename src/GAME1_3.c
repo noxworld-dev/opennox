@@ -6535,7 +6535,7 @@ bool __cdecl nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* a
 //----- (0044B1C0) --------------------------------------------------------
 bool __cdecl nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value) {
 	obj->sub_class = 0;
-	sub_423A10(attr_value, &obj->sub_class);
+	set_bitmask_flags_from_plus_separated_names_multiple_423A10(attr_value, &obj->sub_class);
 	return 1;
 }
 
