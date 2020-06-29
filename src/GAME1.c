@@ -7357,7 +7357,7 @@ int __cdecl sub_411E60(int a1, char* a2, int a3) {
 		*(_BYTE*)(a3 + 62) = v5;
 		result = 1;
 	} else {
-		sub_423930(&a2[v3], &v5, (const char**)&byte_587000[29456]);
+		set_bitmask_flags_from_plus_separated_names_423930(&a2[v3], &v5, (const char**)&byte_587000[29456]);
 		result = 1;
 		*(_BYTE*)(a3 + 62) = v5;
 	}
@@ -7701,7 +7701,7 @@ int __cdecl sub_4128C0_parse_allowed_pos(const char* a1, char* a2, obj_412ae0_t*
 		*(_BYTE*)(&a3->field_9) = v5;
 		return 1;
 	}
-	sub_423930(&a2[v3], &v5, (const char**)&byte_587000[26776]);
+	set_bitmask_flags_from_plus_separated_names_423930(&a2[v3], &v5, (const char**)&byte_587000[26776]);
 	*(_BYTE*)(&a3->field_9) = v5;
 	return 1;
 }

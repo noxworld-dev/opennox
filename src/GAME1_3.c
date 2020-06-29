@@ -6521,14 +6521,14 @@ int __cdecl sub_44B0F0(int a1, int a2, int* a3, int a4) {
 //----- (0044B160) --------------------------------------------------------
 bool __cdecl nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value) {
 	obj->flags = 0;
-	sub_423930(attr_value, &obj->flags, (const char**)&byte_587000[114076]);
+	set_bitmask_flags_from_plus_separated_names_423930(attr_value, &obj->flags, (const char**)&byte_587000[114076]);
 	return 1;
 }
 
 //----- (0044B190) --------------------------------------------------------
 bool __cdecl nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value) {
 	obj->pri_class = 0;
-	sub_423930(attr_value, &obj->pri_class, (const char**)&byte_587000[114208]);
+	set_bitmask_flags_from_plus_separated_names_423930(attr_value, &obj->pri_class, (const char**)&byte_587000[114208]);
 	return 1;
 }
 
