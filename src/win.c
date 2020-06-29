@@ -147,13 +147,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 }
 
 //----- (00401FD0) --------------------------------------------------------
-HWND getWindowHandle_sub_401FD0() {
 #ifdef USE_SDL
-	return (HWND)g_window;
+SDL_Window* getWindowHandle_sub_401FD0() { return g_window; }
 #else
-	return g_hwnd;
+HWND getWindowHandle_sub_401FD0() { return g_hwnd; }
 #endif
-}
 
 //----- (00401FE0) --------------------------------------------------------
 void __cdecl sub_401FE0(LPCSTR lpString) {
