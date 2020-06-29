@@ -10050,14 +10050,14 @@ int __cdecl sub_4A09B0(int a1, char* a2) {
 //----- (004A0A00) --------------------------------------------------------
 int __cdecl sub_4A0A00(int a1, const char* a2) {
 	*(_DWORD*)(a1 + 12) = 0;
-	sub_423930(a2, (_DWORD*)(a1 + 12), (const char**)&byte_587000[166712]);
+	set_bitmask_flags_from_plus_separated_names_423930(a2, (_DWORD*)(a1 + 12), (const char**)&byte_587000[166712]);
 	return 1;
 }
 
 //----- (004A0A30) --------------------------------------------------------
 int __cdecl sub_4A0A30(int a1, const char* a2) {
 	*(_DWORD*)(a1 + 8) = 0;
-	sub_423930(a2, (_DWORD*)(a1 + 8), (const char**)&byte_587000[166780]);
+	set_bitmask_flags_from_plus_separated_names_423930(a2, (_DWORD*)(a1 + 8), (const char**)&byte_587000[166780]);
 	return 1;
 }
 

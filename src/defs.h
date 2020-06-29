@@ -3,6 +3,7 @@
 
 #define DIRECTINPUT_VERSION 0x0700
 #include "memfile.h"
+#include <ctype.h>
 #include <errno.h>
 #include <math.h>
 #include <stdarg.h>
@@ -10,7 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <ctype.h>
 #include <wctype.h>
 
 #define NO_IMM 1

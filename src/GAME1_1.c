@@ -7665,18 +7665,19 @@ int sub_4238F0_parse_int() {
 }
 
 //----- (00423930) --------------------------------------------------------
-char* __cdecl sub_423930(const char* a1, _DWORD* a2, const char** a3) {
-	char* result; // eax
-	char v4[256]; // [esp+8h] [ebp-100h]
-
-	strcpy(v4, a1);
-	result = (char*)strncmp(v4, "NULL", 4u);
-	if (result) {
-		for (result = strtok(v4, "+"); result; result = strtok(0, "+")) {
-			sub_4239C0(result, a2, a3);
-		}
+void __cdecl set_bitmask_flags_from_plus_separated_names_423930(const char* input, _DWORD* bitmask,
+																const char** allowed_names) {
+	char input_copy[256];
+	strcpy(input_copy, input);
+	if (strncmp(input_copy, "NULL", 4u) == 0) {
+		return;
 	}
-	return result;
+
+	char* cur_value = strtok(input_copy, "+");
+	while (cur_value) {
+		sub_4239C0(cur_value, bitmask, allowed_names);
+		cur_value = strtok(0, "+");
+	}
 }
 
 //----- (004239C0) --------------------------------------------------------
