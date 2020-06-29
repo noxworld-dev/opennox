@@ -67,7 +67,11 @@ int __cdecl cmain(int argc, const char* argv[]);
 void sub_401B10();
 void __cdecl sub_401B20(char*);
 // int __stdcall WinMain(HINSTANCE hInstance, int, int, int); // idb
+#ifdef USE_SDL
+SDL_Window* getWindowHandle_sub_401FD0();
+#else
 HWND getWindowHandle_sub_401FD0();
+#endif // USE_SDL
 void __cdecl sub_401FE0(LPCSTR);
 // void __cdecl srand(unsigned int);
 // int __cdecl rand();
