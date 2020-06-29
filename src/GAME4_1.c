@@ -10033,7 +10033,8 @@ int __cdecl sub_517170(FILE* a1, const char* a2) {
 						case 6:
 							v9 = 0;
 							sub_517090(a1, v10);
-							sub_423930(v10, &v9, (const char**)&byte_587000[247536]);
+							set_bitmask_flags_from_plus_separated_names_423930(v10, &v9,
+																			   (const char**)&byte_587000[247536]);
 							*(_WORD*)v6 = v9;
 							continue;
 						case 7:
