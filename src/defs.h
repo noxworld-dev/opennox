@@ -651,11 +651,6 @@ typedef struct nox_parse_thing_draw_funcs_t {
 	bool(__cdecl* parse_fnc)(nox_thing*, nox_memfile*, char*);
 } nox_parse_thing_draw_funcs_t;
 
-typedef struct nox_parse_thing_funcs_t {
-	const char* name;
-	bool(__cdecl* parse_func)(nox_thing*, nox_memfile*, char*);
-} nox_parse_thing_funcs_t;
-
 typedef struct nox_video_mode {
 	int width;
 	int height;

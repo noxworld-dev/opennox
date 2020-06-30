@@ -11009,32 +11009,6 @@ void sub_4B5BF0() {
 	dword_5d4594_1312472 = 0;
 }
 
-//----- (004B5C40) --------------------------------------------------------
-bool __cdecl nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	char* v3;            // eax
-	const char* v4;      // ecx
-	int v5;              // ebp
-	unsigned __int8* v6; // edi
-
-	v3 = strtok(attr_value, " \t\n\r");
-	v4 = *(const char**)&byte_587000[175072];
-	v5 = 0;
-	if (*(_DWORD*)&byte_587000[175072]) {
-		v6 = &byte_587000[175072];
-		do {
-			if (!strcmp(v4, v3))
-				break;
-			v4 = (const char*)*((_DWORD*)v6 + 2);
-			v6 += 8;
-			++v5;
-		} while (v4);
-	}
-	if (!*(_DWORD*)&byte_587000[8 * v5 + 175072])
-		return 0;
-	obj->client_update = *(_DWORD*)&byte_587000[8 * v5 + 175076];
-	return 1;
-}
-
 //----- (004B5CD0) --------------------------------------------------------
 int sub_4B5CD0() {
 	char v0;             // si
