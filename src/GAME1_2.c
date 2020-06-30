@@ -8803,7 +8803,7 @@ int sub_435EB0() {
 	sub_473B30_free();
 	sub_496120();
 	sub_473840();
-	sub_44C580_free();
+	nox_things_free_44C580();
 	sub_49A950_free();
 	nox_drawable_free();
 	sub_49AEA0();
