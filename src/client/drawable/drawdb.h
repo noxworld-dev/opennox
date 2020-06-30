@@ -3,8 +3,15 @@
 
 #include "../../defs.h"
 
-bool __cdecl nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value);
+typedef struct nox_parse_thing_funcs_t {
+	const char* name;
+	bool(__cdecl* parse_func)(nox_thing*, nox_memfile*, char*);
+} nox_parse_thing_funcs_t;
+
+extern nox_parse_thing_funcs_t nox_parse_thing_funcs[];
+extern int nox_parse_thing_funcs_cnt;
+
 void* __cdecl sub_44C840_read_things(void);
+void nox_things_free_44C580();
 
 #endif // NOX_PORT_CLIENT_DRAWABLE_DRAWDB

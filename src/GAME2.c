@@ -186,38 +186,6 @@ nox_drawable* nox_drawable_head_unk3 = 0;
 nox_drawable* nox_drawable_head_unk4 = 0;
 int nox_drawable_count = 0;
 
-extern nox_parse_thing_funcs_t nox_parse_thing_funcs[];
-extern int nox_parse_thing_funcs_cnt;
-
-//----- (0044CCA0) --------------------------------------------------------
-int sub_44CCA0() {
-	int result; // eax
-
-	result = 0;
-	memset(&byte_5D4594[830616], 0, 0x6Cu);
-	memset(&byte_5D4594[830724], 0, 0x6Cu);
-	memset(&byte_5D4594[830296], 0, 0x6Cu);
-	return result;
-}
-
-//----- (0044CCD0) --------------------------------------------------------
-size_t sub_44CCD0() {
-	int i;         // esi
-	size_t result; // eax
-
-	for (i = 0; i < 108; i += 4) {
-		result = *(_DWORD*)&byte_5D4594[i + 830616];
-		if (result) {
-			result = (size_t)nox_calloc(1u, 8 * result);
-			*(_DWORD*)&byte_5D4594[i + 830296] = result;
-		} else {
-			*(_DWORD*)&byte_5D4594[i + 830296] = 0;
-		}
-		*(_DWORD*)&byte_5D4594[i + 830724] = 0;
-	}
-	return result;
-}
-
 //----- (0044CD10) --------------------------------------------------------
 CHAR* __cdecl sub_44CD10(CHAR* a1) {
 	CHAR* result; // eax
@@ -279,31 +247,6 @@ void sub_44CDB0() {
 
 //----- (0044CDE0) --------------------------------------------------------
 int __cdecl sub_44CDE0(const void* a1, const void* a2) { return _strcmpi(**(const char***)a1, **(const char***)a2); }
-
-//----- (0044CE00) --------------------------------------------------------
-int __cdecl nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* thing) {
-	unsigned __int8 entry_len;
-	while ((entry_len = nox_memfile_read_u8(thing_file))) {
-		nox_memfile_read(scratch_buffer, 1u, entry_len, thing_file);
-		scratch_buffer[entry_len] = 0;
-		const char* attr_name = strtok(scratch_buffer, " \t\n\r");
-		for (int i = 0; i < nox_parse_thing_funcs_cnt; i++) {
-			const nox_parse_thing_funcs_t* attr_parser = &nox_parse_thing_funcs[i];
-			if (strcmp(attr_name, attr_parser->name) != 0) {
-				continue;
-			}
-
-			const char* attr_value = strtok(0, "=");
-			if (attr_value) {
-				memmove(scratch_buffer, attr_value + 1, strlen(attr_value + 1) + 1);
-			}
-			attr_parser->parse_func(thing, thing_file, scratch_buffer);
-			break;
-		}
-	}
-
-	return 1;
-}
 
 //----- (0044CEF0) --------------------------------------------------------
 char* __cdecl nox_get_thing_name(int i) {
