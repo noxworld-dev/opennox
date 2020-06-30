@@ -167,6 +167,15 @@ bool __cdecl nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_val
 bool __cdecl nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->menuicon = nox_memfile_read_u32(f);
 	if (obj->menuicon == -1) {
+		// TODO: This branch doesnt seem to ever be taken. It roughly translates to the following, but the meaning is
+		// not clear:
+		/*
+		// Drop one byte, read one byte (sz), skip sz+1 bytes. Is this reading (and dropping) a string?
+		const uint8_t skip = nox_memfile_read_u8(f);
+		const uint8_t sz = nox_memfile_read_u8(f);
+		printf("skipped %d, sz %d\n", skip, sz);
+		f->cur += (sz + 1);
+		 */
 		unsigned __int8* p = (unsigned __int8*)(f->cur + 1);
 		f->cur = p;
 		int sz = *p;
