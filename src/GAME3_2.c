@@ -16,6 +16,7 @@
 
 #include "client/drawable/update/cloud.h"
 #include "client/drawable/update/dball.h"
+#include "client/drawable/drawdb.h"
 
 #include "proto.h"
 
@@ -1964,7 +1965,7 @@ int sub_4D1660() {
 	sub_4E4ED0();
 	result = sub_501860();
 	if (result) {
-		result = sub_4E2B60();
+		result = nox_read_things_alternative_4E2B60();
 		if (result) {
 			sub_4463E0(1);
 			sub_417C60();

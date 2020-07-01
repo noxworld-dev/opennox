@@ -3515,7 +3515,7 @@ int __cdecl sub_469FB0(const char* a1) {
 }
 
 //----- (0046A010) --------------------------------------------------------
-BOOL __cdecl sub_46A010(_DWORD* a1, char* a2) {
+BOOL __cdecl nox_thing_read_wall_46A010(_DWORD* a1, char* a2) {
 	_DWORD* v2;           // esi
 	char* v3;             // ebx
 	unsigned __int8* v4;  // edx
@@ -3689,28 +3689,6 @@ BOOL __cdecl sub_46A010(_DWORD* a1, char* a2) {
 		}
 	}
 	return 0;
-}
-
-//----- (0046A360) --------------------------------------------------------
-int sub_46A360() {
-	int i;               // ebx
-	int v1;              // edx
-	int v2;              // esi
-	unsigned __int8* v3; // edi
-
-	for (i = 0; i < 986560; i += 12332) {
-		v1 = 0;
-		do {
-			v2 = 15;
-			do {
-				v3 = &byte_5D4594[i + 2701180 + v1];
-				v1 += 64;
-				--v2;
-				memset(v3, 0, 0x40u);
-			} while (v2);
-		} while (v1 < 3840);
-	}
-	return 1;
 }
 
 //----- (0046A3B0) --------------------------------------------------------

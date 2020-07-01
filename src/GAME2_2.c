@@ -9982,7 +9982,7 @@ unsigned int __cdecl sub_485AE0(int a1, int a2) {
 }
 
 //----- (00485B30) --------------------------------------------------------
-int __cdecl sub_485B30(int a1, char* a2) {
+int __cdecl nox_thing_read_floor_485B30(int a1, char* a2) {
 	int v2;              // esi
 	_BYTE* v3;           // edi
 	int v4;              // eax
@@ -10067,28 +10067,8 @@ int __cdecl sub_485B30(int a1, char* a2) {
 // 485CB9: variable 'v21' is possibly undefined
 // 485B30: using guessed type char var_20[32];
 
-//----- (00485CF0) --------------------------------------------------------
-int sub_485CF0() {
-	int v0;     // edi
-	LPVOID* v1; // esi
-
-	v0 = 0;
-	if (*(int*)&dword_5d4594_251568 <= 0)
-		return 1;
-	v1 = (LPVOID*)&byte_5D4594[2682220];
-	do {
-		if (*v1) {
-			free(*v1);
-			*v1 = 0;
-		}
-		++v0;
-		v1 += 15;
-	} while (v0 < *(int*)&dword_5d4594_251568);
-	return 1;
-}
-
 //----- (00485D40) --------------------------------------------------------
-int __cdecl sub_485D40(int a1, char* a2) {
+int __cdecl nox_thing_read_edge_485D40(int a1, char* a2) {
 	int v2;              // esi
 	_BYTE* v3;           // edi
 	int v4;              // eax
@@ -10190,26 +10170,6 @@ int __cdecl sub_485D40(int a1, char* a2) {
 }
 // 485EEB: variable 'v25' is possibly undefined
 // 485D40: using guessed type char var_20[32];
-
-//----- (00485F30) --------------------------------------------------------
-int sub_485F30() {
-	int v0;     // edi
-	LPVOID* v1; // esi
-
-	v0 = 0;
-	if (*(int*)&dword_5d4594_251572 <= 0)
-		return 1;
-	v1 = (LPVOID*)&byte_5D4594[2678380];
-	do {
-		if (*v1) {
-			free(*v1);
-			*v1 = 0;
-		}
-		++v0;
-		v1 += 15;
-	} while (v0 < *(int*)&dword_5d4594_251572);
-	return 1;
-}
 
 //----- (00485F80) --------------------------------------------------------
 unsigned int sub_485F80() {

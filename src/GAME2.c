@@ -186,38 +186,6 @@ nox_drawable* nox_drawable_head_unk3 = 0;
 nox_drawable* nox_drawable_head_unk4 = 0;
 int nox_drawable_count = 0;
 
-extern nox_parse_thing_funcs_t nox_parse_thing_funcs[];
-extern int nox_parse_thing_funcs_cnt;
-
-//----- (0044CCA0) --------------------------------------------------------
-int sub_44CCA0() {
-	int result; // eax
-
-	result = 0;
-	memset(&byte_5D4594[830616], 0, 0x6Cu);
-	memset(&byte_5D4594[830724], 0, 0x6Cu);
-	memset(&byte_5D4594[830296], 0, 0x6Cu);
-	return result;
-}
-
-//----- (0044CCD0) --------------------------------------------------------
-size_t sub_44CCD0() {
-	int i;         // esi
-	size_t result; // eax
-
-	for (i = 0; i < 108; i += 4) {
-		result = *(_DWORD*)&byte_5D4594[i + 830616];
-		if (result) {
-			result = (size_t)nox_calloc(1u, 8 * result);
-			*(_DWORD*)&byte_5D4594[i + 830296] = result;
-		} else {
-			*(_DWORD*)&byte_5D4594[i + 830296] = 0;
-		}
-		*(_DWORD*)&byte_5D4594[i + 830724] = 0;
-	}
-	return result;
-}
-
 //----- (0044CD10) --------------------------------------------------------
 CHAR* __cdecl sub_44CD10(CHAR* a1) {
 	CHAR* result; // eax
@@ -244,69 +212,6 @@ int __cdecl sub_44CD30(CHAR* a1) {
 	else
 		result = v2 - 65;
 	return result;
-}
-
-//----- (0044CD60) --------------------------------------------------------
-void __cdecl sub_44CD60(nox_thing* a1, int a2) {
-	if (!a1)
-		return;
-
-	int v2 = sub_44CD30(a1->name);
-	if (v2 < 0)
-		return;
-
-	int v3 = *(_DWORD*)&byte_5D4594[4 * v2 + 830296];
-	if (!v3)
-		return;
-
-	int v4 = *(_DWORD*)&byte_5D4594[4 * v2 + 830724];
-	*(_DWORD*)(v3 + 8 * v4) = a1;
-	*(_DWORD*)(v3 + 8 * v4 + 4) = a2;
-	++*(_DWORD*)&byte_5D4594[4 * v2 + 830724];
-}
-
-//----- (0044CDB0) --------------------------------------------------------
-void sub_44CDB0() {
-	int i;         // esi
-	signed int v1; // eax
-
-	for (i = 0; i < 108; i += 4) {
-		v1 = *(_DWORD*)&byte_5D4594[i + 830616];
-		if (v1 > 1)
-			qsort(*(void**)&byte_5D4594[i + 830296], v1, 8u, sub_44CDE0);
-	}
-}
-
-//----- (0044CDE0) --------------------------------------------------------
-int __cdecl sub_44CDE0(const void* a1, const void* a2) { return _strcmpi(**(const char***)a1, **(const char***)a2); }
-
-//----- (0044CE00) --------------------------------------------------------
-int __cdecl nox_parse_thing(nox_memfile* f, char* a2, nox_thing* obj) {
-	char* v3;            // ebx
-	unsigned __int8* v4; // eax
-	char* v5;            // edi
-	char* v8;            // eax
-	unsigned __int8 v10; // [esp+18h] [ebp+8h]
-
-	v3 = a2;
-	while (1) {
-		v10 = nox_memfile_read_u8(f);
-		if (!v10)
-			return 1;
-		nox_memfile_read(v3, 1u, v10, f);
-		v3[v10] = 0;
-		v5 = strtok(v3, " \t\n\r");
-		for (int i = 0; i < nox_parse_thing_funcs_cnt; i++) {
-			nox_parse_thing_funcs_t* v6 = &nox_parse_thing_funcs[i];
-			if (strcmp(v5, v6->name) == 0) {
-				v8 = strtok(0, "=");
-				if (v8)
-					memmove(v3, v8 + 1, strlen(v8 + 1) + 1);
-				v6->parse_func(obj, f, v3);
-				break;
-			}
-		}
-	}
 }
 
 //----- (0044CEF0) --------------------------------------------------------
@@ -518,9 +423,6 @@ int __cdecl sub_44D340(CHAR* a1) {
 	}
 	return result;
 }
-
-//----- (0044D390) --------------------------------------------------------
-int nox_get_things_count() { return nox_things_count; }
 
 //----- (0044D3A0) --------------------------------------------------------
 void sub_44D3A0() {
@@ -2764,7 +2666,7 @@ BOOL __cdecl sub_452890(int a1, void* a2) {
 }
 
 //----- (00452B00) --------------------------------------------------------
-BOOL __cdecl sub_452B00(int a1) {
+BOOL __cdecl nox_thing_read_AVNT_452B00(int a1) {
 	*(_DWORD*)(a1 + 8) += **(unsigned __int8**)(a1 + 8) + 1;
 	return sub_452B30(a1);
 }

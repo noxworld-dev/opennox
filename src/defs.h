@@ -3,6 +3,7 @@
 
 #define DIRECTINPUT_VERSION 0x0700
 #include "memfile.h"
+#include <ctype.h>
 #include <errno.h>
 #include <math.h>
 #include <stdarg.h>
@@ -10,7 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <ctype.h>
 #include <wctype.h>
 
 #define NO_IMM 1
@@ -650,11 +650,6 @@ typedef struct nox_parse_thing_draw_funcs_t {
 	unsigned int kind;
 	bool(__cdecl* parse_fnc)(nox_thing*, nox_memfile*, char*);
 } nox_parse_thing_draw_funcs_t;
-
-typedef struct nox_parse_thing_funcs_t {
-	const char* name;
-	bool(__cdecl* parse_func)(nox_thing*, nox_memfile*, char*);
-} nox_parse_thing_funcs_t;
 
 typedef struct nox_video_mode {
 	int width;

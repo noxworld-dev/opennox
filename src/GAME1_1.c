@@ -7665,70 +7665,54 @@ int sub_4238F0_parse_int() {
 }
 
 //----- (00423930) --------------------------------------------------------
-char* __cdecl sub_423930(const char* a1, _DWORD* a2, const char** a3) {
-	char* result; // eax
-	char v4[256]; // [esp+8h] [ebp-100h]
-
-	strcpy(v4, a1);
-	result = (char*)strncmp(v4, "NULL", 4u);
-	if (result) {
-		for (result = strtok(v4, "+"); result; result = strtok(0, "+")) {
-			sub_4239C0(result, a2, a3);
-		}
+void __cdecl set_bitmask_flags_from_plus_separated_names_423930(const char* input, _DWORD* bitmask,
+																const char** allowed_names) {
+	char input_copy[256];
+	strcpy(input_copy, input);
+	if (strncmp(input_copy, "NULL", 4u) == 0) {
+		return;
 	}
-	return result;
+
+	char* cur_value = strtok(input_copy, "+");
+	while (cur_value) {
+		set_one_bitmask_flag_by_name_4239C0(cur_value, bitmask, allowed_names);
+		cur_value = strtok(0, "+");
+	}
 }
 
 //----- (004239C0) --------------------------------------------------------
-int __cdecl sub_4239C0(char* a1, _DWORD* a2, const char** a3) {
-	const char** v3; // esi
-	char v4;         // di
-	const char* v5;  // eax
-
-	v3 = a3;
-	v4 = 0;
-	if (!*a3)
-		return 0;
-	while (_strcmpi(*v3, a1)) {
-		v5 = v3[1];
-		++v3;
-		++v4;
-		if (!v5)
-			return 0;
+int __cdecl set_one_bitmask_flag_by_name_4239C0(char* name, _DWORD* bitmask, const char** allowed_names) {
+	for (char i = 0; allowed_names[i]; ++i) {
+		if (!_strcmpi(allowed_names[i], name)) {
+			*bitmask |= 1 << i;
+			return 1;
+		}
 	}
-	*a2 |= 1 << v4;
-	return 1;
+
+	return 0;
 }
 
 //----- (00423A10) --------------------------------------------------------
-char* __cdecl sub_423A10(const char* a1, _DWORD* a2) {
-	char* result;        // eax
-	char* i;             // edi
-	const char** v4;     // eax
-	unsigned __int8* v5; // esi
-	int v6;              // ecx
-	char v7[256];        // [esp+8h] [ebp-100h]
-
-	strcpy(v7, a1);
-	result = (char*)strncmp(v7, "NULL", 4u);
-	if (result) {
-		result = strtok(v7, "+");
-		for (i = result; result; i = result) {
-			if (*(_DWORD*)&byte_587000[61096]) {
-				v4 = (const char**)&byte_587000[61096];
-				v5 = &byte_587000[61096];
-				do {
-					if (sub_4239C0(i, a2, v4))
-						break;
-					v6 = *((_DWORD*)v5 + 32);
-					v5 += 128;
-					v4 = (const char**)v5;
-				} while (v6);
-			}
-			result = strtok(0, "+");
-		}
+void __cdecl set_bitmask_flags_from_plus_separated_names_multiple_423A10(const char* input, _DWORD* bitmask) {
+	char input_copy[256];
+	strcpy(input_copy, input);
+	if (strncmp(input_copy, "NULL", 4u) == 0) {
+		return;
 	}
-	return result;
+
+	char* cur_value = strtok(input_copy, "+");
+	while (cur_value) {
+		// Set of arrays of various types of data. Clothing types, NPC types, etc.
+		_DWORD* cur_allowed_values = (_DWORD*)&byte_587000[61096];
+
+		while (*cur_allowed_values) {
+			if (set_one_bitmask_flag_by_name_4239C0(cur_value, bitmask, (const char**)cur_allowed_values)) {
+				break;
+			}
+			cur_allowed_values += 32;
+		}
+		cur_value = strtok(0, "+");
+	}
 }
 
 //----- (00423AD0) --------------------------------------------------------

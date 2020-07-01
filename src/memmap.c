@@ -1,3 +1,4 @@
+#include "client/drawable/drawdb.h"
 #include "proto.h"
 
 extern int nox_enable_audio;
@@ -121,8 +122,6 @@ extern mouse_pos_t nox_mouse_prev_middle;
 extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
 extern int nox_things_count;
-
-extern nox_parse_thing_funcs_t nox_parse_thing_funcs[];
 
 extern nox_alloc_class* nox_alloc_drawable;
 extern nox_drawable* nox_drawable_head_unk1;

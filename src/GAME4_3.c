@@ -4162,21 +4162,21 @@ int __cdecl sub_535A60(int a1, int a2, char* a3) {
 //----- (00535AD0) --------------------------------------------------------
 int __cdecl sub_535AD0(int a1, int a2, const char* a3) {
 	*(_DWORD*)(a1 + 32) = 0;
-	sub_423930(a3, (_DWORD*)(a1 + 32), (const char**)&byte_587000[264368]);
+	set_bitmask_flags_from_plus_separated_names_423930(a3, (_DWORD*)(a1 + 32), (const char**)&byte_587000[264368]);
 	return 1;
 }
 
 //----- (00535B00) --------------------------------------------------------
 int __cdecl sub_535B00(int a1, int a2, const char* a3) {
 	*(_DWORD*)(a1 + 24) = 0;
-	sub_423930(a3, (_DWORD*)(a1 + 24), (const char**)&byte_587000[264500]);
+	set_bitmask_flags_from_plus_separated_names_423930(a3, (_DWORD*)(a1 + 24), (const char**)&byte_587000[264500]);
 	return 1;
 }
 
 //----- (00535B30) --------------------------------------------------------
 int __cdecl sub_535B30(int a1, int a2, const char* a3) {
 	*(_DWORD*)(a1 + 28) = 0;
-	sub_423A10(a3, (_DWORD*)(a1 + 28));
+	set_bitmask_flags_from_plus_separated_names_multiple_423A10(a3, (_DWORD*)(a1 + 28));
 	return 1;
 }
 
@@ -4205,7 +4205,7 @@ int __cdecl sub_535BE0(int a1, int a2, const char* a3) {
 	int v4; // [esp+0h] [ebp-4h]
 
 	v4 = 0;
-	sub_423930(a3, &v4, (const char**)&byte_587000[265912]);
+	set_bitmask_flags_from_plus_separated_names_423930(a3, &v4, (const char**)&byte_587000[265912]);
 	*(_WORD*)(a1 + 40) = v4;
 	return 1;
 }
