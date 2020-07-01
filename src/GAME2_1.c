@@ -3515,7 +3515,7 @@ int __cdecl sub_469FB0(const char* a1) {
 }
 
 //----- (0046A010) --------------------------------------------------------
-BOOL __cdecl sub_46A010(_DWORD* a1, char* a2) {
+BOOL __cdecl nox_thing_read_wall_46A010(_DWORD* a1, char* a2) {
 	_DWORD* v2;           // esi
 	char* v3;             // ebx
 	unsigned __int8* v4;  // edx
