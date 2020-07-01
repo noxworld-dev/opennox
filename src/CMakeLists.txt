@@ -16,10 +16,16 @@ option (USE_ASAN "Enable address sanitizer" OFF)
 option (STRICT_MODE "Fail on compilation warnings" OFF)
 option (E2E_TEST "Run in end-to-end test mode" OFF)
 
+option (USE_OPENAL "Use OpenAL in Nox, disabling results in no sound" OFF)
+option (USE_OPENGL "Use OpenGL in Nox, disabling results in running in SDL Rendering" OFF)
+
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
 else ()
-    add_compile_options (-g -m32 -fshort-wchar)
+    if (CMAKE_CL_64)
+        add_compile_options( -m32 )
+    endif ()
+    add_compile_options (-g -fshort-wchar)
     add_compile_options (-fno-strict-aliasing)
     add_compile_options (-fno-strict-overflow)
 
@@ -84,10 +90,10 @@ endif ()
 include_directories (external/include)
 link_directories (${PROJECT_SOURCE_DIR}/external/lib)
 if (WIN32)
-    find_library (SDL2_LIBRARIES SDL2.lib)
+    find_library (SDL2_LIBRARIES SDL2.lib OPTIONAL)
     find_library (OPENAL_LIBRARIES OpenAL32.lib)
-    find_library (GLEW_LIBRARIES glew32.lib)
     find_library (OPENGL_LIBRARIES OpenGL32.lib)
+    find_library (GLEW_LIBRARIES    glew32.lib)
     set (WIN32_LIBRARIES ws2_32 winmm)
 elseif (APPLE)
     set (OPENAL_LIBRARIES "-framework OpenAL")
@@ -105,10 +111,33 @@ else ()
     set (PTHREAD_LIBRARIES pthread)
 endif ()
 
+if(NOT USE_OPENAL)
+    set (OPENAL_LIBRARIES a)
+    set (OPENAL_INCLUDE_DIR a)
+endif ()
+
 if (WIN32)
-    set (COMPAT_SOURCES compat_mss.c)
+    set (COMPAT_SOURCES )
 else ()
-    set (COMPAT_SOURCES compat.c compat_mss.c)
+    set (COMPAT_SOURCES compat.c )
+endif ()
+
+if(USE_OPENAL)
+    set (AUDIO_BACKEND compat_mss_al.c)
+    set (AUDIO_BACKEND ${AUDIO_BACKEND} vqa/aud_decode.cpp vqa/ddpf_conversion.cpp vqa/vqa_decode.cpp vqa/vqa_file.cpp vqa/vqa_public.cpp)
+    set (EXTRA_LIBRARIES ${EXTRA_LIBRARIES} "${OPENAL_LIBRARIES}")
+else ()
+    set (AUDIO_BACKEND compat_mss_null.c)
+endif ()
+
+if(USE_OPENGL)
+    set (RENDERING_BACKEND draw_sdl_gl.c)
+    set (EXTRA_LIBRARIES ${EXTRA_LIBRARIES} "${OPENGL_LIBRARIES}")
+    if (WIN32)
+         set (EXTRA_LIBRARIES ${EXTRA_LIBRARIES} "${GLEW_LIBRARIES}")
+    endif()
+else ()
+    set (RENDERING_BACKEND draw_sdl.c)
 endif ()
 
 add_executable (
@@ -137,7 +166,6 @@ add_executable (
     GAME_data.c
     GAME_data_init.c
     cdrom.c
-    draw.c
     imm.c
     input.c
     main.cpp
@@ -293,12 +321,10 @@ add_executable (
     server/system/trade.c
     server/xfer/savegame/savegame.c
 
-    vqa/aud_decode.cpp
-    vqa/ddpf_conversion.cpp
-    vqa/vqa_decode.cpp
-    vqa/vqa_file.cpp
-    vqa/vqa_public.cpp
+
     "${COMPAT_SOURCES}"
+    "${RENDERING_BACKEND}"
+    "${AUDIO_BACKEND}"
 )
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM_FLAGS "-g -o out.html --pre-js ${CMAKE_SOURCE_DIR}/pre.js -lidbfs.js -s CASE_INSENSITIVE_FS=1 -s ASYNCIFY -s TOTAL_MEMORY=201326592 -s EMULATE_FUNCTION_POINTER_CASTS=1 -s ASSERTIONS=2 -mnontrapping-fptoint -s EXIT_RUNTIME=1")
@@ -308,23 +334,26 @@ target_link_libraries (
     out
     "${WASM_FLAGS}"
     "${SDL2_LIBRARIES}"
-    "${OPENAL_LIBRARIES}"
-    "${GLEW_LIBRARIES}"
-    "${OPENGL_LIBRARIES}"
-    "${OPENAL_LIBRARIES}"
-    "${OPENGL_LIBRARIES}"
     "${PTHREAD_LIBRARIES}"
     "${WIN32_LIBRARIES}"
+    "${EXTRA_LIBRARIES}"
 )
 if (MSVC)
     find_path(SDL_INCLUDE_DIR SDL2/SDL.h)
-    find_path(GLEW_INCLUDE_DIR GL/glew.h)
-    find_path(OPENAL_INCLUDE_DIR AL/al.h)
     include_directories("${SDL_INCLUDE_DIR}")
-    include_directories("${GLEW_INCLUDE_DIR}")
-    include_directories("${OPENAL_INCLUDE_DIR}")
+    if (USE_OPENGL)
+        find_path(GLEW_INCLUDE_DIR GL/glew.h)
+        include_directories("${GLEW_INCLUDE_DIR}")
+    endif()
+    if (USE_OPENAL)
+        find_path(OPENAL_INCLUDE_DIR AL/al.h)
+        include_directories("${OPENAL_INCLUDE_DIR}")
+    endif ()
 else ()
-    target_link_options (out PUBLIC -m32)
+    if (CMAKE_CL_64)
+        target_link_options (out PUBLIC -m32)
+    endif ()
+
     if (USE_ASAN)
         target_link_options (out PRIVATE -fsanitize=address)
     endif ()
