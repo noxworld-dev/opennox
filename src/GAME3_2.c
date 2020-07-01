@@ -16,6 +16,7 @@
 
 #include "client/drawable/update/cloud.h"
 #include "client/drawable/update/dball.h"
+#include "client/drawable/drawdb.h"
 
 #include "proto.h"
 
