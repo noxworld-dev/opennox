@@ -54,7 +54,7 @@ static inline void* lookup_handle(unsigned int type, HANDLE h) {
 // Debug functions
 VOID WINAPI DebugBreak() {
 #ifdef __EMSCRIPTEN__
-#else
+#elif __i386__
 	asm volatile("int3");
 #endif
 }
