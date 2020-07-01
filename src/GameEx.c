@@ -347,6 +347,9 @@ const char* __usercall SomeStringSearcher(const char* result, const char* a2, ch
 	v4 = a2;
 	if (result && a2) {
 		v5 = strstr(result, a2);
+		if(!v5)
+			return result;
+
 		for (result = &v5[strlen(v4)]; *result == 32 || *result == 61; ++result)
 			;
 		for (i = *result; *result != 13; ++v3) {
