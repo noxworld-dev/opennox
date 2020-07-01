@@ -425,30 +425,7 @@ size_t sub_44CCD0() {
 
 //----- (0044C840) --------------------------------------------------------
 void* __cdecl sub_44C840_read_things(void) {
-	char* v1;             // ebx
-	int v6;               // eax
-	CHAR* v9;             // esi
-	unsigned int v10;     // edx
-	unsigned __int8* v11; // edi
-	unsigned __int8* v12; // edi
-	CHAR* v13;            // esi
-	char v14;             // cl
-	unsigned __int8* v15; // edi
-	int v16;              // ecx
-	unsigned __int8 v17;  // al
-	CHAR* v18;            // esi
-	unsigned int v19;     // edx
-	unsigned __int8* v20; // edi
-	unsigned __int8* v21; // edi
-	CHAR* v22;            // esi
-	char v23;             // cl
-	int v24;              // edx
-	unsigned __int8* v25; // edi
-	int v26;              // ecx
-	int i;                // [esp+10h] [ebp-4h]
-	unsigned __int8 v28;  // [esp+18h] [ebp+4h]
-
-	v1 = (char*)nox_malloc(256 * 1024);
+	char* scratch_buffer = (char*)nox_malloc(256 * 1024);
 	sub_44CCA0();
 	nox_things_free_44C580();
 	nox_things_count = 1;
@@ -457,11 +434,14 @@ void* __cdecl sub_44C840_read_things(void) {
 	sub_46A360();
 
 	nox_memfile* things = nox_open_thing_bin();
-	if (!things)
+	if (!things) {
 		return 0;
+	}
 	nox_memfile_seek_40AD10(things, 0, 0);
-	while (nox_memfile_read(&i, 4u, 1, things)) {
-		switch (i) {
+
+	int entry_type;
+	while (nox_memfile_read(&entry_type, 4u, 1, things)) {
+		switch (entry_type) {
 		case 0x5350454C: // "SPEL"
 			nox_thing_read_spells_415100(things);
 			break;
@@ -475,16 +455,19 @@ void* __cdecl sub_44C840_read_things(void) {
 			nox_thing_read_AVNT_452B00(things);
 			break;
 		case 0x57414C4C: // "WALL"
-			if (!nox_thing_read_wall_46A010(things, v1))
+			if (!nox_thing_read_wall_46A010(things, scratch_buffer)) {
 				return 0;
+			}
 			break;
 		case 0x464C4F52: // "FLOR"
-			if (!nox_thing_read_floor_485B30(things, v1))
+			if (!nox_thing_read_floor_485B30(things, scratch_buffer)) {
 				return 0;
+			}
 			break;
 		case 0x45444745: // "EDGE"
-			if (!nox_thing_read_edge_485D40(things, v1))
+			if (!nox_thing_read_edge_485D40(things, scratch_buffer)) {
 				return 0;
+			}
 			break;
 		case 0x494D4147: // "IMAG"
 			nox_thing_read_image_415240(things);
@@ -492,13 +475,14 @@ void* __cdecl sub_44C840_read_things(void) {
 		case 0x54484E47: // "THNG"
 			;
 			nox_thing* obj = (nox_thing*)nox_calloc(1, sizeof(nox_thing));
-			if (!obj)
+			if (!obj) {
 				return 0;
-			v28 = *(unsigned __int8*)things->cur;
+			}
+			unsigned __int8 v28 = *(unsigned __int8*)things->cur;
 			things->cur++;
-			nox_memfile_read(v1, 1u, v28, things);
-			v1[v28] = 0;
-			obj->name = nox_clone_str(v1);
+			nox_memfile_read(scratch_buffer, 1u, v28, things);
+			scratch_buffer[v28] = 0;
+			obj->name = nox_clone_str(scratch_buffer);
 			obj->menuicon = -1;
 			obj->field_1c = nox_things_count++;
 			obj->flags |= 0x1000000;
@@ -508,8 +492,9 @@ void* __cdecl sub_44C840_read_things(void) {
 			obj->draw_func = nox_thing_debug_draw;
 			obj->zsize_min = 0;
 			obj->zsize_max = 30.0f;
-			if (!nox_parse_thing(things, v1, obj))
+			if (!nox_parse_thing(things, scratch_buffer, obj)) {
 				return 0;
+			}
 			obj->next = nox_things_head;
 			nox_things_head = obj;
 			sub_44CD10(obj->name);
@@ -524,50 +509,52 @@ void* __cdecl sub_44C840_read_things(void) {
 	} else {
 		nox_memfile_free(things);
 	}
-	void* result = nox_malloc(4 * nox_things_count);
+	void* result = nox_malloc(sizeof(nox_thing*) * nox_things_count);
 	nox_things_array = result;
 	if (result) {
 		sub_44CCD0();
-		v6 = nox_things_count;
 		nox_thing* cur = nox_things_head;
 		for (int i = 1; i < nox_things_count; i++) {
-			nox_things_array[v6 - i] = cur;
+			nox_things_array[nox_things_count - i] = cur;
 			sub_44CD60(cur, nox_things_count - i);
 			if (*((_BYTE*)cur + 0xe)) {
+				// The large amount of logic in the following two branches is due to copying strings as WORDs.
+				// If not loaded, set cur->pretty_name = load_string "thing.db:${cur->name}PrettyName"
 				if (!cur->pretty_name) {
 					strcpy((char*)&byte_5D4594[830404], "thing.db:");
-					v9 = cur->name;
-					v10 = strlen(cur->name) + 1;
-					v11 = &byte_5D4594[strlen((const char*)&byte_5D4594[830404]) + 830404];
-					qmemcpy(v11, cur->name, 4 * (v10 >> 2));
-					v13 = &v9[4 * (v10 >> 2)];
-					v12 = &v11[4 * (v10 >> 2)];
-					v14 = v10;
-					LOWORD(v10) = *(_WORD*)&byte_587000[122728];
+					CHAR* cur_name = cur->name;
+					unsigned int cur_name_len_plus_one = strlen(cur->name) + 1;
+					unsigned __int8* v11 = &byte_5D4594[strlen((const char*)&byte_5D4594[830404]) + 830404];
+					qmemcpy(v11, cur->name, 4 * (cur_name_len_plus_one >> 2));
+					CHAR* v13 = &cur_name[4 * (cur_name_len_plus_one >> 2)];
+					unsigned __int8* v12 = &v11[4 * (cur_name_len_plus_one >> 2)];
+					char v14 = cur_name_len_plus_one;
+					LOWORD(cur_name_len_plus_one) = *(_WORD*)&byte_587000[122728];
 					qmemcpy(v12, v13, v14 & 3);
-					v15 = &byte_5D4594[strlen((const char*)&byte_5D4594[830404]) + 830405];
-					v16 = *(_DWORD*)&byte_587000[122724];
+					unsigned __int8* v15 = &byte_5D4594[strlen((const char*)&byte_5D4594[830404]) + 830405];
+					int v16 = *(_DWORD*)&byte_587000[122724];
 					*(_DWORD*)--v15 = *(_DWORD*)&byte_587000[122720];
-					v17 = byte_587000[122730];
+					unsigned __int8 v17 = byte_587000[122730];
 					*((_DWORD*)v15 + 1) = v16;
-					*((_WORD*)v15 + 4) = v10;
+					*((_WORD*)v15 + 4) = cur_name_len_plus_one;
 					v15[10] = v17;
 					cur->pretty_name = loadString_sub_40F1D0((char*)&byte_5D4594[830404], 0,
 															 "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
 				}
+				// if not loaded, set cur->desc = load_string "thing.db:${cur->name}Description"
 				if (!cur->desc) {
 					strcpy((char*)&byte_5D4594[830404], "thing.db:");
-					v18 = cur->name;
-					v19 = strlen(cur->name) + 1;
-					v20 = &byte_5D4594[strlen((const char*)&byte_5D4594[830404]) + 830404];
+					CHAR* v18 = cur->name;
+					unsigned int v19 = strlen(cur->name) + 1;
+					unsigned __int8* v20 = &byte_5D4594[strlen((const char*)&byte_5D4594[830404]) + 830404];
 					qmemcpy(v20, cur->name, 4 * (v19 >> 2));
-					v22 = &v18[4 * (v19 >> 2)];
-					v21 = &v20[4 * (v19 >> 2)];
-					v23 = v19;
-					v24 = *(_DWORD*)&byte_587000[122792];
+					CHAR* v22 = &v18[4 * (v19 >> 2)];
+					unsigned __int8* v21 = &v20[4 * (v19 >> 2)];
+					char v23 = v19;
+					int v24 = *(_DWORD*)&byte_587000[122792];
 					qmemcpy(v21, v22, v23 & 3);
-					v25 = &byte_5D4594[strlen((const char*)&byte_5D4594[830404]) + 830405];
-					v26 = *(_DWORD*)&byte_587000[122788];
+					unsigned __int8* v25 = &byte_5D4594[strlen((const char*)&byte_5D4594[830404]) + 830405];
+					int v26 = *(_DWORD*)&byte_587000[122788];
 					*(_DWORD*)--v25 = *(_DWORD*)&byte_587000[122784];
 					*((_DWORD*)v25 + 1) = v26;
 					*((_DWORD*)v25 + 2) = v24;
@@ -575,11 +562,10 @@ void* __cdecl sub_44C840_read_things(void) {
 													  "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
 				}
 			}
-			v6 = nox_things_count;
 			cur = cur->next;
 		}
 		sub_44CDB0();
-		free(v1);
+		free(scratch_buffer);
 		sub_4131A0();
 		sub_415AB0();
 		sub_4157C0();
