@@ -9982,7 +9982,7 @@ unsigned int __cdecl sub_485AE0(int a1, int a2) {
 }
 
 //----- (00485B30) --------------------------------------------------------
-int __cdecl sub_485B30(int a1, char* a2) {
+int __cdecl nox_thing_read_floor_485B30(int a1, char* a2) {
 	int v2;              // esi
 	_BYTE* v3;           // edi
 	int v4;              // eax
@@ -10068,7 +10068,7 @@ int __cdecl sub_485B30(int a1, char* a2) {
 // 485B30: using guessed type char var_20[32];
 
 //----- (00485D40) --------------------------------------------------------
-int __cdecl sub_485D40(int a1, char* a2) {
+int __cdecl nox_thing_read_edge_485D40(int a1, char* a2) {
 	int v2;              // esi
 	_BYTE* v3;           // edi
 	int v4;              // eax

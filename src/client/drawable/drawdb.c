@@ -463,31 +463,31 @@ void* __cdecl sub_44C840_read_things(void) {
 	while (nox_memfile_read(&i, 4u, 1, things)) {
 		switch (i) {
 		case 0x5350454C: // "SPEL"
-			sub_415100_read_spells(things);
+			nox_thing_read_spells_415100(things);
 			break;
 		case 0x4142494C: // "ABIL"
-			sub_415320(things);
+			nox_thing_read_ability_415320(things);
 			break;
 		case 0x41554420: // "AUD "
-			sub_414D40(things);
+			nox_thing_read_audio_414D40(things);
 			break;
 		case 0x41564E54: // "AVNT"
-			sub_452B00(things);
+			nox_thing_read_AVNT_452B00(things);
 			break;
 		case 0x57414C4C: // "WALL"
-			if (!sub_46A010(things, v1))
+			if (!nox_thing_read_wall_46A010(things, v1))
 				return 0;
 			break;
 		case 0x464C4F52: // "FLOR"
-			if (!sub_485B30(things, v1))
+			if (!nox_thing_read_floor_485B30(things, v1))
 				return 0;
 			break;
 		case 0x45444745: // "EDGE"
-			if (!sub_485D40(things, v1))
+			if (!nox_thing_read_edge_485D40(things, v1))
 				return 0;
 			break;
 		case 0x494D4147: // "IMAG"
-			sub_415240(things);
+			nox_thing_read_image_415240(things);
 			break;
 		case 0x54484E47: // "THNG"
 			;

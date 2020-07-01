@@ -876,7 +876,7 @@ LPVOID sub_4E2B30() {
 }
 
 //----- (004E2B60) --------------------------------------------------------
-void* __cdecl sub_4E2B60(void) {
+void* __cdecl nox_read_things_alternative_4E2B60(void) {
 	void* v1;            // eax
 	void* v3;            // edi
 	void* result;        // eax
@@ -913,10 +913,10 @@ void* __cdecl sub_4E2B60(void) {
 	while (nox_memfile_read(&i, 4u, 1, things)) {
 		switch (i) {
 		case 1397769548:
-			sub_415100_read_spells(things);
+			nox_thing_read_spells_415100(things);
 			break;
 		case 1094863180:
-			sub_415320(things);
+			nox_thing_read_ability_415320(things);
 			break;
 		case 1096107040:
 			sub_502320(things, v3);
@@ -937,7 +937,7 @@ void* __cdecl sub_4E2B60(void) {
 				goto LABEL_53;
 			break;
 		case 1229799751:
-			sub_415240(things);
+			nox_thing_read_image_415240(things);
 			break;
 		case 1414024775:
 			v5 = nox_calloc(1u, 0xE0u);
