@@ -2703,7 +2703,7 @@ BOOL __cdecl sub_452890(int a1, void* a2) {
 }
 
 //----- (00452B00) --------------------------------------------------------
-BOOL __cdecl sub_452B00(int a1) {
+BOOL __cdecl nox_thing_read_AVNT_452B00(int a1) {
 	*(_DWORD*)(a1 + 8) += **(unsigned __int8**)(a1 + 8) + 1;
 	return sub_452B30(a1);
 }

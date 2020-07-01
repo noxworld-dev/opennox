@@ -9232,7 +9232,7 @@ char sub_414C90() {
 void sub_414D30() { nox_srand(0x9E0u); }
 
 //----- (00414D40) --------------------------------------------------------
-int __cdecl sub_414D40(int a1) {
+int __cdecl nox_thing_read_audio_414D40(int a1) {
 	int* v1;             // ecx
 	int v2;              // edx
 	int v3;              // esi
@@ -9482,7 +9482,7 @@ BOOL __cdecl sub_414F60(_DWORD* a1, void* a2) {
 }
 
 //----- (00415100) --------------------------------------------------------
-int __cdecl sub_415100_read_spells(int a1) {
+int __cdecl nox_thing_read_spells_415100(int a1) {
 	int* v1;              // ecx
 	int v2;               // edx
 	int v3;               // esi
@@ -9546,7 +9546,7 @@ int __cdecl sub_415100_read_spells(int a1) {
 }
 
 //----- (00415240) --------------------------------------------------------
-int __cdecl sub_415240(int a1) {
+int __cdecl nox_thing_read_image_415240(int a1) {
 	int v1;               // ecx
 	int* v2;              // eax
 	int v3;               // edx
@@ -9609,7 +9609,7 @@ int __cdecl sub_415240(int a1) {
 }
 
 //----- (00415320) --------------------------------------------------------
-int __cdecl sub_415320(int a1) {
+int __cdecl nox_thing_read_ability_415320(int a1) {
 	int* v1;              // ecx
 	int v2;               // edx
 	int v3;               // esi
@@ -9709,14 +9709,14 @@ bool __cdecl sub_415470(void) {
 			break;
 		case 1096107040:
 			if (nox_common_gameFlags_check_40A5C0(0x200000)) {
-				sub_414D40(things);
+				nox_thing_read_audio_414D40(things);
 			} else if (!sub_415660(things, v1)) {
 				goto LABEL_34;
 			}
 			break;
 		case 1096175188:
 			if (nox_common_gameFlags_check_40A5C0(0x200000)) {
-				sub_452B00(things);
+				nox_thing_read_AVNT_452B00(things);
 			} else if (!sub_452890(things, v1)) {
 				goto LABEL_34;
 			}
