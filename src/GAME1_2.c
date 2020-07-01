@@ -2860,41 +2860,6 @@ int __thiscall sub_42BEA0(_DWORD* this, char* a2, const void* a3, unsigned __int
 }
 // 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
 
-//----- (0042BF10) --------------------------------------------------------
-int sub_42BF10() {
-	int v1; // eax
-
-	if (dword_5d4594_741676)
-		return 1;
-	if (nox_common_gameFlags_check_40A5C0(2097153)) {
-		v1 = sub_4E3AC0();
-	} else {
-		if (!nox_common_gameFlags_check_40A5C0(2))
-			return 0;
-		v1 = nox_get_things_count();
-	}
-	dword_5d4594_741680 = v1;
-	dword_5d4594_741676 = nox_malloc(2 * v1);
-	if (dword_5d4594_741676) {
-		sub_42BFB0();
-		return 1;
-	}
-	return 0;
-}
-
-//----- (0042BF80) --------------------------------------------------------
-LPVOID sub_42BF80() {
-	LPVOID result; // eax
-
-	result = *(LPVOID*)&dword_5d4594_741676;
-	if (dword_5d4594_741676) {
-		free(*(LPVOID*)&dword_5d4594_741676);
-		dword_5d4594_741676 = 0;
-	}
-	dword_5d4594_741680 = 0;
-	return result;
-}
-
 //----- (0042BFB0) --------------------------------------------------------
 int sub_42BFB0() {
 	int result; // eax
