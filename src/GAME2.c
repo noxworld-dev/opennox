@@ -214,40 +214,6 @@ int __cdecl sub_44CD30(CHAR* a1) {
 	return result;
 }
 
-//----- (0044CD60) --------------------------------------------------------
-void __cdecl sub_44CD60(nox_thing* a1, int a2) {
-	if (!a1)
-		return;
-
-	int v2 = sub_44CD30(a1->name);
-	if (v2 < 0)
-		return;
-
-	int v3 = *(_DWORD*)&byte_5D4594[4 * v2 + 830296];
-	if (!v3)
-		return;
-
-	int v4 = *(_DWORD*)&byte_5D4594[4 * v2 + 830724];
-	*(_DWORD*)(v3 + 8 * v4) = a1;
-	*(_DWORD*)(v3 + 8 * v4 + 4) = a2;
-	++*(_DWORD*)&byte_5D4594[4 * v2 + 830724];
-}
-
-//----- (0044CDB0) --------------------------------------------------------
-void sub_44CDB0() {
-	int i;         // esi
-	signed int v1; // eax
-
-	for (i = 0; i < 108; i += 4) {
-		v1 = *(_DWORD*)&byte_5D4594[i + 830616];
-		if (v1 > 1)
-			qsort(*(void**)&byte_5D4594[i + 830296], v1, 8u, sub_44CDE0);
-	}
-}
-
-//----- (0044CDE0) --------------------------------------------------------
-int __cdecl sub_44CDE0(const void* a1, const void* a2) { return _strcmpi(**(const char***)a1, **(const char***)a2); }
-
 //----- (0044CEF0) --------------------------------------------------------
 char* __cdecl nox_get_thing_name(int i) {
 	if (i < 1 || i >= nox_things_count)
@@ -457,9 +423,6 @@ int __cdecl sub_44D340(CHAR* a1) {
 	}
 	return result;
 }
-
-//----- (0044D390) --------------------------------------------------------
-int nox_get_things_count() { return nox_things_count; }
 
 //----- (0044D3A0) --------------------------------------------------------
 void sub_44D3A0() {
