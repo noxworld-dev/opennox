@@ -3968,7 +3968,7 @@ void sub_4445C0() {
         {
             v0 = 0;
         }
-        if (!sub_444830() && v2 < 550)
+        if (!nox_isIntelCPU_444830() && v2 < 550)
             v0 = 200;
     }
     else
@@ -4057,13 +4057,13 @@ LABEL_30:
 		sub_476700(v5, 0);
 	dword_5d4594_805856 = 1;
 }
-BOOL sub_444830() {
+BOOL nox_isIntelCPU_444830() {
 	DebugBreak();
 	return 0;
 }
 #if 0
 //----- (00444830) --------------------------------------------------------
-BOOL sub_444830()
+BOOL nox_isIntelCPU_444830()
 {
     unsigned __int8 v11[40]; // [esp+Ch] [ebp-28h]
 

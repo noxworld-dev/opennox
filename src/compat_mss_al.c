@@ -1,3 +1,5 @@
+//Translation layer between Microsoft Sound System to OpenAL
+
 #ifdef __APPLE__
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>
@@ -110,6 +112,8 @@ int ima_step_table[89] = {7,     8,     9,     10,    11,    12,    13,    14,  
 						  1060,  1166,  1282,  1411,  1552,  1707,  1878,  2066,  2272,  2499,  2749, 3024,  3327,
 						  3660,  4026,  4428,  4871,  5358,  5894,  6484,  7132,  7845,  8630,  9493, 10442, 11487,
 						  12635, 13899, 15289, 16818, 18500, 20350, 22385, 24623, 27086, 29794, 32767};
+
+int nox_get_audio_subsystem_ready() { return 1; }
 
 static inline int16_t sat16(int x) {
 	if (x < INT16_MIN)

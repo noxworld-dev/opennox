@@ -296,7 +296,7 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 		goto LABEL_13;
 	case WM_SETFOCUS:
 		if (dword_5d4594_823776)
-			sub_48A820(0);
+			nox_video_setWindowSize_48A820(0);
 		goto LABEL_23;
 	case WM_ACTIVATEAPP:
 	LABEL_13:

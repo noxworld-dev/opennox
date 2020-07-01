@@ -245,8 +245,8 @@ void mainloop_exit_2() {
 	f(0);
 }
 
-//----- (00401000) --------------------------------------------------------
-int nox_get_audio_enabled() { return nox_enable_audio; }
+	//----- (00401000) --------------------------------------------------------
+int nox_get_audio_enabled() { return nox_enable_audio && nox_get_audio_subsystem_ready(); }
 
 //----- (00401010) --------------------------------------------------------
 void sub_401010() { nox_srand(1u); }
