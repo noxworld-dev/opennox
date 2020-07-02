@@ -3695,7 +3695,7 @@ int __cdecl nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr);
 void __cdecl sub_4BC080(_DWORD* a1, int a2, unsigned __int16 a3, unsigned __int16 a4, char a5);
 int __cdecl nox_thing_monster_draw(int* a1, int a2);
 int __cdecl sub_4BC6B0(int* a1, int a2, int a3);
-int __cdecl nox_thing_vector_animate_draw(int* a1, int a2);
+int __cdecl nox_thing_vector_animate_draw(int* a1, nox_drawable* dr);
 int __cdecl sub_4BC720(int a1);
 int sub_4BC920();
 int __cdecl nox_thing_door_draw(_DWORD* a1, nox_drawable* dr);

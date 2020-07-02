@@ -1353,7 +1353,7 @@ int __cdecl sub_4BC6B0(int* a1, int a2, int a3) {
 }
 
 //----- (004BC700) --------------------------------------------------------
-int __cdecl nox_thing_vector_animate_draw(int* a1, int a2) { return sub_4BC6B0(a1, a2, *(_DWORD*)(a2 + 304)); }
+int __cdecl nox_thing_vector_animate_draw(int* a1, nox_drawable* dr) { return sub_4BC6B0(a1, dr, *(_DWORD*)&dr->field_76); }
 
 //----- (004BC720) --------------------------------------------------------
 int __cdecl sub_4BC720(int a1) {
