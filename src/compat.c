@@ -991,7 +991,7 @@ BOOL WINAPI SetEvent(HANDLE hEvent) {
 	return 0;
 }
 
-#if defined(__APPLE__) || defined(__EMSCRIPTEN__)
+#if defined(__APPLE__) || defined(__EMSCRIPTEN__) || defined(__C2GO__)
 #else
 int pthread_timedjoin_np(void*, void*, void*);
 #endif
