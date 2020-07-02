@@ -2,7 +2,7 @@
 #include "../../proto.h"
 
 //----- (004BC750) --------------------------------------------------------
-int __cdecl nox_thing_monster_gen_draw(int* a1, int a2) {
+int __cdecl nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 	int v2;               // esi
 	int v3;               // eax
 	int v4;               // edi
@@ -24,15 +24,15 @@ int __cdecl nox_thing_monster_gen_draw(int* a1, int a2) {
 	int v20;              // [esp+14h] [ebp-4h]
 	unsigned __int8* v21; // [esp+20h] [ebp+8h]
 
-	v2 = a2;
-	v3 = *(unsigned int*)(a2 + 280);
-	v4 = *(unsigned int*)(a2 + 304);
+	v2 = dr;
+	v3 = *(unsigned int*)&dr->field_70;
+	v4 = *(unsigned int*)&dr->field_76;
 	if (v3 & 0x100) {
 		v5 = 1;
 	} else if (v3 & 0x200) {
 		v5 = 2;
 	} else {
-		v5 = (*(unsigned int*)(a2 + 280) & 0xC00) != 0 ? 3 : 0;
+		v5 = (*(unsigned int*)&dr->field_70 & 0xC00) != 0 ? 3 : 0;
 	}
 	v6 = *(unsigned __int8*)(v5 + v4 + 24);
 	v19 = (unsigned __int8*)(v5 + v4 + 24);
