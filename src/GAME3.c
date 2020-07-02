@@ -11759,7 +11759,7 @@ int __cdecl nox_thing_levelup_draw(int a1, int a2) {
 		v2 = sub_44CFC0((CHAR*)&byte_587000[176492]);
 		*(_DWORD*)&byte_5D4594[1313708] = v2;
 	}
-	sub_4B7740(v2, a1, a2);
+	nox_thing_falling_sparks_draw_4B7740(v2, a1, a2);
 	return 1;
 }
 
@@ -11772,7 +11772,7 @@ int __cdecl nox_thing_oblivion_up_draw(int a1, int a2) {
 		v2 = sub_44CFC0((CHAR*)&byte_587000[176628]);
 		*(_DWORD*)&byte_5D4594[1313712] = v2;
 	}
-	sub_4B7740(v2, a1, a2);
+	nox_thing_falling_sparks_draw_4B7740(v2, a1, a2);
 	return 1;
 }
 
