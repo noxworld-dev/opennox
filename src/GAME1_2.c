@@ -5119,14 +5119,12 @@ char* __cdecl sub_42FA20(const char* a1) {
 }
 
 //----- (0042FAA0) --------------------------------------------------------
-char* __cdecl sub_42FAA0(int a1, const char* a2, char* a3) {
-	char* result; // eax
+char* __cdecl sub_42FAA0(int known_idx, const char* a2, char* a3) {
+	if (known_idx != -1) {
+		return (char*)(dword_5d4594_787152 + 12 * known_idx);
+	}
 
-	if (a1 == -1)
-		result = sub_47A8C0(a2, a3);
-	else
-		result = (char*)(dword_5d4594_787152 + 12 * a1);
-	return result;
+	return sub_47A8C0(a2, a3);
 }
 
 //----- (0042FAD0) --------------------------------------------------------

@@ -1353,7 +1353,7 @@ int __cdecl sub_42F610(int a1);
 int __cdecl sub_42F660(int a1, void* a2);
 char* __cdecl sub_42F970(const char* a1);
 char* __cdecl sub_42FA20(const char* a1);
-char* __cdecl sub_42FAA0(int a1, const char* a2, char* a3);
+char* __cdecl sub_42FAA0(int known_idx, const char* a2, char* a3);
 int sub_42FAD0();
 _DWORD* __cdecl sub_42FAE0(int a1);
 int __cdecl sub_42FB30(int a1);
