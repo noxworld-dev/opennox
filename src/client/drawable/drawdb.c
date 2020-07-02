@@ -297,16 +297,19 @@ bool __cdecl nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_val
 
 //----- (0044C500) --------------------------------------------------------
 bool __cdecl nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	int v8 = 0;
 	char v10[128];
 
-	int v3 = nox_memfile_read_u32(f);
-	if (v3 == -1) {
-		v8 = nox_memfile_read_u8(f);
-		int n = nox_memfile_read_u8(f);
-		nox_memfile_read(v10, 1u, n, f);
+	const uint32_t known_idx = nox_memfile_read_u32(f);
+	if (known_idx != -1) {
+		obj->pretty_image = sub_42FAA0(known_idx, 0, v10);
+		return 1;
 	}
-	obj->pretty_image = sub_42FAA0(v3, v8, v10);
+
+	// TODO: After cleanup: This branch appears to never be taken. Figure out what these values are.
+	const int v8 = nox_memfile_read_u8(f);
+	const int n = nox_memfile_read_u8(f);
+	nox_memfile_read(v10, 1u, n, f);
+	obj->pretty_image = sub_42FAA0(known_idx, v8, v10);
 	return 1;
 }
 
