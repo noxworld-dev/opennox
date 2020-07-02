@@ -106,36 +106,39 @@ bool __cdecl nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, cha
 
 //----- (0044C200) --------------------------------------------------------
 bool __cdecl nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	unsigned __int8 v4; // cl
-	int v5;             // esi
-	int result;         // eax
-	int v11;            // [esp+10h] [ebp-104h]
-	char v12[256];      // [esp+14h] [ebp-100h]
+	const uint8_t read_len = nox_memfile_read_u8(f);
 
-	v4 = nox_memfile_read_u8(f);
-	LOBYTE(v11) = v4;
-	v5 = v4;
-	nox_memfile_read(v12, 1u, v4, f);
-	v12[v5] = 0;
-	sub_40AD60((char*)&v11, 4, 1, f);
+	char read_str[256];
+	nox_memfile_read(read_str, 1u, read_len, f);
+	read_str[read_len] = 0;
 
-	if (!*(_DWORD*)nox_parse_thing_draw_funcs)
+	// TODO: After cleanup: Figure out if this value has any significance to the data in the file, or if the file was
+	// simply 16byte-aligned
+	uint32_t tmp;
+	sub_40AD60((char*)&tmp, sizeof(tmp), 1, f);
+
+	if (!*(_DWORD*)nox_parse_thing_draw_funcs) {
 		return 1;
+	}
 
 	nox_parse_thing_draw_funcs_t* item = NULL;
 	for (int i = 0; i < nox_parse_thing_draw_funcs_cnt; i++) {
 		nox_parse_thing_draw_funcs_t* cur = &nox_parse_thing_draw_funcs[i];
-		if (!strcmp(cur->name, v12)) {
+		if (!strcmp(cur->name, read_str)) {
 			item = cur;
 			break;
 		}
 	}
+
 	if (!item) {
 		return 1;
 	}
-	if (item->parse_fnc)
-		result = item->parse_fnc(obj, f, attr_value);
+
+	if (item->parse_fnc) {
+		item->parse_fnc(obj, f, attr_value);
+	}
 	obj->draw_func = item->draw;
+
 	return 1;
 }
 
