@@ -13,7 +13,6 @@
 
 extern _DWORD dword_587000_205200;
 extern _DWORD dword_5d4594_1567960;
-extern _DWORD dword_5d4594_1568240;
 extern _DWORD dword_5d4594_1567956;
 extern _DWORD dword_5d4594_1568280;
 extern _DWORD dword_5d4594_1568288;
@@ -7734,7 +7733,7 @@ int sub_4ECE50() {
 
 	v0 = &byte_5D4594[1568044];
 	*(_DWORD*)&byte_5D4594[1568236] = 0;
-	dword_5d4594_1568240 = 0;
+	*(_DWORD*)&byte_5D4594[1568240] = 0;
 	*(_DWORD*)&byte_5D4594[1568036] = 0;
 	*(_DWORD*)&byte_5D4594[1568040] = 0;
 	do {
@@ -7757,9 +7756,9 @@ int __cdecl sub_4ECEA0(int a1) {
 		*v1 = a1;
 		result = sub_4ECDE0(&byte_5D4594[1568236], (int)v1);
 	} else {
-		v2 = dword_5d4594_1568240;
-		v4 = dword_5d4594_1568240;
-		**(_DWORD**)&dword_5d4594_1568240 = a1;
+		v2 = *(_DWORD*)&byte_5D4594[1568240];
+		v4 = *(_DWORD*)&byte_5D4594[1568240];
+		**(_DWORD**)&byte_5D4594[1568240] = a1;
 		sub_4ECE10(&byte_5D4594[1568236], v4);
 		result = sub_4ECDE0(&byte_5D4594[1568236], v2);
 	}
