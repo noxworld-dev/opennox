@@ -1091,9 +1091,8 @@ int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, int a2) {
 // 4BBC74: variable 'v9' is possibly undefined
 
 //----- (004BBD30) --------------------------------------------------------
-int __cdecl nox_thing_slave_draw(int* a1, int a2) {
-	sub_4C4770_draw(a1, (unsigned __int8*)a2,
-					*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(a2 + 304) + 4) + 4 * *(_DWORD*)(a2 + 308)));
+int __cdecl nox_thing_slave_draw(int* a1, nox_drawable* dr) {
+	sub_4C4770_draw(a1, (unsigned __int8*)dr, *(_DWORD*)(*(_DWORD*)(*(_DWORD*)&dr->field_76 + 4) + 4 * dr->field_77));
 	if (nox_thing_slave_draw == nox_thing_static_random_draw) // AntiICFoptimization
 	{
 		return 0;
