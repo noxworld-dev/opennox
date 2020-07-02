@@ -22,7 +22,7 @@ option (USE_OPENGL "Use OpenGL in Nox, disabling results in running in SDL Rende
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
 else ()
-    if (CMAKE_CL_64)
+    if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "^(x86)") # TODO: Better way to check if we are on a x86 family
         add_compile_options( -m32 )
     endif ()
     add_compile_options (-g -fshort-wchar)
@@ -90,7 +90,7 @@ endif ()
 include_directories (external/include)
 link_directories (${PROJECT_SOURCE_DIR}/external/lib)
 if (WIN32)
-    find_library (SDL2_LIBRARIES SDL2.lib OPTIONAL)
+    find_library (SDL2_LIBRARIES SDL2.lib)
     find_library (OPENAL_LIBRARIES OpenAL32.lib)
     find_library (OPENGL_LIBRARIES OpenGL32.lib)
     find_library (GLEW_LIBRARIES    glew32.lib)
@@ -320,8 +320,6 @@ add_executable (
     server/system/server.c
     server/system/trade.c
     server/xfer/savegame/savegame.c
-
-
     "${COMPAT_SOURCES}"
     "${RENDERING_BACKEND}"
     "${AUDIO_BACKEND}"
@@ -350,7 +348,7 @@ if (MSVC)
         include_directories("${OPENAL_INCLUDE_DIR}")
     endif ()
 else ()
-    if (CMAKE_CL_64)
+    if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "^(x86)") # TODO: Better way to check if we are on a x86 family
         target_link_options (out PUBLIC -m32)
     endif ()
 
