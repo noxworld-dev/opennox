@@ -844,29 +844,35 @@ CHAR* __cdecl sub_4E3080(CHAR* a1) {
 
 //----- (004E3110) --------------------------------------------------------
 int sub_4E3110() {
-	int v0;  // edi
-	char* i; // esi
-	int v2;  // eax
+	int ret = 1;
 
-	v0 = 1;
-	for (i = (char*)sub_4E3B30(); i; i = (char*)sub_4E3B40((int)i)) {
-		if (!(i[32] & 0x40)) {
-			v2 = *((_DWORD*)i + 15);
-			if (v2 != 2) {
-				if (v2 != 3)
-					continue;
-				nox_shape_box_calc((nox_shape*)(i + 60));
-				if (*((float*)i + 24) - *((float*)i + 22) < 85.0 && *((float*)i + 27) - *((float*)i + 21) < 85.0)
-					continue;
-				LABEL_9:
-				v0 = 0;
-				continue;
+	for (char* cur = (char*)sub_4E3B30(); cur; cur = (char*)sub_4E3B40((int)cur)) {
+		char char_0x20 = *((char*)cur + 32);
+		if ((char_0x20 & 0x40) != 0) {
+			continue;
+		}
+
+		int dword_0x3c = *((_DWORD*)cur + 15);
+		float dword_0x40 = *((float*)cur + 16);
+		float dword_0x54 = *((float*)cur + 21);
+		float dword_0x58 = *((float*)cur + 22);
+		float dword_0x60 = *((float*)cur + 24);
+		float dword_0x6c = *((float*)cur + 27);
+		nox_shape* p_shape_0x3c = (nox_shape*)(cur + 60);
+		if (dword_0x3c == 2) {
+			if (dword_0x40 + dword_0x40 >= 85.0) {
+				ret = 0;
 			}
-			if (*((float*)i + 16) + *((float*)i + 16) >= 85.0)
-				goto LABEL_9;
+		} else if (dword_0x3c == 3) {
+			nox_shape_box_calc(p_shape_0x3c);
+
+			if (dword_0x60 - dword_0x58 >= 85.0 || dword_0x6c - dword_0x54 >= 85.0) {
+				ret = 0;
+			}
 		}
 	}
-	return v0;
+
+	return ret;
 }
 
 //----- (004E3040) --------------------------------------------------------
@@ -901,7 +907,6 @@ void __cdecl sub_4E30D0(int a1) {
 		}
 	}
 }
-
 
 //----- (004E2A00) --------------------------------------------------------
 int __cdecl sub_4E2A00(const void* a1, const void* a2) {
@@ -1080,7 +1085,7 @@ void* __cdecl nox_read_things_alternative_4E2B60(void) {
 			*((_DWORD*)v5 + 39) = sub_532E20;
 			*((_DWORD*)v5 + 53) = sub_4F49A0;
 			if (!sub_4E3220(things, (char*)v3, (int)v5)) {
-				LABEL_53:
+			LABEL_53:
 				nox_memfile_free(things);
 				return 0;
 			}
@@ -1105,7 +1110,7 @@ void* __cdecl nox_read_things_alternative_4E2B60(void) {
 			}
 			v11 = (const char*)*((_DWORD*)v5 + 1);
 			if (!strcmp(*((const char**)v5 + 1), "Boulder") || !strcmp(*((const char**)v5 + 1), "RollingBoulder") ||
-			    !strcmp(*((const char**)v5 + 1), "BoulderIndestructible")) {
+				!strcmp(*((const char**)v5 + 1), "BoulderIndestructible")) {
 				*((_DWORD*)v5 + 13) = 1008981770;
 				*((_DWORD*)v5 + 14) = 1120403456;
 			}
