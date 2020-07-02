@@ -66,7 +66,7 @@ uint32_t nox_memfile_read_u32(nox_memfile* f) {
 }
 
 //----- (0040ACC0) --------------------------------------------------------
-unsigned int nox_memfile_read(void* dst, unsigned int sz, int cnt, nox_memfile* f) {
+unsigned int nox_memfile_read(void* dst, const unsigned int sz, const int cnt, nox_memfile* f) {
 	unsigned int n = cnt * sz;
 	if (f->cur + n > f->end)
 		n = f->end - f->cur;
