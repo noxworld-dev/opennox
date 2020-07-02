@@ -16,8 +16,8 @@ option (USE_ASAN "Enable address sanitizer" OFF)
 option (STRICT_MODE "Fail on compilation warnings" OFF)
 option (E2E_TEST "Run in end-to-end test mode" OFF)
 
-option (USE_OPENAL "Use OpenAL in Nox, disabling results in no sound" OFF)
-option (USE_OPENGL "Use OpenGL in Nox, disabling results in running in SDL Rendering" OFF)
+option (USE_OPENAL "Use OpenAL in Nox, disabling results in no sound" ON)
+option (USE_OPENGL "Use OpenGL in Nox, disabling results in running in SDL Rendering" ON)
 
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")

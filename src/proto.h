@@ -58,7 +58,7 @@ char* dos_to_unix(const char* path);
 
 int map_download_loop(int);
 
-int nox_is_audio_subsystem_ready();
+int nox_get_audio_subsystem_ready();
 int nox_get_audio_enabled();
 void sub_401010();
 wchar_t* sub_401020();
