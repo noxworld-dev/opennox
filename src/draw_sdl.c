@@ -2157,9 +2157,6 @@ int __cdecl sub_4B0300(char* a1) {
 	}
 	return result;
 }
-
-int PlayMovie(char* filename);
-
 //----- (004B0340) --------------------------------------------------------
 int __cdecl sub_4B0340(int a1) // draw general
 {
@@ -2206,15 +2203,17 @@ int __cdecl sub_4B0340(int a1) // draw general
 		v4 = a1;
 	LABEL_13:
 
-#ifdef __linux__
-		;
-		if (nox_enable_audio) { // TODO: disable audio in movies instead
-			char* path = dos_to_unix(&byte_5D4594[1311940]);
-			PlayMovie(path);
-			free(path);
-		}
-#else
-		//PlayMovie(&byte_5D4594[1311940]);
+#if 0
+	#ifdef __linux__
+			;
+			if (nox_enable_audio) { // TODO: disable audio in movies instead
+				char* path = dos_to_unix(&byte_5D4594[1311940]);
+				PlayMovie(path);
+				free(path);
+			}
+	#else
+			//PlayMovie(&byte_5D4594[1311940]);
+	#endif
 #endif
 
 		if (!v2) {
