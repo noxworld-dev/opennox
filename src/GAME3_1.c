@@ -1219,7 +1219,7 @@ void __cdecl sub_4BC080(_DWORD* a1, int a2, unsigned __int16 a3, unsigned __int1
 }
 
 //----- (004BC180) --------------------------------------------------------
-int __cdecl nox_thing_monster_draw(int* a1, int a2) {
+int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	int v2;    // esi
 	int v3;    // edi
 	char v4;   // cl
@@ -1242,9 +1242,11 @@ int __cdecl nox_thing_monster_draw(int* a1, int a2) {
 	int v22;   // [esp+10h] [ebp-8h]
 	int v23;   // [esp+14h] [ebp-4h]
 
-	v2 = a2;
+	int a2 = dr;
+
+	v2 = dr;
 	v23 = 1;
-	v3 = *(_DWORD*)(a2 + 304);
+	v3 = *(_DWORD*)&dr->field_76;
 	if (!nox_common_gameFlags_check_40A5C0(0x200000)) {
 		v4 = *(_BYTE*)(v2 + 432);
 		if (*(_BYTE*)(v2 + 297) != v4) {
@@ -1284,7 +1286,7 @@ int __cdecl nox_thing_monster_draw(int* a1, int a2) {
 		LOBYTE(a2) = nox_backbuffer_depth >= 16 ? -1 : -128;
 	LABEL_21:
 		nox_client_drawEnableAlpha_434560(1);
-		nox_client_drawSetAlpha_434580(a2);
+		nox_client_drawSetAlpha_434580(dr);
 	LABEL_22:
 		sub_4BC490(v2);
 		v12 = a1;
