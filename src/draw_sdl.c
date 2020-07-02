@@ -598,7 +598,7 @@ void sdl_present() {
 
 		set_viewport(g_frontbuffer1->w, g_frontbuffer1->h);
 
-		auto tex = SDL_CreateTextureFromSurface(g_ddraw, g_frontbuffer1);
+		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_frontbuffer1);
 		SDL_RenderCopy(g_ddraw, tex, &srcrect, &dstrect);
 		SDL_RenderPresent(g_ddraw);
 
