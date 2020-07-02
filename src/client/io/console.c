@@ -44,7 +44,7 @@ unsigned __int8* sub_451630() {
 }
 
 //----- (004516C0) --------------------------------------------------------
-void sub_4516C0(unsigned short* a1, ...) {
+void sub_4516C0(wchar_t* a1, ...) {
 	unsigned short* v1; // eax
 	int v2;             // eax
 	unsigned short* v3; // [esp-8h] [ebp-8h]
