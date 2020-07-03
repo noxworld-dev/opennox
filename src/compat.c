@@ -873,6 +873,9 @@ char* _getcwd(char* buffer, int maxlen) {
 
 FILE* fopen(const char* path, const char* mode)
 #undef fopen
+#ifdef NOX_COMPAT_FOPEN_PUSHED
+#pragma pop_macro("fopen")
+#endif
 {
 	FILE* result;
 	char* converted = dos_to_unix(path);
@@ -884,6 +887,9 @@ FILE* fopen(const char* path, const char* mode)
 
 char* fgets(char* str, int size, FILE* stream)
 #undef fgets
+#ifdef NOX_COMPAT_FGETS_PUSHED
+#pragma pop_macro("fgets")
+#endif
 {
 	char* result;
 
