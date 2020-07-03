@@ -84,16 +84,33 @@ unsigned int _controlfp(unsigned int new_, unsigned int mask) {
 	return 0;
 }
 
-uintptr_t _beginthread(void(__cdecl* start_address)(void*), unsigned int stack_size, void* arglist) {
-	pthread_t handle;
+typedef struct {
+    void(__cdecl* start_address)(void*);
+    void* arglist;
+} thread_arg_wrapper;
 
+// thread_start_wrapper correctly converts WinAPI callback function signature to pthread callback signature.
+void* thread_start_wrapper(void* arglist) {
+    thread_arg_wrapper* arg = arglist;
+    arglist = arg->arglist;
+    void(__cdecl* start_address)(void*) = arg->start_address;
+    free(arg);
+    start_address(arglist);
+    return 0;
+}
+
+uintptr_t _beginthread(void(__cdecl* start_address)(void*), unsigned int stack_size, void* arglist) {
 #ifdef __EMSCRIPTEN__
 	fprintf(stderr, "%s: unsupported\n");
 	while (1) {
 	}
 #endif
+    thread_arg_wrapper* arg = (thread_arg_wrapper*)malloc(sizeof(thread_arg_wrapper));
+	arg->start_address = start_address;
+	arg->arglist = arglist;
 
-	if (pthread_create(&handle, NULL, start_address, arglist))
+	pthread_t handle;
+	if (pthread_create(&handle, NULL, thread_start_wrapper, arg))
 		return (uintptr_t)-1;
 
 	return new_handle(HANDLE_THREAD, handle);
