@@ -72,3 +72,94 @@ int __cdecl nox_thing_magic_missle_draw(int* a1, int a2) {
 	}
 	return 1;
 }
+
+//----- (004B5F30) --------------------------------------------------------
+int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, int a2) {
+	int v2;         // ecx
+	int v3;         // edi
+	int v4;         // esi
+	int v5;         // ebx
+	int v6;         // eax
+	int v7;         // ebp
+	int v8;         // ebx
+	float v10;      // [esp+0h] [ebp-1Ch]
+	int v11;        // [esp+14h] [ebp-8h]
+	int v12;        // [esp+18h] [ebp-4h]
+	signed int v13; // [esp+20h] [ebp+4h]
+	int v14;        // [esp+24h] [ebp+8h]
+
+	v2 = a2;
+	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
+	v4 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
+	v12 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5] + *(_DWORD*)(a2 + 436);
+	v5 = *(_DWORD*)(a2 + 356) - *(_DWORD*)&byte_5D4594[2598000];
+	v11 = *a1 - a1[4] + *(_DWORD*)(a2 + 432);
+	v14 = v5;
+	if (v5 > 0) {
+		v6 = (v5 << 6) / (int)(*(_DWORD*)&byte_5D4594[2649704] / 3u);
+		v13 = *(_DWORD*)&byte_5D4594[2649704] / 3u;
+		if (v6 >= 64)
+			v6 = 63;
+		v7 = *(_DWORD*)&byte_5D4594[4 * v6 + 1312756];
+		v8 = v2 + 136;
+		sub_484BE0((_DWORD*)(v2 + 136), 255, 128, 50);
+		v10 = (double)v14 * 20.0 / (double)v13;
+		sub_484D70_light_intensity(v8, v10);
+		nox_client_drawSetColor_434460(v7);
+		nox_client_drawEnableAlpha_434560(1);
+		nox_client_drawSetAlpha_434580(0x80u);
+		nox_client_drawAddPoint_49F500(v3, v4);
+		nox_client_drawAddPoint_49F500(v11, v12);
+		nox_client_drawLineFromPoints_49E4B0();
+		nox_client_drawEnableAlpha_434560(0);
+	}
+	return 1;
+}
+
+//----- (004B5E10) --------------------------------------------------------
+int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, int a2) {
+	int v2;          // ecx
+	int v3;          // edi
+	int v4;          // esi
+	int v5;          // eax
+	bool v6;         // zf
+	int v7;          // eax
+	unsigned int v8; // ett
+	int v9;          // ebp
+	int v10;         // ebx
+	float v12;       // [esp+0h] [ebp-24h]
+	int v13;         // [esp+14h] [ebp-10h]
+	int v14;         // [esp+18h] [ebp-Ch]
+	int v15;         // [esp+2Ch] [ebp+8h]
+
+	v2 = a2;
+	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
+	v4 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
+	v13 = *a1 - a1[4] + *(_DWORD*)(a2 + 432);
+	v5 = *(_DWORD*)(a2 + 356) - *(_DWORD*)&byte_5D4594[2598000];
+	v6 = *(_DWORD*)(a2 + 356) == *(_DWORD*)&byte_5D4594[2598000];
+	v14 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5] + *(_DWORD*)(a2 + 436);
+	v15 = v5;
+	if (v5 >= 0 && !v6) {
+		v8 = v5 << 6;
+		v7 = (unsigned int)(v5 << 6) / *(_DWORD*)&byte_5D4594[2649704];
+		if ((int)(v8 / *(_DWORD*)&byte_5D4594[2649704]) >= 64)
+			v7 = 63;
+		v9 = *(_DWORD*)&byte_5D4594[4 * v7 + 1312500];
+		v10 = v2 + 136;
+		sub_484BE0((_DWORD*)(v2 + 136), 128, 128, 255);
+		v12 = (double)v15 * 20.0 / (double)*(int*)&byte_5D4594[2649704];
+		sub_484D70_light_intensity(v10, v12);
+		nox_client_drawSetColor_434460(v9);
+		nox_client_drawEnableAlpha_434560(1);
+		nox_client_drawSetAlpha_434580(0x80u);
+		nox_client_drawAddPoint_49F500(v3, v4);
+		nox_client_drawAddPoint_49F500(v13, v14);
+		nox_client_drawLineFromPoints_49E4B0();
+		nox_client_drawEnableAlpha_434560(0);
+	}
+	return 1;
+}
+
+//----- (004B9B40) --------------------------------------------------------
+int nox_thing_drain_mana_draw() { return 1; }

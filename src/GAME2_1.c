@@ -1,3 +1,5 @@
+#include "client/draw/debugdraw.h"
+#include "client/draw/staticdraw.h"
 #include "client/drawable/drawable.h"
 #include "client/gui/chaticon.h"
 #include "client/gui/guiobs.h"

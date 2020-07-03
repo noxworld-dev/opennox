@@ -1,3 +1,5 @@
+#include "client/draw/debugdraw.h"
+#include "client/draw/staticdraw.h"
 #include "client/drawable/drawable.h"
 
 #include "client/gui/gadgets/listbox.h"
