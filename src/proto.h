@@ -3688,7 +3688,7 @@ int __cdecl nox_thing_plasma_draw(int* a1, int a2);
 int sub_4BAB30();
 void nullsub_20(void); // weak
 int __cdecl nox_thing_trigger_draw(_DWORD* a1, nox_drawable* dr);
-int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, nox_drawable* dr);
 int __cdecl nox_thing_slave_draw(int* a1, nox_drawable* dr);
 int __cdecl nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr);
 int __cdecl nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr);
