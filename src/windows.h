@@ -332,7 +332,19 @@ enum {
 #define _mkdir compat_mkdir
 #define _unlink compat_unlink
 #define _getcwd compat_getcwd
+
+#ifdef fopen
+#pragma push_macro("fopen")
+#undef fopen
+#define NOX_COMPAT_FOPEN_PUSHED
+#endif
 #define fopen compat_fopen
+
+#ifdef fgets
+#pragma push_macro("fgets")
+#undef fgets
+#define NOX_COMPAT_FGETS_PUSHED
+#endif
 #define fgets compat_fgets
 
 #define _strdup strdup
