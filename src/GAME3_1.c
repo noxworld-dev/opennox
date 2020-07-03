@@ -977,7 +977,7 @@ int sub_4BAB30() {
 }
 
 //----- (004BB9D0) --------------------------------------------------------
-int __cdecl nox_thing_trigger_draw(_DWORD* a1, int a2) {
+int __cdecl nox_thing_trigger_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2;  // edi
 	int v3;  // ebx
 	int v4;  // ebp
@@ -988,6 +988,8 @@ int __cdecl nox_thing_trigger_draw(_DWORD* a1, int a2) {
 	int v10; // [esp+1Ch] [ebp-14h]
 	int v11; // [esp+20h] [ebp-10h]
 	int v12; // [esp+2Ch] [ebp-4h]
+
+	int a2 = dr;
 
 	v2 = *a1 - a1[4];
 	v3 = a1[1] - a1[5];
