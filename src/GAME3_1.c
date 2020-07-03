@@ -978,29 +978,18 @@ int sub_4BAB30() {
 
 //----- (004BB9D0) --------------------------------------------------------
 int __cdecl nox_thing_trigger_draw(_DWORD* a1, nox_drawable* dr) {
-	int v2;  // edi
-	int v3;  // ebx
-	int v4;  // ebp
-	int v5;  // edi
-	int v7;  // [esp+10h] [ebp-20h]
-	int v8;  // [esp+14h] [ebp-1Ch]
-	int v9;  // [esp+18h] [ebp-18h]
-	int v10; // [esp+1Ch] [ebp-14h]
-	int v11; // [esp+20h] [ebp-10h]
-	int v12; // [esp+2Ch] [ebp-4h]
+	int v2 = *a1 - a1[4];
+	int v3 = a1[1] - a1[5];
 
-	int a2 = dr;
+	int v4 = *(_DWORD*)&dr->field_3 + v2 + nox_float2int(dr->shape.box_left_top);
+	int v12 = *(_DWORD*)&dr->field_4 + v3 + nox_float2int(dr->shape.box_left_bottom);
+	int v7 = *(_DWORD*)&dr->field_3 + v2 + nox_float2int(dr->shape.box_right_bottom_2);
+	int v8 = *(_DWORD*)&dr->field_4 + v3 + nox_float2int(dr->shape.box_right_top_2);
+	int v9 = *(_DWORD*)&dr->field_3 + v2 + nox_float2int(dr->shape.box_left_bottom_2);
+	int v10 = *(_DWORD*)&dr->field_4 + v3 + nox_float2int(dr->shape.box_left_top_2);
+	int v11 = *(_DWORD*)&dr->field_3 + v2 + nox_float2int(dr->shape.box_right_top);
+	int v5 = *(_DWORD*)&dr->field_4 + v3 + nox_float2int(dr->shape.box_right_bottom);
 
-	v2 = *a1 - a1[4];
-	v3 = a1[1] - a1[5];
-	v4 = *(_DWORD*)(a2 + 12) + v2 + nox_float2int(*(float*)(a2 + 64));
-	v12 = *(_DWORD*)(a2 + 16) + v3 + nox_float2int(*(float*)(a2 + 68));
-	v7 = *(_DWORD*)(a2 + 12) + v2 + nox_float2int(*(float*)(a2 + 88));
-	v8 = *(_DWORD*)(a2 + 16) + v3 + nox_float2int(*(float*)(a2 + 92));
-	v9 = *(_DWORD*)(a2 + 12) + v2 + nox_float2int(*(float*)(a2 + 72));
-	v10 = *(_DWORD*)(a2 + 16) + v3 + nox_float2int(*(float*)(a2 + 76));
-	v11 = *(_DWORD*)(a2 + 12) + v2 + nox_float2int(*(float*)(a2 + 80));
-	v5 = *(_DWORD*)(a2 + 16) + v3 + nox_float2int(*(float*)(a2 + 84));
 	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
 	nox_client_drawEnableAlpha_434560(1);
 	nox_client_drawAddPoint_49F500(v4, v12);
@@ -1016,6 +1005,7 @@ int __cdecl nox_thing_trigger_draw(_DWORD* a1, nox_drawable* dr) {
 	nox_client_drawAddPoint_49F500(v9, v10);
 	nox_client_drawLineFromPoints_49E4B0();
 	nox_client_drawEnableAlpha_434560(0);
+
 	return 1;
 }
 
