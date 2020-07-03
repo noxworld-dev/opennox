@@ -8,6 +8,11 @@
 #include "client/gui/gamewin/psscript.h"
 #include "common/wolapi/wolstate.h"
 
+#include "client/draw/animdraw.h"
+#include "client/draw/canidraw.h"
+#include "client/draw/vectdraw.h"
+#include "client/draw/slavedraw.h"
+#include "client/draw/staticdraw.h"
 #include "client/drawable/update/dball.h"
 #include "client/drawable/update/drainup.h"
 #include "client/drawable/update/healup.h"
