@@ -1,5 +1,6 @@
 #include "drawdb.h"
 #include "drawable.h"
+#include "../draw/debugdraw.h"
 
 #include "../../proto.h"
 

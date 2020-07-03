@@ -9,5 +9,16 @@ int __cdecl nox_thing_pixie_draw(int* a1, int a2);
 int __cdecl nox_thing_pixie_dust_draw(int* a1, int a2);
 int __cdecl nox_thing_blue_rain_spark_draw(_DWORD* a1, int a2);
 int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_red_spark_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_blue_spark_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_cyan_spark_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_green_spark_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_yellow_spark_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_violet_spark_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_death_ball_spark_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_white_spark_draw(_DWORD* a1, int a2);
+int __cdecl nox_thing_particle_draw(int a1, _DWORD* a2);
+int __cdecl nox_thing_glow_orb_draw(int* a1, int a2);
+int __cdecl nox_thing_glow_orb_move_draw(int* a1, int a2);
 
 #endif // NOX_PORT_CLIENT_DRAW_GLOWDRAW
