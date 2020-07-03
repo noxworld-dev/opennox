@@ -1010,7 +1010,7 @@ int __cdecl nox_thing_trigger_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (004BBB30) --------------------------------------------------------
-int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, int a2) {
+int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2;    // esi
 	int v4;    // ebp
 	int v5;    // edi
@@ -1030,13 +1030,13 @@ int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, int a2) {
 	int v19;   // [esp+1Ch] [ebp-8h]
 	int v20;   // [esp+2Ch] [ebp+8h]
 
-	v2 = a2;
-	if (!*(_BYTE*)(a2 + 432) && !*(_BYTE*)(a2 + 433) && !*(_BYTE*)(a2 + 434) && !*(_BYTE*)(a2 + 435) &&
-		!*(_BYTE*)(a2 + 436) && !*(_BYTE*)(a2 + 437)) {
+	v2 = dr;
+	if (!*(_BYTE*)(v2 + 432) && !*(_BYTE*)(v2 + 433) && !*(_BYTE*)(v2 + 434) && !*(_BYTE*)(v2 + 435) &&
+		!*(_BYTE*)(v2 + 436) && !*(_BYTE*)(v2 + 437)) {
 		return 1;
 	}
 	v4 = a1[1] - a1[5];
-	v13 = *(float*)(a2 + 64);
+	v13 = *(float*)(v2 + 64);
 	v5 = *a1 - a1[4];
 	v20 = a1[1] - a1[5];
 	v18 = *(_DWORD*)(v2 + 12) + v5 + nox_float2int(v13);
