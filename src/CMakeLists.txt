@@ -156,22 +156,45 @@ add_executable (
     client/audio/auddiag.c
     client/audio/audevent.c
     client/draw/animdraw.c
+    client/draw/armordraw.c
+    client/draw/arrowdraw.c
+    client/draw/basedraw.c
+    client/draw/boulderdraw.c
+    client/draw/bubbledraw.c
     client/draw/canidraw.c
+    client/draw/debugdraw.c
+    client/draw/doordraw.c
     client/draw/drawrays.c
     client/draw/drawwin.c
+    client/draw/flagdraw.c
     client/draw/fx.c
     client/draw/glowdraw.c
+    client/draw/glyphdraw.c
+    client/draw/harpoondraw.c
     client/draw/litning.c
     client/draw/lvupdraw.c
     client/draw/magicdrw.c
+    client/draw/maidendraw.c
     client/draw/mgendraw.c
     client/draw/mondraw.c
+    client/draw/npcdraw.c
     client/draw/partrain.c
     client/draw/partscrn.c
     client/draw/plasma.c
+    client/draw/playerdraw.c
+    client/draw/powderdraw.c
+    client/draw/pressureplatedraw.c
     client/draw/selectdw.c
+    client/draw/slavedraw.c
+    client/draw/souldraw.c
+    client/draw/spiderspitdraw.c
+    client/draw/staticdraw.c
+    client/draw/summondraw.c
+    client/draw/triggerdraw.c
     client/draw/udeddraw.c
     client/draw/vectdraw.c
+    client/draw/vortexdraw.c
+    client/draw/weapondraw.c
     client/drawable/drawable.c
     client/drawable/drawdb.c
     client/drawable/update/charmup.c

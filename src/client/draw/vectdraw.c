@@ -39,3 +39,24 @@ int __cdecl sub_4BC5D0(_DWORD* a1, int a2) {
 	}
 	return result;
 }
+
+//----- (004BC700) --------------------------------------------------------
+int __cdecl nox_thing_vector_animate_draw(int* a1, nox_drawable* dr) { return sub_4BC6B0(a1, dr, *(_DWORD*)&dr->field_76); }
+
+//----- (0044BF60) --------------------------------------------------------
+bool __cdecl nox_things_vector_animate_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
+	_DWORD* v2; // eax
+	_DWORD* v3; // esi
+	int result; // eax
+
+	v2 = nox_calloc(1u, 0x30u);
+	v3 = v2;
+	*v2 = 48;
+	result = sub_44BFA0((int)v2, f);
+	if (result) {
+		obj->draw_func = nox_thing_vector_animate_draw;
+		obj->field_5c = v3;
+		result = 1;
+	}
+	return result;
+}
