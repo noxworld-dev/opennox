@@ -181,8 +181,6 @@ SDL_Surface* dword_6F7C48;
 SDL_Surface* g_cursor_surf;
 SDL_Surface* dword_973C60;
 SDL_Surface* g_backbuffer1;
-SDL_Surface* g_frontbuffer1;
-SDL_Surface* g_backbufferrgb;
 SDL_Surface* dword_973C88;
 
 int4 sdl_get_display_dim() {
@@ -332,17 +330,10 @@ void sub_48A120() {
 
 	sub_48B1D0_free_surface(&dword_973C60);
 	sub_48B1D0_free_surface(&dword_973C88);
-	if (g_backbuffer1 != g_frontbuffer1) {
-		sub_48B1D0_free_surface(&g_frontbuffer1);
-	} else {
-		g_frontbuffer1 = 0;
-	}
 	sub_48B1D0_free_surface(&g_backbuffer1);
-#ifndef USE_SDL
-	sub_48B1B0(&g_ddraw);
-#endif
 	sub_48A9C0(0);
 	sub_48AA40();
+	SDL_DestroyRenderer(g_ddraw);
 }
 
 //----- (0048A190) --------------------------------------------------------
@@ -358,21 +349,7 @@ char sub_48A190() {
 
 //----- (0048A220) --------------------------------------------------------
 void __cdecl sub_48A220() {
-#ifndef USE_SDL
-	HRESULT i; // eax
 
-	if (g_ddraw && !dword_974854 && dword_973C64 && (!dword_973C70 || sub_48A2A0())) {
-		for (i = g_frontbuffer->lpVtbl->GetFlipStatus(g_frontbuffer, 2); i;
-			 i = g_frontbuffer->lpVtbl->GetFlipStatus(g_frontbuffer, 2)) {
-			if (i == DDERR_SURFACELOST) {
-				if (!sub_48A2A0())
-					return;
-			} else if (i == DDERR_SURFACEBUSY) {
-				return;
-			}
-		}
-	}
-#endif
 }
 
 //----- (0048A290) --------------------------------------------------------
@@ -410,11 +387,9 @@ void __cdecl sub_48A6B0(SDL_Surface* a1) { SDL_UnlockSurface(a1); }
 //----- (0048A7F0) --------------------------------------------------------
 void nox_video_clean_48A7F0() {
 #ifdef USE_SDL
-#if 0
     SDL_SetRenderDrawColor(g_ddraw, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(g_ddraw);
     SDL_RenderPresent(g_ddraw);
-#endif
 #else
 	sub_48A7B0(g_frontbuffer);
 	sub_48A7B0(g_backbuffer1);
@@ -507,39 +482,8 @@ static void set_viewport(float srcw, float srch) {
 	//glViewport(vpx, vpy, vpw, vph);
 }
 
-Uint32 getpixel(SDL_Surface* surface, int x, int y) {
-	int bpp = surface->format->BytesPerPixel;
-	/* Here p is the address to the pixel we want to retrieve */
-	Uint8* p = (Uint8*)surface->pixels + y * surface->pitch + x * bpp;
-
-	switch (bpp) {
-	case 1:
-		return *p;
-		break;
-
-	case 2:
-		return *(Uint16*)p;
-		break;
-
-	case 3:
-		if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
-			return p[0] << 16 | p[1] << 8 | p[2];
-		else
-			return p[0] | p[1] << 8 | p[2] << 16;
-		break;
-
-	case 4:
-		return *(Uint32*)p;
-		break;
-
-	default:
-		return 0; /* shouldn't happen, but avoids warnings */
-	}
-}
-
-
 void sdl_present() {
-	if (g_ddraw && g_backbuffer1) {
+	if (g_backbuffer1) {
 		SDL_Rect srcrect;
 		SDL_Rect dstrect;
 		SDL_Rect currrect;
@@ -548,57 +492,16 @@ void sdl_present() {
 
 		dstrect.x = 0;
 		dstrect.y = 0;
-		SDL_GL_GetDrawableSize(getWindowHandle_sub_401FD0(), &(dstrect.w), &(dstrect.h));
+		SDL_GetWindowSize(getWindowHandle_sub_401FD0(), &(dstrect.w), &(dstrect.h));
 		SDL_GetClipRect(g_backbuffer1, &srcrect);
-		if (dstrect.w != srcrect.w || dstrect.h != srcrect.h) {
-			float newW;
-			float newH;
-			float newCoefficient = (float)(dstrect.w) / (float)(dstrect.h);
-			float oldCoefficient = (float)(srcrect.w) / (float)(srcrect.h);
-			if (newCoefficient > oldCoefficient) {
-				newW = srcrect.h * newCoefficient;
-				newH = srcrect.h;
-			} else {
-				newW = srcrect.w;
-				newH = srcrect.w / newCoefficient;
-			}
-			dstrect.w = newW;
-			dstrect.h = newH;
-
-			isRectDifferent = 1;
-		}
-		if (g_frontbuffer1 != g_backbuffer1) {
-			if (!g_scaled || isRectDifferent) {
-				sub_48B1D0_free_surface(&g_frontbuffer1);
-				g_frontbuffer1 = 0;
-			} else {
-				SDL_GetClipRect(g_frontbuffer1, &currrect);
-				if (dstrect.h != currrect.h || dstrect.w != currrect.w) {
-					sub_48B1D0_free_surface(&g_frontbuffer1);
-					g_frontbuffer1 = 0;
-				}
-			}
-		}
-		if (g_scaled && g_frontbuffer1 == 0) {
-			g_frontbuffer1 =
-				sub_48A600(dstrect.w, dstrect.h, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
-			SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
-			SDL_SetSurfaceBlendMode(g_frontbuffer1, SDL_BLENDMODE_NONE);
-		}
-		if (g_scaled) {
-			res = SDL_BlitScaled(g_backbuffer1, &srcrect, g_frontbuffer1, &dstrect);
-		} else {
-			g_frontbuffer1 = g_backbuffer1;
-		}
-		const float matrix[] = {1.0, 0.0, 0.0, 1.0};
-		const float matrixRotated[] = {0.0, 1.0, 1.0, 0.0};
-
+		
 		sub_48BE50(1);
 		nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0);
 
-		set_viewport(g_frontbuffer1->w, g_frontbuffer1->h);
+		set_viewport(g_backbuffer1->w, g_backbuffer1->h);
 
-		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_frontbuffer1);
+		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_backbuffer1);
+		SDL_SetTextureScaleMode(tex, SDL_ScaleModeBest);
 		SDL_RenderCopy(g_ddraw, tex, &srcrect, &dstrect);
 		SDL_RenderPresent(g_ddraw);
 
@@ -611,10 +514,10 @@ int create_surfaces(HWND a1, int width, int height) {
 	BYTE v3;
 
 	v3 = nox_video_renderTargetFlags;
-#if 0
+
     if ((v3 & 0x18) == 24)
         SetWindowLongA(windowHandle_dword_973FE0, GWL_STYLE, WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_GROUP);
-#endif
+
 	g_backbuffer1 = sub_48A600(width, height, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
 	// g_backbufferrgb = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_ABGR8888);
 	if (g_backbuffer1) {
@@ -632,7 +535,8 @@ int nox_video_init_48B000() {
 #endif
 	g_format = SDL_PIXELFORMAT_RGB555;
 	if (!g_ddraw) {
-		g_ddraw = SDL_CreateRenderer(windowHandle_dword_973FE0, 0, SDL_RENDERER_ACCELERATED); // SDL_RENDERER_SOFTWARE
+		g_ddraw =
+			SDL_CreateRenderer(windowHandle_dword_973FE0, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 		if (g_ddraw == NULL) {
 			fprintf(stderr, "SDL Renderer context creation failed: %s\n", SDL_GetError());
 			return 0;
@@ -1052,100 +956,30 @@ BOOL __cdecl sub_4347F0(char* a1, int a2) {
 
 //----- (004348C0) --------------------------------------------------------
 int sub_4348C0() {
-#ifdef USE_SDL
 	// FIXME 8-bit support
 	return 0;
-#else
-	int result;           // eax
-	PALETTEENTRY v1[256]; // [esp+0h] [ebp-400h]
-
-	if (!g_ddraw_palette)
-		return 0;
-	sub_4350E0(v1, &byte_5D4594[3803308]);
-	if (g_ddraw_palette->lpVtbl->SetEntries(g_ddraw_palette, 0, 0, 256, v1)) {
-		return 0;
-	}
-	sub_4354F0();
-	result = 1;
-	*(_DWORD*)&byte_5D4594[3804660] = 1;
-	return result;
-#endif
 }
 
 //----- (00434FB0) --------------------------------------------------------
 int sub_434FB0() {
-#ifdef USE_SDL
 	// FIXME 8-bit support
 	return 1;
-#else
-	PALETTEENTRY v1[256]; // [esp+0h] [ebp-400h]
-
-	g_ddraw_palette = 0;
-	if (nox_video_renderTargetFlags & 4 || dword_5d4594_3799624)
-		return 1;
-
-	sub_4350E0(v1, &byte_5D4594[3803308]);
-	if (g_ddraw->lpVtbl->CreatePalette(g_ddraw, 68, v1, &g_ddraw_palette, 0))
-		return 0;
-	if (g_frontbuffer->lpVtbl->SetPalette(g_frontbuffer, g_ddraw_palette))
-		return 0;
-	return 1;
-#endif
 }
 
 //----- (004352E0) --------------------------------------------------------
 void __cdecl sub_4352E0() {
-#ifdef USE_SDL
 	// FIXME gamma control
-#else
-	DDCAPS v0; // [esp+4h] [ebp-2F8h]
-	DDCAPS v1; // [esp+180h] [ebp-17Ch]
-
-	if (g_ddraw) {
-		memset(&v0, 0, 0x17Cu);
-		memset(&v1, 0, 0x17Cu);
-		v0.dwSize = 380;
-		v1.dwSize = 380;
-		if (!g_ddraw->lpVtbl->GetCaps(g_ddraw, &v0, &v1) &&
-			(v0.dwCaps2 & DDCAPS2_PRIMARYGAMMA || v1.dwCaps2 & DDCAPS2_PRIMARYGAMMA)) {
-			g_frontbuffer->lpVtbl->QueryInterface(g_frontbuffer, &IID_IDirectDrawGammaControl, &g_ddraw_gamma_control);
-		}
-	}
-#endif
 }
 
 //----- (00444F90) --------------------------------------------------------
 HDC sub_444F90() {
 	DebugBreak();
-
-#if 0
-    HDC result; // eax
-    HDC v1; // [esp+8h] [ebp-4h]
-
-    result = 0;
-    v1 = 0;
-    if (g_frontbuffer)
-    {
-        g_frontbuffer->lpVtbl->GetDC(g_frontbuffer, &v1);
-        result = v1;
-    }
-    return result;
-#else
 	return 0;
-#endif
 }
 
 //----- (00444FC0) --------------------------------------------------------
 void __cdecl sub_444FC0(HDC a1) {
 	DebugBreak();
-
-#if 0
-    if (g_frontbuffer)
-    {
-        if (a1)
-            g_frontbuffer->lpVtbl->ReleaseDC(g_frontbuffer, a1);
-    }
-#endif
 }
 
 //----- (004353C0) --------------------------------------------------------
@@ -1218,20 +1052,7 @@ void sub_4353F0() {
 
 //----- (004354F0) --------------------------------------------------------
 void sub_4354F0() {
-#ifdef USE_SDL
 	// FIXME 8-bit support
-#else
-	HDC v1; // esi
-
-	if (!dword_5d4594_3799624 && nox_video_renderTargetFlags & 0x10) {
-		if (*(_DWORD*)&byte_5D4594[809596]) {
-			v1 = GetDC(windowHandle_dword_973FE0);
-			SelectPalette(v1, *(HPALETTE*)&byte_5D4594[809596], 0);
-			RealizePalette(v1);
-			ReleaseDC(windowHandle_dword_973FE0, v1);
-		}
-	}
-#endif
 }
 
 //----- (00435550) --------------------------------------------------------
@@ -1249,11 +1070,7 @@ void sub_435550() {
 //----- (00433C20) --------------------------------------------------------
 void sub_433C20() {
 	nox_video_clean_48A7F0();
-#ifdef USE_SDL
-#else
-	sub_435380(&g_ddraw_gamma_control);
-	sub_4353A0(&g_ddraw_palette);
-#endif
+
 	if (dword_5d4594_810640) {
 		free(*(LPVOID*)&dword_5d4594_810640);
 		dword_5d4594_810640 = 0;
@@ -1669,44 +1486,16 @@ void nox_video_stopCursorDrawThread_48B350() {
 		CloseHandle(nox_video_cursorDrawThreadHandle);
 		nox_video_cursorDrawThreadHandle = 0;
 	}
-#ifdef USE_SDL
+
 	sub_48B1D0_free_surface(&g_cursor_surf);
 	sub_48B1D0_free_surface(&dword_6F7C48);
-#else
-	if (g_cursor_surf) {
-		g_cursor_surf->lpVtbl->Release(g_cursor_surf);
-		g_cursor_surf = 0;
-	}
-	if (dword_6F7C48) {
-		dword_6F7C48->lpVtbl->Release(dword_6F7C48);
-		dword_6F7C48 = 0;
-	}
-#endif
+
 	if (dword_5d4594_1193704) {
 		free(*(LPVOID*)&dword_5d4594_1193704);
 		dword_5d4594_1193704 = 0;
 	}
 	dword_5d4594_1193624 = 0;
 }
-
-#ifdef USE_SDL
-#else
-//----- (00435380) --------------------------------------------------------
-void __cdecl sub_435380(LPDIRECTDRAWGAMMACONTROL* a1) {
-	if (*a1) {
-		(*a1)->lpVtbl->Release(*a1);
-		*a1 = 0;
-	}
-}
-
-//----- (004353A0) --------------------------------------------------------
-void __cdecl sub_4353A0(LPDIRECTDRAWPALETTE* a1) {
-	if (*a1) {
-		(*a1)->lpVtbl->Release(*a1);
-		*a1 = 0;
-	}
-}
-#endif
 
 //----- (004338D0) --------------------------------------------------------
 int sub_4338D0() {
