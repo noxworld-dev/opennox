@@ -537,7 +537,7 @@ int __cdecl nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 			v3 = v2 - 1;
 			*(_DWORD*)(a2 + 433) = v3;
 			if (!v3) {
-				sub_45A4E0_drawable(a2);
+				sub_45A4E0_drawable(dr);
 				return 0;
 			}
 		}

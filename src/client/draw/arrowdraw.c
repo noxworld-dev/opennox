@@ -27,7 +27,7 @@ int __cdecl nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 		a2[82] = v5;
 		sub_49B950(v4, *(_DWORD*)&byte_5D4594[2649704] / 3u);
 	}
-	return nox_thing_slave_draw(a1, (int)a2);
+	return nox_thing_slave_draw(a1, dr);
 }
 
 //----- (004B79D0) --------------------------------------------------------
@@ -55,7 +55,7 @@ int __cdecl nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
 		a2[82] = v5;
 		sub_49B950(v4, *(_DWORD*)&byte_5D4594[2649704] / 3u);
 	}
-	return nox_thing_slave_draw(a1, (int)a2);
+	return nox_thing_slave_draw(a1, dr);
 }
 
 //----- (004B6050) --------------------------------------------------------

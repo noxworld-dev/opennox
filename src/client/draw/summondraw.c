@@ -44,7 +44,7 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 	if (v7 < (unsigned int)(unsigned __int16)v8) {
 		if (v7 >= v8 - 1)
 			sub_499610(v6, 50, 1000, 30, v2[3], v2[4]);
-		nox_thing_animate_draw(a1, (int)v2);
+		nox_thing_animate_draw(a1, dr);
 		v10 = 0;
 		v11 = &byte_587000[192092];
 		do {
@@ -60,7 +60,7 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 			v14 = v17 + 2 * *(_DWORD*)v11;
 			v2[4] = v14;
 			if (v13 >= 0 && v13 < 5888 && v14 >= 0 && v14 < 5888)
-				nox_thing_animate_draw(a1, (int)v2);
+				nox_thing_animate_draw(a1, dr);
 			v11 += 80;
 			++v10;
 		} while ((int)v11 < (int)&byte_587000[194140]);
@@ -78,7 +78,7 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 		result = 1;
 	} else {
 		sub_45A4B0((_QWORD*)v2[108]);
-		sub_45A4E0_drawable((int)v2);
+		sub_45A4E0_drawable(dr);
 		result = 0;
 	}
 	return result;
