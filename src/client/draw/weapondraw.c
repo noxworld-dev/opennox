@@ -34,10 +34,10 @@ int __cdecl nox_thing_spherical_shield_draw(int* a1, nox_drawable* dr) {
 		v4 = sub_45A6F0(v5);
 	}
 	if (v4) {
-		sub_49AA90(a2, v4[3], v4[4] + 3);
-		result = nox_thing_animate_draw(a1, (int)a2);
+		sub_49AA90(dr, v4[3], v4[4] + 3);
+		result = nox_thing_animate_draw(a1, dr);
 	} else {
-		sub_45A4E0_drawable((int)a2);
+		sub_45A4E0_drawable(dr);
 		result = 0;
 	}
 	return result;

@@ -53,7 +53,7 @@ int __cdecl nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 		sub_4B6720(&v15, *(int*)&byte_5D4594[1313732], v10, 12);
 		result = 1;
 	} else {
-		sub_45A4E0_drawable(a2);
+		sub_45A4E0_drawable(dr);
 		result = 0;
 	}
 	return result;

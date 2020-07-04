@@ -5424,7 +5424,8 @@ int __cdecl sub_459DD0(int a1, char a2) {
 }
 
 //----- (00459E30) --------------------------------------------------------
-int __cdecl sub_459E30(int a1, char a2) {
+int __cdecl sub_459E30(nox_drawable* dr, char a2) {
+	int a1 = dr;
 	int result; // eax
 	bool v3;    // zf
 	int v4;     // ecx
@@ -5469,7 +5470,8 @@ int __cdecl sub_459ED0_drawable(int a1) {
 }
 
 //----- (00459F00) --------------------------------------------------------
-int __cdecl sub_459F00(int a1) {
+int __cdecl sub_459F00(nox_drawable* dr) {
+	int a1 = dr;
 	int result; // eax
 	int v2;     // ecx
 	int v3;     // ecx
@@ -5502,7 +5504,8 @@ int __cdecl sub_459F40_drawable(int a1) {
 }
 
 //----- (00459F70) --------------------------------------------------------
-_DWORD* __cdecl sub_459F70(_DWORD* a1) {
+_DWORD* __cdecl sub_459F70(nox_drawable* dr) {
+	_DWORD* a1 = dr;
 	_DWORD* result; // eax
 	int v2;         // ecx
 	int v3;         // ecx
@@ -5714,9 +5717,9 @@ void __cdecl sub_45A480_drawable(int a1) {
 }
 
 //----- (0045A4B0) --------------------------------------------------------
-int __cdecl sub_45A4B0(_QWORD* a1) {
-	sub_495B00((int)a1);
-	sub_414330(nox_alloc_drawable, a1);
+int __cdecl sub_45A4B0(nox_drawable* dr) {
+	sub_495B00(dr);
+	sub_414330(nox_alloc_drawable, dr);
 	return --nox_drawable_count;
 }
 
