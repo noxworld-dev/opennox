@@ -149,7 +149,7 @@ int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		LOBYTE(a2) = nox_backbuffer_depth >= 16 ? -1 : -128;
 		LABEL_21:
 		nox_client_drawEnableAlpha_434560(1);
-		nox_client_drawSetAlpha_434580(dr);
+		nox_client_drawSetAlpha_434580(a2);
 		LABEL_22:
 		sub_4BC490(v2);
 		v12 = a1;
