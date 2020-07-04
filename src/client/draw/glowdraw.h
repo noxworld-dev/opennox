@@ -3,7 +3,7 @@
 
 #include "../../defs.h"
 
-int __cdecl sub_4B6770(int* a1, int a2, int a3, int a4);
+int __cdecl sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4);
 int __cdecl nox_thing_magic_sparkle_draw(int* a1, nox_drawable* dr);
 int __cdecl nox_thing_pixie_draw(int* a1, nox_drawable* dr);
 int __cdecl nox_thing_pixie_dust_draw(int* a1, nox_drawable* dr);

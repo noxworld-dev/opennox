@@ -8769,14 +8769,15 @@ void* __cdecl nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 }
 
 //----- (00414330) --------------------------------------------------------
-void __cdecl sub_414330(unsigned int* a1, _QWORD* a2) {
+void __cdecl sub_414330(unsigned int* a1, nox_drawable* dr) {
+	_QWORD* a2 = dr;
 	_QWORD* v2;      // esi
 	unsigned int v3; // ecx
 	unsigned int v4; // edx
 
 	if (a2) {
 		v2 = a2 - 2;
-		sub_4143D0((int)a1, (int)a2);
+		sub_4143D0((int)a1, dr);
 		--a1[35];
 		if (*(a2 - 2)) {
 			if (!a1[27])
@@ -8799,7 +8800,8 @@ void __cdecl sub_414330(unsigned int* a1, _QWORD* a2) {
 }
 
 //----- (004143D0) --------------------------------------------------------
-int __cdecl sub_4143D0(int a1, int a2) {
+int __cdecl sub_4143D0(int a1, nox_drawable* dr) {
+	int a2 = dr;
 	int result; // eax
 	int v3;     // ecx
 	int v4;     // ecx

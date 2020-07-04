@@ -33,7 +33,7 @@ int __cdecl nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	if (*(_BYTE*)(a2 + 441) == 3) {
 		LABEL_29:
 		if (!*(_BYTE*)(a2 + 440)) {
-			sub_45A4E0_drawable(a2);
+			sub_45A4E0_drawable(dr);
 			return 0;
 		}
 	}
@@ -69,7 +69,7 @@ int __cdecl nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 					v16 = v14 - 1;
 					*(_BYTE*)(a2 + 440) = v16;
 					if (!v16) {
-						sub_45A4E0_drawable(a2);
+						sub_45A4E0_drawable(dr);
 						return 0;
 					}
 				}
@@ -89,6 +89,6 @@ int __cdecl nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	}
 	if ((short)*(_WORD*)(a2 + 104) >= 0)
 		return 1;
-	sub_45A4E0_drawable(a2);
+	sub_45A4E0_drawable(dr);
 	return 0;
 }
