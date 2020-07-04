@@ -796,7 +796,10 @@ int sub_48D800() {
 }
 
 //----- (0048D830) --------------------------------------------------------
-BOOL __cdecl sub_48D830(int a1) { return sub_48D850(*(_DWORD*)(a1 + 128)) != 0; }
+BOOL __cdecl sub_48D830(nox_drawable* dr) {
+	int a1 = dr;
+	return sub_48D850(*(_DWORD*)(a1 + 128)) != 0;
+}
 
 //----- (0048D850) --------------------------------------------------------
 int __cdecl sub_48D850(int a1) {
@@ -2474,7 +2477,8 @@ int sub_495AE0() {
 }
 
 //----- (00495B00) --------------------------------------------------------
-void __cdecl sub_495B00(int a1) {
+void __cdecl sub_495B00(nox_drawable* dr) {
+	int a1 = dr;
 	_DWORD* v1; // esi
 	_DWORD* v2; // edi
 
@@ -5437,7 +5441,8 @@ int sub_49A950_free() {
 }
 
 //----- (0049A9B0) --------------------------------------------------------
-int __cdecl sub_49A9B0_drawable(int a1) {
+int __cdecl sub_49A9B0_drawable(nox_drawable* dr) {
+	int a1 = dr;
 	int result; // eax
 	int v2;     // ecx
 	int v3;     // ecx
@@ -5475,7 +5480,8 @@ void __cdecl sub_49AA00_drawable(nox_drawable* dr) {
 }
 
 //----- (0049AA90) --------------------------------------------------------
-void __cdecl sub_49AA90(_DWORD* a1, int a2, int a3) {
+void __cdecl sub_49AA90(nox_drawable* dr, int a2, int a3) {
+	_DWORD* a1 = dr;
 	int v3; // ebx
 	int v4; // ecx
 	int v5; // edi
@@ -5489,14 +5495,14 @@ void __cdecl sub_49AA90(_DWORD* a1, int a2, int a3) {
 		v3 = 50;
 		v5 = 50;
 		if (!(a1[30] & 0x400000))
-			sub_45A110_drawable(a1);
+			sub_45A110_drawable(dr);
 	}
 	v6 = a1[5];
 	a1[3] = v3;
 	a1[10] = v6;
 	a1[4] = v5;
 	a1[5] = *(_DWORD*)&byte_5D4594[2598000];
-	sub_49AA00_drawable(a1);
+	sub_49AA00_drawable(dr);
 }
 
 //----- (0049AB00) --------------------------------------------------------
@@ -6155,7 +6161,8 @@ _DWORD* __cdecl sub_49B950(_DWORD* a1, int a2) {
 }
 
 //----- (0049BA10) --------------------------------------------------------
-_DWORD* __cdecl sub_49BA10(_DWORD* a1) {
+_DWORD* __cdecl sub_49BA10(nox_drawable* dr) {
+	_DWORD* a1 = dr;
 	_DWORD* result; // eax
 	int v2;         // ecx
 	int v3;         // ecx
@@ -6208,7 +6215,8 @@ _DWORD* __cdecl sub_49BAB0_drawable(_DWORD* a1) {
 }
 
 //----- (0049BAF0) --------------------------------------------------------
-_DWORD* __cdecl sub_49BAF0(_DWORD* a1) {
+_DWORD* __cdecl sub_49BAF0(nox_drawable* dr) {
+	_DWORD* a1 = dr;
 	_DWORD* result; // eax
 	int v2;         // ecx
 	int v3;         // ecx
@@ -6296,7 +6304,8 @@ _DWORD* __cdecl sub_49BC80_drawable(_DWORD* a1) {
 }
 
 //----- (0049BCD0) --------------------------------------------------------
-_DWORD* __cdecl sub_49BCD0(_DWORD* a1) {
+_DWORD* __cdecl sub_49BCD0(nox_drawable* dr) {
+	_DWORD* a1 = dr;
 	_DWORD* result; // eax
 	int v2;         // ecx
 	int v3;         // ecx

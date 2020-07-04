@@ -11564,7 +11564,8 @@ int sub_4B8220() {
 }
 
 //----- (004B8960) --------------------------------------------------------
-__int16 __cdecl sub_4B8960(int* a1, int a2, int a3, _DWORD* a4, int a5, int a6) {
+__int16 __cdecl sub_4B8960(int* a1, nox_drawable* dr, int a3, _DWORD* a4, int a5, int a6) {
+	int a2 = dr;
 	unsigned __int8* v6; // esi
 	int v7;              // ecx
 	int v8;              // edx
@@ -11591,8 +11592,8 @@ __int16 __cdecl sub_4B8960(int* a1, int a2, int a3, _DWORD* a4, int a5, int a6) 
 	int v30;             // [esp+14h] [ebp-Ch]
 	int v31;             // [esp+18h] [ebp-8h]
 
-	v6 = (unsigned __int8*)a2;
-	v28 = sub_4356C0(a2, 23);
+	v6 = (unsigned __int8*)dr;
+	v28 = sub_4356C0(dr, 23);
 	v7 = 0;
 	v30 = 0;
 	v31 = 0;
@@ -11615,7 +11616,7 @@ __int16 __cdecl sub_4B8960(int* a1, int a2, int a3, _DWORD* a4, int a5, int a6) 
 					if (v28) {
 						for (i = 1; i < 7; ++i)
 							sub_4341D0(i, v27);
-						v6 = (unsigned __int8*)a2;
+						v6 = (unsigned __int8*)dr;
 					} else {
 						sub_4B8CA0(a4, (char*)2);
 					}
@@ -11640,7 +11641,7 @@ LABEL_22:
 						if (v28) {
 							for (j = 1; j < 7; ++j)
 								sub_4341D0(j, v27);
-							v6 = (unsigned __int8*)a2;
+							v6 = (unsigned __int8*)dr;
 						} else {
 							sub_4B8CA0(a4, (char*)(1 << v13));
 						}
@@ -11666,7 +11667,7 @@ LABEL_22:
 			if (v28) {
 				for (k = 1; k < 7; ++k)
 					sub_4341D0(k, v27);
-				v6 = (unsigned __int8*)a2;
+				v6 = (unsigned __int8*)dr;
 			} else {
 				sub_4B8CA0(a4, (char*)2);
 			}
@@ -11688,7 +11689,7 @@ LABEL_55:
 			if (v28) {
 				for (l = 1; l < 7; ++l)
 					sub_4341D0(l, v27);
-				v6 = (unsigned __int8*)a2;
+				v6 = (unsigned __int8*)dr;
 			} else {
 				sub_4B8CA0(a4, (char*)v22);
 			}
@@ -11762,7 +11763,7 @@ _DWORD* __cdecl sub_4B8CA0(_DWORD* a1, char* a2) {
 // 4B8D20: variable 'v10' is possibly undefined
 
 //----- (004B8D40) --------------------------------------------------------
-__int16 __cdecl sub_4B8D40(int* a1, int a2, int a3, _DWORD* a4, int a5, int a6) {
+__int16 __cdecl sub_4B8D40(int* a1, nox_drawable* dr, int a3, _DWORD* a4, int a5, int a6) {
 	unsigned __int8* v6; // esi
 	int v7;              // ebx
 	int* v8;             // ebp
@@ -11772,8 +11773,8 @@ __int16 __cdecl sub_4B8D40(int* a1, int a2, int a3, _DWORD* a4, int a5, int a6) 
 	int v13;             // [esp+10h] [ebp-8h]
 	BOOL v14;            // [esp+14h] [ebp-4h]
 
-	v6 = (unsigned __int8*)a2;
-	v14 = sub_4356C0(a2, 25);
+	v6 = (unsigned __int8*)dr;
+	v14 = sub_4356C0(dr, 25);
 	if (byte_5D4594[2598000] & 1)
 		v13 = *(_DWORD*)&byte_5D4594[2523948];
 	else
@@ -11788,7 +11789,7 @@ __int16 __cdecl sub_4B8D40(int* a1, int a2, int a3, _DWORD* a4, int a5, int a6) 
 				if (v14) {
 					for (i = 1; i < 7; ++i)
 						sub_4341D0(i, v13);
-					v6 = (unsigned __int8*)a2;
+					v6 = (unsigned __int8*)dr;
 				} else {
 					sub_4B8E10(a4, (char*)(1 << v7));
 				}
@@ -11865,7 +11866,8 @@ _DWORD* __cdecl sub_4B8E10(_DWORD* a1, char* a2) {
 // 4B8E90: variable 'v10' is possibly undefined
 
 //----- (004B8EB0) --------------------------------------------------------
-void __cdecl sub_4B8EB0(_DWORD* a1, int a2, unsigned __int16 a3, char a4) {
+void __cdecl sub_4B8EB0(_DWORD* a1, nox_drawable* dr, unsigned __int16 a3, char a4) {
+	int a2 = dr;
 	int v4;   // esi
 	int v5;   // esi
 	int v6;   // edi
@@ -11892,7 +11894,9 @@ void __cdecl sub_4B8EB0(_DWORD* a1, int a2, unsigned __int16 a3, char a4) {
 }
 
 //----- (004B8FA0) --------------------------------------------------------
-int __cdecl sub_4B8FA0(int a1, int* a2, int* a3) {
+int __cdecl sub_4B8FA0(nox_drawable* dr, int* a2, int* a3) {
+	int a1 = dr;
+
 	int v3;  // esi
 	int v4;  // eax
 	bool v5; // zf
@@ -11901,8 +11905,8 @@ int __cdecl sub_4B8FA0(int a1, int* a2, int* a3) {
 	int v9;  // ecx
 
 	v3 = *(_DWORD*)(a1 + 304);
-	if (*(_DWORD*)(a1 + 276) || !sub_48D830(a1)) {
-		if (*(_DWORD*)(a1 + 276) != 4 || (v5 = !sub_4356C0(a1, 31), v4 = 53, v5))
+	if (*(_DWORD*)(a1 + 276) || !sub_48D830(dr)) {
+		if (*(_DWORD*)(a1 + 276) != 4 || (v5 = !sub_4356C0(dr, 31), v4 = 53, v5))
 			v4 = *(_DWORD*)(a1 + 276);
 	} else {
 		v4 = 19;
@@ -11911,7 +11915,7 @@ int __cdecl sub_4B8FA0(int a1, int* a2, int* a3) {
 	v6 = v3 + 264 * v4 + 4;
 	if (v5)
 		return 0;
-	v8 = sub_4BC5D0((_DWORD*)a1, v6);
+	v8 = sub_4BC5D0(dr, v6);
 	if (v8 < 0)
 		return 0;
 	v9 = *(__int16*)(v6 + 40);

@@ -70,7 +70,7 @@ int __cdecl nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	v9 = nox_float2int(v11);
 	if (50 - v9 <= 0) {
 		LABEL_22:
-		sub_45A4E0_drawable(a2);
+		sub_45A4E0_drawable(dr);
 		result = 0;
 	} else {
 		*(_BYTE*)(a2 + 450) = 50 - v9;

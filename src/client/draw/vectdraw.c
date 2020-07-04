@@ -2,7 +2,8 @@
 #include "../../proto.h"
 
 //----- (004BC5D0) --------------------------------------------------------
-int __cdecl sub_4BC5D0(_DWORD* a1, int a2) {
+int __cdecl sub_4BC5D0(nox_drawable* dr, int a2) {
+	_DWORD* a1 = dr;
 	int result; // eax
 	int v3;     // ecx
 	int v4;     // ecx
@@ -17,7 +18,7 @@ int __cdecl sub_4BC5D0(_DWORD* a1, int a2) {
 	case 1:
 		result = (*(unsigned int*)&byte_5D4594[2598000] - a1[79]) / (unsigned int)(*(__int16*)(a2 + 42) + 1);
 		if (result >= *(__int16*)(a2 + 40)) {
-			sub_45A4E0_drawable((int)a1);
+			sub_45A4E0_drawable(dr);
 			result = -1;
 		}
 		break;

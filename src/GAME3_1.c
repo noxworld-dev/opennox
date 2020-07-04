@@ -168,7 +168,8 @@ int __cdecl sub_4B9470(const char** a1) {
 }
 
 //----- (004B94E0) --------------------------------------------------------
-int __cdecl sub_4B94E0(int a1) {
+int __cdecl sub_4B94E0(nox_drawable* dr) {
+	int a1 = dr;
 	int result; // eax
 
 	if (*(_DWORD*)(a1 + 112) & 0x10000000)
@@ -452,14 +453,14 @@ void __cdecl sub_4BC080(_DWORD* a1, int a2, unsigned __int16 a3, unsigned __int1
 }
 
 //----- (004BC6B0) --------------------------------------------------------
-int __cdecl sub_4BC6B0(int* a1, int a2, int a3) {
+int __cdecl sub_4BC6B0(int* a1, nox_drawable* dr, int a3) {
+	int a2 = dr;
 	int v3; // eax
 
-	v3 = sub_4BC5D0((_DWORD*)a2, a3);
+	v3 = sub_4BC5D0(dr, a3);
 	if (v3 < 0)
 		return 0;
-	sub_4C4770_draw(a1, (unsigned __int8*)a2,
-					*(_DWORD*)(*(_DWORD*)(a3 + 4 * *(unsigned __int8*)(a2 + 297) + 4) + 4 * v3));
+	sub_4C4770_draw(a1, dr, *(_DWORD*)(*(_DWORD*)(a3 + 4 * *(unsigned __int8*)(a2 + 297) + 4) + 4 * v3));
 	return 1;
 }
 
@@ -478,7 +479,7 @@ int sub_4BC920() { return 1; }
 // 4BCABD: variable 'v4' is possibly undefined
 
 //----- (004BD010) --------------------------------------------------------
-int __cdecl sub_4BD010(int a1, int2* a2, int a3) {
+int __cdecl sub_4BD010(nox_drawable* dr, int2* a2, int a3) {
 	int v3;     // esi
 	int result; // eax
 	int2* v5;   // edi
@@ -497,6 +498,8 @@ int __cdecl sub_4BD010(int a1, int2* a2, int a3) {
 	int2 v18;   // [esp+1Ch] [ebp-8h]
 	int v19;    // [esp+28h] [ebp+4h]
 	int2* a2a;  // [esp+2Ch] [ebp+8h]
+
+	int a1 = dr;
 
 	v3 = a1;
 	if (*(_DWORD*)(a1 + 44) == 2) {
@@ -4807,7 +4810,8 @@ LABEL_77:
 }
 
 //----- (004C4770) --------------------------------------------------------
-__int16 __cdecl sub_4C4770_draw(int* a1, unsigned __int8* a2, int a3) {
+__int16 __cdecl sub_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
+	unsigned __int8* a2 = dr;
 	unsigned __int8* v3;  // esi
 	char* v4;             // eax
 	_DWORD* v5;           // edi

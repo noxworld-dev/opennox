@@ -8470,7 +8470,8 @@ _DWORD* __cdecl sub_435690(_DWORD* a1) {
 int sub_4356B0() { return dword_5d4594_811372; }
 
 //----- (004356C0) --------------------------------------------------------
-BOOL __cdecl sub_4356C0(int a1, char a2) {
+BOOL __cdecl sub_4356C0(nox_drawable* dr, char a2) {
+	int a1 = dr;
 	BOOL result; // eax
 
 	result = a1;
