@@ -269,12 +269,14 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (004B9790) --------------------------------------------------------
-int __cdecl nox_thing_player_waypoint_draw(int a1, int a2) {
+int __cdecl nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 	int v2; // esi
 	int v3; // ebp
 	int v4; // ebx
 	int v5; // edi
 	int v7; // [esp+14h] [ebp+4h]
+
+	int a2 = dr;
 
 	v2 = *(_DWORD*)&byte_5D4594[2650644];
 	sub_4C32A0(*(_DWORD*)(a2 + 12) - *(_DWORD*)(a1 + 16), *(_DWORD*)(a2 + 16) - *(_DWORD*)(a1 + 20), 10,

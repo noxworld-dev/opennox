@@ -179,7 +179,7 @@ int __cdecl sub_4B94E0(int a1) {
 }
 
 //----- (004B95D0) --------------------------------------------------------
-_DWORD* __cdecl sub_4B95D0(int a1) {
+_DWORD* __cdecl sub_4B95D0(nox_drawable* dr) {
 	_DWORD* result; // eax
 	int v2;         // edx
 	int v3;         // ecx
@@ -189,6 +189,8 @@ _DWORD* __cdecl sub_4B95D0(int a1) {
 	int* v7;        // edi
 	_DWORD** v8;    // esi
 	int v9;         // ebx
+
+	int a1 = dr;
 
 	result = sub_413250(*(_DWORD*)(a1 + 108));
 	v4 = result;
@@ -249,7 +251,7 @@ _DWORD* __cdecl sub_4B9650(int a1) {
 // 4B9677: variable 'v3' is possibly undefined
 
 //----- (004B96F0) --------------------------------------------------------
-_DWORD* __cdecl sub_4B96F0(int a1) {
+_DWORD* __cdecl sub_4B96F0(nox_drawable* dr) {
 	_DWORD* result; // eax
 	int v2;         // edx
 	int v3;         // ecx
@@ -259,6 +261,8 @@ _DWORD* __cdecl sub_4B96F0(int a1) {
 	int* v7;        // edi
 	_DWORD** v8;    // esi
 	int v9;         // ebx
+
+	int a1 = dr;
 
 	result = sub_413270(*(_DWORD*)(a1 + 108));
 	v4 = result;

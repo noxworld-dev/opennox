@@ -11197,9 +11197,11 @@ int __cdecl sub_4B6880(_DWORD* a1, int a2, int a3, int a4) {
 }
 
 //----- (004B6970) --------------------------------------------------------
-int __cdecl sub_4B6970(_DWORD* a1, int a2, int a3, int a4) {
+int __cdecl sub_4B6970(_DWORD* a1, nox_drawable* dr, int a3, int a4) {
 	int v4; // eax
 	int v5; // eax
+
+	int a2 = dr;
 
 	v4 = *(_DWORD*)(a2 + 440);
 	*(_DWORD*)(a2 + 432) += v4 * *(int*)&byte_587000[8 * *(unsigned __int8*)(a2 + 299) + 192088];
@@ -11236,7 +11238,7 @@ __int16 __cdecl sub_4B69F0(int a1) {
 }
 
 //----- (004B6B80) --------------------------------------------------------
-int __cdecl sub_4B6B80(int* a1, int a2, int a3) {
+int __cdecl sub_4B6B80(int* a1, nox_drawable* dr, int a3) {
 	int v3;     // esi
 	int v4;     // eax
 	int v5;     // ecx
@@ -11255,6 +11257,8 @@ int __cdecl sub_4B6B80(int* a1, int a2, int a3) {
 	int v19;    // [esp+10h] [ebp-Ch]
 	int2 xLeft; // [esp+14h] [ebp-8h]
 	int v21;    // [esp+24h] [ebp+8h]
+
+	int a2 = dr;
 
 	v3 = a2;
 	if (!*(_DWORD*)&byte_5D4594[1313660]) {
