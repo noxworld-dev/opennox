@@ -2,7 +2,7 @@
 #include "../../proto.h"
 
 //----- (004B9D70) --------------------------------------------------------
-int __cdecl nox_thing_spider_spit_draw(_DWORD* a1, int a2) {
+int __cdecl nox_thing_spider_spit_draw(_DWORD* a1, nox_drawable* dr) {
 	_DWORD* v2; // eax
 	int v3;     // edi
 	int v4;     // ebp
@@ -18,6 +18,8 @@ int __cdecl nox_thing_spider_spit_draw(_DWORD* a1, int a2) {
 	int v15;    // [esp+24h] [ebp+4h]
 	int v16;    // [esp+28h] [ebp+8h]
 	int v17;    // [esp+28h] [ebp+8h]
+
+	int a2 = dr;
 
 	v2 = (_DWORD*)a2;
 	v3 = a1[4];

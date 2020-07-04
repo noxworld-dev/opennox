@@ -207,7 +207,7 @@ char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3) {
 }
 
 //----- (004BA980) --------------------------------------------------------
-int __cdecl nox_thing_plasma_draw(int* a1, int a2) {
+int __cdecl nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
 	int v3;              // ebx
 	unsigned __int16 v4; // di
 	int v5;              // ebp
@@ -232,6 +232,8 @@ int __cdecl nox_thing_plasma_draw(int* a1, int a2) {
 	int2* v24;           // [esp+0h] [ebp-Ch]
 	float2 v25;          // [esp+4h] [ebp-8h]
 	unsigned __int8 v26; // [esp+14h] [ebp+8h]
+
+	int a2 = dr;
 
 	v24 = nox_client_getMousePos_4309F0();
 	v3 = a2;

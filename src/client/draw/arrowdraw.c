@@ -3,11 +3,13 @@
 #include "../../proto.h"
 
 //----- (004B7920) --------------------------------------------------------
-int __cdecl nox_thing_arrow_draw(int* a1, _DWORD* a2) {
+int __cdecl nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 	int v2;     // eax
 	int v3;     // edi
 	_DWORD* v4; // edi
 	int v5;     // eax
+
+	_DWORD* a2 = dr;
 
 	v2 = *(_DWORD*)&byte_5D4594[1313720];
 	if (!*(_DWORD*)&byte_5D4594[1313720]) {
@@ -29,11 +31,13 @@ int __cdecl nox_thing_arrow_draw(int* a1, _DWORD* a2) {
 }
 
 //----- (004B79D0) --------------------------------------------------------
-int __cdecl nox_thing_weak_arrow_draw(int* a1, _DWORD* a2) {
+int __cdecl nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
 	int v2;     // eax
 	int v3;     // edi
 	_DWORD* v4; // edi
 	int v5;     // eax
+
+	_DWORD* a2 = dr;
 
 	v2 = *(_DWORD*)&byte_5D4594[1313724];
 	if (!*(_DWORD*)&byte_5D4594[1313724]) {
@@ -55,13 +59,15 @@ int __cdecl nox_thing_weak_arrow_draw(int* a1, _DWORD* a2) {
 }
 
 //----- (004B6050) --------------------------------------------------------
-int __cdecl nox_thing_arrow_tail_link_draw(_DWORD* a1, int a2) {
+int __cdecl nox_thing_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2; // ebp
 	int v3; // edi
 	int v4; // esi
 	int v5; // ebx
 	int v6; // ebp
 	int v7; // eax
+
+	int a2 = dr;
 
 	v2 = *(_DWORD*)(a2 + 16);
 	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
@@ -85,13 +91,15 @@ int __cdecl nox_thing_arrow_tail_link_draw(_DWORD* a1, int a2) {
 }
 
 //----- (004B6120) --------------------------------------------------------
-int __cdecl nox_thing_weak_arrow_tail_link_draw(_DWORD* a1, int a2) {
+int __cdecl nox_thing_weak_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2; // ebp
 	int v3; // edi
 	int v4; // esi
 	int v5; // ebx
 	int v6; // ebp
 	int v7; // eax
+
+	int a2 = dr;
 
 	v2 = *(_DWORD*)(a2 + 16);
 	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];

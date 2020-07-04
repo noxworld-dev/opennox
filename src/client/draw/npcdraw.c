@@ -8,7 +8,7 @@ extern _DWORD dword_5d4594_1313796;
 extern _DWORD dword_5d4594_1313800;
 
 //----- (004B9050) --------------------------------------------------------
-int __cdecl nox_thing_npc_draw(int* a1, int a2) {
+int __cdecl nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 	int v2;                           // eax
 	int v4;                           // edi
 	int* v5;                          // ebp
@@ -43,6 +43,8 @@ int __cdecl nox_thing_npc_draw(int* a1, int a2) {
 	int v34;                          // [esp+14h] [ebp-Ch]
 	int v35;                          // [esp+18h] [ebp-8h]
 	int v36;                          // [esp+1Ch] [ebp-4h]
+
+	int a2 = dr;
 
 	if (nox_common_gameFlags_check_40A5C0(0x200000)) {
 		v2 = *(_DWORD*)(sub_44D330((CHAR*)&byte_587000[177440]) + 92) + 4;

@@ -264,7 +264,7 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
 }
 
 //----- (004BAC80) --------------------------------------------------------
-int __cdecl nox_thing_lightning_draw(int* a1, int a2) {
+int __cdecl nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 	int v2;              // ebx
 	int v3;              // edi
 	int v4;              // ebp
@@ -282,6 +282,8 @@ int __cdecl nox_thing_lightning_draw(int* a1, int a2) {
 	int2 a3;             // [esp+20h] [ebp-10h]
 	int2 v18;            // [esp+28h] [ebp-8h]
 	int v19;             // [esp+34h] [ebp+4h]
+
+	int a2 = dr;
 
 	if (!*(_BYTE*)(a2 + 432)) {
 		v2 = *a1;
@@ -334,7 +336,7 @@ int __cdecl nox_thing_lightning_draw(int* a1, int a2) {
 }
 
 //----- (004BB3F0) --------------------------------------------------------
-int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, int a2) {
+int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 	unsigned __int16 v2; // ax
 	int v3;              // ebx
 	int v4;              // edi
@@ -353,6 +355,8 @@ int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, int a2) {
 	int2 a1a;            // [esp+18h] [ebp-18h]
 	int2 v19;            // [esp+20h] [ebp-10h]
 	int2 a3;             // [esp+28h] [ebp-8h]
+
+	int a2 = dr;
 
 	if (!*(_BYTE*)(a2 + 432)) {
 		v2 = *(_WORD*)(a2 + 437);
@@ -406,7 +410,7 @@ int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, int a2) {
 }
 
 //----- (004BB5D0) --------------------------------------------------------
-int __cdecl nox_thing_energy_bolt_draw(int* a1, int a2) {
+int __cdecl nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 	int v2;              // esi
 	bool v3;             // zf
 	int v4;              // ebp
@@ -427,6 +431,8 @@ int __cdecl nox_thing_energy_bolt_draw(int* a1, int a2) {
 	int2 v20;            // [esp+28h] [ebp-8h]
 	int v21;             // [esp+34h] [ebp+4h]
 	char v22;            // [esp+38h] [ebp+8h]
+
+	int a2 = dr;
 
 	v2 = a2;
 	v3 = *(_BYTE*)(a2 + 432) == 0;
@@ -480,7 +486,7 @@ int __cdecl nox_thing_energy_bolt_draw(int* a1, int a2) {
 }
 
 //----- (004BB7B0) --------------------------------------------------------
-int __cdecl nox_thing_green_bolt_draw(int* a1, int a2) {
+int __cdecl nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 	int v2;              // eax
 	int v3;              // eax
 	int v5;              // ebx
@@ -500,6 +506,8 @@ int __cdecl nox_thing_green_bolt_draw(int* a1, int a2) {
 	int2 a3;             // [esp+20h] [ebp-10h]
 	int2 v20;            // [esp+28h] [ebp-8h]
 	int v21;             // [esp+34h] [ebp+4h]
+
+	int a2 = dr;
 
 	if (*(_BYTE*)(a2 + 432)) {
 		if (sub_578B70(*(_DWORD*)(a2 + 437)))

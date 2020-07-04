@@ -3611,9 +3611,9 @@ int __cdecl sub_4B63B0(int2* a1, int2* a2); // idb
 int sub_4B64C0();
 void __cdecl sub_4B6720(int2*, int, int, char);
 int __cdecl sub_4B6880(_DWORD* a1, int a2, int a3, int a4);
-int __cdecl sub_4B6970(_DWORD* a1, int a2, int a3, int a4);
+int __cdecl sub_4B6970(_DWORD* a1, nox_drawable* dr, int a3, int a4);
 __int16 __cdecl sub_4B69F0(int a1);
-int __cdecl sub_4B6B80(int* a1, int a2, int a3);
+int __cdecl sub_4B6B80(int* a1, nox_drawable* dr, int a3);
 int __cdecl sub_4B71A0(_DWORD* a1, int a2);
 _DWORD* __cdecl sub_4B7C40(__int16 a1, unsigned __int16* a2, unsigned __int16 a3, unsigned __int8 a4, __int16 a5);
 void __cdecl sub_4B7EE0(__int16 a1);
@@ -3629,9 +3629,9 @@ void __cdecl sub_4B8EB0(_DWORD* a1, int a2, unsigned __int16 a3, char a4);
 int __cdecl sub_4B8FA0(int a1, int* a2, int* a3);
 int __cdecl sub_4B9470(const char** a1);
 int __cdecl sub_4B94E0(int a1);
-_DWORD* __cdecl sub_4B95D0(int a1);
+_DWORD* __cdecl sub_4B95D0(nox_drawable* dr);
 _DWORD* __cdecl sub_4B9650(int a1);
-_DWORD* __cdecl sub_4B96F0(int a1);
+_DWORD* __cdecl sub_4B96F0(nox_drawable* dr);
 void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5);
 int sub_4BAB30();
 void nullsub_20(void); // weak
