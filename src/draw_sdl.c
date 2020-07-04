@@ -92,7 +92,7 @@ int create_surfaces(HWND a1, int width, int height);
 
 void __cdecl sub_48B1B0(SDL_GLContext* a1);
 void __cdecl sub_48B1D0_free_surface(SDL_Surface** a1);
-SDL_Surface* __cdecl sub_48A600(int a1, int a2, int a3, int a4);
+SDL_Surface* __cdecl nox_video_createSurface_48A600(int a1, int a2, int a3, int a4);
 int __cdecl sub_48A720(SDL_Surface* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5);
 void __cdecl sub_48A670(SDL_Surface* a1);
 void __cdecl sub_48A6B0(SDL_Surface* a1);
@@ -358,14 +358,15 @@ void sub_48A290_call_present() {
 	++g_present_ticks;
 }
 
-SDL_Surface* __cdecl sub_48A600(int width, int height, int flags, int caps) {
+SDL_Surface* __cdecl nox_video_createSurface_48A600(int width, int height, int flags, int caps) {
 	if (!(flags & DDSD_WIDTH))
 		DebugBreak();
 	if (!(flags & DDSD_HEIGHT))
 		DebugBreak();
-	return SDL_CreateRGBSurfaceWithFormat(0, width, height, 16, g_format);
-	// FIXME
-	//    return SDL_CreateRGBSurface(0, width, height, 16, 0xF800, 0x7E0, 0x1F, 0);
+
+	SDL_Surface* pSurface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 16, g_format);
+
+	return pSurface;
 }
 
 int __cdecl sub_48A720(SDL_Surface* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5) {
@@ -387,9 +388,9 @@ void __cdecl sub_48A6B0(SDL_Surface* a1) { SDL_UnlockSurface(a1); }
 //----- (0048A7F0) --------------------------------------------------------
 void nox_video_clean_48A7F0() {
 #ifdef USE_SDL
-    SDL_SetRenderDrawColor(g_ddraw, 0, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderClear(g_ddraw);
-    SDL_RenderPresent(g_ddraw);
+    //SDL_SetRenderDrawColor(g_ddraw, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    //SDL_RenderClear(g_ddraw);
+    //SDL_RenderPresent(g_ddraw);
 #else
 	sub_48A7B0(g_frontbuffer);
 	sub_48A7B0(g_backbuffer1);
@@ -500,28 +501,27 @@ void sdl_present() {
 
 		set_viewport(g_backbuffer1->w, g_backbuffer1->h);
 
-		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_backbuffer1);
+		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_backbuffer1); //Maybe find a way to get the buffer
 		SDL_SetTextureScaleMode(tex, SDL_ScaleModeBest);
 		SDL_RenderCopy(g_ddraw, tex, &srcrect, &dstrect);
 		SDL_RenderPresent(g_ddraw);
+		SDL_DestroyTexture(tex);
 
 		sub_48BE50(0);
 	}
 } 
 
 int create_surfaces(HWND a1, int width, int height) {
-	int result = 0;
 	BYTE v3;
 
 	v3 = nox_video_renderTargetFlags;
 
-	g_backbuffer1 = sub_48A600(width, height, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
-	// g_backbufferrgb = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_ABGR8888);
-	if (g_backbuffer1) {
-		// if (SDL_RenderSetLogicalSize(g_ddraw, width, height) == 0)
-		result = 1;
-	}
-	return result;
+	g_backbuffer1 = nox_video_createSurface_48A600(width, height, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
+
+	if (g_backbuffer1)
+		return 1;
+
+	return 0;
 }
 
 int nox_video_init_48B000() {
@@ -637,10 +637,8 @@ int sdl_drawCursorThreaded(int a1) {
 	SDL_Rect src, dst;
 
 	if (a1 && (dword_5d4594_1193668 || dword_5d4594_1193664) && !IsRectEmpty(r1)) {
-		// FIXME frontbuffer?
 		rect_to_sdl(r2, &src);
 		rect_to_sdl(r1, &dst);
-		// SDL_BlitScaled(dword_6F7C48, &src, g_backbuffer1, &dst);
 	}
 
 	r1->left = dword_5d4594_1193648 - *(_DWORD*)&byte_5D4594[1193580];
@@ -655,11 +653,8 @@ int sdl_drawCursorThreaded(int a1) {
 		r2->right = v4.right - v4.left;
 		r2->bottom = v4.bottom - v4.top;
 
-		// FIXME frontbuffer?
 		rect_to_sdl(&v4, &src);
 		rect_to_sdl(r2, &dst);
-		// if (SDL_BlitScaled(g_backbuffer1, &src, dword_6F7C48, &dst))
-		//    return 0;
 	}
 
 	if (sub_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.data[9]))) {
@@ -671,43 +666,6 @@ int sdl_drawCursorThreaded(int a1) {
 		// FIXME frontbuffer?
 		rect_to_sdl(r3, &src);
 		rect_to_sdl(&v4, &dst);
-
-#if 0 // SDL textures cannot be locked from threads other than where they were created in.
-        uint16_t * dstpixels;
-        int dstpitch;
-		
-        if (SDL_LockTexture(g_texture, &dst, (void**)& dstpixels, &dstpitch) == 0)
-        {
-            unsigned int x, y;
-            unsigned int colorkey;
-            int srcpitch = g_cursor_surf->pitch;
-            uint16_t* srcpixels = (uint16_t*)g_cursor_surf->pixels;
-            SDL_Rect srcrect;
-
-            SDL_GetColorKey(g_cursor_surf, &colorkey);
-
-            srcpixels += src.x + src.y * srcpitch / sizeof(*srcpixels);
-
-            for (y = 0; y < src.h; y++)
-            {
-                for (x = 0; x < src.w; x++)
-                {
-                    uint16_t pixel = srcpixels[x];
-                    if (pixel != colorkey)
-                        dstpixels[x] = pixel;
-                    dstpixels[x] = 0;
-                }
-                dstpixels += dstpitch / sizeof(*dstpixels);
-                srcpixels += srcpitch / sizeof(*srcpixels);
-            }
-
-            SDL_UnlockTexture(g_texture);
-			/*
-            SDL_RenderCopy(g_ddraw, g_texture, &dst, &dst);
-            SDL_RenderPresent(g_ddraw);
-			*/
-        }
-#endif
 
 		if (SDL_BlitScaled(g_cursor_surf, &src, g_backbuffer1, &dst))
 			return 0;
@@ -1348,10 +1306,10 @@ int nox_video_createCursorSurface_48BF70() {
 
 #ifdef USE_SDL
 	g_cursor_surf =
-		sub_48A600(128, 128, DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT, DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY);
+		nox_video_createSurface_48A600(128, 128, DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT, DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY);
 #else
 	g_cursor_surf =
-		sub_48A600(128, 128, DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT, DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY);
+		nox_video_createSurface_48A600(128, 128, DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT, DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY);
 #endif
 	if (g_cursor_surf) {
 		if (sub_48A720(g_cursor_surf, &v2, &v1, &dword_6F7BF8, &dword_6F7C74)) {
@@ -1363,7 +1321,7 @@ int nox_video_createCursorSurface_48BF70() {
 			a1.field_C = 128;
 			sub_48C170(&a1, &a1);
 			dword_6F7C48 =
-				sub_48A600(a1.field_8, a1.field_C, DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT, DDSCAPS_VIDEOMEMORY);
+				nox_video_createSurface_48A600(a1.field_8, a1.field_C, DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT, DDSCAPS_VIDEOMEMORY);
 			if (dword_6F7C48) {
 				if (sub_48A720(dword_6F7C48, &v2, &v1, 0, &dword_6F7C78))
 					result = 0;

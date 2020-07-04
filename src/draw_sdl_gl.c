@@ -3227,11 +3227,11 @@ int __cdecl sub_4B0340(int a1) // draw general
 		;
 		if (nox_enable_audio) { // TODO: disable audio in movies instead
 			char* path = dos_to_unix(&byte_5D4594[1311940]);
-			PlayMovie(path);
+			//PlayMovie(path);
 			free(path);
 		}
 #else
-		PlayMovie(&byte_5D4594[1311940]);
+		//PlayMovie(&byte_5D4594[1311940]);
 #endif
 #else
         unsigned __int8* v6; // esi
