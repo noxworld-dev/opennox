@@ -4,7 +4,7 @@
 extern _DWORD dword_5d4594_1313804;
 
 //----- (004B98A0) --------------------------------------------------------
-int __cdecl nox_thing_magic_draw(int* a1, int a2) {
+int __cdecl nox_thing_magic_draw(int* a1, nox_drawable* dr) {
 	int v2;   // esi
 	int v3;   // edi
 	int v4;   // ecx
@@ -13,6 +13,8 @@ int __cdecl nox_thing_magic_draw(int* a1, int a2) {
 	int v7;   // edi
 	float v9; // [esp+0h] [ebp-1Ch]
 	int2 v10; // [esp+14h] [ebp-8h]
+
+	int a2 = dr;
 
 	if (!dword_5d4594_1313804) {
 		*(_DWORD*)&byte_5D4594[1313808] = sub_4344A0(0, 200, 255);
@@ -39,7 +41,7 @@ int __cdecl nox_thing_magic_draw(int* a1, int a2) {
 }
 
 //----- (004B99F0) --------------------------------------------------------
-int __cdecl nox_thing_magic_missle_draw(int* a1, int a2) {
+int __cdecl nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 	int v2;   // esi
 	int v3;   // edi
 	int v4;   // ecx
@@ -48,6 +50,8 @@ int __cdecl nox_thing_magic_missle_draw(int* a1, int a2) {
 	int v7;   // edi
 	float v9; // [esp+0h] [ebp-1Ch]
 	int2 v10; // [esp+14h] [ebp-8h]
+
+	int a2 = dr;
 
 	if (!dword_5d4594_1313804) {
 		*(_DWORD*)&byte_5D4594[1313808] = sub_4344A0(0, 200, 255);
@@ -74,7 +78,7 @@ int __cdecl nox_thing_magic_missle_draw(int* a1, int a2) {
 }
 
 //----- (004B5F30) --------------------------------------------------------
-int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, int a2) {
+int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2;         // ecx
 	int v3;         // edi
 	int v4;         // esi
@@ -87,6 +91,8 @@ int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, int a2) {
 	int v12;        // [esp+18h] [ebp-4h]
 	signed int v13; // [esp+20h] [ebp+4h]
 	int v14;        // [esp+24h] [ebp+8h]
+
+	int a2 = dr;
 
 	v2 = a2;
 	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
@@ -117,7 +123,7 @@ int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, int a2) {
 }
 
 //----- (004B5E10) --------------------------------------------------------
-int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, int a2) {
+int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2;          // ecx
 	int v3;          // edi
 	int v4;          // esi
@@ -131,6 +137,8 @@ int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, int a2) {
 	int v13;         // [esp+14h] [ebp-10h]
 	int v14;         // [esp+18h] [ebp-Ch]
 	int v15;         // [esp+2Ch] [ebp+8h]
+
+	int a2 = dr;
 
 	v2 = a2;
 	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];

@@ -6,7 +6,7 @@
 extern _DWORD dword_5d4594_1313740;
 
 //----- (004B7D00) --------------------------------------------------------
-int __cdecl nox_thing_summon_effect_draw(int* a1, _DWORD* a2) {
+int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 	_DWORD* v2;           // esi
 	int v3;               // ecx
 	int v4;               // edx
@@ -24,6 +24,8 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, _DWORD* a2) {
 	__int64 v16;          // [esp+Ch] [ebp-8h]
 	int v17;              // [esp+10h] [ebp-4h]
 	int v18;              // [esp+1Ch] [ebp+8h]
+
+	_DWORD* a2 = dr;
 
 	v2 = a2;
 	v3 = a2[3];

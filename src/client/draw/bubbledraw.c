@@ -2,7 +2,7 @@
 #include "../../proto.h"
 
 //----- (004B7540) --------------------------------------------------------
-int __cdecl nox_thing_bubble_draw(_DWORD* a1, int a2) {
+int __cdecl nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	unsigned int v2;    // eax
 	int v4;             // edx
 	int v5;             // eax
@@ -18,6 +18,8 @@ int __cdecl nox_thing_bubble_draw(_DWORD* a1, int a2) {
 	char v15;           // al
 	char v16;           // al
 	int2 xLeft;         // [esp+8h] [ebp-8h]
+
+	int a2 = dr;
 
 	if (*(_BYTE*)(a2 + 441) == 3)
 		goto LABEL_29;

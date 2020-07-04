@@ -3,12 +3,14 @@
 #include "../../proto.h"
 
 //----- (004B9500) --------------------------------------------------------
-int __cdecl nox_thing_flag_draw(int* a1, int a2) {
+int __cdecl nox_thing_flag_draw(int* a1, nox_drawable* dr) {
 	int v2;               // ebx
 	int v3;               // edi
 	int v4;               // esi
 	int v5;               // eax
 	unsigned __int16* v6; // ebx
+
+	int a2 = dr;
 
 	v2 = a2;
 	nox_thing_weapon_animate_draw(a1, a2);
