@@ -515,9 +515,6 @@ int create_surfaces(HWND a1, int width, int height) {
 
 	v3 = nox_video_renderTargetFlags;
 
-    if ((v3 & 0x18) == 24)
-        SetWindowLongA(windowHandle_dword_973FE0, GWL_STYLE, WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_GROUP);
-
 	g_backbuffer1 = sub_48A600(width, height, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
 	// g_backbufferrgb = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_ABGR8888);
 	if (g_backbuffer1) {
