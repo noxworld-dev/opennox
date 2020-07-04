@@ -4,7 +4,7 @@
 extern _DWORD dword_5d4594_1313816;
 
 //----- (004B9F50) --------------------------------------------------------
-int __cdecl nox_thing_vortex_draw(int* a1, int a2) {
+int __cdecl nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	int v2;     // ecx
 	int v3;     // edi
 	int v4;     // eax
@@ -18,6 +18,8 @@ int __cdecl nox_thing_vortex_draw(int* a1, int a2) {
 	int2 xLeft; // [esp+10h] [ebp-18h]
 	int2 a2a;   // [esp+18h] [ebp-10h]
 	int2 a3;    // [esp+20h] [ebp-8h]
+
+	int a2 = dr;
 
 	if (!*(_DWORD*)&byte_5D4594[1313820]) {
 		dword_5d4594_1313816 = sub_4344A0(170, 170, 170);

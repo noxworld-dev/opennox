@@ -2,12 +2,14 @@
 #include "../../proto.h"
 
 //----- (004B9B50) --------------------------------------------------------
-int __cdecl nox_thing_boulder_draw(int* a1, int a2) {
+int __cdecl nox_thing_boulder_draw(int* a1, nox_drawable* dr) {
 	int v2;          // edi
 	int v3;          // ecx
 	int v4;          // edx
 	unsigned int v5; // ecx
 	int v6;          // ecx
+
+	int a2 = dr;
 
 	v2 = *(_DWORD*)(a2 + 304);
 	if (!*(_DWORD*)(a2 + 432) && !*(_DWORD*)(a2 + 436)) {

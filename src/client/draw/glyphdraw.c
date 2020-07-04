@@ -5,13 +5,15 @@
 extern int nox_backbuffer_depth;
 
 //----- (004B9C70) --------------------------------------------------------
-int __cdecl nox_thing_glyph_draw(int* a1, _DWORD* a2) {
+int __cdecl nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 	_DWORD* v2; // esi
 	char v3;    // cl
 	int v4;     // ecx
 	int v5;     // eax
 	int v6;     // eax
 	int v7;     // esi
+
+	_DWORD* a2 = dr;
 
 	v2 = a2;
 	if (!nox_common_gameFlags_check_40A5C0(2) || !*(_DWORD*)&byte_5D4594[2614252])

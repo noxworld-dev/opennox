@@ -4,24 +4,26 @@
 #include "../../proto.h"
 
 //----- (004B9690) --------------------------------------------------------
-int __cdecl nox_thing_weapon_draw(int* a1, int a2) {
-	sub_4B95D0(a2);
-	return nox_thing_static_draw(a1, a2);
+int __cdecl nox_thing_weapon_draw(int* a1, nox_drawable* dr) {
+	sub_4B95D0(dr);
+	return nox_thing_static_draw(a1, dr);
 }
 
 //----- (004B96B0) --------------------------------------------------------
-int __cdecl nox_thing_weapon_animate_draw(int* a1, int a2) {
-	sub_4B95D0(a2);
-	return nox_thing_animate_draw(a1, a2);
+int __cdecl nox_thing_weapon_animate_draw(int* a1, nox_drawable* dr) {
+	sub_4B95D0(dr);
+	return nox_thing_animate_draw(a1, dr);
 }
 
 //----- (004B8020) --------------------------------------------------------
-int __cdecl nox_thing_spherical_shield_draw(int* a1, _DWORD* a2) {
+int __cdecl nox_thing_spherical_shield_draw(int* a1, nox_drawable* dr) {
 	int v2;     // esi
 	int v3;     // eax
 	_DWORD* v4; // eax
 	int v5;     // eax
 	int result; // eax
+
+	_DWORD* a2 = dr;
 
 	v2 = a2[108];
 	if (sub_578B70(a2[108])) {

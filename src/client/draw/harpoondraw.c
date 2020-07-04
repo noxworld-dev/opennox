@@ -4,10 +4,10 @@
 
 
 //----- (004B64A0) --------------------------------------------------------
-int __cdecl nox_thing_harpoon_draw(int* a1, int a2) { return nox_thing_slave_draw(a1, a2); }
+int __cdecl nox_thing_harpoon_draw(int* a1, nox_drawable* dr) { return nox_thing_slave_draw(a1, dr); }
 
 //----- (004B61F0) --------------------------------------------------------
-int __cdecl nox_thing_harpoon_rope_draw(int* a1, int a2) {
+int __cdecl nox_thing_harpoon_rope_draw(int* a1, nox_drawable* dr) {
 	int v2;              // ecx
 	int v3;              // edx
 	unsigned __int16 v4; // bx
@@ -24,6 +24,8 @@ int __cdecl nox_thing_harpoon_rope_draw(int* a1, int a2) {
 	int2 a1a;            // [esp+Ch] [ebp-10h]
 	int2 a2a;            // [esp+14h] [ebp-8h]
 	int v18;             // [esp+20h] [ebp+4h]
+
+	int a2 = dr;
 
 	if (!*(_BYTE*)(a2 + 432)) {
 		v2 = a1[4];
