@@ -85,5 +85,5 @@ DXDEC void AILCALL AIL_waveOutClose(HDIGDRIVER drvr) {}
 
 DXDEC S32 AILCALL AIL_waveOutOpen(HDIGDRIVER FAR* pdrvr, LPHWAVEOUT FAR* lphWaveOut, S32 wDeviceID,
 								  LPWAVEFORMAT lpFormat) {
-	return -1;
+	return 0;
 }
