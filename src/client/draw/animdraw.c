@@ -206,42 +206,52 @@ int __cdecl sub_44BE90(int a1, nox_memfile* f) {
 
 //----- (0044BD90) --------------------------------------------------------
 bool __cdecl nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	_DWORD* v2;          // ebp
-	int v4;              // ecx
-	int v6;              // ecx
-	int v9;              // edi
-	unsigned __int8 v11; // [esp+Ch] [ebp-4h]
-
-	v2 = nox_calloc(1u, 0x94u);
-	*v2 = 148;
+	const size_t data_sz = 0x94u;
+	_DWORD* draw_cb_data = nox_calloc(1u, data_sz);
+	draw_cb_data[0] = data_sz;
 	while (1) {
-		v4 = nox_memfile_read_u32(f);
-		if (v4 == 0x454E4420) // "END "
+		int cmd = nox_memfile_read_u32(f);
+		// "END "
+		if (cmd == 0x454E4420) {
 			break;
-		v6 = nox_memfile_read_u32(f);
-		if (v6 & 0xE) {
-			unsigned __int8 n;
-			n = nox_memfile_read_u8(f);
-			nox_memfile_skip(f, n);
-			n = nox_memfile_read_u8(f);
-			nox_memfile_skip(f, n);
-			if (v6 & 2) {
-				v11 = 0;
-			} else if (v6 & 4) {
-				v11 = 1;
-			} else if (v6 & 8) {
-				v11 = 2;
-			}
-			v9 = (int)&v2[12 * v11 + 1];
-			if (sub_44B8B0(v9, f)) {
-				if (sub_44BE90(v9, f))
-					continue;
-			}
 		}
-		return 0;
+
+		int params = nox_memfile_read_u32(f);
+		if (!(params & 0xE)) {
+			return 0;
+		}
+
+		// TODO: After cleanup: understand significance of these two strings.
+		// The first one is always [len=4, data='NULL'], the second is always [len=1, data='']
+
+		unsigned __int8 n;
+		n = nox_memfile_read_u8(f);
+		nox_memfile_skip(f, n);
+		n = nox_memfile_read_u8(f);
+		nox_memfile_skip(f, n);
+
+		unsigned __int8 offset_idx;
+		if (params & 2) {
+			offset_idx = 0;
+		} else if (params & 4) {
+			offset_idx = 1;
+		} else if (params & 8) {
+			offset_idx = 2;
+		}
+
+		int v9 = (int)&draw_cb_data[12 * offset_idx + 1];
+
+		if (!sub_44B8B0(v9, f)) {
+			return 0;
+		}
+
+		if (!sub_44BE90(v9, f)) {
+			return 0;
+		}
 	}
+
 	obj->field_54 = 2;
 	obj->draw_func = &nox_thing_animate_state_draw;
-	obj->field_5c = v2;
+	obj->field_5c = draw_cb_data;
 	return 1;
 }
