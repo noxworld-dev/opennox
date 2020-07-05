@@ -157,7 +157,6 @@ void CONNECT_RESULT(sm_args_t* args);
 
 void CONNECT_PREPARE(sm_args_t* args) {
 	char* v1;            // ebx
-	int result;          // eax
 	unsigned __int16 v3; // ax
 	int v4;              // [esp+Ch] [ebp-A8h]
 	int v5;              // [esp+10h] [ebp-A4h]
@@ -213,8 +212,6 @@ void CONNECT_PREPARE(sm_args_t* args) {
 
 void CONNECT_SERVER(sm_args_t* args) {
 	int v4;      // eax
-	int v5;      // eax
-	int result;  // eax
 	char v7[40]; // [esp+8h] [ebp-28h]
 
 	const char* cp = args->connect_server.hostname;
@@ -448,10 +445,6 @@ void f(int reentrant) {
 	static sm_args_t args_;
 	sm_args_t* args = &args_;
 	char* v23;
-	int v24;
-	int v25;
-	int v26;
-	int v28;
 	printf("%s %d\n", __FUNCTION__, reentrant);
 	while (1) {
 		if (!reentrant) {

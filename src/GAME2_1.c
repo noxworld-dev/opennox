@@ -1924,7 +1924,6 @@ int sub_465DF0() { return dword_5d4594_1049844; }
 int sub_465E00() {
 	_DWORD* v0; // eax
 	int result; // eax
-	_DWORD* v2; // eax
 	char* v3;   // eax
 	char* v4;   // eax
 	_DWORD* v5; // eax

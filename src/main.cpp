@@ -23,7 +23,6 @@ extern "C" int main(int argc, char* argv[])
 #endif
 {
 	char cmdline[256];
-	int i;
 
 #ifdef __EMSCRIPTEN__
 	EM_ASM({
@@ -57,7 +56,8 @@ extern "C" int main(int argc, char* argv[])
 #else
 	progname = argv[0];
 	strcpy(cmdline, argv[0]);
-	for (i = 1; i < argc; i++)
+
+	for (int i = 1; i < argc; i++)
 		sprintf(cmdline + strlen(cmdline), " %s", argv[i]);
 #endif
 

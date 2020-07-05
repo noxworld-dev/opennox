@@ -168,7 +168,6 @@ int sub_448CF0_wol_dialogs() {
 	wchar_t* v2;  // eax
 	int v3;       // eax
 	wchar_t* v4;  // eax
-	int v5;       // [esp+0h] [ebp-170h]
 	char v6[36];  // [esp+4h] [ebp-16Ch]
 	char v7[72];  // [esp+28h] [ebp-148h]
 	char v8[256]; // [esp+70h] [ebp-100h]

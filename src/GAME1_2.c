@@ -5428,12 +5428,10 @@ BOOL __cdecl sub_4300D0(int a1) {
 
 //----- (00430100) --------------------------------------------------------
 char* __cdecl nox_video_getbagfilename(int a1) {
-	char* result; // eax
-
 #ifdef __EMSCRIPTEN__
 	return "video.bag";
 #else
-	result = "video.bag";
+    char* result = "video.bag";
 	if (a1 != 1)
 		result = "video8.bag";
 	return result;

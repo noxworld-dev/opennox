@@ -857,8 +857,8 @@ void sub_48A7F0() {
 //----- (0048A820) --------------------------------------------------------
 void __cdecl sub_48A820(UINT uFlags) {
 #ifdef USE_SDL
-	DWORD width = nox_backbuffer_width;
-	DWORD height = nox_backbuffer_height;
+    //	DWORD width = nox_backbuffer_width;
+    //	DWORD height = nox_backbuffer_height;
 
 	// SDL_SetWindowSize(windowHandle_dword_973FE0, width, height);
 	// SDL_SetWindowGrab(windowHandle_dword_973FE0, SDL_TRUE);
@@ -1362,7 +1362,6 @@ const GLchar* fragment_source =
 					"}\n";
 
 int sub_48B000() {
-	GLenum err;
 	GLint status;
 	GLuint vertex, fragment;
 	float coords[] = {1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0};
@@ -1383,7 +1382,7 @@ int sub_48B000() {
 	SDL_GL_SetSwapInterval(1);
 
 #ifdef _WIN32
-	err = glewInit();
+    GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		/* Problem: glewInit failed, something is seriously wrong. */
 		dprintf("Error: %s\n", glewGetErrorString(err));
@@ -2252,12 +2251,12 @@ void sub_444C50() {
 
 //----- (0048C110) --------------------------------------------------------
 void sub_48C110() {
-	RECT Rect; // [esp+0h] [ebp-10h]
 
 #ifdef USE_SDL
 	*(_DWORD*)&byte_5D4594[1193684] = nox_backbuffer_width;
 	*(_DWORD*)&byte_5D4594[1193688] = nox_backbuffer_height;
 #else
+    RECT Rect; // [esp+0h] [ebp-10h]
 	if (nox_video_renderTargetFlags & 0x10) {
 		GetClientRect(windowHandle_dword_973FE0, &Rect);
 		*(_DWORD*)&byte_5D4594[1193684] = Rect.right - Rect.left;
@@ -3060,13 +3059,6 @@ BOOL sub_434B60() {
 	int v2;              // ebx
 	char* v3;            // esi
 	__int64 v4;          // rax
-	unsigned __int8* v5; // eax
-	int v6;              // ecx
-	int v7;              // edi
-	char v8;             // dl
-	int v9;              // ecx
-	char v10;            // dl
-	int v11;             // ecx
 	int v13;             // [esp+10h] [ebp-90Ch]
 	char v14[1536];
 	pixel888 v19[256]; // [esp+61Ch] [ebp-300h]
@@ -3104,6 +3096,13 @@ LABEL_6:
 	// FIXME gamma control
 	return 0;
 #else
+    unsigned __int8* v5; // eax
+	int v6;              // ecx
+	int v7;              // edi
+    char v8;             // dl
+    int v9;              // ecx
+    char v10;            // dl
+	int v11;             // ecx
 	if (dword_5d4594_3799624)
 		return g_ddraw_gamma_control && !g_ddraw_gamma_control->lpVtbl->SetGammaRamp(g_ddraw_gamma_control, 0, &v14);
 	sub_434920();
@@ -3135,7 +3134,6 @@ int sub_434CC0() {
 	int v0;       // edi
 	void* result; // eax
 	int i;        // esi
-	int v3;       // [esp+4h] [ebp-4h]
 
 	if (!dword_5d4594_3801780) {
 		v0 = dword_69A014;
@@ -3189,14 +3187,12 @@ int __cdecl sub_4B0340(int a1) // draw general
 	int v3;              // edi
 	int v4;              // ebx
 	int result;          // eax
-	unsigned __int8* v6; // esi
 	int v7;              // [esp+10h] [ebp-44h]
 	int v8;              // [esp+14h] [ebp-40h]
 	int v9;              // [esp+18h] [ebp-3Ch]
 	int v10;             // [esp+1Ch] [ebp-38h]
 	int v11;             // [esp+20h] [ebp-34h]
 	int v12;             // [esp+24h] [ebp-30h]
-	int v13[11];         // [esp+28h] [ebp-2Ch]
 
 	dword_5d4594_1311936 = 1;
 	*(_DWORD*)&byte_5D4594[1311932] = a1;
@@ -3238,6 +3234,8 @@ int __cdecl sub_4B0340(int a1) // draw general
 		PlayMovie(&byte_5D4594[1311940]);
 #endif
 #else
+        unsigned __int8* v6; // esi
+        int v13[11];         // [esp+28h] [ebp-2Ch]
 		v13[1] = *(_DWORD*)&byte_5D4594[823784];
 		v13[0] = windowHandle_dword_973FE0;
 		v13[4] = g_backbuffer1;

@@ -3929,7 +3929,6 @@ void sub_4445C0() {
 	int v5;     // ebp
 	int v6;     // eax
 	int v7;     // eax
-	int result; // eax
 	int v9;     // [esp+10h] [ebp-Ch]
 	int v10;    // [esp+14h] [ebp-8h]
 	int v11;    // [esp+18h] [ebp-4h]
@@ -6024,7 +6023,6 @@ void __cdecl sub_449EA0(int a1) {
 	_DWORD* v7; // esi
 	_DWORD* v8; // esi
 	_DWORD* v9; // esi
-	int result; // eax
 	int v11;    // [esp-4h] [ebp-Ch]
 	int v12;    // [esp-4h] [ebp-Ch]
 	int v13;    // [esp-4h] [ebp-Ch]

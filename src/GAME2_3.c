@@ -5514,7 +5514,6 @@ void __cdecl sub_49AB00(int4* a1, void(__cdecl* draw_fnc)(nox_drawable*, int), i
 	int v4;  // esi
 	int v5;  // ecx
 	int v6;  // ebp
-	int v7;  // esi
 	int v8;  // [esp+10h] [ebp-10h]
 	int v9;  // [esp+14h] [ebp-Ch]
 	int v10; // [esp+18h] [ebp-8h]

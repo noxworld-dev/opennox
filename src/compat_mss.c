@@ -147,9 +147,8 @@ static int16_t decode_nibble(int16_t predictor, unsigned int nibble, int unsigne
 }
 
 static unsigned int decode_adpcm(int16_t* out, const BYTE* data, unsigned int size) {
-	int index, diff;
+	int index;
 	unsigned int i, samples = 0;
-	int8_t nibble, sign;
 	int16_t predictor;
 
 	predictor = data[0] | (data[1] << 8);
@@ -171,9 +170,8 @@ static unsigned int decode_adpcm(int16_t* out, const BYTE* data, unsigned int si
 }
 
 static unsigned int decode_adpcm_stereo(int16_t* out, const BYTE* data, unsigned int size) {
-	int lindex, rindex, diff;
+	int lindex, rindex;
 	unsigned int i, samples = 0;
-	int8_t nibble, sign;
 	int16_t lpredictor, rpredictor;
 
 	lpredictor = data[0] | (data[1] << 8);
