@@ -15,7 +15,8 @@ int __cdecl nox_thing_static_random_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (0044C160) --------------------------------------------------------
-bool __cdecl nox_things_static_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
+bool __cdecl nox_things_static_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+	_BYTE* a3 = attr_value;
 	char* v6;            // edi
 	int v8;              // ebx
 	unsigned __int8 v11; // [esp+Ch] [ebp+8h]
@@ -41,9 +42,9 @@ bool __cdecl nox_things_static_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE*
 }
 
 //----- (0044BFD0) --------------------------------------------------------
-bool __cdecl nox_things_static_random_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
+bool __cdecl nox_things_static_random_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->draw_func = nox_thing_static_random_draw;
-	void* v3 = sub_44C000(a3, f);
+	void* v3 = sub_44C000(attr_value, f);
 	obj->field_5c = v3;
 	return v3 != 0;
 }

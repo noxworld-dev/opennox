@@ -101,7 +101,8 @@ int __cdecl nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (0044B390) --------------------------------------------------------
-bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
+bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+	_BYTE* a3 = attr_value;
 	_DWORD* v3;          // eax
 	_DWORD* v5;          // edi
 	_BYTE* v6;           // ebx
@@ -158,7 +159,7 @@ bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE
 }
 
 //----- (0044BD90) --------------------------------------------------------
-bool __cdecl nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
+bool __cdecl nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	_DWORD* v2;          // ebp
 	int v4;              // ecx
 	int v6;              // ecx

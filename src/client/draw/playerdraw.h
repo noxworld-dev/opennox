@@ -5,6 +5,6 @@
 
 int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr);
 int __cdecl nox_thing_player_waypoint_draw(int a1, nox_drawable* dr);
-bool __cdecl nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3);
+bool __cdecl nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value);
 
 #endif // NOX_PORT_CLIENT_DRAW_PLAYERDRAW
