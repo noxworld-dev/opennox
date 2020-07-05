@@ -1932,13 +1932,13 @@ _DWORD* __cdecl sub_44AFB0(int a1, int a2, int a3);
 void sub_44B000();
 int __cdecl sub_44B0F0(int a1, int a2, int* a3, int a4);
 int __cdecl sub_44B4C0(const char* a1);
-int __cdecl sub_44B8B0(int a1, int a2);
+int __cdecl sub_44B8B0(int a1, nox_memfile* f);
 int __cdecl sub_44B940(_DWORD* a1, int a2, int a3);
 int __cdecl sub_44BA60(const char* a1);
 int __cdecl sub_44BAC0(const char* a1);
 int __cdecl sub_44BB20(const char* a1);
 int __cdecl sub_44BC50(int a1, int a2);
-int __cdecl sub_44BE90(int a1, int a2);
+int __cdecl sub_44BE90(int a1, nox_memfile* f);
 int __cdecl sub_44BFA0(int a1, int a2);
 void* __cdecl sub_44C000(_BYTE* a1, int a2);
 void __cdecl sub_44C650_free(LPVOID lpMem, void* draw); // idb
