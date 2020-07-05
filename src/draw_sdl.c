@@ -502,7 +502,12 @@ void sdl_present() {
 		set_viewport(g_backbuffer1->w, g_backbuffer1->h);
 
 		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_backbuffer1); //Maybe find a way to get the buffer
+
+		//This is only available after SDL 2.0.12
+#if SDL_PATCHLEVEL >= 12
 		SDL_SetTextureScaleMode(tex, SDL_ScaleModeBest);
+#endif
+
 		SDL_RenderCopy(g_ddraw, tex, &srcrect, &dstrect);
 		SDL_RenderPresent(g_ddraw);
 		SDL_DestroyTexture(tex);
