@@ -6518,62 +6518,6 @@ int __cdecl sub_44B0F0(int a1, int a2, int* a3, int a4) {
 	return 1;
 }
 
-//----- (0044B390) --------------------------------------------------------
-bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	_DWORD* v3;          // eax
-	_DWORD* v5;          // edi
-	_BYTE* v6;           // ebx
-	char v8;             // cl
-	char v10;            // cl
-	int result;          // eax
-	int v13;             // ebp
-	int v15;             // ecx
-	char v17;            // cl
-	const char* v19;     // [esp+14h] [ebp-4h]
-	unsigned __int8 v20; // [esp+20h] [ebp+8h]
-	unsigned __int8 v21; // [esp+20h] [ebp+8h]
-	int v22;             // [esp+24h] [ebp+Ch]
-
-	v3 = nox_calloc(1u, 0x10u);
-	v5 = v3;
-	v6 = a3;
-	*v3 = 16;
-	v8 = nox_memfile_read_u8(f);
-	*((_BYTE*)v5 + 8) = v8;
-	v10 = nox_memfile_read_u8(f);
-	*((_BYTE*)v5 + 9) = v10;
-	v20 = nox_memfile_read_u8(f);
-	nox_memfile_read(a3, 1u, v20, f);
-	a3[v20] = 0;
-	v5[3] = sub_44B4C0(a3);
-	result = (int)nox_malloc(4 * *((unsigned __int8*)v5 + 8));
-	v5[1] = result;
-	if (!result)
-		return 0;
-
-	v13 = 0;
-	v22 = 0;
-	if (*((_BYTE*)v5 + 8)) {
-		do {
-			v15 = nox_memfile_read_u32(f);
-			*v6 = byte_5D4594[830832];
-			if (v15 == -1) {
-				v17 = nox_memfile_read_u8(f);
-				LOBYTE(v19) = v17;
-				v21 = nox_memfile_read_u8(f);
-				nox_memfile_read(v6, 1u, v21, f);
-				v15 = -1;
-				v6[v21] = 0;
-				v13 = v22;
-			}
-			*(_DWORD*)(v5[1] + 4 * v13++) = sub_42FAA0(v15, v19, v6);
-			v22 = v13;
-		} while (v13 < *((unsigned __int8*)v5 + 8));
-	}
-	obj->field_5c = v5;
-	obj->draw_func = &nox_thing_animate_draw;
-	return 1;
-}
 // 44B47F: variable 'v19' is possibly undefined
 
 //----- (0044B4C0) --------------------------------------------------------
@@ -6591,168 +6535,7 @@ int __cdecl sub_44B4C0(const char* a1) {
 	return strcmp(a1, "Slave") != 0 ? 0 : 5;
 }
 
-//----- (0044B560) --------------------------------------------------------
-bool __cdecl nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	_DWORD* v3;           // eax
-	unsigned __int8* v5;  // ecx
-	_BYTE* v6;            // edi
-	unsigned __int8* v7;  // ebp
-	unsigned __int8* v8;  // eax
-	unsigned __int8 v9;   // cl
-	unsigned __int8* v10; // eax
-	unsigned __int8 v11;  // cl
-	unsigned __int8* v12; // eax
-	_DWORD* v13;          // ebx
-	void* v14;            // eax
-	int* v15;             // eax
-	int v16;              // ecx
-	char* v17;            // eax
-	char v18;             // cl
-	int result;           // eax
-	_DWORD* v20;          // [esp+10h] [ebp-18h]
-	const char* v21;      // [esp+18h] [ebp-10h]
-	int v22;              // [esp+1Ch] [ebp-Ch]
-	int v23;              // [esp+20h] [ebp-8h]
-	_DWORD* v24;          // [esp+24h] [ebp-4h]
-	unsigned __int8 v25;  // [esp+30h] [ebp+8h]
-	unsigned __int8 v26;  // [esp+30h] [ebp+8h]
-	unsigned __int8 v27;  // [esp+30h] [ebp+8h]
-	int v28;              // [esp+34h] [ebp+Ch]
-
-	v3 = nox_calloc(1u, 0x38u);
-	*v3 = 16;
-	v24 = v3;
-	v25 = nox_memfile_read_u8(f);
-	v23 = v25;
-	if ((int)v25 <= 0) {
-		obj->field_5c = v3;
-		obj->draw_func = &nox_thing_cond_animate_draw;
-		obj->field_60 = 0;
-		return 1;
-	}
-	v6 = a3;
-	v20 = v3 + 1;
-	v7 = (unsigned __int8*)(v3 + 6);
-	v22 = -24 - (_DWORD)v3;
-	while (1) {
-		v9 = nox_memfile_read_u8(f);
-		*v7 = v9;
-		v11 = nox_memfile_read_u8(f);
-		v7[5] = v11;
-		v26 = nox_memfile_read_u8(f);
-		nox_memfile_read(v6, 1u, v26, f);
-		v6[v26] = 0;
-		v13 = v20;
-		v20[8] = sub_44B4C0(v6);
-		v14 = nox_malloc(4 * *v7);
-		*v20 = v14;
-		if (!v14)
-			break;
-		v28 = 0;
-		if (*v7) {
-			do {
-				v16 = nox_memfile_read_u32(f);
-				*v6 = byte_5D4594[830836];
-				if (v16 == -1) {
-					v18 = nox_memfile_read_u8(f);
-					LOBYTE(v21) = v18;
-					v27 = nox_memfile_read_u8(f);
-					nox_memfile_read(v6, 1u, v27, f);
-					v16 = -1;
-					v6[v27] = 0;
-					v13 = v20;
-				}
-				*(_DWORD*)(*v13 + 4 * v28++) = sub_42FAA0(v16, v21, v6);
-			} while (v28 < *v7);
-		}
-		++v7;
-		v20 = v13 + 1;
-		if ((int)&v7[v22] >= v23) {
-			v3 = v24;
-			obj->field_5c = v3;
-			obj->draw_func = &nox_thing_cond_animate_draw;
-			obj->field_60 = 0;
-			return 1;
-		}
-	}
-	return 0;
-}
 // 44B68C: variable 'v21' is possibly undefined
-
-//----- (0044B700) --------------------------------------------------------
-bool __cdecl nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	_DWORD* v3;          // eax
-	_DWORD* v5;          // ebx
-	int v7;              // ecx
-	int v10;             // eax
-	int v11;             // ebx
-	int v13;             // ecx
-	_DWORD* v14;         // eax
-	int v15;             // ecx
-	int v16;             // eax
-	int v17;             // esi
-	_DWORD* v18;         // eax
-	int v19;             // esi
-	_DWORD* v20;         // eax
-	_DWORD* v21;         // [esp+10h] [ebp-4h]
-	unsigned __int8 v22; // [esp+1Ch] [ebp+8h]
-	unsigned __int8 v23; // [esp+1Ch] [ebp+8h]
-
-	v3 = nox_calloc(1u, 14524);
-	v5 = v3;
-	v21 = v3;
-	*v3 = 14524;
-	v7 = nox_memfile_read_u32(f);
-	if (v7 == 1162757152)
-		return 0;
-LABEL_3:
-	v22 = nox_memfile_read_u8(f);
-	nox_memfile_read(a3, 1u, v22, f);
-	*((_BYTE*)a3 + v22) = 0;
-	v10 = sub_44BB20((const char*)a3);
-	if (v10 < 0)
-		return 0;
-	v11 = (int)&v5[66 * v10 + 1];
-	if (!sub_44B8B0(v11, f))
-		return 0;
-	while (1) {
-		v13 = nox_memfile_read_u32(f);
-		if (v13 == 1162757152)
-			break;
-		if (v13 == 1398030676) {
-			v5 = v21;
-			goto LABEL_3;
-		}
-		v23 = nox_memfile_read_u8(f);
-		nox_memfile_read(a3, 1u, v23, f);
-		*((_BYTE*)a3 + v23) = 0;
-		if (!strcmp("NAKED", (const char*)a3)) {
-			v14 = nox_calloc(1u, 0x28u);
-			v15 = *(__int16*)(v11 + 40);
-			*(_DWORD*)(v11 + 48) = v14;
-			v16 = sub_44B940(v14, v15, f);
-		} else {
-			v17 = sub_44BA60((const char*)a3);
-			if (v17 < 0) {
-				v19 = sub_44BAC0((const char*)a3);
-				if (v19 < 0)
-					return 0;
-				v20 = nox_calloc(1u, 0x28u);
-				*(_DWORD*)(v11 + 4 * v19 + 156) = v20;
-				v16 = sub_44B940(v20, *(__int16*)(v11 + 40), f);
-			} else {
-				v18 = nox_calloc(1u, 0x28u);
-				*(_DWORD*)(v11 + 4 * v17 + 52) = v18;
-				v16 = sub_44B940(v18, *(__int16*)(v11 + 40), f);
-			}
-		}
-		if (!v16)
-			return 0;
-	}
-	obj->draw_func = &nox_thing_player_draw;
-	obj->field_5c = v21;
-	return 1;
-}
 
 //----- (0044B8B0) --------------------------------------------------------
 int __cdecl sub_44B8B0(int a1, int a2) {
@@ -6890,39 +6673,6 @@ int __cdecl sub_44BB20(const char* a1) {
 	return v1;
 }
 
-//----- (0044BB80) --------------------------------------------------------
-bool __cdecl nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	_DWORD* v2;          // ebx
-	int v4;              // ecx
-	unsigned __int8 v6;  // cl
-	unsigned __int8* v8; // eax
-	int v9;              // edi
-
-	v2 = nox_calloc(1u, 0x304u);
-	*v2 = 772;
-	while (1) {
-		v4 = nox_memfile_read_u32(f);
-		if (v4 == 1162757152)
-			break;
-		v6 = nox_memfile_read_u8(f);
-		if (v6 < 0x10u) {
-			unsigned __int8* v7 = f->cur;
-			v8 = &v7[*v7 + 1];
-			f->cur = v8;
-			f->cur += *v8 + 1;
-			v9 = (int)&v2[12 * v6 + 1];
-			if (sub_44B8B0(v9, f)) {
-				if (sub_44BC50(v9, f))
-					continue;
-			}
-		}
-		return 0;
-	}
-	obj->draw_func = nox_thing_monster_draw;
-	obj->field_5c = v2;
-	return 1;
-}
-
 //----- (0044BC50) --------------------------------------------------------
 int __cdecl sub_44BC50(int a1, int a2) {
 	int v2;               // ebp
@@ -6981,55 +6731,6 @@ int __cdecl sub_44BC50(int a1, int a2) {
 }
 // 44BD0C: variable 'v15' is possibly undefined
 // 44BC50: using guessed type char var_80[128];
-
-//----- (0044BD60) --------------------------------------------------------
-bool __cdecl nox_things_maiden_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	int result = nox_things_monster_draw_parse(obj, f, a3);
-	obj->draw_func = &nox_thing_maiden_draw;
-	return result;
-}
-
-//----- (0044BD90) --------------------------------------------------------
-bool __cdecl nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	_DWORD* v2;          // ebp
-	int v4;              // ecx
-	int v6;              // ecx
-	unsigned __int8* v8; // eax
-	int v9;              // edi
-	unsigned __int8 v11; // [esp+Ch] [ebp-4h]
-
-	v2 = nox_calloc(1u, 0x94u);
-	*v2 = 148;
-	while (1) {
-		v4 = nox_memfile_read_u32(f);
-		if (v4 == 0x454E4420) // "END "
-			break;
-		v6 = nox_memfile_read_u32(f);
-		if (v6 & 0xE) {
-			unsigned __int8* v7 = f->cur;
-			v8 = &v7[*v7 + 1];
-			f->cur = v8;
-			f->cur += *v8 + 1;
-			if (v6 & 2) {
-				v11 = 0;
-			} else if (v6 & 4) {
-				v11 = 1;
-			} else if (v6 & 8) {
-				v11 = 2;
-			}
-			v9 = (int)&v2[12 * v11 + 1];
-			if (sub_44B8B0(v9, f)) {
-				if (sub_44BE90(v9, f))
-					continue;
-			}
-		}
-		return 0;
-	}
-	obj->field_54 = 2;
-	obj->draw_func = &nox_thing_animate_state_draw;
-	obj->field_5c = v2;
-	return 1;
-}
 // 44BE2F: variable 'v11' is possibly undefined
 
 //----- (0044BE90) --------------------------------------------------------
@@ -7079,24 +6780,6 @@ int __cdecl sub_44BE90(int a1, int a2) {
 // 44BF33: variable 'v11' is possibly undefined
 // 44BE90: using guessed type char var_80[128];
 
-//----- (0044BF60) --------------------------------------------------------
-bool __cdecl nox_things_vector_animate_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	_DWORD* v2; // eax
-	_DWORD* v3; // esi
-	int result; // eax
-
-	v2 = nox_calloc(1u, 0x30u);
-	v3 = v2;
-	*v2 = 48;
-	result = sub_44BFA0((int)v2, f);
-	if (result) {
-		obj->draw_func = nox_thing_vector_animate_draw;
-		obj->field_5c = v3;
-		result = 1;
-	}
-	return result;
-}
-
 //----- (0044BFA0) --------------------------------------------------------
 int __cdecl sub_44BFA0(int a1, int a2) {
 	int result; // eax
@@ -7105,14 +6788,6 @@ int __cdecl sub_44BFA0(int a1, int a2) {
 	if (result)
 		result = sub_44BC50(a1, a2);
 	return result;
-}
-
-//----- (0044BFD0) --------------------------------------------------------
-bool __cdecl nox_things_static_random_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	obj->draw_func = nox_thing_static_random_draw;
-	void* v3 = sub_44C000(a3, f);
-	obj->field_5c = v3;
-	return v3 != 0;
 }
 
 //----- (0044C000) --------------------------------------------------------
@@ -7174,49 +6849,6 @@ void* __cdecl sub_44C000(_BYTE* a1, int a2) {
 	return result;
 }
 // 44C0BD: variable 'v13' is possibly undefined
-
-//----- (0044C0F0) --------------------------------------------------------
-bool __cdecl nox_things_door_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	obj->draw_func = &nox_thing_door_draw;
-	void* v3 = sub_44C000(a3, f);
-	obj->field_5c = v3;
-	return v3 != 0;
-}
-
-//----- (0044C120) --------------------------------------------------------
-bool __cdecl nox_things_slave_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	obj->draw_func = nox_thing_slave_draw;
-	void* v3 = sub_44C000(a3, f);
-	obj->field_5c = v3;
-	obj->field_60 = 0;
-	return v3 != 0;
-}
-
-//----- (0044C160) --------------------------------------------------------
-bool __cdecl nox_things_static_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	char* v6;            // edi
-	int v8;              // ebx
-	unsigned __int8 v11; // [esp+Ch] [ebp+8h]
-
-	_DWORD* data = nox_calloc(1u, 8u);
-	if (!data)
-		return 0;
-
-	data[0] = 8;
-	v6 = a3;
-	v8 = nox_memfile_read_u32(f);
-	*a3 = byte_5D4594[830856];
-	if (v8 == -1) {
-		LOBYTE(a3) = nox_memfile_read_u8(f);
-		v11 = nox_memfile_read_u8(f);
-		nox_memfile_read(v6, 1u, v11, f);
-		v6[v11] = 0;
-	}
-	data[1] = sub_42FAA0(v8, a3, v6);
-	obj->draw_func = &nox_thing_static_draw;
-	obj->field_5c = data;
-	return 1;
-}
 
 //----- (0044C650) --------------------------------------------------------
 void __cdecl sub_44C650_free(LPVOID lpMem, void* draw) {

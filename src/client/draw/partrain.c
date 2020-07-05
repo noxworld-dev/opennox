@@ -1,9 +1,10 @@
 #include "partrain.h"
+#include "lvupdraw.h"
 
 #include "../../proto.h"
 
 //----- (004B7810) --------------------------------------------------------
-int __cdecl nox_thing_blue_rain_draw(int a1, int a2) {
+int __cdecl nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 	int v3; // ebx
 	int v4; // ebp
 	int v5; // eax
@@ -11,6 +12,8 @@ int __cdecl nox_thing_blue_rain_draw(int a1, int a2) {
 	int v7; // eax
 	int v8; // esi
 	int v9; // [esp+8h] [ebp+8h]
+
+	int a2 = dr;
 
 	if (nox_common_gameFlags_check_40A5C0(0x200000))
 		return 1;
@@ -39,5 +42,31 @@ int __cdecl nox_thing_blue_rain_draw(int a1, int a2) {
 		}
 		--v9;
 	} while (v9);
+	return 1;
+}
+
+//----- (004B7700) --------------------------------------------------------
+int __cdecl nox_thing_levelup_draw(int a1, nox_drawable* dr) {
+	int v2; // eax
+
+	v2 = *(_DWORD*)&byte_5D4594[1313708];
+	if (!*(_DWORD*)&byte_5D4594[1313708]) {
+		v2 = sub_44CFC0((CHAR*)&byte_587000[176492]);
+		*(_DWORD*)&byte_5D4594[1313708] = v2;
+	}
+	nox_thing_falling_sparks_draw_4B7740(v2, a1, dr);
+	return 1;
+}
+
+//----- (004B77D0) --------------------------------------------------------
+int __cdecl nox_thing_oblivion_up_draw(int a1, nox_drawable* dr) {
+	int v2; // eax
+
+	v2 = *(_DWORD*)&byte_5D4594[1313712];
+	if (!*(_DWORD*)&byte_5D4594[1313712]) {
+		v2 = sub_44CFC0((CHAR*)&byte_587000[176628]);
+		*(_DWORD*)&byte_5D4594[1313712] = v2;
+	}
+	nox_thing_falling_sparks_draw_4B7740(v2, a1, dr);
 	return 1;
 }

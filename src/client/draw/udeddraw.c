@@ -4,7 +4,7 @@
 #include "fx.h"
 
 //----- (004B7A80) --------------------------------------------------------
-int __cdecl nox_thing_undead_killer_draw(int* a1, int a2) {
+int __cdecl nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 	int result;     // eax
 	__int16 v3;     // dx
 	int v4;         // eax
@@ -19,6 +19,8 @@ int __cdecl nox_thing_undead_killer_draw(int* a1, int a2) {
 	char v13;       // [esp-Ch] [ebp-1Ch]
 	__int16 v14[4]; // [esp+0h] [ebp-10h]
 	int2 v15;       // [esp+8h] [ebp-8h]
+
+	int a2 = dr;
 
 	if (!*(_DWORD*)&byte_5D4594[1313728]) {
 		*(_DWORD*)&byte_5D4594[1313736] = sub_44CFC0((CHAR*)&byte_587000[176812]);
@@ -51,7 +53,7 @@ int __cdecl nox_thing_undead_killer_draw(int* a1, int a2) {
 		sub_4B6720(&v15, *(int*)&byte_5D4594[1313732], v10, 12);
 		result = 1;
 	} else {
-		sub_45A4E0_drawable(a2);
+		sub_45A4E0_drawable(dr);
 		result = 0;
 	}
 	return result;

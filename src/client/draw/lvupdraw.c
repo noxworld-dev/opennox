@@ -4,7 +4,8 @@
 #include "fx.h"
 
 //----- (004B7740) --------------------------------------------------------
-_DWORD* __cdecl sub_4B7740(int a1, int a2, int a3) {
+_DWORD* __cdecl nox_thing_falling_sparks_draw_4B7740(int a1, int a2, nox_drawable* dr) {
+	int a3 = dr;
 	int2* v3;       // edi
 	int v4;         // ebp
 	int v5;         // eax

@@ -1947,16 +1947,22 @@ BOOL sub_40ABD0() {
 }
 
 //----- (0040AD60) --------------------------------------------------------
-unsigned int __cdecl sub_40AD60(char* a1, int a2, int a3, _DWORD* a4) {
-	unsigned int result; // eax
-	char v5[8];          // [esp+4h] [ebp-8h]
+unsigned int __cdecl sub_40AD60(char* dest, int sz, int cnt, nox_memfile* f) {
+	const size_t cur_offset = f->cur - f->data;
+	const uint8_t read_past_8 = cur_offset & 7u;
 
-	if (((unsigned __int8)a4[2] - (unsigned __int8)*a4) & 7)
-		nox_memfile_read(&v5, 8 - (((unsigned __int8)a4[2] - (unsigned __int8)*a4) & 7), 1, (int)a4);
-	result = nox_memfile_read(&v5, 8u, 1, (int)a4);
-	if (result == 1)
-		qmemcpy(a1, &v5, a3 * a2);
-	return result;
+	char buf[8];
+	if (read_past_8) {
+		nox_memfile_read(&buf, 8 - read_past_8, 1, f);
+	}
+
+	unsigned int result = nox_memfile_read(&buf, 8u, 1, f);
+	if (result != 1) {
+		return result;
+	}
+
+	qmemcpy(dest, &buf, cnt * sz);
+	return 1;
 }
 
 //----- (0040ADD0) --------------------------------------------------------
@@ -8763,14 +8769,15 @@ void* __cdecl nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 }
 
 //----- (00414330) --------------------------------------------------------
-void __cdecl sub_414330(unsigned int* a1, _QWORD* a2) {
+void __cdecl sub_414330(unsigned int* a1, nox_drawable* dr) {
+	_QWORD* a2 = dr;
 	_QWORD* v2;      // esi
 	unsigned int v3; // ecx
 	unsigned int v4; // edx
 
 	if (a2) {
 		v2 = a2 - 2;
-		sub_4143D0((int)a1, (int)a2);
+		sub_4143D0((int)a1, dr);
 		--a1[35];
 		if (*(a2 - 2)) {
 			if (!a1[27])
@@ -8793,7 +8800,8 @@ void __cdecl sub_414330(unsigned int* a1, _QWORD* a2) {
 }
 
 //----- (004143D0) --------------------------------------------------------
-int __cdecl sub_4143D0(int a1, int a2) {
+int __cdecl sub_4143D0(int a1, nox_drawable* dr) {
+	int a2 = dr;
 	int result; // eax
 	int v3;     // ecx
 	int v4;     // ecx

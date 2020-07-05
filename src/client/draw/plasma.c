@@ -205,3 +205,85 @@ char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3) {
 	}
 	return v6;
 }
+
+//----- (004BA980) --------------------------------------------------------
+int __cdecl nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
+	int v3;              // ebx
+	unsigned __int16 v4; // di
+	int v5;              // ebp
+	int v6;              // ecx
+	int v7;              // edx
+	int v8;              // eax
+	int v9;              // esi
+	int* v10;            // edi
+	int* v11;            // ebx
+	int v12;             // eax
+	_DWORD* v13;         // eax
+	int v14;             // eax
+	_DWORD* v15;         // edi
+	int v16;             // eax
+	_DWORD* v17;         // eax
+	int v18;             // eax
+	_DWORD* v19;         // ebp
+	int v20;             // eax
+	int v21;             // edx
+	int v22;             // ebx
+	int v23;             // ecx
+	int2* v24;           // [esp+0h] [ebp-Ch]
+	float2 v25;          // [esp+4h] [ebp-8h]
+	unsigned __int8 v26; // [esp+14h] [ebp+8h]
+
+	int a2 = dr;
+
+	v24 = nox_client_getMousePos_4309F0();
+	v3 = a2;
+	if (*(_BYTE*)(a2 + 432)) {
+		if (sub_578B70(*(_DWORD*)(a2 + 437))) {
+			v12 = sub_578B30(*(_DWORD*)(a2 + 437));
+			v13 = sub_45A720(v12);
+		} else {
+			v14 = sub_578B30(*(_DWORD*)(a2 + 437));
+			v13 = sub_45A6F0(v14);
+		}
+		v15 = v13;
+		if (sub_578B70(*(_DWORD*)(a2 + 441))) {
+			v16 = sub_578B30(*(_DWORD*)(a2 + 441));
+			v17 = sub_45A720(v16);
+		} else {
+			v18 = sub_578B30(*(_DWORD*)(a2 + 441));
+			v17 = sub_45A6F0(v18);
+		}
+		v19 = v17;
+		if (v15 && v17) {
+			v20 = a1[5];
+			v21 = a1[4];
+			v22 = *a1;
+			v23 = a1[1];
+			v9 = *a1 + v15[3] - v21;
+			a2 = *a1 + v15[3] - v21;
+			a1 = (int*)(v15[4] - v20 + v23 - 20);
+			v10 = (int*)(v22 + v19[3] - v21);
+			v11 = (int*)(v19[4] - v20 + v23 - 20);
+		} else {
+			v9 = a2;
+			v10 = a1;
+			v11 = a1;
+		}
+		v25.field_0 = (double)v24->field_0 - (double)a2;
+		v25.field_4 = (double)v24->field_4 - (double)(int)a1;
+		v26 = sub_509ED0(&v25);
+	} else {
+		v4 = *(_WORD*)(a2 + 439);
+		v26 = *(_BYTE*)(a2 + 433);
+		v5 = a1[5];
+		v6 = a1[4];
+		v7 = *a1;
+		v8 = a1[1];
+		v9 = *a1 + *(unsigned __int16*)(v3 + 437) - v6;
+		a1 = (int*)(v4 - v5 + v8 - 20);
+		v10 = (int*)(v7 + *(unsigned __int16*)(v3 + 441) - v6);
+		v11 = (int*)(*(unsigned __int16*)(v3 + 443) - v5 + v8 - 20);
+	}
+	sub_4BA230(v26, v9, (int)a1, (int)v10, (int)v11);
+	return 1;
+}
