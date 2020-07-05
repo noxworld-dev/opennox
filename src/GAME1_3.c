@@ -6731,52 +6731,6 @@ int __cdecl sub_44BC50(int a1, int a2) {
 // 44BD0C: variable 'v15' is possibly undefined
 // 44BC50: using guessed type char var_80[128];
 // 44BE2F: variable 'v11' is possibly undefined
-
-//----- (0044BE90) --------------------------------------------------------
-int __cdecl sub_44BE90(int a1, nox_memfile* f) {
-	int a2 = f;
-	int v2;              // esi
-	int result;          // eax
-	int v4;              // ebx
-	int* v5;             // eax
-	int v6;              // ebp
-	_BYTE* v7;           // eax
-	char v8;             // dl
-	unsigned __int8* v9; // eax
-	int v10;             // esi
-	const char* v11;     // [esp+4h] [ebp-88h]
-	char v12[128];       // [esp+Ch] [ebp-80h]
-
-	v2 = a1;
-	result = (int)nox_malloc(4 * *(__int16*)(a1 + 40));
-	*(_DWORD*)(a1 + 4) = result;
-	if (result) {
-		v4 = 0;
-		if (*(_WORD*)(a1 + 40) > 0) {
-			do {
-				v5 = *(int**)(a2 + 8);
-				v6 = *v5;
-				v7 = v5 + 1;
-				*(_DWORD*)(a2 + 8) = v7;
-				v12[0] = byte_5D4594[830848];
-				if (v6 == -1) {
-					v8 = *v7;
-					v9 = v7 + 1;
-					*(_DWORD*)(a2 + 8) = v9;
-					LOBYTE(v11) = v8;
-					v10 = *v9;
-					*(_DWORD*)(a2 + 8) = v9 + 1;
-					nox_memfile_read(v12, 1u, v10, a2);
-					v12[v10] = 0;
-					v2 = a1;
-				}
-				*(_DWORD*)(*(_DWORD*)(v2 + 4) + 4 * v4++) = sub_42FAA0(v6, v11, v12);
-			} while (v4 < *(__int16*)(v2 + 40));
-		}
-		result = 1;
-	}
-	return result;
-}
 // 44BF33: variable 'v11' is possibly undefined
 // 44BE90: using guessed type char var_80[128];
 
