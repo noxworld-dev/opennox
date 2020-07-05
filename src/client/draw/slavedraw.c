@@ -13,9 +13,9 @@ int __cdecl nox_thing_slave_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (0044C120) --------------------------------------------------------
-bool __cdecl nox_things_slave_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
+bool __cdecl nox_things_slave_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->draw_func = nox_thing_slave_draw;
-	void* v3 = sub_44C000(a3, f);
+	void* v3 = sub_44C000(attr_value, f);
 	obj->field_5c = v3;
 	obj->field_60 = 0;
 	return v3 != 0;

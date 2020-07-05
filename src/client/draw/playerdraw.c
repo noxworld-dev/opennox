@@ -301,7 +301,8 @@ int __cdecl nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 }
 
 //----- (0044B700) --------------------------------------------------------
-bool __cdecl nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
+bool __cdecl nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+	_BYTE* a3 = attr_value;
 	_DWORD* v3;          // eax
 	_DWORD* v5;          // ebx
 	int v7;              // ecx
