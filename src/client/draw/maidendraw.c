@@ -56,8 +56,8 @@ int __cdecl nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (0044BD60) --------------------------------------------------------
-bool __cdecl nox_things_maiden_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
-	int result = nox_things_monster_draw_parse(obj, f, a3);
+bool __cdecl nox_things_maiden_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+	int result = nox_things_monster_draw_parse(obj, f, attr_value);
 	obj->draw_func = &nox_thing_maiden_draw;
 	return result;
 }

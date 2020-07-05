@@ -44,7 +44,7 @@ int __cdecl nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* d
 }
 
 //----- (0044B560) --------------------------------------------------------
-bool __cdecl nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, _BYTE* a3) {
+bool __cdecl nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	_DWORD* v3;           // eax
 	unsigned __int8* v5;  // ecx
 	_BYTE* v6;            // edi
@@ -82,7 +82,7 @@ bool __cdecl nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, 
 		obj->field_60 = 0;
 		return 1;
 	}
-	v6 = a3;
+	v6 = attr_value;
 	v20 = v3 + 1;
 	v7 = (unsigned __int8*)(v3 + 6);
 	v22 = -24 - (_DWORD)v3;
