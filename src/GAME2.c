@@ -303,7 +303,6 @@ int __cdecl nox_drawable_link_thing(nox_drawable* a1, int i) {
 	void* v2;   // esi
 	_DWORD* v3; // ebx
 	_DWORD* v4; // ebp
-	int v6;     // ecx
 	float v9;   // [esp+4h] [ebp+4h]
 
 	if (i < 1 || i >= nox_things_count)

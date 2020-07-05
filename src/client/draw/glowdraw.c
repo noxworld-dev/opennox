@@ -133,8 +133,6 @@ LABEL_7:
 int __cdecl nox_thing_pixie_dust_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
-	int a2 = dr;
-
 	if (sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5)
 		result = sub_4B6770(a1, dr, *(int*)&byte_5D4594[2523948], *(int*)&dword_5d4594_1313564);
 	else

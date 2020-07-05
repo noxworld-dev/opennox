@@ -27,7 +27,6 @@ unsigned int fvqa_format80decompress(const byte image_in[], byte image_out[], in
     unsigned char* Source = (byte*)image_in;
     unsigned char* Dest = image_out;
     unsigned int Sp = 0;
-    unsigned int len = 0;// Dp;
     unsigned int Dp = 0;
     unsigned char com;
     unsigned int Count;
