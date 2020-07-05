@@ -6557,7 +6557,7 @@ int __cdecl sub_44B8B0(int a1, nox_memfile* f) {
 	v6 = *(unsigned __int8**)(a2 + 8);
 	v8 = *v6;
 	*(_DWORD*)(a2 + 8) = v6 + 1;
-	nox_memfile_read(v9, 1u, v8, a2);
+	nox_memfile_read(v9, 1u, v8, f);
 	v9[v8] = 0;
 	*(_DWORD*)(a1 + 44) = sub_44B4C0(v9);
 	return 1;
