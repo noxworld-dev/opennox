@@ -49,12 +49,14 @@ static struct mouse_event mouse_event_queue[256];
 static DWORD mouse_event_ridx;
 static DWORD mouse_event_widx;
 static struct finger_state fingers[8];
-static int mouse0_state;
 static int mouse1_state;
 static int seqnum;
+#ifdef __EMSCRIPTEN__
+static int mouse0_state;
 static int orientation;
 static int move_speed;
 static int jump;
+#endif
 int g_mouse_aquired = 0;
 
 int is_mouse_inside(HWND wnd) {

@@ -29,6 +29,7 @@ else ()
     add_compile_options (-Werror=implicit-int)
     add_compile_options (-Werror=unused-label)
     add_compile_options (-Werror=address)
+    add_compile_options (-Werror=unused-variable)
 
     if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
         add_compile_options (-Werror=bad-function-cast)

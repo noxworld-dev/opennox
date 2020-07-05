@@ -20,7 +20,6 @@ void sub_436100_draw() {
 	int v1;                // ebx
 	int v2;                // esi
 	int v3;                // edi
-	int result;            // eax
 	int v6;                // ecx
 	int v7;                // eax
 	bool v8;               // zf

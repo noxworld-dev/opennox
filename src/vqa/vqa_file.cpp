@@ -14,6 +14,8 @@
 //#include "wav_structures.h"
 //#include "xcc_log.h"
 
+#define _unused(x) ((void)(x))
+
 Cvqa_file::Cvqa_file(string filename)
 {
 	extAlContext = NULL;
@@ -178,12 +180,12 @@ int Cvqa_file::extract_both()
     byte* frameDraw = new byte[2 * cx * cy];
 
 	int currentFrame = 0;
-	int soundBytesOnFrame = 0;
+	//int soundBytesOnFrame = 0;
 
-	int delayT = 0;
-	int changesTOTAL = 0;
-	bool defaultTOTALset = false;
-	int defaultTOTAL = 0;
+	//int delayT = 0;
+	//int changesTOTAL = 0;
+	//bool defaultTOTALset = false;
+	//int defaultTOTAL = 0;
 
     unsigned int cachedFramesReadPosition = 0;
 
@@ -193,8 +195,8 @@ int Cvqa_file::extract_both()
 
     int fpsCompensator = 0;
 
-    int allCallbackTime = 0;
-    int howMuchCallbacks = 0;
+    //int allCallbackTime = 0;
+    //int howMuchCallbacks = 0;
 
     int skipRenderingFor = 0;
     int beforeNoRenderPass = 0;
@@ -206,7 +208,7 @@ int Cvqa_file::extract_both()
 
 	while (true)
 	{
-		int previousFrame = currentFrame;
+		//int previousFrame = currentFrame;
 
         bool cachesFull = true;
 
@@ -511,6 +513,8 @@ int Cvqa_file::extract_both()
                 ALint commitedSamples = commitedAudio / ((16 / 8) * get_c_channels());
                 ALint actualOffset = playingOffset - finishedSamples;
                 assert(actualOffset <= commitedSamples);
+                _unused(commitedSamples);
+
                 if (actualOffset < 0)
                 {
                     //printf("Synchronizer: the audio is behind of the current video cache, need to delay the video!\n");
