@@ -7,11 +7,10 @@
 #ifdef NO_IMM
 int g_textinput;
 static wchar_t g_ime_buf[512];
-static unsigned int g_ime_idx;
+//static unsigned int g_ime_idx;
 
 #ifdef __EMSCRIPTEN__
 static char g_ime_raw[512];
-static char g_ime_complete[8];
 #endif
 
 void process_textediting_event(const SDL_TextEditingEvent* event) {

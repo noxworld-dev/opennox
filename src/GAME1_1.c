@@ -7211,8 +7211,6 @@ int __cdecl sub_422C10(int a1, int a2) {
 	int v49;     // edi
 	int v51;     // esi
 	int v52;     // esi
-	int ll;      // ecx
-	int mm;      // eax
 	int v55;     // ecx
 	int v56;     // esi
 	int v57;     // eax

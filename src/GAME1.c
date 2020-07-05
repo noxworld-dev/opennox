@@ -6704,7 +6704,6 @@ void sub_410FC0_free() {
 //----- (00410FF0) --------------------------------------------------------
 int sub_410FF0() {
 	int v0;     // edi
-	int v2;     // esi
 	char v3;    // al
 	_DWORD* v5; // eax
 	int v6;     // ecx
@@ -9654,7 +9653,6 @@ int __cdecl nox_thing_read_ability_415320(int a1) {
 
 //----- (00415470) --------------------------------------------------------
 bool __cdecl sub_415470(void) {
-	unsigned int* v3; // esi
 	int v4;           // [esp+8h] [ebp-4h]
 
 	int result = sub_424170("SoundSet.bin");
