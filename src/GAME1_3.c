@@ -6536,7 +6536,8 @@ int __cdecl sub_44B4C0(const char* a1) {
 // 44B68C: variable 'v21' is possibly undefined
 
 //----- (0044B8B0) --------------------------------------------------------
-int __cdecl sub_44B8B0(int a1, int a2) {
+int __cdecl sub_44B8B0(int a1, nox_memfile* f) {
+	int a2 = f;
 	unsigned __int8* v2; // ecx
 	unsigned __int8 v3;  // dl
 	unsigned __int8* v4; // ecx
@@ -6732,7 +6733,8 @@ int __cdecl sub_44BC50(int a1, int a2) {
 // 44BE2F: variable 'v11' is possibly undefined
 
 //----- (0044BE90) --------------------------------------------------------
-int __cdecl sub_44BE90(int a1, int a2) {
+int __cdecl sub_44BE90(int a1, nox_memfile* f) {
+	int a2 = f;
 	int v2;              // esi
 	int result;          // eax
 	int v4;              // ebx
