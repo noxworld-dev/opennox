@@ -177,19 +177,10 @@ bool __cdecl nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_val
 bool __cdecl nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->menuicon = nox_memfile_read_u32(f);
 	if (obj->menuicon == -1) {
-		// TODO: This branch doesnt seem to ever be taken. It roughly translates to the following, but the meaning is
-		// not clear:
-		/*
-		// Drop one byte, read one byte (sz), skip sz+1 bytes. Is this reading (and dropping) a string?
-		const uint8_t skip = nox_memfile_read_u8(f);
-		const uint8_t sz = nox_memfile_read_u8(f);
-		printf("skipped %d, sz %d\n", skip, sz);
-		f->cur += (sz + 1);
-		 */
-		unsigned __int8* p = (unsigned __int8*)(f->cur + 1);
-		f->cur = p;
-		int sz = *p;
-		f->cur = &p[sz + 1];
+		// TODO: This branch doesnt seem to ever be taken. The meaning is not clear. Is this reading (and dropping) a string?
+		nox_memfile_skip(f, 1);
+		int n = nox_memfile_read_u8(f);
+		nox_memfile_skip(f, n);
 	}
 	return 1;
 }
@@ -634,9 +625,8 @@ void* __cdecl sub_44C840_read_things(void) {
 			if (!obj) {
 				return 0;
 			}
-			unsigned __int8 v28 = *(unsigned __int8*)things->cur;
-			things->cur++;
-			nox_memfile_read(scratch_buffer, 1u, v28, things);
+			unsigned __int8 v28 = nox_memfile_read_u8(things);
+			nox_memfile_read(scratch_buffer, 1, v28, things);
 			scratch_buffer[v28] = 0;
 			obj->name = nox_clone_str(scratch_buffer);
 			obj->menuicon = -1;
@@ -1076,9 +1066,8 @@ void* __cdecl nox_read_things_alternative_4E2B60(void) {
 				nox_memfile_free(things);
 				return 0;
 			}
-			v22 = *(unsigned __int8*)things->cur;
-			things->cur++;
-			nox_memfile_read(v3, 1u, v22, things);
+			v22 = nox_memfile_read_u8(things);
+			nox_memfile_read(v3, 1, v22, things);
 			*((_BYTE*)v3 + v22) = 0;
 			*((_DWORD*)v5 + 1) = nox_clone_str((const char*)v3);
 			*((_DWORD*)v5 + 2) = 0;
