@@ -210,7 +210,6 @@ bool __cdecl nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char*
 	_DWORD* v2;          // ebx
 	int v4;              // ecx
 	unsigned __int8 v6;  // cl
-	unsigned __int8* v8; // eax
 	int v9;              // edi
 
 	v2 = nox_calloc(1u, 0x304u);
@@ -221,10 +220,11 @@ bool __cdecl nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char*
 			break;
 		v6 = nox_memfile_read_u8(f);
 		if (v6 < 0x10u) {
-			unsigned __int8* v7 = f->cur;
-			v8 = &v7[*v7 + 1];
-			f->cur = v8;
-			f->cur += *v8 + 1;
+			unsigned __int8 n;
+			n = nox_memfile_read_u8(f);
+			nox_memfile_skip(f, n);
+			n = nox_memfile_read_u8(f);
+			nox_memfile_skip(f, n);
 			v9 = (int)&v2[12 * v6 + 1];
 			if (sub_44B8B0(v9, f)) {
 				if (sub_44BC50(v9, f))

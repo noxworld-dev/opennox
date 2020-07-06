@@ -1946,25 +1946,6 @@ BOOL sub_40ABD0() {
 	return _stat((LPCSTR)&byte_587000[5160], (int)&v1) == 0;
 }
 
-//----- (0040AD60) --------------------------------------------------------
-unsigned int __cdecl sub_40AD60(char* dest, int sz, int cnt, nox_memfile* f) {
-	const size_t cur_offset = f->cur - f->data;
-	const uint8_t read_past_8 = cur_offset & 7u;
-
-	char buf[8];
-	if (read_past_8) {
-		nox_memfile_read(&buf, 8 - read_past_8, 1, f);
-	}
-
-	unsigned int result = nox_memfile_read(&buf, 8u, 1, f);
-	if (result != 1) {
-		return result;
-	}
-
-	qmemcpy(dest, &buf, cnt * sz);
-	return 1;
-}
-
 //----- (0040ADD0) --------------------------------------------------------
 signed int __cdecl sub_40ADD0_fread(char* buf, size_t size, size_t count, FILE* file) {
 
@@ -9755,18 +9736,13 @@ int __cdecl sub_415660(int a1, char* a2) {
 }
 
 //----- (004156B0) --------------------------------------------------------
-int __cdecl sub_4156B0(int a1, void* a2) {
-	int v2;  // ebx
-	int* v3; // eax
+int __cdecl sub_4156B0(nox_memfile* f, void* a2) {
+	int v2 = 0;  // ebx
 	int v4;  // edi
-
-	v2 = 0;
-	v3 = *(int**)(a1 + 8);
-	v4 = *v3;
-	*(_DWORD*)(a1 + 8) = v3 + 1;
+	v4 = nox_memfile_read_u32(f);
 	if (v4 <= 0)
 		return 1;
-	while (sub_424460(a1, a2)) {
+	while (sub_424460(f, a2)) {
 		if (++v2 >= v4)
 			return 1;
 	}
