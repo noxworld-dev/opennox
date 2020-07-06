@@ -1050,24 +1050,32 @@ void* __cdecl nox_read_things_alternative_4E2B60(void) {
 			sub_502120(things, v3);
 			break;
 		case 1463897164:
-			if (!sub_414F60(things, v3))
-				goto LABEL_53;
+			if (!sub_414F60(things, v3)) {
+				nox_memfile_free(things);
+				return 0;
+			}
 			break;
 		case 1179406162:
-			if (!sub_414DB0(things))
-				goto LABEL_53;
+			if (!sub_414DB0(things)) {
+				nox_memfile_free(things);
+				return 0;
+			}
 			break;
 		case 1162102597:
-			if (!sub_414E70(things, v3))
-				goto LABEL_53;
+			if (!sub_414E70(things, v3)) {
+				nox_memfile_free(things);
+				return 0;
+			}
 			break;
 		case 1229799751:
 			nox_thing_read_image_415240(things);
 			break;
 		case 1414024775:
 			v5 = nox_calloc(1u, 0xE0u);
-			if (!v5)
-				goto LABEL_53;
+			if (!v5) {
+				nox_memfile_free(things);
+				return 0;
+			}
 			v22 = *(unsigned __int8*)things->cur;
 			things->cur++;
 			nox_memfile_read(v3, 1u, v22, things);
@@ -1086,7 +1094,6 @@ void* __cdecl nox_read_things_alternative_4E2B60(void) {
 			*((_DWORD*)v5 + 39) = sub_532E20;
 			*((_DWORD*)v5 + 53) = sub_4F49A0;
 			if (!sub_4E3220(things, (char*)v3, (int)v5)) {
-			LABEL_53:
 				nox_memfile_free(things);
 				return 0;
 			}
