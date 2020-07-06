@@ -65,6 +65,12 @@ uint32_t nox_memfile_read_u32(nox_memfile* f) {
 	return v;
 }
 
+void nox_memfile_skip(nox_memfile* f, int n) {
+	if (!f->data)
+		return;
+	f->cur += n;
+}
+
 //----- (0040ACC0) --------------------------------------------------------
 unsigned int nox_memfile_read(void* dst, const unsigned int sz, const int cnt, nox_memfile* f) {
 	unsigned int n = cnt * sz;
@@ -93,4 +99,23 @@ unsigned int __cdecl nox_memfile_seek_40AD10(nox_memfile* memfile, const int off
 	}
 
 	return memfile->cur - memfile->data;
+}
+
+//----- (0040AD60) --------------------------------------------------------
+unsigned int sub_40AD60(char* dest, int sz, int cnt, nox_memfile* f) {
+    const size_t cur_offset = f->cur - f->data;
+    const uint8_t read_past_8 = cur_offset & 0x7;
+
+    char buf[8];
+    if (read_past_8) {
+        nox_memfile_read(&buf, 8 - read_past_8, 1, f);
+    }
+
+    unsigned int result = nox_memfile_read(&buf, 8, 1, f);
+    if (result != 1) {
+        return result;
+    }
+
+    qmemcpy(dest, &buf, cnt * sz);
+    return 1;
 }

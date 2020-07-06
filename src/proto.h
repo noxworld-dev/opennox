@@ -217,7 +217,6 @@ int sub_40AA50();
 int __cdecl sub_40AA60(int a1);
 int __cdecl sub_40AA70(int a1);
 BOOL sub_40ABD0();
-unsigned int __cdecl sub_40AD60(char* dest, int sz, int cnt, nox_memfile* f);
 signed int __cdecl sub_40ADD0_fread(char* a1, size_t a2, size_t a3, FILE* a4);
 int __cdecl sub_40AE90(const void*, const void*); // idb
 int __cdecl sub_40AEB0(const void*, const void*); // idb
@@ -607,7 +606,7 @@ int __cdecl nox_thing_read_image_415240(int a1);
 int __cdecl nox_thing_read_ability_415320(int a1);
 bool __cdecl sub_415470(void);
 int __cdecl sub_415660(int a1, char* a2);
-int __cdecl sub_4156B0(int a1, void* a2);
+int __cdecl sub_4156B0(nox_memfile* f, void* a2);
 int __cdecl sub_415700(int a1, void* a2);
 int __cdecl sub_415750(int a1, void* a2);
 void sub_4157A0();
