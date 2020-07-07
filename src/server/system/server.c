@@ -2435,9 +2435,12 @@ int sub_4D1860_server() {
 	if (!*(_DWORD*)&byte_5D4594[1548712])
 		*(_DWORD*)&byte_5D4594[1548712] = sub_4E3AA0((CHAR*)&byte_587000[196524]);
 	v22 = sub_4DA790();
-	if (!v22)
-		goto LABEL_120;
-	do {
+	if (!v22) {
+		v24 = loadString_sub_40F1D0((char*)&byte_587000[196580], 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 792);
+		sub_4D9FD0(0, v24);
+		return 0;
+	}
+	while (v22) {
 		if (*(_DWORD*)(v22 + 8) & 0x10000000) {
 			*(_DWORD*)(v22 + 136) = 0;
 			dword_5d4594_1548532 = v22;
@@ -2449,21 +2452,21 @@ int sub_4D1860_server() {
 		if (v23 == *(_DWORD*)&byte_5D4594[1548708])
 			++v20;
 		v22 = sub_4DA7A0(v22);
-	} while (v22);
+	}
 	if (!v20) {
-	LABEL_120:
 		v24 = loadString_sub_40F1D0((char*)&byte_587000[196580], 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 792);
-	LABEL_61:
 		sub_4D9FD0(0, v24);
 		return 0;
 	}
 	if (nox_common_gameFlags_check_40A5C0(96) && v19 < 2) {
 		v24 = loadString_sub_40F1D0((char*)&byte_587000[196644], 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 799);
-		goto LABEL_61;
+		sub_4D9FD0(0, v24);
+		return 0;
 	}
 	if (nox_common_gameFlags_check_40A5C0(64) && v21 < 1) {
 		v24 = loadString_sub_40F1D0((char*)&byte_587000[196700], 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 806);
-		goto LABEL_61;
+		sub_4D9FD0(0, v24);
+		return 0;
 	}
 	if (sub_417DA0(4) || nox_common_gameFlags_check_40A5C0(0x8000))
 		sub_417D00();
