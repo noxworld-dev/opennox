@@ -9675,52 +9675,63 @@ bool __cdecl sub_415470(void) {
 	while (nox_memfile_read(&v4, 4u, 1, things)) {
 		switch (v4) {
 		case 1397769548:
-			if (!sub_4156B0(things, v1))
-				goto LABEL_34;
+			if (!sub_4156B0(things, v1)) {
+				nox_memfile_free(things);
+				return 0;
+			}
 			break;
 		case 1096107040:
 			if (nox_common_gameFlags_check_40A5C0(0x200000)) {
 				nox_thing_read_audio_414D40(things);
 			} else if (!sub_415660(things, v1)) {
-				goto LABEL_34;
+				nox_memfile_free(things);
+				return 0;
 			}
 			break;
 		case 1096175188:
 			if (nox_common_gameFlags_check_40A5C0(0x200000)) {
 				nox_thing_read_AVNT_452B00(things);
 			} else if (!sub_452890(things, v1)) {
-				goto LABEL_34;
-			}
-			break;
-		case 1463897164:
-			if (!sub_410900(things, v1))
-				goto LABEL_34;
-			break;
-		case 1179406162:
-			if (!sub_411540(things, v1))
-				goto LABEL_34;
-			break;
-		case 1162102597:
-			if (!sub_411850(things, v1))
-				goto LABEL_34;
-			break;
-		case 1094863180:
-			if (!sub_415750(things, v1))
-				goto LABEL_34;
-			break;
-		case 1229799751:
-			if (!sub_415700(things, v1)) {
-			LABEL_34:
 				nox_memfile_free(things);
 				return 0;
 			}
-			goto LABEL_35;
+			break;
+		case 1463897164:
+			if (!sub_410900(things, v1)) {
+				nox_memfile_free(things);
+				return 0;
+			}
+			break;
+		case 1179406162:
+			if (!sub_411540(things, v1)) {
+				nox_memfile_free(things);
+				return 0;
+			}
+			break;
+		case 1162102597:
+			if (!sub_411850(things, v1)) {
+				nox_memfile_free(things);
+				return 0;
+			}
+			break;
+		case 1094863180:
+			if (!sub_415750(things, v1)) {
+				nox_memfile_free(things);
+				return 0;
+			}
+			break;
+		case 1229799751:
+			if (!sub_415700(things, v1)) {
+				nox_memfile_free(things);
+				return 0;
+			}
+			nox_free_thing_bin();
+			free(v1);
+			return 1;
 		}
 	}
-LABEL_35:
 	nox_free_thing_bin();
 	free(v1);
-
 	return 1;
 }
 
