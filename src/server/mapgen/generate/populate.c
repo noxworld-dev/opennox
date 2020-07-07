@@ -29,20 +29,23 @@ float* __cdecl sub_522AD0(float* a1, int a2) {
 	case 0:
 		a1a.field_0 = a1[7] * 0.5 + a1[9] + 1.0;
 		v4 = a1[10] + 10.0;
-		goto LABEL_9;
+		a1a.field_4 = v4;
+		break;
 	case 1:
 		a1a.field_0 = a1[7] * 0.5 + a1[9] + 1.0;
 		v4 = a1[12] - 10.0;
-		goto LABEL_9;
+		a1a.field_4 = v4;
+		break;
 	case 2:
 		v5 = a1[11] - 10.0;
-		goto LABEL_8;
-	case 3:
-		v5 = a1[9] + 10.0;
-	LABEL_8:
 		a1a.field_0 = v5;
 		v4 = a1[8] * 0.5 + a1[10] + 1.0;
-	LABEL_9:
+		a1a.field_4 = v4;
+		break;
+	case 3:
+		v5 = a1[9] + 10.0;
+		a1a.field_0 = v5;
+		v4 = a1[8] * 0.5 + a1[10] + 1.0;
 		a1a.field_4 = v4;
 		break;
 	default:
@@ -66,9 +69,11 @@ float* __cdecl sub_522AD0(float* a1, int a2) {
 			break;
 		case 2:
 			a2a.field_0 -= 2;
-			goto LABEL_15;
+			v13 = 2.0;
+			v7 = 3.0;
+			--a2a.field_4;
+			break;
 		case 3:
-		LABEL_15:
 			v13 = 2.0;
 			v7 = 3.0;
 			--a2a.field_4;
