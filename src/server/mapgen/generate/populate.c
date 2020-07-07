@@ -111,39 +111,25 @@ int __cdecl sub_527D50(int a1, char* a2) {
 
 //----- (00522A40) --------------------------------------------------------
 int __cdecl sub_522A40(int a1) {
-	int v2;    // ebx
-	int v3;    // edi
-	int v4;    // esi
-	float* v5; // eax
-
 	if (!*(_DWORD*)(a1 + 472))
 		return 1;
-	v2 = sub_5259E0();
-	if (!v2)
-		return 0;
-	while (1) {
-		if (*(_DWORD*)v2 == 1) {
-			v3 = 0;
-			if (*(_DWORD*)(a1 + 472) > 0)
-				break;
+	for (int v2 = sub_5259E0(); v2; v2 = *(_DWORD*)(v2 + 68)) {
+		if (*(_DWORD*)v2 != 1) {
+			continue;
 		}
-	LABEL_9:
-		v2 = *(_DWORD*)(v2 + 68);
-		if (!v2)
-			return 0;
+		int v3 = 0;
+		int v4 = a1 + 216;
+		while (v3 < *(int*)(a1 + 472)) {
+			float* v5 = sub_522AD0((float*)v2, v4);
+			if (v5) {
+				sub_527D50((int)v5, (char*)(a1 + 476));
+				return 1;
+			}
+			++v3;
+			v4 += 64;
+		}
 	}
-	v4 = a1 + 216;
-	while (1) {
-		v5 = sub_522AD0((float*)v2, v4);
-		if (v5)
-			break;
-		++v3;
-		v4 += 64;
-		if (v3 >= *(int*)(a1 + 472))
-			goto LABEL_9;
-	}
-	sub_527D50((int)v5, (char*)(a1 + 476));
-	return 1;
+	return 0;
 }
 
 //----- (005259D0) --------------------------------------------------------
