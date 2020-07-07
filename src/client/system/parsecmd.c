@@ -495,45 +495,44 @@ int __cdecl nox_cmd_load(int a1, char a2, int a3) {
 	v4 = sub_4CFFA0((int)&byte_5D4594[3801836]);
 	v5 = v4;
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
-		if (v5 && !(v5 & 0x200)) {
-			if (nox_common_gameFlags_check_40A5C0(128)) {
-				if (v5 & 0x60 && sub_417DD0() != 2)
-					sub_4185B0();
-			} else if (!(nox_common_gameFlags_getVal_40A5B0() & v5)) {
-				v6 = loadString_sub_40F1D0((char*)&byte_587000[103372], 0,
-										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2005);
-				sub_440A20(v6);
-				return 1;
-			}
-			goto LABEL_16;
+		if (!(v5 && !(v5 & 0x200))) {
+			return 1;
 		}
-	} else if (v5 & 0x200) {
-	LABEL_16:
-		v7 = strlen(&v11[4]) + 1;
-		if ((int)(v7 - 1) <= 4 || _strcmpi(&v11[v7 - 1], ".map")) {
-			strcpy((char*)&byte_5D4594[822324], &v11[4]);
-			v8 = (char*)&byte_5D4594[822324];
-			strcat((char*)&byte_5D4594[822324], ".map");
-		} else {
-			v8 = &v11[4];
+		if (nox_common_gameFlags_check_40A5C0(128)) {
+			if (v5 & 0x60 && sub_417DD0() != 2)
+				sub_4185B0();
+		} else if (!(nox_common_gameFlags_getVal_40A5B0() & v5)) {
+			v6 = loadString_sub_40F1D0((char*)&byte_587000[103372], 0,
+									   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2005);
+			sub_440A20(v6);
+			return 1;
 		}
-		if (!v8 || *v8 != 35 && (strcpy(FileName, "maps\\"), strncat(FileName, v8, strlen(v8) - 4),
-								 *(_WORD*)&FileName[strlen(FileName)] = *(_WORD*)&byte_587000[103416],
-								 strcat(FileName, v8), _stat(FileName, (int)&v12))) {
-			v10 = v8;
-			v9 = loadString_sub_40F1D0((char*)&byte_587000[103512], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
-									   2076);
-		} else {
-			sub_4DCC70(1);
-			sub_4D2450(v8);
-			sub_41D650();
-			v10 = v8;
-			v9 = loadString_sub_40F1D0((char*)&byte_587000[103460], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
-									   2072);
-		}
-		sub_440A20(v9, v10);
+	} else if (!(v5 & 0x200)) {
 		return 1;
 	}
+	v7 = strlen(&v11[4]) + 1;
+	if ((int)(v7 - 1) <= 4 || _strcmpi(&v11[v7 - 1], ".map")) {
+		strcpy((char*)&byte_5D4594[822324], &v11[4]);
+		v8 = (char*)&byte_5D4594[822324];
+		strcat((char*)&byte_5D4594[822324], ".map");
+	} else {
+		v8 = &v11[4];
+	}
+	if (!v8 || *v8 != 35 && (strcpy(FileName, "maps\\"), strncat(FileName, v8, strlen(v8) - 4),
+			*(_WORD*)&FileName[strlen(FileName)] = *(_WORD*)&byte_587000[103416],
+			strcat(FileName, v8), _stat(FileName, (int)&v12))) {
+		v10 = v8;
+		v9 = loadString_sub_40F1D0((char*)&byte_587000[103512], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+								   2076);
+	} else {
+		sub_4DCC70(1);
+		sub_4D2450(v8);
+		sub_41D650();
+		v10 = v8;
+		v9 = loadString_sub_40F1D0((char*)&byte_587000[103460], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+								   2072);
+	}
+	sub_440A20(v9, v10);
 	return 1;
 }
 
