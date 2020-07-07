@@ -2650,14 +2650,16 @@ int sub_4D2580_server() {
 	v1 = v0;
 	v2 = 0;
 	v3 = HIDWORD(v0);
-	if (!dword_5d4594_2650652)
-		goto LABEL_115;
-	v4 = sub_40A6C0();
-	if (sub_416650() && sub_41E2F0() == 8)
-		v2 = 1;
-	if (v4 == 1 || nox_common_gameFlags_check_40A5C0(8) || *(_DWORD*)&byte_5D4594[2598000] % v4 == 1)
-	LABEL_115:
+	if (!dword_5d4594_2650652) {
 		sub_40EE90(1);
+	} else {
+		v4 = sub_40A6C0();
+		if (sub_416650() && sub_41E2F0() == 8)
+			v2 = 1;
+		if (v4 == 1 || nox_common_gameFlags_check_40A5C0(8) || *(_DWORD*)&byte_5D4594[2598000] % v4 == 1) {
+			sub_40EE90(1);
+		}
+	}
 	sub_502100();
 	sub_5524C0();
 	sub_552460();
@@ -2730,139 +2732,13 @@ int sub_4D2580_server() {
 				}
 			}
 		}
-		goto LABEL_72;
-	}
-	if (dword_5d4594_1548524) {
-		if (!sub_43AF70() || !v2) {
-			sub_4EDD70();
-			sub_417160();
-			sub_4573B0();
-			if (sub_417DA0(2) && !nox_common_gameFlags_check_40A5C0(49152) && sub_417DA0(4) &&
-				!nox_common_gameFlags_check_40A5C0(128))
-				sub_4181F0(1);
-			if (nox_common_gameFlags_check_40A5C0(4096) && sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128))
-				sub_4264D0();
-			sub_40A4D0(0x8000000);
-			sub_43F140(500);
-			v13 = sub_4D1860_server();
-			sub_43F1A0();
-			nox_common_gameFlags_unset_40A540(0x8000000);
-			if (!v13) {
-				v37 = sub_409B40();
-				v14 = loadString_sub_40F1D0((char*)&byte_587000[196928], 0,
-											"C:\\NoxPost\\src\\Server\\System\\server.c", 1702);
-				sub_4D9FD0(0, v14, v37);
-				v36 = loadString_sub_40F1D0((char*)&byte_587000[196984], 0,
-											"C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
-				v15 = loadString_sub_40F1D0((char*)&byte_587000[197032], 0,
-											"C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
-				nullsub_4(0, v15, v36, 1);
-				sub_43DDD0(0);
-				return 0;
-			}
-			v17 = sub_409B40();
-			nox_sprintf(v39, "%s.map", v17);
-			v18 = sub_409B00();
-			sub_4DEE00(v39, v18);
-			if (sub_43AF70() == 1) {
-				sub_416690();
-				if (nox_common_gameFlags_check_40A5C0(128)) {
-					if (nox_common_gameFlags_check_40A5C0(0x8000))
-						sub_419030(1);
-					nox_common_gameFlags_unset_40A540(49152);
-					sub_4597E0(0);
-					goto LABEL_72;
-				}
-				sub_426060();
-				sub_41D6C0();
-				sub_4160D0(15);
-			}
-			sub_4597E0(0);
+	} else if (!dword_5d4594_1548524) {
+		sub_4D2DA0(__SPAIR64__(v3, v1));
+		sub_4DEB30();
+		sub_4DEB50();
+		if (sub_43DEA0()) {
+			return 1;
 		}
-	LABEL_72:
-		if (*(_DWORD*)&nox_common_engineFlags & 0x600000)
-			sub_4E76C0();
-		if (sub_4DB1B0()) {
-			v20 = sub_417090(31);
-			v21 = v20;
-			if (v20) {
-				if (*((_DWORD*)v20 + 514) && sub_4DCC10(*((_DWORD*)v20 + 514)) == 1) {
-					v22 = *((_DWORD*)v21 + 514);
-					v23 = 0;
-					v24 = (*(_DWORD*)(v22 + 16) >> 15) & 1;
-					if (!v24) {
-						if (dword_5d4594_1599640 > 0) {
-							v25 = 0;
-							do {
-								if (!strncmp("MapShutdown", *(const char**)(v25 + dword_5d4594_1599636), 0xBu))
-									nox_server_doMapScript_507310(v23, 0, 0);
-								++v23;
-								v25 += 48;
-							} while (v23 < *(int*)&dword_5d4594_1599640);
-						}
-						sub_40A4D0(0x8000000);
-						v26 = sub_4DB160();
-						v23 = sub_4DB370_savegame((const char*)v26);
-						nox_common_gameFlags_unset_40A540(0x8000000);
-						if (!v23 && nox_common_gameFlags_check_40A5C0(2)) {
-							v35 = loadString_sub_40F1D0((char*)&byte_587000[197104], 0,
-														"C:\\NoxPost\\src\\Server\\System\\server.c", 1931);
-							v27 = loadString_sub_40F1D0((char*)&byte_587000[197172], 0,
-														"C:\\NoxPost\\src\\Server\\System\\server.c", 1930);
-							sub_449A10(0, (int)v27, (int)v35, 33, 0, 0);
-						}
-					}
-					v28 = sub_4DB1C0();
-					v29 = v28;
-					if (v24 || v23 != 1) {
-						if (v28 && !v23)
-							sub_4E7010(v22, (float2*)(*(_DWORD*)(v28 + 700) + 80));
-					} else if (v28) {
-						v30 = *(char**)(v28 + 700);
-						v31 = (const char*)sub_4DB2A0(*(const char**)(v28 + 700));
-						if (v31) {
-							sub_4DB220(1);
-							sub_4DB230(1);
-							sub_4DB270(v31);
-						}
-						sub_4D2450(v30);
-					}
-					sub_4DB170(0, v29, 0);
-				}
-			}
-		}
-		sub_4139C0();
-		if (sub_446180())
-			sub_446190();
-		if (sub_446030() &&
-			*(_DWORD*)&byte_5D4594[2598000] > (unsigned int)(5 * *(_DWORD*)&byte_5D4594[2649704] + sub_446040())) {
-			sub_446380();
-		}
-		if (!sub_413A50())
-			++*(_DWORD*)&byte_5D4594[2598000];
-		sub_56F5C0();
-		sub_4FC6D0();
-		sub_4FC590();
-		sub_4FC600();
-		sub_4FC680();
-		v33 = sub_417090(31);
-		if (v33) {
-			v34 = *((_DWORD*)v33 + 514);
-			if (v34)
-				sub_5003B0(v34);
-		}
-		if (sub_57AF20() && sub_57B140())
-			sub_57B0A0();
-		if (sub_4D6F50()) {
-			nox_server_switchQuestIfRequested_4D6FD0();
-			sub_4DCF20();
-		}
-		return 1;
-	}
-	sub_4D2DA0(__SPAIR64__(v3, v1));
-	sub_4DEB30();
-	sub_4DEB50();
-	if (!sub_43DEA0()) {
 		if (!(byte_5D4594[2598000] & 1))
 			sub_519990();
 		sub_40B970();
@@ -2882,16 +2758,136 @@ int sub_4D2580_server() {
 		}
 		sub_4DEC80();
 		sub_4DAC00();
-		if (sub_4160F0(0x10u, 10 * *(_DWORD*)&byte_5D4594[2649704])) {
+		if (sub_4160F0(0x10u, 10 * *(_DWORD *) &byte_5D4594[2649704])) {
 			sub_4E3C20();
 			sub_4160D0(16);
 		}
 		if (nox_common_gameFlags_check_40A5C0(0x2000) && sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128) &&
-			sub_4160F0(0xFu, 60 * *(_DWORD*)&byte_5D4594[2649704])) {
+			sub_4160F0(0xFu, 60 * *(_DWORD *) &byte_5D4594[2649704])) {
 			sub_4263C0();
 			sub_4160D0(15);
 		}
-		goto LABEL_72;
+	} else if (!sub_43AF70() || !v2) {
+		sub_4EDD70();
+		sub_417160();
+		sub_4573B0();
+		if (sub_417DA0(2) && !nox_common_gameFlags_check_40A5C0(49152) && sub_417DA0(4) &&
+			!nox_common_gameFlags_check_40A5C0(128))
+			sub_4181F0(1);
+		if (nox_common_gameFlags_check_40A5C0(4096) && sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128))
+			sub_4264D0();
+		sub_40A4D0(0x8000000);
+		sub_43F140(500);
+		v13 = sub_4D1860_server();
+		sub_43F1A0();
+		nox_common_gameFlags_unset_40A540(0x8000000);
+		if (!v13) {
+			v37 = sub_409B40();
+			v14 = loadString_sub_40F1D0((char*)&byte_587000[196928], 0,
+										"C:\\NoxPost\\src\\Server\\System\\server.c", 1702);
+			sub_4D9FD0(0, v14, v37);
+			v36 = loadString_sub_40F1D0((char*)&byte_587000[196984], 0,
+										"C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
+			v15 = loadString_sub_40F1D0((char*)&byte_587000[197032], 0,
+										"C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
+			nullsub_4(0, v15, v36, 1);
+			sub_43DDD0(0);
+			return 0;
+		}
+		v17 = sub_409B40();
+		nox_sprintf(v39, "%s.map", v17);
+		v18 = sub_409B00();
+		sub_4DEE00(v39, v18);
+		if (sub_43AF70() == 1) {
+			sub_416690();
+			if (nox_common_gameFlags_check_40A5C0(128)) {
+				if (nox_common_gameFlags_check_40A5C0(0x8000))
+					sub_419030(1);
+				nox_common_gameFlags_unset_40A540(49152);
+			} else {
+				sub_426060();
+				sub_41D6C0();
+				sub_4160D0(15);
+			}
+		}
+		sub_4597E0(0);
+	}
+	if (*(_DWORD*)&nox_common_engineFlags & 0x600000)
+		sub_4E76C0();
+	if (sub_4DB1B0()) {
+		v20 = sub_417090(31);
+		v21 = v20;
+		if (v20) {
+			if (*((_DWORD*)v20 + 514) && sub_4DCC10(*((_DWORD*)v20 + 514)) == 1) {
+				v22 = *((_DWORD*)v21 + 514);
+				v23 = 0;
+				v24 = (*(_DWORD*)(v22 + 16) >> 15) & 1;
+				if (!v24) {
+					if (dword_5d4594_1599640 > 0) {
+						v25 = 0;
+						do {
+							if (!strncmp("MapShutdown", *(const char**)(v25 + dword_5d4594_1599636), 0xBu))
+								nox_server_doMapScript_507310(v23, 0, 0);
+							++v23;
+							v25 += 48;
+						} while (v23 < *(int*)&dword_5d4594_1599640);
+					}
+					sub_40A4D0(0x8000000);
+					v26 = sub_4DB160();
+					v23 = sub_4DB370_savegame((const char*)v26);
+					nox_common_gameFlags_unset_40A540(0x8000000);
+					if (!v23 && nox_common_gameFlags_check_40A5C0(2)) {
+						v35 = loadString_sub_40F1D0((char*)&byte_587000[197104], 0,
+													"C:\\NoxPost\\src\\Server\\System\\server.c", 1931);
+						v27 = loadString_sub_40F1D0((char*)&byte_587000[197172], 0,
+													"C:\\NoxPost\\src\\Server\\System\\server.c", 1930);
+						sub_449A10(0, (int)v27, (int)v35, 33, 0, 0);
+					}
+				}
+				v28 = sub_4DB1C0();
+				v29 = v28;
+				if (v24 || v23 != 1) {
+					if (v28 && !v23)
+						sub_4E7010(v22, (float2*)(*(_DWORD*)(v28 + 700) + 80));
+				} else if (v28) {
+					v30 = *(char**)(v28 + 700);
+					v31 = (const char*)sub_4DB2A0(*(const char**)(v28 + 700));
+					if (v31) {
+						sub_4DB220(1);
+						sub_4DB230(1);
+						sub_4DB270(v31);
+					}
+					sub_4D2450(v30);
+				}
+				sub_4DB170(0, v29, 0);
+			}
+		}
+	}
+	sub_4139C0();
+	if (sub_446180())
+		sub_446190();
+	if (sub_446030() &&
+		*(_DWORD*)&byte_5D4594[2598000] > (unsigned int)(5 * *(_DWORD*)&byte_5D4594[2649704] + sub_446040())) {
+		sub_446380();
+	}
+	if (!sub_413A50())
+		++*(_DWORD*)&byte_5D4594[2598000];
+	sub_56F5C0();
+	sub_4FC6D0();
+	sub_4FC590();
+	sub_4FC600();
+	sub_4FC680();
+	v33 = sub_417090(31);
+	if (v33) {
+		v34 = *((_DWORD*)v33 + 514);
+		if (v34)
+			sub_5003B0(v34);
+	}
+	if (sub_57AF20() && sub_57B140())
+		sub_57B0A0();
+	if (sub_4D6F50()) {
+		nox_server_switchQuestIfRequested_4D6FD0();
+		sub_4DCF20();
 	}
 	return 1;
 }
