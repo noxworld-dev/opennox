@@ -44,8 +44,11 @@ nox_memfile* nox_memfile_load(const char* path, int a2) {
 void nox_memfile_free(nox_memfile* f) {
 	if (f->data) {
 		free(f->data);
-		f->data = NULL;
 	}
+	f->data = NULL;
+	f->cur = NULL;
+	f->end = NULL;
+	f->size = 0;
 	free(f);
 }
 
