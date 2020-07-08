@@ -92,7 +92,6 @@ int __cdecl sub_50F1A0(int a1, int a2) {
 	int v3;      // esi
 	int v4;      // edx
 	wchar_t* v6; // [esp-8h] [ebp-40h]
-	wchar_t* v7; // [esp-8h] [ebp-40h]
 	char v8[52]; // [esp+4h] [ebp-34h]
 
 	*(_WORD*)v8 = 3273;
@@ -103,19 +102,17 @@ int __cdecl sub_50F1A0(int a1, int a2) {
 			nox_wcscpy((wchar_t*)&v8[2], (const wchar_t*)(*(_DWORD*)(*(_DWORD*)(v2 + 748) + 276) + 4704));
 			return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
 		}
-		v7 = sub_4E39F0_obj_db(*(const char***)(a2 + 12));
-		nox_wcsncpy((wchar_t*)&v8[2], v7, 0x18u);
-	LABEL_8:
-		*(_WORD*)&v8[50] = 0;
-		return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
+		v6 = sub_4E39F0_obj_db(*(const char***)(a2 + 12));
+	} else {
+		v4 = *(_DWORD *) (a2 + 12);
+		if (*(_BYTE *) (v4 + 8) & 4) {
+			nox_wcscpy((wchar_t *) &v8[2], (const wchar_t *) (*(_DWORD *) (*(_DWORD *) (v4 + 748) + 276) + 4704));
+			return sub_4E5390(*(unsigned __int8 *) (*(_DWORD *) (v3 + 276) + 2064), (int) v8, 52, 0, 1);
+		}
+		v6 = sub_4E39F0_obj_db((const char **) v4);
 	}
-	v4 = *(_DWORD*)(a2 + 12);
-	if (!(*(_BYTE*)(v4 + 8) & 4)) {
-		v6 = sub_4E39F0_obj_db((const char**)v4);
-		nox_wcsncpy((wchar_t*)&v8[2], v6, 0x18u);
-		goto LABEL_8;
-	}
-	nox_wcscpy((wchar_t*)&v8[2], (const wchar_t*)(*(_DWORD*)(*(_DWORD*)(v4 + 748) + 276) + 4704));
+	nox_wcsncpy((wchar_t *) &v8[2], v6, 0x18u);
+	*(_WORD*)&v8[50] = 0;
 	return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
 }
 
