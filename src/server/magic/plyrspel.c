@@ -140,7 +140,6 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
 	char* i;     // edi
 	int v17;     // eax
 	_DWORD* v18; // ebx
-	int v20;     // [esp+14h] [ebp+8h]
 
 	v5 = a1;
 	if (!(*(_BYTE*)(a1 + 8) & 4))
@@ -148,13 +147,13 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
 	v6 = a2;
 	if (a2 <= 0 || a2 >= 137) {
 		v8 = loadString_sub_40F1D0((char*)&byte_587000[216964], 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 339);
-		goto LABEL_76;
+		sub_4D9EB0(a1, v8);
+		return 0;
 	}
 	v7 = *(_DWORD*)(a1 + 748);
 	if (nox_common_gameFlags_check_40A5C0(6144) && *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) == 3 ||
 		*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) == 5) {
 		v8 = loadString_sub_40F1D0((char*)&byte_587000[217020], 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 351);
-	LABEL_76:
 		sub_4D9EB0(a1, v8);
 		return 0;
 	}
@@ -163,7 +162,8 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
 		 a2 == 119 || a2 == 120 || a2 == 121 || a2 == 122 || a2 == 123 || a2 == 124 || a2 == 125 || a2 == 19) &&
 		*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696)) {
 		v8 = loadString_sub_40F1D0((char*)&byte_587000[217076], 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 386);
-		goto LABEL_76;
+		sub_4D9EB0(a1, v8);
+		return 0;
 	}
 	++*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696);
 	v9 = (_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696);
@@ -177,20 +177,18 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
 	if (a5)
 		*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) = a5;
 	sub_56FCE0(*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4636), a2, *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696));
+	int v20 = 0;
 	if (sub_424A50(a2, 4096)) {
 		v20 = 0x2000;
-		goto LABEL_41;
-	}
-	if (sub_424A50(a2, 0x4000)) {
+	} else if (sub_424A50(a2, 0x4000)) {
 		v20 = 0x8000;
-		goto LABEL_41;
-	}
-	if (sub_424A50(a2, 0x10000)) {
+	} else if (sub_424A50(a2, 0x10000)) {
 		v20 = 0x20000;
-	LABEL_41:
+	}
+	if (v20) {
 		v11 = 1;
 		v12 = 3700;
-		do {
+		while (v12 < 4244) {
 			if (sub_424A50(v11, v20) && sub_424B50(v11)) {
 				if (a5)
 					*(_DWORD*)(v12 + *(_DWORD*)(v7 + 276)) = a5;
@@ -208,7 +206,7 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
 			}
 			v12 += 4;
 			++v11;
-		} while (v12 < 4244);
+		}
 		v5 = a1;
 	}
 	if (a3) {
