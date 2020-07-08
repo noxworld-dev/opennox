@@ -11740,7 +11740,9 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 				v13 = *(float*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) +
 								4 * *(_DWORD*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 24) + 4 * v12));
 			}
-			goto LABEL_16;
+			*(float*)&v140 = v13;
+			sub_507230(v140);
+			continue;
 		case 2:
 			v14 = sub_507270((int**)&v160);
 			v15 = sub_507270((int**)&v160);
@@ -11777,7 +11779,9 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 		case 8:
 			v142 = COERCE_FLOAT(script_pop());
 			v22 = COERCE_FLOAT(script_pop()) + v142;
-			goto LABEL_29;
+			*(float*)&v143 = v22;
+			sub_507230(v143);
+			continue;
 		case 9:
 			v26 = script_pop();
 			v27 = script_pop();
@@ -11796,7 +11800,6 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 		case 12:
 			v146 = COERCE_FLOAT(script_pop());
 			v22 = COERCE_FLOAT(script_pop()) * v146;
-		LABEL_29:
 			*(float*)&v143 = v22;
 			sub_507230(v143);
 			continue;
@@ -11808,7 +11811,9 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 		case 14:
 			v147 = COERCE_FLOAT(script_pop());
 			v13 = COERCE_FLOAT(script_pop()) / v147;
-			goto LABEL_16;
+			*(float*)&v140 = v13;
+			sub_507230(v140);
+			continue;
 		case 15:
 			v32 = script_pop();
 			v33 = script_pop();
@@ -11892,18 +11897,22 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 				v76 = *(_DWORD*)(dword_5d4594_1599636 + 76);
 				v54 = v150 * *(float*)(v76 + 4 * v52);
 				v55 = (float*)(v76 + 4 * v52);
-				goto LABEL_98;
-			}
-			if (v52 >= 0) {
+				*v55 = v54;
+				sub_507230(COERCE_INT(*(float*)(*(_DWORD*)(dword_5d4594_1599636 + 76) + 4 * v52)));
+			} else if (v52 >= 0) {
 				v77 = *(_DWORD*)(dword_5d4594_1599636 + v5 + 28);
 				v57 = v150 * *(float*)(v77 + 4 * v52);
 				v58 = (float*)(v77 + 4 * v52);
-				goto LABEL_101;
+				*v58 = v57;
+				sub_507230(COERCE_INT(*(float*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) + 4 * v52)));
+			} else {
+				v59 = 4 * v52;
+				v60 = (float *) (*(_DWORD *) (v3 + 760) - 4 * v52);
+				v61 = v150 * *v60;
+				*v55 = v54;
+				sub_507230(COERCE_INT(*(float *) (*(_DWORD *) (dword_5d4594_1599636 + 76) + 4 * v52)));
 			}
-			v59 = 4 * v52;
-			v60 = (float*)(*(_DWORD*)(v3 + 760) - 4 * v52);
-			v61 = v150 * *v60;
-			goto LABEL_103;
+			continue;
 		case 27:
 			v78 = script_pop();
 			v79 = script_pop();
@@ -11926,18 +11935,22 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 				*(float*)(*(_DWORD*)(dword_5d4594_1599636 + 76) + 4 * v81) =
 					*(float*)(*(_DWORD*)(dword_5d4594_1599636 + 76) + 4 * v81) / v151;
 				v13 = *(float*)(*(_DWORD*)(dword_5d4594_1599636 + 76) + 4 * v81);
-				goto LABEL_16;
-			}
-			if (v81 >= 0) {
+				*(float*)&v140 = v13;
+				sub_507230(v140);
+			} else if (v81 >= 0) {
 				*(float*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) + 4 * v81) =
 					*(float*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) + 4 * v81) / v151;
 				v13 = *(float*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) + 4 * v81);
-				goto LABEL_16;
+				*(float*)&v140 = v13;
+				sub_507230(v140);
+			} else {
+				v71 = 4 * v81;
+				v72 = (float*)(*(_DWORD*)(v3 + 760) - 4 * v81);
+				v73 = *v72 / v151;
+				*v72 = v73;
+				sub_507230(*(_DWORD*)(*(_DWORD*)(v3 + 760) - v71));
 			}
-			v71 = 4 * v81;
-			v72 = (float*)(*(_DWORD*)(v3 + 760) - 4 * v81);
-			v73 = *v72 / v151;
-			goto LABEL_114;
+			continue;
 		case 29:
 			v50 = script_pop();
 			v51 = script_pop();
@@ -11959,21 +11972,18 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 				v53 = *(_DWORD*)(dword_5d4594_1599636 + 76);
 				v54 = v148 + *(float*)(v53 + 4 * v52);
 				v55 = (float*)(v53 + 4 * v52);
-			LABEL_98:
 				*v55 = v54;
 				sub_507230(COERCE_INT(*(float*)(*(_DWORD*)(dword_5d4594_1599636 + 76) + 4 * v52)));
 			} else if (v52 < 0) {
 				v59 = 4 * v52;
 				v60 = (float*)(*(_DWORD*)(v3 + 760) - 4 * v52);
 				v61 = v148 + *v60;
-			LABEL_103:
 				*v60 = v61;
 				sub_507230(*(_DWORD*)(*(_DWORD*)(v3 + 760) - v59));
 			} else {
 				v56 = *(_DWORD*)(dword_5d4594_1599636 + v5 + 28);
 				v57 = v148 + *(float*)(v56 + 4 * v52);
 				v58 = (float*)(v56 + 4 * v52);
-			LABEL_101:
 				*v58 = v57;
 				sub_507230(COERCE_INT(*(float*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) + 4 * v52)));
 			}
@@ -11997,17 +12007,15 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 			v67 = sub_512E40(v164);
 			if (v64) {
 				*(_DWORD*)(*(_DWORD*)(dword_5d4594_1599636 + 76) + v65) = v67;
-				sub_507230(v67);
-				v5 = v162;
+			} else if (v63 < 0) {
+				*(_DWORD *) (*(_DWORD *) (a3 + 760) - v65) = v67;
 			} else {
-				if (v63 < 0)
-					*(_DWORD*)(*(_DWORD*)(a3 + 760) - v65) = v67;
-				else
-					*(_DWORD*)(*(_DWORD*)(v162 + dword_5d4594_1599636 + 28) + v65) = v67;
-				sub_507230(v67);
-				v5 = v162;
+				*(_DWORD *) (*(_DWORD *) (v162 + dword_5d4594_1599636 + 28) + v65) = v67;
 			}
-			goto LABEL_4;
+			sub_507230(v67);
+			v5 = v162;
+			v3 = a3;
+			continue;
 		case 32:
 			v68 = script_pop();
 			v69 = script_pop();
@@ -12029,24 +12037,22 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 				*(float*)(*(_DWORD*)(dword_5d4594_1599636 + 76) + 4 * v70) =
 					*(float*)(*(_DWORD*)(dword_5d4594_1599636 + 76) + 4 * v70) - v149;
 				v13 = *(float*)(*(_DWORD*)(dword_5d4594_1599636 + 76) + 4 * v70);
-			LABEL_16:
 				*(float*)&v140 = v13;
 				sub_507230(v140);
-				continue;
-			}
-			if (v70 >= 0) {
+			} else if (v70 >= 0) {
 				*(float*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) + 4 * v70) =
 					*(float*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) + 4 * v70) - v149;
 				v13 = *(float*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) + 4 * v70);
-				goto LABEL_16;
+				*(float*)&v140 = v13;
+				sub_507230(v140);
+			} else {
+				v71 = 4 * v70;
+				v72 = (float*)(*(_DWORD*)(v3 + 760) - 4 * v70);
+				v73 = *v72 - v149;
+				*v72 = v73;
+				sub_507230(*(_DWORD*)(*(_DWORD*)(v3 + 760) - v71));
 			}
-			v71 = 4 * v70;
-			v72 = (float*)(*(_DWORD*)(v3 + 760) - 4 * v70);
-			v73 = *v72 - v149;
-		LABEL_114:
-			*v72 = v73;
-			sub_507230(*(_DWORD*)(*(_DWORD*)(v3 + 760) - v71));
-			break;
+			continue;
 		case 34:
 			v82 = script_pop();
 			v83 = script_pop();
@@ -12069,9 +12075,11 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 			continue;
 		case 36:
 			v152 = COERCE_FLOAT(script_pop());
-			if (COERCE_FLOAT(script_pop()) != v152)
-				goto LABEL_184;
-			sub_507230(1);
+			if (COERCE_FLOAT(script_pop()) != v152) {
+				sub_507230(0);
+			} else {
+				sub_507230(1);
+			}
 			continue;
 		case 37:
 			v97 = script_pop();
@@ -12098,9 +12106,11 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 			continue;
 		case 41:
 			v153 = COERCE_FLOAT(script_pop());
-			if (COERCE_FLOAT(script_pop()) >= (double)v153)
-				goto LABEL_184;
-			sub_507230(1);
+			if (COERCE_FLOAT(script_pop()) >= (double)v153) {
+				sub_507230(0);
+			} else {
+				sub_507230(1);
+			}
 			continue;
 		case 42:
 			v100 = script_pop();
@@ -12118,9 +12128,11 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 			continue;
 		case 44:
 			v154 = COERCE_FLOAT(script_pop());
-			if (COERCE_FLOAT(script_pop()) <= (double)v154)
-				goto LABEL_184;
-			sub_507230(1);
+			if (COERCE_FLOAT(script_pop()) <= (double)v154) {
+				sub_507230(0);
+			} else {
+				sub_507230(1);
+			}
 			continue;
 		case 45:
 			v104 = script_pop();
@@ -12138,9 +12150,11 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 			continue;
 		case 47:
 			v155 = COERCE_FLOAT(script_pop());
-			if (COERCE_FLOAT(script_pop()) > (double)v155)
-				goto LABEL_184;
-			sub_507230(1);
+			if (COERCE_FLOAT(script_pop()) > (double)v155) {
+				sub_507230(0);
+			} else {
+				sub_507230(1);
+			}
 			continue;
 		case 48:
 			v108 = script_pop();
@@ -12158,9 +12172,11 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 			continue;
 		case 50:
 			v156 = COERCE_FLOAT(script_pop());
-			if (COERCE_FLOAT(script_pop()) < (double)v156)
-				goto LABEL_184;
-			sub_507230(1);
+			if (COERCE_FLOAT(script_pop()) < (double)v156) {
+				sub_507230(0);
+			} else {
+				sub_507230(1);
+			}
 			continue;
 		case 51:
 			v112 = script_pop();
@@ -12178,9 +12194,11 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 			continue;
 		case 53:
 			v157 = COERCE_FLOAT(script_pop());
-			if (COERCE_FLOAT(script_pop()) == v157)
-				goto LABEL_184;
-			sub_507230(1);
+			if (COERCE_FLOAT(script_pop()) == v157) {
+				sub_507230(0);
+			} else {
+				sub_507230(1);
+			}
 			continue;
 		case 54:
 			v116 = script_pop();
@@ -12195,7 +12213,6 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 			if (script_pop() && v117)
 				sub_507230(1);
 			else
-			LABEL_184:
 				sub_507230(0);
 			continue;
 		case 56:
@@ -12306,7 +12323,11 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 				v123 = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) + 4 * (v119 + v120));
 			}
 			sub_507230(v123);
-			goto LABEL_198;
+			if (v161) {
+				break;
+			}
+			v3 = a3;
+			continue;
 		case 67:
 			v127 = script_pop();
 			v128 = script_pop();
@@ -12323,7 +12344,11 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 					v158 = *(int*)(*(_DWORD*)(dword_5d4594_1599636 + v5 + 28) + 4 * (v127 + v128));
 				sub_507230(v158);
 			}
-			goto LABEL_198;
+			if (v161) {
+				break;
+			}
+			v3 = a3;
+			continue;
 		case 68:
 			v131 = script_pop();
 			v132 = script_pop();
@@ -12336,17 +12361,17 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 				sub_507230(v132 - v131);
 			else
 				sub_507230(v132 + v131);
-		LABEL_198:
-			if (v161)
-				goto LABEL_199;
-		LABEL_4:
+			if (v161) {
+				break;
+			}
 			v3 = a3;
 			continue;
 		case 69:
 			v138 = sub_507270((int**)&v160);
-			if (nox_server_scriptCallBuiltinFn_508B70(index, v138) != 1)
-				continue;
-			goto LABEL_199;
+			if (nox_server_scriptCallBuiltinFn_508B70(index, v138) == 1) {
+				break;
+			}
+			continue;
 		case 70:
 			v139 = sub_507270((int**)&v160);
 			nox_server_doMapScript_507310(v139, a2, v3);
@@ -12360,25 +12385,25 @@ int __cdecl nox_server_doMapScript_507310(int index, int a2, int a3) {
 			sub_507230(v25);
 			continue;
 		default:
-		LABEL_199:
-			v124 = v163;
-			result = *(_DWORD*)(dword_5d4594_1599636 + v5 + 4);
-			if (dword_5d4594_1599660 != result + v163) {
-				if (result) {
-					if (dword_5d4594_1599660) {
-						v126 = script_pop();
-						dword_5d4594_1599660 = v124;
-						result = sub_507230(v126);
-					} else {
-						dword_5d4594_1599660 = v163;
-						result = sub_507230(0);
-					}
+			break;
+		}
+		v124 = v163;
+		result = *(_DWORD*)(dword_5d4594_1599636 + v5 + 4);
+		if (dword_5d4594_1599660 != result + v163) {
+			if (result) {
+				if (dword_5d4594_1599660) {
+					v126 = script_pop();
+					dword_5d4594_1599660 = v124;
+					result = sub_507230(v126);
 				} else {
 					dword_5d4594_1599660 = v163;
+					result = sub_507230(0);
 				}
+			} else {
+				dword_5d4594_1599660 = v163;
 			}
-			return result;
 		}
+		return result;
 	}
 }
 
