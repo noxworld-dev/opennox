@@ -3575,118 +3575,123 @@ BOOL __cdecl nox_thing_read_wall_46A010(_DWORD* a1, char* a2) {
 	nox_memfile_read(a2, 1u, v42, (int)v30);
 	a2[v42] = 0;
 	v5 = 0;
-	if (dword_5d4594_251540 > 0) {
-		v6 = (const char*)&byte_5D4594[2692748];
-		v48 = &byte_5D4594[2692748];
-		while (strcmp(v6, v3)) {
-			++v5;
-			v6 = (const char*)(v48 + 12332);
-			v48 += 12332;
-			if (v5 >= *(int*)&dword_5d4594_251540)
+	if (dword_5d4594_251540 <= 0) {
+		return 0;
+	}
+	v6 = (const char*)&byte_5D4594[2692748];
+	v48 = &byte_5D4594[2692748];
+	while (strcmp(v6, v3)) {
+		++v5;
+		v6 = (const char*)(v48 + 12332);
+		v48 += 12332;
+		if (v5 >= *(int*)&dword_5d4594_251540)
+			return 0;
+	}
+	v49 = v5;
+	if (v5 == -1) {
+		return 0;
+	}
+	v38 = 12332 * v5;
+	memset(&byte_5D4594[12332 * v5 + 2701180], 0, 0xF00u);
+	v2[2] += 14;
+	sub_40AD60((char*)&v31, 1, 1, v2);
+	v8 = 0;
+	if ((_BYTE)v31) {
+		if (v8 >= 8)
+			return 0;
+		while (1) {
+			v9 = (unsigned __int8*)v2[2];
+			v43 = *v9;
+			v2[2] = v9 + 1;
+			nox_memfile_read(v3, 1u, v43, (int)v2);
+			v3[v43] = 0;
+			if (++v8 >= (unsigned __int8)v31) {
+				break;
+			}
+			if (v8 >= 8)
 				return 0;
 		}
-		v49 = v5;
-		if (v5 != -1) {
-			v38 = 12332 * v5;
-			memset(&byte_5D4594[12332 * v5 + 2701180], 0, 0xF00u);
-			v2[2] += 14;
-			sub_40AD60((char*)&v31, 1, 1, v2);
-			v8 = 0;
-			if ((_BYTE)v31) {
-				while (v8 < 8) {
-					v9 = (unsigned __int8*)v2[2];
-					v43 = *v9;
-					v2[2] = v9 + 1;
-					nox_memfile_read(v3, 1u, v43, (int)v2);
-					v3[v43] = 0;
-					if (++v8 >= (unsigned __int8)v31)
-						goto LABEL_11;
-				}
-			} else {
-			LABEL_11:
-				v10 = (unsigned __int8*)v2[2];
-				v44 = *v10;
-				v2[2] = v10 + 1;
-				nox_memfile_read(v3, 1u, v44, (int)v2);
-				v3[v44] = 0;
-				v11 = (unsigned __int8*)v2[2];
-				v45 = *v11;
-				v2[2] = v11 + 1;
-				nox_memfile_read(v3, 1u, v45, (int)v2);
-				v3[v45] = 0;
-				v12 = (unsigned __int8*)v2[2];
-				v46 = *v12;
-				v2[2] = v12 + 1;
-				nox_memfile_read(v3, 1u, v46, (int)v2);
-				v3[v46] = 0;
-				++v2[2];
-				v47 = (const char**)&byte_587000[142868];
-				while (1) {
-					v13 = sub_469FB0(*v47);
-					v36 = v13;
-					if (v13 < 0)
-						break;
-					sub_40AD60((char*)&v35, 1, 1, v2);
-					if ((unsigned __int8)v35 >= 0x10u)
-						break;
-					v14 = 0;
-					v34 = 0;
-					if ((_BYTE)v35) {
-						v37 = 3083 * v49;
-						while (1) {
-							v33 = 4;
-							v32 = &byte_5D4594[4 * (v14 + 16 * v13 + v37) + 2701180];
-							v15 = &byte_5D4594[8 * (v14 + 16 * v13) + 2693504 + v38];
-							do {
-								v16 = (int*)v2[2];
-								v17 = *v16;
-								v2[2] = v16 + 1;
-								*((_DWORD*)v15 - 1) = v17;
-								v18 = (int*)v2[2];
-								v19 = *v18;
-								v2[2] = v18 + 1;
-								*(_DWORD*)v15 = v19;
-								v20 = (int*)v2[2];
-								v21 = *v20;
-								v2[2] = v20 + 1;
-								v40 = v21;
-								*v3 = byte_5D4594[1064852];
-								if (v21 == -1) {
-									v22 = (char*)v2[2];
-									v23 = *v22++;
-									v2[2] = v22;
-									LOBYTE(v41) = v23;
-									LOBYTE(v39) = *v22;
-									v2[2] = v22 + 1;
-									v24 = (unsigned __int8)v39;
-									nox_memfile_read(v3, (unsigned __int8)v39, 1, (int)v2);
-									v21 = v40;
-									v3[v24] = 0;
-									v14 = v34;
-								}
-								v25 = sub_42FAA0(v21, v41, v3);
-								v26 = v32;
-								v15 += 1920;
-								*(_DWORD*)v32 = v25;
-								v27 = v33 == 1;
-								v32 = v26 + 960;
-								--v33;
-							} while (!v27);
-							v34 = ++v14;
-							if (v14 >= (unsigned __int8)v35)
-								break;
-							v13 = v36;
-						}
+	}
+	v10 = (unsigned __int8*)v2[2];
+	v44 = *v10;
+	v2[2] = v10 + 1;
+	nox_memfile_read(v3, 1u, v44, (int)v2);
+	v3[v44] = 0;
+	v11 = (unsigned __int8*)v2[2];
+	v45 = *v11;
+	v2[2] = v11 + 1;
+	nox_memfile_read(v3, 1u, v45, (int)v2);
+	v3[v45] = 0;
+	v12 = (unsigned __int8*)v2[2];
+	v46 = *v12;
+	v2[2] = v12 + 1;
+	nox_memfile_read(v3, 1u, v46, (int)v2);
+	v3[v46] = 0;
+	++v2[2];
+	v47 = (const char**)&byte_587000[142868];
+	while (1) {
+		v13 = sub_469FB0(*v47);
+		v36 = v13;
+		if (v13 < 0)
+			break;
+		sub_40AD60((char*)&v35, 1, 1, v2);
+		if ((unsigned __int8)v35 >= 0x10u)
+			break;
+		v14 = 0;
+		v34 = 0;
+		if ((_BYTE)v35) {
+			v37 = 3083 * v49;
+			while (1) {
+				v33 = 4;
+				v32 = &byte_5D4594[4 * (v14 + 16 * v13 + v37) + 2701180];
+				v15 = &byte_5D4594[8 * (v14 + 16 * v13) + 2693504 + v38];
+				do {
+					v16 = (int*)v2[2];
+					v17 = *v16;
+					v2[2] = v16 + 1;
+					*((_DWORD*)v15 - 1) = v17;
+					v18 = (int*)v2[2];
+					v19 = *v18;
+					v2[2] = v18 + 1;
+					*(_DWORD*)v15 = v19;
+					v20 = (int*)v2[2];
+					v21 = *v20;
+					v2[2] = v20 + 1;
+					v40 = v21;
+					*v3 = byte_5D4594[1064852];
+					if (v21 == -1) {
+						v22 = (char*)v2[2];
+						v23 = *v22++;
+						v2[2] = v22;
+						LOBYTE(v41) = v23;
+						LOBYTE(v39) = *v22;
+						v2[2] = v22 + 1;
+						v24 = (unsigned __int8)v39;
+						nox_memfile_read(v3, (unsigned __int8)v39, 1, (int)v2);
+						v21 = v40;
+						v3[v24] = 0;
+						v14 = v34;
 					}
-					++v47;
-					if ((int)v47 >= (int)&byte_587000[142928]) {
-						v28 = (int*)v2[2];
-						v29 = *v28;
-						v2[2] = v28 + 1;
-						return v29 == 1162757152;
-					}
-				}
+					v25 = sub_42FAA0(v21, v41, v3);
+					v26 = v32;
+					v15 += 1920;
+					*(_DWORD*)v32 = v25;
+					v27 = v33 == 1;
+					v32 = v26 + 960;
+					--v33;
+				} while (!v27);
+				v34 = ++v14;
+				if (v14 >= (unsigned __int8)v35)
+					break;
+				v13 = v36;
 			}
+		}
+		++v47;
+		if ((int)v47 >= (int)&byte_587000[142928]) {
+			v28 = (int*)v2[2];
+			v29 = *v28;
+			v2[2] = v28 + 1;
+			return v29 == 1162757152;
 		}
 	}
 	return 0;
