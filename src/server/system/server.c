@@ -1770,16 +1770,18 @@ void __cdecl sub_51A1F0(int a1) {
 					switch (*(unsigned __int8*)(v6 + v3 + 83)) {
 					case 0u:
 						v7 = sub_419D40(&byte_587000[252480]);
-						goto LABEL_18;
+						*(_BYTE*)(v6 + 87) = (__int64)v7;
+						break;
 					case 1u:
 						v7 = sub_419D40(&byte_587000[252512]);
-						goto LABEL_18;
+						*(_BYTE*)(v6 + 87) = (__int64)v7;
+						break;
 					case 2u:
 						v7 = sub_419D40(&byte_587000[252548]);
-						goto LABEL_18;
+						*(_BYTE*)(v6 + 87) = (__int64)v7;
+						break;
 					case 3u:
 						v7 = sub_419D40(&byte_587000[252580]);
-					LABEL_18:
 						*(_BYTE*)(v6 + 87) = (__int64)v7;
 						break;
 					default:
