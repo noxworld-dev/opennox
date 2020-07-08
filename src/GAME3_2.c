@@ -1949,9 +1949,6 @@ _DWORD* sub_4D1650() {
 
 //----- (004D1660) --------------------------------------------------------
 int sub_4D1660() {
-	int result; // eax
-	int v1;     // eax
-
 	sub_4D15C0();
 	dword_5d4594_2649712 = 2147483648;
 	dword_5d4594_3843628 = 0;
@@ -1963,78 +1960,75 @@ int sub_4D1660() {
 	sub_40EE60();
 	sub_4E4EF0();
 	sub_4E4ED0();
-	result = sub_501860();
-	if (result) {
-		result = nox_read_things_alternative_4E2B60();
-		if (result) {
-			sub_4463E0(1);
-			sub_417C60();
-			sub_4259C0();
-			sub_4D7C60();
-			sub_4E3320();
-			result = sub_518770();
-			if (result) {
-				nox_common_gameFlags_check_40A5C0(0x200000);
-				result = sub_4E3360(0x1388u);
-				if (result) {
-					result = sub_517AE0();
-					if (result) {
-						result = sub_50AB90();
-						if (result) {
-							result = sub_4FC9B0();
-							if (result) {
-								result = sub_5112C0();
-								if (result) {
-									result = sub_57C410();
-									if (result) {
-										result = sub_57BFB0();
-										if (result) {
-											result = sub_4ECA60();
-											if (result) {
-												result = sub_50E2A0();
-												if (result) {
-													result = sub_50D780();
-													if (result) {
-														result = sub_5066D0();
-														if (result) {
-															result = sub_4FF730();
-															if (result) {
-																result = sub_517520();
-																if (result) {
-																	sub_416920();
-																	if (!nox_common_gameFlags_check_40A5C0(2048)) {
-																		v1 = sub_40A430();
-																		*(_DWORD*)&byte_5D4594[1548516] =
-																			sub_4DEBC0(v1);
-																		if (!nox_common_gameFlags_check_40A5C0(
-																				0x2000000))
-																			sub_413CC0();
-																	}
-																	sub_4FB990();
-																	result = sub_516EE0();
-																	if (result) {
-																		sub_421B10();
-																		sub_4DB0A0();
-																		sub_4D0F30();
-																		result = 1;
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+	if (!sub_501860()) {
+		return 0;
 	}
-	return result;
+	if (!nox_read_things_alternative_4E2B60()) {
+		return 0;
+	}
+	sub_4463E0(1);
+	sub_417C60();
+	sub_4259C0();
+	sub_4D7C60();
+	sub_4E3320();
+	if (!sub_518770()) {
+		return 0;
+	}
+	nox_common_gameFlags_check_40A5C0(0x200000);
+	if (!sub_4E3360(0x1388u)) {
+		return 0;
+	}
+	if (!sub_517AE0()) {
+		return 0;
+	}
+	if (!sub_50AB90()) {
+		return 0;
+	}
+	if (!sub_4FC9B0()) {
+		return 0;
+	}
+	if (!sub_5112C0()) {
+		return 0;
+	}
+	if (!sub_57C410()) {
+		return 0;
+	}
+	if (!sub_57BFB0()) {
+		return 0;
+	}
+	if (!sub_4ECA60()) {
+		return 0;
+	}
+	if (!sub_50E2A0()) {
+		return 0;
+	}
+	if (!sub_50D780()) {
+		return 0;
+	}
+	if (!sub_5066D0()) {
+		return 0;
+	}
+	if (!sub_4FF730()) {
+		return 0;
+	}
+	if (!sub_517520()) {
+		return 0;
+	}
+	sub_416920();
+	if (!nox_common_gameFlags_check_40A5C0(2048)) {
+		int v1 = sub_40A430();
+		*(_DWORD*)&byte_5D4594[1548516] = sub_4DEBC0(v1);
+		if (!nox_common_gameFlags_check_40A5C0(0x2000000))
+			sub_413CC0();
+	}
+	sub_4FB990();
+	if (!sub_516EE0()) {
+		return 0;
+	}
+	sub_421B10();
+	sub_4DB0A0();
+	sub_4D0F30();
+	return 1;
 }
 
 //----- (004D17F0) --------------------------------------------------------
