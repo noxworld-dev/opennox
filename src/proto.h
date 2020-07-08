@@ -4412,7 +4412,7 @@ int __cdecl sub_4E27D0(int a1, int a2, int a3, int a4, int a5);
 void sub_4E29B0();
 void sub_4E29C0();
 void sub_4E29D0();
-void* __cdecl nox_read_things_alternative_4E2B60(void);
+int __cdecl nox_read_things_alternative_4E2B60(void);
 int __cdecl sub_4E30A0(CHAR* a1);
 int __cdecl sub_4E31A0(int a1);
 int __cdecl sub_4E31E0(_DWORD* a1);
