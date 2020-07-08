@@ -275,26 +275,20 @@ int __cdecl sub_5104F0(int a1, __int16 a2) {
 
 //----- (00510540) --------------------------------------------------------
 int __cdecl sub_510540(int a1) {
-	int v1;     // eax
-	int result; // eax
-
 	if (!nox_common_gameFlags_check_40A5C0(4096))
-		goto LABEL_12;
+		return 1;
 	if (!*(_DWORD*)&byte_5D4594[2386520]) {
 		*(_DWORD*)&byte_5D4594[2386520] = sub_4E3AA0((CHAR*)&byte_587000[236324]);
 		*(_DWORD*)&byte_5D4594[2386528] = sub_4E3AA0((CHAR*)&byte_587000[236332]);
 		*(_DWORD*)&byte_5D4594[2386524] = sub_4E3AA0((CHAR*)&byte_587000[236340]);
 		*(_DWORD*)&byte_5D4594[2386532] = sub_4E3AA0((CHAR*)&byte_587000[236348]);
 	}
-	v1 = *(unsigned __int16*)(a1 + 4);
+	int v1 = *(unsigned __int16*)(a1 + 4);
 	if ((unsigned __int16)v1 == *(_DWORD*)&byte_5D4594[2386520] || v1 == *(_DWORD*)&byte_5D4594[2386524] ||
 		v1 == *(_DWORD*)&byte_5D4594[2386528] || v1 == *(_DWORD*)&byte_5D4594[2386532]) {
-		result = 0;
-	} else {
-	LABEL_12:
-		result = 1;
+		return 0;
 	}
-	return result;
+	return 1;
 }
 
 //----- (005105D0) --------------------------------------------------------
