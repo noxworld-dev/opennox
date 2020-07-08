@@ -202,45 +202,45 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 			*(_WORD*)(v2 + 1030) = v4 - v13;
 		}
 		*(_WORD*)(v2 + 1032) += v4;
-	LABEL_21:
-		if (sub_579700(v2)) {
-			v16 = *(__int16*)(v2 + 1028);
-			v17 = 0;
-			while (1) {
-				if (v16 == 1024)
-					v16 = 0;
-				switch (*(unsigned __int8*)(v16 + v2 + 4)) {
-				case 8u:
-				case 0x7Fu:
-					if (v17 <= 0)
-						goto LABEL_31;
-					--v17;
-					++v16;
-					continue;
-				case 0xAu:
-					byte_5D4594[v17 + 2521684] = 0;
-					*(_WORD*)(v2 + 1032) += -1 - v17;
-					*(_WORD*)(v2 + 1028) = v16 + 1;
-					return (char*)&byte_5D4594[2521684];
-				case 0xDu:
-					goto LABEL_31;
-				default:
-					byte_5D4594[v17++ + 2521684] = *(_BYTE*)(v16 + v2 + 4);
-				LABEL_31:
+	} else if (WSAGetLastError() != 10035) {
+		v18 = a2;
+		sub_579350(a2);
+		v23 = inet_ntoa(*(struct in_addr*)&byte_5D4594[1044 * v18 + 2517520]);
+		v21 = loadString_sub_40F1D0((char*)&byte_587000[312072], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
+		v19 = loadString_sub_40F1D0((char*)&byte_587000[312136], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
+		sub_413D30((char*)&byte_587000[312144], v19, v21, v23);
+		return 0;
+	}
+	if (!sub_579700(v2)) {
+		return 0;
+	}
+	v16 = *(__int16*)(v2 + 1028);
+	v17 = 0;
+	while (1) {
+		if (v16 == 1024)
+			v16 = 0;
+		switch (*(unsigned __int8*)(v16 + v2 + 4)) {
+			case 8u:
+			case 0x7Fu:
+				if (v17 <= 0) {
 					++v16;
 					break;
 				}
-			}
+				--v17;
+				++v16;
+				continue;
+			case 0xAu:
+				byte_5D4594[v17 + 2521684] = 0;
+				*(_WORD*)(v2 + 1032) += -1 - v17;
+				*(_WORD*)(v2 + 1028) = v16 + 1;
+				return (char*)&byte_5D4594[2521684];
+			case 0xDu:
+				++v16;
+				break;
+			default:
+				byte_5D4594[v17++ + 2521684] = *(_BYTE*)(v16 + v2 + 4);
+				++v16;
+				break;
 		}
-		return 0;
 	}
-	if (WSAGetLastError() == 10035)
-		goto LABEL_21;
-	v18 = a2;
-	sub_579350(a2);
-	v23 = inet_ntoa(*(struct in_addr*)&byte_5D4594[1044 * v18 + 2517520]);
-	v21 = loadString_sub_40F1D0((char*)&byte_587000[312072], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
-	v19 = loadString_sub_40F1D0((char*)&byte_587000[312136], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
-	sub_413D30((char*)&byte_587000[312144], v19, v21, v23);
-	return 0;
 }
