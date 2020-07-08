@@ -187,7 +187,6 @@ int sub_519EB0_net_mapsend() {
 	char* v6;            // edi
 	unsigned __int8 v7;  // cl
 	FILE* v8;            // ebx
-	int result;          // eax
 	wchar_t* v10;        // eax
 	const char* v11;     // [esp+10h] [ebp-104h]
 	char v12[256];       // [esp+14h] [ebp-100h]
@@ -217,10 +216,16 @@ int sub_519EB0_net_mapsend() {
 		} while ((int)v1 < (int)&byte_5D4594[2388644]);
 		v0 = (char*)v11;
 	}
-	if (!v0)
-		goto LABEL_16;
-	if (!memcmp(v0, &byte_5D4594[2388652], 1u))
-		goto LABEL_16;
+	if (!v0) {
+		v10 = loadString_sub_40F1D0((char*)&byte_587000[249864], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
+		sub_450B90(6u, (int)v10);
+		return 0;
+	}
+	if (!memcmp(v0, &byte_5D4594[2388652], 1u)) {
+		v10 = loadString_sub_40F1D0((char*)&byte_587000[249864], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
+		sub_450B90(6u, (int)v10);
+		return 0;
+	}
 	strcpy(v12, "maps\\");
 	strcat(v12, sub_409B40());
 	*(_WORD*)&v12[strlen(v12)] = *(_WORD*)&byte_587000[249808];
@@ -230,22 +235,18 @@ int sub_519EB0_net_mapsend() {
 	*(_DWORD*)--v6 = *(_DWORD*)&byte_587000[249812];
 	v6[4] = v7;
 	v8 = fopen(v12, "rb");
-	if (v8) {
-		strcpy((char*)&byte_5D4594[2386988], v12);
-		strcpy((char*)&byte_5D4594[2387068], v11);
-		fseek(v8, 0, 2);
-		*(_DWORD*)&byte_5D4594[2388644] = ftell(v8);
-		fseek(v8, 0, 0);
-		dword_5d4594_2388640 = nox_malloc(*(size_t*)&byte_5D4594[2388644]);
-		sub_40ADD0_fread(*(char**)&dword_5d4594_2388640, 1u, *(size_t*)&byte_5D4594[2388644], v8);
-		fclose(v8);
-		result = 1;
-	} else {
-	LABEL_16:
-		v10 =
-			loadString_sub_40F1D0((char*)&byte_587000[249864], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
+	if (!v8) {
+		v10 = loadString_sub_40F1D0((char*)&byte_587000[249864], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
 		sub_450B90(6u, (int)v10);
-		result = 0;
+		return 0;
 	}
-	return result;
+	strcpy((char*)&byte_5D4594[2386988], v12);
+	strcpy((char*)&byte_5D4594[2387068], v11);
+	fseek(v8, 0, 2);
+	*(_DWORD*)&byte_5D4594[2388644] = ftell(v8);
+	fseek(v8, 0, 0);
+	dword_5d4594_2388640 = nox_malloc(*(size_t*)&byte_5D4594[2388644]);
+	sub_40ADD0_fread(*(char**)&dword_5d4594_2388640, 1u, *(size_t*)&byte_5D4594[2388644], v8);
+	fclose(v8);
+	return 1;
 }
