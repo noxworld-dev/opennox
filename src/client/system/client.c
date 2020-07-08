@@ -238,7 +238,7 @@ int sub_4365C0() {
 	nox_client_drawRectFilledOpaque_49CE30(v0 + 80, v5, 16, 8);
 	sub_43F6E0(0, (__int16*)&byte_5D4594[810900], v0, v5);
 	v12 = 200;
-	for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		if (i[3680] & 8) {
 			v21 = loadString_sub_40F1D0((char*)&byte_587000[86960], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 										1201);

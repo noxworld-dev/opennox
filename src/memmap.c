@@ -13,6 +13,8 @@ extern int nox_client_mouseCursorType;
 extern int nox_video_gammaValue;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
 
+extern nox_server_netCodeCache netCodeCache;
+
 extern nox_missing_string* missing_strings;
 extern nox_string_entry* string_entries;
 extern size_t string_entries_cnt;
@@ -938,7 +940,7 @@ extern _DWORD dword_5d4594_1062492;
 extern _DWORD dword_5d4594_1193624;
 extern _DWORD dword_587000_154968;
 extern _DWORD dword_5d4594_1098604;
-extern _DWORD dword_587000_205696;
+extern _DWORD nox_server_needInitNetCodeCache;
 extern _DWORD dword_5d4594_1046600;
 extern _DWORD dword_5d4594_1308116;
 extern _DWORD dword_5d4594_1319248;
@@ -1767,7 +1769,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1319248, (void*)&dword_5d4594_1319248, sizeof(dword_5d4594_1319248), 1},
 	{0x5D4594 + 1308116, (void*)&dword_5d4594_1308116, sizeof(dword_5d4594_1308116), 1},
 	{0x5D4594 + 1046600, (void*)&dword_5d4594_1046600, sizeof(dword_5d4594_1046600), 1},
-	{0x587000 + 205696, (void*)&dword_587000_205696, sizeof(dword_587000_205696), 1},
+	{0x587000 + 205696, (void*)&nox_server_needInitNetCodeCache, sizeof(nox_server_needInitNetCodeCache), 1},
 	{0x5D4594 + 1098604, (void*)&dword_5d4594_1098604, sizeof(dword_5d4594_1098604), 1},
 	{0x587000 + 154968, (void*)&dword_587000_154968, sizeof(dword_587000_154968), 1},
 	{0x5D4594 + 1193624, (void*)&dword_5d4594_1193624, sizeof(dword_5d4594_1193624), 1},
@@ -2675,10 +2677,11 @@ mem_mapping mappings[] = {
 	{0x587000 + 80848, (void*)&nox_video_dxFullScreen, sizeof(nox_video_dxFullScreen), 1},
 	{0x587000 + 84400, (void*)&nox_video_gammaValue, sizeof(nox_video_gammaValue), 1},
 	{0x5D4594 + 1193656, (void*)&nox_video_cursorDrawThreadHandle, sizeof(nox_video_cursorDrawThreadHandle), 1},
-	{0x5D4594 + 3799620, (void*)&nox_video_windowsPlatformVersion, sizeof(nox_video_windowsPlatformVersion), 1},
+	{0x5D4594 + 1568036, (void*)&netCodeCache, sizeof(netCodeCache), 1},
+
 // full blobs
 #if 0
-        {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
+    {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
     {0x563006, (void*)byte_563006, sizeof(byte_563006),0},
 #endif
 	{0x581450, (void*)byte_581450, sizeof(byte_581450), 0},

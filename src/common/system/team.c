@@ -157,7 +157,7 @@ char* __cdecl sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 			sub_455E70(v6[57]);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			if (nox_common_gameFlags_check_40A5C0(0x2000)) {
-				v7 = sub_4ECCB0(a4);
+				v7 = nox_server_getObjectFromNetCode_4ECCB0(a4);
 				v8 = sub_417040(a4);
 				v23 = v8;
 				if (v8) {

@@ -595,10 +595,10 @@ char* sub_461520() {
 	char* result; // eax
 	int i;        // esi
 
-	result = sub_416EA0();
+	result = nox_common_playerInfoGetFirst_416EA0();
 	for (i = (int)result; result; i = (int)result) {
 		sub_461460(i);
-		result = sub_416EE0(i);
+		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
 	return result;
 }
@@ -5816,7 +5816,7 @@ char* sub_46DCC0() {
 		byte_5D4594[1090118] = 0;
 		if (nox_common_gameFlags_check_40A5C0(1) && *(_DWORD*)&nox_common_engineFlags & 0x40000)
 			v43 = (wchar_t*)--v23;
-		for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 			v25 = *((_DWORD*)i + 920);
 			if (!(v25 & 1) || v25 & 0x20) {
 				if (!*((_DWORD*)i + 527))
@@ -5829,8 +5829,8 @@ char* sub_46DCC0() {
 		if (byte_5D4594[1090117] < v23) {
 			v27 = (int)v43;
 			do {
-				v28 = sub_416EA0();
-				for (j = -1; v28; v28 = sub_416EE0((int)v28)) {
+				v28 = nox_common_playerInfoGetFirst_416EA0();
+				for (j = -1; v28; v28 = nox_common_playerInfoGetNext_416EE0((int)v28)) {
 					if ((v28[2064] != 31 || !(*(_DWORD*)&nox_common_engineFlags & 0x40000)) &&
 						*((int*)v28 + 527) >= v26 && !sub_46E1E0(*((_DWORD*)v28 + 515)) && *((int*)v28 + 527) < j) {
 						j = *((_DWORD*)v28 + 527);
@@ -5879,7 +5879,7 @@ char* sub_46DCC0() {
 				v26 = j;
 			} while ((unsigned __int8)(v39 + 1) < (unsigned int)v43);
 		}
-		for (result = sub_416EA0(); result; result = sub_416EE0((int)result)) {
+		for (result = nox_common_playerInfoGetFirst_416EA0(); result; result = nox_common_playerInfoGetNext_416EE0((int)result)) {
 			v40 = *((_DWORD*)result + 920);
 			if (!(v40 & 1) || v40 & 0x20) {
 				if (*((_DWORD*)result + 527) == 0x8000000)
@@ -5918,7 +5918,7 @@ char* sub_46DCC0() {
 				v1 = v4;
 			} while (byte_5D4594[1090116] < (unsigned int)v42);
 		}
-		for (l = sub_416EA0(); l; l = sub_416EE0((int)l)) {
+		for (l = nox_common_playerInfoGetFirst_416EA0(); l; l = nox_common_playerInfoGetNext_416EE0((int)l)) {
 			v8 = *((_DWORD*)l + 920);
 			if (v8 & 1 && !(v8 & 0x20))
 				*((_DWORD*)l + 535) += 0xFFFF;
@@ -5927,8 +5927,8 @@ char* sub_46DCC0() {
 		if (byte_5D4594[1090117] < v41) {
 			v10 = (int)v42;
 			do {
-				v11 = sub_416EA0();
-				for (m = 0x7FFFFFFF; v11; v11 = sub_416EE0((int)v11)) {
+				v11 = nox_common_playerInfoGetFirst_416EA0();
+				for (m = 0x7FFFFFFF; v11; v11 = nox_common_playerInfoGetNext_416EE0((int)v11)) {
 					if ((v11[2064] != 31 || !(*(_DWORD*)&nox_common_engineFlags & 0x40000)) &&
 						*((int*)v11 + 535) >= v9 && !sub_46E1E0(*((_DWORD*)v11 + 515)) && *((int*)v11 + 535) < m) {
 						m = *((_DWORD*)v11 + 535);
@@ -5972,7 +5972,7 @@ char* sub_46DCC0() {
 				v9 = m;
 			} while ((unsigned __int8)(v21 + 1) < v41);
 		}
-		for (result = sub_416EA0(); result; result = sub_416EE0((int)result)) {
+		for (result = nox_common_playerInfoGetFirst_416EA0(); result; result = nox_common_playerInfoGetNext_416EE0((int)result)) {
 			v22 = *((_DWORD*)result + 920);
 			if (v22 & 1) {
 				if (!(v22 & 0x20))
@@ -6116,7 +6116,7 @@ char* sub_46E4E0() {
 			v0 = v3;
 		} while (byte_5D4594[1090116] < (unsigned int)v24);
 	}
-	for (j = sub_416EA0(); j; j = sub_416EE0((int)j)) {
+	for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {
 		v7 = *((_DWORD*)j + 920);
 		if (v7 & 1 && !(v7 & 0x20))
 			*((_DWORD*)j + 534) -= 0xFFFF;
@@ -6125,8 +6125,8 @@ char* sub_46E4E0() {
 	if (byte_5D4594[1090117] < v23) {
 		v9 = (int)v24;
 		do {
-			v10 = sub_416EA0();
-			for (k = 0x80000000; v10; v10 = sub_416EE0((int)v10)) {
+			v10 = nox_common_playerInfoGetFirst_416EA0();
+			for (k = 0x80000000; v10; v10 = nox_common_playerInfoGetNext_416EE0((int)v10)) {
 				if ((v10[2064] != 31 || !(*(_DWORD*)&nox_common_engineFlags & 0x40000)) && *((int*)v10 + 534) <= v8 &&
 					!sub_46E1E0(*((_DWORD*)v10 + 515)) && *((int*)v10 + 534) > k) {
 					k = *((_DWORD*)v10 + 534);
@@ -6170,7 +6170,7 @@ char* sub_46E4E0() {
 			v8 = k;
 		} while ((unsigned __int8)(v20 + 1) < v23);
 	}
-	for (result = sub_416EA0(); result; result = sub_416EE0((int)result)) {
+	for (result = nox_common_playerInfoGetFirst_416EA0(); result; result = nox_common_playerInfoGetNext_416EE0((int)result)) {
 		v22 = *((_DWORD*)result + 920);
 		if (v22 & 1) {
 			if (!(v22 & 0x20))

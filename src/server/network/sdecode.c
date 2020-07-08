@@ -197,7 +197,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 					goto LABEL_55;
 				if (*(_BYTE*)(v9 + 16) & 2)
 					goto LABEL_55;
-				v23 = sub_4ECCB0(v22);
+				v23 = nox_server_getObjectFromNetCode_4ECCB0(v22);
 				if (!v23)
 					goto LABEL_55;
 				v24 = 0;
@@ -274,7 +274,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				v7 = v85;
 				if (!(*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 1)) {
 					if (*(_WORD*)(v4 + 1)) {
-						v32 = sub_4ECCB0(v31);
+						v32 = nox_server_getObjectFromNetCode_4ECCB0(v31);
 						if (v32)
 							sub_533900(v9, v32, v4[3]);
 					} else {
@@ -340,7 +340,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				v7 = v85;
 				if (!(*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 3) && !*(_DWORD*)(v85 + 280) &&
 					!*(_DWORD*)(v85 + 284)) {
-					v29 = sub_4ECCB0(v28);
+					v29 = nox_server_getObjectFromNetCode_4ECCB0(v28);
 					if (v29) {
 						v30 = *(void(__cdecl**)(int, int, _DWORD))(v29 + 696);
 						if (v30)
@@ -370,7 +370,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				if (sub_57A190(v8))
 					goto LABEL_139;
 				if (!(v4[3] & 1)) {
-					for (j = sub_416EA0(); j; j = sub_416EE0((int)j)) {
+					for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {
 						if (nox_common_gameFlags_check_40A5C0(2) && j[2064] == 31) {
 							sub_48EA70(31, (unsigned int)v4, v45);
 						} else {
@@ -549,13 +549,13 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				if (v4[1] == 10) {
 					v55 = sub_418AB0(*(_DWORD*)(v4 + 2));
 					if (v55) {
-						v56 = sub_4ECCB0(*((unsigned __int16*)v4 + 3));
+						v56 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned __int16*)v4 + 3));
 						sub_4191D0(v55[57], v56 + 48, 1, *((unsigned __int16*)v4 + 3), 1);
 					}
 					v10 = (int*)v85;
 					v4 += 10;
 				} else if (v4[1] == 11) {
-					v53 = sub_4ECCB0(*((unsigned __int16*)v4 + 3));
+					v53 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned __int16*)v4 + 3));
 					if (v53) {
 						if (!nox_common_gameFlags_check_40A5C0(128)) {
 							sub_4F7AB0(&v96, v53);
@@ -578,7 +578,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			case 0xD0u:
 				if (v4[1] == 1) {
 					if (sub_4DB1B0() || (v7 = v10[69], *(_BYTE*)(v7 + 3680) & 3) ||
-						(v57 = sub_4ECCB0(*((unsigned __int16*)v4 + 1))) == 0) {
+						(v57 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned __int16*)v4 + 1))) == 0) {
 					LABEL_232:
 						v4 += 4;
 					} else {
@@ -600,7 +600,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				if ((nox_common_engineFlags & 0x8000) != 0)
 					sub_578B70(*(unsigned __int16*)(v4 + 1));
 				if (*(_WORD*)(v4 + 1)) {
-					v59 = sub_4ECCB0(v58);
+					v59 = nox_server_getObjectFromNetCode_4ECCB0(v58);
 					sub_53AB90(v9, v59);
 					v10 = (int*)v85;
 					v4 += 3;
@@ -616,7 +616,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				if ((nox_common_engineFlags & 0x8000) != 0)
 					sub_578B70(*(unsigned __int16*)(v4 + 1));
 				v61 = sub_4F7920(v9, v60);
-				if (v61 || (v61 = sub_510DE0(v9, v60)) != 0 || (v61 = sub_4ECCB0(v60)) != 0) {
+				if (v61 || (v61 = sub_510DE0(v9, v60)) != 0 || (v61 = nox_server_getObjectFromNetCode_4ECCB0(v60)) != 0) {
 					v88[0] = -30;
 					*(_WORD*)&v88[1] = sub_578AC0((_DWORD*)v61);
 					v62 = v4[3];
@@ -728,7 +728,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				case 0x15u:
 					if (!sub_4DB1B0() && !(*(_BYTE*)(v10[69] + 3680) & 3)) {
 						v64 = sub_578B40(*((unsigned __int16*)v4 + 1));
-						v65 = sub_4ECCB0(v64);
+						v65 = nox_server_getObjectFromNetCode_4ECCB0(v64);
 						if (v65) {
 							if (*(_BYTE*)(v65 + 12) & 8)
 								sub_50EF10_trade(v9, v65);

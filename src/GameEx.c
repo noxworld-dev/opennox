@@ -534,7 +534,7 @@ int __usercall playerInfoStructsToVector(smallPlayerStructVector* vector) {
 	// char v8; // [esp+10h] [ebp-24h]
 	smallPlayerStruct pDst; // [esp+18h] [ebp-1Ch]
 
-	result = sub_416EA0();
+	result = nox_common_playerInfoGetFirst_416EA0();
 	v7 = result;
 	if (result) {
 		do {
@@ -542,7 +542,7 @@ int __usercall playerInfoStructsToVector(smallPlayerStructVector* vector) {
 			pDst.string[0] = v7[2251];
 			nox_CharToOemW((LPCWSTR)v7 + 2352, &(pDst.string[2]));
 			da_add(*vector, pDst);
-			v7 = sub_416EE0((int)v7);
+			v7 = nox_common_playerInfoGetNext_416EE0((int)v7);
 		} while (v7);
 		result = da_count(*vector);
 	}
@@ -556,14 +556,14 @@ char __cdecl playerInfoStructParser_0(char* a1) {
 
 	if (a1 == (char*)-2)
 		return 0;
-	v1 = sub_416EA0();
+	v1 = nox_common_playerInfoGetFirst_416EA0();
 	if (!v1)
 		return 0;
 	while (1) {
 		nox_CharToOemW((LPCWSTR)v1 + 2352, &pDst);
 		if (!strcmp(&pDst, a1 + 2))
 			break;
-		v1 = sub_416EE0((int)v1);
+		v1 = nox_common_playerInfoGetNext_416EE0((int)v1);
 		if (!v1)
 			return 0;
 	}
@@ -581,7 +581,7 @@ char __usercall playerInfoStructParser_1(int a1, int a2, int* a3) {
 
 	if (a1 == -2)
 		return 0;
-	v3 = sub_416EA0();
+	v3 = nox_common_playerInfoGetFirst_416EA0();
 	*(_DWORD*)a2 = v3;
 	if (!v3)
 		return 0;
@@ -589,7 +589,7 @@ char __usercall playerInfoStructParser_1(int a1, int a2, int* a3) {
 		nox_CharToOemW((LPCWSTR)(*(_DWORD*)a2 + 4704), &pDst);
 		if (!strcmp(&pDst, (const char*)(a1 + 2)))
 			break;
-		v4 = sub_416EE0(a2);
+		v4 = nox_common_playerInfoGetNext_416EE0(a2);
 		*(_DWORD*)a2 = v4;
 		if (!v4)
 			return 0;

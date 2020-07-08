@@ -1005,12 +1005,12 @@ int __cdecl sub_50AA90(int a1) {
 int sub_50AAE0() {
 	int v0; // eax
 
-	v0 = sub_4DA790();
+	v0 = nox_server_getFirstObject_4DA790();
 	dword_5d4594_1599696 = v0;
 	if (!v0)
 		return 0;
 	while (!(*(_BYTE*)(v0 + 8) & 2)) {
-		v0 = sub_4DA7A0(v0);
+		v0 = nox_server_getNextObject_4DA7A0(v0);
 		dword_5d4594_1599696 = v0;
 		if (!v0)
 			return 0;
@@ -1022,12 +1022,12 @@ int sub_50AAE0() {
 int sub_50AB10() {
 	int v0; // eax
 
-	v0 = sub_4DA7A0(*(int*)&dword_5d4594_1599696);
+	v0 = nox_server_getNextObject_4DA7A0(*(int*)&dword_5d4594_1599696);
 	dword_5d4594_1599696 = v0;
 	if (!v0)
 		return 0;
 	while (!(*(_BYTE*)(v0 + 8) & 2)) {
-		v0 = sub_4DA7A0(v0);
+		v0 = nox_server_getNextObject_4DA7A0(v0);
 		dword_5d4594_1599696 = v0;
 		if (!v0)
 			return 0;
@@ -1352,10 +1352,10 @@ int sub_50B520() {
 	if ((unsigned int)(*(_DWORD*)&byte_5D4594[2598000] - dword_5d4594_2386172) >= 0xF) {
 		dword_5d4594_2386172 = *(_DWORD*)&byte_5D4594[2598000];
 		++dword_5d4594_2386164;
-		result = sub_4DA790();
+		result = nox_server_getFirstObject_4DA790();
 		for (i = result; result; i = result) {
 			sub_50B2C0(i);
-			result = sub_4DA7A0(i);
+			result = nox_server_getNextObject_4DA7A0(i);
 		}
 		dword_5d4594_2386168 = 1;
 	}
@@ -5152,7 +5152,7 @@ int __cdecl nox_server_scriptValToObjectPtr_511B60(int a1) {
 		result = sub_511C50(a1);
 		if (result)
 			return result;
-		v2 = sub_4DA790();
+		v2 = nox_server_getFirstObject_4DA790();
 		if (v2) {
 			while (1) {
 				if (!(*(_BYTE*)(v2 + 16) & 0x20) && *(_DWORD*)(v2 + 44) == a1) {
@@ -5163,7 +5163,7 @@ int __cdecl nox_server_scriptValToObjectPtr_511B60(int a1) {
 				if (v3)
 					break;
 			LABEL_17:
-				v2 = sub_4DA7A0(v2);
+				v2 = nox_server_getNextObject_4DA7A0(v2);
 				if (!v2)
 					goto LABEL_18;
 			}
@@ -5174,11 +5174,11 @@ int __cdecl nox_server_scriptValToObjectPtr_511B60(int a1) {
 			}
 		} else {
 		LABEL_18:
-			v3 = sub_4DA870();
+			v3 = nox_server_getFirstObjectUninited_4DA870();
 			if (!v3)
 				return 0;
 			while (*(_BYTE*)(v3 + 16) & 0x20 || *(_DWORD*)(v3 + 44) != a1) {
-				result = sub_4DA880(v3);
+				result = nox_server_getNextObjectUninited_4DA880(v3);
 				v3 = result;
 				if (!result)
 					return result;
@@ -5647,13 +5647,13 @@ int* __cdecl nox_server_scriptMoveTo_5123C0(int a1, int a2) {
 		} else if (*(unsigned __int16*)(a1 + 4) == dword_5d4594_2386836) {
 			result = (int*)sub_5124C0((_DWORD*)a1, (_DWORD*)a2);
 		} else {
-			result = (int*)sub_4DA790();
+			result = (int*)nox_server_getFirstObject_4DA790();
 			for (i = result; result; i = result) {
 				if (*((unsigned __int16*)i + 2) == dword_5d4594_2386836 &&
 					*(_DWORD*)(i[187] + 32) == *(_DWORD*)(a1 + 40)) {
 					sub_5124C0(i, (_DWORD*)a2);
 				}
-				result = (int*)sub_4DA7A0((int)i);
+				result = (int*)nox_server_getNextObject_4DA7A0((int)i);
 			}
 		}
 	}
@@ -8090,7 +8090,7 @@ int sub_515240() {
 	if (script_pop() != 1) {
 		if (sub_44DCA0(16, 30))
 			sub_477530(0);
-		for (i = sub_4DA790(); i; i = sub_4DA7A0(i)) {
+		for (i = nox_server_getFirstObject_4DA790(); i; i = nox_server_getNextObject_4DA7A0(i)) {
 			if (*(unsigned __int16*)(i + 4) == dword_5d4594_2386872) {
 				v9 = *(_DWORD*)(i + 16);
 				if (v9 & 0x40)
@@ -8122,11 +8122,11 @@ int sub_515240() {
 			v1 = v2;
 		} while (v2);
 	}
-	v3 = sub_4DA790();
+	v3 = nox_server_getFirstObject_4DA790();
 	if (!v3)
 		return 0;
 	do {
-		v4 = sub_4DA7A0(v3);
+		v4 = nox_server_getNextObject_4DA7A0(v3);
 		if (*(_DWORD*)(v3 + 508) &&
 			((v5 = *(unsigned __int16*)(v3 + 4), (unsigned __int16)v5 == *(_DWORD*)&byte_5D4594[2386876]) ||
 			 v5 == *(_DWORD*)&byte_5D4594[2386880] || v5 == *(_DWORD*)&byte_5D4594[2386884] ||
@@ -9829,11 +9829,11 @@ void sub_516F30() {
 int __cdecl sub_516F50(int a1, int a2) {
 	int v2; // eax
 
-	v2 = sub_4DA870();
+	v2 = nox_server_getFirstObjectUninited_4DA870();
 	if (!v2)
 		return 0;
 	while (*(_DWORD*)(v2 + 44) != a2) {
-		v2 = sub_4DA880(v2);
+		v2 = nox_server_getNextObjectUninited_4DA880(v2);
 		if (!v2)
 			return 0;
 	}
@@ -11473,7 +11473,7 @@ int __cdecl sub_518EE0(_DWORD* a3) {
 		if (byte_5D4594[2598000] & 8) {
 			v13 = 0;
 			v14 = 1 << *(_BYTE*)(*(_DWORD*)(v2 + 276) + 2064);
-			v15 = sub_4DA790();
+			v15 = nox_server_getFirstObject_4DA790();
 		LABEL_25:
 			v16 = v15;
 			while (1) {
@@ -11491,7 +11491,7 @@ int __cdecl sub_518EE0(_DWORD* a3) {
 					if (v13)
 						v15 = sub_4DA850(v16);
 					else
-						v15 = sub_4DA7A0(v16);
+						v15 = nox_server_getNextObject_4DA7A0(v16);
 					goto LABEL_25;
 				}
 				if (v13 == 1)

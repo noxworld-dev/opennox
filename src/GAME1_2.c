@@ -563,7 +563,7 @@ char* __cdecl sub_4285C0(__int16* a1) {
 		*((_DWORD*)a1 + 142) = nox_malloc(v14);
 		*((_DWORD*)a1 + 143) = nox_malloc(4 * *a1);
 		v20 = 0;
-		result = sub_416EA0();
+		result = nox_common_playerInfoGetFirst_416EA0();
 		v12 = result;
 		if (result) {
 			do {
@@ -581,7 +581,7 @@ char* __cdecl sub_4285C0(__int16* a1) {
 					*(_DWORD*)(*((_DWORD*)v2 + 142) + 4 * v20) = *((_DWORD*)v12 + 1171);
 					*(_DWORD*)(*((_DWORD*)v2 + 143) + 4 * v20++) = sub_4D6540((unsigned __int8)v12[2064]);
 				}
-				v12 = sub_416EE0((int)v12);
+				v12 = nox_common_playerInfoGetNext_416EE0((int)v12);
 			} while (v12);
 			result = (char*)*v2;
 			dword_5d4594_741332 = *v2;
@@ -2893,7 +2893,7 @@ int sub_42BFE0() {
 	if (result) {
 		sub_42BFB0();
 		v15 = 1;
-		for (i = sub_4DA790(); i; i = sub_4DA7A0(i)) {
+		for (i = nox_server_getFirstObject_4DA790(); i; i = nox_server_getNextObject_4DA7A0(i)) {
 			v2 = *(_WORD*)(i + 4);
 			v3 = *(_WORD*)(dword_5d4594_741676 + 2 * v2) == 0;
 			v4 = (_WORD*)(dword_5d4594_741676 + 2 * v2);
@@ -2915,7 +2915,7 @@ int sub_42BFE0() {
 			if (*(_DWORD*)(i + 8) & 0x20000)
 				sub_42C210(i, &v15, &byte_5D4594[741684]);
 		}
-		for (k = sub_4DA870(); k; k = sub_4DA880(k)) {
+		for (k = nox_server_getFirstObjectUninited_4DA870(); k; k = nox_server_getNextObjectUninited_4DA880(k)) {
 			v9 = (_WORD*)(dword_5d4594_741676 + 2 * *(unsigned __int16*)(k + 4));
 			if (!*v9) {
 				*v9 = v15;

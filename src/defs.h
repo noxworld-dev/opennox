@@ -716,4 +716,19 @@ typedef struct {
 } nox_npc;
 //_Static_assert( sizeof( nox_npc ) == 1316, "struct nox_npc size is wrong" );
 
+typedef struct {
+	void* value;
+	void* next;
+	void* prev;
+} nox_dblLinkedList;
+_Static_assert(sizeof(nox_dblLinkedList) == 12, "wrong size of nox_dblLinkedList structure!");
+
+typedef struct {
+	nox_dblLinkedList* firstFreeObject;
+	nox_dblLinkedList* lastFreeObject;
+	nox_dblLinkedList objArray[16];
+	nox_dblLinkedList* firstUsedObject;
+	nox_dblLinkedList* lastUsedObject;
+} nox_server_netCodeCache;
+
 #endif
