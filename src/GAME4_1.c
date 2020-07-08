@@ -11066,22 +11066,27 @@ void sub_518760() { nox_srand(0x22F4u); }
 //----- (00518770) --------------------------------------------------------
 int sub_518770() {
 	int result; // eax
-
 	result = sub_4E3AA0((CHAR*)&byte_587000[249176]);
 	*(_DWORD*)&byte_5D4594[2386972] = result;
-	if (result) {
-		result = sub_4E3AA0((CHAR*)&byte_587000[249196]);
-		*(_DWORD*)&byte_5D4594[2386976] = result;
-		if (result) {
-			result = sub_4E3AA0((CHAR*)&byte_587000[249212]);
-			*(_DWORD*)&byte_5D4594[2386980] = result;
-			if (result) {
-				*(_DWORD*)&byte_5D4594[2386984] = sub_4E3AA0((CHAR*)&byte_587000[249220]);
-				result = *(_DWORD*)&byte_5D4594[2386984] != 0;
-			}
-		}
+	if (!result) {
+		return 0;
 	}
-	return result;
+	result = sub_4E3AA0((CHAR*)&byte_587000[249196]);
+	*(_DWORD*)&byte_5D4594[2386976] = result;
+	if (!result) {
+		return 0;
+	}
+	result = sub_4E3AA0((CHAR*)&byte_587000[249212]);
+	*(_DWORD*)&byte_5D4594[2386980] = result;
+	if (!result) {
+		return 0;
+	}
+	result = sub_4E3AA0((CHAR*)&byte_587000[249220]);
+	*(_DWORD*)&byte_5D4594[2386984] = result;
+	if (!result) {
+		return 0;
+	}
+	return 1;
 }
 
 //----- (005187E0) --------------------------------------------------------
