@@ -598,7 +598,7 @@ int __cdecl sub_414C50(signed int a1);
 char sub_414C90();
 void sub_414D30();
 int __cdecl nox_thing_read_audio_414D40(int a1);
-BOOL __cdecl sub_414DB0(int a1);
+BOOL __cdecl sub_414DB0(nox_memfile* f);
 BOOL __cdecl sub_414E70(int a1, void* a2);
 BOOL __cdecl sub_414F60(_DWORD* a1, void* a2);
 int __cdecl nox_thing_read_spells_415100(int a1);
