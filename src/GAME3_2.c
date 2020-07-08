@@ -4501,7 +4501,6 @@ int sub_4D6BE0() {
 int nox_server_setupQuestGame_4D6C70() {
 	int* v0;                 // ebp
 	int v1;                  // eax
-	int i;                   // eax
 	int v3;                  // edi
 	int v4;                  // ebx
 	int v5;                  // eax
@@ -4529,7 +4528,7 @@ int nox_server_setupQuestGame_4D6C70() {
 	*(_DWORD*)&nox_common_engineFlags = v1;
 	nox_common_gameFlags_unset_40A540(0x10000);
 	sub_4D9CF0(255);
-	for (i = sub_4DA7C0(); i; i = sub_4DA7F0(i))
+	for (int i = sub_4DA7C0(); i; i = sub_4DA7F0(i))
 		*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 4792) = 0;
 	v3 = sub_4DA7C0();
 	if (v3) {
@@ -4547,9 +4546,25 @@ int nox_server_setupQuestGame_4D6C70() {
 			sub_4EFE80(v3);
 			sub_4FA5D0(v3, *(_DWORD*)(*(_DWORD*)(v4 + 276) + 2164));
 			v6 = *(_DWORD*)(v3 + 504);
-			if ((int*)v6 != v0)
-				break;
-		LABEL_21:
+			if ((int*)v6 != v0) {
+				while (1) {
+					v7 = *(_DWORD*)(v6 + 8);
+					v0 = *(int**)(v6 + 496);
+					if (!(v7 & 0x1000000)) {
+						if (!(!(v7 & 0x2000000) || sub_415D10((char*)*(unsigned __int16*)(v6 + 4)) & 0x405)) {
+							sub_4E5CC0(v6);
+						}
+					} else {
+						v8 = *(_DWORD *) (v6 + 12);
+						if (v8 & 0x8200) {
+							sub_4E5CC0(v6);
+						}
+					}
+					v6 = (int)v0;
+					if (!v0)
+						break;
+				}
+			}
 			v9 = *(_BYTE*)(*(_DWORD*)(v4 + 276) + 2251);
 			if (v9) {
 				if (v9 == 1) {
@@ -4573,28 +4588,9 @@ int nox_server_setupQuestGame_4D6C70() {
 				sub_4E6860(v12, (char)v0, (int)v0);
 			v3 = sub_4DA7F0(v3);
 			if ((int*)v3 == v0)
-				goto LABEL_30;
-		}
-		while (1) {
-			v7 = *(_DWORD*)(v6 + 8);
-			v0 = *(int**)(v6 + 496);
-			if (!(v7 & 0x1000000))
 				break;
-			v8 = *(_DWORD*)(v6 + 12);
-			if (v8 & 0x8200)
-				goto LABEL_19;
-		LABEL_20:
-			v6 = (int)v0;
-			if (!v0)
-				goto LABEL_21;
 		}
-		if (!(v7 & 0x2000000) || sub_415D10((char*)*(unsigned __int16*)(v6 + 4)) & 0x405)
-			goto LABEL_20;
-	LABEL_19:
-		sub_4E5CC0(v6);
-		goto LABEL_20;
 	}
-LABEL_30:
 	sub_417D50(4);
 	sub_419030(1);
 	v13 = sub_4186D0((char)v0);
