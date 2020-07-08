@@ -165,14 +165,16 @@ int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a
 				}
 				if (*(_BYTE*)(v9 + 8) & 1 && *(_BYTE*)(v9 + 12) & 2)
 					sub_52BE40(v9, v5);
-				goto LABEL_36;
+				if (LODWORD(a5) == 16)
+					sub_522FF0(132, v16);
+				sub_501960(122, v5, 0, 0);
+				return 0;
 			}
 		} else if (LODWORD(a5) == 16 || LODWORD(a5) == 17) {
 			v16 = (float2*)(v5 + 56);
 			if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(v5 + 56), *(__int16*)(v5 + 124),
 															(float2*)(v9 + 56)) &
 				1) {
-			LABEL_36:
 				if (LODWORD(a5) == 16)
 					sub_522FF0(132, v16);
 				sub_501960(122, v5, 0, 0);
@@ -180,150 +182,138 @@ int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a
 			}
 		}
 	}
-	if (!a2)
-		goto LABEL_120;
-	v17 = dword_5d4594_1563320;
-	if (!dword_5d4594_1563320) {
-		dword_5d4594_1563320 = sub_4E3AA0((CHAR*)&byte_587000[201156]);
-		*(_DWORD*)&byte_5D4594[1563324] = sub_4E3AA0((CHAR*)&byte_587000[201168]);
-		*(_DWORD*)&byte_5D4594[1563328] = sub_4E3AA0((CHAR*)&byte_587000[201180]);
-		*(_DWORD*)&byte_5D4594[1563332] = sub_4E3AA0((CHAR*)&byte_587000[201192]);
-		*(_DWORD*)&byte_5D4594[1563336] = sub_4E3AA0((CHAR*)&byte_587000[201200]);
-		v18 = sub_4E3AA0((CHAR*)&byte_587000[201212]);
+	if (a2) {
 		v17 = dword_5d4594_1563320;
-		*(_DWORD*)&byte_5D4594[1563340] = v18;
-	}
-	v19 = a3;
-	if (a3) {
-		a3a = *(float2*)(a3 + 72);
-		v20 = *(unsigned __int16*)(a3 + 4);
-		v21 = (unsigned __int16)v20 != v17 && v20 != *(_DWORD*)&byte_5D4594[1563324] &&
-			  v20 != *(_DWORD*)&byte_5D4594[1563328] && v20 != *(_DWORD*)&byte_5D4594[1563332] &&
-			  v20 != *(_DWORD*)&byte_5D4594[1563336] && v20 != *(_DWORD*)&byte_5D4594[1563340];
-		if (a2 != a3) {
-			v22 = *(_DWORD*)(v5 + 8);
-			if (v22 & 4) {
-			LABEL_56:
-				*(_DWORD*)(v12 + 304) = 1;
-				*(_DWORD*)(v12 + 300) = *(unsigned __int16*)(v19 + 4);
-				goto LABEL_70;
-			}
-			if (!(v22 & 2))
-				goto LABEL_70;
-		LABEL_69:
-			*(_DWORD*)(v12 + 2188) = 1;
-			*(_DWORD*)(v12 + 2184) = *(unsigned __int16*)(v19 + 4);
-			goto LABEL_70;
+		if (!dword_5d4594_1563320) {
+			dword_5d4594_1563320 = sub_4E3AA0((CHAR *) &byte_587000[201156]);
+			*(_DWORD *) &byte_5D4594[1563324] = sub_4E3AA0((CHAR *) &byte_587000[201168]);
+			*(_DWORD *) &byte_5D4594[1563328] = sub_4E3AA0((CHAR *) &byte_587000[201180]);
+			*(_DWORD *) &byte_5D4594[1563332] = sub_4E3AA0((CHAR *) &byte_587000[201192]);
+			*(_DWORD *) &byte_5D4594[1563336] = sub_4E3AA0((CHAR *) &byte_587000[201200]);
+			v18 = sub_4E3AA0((CHAR *) &byte_587000[201212]);
+			v17 = dword_5d4594_1563320;
+			*(_DWORD *) &byte_5D4594[1563340] = v18;
 		}
-	} else {
-		v19 = a2;
-		a3a = *(float2*)(a2 + 72);
-		v23 = *(unsigned __int16*)(a2 + 4);
-		v21 = (unsigned __int16)v23 != v17 && v23 != *(_DWORD*)&byte_5D4594[1563324] &&
-			  v23 != *(_DWORD*)&byte_5D4594[1563328] && v23 != *(_DWORD*)&byte_5D4594[1563332];
-		if (LODWORD(a5) == 10 || LODWORD(a5) == 2) {
-			v24 = *(_DWORD*)(v5 + 8);
-			if (v24 & 4)
-				goto LABEL_56;
-			if (!(v24 & 2))
-				goto LABEL_70;
-			goto LABEL_69;
-		}
-	}
-LABEL_70:
-	if (LODWORD(a5) == 15 || !v21 ||
-		!(nox_server_testTwoPointsAndDirection_4E6E50((float2*)(v5 + 56), *(__int16*)(v5 + 124), &a3a) & 1))
-		goto LABEL_120;
-	if (*(_BYTE*)(v5 + 8) & 4) {
-		if (*(_BYTE*)(v12 + 88) != 16)
-			goto LABEL_86;
-	} else if (sub_50A020(v5) != 21) {
-		goto LABEL_86;
-	}
-	if (!(armorrFlags & 0x3000000)) {
-	LABEL_86:
-		v27 = LODWORD(a5);
-		if (weaponFlags2 & 0x400) {
-			v27 = LODWORD(a5);
-			if (*(_BYTE*)(v9 + 8) & 1 || a5 == 0.0 || LODWORD(a5) == 11) {
-				if (*(_BYTE*)(v5 + 8) & 4) {
-					v28 = *(_BYTE*)(v12 + 88);
-					if (v28 != 13 && v28 != 18 && v28 != 19 && v28 != 20)
-						goto LABEL_120;
-				} else if (!sub_534340(v5)) {
-					goto LABEL_120;
+		v19 = a3;
+		if (a3) {
+			a3a = *(float2 *) (a3 + 72);
+			v20 = *(unsigned __int16 *) (a3 + 4);
+			v21 = (unsigned __int16) v20 != v17 && v20 != *(_DWORD *) &byte_5D4594[1563324] &&
+				  v20 != *(_DWORD *) &byte_5D4594[1563328] && v20 != *(_DWORD *) &byte_5D4594[1563332] &&
+				  v20 != *(_DWORD *) &byte_5D4594[1563336] && v20 != *(_DWORD *) &byte_5D4594[1563340];
+			if (a2 != a3) {
+				v22 = *(_DWORD *) (v5 + 8);
+				if (v22 & 4) {
+					*(_DWORD *) (v12 + 304) = 1;
+					*(_DWORD *) (v12 + 300) = *(unsigned __int16 *) (v19 + 4);
+				} else if (v22 & 2) {
+					*(_DWORD *) (v12 + 2188) = 1;
+					*(_DWORD *) (v12 + 2184) = *(unsigned __int16 *) (v19 + 4);
 				}
-				if (*(_BYTE*)(v9 + 8) & 1) {
-					sub_4E0A70(v9, v5);
-					if (*(_BYTE*)(v9 + 8) & 1) {
-						if (!(*(_BYTE*)(v9 + 12) & 2)) {
-							sub_4EC300(v9);
-							sub_4EC290(v5, v9);
+			}
+		} else {
+			v19 = a2;
+			a3a = *(float2 *) (a2 + 72);
+			v23 = *(unsigned __int16 *) (a2 + 4);
+			v21 = (unsigned __int16) v23 != v17 && v23 != *(_DWORD *) &byte_5D4594[1563324] &&
+				  v23 != *(_DWORD *) &byte_5D4594[1563328] && v23 != *(_DWORD *) &byte_5D4594[1563332];
+			if (LODWORD(a5) == 10 || LODWORD(a5) == 2) {
+				v24 = *(_DWORD *) (v5 + 8);
+				if (v24 & 4) {
+					*(_DWORD *) (v12 + 304) = 1;
+					*(_DWORD *) (v12 + 300) = *(unsigned __int16 *) (v19 + 4);
+				} else if (v24 & 2) {
+					*(_DWORD *) (v12 + 2188) = 1;
+					*(_DWORD *) (v12 + 2184) = *(unsigned __int16 *) (v19 + 4);
+				}
+			}
+		}
+		if (!(LODWORD(a5) == 15 || !v21 ||
+			!(nox_server_testTwoPointsAndDirection_4E6E50((float2 *) (v5 + 56), *(__int16 *) (v5 + 124), &a3a) & 1))) {
+			int c1 = *(_BYTE *) (v5 + 8) & 4;
+			if (((c1 && *(_BYTE *) (v12 + 88) != 16) || (!c1 && sub_50A020(v5) != 21) ) || !(armorrFlags & 0x3000000)) {
+				v27 = LODWORD(a5);
+				if (weaponFlags2 & 0x400) {
+					v27 = LODWORD(a5);
+					if (*(_BYTE *) (v9 + 8) & 1 || a5 == 0.0 || LODWORD(a5) == 11) {
+						if (*(_BYTE *) (v5 + 8) & 4) {
+							v28 = *(_BYTE *) (v12 + 88);
+							if (v28 != 13 && v28 != 18 && v28 != 19 && v28 != 20)
+								goto LABEL_120;
+						} else if (!sub_534340(v5)) {
+							goto LABEL_120;
+						}
+						if (*(_BYTE *) (v9 + 8) & 1) {
+							sub_4E0A70(v9, v5);
+							if (*(_BYTE *) (v9 + 8) & 1) {
+								if (!(*(_BYTE *) (v9 + 12) & 2)) {
+									sub_4EC300(v9);
+									sub_4EC290(v5, v9);
+								}
+							}
+						}
+						sub_501960(890, v5, 0, 0);
+						if (*(_BYTE *) (v5 + 8) & 4) {
+							v29 = nox_common_randomInt_415FA0(18, 20);
+							sub_4FA020((_DWORD *) v5, v29);
+						} else {
+							sub_50A360(v5, 23);
+						}
+						v30 = sub_419D40(&byte_587000[201308]);
+						v47 = v30 * (double) a4;
+						sub_4E22A0(v5, a2, a3, 1024, v47, v27);
+						return 0;
+					}
+				} else {
+					// actionId (+88) = 1 corresposponds either to attacking OR using berserker charge
+					// armorrFlags & 0x3000000 tests if either Steel or Wooden shields are equipped (see 58F820 -- table that
+					// references armor types and corresponding flags)
+					if (*(_BYTE *) (v12 + 88) == 1 && nox_common_mapPlrActionToStateId_4FA2B0(v5) == 45 &&
+						armorrFlags & 0x3000000) {
+						if (mix_dword_980858[0] & 0x100000) { // BERSERKER_SHIED_BLOCK
+							goto M_LABEL_78;
 						}
 					}
 				}
-				sub_501960(890, v5, 0, 0);
-				if (*(_BYTE*)(v5 + 8) & 4) {
-					v29 = nox_common_randomInt_415FA0(18, 20);
-					sub_4FA020((_DWORD*)v5, v29);
-				} else {
-					sub_50A360(v5, 23);
+				if (!(weaponFlags2 & 0x7FF8000) || v27 && v27 != 11 || *(_BYTE *) (v9 + 8) & 1) {
+					goto LABEL_120;
 				}
-				v30 = sub_419D40(&byte_587000[201308]);
-				v47 = v30 * (double)a4;
-				sub_4E22A0(v5, a2, a3, 1024, v47, v27);
+				if (*(_BYTE *) (v5 + 8) & 4) {
+					v31 = *(_BYTE *) (v12 + 88);
+					if (v31 != 13 && v31 != 18 && v31 != 19 && v31 != 20 &&
+						(v31 || !(mix_dword_980858[0] & 0x40000))) { // GREAT_SWORD_BLOKING_WALK
+						goto LABEL_120;
+					}
+				} else if (!sub_534340(v5)) {
+					goto LABEL_120;
+				}
+				sub_501960(894, v5, 0, 0);
+				if (*(_BYTE *) (v5 + 8) & 4)
+					sub_4FA020((_DWORD *) v5, 21);
+				else
+					sub_50A360(v5, 23);
+				v32 = sub_419D40(&byte_587000[201340]);
+				v48 = v32 * (double) a4;
+				sub_4E22A0(v5, a2, a3, 134184960, v48, v27);
 				return 0;
 			}
-		} else {
-			// actionId (+88) = 1 corresposponds either to attacking OR using berserker charge
-			// armorrFlags & 0x3000000 tests if either Steel or Wooden shields are equipped (see 58F820 -- table that
-			// references armor types and corresponding flags)
-			if (*(_BYTE*)(v12 + 88) == 1 && nox_common_mapPlrActionToStateId_4FA2B0(v5) == 45 &&
-				armorrFlags & 0x3000000) {
-				if (mix_dword_980858[0] & 0x100000) // BERSERKER_SHIED_BLOCK
-					goto M_LABEL_78;
-			}
-		}
-		if (!(weaponFlags2 & 0x7FF8000) || v27 && v27 != 11 || *(_BYTE*)(v9 + 8) & 1)
-			goto LABEL_120;
-		if (*(_BYTE*)(v5 + 8) & 4) {
-			v31 = *(_BYTE*)(v12 + 88);
-			if (v31 != 13 && v31 != 18 && v31 != 19 && v31 != 20 &&
-				(v31 || !(mix_dword_980858[0] & 0x40000))) // GREAT_SWORD_BLOKING_WALK
-				goto LABEL_120;
-		} else if (!sub_534340(v5)) {
-			goto LABEL_120;
-		}
-		sub_501960(894, v5, 0, 0);
-		if (*(_BYTE*)(v5 + 8) & 4)
-			sub_4FA020((_DWORD*)v5, 21);
-		else
-			sub_50A360(v5, 23);
-		v32 = sub_419D40(&byte_587000[201340]);
-		v48 = v32 * (double)a4;
-		sub_4E22A0(v5, a2, a3, 134184960, v48, v27);
-		return 0;
-	}
-M_LABEL_78:
-	v25 = LODWORD(a5);
-	if (LODWORD(a5) != 9 && LODWORD(a5) != 17) // Blocking
-	{
-		sub_501960(878, v5, 0, 0);
-		if (*(_BYTE*)(v9 + 8) & 1) {
-			if (!(*(_BYTE*)(v9 + 12) & 0x70)) {
-				sub_4E0A70(v9, v5);
-				if (*(_BYTE*)(v9 + 8) & 1) {
-					if (!(*(_BYTE*)(v9 + 12) & 2)) {
+		M_LABEL_78:
+			v25 = LODWORD(a5);
+			if (LODWORD(a5) != 9 && LODWORD(a5) != 17) { // Blocking
+				sub_501960(878, v5, 0, 0);
+				if ((*(_BYTE *) (v9 + 8) & 1) && (!(*(_BYTE *) (v9 + 12) & 0x70))) {
+					sub_4E0A70(v9, v5);
+					if ((*(_BYTE *) (v9 + 8) & 1) && (!(*(_BYTE *) (v9 + 12) & 2))) {
 						sub_4EC300(v9);
 						sub_4EC290(v5, v9);
 					}
 				}
+				v26 = sub_419D40(&byte_587000[201228]);
+				v46 = v26 * (double) a4;
+				sub_4E2330(v5, a2, a3, 2, v46, v25);
+				return 0;
 			}
 		}
-		v26 = sub_419D40(&byte_587000[201228]);
-		v46 = v26 * (double)a4;
-		sub_4E2330(v5, a2, a3, 2, v46, v25);
-		return 0;
 	}
 LABEL_120:
 	switch (LODWORD(a5)) {
@@ -355,9 +345,18 @@ LABEL_120:
 		a1 = a4;
 		sub_4E2180(v5, a2, a3, a4, a5);
 		v34 = *(_DWORD*)(v5 + 8);
-		if (!(v34 & 4))
-			goto LABEL_126;
-		goto LABEL_124;
+		if (v34 & 4) {
+			if (!*(_DWORD*)(v12 + 304)) {
+				v36 = a5;
+				*(_DWORD*)(v12 + 304) = 2;
+				*(float*)(v12 + 300) = v36;
+			}
+		} else if (v34 & 2 && !*(_DWORD*)(v12 + 2188)) {
+			v37 = a5;
+			*(_DWORD*)(v12 + 2188) = 2;
+			*(float*)(v12 + 2184) = v37;
+		}
+		break;
 	case 2:
 		v50 = (1.0 - v53 * 0.5) * (double)a4;
 		sub_4E20F0(v5, (int)&a1, v50);
@@ -404,19 +403,15 @@ LABEL_120:
 		sub_4E2180(v5, a2, a3, a4, a5);
 		v34 = *(_DWORD*)(v5 + 8);
 		if (v34 & 4) {
-		LABEL_124:
 			if (!*(_DWORD*)(v12 + 304)) {
 				v36 = a5;
 				*(_DWORD*)(v12 + 304) = 2;
 				*(float*)(v12 + 300) = v36;
 			}
-		} else {
-		LABEL_126:
-			if (v34 & 2 && !*(_DWORD*)(v12 + 2188)) {
-				v37 = a5;
-				*(_DWORD*)(v12 + 2188) = 2;
-				*(float*)(v12 + 2184) = v37;
-			}
+		} else if (v34 & 2 && !*(_DWORD*)(v12 + 2188)) {
+			v37 = a5;
+			*(_DWORD*)(v12 + 2188) = 2;
+			*(float*)(v12 + 2184) = v37;
 		}
 		break;
 	default:
