@@ -9214,8 +9214,7 @@ int __cdecl nox_thing_read_audio_414D40(int a1) {
 }
 
 //----- (00414DB0) --------------------------------------------------------
-BOOL __cdecl sub_414DB0(int a1) {
-	int v1;               // eax
+BOOL __cdecl sub_414DB0(nox_memfile* f) {
 	unsigned __int8* v2;  // ecx
 	unsigned __int8* v3;  // ecx
 	unsigned __int8* v4;  // esi
@@ -9230,39 +9229,37 @@ BOOL __cdecl sub_414DB0(int a1) {
 	unsigned __int8 v14;  // [esp+8h] [ebp+4h]
 	unsigned __int8 v15;  // [esp+8h] [ebp+4h]
 
-	v1 = a1;
-	v2 = (unsigned __int8*)(*(_DWORD*)(a1 + 8) + 4);
-	*(_DWORD*)(a1 + 8) = v2;
+	v2 = (unsigned __int8*)(f->cur + 4);
+	f->cur = v2;
 	v3 = &v2[*v2 + 13];
-	*(_DWORD*)(a1 + 8) = v3;
-	v4 = (unsigned __int8*)(*(_DWORD*)(a1 + 8) + 1);
+	f->cur = v3;
+	v4 = (unsigned __int8*)(f->cur + 1);
 	v14 = *v3;
-	*(_DWORD*)(v1 + 8) = v4;
-	LOBYTE(v3) = v14;
+	f->cur = v4;
 	v15 = *v4;
-	*(_DWORD*)(v1 + 8) = v4 + 1;
+	f->cur = v4 + 1;
 	v4 += 3;
-	v5 = (unsigned __int8)v3 * v15;
-	LOBYTE(v3) = *(v4 - 2);
-	*(_DWORD*)(v1 + 8) = v4;
-	v6 = v5 * (unsigned __int8)v3;
+	v5 = v14 * v15;
+	v14 = *(v4 - 2);
+	f->cur = v4;
+	v6 = v5 * v14;
 	if (v6 > 0) {
 		do {
-			v7 = *(int**)(v1 + 8);
+			v7 = f->cur;
 			v8 = *v7;
 			v9 = (int)(v7 + 1);
-			*(_DWORD*)(v1 + 8) = v9;
+			f->cur = v9;
 			if (v8 == -1) {
 				v10 = (unsigned __int8*)(v9 + 1);
-				*(_DWORD*)(v1 + 8) = v10;
-				*(_DWORD*)(v1 + 8) += *v10 + 1;
+				f->cur = v10;
+				f->cur += *v10 + 1;
 			}
 			--v6;
 		} while (v6);
 	}
-	v11 = *(int**)(v1 + 8);
+	v11 = f->cur;
 	v12 = *v11;
-	*(_DWORD*)(v1 + 8) = v11 + 1;
+	f->cur = v11 + 1;
 	return v12 == 1162757152;
 }
 
