@@ -10469,18 +10469,13 @@ int nox_server_mapRWScriptObject_505A40() {
 //----- (00505C30) --------------------------------------------------------
 int nox_server_mapRWGroupData_505C30() {
 	char v0;      // bp
-	int v2;       // ebx
 	int i;        // eax
-	int v4;       // esi
 	int j;        // eax
-	int v6;       // edi
 	char v7;      // al
 	bool v8;      // zf
 	char* v9;     // eax
 	char* v10;    // esi
-	int v11;      // edi
 	int v12;      // [esp+10h] [ebp-15Ch]
-	int v13;      // [esp+14h] [ebp-158h]
 	char v14[2];  // [esp+1Ah] [ebp-152h]
 	int v15;      // [esp+1Ch] [ebp-150h]
 	int v16;      // [esp+20h] [ebp-14Ch]
@@ -10499,14 +10494,15 @@ int nox_server_mapRWGroupData_505C30() {
 	sub_426AC0_file3_fread(&v15, 2u);
 	if ((__int16)v15 > 3)
 		return 0;
-	v2 = 0;
+
 	if (*(_DWORD*)&byte_5D4594[3803300]) {
 		v21 = 0;
 		v22 = 0;
+		int v13;
 		sub_426AC0_file3_fread(&v13, 4u);
 		if (v13 <= 0)
 			return 1;
-		while (1) {
+		for (int v2 = 0; v2 < v13; ++v2) {
 			v17 = 0;
 			sub_426AC0_file3_fread(&v17, 1u);
 			sub_426AC0_file3_fread(v23, (unsigned __int8)v17);
@@ -10542,48 +10538,37 @@ int nox_server_mapRWGroupData_505C30() {
 				}
 			}
 			sub_426AC0_file3_fread(&v12, 4u);
-			v11 = 0;
-			if (v12 > 0)
-				break;
-		LABEL_44:
-			if (++v2 >= v13)
-				return 1;
-		}
-		while (1) {
-			if ((_BYTE)v18) {
-				if ((_BYTE)v18 == 1)
-					goto LABEL_38;
-				if ((_BYTE)v18 != 2) {
-					if ((_BYTE)v18 != 3)
-						return 0;
-				LABEL_38:
+
+			for (int v11 = 0; v11 < v12; ++v11) {
+				if ((_BYTE)v18) {
+					if ((_BYTE)v18 == 1) {
+						sub_426AC0_file3_fread(&v19[0], 4u);
+					} else if ((_BYTE)v18 != 2) {
+						if ((_BYTE)v18 != 3)
+							return 0;
+						sub_426AC0_file3_fread(&v19[0], 4u);
+					} else {
+						sub_426AC0_file3_fread(&v19[0], 4u);
+						sub_426AC0_file3_fread(&v19[1], 4u);
+					}
+				} else {
 					sub_426AC0_file3_fread(&v19[0], 4u);
-					goto LABEL_39;
 				}
-				sub_426AC0_file3_fread(&v19[0], 4u);
-				sub_426AC0_file3_fread(&v19[1], 4u);
-			} else {
-				sub_426AC0_file3_fread(&v19[0], 4u);
+				if (!(v0 & 4)) {
+					if (nox_common_gameFlags_check_40A5C0(0x400000))
+						sub_5046A0(v19, v16);
+					else
+						sub_57C130(v19, v16);
+				}
 			}
-		LABEL_39:
-			if (!(v0 & 4)) {
-				if (nox_common_gameFlags_check_40A5C0(0x400000))
-					sub_5046A0(v19, v16);
-				else
-					sub_57C130(v19, v16);
-			}
-			if (++v11 >= v12)
-				goto LABEL_44;
 		}
+		return 1;
 	}
-	v13 = 0;
+	int v13 = 0;
 	for (i = nox_server_getFirstMapGroup_57C080(); i; i = nox_server_getNextMapGroup_57C090(i))
 		++v13;
 	sub_426AC0_file3_fread(&v13, 4u);
-	v4 = nox_server_getFirstMapGroup_57C080();
-	if (!v4)
-		return 1;
-	do {
+	for (int v4 = nox_server_getFirstMapGroup_57C080(); v4; v4 = nox_server_getNextMapGroup_57C090(v4)) {
 		LOBYTE(v17) = strlen((const char*)(v4 + 8)) + 1;
 		sub_426AC0_file3_fread(&v17, 1u);
 		sub_426AC0_file3_fread((_BYTE*)(v4 + 8), (unsigned __int8)v17);
@@ -10593,30 +10578,20 @@ int nox_server_mapRWGroupData_505C30() {
 		for (j = *(_DWORD*)(v4 + 84); j; j = *(_DWORD*)(j + 8))
 			++v12;
 		sub_426AC0_file3_fread(&v12, 4u);
-		v6 = *(_DWORD*)(v4 + 84);
-		if (v6) {
-			while (1) {
-				v7 = *(_BYTE*)v4;
-				if (!*(_BYTE*)v4 || v7 == 1)
-					goto LABEL_15;
-				if (v7 != 2)
-					break;
+		for (int v6 = *(_DWORD*)(v4 + 84); v6; v6 = *(_DWORD*)(v6 + 8)) {
+			v7 = *(_BYTE*)v4;
+			if (!*(_BYTE*)v4 || v7 == 1) {
 				sub_426AC0_file3_fread((_BYTE*)v6, 4u);
-				sub_426AC0_file3_fread((_BYTE*)(v6 + 4), 4u);
-			LABEL_16:
-				v6 = *(_DWORD*)(v6 + 8);
-				if (!v6)
-					goto LABEL_17;
+			} else if (v7 != 2) {
+				if (v7 != 3)
+					return 0;
+				sub_426AC0_file3_fread((_BYTE*)v6, 4u);
+			} else {
+				sub_426AC0_file3_fread((_BYTE *) v6, 4u);
+				sub_426AC0_file3_fread((_BYTE *) (v6 + 4), 4u);
 			}
-			if (v7 != 3)
-				return 0;
-		LABEL_15:
-			sub_426AC0_file3_fread((_BYTE*)v6, 4u);
-			goto LABEL_16;
 		}
-	LABEL_17:
-		v4 = nox_server_getNextMapGroup_57C090(v4);
-	} while (v4);
+	}
 	return 1;
 }
 // 505C30: using guessed type char var_E4[76];
