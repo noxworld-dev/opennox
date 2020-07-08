@@ -8303,13 +8303,10 @@ _DWORD* __cdecl sub_4EDA40(_DWORD* a1) {
 	v2 = 0;
 	v3 = a1[126];
 	v12 = 0.0;
-	if (v3) {
-		do {
-			if (sub_4EDCD0((int)a1, v3) && *(float*)(v3 + 176) > (double)v12)
-				v12 = *(float*)(v3 + 176);
-			v3 = *(_DWORD*)(v3 + 496);
-		} while (v3);
-		v2 = 0;
+	while (v3) {
+		if (sub_4EDCD0((int)a1, v3) && *(float*)(v3 + 176) > (double)v12)
+			v12 = *(float*)(v3 + 176);
+		v3 = *(_DWORD*)(v3 + 496);
 	}
 	result = (_DWORD*)a1[126];
 	v5 = *((float*)a1 + 15);
@@ -8328,93 +8325,109 @@ _DWORD* __cdecl sub_4EDA40(_DWORD* a1) {
 		return result;
 	while (2) {
 		v19 = (_DWORD*)result[124];
-		if (!sub_4EDCD0((int)v1, (int)result))
-			goto LABEL_31;
-		v17 = 0;
-		v18 = (_DWORD*)(v7 - 1);
-		while (1) {
-			v22.field_8 = (double)v20 * v13 + v1[7].field_0;
-			v22.field_C = v1[7].field_4 - (double)v21 * v13;
-			v22.field_8 = sub_416030(-3.0, 3.0) + v22.field_8;
-			v22.field_C = sub_416030(-3.0, 3.0) + v22.field_C;
-			if (sub_535250(&v22, 0, 0, 1)) {
-				sub_4ED790((int)v1, v23, (float2*)&v22.field_8);
-				v8 = 1;
-				v16 = 1;
-				v17 = 1;
-			} else {
-				v8 = v17;
-			}
-			result = v18;
-			if ((_DWORD*)v14 != v18) {
-				v9 = v15;
-				++v14;
-			LABEL_22:
-				switch (v9) {
-				case 0:
-					v20 = ++v2;
-					break;
-				case 1:
-					++v6;
-					goto LABEL_27;
-				case 2:
-					v20 = --v2;
-					break;
-				case 3:
-					--v6;
-				LABEL_27:
-					v21 = v6;
-					break;
-				default:
-					goto LABEL_28;
-				}
-				goto LABEL_28;
-			}
-			if (v15 != 3 && v18) {
-				v9 = v15 + 1;
-				v14 = 1;
-				++v15;
-				goto LABEL_22;
-			}
-			if (!v16)
-				break;
-			v7 += 2;
-			v18 = (_DWORD*)((char*)v18 + 2);
-			v2 = 1 - v7 / 2;
-			v20 = 1 - v7 / 2;
-			v14 = 1;
-			v6 = v7 / -2;
-			v21 = v7 / -2;
-			v15 = 0;
-			v16 = 0;
-		LABEL_28:
-			if (v8)
-				goto LABEL_31;
-		}
-		if (v8) {
-		LABEL_31:
-			result = v19;
-			v23 = v19;
-			if (v19) {
-				result = v19;
-				continue;
-			}
+		if (!sub_4EDCD0((int)v1, (int)result)) {
+			v8 = 1;
 		} else {
-			v10 = v23;
-			if (v23) {
-				while (1) {
-					v11 = (_DWORD*)v10[124];
-					result = (_DWORD*)sub_4EDCD0((int)v1, (int)v10);
-					if (result)
-						result = (_DWORD*)sub_4ED790((int)v1, v10, v1 + 7);
-					if (!v11)
-						break;
-					v10 = v11;
+			v17 = 0;
+			v18 = (_DWORD *) (v7 - 1);
+			while (1) {
+				v22.field_8 = (double) v20 * v13 + v1[7].field_0;
+				v22.field_C = v1[7].field_4 - (double) v21 * v13;
+				v22.field_8 = sub_416030(-3.0, 3.0) + v22.field_8;
+				v22.field_C = sub_416030(-3.0, 3.0) + v22.field_C;
+				if (sub_535250(&v22, 0, 0, 1)) {
+					sub_4ED790((int) v1, v23, (float2 *) &v22.field_8);
+					v8 = 1;
+					v16 = 1;
+					v17 = 1;
+				} else {
+					v8 = v17;
 				}
+				result = v18;
+				if ((_DWORD *) v14 != v18) {
+					v9 = v15;
+					++v14;
+					switch (v9) {
+						case 0:
+							v20 = ++v2;
+							break;
+						case 1:
+							++v6;
+							v21 = v6;
+							break;
+						case 2:
+							v20 = --v2;
+							break;
+						case 3:
+							--v6;
+							v21 = v6;
+							break;
+						default:
+							break;
+					}
+				} else if (v15 != 3 && v18) {
+					v9 = v15 + 1;
+					v14 = 1;
+					++v15;
+					switch (v9) {
+						case 0:
+							v20 = ++v2;
+							break;
+						case 1:
+							++v6;
+							v21 = v6;
+							break;
+						case 2:
+							v20 = --v2;
+							break;
+						case 3:
+							--v6;
+							v21 = v6;
+							break;
+						default:
+							break;
+					}
+				} else {
+					if (!v16)
+						break;
+					v7 += 2;
+					v18 = (_DWORD *) ((char *) v18 + 2);
+					v2 = 1 - v7 / 2;
+					v20 = 1 - v7 / 2;
+					v14 = 1;
+					v6 = v7 / -2;
+					v21 = v7 / -2;
+					v15 = 0;
+					v16 = 0;
+				}
+				if (v8)
+					break;
 			}
 		}
+		if (!v8) {
+			break;
+		}
+		result = v19;
+		v23 = v19;
+		if (!v19) {
+			return result;
+		}
+		result = v19;
+	}
+	v10 = v23;
+	if (!v23) {
 		return result;
 	}
+	while (1) {
+		v11 = (_DWORD*)v10[124];
+		result = (_DWORD*)sub_4EDCD0((int)v1, (int)v10);
+		if (result)
+			result = (_DWORD*)sub_4ED790((int)v1, v10, v1 + 7);
+		if (!v11)
+			break;
+		v10 = v11;
+	}
+	return result;
 }
 
 //----- (004EDCD0) --------------------------------------------------------
