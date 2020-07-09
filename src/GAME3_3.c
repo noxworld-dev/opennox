@@ -7613,13 +7613,13 @@ int __cdecl sub_4ECCB0(int a1) {
 	char* v4;   // eax
 	int v5;     // ecx
 
-	result = sub_4ECD90(a1);
+	result = nox_server_netCodeCache_lookupObj_4ECD90(a1);
 	if (!result) {
 		v2 = sub_4DA790();
 		if (v2) {
 			while (1) {
 				if (!(*(_BYTE*)(v2 + 16) & 0x20) && *(_DWORD*)(v2 + 36) == a1) {
-					sub_4ECEA0(v2);
+					nox_server_netCodeCache_addObj_4ECEA0(v2);
 					return v2;
 				}
 				v3 = *(_DWORD*)(v2 + 504);
@@ -7646,7 +7646,7 @@ int __cdecl sub_4ECCB0(int a1) {
 					goto LABEL_17;
 			}
 		LABEL_16:
-			sub_4ECEA0(v3);
+			nox_server_netCodeCache_addObj_4ECEA0(v3);
 			return v3;
 		}
 	LABEL_17:
@@ -7674,11 +7674,11 @@ int __cdecl sub_4ECCB0(int a1) {
 nox_server_netCodeCacheStruct nox_server_netCodeCache;
 
 //----- (004ECD90) --------------------------------------------------------
-int __cdecl sub_4ECD90(int a1) {
+int __cdecl nox_server_netCodeCache_lookupObj_4ECD90(int a1) {
 	_DWORD* v1; // esi
 
 	if (nox_server_needInitNetCodeCache)
-		sub_4ECE50();
+		nox_server_netCodeCache_initArray_4ECE50();
 	v1 = *(_DWORD**)&nox_server_netCodeCache.firstUsedObject;
 	if (!*(_DWORD*)&nox_server_netCodeCache.firstUsedObject)
 		return 0;
@@ -7730,7 +7730,7 @@ int __cdecl sub_4ECE10(_DWORD* a1, int a2) {
 }
 
 //----- (004ECE50) --------------------------------------------------------
-int sub_4ECE50() {
+int nox_server_netCodeCache_initArray_4ECE50() {
 	unsigned __int8* v0; // esi
 	int result;          // eax
 
@@ -7748,13 +7748,13 @@ int sub_4ECE50() {
 }
 
 //----- (004ECEA0) --------------------------------------------------------
-int __cdecl sub_4ECEA0(int a1) {
+int __cdecl nox_server_netCodeCache_addObj_4ECEA0(int a1) {
 	int* v1;    // eax
 	int v2;     // esi
 	int result; // eax
 	int v4;     // [esp-8h] [ebp-8h]
 
-	v1 = (int*)sub_4ECEF0();
+	v1 = (int*)nox_server_netCodeCache_nextUnused_4ECEF0();
 	if (v1) {
 		*v1 = a1;
 		result = sub_4ECDE0(&nox_server_netCodeCache.firstUsedObject, (int)v1);
@@ -7769,7 +7769,7 @@ int __cdecl sub_4ECEA0(int a1) {
 }
 
 //----- (004ECEF0) --------------------------------------------------------
-int sub_4ECEF0() {
+int nox_server_netCodeCache_nextUnused_4ECEF0() {
 	int result; // eax
 
 	result = nox_server_netCodeCache.firstFreeObject;
