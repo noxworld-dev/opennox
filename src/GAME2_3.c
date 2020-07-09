@@ -507,11 +507,11 @@ char* __cdecl sub_48D260(wchar_t* a1) {
 	int v2;       // esi
 	char v3[52];  // [esp+8h] [ebp-34h]
 
-	result = sub_416EA0();
+	result = nox_common_playerInfoGetFirst_416EA0();
 	v2 = (int)result;
 	if (result) {
 		while (nox_wcscmp((const wchar_t*)(v2 + 4704), a1)) {
-			result = sub_416EE0(v2);
+			result = nox_common_playerInfoGetNext_416EE0(v2);
 			v2 = (int)result;
 			if (!result)
 				return result;
@@ -529,11 +529,11 @@ char* __cdecl sub_48D2D0(wchar_t* a1) {
 	int v2;       // esi
 	char v3[52];  // [esp+8h] [ebp-34h]
 
-	result = sub_416EA0();
+	result = nox_common_playerInfoGetFirst_416EA0();
 	v2 = (int)result;
 	if (result) {
 		while (nox_wcscmp((const wchar_t*)(v2 + 4704), a1)) {
-			result = sub_416EE0(v2);
+			result = nox_common_playerInfoGetNext_416EE0(v2);
 			v2 = (int)result;
 			if (!result)
 				return result;
@@ -1648,7 +1648,7 @@ char* __cdecl sub_4947E0(int a1) {
 	} else {
 		v2 = *((unsigned __int16*)sub_416590(0) + 27);
 	}
-	result = sub_416EA0();
+	result = nox_common_playerInfoGetFirst_416EA0();
 	for (i = (int)result; result; i = (int)result) {
 		if (!(*(_BYTE*)(i + 3680) & 1)) {
 			if (i == a1) {
@@ -1665,7 +1665,7 @@ char* __cdecl sub_4947E0(int a1) {
 				*(_DWORD*)(i + 2136) = v2 - 1;
 			}
 		}
-		result = sub_416EE0(i);
+		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
 	return result;
 }

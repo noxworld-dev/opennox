@@ -85,10 +85,10 @@ void sub_4DB6A0() {
 	if (v0 && *((_DWORD*)v0 + 514)) {
 		if (!*(_DWORD*)&byte_5D4594[1563124])
 			*(_DWORD*)&byte_5D4594[1563124] = sub_4E3AA0((CHAR*)&byte_587000[199388]);
-		v2 = sub_4DA790();
+		v2 = nox_server_getFirstObject_4DA790();
 		if (v2) {
 			while (*(unsigned __int16*)(v2 + 4) != *(_DWORD*)&byte_5D4594[1563124]) {
-				v2 = sub_4DA7A0(v2);
+				v2 = nox_server_getNextObject_4DA7A0(v2);
 				if (!v2)
 					return;
 			}
@@ -122,10 +122,10 @@ void sub_4DB9C0() {
 	int v2; // esi
 	int v3; // edi
 
-	v0 = sub_4DA790();
+	v0 = nox_server_getFirstObject_4DA790();
 	if (v0) {
 		do {
-			v1 = sub_4DA7A0(v0);
+			v1 = nox_server_getNextObject_4DA7A0(v0);
 			if (sub_4E5B50(v0))
 				sub_4E5CC0(v0);
 			v0 = v1;

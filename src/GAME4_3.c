@@ -1190,11 +1190,11 @@ int __cdecl sub_531420(int a1) {
 
 	if (!*(_DWORD*)&byte_5D4594[2487928])
 		*(_DWORD*)&byte_5D4594[2487928] = sub_4E3AA0((CHAR*)&byte_587000[261252]);
-	result = sub_4DA790();
+	result = nox_server_getFirstObject_4DA790();
 	for (i = result; result; i = result) {
 		if (*(unsigned __int16*)(i + 4) == *(_DWORD*)&byte_5D4594[2487928] && **(_DWORD**)(i + 700) == a1)
 			sub_4E5CC0(i);
-		result = sub_4DA7A0(i);
+		result = nox_server_getNextObject_4DA7A0(i);
 	}
 	return result;
 }
