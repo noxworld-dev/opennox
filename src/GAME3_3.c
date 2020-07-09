@@ -24,7 +24,7 @@ extern _DWORD dword_5d4594_1565628;
 extern _DWORD dword_5d4594_1565632;
 extern _DWORD dword_5d4594_1565612;
 extern _DWORD dword_5d4594_1565520;
-extern _DWORD dword_587000_205696;
+extern _DWORD nox_server_needInitNetCodeCache;
 extern _DWORD dword_5d4594_1568260;
 extern _DWORD dword_5d4594_1565516;
 extern _DWORD dword_5d4594_1563664;
@@ -7592,7 +7592,8 @@ int __cdecl sub_4ECC70(int a1) {
 	int v1;     // eax
 	int result; // eax
 
-	v1 = *(_DWORD*)&byte_5D4594[1568032];
+	v1 = *(_DWORD*)&byte_5D4594[1568032]; // FIXME: could be part of netCodeCache struct, but there are no references to
+										  // this function at all
 	if (!*(_DWORD*)&byte_5D4594[1568032]) {
 		v1 = sub_4E3AA0((CHAR*)&byte_587000[205684]);
 		*(_DWORD*)&byte_5D4594[1568032] = v1;
@@ -7670,22 +7671,24 @@ int __cdecl sub_4ECCB0(int a1) {
 	return result;
 }
 
+nox_server_netCodeCacheStruct nox_server_netCodeCache;
+
 //----- (004ECD90) --------------------------------------------------------
 int __cdecl sub_4ECD90(int a1) {
 	_DWORD* v1; // esi
 
-	if (dword_587000_205696)
+	if (nox_server_needInitNetCodeCache)
 		sub_4ECE50();
-	v1 = *(_DWORD**)&byte_5D4594[1568236];
-	if (!*(_DWORD*)&byte_5D4594[1568236])
+	v1 = *(_DWORD**)&nox_server_netCodeCache.firstUsedObject;
+	if (!*(_DWORD*)&nox_server_netCodeCache.firstUsedObject)
 		return 0;
-	while (*(_DWORD*)(*v1 + 36) != a1) {
+	while (*(_DWORD*)(*v1 + 36) != a1) { // Search for netCode/objectCode/extent in cache
 		v1 = (_DWORD*)v1[2];
 		if (!v1)
 			return 0;
 	}
-	sub_4ECE10(&byte_5D4594[1568236], (int)v1);
-	sub_4ECDE0(&byte_5D4594[1568236], (int)v1);
+	sub_4ECE10(&nox_server_netCodeCache.firstUsedObject, (int)v1);
+	sub_4ECDE0(&nox_server_netCodeCache.firstUsedObject, (int)v1);
 	return *v1;
 }
 
@@ -7731,16 +7734,16 @@ int sub_4ECE50() {
 	unsigned __int8* v0; // esi
 	int result;          // eax
 
-	v0 = &byte_5D4594[1568044];
-	*(_DWORD*)&byte_5D4594[1568236] = 0;
-	*(_DWORD*)&byte_5D4594[1568240] = 0;
-	*(_DWORD*)&byte_5D4594[1568036] = 0;
-	*(_DWORD*)&byte_5D4594[1568040] = 0;
+	v0 = &nox_server_netCodeCache.objArray[0]; // actually start of the array! size=234-44=(192/12)=16
+	nox_server_netCodeCache.firstUsedObject = 0;
+	nox_server_netCodeCache.lastUsedObject = 0;
+	nox_server_netCodeCache.firstFreeObject = 0;
+	nox_server_netCodeCache.lastFreeObject = 0;
 	do {
-		result = sub_4ECDE0(&byte_5D4594[1568036], (int)v0);
+		result = sub_4ECDE0(&nox_server_netCodeCache.firstFreeObject, (int)v0);
 		v0 += 12;
-	} while ((int)v0 < (int)&byte_5D4594[1568236]);
-	dword_587000_205696 = 0;
+	} while ((int)v0 < &nox_server_netCodeCache.firstUsedObject);
+	nox_server_needInitNetCodeCache = 0;
 	return result;
 }
 
@@ -7754,13 +7757,13 @@ int __cdecl sub_4ECEA0(int a1) {
 	v1 = (int*)sub_4ECEF0();
 	if (v1) {
 		*v1 = a1;
-		result = sub_4ECDE0(&byte_5D4594[1568236], (int)v1);
+		result = sub_4ECDE0(&nox_server_netCodeCache.firstUsedObject, (int)v1);
 	} else {
-		v2 = *(_DWORD*)&byte_5D4594[1568240];
-		v4 = *(_DWORD*)&byte_5D4594[1568240];
-		**(_DWORD**)&byte_5D4594[1568240] = a1;
-		sub_4ECE10(&byte_5D4594[1568236], v4);
-		result = sub_4ECDE0(&byte_5D4594[1568236], v2);
+		v2 = nox_server_netCodeCache.lastUsedObject;
+		v4 = nox_server_netCodeCache.lastUsedObject;
+		nox_server_netCodeCache.lastUsedObject->value = a1;
+		sub_4ECE10(&nox_server_netCodeCache.firstUsedObject, v4);
+		result = sub_4ECDE0(&nox_server_netCodeCache.firstUsedObject, v2);
 	}
 	return result;
 }
@@ -7769,10 +7772,10 @@ int __cdecl sub_4ECEA0(int a1) {
 int sub_4ECEF0() {
 	int result; // eax
 
-	result = *(_DWORD*)&byte_5D4594[1568036];
-	if (!*(_DWORD*)&byte_5D4594[1568036])
+	result = nox_server_netCodeCache.firstFreeObject;
+	if (!nox_server_netCodeCache.firstFreeObject)
 		return 0;
-	*(_DWORD*)&byte_5D4594[1568036] = *(_DWORD*)(*(_DWORD*)&byte_5D4594[1568036] + 8);
+	nox_server_netCodeCache.firstFreeObject = nox_server_netCodeCache.firstFreeObject->prev; //*(_DWORD*)(*(_DWORD*)&netCodeCache.firstFreeObject + 8);
 	return result;
 }
 
@@ -7830,18 +7833,18 @@ int __cdecl sub_4ECFA0(int a1) {
 	int result; // eax
 	_DWORD* v2; // esi
 
-	result = dword_587000_205696;
-	if (!dword_587000_205696) {
-		v2 = *(_DWORD**)&byte_5D4594[1568236];
-		if (*(_DWORD*)&byte_5D4594[1568236]) {
+	result = nox_server_needInitNetCodeCache;
+	if (!nox_server_needInitNetCodeCache) {
+		v2 = *(_DWORD**)&nox_server_netCodeCache.firstUsedObject;
+		if (*(_DWORD*)&nox_server_netCodeCache.firstUsedObject) {
 			result = a1;
 			while (*v2 != a1) {
 				v2 = (_DWORD*)v2[2];
 				if (!v2)
 					return result;
 			}
-			sub_4ECE10(&byte_5D4594[1568236], (int)v2);
-			result = sub_4ECDE0(&byte_5D4594[1568036], (int)v2);
+			sub_4ECE10(&nox_server_netCodeCache.firstUsedObject, (int)v2);
+			result = sub_4ECDE0(&nox_server_netCodeCache.firstFreeObject, (int)v2);
 		}
 	}
 	return result;
@@ -7853,14 +7856,14 @@ int sub_4ECFE0() {
 	int v1;     // esi
 	int v2;     // edi
 
-	result = dword_587000_205696;
-	if (!dword_587000_205696) {
-		v1 = *(_DWORD*)&byte_5D4594[1568236];
-		if (*(_DWORD*)&byte_5D4594[1568236]) {
+	result = nox_server_needInitNetCodeCache;
+	if (!nox_server_needInitNetCodeCache) {
+		v1 = *(_DWORD*)&nox_server_netCodeCache.firstUsedObject;
+		if (*(_DWORD*)&nox_server_netCodeCache.firstUsedObject) {
 			do {
 				v2 = *(_DWORD*)(v1 + 8);
-				sub_4ECE10(&byte_5D4594[1568236], v1);
-				result = sub_4ECDE0(&byte_5D4594[1568036], v1);
+				sub_4ECE10(&nox_server_netCodeCache.firstUsedObject, v1);
+				result = sub_4ECDE0(&nox_server_netCodeCache.firstFreeObject, v1);
 				v1 = v2;
 			} while (v2);
 		}
