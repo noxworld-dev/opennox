@@ -2418,7 +2418,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 						sub_455F60();
 					}
 					if (v363 == 1 && !nox_common_gameFlags_check_40A5C0(4096)) {
-						for (j = sub_416EA0(); j; j = sub_416EE0((int)j))
+						for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j))
 							sub_417680((int)j, 255);
 					}
 					if (!nox_common_gameFlags_check_40A5C0(0x20000) && sub_4356B0() == 3) {

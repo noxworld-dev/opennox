@@ -80,7 +80,7 @@ int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 		} while (v12);
 	}
 	if (a3) {
-		for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 			v14 = *((_DWORD*)i + 514);
 			if (v14 != v3) {
 				if (v14)
