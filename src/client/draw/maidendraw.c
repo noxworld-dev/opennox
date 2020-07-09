@@ -29,14 +29,14 @@ int __cdecl nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr) {
 		} while (v12 < 6);
 		return nox_thing_monster_draw(a1, dr);
 	}
-	v2 = sub_4DA790();
+	v2 = nox_server_getFirstObject_4DA790();
 	if (!v2)
 		return nox_thing_monster_draw(a1, dr);
 	while (1) {
 		v3 = *(_DWORD*)(v2 + 40);
 		if (dr->field_32 == v3)
 			break;
-		v2 = sub_4DA7A0(v2);
+		v2 = nox_server_getNextObject_4DA7A0(v2);
 		if (!v2)
 			return nox_thing_monster_draw(a1, dr);
 	}

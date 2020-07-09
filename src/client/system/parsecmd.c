@@ -933,10 +933,10 @@ void __cdecl sub_4E5DB0(int a1) {
 	int v3; // eax
 	int v4; // esi
 
-	v1 = sub_4DA790();
+	v1 = nox_server_getFirstObject_4DA790();
 	if (v1) {
 		do {
-			v2 = sub_4DA7A0(v1);
+			v2 = nox_server_getNextObject_4DA7A0(v1);
 			v3 = *(_DWORD*)(v1 + 504);
 			if (v3) {
 				do {
@@ -1292,7 +1292,7 @@ int nox_cmd_list_users() {
 
 	v0 = loadString_sub_40F1D0((char*)&byte_587000[106472], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3839);
 	sub_450C00(6u, v0);
-	for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		v5[0] = 0;
 		nox_wcscat(v5, (const wchar_t*)i + 2352);
 		if (dword_5d4594_823684 && i[3680] & 4) {
@@ -1839,27 +1839,27 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 			dword_5d4594_823692 = 0;
 			return 1;
 		}
-		v17 = sub_416EA0();
+		v17 = nox_common_playerInfoGetFirst_416EA0();
 		if (!v17)
 			goto LABEL_61;
 		do {
 			if (!_nox_wcsicmp(a3, (const wchar_t*)v17 + 2352))
 				sub_4E6060(*(_DWORD*)(dword_5d4594_823692 + 2056), *((_DWORD*)v17 + 514));
-			v17 = sub_416EE0((int)v17);
+			v17 = nox_common_playerInfoGetNext_416EE0((int)v17);
 		} while (v17);
 		dword_5d4594_823692 = 0;
 		result = 1;
 		break;
 	case 5:
 		sub_4D9FD0(16, a3);
-		v14 = sub_416EA0();
+		v14 = nox_common_playerInfoGetFirst_416EA0();
 		if (!v14)
 			goto LABEL_61;
 		do {
 			v15 = *((_DWORD*)v14 + 514);
 			if (v15)
 				sub_501960(902, v15, 0, 0);
-			v14 = sub_416EE0((int)v14);
+			v14 = nox_common_playerInfoGetNext_416EE0((int)v14);
 		} while (v14);
 		dword_5d4594_823692 = 0;
 		return 1;
@@ -2213,7 +2213,7 @@ int nox_cmd_cheat_ability() {
 	char* i; // esi
 
 	if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
-		for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 			if (*((_DWORD*)i + 514))
 				sub_4FC180(*((_DWORD*)i + 514));
 		}
@@ -2255,14 +2255,14 @@ int __cdecl nox_cmd_cheat_goto(int a1, unsigned __int8 a2, int a3) {
 	v4 = sub_579E30(v12);
 	if (!v4)
 		return 1;
-	v5 = sub_416EA0();
+	v5 = nox_common_playerInfoGetFirst_416EA0();
 	if (!v5)
 		return 1;
 	do {
 		v6 = *((_DWORD*)v5 + 514);
 		if (v6)
 			sub_4E7010(v6, (float2*)v4 + 1);
-		v5 = sub_416EE0((int)v5);
+		v5 = nox_common_playerInfoGetNext_416EE0((int)v5);
 	} while (v5);
 	return 1;
 }
@@ -2272,7 +2272,7 @@ int nox_cmd_cheat_health() {
 	char* i; // esi
 
 	if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
-		for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 			if (*((_DWORD*)i + 514))
 				sub_4EE6F0(*((_DWORD*)i + 514));
 		}
@@ -2286,7 +2286,7 @@ int nox_cmd_cheat_mana() {
 	int v1;  // eax
 
 	if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
-		for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 			v1 = *((_DWORD*)i + 514);
 			if (v1)
 				sub_4EEB80(v1, 2000);
@@ -2303,7 +2303,7 @@ int __cdecl nox_cmd_cheat_level(int a1, unsigned __int8 a2, int a3) {
 	if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
 		if (a2 < 3u)
 			return 0;
-		for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 			if (*((_DWORD*)i + 514)) {
 				v5 = nox_wcstol(*(const wchar_t**)(a3 + 8), 0, 10);
 				sub_4EF410(*((_DWORD*)i + 514), v5);
@@ -2332,7 +2332,7 @@ int __cdecl nox_cmd_cheat_spells(int a1, unsigned __int8 a2, int a3) {
 		} else {
 			v5 = 1;
 		}
-		for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 			v7 = 0;
 			v8 = (int*)(i + 3696);
 			do {
@@ -2357,7 +2357,7 @@ int __cdecl nox_cmd_cheat_gold(int a1, unsigned __int8 a2, int a3) {
 		if (a2 < 3u)
 			return 0;
 		v4 = nox_wcstol(*(const wchar_t**)(a3 + 8), 0, 10);
-		for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 			v6 = *((_DWORD*)i + 514);
 			if (v6) {
 				if (v4 < 0)

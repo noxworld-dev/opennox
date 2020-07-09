@@ -97,7 +97,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 			v16 = sub_418AB0(*((unsigned __int8*)v15 + 4));
 			v26 = v16;
 			if (v16) {
-				for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+				for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 					if (i != *(char**)&byte_5D4594[2618908]) {
 						v18 = sub_418C80(*((_DWORD*)i + 515));
 						if (v18) {
@@ -123,7 +123,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 				}
 			}
 		} else {
-			for (j = sub_416EA0(); j; j = sub_416EE0((int)j)) {
+			for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {
 				if (j != *(char**)&byte_5D4594[2618908]) {
 					nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16397, (int)(j + 4704), 4);
 					v22 = 0;
