@@ -220,7 +220,7 @@ int __cdecl sub_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
 			if (v15) {
 				sub_4FAD50(v5, 0, v5, v6);
 				if (!sub_419E60(v5)) {
-					for (i = sub_416EA0(); i; i = sub_416EE0((int)i)) {
+					for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 						v17 = *((_DWORD*)i + 514);
 						if (v17 != v5 && v17)
 							sub_4FAD50(v17, 0, v5, v6);

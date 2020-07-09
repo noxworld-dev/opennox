@@ -5316,7 +5316,7 @@ int __cdecl sub_54D2B0(int a1) {
 		v22 = v5;
 		if (v5) {
 			if (*((_DWORD*)v5 + 523) && *((_DWORD*)v5 + 514)) {
-				v2 = sub_4ECCB0(*((_DWORD*)v5 + 515));
+				v2 = nox_server_getObjectFromNetCode_4ECCB0(*((_DWORD*)v5 + 515));
 			} else {
 				v22 = 0;
 				v2 = 0;

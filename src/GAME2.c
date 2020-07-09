@@ -4399,7 +4399,7 @@ int sub_456500() {
 	sub_46ABB0(*(int*)&dword_5d4594_1045692, 0);
 	for (i = sub_418B10(); i; i = sub_418B60((int)i))
 		sub_457230((wchar_t*)i);
-	for (j = sub_416EA0(); j; j = sub_416EE0((int)j)) {
+	for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {
 		if (j[2064] != 31 || !(*(_DWORD*)&nox_common_engineFlags & 0x40000)) {
 			sub_457140(*((_DWORD*)j + 515), (wchar_t*)j + 2352);
 			v4 = sub_418C80(*((_DWORD*)j + 515));
@@ -5781,11 +5781,11 @@ void __cdecl sub_45A5E0(int a1) {
 int __cdecl sub_45A630(int a1) {
 	char* v1; // eax
 
-	v1 = sub_416EA0();
+	v1 = nox_common_playerInfoGetFirst_416EA0();
 	if (!v1)
 		return 0;
 	while (*(_DWORD*)(a1 + 128) != *((_DWORD*)v1 + 515)) {
-		v1 = sub_416EE0((int)v1);
+		v1 = nox_common_playerInfoGetNext_416EE0((int)v1);
 		if (!v1)
 			return 0;
 	}
