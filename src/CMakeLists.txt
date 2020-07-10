@@ -15,9 +15,14 @@ endif ()
 option (USE_ASAN "Enable address sanitizer" OFF)
 option (STRICT_MODE "Fail on compilation warnings" OFF)
 option (E2E_TEST "Run in end-to-end test mode" OFF)
+option (RUNTIME_MEM_TRACK "Run in memory access tracking mode" OFF)
 
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
+	if (RUNTIME_MEM_TRACK)
+		ADD_DEFINITIONS (-DRUNTIME_MEM_TRACK)
+		set (WIN32_DBGHLP_LIBRARIES dbghelp)
+	endif ()
 else ()
     add_compile_options (-g -m32 -fshort-wchar)
     add_compile_options (-fno-strict-aliasing)
@@ -339,6 +344,7 @@ target_link_libraries (
     "${OPENGL_LIBRARIES}"
     "${PTHREAD_LIBRARIES}"
     "${WIN32_LIBRARIES}"
+	"${WIN32_DBGHLP_LIBRARIES}"
 )
 if (MSVC)
     find_path(SDL_INCLUDE_DIR SDL2/SDL.h)
