@@ -12167,9 +12167,9 @@ int __cdecl sub_5418C0(FILE* a1, FILE* a2, FILE* a3) {
 }
 
 //----- (00541A50) --------------------------------------------------------
-FILE* __cdecl sub_541A50(FILE* a1, FILE* a2, FILE* a3) {
+int __cdecl sub_541A50(FILE* a1, FILE* a2, FILE* a3) {
 	unsigned int v3; // kr04_4
-	FILE* result;    // eax
+	int result;    // eax
 	int i;           // ebx
 	int j;           // edi
 	size_t v7;       // [esp+10h] [ebp-101Ch]
@@ -12192,7 +12192,7 @@ FILE* __cdecl sub_541A50(FILE* a1, FILE* a2, FILE* a3) {
 	v13 = v10 + v11 - 2;
 	fwrite(&v13, 4u, 1u, a3);
 	result = sub_541E40(a1, a2, a3);
-	for (i = 0; i < v11 - 2; result = (FILE*)(v11 - 2)) {
+	for (i = 0; i < v11 - 2; result = v11 - 2) {
 		v7 = 4;
 		fread(&v14, 4u, 1u, a1);
 		fwrite(v14, v7, 1u, a3);
@@ -12214,7 +12214,7 @@ FILE* __cdecl sub_541A50(FILE* a1, FILE* a2, FILE* a3) {
 		sub_542380(a1, a3, 0);
 		++i;
 	}
-	for (j = 0; j < v10 - 2; result = (FILE*)(v10 - 2)) {
+	for (j = 0; j < v10 - 2; result = v10 - 2) {
 		v7 = 4;
 		fread(v14, 4u, 1u, a2);
 		fwrite(v14, v7, 1u, a3);
@@ -12268,7 +12268,7 @@ int __cdecl sub_541D80(FILE* a1, FILE* a2) {
 }
 
 //----- (00541E40) --------------------------------------------------------
-FILE* __cdecl sub_541E40(FILE* a1, FILE* a2, FILE* a3) {
+int __cdecl sub_541E40(FILE* a1, FILE* a2, FILE* a3) {
 	size_t v4; // [esp+10h] [ebp-1034h]
 	char v5;   // [esp+14h] [ebp-1030h]
 	int i;     // [esp+18h] [ebp-102Ch]
@@ -12375,20 +12375,20 @@ FILE* __cdecl sub_541E40(FILE* a1, FILE* a2, FILE* a3) {
 }
 
 //----- (00542380) --------------------------------------------------------
-FILE* __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
+int __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 	FILE* v3;     // ebp
 	FILE* v4;     // esi
-	FILE* result; // eax
-	FILE* v6;     // ebx
+	int result; // eax
+	int v6;     // ebx
 	int v7;       // edi
-	FILE* v8;     // edi
+	int v8;     // edi
 	char v9;      // bl
 	char v10;     // di
 	char v11;     // di
 	char v12;     // al
-	FILE* v13;    // edi
+	int v13;    // edi
 	int (*v14)(); // eax
-	FILE* v15;    // edi
+	int v15;    // edi
 	float v16;    // [esp+14h] [ebp+4h]
 
 	v3 = a1;
@@ -12660,7 +12660,7 @@ FILE* __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 		case 0x46u:
 			v15 = sub_542B70(v3);
 			if (a3)
-				v15 = (FILE*)((char*)v15 + dword_5d4594_2489428 - 2);
+				v15 = v15 + dword_5d4594_2489428 - 2;
 			sub_542BB0(70, v4);
 			sub_542BB0((char)v15, v4);
 			continue;
@@ -12679,9 +12679,10 @@ FILE* __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 }
 
 //----- (00542B70) --------------------------------------------------------
-FILE* __cdecl sub_542B70(FILE* a1) {
-	fread(&a1, 4u, 1u, a1);
-	return a1;
+int __cdecl sub_542B70(FILE* a1) {
+	int v = 0;
+	fread(&v, 4u, 1u, a1);
+	return v;
 }
 
 //----- (00542B90) --------------------------------------------------------
@@ -12881,11 +12882,10 @@ char* __cdecl sub_542BF0(int a1, int a2, int a3) {
 }
 
 //----- (00543110) --------------------------------------------------------
-FILE* __cdecl sub_543110(LPCSTR lpExistingFileName, int2* a2) {
+int __cdecl sub_543110(LPCSTR lpExistingFileName, int2* a2) {
 	int v2;                 // edx
 	int v3;                 // eax
 	char* v4;               // edi
-	FILE* result;           // eax
 	FILE* v6;               // ebx
 	FILE* v7;               // ebp
 	unsigned int v8;        // kr08_4
@@ -12911,80 +12911,78 @@ FILE* __cdecl sub_543110(LPCSTR lpExistingFileName, int2* a2) {
 	*((_DWORD*)v4 + 1) = v2;
 	*((_DWORD*)v4 + 2) = v3;
 	CopyFileA(lpExistingFileName, NewFileName, 0);
-	result = fopen(NewFileName, "rb");
-	v6 = result;
-	if (result) {
-		v7 = fopen(lpExistingFileName, "w+b");
-		if (v7) {
-			strcpy((char*)v19, "SCRIPT03");
-			v8 = strlen((const char*)v19) + 1;
-			fread(v19, v8 - 1, 1u, v6);
-			fwrite(v19, v8 - 1, 1u, v7);
-			strcpy((char*)v19, "STRG");
-			v12 = strlen((const char*)v19);
-			fread(v19, v12, 1u, v6);
-			fwrite(v19, v12, 1u, v7);
-			fread(&v14, 4u, 1u, v6);
-			fwrite(&v14, 4u, 1u, v7);
-			for (i = 0; i < v14; ++i) {
-				fread(&v12, 4u, 1u, v6);
-				fread(v19, v12, 1u, v6);
-				v19[v12] = 0;
-				fwrite(&v12, 4u, 1u, v7);
-				fwrite(v19, v12, 1u, v7);
-			}
-			strcpy((char*)v19, "CODE");
-			v12 = strlen((const char*)v19);
-			fread(v19, v12, 1u, v6);
-			fwrite(v19, v12, 1u, v7);
-			fread(&v15, 4u, 1u, v6);
-			fwrite(&v15, 4u, 1u, v7);
-			v10 = 0;
-			for (j = 0; v10 < v15; j = v10) {
-				v12 = 4;
-				fread(v19, 4u, 1u, v6);
-				fwrite(v19, v12, 1u, v7);
-				fread(&v12, 4u, 1u, v6);
-				fread(v19, v12, 1u, v6);
-				v19[v12] = 0;
-				if (v10 > 1) {
-					sub_5435C0((int)&v19, *(int*)&dword_5d4594_3835312, a2->field_0, a2->field_4);
-					strcpy((char*)&v19, (const char*)&byte_5D4594[2489164]);
-					v10 = j;
-					v12 = strlen((const char*)&v19);
-				}
-				fwrite(&v12, 4u, 1u, v7);
-				fwrite(v19, v12, 1u, v7);
-				fread(&v18, 4u, 1u, v6);
-				fwrite(&v18, 4u, 1u, v7);
-				fread(&v17, 4u, 1u, v6);
-				fwrite(&v17, 4u, 1u, v7);
-				sub_541D80(v6, v7);
-				v12 = 4;
-				fread(v19, 4u, 1u, v6);
-				fwrite(v19, v12, 1u, v7);
-				v11 = ftell(v7);
-				fread(&v13, 4u, 1u, v6);
-				fwrite(&v13, 4u, 1u, v7);
-				sub_542380(v6, v7, 0);
-				v13 = -4 - v11 + ftell(v7);
-				fseek(v7, v11, 0);
-				fwrite(&v13, 4u, 1u, v7);
-				fseek(v7, v13, 1);
-				++v10;
-			}
-			strcpy((char*)&v19, "DONE");
-			v12 = strlen((const char*)&v19);
-			fread(v19, v12, 1u, v6);
-			fwrite(v19, v12, 1u, v7);
-			fclose(v6);
-			fclose(v7);
-			result = (FILE*)DeleteFileA(NewFileName);
-		} else {
-			result = (FILE*)fclose(v6);
-		}
+	v6 = fopen(NewFileName, "rb");
+	if (!v6) {
+		return 0;
 	}
-	return result;
+	v7 = fopen(lpExistingFileName, "w+b");
+	if (!v7) {
+		return fclose(v6);
+	}
+	strcpy((char*)v19, "SCRIPT03");
+	v8 = strlen((const char*)v19) + 1;
+	fread(v19, v8 - 1, 1u, v6);
+	fwrite(v19, v8 - 1, 1u, v7);
+	strcpy((char*)v19, "STRG");
+	v12 = strlen((const char*)v19);
+	fread(v19, v12, 1u, v6);
+	fwrite(v19, v12, 1u, v7);
+	fread(&v14, 4u, 1u, v6);
+	fwrite(&v14, 4u, 1u, v7);
+	for (i = 0; i < v14; ++i) {
+		fread(&v12, 4u, 1u, v6);
+		fread(v19, v12, 1u, v6);
+		v19[v12] = 0;
+		fwrite(&v12, 4u, 1u, v7);
+		fwrite(v19, v12, 1u, v7);
+	}
+	strcpy((char*)v19, "CODE");
+	v12 = strlen((const char*)v19);
+	fread(v19, v12, 1u, v6);
+	fwrite(v19, v12, 1u, v7);
+	fread(&v15, 4u, 1u, v6);
+	fwrite(&v15, 4u, 1u, v7);
+	v10 = 0;
+	for (j = 0; v10 < v15; j = v10) {
+		v12 = 4;
+		fread(v19, 4u, 1u, v6);
+		fwrite(v19, v12, 1u, v7);
+		fread(&v12, 4u, 1u, v6);
+		fread(v19, v12, 1u, v6);
+		v19[v12] = 0;
+		if (v10 > 1) {
+			sub_5435C0((int)&v19, *(int*)&dword_5d4594_3835312, a2->field_0, a2->field_4);
+			strcpy((char*)&v19, (const char*)&byte_5D4594[2489164]);
+			v10 = j;
+			v12 = strlen((const char*)&v19);
+		}
+		fwrite(&v12, 4u, 1u, v7);
+		fwrite(v19, v12, 1u, v7);
+		fread(&v18, 4u, 1u, v6);
+		fwrite(&v18, 4u, 1u, v7);
+		fread(&v17, 4u, 1u, v6);
+		fwrite(&v17, 4u, 1u, v7);
+		sub_541D80(v6, v7);
+		v12 = 4;
+		fread(v19, 4u, 1u, v6);
+		fwrite(v19, v12, 1u, v7);
+		v11 = ftell(v7);
+		fread(&v13, 4u, 1u, v6);
+		fwrite(&v13, 4u, 1u, v7);
+		sub_542380(v6, v7, 0);
+		v13 = -4 - v11 + ftell(v7);
+		fseek(v7, v11, 0);
+		fwrite(&v13, 4u, 1u, v7);
+		fseek(v7, v13, 1);
+		++v10;
+	}
+	strcpy((char*)&v19, "DONE");
+	v12 = strlen((const char*)&v19);
+	fread(v19, v12, 1u, v6);
+	fwrite(v19, v12, 1u, v7);
+	fclose(v6);
+	fclose(v7);
+	return DeleteFileA(NewFileName);
 }
 // 543110: using guessed type CHAR NewFileName[2048];
 
