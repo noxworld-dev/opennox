@@ -6380,16 +6380,16 @@ char __cdecl sub_541630(int a1, int a2);
 int __cdecl sub_541670(LPCSTR, LPCSTR lpExistingFileName, LPCSTR lpFileName); // idb
 size_t __cdecl sub_5417C0(FILE* a1, FILE* a2, FILE* a3);
 int __cdecl sub_5418C0(FILE* a1, FILE* a2, FILE* a3);
-FILE* __cdecl sub_541A50(FILE* a1, FILE* a2, FILE* a3);
+int __cdecl sub_541A50(FILE* a1, FILE* a2, FILE* a3);
 int __cdecl sub_541D80(FILE* a1, FILE* a2);
-FILE* __cdecl sub_541E40(FILE* a1, FILE* a2, FILE* a3);
-FILE* __cdecl sub_542380(FILE* a1, FILE* a2, int a3);
-FILE* __cdecl sub_542B70(FILE* a1);
+int __cdecl sub_541E40(FILE* a1, FILE* a2, FILE* a3);
+int __cdecl sub_542380(FILE* a1, FILE* a2, int a3);
+int __cdecl sub_542B70(FILE* a1);
 double __cdecl sub_542B90(FILE* a1);
 size_t __cdecl sub_542BB0(char a1, FILE* a2);
 size_t __cdecl sub_542BD0(char a1, FILE* a2);
 char* __cdecl sub_542BF0(int a1, int a2, int a3);
-FILE* __cdecl sub_543110(LPCSTR lpExistingFileName, int2* a2); // idb
+int __cdecl sub_543110(LPCSTR lpExistingFileName, int2* a2); // idb
 char* __cdecl sub_5435C0(int a1, int a2, int a3, int a4);
 char* __cdecl sub_543620(int a1, int a2);
 int __cdecl sub_543680(float* a1);
