@@ -1039,12 +1039,22 @@ int __cdecl sub_4097C0(_BYTE* a1, signed int a2, _BYTE* a3) {
 		v5 = a2 / 8;
 		if (a2 / 8 > 0) {
 			v6 = a2 / 8;
+#ifdef _WIN32
+#ifdef RUNTIME_MEM_TRACK
+			EnsureRW();
+#endif
+#endif
 			do {
 				sub_409860(v3, v4, &byte_5D4594[2659820]);
 				v3 += 8;
 				v4 += 8;
 				--v6;
 			} while (v6);
+#ifdef _WIN32
+#ifdef RUNTIME_MEM_TRACK
+			EnsurePageGuard();
+#endif
+#endif
 			v5 = a2 / 8;
 		}
 		v7 = 8 * v5;
@@ -1130,12 +1140,22 @@ int __cdecl sub_4099C0(_BYTE* a1, signed int a2, _BYTE* a3) {
 		v5 = a2 / 8;
 		if (a2 / 8 > 0) {
 			v6 = a2 / 8;
+#ifdef _WIN32
+#ifdef RUNTIME_MEM_TRACK
+			EnsureRW();
+#endif
+#endif
 			do {
 				sub_409860(v3, v4, &byte_5D4594[2659916]);
 				v3 += 8;
 				v4 += 8;
 				--v6;
 			} while (v6);
+#ifdef _WIN32
+#ifdef RUNTIME_MEM_TRACK
+			EnsurePageGuard();
+#endif
+#endif
 			v5 = a2 / 8;
 		}
 		v7 = 8 * v5;

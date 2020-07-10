@@ -1303,12 +1303,10 @@ HANDLE sub_4D07F0() {
 	char* v2;                              // ebp
 	HANDLE v3;                             // [esp+4h] [ebp-150h]
 	char v4[12];                           // [esp+8h] [ebp-14Ch]
-	WIN32_FIND_DATA FindFileData; // [esp+14h] [ebp-140h]
+	struct _WIN32_FIND_DATAA FindFileData; // [esp+14h] [ebp-140h]
 
-	_DWORD* temp = &byte_5D4594[1523060];
-	sub_425760(temp);
-	LPCSTR fileFind = (LPCSTR)&byte_587000[191796];
-	result = FindFirstFileA(fileFind, &FindFileData);
+	sub_425760(&byte_5D4594[1523060]);
+	result = FindFirstFileA((LPCSTR)&byte_587000[191796], &FindFileData);
 	v1 = result;
 	v3 = result;
 	if (result != (HANDLE)-1) {

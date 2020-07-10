@@ -38,12 +38,6 @@ void nullsub_68() {}
 void nullsub_69() {}
 void nullsub_70() {}
 
-#ifdef _WIN32
-#ifdef RUNTIME_MEM_TRACK
-extern void EnsurePageGuard();
-#endif
-#endif
-
 void init_data() {
 	*(void**)&byte_587000[26824] = &sub_4235C0;
 	*(void**)&byte_587000[26872] = &sub_4235C0;

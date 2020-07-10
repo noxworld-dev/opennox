@@ -7556,3 +7556,10 @@ int __cdecl SEH_57EA00(int a1, int a2, int a3, int a4);
 // void __stdcall CoUninitialize();
 // HRESULT __stdcall CoCreateInstance(const IID *const rclsid, LPUNKNOWN pUnkOuter, DWORD dwClsContext, const IID *const
 // riid, LPVOID *ppv);
+
+#ifdef _WIN32
+#ifdef RUNTIME_MEM_TRACK
+extern void EnsurePageGuard();
+extern void EnsureRW();
+#endif
+#endif

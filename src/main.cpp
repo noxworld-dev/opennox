@@ -3,8 +3,11 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#ifdef RUNTIME_MEM_TRACK
 #include <dbghelp.h>
 #include <Psapi.h>
+#include <process.h>
+#endif
 #else
 #include "windows.h"
 #endif
@@ -21,6 +24,8 @@ const char* progname;
 
 #ifdef RUNTIME_MEM_TRACK
 
+HANDLE ghMutex;
+
 extern "C" extern unsigned __int8 byte_581450[23472];
 extern "C" extern unsigned __int8 byte_587000[316820];
 extern "C" extern unsigned __int8 byte_5D4594[3844309];
@@ -28,7 +33,16 @@ extern "C" extern unsigned __int8 byte_5D4594[3844309];
 unsigned char* beginAddr = 0;
 unsigned char* endAddr = 0;
 
-void EnsureRW() {
+FILE* memtracklog;
+int memtrackbuf = 0;
+
+typedef struct newthreaddata {
+	DWORD addr;
+	int mode;
+	CONTEXT ctx;
+} newthreaddata;
+
+extern "C" void EnsureRW() {
 	LPVOID addr = 0;
 	BOOL res = 0;
 	DWORD err = 0;
@@ -71,6 +85,15 @@ DWORD dumpAddr;
 int dumpMode;
 CONTEXT dumpCtx;
 
+char* replace_char(char* str, char find, char replace) {
+	char* current_pos = strchr(str, find);
+	while (current_pos) {
+		*current_pos = replace;
+		current_pos = strchr(current_pos, find);
+	}
+	return str;
+}
+
 void PreDump(DWORD addr, int mode, CONTEXT* ctx)
 {
 	dumpAddr = addr;
@@ -112,24 +135,52 @@ void DumpInfo(DWORD addr, int mode, CONTEXT* ctx) {
 	line.SizeOfStruct = sizeof(IMAGEHLP_LINE);
 	SymGetLineFromAddr(process, frame.AddrPC.Offset, &displ, &line);
 
+#define DUMP_JSON
+
+#ifndef DUMP_JSON
 	printf("%s: %s:%i: ", symbol->Name, line.FileName, line.LineNumber);
 
-	/*BOOL res = SymGetSymFromAddr(process, frame.AddrPC.Offset, &displ, symbol);
-	while (res == FALSE || ctx->Eip < (DWORD)beginAddr || ctx->Eip > (DWORD)endAddr)
+#else
+	char blobLoc[256];
+	memset(blobLoc, 0, 256);
+
+	DWORD offset = addr;
+
+	if (addr >= (DWORD)&byte_581450 && addr <= ((DWORD)&byte_581450 + sizeof(byte_581450)))
 	{
-		BOOL res2 = StackWalk(IMAGE_FILE_MACHINE_I386, process, thread, &frame, ctx, NULL, SymFunctionTableAccess, SymGetModuleBase,
-				  NULL);
-		res = SymGetSymFromAddr(process, frame.AddrPC.Offset, &displ, symbol);
-		if (res2 == FALSE)
-		{
-			break;
-		}
+		offset = addr - (DWORD)&byte_581450;
+		snprintf(blobLoc, 255, "byte_581450");
+	}
+	else if (addr >= (DWORD)&byte_587000 && addr <= ((DWORD)&byte_587000 + sizeof(byte_587000)))
+	{
+		offset = addr - (DWORD)&byte_587000;
+		snprintf(blobLoc, 255, "byte_587000");
+	}
+	else if (addr >= (DWORD)&byte_5D4594 && addr <= ((DWORD)&byte_5D4594 + sizeof(byte_5D4594)))
+	{
+		offset = addr - (DWORD)&byte_5D4594;
+		snprintf(blobLoc, 255, "byte_5D4594");
+	}
+	else
+	{
+		snprintf(blobLoc, 255, "unknown", addr);
 	}
 
-	IMAGEHLP_LINE line;
-	res = SymGetLineFromAddr(process, frame.AddrPC.Offset, &displ, &line);*/
+	char output[65535];
+	snprintf(output, 65535,
+		"{ \"blob\": \"%s\", \"offset\": %i, \"symbol\": \"%s\", \"file\": \"%s\", \"line\": %i, \"mode\": \"%s\" },\n",
+		blobLoc, offset, symbol->Name, replace_char(line.FileName, '\\', '/'), line.LineNumber, mode == 2 ? "write" : "read");
 
-	//printf("%s: %s:%s", symbol->Name, line.FileName, line.LineNumber);
+	fwrite(output, strlen(output), 1, memtracklog);
+	memtrackbuf++;
+	if (memtrackbuf == 1000)
+	{
+		fflush(memtracklog);
+		memtrackbuf = 0;
+	}
+#endif
+
+#ifndef DUMP_JSON
 
 	if (mode == 1)
 	{
@@ -143,12 +194,25 @@ void DumpInfo(DWORD addr, int mode, CONTEXT* ctx) {
 	{
 		printf("ERROR memory 0x%08x from EIP 0x%08x\n", addr, ctx->Eip);
 	}
+#endif
+}
+
+void DumpNewThread(void* data)
+{
+	newthreaddata* dat = (newthreaddata*)data;
+	WaitForSingleObject(ghMutex, INFINITE);
+	DumpInfo(dat->addr, dat->mode, &dat->ctx);
+	ReleaseMutex(ghMutex);
+	free(dat);
 }
 
 LONG __stdcall MemoryLoggerFilter(_EXCEPTION_POINTERS* pEp) {
 	CONTEXT* ctx = pEp->ContextRecord;
 	ULONG_PTR* info = pEp->ExceptionRecord->ExceptionInformation;
 	UINT_PTR addr = info[1];
+	newthreaddata* dat = NULL;
+
+//#define THREADED_DUMPER
 
 	if (pEp->ExceptionRecord->ExceptionCode == STATUS_SINGLE_STEP ||
 		(addr >= (DWORD)&byte_581450 && addr <= ((DWORD)&byte_581450 + sizeof(byte_581450))) ||
@@ -161,20 +225,39 @@ LONG __stdcall MemoryLoggerFilter(_EXCEPTION_POINTERS* pEp) {
 		case STATUS_GUARD_PAGE_VIOLATION:
 			// printf("Read memory 0x%08x from EIP 0x%08x\n", addr, ctx->Eip);
 			//DumpInfo(addr, 1, ctx);
+#ifdef THREADED_DUMPER
+			dat = (newthreaddata*)malloc(sizeof(newthreaddata));
+			dat->addr = addr;
+			dat->mode = 1;
+			memmove(&dat->ctx, ctx, sizeof(CONTEXT));
+			_beginthread(DumpNewThread, 0, dat);
+#else
 			PreDump(addr, 1, ctx);
+#endif
 			ctx->EFlags |= 0x100;
 			return EXCEPTION_CONTINUE_EXECUTION;
 		case STATUS_ACCESS_VIOLATION:
 			// printf("Write memory 0x%08x from EIP 0x%08x\n", addr, ctx->Eip);
 			//DumpInfo(addr, 2, ctx);
+			//PreDump(addr, 2, ctx);
+#ifdef THREADED_DUMPER
+			dat = (newthreaddata*)malloc(sizeof(newthreaddata));
+			dat->addr = addr;
+			dat->mode = 2;
+			memmove(&dat->ctx, ctx, sizeof(CONTEXT));
+			_beginthread(DumpNewThread, 0, dat);
+#else
 			PreDump(addr, 2, ctx);
+#endif
 			EnsureRW();
 			ctx->EFlags |= 0x100;
 			return EXCEPTION_CONTINUE_EXECUTION;
 		case STATUS_SINGLE_STEP:
 			ctx->EFlags &= ~0x100;
 			EnsurePageGuard();
+#ifndef THREADED_DUMPER
 			DumpInfo(dumpAddr, dumpMode, &dumpCtx);
+#endif
 			return EXCEPTION_CONTINUE_EXECUTION;
 		default:
 			break;
@@ -242,12 +325,16 @@ extern "C" int main(int argc, char* argv[])
 
 #ifdef _WIN32
 #ifdef RUNTIME_MEM_TRACK
+	ghMutex = CreateMutex(NULL, FALSE, NULL);
+
 	BOOL res = SymInitialize(GetCurrentProcess(), NULL, TRUE);
 	DWORD symOptions = SymGetOptions();
 	symOptions |= SYMOPT_LOAD_LINES;
 	symOptions |= SYMOPT_FAIL_CRITICAL_ERRORS;
 	symOptions |= SYMOPT_DEBUG;
 	symOptions = SymSetOptions(symOptions);
+
+	memtracklog = fopen("memtrack.log", "w");
 
 	HMODULE modules[1];
 	DWORD needcb;
