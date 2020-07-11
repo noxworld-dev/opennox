@@ -1,5 +1,7 @@
 #include "client/drawable/drawdb.h"
+#ifndef HACK_INCLUDE
 #include "proto.h"
+#endif
 
 extern int nox_enable_audio;
 extern int nox_enable_threads;
@@ -2706,5 +2708,15 @@ _BYTE* getMem(uintptr_t addr) {
 	}
 	fprintf(stderr, "Invalid memory access! Requested = %x\n", addr);
 	DebugBreak();
+	return 0;
+}
+
+mem_mapping* getMapping(DWORD iterator)
+{
+	DWORD size = sizeof(mappings) / sizeof(mem_mapping);
+	if (iterator < size)
+	{
+		return &mappings[iterator];
+	}
 	return 0;
 }

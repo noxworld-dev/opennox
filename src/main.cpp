@@ -36,6 +36,50 @@ unsigned char* endAddr = 0;
 FILE* memtracklog;
 int memtrackbuf = 0;
 
+#define ONLY_SPLIT
+
+#ifdef ONLY_SPLIT
+extern "C" typedef struct mem_mapping {
+	uintptr_t base;
+	void* ptr;
+	size_t size;
+	bool invalid;
+} mem_mapping;
+extern "C" extern mem_mapping* getMapping(DWORD iterator);
+
+BOOL checkAddressInRange(UINT_PTR addr)
+{
+	DWORD iterator = 0;
+	for (mem_mapping* map = getMapping(iterator); map != 0; iterator++, map = getMapping(iterator))
+	{
+		DWORD origOffset = map->base;
+		LPVOID blobAddr = 0;
+		if (origOffset >= 0x5D4594 && origOffset <= 0x5D4594 + sizeof(byte_5D4594) && map->invalid == 1)
+		{
+			DWORD offset = origOffset - 0x5D4594;
+			blobAddr = byte_5D4594 + offset;
+		}
+		else if (origOffset >= 0x587000 && origOffset <= 0x587000 + sizeof(byte_587000) && map->invalid == 1)
+		{
+			DWORD offset = origOffset - 0x587000;
+			blobAddr = byte_587000 + offset;
+		}
+		else if (origOffset >= 0x581450 && origOffset <= 0x581450 + sizeof(byte_581450) && map->invalid == 1)
+		{
+			DWORD offset = origOffset - 0x581450;
+			blobAddr = byte_581450 + offset;
+		}
+
+		if ((LPVOID)addr >= blobAddr && (LPVOID)addr <= (LPVOID)((DWORD)blobAddr + map->size))
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+#endif
+
 typedef struct newthreaddata {
 	DWORD addr;
 	int mode;
@@ -48,6 +92,36 @@ extern "C" void EnsureRW() {
 	DWORD err = 0;
 	DWORD oldProt;
 
+#ifdef ONLY_SPLIT
+	DWORD iterator = 0;
+	for (mem_mapping* map = getMapping(iterator); map != 0; iterator++, map = getMapping(iterator))
+	{
+		DWORD origOffset = map->base;
+		LPVOID blobAddr = 0;
+		if (origOffset >= 0x5D4594 && origOffset <= 0x5D4594 + sizeof(byte_5D4594) && map->invalid == 1)
+		{
+			DWORD offset = origOffset - 0x5D4594;
+			blobAddr = byte_5D4594 + offset;
+		}
+		else if (origOffset >= 0x587000 && origOffset <= 0x587000 + sizeof(byte_587000) && map->invalid == 1)
+		{
+			DWORD offset = origOffset - 0x587000;
+			blobAddr = byte_587000 + offset;
+		}
+		else if (origOffset >= 0x581450 && origOffset <= 0x581450 + sizeof(byte_581450) && map->invalid == 1)
+		{
+			DWORD offset = origOffset - 0x581450;
+			blobAddr = byte_581450 + offset;
+		}
+
+		if (blobAddr != 0)
+		{
+			res = VirtualProtect(addr, map->size, PAGE_READWRITE, &oldProt);
+			err = GetLastError();
+		}
+	}
+#else
+
 	addr = byte_581450;
 	res = VirtualProtect(addr, sizeof(byte_581450), PAGE_READWRITE, &oldProt);
 	err = GetLastError();
@@ -59,6 +133,7 @@ extern "C" void EnsureRW() {
 	addr = byte_5D4594;
 	res = VirtualProtect(addr, sizeof(byte_5D4594), PAGE_READWRITE, &oldProt);
 	err = GetLastError();
+#endif
 }
 
 extern "C" void EnsurePageGuard() {
@@ -67,6 +142,37 @@ extern "C" void EnsurePageGuard() {
 	BOOL res = 0;
 	DWORD err = 0;
 	DWORD oldProt;
+
+
+#ifdef ONLY_SPLIT
+	DWORD iterator = 0;
+	for(mem_mapping* map = getMapping(iterator); map != 0; iterator++, map = getMapping(iterator))
+	{
+		DWORD origOffset = map->base;
+		LPVOID blobAddr = 0;
+		if (origOffset >= 0x5D4594 && origOffset <= 0x5D4594 + sizeof(byte_5D4594) && map->invalid == 1)
+		{
+			DWORD offset = origOffset - 0x5D4594;
+			blobAddr = byte_5D4594 + offset;
+		}
+		else if (origOffset >= 0x587000 && origOffset <= 0x587000 + sizeof(byte_587000) && map->invalid == 1)
+		{
+			DWORD offset = origOffset - 0x587000;
+			blobAddr = byte_587000 + offset;
+		}
+		else if (origOffset >= 0x581450 && origOffset <= 0x581450 + sizeof(byte_581450) && map->invalid == 1)
+		{
+			DWORD offset = origOffset - 0x581450;
+			blobAddr = byte_581450 + offset;
+		}
+
+		if (blobAddr != 0)
+		{
+			res = VirtualProtect(blobAddr, map->size, PAGE_READONLY | PAGE_GUARD, &oldProt);
+			err = GetLastError();
+		}
+	}
+#else
 
 	addr = byte_581450;
 	res = VirtualProtect(addr, sizeof(byte_581450), PAGE_READONLY | PAGE_GUARD, &oldProt);
@@ -79,6 +185,7 @@ extern "C" void EnsurePageGuard() {
 	addr = byte_5D4594;
 	res = VirtualProtect(addr, sizeof(byte_5D4594), PAGE_READONLY | PAGE_GUARD, &oldProt);
 	err = GetLastError();
+#endif
 }
 
 DWORD dumpAddr;
@@ -163,7 +270,7 @@ void DumpInfo(DWORD addr, int mode, CONTEXT* ctx) {
 	}
 	else
 	{
-		snprintf(blobLoc, 255, "unknown", addr);
+		snprintf(blobLoc, 255, "unknown");
 	}
 
 	char output[65535];
@@ -232,7 +339,18 @@ LONG __stdcall MemoryLoggerFilter(_EXCEPTION_POINTERS* pEp) {
 			memmove(&dat->ctx, ctx, sizeof(CONTEXT));
 			_beginthread(DumpNewThread, 0, dat);
 #else
-			PreDump(addr, 1, ctx);
+#ifdef ONLY_SPLIT
+			if (checkAddressInRange(addr))
+			{
+#endif
+				PreDump(addr, 1, ctx);
+#ifdef ONLY_SPLIT
+			}
+			else
+			{
+				PreDump(0, 0, 0);
+			}
+#endif
 #endif
 			ctx->EFlags |= 0x100;
 			return EXCEPTION_CONTINUE_EXECUTION;
@@ -247,7 +365,18 @@ LONG __stdcall MemoryLoggerFilter(_EXCEPTION_POINTERS* pEp) {
 			memmove(&dat->ctx, ctx, sizeof(CONTEXT));
 			_beginthread(DumpNewThread, 0, dat);
 #else
-			PreDump(addr, 2, ctx);
+#ifdef ONLY_SPLIT
+			if (checkAddressInRange(addr))
+			{
+#endif
+				PreDump(addr, 2, ctx);
+#ifdef ONLY_SPLIT
+			}
+			else
+			{
+				PreDump(0, 0, 0);
+			}
+#endif
 #endif
 			EnsureRW();
 			ctx->EFlags |= 0x100;
@@ -256,7 +385,11 @@ LONG __stdcall MemoryLoggerFilter(_EXCEPTION_POINTERS* pEp) {
 			ctx->EFlags &= ~0x100;
 			EnsurePageGuard();
 #ifndef THREADED_DUMPER
-			DumpInfo(dumpAddr, dumpMode, &dumpCtx);
+			if (dumpAddr != 0)
+			{
+				DumpInfo(dumpAddr, dumpMode, &dumpCtx);
+			}
+			dumpAddr = 0;
 #endif
 			return EXCEPTION_CONTINUE_EXECUTION;
 		default:
@@ -269,7 +402,7 @@ LONG __stdcall MemoryLoggerFilter(_EXCEPTION_POINTERS* pEp) {
 	}
 	ctx->EFlags &= ~0x100;
 	EnsurePageGuard();
-	return EXCEPTION_CONTINUE_SEARCH;
+	return EXCEPTION_CONTINUE_EXECUTION;
 }
 
 #endif
@@ -334,7 +467,11 @@ extern "C" int main(int argc, char* argv[])
 	symOptions |= SYMOPT_DEBUG;
 	symOptions = SymSetOptions(symOptions);
 
+#ifdef ONLY_SPLIT
+	memtracklog = fopen("memtrack_split.log", "w");
+#else
 	memtracklog = fopen("memtrack.log", "w");
+#endif
 
 	HMODULE modules[1];
 	DWORD needcb;
