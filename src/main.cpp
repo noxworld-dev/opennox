@@ -7,6 +7,25 @@
 #include <dbghelp.h>
 #include <Psapi.h>
 #include <process.h>
+
+#include <vector>
+
+using std::vector;
+using std::find;
+
+typedef struct memdata {
+	DWORD addr;
+	int mode;
+	DWORD eip;
+
+	bool operator==(const memdata& a) const
+	{
+		return addr == a.addr && mode == a.mode && eip == a.eip;
+	}
+} memdata;
+
+vector<memdata> dedup;
+
 #endif
 #else
 #include "windows.h"
@@ -209,6 +228,19 @@ void PreDump(DWORD addr, int mode, CONTEXT* ctx)
 }
 
 void DumpInfo(DWORD addr, int mode, CONTEXT* ctx) {
+	memdata data;
+	data.addr = addr;
+	data.mode = mode;
+	data.eip = ctx->Eip;
+
+	vector<memdata>::iterator it = find(dedup.begin(), dedup.end(), data);
+	if (it != dedup.end())
+	{
+		return;
+	}
+
+	dedup.push_back(data);
+
 	HANDLE process = GetCurrentProcess();
 	HANDLE thread = GetCurrentThread();
 	char symbolBuffer[sizeof(IMAGEHLP_SYMBOL) + 260];
