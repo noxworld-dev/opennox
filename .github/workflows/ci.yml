@@ -4,78 +4,108 @@ on:
     branches:
       - master
       - dev
+      - ci_tests
   pull_request:
     branches:
       - master
       - dev
 
 jobs:
-  ubuntu_x86_hosted:
-    name: ${{ matrix.config.target }} on ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
+  self_hosted_linux_gcc:
+    name: alpine-386-gcc-github on Self Host
+    runs-on: [linux, ready]
     strategy:
       fail-fast: true
-      matrix:
-        config:
-          - {
-            name: "Ubuntu 20.04-LTS",
-            target: "Linux/GCC",
-            os: ubuntu-20.04,
-            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
-            }
-          - {
-            name: "Ubuntu 20.04-LTS",
-            target: "WASM",
-            os: ubuntu-20.04,
-            cmakeSetupCommand: "emcmake",
-            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
-            }
+      
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+        
+      - name: Set up cache for ccache
+        uses: actions/cache@v2
+        with:
+          path: ccache
+          key: ccache-gcc-i386
+          restore-keys: |
+            ccache-gcc-
+            ccache-
+        
+      - name: Build GCC
+        uses: docker://noxworld/alpine-386-gcc-github
+        
+  self_hosted_linux_wasm:
+    name: alpine-wasm-github on Self Host
+    runs-on: [linux, ready]
+    strategy:
+      fail-fast: true
 
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           submodules: true
+            
+      - name: Set up cache for emcache
+        uses: actions/cache@v2
+        with:
+          path: emcache
+          key: emcache-emsdk-wasm
+          restore-keys: |
+            emcache-emsdk-
+            emcache-
+        
+      - name: Build WASM
+        uses: docker://noxworld/alpine-wasm-github
+          
+  ubuntu_x86_hosted_gcc:
+    name: alpine-386-gcc-github on GitHub Host (Ubuntu 20.04-LTS)
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: true
 
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+        
       - name: Set up cache for ccache
         uses: actions/cache@v2
         with:
           path: ccache
-          key: ${{ matrix.config.name }}-ccache-${{ matrix.config.target }}-i386-${{ github.ref }}-${{ github.sha }}
+          key: ccache-gcc-i386
           restore-keys: |
-            ${{ matrix.config.name }}-ccache-${{ matrix.config.target }}-i386-${{ github.ref }}-
-            ${{ matrix.config.name }}-ccache-${{ matrix.config.target }}-i386-
-            ${{ matrix.config.name }}-ccache-
+            ccache-gcc-
+            ccache-
+        
+      - name: Build GCC
+        uses: docker://noxworld/alpine-386-gcc-github
+        
+  ubuntu_x86_hosted_wasm:
+    name: alpine-wasm-github on GitHub Host (Ubuntu 20.04-LTS)
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: true
 
-      - name: Set ccache settings
-        run: |
-          export PATH="/usr/lib/ccache:$PATH"
-          echo "::set-env name=CCACHE_BASEDIR::${{github.workspace}}"
-          echo "::set-env name=CCACHE_DIR::${{github.workspace}}/ccache"
-          echo "::set-env name=CCACHE_MAXSIZE::2G"
-          echo "::set-env name=CCACHE_SLOPPINESS::time_macros"
-
-      - name: Install dependencies
-        run: sudo dpkg --add-architecture i386 && sudo apt-get update -m && sudo apt-get install -y ${{ matrix.config.packages }}
-
-      - name: Install emscripten
-        if: "contains( matrix.config.target, 'WASM')"
-        uses: lovasoa/setup-emscripten@v1
+    steps:
+      - uses: actions/checkout@v2
         with:
-          emscripten-version: '1.39.16'
+          fetch-depth: 0
+          submodules: true
+            
+      - name: Set up cache for emcache
+        uses: actions/cache@v2
+        with:
+          path: emcache
+          key: emcache-emsdk-wasm
+          restore-keys: |
+            emcache-emsdk-
+            emcache-
 
-      - name: Build
-        run: |
-          export PATH="/usr/lib/ccache:$PATH"
-          mkdir -p "${{github.workspace}}/build"
-          cd ${{github.workspace}}/build
-          ${{ matrix.config.cmakeSetupCommand }} cmake ../src
-          make
-        env:
-          MAKEFLAGS: "-j2"
-
-      - name: Print ccache statistics
-        run: ccache -s
+      - name: Build WASM
+        uses: docker://noxworld/alpine-wasm-github
 
   windows_native_hosted:
     name: Windows on ${{ matrix.config.name }}
@@ -89,7 +119,7 @@ jobs:
             os: windows-2019,
             vcpkg: {
               triplet: x86-windows,
-              commitId: '2020.04',
+              commitId: '6185aa76504a5025f36754324abf307cc776f3da',
               responseFile: 'vcpkg.txt'
             }
             }
@@ -102,22 +132,13 @@ jobs:
 
       - uses: lukka/get-cmake@latest
 
-      - name: Cache vcpkg artifacts
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}/vcpkg/
-          # Ensure the cache is invalidated any time vcpkg version changes, or a different set of packages is being used.
-          key: ${{ matrix.config.name }}-vcpkg-${{ hashFiles( format('{0}/{1}', github.workspace, matrix.config.vcpkg.responseFile )) }}
-          restore-keys: |
-            ${{ matrix.config.name }}-vcpkg-
-
       - name: Restore artifacts, or run vcpkg, build and cache artifacts
         uses: lukka/run-vcpkg@v3
         id: runvcpkg
         with:
           vcpkgArguments: '@${{ github.workspace }}/${{ matrix.config.vcpkg.responseFile }}'
           vcpkgTriplet: '${{ matrix.config.vcpkg.triplet }}'
-          vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
+          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
           vcpkgGitCommitId: '${{ matrix.config.vcpkg.commitId }}'
 
       - name: Run CMake+gmake
