@@ -60,9 +60,10 @@ jobs:
 
       - name: Install emscripten
         if: "contains( matrix.config.target, 'WASM')"
-        uses: lovasoa/setup-emscripten@v1
+        uses: mymindstorm/setup-emsdk@v6
         with:
           emscripten-version: '1.39.16'
+          actions-cache-folder: 'emsdk-cache'
 
       - name: Build
         run: |
