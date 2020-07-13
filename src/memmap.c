@@ -605,7 +605,7 @@ extern _DWORD dword_5d4594_832492;
 extern _DWORD dword_5d4594_1046504;
 extern _DWORD dword_5d4594_1045508;
 extern _DWORD dword_5d4594_825744;
-extern _DWORD dword_587000_154940;
+extern void(__cdecl *dword_587000_154940)(int2*, _DWORD, _DWORD);
 extern _DWORD dword_5d4594_1217452;
 extern _DWORD dword_5d4594_1193704;
 extern _DWORD dword_5d4594_1319264;
