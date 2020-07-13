@@ -18,7 +18,6 @@ extern _DWORD dword_5d4594_1098456;
 extern _DWORD dword_5d4594_1193180;
 extern _DWORD dword_5d4594_1097212;
 extern _DWORD dword_5d4594_1193352;
-extern _DWORD dword_587000_154944;
 extern _DWORD dword_5d4594_1096636;
 extern _DWORD dword_5d4594_1097216;
 extern _DWORD dword_5d4594_3799500;
@@ -151,6 +150,7 @@ extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
 void(__cdecl *dword_587000_154940)(int2*, _DWORD, _DWORD) = sub_4815E0;
+int (__cdecl *dword_587000_154944)(int, int) = sub_481900;
 
 //----- (00475F10) --------------------------------------------------------
 int __cdecl sub_475F10(_DWORD* a1) {
@@ -6949,7 +6949,7 @@ void __cdecl sub_481BF0(int a1, int a2) {
 	int i; // esi
 
 	for (i = a2; i; i = *(_DWORD*)(i + 16))
-		(*(int(__cdecl**)(int, int)) & dword_587000_154944)(a1, i);
+		dword_587000_154944(a1, i);
 }
 // 5ACD40: invalid function type has been ignored
 
