@@ -961,7 +961,6 @@ extern _DWORD dword_5d4594_1049536;
 extern _DWORD dword_5d4594_1098616;
 extern _DWORD dword_5d4594_1304;
 extern _DWORD dword_5d4594_3807152;
-extern _DWORD dword_5d4594_1049904;
 extern _DWORD dword_5d4594_830256;
 extern _DWORD dword_5d4594_1049996;
 extern _DWORD dword_5d4594_1305788;
@@ -1748,7 +1747,6 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1305788, (void*)&dword_5d4594_1305788, sizeof(dword_5d4594_1305788), 1},
 	{0x5D4594 + 1049996, (void*)&dword_5d4594_1049996, sizeof(dword_5d4594_1049996), 1},
 	{0x5D4594 + 830256, (void*)&dword_5d4594_830256, sizeof(dword_5d4594_830256), 1},
-	{0x5D4594 + 1049904, (void*)&dword_5d4594_1049904, sizeof(dword_5d4594_1049904), 1},
 	{0x5D4594 + 3807152, (void*)&dword_5d4594_3807152, sizeof(dword_5d4594_3807152), 1},
 	{0x5D4594 + 1304, (void*)&dword_5d4594_1304, sizeof(dword_5d4594_1304), 1},
 	{0x5D4594 + 1098616, (void*)&dword_5d4594_1098616, sizeof(dword_5d4594_1098616), 1},
@@ -2679,7 +2677,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 122104, (void*)&nox_parse_thing_funcs, sizeof(nox_parse_thing_funcs_t) * 21, 1},           // TODO
 	{0x587000 + 80848, (void*)&nox_video_dxFullScreen, sizeof(nox_video_dxFullScreen), 1},
 	{0x587000 + 84400, (void*)&nox_video_gammaValue, sizeof(nox_video_gammaValue), 1},
-	
+
 // full blobs
 #if 0
         {0x563002, (void*)byte_563002, sizeof(byte_563002),0},

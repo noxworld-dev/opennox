@@ -57,7 +57,6 @@ extern _DWORD dword_5d4594_1096280;
 extern _DWORD dword_587000_145672;
 extern _DWORD dword_5d4594_1064868;
 extern _DWORD dword_5d4594_1049996;
-extern _DWORD dword_5d4594_1049904;
 extern _DWORD dword_5d4594_1062492;
 extern _DWORD dword_5d4594_1062496;
 extern _DWORD dword_587000_145668;
@@ -630,15 +629,15 @@ int sub_4615C0() {
 		v0 = sub_44CFC0((CHAR*)&byte_587000[136416]);
 		*(_DWORD*)&byte_5D4594[1063640] = v0;
 	}
-	if (!dword_5d4594_1049904)
+	if (!*(_DWORD*)&byte_5D4594[1049904])
 		return *(_DWORD*)&byte_5D4594[1049900];
-	v1 = dword_5d4594_1049904;
+	v1 = *(_DWORD*)&byte_5D4594[1049904];
 	while (*(_DWORD*)(v1 + 108) != v0) {
 		v1 = *(_DWORD*)(v1 + 368);
 		if (!v1)
 			return *(_DWORD*)&byte_5D4594[1049900];
 	}
-	return dword_5d4594_1049904;
+	return *(_DWORD*)&byte_5D4594[1049904];
 }
 
 //----- (00461600) --------------------------------------------------------
@@ -1804,8 +1803,8 @@ int __cdecl sub_465990(_DWORD* a1) {
 		if (++v2 >= 9)
 			return -1;
 	}
-	v5 = dword_5d4594_1049904;
-	if (!dword_5d4594_1049904)
+	v5 = *(_DWORD*)&byte_5D4594[1049904];
+	if (!*(_DWORD*)&byte_5D4594[1049904])
 		return 5;
 	while (!(*(_DWORD*)(v5 + 112) & 0x2000000) || !(*(_BYTE*)(v5 + 116) & 2)) {
 		v5 = *(_DWORD*)(v5 + 368);
