@@ -16,6 +16,9 @@ option (USE_ASAN "Enable address sanitizer" OFF)
 option (STRICT_MODE "Fail on compilation warnings" OFF)
 option (E2E_TEST "Run in end-to-end test mode" OFF)
 
+option (USE_OPENAL "Use OpenAL in Nox, disabling results in no sound" ON)
+option (PLAY_MOVIES "Disable movies playback" ON)
+
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
     add_compile_options ("/MP")
@@ -108,9 +111,26 @@ else ()
 endif ()
 
 if (WIN32)
-    set (COMPAT_SOURCES compat_mss.c)
+    set (COMPAT_SOURCES )
 else ()
-    set (COMPAT_SOURCES compat.c compat_mss.c)
+    set (COMPAT_SOURCES compat.c )
+endif ()
+
+if(USE_OPENAL)
+    set (AUDIO_BACKEND compat_mss_al.c)
+    set (EXTRA_LIBRARIES ${EXTRA_LIBRARIES} "${OPENAL_LIBRARIES}")
+else ()
+    set (OPENAL_LIBRARIES )
+    set (OPENAL_INCLUDE_DIR )
+    set (AUDIO_BACKEND compat_mss_null.c)
+    unset (NOX_PLAY_MOVIES )
+endif ()
+
+if (PLAY_MOVIES)
+    set (MOVIE_DECODER_SOURCES vqa/aud_decode.cpp vqa/ddpf_conversion.cpp vqa/vqa_decode.cpp vqa/vqa_file.cpp vqa/vqa_public.cpp)
+    add_definitions (-DNOX_PLAY_MOVIES)
+else ()
+    set (MOVIE_DECODER_SOURCES )
 endif ()
 
 add_executable (
@@ -319,12 +339,9 @@ add_executable (
     server/system/trade.c
     server/xfer/savegame/savegame.c
 
-    vqa/aud_decode.cpp
-    vqa/ddpf_conversion.cpp
-    vqa/vqa_decode.cpp
-    vqa/vqa_file.cpp
-    vqa/vqa_public.cpp
     "${COMPAT_SOURCES}"
+    "${AUDIO_BACKEND}"
+    "${MOVIE_DECODER_SOURCES}"
 )
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM_FLAGS "-g -o out.html --pre-js ${CMAKE_SOURCE_DIR}/pre.js -lidbfs.js -s CASE_INSENSITIVE_FS=1 -s ASYNCIFY -s TOTAL_MEMORY=201326592 -s EMULATE_FUNCTION_POINTER_CASTS=1 -s ASSERTIONS=2 -mnontrapping-fptoint -s EXIT_RUNTIME=1")
@@ -334,21 +351,22 @@ target_link_libraries (
     out
     "${WASM_FLAGS}"
     "${SDL2_LIBRARIES}"
-    "${OPENAL_LIBRARIES}"
     "${GLEW_LIBRARIES}"
     "${OPENGL_LIBRARIES}"
-    "${OPENAL_LIBRARIES}"
     "${OPENGL_LIBRARIES}"
     "${PTHREAD_LIBRARIES}"
     "${WIN32_LIBRARIES}"
+    "${EXTRA_LIBRARIES}"
 )
 if (MSVC)
     find_path(SDL_INCLUDE_DIR SDL2/SDL.h)
     find_path(GLEW_INCLUDE_DIR GL/glew.h)
-    find_path(OPENAL_INCLUDE_DIR AL/al.h)
     include_directories("${SDL_INCLUDE_DIR}")
     include_directories("${GLEW_INCLUDE_DIR}")
-    include_directories("${OPENAL_INCLUDE_DIR}")
+    if (USE_OPENAL)
+        find_path(OPENAL_INCLUDE_DIR AL/al.h)
+        include_directories("${OPENAL_INCLUDE_DIR}")
+    endif ()
 else ()
     target_link_options (out PUBLIC -m32)
     if (USE_ASAN)
