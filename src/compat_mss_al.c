@@ -1,3 +1,5 @@
+//Translation layer between Microsoft Sound System to OpenAL
+
 #ifdef __APPLE__
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>

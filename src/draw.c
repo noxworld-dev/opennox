@@ -3177,7 +3177,9 @@ int __cdecl sub_4B0300(char* a1) {
 	return result;
 }
 
+#ifdef NOX_PLAY_MOVIES
 int PlayMovie(char* filename);
+#endif // NOX_PLAY_MOVIES
 
 //----- (004B0340) --------------------------------------------------------
 int __cdecl sub_4B0340(int a1) // draw general
@@ -3222,6 +3224,7 @@ int __cdecl sub_4B0340(int a1) // draw general
 		v3 = a1;
 		v4 = a1;
 	LABEL_13:
+#ifdef NOX_PLAY_MOVIES
 #ifdef USE_SDL
 #ifdef __linux__
 		;
@@ -3230,10 +3233,10 @@ int __cdecl sub_4B0340(int a1) // draw general
 			PlayMovie(path);
 			free(path);
 		}
-#else
+#else // __linux__
 		PlayMovie(&byte_5D4594[1311940]);
-#endif
-#else
+#endif // __linux__
+#else // USE_SDL
         unsigned __int8* v6; // esi
         int v13[11];         // [esp+28h] [ebp-2Ch]
 		v13[1] = *(_DWORD*)&byte_5D4594[823784];
@@ -3255,7 +3258,9 @@ int __cdecl sub_4B0340(int a1) // draw general
 				--*(_DWORD*)&byte_5D4594[1311928];
 			} while (*(_DWORD*)&byte_5D4594[1311928]);
 		}
-#endif
+#endif // USE_SDL
+#endif // NOX_PLAY_MOVIES
+		;
 		if (!v2) {
 			sub_486110();
 			sub_48A120();
