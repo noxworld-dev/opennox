@@ -2823,7 +2823,7 @@ int __cdecl sub_4814F0(int2* a1);
 char __cdecl sub_4815E0(_DWORD* a1, int a2);
 char* __cdecl sub_481770(_DWORD* a1, int a2, unsigned __int16 a3);
 char __cdecl sub_481900(_DWORD* a1, _DWORD* a2);
-void nullsub_8(); // weak
+int nullsub_8(int, int); // weak
 void __cdecl sub_481BF0(int a1, int a2);
 int __cdecl sub_481C20(int* a1);
 int __cdecl sub_482570(_DWORD* a1);
