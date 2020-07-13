@@ -18,6 +18,7 @@ option (E2E_TEST "Run in end-to-end test mode" OFF)
 
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
+    add_compile_options ("/MP")
 else ()
     add_compile_options (-g -m32 -fshort-wchar)
     add_compile_options (-fno-strict-aliasing)
