@@ -8627,7 +8627,9 @@ int sub_467460(void) { return sub_4671E0(); }
 
 void __cdecl nox_alloc_npcs_2() { nox_alloc_npcs(); }
 
-void nullsub_8(void) {}
+int nullsub_8(int a1, int a2) {
+	return 0;
+}
 void nullsub_27(_DWORD a1) {}
 void nullsub_28(_DWORD a1) {}
 void nullsub_30(_DWORD a1) {}
