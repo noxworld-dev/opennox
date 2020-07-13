@@ -70,7 +70,6 @@ extern _DWORD dword_5d4594_823776;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_3798780;
 extern _DWORD dword_5d4594_1098580;
-extern _DWORD dword_587000_154940;
 extern _DWORD dword_5d4594_2650680;
 extern _DWORD dword_5d4594_1193152;
 extern _DWORD dword_5d4594_805836;
@@ -150,6 +149,8 @@ extern int nox_drawable_list_4_size;
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
+
+void(__cdecl *dword_587000_154940)(int2*, _DWORD, _DWORD) = sub_4815E0;
 
 //----- (00475F10) --------------------------------------------------------
 int __cdecl sub_475F10(_DWORD* a1) {
@@ -7121,7 +7122,7 @@ LABEL_9:
 								 4 * (*(_DWORD*)(v14 + 28) + *(unsigned __int16*)&byte_5D4594[60 * v15 + 2682234]));
 				v68.field_0 = v76;
 				v68.field_4 = v11 + 23;
-				(*(void(__cdecl**)(int2*, _DWORD, _DWORD)) & dword_587000_154940)(&v68, v62, v13);
+				dword_587000_154940(&v68, v62, v13);
 				*(_DWORD*)&byte_5D4594[4 * v15 + 2649932] = 1;
 				if (*(_DWORD*)(v14 + 40))
 					sub_481BF0((int)&v68, *(_DWORD*)(v14 + 40));
@@ -7133,7 +7134,7 @@ LABEL_9:
 								 4 * (*(_DWORD*)(v14 + 8) + *(unsigned __int16*)&byte_5D4594[60 * v16 + 2682234]));
 				v68.field_0 = v76 + 23;
 				v68.field_4 = v11;
-				(*(void(__cdecl**)(int2*, _DWORD, _DWORD)) & dword_587000_154940)(&v68, v63, v13);
+				dword_587000_154940(&v68, v63, v13);
 				*(_DWORD*)&byte_5D4594[4 * v16 + 2649932] = 1;
 				v17 = *(_DWORD*)(v14 + 20);
 				if (v17)
@@ -7203,7 +7204,7 @@ LABEL_36:
 								 4 * (*(_DWORD*)(v30 + 28) + *(unsigned __int16*)&byte_5D4594[60 * v31 + 2682234]));
 				v68.field_0 = v26;
 				v68.field_4 = v76 + 23;
-				(*(void(__cdecl**)(int2*, _DWORD, _DWORD)) & dword_587000_154940)(&v68, v64, v27);
+				dword_587000_154940(&v68, v64, v27);
 				*(_DWORD*)&byte_5D4594[4 * v31 + 2649932] = 1;
 				if (*(_DWORD*)(v30 + 40))
 					sub_481BF0((int)&v68, *(_DWORD*)(v30 + 40));
@@ -7215,7 +7216,7 @@ LABEL_36:
 								 4 * (*(_DWORD*)(v30 + 8) + *(unsigned __int16*)&byte_5D4594[60 * v32 + 2682234]));
 				v68.field_0 = v26 + 23;
 				v68.field_4 = v76;
-				(*(void(__cdecl**)(int2*, _DWORD, _DWORD)) & dword_587000_154940)(&v68, v65, v27);
+				dword_587000_154940(&v68, v65, v27);
 				*(_DWORD*)&byte_5D4594[4 * v32 + 2649932] = 1;
 				v33 = *(_DWORD*)(v30 + 20);
 				if (v33)
@@ -7520,7 +7521,7 @@ int __cdecl sub_4826A0(_DWORD* a1) {
 												  *(unsigned __int16*)&byte_5D4594[60 * v14 + 2682234]));
 							v24.field_0 = v8;
 							v24.field_4 = v6 + 23;
-							(*(void(__cdecl**)(int2*, _DWORD, _DWORD)) & dword_587000_154940)(&v24, v18, v10);
+							dword_587000_154940(&v24, v18, v10);
 							*(_DWORD*)&byte_5D4594[4 * v14 + 2649932] = 1;
 							if (*(_DWORD*)(v13 + 40))
 								sub_481BF0((int)&v24, *(_DWORD*)(v13 + 40));
@@ -7533,7 +7534,7 @@ int __cdecl sub_4826A0(_DWORD* a1) {
 												  *(unsigned __int16*)&byte_5D4594[60 * v15 + 2682234]));
 							v24.field_0 = v8 + 23;
 							v24.field_4 = v6;
-							(*(void(__cdecl**)(int2*, _DWORD, _DWORD)) & dword_587000_154940)(&v24, v19, v10);
+							dword_587000_154940(&v24, v19, v10);
 							*(_DWORD*)&byte_5D4594[4 * v15 + 2649932] = 1;
 							v16 = *(_DWORD*)(v13 + 20);
 							if (v16)
