@@ -1213,7 +1213,7 @@ extern _DWORD dword_5d4594_1568028;
 extern _DWORD dword_5d4594_815052;
 extern _DWORD dword_5d4594_2386860;
 extern _DWORD dword_5d4594_1548524;
-extern _DWORD dword_587000_154944;
+extern int (__cdecl *dword_587000_154944)(int, int);
 extern _DWORD dword_5d4594_815060;
 extern _DWORD dword_5d4594_2386560;
 extern _DWORD dword_5d4594_1556316;
