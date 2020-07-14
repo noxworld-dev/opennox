@@ -1940,9 +1940,6 @@ int __cdecl sub_44BB20(const char* a1);
 int __cdecl sub_44BC50(int a1, int a2);
 int __cdecl sub_44BFA0(int a1, int a2);
 void* __cdecl sub_44C000(_BYTE* a1, int a2);
-void __cdecl sub_44C650_free(LPVOID lpMem, void* draw); // idb
-void* __cdecl sub_44C780(int a1);
-LPVOID __cdecl sub_44C7B0(int a1);
 CHAR* __cdecl sub_44CD10(CHAR* a1);
 int __cdecl sub_44CD30(CHAR* a1);
 char* __cdecl nox_get_thing_name(int a1);
