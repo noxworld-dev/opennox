@@ -44,7 +44,7 @@ bool __cdecl nox_things_static_draw_parse(nox_thing* obj, nox_memfile* f, char* 
 //----- (0044BFD0) --------------------------------------------------------
 bool __cdecl nox_things_static_random_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->draw_func = nox_thing_static_random_draw;
-	void* v3 = sub_44C000(attr_value, f);
-	obj->field_5c = v3;
-	return v3 != 0;
+	obj->field_5c = sub_44C000(attr_value, f);
+
+	return obj->field_5c != 0;
 }
