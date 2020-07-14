@@ -1,5 +1,6 @@
 #include "playerdraw.h"
 #include "../drawable/drawable.h"
+#include "parse/parse.h"
 #include "../../proto.h"
 
 extern int nox_win_width;

@@ -1,4 +1,5 @@
 #include "canidraw.h"
+#include "parse/parse.h"
 #include "../../proto.h"
 
 //----- (004BC930) --------------------------------------------------------
