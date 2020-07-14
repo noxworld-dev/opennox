@@ -156,6 +156,7 @@ add_executable (
 
     client/audio/auddiag.c
     client/audio/audevent.c
+    client/draw/parse/parse.c
     client/draw/animdraw.c
     client/draw/armordraw.c
     client/draw/arrowdraw.c
