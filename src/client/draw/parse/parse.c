@@ -85,16 +85,13 @@ int __cdecl sub_44B8B0(int a1, nox_memfile* f) {
 }
 
 //----- (0044BC50) --------------------------------------------------------
-int __cdecl sub_44BC50(int a1, int a2) {
+int __cdecl sub_44BC50(int a1, nox_memfile* f) {
 	int v2;               // ebp
 	int v3;               // esi
 	void* v4;             // eax
 	int v5;               // ebx
-	int* v6;              // eax
 	int v7;               // ebp
-	_BYTE* v8;            // eax
 	char v9;              // dl
-	unsigned __int8* v10; // eax
 	int v11;              // esi
 	int v13;              // [esp+10h] [ebp-90h]
 	int v14;              // [esp+14h] [ebp-8Ch]
@@ -113,19 +110,13 @@ int __cdecl sub_44BC50(int a1, int a2) {
 		v5 = 0;
 		if (*(_WORD*)(a1 + 40) > 0) {
 			do {
-				v6 = *(int**)(a2 + 8);
-				v7 = *v6;
-				v8 = v6 + 1;
-				*(_DWORD*)(a2 + 8) = v8;
+				v7 = nox_memfile_read_i32(f);
 				v16[0] = byte_5D4594[830844];
 				if (v7 == -1) {
-					v9 = *v8;
-					v10 = v8 + 1;
-					*(_DWORD*)(a2 + 8) = v10;
+					v9 = nox_memfile_read_i8(f);
 					LOBYTE(v15) = v9;
-					v11 = *v10;
-					*(_DWORD*)(a2 + 8) = v10 + 1;
-					nox_memfile_read(v16, 1u, v11, a2);
+					v11 = nox_memfile_read_u8(f);
+					nox_memfile_read(v16, 1u, v11, f);
 					v16[v11] = 0;
 					v3 = a1;
 				}
