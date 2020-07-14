@@ -2323,10 +2323,8 @@ void sub_4AD180() {
 void sub_4AD1E0() {
 	int result; // eax
 	_WORD* v1;  // edi
-	int v2;     // edx
 	_WORD** v3; // ebp
 	_WORD* v4;  // esi
-	int v5;     // ecx
 
 	if (dword_973C70) {
 		return;
@@ -2344,22 +2342,21 @@ void sub_4AD1E0() {
 	if (result) {
 		return;
 	}
-	v2 = nox_backbuffer_height;
+
 	v3 = *(_WORD***)&dword_5d4594_3798784;
-	while (v2 > 0) {
+	for (int v2 = nox_backbuffer_height; v2 > 0; v2--) {
 		v4 = *v3;
-		v5 = nox_backbuffer_width32;
-		while (v5 > 0) {
-			int i;
-			for (i = 0; i < 16; i++)
-				*v1++ = *v4++ << 1;
-			v5--;
+		for (int v5 = nox_backbuffer_width32; v5 > 0; v5--) {
+			for (int i = 0; i < 16; i++) {
+				*v1 = *v4 << 1;
+				v1++;
+				v4++;
+			}
 		}
 		// memcpy(v1, v4, v5 * 32);
 		// v1 = (_DWORD *)((char *)v1 + v5 * 32);
 		v1 = (_WORD*)((char*)v1 + nox_backbuffer_pitch32);
 		++v3;
-		v2--;
 	}
 #ifdef USE_SDL
 	SDL_UnlockSurface(g_backbuffer1);
