@@ -12,7 +12,9 @@ typedef struct {
 
 nox_memfile* nox_memfile_load(const char* path, int a2);
 void nox_memfile_free(nox_memfile* f);
+int8_t nox_memfile_read_i8(nox_memfile* f);
 uint8_t nox_memfile_read_u8(nox_memfile* f);
+int32_t nox_memfile_read_i32(nox_memfile* f);
 uint32_t nox_memfile_read_u32(nox_memfile* f);
 void nox_memfile_skip(nox_memfile* f, int n);
 unsigned int nox_memfile_read(void* dst, unsigned int sz, int cnt, nox_memfile* f);
