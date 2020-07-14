@@ -3,7 +3,7 @@
 
 #include "../../../defs.h"
 
-void* __cdecl sub_44C000(_BYTE* a1, int a2);
+void* __cdecl sub_44C000(char* attr_value, nox_memfile* f);
 int __cdecl sub_44BFA0(int a1, int a2);
 int __cdecl sub_44B8B0(int a1, nox_memfile* f);
 int __cdecl sub_44BC50(int a1, int a2);

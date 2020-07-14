@@ -52,11 +52,27 @@ void nox_memfile_free(nox_memfile* f) {
 	free(f);
 }
 
+int8_t nox_memfile_read_i8(nox_memfile* f) {
+	if (!f->data)
+		return 0;
+	int8_t v = *(int8_t*)f->cur;
+	f->cur++;
+	return v;
+}
+
 uint8_t nox_memfile_read_u8(nox_memfile* f) {
 	if (!f->data)
 		return 0;
 	uint8_t v = *(uint8_t*)f->cur;
 	f->cur++;
+	return v;
+}
+
+int32_t nox_memfile_read_i32(nox_memfile* f) {
+	if (!f->data)
+		return 0;
+	int32_t v = *(int32_t*)f->cur;
+	f->cur += 4;
 	return v;
 }
 
