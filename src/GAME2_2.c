@@ -10308,49 +10308,34 @@ int sub_4861D0() {
 
 //----- (00486230) --------------------------------------------------------
 int sub_486230() {
-	int result; // eax
-	int v1;     // esi
-	int v2;     // ecx
-	int v3;     // edx
-	int v4;     // ecx
-	int v5;     // edx
+	nox_pixbuffer_rows_3798784 = nox_malloc(sizeof(BYTE*) * nox_backbuffer_height);
+	if (!nox_pixbuffer_rows_3798784)
+		return 0;
 
-	result = (int)nox_malloc(4 * nox_backbuffer_height);
-	nox_pixbuffer_rows_3798784 = result;
-	if (result) {
-		v1 = nox_backbuffer_height;
-		v2 = nox_pixbuffer_3798780;
-		v3 = 0;
-		if (nox_backbuffer_height > 0) {
-			while (1) {
-				*(_DWORD*)(result + 4 * v3) = v2;
-				v1 = nox_backbuffer_height;
-				v2 += nox_pitch_3801808;
-				if (++v3 >= nox_backbuffer_height)
-					break;
-				result = nox_pixbuffer_rows_3798784;
-			}
+	if (nox_backbuffer_height > 0) {
+		BYTE **rows = nox_pixbuffer_rows_3798784;
+		BYTE *pix = nox_pixbuffer_3798780;
+		for (int y = 0; y < nox_backbuffer_height; y++) {
+			rows[y] = &pix[y * nox_pitch_3801808];
 		}
-		if (nox_video_renderTargetFlags & 0x40) {
-			result = (int)nox_malloc(4 * v1);
-			nox_pixbuffer_rows_3798776 = result;
-			if (!result)
-				return result;
-			v4 = nox_pixbuffer_3798788;
-			v5 = 0;
-			if (nox_backbuffer_height > 0) {
-				while (1) {
-					*(_DWORD*)(result + 4 * v5) = v4;
-					v4 += nox_pitch_3801808;
-					if (++v5 >= nox_backbuffer_height)
-						break;
-					result = nox_pixbuffer_rows_3798776;
-				}
-			}
-		}
-		result = 1;
 	}
-	return result;
+
+	if (!(nox_video_renderTargetFlags & 0x40)) {
+		return 1;
+	}
+
+	nox_pixbuffer_rows_3798776 = nox_malloc(4 * nox_backbuffer_height);
+	if (!nox_pixbuffer_rows_3798776)
+		return 0;
+
+	if (nox_backbuffer_height > 0) {
+		BYTE** rows = nox_pixbuffer_rows_3798776;
+		BYTE* pix = nox_pixbuffer_3798788;
+		for (int y = 0; y < nox_backbuffer_height; y++) {
+			rows[y] = &pix[y * nox_pitch_3801808];
+		}
+	}
+	return 1;
 }
 
 //----- (004862E0) --------------------------------------------------------
