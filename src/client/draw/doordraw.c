@@ -1,4 +1,5 @@
 #include "doordraw.h"
+#include "parse/parse.h"
 #include "../../proto.h"
 
 extern _DWORD dword_5d4594_3807156;

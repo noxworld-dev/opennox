@@ -1,4 +1,5 @@
 #include "vectdraw.h"
+#include "parse/parse.h"
 #include "../../proto.h"
 
 //----- (004BC5D0) --------------------------------------------------------
