@@ -49,13 +49,11 @@ void* __cdecl sub_44C000(char* attr_value, nox_memfile* f) {
 }
 
 //----- (0044BFA0) --------------------------------------------------------
-int __cdecl sub_44BFA0(int a1, int a2) {
-	int result; // eax
+int __cdecl sub_44BFA0(int a1, nox_memfile* f) {
+	if (!sub_44B8B0(a1, f))
+		return 0;
 
-	result = sub_44B8B0(a1, a2);
-	if (result)
-		result = sub_44BC50(a1, a2);
-	return result;
+	return sub_44BC50(a1, f);
 }
 
 //----- (0044B8B0) --------------------------------------------------------
