@@ -2,17 +2,13 @@
 #include "../../../proto.h"
 
 //----- (0044C000) --------------------------------------------------------
-void* __cdecl sub_44C000(_BYTE* a1, int a2) {
+void* __cdecl sub_44C000(char* attr_value, nox_memfile* f) {
 	_DWORD* v2;          // eax
-	int v3;              // esi
 	_DWORD* v4;          // ebp
-	unsigned __int8* v5; // eax
 	void* result;        // eax
 	int v7;              // edi
 	_BYTE* v8;           // ebx
-	int* v9;             // eax
 	int v10;             // ecx
-	char* v11;           // eax
 	char v12;            // cl
 	const char* v13;     // [esp+Ch] [ebp-4h]
 	unsigned __int8 v14; // [esp+14h] [ebp+4h]
@@ -20,12 +16,9 @@ void* __cdecl sub_44C000(_BYTE* a1, int a2) {
 	int v16;             // [esp+18h] [ebp+8h]
 
 	v2 = nox_calloc(1u, 0xCu);
-	v3 = a2;
 	v4 = v2;
 	*v2 = 12;
-	v5 = *(unsigned __int8**)(a2 + 8);
-	v15 = *v5;
-	*(_DWORD*)(v3 + 8) = v5 + 1;
+	v15 = nox_memfile_read_u8(f);
 	*((_BYTE*)v4 + 8) = v15;
 	result = nox_malloc(4 * v15);
 	v4[1] = result;
@@ -33,20 +26,15 @@ void* __cdecl sub_44C000(_BYTE* a1, int a2) {
 		v7 = 0;
 		v16 = 0;
 		if (*((_BYTE*)v4 + 8)) {
-			v8 = a1;
+			v8 = attr_value;
 			do {
-				v9 = *(int**)(v3 + 8);
-				v10 = *v9;
-				*(_DWORD*)(v3 + 8) = v9 + 1;
+				v10 = nox_memfile_read_i32(f);
 				*v8 = byte_5D4594[830852];
 				if (v10 == -1) {
-					v11 = *(char**)(v3 + 8);
-					v12 = *v11++;
-					*(_DWORD*)(v3 + 8) = v11;
+					v12 = nox_memfile_read_i8(f);
 					LOBYTE(v13) = v12;
-					v14 = *v11;
-					*(_DWORD*)(v3 + 8) = v11 + 1;
-					nox_memfile_read(v8, 1u, v14, v3);
+					v14 = nox_memfile_read_i8(f);
+					nox_memfile_read(v8, 1u, v14, f);
 					v10 = -1;
 					v8[v14] = 0;
 					v7 = v16;
