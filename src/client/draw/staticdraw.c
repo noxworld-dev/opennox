@@ -1,4 +1,5 @@
 #include "staticdraw.h"
+#include "parse/parse.h"
 #include "../../proto.h"
 
 //----- (004BCC20) --------------------------------------------------------
