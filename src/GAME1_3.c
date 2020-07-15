@@ -233,24 +233,16 @@ int sub_43B6D0() { return dword_5d4594_815044; }
 
 //----- (0043BC10) --------------------------------------------------------
 unsigned __int16* __cdecl sub_43BC10(wchar_t* a1, unsigned __int8 a2) {
-	unsigned __int16* v2; // esi
-	size_t v3;            // edi
-	int v4;               // ebx
-	unsigned __int16* v5; // edi
+	const size_t a1_len = nox_wcslen(a1);
+	wchar_t* a1_last_char = &a1[a1_len];
 
-	v2 = a1;
-	v3 = nox_wcslen(a1);
-	sub_43F840(0, v2, (int*)&a1, 0, 0);
-	v4 = a2;
-	if ((int)(a1 + 5) > a2) {
-		v5 = &v2[v3];
-		do {
-			*v5 = 0;
-			--v5;
-			sub_43F840(0, v2, (int*)&a1, 0, 0);
-		} while ((int)(a1 + 5) > v4);
-	}
-	return v2;
+	do {
+		sub_43F840(0, a1, (int*)&a1, 0, 0);
+		*a1_last_char = 0;
+		--a1_last_char;
+	} while ((int)(a1 + 5) > a2);
+
+	return a1;
 }
 
 //----- (0043BC80) --------------------------------------------------------
