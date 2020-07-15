@@ -56,7 +56,6 @@ int sub_46C730() {
 
 //----- (0046C920) --------------------------------------------------------
 int __cdecl sub_46C920(_DWORD* a1, int a2, int* a3, int a4) {
-	int result;   // eax
 	int v5;       // esi
 	int v6;       // eax
 	wchar_t* v7;  // eax
@@ -69,78 +68,74 @@ int __cdecl sub_46C920(_DWORD* a1, int a2, int* a3, int a4) {
 	char v14[12]; // [esp+8h] [ebp-Ch]
 
 	if (a2 != 16391) {
-		if (a2 == 16400) {
-			nox_window_call_field_94(*(int*)&dword_5d4594_1082860, 16403, a4, 0);
-			nox_window_call_field_94(*(int*)&dword_5d4594_1082864, 16403, a4, 0);
-			nox_window_call_field_94(*(int*)&dword_5d4594_1082868, 16403, a4, 0);
+		if (a2 != 16400) {
 			return 0;
 		}
+		nox_window_call_field_94(*(int*)&dword_5d4594_1082860, 16403, a4, 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1082864, 16403, a4, 0);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1082868, 16403, a4, 0);
 		return 0;
 	}
 	v5 = sub_46B0A0(a3);
 	sub_452D80(766, 100);
 	if (v5 == 501) {
 		v8 = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1082864 + 32) + 48);
-		if (v8 >= 0) {
-			v9 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 120);
-			if ((v9 & 0x8000) != 0) {
-				v10 = sub_46B0C0(a1, 501);
-				sub_46ABB0((int)v10, 0);
-				return 0;
-			}
-			if (strlen((const char*)&byte_5D4594[1278 * v8 + 1064952])) {
-				sub_4DC970((char*)&byte_5D4594[1278 * v8 + 1064952], (char*)&byte_5D4594[1082840]);
-				sub_46ADE0(*(int*)&dword_5d4594_1082856);
-				v13 = loadString_sub_40F1D0((char*)&byte_587000[143456], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											184);
-				v11 = loadString_sub_40F1D0((char*)&byte_587000[143524], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											183);
-				sub_449A10(*(int*)&dword_5d4594_1082856, (int)v11, (int)v13, 56, sub_46CC70, sub_46CC90);
-				return 0;
-			}
-			if (v8)
-				nox_sprintf(v14, "SAVE%04d", v8);
-			else
-				strcpy(v14, "AUTOSAVE");
-			sub_4DB130(v14);
-			sub_4DB170(1, 0, 0);
-			goto LABEL_25;
+		if (v8 < 0) {
+			return 0;
 		}
+		v9 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 120);
+		if ((v9 & 0x8000) != 0) {
+			v10 = sub_46B0C0(a1, 501);
+			sub_46ABB0((int)v10, 0);
+			return 0;
+		}
+		if (strlen((const char*)&byte_5D4594[1278 * v8 + 1064952])) {
+			sub_4DC970((char*)&byte_5D4594[1278 * v8 + 1064952], (char*)&byte_5D4594[1082840]);
+			sub_46ADE0(*(int*)&dword_5d4594_1082856);
+			v13 = loadString_sub_40F1D0((char*)&byte_587000[143456], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
+										184);
+			v11 = loadString_sub_40F1D0((char*)&byte_587000[143524], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
+										183);
+			sub_449A10(*(int*)&dword_5d4594_1082856, (int)v11, (int)v13, 56, sub_46CC70, sub_46CC90);
+			return 0;
+		}
+		if (v8)
+			nox_sprintf(v14, "SAVE%04d", v8);
+		else
+			strcpy(v14, "AUTOSAVE");
+		sub_4DB130(v14);
+		sub_4DB170(1, 0, 0);
+		sub_46D6F0();
 		return 0;
-	}
-	if (v5 != 502) {
-		if (v5 == 503) {
-			if (sub_450560()) {
-				sub_450580();
-				sub_43DDA0();
-				sub_43DDD0(0);
-				sub_43DE60();
-				sub_446060();
-				sub_46D6F0();
+	} else if (v5 == 502) {
+		v6 = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1082864 + 32) + 48);
+		if (v6 >= 0 && strlen((const char*)&byte_5D4594[1278 * v6 + 1064952])) {
+			if (sub_4372B0()) {
+				sub_46CBD0();
 				return 0;
 			}
-		LABEL_25:
+			v12 =
+					loadString_sub_40F1D0((char*)&byte_587000[143616], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 233);
+			v7 = loadString_sub_40F1D0((char*)&byte_587000[143680], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 232);
+			sub_449A10(0, (int)v7, (int)v12, 24, sub_46CBD0, sub_44A400);
+			return 0;
+		}
+		sub_452D80(925, 100);
+		return 0;
+	} else if (v5 == 503) {
+		if (sub_450560()) {
+			sub_450580();
+			sub_43DDA0();
+			sub_43DDD0(0);
+			sub_43DE60();
+			sub_446060();
 			sub_46D6F0();
 			return 0;
 		}
+		sub_46D6F0();
 		return 0;
 	}
-	v6 = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1082864 + 32) + 48);
-	if (v6 >= 0 && strlen((const char*)&byte_5D4594[1278 * v6 + 1064952])) {
-		if (sub_4372B0()) {
-			sub_46CBD0();
-		} else {
-			v12 =
-				loadString_sub_40F1D0((char*)&byte_587000[143616], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 233);
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[143680], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 232);
-			sub_449A10(0, (int)v7, (int)v12, 24, sub_46CBD0, sub_44A400);
-		}
-		result = 0;
-	} else {
-		sub_452D80(925, 100);
-		result = 0;
-	}
-	return result;
+	return 0;
 }
 
 //----- (0046CBD0) --------------------------------------------------------
