@@ -68,7 +68,7 @@ int __cdecl sub_44B8B0(int a1, nox_memfile* f) {
 	nox_memfile_read(animation_kind, 1u, anim_kind_length, f);
 	animation_kind[anim_kind_length] = 0;
 
-	*(_DWORD*)(a1 + 44) = sub_44B4C0(animation_kind);
+	*(_DWORD*)(a1 + 44) = get_animation_kind_id_44B4C0(animation_kind);
 
 	return 1;
 }
@@ -122,7 +122,7 @@ int __cdecl sub_44BC50(int a1, nox_memfile* f) {
 }
 
 //----- (0044B4C0) --------------------------------------------------------
-int __cdecl sub_44B4C0(const char* a1) {
+int __cdecl get_animation_kind_id_44B4C0(const char* a1) {
 	if (!strcmp(a1, "OneShot"))
 		return 0;
 	if (!strcmp(a1, "OneShotRemove"))
