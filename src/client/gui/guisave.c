@@ -170,35 +170,12 @@ int __cdecl sub_46CE40(int a1, int a2, int a3, _BYTE* a4) {
 	_BYTE* v8;           // edi
 	int v9;              // esi
 	int v10;             // ebx
-	wchar_t* v11;        // eax
-	wchar_t* v12;        // eax
-	wchar_t* v13;        // eax
-	wchar_t* v14;        // eax
-	char v15;            // al
-	char v16;            // al
-	wchar_t* v17;        // eax
-	char v18;            // al
-	char v19;            // al
-	char v20;            // al
 	int v21;             // esi
 	_DWORD* v22;         // eax
 	_DWORD* v23;         // eax
 	_DWORD* v24;         // eax
 	int result;          // eax
 	int v26;             // esi
-	wchar_t* v27;        // [esp-14h] [ebp-1238h]
-	wchar_t* v28;        // [esp-14h] [ebp-1238h]
-	wchar_t* v29;        // [esp-14h] [ebp-1238h]
-	wchar_t* v30;        // [esp-14h] [ebp-1238h]
-	wchar_t* v31;        // [esp-14h] [ebp-1238h]
-	wchar_t* v32;        // [esp-14h] [ebp-1238h]
-	wchar_t* v33;        // [esp-14h] [ebp-1238h]
-	wchar_t* v34;        // [esp-14h] [ebp-1238h]
-	wchar_t* v35;        // [esp-14h] [ebp-1238h]
-	wchar_t* v36;        // [esp-14h] [ebp-1238h]
-	wchar_t* v37;        // [esp-14h] [ebp-1238h]
-	wchar_t* v38;        // [esp-14h] [ebp-1238h]
-	wchar_t* v39;        // [esp-4h] [ebp-1228h]
 	int v40;             // [esp+14h] [ebp-1210h]
 	char v41[12];        // [esp+18h] [ebp-120Ch]
 	wchar_t v42[512];    // [esp+24h] [ebp-1200h]
@@ -236,149 +213,130 @@ int __cdecl sub_46CE40(int a1, int a2, int a3, _BYTE* a4) {
 		if (strlen((const char*)(v10 + 4))) {
 			sub_4DC970((char*)(v10 + 4), &v41);
 			nox_sprintf(&DateStr, "nox.str:%s", *(_DWORD*)&byte_587000[4 * *(unsigned __int8*)(v10 + 1274) + 29456]);
-			v39 = loadString_sub_40F1D0(&DateStr, 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 667);
-			v13 =
+			wchar_t* v39 = loadString_sub_40F1D0(&DateStr, 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 667);
+			wchar_t* v13 =
 				loadString_sub_40F1D0((char*)&byte_587000[144092], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 666);
 			nox_swprintf(&v42, v13, v10 + 1224, v39);
 			if (!strcmp(&v41, "AUTOSAVE")) {
 				nox_wcscat(&v42, L" ");
-				v14 = loadString_sub_40F1D0((char*)&byte_587000[144148], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
+				wchar_t* v14 = loadString_sub_40F1D0((char*)&byte_587000[144148], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
 											674);
 				nox_wcscat(&v42, v14);
-			LABEL_56:
-				v21 = sub_46CD70((_BYTE*)v10);
-				nox_window_call_field_94(a1, 16397, (int)&byte_587000[145320], v21);
-				nox_window_call_field_94(a3, 16397, (int)&v42, v21);
-				GetDateFormatA(0x800u, 1u, (const SYSTEMTIME*)(v10 + 1188), 0, &DateStr, 256);
-				GetTimeFormatA(0x800u, 0xEu, (const SYSTEMTIME*)(v10 + 1188), 0, &TimeStr, 256);
-				nox_swprintf(&v42, L"%S, %S ", &DateStr, &TimeStr);
-				nox_window_call_field_94(a2, 16397, (int)&v42, v21);
-				v9 = v40;
-				goto LABEL_57;
-			}
-			nox_wcscat(&v42, L" - ");
-			v15 = *(_BYTE*)(v10 + 1277);
-			switch (v15) {
-			case 1:
-				v16 = *(_BYTE*)(v10 + 1274);
-				if (!v16) {
-					v27 = loadString_sub_40F1D0((char*)&byte_587000[144208], 0,
-												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 688);
-					nox_wcscat(&v42, v27);
-					goto LABEL_56;
-				}
-				if (v16 != 1) {
-					v28 = loadString_sub_40F1D0((char*)&byte_587000[144316], 0,
-												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 692);
-					nox_wcscat(&v42, v28);
-					goto LABEL_56;
-				}
-				v17 = loadString_sub_40F1D0((char*)&byte_587000[144268], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											690);
-				break;
-			case 2:
-				v18 = *(_BYTE*)(v10 + 1274);
-				if (!v18) {
-					v29 = loadString_sub_40F1D0((char*)&byte_587000[144376], 0,
-												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 699);
-					nox_wcscat(&v42, v29);
-					goto LABEL_56;
-				}
-				if (v18 != 1) {
-					v30 = loadString_sub_40F1D0((char*)&byte_587000[144488], 0,
-												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 703);
-					nox_wcscat(&v42, v30);
-					goto LABEL_56;
-				}
-				v17 = loadString_sub_40F1D0((char*)&byte_587000[144432], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											701);
-				break;
-			case 3:
-				v19 = *(_BYTE*)(v10 + 1274);
-				if (!v19) {
-					v31 = loadString_sub_40F1D0((char*)&byte_587000[144536], 0,
-												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 710);
-					nox_wcscat(&v42, v31);
-					goto LABEL_56;
-				}
-				if (v19 != 1) {
-					v32 = loadString_sub_40F1D0((char*)&byte_587000[144656], 0,
-												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 714);
-					nox_wcscat(&v42, v32);
-					goto LABEL_56;
-				}
-				v17 = loadString_sub_40F1D0((char*)&byte_587000[144596], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											712);
-				break;
-			case 4:
-				v33 = loadString_sub_40F1D0((char*)&byte_587000[144712], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											718);
-				nox_wcscat(&v42, v33);
-				goto LABEL_56;
-			case 5:
-				v17 = loadString_sub_40F1D0((char*)&byte_587000[144772], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											720);
-				break;
-			case 6:
-				v34 = loadString_sub_40F1D0((char*)&byte_587000[144832], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											722);
-				nox_wcscat(&v42, v34);
-				goto LABEL_56;
-			case 7:
-				v35 = loadString_sub_40F1D0((char*)&byte_587000[144884], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											724);
-				nox_wcscat(&v42, v35);
-				goto LABEL_56;
-			case 8:
-				v17 = loadString_sub_40F1D0((char*)&byte_587000[144940], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											726);
-				break;
-			case 9:
-				v36 = loadString_sub_40F1D0((char*)&byte_587000[145000], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											728);
-				nox_wcscat(&v42, v36);
-				goto LABEL_56;
-			case 10:
-				v37 = loadString_sub_40F1D0((char*)&byte_587000[145064], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											730);
-				nox_wcscat(&v42, v37);
-				goto LABEL_56;
-			case 11:
-				v20 = *(_BYTE*)(v10 + 1274);
-				if (v20) {
-					if (v20 == 1)
-						v38 = loadString_sub_40F1D0((char*)&byte_587000[145184], 0,
+			} else {
+				nox_wcscat(&v42, L" - ");
+				wchar_t* v17;
+				switch (*(_BYTE *) (v10 + 1277)) {
+				case 1:;
+					char v16 = *(_BYTE *) (v10 + 1274);
+					if (!v16) {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[144208], 0,
+													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 688);
+					} else if (v16 != 1) {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[144316], 0,
+													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 692);
+					} else {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[144268], 0,
+													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 690);
+					}
+					break;
+				case 2:;
+					char v18 = *(_BYTE *) (v10 + 1274);
+					if (!v18) {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[144376], 0,
+													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 699);
+					} else if (v18 != 1) {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[144488], 0,
+													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 703);
+					} else {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[144432], 0,
+													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 701);
+					}
+					break;
+				case 3:;
+					char v19 = *(_BYTE *) (v10 + 1274);
+					if (!v19) {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[144536], 0,
+													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 710);
+					} else if (v19 != 1) {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[144656], 0,
+													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 714);
+					} else {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[144596], 0,
+													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 712);
+					}
+					break;
+				case 4:
+					v17 = loadString_sub_40F1D0((char *) &byte_587000[144712], 0,
+												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 718);
+					break;
+				case 5:
+					v17 = loadString_sub_40F1D0((char *) &byte_587000[144772], 0,
+												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 720);
+					break;
+				case 6:
+					v17 = loadString_sub_40F1D0((char *) &byte_587000[144832], 0,
+												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 722);
+					break;
+				case 7:
+					v17 = loadString_sub_40F1D0((char *) &byte_587000[144884], 0,
+												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 724);
+					break;
+				case 8:
+					v17 = loadString_sub_40F1D0((char *) &byte_587000[144940], 0,
+												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 726);
+					break;
+				case 9:
+					v17 = loadString_sub_40F1D0((char *) &byte_587000[145000], 0,
+												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 728);
+					break;
+				case 10:;
+					v17 = loadString_sub_40F1D0((char *) &byte_587000[145064], 0,
+												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 730);
+					break;
+				case 11:;
+					char v20 = *(_BYTE *) (v10 + 1274);
+					if (!v20) {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[145124], 0,
+													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 735);
+					} else if (v20 == 1) {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[145184], 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 737);
-					else
-						v38 = loadString_sub_40F1D0((char*)&byte_587000[145232], 0,
+					} else {
+						v17 = loadString_sub_40F1D0((char *) &byte_587000[145232], 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 739);
-					nox_wcscat(&v42, v38);
-					goto LABEL_56;
+					}
+					break;
+				default:
+					v17 = loadString_sub_40F1D0((char *) &byte_587000[145292], 0,
+												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 743);
+					break;
 				}
-				v17 = loadString_sub_40F1D0((char*)&byte_587000[145124], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											735);
-				break;
-			default:
-				v17 = loadString_sub_40F1D0((char*)&byte_587000[145292], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
-											743);
-				break;
+				nox_wcscat(&v42, v17);
 			}
-			nox_wcscat(&v42, v17);
-			goto LABEL_56;
-		}
-		nox_window_call_field_94(a1, 16397, (int)&byte_587000[143900], 3);
-		if (v9) {
-			v11 =
-				loadString_sub_40F1D0((char*)&byte_587000[143948], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 645);
-			nox_window_call_field_94(a2, 16397, (int)v11, 3);
-			v12 =
-				loadString_sub_40F1D0((char*)&byte_587000[143996], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 650);
-			nox_window_call_field_94(a3, 16397, (int)v12, 3);
+			v21 = sub_46CD70((_BYTE*)v10);
+			nox_window_call_field_94(a1, 16397, (int)&byte_587000[145320], v21);
+			nox_window_call_field_94(a3, 16397, (int)&v42, v21);
+			GetDateFormatA(0x800u, 1u, (const SYSTEMTIME*)(v10 + 1188), 0, &DateStr, 256);
+			GetTimeFormatA(0x800u, 0xEu, (const SYSTEMTIME*)(v10 + 1188), 0, &TimeStr, 256);
+			nox_swprintf(&v42, L"%S, %S ", &DateStr, &TimeStr);
+			nox_window_call_field_94(a2, 16397, (int)&v42, v21);
+			v9 = v40;
 		} else {
-			nox_window_call_field_94(a2, 16397, (int)&byte_587000[143904], 3);
-			nox_window_call_field_94(a3, 16397, (int)&byte_587000[143908], 3);
+			nox_window_call_field_94(a1, 16397, (int) &byte_587000[143900], 3);
+			if (v9) {
+				wchar_t* v11 =
+						loadString_sub_40F1D0((char *) &byte_587000[143948], 0,
+											  "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 645);
+				nox_window_call_field_94(a2, 16397, (int) v11, 3);
+				wchar_t* v12 =
+						loadString_sub_40F1D0((char *) &byte_587000[143996], 0,
+											  "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 650);
+				nox_window_call_field_94(a3, 16397, (int) v12, 3);
+			} else {
+				nox_window_call_field_94(a2, 16397, (int) &byte_587000[143904], 3);
+				nox_window_call_field_94(a3, 16397, (int) &byte_587000[143908], 3);
+			}
 		}
-	LABEL_57:
 		v40 = ++v9;
 		if (v9 >= 14)
 			break;
