@@ -11,9 +11,9 @@ on:
       - dev
 
 jobs:
-  self_hosted_linux_gcc:
-    name: alpine-386-gcc-github on Self Host
-    runs-on: [linux, ready]
+  hybrid_linux_gcc:
+    name: alpine-386-gcc-github on Linux Host
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: true
       
@@ -35,9 +35,9 @@ jobs:
       - name: Build GCC
         uses: docker://noxworld/alpine-386-gcc-github
         
-  self_hosted_linux_wasm:
-    name: alpine-wasm-github on Self Host
-    runs-on: [linux, ready]
+  hybrid_linux_wasm:
+    name: alpine-wasm-github on Linux Host
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: true
 
@@ -59,63 +59,15 @@ jobs:
       - name: Build WASM
         uses: docker://noxworld/alpine-wasm-github
           
-  ubuntu_x86_hosted_gcc:
-    name: alpine-386-gcc-github on GitHub Host (Ubuntu 20.04-LTS)
-    runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: true
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-        
-      - name: Set up cache for ccache
-        uses: actions/cache@v2
-        with:
-          path: ccache
-          key: ccache-gcc-i386
-          restore-keys: |
-            ccache-gcc-
-            ccache-
-        
-      - name: Build GCC
-        uses: docker://noxworld/alpine-386-gcc-github
-        
-  ubuntu_x86_hosted_wasm:
-    name: alpine-wasm-github on GitHub Host (Ubuntu 20.04-LTS)
-    runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: true
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-            
-      - name: Set up cache for emcache
-        uses: actions/cache@v2
-        with:
-          path: emcache
-          key: emcache-emsdk-wasm
-          restore-keys: |
-            emcache-emsdk-
-            emcache-
-
-      - name: Build WASM
-        uses: docker://noxworld/alpine-wasm-github
-
   windows_native_hosted:
-    name: Windows on ${{ matrix.config.name }}
+    name: MSVC on ${{ matrix.config.name }} Host
     runs-on: ${{ matrix.config.os }}
     strategy:
       fail-fast: true
       matrix:
         config:
           - {
-            name: "Windows Server 2019",
+            name: "WinServer 2019",
             os: windows-2019,
             vcpkg: {
               triplet: x86-windows,
