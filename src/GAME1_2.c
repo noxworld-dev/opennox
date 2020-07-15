@@ -6369,51 +6369,39 @@ char* __cdecl sub_431790(char* a1) {
 }
 
 //----- (004317B0) --------------------------------------------------------
-int __cdecl nox_common_readcfgfile(const char* path, int a2) {
-	FILE* v2;   // eax
-	FILE* v3;   // esi
-	int result; // eax
-	FILE* v5;   // esi
-	int v6;     // eax
-	FILE* v7;   // [esp-4h] [ebp-Ch]
-
+int nox_common_readcfgfile(const char* path, int a2) {
 	sub_42CD90();
-	v2 = fopen(path, "r");
-	v3 = v2;
-	if (v2) {
-		if (a2 || nox_common_parsecfg_all(v2)) {
-			v6 = sub_4331E0(v3, a2);
-			v7 = v3;
-			if (v6) {
-				fclose(v3);
+	FILE* file = fopen(path, "r");
+	if (file) {
+		if (a2 || nox_common_parsecfg_all(file)) {
+			if (sub_4331E0(file, a2)) {
+				fclose(file);
 				return 1;
 			}
-		} else {
-			v7 = v3;
 		}
-		fclose(v7);
+		fclose(file);
+		file = 0;
 	}
 	sub_42CD90();
-	result = fopen("default.cfg", "r");
-	v5 = (FILE*)result;
-	if (!result) {
-		return result;
-	}
-	if (!(a2 || nox_common_parsecfg_all((FILE*)result))) {
-		fclose(v5);
+	file = fopen("default.cfg", "r");
+	if (!file) {
 		return 0;
 	}
-	if (!sub_4331E0(v5, a2)) {
-		fclose(v5);
+	if (!(a2 || nox_common_parsecfg_all(file))) {
+		fclose(file);
 		return 0;
 	}
-	fclose(v5);
+	if (!sub_4331E0(file, a2)) {
+		fclose(file);
+		return 0;
+	}
+	fclose(file);
 	nox_common_writecfgfile("nox.cfg");
 	return 1;
 }
 
 //----- (00431890) --------------------------------------------------------
-int __cdecl nox_common_parsecfg_all(FILE* a1) {
+int nox_common_parsecfg_all(FILE* a1) {
 	char* v1;            // eax
 	char* v2;            // eax
 	const char* v3;      // edi
@@ -6425,7 +6413,7 @@ int __cdecl nox_common_parsecfg_all(FILE* a1) {
 	sub_486670(0x4000, 2);
 LABEL_2:
 	while (fgets((char*)&byte_5D4594[806084], 1024, a1)) {
-		if (byte_5D4594[806084] == 35) {
+		if (byte_5D4594[806084] == '#') {
 			continue;
 		}
 		v1 = strtok((char*)&byte_5D4594[806084], " \r\t\n");
