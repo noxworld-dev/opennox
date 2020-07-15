@@ -58,29 +58,18 @@ int __cdecl sub_44BFA0(int a1, nox_memfile* f) {
 
 //----- (0044B8B0) --------------------------------------------------------
 int __cdecl sub_44B8B0(int a1, nox_memfile* f) {
-	int a2 = f;
-	unsigned __int8* v2; // ecx
-	unsigned __int8 v3;  // dl
-	unsigned __int8* v4; // ecx
-	unsigned __int8 v5;  // dl
-	unsigned __int8* v6; // ecx
-	unsigned __int8 v8;  // [esp+8h] [ebp-104h]
-	char v9[256];        // [esp+Ch] [ebp-100h]
+	*(_WORD*)(a1 + 40) = nox_memfile_read_u8(f);
 
-	v2 = *(unsigned __int8**)(a2 + 8);
-	v3 = *v2;
-	*(_DWORD*)(a2 + 8) = v2 + 1;
-	*(_WORD*)(a1 + 40) = v3;
-	v4 = *(unsigned __int8**)(a2 + 8);
-	v5 = *v4;
-	*(_DWORD*)(a2 + 8) = v4 + 1;
-	*(_WORD*)(a1 + 42) = v5;
-	v6 = *(unsigned __int8**)(a2 + 8);
-	v8 = *v6;
-	*(_DWORD*)(a2 + 8) = v6 + 1;
-	nox_memfile_read(v9, 1u, v8, f);
-	v9[v8] = 0;
-	*(_DWORD*)(a1 + 44) = sub_44B4C0(v9);
+	*(_WORD*)(a1 + 42) = nox_memfile_read_u8(f);
+
+	const uint8_t anim_kind_length = nox_memfile_read_u8(f);
+
+	char animation_kind[256];
+	nox_memfile_read(animation_kind, 1u, anim_kind_length, f);
+	animation_kind[anim_kind_length] = 0;
+
+	*(_DWORD*)(a1 + 44) = sub_44B4C0(animation_kind);
+
 	return 1;
 }
 
