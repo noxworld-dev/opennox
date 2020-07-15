@@ -89,7 +89,7 @@ bool __cdecl nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, 
 		nox_memfile_read(v6, 1u, v26, f);
 		v6[v26] = 0;
 		v13 = v20;
-		v20[8] = sub_44B4C0(v6);
+		v20[8] = get_animation_kind_id_44B4C0(v6);
 		v14 = nox_malloc(4 * *v7);
 		*v20 = v14;
 		if (!v14)
