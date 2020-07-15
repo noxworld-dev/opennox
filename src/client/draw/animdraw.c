@@ -129,7 +129,7 @@ bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char*
 	v20 = nox_memfile_read_u8(f);
 	nox_memfile_read(a3, 1u, v20, f);
 	a3[v20] = 0;
-	v5[3] = sub_44B4C0(a3);
+	v5[3] = get_animation_kind_id_44B4C0(a3);
 	result = (int)nox_malloc(4 * *((unsigned __int8*)v5 + 8));
 	v5[1] = result;
 	if (!result)
