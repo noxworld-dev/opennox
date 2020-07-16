@@ -94,7 +94,7 @@ extern _DWORD dword_5d4594_1217448;
 extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
-extern _DWORD dword_5d4594_3798784;
+extern _DWORD nox_pixbuffer_rows_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_width;
@@ -6830,7 +6830,7 @@ void __cdecl sub_49D1E0(int a1, int a2, unsigned int a3, int a4) {
 	}
 	if (a4 > 0 && (int)a3 > 0) {
 		result = ptr_5D4594_3799572->data[61];
-		v5 = (_DWORD*)(dword_5d4594_3798784 + 4 * a2);
+		v5 = (_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * a2);
 		do {
 			v6 = (char*)(a1 + *v5);
 			memset32(v6, result, a3 >> 2);
@@ -6864,7 +6864,7 @@ void __cdecl sub_49D270(int a1, int a2, unsigned int a3, int a4) {
 	v5 = a4;
 	if (a4 > 0 && (int)a3 > 0) {
 		result = ptr_5D4594_3799572->data[61];
-		v6 = (_DWORD*)(dword_5d4594_3798784 + 4 * a2);
+		v6 = (_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * a2);
 		do {
 			v7 = (char*)(2 * a1 + *v6);
 			memset32(v7, result, a3 >> 1);
@@ -6891,7 +6891,7 @@ int __cdecl sub_49D2F0(int a1, int a2, int a3, int a4) {
 	if (a4) {
 		v5 = 4 * a2;
 		do {
-			v6 = *(_DWORD*)(v5 + dword_5d4594_3798784);
+			v6 = *(_DWORD*)(v5 + nox_pixbuffer_rows_3798784);
 			v5 += 4;
 			v7 = (unsigned __int8*)(a1 + v6);
 			if (a3) {
@@ -6939,7 +6939,7 @@ void __cdecl sub_49D370(int a1, int a2, int a3, int a4) {
 		v8 = 4 * a2;
 		v18 = a4;
 		do {
-			v9 = *(_DWORD*)(v8 + dword_5d4594_3798784);
+			v9 = *(_DWORD*)(v8 + nox_pixbuffer_rows_3798784);
 			v8 += 4;
 			v10 = (__int16*)(v17 + v9);
 			if (v7) {
@@ -7017,7 +7017,7 @@ int __cdecl sub_49D540(int a1, int a2, int a3, int a4)
     v4 = _m_psrlw(_m_pand(v18, *(__m64*) & byte_5D4594[3804396]), *(__m64*) & byte_5D4594[3804444]);
     v5 = _m_psrlw(_m_pand(v18, *(__m64*) & byte_5D4594[3804404]), *(__m64*) & byte_5D4594[3804452]);
     v6 = _m_psllw(_m_pand(v18, *(__m64*) & byte_5D4594[3804412]), *(__m64*) & byte_5D4594[3804460]);
-    v7 = (int*)(*(_DWORD*)& dword_5d4594_3798784 + 4 * a2);
+    v7 = (int*)(*(_DWORD*)& nox_pixbuffer_rows_3798784 + 4 * a2);
     result = 2 * a1;
 LABEL_2:
     while (1)
@@ -7087,7 +7087,7 @@ int __cdecl sub_49D680(int a1, int a2, int a3, int a4) {
 		v5 = 4 * a2;
 		do {
 			v5 += 4;
-			v6 = (unsigned __int8*)(a1 + *(_DWORD*)(v5 + dword_5d4594_3798784 - 4));
+			v6 = (unsigned __int8*)(a1 + *(_DWORD*)(v5 + nox_pixbuffer_rows_3798784 - 4));
 			if (a3) {
 				v7 = a3;
 				do {
@@ -7119,7 +7119,7 @@ __int16 __cdecl sub_49D6F0(int a1, int a2, unsigned int a3, int a4) {
 
 	if (a4 > 0) {
 		LOWORD(v4) = a2;
-		v5 = (_DWORD*)(dword_5d4594_3798784 + 4 * a2);
+		v5 = (_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * a2);
 		v6 = *(_DWORD*)&byte_5D4594[3804388];
 		v7 = 2 * a1;
 		v8 = a3 & 1;
@@ -7185,7 +7185,7 @@ void __cdecl sub_49D770(int a1, int a2, unsigned int a3, int a4)
 
     if (a4 > 0 && (int)a3 > 0)
     {
-        v4 = (_DWORD*)(*(_DWORD*)& dword_5d4594_3798784 + 4 * a2);
+        v4 = (_DWORD*)(*(_DWORD*)& nox_pixbuffer_rows_3798784 + 4 * a2);
         v5 = *(__m64*) & byte_5D4594[3804516];
         v6 = _mm_cvtsi64_si32(*(__m64*) & byte_5D4594[3804516]);
         v7 = 2 * a1;
@@ -7275,7 +7275,7 @@ void __cdecl sub_49D880(int a1, int a2, int a3, int a4) {
 	bool v9;             // cc
 
 	if (a4 > 0 && a3 > 0) {
-		v4 = (_DWORD*)(dword_5d4594_3798784 + 4 * a2);
+		v4 = (_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * a2);
 		v5 = (*(_DWORD*)(&obj_5D4594_3800716.data[258]) >> 3) + dword_5d4594_810636;
 		do {
 			v6 = a3;
@@ -7303,7 +7303,7 @@ int __cdecl sub_49D8E0(int a1, int a2, int a3, int a4) {
 	bool v12;        // cc
 	int v13;         // [esp+Ch] [ebp-4h]
 
-	v4 = (int*)(dword_5d4594_3798784 + 4 * a2);
+	v4 = (int*)(nox_pixbuffer_rows_3798784 + 4 * a2);
 	do {
 		v13 = a3;
 		v5 = *v4;
@@ -7356,7 +7356,7 @@ int __cdecl sub_49D9A0(int a1, int a2, int a3, int a4)
     int v14; // ecx
     __m64 v15; // [esp+Ch] [ebp-8h]
 
-    v4 = (int*)(*(_DWORD*)& dword_5d4594_3798784 + 4 * a2);
+    v4 = (int*)(*(_DWORD*)& nox_pixbuffer_rows_3798784 + 4 * a2);
     v5 = *(__m64*)(&obj_5D4594_3800716.data[48]);
     v6 = *(__m64*)(&obj_5D4594_3800716.data[50]);
     v7 = *(__m64*)(&obj_5D4594_3800716.data[52]);
@@ -7445,7 +7445,7 @@ unsigned __int8 __cdecl sub_49DA90(int a1, int a2, int a3, int a4) {
 	unsigned __int8 result; // al
 	bool v13;               // cc
 
-	v4 = (int*)(dword_5d4594_3798784 + 4 * a2);
+	v4 = (int*)(nox_pixbuffer_rows_3798784 + 4 * a2);
 	do {
 		v5 = a3;
 		v6 = *v4;
@@ -7489,7 +7489,7 @@ unsigned __int8 __cdecl sub_49DB20(int a1, int a2, int a3, int a4) {
 	unsigned __int8 result; // al
 	bool v13;               // cc
 
-	v4 = (int*)(dword_5d4594_3798784 + 4 * a2);
+	v4 = (int*)(nox_pixbuffer_rows_3798784 + 4 * a2);
 	do {
 		v5 = a3;
 		v6 = *v4;
@@ -7531,7 +7531,7 @@ int __cdecl sub_49DBB0(int a1, int a2, int a3, int a4) {
 	bool v10;            // cc
 	int v11;             // [esp+Ch] [ebp-4h]
 
-	v4 = (int*)(dword_5d4594_3798784 + 4 * a2);
+	v4 = (int*)(nox_pixbuffer_rows_3798784 + 4 * a2);
 	do {
 		v11 = a3;
 		v5 = *v4;
@@ -7585,7 +7585,7 @@ int __cdecl sub_49DC70(int a1, int a2, int a3, int a4)
     int v14; // ecx
     __m64 v15; // [esp+Ch] [ebp-8h]
 
-    v4 = (int*)(*(_DWORD*)& dword_5d4594_3798784 + 4 * a2);
+    v4 = (int*)(*(_DWORD*)& nox_pixbuffer_rows_3798784 + 4 * a2);
     v5 = *(__m64*)(&obj_5D4594_3800716.data[48]);
     v6 = *(__m64*)(&obj_5D4594_3800716.data[50]);
     v7 = *(__m64*)(&obj_5D4594_3800716.data[52]);
@@ -7734,12 +7734,12 @@ int4* __cdecl sub_49DD60(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 		v41 = 4 * v7;
 		v33 = v12 + 1;
 		while (1) {
-			v14 = (_BYTE*)(v6 + *(_DWORD*)(v13 + dword_5d4594_3798784 - 4));
+			v14 = (_BYTE*)(v6 + *(_DWORD*)(v13 + nox_pixbuffer_rows_3798784 - 4));
 			v40[1] = v14;
 			v40[0] = v14 - 1;
 			v40[2] = v14 + 1;
-			v15 = (_BYTE*)(v6 + *(_DWORD*)(v13 + dword_5d4594_3798784));
-			v16 = (_BYTE*)(v6 + *(_DWORD*)(v13 + dword_5d4594_3798784 + 4));
+			v15 = (_BYTE*)(v6 + *(_DWORD*)(v13 + nox_pixbuffer_rows_3798784));
+			v16 = (_BYTE*)(v6 + *(_DWORD*)(v13 + nox_pixbuffer_rows_3798784 + 4));
 			v40[4] = v15;
 			v40[7] = v16;
 			v40[3] = v15 - 1;
@@ -7881,12 +7881,12 @@ int4* __cdecl sub_49E060(__int16 a1, int a2, int a3, int a4, int a5) {
 		v47 = 4 * v7;
 		v30 = v10 + 1;
 		do {
-			v13 = (_WORD*)(v11 + *(_DWORD*)(v12 + dword_5d4594_3798784 - 4));
+			v13 = (_WORD*)(v11 + *(_DWORD*)(v12 + nox_pixbuffer_rows_3798784 - 4));
 			v38[1] = v13;
 			v38[0] = v13 - 1;
 			v38[2] = v13 + 1;
-			v14 = (_WORD*)(v11 + *(_DWORD*)(v12 + dword_5d4594_3798784));
-			v15 = (_WORD*)(v11 + *(_DWORD*)(v12 + dword_5d4594_3798784 + 4));
+			v14 = (_WORD*)(v11 + *(_DWORD*)(v12 + nox_pixbuffer_rows_3798784));
+			v15 = (_WORD*)(v11 + *(_DWORD*)(v12 + nox_pixbuffer_rows_3798784 + 4));
 			v38[4] = v14;
 			v38[7] = v15;
 			v38[3] = v14 - 1;
@@ -8077,7 +8077,7 @@ int __cdecl sub_49E540(int a1) {
 		result = sub_49F5B0(&v26, &v24, a1);
 		if (result) {
 			if (!ptr_5D4594_3799572->data[0] || sub_49F990(&v26, &v24, &v25, &v23)) {
-				v2 = dword_5d4594_3798784;
+				v2 = nox_pixbuffer_rows_3798784;
 				v3 = v26;
 				v4 = v24;
 				if (v26 == v25) {
@@ -8189,7 +8189,7 @@ int __cdecl sub_49E6C0(int a1) {
 		if (result) {
 			if (!ptr_5D4594_3799572->data[0] || sub_49F990(&v30, &v31, &v29, &v28)) {
 				v2 = &byte_5D4594[4 * obj_5D4594_3800716.data[61] + 3803308];
-				v3 = dword_5d4594_3798784;
+				v3 = nox_pixbuffer_rows_3798784;
 				v17 = *v2;
 				v18 = v2[1];
 				v19 = v2[2];
@@ -8333,7 +8333,7 @@ int __cdecl sub_49E930(int a1) {
 		result = sub_49F5B0(&v26, &v24, a1);
 		if (result) {
 			if (!ptr_5D4594_3799572->data[0] || sub_49F990(&v26, &v24, &v25, &v23)) {
-				v2 = dword_5d4594_3798784;
+				v2 = nox_pixbuffer_rows_3798784;
 				v3 = v24;
 				if (v26 == v25) {
 					(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798712)(v26, v24, v23);
@@ -8449,7 +8449,7 @@ int __cdecl sub_49EAB0(int a1) {
 					  byte_5D4594[3804380];
 				v18 = (unsigned __int16)(*(_WORD*)&byte_5D4594[3804372] & *(_WORD*)(&obj_5D4594_3800716.data[61]))
 					  << byte_5D4594[3804384];
-				v2 = dword_5d4594_3798784;
+				v2 = nox_pixbuffer_rows_3798784;
 				v3 = v28 - v29;
 				v4 = 2;
 				if (v28 < v29) {
@@ -8705,7 +8705,7 @@ int __cdecl sub_49EFC0(int a1, int a2) {
 	result = a1;
 	if (!ptr_5D4594_3799572->data[0] || a1 <= ptr_5D4594_3799572->data[7] && a1 >= ptr_5D4594_3799572->data[5] &&
 											a2 >= ptr_5D4594_3799572->data[6] && a2 <= ptr_5D4594_3799572->data[8]) {
-		*(_BYTE*)(a1 + *(_DWORD*)(dword_5d4594_3798784 + 4 * a2)) = ptr_5D4594_3799572->data[61];
+		*(_BYTE*)(a1 + *(_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * a2)) = ptr_5D4594_3799572->data[61];
 	}
 	return result;
 }
@@ -8717,7 +8717,7 @@ int __cdecl sub_49F010(int a1, int a2) {
 	result = a1;
 	if (!ptr_5D4594_3799572->data[0] || a1 <= ptr_5D4594_3799572->data[7] && a1 >= ptr_5D4594_3799572->data[5] &&
 											a2 >= ptr_5D4594_3799572->data[6] && a2 <= ptr_5D4594_3799572->data[8]) {
-		*(_WORD*)(a1 + a1 + *(_DWORD*)(dword_5d4594_3798784 + 4 * a2)) = ptr_5D4594_3799572->data[61];
+		*(_WORD*)(a1 + a1 + *(_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * a2)) = ptr_5D4594_3799572->data[61];
 	}
 	return result;
 }
@@ -8761,7 +8761,7 @@ void __cdecl sub_49F060(int a1, int a2, int a3) {
 	v9 = v7 + 1;
 	if ((int)v9 > 0) {
 		v10 = ptr_5D4594_3799572->data[61];
-		v11 = (char*)(v4 + *(_DWORD*)(dword_5d4594_3798784 + 4 * a2));
+		v11 = (char*)(v4 + *(_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * a2));
 		v12 = v9;
 		v13 = v9 >> 2;
 		memset32(v11, v10, v13);
@@ -8810,7 +8810,7 @@ unsigned __int8* __cdecl sub_49F0F0(int a1, int a2, int a3) {
 			v4 = ptr_5D4594_3799572->data[7];
 	}
 	v7 = v3;
-	result = (unsigned __int8*)(v3 + *(_DWORD*)(dword_5d4594_3798784 + 4 * a2));
+	result = (unsigned __int8*)(v3 + *(_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * a2));
 	v8 = v3 + 1;
 	if (v7 <= v4) {
 		v11 = *(_BYTE*)(&ptr_5D4594_3799572->data[61]);
@@ -8861,7 +8861,7 @@ void __cdecl sub_49F180(int a1, int a2, int a3) {
 	v9 = v7 + 1;
 	if ((int)v9 > 0) {
 		v10 = ptr_5D4594_3799572->data[61];
-		v11 = *(_DWORD*)(dword_5d4594_3798784 + 4 * a2) + 2 * v4;
+		v11 = *(_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * a2) + 2 * v4;
 		if (!(v11 & 2) || (*(_WORD*)v11 = v10, v11 += 2, --v9, v9)) {
 			v12 = v9 & 1;
 			v13 = v9 >> 1;
@@ -8945,7 +8945,7 @@ __int16 __cdecl sub_49F210(int a1, int a2, int a3)
         v11 = _m_por(_m_psllqi(v10, 0x20u), v10);
         v12 = _m_psrlw(_m_pand(v11, *(__m64*) & byte_5D4594[3804404]), *(__m64*) & byte_5D4594[3804452]);
         v13 = _m_psllw(_m_pand(v11, *(__m64*) & byte_5D4594[3804412]), *(__m64*) & byte_5D4594[3804460]);
-        v14 = (__m64*)(*(_DWORD*)(*(_DWORD*)& dword_5d4594_3798784 + 4 * a2) + 2 * v4);
+        v14 = (__m64*)(*(_DWORD*)(*(_DWORD*)& nox_pixbuffer_rows_3798784 + 4 * a2) + 2 * v4);
         v15 = _m_psrlw(_m_pand(v11, *(__m64*) & byte_5D4594[3804396]), *(__m64*) & byte_5D4594[3804444]);
         while (1)
         {
@@ -9028,7 +9028,7 @@ void __cdecl sub_49F3A0(int a1, int a2, int a3) {
 	v9 = v7 + 1;
 	if ((int)v9 > 0) {
 		v10 = *(_BYTE*)(&ptr_5D4594_3799572->data[61]);
-		v11 = (_DWORD*)(dword_5d4594_3798784 + 4 * v4);
+		v11 = (_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * v4);
 		do {
 			v12 = (_BYTE*)(a1 + *v11);
 			++v11;
@@ -9074,7 +9074,7 @@ void __cdecl sub_49F420(int a1, int a2, int a3) {
 	v9 = v7 + 1;
 	if ((int)v9 > 0) {
 		v10 = *(_WORD*)(&ptr_5D4594_3799572->data[61]);
-		v11 = (_DWORD*)(dword_5d4594_3798784 + 4 * v4);
+		v11 = (_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * v4);
 		do {
 			v12 = (_WORD*)(2 * a1 + *v11);
 			++v11;
