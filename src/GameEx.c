@@ -840,7 +840,7 @@ int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 	if (v4 > 0x791) {
 		if (v4 == 1938 && !nox_common_gameFlags_check_40A5C0(512)) {
 			sub_4BDFD0();
-			sub_46A9B0((_DWORD*)getMem(0x715E00), 200, 100);
+			nox_wnd_sub_46A9B0((_DWORD*)getMem(0x715E00), 200, 100);
 		}
 		return 0;
 	}

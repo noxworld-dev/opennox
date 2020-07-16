@@ -1549,7 +1549,7 @@ int sub_478110() {
 	} while ((int)v3 < (int)&byte_5D4594[1100036]);
 	sub_478F10();
 	nox_window_get_size(*(int*)&dword_5d4594_1098576, &v8, &v7);
-	sub_46A9B0(*(_DWORD**)&dword_5d4594_1098576, nox_win_width - v8, nox_win_height - v7);
+	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1098576, nox_win_width - v8, nox_win_height - v7);
 	nox_window_set_hidden(*(int*)&dword_5d4594_1098576, 1);
 	sub_46ABB0(*(int*)&dword_5d4594_1098576, 0);
 	*(_DWORD*)&byte_5D4594[1098400] = sub_42F970("ShopBase");
@@ -11886,7 +11886,7 @@ int __cdecl sub_488160(int a1, int a2) {
 		}
 		v14 = (_DWORD*)*((_DWORD*)v23 + 262);
 		if (v14)
-			sub_46A9B0(v14, v4 + v22, v29 + v7);
+			nox_wnd_sub_46A9B0(v14, v4 + v22, v29 + v7);
 		sub_434390(*(_DWORD*)(a2 + 68));
 		sub_43FAF0(*(_DWORD*)(a2 + 200), v26, v4 + 5, v7, 0, 0);
 		v15 = sub_4344A0(192, 0, 192);

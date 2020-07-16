@@ -30,8 +30,8 @@ _DWORD* sub_49C560() {
 		sub_46A8C0(*(int*)&dword_5d4594_1305680);
 		sub_46C690(*(int*)&dword_5d4594_1305680);
 		sub_46B500(*(int*)&dword_5d4594_1305680);
-		sub_46A9B0(*(_DWORD**)&dword_5d4594_1305680, (nox_win_width - *(int*)(dword_5d4594_1305680 + 8)) / 2,
-				   (nox_win_height - *(int*)(dword_5d4594_1305680 + 12)) / 2);
+		nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1305680, (nox_win_width - *(int*)(dword_5d4594_1305680 + 8)) / 2,
+						   (nox_win_height - *(int*)(dword_5d4594_1305680 + 12)) / 2);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1305680, 4102);
 			v6 = sub_42E8E0(45, 1);

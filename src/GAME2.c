@@ -1185,7 +1185,8 @@ _DWORD* sub_44E560() {
 		dword_5d4594_831232 = result;
 		if (result) {
 			sub_46B120(result, *(int*)&dword_5d4594_831236);
-			sub_46A9B0(*(_DWORD**)&dword_5d4594_831232, *(int*)&byte_5D4594[831284], *(int*)&byte_5D4594[831288]);
+			nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_831232, *(int*)&byte_5D4594[831284],
+							   *(int*)&byte_5D4594[831288]);
 			v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_831232, 1010);
 			sub_46B340((int)v1, sub_44E6F0);
 			sub_44E410();
@@ -1229,7 +1230,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 
 	*(float*)&dword_5d4594_831276 = *(float*)&dword_5d4594_831276 - sub_44E8B0();
 	v2 = nox_float2int(*(float*)&dword_5d4594_831276);
-	sub_46A9B0(a1, 0, v2);
+	nox_wnd_sub_46A9B0(a1, 0, v2);
 	nox_client_copyRect_49F6F0(*(int*)&byte_5D4594[831284], *(int*)&byte_5D4594[831288], NOX_DEFAULT_WIDTH,
 							   NOX_DEFAULT_HEIGHT);
 	if (byte_5D4594[832472] & 1) {
@@ -6945,7 +6946,7 @@ int* __cdecl sub_45D200(int* a1, int a2, int2* a3) {
 	int v5;      // ecx
 
 	sub_45AD70(1);
-	sub_46A9B0(nox_win_unk1, a3->field_0, a3->field_4);
+	nox_wnd_sub_46A9B0(nox_win_unk1, a3->field_0, a3->field_4);
 	result = a1;
 	if (a1 == (int*)2 || a1 == (int*)4) {
 		v5 = 0;
@@ -7156,8 +7157,8 @@ int __cdecl sub_45D570(int a1, int a2) {
 					sub_45D550(&byte_5D4594[1046844]);
 					*(float*)&dword_5d4594_1046636 = (double)*(int*)&byte_5D4594[1046844];
 					*(float*)&dword_5d4594_1046640 = (double)*(int*)&byte_5D4594[1046848];
-					sub_46A9B0(*(_DWORD**)&dword_5d4594_1046956, *(int*)&byte_5D4594[1046844],
-							   *(int*)&byte_5D4594[1046848]);
+					nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1046956, *(int*)&byte_5D4594[1046844],
+									   *(int*)&byte_5D4594[1046848]);
 					sub_461320(*(int*)&dword_5d4594_1046852, &byte_5D4594[1046668]);
 					a3.field_0 = 400;
 					a4.field_4 = 400;
@@ -7989,11 +7990,11 @@ int sub_460000() {
 			}
 			result = 1;
 		} else {
-			sub_46A9B0(*(_DWORD**)&dword_5d4594_1049504, *(_DWORD*)(dword_5d4594_1049504 + 16), v0 - 1);
+			nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1049504, *(_DWORD*)(dword_5d4594_1049504 + 16), v0 - 1);
 			result = 1;
 		}
 	} else {
-		sub_46A9B0(*(_DWORD**)&dword_5d4594_1049504, *(_DWORD*)(dword_5d4594_1049504 + 16), v0 + 1);
+		nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1049504, *(_DWORD*)(dword_5d4594_1049504 + 16), v0 + 1);
 		result = 1;
 	}
 	return result;

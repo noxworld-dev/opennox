@@ -254,7 +254,7 @@ int sub_447620_wol_chat() {
 		sub_44A4B0();
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_829480, sub_447C70, 0, 0);
 		sub_46B340(*(int*)&dword_5d4594_829480, sub_4483A0);
-		result = sub_43C5B0(*(_DWORD**)&dword_5d4594_829480, 0, 0, 0, -480, 0, 20, 0, -40);
+		result = nox_wnd_sub_43C5B0(*(_DWORD**)&dword_5d4594_829480, 0, 0, 0, -480, 0, 20, 0, -40);
 		dword_5d4594_829520 = result;
 		if (result) {
 			*(_DWORD*)result = 1900;

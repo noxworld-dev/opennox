@@ -205,7 +205,7 @@ int sub_4379F0() {
 			sub_49FF20();
 			sub_46A8C0(*(int*)&dword_5d4594_814980);
 			nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_814980, sub_439D00, 0, 0);
-			v1 = sub_43C5B0(*(_DWORD**)&dword_5d4594_814980, 0, 0, 0, -480, 0, 20, 0, -40);
+			v1 = nox_wnd_sub_43C5B0(*(_DWORD**)&dword_5d4594_814980, 0, 0, 0, -480, 0, 20, 0, -40);
 			dword_5d4594_815040 = v1;
 			if (v1) {
 				*v1 = 10000;
@@ -527,7 +527,7 @@ int __cdecl sub_439370(int2* a1, int a2) {
 		sub_46B120(*(_DWORD**)&dword_5d4594_815000, 0);
 		sub_46A8C0(*(int*)&dword_5d4594_815000);
 		sub_46C690(*(int*)&dword_5d4594_815000);
-		sub_46A9B0(*(_DWORD**)&dword_5d4594_815000, a1->field_0, a1->field_4);
+		nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_815000, a1->field_0, a1->field_4);
 		sub_4394D0(a2);
 		dword_5d4594_815056 = 1;
 		*(_WORD*)&byte_5D4594[814604] = *(_WORD*)(a2 + 109);

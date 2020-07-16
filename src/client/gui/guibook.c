@@ -493,7 +493,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 LABEL_27:
 	v23 = nox_float2int(*(float*)&dword_5d4594_1046640);
 	v12 = nox_float2int(*(float*)&dword_5d4594_1046636);
-	sub_46A9B0(a1, v12, v23);
+	nox_wnd_sub_46A9B0(a1, v12, v23);
 	return 1;
 }
 
