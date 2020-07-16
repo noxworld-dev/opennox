@@ -30,7 +30,7 @@ There may be other not so obvious reasons to avoid these kinds of changes: unuse
 
 So the rule of thumb is to keep the code and data structures as close as possible to the original.
 
-When renaming a procedure name, stick to the naming scheme `<module>_<component>_<action>_<original_address>`. Example: when renaming a procedure named `sub_112233`, it should be named as `nox_network_playerinfo_112233`, where `nox` is the module (other possible module names are `mix` and `unimod`), `network` is the component, `playerinfo` is the action, and `112233` is the original HEX address of the procedure in the original Nox binary.
+See [Cleanup/Refactoring guide](docs/refactoring.md) before making any changes to the codebase.
 
 ## Keep it compatible
 
