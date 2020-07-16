@@ -10243,7 +10243,7 @@ int sub_486060() {
 }
 
 //----- (00486110) --------------------------------------------------------
-LPVOID sub_486110() {
+LPVOID nox_free_pixbuffers_486110() {
 	LPVOID result; // eax
 
 	if (!*(_DWORD*)&byte_5D4594[1193200]) {
@@ -10272,7 +10272,7 @@ LPVOID sub_486110() {
 int __cdecl sub_486180(void* a1) {
 	int result; // eax
 
-	sub_486110();
+	nox_free_pixbuffers_486110();
 	nox_pixbuffer_3798780 = a1;
 	result = sub_486230();
 	*(_DWORD*)&byte_5D4594[1193200] = 1;
@@ -10280,7 +10280,7 @@ int __cdecl sub_486180(void* a1) {
 }
 
 //----- (004861A0) --------------------------------------------------------
-void* sub_4861A0() {
+void* nox_pixbuffer_swap_4861A0() {
 	int v0;       // ecx
 	void* result; // eax
 

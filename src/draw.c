@@ -2221,7 +2221,7 @@ void sub_444C50() {
 	if (dword_5d4594_823776) {
 		nox_video_stopCursorDrawThread_48B350();
 		nullsub_6();
-		sub_486110();
+		nox_free_pixbuffers_486110();
 		nullsub_19();
 		nullsub_3();
 		nullsub_14();
@@ -2312,7 +2312,7 @@ void sub_4AD180() {
     result = g_backbuffer1->lpVtbl->Blt(g_backbuffer1, 0, dword_973C88, 0, 0, &v1);
     if (!result)
     {
-        sub_4861A0();
+        nox_pixbuffer_swap_4861A0();
         result = sub_48A5E0();
     }
     return result;
@@ -3259,7 +3259,7 @@ int __cdecl sub_4B0340(int a1) // draw general
 #endif // NOX_PLAY_MOVIES
 		;
 		if (!v2) {
-			sub_486110();
+			nox_free_pixbuffers_486110();
 			sub_48A120();
 			nox_video_renderTargetFlags = v4;
 			result = sub_48A040(v3, v8, v7, a1);
@@ -3293,7 +3293,7 @@ int __cdecl sub_4B0340(int a1) // draw general
 	a1 = nox_backbuffer_depth;
 	nox_video_stopCursorDrawThread_48B350();
 	sub_433C20();
-	sub_486110();
+	nox_free_pixbuffers_486110();
 	sub_48A120();
 	nox_video_renderTargetFlags = v4;
 	result = sub_48A040(v3, NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
