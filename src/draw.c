@@ -2323,7 +2323,6 @@ void sub_4AD180() {
 void sub_4AD1E0() {
 	int result; // eax
 	_WORD* v1;  // edi
-	_WORD** v3; // ebp
 	_WORD* v4;  // esi
 
 	if (dword_973C70) {
@@ -2343,7 +2342,7 @@ void sub_4AD1E0() {
 		return;
 	}
 
-	v3 = *(_WORD***)&nox_pixbuffer_rows_3798784;
+	_WORD** v3 = nox_pixbuffer_rows_3798784;
 	for (int v2 = nox_backbuffer_height; v2 > 0; v2--) {
 		v4 = *v3;
 		for (int v5 = nox_backbuffer_width32; v5 > 0; v5--) {
@@ -2372,8 +2371,8 @@ void sub_4AD2A0() {
 	if (dword_973C70) {
 		return;
 	}
-	_DWORD* dst = (_DWORD*)nox_backbuffer_pix;
-	_DWORD** src = *(_DWORD***)&nox_pixbuffer_rows_3798784;
+	_DWORD* dst = nox_backbuffer_pix;
+	_DWORD** src = nox_pixbuffer_rows_3798784;
 	for (int y = 0; y < nox_backbuffer_height; y++) {
 		_DWORD* row = src[y];
 		for (int x = 0; x < nox_backbuffer_width32; x++) {
