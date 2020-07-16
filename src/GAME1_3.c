@@ -638,7 +638,7 @@ void sub_43C380() {
 					++v2;
 					v14 = *(_DWORD*)(v0 + 12);
 				}
-				sub_46A9B0(*(_DWORD**)(v0 + 4), v8, v9);
+				nox_wnd_sub_46A9B0(*(_DWORD**)(v0 + 4), v8, v9);
 				if (v2 == 2) {
 					*(_BYTE*)(v0 + 64) = 1;
 					sub_43BE40(1);
@@ -682,7 +682,7 @@ void sub_43C380() {
 		++v2;
 		v14 = *(_DWORD*)(v0 + 20);
 	LABEL_14:
-		sub_46A9B0(*(_DWORD**)(v0 + 4), v3, v4);
+		nox_wnd_sub_46A9B0(*(_DWORD**)(v0 + 4), v3, v4);
 		if (v2 == 2) {
 			*(_BYTE*)(v0 + 64) = 0;
 			sub_43BE40(0);
@@ -725,7 +725,7 @@ _DWORD* __cdecl sub_43C520(int a1) {
 }
 
 //----- (0043C540) --------------------------------------------------------
-_DWORD* sub_43C540() {
+_DWORD* nox_wnd_sub_43C540() {
 	_DWORD* result; // eax
 
 	result = nox_calloc(1u, 0x44u);
@@ -755,13 +755,13 @@ void __cdecl sub_43C570(LPVOID lpMem) {
 }
 
 //----- (0043C5B0) --------------------------------------------------------
-_DWORD* __cdecl sub_43C5B0(_DWORD* a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9) {
+_DWORD* __cdecl nox_wnd_sub_43C5B0(_DWORD* a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9) {
 	_DWORD* v9; // esi
 
-	v9 = sub_43C540();
+	v9 = nox_wnd_sub_43C540();
 	if (!v9)
 		return 0;
-	sub_46A9B0(a1, a4, a5);
+	nox_wnd_sub_46A9B0(a1, a4, a5);
 	v9[4] = a2;
 	v9[5] = a3;
 	v9[8] = a6;
@@ -5890,8 +5890,8 @@ _DWORD* __cdecl sub_449A10(int a1, int a2, int a3, int a4, int (*a5)(void), int 
 			sub_46B120(*(_DWORD**)&dword_5d4594_830224, 0);
 			sub_46A8C0(*(int*)&dword_5d4594_830224);
 			sub_46C690(*(int*)&dword_5d4594_830224);
-			sub_46A9B0(*(_DWORD**)&dword_5d4594_830224, (nox_win_width - *(int*)(dword_5d4594_830224 + 8)) / 2,
-					   (nox_win_height - *(int*)(dword_5d4594_830224 + 12)) / 2);
+			nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_830224, (nox_win_width - *(int*)(dword_5d4594_830224 + 8)) / 2,
+							   (nox_win_height - *(int*)(dword_5d4594_830224 + 12)) / 2);
 			sub_449EA0(a4);
 			result = (_DWORD*)sub_46AE00();
 			dword_5d4594_830236 = result;
@@ -6187,7 +6187,7 @@ int __cdecl sub_44A200(int a1) {
 }
 
 //----- (0044A340) --------------------------------------------------------
-int __cdecl sub_44A340(int a1, int a2) { return sub_46A9B0(*(_DWORD**)&dword_5d4594_830224, a1, a2); }
+int __cdecl sub_44A340(int a1, int a2) { return nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_830224, a1, a2); }
 
 //----- (0044A360) --------------------------------------------------------
 void __cdecl sub_44A360(int a1) {

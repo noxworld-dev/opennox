@@ -1293,7 +1293,7 @@ int sub_4BDFD0() {
 		v5 = v9 + 55;
 	else
 		v5 = v9 + 80;
-	sub_46A9B0(*(_DWORD**)&dword_5d4594_1316972, v10 + 15, v5);
+	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1316972, v10 + 15, v5);
 	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1316972, 2104);
 	sub_46B280((int)v6, *(int*)&dword_5d4594_1316972);
 	sub_46B2C0((int)v6, sub_4BE330);
@@ -2230,7 +2230,7 @@ int sub_4BFBF0() {
 		nox_window_set_hidden(*(int*)&dword_5d4594_1319060, 0);
 		sub_46ABB0(*(int*)&dword_5d4594_1319060, 1);
 		nox_window_get_size(*(int*)&dword_5d4594_1319060, &v2, &v1);
-		sub_46A9B0(*(_DWORD**)&dword_5d4594_1319060, nox_win_width / 2 - v2 / 2, nox_win_height / 2 - v1 / 2);
+		nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1319060, nox_win_width / 2 - v2 / 2, nox_win_height / 2 - v1 / 2);
 		result = sub_46B500(0);
 	}
 	return result;
@@ -2564,7 +2564,7 @@ int __cdecl sub_4C0560(int a1, int a2) {
 		v2 = nox_win_width - v5;
 	if (v3 + v6 >= nox_win_height)
 		v3 = nox_win_height - v6;
-	return sub_46A9B0(*(_DWORD**)&dword_5d4594_1319228, v2, v3);
+	return nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1319228, v2, v3);
 }
 
 //----- (004C05F0) --------------------------------------------------------
@@ -2971,7 +2971,7 @@ int __cdecl sub_4C1320(int a1) {
 	sub_46ABB0(*(int*)&dword_5d4594_1320940, 1);
 	sub_4C12D0();
 	nox_window_get_size(*(int*)&dword_5d4594_1320940, &v6, &v5);
-	sub_46A9B0(*(_DWORD**)&dword_5d4594_1320940, 198, 193);
+	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1320940, 198, 193);
 	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3702);
 	nox_window_call_field_94((int)v3, 16385, v1 + 4704, 0);
 	v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3703);
@@ -3476,8 +3476,8 @@ int __cdecl sub_4C1FE0(_DWORD* a1) {
 			nox_window_set_hidden(*(int*)&dword_5d4594_1321040, 1);
 		}
 	}
-	sub_46A9B0(*(_DWORD**)&dword_5d4594_1321032, *(int*)&dword_5d4594_1320988, *(int*)&dword_5d4594_1320992);
-	sub_46A9B0(*(_DWORD**)&dword_5d4594_1321040, dword_5d4594_1320988 + 27, dword_5d4594_1320992 + 12);
+	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1321032, *(int*)&dword_5d4594_1320988, *(int*)&dword_5d4594_1320992);
+	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1321040, dword_5d4594_1320988 + 27, dword_5d4594_1320992 + 12);
 	nox_client_wndGetPosition_46AA60(a1, &v28, &v29);
 	nox_window_get_size((int)a1, &v21, &v20);
 	sub_43F320(0);
@@ -4231,7 +4231,7 @@ int sub_4C3500() {
 	v0 = nox_new_window_from_file("yesno.wnd", 0);
 	dword_5d4594_1321224 = v0;
 	if (v0) {
-		sub_46A9B0(v0, (nox_win_width - 320) / 2, (nox_win_height - 240) / 2);
+		nox_wnd_sub_46A9B0(v0, (nox_win_width - 320) / 2, (nox_win_height - 240) / 2);
 		v0 = *(_DWORD**)&dword_5d4594_1321224;
 	}
 	nox_window_set_hidden((int)v0, 1);
@@ -9814,7 +9814,7 @@ int sub_4CB880() {
 	dword_5d4594_1522604 = result;
 	if (result) {
 		sub_46B300(result, sub_4A18E0);
-		result = sub_43C5B0(*(_DWORD**)&dword_5d4594_1522604, 0, 0, 0, -480, 0, 20, 0, -40);
+		result = nox_wnd_sub_43C5B0(*(_DWORD**)&dword_5d4594_1522604, 0, 0, 0, -480, 0, 20, 0, -40);
 		dword_5d4594_1522608 = result;
 		if (result) {
 			*(_DWORD*)result = 900;
@@ -10154,7 +10154,7 @@ int sub_4CC4E0() // display legal window
 	v8 = (unsigned __int16*)sub_46AF00((int)v0);
 	v1 = sub_46AF40((int)v0);
 	sub_43F840(v1, v8, 0, &v9, 640);
-	sub_46A9B0(v0, 0, 477 - v9);
+	nox_wnd_sub_46A9B0(v0, 0, 477 - v9);
 	v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522892, 9999);
 	v3 = sub_401020();
 	nox_window_call_field_94((int)v2, 16385, (int)v3, 0);
@@ -10242,7 +10242,7 @@ int sub_4CC770() {
 		v1 = v6;
 		v4 = v6;
 	}
-	sub_46A9B0(*(_DWORD**)&dword_5d4594_1522932, (v0 - 1024) / 2, (v1 - 768) / 2);
+	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1522932, (v0 - 1024) / 2, (v1 - 768) / 2);
 	sub_46A8C0(*(int*)&dword_5d4594_1522932);
 	sub_46A8A0();
 	return 1;
