@@ -508,7 +508,7 @@ extern _DWORD dword_5d4594_1301836;
 extern _DWORD dword_5d4594_251564;
 extern _DWORD dword_587000_184452;
 extern _DWORD dword_5d4594_1301832;
-extern _DWORD nox_pitch_3801808;
+extern int nox_pitch_3801808;
 extern _DWORD dword_5d4594_1550916;
 extern _DWORD dword_5d4594_2487540;
 extern _DWORD dword_587000_81128;
