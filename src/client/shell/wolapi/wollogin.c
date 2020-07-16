@@ -47,7 +47,7 @@ int sub_44A560_wol_login() {
 		dword_5d4594_830248 = result;
 		if (!result)
 			return result;
-		result = sub_43C5B0((_DWORD*)result, 0, 0, 0, -480, 0, 20, 0, -40);
+		result = nox_wnd_sub_43C5B0((_DWORD*)result, 0, 0, 0, -480, 0, 20, 0, -40);
 		dword_5d4594_830244 = result;
 		if (!result)
 			return result;

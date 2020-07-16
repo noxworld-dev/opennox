@@ -46,7 +46,8 @@ int sub_46C730() {
 		sub_46AEE0(*(int*)&byte_5D4594[1082872], (int)v5);
 		v6 = loadString_sub_40F1D0((char*)&byte_587000[143408], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 342);
 		sub_46AEE0(*(int*)&byte_5D4594[1082876], (int)v6);
-		sub_46A9B0(*(_DWORD**)&dword_5d4594_1082856, (nox_win_width - *(int*)(dword_5d4594_1082856 + 8)) / 2, 0);
+		nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1082856, (nox_win_width - *(int*)(dword_5d4594_1082856 + 8)) / 2,
+						   0);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1082856, 1);
 		sub_46ABB0(*(int*)&dword_5d4594_1082856, 0);
 		result = 1;

@@ -1312,7 +1312,7 @@ int __cdecl sub_463430(int a1) {
 	wchar_t v17[16]; // [esp+18h] [ebp-20h]
 
 	v1 = dword_587000_136184;
-	sub_46A9B0(*(_DWORD**)(a1 + 396), 0, v1);
+	nox_wnd_sub_46A9B0(*(_DWORD**)(a1 + 396), 0, v1);
 	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &v16, &v16.field_4);
 	sub_43F320(0);
 	v2 = 0;
@@ -2324,7 +2324,7 @@ int __cdecl sub_466ED0(int a1) {
 	if (result) {
 		sub_46AB20((_DWORD*)result, 200, 200);
 		sub_46B120(*(_DWORD**)&dword_5d4594_1062476, a1);
-		sub_46A9B0(*(_DWORD**)&dword_5d4594_1062476, 51, 15);
+		nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1062476, 51, 15);
 		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1062476, 9155);
 		sub_46B340((int)v2, sub_466F50);
 		result = 1;
@@ -3797,7 +3797,8 @@ int __cdecl sub_46A5D0(_DWORD* a1, int a2) {
 		goto LABEL_5;
 	}
 LABEL_6:
-	sub_46A9B0(*(_DWORD**)&dword_5d4594_1064856, (nox_win_width - v2) / 2, *(_DWORD*)(dword_5d4594_1064856 + 20));
+	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1064856, (nox_win_width - v2) / 2,
+					   *(_DWORD*)(dword_5d4594_1064856 + 20));
 	sub_46AB20(a1, v5, 20);
 	return sub_488160((int)a1, a2);
 }
@@ -3826,7 +3827,7 @@ _DWORD* sub_46A730() {
 	result = nox_new_window_from_file("GuiChat.wnd", sub_46A820);
 	dword_5d4594_1064856 = result;
 	if (result) {
-		sub_46A9B0(result, *(int*)&byte_5D4594[1064876], *(int*)&byte_5D4594[1064880]);
+		nox_wnd_sub_46A9B0(result, *(int*)&byte_5D4594[1064876], *(int*)&byte_5D4594[1064880]);
 		result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064856, 9201);
 		dword_5d4594_1064860 = result;
 		if (result) {
@@ -3941,7 +3942,7 @@ void __cdecl sub_46A960(nox_window* win) {
 }
 
 //----- (0046A9B0) --------------------------------------------------------
-int __cdecl sub_46A9B0(_DWORD* a1, int a2, int a3) {
+int __cdecl nox_wnd_sub_46A9B0(_DWORD* a1, int a2, int a3) {
 	int v4; // esi
 	int v5; // ecx
 
@@ -6623,7 +6624,8 @@ int sub_470710() {
 	dword_5d4594_1090176 = result;
 	if (result) {
 		sub_46B340(result, sub_470770);
-		sub_46A9B0(*(_DWORD**)&dword_5d4594_1090176, 121, nox_win_height - *(_DWORD*)(dword_5d4594_1090176 + 12) - 5);
+		nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1090176, 121,
+						   nox_win_height - *(_DWORD*)(dword_5d4594_1090176 + 12) - 5);
 		dword_5d4594_1090140 = sub_43F360((char*)&byte_587000[147880]);
 		sub_4706C0(0);
 		result = 1;
