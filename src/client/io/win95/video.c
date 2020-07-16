@@ -3,7 +3,7 @@
 #include "../../../proto.h"
 #include "../console.h"
 
-extern _DWORD nox_pixbuffer_3798780;
+extern BYTE* nox_pixbuffer_3798780;
 extern int nox_pitch_3801808;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
