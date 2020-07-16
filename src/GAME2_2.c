@@ -76,7 +76,7 @@ extern _DWORD dword_5d4594_3799508;
 extern _DWORD dword_5d4594_3798812;
 extern _DWORD dword_5d4594_3798800;
 extern _DWORD dword_5d4594_1193584;
-extern _DWORD nox_pitch_3801808;
+extern int nox_pitch_3801808;
 extern _DWORD dword_5d4594_3798828;
 extern _QWORD qword_581450_9552;
 extern _QWORD qword_581450_9544;
@@ -6606,7 +6606,7 @@ int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7
 			}
 		}
 		v31 = v52;
-		v52 += *(int*)&nox_pitch_3801808;
+		v52 += nox_pitch_3801808;
 		++v45.field_4;
 		result = (int*)--v56;
 		if (!v56)
