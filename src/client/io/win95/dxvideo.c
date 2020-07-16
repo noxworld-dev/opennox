@@ -4,7 +4,7 @@
 
 extern _DWORD dword_5d4594_805860;
 extern _DWORD dword_5d4594_3804680;
-extern _DWORD nox_pitch_3801808;
+extern int nox_pitch_3801808;
 extern _DWORD dword_5d4594_3801780;
 extern int nox_enable_threads;
 
