@@ -134,7 +134,7 @@ extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
 extern _DWORD dword_5d4594_3799540;
-extern void* nox_pixbuffer_rows_3798784;
+extern BYTE** nox_pixbuffer_rows_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
 
