@@ -2840,7 +2840,7 @@ int __cdecl nox_thing_read_edge_485D40(int a1, char* a2);
 unsigned int sub_485F80();
 int sub_486060();
 int sub_486090();
-LPVOID nox_free_pixbuffers_486110();
+void nox_free_pixbuffers_486110();
 int __cdecl sub_486180(void* a1);
 void* nox_pixbuffer_swap_4861A0();
 int sub_4861D0();
