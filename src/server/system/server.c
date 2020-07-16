@@ -48,7 +48,6 @@ extern _DWORD dword_5d4594_1599640;
 extern _DWORD dword_5d4594_1548476;
 extern _DWORD dword_5d4594_2487236;
 extern _DWORD dword_5d4594_1599656;
-extern _DWORD dword_5d4594_1569648;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_1599636;
 
@@ -1223,7 +1222,7 @@ void sub_4FBEE0() {
 			}
 		}
 	}
-	for (int* p = *(int**)&dword_5d4594_1569648; p; p = (int*)p[4]) {
+	for (int* p = *(int**)&byte_5D4594[1569648]; p; p = (int*)p[4]) {
 		if (!(*(_DWORD*)(p[1] + 16) & 0x8020)) {
 			if (*(_DWORD*)&byte_5D4594[2598000] <= (unsigned int)p[2]) {
 				continue;
@@ -1241,7 +1240,7 @@ void sub_4FBEE0() {
 		if (v7) {
 			*(_DWORD*)(v7 + 16) = p[4];
 		} else {
-			dword_5d4594_1569648 = p[4];
+			*(_DWORD*)&byte_5D4594[1569648]  = p[4];
 		}
 		sub_414330(*(unsigned int**)&dword_5d4594_1569644, p);
 	}
