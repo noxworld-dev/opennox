@@ -59,7 +59,6 @@ extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_3799476;
 extern _DWORD dword_5d4594_3799468;
 extern _DWORD dword_587000_154948;
-extern _DWORD nox_pixbuffer_rows_3798776;
 extern _DWORD dword_5d4594_3807160;
 extern _DWORD dword_5d4594_1098592;
 extern _DWORD dword_5d4594_1193184;
@@ -148,6 +147,7 @@ extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
+BYTE** nox_pixbuffer_rows_3798776 = 0;
 BYTE* nox_pixbuffer_3798788 = 0;
 
 void(__cdecl *dword_587000_154940)(int2*, _DWORD, _DWORD) = sub_4815E0;
@@ -10282,7 +10282,7 @@ void nox_pixbuffer_swap_4861A0() {
 	nox_pixbuffer_3798788 = nox_pixbuffer_3798780;
 	nox_pixbuffer_3798780 = tmp;
 
-	int tmp2 = nox_pixbuffer_rows_3798784;
+	BYTE** tmp2 = nox_pixbuffer_rows_3798784;
 	nox_pixbuffer_rows_3798784 = nox_pixbuffer_rows_3798776;
 	nox_pixbuffer_rows_3798776 = tmp2;
 }
