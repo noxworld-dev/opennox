@@ -10243,29 +10243,25 @@ int sub_486060() {
 }
 
 //----- (00486110) --------------------------------------------------------
-LPVOID nox_free_pixbuffers_486110() {
-	LPVOID result; // eax
-
+void nox_free_pixbuffers_486110() {
 	if (!*(_DWORD*)&byte_5D4594[1193200]) {
 		if (nox_pixbuffer_3798780) {
-			free(*(LPVOID*)&nox_pixbuffer_3798780);
+			free(nox_pixbuffer_3798780);
 			nox_pixbuffer_3798780 = 0;
 		}
 		if (nox_pixbuffer_3798788) {
-			free(*(LPVOID*)&nox_pixbuffer_3798788);
+			free(nox_pixbuffer_3798788);
 			nox_pixbuffer_3798788 = 0;
 		}
 	}
 	if (nox_pixbuffer_rows_3798784) {
-		free(*(LPVOID*)&nox_pixbuffer_rows_3798784);
+		free(nox_pixbuffer_rows_3798784);
 		nox_pixbuffer_rows_3798784 = 0;
 	}
-	result = *(LPVOID*)&nox_pixbuffer_rows_3798776;
 	if (nox_pixbuffer_rows_3798776) {
-		free(*(LPVOID*)&nox_pixbuffer_rows_3798776);
+		free(nox_pixbuffer_rows_3798776);
 		nox_pixbuffer_rows_3798776 = 0;
 	}
-	return result;
 }
 
 //----- (00486180) --------------------------------------------------------
