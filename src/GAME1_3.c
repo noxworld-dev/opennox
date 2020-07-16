@@ -129,7 +129,7 @@ extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_825760;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_830224;
-extern void* nox_pixbuffer_rows_3798784;
+extern BYTE** nox_pixbuffer_rows_3798784;
 extern nox_memfile* nox_loaded_thing_bin;
 
 extern int nox_win_width;
