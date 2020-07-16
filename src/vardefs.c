@@ -564,7 +564,6 @@ _DWORD dword_5d4594_1064824 = 0;
 _DWORD dword_5d4594_823700 = 0;
 _DWORD dword_5d4594_3807160 = 0;
 _DWORD dword_5d4594_1312476 = 0;
-_DWORD nox_pixbuffer_rows_3798776 = 0;
 _DWORD dword_5d4594_1046948 = 0;
 _DWORD dword_5d4594_1046528 = 0;
 _DWORD dword_5d4594_741364 = 0;
