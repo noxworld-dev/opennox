@@ -10289,17 +10289,21 @@ void nox_pixbuffer_swap_4861A0() {
 
 //----- (004861D0) --------------------------------------------------------
 int sub_4861D0() {
-	int result; // eax
+	if (*(_DWORD*)&byte_5D4594[1193200])
+		return 1;
 
-	if (*(_DWORD*)&byte_5D4594[1193200] ||
-		(result = (int)nox_calloc(nox_pitch_3801808 * nox_backbuffer_height, 1u),
-		 (nox_pixbuffer_3798780 = result) != 0) &&
-			(!(nox_video_renderTargetFlags & 0x40) ||
-			 (result = (int)nox_calloc(nox_pitch_3801808 * nox_backbuffer_height, 1u),
-			  (nox_pixbuffer_3798788 = result) != 0))) {
-		result = 1;
+	nox_pixbuffer_3798780 = nox_calloc(nox_pitch_3801808 * nox_backbuffer_height, 1u);
+	if (!nox_pixbuffer_3798780)
+		return 0;
+
+	if (!(nox_video_renderTargetFlags & 0x40))
+		return 1;
+
+	nox_pixbuffer_3798788 = nox_calloc(nox_pitch_3801808 * nox_backbuffer_height, 1u);
+	if (!nox_pixbuffer_3798788) {
+		return 0;
 	}
-	return result;
+	return 1;
 }
 
 //----- (00486230) --------------------------------------------------------
