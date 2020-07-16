@@ -42,11 +42,11 @@ extern _DWORD dword_5d4594_808568;
 extern _DWORD dword_5d4594_1193668;
 extern _DWORD dword_5d4594_787144;
 extern _DWORD dword_5d4594_823776;
-extern _DWORD dword_5d4594_3798780;
+extern _DWORD nox_pixbuffer_3798780;
 extern _DWORD dword_5d4594_1193704;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_1193584;
-extern _DWORD dword_5d4594_3801808;
+extern _DWORD nox_pitch_3801808;
 extern _DWORD dword_5d4594_3801804;
 extern _DWORD dword_5d4594_3799492;
 extern _DWORD dword_5d4594_810640;
@@ -56,7 +56,7 @@ extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
-extern _DWORD dword_5d4594_3798784;
+extern _DWORD nox_pixbuffer_rows_3798784;
 extern int nox_enable_audio;
 
 extern int nox_win_width;
@@ -187,7 +187,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	dword_973C64 = 0;
 	if (!v9) {
 		dword_5d4594_3799624 = 0;
-		dword_5d4594_3801808 = w & 0xFFFFFFE0;
+		nox_pitch_3801808 = w & 0xFFFFFFE0;
 		dword_5d4594_3801780 = 0;
 		*(_DWORD*)&byte_5D4594[3801776] = v8 >> 2;
 		nox_backbuffer_width32 = v8 >> 5;
@@ -203,7 +203,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 		dword_5d4594_3799624 = 1;
 	}
 	dword_5d4594_3801780 = 1;
-	dword_5d4594_3801808 = 2 * v8;
+	nox_pitch_3801808 = 2 * v8;
 	*(_DWORD*)&byte_5D4594[3801776] = v8 >> 1;
 	nox_backbuffer_width32 = v8 >> 4;
 	dword_5d4594_3801804 = sub_444D90();
@@ -2343,7 +2343,7 @@ void sub_4AD1E0() {
 		return;
 	}
 
-	v3 = *(_WORD***)&dword_5d4594_3798784;
+	v3 = *(_WORD***)&nox_pixbuffer_rows_3798784;
 	for (int v2 = nox_backbuffer_height; v2 > 0; v2--) {
 		v4 = *v3;
 		for (int v5 = nox_backbuffer_width32; v5 > 0; v5--) {
@@ -2373,7 +2373,7 @@ void sub_4AD2A0() {
 		return;
 	}
 	_DWORD* dst = (_DWORD*)nox_backbuffer_pix;
-	_DWORD** src = *(_DWORD***)&dword_5d4594_3798784;
+	_DWORD** src = *(_DWORD***)&nox_pixbuffer_rows_3798784;
 	for (int y = 0; y < nox_backbuffer_height; y++) {
 		_DWORD* row = src[y];
 		for (int x = 0; x < nox_backbuffer_width32; x++) {
@@ -2428,7 +2428,7 @@ int sub_48A3D0() {
 			nox_backbuffer_width32 = g_backbuffer1->w >> 4;
 			*(_DWORD*)&byte_5D4594[3801776] = g_backbuffer1->w >> 1;
 			dword_5d4594_3801780 = 1;
-			dword_5d4594_3801808 = 2 * g_backbuffer1->w;
+			nox_pitch_3801808 = 2 * g_backbuffer1->w;
 			nox_backbuffer_pitch32 = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
 
 			if (g_format == SDL_PIXELFORMAT_RGBA5551)
@@ -2490,7 +2490,7 @@ int sub_48A3D0() {
 				*(_DWORD*)&byte_5D4594[3801776] = v4 >> 1;
 				v7 = 0;
 				dword_5d4594_3801780 = 1;
-				dword_5d4594_3801808 = v3;
+				nox_pitch_3801808 = v3;
 				for (nox_backbuffer_pitch32 = v5; v6; v6 >>= 1) {
 					if (v6 & 1)
 						++v7;
@@ -2521,7 +2521,7 @@ int sub_48A3D0() {
 				dword_5d4594_3801780 = 0;
 				*(_DWORD*)&byte_5D4594[3801776] = v1 >> 2;
 				dword_5d4594_3799624 = 0;
-				dword_5d4594_3801808 = v1;
+				nox_pitch_3801808 = v1;
 				nox_backbuffer_width32 = v1 >> 5;
 				nox_backbuffer_pitch32 = v2 - v1;
 				return 1;
@@ -3240,8 +3240,8 @@ int __cdecl sub_4B0340(int a1) // draw general
 		v13[0] = windowHandle_dword_973FE0;
 		v13[4] = g_backbuffer1;
 		v13[2] = g_ddraw;
-		v13[5] = dword_5d4594_3798780;
-		v13[6] = dword_5d4594_3798780;
+		v13[5] = nox_pixbuffer_3798780;
+		v13[6] = nox_pixbuffer_3798780;
 		v13[3] = g_frontbuffer;
 		v13[7] = nox_backbuffer_width;
 		v13[8] = nox_backbuffer_height;
