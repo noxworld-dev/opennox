@@ -142,7 +142,7 @@ extern _DWORD dword_5d4594_1307784;
 extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
-extern void* nox_pixbuffer_rows_3798784;
+extern BYTE** nox_pixbuffer_rows_3798784;
 extern int g_fullscreen;
 extern float draw_gamma;
 extern float input_sensitivity;
