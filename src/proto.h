@@ -2842,7 +2842,7 @@ int sub_486060();
 int sub_486090();
 void nox_free_pixbuffers_486110();
 int __cdecl sub_486180(void* a1);
-void* nox_pixbuffer_swap_4861A0();
+void nox_pixbuffer_swap_4861A0();
 int sub_4861D0();
 int sub_486230();
 int __cdecl sub_4862E0(int a3, int a4);
