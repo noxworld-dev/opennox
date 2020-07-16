@@ -129,7 +129,7 @@ extern _DWORD dword_587000_80828;
 extern _DWORD dword_5d4594_825760;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_830224;
-extern _DWORD nox_pixbuffer_rows_3798784;
+extern void* nox_pixbuffer_rows_3798784;
 extern nox_memfile* nox_loaded_thing_bin;
 
 extern int nox_win_width;
@@ -3180,7 +3180,7 @@ int __cdecl sub_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 			v69 = v45 + 1;
 			while (1) {
 				v47 = (char*)v65;
-				v48 = (_WORD*)(2 * v11 + *(_DWORD*)(v46 + nox_pixbuffer_rows_3798784));
+				v48 = (_WORD*)(2 * v11 + *(_DWORD*)(v46 + (_DWORD)nox_pixbuffer_rows_3798784));
 				v49 = v67;
 				v46 += 4;
 				while (1) {
@@ -3272,7 +3272,7 @@ int __cdecl sub_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 	v68 = v72.field_C - v72.field_4;
 	while (2) {
 		v17 = v67;
-		v18 = (_WORD*)(2 * v15 + *(_DWORD*)(nox_pixbuffer_rows_3798784 + v16));
+		v18 = (_WORD*)(2 * v15 + *(_DWORD*)((_DWORD)nox_pixbuffer_rows_3798784 + v16));
 		v70 = v16 + 4;
 		v19 = (char*)v66;
 		v20 = v15;
@@ -3479,7 +3479,7 @@ int __cdecl sub_440360(int a1, int a2, int xLeft, int yTop) {
 	LABEL_66:
 		v47 = v66;
 		v48 = v67;
-		v49 = (_BYTE*)(xLeft + *(_DWORD*)(nox_pixbuffer_rows_3798784 + v45));
+		v49 = (_BYTE*)(xLeft + *(_DWORD*)((_DWORD)nox_pixbuffer_rows_3798784 + v45));
 		v45 += 4;
 		while (1) {
 			v50 = *v47++;
@@ -3556,7 +3556,7 @@ int __cdecl sub_440360(int a1, int a2, int xLeft, int yTop) {
 	while (2) {
 		v15 = v67;
 		v16 = xLeft;
-		v17 = (_BYTE*)(xLeft + *(_DWORD*)(v14 + nox_pixbuffer_rows_3798784));
+		v17 = (_BYTE*)(xLeft + *(_DWORD*)(v14 + (_DWORD)nox_pixbuffer_rows_3798784));
 		v69 = v14 + 4;
 		v18 = v66;
 		while (1) {

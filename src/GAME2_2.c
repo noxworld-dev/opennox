@@ -123,7 +123,7 @@ extern _DWORD dword_5d4594_3798844;
 extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
-extern _DWORD nox_pixbuffer_rows_3798784;
+extern void* nox_pixbuffer_rows_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_width;
@@ -6487,7 +6487,7 @@ int* __cdecl sub_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7
 	if (v40 <= 0) {
 		return result;
 	}
-	v21 = *(int*)(nox_pixbuffer_rows_3798784 + 4 * v17) + 2 * ((int)result + v20);
+	v21 = *(int*)((_DWORD)nox_pixbuffer_rows_3798784 + 4 * v17) + 2 * ((int)result + v20);
 	v22 = a4[1];
 	v52 = (char*)v21;
 	v23 = *a4;
@@ -7248,7 +7248,7 @@ LABEL_60:
 			v51 = &byte_5D4594[128 * dword_5d4594_3679320 + 3682956];
 			v76 = 4 * dword_5d4594_3679320 - 4;
 			for (j = (int)&byte_5D4594[128 * dword_5d4594_3679320 + 3682956];; v51 = (unsigned __int8*)j) {
-				i = *(_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * v49);
+				i = *(_DWORD*)((_DWORD)nox_pixbuffer_rows_3798784 + 4 * v49);
 				if (v50 == 23) {
 					v78 = 0;
 					++v66.field_4;
@@ -7297,7 +7297,7 @@ LABEL_60:
 						v56 = (v55 - v54) << byte_5D4594[3807124];
 						v57 = v74;
 						qmemcpy((void*)(i + (v54 << byte_5D4594[3807124])),
-								(const void*)((v54 << byte_5D4594[3807124]) + *(_DWORD*)(nox_pixbuffer_rows_3798784 + v76)),
+								(const void*)((v54 << byte_5D4594[3807124]) + *(_DWORD*)((_DWORD)nox_pixbuffer_rows_3798784 + v76)),
 								v56);
 						v74 = v57 - 1;
 					} while (v57 != 1);
@@ -7326,7 +7326,7 @@ LABEL_60:
 			do {
 				v35 = v78;
 				v36 = *(_DWORD*)&byte_5D4594[4 * v79 + 3679340];
-				i = *(_DWORD*)(nox_pixbuffer_rows_3798784 + 4 * v79);
+				i = *(_DWORD*)((_DWORD)nox_pixbuffer_rows_3798784 + 4 * v79);
 				if (v36 > 0) {
 					j = (unsigned int)(v36 + 1) >> 1;
 					do {
