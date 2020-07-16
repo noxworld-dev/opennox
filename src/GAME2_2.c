@@ -54,7 +54,6 @@ extern _DWORD dword_5d4594_1193668;
 extern _DWORD dword_5d4594_1096644;
 extern _DWORD dword_5d4594_787144;
 extern _DWORD dword_587000_80832;
-extern _DWORD nox_pixbuffer_3798788;
 extern _DWORD dword_5d4594_1097188;
 extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_3799476;
@@ -148,6 +147,8 @@ extern int nox_drawable_list_4_size;
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
+
+BYTE* nox_pixbuffer_3798788 = 0;
 
 void(__cdecl *dword_587000_154940)(int2*, _DWORD, _DWORD) = sub_4815E0;
 int (__cdecl *dword_587000_154944)(int, int) = sub_481900;
@@ -10277,7 +10278,7 @@ int __cdecl sub_486180(void* a1) {
 
 //----- (004861A0) --------------------------------------------------------
 void nox_pixbuffer_swap_4861A0() {
-	int tmp = nox_pixbuffer_3798788;
+	BYTE* tmp = nox_pixbuffer_3798788;
 	nox_pixbuffer_3798788 = nox_pixbuffer_3798780;
 	nox_pixbuffer_3798780 = tmp;
 
