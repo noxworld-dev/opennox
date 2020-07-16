@@ -42,7 +42,7 @@ extern _DWORD dword_5d4594_808568;
 extern _DWORD dword_5d4594_1193668;
 extern _DWORD dword_5d4594_787144;
 extern _DWORD dword_5d4594_823776;
-extern _DWORD nox_pixbuffer_3798780;
+extern BYTE* nox_pixbuffer_3798780;
 extern _DWORD dword_5d4594_1193704;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_1193584;
