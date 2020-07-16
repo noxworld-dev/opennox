@@ -10276,17 +10276,14 @@ int __cdecl sub_486180(void* a1) {
 }
 
 //----- (004861A0) --------------------------------------------------------
-void* nox_pixbuffer_swap_4861A0() {
-	int v0;       // ecx
-	void* result; // eax
-
-	v0 = nox_pixbuffer_3798788;
+void nox_pixbuffer_swap_4861A0() {
+	int tmp = nox_pixbuffer_3798788;
 	nox_pixbuffer_3798788 = nox_pixbuffer_3798780;
-	result = *(void**)&nox_pixbuffer_rows_3798784;
-	nox_pixbuffer_3798780 = v0;
+	nox_pixbuffer_3798780 = tmp;
+
+	int tmp2 = nox_pixbuffer_rows_3798784;
 	nox_pixbuffer_rows_3798784 = nox_pixbuffer_rows_3798776;
-	nox_pixbuffer_rows_3798776 = result;
-	return result;
+	nox_pixbuffer_rows_3798776 = tmp2;
 }
 
 //----- (004861D0) --------------------------------------------------------
