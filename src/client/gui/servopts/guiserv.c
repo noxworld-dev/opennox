@@ -82,7 +82,8 @@ int sub_457500() {
 			v1 = 2;
 		dword_5d4594_1046492 = nox_new_window_from_file(*(const char**)&byte_587000[4 * v1 + 129760], sub_4585D0);
 		sub_43FE20(100);
-		sub_46A9B0(*(_DWORD**)&dword_5d4594_1046492, nox_win_width - *(_DWORD*)(dword_5d4594_1046492 + 8) - 10, 0);
+		nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1046492, nox_win_width - *(_DWORD*)(dword_5d4594_1046492 + 8) - 10,
+						   0);
 		sub_46B300(*(int*)&dword_5d4594_1046492, sub_458590);
 		sub_46B340(*(int*)&dword_5d4594_1046492, sub_458500);
 		dword_5d4594_1046512 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10101);

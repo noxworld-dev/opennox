@@ -21,7 +21,7 @@ int __cdecl sub_4B5770_wol_locale(int a1) {
 
 	*(_DWORD*)&byte_5D4594[1312488] = a1;
 	dword_5d4594_1312480 = nox_new_window_from_file("locale.wnd", sub_4B5AB0);
-	sub_46A9B0(*(_DWORD**)&dword_5d4594_1312480, nox_win_width / 2 - 75, nox_win_height / 2 - 77);
+	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1312480, nox_win_width / 2 - 75, nox_win_height / 2 - 77);
 	sub_46B120(*(_DWORD**)&dword_5d4594_1312480, 0);
 	sub_46A8C0(*(int*)&dword_5d4594_1312480);
 	sub_46C690(*(int*)&dword_5d4594_1312480);

@@ -28,7 +28,7 @@ int __cdecl sub_49B4B0(unsigned __int16* a1) {
 	sub_46ABB0(*(int*)&dword_5d4594_1303452, 1);
 	sub_452D80(1007, 100);
 	nox_window_get_size(*(int*)&dword_5d4594_1303452, &v15, &v14);
-	sub_46A9B0(*(_DWORD**)&dword_5d4594_1303452, nox_win_width / 2 - v15 / 2, nox_win_height / 2 - v14 / 2);
+	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1303452, nox_win_width / 2 - v15 / 2, nox_win_height / 2 - v14 / 2);
 	v11 = a1[1];
 	v1 = loadString_sub_40F1D0((char*)&byte_587000[163344], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 178);
 	nox_swprintf((wchar_t*)&byte_5D4594[1302172], v1, v11);
