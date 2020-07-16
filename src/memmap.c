@@ -146,7 +146,7 @@ extern int nox_drawable_list_4_size;
 
 extern nox_drawable*** nox_drawable_2d_index;
 extern int nox_drawable_2d_index_size;
-extern _DWORD nox_pixbuffer_rows_3798784;
+extern void* nox_pixbuffer_rows_3798784;
 extern _DWORD dword_5d4594_1599636;
 extern _DWORD dword_5d4594_3799540;
 extern _DWORD dword_5d4594_4668;
