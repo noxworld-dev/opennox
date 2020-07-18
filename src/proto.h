@@ -154,7 +154,7 @@ char* nox_server_get_current_map_path_409B90();
 char* sub_409C70();
 char* __cdecl sub_409D70(char* a1);
 char* nox_common_get_data_path_409E10();
-char* __cdecl nox_common_set_data_path_409E20(char* a1);
+void nox_common_set_data_path_409E20(char* wd);
 int __cdecl sub_409E40(int a1);
 int sub_409E60();
 int __cdecl sub_409E70(int a1);
