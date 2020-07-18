@@ -1297,16 +1297,15 @@ char* __cdecl sub_409D70(char* a1) {
 	return result;
 }
 
+char nox_workdir[1025] = {0};
+
 //----- (00409E10) --------------------------------------------------------
-char* nox_common_get_data_path_409E10() { return (char*)&byte_5D4594[1396]; }
+char* nox_common_get_data_path_409E10() { return nox_workdir; }
 
 //----- (00409E20) --------------------------------------------------------
-char* __cdecl nox_common_set_data_path_409E20(char* a1) {
-	char* result; // eax
-
-	result = strncpy((char*)&byte_5D4594[1396], a1, 0x400u);
-	byte_5D4594[2420] = 0;
-	return result;
+void nox_common_set_data_path_409E20(char* wd) {
+	strncpy(nox_workdir, wd, sizeof(nox_workdir)-1);
+	nox_workdir[sizeof(nox_workdir)-1] = 0;
 }
 
 //----- (00409E40) --------------------------------------------------------
