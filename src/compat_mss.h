@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "defs.h"
 
 #define AILCALL
 #define AILCALLBACK WINAPI
