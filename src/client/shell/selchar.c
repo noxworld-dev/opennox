@@ -10,6 +10,8 @@ extern _DWORD dword_5d4594_1307776;
 extern _DWORD dword_5d4594_1307764;
 extern _DWORD dword_5d4594_1307780;
 
+char nox_savegame_name_1307752[9] = {0};
+
 //----- (004A4DB0) --------------------------------------------------------
 int sub_4A4DB0() {
 	int result;  // eax
@@ -331,8 +333,8 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 			if (v5 == -1)
 				goto LABEL_40;
 			*(_DWORD*)&byte_5D4594[1307772] = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1307776 + 32) + 48);
-			nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + 1278 * v5 + 4), (char*)&byte_5D4594[1307752]);
-			if (nox_common_gameFlags_check_40A5C0(2048) && !strcmp((const char*)&byte_5D4594[1307752], "AUTOSAVE")) {
+			nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + 1278 * v5 + 4), nox_savegame_name_1307752);
+			if (nox_common_gameFlags_check_40A5C0(2048) && !strcmp(nox_savegame_name_1307752, "AUTOSAVE")) {
 				sub_452D80(925, 100);
 				v17 = 0;
 				v16 = 33;

@@ -1349,6 +1349,7 @@ extern _DWORD dword_587000_180476;
 extern _DWORD dword_5d4594_1046852;
 extern _DWORD dword_5d4594_2386848;
 extern char nox_workdir[1025];
+extern char nox_savegame_name_1307752[9];
 
 typedef struct mem_mapping {
 	uintptr_t base;
@@ -1360,6 +1361,7 @@ typedef struct mem_mapping {
 mem_mapping mappings[] = {
 	// overrides
 	{0x5D4594 + 1396, (void*)nox_workdir, sizeof(nox_workdir), 1},
+	{0x5D4594 + 1307752, (void*)nox_savegame_name_1307752, sizeof(nox_savegame_name_1307752), 1},
 	{0x5D4594 + 2386848, (void*)&dword_5d4594_2386848, sizeof(dword_5d4594_2386848), 1},
 	{0x5D4594 + 1046852, (void*)&dword_5d4594_1046852, sizeof(dword_5d4594_1046852), 1},
 	{0x587000 + 180476, (void*)&dword_587000_180476, sizeof(dword_587000_180476), 1},
