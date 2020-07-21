@@ -10,7 +10,7 @@
 extern _DWORD dword_5d4594_2491716;
 extern _DWORD dword_5d4594_2491748;
 extern _DWORD dword_5d4594_2490504;
-extern _DWORD nox_alloc_hit_2491548;
+extern void* nox_alloc_hit_2491548;
 extern _DWORD dword_5d4594_2491580;
 extern _DWORD dword_587000_292488;
 extern _DWORD dword_5d4594_2491676;

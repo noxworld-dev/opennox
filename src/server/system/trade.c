@@ -4,7 +4,7 @@
 extern _DWORD dword_5d4594_2386552;
 extern _DWORD dword_5d4594_2386548;
 extern _DWORD dword_5d4594_2386560;
-extern _DWORD nox_alloc_tradeItems_2386496;
+extern void* nox_alloc_tradeItems_2386496;
 
 //----- (0050E7A0) --------------------------------------------------------
 int __cdecl sub_50E7A0(_DWORD* a1, int a2) {
