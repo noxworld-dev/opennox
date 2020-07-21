@@ -2284,7 +2284,7 @@ int __cdecl sub_50CB20(int a1, float* a2) {
 unsigned __int8* sub_50CD30() { return &byte_5D4594[2386196]; }
 
 //----- (0050CD40) --------------------------------------------------------
-char* __cdecl sub_50CD40(int a1, int a2, _DWORD* a3) {
+void sub_50CD40(int a1, int a2, _DWORD* a3) {
 	char* result; // eax
 
 	result = (char*)sub_501900(a1);
@@ -2306,7 +2306,6 @@ char* __cdecl sub_50CD40(int a1, int a2, _DWORD* a3) {
 			}
 		}
 	}
-	return result;
 }
 
 //----- (0050CDD0) --------------------------------------------------------
