@@ -4241,7 +4241,7 @@ int sub_4DB250();
 char* sub_4DB260();
 unsigned int __cdecl sub_4DB270(const char* a1);
 unsigned int __cdecl sub_4DB2A0(const char* a1);
-BOOL __cdecl sub_4DB540(int a1);
+BOOL __cdecl sub_4DB540(char* saveName);
 char* __cdecl sub_4DB790(const char* a1);
 void sub_4DB9C0();
 int __cdecl nox_savegame_rm_4DBE10(int a1, int a2);

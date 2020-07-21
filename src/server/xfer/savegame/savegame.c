@@ -175,7 +175,7 @@ int __cdecl sub_4DB370_savegame(const char* a1) {
 		return 0;
 	if (!sub_4DB1D0())
 		return 0;
-	if (!sub_4DB540((int)&byte_587000[199176]))
+	if (!sub_4DB540(&byte_587000[199176]))
 		return 0;
 	v5 = sub_409B40();
 	if (!sub_4DB5A0((int)&byte_587000[199184], (int)v5))
