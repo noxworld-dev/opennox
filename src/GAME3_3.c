@@ -1063,15 +1063,10 @@ _DWORD* __cdecl sub_4E3470(int a1) {
 
 //----- (004E3810) --------------------------------------------------------
 _DWORD* __cdecl sub_4E3810(CHAR* a1) {
-	int v1;         // eax
-	_DWORD* result; // eax
-
-	v1 = sub_4E3830(a1);
-	if (v1)
-		result = sub_4E3470(v1);
-	else
-		result = 0;
-	return result;
+	int v1 = sub_4E3830(a1);
+	if (!v1)
+		return 0;
+	return sub_4E3470(v1);
 }
 
 //----- (004E3830) --------------------------------------------------------
