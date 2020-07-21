@@ -4412,8 +4412,8 @@ void sub_4E3320();
 int __cdecl sub_4E3360(unsigned int a1);
 int sub_4E3420();
 void nullsub_23(void); // weak
-_DWORD* __cdecl sub_4E3450(int a1);
-_DWORD* __cdecl sub_4E3470(int a1);
+_DWORD* __cdecl nox_new_objMem_2_4E3450(int a1);
+_DWORD* __cdecl nox_new_objMem_4E3470(int a1);
 _DWORD* __cdecl sub_4E3810(CHAR* a1);
 int __cdecl sub_4E3830(CHAR* a1);
 int __cdecl sub_4E3880(const void*, const void*); // idb

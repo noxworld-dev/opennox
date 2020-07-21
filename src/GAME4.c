@@ -7434,7 +7434,7 @@ _DWORD* __cdecl sub_5016C0(int a1, int* a2, int a3, unsigned __int8 a4) {
 	int v8;         // ebx
 	int v9;         // eax
 
-	result = sub_4E3450(a1);
+	result = nox_new_objMem_2_4E3450(a1);
 	v5 = result;
 	if (!result)
 		return result;
@@ -9888,7 +9888,7 @@ int __cdecl nox_server_mapRWObjectData_504CF0(_DWORD* a2) {
 			while (1) {
 				sub_426C20(&a1, 4u);
 				v8 = sub_42C2B0(v12);
-				v9 = sub_4E3450(v8);
+				v9 = nox_new_objMem_2_4E3450(v8);
 				v10 = v9;
 				if (!v9)
 					break;
