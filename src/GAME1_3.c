@@ -4584,7 +4584,7 @@ void sub_446380() {
 }
 
 //----- (004463E0) --------------------------------------------------------
-int __cdecl sub_4463E0(int a1) {
+int __cdecl nox_motd_4463E0(int a1) {
 	FILE* result; // eax
 	FILE* v2;     // edi
 	char* v3;     // eax
