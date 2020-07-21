@@ -24,21 +24,21 @@ extern _DWORD dword_587000_249172;
 extern _DWORD dword_5d4594_2386840;
 extern _DWORD dword_5d4594_1599696;
 extern _DWORD dword_587000_237036;
-extern _DWORD dword_5d4594_2386916;
+extern _DWORD nox_alloc_pendingOwn_2386916;
 extern _DWORD dword_5d4594_2386228;
-extern _DWORD dword_5d4594_2386216;
+extern _DWORD nox_alloc_spawn_2386216;
 extern _DWORD dword_587000_230092;
 extern _DWORD dword_5d4594_2386156;
 extern _DWORD dword_5d4594_3835348;
-extern _DWORD dword_5d4594_2386492;
+extern _DWORD nox_alloc_tradeSession_2386492;
 extern _DWORD dword_5d4594_2386564;
 extern _DWORD dword_5d4594_2386920;
-extern _DWORD dword_5d4594_2386568;
-extern _DWORD dword_5d4594_2386220;
+extern _DWORD nox_alloc_springs_2386568;
+extern _DWORD nox_alloc_monsterList_2386220;
 extern _DWORD dword_5d4594_2386192;
 extern _DWORD dword_5d4594_2388640;
 extern _DWORD dword_5d4594_2487240;
-extern _DWORD dword_5d4594_2386188;
+extern _DWORD nox_alloc_monsterListen_2386188;
 extern _DWORD dword_5d4594_2386160;
 extern _DWORD dword_5d4594_1599712;
 extern _DWORD dword_5d4594_2386924;
@@ -52,8 +52,8 @@ extern _DWORD dword_5d4594_2386576;
 extern _DWORD dword_5d4594_2386212;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_2386180;
-extern _DWORD dword_5d4594_2386496;
-extern _DWORD dword_5d4594_2386184;
+extern _DWORD nox_alloc_tradeItems_2386496;
+extern _DWORD nox_alloc_visitNode_2386184;
 extern _DWORD dword_5d4594_3821964;
 extern _DWORD dword_5d4594_2388648;
 extern _DWORD dword_5d4594_3821636;
@@ -1051,14 +1051,14 @@ int sub_50AB90() {
 	int result; // eax
 
 	result = nox_new_alloc_class("VisitNodes", 16, 1024);
-	dword_5d4594_2386184 = result;
+	nox_alloc_visitNode_2386184 = result;
 	if (result) {
 		dword_5d4594_2386176 = nox_malloc(0x2000u);
 		if (dword_5d4594_2386176) {
 			dword_5d4594_2386172 = 0;
 			result = 1;
 		} else {
-			nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386184);
+			nox_free_alloc_class(*(LPVOID*)&nox_alloc_visitNode_2386184);
 			result = 0;
 		}
 	}
@@ -1068,8 +1068,8 @@ int sub_50AB90() {
 //----- (0050ABF0) --------------------------------------------------------
 void sub_50ABF0() {
 	free(*(LPVOID*)&dword_5d4594_2386176);
-	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386184);
-	dword_5d4594_2386184 = 0;
+	nox_free_alloc_class(*(LPVOID*)&nox_alloc_visitNode_2386184);
+	nox_alloc_visitNode_2386184 = 0;
 }
 
 //----- (0050AC20) --------------------------------------------------------
@@ -1646,14 +1646,14 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
 	v73 = v8;
 	v54 = v9;
 	v74 = nox_float2int(v54);
-	result = *(LPVOID*)&dword_5d4594_2386184;
-	if (!dword_5d4594_2386184) {
+	result = *(LPVOID*)&nox_alloc_visitNode_2386184;
+	if (!nox_alloc_visitNode_2386184) {
 		dword_5d4594_2386180 = 0;
 		dword_5d4594_1599712 = 2;
 		return result;
 	}
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2386184);
-	v11 = (unsigned __int16*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386184);
+	sub_4144D0(*(_DWORD**)&nox_alloc_visitNode_2386184);
+	v11 = (unsigned __int16*)nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_visitNode_2386184);
 	*v11 = a2a.field_0;
 	v11[1] = a2a.field_4;
 	v12 = *v11;
@@ -1810,7 +1810,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
 					}
 				}
 			LABEL_32:
-				v31 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386184);
+				v31 = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_visitNode_2386184);
 				if (!v31) {
 					v55 = *(_DWORD*)(v30 + 36);
 					v47 = sub_4E39D0(v30);
@@ -1828,7 +1828,7 @@ LPVOID __cdecl sub_50BA00(int a1, int a2, float* a3, float* a4, int(__cdecl* a5)
 			if (!sub_50AC20((int)v15, v68))
 				goto LABEL_38;
 			*((_BYTE*)v15 + 12) |= 2u;
-			v32 = (unsigned __int16*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386184);
+			v32 = (unsigned __int16*)nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_visitNode_2386184);
 			if (!v32) {
 				v30 = a2;
 				v56 = *(_DWORD*)(a2 + 36);
@@ -2229,8 +2229,8 @@ int __cdecl sub_50CB20(int a1, float* a2) {
 	v15 = v3;
 	a2a.field_4 = nox_float2int(v15);
 	sub_50C8D0(a1, &a2a);
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2386184);
-	v4 = (unsigned __int16*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386184);
+	sub_4144D0(*(_DWORD**)&nox_alloc_visitNode_2386184);
+	v4 = (unsigned __int16*)nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_visitNode_2386184);
 	*v4 = a2a.field_0;
 	v4[1] = a2a.field_4;
 	v5 = v4[1] + (*v4 << 8);
@@ -2260,7 +2260,7 @@ int __cdecl sub_50CB20(int a1, float* a2) {
 					*(_DWORD*)&byte_5D4594[12 * (v11 + (v10 << 8)) + 1599716] = dword_5d4594_2386160;
 					if (!sub_50B870(a1, v10, v16)) {
 						if (sub_50C830(a1, v10, v11)) {
-							v12 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386184);
+							v12 = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_visitNode_2386184);
 							if (v12) {
 								*v12 = v10;
 								v12[1] = v11;
@@ -2289,11 +2289,11 @@ char* __cdecl sub_50CD40(int a1, int a2, _DWORD* a3) {
 
 	result = (char*)sub_501900(a1);
 	if (result) {
-		if (dword_5d4594_2386188 ||
-			(result = nox_new_alloc_class("MonsterListen", 24, 128), (dword_5d4594_2386188 = result) != 0)) {
+		if (nox_alloc_monsterListen_2386188 ||
+			(result = nox_new_alloc_class("MonsterListen", 24, 128), (nox_alloc_monsterListen_2386188 = result) != 0)) {
 			result = (char*)sub_534160(a2);
 			if (result) {
-				result = (char*)nox_alloc_class_new_obj(*(_DWORD**)&dword_5d4594_2386188);
+				result = (char*)nox_alloc_class_new_obj(*(_DWORD**)&nox_alloc_monsterListen_2386188);
 				if (result) {
 					*(_DWORD*)result = a1;
 					*((_DWORD*)result + 1) = a2;
@@ -2348,7 +2348,7 @@ unsigned __int8* __cdecl sub_50CDD0(int a1) {
 									*(_DWORD*)(v2 + 20) = v6;
 								else
 									dword_5d4594_2386192 = *(_DWORD*)(v4 + 20);
-								sub_414330(*(unsigned int**)&dword_5d4594_2386188, (_QWORD*)v4);
+								sub_414330(*(unsigned int**)&nox_alloc_monsterListen_2386188, (_QWORD*)v4);
 							} else {
 								v7 = *(_DWORD*)(v4 + 4);
 								if (v7 && *(_BYTE*)(v7 + 16) & 0x20)
@@ -2510,18 +2510,18 @@ _DWORD* __cdecl sub_50D190(int a1, _DWORD* a2, _DWORD* a3) {
 int sub_50D1C0() {
 	int result; // eax
 
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2386188);
+	sub_4144D0(*(_DWORD**)&nox_alloc_monsterListen_2386188);
 	result = 0;
-	dword_5d4594_2386188 = 0;
+	nox_alloc_monsterListen_2386188 = 0;
 	dword_5d4594_2386192 = 0;
 	return result;
 }
 
 //----- (0050D1E0) --------------------------------------------------------
 void sub_50D1E0() {
-	if (dword_5d4594_2386188) {
-		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386188);
-		dword_5d4594_2386188 = 0;
+	if (nox_alloc_monsterListen_2386188) {
+		nox_free_alloc_class(*(LPVOID*)&nox_alloc_monsterListen_2386188);
+		nox_alloc_monsterListen_2386188 = 0;
 	}
 	dword_5d4594_2386192 = 0;
 }
@@ -2774,11 +2774,11 @@ int sub_50D780() {
 	int result; // eax
 
 	result = nox_new_alloc_class("SpawnClass", 12, 96);
-	dword_5d4594_2386216 = result;
+	nox_alloc_spawn_2386216 = result;
 	if (result) {
 		dword_5d4594_2386212 = 0;
 		result = nox_new_alloc_class("MonsterListClass", 148, 96);
-		dword_5d4594_2386220 = result;
+		nox_alloc_monsterList_2386220 = result;
 		if (result) {
 			dword_5d4594_2386224 = 0;
 			dword_5d4594_2386228 = 0;
@@ -2790,20 +2790,20 @@ int sub_50D780() {
 
 //----- (0050D7E0) --------------------------------------------------------
 void sub_50D7E0() {
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2386216);
+	sub_4144D0(*(_DWORD**)&nox_alloc_spawn_2386216);
 	dword_5d4594_2386212 = 0;
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2386220);
+	sub_4144D0(*(_DWORD**)&nox_alloc_monsterList_2386220);
 	dword_5d4594_2386224 = 0;
 	dword_5d4594_2386228 = 0;
 }
 
 //----- (0050D820) --------------------------------------------------------
 void sub_50D820() {
-	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386216);
-	dword_5d4594_2386216 = 0;
+	nox_free_alloc_class(*(LPVOID*)&nox_alloc_spawn_2386216);
+	nox_alloc_spawn_2386216 = 0;
 	dword_5d4594_2386212 = 0;
-	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386220);
-	dword_5d4594_2386220 = 0;
+	nox_free_alloc_class(*(LPVOID*)&nox_alloc_monsterList_2386220);
+	nox_alloc_monsterList_2386220 = 0;
 	dword_5d4594_2386224 = 0;
 	dword_5d4594_2386228 = 0;
 }
@@ -2917,7 +2917,7 @@ int sub_50D960() {
 							if (sub_535250(&v39, 0, 0, 69)) {
 								v5 = sub_50DE60(*v3);
 								if (!v5) {
-									v6 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386220);
+									v6 = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_monsterList_2386220);
 									v5 = v6;
 									if (!v6)
 										break;
@@ -3040,7 +3040,7 @@ int sub_50D960() {
 								*(_DWORD*)(v31 + 140) = v26[35];
 							else
 								dword_5d4594_2386224 = v26[35];
-							sub_414330(*(unsigned int**)&dword_5d4594_2386220, v26);
+							sub_414330(*(unsigned int**)&nox_alloc_monsterList_2386220, v26);
 							v32 = *(_DWORD*)&byte_5D4594[4 * v23 + 2386232];
 							--dword_5d4594_2386228;
 							if (v32 <= v35)
@@ -3064,7 +3064,7 @@ int sub_50DE10() {
 	if (dword_5d4594_2386224) {
 		do {
 			v1 = *(_DWORD*)(result + 140);
-			sub_414330(*(unsigned int**)&dword_5d4594_2386220, (_QWORD*)result);
+			sub_414330(*(unsigned int**)&nox_alloc_monsterList_2386220, (_QWORD*)result);
 			result = v1;
 			--dword_5d4594_2386228;
 		} while (v1);
@@ -3165,7 +3165,7 @@ int __cdecl sub_50E030(int a1, _DWORD* a2) {
 	v2 = *(_DWORD*)(a1 + 748);
 	v3 = (_DWORD*)a2[187];
 	if (!v3[549]) {
-		result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386216);
+		result = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_spawn_2386216);
 		v5 = (_DWORD*)result;
 		if (!result)
 			return result;
@@ -3235,7 +3235,7 @@ void __cdecl sub_50E140(int a1) {
 		}
 		if (*(_DWORD*)(v1 + 2196)) {
 			sub_50E1B0(*(_DWORD*)(v1 + 2196));
-			sub_414330(*(unsigned int**)&dword_5d4594_2386216, *(_QWORD**)(v1 + 2196));
+			sub_414330(*(unsigned int**)&nox_alloc_spawn_2386216, *(_QWORD**)(v1 + 2196));
 			*(_DWORD*)(v1 + 2196) = 0;
 		}
 	}
@@ -3303,10 +3303,10 @@ int sub_50E2A0() {
 	int result; // eax
 
 	result = nox_new_alloc_class("TradeSessions", 64, 64);
-	dword_5d4594_2386492 = result;
+	nox_alloc_tradeSession_2386492 = result;
 	if (result) {
-		dword_5d4594_2386496 = nox_new_alloc_class("TradeItems", 16, 500);
-		if (dword_5d4594_2386496) {
+		nox_alloc_tradeItems_2386496 = nox_new_alloc_class("TradeItems", 16, 500);
+		if (nox_alloc_tradeItems_2386496) {
 			memset(&byte_5D4594[2386364], 0, 0x80u);
 			dword_5d4594_2386500 = 0;
 			result = 1;
@@ -3322,14 +3322,14 @@ int sub_50E2A0() {
 int sub_50E300() {
 	int result; // eax
 
-	if (dword_5d4594_2386492)
-		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386492);
-	dword_5d4594_2386492 = 0;
-	if (dword_5d4594_2386496)
-		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386496);
+	if (nox_alloc_tradeSession_2386492)
+		nox_free_alloc_class(*(LPVOID*)&nox_alloc_tradeSession_2386492);
+	nox_alloc_tradeSession_2386492 = 0;
+	if (nox_alloc_tradeItems_2386496)
+		nox_free_alloc_class(*(LPVOID*)&nox_alloc_tradeItems_2386496);
 	result = 0;
 	memset(&byte_5D4594[2386364], 0, 0x80u);
-	dword_5d4594_2386496 = 0;
+	nox_alloc_tradeItems_2386496 = 0;
 	dword_5d4594_2386500 = 0;
 	return result;
 }
@@ -3351,8 +3351,8 @@ int sub_50E360() {
 			v0 = (_DWORD*)v0[14];
 		} while (v0);
 	}
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2386492);
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2386496);
+	sub_4144D0(*(_DWORD**)&nox_alloc_tradeSession_2386492);
+	sub_4144D0(*(_DWORD**)&nox_alloc_tradeItems_2386496);
 	result = 0;
 	memset(&byte_5D4594[2386364], 0, 0x80u);
 	dword_5d4594_2386500 = 0;
@@ -3524,7 +3524,7 @@ _DWORD* sub_50E870() {
 	_DWORD* v0; // eax
 	_DWORD* v1; // esi
 
-	v0 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386492);
+	v0 = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_tradeSession_2386492);
 	v1 = v0;
 	if (!v0)
 		return 0;
@@ -3759,7 +3759,7 @@ float* __cdecl sub_50EE00(int a1, float a2) {
 	_DWORD* i;       // eax
 	int v7;          // eax
 
-	result = (float*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386496);
+	result = (float*)nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_tradeItems_2386496);
 	v3 = result;
 	if (result) {
 		*result = a2;
@@ -3990,7 +3990,7 @@ int __cdecl sub_50F6B0(int a1) {
 	if (a1) {
 		do {
 			v2 = *(_DWORD*)(result + 8);
-			sub_414330(*(unsigned int**)&dword_5d4594_2386496, (_QWORD*)result);
+			sub_414330(*(unsigned int**)&nox_alloc_tradeItems_2386496, (_QWORD*)result);
 			result = v2;
 		} while (v2);
 	}
@@ -4268,7 +4268,7 @@ int __cdecl sub_50FE20(int a1, int a2) {
 		sub_50FF90(*(_DWORD*)(a1 + 12), a1, *v2);
 		sub_50F720(*(_DWORD*)(a1 + 12), (_DWORD*)a1);
 	}
-	sub_414330(*(unsigned int**)&dword_5d4594_2386496, v2);
+	sub_414330(*(unsigned int**)&nox_alloc_tradeItems_2386496, v2);
 	return 1;
 }
 
@@ -4310,7 +4310,7 @@ void __cdecl sub_510000(int a1) {
 		do {
 			v2 = (int*)v1[2];
 			sub_4E38A0(*v1);
-			sub_414330(*(unsigned int**)&dword_5d4594_2386496, v1);
+			sub_414330(*(unsigned int**)&nox_alloc_tradeItems_2386496, v1);
 			v1 = v2;
 		} while (v2);
 	}
@@ -4326,7 +4326,7 @@ void __cdecl sub_510000(int a1) {
 		*(_DWORD*)(v4 + 56) = *(_DWORD*)(a1 + 56);
 	if (a1 == dword_5d4594_2386500)
 		dword_5d4594_2386500 = *(_DWORD*)(a1 + 56);
-	sub_414330(*(unsigned int**)&dword_5d4594_2386492, (_QWORD*)a1);
+	sub_414330(*(unsigned int**)&nox_alloc_tradeSession_2386492, (_QWORD*)a1);
 }
 
 //----- (005100A0) --------------------------------------------------------
@@ -4740,19 +4740,19 @@ int __cdecl sub_511250(int a1, float* a2) {
 
 //----- (005112C0) --------------------------------------------------------
 BOOL sub_5112C0() {
-	dword_5d4594_2386568 = nox_new_alloc_class("Springs", 52, 256);
-	return dword_5d4594_2386568 != 0;
+	nox_alloc_springs_2386568 = nox_new_alloc_class("Springs", 52, 256);
+	return nox_alloc_springs_2386568 != 0;
 }
 
 //----- (005112F0) --------------------------------------------------------
 void sub_5112F0() {
 	dword_5d4594_2386572 = 0;
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2386568);
+	sub_4144D0(*(_DWORD**)&nox_alloc_springs_2386568);
 }
 
 //----- (00511310) --------------------------------------------------------
 int sub_511310() {
-	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386568);
+	nox_free_alloc_class(*(LPVOID*)&nox_alloc_springs_2386568);
 	dword_5d4594_2386572 = 0;
 	return 1;
 }
@@ -4786,7 +4786,7 @@ void __cdecl sub_511360(int a1) {
 	v2 = *(_DWORD*)(a1 + 44);
 	if (v2)
 		*(_DWORD*)(v2 + 48) = *(_DWORD*)(a1 + 48);
-	sub_414330(*(unsigned int**)&dword_5d4594_2386568, (_QWORD*)a1);
+	sub_414330(*(unsigned int**)&nox_alloc_springs_2386568, (_QWORD*)a1);
 }
 
 //----- (005113A0) --------------------------------------------------------
@@ -4854,7 +4854,7 @@ void __cdecl sub_5114D0(int a1, int a2, int a3, int a4, int a5, int a6) {
 	long double v9; // st7
 
 	if (a1 && a2 && !(*(_BYTE*)(a1 + 16) & 0x20) && !(*(_BYTE*)(a2 + 16) & 0x20)) {
-		v6 = (float*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386568);
+		v6 = (float*)nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_springs_2386568);
 		if (v6) {
 			*((_DWORD*)v6 + 4) = a3;
 			*((_DWORD*)v6 + 5) = a4;
@@ -9804,24 +9804,24 @@ int sub_516EA0() {
 //----- (00516EE0) --------------------------------------------------------
 BOOL sub_516EE0() {
 	dword_5d4594_2386920 = 0;
-	dword_5d4594_2386916 = nox_new_alloc_class("PendingOwn", 12, 512);
-	return dword_5d4594_2386916 != 0;
+	nox_alloc_pendingOwn_2386916 = nox_new_alloc_class("PendingOwn", 12, 512);
+	return nox_alloc_pendingOwn_2386916 != 0;
 }
 
 //----- (00516F10) --------------------------------------------------------
 int sub_516F10() {
 	int result; // eax
 
-	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2386916);
+	nox_free_alloc_class(*(LPVOID*)&nox_alloc_pendingOwn_2386916);
 	result = 0;
-	dword_5d4594_2386916 = 0;
+	nox_alloc_pendingOwn_2386916 = 0;
 	dword_5d4594_2386920 = 0;
 	return result;
 }
 
 //----- (00516F30) --------------------------------------------------------
 void sub_516F30() {
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2386916);
+	sub_4144D0(*(_DWORD**)&nox_alloc_pendingOwn_2386916);
 	dword_5d4594_2386920 = 0;
 }
 
@@ -9845,7 +9845,7 @@ int __cdecl sub_516F50(int a1, int a2) {
 _DWORD* __cdecl sub_516F90(int a1, int a2) {
 	_DWORD* result; // eax
 
-	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386916);
+	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_pendingOwn_2386916);
 	if (result) {
 		*result = a1;
 		result[1] = a2;

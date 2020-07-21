@@ -26,10 +26,10 @@ extern _DWORD dword_5d4594_1548704;
 extern _DWORD dword_5d4594_1563096;
 extern _DWORD dword_5d4594_1569652;
 extern _DWORD dword_5d4594_1563052;
-extern _DWORD dword_5d4594_1569644;
+extern _DWORD nox_alloc_execAbil_1569644;
 extern _DWORD dword_5d4594_1556148;
 extern _DWORD dword_5d4594_825768;
-extern _DWORD dword_5d4594_2386568;
+extern _DWORD nox_alloc_springs_2386568;
 extern _DWORD dword_587000_93196;
 extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_608316;
@@ -1242,7 +1242,7 @@ void sub_4FBEE0() {
 		} else {
 			*(_DWORD*)&byte_5D4594[1569648]  = p[4];
 		}
-		sub_414330(*(unsigned int**)&dword_5d4594_1569644, p);
+		sub_414330(*(unsigned int**)&nox_alloc_execAbil_1569644, p);
 	}
 }
 
@@ -1662,7 +1662,7 @@ void __cdecl sub_511590(int a1, int a2) {
 	if (a1) {
 		if (a2) {
 			if (!(*(_BYTE*)(a1 + 16) & 0x20) && !(*(_BYTE*)(a2 + 16) & 0x20)) {
-				v3 = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386568);
+				v3 = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_springs_2386568);
 				v4 = (int)v3;
 				if (v3) {
 					v3[2] = a1;

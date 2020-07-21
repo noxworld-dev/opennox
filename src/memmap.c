@@ -369,7 +369,7 @@ extern _DWORD dword_5d4594_371692;
 extern _DWORD dword_5d4594_3798832;
 extern _DWORD dword_5d4594_1197320;
 extern _DWORD dword_5d4594_3799492;
-extern _DWORD dword_5d4594_1301844;
+extern _DWORD nox_alloc_pixelSpan_1301844;
 extern _DWORD dword_5d4594_3798808;
 extern _DWORD dword_5d4594_1062524;
 extern _DWORD dword_5d4594_3835396;
@@ -400,7 +400,7 @@ extern _DWORD dword_5d4594_833720;
 extern _DWORD dword_5d4594_1045468;
 extern _DWORD dword_5d4594_2487904;
 extern _DWORD dword_587000_127004;
-extern _DWORD dword_5d4594_2386184;
+extern _DWORD nox_alloc_visitNode_2386184;
 extern _DWORD dword_5d4594_815088;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_1046924;
@@ -425,7 +425,7 @@ extern _DWORD dword_5d4594_831232;
 extern _DWORD dword_5d4594_787152;
 extern _DWORD dword_5d4594_816488;
 extern _DWORD dword_5d4594_2487712;
-extern _DWORD dword_5d4594_2386496;
+extern _DWORD nox_alloc_tradeItems_2386496;
 extern _DWORD dword_5d4594_529328;
 extern _DWORD dword_5d4594_2386180;
 extern _DWORD dword_5d4594_3843628;
@@ -496,7 +496,7 @@ extern _DWORD dword_587000_60044;
 extern _DWORD dword_5d4594_251560;
 extern _DWORD dword_5d4594_2513920;
 extern _DWORD dword_5d4594_3484;
-extern _DWORD dword_5d4594_806044;
+extern _DWORD nox_alloc_screenParticles_806044;
 extern _DWORD dword_5d4594_528252;
 extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_1309828;
@@ -630,7 +630,7 @@ extern _DWORD dword_587000_80844;
 extern _DWORD dword_5d4594_814996;
 extern _DWORD dword_5d4594_1049532;
 extern _DWORD dword_5d4594_1096512;
-extern _DWORD dword_5d4594_1197364;
+extern _DWORD nox_alloc_chat_1197364;
 extern _DWORD dword_5d4594_1046520;
 extern _DWORD dword_5d4594_829512;
 extern _DWORD dword_5d4594_832516;
@@ -638,11 +638,11 @@ extern _DWORD dword_587000_132136;
 extern _DWORD dword_5d4594_806052;
 extern _DWORD dword_5d4594_832496;
 extern _DWORD dword_5d4594_832512;
-extern _DWORD dword_5d4594_2386188;
+extern _DWORD nox_alloc_monsterListen_2386188;
 extern _DWORD dword_5d4594_832524;
 extern _DWORD dword_5d4594_1309776;
 extern _DWORD dword_5d4594_811104;
-extern _DWORD dword_5d4594_2523896;
+extern _DWORD nox_alloc_itemGroupElem_2523896;
 extern _DWORD dword_5d4594_1599556;
 extern _DWORD dword_5d4594_1599592;
 extern _DWORD dword_5d4594_2487980;
@@ -712,12 +712,12 @@ extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_1301780;
 extern _DWORD dword_5d4594_1064864;
 extern _DWORD dword_5d4594_1096252;
-extern _DWORD dword_5d4594_1563344;
+extern _DWORD nox_alloc_objMem_1563344;
 extern _DWORD dword_5d4594_741356;
 extern _DWORD dword_5d4594_1303468;
 extern _DWORD dword_5d4594_2487240;
 extern _DWORD dword_5d4594_1064820;
-extern _DWORD dword_5d4594_2523908;
+extern _DWORD nox_alloc_debugData_2523908;
 extern _DWORD dword_5d4594_1197356;
 extern _DWORD dword_5d4594_829520;
 extern _DWORD dword_5d4594_2388640;
@@ -746,9 +746,9 @@ extern _DWORD dword_5d4594_1308164;
 extern _DWORD dword_5d4594_1096496;
 extern _DWORD dword_5d4594_815704;
 extern _DWORD dword_5d4594_816448;
-extern _DWORD dword_5d4594_1568020;
+extern _DWORD nox_alloc_respawn_1568020;
 extern _DWORD dword_5d4594_2386192;
-extern _DWORD dword_5d4594_2386220;
+extern _DWORD nox_alloc_monsterList_2386220;
 extern _DWORD dword_5d4594_2487912;
 extern _DWORD dword_5d4594_252276;
 extern _DWORD dword_5d4594_2489432;
@@ -756,7 +756,7 @@ extern _DWORD dword_5d4594_1567928;
 extern _DWORD dword_5d4594_1307720;
 extern _DWORD dword_5d4594_1048144;
 extern _DWORD dword_5d4594_787144;
-extern _DWORD dword_5d4594_2386568;
+extern _DWORD nox_alloc_springs_2386568;
 extern _DWORD dword_587000_311372;
 extern _DWORD dword_5d4594_2386920;
 extern _DWORD dword_5d4594_1062452;
@@ -765,7 +765,7 @@ extern _DWORD dword_5d4594_2386564;
 extern _DWORD dword_5d4594_1093156;
 extern _DWORD dword_5d4594_830292;
 extern _DWORD dword_5d4594_1563664;
-extern _DWORD dword_5d4594_1569748;
+extern _DWORD nox_alloc_magicWall_1569748;
 extern _DWORD dword_5d4594_1550912;
 extern _DWORD dword_5d4594_1062488;
 extern _DWORD dword_5d4594_2516356;
@@ -778,12 +778,12 @@ extern _DWORD dword_5d4594_1308160;
 extern _DWORD dword_5d4594_3799488;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_531656;
-extern _DWORD dword_5d4594_2386492;
+extern _DWORD nox_alloc_tradeSession_2386492;
 extern _DWORD dword_5d4594_1096288;
 extern _DWORD dword_5d4594_3835352;
 extern _DWORD dword_5d4594_1046956;
 extern _DWORD dword_5d4594_1307292;
-extern _DWORD dword_5d4594_2523892;
+extern _DWORD nox_alloc_groupInfo_2523892;
 extern _DWORD dword_587000_145664;
 extern _DWORD dword_5d4594_787180;
 extern _DWORD dword_5d4594_787200;
@@ -809,7 +809,7 @@ extern _DWORD dword_5d4594_1309736;
 extern _DWORD dword_5d4594_754044;
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_5d4594_1301812;
-extern _DWORD dword_5d4594_1203860;
+extern _DWORD nox_alloc_friendList_1203860;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_1090040;
 extern _DWORD dword_5d4594_3835348;
@@ -854,7 +854,7 @@ extern _DWORD dword_5d4594_1308128;
 extern _DWORD dword_5d4594_830208;
 extern _DWORD dword_5d4594_1305800;
 extern _DWORD dword_5d4594_1556148;
-extern _DWORD dword_5d4594_1569724;
+extern _DWORD nox_alloc_spellDur_1569724;
 extern _DWORD dword_587000_312792;
 extern _DWORD dword_5d4594_1090176;
 extern _DWORD dword_5d4594_1568260;
@@ -872,13 +872,13 @@ extern _DWORD dword_5d4594_1193648;
 extern _DWORD dword_5d4594_1063120;
 extern _DWORD dword_5d4594_1046540;
 extern _DWORD dword_5d4594_1062496;
-extern _DWORD dword_5d4594_1599652;
+extern _DWORD nox_alloc_vote_1599652;
 extern _DWORD dword_5d4594_1049804;
 extern _DWORD dword_5d4594_3799552;
 extern _DWORD dword_5d4594_1090112;
 extern _DWORD dword_5d4594_740004;
 extern _DWORD dword_5d4594_1309764;
-extern _DWORD dword_5d4594_1569644;
+extern _DWORD nox_alloc_execAbil_1569644;
 extern _DWORD dword_5d4594_1097208;
 extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_831092;
@@ -893,9 +893,9 @@ extern _DWORD dword_587000_80800;
 extern _DWORD dword_5d4594_816092;
 extern _DWORD dword_5d4594_825752;
 extern _DWORD dword_5d4594_2488652;
-extern _DWORD dword_5d4594_2386216;
+extern _DWORD nox_alloc_spawn_2386216;
 extern _DWORD dword_5d4594_2487672;
-extern _DWORD dword_5d4594_1569668;
+extern _DWORD mox_alloc_magicEnt_1569668;
 extern _DWORD dword_5d4594_1308156;
 extern _DWORD dword_587000_312812;
 extern _DWORD dword_5d4594_1193156;
@@ -924,7 +924,7 @@ extern _DWORD dword_587000_54276;
 extern _DWORD dword_5d4594_1045424;
 extern _DWORD dword_5d4594_3805484;
 extern _DWORD dword_5d4594_1193524;
-extern _DWORD dword_5d4594_2386916;
+extern _DWORD nox_alloc_pendingOwn_2386916;
 extern _DWORD dword_5d4594_2488640;
 extern _DWORD dword_5d4594_3798712;
 extern _DWORD dword_5d4594_741244;
@@ -954,7 +954,7 @@ extern _DWORD dword_5d4594_371756;
 extern _DWORD dword_5d4594_1522608;
 extern _DWORD dword_5d4594_531652;
 extern _DWORD dword_5d4594_2487948;
-extern _DWORD dword_5d4594_1301772;
+extern _DWORD nox_alloc_healthChange_1301772;
 extern _DWORD dword_5d4594_1522596;
 extern _DWORD dword_5d4594_1049536;
 extern _DWORD dword_5d4594_1098616;
@@ -1312,7 +1312,7 @@ extern _DWORD dword_5d4594_2491580;
 extern _DWORD dword_5d4594_1200832;
 extern _DWORD dword_5d4594_1305724;
 extern _DWORD dword_5d4594_1319260;
-extern _DWORD dword_5d4594_2491548;
+extern _DWORD nox_alloc_hit_2491548;
 extern _DWORD dword_5d4594_3799560;
 extern _DWORD dword_5d4594_829532;
 extern _DWORD dword_5d4594_2488656;
@@ -1395,7 +1395,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 2488656, (void*)&dword_5d4594_2488656, sizeof(dword_5d4594_2488656), 1},
 	{0x5D4594 + 829532, (void*)&dword_5d4594_829532, sizeof(dword_5d4594_829532), 1},
 	{0x5D4594 + 3799560, (void*)&dword_5d4594_3799560, sizeof(dword_5d4594_3799560), 1},
-	{0x5D4594 + 2491548, (void*)&dword_5d4594_2491548, sizeof(dword_5d4594_2491548), 1},
+	{0x5D4594 + 2491548, (void*)&nox_alloc_hit_2491548, sizeof(nox_alloc_hit_2491548), 1},
 	{0x5D4594 + 1319260, (void*)&dword_5d4594_1319260, sizeof(dword_5d4594_1319260), 1},
 	{0x5D4594 + 1305724, (void*)&dword_5d4594_1305724, sizeof(dword_5d4594_1305724), 1},
 	{0x5D4594 + 1200832, (void*)&dword_5d4594_1200832, sizeof(dword_5d4594_1200832), 1},
@@ -1753,7 +1753,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1098616, (void*)&dword_5d4594_1098616, sizeof(dword_5d4594_1098616), 1},
 	{0x5D4594 + 1049536, (void*)&dword_5d4594_1049536, sizeof(dword_5d4594_1049536), 1},
 	{0x5D4594 + 1522596, (void*)&dword_5d4594_1522596, sizeof(dword_5d4594_1522596), 1},
-	{0x5D4594 + 1301772, (void*)&dword_5d4594_1301772, sizeof(dword_5d4594_1301772), 1},
+	{0x5D4594 + 1301772, (void*)&nox_alloc_healthChange_1301772, sizeof(nox_alloc_healthChange_1301772), 1},
 	{0x5D4594 + 2487948, (void*)&dword_5d4594_2487948, sizeof(dword_5d4594_2487948), 1},
 	{0x5D4594 + 531652, (void*)&dword_5d4594_531652, sizeof(dword_5d4594_531652), 1},
 	{0x5D4594 + 1522608, (void*)&dword_5d4594_1522608, sizeof(dword_5d4594_1522608), 1},
@@ -1783,7 +1783,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 741244, (void*)&dword_5d4594_741244, sizeof(dword_5d4594_741244), 1},
 	{0x5D4594 + 3798712, (void*)&dword_5d4594_3798712, sizeof(dword_5d4594_3798712), 1},
 	{0x5D4594 + 2488640, (void*)&dword_5d4594_2488640, sizeof(dword_5d4594_2488640), 1},
-	{0x5D4594 + 2386916, (void*)&dword_5d4594_2386916, sizeof(dword_5d4594_2386916), 1},
+	{0x5D4594 + 2386916, (void*)&nox_alloc_pendingOwn_2386916, sizeof(nox_alloc_pendingOwn_2386916), 1},
 	{0x5D4594 + 1193524, (void*)&dword_5d4594_1193524, sizeof(dword_5d4594_1193524), 1},
 	{0x5D4594 + 3805484, (void*)&dword_5d4594_3805484, sizeof(dword_5d4594_3805484), 1},
 	{0x5D4594 + 1045424, (void*)&dword_5d4594_1045424, sizeof(dword_5d4594_1045424), 1},
@@ -1812,9 +1812,9 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1193156, (void*)&dword_5d4594_1193156, sizeof(dword_5d4594_1193156), 1},
 	{0x587000 + 312812, (void*)&dword_587000_312812, sizeof(dword_587000_312812), 1},
 	{0x5D4594 + 1308156, (void*)&dword_5d4594_1308156, sizeof(dword_5d4594_1308156), 1},
-	{0x5D4594 + 1569668, (void*)&dword_5d4594_1569668, sizeof(dword_5d4594_1569668), 1},
+	{0x5D4594 + 1569668, (void*)&mox_alloc_magicEnt_1569668, sizeof(mox_alloc_magicEnt_1569668), 1},
 	{0x5D4594 + 2487672, (void*)&dword_5d4594_2487672, sizeof(dword_5d4594_2487672), 1},
-	{0x5D4594 + 2386216, (void*)&dword_5d4594_2386216, sizeof(dword_5d4594_2386216), 1},
+	{0x5D4594 + 2386216, (void*)&nox_alloc_spawn_2386216, sizeof(nox_alloc_spawn_2386216), 1},
 	{0x5D4594 + 2488652, (void*)&dword_5d4594_2488652, sizeof(dword_5d4594_2488652), 1},
 	{0x5D4594 + 825752, (void*)&dword_5d4594_825752, sizeof(dword_5d4594_825752), 1},
 	{0x5D4594 + 816092, (void*)&dword_5d4594_816092, sizeof(dword_5d4594_816092), 1},
@@ -1829,13 +1829,13 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 831092, (void*)&dword_5d4594_831092, sizeof(dword_5d4594_831092), 1},
 	{0x5D4594 + 3807140, (void*)&dword_5d4594_3807140, sizeof(dword_5d4594_3807140), 1},
 	{0x5D4594 + 1097208, (void*)&dword_5d4594_1097208, sizeof(dword_5d4594_1097208), 1},
-	{0x5D4594 + 1569644, (void*)&dword_5d4594_1569644, sizeof(dword_5d4594_1569644), 1},
+	{0x5D4594 + 1569644, (void*)&nox_alloc_execAbil_1569644, sizeof(nox_alloc_execAbil_1569644), 1},
 	{0x5D4594 + 1309764, (void*)&dword_5d4594_1309764, sizeof(dword_5d4594_1309764), 1},
 	{0x5D4594 + 740004, (void*)&dword_5d4594_740004, sizeof(dword_5d4594_740004), 1},
 	{0x5D4594 + 1090112, (void*)&dword_5d4594_1090112, sizeof(dword_5d4594_1090112), 1},
 	{0x5D4594 + 3799552, (void*)&dword_5d4594_3799552, sizeof(dword_5d4594_3799552), 1},
 	{0x5D4594 + 1049804, (void*)&dword_5d4594_1049804, sizeof(dword_5d4594_1049804), 1},
-	{0x5D4594 + 1599652, (void*)&dword_5d4594_1599652, sizeof(dword_5d4594_1599652), 1},
+	{0x5D4594 + 1599652, (void*)&nox_alloc_vote_1599652, sizeof(nox_alloc_vote_1599652), 1},
 	{0x5D4594 + 1062496, (void*)&dword_5d4594_1062496, sizeof(dword_5d4594_1062496), 1},
 	{0x5D4594 + 1046540, (void*)&dword_5d4594_1046540, sizeof(dword_5d4594_1046540), 1},
 	{0x5D4594 + 1063120, (void*)&dword_5d4594_1063120, sizeof(dword_5d4594_1063120), 1},
@@ -1853,7 +1853,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1568260, (void*)&dword_5d4594_1568260, sizeof(dword_5d4594_1568260), 1},
 	{0x5D4594 + 1090176, (void*)&dword_5d4594_1090176, sizeof(dword_5d4594_1090176), 1},
 	{0x587000 + 312792, (void*)&dword_587000_312792, sizeof(dword_587000_312792), 1},
-	{0x5D4594 + 1569724, (void*)&dword_5d4594_1569724, sizeof(dword_5d4594_1569724), 1},
+	{0x5D4594 + 1569724, (void*)&nox_alloc_spellDur_1569724, sizeof(nox_alloc_spellDur_1569724), 1},
 	{0x5D4594 + 1556148, (void*)&dword_5d4594_1556148, sizeof(dword_5d4594_1556148), 1},
 	{0x5D4594 + 1305800, (void*)&dword_5d4594_1305800, sizeof(dword_5d4594_1305800), 1},
 	{0x5D4594 + 830208, (void*)&dword_5d4594_830208, sizeof(dword_5d4594_830208), 1},
@@ -1898,7 +1898,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 3835348, (void*)&dword_5d4594_3835348, sizeof(dword_5d4594_3835348), 1},
 	{0x5D4594 + 1090040, (void*)&dword_5d4594_1090040, sizeof(dword_5d4594_1090040), 1},
 	{0x5D4594 + 2660032, (void*)&dword_5d4594_2660032, sizeof(dword_5d4594_2660032), 1},
-	{0x5D4594 + 1203860, (void*)&dword_5d4594_1203860, sizeof(dword_5d4594_1203860), 1},
+	{0x5D4594 + 1203860, (void*)&nox_alloc_friendList_1203860, sizeof(nox_alloc_friendList_1203860), 1},
 	{0x5D4594 + 1301812, (void*)&dword_5d4594_1301812, sizeof(dword_5d4594_1301812), 1},
 	{0x5D4594 + 1556112, (void*)&dword_5d4594_1556112, sizeof(dword_5d4594_1556112), 1},
 	{0x5D4594 + 754044, (void*)&dword_5d4594_754044, sizeof(dword_5d4594_754044), 1},
@@ -1924,12 +1924,12 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 787200, (void*)&dword_5d4594_787200, sizeof(dword_5d4594_787200), 1},
 	{0x5D4594 + 787180, (void*)&dword_5d4594_787180, sizeof(dword_5d4594_787180), 1},
 	{0x587000 + 145664, (void*)&dword_587000_145664, sizeof(dword_587000_145664), 1},
-	{0x5D4594 + 2523892, (void*)&dword_5d4594_2523892, sizeof(dword_5d4594_2523892), 1},
+	{0x5D4594 + 2523892, (void*)&nox_alloc_groupInfo_2523892, sizeof(nox_alloc_groupInfo_2523892), 1},
 	{0x5D4594 + 1307292, (void*)&dword_5d4594_1307292, sizeof(dword_5d4594_1307292), 1},
 	{0x5D4594 + 1046956, (void*)&dword_5d4594_1046956, sizeof(dword_5d4594_1046956), 1},
 	{0x5D4594 + 3835352, (void*)&dword_5d4594_3835352, sizeof(dword_5d4594_3835352), 1},
 	{0x5D4594 + 1096288, (void*)&dword_5d4594_1096288, sizeof(dword_5d4594_1096288), 1},
-	{0x5D4594 + 2386492, (void*)&dword_5d4594_2386492, sizeof(dword_5d4594_2386492), 1},
+	{0x5D4594 + 2386492, (void*)&nox_alloc_tradeSession_2386492, sizeof(nox_alloc_tradeSession_2386492), 1},
 	{0x5D4594 + 531656, (void*)&dword_5d4594_531656, sizeof(dword_5d4594_531656), 1},
 	{0x5D4594 + 2614264, (void*)&dword_5d4594_2614264, sizeof(dword_5d4594_2614264), 1},
 	{0x5D4594 + 3799488, (void*)&dword_5d4594_3799488, sizeof(dword_5d4594_3799488), 1},
@@ -1942,7 +1942,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 2516356, (void*)&dword_5d4594_2516356, sizeof(dword_5d4594_2516356), 1},
 	{0x5D4594 + 1062488, (void*)&dword_5d4594_1062488, sizeof(dword_5d4594_1062488), 1},
 	{0x5D4594 + 1550912, (void*)&dword_5d4594_1550912, sizeof(dword_5d4594_1550912), 1},
-	{0x5D4594 + 1569748, (void*)&dword_5d4594_1569748, sizeof(dword_5d4594_1569748), 1},
+	{0x5D4594 + 1569748, (void*)&nox_alloc_magicWall_1569748, sizeof(nox_alloc_magicWall_1569748), 1},
 	{0x5D4594 + 1563664, (void*)&dword_5d4594_1563664, sizeof(dword_5d4594_1563664), 1},
 	{0x5D4594 + 830292, (void*)&dword_5d4594_830292, sizeof(dword_5d4594_830292), 1},
 	{0x5D4594 + 1093156, (void*)&dword_5d4594_1093156, sizeof(dword_5d4594_1093156), 1},
@@ -1951,7 +1951,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1062452, (void*)&dword_5d4594_1062452, sizeof(dword_5d4594_1062452), 1},
 	{0x5D4594 + 2386920, (void*)&dword_5d4594_2386920, sizeof(dword_5d4594_2386920), 1},
 	{0x587000 + 311372, (void*)&dword_587000_311372, sizeof(dword_587000_311372), 1},
-	{0x5D4594 + 2386568, (void*)&dword_5d4594_2386568, sizeof(dword_5d4594_2386568), 1},
+	{0x5D4594 + 2386568, (void*)&nox_alloc_springs_2386568, sizeof(nox_alloc_springs_2386568), 1},
 	{0x5D4594 + 787144, (void*)&dword_5d4594_787144, sizeof(dword_5d4594_787144), 1},
 	{0x5D4594 + 1048144, (void*)&dword_5d4594_1048144, sizeof(dword_5d4594_1048144), 1},
 	{0x5D4594 + 1307720, (void*)&dword_5d4594_1307720, sizeof(dword_5d4594_1307720), 1},
@@ -1959,9 +1959,9 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 2489432, (void*)&dword_5d4594_2489432, sizeof(dword_5d4594_2489432), 1},
 	{0x5D4594 + 252276, (void*)&dword_5d4594_252276, sizeof(dword_5d4594_252276), 1},
 	{0x5D4594 + 2487912, (void*)&dword_5d4594_2487912, sizeof(dword_5d4594_2487912), 1},
-	{0x5D4594 + 2386220, (void*)&dword_5d4594_2386220, sizeof(dword_5d4594_2386220), 1},
+	{0x5D4594 + 2386220, (void*)&nox_alloc_monsterList_2386220, sizeof(nox_alloc_monsterList_2386220), 1},
 	{0x5D4594 + 2386192, (void*)&dword_5d4594_2386192, sizeof(dword_5d4594_2386192), 1},
-	{0x5D4594 + 1568020, (void*)&dword_5d4594_1568020, sizeof(dword_5d4594_1568020), 1},
+	{0x5D4594 + 1568020, (void*)&nox_alloc_respawn_1568020, sizeof(nox_alloc_respawn_1568020), 1},
 	{0x5D4594 + 816448, (void*)&dword_5d4594_816448, sizeof(dword_5d4594_816448), 1},
 	{0x5D4594 + 815704, (void*)&dword_5d4594_815704, sizeof(dword_5d4594_815704), 1},
 	{0x5D4594 + 1096496, (void*)&dword_5d4594_1096496, sizeof(dword_5d4594_1096496), 1},
@@ -1990,12 +1990,12 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 2388640, (void*)&dword_5d4594_2388640, sizeof(dword_5d4594_2388640), 1},
 	{0x5D4594 + 829520, (void*)&dword_5d4594_829520, sizeof(dword_5d4594_829520), 1},
 	{0x5D4594 + 1197356, (void*)&dword_5d4594_1197356, sizeof(dword_5d4594_1197356), 1},
-	{0x5D4594 + 2523908, (void*)&dword_5d4594_2523908, sizeof(dword_5d4594_2523908), 1},
+	{0x5D4594 + 2523908, (void*)&nox_alloc_debugData_2523908, sizeof(nox_alloc_debugData_2523908), 1},
 	{0x5D4594 + 1064820, (void*)&dword_5d4594_1064820, sizeof(dword_5d4594_1064820), 1},
 	{0x5D4594 + 2487240, (void*)&dword_5d4594_2487240, sizeof(dword_5d4594_2487240), 1},
 	{0x5D4594 + 1303468, (void*)&dword_5d4594_1303468, sizeof(dword_5d4594_1303468), 1},
 	{0x5D4594 + 741356, (void*)&dword_5d4594_741356, sizeof(dword_5d4594_741356), 1},
-	{0x5D4594 + 1563344, (void*)&dword_5d4594_1563344, sizeof(dword_5d4594_1563344), 1},
+	{0x5D4594 + 1563344, (void*)&nox_alloc_objMem_1563344, sizeof(nox_alloc_objMem_1563344), 1},
 	{0x5D4594 + 1096252, (void*)&dword_5d4594_1096252, sizeof(dword_5d4594_1096252), 1},
 	{0x5D4594 + 1064864, (void*)&dword_5d4594_1064864, sizeof(dword_5d4594_1064864), 1},
 	{0x5D4594 + 1301780, (void*)&dword_5d4594_1301780, sizeof(dword_5d4594_1301780), 1},
@@ -2065,11 +2065,11 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 2487980, (void*)&dword_5d4594_2487980, sizeof(dword_5d4594_2487980), 1},
 	{0x5D4594 + 1599592, (void*)&dword_5d4594_1599592, sizeof(dword_5d4594_1599592), 1},
 	{0x5D4594 + 1599556, (void*)&dword_5d4594_1599556, sizeof(dword_5d4594_1599556), 1},
-	{0x5D4594 + 2523896, (void*)&dword_5d4594_2523896, sizeof(dword_5d4594_2523896), 1},
+	{0x5D4594 + 2523896, (void*)&nox_alloc_itemGroupElem_2523896, sizeof(nox_alloc_itemGroupElem_2523896), 1},
 	{0x5D4594 + 811104, (void*)&dword_5d4594_811104, sizeof(dword_5d4594_811104), 1},
 	{0x5D4594 + 1309776, (void*)&dword_5d4594_1309776, sizeof(dword_5d4594_1309776), 1},
 	{0x5D4594 + 832524, (void*)&dword_5d4594_832524, sizeof(dword_5d4594_832524), 1},
-	{0x5D4594 + 2386188, (void*)&dword_5d4594_2386188, sizeof(dword_5d4594_2386188), 1},
+	{0x5D4594 + 2386188, (void*)&nox_alloc_monsterListen_2386188, sizeof(nox_alloc_monsterListen_2386188), 1},
 	{0x5D4594 + 832512, (void*)&dword_5d4594_832512, sizeof(dword_5d4594_832512), 1},
 	{0x5D4594 + 832496, (void*)&dword_5d4594_832496, sizeof(dword_5d4594_832496), 1},
 	{0x5D4594 + 806052, (void*)&dword_5d4594_806052, sizeof(dword_5d4594_806052), 1},
@@ -2077,7 +2077,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 832516, (void*)&dword_5d4594_832516, sizeof(dword_5d4594_832516), 1},
 	{0x5D4594 + 829512, (void*)&dword_5d4594_829512, sizeof(dword_5d4594_829512), 1},
 	{0x5D4594 + 1046520, (void*)&dword_5d4594_1046520, sizeof(dword_5d4594_1046520), 1},
-	{0x5D4594 + 1197364, (void*)&dword_5d4594_1197364, sizeof(dword_5d4594_1197364), 1},
+	{0x5D4594 + 1197364, (void*)&nox_alloc_chat_1197364, sizeof(nox_alloc_chat_1197364), 1},
 	{0x5D4594 + 1096512, (void*)&dword_5d4594_1096512, sizeof(dword_5d4594_1096512), 1},
 	{0x5D4594 + 1049532, (void*)&dword_5d4594_1049532, sizeof(dword_5d4594_1049532), 1},
 	{0x5D4594 + 814996, (void*)&dword_5d4594_814996, sizeof(dword_5d4594_814996), 1},
@@ -2211,7 +2211,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1309828, (void*)&dword_5d4594_1309828, sizeof(dword_5d4594_1309828), 1},
 	{0x5D4594 + 754040, (void*)&dword_5d4594_754040, sizeof(dword_5d4594_754040), 1},
 	{0x5D4594 + 528252, (void*)&dword_5d4594_528252, sizeof(dword_5d4594_528252), 1},
-	{0x5D4594 + 806044, (void*)&dword_5d4594_806044, sizeof(dword_5d4594_806044), 1},
+	{0x5D4594 + 806044, (void*)&nox_alloc_screenParticles_806044, sizeof(nox_alloc_screenParticles_806044), 1},
 	{0x5D4594 + 3484, (void*)&dword_5d4594_3484, sizeof(dword_5d4594_3484), 1},
 	{0x5D4594 + 2513920, (void*)&dword_5d4594_2513920, sizeof(dword_5d4594_2513920), 1},
 	{0x5D4594 + 251560, (void*)&dword_5d4594_251560, sizeof(dword_5d4594_251560), 1},
@@ -2282,7 +2282,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 3843628, (void*)&dword_5d4594_3843628, sizeof(dword_5d4594_3843628), 0}, // TODO
 	{0x5D4594 + 2386180, (void*)&dword_5d4594_2386180, sizeof(dword_5d4594_2386180), 1},
 	{0x5D4594 + 529328, (void*)&dword_5d4594_529328, sizeof(dword_5d4594_529328), 1},
-	{0x5D4594 + 2386496, (void*)&dword_5d4594_2386496, sizeof(dword_5d4594_2386496), 1},
+	{0x5D4594 + 2386496, (void*)&nox_alloc_tradeItems_2386496, sizeof(nox_alloc_tradeItems_2386496), 1},
 	{0x5D4594 + 2487712, (void*)&dword_5d4594_2487712, sizeof(dword_5d4594_2487712), 1},
 	{0x5D4594 + 816488, (void*)&dword_5d4594_816488, sizeof(dword_5d4594_816488), 1},
 	{0x5D4594 + 787152, (void*)&dword_5d4594_787152, sizeof(dword_5d4594_787152), 1},
@@ -2307,7 +2307,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1046924, (void*)&dword_5d4594_1046924, sizeof(dword_5d4594_1046924), 1},
 	{0x5D4594 + 2495920, (void*)&dword_5d4594_2495920, sizeof(dword_5d4594_2495920), 1},
 	{0x5D4594 + 815088, (void*)&dword_5d4594_815088, sizeof(dword_5d4594_815088), 1},
-	{0x5D4594 + 2386184, (void*)&dword_5d4594_2386184, sizeof(dword_5d4594_2386184), 1},
+	{0x5D4594 + 2386184, (void*)&nox_alloc_visitNode_2386184, sizeof(nox_alloc_visitNode_2386184), 1},
 	{0x587000 + 127004, (void*)&dword_587000_127004, sizeof(dword_587000_127004), 1},
 	{0x5D4594 + 2487904, (void*)&dword_5d4594_2487904, sizeof(dword_5d4594_2487904), 1},
 	{0x5D4594 + 1045468, (void*)&dword_5d4594_1045468, sizeof(dword_5d4594_1045468), 1},
@@ -2338,7 +2338,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 3835396, (void*)&dword_5d4594_3835396, sizeof(dword_5d4594_3835396), 1},
 	{0x5D4594 + 1062524, (void*)&dword_5d4594_1062524, sizeof(dword_5d4594_1062524), 1},
 	{0x5D4594 + 3798808, (void*)&dword_5d4594_3798808, sizeof(dword_5d4594_3798808), 1},
-	{0x5D4594 + 1301844, (void*)&dword_5d4594_1301844, sizeof(dword_5d4594_1301844), 1},
+	{0x5D4594 + 1301844, (void*)&nox_alloc_pixelSpan_1301844, sizeof(nox_alloc_pixelSpan_1301844), 1},
 	{0x5D4594 + 3799492, (void*)&dword_5d4594_3799492, sizeof(dword_5d4594_3799492), 1},
 	{0x5D4594 + 1197320, (void*)&dword_5d4594_1197320, sizeof(dword_5d4594_1197320), 1},
 	{0x5D4594 + 3798832, (void*)&dword_5d4594_3798832, sizeof(dword_5d4594_3798832), 1},
