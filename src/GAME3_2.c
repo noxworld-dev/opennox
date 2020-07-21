@@ -7364,7 +7364,7 @@ _DWORD* __cdecl sub_4DA9F0(_DWORD* a1) {
 }
 
 //----- (004DAA50) --------------------------------------------------------
-char __cdecl sub_4DAA50(int a1, int a2, float a3, float a4) {
+void sub_4DAA50(int a1, int a2, float a3, float a4) {
 	int v4; // eax
 	int v5; // eax
 	int v6; // ecx
@@ -7419,7 +7419,6 @@ char __cdecl sub_4DAA50(int a1, int a2, float a3, float a4) {
 				LOBYTE(v4) = (unsigned int)sub_4191D0(*(_BYTE*)(a1 + 52), a1 + 48, 0, *(_DWORD*)(a1 + 36), 0);
 		}
 	}
-	return v4;
 }
 
 //----- (004DAC00) --------------------------------------------------------
