@@ -2840,7 +2840,7 @@ BOOL sub_4D4320() {
 	v0 = 100;
 	sub_4D12E0(1);
 	sub_40A4D0(0x400000);
-	nox_get_and_zero_server_objects_4DA3C0(&byte_5D4594[1550924]);
+	*(_DWORD*)&byte_5D4594[1550924] = nox_get_and_zero_server_objects_4DA3C0();
 	memset(&byte_5D4594[3801836], 0, 0x5B8u);
 	while (1) {
 		v1 = sub_4D44E0();
@@ -6984,13 +6984,10 @@ int __cdecl sub_4DA390(const char* a1) {
 }
 
 //----- (004DA3C0) --------------------------------------------------------
-int __cdecl nox_get_and_zero_server_objects_4DA3C0(_DWORD* a1) {
-	int result; // eax
-
-	result = nox_server_objects_1556844;
-	*a1 = nox_server_objects_1556844;
+_DWORD* nox_get_and_zero_server_objects_4DA3C0(void) {
+	_DWORD* p = nox_server_objects_1556844;
 	nox_server_objects_1556844 = 0;
-	return result;
+	return p;
 }
 
 //----- (004DA3E0) --------------------------------------------------------
