@@ -114,7 +114,7 @@ wchar_t* __cdecl sub_418C20(int a1) {
 }
 
 //----- (004191D0) --------------------------------------------------------
-char* __cdecl sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
+void sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 	char* result;     // eax
 	char* v6;         // esi
 	int v7;           // ebx
@@ -146,7 +146,7 @@ char* __cdecl sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 		if (v6) {
 			result = (char*)sub_419180(a2, a1);
 			if (result)
-				return result;
+				return;
 		} else {
 			v6 = sub_4186D0(a1);
 		}
@@ -223,7 +223,7 @@ char* __cdecl sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 				result = (char*)sub_4DA7F0((int)v18);
 				v18 = result;
 				if (!result)
-					return result;
+					return;
 			}
 			v19 = *((_DWORD*)v18 + 187);
 			sub_4D97E0(*(unsigned __int8*)(*(_DWORD*)(v19 + 276) + 2064));
@@ -235,5 +235,4 @@ char* __cdecl sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 			}
 		}
 	}
-	return result;
 }
