@@ -1223,18 +1223,14 @@ char* sub_409B80() { return (char*)&byte_5D4594[3452]; }
 
 //----- (00409B90) --------------------------------------------------------
 char* sub_409B90() {
-	char* v0;            // eax
-	__int16 v1;          // dx
-	unsigned __int8 v2;  // al
-	unsigned __int8* v3; // edi
-
-	v0 = nox_common_get_data_path_409E10();
-	if (!v0)
+	char* data_path = nox_common_get_data_path_409E10();
+	if (!data_path)
 		return 0;
-	v1 = *(_WORD*)&byte_587000[4736];
-	strcpy((char*)&byte_5D4594[2424], v0);
-	v2 = byte_587000[4738];
-	v3 = &byte_5D4594[strlen((const char*)&byte_5D4594[2424]) + 2424];
+
+	__int16 v1 = *(_WORD*)&byte_587000[4736];
+	strcpy((char*)&byte_5D4594[2424], data_path);
+	unsigned __int8 v2 = byte_587000[4738];
+	unsigned __int8* v3 = &byte_5D4594[strlen((const char*)&byte_5D4594[2424]) + 2424];
 	*(_DWORD*)v3 = *(_DWORD*)&byte_587000[4732];
 	*((_WORD*)v3 + 2) = v1;
 	v3[6] = v2;
