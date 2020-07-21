@@ -4220,7 +4220,7 @@ int __cdecl sub_4DA8D0(int a1);
 _DWORD* __cdecl sub_4DA920(_DWORD* a1);
 _DWORD* __cdecl sub_4DA9A0(_DWORD* a1);
 _DWORD* __cdecl sub_4DA9F0(_DWORD* a1);
-char __cdecl sub_4DAA50(int a1, int a2, float a3, float a4); // idb
+void sub_4DAA50(int a1, int a2, float a3, float a4); // idb
 void sub_4DAC00();
 char __cdecl sub_4DADE0(int a1);
 int __cdecl sub_4DAE50(int a1);
