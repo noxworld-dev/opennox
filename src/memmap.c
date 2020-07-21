@@ -747,7 +747,7 @@ extern _DWORD dword_5d4594_1096496;
 extern _DWORD dword_5d4594_815704;
 extern _DWORD dword_5d4594_816448;
 extern _DWORD nox_alloc_respawn_1568020;
-extern _DWORD dword_5d4594_2386192;
+extern _DWORD nox_monsterListen_2386192;
 extern _DWORD nox_alloc_monsterList_2386220;
 extern _DWORD dword_5d4594_2487912;
 extern _DWORD dword_5d4594_252276;
@@ -1960,7 +1960,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 252276, (void*)&dword_5d4594_252276, sizeof(dword_5d4594_252276), 1},
 	{0x5D4594 + 2487912, (void*)&dword_5d4594_2487912, sizeof(dword_5d4594_2487912), 1},
 	{0x5D4594 + 2386220, (void*)&nox_alloc_monsterList_2386220, sizeof(nox_alloc_monsterList_2386220), 1},
-	{0x5D4594 + 2386192, (void*)&dword_5d4594_2386192, sizeof(dword_5d4594_2386192), 1},
+	{0x5D4594 + 2386192, (void*)&nox_monsterListen_2386192, sizeof(nox_monsterListen_2386192), 1},
 	{0x5D4594 + 1568020, (void*)&nox_alloc_respawn_1568020, sizeof(nox_alloc_respawn_1568020), 1},
 	{0x5D4594 + 816448, (void*)&dword_5d4594_816448, sizeof(dword_5d4594_816448), 1},
 	{0x5D4594 + 815704, (void*)&dword_5d4594_815704, sizeof(dword_5d4594_815704), 1},
