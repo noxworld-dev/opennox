@@ -1723,7 +1723,7 @@ void sub_43DDC0();
 int __cdecl sub_43DDD0(int a1);
 int __cdecl sub_43DDE0(int a1);
 int __cdecl sub_43DDF0(int (*a1)(void));
-int sub_43DE10();
+int nox_return_1_43DE10();
 int __cdecl nox_set_draw_unk1(int (*a1)(void));
 int __cdecl sub_43DE40(int (*a1)(void));
 int sub_43DE60();
