@@ -7627,29 +7627,27 @@ void sub_4DAF10() {
 
 //----- (004DAFD0) --------------------------------------------------------
 void sub_4DAFD0(_DWORD* a1) {
-	_DWORD* result; // eax
 	int v2;         // ecx
 	int v3;         // ecx
 	int v4;         // ecx
 
-	result = a1;
 	v2 = a1[4];
-	if (v2 & 4) {
-		a1[4] = v2 & 0xFFFFFFFB;
-		v3 = a1[112];
-		if (v3) {
-			*(_DWORD*)(v3 + 444) = a1[111];
-			v4 = a1[111];
-			if (v4) {
-				result = (_DWORD*)a1[112];
-				*(_DWORD*)(v4 + 448) = result;
-			}
-		} else {
-			nox_set_server_objects_4DA3E0(a1[111]);
-			result = (_DWORD*)a1[111];
-			if (result)
-				result[112] = 0;
+	if (!(v2 & 4)) {
+		return;
+	}
+	a1[4] = v2 & 0xFFFFFFFB;
+	v3 = a1[112];
+	if (v3) {
+		*(_DWORD*)(v3 + 444) = a1[111];
+		v4 = a1[111];
+		if (v4) {
+			*(_DWORD*)(v4 + 448) = (_DWORD*)a1[112];
 		}
+	} else {
+		_DWORD* p = (_DWORD*)a1[111];
+		nox_set_server_objects_4DA3E0(p);
+		if (p)
+			p[112] = 0;
 	}
 }
 
