@@ -152,7 +152,6 @@ _DWORD dword_5d4594_1316708 = 0;
 _DWORD dword_5d4594_1064888 = 0;
 _DWORD dword_5d4594_3798636 = 0;
 _DWORD dword_5d4594_251572 = 0;
-_DWORD nox_server_objects_uninited_1556860 = 0;
 _DWORD dword_5d4594_1303452 = 0;
 _DWORD dword_5d4594_2386224 = 0;
 _DWORD dword_5d4594_815016 = 0;

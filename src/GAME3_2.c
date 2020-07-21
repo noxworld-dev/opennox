@@ -84,7 +84,6 @@ extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_3835396;
 extern _DWORD dword_5d4594_1523024;
 extern _DWORD nox_server_objects_1556844;
-extern _DWORD nox_server_objects_uninited_1556860;
 extern _DWORD dword_5d4594_1523028;
 extern _DWORD dword_587000_197428;
 extern _DWORD dword_5d4594_1548476;
@@ -95,6 +94,8 @@ extern int nox_win_height;
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
+
+void* nox_server_objects_uninited_1556860 = 0;
 
 // 4CD756: variable 'v5' is possibly undefined
 // 4CD767: variable 'v7' is possibly undefined
@@ -7416,7 +7417,7 @@ char __cdecl sub_4DAA50(int a1, int a2, float a3, float a4) {
 		*(_DWORD*)(a1 + 448) = 0;
 		*(_DWORD*)(a1 + 444) = nox_server_objects_uninited_1556860;
 		if (nox_server_objects_uninited_1556860)
-			*(_DWORD*)(nox_server_objects_uninited_1556860 + 448) = a1;
+			*(_DWORD*)((uintptr_t)nox_server_objects_uninited_1556860 + 448) = a1;
 		nox_server_objects_uninited_1556860 = a1;
 		LOBYTE(v4) = *(_BYTE*)(a1 + 52);
 		*(_DWORD*)(a1 + 16) |= 0x2000000u;
