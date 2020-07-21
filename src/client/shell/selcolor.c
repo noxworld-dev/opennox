@@ -205,7 +205,7 @@ int sub_4A75C0() {
 	char v25[1278];       // [esp+14h] [ebp-500h]
 
 	if (nox_common_gameFlags_check_40A5C0(2048))
-		nox_savegame_rm_4DBE10((int)&byte_587000[171652], 0);
+		nox_savegame_rm_4DBE10("WORKING", 0);
 	memset(v25, 0, 0x4FCu);
 	*(_WORD*)&v25[1276] = 0;
 	v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16413, 0, 0);
