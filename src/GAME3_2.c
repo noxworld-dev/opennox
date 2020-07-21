@@ -7466,7 +7466,7 @@ void sub_4DAC00() {
 				*(_DWORD*)(v0 + 444) = nox_server_objects_1556844;
 				if (nox_server_objects_1556844)
 					*(_DWORD*)((uintptr_t)nox_server_objects_1556844 + 448) = v0;
-				nox_server_objects_1556844 = v0;
+				nox_set_server_objects_4DA3E0(v0);
 			}
 			sub_517640(v0);
 			if (*(_DWORD*)(v0 + 696))
@@ -7559,7 +7559,7 @@ int __cdecl sub_4DAE50(int a1) {
 				*(_DWORD*)(result + 448) = *(_DWORD*)(a1 + 448);
 		} else {
 			result = *(_DWORD*)(a1 + 444);
-			nox_server_objects_1556844 = *(_DWORD*)(a1 + 444);
+			nox_set_server_objects_4DA3E0(*(_DWORD*)(a1 + 444));
 			v5 = *(_DWORD*)(a1 + 444);
 			if (v5)
 				*(_DWORD*)(v5 + 448) = 0;
@@ -7651,7 +7651,7 @@ _DWORD* __cdecl sub_4DAFD0(_DWORD* a1) {
 				*(_DWORD*)(v4 + 448) = result;
 			}
 		} else {
-			nox_server_objects_1556844 = a1[111];
+			nox_set_server_objects_4DA3E0(a1[111]);
 			result = (_DWORD*)a1[111];
 			if (result)
 				result[112] = 0;
@@ -7678,7 +7678,7 @@ _DWORD* sub_4DB030() {
 			}
 			result[111] = v2;
 			result[112] = 0;
-			nox_server_objects_1556844 = result;
+			nox_set_server_objects_4DA3E0(result);
 			result = v1;
 		} while (v1);
 	}
