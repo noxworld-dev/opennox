@@ -1222,7 +1222,7 @@ unsigned int __cdecl sub_409B50(const char* a1) {
 char* sub_409B80() { return (char*)&byte_5D4594[3452]; }
 
 //----- (00409B90) --------------------------------------------------------
-char* sub_409B90() {
+char* nox_server_get_current_map_path_409B90() {
 	char* data_path = nox_common_get_data_path_409E10();
 	if (!data_path)
 		return 0;

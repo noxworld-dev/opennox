@@ -1826,7 +1826,7 @@ int sub_43E200() {
 int sub_43E230() {
 	sub_477530(0);
 
-	char* map_path_1 = sub_409B90();
+	char* map_path_1 = nox_server_get_current_map_path_409B90();
 	if (_chmod(map_path_1, 128) == -1)
 		return sub_43E200();
 
