@@ -547,7 +547,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 			}
 			if (nox_common_gameFlags_check_40A5C0(4096) &&
 				(sub_5105D0(v6) || *(unsigned __int16*)(v6 + 4) == dword_5d4594_2386548))
-				v13 = sub_4E3450(*(unsigned __int16*)(v6 + 4));
+				v13 = nox_new_objMem_2_4E3450(*(unsigned __int16*)(v6 + 4));
 			else
 				v13 = (_DWORD*)v6;
 			if (v13[2] & 0x110 || (v14 = (void(__cdecl*)(int, _DWORD*, int, int))v13[177]) == 0) {
@@ -641,7 +641,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 			}
 			if (nox_common_gameFlags_check_40A5C0(4096) &&
 				(sub_5105D0(v7) || *(unsigned __int16*)(v7 + 4) == dword_5d4594_2386552))
-				v12 = sub_4E3450(*(unsigned __int16*)(v7 + 4));
+				v12 = nox_new_objMem_2_4E3450(*(unsigned __int16*)(v7 + 4));
 			else
 				v12 = (_DWORD*)v7;
 			v13 = (void(__cdecl*)(int, _DWORD*, int, int))v12[177];

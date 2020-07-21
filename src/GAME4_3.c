@@ -639,7 +639,7 @@ _DWORD* __cdecl sub_530560(int a1, int* a2, _DWORD* a3) {
 		v3 = sub_4E3AA0((CHAR*)&byte_587000[260824]);
 		*(_DWORD*)&byte_5D4594[2487916] = v3;
 	}
-	result = sub_4E3450(v3);
+	result = nox_new_objMem_2_4E3450(v3);
 	v5 = result;
 	if (result) {
 		v6 = (_DWORD*)result[175];
@@ -1032,7 +1032,7 @@ int __cdecl sub_530F90(_DWORD* a1) {
 		*(_DWORD*)(a1[4] + 100) = 0;
 		*(_DWORD*)(a1[4] + 96) = 0;
 	}
-	v2 = sub_4E3450(*(int*)&byte_5D4594[2487920]);
+	v2 = nox_new_objMem_2_4E3450(*(int*)&byte_5D4594[2487920]);
 	if (v2) {
 		sub_4DAA50((int)v2, 0, *((float*)a1 + 7), *((float*)a1 + 8));
 		a1[19] = v2;
@@ -1161,7 +1161,7 @@ int __cdecl sub_531310(_DWORD* a1) {
 	v2 = 0;
 	v9 = *(float2*)(v1 + 56);
 	do {
-		v3 = sub_4E3450(*(int*)&byte_5D4594[2487924]);
+		v3 = nox_new_objMem_2_4E3450(*(int*)&byte_5D4594[2487924]);
 		v4 = v3;
 		if (v3) {
 			*(_DWORD*)v3[175] = a1;
@@ -5691,17 +5691,17 @@ _DWORD* __cdecl sub_537AF0(int* a1, int a2) {
 	if (a2) {
 		if (a2 == 1) {
 			v6 = *(_DWORD*)&byte_587000[8 * nox_common_randomInt_415FA0(0, 0) + 276836];
-			result = sub_4E3450(v6);
+			result = nox_new_objMem_2_4E3450(v6);
 		} else {
 			result = (_DWORD*)(a2 - 2);
 			if (a2 != 2)
 				return result;
 			v5 = *(_DWORD*)&byte_587000[8 * nox_common_randomInt_415FA0(0, 0) + 276844];
-			result = sub_4E3450(v5);
+			result = nox_new_objMem_2_4E3450(v5);
 		}
 	} else {
 		v7 = *(_DWORD*)&byte_587000[8 * nox_common_randomInt_415FA0(0, 0) + 276828];
-		result = sub_4E3450(v7);
+		result = nox_new_objMem_2_4E3450(v7);
 	}
 	v3 = result;
 	if (result) {
@@ -8913,7 +8913,7 @@ void __cdecl sub_53C9A0(float* a1) {
 			v12.field_8 = v13 * *(float*)&byte_587000[8 * v8 + 194136] + *v4;
 			v12.field_C = v13 * *(float*)&byte_587000[8 * v8 + 194140] + v1[15];
 			if (sub_535250(&v12, 0, 0, 1)) {
-				v9 = sub_4E3450(*(_DWORD*)&byte_5D4594[4 * v7 + 2488684]);
+				v9 = nox_new_objMem_2_4E3450(*(_DWORD*)&byte_5D4594[4 * v7 + 2488684]);
 				v10 = v9;
 				if (v9) {
 					sub_4DAA50((int)v9, 0, v12.field_8, v12.field_C);
@@ -9517,7 +9517,7 @@ void __cdecl sub_53DA60(int* a1) {
 			v2 = sub_4E3AA0((CHAR*)&byte_587000[279144]);
 			*(_DWORD*)&byte_5D4594[2488708] = v2;
 		}
-		v3 = sub_4E3450(v2);
+		v3 = nox_new_objMem_2_4E3450(v2);
 		if (v3)
 			sub_4DAA50((int)v3, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
 		a1[34] = *(_DWORD*)&byte_5D4594[2598000] + nox_common_randomInt_415FA0(1, 5);
@@ -10662,7 +10662,7 @@ _DWORD* __cdecl sub_53F480(int a1, int a2, int* a3, _DWORD* a4) {
 	_DWORD* result; // eax
 	_DWORD* v5;     // esi
 
-	result = sub_4E3450(a2);
+	result = nox_new_objMem_2_4E3450(a2);
 	v5 = result;
 	if (result) {
 		sub_4DAA50((int)result, a1, *(float*)a3, *((float*)a3 + 1));
@@ -10940,7 +10940,7 @@ _DWORD* __cdecl sub_53FBC0(float* a1, int a2) {
 	v4 = (float*)&byte_587000[88 * v2 + 280376];
 	v11 = (int*)&byte_5D4594[44 * v2 + 2488740];
 	do {
-		result = sub_4E3450(*v11);
+		result = nox_new_objMem_2_4E3450(*v11);
 		v6 = result;
 		if (!result)
 			break;
@@ -13992,7 +13992,7 @@ void sub_544E60(int a1) {
 		v1 = sub_4E3AA0((CHAR*)&byte_587000[283744]);
 		*(_DWORD*)&byte_5D4594[2489456] = v1;
 	}
-	v2 = sub_4E3450(v1);
+	v2 = nox_new_objMem_2_4E3450(v1);
 	v3 = v2;
 	if (v2) {
 		sub_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));

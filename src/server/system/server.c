@@ -1059,7 +1059,7 @@ void sub_4EC720() {
 		if (!(*(_DWORD*)&byte_5D4594[2598000] >= *(int*)(v0 + 20) && sub_4E3BA0(*(_DWORD*)v0))) {
 			continue;
 		}
-		v5 = sub_4E3450(*(_DWORD*)v0);
+		v5 = nox_new_objMem_2_4E3450(*(_DWORD*)v0);
 		v6 = (int)v5;
 		if (v5) {
 			sub_4DAA50((int)v5, 0, *(float*)(v0 + 8), *(float*)(v0 + 12));
