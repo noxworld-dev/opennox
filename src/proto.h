@@ -4681,7 +4681,7 @@ int __cdecl sub_4ED930(int a1, _DWORD* a2);
 float2* __cdecl sub_4ED970(float a1, float2* a2, float2* a3); // idb
 _DWORD* __cdecl sub_4EDA40(_DWORD* a1);
 BOOL __cdecl sub_4EDCD0(int a1, int a2);
-char __cdecl sub_4EDD00(int a1, int a2);
+void sub_4EDD00(int a1, int a2);
 int __cdecl sub_4EDDE0(int a1, _DWORD* a2, int* a3);
 int __cdecl sub_4EDE50(int a1, int a2, int* a3);
 void __cdecl sub_4EDF00(int a1, int a2);

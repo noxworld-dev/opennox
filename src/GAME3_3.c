@@ -8429,7 +8429,7 @@ BOOL __cdecl sub_4EDCD0(int a1, int a2) {
 }
 
 //----- (004EDD00) --------------------------------------------------------
-char __cdecl sub_4EDD00(int a1, int a2) {
+void sub_4EDD00(int a1, int a2) {
 	int v2;    // eax
 	int* v3;   // esi
 	int v4;    // edi
@@ -8449,7 +8449,6 @@ char __cdecl sub_4EDD00(int a1, int a2) {
 			v3 = (int*)v4;
 		} while (v4);
 	}
-	return v2;
 }
 
 //----- (004EDDE0) --------------------------------------------------------
