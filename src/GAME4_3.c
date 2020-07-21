@@ -12393,7 +12393,7 @@ int __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 
 	v3 = a1;
 	v4 = a2;
-	while (2) {
+	while (1) {
 		result = sub_542B70(v3);
 		switch ((unsigned int)result) {
 		case 0u:
@@ -12402,24 +12402,27 @@ int __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 			if (v6 && a3 && v7 >= 4)
 				v7 = v7 + dword_5d4594_2489420 - 4;
 			sub_542BB0(0, v4);
-			goto LABEL_8;
+			sub_542BB0((char)v6, v4);
+			sub_542BB0(v7, v4);
+			break;
 		case 1u:
 			v6 = sub_542B70(v3);
 			v7 = sub_542B70(v3);
 			if (v6 && a3 && v7 >= 4)
 				v7 = v7 + dword_5d4594_2489420 - 4;
 			sub_542BB0(1, v4);
-			goto LABEL_8;
+			sub_542BB0((char)v6, v4);
+			sub_542BB0(v7, v4);
+			break;
 		case 2u:
 			v6 = sub_542B70(v3);
 			v7 = sub_542B70(v3);
 			if (v6 && a3 && v7 >= 4)
 				v7 = v7 + dword_5d4594_2489420 - 4;
 			sub_542BB0(2, v4);
-		LABEL_8:
 			sub_542BB0((char)v6, v4);
 			sub_542BB0(v7, v4);
-			continue;
+			break;
 		case 3u:
 			v8 = sub_542B70(v3);
 			v9 = (unsigned int)sub_542B70(v3);
@@ -12428,211 +12431,214 @@ int __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 			sub_542BB0(3, v4);
 			sub_542BB0((char)v8, v4);
 			sub_542BB0(v9, v4);
-			continue;
+			break;
 		case 4u:
 			v10 = (unsigned int)sub_542B70(v3);
 			sub_542BB0(4, v4);
 			sub_542BB0(v10, v4);
-			continue;
+			break;
 		case 5u:
 			v16 = sub_542B90(v3);
 			sub_542BB0(5, v4);
 			sub_542BD0(SLOBYTE(v16), v4);
-			continue;
+			break;
 		case 6u:
 			v11 = (unsigned int)sub_542B70(v3);
 			if (a3)
 				v11 += byte_5D4594[2489424];
 			sub_542BB0(6, v4);
 			sub_542BB0(v11, v4);
-			continue;
+			break;
 		case 7u:
 			sub_542BB0(7, v4);
-			continue;
+			break;
 		case 8u:
 			sub_542BB0(8, v4);
-			continue;
+			break;
 		case 9u:
 			sub_542BB0(9, v4);
-			continue;
+			break;
 		case 0xAu:
 			sub_542BB0(10, v4);
-			continue;
+			break;
 		case 0xBu:
 			sub_542BB0(11, v4);
-			continue;
+			break;
 		case 0xCu:
 			sub_542BB0(12, v4);
-			continue;
+			break;
 		case 0xDu:
 			sub_542BB0(13, v4);
-			continue;
+			break;
 		case 0xEu:
 			sub_542BB0(14, v4);
-			continue;
+			break;
 		case 0xFu:
 			sub_542BB0(15, v4);
-			continue;
+			break;
 		case 0x10u:
 			sub_542BB0(16, v4);
-			continue;
+			break;
 		case 0x11u:
 			sub_542BB0(17, v4);
-			continue;
+			break;
 		case 0x12u:
 			sub_542BB0(18, v4);
-			continue;
+			break;
 		case 0x13u:
 			sub_542BB0(19, v4);
-			goto LABEL_44;
-		case 0x14u:
-			sub_542BB0(20, v4);
-			goto LABEL_44;
-		case 0x15u:
-			sub_542BB0(21, v4);
-		LABEL_44:
 			v12 = (unsigned int)sub_542B70(v3);
 			sub_542BB0(v12, v4);
-			continue;
+			break;
+		case 0x14u:
+			sub_542BB0(20, v4);
+			v12 = (unsigned int)sub_542B70(v3);
+			sub_542BB0(v12, v4);
+			break;
+		case 0x15u:
+			sub_542BB0(21, v4);
+			v12 = (unsigned int)sub_542B70(v3);
+			sub_542BB0(v12, v4);
+			break;
 		case 0x16u:
 		case 0x18u:
 			sub_542BB0((char)result, v4);
-			continue;
+			break;
 		case 0x17u:
 			sub_542BB0(23, v4);
-			continue;
+			break;
 		case 0x19u:
 			sub_542BB0(25, v4);
-			continue;
+			break;
 		case 0x1Au:
 			sub_542BB0(26, v4);
-			continue;
+			break;
 		case 0x1Bu:
 			sub_542BB0(27, v4);
-			continue;
+			break;
 		case 0x1Cu:
 			sub_542BB0(28, v4);
-			continue;
+			break;
 		case 0x1Du:
 			sub_542BB0(29, v4);
-			continue;
+			break;
 		case 0x1Eu:
 			sub_542BB0(30, v4);
-			continue;
+			break;
 		case 0x1Fu:
 			sub_542BB0(31, v4);
-			continue;
+			break;
 		case 0x20u:
 			sub_542BB0(32, v4);
-			continue;
+			break;
 		case 0x21u:
 			sub_542BB0(33, v4);
-			continue;
+			break;
 		case 0x22u:
 			sub_542BB0(34, v4);
-			continue;
+			break;
 		case 0x23u:
 			sub_542BB0(35, v4);
-			continue;
+			break;
 		case 0x24u:
 			sub_542BB0(36, v4);
-			continue;
+			break;
 		case 0x25u:
 			sub_542BB0(37, v4);
-			continue;
+			break;
 		case 0x26u:
 			sub_542BB0(38, v4);
-			continue;
+			break;
 		case 0x27u:
 			sub_542BB0(39, v4);
-			continue;
+			break;
 		case 0x28u:
 			sub_542BB0(40, v4);
-			continue;
+			break;
 		case 0x29u:
 			sub_542BB0(41, v4);
-			continue;
+			break;
 		case 0x2Au:
 			sub_542BB0(42, v4);
-			continue;
+			break;
 		case 0x2Bu:
 			sub_542BB0(43, v4);
-			continue;
+			break;
 		case 0x2Cu:
 			sub_542BB0(44, v4);
-			continue;
+			break;
 		case 0x2Du:
 			sub_542BB0(45, v4);
-			continue;
+			break;
 		case 0x2Eu:
 			sub_542BB0(46, v4);
-			continue;
+			break;
 		case 0x2Fu:
 			sub_542BB0(47, v4);
-			continue;
+			break;
 		case 0x30u:
 			sub_542BB0(48, v4);
-			continue;
+			break;
 		case 0x31u:
 			sub_542BB0(49, v4);
-			continue;
+			break;
 		case 0x32u:
 			sub_542BB0(50, v4);
-			continue;
+			break;
 		case 0x33u:
 			sub_542BB0(51, v4);
-			continue;
+			break;
 		case 0x34u:
 			sub_542BB0(52, v4);
-			continue;
+			break;
 		case 0x35u:
 			sub_542BB0(53, v4);
-			continue;
+			break;
 		case 0x36u:
 			sub_542BB0(54, v4);
-			continue;
+			break;
 		case 0x37u:
 			sub_542BB0(55, v4);
-			continue;
+			break;
 		case 0x38u:
 			sub_542BB0(56, v4);
-			continue;
+			break;
 		case 0x39u:
 			sub_542BB0(57, v4);
-			continue;
+			break;
 		case 0x3Au:
 			sub_542BB0(58, v4);
-			continue;
+			break;
 		case 0x3Bu:
 			sub_542BB0(59, v4);
-			continue;
+			break;
 		case 0x3Cu:
 			sub_542BB0(60, v4);
-			continue;
+			break;
 		case 0x3Du:
 			sub_542BB0(61, v4);
-			continue;
+			break;
 		case 0x3Eu:
 			sub_542BB0(62, v4);
-			continue;
+			break;
 		case 0x3Fu:
 			sub_542BB0(63, v4);
-			continue;
+			break;
 		case 0x40u:
 			sub_542BB0(64, v4);
-			continue;
+			break;
 		case 0x41u:
 			sub_542BB0(65, v4);
-			continue;
+			break;
 		case 0x42u:
 			sub_542BB0(66, v4);
-			continue;
+			break;
 		case 0x43u:
 			sub_542BB0(67, v4);
-			continue;
+			break;
 		case 0x44u:
 			sub_542BB0(68, v4);
-			continue;
+			break;
 		case 0x45u:
 			v13 = sub_542B70(v3);
 			if (a3) {
@@ -12656,22 +12662,22 @@ int __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 			}
 			sub_542BB0(69, v4);
 			sub_542BB0((char)v13, v4);
-			continue;
+			break;
 		case 0x46u:
 			v15 = sub_542B70(v3);
 			if (a3)
 				v15 = v15 + dword_5d4594_2489428 - 2;
 			sub_542BB0(70, v4);
 			sub_542BB0((char)v15, v4);
-			continue;
+			break;
 		case 0x47u:
 			sub_542BB0(71, v4);
-			continue;
+			break;
 		case 0x48u:
 			return (FILE*)sub_542BB0(72, v4);
 		case 0x49u:
 			sub_542BB0(73, v4);
-			continue;
+			break;
 		default:
 			return result;
 		}
