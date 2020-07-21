@@ -9674,14 +9674,14 @@ void sub_4DF3C0(int a1) {
 	if (!v1)
 		return;
 	if (!sub_40A740() && !nox_common_gameFlags_check_40A5C0(0x8000)) {
-		LOBYTE(v2) = sub_417DD0();
-		if ((_BYTE)v2) {
+		BYTE v2b = sub_417DD0();
+		if (v2b) {
 			v2 = sub_4189D0();
 			v4 = v2;
 			if (v2) {
 				v2 = (char*)sub_419130(v1 + 48);
 				if (!v2)
-					LOBYTE(v2) = (unsigned int)sub_4191D0(v4[57], v1 + 48, 1, *(_DWORD*)(v1 + 36), 1);
+					sub_4191D0(v4[57], v1 + 48, 1, *(_DWORD*)(v1 + 36), 1);
 			}
 		}
 		return;
@@ -9693,32 +9693,35 @@ void sub_4DF3C0(int a1) {
 	if (v5) {
 		v6 = v1 + 48;
 		v7 = sub_419130(v1 + 48);
-		goto LABEL_11;
-	}
-	v8 = (unsigned __int8)v3[52];
-	if ((nox_common_gameFlags_check_40A5C0(96) || nox_common_gameFlags_check_40A5C0(16) && sub_417DA0(4)) && v8 > 2)
-		v8 = 2;
-	v2 = (char*)(unsigned __int8)sub_417DE0();
-	if ((int)v2 < v8) {
+	} else {
+		v8 = (unsigned __int8) v3[52];
+		if ((nox_common_gameFlags_check_40A5C0(96) || nox_common_gameFlags_check_40A5C0(16) && sub_417DA0(4)) && v8 > 2)
+			v8 = 2;
+		v2 = (char *) (unsigned __int8) sub_417DE0();
+		if ((int) v2 >= v8) {
+			return;
+		}
 		if (!nox_common_gameFlags_check_40A5C0(96) ||
-			(v9 = (unsigned __int8)sub_417DE0(), v2 = (char*)sub_417DC0(), v9 < (int)v2)) {
+			(v9 = (unsigned __int8) sub_417DE0(), v2 = (char *) sub_417DC0(), v9 < (int) v2)) {
 			v2 = sub_418A10();
 			v5 = v2;
-			if (v2) {
-				sub_418800((wchar_t*)v2, (wchar_t*)(a1 + 2072), 0);
-				sub_418830((int)v5, *(_DWORD*)(a1 + 2068));
-				sub_4184D0((wchar_t*)v5);
-				v6 = v1 + 48;
-				v7 = sub_419130(v1 + 48);
-			LABEL_11:
-				if (v7)
-					LOBYTE(v2) = sub_4196D0(v6, (int)v5, *(_DWORD*)(v1 + 36), 0);
-				else
-					LOBYTE(v2) = (unsigned int)sub_4191D0(v5[57], v6, 1, *(_DWORD*)(v1 + 36), 0);
+			if (!v2) {
 				return;
 			}
+			sub_418800((wchar_t *) v2, (wchar_t *) (a1 + 2072), 0);
+			sub_418830((int) v5, *(_DWORD *) (a1 + 2068));
+			sub_4184D0((wchar_t *) v5);
+			v6 = v1 + 48;
+			v7 = sub_419130(v1 + 48);
+		} else {
+			return;
 		}
 	}
+	if (v7)
+		sub_4196D0(v6, (int)v5, *(_DWORD*)(v1 + 36), 0);
+	else
+		sub_4191D0(v5[57], v6, 1, *(_DWORD*)(v1 + 36), 0);
+	return;
 }
 
 //----- (004DF550) --------------------------------------------------------
