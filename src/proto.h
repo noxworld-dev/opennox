@@ -4636,7 +4636,7 @@ void __cdecl sub_4EBD40(int a1, int a2, int a3);
 void __cdecl sub_4EBE10(int a1, int a2);
 void __cdecl sub_4EBE40(int a1, int a2);
 void __cdecl sub_4EBF40(int, int);
-void __cdecl sub_4EC290(int a1, int a2);
+void sub_4EC290(int a1, int a2);
 void __cdecl sub_4EC300(int a1);
 int __cdecl sub_4EC3E0(int a1);
 int __cdecl sub_4EC420(int a1);
