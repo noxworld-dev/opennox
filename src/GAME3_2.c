@@ -7856,7 +7856,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 			DeleteFileA(&FileName);
 			SetCurrentDirectoryA(&PathName);
 			v4 = 0;
-			v5 = FindFirstFileA((LPCSTR)&byte_587000[199680], &FindFileData);
+			v5 = FindFirstFileA("*", &FindFileData);
 			hFindFile = v5;
 			if (v5 != (HANDLE)-1) {
 				if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(FindFileData.cFileName, ".") &&
@@ -7886,7 +7886,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 				do {
 					SetCurrentDirectoryA(v8);
 					v9 = 0;
-					v10 = FindFirstFileA((LPCSTR)&byte_587000[199700], &FindFileData);
+					v10 = FindFirstFileA("*", &FindFileData);
 					hFindFilea = v10;
 					if (v10 != (HANDLE)-1) {
 						if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
