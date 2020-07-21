@@ -381,7 +381,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	}
 	char cwd[1024]; // [esp+44h] [ebp-400h]
 	_getcwd(cwd, 1023);
-	sub_409E20(cwd);
+	nox_common_set_data_path_409E20(cwd);
 
 	nox_common_readSKU_fromRegistry_4D78C0();
 	_controlfp(0x300u, 0x300u);
@@ -1228,7 +1228,7 @@ char* sub_409B90() {
 	unsigned __int8 v2;  // al
 	unsigned __int8* v3; // edi
 
-	v0 = sub_409E10();
+	v0 = nox_common_get_data_path_409E10();
 	if (!v0)
 		return 0;
 	v1 = *(_WORD*)&byte_587000[4736];
@@ -1254,7 +1254,7 @@ char* sub_409C70() {
 	unsigned __int8 v5;  // cl
 	char* result;        // eax
 
-	v0 = sub_409E10();
+	v0 = nox_common_get_data_path_409E10();
 	if (!v0)
 		return 0;
 	v1 = *(_WORD*)&byte_587000[4748];
@@ -1302,10 +1302,10 @@ char* __cdecl sub_409D70(char* a1) {
 }
 
 //----- (00409E10) --------------------------------------------------------
-char* sub_409E10() { return (char*)&byte_5D4594[1396]; }
+char* nox_common_get_data_path_409E10() { return (char*)&byte_5D4594[1396]; }
 
 //----- (00409E20) --------------------------------------------------------
-char* __cdecl sub_409E20(char* a1) {
+char* __cdecl nox_common_set_data_path_409E20(char* a1) {
 	char* result; // eax
 
 	result = strncpy((char*)&byte_5D4594[1396], a1, 0x400u);
@@ -2053,7 +2053,7 @@ void __cdecl sub_40AF90(int a1, int a2, char a3, int a4, _BYTE* a5, unsigned int
 		}
 		break;
 	case 3:
-		v6 = sub_409E10();
+		v6 = nox_common_get_data_path_409E10();
 		nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v6);
 		if (sub_41CD70(FileName, a5, a6)) {
 			if (sub_4D6F50() && a1 == 31) {

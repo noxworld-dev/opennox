@@ -174,7 +174,7 @@ int __cdecl nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
 		return 0;
 	if (_strcmpi("#return", a1)) {
 		if (*a1 == 35) {
-			v3 = sub_409E10();
+			v3 = nox_common_get_data_path_409E10();
 			sub_4D39F0(v3);
 			strcpy(v13, a1 + 1);
 			v4 = strchr(v13, 46);
@@ -1340,7 +1340,7 @@ int sub_4FC6D0() {
 						sub_4D7440(1);
 						sub_4D60B0();
 					} else {
-						v1 = sub_409E10();
+						v1 = nox_common_get_data_path_409E10();
 						nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v1);
 						for (i = sub_4DA7C0(); i; i = sub_4DA7F0(i)) {
 							v3 = *(_DWORD*)(i + 748);
