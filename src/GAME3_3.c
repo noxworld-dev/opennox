@@ -946,10 +946,12 @@ int sub_4E3420() {
 }
 
 //----- (004E3450) --------------------------------------------------------
-_DWORD* __cdecl sub_4E3450(int a1) { return sub_4E3470(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1563456] + 4 * a1)); }
+_DWORD* __cdecl nox_new_objMem_2_4E3450(int a1) {
+	return nox_new_objMem_4E3470(*(_DWORD*)(*(_DWORD*)&byte_5D4594[1563456] + 4 * a1));
+}
 
 //----- (004E3470) --------------------------------------------------------
-_DWORD* __cdecl sub_4E3470(int a1) {
+_DWORD* __cdecl nox_new_objMem_4E3470(int a1) {
 	_DWORD* v2;                  // ebx
 	char v3;                     // al
 	int v4;                      // edx
@@ -1066,7 +1068,7 @@ _DWORD* __cdecl sub_4E3810(CHAR* a1) {
 	int v1 = sub_4E3830(a1);
 	if (!v1)
 		return 0;
-	return sub_4E3470(v1);
+	return nox_new_objMem_4E3470(v1);
 }
 
 //----- (004E3830) --------------------------------------------------------
@@ -10642,7 +10644,7 @@ _DWORD* __cdecl sub_4F0E80(int a1, unsigned int a2) {
 	if (!v12)
 		return 0;
 	v13 = sub_415D10(*(char**)&byte_587000[20 * v9 + 208184]);
-	v14 = sub_4E3450(v12);
+	v14 = nox_new_objMem_2_4E3450(v12);
 	v66 = (int)v14;
 	if (!v14)
 		return 0;
@@ -11041,7 +11043,7 @@ int __cdecl sub_4F14E0(int a1, unsigned int a2) {
 	if (!v12)
 		return 0;
 	v73 = sub_415880(v12);
-	v13 = sub_4E3450((int)v12);
+	v13 = nox_new_objMem_2_4E3450((int)v12);
 	v14 = (int)v13;
 	v75 = (int)v13;
 	if (!v13)
@@ -11422,7 +11424,7 @@ _DWORD* __cdecl sub_4F1C40(int a1, unsigned int a2) {
 			return 0;
 	}
 	if (*(_DWORD*)&byte_587000[20 * v9 + 208184])
-		result = sub_4E3450(*(_DWORD*)&byte_587000[20 * v9 + 208184]);
+		result = nox_new_objMem_2_4E3450(*(_DWORD*)&byte_587000[20 * v9 + 208184]);
 	else
 	LABEL_24:
 		result = 0;
@@ -12819,7 +12821,7 @@ int __cdecl sub_4F3E30(unsigned __int16 a1, int a2, int a3) {
 				return 0;
 		}
 		sub_426C20(&v12, 4u);
-		v5 = sub_4E3450(v4);
+		v5 = nox_new_objMem_2_4E3450(v4);
 		v6 = v5;
 		if (!v5 || !((int(__cdecl*)(_DWORD*, _DWORD))v5[176])(v5, 0))
 			break;
