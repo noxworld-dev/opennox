@@ -35,7 +35,7 @@ extern _DWORD dword_5d4594_2386564;
 extern _DWORD dword_5d4594_2386920;
 extern void* nox_alloc_springs_2386568;
 extern void* nox_alloc_monsterList_2386220;
-extern _DWORD nox_monsterListen_2386192;
+extern void* nox_monsterListen_2386192;
 extern _DWORD dword_5d4594_2388640;
 extern _DWORD dword_5d4594_2487240;
 extern void* nox_alloc_monsterListen_2386188;
