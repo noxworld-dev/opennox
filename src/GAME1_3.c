@@ -1824,16 +1824,16 @@ int sub_43E200() {
 
 //----- (0043E230) --------------------------------------------------------
 int sub_43E230() {
-	char* v0; // eax
-	char* v2; // eax
-
 	sub_477530(0);
-	v0 = sub_409B90();
-	if (_chmod(v0, 128) == -1)
+
+	char* map_path_1 = sub_409B90();
+	if (_chmod(map_path_1, 128) == -1)
 		return sub_43E200();
-	v2 = sub_409C70();
-	if (_chmod(v2, 128) == -1)
+
+	char* map_path_2 = sub_409C70();
+	if (_chmod(map_path_2, 128) == -1)
 		return sub_43E200();
+
 	sub_40A4D0(0x100000);
 	return sub_44A400();
 }
