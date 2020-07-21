@@ -5201,7 +5201,7 @@ int __cdecl sub_50D000(int a1, int a2);
 int __cdecl sub_50D0C0(char a1, int a2);
 unsigned __int8* __cdecl sub_50D110(int a1, _DWORD* a2, int a3);
 _DWORD* __cdecl sub_50D190(int a1, _DWORD* a2, _DWORD* a3);
-int sub_50D1C0();
+void sub_50D1C0();
 void sub_50D1E0();
 int sub_50D210();
 int __cdecl sub_50D220(int a1, int a2);
