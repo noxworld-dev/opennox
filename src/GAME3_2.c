@@ -83,7 +83,6 @@ extern _DWORD dword_5d4594_2649712;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_3835396;
 extern _DWORD dword_5d4594_1523024;
-extern _DWORD nox_server_objects_1556844;
 extern _DWORD dword_5d4594_1523028;
 extern _DWORD dword_587000_197428;
 extern _DWORD dword_5d4594_1548476;
@@ -96,6 +95,7 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
 void* nox_server_objects_uninited_1556860 = 0;
+void* nox_server_objects_1556844 = 0;
 
 // 4CD756: variable 'v5' is possibly undefined
 // 4CD767: variable 'v7' is possibly undefined
@@ -7469,7 +7469,7 @@ void sub_4DAC00() {
 				*(_DWORD*)(v0 + 448) = 0;
 				*(_DWORD*)(v0 + 444) = nox_server_objects_1556844;
 				if (nox_server_objects_1556844)
-					*(_DWORD*)(nox_server_objects_1556844 + 448) = v0;
+					*(_DWORD*)((uintptr_t)nox_server_objects_1556844 + 448) = v0;
 				nox_server_objects_1556844 = v0;
 			}
 			sub_517640(v0);
@@ -7677,7 +7677,7 @@ _DWORD* sub_4DB030() {
 			result[4] &= 0xFDFFFFFF;
 			v2 = nox_server_objects_1556844;
 			if (nox_server_objects_1556844) {
-				*(_DWORD*)(nox_server_objects_1556844 + 448) = result;
+				*(_DWORD*)((uintptr_t)nox_server_objects_1556844 + 448) = result;
 				v2 = nox_server_objects_1556844;
 			}
 			result[111] = v2;
