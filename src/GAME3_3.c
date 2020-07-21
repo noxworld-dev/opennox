@@ -29,8 +29,8 @@ extern _DWORD dword_5d4594_1568260;
 extern _DWORD dword_5d4594_1565516;
 extern _DWORD dword_5d4594_1563664;
 extern _DWORD dword_5d4594_1567928;
-extern _DWORD dword_5d4594_1568020;
-extern _DWORD dword_5d4594_1563344;
+extern _DWORD nox_alloc_respawn_1568020;
+extern _DWORD nox_alloc_objMem_1563344;
 extern _DWORD dword_5d4594_1565616;
 extern _DWORD dword_587000_202404;
 extern _DWORD dword_587000_312788;
@@ -901,7 +901,7 @@ int __cdecl sub_4E3360(unsigned int a1) {
 	v1 = 0;
 	v2 = 1;
 	result = nox_new_alloc_class("objectMemClass", 772, a1);
-	dword_5d4594_1563344 = result;
+	nox_alloc_objMem_1563344 = result;
 	if (result) {
 		if (a1) {
 			while (1) {
@@ -916,18 +916,18 @@ int __cdecl sub_4E3360(unsigned int a1) {
 						v5 = v1;
 						v1 = (_DWORD*)v1[111];
 						v6 = v5[9];
-						sub_414330(*(unsigned int**)&dword_5d4594_1563344, v5);
+						sub_414330(*(unsigned int**)&nox_alloc_objMem_1563344, v5);
 						v5[9] = v6;
 					} while (v1);
-					result = dword_5d4594_1563344;
+					result = nox_alloc_objMem_1563344;
 					goto LABEL_9;
 				}
-				result = dword_5d4594_1563344;
+				result = nox_alloc_objMem_1563344;
 			}
 			while (v1) {
 				v7 = v1;
 				v1 = (_DWORD*)v1[111];
-				sub_414330(*(unsigned int**)&dword_5d4594_1563344, v7);
+				sub_414330(*(unsigned int**)&nox_alloc_objMem_1563344, v7);
 			}
 			result = 0;
 		} else {
@@ -941,7 +941,7 @@ int __cdecl sub_4E3360(unsigned int a1) {
 
 //----- (004E3420) --------------------------------------------------------
 int sub_4E3420() {
-	nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1563344);
+	nox_free_alloc_class(*(LPVOID*)&nox_alloc_objMem_1563344);
 	return 1;
 }
 
@@ -960,7 +960,7 @@ _DWORD* __cdecl sub_4E3470(int a1) {
 	int v8;                      // eax
 	int v9;                      // [esp+10h] [ebp-4h]
 
-	result = (_DWORD*)nox_alloc_class_new_obj(*(_DWORD**)&dword_5d4594_1563344);
+	result = (_DWORD*)nox_alloc_class_new_obj(*(_DWORD**)&nox_alloc_objMem_1563344);
 	v2 = result;
 	if (result) {
 		v9 = result[9];
@@ -1150,7 +1150,7 @@ int __cdecl sub_4E38A0(int a1) {
 	if (*(_DWORD*)(a1 + 748))
 		free(*(LPVOID*)(a1 + 748));
 	v6 = *(_DWORD*)(a1 + 36);
-	sub_414400(*(unsigned int**)&dword_5d4594_1563344, (_QWORD*)a1);
+	sub_414400(*(unsigned int**)&nox_alloc_objMem_1563344, (_QWORD*)a1);
 	*(_DWORD*)(a1 + 36) = v6;
 	return --*(_DWORD*)&byte_5D4594[1563900];
 }
@@ -7400,7 +7400,7 @@ int __cdecl sub_4EC580(int a1) {
 //----- (004EC5B0) --------------------------------------------------------
 void sub_4EC5B0() {
 	dword_5d4594_1568024 = 0;
-	sub_4144D0(*(_DWORD**)&dword_5d4594_1568020);
+	sub_4144D0(*(_DWORD**)&nox_alloc_respawn_1568020);
 	dword_587000_205200 = 1;
 }
 
@@ -7413,7 +7413,7 @@ _DWORD* __cdecl sub_4EC5E0(int a1) {
 
 	result = *(_DWORD**)&dword_587000_205200;
 	if (dword_587000_205200) {
-		result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_1568020);
+		result = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_respawn_1568020);
 		v2 = result;
 		if (result) {
 			v3 = *(_WORD*)(a1 + 4);
@@ -7455,7 +7455,7 @@ void __cdecl sub_4EC6A0(int a1) {
 		v3 = *(_DWORD*)(v1 + 52);
 		if (v3)
 			*(_DWORD*)(v3 + 56) = 0;
-		sub_414330(*(unsigned int**)&dword_5d4594_1568020, v2);
+		sub_414330(*(unsigned int**)&nox_alloc_respawn_1568020, v2);
 	} else if (dword_5d4594_1568024) {
 		while (*(_DWORD*)(v1 + 4) != a1) {
 			v1 = *(_DWORD*)(v1 + 52);
@@ -7468,18 +7468,18 @@ void __cdecl sub_4EC6A0(int a1) {
 		v5 = *(_DWORD*)(v1 + 52);
 		if (v5)
 			*(_DWORD*)(v5 + 56) = *(_DWORD*)(v1 + 56);
-		sub_414330(*(unsigned int**)&dword_5d4594_1568020, (_QWORD*)v1);
+		sub_414330(*(unsigned int**)&nox_alloc_respawn_1568020, (_QWORD*)v1);
 	}
 }
 
 //----- (004ECA60) --------------------------------------------------------
 BOOL sub_4ECA60() {
-	dword_5d4594_1568020 = nox_new_alloc_class("Respawn", 60, 384);
-	return dword_5d4594_1568020 != 0;
+	nox_alloc_respawn_1568020 = nox_new_alloc_class("Respawn", 60, 384);
+	return nox_alloc_respawn_1568020 != 0;
 }
 
 //----- (004ECA90) --------------------------------------------------------
-void sub_4ECA90() { nox_free_alloc_class(*(LPVOID*)&dword_5d4594_1568020); }
+void sub_4ECA90() { nox_free_alloc_class(*(LPVOID*)&nox_alloc_respawn_1568020); }
 
 //----- (004ECAA0) --------------------------------------------------------
 char* __cdecl sub_4ECAA0(char a1) {
