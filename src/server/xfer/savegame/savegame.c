@@ -14,7 +14,7 @@ BOOL sub_4DB1D0() {
 	char* v0;            // eax
 	CHAR PathName[1024]; // [esp+0h] [ebp-400h]
 
-	v0 = sub_409E10();
+	v0 = nox_common_get_data_path_409E10();
 	nox_sprintf(PathName, "%s\\Save", v0);
 	return _mkdir(PathName) != -1 || errno != 2;
 }
@@ -24,7 +24,7 @@ BOOL __cdecl sub_4DB5A0(int a1, int a2) {
 	char* v2;            // eax
 	char PathName[1024]; // [esp+0h] [ebp-400h]
 
-	v2 = sub_409E10();
+	v2 = nox_common_get_data_path_409E10();
 	nox_sprintf(PathName, "%s\\Save\\%s\\%s", v2, a1, a2);
 	return _mkdir(PathName) != -1 || errno != 2;
 }
@@ -184,12 +184,12 @@ int __cdecl sub_4DB370_savegame(const char* a1) {
 		return 0;
 	v13 = sub_409B40();
 	v12 = sub_409B40();
-	v6 = sub_409E10();
+	v6 = nox_common_get_data_path_409E10();
 	nox_sprintf(v15, "%s\\Save\\%s\\%s\\%s.map", v6, &byte_587000[199192], v12, v13);
 	if (!sub_51E010(v15, 0))
 		return 0;
 	sub_4DB6A0();
-	v7 = sub_409E10();
+	v7 = nox_common_get_data_path_409E10();
 	nox_sprintf(v14, "%s\\Save\\%s\\Player.plr", v7, &byte_587000[199224]);
 	v8 = *(_DWORD*)&byte_5D4594[2660684] & 0xFFFFFFF7;
 	*(_DWORD*)&byte_5D4594[2660684] &= 0xFFFFFFF7;
@@ -233,7 +233,7 @@ char* __cdecl sub_4DB7E0_savegame(const char* a1) {
 	if (!nox_common_gameFlags_check_40A5C0(2) || (result = (char*)sub_4738D0()) != 0) {
 		sub_4DB9C0();
 		if (!strcmp(a1, "WORKING") || (result = (char*)sub_4DC100((int)a1, (int)&byte_587000[199416])) != 0) {
-			v3 = sub_409E10();
+			v3 = nox_common_get_data_path_409E10();
 			nox_sprintf(FileName, "%s\\Save\\%s\\Player.plr", v3, &byte_587000[199424]);
 			if (_access(FileName, 0) == -1) {
 				v4 = loadString_sub_40F1D0((char*)&byte_587000[199504], 0,
@@ -252,7 +252,7 @@ char* __cdecl sub_4DB7E0_savegame(const char* a1) {
 					sub_4721D0();
 					nox_sprintf(v8, "%s.map", v1 + 4760);
 					sub_409D70(v8);
-					v6 = sub_409E10();
+					v6 = nox_common_get_data_path_409E10();
 					nox_sprintf((char*)&byte_5D4594[1559960], "%s\\Save\\%s\\%s\\%s.map", v6, &byte_587000[199532],
 								v1 + 4760, v1 + 4760);
 					sub_4D2450(v8);
