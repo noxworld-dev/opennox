@@ -1729,18 +1729,18 @@ int __cdecl sub_43DDE0(int a1) {
 int __cdecl sub_43DDF0(int (*a1)(void)) {
 	*(_DWORD*)&byte_5D4594[816388] = a1;
 	if (!a1)
-		*(_DWORD*)&byte_5D4594[816388] = sub_43DE10;
+		*(_DWORD*)&byte_5D4594[816388] = nox_return_1_43DE10;
 	return 1;
 }
 
 //----- (0043DE10) --------------------------------------------------------
-int sub_43DE10() { return 1; }
+int nox_return_1_43DE10() { return 1; }
 
 //----- (0043DE20) --------------------------------------------------------
 int __cdecl nox_set_draw_unk1(int (*fnc)(void)) {
 	nox_draw_unk1 = fnc;
 	if (!fnc)
-		nox_draw_unk1 = sub_43DE10;
+		nox_draw_unk1 = nox_return_1_43DE10;
 	return 1;
 }
 
@@ -1748,7 +1748,7 @@ int __cdecl nox_set_draw_unk1(int (*fnc)(void)) {
 int __cdecl sub_43DE40(int (*a1)(void)) {
 	*(_DWORD*)&byte_5D4594[816392] = a1;
 	if (!a1)
-		*(_DWORD*)&byte_5D4594[816392] = sub_43DE10;
+		*(_DWORD*)&byte_5D4594[816392] = nox_return_1_43DE10;
 	return 1;
 }
 
