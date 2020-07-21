@@ -9657,7 +9657,7 @@ int __cdecl sub_4DF360(int a1, int a2) {
 }
 
 //----- (004DF3C0) --------------------------------------------------------
-char __cdecl sub_4DF3C0(int a1) {
+void sub_4DF3C0(int a1) {
 	int v1;   // edi
 	char* v2; // eax
 	char* v3; // ebx
@@ -9672,7 +9672,7 @@ char __cdecl sub_4DF3C0(int a1) {
 	v2 = sub_416640();
 	v3 = v2;
 	if (!v1)
-		return (char)v2;
+		return;
 	if (!sub_40A740() && !nox_common_gameFlags_check_40A5C0(0x8000)) {
 		LOBYTE(v2) = sub_417DD0();
 		if ((_BYTE)v2) {
@@ -9684,11 +9684,11 @@ char __cdecl sub_4DF3C0(int a1) {
 					LOBYTE(v2) = (unsigned int)sub_4191D0(v4[57], v1 + 48, 1, *(_DWORD*)(v1 + 36), 1);
 			}
 		}
-		return (char)v2;
+		return;
 	}
 	v2 = *(char**)(a1 + 2068);
 	if (!v2)
-		return (char)v2;
+		return;
 	v5 = sub_418AE0(*(_DWORD*)(a1 + 2068));
 	if (v5) {
 		v6 = v1 + 48;
@@ -9715,11 +9715,10 @@ char __cdecl sub_4DF3C0(int a1) {
 					LOBYTE(v2) = sub_4196D0(v6, (int)v5, *(_DWORD*)(v1 + 36), 0);
 				else
 					LOBYTE(v2) = (unsigned int)sub_4191D0(v5[57], v6, 1, *(_DWORD*)(v1 + 36), 0);
-				return (char)v2;
+				return;
 			}
 		}
 	}
-	return (char)v2;
 }
 
 //----- (004DF550) --------------------------------------------------------
