@@ -734,7 +734,7 @@ bool sub_417EC0();
 char sub_417F30();
 int __cdecl sub_417F50(int a1);
 int sub_4180D0();
-char* __cdecl sub_4181F0(int a1);
+void sub_4181F0(int a1);
 int sub_418390();
 int sub_4183C0();
 void __cdecl sub_4184D0(wchar_t* a1);

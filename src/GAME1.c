@@ -11752,7 +11752,7 @@ int sub_4180D0() {
 }
 
 //----- (004181F0) --------------------------------------------------------
-char* __cdecl sub_4181F0(int a1) {
+void sub_4181F0(int a1) {
 	unsigned __int8 v1;  // bl
 	char* i;             // esi
 	char* result;        // eax
@@ -11839,7 +11839,6 @@ char* __cdecl sub_4181F0(int a1) {
 			}
 		}
 	}
-	return result;
 }
 // 4181F0: using guessed type int var_80[32];
 
