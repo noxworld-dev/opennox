@@ -7626,7 +7626,7 @@ void sub_4DAF10() {
 }
 
 //----- (004DAFD0) --------------------------------------------------------
-_DWORD* __cdecl sub_4DAFD0(_DWORD* a1) {
+void sub_4DAFD0(_DWORD* a1) {
 	_DWORD* result; // eax
 	int v2;         // ecx
 	int v3;         // ecx
@@ -7651,7 +7651,6 @@ _DWORD* __cdecl sub_4DAFD0(_DWORD* a1) {
 				result[112] = 0;
 		}
 	}
-	return result;
 }
 
 //----- (004DB030) --------------------------------------------------------

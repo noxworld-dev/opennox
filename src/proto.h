@@ -4225,7 +4225,7 @@ void sub_4DAC00();
 char __cdecl sub_4DADE0(int a1);
 int __cdecl sub_4DAE50(int a1);
 void sub_4DAF10();
-_DWORD* __cdecl sub_4DAFD0(_DWORD* a1);
+void sub_4DAFD0(_DWORD* a1);
 _DWORD* sub_4DB030();
 int sub_4DB090();
 int sub_4DB0A0();
