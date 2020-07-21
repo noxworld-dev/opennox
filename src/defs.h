@@ -23,6 +23,8 @@
 #define NOX_MAX_WIDTH 1024
 #define NOX_MAX_HEIGHT 768
 
+#define NOX_FILEPATH_MAX 1024
+
 #define USE_SDL 1
 #include <SDL2/SDL.h>
 

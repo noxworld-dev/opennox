@@ -7822,12 +7822,6 @@ char* __cdecl sub_4DB790(const char* a1) {
 
 //----- (004DBE10) --------------------------------------------------------
 void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
-	int result;                            // eax
-	char* v3;                              // eax
-	int v4;                                // ebx
-	HANDLE v5;                             // ebp
-	char* v6;                              // ebp
-	char* v7;                              // edx
 	char* v8;                              // esi
 	int v9;                                // ebp
 	HANDLE v10;                            // ebx
@@ -7835,102 +7829,86 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 	char* v12;                             // edx
 	char* v13;                             // esi
 	bool v14;                              // zf
-	char* v15;                             // eax
-	HANDLE hFindFile;                      // [esp+0h] [ebp-2494Ch]
-	HANDLE hFindFilea;                     // [esp+0h] [ebp-2494Ch]
 	char* v18;                             // [esp+4h] [ebp-24948h]
 	int v19;                               // [esp+8h] [ebp-24944h]
-	struct _WIN32_FIND_DATAA FindFileData; // [esp+Ch] [ebp-24940h]
-	CHAR PathName[1024];                   // [esp+14Ch] [ebp-24800h]
-	CHAR FileName[1024];                   // [esp+54Ch] [ebp-24400h]
-	char v23[16384];                       // [esp+94Ch] [ebp-24000h]
-	char v24[131072];                      // [esp+494Ch] [ebp-20000h]
+	char saveDir[NOX_FILEPATH_MAX];                   // [esp+14Ch] [ebp-24800h]
+	char FileName[NOX_FILEPATH_MAX];                   // [esp+54Ch] [ebp-24400h]
+	char v23[16*NOX_FILEPATH_MAX];                       // [esp+94Ch] [ebp-24000h]
+	char v24[128*NOX_FILEPATH_MAX];                      // [esp+494Ch] [ebp-20000h]
 
-	result = saveName;
-	if (saveName) {
-		v3 = nox_common_get_data_path_409E10();
-		nox_sprintf(&PathName, "%s\\Save\\%s", v3, saveName);
-		result = _access(&PathName, 0);
-		if (result != -1) {
-			nox_sprintf(&FileName, "%s\\Player.plr", &PathName);
-			DeleteFileA(&FileName);
-			SetCurrentDirectoryA(&PathName);
-			v4 = 0;
-			v5 = FindFirstFileA("*", &FindFileData);
-			hFindFile = v5;
-			if (v5 != (HANDLE)-1) {
-				if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(FindFileData.cFileName, ".") &&
-					strcmp(FindFileData.cFileName, "..")) {
-					v4 = 1;
-					strcpy(v24, FindFileData.cFileName);
-				}
-				if (FindNextFileA(v5, &FindFileData)) {
-					v6 = &v24[1024 * v4];
-					do {
-						if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(FindFileData.cFileName, ".") &&
-							strcmp(FindFileData.cFileName, "..")) {
-							v7 = v6;
-							++v4;
-							v6 += 1024;
-							strcpy(v7, FindFileData.cFileName);
-						}
-					} while (FindNextFileA(hFindFile, &FindFileData));
-					v5 = hFindFile;
-				}
-				FindClose(v5);
-			}
-			if (v4 > 0) {
-				v8 = v24;
-				v19 = v4;
-				v18 = v24;
-				do {
-					SetCurrentDirectoryA(v8);
-					v9 = 0;
-					v10 = FindFirstFileA("*", &FindFileData);
-					hFindFilea = v10;
-					if (v10 != (HANDLE)-1) {
-						if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-							v9 = 1;
-							strcpy(v23, FindFileData.cFileName);
-						}
-						if (FindNextFileA(v10, &FindFileData)) {
-							v11 = &v23[1024 * v9];
-							do {
-								if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-									v12 = v11;
-									++v9;
-									v11 += 1024;
-									strcpy(v12, FindFileData.cFileName);
-								}
-							} while (FindNextFileA(hFindFilea, &FindFileData));
-							v10 = hFindFilea;
-						}
-						FindClose(v10);
-						if (v9 > 0) {
-							v13 = v23;
-							do {
-								DeleteFileA(v13);
-								v13 += 1024;
-								--v9;
-							} while (v9);
-						}
-						v8 = v18;
-					}
-					SetCurrentDirectoryA((LPCSTR)&byte_587000[199704]);
-					RemoveDirectoryA(v8);
-					v8 += 1024;
-					v14 = v19 == 1;
-					v18 = v8;
-					--v19;
-				} while (!v14);
-			}
-			v15 = nox_common_get_data_path_409E10();
-			SetCurrentDirectoryA(v15);
-			result = rmDir;
-			if (rmDir)
-				result = RemoveDirectoryA(&PathName);
-		}
+	if (!saveName) {
+		return;
 	}
+	nox_sprintf(saveDir, "%s\\Save\\%s", nox_common_get_data_path_409E10(), saveName);
+	if (_access(saveDir, 0) == -1) {
+		return;
+	}
+	nox_sprintf(&FileName, "%s\\Player.plr", saveDir);
+	DeleteFileA(&FileName);
+	SetCurrentDirectoryA(saveDir);
+
+	int fileCnt = 0;
+	struct _WIN32_FIND_DATAA find; // [esp+Ch] [ebp-24940h]
+	HANDLE v5 = FindFirstFileA("*", &find);
+	if (v5 != -1) {
+		if (find.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(find.cFileName, ".") && strcmp(find.cFileName, "..")) {
+			strcpy(&v24[NOX_FILEPATH_MAX*fileCnt], find.cFileName);
+			++fileCnt;
+		}
+		while (FindNextFileA(v5, &find)) {
+			if (find.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(find.cFileName, ".") && strcmp(find.cFileName, "..")) {
+				strcpy(&v24[NOX_FILEPATH_MAX*fileCnt], find.cFileName);
+				++fileCnt;
+			}
+		}
+		FindClose(v5);
+	}
+	if (fileCnt > 0) {
+		v8 = v24;
+		v19 = fileCnt;
+		v18 = v24;
+		do {
+			SetCurrentDirectoryA(v8);
+			v9 = 0;
+			v10 = FindFirstFileA("*", &find);
+			if (v10 != -1) {
+				if (!(find.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+					v9 = 1;
+					strcpy(v23, find.cFileName);
+				}
+				if (FindNextFileA(v10, &find)) {
+					v11 = &v23[NOX_FILEPATH_MAX * v9];
+					do {
+						if (!(find.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+							v12 = v11;
+							++v9;
+							v11 += NOX_FILEPATH_MAX;
+							strcpy(v12, find.cFileName);
+						}
+					} while (FindNextFileA(v10, &find));
+				}
+				FindClose(v10);
+				if (v9 > 0) {
+					v13 = v23;
+					do {
+						DeleteFileA(v13);
+						v13 += NOX_FILEPATH_MAX;
+						--v9;
+					} while (v9);
+				}
+				v8 = v18;
+			}
+			SetCurrentDirectoryA((LPCSTR)&byte_587000[199704]);
+			RemoveDirectoryA(v8);
+			v8 += NOX_FILEPATH_MAX;
+			v14 = v19 == 1;
+			v18 = v8;
+			--v19;
+		} while (!v14);
+	}
+	SetCurrentDirectoryA(nox_common_get_data_path_409E10());
+	if (rmDir)
+		RemoveDirectoryA(saveDir);
 }
 // 4DBE10: using guessed type CHAR var_20000[131072];
 // 4DBE10: using guessed type CHAR var_24000[16384];
