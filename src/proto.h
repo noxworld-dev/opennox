@@ -1843,7 +1843,7 @@ int sub_446140();
 int sub_446180();
 unsigned int sub_446360();
 void sub_446380();
-int __cdecl sub_4463E0(int a1);
+int __cdecl nox_motd_4463E0(int a1);
 LPVOID __cdecl sub_446490(void* a1);
 LPVOID __cdecl sub_4464D0(int a1, _DWORD* a2);
 int __cdecl sub_4464F0(int a1, _DWORD* a2);
