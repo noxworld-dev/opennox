@@ -7798,12 +7798,9 @@ unsigned int __cdecl sub_4DB2A0(const char* a1) {
 }
 
 //----- (004DB540) --------------------------------------------------------
-BOOL __cdecl sub_4DB540(int a1) {
-	char* v1;            // eax
+BOOL __cdecl sub_4DB540(char* saveName) {
 	char PathName[1024]; // [esp+0h] [ebp-400h]
-
-	v1 = nox_common_get_data_path_409E10();
-	nox_sprintf(PathName, "%s\\Save\\%s", v1, a1);
+	nox_sprintf(PathName, "%s\\Save\\%s", nox_common_get_data_path_409E10(), saveName);
 	return _mkdir(PathName) != -1 || errno != 2;
 }
 
