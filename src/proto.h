@@ -6423,7 +6423,7 @@ void __cdecl sub_544CA0(_DWORD* a1);
 void __cdecl sub_544CE0(_DWORD* a1);
 char __cdecl sub_544D60(int a1);
 char __cdecl sub_544D80(_DWORD* a1);
-char __cdecl sub_544E60(int a1);
+void sub_544E60(int a1);
 void __cdecl sub_544EC0(int a1);
 int __cdecl sub_544F70(int a1);
 unsigned __int8* __cdecl sub_544FF0(int a1);
