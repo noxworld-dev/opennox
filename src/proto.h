@@ -5195,7 +5195,7 @@ LPVOID sub_50CB10();
 int __cdecl sub_50CB20(int a1, float* a2);
 unsigned __int8* sub_50CD30();
 void sub_50CD40(int a1, int a2, _DWORD* a3);
-unsigned __int8* __cdecl sub_50CDD0(int a1);
+void sub_50CDD0(int a1);
 BOOL __cdecl sub_50CF10(int a1, int a2);
 int __cdecl sub_50D000(int a1, int a2);
 int __cdecl sub_50D0C0(char a1, int a2);
