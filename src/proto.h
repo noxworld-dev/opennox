@@ -4249,7 +4249,7 @@ int __cdecl sub_4DC100(int a1, int a2);
 int sub_4DC550();
 int sub_4DC630();
 int sub_4DC7D0();
-char* __cdecl nox_savegame_nameFromPath_4DC970(char* a1, char* a2);
+void nox_savegame_nameFromPath_4DC970(char* src, char* dst);
 char* __cdecl sub_4DC9B0(char* a1);
 char* sub_4DCA00();
 int __cdecl sub_4DCBD0(int a1);

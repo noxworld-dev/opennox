@@ -8210,18 +8210,14 @@ int sub_4DC7D0() {
 // 4DC7D0: using guessed type CHAR PathName[1024];
 
 //----- (004DC970) --------------------------------------------------------
-char* __cdecl nox_savegame_nameFromPath_4DC970(char* a1, char* a2) {
-	char* result; // eax
-
-	result = a1;
-	if (a1 && a2) {
-		result = strrchr(a1, 92);
-		if (result) {
-			result = strncpy(a2, result - 8, 8u);
-			a2[8] = 0;
-		}
-	}
-	return result;
+void nox_savegame_nameFromPath_4DC970(char* src, char* dst) {
+	if (!src || !dst)
+		return;
+	char* p = strrchr(src, '\\');
+	if (!p)
+		return;
+	strncpy(dst, p - 8, 8);
+	dst[8] = 0;
 }
 
 //----- (004DC9B0) --------------------------------------------------------
