@@ -7836,7 +7836,7 @@ char* __cdecl sub_4DB790(const char* a1) {
 }
 
 //----- (004DBE10) --------------------------------------------------------
-int __cdecl sub_4DBE10(int a1, int a2) {
+int __cdecl nox_savegame_rm_4DBE10(int a1, int a2) {
 	int result;                            // eax
 	char* v3;                              // eax
 	int v4;                                // ebx
@@ -7991,7 +7991,7 @@ int __cdecl sub_4DC100(int a1, int a2) {
 	nox_sprintf(&v29, "%s\\Save\\%s", v3, a2);
 	if (!sub_4DB540(a2))
 		return 0;
-	sub_4DBE10(a2, 0);
+	nox_savegame_rm_4DBE10(a2, 0);
 	nox_sprintf(&ExistingFileName, "%s\\Player.plr", &PathName);
 	nox_sprintf(&NewFileName, "%s\\Player.plr", &v29);
 	result = CopyFileA(&ExistingFileName, &NewFileName, 0);
@@ -8225,7 +8225,7 @@ int sub_4DC7D0() {
 // 4DC7D0: using guessed type CHAR PathName[1024];
 
 //----- (004DC970) --------------------------------------------------------
-char* __cdecl sub_4DC970(char* a1, char* a2) {
+char* __cdecl nox_savegame_nameFromPath_4DC970(char* a1, char* a2) {
 	char* result; // eax
 
 	result = a1;

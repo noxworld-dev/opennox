@@ -1784,7 +1784,7 @@ int sub_4A5700() {
 //----- (004A5C70) --------------------------------------------------------
 int sub_4A5C70() {
 	if (nox_common_gameFlags_check_40A5C0(2048))
-		sub_4DBE10((int)&byte_5D4594[1307752], 1);
+		nox_savegame_rm_4DBE10((int)&byte_5D4594[1307752], 1);
 	else
 		DeleteFileA((LPCSTR)(dword_5d4594_1307780 + 1278 * *(_DWORD*)&byte_5D4594[1307772] + 4));
 	nox_window_call_field_94(*(int*)&dword_5d4594_1307744, 16399, 0, 0);

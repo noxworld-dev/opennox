@@ -5488,8 +5488,8 @@ int __cdecl sub_46CCD0(int a1, int a2) {
 	char v5[12]; // [esp+Ch] [ebp-18h]
 	char v6[12]; // [esp+18h] [ebp-Ch]
 
-	sub_4DC970((char*)(a1 + 4), v5);
-	sub_4DC970((char*)(a1 + 4), v6);
+	nox_savegame_nameFromPath_4DC970((char*)(a1 + 4), v5);
+	nox_savegame_nameFromPath_4DC970((char*)(a1 + 4), v6);
 	if (!strcmp(v5, "AUTOSAVE"))
 		return -1;
 	if (!strcmp(v6, "AUTOSAVE"))
@@ -5509,7 +5509,7 @@ int __cdecl sub_46CD70(_BYTE* a1) {
 
 	if (*a1 & 8)
 		return 10;
-	sub_4DC970(a1 + 4, v2);
+	nox_savegame_nameFromPath_4DC970(a1 + 4, v2);
 	return (strcmp(v2, "AUTOSAVE") != 0) + 13;
 }
 

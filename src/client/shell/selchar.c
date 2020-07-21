@@ -279,7 +279,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 			if (v8 != -1) {
 				if (!strlen((const char*)(dword_5d4594_1307780 + 1278 * v8 + 4)))
 					goto LABEL_38;
-				sub_4DC970((char*)(dword_5d4594_1307780 + 1278 * v8 + 4), v20);
+				nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + 1278 * v8 + 4), v20);
 				if ((!nox_common_gameFlags_check_40A5C0(2048) || sub_4DC100((int)v20, (int)&byte_587000[171268])) &&
 					sub_41A000((char*)(dword_5d4594_1307780 + 1278 * *(_DWORD*)(v7 + 48) + 4), v23)) {
 					qmemcpy(&byte_5D4594[2660684], v23, 0x4FCu);
@@ -331,7 +331,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 			if (v5 == -1)
 				goto LABEL_40;
 			*(_DWORD*)&byte_5D4594[1307772] = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1307776 + 32) + 48);
-			sub_4DC970((char*)(dword_5d4594_1307780 + 1278 * v5 + 4), (char*)&byte_5D4594[1307752]);
+			nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + 1278 * v5 + 4), (char*)&byte_5D4594[1307752]);
 			if (nox_common_gameFlags_check_40A5C0(2048) && !strcmp((const char*)&byte_5D4594[1307752], "AUTOSAVE")) {
 				sub_452D80(925, 100);
 				v17 = 0;
