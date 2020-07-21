@@ -7190,30 +7190,28 @@ void __cdecl sub_4EBF40(int a1, int a2) {
 }
 
 //----- (004EC290) --------------------------------------------------------
-void __cdecl sub_4EC290(int a1, int a2) {
-	int v2; // eax
-
-	if (a2) {
-		sub_4EC300(a2);
-		v2 = a1;
-		if (a1) {
-			while (*(_BYTE*)(v2 + 16) & 0x20) {
-				v2 = *(_DWORD*)(v2 + 508);
-				if (!v2)
-					goto LABEL_8;
-			}
-			if (v2) {
-				*(_DWORD*)(a2 + 512) = *(_DWORD*)(v2 + 516);
-				*(_DWORD*)(v2 + 516) = a2;
-			}
-		}
-	LABEL_8:
-		*(_DWORD*)(a2 + 508) = v2;
-		if (*(_BYTE*)(a2 + 8) & 2)
-			sub_5346F0(a2);
-		if (*(_BYTE*)(a2 + 8) & 6)
-			sub_4E8020(a2);
+void sub_4EC290(int a1, int a2) {
+	if (!a2) {
+		return;
 	}
+	sub_4EC300(a2);
+	int v2 = a1;
+	if (a1) {
+		while (*(_BYTE*)(v2 + 16) & 0x20) {
+			v2 = *(_DWORD*)(v2 + 508);
+			if (!v2)
+				break;
+		}
+		if (v2) {
+			*(_DWORD*)(a2 + 512) = *(_DWORD*)(v2 + 516);
+			*(_DWORD*)(v2 + 516) = a2;
+		}
+	}
+	*(_DWORD*)(a2 + 508) = v2;
+	if (*(_BYTE*)(a2 + 8) & 2)
+		sub_5346F0(a2);
+	if (*(_BYTE*)(a2 + 8) & 6)
+		sub_4E8020(a2);
 }
 
 //----- (004EC300) --------------------------------------------------------
