@@ -119,7 +119,7 @@ int sub_4A5150() {
 	v0 = 0;
 	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 501);
 	sub_46ABB0((int)v1, 1);
-	v2 = sub_409E10();
+	v2 = nox_common_get_data_path_409E10();
 	strcpy(PathName, v2);
 	strcat(PathName, "\\Save\\");
 	CreateDirectoryA(PathName, 0);
@@ -204,7 +204,7 @@ int sub_4A5150() {
 				--v13;
 			} while (v13);
 		}
-		v17 = sub_409E10();
+		v17 = nox_common_get_data_path_409E10();
 		SetCurrentDirectoryA(v17);
 		if (v9) {
 			v18 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 503);
@@ -303,10 +303,10 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 						v19 = dword_5d4594_1307780 + 1278 * v10 + 1156;
 						v18 = dword_5d4594_1307780 + 1278 * v10 + 1156;
 						if (v9) {
-							v12 = sub_409E10();
+							v12 = nox_common_get_data_path_409E10();
 							nox_sprintf(v22, "%s\\Maps\\%s\\%s.map", v12, v18, v19);
 						} else {
-							v11 = sub_409E10();
+							v11 = nox_common_get_data_path_409E10();
 							nox_sprintf(v22, "%s\\Save\\%s\\%s\\%s.map", v11, &byte_587000[171320], v18, v19);
 						}
 						sub_4DB270(v22);

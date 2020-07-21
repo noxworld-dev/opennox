@@ -188,7 +188,7 @@ int __cdecl sub_46CE40(int a1, int a2, int a3, _BYTE* a4) {
 
 	v4 = 0;
 	GetCurrentDirectoryA(0x400u, &Buffer);
-	v5 = sub_409E10();
+	v5 = nox_common_get_data_path_409E10();
 	nox_sprintf(&PathName, "%s\\Save\\", v5);
 	CreateDirectoryA(&PathName, 0);
 	nox_window_call_field_94(a1, 16399, 0, 0);

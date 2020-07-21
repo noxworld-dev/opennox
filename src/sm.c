@@ -489,7 +489,7 @@ void f(int reentrant) {
 			return;
 		if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x400000) &&
 			(nox_common_engineFlags & 1) == 1) {
-			v23 = sub_409E10();
+			v23 = nox_common_get_data_path_409E10();
 			sub_4D39F0(v23);
 			if (!sub_4D4320()) {
 				sub_4D12E0(0);
