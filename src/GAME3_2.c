@@ -7937,9 +7937,7 @@ int __cdecl nox_savegame_rm_4DBE10(int a1, int a2) {
 // 4DBE10: using guessed type CHAR var_24000[16384];
 
 //----- (004DC100) --------------------------------------------------------
-int __cdecl sub_4DC100(int a1, int a2) {
-	char* v2;                              // eax
-	char* v3;                              // eax
+int __cdecl sub_4DC100(int a1, char* saveName) {
 	int result;                            // eax
 	int v5;                                // ebp
 	HANDLE v6;                             // ebx
@@ -7970,13 +7968,11 @@ int __cdecl sub_4DC100(int a1, int a2) {
 	char v31[131072];                      // [esp+5164h] [ebp-20000h]
 
 	v24 = 1;
-	v2 = nox_common_get_data_path_409E10();
-	nox_sprintf(&PathName, "%s\\Save\\%s", v2, a1);
-	v3 = nox_common_get_data_path_409E10();
-	nox_sprintf(&v29, "%s\\Save\\%s", v3, a2);
-	if (!sub_4DB540(a2))
+	nox_sprintf(&PathName, "%s\\Save\\%s", nox_common_get_data_path_409E10(), a1);
+	nox_sprintf(&v29, "%s\\Save\\%s", nox_common_get_data_path_409E10(), saveName);
+	if (!sub_4DB540(saveName))
 		return 0;
-	nox_savegame_rm_4DBE10(a2, 0);
+	nox_savegame_rm_4DBE10(saveName, 0);
 	nox_sprintf(&ExistingFileName, "%s\\Player.plr", &PathName);
 	nox_sprintf(&NewFileName, "%s\\Player.plr", &v29);
 	result = CopyFileA(&ExistingFileName, &NewFileName, 0);
