@@ -3439,7 +3439,7 @@ int __cdecl sub_54A270(int a1) {
 		v1 = sub_4E3AA0((CHAR*)&byte_587000[288716]);
 		*(_DWORD*)&byte_5D4594[2491584] = v1;
 	}
-	v2 = sub_4E3450(v1);
+	v2 = nox_new_objMem_2_4E3450(v1);
 	if (v2) {
 		v3 = (_DWORD*)v2[187];
 		sub_4DAA50((int)v2, a1, *(float*)(a1 + 56), *(float*)(a1 + 60));
@@ -4882,7 +4882,7 @@ void __cdecl sub_54CB10(int a1) {
 		v1 = sub_4E3AA0((CHAR*)&byte_587000[290344]);
 		*(_DWORD*)&byte_5D4594[2491672] = v1;
 	}
-	v2 = sub_4E3450(v1);
+	v2 = nox_new_objMem_2_4E3450(v1);
 	if (v2) {
 		v3 = (_DWORD*)v2[187];
 		sub_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
@@ -5805,7 +5805,7 @@ void __cdecl sub_54DF40(int a1) {
 		v1 = sub_4E3AA0((CHAR*)&byte_587000[290724]);
 		*(_DWORD*)&byte_5D4594[2491692] = v1;
 	}
-	v2 = sub_4E3450(v1);
+	v2 = nox_new_objMem_2_4E3450(v1);
 	if (v2)
 		sub_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 	sub_501960(285, a1, 0, 0);
@@ -5822,7 +5822,7 @@ void __cdecl sub_54DFA0(int a1) {
 		v1 = sub_4E3AA0((CHAR*)&byte_587000[290752]);
 		*(_DWORD*)&byte_5D4594[2491696] = v1;
 	}
-	v2 = sub_4E3450(v1);
+	v2 = nox_new_objMem_2_4E3450(v1);
 	if (v2)
 		sub_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 	sub_501960(286, a1, 0, 0);
@@ -5877,7 +5877,7 @@ void __cdecl sub_54E0D0(int a1) {
 		v1 = sub_4E3AA0((CHAR*)&byte_587000[290768]);
 		*(_DWORD*)&byte_5D4594[2491700] = v1;
 	}
-	v2 = sub_4E3450(v1);
+	v2 = nox_new_objMem_2_4E3450(v1);
 	if (v2) {
 		sub_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 		v3 = nox_common_randomInt_415FA0(45, 75);
@@ -6412,7 +6412,7 @@ _DWORD* __cdecl sub_54F070(int a1, int a2, int a3) {
 		*(_DWORD*)&byte_5D4594[2491712] = sub_4E3AA0((CHAR*)&byte_587000[292256]);
 	result = (_DWORD*)sub_50DE80(a1, (float*)a2);
 	if (result) {
-		result = sub_4E3450(*(unsigned __int16*)(a3 + 4));
+		result = nox_new_objMem_2_4E3450(*(unsigned __int16*)(a3 + 4));
 		v5 = result;
 		if (result) {
 			v6 = result[187];
@@ -6479,7 +6479,7 @@ void __cdecl sub_54F2B0(int a1, int a2) {
 		v3 = sub_4E7980(a1);
 		if (v3) {
 			do {
-				v4 = sub_4E3450(*(unsigned __int16*)(v3 + 4));
+				v4 = nox_new_objMem_2_4E3450(*(unsigned __int16*)(v3 + 4));
 				v5 = v4;
 				if (v4) {
 					if (v4[2] & 0x13001000)
@@ -6812,7 +6812,7 @@ void __cdecl sub_54FA80(int a1, int a2) {
 	v3 = 8 * *(__int16*)(a1 + 124);
 	v10 = v2 * *(float*)&byte_587000[v3 + 194136] + *(float*)(a1 + 56);
 	v11 = v2 * *(float*)&byte_587000[v3 + 194140] + *(float*)(a1 + 60);
-	v4 = (int)sub_4E3450(a2);
+	v4 = (int)nox_new_objMem_2_4E3450(a2);
 	v5 = v4;
 	if (v4) {
 		sub_4DAA50(v4, a1, v10, v11);
