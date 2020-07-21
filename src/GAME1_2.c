@@ -97,7 +97,7 @@ extern _DWORD dword_587000_81128;
 extern _DWORD dword_587000_122852;
 extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_528252;
-extern _DWORD nox_alloc_screenParticles_806044;
+extern void* nox_alloc_screenParticles_806044;
 extern _DWORD dword_5d4594_3798828;
 extern _DWORD dword_5d4594_805844;
 extern _QWORD qword_5d4594_814956;
