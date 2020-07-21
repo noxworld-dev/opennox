@@ -4308,7 +4308,7 @@ int __cdecl sub_4DF1E0(int a1);
 int* __cdecl sub_4DF2A0(char a1);
 void __cdecl sub_4DF2E0(int a1);
 int __cdecl sub_4DF360(int a1, int a2);
-char __cdecl sub_4DF3C0(int a1);
+void sub_4DF3C0(int a1);
 int sub_4DF550();
 void sub_4DF560();
 void sub_4DF570();
