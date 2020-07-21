@@ -7821,7 +7821,7 @@ char* __cdecl sub_4DB790(const char* a1) {
 }
 
 //----- (004DBE10) --------------------------------------------------------
-int __cdecl nox_savegame_rm_4DBE10(int a1, int a2) {
+void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 	int result;                            // eax
 	char* v3;                              // eax
 	int v4;                                // ebx
@@ -7846,10 +7846,10 @@ int __cdecl nox_savegame_rm_4DBE10(int a1, int a2) {
 	char v23[16384];                       // [esp+94Ch] [ebp-24000h]
 	char v24[131072];                      // [esp+494Ch] [ebp-20000h]
 
-	result = a1;
-	if (a1) {
+	result = saveName;
+	if (saveName) {
 		v3 = nox_common_get_data_path_409E10();
-		nox_sprintf(&PathName, "%s\\Save\\%s", v3, a1);
+		nox_sprintf(&PathName, "%s\\Save\\%s", v3, saveName);
 		result = _access(&PathName, 0);
 		if (result != -1) {
 			nox_sprintf(&FileName, "%s\\Player.plr", &PathName);
@@ -7926,12 +7926,11 @@ int __cdecl nox_savegame_rm_4DBE10(int a1, int a2) {
 			}
 			v15 = nox_common_get_data_path_409E10();
 			SetCurrentDirectoryA(v15);
-			result = a2;
-			if (a2)
+			result = rmDir;
+			if (rmDir)
 				result = RemoveDirectoryA(&PathName);
 		}
 	}
-	return result;
 }
 // 4DBE10: using guessed type CHAR var_20000[131072];
 // 4DBE10: using guessed type CHAR var_24000[16384];
