@@ -2312,7 +2312,7 @@ void sub_50CD40(int a1, int a2, _DWORD* a3) {
 }
 
 //----- (0050CDD0) --------------------------------------------------------
-unsigned __int8* __cdecl sub_50CDD0(int a1) {
+void sub_50CDD0(int a1) {
 	int v1;                  // ebx
 	int v2;                  // edi
 	unsigned __int8* result; // eax
@@ -2376,7 +2376,6 @@ unsigned __int8* __cdecl sub_50CDD0(int a1) {
 			}
 		}
 	}
-	return result;
 }
 
 //----- (0050CF10) --------------------------------------------------------
