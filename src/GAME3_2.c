@@ -7859,7 +7859,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 			v5 = FindFirstFileA((LPCSTR)&byte_587000[199680], &FindFileData);
 			hFindFile = v5;
 			if (v5 != (HANDLE)-1) {
-				if (FindFileData.dwFileAttributes & 0x10 && strcmp(FindFileData.cFileName, ".") &&
+				if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(FindFileData.cFileName, ".") &&
 					strcmp(FindFileData.cFileName, "..")) {
 					v4 = 1;
 					strcpy(v24, FindFileData.cFileName);
@@ -7867,7 +7867,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 				if (FindNextFileA(v5, &FindFileData)) {
 					v6 = &v24[1024 * v4];
 					do {
-						if (FindFileData.dwFileAttributes & 0x10 && strcmp(FindFileData.cFileName, ".") &&
+						if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(FindFileData.cFileName, ".") &&
 							strcmp(FindFileData.cFileName, "..")) {
 							v7 = v6;
 							++v4;
@@ -7889,14 +7889,14 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 					v10 = FindFirstFileA((LPCSTR)&byte_587000[199700], &FindFileData);
 					hFindFilea = v10;
 					if (v10 != (HANDLE)-1) {
-						if (!(FindFileData.dwFileAttributes & 0x10)) {
+						if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
 							v9 = 1;
 							strcpy(v23, FindFileData.cFileName);
 						}
 						if (FindNextFileA(v10, &FindFileData)) {
 							v11 = &v23[1024 * v9];
 							do {
-								if (!(FindFileData.dwFileAttributes & 0x10)) {
+								if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
 									v12 = v11;
 									++v9;
 									v11 += 1024;
