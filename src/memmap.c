@@ -266,7 +266,7 @@ extern _DWORD dword_5d4594_1316708;
 extern _DWORD dword_5d4594_1064888;
 extern _DWORD dword_5d4594_3798636;
 extern _DWORD dword_5d4594_251572;
-extern _DWORD dword_5d4594_1556860;
+extern _DWORD nox_server_objects_uninited_1556860;
 extern _DWORD dword_5d4594_1303452;
 extern _DWORD dword_5d4594_2386224;
 extern _DWORD dword_5d4594_815016;
@@ -326,7 +326,7 @@ extern _DWORD dword_5d4594_1309748;
 extern _DWORD dword_5d4594_816432;
 extern _DWORD dword_5d4594_1599540;
 extern _DWORD dword_5d4594_251548;
-extern _DWORD dword_5d4594_1556844;
+extern _DWORD nox_server_objects_1556844;
 extern _DWORD dword_5d4594_1045464;
 extern _DWORD dword_5d4594_1045484;
 extern _DWORD dword_5d4594_1049856;
@@ -2381,7 +2381,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1049856, (void*)&dword_5d4594_1049856, sizeof(dword_5d4594_1049856), 1},
 	{0x5D4594 + 1045484, (void*)&dword_5d4594_1045484, sizeof(dword_5d4594_1045484), 1},
 	{0x5D4594 + 1045464, (void*)&dword_5d4594_1045464, sizeof(dword_5d4594_1045464), 1},
-	{0x5D4594 + 1556844, (void*)&dword_5d4594_1556844, sizeof(dword_5d4594_1556844), 1},
+	{0x5D4594 + 1556844, (void*)&nox_server_objects_1556844, sizeof(nox_server_objects_1556844), 1},
 	{0x5D4594 + 251548, (void*)&dword_5d4594_251548, sizeof(dword_5d4594_251548), 1},
 	{0x5D4594 + 1599540, (void*)&dword_5d4594_1599540, sizeof(dword_5d4594_1599540), 1},
 	{0x5D4594 + 816432, (void*)&dword_5d4594_816432, sizeof(dword_5d4594_816432), 1},
@@ -2441,7 +2441,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 815016, (void*)&dword_5d4594_815016, sizeof(dword_5d4594_815016), 1},
 	{0x5D4594 + 2386224, (void*)&dword_5d4594_2386224, sizeof(dword_5d4594_2386224), 1},
 	{0x5D4594 + 1303452, (void*)&dword_5d4594_1303452, sizeof(dword_5d4594_1303452), 1},
-	{0x5D4594 + 1556860, (void*)&dword_5d4594_1556860, sizeof(dword_5d4594_1556860), 1},
+	{0x5D4594 + 1556860, (void*)&nox_server_objects_uninited_1556860, sizeof(nox_server_objects_uninited_1556860), 1},
 	{0x5D4594 + 251572, (void*)&dword_5d4594_251572, sizeof(dword_5d4594_251572), 1},
 	{0x5D4594 + 3798636, (void*)&dword_5d4594_3798636, sizeof(dword_5d4594_3798636), 1},
 	{0x5D4594 + 1064888, (void*)&dword_5d4594_1064888, sizeof(dword_5d4594_1064888), 1},
