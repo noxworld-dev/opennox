@@ -4,7 +4,7 @@
 extern _DWORD dword_5d4594_2386552;
 extern _DWORD dword_5d4594_2386548;
 extern _DWORD dword_5d4594_2386560;
-extern _DWORD dword_5d4594_2386496;
+extern _DWORD nox_alloc_tradeItems_2386496;
 
 //----- (0050E7A0) --------------------------------------------------------
 int __cdecl sub_50E7A0(_DWORD* a1, int a2) {
@@ -33,7 +33,7 @@ int __cdecl sub_50E7A0(_DWORD* a1, int a2) {
 	if (!(*(_BYTE*)(v6 + 8) & 4))
 		v6 = a1[3];
 	sub_50E820(v6, *v2);
-	sub_414330(*(unsigned int**)&dword_5d4594_2386496, v2);
+	sub_414330(*(unsigned int**)&nox_alloc_tradeItems_2386496, v2);
 	return 1;
 }
 
@@ -422,7 +422,7 @@ int __cdecl sub_50F820_trade(int a1, int a2, float a3) {
 		if (!sub_50FD60(*(_DWORD**)(a1 + 36), SLODWORD(a3)))
 			return 0;
 	}
-	v5 = (int*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2386496);
+	v5 = (int*)nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_tradeItems_2386496);
 	v6 = v5;
 	if (v5) {
 		*(float*)v5 = v3;

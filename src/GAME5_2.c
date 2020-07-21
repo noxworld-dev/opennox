@@ -27,13 +27,13 @@ extern _DWORD dword_587000_312824;
 extern _DWORD dword_587000_312792;
 extern _DWORD dword_5d4594_2523776;
 extern _DWORD dword_587000_312808;
-extern _DWORD dword_5d4594_2523892;
+extern _DWORD nox_alloc_groupInfo_2523892;
 extern _DWORD dword_5d4594_2516356;
 extern _DWORD dword_587000_311372;
-extern _DWORD dword_5d4594_2523908;
+extern _DWORD nox_alloc_debugData_2523908;
 extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_2513916;
-extern _DWORD dword_5d4594_2523896;
+extern _DWORD nox_alloc_itemGroupElem_2523896;
 extern _DWORD dword_587000_312788;
 extern _DWORD dword_587000_312784;
 extern _DWORD dword_587000_311480;
@@ -5263,10 +5263,10 @@ char* sub_57BFB0() {
 
 	dword_5d4594_2523904 = 0;
 	result = nox_new_alloc_class("ItemGroupInfo", 96, 512);
-	dword_5d4594_2523892 = result;
+	nox_alloc_groupInfo_2523892 = result;
 	if (result) {
-		dword_5d4594_2523896 = nox_new_alloc_class("ItemGroupElement", 16, 5000);
-		result = (char*)(dword_5d4594_2523896 != 0);
+		nox_alloc_itemGroupElem_2523896 = nox_new_alloc_class("ItemGroupElement", 16, 5000);
+		result = (char*)(nox_alloc_itemGroupElem_2523896 != 0);
 	}
 	return result;
 }
@@ -5274,21 +5274,21 @@ char* sub_57BFB0() {
 //----- (0057C000) --------------------------------------------------------
 void sub_57C000() {
 	dword_5d4594_2523904 = 0;
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2523896);
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2523892);
+	sub_4144D0(*(_DWORD**)&nox_alloc_itemGroupElem_2523896);
+	sub_4144D0(*(_DWORD**)&nox_alloc_groupInfo_2523892);
 	dword_5d4594_2523900 = 0;
 }
 
 //----- (0057C030) --------------------------------------------------------
 int sub_57C030() {
 	dword_5d4594_2523904 = 0;
-	if (dword_5d4594_2523892) {
-		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2523892);
-		dword_5d4594_2523892 = 0;
+	if (nox_alloc_groupInfo_2523892) {
+		nox_free_alloc_class(*(LPVOID*)&nox_alloc_groupInfo_2523892);
+		nox_alloc_groupInfo_2523892 = 0;
 	}
-	if (dword_5d4594_2523896) {
-		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2523896);
-		dword_5d4594_2523896 = 0;
+	if (nox_alloc_itemGroupElem_2523896) {
+		nox_free_alloc_class(*(LPVOID*)&nox_alloc_itemGroupElem_2523896);
+		nox_alloc_itemGroupElem_2523896 = 0;
 	}
 	dword_5d4594_2523900 = 0;
 	return 1;
@@ -5373,7 +5373,7 @@ int __cdecl sub_57C130(_DWORD* a1, int a2) {
 	if (result) {
 		if (v4 && v4 != 1 && v4 != 3) {
 			if (v4 != 2) {
-				sub_414330(*(unsigned int**)&dword_5d4594_2523896, (_QWORD*)result);
+				sub_414330(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, (_QWORD*)result);
 				return 0;
 			}
 			*(_DWORD*)result = *a1;
@@ -5450,19 +5450,19 @@ void* sub_57C330() {
 
 	v0 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(2097153) ||
-		(result = nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2523892), (v0 = result) != 0))
+		(result = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_groupInfo_2523892), (v0 = result) != 0))
 		result = v0;
 	return result;
 }
 
 //----- (0057C360) --------------------------------------------------------
-void* sub_57C360() { return nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2523896); }
+void* sub_57C360() { return nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_itemGroupElem_2523896); }
 
 //----- (0057C370) --------------------------------------------------------
-void __cdecl sub_57C370(_QWORD* a1) { sub_414330(*(unsigned int**)&dword_5d4594_2523892, a1); }
+void __cdecl sub_57C370(_QWORD* a1) { sub_414330(*(unsigned int**)&nox_alloc_groupInfo_2523892, a1); }
 
 //----- (0057C390) --------------------------------------------------------
-void __cdecl sub_57C390(_QWORD* a1) { sub_414330(*(unsigned int**)&dword_5d4594_2523896, a1); }
+void __cdecl sub_57C390(_QWORD* a1) { sub_414330(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, a1); }
 
 //----- (0057C3B0) --------------------------------------------------------
 int __cdecl nox_server_addNewMapGroup_57C3B0(int a1) {
@@ -5493,21 +5493,21 @@ int __cdecl sub_57C3F0(int a1) {
 
 //----- (0057C410) --------------------------------------------------------
 BOOL sub_57C410() {
-	dword_5d4594_2523908 = nox_new_alloc_class("DebugData", 344, 256);
-	return dword_5d4594_2523908 != 0;
+	nox_alloc_debugData_2523908 = nox_new_alloc_class("DebugData", 344, 256);
+	return nox_alloc_debugData_2523908 != 0;
 }
 
 //----- (0057C440) --------------------------------------------------------
 void sub_57C440() {
-	sub_4144D0(*(_DWORD**)&dword_5d4594_2523908);
+	sub_4144D0(*(_DWORD**)&nox_alloc_debugData_2523908);
 	dword_5d4594_2523912 = 0;
 }
 
 //----- (0057C460) --------------------------------------------------------
 int sub_57C460() {
-	if (dword_5d4594_2523908) {
-		nox_free_alloc_class(*(LPVOID*)&dword_5d4594_2523908);
-		dword_5d4594_2523908 = 0;
+	if (nox_alloc_debugData_2523908) {
+		nox_free_alloc_class(*(LPVOID*)&nox_alloc_debugData_2523908);
+		nox_alloc_debugData_2523908 = 0;
 	}
 	dword_5d4594_2523912 = 0;
 	return 1;
@@ -5532,7 +5532,7 @@ int __cdecl sub_57C490(const char* a1) {
 int __cdecl sub_57C500(const char* a1, const char* a2) {
 	char* v2; // edx
 
-	v2 = (char*)nox_alloc_class_new_obj_zero(*(_DWORD**)&dword_5d4594_2523908);
+	v2 = (char*)nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_debugData_2523908);
 	if (!v2)
 		return 0;
 	strcpy(v2, a1);
@@ -5566,7 +5566,7 @@ void __cdecl sub_57C5A0(const char* a1) {
 		v3 = *(_DWORD*)(v1 + 336);
 		if (v3)
 			*(_DWORD*)(v3 + 340) = *(_DWORD*)(v1 + 340);
-		sub_414330(*(unsigned int**)&dword_5d4594_2523908, (_QWORD*)v1);
+		sub_414330(*(unsigned int**)&nox_alloc_debugData_2523908, (_QWORD*)v1);
 	}
 }
 
