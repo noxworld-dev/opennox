@@ -2315,7 +2315,6 @@ void sub_50CD40(int a1, int a2, _DWORD* a3) {
 void sub_50CDD0(int a1) {
 	int v1;                  // ebx
 	int v2;                  // edi
-	unsigned __int8* result; // eax
 	int v4;                  // esi
 	unsigned int v5;         // eax
 	int v6;                  // ebp
@@ -2332,50 +2331,55 @@ void sub_50CDD0(int a1) {
 	v11 = *(_DWORD*)(a1 + 748);
 	v10 = 0;
 	v12 = 0;
-	result = (unsigned __int8*)sub_528190(v9);
-	if (result) {
-		result = (unsigned __int8*)sub_534B10(v1);
-		if (!result) {
-			result = (unsigned __int8*)sub_534B90(v1);
-			if (!result) {
-				result = (unsigned __int8*)sub_534B60(v1);
-				if (!result) {
-					v4 = nox_monsterListen_2386192;
-					if (nox_monsterListen_2386192) {
-						do {
-							v5 = *(_DWORD*)(v4 + 16);
-							v6 = *(_DWORD*)(v4 + 20);
-							if (*(_DWORD*)&byte_5D4594[2598000] < v5 || *(_DWORD*)&byte_5D4594[2598000] - v5 > 2) {
-								if (v2)
-									*(_DWORD*)(v2 + 20) = v6;
-								else
-									nox_monsterListen_2386192 = *(_DWORD*)(v4 + 20);
-								sub_414330(*(unsigned int**)&nox_alloc_monsterListen_2386188, (_QWORD*)v4);
-							} else {
-								v7 = *(_DWORD*)(v4 + 4);
-								if (v7 && *(_BYTE*)(v7 + 16) & 0x20)
-									*(_DWORD*)(v4 + 4) = 0;
-								if (*(_DWORD*)(v11 + 404) <= *(int*)(v4 + 16)) {
-									if (sub_50CF10(v1, v4)) {
-										v8 = sub_50D000(v1, v4);
-										if (v8 > 0 && v8 > v12) {
-											v12 = v8;
-											v10 = (int*)v4;
-										}
-									}
-								}
-								v2 = v4;
-							}
-							v4 = v6;
-						} while (v6);
-						result = (unsigned __int8*)v10;
-						if (v10 && ((unsigned int)v10[4] > *(int*)(v11 + 404) || v12 > *(int*)(v11 + 408)))
-							result = sub_50D110(v1, v10, v12);
+	if (!sub_528190(v9)) {
+		return;
+	}
+
+	if (!sub_534B10(v1)) {
+		return;
+	}
+
+	if (!sub_534B90(v1)) {
+		return;
+	}
+
+	if (!sub_534B60(v1)) {
+		return;
+	}
+
+	v4 = nox_monsterListen_2386192;
+	if (!nox_monsterListen_2386192) {
+		return;
+	}
+
+	do {
+		v5 = *(_DWORD*)(v4 + 16);
+		v6 = *(_DWORD*)(v4 + 20);
+		if (*(_DWORD*)&byte_5D4594[2598000] < v5 || *(_DWORD*)&byte_5D4594[2598000] - v5 > 2) {
+			if (v2)
+				*(_DWORD*)(v2 + 20) = v6;
+			else
+				nox_monsterListen_2386192 = *(_DWORD*)(v4 + 20);
+			sub_414330(*(unsigned int**)&nox_alloc_monsterListen_2386188, (_QWORD*)v4);
+		} else {
+			v7 = *(_DWORD*)(v4 + 4);
+			if (v7 && *(_BYTE*)(v7 + 16) & 0x20)
+				*(_DWORD*)(v4 + 4) = 0;
+			if (*(_DWORD*)(v11 + 404) <= *(int*)(v4 + 16)) {
+				if (sub_50CF10(v1, v4)) {
+					v8 = sub_50D000(v1, v4);
+					if (v8 > 0 && v8 > v12) {
+						v12 = v8;
+						v10 = (int*)v4;
 					}
 				}
 			}
+			v2 = v4;
 		}
-	}
+		v4 = v6;
+	} while (v6);
+	if (v10 && ((unsigned int)v10[4] > *(int*)(v11 + 404) || v12 > *(int*)(v11 + 408)))
+		sub_50D110(v1, v10, v12);
 }
 
 //----- (0050CF10) --------------------------------------------------------
