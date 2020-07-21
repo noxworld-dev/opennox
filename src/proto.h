@@ -150,7 +150,7 @@ char* nox_server_currentMapGetFilename_409B30();
 char* sub_409B40();
 unsigned int __cdecl sub_409B50(const char* a1);
 char* sub_409B80();
-char* sub_409B90();
+char* nox_server_get_current_map_path_409B90();
 char* sub_409C70();
 char* __cdecl sub_409D70(char* a1);
 char* nox_common_get_data_path_409E10();
