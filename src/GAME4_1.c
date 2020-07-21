@@ -2285,27 +2285,30 @@ unsigned __int8* sub_50CD30() { return &byte_5D4594[2386196]; }
 
 //----- (0050CD40) --------------------------------------------------------
 void sub_50CD40(int a1, int a2, _DWORD* a3) {
-	char* result; // eax
-
-	result = (char*)sub_501900(a1);
-	if (result) {
-		if (nox_alloc_monsterListen_2386188 ||
-			(result = nox_new_alloc_class("MonsterListen", 24, 128), (nox_alloc_monsterListen_2386188 = result) != 0)) {
-			result = (char*)sub_534160(a2);
-			if (result) {
-				result = (char*)nox_alloc_class_new_obj(*(_DWORD**)&nox_alloc_monsterListen_2386188);
-				if (result) {
-					*(_DWORD*)result = a1;
-					*((_DWORD*)result + 1) = a2;
-					*((_DWORD*)result + 2) = *a3;
-					*((_DWORD*)result + 3) = a3[1];
-					*((_DWORD*)result + 4) = *(_DWORD*)&byte_5D4594[2598000];
-					*((_DWORD*)result + 5) = nox_monsterListen_2386192;
-					nox_monsterListen_2386192 = result;
-				}
-			}
-		}
+	if (!sub_501900(a1)) {
+		return;
 	}
+	if (!nox_alloc_monsterListen_2386188)
+		nox_alloc_monsterListen_2386188 = nox_new_alloc_class("MonsterListen", 24, 128);
+
+	if (!nox_alloc_monsterListen_2386188)
+		return;
+
+	if (!sub_534160(a2)) {
+		return;
+	}
+
+	_DWORD* p = nox_alloc_class_new_obj(nox_alloc_monsterListen_2386188);
+	if (!p) {
+		return;
+	}
+	*(p + 0) = a1;
+	*(p + 1) = a2;
+	*(p + 2) = *a3;
+	*(p + 3) = a3[1];
+	*(p + 4) = *(_DWORD*)&byte_5D4594[2598000];
+	*(p + 5) = nox_monsterListen_2386192;
+	nox_monsterListen_2386192 = p;
 }
 
 //----- (0050CDD0) --------------------------------------------------------
