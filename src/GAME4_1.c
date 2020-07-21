@@ -2509,14 +2509,10 @@ _DWORD* __cdecl sub_50D190(int a1, _DWORD* a2, _DWORD* a3) {
 }
 
 //----- (0050D1C0) --------------------------------------------------------
-int sub_50D1C0() {
-	int result; // eax
-
+void sub_50D1C0() {
 	sub_4144D0(*(_DWORD**)&nox_alloc_monsterListen_2386188);
-	result = 0;
 	nox_alloc_monsterListen_2386188 = 0;
 	nox_monsterListen_2386192 = 0;
-	return result;
 }
 
 //----- (0050D1E0) --------------------------------------------------------
