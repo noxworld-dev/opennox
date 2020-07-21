@@ -13975,7 +13975,7 @@ char __cdecl sub_544D80(_DWORD* a1) {
 }
 
 //----- (00544E60) --------------------------------------------------------
-char __cdecl sub_544E60(int a1) {
+void sub_544E60(int a1) {
 	int v1;     // eax
 	_DWORD* v2; // eax
 	_DWORD* v3; // esi
@@ -13989,12 +13989,11 @@ char __cdecl sub_544E60(int a1) {
 	v2 = sub_4E3450(v1);
 	v3 = v2;
 	if (v2) {
-		LOBYTE(v2) = sub_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
+		sub_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 		v4 = *(_WORD*)(a1 + 124);
 		*((_WORD*)v3 + 63) = v4;
 		*((_WORD*)v3 + 62) = v4;
 	}
-	return (char)v2;
 }
 
 //----- (00544EC0) --------------------------------------------------------
