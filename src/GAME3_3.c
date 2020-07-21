@@ -8444,7 +8444,7 @@ void sub_4EDD00(int a1, int a2) {
 			if (v2 & a2) {
 				sub_4ED0C0(a1, v3);
 				sub_4ED970(60.0, (float2*)(a1 + 56), &a3);
-				LOBYTE(v2) = sub_4DAA50((int)v3, 0, a3.field_0, a3.field_4);
+				sub_4DAA50((int)v3, 0, a3.field_0, a3.field_4);
 			}
 			v3 = (int*)v4;
 		} while (v4);
