@@ -2388,7 +2388,6 @@ BOOL __cdecl sub_50CF10(int a1, int a2) {
 	int v3;       // edi
 	int v4;       // ebp
 	int v5;       // eax
-	BOOL result;  // eax
 	int v7;       // eax
 	float v8;     // edx
 	struc_19* v9; // eax
@@ -2404,20 +2403,18 @@ BOOL __cdecl sub_50CF10(int a1, int a2) {
 	if (*(_DWORD*)(v3 + 404) > *(int*)&byte_5D4594[2598000])
 		return 0;
 	if (!v4) {
-	LABEL_6:
 		if (!v5)
 			return 0;
-		goto LABEL_10;
+	} else {
+		if (sub_5330C0(v2, v4)) {
+			v5 = v11;
+			if (!v5)
+				return 0;
+		} else if (!(v11 & 0x10)) {
+			return 0;
+		}
 	}
-	if (sub_5330C0(v2, v4)) {
-		v5 = v11;
-		goto LABEL_6;
-	}
-	if (!(v11 & 0x10))
-		return 0;
-LABEL_10:
 	v12 = sub_501C00((float*)(a2 + 8), *(_DWORD*)(a2 + 4));
-	result = 1;
 	if (v12) {
 		v7 = nox_float2int(*(float*)(v2 + 56));
 		v8 = *(float*)(v2 + 60);
@@ -2426,10 +2423,10 @@ LABEL_10:
 		v9 = sub_4217B0(&v10, 0);
 		if (v9) {
 			if (v12 != BYTE2(v9->field_0[32]))
-				result = 0;
+				return 0;
 		}
 	}
-	return result;
+	return 1;
 }
 
 //----- (0050D000) --------------------------------------------------------
