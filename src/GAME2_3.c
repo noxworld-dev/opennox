@@ -5798,7 +5798,7 @@ int* __cdecl sub_49AF80(int a1, int a2, int a3) {
 			**(_DWORD**)&dword_5d4594_1301800 = a2;
 			result = (int*)sub_49B1D0(*(int*)&dword_5d4594_1301828, *(int*)&dword_5d4594_1301800);
 		} else {
-			result = (int*)nox_alloc_class_new_obj(*(_DWORD**)&nox_alloc_pixelSpan_1301844);
+			result = (int*)nox_alloc_class_new_obj(nox_alloc_pixelSpan_1301844);
 			v5 = result;
 			if (result) {
 				*result = a2;
@@ -5815,7 +5815,7 @@ int* __cdecl sub_49AF80(int a1, int a2, int a3) {
 			}
 		}
 	} else {
-		result = (int*)nox_alloc_class_new_obj(*(_DWORD**)&nox_alloc_pixelSpan_1301844);
+		result = (int*)nox_alloc_class_new_obj(nox_alloc_pixelSpan_1301844);
 		if (result) {
 			*result = a2;
 			result[1] = a3;
@@ -5837,7 +5837,7 @@ int __cdecl sub_49B0A0(int a1, int a2, int a3) {
 		dword_5d4594_1301792 = 0;
 	}
 	dword_5d4594_1301836 = a1;
-	v3 = (int*)nox_alloc_class_new_obj(*(_DWORD**)&nox_alloc_pixelSpan_1301844);
+	v3 = (int*)nox_alloc_class_new_obj(nox_alloc_pixelSpan_1301844);
 	dword_5d4594_1301792 = v3;
 	if (!v3)
 		return 0;
@@ -5963,7 +5963,7 @@ LABEL_11:
 	if (v0 != v1) {
 		while (*v0 <= v4) {
 			if (*v0 >= *v3) {
-				v5 = (int*)nox_alloc_class_new_obj(*(_DWORD**)&nox_alloc_pixelSpan_1301844);
+				v5 = (int*)nox_alloc_class_new_obj(nox_alloc_pixelSpan_1301844);
 				if (!v5) {
 					sub_49B1A0(*(int*)&dword_5d4594_1301792);
 					dword_5d4594_1301792 = 0;
