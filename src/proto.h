@@ -4245,7 +4245,7 @@ BOOL __cdecl sub_4DB540(char* saveName);
 char* __cdecl sub_4DB790(const char* a1);
 void sub_4DB9C0();
 int __cdecl nox_savegame_rm_4DBE10(int a1, int a2);
-int __cdecl sub_4DC100(int a1, int a2);
+int __cdecl sub_4DC100(int a1, char* saveName);
 int sub_4DC550();
 int sub_4DC630();
 int sub_4DC7D0();
