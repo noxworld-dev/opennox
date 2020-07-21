@@ -11784,61 +11784,64 @@ void sub_4181F0(int a1) {
 	}
 	result = nox_common_playerInfoGetFirst_416EA0();
 	v4 = result;
-	if (result) {
-		do {
-			v5 = *((_DWORD*)v4 + 514);
-			if (v5 && (*((_DWORD*)v4 + 515) != *(_DWORD*)&byte_5D4594[2616328] ||
-					   !(*(_DWORD*)&nox_common_engineFlags & 0x40000))) {
-				v6 = *((_DWORD*)v4 + 920);
-				if ((!(v6 & 1) || v6 & 0x20) && !sub_419130(v5 + 48)) {
-					v7 = v19;
-					v19 = ++v1;
-					v22[v7] = *((_DWORD*)v4 + 514);
-				}
-			}
-			result = nox_common_playerInfoGetNext_416EE0((int)v4);
-			v4 = result;
-		} while (result);
-		if (v1) {
-			v8 = v1 <= 1u;
-			v9 = v19;
-			if (!v8) {
-				v10 = 50;
-				do {
-					v20 = nox_common_randomInt_415FA0(0, v9 - 1);
-					v21 = nox_common_randomInt_415FA0(0, v9 - 1);
-					v11 = &v22[v20];
-					--v10;
-					v12 = *v11;
-					*v11 = v22[v21];
-					v22[v21] = v12;
-				} while (v10);
-			}
-			result = (char*)v9;
-			if ((int)v9 > 0) {
-				v13 = v22;
-				v14 = result;
-				do {
-					v15 = *v13;
-					v16 = *(_DWORD*)(*v13 + 748);
-					if (sub_40A740()) {
-						v17 = *(_DWORD*)(v16 + 276);
-						result = *(char**)(v17 + 2068);
-						if (result) {
-							result = sub_418AE0(*(_DWORD*)(v17 + 2068));
-							if (result)
-								result = sub_4191D0(result[57], v15 + 48, 1, *(_DWORD*)(v15 + 36), 0);
-						}
-					} else {
-						v18 = sub_4189D0();
-						result = sub_4191D0(v18[57], v15 + 48, 1, *(_DWORD*)(v15 + 36), 1);
-					}
-					++v13;
-					--v14;
-				} while (v14);
+	if (!result) {
+		return;
+	}
+	do {
+		v5 = *((_DWORD*)v4 + 514);
+		if (v5 && (*((_DWORD*)v4 + 515) != *(_DWORD*)&byte_5D4594[2616328] ||
+				   !(*(_DWORD*)&nox_common_engineFlags & 0x40000))) {
+			v6 = *((_DWORD*)v4 + 920);
+			if ((!(v6 & 1) || v6 & 0x20) && !sub_419130(v5 + 48)) {
+				v7 = v19;
+				v19 = ++v1;
+				v22[v7] = *((_DWORD*)v4 + 514);
 			}
 		}
+		result = nox_common_playerInfoGetNext_416EE0((int)v4);
+		v4 = result;
+	} while (result);
+	if (!v1) {
+		return;
 	}
+	v8 = v1 <= 1u;
+	v9 = v19;
+	if (!v8) {
+		v10 = 50;
+		do {
+			v20 = nox_common_randomInt_415FA0(0, v9 - 1);
+			v21 = nox_common_randomInt_415FA0(0, v9 - 1);
+			v11 = &v22[v20];
+			--v10;
+			v12 = *v11;
+			*v11 = v22[v21];
+			v22[v21] = v12;
+		} while (v10);
+	}
+	result = (char*)v9;
+	if ((int)v9 <= 0) {
+		return;
+	}
+	v13 = v22;
+	v14 = result;
+	do {
+		v15 = *v13;
+		v16 = *(_DWORD*)(*v13 + 748);
+		if (sub_40A740()) {
+			v17 = *(_DWORD*)(v16 + 276);
+			result = *(char**)(v17 + 2068);
+			if (result) {
+				result = sub_418AE0(*(_DWORD*)(v17 + 2068));
+				if (result)
+					sub_4191D0(result[57], v15 + 48, 1, *(_DWORD*)(v15 + 36), 0);
+			}
+		} else {
+			v18 = sub_4189D0();
+			sub_4191D0(v18[57], v15 + 48, 1, *(_DWORD*)(v15 + 36), 1);
+		}
+		++v13;
+		--v14;
+	} while (v14);
 }
 // 4181F0: using guessed type int var_80[32];
 
