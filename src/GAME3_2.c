@@ -1966,7 +1966,7 @@ int sub_4D1660() {
 	if (!nox_read_things_alternative_4E2B60()) {
 		return 0;
 	}
-	sub_4463E0(1);
+	nox_motd_4463E0(1);
 	sub_417C60();
 	sub_4259C0();
 	sub_4D7C60();
