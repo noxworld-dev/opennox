@@ -10016,7 +10016,7 @@ int nox_server_mapRWMapIntro_505080() {
 	v17 = 0;
 	v1 = nox_common_gameFlags_check_40A5C0(0x200000);
 	sub_505060();
-	v2 = sub_409E10();
+	v2 = nox_common_get_data_path_409E10();
 	v3 = *(_WORD*)&byte_587000[229832];
 	strcpy(v19, v2);
 	v4 = byte_587000[229834];
@@ -10413,7 +10413,7 @@ int nox_server_mapRWScriptObject_505A40() {
 	v10 = 1;
 	v9 = 0;
 	sub_426A30();
-	v1 = sub_409E10();
+	v1 = nox_common_get_data_path_409E10();
 	nox_sprintf((char*)&byte_5D4594[3830188], "%s\\nc.obj", v1);
 	dword_5d4594_1599644 = 0;
 	sub_426AC0_file3_fread(&v10, 2u);

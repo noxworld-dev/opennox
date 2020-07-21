@@ -471,7 +471,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				sub_4DEAB0(*(unsigned __int8*)(v8 + 2064), 2);
 				v4 += 3;
 			} else {
-				v52 = sub_409E10();
+				v52 = nox_common_get_data_path_409E10();
 				nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v52);
 				if (sub_41A140(FileName, *(unsigned __int8*)(v8 + 2064)))
 					sub_41CFA0(FileName, *(unsigned __int8*)(v8 + 2064));

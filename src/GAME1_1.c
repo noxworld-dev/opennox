@@ -1029,7 +1029,7 @@ int __cdecl sub_419F10(const char* a1, const char* a2) {
 		*(_DWORD*)v3 = *(_DWORD*)&byte_587000[56160];
 		v3[4] = v2;
 	}
-	v4 = sub_409E10();
+	v4 = nox_common_get_data_path_409E10();
 	nox_sprintf((char*)&byte_5D4594[2660688], "%s\\Save\\%s", v4, v6);
 	strcpy((char*)&byte_5D4594[2661712], a2);
 	GetLocalTime((LPSYSTEMTIME)&byte_5D4594[2661872]);

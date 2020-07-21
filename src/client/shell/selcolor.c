@@ -275,7 +275,7 @@ int sub_4A75C0() {
 	v25[1221] = *(_DWORD*)(dword_5d4594_1308124 + 32) >> 16;
 	v25[1222] = *(_DWORD*)(dword_5d4594_1308128 + 32) >> 16;
 	v25[1223] = *(_DWORD*)(dword_5d4594_1308132 + 32) >> 16;
-	v13 = sub_409E10();
+	v13 = nox_common_get_data_path_409E10();
 	v14 = *(_WORD*)&byte_587000[171768];
 	strcpy(&v25[4], v13);
 	v15 = byte_587000[171770];
@@ -304,7 +304,7 @@ int sub_4A75C0() {
 			fclose(v20);
 		}
 	}
-	v21 = sub_409E10();
+	v21 = nox_common_get_data_path_409E10();
 	SetCurrentDirectoryA(v21);
 	if (i > 99)
 		return 0;

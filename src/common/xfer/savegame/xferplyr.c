@@ -19,7 +19,7 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 	CHAR PathName[1024]; // [esp+4h] [ebp-400h]
 
 	if (nox_common_gameFlags_check_40A5C0(1) || a2 >= *(int*)&byte_587000[55984]) {
-		v5 = sub_409E10();
+		v5 = nox_common_get_data_path_409E10();
 		nox_sprintf(PathName, "%s\\Save\\", v5);
 		CreateDirectoryA(PathName, 0);
 		v6 = sub_408CC0_fopen((char*)&byte_5D4594[2660688], 1);
