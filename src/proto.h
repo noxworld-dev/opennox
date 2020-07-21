@@ -4201,7 +4201,7 @@ int __cdecl sub_4DA180(int a1, _BYTE* a2);
 void __cdecl sub_4DA2C0(int a1, const char* a2, char a3);
 int __cdecl sub_4DA390(const char* a1);
 int __cdecl sub_4DA3C0(_DWORD* a1);
-int __cdecl sub_4DA3E0(int a1);
+void nox_set_server_objects_4DA3E0(void* p);
 BOOL __cdecl nox_server_strcmpWithoutMapname_4DA3F0(const char* a1, const char* a2);
 int __cdecl sub_4DA4F0(char* a1);
 int __cdecl sub_4DA5C0(int a1, const char* a2);

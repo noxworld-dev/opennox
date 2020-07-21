@@ -2872,7 +2872,7 @@ BOOL sub_4D4320() {
 			if (!sub_51E010(PathName, 1))
 				return 0;
 			sub_4D12E0(1);
-			sub_4DA3E0(*(int*)&byte_5D4594[1550924]);
+			nox_set_server_objects_4DA3E0(*(int*)&byte_5D4594[1550924]);
 			*(_DWORD*)&byte_5D4594[1550924] = 0;
 			nox_common_gameFlags_unset_40A540(0x400000);
 			result = 1;
@@ -6994,12 +6994,8 @@ int __cdecl sub_4DA3C0(_DWORD* a1) {
 }
 
 //----- (004DA3E0) --------------------------------------------------------
-int __cdecl sub_4DA3E0(int a1) {
-	int result; // eax
-
-	result = a1;
-	nox_server_objects_1556844 = a1;
-	return result;
+void nox_set_server_objects_4DA3E0(void* p) {
+	nox_server_objects_1556844 = p;
 }
 
 //----- (004DA3F0) --------------------------------------------------------
