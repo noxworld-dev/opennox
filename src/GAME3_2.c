@@ -7427,78 +7427,75 @@ char __cdecl sub_4DAA50(int a1, int a2, float a3, float a4) {
 
 //----- (004DAC00) --------------------------------------------------------
 void sub_4DAC00() {
-	int v0;                          // esi
-	int v1;                          // eax
 	int i;                           // ebp
 	int v3;                          // eax
 	void(__cdecl * v4)(int, _DWORD); // eax
 	unsigned int v5;                 // ecx
 	int v6;                          // eax
 
-	v0 = nox_server_objects_uninited_1556860;
-	if (nox_server_objects_uninited_1556860) {
-		do {
-			v1 = *(_DWORD*)(v0 + 508);
-			for (i = *(_DWORD*)(v0 + 444); v1; v1 = *(_DWORD*)(v0 + 508)) {
-				if (!(*(_BYTE*)(v1 + 16) & 0x20))
-					break;
-				sub_4EC290(*(_DWORD*)(v1 + 508), v0);
-			}
-			if (*(_BYTE*)(v0 + 8) & 1) {
-				*(_DWORD*)(v0 + 448) = 0;
-				*(_DWORD*)(v0 + 444) = dword_5d4594_1556848;
-				if (dword_5d4594_1556848)
-					*(_DWORD*)(dword_5d4594_1556848 + 448) = v0;
-				dword_5d4594_1556848 = v0;
-			} else {
-				v3 = *(_DWORD*)(v0 + 16);
-				if (v3 & 0x10000) {
-					*(_DWORD*)(v0 + 16) = v3 & 0xFFFEFFFF;
-					sub_4DA9A0((_DWORD*)v0);
-				}
-				if (*(_DWORD*)(v0 + 16) & 0x80000 && !nox_common_gameFlags_check_40A5C0(4096))
-					sub_4EC5E0(v0);
-				if ((*(_DWORD*)(v0 + 744) || *(float*)(v0 + 80) != 0.0 || *(float*)(v0 + 84) != 0.0) &&
-					(signed char)*(_BYTE*)(v0 + 8) >= 0) {
-					sub_4DA8D0(v0);
-				}
-				*(_DWORD*)(v0 + 448) = 0;
-				*(_DWORD*)(v0 + 444) = nox_server_objects_1556844;
-				if (nox_server_objects_1556844)
-					*(_DWORD*)((uintptr_t)nox_server_objects_1556844 + 448) = v0;
-				nox_set_server_objects_4DA3E0(v0);
-			}
-			sub_517640(v0);
-			if (*(_DWORD*)(v0 + 696))
-				sub_5117F0(v0);
-			v4 = *(void(__cdecl**)(int, _DWORD))(v0 + 688);
-			if (v4)
-				v4(v0, 0);
-			v5 = *(_DWORD*)(v0 + 8);
-			if (v5 & 0x400000) {
-				if (*(_DWORD*)(v0 + 12) & 0x18)
-					v6 = 0;
-				else
-					v6 = (unsigned __int8)~*(_BYTE*)(v0 + 12) >> 7;
-			} else {
-				v6 = (v5 >> 29) & 1;
-			}
-			if (0x800000 & v5 || !v6) {
-				sub_4E44F0(v0);
-				if (!(*(_DWORD*)(v0 + 8) & 0x20400000))
-					*(_DWORD*)(v0 + 148) = 0;
-			} else {
-				sub_4E44E0(v0);
-				sub_527E00(v0);
-				*(_DWORD*)(v0 + 148) = -1;
-			}
-			*(_DWORD*)(v0 + 16) &= 0xFDFFFFFF;
-			v0 = i;
-		} while (i);
+	if (!nox_server_objects_uninited_1556860) {
 		nox_server_objects_uninited_1556860 = 0;
-	} else {
-		nox_server_objects_uninited_1556860 = 0;
+		return;
 	}
+
+	for (int v0 = nox_server_objects_uninited_1556860; v0; v0 = i) {
+		i = *(_DWORD*)(v0 + 444);
+		for (int j = *(_DWORD*)(v0 + 508); j; j = *(_DWORD*)(v0 + 508)) {
+			if (!(*(_BYTE*)(j + 16) & 0x20))
+				break;
+			sub_4EC290(*(_DWORD*)(j + 508), v0);
+		}
+		if (*(_BYTE*)(v0 + 8) & 1) {
+			*(_DWORD*)(v0 + 448) = 0;
+			*(_DWORD*)(v0 + 444) = dword_5d4594_1556848;
+			if (dword_5d4594_1556848)
+				*(_DWORD*)(dword_5d4594_1556848 + 448) = v0;
+			dword_5d4594_1556848 = v0;
+		} else {
+			v3 = *(_DWORD*)(v0 + 16);
+			if (v3 & 0x10000) {
+				*(_DWORD*)(v0 + 16) = v3 & 0xFFFEFFFF;
+				sub_4DA9A0((_DWORD*)v0);
+			}
+			if (*(_DWORD*)(v0 + 16) & 0x80000 && !nox_common_gameFlags_check_40A5C0(4096))
+				sub_4EC5E0(v0);
+			if ((*(_DWORD*)(v0 + 744) || *(float*)(v0 + 80) != 0.0 || *(float*)(v0 + 84) != 0.0) &&
+				(signed char)*(_BYTE*)(v0 + 8) >= 0) {
+				sub_4DA8D0(v0);
+			}
+			*(_DWORD*)(v0 + 448) = 0;
+			*(_DWORD*)(v0 + 444) = nox_server_objects_1556844;
+			if (nox_server_objects_1556844)
+				*(_DWORD*)((uintptr_t)nox_server_objects_1556844 + 448) = v0;
+			nox_set_server_objects_4DA3E0(v0);
+		}
+		sub_517640(v0);
+		if (*(_DWORD*)(v0 + 696))
+			sub_5117F0(v0);
+		v4 = *(void(__cdecl**)(int, _DWORD))(v0 + 688);
+		if (v4)
+			v4(v0, 0);
+		v5 = *(_DWORD*)(v0 + 8);
+		if (v5 & 0x400000) {
+			if (*(_DWORD*)(v0 + 12) & 0x18)
+				v6 = 0;
+			else
+				v6 = (unsigned __int8)~*(_BYTE*)(v0 + 12) >> 7;
+		} else {
+			v6 = (v5 >> 29) & 1;
+		}
+		if (0x800000 & v5 || !v6) {
+			sub_4E44F0(v0);
+			if (!(*(_DWORD*)(v0 + 8) & 0x20400000))
+				*(_DWORD*)(v0 + 148) = 0;
+		} else {
+			sub_4E44E0(v0);
+			sub_527E00(v0);
+			*(_DWORD*)(v0 + 148) = -1;
+		}
+		*(_DWORD*)(v0 + 16) &= 0xFDFFFFFF;
+	}
+	nox_server_objects_uninited_1556860 = 0;
 }
 
 //----- (004DADE0) --------------------------------------------------------
