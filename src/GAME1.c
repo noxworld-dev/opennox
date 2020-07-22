@@ -18,6 +18,7 @@
 #include "common/magic/speltree.h"
 #include "common/wolapi/woluser.h"
 
+#include "static.h"
 #include "proto.h"
 
 #ifdef USE_SDL
@@ -254,7 +255,7 @@ void sub_401010() { nox_srand(1u); }
 //----- (00401020) --------------------------------------------------------
 wchar_t* sub_401020() {
 	wchar_t* buf = (wchar_t*)&byte_5D4594[0];
-	nox_swprintf(buf, L"V:%S", &byte_587000[180]);
+	nox_swprintf(buf, L"V:%S", nox_version_string_180);
 	return buf;
 }
 
