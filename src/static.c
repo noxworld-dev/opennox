@@ -1123,3 +1123,4 @@ int nox_video_modes_cnt = sizeof(nox_video_modes) / sizeof(nox_video_mode);
 
 #define NOX_VERSION_STRING "1.2b"
 char nox_version_string_180[7] = NOX_VERSION_STRING;
+char nox_version_string_102944[7] = NOX_VERSION_STRING;

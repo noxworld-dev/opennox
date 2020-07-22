@@ -2677,6 +2677,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 91800, (void*)&nox_win_depth_2, sizeof(nox_win_depth_2), 1},
 	{0x587000 + 91804, (void*)nox_video_modes, sizeof(nox_video_mode) * 3, 1},
 	{0x587000 + 94464, (void*)&nox_cheats_disabled, sizeof(nox_cheats_disabled), 1},
+	{0x587000 + 102944, (void*)&nox_version_string_102944, sizeof(nox_version_string_102944), 1},
 	{0x587000 + 116008, (void*)&nox_parse_thing_draw_funcs, sizeof(nox_parse_thing_draw_funcs_t) * 69, 1}, // TODO
 	{0x587000 + 122104, (void*)&nox_parse_thing_funcs, sizeof(nox_parse_thing_funcs_t) * 21, 1},           // TODO
 	{0x587000 + 80848, (void*)&nox_video_dxFullScreen, sizeof(nox_video_dxFullScreen), 1},
