@@ -1,3 +1,4 @@
+#include "static.h"
 #include "common/object/modifier.h"
 
 #include "client/drawable/drawdb.h"
@@ -1119,3 +1120,6 @@ nox_video_mode nox_video_modes[] = {
 	{1024, 768, 2},
 };
 int nox_video_modes_cnt = sizeof(nox_video_modes) / sizeof(nox_video_mode);
+
+#define NOX_VERSION_STRING "1.2b"
+char nox_version_string_180[7] = NOX_VERSION_STRING;
