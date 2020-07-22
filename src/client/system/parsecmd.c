@@ -395,7 +395,7 @@ int __cdecl nox_cmd_show_bindings(int a1, char a2) {
 }
 
 //----- (00409AC0) --------------------------------------------------------
-int sub_409AC0() { return *(unsigned __int16*)&byte_5D4594[3480]; }
+int nox_client_getBuildVersion_409AC0() { return *(unsigned __int16*)&byte_5D4594[3480]; }
 
 //----- (00441550) --------------------------------------------------------
 int __cdecl nox_cmd_show_game(int a1, char a2) {
@@ -422,7 +422,7 @@ int __cdecl nox_cmd_show_game(int a1, char a2) {
 	v4 = sub_416F40();
 	if (*(_DWORD*)&nox_common_engineFlags & 0x40000)
 		--v4;
-	v5 = sub_409AC0();
+	v5 = nox_client_getBuildVersion_409AC0();
 	sub_450C00(6u, (wchar_t*)&byte_587000[102952], &byte_587000[102944], v5);
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		v15 = sub_40A4C0();
