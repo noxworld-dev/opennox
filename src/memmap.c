@@ -1,4 +1,5 @@
 #include "client/drawable/drawdb.h"
+#include "static.h"
 #include "proto.h"
 
 extern int nox_enable_audio;
@@ -2657,6 +2658,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1568036, (void*)&nox_server_netCodeCache, sizeof(nox_server_netCodeCache), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
+	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},
 	{0x587000 + 5184, (void*)table_5184, sizeof(void*) * 1023, 1},         // TODO
 	{0x587000 + 26792, (void*)table_26792, sizeof(table_26792_t) * 17, 1}, // TODO
 	{0x587000 + 27008, (void*)table_27008, sizeof(table_27008_t) * 7, 1},  // TODO
