@@ -5224,6 +5224,7 @@ int __cdecl sub_42FB30(int a1) {
 }
 
 //----- (0042FE30) --------------------------------------------------------
+#ifdef __EMSCRIPTEN__0
 const struct bag_file {
 	unsigned int offset;
 	unsigned int size;
@@ -5234,6 +5235,7 @@ const struct bag_file {
 	{100702878, 16784419, "video.bag.6"}, {117487297, 4419642, "video.bag.7"}, {0, 0, 0},
 };
 FILE* bag_fp[8];
+#endif
 
 static FILE* get_bag(unsigned int offset) {
 	FILE* fp;
