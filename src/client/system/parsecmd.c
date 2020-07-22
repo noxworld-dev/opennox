@@ -5,7 +5,9 @@
 #include "../gui/servopts/general.h"
 #include "../gui/servopts/guiserv.h"
 
+#include "../../static.h"
 #include "../../proto.h"
+
 extern _DWORD dword_5d4594_823696;
 extern _DWORD dword_5d4594_833728;
 extern _DWORD dword_5d4594_833732;
@@ -423,7 +425,7 @@ int __cdecl nox_cmd_show_game(int a1, char a2) {
 	if (*(_DWORD*)&nox_common_engineFlags & 0x40000)
 		--v4;
 	v5 = nox_client_getBuildVersion_409AC0();
-	sub_450C00(6u, (wchar_t*)&byte_587000[102952], &byte_587000[102944], v5);
+	sub_450C00(6u, (wchar_t*)&byte_587000[102952], nox_version_string_102944, v5);
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		v15 = sub_40A4C0();
 		v6 =
