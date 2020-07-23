@@ -8905,7 +8905,7 @@ int __cdecl sub_4145F0(_DWORD* a1) {
 	if (v2 != (HANDLE)-1) {
 		SetFilePointer(v2, 28, 0, 0);
 		if (!GetLastError() && ReadFile(v3, Buffer, 8u, &NumberOfBytesRead, 0)) {
-			sub_414B30((uint8_t*)Buffer, (uint8_t*)a1);
+			nox_common_readHiddenExeMsg_414B30((uint8_t*)Buffer, (uint8_t*)a1);
 			v1 = 1;
 		}
 		CloseHandle(v3);
@@ -9067,7 +9067,7 @@ char* __cdecl sub_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMult
 }
 
 //----- (00414B30) --------------------------------------------------------
-void sub_414B30(uint8_t* src_8byte, uint8_t* dst_12byte) {
+void nox_common_readHiddenExeMsg_414B30(uint8_t* src_8byte, uint8_t* dst_12byte) {
 	// This decodes 8 bytes(a1) into 12 bytes(a2) using 5-bit encoding and an alphabet.
 	// Use something like the following to decode:
 	/*
@@ -9075,7 +9075,7 @@ int main(){
 	uint64_t m = -1;
 	for (uint64_t src = 0; src <= m; ++src) {
 		uint8_t dst[13] = {0};
-		sub_414B30((int)&src, (_DWORD*)&dst);
+		nox_common_readHiddenExeMsg_414B30((int)&src, (_DWORD*)&dst);
 		printf("%d: %s\n", src, dst);
 	}
 
