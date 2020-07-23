@@ -591,7 +591,7 @@ int __cdecl sub_4149A0(LPCSTR lpFileName, LPVOID lpBuffer, LPVOID, LPVOID); // i
 int __cdecl sub_414A40(LPCSTR lpSubKey, LPCSTR lpValueName);                // idb
 int __cdecl sub_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData);  // idb
 char* __cdecl sub_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMultiByte);
-int __cdecl sub_414B30(int a1, _DWORD* a2);
+void sub_414B30(uint8_t* src_8byte, uint8_t* dst_12byte);
 int __cdecl sub_414BA0(int a1);
 int __cdecl sub_414BD0(signed int a1);
 int __cdecl sub_414C50(signed int a1);
