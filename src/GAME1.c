@@ -8905,7 +8905,7 @@ int __cdecl sub_4145F0(_DWORD* a1) {
 	if (v2 != (HANDLE)-1) {
 		SetFilePointer(v2, 28, 0, 0);
 		if (!GetLastError() && ReadFile(v3, Buffer, 8u, &NumberOfBytesRead, 0)) {
-			sub_414B30((int)Buffer, a1);
+			sub_414B30((uint8_t*)Buffer, (uint8_t*)a1);
 			v1 = 1;
 		}
 		CloseHandle(v3);
@@ -9067,7 +9067,7 @@ char* __cdecl sub_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMult
 }
 
 //----- (00414B30) --------------------------------------------------------
-int __cdecl sub_414B30(int a1, _DWORD* a2) {
+void sub_414B30(uint8_t* src_8byte, uint8_t* dst_12byte) {
 	// This decodes 8 bytes(a1) into 12 bytes(a2) using 5-bit encoding and an alphabet.
 	// Use something like the following to decode:
 	/*
@@ -9087,10 +9087,10 @@ int main(){
 	// TODO: After cleanup: remove this functionality or replace with a constant if message in intro is desired.
 
 	const size_t str_len = 12;
-	uint8_t* encoded_data = (uint8_t*)a1;
+	uint8_t* encoded_data = src_8byte;
 	char* alphabet = *(char**)&byte_587000[32604]; // This is " ABCDEFGHIJKLMNOPQRSTUVWXYZ01234"
 
-	uint8_t* decoded_string = (uint8_t*)a2;
+	uint8_t* decoded_string = dst_12byte;
 
 	memset(decoded_string, 0, str_len + 1);
 
@@ -9114,7 +9114,6 @@ int main(){
 
 		*decoded_string++ = alphabet[dec_symbol_idx];
 	}
-	return current_bit;
 }
 
 //----- (00414BA0) --------------------------------------------------------
