@@ -9068,44 +9068,53 @@ char* __cdecl sub_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMult
 
 //----- (00414B30) --------------------------------------------------------
 int __cdecl sub_414B30(int a1, _DWORD* a2) {
-	_DWORD* v2; // ebp
-	_DWORD* v3; // ecx
-	int v4;     // edx
-	int result; // eax
-	int v6;     // esi
-	int v7;     // ecx
-	int v8;     // edi
-	int v9;     // [esp+18h] [ebp+8h]
+	// This decodes 8 bytes(a1) into 12 bytes(a2) using 5-bit encoding and an alphabet.
+	// Use something like the following to decode:
+	/*
+int main(){
+	uint64_t m = -1;
+	for (uint64_t src = 0; src <= m; ++src) {
+		uint8_t dst[13] = {0};
+		sub_414B30((int)&src, (_DWORD*)&dst);
+		printf("%d: %s\n", src, dst);
+	}
 
-	v2 = a2;
-	v3 = a2;
-	*a2 = 0;
-	v4 = 0;
-	v9 = 12;
-	v3[1] = 0;
-	v3[2] = 0;
-	*((_BYTE*)v3 + 12) = 0;
-	result = 128;
-	do {
-		v6 = 0;
-		v7 = 16;
-		v8 = 5;
-		do {
-			if ((unsigned __int8)result & *(_BYTE*)(v4 + a1))
-				v6 |= v7;
-			result >>= 1;
-			v7 >>= 1;
-			if (!result) {
-				result = 128;
-				++v4;
+	return 0;
+}
+	 */
+	// It is likely simple enough to write a corresponding encoder.
+	// Given this is used only for displaying a message in the intro screen, that is not worth the time required.
+	// TODO: After cleanup: remove this functionality or replace with a constant if message in intro is desired.
+
+	const size_t str_len = 12;
+	uint8_t* encoded_data = (uint8_t*)a1;
+	char* alphabet = *(char**)&byte_587000[32604]; // This is " ABCDEFGHIJKLMNOPQRSTUVWXYZ01234"
+
+	uint8_t* decoded_string = (uint8_t*)a2;
+
+	memset(decoded_string, 0, str_len + 1);
+
+	int enc_symbol_idx = 0;
+	uint8_t current_bit = 128u;
+	for (int i = str_len; i; --i) {
+		uint8_t dec_symbol_idx = 0u;
+		uint8_t v7 = 16u;
+
+		for (int j = 5; j; --j) {
+			if (current_bit & encoded_data[enc_symbol_idx]) {
+				dec_symbol_idx |= v7;
 			}
-			--v8;
-		} while (v8);
-		v2 = (_DWORD*)((char*)v2 + 1);
-		*((_BYTE*)v2 - 1) = *(_BYTE*)(*(_DWORD*)&byte_587000[32604] + v6);
-		--v9;
-	} while (v9);
-	return result;
+			current_bit >>= 1u;
+			v7 >>= 1u;
+			if (current_bit == 0u) {
+				current_bit = 128u;
+				++enc_symbol_idx;
+			}
+		}
+
+		*decoded_string++ = alphabet[dec_symbol_idx];
+	}
+	return current_bit;
 }
 
 //----- (00414BA0) --------------------------------------------------------
