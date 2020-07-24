@@ -125,7 +125,7 @@ extern _DWORD dword_5d4594_830248;
 extern _DWORD dword_5d4594_829480;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_3801780;
-extern _DWORD dword_587000_80828;
+extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_825760;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_830224;
@@ -3968,7 +3968,7 @@ void sub_4445C0() {
 	*(_DWORD*)&byte_587000[80808] = 1;
 	*(_DWORD*)&byte_587000[80816] = 1;
 	dword_587000_80840 = 1;
-	dword_587000_80828 = 1;
+	nox_client_renderGUI_80828 = 1;
 	dword_587000_80832 = 1;
 	if (v0 <= 266) {
 		if (v0 != 266) {

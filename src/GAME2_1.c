@@ -140,7 +140,7 @@ extern _DWORD dword_5d4594_1090120;
 extern _DWORD dword_5d4594_1063116;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_1064916;
-extern _DWORD dword_587000_80828;
+extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_1062480;
 extern _DWORD dword_587000_133480;
 extern BYTE** nox_pixbuffer_rows_3798784;
@@ -236,7 +236,7 @@ int sub_460E60() {
 		sub_460D50();
 	result = sub_45E190();
 	if (result) {
-		sub_460EA0(*(int*)&dword_587000_80828);
+		sub_460EA0(*(int*)&nox_client_renderGUI_80828);
 		result = 1;
 	}
 	return result;
@@ -7307,7 +7307,7 @@ int sub_4721D0() {
 		sub_46C4E0(*(_DWORD**)&byte_5D4594[1093096]);
 	sub_4714E0();
 	sub_472310();
-	return sub_4721A0(*(int*)&dword_587000_80828);
+	return sub_4721A0(*(int*)&nox_client_renderGUI_80828);
 }
 
 //----- (00472220) --------------------------------------------------------
@@ -8179,7 +8179,7 @@ int sub_473680() {
 																																	0);
 																																sub_4AB4D0(
 																																	0);
-																																if (!dword_587000_80828 ||
+																																if (!nox_client_renderGUI_80828 ||
 																																	*(_DWORD*)&nox_common_engineFlags &
 																																		0x40000) {
 																																	sub_4721A0(
@@ -8256,7 +8256,7 @@ int sub_473840() {
 	sub_4597E0(1);
 	sub_467980();
 	sub_46C5D0();
-	dword_587000_80828 = dword_587000_80832;
+	nox_client_renderGUI_80828 = dword_587000_80832;
 	return 1;
 }
 
