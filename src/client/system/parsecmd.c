@@ -21,7 +21,7 @@ extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_587000_311480;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_823692;
-extern _DWORD dword_587000_80828;
+extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_2650652;
 
 #ifdef NOX_DEBUG
@@ -2086,8 +2086,8 @@ int nox_cmd_show_ai() {
 int nox_cmd_show_gui() {
 	int v0; // eax
 
-	v0 = dword_587000_80828 ^ 1;
-	dword_587000_80828 = v0;
+	v0 = nox_client_renderGUI_80828 ^ 1;
+	nox_client_renderGUI_80828 = v0;
 	dword_587000_80832 = v0;
 	return 1;
 }

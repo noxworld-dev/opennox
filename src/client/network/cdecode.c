@@ -44,7 +44,7 @@ extern _DWORD dword_587000_312816;
 extern _DWORD dword_587000_312804;
 extern _DWORD dword_587000_312820;
 extern _DWORD dword_5d4594_2650672;
-extern _DWORD dword_587000_80828;
+extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_2650652;
 
 //----- (0048EA70) --------------------------------------------------------
@@ -1632,9 +1632,9 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				v3 += 7;
 			} else {
 				if (v119[3680] & 1) {
-					dword_587000_80828 = 0;
+					nox_client_renderGUI_80828 = 0;
 				} else if (dword_587000_80832 == 1) {
-					dword_587000_80828 = 1;
+					nox_client_renderGUI_80828 = 1;
 				}
 				sub_470C40((*((_DWORD*)v119 + 920) >> 10) & 1);
 				v3 += 7;

@@ -4,7 +4,7 @@
 
 extern _DWORD dword_5d4594_1123520;
 extern _DWORD dword_5d4594_1123524;
-extern _DWORD dword_587000_80828;
+extern _DWORD nox_client_renderGUI_80828;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -73,8 +73,8 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	}
 	sub_467C10();
 	sub_45ACA0(0);
-	*(_DWORD*)&byte_587000[153436] = dword_587000_80828;
-	dword_587000_80828 = 0;
+	*(_DWORD*)&byte_587000[153436] = nox_client_renderGUI_80828;
+	nox_client_renderGUI_80828 = 0;
 	sub_46ABB0(*(int*)&dword_5d4594_1123524, 1);
 	sub_46A8C0(*(int*)&dword_5d4594_1123524);
 	*(_DWORD*)&byte_5D4594[1123528] = a2;
