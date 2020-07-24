@@ -83,7 +83,7 @@ extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_1193152;
 extern _DWORD dword_5d4594_815708;
 extern _DWORD dword_5d4594_816460;
-extern _DWORD dword_587000_80812;
+extern _DWORD nox_client_drawFrontWalls_80812;
 extern _DWORD dword_587000_81128;
 extern _DWORD dword_5d4594_2649712;
 extern _DWORD dword_5d4594_805844;
@@ -3975,13 +3975,13 @@ void sub_4445C0() {
 			if (!v0) {
 				v4 = 8;
 				v5 = 75;
-				dword_587000_80812 = 0;
+				nox_client_drawFrontWalls_80812 = 0;
 				goto LABEL_21;
 			}
 			if (v0 == 200) {
 				v4 = 8;
 				v5 = 85;
-				dword_587000_80812 = 1;
+				nox_client_drawFrontWalls_80812 = 1;
 			LABEL_21:
 				v6 = *(_DWORD*)&nox_common_engineFlags;
 				dword_5d4594_805844 = 0;
@@ -4006,7 +4006,7 @@ void sub_4445C0() {
 		v4 = 16;
 	LABEL_27:
 		v5 = 100;
-		dword_587000_80812 = 1;
+		nox_client_drawFrontWalls_80812 = 1;
 		dword_5d4594_805844 = 1;
 		dword_587000_80820 = 1;
 		dword_587000_154952 = 1;
@@ -4018,7 +4018,7 @@ void sub_4445C0() {
 	if (v0 == 450) {
 		v4 = 16;
 		v5 = 100;
-		dword_587000_80812 = 1;
+		nox_client_drawFrontWalls_80812 = 1;
 		dword_5d4594_805844 = 1;
 		dword_587000_80820 = 1;
 		dword_587000_154952 = 1;
