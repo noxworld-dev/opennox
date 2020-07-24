@@ -121,7 +121,7 @@ extern _DWORD dword_5d4594_787164;
 extern _DWORD dword_5d4594_815032;
 extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_815020;
-extern _DWORD dword_587000_154956;
+extern _DWORD nox_client_texturedFloors_154956;
 extern _DWORD dword_5d4594_787156;
 extern _DWORD nox_client_highResFrontWalls_80820;
 extern _DWORD dword_5d4594_815024;
@@ -6861,11 +6861,11 @@ int sub_4322E0() {
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
 	if (v0) {
-		dword_587000_154956 = atoi(v0);
-		dword_587000_154956 = dword_587000_154956 != 0;
+		nox_client_texturedFloors_154956 = atoi(v0);
+		nox_client_texturedFloors_154956 = nox_client_texturedFloors_154956 != 0;
 		sub_481420();
 		dword_5d4594_1193156 = 0;
-		dword_587000_154960 = dword_587000_154956;
+		dword_587000_154960 = nox_client_texturedFloors_154956;
 	}
 	return 1;
 }
@@ -7700,7 +7700,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "HighResFrontWalls = %d\n", nox_client_highResFrontWalls_80820);
 	fprintf(a1, "HighResFloors = %d\n", nox_client_highResFloors_154952);
 	fprintf(a1, "LockHighResFloors = %d\n", nox_client_lockHighResFloors_1193152);
-	fprintf(a1, "TexturedFloors = %d\n", dword_587000_154956);
+	fprintf(a1, "TexturedFloors = %d\n", nox_client_texturedFloors_154956);
 	fprintf(a1, "TranslucentConsole = %d\n", dword_587000_80824);
 	fprintf(a1, "RenderGlow = %d\n", dword_5d4594_805852);
 	fprintf(a1, "RenderGUI = %d\n", dword_587000_80828);
