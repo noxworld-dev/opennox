@@ -1170,7 +1170,7 @@ extern _DWORD dword_5d4594_823696;
 extern _DWORD dword_5d4594_1599688;
 extern _DWORD dword_5d4594_2386164;
 extern _DWORD dword_5d4594_1307724;
-extern _DWORD dword_587000_229992;
+extern _DWORD nox_server_kickQuestPlayerMinVotes_229992;
 extern _DWORD dword_5d4594_805872;
 extern _DWORD dword_5d4594_1523040;
 extern _DWORD dword_5d4594_1096432;
@@ -1541,7 +1541,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1096432, (void*)&dword_5d4594_1096432, sizeof(dword_5d4594_1096432), 1},
 	{0x5D4594 + 1523040, (void*)&dword_5d4594_1523040, sizeof(dword_5d4594_1523040), 1},
 	{0x5D4594 + 805872, (void*)&dword_5d4594_805872, sizeof(dword_5d4594_805872), 1},
-	{0x587000 + 229992, (void*)&dword_587000_229992, sizeof(dword_587000_229992), 1},
+	{0x587000 + 229992, (void*)&nox_server_kickQuestPlayerMinVotes_229992, sizeof(nox_server_kickQuestPlayerMinVotes_229992), 1},
 	{0x5D4594 + 1307724, (void*)&dword_5d4594_1307724, sizeof(dword_5d4594_1307724), 1},
 	{0x5D4594 + 2386164, (void*)&dword_5d4594_2386164, sizeof(dword_5d4594_2386164), 1},
 	{0x5D4594 + 1599688, (void*)&dword_5d4594_1599688, sizeof(dword_5d4594_1599688), 1},

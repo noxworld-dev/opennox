@@ -36,7 +36,7 @@ extern _DWORD dword_5d4594_815052;
 extern _DWORD dword_5d4594_805980;
 extern _DWORD dword_5d4594_741652;
 extern _DWORD dword_5d4594_787192;
-extern _DWORD dword_587000_229992;
+extern _DWORD nox_server_kickQuestPlayerMinVotes_229992;
 extern _DWORD dword_5d4594_3807116;
 extern _DWORD nox_server_resetQuestMinVotes_229988;
 extern _DWORD nox_server_sendMotd_108752;
@@ -7101,7 +7101,7 @@ int sub_432780() {
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
 	if (v0)
-		dword_587000_229992 = atoi(v0);
+		nox_server_kickQuestPlayerMinVotes_229992 = atoi(v0);
 	return 1;
 }
 
@@ -7743,7 +7743,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "ItemRespawn = %d\n", v15);
 	fprintf(a1, "MinKickVotes = %d\n", *(_DWORD*)&byte_587000[229980]);
 	fprintf(a1, "ResetQuestMinVotes = %d\n", nox_server_resetQuestMinVotes_229988);
-	fprintf(a1, "KickQuestPlayerMinVotes = %d\n", dword_587000_229992);
+	fprintf(a1, "KickQuestPlayerMinVotes = %d\n", nox_server_kickQuestPlayerMinVotes_229992);
 	v16 = sub_48A020(0, &v23);
 	fprintf(a1, "LANFilters = %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n", v16, *v23, v23[1], v23[2], v23[3], v23[4], v23[5],
 			v23[6], v23[7], v23[8], v23[9], v23[10]);
