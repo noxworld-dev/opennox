@@ -19,7 +19,7 @@ extern _DWORD dword_5d4594_1093156;
 extern _DWORD dword_5d4594_1096252;
 extern _DWORD dword_5d4594_1093136;
 extern _DWORD dword_5d4594_3799468;
-extern _DWORD dword_587000_80844;
+extern _DWORD nox_client_renderBubbles_80844;
 extern _DWORD dword_5d4594_1090276;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -267,7 +267,7 @@ int __cdecl sub_471D10(int xLeft) {
 		nox_client_drawAddPoint_49F500(xLeft, yTop - v6 + 125);
 		sub_49F570(14, 0);
 		nox_client_drawLineFromPoints_49E4B0();
-		if (v2 < 2 && dword_587000_80844 == 1) {
+		if (v2 < 2 && nox_client_renderBubbles_80844 == 1) {
 			v19 = 64;
 			v7 = (int*)&byte_5D4594[1536 * v2 + 1093188];
 			v21 = &byte_5D4594[1536 * v2 + 1093188];

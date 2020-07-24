@@ -69,7 +69,7 @@ extern _DWORD dword_5d4594_816356;
 extern _DWORD dword_5d4594_826032;
 extern _DWORD dword_5d4594_830244;
 extern _DWORD dword_587000_173328;
-extern _DWORD dword_587000_80844;
+extern _DWORD nox_client_renderBubbles_80844;
 extern _DWORD dword_5d4594_830276;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_830264;
@@ -3994,7 +3994,7 @@ void sub_4445C0() {
 				nox_client_renderGlow_805852 = 0;
 				nox_client_fadeObjects_80836 = 0;
 				*(_DWORD*)&nox_common_engineFlags = v6;
-				dword_587000_80844 = 0;
+				nox_client_renderBubbles_80844 = 0;
 				goto LABEL_30;
 			}
 			goto LABEL_29;
@@ -4031,7 +4031,7 @@ void sub_4445C0() {
 		BYTE1(v7) |= 4u;
 		nox_client_fadeObjects_80836 = 1;
 		*(_DWORD*)&nox_common_engineFlags = v7;
-		dword_587000_80844 = 1;
+		nox_client_renderBubbles_80844 = 1;
 		goto LABEL_30;
 	}
 LABEL_29:

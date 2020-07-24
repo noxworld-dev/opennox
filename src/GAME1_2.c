@@ -75,7 +75,7 @@ extern _DWORD dword_5d4594_741364;
 extern _DWORD dword_5d4594_787212;
 extern _DWORD dword_5d4594_811104;
 extern _DWORD dword_5d4594_806052;
-extern _DWORD dword_587000_80844;
+extern _DWORD nox_client_renderBubbles_80844;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD nox_client_renderGlow_805852;
 extern _DWORD dword_5d4594_787172;
@@ -6962,11 +6962,11 @@ int sub_432480() {
 	if (!v0)
 		return 1;
 	v1 = atoi(v0);
-	dword_587000_80844 = v1;
+	nox_client_renderBubbles_80844 = v1;
 	v2 = v1 == 0;
 	result = 1;
 	if (!v2)
-		dword_587000_80844 = 1;
+		nox_client_renderBubbles_80844 = 1;
 	return result;
 }
 
@@ -7705,7 +7705,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "RenderGlow = %d\n", nox_client_renderGlow_805852);
 	fprintf(a1, "RenderGUI = %d\n", nox_client_renderGUI_80828);
 	fprintf(a1, "FadeObjects = %d\n", nox_client_fadeObjects_80836);
-	fprintf(a1, "RenderBubbles = %d\n", dword_587000_80844);
+	fprintf(a1, "RenderBubbles = %d\n", nox_client_renderBubbles_80844);
 	v7 = sub_578DF0();
 	fprintf(a1, "TrackData = %d\n", v7);
 	v8 = sub_40A630();
