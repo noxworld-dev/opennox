@@ -68,7 +68,7 @@ extern _DWORD dword_5d4594_3804680;
 extern BYTE* nox_pixbuffer_3798780;
 extern _DWORD dword_5d4594_1098580;
 extern _DWORD dword_5d4594_2650680;
-extern _DWORD dword_5d4594_1193152;
+extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_3799508;
 extern _DWORD dword_5d4594_3798812;
@@ -456,7 +456,7 @@ int __cdecl sub_4765F0(int a1) {
 	*(_DWORD*)&byte_5D4594[1096440] = nox_client_highResFloors_154952;
 	result = *(_DWORD*)&byte_5D4594[2614252];
 	*(_DWORD*)&byte_5D4594[1096444] = nox_client_highResFrontWalls_80820;
-	if (*(_DWORD*)&byte_5D4594[2614252] && !dword_5d4594_1193152) {
+	if (*(_DWORD*)&byte_5D4594[2614252] && !nox_client_lockHighResFloors_1193152) {
 		v2 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 276);
 		if ((v2 == 3 || v2 == 6 || v2 == 45) && (*(int*)(a1 + 16) - *(int*)&byte_5D4594[1096556] >= 4 ||
 												 *(int*)(a1 + 20) - *(int*)&byte_5D4594[1096560] >= 4)) {
