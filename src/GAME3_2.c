@@ -36,7 +36,7 @@ extern _DWORD dword_5d4594_1523040;
 extern _DWORD dword_5d4594_1563276;
 extern _DWORD dword_5d4594_1548664;
 extern _DWORD dword_5d4594_3835392;
-extern _DWORD dword_587000_108752;
+extern _DWORD nox_server_sendMotd_108752;
 extern _DWORD dword_5d4594_1548736;
 extern _DWORD dword_5d4594_1563084;
 extern _DWORD dword_5d4594_1563080;
@@ -9023,7 +9023,7 @@ int __cdecl sub_4DDF60(int a1) {
 		*((_DWORD*)v2 + 908) = v4;
 		*((_DWORD*)v2 + 909) = v5;
 	}
-	if (dword_587000_108752 && nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096))
+	if (nox_server_sendMotd_108752 && nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096))
 		sub_4DD140(v1);
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		v7 = *((_DWORD*)i + 514);

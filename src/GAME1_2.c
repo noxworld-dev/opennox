@@ -39,7 +39,7 @@ extern _DWORD dword_5d4594_787192;
 extern _DWORD dword_587000_229992;
 extern _DWORD dword_5d4594_3807116;
 extern _DWORD dword_587000_229988;
-extern _DWORD dword_587000_108752;
+extern _DWORD nox_server_sendMotd_108752;
 extern _DWORD dword_5d4594_787224;
 extern _DWORD dword_5d4594_754144;
 extern _DWORD dword_5d4594_810628;
@@ -7256,7 +7256,7 @@ int sub_432A90() {
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
 	if (v0)
-		dword_587000_108752 = atoi(v0) != 0;
+		nox_server_sendMotd_108752 = atoi(v0) != 0;
 	return 1;
 }
 
@@ -7714,7 +7714,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "Profiled = %d\n", nox_profiled_805856 != 0);
 	fprintf(a1, "SanctuaryHelp = %d\n", nox_server_sanctuaryHelp_54276);
 	fprintf(a1, "MaxPacketLossPct = %d\n", *(_DWORD*)&byte_587000[81280]);
-	fprintf(a1, "SendMessageOfTheDay = %d\n", dword_587000_108752);
+	fprintf(a1, "SendMessageOfTheDay = %d\n", nox_server_sendMotd_108752);
 	v9 = sub_4D0D70();
 	fprintf(a1, "MapCycle = %d\n", v9);
 	fprintf(a1, "ConnectionType = %d\n", dword_5d4594_3596);
