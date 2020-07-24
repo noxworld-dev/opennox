@@ -88,7 +88,7 @@ extern _DWORD dword_5d4594_1307736;
 extern _DWORD dword_5d4594_3798648;
 extern _DWORD dword_5d4594_1309776;
 extern _DWORD dword_5d4594_1309708;
-extern _DWORD dword_5d4594_805852;
+extern _DWORD nox_client_renderGlow_805852;
 extern _DWORD dword_5d4594_3798716;
 extern _DWORD dword_587000_173332;
 extern _DWORD dword_5d4594_1312472;
@@ -11146,7 +11146,7 @@ int sub_4B64C0() {
 void __cdecl sub_4B6720(int2* a1, int a2, int a3, char a4) {
 	int* v4; // eax
 
-	if (dword_5d4594_805852) {
+	if (nox_client_renderGlow_805852) {
 		sub_434040(a2);
 		sub_434080(a3 + 4);
 		v4 = sub_4B0680(0, 32 * a4);
