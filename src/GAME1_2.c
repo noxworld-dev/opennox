@@ -81,7 +81,7 @@ extern _DWORD nox_client_renderGlow_805852;
 extern _DWORD dword_5d4594_787172;
 extern _DWORD nox_client_translucentConsole_80824;
 extern _DWORD nox_client_fadeObjects_80836;
-extern _DWORD dword_5d4594_3596;
+extern _DWORD nox_server_connectionType_3596;
 extern _DWORD dword_5d4594_815040;
 extern _DWORD dword_5d4594_805984;
 extern _DWORD nox_client_lockHighResFloors_1193152;
@@ -7533,7 +7533,7 @@ int sub_433050() {
 			}
 			if (v1 < 0 && v1 > 4)
 				v1 = 4;
-			dword_5d4594_3596 = v1;
+			nox_server_connectionType_3596 = v1;
 		}
 	}
 	return 1;
@@ -7717,7 +7717,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "SendMessageOfTheDay = %d\n", nox_server_sendMotd_108752);
 	v9 = sub_4D0D70();
 	fprintf(a1, "MapCycle = %d\n", v9);
-	fprintf(a1, "ConnectionType = %d\n", dword_5d4594_3596);
+	fprintf(a1, "ConnectionType = %d\n", nox_server_connectionType_3596);
 	v10 = sub_40A6C0();
 	fprintf(a1, "InternetUpdateRate = %d\n", v10);
 	fprintf(a1, "LessonLimit =");

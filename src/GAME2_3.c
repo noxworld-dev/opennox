@@ -57,7 +57,7 @@ extern _DWORD dword_5d4594_1203864;
 extern _DWORD dword_5d4594_1217452;
 extern _DWORD dword_5d4594_3798716;
 extern _DWORD dword_5d4594_1193712;
-extern _DWORD dword_5d4594_3596;
+extern _DWORD nox_server_connectionType_3596;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_810636;
 extern _DWORD dword_5d4594_1301828;
@@ -6605,7 +6605,7 @@ int __cdecl sub_49CA60(int a1, int a2, int* a3, int a4) {
 				sub_459D80(0);
 			v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1305684, 10352);
 			v5 = nox_window_call_field_94((int)v4, 16404, 0, 0);
-			dword_5d4594_3596 = v5 + 1;
+			nox_server_connectionType_3596 = v5 + 1;
 			v6 = sub_40A710(v5 + 1);
 			sub_40A6D0(v6);
 			sub_46C4E0(*(_DWORD**)&dword_5d4594_1305684);
