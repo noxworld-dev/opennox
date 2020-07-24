@@ -7,7 +7,7 @@
 extern _DWORD dword_5d4594_3835368;
 extern _DWORD dword_5d4594_1569656;
 extern _DWORD dword_5d4594_1599628;
-extern _DWORD dword_587000_229992;
+extern _DWORD nox_server_kickQuestPlayerMinVotes_229992;
 extern _DWORD dword_5d4594_1569660;
 extern _DWORD dword_5d4594_1569736;
 extern _DWORD nox_server_resetQuestMinVotes_229988;
@@ -11111,8 +11111,8 @@ _DWORD* __cdecl sub_506B80(int a1, int a2, wchar_t* a3) {
 	int v6;            // esi
 	char v7;           // cl
 
-	result = *(_DWORD**)&dword_587000_229992;
-	if (dword_587000_229992) {
+	result = *(_DWORD**)&nox_server_kickQuestPlayerMinVotes_229992;
+	if (nox_server_kickQuestPlayerMinVotes_229992) {
 		if (a3) {
 			result = (_DWORD*)a2;
 			if (a2) {
