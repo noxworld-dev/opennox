@@ -26,7 +26,7 @@ extern _DWORD dword_5d4594_1200776;
 extern _DWORD dword_5d4594_1200796;
 extern _DWORD dword_5d4594_1200768;
 extern _DWORD dword_587000_312796;
-extern _DWORD dword_587000_54276;
+extern _DWORD nox_server_sanctuaryHelp_54276;
 extern _DWORD dword_587000_312812;
 extern _DWORD dword_587000_312828;
 extern _DWORD dword_587000_312824;
@@ -2479,7 +2479,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 							sub_445490(v401);
 							dword_5d4594_1200832 = 0;
 						}
-						if (dword_587000_54276)
+						if (nox_server_sanctuaryHelp_54276)
 							sub_49C560();
 					}
 				}
