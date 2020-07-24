@@ -108,7 +108,7 @@ extern _DWORD dword_5d4594_816452;
 extern _DWORD dword_5d4594_816432;
 extern _DWORD dword_5d4594_816440;
 extern _DWORD dword_587000_154956;
-extern _DWORD dword_587000_80820;
+extern _DWORD nox_client_highResFrontWalls_80820;
 extern _DWORD dword_5d4594_830104;
 extern _DWORD dword_5d4594_816456;
 extern _DWORD dword_5d4594_830108;
@@ -3986,7 +3986,7 @@ void sub_4445C0() {
 				v6 = *(_DWORD*)&nox_common_engineFlags;
 				nox_client_translucentFrontWalls_805844 = 0;
 				BYTE1(v6) &= 0xFBu;
-				dword_587000_80820 = 0;
+				nox_client_highResFrontWalls_80820 = 0;
 				dword_587000_154952 = 0;
 				dword_5d4594_1193152 = 0;
 				dword_587000_154956 = 1;
@@ -4008,7 +4008,7 @@ void sub_4445C0() {
 		v5 = 100;
 		nox_client_drawFrontWalls_80812 = 1;
 		nox_client_translucentFrontWalls_805844 = 1;
-		dword_587000_80820 = 1;
+		nox_client_highResFrontWalls_80820 = 1;
 		dword_587000_154952 = 1;
 		dword_5d4594_1193152 = 0;
 		dword_587000_154956 = 1;
@@ -4020,7 +4020,7 @@ void sub_4445C0() {
 		v5 = 100;
 		nox_client_drawFrontWalls_80812 = 1;
 		nox_client_translucentFrontWalls_805844 = 1;
-		dword_587000_80820 = 1;
+		nox_client_highResFrontWalls_80820 = 1;
 		dword_587000_154952 = 1;
 		dword_5d4594_1193152 = 1;
 		dword_587000_154956 = 1;

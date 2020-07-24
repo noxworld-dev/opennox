@@ -304,7 +304,7 @@ extern _DWORD dword_5d4594_1313800;
 extern _DWORD dword_5d4594_1321232;
 extern _DWORD dword_5d4594_815024;
 extern _DWORD dword_5d4594_830104;
-extern _DWORD dword_587000_80820;
+extern _DWORD nox_client_highResFrontWalls_80820;
 extern _DWORD dword_5d4594_1045528;
 extern _DWORD dword_5d4594_787156;
 extern _DWORD dword_5d4594_1301792;
@@ -2407,7 +2407,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1301792, (void*)&dword_5d4594_1301792, sizeof(dword_5d4594_1301792), 1},
 	{0x5D4594 + 787156, (void*)&dword_5d4594_787156, sizeof(dword_5d4594_787156), 1},
 	{0x5D4594 + 1045528, (void*)&dword_5d4594_1045528, sizeof(dword_5d4594_1045528), 1},
-	{0x587000 + 80820, (void*)&dword_587000_80820, sizeof(dword_587000_80820), 1},
+	{0x587000 + 80820, (void*)&nox_client_highResFrontWalls_80820, sizeof(nox_client_highResFrontWalls_80820), 1},
 	{0x5D4594 + 830104, (void*)&dword_5d4594_830104, sizeof(dword_5d4594_830104), 1},
 	{0x5D4594 + 815024, (void*)&dword_5d4594_815024, sizeof(dword_5d4594_815024), 1},
 	{0x5D4594 + 1321232, (void*)&dword_5d4594_1321232, sizeof(dword_5d4594_1321232), 1},
