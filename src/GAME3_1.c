@@ -80,7 +80,7 @@ extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_810636;
 extern _DWORD dword_5d4594_3799508;
 extern _DWORD dword_5d4594_1522892;
-extern _DWORD dword_587000_80812;
+extern _DWORD nox_client_drawFrontWalls_80812;
 extern _DWORD dword_5d4594_1321236;
 extern _DWORD dword_5d4594_1320992;
 extern _DWORD dword_5d4594_1321204;
@@ -9601,7 +9601,7 @@ _DWORD* sub_4CB330() {
 	v3[9] = v5;
 	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2020);
 	v7 = v6[9];
-	if (dword_587000_80812)
+	if (nox_client_drawFrontWalls_80812)
 		v8 = v7 | 4;
 	else
 		v8 = v7 & 0xFFFFFFFB;
@@ -9741,7 +9741,7 @@ int __cdecl sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			result = 0;
 			break;
 		case 2020:
-			dword_587000_80812 = 1 - dword_587000_80812;
+			nox_client_drawFrontWalls_80812 = 1 - nox_client_drawFrontWalls_80812;
 			sub_49B3C0();
 			result = 0;
 			break;

@@ -95,7 +95,7 @@ extern _DWORD dword_5d4594_1096508;
 extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_1064900;
 extern _DWORD dword_5d4594_1062516;
-extern _DWORD dword_587000_80812;
+extern _DWORD nox_client_drawFrontWalls_80812;
 extern _DWORD dword_5d4594_805844;
 extern _QWORD qword_581450_9512;
 extern _QWORD qword_581450_9544;
@@ -9413,7 +9413,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 	sub_4C5060(v1);
 	v30 = *(unsigned __int8***)&dword_5d4594_1096504;
 	v31 = dword_5d4594_1096508;
-	if (dword_587000_80812) {
+	if (nox_client_drawFrontWalls_80812) {
 		--dword_5d4594_1096508;
 		if (v31) {
 			do {
