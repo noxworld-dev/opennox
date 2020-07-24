@@ -105,7 +105,7 @@ extern _DWORD dword_5d4594_1047932;
 extern _DWORD dword_5d4594_1049512;
 extern _DWORD dword_5d4594_2650676;
 extern _DWORD dword_5d4594_1096516;
-extern _DWORD dword_587000_154952;
+extern _DWORD nox_client_highResFloors_154952;
 extern _DWORD dword_5d4594_1062528;
 extern _DWORD dword_5d4594_1062524;
 extern _DWORD dword_5d4594_251540;
@@ -8583,7 +8583,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 			goto LABEL_64;
 		}
 		if (*(_DWORD*)&byte_5D4594[805848] && nox_client_translucentFrontWalls_805844) {
-			if (!nox_client_highResFrontWalls_80820 && dword_587000_154952)
+			if (!nox_client_highResFrontWalls_80820 && nox_client_highResFloors_154952)
 				goto LABEL_61;
 			v72 = 8;
 		}

@@ -102,7 +102,7 @@ extern _DWORD dword_5d4594_829484;
 extern _DWORD dword_5d4594_814624;
 extern _DWORD dword_5d4594_826028;
 extern _DWORD dword_5d4594_816492;
-extern _DWORD dword_587000_154952;
+extern _DWORD nox_client_highResFloors_154952;
 extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_816452;
 extern _DWORD dword_5d4594_816432;
@@ -3987,7 +3987,7 @@ void sub_4445C0() {
 				nox_client_translucentFrontWalls_805844 = 0;
 				BYTE1(v6) &= 0xFBu;
 				nox_client_highResFrontWalls_80820 = 0;
-				dword_587000_154952 = 0;
+				nox_client_highResFloors_154952 = 0;
 				dword_5d4594_1193152 = 0;
 				dword_587000_154956 = 1;
 				dword_587000_80824 = 0;
@@ -4009,7 +4009,7 @@ void sub_4445C0() {
 		nox_client_drawFrontWalls_80812 = 1;
 		nox_client_translucentFrontWalls_805844 = 1;
 		nox_client_highResFrontWalls_80820 = 1;
-		dword_587000_154952 = 1;
+		nox_client_highResFloors_154952 = 1;
 		dword_5d4594_1193152 = 0;
 		dword_587000_154956 = 1;
 		dword_587000_80824 = 0;
@@ -4021,7 +4021,7 @@ void sub_4445C0() {
 		nox_client_drawFrontWalls_80812 = 1;
 		nox_client_translucentFrontWalls_805844 = 1;
 		nox_client_highResFrontWalls_80820 = 1;
-		dword_587000_154952 = 1;
+		nox_client_highResFloors_154952 = 1;
 		dword_5d4594_1193152 = 1;
 		dword_587000_154956 = 1;
 		dword_587000_80824 = 1;
