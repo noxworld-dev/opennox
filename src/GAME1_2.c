@@ -26,7 +26,7 @@ extern _DWORD dword_587000_80772;
 extern _DWORD dword_5d4594_811904;
 extern _DWORD dword_5d4594_805988;
 extern _DWORD dword_5d4594_3805492;
-extern _DWORD dword_5d4594_805856;
+extern _DWORD nox_profiled_805856;
 extern _DWORD dword_5d4594_754048;
 extern _DWORD dword_5d4594_811896;
 extern _DWORD dword_5d4594_805820;
@@ -7004,7 +7004,7 @@ int sub_432520() {
 //----- (00432590) --------------------------------------------------------
 int sub_432590() {
 #ifdef __EMSCRIPTEN__
-	dword_5d4594_805856 = 1;
+	nox_profiled_805856 = 1;
 	return 1;
 #endif
 	char* v0; // eax
@@ -7012,7 +7012,7 @@ int sub_432590() {
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
 	if (v0)
-		dword_5d4594_805856 = atoi(v0) != 0;
+		nox_profiled_805856 = atoi(v0) != 0;
 	return 1;
 }
 
@@ -7711,7 +7711,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	v8 = sub_40A630();
 	fprintf(a1, "SysopPassword = %S\n", v8);
 	fprintf(a1, "ServerPassword = %S\n", v1 + 78);
-	fprintf(a1, "Profiled = %d\n", dword_5d4594_805856 != 0);
+	fprintf(a1, "Profiled = %d\n", nox_profiled_805856 != 0);
 	fprintf(a1, "SanctuaryHelp = %d\n", dword_587000_54276);
 	fprintf(a1, "MaxPacketLossPct = %d\n", *(_DWORD*)&byte_587000[81280]);
 	fprintf(a1, "SendMessageOfTheDay = %d\n", dword_587000_108752);
