@@ -79,7 +79,7 @@ extern _DWORD dword_5d4594_816372;
 extern _DWORD nox_client_renderGlow_805852;
 extern _DWORD nox_client_translucentConsole_80824;
 extern _DWORD dword_5d4594_815212;
-extern _DWORD dword_587000_80836;
+extern _DWORD nox_client_fadeObjects_80836;
 extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_815708;
 extern _DWORD dword_5d4594_816460;
@@ -3992,7 +3992,7 @@ void sub_4445C0() {
 				nox_client_texturedFloors_154956 = 1;
 				nox_client_translucentConsole_80824 = 0;
 				nox_client_renderGlow_805852 = 0;
-				dword_587000_80836 = 0;
+				nox_client_fadeObjects_80836 = 0;
 				*(_DWORD*)&nox_common_engineFlags = v6;
 				dword_587000_80844 = 0;
 				goto LABEL_30;
@@ -4029,7 +4029,7 @@ void sub_4445C0() {
 		v7 = *(_DWORD*)&nox_common_engineFlags;
 		nox_client_renderGlow_805852 = 1;
 		BYTE1(v7) |= 4u;
-		dword_587000_80836 = 1;
+		nox_client_fadeObjects_80836 = 1;
 		*(_DWORD*)&nox_common_engineFlags = v7;
 		dword_587000_80844 = 1;
 		goto LABEL_30;

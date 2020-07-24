@@ -73,7 +73,7 @@ extern _DWORD nox_client_renderGlow_805852;
 extern _DWORD dword_5d4594_1319232;
 extern _DWORD dword_5d4594_1321216;
 extern _DWORD nox_client_translucentConsole_80824;
-extern _DWORD dword_587000_80836;
+extern _DWORD nox_client_fadeObjects_80836;
 extern _DWORD dword_5d4594_1522616;
 extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_3804668;
@@ -9657,7 +9657,7 @@ _DWORD* sub_4CB330() {
 	v27[9] = v29;
 	v30 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2016);
 	v31 = v30[9];
-	if (dword_587000_80836)
+	if (nox_client_fadeObjects_80836)
 		v32 = v31 | 4;
 	else
 		v32 = v31 & 0xFFFFFFFB;
@@ -9734,7 +9734,7 @@ int __cdecl sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			break;
 		case 2016:
 			result = 0;
-			dword_587000_80836 = 1 - dword_587000_80836;
+			nox_client_fadeObjects_80836 = 1 - nox_client_fadeObjects_80836;
 			break;
 		case 2017:
 			dword_587000_80840 = 1 - dword_587000_80840;
