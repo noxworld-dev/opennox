@@ -31,7 +31,7 @@ extern _DWORD dword_5d4594_1200796;
 extern _DWORD dword_5d4594_1305788;
 extern void* nox_alloc_healthChange_1301772;
 extern _DWORD dword_5d4594_3798712;
-extern _DWORD dword_587000_54276;
+extern _DWORD nox_server_sanctuaryHelp_54276;
 extern _DWORD dword_5d4594_1303536;
 extern _DWORD dword_5d4594_1197308;
 extern _DWORD dword_5d4594_1301824;
@@ -6570,7 +6570,7 @@ int sub_49C7A0() {
 
 	result = dword_5d4594_1305680;
 	if (dword_5d4594_1305680) {
-		dword_587000_54276 = ((unsigned int)~sub_46B0C0(*(_DWORD**)&dword_5d4594_1305680, 4104)[9] >> 2) & 1;
+		nox_server_sanctuaryHelp_54276 = ((unsigned int)~sub_46B0C0(*(_DWORD**)&dword_5d4594_1305680, 4104)[9] >> 2) & 1;
 		sub_46C6E0(*(int*)&dword_5d4594_1305680);
 		sub_46ADE0(*(int*)&dword_5d4594_1305680);
 		sub_46C4E0(*(_DWORD**)&dword_5d4594_1305680);
@@ -6599,7 +6599,7 @@ int __cdecl sub_49CA60(int a1, int a2, int* a3, int a4) {
 		if (v3 == 10353) {
 			sub_46C6E0(*(int*)&dword_5d4594_1305684);
 			sub_46ADE0(*(int*)&dword_5d4594_1305684);
-			if (nox_common_gameFlags_check_40A5C0(128) && dword_587000_54276)
+			if (nox_common_gameFlags_check_40A5C0(128) && nox_server_sanctuaryHelp_54276)
 				sub_49C560();
 			else
 				sub_459D80(0);
