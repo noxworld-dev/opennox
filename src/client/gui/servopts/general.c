@@ -1,7 +1,7 @@
 #include "general.h"
 
 #include "../../../proto.h"
-extern _DWORD dword_587000_108752;
+extern _DWORD nox_server_sendMotd_108752;
 extern _DWORD dword_5d4594_3596;
 extern _DWORD dword_5d4594_1309812;
 extern _DWORD dword_587000_26048;
@@ -116,7 +116,7 @@ int sub_4AD840() {
 			if (nox_common_gameFlags_check_40A5C0(1024))
 				sub_46ABB0((int)v1, 0);
 		}
-		if (dword_587000_108752) {
+		if (nox_server_sendMotd_108752) {
 			v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10302);
 			v2[9] |= 4u;
 		}
