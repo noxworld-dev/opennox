@@ -512,7 +512,7 @@ extern int nox_pitch_3801808;
 extern _DWORD dword_5d4594_1550916;
 extern _DWORD dword_5d4594_2487540;
 extern _DWORD dword_587000_81128;
-extern _DWORD dword_587000_80812;
+extern _DWORD nox_client_drawFrontWalls_80812;
 extern _DWORD dword_5d4594_2386572;
 extern _DWORD dword_5d4594_251700;
 extern _DWORD dword_5d4594_1193584;
@@ -2199,7 +2199,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1193584, (void*)&dword_5d4594_1193584, sizeof(dword_5d4594_1193584), 1},
 	{0x5D4594 + 251700, (void*)&dword_5d4594_251700, sizeof(dword_5d4594_251700), 1},
 	{0x5D4594 + 2386572, (void*)&dword_5d4594_2386572, sizeof(dword_5d4594_2386572), 1},
-	{0x587000 + 80812, (void*)&dword_587000_80812, sizeof(dword_587000_80812), 1},
+	{0x587000 + 80812, (void*)&nox_client_drawFrontWalls_80812, sizeof(nox_client_drawFrontWalls_80812), 1},
 	{0x587000 + 81128, (void*)&dword_587000_81128, sizeof(dword_587000_81128), 1},
 	{0x5D4594 + 2487540, (void*)&dword_5d4594_2487540, sizeof(dword_5d4594_2487540), 1},
 	{0x5D4594 + 1550916, (void*)&dword_5d4594_1550916, sizeof(dword_5d4594_1550916), 1},
