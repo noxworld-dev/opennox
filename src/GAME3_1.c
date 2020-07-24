@@ -110,7 +110,7 @@ extern _DWORD dword_5d4594_1522628;
 extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_1522624;
 extern _DWORD dword_5d4594_1313796;
-extern _DWORD dword_587000_154956;
+extern _DWORD nox_client_texturedFloors_154956;
 extern _DWORD nox_client_highResFrontWalls_80820;
 extern _DWORD dword_5d4594_1321232;
 extern _DWORD dword_5d4594_1313800;
@@ -9763,7 +9763,7 @@ int __cdecl sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			break;
 		case 2033:
 			dword_587000_154960 = 1 - dword_587000_154960;
-			dword_587000_154956 = dword_587000_154960;
+			nox_client_texturedFloors_154956 = dword_587000_154960;
 			sub_481420();
 			dword_5d4594_1193156 = 0;
 			result = 0;

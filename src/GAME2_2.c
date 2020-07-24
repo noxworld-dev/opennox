@@ -96,7 +96,7 @@ extern _DWORD dword_5d4594_1193348;
 extern _DWORD dword_5d4594_3799524;
 extern _DWORD dword_5d4594_3679320;
 extern _DWORD dword_5d4594_1193360;
-extern _DWORD dword_587000_154956;
+extern _DWORD nox_client_texturedFloors_154956;
 extern _DWORD nox_client_highResFrontWalls_80820;
 extern _DWORD dword_5d4594_3798836;
 extern _DWORD dword_5d4594_1107036;
@@ -746,7 +746,7 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2) {
 	}
 	result = (int)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(v4);
 	if (result) {
-		if (dword_5d4594_3799624 == 1 || (v33 = sub_476DA0, !dword_587000_154956)) {
+		if (dword_5d4594_3799624 == 1 || (v33 = sub_476DA0, !nox_client_texturedFloors_154956)) {
 			v33 = sub_476D70;
 		}
 		v5 = *(_DWORD*)result;
@@ -6624,8 +6624,8 @@ void sub_481410() { dword_587000_154948 = -1; }
 int sub_481420() {
 	int result; // eax
 
-	result = dword_587000_154956;
-	if (dword_587000_154956) {
+	result = nox_client_texturedFloors_154956;
+	if (nox_client_texturedFloors_154956) {
 		dword_587000_154940 = sub_4815E0;
 		dword_587000_154944 = sub_481900;
 	} else {
@@ -6757,7 +6757,7 @@ char* __cdecl sub_481770(_DWORD* a1, int a2, unsigned __int16 a3) {
 	char* result;       // eax
 	int v12;            // [esp+Ch] [ebp+Ch]
 
-	if (!dword_587000_154956 && (byte_5D4594[60 * a3 + 2682246] & 1) == 1)
+	if (!nox_client_texturedFloors_154956 && (byte_5D4594[60 * a3 + 2682246] & 1) == 1)
 		dword_5d4594_1193156 = 1;
 	v3 = *(_DWORD*)&byte_5D4594[60 * a3 + 2682236];
 	v4 = byte_5D4594[3807124];
@@ -7044,17 +7044,17 @@ int __cdecl sub_481C20(int* a1) {
 	v78 = (unsigned __int8*)(a1[5] - a1[1]);
 	v3 = v1 - v2;
 	v72 = v3;
-	if (!dword_587000_154956) {
+	if (!nox_client_texturedFloors_154956) {
 		if (dword_5d4594_1193156 != 1)
 			goto LABEL_9;
 		dword_587000_154960 = 0;
-		dword_587000_154956 = 1;
+		nox_client_texturedFloors_154956 = 1;
 		sub_481420();
 	}
 	if (dword_5d4594_1193156 == 1 && !dword_587000_154960 && !(*(_DWORD*)&byte_5D4594[2598000] % 0x1Eu) &&
 		!sub_482570(a1)) {
 		dword_5d4594_1193156 = 0;
-		dword_587000_154956 = dword_587000_154960;
+		nox_client_texturedFloors_154956 = dword_587000_154960;
 		sub_481420();
 	}
 LABEL_9:
@@ -7233,7 +7233,7 @@ LABEL_36:
 LABEL_60:
 	v67.field_4 = (int)&v78[dword_5d4594_3679320];
 	sub_4745F0(a1);
-	if (dword_587000_154956) {
+	if (nox_client_texturedFloors_154956) {
 		v48 = &byte_5D4594[2598284];
 		do {
 			*(_DWORD*)v48 = -1;
