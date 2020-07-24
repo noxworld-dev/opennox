@@ -96,7 +96,7 @@ extern _DWORD dword_587000_80836;
 extern _DWORD dword_5d4594_1064900;
 extern _DWORD dword_5d4594_1062516;
 extern _DWORD nox_client_drawFrontWalls_80812;
-extern _DWORD dword_5d4594_805844;
+extern _DWORD nox_client_translucentFrontWalls_805844;
 extern _QWORD qword_581450_9512;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_1090276;
@@ -8582,7 +8582,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 			v29 = (v3[4] >> 2) & 2;
 			goto LABEL_64;
 		}
-		if (*(_DWORD*)&byte_5D4594[805848] && dword_5d4594_805844) {
+		if (*(_DWORD*)&byte_5D4594[805848] && nox_client_translucentFrontWalls_805844) {
 			if (!dword_587000_80820 && dword_587000_154952)
 				goto LABEL_61;
 			v72 = 8;
@@ -8592,7 +8592,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 			v29 = (v27 & 8 | 4u) >> 2;
 		LABEL_64:
 			v73 = v29;
-			if (v28 && dword_5d4594_805844 && !(byte_5D4594[12332 * v3[1] + 2692780] & 4)) {
+			if (v28 && nox_client_translucentFrontWalls_805844 && !(byte_5D4594[12332 * v3[1] + 2692780] & 4)) {
 				v30 = v72;
 				LOBYTE(v30) = v72 | 2;
 				v72 = v30;

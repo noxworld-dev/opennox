@@ -99,7 +99,7 @@ extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_528252;
 extern void* nox_alloc_screenParticles_806044;
 extern _DWORD dword_5d4594_3798828;
-extern _DWORD dword_5d4594_805844;
+extern _DWORD nox_client_translucentFrontWalls_805844;
 extern _QWORD qword_5d4594_814956;
 extern _DWORD dword_587000_93164;
 extern _DWORD dword_5d4594_787152;
@@ -6786,11 +6786,11 @@ int sub_4321A0() {
 	if (!v0)
 		return 1;
 	v1 = atoi(v0);
-	dword_5d4594_805844 = v1;
+	nox_client_translucentFrontWalls_805844 = v1;
 	v2 = v1 == 0;
 	result = 1;
 	if (!v2)
-		dword_5d4594_805844 = 1;
+		nox_client_translucentFrontWalls_805844 = 1;
 	return result;
 }
 
@@ -7696,7 +7696,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "UnlockSurface = %d\n", nox_video_dxUnlockSurface);
 	fprintf(a1, "SoftShadowEdge = %d\n", (*(_DWORD*)&nox_common_engineFlags >> 10) & 1);
 	fprintf(a1, "DrawFrontWalls = %d\n", nox_client_drawFrontWalls_80812);
-	fprintf(a1, "TranslucentFrontWalls = %d\n", dword_5d4594_805844);
+	fprintf(a1, "TranslucentFrontWalls = %d\n", nox_client_translucentFrontWalls_805844);
 	fprintf(a1, "HighResFrontWalls = %d\n", dword_587000_80820);
 	fprintf(a1, "HighResFloors = %d\n", dword_587000_154952);
 	fprintf(a1, "LockHighResFloors = %d\n", dword_5d4594_1193152);
