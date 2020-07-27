@@ -1351,7 +1351,7 @@ extern _DWORD dword_5d4594_1046852;
 extern _DWORD dword_5d4594_2386848;
 extern char nox_workdir[1025];
 extern char nox_savegame_name_1307752[9];
-extern int(__cdecl* dword_5D4594_1305696)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
+extern int4*(__cdecl* dword_5D4594_1305696)(int, int, int, int, int);
 extern void(__cdecl* dword_5D4594_1305708)(_DWORD*, int, unsigned int);
 
 typedef struct mem_mapping {
