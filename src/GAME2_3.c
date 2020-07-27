@@ -110,6 +110,8 @@ nox_drawable*** nox_drawable_2d_index = 0;
 int nox_drawable_2d_index_size = 0;
 const int nox_drawable_2d_index_cap = 47;
 
+int(__cdecl* dword_5D4594_1305696)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
+
 //----- (0048C4D0) --------------------------------------------------------
 int sub_48C4D0() {
 	unsigned __int16* v0; // esi
@@ -6627,7 +6629,7 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 		dword_5d4594_1305720 = sub_49D880;            // seems to be unused
 		dword_5d4594_1305700 = sub_49DA90;            // seems to be unused
 		dword_5d4594_1305716 = sub_49DB20;            // opaque filled
-		*(_DWORD*)&byte_5D4594[1305696] = sub_49DD60; // string size
+		dword_5D4594_1305696 = sub_49DD60; // string size
 		*(_DWORD*)&byte_5D4594[1305708] = sub_49E380; // cursor?
 		return 1;
 	}
@@ -6647,7 +6649,7 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 		dword_5d4594_1305700 = sub_49D8E0;
 		dword_5d4594_1305716 = sub_49DBB0;
 	}
-	*(_DWORD*)&byte_5D4594[1305696] = sub_49E060; // string size
+	dword_5D4594_1305696 = sub_49E060; // string size
 	*(_DWORD*)&byte_5D4594[1305708] = sub_49E3C0; // cursor?
 	return 1;
 }
@@ -6808,7 +6810,7 @@ int4* __cdecl nox_client_drawRectFadingScreen_49D0F0(int xLeft, int yTop, int a3
 
 //----- (0049D190) --------------------------------------------------------
 int __cdecl nox_client_drawRectStringSize_49D190(int a1, int a2, int a3, int a4, int a5) {
-	return (*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD)) & byte_5D4594[1305696])(a1, a2, a3, a4, a5);
+	return dword_5D4594_1305696(a1, a2, a3, a4, a5);
 }
 
 //----- (0049D1C0) --------------------------------------------------------
