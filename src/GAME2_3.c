@@ -7817,7 +7817,7 @@ int4* __cdecl sub_49E060(int a1, int a2, int a3, int a4, int a5) {
 	int4* result;          // eax
 	int v6;                // ebx
 	int v7;                // ebp
-	int4* v8;              // edx
+	int v8;              // edx
 	__int16 v9;            // di
 	int v10;               // edx
 	int v11;               // ebx
@@ -7866,9 +7866,9 @@ int4* __cdecl sub_49E060(int a1, int a2, int a3, int a4, int a5) {
 		v6 = a1a.field_0;
 		v7 = a1a.field_4;
 		a4 = a1a.field_8 - a1a.field_0;
-		v8 = (int4*)(a1a.field_C - a1a.field_4);
+		v8 = a1a.field_C - a1a.field_4;
 	} else {
-		v8 = (int4*)a5;
+		v8 = a5;
 		v7 = a3;
 		v6 = a2;
 	}
@@ -7877,7 +7877,7 @@ int4* __cdecl sub_49E060(int a1, int a2, int a3, int a4, int a5) {
 	v32 = (unsigned __int16)(*(_WORD*)&byte_5D4594[3804368] & a1) >> byte_5D4594[3804380];
 	v33 = (unsigned __int16)(*(_WORD*)&byte_5D4594[3804372] & a1) << byte_5D4594[3804384];
 	result = v8;
-	v10 = (int)&v8[-1].field_C + 3;
+	v10 = (int)v8 - 1;
 	if (result) {
 		v11 = 2 * v6;
 		v12 = 4 * v7;
