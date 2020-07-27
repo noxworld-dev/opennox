@@ -110,7 +110,7 @@ nox_drawable*** nox_drawable_2d_index = 0;
 int nox_drawable_2d_index_size = 0;
 const int nox_drawable_2d_index_cap = 47;
 
-int(__cdecl* dword_5D4594_1305696)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
+int4*(__cdecl* dword_5D4594_1305696)(int, int, int, int, int);
 void(__cdecl* dword_5D4594_1305708)(_DWORD*, int, unsigned int);
 
 //----- (0048C4D0) --------------------------------------------------------
@@ -7664,7 +7664,7 @@ LABEL_11:
 }
 #endif
 //----- (0049DD60) --------------------------------------------------------
-int4* __cdecl sub_49DD60(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
+int4* __cdecl sub_49DD60(int a1, int a2, int a3, int a4, int a5) {
 	int4* result;         // eax
 	int v6;               // ebp
 	int v7;               // esi
@@ -7813,7 +7813,7 @@ int4* __cdecl sub_49DD60(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (0049E060) --------------------------------------------------------
-int4* __cdecl sub_49E060(__int16 a1, int a2, int a3, int a4, int a5) {
+int4* __cdecl sub_49E060(int a1, int a2, int a3, int a4, int a5) {
 	int4* result;          // eax
 	int v6;                // ebx
 	int v7;                // ebp
