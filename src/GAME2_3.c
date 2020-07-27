@@ -111,7 +111,7 @@ int nox_drawable_2d_index_size = 0;
 const int nox_drawable_2d_index_cap = 47;
 
 int(__cdecl* dword_5D4594_1305696)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
-int(__cdecl* dword_5D4594_1305708)(_DWORD, _DWORD, _DWORD);
+void(__cdecl* dword_5D4594_1305708)(_DWORD*, int, unsigned int);
 
 //----- (0048C4D0) --------------------------------------------------------
 int sub_48C4D0() {
@@ -6816,7 +6816,8 @@ int __cdecl nox_client_drawRectStringSize_49D190(int a1, int a2, int a3, int a4,
 
 //----- (0049D1C0) --------------------------------------------------------
 int __cdecl sub_49D1C0(int a1, int a2, int a3) {
-	return dword_5D4594_1305708(a1, a2, a3);
+	dword_5D4594_1305708(a1, a2, a3);
+	return 0;
 }
 
 //----- (0049D1E0) --------------------------------------------------------
@@ -7951,7 +7952,7 @@ int4* __cdecl sub_49E060(__int16 a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (0049E380) --------------------------------------------------------
-void __cdecl sub_49E380(int a1, int a2, unsigned int a3) {
+void __cdecl sub_49E380(_DWORD* a1, int a2, unsigned int a3) {
 	int v3;        // edi
 	signed int v4; // ecx
 
