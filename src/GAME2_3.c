@@ -111,6 +111,7 @@ int nox_drawable_2d_index_size = 0;
 const int nox_drawable_2d_index_cap = 47;
 
 int(__cdecl* dword_5D4594_1305696)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
+int(__cdecl* dword_5D4594_1305708)(_DWORD, _DWORD, _DWORD);
 
 //----- (0048C4D0) --------------------------------------------------------
 int sub_48C4D0() {
@@ -6630,7 +6631,7 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 		dword_5d4594_1305700 = sub_49DA90;            // seems to be unused
 		dword_5d4594_1305716 = sub_49DB20;            // opaque filled
 		dword_5D4594_1305696 = sub_49DD60; // string size
-		*(_DWORD*)&byte_5D4594[1305708] = sub_49E380; // cursor?
+		dword_5D4594_1305708 = sub_49E380; // cursor?
 		return 1;
 	}
 	if (dword_5d4594_3801780 != 1)
@@ -6650,7 +6651,7 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 		dword_5d4594_1305716 = sub_49DBB0;
 	}
 	dword_5D4594_1305696 = sub_49E060; // string size
-	*(_DWORD*)&byte_5D4594[1305708] = sub_49E3C0; // cursor?
+	dword_5D4594_1305708 = sub_49E3C0; // cursor?
 	return 1;
 }
 
@@ -6815,7 +6816,7 @@ int __cdecl nox_client_drawRectStringSize_49D190(int a1, int a2, int a3, int a4,
 
 //----- (0049D1C0) --------------------------------------------------------
 int __cdecl sub_49D1C0(int a1, int a2, int a3) {
-	return (*(int(__cdecl**)(_DWORD, _DWORD, _DWORD)) & byte_5D4594[1305708])(a1, a2, a3);
+	return dword_5D4594_1305708(a1, a2, a3);
 }
 
 //----- (0049D1E0) --------------------------------------------------------
