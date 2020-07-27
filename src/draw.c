@@ -1089,7 +1089,7 @@ void sdl_present() {
 #endif
 #ifndef __EMSCRIPTEN__
 		// XXX FIXME WHY?
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_BGRA, g_frontbuffer1->w, g_frontbuffer1->h, 0, GL_BGRA,
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, g_frontbuffer1->w, g_frontbuffer1->h, 0, GL_BGRA,
 					 GL_UNSIGNED_SHORT_1_5_5_5_REV, NULL);
 #else
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, g_frontbuffer1->w, g_frontbuffer1->h, 0, GL_RGBA,
