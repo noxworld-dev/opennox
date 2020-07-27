@@ -258,7 +258,7 @@ void NET_CONNECT(sm_args_t* args) {
 		GOTO_NET_CONNECT_THEN(-15);
 	if (WSAStartup(0x101u, &WSAData) == -1)
 		GOTO_NET_CONNECT_THEN(-21);
-	v7 = socket(2, 2, 0);
+	v7 = socket(AF_INET, SOCK_DGRAM, 0);
 	*v5 = v7;
 	if (v7 == -1) {
 		WSACleanup();

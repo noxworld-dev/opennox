@@ -1422,7 +1422,7 @@ int __cdecl sub_554380(size_t* a1) {
 	v4[5] = -1;
 	result = WSAStartup(0x101u, &WSAData);
 	if (result != -1) {
-		v6 = socket(2, 2, 0);
+		v6 = socket(AF_INET, SOCK_DGRAM, 0);
 		*v5 = v6;
 		if (v6 == -1) {
 		LABEL_17:
@@ -1591,7 +1591,7 @@ int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 		return -15;
 	if (WSAStartup(0x101u, &WSAData) == -1)
 		return -21;
-	v7 = socket(2, 2, 0);
+	v7 = socket(AF_INET, SOCK_DGRAM, 0);
 	*v5 = v7;
 	if (v7 == -1) {
 		WSACleanup();
@@ -1719,12 +1719,12 @@ int __cdecl sub_554B40(u_short hostshort) {
 		return -14;
 	result = WSAStartup(0x101u, &WSAData);
 	if (result != -1) {
-		dword_5d4594_2513920 = socket(2, 2, 0);
+		dword_5d4594_2513920 = socket(AF_INET, SOCK_DGRAM, 0);
 		if (*(int*)&dword_5d4594_2513920 == -1) {
 			WSACleanup();
 			result = -1;
 		} else {
-			dword_5d4594_2513924 = socket(2, 2, 0);
+			dword_5d4594_2513924 = socket(AF_INET, SOCK_DGRAM, 0);
 			if (*(int*)&dword_5d4594_2513924 == -1) {
 				WSACleanup();
 				result = -1;
@@ -3455,7 +3455,7 @@ SOCKET sub_578E10() {
 	*(_WORD*)&name.sa_data[12] = 0;
 	*(_WORD*)name.sa_data = htons(*(u_short*)&byte_5D4594[2523736]);
 	*(_DWORD*)&name.sa_data[2] = 0;
-	result = socket(2, 1, 0);
+	result = socket(AF_INET, SOCK_STREAM, 0);
 	dword_587000_311480 = result;
 	if (result != -1) {
 		if (bind(result, &name, 16) == -1) {
