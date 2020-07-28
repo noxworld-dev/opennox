@@ -21,7 +21,7 @@ int sub_578FF0() {
 
 	*(_DWORD*)addr.sa_data = 0;
 	*(_DWORD*)&addr.sa_data[4] = 0;
-	addr.sa_family = 2;
+	addr.sa_family = AF_INET;
 	*(_DWORD*)&addr.sa_data[8] = 0;
 	v0 = 0;
 	*(_WORD*)&addr.sa_data[12] = 0;
