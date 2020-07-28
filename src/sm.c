@@ -282,7 +282,7 @@ void NET_CONNECT(sm_args_t* args) {
 	v5[3] = 0;
 	v5[4] = 0;
 	v10 = sub_40A420();
-	name.sa_family = 2;
+	name.sa_family = AF_INET;
 	*(_DWORD*)&name.sa_data[6] = 0;
 	*(_DWORD*)&name.sa_data[10] = 0;
 	*(_WORD*)name.sa_data = htons(v10);

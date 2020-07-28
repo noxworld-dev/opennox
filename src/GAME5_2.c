@@ -1434,7 +1434,7 @@ int __cdecl sub_554380(size_t* a1) {
 				a1[2] = 18590;
 			v11 = *((_WORD*)a1 + 4);
 			*(_WORD*)name.sa_data = 0;
-			name.sa_family = 2;
+			name.sa_family = AF_INET;
 			*(_DWORD*)&name.sa_data[2] = 0;
 			*(_DWORD*)&name.sa_data[6] = 0;
 			*(_DWORD*)&name.sa_data[10] = 0;
@@ -1615,7 +1615,7 @@ int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	v5[3] = 0;
 	v5[4] = 0;
 	v10 = sub_40A420();
-	name.sa_family = 2;
+	name.sa_family = AF_INET;
 	*(_DWORD*)&name.sa_data[6] = 0;
 	*(_DWORD*)&name.sa_data[10] = 0;
 	*(_WORD*)name.sa_data = htons(v10);
@@ -1729,7 +1729,7 @@ int __cdecl sub_554B40(u_short hostshort) {
 				WSACleanup();
 				result = -1;
 			} else {
-				name.sa_family = 2;
+				name.sa_family = AF_INET;
 				*(_DWORD*)&name.sa_data[6] = 0;
 				*(_DWORD*)&name.sa_data[10] = 0;
 				*(_WORD*)name.sa_data = htons(hostshort);
@@ -1761,7 +1761,7 @@ int __cdecl sub_554C80(u_short hostshort, char* buf, int a3) {
 	v3 = 0;
 	if (!dword_5d4594_2513916)
 		return -17;
-	to.sa_family = 2;
+	to.sa_family = AF_INET;
 	*(_DWORD*)&to.sa_data[6] = 0;
 	*(_DWORD*)&to.sa_data[10] = 0;
 	*(_WORD*)to.sa_data = htons(hostshort);
@@ -1912,7 +1912,7 @@ int __cdecl sub_555010(int a1, u_short hostshort, char* buf, int a4) {
 	v4 = 0;
 	if (!dword_5d4594_2513916)
 		return -17;
-	to.sa_family = 2;
+	to.sa_family = AF_INET;
 	*(_DWORD*)&to.sa_data[6] = 0;
 	*(_DWORD*)&to.sa_data[10] = 0;
 	*(_WORD*)to.sa_data = htons(hostshort);
@@ -3451,7 +3451,7 @@ SOCKET sub_578E10() {
 	*(_WORD*)&name.sa_data[6] = 0;
 	*(_DWORD*)&name.sa_data[8] = 0;
 	argp = 1;
-	name.sa_family = 2;
+	name.sa_family = AF_INET;
 	*(_WORD*)&name.sa_data[12] = 0;
 	*(_WORD*)name.sa_data = htons(*(u_short*)&byte_5D4594[2523736]);
 	*(_DWORD*)&name.sa_data[2] = 0;
