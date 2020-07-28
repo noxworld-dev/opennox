@@ -1718,38 +1718,36 @@ int __cdecl sub_554B40(u_short hostshort) {
 	if (dword_5d4594_2513916 == 1)
 		return -14;
 	result = WSAStartup(0x101u, &WSAData);
-	if (result != -1) {
-		dword_5d4594_2513920 = socket(AF_INET, SOCK_DGRAM, 0);
-		if (*(int*)&dword_5d4594_2513920 == -1) {
-			WSACleanup();
-			result = -1;
-		} else {
-			dword_5d4594_2513924 = socket(AF_INET, SOCK_DGRAM, 0);
-			if (*(int*)&dword_5d4594_2513924 == -1) {
-				WSACleanup();
-				result = -1;
-			} else {
-				name.sa_family = AF_INET;
-				*(_DWORD*)&name.sa_data[6] = 0;
-				*(_DWORD*)&name.sa_data[10] = 0;
-				*(_WORD*)name.sa_data = htons(hostshort);
-				*(_DWORD*)&name.sa_data[2] = 0;
-				if (bind(*(SOCKET*)&dword_5d4594_2513920, &name, 16) == -1) {
-					WSACleanup();
-					result = -1;
-				} else {
-					*(_DWORD*)optval = 1;
-					result = setsockopt(*(SOCKET*)&dword_5d4594_2513920, 0xFFFF, 32, optval, 4);
-					if (result != -1) {
-						nox_set_draw_unk1((int)sub_554FF0);
-						dword_5d4594_2513916 = 1;
-						result = 0;
-					}
-				}
-			}
-		}
+	if (result == -1) {
+		return -1;
 	}
-	return result;
+	dword_5d4594_2513920 = socket(AF_INET, SOCK_DGRAM, 0);
+	if (*(int*)&dword_5d4594_2513920 == -1) {
+		WSACleanup();
+		return -1;
+	}
+	dword_5d4594_2513924 = socket(AF_INET, SOCK_DGRAM, 0);
+	if (*(int*)&dword_5d4594_2513924 == -1) {
+		WSACleanup();
+		return -1;
+	}
+	name.sa_family = AF_INET;
+	*(_DWORD*)&name.sa_data[6] = 0;
+	*(_DWORD*)&name.sa_data[10] = 0;
+	*(_WORD*)name.sa_data = htons(hostshort);
+	*(_DWORD*)&name.sa_data[2] = 0;
+	if (bind(*(SOCKET*)&dword_5d4594_2513920, &name, 16) == -1) {
+		WSACleanup();
+		return -1;
+	}
+	*(_DWORD*)optval = 1;
+	result = setsockopt(*(SOCKET*)&dword_5d4594_2513920, 0xFFFF, 32, optval, 4);
+	if (result == -1) {
+		return -1;
+	}
+	nox_set_draw_unk1((int)sub_554FF0);
+	dword_5d4594_2513916 = 1;
+	return 0;
 }
 
 //----- (00554C80) --------------------------------------------------------
