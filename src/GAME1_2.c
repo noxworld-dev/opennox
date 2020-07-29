@@ -594,8 +594,8 @@ char* __cdecl sub_4285C0(__int16* a1) {
 
 //----- (00428810) --------------------------------------------------------
 BOOL __cdecl sub_428810(int a1, int a2) {
-	u_short* v2; // esi
-	u_short* v3; // edi
+	uint16_t* v2; // esi
+	uint16_t* v3; // edi
 	BOOL v4;     // esi
 	char v6[72]; // [esp+8h] [ebp-48h]
 
@@ -611,8 +611,8 @@ BOOL __cdecl sub_428810(int a1, int a2) {
 
 //----- (00428890) --------------------------------------------------------
 BOOL __cdecl sub_428890(__int16* a1) {
-	u_short* v1; // esi
-	u_short* v2; // edi
+	uint16_t* v1; // esi
+	uint16_t* v2; // edi
 	BOOL v3;     // esi
 	char v5[72]; // [esp+8h] [ebp-48h]
 
@@ -1775,15 +1775,15 @@ int nox_server_mapRWMapInfo_42A6E0() {
 }
 
 //----- (0042A8B0) --------------------------------------------------------
-u_short* __cdecl sub_42A8B0(_BYTE* a1, int* a2) {
+uint16_t* __cdecl sub_42A8B0(_BYTE* a1, int* a2) {
 	int v2;                  // eax
 	_BYTE* v3;               // esi
 	_BYTE* v4;               // ebx
-	u_short* result;         // eax
+	uint16_t* result;         // eax
 	int v6;                  // esi
 	void* v7;                // eax
 	int v8;                  // eax
-	u_short* v9;             // esi
+	uint16_t* v9;             // esi
 	unsigned __int8 v10[12]; // [esp+Ch] [ebp-Ch]
 
 	*(_WORD*)v10 = 0;
@@ -2082,7 +2082,7 @@ _BYTE* __cdecl sub_42AC50(_BYTE* a1, size_t* a2) {
 }
 
 //----- (0042ADA0) --------------------------------------------------------
-u_short* __cdecl sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
+uint16_t* __cdecl sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 	int v4;           // esi
 	int v5;           // edi
 	void* v6;         // eax
@@ -2194,7 +2194,7 @@ u_short* __cdecl sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 	void* v112;       // eax
 	int v113;         // eax
 	int v114;         // eax
-	u_short* v115;    // esi
+	uint16_t* v115;    // esi
 	char v117;        // [esp+Ch] [ebp-10h]
 	char v118[12];    // [esp+10h] [ebp-Ch]
 	char v119;        // [esp+20h] [ebp+4h]
@@ -2560,7 +2560,7 @@ u_short* __cdecl sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 // 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
 
 //----- (0042B810) --------------------------------------------------------
-u_short* __cdecl sub_42B810(__int16* a1, unsigned int* a2) {
+uint16_t* __cdecl sub_42B810(__int16* a1, unsigned int* a2) {
 	__int16* v2;     // esi
 	int v3;          // edi
 	void* v4;        // eax
@@ -2616,7 +2616,7 @@ u_short* __cdecl sub_42B810(__int16* a1, unsigned int* a2) {
 	int v54;         // edi
 	void* v55;       // eax
 	int v56;         // eax
-	u_short* v57;    // esi
+	uint16_t* v57;    // esi
 	char v59[12];    // [esp+8h] [ebp-Ch]
 	char v60;        // [esp+18h] [ebp+4h]
 	char v61;        // [esp+18h] [ebp+4h]
@@ -3080,22 +3080,22 @@ int __thiscall sub_42C360(_DWORD* this, int a2) {
 }
 
 //----- (0042C370) --------------------------------------------------------
-u_short* __thiscall sub_42C370(u_short* this, u_short* a2) {
-	u_short* v2;      // edi
-	u_short v3;       // ax
-	u_short v4;       // ax
-	u_short* v5;      // esi
-	u_short v6;       // ax
+uint16_t* __thiscall sub_42C370(uint16_t* this, uint16_t* a2) {
+	uint16_t* v2;      // edi
+	uint16_t v3;       // ax
+	uint16_t v4;       // ax
+	uint16_t* v5;      // esi
+	uint16_t v6;       // ax
 	void* v7;         // eax
 	int v8;           // ecx
 	int v9;           // ebx
 	_DWORD* v10;      // esi
-	u_short v11;      // ax
+	uint16_t v11;      // ax
 	unsigned int v12; // ebp
 	void* v13;        // eax
 	int v14;          // eax
 	int v16;          // [esp+8h] [ebp-8h]
-	u_short* v17;     // [esp+Ch] [ebp-4h]
+	uint16_t* v17;     // [esp+Ch] [ebp-4h]
 	int v18;          // [esp+14h] [ebp+4h]
 
 	v2 = this;
@@ -3127,22 +3127,22 @@ u_short* __thiscall sub_42C370(u_short* this, u_short* a2) {
 		v14 = -(ntohs(*(_WORD*)(v9 + 6)) & 3) & 3;
 		v18 = (int)v10 + v14 + v12;
 		v16 += -8 - v14 - v12;
-		sub_42CCE0((u_short*)v9);
+		sub_42CCE0((uint16_t*)v9);
 		sub_42C360(v17, v9);
 		if (v16 <= 0)
 			break;
-		v5 = (u_short*)v18;
+		v5 = (uint16_t*)v18;
 	}
 	return v17;
 }
 // 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
 
 //----- (0042C480) --------------------------------------------------------
-u_short* __thiscall sub_42C480(_DWORD* this, unsigned int* a2) {
+uint16_t* __thiscall sub_42C480(_DWORD* this, unsigned int* a2) {
 	_DWORD* v2;      // ebx
 	int i;           // eax
 	unsigned int v4; // ecx
-	u_short* v5;     // edi
+	uint16_t* v5;     // edi
 	int v6;          // ebx
 	_DWORD* v7;      // ebp
 	char* v8;        // ebp
@@ -3155,7 +3155,7 @@ u_short* __thiscall sub_42C480(_DWORD* this, unsigned int* a2) {
 		*a2 = v4;
 		*a2 = *(unsigned __int16*)(i + 6) + v4 + (-(((unsigned __int8)*(_WORD*)(i + 6) + (_BYTE)v4) & 3) & 3);
 	}
-	v5 = (u_short*)operator_new(*a2);
+	v5 = (uint16_t*)operator_new(*a2);
 	*v5 = htons(*(_WORD*)a2);
 	v5[1] = htons(*((_WORD*)v2 + 1));
 	v6 = v2[1];
@@ -3170,7 +3170,7 @@ u_short* __thiscall sub_42C480(_DWORD* this, unsigned int* a2) {
 		qmemcpy(v8, *(const void**)(v6 + 8), ntohs(*(_WORD*)(v6 + 6)));
 		v9 = (int)&v8[ntohs(*(_WORD*)(v6 + 6))];
 		v7 = (_DWORD*)((-(ntohs(*(_WORD*)(v6 + 6)) & 3) & 3) + v9);
-		sub_42CCE0((u_short*)v6);
+		sub_42CCE0((uint16_t*)v6);
 		v6 = *(_DWORD*)(v6 + 12);
 	} while (v6);
 	return v5;
@@ -3567,11 +3567,11 @@ void* __thiscall sub_42CBF0(LPVOID* this, char* a2, const void* a3, unsigned __i
 int __thiscall sub_42CC60(unsigned __int16* this) { return this[2]; }
 
 //----- (0042CC70) --------------------------------------------------------
-u_short __thiscall sub_42CC70(int this) {
+uint16_t __thiscall sub_42CC70(int this) {
 	int v1;         // esi
-	u_short v2;     // ax
-	u_short v3;     // cx
-	u_short result; // ax
+	uint16_t v2;     // ax
+	uint16_t v3;     // cx
+	uint16_t result; // ax
 
 	v1 = this;
 	switch (*(unsigned __int16*)(this + 4)) {
@@ -3595,10 +3595,10 @@ u_short __thiscall sub_42CC70(int this) {
 }
 
 //----- (0042CCE0) --------------------------------------------------------
-__int16 __thiscall sub_42CCE0(u_short* this) {
-	u_short* v1; // esi
-	u_short v2;  // ax
-	u_short v3;  // cx
+__int16 __thiscall sub_42CCE0(uint16_t* this) {
+	uint16_t* v1; // esi
+	uint16_t v2;  // ax
+	uint16_t v3;  // cx
 	u_long v4;   // eax
 
 	v1 = this;
@@ -9202,7 +9202,7 @@ int sub_438A90() {
 	int result;    // eax
 	BOOL v3;       // eax
 	int v4;        // eax
-	u_short v5;    // [esp-10h] [ebp-74h]
+	uint16_t v5;    // [esp-10h] [ebp-74h]
 	char buf[100]; // [esp+0h] [ebp-64h]
 
 	memset(&buf[0], 0, 100);

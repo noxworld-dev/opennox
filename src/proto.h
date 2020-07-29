@@ -1249,13 +1249,13 @@ int __cdecl sub_42A150(__int16 a1, _DWORD* a2);
 int __cdecl sub_42A650(unsigned __int8* a1);
 unsigned __int8 __cdecl sub_42A6C0(unsigned __int8 a1, unsigned __int8 a2);
 int nox_server_mapRWMapInfo_42A6E0();
-u_short* __cdecl sub_42A8B0(_BYTE* a1, int* a2);
+uint16_t* __cdecl sub_42A8B0(_BYTE* a1, int* a2);
 int __cdecl sub_42A970(_BYTE* a1, _BYTE* a2, int* a3);
 double __cdecl sub_42AAA0(int* a1);
 void __cdecl sub_42ABF0(int a1, int a2, int a3);
 _BYTE* __cdecl sub_42AC50(_BYTE* a1, size_t* a2);
-u_short* __cdecl sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4);
-u_short* __cdecl sub_42B810(__int16* a1, unsigned int* a2);
+uint16_t* __cdecl sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4);
+uint16_t* __cdecl sub_42B810(__int16* a1, unsigned int* a2);
 int __thiscall sub_42BCE0(_DWORD* this, char* a2, char a3);
 int __thiscall sub_42BD50(_DWORD* this, char* a2, char a3);
 int __thiscall sub_42BDC0(_DWORD* this, char* a2, char a3);
@@ -1270,8 +1270,8 @@ __int16 sub_42C300();
 LPVOID __cdecl sub_42C310(unsigned __int16 a1, __int16 a2);
 void __thiscall sub_42C330(_DWORD* this);
 int __thiscall sub_42C360(_DWORD* this, int a2);
-u_short* __thiscall sub_42C370(u_short* this, u_short* a2);
-u_short* __thiscall sub_42C480(_DWORD* this, unsigned int* a2);
+uint16_t* __thiscall sub_42C370(uint16_t* this, uint16_t* a2);
+uint16_t* __thiscall sub_42C480(_DWORD* this, unsigned int* a2);
 int __thiscall sub_42C580(_DWORD* this, char* a2);
 bool __thiscall sub_42C5C0(_DWORD* this, char* a2, _BYTE* a3);
 bool __thiscall sub_42C5E0(_DWORD* this, char* a2, _BYTE* a3);
@@ -1302,8 +1302,8 @@ char* __thiscall sub_42CB80(LPVOID* this, char* a2, const char* a3);
 void* __thiscall sub_42CBF0(LPVOID* this, char* a2, const void* a3, unsigned __int16 a4);
 int __thiscall sub_42CC50(LPVOID* this); // weak
 int __thiscall sub_42CC60(unsigned __int16* this);
-u_short __thiscall sub_42CC70(int this);
-__int16 __thiscall sub_42CCE0(u_short* this);
+uint16_t __thiscall sub_42CC70(int this);
+__int16 __thiscall sub_42CCE0(uint16_t* this);
 char* __cdecl sub_42CD50(_BYTE* a1);
 LPVOID sub_42CD70();
 void* __cdecl sub_42CD80(void* a1);
@@ -6676,17 +6676,17 @@ int __cdecl sub_5546F0(size_t* a1);
 int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5);
 int __cdecl sub_5549F0(unsigned int a1);
 int __cdecl sub_554A50(unsigned int a1);
-void __cdecl sub_554AA0(u_short hostshort, int, int, int); // idb
+void __cdecl sub_554AA0(uint16_t hostshort, int, int, int); // idb
 void sub_554B30();
-int __cdecl sub_554B40(u_short hostshort);                 // idb
-int __cdecl sub_554C80(u_short hostshort, char* buf, int); // idb
+int __cdecl sub_554B40(uint16_t hostshort);                 // idb
+int __cdecl sub_554C80(uint16_t hostshort, char* buf, int); // idb
 int sub_554D10();
 int sub_554D70(char a1);
 int sub_554FF0();
 int __cdecl sub_555000(int a1);
-int __cdecl sub_555010(int, u_short hostshort, char* buf, int); // idb
-int __cdecl sub_5550A0(int, u_short hostshort, char* buf);      // idb
-int __cdecl sub_5550D0(int, u_short hostshort, char* buf);      // idb
+int __cdecl sub_555010(int, uint16_t hostshort, char* buf, int); // idb
+int __cdecl sub_5550A0(int, uint16_t hostshort, char* buf);      // idb
+int __cdecl sub_5550D0(int, uint16_t hostshort, char* buf);      // idb
 int sub_555100();
 void sub_555110();
 void sub_555120();
@@ -7036,8 +7036,8 @@ unsigned int __cdecl sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned i
 // HRESULT __stdcall DirectSoundCreate(LPGUID, LPDIRECTSOUND *, LPUNKNOWN);
 // HRESULT __stdcall DirectInputCreateA(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUTA *ppDI, LPUNKNOWN punkOuter);
 // u_long __stdcall htonl(u_long hostlong);
-// u_short __stdcall ntohs(u_short netshort);
-// u_short __stdcall htons(u_short hostshort);
+// uint16_t __stdcall ntohs(uint16_t netshort);
+// uint16_t __stdcall htons(uint16_t hostshort);
 // u_long __stdcall ntohl(u_long netlong);
 // char *__stdcall inet_ntoa(struct in_addr in);
 // unsigned int __stdcall inet_addr(const char *cp);
@@ -7498,8 +7498,8 @@ int __cdecl SEH_57EA00(int a1, int a2, int a3, int a4);
 // SOCKET __stdcall accept(SOCKET s, struct sockaddr *addr, int *addrlen);
 // int __stdcall recv(SOCKET s, char *buf, int len, int flags);
 // u_long __stdcall htonl(u_long hostlong);
-// u_short __stdcall ntohs(u_short netshort);
-// u_short __stdcall htons(u_short hostshort);
+// uint16_t __stdcall ntohs(uint16_t netshort);
+// uint16_t __stdcall htons(uint16_t hostshort);
 // int __stdcall AIL_waveOutClose(_DWORD); weak
 // int __stdcall AIL_digital_configuration(_DWORD, _DWORD, _DWORD, _DWORD); weak
 // int __stdcall AIL_set_timer_frequency(_DWORD, _DWORD); weak
