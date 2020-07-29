@@ -1379,7 +1379,6 @@ void sub_554370() { nox_srand(0x8FDu); }
 
 //----- (00554380) --------------------------------------------------------
 int __cdecl sub_554380(size_t* a1) {
-	int result;             // eax
 	int v2;                 // ebx
 	unsigned __int8* v3;    // eax
 	SOCKET* v4;             // eax
@@ -1418,48 +1417,47 @@ int __cdecl sub_554380(size_t* a1) {
 		return -1;
 	*(_BYTE*)v4[12] = v2;
 	v4[5] = -1;
-	result = WSAStartup(0x101u, &WSAData);
-	if (result != -1) {
-		v6 = socket(AF_INET, SOCK_DGRAM, 0);
-		*v5 = v6;
-		if (v6 == -1) {
-		LABEL_17:
+	if (WSAStartup(0x101u, &WSAData) == -1) {
+		return -1;
+	}
+	v6 = socket(AF_INET, SOCK_DGRAM, 0);
+	*v5 = v6;
+	if (v6 == -1) {
+		WSACleanup();
+		return -1;
+	}
+	v7 = a1[2];
+	if (v7 < 1024 || v7 > 0x10000)
+		a1[2] = 18590;
+	v11 = *((_WORD*)a1 + 4);
+
+	struct sockaddr_in name;
+	name.sin_family = AF_INET;
+	name.sin_port = 0;
+	name.sin_addr.s_addr = 0;
+	memset(name.sin_zero, 0, 8);
+
+	v9 = *((_WORD*)a1 + 4);
+	name.sin_port = htons(v11);
+	name.sin_addr.s_addr = 0;
+	*(_WORD*)&byte_5D4594[3843636] = v9;
+	while (bind(*v5, &name, 16) == -1) {
+		if (WSAGetLastError() != 10048) {
 			WSACleanup();
-			result = -1;
-		} else {
-			v7 = a1[2];
-			if (v7 < 1024 || v7 > 0x10000)
-				a1[2] = 18590;
-			v11 = *((_WORD*)a1 + 4);
-
-			struct sockaddr_in name;
-			name.sin_family = AF_INET;
-			name.sin_port = 0;
-			name.sin_addr.s_addr = 0;
-			memset(name.sin_zero, 0, 8);
-
-			v9 = *((_WORD*)a1 + 4);
-			name.sin_port = htons(v11);
-			name.sin_addr.s_addr = 0;
-			*(_WORD*)&byte_5D4594[3843636] = v9;
-			while (bind(*v5, &name, 16) == -1) {
-				if (WSAGetLastError() != 10048)
-					goto LABEL_17;
-				v12 = *((_WORD*)a1 + 4) + 1;
-				++a1[2];
-				name.sin_port = htons(v12);
-			}
-			if (gethostname((char*)&byte_5D4594[3843660], 128) != -1) {
-				v10 = gethostbyname((const char*)&byte_5D4594[3843660]);
-				if (v10) {
-					dword_5d4594_3843632 = **(_DWORD**)v10->h_addr_list;
-					strcpy((char*)&byte_5D4594[3843644], inet_ntoa(*(struct in_addr*)&dword_5d4594_3843632));
-				}
-			}
-			result = v2;
+			return -1;
+		}
+		v12 = *((_WORD*)a1 + 4) + 1;
+		++a1[2];
+		name.sin_port = htons(v12);
+	}
+	if (gethostname((char*)&byte_5D4594[3843660], 128) != -1) {
+		v10 = gethostbyname((const char*)&byte_5D4594[3843660]);
+		if (v10) {
+			dword_5d4594_3843632 = **(_DWORD**)v10->h_addr_list;
+			strcpy((char*)&byte_5D4594[3843644], inet_ntoa(*(struct in_addr*)&dword_5d4594_3843632));
 		}
 	}
-	return result;
+	return v2;
 }
 
 //----- (005545A0) --------------------------------------------------------
