@@ -1388,8 +1388,8 @@ int __cdecl sub_554380(size_t* a1) {
 	signed int v7;          // eax
 	__int16 v9;             // cx
 	struct hostent* v10;    // eax
-	u_short v11;            // [esp-4h] [ebp-1B8h]
-	u_short v12;            // [esp-4h] [ebp-1B8h]
+	uint16_t v11;            // [esp-4h] [ebp-1B8h]
+	uint16_t v12;            // [esp-4h] [ebp-1B8h]
 	struct WSAData WSAData; // [esp+24h] [ebp-190h]
 
 	if (!a1)
@@ -1677,7 +1677,7 @@ int __cdecl sub_554A50(unsigned int a1) {
 }
 
 //----- (00554AA0) --------------------------------------------------------
-void __cdecl sub_554AA0(u_short hostshort, int a2, int a3, int a4) {
+void __cdecl sub_554AA0(uint16_t hostshort, int a2, int a3, int a4) {
 	int v4;   // esi
 	char* v5; // ebx
 	int v6[3];
@@ -1707,7 +1707,7 @@ void __cdecl sub_554AA0(u_short hostshort, int a2, int a3, int a4) {
 void sub_554B30() { nox_srand(0x910u); }
 
 //----- (00554B40) --------------------------------------------------------
-int __cdecl sub_554B40(u_short hostshort) {
+int __cdecl sub_554B40(uint16_t hostshort) {
 	int result;             // eax
 	char optval[4];         // [esp+14h] [ebp-194h]
 	struct WSAData WSAData; // [esp+18h] [ebp-190h]
@@ -1748,7 +1748,7 @@ int __cdecl sub_554B40(u_short hostshort) {
 }
 
 //----- (00554C80) --------------------------------------------------------
-int __cdecl sub_554C80(u_short hostshort, char* buf, int a3) {
+int __cdecl sub_554C80(uint16_t hostshort, char* buf, int a3) {
 	int v3 = 0;
 	if (!dword_5d4594_2513916) {
 		return -17;
@@ -1792,7 +1792,7 @@ int __cdecl sub_554D70(char a1) {
 	char* v4;             // eax
 	char* v5;             // esi
 	int v6;               // eax
-	u_short v7;           // ax
+	uint16_t v7;           // ax
 	int v8;               // [esp+0h] [ebp-230h]
 	u_long argp;          // [esp+10h] [ebp-220h]
 	int fromlen;          // [esp+14h] [ebp-21Ch]
@@ -1832,7 +1832,7 @@ int __cdecl sub_554D70(char a1) {
 							if (v4) {
 								if (*(_DWORD*)&byte_5D4594[2513928]) {
 									OnLibraryNotice(262, &v8);
-									LOWORD(v6) = ntohs(*(u_short*)&in[2]);
+									LOWORD(v6) = ntohs(*(uint16_t*)&in[2]);
 									if ((*(int(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
 										 byte_5D4594[2513928])(v5, v6, &buf[72], buf) == 1)
 										sub_555000(0);
@@ -1848,7 +1848,7 @@ int __cdecl sub_554D70(char a1) {
 						if (sub_43B6D0()) {
 							sub_43AF90(4);
 							buf[2] = 18;
-							v7 = htons(*(u_short*)from.sa_data);
+							v7 = htons(*(uint16_t*)from.sa_data);
 							sub_555010(*(int*)&from.sa_data[2], v7, buf, 8);
 						}
 						break;
@@ -1899,7 +1899,7 @@ int __cdecl sub_555000(int a1) {
 }
 
 //----- (00555010) --------------------------------------------------------
-int __cdecl sub_555010(int a1, u_short hostshort, char* buf, int a4) {
+int __cdecl sub_555010(int a1, uint16_t hostshort, char* buf, int a4) {
 	int v4;             // esi
 	int result;         // eax
 	struct sockaddr_in to; // [esp+4h] [ebp-10h]
@@ -1920,7 +1920,7 @@ int __cdecl sub_555010(int a1, u_short hostshort, char* buf, int a4) {
 }
 
 //----- (005550A0) --------------------------------------------------------
-int __cdecl sub_5550A0(int a1, u_short hostshort, char* buf) {
+int __cdecl sub_5550A0(int a1, uint16_t hostshort, char* buf) {
 	*buf = 0;
 	buf[1] = 0;
 	buf[2] = 14;
@@ -1928,7 +1928,7 @@ int __cdecl sub_5550A0(int a1, u_short hostshort, char* buf) {
 }
 
 //----- (005550D0) --------------------------------------------------------
-int __cdecl sub_5550D0(int a1, u_short hostshort, char* buf) {
+int __cdecl sub_5550D0(int a1, uint16_t hostshort, char* buf) {
 	*buf = 0;
 	buf[1] = 0;
 	buf[2] = 17;
@@ -3444,7 +3444,7 @@ SOCKET sub_578E10() {
 
 	argp = 1;
 	name.sin_family = AF_INET;
-	name.sin_port = htons(*(u_short*)&byte_5D4594[2523736]);
+	name.sin_port = htons(*(uint16_t*)&byte_5D4594[2523736]);
 	name.sin_addr.s_addr = 0;
 	memset(name.sin_zero, 0, 8);
 	result = socket(AF_INET, SOCK_STREAM, 0);

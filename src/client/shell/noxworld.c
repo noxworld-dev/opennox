@@ -99,7 +99,7 @@ void sub_4373A0() {
 //----- (004378B0) --------------------------------------------------------
 int sub_4378B0() {
 	int result;  // eax
-	u_short v1;  // ax
+	uint16_t v1;  // ax
 	wchar_t* v2; // eax
 	int v3;      // eax
 	int v4;      // [esp-4h] [ebp-4h]
@@ -763,7 +763,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 	char* v25;          // eax
 	char* v26;          // eax
 	int v27;            // eax
-	u_short v28;        // [esp-8h] [ebp-A0h]
+	uint16_t v28;        // [esp-8h] [ebp-A0h]
 	int2 v29;           // [esp+4h] [ebp-94h]
 	int v30;            // [esp+Ch] [ebp-8Ch]
 	int v31;            // [esp+10h] [ebp-88h]
