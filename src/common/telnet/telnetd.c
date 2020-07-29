@@ -16,15 +16,15 @@ int sub_578FF0() {
 	char* v7;             // [esp-4h] [ebp-A4h]
 	u_long argp;          // [esp+8h] [ebp-98h]
 	int addrlen;          // [esp+Ch] [ebp-94h]
-	struct sockaddr addr; // [esp+10h] [ebp-90h]
 	char buf[128];        // [esp+20h] [ebp-80h]
 
-	*(_DWORD*)addr.sa_data = 0;
-	*(_DWORD*)&addr.sa_data[4] = 0;
-	addr.sa_family = AF_INET;
-	*(_DWORD*)&addr.sa_data[8] = 0;
+	struct sockaddr_in addr;
+	addr.sin_family = AF_INET;
+	addr.sin_port = 0;
+	addr.sin_addr.s_addr = 0;
+	memset(addr.sin_zero, 0, 8);
+
 	v0 = 0;
-	*(_WORD*)&addr.sa_data[12] = 0;
 	result = (int)&byte_5D4594[2516484];
 	while (*(int*)result != -1) {
 		result += 1044;
@@ -42,7 +42,7 @@ int sub_578FF0() {
 		} else {
 			v3 = 1044 * v0;
 			argp = 1;
-			*(_DWORD*)&byte_5D4594[v3 + 2517520] = *(_DWORD*)&addr.sa_data[2];
+			*(_DWORD*)&byte_5D4594[v3 + 2517520] = addr.sin_addr.s_addr;
 			if (ioctlsocket(v2, -2147195266, &argp) == -1)
 				sub_578F20(-5);
 			++*(_WORD*)&byte_5D4594[2523738];

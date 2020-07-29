@@ -238,7 +238,7 @@ void NET_CONNECT(sm_args_t* args) {
 	int v10;                // esi
 	char v11;               // al
 	char v12;               // [esp+12h] [ebp-1B2h]
-	struct sockaddr name;   // [esp+14h] [ebp-1B0h]
+	struct sockaddr_in name;   // [esp+14h] [ebp-1B0h]
 	WORD v14[2];            // [esp+24h] [ebp-1A0h]
 	int v15;                // [esp+28h] [ebp-19Ch]
 	struct WSAData WSAData; // [esp+34h] [ebp-190h]
@@ -282,17 +282,16 @@ void NET_CONNECT(sm_args_t* args) {
 	v5[3] = 0;
 	v5[4] = 0;
 	v10 = sub_40A420();
-	name.sa_family = AF_INET;
-	*(_DWORD*)&name.sa_data[6] = 0;
-	*(_DWORD*)&name.sa_data[10] = 0;
-	*(_WORD*)name.sa_data = htons(v10);
-	*(_DWORD*)&name.sa_data[2] = 0;
+	name.sin_family = AF_INET;
+	name.sin_port = htons(v10);
+	name.sin_addr.s_addr = 0;
+	memset(name.sin_zero, 0, 8);
 	while (bind(*v5, &name, 16) == -1) {
 		if (WSAGetLastError() != 10048) {
 			WSACleanup();
 			GOTO_NET_CONNECT_THEN(-1);
 		}
-		*(_WORD*)name.sa_data = htons(++v10);
+		name.sin_port = htons(++v10);
 	}
 	dword_5d4594_3844304 = 0;
 	v12 = 0;

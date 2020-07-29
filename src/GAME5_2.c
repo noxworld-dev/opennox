@@ -1386,12 +1386,10 @@ int __cdecl sub_554380(size_t* a1) {
 	SOCKET* v5;             // esi
 	SOCKET v6;              // eax
 	signed int v7;          // eax
-	u_short v8;             // ax
 	__int16 v9;             // cx
 	struct hostent* v10;    // eax
 	u_short v11;            // [esp-4h] [ebp-1B8h]
 	u_short v12;            // [esp-4h] [ebp-1B8h]
-	struct sockaddr name;   // [esp+14h] [ebp-1A0h]
 	struct WSAData WSAData; // [esp+24h] [ebp-190h]
 
 	if (!a1)
@@ -1433,22 +1431,23 @@ int __cdecl sub_554380(size_t* a1) {
 			if (v7 < 1024 || v7 > 0x10000)
 				a1[2] = 18590;
 			v11 = *((_WORD*)a1 + 4);
-			*(_WORD*)name.sa_data = 0;
-			name.sa_family = AF_INET;
-			*(_DWORD*)&name.sa_data[2] = 0;
-			*(_DWORD*)&name.sa_data[6] = 0;
-			*(_DWORD*)&name.sa_data[10] = 0;
-			v8 = htons(v11);
+
+			struct sockaddr_in name;
+			name.sin_family = AF_INET;
+			name.sin_port = 0;
+			name.sin_addr.s_addr = 0;
+			memset(name.sin_zero, 0, 8);
+
 			v9 = *((_WORD*)a1 + 4);
-			*(_DWORD*)&name.sa_data[2] = 0;
-			*(_WORD*)name.sa_data = v8;
+			name.sin_port = htons(v11);
+			name.sin_addr.s_addr = 0;
 			*(_WORD*)&byte_5D4594[3843636] = v9;
 			while (bind(*v5, &name, 16) == -1) {
 				if (WSAGetLastError() != 10048)
 					goto LABEL_17;
 				v12 = *((_WORD*)a1 + 4) + 1;
 				++a1[2];
-				*(_WORD*)name.sa_data = htons(v12);
+				name.sin_port = htons(v12);
 			}
 			if (gethostname((char*)&byte_5D4594[3843660], 128) != -1) {
 				v10 = gethostbyname((const char*)&byte_5D4594[3843660]);
@@ -1575,7 +1574,7 @@ int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	int v10;                // esi
 	char v11;               // al
 	char v12;               // [esp+12h] [ebp-1B2h]
-	struct sockaddr name;   // [esp+14h] [ebp-1B0h]
+	struct sockaddr_in name;   // [esp+14h] [ebp-1B0h]
 	WORD v14[2];            // [esp+24h] [ebp-1A0h]
 	int v15;                // [esp+28h] [ebp-19Ch]
 	struct WSAData WSAData; // [esp+34h] [ebp-190h]
@@ -1615,17 +1614,16 @@ int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	v5[3] = 0;
 	v5[4] = 0;
 	v10 = sub_40A420();
-	name.sa_family = AF_INET;
-	*(_DWORD*)&name.sa_data[6] = 0;
-	*(_DWORD*)&name.sa_data[10] = 0;
-	*(_WORD*)name.sa_data = htons(v10);
-	*(_DWORD*)&name.sa_data[2] = 0;
+	name.sin_family = AF_INET;
+	name.sin_port = htons(v10);
+	name.sin_addr.s_addr = 0;
+	memset(name.sin_zero, 0, 8);
 	while (bind(*v5, &name, 16) == -1) {
 		if (WSAGetLastError() != 10048) {
 			WSACleanup();
 			return -1;
 		}
-		*(_WORD*)name.sa_data = htons(++v10);
+		name.sin_port = htons(++v10);
 	}
 	dword_5d4594_3844304 = 0;
 	v12 = 0;
@@ -1711,7 +1709,6 @@ void sub_554B30() { nox_srand(0x910u); }
 //----- (00554B40) --------------------------------------------------------
 int __cdecl sub_554B40(u_short hostshort) {
 	int result;             // eax
-	struct sockaddr name;   // [esp+4h] [ebp-1A4h]
 	char optval[4];         // [esp+14h] [ebp-194h]
 	struct WSAData WSAData; // [esp+18h] [ebp-190h]
 
@@ -1731,11 +1728,11 @@ int __cdecl sub_554B40(u_short hostshort) {
 		WSACleanup();
 		return -1;
 	}
-	name.sa_family = AF_INET;
-	*(_DWORD*)&name.sa_data[6] = 0;
-	*(_DWORD*)&name.sa_data[10] = 0;
-	*(_WORD*)name.sa_data = htons(hostshort);
-	*(_DWORD*)&name.sa_data[2] = 0;
+	struct sockaddr_in name;
+	name.sin_family = AF_INET;
+	name.sin_port = htons(hostshort);
+	name.sin_addr.s_addr = 0;
+	memset(name.sin_zero, 0, 8);
 	if (bind(*(SOCKET*)&dword_5d4594_2513920, &name, 16) == -1) {
 		WSACleanup();
 		return -1;
@@ -1752,18 +1749,18 @@ int __cdecl sub_554B40(u_short hostshort) {
 
 //----- (00554C80) --------------------------------------------------------
 int __cdecl sub_554C80(u_short hostshort, char* buf, int a3) {
-	int v3;             // esi
-	int result;         // eax
-	struct sockaddr to; // [esp+4h] [ebp-10h]
-
-	v3 = 0;
-	if (!dword_5d4594_2513916)
+	int v3 = 0;
+	if (!dword_5d4594_2513916) {
 		return -17;
-	to.sa_family = AF_INET;
-	*(_DWORD*)&to.sa_data[6] = 0;
-	*(_DWORD*)&to.sa_data[10] = 0;
-	*(_WORD*)to.sa_data = htons(hostshort);
-	*(_DWORD*)&to.sa_data[2] = -1;
+	}
+
+	struct sockaddr_in to;
+	to.sin_family = AF_INET;
+	to.sin_port = htons(hostshort);
+	to.sin_addr.s_addr = -1;
+	memset(to.sin_zero, 0, 8);
+
+	int result = 0;
 	if (!buf || (unsigned __int16)a3 < 2u ||
 		(result = sendto(*(SOCKET*)&dword_5d4594_2513920, buf, (unsigned __int16)a3, 0, &to, 16), v3 = result,
 		 result != -1)) {
@@ -1905,16 +1902,15 @@ int __cdecl sub_555000(int a1) {
 int __cdecl sub_555010(int a1, u_short hostshort, char* buf, int a4) {
 	int v4;             // esi
 	int result;         // eax
-	struct sockaddr to; // [esp+4h] [ebp-10h]
+	struct sockaddr_in to; // [esp+4h] [ebp-10h]
 
 	v4 = 0;
 	if (!dword_5d4594_2513916)
 		return -17;
-	to.sa_family = AF_INET;
-	*(_DWORD*)&to.sa_data[6] = 0;
-	*(_DWORD*)&to.sa_data[10] = 0;
-	*(_WORD*)to.sa_data = htons(hostshort);
-	*(_DWORD*)&to.sa_data[2] = a1;
+	to.sin_family = AF_INET;
+	to.sin_port = htons(hostshort);
+	to.sin_addr.s_addr = a1;
+	memset(to.sin_zero, 0, 8);
 	if (!buf || (unsigned __int16)a4 < 2u ||
 		(result = sendto(*(SOCKET*)&dword_5d4594_2513920, buf, (unsigned __int16)a4, 0, &to, 16), v4 = result,
 		 result != -1)) {
@@ -3444,15 +3440,13 @@ SOCKET sub_578E10() {
 	SOCKET result;        // eax
 	unsigned __int8* v1;  // eax
 	u_long argp;          // [esp+4h] [ebp-14h]
-	struct sockaddr name; // [esp+8h] [ebp-10h]
+	struct sockaddr_in name; // [esp+8h] [ebp-10h]
 
-	*(_WORD*)&name.sa_data[6] = 0;
-	*(_DWORD*)&name.sa_data[8] = 0;
 	argp = 1;
-	name.sa_family = AF_INET;
-	*(_WORD*)&name.sa_data[12] = 0;
-	*(_WORD*)name.sa_data = htons(*(u_short*)&byte_5D4594[2523736]);
-	*(_DWORD*)&name.sa_data[2] = 0;
+	name.sin_family = AF_INET;
+	name.sin_port = htons(*(u_short*)&byte_5D4594[2523736]);
+	name.sin_addr.s_addr = 0;
+	memset(name.sin_zero, 0, 8);
 	result = socket(AF_INET, SOCK_STREAM, 0);
 	dword_587000_311480 = result;
 	if (result != -1) {
