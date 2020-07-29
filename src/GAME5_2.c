@@ -1707,7 +1707,6 @@ void sub_554B30() { nox_srand(0x910u); }
 //----- (00554B40) --------------------------------------------------------
 int __cdecl sub_554B40(uint16_t hostshort) {
 	int result;             // eax
-	char optval[4];         // [esp+14h] [ebp-194h]
 	struct WSAData WSAData; // [esp+18h] [ebp-190h]
 
 	if (dword_5d4594_2513916 == 1)
@@ -1735,8 +1734,8 @@ int __cdecl sub_554B40(uint16_t hostshort) {
 		WSACleanup();
 		return -1;
 	}
-	*(_DWORD*)optval = 1;
-	result = setsockopt(*(SOCKET*)&dword_5d4594_2513920, 0xFFFF, 32, optval, 4);
+	int32_t optval = 1;
+	result = setsockopt(*(SOCKET*)&dword_5d4594_2513920, SOL_SOCKET, SO_BROADCAST, &optval, 4);
 	if (result == -1) {
 		return -1;
 	}
