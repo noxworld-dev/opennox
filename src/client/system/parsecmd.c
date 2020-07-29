@@ -168,7 +168,7 @@ SOCKET __cdecl sub_5797F0(unsigned __int16 a1) {
 }
 
 //----- (00579850) --------------------------------------------------------
-u_short sub_579850() { return *(_WORD*)&byte_5D4594[2523736]; }
+uint16_t sub_579850() { return *(_WORD*)&byte_5D4594[2523736]; }
 
 //----- (00440EB0) --------------------------------------------------------
 int __cdecl nox_cmd_telnet_on(int a1, unsigned __int8 a2, int a3) {
