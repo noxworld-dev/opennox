@@ -6337,20 +6337,16 @@ void __cdecl sub_431700(_QWORD* a1) {
 
 //----- (00431720) --------------------------------------------------------
 void __cdecl draw_loop_431720(int* a1) {
-	int v1; // eax
-	int v2; // esi
+	if (!a1) {
+		return;
+	}
 
-	if (a1) {
-		sub_430B50(*a1, a1[1], a1[2], a1[3]);
-		v1 = dword_5d4594_806048;
-		if (dword_5d4594_806048) {
-			do {
-				dword_5d4594_3799524 = 1;
-				v2 = *(_DWORD*)(v1 + 44);
-				(*(int(__cdecl**)(int*, int))v1)(a1, v1);
-				v1 = v2;
-			} while (v2);
-		}
+	sub_430B50(a1[0], a1[1], a1[2], a1[3]);
+	int p2 = 0;
+	for (int p = dword_5d4594_806048; p; p = p2) {
+		dword_5d4594_3799524 = 1;
+		p2 = *(_DWORD*)(p + 44); // getting it after the callback may fail
+		(*(int(__cdecl**)(int*, int))p)(a1, p);
 	}
 }
 
