@@ -6262,13 +6262,12 @@ _DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char 
 		return 0;
 	}
 	v12 = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_screenParticles_806044);
-	if (v12)
-		goto LABEL_11;
-	v12 = dword_5d4594_806052;
-	if (!v12)
-		return 0;
-	sub_4316C0(v12);
-LABEL_11:
+	if (!v12) {
+		v12 = dword_5d4594_806052;
+		if (!v12)
+			return 0;
+		sub_4316C0(v12);
+	}
 	v12[6] = a2 << 16;
 	v12[7] = a3 << 16;
 	*((_BYTE*)v12 + 41) = a8;
