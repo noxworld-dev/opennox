@@ -1415,7 +1415,7 @@ int sub_4313E0();
 void sub_4314D0();
 int sub_431510();
 nox_screenParticle* nox_client_newScreenParticle_431540(int a1, int a2, int a3, int a4, int a5, int a6, char a7, char a8, char a9, char a10);
-void sub_431680(nox_screenParticle* p);
+void nox_client_addScreenParticle_431680(nox_screenParticle* p);
 void sub_4316C0(nox_screenParticle* p);
 void __cdecl sub_431700(_QWORD* a1);
 void __cdecl draw_loop_431720(int* a1);
