@@ -528,7 +528,7 @@ extern _DWORD dword_5d4594_4808;
 extern _DWORD dword_5d4594_3799508;
 extern _DWORD dword_587000_87408;
 extern _DWORD dword_5d4594_839888;
-extern nox_screenParticle* dword_5d4594_806048;
+extern nox_screenParticle* nox_screenParticles_head;
 extern _DWORD dword_5d4594_3844304;
 extern _DWORD dword_5d4594_814988;
 extern _DWORD dword_5d4594_816460;
@@ -2187,7 +2187,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 816460, (void*)&dword_5d4594_816460, sizeof(dword_5d4594_816460), 1},
 	{0x5D4594 + 814988, (void*)&dword_5d4594_814988, sizeof(dword_5d4594_814988), 1},
 	{0x5D4594 + 3844304, (void*)&dword_5d4594_3844304, sizeof(dword_5d4594_3844304), 1},
-	{0x5D4594 + 806048, (void*)&dword_5d4594_806048, sizeof(dword_5d4594_806048), 1},
+	{0x5D4594 + 806048, (void*)&nox_screenParticles_head, sizeof(nox_screenParticles_head), 1},
 	{0x5D4594 + 839888, (void*)&dword_5d4594_839888, sizeof(dword_5d4594_839888), 1},
 	{0x587000 + 87408, (void*)&dword_587000_87408, sizeof(dword_587000_87408), 1},
 	{0x5D4594 + 3799508, (void*)&dword_5d4594_3799508, sizeof(dword_5d4594_3799508), 1},
