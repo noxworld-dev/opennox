@@ -804,7 +804,7 @@ _DWORD* __cdecl sub_460EC0(int a1) {
 			v4 = sub_415FF0(0, 20, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2727) +
 				 *(_DWORD*)(dword_5d4594_1049504 + 20) + 10;
 			v3 = sub_415FF0(0, 20, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2726);
-			result = sub_431540(0, v3 + *(_DWORD*)(dword_5d4594_1049504 + 16) + 10, v4, v5, v6, 1, v7, v8, 2, 1);
+			result = nox_client_newScreenParticle_431540(0, v3 + *(_DWORD*)(dword_5d4594_1049504 + 16) + 10, v4, v5, v6, 1, v7, v8, 2, 1);
 			--v2;
 		} while (v2);
 	}

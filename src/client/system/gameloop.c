@@ -311,7 +311,7 @@ void mainloop() {
 						v22 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 581);
 						v21 = sub_415FF0(-7, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 579);
 						v10 = sub_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 578);
-						sub_431540(4, v7, v9, v10, v21, 1, v22, v23, 2, 1);
+						nox_client_newScreenParticle_431540(4, v7, v9, v10, v21, 1, v22, v23, 2, 1);
 						--v26;
 					} while (v26);
 					v4 = v2 * v2 + v3 * v3;
@@ -337,7 +337,7 @@ void mainloop() {
 						v15 = v13 * *(int*)&byte_587000[8 * v12 + 192092] / 16 - 6;
 						v24 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 633);
 						v16 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 632);
-						sub_431540(4, v14 / 16 + v27->field_0, v27->field_4 + v15, v14 / 16, v15, 1, v16, v24, 2, 1);
+						nox_client_newScreenParticle_431540(4, v14 / 16 + v27->field_0, v27->field_4 + v15, v14 / 16, v15, 1, v16, v24, 2, 1);
 						--v11;
 					} while (v11);
 				}

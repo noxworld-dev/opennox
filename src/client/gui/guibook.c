@@ -433,7 +433,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 			v4 = sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1282);
 			v13 = v24 + v4;
 			v5 = sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1281);
-			sub_431540(v1, v25 + v5, v13, v15, v16, 1, v17, v19, 2, 1);
+			nox_client_newScreenParticle_431540(v1, v25 + v5, v13, v15, v16, 1, v17, v19, 2, 1);
 			--v3;
 		} while (v3);
 		sub_452D80(795, 100);
@@ -446,7 +446,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 		v7 = sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1326);
 		v14 = v24 + v7;
 		v8 = sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1325);
-		sub_431540(v1, v25 + v8, v14, 0, 0, 0, v18, v20, 1, 1);
+		nox_client_newScreenParticle_431540(v1, v25 + v8, v14, 0, 0, 0, v18, v20, 1, 1);
 		--v6;
 	} while (v6);
 	v22 = v24;
@@ -522,7 +522,7 @@ int sub_45D870() {
 			v8 = sub_415FF0(3, 4, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2483);
 			v7 = v4 - sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2479);
 			v6 = sub_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2478);
-			sub_431540(v1, v3 + v6, v7, 0, 0, 1, v8, 0, 0, 1);
+			nox_client_newScreenParticle_431540(v1, v3 + v6, v7, 0, 0, 1, v8, 0, 0, 1);
 			v3 += v9;
 			v4 += v10;
 			--v5;

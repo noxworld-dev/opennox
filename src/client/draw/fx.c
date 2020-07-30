@@ -214,7 +214,7 @@ int __cdecl sub_499E70(int a1, int a2, int a3, int a4, int a5, int a6, int a7) {
 			v11 = sub_415FF0(-20, 0, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 573);
 		else
 			v11 = sub_415FF0(0, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 575);
-		sub_431540(a1, v8, v7, v11, v10, 1, v9, 0, 0, 1);
+		nox_client_newScreenParticle_431540(a1, v8, v7, v11, v10, 1, v9, 0, 0, 1);
 		result = --v13;
 	} while (v13);
 	return result;
