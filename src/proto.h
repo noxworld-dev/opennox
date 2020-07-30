@@ -1410,7 +1410,7 @@ BOOL sub_431330();
 int sub_431340();
 BOOL sub_431370();
 void sub_431380();
-int sub_431390();
+int nox_client_initScreenParticles_431390();
 int sub_4313E0();
 void sub_4314D0();
 int sub_431510();
