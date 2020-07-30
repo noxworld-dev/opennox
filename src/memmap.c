@@ -636,7 +636,7 @@ extern _DWORD dword_5d4594_1046520;
 extern _DWORD dword_5d4594_829512;
 extern _DWORD dword_5d4594_832516;
 extern _DWORD dword_587000_132136;
-extern _DWORD dword_5d4594_806052;
+extern void* dword_5d4594_806052;
 extern _DWORD dword_5d4594_832496;
 extern _DWORD dword_5d4594_832512;
 extern void* nox_alloc_monsterListen_2386188;
