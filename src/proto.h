@@ -1730,7 +1730,7 @@ int sub_43DE60();
 _DWORD* __cdecl sub_43E1A0(int a1);
 int sub_43E200();
 int sub_43E230();
-void sub_43E290();
+void mainloop_43E290();
 int sub_43E8B0();
 int __cdecl sub_43E8C0(int a1);
 void sub_43E8D0();
