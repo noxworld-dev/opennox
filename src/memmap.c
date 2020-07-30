@@ -528,7 +528,7 @@ extern _DWORD dword_5d4594_4808;
 extern _DWORD dword_5d4594_3799508;
 extern _DWORD dword_587000_87408;
 extern _DWORD dword_5d4594_839888;
-extern _DWORD dword_5d4594_806048;
+extern void* dword_5d4594_806048;
 extern _DWORD dword_5d4594_3844304;
 extern _DWORD dword_5d4594_814988;
 extern _DWORD dword_5d4594_816460;
