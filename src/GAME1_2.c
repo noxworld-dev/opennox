@@ -74,7 +74,6 @@ extern _DWORD dword_5d4594_741332;
 extern _DWORD dword_5d4594_741364;
 extern _DWORD dword_5d4594_787212;
 extern _DWORD dword_5d4594_811104;
-extern _DWORD dword_5d4594_806052;
 extern _DWORD nox_client_renderBubbles_80844;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD nox_client_renderGlow_805852;
@@ -209,6 +208,7 @@ int obj_5D4594_754104_switch = 0;
 obj_5D4594_3799572_t* ptr_5D4594_3799572 = 0;
 
 void* dword_5d4594_806048 = 0;
+void* dword_5d4594_806052 = 0;
 
 //----- (00427F30) --------------------------------------------------------
 int __cdecl sub_427F30(int2* a1, int* a2) {
@@ -6265,10 +6265,10 @@ _DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char 
 	v12 = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_screenParticles_806044);
 	if (v12)
 		goto LABEL_11;
-	v12 = *(_DWORD**)&dword_5d4594_806052;
-	if (!dword_5d4594_806052)
+	v12 = dword_5d4594_806052;
+	if (!v12)
 		return 0;
-	sub_4316C0(dword_5d4594_806052);
+	sub_4316C0(v12);
 LABEL_11:
 	v12[6] = a2 << 16;
 	v12[7] = a3 << 16;
