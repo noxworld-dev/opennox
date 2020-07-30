@@ -3,7 +3,7 @@
 #include "../../proto.h"
 
 //----- (00489700) --------------------------------------------------------
-int sub_489700(void* a1p, nox_screenParticle* a2p) {
+int nox_client_screenParticleDraw_489700(void* a1p, nox_screenParticle* a2p) {
 	int a1 = a1p;
 	int a2 = a2p;
 	int v2;             // ecx
