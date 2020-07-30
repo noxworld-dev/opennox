@@ -735,19 +735,19 @@ typedef struct {
 
 typedef struct nox_screenParticle nox_screenParticle;
 typedef struct nox_screenParticle {
-	_DWORD field_0;
-	_DWORD field_4;
-	_DWORD field_8;
-	_DWORD field_12;
-	_DWORD field_16;
-	_DWORD field_20;
-	_DWORD field_24;
-	_DWORD field_28;
-	_DWORD field_32;
-	_DWORD field_36;
-	_DWORD field_40;
-	nox_screenParticle* field_44;
-	nox_screenParticle* field_48;
+	void* field_0; // 0, 0
+	_DWORD field_4; // 1, 4
+	_DWORD field_8; // 2, 8
+	_DWORD field_12; // 3, 12
+	_DWORD field_16; // 4, 16
+	_DWORD field_20; // 5, 20
+	_DWORD field_24; // 6, 24
+	_DWORD field_28; // 7, 28
+	_DWORD field_32; // 8, 32
+	_DWORD field_36; // 9, 36
+	_BYTE field_40[4]; // 10, 40
+	nox_screenParticle* field_44; // 11, 44
+	nox_screenParticle* field_48; // 12, 48
 } nox_screenParticle;
 _Static_assert(sizeof(nox_screenParticle) == 52, "wrong size of nox_screenParticle structure!");
 

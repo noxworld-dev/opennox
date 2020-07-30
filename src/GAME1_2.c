@@ -6233,7 +6233,6 @@ int sub_431510() {
 _DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char a7, char a8, char a9, char a10) {
 	int v10;     // edi
 	int v11;     // ebx
-	_DWORD* v12; // esi
 
 	if (!nox_alloc_screenParticles_806044)
 		return 0;
@@ -6261,34 +6260,34 @@ _DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char 
 	default:
 		return 0;
 	}
-	v12 = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_screenParticles_806044);
-	if (!v12) {
-		v12 = dword_5d4594_806052;
-		if (!v12)
+	nox_screenParticle* p = nox_alloc_class_new_obj_zero(nox_alloc_screenParticles_806044);
+	if (!p) {
+		p = dword_5d4594_806052;
+		if (!p)
 			return 0;
-		sub_4316C0(v12);
+		sub_4316C0(p);
 	}
-	v12[6] = a2 << 16;
-	v12[7] = a3 << 16;
-	*((_BYTE*)v12 + 41) = a8;
-	*((_BYTE*)v12 + 43) = a8;
-	*((_BYTE*)v12 + 40) = a7;
-	*((_BYTE*)v12 + 42) = a9;
-	*v12 = sub_489700;
-	v12[4] = a4 << 16;
-	v12[5] = a5 << 16;
-	v12[9] = a6 << 16;
-	*((_BYTE*)v12 + 32) = a10;
-	v12[2] = v10;
-	v12[3] = v11;
-	v12[1] = a1;
-	sub_431680((int)v12);
-	if (!v12[9] && !*((_BYTE*)v12 + 41)) {
-		*((_BYTE*)v12 + 42) = 2;
-		*((_BYTE*)v12 + 41) = 3;
-		*((_BYTE*)v12 + 43) = 3;
+	p->field_24 = a2 << 16;
+	p->field_28 = a3 << 16;
+	p->field_40[0] = a7;
+	p->field_40[1] = a8;
+	p->field_40[2] = a9;
+	p->field_40[3] = a8;
+	p->field_0 = sub_489700;
+	p->field_16 = a4 << 16;
+	p->field_20 = a5 << 16;
+	p->field_36 = a6 << 16;
+	*(_BYTE*)(&p->field_32) = a10;
+	p->field_4 = a1;
+	p->field_8 = v10;
+	p->field_12 = v11;
+	sub_431680(p);
+	if (!p->field_36 && !p->field_40[1]) {
+		p->field_40[1] = 3;
+		p->field_40[2] = 2;
+		p->field_40[3] = 3;
 	}
-	return v12;
+	return p;
 }
 
 //----- (00431680) --------------------------------------------------------
