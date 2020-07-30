@@ -1867,7 +1867,7 @@ void mainloop_wait_and_exit(int flags) {
 	mainloop_stop();
 }
 
-void sub_43E290() {
+void mainloop_43E290() {
 	dword_587000_93196 = 1;
 	dword_587000_93200 = 1;
 	*(_DWORD*)&byte_5D4594[816400] = 60 * *(_DWORD*)&byte_5D4594[2649704];
