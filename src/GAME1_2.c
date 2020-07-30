@@ -6273,7 +6273,7 @@ nox_screenParticle* nox_client_newScreenParticle_431540(int a1, int a2, int a3, 
 	p->field_40[1] = a8;
 	p->field_40[2] = a9;
 	p->field_40[3] = a8;
-	p->draw_fnc = sub_489700;
+	p->draw_fnc = nox_client_screenParticleDraw_489700;
 	p->field_16 = a4 << 16;
 	p->field_20 = a5 << 16;
 	p->field_36 = a6 << 16;
