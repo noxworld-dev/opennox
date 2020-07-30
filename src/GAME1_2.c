@@ -207,8 +207,8 @@ int obj_5D4594_754104_switch = 0;
 
 obj_5D4594_3799572_t* ptr_5D4594_3799572 = 0;
 
-void* dword_5d4594_806048 = 0;
-void* dword_5d4594_806052 = 0;
+nox_screenParticle* dword_5d4594_806048 = 0;
+nox_screenParticle* dword_5d4594_806052 = 0;
 
 //----- (00427F30) --------------------------------------------------------
 int __cdecl sub_427F30(int2* a1, int* a2) {
@@ -6293,28 +6293,30 @@ LABEL_11:
 }
 
 //----- (00431680) --------------------------------------------------------
-void sub_431680(void* p) {
-	*(_DWORD*)((_DWORD)p + 44) = dword_5d4594_806048;
-	*(_DWORD*)((_DWORD)p + 48) = 0;
+void sub_431680(nox_screenParticle* p) {
+	p->field_44 = dword_5d4594_806048;
+	p->field_48 = 0;
 	if (dword_5d4594_806048)
-		*(_DWORD*)((_DWORD)dword_5d4594_806048 + 48) = p;
+		dword_5d4594_806048->field_48 = p;
 	else
 		dword_5d4594_806052 = p;
 	dword_5d4594_806048 = p;
 }
 
 //----- (004316C0) --------------------------------------------------------
-void sub_4316C0(void* p) {
+void sub_4316C0(nox_screenParticle* p) {
 	if (p == dword_5d4594_806052)
-		dword_5d4594_806052 = *(_DWORD*)((_DWORD)p + 48);
-	void* v2 = *(_DWORD*)((_DWORD)p + 44);
+		dword_5d4594_806052 = p->field_48;
+
+	nox_screenParticle* v2 = p->field_44;
 	if (v2)
-		*(_DWORD*)((_DWORD)v2 + 48) = *(_DWORD*)((_DWORD)p + 48);
-	void* v3 = *(_DWORD*)((_DWORD)p + 48);
+		v2->field_48 = p->field_48;
+
+	nox_screenParticle* v3 = p->field_48;
 	if (v3) {
-		*(_DWORD*)((_DWORD)v3 + 44) = *(_DWORD*)((_DWORD)p + 44);
+		v3->field_44 = p->field_44;
 	} else {
-		dword_5d4594_806048 = *(_DWORD*)((_DWORD)p + 44);
+		dword_5d4594_806048 = p->field_44;
 	}
 }
 
