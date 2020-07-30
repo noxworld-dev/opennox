@@ -437,7 +437,7 @@ void CONNECT_RESULT(sm_args_t* args) {
 	sub_434B60();
 	sub_40A4D0(0x10000000);
 	mainloop_exit = mainloop_exit_2;
-	sub_43E290();
+	mainloop_43E290();
 }
 
 void f(int reentrant) {
@@ -458,7 +458,7 @@ void f(int reentrant) {
 			}
 			sub_43F1A0();
 			mainloop_exit = mainloop_exit_1;
-			sub_43E290();
+			mainloop_43E290();
 			return;
 		}
 		reentrant = 0;
