@@ -6281,7 +6281,7 @@ nox_screenParticle* nox_client_newScreenParticle_431540(int a1, int a2, int a3, 
 	p->field_4 = a1;
 	p->field_8 = v10;
 	p->field_12 = v11;
-	sub_431680(p);
+	nox_client_addScreenParticle_431680(p);
 	if (!p->field_36 && !p->field_40[1]) {
 		p->field_40[1] = 3;
 		p->field_40[2] = 2;
@@ -6291,7 +6291,7 @@ nox_screenParticle* nox_client_newScreenParticle_431540(int a1, int a2, int a3, 
 }
 
 //----- (00431680) --------------------------------------------------------
-void sub_431680(nox_screenParticle* p) {
+void nox_client_addScreenParticle_431680(nox_screenParticle* p) {
 	p->field_44 = dword_5d4594_806048;
 	p->field_48 = 0;
 	if (dword_5d4594_806048)
