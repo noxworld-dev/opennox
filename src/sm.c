@@ -466,7 +466,7 @@ void f(int reentrant) {
 		if (dword_5d4594_805872) {
 			sub_437190();
 			sub_43BF10_upd_video_mode(1);
-			sub_431390();
+			nox_client_initScreenParticles_431390();
 			continue;
 		}
 		sub_43DB60();
