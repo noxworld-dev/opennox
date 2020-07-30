@@ -1418,7 +1418,7 @@ _DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char 
 int __cdecl sub_431680(int a1);
 int __cdecl sub_4316C0(int a1);
 void __cdecl sub_431700(_QWORD* a1);
-void __cdecl sub_431720(int* a1);
+void __cdecl draw_loop_431720(int* a1);
 char* sub_431770();
 char* sub_431780();
 char* __cdecl sub_431790(char* a1);
