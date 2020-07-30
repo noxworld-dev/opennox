@@ -738,11 +738,11 @@ typedef struct nox_screenParticle {
 	int (*draw_fnc)(void*, nox_screenParticle*); // 0, 0
 	_DWORD field_4; // 1, 4
 	_DWORD field_8; // 2, 8
-	_DWORD field_12; // 3, 12
-	_DWORD field_16; // 4, 16
-	_DWORD field_20; // 5, 20
-	_DWORD field_24; // 6, 24
-	_DWORD field_28; // 7, 28
+	_DWORD field_12; // 3, 12, color
+	_DWORD field_16; // 4, 16, vx
+	_DWORD field_20; // 5, 20, vy
+	_DWORD field_24; // 6, 24, x
+	_DWORD field_28; // 7, 28, y
 	_DWORD field_32; // 8, 32
 	_DWORD field_36; // 9, 36
 	_BYTE field_40[4]; // 10, 40
