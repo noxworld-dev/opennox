@@ -207,7 +207,7 @@ int obj_5D4594_754104_switch = 0;
 
 obj_5D4594_3799572_t* ptr_5D4594_3799572 = 0;
 
-nox_screenParticle* dword_5d4594_806048 = 0;
+nox_screenParticle* nox_screenParticles_head = 0;
 nox_screenParticle* dword_5d4594_806052 = 0;
 
 //----- (00427F30) --------------------------------------------------------
@@ -6187,7 +6187,7 @@ int nox_client_initScreenParticles_431390() {
 		}
 	}
 	sub_4144D0(nox_alloc_screenParticles_806044);
-	dword_5d4594_806048 = 0;
+	nox_screenParticles_head = 0;
 	dword_5d4594_806052 = 0;
 	sub_4313E0();
 	return 1;
@@ -6216,7 +6216,7 @@ void sub_4314D0() {
 	if (nox_alloc_screenParticles_806044)
 		nox_free_alloc_class(*(LPVOID*)&nox_alloc_screenParticles_806044);
 	nox_alloc_screenParticles_806044 = 0;
-	dword_5d4594_806048 = 0;
+	nox_screenParticles_head = 0;
 	dword_5d4594_806052 = 0;
 }
 
@@ -6224,7 +6224,7 @@ void sub_4314D0() {
 int sub_431510() {
 	if (nox_alloc_screenParticles_806044)
 		sub_4144D0(*(_DWORD**)&nox_alloc_screenParticles_806044);
-	dword_5d4594_806048 = 0;
+	nox_screenParticles_head = 0;
 	dword_5d4594_806052 = 0;
 	return sub_4313E0();
 }
@@ -6292,13 +6292,13 @@ nox_screenParticle* nox_client_newScreenParticle_431540(int a1, int a2, int a3, 
 
 //----- (00431680) --------------------------------------------------------
 void nox_client_addScreenParticle_431680(nox_screenParticle* p) {
-	p->field_44 = dword_5d4594_806048;
+	p->field_44 = nox_screenParticles_head;
 	p->field_48 = 0;
-	if (dword_5d4594_806048)
-		dword_5d4594_806048->field_48 = p;
+	if (nox_screenParticles_head)
+		nox_screenParticles_head->field_48 = p;
 	else
 		dword_5d4594_806052 = p;
-	dword_5d4594_806048 = p;
+	nox_screenParticles_head = p;
 }
 
 //----- (004316C0) --------------------------------------------------------
@@ -6314,7 +6314,7 @@ void sub_4316C0(nox_screenParticle* p) {
 	if (v3) {
 		v3->field_44 = p->field_44;
 	} else {
-		dword_5d4594_806048 = p->field_44;
+		nox_screenParticles_head = p->field_44;
 	}
 }
 
@@ -6332,7 +6332,7 @@ void __cdecl draw_loop_431720(int* a1) {
 
 	sub_430B50(a1[0], a1[1], a1[2], a1[3]);
 	int p2 = 0;
-	for (int p = dword_5d4594_806048; p; p = p2) {
+	for (int p = nox_screenParticles_head; p; p = p2) {
 		dword_5d4594_3799524 = 1;
 		p2 = *(_DWORD*)(p + 44); // getting it after the callback may fail
 		(*(int(__cdecl**)(int*, int))p)(a1, p);
