@@ -6273,7 +6273,7 @@ nox_screenParticle* nox_client_newScreenParticle_431540(int a1, int a2, int a3, 
 	p->field_40[1] = a8;
 	p->field_40[2] = a9;
 	p->field_40[3] = a8;
-	p->field_0 = sub_489700;
+	p->draw_fnc = sub_489700;
 	p->field_16 = a4 << 16;
 	p->field_20 = a5 << 16;
 	p->field_36 = a6 << 16;
@@ -6335,7 +6335,7 @@ void __cdecl nox_client_screenParticlesDraw_431720(int* a1) {
 	for (nox_screenParticle* p = nox_screenParticles_head; p; p = p2) {
 		dword_5d4594_3799524 = 1;
 		p2 = p->field_44; // getting it after the callback may fail
-		(*(int(__cdecl**)(int*, int))p)(a1, p);
+		p->draw_fnc(a1, p);
 	}
 }
 

@@ -3,6 +3,6 @@
 
 #include "../../defs.h"
 
-int __cdecl sub_489700(int a1, int a2);
+int sub_489700(void* a1p, nox_screenParticle* a2p);
 
 #endif // NOX_PORT_CLIENT_DRAW_PARTSCRN
