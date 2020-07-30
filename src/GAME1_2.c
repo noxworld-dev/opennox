@@ -6325,7 +6325,7 @@ void __cdecl sub_431700(_QWORD* a1) {
 }
 
 //----- (00431720) --------------------------------------------------------
-void __cdecl draw_loop_431720(int* a1) {
+void __cdecl nox_client_screenParticlesDraw_431720(int* a1) {
 	if (!a1) {
 		return;
 	}

@@ -357,10 +357,10 @@ void mainloop() {
 			v28[3] = nox_win_height;
 			v28[8] = nox_win_width;
 			v28[9] = nox_win_height;
-			draw_loop_431720(v28);
+			nox_client_screenParticlesDraw_431720(v28);
 		} else {
 			v25 = (int*)sub_437250();
-			draw_loop_431720(v25);
+			nox_client_screenParticlesDraw_431720(v25);
 		}
 		if (!(nox_common_engineFlags & 0x40000) || nox_common_engineFlags & 0x100 || dword_5d4594_815132)
 			nox_client_drawCursorAndTooltips_477830(); // Draw cursor
