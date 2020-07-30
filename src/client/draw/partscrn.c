@@ -54,7 +54,7 @@ LABEL_12:
 		v11 = sub_415FF0(2, 3, "C:\\NoxPost\\src\\client\\Draw\\PartScrn.c", 114);
 		v10 = xLeft.field_4;
 		v7 = sub_415FF0(-2, 2, "C:\\NoxPost\\src\\client\\Draw\\PartScrn.c", 109);
-		sub_431540(*(_DWORD*)(a2 + 4), xLeft.field_0 + v7, v10, 0, 0, 1, v11, v12, 2, 2);
+		nox_client_newScreenParticle_431540(*(_DWORD*)(a2 + 4), xLeft.field_0 + v7, v10, 0, 0, 1, v11, v12, 2, 2);
 	}
 	v8 = *(_DWORD*)(a2 + 28);
 	*(_DWORD*)(a2 + 24) += *(_DWORD*)(a2 + 16);

@@ -6230,7 +6230,7 @@ int sub_431510() {
 }
 
 //----- (00431540) --------------------------------------------------------
-_DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char a7, char a8, char a9, char a10) {
+_DWORD* __cdecl nox_client_newScreenParticle_431540(int a1, int a2, int a3, int a4, int a5, int a6, char a7, char a8, char a9, char a10) {
 	int v10;     // edi
 	int v11;     // ebx
 
