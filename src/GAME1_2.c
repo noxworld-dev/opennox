@@ -6180,18 +6180,17 @@ void sub_431380() {
 
 //----- (00431390) --------------------------------------------------------
 int sub_431390() {
-	int result; // eax
-
-	result = nox_alloc_screenParticles_806044;
-	if (nox_alloc_screenParticles_806044 ||
-		(result = nox_new_alloc_class("ScreenParticles", 52, 2000), (nox_alloc_screenParticles_806044 = result) != 0)) {
-		sub_4144D0((_DWORD*)result);
-		dword_5d4594_806048 = 0;
-		dword_5d4594_806052 = 0;
-		sub_4313E0();
-		result = 1;
+	if (!nox_alloc_screenParticles_806044) {
+		nox_alloc_screenParticles_806044 = nox_new_alloc_class("ScreenParticles", 52, 2000);
+		if (!nox_alloc_screenParticles_806044) {
+			return 0;
+		}
 	}
-	return result;
+	sub_4144D0(nox_alloc_screenParticles_806044);
+	dword_5d4594_806048 = 0;
+	dword_5d4594_806052 = 0;
+	sub_4313E0();
+	return 1;
 }
 
 //----- (004313E0) --------------------------------------------------------
