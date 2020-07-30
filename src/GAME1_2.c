@@ -88,7 +88,6 @@ extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_810636;
 extern _DWORD dword_5d4594_805836;
-extern _DWORD dword_5d4594_806048;
 extern _DWORD dword_587000_87408;
 extern _DWORD dword_5d4594_3798812;
 extern _DWORD dword_5d4594_3798800;
@@ -208,6 +207,8 @@ int ptr_5D4594_754092_cnt = 0;
 int obj_5D4594_754104_switch = 0;
 
 obj_5D4594_3799572_t* ptr_5D4594_3799572 = 0;
+
+void* dword_5d4594_806048 = 0;
 
 //----- (00427F30) --------------------------------------------------------
 int __cdecl sub_427F30(int2* a1, int* a2) {
@@ -6294,17 +6295,14 @@ LABEL_11:
 
 //----- (00431680) --------------------------------------------------------
 int __cdecl sub_431680(int a1) {
-	int result; // eax
-
-	result = a1;
 	*(_DWORD*)(a1 + 44) = dword_5d4594_806048;
 	*(_DWORD*)(a1 + 48) = 0;
 	if (dword_5d4594_806048)
-		*(_DWORD*)(dword_5d4594_806048 + 48) = a1;
+		*(_DWORD*)((_DWORD)dword_5d4594_806048 + 48) = a1;
 	else
 		dword_5d4594_806052 = a1;
 	dword_5d4594_806048 = a1;
-	return result;
+	return a1;
 }
 
 //----- (004316C0) --------------------------------------------------------
