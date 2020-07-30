@@ -735,7 +735,7 @@ typedef struct {
 
 typedef struct nox_screenParticle nox_screenParticle;
 typedef struct nox_screenParticle {
-	void* field_0; // 0, 0
+	int (*draw_fnc)(void*, nox_screenParticle*); // 0, 0
 	_DWORD field_4; // 1, 4
 	_DWORD field_8; // 2, 8
 	_DWORD field_12; // 3, 12
