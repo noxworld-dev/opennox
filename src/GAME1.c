@@ -456,9 +456,8 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	if (dword_587000_26048 == 6 || dword_587000_26048 == 8)
 		sub_43F680(0);
 	sub_413920();
-	result = sub_431390();
-	if (!result) {
-		return result;
+	if (!sub_431390()) {
+		return 0;
 	}
 	sub_4147E0(getWindowHandle_sub_401FD0());
 	g_argc2 = argc;
