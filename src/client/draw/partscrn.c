@@ -3,7 +3,9 @@
 #include "../../proto.h"
 
 //----- (00489700) --------------------------------------------------------
-int __cdecl sub_489700(int a1, int a2) {
+int sub_489700(void* a1p, nox_screenParticle* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2;             // ecx
 	char v3;            // al
 	char v4;            // al
