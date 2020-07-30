@@ -6331,10 +6331,10 @@ void __cdecl draw_loop_431720(int* a1) {
 	}
 
 	sub_430B50(a1[0], a1[1], a1[2], a1[3]);
-	int p2 = 0;
-	for (int p = nox_screenParticles_head; p; p = p2) {
+	nox_screenParticle* p2 = 0;
+	for (nox_screenParticle* p = nox_screenParticles_head; p; p = p2) {
 		dword_5d4594_3799524 = 1;
-		p2 = *(_DWORD*)(p + 44); // getting it after the callback may fail
+		p2 = p->field_44; // getting it after the callback may fail
 		(*(int(__cdecl**)(int*, int))p)(a1, p);
 	}
 }
