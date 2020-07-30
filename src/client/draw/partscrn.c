@@ -21,36 +21,35 @@ int nox_client_screenParticleDraw_489700(void* a1p, nox_screenParticle* a2p) {
 	v2 = *(int*)(a2 + 28) >> 16;
 	xLeft.field_0 = *(int*)(a2 + 24) >> 16;
 	xLeft.field_4 = v2;
-	if (xLeft.field_0 <= 0 || v2 <= 0 || xLeft.field_0 >= *(int*)(a1 + 32) || v2 >= *(int*)(a1 + 36))
-		goto LABEL_19;
+	if (xLeft.field_0 <= 0 || v2 <= 0 || xLeft.field_0 >= *(int*)(a1 + 32) || v2 >= *(int*)(a1 + 36)) {
+		sub_431700((_QWORD *) a2);
+		return 0;
+	}
 	sub_4B6720(&xLeft, *(_DWORD*)(a2 + 8), *(unsigned __int8*)(a2 + 40), *(_BYTE*)(a2 + 40));
 	nox_client_drawSetColor_434460(*(_DWORD*)(a2 + 12));
 	sub_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(a2 + 40) >> 1);
 	v3 = *(_BYTE*)(a2 + 41);
 	*(_DWORD*)(a2 + 20) += *(_DWORD*)(a2 + 36);
-	if (!v3)
-		goto LABEL_12;
-	v4 = v3 - 1;
-	*(_BYTE*)(a2 + 41) = v4;
-	if (v4)
-		goto LABEL_12;
-	if (*(_BYTE*)(a2 + 42) == 1) {
-		v5 = *(_BYTE*)(a2 + 40) + 1;
-		*(_BYTE*)(a2 + 40) = v5;
-		if (v5 >= 4u)
-			*(_BYTE*)(a2 + 42) = 2;
-		goto LABEL_11;
+	if (v3) {
+		v4 = v3 - 1;
+		*(_BYTE *) (a2 + 41) = v4;
+		if (!v4) {
+			if (*(_BYTE *) (a2 + 42) == 1) {
+				v5 = *(_BYTE *) (a2 + 40) + 1;
+				*(_BYTE *) (a2 + 40) = v5;
+				if (v5 >= 4u)
+					*(_BYTE *) (a2 + 42) = 2;
+			} else {
+				v6 = *(_BYTE *) (a2 + 40) - 1;
+				*(_BYTE *) (a2 + 40) = v6;
+				if (!v6) {
+					sub_431700((_QWORD *) a2);
+					return 0;
+				}
+			}
+			*(_BYTE *) (a2 + 41) = *(_BYTE *) (a2 + 43);
+		}
 	}
-	v6 = *(_BYTE*)(a2 + 40) - 1;
-	*(_BYTE*)(a2 + 40) = v6;
-	if (!v6) {
-	LABEL_19:
-		sub_431700((_QWORD*)a2);
-		return 0;
-	}
-LABEL_11:
-	*(_BYTE*)(a2 + 41) = *(_BYTE*)(a2 + 43);
-LABEL_12:
 	if (*(_BYTE*)(a2 + 32) == 1 && sub_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\PartScrn.c", 105) >= 8) {
 		v12 = sub_415FF0(3, 5, "C:\\NoxPost\\src\\client\\Draw\\PartScrn.c", 115);
 		v11 = sub_415FF0(2, 3, "C:\\NoxPost\\src\\client\\Draw\\PartScrn.c", 114);
