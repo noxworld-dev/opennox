@@ -733,4 +733,22 @@ typedef struct {
 	nox_dblLinkedList* lastUsedObject;
 } nox_server_netCodeCacheStruct;
 
+typedef struct nox_screenParticle nox_screenParticle;
+typedef struct nox_screenParticle {
+	_DWORD field_0;
+	_DWORD field_4;
+	_DWORD field_8;
+	_DWORD field_12;
+	_DWORD field_16;
+	_DWORD field_20;
+	_DWORD field_24;
+	_DWORD field_28;
+	_DWORD field_32;
+	_DWORD field_36;
+	_DWORD field_40;
+	nox_screenParticle* field_44;
+	nox_screenParticle* field_48;
+} nox_screenParticle;
+_Static_assert(sizeof(nox_screenParticle) == 52, "wrong size of nox_screenParticle structure!");
+
 #endif
