@@ -6268,7 +6268,7 @@ _DWORD* __cdecl sub_431540(int a1, int a2, int a3, int a4, int a5, int a6, char 
 	v12 = *(_DWORD**)&dword_5d4594_806052;
 	if (!dword_5d4594_806052)
 		return 0;
-	sub_4316C0(*(int*)&dword_5d4594_806052);
+	sub_4316C0(dword_5d4594_806052);
 LABEL_11:
 	v12[6] = a2 << 16;
 	v12[7] = a3 << 16;
@@ -6294,37 +6294,29 @@ LABEL_11:
 }
 
 //----- (00431680) --------------------------------------------------------
-int __cdecl sub_431680(int a1) {
-	*(_DWORD*)(a1 + 44) = dword_5d4594_806048;
-	*(_DWORD*)(a1 + 48) = 0;
+void sub_431680(void* p) {
+	*(_DWORD*)((_DWORD)p + 44) = dword_5d4594_806048;
+	*(_DWORD*)((_DWORD)p + 48) = 0;
 	if (dword_5d4594_806048)
-		*(_DWORD*)((_DWORD)dword_5d4594_806048 + 48) = a1;
+		*(_DWORD*)((_DWORD)dword_5d4594_806048 + 48) = p;
 	else
-		dword_5d4594_806052 = a1;
-	dword_5d4594_806048 = a1;
-	return a1;
+		dword_5d4594_806052 = p;
+	dword_5d4594_806048 = p;
 }
 
 //----- (004316C0) --------------------------------------------------------
-int __cdecl sub_4316C0(int a1) {
-	int result; // eax
-	int v2;     // ecx
-	int v3;     // ecx
-
-	result = a1;
-	if (a1 == dword_5d4594_806052)
-		dword_5d4594_806052 = *(_DWORD*)(a1 + 48);
-	v2 = *(_DWORD*)(a1 + 44);
+void sub_4316C0(void* p) {
+	if (p == dword_5d4594_806052)
+		dword_5d4594_806052 = *(_DWORD*)((_DWORD)p + 48);
+	void* v2 = *(_DWORD*)((_DWORD)p + 44);
 	if (v2)
-		*(_DWORD*)(v2 + 48) = *(_DWORD*)(a1 + 48);
-	v3 = *(_DWORD*)(a1 + 48);
+		*(_DWORD*)((_DWORD)v2 + 48) = *(_DWORD*)((_DWORD)p + 48);
+	void* v3 = *(_DWORD*)((_DWORD)p + 48);
 	if (v3) {
-		result = *(_DWORD*)(a1 + 44);
-		*(_DWORD*)(v3 + 44) = result;
+		*(_DWORD*)((_DWORD)v3 + 44) = *(_DWORD*)((_DWORD)p + 44);
 	} else {
-		dword_5d4594_806048 = *(_DWORD*)(a1 + 44);
+		dword_5d4594_806048 = *(_DWORD*)((_DWORD)p + 44);
 	}
-	return result;
 }
 
 //----- (00431700) --------------------------------------------------------
