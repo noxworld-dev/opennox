@@ -28,6 +28,7 @@ extern void mainloop_stop();
 extern void mainloop_wait_and_exit(int flags);
 
 extern int (*nox_draw_unk1)(void);
+extern int (*func_5D4594_816388)(void);
 
 void map_download_start() {
 	sub_467DF0(1);
@@ -245,7 +246,7 @@ void mainloop() {
 	sub_4453A0_poll_events();
 	sub_413520_gamedisk();
 	sub_435770();
-	if (!(*(int (**)(void)) & byte_5D4594[816388])()) {
+	if (!func_5D4594_816388()) {
 		mainloop_exit();
 		return;
 	}
