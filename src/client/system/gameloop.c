@@ -29,6 +29,7 @@ extern void mainloop_wait_and_exit(int flags);
 
 extern int (*nox_draw_unk1)(void);
 extern int (*func_5D4594_816388)(void);
+extern int (*func_5D4594_816392)(void);
 
 void map_download_start() {
 	sub_467DF0(1);
@@ -265,7 +266,7 @@ void mainloop() {
 		return;
 	}
 	sub_430880(0);
-	if (!(*(int (**)(void)) & byte_5D4594[816392])()) {
+	if (!func_5D4594_816392()) {
 		mainloop_exit();
 		return;
 	}
