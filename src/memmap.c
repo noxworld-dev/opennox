@@ -776,7 +776,7 @@ extern _DWORD dword_5d4594_2487620;
 extern _DWORD dword_5d4594_1308092;
 extern _DWORD dword_5d4594_1309824;
 extern _DWORD dword_5d4594_1308160;
-extern _DWORD dword_5d4594_3799488;
+extern void (*dword_5d4594_3799488)(void);
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_531656;
 extern void* nox_alloc_tradeSession_2386492;

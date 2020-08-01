@@ -651,7 +651,6 @@ _DWORD dword_5d4594_2487620 = 0;
 _DWORD dword_5d4594_1308092 = 0;
 _DWORD dword_5d4594_1309824 = 0;
 _DWORD dword_5d4594_1308160 = 0;
-_DWORD dword_5d4594_3799488 = 0;
 _DWORD dword_5d4594_2614264 = 0;
 _DWORD dword_5d4594_531656 = 0;
 void* nox_alloc_tradeSession_2386492 = 0;
