@@ -27,7 +27,6 @@
 
 extern _DWORD dword_5d4594_823772;
 extern _DWORD dword_5d4594_1193568;
-extern _DWORD dword_5d4594_1311924;
 extern _DWORD dword_5d4594_1193576;
 extern _DWORD dword_5d4594_810628;
 extern _DWORD dword_5d4594_808564;
@@ -81,6 +80,7 @@ int nox_video_windowsPlatformVersion = 0;
 int nox_video_cursorDrawIsThreaded = 0;
 int nox_video_gammaValue = 0;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
+int (*dword_5d4594_1311924)(void) = 0;
 
 #ifdef USE_SDL
 enum {
@@ -3314,7 +3314,7 @@ void sub_4B05D0() {
 		*(_DWORD*)&byte_5D4594[1311928] = 0;
 		if (dword_5d4594_1311924) {
 			sub_440900();
-			(*(int (**)(void)) & dword_5d4594_1311924)();
+			dword_5d4594_1311924();
 		}
 	}
 }

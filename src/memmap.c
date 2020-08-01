@@ -1193,7 +1193,7 @@ extern _DWORD dword_5d4594_1568280;
 extern _DWORD dword_5d4594_1556144;
 extern _DWORD dword_587000_60068;
 extern _DWORD dword_5d4594_1050008;
-extern _DWORD dword_5d4594_1311924;
+extern int (*dword_5d4594_1311924)(void);
 extern _DWORD dword_5d4594_3835372;
 extern _DWORD dword_5d4594_1556136;
 extern _DWORD dword_5d4594_2386168;
