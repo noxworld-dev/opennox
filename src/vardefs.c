@@ -451,7 +451,6 @@ _DWORD dword_5d4594_815040 = 0;
 _DWORD nox_server_connectionType_3596 = 0;
 _DWORD dword_5d4594_1522616 = 0;
 _DWORD nox_client_fadeObjects_80836 = 0x1;
-_DWORD dword_5d4594_815212 = 0;
 _DWORD dword_5d4594_2386924 = 0;
 _DWORD dword_5d4594_830872 = 0;
 _DWORD dword_5d4594_1096508 = 0;
