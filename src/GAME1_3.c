@@ -169,6 +169,7 @@ obj_5D4594_3799572_t obj_5D4594_3800716 = {0};
 
 int (*func_5D4594_816388)(void) = 0;
 int (*func_5D4594_816392)(void) = 0;
+void (*func_5D4594_830220)(void) = 0;
 void (*dword_5d4594_830216)(void) = 0;
 
 //----- (0043B510) --------------------------------------------------------
@@ -5853,7 +5854,7 @@ _DWORD* __cdecl sub_449A10(int a1, int a2, int a3, int a4, int (*a5)(void), int 
 		dword_5d4594_830216();
 	dword_5d4594_830228 = a1;
 	dword_5d4594_830232 = 0;
-	*(_DWORD*)&byte_5D4594[830220] = a5;
+	func_5D4594_830220 = a5;
 	dword_5d4594_830216 = a6;
 	if (dword_5d4594_830224) {
 		sub_449EA0(a4);
@@ -5943,8 +5944,8 @@ int __cdecl sub_449CA0(int a1, int a2, int* a3, int a4) {
 		if (byte_5D4594[830240] & 0x20)
 			sub_46C6E0(*(int*)&dword_5d4594_830224);
 		nox_window_call_field_94(*(int*)&dword_5d4594_830228, 16391, (int)a3, a4);
-		if (*(_DWORD*)&byte_5D4594[830220])
-			(*(void (**)(void)) & byte_5D4594[830220])();
+		if (func_5D4594_830220)
+			func_5D4594_830220();
 		if (!(byte_5D4594[830240] & 0x20))
 			return 0;
 		sub_44A400();
