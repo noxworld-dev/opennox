@@ -171,7 +171,7 @@ int (*func_5D4594_816392)(void) = 0;
 void (*func_5D4594_830220)(void) = 0;
 void (*func_5d4594_830216)(void) = 0;
 
-void* dword_5d4594_815212 = 0;
+nox_wnd_xxx* dword_5d4594_815212 = 0;
 
 //----- (0043B510) --------------------------------------------------------
 char* sub_43B510() {
@@ -693,7 +693,7 @@ void sub_43C380() {
 }
 
 //----- (0043C500) --------------------------------------------------------
-int sub_43C500() { return dword_5d4594_815212; }
+nox_wnd_xxx* sub_43C500() { return dword_5d4594_815212; }
 
 //----- (0043C510) --------------------------------------------------------
 int __cdecl sub_43C510(int a1) {
@@ -707,18 +707,16 @@ int __cdecl sub_43C510(int a1) {
 }
 
 //----- (0043C520) --------------------------------------------------------
-_DWORD* __cdecl sub_43C520(int a1) {
-	_DWORD* result; // eax
-
-	result = *(_DWORD**)&dword_5d4594_815212;
-	if (!dword_5d4594_815212)
+nox_wnd_xxx* sub_43C520(int a1) {
+	nox_wnd_xxx* p = dword_5d4594_815212;
+	if (!p)
 		return 0;
-	while (*result != a1) {
-		result = (_DWORD*)result[10];
-		if (!result)
+	while (p->field_0 != a1) {
+		p = p->field_10;
+		if (!p)
 			return 0;
 	}
-	return result;
+	return p;
 }
 
 //----- (0043C540) --------------------------------------------------------
@@ -729,25 +727,23 @@ nox_wnd_xxx* nox_wnd_sub_43C540() {
 	}
 	p->field_10 = dword_5d4594_815212;
 	if (dword_5d4594_815212)
-		*(_DWORD*)((_DWORD)dword_5d4594_815212 + 44) = p;
+		dword_5d4594_815212->field_11 = p;
 	dword_5d4594_815212 = p;
 	return p;
 }
 
 //----- (0043C570) --------------------------------------------------------
-void __cdecl sub_43C570(LPVOID lpMem) {
-	int v1; // ecx
-	int v2; // ecx
-
-	v1 = *((_DWORD*)lpMem + 10);
+void sub_43C570(nox_wnd_xxx* p) {
+	nox_wnd_xxx* v1 = p->field_10;
 	if (v1)
-		*(_DWORD*)(v1 + 44) = *((_DWORD*)lpMem + 11);
-	v2 = *((_DWORD*)lpMem + 11);
+		v1->field_11 = p->field_11;
+
+	nox_wnd_xxx* v2 = p->field_11;
 	if (v2)
-		*(_DWORD*)(v2 + 40) = *((_DWORD*)lpMem + 10);
+		v2->field_10 = p->field_10;
 	else
-		dword_5d4594_815212 = *((_DWORD*)lpMem + 10);
-	free(lpMem);
+		dword_5d4594_815212 = p->field_10;
+	free(p);
 }
 
 //----- (0043C5B0) --------------------------------------------------------

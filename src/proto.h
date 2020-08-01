@@ -1651,11 +1651,11 @@ _DWORD* sub_43C220();
 int sub_43C260();
 int sub_43C2F0();
 void sub_43C380();
-int sub_43C500();
+nox_wnd_xxx* sub_43C500();
 int __cdecl sub_43C510(int a1);
-_DWORD* __cdecl sub_43C520(int a1);
+nox_wnd_xxx* sub_43C520(int a1);
 nox_wnd_xxx* nox_wnd_sub_43C540();
-void __cdecl sub_43C570(LPVOID lpMem); // idb
+void sub_43C570(nox_wnd_xxx* p); // idb
 _DWORD* __cdecl nox_wnd_sub_43C5B0(_DWORD* a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9);
 void sub_43C640();
 int sub_43C650();
