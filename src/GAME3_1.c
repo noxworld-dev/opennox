@@ -54,7 +54,6 @@ extern _DWORD dword_5d4594_1319236;
 extern _DWORD dword_5d4594_1320972;
 extern _DWORD dword_5d4594_3679316;
 extern _DWORD dword_5d4594_1316704;
-extern _DWORD dword_5d4594_3799488;
 extern _DWORD dword_5d4594_1321208;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_5d4594_1321800;
@@ -144,6 +143,7 @@ extern obj_5D4594_3799572_t obj_5D4594_3800716;
 void (*dword_5d4594_3799536)(void) = 0;
 void (*dword_5d4594_3799432)(void) = 0;
 void (*dword_5d4594_3799544)(void) = 0;
+void (*dword_5d4594_3799488)(void) = 0;
 
 //----- (004B9470) --------------------------------------------------------
 int __cdecl sub_4B9470(const char** a1) {
@@ -6219,7 +6219,7 @@ int __cdecl sub_4C6260(int a1, int a2, int a3) {
 								dword_5d4594_3799544();
 								goto LABEL_26;
 							case 6:
-								(*(void (**)(void)) & dword_5d4594_3799488)();
+								dword_5d4594_3799488();
 							LABEL_26:
 								v15 -= *(_DWORD*)&byte_5D4594[3799456];
 								if (v15 <= 0)
@@ -6455,7 +6455,7 @@ unsigned __int8* __cdecl sub_4C64E0(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v34 > v5) {
 							*(_DWORD*)&byte_5D4594[3799456] = v5 - v13;
 						LABEL_78:
-							(*(void (**)(void)) & dword_5d4594_3799488)();
+							dword_5d4594_3799488();
 						}
 					LABEL_79:
 						v27 = v43;
@@ -7409,7 +7409,7 @@ int __cdecl sub_4C79F0(int a1, int a2, int a3) {
 								dword_5d4594_3799544();
 								break;
 							case 6:
-								(*(void (**)(void)) & dword_5d4594_3799488)();
+								dword_5d4594_3799488();
 								break;
 							default:
 								break;
@@ -7652,7 +7652,7 @@ unsigned __int8* __cdecl sub_4C7C80(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v34 > v5) {
 							*(_DWORD*)&byte_5D4594[3799456] = v5 - v13;
 						LABEL_65:
-							(*(void (**)(void)) & dword_5d4594_3799488)();
+							dword_5d4594_3799488();
 						}
 					LABEL_66:
 						v30 = v44;
