@@ -331,6 +331,7 @@ typedef struct nox_shape {
 	float box_right_bottom_2; // 0x2C
 	float box_right_top_2;    // 0x30
 } nox_shape;
+_Static_assert(sizeof(nox_shape) == 52, "wrong size of nox_shape structure!");
 
 typedef struct string {
 	int field_0;
@@ -399,6 +400,7 @@ typedef struct nox_alloc_class {
 	int cnt2;                // 36
 	_DWORD field_37;         // 37
 } nox_alloc_class;
+_Static_assert(sizeof(nox_alloc_class) == 152, "wrong size of nox_alloc_class structure!");
 
 typedef struct nox_thing nox_thing;
 typedef struct nox_drawable nox_drawable;
@@ -443,6 +445,7 @@ typedef struct nox_thing {
 	_WORD health;                                    // 31, 0x7c, 124
 	_WORD field_7e;                                  // 31, 0x7e, 126
 } nox_thing;
+_Static_assert(sizeof(nox_thing) == 128, "wrong size of nox_thing structure!");
 
 typedef enum { NOX_WIN_HIDDEN = 0x10, NOX_WIN_LAYER_FRONT = 0x20, NOX_WIN_LAYER_BACK = 0x40 } nox_window_flags;
 
@@ -468,6 +471,7 @@ typedef struct nox_window {
 	nox_window* field_99;                 // 99
 	nox_window* field_100;                // 100
 } nox_window;
+_Static_assert(sizeof(nox_window) == 404, "wrong size of nox_window structure!");
 
 typedef struct nox_drawable {
 	_DWORD field_0;        // 0, 0
@@ -576,6 +580,7 @@ typedef struct nox_drawable {
 	_DWORD field_126;
 	_DWORD field_127;
 } nox_drawable;
+_Static_assert(sizeof(nox_drawable) == 512, "wrong size of nox_drawable structure!");
 
 typedef struct obj_412ae0_t obj_412ae0_t;
 typedef struct obj_412ae0_t {
@@ -616,6 +621,7 @@ typedef struct obj_412ae0_t {
 	obj_412ae0_t* field_34;
 	obj_412ae0_t* field_35;
 } obj_412ae0_t;
+_Static_assert(sizeof(obj_412ae0_t) == 144, "wrong size of obj_412ae0_t structure!");
 
 typedef struct table_26792_t {
 	const char* name;
@@ -683,6 +689,7 @@ typedef struct nox_mouse_state_t {
 	_DWORD field_12;
 	_DWORD middle_seq;
 } nox_mouse_state_t;
+_Static_assert(sizeof(nox_mouse_state_t) == 56, "wrong size of nox_mouse_state_t structure!");
 
 typedef struct obj_5D4594_3799572_t {
 	_DWORD data[264];
@@ -709,6 +716,7 @@ typedef struct {
 	int field_9;     // 9, 36
 	void* field_10;  // 10, 40
 } obj_5D4594_2650668_t;
+_Static_assert(sizeof(obj_5D4594_2650668_t) == 44, "wrong size of obj_5D4594_2650668_t structure!");
 
 typedef struct {
 	bool live;
