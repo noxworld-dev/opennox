@@ -722,16 +722,15 @@ _DWORD* __cdecl sub_43C520(int a1) {
 
 //----- (0043C540) --------------------------------------------------------
 _DWORD* nox_wnd_sub_43C540() {
-	_DWORD* result; // eax
-
-	result = nox_calloc(1u, 0x44u);
-	if (result) {
-		result[10] = dword_5d4594_815212;
-		if (dword_5d4594_815212)
-			*(_DWORD*)(dword_5d4594_815212 + 44) = result;
-		dword_5d4594_815212 = result;
+	_DWORD* p = nox_calloc(1, 68);
+	if (!p) {
+		return 0;
 	}
-	return result;
+	p[10] = dword_5d4594_815212;
+	if (dword_5d4594_815212)
+		*(_DWORD*)(dword_5d4594_815212 + 44) = p;
+	dword_5d4594_815212 = p;
+	return p;
 }
 
 //----- (0043C570) --------------------------------------------------------
