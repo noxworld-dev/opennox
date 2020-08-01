@@ -77,7 +77,6 @@ extern _DWORD dword_5d4594_825744;
 extern _DWORD dword_5d4594_816372;
 extern _DWORD nox_client_renderGlow_805852;
 extern _DWORD nox_client_translucentConsole_80824;
-extern _DWORD dword_5d4594_815212;
 extern _DWORD nox_client_fadeObjects_80836;
 extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_815708;
@@ -171,6 +170,8 @@ int (*func_5D4594_816388)(void) = 0;
 int (*func_5D4594_816392)(void) = 0;
 void (*func_5D4594_830220)(void) = 0;
 void (*func_5d4594_830216)(void) = 0;
+
+void* dword_5d4594_815212 = 0;
 
 //----- (0043B510) --------------------------------------------------------
 char* sub_43B510() {
@@ -728,7 +729,7 @@ nox_wnd_xxx* nox_wnd_sub_43C540() {
 	}
 	p->field_10 = dword_5d4594_815212;
 	if (dword_5d4594_815212)
-		*(_DWORD*)(dword_5d4594_815212 + 44) = p;
+		*(_DWORD*)((_DWORD)dword_5d4594_815212 + 44) = p;
 	dword_5d4594_815212 = p;
 	return p;
 }
