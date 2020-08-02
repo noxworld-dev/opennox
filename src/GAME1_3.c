@@ -65,7 +65,6 @@ extern _DWORD dword_587000_93196;
 extern _DWORD dword_5d4594_826036;
 extern _DWORD dword_5d4594_816356;
 extern _DWORD dword_5d4594_826032;
-extern _DWORD dword_5d4594_830244;
 extern _DWORD dword_587000_173328;
 extern _DWORD nox_client_renderBubbles_80844;
 extern _DWORD dword_5d4594_830276;
@@ -172,6 +171,7 @@ void (*func_5d4594_830216)(void) = 0;
 
 nox_wnd_xxx* dword_5d4594_815212 = 0;
 nox_wnd_xxx* dword_5d4594_829520 = 0;
+void* dword_5d4594_830244 = 0;
 
 //----- (0043B510) --------------------------------------------------------
 char* sub_43B510() {
@@ -6273,7 +6273,7 @@ char* __cdecl sub_44A520(int a1) {
 
 //----- (0044AA40) --------------------------------------------------------
 int sub_44AA40() {
-	*(_BYTE*)(dword_5d4594_830244 + 64) = 2;
+	*(_BYTE*)((_DWORD)dword_5d4594_830244 + 64) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
 	sub_4207F0(1);
@@ -6284,7 +6284,7 @@ int sub_44AA40() {
 int sub_44AA70() {
 	void (*v0)(void); // esi
 
-	v0 = *(void (**)(void))(dword_5d4594_830244 + 52);
+	v0 = *(void (**)(void))((_DWORD)dword_5d4594_830244 + 52);
 	sub_43C570(*(LPVOID*)&dword_5d4594_830244);
 	if (dword_5d4594_830248) {
 		sub_46C4E0(*(_DWORD**)&dword_5d4594_830248);
@@ -6452,11 +6452,11 @@ int __cdecl sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 int sub_44AF70() {
 	int result; // eax
 
-	*(_BYTE*)(dword_5d4594_830244 + 64) = 2;
+	*(_BYTE*)((_DWORD)dword_5d4594_830244 + 64) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
 	result = 1;
-	*(_DWORD*)(dword_5d4594_830244 + 52) = sub_447620_wol_chat;
+	*(_DWORD*)((_DWORD)dword_5d4594_830244 + 52) = sub_447620_wol_chat;
 	dword_5d4594_830248 = 0;
 	return result;
 }
