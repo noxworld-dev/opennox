@@ -747,29 +747,27 @@ void sub_43C570(nox_wnd_xxx* p) {
 }
 
 //----- (0043C5B0) --------------------------------------------------------
-_DWORD* __cdecl nox_wnd_sub_43C5B0(_DWORD* a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9) {
-	_DWORD* v9; // esi
-
-	v9 = nox_wnd_sub_43C540();
-	if (!v9)
+nox_wnd_xxx* nox_wnd_sub_43C5B0(_DWORD* a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9) {
+	nox_wnd_xxx* p = nox_wnd_sub_43C540();
+	if (!p)
 		return 0;
 	nox_wnd_sub_46A9B0(a1, a4, a5);
-	v9[4] = a2;
-	v9[5] = a3;
-	v9[8] = a6;
-	v9[1] = a1;
-	v9[2] = a4;
-	v9[3] = a5;
-	v9[9] = a7;
-	v9[6] = a8;
-	v9[7] = a9;
-	*((_BYTE*)v9 + 64) = 3;
+	p->field_4 = a2;
+	p->field_5 = a3;
+	p->field_8 = a6;
+	p->field_1 = a1;
+	p->field_2 = a4;
+	p->field_3 = a5;
+	p->field_9 = a7;
+	p->field_6 = a8;
+	p->field_7 = a9;
+	*((_BYTE*)&p->field_16) = 3;
 	sub_43BE40(3);
 	sub_452D80(922, 100);
-	v9[12] = 0;
-	v9[14] = 0;
-	v9[15] = 0;
-	return v9;
+	p->field_12 = 0;
+	p->field_14 = 0;
+	p->field_15 = 0;
+	return p;
 }
 
 //----- (0043C640) --------------------------------------------------------
