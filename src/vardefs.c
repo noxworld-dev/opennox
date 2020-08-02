@@ -817,7 +817,6 @@ _DWORD dword_5d4594_1556848 = 0;
 _DWORD dword_5d4594_2487584 = 0;
 _DWORD dword_5d4594_251712 = 0;
 _DWORD dword_5d4594_371756 = 0;
-_DWORD dword_5d4594_1522608 = 0;
 _DWORD dword_5d4594_531652 = 0;
 _DWORD dword_5d4594_2487948 = 0;
 void* nox_alloc_healthChange_1301772 = 0;
