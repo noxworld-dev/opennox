@@ -82,7 +82,7 @@ extern _DWORD dword_587000_173336;
 extern _DWORD dword_587000_173328;
 extern _DWORD dword_5d4594_1309784;
 extern _DWORD dword_5d4594_1312476;
-extern void* dword_5d4594_1307748;
+extern nox_wnd_xxx* dword_5d4594_1307748;
 extern _DWORD dword_5d4594_1307736;
 extern _DWORD dword_5d4594_3798648;
 extern _DWORD dword_5d4594_1309776;
@@ -1706,7 +1706,7 @@ int __cdecl sub_4A4CB0(const void* a1, const void* a2) {
 
 //----- (004A50A0) --------------------------------------------------------
 int sub_4A50A0() {
-	*(_BYTE*)((_DWORD)dword_5d4594_1307748 + 64) = 2;
+	*(_BYTE*)(&dword_5d4594_1307748->field_16) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
 	return 1;
@@ -1714,10 +1714,10 @@ int sub_4A50A0() {
 
 //----- (004A50D0) --------------------------------------------------------
 int sub_4A50D0() {
-	void (*v0)(void); // esi
+	int (*v0)(void); // esi
 
-	v0 = *(void (**)(void))((_DWORD)dword_5d4594_1307748 + 52);
-	sub_43C570(*(LPVOID*)&dword_5d4594_1307748);
+	v0 = dword_5d4594_1307748->field_13;
+	sub_43C570(dword_5d4594_1307748);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1307764);
 	if (v0) {
 		v0();
