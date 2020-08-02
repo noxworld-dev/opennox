@@ -952,7 +952,7 @@ extern _DWORD dword_5d4594_1556848;
 extern _DWORD dword_5d4594_2487584;
 extern _DWORD dword_5d4594_251712;
 extern _DWORD dword_5d4594_371756;
-extern _DWORD dword_5d4594_1522608;
+extern nox_wnd_xxx* dword_5d4594_1522608;
 extern _DWORD dword_5d4594_531652;
 extern _DWORD dword_5d4594_2487948;
 extern void* nox_alloc_healthChange_1301772;
