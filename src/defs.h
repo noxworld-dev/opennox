@@ -759,6 +759,7 @@ typedef struct nox_screenParticle {
 } nox_screenParticle;
 _Static_assert(sizeof(nox_screenParticle) == 52, "wrong size of nox_screenParticle structure!");
 
+typedef struct nox_wnd_xxx nox_wnd_xxx;
 typedef struct nox_wnd_xxx {
 	_DWORD field_0; // 0, 0
 	_DWORD field_1; // 0, 4
@@ -770,8 +771,8 @@ typedef struct nox_wnd_xxx {
 	_DWORD field_7; // 0, 28
 	_DWORD field_8; // 0, 32
 	_DWORD field_9; // 0, 36
-	_DWORD field_10; // 0, 40
-	_DWORD field_11; // 0, 44
+	nox_wnd_xxx* field_10; // 0, 40
+	nox_wnd_xxx* field_11; // 0, 44
 	_DWORD field_12; // 0, 48
 	_DWORD field_13; // 0, 52
 	_DWORD field_14; // 0, 56
