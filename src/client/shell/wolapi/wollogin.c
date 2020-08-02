@@ -4,7 +4,7 @@ extern _DWORD dword_5d4594_830268;
 extern _DWORD dword_5d4594_830252;
 extern _DWORD dword_5d4594_830260;
 extern _DWORD dword_5d4594_830256;
-extern _DWORD dword_5d4594_830244;
+extern void* dword_5d4594_830244;
 extern _DWORD dword_5d4594_830276;
 extern _DWORD dword_5d4594_830264;
 extern _DWORD dword_5d4594_830248;
@@ -52,8 +52,8 @@ int sub_44A560_wol_login() {
 		if (!result)
 			return result;
 		*(_DWORD*)result = 1700;
-		*(_DWORD*)(dword_5d4594_830244 + 48) = sub_44AA40;
-		*(_DWORD*)(dword_5d4594_830244 + 56) = sub_44AA70;
+		*(_DWORD*)((_DWORD)dword_5d4594_830244 + 48) = sub_44AA40;
+		*(_DWORD*)((_DWORD)dword_5d4594_830244 + 56) = sub_44AA70;
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_830248, sub_44AAC0, 0, 0);
 	}
 	sub_41FCF0();
