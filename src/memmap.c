@@ -789,7 +789,7 @@ extern _DWORD dword_587000_145664;
 extern _DWORD dword_5d4594_787180;
 extern _DWORD dword_5d4594_787200;
 extern _DWORD dword_5d4594_1316704;
-extern _DWORD dword_5d4594_1307732;
+extern void* dword_5d4594_1307732;
 extern _DWORD dword_5d4594_3679316;
 extern _DWORD dword_5d4594_1082864;
 extern _DWORD dword_587000_93200;
