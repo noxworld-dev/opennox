@@ -4,7 +4,7 @@
 #include "noxworld.h"
 #include "selchar.h"
 
-extern _DWORD dword_5d4594_1307308;
+extern void* dword_5d4594_1307308;
 extern _DWORD dword_5d4594_815132;
 extern nox_window* nox_win_main_menu;
 
@@ -23,7 +23,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 	} else {
 		if (a2 != 16391)
 			return 0;
-		if (*(_BYTE*)(dword_5d4594_1307308 + 64) && !nox_common_gameFlags_check_40A5C0(0x2000000)) {
+		if (*(_BYTE*)((_DWORD)dword_5d4594_1307308 + 64) && !nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		LABEL_32:
 			sub_452D80(921, 100);
 		} else {
@@ -52,10 +52,10 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 					}
 					if (sub_4DC550()) {
 						sub_4A7A70(1);
-						*(_DWORD*)(dword_5d4594_1307308 + 52) = sub_4A4DB0;
+						*(_DWORD*)((_DWORD)dword_5d4594_1307308 + 52) = sub_4A4DB0;
 					} else {
 						sub_4A7A70(0);
-						*(_DWORD*)(dword_5d4594_1307308 + 52) = sub_4A4840;
+						*(_DWORD*)((_DWORD)dword_5d4594_1307308 + 52) = sub_4A4840;
 					}
 					sub_452D80(921, 100);
 				} else {
@@ -95,7 +95,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_4A1D40();
 				sub_4B0300(v10);
 				sub_4B0640(sub_43C0A0);
-				*(_DWORD*)(dword_5d4594_1307308 + 52) = sub_4A2200;
+				*(_DWORD*)((_DWORD)dword_5d4594_1307308 + 52) = sub_4A2200;
 				sub_452D80(921, 100);
 				return 1;
 			case 122:
@@ -142,7 +142,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 				*(_DWORD*)(dword_5d4594_1307308 + 52) = sub_4379F0;
 				sub_43AF50(0);
 #else
-				*(_DWORD*)(dword_5d4594_1307308 + 52) = sub_4AA270;
+				*(_DWORD*)((_DWORD)dword_5d4594_1307308 + 52) = sub_4AA270;
 #endif
 				sub_452D80(921, 100);
 				break;

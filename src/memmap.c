@@ -501,7 +501,7 @@ extern void* nox_alloc_screenParticles_806044;
 extern _DWORD dword_5d4594_528252;
 extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_1309828;
-extern _DWORD dword_5d4594_1307308;
+extern void* dword_5d4594_1307308;
 extern _DWORD dword_587000_122852;
 extern _DWORD dword_5d4594_1301776;
 extern _DWORD dword_5d4594_1301836;
