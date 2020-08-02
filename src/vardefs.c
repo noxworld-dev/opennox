@@ -452,7 +452,6 @@ _DWORD nox_client_fadeObjects_80836 = 0x1;
 _DWORD dword_5d4594_2386924 = 0;
 _DWORD dword_5d4594_830872 = 0;
 _DWORD dword_5d4594_1096508 = 0;
-_DWORD dword_5d4594_1309740 = 0;
 _DWORD dword_5d4594_1312472 = 0;
 _DWORD dword_5d4594_1200804 = 0;
 _DWORD dword_5d4594_1049484 = 0;
