@@ -1859,7 +1859,7 @@ int __cdecl sub_446940(int a1);
 BOOL sub_446950();
 wchar_t* __cdecl sub_4469D0(int a1);
 int sub_446A90();
-int __cdecl sub_446AD0(int a1);
+void sub_446AD0(int (*fnc)(void));
 char* __cdecl sub_446BC0(int a1);
 int __cdecl sub_446C10(int a1, int a2);
 int sub_446C70();
