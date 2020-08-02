@@ -381,7 +381,6 @@ void* nox_alloc_screenParticles_806044 = 0;
 _DWORD dword_5d4594_528252 = 0;
 _DWORD dword_5d4594_754040 = 0;
 _DWORD dword_5d4594_1309828 = 0;
-_DWORD dword_5d4594_1307308 = 0;
 _DWORD dword_587000_122852 = &byte_5D4594[830980];
 _DWORD dword_5d4594_1301776 = 0;
 _DWORD dword_5d4594_1301836 = 0;
