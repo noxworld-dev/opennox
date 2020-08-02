@@ -63,7 +63,6 @@ extern _DWORD dword_5d4594_815704;
 extern _DWORD dword_587000_80832;
 extern _DWORD dword_587000_93196;
 extern _DWORD dword_5d4594_826036;
-extern _DWORD dword_5d4594_829520;
 extern _DWORD dword_5d4594_816356;
 extern _DWORD dword_5d4594_826032;
 extern _DWORD dword_5d4594_830244;
@@ -172,6 +171,7 @@ void (*func_5D4594_830220)(void) = 0;
 void (*func_5d4594_830216)(void) = 0;
 
 nox_wnd_xxx* dword_5d4594_815212 = 0;
+void* dword_5d4594_829520 = 0;
 
 //----- (0043B510) --------------------------------------------------------
 char* sub_43B510() {
@@ -4838,11 +4838,11 @@ wchar_t* __cdecl sub_4469D0(int a1) {
 int sub_446A90() {
 	int result; // eax
 
-	*(_BYTE*)(dword_5d4594_829520 + 64) = 2;
+	*(_BYTE*)((_DWORD)dword_5d4594_829520 + 64) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
 	result = 1;
-	*(_DWORD*)(dword_5d4594_829520 + 52) = sub_4379F0;
+	*(_DWORD*)((_DWORD)dword_5d4594_829520 + 52) = sub_4379F0;
 	return result;
 }
 
@@ -4851,7 +4851,7 @@ int __cdecl sub_446AD0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)(dword_5d4594_829520 + 52) = a1;
+	*(_DWORD*)((_DWORD)dword_5d4594_829520 + 52) = a1;
 	return result;
 }
 
@@ -5171,7 +5171,7 @@ void sub_447600() {
 int sub_447BD0() {
 	void (*v0)(void); // esi
 
-	v0 = *(void (**)(void))(dword_5d4594_829520 + 52);
+	v0 = *(void (**)(void))((_DWORD)dword_5d4594_829520 + 52);
 	sub_43C570(*(LPVOID*)&dword_5d4594_829520);
 	sub_448490();
 	v0();
