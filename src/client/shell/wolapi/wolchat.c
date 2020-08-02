@@ -6,7 +6,7 @@ extern _DWORD dword_5d4594_829532;
 extern _DWORD dword_587000_109280;
 extern _DWORD dword_5d4594_829544;
 extern _DWORD dword_5d4594_829500;
-extern _DWORD dword_5d4594_829520;
+extern void* dword_5d4594_829520;
 extern _DWORD dword_5d4594_829516;
 extern _DWORD dword_5d4594_829512;
 extern _DWORD dword_5d4594_829484;
@@ -258,8 +258,8 @@ int sub_447620_wol_chat() {
 		dword_5d4594_829520 = result;
 		if (result) {
 			*(_DWORD*)result = 1900;
-			*(_DWORD*)(dword_5d4594_829520 + 48) = sub_446A90;
-			*(_DWORD*)(dword_5d4594_829520 + 56) = sub_447BD0;
+			*(_DWORD*)((_DWORD)dword_5d4594_829520 + 48) = sub_446A90;
+			*(_DWORD*)((_DWORD)dword_5d4594_829520 + 56) = sub_447BD0;
 			dword_5d4594_829484 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1908);
 			dword_5d4594_829488 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1909);
 			dword_5d4594_829492 = sub_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1907);
