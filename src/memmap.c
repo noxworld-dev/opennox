@@ -576,7 +576,7 @@ extern nox_wnd_xxx* dword_5d4594_815212;
 extern _DWORD dword_5d4594_2386924;
 extern _DWORD dword_5d4594_830872;
 extern _DWORD dword_5d4594_1096508;
-extern _DWORD dword_5d4594_1309740;
+extern void* dword_5d4594_1309740;
 extern _DWORD dword_5d4594_1312472;
 extern _DWORD dword_5d4594_1200804;
 extern _DWORD dword_5d4594_1049484;
