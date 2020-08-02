@@ -198,7 +198,6 @@ int __cdecl sub_4A1BE0(int a1) { return sub_46ABB0(*(int*)&dword_5d4594_1307292,
 
 //----- (004A1C00) --------------------------------------------------------
 int sub_4A1C00() {
-	int result; // eax
 	_DWORD* v1; // esi
 	_DWORD* v2; // esi
 	_DWORD* v3; // eax
@@ -206,36 +205,35 @@ int sub_4A1C00() {
 	sub_4D6F40(0);
 	sub_4D6F90(0);
 	sub_43BDD0(100);
-	result = nox_new_window_from_file("MainMenu.wnd", sub_4A1DC0);
-	nox_win_main_menu = result;
-	if (result) {
-		sub_46B300(result, sub_4A18E0);
-		v1 = sub_46B0C0(nox_win_main_menu, 110);
-		sub_46B2C0((int)v1, sub_4A1DC0);
-		result = nox_wnd_sub_43C5B0(v1, 0, 0, 0, -270, 0, 20, 0, -40);
-		dword_5d4594_1307308 = result;
-		if (result) {
-			*(_DWORD*)result = 100;
-			*(_DWORD*)(dword_5d4594_1307308 + 48) = sub_4A1D40;
-			*(_DWORD*)(dword_5d4594_1307308 + 56) = sub_4A1D80;
-			v2 = sub_46B0C0(nox_win_main_menu, 120);
-			sub_46B2C0((int)v2, sub_4A1DC0);
-			result = nox_wnd_sub_43C5B0(v2, 0, 270, 0, 510, 0, -20, 0, 40);
-			*(_DWORD*)&byte_5D4594[1307304] = result;
-			if (result) {
-				sub_4A19F0((char*)&byte_587000[169196]);
-				sub_4D1650();
-				sub_578CD0();
-				sub_43D9B0(25, 100);
-				if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-					v3 = sub_46B0C0(nox_win_main_menu, 112);
-					nox_window_call_field_94(nox_win_main_menu, 16391, (int)v3, 0);
-				}
-				result = 1;
-			}
-		}
+	nox_win_main_menu = nox_new_window_from_file("MainMenu.wnd", sub_4A1DC0);
+	if (!nox_win_main_menu) {
+		return 0;
 	}
-	return result;
+	sub_46B300(nox_win_main_menu, sub_4A18E0);
+	v1 = sub_46B0C0(nox_win_main_menu, 110);
+	sub_46B2C0((int)v1, sub_4A1DC0);
+	dword_5d4594_1307308 = nox_wnd_sub_43C5B0(v1, 0, 0, 0, -270, 0, 20, 0, -40);
+	if (!dword_5d4594_1307308) {
+		return 0;
+	}
+	*(_DWORD*)(dword_5d4594_1307308 + 0) = 100;
+	*(_DWORD*)(dword_5d4594_1307308 + 48) = sub_4A1D40;
+	*(_DWORD*)(dword_5d4594_1307308 + 56) = sub_4A1D80;
+	v2 = sub_46B0C0(nox_win_main_menu, 120);
+	sub_46B2C0((int)v2, sub_4A1DC0);
+	*(_DWORD*)&byte_5D4594[1307304] = nox_wnd_sub_43C5B0(v2, 0, 270, 0, 510, 0, -20, 0, 40);
+	if (!*(_DWORD*)&byte_5D4594[1307304]) {
+		return 0;
+	}
+	sub_4A19F0((char*)&byte_587000[169196]);
+	sub_4D1650();
+	sub_578CD0();
+	sub_43D9B0(25, 100);
+	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
+		v3 = sub_46B0C0(nox_win_main_menu, 112);
+		nox_window_call_field_94(nox_win_main_menu, 16391, (int)v3, 0);
+	}
+	return 1;
 }
 // 4A18E0: using guessed type int __cdecl sub_4A18E0(int, int, int, int);
 
