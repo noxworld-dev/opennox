@@ -75,7 +75,6 @@ extern _DWORD dword_5d4594_1313540;
 extern _DWORD dword_5d4594_1307292;
 extern _DWORD dword_5d4594_1308160;
 extern _DWORD dword_5d4594_1309824;
-extern _DWORD dword_5d4594_1308092;
 extern _DWORD dword_5d4594_1307720;
 extern _DWORD dword_5d4594_1308164;
 extern _DWORD dword_587000_173336;
@@ -159,6 +158,7 @@ nox_window* nox_win_main_menu = 0;
 nox_window* nox_win_main_bg = 0;
 nox_wnd_xxx* dword_5d4594_1307308 = 0;
 nox_wnd_xxx* dword_5d4594_1307732 = 0;
+void* dword_5d4594_1308092 = 0;
 
 //----- (004A19D0) --------------------------------------------------------
 int sub_4A19D0() {
@@ -2139,7 +2139,7 @@ char sub_4A62B0() {
 
 //----- (004A6890) --------------------------------------------------------
 int sub_4A6890() {
-	*(_BYTE*)(dword_5d4594_1308092 + 64) = 2;
+	*(_BYTE*)((_DWORD)dword_5d4594_1308092 + 64) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
 	sub_4A68C0();
@@ -2213,7 +2213,7 @@ int __cdecl sub_4A6B50(wchar_t* a1) {
 int sub_4A6C90() {
 	void (*v0)(void); // esi
 
-	v0 = *(void (**)(void))(dword_5d4594_1308092 + 52);
+	v0 = *(void (**)(void))((_DWORD)dword_5d4594_1308092 + 52);
 	sub_43C570(*(LPVOID*)&dword_5d4594_1308092);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1308084);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1308088);
@@ -2599,7 +2599,7 @@ int __cdecl sub_4A7330(int a1, int a2, int* a3, unsigned int a4) {
 				}
 				sub_4A24C0(0);
 				sub_4A6890();
-				*(_DWORD*)(dword_5d4594_1308092 + 52) = 0;
+				*(_DWORD*)((_DWORD)dword_5d4594_1308092 + 52) = 0;
 			}
 			break;
 		default:
