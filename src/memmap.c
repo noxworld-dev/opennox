@@ -720,7 +720,7 @@ extern _DWORD dword_5d4594_2487240;
 extern _DWORD dword_5d4594_1064820;
 extern void* nox_alloc_debugData_2523908;
 extern _DWORD dword_5d4594_1197356;
-extern void* dword_5d4594_829520;
+extern nox_wnd_xxx* dword_5d4594_829520;
 extern _DWORD dword_5d4594_2388640;
 extern _DWORD dword_5d4594_1097188;
 extern _DWORD dword_5d4594_1045436;
