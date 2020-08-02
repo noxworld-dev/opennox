@@ -568,7 +568,7 @@ extern _DWORD dword_5d4594_2487532;
 extern _DWORD dword_5d4594_1309716;
 extern _DWORD dword_5d4594_1064900;
 extern _DWORD dword_5d4594_805984;
-extern void* dword_5d4594_815040;
+extern nox_wnd_xxx* dword_5d4594_815040;
 extern _DWORD nox_server_connectionType_3596;
 extern _DWORD dword_5d4594_1522616;
 extern _DWORD nox_client_fadeObjects_80836;
