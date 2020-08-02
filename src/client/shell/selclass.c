@@ -3,7 +3,7 @@
 #include "../../proto.h"
 #include "selcolor.h"
 extern _DWORD dword_5d4594_1307724;
-extern _DWORD dword_5d4594_1307732;
+extern void* dword_5d4594_1307732;
 extern _DWORD dword_5d4594_1307736;
 
 //----- (004A4A20) --------------------------------------------------------
@@ -29,7 +29,7 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
 					sub_4A4B70(v5);
 				}
 				sub_4A4970();
-				*(_DWORD*)(dword_5d4594_1307732 + 52) = sub_4A5D00;
+				*(_DWORD*)((_DWORD)dword_5d4594_1307732 + 52) = sub_4A5D00;
 			}
 		}
 		sub_452D80(921, 100);
