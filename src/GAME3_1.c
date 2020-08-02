@@ -44,7 +44,6 @@ extern _DWORD dword_587000_80840;
 extern _DWORD dword_587000_183456;
 extern _DWORD dword_5d4594_1320988;
 extern _DWORD dword_5d4594_1522596;
-extern _DWORD dword_5d4594_1522608;
 extern _DWORD dword_5d4594_1319248;
 extern _DWORD dword_5d4594_1193156;
 extern _DWORD dword_5d4594_3799552;
@@ -144,6 +143,8 @@ void (*func_5d4594_3799536)(void) = 0;
 void (*func_5d4594_3799432)(void) = 0;
 void (*func_5d4594_3799544)(void) = 0;
 void (*func_5d4594_3799488)(void) = 0;
+
+void* dword_5d4594_1522608 = 0;
 
 //----- (004B9470) --------------------------------------------------------
 int __cdecl sub_4B9470(const char** a1) {
@@ -9819,8 +9820,8 @@ int sub_4CB880() {
 		dword_5d4594_1522608 = result;
 		if (result) {
 			*(_DWORD*)result = 900;
-			*(_DWORD*)(dword_5d4594_1522608 + 48) = sub_4CBB70;
-			*(_DWORD*)(dword_5d4594_1522608 + 56) = sub_4CBBB0;
+			*(_DWORD*)((_DWORD)dword_5d4594_1522608 + 48) = sub_4CBB70;
+			*(_DWORD*)((_DWORD)dword_5d4594_1522608 + 56) = sub_4CBBB0;
 			dword_5d4594_1522616 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 910);
 			dword_5d4594_1522620 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 911);
 			dword_5d4594_1522624 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 912);
@@ -9877,7 +9878,7 @@ int sub_4CB880() {
 int sub_4CBB70() {
 	sub_4CBD30();
 	nox_common_writecfgfile((char*)&byte_587000[187536]);
-	*(_BYTE*)(dword_5d4594_1522608 + 64) = 2;
+	*(_BYTE*)((_DWORD)dword_5d4594_1522608 + 64) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
 	return 1;
@@ -9887,7 +9888,7 @@ int sub_4CBB70() {
 int sub_4CBBB0() {
 	void (*v0)(void); // esi
 
-	v0 = *(void (**)(void))(dword_5d4594_1522608 + 52);
+	v0 = *(void (**)(void))((_DWORD)dword_5d4594_1522608 + 52);
 	sub_43C570(*(LPVOID*)&dword_5d4594_1522608);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1522604);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1522612);
