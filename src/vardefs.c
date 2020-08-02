@@ -593,7 +593,6 @@ _DWORD dword_5d4594_2487240 = 0;
 _DWORD dword_5d4594_1064820 = 0;
 void* nox_alloc_debugData_2523908 = 0;
 _DWORD dword_5d4594_1197356 = 0;
-_DWORD dword_5d4594_829520 = 0;
 _DWORD dword_5d4594_2388640 = 0;
 _DWORD dword_5d4594_1097188 = 0;
 _DWORD dword_5d4594_1045436 = 0;
