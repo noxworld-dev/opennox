@@ -762,22 +762,22 @@ _Static_assert(sizeof(nox_screenParticle) == 52, "wrong size of nox_screenPartic
 typedef struct nox_wnd_xxx nox_wnd_xxx;
 typedef struct nox_wnd_xxx {
 	_DWORD field_0; // 0, 0
-	_DWORD field_1; // 0, 4
-	_DWORD field_2; // 0, 8
-	_DWORD field_3; // 0, 12
-	_DWORD field_4; // 0, 16
-	_DWORD field_5; // 0, 20
-	_DWORD field_6; // 0, 24
-	_DWORD field_7; // 0, 28
-	_DWORD field_8; // 0, 32
-	_DWORD field_9; // 0, 36
-	nox_wnd_xxx* field_10; // 0, 40
-	nox_wnd_xxx* field_11; // 0, 44
-	_DWORD field_12; // 0, 48
-	_DWORD field_13; // 0, 52
-	_DWORD field_14; // 0, 56
-	_DWORD field_15; // 0, 60
-	_DWORD field_16; // 0, 64
+	_DWORD field_1; // 1, 4
+	_DWORD field_2; // 2, 8
+	_DWORD field_3; // 3, 12
+	_DWORD field_4; // 4, 16
+	_DWORD field_5; // 5, 20
+	_DWORD field_6; // 6, 24
+	_DWORD field_7; // 7, 28
+	_DWORD field_8; // 8, 32
+	_DWORD field_9; // 9, 36
+	nox_wnd_xxx* field_10; // 10, 40
+	nox_wnd_xxx* field_11; // 11, 44
+	int (*field_12)(void); // 12, 48
+	int (*field_13)(void); // 13, 52
+	int (*field_14)(void); // 14, 56
+	_DWORD field_15; // 15, 60
+	_DWORD field_16; // 16, 64
 } nox_wnd_xxx;
 _Static_assert(sizeof(nox_wnd_xxx) == 68, "wrong size of nox_wnd_xxx structure!");
 

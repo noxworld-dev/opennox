@@ -158,7 +158,7 @@ FILE* nox_file_9 = 0;
 
 nox_window* nox_win_main_menu = 0;
 nox_window* nox_win_main_bg = 0;
-void* dword_5d4594_1307308 = 0;
+nox_wnd_xxx* dword_5d4594_1307308 = 0;
 
 //----- (004A19D0) --------------------------------------------------------
 int sub_4A19D0() {
@@ -216,9 +216,9 @@ int sub_4A1C00() {
 	if (!dword_5d4594_1307308) {
 		return 0;
 	}
-	*(_DWORD*)((_DWORD)dword_5d4594_1307308 + 0) = 100;
-	*(_DWORD*)((_DWORD)dword_5d4594_1307308 + 48) = sub_4A1D40;
-	*(_DWORD*)((_DWORD)dword_5d4594_1307308 + 56) = sub_4A1D80;
+	dword_5d4594_1307308->field_0 = 100;
+	dword_5d4594_1307308->field_12 = sub_4A1D40;
+	dword_5d4594_1307308->field_14 = sub_4A1D80;
 	v2 = sub_46B0C0(nox_win_main_menu, 120);
 	sub_46B2C0((int)v2, sub_4A1DC0);
 	*(_DWORD*)&byte_5D4594[1307304] = nox_wnd_sub_43C5B0(v2, 0, 270, 0, 510, 0, -20, 0, 40);
@@ -239,7 +239,7 @@ int sub_4A1C00() {
 
 //----- (004A1D40) --------------------------------------------------------
 int sub_4A1D40() {
-	*(_BYTE*)((_DWORD)dword_5d4594_1307308 + 64) = 2;
+	*(_BYTE*)&dword_5d4594_1307308->field_16 = 2;
 	*(_BYTE*)(*(_DWORD*)&byte_5D4594[1307304] + 64) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
@@ -250,8 +250,8 @@ int sub_4A1D40() {
 int sub_4A1D80() {
 	int (*v0)(void); // esi
 
-	v0 = *(int (**)(void))((_DWORD)dword_5d4594_1307308 + 52);
-	sub_43C570(*(LPVOID*)&dword_5d4594_1307308);
+	v0 = dword_5d4594_1307308->field_13;
+	sub_43C570(dword_5d4594_1307308);
 	sub_43C570(*(LPVOID*)&byte_5D4594[1307304]);
 	sub_46C4E0(nox_win_main_menu);
 	v0();
