@@ -6181,7 +6181,7 @@ void sub_431380() {
 //----- (00431390) --------------------------------------------------------
 int nox_client_initScreenParticles_431390() {
 	if (!nox_alloc_screenParticles_806044) {
-		nox_alloc_screenParticles_806044 = nox_new_alloc_class("ScreenParticles", 52, 2000);
+		nox_alloc_screenParticles_806044 = nox_new_alloc_class("ScreenParticles", sizeof(nox_screenParticle), 2000);
 		if (!nox_alloc_screenParticles_806044) {
 			return 0;
 		}
