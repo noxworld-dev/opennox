@@ -300,7 +300,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	sub_43BDD0(10);
 	nox_common_gameFlags_unset_40A540(-1);
 	sub_40A4D0(3);
-	nox_common_engineFlags = 1024;
+	nox_common_setEngineFlag(1u << 10u);
 	dword_5d4594_2650652 = 0;
 	BOOL v2 = nox_common_gameFlags_check_40A5C0(1);
 	*(_DWORD*)&byte_5D4594[2649704] = 30;
@@ -329,26 +329,25 @@ int __cdecl cmain(int argc, const char* argv[]) {
 			*(_DWORD*)&byte_587000[84] = 0;
 		} else if (!_strcmpi(flag, "-serveronly")) {
 			nox_enable_audio = 0;
-			*(_DWORD*)&nox_common_engineFlags |= 0x40040000u;
+			nox_common_setEngineFlag(1u << 18u | 1u << 30u);
 			sub_416B20();
 		} else if (!_strcmpi(flag, "-sleep")) {
-			*(_DWORD*)&nox_common_engineFlags |= 0x40000000;
+			nox_common_setEngineFlag(1u << 30u);
 		} else if (!_strcmpi(flag, "-drop")) {
 			++i;
 			int v = atoi(argv[i]);
 			sub_552010(v);
 		} else if (!_strcmpi(flag, "-notext")) {
-			*(_DWORD*)&nox_common_engineFlags |= 0x10000;
+			nox_common_setEngineFlag(1u << 16u);
 		} else if (!_strcmpi(flag, "-nolog")) {
 			sub_413C00();
 		} else if (!_strcmpi(flag, "-lock")) {
-			*(_DWORD*)&nox_common_engineFlags |= 0x2000000;
+			nox_common_setEngineFlag(1u << 25u);
 		} else if (!_strcmpi(flag, "-safe")) {
-			int v11 = *(_DWORD*)&nox_common_engineFlags;
-			BYTE1(v11) = BYTE1(v11) & 0xFB | 2;
+			nox_common_resetEngineFlag(1u << 10u);
+			nox_common_setEngineFlag(1u << 9u);
 			nox_enable_audio = 0;
 			nox_video_dxUnlockSurface = 1;
-			nox_common_engineFlags = v11;
 			dword_587000_80800 = 0;
 			*(_DWORD*)&byte_5D4594[805840] = 1;
 			nox_enable_threads = 0;
@@ -371,9 +370,9 @@ int __cdecl cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-vol")) {
 			byte_587000[88] = atoi(argv[i]);
 		} else if (!_strcmpi(flag, "-noFloor")) {
-			*(_DWORD*)&nox_common_engineFlags |= 0x100000;
+			nox_common_setEngineFlag(1u << 20u);
 		} else if (!_strcmpi(flag, "-noDraw")) {
-			*(_DWORD*)&nox_common_engineFlags |= 0x40000;
+			nox_common_setEngineFlag(1u << 18u);
 		} else if (!_strcmpi(flag, "-port")) {
 			++i;
 			int v = atoi(argv[i]);
@@ -383,9 +382,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 			int v = atoi(argv[i]);
 			sub_40A410(v);
 		} else if (!_strcmpi(flag, "-nosoft")) {
-			int v8 = *(_DWORD*)&nox_common_engineFlags;
-			BYTE1(v8) &= 0xFBu;
-			*(_DWORD*)&nox_common_engineFlags = v8;
+			nox_common_resetEngineFlag(1u << 11u);
 		}
 	}
 	char cwd[1024]; // [esp+44h] [ebp-400h]
