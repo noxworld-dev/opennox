@@ -37,7 +37,7 @@ extern _DWORD dword_5d4594_1313532;
 extern _DWORD dword_5d4594_3798672;
 extern _DWORD dword_5d4594_1313564;
 extern _DWORD dword_5d4594_1308096;
-extern int (*dword_5d4594_1311924)(void);
+extern int (*func_5d4594_1311924)(void);
 extern _DWORD dword_5d4594_805872;
 extern _DWORD dword_5d4594_1307724;
 extern _DWORD dword_5d4594_3798684;
@@ -8175,7 +8175,7 @@ int __cdecl sub_4B0220(size_t a1) {
 //----- (004B02D0) --------------------------------------------------------
 int sub_4B02D0() {
 	dword_5d4594_1311936 = 0;
-	dword_5d4594_1311924 = 0;
+	func_5d4594_1311924 = 0;
 	*(_DWORD*)&byte_5D4594[1311928] = 0;
 	*(_DWORD*)&byte_5D4594[1311932] = 0;
 	return 1;

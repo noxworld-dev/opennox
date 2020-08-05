@@ -80,7 +80,7 @@ int nox_video_windowsPlatformVersion = 0;
 int nox_video_cursorDrawIsThreaded = 0;
 int nox_video_gammaValue = 0;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
-int (*dword_5d4594_1311924)(void) = 0;
+int (*func_5d4594_1311924)(void) = 0;
 
 #ifdef USE_SDL
 enum {
@@ -3312,9 +3312,9 @@ void sub_4B05D0() {
 		sub_555500(1);
 		dword_5d4594_1311936 = 0;
 		*(_DWORD*)&byte_5D4594[1311928] = 0;
-		if (dword_5d4594_1311924) {
+		if (func_5d4594_1311924) {
 			sub_440900();
-			dword_5d4594_1311924();
+			func_5d4594_1311924();
 		}
 	}
 }
@@ -3324,7 +3324,7 @@ int __cdecl sub_4B0640(int (*a1)(void)) {
 	int result; // eax
 
 	result = a1;
-	dword_5d4594_1311924 = a1;
+	func_5d4594_1311924 = a1;
 	return result;
 }
 
