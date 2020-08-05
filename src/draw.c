@@ -1687,7 +1687,7 @@ int sdl_drawCursorThreaded(int a1) {
 #if 0 // SDL textures cannot be locked from threads other than where they were created in.
         uint16_t * dstpixels;
         int dstpitch;
-		
+
         if (SDL_LockTexture(g_texture, &dst, (void**)& dstpixels, &dstpitch) == 0)
         {
             unsigned int x, y;
