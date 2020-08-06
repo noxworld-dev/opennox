@@ -1851,7 +1851,9 @@ void mainloop_stop() {
 	mainloop_exit();
 }
 //-------------------------------------------------------------------------
-void mainloop_wait_and_exit(int flags) {
+void mainloop_wait_and_exit() {
+	int flags = *(_DWORD*)&nox_common_engineFlags;
+
 	if (!(flags & 0x40000000)) {
 		while (!sub_416CD0()) {
 		}
