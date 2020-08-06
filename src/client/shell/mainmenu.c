@@ -10,7 +10,6 @@ extern nox_window* nox_win_main_menu;
 
 //----- (004A1DC0) --------------------------------------------------------
 int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
-	int v4;        // eax
 	wchar_t* v5;   // eax
 	int v6;        // eax
 	wchar_t* v7;   // eax
@@ -34,9 +33,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 					nox_common_gameFlags_unset_40A540(0x2000);
 					nox_common_gameFlags_unset_40A540(0x10000);
 					sub_501AC0(0);
-					v4 = *(_DWORD*)&nox_common_engineFlags;
-					LOBYTE(v4) = nox_common_engineFlags & 0xCF;
-					*(_DWORD*)&nox_common_engineFlags = v4;
+					nox_common_resetEngineFlag(1u << 4u | 1u << 5u);
 					sub_4D6F40(0);
 					sub_4D6F90(0);
 					sub_4D6F60(0);
@@ -71,7 +68,8 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 				return 1;
 			case 112:
 				sub_4A1D40();
-				*(_DWORD*)&nox_common_engineFlags = *(_DWORD*)&nox_common_engineFlags & 0xFFFFFFDF | 0x10;
+				nox_common_setEngineFlag(1u << 4u);
+				nox_common_resetEngineFlag(1u << 5u);
 				sub_40A4D0(0x2000);
 				sub_40A4D0(0x10000);
 				nox_common_gameFlags_unset_40A540(2048);
@@ -119,7 +117,8 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 					return 1;
 				}
 				sub_4A1D40();
-				*(_DWORD*)&nox_common_engineFlags = *(_DWORD*)&nox_common_engineFlags & 0xFFFFFFDF | 0x10;
+				nox_common_setEngineFlag(1u << 4u);
+				nox_common_resetEngineFlag(1u << 5u);
 				sub_40A4D0(0x2000);
 				sub_40A4D0(0x10000);
 				nox_common_gameFlags_unset_40A540(2048);
