@@ -1762,22 +1762,14 @@ int __cdecl sub_4A5690(_BYTE* a1) {
 
 //----- (004A56E0) --------------------------------------------------------
 void* sub_4A56E0() {
-	int v0; // eax
-
-	v0 = *(_DWORD*)&nox_common_engineFlags;
-	LOBYTE(v0) = nox_common_engineFlags & 0xEF;
-	*(_DWORD*)&nox_common_engineFlags = v0;
+	nox_common_resetEngineFlag(1u << 4u);
 	return sub_4602F0();
 }
 
 //----- (004A5700) --------------------------------------------------------
 int sub_4A5700() {
-	int result; // eax
-
-	result = *(_DWORD*)&nox_common_engineFlags;
-	LOBYTE(result) = nox_common_engineFlags | 0x10;
-	*(_DWORD*)&nox_common_engineFlags = result;
-	return result;
+	nox_common_setEngineFlag(1u << 4u);
+	return *(_DWORD*)&nox_common_engineFlags;
 }
 
 //----- (004A5C70) --------------------------------------------------------
