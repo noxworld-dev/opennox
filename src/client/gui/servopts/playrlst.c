@@ -127,7 +127,7 @@ int __cdecl sub_4567C0(int a1, int a2, int* a3, int a4) {
 				else
 					sub_46ABB0(*(int*)&dword_5d4594_1045688, 0);
 			}
-			if (nox_common_gameFlags_check_40A5C0(1) && *(_DWORD*)&nox_common_engineFlags & 0x40000)
+			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(1u << 18u))
 				sub_46ABB0(*(int*)&dword_5d4594_1045688, 0);
 		}
 	}
