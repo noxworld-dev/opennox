@@ -200,7 +200,7 @@ char* sub_43B510() {
 		v2 = &v7[strlen(v7) + 1];
 		v3 = byte_587000[90860];
 		*(_DWORD*)--v2 = *(_DWORD*)&byte_587000[90856];
-		v4 = (*(_DWORD*)&nox_common_engineFlags & 0x600000) == 0;
+		v4 = !nox_common_getEngineFlag(1u << 21u | 1u << 22u);
 		v2[4] = v3;
 		if (v4)
 			sub_409D70(v7);
@@ -1852,9 +1852,7 @@ void mainloop_stop() {
 }
 //-------------------------------------------------------------------------
 void mainloop_wait_and_exit() {
-	int flags = *(_DWORD*)&nox_common_engineFlags;
-
-	if (!(flags & 0x40000000)) {
+	if (!nox_common_getEngineFlag(1u << 30u)) {
 		while (!sub_416CD0()) {
 		}
 		mainloop_stop();
@@ -2683,7 +2681,7 @@ int __cdecl sub_43F680(int a1) {
 int __cdecl sub_43F690(int a1, int a2, int a3, int a4) {
 	int result; // eax
 
-	if (*(_DWORD*)&nox_common_engineFlags & 0x10000)
+	if (nox_common_getEngineFlag(1u << 16u))
 		return a3;
 	result = a1;
 	if (a1 || (result = dword_5d4594_816492) != 0) {
@@ -2697,7 +2695,7 @@ int __cdecl sub_43F690(int a1, int a2, int a3, int a4) {
 int __cdecl sub_43F6E0(int a1, __int16* a2, int a3, int a4) {
 	int result; // eax
 
-	if (*(_DWORD*)&nox_common_engineFlags & 0x10000)
+	if (nox_common_getEngineFlag(1u << 16u))
 		return a3;
 	result = a1;
 	if (a1 || (result = dword_5d4594_816492) != 0) {
@@ -2712,7 +2710,7 @@ int __cdecl sub_43F730(int a1, __int16* a2, int a3, int a4) {
 	int v5; // edi
 	int v6; // ebx
 
-	if (*(_DWORD*)&nox_common_engineFlags & 0x10000)
+	if (nox_common_getEngineFlag(1u << 16u))
 		return a3;
 	v5 = a1;
 	if (!a1) {
@@ -2733,7 +2731,7 @@ int __cdecl sub_43F7B0(int a1, __int16* a2, int a3, int a4) {
 	int result; // eax
 	int v5;     // esi
 
-	if (*(_DWORD*)&nox_common_engineFlags & 0x10000)
+	if (nox_common_getEngineFlag(1u << 16u))
 		return a3;
 	v5 = a1;
 	if (!a1) {
@@ -2899,7 +2897,7 @@ int __cdecl sub_43FAF0(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 	int v21;    // [esp+18h] [ebp+4h]
 	int v22;    // [esp+1Ch] [ebp+8h]
 
-	if (*(_DWORD*)&nox_common_engineFlags & 0x10000)
+	if (nox_common_getEngineFlag(1u << 16u))
 		return a3;
 	v7 = a1;
 	v8 = 0;
@@ -3012,7 +3010,7 @@ int __cdecl sub_43FAF0(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 int __cdecl sub_43FD00(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 	int v7; // edi
 
-	if (*(_DWORD*)&nox_common_engineFlags & 0x10000)
+	if (nox_common_getEngineFlag(1u << 16u))
 		return a3;
 	dword_5d4594_816460 = a3;
 	v7 = ptr_5D4594_3799572->data[59];
@@ -3026,7 +3024,7 @@ int __cdecl sub_43FD00(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 int __cdecl sub_43FD80(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 	int result; // eax
 
-	if (*(_DWORD*)&nox_common_engineFlags & 0x10000)
+	if (nox_common_getEngineFlag(1u << 16u))
 		return a3;
 	dword_5d4594_816460 = a3;
 	if (!*(_DWORD*)&byte_5D4594[816484])
@@ -3919,8 +3917,6 @@ void sub_4445C0() {
 	int v0;     // ebx
 	int v4;     // ebx
 	int v5;     // ebp
-	int v6;     // eax
-	int v7;     // eax
 	int v9;     // [esp+10h] [ebp-Ch]
 	int v10;    // [esp+14h] [ebp-8h]
 	int v11;    // [esp+18h] [ebp-4h]
@@ -3983,9 +3979,7 @@ void sub_4445C0() {
 				v5 = 85;
 				nox_client_drawFrontWalls_80812 = 1;
 			LABEL_21:
-				v6 = *(_DWORD*)&nox_common_engineFlags;
 				nox_client_translucentFrontWalls_805844 = 0;
-				BYTE1(v6) &= 0xFBu;
 				nox_client_highResFrontWalls_80820 = 0;
 				nox_client_highResFloors_154952 = 0;
 				nox_client_lockHighResFloors_1193152 = 0;
@@ -3993,7 +3987,7 @@ void sub_4445C0() {
 				nox_client_translucentConsole_80824 = 0;
 				nox_client_renderGlow_805852 = 0;
 				nox_client_fadeObjects_80836 = 0;
-				*(_DWORD*)&nox_common_engineFlags = v6;
+				nox_common_resetEngineFlag(1u << 10u);
 				nox_client_renderBubbles_80844 = 0;
 				goto LABEL_30;
 			}
@@ -4026,11 +4020,9 @@ void sub_4445C0() {
 		nox_client_texturedFloors_154956 = 1;
 		nox_client_translucentConsole_80824 = 1;
 	LABEL_28:
-		v7 = *(_DWORD*)&nox_common_engineFlags;
 		nox_client_renderGlow_805852 = 1;
-		BYTE1(v7) |= 4u;
 		nox_client_fadeObjects_80836 = 1;
-		*(_DWORD*)&nox_common_engineFlags = v7;
+		nox_common_setEngineFlag(1u << 10u);
 		nox_client_renderBubbles_80844 = 1;
 		goto LABEL_30;
 	}
@@ -4041,7 +4033,7 @@ LABEL_30:
 	sub_43BEB0_get_video_mode(&v11, &v10, &v9);
 	v4 = 16; // 8 bit not supported
 	sub_481420();
-	if (!(nox_common_engineFlags & 0x200))
+	if (!nox_common_getEngineFlag(1u << 9u))
 		sub_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
 	sub_4766A0(v5);
 	if (nox_common_gameFlags_check_40A5C0(0x10000000))
@@ -4780,7 +4772,7 @@ void sub_4467F0() {
 	if (!result) {
 		result = sub_4D6F50();
 		if (!result || (result = nox_common_gameFlags_check_40A5C0(128)) == 0) {
-			if (!(*(_DWORD*)&nox_common_engineFlags & 0x40000)) {
+			if (!nox_common_getEngineFlag(1u << 18u)) {
 				result = sub_46ADA0(*(int*)&dword_5d4594_826028);
 				if (result & 0x10) {
 					result = sub_44A4A0();
