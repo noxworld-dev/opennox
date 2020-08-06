@@ -48,7 +48,7 @@ int sub_450FD0() {
 			nox_wcscat(v5, v0);
 			sub_450B90(4u, (int)v5);
 			if (v0) {
-				if (*(_DWORD*)&nox_common_engineFlags & 0x200000) {
+				if (nox_common_getEngineFlag(1u << 21u)) {
 					v1 = nox_wcslen(v0);
 					sub_4D33E0(v0, v1 + 1);
 				}
