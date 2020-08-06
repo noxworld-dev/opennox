@@ -73,7 +73,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 			v9 -= dword_5d4594_3798844 - dword_5d4594_3798796;
 			dword_5d4594_1193184 = v9;
 		}
-		if (nox_common_engineFlags & 0x800) {
+		if (nox_common_getEngineFlag(1u << 11u)) {
 			if ((unsigned int)&v9[a4] < *(int*)&dword_5d4594_3798844) {
 				qmemcpy(a5, v9, a4);
 			} else {
@@ -365,7 +365,7 @@ void __cdecl sub_484E60(int a1) {
 	v1 = (_DWORD*)a1;
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
-	if (nox_common_engineFlags & 0x800) {
+	if (nox_common_getEngineFlag(1u << 11u)) {
 		memset(&byte_5D4594[2616332], 0x1Fu, 0xA04u);
 		byte_5D4594[2618896] = 31;
 	} else {
@@ -407,7 +407,7 @@ char* __cdecl sub_485740(_DWORD* a1) {
 	char* result; // eax
 	int v10;      // [esp+10h] [ebp-4h]
 
-	if (nox_common_engineFlags & 0x800)
+	if (nox_common_getEngineFlag(1u << 11u))
 		return (char*)&byte_587000[155000];
 	v1 = *a1 - dword_5d4594_2650676;
 	v2 = a1[1] - dword_5d4594_2650680;
@@ -840,7 +840,7 @@ void __cdecl sub_468F80(int a1) {
 	v1 = (_DWORD*)a1;
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
-	if (nox_common_engineFlags & 0x800) {
+	if (nox_common_getEngineFlag(1u << 11u)) {
 		v2 = 2464;
 		v3 = &byte_5D4594[2618924];
 		do {
