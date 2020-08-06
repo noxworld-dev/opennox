@@ -23,7 +23,6 @@ void sub_436100_draw() {
 	int v6;                // ecx
 	int v7;                // eax
 	bool v8;               // zf
-	int v9;                // eax
 	int v10;               // esi
 	unsigned __int16* v11; // eax
 	__int16* v12;          // eax
@@ -51,12 +50,12 @@ void sub_436100_draw() {
 		sub_416D40();
 	}
 	if (!(!*(_DWORD*)&byte_587000[85724] || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
-		  dword_5d4594_815132 || sub_413A50() || *(_DWORD*)&nox_common_engineFlags & 0x40000)) {
-		*(_DWORD*)&nox_common_engineFlags |= 0x80000000;
+		  dword_5d4594_815132 || sub_413A50() || nox_common_getEngineFlag(1u << 18u))) {
+		nox_common_setEngineFlag(1u << 31u);
 		return;
 	}
 	*(_DWORD*)&byte_5D4594[814532] = v2;
-	*(_DWORD*)&nox_common_engineFlags &= 0x7FFFFFFFu;
+	nox_common_resetEngineFlag(1u << 31u);
 	*(_DWORD*)&byte_5D4594[814536] = v1;
 	*(_DWORD*)&byte_5D4594[811916] = *(_DWORD*)&byte_5D4594[2598000];
 	if (*(_DWORD*)&byte_587000[85744]) {
@@ -74,17 +73,15 @@ void sub_436100_draw() {
 	sub_430B50(v6, v7, *(int*)&byte_5D4594[811076], *(int*)&byte_5D4594[811080]);
 	if (*(_DWORD*)&byte_5D4594[2616328])
 		*(_DWORD*)&byte_5D4594[2614252] = sub_45A6F0(*(int*)&byte_5D4594[2616328]);
-	if (*(_DWORD*)&nox_common_engineFlags & 0x40000) {
+	if (nox_common_getEngineFlag(1u << 18u)) {
 		v8 = !sub_436550();
-		v9 = *(_DWORD*)&nox_common_engineFlags;
 		if (v8)
-			BYTE1(v9) &= 0xFEu;
+			nox_common_resetEngineFlag(1u << 8u);
 		else
-			v9 = *(_DWORD*)&nox_common_engineFlags | 0x100;
-		*(_DWORD*)&nox_common_engineFlags = v9;
+			nox_common_setEngineFlag(1u << 8u);
 		if (!*(_DWORD*)&byte_5D4594[814540])
 			*(_DWORD*)&byte_5D4594[814540] = sub_42F970("MenuSystemBG");
-		if (*(_WORD*)&nox_common_engineFlags & 0x100) {
+		if (nox_common_getEngineFlag(1u << 8u)) {
 			v10 = sub_43F360((char*)&byte_587000[86448]);
 			nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[814540], 0, 0);
 			v11 = loadString_sub_40F1D0((char*)&byte_587000[86496], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
