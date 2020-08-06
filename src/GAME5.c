@@ -3920,7 +3920,7 @@ void __cdecl sub_54AFB0(int a1, float* a2) {
 		(*(_DWORD*)(a1 + 8) & 0x80000206 || *(unsigned __int16*)(a1 + 4) == *(_DWORD*)&byte_5D4594[2491604])) {
 		if (sub_537110(a1, *(int*)&dword_5d4594_2491592)) {
 			if (!(*(_BYTE*)(a1 + 8) & 4) || (*(_DWORD*)(a1 + 36) != *(_DWORD*)&byte_5D4594[2616328] ||
-											 !(*(_DWORD*)&nox_common_engineFlags & 0x40000)) &&
+											 !nox_common_getEngineFlag(1u << 18u)) &&
 												(v3 = sub_417040(*(_DWORD*)(a1 + 36))) != 0 && !(v3[3680] & 1)) {
 				if ((*(_DWORD*)(a1 + 8) & 0x200) != 512 || (v4 = *(_DWORD*)(a1 + 16), BYTE1(v4) & 0x40)) {
 					v5 = *(float*)(a1 + 60) - *(float*)(a1 + 104);
