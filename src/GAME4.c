@@ -4106,7 +4106,7 @@ int __cdecl sub_4FCEF0(int a1, int* a2, int a3) {
 		v3 = a2;
 		if (a2) {
 			if (a3) {
-				if (nox_common_engineFlags & 0x20)
+				if (nox_common_getEngineFlag(1u << 5u))
 					return 1;
 				if (*(_BYTE*)(a1 + 8) & 2)
 					return 1;
@@ -4146,7 +4146,7 @@ int __cdecl sub_4FCF90(int a1, int a2, int a3) {
 		return -1;
 	if (!a2)
 		return -1;
-	if (nox_common_engineFlags & 0x20)
+	if (nox_common_getEngineFlag(1u << 5u))
 		return 0;
 	if (a2 < 75 || a2 > 114)
 		v5 = sub_4249A0(a2, a3);
