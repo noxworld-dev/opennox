@@ -800,7 +800,7 @@ int sub_4DCF20() {
 
 //----- (004DEB30) --------------------------------------------------------
 void sub_4DEB30() {
-	if (!(*(_DWORD*)&nox_common_engineFlags & 0x400000))
+	if (!(nox_common_getEngineFlag(1u << 22u)))
 		sub_552A80(*(unsigned int*)&byte_5D4594[1563148], 1);
 }
 
@@ -810,7 +810,7 @@ void sub_4DEB50() {
 	void* v3;            // [esp+0h] [ebp-4h]
 
 	if (nox_common_gameFlags_check_40A5C0(2)) {
-		if (*(_DWORD*)&nox_common_engineFlags & 0x400000) {
+		if (nox_common_getEngineFlag(1u << 22u)) {
 			sub_4D3580_net_playback(0);
 			sub_40ED10(31, 0);
 		} else {
@@ -2629,9 +2629,9 @@ int sub_4D2580_server() {
 	sub_502100();
 	sub_5524C0();
 	sub_552460();
-	if (*(_DWORD*)&nox_common_engineFlags & 0x400000)
+	if (nox_common_getEngineFlag(1u << 22u))
 		sub_4D3580_net_playback(1);
-	if (*(_DWORD*)&nox_common_engineFlags & 0x20000000) {
+	if (nox_common_getEngineFlag(1u << 29u)) {
 		*(_DWORD*)&v38[4] = (__PAIR64__(v3, v1) - *(_QWORD*)&byte_5D4594[1548684]) >> 32;
 		if (__PAIR64__(v3, v1) - *(_QWORD*)&byte_5D4594[1548684] > 0x3E8) {
 			sub_4D3130();
@@ -2778,7 +2778,7 @@ int sub_4D2580_server() {
 		}
 		sub_4597E0(0);
 	}
-	if (*(_DWORD*)&nox_common_engineFlags & 0x600000)
+	if (nox_common_getEngineFlag(1u << 21u | 1u << 22u))
 		sub_4E76C0();
 	if (sub_4DB1B0()) {
 		v20 = sub_417090(31);
