@@ -482,7 +482,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 				v22 = (wchar_t*)a2;
 				break;
 			}
-			if (!nox_common_gameFlags_check_40A5C0(1) || !(*(_DWORD*)&nox_common_engineFlags & 0x40000)) {
+			if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(1u << 18u)) {
 				if (dword_5d4594_1090120 == 1) {
 					v28 = sub_450B10();
 					v23 = loadString_sub_40F1D0((char*)&byte_587000[146900], 0,
@@ -506,7 +506,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 			}
 			v22 =
 				loadString_sub_40F1D0((char*)&byte_587000[147040], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1519);
-			if (!nox_common_gameFlags_check_40A5C0(1) || !(*(_DWORD*)&nox_common_engineFlags & 0x40000)) {
+			if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(1u << 18u)) {
 				v30 = byte_5D4594[1090116];
 				v26 = loadString_sub_40F1D0((char*)&byte_587000[147084], 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c",
 											1525);
