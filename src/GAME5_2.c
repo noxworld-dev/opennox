@@ -1214,7 +1214,7 @@ unsigned int __cdecl sub_554040(int a1, int a2, char* a3) {
 		return 0;
 	v16 = sub_409FA0();
 	v5 = sub_416F40();
-	if (*(_DWORD*)&nox_common_engineFlags & 0x40000) {
+	if (nox_common_getEngineFlag(1u << 18u)) {
 		--v5;
 		--v16;
 	}
