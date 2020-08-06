@@ -25,7 +25,7 @@ extern void* mainloop_enter_args;
 extern void (*mainloop_exit)();
 
 extern void mainloop_stop();
-extern void mainloop_wait_and_exit(int flags);
+extern void mainloop_wait_and_exit();
 
 extern int (*nox_draw_unk1)(void);
 extern int (*func_5D4594_816388)(void);
@@ -112,7 +112,7 @@ int sub_43DEB0() {
 		}
 		sub_4DD180(31);
 	}
-	if (!(*(_DWORD*)&nox_common_engineFlags & 0x40000)) {
+	if (!nox_common_getEngineFlag(1u << 18u)) {
 		dword_5d4594_2650672 = 1;
 		sub_44DA60(1);
 	}
@@ -148,7 +148,7 @@ int map_download_finish() {
 		return 0;
 	}
 	sub_43E1A0(0);
-	if (!(*(_DWORD*)&nox_common_engineFlags & 0x40000)) {
+	if (!nox_common_getEngineFlag(1u << 18u)) {
 		dword_5d4594_2650672 = 1;
 		sub_44DA60(1);
 	}
@@ -294,7 +294,7 @@ void mainloop() {
 	}
 	if (dword_5d4594_815132) {
 		sub_43C380();
-		*(_DWORD*)&nox_common_engineFlags &= 0x7FFFFFFFu;
+		nox_common_resetEngineFlag(1u << 31u);
 		if (!*(_DWORD*)&byte_5D4594[816408]) {
 			v1 = nox_client_getMousePos_4309F0();
 			v27 = v1;
@@ -348,7 +348,7 @@ void mainloop() {
 			}
 		}
 	}
-	if (!(*(_DWORD*)&nox_common_engineFlags & 0x80000000)) {
+	if (!nox_common_getEngineFlag(1u << 31u)) {
 		sub_437180();
 		if (!dword_5d4594_1556112)
 			mainloop_draw(); // Draw game windows
@@ -364,12 +364,12 @@ void mainloop() {
 			v25 = (int*)sub_437250();
 			nox_client_screenParticlesDraw_431720(v25);
 		}
-		if (!(nox_common_engineFlags & 0x40000) || nox_common_engineFlags & 0x100 || dword_5d4594_815132)
+		if (!nox_common_getEngineFlag(1u << 18u) || nox_common_getEngineFlag(1u << 8u) || dword_5d4594_815132)
 			nox_client_drawCursorAndTooltips_477830(); // Draw cursor
 		sub_44D9F0(1);
 		if (!sub_409F40(4096)) // CheckRuleFlags and smth
 			sub_46D830();
-		if (!(nox_common_engineFlags & 0x40000) || nox_common_engineFlags & 0x100 || dword_5d4594_815132) {
+		if (!nox_common_getEngineFlag(1u << 18u) || nox_common_getEngineFlag(1u << 8u) || dword_5d4594_815132) {
 			sub_48A220();
 			sub_4AD170_call_copy_backbuffer();
 			sub_48A290_call_present();
@@ -380,19 +380,17 @@ void mainloop() {
 		mainloop_stop();
 		return;
 	}
-	int v17 = *(_DWORD*)&nox_common_engineFlags;
 	if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_gameFlags_check_40A5C0(2)) {
-		mainloop_wait_and_exit(v17);
+		mainloop_wait_and_exit();
 		return;
 	}
-	if (!(v17 & 0x40000)) {
+	if (!nox_common_getEngineFlag(1u << 18u)) {
 		if (nox_common_gameFlags_check_40A5C0(0x10000000)) {
-			if (!(v17 & 0x80000000))
+			if (!nox_common_getEngineFlag(1u << 31u))
 				sub_416DD0();
 			mainloop_stop();
 			return;
 		}
 	}
-	mainloop_wait_and_exit(v17);
-	return;
+	mainloop_wait_and_exit();
 }
