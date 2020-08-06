@@ -174,7 +174,7 @@ int __cdecl sub_475F10(_DWORD* a1) {
 				sub_4C4F40(a1, v4);
 			sub_474E60(a1, v4);
 			sub_495BB0((_DWORD*)v4, a1);
-			if (nox_common_engineFlags & 2)
+			if (nox_common_getEngineFlag(1u << 1u))
 				nox_thing_debug_draw(a1, v4);
 			v5 = *(_DWORD*)(v4 + 480);
 			*(_DWORD*)(v4 + 132) = 0;
@@ -203,7 +203,7 @@ int __cdecl sub_475FE0(_DWORD* a1) {
 		if (sub_4984B0_drawable(v4)) {
 			*(_DWORD*)(v4 + 484) = 1;
 			(*(void(__cdecl**)(_DWORD*, int))(v4 + 300))(a1, v4);
-			if (nox_common_engineFlags & 2)
+			if (nox_common_getEngineFlag(1u << 1u))
 				nox_thing_debug_draw(a1, v4);
 			v5 = *(_DWORD*)(v4 + 480);
 			*(_DWORD*)(v4 + 132) = 0;
@@ -6153,7 +6153,7 @@ int __cdecl sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 			 2 * (dword_5d4594_3798836 + v7);
 		if (v8 >= *(int*)&dword_5d4594_3798844)
 			v8 += dword_5d4594_3798796 - dword_5d4594_3798844;
-		if (*(_WORD*)&nox_common_engineFlags & 0x800) {
+		if (nox_common_getEngineFlag(1u << 11u)) {
 			if (2 * a4 + v8 < *(int*)&dword_5d4594_3798844) {
 				result = (*(int(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3807160)(a5, v8, 2 * a4);
 			} else {
@@ -6258,7 +6258,7 @@ void __cdecl sub_480BE0(_DWORD* a1, int* a2, int a3, int a4, int a5) {
 				  2 * (dword_5d4594_3798836 + *a1 - dword_5d4594_3798820));
 	if (v6 >= x1)
 		v6 += x2 - x1;
-	if (nox_common_engineFlags & 0x800) {
+	if (nox_common_getEngineFlag(1u << 11u)) {
 		if ((unsigned int)&v6[2 * a4] < x1) {
 			(*(int(__cdecl**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3807160)(a5, v6, 2 * a4);
 		} else {
