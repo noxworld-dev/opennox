@@ -4413,7 +4413,7 @@ int sub_4AA9C0() {
 int sub_4AAA10() {
 	int (*v0)(void); // esi
 
-	v0 = dword_5d4594_1309740->field_12;
+	v0 = dword_5d4594_1309740->field_13;
 	sub_43C570(dword_5d4594_1309740);
 	sub_46C4E0(*(_DWORD**)&dword_5d4594_1309720);
 	sub_4A1A40(1);
