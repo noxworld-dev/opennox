@@ -3200,7 +3200,7 @@ int __cdecl sub_4B0340(int a1) // draw general
 #else
 	v1 = (GetAsyncKeyState(VK_SHIFT) & 0x8000u) != 0;
 #endif
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_10) || v1 || nox_video_renderTargetFlags & 0x10)
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) || v1 || nox_video_renderTargetFlags & 0x10)
 		goto LABEL_23;
 	sub_431290();
 	sub_43DBD0();
