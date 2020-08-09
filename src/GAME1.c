@@ -338,7 +338,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 			int v = atoi(argv[i]);
 			sub_552010(v);
 		} else if (!_strcmpi(flag, "-notext")) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_17);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING);
 		} else if (!_strcmpi(flag, "-nolog")) {
 			sub_413C00();
 		} else if (!_strcmpi(flag, "-lock")) {

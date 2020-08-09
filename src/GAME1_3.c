@@ -2680,7 +2680,7 @@ int __cdecl sub_43F680(int a1) {
 int __cdecl sub_43F690(int a1, int a2, int a3, int a4) {
 	int result; // eax
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_17))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING))
 		return a3;
 	result = a1;
 	if (a1 || (result = dword_5d4594_816492) != 0) {
@@ -2694,7 +2694,7 @@ int __cdecl sub_43F690(int a1, int a2, int a3, int a4) {
 int __cdecl sub_43F6E0(int a1, __int16* a2, int a3, int a4) {
 	int result; // eax
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_17))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING))
 		return a3;
 	result = a1;
 	if (a1 || (result = dword_5d4594_816492) != 0) {
@@ -2709,7 +2709,7 @@ int __cdecl sub_43F730(int a1, __int16* a2, int a3, int a4) {
 	int v5; // edi
 	int v6; // ebx
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_17))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING))
 		return a3;
 	v5 = a1;
 	if (!a1) {
@@ -2730,7 +2730,7 @@ int __cdecl sub_43F7B0(int a1, __int16* a2, int a3, int a4) {
 	int result; // eax
 	int v5;     // esi
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_17))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING))
 		return a3;
 	v5 = a1;
 	if (!a1) {
@@ -2896,7 +2896,7 @@ int __cdecl sub_43FAF0(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 	int v21;    // [esp+18h] [ebp+4h]
 	int v22;    // [esp+1Ch] [ebp+8h]
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_17))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING))
 		return a3;
 	v7 = a1;
 	v8 = 0;
@@ -3009,7 +3009,7 @@ int __cdecl sub_43FAF0(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 int __cdecl sub_43FD00(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 	int v7; // edi
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_17))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING))
 		return a3;
 	dword_5d4594_816460 = a3;
 	v7 = ptr_5D4594_3799572->data[59];
@@ -3023,7 +3023,7 @@ int __cdecl sub_43FD00(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 int __cdecl sub_43FD80(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 	int result; // eax
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_17))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING))
 		return a3;
 	dword_5d4594_816460 = a3;
 	if (!*(_DWORD*)&byte_5D4594[816484])
