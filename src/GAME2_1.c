@@ -7705,7 +7705,7 @@ int __cdecl sub_472600(int a1, int a2) {
 		v10 = i + 1;
 		v80 += 23;
 	}
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_4)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI)) {
 		v29 = sub_50CB00();
 		v30 = (char*)sub_50CB10();
 		if (v29 >= 2) {
@@ -9437,7 +9437,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 		}
 	}
 	sub_44D9F0(0);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_4))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI))
 		sub_476270(v1);
 	sub_45AB40();
 	sub_437290();
