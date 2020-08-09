@@ -2089,7 +2089,7 @@ int nox_cmd_show_gui() {
 //----- (00441480) --------------------------------------------------------
 int nox_cmd_show_extents() {
 	sub_452D80(921, 100);
-	nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_2);
+	nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS);
 	return 1;
 }
 
