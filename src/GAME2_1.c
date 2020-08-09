@@ -9289,7 +9289,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 	}
 	(*(void(__cdecl**)(_DWORD)) & byte_5D4594[3807132])(v1);
 	v10 = 1;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_21) ||
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING) ||
 		(v38.field_0 = (double)v1[6], v38.field_4 = (double)v1[7], v11 = sub_411160(&v38), v11 == 255) || v11 == -1) {
 		v10 = 0;
 	}

@@ -370,7 +370,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-vol")) {
 			byte_587000[88] = atoi(argv[i]);
 		} else if (!_strcmpi(flag, "-noFloor")) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_21);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING);
 		} else if (!_strcmpi(flag, "-noDraw")) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING);
 		} else if (!_strcmpi(flag, "-port")) {
