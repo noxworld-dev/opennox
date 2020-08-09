@@ -4772,7 +4772,7 @@ void sub_4467F0() {
 	if (!result) {
 		result = sub_4D6F50();
 		if (!result || (result = nox_common_gameFlags_check_40A5C0(128)) == 0) {
-			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				result = sub_46ADA0(*(int*)&dword_5d4594_826028);
 				if (result & 0x10) {
 					result = sub_44A4A0();
