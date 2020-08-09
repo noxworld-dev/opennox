@@ -112,7 +112,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 		return 1;
 	}
 	v4 = a2;
-	if (nox_common_getEngineFlag(1u << 21u)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22)) {
 		v5 = sub_417090(a1);
 		sub_4D3450((int)v5, a2, a3);
 	}
@@ -165,7 +165,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			break;
 		case 0x72u:
 			v19 = sub_578B40(*(unsigned __int16*)(v4 + 1));
-			if (nox_common_getEngineFlag(1u << 15u))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 				sub_578B70(*(unsigned __int16*)(v4 + 1));
 			v7 = *(_DWORD*)(v85 + 276);
 			if (!(*(_BYTE*)(v7 + 3680) & 3) && !*(_DWORD*)(v85 + 280) && !*(_DWORD*)(v85 + 284) &&
@@ -183,7 +183,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			break;
 		case 0x73u:
 			v22 = sub_578B40(*(unsigned __int16*)(v4 + 1));
-			if (nox_common_getEngineFlag(1u << 15u))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 				sub_578B70(*(unsigned __int16*)(v4 + 1));
 			if (!sub_4DB1B0()) {
 				v7 = *(_DWORD*)(v85 + 276);
@@ -210,7 +210,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			break;
 		case 0x74u:
 			v26 = sub_578B40(*(unsigned __int16*)(v4 + 1));
-			if (nox_common_getEngineFlag(1u << 15u))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 				sub_578B70(*(unsigned __int16*)(v4 + 1));
 			if (!sub_4DB1B0()) {
 				v7 = *(_DWORD *) (v85 + 276);
@@ -226,7 +226,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			break;
 		case 0x75u:
 			v15 = sub_578B40(*(unsigned __int16*)(v4 + 1));
-			if (nox_common_getEngineFlag(1u << 15u))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 				sub_578B70(*(unsigned __int16*)(v4 + 1));
 			if (!sub_4DB1B0()) {
 				v7 = v85;
@@ -242,7 +242,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			break;
 		case 0x76u:
 			v17 = sub_578B40(*(unsigned __int16*)(v4 + 1));
-			if (nox_common_getEngineFlag(1u << 15u))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 				sub_578B70(*(unsigned __int16*)(v4 + 1));
 			if (!(*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 3)) {
 				v18 = sub_4F7920(v9, v17);
@@ -259,7 +259,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			break;
 		case 0x78u:
 			v31 = sub_578B40(*(unsigned __int16*)(v4 + 1));
-			if (nox_common_getEngineFlag(1u << 15u))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 				sub_578B70(*(unsigned __int16*)(v4 + 1));
 			v7 = v85;
 			if (!(*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 1)) {
@@ -325,7 +325,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			break;
 		case 0x7Bu:
 			v28 = sub_578B40(*(unsigned __int16*)(v4 + 1));
-			if (nox_common_getEngineFlag(1u << 15u))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 				sub_578B70(*(unsigned __int16*)(v4 + 1));
 			v7 = v85;
 			if (!(*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 3) && !*(_DWORD*)(v85 + 280) &&
@@ -573,7 +573,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			break;
 		case 0xE0u:
 			v58 = sub_578B40(*(unsigned __int16*)(v4 + 1));
-			if (nox_common_getEngineFlag(1u << 15u))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 				sub_578B70(*(unsigned __int16*)(v4 + 1));
 			if (*(_WORD*)(v4 + 1)) {
 				v59 = nox_server_getObjectFromNetCode_4ECCB0(v58);
@@ -586,7 +586,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			break;
 		case 0xE2u:
 			v60 = sub_578B40(*(unsigned __int16*)(v4 + 1));
-			if (nox_common_getEngineFlag(1u << 15u))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 				sub_578B70(*(unsigned __int16*)(v4 + 1));
 			v61 = sub_4F7920(v9, v60);
 			if (v61 || (v61 = sub_510DE0(v9, v60)) != 0 || (v61 = nox_server_getObjectFromNetCode_4ECCB0(v60)) != 0) {
@@ -671,7 +671,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				break;
 			case 0xFu:
 				v67 = sub_578B40(*((unsigned __int16*)v4 + 1));
-				if (nox_common_getEngineFlag(1u << 15u))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 					sub_578B70(*((unsigned __int16*)v4 + 1));
 				v68 = (int*)sub_4F7920(v9, v67);
 				if (v68) {
@@ -686,7 +686,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				break;
 			case 0x10u:
 				v70 = sub_578B40(*((unsigned __int16*)v4 + 1));
-				if (nox_common_getEngineFlag(1u << 15u))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_16))
 					sub_578B70(*((unsigned __int16*)v4 + 1));
 				v71 = *(_DWORD*)(v85 + 280);
 				if (v71) {

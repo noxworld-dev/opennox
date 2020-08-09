@@ -50,12 +50,12 @@ void sub_436100_draw() {
 		sub_416D40();
 	}
 	if (!(!*(_DWORD*)&byte_587000[85724] || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
-		  dword_5d4594_815132 || sub_413A50() || nox_common_getEngineFlag(1u << 18u))) {
-		nox_common_setEngineFlag(1u << 31u);
+		  dword_5d4594_815132 || sub_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))) {
+		nox_common_setEngineFlag(NOX_ENGINE_FLAG_32);
 		return;
 	}
 	*(_DWORD*)&byte_5D4594[814532] = v2;
-	nox_common_resetEngineFlag(1u << 31u);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
 	*(_DWORD*)&byte_5D4594[814536] = v1;
 	*(_DWORD*)&byte_5D4594[811916] = *(_DWORD*)&byte_5D4594[2598000];
 	if (*(_DWORD*)&byte_587000[85744]) {
@@ -73,15 +73,15 @@ void sub_436100_draw() {
 	sub_430B50(v6, v7, *(int*)&byte_5D4594[811076], *(int*)&byte_5D4594[811080]);
 	if (*(_DWORD*)&byte_5D4594[2616328])
 		*(_DWORD*)&byte_5D4594[2614252] = sub_45A6F0(*(int*)&byte_5D4594[2616328]);
-	if (nox_common_getEngineFlag(1u << 18u)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
 		v8 = !sub_436550();
 		if (v8)
-			nox_common_resetEngineFlag(1u << 8u);
+			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_9);
 		else
-			nox_common_setEngineFlag(1u << 8u);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_9);
 		if (!*(_DWORD*)&byte_5D4594[814540])
 			*(_DWORD*)&byte_5D4594[814540] = sub_42F970("MenuSystemBG");
-		if (nox_common_getEngineFlag(1u << 8u)) {
+		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_9)) {
 			v10 = sub_43F360((char*)&byte_587000[86448]);
 			nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[814540], 0, 0);
 			v11 = loadString_sub_40F1D0((char*)&byte_587000[86496], 0, "C:\\NoxPost\\src\\client\\System\\client.c",

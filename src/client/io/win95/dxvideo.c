@@ -31,7 +31,7 @@ int nox_video_recreateRenderTarget_47FD70() {
 	}
 	if (dword_5d4594_805860)
 		flags |= 0x18u;
-	if (nox_common_getEngineFlag(1u << 25u) && nox_video_dxFullScreen)
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_26) && nox_video_dxFullScreen)
 		flags &= 0xFFFFFFDF;
 	if (!nox_enable_threads)
 		flags |= 0x100u;

@@ -531,7 +531,7 @@ int __cdecl sub_439370(int2* a1, int a2) {
 		dword_5d4594_815056 = 1;
 		*(_WORD*)&byte_5D4594[814604] = *(_WORD*)(a2 + 109);
 		result = *(_DWORD*)&nox_common_engineFlags;
-		if (nox_common_getEngineFlag(1u << 18u))
+		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))
 			result = sub_46ABB0(*(int*)&byte_5D4594[815008], 0);
 	} else {
 		v3 = loadString_sub_40F1D0((char*)&byte_587000[89244], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 688);
