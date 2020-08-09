@@ -4033,7 +4033,7 @@ LABEL_30:
 	sub_43BEB0_get_video_mode(&v11, &v10, &v9);
 	v4 = 16; // 8 bit not supported
 	sub_481420();
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_10))
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE))
 		sub_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
 	sub_4766A0(v5);
 	if (nox_common_gameFlags_check_40A5C0(0x10000000))

@@ -345,7 +345,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_26);
 		} else if (!_strcmpi(flag, "-safe")) {
 			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_10);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE);
 			nox_enable_audio = 0;
 			nox_video_dxUnlockSurface = 1;
 			dword_587000_80800 = 0;

@@ -7281,7 +7281,7 @@ int nox_common_parsecfg_videomode() {
 	h = EM_ASM_INT(return Module['ingameHeight']());
 #endif
 	v6 = 16; // 8 bit not supported
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_10)) {
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE)) {
 		nox_win_width_1 = w;
 		nox_win_height_1 = h;
 		nox_win_depth_1 = v6;
