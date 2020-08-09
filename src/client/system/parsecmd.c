@@ -2057,7 +2057,7 @@ int __cdecl nox_cmd_set_net_debug(int a1, char a2) {
 	if (a2 != 2)
 		return 0;
 
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_16);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG);
 	return 1;
 }
 
@@ -2066,7 +2066,7 @@ int __cdecl nox_cmd_unset_net_debug(int a1, char a2) {
 	if (a2 != 2)
 		return 0;
 
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_16);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG);
 	return 1;
 }
 
