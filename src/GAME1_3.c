@@ -3987,7 +3987,7 @@ void sub_4445C0() {
 				nox_client_translucentConsole_80824 = 0;
 				nox_client_renderGlow_805852 = 0;
 				nox_client_fadeObjects_80836 = 0;
-				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_11);
+				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
 				nox_client_renderBubbles_80844 = 0;
 				goto LABEL_30;
 			}
@@ -4022,7 +4022,7 @@ void sub_4445C0() {
 	LABEL_28:
 		nox_client_renderGlow_805852 = 1;
 		nox_client_fadeObjects_80836 = 1;
-		nox_common_setEngineFlag(NOX_ENGINE_FLAG_11);
+		nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
 		nox_client_renderBubbles_80844 = 1;
 		goto LABEL_30;
 	}
