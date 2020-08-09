@@ -174,7 +174,7 @@ int __cdecl sub_475F10(_DWORD* a1) {
 				sub_4C4F40(a1, v4);
 			sub_474E60(a1, v4);
 			sub_495BB0((_DWORD*)v4, a1);
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_2))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS))
 				nox_thing_debug_draw(a1, v4);
 			v5 = *(_DWORD*)(v4 + 480);
 			*(_DWORD*)(v4 + 132) = 0;
@@ -203,7 +203,7 @@ int __cdecl sub_475FE0(_DWORD* a1) {
 		if (sub_4984B0_drawable(v4)) {
 			*(_DWORD*)(v4 + 484) = 1;
 			(*(void(__cdecl**)(_DWORD*, int))(v4 + 300))(a1, v4);
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_2))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS))
 				nox_thing_debug_draw(a1, v4);
 			v5 = *(_DWORD*)(v4 + 480);
 			*(_DWORD*)(v4 + 132) = 0;
