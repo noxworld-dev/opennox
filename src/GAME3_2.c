@@ -1497,7 +1497,7 @@ int __cdecl sub_4D0D50(int a1) {
 }
 
 //----- (004D0D70) --------------------------------------------------------
-BOOL sub_4D0D70() { return *(_DWORD*)&byte_5D4594[1548484] || nox_common_getEngineFlag(NOX_ENGINE_FLAG_19); }
+BOOL sub_4D0D70() { return *(_DWORD*)&byte_5D4594[1548484] || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING); }
 
 //----- (004D0D90) --------------------------------------------------------
 int __cdecl sub_4D0D90(int a1) {
@@ -4524,7 +4524,7 @@ int nox_server_setupQuestGame_4D6C70() {
 		while (1) {
 			sub_4D6000(v3);
 			v4 = *(_DWORD*)(v3 + 748);
-			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) &&
+			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) &&
 				(v5 = *(_DWORD*)(v4 + 276), *(_BYTE*)(v5 + 2064) == 31)) {
 				*(_DWORD*)(v5 + 4792) = v0;
 			} else {
@@ -8709,7 +8709,7 @@ _DWORD* __cdecl sub_4DD320(int a1, int a2) {
 		sub_4E6860((int)v8, 0, 1);
 	} else if (nox_common_gameFlags_check_40A5C0(512)) {
 		sub_417630((int)v8);
-	} else if (v8[2064] == 31 && nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+	} else if (v8[2064] == 31 && nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		sub_4E6860((int)v8, 0, 1);
 	} else if (nox_common_gameFlags_check_40A5C0(128)) {
 		if (sub_40A740()) {
@@ -9076,7 +9076,7 @@ char* __cdecl sub_4DE300(int a1) {
 	result = nox_common_playerInfoGetFirst_416EA0();
 	for (i = (int)result; result; i = (int)result) {
 		if (*(unsigned __int8*)(i + 2064) != a1 &&
-			(*(_BYTE*)(i + 2064) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))) {
+			(*(_BYTE*)(i + 2064) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 			sub_4DDA90((int)v3, i);
 			sub_4E5390(a1, (int)v3, 129, 0, 0);
 			sub_4DDE10(a1, i);

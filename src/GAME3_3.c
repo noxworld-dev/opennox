@@ -1317,7 +1317,7 @@ int sub_4E3CE0() {
 		return 0;
 	do {
 		v2 = *(_DWORD*)(v1 + 748);
-		if ((!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) ||
+		if ((!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) ||
 			 *(_BYTE*)(*(_DWORD*)(v2 + 276) + 2064) != 31) &&
 			*(_DWORD*)(*(_DWORD*)(v2 + 276) + 4792) == 1) {
 			++v0;
@@ -1496,7 +1496,7 @@ int sub_4E4100() {
 		return 1;
 	do {
 		v2 = *(_DWORD*)(v1 + 748);
-		if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) ||
+		if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) ||
 			*(_BYTE*)(*(_DWORD*)(v2 + 276) + 2064) != 31) {
 			if (*(_DWORD*)(*(_DWORD*)(v2 + 276) + 4792))
 				++v0;
@@ -3224,7 +3224,7 @@ unsigned __int8* __cdecl sub_4E62F0(int a1) {
 						goto LABEL_72;
 					}
 				}
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) && v1 == dword_5d4594_3843628)
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && v1 == dword_5d4594_3843628)
 					goto LABEL_52;
 				if (!sub_4DDF30(v1)) {
 					sub_4DF3C0(v4);
@@ -5011,7 +5011,7 @@ BOOL sub_4E8F60() {
 		goto LABEL_11;
 	do {
 		v4 = *(_DWORD*)(v3 + 748);
-		if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) ||
+		if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) ||
 			*(_BYTE*)(*(_DWORD*)(v4 + 276) + 2064) != 31) {
 			v5 = *(_DWORD*)(v4 + 276);
 			if (*(_DWORD*)(v5 + 4792)) {
@@ -5043,7 +5043,7 @@ int sub_4E9010() {
 	if (v1) {
 		while (1) {
 			v2 = *(_DWORD*)(v1 + 748);
-			if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) ||
+			if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) ||
 				*(_BYTE*)(*(_DWORD*)(v2 + 276) + 2064) != 31) {
 				if (*(_DWORD*)(*(_DWORD*)(v2 + 276) + 4792)) {
 					++v0;

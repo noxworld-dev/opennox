@@ -112,7 +112,7 @@ int sub_43DEB0() {
 		}
 		sub_4DD180(31);
 	}
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		dword_5d4594_2650672 = 1;
 		sub_44DA60(1);
 	}
@@ -148,7 +148,7 @@ int map_download_finish() {
 		return 0;
 	}
 	sub_43E1A0(0);
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		dword_5d4594_2650672 = 1;
 		sub_44DA60(1);
 	}
@@ -364,12 +364,12 @@ void mainloop() {
 			v25 = (int*)sub_437250();
 			nox_client_screenParticlesDraw_431720(v25);
 		}
-		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132)
+		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132)
 			nox_client_drawCursorAndTooltips_477830(); // Draw cursor
 		sub_44D9F0(1);
 		if (!sub_409F40(4096)) // CheckRuleFlags and smth
 			sub_46D830();
-		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132) {
+		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132) {
 			sub_48A220();
 			sub_4AD170_call_copy_backbuffer();
 			sub_48A290_call_present();
@@ -384,7 +384,7 @@ void mainloop() {
 		mainloop_wait_and_exit();
 		return;
 	}
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		if (nox_common_gameFlags_check_40A5C0(0x10000000)) {
 			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_32))
 				sub_416DD0();

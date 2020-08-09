@@ -8880,7 +8880,7 @@ int sub_437100() {
 	int result; // eax
 
 	result = nox_client_renderGUI_80828;
-	if (*(_DWORD*)&byte_5D4594[811064] != nox_client_renderGUI_80828 && !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+	if (*(_DWORD*)&byte_5D4594[811064] != nox_client_renderGUI_80828 && !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		*(_DWORD*)&byte_5D4594[811064] = nox_client_renderGUI_80828;
 		sub_4721A0(*(int*)&nox_client_renderGUI_80828);
 		sub_460EA0(*(int*)&nox_client_renderGUI_80828);
@@ -9560,7 +9560,7 @@ char* sub_43AA70() {
 	v1[104] = sub_409FA0();
 	v3 = sub_416F40();
 	v1[103] = v3;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		v1[103] = v3 - 1;
 		--v1[104];
 	}

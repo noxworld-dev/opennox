@@ -50,7 +50,7 @@ void sub_436100_draw() {
 		sub_416D40();
 	}
 	if (!(!*(_DWORD*)&byte_587000[85724] || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
-		  dword_5d4594_815132 || sub_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))) {
+		  dword_5d4594_815132 || sub_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 		nox_common_setEngineFlag(NOX_ENGINE_FLAG_32);
 		return;
 	}
@@ -73,7 +73,7 @@ void sub_436100_draw() {
 	sub_430B50(v6, v7, *(int*)&byte_5D4594[811076], *(int*)&byte_5D4594[811080]);
 	if (*(_DWORD*)&byte_5D4594[2616328])
 		*(_DWORD*)&byte_5D4594[2614252] = sub_45A6F0(*(int*)&byte_5D4594[2616328]);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		v8 = !sub_436550();
 		if (v8)
 			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_9);

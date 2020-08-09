@@ -287,7 +287,7 @@ int sub_445C40() {
 							v16 = sub_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9003);
 							result = sub_46ABB0((int)v16, 0);
 						}
-						if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+						if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 							v17 = sub_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9007);
 							sub_46ABB0((int)v17, 0);
 							v18 = sub_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9005);

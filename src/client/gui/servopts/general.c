@@ -51,7 +51,7 @@ int __cdecl sub_4AD320(int a1) {
 		v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10319);
 		nox_window_set_hidden((int)v9, 1);
 	}
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10304);
 		sub_46ABB0((int)v10, 0);
 	}
