@@ -6727,10 +6727,10 @@ int sub_432100() {
 	if (v0) {
 		v1 = atoi(v0) == 0;
 		if (!v1) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_11);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
 			return 1;
 		}
-		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_11);
+		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
 	}
 	return 1;
 }
@@ -7675,7 +7675,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	v6 = sub_433890();
 	fprintf(a1, "ServerName = %s\n", v6);
 	fprintf(a1, "UnlockSurface = %d\n", nox_video_dxUnlockSurface);
-	fprintf(a1, "SoftShadowEdge = %d\n", nox_common_getEngineFlag(NOX_ENGINE_FLAG_11) ? 1 : 0);
+	fprintf(a1, "SoftShadowEdge = %d\n", nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE) ? 1 : 0);
 	fprintf(a1, "DrawFrontWalls = %d\n", nox_client_drawFrontWalls_80812);
 	fprintf(a1, "TranslucentFrontWalls = %d\n", nox_client_translucentFrontWalls_805844);
 	fprintf(a1, "HighResFrontWalls = %d\n", nox_client_highResFrontWalls_80820);

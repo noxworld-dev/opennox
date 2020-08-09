@@ -300,7 +300,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	sub_43BDD0(10);
 	nox_common_gameFlags_unset_40A540(-1);
 	sub_40A4D0(3);
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_11);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
 	dword_5d4594_2650652 = 0;
 	BOOL v2 = nox_common_gameFlags_check_40A5C0(1);
 	*(_DWORD*)&byte_5D4594[2649704] = 30;
@@ -344,7 +344,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-lock")) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_26);
 		} else if (!_strcmpi(flag, "-safe")) {
-			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_11);
+			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_10);
 			nox_enable_audio = 0;
 			nox_video_dxUnlockSurface = 1;

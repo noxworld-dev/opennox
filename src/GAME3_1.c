@@ -5532,7 +5532,7 @@ int __cdecl sub_4C5500(int* a1) {
 		nox_client_drawRectFilledOpaque_49CE30(v2, v5, v1[8], v3 + v11 - v5);
 	sub_49F6D0(v16);
 	result = *(_DWORD*)&nox_common_engineFlags;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_11))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE))
 		result = sub_498AE0();
 	return result;
 }
@@ -9596,7 +9596,7 @@ _DWORD* sub_4CB330() {
 	v0[9] = v2;
 	v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2012);
 	v4 = v3[9];
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_11))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE))
 		v5 = v4 | 4;
 	else
 		v5 = v4 & 0xFFFFFFFB;
@@ -9723,7 +9723,7 @@ int __cdecl sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			result = 0;
 			break;
 		case 2012:
-			nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_11);
+			nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
 			result = 0;
 			break;
 		case 2014:
