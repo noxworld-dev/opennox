@@ -1497,7 +1497,7 @@ int __cdecl sub_4D0D50(int a1) {
 }
 
 //----- (004D0D70) --------------------------------------------------------
-BOOL sub_4D0D70() { return *(_DWORD*)&byte_5D4594[1548484] || nox_common_getEngineFlag(1u << 18u); }
+BOOL sub_4D0D70() { return *(_DWORD*)&byte_5D4594[1548484] || nox_common_getEngineFlag(NOX_ENGINE_FLAG_19); }
 
 //----- (004D0D90) --------------------------------------------------------
 int __cdecl sub_4D0D90(int a1) {
@@ -2240,7 +2240,7 @@ int __cdecl sub_4D3370(char* a1) {
 	dword_587000_197424 = _open(a1, 33537, 384);
 	if (*(int*)&dword_587000_197424 == -1)
 		return 0;
-	nox_common_setEngineFlag(1u << 21u);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_22);
 	return 1;
 }
 
@@ -2249,7 +2249,7 @@ unsigned int sub_4D33B0() {
 	if (*(int*)&dword_587000_197424 != -1)
 		_close(*(int*)&dword_587000_197424);
 	dword_587000_197424 = -1;
-	nox_common_resetEngineFlag(1u << 21u);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_22);
 	return *(_DWORD*)&nox_common_engineFlags;
 }
 
@@ -2293,7 +2293,7 @@ int __cdecl sub_4D34C0(char* a1) {
 	dword_5d4594_1548736 = 0;
 	*(_DWORD*)&byte_5D4594[1548728] = 0;
 	byte_5D4594[1548724] = 0;
-	nox_common_setEngineFlag(1u << 22u);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_23);
 	v2 = sub_417040(255);
 	sub_4E6860((int)v2, 0, 1);
 	return 1;
@@ -2308,17 +2308,17 @@ void sub_4D3530() {
 	dword_587000_197428 = -1;
 	dword_5d4594_1548732 = 0;
 	dword_5d4594_1548736 = 0;
-	nox_common_resetEngineFlag(1u << 22u);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_23);
 	v0 = sub_417040(255);
 	sub_4E6AA0((int)v0);
 }
 
 //----- (004D3860) --------------------------------------------------------
 void __cdecl sub_4D3860(void* a1) {
-	if (nox_common_getEngineFlag(1u << 21u) && (*(int*)&dword_587000_197424 != -1)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22) && (*(int*)&dword_587000_197424 != -1)) {
 		sub_415F30(*(int*)&dword_587000_197424);
 		_write(*(int*)&dword_587000_197424, a1, 0x99u);
-	} else if (nox_common_getEngineFlag(1u << 22u)) {
+	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23)) {
 		if (*(int*)&dword_587000_197428 != -1) {
 			sub_415F50(*(int*)&dword_587000_197428);
 			_read(*(int*)&dword_587000_197428, a1, 0x99u);
@@ -2331,7 +2331,7 @@ int sub_4D38D0() {
 	int result; // eax
 	int v2;     // [esp+0h] [ebp-4h]
 
-	if (nox_common_getEngineFlag(1u << 21u) && *(int*)&dword_587000_197424 != -1) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22) && *(int*)&dword_587000_197424 != -1) {
 		_write(*(int*)&dword_587000_197424, &byte_5D4594[2598000], 4u);
 		_write(*(int*)&dword_587000_197424, &byte_587000[197434], 1u);
 		*(_DWORD*)&byte_5D4594[1549764] = nox_server_currentMapGetFilename_409B30();
@@ -2341,7 +2341,7 @@ int sub_4D38D0() {
 		v2 = 66458;
 		_write(*(int*)&dword_587000_197424, &v2, 4u);
 		result = 0;
-	} else if (nox_common_getEngineFlag(1u << 22u) && *(int*)&dword_587000_197428 != -1) {
+	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23) && *(int*)&dword_587000_197428 != -1) {
 		result = sub_4D3580_net_playback(0);
 	} else {
 		result = 0;
@@ -2351,7 +2351,7 @@ int sub_4D38D0() {
 
 //----- (004D39B0) --------------------------------------------------------
 void sub_4D39B0() {
-	if (nox_common_getEngineFlag(1u << 21u)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22)) {
 		if (*(int*)&dword_587000_197424 != -1) {
 			_write(*(int*)&dword_587000_197424, &byte_5D4594[2598000], 4u);
 			_write(*(int*)&dword_587000_197424, &byte_587000[197435], 1u);
@@ -4514,7 +4514,7 @@ int nox_server_setupQuestGame_4D6C70() {
 	if (!sub_4D6F30())
 		sub_4E3CD0(0);
 	sub_4D0F30();
-	nox_common_resetEngineFlag(1u << 4u);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_5);
 	nox_common_gameFlags_unset_40A540(0x10000);
 	sub_4D9CF0(255);
 	for (int i = sub_4DA7C0(); i; i = sub_4DA7F0(i))
@@ -4524,7 +4524,7 @@ int nox_server_setupQuestGame_4D6C70() {
 		while (1) {
 			sub_4D6000(v3);
 			v4 = *(_DWORD*)(v3 + 748);
-			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(1u << 18u) &&
+			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) &&
 				(v5 = *(_DWORD*)(v4 + 276), *(_BYTE*)(v5 + 2064) == 31)) {
 				*(_DWORD*)(v5 + 4792) = v0;
 			} else {
@@ -8709,7 +8709,7 @@ _DWORD* __cdecl sub_4DD320(int a1, int a2) {
 		sub_4E6860((int)v8, 0, 1);
 	} else if (nox_common_gameFlags_check_40A5C0(512)) {
 		sub_417630((int)v8);
-	} else if (v8[2064] == 31 && nox_common_getEngineFlag(1u << 18u)) {
+	} else if (v8[2064] == 31 && nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
 		sub_4E6860((int)v8, 0, 1);
 	} else if (nox_common_gameFlags_check_40A5C0(128)) {
 		if (sub_40A740()) {
@@ -9076,7 +9076,7 @@ char* __cdecl sub_4DE300(int a1) {
 	result = nox_common_playerInfoGetFirst_416EA0();
 	for (i = (int)result; result; i = (int)result) {
 		if (*(unsigned __int8*)(i + 2064) != a1 &&
-			(*(_BYTE*)(i + 2064) != 31 || !nox_common_getEngineFlag(1u << 18u))) {
+			(*(_BYTE*)(i + 2064) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))) {
 			sub_4DDA90((int)v3, i);
 			sub_4E5390(a1, (int)v3, 129, 0, 0);
 			sub_4DDE10(a1, i);

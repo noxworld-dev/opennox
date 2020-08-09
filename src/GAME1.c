@@ -160,13 +160,13 @@ void* nox_malloc2(size_t x, char* func, int line, char* file) {
 }
 #endif
 
-void nox_common_setEngineFlag(const uint32_t flags) { *(uint32_t*)&nox_common_engineFlags |= flags; }
+void nox_common_setEngineFlag(const nox_engine_flag flags) { *(uint32_t*)&nox_common_engineFlags |= flags; }
 
-void nox_common_resetEngineFlag(const uint32_t flags) { *(uint32_t*)&nox_common_engineFlags &= ~flags; }
+void nox_common_resetEngineFlag(const nox_engine_flag flags) { *(uint32_t*)&nox_common_engineFlags &= ~flags; }
 
-void nox_common_toggleEngineFlag(const uint32_t flags) { *(uint32_t*)&nox_common_engineFlags ^= flags; }
+void nox_common_toggleEngineFlag(const nox_engine_flag flags) { *(uint32_t*)&nox_common_engineFlags ^= flags; }
 
-bool nox_common_getEngineFlag(const uint32_t flags) { return (*(uint32_t*)&nox_common_engineFlags & flags) != 0; }
+bool nox_common_getEngineFlag(const nox_engine_flag flags) { return (*(uint32_t*)&nox_common_engineFlags & flags) != 0; }
 
 void nox_exit(int exitCode) {
 #ifdef __EMSCRIPTEN__
@@ -246,7 +246,7 @@ void mainloop_exit_2() {
 	if (nox_common_gameFlags_check_40A5C0(2))
 		sub_437190();
 	sub_416190();
-	if (nox_common_getEngineFlag(1u << 12u))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
 		sub_413E30();
 	nullsub_2();
 
@@ -300,7 +300,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	sub_43BDD0(10);
 	nox_common_gameFlags_unset_40A540(-1);
 	sub_40A4D0(3);
-	nox_common_setEngineFlag(1u << 10u);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_11);
 	dword_5d4594_2650652 = 0;
 	BOOL v2 = nox_common_gameFlags_check_40A5C0(1);
 	*(_DWORD*)&byte_5D4594[2649704] = 30;
@@ -329,23 +329,23 @@ int __cdecl cmain(int argc, const char* argv[]) {
 			*(_DWORD*)&byte_587000[84] = 0;
 		} else if (!_strcmpi(flag, "-serveronly")) {
 			nox_enable_audio = 0;
-			nox_common_setEngineFlag(1u << 18u | 1u << 30u);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_19 | NOX_ENGINE_FLAG_31);
 			sub_416B20();
 		} else if (!_strcmpi(flag, "-sleep")) {
-			nox_common_setEngineFlag(1u << 30u);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_31);
 		} else if (!_strcmpi(flag, "-drop")) {
 			++i;
 			int v = atoi(argv[i]);
 			sub_552010(v);
 		} else if (!_strcmpi(flag, "-notext")) {
-			nox_common_setEngineFlag(1u << 16u);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_17);
 		} else if (!_strcmpi(flag, "-nolog")) {
 			sub_413C00();
 		} else if (!_strcmpi(flag, "-lock")) {
-			nox_common_setEngineFlag(1u << 25u);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_26);
 		} else if (!_strcmpi(flag, "-safe")) {
-			nox_common_resetEngineFlag(1u << 10u);
-			nox_common_setEngineFlag(1u << 9u);
+			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_11);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_10);
 			nox_enable_audio = 0;
 			nox_video_dxUnlockSurface = 1;
 			dword_587000_80800 = 0;
@@ -370,9 +370,9 @@ int __cdecl cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-vol")) {
 			byte_587000[88] = atoi(argv[i]);
 		} else if (!_strcmpi(flag, "-noFloor")) {
-			nox_common_setEngineFlag(1u << 20u);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_21);
 		} else if (!_strcmpi(flag, "-noDraw")) {
-			nox_common_setEngineFlag(1u << 18u);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_19);
 		} else if (!_strcmpi(flag, "-port")) {
 			++i;
 			int v = atoi(argv[i]);
@@ -382,7 +382,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 			int v = atoi(argv[i]);
 			sub_40A410(v);
 		} else if (!_strcmpi(flag, "-nosoft")) {
-			nox_common_resetEngineFlag(1u << 11u);
+			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_12);
 		}
 	}
 	char cwd[1024]; // [esp+44h] [ebp-400h]
@@ -1729,7 +1729,7 @@ int sub_40A770() {
 	v0 = 0;
 	if (!sub_417DA0(4)) {
 		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
-			if (!(i[3680] & 1) && (i[2064] != 31 || !nox_common_getEngineFlag(1u << 18u)))
+			if (!(i[3680] & 1) && (i[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)))
 				++v0;
 		}
 		return v0;
@@ -1743,7 +1743,7 @@ int sub_40A770() {
 			while (1) {
 				v3 = *(_DWORD*)(*(_DWORD*)(v2 + 748) + 276);
 				if (!(*(_BYTE*)(v3 + 3680) & 1) &&
-					(*(_BYTE*)(v3 + 2064) != 31 || !nox_common_getEngineFlag(1u << 18u))) {
+					(*(_BYTE*)(v3 + 2064) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))) {
 					break;
 				}
 				v2 = sub_4DA7F0(v2);
@@ -1772,7 +1772,7 @@ int __cdecl sub_40A830(int a1) {
 		if (sub_419180(v2 + 48, *(_BYTE*)(a1 + 57))) {
 			v3 = *(_DWORD*)(*(_DWORD*)(v2 + 748) + 276);
 			if (!(*(_BYTE*)(v3 + 3680) & 1) &&
-				(*(_BYTE*)(v3 + 2064) != 31 || !nox_common_getEngineFlag(1u << 18u))) {
+				(*(_BYTE*)(v3 + 2064) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))) {
 				++v1;
 			}
 		}
@@ -8306,7 +8306,7 @@ BOOL sub_413A50() { return nox_common_gameFlags_check_40A5C0(0x40000); }
 unsigned int sub_413A60() {
 	nox_file_4 = 0;
 
-	nox_common_resetEngineFlag(1u << 23u | 1u << 24u);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_24 | NOX_ENGINE_FLAG_25);
 
 	return *(_DWORD*)&nox_common_engineFlags;
 }
@@ -8316,7 +8316,7 @@ int __cdecl sub_413A80(char* a1) {
 	int result; // eax
 
 	result = 0;
-	if (nox_common_getEngineFlag(1u << 23u)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_24)) {
 		sub_413AD0(nox_file_4);
 		nox_file_4 = 0;
 		sub_413B20(&nox_file_4, a1, (char*)&byte_587000[32340]);
@@ -8369,9 +8369,9 @@ void sub_413B70(char* a1, ...) {
 
 	va_start(va, a1);
 	nox_vsprintf((char*)&byte_5D4594[251752], a1, va);
-	if (nox_common_getEngineFlag(1u << 23u))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_24))
 		sub_413BD0(nox_file_4, (int)&byte_5D4594[251752]);
-	if (nox_common_getEngineFlag(1u << 24u))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_25))
 		sub_450C00(9u, (wchar_t*)&byte_587000[32376], &byte_5D4594[251752]);
 }
 
@@ -8385,7 +8385,7 @@ void __cdecl sub_413BD0(FILE* a1, int a2) {
 
 //----- (00413C00) --------------------------------------------------------
 void sub_413C00() {
-	nox_common_resetEngineFlag(1u << 23u | 1u << 24u);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_24 | NOX_ENGINE_FLAG_25);
 	if (nox_file_4) {
 		sub_413AD0(nox_file_4);
 		nox_file_4 = 0;
@@ -8410,7 +8410,7 @@ void sub_413C80(char* a1, ...) {
 
 	va_start(va, a1);
 	nox_vsprintf((char*)&byte_5D4594[251752], a1, va);
-	if (nox_common_getEngineFlag(1u << 29u))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_30))
 		sub_413BD0(nox_file_5, (int)&byte_5D4594[251752]);
 }
 
@@ -10323,7 +10323,7 @@ int sub_4161E0() {
 	v12 = sub_453710();
 	v0 = sub_416F40();
 	v1 = sub_409FA0();
-	if (nox_common_getEngineFlag(1u << 18u)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
 		--v0;
 		--v1;
 	}
@@ -10710,7 +10710,7 @@ void __cdecl sub_416B20() {
 
 //----- (00416B80) --------------------------------------------------------
 BOOL sub_416B80() {
-	return nox_common_getEngineFlag(1u << 31u) && nox_common_getEngineFlag(1u << 18u) &&
+	return nox_common_getEngineFlag(NOX_ENGINE_FLAG_32) && nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) &&
 		   !nox_get_audio_enabled();
 }
 
@@ -10786,7 +10786,7 @@ int sub_416D40() {
 	*(_QWORD*)&byte_5D4594[371764] = sub_416BB0();
 	*(_DWORD*)&byte_5D4594[371772] = *(_DWORD*)&byte_5D4594[2598000];
 
-	nox_common_resetEngineFlag(1u << 31u);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
 
 	return *(_DWORD*)&nox_common_engineFlags;
 }
@@ -11801,7 +11801,7 @@ void sub_4181F0(int a1) {
 	do {
 		v5 = *((_DWORD*)v4 + 514);
 		if (v5 && (*((_DWORD*)v4 + 515) != *(_DWORD*)&byte_5D4594[2616328] ||
-				   !nox_common_getEngineFlag(1u << 18u))) {
+				   !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))) {
 			v6 = *((_DWORD*)v4 + 920);
 			if ((!(v6 & 1) || v6 & 0x20) && !sub_419130(v5 + 48)) {
 				v7 = v19;
@@ -11885,7 +11885,7 @@ int sub_4183C0() {
 	for (i = result; result; i = result) {
 		v2 = *(_DWORD*)(i + 748);
 		if (!v2 || ((v3 = *(_DWORD*)(v2 + 276), *(_DWORD*)(v3 + 2060) != *(_DWORD*)&byte_5D4594[2616328]) ||
-					!nox_common_getEngineFlag(1u << 18u)) &&
+					!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) &&
 					   ((v4 = *(_DWORD*)(v3 + 3680), !(v4 & 1)) || v4 & 0x20)) {
 			v5 = sub_418AB0(*(unsigned __int8*)(i + 52));
 			v6 = 0;

@@ -422,7 +422,7 @@ int __cdecl nox_cmd_show_game(int a1, char a2) {
 	if (a2 != 2)
 		return 0;
 	v4 = sub_416F40();
-	if (nox_common_getEngineFlag(1u << 18u))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))
 		--v4;
 	v5 = nox_client_getBuildVersion_409AC0();
 	sub_450C00(6u, (wchar_t*)&byte_587000[102952], nox_version_string_102944, v5);
@@ -639,7 +639,7 @@ int nox_cmd_set_obs() {
 int nox_cmd_set_save_debug() {
 	wchar_t* v0; // eax
 
-	nox_common_setEngineFlag(1u << 27u);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_28);
 	v0 = loadString_sub_40F1D0((char*)&byte_587000[103744], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2541);
 	sub_450C00(6u, v0);
 	return 1;
@@ -1569,7 +1569,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5) {
 		v6 = a1;
 		v5 = a3;
 	}
-	if (!nox_common_getEngineFlag(1u << 18u) && nox_cheats_disabled && (int)a4[6 * v7 + 3] & 0x10)
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) && nox_cheats_disabled && (int)a4[6 * v7 + 3] & 0x10)
 		return 0;
 	if (dword_5d4594_823684) {
 		v12 = &a4[6 * v7];
@@ -1590,7 +1590,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5) {
 			goto LABEL_21;
 		}
 	}
-	if (v13 & 0x20 && !nox_common_getEngineFlag(1u << 18u))
+	if (v13 & 0x20 && !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))
 		return 1;
 	v15 = (const wchar_t**)v12[4];
 	if (v15) {
@@ -1824,7 +1824,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 		dword_5d4594_823692 = 0;
 		return 1;
 	case 4:
-		if (!(*(_BYTE*)(v3 + 3680) & 1) && !(nox_common_getEngineFlag(1u << 22u))) {
+		if (!(*(_BYTE*)(v3 + 3680) & 1) && !(nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))) {
 			if (nox_common_gameFlags_check_40A5C0(1)) {
 				v16 = loadString_sub_40F1D0((char*)&byte_587000[107568], 0,
 											"C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4392);
@@ -2057,7 +2057,7 @@ int __cdecl nox_cmd_set_net_debug(int a1, char a2) {
 	if (a2 != 2)
 		return 0;
 
-	nox_common_setEngineFlag(1u << 15u);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_16);
 	return 1;
 }
 
@@ -2066,13 +2066,13 @@ int __cdecl nox_cmd_unset_net_debug(int a1, char a2) {
 	if (a2 != 2)
 		return 0;
 
-	nox_common_resetEngineFlag(1u << 15u);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_16);
 	return 1;
 }
 
 //----- (00441440) --------------------------------------------------------
 int nox_cmd_show_ai() {
-	nox_common_toggleEngineFlag(1u << 3u);
+	nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_4);
 	return 1;
 }
 
@@ -2089,7 +2089,7 @@ int nox_cmd_show_gui() {
 //----- (00441480) --------------------------------------------------------
 int nox_cmd_show_extents() {
 	sub_452D80(921, 100);
-	nox_common_toggleEngineFlag(1u << 1u);
+	nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_2);
 	return 1;
 }
 
@@ -2177,7 +2177,7 @@ int __cdecl nox_cmd_log_file(int a1, char a2, int a3) {
 	result = 0;
 	if (a2 == 3) {
 		if (*(_DWORD*)(a3 + 8)) {
-			nox_common_setEngineFlag(1u << 23u);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_24);
 			nox_sprintf(v4, "%S", *(_DWORD*)(a3 + 8));
 			result = sub_413A80(v4);
 		}
@@ -2189,7 +2189,7 @@ int __cdecl nox_cmd_log_file(int a1, char a2, int a3) {
 int __cdecl nox_cmd_log_console(int a1, char a2) {
 	if (a2 != 2)
 		return 0;
-	nox_common_setEngineFlag(1u << 24u);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_25);
 	return 1;
 }
 

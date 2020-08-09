@@ -4401,7 +4401,7 @@ int sub_456500() {
 	for (i = sub_418B10(); i; i = sub_418B60((int)i))
 		sub_457230((wchar_t*)i);
 	for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {
-		if (j[2064] != 31 || !nox_common_getEngineFlag(1u << 18u)) {
+		if (j[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
 			sub_457140(*((_DWORD*)j + 515), (wchar_t*)j + 2352);
 			v4 = sub_418C80(*((_DWORD*)j + 515));
 			if (sub_419130((int)v4))
