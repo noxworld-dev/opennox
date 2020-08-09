@@ -2072,7 +2072,7 @@ int __cdecl nox_cmd_unset_net_debug(int a1, char a2) {
 
 //----- (00441440) --------------------------------------------------------
 int nox_cmd_show_ai() {
-	nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_4);
+	nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI);
 	return 1;
 }
 
