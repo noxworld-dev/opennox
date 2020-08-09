@@ -422,7 +422,7 @@ int __cdecl nox_cmd_show_game(int a1, char a2) {
 	if (a2 != 2)
 		return 0;
 	v4 = sub_416F40();
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
 		--v4;
 	v5 = nox_client_getBuildVersion_409AC0();
 	sub_450C00(6u, (wchar_t*)&byte_587000[102952], nox_version_string_102944, v5);
@@ -1569,7 +1569,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5) {
 		v6 = a1;
 		v5 = a3;
 	}
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) && nox_cheats_disabled && (int)a4[6 * v7 + 3] & 0x10)
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && nox_cheats_disabled && (int)a4[6 * v7 + 3] & 0x10)
 		return 0;
 	if (dword_5d4594_823684) {
 		v12 = &a4[6 * v7];
@@ -1590,7 +1590,7 @@ int __cdecl sub_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5) {
 			goto LABEL_21;
 		}
 	}
-	if (v13 & 0x20 && !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))
+	if (v13 & 0x20 && !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
 		return 1;
 	v15 = (const wchar_t**)v12[4];
 	if (v15) {

@@ -329,7 +329,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 			*(_DWORD*)&byte_587000[84] = 0;
 		} else if (!_strcmpi(flag, "-serveronly")) {
 			nox_enable_audio = 0;
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_19 | NOX_ENGINE_FLAG_31);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | NOX_ENGINE_FLAG_31);
 			sub_416B20();
 		} else if (!_strcmpi(flag, "-sleep")) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_31);
@@ -372,7 +372,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-noFloor")) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_21);
 		} else if (!_strcmpi(flag, "-noDraw")) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_19);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING);
 		} else if (!_strcmpi(flag, "-port")) {
 			++i;
 			int v = atoi(argv[i]);
@@ -1729,7 +1729,7 @@ int sub_40A770() {
 	v0 = 0;
 	if (!sub_417DA0(4)) {
 		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
-			if (!(i[3680] & 1) && (i[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)))
+			if (!(i[3680] & 1) && (i[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)))
 				++v0;
 		}
 		return v0;
@@ -1743,7 +1743,7 @@ int sub_40A770() {
 			while (1) {
 				v3 = *(_DWORD*)(*(_DWORD*)(v2 + 748) + 276);
 				if (!(*(_BYTE*)(v3 + 3680) & 1) &&
-					(*(_BYTE*)(v3 + 2064) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))) {
+					(*(_BYTE*)(v3 + 2064) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 					break;
 				}
 				v2 = sub_4DA7F0(v2);
@@ -1772,7 +1772,7 @@ int __cdecl sub_40A830(int a1) {
 		if (sub_419180(v2 + 48, *(_BYTE*)(a1 + 57))) {
 			v3 = *(_DWORD*)(*(_DWORD*)(v2 + 748) + 276);
 			if (!(*(_BYTE*)(v3 + 3680) & 1) &&
-				(*(_BYTE*)(v3 + 2064) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))) {
+				(*(_BYTE*)(v3 + 2064) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 				++v1;
 			}
 		}
@@ -10323,7 +10323,7 @@ int sub_4161E0() {
 	v12 = sub_453710();
 	v0 = sub_416F40();
 	v1 = sub_409FA0();
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		--v0;
 		--v1;
 	}
@@ -10710,7 +10710,7 @@ void __cdecl sub_416B20() {
 
 //----- (00416B80) --------------------------------------------------------
 BOOL sub_416B80() {
-	return nox_common_getEngineFlag(NOX_ENGINE_FLAG_32) && nox_common_getEngineFlag(NOX_ENGINE_FLAG_19) &&
+	return nox_common_getEngineFlag(NOX_ENGINE_FLAG_32) && nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) &&
 		   !nox_get_audio_enabled();
 }
 
@@ -11801,7 +11801,7 @@ void sub_4181F0(int a1) {
 	do {
 		v5 = *((_DWORD*)v4 + 514);
 		if (v5 && (*((_DWORD*)v4 + 515) != *(_DWORD*)&byte_5D4594[2616328] ||
-				   !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19))) {
+				   !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 			v6 = *((_DWORD*)v4 + 920);
 			if ((!(v6 & 1) || v6 & 0x20) && !sub_419130(v5 + 48)) {
 				v7 = v19;
@@ -11885,7 +11885,7 @@ int sub_4183C0() {
 	for (i = result; result; i = result) {
 		v2 = *(_DWORD*)(i + 748);
 		if (!v2 || ((v3 = *(_DWORD*)(v2 + 276), *(_DWORD*)(v3 + 2060) != *(_DWORD*)&byte_5D4594[2616328]) ||
-					!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) &&
+					!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) &&
 					   ((v4 = *(_DWORD*)(v3 + 3680), !(v4 & 1)) || v4 & 0x20)) {
 			v5 = sub_418AB0(*(unsigned __int8*)(i + 52));
 			v6 = 0;
