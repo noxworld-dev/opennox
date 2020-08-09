@@ -3052,7 +3052,7 @@ void sub_5341A0(char* a1, ...) {
 	va_start(va, a1);
 	// nox_vsprintf(debug, a1, va);
 	// OutputDebugStringA(debug);
-	if (nox_common_getEngineFlag(1u << 3u))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_4))
 		nox_vsprintf((char*)&byte_5D4594[2487996], a1, va);
 }
 

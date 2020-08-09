@@ -156,7 +156,7 @@ int sub_457500() {
 		if (dword_587000_129656) {
 			if (sub_4D6F30() || sub_4D6F50()) {
 				nox_server_parseCmdText_443C80((wchar_t*)&byte_587000[130244], 1);
-			} else if (nox_common_getEngineFlag(1u << 18u)) {
+			} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
 				nox_server_parseCmdText_443C80((wchar_t*)&byte_587000[130284], 1);
 			}
 		}

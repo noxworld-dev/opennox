@@ -44,10 +44,10 @@ extern unsigned __int8 byte_5D4594[3844309];
 
 #define MEMACCESS(x) *((_DWORD*)getMem(x))
 
-void nox_common_setEngineFlag(const uint32_t flags);
-void nox_common_resetEngineFlag(const uint32_t flags);
-void nox_common_toggleEngineFlag(const uint32_t flags);
-bool nox_common_getEngineFlag(const uint32_t flags);
+void nox_common_setEngineFlag(const nox_engine_flag flags);
+void nox_common_resetEngineFlag(const nox_engine_flag flags);
+void nox_common_toggleEngineFlag(const nox_engine_flag flags);
+bool nox_common_getEngineFlag(const nox_engine_flag flags);
 
 void init_data();
 _BYTE* getMem(uintptr_t addr);

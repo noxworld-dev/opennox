@@ -159,7 +159,7 @@ int sub_418840() {
 			++v0;
 			for (j = sub_4DA7C0(); j; j = sub_4DA7F0(j)) {
 				v7 = *(_DWORD**)(*(_DWORD*)(j + 748) + 276);
-				if (v7[515] != *(_DWORD*)&byte_5D4594[2616328] || !nox_common_getEngineFlag(1u << 18u)) {
+				if (v7[515] != *(_DWORD*)&byte_5D4594[2616328] || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
 					v8 = v7[920];
 					if (!(v8 & 1) || v8 & 0x20) {
 						v9 = v7[517];
@@ -176,7 +176,7 @@ int sub_418840() {
 		if (!sub_419130(k + 48)) {
 			v11 = *(_DWORD*)(*(_DWORD*)(k + 748) + 276);
 			if ((*(_DWORD*)(v11 + 2060) != *(_DWORD*)&byte_5D4594[2616328] ||
-				 !nox_common_getEngineFlag(1u << 18u)) &&
+				 !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) &&
 				!(*(_BYTE*)(v11 + 3680) & 1)) {
 				sub_4E6860(v11, 0, 0);
 			}
@@ -9136,7 +9136,7 @@ int __cdecl sub_425F10(int a1) {
 					if (*(_BYTE*)(v2 + 2064) == 31) {
 						v8 = sub_554200(0);
 						*(_DWORD*)&byte_5D4594[v6 + 600136] = htonl(v8);
-						if (nox_common_getEngineFlag(1u << 18u)) {
+						if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
 							byte_5D4594[v6 + 600152] = 0;
 							goto LABEL_18;
 						}

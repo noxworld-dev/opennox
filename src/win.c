@@ -130,7 +130,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		g_hwnd = v13;
 
 		sub_401070(g_argc, g_argv);
-		if (nox_common_getEngineFlag(1u << 12u))
+		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
 			sub_413E30(/* "Memory dump after GameLoop() :" */);
 		*(_DWORD*)&byte_5D4594[823800] = 1;
 		sub_4453A0_poll_events();

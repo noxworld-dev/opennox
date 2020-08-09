@@ -393,7 +393,7 @@ void CONNECT_RESULT(sm_args_t* args) {
 		if (nox_common_gameFlags_check_40A5C0(2))
 			sub_437190();
 		sub_416190();
-		if (nox_common_getEngineFlag(1u << 12u))
+		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
 			sub_413E30();
 		sub_43D0A0(result);
 		f(0);
@@ -428,7 +428,7 @@ void CONNECT_RESULT(sm_args_t* args) {
 			return;
 		}
 	}
-	if (nox_common_getEngineFlag(1u << 12u))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
 		sub_413E30();
 	if (nox_common_gameFlags_check_40A5C0(0x2000) && nox_common_gameFlags_check_40A5C0(1) && sub_43AF40())
 		sub_43AA70();
@@ -487,7 +487,7 @@ void f(int reentrant) {
 		if (!sub_4357D0(g_argc2, g_argv2))
 			return;
 		if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x400000) &&
-			nox_common_getEngineFlag(1u << 0u)) {
+			nox_common_getEngineFlag(NOX_ENGINE_FLAG_1)) {
 			v23 = nox_common_get_data_path_409E10();
 			sub_4D39F0(v23);
 			if (!sub_4D4320()) {

@@ -6727,10 +6727,10 @@ int sub_432100() {
 	if (v0) {
 		v1 = atoi(v0) == 0;
 		if (!v1) {
-			nox_common_setEngineFlag(1u << 10u);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_11);
 			return 1;
 		}
-		nox_common_resetEngineFlag(1u << 10u);
+		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_11);
 	}
 	return 1;
 }
@@ -7281,7 +7281,7 @@ int nox_common_parsecfg_videomode() {
 	h = EM_ASM_INT(return Module['ingameHeight']());
 #endif
 	v6 = 16; // 8 bit not supported
-	if (!nox_common_getEngineFlag(1u << 9u)) {
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_10)) {
 		nox_win_width_1 = w;
 		nox_win_height_1 = h;
 		nox_win_depth_1 = v6;
@@ -7675,7 +7675,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	v6 = sub_433890();
 	fprintf(a1, "ServerName = %s\n", v6);
 	fprintf(a1, "UnlockSurface = %d\n", nox_video_dxUnlockSurface);
-	fprintf(a1, "SoftShadowEdge = %d\n", nox_common_getEngineFlag(1u << 10u) ? 1 : 0);
+	fprintf(a1, "SoftShadowEdge = %d\n", nox_common_getEngineFlag(NOX_ENGINE_FLAG_11) ? 1 : 0);
 	fprintf(a1, "DrawFrontWalls = %d\n", nox_client_drawFrontWalls_80812);
 	fprintf(a1, "TranslucentFrontWalls = %d\n", nox_client_translucentFrontWalls_805844);
 	fprintf(a1, "HighResFrontWalls = %d\n", nox_client_highResFrontWalls_80820);
@@ -8880,7 +8880,7 @@ int sub_437100() {
 	int result; // eax
 
 	result = nox_client_renderGUI_80828;
-	if (*(_DWORD*)&byte_5D4594[811064] != nox_client_renderGUI_80828 && !nox_common_getEngineFlag(1u << 18u)) {
+	if (*(_DWORD*)&byte_5D4594[811064] != nox_client_renderGUI_80828 && !nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
 		*(_DWORD*)&byte_5D4594[811064] = nox_client_renderGUI_80828;
 		sub_4721A0(*(int*)&nox_client_renderGUI_80828);
 		sub_460EA0(*(int*)&nox_client_renderGUI_80828);
@@ -9560,7 +9560,7 @@ char* sub_43AA70() {
 	v1[104] = sub_409FA0();
 	v3 = sub_416F40();
 	v1[103] = v3;
-	if (nox_common_getEngineFlag(1u << 18u)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
 		v1[103] = v3 - 1;
 		--v1[104];
 	}

@@ -654,7 +654,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				*(_DWORD*)&byte_5D4594[v36 + 747900] = 0;
 				break;
 			case 53:
-				if (!nox_common_getEngineFlag(1u << 18u)) {
+				if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_19)) {
 					nox_client_renderGUI_80828 ^= 1u;
 					dword_587000_80832 = nox_client_renderGUI_80828;
 					sub_452D80(921, 100);
