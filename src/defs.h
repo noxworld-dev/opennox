@@ -781,4 +781,39 @@ typedef struct nox_wnd_xxx {
 } nox_wnd_xxx;
 _Static_assert(sizeof(nox_wnd_xxx) == 68, "wrong size of nox_wnd_xxx structure!");
 
+typedef enum {
+	NOX_ENGINE_FLAG_1 = 1u << 0u,
+	NOX_ENGINE_FLAG_2 = 1u << 1u,
+	NOX_ENGINE_FLAG_3 = 1u << 2u,
+	NOX_ENGINE_FLAG_4 = 1u << 3u,
+	NOX_ENGINE_FLAG_5 = 1u << 4u,
+	NOX_ENGINE_FLAG_6 = 1u << 5u,
+	NOX_ENGINE_FLAG_7 = 1u << 6u,
+	NOX_ENGINE_FLAG_8 = 1u << 7u,
+	NOX_ENGINE_FLAG_9 = 1u << 8u,
+	NOX_ENGINE_FLAG_10 = 1u << 9u,
+	NOX_ENGINE_FLAG_11 = 1u << 10u,
+	NOX_ENGINE_FLAG_12 = 1u << 11u,
+	NOX_ENGINE_FLAG_13 = 1u << 12u,
+	NOX_ENGINE_FLAG_14 = 1u << 13u,
+	NOX_ENGINE_FLAG_15 = 1u << 14u,
+	NOX_ENGINE_FLAG_16 = 1u << 15u,
+	NOX_ENGINE_FLAG_17 = 1u << 16u,
+	NOX_ENGINE_FLAG_18 = 1u << 17u,
+	NOX_ENGINE_FLAG_19 = 1u << 18u,
+	NOX_ENGINE_FLAG_20 = 1u << 19u,
+	NOX_ENGINE_FLAG_21 = 1u << 20u,
+	NOX_ENGINE_FLAG_22 = 1u << 21u,
+	NOX_ENGINE_FLAG_23 = 1u << 22u,
+	NOX_ENGINE_FLAG_24 = 1u << 23u,
+	NOX_ENGINE_FLAG_25 = 1u << 24u,
+	NOX_ENGINE_FLAG_26 = 1u << 25u,
+	NOX_ENGINE_FLAG_27 = 1u << 26u,
+	NOX_ENGINE_FLAG_28 = 1u << 27u,
+	NOX_ENGINE_FLAG_29 = 1u << 28u,
+	NOX_ENGINE_FLAG_30 = 1u << 29u,
+	NOX_ENGINE_FLAG_31 = 1u << 30u,
+	NOX_ENGINE_FLAG_32 = 1u << 31u,
+} nox_engine_flag;
+
 #endif
