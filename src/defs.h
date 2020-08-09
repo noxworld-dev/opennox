@@ -783,7 +783,7 @@ _Static_assert(sizeof(nox_wnd_xxx) == 68, "wrong size of nox_wnd_xxx structure!"
 
 typedef enum {
 	NOX_ENGINE_FLAG_1 = 1u << 0u,
-	NOX_ENGINE_FLAG_2 = 1u << 1u,
+	NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS = 1u << 1u,
 	NOX_ENGINE_FLAG_3 = 1u << 2u,
 	NOX_ENGINE_FLAG_4 = 1u << 3u,
 	NOX_ENGINE_FLAG_5 = 1u << 4u,

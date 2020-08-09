@@ -8882,7 +8882,7 @@ int __cdecl sub_4745F0(_DWORD* a1) {
 				sub_4C4F40(a1, v4);
 			sub_474E60(a1, v4);
 			sub_495BB0((_DWORD*)v4, a1);
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_2))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS))
 				nox_thing_debug_draw(a1, v4);
 			v5 = *(_DWORD*)(v4 + 480);
 			*(_DWORD*)(v4 + 132) = 0;
@@ -9382,7 +9382,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 				LABEL_71:
 					sub_4746C0(v1, dr);
 					if (dr->draw_func(v1, dr)) {
-						if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_2))
+						if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS))
 							nox_thing_debug_draw(v1, dr);
 						v28 = *(_BYTE*)(&dr->field_70);
 						dr->field_33 = 0;
