@@ -2245,7 +2245,7 @@ int __cdecl sub_45D500(int a1);
 _DWORD* __cdecl sub_45D550(_DWORD* a1);
 void sub_45D570(int a1, int a2);
 int __cdecl sub_45D7D0(int* a1, int* a2);
-int sub_45D810();
+void sub_45D810();
 int sub_45D9B0();
 BOOL sub_45D9C0();
 int __cdecl sub_45D9D0(int a1);
