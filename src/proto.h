@@ -2237,7 +2237,7 @@ int sub_45CFC0();
 void __cdecl sub_45CFE0(int a1, int a2, int a3, int a4);
 void __cdecl sub_45D140(int a1, int a2);
 int* __cdecl sub_45D200(int* a1, int a2, int2* a3); // idb
-char* __cdecl sub_45D290(int a1, char* a2, int a3);
+void sub_45D290(int a1, char* a2, int a3);
 int __cdecl sub_45D320(int a1);
 int __cdecl sub_45D400(int a1);
 char* __cdecl sub_45D4A0(int a1);
