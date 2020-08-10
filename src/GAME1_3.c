@@ -4440,13 +4440,10 @@ int __cdecl sub_445BC0(_DWORD* a1) {
 }
 
 //----- (00445C00) --------------------------------------------------------
-int sub_445C00() {
-	int result; // eax
-
-	result = sub_46ADA0(*(int*)&dword_5d4594_825760);
-	if (result & 0x10)
-		result = sub_445C40();
-	return result;
+void sub_445C00() {
+	int v = sub_46ADA0(*(int*)&dword_5d4594_825760);
+	if (v & 0x10)
+		sub_445C40();
 }
 
 //----- (00445C20) --------------------------------------------------------

@@ -1832,7 +1832,7 @@ int sub_445B30();
 void sub_445BA0();
 int sub_445BB0();
 int __cdecl sub_445BC0(_DWORD* a1);
-int sub_445C00();
+void sub_445C00();
 int sub_445C20();
 _DWORD* sub_445FF0();
 BOOL sub_446030();
