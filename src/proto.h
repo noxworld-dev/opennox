@@ -1827,7 +1827,7 @@ int __cdecl sub_4456E0(int* a1);
 int __cdecl sub_445730(int a1);
 BOOL sub_445750();
 int sub_445770();
-int sub_445B20(); // weak
+void sub_445B20(); // weak
 int sub_445B30();
 void sub_445BA0();
 int sub_445BB0();
@@ -1908,7 +1908,7 @@ int sub_449280();
 int __cdecl sub_4493D0(int a1, int a2, int* a3, int a4);
 void sub_4494A0();
 int sub_449530();
-_DWORD* __cdecl sub_449A10(int a1, int a2, int a3, int a4, int (*a5)(void), void (*a6)(void));
+_DWORD* __cdecl sub_449A10(int a1, int a2, int a3, int a4, void (*a5)(void), void (*a6)(void));
 int __cdecl sub_449BE0(int a1, int a2, int a3, int a4);
 int __cdecl sub_449C30(_DWORD* a1, int a2, int a3, int a4);
 int __cdecl sub_449CA0(int a1, int a2, int* a3, int a4);

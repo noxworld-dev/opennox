@@ -4414,9 +4414,9 @@ int sub_445770() {
 
 //----- (00445B20) --------------------------------------------------------
 // Microsoft VisualC 2-14/net runtime
-int sub_445B20() {
+void sub_445B20() {
 	sub_4460C0();
-	return sub_445C40();
+	sub_445C40();
 }
 // 445B20: using guessed type int sub_445B20();
 
@@ -5825,7 +5825,7 @@ int sub_449530() {
 }
 
 //----- (00449A10) --------------------------------------------------------
-_DWORD* __cdecl sub_449A10(int a1, int a2, int a3, int a4, int (*a5)(void), void (*a6)(void)) {
+_DWORD* __cdecl sub_449A10(int a1, int a2, int a3, int a4, void (*a5)(void), void (*a6)(void)) {
 	int v6;         // esi
 	_DWORD* result; // eax
 	_DWORD* v8;     // eax
