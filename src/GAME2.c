@@ -7217,22 +7217,17 @@ int __cdecl sub_45D7D0(int* a1, int* a2) {
 }
 
 //----- (0045D810) --------------------------------------------------------
-int sub_45D810() {
-	int result; // eax
-
-	result = dword_5d4594_1047520;
+void sub_45D810() {
 	if (dword_5d4594_1047520) {
 		dword_5d4594_1047520 = 0;
 		nox_window_set_hidden(*(int*)&dword_5d4594_1046956, 1);
 		dword_5d4594_1046648 = 0;
 		sub_45E110(*(int*)&byte_5D4594[1046612]);
-		result = nox_common_gameFlags_check_40A5C0(2048);
-		if (result) {
+		if (nox_common_gameFlags_check_40A5C0(2048)) {
 			sub_57B0A0();
-			result = sub_413A00(0);
+			sub_413A00(0);
 		}
 	}
-	return result;
 }
 
 //----- (0045D9B0) --------------------------------------------------------
