@@ -10777,13 +10777,11 @@ int sub_416D00() {
 }
 
 //----- (00416D40) --------------------------------------------------------
-int sub_416D40() {
+void sub_416D40() {
 	*(_QWORD*)&byte_5D4594[371764] = sub_416BB0();
 	*(_DWORD*)&byte_5D4594[371772] = *(_DWORD*)&byte_5D4594[2598000];
 
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
-
-	return *(_DWORD*)&nox_common_engineFlags;
 }
 
 //----- (00416D70) --------------------------------------------------------
