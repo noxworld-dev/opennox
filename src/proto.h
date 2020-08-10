@@ -3360,7 +3360,7 @@ int sub_4A50A0();
 int sub_4A50D0();
 int __cdecl sub_4A5690(_BYTE* a1);
 void* sub_4A56E0();
-int sub_4A5700();
+void sub_4A5700();
 int sub_4A5C70();
 int sub_4A5E90();
 unsigned __int8* __cdecl sub_4A61E0(_DWORD* a1, int a2, _BYTE* a3);

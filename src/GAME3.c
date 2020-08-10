@@ -1767,9 +1767,8 @@ void* sub_4A56E0() {
 }
 
 //----- (004A5700) --------------------------------------------------------
-int sub_4A5700() {
+void sub_4A5700() {
 	nox_common_setEngineFlag(NOX_ENGINE_FLAG_5);
-	return *(_DWORD*)&nox_common_engineFlags;
 }
 
 //----- (004A5C70) --------------------------------------------------------
