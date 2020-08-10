@@ -3134,7 +3134,7 @@ int __cdecl sub_499810(int a1, int a2);
 _DWORD* __cdecl sub_499880(__int16* a1);
 int __cdecl sub_4999D0(int a1, int2* a2, int2* a3); // idb
 void __cdecl sub_499B70(int xLeft, int yTop, int a3);
-unsigned int __cdecl sub_499CF0(int* a1, int a2, int a3);
+void sub_499CF0(int* a1, int a2, int a3);
 _DWORD* __cdecl sub_499F60(int a1, int a2, int a3, __int16 a4, char a5, char a6, char a7, char a8, char a9, int a10);
 int __cdecl sub_49A150(int2* a1, int a2, unsigned __int8 a3); // idb
 void nox_alloc_npcs();
