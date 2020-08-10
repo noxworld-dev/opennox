@@ -8298,12 +8298,10 @@ void sub_413A00(int a1) {
 BOOL sub_413A50() { return nox_common_gameFlags_check_40A5C0(0x40000); }
 
 //----- (00413A60) --------------------------------------------------------
-unsigned int sub_413A60() {
+void sub_413A60() {
 	nox_file_4 = 0;
 
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_24 | NOX_ENGINE_FLAG_25);
-
-	return *(_DWORD*)&nox_common_engineFlags;
 }
 
 //----- (00413A80) --------------------------------------------------------

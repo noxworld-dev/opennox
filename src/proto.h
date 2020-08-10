@@ -551,7 +551,7 @@ void sub_413960();
 BOOL sub_4139B0();
 void sub_413A00(int a1);
 BOOL sub_413A50();
-unsigned int sub_413A60();
+void sub_413A60();
 int __cdecl sub_413A80(char* a1);
 void __cdecl sub_413AD0(FILE* a1);
 char* __cdecl sub_413B00();
