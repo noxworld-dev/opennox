@@ -1603,7 +1603,6 @@ int __cdecl sub_438DD0(unsigned int a1, unsigned int a2);
 int __cdecl sub_438E30(_DWORD* a1, int a2);
 int __cdecl sub_438EF0(_DWORD* a1, int a2, unsigned int a3, int a4);
 int __cdecl sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4);
-int __cdecl sub_439370(int2*, int);
 _DWORD* __cdecl sub_439450(int a1, int a2, _DWORD* a3);
 char* __cdecl sub_439CC0(int a1, char* a2);
 int __cdecl sub_439D00(int* a1, int a2, unsigned int a3, int a4);

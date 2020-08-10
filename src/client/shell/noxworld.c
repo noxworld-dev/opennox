@@ -516,10 +516,9 @@ int sub_438BD0() {
 }
 
 //----- (00439370) --------------------------------------------------------
-int __cdecl sub_439370(int2* a1, int a2) {
+void __cdecl sub_439370(int2* a1, int a2) {
 	int v2;      // eax
 	wchar_t* v3; // eax
-	int result;  // eax
 
 	if (!(*(_BYTE*)(a2 + 164) & 0x10) || (LOBYTE(v2) = nox_client_checkQuestExp_SKU2_4D7700(), v2)) {
 		sub_439450(a1->field_0, a1->field_4, a1);
@@ -530,16 +529,14 @@ int __cdecl sub_439370(int2* a1, int a2) {
 		sub_4394D0(a2);
 		dword_5d4594_815056 = 1;
 		*(_WORD*)&byte_5D4594[814604] = *(_WORD*)(a2 + 109);
-		result = *(_DWORD*)&nox_common_engineFlags;
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
-			result = sub_46ABB0(*(int*)&byte_5D4594[815008], 0);
+			sub_46ABB0(*(int*)&byte_5D4594[815008], 0);
 	} else {
 		v3 = loadString_sub_40F1D0((char*)&byte_587000[89244], 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 688);
 		sub_449A10(*(int*)&dword_5d4594_814980, 0, (int)v3, 33, 0, 0);
 		sub_44A360(0);
-		result = sub_44A4B0();
+		sub_44A4B0();
 	}
-	return result;
 }
 //----- (004394D0) --------------------------------------------------------
 int __cdecl sub_4394D0(int a1) {
