@@ -365,8 +365,7 @@ int __cdecl sub_46CE40(int a1, int a2, int a3, _BYTE* a4) {
 }
 
 //----- (0046D580) --------------------------------------------------------
-int sub_46D580() {
-	int result;  // eax
+void sub_46D580() {
 	_DWORD* v1;  // esi
 	int v2;      // eax
 	wchar_t* v3; // eax
@@ -374,8 +373,7 @@ int sub_46D580() {
 	wchar_t* v5; // eax
 	wchar_t* v6; // eax
 
-	result = nox_common_gameFlags_check_40A5C0(4096);
-	if (!result) {
+	if (!nox_common_gameFlags_check_40A5C0(4096)) {
 		memset(&byte_5D4594[1064948], 0, 0x45E4u);
 		sub_46CE40(*(int*)&dword_5d4594_1082860, *(int*)&dword_5d4594_1082864, *(int*)&dword_5d4594_1082868,
 				   &byte_5D4594[1064948]);
@@ -401,7 +399,6 @@ int sub_46D580() {
 			v5 = loadString_sub_40F1D0((char*)&byte_587000[145524], 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 868);
 		}
 		sub_46AEE0((int)v4, (int)v5);
-		result = sub_413A00(1);
+		sub_413A00(1);
 	}
-	return result;
 }
