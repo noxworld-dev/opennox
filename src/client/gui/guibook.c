@@ -498,8 +498,7 @@ LABEL_27:
 }
 
 //----- (0045D870) --------------------------------------------------------
-int sub_45D870() {
-	int result; // eax
+void sub_45D870() {
 	int v1;     // esi
 	int v3;     // edi
 	int v4;     // ebx
@@ -510,7 +509,6 @@ int sub_45D870() {
 	int v9;     // [esp+0h] [ebp-8h]
 	int v10;    // [esp+4h] [ebp-4h]
 
-	result = dword_5d4594_1047520;
 	if (dword_5d4594_1047520) {
 		v1 = dword_5d4594_1046652 != 1 ? 0 : 3;
 		v9 = ((int)*(_DWORD*)&byte_5D4594[1046668] - nox_float2int(*(float*)&dword_5d4594_1046636)) / 50;
@@ -528,7 +526,6 @@ int sub_45D870() {
 			--v5;
 		} while (v5);
 		sub_45DBE0(*(void**)&byte_5D4594[1046676], *(int*)&dword_5d4594_1047524, *(int*)&dword_5d4594_1046852);
-		result = sub_45D810();
+		sub_45D810();
 	}
-	return result;
 }
