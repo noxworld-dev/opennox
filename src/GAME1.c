@@ -8281,22 +8281,17 @@ void sub_413960() {
 BOOL sub_4139B0() { return dword_5d4594_251744 != 0; }
 
 //----- (00413A00) --------------------------------------------------------
-int __cdecl sub_413A00(int a1) {
-	int result; // eax
-
-	result = nox_common_gameFlags_check_40A5C0(2048);
-	if (result == 1) {
+void sub_413A00(int a1) {
+	if (nox_common_gameFlags_check_40A5C0(2048) == 1) {
 		if (a1) {
-			result = sub_40A4D0(0x40000);
+			sub_40A4D0(0x40000);
 		} else {
-			result = dword_5d4594_251744;
 			if (!dword_5d4594_251744) {
 				nox_common_gameFlags_unset_40A540(0x40000);
-				result = sub_416D40();
+				sub_416D40();
 			}
 		}
 	}
-	return result;
 }
 
 //----- (00413A50) --------------------------------------------------------
