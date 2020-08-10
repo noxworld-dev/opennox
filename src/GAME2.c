@@ -6975,7 +6975,7 @@ int* __cdecl sub_45D200(int* a1, int a2, int2* a3) {
 }
 
 //----- (0045D290) --------------------------------------------------------
-char* __cdecl sub_45D290(int a1, char* a2, int a3) {
+void sub_45D290(int a1, char* a2, int a3) {
 	char* result; // eax
 	int v4;       // esi
 
@@ -7000,11 +7000,10 @@ char* __cdecl sub_45D290(int a1, char* a2, int a3) {
 				sub_45B010(0);
 				result = (char*)a3;
 				if (a3)
-					result = (char*)sub_499CF0((int*)3, a1, a3);
+					sub_499CF0((int*)3, a1, a3);
 			}
 		}
 	}
-	return result;
 }
 
 //----- (0045D320) --------------------------------------------------------
