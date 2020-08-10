@@ -593,7 +593,7 @@ int __cdecl sub_4D7140(int a1) {
 unsigned __int8* sub_4DB160() { return &byte_5D4594[1557900]; }
 
 //----- (004DBA30) --------------------------------------------------------
-char* __cdecl sub_4DBA30(int a1) {
+void sub_4DBA30(int a1) {
 	char* result; // eax
 	char* v2;     // ebx
 	int v3;       // ebp
@@ -764,10 +764,9 @@ char* __cdecl sub_4DBA30(int a1) {
 			}
 			sub_4DB220(v3);
 			dword_5d4594_1563096 = v3;
-			result = (char*)sub_416D40();
+			sub_416D40();
 		}
 	}
-	return result;
 }
 
 //----- (004DCC00) --------------------------------------------------------
