@@ -3801,7 +3801,7 @@ int __cdecl sub_4C3EB0(int a1, int a2, char* a3, int a4);
 int __cdecl sub_4C3FC0(char* a1);
 int __cdecl sub_4C4100(char* a1);
 int sub_4C4220();
-int sub_4C4260();
+void sub_4C4260();
 BOOL sub_4C4280();
 int __cdecl sub_4C42A0(int2* a1, int2* a2, int* a3, int* a4); // idb
 __int16 __cdecl sub_4C4770_draw(int* a1, nox_drawable* dr, int a3);
