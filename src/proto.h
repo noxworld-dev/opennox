@@ -1829,7 +1829,7 @@ BOOL sub_445750();
 int sub_445770();
 int sub_445B20(); // weak
 int sub_445B30();
-int sub_445BA0();
+void sub_445BA0();
 int sub_445BB0();
 int __cdecl sub_445BC0(_DWORD* a1);
 int sub_445C00();
