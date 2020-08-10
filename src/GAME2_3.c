@@ -5103,7 +5103,7 @@ void __cdecl sub_499B70(int xLeft, int yTop, int a3) {
 }
 
 //----- (00499CF0) --------------------------------------------------------
-unsigned int __cdecl sub_499CF0(int* a1, int a2, int a3) {
+void sub_499CF0(int* a1, int a2, int a3) {
 	unsigned int result; // eax
 	int v4;              // esi
 	int2 a3a;            // [esp+8h] [ebp-8h]
@@ -5124,11 +5124,10 @@ unsigned int __cdecl sub_499CF0(int* a1, int a2, int a3) {
 		sub_499E70(v4, a3a.field_0, a3a.field_4 + 166, 135, 166, 2, 1);
 		sub_499E70(v4, a3a.field_0 + 271, a3a.field_4, 271, 166, 1, 2);
 		sub_499E70(v4, a3a.field_0 + 135, a3a.field_4, 135, 166, 2, 2);
-		result = sub_499E70(v4, a3a.field_0 + 135, a3a.field_4 + 166, 135, 166, 2, 2);
+		sub_499E70(v4, a3a.field_0 + 135, a3a.field_4 + 166, 135, 166, 2, 2);
 		if (a1 != (int*)4 && a3 == 1)
-			result = sub_45D570((int)a1, a2);
+			sub_45D570((int)a1, a2);
 	}
-	return result;
 }
 
 //----- (00499F60) --------------------------------------------------------
