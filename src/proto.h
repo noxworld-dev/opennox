@@ -549,7 +549,7 @@ void sub_413900(int a1);
 int sub_413920();
 void sub_413960();
 BOOL sub_4139B0();
-int __cdecl sub_413A00(int a1);
+void sub_413A00(int a1);
 BOOL sub_413A50();
 unsigned int sub_413A60();
 int __cdecl sub_413A80(char* a1);
