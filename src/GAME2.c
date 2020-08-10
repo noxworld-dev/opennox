@@ -7123,7 +7123,7 @@ _DWORD* __cdecl sub_45D550(_DWORD* a1) {
 }
 
 //----- (0045D570) --------------------------------------------------------
-int __cdecl sub_45D570(int a1, int a2) {
+void sub_45D570(int a1, int a2) {
 	int result; // eax
 	double v3;  // st7
 	int2 a4;    // [esp+Ch] [ebp-10h]
@@ -7140,7 +7140,7 @@ int __cdecl sub_45D570(int a1, int a2) {
 					result = sub_461250();
 				} else {
 					if (a1 != 3)
-						return result;
+						return;
 					result = sub_4612A0();
 				}
 				dword_5d4594_1046852 = result;
@@ -7191,12 +7191,11 @@ int __cdecl sub_45D570(int a1, int a2) {
 					dword_5d4594_1046648 = sub_430B40_get_mouse_prev_seq();
 					if (!nox_common_gameFlags_check_40A5C0(2048) || sub_446360() == 1 ||
 						(result = sub_4DB1B0(), result == 1))
-						result = sub_45D870();
+						sub_45D870();
 				}
 			}
 		}
 	}
-	return result;
 }
 
 //----- (0045D7D0) --------------------------------------------------------
