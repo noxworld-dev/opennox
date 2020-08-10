@@ -692,7 +692,7 @@ __int64 sub_416BF0();
 __int64 __cdecl sub_416C70(int a1);
 BOOL sub_416CD0();
 int sub_416D00();
-int sub_416D40();
+void sub_416D40();
 BOOL __cdecl sub_416D70();
 void __cdecl sub_416DD0();
 void sub_416E20();
