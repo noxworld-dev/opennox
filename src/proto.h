@@ -2002,7 +2002,7 @@ BOOL sub_44E0D0();
 _DWORD* sub_44E110();
 void sub_44E320();
 int nox_client_getIntroScreenDuration_44E3B0();
-int sub_44E3C0();
+void sub_44E3C0();
 int sub_44E3E0();
 _DWORD* sub_44E560();
 int __cdecl nox_client_wndQuestBriefProc_44E630(int a1, int a2, int a3, int a4);
