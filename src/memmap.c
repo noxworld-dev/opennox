@@ -2,6 +2,7 @@
 #include "static.h"
 #include "proto.h"
 
+extern nox_engine_flag nox_common_engineFlags;
 extern int nox_enable_audio;
 extern int nox_enable_threads;
 extern int nox_video_dxFullScreen;
