@@ -4511,7 +4511,7 @@ void __cdecl sub_4989A0() {
 }
 
 //----- (00498AE0) --------------------------------------------------------
-int sub_498AE0() {
+void sub_498AE0() {
 	int v0; // ecx
 	int v1; // esi
 	int i;  // eax
@@ -4528,7 +4528,7 @@ int sub_498AE0() {
 		}
 		i = v1;
 	}
-	return nox_client_drawEnableAlpha_434560(0);
+	nox_client_drawEnableAlpha_434560(0);
 }
 
 //----- (00498B50) --------------------------------------------------------

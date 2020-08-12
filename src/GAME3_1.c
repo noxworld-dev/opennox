@@ -5533,7 +5533,7 @@ int __cdecl sub_4C5500(int* a1) {
 	sub_49F6D0(v16);
 	result = *(_DWORD*)&nox_common_engineFlags;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE))
-		result = sub_498AE0();
+		sub_498AE0();
 	return result;
 }
 
