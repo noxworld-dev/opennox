@@ -3816,7 +3816,7 @@ int __cdecl sub_4C52E0(int* a1, int a2);
 void __cdecl sub_4C5430(int a1, int a2);
 void sub_4C54D0();
 int sub_4C54E0();
-int __cdecl sub_4C5500(int* a1);
+void sub_4C5500(int* a1);
 int __cdecl sub_4C5630(int a1, int a2, int a3);
 int __cdecl sub_4C5680(int a1, int a2, int a3);
 int __cdecl sub_4C56D0(_DWORD* a1);
