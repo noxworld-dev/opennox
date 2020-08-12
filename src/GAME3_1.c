@@ -5469,7 +5469,7 @@ int sub_4C54E0() {
 }
 
 //----- (004C5500) --------------------------------------------------------
-int __cdecl sub_4C5500(int* a1) {
+void sub_4C5500(int* a1) {
 	int* v1;              // ebx
 	int v2;               // ebp
 	int v3;               // esi
@@ -5481,7 +5481,6 @@ int __cdecl sub_4C5500(int* a1) {
 	int v9;               // ecx
 	unsigned int v10;     // ebp
 	int v11;              // ecx
-	int result;           // eax
 	unsigned __int8* v13; // [esp+10h] [ebp-14h]
 	int v14;              // [esp+18h] [ebp-Ch]
 	int v15;              // [esp+1Ch] [ebp-8h]
@@ -5531,10 +5530,9 @@ int __cdecl sub_4C5500(int* a1) {
 	if (v5 < v11 + v3)
 		nox_client_drawRectFilledOpaque_49CE30(v2, v5, v1[8], v3 + v11 - v5);
 	sub_49F6D0(v16);
-	result = *(_DWORD*)&nox_common_engineFlags;
+
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE))
 		sub_498AE0();
-	return result;
 }
 
 //----- (004C5630) --------------------------------------------------------
