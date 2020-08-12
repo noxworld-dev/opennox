@@ -89,7 +89,7 @@ int nox_video_dxFullScreen = 0;
 int nox_video_dxUnlockSurface = 0;
 HANDLE* nox_video_cursorDrawThreadHandle;
 
-_DWORD nox_common_engineFlags = 0;
+nox_engine_flag nox_common_engineFlags = 0u;
 _DWORD nox_common_gameFlags;        // & 1 = host server; & 0x800 = solo game
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
@@ -160,13 +160,13 @@ void* nox_malloc2(size_t x, char* func, int line, char* file) {
 }
 #endif
 
-void nox_common_setEngineFlag(const nox_engine_flag flags) { *(uint32_t*)&nox_common_engineFlags |= flags; }
+void nox_common_setEngineFlag(const nox_engine_flag flags) { nox_common_engineFlags |= flags; }
 
-void nox_common_resetEngineFlag(const nox_engine_flag flags) { *(uint32_t*)&nox_common_engineFlags &= ~flags; }
+void nox_common_resetEngineFlag(const nox_engine_flag flags) { nox_common_engineFlags &= ~flags; }
 
-void nox_common_toggleEngineFlag(const nox_engine_flag flags) { *(uint32_t*)&nox_common_engineFlags ^= flags; }
+void nox_common_toggleEngineFlag(const nox_engine_flag flags) { nox_common_engineFlags ^= flags; }
 
-bool nox_common_getEngineFlag(const nox_engine_flag flags) { return (*(uint32_t*)&nox_common_engineFlags & flags) != 0; }
+bool nox_common_getEngineFlag(const nox_engine_flag flags) { return (nox_common_engineFlags & flags) != 0; }
 
 void nox_exit(int exitCode) {
 #ifdef __EMSCRIPTEN__
