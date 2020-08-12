@@ -4002,7 +4002,7 @@ int sub_4D3320();
 int sub_4D3330();
 void sub_4D3360();
 int __cdecl sub_4D3370(char* a1);
-unsigned int sub_4D33B0();
+void sub_4D33B0();
 int __cdecl sub_4D33E0(void* a1, int a2);
 int __cdecl sub_4D3450(int a1, void* a2, unsigned int a3);
 int __cdecl sub_4D34C0(char* a1);
