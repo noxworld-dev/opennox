@@ -2245,12 +2245,11 @@ int __cdecl sub_4D3370(char* a1) {
 }
 
 //----- (004D33B0) --------------------------------------------------------
-unsigned int sub_4D33B0() {
+void sub_4D33B0() {
 	if (*(int*)&dword_587000_197424 != -1)
 		_close(*(int*)&dword_587000_197424);
 	dword_587000_197424 = -1;
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_22);
-	return *(_DWORD*)&nox_common_engineFlags;
 }
 
 //----- (004D33E0) --------------------------------------------------------
