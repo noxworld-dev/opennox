@@ -3119,7 +3119,7 @@ int __cdecl sub_498330(int a1);
 void __cdecl sub_498380(int a1, int a2);
 int __cdecl sub_4984B0_drawable(int a1);
 void __cdecl sub_4989A0();
-int sub_498AE0();
+void sub_498AE0();
 int __cdecl sub_498B50(int a1, int a2, int a3, int a4);
 int __cdecl sub_498C20(int2* a1, int2* a2, int a3); // idb
 char __cdecl sub_4990D0(_DWORD* a1, _DWORD* a2);
