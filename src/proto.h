@@ -32,7 +32,6 @@
 #include "MixPatch.h"
 
 // angrykirc: variables to be moved
-extern _DWORD nox_common_engineFlags;
 extern _DWORD nox_common_gameFlags;
 extern int nox_server_gameSettingsUpdated;
 
