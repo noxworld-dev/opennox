@@ -133,7 +133,7 @@ int __cdecl sub_409520(FILE* a1);
 void sub_409560();
 void __cdecl sub_409580(int* a1, int a2);
 int __cdecl sub_4096E0(int* a1, int* a2);
-int __cdecl sub_4097C0(_BYTE* a1, signed int a2, _BYTE* a3);
+void sub_4097C0(_BYTE* a1, signed int a2, _BYTE* a3);
 _BYTE* __cdecl sub_409860(_BYTE* a1, _BYTE* a2, _DWORD* a3);
 int __cdecl sub_4099C0(_BYTE* a1, signed int a2, _BYTE* a3);
 int sub_409A60();
