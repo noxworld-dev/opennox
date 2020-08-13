@@ -1014,7 +1014,10 @@ int __cdecl sub_4096E0(int* a1, int* a2) {
 }
 
 //----- (004097C0) --------------------------------------------------------
-void sub_4097C0(_BYTE* a1, signed int a2, _BYTE* a3) {
+void sub_4097C0(uint8_t* src, size_t sz, uint8_t* dest) {
+	signed int a2 = *(signed int*)&sz;
+	_BYTE* a1 = (_BYTE*)src;
+	_BYTE* a3 = (_BYTE*)dest;
 	if (a1 == NULL)
 		return;
 
