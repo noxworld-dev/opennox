@@ -3,6 +3,8 @@
 
 #include "proto.h"
 
+extern FILE* nox_file_3;
+extern _DWORD dword_5d4594_739996;
 extern _DWORD dword_5d4594_2487656;
 extern _DWORD dword_5d4594_3835368;
 extern _DWORD dword_5d4594_2487804;
@@ -311,6 +313,9 @@ int __cdecl sub_51DF90(int a1) {
 // 51DFAA: variable 'v2' is possibly undefined
 // 51DFC3: variable 'v4' is possibly undefined
 // 51DFDA: variable 'v5' is possibly undefined
+
+//----- (004268F0) --------------------------------------------------------
+void sub_4268F0(int a1) { sub_409190(nox_file_3, *(int*)&dword_5d4594_739996, a1); }
 
 //----- (0051E010) --------------------------------------------------------
 int __cdecl sub_51E010(char* a1, int a2) {
