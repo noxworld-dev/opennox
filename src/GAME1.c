@@ -1014,7 +1014,7 @@ int __cdecl sub_4096E0(int* a1, int* a2) {
 }
 
 //----- (004097C0) --------------------------------------------------------
-int __cdecl sub_4097C0(_BYTE* a1, signed int a2, _BYTE* a3) {
+void sub_4097C0(_BYTE* a1, signed int a2, _BYTE* a3) {
 	_BYTE* v3;  // edi
 	_BYTE* v4;  // esi
 	int v5;     // eax
