@@ -121,7 +121,7 @@ signed int __cdecl sub_408E40_fread(char* a1, int a2, signed int a3, FILE* a4);
 signed int __cdecl sub_408FE0(char* a1, int a2, int a3, FILE* a4);
 int __cdecl sub_409050(FILE* a1, int a2, int a3);
 int __cdecl sub_409110(FILE* a1);
-int __cdecl sub_409190(FILE* a1, int a2, int a3);
+void sub_409190(FILE* a1, int a2, int a3);
 size_t __cdecl sub_409200(char* a1, int a2, int a3, FILE* a4);
 int sub_409370();
 int sub_409390();
