@@ -1015,22 +1015,19 @@ int __cdecl sub_4096E0(int* a1, int* a2) {
 
 //----- (004097C0) --------------------------------------------------------
 void sub_4097C0(uint8_t* src, size_t sz, uint8_t* dest) {
-	signed int a2 = *(signed int*)&sz;
-	_BYTE* a1 = (_BYTE*)src;
-	_BYTE* a3 = (_BYTE*)dest;
-	if (a1 == NULL)
+	if (src == NULL)
 		return;
 
-	if (a2 == 0)
+	if (sz == 0)
 		return;
 
-	_BYTE* v4 = a3 != NULL ? a3 : a1;
+	uint8_t* move_dest = dest != NULL ? dest : src;
 
 	if (dword_5d4594_1308) {
-		_BYTE* v3 = a1;
+		_BYTE* v3 = src;
 
-		int v5 = a2 / 8;
-		int v6 = v5;
+		size_t v5 = sz / 8;
+		size_t v6 = v5;
 		while (v6) {
 			sub_409860(v3, v4, getMemAt(0x5D4594, 2659820));
 			v3 += 8;
@@ -1038,12 +1035,12 @@ void sub_4097C0(uint8_t* src, size_t sz, uint8_t* dest) {
 			--v6;
 		}
 
-		int v7 = 8 * v5;
-		if (v7 < a2)
-			memmove(v4, v3, a2 - v7);
+		size_t v7 = 8 * v5;
+		if (v7 < sz)
+			memmove(v4, v3, sz - v7);
 	} else {
-		if (a1 != v4)
-			memmove(v4, a1, a2);
+		if (src != v4)
+			memmove(v4, src, sz);
 	}
 }
 
