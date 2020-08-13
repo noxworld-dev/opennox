@@ -1158,7 +1158,6 @@ int __cdecl sub_426890(int a1, void* a2);
 int __cdecl sub_4268B0(int a1);
 void sub_4268D0();
 int sub_4268E0();
-void sub_4268F0(int a1);
 int __cdecl sub_426910(char* a1, int a2, int a3);
 FILE* sub_4269F0();
 int __cdecl sub_426A20(int a1);
