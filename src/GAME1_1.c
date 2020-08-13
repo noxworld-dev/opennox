@@ -9501,7 +9501,7 @@ void sub_4268D0() { nox_srand(0x9C4u); }
 int sub_4268E0() { return sub_409110(nox_file_3); }
 
 //----- (004268F0) --------------------------------------------------------
-int __cdecl sub_4268F0(int a1) { return sub_409190(nox_file_3, *(int*)&dword_5d4594_739996, a1); }
+void sub_4268F0(int a1) { sub_409190(nox_file_3, *(int*)&dword_5d4594_739996, a1); }
 
 //----- (00426910) --------------------------------------------------------
 int __cdecl sub_426910(char* a1, int a2, int a3) {
