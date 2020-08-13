@@ -1024,23 +1024,21 @@ void sub_4097C0(uint8_t* src, size_t sz, uint8_t* dest) {
 	uint8_t* move_dest = dest != NULL ? dest : src;
 
 	if (dword_5d4594_1308) {
-		_BYTE* v3 = src;
-
-		size_t v5 = sz / 8;
-		size_t v6 = v5;
-		while (v6) {
-			sub_409860(v3, v4, getMemAt(0x5D4594, 2659820));
-			v3 += 8;
-			v4 += 8;
-			--v6;
+		size_t whole_words = sz / 8;
+		size_t remaining_words = whole_words;
+		while (remaining_words) {
+			sub_409860(src, move_dest, getMemAt(0x5D4594, 2659820));
+			src += 8;
+			move_dest += 8;
+			--remaining_words;
 		}
 
-		size_t v7 = 8 * v5;
-		if (v7 < sz)
-			memmove(v4, v3, sz - v7);
+		size_t copied_bytes = 8 * whole_words;
+		if (copied_bytes < sz)
+			memmove(move_dest, src, sz - copied_bytes);
 	} else {
-		if (src != v4)
-			memmove(v4, src, sz);
+		if (src != move_dest)
+			memmove(move_dest, src, sz);
 	}
 }
 
