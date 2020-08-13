@@ -1015,41 +1015,33 @@ int __cdecl sub_4096E0(int* a1, int* a2) {
 
 //----- (004097C0) --------------------------------------------------------
 void sub_4097C0(_BYTE* a1, signed int a2, _BYTE* a3) {
-	_BYTE* v3;  // edi
-	_BYTE* v4;  // esi
-	int v5;     // eax
-	int v6;     // ebp
-	int v7;     // ebp
-	int result; // eax
+	if (a1 == NULL)
+		return;
 
-	v3 = a1;
-	if (!a1 || !a2)
-		return 0;
-	v4 = a3;
-	if (!a3)
-		v4 = a1;
+	if (a2 == 0)
+		return;
+
+	_BYTE* v4 = a3 != NULL ? a3 : a1;
+
 	if (dword_5d4594_1308) {
-		v5 = a2 / 8;
-		if (a2 / 8 > 0) {
-			v6 = a2 / 8;
-			do {
-				sub_409860(v3, v4, getMemAt(0x5D4594, 2659820));
-				v3 += 8;
-				v4 += 8;
-				--v6;
-			} while (v6);
-			v5 = a2 / 8;
+		_BYTE* v3 = a1;
+
+		int v5 = a2 / 8;
+		int v6 = v5;
+		while (v6) {
+			sub_409860(v3, v4, getMemAt(0x5D4594, 2659820));
+			v3 += 8;
+			v4 += 8;
+			--v6;
 		}
-		v7 = 8 * v5;
-		if (8 * v5 < a2)
-			memmove((unsigned int)v4, v3, a2 - v7);
-		result = v7;
+
+		int v7 = 8 * v5;
+		if (v7 < a2)
+			memmove(v4, v3, a2 - v7);
 	} else {
 		if (a1 != v4)
-			memmove((unsigned int)v4, a1, a2);
-		result = a2;
+			memmove(v4, a1, a2);
 	}
-	return result;
 }
 
 //----- (00409860) --------------------------------------------------------
