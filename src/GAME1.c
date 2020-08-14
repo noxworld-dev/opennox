@@ -698,14 +698,14 @@ void sub_409190(FILE* file, int data, int file_offset) {
 
 	fseek(file, file_offset, SEEK_SET);
 
-	int v4[2];
+	int data_buf[2];
 
-	v4[0] = data;
-	v4[1] = 0;
-	char v6[8];
-	sub_4097C0(&v4, 8, v6);
+	data_buf[0] = data;
+	data_buf[1] = 0;
+	char mangled_data[8];
+	sub_4097C0(&data_buf, 8, mangled_data);
 
-	fwrite(v6, 8u, 1u, file);
+	fwrite(mangled_data, 8u, 1u, file);
 
 	fseek(file, 0, SEEK_END);
 }
