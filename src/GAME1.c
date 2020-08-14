@@ -692,22 +692,22 @@ int __cdecl sub_409110(FILE* a1) {
 }
 
 //----- (00409190) --------------------------------------------------------
-void sub_409190(FILE* a1, int a2, int a3) {
-	if (a3 < 0)
+void sub_409190(FILE* file, int data, int file_offset) {
+	if (file_offset < 0)
 		return;
 
-	fseek(a1, a3, SEEK_SET);
+	fseek(file, file_offset, SEEK_SET);
 
 	int v4[2];
 
-	v4[0] = a2;
+	v4[0] = data;
 	v4[1] = 0;
 	char v6[8];
 	sub_4097C0(&v4, 8, v6);
 
-	fwrite(v6, 8u, 1u, a1);
+	fwrite(v6, 8u, 1u, file);
 
-	fseek(a1, 0, SEEK_END);
+	fseek(file, 0, SEEK_END);
 }
 
 //----- (00409200) --------------------------------------------------------
