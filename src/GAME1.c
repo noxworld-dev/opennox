@@ -647,13 +647,13 @@ int __cdecl sub_409050(FILE* a1, int a2, int a3) {
 	dword_5d4594_1304 = 0;
 	if (nox_file_10_mode) {
 		if (!a2) {
-			fseek(a1, 0, 2);
+			fseek(a1, 0, SEEK_END);
 			*getMemU32Ptr(0x5D4594, 1284) = ftell(a1);
 		}
 		return 0;
 	}
 	v3 = a2;
-	if (a3 == 1) {
+	if (a3 == SEEK_CUR) {
 		if (!a2)
 			return 0;
 		v3 = *getMemU32Ptr(0x5D4594, 1284) - ftell(a1) + a2;
@@ -663,7 +663,7 @@ int __cdecl sub_409050(FILE* a1, int a2, int a3) {
 	v5 = v4 & 7;
 	*getMemU32Ptr(0x5D4594, 1284) = v4;
 	if (v4 & 7) {
-		fseek(a1, -v5, 1);
+		fseek(a1, -v5, SEEK_CUR);
 		if (sub_40ADD0_fread((char*)getMemAt(0x5D4594, 1288), 1u, 8u, a1) <= 0) {
 			*getMemU32Ptr(0x5D4594, 1284) -= v5;
 			return 0;
@@ -696,7 +696,7 @@ void sub_409190(FILE* a1, int a2, int a3) {
 	if (a3 < 0)
 		return;
 
-	fseek(a1, a3, 0);
+	fseek(a1, a3, SEEK_SET);
 
 	int v4[2];
 
@@ -707,7 +707,7 @@ void sub_409190(FILE* a1, int a2, int a3) {
 
 	fwrite(v6, 8u, 1u, a1);
 
-	fseek(a1, 0, 2);
+	fseek(a1, 0, SEEK_END);
 }
 
 //----- (00409200) --------------------------------------------------------
@@ -5494,9 +5494,9 @@ int __cdecl sub_40F830(const char* path) {
 		return 0;
 	}
 	if (*(int*)&hbuf[4] < 2)
-		fseek(file, 20, 0);
+		fseek(file, 20, SEEK_SET);
 	else
-		fseek(file, 24, 0);
+		fseek(file, 24, SEEK_SET);
 
 	int i = 0;
 	int previ = 0;

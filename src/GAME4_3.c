@@ -12065,13 +12065,13 @@ int __cdecl sub_541670(LPCSTR a1, LPCSTR lpExistingFileName, LPCSTR lpFileName) 
 		fclose(v3);
 		return 0;
 	}
-	fseek(v3, 0, 2);
+	fseek(v3, 0, SEEK_END);
 	v6 = ftell(v3);
-	fseek(v3, 0, 0);
+	fseek(v3, 0, SEEK_SET);
 	if (v6) {
-		fseek(v4, 0, 2);
+		fseek(v4, 0, SEEK_END);
 		v7 = ftell(v4);
-		fseek(v4, 0, 0);
+		fseek(v4, 0, SEEK_SET);
 		if (v7) {
 			v8 = fopen(lpFileName, "w+b");
 			v9 = v8;
@@ -12370,7 +12370,7 @@ int __cdecl sub_541E40(FILE* a1, FILE* a2, FILE* a3) {
 	v16 = v14 + v13 - 4;
 	fwrite(&v16, 4u, 1u, a3);
 	sub_542380(a1, a3, 0);
-	fseek(a3, -4, 1);
+	fseek(a3, -4, SEEK_CUR);
 	return sub_542380(a2, a3, 1);
 }
 
@@ -12645,18 +12645,18 @@ int __cdecl sub_542380(FILE* a1, FILE* a2, int a3) {
 				v14 = *(int (**)()) getMemAt(0x587000, 4 * (_DWORD)v13 + 245900);
 				if (v14 == sub_512320 || v14 == sub_512350 || v14 == sub_512DE0 || v14 == sub_512E10 ||
 					v14 == sub_516970 || v14 == sub_514D90) {
-					fseek(v4, -4, 1);
+					fseek(v4, -4, SEEK_CUR);
 					fread(&a2, 4u, 1u, v4);
-					fseek(v4, -4, 1);
+					fseek(v4, -4, SEEK_CUR);
 					a2 = (FILE*)((char*)a2 + dword_5d4594_2489428 - 2);
 					fwrite(&a2, 4u, 1u, v4);
 					if (*(int (**)()) getMemAt(0x587000, 4 * (_DWORD)v13 + 245900) == sub_514D90) {
-						fseek(v4, -12, 1);
+						fseek(v4, -12, SEEK_CUR);
 						fread(&a2, 4u, 1u, v4);
-						fseek(v4, -4, 1);
+						fseek(v4, -4, SEEK_CUR);
 						a2 = (FILE*)((char*)a2 + dword_5d4594_2489428 - 2);
 						fwrite(&a2, 4u, 1u, v4);
-						fseek(v4, 8, 1);
+						fseek(v4, 8, SEEK_CUR);
 					}
 				}
 			}
@@ -12977,9 +12977,9 @@ int __cdecl sub_543110(LPCSTR lpExistingFileName, int2* a2) {
 		fwrite(&v13, 4u, 1u, v7);
 		sub_542380(v6, v7, 0);
 		v13 = -4 - v11 + ftell(v7);
-		fseek(v7, v11, 0);
+		fseek(v7, v11, SEEK_SET);
 		fwrite(&v13, 4u, 1u, v7);
-		fseek(v7, v13, 1);
+		fseek(v7, v13, SEEK_CUR);
 		++v10;
 	}
 	strcpy((char*)&v19, "DONE");

@@ -10758,7 +10758,7 @@ int __cdecl sub_486B60(int a1, int a2) {
 	v3 = *(FILE**)(a1 + 268);
 	*(_DWORD*)(a1 + 280) = v3;
 	*(_DWORD*)(a1 + 284) = *(_DWORD*)(v2 + 20);
-	if (fseek(v3, *(_DWORD*)(v2 + 16), 0))
+	if (fseek(v3, *(_DWORD*)(v2 + 16), SEEK_SET))
 		v12 = 0;
 	if (!*(_DWORD*)(v2 + 20))
 		v12 = 0;
@@ -10786,12 +10786,12 @@ int __cdecl sub_486B60(int a1, int a2) {
 	while (1) {
 		if (*(_DWORD*)v13 == 544501094) {
 			sub_40ADD0_fread(v14, 0x10u, 1u, v7);
-			fseek(v7, *(_DWORD*)&v13[4] - 16, 1);
+			fseek(v7, *(_DWORD*)&v13[4] - 16, SEEK_CUR);
 			goto LABEL_15;
 		}
 		if (*(_DWORD*)v13 == 1635017060)
 			break;
-		fseek(v7, *(int*)&v13[4], 1);
+		fseek(v7, *(int*)&v13[4], SEEK_CUR);
 	LABEL_15:
 		if (sub_40ADD0_fread(v13, 8u, 1u, v7) != 1)
 			goto LABEL_18;

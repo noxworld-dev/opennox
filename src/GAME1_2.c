@@ -4680,7 +4680,7 @@ FILE* __cdecl sub_42F0B0(int a1) {
 		sub_40ADD0_fread((char*)&v6, 4u, 1u, v3);
 		v4 = (char*)malloc(v6);
 		if (v4) {
-			fseek(v3, 0, 0);
+			fseek(v3, 0, SEEK_SET);
 			v5 = sub_40ADD0_fread(v4, 1u, v6, v3);
 			if (v5 == v6) {
 				fclose(v3);
@@ -5247,12 +5247,12 @@ static FILE* get_bag(unsigned int offset) {
 			fp = bag_fp[i];
 			if (fp == NULL)
 				fp = bag_fp[i] = fopen(bag_files[i].path, "rb");
-			fseek(fp, offset - bag_files[i].offset, 0);
+			fseek(fp, offset - bag_files[i].offset, SEEK_SET);
 		}
 	}
 #else
 	fp = nox_video_bag_fileptr;
-	fseek(fp, offset, 0);
+	fseek(fp, offset, SEEK_SET);
 #endif
 	return fp;
 }

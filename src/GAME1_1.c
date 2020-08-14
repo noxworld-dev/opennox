@@ -2632,7 +2632,7 @@ FILE* __cdecl sub_41CAC0(char* a1, char** a2) {
 					}
 				} else {
 				LABEL_9:
-					sub_409050(nox_file_2, v12, 1);
+					sub_409050(nox_file_2, v12, SEEK_CUR);
 				}
 			}
 			*v3 = 0;
@@ -2704,7 +2704,7 @@ int __cdecl sub_41CC50(char* a1) {
 					v4 += v9 + v6 + 4;
 				}
 			LABEL_14:
-				sub_409050(nox_file_2, v9, 1);
+				sub_409050(nox_file_2, v9, SEEK_CUR);
 			}
 			sub_408D90(nox_file_2);
 			result = v4;
@@ -9524,7 +9524,7 @@ int __cdecl sub_426910(char* a1, int a2, int a3) {
 	if (result) {
 		result = sub_408D40(result, a3);
 		if (result) {
-			if (a2 == 2 && sub_409050(nox_file_3, 0, 2)) {
+			if (a2 == 2 && sub_409050(nox_file_3, 0, SEEK_END)) {
 				result = 0;
 			} else {
 				dword_5d4594_740072 = 0;
@@ -9591,7 +9591,7 @@ int* __cdecl sub_426A80(int* a1) {
 }
 
 //----- (00426AA0) --------------------------------------------------------
-int __cdecl sub_426AA0(int a1) { return sub_409050(nox_file_3, a1, 1); }
+int __cdecl sub_426AA0(int a1) { return sub_409050(nox_file_3, a1, SEEK_CUR); }
 
 //----- (00426AC0) --------------------------------------------------------
 size_t __cdecl sub_426AC0_file3_fread(_BYTE* a1, size_t a2) {
@@ -9707,11 +9707,11 @@ void __cdecl sub_426D40() {
 		v1 = ftell(nox_file_3);
 		v2 = *getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072);
 		v3 = (void*)(v1 - v2 - 4);
-		fseek(nox_file_3, v2, 0);
+		fseek(nox_file_3, v2, SEEK_SET);
 		v6 = v3;
 		sub_56FDD0(126, &v6, 4);
 		fwrite(&v6, 4u, 1u, nox_file_3);
-		fseek(nox_file_3, v1, 0);
+		fseek(nox_file_3, v1, SEEK_SET);
 	} else {
 		v5 = sub_409390();
 		v3 = (void*)(v5 - *getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072));
