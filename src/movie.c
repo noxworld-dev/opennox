@@ -2246,7 +2246,7 @@ BOOL __thiscall sub_558820(char* this, int a2, CHAR* a3, signed int a4) {
 			if (!result) {
 				result = sub_559BA0((int)v9, &a4, 1u) != 1;
 				if (!result)
-					result = !sub_559BE0((int)v9, -1, 1);
+					result = !sub_559BE0((int)v9, -1, SEEK_CUR);
 			}
 		} else {
 			v8 = this + 4;

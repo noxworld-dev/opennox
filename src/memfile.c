@@ -18,9 +18,9 @@ nox_memfile* nox_memfile_load(const char* path, int a2) {
 		sub_408D90(f);
 		return 0;
 	}
-	sub_409050(f, 0, 2);
+	sub_409050(f, 0, SEEK_END);
 	nf->size = sub_409390();
-	sub_409050(f, 0, 0);
+	sub_409050(f, 0, SEEK_SET);
 	nf->data = (char*)malloc(nf->size);
 	if (nf->data == 0) {
 		nox_memfile_free(nf);

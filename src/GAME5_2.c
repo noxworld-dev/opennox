@@ -5128,9 +5128,9 @@ int __cdecl sub_57BC50(char* a1, char* a2) {
 	v3 = v2;
 	if (!v2)
 		return 0;
-	fseek(v2, 0, 2);
+	fseek(v2, 0, SEEK_END);
 	v4 = ftell(v3);
-	fseek(v3, 0, 0);
+	fseek(v3, 0, SEEK_SET);
 	v5 = (char*)(v4 - 4);
 	sub_40ADD0_fread((char*)&v12, 1u, 4u, v3);
 	v6 = (char*)malloc((size_t)v5);
@@ -5185,9 +5185,9 @@ int __cdecl sub_57BDD0(LPVOID lpMem, int a2) {
 	v4 = v3;
 	if (!v3)
 		return 0;
-	fseek(v3, 0, 2);
+	fseek(v3, 0, SEEK_END);
 	v15 = ftell(v4);
-	fseek(v4, 0, 0);
+	fseek(v4, 0, SEEK_SET);
 	v5 = (char*)malloc(v15);
 	v6 = sub_578BA0(v15);
 	v7 = malloc(v6);

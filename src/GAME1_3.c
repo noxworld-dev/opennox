@@ -2575,7 +2575,7 @@ _DWORD* __cdecl sub_43F3B0(char* a1) {
 				if (!v4 || sub_40ADD0_fread(v4, 8 * v1[3], 1u, v3) != 1)
 					goto LABEL_15;
 			} else {
-				fseek(v3, 0, 0);
+				fseek(v3, 0, SEEK_SET);
 				if (sub_40ADD0_fread((char*)v18, 0x4Cu, 1u, v3) != 1)
 					goto LABEL_15;
 				v5 = *(_WORD*)&v18[2];
@@ -4581,9 +4581,9 @@ int __cdecl nox_motd_4463E0(int a1) {
 	result = fopen("motd.txt", "rb");
 	v2 = result;
 	if (result) {
-		fseek(result, 0, 2);
+		fseek(result, 0, SEEK_END);
 		*getMemU32Ptr(0x5D4594, 4 * a1 + 826040) = ftell(v2);
-		fseek(v2, 0, 0);
+		fseek(v2, 0, SEEK_SET);
 		v3 = (char*)calloc(*getMemU32Ptr(0x5D4594, 4 * a1 + 826040) + 1, 1u);
 		dword_5d4594_826036 = v3;
 		if (v3) {

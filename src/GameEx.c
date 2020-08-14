@@ -380,7 +380,7 @@ char GameExCfgLoader() {
 		return 0;
 	fseek(v0, 0, SEEK_END);
 	v3 = ftell(v0);
-	fseek(v0, 0, 0);
+	fseek(v0, 0, SEEK_SET);
 	if (v3) {
 		v4 = (char*)malloc(v3 + 1);
 		if (fread(v4, 1, v3, v1) == v3) {
@@ -716,7 +716,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 	if (result) {
 		fseek(result, 0, SEEK_END);
 		fileSize = ftell(result);
-		fseek(result, 0, 0);
+		fseek(result, 0, SEEK_SET);
 		if (fileSize) {
 			fileBufferSize = fileSize + 1;
 			NumberOfBytesRead = 0;

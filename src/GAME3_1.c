@@ -5713,7 +5713,7 @@ BOOL __cdecl sub_4C5850(FILE* a1) {
 		return 0;
 	++dword_5d4594_3679312;
 	dword_5d4594_3679316 = (unsigned __int16)v3 + 1;
-	fseek(v1, 65, 0);
+	fseek(v1, 65, SEEK_SET);
 	if (fscanf(v1, "%c", &a1) != 1)
 		return 0;
 	if ((_BYTE)a1 == 1) {
@@ -5749,7 +5749,7 @@ int __cdecl sub_4C5A60(FILE* a1, int a2) {
 	HIWORD(v2) = 0;
 	LOBYTE(v12) = 0;
 	LOBYTE(v11) = 0;
-	fseek(a1, 128, 0);
+	fseek(a1, 128, SEEK_SET);
 	v13 = 0;
 	if (dword_5d4594_3679316 > 0) {
 		v3 = a2;
@@ -5859,7 +5859,7 @@ BOOL __cdecl sub_4C5CB0(FILE* a1) {
 	FILE* v1; // esi
 
 	v1 = a1;
-	if (fseek(a1, -769, 2))
+	if (fseek(a1, -769, SEEK_END))
 		return 0;
 	if (fread(&a1, 1u, 1u, v1) != 1)
 		return 0;
@@ -5893,7 +5893,7 @@ int __cdecl sub_4C5D20(FILE* a1, int a2) {
 	HIWORD(v2) = 0;
 	LOBYTE(v19) = 0;
 	LOBYTE(v18) = 0;
-	fseek(a1, 128, 0);
+	fseek(a1, 128, SEEK_SET);
 	v20 = 0;
 	if (*(int*)&dword_5d4594_3679316 <= 0) {
 	LABEL_7:

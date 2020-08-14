@@ -8290,7 +8290,7 @@ int __cdecl sub_502790(FILE* a1, char* a2) {
 	result = v7;
 	for (i = 0; i < v7; ++i) {
 		sub_408E40_fread((char*)&v6, 1, 1, a1);
-		sub_409050(a1, 1, 1);
+		sub_409050(a1, 1, SEEK_CUR);
 		v4 = 0;
 		v5 = 268 * (unsigned __int8)v6;
 		if (getMemByte(0x587000, v5 + 218640)) {
@@ -8301,15 +8301,15 @@ int __cdecl sub_502790(FILE* a1, char* a2) {
 				case 4:
 				case 5:
 				case 6:
-					sub_409050(a1, 4, 1);
+					sub_409050(a1, 4, SEEK_CUR);
 					break;
 				case 1:
-					sub_409050(a1, 8, 1);
+					sub_409050(a1, 8, SEEK_CUR);
 					break;
 				case 2:
 				case 7:
 					sub_408E40_fread((char*)&v9, 1, 1, a1);
-					sub_409050(a1, (unsigned __int8)v9, 1);
+					sub_409050(a1, (unsigned __int8)v9, SEEK_CUR);
 					break;
 				default:
 					break;
@@ -8476,7 +8476,7 @@ int sub_502B10() {
 					fread(&v10, 4u, 1u, nox_file_8);
 					*(float*)(dword_5d4594_1599576 + 76 * dword_5d4594_1599596 + 64) = v9;
 					*(float*)(dword_5d4594_1599576 + 76 * (dword_5d4594_1599596)++ + 68) = v10;
-					fseek(nox_file_8, v3 - 10, 1);
+					fseek(nox_file_8, v3 - 10, SEEK_CUR);
 				}
 				sub_502DF0();
 				result = 1;
@@ -8506,7 +8506,7 @@ FILE* __cdecl sub_502DA0(char* a1) {
 	result = nox_file_8;
 	if (nox_file_8 ||
 		(result = (FILE*)sub_426910(a1, 1, -1)) != 0 && (result = sub_426A60(), (nox_file_8 = result) != 0)) {
-		fseek(result, 0, 0);
+		fseek(result, 0, SEEK_SET);
 		result = (FILE*)1;
 	}
 	return result;
@@ -8528,7 +8528,7 @@ FILE* sub_502DF0() {
 FILE* __cdecl sub_502E10(int a1) {
 	if (!nox_file_8 || a1 < 0 || a1 >= *(int*)&dword_5d4594_1599596)
 		return 0;
-	fseek(nox_file_8, *(_DWORD*)(dword_5d4594_1599576 + 76 * a1 + 72), 0);
+	fseek(nox_file_8, *(_DWORD*)(dword_5d4594_1599576 + 76 * a1 + 72), SEEK_SET);
 	return nox_file_8;
 }
 
@@ -8620,7 +8620,7 @@ FILE* __cdecl sub_502ED0(const char* a1) {
 						v16[(unsigned __int8)v11] = 0;
 						v10 = v9 + v8;
 						if (!strcmp(v16, a1)) {
-							fseek(v6, v10, 1);
+							fseek(v6, v10, SEEK_CUR);
 						} else {
 							v13 = 1;
 							fwrite(&v12, 4u, 1u, v7);
@@ -8820,7 +8820,7 @@ int __cdecl sub_5034B0(char* a1) {
 			v10 = v9 - 10;
 			if (v12 > 1u) {
 				fread(&v16, 4u, 1u, v5);
-				fseek(v5, v16, 1);
+				fseek(v5, v16, SEEK_CUR);
 				v10 += -4 - v16;
 			}
 			fread(&v15, 4u, 1u, v5);
@@ -8945,7 +8945,7 @@ int __cdecl sub_503830(int a1) {
 	fread(&v23, 4u, 1u, v1);
 	if (v5 > 1u) {
 		fread(&v6, 4u, 1u, v1);
-		fseek(v1, v6, 1);
+		fseek(v1, v6, SEEK_CUR);
 	}
 	fread(&v10, 4u, 1u, v1);
 	if (v10 != -889266515)
@@ -9737,7 +9737,7 @@ int __cdecl sub_5049E0(int a1) {
 }
 
 //----- (005049F0) --------------------------------------------------------
-int __cdecl sub_5049F0(FILE* a1, int a2) { return fseek(a1, a2, 1); }
+int __cdecl sub_5049F0(FILE* a1, int a2) { return fseek(a1, a2, SEEK_CUR); }
 
 //----- (00504A10) --------------------------------------------------------
 int __cdecl sub_504A10(int a1) {
@@ -9804,7 +9804,7 @@ int __cdecl sub_504AB0(char* a1) {
 	if (v3) {
 		v5 = fopen(a1, "rb");
 		if (v5) {
-			fseek(v3, -4, 2);
+			fseek(v3, -4, SEEK_END);
 			fread(&v11, 4u, 1u, v5);
 			if (v11 == -889266515) {
 				while (1) {
@@ -9825,7 +9825,7 @@ int __cdecl sub_504AB0(char* a1) {
 							fwrite(&v8, 1u, 1u, v3);
 						}
 					} else {
-						fseek(v5, v7, 1);
+						fseek(v5, v7, SEEK_CUR);
 					}
 				}
 				fwrite(&v12, 4u, 1u, v3);
@@ -10073,9 +10073,9 @@ int nox_server_mapRWMapIntro_505080() {
 		return 1;
 	}
 	if (v1 && (v10 = fopen(v19, "rb"), (v11 = v10) != 0)) {
-		fseek(v10, 0, 2);
+		fseek(v10, 0, SEEK_END);
 		v17 = ftell(v11);
-		fseek(v11, 0, 0);
+		fseek(v11, 0, SEEK_SET);
 		sub_426AC0_file3_fread(&v17, 4u);
 		if ((int)v17 > 0) {
 			do {
@@ -10427,9 +10427,9 @@ int nox_server_mapRWScriptObject_505A40() {
 			sub_426AC0_file3_fread(&v9, 4u);
 			return 1;
 		}
-		fseek(v2, 0, 2);
+		fseek(v2, 0, SEEK_END);
 		v9 = ftell(v3);
-		fseek(v3, 0, 0);
+		fseek(v3, 0, SEEK_SET);
 		sub_426AC0_file3_fread(&v9, 4u);
 		if (v9 > 0) {
 			do {

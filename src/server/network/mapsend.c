@@ -242,9 +242,9 @@ int sub_519EB0_net_mapsend() {
 	}
 	strcpy((char*)getMemAt(0x5D4594, 2386988), v12);
 	strcpy((char*)getMemAt(0x5D4594, 2387068), v11);
-	fseek(v8, 0, 2);
+	fseek(v8, 0, SEEK_END);
 	*getMemU32Ptr(0x5D4594, 2388644) = ftell(v8);
-	fseek(v8, 0, 0);
+	fseek(v8, 0, SEEK_SET);
 	dword_5d4594_2388640 = malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
 	sub_40ADD0_fread(*(char**)&dword_5d4594_2388640, 1u, *(size_t*)getMemAt(0x5D4594, 2388644), v8);
 	fclose(v8);
