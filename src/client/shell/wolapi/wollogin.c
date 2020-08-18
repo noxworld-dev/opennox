@@ -4,7 +4,7 @@ extern _DWORD dword_5d4594_830268;
 extern _DWORD dword_5d4594_830252;
 extern _DWORD dword_5d4594_830260;
 extern _DWORD dword_5d4594_830256;
-extern nox_wnd_xxx* dword_5d4594_830244;
+extern nox_wnd_xxx* nox_wnd_xxx_830244;
 extern _DWORD dword_5d4594_830276;
 extern _DWORD dword_5d4594_830264;
 extern _DWORD dword_5d4594_830248;
@@ -48,12 +48,12 @@ int sub_44A560_wol_login() {
 		if (!result)
 			return result;
 		result = nox_wnd_sub_43C5B0((_DWORD*)result, 0, 0, 0, -480, 0, 20, 0, -40);
-		dword_5d4594_830244 = result;
+		nox_wnd_xxx_830244 = result;
 		if (!result)
 			return result;
-		dword_5d4594_830244->field_0 = 1700;
-		dword_5d4594_830244->field_12 = sub_44AA40;
-		dword_5d4594_830244->field_14 = sub_44AA70;
+		nox_wnd_xxx_830244->field_0 = 1700;
+		nox_wnd_xxx_830244->field_12 = sub_44AA40;
+		nox_wnd_xxx_830244->field_14 = sub_44AA70;
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_830248, sub_44AAC0, 0, 0);
 	}
 	sub_41FCF0();

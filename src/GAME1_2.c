@@ -81,7 +81,7 @@ extern _DWORD dword_5d4594_787172;
 extern _DWORD nox_client_translucentConsole_80824;
 extern _DWORD nox_client_fadeObjects_80836;
 extern _DWORD nox_server_connectionType_3596;
-extern nox_wnd_xxx* dword_5d4594_815040;
+extern nox_wnd_xxx* nox_wnd_xxx_815040;
 extern _DWORD dword_5d4594_805984;
 extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_3804668;
@@ -9110,8 +9110,8 @@ void sub_4379C0() {
 int sub_438330() {
 	int (*v0)(void); // esi
 
-	v0 = dword_5d4594_815040->field_13;
-	sub_43C570(dword_5d4594_815040);
+	v0 = nox_wnd_xxx_815040->field_13;
+	sub_43C570(nox_wnd_xxx_815040);
 	if (!nox_common_gameFlags_check_40A5C0(0x10000000))
 		sub_43A9D0();
 	if (v0)
@@ -9121,9 +9121,9 @@ int sub_438330() {
 
 //----- (00438370) --------------------------------------------------------
 int sub_438370() {
-	if (*(_BYTE*)(&dword_5d4594_815040->field_16) == 1)
+	if (*(_BYTE*)(&nox_wnd_xxx_815040->field_16) == 1)
 		return sub_438330();
-	*(_BYTE*)(&dword_5d4594_815040->field_16) = 2;
+	*(_BYTE*)(&nox_wnd_xxx_815040->field_16) = 2;
 	sub_43BE40(2);
 	sub_452D80(923, 100);
 	return 1;
@@ -9885,7 +9885,7 @@ int sub_43B440() {
 //----- (0043B460) --------------------------------------------------------
 int sub_43B460() {
 	sub_438370();
-	dword_5d4594_815040->field_14 = sub_43B490;
+	nox_wnd_xxx_815040->field_14 = sub_43B490;
 	sub_46C6E0(*(int*)&dword_5d4594_815000);
 	return sub_46ABB0(*(int*)&dword_5d4594_814984, 0);
 }
