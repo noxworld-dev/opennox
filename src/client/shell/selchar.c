@@ -10,7 +10,7 @@ extern _DWORD dword_5d4594_1307764;
 extern _DWORD dword_5d4594_1307780;
 
 char nox_savegame_name_1307752[9] = {0};
-nox_wnd_xxx* dword_5d4594_1307748 = 0;
+nox_wnd_xxx* nox_wnd_xxx_1307748 = 0;
 
 //----- (004A4DB0) --------------------------------------------------------
 int sub_4A4DB0() {
@@ -35,11 +35,11 @@ int sub_4A4DB0() {
 	if (result) {
 		sub_46B300(result, sub_4A18E0);
 		result = nox_wnd_sub_43C5B0(*(_DWORD**)&dword_5d4594_1307764, 0, 0, 0, -440, 0, 20, 0, -40);
-		dword_5d4594_1307748 = result;
+		nox_wnd_xxx_1307748 = result;
 		if (result) {
-			dword_5d4594_1307748->field_0 = 500;
-			dword_5d4594_1307748->field_12 = sub_4A50A0;
-			dword_5d4594_1307748->field_14 = sub_4A50D0;
+			nox_wnd_xxx_1307748->field_0 = 500;
+			nox_wnd_xxx_1307748->field_12 = sub_4A50A0;
+			nox_wnd_xxx_1307748->field_14 = sub_4A50D0;
 			dword_5d4594_1307744 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 510);
 			dword_5d4594_1307776 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 511);
 			dword_5d4594_1307768 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 512);
@@ -273,7 +273,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 		case 501:
 			sub_4E3C60(1000000000);
 			sub_4A50A0();
-			dword_5d4594_1307748->field_13 = sub_4A4840;
+			nox_wnd_xxx_1307748->field_13 = sub_4A4840;
 			goto LABEL_40;
 		case 502:
 			v7 = *(_DWORD*)(dword_5d4594_1307776 + 32);
@@ -324,7 +324,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 					}
 					sub_4A24C0(0);
 					sub_4A50A0();
-					dword_5d4594_1307748->field_13 = 0;
+					nox_wnd_xxx_1307748->field_13 = 0;
 				}
 			}
 			goto LABEL_40;

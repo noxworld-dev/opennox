@@ -17,7 +17,7 @@ extern _DWORD dword_5d4594_1308108;
 extern _DWORD dword_5d4594_1308120;
 extern _DWORD dword_5d4594_1308128;
 extern _DWORD dword_5d4594_1308124;
-extern nox_wnd_xxx* dword_5d4594_1308092;
+extern nox_wnd_xxx* nox_wnd_xxx_1308092;
 extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1307784;
@@ -42,11 +42,11 @@ int sub_4A5D00() {
 	if (result) {
 		sub_46B300(result, sub_4A18E0);
 		result = nox_wnd_sub_43C5B0(*(_DWORD**)&dword_5d4594_1308084, 0, 0, 0, -440, 0, 20, 0, -40);
-		dword_5d4594_1308092 = result;
+		nox_wnd_xxx_1308092 = result;
 		if (result) {
-			dword_5d4594_1308092->field_0 = 700;
-			dword_5d4594_1308092->field_12 = sub_4A6890;
-			dword_5d4594_1308092->field_14 = sub_4A6C90;
+			nox_wnd_xxx_1308092->field_0 = 700;
+			nox_wnd_xxx_1308092->field_12 = sub_4A6890;
+			nox_wnd_xxx_1308092->field_14 = sub_4A6C90;
 			sub_4A5E90();
 			for (i = 720; i <= 729; ++i) {
 				v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, i);
