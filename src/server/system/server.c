@@ -1221,13 +1221,16 @@ void sub_4FBEE0() {
 			}
 		}
 	}
-	for (int* p = *(int**)&byte_5D4594[1569648]; p; p = (int*)p[4]) {
+	int* next;
+	for (int* p = *(int**)&byte_5D4594[1569648]; p; p = next) {
+		next = (int*)p[4];
 		if (!(*(_DWORD*)(p[1] + 16) & 0x8020)) {
 			if (*(_DWORD*)&byte_5D4594[2598000] <= (unsigned int)p[2]) {
 				continue;
 			}
+			int v11 = p[1];
 			int v8 = sub_425230(*p, 2);
-			sub_501960(v8, p[1], 0, 0);
+			sub_501960(v8, v11, 0, 0);
 			sub_4FC3C0(p[1], *p, 0);
 			if (*p == 1)
 				sub_4FA020((_DWORD*)p[1], 13);
