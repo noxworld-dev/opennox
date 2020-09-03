@@ -47,7 +47,7 @@ _DWORD* __cdecl sub_50E8F0(int a1, int a2) {
 	v2 = 0;
 	if (nox_common_gameFlags_check_40A5C0(4096) &&
 		(v3 = *(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064),
-		 v4 = *(_DWORD**)&byte_5D4594[4 * v3 + 2386364], *(_DWORD*)&byte_5D4594[4 * v3 + 2386364] = 0, v4)) {
+		 v4 = *(_DWORD**)getMemAt(0x5D4594, 4 * v3 + 2386364), *(_DWORD*)getMemAt(0x5D4594, 4 * v3 + 2386364) = 0, v4)) {
 		v2 = 1;
 	} else {
 		result = sub_50E870();
@@ -277,15 +277,15 @@ int __cdecl sub_5104F0(int a1, __int16 a2) {
 int __cdecl sub_510540(int a1) {
 	if (!nox_common_gameFlags_check_40A5C0(4096))
 		return 1;
-	if (!*(_DWORD*)&byte_5D4594[2386520]) {
-		*(_DWORD*)&byte_5D4594[2386520] = sub_4E3AA0((CHAR*)&byte_587000[236324]);
-		*(_DWORD*)&byte_5D4594[2386528] = sub_4E3AA0((CHAR*)&byte_587000[236332]);
-		*(_DWORD*)&byte_5D4594[2386524] = sub_4E3AA0((CHAR*)&byte_587000[236340]);
-		*(_DWORD*)&byte_5D4594[2386532] = sub_4E3AA0((CHAR*)&byte_587000[236348]);
+	if (!*(_DWORD*)getMemAt(0x5D4594, 2386520)) {
+		*(_DWORD*)getMemAt(0x5D4594, 2386520) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236324));
+		*(_DWORD*)getMemAt(0x5D4594, 2386528) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236332));
+		*(_DWORD*)getMemAt(0x5D4594, 2386524) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236340));
+		*(_DWORD*)getMemAt(0x5D4594, 2386532) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236348));
 	}
 	int v1 = *(unsigned __int16*)(a1 + 4);
-	if ((unsigned __int16)v1 == *(_DWORD*)&byte_5D4594[2386520] || v1 == *(_DWORD*)&byte_5D4594[2386524] ||
-		v1 == *(_DWORD*)&byte_5D4594[2386528] || v1 == *(_DWORD*)&byte_5D4594[2386532]) {
+	if ((unsigned __int16)v1 == *(_DWORD*)getMemAt(0x5D4594, 2386520) || v1 == *(_DWORD*)getMemAt(0x5D4594, 2386524) ||
+		v1 == *(_DWORD*)getMemAt(0x5D4594, 2386528) || v1 == *(_DWORD*)getMemAt(0x5D4594, 2386532)) {
 		return 0;
 	}
 	return 1;
@@ -295,14 +295,14 @@ int __cdecl sub_510540(int a1) {
 BOOL __cdecl sub_5105D0(int a1) {
 	int v1; // eax
 
-	if (!*(_DWORD*)&byte_5D4594[2386536]) {
-		*(_DWORD*)&byte_5D4594[2386536] = sub_4E3AA0((CHAR*)&byte_587000[236364]);
-		*(_DWORD*)&byte_5D4594[2386544] = sub_4E3AA0((CHAR*)&byte_587000[236372]);
-		*(_DWORD*)&byte_5D4594[2386540] = sub_4E3AA0((CHAR*)&byte_587000[236380]);
+	if (!*(_DWORD*)getMemAt(0x5D4594, 2386536)) {
+		*(_DWORD*)getMemAt(0x5D4594, 2386536) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236364));
+		*(_DWORD*)getMemAt(0x5D4594, 2386544) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236372));
+		*(_DWORD*)getMemAt(0x5D4594, 2386540) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236380));
 	}
 	v1 = *(unsigned __int16*)(a1 + 4);
-	return (unsigned __int16)v1 == *(_DWORD*)&byte_5D4594[2386536] || v1 == *(_DWORD*)&byte_5D4594[2386540] ||
-		   v1 == *(_DWORD*)&byte_5D4594[2386544];
+	return (unsigned __int16)v1 == *(_DWORD*)getMemAt(0x5D4594, 2386536) || v1 == *(_DWORD*)getMemAt(0x5D4594, 2386540) ||
+		   v1 == *(_DWORD*)getMemAt(0x5D4594, 2386544);
 }
 
 //----- (0050EF10) --------------------------------------------------------
@@ -325,7 +325,7 @@ _DWORD* __cdecl sub_50EF10_trade(int a1, int a2) {
 		v3 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 280);
 		if (v3) {
 			if (*(_DWORD*)(v3 + 12) != a2) {
-				v4 = loadString_sub_40F1D0((char*)&byte_587000[235924], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+				v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 235924), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 										   1836);
 				sub_4D9EB0(a1, v4);
 			}
@@ -338,7 +338,7 @@ _DWORD* __cdecl sub_50EF10_trade(int a1, int a2) {
 		if (*(_DWORD*)(v7 + 280)) {
 			if (v2) {
 				v13 = *(_DWORD*)(v7 + 276) + 4704;
-				v8 = loadString_sub_40F1D0((char*)&byte_587000[235988], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+				v8 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 235988), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 										   1878);
 				nox_swprintf(v14, v8, v13);
 				sub_4D9EB0(a1, v14);
@@ -365,7 +365,7 @@ LABEL_17:
 LABEL_18:
 	if (!v9)
 		return 0;
-	v9[1] = *(_DWORD*)&byte_5D4594[2598000];
+	v9[1] = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 	sub_50F370(v9, a1);
 	sub_50F370(v9, a2);
 	v10 = *(_BYTE*)(a1 + 8);
@@ -409,8 +409,8 @@ int __cdecl sub_50F820_trade(int a1, int a2, float a3) {
 	int v11;     // eax
 	int v12;     // eax
 
-	if (!*(_DWORD*)&byte_5D4594[2386516])
-		*(_DWORD*)&byte_5D4594[2386516] = sub_4E3AA0((CHAR*)&byte_587000[236008]);
+	if (!*(_DWORD*)getMemAt(0x5D4594, 2386516))
+		*(_DWORD*)getMemAt(0x5D4594, 2386516) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236008));
 	if (*(_DWORD*)(a1 + 8) == a2) {
 		v3 = a3;
 		if (!sub_50FD60(*(_DWORD**)(a1 + 32), SLODWORD(a3)))
@@ -466,13 +466,13 @@ int __cdecl sub_50F820_trade(int a1, int a2, float a3) {
 		result = 1;
 	} else {
 		if (*(_BYTE*)(*(_DWORD*)(a1 + 8) + 8) & 4) {
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[236056], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236056), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   2487);
 			sub_4D9EB0(*(_DWORD*)(a1 + 8), v7);
 		}
 		if (!(*(_BYTE*)(*(_DWORD*)(a1 + 12) + 8) & 4))
 			return 0;
-		v8 = loadString_sub_40F1D0((char*)&byte_587000[236120], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2490);
+		v8 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236120), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2490);
 		sub_4D9EB0(*(_DWORD*)(a1 + 12), v8);
 		result = 0;
 	}
@@ -503,7 +503,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 	v18 = *(_DWORD*)(a1 + 748);
 	v4 = sub_4FA6B0(v15);
 	if (!dword_5d4594_2386548)
-		dword_5d4594_2386548 = sub_4E3AA0((CHAR*)&byte_587000[236144]);
+		dword_5d4594_2386548 = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236144));
 	result = (float*)a2[5];
 	if (result) {
 		while (!*(_DWORD*)result || *(_DWORD*)(*(_DWORD*)result + 36) != a3) {
@@ -520,13 +520,13 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 			if (*(_BYTE*)(v6 + 8) & 0x10) {
 				v9 = sub_4E7D30(v3, *(unsigned __int16*)(v6 + 4));
 				if (v9 >= (nox_common_gameFlags_check_40A5C0(6144) ? 9 : 3)) {
-					v10 = loadString_sub_40F1D0((char*)&byte_587000[236200], 0,
+					v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236200), 0,
 												"C:\\NoxPost\\src\\Server\\System\\Trade.c", 2943);
 					return (float*)sub_4D9EB0(v3, v10);
 				}
 			}
 			if (*(unsigned __int16*)(v6 + 4) == dword_5d4594_2386548) {
-				v16 = sub_419D40(&byte_587000[236224]);
+				v16 = sub_419D40(getMemAt(0x587000, 236224));
 				if (*(_DWORD*)(v18 + 320) >= nox_float2int(v16)) {
 					sub_4DA2C0(v3, "pickup.c:MaxTradableAnkhsReached", 0);
 					return (float*)sub_501960(925, v3, 0, 0);
@@ -536,7 +536,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 				v11 = *(_DWORD*)(v6 + 8);
 				if (v11 & 0x1000) {
 					if (*(_DWORD*)(v6 + 12) & 0x200000) {
-						v17 = sub_419D40(&byte_587000[236276]);
+						v17 = sub_419D40(getMemAt(0x587000, 236276));
 						v12 = nox_float2int(v17);
 						if (sub_4E7D30(v3, *(unsigned __int16*)(v6 + 4)) >= v12) {
 							sub_4DA2C0(v3, "pickup.c:MaxSameItem", 0);
@@ -591,7 +591,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 	v20 = *(_DWORD*)(a1 + 748);
 	v19 = sub_4FA6B0(v15);
 	if (!dword_5d4594_2386552)
-		dword_5d4594_2386552 = sub_4E3AA0((CHAR*)&byte_587000[236388]);
+		dword_5d4594_2386552 = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236388));
 	result = a4;
 	v18 = 0;
 	if (a4) {
@@ -614,14 +614,14 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 			if (*(_BYTE*)(v7 + 8) & 0x10) {
 				v9 = sub_4E7D30(v4, *(unsigned __int16*)(v7 + 4));
 				if (v9 >= (nox_common_gameFlags_check_40A5C0(6144) ? 9 : 3)) {
-					v14 = loadString_sub_40F1D0((char*)&byte_587000[236444], 0,
+					v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236444), 0,
 												"C:\\NoxPost\\src\\Server\\System\\Trade.c", 3108);
 					return (float*)sub_4D9EB0(v4, v14);
 				}
 				v6 = (_DWORD*)a2;
 			}
 			if (*(unsigned __int16*)(v7 + 4) == dword_5d4594_2386552) {
-				v16 = sub_419D40(&byte_587000[236468]);
+				v16 = sub_419D40(getMemAt(0x587000, 236468));
 				if (*(_DWORD*)(v20 + 320) >= nox_float2int(v16))
 					break;
 			}
@@ -629,7 +629,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 				v10 = *(_DWORD*)(v7 + 8);
 				if (v10 & 0x1000) {
 					if (*(_DWORD*)(v7 + 12) & 0x200000) {
-						v17 = sub_419D40(&byte_587000[236520]);
+						v17 = sub_419D40(getMemAt(0x587000, 236520));
 						v11 = nox_float2int(v17);
 						if (sub_4E7D30(v4, *(unsigned __int16*)(v7 + 4)) >= v11) {
 							sub_4DA2C0(v4, "pickup.c:MaxSameItem", 0);
@@ -675,8 +675,8 @@ _DWORD* __cdecl sub_5109C0_trade(int* a1, int a2, _DWORD* a3) {
 	char v8[8];     // [esp+Ch] [ebp-8h]
 
 	v3 = a1[187];
-	if (!*(_DWORD*)&byte_5D4594[2386556])
-		*(_DWORD*)&byte_5D4594[2386556] = sub_4E3AA0((CHAR*)&byte_587000[236568]);
+	if (!*(_DWORD*)getMemAt(0x5D4594, 2386556))
+		*(_DWORD*)getMemAt(0x5D4594, 2386556) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236568));
 	v4 = a1[126];
 	result = a3;
 	v8[0] = -55;
@@ -689,12 +689,12 @@ _DWORD* __cdecl sub_5109C0_trade(int* a1, int a2, _DWORD* a3) {
 				return result;
 		}
 		if (sub_53EBF0(v4) == 1) {
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[236616], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236616), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3298);
 			sub_4D9EB0((int)a1, v6);
 			result = sub_501960(925, (int)a1, 2, a1[9]);
-		} else if (*(unsigned __int16*)(v4 + 4) == *(_DWORD*)&byte_5D4594[2386556]) {
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[236676], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+		} else if (*(unsigned __int16*)(v4 + 4) == *(_DWORD*)getMemAt(0x5D4594, 2386556)) {
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236676), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3308);
 			sub_4D9EB0((int)a1, v7);
 			result = sub_501960(925, (int)a1, 2, a1[9]);
@@ -719,7 +719,7 @@ _DWORD* __cdecl sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
 	result = *(_DWORD**)&dword_5d4594_2386560;
 	v4 = a1[187];
 	if (!dword_5d4594_2386560) {
-		result = (_DWORD*)sub_4E3AA0((CHAR*)&byte_587000[236692]);
+		result = (_DWORD*)sub_4E3AA0((CHAR*)getMemAt(0x587000, 236692));
 		dword_5d4594_2386560 = result;
 	}
 	v5 = a1[126];
@@ -731,12 +731,12 @@ _DWORD* __cdecl sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
 				return result;
 		}
 		if (sub_53EBF0(v5) == 1) {
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[236740], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236740), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3413);
 			sub_4D9EB0((int)a1, v6);
 			result = sub_501960(925, (int)a1, 2, a1[9]);
 		} else if (*(unsigned __int16*)(v5 + 4) == dword_5d4594_2386560) {
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[236800], 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236800), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3423);
 			sub_4D9EB0((int)a1, v7);
 			result = sub_501960(925, (int)a1, 2, a1[9]);
