@@ -24,9 +24,9 @@ int __cdecl sub_4AD320(int a1) {
 	if (dword_5d4594_1309812)
 		return 0;
 	if (sub_43AF70() == 1)
-		v3 = nox_new_window_from_file(*(const char**)&byte_587000[4 * v1 + 173596], sub_4AD5D0);
+		v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 4 * v1 + 173596), sub_4AD5D0);
 	else
-		v3 = nox_new_window_from_file(*(const char**)&byte_587000[4 * v1 + 173556], sub_4AD5D0);
+		v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 4 * v1 + 173556), sub_4AD5D0);
 	dword_5d4594_1309812 = v3;
 	sub_46B120(v3, a1);
 	sub_46B340(*(int*)&dword_5d4594_1309812, sub_4AD570);
@@ -41,12 +41,12 @@ int __cdecl sub_4AD320(int a1) {
 		sub_46B280((int)v5, *(int*)&dword_5d4594_1309812);
 		sub_46B2C0((int)v5, sub_4AD5D0);
 		v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10317);
-		v7 = (char**)&byte_587000[173540];
+		v7 = (char**)getMemAt(0x587000, 173540);
 		do {
 			v8 = loadString_sub_40F1D0(*v7, 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 308);
 			nox_window_call_field_94((int)v6, 16397, (int)v8, -1);
 			++v7;
-		} while ((int)v7 < (int)&byte_587000[173556]);
+		} while ((int)v7 < (int)getMemAt(0x587000, 173556));
 	} else {
 		v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10319);
 		nox_window_set_hidden((int)v9, 1);
@@ -75,7 +75,7 @@ int sub_4AD4B0() {
 	v1 = v0;
 	v2 = sub_43F320(v0[59]) + 1;
 	v3 = 0;
-	v4 = (char**)&byte_587000[173540];
+	v4 = (char**)getMemAt(0x587000, 173540);
 	v1[7] = v1[5] + 4 * v2 + 2;
 	v1[3] = 4 * v2 + 2;
 	do {
@@ -84,7 +84,7 @@ int sub_4AD4B0() {
 		if (v9 > v3)
 			v3 = v9;
 		++v4;
-	} while ((int)v4 < (int)&byte_587000[173556]);
+	} while ((int)v4 < (int)getMemAt(0x587000, 173556));
 	result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10316)[2];
 	v7 = v3 + 7;
 	if (v7 <= result)
@@ -135,7 +135,7 @@ int sub_4AD840() {
 		result = sub_43AF70();
 		if (result == 1) {
 			v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10316);
-			v7 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * nox_server_connectionType_3596 + 173536], 0,
+			v7 = loadString_sub_40F1D0(*(char**)getMemAt(0x587000, 4 * nox_server_connectionType_3596 + 173536), 0,
 									   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 391);
 			nox_window_call_field_94((int)v6, 16385, (int)v7, -1);
 			v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10312);
