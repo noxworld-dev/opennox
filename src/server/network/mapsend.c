@@ -30,14 +30,14 @@ void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
 			v1 = sub_417090(*a1);
 			if (v1) {
 				v15 = (int)(v1 + 4704);
-				v2 = loadString_sub_40F1D0((char*)&byte_587000[249408], 0,
+				v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249408), 0,
 										   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 231);
-				nox_swprintf(v20, v2, &byte_5D4594[2387068], v15);
+				nox_swprintf(v20, v2, getMemAt(0x5D4594, 2387068), v15);
 				sub_450B90(6u, (int)v20);
 			}
 			*(_DWORD*)&v19[4] = *((_DWORD*)a1 + 3);
 			v19[0] = -72;
-			strcpy(&v19[8], (const char*)&byte_5D4594[2387068]);
+			strcpy(&v19[8], (const char*)getMemAt(0x5D4594, 2387068));
 			sub_552640(*a1 + 1, v19, 88, 3);
 		}
 		v3 = nox_malloc(*((unsigned __int16*)a1 + 10) + 6);
@@ -77,7 +77,7 @@ void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
 					v10 = *((_DWORD*)a1 + 3);
 				v11 = sub_417090(*a1);
 				if (v11) {
-					v12 = loadString_sub_40F1D0((char*)&byte_587000[249464], 0,
+					v12 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249464), 0,
 												"C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 299);
 					nox_swprintf(v20, v12, *((_DWORD*)a1 + 6), *((_DWORD*)a1 + 4) - 1, v10, v9, v11 + 4704);
 					sub_450B90(6u, (int)v20);
@@ -88,7 +88,7 @@ void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
 				if (dword_5d4594_2388648)
 					v13 = --dword_5d4594_2388648;
 				v16 = v13;
-				v14 = loadString_sub_40F1D0((char*)&byte_587000[249520], 0,
+				v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249520), 0,
 											"C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 315);
 				nox_swprintf(v20, v14, v16);
 				sub_450B90(6u, (int)v20);
@@ -115,7 +115,7 @@ void __cdecl sub_519C80_net_mapsend(unsigned __int8* a1, unsigned __int8 a2) {
 		if (dword_5d4594_2388648)
 			--dword_5d4594_2388648;
 		v4 = *a1;
-		v3 = loadString_sub_40F1D0((char*)&byte_587000[249572], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 350);
+		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249572), 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 350);
 		nox_swprintf(v6, v3, v4, a2);
 		sub_450B90(6u, (int)v6);
 	}
@@ -127,23 +127,23 @@ char* __cdecl sub_519D20(int a1) {
 	wchar_t* v2;         // eax
 	char* result;        // eax
 
-	v1 = &byte_5D4594[48 * a1 + 2387148];
+	v1 = getMemAt(0x5D4594, 48 * a1 + 2387148);
 	++dword_5d4594_2388648;
 	if (*((_WORD*)v1 + 1)) {
 		if (*((_WORD*)v1 + 1) == 1)
-			v2 = loadString_sub_40F1D0((char*)&byte_587000[249628], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
+			v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249628), 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
 									   392);
 		else
-			v2 = loadString_sub_40F1D0((char*)&byte_587000[249676], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
+			v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249676), 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
 									   397);
 		result = (char*)sub_450B90(6u, (int)v2);
 	} else {
-		++*(_WORD*)&byte_5D4594[2388636];
+		++*(_WORD*)getMemAt(0x5D4594, 2388636);
 		*((_WORD*)v1 + 1) = 1;
 		*((_DWORD*)v1 + 6) = 0;
 		*((_DWORD*)v1 + 4) = 1;
 		*((_WORD*)v1 + 10) = 512;
-		*((_DWORD*)v1 + 3) = *(_DWORD*)&byte_5D4594[2388644];
+		*((_DWORD*)v1 + 3) = *(_DWORD*)getMemAt(0x5D4594, 2388644);
 		*((_QWORD*)v1 + 5) = sub_416BB0();
 		result = sub_417090(a1);
 	}
@@ -157,11 +157,11 @@ int __cdecl sub_519DE0_net_mapsend(int a1) {
 	int result;          // eax
 	wchar_t* v4;         // eax
 
-	v1 = &byte_5D4594[48 * a1 + 2387148];
+	v1 = getMemAt(0x5D4594, 48 * a1 + 2387148);
 	v2 = sub_417090(a1);
 	*((_WORD*)v1 + 1) = 0;
 	nullsub_27(v1);
-	++*(_WORD*)&byte_5D4594[2388638];
+	++*(_WORD*)getMemAt(0x5D4594, 2388638);
 	if (*((_WORD*)v1 + 2) == 1 && *((_DWORD*)v1 + 2))
 		free(*((LPVOID*)v1 + 2));
 	sub_519830((int)v1, a1);
@@ -169,7 +169,7 @@ int __cdecl sub_519DE0_net_mapsend(int a1) {
 	if (dword_5d4594_2388648)
 		result = --dword_5d4594_2388648;
 	if (v2) {
-		v4 = loadString_sub_40F1D0((char*)&byte_587000[249728], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 428);
+		v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249728), 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 428);
 		result = sub_450C00(6u, v4, v2 + 4704);
 	}
 	return result;
@@ -194,18 +194,18 @@ int sub_519EB0_net_mapsend() {
 	v0 = nox_server_currentMapGetFilename_409B30();
 	v11 = v0;
 	if (dword_5d4594_2388648) {
-		v1 = &byte_5D4594[2387156];
+		v1 = getMemAt(0x5D4594, 2387156);
 		do {
 			if (*((_WORD*)v1 - 3) == 1) {
-				v2 = nox_malloc(*(size_t*)&byte_5D4594[2388644]);
+				v2 = nox_malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
 				*(_DWORD*)v1 = v2;
 				if (v2) {
 					v3 = *(const void**)&dword_5d4594_2388640;
-					v4 = *(_DWORD*)&byte_5D4594[2388644];
+					v4 = *(_DWORD*)getMemAt(0x5D4594, 2388644);
 					*((_WORD*)v1 - 2) = 1;
 					qmemcpy(v2, v3, v4);
-					*((_DWORD*)v1 + 1) = *(_DWORD*)&byte_5D4594[2388644];
-					v5 = loadString_sub_40F1D0((char*)&byte_587000[249788], 0,
+					*((_DWORD*)v1 + 1) = *(_DWORD*)getMemAt(0x5D4594, 2388644);
+					v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249788), 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 478);
 					sub_450B90(6u, (int)v5);
 				} else {
@@ -213,40 +213,40 @@ int sub_519EB0_net_mapsend() {
 				}
 			}
 			v1 += 48;
-		} while ((int)v1 < (int)&byte_5D4594[2388644]);
+		} while ((int)v1 < (int)getMemAt(0x5D4594, 2388644));
 		v0 = (char*)v11;
 	}
 	if (!v0) {
-		v10 = loadString_sub_40F1D0((char*)&byte_587000[249864], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
+		v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249864), 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
 		sub_450B90(6u, (int)v10);
 		return 0;
 	}
-	if (!memcmp(v0, &byte_5D4594[2388652], 1u)) {
-		v10 = loadString_sub_40F1D0((char*)&byte_587000[249864], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
+	if (!memcmp(v0, getMemAt(0x5D4594, 2388652), 1u)) {
+		v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249864), 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
 		sub_450B90(6u, (int)v10);
 		return 0;
 	}
 	strcpy(v12, "maps\\");
 	strcat(v12, sub_409B40());
-	*(_WORD*)&v12[strlen(v12)] = *(_WORD*)&byte_587000[249808];
+	*(_WORD*)&v12[strlen(v12)] = *(_WORD*)getMemAt(0x587000, 249808);
 	strcat(v12, sub_409B40());
 	v6 = &v12[strlen(v12) + 1];
-	v7 = byte_587000[249816];
-	*(_DWORD*)--v6 = *(_DWORD*)&byte_587000[249812];
+	v7 = getMemByte(0x587000, 249816);
+	*(_DWORD*)--v6 = *(_DWORD*)getMemAt(0x587000, 249812);
 	v6[4] = v7;
 	v8 = fopen(v12, "rb");
 	if (!v8) {
-		v10 = loadString_sub_40F1D0((char*)&byte_587000[249864], 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
+		v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249864), 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
 		sub_450B90(6u, (int)v10);
 		return 0;
 	}
-	strcpy((char*)&byte_5D4594[2386988], v12);
-	strcpy((char*)&byte_5D4594[2387068], v11);
+	strcpy((char*)getMemAt(0x5D4594, 2386988), v12);
+	strcpy((char*)getMemAt(0x5D4594, 2387068), v11);
 	fseek(v8, 0, 2);
-	*(_DWORD*)&byte_5D4594[2388644] = ftell(v8);
+	*(_DWORD*)getMemAt(0x5D4594, 2388644) = ftell(v8);
 	fseek(v8, 0, 0);
-	dword_5d4594_2388640 = nox_malloc(*(size_t*)&byte_5D4594[2388644]);
-	sub_40ADD0_fread(*(char**)&dword_5d4594_2388640, 1u, *(size_t*)&byte_5D4594[2388644], v8);
+	dword_5d4594_2388640 = nox_malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
+	sub_40ADD0_fread(*(char**)&dword_5d4594_2388640, 1u, *(size_t*)getMemAt(0x5D4594, 2388644), v8);
 	fclose(v8);
 	return 1;
 }
