@@ -73,7 +73,7 @@ int sub_43DEB0() {
 		sub_43F1A0();
 		if (!v5) {
 			v13 = nox_server_currentMapGetFilename_409B30();
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[93352], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
+			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 93352), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
 									   318);
 			sub_4516C0(v6, v13);
 			sub_4356E0();
@@ -84,12 +84,12 @@ int sub_43DEB0() {
 		else
 			sub_43C9F0();
 		sub_43C720(1);
-		if ((int)*(_DWORD*)&byte_5D4594[3803228] < 0) {
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[93408], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
+		if ((int)*(_DWORD*)getMemAt(0x5D4594, 3803228) < 0) {
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 93408), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
 									   338);
 			sub_445490(v7);
 			v14 = sub_42E8E0(8, 1);
-			v8 = loadString_sub_40F1D0((char*)&byte_587000[93468], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
+			v8 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 93468), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
 									   339);
 			nox_swprintf(v15, v8, v14);
 			sub_445490(v15);
@@ -102,9 +102,9 @@ int sub_43DEB0() {
 				nox_common_gameFlags_unset_40A540(9437184);
 				sub_477530(1);
 				sub_43E1A0(1);
-				v12 = loadString_sub_40F1D0((char*)&byte_587000[93244], 0,
+				v12 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 93244), 0,
 											"C:\\NoxPost\\src\\Client\\System\\gameloop.c", 298);
-				v10 = loadString_sub_40F1D0((char*)&byte_587000[93304], 0,
+				v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 93304), 0,
 											"C:\\NoxPost\\src\\Client\\System\\gameloop.c", 297);
 				sub_449A10(0, (int)v10, (int)v12, 24, sub_43E230, sub_43E200);
 			}
@@ -154,7 +154,7 @@ int map_download_finish() {
 	}
 	if (!sub_4AC2B0(nox_server_currentMapGetFilename_409B30())) {
 		v13 = nox_server_currentMapGetFilename_409B30();
-		v6 = loadString_sub_40F1D0((char*)&byte_587000[93528], 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 386);
+		v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 93528), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 386);
 		sub_4516C0(v6, v13);
 		sub_4356E0();
 		return 0;
@@ -284,10 +284,10 @@ void mainloop() {
 						sub_4DF020();
 					sub_459D50(0);
 				}
-				if (*(int*)&byte_5D4594[2598000] >= *(int*)&byte_5D4594[816400]) {
+				if (*(int*)getMemAt(0x5D4594, 2598000) >= *(int*)getMemAt(0x5D4594, 816400)) {
 					sub_4161E0();
 					sub_416690();
-					*(_DWORD*)&byte_5D4594[816400] = *(_DWORD*)&byte_5D4594[2598000] + 60 * *(_DWORD*)&byte_5D4594[2649704];
+					*(_DWORD*)getMemAt(0x5D4594, 816400) = *(_DWORD*)getMemAt(0x5D4594, 2598000) + 60 * *(_DWORD*)getMemAt(0x5D4594, 2649704);
 				}
 			}
 		}
@@ -295,20 +295,20 @@ void mainloop() {
 	if (dword_5d4594_815132) {
 		sub_43C380();
 		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
-		if (!*(_DWORD*)&byte_5D4594[816408]) {
+		if (!*(_DWORD*)getMemAt(0x5D4594, 816408)) {
 			v1 = nox_client_getMousePos_4309F0();
 			v27 = v1;
-			v2 = v1->field_0 - *(_DWORD*)&byte_5D4594[816420];
-			v3 = v1->field_4 - *(_DWORD*)&byte_5D4594[816424];
+			v2 = v1->field_0 - *(_DWORD*)getMemAt(0x5D4594, 816420);
+			v3 = v1->field_4 - *(_DWORD*)getMemAt(0x5D4594, 816424);
 			v4 = v2 * v2 + v3 * v3;
-			if (*(_DWORD*)&byte_5D4594[816428]) {
+			if (*(_DWORD*)getMemAt(0x5D4594, 816428)) {
 				v5 = nox_double2int(sqrt((double)(v2 * v2 + v3 * v3))) / 4;
 				if (v5 > 0) {
 					v26 = v5;
 					do {
 						v6 = sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 570);
-						v7 = *(_DWORD*)&byte_5D4594[816420] + v2 * v6 / 100;
-						v9 = *(_DWORD*)&byte_5D4594[816424] + v3 * v6 / 100;
+						v7 = *(_DWORD*)getMemAt(0x5D4594, 816420) + v2 * v6 / 100;
+						v9 = *(_DWORD*)getMemAt(0x5D4594, 816424) + v3 * v6 / 100;
 						v23 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 582);
 						v22 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 581);
 						v21 = sub_415FF0(-7, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 579);
@@ -320,23 +320,23 @@ void mainloop() {
 					v1 = v27;
 				}
 				if (v4 < 10)
-					*(_DWORD*)&byte_5D4594[816428] = 0;
-				*(_DWORD*)&byte_5D4594[816420] = v1->field_0;
-				*(_DWORD*)&byte_5D4594[816424] = v1->field_4;
+					*(_DWORD*)getMemAt(0x5D4594, 816428) = 0;
+				*(_DWORD*)getMemAt(0x5D4594, 816420) = v1->field_0;
+				*(_DWORD*)getMemAt(0x5D4594, 816424) = v1->field_4;
 			} else if (v4 > 64) {
-				*(_DWORD*)&byte_5D4594[816428] = 1;
+				*(_DWORD*)getMemAt(0x5D4594, 816428) = 1;
 			}
 			if (v1[2].field_4 == 1) {
 				sub_415FF0(0, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 608);
-				if (!*(_DWORD*)&byte_5D4594[816416]) {
-					*(_DWORD*)&byte_5D4594[816416] = 1;
+				if (!*(_DWORD*)getMemAt(0x5D4594, 816416)) {
+					*(_DWORD*)getMemAt(0x5D4594, 816416) = 1;
 					sub_452D80(924, 100);
 					v11 = 75;
 					do {
 						v12 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 620);
 						v13 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 621);
-						v14 = v13 * *(int*)&byte_587000[8 * v12 + 192088];
-						v15 = v13 * *(int*)&byte_587000[8 * v12 + 192092] / 16 - 6;
+						v14 = v13 * *(int*)getMemAt(0x587000, 8 * v12 + 192088);
+						v15 = v13 * *(int*)getMemAt(0x587000, 8 * v12 + 192092) / 16 - 6;
 						v24 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 633);
 						v16 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 632);
 						nox_client_newScreenParticle_431540(4, v14 / 16 + v27->field_0, v27->field_4 + v15, v14 / 16, v15, 1, v16, v24, 2, 1);
@@ -344,7 +344,7 @@ void mainloop() {
 					} while (v11);
 				}
 			} else {
-				*(_DWORD*)&byte_5D4594[816416] = 0;
+				*(_DWORD*)getMemAt(0x5D4594, 816416) = 0;
 			}
 		}
 	}
@@ -376,7 +376,7 @@ void mainloop() {
 		}
 	}
 	sub_435750();
-	if (!*(_DWORD*)&byte_587000[93192]) {
+	if (!*(_DWORD*)getMemAt(0x587000, 93192)) {
 		mainloop_stop();
 		return;
 	}
