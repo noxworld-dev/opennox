@@ -56,9 +56,9 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 					}
 					sub_452D80(921, 100);
 				} else {
-					v9 = loadString_sub_40F1D0((char*)&byte_587000[169256], 0,
+					v9 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 169256), 0,
 											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 341);
-					v5 = loadString_sub_40F1D0((char*)&byte_587000[169304], 0,
+					v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 169304), 0,
 											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 341);
 					sub_449A10(nox_win_main_menu, (int)v5, (int)v9, 33, 0, 0);
 					sub_44A360(1);
@@ -108,7 +108,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 			case 131:
 				LOBYTE(v6) = nox_client_checkQuestExp_SKU2_4D7700();
 				if (!v6) {
-					v7 = loadString_sub_40F1D0((char*)&byte_587000[169352], 0,
+					v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 169352), 0,
 											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 416);
 					sub_449A10(nox_win_main_menu, 0, (int)v7, 33, 0, 0);
 					sub_44A360(0);
@@ -186,8 +186,8 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 		else
 			nox_client_drawImageAt_47D2C0(a2[6], xLeft, v3);
 	}
-	if (*(_DWORD*)&byte_587000[168836]) {
-		v4 = &byte_587000[168868];
+	if (*(_DWORD*)getMemAt(0x587000, 168836)) {
+		v4 = getMemAt(0x587000, 168868);
 		do {
 			v5 = *((_DWORD*)v4 + 2);
 			if (v5)
@@ -218,8 +218,8 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 			v4 += 48;
 		} while (v9);
 	}
-	if (*(_DWORD*)&byte_587000[168832]) {
-		v10 = &byte_587000[168872];
+	if (*(_DWORD*)getMemAt(0x587000, 168832)) {
+		v10 = getMemAt(0x587000, 168872);
 		do {
 			if (!*((_DWORD*)v10 - 6) && !*(_DWORD*)v10)
 				nox_client_drawImageAt_47D2C0(*((_DWORD*)v10 - 9), *((_DWORD*)v10 - 8), *((_DWORD*)v10 - 7));
