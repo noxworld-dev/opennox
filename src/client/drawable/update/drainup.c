@@ -27,8 +27,8 @@ int __cdecl sub_4CD690(_DWORD* a1, int a2) {
 	__int16 v23; // [esp+4h] [ebp-4h]
 	int v24;     // [esp+Ch] [ebp+4h]
 
-	if (!*(_DWORD*)&byte_5D4594[1522976])
-		*(_DWORD*)&byte_5D4594[1522976] = sub_44CFC0((CHAR*)&byte_587000[189456]);
+	if (!*(_DWORD*)getMemAt(0x5D4594, 1522976))
+		*(_DWORD*)getMemAt(0x5D4594, 1522976) = sub_44CFC0((CHAR*)getMemAt(0x587000, 189456));
 	if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 20) < 50) {
 		if (*(_BYTE*)(a2 + 432)) {
 			if (a2 == -432)
@@ -81,7 +81,7 @@ int __cdecl sub_4CD690(_DWORD* a1, int a2) {
 			v2 = v13[2] + v13[4] - 1;
 		if (v18 >= v13[9])
 			v3 = v13[3] - v24 + v16 - 1;
-		v19 = sub_45A360_drawable(*(int*)&byte_5D4594[1522976], v2, v3);
+		v19 = sub_45A360_drawable(*(int*)getMemAt(0x5D4594, 1522976), v2, v3);
 		if (v19) {
 			v20 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 93);
 			*(_WORD*)(v19 + 432) = v22;
