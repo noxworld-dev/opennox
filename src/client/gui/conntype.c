@@ -24,12 +24,12 @@ int sub_49C820() {
 	sub_457500();
 	sub_459D80(1);
 	v0 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1305684, 10352);
-	v1 = (char**)&byte_587000[164928];
+	v1 = (char**)getMemAt(0x587000, 164928);
 	do {
 		v2 = loadString_sub_40F1D0(*v1, 0, "C:\\NoxPost\\src\\client\\Gui\\conntype.c", 158);
 		nox_window_call_field_94((int)v0, 16397, (int)v2, -1);
 		++v1;
-	} while ((int)v1 < (int)&byte_587000[164944]);
+	} while ((int)v1 < (int)getMemAt(0x587000, 164944));
 	return nox_window_call_field_94((int)v0, 16403, 0, 0);
 }
 
@@ -51,7 +51,7 @@ _DWORD* sub_49C910() {
 
 	v0 = (unsigned __int16*)sub_46B0C0(*(_DWORD**)&dword_5d4594_1305684, 10352);
 	v1 = v0;
-	v2 = (char**)&byte_587000[164928];
+	v2 = (char**)getMemAt(0x587000, 164928);
 	v3 = 5 * (sub_43F320(*((_DWORD*)v0 + 59)) + 1);
 	*((_DWORD*)v1 + 7) = *((_DWORD*)v1 + 5) + v3 + 2;
 	*((_DWORD*)v1 + 3) = v3 + 2;
@@ -62,7 +62,7 @@ _DWORD* sub_49C910() {
 		if (v11 > v4)
 			v4 = v11;
 		++v2;
-	} while ((int)v2 < (int)&byte_587000[164944]);
+	} while ((int)v2 < (int)getMemAt(0x587000, 164944));
 	v6 = v4 + 7;
 	sub_43F840(*((_DWORD*)v1 + 59), v1 + 54, &v12, 0, 0);
 	if (v6 <= v12)
