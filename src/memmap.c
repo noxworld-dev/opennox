@@ -2722,3 +2722,22 @@ _BYTE* getMem(uintptr_t addr) {
 	DebugBreak();
 	return 0;
 }
+
+_BYTE* getMemAt(uintptr_t base, uintptr_t off) {
+	switch (base) {
+	case 0x581450:
+		return &byte_581450[off];
+	case 0x5D4594:
+		return &byte_5D4594[off];
+	case 0x587000:
+		return &byte_587000[off];
+	}
+	fprintf(stderr, "Invalid memory access! Requested = %x+%x\n", base, off);
+	DebugBreak();
+	return 0;
+}
+
+_BYTE getMemByte(uintptr_t base, uintptr_t off) {
+	_BYTE* ptr = getMemAt(base, off);
+	return *ptr;
+}
