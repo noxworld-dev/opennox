@@ -29,7 +29,7 @@ void* __cdecl sub_44C000(char* attr_value, nox_memfile* f) {
 			v8 = attr_value;
 			do {
 				v10 = nox_memfile_read_i32(f);
-				*v8 = byte_5D4594[830852];
+				*v8 = getMemByte(0x5D4594, 830852);
 				if (v10 == -1) {
 					v12 = nox_memfile_read_i8(f);
 					LOBYTE(v13) = v12;
@@ -100,7 +100,7 @@ int __cdecl sub_44BC50(int a1, nox_memfile* f) {
 		if (*(_WORD*)(a1 + 40) > 0) {
 			do {
 				v7 = nox_memfile_read_i32(f);
-				v16[0] = byte_5D4594[830844];
+				v16[0] = getMemByte(0x5D4594, 830844);
 				if (v7 == -1) {
 					v9 = nox_memfile_read_i8(f);
 					LOBYTE(v15) = v9;
