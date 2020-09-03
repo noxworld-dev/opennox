@@ -18,8 +18,8 @@ int sub_427070() {
 	int v11;            // eax
 	char v13[256];      // [esp+14h] [ebp-100h]
 
-	v0 = (CHAR**)&byte_587000[70504];
-	for (i = &byte_5D4594[740108];; i += 28) {
+	v0 = (CHAR**)getMemAt(0x587000, 70504);
+	for (i = getMemAt(0x5D4594, 740108);; i += 28) {
 		v2 = sub_44D330(*v0);
 		if (!v2)
 			break;
@@ -31,8 +31,8 @@ int sub_427070() {
 			*(_DWORD*)i = sub_44CFC0(*v0);
 		nox_sprintf(v13, "creature_desc:%s", *v0);
 		v3 = loadString_sub_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 65);
-		v4 = *(_DWORD*)&byte_587000[71248];
-		v5 = *(_DWORD*)&byte_587000[71252];
+		v4 = *(_DWORD*)getMemAt(0x587000, 71248);
+		v5 = *(_DWORD*)getMemAt(0x587000, 71252);
 		v6 = *v0;
 		*((_DWORD*)i + 1) = v3;
 		*(_DWORD*)v13 = v4;
@@ -40,8 +40,8 @@ int sub_427070() {
 		*(_DWORD*)&v13[4] = v5;
 		strcat(v13, v6);
 		v7 = sub_42F970(v13);
-		v8 = *(_DWORD*)&byte_587000[71264];
-		v9 = *(_DWORD*)&byte_587000[71268];
+		v8 = *(_DWORD*)getMemAt(0x587000, 71264);
+		v9 = *(_DWORD*)getMemAt(0x587000, 71268);
 		v10 = *v0;
 		*((_DWORD*)i + 2) = v7;
 		*(_DWORD*)v13 = v8;
@@ -59,7 +59,7 @@ int sub_427070() {
 			i[20] = 4;
 		}
 		++v0;
-		if ((int)v0 >= (int)&byte_587000[70664])
+		if ((int)v0 >= (int)getMemAt(0x587000, 70664))
 			return 1;
 	}
 	return 0;
