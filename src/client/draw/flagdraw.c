@@ -22,7 +22,7 @@ int __cdecl nox_thing_flag_draw(int* a1, nox_drawable* dr) {
 			v5 = sub_4B94E0(dr);
 			v6 = (unsigned __int16*)sub_418A80(v5);
 			if (v6) {
-				sub_434390(*(int*)&byte_5D4594[2618904]);
+				sub_434390(*(int*)getMemAt(0x5D4594, 2618904));
 				sub_43F840(0, v6, &a2, 0, 0);
 				sub_43F6E0(0, (__int16*)v6, a2 / -2 + v3, v4);
 			}
