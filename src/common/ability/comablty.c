@@ -46,14 +46,14 @@ int __cdecl sub_424F00(int a1, void* a2) {
 	v3 = sub_424D80((const char*)a2);
 	if (!v3)
 		return 0;
-	v5 = &byte_5D4594[52 * v3 + 599132];
+	v5 = getMemAt(0x5D4594, 52 * v3 + 599132);
 	*((_DWORD*)v5 + 9) = **(char**)(a1 + 8);
 	v6 = (int*)(*(_DWORD*)(a1 + 8) + 1);
 	*(_DWORD*)(a1 + 8) = v6;
 	v7 = *v6;
 	*(_DWORD*)(a1 + 8) = v6 + 1;
 	*((_DWORD*)v5 + 2) = 0;
-	v35[0] = byte_5D4594[599444];
+	v35[0] = getMemByte(0x5D4594, 599444);
 	if (v7 == -1) {
 		v8 = *(char**)(a1 + 8);
 		v9 = *v8++;
@@ -71,7 +71,7 @@ int __cdecl sub_424F00(int a1, void* a2) {
 	v11 = *v10;
 	*(_DWORD*)(a1 + 8) = v10 + 1;
 	*((_DWORD*)v5 + 3) = 0;
-	v35[0] = byte_5D4594[599448];
+	v35[0] = getMemByte(0x5D4594, 599448);
 	if (v11 == -1) {
 		v12 = *(char**)(a1 + 8);
 		v13 = *v12++;
@@ -89,7 +89,7 @@ int __cdecl sub_424F00(int a1, void* a2) {
 	v15 = *v14;
 	*(_DWORD*)(a1 + 8) = v14 + 1;
 	*((_DWORD*)v5 + 4) = 0;
-	v35[0] = byte_5D4594[599452];
+	v35[0] = getMemByte(0x5D4594, 599452);
 	if (v15 == -1) {
 		v16 = *(char**)(a1 + 8);
 		v17 = *v16++;
