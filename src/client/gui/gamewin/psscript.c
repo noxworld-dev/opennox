@@ -52,43 +52,43 @@ int __cdecl sub_4A10A0(_DWORD* a1, const char* a2, char* a3) {
 	char* v21;       // eax
 
 	if (!strcmp(a2, "VERTSLIDER") || !strcmp(a2, "HORZSLIDER")) {
-		*(_DWORD*)&byte_5D4594[1305820] = 0;
-		*(_DWORD*)&byte_5D4594[1305824] = 0;
-		*(_DWORD*)&byte_5D4594[1305828] = 0;
-		*(_DWORD*)&byte_5D4594[1305832] = 0;
+		*(_DWORD*)getMemAt(0x5D4594, 1305820) = 0;
+		*(_DWORD*)getMemAt(0x5D4594, 1305824) = 0;
+		*(_DWORD*)getMemAt(0x5D4594, 1305828) = 0;
+		*(_DWORD*)getMemAt(0x5D4594, 1305832) = 0;
 		v20 = strtok(a3, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1305820] = atoi(v20);
+		*(_DWORD*)getMemAt(0x5D4594, 1305820) = atoi(v20);
 		v21 = strtok(0, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1305824] = atoi(v21);
+		*(_DWORD*)getMemAt(0x5D4594, 1305824) = atoi(v21);
 		result = 1;
-		*a1 = &byte_5D4594[1305820];
+		*a1 = getMemAt(0x5D4594, 1305820);
 	} else if (!strcmp(a2, "SCROLLLISTBOX")) {
-		memset(&byte_5D4594[1306892], 0, 0x38u);
+		memset(getMemAt(0x5D4594, 1306892), 0, 0x38u);
 		v3 = strtok(a3, " \t\n\r");
-		*(_WORD*)&byte_5D4594[1306892] = atoi(v3);
+		*(_WORD*)getMemAt(0x5D4594, 1306892) = atoi(v3);
 		v4 = strtok(0, " \t\n\r");
-		*(_WORD*)&byte_5D4594[1306894] = atoi(v4);
+		*(_WORD*)getMemAt(0x5D4594, 1306894) = atoi(v4);
 		v5 = strtok(0, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1306896] = atoi(v5);
+		*(_DWORD*)getMemAt(0x5D4594, 1306896) = atoi(v5);
 		v6 = strtok(0, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1306900] = atoi(v6);
+		*(_DWORD*)getMemAt(0x5D4594, 1306900) = atoi(v6);
 		v7 = strtok(0, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1306904] = atoi(v7);
+		*(_DWORD*)getMemAt(0x5D4594, 1306904) = atoi(v7);
 		v8 = strtok(0, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1306908] = atoi(v8);
+		*(_DWORD*)getMemAt(0x5D4594, 1306908) = atoi(v8);
 		v9 = strtok(0, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1306912] = atoi(v9);
+		*(_DWORD*)getMemAt(0x5D4594, 1306912) = atoi(v9);
 		result = 1;
-		*a1 = &byte_5D4594[1306892];
+		*a1 = getMemAt(0x5D4594, 1306892);
 	} else if (!strcmp(a2, "ENTRYFIELD")) {
-		memset(&byte_5D4594[1305836], 0, 0x420u);
+		memset(getMemAt(0x5D4594, 1305836), 0, 0x420u);
 		v11 = strtok(a3, " \t\n\r");
-		*(_WORD*)&byte_5D4594[1306876] = atoi(v11);
+		*(_WORD*)getMemAt(0x5D4594, 1306876) = atoi(v11);
 		v12 = strtok(0, " \t\n\r");
 		if (v12)
-			*(_WORD*)&byte_5D4594[1306878] = atoi(v12);
+			*(_WORD*)getMemAt(0x5D4594, 1306878) = atoi(v12);
 		else
-			*(_WORD*)&byte_5D4594[1306878] = -1;
+			*(_WORD*)getMemAt(0x5D4594, 1306878) = -1;
 		v13 = strtok(0, " \t\n\r");
 		if (v13) {
 			dword_5d4594_1306860 = atoi(v13);
@@ -99,34 +99,34 @@ int __cdecl sub_4A10A0(_DWORD* a1, const char* a2, char* a3) {
 		v14 = strtok(0, " \t\n\r");
 		v15 = v14;
 		if (v14) {
-			*(_DWORD*)&byte_5D4594[1306864] = atoi(v14) == 1;
-			*(_DWORD*)&byte_5D4594[1306868] = atoi(v15) == 2;
-			*(_DWORD*)&byte_5D4594[1306872] = atoi(v15) == 3;
+			*(_DWORD*)getMemAt(0x5D4594, 1306864) = atoi(v14) == 1;
+			*(_DWORD*)getMemAt(0x5D4594, 1306868) = atoi(v15) == 2;
+			*(_DWORD*)getMemAt(0x5D4594, 1306872) = atoi(v15) == 3;
 		} else {
-			*(_DWORD*)&byte_5D4594[1306864] = 0;
-			*(_DWORD*)&byte_5D4594[1306868] = 0;
-			*(_DWORD*)&byte_5D4594[1306872] = 0;
+			*(_DWORD*)getMemAt(0x5D4594, 1306864) = 0;
+			*(_DWORD*)getMemAt(0x5D4594, 1306868) = 0;
+			*(_DWORD*)getMemAt(0x5D4594, 1306872) = 0;
 		}
-		*a1 = &byte_5D4594[1305836];
+		*a1 = getMemAt(0x5D4594, 1305836);
 		result = 1;
 	} else if (!strcmp(a2, "STATICTEXT")) {
 		v16 = strtok(a3, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1307256] = atoi(v16);
-		*(_DWORD*)&byte_5D4594[1307256] = *(_DWORD*)&byte_5D4594[1307256] != 0;
+		*(_DWORD*)getMemAt(0x5D4594, 1307256) = atoi(v16);
+		*(_DWORD*)getMemAt(0x5D4594, 1307256) = *(_DWORD*)getMemAt(0x5D4594, 1307256) != 0;
 		v17 = strtok(0, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1307260] = atoi(v17);
-		*(_DWORD*)&byte_5D4594[1307260] = *(_DWORD*)&byte_5D4594[1307260] != 0;
+		*(_DWORD*)getMemAt(0x5D4594, 1307260) = atoi(v17);
+		*(_DWORD*)getMemAt(0x5D4594, 1307260) = *(_DWORD*)getMemAt(0x5D4594, 1307260) != 0;
 		v18 = strtok(0, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1307252] =
+		*(_DWORD*)getMemAt(0x5D4594, 1307252) =
 			loadString_sub_40F1D0(v18, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 542);
 		result = 1;
-		*a1 = &byte_5D4594[1307252];
+		*a1 = getMemAt(0x5D4594, 1307252);
 	} else if (!strcmp(a2, "RADIOBUTTON")) {
 		v19 = strtok(a3, " \t\n\r");
-		*(_DWORD*)&byte_5D4594[1305812] = atoi(v19);
-		*(_DWORD*)&byte_5D4594[1307256] = *(_DWORD*)&byte_5D4594[1307256] != 0;
+		*(_DWORD*)getMemAt(0x5D4594, 1305812) = atoi(v19);
+		*(_DWORD*)getMemAt(0x5D4594, 1307256) = *(_DWORD*)getMemAt(0x5D4594, 1307256) != 0;
 		result = 1;
-		*a1 = &byte_5D4594[1305812];
+		*a1 = getMemAt(0x5D4594, 1305812);
 	} else {
 		result = 1;
 		*a1 = 0;
