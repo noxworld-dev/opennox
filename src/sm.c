@@ -165,48 +165,48 @@ void CONNECT_PREPARE(sm_args_t* args) {
 
 	sub_43BEB0_get_video_mode(&v5, &v4, &v6);
 	v1 = sub_431770();
-	nox_wcscpy((wchar_t*)v1, (const wchar_t*)&byte_5D4594[2661908]);
-	v1[66] = byte_5D4594[2661958];
-	*(_WORD*)(v1 + 71) = *(_WORD*)&byte_5D4594[2661888];
-	v1[73] = byte_5D4594[2661890];
-	*((_WORD*)v1 + 34) = *(_WORD*)&byte_5D4594[2661891];
-	v1[70] = byte_5D4594[2661893];
-	*((_WORD*)v1 + 37) = *(_WORD*)&byte_5D4594[2661894];
-	v1[76] = byte_5D4594[2661896];
-	*(_WORD*)(v1 + 77) = *(_WORD*)&byte_5D4594[2661897];
-	v1[79] = byte_5D4594[2661899];
-	*((_WORD*)v1 + 40) = *(_WORD*)&byte_5D4594[2661900];
-	v1[82] = byte_5D4594[2661902];
-	v1[83] = byte_5D4594[2661903];
-	v1[84] = byte_5D4594[2661904];
-	v1[85] = byte_5D4594[2661905];
-	v1[86] = byte_5D4594[2661906];
-	v1[87] = byte_5D4594[2661907];
-	v1[67] = byte_5D4594[2661959];
+	nox_wcscpy((wchar_t*)v1, (const wchar_t*)getMemAt(0x5D4594, 2661908));
+	v1[66] = getMemByte(0x5D4594, 2661958);
+	*(_WORD*)(v1 + 71) = *(_WORD*)getMemAt(0x5D4594, 2661888);
+	v1[73] = getMemByte(0x5D4594, 2661890);
+	*((_WORD*)v1 + 34) = *(_WORD*)getMemAt(0x5D4594, 2661891);
+	v1[70] = getMemByte(0x5D4594, 2661893);
+	*((_WORD*)v1 + 37) = *(_WORD*)getMemAt(0x5D4594, 2661894);
+	v1[76] = getMemByte(0x5D4594, 2661896);
+	*(_WORD*)(v1 + 77) = *(_WORD*)getMemAt(0x5D4594, 2661897);
+	v1[79] = getMemByte(0x5D4594, 2661899);
+	*((_WORD*)v1 + 40) = *(_WORD*)getMemAt(0x5D4594, 2661900);
+	v1[82] = getMemByte(0x5D4594, 2661902);
+	v1[83] = getMemByte(0x5D4594, 2661903);
+	v1[84] = getMemByte(0x5D4594, 2661904);
+	v1[85] = getMemByte(0x5D4594, 2661905);
+	v1[86] = getMemByte(0x5D4594, 2661906);
+	v1[87] = getMemByte(0x5D4594, 2661907);
+	v1[67] = getMemByte(0x5D4594, 2661959);
 	sub_48D740();
 	*(_DWORD*)&Data[97] = v5;
 	*(_DWORD*)&Data[101] = v4;
 	sub_420120(&Data[105]);
 	if (!sub_43AF70())
-		sub_40E0D0((int)&Data[105], (LPCSTR)&byte_587000[86344], 0);
+		sub_40E0D0((int)&Data[105], (LPCSTR)getMemAt(0x587000, 86344), 0);
 	Data[152] = !sub_40ABD0();
-	if (byte_5D4594[2660684] & 4)
+	if (getMemByte(0x5D4594, 2660684) & 4)
 		Data[152] |= 0x80u;
-	strcpy((char*)&Data[142], (const char*)&byte_5D4594[2660099]);
+	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660099));
 	strcpy((char*)&Data[128], sub_41FA40());
 	*(_DWORD*)&Data[138] = dword_5d4594_2660032;
 	qmemcpy(Data, v1, 0x61u);
 
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		sub_4D3860(Data);
-		*(_DWORD*)&byte_5D4594[2616328] = sub_4DD320(31, Data);
+		*(_DWORD*)getMemAt(0x5D4594, 2616328) = sub_4DD320(31, Data);
 		sub_409AE0(66458);
 		sub_494E90(31);
 		dword_5d4594_811372 = 2;
 		GOTO_CONNECT_RESULT(0);
 	} else {
 		v3 = sub_43B320();
-		GOTO_CONNECT_SERVER((char*)&byte_587000[85680], v3, Data);
+		GOTO_CONNECT_SERVER((char*)getMemAt(0x587000, 85680), v3, Data);
 	}
 }
 
@@ -247,7 +247,7 @@ void NET_CONNECT(sm_args_t* args) {
 	const char* cp = args->net_connect.hostname;
 	int hostshort = args->net_connect.port;
 
-	v5 = *(int**)&byte_5D4594[4 * a1 + 3843788];
+	v5 = *(int**)getMemAt(0x5D4594, 4 * a1 + 3843788);
 	if ((unsigned int)a1 >= 0x80)
 		GOTO_NET_CONNECT_THEN(-3);
 	if (!v5)
@@ -308,7 +308,7 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 	char a4 = args->net_connect_wait_loop.flags;
 	int v6 = args->net_connect_wait_loop.counter;
 
-	v4 = *(_DWORD*)&byte_5D4594[4 * a1 + 3843788];
+	v4 = *(_DWORD*)getMemAt(0x5D4594, 4 * a1 + 3843788);
 	if (a1 >= 0x80)
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
 	if (!v4)
@@ -334,15 +334,15 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 	if (args->net_connect_wait_then.result)
 		GOTO_NET_CONNECT_THEN(-23);
 
-	v5 = *(int**)&byte_5D4594[4 * a1 + 3843788];
+	v5 = *(int**)getMemAt(0x5D4594, 4 * a1 + 3843788);
 	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
-		memset(&byte_5D4594[2512892], 0, 0x400u);
-		byte_5D4594[2512892] = 31;
-		byte_5D4594[2512893] = *(_BYTE*)(v5[12] + 1);
-		byte_5D4594[2512894] = 32;
+		memset(getMemAt(0x5D4594, 2512892), 0, 0x400u);
+		*getMemAt( 0x5D4594, 2512892) = 31;
+		*getMemAt( 0x5D4594, 2512893) = *(_BYTE*)(v5[12] + 1);
+		*getMemAt( 0x5D4594, 2512894) = 32;
 		if (a4)
-			qmemcpy(&byte_5D4594[2512895], (const void*)a4, a5);
-		sub_552640(a1, &byte_5D4594[2512892], a5 + 3, 3);
+			qmemcpy(getMemAt(0x5D4594, 2512895), (const void*)a4, a5);
+		sub_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
 	}
 	GOTO_NET_CONNECT_THEN(v5[5]);
 }
@@ -433,7 +433,7 @@ void CONNECT_RESULT(sm_args_t* args) {
 	if (nox_common_gameFlags_check_40A5C0(0x2000) && nox_common_gameFlags_check_40A5C0(1) && sub_43AF40())
 		sub_43AA70();
 	sub_43F1A0();
-	nox_video_setGammaSetting_434B30(*(int*)&byte_587000[80852]);
+	nox_video_setGammaSetting_434B30(*(int*)getMemAt(0x587000, 80852));
 	sub_434B60();
 	sub_40A4D0(0x10000000);
 	mainloop_exit = mainloop_exit_2;
@@ -474,10 +474,10 @@ void f(int reentrant) {
 		g_v20 = 1;
 		sub_43F140(800);
 		sub_415F70();
-		*(_DWORD*)&byte_5D4594[2598000] = nox_common_gameFlags_check_40A5C0(1);
+		*(_DWORD*)getMemAt(0x5D4594, 2598000) = nox_common_gameFlags_check_40A5C0(1);
 		nox_ensure_thing_bin();
-		*(_DWORD*)&byte_5D4594[2650664] = 0;
-		*(_DWORD*)&byte_5D4594[2649708] = 0;
+		*(_DWORD*)getMemAt(0x5D4594, 2650664) = 0;
+		*(_DWORD*)getMemAt(0x5D4594, 2649708) = 0;
 		if (g_v21)
 			GOTO_CONNECT_RESULT(0);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
