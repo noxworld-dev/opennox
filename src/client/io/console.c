@@ -8,13 +8,13 @@ int sub_451610() {
 	int result;          // eax
 	unsigned __int8* v1; // ecx
 
-	result = *(_DWORD*)&byte_5D4594[835876];
-	v1 = &byte_5D4594[835876];
+	result = *(_DWORD*)getMemAt(0x5D4594, 835876);
+	v1 = getMemAt(0x5D4594, 835876);
 	do {
 		*(_DWORD*)v1 = *((_DWORD*)v1 - 1);
 		v1 -= 4;
-	} while ((int)v1 > (int)&byte_5D4594[835800]);
-	*(_DWORD*)&byte_5D4594[835800] = result;
+	} while ((int)v1 > (int)getMemAt(0x5D4594, 835800));
+	*(_DWORD*)getMemAt(0x5D4594, 835800) = result;
 	return result;
 }
 
@@ -27,19 +27,19 @@ unsigned __int8* sub_451630() {
 
 	nox_file_log = fopen("log", "w");
 	if (!nox_file_log) {
-		v4 = loadString_sub_40F1D0((char*)&byte_587000[126708], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 272);
-		v3 = loadString_sub_40F1D0((char*)&byte_587000[126756], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 271);
+		v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 126708), 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 272);
+		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 126756), 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 271);
 		nullsub_4(getWindowHandle_sub_401FD0(), v3, v4, 0);
 		nox_exit(0);
 	}
-	v1 = &byte_5D4594[835880];
-	result = &byte_5D4594[835800];
+	v1 = getMemAt(0x5D4594, 835880);
+	result = getMemAt(0x5D4594, 835800);
 	do {
 		*(_DWORD*)result = v1;
 		*(_WORD*)v1 = 0;
 		result += 4;
 		v1 += 200;
-	} while ((int)result < (int)&byte_5D4594[835880]);
+	} while ((int)result < (int)getMemAt(0x5D4594, 835880));
 	return result;
 }
 
@@ -55,13 +55,13 @@ void sub_4516C0(wchar_t* a1, ...) {
 		sub_451630();
 	sub_451610();
 	v1 = loadString_sub_40F1D0("FatalErrorHeader", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 314);
-	nox_swprintf((unsigned short*)&byte_5D4594[833752], v1);
-	nox_vswprintf((unsigned short*)&byte_5D4594[833778], a1, va);
-	fprintf(nox_file_log, "%S", &byte_5D4594[833752]);
+	nox_swprintf((unsigned short*)getMemAt(0x5D4594, 833752), v1);
+	nox_vswprintf((unsigned short*)getMemAt(0x5D4594, 833778), a1, va);
+	fprintf(nox_file_log, "%S", getMemAt(0x5D4594, 833752));
 	fflush(nox_file_log);
 	v3 = loadString_sub_40F1D0("FatalError", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 324);
 	v2 = getWindowHandle_sub_401FD0();
-	nullsub_4(v2, &byte_5D4594[833752], v3, 0);
+	nullsub_4(v2, getMemAt(0x5D4594, 833752), v3, 0);
 	fprintf(nox_file_log, "exiting..\n");
 	fclose(nox_file_log);
 	if (*(unsigned int*)&dword_5d4594_823776)
@@ -82,14 +82,14 @@ wchar_t* sub_4517A0(wchar_t* a1, ...) {
 	if (!nox_file_log)
 		sub_451630();
 	v1 = (wchar_t*)sub_451610();
-	v2 = loadString_sub_40F1D0((char*)&byte_587000[126924], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 355);
-	nox_swprintf((wchar_t*)&byte_5D4594[833752], v2);
-	nox_vswprintf((wchar_t*)&byte_5D4594[833770], a1, va);
-	fprintf(nox_file_log, "%S", &byte_5D4594[833752]);
+	v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 126924), 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 355);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 833752), v2);
+	nox_vswprintf((wchar_t*)getMemAt(0x5D4594, 833770), a1, va);
+	fprintf(nox_file_log, "%S", getMemAt(0x5D4594, 833752));
 	fflush(nox_file_log);
-	v5 = loadString_sub_40F1D0((char*)&byte_587000[126980], 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 365);
-	nullsub_4(getWindowHandle_sub_401FD0(), &byte_5D4594[833752], v5, 0);
-	return nox_wcsncpy(v1, (const wchar_t*)&byte_5D4594[833752], 0x63u);
+	v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 126980), 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 365);
+	nullsub_4(getWindowHandle_sub_401FD0(), getMemAt(0x5D4594, 833752), v5, 0);
+	return nox_wcsncpy(v1, (const wchar_t*)getMemAt(0x5D4594, 833752), 0x63u);
 }
 
 //----- (004515B0) --------------------------------------------------------
@@ -101,8 +101,8 @@ wchar_t* sub_4515B0(wchar_t* a1, ...) {
 	if (!nox_file_log)
 		sub_451630();
 	v1 = (wchar_t*)sub_451610();
-	nox_swprintf((wchar_t*)&byte_5D4594[833752], a1, va);
-	fprintf(nox_file_log, "%S", &byte_5D4594[833752]);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 833752), a1, va);
+	fprintf(nox_file_log, "%S", getMemAt(0x5D4594, 833752));
 	fflush(nox_file_log);
-	return nox_wcsncpy(v1, (const wchar_t*)&byte_5D4594[833752], 0x63u);
+	return nox_wcsncpy(v1, (const wchar_t*)getMemAt(0x5D4594, 833752), 0x63u);
 }
