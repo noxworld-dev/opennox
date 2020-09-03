@@ -24,11 +24,11 @@ int __cdecl nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	if (*(_BYTE*)(a2 + 441) == 3)
 		goto LABEL_29;
 	v2 = *(_DWORD*)(a2 + 356);
-	if (v2 && v2 <= *(int*)&byte_5D4594[2598000]) {
+	if (v2 && v2 <= *(int*)getMemAt(0x5D4594, 2598000)) {
 		*(_BYTE*)(a2 + 441) = 3;
 		*(_BYTE*)(a2 + 442) = 4;
 		*(_BYTE*)(a2 + 443) = 4;
-		sub_49B950((_DWORD*)a2, *(int*)&byte_5D4594[2649704]);
+		sub_49B950((_DWORD*)a2, *(int*)getMemAt(0x5D4594, 2649704));
 	}
 	if (*(_BYTE*)(a2 + 441) == 3) {
 		LABEL_29:
@@ -44,7 +44,7 @@ int __cdecl nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	sub_4B6720(&xLeft, *(_DWORD*)(a2 + 432), v5, v5 + 3);
 	nox_client_drawSetColor_434460(*(_DWORD*)(a2 + 436));
 	sub_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(a2 + 440) >> 1);
-	if (byte_5D4594[2598000] & 3)
+	if (getMemByte(0x5D4594, 2598000) & 3)
 		*(_WORD*)(a2 + 104) += *(char*)(a2 + 446);
 	v6 = *(_BYTE*)(a2 + 442);
 	if (v6) {
