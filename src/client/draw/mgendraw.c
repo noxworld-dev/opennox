@@ -43,7 +43,7 @@ int __cdecl nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 		v7 = v5 + v4 + 29;
 		goto LABEL_12;
 	case 2:
-		v7 = (*(unsigned int*)&byte_5D4594[2598000] + *(unsigned int*)(v2 + 128)) /
+		v7 = (*(unsigned int*)getMemAt(0x5D4594, 2598000) + *(unsigned int*)(v2 + 128)) /
 			 ((unsigned int)*(unsigned __int8*)(v5 + v4 + 29) + 1);
 		if (v7 >= v6)
 			v7 %= v6;
@@ -80,7 +80,7 @@ int __cdecl nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 		v13 = *(unsigned int*)(v2 + 280);
 		if (!(v13 & 0xC00)) {
 			v14 = *(unsigned __int8*)(v4 + 28);
-			v15 = (*(unsigned int*)&byte_5D4594[2598000] + *(unsigned int*)(v2 + 128)) /
+			v15 = (*(unsigned int*)getMemAt(0x5D4594, 2598000) + *(unsigned int*)(v2 + 128)) /
 				  ((unsigned int)*(unsigned __int8*)(v4 + 33) + 1);
 			if (v15 >= v14)
 				v15 %= v14;
