@@ -21,14 +21,14 @@ int sub_455C30() {
 		while (1) {
 			v2 = (wchar_t*)sub_46B0C0((_DWORD*)result, v1);
 			nox_window_set_all_funcs(v2, 0, sub_455CD0, 0);
-			v3 = loadString_sub_40F1D0((char*)&byte_587000[128372], 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 201);
+			v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 128372), 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 201);
 			sub_46B000(v2 + 18, v3);
 			if (++v1 > 8826)
 				break;
 			result = dword_5d4594_1045604;
 		}
 		sub_455A00(0);
-		*(_DWORD*)&byte_5D4594[1045632] = sub_42F970("FlagTeamBorder");
+		*(_DWORD*)getMemAt(0x5D4594, 1045632) = sub_42F970("FlagTeamBorder");
 		result = 1;
 	}
 	return result;
@@ -40,37 +40,37 @@ wchar_t* __cdecl sub_455D80(unsigned __int8 a1, char a2) {
 	wchar_t* v3;     // esi
 	wchar_t* v4;     // eax
 
-	byte_5D4594[a1 + 1045611] = a2;
+	*getMemAt( 0x5D4594, a1 + 1045611) = a2;
 	result = (wchar_t*)sub_46B0C0(*(_DWORD**)&dword_5d4594_1045604, a1 + 8810);
 	v3 = result;
 	if (result) {
 		if (result[2] & 0x20) {
 			if (a2) {
 				if (a2 == 1) {
-					v4 = loadString_sub_40F1D0((char*)&byte_587000[128436], 0,
+					v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 128436), 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 234);
 				} else {
 					if (a2 != 2)
 						return result;
-					v4 = loadString_sub_40F1D0((char*)&byte_587000[128492], 0,
+					v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 128492), 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 238);
 				}
 			} else {
-				v4 = loadString_sub_40F1D0((char*)&byte_587000[128540], 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
+				v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 128540), 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
 										   242);
 			}
 		} else if (a2) {
 			if (a2 == 1) {
-				v4 = loadString_sub_40F1D0((char*)&byte_587000[128588], 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
+				v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 128588), 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
 										   252);
 			} else {
 				if (a2 != 2)
 					return result;
-				v4 = loadString_sub_40F1D0((char*)&byte_587000[128644], 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
+				v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 128644), 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
 										   256);
 			}
 		} else {
-			v4 = loadString_sub_40F1D0((char*)&byte_587000[128692], 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 260);
+			v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 128692), 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 260);
 		}
 		result = sub_46B000(v3 + 18, v4);
 	}
