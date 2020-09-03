@@ -59,7 +59,7 @@ int __cdecl sub_424460(int a1, void* a2) {
 	v41 = v4;
 	if (!v4)
 		return 0;
-	v6 = &byte_5D4594[80 * v4 + 588124];
+	v6 = getMemAt(0x5D4594, 80 * v4 + 588124);
 	v40 = 0;
 	v39 = 0;
 	v6[62] = **(_BYTE**)(a1 + 8);
@@ -100,7 +100,7 @@ int __cdecl sub_424460(int a1, void* a2) {
 	v16 = *v15;
 	*(_DWORD*)(a1 + 8) = v15 + 1;
 	*((_DWORD*)v6 + 2) = 0;
-	v43[0] = byte_5D4594[599124];
+	v43[0] = getMemByte(0x5D4594, 599124);
 	if (v16 == -1) {
 		v17 = *(char**)(a1 + 8);
 		v18 = *v17++;
@@ -118,7 +118,7 @@ int __cdecl sub_424460(int a1, void* a2) {
 	v20 = *v19;
 	*(_DWORD*)(a1 + 8) = v19 + 1;
 	*((_DWORD*)v6 + 3) = 0;
-	v43[0] = byte_5D4594[599128];
+	v43[0] = getMemByte(0x5D4594, 599128);
 	if (v20 == -1) {
 		v21 = *(char**)(a1 + 8);
 		v22 = *v21++;
