@@ -16,8 +16,8 @@ void sub_44B010() {
 	sub_41E300(9);
 	sub_44E040();
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-		v0 = loadString_sub_40F1D0((char*)&byte_587000[113772], 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 75);
-		sub_413D30((char*)&byte_587000[113788], v0);
+		v0 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 113772), 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 75);
+		sub_413D30((char*)getMemAt(0x587000, 113788), v0);
 		if (sub_43C710())
 			sub_41E400();
 		else
@@ -27,7 +27,7 @@ void sub_44B010() {
 		nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_830292, nox_win_width / 2 - *(int*)(dword_5d4594_830292 + 24) / 2,
 						   nox_win_height / 2 - *(int*)(dword_5d4594_830292 + 28) / 2);
 	} else {
-		v1 = loadString_sub_40F1D0((char*)&byte_587000[113840], 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 100);
+		v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 113840), 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 100);
 		sub_445490(v1);
 	}
 }
