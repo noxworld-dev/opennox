@@ -17,8 +17,8 @@ int __cdecl nox_thing_magic_draw(int* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	if (!dword_5d4594_1313804) {
-		*(_DWORD*)&byte_5D4594[1313808] = sub_4344A0(0, 200, 255);
-		*(_DWORD*)&byte_5D4594[1313812] = sub_4344A0(255, 255, 50);
+		*(_DWORD*)getMemAt(0x5D4594, 1313808) = sub_4344A0(0, 200, 255);
+		*(_DWORD*)getMemAt(0x5D4594, 1313812) = sub_4344A0(255, 255, 50);
 		dword_5d4594_1313804 = 1;
 	}
 	v2 = *a1;
@@ -30,8 +30,8 @@ int __cdecl nox_thing_magic_draw(int* a1, nox_drawable* dr) {
 	v10.field_4 = v6;
 	if (v4 - 10 >= v2 && v6 - 10 >= v3 && v4 + 10 < a1[2] && v6 + 10 < a1[3]) {
 		v7 = sub_415FF0(1, 4, "C:\\NoxPost\\src\\Client\\Draw\\magicdrw.c", 48);
-		sub_4B6720(&v10, *(int*)&byte_5D4594[1313808], 2 * v7 + 1, (v7 >> 1) + 3);
-		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2523948]);
+		sub_4B6720(&v10, *(int*)getMemAt(0x5D4594, 1313808), 2 * v7 + 1, (v7 >> 1) + 3);
+		nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2523948));
 		nox_client_drawRectFilledOpaque_49CE30(v10.field_0 - (v7 >> 1), v10.field_4 - (v7 >> 1), v7, v7);
 		sub_484BE0((_DWORD*)(a2 + 136), 200, 200, 255);
 		v9 = sub_416090(0.0, 100.0);
@@ -54,8 +54,8 @@ int __cdecl nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	if (!dword_5d4594_1313804) {
-		*(_DWORD*)&byte_5D4594[1313808] = sub_4344A0(0, 200, 255);
-		*(_DWORD*)&byte_5D4594[1313812] = sub_4344A0(255, 255, 50);
+		*(_DWORD*)getMemAt(0x5D4594, 1313808) = sub_4344A0(0, 200, 255);
+		*(_DWORD*)getMemAt(0x5D4594, 1313812) = sub_4344A0(255, 255, 50);
 		dword_5d4594_1313804 = 1;
 	}
 	v2 = *a1;
@@ -67,8 +67,8 @@ int __cdecl nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 	v10.field_4 = v6;
 	if (v4 - 10 >= v2 && v6 - 10 >= v3 && v4 + 10 < a1[2] && v6 + 10 < a1[3]) {
 		v7 = sub_415FF0(1, 4, "C:\\NoxPost\\src\\Client\\Draw\\magicdrw.c", 91);
-		sub_4B6720(&v10, *(int*)&byte_5D4594[1313812], 2 * v7 + 1, (v7 >> 1) + 3);
-		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2523948]);
+		sub_4B6720(&v10, *(int*)getMemAt(0x5D4594, 1313812), 2 * v7 + 1, (v7 >> 1) + 3);
+		nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2523948));
 		nox_client_drawRectFilledOpaque_49CE30(v10.field_0 - (v7 >> 1), v10.field_4 - (v7 >> 1), v7, v7);
 		sub_484BE0((_DWORD*)(a2 + 136), 255, 180, 50);
 		v9 = sub_416090(0.0, 100.0);
@@ -98,15 +98,15 @@ int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) 
 	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
 	v4 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
 	v12 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5] + *(_DWORD*)(a2 + 436);
-	v5 = *(_DWORD*)(a2 + 356) - *(_DWORD*)&byte_5D4594[2598000];
+	v5 = *(_DWORD*)(a2 + 356) - *(_DWORD*)getMemAt(0x5D4594, 2598000);
 	v11 = *a1 - a1[4] + *(_DWORD*)(a2 + 432);
 	v14 = v5;
 	if (v5 > 0) {
-		v6 = (v5 << 6) / (int)(*(_DWORD*)&byte_5D4594[2649704] / 3u);
-		v13 = *(_DWORD*)&byte_5D4594[2649704] / 3u;
+		v6 = (v5 << 6) / (int)(*(_DWORD*)getMemAt(0x5D4594, 2649704) / 3u);
+		v13 = *(_DWORD*)getMemAt(0x5D4594, 2649704) / 3u;
 		if (v6 >= 64)
 			v6 = 63;
-		v7 = *(_DWORD*)&byte_5D4594[4 * v6 + 1312756];
+		v7 = *(_DWORD*)getMemAt(0x5D4594, 4 * v6 + 1312756);
 		v8 = v2 + 136;
 		sub_484BE0((_DWORD*)(v2 + 136), 255, 128, 50);
 		v10 = (double)v14 * 20.0 / (double)v13;
@@ -144,19 +144,19 @@ int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
 	v4 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
 	v13 = *a1 - a1[4] + *(_DWORD*)(a2 + 432);
-	v5 = *(_DWORD*)(a2 + 356) - *(_DWORD*)&byte_5D4594[2598000];
-	v6 = *(_DWORD*)(a2 + 356) == *(_DWORD*)&byte_5D4594[2598000];
+	v5 = *(_DWORD*)(a2 + 356) - *(_DWORD*)getMemAt(0x5D4594, 2598000);
+	v6 = *(_DWORD*)(a2 + 356) == *(_DWORD*)getMemAt(0x5D4594, 2598000);
 	v14 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5] + *(_DWORD*)(a2 + 436);
 	v15 = v5;
 	if (v5 >= 0 && !v6) {
 		v8 = v5 << 6;
-		v7 = (unsigned int)(v5 << 6) / *(_DWORD*)&byte_5D4594[2649704];
-		if ((int)(v8 / *(_DWORD*)&byte_5D4594[2649704]) >= 64)
+		v7 = (unsigned int)(v5 << 6) / *(_DWORD*)getMemAt(0x5D4594, 2649704);
+		if ((int)(v8 / *(_DWORD*)getMemAt(0x5D4594, 2649704)) >= 64)
 			v7 = 63;
-		v9 = *(_DWORD*)&byte_5D4594[4 * v7 + 1312500];
+		v9 = *(_DWORD*)getMemAt(0x5D4594, 4 * v7 + 1312500);
 		v10 = v2 + 136;
 		sub_484BE0((_DWORD*)(v2 + 136), 128, 128, 255);
-		v12 = (double)v15 * 20.0 / (double)*(int*)&byte_5D4594[2649704];
+		v12 = (double)v15 * 20.0 / (double)*(int*)getMemAt(0x5D4594, 2649704);
 		sub_484D70_light_intensity(v10, v12);
 		nox_client_drawSetColor_434460(v9);
 		nox_client_drawEnableAlpha_434560(1);
