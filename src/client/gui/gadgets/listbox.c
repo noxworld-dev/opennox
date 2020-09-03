@@ -77,13 +77,13 @@ _DWORD* __cdecl sub_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a
 			}
 			memset(v25, 0, sizeof(v25));
 			if ((signed char)*((_BYTE*)v8 + 4) >= 0) {
-				*(_DWORD*)&v25[20] = *(_DWORD*)&byte_5D4594[2650656];
-				*(_DWORD*)&v25[44] = *(_DWORD*)&byte_5D4594[2650656];
-				*(_DWORD*)&v25[28] = *(_DWORD*)&byte_5D4594[2614256];
-				*(_DWORD*)&v25[36] = *(_DWORD*)&byte_5D4594[2523948];
-				*(_DWORD*)&v25[52] = *(_DWORD*)&byte_5D4594[2589772];
-				*(_DWORD*)&v25[68] = *(_DWORD*)&byte_5D4594[2614256];
-				v16 = loadString_sub_40F1D0((char*)&byte_587000[169844], 0,
+				*(_DWORD*)&v25[20] = *(_DWORD*)getMemAt(0x5D4594, 2650656);
+				*(_DWORD*)&v25[44] = *(_DWORD*)getMemAt(0x5D4594, 2650656);
+				*(_DWORD*)&v25[28] = *(_DWORD*)getMemAt(0x5D4594, 2614256);
+				*(_DWORD*)&v25[36] = *(_DWORD*)getMemAt(0x5D4594, 2523948);
+				*(_DWORD*)&v25[52] = *(_DWORD*)getMemAt(0x5D4594, 2589772);
+				*(_DWORD*)&v25[68] = *(_DWORD*)getMemAt(0x5D4594, 2614256);
+				v16 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 169844), 0,
 											"C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1483);
 				nox_wcscpy((wchar_t*)&v25[72], v16);
 				v23 = 10;
@@ -101,13 +101,13 @@ _DWORD* __cdecl sub_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a
 			*((_DWORD*)a8 + 7) = sub_4A91A0((int)v8, v26 | 9, a5 - 10, v22, 10, v23, v25);
 			memset(v25, 0, sizeof(v25));
 			if ((signed char)*((_BYTE*)v8 + 4) >= 0) {
-				*(_DWORD*)&v25[20] = *(_DWORD*)&byte_5D4594[2650656];
-				*(_DWORD*)&v25[44] = *(_DWORD*)&byte_5D4594[2650656];
-				*(_DWORD*)&v25[28] = *(_DWORD*)&byte_5D4594[2614256];
-				*(_DWORD*)&v25[36] = *(_DWORD*)&byte_5D4594[2523948];
-				*(_DWORD*)&v25[52] = *(_DWORD*)&byte_5D4594[2589772];
-				*(_DWORD*)&v25[68] = *(_DWORD*)&byte_5D4594[2614256];
-				v18 = loadString_sub_40F1D0((char*)&byte_587000[169996], 0,
+				*(_DWORD*)&v25[20] = *(_DWORD*)getMemAt(0x5D4594, 2650656);
+				*(_DWORD*)&v25[44] = *(_DWORD*)getMemAt(0x5D4594, 2650656);
+				*(_DWORD*)&v25[28] = *(_DWORD*)getMemAt(0x5D4594, 2614256);
+				*(_DWORD*)&v25[36] = *(_DWORD*)getMemAt(0x5D4594, 2523948);
+				*(_DWORD*)&v25[52] = *(_DWORD*)getMemAt(0x5D4594, 2589772);
+				*(_DWORD*)&v25[68] = *(_DWORD*)getMemAt(0x5D4594, 2614256);
+				v18 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 169996), 0,
 											"C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1519);
 				nox_wcscpy((wchar_t*)&v25[72], v18);
 			} else {
@@ -122,11 +122,11 @@ _DWORD* __cdecl sub_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a
 			*((_DWORD*)a8 + 8) = sub_4A91A0((int)v8, v17, a5 - 10, v22 + v10 - v23, 10, v23, v25);
 			memset(v25, 0, sizeof(v25));
 			if ((signed char)*((_BYTE*)v8 + 4) >= 0) {
-				*(_DWORD*)&v25[20] = *(_DWORD*)&byte_5D4594[2650656];
-				*(_DWORD*)&v25[44] = *(_DWORD*)&byte_5D4594[2650656];
-				*(_DWORD*)&v25[36] = *(_DWORD*)&byte_5D4594[2650656];
-				*(_DWORD*)&v25[28] = *(_DWORD*)&byte_5D4594[2614256];
-				*(_DWORD*)&v25[52] = *(_DWORD*)&byte_5D4594[2614256];
+				*(_DWORD*)&v25[20] = *(_DWORD*)getMemAt(0x5D4594, 2650656);
+				*(_DWORD*)&v25[44] = *(_DWORD*)getMemAt(0x5D4594, 2650656);
+				*(_DWORD*)&v25[36] = *(_DWORD*)getMemAt(0x5D4594, 2650656);
+				*(_DWORD*)&v25[28] = *(_DWORD*)getMemAt(0x5D4594, 2614256);
+				*(_DWORD*)&v25[52] = *(_DWORD*)getMemAt(0x5D4594, 2614256);
 				v19 = 10;
 			} else {
 				*(_DWORD*)&v25[24] = sub_42F970("DefaultSliderThumb");
