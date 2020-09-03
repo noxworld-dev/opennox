@@ -38,13 +38,13 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
 	v6 = sub_46B0A0(a3);
 	v7 = v6;
 	if (v6 >= 601 && v6 <= 603) {
-		sub_46ABB0(*(int*)&byte_5D4594[1307728], 1);
+		sub_46ABB0(*(int*)getMemAt(0x5D4594, 1307728), 1);
 		v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 605);
 		*(_BYTE*)(dword_5d4594_1307724 + 66) = v7 - 89;
-		v9 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * (unsigned __int8)(v7 - 89) + 170208], 0,
+		v9 = loadString_sub_40F1D0(*(char**)getMemAt(0x587000, 4 * (unsigned __int8)(v7 - 89) + 170208), 0,
 								   "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 279);
 		nox_window_call_field_94((int)v8, 16385, (int)v9, 0);
-		*(_DWORD*)&byte_5D4594[1307740] = v7;
+		*(_DWORD*)getMemAt(0x5D4594, 1307740) = v7;
 	}
 	sub_452D80(920, 100);
 	return 1;
@@ -66,7 +66,7 @@ void* __cdecl sub_4A4B70(int a1) {
 
 	v1 = 0;
 	result = (void*)*(unsigned __int8*)(dword_5d4594_1307724 + 66);
-	v3 = *(_BYTE**)&byte_587000[4 * (_DWORD)result + 170156];
+	v3 = *(_BYTE**)getMemAt(0x587000, 4 * (_DWORD)result + 170156);
 	if (*v3) {
 		do
 			result = (void*)++v1;
