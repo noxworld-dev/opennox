@@ -110,19 +110,19 @@ int sub_44A560_wol_login() {
 	if (dword_5d4594_830272 == 1 || sub_4D3320() == 1) {
 		if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 			if (dword_5d4594_830272 == 1) {
-				v10 = loadString_sub_40F1D0((char*)&byte_587000[113496], 0,
+				v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 113496), 0,
 											"C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 485);
-				sub_413D30((char*)&byte_587000[113524], v10);
+				sub_413D30((char*)getMemAt(0x587000, 113524), v10);
 			} else {
-				sub_413D30((char*)&byte_587000[113528]);
+				sub_413D30((char*)getMemAt(0x587000, 113528));
 			}
 			sub_43DDD0(0);
 			sub_43DE60();
 			return 0;
 		}
-		v15 = loadString_sub_40F1D0((char*)&byte_587000[113628], 0,
+		v15 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 113628), 0,
 									"C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
-		v11 = loadString_sub_40F1D0((char*)&byte_587000[113684], 0,
+		v11 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 113684), 0,
 									"C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
 		sub_449A10(*(int*)&dword_5d4594_830248, (int)v11, (int)v15, 33, 0, 0);
 		sub_44A4B0();
