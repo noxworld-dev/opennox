@@ -22,12 +22,12 @@ int __cdecl nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	if (!*(_DWORD*)&byte_5D4594[1313728]) {
-		*(_DWORD*)&byte_5D4594[1313736] = sub_44CFC0((CHAR*)&byte_587000[176812]);
-		*(_DWORD*)&byte_5D4594[1313732] = sub_4344A0(100, 100, 255);
-		*(_DWORD*)&byte_5D4594[1313728] = 1;
+	if (!*(_DWORD*)getMemAt(0x5D4594, 1313728)) {
+		*(_DWORD*)getMemAt(0x5D4594, 1313736) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176812));
+		*(_DWORD*)getMemAt(0x5D4594, 1313732) = sub_4344A0(100, 100, 255);
+		*(_DWORD*)getMemAt(0x5D4594, 1313728) = 1;
 	}
-	if ((unsigned int)(*(_DWORD*)&byte_5D4594[2598000] - *(_DWORD*)(a2 + 316)) <= 0x46) {
+	if ((unsigned int)(*(_DWORD*)getMemAt(0x5D4594, 2598000) - *(_DWORD*)(a2 + 316)) <= 0x46) {
 		if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 54) > 85) {
 			v3 = *(_WORD*)(a2 + 328);
 			v14[0] = *(_WORD*)(a2 + 324);
@@ -36,7 +36,7 @@ int __cdecl nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 			v14[3] = *(_WORD*)(a2 + 16) + sub_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 61);
 			v13 = sub_415FF0(6, 10, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 66);
 			v4 = sub_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 65);
-			sub_499490(*(int*)&byte_5D4594[1313736], v14, 0, v4, v13, 0);
+			sub_499490(*(int*)getMemAt(0x5D4594, 1313736), v14, 0, v4, v13, 0);
 		}
 		v5 = *(_DWORD*)(a2 + 12);
 		v6 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104);
@@ -50,7 +50,7 @@ int __cdecl nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 		v10 = 8 - v9 / 40;
 		if (v10 < 0)
 			v10 = 1;
-		sub_4B6720(&v15, *(int*)&byte_5D4594[1313732], v10, 12);
+		sub_4B6720(&v15, *(int*)getMemAt(0x5D4594, 1313732), v10, 12);
 		result = 1;
 	} else {
 		sub_45A4E0_drawable(dr);
