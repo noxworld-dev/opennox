@@ -37,7 +37,6 @@ extern int nox_server_gameSettingsUpdated;
 
 extern char byte_563002[4];
 extern char byte_563006[26];
-extern unsigned __int8 byte_587000[316820];
 
 #define MEMACCESS(x) *((_DWORD*)getMem(x))
 
