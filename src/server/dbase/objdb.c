@@ -19,14 +19,14 @@ wchar_t* __cdecl sub_4E39F0_obj_db(const char** a1) {
 	else
 		v3 = v1;
 	v4 = v3;
-	strcpy((char*)&byte_5D4594[1563460], "NPC:");
+	strcpy((char*)getMemAt(0x5D4594, 1563460), "NPC:");
 	v5 = *v3;
-	v6 = &byte_5D4594[strlen((const char*)&byte_5D4594[1563460]) + 1563460];
+	v6 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 1563460)) + 1563460);
 	for (i = (unsigned __int8*)(v4 + 1); v5; ++i) {
 		if (v5 != 95)
 			*v6++ = v5;
 		v5 = *i;
 	}
 	*v6 = 0;
-	return loadString_sub_40F1D0((char*)&byte_5D4594[1563460], 0, "C:\\NoxPost\\src\\Server\\DBase\\objdb.c", 1577);
+	return loadString_sub_40F1D0((char*)getMemAt(0x5D4594, 1563460), 0, "C:\\NoxPost\\src\\Server\\DBase\\objdb.c", 1577);
 }
