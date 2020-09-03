@@ -14,7 +14,7 @@ int __cdecl nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 
 	_DWORD* a2 = dr;
 
-	if (!nox_common_gameFlags_check_40A5C0(2) || !*(_DWORD*)&byte_5D4594[2614252])
+	if (!nox_common_gameFlags_check_40A5C0(2) || !*(_DWORD*)getMemAt(0x5D4594, 2614252))
 		goto LABEL_10;
 	if (a2[30] & 0x40000000) {
 		LOBYTE(a2) = -1;
@@ -26,16 +26,16 @@ int __cdecl nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 		sub_434600(0);
 		return v7;
 	}
-	if (sub_4356C0(*(int*)&byte_5D4594[2614252], 21)) {
+	if (sub_4356C0(*(int*)getMemAt(0x5D4594, 2614252), 21)) {
 		sub_434600(1);
-		sub_433E40(*(int*)&byte_5D4594[2618904]);
+		sub_433E40(*(int*)getMemAt(0x5D4594, 2618904));
 		v3 = nox_backbuffer_depth >= 16 ? -1 : -128;
 		LABEL_9:
 		LOBYTE(a2) = v3;
 		goto LABEL_10;
 	}
-	v4 = a2[3] - *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 12);
-	v5 = a2[4] - *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 16);
+	v4 = a2[3] - *(_DWORD*)(*(_DWORD*)getMemAt(0x5D4594, 2614252) + 12);
+	v5 = a2[4] - *(_DWORD*)(*(_DWORD*)getMemAt(0x5D4594, 2614252) + 16);
 	v6 = v4 * v4 + v5 * v5;
 	if (v6 < 22500) {
 		v3 = -56 - 200 * v6 / 22500;
