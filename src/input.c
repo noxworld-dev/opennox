@@ -356,28 +356,28 @@ unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1) {
 	if (a1 > 0xFFu)
 		return a1;
 	if (a1 == 42 || a1 == 54) {
-		*(_DWORD*)&byte_5D4594[1193136] = sub_430970(a1) == 2;
+		*(_DWORD*)getMemAt(0x5D4594, 1193136) = sub_430970(a1) == 2;
 		return 0;
 	}
 	if (a1 != 58) {
-		if ((_BYTE)a1 == byte_5D4594[1193144]) {
-			*(_DWORD*)&byte_5D4594[1193140] = sub_430970(a1) == 2;
+		if ((_BYTE)a1 == getMemByte(0x5D4594, 1193144)) {
+			*(_DWORD*)getMemAt(0x5D4594, 1193140) = sub_430970(a1) == 2;
 			result = 0;
-		} else if (*(_DWORD*)&byte_5D4594[1193140]) {
-			result = *(_WORD*)&byte_5D4594[6 * (unsigned __int8)a1 + 1191576];
-		} else if (*(_DWORD*)&byte_5D4594[1193136] ||
-				   dword_5d4594_1193132 && iswalpha(*(_WORD*)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572])) {
+		} else if (*(_DWORD*)getMemAt(0x5D4594, 1193140)) {
+			result = *(_WORD*)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191576);
+		} else if (*(_DWORD*)getMemAt(0x5D4594, 1193136) ||
+				   dword_5d4594_1193132 && iswalpha(*(_WORD*)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191572))) {
 
 			if (scrollLockStatus) {
 				result = asc_9800B0[3 * (unsigned __int8)a1 + 0x108];
 			} else {
-				result = *(_WORD*)&byte_5D4594[6 * (unsigned __int8)a1 + 1191574];
+				result = *(_WORD*)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191574);
 			}
 		} else {
 			if (scrollLockStatus) {
 				result = asc_9800B0[3 * (unsigned __int8)a1];
 			} else {
-				result = *(_WORD*)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572];
+				result = *(_WORD*)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191572);
 			}
 		}
 		return result;
@@ -424,7 +424,7 @@ int initMouse_sub_47D8D0() {
 	mouse_event_widx = 0;
 
 	// indicates that mouse is present so cursor should be drawn
-	*(_DWORD*)&byte_5D4594[1193108] = 1;
+	*(_DWORD*)getMemAt(0x5D4594, 1193108) = 1;
 	return 1;
 }
 
@@ -525,7 +525,7 @@ signed int initMouse_sub_47D8D0() {
 	DIPROPDWORD v4; // [esp+20h] [ebp-2Ch]
 	DIDEVCAPS_DX3 v9;
 
-	if (DirectInputCreateA(*(HINSTANCE*)&byte_5D4594[823784], 0x300u, &g_dinput_mouse, 0) < 0) {
+	if (DirectInputCreateA(*(HINSTANCE*)getMemAt(0x5D4594, 823784), 0x300u, &g_dinput_mouse, 0) < 0) {
 		v0 = loadString_sub_40F1D0("Dxinput.c:IM_CreateFailed", 0,
 								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 73);
 		sub_4516C0(v0);
@@ -563,8 +563,8 @@ signed int initMouse_sub_47D8D0() {
 	}
 	v9.dwSize = 24;
 	if (g_device_mouse->lpVtbl->GetCapabilities(g_device_mouse, (LPDIDEVCAPS)&v9) >= 0)
-		byte_5D4594[1193128] = v9.dwButtons;
-	*(_DWORD*)&byte_5D4594[1193108] = 1;
+		*getMemAt( 0x5D4594, 1193128) = v9.dwButtons;
+	*(_DWORD*)getMemAt(0x5D4594, 1193108) = 1;
 	sub_42EBB0(2, sub_47D890, 0, "DXInput");
 	sub_42EBB0(1, sub_47D8A0, 0, "DXInput");
 	return 1;
@@ -650,26 +650,26 @@ UINT __cdecl sub_47D660(UINT uJoyID, int a2) {
 			result = 0;
 		} else {
 			v3 = 48 * uJoyID;
-			*(_DWORD*)&byte_5D4594[v3 + 1189612] = 200;
-			*(_DWORD*)&byte_5D4594[v3 + 1189620] = 0;
-			*(_DWORD*)&byte_5D4594[v3 + 1189604] = -100;
-			*(_DWORD*)&byte_5D4594[v3 + 1189628] = 0;
-			*(_DWORD*)&byte_5D4594[v3 + 1189616] = 200;
-			*(_DWORD*)&byte_5D4594[v3 + 1189624] = 0;
-			*(_DWORD*)&byte_5D4594[v3 + 1189608] = -100;
-			*(_DWORD*)&byte_5D4594[v3 + 1189632] = 0;
-			if (joyGetDevCapsA(uJoyID, (LPJOYCAPSA)&byte_5D4594[404 * uJoyID + 1189700], 0x194u)) {
-				v4 = loadString_sub_40F1D0((char*)&byte_587000[153832], 0,
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 1189612) = 200;
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 1189620) = 0;
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 1189604) = -100;
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 1189628) = 0;
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 1189616) = 200;
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 1189624) = 0;
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 1189608) = -100;
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 1189632) = 0;
+			if (joyGetDevCapsA(uJoyID, (LPJOYCAPSA)getMemAt(0x5D4594, 404 * uJoyID + 1189700), 0x194u)) {
+				v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 153832), 0,
 										   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Jstick.c", 79);
 				sub_4517A0(v4, uJoyID);
 				result = 0;
 			} else {
-				v6 = *(unsigned int*)&byte_5D4594[404 * uJoyID + 1189748];
-				*(_DWORD*)&byte_5D4594[48 * uJoyID + 1189636] =
-					(__int64)(200.0 / (double)*(unsigned int*)&byte_5D4594[404 * uJoyID + 1189740] * 1000000.0);
+				v6 = *(unsigned int*)getMemAt(0x5D4594, 404 * uJoyID + 1189748);
+				*(_DWORD*)getMemAt(0x5D4594, 48 * uJoyID + 1189636) =
+					(__int64)(200.0 / (double)*(unsigned int*)getMemAt(0x5D4594, 404 * uJoyID + 1189740) * 1000000.0);
 				v5 = (__int64)(200.0 / (double)v6 * 1000000.0);
-				HIDWORD(v5) = *(_DWORD*)&byte_5D4594[404 * uJoyID + 1189760];
-				*(_DWORD*)&byte_5D4594[48 * uJoyID + 1189640] = v5;
+				HIDWORD(v5) = *(_DWORD*)getMemAt(0x5D4594, 404 * uJoyID + 1189760);
+				*(_DWORD*)getMemAt(0x5D4594, 48 * uJoyID + 1189640) = v5;
 				*(_DWORD*)a2 = HIDWORD(v5);
 				result = 2;
 			}
@@ -694,17 +694,17 @@ DWORD* __cdecl sub_47D7A0(DWORD* a1, UINT uJoyID) {
 		a1[1] = 0;
 	} else {
 		a1[2] = pji.dwButtons;
-		*a1 = *(_DWORD*)&byte_5D4594[48 * uJoyID + 1189636] *
-			  (pji.dwXpos - *(_DWORD*)&byte_5D4594[404 * uJoyID + 1189736]) / 0xF4240;
+		*a1 = *(_DWORD*)getMemAt(0x5D4594, 48 * uJoyID + 1189636) *
+			  (pji.dwXpos - *(_DWORD*)getMemAt(0x5D4594, 404 * uJoyID + 1189736)) / 0xF4240;
 		v3 = *a1;
-		a1[1] = *(_DWORD*)&byte_5D4594[48 * uJoyID + 1189640] *
-				(pji.dwYpos - *(_DWORD*)&byte_5D4594[404 * uJoyID + 1189744]) / 0xF4240;
+		a1[1] = *(_DWORD*)getMemAt(0x5D4594, 48 * uJoyID + 1189640) *
+				(pji.dwYpos - *(_DWORD*)getMemAt(0x5D4594, 404 * uJoyID + 1189744)) / 0xF4240;
 		v4 = a1[1];
-		*a1 = *(_DWORD*)&byte_5D4594[48 * uJoyID + 1189604] + v3;
-		a1[1] = *(_DWORD*)&byte_5D4594[48 * uJoyID + 1189608] + v4;
-		if (*(_DWORD*)&byte_5D4594[48 * uJoyID + 1189620])
+		*a1 = *(_DWORD*)getMemAt(0x5D4594, 48 * uJoyID + 1189604) + v3;
+		a1[1] = *(_DWORD*)getMemAt(0x5D4594, 48 * uJoyID + 1189608) + v4;
+		if (*(_DWORD*)getMemAt(0x5D4594, 48 * uJoyID + 1189620))
 			*a1 = -*a1;
-		result = *(DWORD**)&byte_5D4594[48 * uJoyID + 1189624];
+		result = *(DWORD**)getMemAt(0x5D4594, 48 * uJoyID + 1189624);
 		if (result)
 			a1[1] = -a1[1];
 	}
@@ -723,7 +723,7 @@ void sub_47FB10() {
 	wchar_t* v7;     // eax
 	DIPROPDWORD v15; // [esp+24h] [ebp-14h]
 
-	if (DirectInputCreateA(*(HINSTANCE*)&byte_5D4594[823784], 0x300u, &g_dinput_keyboard, 0) < 0) {
+	if (DirectInputCreateA(*(HINSTANCE*)getMemAt(0x5D4594, 823784), 0x300u, &g_dinput_keyboard, 0) < 0) {
 		v0 = loadString_sub_40F1D0("Dxinput.c:OK_CreateFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
 								   827);
 		sub_4516C0(v0);
@@ -782,23 +782,23 @@ void sub_47FB10() {
 	return a1;
   if ( a1 == 42 || a1 == 54 )
   {
-	*(_DWORD *)&byte_5D4594[1193136] = sub_430970(a1) == 2;
+	*(_DWORD *)getMemAt(0x5D4594, 1193136) = sub_430970(a1) == 2;
 	return 0;
   }
   if ( a1 != 58 )
   {
-	if ( (_BYTE)a1 == byte_5D4594[1193144] )
+	if ( (_BYTE)a1 == getMemByte(0x5D4594, 1193144) )
 	{
-	  *(_DWORD *)&byte_5D4594[1193140] = sub_430970(a1) == 2;
+	  *(_DWORD *)getMemAt(0x5D4594, 1193140) = sub_430970(a1) == 2;
 	  result = 0;
 	}
-	else if ( *(_DWORD *)&byte_5D4594[1193140] )
+	else if ( *(_DWORD *)getMemAt(0x5D4594, 1193140) )
 	{
-	  result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191576];
+	  result = *(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191576);
 	}
-	else if ( *(_DWORD *)&byte_5D4594[1193136]
+	else if ( *(_DWORD *)getMemAt(0x5D4594, 1193136)
 	   || *(_DWORD *)&dword_5d4594_1193132
-	   && iswalpha(*(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572]) )
+	   && iswalpha(*(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191572)) )
 	{
 
 	if (scrollLockStatus)
@@ -807,7 +807,7 @@ void sub_47FB10() {
 	}
 	else
 	{
-	  result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191574];
+	  result = *(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191574);
 	}
 	}
 	else
@@ -818,7 +818,7 @@ void sub_47FB10() {
 	}
 	else
 	{
-		result = *(_WORD *)&byte_5D4594[6 * (unsigned __int8)a1 + 1191572];
+		result = *(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191572);
 	}
 	}
 	return result;
