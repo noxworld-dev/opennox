@@ -108,7 +108,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 	}
 
 	if (a3 <= 0) {
-		*((_DWORD*)sub_417090(a1) + 899) = *(_DWORD*)&byte_5D4594[2598000];
+		*((_DWORD*)sub_417090(a1) + 899) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 		return 1;
 	}
 	v4 = a2;
@@ -125,7 +125,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 		sub_4DE7C0(a1);
 		return 1;
 	case 0x25u:
-		*((_DWORD*)sub_417090(a1) + 899) = *(_DWORD*)&byte_5D4594[2598000];
+		*((_DWORD*)sub_417090(a1) + 899) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 		return 1;
 	}
 	v91 = &a2[a3];
@@ -141,7 +141,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 	v10 = *(int**)(v93 + 748);
 	v85 = *(_DWORD*)(v93 + 748);
 	if (a2 >= v91) {
-		*(_DWORD*)(v8 + 3596) = *(_DWORD*)&byte_5D4594[2598000];
+		*(_DWORD*)(v8 + 3596) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 		return 1;
 	}
 	while (v4 < v91) {
@@ -377,7 +377,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 									v49 = sub_417040(*(_DWORD *) (j + 36));
 									if (v49 && sub_419180(j + 48, v86[57])) {
 										if (nox_common_gameFlags_check_40A5C0(2) &&
-											*(_DWORD *) (j + 36) == *(_DWORD *) &byte_5D4594[2616328]) {
+											*(_DWORD *) (j + 36) == *(_DWORD *) getMemAt(0x5D4594, 2616328)) {
 											sub_48EA70((unsigned __int8) v49[2064], (unsigned int) v4, v45);
 										} else {
 											sub_552640((unsigned __int8) v49[2064] + 1, v4, v45, 0);
@@ -445,7 +445,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 				v87[1] = 1;
 				if (!sub_4D12A0(*(unsigned __int8*)(v8 + 2064))) {
 					sub_4D1210(*(unsigned __int8*)(v8 + 2064));
-					v43 = loadString_sub_40F1D0((char*)&byte_587000[253012], 0,
+					v43 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 253012), 0,
 												"C:\\NoxPost\\src\\Server\\Network\\sdecode.c", 735);
 					sub_450C00(6u, v43, v8 + 4704);
 				}
@@ -799,7 +799,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			return 0;
 		}
 	}
-	*(_DWORD*)(v8 + 3596) = *(_DWORD*)&byte_5D4594[2598000];
+	*(_DWORD*)(v8 + 3596) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 	return 1;
 }
 // 51C788: variable 'v7' is possibly undefined
