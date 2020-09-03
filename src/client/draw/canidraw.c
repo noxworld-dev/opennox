@@ -36,7 +36,7 @@ int __cdecl nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* d
 			v10 = sub_415FF0(0, v4, "C:\\NoxPost\\src\\client\\Draw\\CAniDraw.c", 57);
 		}
 	} else {
-		v10 = (*(unsigned int*)&byte_5D4594[2598000] + dr->field_32) / (unsigned int)(v5 + 1);
+		v10 = (*(unsigned int*)getMemAt(0x5D4594, 2598000) + dr->field_32) / (unsigned int)(v5 + 1);
 		if (v10 >= v4)
 			v10 %= v4;
 	}
@@ -98,7 +98,7 @@ bool __cdecl nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, 
 		if (*v7) {
 			do {
 				v16 = nox_memfile_read_u32(f);
-				*v6 = byte_5D4594[830836];
+				*v6 = getMemByte(0x5D4594, 830836);
 				if (v16 == -1) {
 					v18 = nox_memfile_read_u8(f);
 					LOBYTE(v21) = v18;
