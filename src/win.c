@@ -54,7 +54,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		} else if (!strcmp("-stretch", v4)) {
 			g_scaled = -1;
 		} else if (!strcmp("-minimize", v4)) {
-			*(_DWORD*)&byte_5D4594[805864] = 1;
+			*(_DWORD*)getMemAt(0x5D4594, 805864) = 1;
 		} else {
 			g_argv[g_argc] = v4;
 			g_argc++;
@@ -106,8 +106,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	HWND v11; // esi
 	HWND v13; // eax
 	if (v10 || !(v11 = FindWindowA("Nox Game Window", 0))) {
-		*(_DWORD*)&byte_5D4594[823784] = hInstance;
-		*(_DWORD*)&byte_5D4594[823788] = nShowCmd;
+		*(_DWORD*)getMemAt(0x5D4594, 823784) = hInstance;
+		*(_DWORD*)getMemAt(0x5D4594, 823788) = nShowCmd;
 
 		g_wnd_class.cbSize = 48;
 		g_wnd_class.style = 4099;
@@ -132,7 +132,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		sub_401070(g_argc, g_argv);
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
 			sub_413E30(/* "Memory dump after GameLoop() :" */);
-		*(_DWORD*)&byte_5D4594[823800] = 1;
+		*(_DWORD*)getMemAt(0x5D4594, 823800) = 1;
 		sub_4453A0_poll_events();
 		DestroyWindow(g_hwnd);
 		sub_416B00();
@@ -300,7 +300,7 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 		goto LABEL_23;
 	case WM_ACTIVATEAPP:
 	LABEL_13:
-		*(_DWORD*)&byte_5D4594[823792] = v5;
+		*(_DWORD*)getMemAt(0x5D4594, 823792) = v5;
 		if (v5) {
 			if (dword_5d4594_823776) {
 				if (sub_48A2A0())
@@ -355,9 +355,9 @@ int sub_4453A0_poll_events() {
 		TranslateMessage(&Msg);
 		DispatchMessageA(&Msg);
 	}
-	if (!*(_DWORD*)&byte_5D4594[823800])
+	if (!*(_DWORD*)getMemAt(0x5D4594, 823800))
 		return 0;
-	PostMessageA(*(HWND*)&byte_5D4594[823796], WM_CLOSE, 0, 0);
+	PostMessageA(*(HWND*)getMemAt(0x5D4594, 823796), WM_CLOSE, 0, 0);
 	return 1;
 #endif
 }
@@ -368,7 +368,7 @@ BOOL __cdecl sub_4147E0(HWND hWnd) {
 	return 0;
 #else
 	// Trigger expiration time check.
-	return PostMessageA(hWnd, 3024u, (WPARAM)&byte_5D4594[338464], *(LPARAM*)&byte_587000[32580]);
+	return PostMessageA(hWnd, 3024u, (WPARAM)getMemAt(0x5D4594, 338464), *(LPARAM*)getMemAt(0x587000, 32580));
 #endif
 }
 
@@ -396,14 +396,14 @@ int sub_416A10() {
 		}
 		result = 0;
 	} else {
-		*(_DWORD*)&byte_5D4594[371708] = OpenMutexA(0x1F0001u, 0, "01AF9993-3492-11d3-8F6F-0060089C05B1");
-		if (*(_DWORD*)&byte_5D4594[371708]) {
+		*(_DWORD*)getMemAt(0x5D4594, 371708) = OpenMutexA(0x1F0001u, 0, "01AF9993-3492-11d3-8F6F-0060089C05B1");
+		if (*(_DWORD*)getMemAt(0x5D4594, 371708)) {
 			v2 = FindWindowA("NOX Autorun", 0);
 			if (v2)
 				SetForegroundWindow(v2);
-			if (*(_DWORD*)&byte_5D4594[371708]) {
-				CloseHandle(*(HANDLE*)&byte_5D4594[371708]);
-				*(_DWORD*)&byte_5D4594[371708] = 0;
+			if (*(_DWORD*)getMemAt(0x5D4594, 371708)) {
+				CloseHandle(*(HANDLE*)getMemAt(0x5D4594, 371708));
+				*(_DWORD*)getMemAt(0x5D4594, 371708) = 0;
 			}
 			if (dword_5d4594_371712) {
 				CloseHandle(*(HANDLE*)&dword_5d4594_371712);
