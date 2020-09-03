@@ -3,6 +3,7 @@
 #include "proto.h"
 
 extern unsigned __int8 byte_581450[23472];
+extern unsigned __int8 byte_5D4594[3844309];
 
 extern nox_engine_flag nox_common_engineFlags;
 extern int nox_enable_audio;
