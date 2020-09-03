@@ -10,22 +10,22 @@ int sub_417C60() {
 	unsigned __int8* v0; // eax
 	unsigned __int8* v1; // esi
 
-	memset(&byte_5D4594[526292], 0, 0x550u);
-	v0 = &byte_5D4594[526364];
+	memset(getMemAt(0x5D4594, 526292), 0, 0x550u);
+	v0 = getMemAt(0x5D4594, 526364);
 	do {
 		*(v0 - 15) = 0;
 		*(_DWORD*)v0 = 0;
 		*((_DWORD*)v0 + 1) = 0;
 		*((_DWORD*)v0 - 3) = 0;
 		v0 += 80;
-	} while ((int)v0 < (int)&byte_5D4594[527644]);
-	if (!*(_DWORD*)&byte_5D4594[526288]) {
-		v1 = &byte_587000[54596];
+	} while ((int)v0 < (int)getMemAt(0x5D4594, 527644));
+	if (!*(_DWORD*)getMemAt(0x5D4594, 526288)) {
+		v1 = getMemAt(0x587000, 54596);
 		do {
 			*(_DWORD*)v1 = loadString_sub_40F1D0(*((char**)v1 - 1), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 233);
 			v1 += 16;
-		} while ((int)v1 < (int)&byte_587000[54756]);
-		*(_DWORD*)&byte_5D4594[526288] = 1;
+		} while ((int)v1 < (int)getMemAt(0x587000, 54756));
+		*(_DWORD*)getMemAt(0x5D4594, 526288) = 1;
 	}
 	sub_417D50(2);
 	sub_417D70(1);
@@ -42,11 +42,11 @@ int sub_417E10() {
 	v0 = sub_418AB0(1);
 	if (!v0)
 		v0 = sub_4186D0(1);
-	v1 = sub_418C80(*(int*)&byte_5D4594[2616328]);
+	v1 = sub_418C80(*(int*)getMemAt(0x5D4594, 2616328));
 	if (v1)
-		sub_4191D0(v0[57], (int)v1, 0, *(int*)&byte_5D4594[2616328], 0);
+		sub_4191D0(v0[57], (int)v1, 0, *(int*)getMemAt(0x5D4594, 2616328), 0);
 	if (v0) {
-		v2 = loadString_sub_40F1D0((char*)&byte_587000[55164], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 405);
+		v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55164), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 405);
 		sub_418800((wchar_t*)v0, v2, 0);
 	}
 	return sub_417D70(1);
@@ -63,12 +63,12 @@ char* __cdecl sub_4186D0(char a1) {
 	unsigned __int8* v7; // esi
 	wchar_t* v8;         // eax
 
-	if (byte_5D4594[526280] < 0x10u) {
+	if (getMemByte(0x5D4594, 526280) < 0x10u) {
 		v3 = sub_4187E0();
 		v4 = v3;
 		v5 = 5 * v3;
 		v6 = a1;
-		v7 = &byte_5D4594[16 * v5 + 526292];
+		v7 = getMemAt(0x5D4594, 16 * v5 + 526292);
 		*((_DWORD*)v7 + 13) = 0;
 		*((_DWORD*)v7 + 12) = 0;
 		*(_WORD*)v7 = 0;
@@ -81,15 +81,15 @@ char* __cdecl sub_4186D0(char a1) {
 		v7[57] = v6;
 		v7[56] = v4;
 		*((_DWORD*)v7 + 16) = 1;
-		++byte_5D4594[526280];
+		++*getMemAt( 0x5D4594, 526280);
 		sub_459CD0();
 		if (!nox_common_gameFlags_check_40A5C0(512)) {
-			v8 = loadString_sub_40F1D0((char*)&byte_587000[55444], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1009);
+			v8 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55444), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1009);
 			sub_450C00(6u, v8);
 		}
 		result = (char*)v7;
 	} else {
-		v1 = loadString_sub_40F1D0((char*)&byte_587000[55396], 0, "C:\\NoxPost\\src\\common\\System\\team.c", 982);
+		v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55396), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 982);
 		sub_450C00(6u, v1);
 		result = 0;
 	}
@@ -102,15 +102,15 @@ wchar_t* __cdecl sub_418C20(int a1) {
 	unsigned __int8* v2; // eax
 
 	v1 = 0;
-	v2 = &byte_587000[54600];
+	v2 = getMemAt(0x587000, 54600);
 	while (*(_DWORD*)v2 != a1) {
 		v2 += 16;
 		++v1;
-		if ((int)v2 >= (int)&byte_587000[54760])
-			return loadString_sub_40F1D0((char*)&byte_587000[55492], 0, "C:\\NoxPost\\src\\common\\System\\team.c",
+		if ((int)v2 >= (int)getMemAt(0x587000, 54760))
+			return loadString_sub_40F1D0((char*)getMemAt(0x587000, 55492), 0, "C:\\NoxPost\\src\\common\\System\\team.c",
 										 1365);
 	}
-	return *(wchar_t**)&byte_587000[16 * v1 + 54596];
+	return *(wchar_t**)getMemAt(0x587000, 16 * v1 + 54596);
 }
 
 //----- (004191D0) --------------------------------------------------------
@@ -138,7 +138,7 @@ void sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 
 	result = *(char**)&dword_5d4594_527660;
 	if (!dword_5d4594_527660) {
-		result = (char*)sub_4E3AA0((CHAR*)&byte_587000[55500]);
+		result = (char*)sub_4E3AA0((CHAR*)getMemAt(0x587000, 55500));
 		dword_5d4594_527660 = result;
 	}
 	if (!a2) {
@@ -155,7 +155,7 @@ void sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 	*(_BYTE*)(a2 + 4) = v6[57];
 	*(_DWORD*)a2 = *((_DWORD*)v6 + 11);
 	*((_DWORD*)v6 + 11) = a2;
-	if (a4 == *(_DWORD*)&byte_5D4594[2616328])
+	if (a4 == *(_DWORD*)getMemAt(0x5D4594, 2616328))
 		sub_455E70(v6[57]);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		if (nox_common_gameFlags_check_40A5C0(0x2000)) {
@@ -173,11 +173,11 @@ void sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 					v9 = sub_417040(a4);
 					if (v9) {
 						if (nox_common_gameFlags_check_40A5C0(4096)) {
-							v10 = loadString_sub_40F1D0((char*)&byte_587000[55548], 0,
+							v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55548), 0,
 														"C:\\NoxPost\\src\\common\\System\\team.c", 1848);
 							nox_swprintf(v24, v10, v9 + 4704);
 						} else {
-							v11 = loadString_sub_40F1D0((char*)&byte_587000[55616], 0,
+							v11 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55616), 0,
 														"C:\\NoxPost\\src\\common\\System\\team.c", 1850);
 							nox_swprintf(v24, v11, v9 + 4704, v6);
 						}
@@ -203,11 +203,11 @@ void sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 			v15 = sub_417040(a4);
 			if (v15) {
 				if (nox_common_gameFlags_check_40A5C0(4096)) {
-					v16 = loadString_sub_40F1D0((char*)&byte_587000[55664], 0,
+					v16 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55664), 0,
 												"C:\\NoxPost\\src\\common\\System\\team.c", 1889);
 					nox_swprintf(v24, v16, v15 + 4704);
 				} else {
-					v17 = loadString_sub_40F1D0((char*)&byte_587000[55732], 0,
+					v17 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55732), 0,
 												"C:\\NoxPost\\src\\common\\System\\team.c", 1891);
 					nox_swprintf(v24, v17, v15 + 4704, v6);
 				}
