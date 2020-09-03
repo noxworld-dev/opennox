@@ -2,6 +2,8 @@
 #include "static.h"
 #include "proto.h"
 
+extern unsigned __int8 byte_581450[23472];
+
 extern nox_engine_flag nox_common_engineFlags;
 extern int nox_enable_audio;
 extern int nox_enable_threads;
