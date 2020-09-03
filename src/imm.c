@@ -799,7 +799,7 @@ void* __stdcall sub_570A50(int a1, int a2) { return sub_570B60(a1); }
 void __stdcall sub_570A80(LPVOID lpMem, int a2) { operator_delete(lpMem); }
 
 //----- (00570AB0) --------------------------------------------------------
-unsigned __int8* sub_570AB0() { return &byte_581450[11384]; }
+unsigned __int8* sub_570AB0() { return getMemAt(0x581450, 11384); }
 
 //----- (00570AC0) --------------------------------------------------------
 wstring* __stdcall sub_570AC0(void* a1, int* a2) { return sub_570B90(a1, a2); }
@@ -1182,9 +1182,9 @@ void* __cdecl sub_571760(int a1) {
 int sub_571790() {
 	int result; // eax
 
-	result = byte_5D4594[2659988] & 1;
-	if (!(byte_5D4594[2659988] & 1))
-		byte_5D4594[2659988] |= 1u;
+	result = getMemByte(0x5D4594, 2659988) & 1;
+	if (!(getMemByte(0x5D4594, 2659988) & 1))
+		*getMemAt( 0x5D4594, 2659988) |= 1u;
 	return result;
 }
 
@@ -1238,16 +1238,16 @@ char __cdecl sub_571810(int a1, LPCSTR lpMultiByteStr) {
 
 //----- (00571905) --------------------------------------------------------
 unsigned __int8* sub_571905() {
-	if (!(byte_5D4594[2516444] & 1)) {
-		byte_5D4594[2516444] |= 1u;
-		sub_573C40(&byte_5D4594[2516428]);
+	if (!(getMemByte(0x5D4594, 2516444) & 1)) {
+		*getMemAt( 0x5D4594, 2516444) |= 1u;
+		sub_573C40(getMemAt(0x5D4594, 2516428));
 		atexit(sub_57194A);
 	}
-	return &byte_5D4594[2516428];
+	return getMemAt(0x5D4594, 2516428);
 }
 
 //----- (0057194A) --------------------------------------------------------
-void __cdecl sub_57194A() { sub_573C80((int*)&byte_5D4594[2516428]); }
+void __cdecl sub_57194A() { sub_573C80((int*)getMemAt(0x5D4594, 2516428)); }
 
 //----- (00571960) --------------------------------------------------------
 int __thiscall sub_571960(int* this, char a2) {
@@ -1523,7 +1523,7 @@ int* __thiscall sub_572045(int* this) {
 	v2[20] = 0;
 	v2[21] = -1;
 	v2[23] = 0;
-	*v2 = (int)&byte_581450[11420];
+	*v2 = (int)getMemAt(0x581450, 11420);
 	return v2;
 }
 
@@ -1532,7 +1532,7 @@ wstring* __thiscall sub_57211C(HIMC* this) {
 	HIMC* v2; // [esp+0h] [ebp-10h]
 
 	v2 = this;
-	*this = (HIMC)&byte_581450[11420];
+	*this = (HIMC)getMemAt(0x581450, 11420);
 	if (this[23])
 		ImmDestroyContext(this[23]);
 	sub_5740C0((int***)v2 + 14);
@@ -1553,7 +1553,7 @@ _BYTE* __thiscall sub_5721B7(_BYTE* this) {
 //----- (005721D0) --------------------------------------------------------
 int* __thiscall sub_5721D0(int this) {
 	*(_BYTE*)(this + 72) = 0;
-	return sub_574020((int*)(this + 8), (wchar_t*)&byte_5D4594[2516448]);
+	return sub_574020((int*)(this + 8), (wchar_t*)getMemAt(0x5D4594, 2516448));
 }
 
 //----- (00572203) --------------------------------------------------------
@@ -1687,7 +1687,7 @@ int* __thiscall sub_572442(int* this, int a2, int a3, int a4) {
 		return result;
 	}
 	if (!a4)
-		result = sub_574020(this + 2, (wchar_t*)&byte_5D4594[2516452]);
+		result = sub_574020(this + 2, (wchar_t*)getMemAt(0x5D4594, 2516452));
 	return result;
 }
 
@@ -1697,7 +1697,7 @@ int* __thiscall sub_5726A9(_DWORD* this) {
 
 	v2 = this;
 	sub_574210(this + 14);
-	return sub_574020(v2 + 2, (wchar_t*)&byte_5D4594[2516456]);
+	return sub_574020(v2 + 2, (wchar_t*)getMemAt(0x5D4594, 2516456));
 }
 
 //----- (005726E0) --------------------------------------------------------
@@ -2143,7 +2143,7 @@ int __thiscall sub_573401(_DWORD* this, int a2, DWORD deIndex) {
 				v7 = (unsigned __int16*)sub_574050(&v20);
 				v26 = sub_5784E0(v26, v7, (unsigned __int16**)&v16);
 			} else {
-				sub_573F80(&v15, (wchar_t*)&byte_5D4594[2516460], &v14);
+				sub_573F80(&v15, (wchar_t*)getMemAt(0x5D4594, 2516460), &v14);
 				LOBYTE(v28) = 2;
 				v8 = sub_5741E0(v13 + 14, deIndex);
 				sub_573EC0((_DWORD*)(v8 + 16), &v15);
@@ -2229,7 +2229,7 @@ int* __thiscall sub_57381A(int* this) {
 		sub_571AEA(v2, v3);
 		v4[19] = 0;
 		v4[20] = 0;
-		sub_574020(v4 + 2, (wchar_t*)&byte_5D4594[2516464]);
+		sub_574020(v4 + 2, (wchar_t*)getMemAt(0x5D4594, 2516464));
 		v5.field_10 = -1;
 		result = (int*)sub_574EC0(&v5);
 	}
@@ -2250,7 +2250,7 @@ void __thiscall sub_57390B(int* this, DWORD dwValue, int a3, int a4) {
 	if (sub_574F00(&v7)) {
 		sub_571EAD(&v7, v6[21], dwValue, a3);
 		v4 = sub_573B7D(v6);
-		if (wcscmp((const wchar_t*)v4, (const wchar_t*)&byte_581450[11396]))
+		if (wcscmp((const wchar_t*)v4, (const wchar_t*)getMemAt(0x581450, 11396)))
 			sub_571EF2(v6[21], a4);
 	}
 	v7.field_10 = -1;
@@ -2305,7 +2305,7 @@ _DWORD* __thiscall sub_573B1F(_DWORD* this, _DWORD a2) {
 	_DWORD* v3;     // [esp+0h] [ebp-4h]
 
 	v3 = this;
-	result = sub_578540(&a2, &byte_581450[11392]);
+	result = sub_578540(&a2, getMemAt(0x581450, 11392));
 	v3[22] = *result;
 	return result;
 }
@@ -2644,9 +2644,9 @@ void __thiscall sub_574410(int* this) {
 	v3[3] = 0;
 	std___Lockit___Lockit((std___Lockit*)&v7);
 	v8 = 0;
-	if (!--*(_DWORD*)&byte_5D4594[2516472]) {
-		sub_576080(*(LPVOID*)&byte_5D4594[2516468]);
-		*(_DWORD*)&byte_5D4594[2516468] = 0;
+	if (!--*(_DWORD*)getMemAt(0x5D4594, 2516472)) {
+		sub_576080(*(LPVOID*)getMemAt(0x5D4594, 2516468));
+		*(_DWORD*)getMemAt(0x5D4594, 2516468) = 0;
 	}
 	v8 = -1;
 	std___Lockit__destructor_Lockit((std___Lockit*)&v7);
@@ -2874,7 +2874,7 @@ char __thiscall sub_574C40(int* this) {
 }
 
 //----- (00574CD0) --------------------------------------------------------
-unsigned __int8* sub_574CD0() { return &byte_581450[11428]; }
+unsigned __int8* sub_574CD0() { return getMemAt(0x581450, 11428); }
 
 //----- (00574CE0) --------------------------------------------------------
 int* __thiscall sub_574CE0(int* this, char a2) {
@@ -3261,9 +3261,9 @@ _DWORD* __thiscall sub_5755F0(int* this, _DWORD* a2, int a3) {
 	v76 = v78;
 	std___Lockit___Lockit((std___Lockit*)&v77);
 	v80 = 0;
-	if (*(_DWORD*)sub_5769E0(v78) == *(_DWORD*)&byte_5D4594[2516468]) {
+	if (*(_DWORD*)sub_5769E0(v78) == *(_DWORD*)getMemAt(0x5D4594, 2516468)) {
 		v79 = *(_DWORD*)sub_576A00(v78);
-	} else if (*(_DWORD*)sub_576A00(v78) == *(_DWORD*)&byte_5D4594[2516468]) {
+	} else if (*(_DWORD*)sub_576A00(v78) == *(_DWORD*)getMemAt(0x5D4594, 2516468)) {
 		v79 = *(_DWORD*)sub_5769E0(v78);
 	} else {
 		v4 = (int*)sub_576A00(v78);
@@ -3291,7 +3291,7 @@ _DWORD* __thiscall sub_5755F0(int* this, _DWORD* a2, int a3) {
 		}
 		v32 = (_DWORD*)sub_576EA0(v72);
 		if (*v32 == v76) {
-			if (*(_DWORD*)sub_576A00(v76) == *(_DWORD*)&byte_5D4594[2516468]) {
+			if (*(_DWORD*)sub_576A00(v76) == *(_DWORD*)getMemAt(0x5D4594, 2516468)) {
 				v33 = (_DWORD*)sub_5769F0(v76);
 				*(_DWORD*)sub_576EA0(v72) = *v33;
 			} else {
@@ -3301,7 +3301,7 @@ _DWORD* __thiscall sub_5755F0(int* this, _DWORD* a2, int a3) {
 		}
 		v35 = (_DWORD*)sub_5771A0(v72);
 		if (*v35 == v76) {
-			if (*(_DWORD*)sub_5769E0(v76) == *(_DWORD*)&byte_5D4594[2516468]) {
+			if (*(_DWORD*)sub_5769E0(v76) == *(_DWORD*)getMemAt(0x5D4594, 2516468)) {
 				v36 = (_DWORD*)sub_5769F0(v76);
 				*(_DWORD*)sub_5771A0(v72) = *v36;
 			} else {
@@ -3484,7 +3484,7 @@ _DWORD* __thiscall sub_575E60(int* this, _DWORD* a2, int a3, char a4) {
 		v16 = 0;
 		v8 = (void**)sub_5771D0(v9);
 		sub_576CD0(*v8);
-		*(_DWORD*)sub_5771D0(v9) = *(_DWORD*)&byte_5D4594[2516468];
+		*(_DWORD*)sub_5771D0(v9) = *(_DWORD*)getMemAt(0x5D4594, 2516468);
 		v9[3] = 0;
 		*(_DWORD*)sub_576EA0(v9) = v9[1];
 		*(_DWORD*)sub_5771A0(v9) = v9[1];
@@ -3853,7 +3853,7 @@ _DWORD* __thiscall sub_576A20(int* this, _DWORD* a2, _DWORD* a3) {
 	LOBYTE(v42) = 1;
 	std___Lockit___Lockit((std___Lockit*)&v39);
 	v44 = 0;
-	while (v41 != *(_DWORD*)&byte_5D4594[2516468]) {
+	while (v41 != *(_DWORD*)getMemAt(0x5D4594, 2516468)) {
 		v40 = v41;
 		v22 = (_DWORD*)sub_5769B0(v41);
 		v3 = (_DWORD*)sub_577A80((int)a3);
@@ -3937,7 +3937,7 @@ void __stdcall sub_576CD0(void* a1) {
 	i = -858993460;
 	std___Lockit___Lockit((std___Lockit*)&v3);
 	v5 = 0;
-	for (i = (int)a1; i != *(_DWORD*)&byte_5D4594[2516468]; a1 = (void*)i) {
+	for (i = (int)a1; i != *(_DWORD*)getMemAt(0x5D4594, 2516468); a1 = (void*)i) {
 		v1 = (void**)sub_576A00(i);
 		sub_576CD0(*v1);
 		i = *(_DWORD*)sub_5769E0(i);
@@ -3961,13 +3961,13 @@ void __thiscall sub_576DA0(int* this) {
 	v1 = this;
 	std___Lockit___Lockit((std___Lockit*)&v2);
 	v3 = 0;
-	if (!*(_DWORD*)&byte_5D4594[2516468]) {
-		*(_DWORD*)&byte_5D4594[2516468] = sub_578080(0, 1);
-		*(_DWORD*)sub_5769E0(*(int*)&byte_5D4594[2516468]) = 0;
-		*(_DWORD*)sub_576A00(*(int*)&byte_5D4594[2516468]) = 0;
+	if (!*(_DWORD*)getMemAt(0x5D4594, 2516468)) {
+		*(_DWORD*)getMemAt(0x5D4594, 2516468) = sub_578080(0, 1);
+		*(_DWORD*)sub_5769E0(*(int*)getMemAt(0x5D4594, 2516468)) = 0;
+		*(_DWORD*)sub_576A00(*(int*)getMemAt(0x5D4594, 2516468)) = 0;
 	}
-	++*(_DWORD*)&byte_5D4594[2516472];
-	v1[1] = sub_578080(*(int*)&byte_5D4594[2516468], 0);
+	++*(_DWORD*)getMemAt(0x5D4594, 2516472);
+	v1[1] = sub_578080(*(int*)getMemAt(0x5D4594, 2516468), 0);
 	v1[3] = 0;
 	*(_DWORD*)sub_576EA0(v1) = v1[1];
 	*(_DWORD*)sub_5771A0(v1) = v1[1];
@@ -4004,7 +4004,7 @@ void __thiscall sub_576ED0(int* this, int a2) {
 	v13 = *(_DWORD*)sub_576A00(a2);
 	v2 = (_DWORD*)sub_5769E0(v13);
 	*(_DWORD*)sub_576A00(a2) = *v2;
-	if (*(_DWORD*)sub_5769E0(v13) != *(_DWORD*)&byte_5D4594[2516468]) {
+	if (*(_DWORD*)sub_5769E0(v13) != *(_DWORD*)getMemAt(0x5D4594, 2516468)) {
 		v3 = (int*)sub_5769E0(v13);
 		*(_DWORD*)sub_5769F0(*v3) = a2;
 	}
@@ -4041,7 +4041,7 @@ int __cdecl sub_577060(int a1) {
 	v2 = -858993460;
 	std___Lockit___Lockit((std___Lockit*)&v2);
 	v3 = 0;
-	while (*(_DWORD*)sub_576A00(a1) != *(_DWORD*)&byte_5D4594[2516468])
+	while (*(_DWORD*)sub_576A00(a1) != *(_DWORD*)getMemAt(0x5D4594, 2516468))
 		a1 = *(_DWORD*)sub_576A00(a1);
 	v3 = -1;
 	std___Lockit__destructor_Lockit((std___Lockit*)&v2);
@@ -4058,7 +4058,7 @@ int __cdecl sub_577100(int a1) {
 	v2 = -858993460;
 	std___Lockit___Lockit((std___Lockit*)&v2);
 	v3 = 0;
-	while (*(_DWORD*)sub_5769E0(a1) != *(_DWORD*)&byte_5D4594[2516468])
+	while (*(_DWORD*)sub_5769E0(a1) != *(_DWORD*)getMemAt(0x5D4594, 2516468))
 		a1 = *(_DWORD*)sub_5769E0(a1);
 	v3 = -1;
 	std___Lockit__destructor_Lockit((std___Lockit*)&v2);
@@ -4097,7 +4097,7 @@ void __thiscall sub_577200(int* this, int a2) {
 	v13 = *(_DWORD*)sub_5769E0(a2);
 	v2 = (_DWORD*)sub_576A00(v13);
 	*(_DWORD*)sub_5769E0(a2) = *v2;
-	if (*(_DWORD*)sub_576A00(v13) != *(_DWORD*)&byte_5D4594[2516468]) {
+	if (*(_DWORD*)sub_576A00(v13) != *(_DWORD*)getMemAt(0x5D4594, 2516468)) {
 		v3 = (int*)sub_576A00(v13);
 		*(_DWORD*)sub_5769F0(*v3) = a2;
 	}
@@ -4395,12 +4395,12 @@ _DWORD* __thiscall sub_577AA0(int* this, _DWORD* a2, int a3, int a4, _DWORD* a5)
 	std___Lockit___Lockit((std___Lockit*)&v49);
 	v51 = 0;
 	v50 = sub_578080(a4, 0);
-	*(_DWORD*)sub_5769E0(v50) = *(_DWORD*)&byte_5D4594[2516468];
-	*(_DWORD*)sub_576A00(v50) = *(_DWORD*)&byte_5D4594[2516468];
+	*(_DWORD*)sub_5769E0(v50) = *(_DWORD*)getMemAt(0x5D4594, 2516468);
+	*(_DWORD*)sub_576A00(v50) = *(_DWORD*)getMemAt(0x5D4594, 2516468);
 	v5 = (void*)sub_576A10(v50);
 	sub_578210(v5, a5);
 	++v46[3];
-	if (a4 == v46[1] || a3 != *(_DWORD*)&byte_5D4594[2516468] ||
+	if (a4 == v46[1] || a3 != *(_DWORD*)getMemAt(0x5D4594, 2516468) ||
 		(v45 = (_DWORD*)sub_5769B0(a4), v6 = (_DWORD*)sub_577A80((int)a5), sub_576970(v6, v45))) {
 		v7 = (_DWORD*)sub_5769E0(a4);
 		*v7 = v50;
@@ -4517,7 +4517,7 @@ int __thiscall sub_577F90(int* this, _DWORD* a2) {
 	v9 = 0;
 	v8 = *(_DWORD*)sub_5771D0(v4);
 	v7 = v4[1];
-	while (v8 != *(_DWORD*)&byte_5D4594[2516468]) {
+	while (v8 != *(_DWORD*)getMemAt(0x5D4594, 2516468)) {
 		v2 = (_DWORD*)sub_5769B0(v8);
 		if (sub_576970(v2, a2)) {
 			v8 = *(_DWORD*)sub_576A00(v8);
@@ -4597,7 +4597,7 @@ void __thiscall sub_578240(int* this) {
 	std___Lockit___Lockit((std___Lockit*)&v6);
 	v7 = 0;
 	if (*(_DWORD*)sub_5769A0(*v4) || (v1 = (int*)sub_5769F0(*v4), *(_DWORD*)sub_5769F0(*v1) != *v4)) {
-		if (*(_DWORD*)sub_5769E0(*v4) == *(_DWORD*)&byte_5D4594[2516468]) {
+		if (*(_DWORD*)sub_5769E0(*v4) == *(_DWORD*)getMemAt(0x5D4594, 2516468)) {
 			while (1) {
 				v3 = (int*)sub_5769F0(*v4);
 				v5 = *v3;
@@ -4632,7 +4632,7 @@ void __thiscall sub_578370(int* this) {
 	v3 = this;
 	std___Lockit___Lockit((std___Lockit*)&v5);
 	v6 = 0;
-	if (*(_DWORD*)sub_576A00(*v3) == *(_DWORD*)&byte_5D4594[2516468]) {
+	if (*(_DWORD*)sub_576A00(*v3) == *(_DWORD*)getMemAt(0x5D4594, 2516468)) {
 		while (1) {
 			v2 = (int*)sub_5769F0(*v3);
 			v4 = *v2;
