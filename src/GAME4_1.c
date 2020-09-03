@@ -9073,7 +9073,7 @@ int sub_5162D0() {
 	v9 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v9) {
 		v2 = &byte_587000[237304];
-		if (byte_587000 != (unsigned __int8*)-237304) {
+		if (true) { // TODO: byte_587000 != (unsigned __int8*)-237304
 			v7 = &byte_587000[237304];
 			for (i = (const char**)&byte_587000[237304];; i += 32) {
 				v3 = 1;

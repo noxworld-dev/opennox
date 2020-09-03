@@ -2679,7 +2679,7 @@ void __cdecl sub_4E5770(unsigned __int8 a1, int a2) {
 				v11 = v13(a1, a2, (const void*)(v4 + 251), *(unsigned __int8*)(v4 + 401));
 				goto LABEL_36;
 			}
-			if (byte_5D4594 != (unsigned __int8*)-1564964) {
+			if (true) { // TODO: byte_5D4594 != (unsigned __int8*)-1564964
 				byte_5D4594[1564964] = -52;
 				*(_WORD*)&byte_5D4594[1564965] = *(_WORD*)(v4 + 2 * a1 + 186);
 				byte_5D4594[1564967] = *(_BYTE*)(v4 + 401);
