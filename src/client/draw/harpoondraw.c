@@ -40,8 +40,8 @@ int __cdecl nox_thing_harpoon_rope_draw(int* a1, nox_drawable* dr) {
 		a2a.field_0 = v3 + v7;
 		a2a.field_4 = v8 + v6 - 20;
 		LABEL_12:
-		*(_DWORD*)&byte_5D4594[1312492] = sub_4344A0(144, 104, 64);
-		*(_DWORD*)&byte_5D4594[1312496] = sub_4344A0(24, 16, 0);
+		*(_DWORD*)getMemAt(0x5D4594, 1312492) = sub_4344A0(144, 104, 64);
+		*(_DWORD*)getMemAt(0x5D4594, 1312496) = sub_4344A0(24, 16, 0);
 		sub_4B63B0(&a1a, &a2a);
 		return 1;
 	}
@@ -63,8 +63,8 @@ int __cdecl nox_thing_harpoon_rope_draw(int* a1, nox_drawable* dr) {
 		a1a.field_4 = v14 + v10[4] - v18;
 		a2a.field_0 = v13 + v11[3] - v12;
 		a2a.field_4 = v14 + v11[4] - *((__int16*)v11 + 53) - *((__int16*)v11 + 52) - v18;
-		a1a.field_0 += *(_DWORD*)&byte_587000[8 * *((unsigned __int8*)v10 + 297) + 175864];
-		a1a.field_4 += *(_DWORD*)&byte_587000[8 * *((unsigned __int8*)v10 + 297) + 175868];
+		a1a.field_0 += *(_DWORD*)getMemAt(0x587000, 8 * *((unsigned __int8*)v10 + 297) + 175864);
+		a1a.field_4 += *(_DWORD*)getMemAt(0x587000, 8 * *((unsigned __int8*)v10 + 297) + 175868);
 		a2a.field_4 -= 8;
 		goto LABEL_12;
 	}
