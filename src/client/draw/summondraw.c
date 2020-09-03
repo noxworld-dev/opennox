@@ -36,21 +36,21 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 	v15 = v3;
 	v17 = v4;
 	if (!dword_5d4594_1313740) {
-		v6 = sub_44CFC0((CHAR*)&byte_587000[177040]);
+		v6 = sub_44CFC0((CHAR*)getMemAt(0x587000, 177040));
 		dword_5d4594_1313740 = v6;
 	}
-	v7 = *(_DWORD*)&byte_5D4594[2598000] - v2[79];
+	v7 = *(_DWORD*)getMemAt(0x5D4594, 2598000) - v2[79];
 	v8 = *((unsigned __int16*)v2 + 218);
 	if (v7 < (unsigned int)(unsigned __int16)v8) {
 		if (v7 >= v8 - 1)
 			sub_499610(v6, 50, 1000, 30, v2[3], v2[4]);
 		nox_thing_animate_draw(a1, dr);
 		v10 = 0;
-		v11 = &byte_587000[192092];
+		v11 = getMemAt(0x587000, 192092);
 		do {
 			if (v10 >= *(unsigned __int8*)(v5 + 8))
 			v10 = 0;
-			v12 = (v10 + *(_DWORD*)&byte_5D4594[2598000] + v2[32]) / ((unsigned int)*(unsigned __int8*)(v5 + 9) + 1);
+			v12 = (v10 + *(_DWORD*)getMemAt(0x5D4594, 2598000) + v2[32]) / ((unsigned int)*(unsigned __int8*)(v5 + 9) + 1);
 			v2[77] = v12;
 			if (v12 >= *(unsigned __int8*)(v5 + 8))
 			v2[77] = v12 % *(unsigned __int8*)(v5 + 8);
@@ -63,15 +63,15 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 				nox_thing_animate_draw(a1, dr);
 			v11 += 80;
 			++v10;
-		} while ((int)v11 < (int)&byte_587000[194140]);
+		} while ((int)v11 < (int)getMemAt(0x587000, 194140));
 		v2[3] = v15;
 		v2[4] = v17;
 		v2[77] = v18;
 		*(_DWORD*)(v5 + 12) = 2;
 		nox_client_drawEnableAlpha_434560(1);
-		v16 = *(unsigned int*)&byte_5D4594[2598000];
+		v16 = *(unsigned int*)getMemAt(0x5D4594, 2598000);
 		LODWORD(v16) = v2[79];
-		nox_client_drawSetAlpha_434580((__int64)(((double)*(unsigned int*)&byte_5D4594[2598000] - (double)v16) /
+		nox_client_drawSetAlpha_434580((__int64)(((double)*(unsigned int*)getMemAt(0x5D4594, 2598000) - (double)v16) /
 		                                         (double)*((unsigned __int16*)v2 + 218) * 255.0));
 		(*(void(__cdecl**)(int*, _DWORD))(v2[108] + 300))(a1, v2[108]);
 		nox_client_drawEnableAlpha_434560(0);
