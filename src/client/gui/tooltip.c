@@ -41,18 +41,18 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 	wchar_t* v34;       // [esp+Ch] [ebp-8h]
 	wchar_t* v35;       // [esp+10h] [ebp-4h]
 
-	*(_WORD*)&byte_5D4594[1317000] = 0;
-	nox_wcscpy((wchar_t*)&byte_5D4594[1317000], (const wchar_t*)&byte_5D4594[1319048]);
+	*(_WORD*)getMemAt(0x5D4594, 1317000) = 0;
+	nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1317000), (const wchar_t*)getMemAt(0x5D4594, 1319048));
 	v1 = (int*)a1;
 	if (!a1)
-		return (wchar_t*)&byte_5D4594[1317000];
+		return (wchar_t*)getMemAt(0x5D4594, 1317000);
 	v2 = *((_DWORD*)a1 + 28);
 	if (!(v2 & 0x13001000)) {
 		if (!(v2 & 0x100)) {
 			result = (wchar_t*)nox_get_thing_pretty_name(*((_DWORD*)a1 + 27));
 			if (result)
 				return result;
-			return (wchar_t*)&byte_5D4594[1317000];
+			return (wchar_t*)getMemAt(0x5D4594, 1317000);
 		}
 		v18 = *((_DWORD*)a1 + 29);
 		LOBYTE(a1) = -13;
@@ -67,21 +67,21 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			}
 			if (v19 != 137) {
 				if (dword_587000_26048 != 6) {
-					v22 = loadString_sub_40F1D0((char*)&byte_587000[180736], 0,
+					v22 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180736), 0,
 												"C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 292);
-					nox_swprintf((wchar_t*)&byte_5D4594[1317000], L"%s ", v22);
+					nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v22);
 					v23 = (const wchar_t*)sub_424930(v1[108]);
-					nox_wcscat((wchar_t*)&byte_5D4594[1317000], v23);
+					nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v23);
 					goto LABEL_93;
 				}
 				v20 = (const wchar_t*)sub_424930(v1[108]);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v20);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				v21 = loadString_sub_40F1D0((char*)&byte_587000[180692], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v20);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				v21 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180692), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											288);
 				goto LABEL_90;
 			}
-			return (wchar_t*)&byte_5D4594[1317000];
+			return (wchar_t*)getMemAt(0x5D4594, 1317000);
 		}
 		if (v18 & 2) {
 			v24 = v1[108];
@@ -93,20 +93,20 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 				goto LABEL_93;
 			}
 			if (v24 == 41)
-				return (wchar_t*)&byte_5D4594[1317000];
+				return (wchar_t*)getMemAt(0x5D4594, 1317000);
 			if (dword_587000_26048 == 3 || dword_587000_26048 == 5) {
-				v27 = loadString_sub_40F1D0((char*)&byte_587000[180788], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				v27 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180788), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											313);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v27);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v27);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 				v28 = (const wchar_t*)sub_427240(v1[108]);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v28);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v28);
 			} else {
 				v25 = sub_427240(v1[108]);
-				nox_swprintf((wchar_t*)&byte_5D4594[1317000], L"%s ", v25);
-				v26 = loadString_sub_40F1D0((char*)&byte_587000[180848], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v25);
+				v26 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180848), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											320);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v26);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v26);
 			}
 		} else if (v18 & 4) {
 			v29 = v1[108];
@@ -118,22 +118,22 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 				goto LABEL_93;
 			}
 			if (v29 == 6)
-				return (wchar_t*)&byte_5D4594[1317000];
+				return (wchar_t*)getMemAt(0x5D4594, 1317000);
 			if (dword_587000_26048 == 6) {
 				v30 = (const wchar_t*)sub_425260(v1[108]);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v30);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				v21 = loadString_sub_40F1D0((char*)&byte_587000[180900], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v30);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				v21 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180900), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											342);
 			LABEL_90:
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v21);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v21);
 				goto LABEL_93;
 			}
 			v31 =
-				loadString_sub_40F1D0((char*)&byte_587000[180944], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
-			nox_swprintf((wchar_t*)&byte_5D4594[1317000], L"%s ", v31);
+				loadString_sub_40F1D0((char*)getMemAt(0x587000, 180944), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
+			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v31);
 			v32 = (const wchar_t*)sub_425260(v1[108]);
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], v32);
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v32);
 		} else {
 			result = (wchar_t*)nox_get_thing_pretty_name(v1[27]);
 			if (result)
@@ -142,9 +142,9 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 	LABEL_93:
 		if ((_BYTE)a1 != (_BYTE)-13) {
 			sub_4E53C0(31, &a1, 4, 0, 1);
-			return (wchar_t*)&byte_5D4594[1317000];
+			return (wchar_t*)getMemAt(0x5D4594, 1317000);
 		}
-		return (wchar_t*)&byte_5D4594[1317000];
+		return (wchar_t*)getMemAt(0x5D4594, 1317000);
 	}
 	v3 = 0;
 	v34 = 0;
@@ -187,111 +187,111 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 		}
 		switch (dword_587000_26048) {
 		case 2:
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], v12);
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v12);
 			if (v35) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v35);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v35);
 			}
 			v17 = a1;
 			if (a1) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v17);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v17);
 			}
 			if (v34) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v34);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v34);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			}
 			if (!v3)
-				return (wchar_t*)&byte_5D4594[1317000];
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], v3);
-			result = (wchar_t*)&byte_5D4594[1317000];
+				return (wchar_t*)getMemAt(0x5D4594, 1317000);
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v3);
+			result = (wchar_t*)getMemAt(0x5D4594, 1317000);
 			break;
 		case 3:
 			if (v3) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v3);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v3);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			}
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], v12);
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v12);
 			if (v34) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v34);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v34);
 			}
 			if (v35) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v35);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v35);
 			}
 			if (!a1)
-				return (wchar_t*)&byte_5D4594[1317000];
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
+				return (wchar_t*)getMemAt(0x5D4594, 1317000);
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			goto LABEL_67;
 		case 5:
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], v12);
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v12);
 			if (v34) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v34);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v34);
 			}
 			if (v3) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v3);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v3);
 			}
 			if (v35) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v35);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v35);
 			}
 			if (!a1)
-				return (wchar_t*)&byte_5D4594[1317000];
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], a1);
-			result = (wchar_t*)&byte_5D4594[1317000];
+				return (wchar_t*)getMemAt(0x5D4594, 1317000);
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), a1);
+			result = (wchar_t*)getMemAt(0x5D4594, 1317000);
 			break;
 		case 6:
 			if (v3) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v3);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v3);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			}
 			if (v35) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v35);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v35);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			}
 			if (a1) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], a1);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), a1);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			}
 			if (v34) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v34);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v34);
 			}
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], v12);
-			result = (wchar_t*)&byte_5D4594[1317000];
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v12);
+			result = (wchar_t*)getMemAt(0x5D4594, 1317000);
 			break;
 		default:
 			if (v3) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v3);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v3);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			}
 			if (v34) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v34);
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v34);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			}
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], v12);
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v12);
 			if (v35) {
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
-				nox_wcscat((wchar_t*)&byte_5D4594[1317000], v35);
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
+				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v35);
 			}
 			if (!a1)
-				return (wchar_t*)&byte_5D4594[1317000];
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], L" ");
+				return (wchar_t*)getMemAt(0x5D4594, 1317000);
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 		LABEL_67:
-			nox_wcscat((wchar_t*)&byte_5D4594[1317000], a1);
-			result = (wchar_t*)&byte_5D4594[1317000];
+			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), a1);
+			result = (wchar_t*)getMemAt(0x5D4594, 1317000);
 			break;
 		}
 	} else {
 		v33 = nox_get_thing_name(v1[27]);
-		v5 = loadString_sub_40F1D0((char*)&byte_587000[180560], 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 53);
-		nox_swprintf((wchar_t*)&byte_5D4594[1317000], v5, v33);
-		result = (wchar_t*)&byte_5D4594[1317000];
+		v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180560), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 53);
+		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), v5, v33);
+		result = (wchar_t*)getMemAt(0x5D4594, 1317000);
 	}
 	return result;
 }
