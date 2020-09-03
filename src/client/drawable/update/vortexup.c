@@ -12,18 +12,18 @@ int __cdecl sub_4CC950(int a1, int a2) {
 	int v7;  // esi
 	int v9;  // [esp+0h] [ebp-4h]
 
-	if (!*(_DWORD*)&byte_5D4594[1522952]) {
-		*(_DWORD*)&byte_5D4594[1522952] = sub_44CFC0((CHAR*)&byte_587000[187880]);
-		*(_DWORD*)&byte_5D4594[1522944] = sub_4344A0(200, 200, 200);
-		*(_DWORD*)&byte_5D4594[1522948] = sub_4344A0(255, 255, 255);
+	if (!*(_DWORD*)getMemAt(0x5D4594, 1522952)) {
+		*(_DWORD*)getMemAt(0x5D4594, 1522952) = sub_44CFC0((CHAR*)getMemAt(0x587000, 187880));
+		*(_DWORD*)getMemAt(0x5D4594, 1522944) = sub_4344A0(200, 200, 200);
+		*(_DWORD*)getMemAt(0x5D4594, 1522948) = sub_4344A0(255, 255, 255);
 	}
-	v2 = *(_DWORD*)&byte_5D4594[1522944];
-	v3 = *(_DWORD*)&byte_5D4594[1522952];
-	v9 = *(_DWORD*)&byte_5D4594[1522948];
+	v2 = *(_DWORD*)getMemAt(0x5D4594, 1522944);
+	v3 = *(_DWORD*)getMemAt(0x5D4594, 1522952);
+	v9 = *(_DWORD*)getMemAt(0x5D4594, 1522948);
 	v4 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 54);
 	v5 = v4;
-	v6 = sub_45A360_drawable(v3, *(_DWORD*)(a2 + 12) + 50 * *(int*)&byte_587000[8 * v4 + 192088] / 16,
-							 *(_DWORD*)(a2 + 16) + 50 * *(int*)&byte_587000[8 * v4 + 192092] / 16);
+	v6 = sub_45A360_drawable(v3, *(_DWORD*)(a2 + 12) + 50 * *(int*)getMemAt(0x587000, 8 * v4 + 192088) / 16,
+							 *(_DWORD*)(a2 + 16) + 50 * *(int*)getMemAt(0x587000, 8 * v4 + 192092) / 16);
 	v7 = v6;
 	if (v6) {
 		*(_BYTE*)(v6 + 448) = v5;
