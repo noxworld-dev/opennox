@@ -19,7 +19,7 @@ int __cdecl sub_4B5770_wol_locale(int a1) {
 	char* v8;    // eax
 	char* v10;   // [esp+14h] [ebp+4h]
 
-	*(_DWORD*)&byte_5D4594[1312488] = a1;
+	*(_DWORD*)getMemAt(0x5D4594, 1312488) = a1;
 	dword_5d4594_1312480 = nox_new_window_from_file("locale.wnd", sub_4B5AB0);
 	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1312480, nox_win_width / 2 - 75, nox_win_height / 2 - 77);
 	sub_46B120(*(_DWORD**)&dword_5d4594_1312480, 0);
@@ -31,11 +31,11 @@ int __cdecl sub_4B5770_wol_locale(int a1) {
 	for (i = 0; i < *(int*)&dword_5d4594_1312472; ++i)
 		nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397, *(_DWORD*)(dword_5d4594_1312476 + 4 * i), -1);
 	v2 =
-		loadString_sub_40F1D0((char*)&byte_587000[174848], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c", 213);
+		loadString_sub_40F1D0((char*)getMemAt(0x587000, 174848), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c", 213);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397, (int)v2, -1);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16403, 0, 0);
 	v3 =
-		loadString_sub_40F1D0((char*)&byte_587000[174900], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c", 216);
+		loadString_sub_40F1D0((char*)getMemAt(0x587000, 174900), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c", 216);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397, (int)v3, -1);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16403, 0, 0);
 	v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1982);
@@ -69,7 +69,7 @@ wchar_t* __cdecl sub_4B5A30_wol_locale(wchar_t* a1) {
 	v2 = v6;
 	if (*(int*)&dword_5d4594_1312472 <= 0)
 		return (wchar_t*)v6;
-	v3 = (char**)&byte_587000[174360];
+	v3 = (char**)getMemAt(0x587000, 174360);
 	do {
 		v4 = loadString_sub_40F1D0(*v3, 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c", 101);
 		if (nox_wcscmp(v4, (const wchar_t*)v2) < 0 && nox_wcscmp(v4, a1) > 0)
@@ -91,11 +91,11 @@ int __cdecl sub_4B5B70_wol_locale(wchar_t* a1) {
 	v1 = 0;
 	if (*(int*)&dword_5d4594_1312472 <= 0) {
 	LABEL_5:
-		v4 = loadString_sub_40F1D0((char*)&byte_587000[175064], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c",
+		v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 175064), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c",
 								   78);
 		result = nox_wcscmp(a1, v4) != 0;
 	} else {
-		v2 = (char**)&byte_587000[174360];
+		v2 = (char**)getMemAt(0x587000, 174360);
 		while (1) {
 			v3 = loadString_sub_40F1D0(*v2, 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c", 71);
 			if (!nox_wcscmp(a1, v3))
@@ -105,7 +105,7 @@ int __cdecl sub_4B5B70_wol_locale(wchar_t* a1) {
 			if (v1 >= *(int*)&dword_5d4594_1312472)
 				goto LABEL_5;
 		}
-		result = *(_DWORD*)&byte_587000[8 * v1 + 174364];
+		result = *(_DWORD*)getMemAt(0x587000, 8 * v1 + 174364);
 	}
 	return result;
 }
