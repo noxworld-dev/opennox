@@ -11,8 +11,8 @@ unsigned __int8 sub_423EC0() { return 0; }
 BOOL __cdecl sub_423CC0(int a1) {
 	BOOL result; // eax
 
-	if (*(_DWORD*)&byte_5D4594[588112] && a1 == 1)
-		result = *(_DWORD*)&byte_5D4594[588096] == 530;
+	if (*(_DWORD*)getMemAt(0x5D4594, 588112) && a1 == 1)
+		result = *(_DWORD*)getMemAt(0x5D4594, 588096) == 530;
 	else
 		result = 0;
 	return result;
@@ -23,19 +23,19 @@ int sub_423BB0() {
 	int result;            // eax
 	DWORD_PTR dwParam2[5]; // [esp+0h] [ebp-14h]
 
-	result = *(_DWORD*)&byte_5D4594[588112];
-	if (!*(_DWORD*)&byte_5D4594[588112]) {
+	result = *(_DWORD*)getMemAt(0x5D4594, 588112);
+	if (!*(_DWORD*)getMemAt(0x5D4594, 588112)) {
 		dwParam2[0] = 0;
 		dwParam2[4] = 0;
 		dwParam2[2] = 516;
 		dwParam2[3] = 0;
 		dwParam2[1] = 0;
 		if (mciSendCommandA(0, 0x803u, 0x3102u, (DWORD_PTR)dwParam2)) {
-			result = *(_DWORD*)&byte_5D4594[588112];
+			result = *(_DWORD*)getMemAt(0x5D4594, 588112);
 		} else {
 			result = 1;
-			*(_DWORD*)&byte_5D4594[588108] = dwParam2[1];
-			*(_DWORD*)&byte_5D4594[588112] = 1;
+			*(_DWORD*)getMemAt(0x5D4594, 588108) = dwParam2[1];
+			*(_DWORD*)getMemAt(0x5D4594, 588112) = 1;
 		}
 	}
 	return result;
@@ -47,24 +47,24 @@ MCIERROR __thiscall sub_423C20(void* this) {
 	DWORD_PTR dwParam2; // [esp+0h] [ebp-4h]
 
 	dwParam2 = (DWORD_PTR)this;
-	result = *(_DWORD*)&byte_5D4594[588112];
-	if (*(_DWORD*)&byte_5D4594[588112]) {
+	result = *(_DWORD*)getMemAt(0x5D4594, 588112);
+	if (*(_DWORD*)getMemAt(0x5D4594, 588112)) {
 		dwParam2 = 0;
-		result = mciSendCommandA(*(MCIDEVICEID*)&byte_5D4594[588108], 0x804u, 2u, (DWORD_PTR)&dwParam2);
-		*(_DWORD*)&byte_5D4594[588112] = 0;
+		result = mciSendCommandA(*(MCIDEVICEID*)getMemAt(0x5D4594, 588108), 0x804u, 2u, (DWORD_PTR)&dwParam2);
+		*(_DWORD*)getMemAt(0x5D4594, 588112) = 0;
 	}
 	return result;
 }
 
 //----- (00423C60) --------------------------------------------------------
 BOOL sub_423C60() {
-	if (!*(_DWORD*)&byte_5D4594[588112])
+	if (!*(_DWORD*)getMemAt(0x5D4594, 588112))
 		return 0;
-	*(_DWORD*)&byte_5D4594[588092] = getWindowHandle_sub_401FD0();
-	*(_DWORD*)&byte_5D4594[588100] = 4;
-	*(_DWORD*)&byte_5D4594[588104] = 0;
-	*(_DWORD*)&byte_5D4594[588096] = 0;
-	return mciSendCommandA(*(MCIDEVICEID*)&byte_5D4594[588108], 0x814u, 0x101u, (DWORD_PTR)&byte_5D4594[588092]) == 0;
+	*(_DWORD*)getMemAt(0x5D4594, 588092) = getWindowHandle_sub_401FD0();
+	*(_DWORD*)getMemAt(0x5D4594, 588100) = 4;
+	*(_DWORD*)getMemAt(0x5D4594, 588104) = 0;
+	*(_DWORD*)getMemAt(0x5D4594, 588096) = 0;
+	return mciSendCommandA(*(MCIDEVICEID*)getMemAt(0x5D4594, 588108), 0x814u, 0x101u, (DWORD_PTR)getMemAt(0x5D4594, 588092)) == 0;
 }
 
 //----- (00423CF0) --------------------------------------------------------
@@ -79,7 +79,7 @@ int sub_423CF0() {
 	BYTE SectorsPerCluster[144]; // [esp+1Ch] [ebp-194h]
 	char Buffer[260];            // [esp+ACh] [ebp-104h]
 
-	byte_5D4594[588116] = 0;
+	getMemByte(0x5D4594, 588116) = 0;
 	if (!GetLogicalDriveStringsA(0x104u, Buffer))
 		return 0;
 	v0 = Buffer;
@@ -97,17 +97,17 @@ int sub_423CF0() {
 	if (_strcmpi((const char*)&SectorsPerCluster[72], "CDFS") || *(_DWORD*)&SectorsPerCluster[136] > 0u) {
 		return 0;
 	}
-	if (SetVolumeLabelA(v0, (LPCSTR)&byte_587000[64676])) {
+	if (SetVolumeLabelA(v0, (LPCSTR)getMemAt(0x587000, 64676))) {
 		SetVolumeLabelA(v0, (LPCSTR)&SectorsPerCluster[4]);
 		return 0;
 	}
 	strcpy(Buffer, v0);
-	*(_WORD*)&Buffer[strlen(Buffer)] = *(_WORD*)&byte_587000[64684];
+	*(_WORD*)&Buffer[strlen(Buffer)] = *(_WORD*)getMemAt(0x587000, 64684);
 	sub_423F80(Buffer, (int)&v6, (int)&v5, (int)&v4);
-	v2 = *(_DWORD**)&byte_587000[64660];
+	v2 = *(_DWORD**)getMemAt(0x587000, 64660);
 	result = 2;
-	if (*(_DWORD*)&byte_587000[64660]) {
-		v3 = &byte_587000[64660];
+	if (*(_DWORD*)getMemAt(0x587000, 64660)) {
+		v3 = getMemAt(0x587000, 64660);
 		do {
 			if ((unsigned int)v4 >= *v2 && (unsigned int)v6 >= v2[1] && (unsigned int)v5 >= v2[2])
 				break;
@@ -126,13 +126,13 @@ int sub_423CF0() {
 	if (SectorsPerCluster[7] != 49)
 		return 0;
 LABEL_23:
-	byte_5D4594[588116] = *v0;
+	*getMemAt( 0x5D4594, 588116) = *v0;
 	return result;
 }
 // 423CF0: using guessed type CHAR Buffer[260];
 
 //----- (00423EC0) --------------------------------------------------------
-unsigned __int8 sub_423EC0() { return byte_5D4594[588116]; }
+unsigned __int8 sub_423EC0() { return getMemByte(0x5D4594, 588116); }
 
 //----- (00423ED0) --------------------------------------------------------
 BOOL __cdecl sub_423ED0(LPCSTR lpRootPathName, DWORD SectorsPerCluster) {
