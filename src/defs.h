@@ -781,6 +781,12 @@ typedef struct nox_wnd_xxx {
 } nox_wnd_xxx;
 _Static_assert(sizeof(nox_wnd_xxx) == 68, "wrong size of nox_wnd_xxx structure!");
 
+#define NOX_PLAYERINFO_MAX 32
+typedef struct nox_playerInfo {
+	_DWORD data[1207];
+} nox_playerInfo;
+_Static_assert(sizeof(nox_playerInfo) == 4828, "wrong size of nox_playerInfo structure!");
+
 typedef enum {
 	NOX_ENGINE_FLAG_1 = 1u << 0u,
 	NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS = 1u << 1u,
