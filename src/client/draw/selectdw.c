@@ -15,26 +15,26 @@ void __cdecl nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 		if (*(_BYTE*)(dword_5d4594_1096640 + 112) & 6 && !sub_495A80(*(_DWORD*)(dword_5d4594_1096640 + 128))) {
 			v4 = sub_415FF0(0, 1, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 440);
 			if (!v4) {
-				v3 = *(_DWORD**)&byte_5D4594[2598268];
+				v3 = *(_DWORD**)getMemAt(0x5D4594, 2598268);
 				goto LABEL_15;
 			}
 			if (v4 == 1) {
-				v3 = *(_DWORD**)&byte_5D4594[2650644];
+				v3 = *(_DWORD**)getMemAt(0x5D4594, 2650644);
 				goto LABEL_15;
 			}
 		} else {
 			v1 = sub_415FF0(0, 2, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 423);
 			if (!v1) {
-				v3 = *(_DWORD**)&byte_5D4594[2523948];
+				v3 = *(_DWORD**)getMemAt(0x5D4594, 2523948);
 				goto LABEL_15;
 			}
 			v2 = v1 - 1;
 			if (!v2) {
-				v3 = *(_DWORD**)&byte_5D4594[2650684];
+				v3 = *(_DWORD**)getMemAt(0x5D4594, 2650684);
 				goto LABEL_15;
 			}
 			if (v2 == 1) {
-				v3 = *(_DWORD**)&byte_5D4594[2649820];
+				v3 = *(_DWORD**)getMemAt(0x5D4594, 2649820);
 				goto LABEL_15;
 			}
 		}
