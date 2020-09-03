@@ -8,7 +8,7 @@ int __cdecl sub_512E80(int a1) {
 
 	v1 = dword_5d4594_1599628;
 	if (*(int*)&dword_5d4594_1599628 < 1024) {
-		*(_DWORD*)&byte_5D4594[4 * dword_5d4594_1599628 + 3826092] = a1;
+		*(_DWORD*)getMemAt(0x5D4594, 4 * dword_5d4594_1599628 + 3826092) = a1;
 		dword_5d4594_1599628 = ++v1;
 	}
 	return v1 - 1;
@@ -65,7 +65,7 @@ int sub_512B10() {
 
 	v0 = script_pop();
 	if (dword_5d4594_3821964 && *(_BYTE*)(dword_5d4594_3821964 + 8) & 4) {
-		v1 = loadString_sub_40F1D0(*(char**)&byte_5D4594[4 * v0 + 3831212], 0,
+		v1 = loadString_sub_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
 								   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1285);
 		sub_4D9EB0(*(int*)&dword_5d4594_3821964, v1);
 	}
@@ -78,7 +78,7 @@ int sub_512B60() {
 	wchar_t* v1; // eax
 
 	v0 = script_pop();
-	v1 = loadString_sub_40F1D0(*(char**)&byte_5D4594[4 * v0 + 3831212], 0,
+	v1 = loadString_sub_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
 							   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1310);
 	sub_4D9FD0(0, v1);
 	return 0;
@@ -97,7 +97,7 @@ int sub_512B90() {
 	v1 = script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
-		v3 = *(char**)&byte_5D4594[4 * v0 + 3831212];
+		v3 = *(char**)getMemAt(0x5D4594, 4 * v0 + 3831212);
 		v6 = 0;
 		v4 = loadString_sub_40F1D0(v3, &v6, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1342);
 		sub_528AC0(v2, v4, 0);
@@ -114,7 +114,7 @@ int sub_513F70() {
 	int v2;      // eax
 
 	v0 = script_pop();
-	v1 = loadString_sub_40F1D0(*(char**)&byte_5D4594[4 * v0 + 3831212], 0,
+	v1 = loadString_sub_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
 							   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 2901);
 	v2 = sub_512E80((int)v1);
 	sub_507230(v2);
@@ -137,8 +137,8 @@ int sub_514A80() {
 	v2 = script_pop();
 	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
-		v4 = *(char**)&byte_5D4594[4 * v1 + 3831212];
-		v7 = v0 * *(_WORD*)&byte_5D4594[2649704];
+		v4 = *(char**)getMemAt(0x5D4594, 4 * v1 + 3831212);
+		v7 = v0 * *(_WORD*)getMemAt(0x5D4594, 2649704);
 		v8 = 0;
 		v5 = loadString_sub_40F1D0(v4, &v8, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3629);
 		sub_528AC0(v3, v5, v7);
@@ -163,7 +163,7 @@ int sub_514B10() {
 	v2 = script_pop();
 	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
-		v4 = *(char**)&byte_5D4594[4 * v1 + 3831212];
+		v4 = *(char**)getMemAt(0x5D4594, 4 * v1 + 3831212);
 		v7 = 0;
 		v5 = loadString_sub_40F1D0(v4, &v7, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3670);
 		sub_528AC0(v3, v5, v0);
