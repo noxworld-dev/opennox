@@ -37,40 +37,40 @@ void __cdecl sub_54E170_obj_die(int a1) {
 	v6 = *(_WORD*)(v1 + 24);
 	if (v6 & 0x10) {
 		if (v2)
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[290860], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 290860), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1536);
 		else
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[290920], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 290920), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1538);
 		v8 = 806;
 	} else if (v6 & 8) {
 		if (v2)
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[290976], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 290976), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1547);
 		else
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[291036], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 291036), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1549);
 		v8 = 812;
 	} else if (v6 & 4) {
 		if (v2)
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[291092], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 291092), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1558);
 		else
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[291152], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 291152), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1560);
 		v8 = 809;
 	} else if (v6 & 2) {
 		if (v2)
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[291208], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 291208), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1569);
 		else
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[291268], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 291268), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1571);
 		v8 = 815;
 	} else {
 		v8 = (int)v10;
 		v7 =
-			loadString_sub_40F1D0((char*)&byte_587000[291324], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c", 1579);
+			loadString_sub_40F1D0((char*)getMemAt(0x587000, 291324), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c", 1579);
 	}
 	v9 = sub_4E77E0_obj_util(v1);
 	sub_4D9EB0(v5, v7, v9);
@@ -98,20 +98,20 @@ void __cdecl sub_54E370_obj_die(int a1) {
 	if (v3 & 0x10) {
 		v7 = sub_4E77E0_obj_util(a1);
 		v4 =
-			loadString_sub_40F1D0((char*)&byte_587000[291380], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c", 1626);
+			loadString_sub_40F1D0((char*)getMemAt(0x587000, 291380), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c", 1626);
 		sub_4D9EB0(v1, v4, v7);
 		sub_501A30(818, v2, 0, 0);
 		sub_4E5CC0(a1);
 	} else {
 		if (v3 & 8) {
 			v8 = sub_4E77E0_obj_util(a1);
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[291436], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
+			v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 291436), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1633);
 			sub_4D9EB0(v1, v5, v8);
 			sub_501A30(819, v2, 0, 0);
 		} else {
 			v9 = sub_415B60(a1);
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[291492], 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
+			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 291492), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1640);
 			sub_4D9EB0(v1, v6, v9);
 		}
