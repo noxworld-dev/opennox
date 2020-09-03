@@ -35,7 +35,7 @@ int nox_video_recreateRenderTarget_47FD70() {
 		flags &= 0xFFFFFFDF;
 	if (!nox_enable_threads)
 		flags |= 0x100u;
-	if (*(_DWORD*)&byte_5D4594[805864])
+	if (*(_DWORD*)getMemAt(0x5D4594, 805864))
 		flags |= 0x200u;
 	sub_48A210(sub_47FCE0);
 	v1 = nox_client_getCursorType_477620();
@@ -58,8 +58,8 @@ int nox_video_recreateRenderTarget_47FD70() {
 	sub_49F6D0(1);
 	sub_437290();
 	dword_5d4594_3804680 = dword_5d4594_3801780;
-	*(_DWORD*)&byte_5D4594[3805488] = nox_pitch_3801808 * nox_backbuffer_height;
-	*(_DWORD*)&byte_5D4594[3807124] = dword_5d4594_3801780 == 1;
+	*(_DWORD*)getMemAt(0x5D4594, 3805488) = nox_pitch_3801808 * nox_backbuffer_height;
+	*(_DWORD*)getMemAt(0x5D4594, 3807124) = dword_5d4594_3801780 == 1;
 	sub_430B50(0, 0, NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1);
 	sub_4453A0_poll_events();
 	return 1;
