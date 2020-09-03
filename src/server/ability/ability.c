@@ -24,7 +24,7 @@ int __cdecl sub_4D8060(int a1, int a2, int a3) {
 void __cdecl sub_4FB960_ability(int a1) {
 	wchar_t* v1; // eax
 
-	v1 = loadString_sub_40F1D0(*(char**)&byte_587000[4 * a1 + 217092], 0,
+	v1 = loadString_sub_40F1D0(*(char**)getMemAt(0x587000, 4 * a1 + 217092), 0,
 							   "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 75);
 	sub_445490(v1);
 }
@@ -44,7 +44,7 @@ int __cdecl sub_4FB9C0_ability(int a1, int a2, int a3) {
 		return 0;
 	if (a2 <= 0 || a2 >= 6) {
 		v10 =
-			loadString_sub_40F1D0((char*)&byte_587000[217368], 0, "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 108);
+			loadString_sub_40F1D0((char*)getMemAt(0x587000, 217368), 0, "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 108);
 		sub_4D9EB0(a1, v10);
 		return 0;
 	}
