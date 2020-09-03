@@ -24,14 +24,14 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 		v1 = 1;
 	} else {
 		if (!dword_5d4594_1548732) {
-			if (_read(*(int *) &dword_587000_197428, &byte_5D4594[1548728], 4u)) {
+			if (_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548728), 4u)) {
 				dword_5d4594_1548732 = 1;
 			} else {
 				v1 = 1;
 			}
 		}
 		if (!dword_5d4594_1548736) {
-			if (_read(*(int *) &dword_587000_197428, &byte_5D4594[1548724], 1u)) {
+			if (_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548724), 1u)) {
 				dword_5d4594_1548736 = 1;
 			} else {
 				v1 = 1;
@@ -44,17 +44,17 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 		sub_43DE60();
 		return v1;
 	}
-	if (*(_DWORD *) &byte_5D4594[2598000] == *(_DWORD *) &byte_5D4594[1548728])
+	if (*(_DWORD *) getMemAt(0x5D4594, 2598000) == *(_DWORD *) getMemAt(0x5D4594, 1548728))
 		return v1;
 	while (1) {
-		switch (byte_5D4594[1548724]) {
+		switch (getMemByte(0x5D4594, 1548724)) {
 			case 1u:
 				if (a1 == 1)
 					return v1;
 				_read(*(int *) &dword_587000_197428, &v9, 1u);
 				_read(*(int *) &dword_587000_197428, &v5, 4u);
-				_read(*(int *) &dword_587000_197428, &byte_5D4594[1548740], v5);
-				sub_51BAD0_net_sdecode((unsigned __int8) v9, &byte_5D4594[1548740], v5);
+				_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548740), v5);
+				sub_51BAD0_net_sdecode((unsigned __int8) v9, getMemAt(0x5D4594, 1548740), v5);
 				break;
 			case 2u:
 				if (a1 == 1)
@@ -64,9 +64,9 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 				sub_409D70(v10);
 				_read(*(int *) &dword_587000_197428, &v7, 4u);
 				if ((v7 & 0xFF0000) != 0x10000) {
-					v2 = loadString_sub_40F1D0((char *) &byte_587000[197480], 0,
+					v2 = loadString_sub_40F1D0((char *) getMemAt(0x587000, 197480), 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 355);
-					v3 = loadString_sub_40F1D0((char *) &byte_587000[197540], 0,
+					v3 = loadString_sub_40F1D0((char *) getMemAt(0x587000, 197540), 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 356);
 					nullsub_4(0, v2, v3, 1);
 					sub_43DDD0(0);
@@ -90,17 +90,17 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 			default:
 				break;
 		}
-		if (!_read(*(int *) &dword_587000_197428, &byte_5D4594[1548728], 4u)) {
+		if (!_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548728), 4u)) {
 			dword_5d4594_1548732 = 0;
 			return v1;
 		}
-		if (!_read(*(int *) &dword_587000_197428, &byte_5D4594[1548724], 1u)) {
+		if (!_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548724), 1u)) {
 			dword_5d4594_1548736 = 0;
 			return v1;
 		}
 		if (v1)
 			break;
-		if (*(_DWORD *) &byte_5D4594[2598000] == *(_DWORD *) &byte_5D4594[1548728])
+		if (*(_DWORD *) getMemAt(0x5D4594, 2598000) == *(_DWORD *) getMemAt(0x5D4594, 1548728))
 			return v1;
 	}
 	sub_4D3530();
