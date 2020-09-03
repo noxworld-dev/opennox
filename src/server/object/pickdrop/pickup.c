@@ -15,7 +15,7 @@ int __cdecl sub_4F3A60_obj_pickup(int a1, int a2, int a3) {
 		sub_4FA590(a1, *v3);
 		sub_4E5CC0(a2);
 		v7 = *v3;
-		v4 = loadString_sub_40F1D0((char*)&byte_587000[215812], 0,
+		v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 215812), 0,
 								   "C:\\NoxPost\\src\\Server\\Object\\pickdrop\\pickup.c", 709);
 		sub_4D9EB0(a1, v4, v7);
 		sub_501960(307, a1, 0, 0);
