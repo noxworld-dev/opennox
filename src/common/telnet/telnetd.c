@@ -25,11 +25,11 @@ int sub_578FF0() {
 	memset(addr.sin_zero, 0, 8);
 
 	v0 = 0;
-	result = (int)&byte_5D4594[2516484];
+	result = (int)getMemAt(0x5D4594, 2516484);
 	while (*(int*)result != -1) {
 		result += 1044;
 		++v0;
-		if (result >= (int)&byte_5D4594[2520660])
+		if (result >= (int)getMemAt(0x5D4594, 2520660))
 			return result;
 	}
 	if (v0 != -1) {
@@ -42,24 +42,24 @@ int sub_578FF0() {
 		} else {
 			v3 = 1044 * v0;
 			argp = 1;
-			*(_DWORD*)&byte_5D4594[v3 + 2517520] = addr.sin_addr.s_addr;
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 2517520) = addr.sin_addr.s_addr;
 			if (ioctlsocket(v2, -2147195266, &argp) == -1)
 				sub_578F20(-5);
-			++*(_WORD*)&byte_5D4594[2523738];
-			*(_DWORD*)&byte_5D4594[v3 + 2516484] = v2;
-			v7 = inet_ntoa(*(struct in_addr*)&byte_5D4594[v3 + 2517520]);
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[311532], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+			++*(_WORD*)getMemAt(0x5D4594, 2523738);
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 2516484) = v2;
+			v7 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, v3 + 2517520));
+			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311532), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   142);
-			v4 = loadString_sub_40F1D0((char*)&byte_587000[311592], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+			v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311592), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   142);
-			sub_413D30((char*)&byte_587000[311600], v4, v6, v7);
-			v5 = loadString_sub_40F1D0((char*)&byte_587000[311652], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+			sub_413D30((char*)getMemAt(0x587000, 311600), v4, v6, v7);
+			v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311652), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   146);
 			nox_sprintf(buf, "%S", v5);
-			send(*(_DWORD*)&byte_5D4594[v3 + 2516484], buf, strlen(buf), 0);
-			result = *(_DWORD*)&byte_5D4594[v3 + 2517524];
+			send(*(_DWORD*)getMemAt(0x5D4594, v3 + 2516484), buf, strlen(buf), 0);
+			result = *(_DWORD*)getMemAt(0x5D4594, v3 + 2517524);
 			LOBYTE(result) = result | 1;
-			*(_DWORD*)&byte_5D4594[v3 + 2517524] = result;
+			*(_DWORD*)getMemAt(0x5D4594, v3 + 2517524) = result;
 		}
 	}
 	return result;
@@ -81,7 +81,7 @@ char* sub_579190() {
 	wchar_t v11[128];    // [esp+14h] [ebp-100h]
 
 	v10 = 0;
-	v0 = &byte_5D4594[2517524];
+	v0 = getMemAt(0x5D4594, 2517524);
 	do {
 		result = (char*)*((_DWORD*)v0 - 260);
 		v2 = (SOCKET*)(v0 - 1040);
@@ -95,35 +95,35 @@ char* sub_579190() {
 					if (*v0 & 1) {
 						v3 = sub_40A630();
 						*(_DWORD*)v0 &= 0xFFFFFFFE;
-						if (nox_wcscmp(v3, (const wchar_t*)&byte_5D4594[2523748]) && _nox_wcsicmp(v11, v3)) {
+						if (nox_wcscmp(v3, (const wchar_t*)getMemAt(0x5D4594, 2523748)) && _nox_wcsicmp(v11, v3)) {
 							v8 = inet_ntoa(*(struct in_addr*)(v0 - 4));
-							v6 = loadString_sub_40F1D0((char*)&byte_587000[311716], 0,
+							v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311716), 0,
 													   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
-							v4 = loadString_sub_40F1D0((char*)&byte_587000[311768], 0,
+							v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311768), 0,
 													   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
-							sub_413D30((char*)&byte_587000[311776], v4, v6, v8);
+							sub_413D30((char*)getMemAt(0x587000, 311776), v4, v6, v8);
 							result = (char*)sub_579350(v10);
 							goto LABEL_14;
 						}
 						send(*v2, "\r\n", 2, 0);
 						v9 = inet_ntoa(*(struct in_addr*)(v0 - 4));
-						v7 = loadString_sub_40F1D0((char*)&byte_587000[311832], 0,
+						v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311832), 0,
 												   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
-						v5 = loadString_sub_40F1D0((char*)&byte_587000[311888], 0,
+						v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311888), 0,
 												   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
-						sub_413D30((char*)&byte_587000[311896], v5, v7, v9);
+						sub_413D30((char*)getMemAt(0x587000, 311896), v5, v7, v9);
 					} else {
 						nox_server_parseCmdText_443C80(v11, 0);
 					}
 				}
-				result = (char*)send(*v2, *(const char**)&byte_587000[311484],
-									 strlen(*(const char**)&byte_587000[311484]), 0);
+				result = (char*)send(*v2, *(const char**)getMemAt(0x587000, 311484),
+									 strlen(*(const char**)getMemAt(0x587000, 311484)), 0);
 			}
 		}
 	LABEL_14:
 		v0 += 1044;
 		++v10;
-	} while ((int)v0 < (int)&byte_5D4594[2521700]);
+	} while ((int)v0 < (int)getMemAt(0x5D4594, 2521700));
 	return result;
 }
 
@@ -154,18 +154,18 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 	v2 = argp;
 	if (ioctlsocket(*(_DWORD*)argp, 1074030207, &argp) == -1 || (int)(argp + *(__int16*)(v2 + 1032)) > 1024)
 		return 0;
-	v3 = recv(*(_DWORD*)v2, (char*)&byte_5D4594[2522712], 1024, 0);
+	v3 = recv(*(_DWORD*)v2, (char*)getMemAt(0x5D4594, 2522712), 1024, 0);
 	v4 = v3;
 	if (v3 != -1) {
 		if (!v3) {
 			v5 = a2;
 			sub_579350(a2);
-			v22 = inet_ntoa(*(struct in_addr*)&byte_5D4594[1044 * v5 + 2517520]);
-			v20 = loadString_sub_40F1D0((char*)&byte_587000[311948], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+			v22 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, 1044 * v5 + 2517520));
+			v20 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311948), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 										211);
-			v6 = loadString_sub_40F1D0((char*)&byte_587000[312012], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 312012), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   211);
-			sub_413D30((char*)&byte_587000[312020], v6, v20, v22);
+			sub_413D30((char*)getMemAt(0x587000, 312020), v6, v20, v22);
 			return 0;
 		}
 		if (*(_BYTE*)(v2 + 1040) & 1) {
@@ -173,31 +173,31 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 			v9 = v3;
 			if (v3 > 0) {
 				do {
-					v10 = byte_5D4594[v8 + 2522712];
+					v10 = getMemByte(0x5D4594, v8 + 2522712);
 					if (v10 == 10 || v10 == 13)
 						--v9;
 					++v8;
 				} while (v8 < v4);
 			}
-			memset(&byte_5D4594[2521684], 0x2Au, v9);
-			byte_5D4594[v9 + 2521684] = 0;
-			send(*(_DWORD*)v2, (const char*)&byte_5D4594[2521684], v9, 0);
+			memset(getMemAt(0x5D4594, 2521684), 0x2Au, v9);
+			*getMemAt( 0x5D4594, v9 + 2521684) = 0;
+			send(*(_DWORD*)v2, (const char*)getMemAt(0x5D4594, 2521684), v9, 0);
 		} else {
-			send(*(_DWORD*)v2, (const char*)&byte_5D4594[2522712], v3, 0);
+			send(*(_DWORD*)v2, (const char*)getMemAt(0x5D4594, 2522712), v3, 0);
 		}
 		v11 = *(__int16*)(v2 + 1030);
 		v12 = (unsigned __int8*)(v11 + v2 + 4);
 		if (v11 + v4 < 1024) {
-			qmemcpy(v12, &byte_5D4594[2522712], v4);
+			qmemcpy(v12, getMemAt(0x5D4594, 2522712), v4);
 			*(_WORD*)(v2 + 1030) += v4;
 		} else {
 			v14 = 1024 - v11;
 			v13 = v14;
-			qmemcpy(v12, &byte_5D4594[2522712], v14);
+			qmemcpy(v12, getMemAt(0x5D4594, 2522712), v14);
 			*(_WORD*)(v2 + 1030) = 0;
 			v15 = v4 - v14;
 			if (v15 > 0)
-				qmemcpy((void*)(v2 + 4), &byte_5D4594[v13 + 2522712],
+				qmemcpy((void*)(v2 + 4), getMemAt(0x5D4594, v13 + 2522712),
 						4 * ((unsigned int)v15 >> 2) + (((_BYTE)v4 - (_BYTE)v13) & 3));
 			*(_WORD*)(v2 + 1030) = v4 - v13;
 		}
@@ -205,10 +205,10 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 	} else if (WSAGetLastError() != 10035) {
 		v18 = a2;
 		sub_579350(a2);
-		v23 = inet_ntoa(*(struct in_addr*)&byte_5D4594[1044 * v18 + 2517520]);
-		v21 = loadString_sub_40F1D0((char*)&byte_587000[312072], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
-		v19 = loadString_sub_40F1D0((char*)&byte_587000[312136], 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
-		sub_413D30((char*)&byte_587000[312144], v19, v21, v23);
+		v23 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, 1044 * v18 + 2517520));
+		v21 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 312072), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
+		v19 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 312136), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
+		sub_413D30((char*)getMemAt(0x587000, 312144), v19, v21, v23);
 		return 0;
 	}
 	if (!sub_579700(v2)) {
@@ -230,15 +230,15 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 				++v16;
 				continue;
 			case 0xAu:
-				byte_5D4594[v17 + 2521684] = 0;
+				*getMemAt( 0x5D4594, v17 + 2521684) = 0;
 				*(_WORD*)(v2 + 1032) += -1 - v17;
 				*(_WORD*)(v2 + 1028) = v16 + 1;
-				return (char*)&byte_5D4594[2521684];
+				return (char*)getMemAt(0x5D4594, 2521684);
 			case 0xDu:
 				++v16;
 				break;
 			default:
-				byte_5D4594[v17++ + 2521684] = *(_BYTE*)(v16 + v2 + 4);
+				*getMemAt( 0x5D4594, v17++ + 2521684) = *(_BYTE*)(v16 + v2 + 4);
 				++v16;
 				break;
 		}
