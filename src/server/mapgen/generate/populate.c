@@ -151,13 +151,13 @@ void __cdecl sub_5228B0_mapgen_populate(int a1) {
 
 	sub_5235F0(157);
 	if (!sub_522A40(a1)) {
-		v1 = loadString_sub_40F1D0((char*)&byte_587000[254784], 0,
+		v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 254784), 0,
 								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 848);
 		sub_4D9FD0(0, v1);
-		v2 = loadString_sub_40F1D0((char*)&byte_587000[254844], 0,
+		v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 254844), 0,
 								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 849);
 		sub_4D9FD0(0, v2);
-		v3 = loadString_sub_40F1D0((char*)&byte_587000[254904], 0,
+		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 254904), 0,
 								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 850);
 		sub_4D9FD0(0, v3);
 	}
@@ -169,9 +169,9 @@ void __cdecl sub_5228B0_mapgen_populate(int a1) {
 		if (*(_DWORD*)(a1 + 60)) {
 			for (j = *(_DWORD*)(i + 368); j; j = *(_DWORD*)(j + 24)) {
 				if (*(_DWORD*)j)
-					sub_51D4D0((char*)&byte_587000[254924]);
+					sub_51D4D0((char*)getMemAt(0x587000, 254924));
 				else
-					sub_51D4D0((char*)&byte_587000[254912]);
+					sub_51D4D0((char*)getMemAt(0x587000, 254912));
 				sub_5245A0(a1, (float*)(j + 4), (__int64)((*(float*)(j + 12) - *(float*)(j + 4) + 0.5) * 0.030743772),
 						   (__int64)((*(float*)(j + 16) - *(float*)(j + 8) + 0.5) * 0.030743772));
 			}
@@ -180,7 +180,7 @@ void __cdecl sub_5228B0_mapgen_populate(int a1) {
 	v6 = (float*)sub_4D42C0();
 	v8 = (v6[11] + v6[9]) * 0.5;
 	v9 = (v6[12] + v6[10]) * 0.5;
-	sub_527940((char*)&byte_587000[254936]);
+	sub_527940((char*)getMemAt(0x587000, 254936));
 	sub_5279B0(&v8);
 	sub_469B90((int*)(a1 + 536));
 	sub_526A90();
