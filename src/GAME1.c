@@ -3479,7 +3479,7 @@ int sub_40CE60() {
 	*(_DWORD*)&byte_5D4594[10992] = &byte_5D4594[4676];
 	*(_DWORD*)&byte_5D4594[4676] = 132;
 	*(_DWORD*)&byte_5D4594[4776] = 768;
-	if (byte_5D4594 != (unsigned __int8*)-4676) {
+	if (true) { // TODO: byte_5D4594 != (unsigned __int8*)-4676
 		*(_DWORD*)&byte_5D4594[4692] = 0;
 		*(_DWORD*)&byte_5D4594[4684] = *(_DWORD*)&byte_5D4594[823784];
 		*(_DWORD*)&byte_5D4594[4688] = *(_DWORD*)&byte_5D4594[823784];
