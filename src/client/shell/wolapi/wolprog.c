@@ -13,7 +13,7 @@ int sub_468110_wol_prog() {
 		v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064192, 1804);
 		nox_window_set_hidden((int)v1, 0);
 		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064192, 1805);
-		v3 = loadString_sub_40F1D0((char*)&byte_587000[140968], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
+		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 140968), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
 								   192);
 		result = nox_window_call_field_94((int)v2, 16385, (int)v3, 0);
 	}
@@ -45,12 +45,12 @@ int sub_468170_wol_prog() {
 		else
 			v2 = 0;
 		nox_window_call_field_94((int)v1, 16416, v2, 0);
-		v3 = loadString_sub_40F1D0((char*)&byte_587000[141036], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
+		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 141036), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
 								   226);
-		nox_swprintf((wchar_t*)&byte_5D4594[1063680], v3, v6, v5, v8 / 3600, v8 / 60, v8 % 60, v7 / 3600, v7 / 60,
+		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1063680), v3, v6, v5, v8 / 3600, v8 / 60, v8 % 60, v7 / 3600, v7 / 60,
 					 v7 % 60);
 		v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064192, 1805);
-		result = nox_window_call_field_94((int)v4, 16385, (int)&byte_5D4594[1063680], 0);
+		result = nox_window_call_field_94((int)v4, 16385, (int)getMemAt(0x5D4594, 1063680), 0);
 	}
 	return result;
 }
@@ -65,7 +65,7 @@ int sub_4682B0_wol_prog() {
 
 	if (dword_5d4594_1064192) {
 		v0 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064192, 1805);
-		v1 = loadString_sub_40F1D0((char*)&byte_587000[141100], 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
+		v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 141100), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
 								   250);
 		if (v1)
 			nox_window_call_field_94((int)v0, 16385, (int)v1, 0);
