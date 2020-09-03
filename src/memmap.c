@@ -2691,7 +2691,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 122104, (void*)&nox_parse_thing_funcs, sizeof(nox_parse_thing_funcs_t) * 21, 1},           // TODO
 	{0x587000 + 80848, (void*)&nox_video_dxFullScreen, sizeof(nox_video_dxFullScreen), 1},
 	{0x587000 + 84400, (void*)&nox_video_gammaValue, sizeof(nox_video_gammaValue), 1},
-	
+
 // full blobs
 #if 0
         {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
@@ -2719,4 +2719,23 @@ _BYTE* getMem(uintptr_t addr) {
 	fprintf(stderr, "Invalid memory access! Requested = %x\n", addr);
 	DebugBreak();
 	return 0;
+}
+
+_BYTE* getMemAt(uintptr_t base, uintptr_t off) {
+	switch (base) {
+	case 0x581450:
+		return &byte_581450[off];
+	case 0x5D4594:
+		return &byte_5D4594[off];
+	case 0x587000:
+		return &byte_587000[off];
+	}
+	fprintf(stderr, "Invalid memory access! Requested = %x+%x\n", base, off);
+	DebugBreak();
+	return 0;
+}
+
+_BYTE getMemByte(uintptr_t base, uintptr_t off) {
+	_BYTE* ptr = getMemAt(base, off);
+	return *ptr;
 }

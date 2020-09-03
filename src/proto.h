@@ -50,6 +50,8 @@ bool nox_common_getEngineFlag(const nox_engine_flag flags);
 
 void init_data();
 _BYTE* getMem(uintptr_t addr);
+_BYTE* getMemAt(uintptr_t base, uintptr_t off);
+_BYTE getMemByte(uintptr_t base, uintptr_t off);
 
 #ifdef USE_SDL
 void change_windowed_fullscreen();
