@@ -99,13 +99,13 @@ wchar_t* __cdecl sub_413480(char a1) {
 	unsigned __int8* v2; // eax
 
 	v1 = 0;
-	v2 = &byte_587000[27332];
+	v2 = getMemAt(0x587000, 27332);
 	while (a1 != *v2) {
 		v2 += 20;
 		++v1;
-		if ((int)v2 >= (int)&byte_587000[27452])
+		if ((int)v2 >= (int)getMemAt(0x587000, 27452))
 			return 0;
 	}
-	return loadString_sub_40F1D0(*(char**)&byte_587000[20 * v1 + 27344], 0,
+	return loadString_sub_40F1D0(*(char**)getMemAt(0x587000, 20 * v1 + 27344), 0,
 								 "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 2087);
 }
