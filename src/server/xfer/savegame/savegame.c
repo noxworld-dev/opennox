@@ -46,7 +46,7 @@ int __cdecl sub_4DB600(int a1) {
 	v2 = (float*)*((_DWORD*)v1 + 514);
 	if (!v2)
 		return 0;
-	v3 = sub_4E3810((CHAR*)&byte_587000[199368]);
+	v3 = sub_4E3810((CHAR*)getMemAt(0x587000, 199368));
 	if (!v3)
 		return 0;
 	v4 = v2[14];
@@ -83,11 +83,11 @@ void sub_4DB6A0() {
 	v0 = sub_417090(31);
 	v1 = v0;
 	if (v0 && *((_DWORD*)v0 + 514)) {
-		if (!*(_DWORD*)&byte_5D4594[1563124])
-			*(_DWORD*)&byte_5D4594[1563124] = sub_4E3AA0((CHAR*)&byte_587000[199388]);
+		if (!*(_DWORD*)getMemAt(0x5D4594, 1563124))
+			*(_DWORD*)getMemAt(0x5D4594, 1563124) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 199388));
 		v2 = nox_server_getFirstObject_4DA790();
 		if (v2) {
-			while (*(unsigned __int16*)(v2 + 4) != *(_DWORD*)&byte_5D4594[1563124]) {
+			while (*(unsigned __int16*)(v2 + 4) != *(_DWORD*)getMemAt(0x5D4594, 1563124)) {
 				v2 = nox_server_getNextObject_4DA7A0(v2);
 				if (!v2)
 					return;
@@ -175,39 +175,39 @@ int __cdecl sub_4DB370_savegame(const char* a1) {
 		return 0;
 	if (!sub_4DB1D0())
 		return 0;
-	if (!sub_4DB540(&byte_587000[199176]))
+	if (!sub_4DB540(getMemAt(0x587000, 199176)))
 		return 0;
 	v5 = sub_409B40();
-	if (!sub_4DB5A0((int)&byte_587000[199184], (int)v5))
+	if (!sub_4DB5A0((int)getMemAt(0x587000, 199184), (int)v5))
 		return 0;
 	if (!sub_4DB600(*(int*)&dword_5d4594_1563084))
 		return 0;
 	v13 = sub_409B40();
 	v12 = sub_409B40();
 	v6 = nox_common_get_data_path_409E10();
-	nox_sprintf(v15, "%s\\Save\\%s\\%s\\%s.map", v6, &byte_587000[199192], v12, v13);
+	nox_sprintf(v15, "%s\\Save\\%s\\%s\\%s.map", v6, getMemAt(0x587000, 199192), v12, v13);
 	if (!sub_51E010(v15, 0))
 		return 0;
 	sub_4DB6A0();
 	v7 = nox_common_get_data_path_409E10();
-	nox_sprintf(v14, "%s\\Save\\%s\\Player.plr", v7, &byte_587000[199224]);
-	v8 = *(_DWORD*)&byte_5D4594[2660684] & 0xFFFFFFF7;
-	*(_DWORD*)&byte_5D4594[2660684] &= 0xFFFFFFF7;
-	if (*(_DWORD*)&byte_5D4594[1563076]) {
+	nox_sprintf(v14, "%s\\Save\\%s\\Player.plr", v7, getMemAt(0x587000, 199224));
+	v8 = *(_DWORD*)getMemAt(0x5D4594, 2660684) & 0xFFFFFFF7;
+	*(_DWORD*)getMemAt(0x5D4594, 2660684) &= 0xFFFFFFF7;
+	if (*(_DWORD*)getMemAt(0x5D4594, 1563076)) {
 		v9 = v8;
 		LOBYTE(v9) = v8 | 8;
-		*(_DWORD*)&byte_5D4594[2660684] = v9;
+		*(_DWORD*)getMemAt(0x5D4594, 2660684) = v9;
 	}
-	byte_5D4594[2661961] = sub_450750();
+	*getMemAt( 0x5D4594, 2661961) = sub_450750();
 	if (!sub_41A140(v14, (unsigned __int8)v2[2064]))
 		return 0;
 	if (!sub_41A230(v14))
 		return 0;
 	if (strcmp(a1, "WORKING")) {
-		v10 = loadString_sub_40F1D0((char*)&byte_587000[199312], 0,
+		v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 199312), 0,
 									"C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 661);
 		sub_4D9FD0(0, v10);
-		if (!sub_4DC100((int)&byte_587000[199332], (int)a1))
+		if (!sub_4DC100((int)getMemAt(0x587000, 199332), (int)a1))
 			return 0;
 	}
 	dword_5d4594_1563092 = 0;
@@ -232,11 +232,11 @@ char* __cdecl sub_4DB7E0_savegame(const char* a1) {
 		return 0;
 	if (!nox_common_gameFlags_check_40A5C0(2) || (result = (char*)sub_4738D0()) != 0) {
 		sub_4DB9C0();
-		if (!strcmp(a1, "WORKING") || (result = (char*)sub_4DC100((int)a1, (int)&byte_587000[199416])) != 0) {
+		if (!strcmp(a1, "WORKING") || (result = (char*)sub_4DC100((int)a1, (int)getMemAt(0x587000, 199416))) != 0) {
 			v3 = nox_common_get_data_path_409E10();
-			nox_sprintf(FileName, "%s\\Save\\%s\\Player.plr", v3, &byte_587000[199424]);
+			nox_sprintf(FileName, "%s\\Save\\%s\\Player.plr", v3, getMemAt(0x587000, 199424));
 			if (_access(FileName, 0) == -1) {
-				v4 = loadString_sub_40F1D0((char*)&byte_587000[199504], 0,
+				v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 199504), 0,
 										   "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 755);
 				sub_4D9FD0(0, v4);
 				result = 0;
@@ -253,7 +253,7 @@ char* __cdecl sub_4DB7E0_savegame(const char* a1) {
 					nox_sprintf(v8, "%s.map", v1 + 4760);
 					sub_409D70(v8);
 					v6 = nox_common_get_data_path_409E10();
-					nox_sprintf((char*)&byte_5D4594[1559960], "%s\\Save\\%s\\%s\\%s.map", v6, &byte_587000[199532],
+					nox_sprintf((char*)getMemAt(0x5D4594, 1559960), "%s\\Save\\%s\\%s\\%s.map", v6, getMemAt(0x587000, 199532),
 								v1 + 4760, v1 + 4760);
 					sub_4D2450(v8);
 					sub_44E0B0(0);
@@ -262,7 +262,7 @@ char* __cdecl sub_4DB7E0_savegame(const char* a1) {
 						sub_450B70();
 						sub_445450();
 						sub_528D60();
-						v7 = loadString_sub_40F1D0((char*)&byte_587000[199612], 0,
+						v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 199612), 0,
 												   "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 824);
 						sub_4D9FD0(0, v7);
 						result = (char*)1;
