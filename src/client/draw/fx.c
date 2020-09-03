@@ -67,8 +67,8 @@ int __cdecl sub_499610(int a1, int a2, int a3, int a4, int a5, int a6) {
 				*(_BYTE*)(v7 + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 227);
 				*(_DWORD*)(v8 + 440) = sub_415FF0(1, a3, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 230);
 				*(_DWORD*)(v8 + 448) =
-					*(_DWORD*)&byte_5D4594[2598000] + sub_415FF0(a4, 64, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 233);
-				*(_DWORD*)(v8 + 444) = *(_DWORD*)&byte_5D4594[2598000];
+					*(_DWORD*)getMemAt(0x5D4594, 2598000) + sub_415FF0(a4, 64, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 233);
+				*(_DWORD*)(v8 + 444) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 				*(_WORD*)(v8 + 104) = 0;
 				*(_BYTE*)(v8 + 296) = sub_415FF0(2, 10, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 239);
 				sub_45A110_drawable((_DWORD*)v8);
@@ -96,8 +96,8 @@ int __cdecl sub_499710(int a1, int a2, __int16 a3, int a4) {
 			*(_BYTE*)(v4 + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 268);
 			*(_DWORD*)(v5 + 440) = sub_415FF0(1, 3000, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 271);
 			*(_DWORD*)(v5 + 448) =
-				*(_DWORD*)&byte_5D4594[2598000] + sub_415FF0(5, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 274);
-			*(_DWORD*)(v5 + 444) = *(_DWORD*)&byte_5D4594[2598000];
+				*(_DWORD*)getMemAt(0x5D4594, 2598000) + sub_415FF0(5, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 274);
+			*(_DWORD*)(v5 + 444) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 			*(_WORD*)(v5 + 104) = a3 + sub_415FF0(0, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 279);
 			*(_BYTE*)(v5 + 296) = sub_415FF0(0, 4, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 280);
 			sub_45A110_drawable((_DWORD*)v5);
@@ -166,9 +166,9 @@ int __cdecl sub_4999D0(int a1, int2* a2, int2* a3) {
 						*(_DWORD*)(v11 + 436) = v10 << 12;
 						*(_BYTE*)(v11 + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 458);
 						*(_DWORD*)(v12 + 440) = sub_415FF0(1, 3000, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 461);
-						*(_DWORD*)(v12 + 448) = *(_DWORD*)&byte_5D4594[2598000] +
+						*(_DWORD*)(v12 + 448) = *(_DWORD*)getMemAt(0x5D4594, 2598000) +
 												sub_415FF0(5, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 464);
-						*(_DWORD*)(v12 + 444) = *(_DWORD*)&byte_5D4594[2598000];
+						*(_DWORD*)(v12 + 444) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 					}
 					*(_WORD*)(v12 + 104) = sub_415FF0(15, 30, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 471);
 					*(_BYTE*)(v12 + 296) = sub_415FF0(-4, 4, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 472);
@@ -243,9 +243,9 @@ int __cdecl sub_49A150(int2* a1, int a2, unsigned __int8 a3) {
 					*(_DWORD*)(v6 + 436) = *(_DWORD*)(v6 + 16) << 12;
 					*(_BYTE*)(v6 + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 822);
 					*(_DWORD*)(v7 + 440) = sub_415FF0(1, v3, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 825);
-					*(_DWORD*)(v7 + 448) = *(_DWORD*)&byte_5D4594[2598000] +
+					*(_DWORD*)(v7 + 448) = *(_DWORD*)getMemAt(0x5D4594, 2598000) +
 										   sub_415FF0(v5, 96, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 828);
-					*(_DWORD*)(v7 + 444) = *(_DWORD*)&byte_5D4594[2598000];
+					*(_DWORD*)(v7 + 444) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 				}
 				*(_WORD*)(v7 + 104) = sub_415FF0(5, 15, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 834);
 				*(_WORD*)(v7 + 106) = 0;
