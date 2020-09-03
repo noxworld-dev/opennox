@@ -11,27 +11,27 @@ wchar_t* __cdecl sub_41DAC0(int a1) {
 	switch (a1 + 2147221402) {
 	case 0:
 		result =
-			loadString_sub_40F1D0((char*)&byte_587000[58600], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 196);
+			loadString_sub_40F1D0((char*)getMemAt(0x587000, 58600), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 196);
 		break;
 	case 8:
 		result =
-			loadString_sub_40F1D0((char*)&byte_587000[58496], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 188);
+			loadString_sub_40F1D0((char*)getMemAt(0x587000, 58496), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 188);
 		break;
 	case 10:
 		result =
-			loadString_sub_40F1D0((char*)&byte_587000[58376], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 180);
+			loadString_sub_40F1D0((char*)getMemAt(0x587000, 58376), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 180);
 		break;
 	case 11:
 		result =
-			loadString_sub_40F1D0((char*)&byte_587000[58548], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 192);
+			loadString_sub_40F1D0((char*)getMemAt(0x587000, 58548), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 192);
 		break;
 	case 12:
 		result =
-			loadString_sub_40F1D0((char*)&byte_587000[58436], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 184);
+			loadString_sub_40F1D0((char*)getMemAt(0x587000, 58436), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 184);
 		break;
 	default:
 		result =
-			loadString_sub_40F1D0((char*)&byte_587000[58652], 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 200);
+			loadString_sub_40F1D0((char*)getMemAt(0x587000, 58652), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 200);
 		break;
 	}
 	if (result)
@@ -46,11 +46,11 @@ int sub_41DDB0() {
 	wchar_t* v2; // eax
 	wchar_t* v3; // eax
 
-	if (!*(_DWORD*)&byte_587000[58232]) {
+	if (!*(_DWORD*)getMemAt(0x587000, 58232)) {
 		sub_40D250();
 		return 1;
 	}
-	v0 = *(_DWORD*)&byte_587000[58232];
+	v0 = *(_DWORD*)getMemAt(0x587000, 58232);
 	do {
 		v1 = sub_41E2F0();
 		switch (sub_41DCC0(v1)) {
@@ -59,38 +59,38 @@ int sub_41DDB0() {
 					sub_468F30_wol_reg();
 					break;
 				}
-				if (*(_WORD*)&byte_5D4594[2660140]) {
-					sub_468DF0((wchar_t*)&byte_5D4594[2660140]);
+				if (*(_WORD*)getMemAt(0x5D4594, 2660140)) {
+					sub_468DF0((wchar_t*)getMemAt(0x5D4594, 2660140));
 					break;
 				}
 				switch (dword_5d4594_2660652 + 2147221403) {
 					case 0:
-						v2 = loadString_sub_40F1D0((char*)&byte_587000[58748], 0,
+						v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 58748), 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 414);
-						nox_wcscpy((wchar_t*)&byte_5D4594[2660140], v2);
+						nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 2660140), v2);
 						break;
 					case 1:
-						v3 = loadString_sub_40F1D0((char*)&byte_587000[58800], 0,
+						v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 58800), 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 418);
-						nox_swprintf((wchar_t*)&byte_5D4594[2660140], v3);
+						nox_swprintf((wchar_t*)getMemAt(0x5D4594, 2660140), v3);
 						break;
 					case 155:
-						v3 = loadString_sub_40F1D0((char*)&byte_587000[58848], 0,
+						v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 58848), 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 422);
-						nox_swprintf((wchar_t*)&byte_5D4594[2660140], v3);
+						nox_swprintf((wchar_t*)getMemAt(0x5D4594, 2660140), v3);
 						break;
 					case 156:
-						v3 = loadString_sub_40F1D0((char*)&byte_587000[58904], 0,
+						v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 58904), 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 426);
-						nox_swprintf((wchar_t*)&byte_5D4594[2660140], v3);
+						nox_swprintf((wchar_t*)getMemAt(0x5D4594, 2660140), v3);
 						break;
 					default:
-						v3 = loadString_sub_40F1D0((char*)&byte_587000[58956], 0,
+						v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 58956), 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 430);
-						nox_swprintf((wchar_t*)&byte_5D4594[2660140], v3);
+						nox_swprintf((wchar_t*)getMemAt(0x5D4594, 2660140), v3);
 						break;
 				}
-				sub_468DF0((wchar_t*)&byte_5D4594[2660140]);
+				sub_468DF0((wchar_t*)getMemAt(0x5D4594, 2660140));
 				break;
 			case 20:
 				sub_468E60(0);
