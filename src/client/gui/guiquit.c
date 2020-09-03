@@ -23,15 +23,15 @@ int sub_445790() {
 	dword_5d4594_825760 = result;
 	if (result) {
 		nox_window_set_all_funcs((_DWORD*)result, sub_445BB0, sub_445BC0, 0);
-		*(_DWORD*)(dword_5d4594_825760 + 56) = *(_DWORD*)&byte_5D4594[2650656];
+		*(_DWORD*)(dword_5d4594_825760 + 56) = *(_DWORD*)getMemAt(0x5D4594, 2650656);
 		*(_DWORD*)(dword_5d4594_825760 + 16) = (nox_win_width - *(_DWORD*)(dword_5d4594_825760 + 8)) / 2;
 		*(_DWORD*)(dword_5d4594_825760 + 24) =
 			*(_DWORD*)(dword_5d4594_825760 + 8) + *(_DWORD*)(dword_5d4594_825760 + 16);
 		sub_445C40();
 		dword_5d4594_825752 = 0;
 		dword_5d4594_825768 = 0;
-		v1 = loadString_sub_40F1D0((char*)&byte_587000[108044], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 309);
-		nox_swprintf((wchar_t*)&byte_5D4594[825772], L"%s", v1);
+		v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108044), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 309);
+		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 825772), L"%s", v1);
 		result = 1;
 	}
 	return result;
@@ -76,9 +76,9 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4) {
 			result = 0;
 		} else {
 			v23 =
-				loadString_sub_40F1D0((char*)&byte_587000[108224], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 199);
+				loadString_sub_40F1D0((char*)getMemAt(0x587000, 108224), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 199);
 			v15 =
-				loadString_sub_40F1D0((char*)&byte_587000[108288], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 198);
+				loadString_sub_40F1D0((char*)getMemAt(0x587000, 108288), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 198);
 			sub_449A10(0, (int)v15, (int)v23, 56, sub_445B40, sub_445BA0);
 			v16 = a3[9];
 			LOBYTE(v16) = v16 & 0xFD;
@@ -87,7 +87,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4) {
 		}
 		break;
 	case 9002:
-		v18 = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 120);
+		v18 = *(_DWORD*)(*(_DWORD*)getMemAt(0x5D4594, 2614252) + 120);
 		if ((v18 & 0x8000) == 0) {
 			sub_445C40();
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
@@ -119,8 +119,8 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4) {
 		break;
 	case 9004:
 		sub_46ADE0(*(int*)&dword_5d4594_825760);
-		v22 = loadString_sub_40F1D0((char*)&byte_587000[108096], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 185);
-		v13 = loadString_sub_40F1D0((char*)&byte_587000[108160], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 184);
+		v22 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108096), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 185);
+		v13 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108160), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 184);
 		sub_449A10(*(int*)&dword_5d4594_825760, (int)v13, (int)v22, 56, sub_445B20, sub_445B30);
 		v14 = a3[9];
 		LOBYTE(v14) = v14 & 0xFD;
@@ -139,7 +139,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4) {
 		goto LABEL_11;
 	case 9007:
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			v8 = sub_417040(*(int*)&byte_5D4594[2616328]);
+			v8 = sub_417040(*(int*)getMemAt(0x5D4594, 2616328));
 			sub_443E90((int)v8, 0, 0);
 		LABEL_11:
 			sub_445C40();
@@ -194,8 +194,8 @@ void* sub_445B40() {
 	sub_413A00(0);
 	result = sub_4DB790("AUTOSAVE");
 	if (!result) {
-		v2 = loadString_sub_40F1D0((char*)&byte_587000[108368], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 88);
-		v1 = loadString_sub_40F1D0((char*)&byte_587000[108432], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 87);
+		v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108368), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 88);
+		v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108432), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 87);
 		result = sub_449A10(0, (int)v1, (int)v2, 33, 0, 0);
 	}
 	return result;
@@ -227,8 +227,8 @@ void sub_445C40() {
 	wchar_t* v21; // [esp-4h] [ebp-8h]
 
 	if (sub_46ADA0(*(int*)&dword_5d4594_825760) & 0x10) {
-		if (!*(_DWORD*)&byte_5D4594[2614252] || !nox_common_gameFlags_check_40A5C0(2048) ||
-			(result = *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 276), result != 2) && result != 1 && result != 51) {
+		if (!*(_DWORD*)getMemAt(0x5D4594, 2614252) || !nox_common_gameFlags_check_40A5C0(2048) ||
+			(result = *(_DWORD*)(*(_DWORD*)getMemAt(0x5D4594, 2614252) + 276), result != 2) && result != 1 && result != 51) {
 			if (sub_45D9B0() != 1) {
 				if (sub_413A50() != 1) {
 					sub_452D80(921, 100);
@@ -236,7 +236,7 @@ void sub_445C40() {
 					*(_DWORD*)(dword_5d4594_825760 + 4) |= 8u;
 					sub_46ADC0(*(int*)&dword_5d4594_825760);
 					if (nox_common_gameFlags_check_40A5C0(2048)) {
-						v20 = loadString_sub_40F1D0((char*)&byte_587000[108496], 0,
+						v20 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108496), 0,
 													"C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 396);
 						v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9003);
 						sub_46AEE0((int)v1, (int)v20);
@@ -255,7 +255,7 @@ void sub_445C40() {
 						sub_413A00(1);
 						sub_46AB20(*(_DWORD**)&dword_5d4594_825760, 220, 285);
 					} else {
-						v21 = loadString_sub_40F1D0((char*)&byte_587000[108548], 0,
+						v21 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108548), 0,
 													"C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 427);
 						v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9003);
 						sub_46AEE0((int)v8, (int)v21);
@@ -270,7 +270,7 @@ void sub_445C40() {
 						nox_window_set_hidden((int)v12, 0);
 						v13 = sub_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9009);
 						nox_window_set_hidden((int)v13, 0);
-						sub_46AEE0((int)v13, (int)&byte_5D4594[825772]);
+						sub_46AEE0((int)v13, (int)getMemAt(0x5D4594, 825772));
 						if (nox_common_gameFlags_check_40A5C0(49152) || !sub_417DD0())
 							sub_46ABB0((int)v13, 0);
 						else
@@ -314,8 +314,8 @@ void sub_446190() {
 
 	dword_5d4594_825764 = 0;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
-		v1 = loadString_sub_40F1D0((char*)&byte_587000[108608], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 667);
-		sub_413D30((char*)&byte_587000[108632], v1);
+		v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108608), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 667);
+		sub_413D30((char*)getMemAt(0x587000, 108632), v1);
 	}
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		sub_43C260();
@@ -330,7 +330,7 @@ void sub_446190() {
 	}
 	if (!dword_5d4594_825768) {
 		dword_5d4594_825752 = 0;
-		dword_5d4594_825768 = *(_DWORD*)&byte_5D4594[2598000];
+		dword_5d4594_825768 = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			if (sub_43AF70() == 1 && nox_common_gameFlags_check_40A5C0(49152))
 				sub_416150(15, 0);
@@ -342,9 +342,9 @@ void sub_446190() {
 			if (dword_5d4594_825752 > 0) {
 				v4 = -57;
 				sub_4E5420(159, &v4, 1, 0, 1);
-				v3 = loadString_sub_40F1D0((char*)&byte_587000[108672], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
+				v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108672), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
 										   737);
-				v2 = loadString_sub_40F1D0((char*)&byte_587000[108724], 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
+				v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108724), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
 										   736);
 				sub_449A10(0, (int)v2, (int)v3, 0, 0, 0);
 				sub_44A360(1);
