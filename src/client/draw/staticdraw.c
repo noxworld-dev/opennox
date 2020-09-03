@@ -29,7 +29,7 @@ bool __cdecl nox_things_static_draw_parse(nox_thing* obj, nox_memfile* f, char* 
 	data[0] = 8;
 	v6 = a3;
 	v8 = nox_memfile_read_u32(f);
-	*a3 = byte_5D4594[830856];
+	*a3 = getMemByte(0x5D4594, 830856);
 	if (v8 == -1) {
 		LOBYTE(a3) = nox_memfile_read_u8(f);
 		v11 = nox_memfile_read_u8(f);
