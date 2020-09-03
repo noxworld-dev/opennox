@@ -30,29 +30,29 @@ int __cdecl sub_49B4B0(unsigned __int16* a1) {
 	nox_window_get_size(*(int*)&dword_5d4594_1303452, &v15, &v14);
 	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1303452, nox_win_width / 2 - v15 / 2, nox_win_height / 2 - v14 / 2);
 	v11 = a1[1];
-	v1 = loadString_sub_40F1D0((char*)&byte_587000[163344], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 178);
-	nox_swprintf((wchar_t*)&byte_5D4594[1302172], v1, v11);
+	v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 163344), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 178);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1302172), v1, v11);
 	v12 = a1[2];
-	v2 = loadString_sub_40F1D0((char*)&byte_587000[163416], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 181);
-	nox_swprintf((wchar_t*)&byte_5D4594[1301916], v2, v12);
+	v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 163416), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 181);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1301916), v2, v12);
 	v13 = a1[3];
-	v3 = loadString_sub_40F1D0((char*)&byte_587000[163484], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 183);
-	nox_swprintf((wchar_t*)&byte_5D4594[1302428], v3, v13);
-	nox_swprintf((wchar_t*)&byte_5D4594[1303196], (const wchar_t*)&byte_5D4594[1303460]);
+	v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 163484), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 183);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1302428), v3, v13);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1303196), (const wchar_t*)getMemAt(0x5D4594, 1303460));
 	v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10710);
-	sub_46AEE0((int)v4, (int)&byte_5D4594[1302172]);
+	sub_46AEE0((int)v4, (int)getMemAt(0x5D4594, 1302172));
 	v5 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10705);
-	sub_46AEE0((int)v5, (int)&byte_5D4594[1302940]);
+	sub_46AEE0((int)v5, (int)getMemAt(0x5D4594, 1302940));
 	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10706);
-	sub_46AEE0((int)v6, (int)&byte_5D4594[1302684]);
+	sub_46AEE0((int)v6, (int)getMemAt(0x5D4594, 1302684));
 	v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10707);
-	sub_46AEE0((int)v7, (int)&byte_5D4594[1301916]);
+	sub_46AEE0((int)v7, (int)getMemAt(0x5D4594, 1301916));
 	v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10708);
-	sub_46AEE0((int)v8, (int)&byte_5D4594[1302428]);
+	sub_46AEE0((int)v8, (int)getMemAt(0x5D4594, 1302428));
 	v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10711);
-	sub_46AEE0((int)v9, (int)&byte_5D4594[1303196]);
-	result = *(_DWORD*)&byte_5D4594[2598000];
-	*(_DWORD*)&byte_5D4594[1303456] = *(_DWORD*)&byte_5D4594[2598000];
+	sub_46AEE0((int)v9, (int)getMemAt(0x5D4594, 1303196));
+	result = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+	*(_DWORD*)getMemAt(0x5D4594, 1303456) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
 	return result;
 }
 
@@ -68,20 +68,20 @@ int sub_49B6E0() {
 	if (dword_5d4594_1303452) {
 		result = wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1303452);
 		if (!result) {
-			v1 = *(_DWORD*)&byte_5D4594[1303456] + 30 * *(_DWORD*)&byte_5D4594[2649704] -
-				 *(_DWORD*)&byte_5D4594[2598000];
+			v1 = *(_DWORD*)getMemAt(0x5D4594, 1303456) + 30 * *(_DWORD*)getMemAt(0x5D4594, 2649704) -
+				 *(_DWORD*)getMemAt(0x5D4594, 2598000);
 			if (v1 < 0)
 				v1 = 0;
-			if (*(_DWORD*)&byte_5D4594[2618908] && *(_BYTE*)(*(_DWORD*)&byte_5D4594[2618908] + 2064) == 31) {
-				nox_wcscpy((wchar_t*)&byte_5D4594[1301852], (const wchar_t*)&byte_5D4594[1303464]);
+			if (*(_DWORD*)getMemAt(0x5D4594, 2618908) && *(_BYTE*)(*(_DWORD*)getMemAt(0x5D4594, 2618908) + 2064) == 31) {
+				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1301852), (const wchar_t*)getMemAt(0x5D4594, 1303464));
 			} else {
-				v4 = (unsigned int)v1 / *(_DWORD*)&byte_5D4594[2649704];
-				v2 = loadString_sub_40F1D0((char*)&byte_587000[163544], 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c",
+				v4 = (unsigned int)v1 / *(_DWORD*)getMemAt(0x5D4594, 2649704);
+				v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 163544), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c",
 										   265);
-				nox_swprintf((wchar_t*)&byte_5D4594[1301852], L"%s - %d", v2, v4);
+				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1301852), L"%s - %d", v2, v4);
 			}
 			v3 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10712);
-			result = sub_46AEE0((int)v3, (int)&byte_5D4594[1301852]);
+			result = sub_46AEE0((int)v3, (int)getMemAt(0x5D4594, 1301852));
 		}
 	}
 	return result;
