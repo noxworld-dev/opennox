@@ -24,12 +24,12 @@ void __cdecl sub_57AF30(int a1, int a2) {
 		if (a2 != 1) {
 			v3 = *(_DWORD**)&dword_5d4594_2523776;
 		} else {
-			v3 = sub_4E3810((CHAR *) &byte_587000[312708]);
+			v3 = sub_4E3810((CHAR *) getMemAt(0x587000, 312708));
 			v2 = dword_5d4594_2523780;
 			dword_5d4594_2523776 = v3;
 		}
 	} else {
-		v3 = sub_4E3810((CHAR*)&byte_587000[312700]);
+		v3 = sub_4E3810((CHAR*)getMemAt(0x587000, 312700));
 		v2 = dword_5d4594_2523780;
 		dword_5d4594_2523776 = v3;
 	}
@@ -51,7 +51,7 @@ void __cdecl sub_57AF30(int a1, int a2) {
 			goto LABEL_29;
 		}
 		sub_501960(902, v2, 2, *(_DWORD *) (v2 + 36));
-		v4 = loadString_sub_40F1D0((char *) &byte_587000[312764], 0,
+		v4 = loadString_sub_40F1D0((char *) getMemAt(0x587000, 312764), 0,
 								   "C:\\NoxPost\\src\\common\\GameMech\\PauseFX.c", 109);
 		sub_4D9EB0(*(int *) &dword_5d4594_2523780, v4);
 		v2 = dword_5d4594_2523780;
@@ -62,17 +62,17 @@ void __cdecl sub_57AF30(int a1, int a2) {
 			*(_BYTE*)(v5 + 236) = 4;
 	}
 	if (a2) {
-		*(_DWORD*)&byte_5D4594[2523796] = 0;
+		*(_DWORD*)getMemAt(0x5D4594, 2523796) = 0;
 		if (a2 != 1) {
 			goto LABEL_30;
 		}
 	}
 	LABEL_29:
-	*(_DWORD*)&byte_5D4594[2523796] = 5000;
+	*(_DWORD*)getMemAt(0x5D4594, 2523796) = 5000;
 	LABEL_30:
-	*(_DWORD*)&byte_5D4594[2523800] = 0;
-	*(_DWORD*)&byte_5D4594[2523772] = a2;
+	*(_DWORD*)getMemAt(0x5D4594, 2523800) = 0;
+	*(_DWORD*)getMemAt(0x5D4594, 2523772) = a2;
 	dword_5d4594_2523804 = 1;
 	sub_413A00(1);
-	*(_QWORD*)&byte_5D4594[2523788] = sub_416BB0();
+	*(_QWORD*)getMemAt(0x5D4594, 2523788) = sub_416BB0();
 }
