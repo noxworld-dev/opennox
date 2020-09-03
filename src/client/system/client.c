@@ -43,62 +43,62 @@ void sub_436100_draw() {
 	v0 = sub_416BB0();
 	v1 = HIDWORD(v0);
 	v2 = v0;
-	if ((unsigned int)(v0 - *(_DWORD*)&byte_5D4594[814532]) < *(int*)&byte_587000[85748]) {
+	if ((unsigned int)(v0 - *(_DWORD*)getMemAt(0x5D4594, 814532)) < *(int*)getMemAt(0x587000, 85748)) {
 		v3 = 0;
 	} else {
 		v3 = 1;
 		sub_416D40();
 	}
-	if (!(!*(_DWORD*)&byte_587000[85724] || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
+	if (!(!*(_DWORD*)getMemAt(0x587000, 85724) || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
 		  dword_5d4594_815132 || sub_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 		nox_common_setEngineFlag(NOX_ENGINE_FLAG_32);
 		return;
 	}
-	*(_DWORD*)&byte_5D4594[814532] = v2;
+	*(_DWORD*)getMemAt(0x5D4594, 814532) = v2;
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
-	*(_DWORD*)&byte_5D4594[814536] = v1;
-	*(_DWORD*)&byte_5D4594[811916] = *(_DWORD*)&byte_5D4594[2598000];
-	if (*(_DWORD*)&byte_587000[85744]) {
+	*(_DWORD*)getMemAt(0x5D4594, 814536) = v1;
+	*(_DWORD*)getMemAt(0x5D4594, 811916) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+	if (*(_DWORD*)getMemAt(0x587000, 85744)) {
 		dword_5d4594_811104 = dword_5d4594_811100 * nox_win_height / nox_win_width;
 		v6 = (nox_win_width - dword_5d4594_811100) / 2;
-		*(_DWORD*)&byte_5D4594[811068] = v6;
+		*(_DWORD*)getMemAt(0x5D4594, 811068) = v6;
 		v7 = (nox_win_height - dword_5d4594_811104) / 2;
 		dword_5d4594_811072 = v7;
-		*(_DWORD*)&byte_5D4594[811076] = v6 + dword_5d4594_811100 - 1;
-		*(_DWORD*)&byte_5D4594[811080] = v7 + dword_5d4594_811104 - 1;
+		*(_DWORD*)getMemAt(0x5D4594, 811076) = v6 + dword_5d4594_811100 - 1;
+		*(_DWORD*)getMemAt(0x5D4594, 811080) = v7 + dword_5d4594_811104 - 1;
 	} else {
 		v7 = dword_5d4594_811072;
-		v6 = *(_DWORD*)&byte_5D4594[811068];
+		v6 = *(_DWORD*)getMemAt(0x5D4594, 811068);
 	}
-	sub_430B50(v6, v7, *(int*)&byte_5D4594[811076], *(int*)&byte_5D4594[811080]);
-	if (*(_DWORD*)&byte_5D4594[2616328])
-		*(_DWORD*)&byte_5D4594[2614252] = sub_45A6F0(*(int*)&byte_5D4594[2616328]);
+	sub_430B50(v6, v7, *(int*)getMemAt(0x5D4594, 811076), *(int*)getMemAt(0x5D4594, 811080));
+	if (*(_DWORD*)getMemAt(0x5D4594, 2616328))
+		*(_DWORD*)getMemAt(0x5D4594, 2614252) = sub_45A6F0(*(int*)getMemAt(0x5D4594, 2616328));
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		v8 = !sub_436550();
 		if (v8)
 			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_9);
 		else
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_9);
-		if (!*(_DWORD*)&byte_5D4594[814540])
-			*(_DWORD*)&byte_5D4594[814540] = sub_42F970("MenuSystemBG");
+		if (!*(_DWORD*)getMemAt(0x5D4594, 814540))
+			*(_DWORD*)getMemAt(0x5D4594, 814540) = sub_42F970("MenuSystemBG");
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_9)) {
-			v10 = sub_43F360((char*)&byte_587000[86448]);
-			nox_client_drawImageAt_47D2C0(*(int*)&byte_5D4594[814540], 0, 0);
-			v11 = loadString_sub_40F1D0((char*)&byte_587000[86496], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
+			v10 = sub_43F360((char*)getMemAt(0x587000, 86448));
+			nox_client_drawImageAt_47D2C0(*(int*)getMemAt(0x5D4594, 814540), 0, 0);
+			v11 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86496), 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 										1550);
 			sub_43F840(v10, v11, &v22, 0, 0);
-			sub_434390(*(int*)&byte_5D4594[2523948]);
+			sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
 			v21 = nox_win_height / 2;
 			v20 = (nox_win_width - v22) / 2;
-			v12 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[86548], 0,
+			v12 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 86548), 0,
 												  "C:\\NoxPost\\src\\client\\System\\client.c", 1553);
 			sub_43F6E0(v10, v12, v20, v21);
 		}
-	} else if (*(_DWORD*)&byte_5D4594[2614252] && nox_client_isConnected_43C700()) {
-		sub_475810_draw((int*)&byte_5D4594[811068]);
+	} else if (*(_DWORD*)getMemAt(0x5D4594, 2614252) && nox_client_isConnected_43C700()) {
+		sub_475810_draw((int*)getMemAt(0x5D4594, 811068));
 		sub_4738E0();
 	} else {
-		sub_434350(*(int*)&byte_5D4594[2650656]);
+		sub_434350(*(int*)getMemAt(0x5D4594, 2650656));
 		sub_440900();
 	}
 	if (dword_5d4594_811896)
@@ -106,36 +106,36 @@ void sub_436100_draw() {
 	if (dword_5d4594_811904)
 		sub_436F50();
 	if (nox_common_gameFlags_check_40A5C0(8)) {
-		v13 = sub_416BB0() - *(_QWORD*)&byte_5D4594[811908];
+		v13 = sub_416BB0() - *(_QWORD*)getMemAt(0x5D4594, 811908);
 		v24 = HIDWORD(v13);
 		if (v13 > 0x2710 && !nox_common_gameFlags_check_40A5C0(1))
 			nox_common_gameFlags_unset_40A540(8);
 	}
 	if (nox_common_gameFlags_check_40A5C0(8)) {
-		nox_wcscpy(v25, (const wchar_t*)&byte_5D4594[811376]);
+		nox_wcscpy(v25, (const wchar_t*)getMemAt(0x5D4594, 811376));
 		v14 = (nox_win_width - 310) / 2;
-		v15 = (int*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[811060] + 811888];
+		v15 = (int*)getMemAt(0x5D4594, 4 * *(_DWORD*)getMemAt(0x5D4594, 811060) + 811888);
 		v16 = (nox_win_height - 200) / 2;
-		if (!*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[811060] + 811888]) {
-			v15 = (int*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[811060] + 811888];
-			*v15 = sub_42F970(*(const char**)&byte_587000[4 * *(_DWORD*)&byte_5D4594[811060] + 85712]);
+		if (!*(_DWORD*)getMemAt(0x5D4594, 4 * *(_DWORD*)getMemAt(0x5D4594, 811060) + 811888)) {
+			v15 = (int*)getMemAt(0x5D4594, 4 * *(_DWORD*)getMemAt(0x5D4594, 811060) + 811888);
+			*v15 = sub_42F970(*(const char**)getMemAt(0x587000, 4 * *(_DWORD*)getMemAt(0x5D4594, 811060) + 85712));
 		}
 		nox_client_drawImageAt_47D2C0(*v15, v14, v16);
 		sub_43F840(0, v25, &v22, &v23, 220);
 		v17 = v14 + 45;
 		v18 = v16 + (49 - v23) / 2 + 143;
-		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2523948]);
+		nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2523948));
 		for (i = nox_wcstok(v25, L"\n\r"); i; i = nox_wcstok(0, L"\n\r")) {
-			sub_434390(*(int*)&byte_5D4594[2523948]);
+			sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
 			sub_43F840(0, i, &v22, 0, 0);
 			sub_43FAF0(0, i, v17 + (220 - v22) / 2, v18, 220, 0);
 			v18 += sub_43F320(0);
 		}
 	}
-	if (*(_DWORD*)&byte_587000[85744]) {
+	if (*(_DWORD*)getMemAt(0x587000, 85744)) {
 		sub_430B50(0, 0, nox_win_width - 1, nox_win_height - 1);
 		sub_440900();
-		*(_DWORD*)&byte_587000[85744] = 0;
+		*(_DWORD*)getMemAt(0x587000, 85744) = 0;
 	}
 }
 
@@ -175,92 +175,92 @@ int sub_4365C0() {
 
 	v0 = nox_win_width - 177;
 	v1 = nox_win_height - 80;
-	if (*(int*)&byte_5D4594[814520] >= *(int*)&byte_587000[85740]) {
-		*(_DWORD*)&byte_587000[85740] = *(_DWORD*)&byte_5D4594[814520] + 10;
+	if (*(int*)getMemAt(0x5D4594, 814520) >= *(int*)getMemAt(0x587000, 85740)) {
+		*(_DWORD*)getMemAt(0x587000, 85740) = *(_DWORD*)getMemAt(0x5D4594, 814520) + 10;
 		v2 = nox_get_ticks();
-		v3 = 0x2710 / (v2 - *(_DWORD*)&byte_5D4594[814528]);
-		*(_DWORD*)&byte_5D4594[814524] = v2;
-		*(_DWORD*)&byte_5D4594[814528] = v2;
-		*(_DWORD*)&byte_587000[85732] = v3;
+		v3 = 0x2710 / (v2 - *(_DWORD*)getMemAt(0x5D4594, 814528));
+		*(_DWORD*)getMemAt(0x5D4594, 814524) = v2;
+		*(_DWORD*)getMemAt(0x5D4594, 814528) = v2;
+		*(_DWORD*)getMemAt(0x587000, 85732) = v3;
 	}
-	sub_436AA0(*(int*)&byte_587000[85732]);
+	sub_436AA0(*(int*)getMemAt(0x587000, 85732));
 	sub_436C40();
 	sub_436DF0(*(int*)&dword_5d4594_2614264);
 	if (dword_5d4594_805836) {
-		sub_434390(*(int*)&byte_5D4594[2618904]);
+		sub_434390(*(int*)getMemAt(0x5D4594, 2618904));
 		v23 = v1;
 		v18 = v0;
-		v4 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[86616], 0,
+		v4 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 86616), 0,
 											 "C:\\NoxPost\\src\\client\\System\\client.c", 1150);
 	} else {
-		sub_434390(*(int*)&byte_5D4594[2650644]);
+		sub_434390(*(int*)getMemAt(0x5D4594, 2650644));
 		v23 = v1;
 		v18 = v0;
-		v4 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[86660], 0,
+		v4 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 86660), 0,
 											 "C:\\NoxPost\\src\\client\\System\\client.c", 1155);
 	}
 	sub_43F6E0(0, v4, v18, v23);
 	v5 = v1 + 10;
-	v24 = *(_DWORD*)&byte_5D4594[2598000];
-	v6 = loadString_sub_40F1D0((char*)&byte_587000[86708], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1159);
-	nox_swprintf((wchar_t*)&byte_5D4594[810900], v6, v24);
-	sub_434390(*(int*)&byte_5D4594[2523948]);
-	sub_43F6E0(0, (__int16*)&byte_5D4594[810900], v0, v5);
+	v24 = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+	v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86708), 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1159);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v6, v24);
+	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), v0, v5);
 	v5 += 10;
 	v7 = sub_43C760();
-	v8 = loadString_sub_40F1D0((char*)&byte_587000[86756], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1165);
-	nox_swprintf((wchar_t*)&byte_5D4594[810900], v8, v7);
-	sub_434390(*(int*)&byte_5D4594[2523948]);
-	sub_43F6E0(0, (__int16*)&byte_5D4594[810900], v0, v5);
+	v8 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86756), 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1165);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v8, v7);
+	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), v0, v5);
 	sub_436970(v7);
 	v5 += 10;
 	v25 = nox_get_drawable_count();
-	v9 = loadString_sub_40F1D0((char*)&byte_587000[86808], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1172);
-	nox_swprintf((wchar_t*)&byte_5D4594[810900], v9, v25);
-	sub_434390(*(int*)&byte_5D4594[2523948]);
-	sub_43F6E0(0, (__int16*)&byte_5D4594[810900], v0, v5);
+	v9 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86808), 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1172);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v9, v25);
+	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), v0, v5);
 	v5 += 10;
-	v26 = *(_DWORD*)&byte_5D4594[2649824];
+	v26 = *(_DWORD*)getMemAt(0x5D4594, 2649824);
 	v19 = dword_5d4594_2618900;
-	v10 = loadString_sub_40F1D0((char*)&byte_587000[86860], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1177);
-	nox_swprintf((wchar_t*)&byte_5D4594[810900], v10, v19, v26);
-	sub_43F6E0(0, (__int16*)&byte_5D4594[810900], v0, v5);
+	v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86860), 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1177);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v10, v19, v26);
+	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), v0, v5);
 	v5 += 10;
-	v27 = *(_DWORD*)&byte_587000[85732];
+	v27 = *(_DWORD*)getMemAt(0x587000, 85732);
 	v20 = dword_5d4594_2614264;
-	v11 = loadString_sub_40F1D0((char*)&byte_587000[86912], 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1181);
-	nox_swprintf((wchar_t*)&byte_5D4594[810900], v11, v20, v27);
-	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650656]);
+	v11 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86912), 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1181);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v11, v20, v27);
+	nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650656));
 	nox_client_drawRectFilledOpaque_49CE30(v0 + 80, v5, 16, 8);
-	sub_43F6E0(0, (__int16*)&byte_5D4594[810900], v0, v5);
+	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), v0, v5);
 	v12 = 200;
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		if (i[3680] & 8) {
-			v21 = loadString_sub_40F1D0((char*)&byte_587000[86960], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
+			v21 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86960), 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 										1201);
-			nox_swprintf((wchar_t*)&byte_5D4594[810900], v21, i + 4704);
+			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v21, i + 4704);
 		} else {
-			nox_swprintf((wchar_t*)&byte_5D4594[810900], L"%s", i + 4704);
+			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), L"%s", i + 4704);
 		}
-		sub_43F6E0(0, (__int16*)&byte_5D4594[810900], 10, v12);
+		sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), 10, v12);
 		sub_4E5630(i[2064], &v31, &v30, &v29);
 		v28 = v29;
 		v22 = v30;
 		v17 = v31;
 		if (i[2064] == 31) {
 			v16 = sub_553ED0(0);
-			v14 = loadString_sub_40F1D0((char*)&byte_587000[87016], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
+			v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 87016), 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 										1211);
 		} else {
 			v16 = sub_553ED0((unsigned __int8)i[2064] + 1);
-			v14 = loadString_sub_40F1D0((char*)&byte_587000[87072], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
+			v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 87072), 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 										1216);
 		}
-		nox_swprintf((wchar_t*)&byte_5D4594[810900], v14, v16, v17, v22, v28);
-		sub_43F6E0(0, (__int16*)&byte_5D4594[810900], 70, v12);
+		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v14, v16, v17, v22, v28);
+		sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), 70, v12);
 		v12 += 10;
 	}
-	return ++*(_DWORD*)&byte_5D4594[814520];
+	return ++*(_DWORD*)getMemAt(0x5D4594, 814520);
 }
 
 //----- (00436970) --------------------------------------------------------
@@ -278,27 +278,27 @@ int __cdecl sub_436970(int a1) {
 
 	v9 = nox_win_height - 1;
 	v1 = nox_win_height - 31;
-	sub_434390(*(int*)&byte_5D4594[2523948]);
+	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
 	v8 = v1 - sub_43F320(0);
-	v2 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[87128], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
+	v2 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 87128), 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 										 323);
 	sub_43F6E0(0, v2, 0, v8);
-	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650660]);
+	nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650660));
 	nox_client_drawBorderLines_49CC70(0, v1, nox_win_width, 31);
-	v3 = *(_DWORD*)&byte_5D4594[812452];
-	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[812452] + 811940] = a1 / 4;
+	v3 = *(_DWORD*)getMemAt(0x5D4594, 812452);
+	*(_DWORD*)getMemAt(0x5D4594, 4 * *(_DWORD*)getMemAt(0x5D4594, 812452) + 811940) = a1 / 4;
 	if (a1 / 4 > 30)
-		*(_DWORD*)&byte_5D4594[4 * v3 + 811940] = 30;
+		*(_DWORD*)getMemAt(0x5D4594, 4 * v3 + 811940) = 30;
 	v4 = (v3 + 1) % 128;
-	*(_DWORD*)&byte_5D4594[812452] = (v3 + 1) % 128;
+	*(_DWORD*)getMemAt(0x5D4594, 812452) = (v3 + 1) % 128;
 	v5 = 0;
 	v6 = nox_win_width / 128;
-	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2589772]);
+	nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2589772));
 	v10 = 127;
 	do {
-		nox_client_drawAddPoint_49F500(v5, v9 - *(_DWORD*)&byte_5D4594[4 * v4 + 811940]);
+		nox_client_drawAddPoint_49F500(v5, v9 - *(_DWORD*)getMemAt(0x5D4594, 4 * v4 + 811940));
 		v5 += v6;
-		nox_client_drawAddPoint_49F500(v5, v9 - *(_DWORD*)&byte_5D4594[4 * ((v4 + 1) % 128) + 811940]);
+		nox_client_drawAddPoint_49F500(v5, v9 - *(_DWORD*)getMemAt(0x5D4594, 4 * ((v4 + 1) % 128) + 811940));
 		nox_client_drawLineFromPoints_49E4B0();
 		v4 = (v4 + 1) % 128;
 		result = --v10;
@@ -327,12 +327,12 @@ int __cdecl sub_436AA0(int a1) {
 
 	v1 = sub_43F320(0);
 	v2 = v1 + 30;
-	sub_434390(*(int*)&byte_5D4594[2523948]);
+	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
 	v14 = v1 - sub_43F320(0);
-	v3 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[87180], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
+	v3 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 87180), 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 										 368);
 	sub_43F6E0(0, v3, 0, v14);
-	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650660]);
+	nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650660));
 	v4 = v1;
 	v5 = 4;
 	do {
@@ -348,29 +348,29 @@ int __cdecl sub_436AA0(int a1) {
 	nox_client_drawAddPoint_49F500(nox_win_width - 1, v1);
 	nox_client_drawAddPoint_49F500(nox_win_width - 1, v1 + 30);
 	nox_client_drawLineFromPoints_49E4B0();
-	v6 = *(_DWORD*)&byte_5D4594[812968] + 1;
-	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[812968] + 812456] = 10 * a1 / 10;
-	*(_DWORD*)&byte_5D4594[812968] = v6 % 128;
+	v6 = *(_DWORD*)getMemAt(0x5D4594, 812968) + 1;
+	*(_DWORD*)getMemAt(0x5D4594, 4 * *(_DWORD*)getMemAt(0x5D4594, 812968) + 812456) = 10 * a1 / 10;
+	*(_DWORD*)getMemAt(0x5D4594, 812968) = v6 % 128;
 	v7 = v6 % 128;
 	v16 = 127;
 	v8 = nox_win_width / 128;
 	v9 = 0;
 	do {
 		v15 = (v7 + 1) % 128;
-		v10 = *(_DWORD*)&byte_5D4594[4 * v7 + 812456];
+		v10 = *(_DWORD*)getMemAt(0x5D4594, 4 * v7 + 812456);
 		if (v10 >= 10) {
 			v12 = v10 < 20;
-			v11 = *(_DWORD*)&byte_5D4594[2589772];
+			v11 = *(_DWORD*)getMemAt(0x5D4594, 2589772);
 			if (!v12)
-				v11 = *(_DWORD*)&byte_5D4594[2618904];
+				v11 = *(_DWORD*)getMemAt(0x5D4594, 2618904);
 		} else {
-			v11 = *(_DWORD*)&byte_5D4594[2650644];
+			v11 = *(_DWORD*)getMemAt(0x5D4594, 2650644);
 		}
 		nox_client_drawSetColor_434460(v11);
-		nox_client_drawAddPoint_49F500(v9, v2 - *(_DWORD*)&byte_5D4594[4 * v7 + 812456]);
+		nox_client_drawAddPoint_49F500(v9, v2 - *(_DWORD*)getMemAt(0x5D4594, 4 * v7 + 812456));
 		v7 = (v7 + 1) % 128;
 		v9 += v8;
-		nox_client_drawAddPoint_49F500(v9, v2 - *(_DWORD*)&byte_5D4594[4 * v15 + 812456]);
+		nox_client_drawAddPoint_49F500(v9, v2 - *(_DWORD*)getMemAt(0x5D4594, 4 * v15 + 812456));
 		nox_client_drawLineFromPoints_49E4B0();
 		result = --v16;
 	} while (v16);
@@ -394,38 +394,38 @@ int sub_436C40() {
 	int v12;       // [esp+0h] [ebp-8h]
 	int v13;       // [esp+4h] [ebp-4h]
 
-	sub_434390(*(int*)&byte_5D4594[2523948]);
+	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
 	v11 = 60 - sub_43F320(0);
-	v0 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[87224], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
+	v0 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 87224), 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 										 428);
 	sub_43F6E0(0, v0, 0, v11);
-	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650660]);
+	nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650660));
 	nox_client_drawBorderLines_49CC70(0, 60, nox_win_width, 31);
-	v1 = *(_DWORD*)&byte_5D4594[813996];
-	v2 = 30 * *(_DWORD*)&byte_5D4594[811928] / 0x64u;
-	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[813996] + 812972] = v2;
+	v1 = *(_DWORD*)getMemAt(0x5D4594, 813996);
+	v2 = 30 * *(_DWORD*)getMemAt(0x5D4594, 811928) / 0x64u;
+	*(_DWORD*)getMemAt(0x5D4594, 4 * *(_DWORD*)getMemAt(0x5D4594, 813996) + 812972) = v2;
 	if (v2 > 30)
-		*(_DWORD*)&byte_5D4594[4 * v1 + 812972] = 30;
-	v3 = 30 * *(_DWORD*)&byte_5D4594[811936] / 0x64u;
-	*(_DWORD*)&byte_5D4594[4 * v1 + 813484] = v3;
+		*(_DWORD*)getMemAt(0x5D4594, 4 * v1 + 812972) = 30;
+	v3 = 30 * *(_DWORD*)getMemAt(0x5D4594, 811936) / 0x64u;
+	*(_DWORD*)getMemAt(0x5D4594, 4 * v1 + 813484) = v3;
 	if (v3 > 30)
-		*(_DWORD*)&byte_5D4594[4 * v1 + 813484] = 30;
+		*(_DWORD*)getMemAt(0x5D4594, 4 * v1 + 813484) = 30;
 	v4 = (v1 + 1) % 128;
-	*(_DWORD*)&byte_5D4594[813996] = (v1 + 1) % 128;
+	*(_DWORD*)getMemAt(0x5D4594, 813996) = (v1 + 1) % 128;
 	v12 = 127;
 	v5 = nox_win_width / 128;
 	v13 = nox_win_width / 128;
 	v6 = 0;
 	while (1) {
 		v7 = (v4 + 1) % 128;
-		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650684]);
-		nox_client_drawAddPoint_49F500(v6, 90 - *(_DWORD*)&byte_5D4594[4 * v4 + 812972]);
+		nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650684));
+		nox_client_drawAddPoint_49F500(v6, 90 - *(_DWORD*)getMemAt(0x5D4594, 4 * v4 + 812972));
 		v8 = v6 + v5;
-		nox_client_drawAddPoint_49F500(v8, 90 - *(_DWORD*)&byte_5D4594[4 * v7 + 812972]);
+		nox_client_drawAddPoint_49F500(v8, 90 - *(_DWORD*)getMemAt(0x5D4594, 4 * v7 + 812972));
 		nox_client_drawLineFromPoints_49E4B0();
-		nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650644]);
-		nox_client_drawAddPoint_49F500(v6, 90 - *(_DWORD*)&byte_5D4594[4 * v4 + 813484]);
-		nox_client_drawAddPoint_49F500(v8, 90 - *(_DWORD*)&byte_5D4594[4 * v7 + 813484]);
+		nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650644));
+		nox_client_drawAddPoint_49F500(v6, 90 - *(_DWORD*)getMemAt(0x5D4594, 4 * v4 + 813484));
+		nox_client_drawAddPoint_49F500(v8, 90 - *(_DWORD*)getMemAt(0x5D4594, 4 * v7 + 813484));
 		nox_client_drawLineFromPoints_49E4B0();
 		v6 = v8;
 		result = v12 - 1;
@@ -459,36 +459,36 @@ int __cdecl sub_436DF0(int a1) {
 
 	v1 = nox_win_height - 80;
 	v14 = nox_win_height - 80 + 30;
-	sub_434390(*(int*)&byte_5D4594[2523948]);
+	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
 	v13 = v1 - sub_43F320(0);
-	v2 = (__int16*)loadString_sub_40F1D0((char*)&byte_587000[87276], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
+	v2 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 87276), 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 										 478);
 	sub_43F6E0(0, v2, 0, v13);
-	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650660]);
+	nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650660));
 	nox_client_drawBorderLines_49CC70(0, v1, nox_win_width, 31);
-	v3 = *(_DWORD*)&byte_5D4594[814512];
+	v3 = *(_DWORD*)getMemAt(0x5D4594, 814512);
 	v4 = 30 * a1 / 500;
-	*(_DWORD*)&byte_5D4594[4 * *(_DWORD*)&byte_5D4594[814512] + 814000] = v4;
+	*(_DWORD*)getMemAt(0x5D4594, 4 * *(_DWORD*)getMemAt(0x5D4594, 814512) + 814000) = v4;
 	if (v4 > 30)
-		*(_DWORD*)&byte_5D4594[4 * v3 + 814000] = 30;
+		*(_DWORD*)getMemAt(0x5D4594, 4 * v3 + 814000) = 30;
 	v5 = (v3 + 1) % 128;
-	*(_DWORD*)&byte_5D4594[814512] = (v3 + 1) % 128;
+	*(_DWORD*)getMemAt(0x5D4594, 814512) = (v3 + 1) % 128;
 	v15 = 127;
 	v6 = nox_win_width / 128;
 	v7 = 0;
 	do {
-		v8 = *(_DWORD*)&byte_5D4594[4 * v5 + 814000];
+		v8 = *(_DWORD*)getMemAt(0x5D4594, 4 * v5 + 814000);
 		if (v8 >= 100) {
 			v10 = v8 < 350;
-			v9 = *(_DWORD*)&byte_5D4594[2589772];
+			v9 = *(_DWORD*)getMemAt(0x5D4594, 2589772);
 			if (!v10)
-				v9 = *(_DWORD*)&byte_5D4594[2650644];
+				v9 = *(_DWORD*)getMemAt(0x5D4594, 2650644);
 		} else {
-			v9 = *(_DWORD*)&byte_5D4594[2618904];
+			v9 = *(_DWORD*)getMemAt(0x5D4594, 2618904);
 		}
 		nox_client_drawSetColor_434460(v9);
-		nox_client_drawAddPoint_49F500(v7, v14 - *(_DWORD*)&byte_5D4594[4 * v5 + 814000]);
-		nox_client_drawAddPoint_49F500(v7 + v6, v14 - *(_DWORD*)&byte_5D4594[4 * ((v5 + 1) % 128) + 814000]);
+		nox_client_drawAddPoint_49F500(v7, v14 - *(_DWORD*)getMemAt(0x5D4594, 4 * v5 + 814000));
+		nox_client_drawAddPoint_49F500(v7 + v6, v14 - *(_DWORD*)getMemAt(0x5D4594, 4 * ((v5 + 1) % 128) + 814000));
 		nox_client_drawLineFromPoints_49E4B0();
 		v7 += v6;
 		result = v15 - 1;
@@ -516,26 +516,26 @@ int sub_436F50() {
 	v1 = sub_437250();
 	v2 = *(_DWORD*)v1 + 10;
 	v3 = *((_DWORD*)v1 + 1) + 90;
-	sub_434390(*(int*)&byte_5D4594[2523948]);
+	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
 	v4 = nox_server_currentMapGetFilename_409B30();
-	nox_swprintf((wchar_t*)&byte_5D4594[811120], L"%S", v4);
-	sub_43F6E0(0, (__int16*)&byte_5D4594[811120], v2, v3);
-	result = *(_DWORD*)&byte_5D4594[2614252];
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), L"%S", v4);
+	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 811120), v2, v3);
+	result = *(_DWORD*)getMemAt(0x5D4594, 2614252);
 	v6 = v0 + v3;
-	if (*(_DWORD*)&byte_5D4594[2614252]) {
-		if (*(_DWORD*)&byte_5D4594[2618908]) {
-			nox_swprintf((wchar_t*)&byte_5D4594[811120], L"X:%d\tY:%d",
-						 *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 12),
-						 *(_DWORD*)(*(_DWORD*)&byte_5D4594[2614252] + 16));
-			sub_43F6E0(0, (__int16*)&byte_5D4594[811120], v2, v6);
+	if (*(_DWORD*)getMemAt(0x5D4594, 2614252)) {
+		if (*(_DWORD*)getMemAt(0x5D4594, 2618908)) {
+			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), L"X:%d\tY:%d",
+						 *(_DWORD*)(*(_DWORD*)getMemAt(0x5D4594, 2614252) + 12),
+						 *(_DWORD*)(*(_DWORD*)getMemAt(0x5D4594, 2614252) + 16));
+			sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 811120), v2, v6);
 			v9 = loadString_sub_40F1D0(
-				*(char**)&byte_587000[4 * *(unsigned __int8*)(*(_DWORD*)&byte_5D4594[2618908] + 2251) + 29456], 0,
+				*(char**)getMemAt(0x587000, 4 * *(unsigned __int8*)(*(_DWORD*)getMemAt(0x5D4594, 2618908) + 2251) + 29456), 0,
 				"C:\\NoxPost\\src\\client\\System\\client.c", 1357);
-			v8 = *(char*)(*(_DWORD*)&byte_5D4594[2618908] + 3684);
-			v7 = loadString_sub_40F1D0((char*)&byte_587000[87392], 0, "C:\\NoxPost\\src\\client\\System\\client.c",
+			v8 = *(char*)(*(_DWORD*)getMemAt(0x5D4594, 2618908) + 3684);
+			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 87392), 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 									   1355);
-			nox_swprintf((wchar_t*)&byte_5D4594[811120], v7, v8, v9);
-			result = sub_43F6E0(0, (__int16*)&byte_5D4594[811120], v2, v0 + v6);
+			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), v7, v8, v9);
+			result = sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 811120), v2, v0 + v6);
 		}
 	}
 	return result;
@@ -548,7 +548,7 @@ char* sub_4358A0() {
 	const char* v2;     // edx
 	const char* v4[34]; // [esp+0h] [ebp-88h]
 
-	v0 = *(_DWORD*)&byte_5D4594[814516];
+	v0 = *(_DWORD*)getMemAt(0x5D4594, 814516);
 	v4[0] = "Dweezle";
 	v4[1] = "Glork";
 	v4[2] = "Floogle";
@@ -583,7 +583,7 @@ char* sub_4358A0() {
 	v4[31] = "Zug";
 	v4[32] = "Zivik";
 	v4[33] = 0;
-	if (!*(_DWORD*)&byte_5D4594[814516]) // TODO: byte_587000 != (unsigned __int8*)-85792
+	if (!*(_DWORD*)getMemAt(0x5D4594, 814516)) // TODO: byte_587000 != (unsigned __int8*)-85792
 	{
 		v1 = v4;
 		do {
@@ -591,7 +591,7 @@ char* sub_4358A0() {
 			++v1;
 			++v0;
 		} while (v2);
-		*(_DWORD*)&byte_5D4594[814516] = v0;
+		*(_DWORD*)getMemAt(0x5D4594, 814516) = v0;
 	}
 	return (char*)v4[sub_415FF0(0, v0 - 1, "C:\\NoxPost\\src\\client\\System\\client.c", 559)];
 }
