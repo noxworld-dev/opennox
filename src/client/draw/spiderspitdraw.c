@@ -42,7 +42,7 @@ int __cdecl nox_thing_spider_spit_draw(_DWORD* a1, nox_drawable* dr) {
 		v17 = v13 - v14;
 	else
 		v17 = v14 - v13;
-	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2650660]);
+	nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650660));
 	if (v15 <= v17) {
 		nox_client_drawAddPoint_49F500(v9 + 1, v7);
 		nox_client_drawAddPoint_49F500(v8 - 1, v10);
@@ -58,7 +58,7 @@ int __cdecl nox_thing_spider_spit_draw(_DWORD* a1, nox_drawable* dr) {
 	}
 	nox_client_drawLineFromPoints_49E4B0();
 	nox_client_drawRectFilledOpaque_49CE30(v9 - 1, v7 - 1, 4, 4);
-	nox_client_drawSetColor_434460(*(int*)&byte_5D4594[2523948]);
+	nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2523948));
 	nox_client_drawAddPoint_49F500(v9, v7);
 	nox_client_drawAddPoint_49F500(v8, v10);
 	nox_client_drawLineFromPoints_49E4B0();
