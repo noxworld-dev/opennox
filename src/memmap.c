@@ -2,6 +2,13 @@
 #include "static.h"
 #include "proto.h"
 
+#ifdef NOX_LOG_MEM
+#undef memset
+#undef memcpy
+#undef strlen
+#undef strcpy
+#endif // NOX_LOG_MEM
+
 extern unsigned __int8 byte_581450[23472];
 extern unsigned __int8 byte_5D4594[3844309];
 extern unsigned __int8 byte_587000[316820];
@@ -2763,3 +2770,87 @@ _BYTE getMemByte(uintptr_t base, uintptr_t off) {
 	_BYTE* ptr = getMemAt(base, off);
 	return *ptr;
 }
+
+#ifdef NOX_LOG_MEM
+FILE* mem_log = 0;
+
+void ensureMemLog() {
+	if (mem_log != 0)
+		return;
+	mem_log = fopen("../memlog.json", "wb");
+}
+
+void dumpMemMap(void) {
+	ensureMemLog();
+	for (int i = 0; i < blobs_cnt; i++) {
+		mem_blob* p = &blobs[i];
+		fprintf(mem_log, "{\"type\":\"blob\",\"base\":%d,\"size\":%d}\n", p->base, p->size);
+	}
+	for (int i = 0; i < mappings_cnt; i++) {
+		mem_mapping* p = &mappings[i];
+		fprintf(mem_log, "{\"type\":\"memmap\",\"addr\":%d,\"size\":%d}\n", p->base, p->size);
+	}
+}
+
+typedef struct{
+	uintptr_t base;
+	uintptr_t off;
+} blobOff;
+
+blobOff inBlob(void* ptr) {
+	blobOff out;
+	out.base = 0;
+	out.off = 0;
+	for (int i = 0; i < blobs_cnt; i++) {
+		mem_blob m = blobs[i];
+		if (&(m.ptr[0]) <= ptr && ptr <= &(m.ptr[m.size-1])) {
+			out.base = m.base;
+			out.off = (uintptr_t)ptr - (uintptr_t)&(m.ptr[0]);
+			break;
+		}
+	}
+	return out;
+}
+
+void maybeLogRead(const char* fnc, void* ptr, int sz) {
+	blobOff bo = inBlob(ptr);
+	if (bo.base == 0) {
+		return;
+	}
+	ensureMemLog();
+	fprintf(mem_log, "{\"type\":\"read\",\"func\":\"%s\",\"base\":%d,\"off\":%d,\"size\":%d}\n", fnc, bo.base, bo.off, sz);
+}
+
+void maybeLogWrite(const char* fnc, void* ptr, int sz) {
+	blobOff bo = inBlob(ptr);
+	if (bo.base == 0) {
+		return;
+	}
+	ensureMemLog();
+	fprintf(mem_log, "{\"type\":\"write\",\"func\":\"%s\",\"base\":%d,\"off\":%d,\"size\":%d}\n", fnc, bo.base, bo.off, sz);
+}
+
+void nox_memset(const char* fnc, void* ptr, int v, int sz) {
+	maybeLogWrite(fnc, ptr, sz);
+	memset(ptr, v, sz);
+}
+
+void nox_memcpy(const char* fnc, void* dst, void* src, int sz) {
+	maybeLogRead(fnc, src, sz);
+	maybeLogWrite(fnc, dst, sz);
+	memcpy(dst, src, sz);
+}
+
+int nox_strlen(const char* fnc, const char* src) {
+	int sz = strlen(src);
+	maybeLogRead(fnc, src, sz);
+	return sz;
+}
+
+int nox_strcpy(const char* fnc, char* dst, const char* src) {
+	int sz = strlen(src);
+	maybeLogRead(fnc, src, sz);
+	maybeLogWrite(fnc, dst, sz);
+	return strcpy(dst, src);
+}
+#endif // NOX_LOG_MEM
