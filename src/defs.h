@@ -116,6 +116,12 @@ int nox_strlen(const char* fnc, const char* src);
 #define strcpy(x, y) nox_strcpy(__func__, x, y)
 int nox_strcpy(const char* fnc, char* dst, const char* src);
 
+#define getMemAt(x, y) nox_getMemAt(__func__, x, y)
+_BYTE* nox_getMemAt(const char* fnc, uintptr_t base, uintptr_t off);
+
+#define getMemByte(x, y) nox_getMemByte(__func__, x, y)
+_BYTE nox_getMemByte(const char* fnc, uintptr_t base, uintptr_t off);
+
 #endif // NOX_LOG_MEM
 
 void nox_exit(int exitCode);
