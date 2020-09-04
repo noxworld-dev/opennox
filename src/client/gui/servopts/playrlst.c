@@ -259,7 +259,7 @@ char* __cdecl sub_457230(wchar_t* a1) {
 	v1 = sub_4165B0();
 	result = *(char**)&dword_5d4594_1045684;
 	if (dword_5d4594_1045684) {
-		v3 = nox_malloc(0x48u);
+		v3 = malloc(0x48u);
 		result = sub_418A40(a1);
 		v4 = result;
 		if (result) {

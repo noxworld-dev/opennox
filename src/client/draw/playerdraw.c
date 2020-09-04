@@ -112,7 +112,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 			if (v14 >= 27)
 				goto LABEL_23;
 		}
-		qmemcpy(v11 + 108, &v3[24 * v14 + 2328], 0x14u);
+		memcpy(v11 + 108, &v3[24 * v14 + 2328], 0x14u);
 		v11 = *(_DWORD**)&dword_5d4594_1313792;
 		v3 = v32;
 		LABEL_23:
@@ -321,7 +321,7 @@ bool __cdecl nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* 
 	unsigned __int8 v22; // [esp+1Ch] [ebp+8h]
 	unsigned __int8 v23; // [esp+1Ch] [ebp+8h]
 
-	v3 = nox_calloc(1u, 14524);
+	v3 = calloc(1u, 14524);
 	v5 = v3;
 	v21 = v3;
 	*v3 = 14524;
@@ -350,7 +350,7 @@ bool __cdecl nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* 
 		nox_memfile_read(a3, 1u, v23, f);
 		*((_BYTE*)a3 + v23) = 0;
 		if (!strcmp("NAKED", (const char*)a3)) {
-			v14 = nox_calloc(1u, 0x28u);
+			v14 = calloc(1u, 0x28u);
 			v15 = *(__int16*)(v11 + 40);
 			*(_DWORD*)(v11 + 48) = v14;
 			v16 = sub_44B940(v14, v15, f);
@@ -360,11 +360,11 @@ bool __cdecl nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* 
 				v19 = sub_44BAC0((const char*)a3);
 				if (v19 < 0)
 					return 0;
-				v20 = nox_calloc(1u, 0x28u);
+				v20 = calloc(1u, 0x28u);
 				*(_DWORD*)(v11 + 4 * v19 + 156) = v20;
 				v16 = sub_44B940(v20, *(__int16*)(v11 + 40), f);
 			} else {
-				v18 = nox_calloc(1u, 0x28u);
+				v18 = calloc(1u, 0x28u);
 				*(_DWORD*)(v11 + 4 * v17 + 52) = v18;
 				v16 = sub_44B940(v18, *(__int16*)(v11 + 40), f);
 			}

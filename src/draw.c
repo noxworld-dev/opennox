@@ -2201,7 +2201,7 @@ int __cdecl sub_444930(HWND wnd, int w, int h, int depth, int flags) {
 		return 0;
 	}
 	ptr_5D4594_3799572 = &obj_5D4594_3800716;
-	qmemcpy(&obj_5D4594_3800716, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t));
+	memcpy(&obj_5D4594_3800716, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t));
 	if (nox_video_renderTargetFlags & 0x200) {
 #ifdef USE_SDL
 		SDL_MinimizeWindow(windowHandle_dword_973FE0);
@@ -2736,21 +2736,21 @@ int sub_4338D0() {
 		dword_975240 = sub_435240;
 		dword_975380 = sub_434E80;
 		v0 = getMemAt(0x581450, 9176);
-		qmemcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
+		memcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
 		break;
 	case 1:
 		dword_69A014 = sub_4351C0;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434E80;
 		v0 = getMemAt(0x581450, 9176);
-		qmemcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
+		memcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
 		break;
 	case 2:
 		dword_69A014 = sub_435200;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434EC0;
 		v0 = getMemAt(0x581450, 9336);
-		qmemcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
+		memcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
 		break;
 	}
 	ptr_5D4594_3799572->data[13] = 0;

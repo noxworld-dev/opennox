@@ -251,7 +251,7 @@ void __cdecl sub_510320(int a1, int a2) {
 					v8 = v5 + 4;
 					do {
 						++v7;
-						qmemcpy((void*)v8, (const void*)(v8 + 28), 0x1Cu);
+						memcpy((void*)v8, (const void*)(v8 + 28), 0x1Cu);
 						v8 += 28;
 					} while (v7 < (unsigned __int8)*v3 - 1);
 				}

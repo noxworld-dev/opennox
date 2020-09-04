@@ -22,7 +22,7 @@ bool __cdecl nox_things_static_draw_parse(nox_thing* obj, nox_memfile* f, char* 
 	int v8;              // ebx
 	unsigned __int8 v11; // [esp+Ch] [ebp+8h]
 
-	_DWORD* data = nox_calloc(1u, 8u);
+	_DWORD* data = calloc(1u, 8u);
 	if (!data)
 		return 0;
 

@@ -382,7 +382,7 @@ char GameExCfgLoader() {
 	v3 = ftell(v0);
 	fseek(v0, 0, 0);
 	if (v3) {
-		v4 = (char*)nox_malloc(v3 + 1);
+		v4 = (char*)malloc(v3 + 1);
 		if (fread(v4, 1, v3, v1) == v3) {
 			SomeStringSearcher(v4, "AUTO_SHIELD", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
@@ -725,7 +725,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 			*(_DWORD*)&cp[8] = 0;
 			*(_DWORD*)&cp[12] = 0;
 			*(_DWORD*)&cp[16] = 0;
-			fileBuffer = nox_malloc(fileBufferSize);
+			fileBuffer = malloc(fileBufferSize);
 			if (fread(fileBuffer, 1, fileSize, result) == fileSize) {
 				fileBufferOffset = 0;
 				v9 = 0;
@@ -980,7 +980,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 					copyServerMatchData((char*)v44);
 					v11 = MEMACCESS(0x98085A);
 					v39 = 18 * da_count(vector) + 68;
-					qmemcpy(buf + 8, v44, 0x40u);
+					memcpy(buf + 8, v44, 0x40u);
 					*((_DWORD*)buf + 1) = v11;
 					if (da_count(vector) > 0) {
 						v13 = buf + 72;
@@ -1159,7 +1159,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 			if ((unsigned int)result < 4)
 				return result;
 		}
-		qmemcpy(serverData, v24, sizeof(serverData));
+		memcpy(serverData, v24, sizeof(serverData));
 		return result;
 	case 263: // просто проверяет является ли инстанс игры хостом
 		return (_DWORD*)nox_common_gameFlags_check_40A5C0(1);

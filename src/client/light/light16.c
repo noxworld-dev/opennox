@@ -75,13 +75,13 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 		}
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
 			if ((unsigned int)&v9[a4] < *(int*)&dword_5d4594_3798844) {
-				qmemcpy(a5, v9, a4);
+				memcpy(a5, v9, a4);
 			} else {
 				v10 = dword_5d4594_3798844 - (_DWORD)v9;
-				qmemcpy(a5, v9, dword_5d4594_3798844 - (_DWORD)v9);
+				memcpy(a5, v9, dword_5d4594_3798844 - (_DWORD)v9);
 				v11 = (void*)(dword_5d4594_1193180 + v10);
 				result = a4 - v10;
-				qmemcpy(v11, v8, result);
+				memcpy(v11, v8, result);
 			}
 		} else {
 			v12 = *a1 - 23 * *a2 - dword_5d4594_2650676;

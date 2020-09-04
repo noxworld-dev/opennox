@@ -212,7 +212,7 @@ bool __cdecl nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char*
 	unsigned __int8 v6;  // cl
 	int v9;              // edi
 
-	v2 = nox_calloc(1u, 0x304u);
+	v2 = calloc(1u, 0x304u);
 	*v2 = 772;
 	while (1) {
 		v4 = nox_memfile_read_u32(f);

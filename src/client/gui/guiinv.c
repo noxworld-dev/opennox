@@ -107,7 +107,7 @@ int __cdecl sub_4617C0(int a1, int a2, const void* a3, int2* a4) {
 					*((_DWORD*)v9 + 1) = a1;
 					v9[140] = 1;
 					if (*(_DWORD*)(v12 + 112) & 0x13001000) {
-						qmemcpy((void*)(v12 + 432), a3, 0x14u);
+						memcpy((void*)(v12 + 432), a3, 0x14u);
 						v8 = v4;
 					}
 					if (a4) {
@@ -251,7 +251,7 @@ void __cdecl sub_462040(int a1) {
 	v8 = v5[30];
 	v6[32] = v1;
 	v6[30] = v8 | 0x40000000;
-	qmemcpy(v6 + 108, v4, 0x18u);
+	memcpy(v6 + 108, v4, 0x18u);
 	*((_WORD*)v6 + 146) = v18;
 	*((_WORD*)v6 + 147) = v19;
 	sub_4623E0(v6, v20);
@@ -1015,7 +1015,7 @@ BOOL __cdecl sub_4649B0(int a1, int a2, int a3) {
 				return 0;
 			}
 			v6[30] |= 0x40000000u;
-			qmemcpy((void*)(*(_DWORD*)v4 + 432), (const void*)(a1 + 432), 0x18u);
+			memcpy((void*)(*(_DWORD*)v4 + 432), (const void*)(a1 + 432), 0x18u);
 			*(_WORD*)(*(_DWORD*)v4 + 292) = *(_WORD*)(a1 + 292);
 			*(_WORD*)(*(_DWORD*)v4 + 294) = *(_WORD*)(a1 + 294);
 		}
@@ -1410,7 +1410,7 @@ void sub_465A30() {
 				*(_DWORD*)getMemAt(0x5D4594, 148 * (dword_5d4594_1049800 + 14 * dword_5d4594_1049796 +
 											  7 * dword_5d4594_1049796) +
 									   1050024);
-			qmemcpy((void*)(*(_DWORD*)getMemAt(0x5D4594, 1049848) + 432),
+			memcpy((void*)(*(_DWORD*)getMemAt(0x5D4594, 1049848) + 432),
 					(const void*)(*(_DWORD*)getMemAt(0x5D4594, 148 * (dword_5d4594_1049800 + 14 * dword_5d4594_1049796 +
 																7 * dword_5d4594_1049796) +
 														 1050020) +

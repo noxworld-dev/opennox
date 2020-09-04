@@ -188,16 +188,16 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 		v11 = *(__int16*)(v2 + 1030);
 		v12 = (unsigned __int8*)(v11 + v2 + 4);
 		if (v11 + v4 < 1024) {
-			qmemcpy(v12, getMemAt(0x5D4594, 2522712), v4);
+			memcpy(v12, getMemAt(0x5D4594, 2522712), v4);
 			*(_WORD*)(v2 + 1030) += v4;
 		} else {
 			v14 = 1024 - v11;
 			v13 = v14;
-			qmemcpy(v12, getMemAt(0x5D4594, 2522712), v14);
+			memcpy(v12, getMemAt(0x5D4594, 2522712), v14);
 			*(_WORD*)(v2 + 1030) = 0;
 			v15 = v4 - v14;
 			if (v15 > 0)
-				qmemcpy((void*)(v2 + 4), getMemAt(0x5D4594, v13 + 2522712),
+				memcpy((void*)(v2 + 4), getMemAt(0x5D4594, v13 + 2522712),
 						4 * ((unsigned int)v15 >> 2) + (((_BYTE)v4 - (_BYTE)v13) & 3));
 			*(_WORD*)(v2 + 1030) = v4 - v13;
 		}

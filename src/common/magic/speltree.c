@@ -85,7 +85,7 @@ int __cdecl sub_424460(int a1, void* a2) {
 			if (*v13) {
 				v10 = *v13;
 			} else {
-				v14 = (int*)nox_calloc(1u, 0x28u);
+				v14 = (int*)calloc(1u, 0x28u);
 				*v13 = v14;
 				if (!v14)
 					return 0;
@@ -168,7 +168,7 @@ int __cdecl sub_424460(int a1, void* a2) {
 	v43[v38] = 0;
 	*((_DWORD*)v6 + 19) = sub_40AF50(v43);
 	if ((int)v40 > 0) {
-		qmemcpy(v6 + 28, v44, v40);
+		memcpy(v6 + 28, v44, v40);
 		v3 = v40;
 	}
 	result = 1;

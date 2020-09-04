@@ -6474,7 +6474,7 @@ void __cdecl sub_54F2B0(int a1, int a2) {
 	__int16 result; // ax
 
 	v2 = a1;
-	qmemcpy(*(void**)(a2 + 748), *(const void**)(a1 + 748), 0x898u);
+	memcpy(*(void**)(a2 + 748), *(const void**)(a1 + 748), 0x898u);
 	if (*(_BYTE*)(a1 + 12) & 0x10) {
 		v3 = sub_4E7980(a1);
 		if (v3) {
@@ -8568,7 +8568,7 @@ int __cdecl sub_552640(unsigned int a1, const void* a2, signed int a3, char a4) 
 	if (v14 == -1 || v14 == 258)
 		return -16;
 	if (!(a4 & 2)) {
-		qmemcpy(*(void**)(v13 + 52), a2, v10);
+		memcpy(*(void**)(v13 + 52), a2, v10);
 		v17 = *(void**)(v13 + 128);
 		*(_DWORD*)(v13 + 52) += v10;
 		if (!ReleaseMutex(v17))
@@ -8578,7 +8578,7 @@ int __cdecl sub_552640(unsigned int a1, const void* a2, signed int a3, char a4) 
 	}
 	**(_BYTE**)(v13 + 52) = **(_BYTE**)(v13 + 48);
 	*(_BYTE*)(*(_DWORD*)(v13 + 52) + 1) = *(_BYTE*)(*(_DWORD*)(v13 + 48) + 1);
-	qmemcpy((void*)(*(_DWORD*)(v13 + 52) + 2), a2, v10);
+	memcpy((void*)(*(_DWORD*)(v13 + 52) + 2), a2, v10);
 	v16 = sub_551F90(*(_DWORD*)v13, *(char**)(v13 + 52), v10 + 2, 0, (struct sockaddr*)(v13 + 4), 16);
 	if (v16 == -1)
 		return -1;

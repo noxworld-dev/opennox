@@ -88,13 +88,13 @@ void __cdecl sub_401FE0(LPCSTR);
 // int __cdecl _getptd(_DWORD, _DWORD); weak
 // int __cdecl _flsbuf(int, FILE *);
 // int _setdefaultprecision(void); weak
-// void *__cdecl nox_malloc(size_t);
+// void *__cdecl malloc(size_t);
 // _DWORD __cdecl _dosmaperr(_DWORD); weak
 // int *__cdecl _errno();
 // unsigned int *__cdecl __doserrno();
 // int __cdecl _isctype(WORD CharType, int); idb
 // void __cdecl __noreturn exit(int);
-// void *__cdecl nox_calloc(size_t, size_t);
+// void *__cdecl calloc(size_t, size_t);
 // int __cdecl free(LPVOID lpMem); idb
 // int __cdecl _lseek(int, int, int);
 // int __cdecl _lseek_lk(int, LONG lDistanceToMove, DWORD dwMoveMethod); idb

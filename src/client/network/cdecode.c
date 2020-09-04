@@ -578,7 +578,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					*((_DWORD*)v211 + 539) = *(unsigned __int8*)(v3 + 117);
 					strcpy(v211 + 2096, (const char*)(v3 + 119));
 					*((_DWORD*)v211 + 920) |= *(_DWORD*)(v3 + 112);
-					qmemcpy(v211 + 2185, (const void*)(v3 + 3), 0x61u);
+					memcpy(v211 + 2185, (const void*)(v3 + 3), 0x61u);
 					nox_swprintf((wchar_t*)v211 + 2352, L"%s%s", v211 + 2185, v211 + 2274);
 					if (dword_5d4594_2650652) {
 						*((_DWORD*)v211 + 527) = 0;
@@ -2439,7 +2439,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					*(_DWORD*)getMemAt(0x5D4594, 1200756) != *(_DWORD*)(v3 + 41)) {
 					dword_5d4594_1200768 = 1;
 				}
-				qmemcpy(v37 + 24, (const void*)(v3 + 17), 0x14u);
+				memcpy(v37 + 24, (const void*)(v3 + 17), 0x14u);
 				sub_4540E0((int)(v37 + 24));
 				*((_DWORD*)v37 + 11) = *(_DWORD*)(v3 + 37);
 				*((_DWORD*)v37 + 12) = *(_DWORD*)(v3 + 41);
@@ -2449,7 +2449,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				} else {
 					sub_40A1F0(0);
 				}
-				qmemcpy(getMemAt(0x5D4594, 1200708), v37, 0x3Au);
+				memcpy(getMemAt(0x5D4594, 1200708), v37, 0x3Au);
 				if (nox_client_isConnected_43C700() && dword_5d4594_1200768) {
 					v38 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 157156), 0,
 												"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 1429);
@@ -2463,7 +2463,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v39 = sub_416590(*(unsigned __int8*)(v3 + 1));
 			LOBYTE(v40) = v39[52];
 			LOBYTE(v4) = *(_BYTE*)(v3 + 54);
-			qmemcpy(v39, (const void*)(v3 + 2), 0x3Au);
+			memcpy(v39, (const void*)(v3 + 2), 0x3Au);
 			if (((v40 >> 5) & 1) != ((v4 >> 5) & 1))
 				sub_4573A0();
 			if (!sub_4169C0()) {
@@ -2683,7 +2683,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			case 0u:
 				if (!nox_client_isConnected_43C700())
 					goto LABEL_888;
-				qmemcpy(v386, (const void*)(v3 + 18), 2 * *(unsigned __int8*)(v3 + 15));
+				memcpy(v386, (const void*)(v3 + 18), 2 * *(unsigned __int8*)(v3 + 15));
 				v386[*(unsigned __int8*)(v3 + 15)] = 0;
 				if (*(_BYTE*)(v3 + 17)) {
 					v271 = sub_418C20(*(unsigned __int8*)(v3 + 16));

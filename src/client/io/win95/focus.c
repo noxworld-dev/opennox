@@ -41,7 +41,7 @@ void __cdecl sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const ch
 		arr[ptr_5D4594_754092_cnt].fnc = fnc;
 		arr[ptr_5D4594_754092_cnt].field_4 = field_4;
 		int sz = strlen(name) + 1;
-		qmemcpy(arr[ptr_5D4594_754092_cnt].name, name, sz);
+		memcpy(arr[ptr_5D4594_754092_cnt].name, name, sz);
 		++ptr_5D4594_754092_cnt;
 	}
 }

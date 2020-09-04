@@ -800,12 +800,12 @@ int __cdecl nox_cmd_set_name(int a1, unsigned __int8 a2, int a3) {
 			nox_sprintf(v14, "%S", *v12);
 			v5 = strlen(v14) + 1;
 			v6 = &v13[strlen(v13)];
-			qmemcpy(v6, v14, 4 * (v5 >> 2));
+			memcpy(v6, v14, 4 * (v5 >> 2));
 			v8 = &v14[4 * (v5 >> 2)];
 			v7 = &v6[4 * (v5 >> 2)];
 			v9 = v5;
 			v10 = v3 + 1;
-			qmemcpy(v7, v8, v9 & 3);
+			memcpy(v7, v8, v9 & 3);
 			if (v3 + 1 < a2)
 				*(_WORD*)&v13[strlen(v13)] = *(_WORD*)getMemAt(0x587000, 104484);
 			++v3;
