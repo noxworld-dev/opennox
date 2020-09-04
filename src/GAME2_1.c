@@ -890,7 +890,7 @@ LABEL_2:
 			v2 = v24;
 			v8 = getMemAt(0x5D4594, 148 * v5 + 1050020);
 		}
-		qmemcpy(v21, v8, 0x94u);
+		memcpy(v21, v8, 0x94u);
 		if (*(_DWORD*)v20)
 			dword_5d4594_1062480 = v21;
 		result = (unsigned __int8*)v26;
@@ -4303,7 +4303,7 @@ int __cdecl sub_46AF80_copy_window_part(nox_window* win, const void* p) {
 		return -2;
 	if (!p)
 		return -3;
-	qmemcpy(win->field_9, p, 83 * 4);
+	memcpy(win->field_9, p, 83 * 4);
 	return 0;
 }
 
@@ -4316,7 +4316,7 @@ int __cdecl sub_46AFB0(int a1, void* a2) {
 	if (!a2)
 		return -3;
 	result = 0;
-	qmemcpy(a2, (const void*)(a1 + 36), 0x14Cu);
+	memcpy(a2, (const void*)(a1 + 36), 0x14Cu);
 	return result;
 }
 
@@ -5429,7 +5429,7 @@ int __cdecl sub_46C690(int a1) {
 		return -2;
 	if (*(_DWORD*)(a1 + 396))
 		return -3;
-	v2 = nox_malloc(8u);
+	v2 = malloc(8u);
 	if (!v2)
 		return -1;
 	*v2 = a1;
@@ -5686,7 +5686,7 @@ FILE* __cdecl sub_46D9D0(int a1, int a2, LPVOID lpMem, int a4) {
 	*(_WORD*)&v16[8] = 0;
 	*(_DWORD*)&v16[10] = 54;
 	*(_DWORD*)&v16[2] = v7 + 54;
-	v8 = (char*)nox_malloc(v7);
+	v8 = (char*)malloc(v7);
 	v10 = (_BYTE*)a2;
 	lpMema = v8;
 	if (v6 > 0) {
@@ -5728,7 +5728,7 @@ FILE* __cdecl sub_46D9D0(int a1, int a2, LPVOID lpMem, int a4) {
 //----- (0046DB00) --------------------------------------------------------
 int sub_46DB00() {
 	if (!*(_DWORD*)getMemAt(0x5D4594, 1083964)) {
-		*(_DWORD*)getMemAt(0x5D4594, 1083964) = nox_malloc(2 * nox_win_width * nox_win_height);
+		*(_DWORD*)getMemAt(0x5D4594, 1083964) = malloc(2 * nox_win_width * nox_win_height);
 		strcpy((char*)getMemAt(0x5D4594, 1082932), "nox");
 		*(_DWORD*)getMemAt(0x5D4594, 1083956) = 1;
 		*(_DWORD*)getMemAt(0x5D4594, 1083960) = 0;
@@ -8338,35 +8338,35 @@ int __cdecl sub_473A10(_DWORD* a1, int2* a2, _DWORD* a3) {
 
 //----- (00473A40) --------------------------------------------------------
 int sub_473A40() {
-	nox_drawable_list_1 = nox_malloc(sizeof(void*) * nox_drawable_list_1_cap);
+	nox_drawable_list_1 = malloc(sizeof(void*) * nox_drawable_list_1_cap);
 	if (!nox_drawable_list_1)
 		return 0;
 	nox_drawable_list_1_size = 0;
 
-	nox_drawable_list_3 = nox_malloc(nox_drawable_lists_cap * sizeof(void*));
+	nox_drawable_list_3 = malloc(nox_drawable_lists_cap * sizeof(void*));
 	if (!nox_drawable_list_3)
 		return 0;
 	nox_drawable_list_3_size = 0;
 
-	nox_drawable_list_2 = nox_malloc(nox_drawable_lists_cap * sizeof(void*));
+	nox_drawable_list_2 = malloc(nox_drawable_lists_cap * sizeof(void*));
 	if (!nox_drawable_list_2)
 		return 0;
 	nox_drawable_list_2_size = 0;
 
-	nox_drawable_list_4 = nox_malloc(nox_drawable_lists_cap * sizeof(void*));
+	nox_drawable_list_4 = malloc(nox_drawable_lists_cap * sizeof(void*));
 	if (!nox_drawable_list_4)
 		return 0;
 	nox_drawable_list_4_size = 0;
 
-	dword_5d4594_1096496 = nox_malloc(0x400u);
+	dword_5d4594_1096496 = malloc(0x400u);
 	if (!dword_5d4594_1096496)
 		return 0;
 	dword_5d4594_1096500 = 0;
-	dword_5d4594_1096504 = nox_malloc(0x400u);
+	dword_5d4594_1096504 = malloc(0x400u);
 	if (!dword_5d4594_1096504)
 		return 0;
 	dword_5d4594_1096508 = 0;
-	dword_5d4594_1096512 = nox_malloc(0x400u);
+	dword_5d4594_1096512 = malloc(0x400u);
 	if (!dword_5d4594_1096512)
 		return 0;
 	dword_5d4594_1096516 = 0;

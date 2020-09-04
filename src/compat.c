@@ -546,7 +546,7 @@ BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
 // File functions
 char* dos_to_unix(const char* path) {
 	int i, len = strlen(path);
-	char* str = nox_malloc(len + 1);
+	char* str = malloc(len + 1);
 
 	if (path[0] == 'C' && path[1] == ':')
 		path += 2;
@@ -594,7 +594,7 @@ static void fill_find_data(const char* path, LPWIN32_FIND_DATAA lpFindFileData) 
 HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData) {
 	char* converted = dos_to_unix(lpFileName);
 	int len = strlen(converted);
-	struct _FIND_FILE* ff = nox_calloc(sizeof(*ff), 1);
+	struct _FIND_FILE* ff = calloc(sizeof(*ff), 1);
 
 	// dprintf("%s: converted=%s", __FUNCTION__, converted);
 
@@ -940,8 +940,8 @@ LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM
 	else
 		root = hKey->path;
 
-	hkResult = nox_calloc(sizeof(*hkResult), 1);
-	hkResult->path = nox_malloc(strlen(root) + strlen(lpSubKey) + 2);
+	hkResult = calloc(sizeof(*hkResult), 1);
+	hkResult->path = malloc(strlen(root) + strlen(lpSubKey) + 2);
 	sprintf(hkResult->path, "%s\\%s", root, lpSubKey);
 	*phkResult = hkResult;
 	return 0;
@@ -987,7 +987,7 @@ VOID WINAPI EnterCriticalSection(LPCRITICAL_SECTION lpCriticalSection) { SDL_Loc
 VOID WINAPI LeaveCriticalSection(LPCRITICAL_SECTION lpCriticalSection) { SDL_UnlockMutex(lpCriticalSection->opaque); }
 
 HANDLE WINAPI CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwner, LPCSTR lpName) {
-	pthread_mutex_t* m = nox_malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_t* m = malloc(sizeof(pthread_mutex_t));
 	pthread_mutexattr_t attr;
 
 	pthread_mutexattr_init(&attr);

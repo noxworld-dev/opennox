@@ -51,7 +51,7 @@ bool __cdecl nox_things_vector_animate_draw_parse(nox_thing* obj, nox_memfile* f
 	_DWORD* v3; // esi
 	int result; // eax
 
-	v2 = nox_calloc(1u, 0x30u);
+	v2 = calloc(1u, 0x30u);
 	v3 = v2;
 	*v2 = 48;
 	result = sub_44BFA0((int)v2, f);

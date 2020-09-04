@@ -12,7 +12,7 @@ int __cdecl sub_411B90(const char* a1, char* a2, obj_412ae0_t* obj) {
 	// POST_CLEANUP: Why load the string twice?
 	const wchar_t* str1 = loadString_sub_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 418);
 	const size_t str1len = nox_wcslen(str1);
-	obj->field_2 = nox_malloc(2 * str1len + 2);
+	obj->field_2 = malloc(2 * str1len + 2);
 	if (!obj->field_2) {
 		return 0;
 	}
@@ -35,7 +35,7 @@ int __cdecl sub_412100_parse_desc(const char* a1, char* a2, obj_412ae0_t* obj) {
 
 	const wchar_t* str1 = loadString_sub_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 733);
 	const size_t str1len = nox_wcslen(str1);
-	obj->field_2 = nox_malloc(2 * str1len + 2);
+	obj->field_2 = malloc(2 * str1len + 2);
 	if (!obj->field_2) {
 		return 0;
 	}
@@ -58,7 +58,7 @@ int __cdecl sub_4121B0_parse_second_desc(const char* a1, char* a2, obj_412ae0_t*
 
 	const wchar_t* str1 = loadString_sub_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 767);
 	const size_t str1len = nox_wcslen(str1);
-	obj->field_3 = nox_malloc(2 * str1len + 2);
+	obj->field_3 = malloc(2 * str1len + 2);
 	if (!obj->field_3) {
 		return 0;
 	}
@@ -81,7 +81,7 @@ int __cdecl sub_412260_parse_ident_desc(const char* a1, char* a2, obj_412ae0_t* 
 
 	const wchar_t* str1 = loadString_sub_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
 	const size_t str1len = nox_wcslen(str1);
-	obj->field_4 = nox_malloc(2 * str1len + 2);
+	obj->field_4 = malloc(2 * str1len + 2);
 	if (!obj->field_4) {
 		return 0;
 	}

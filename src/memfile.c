@@ -4,7 +4,7 @@
 
 //----- (0040ABF0) --------------------------------------------------------
 nox_memfile* nox_memfile_load(const char* path, int a2) {
-	nox_memfile* nf = (nox_memfile*)nox_malloc(sizeof(nox_memfile));
+	nox_memfile* nf = (nox_memfile*)malloc(sizeof(nox_memfile));
 	if (!nf) {
 		return 0;
 	}
@@ -21,7 +21,7 @@ nox_memfile* nox_memfile_load(const char* path, int a2) {
 	sub_409050(f, 0, 2);
 	nf->size = sub_409390();
 	sub_409050(f, 0, 0);
-	nf->data = (char*)nox_malloc(nf->size);
+	nf->data = (char*)malloc(nf->size);
 	if (nf->data == 0) {
 		nox_memfile_free(nf);
 		sub_408D90(f);
@@ -135,6 +135,6 @@ unsigned int sub_40AD60(char* dest, int sz, int cnt, nox_memfile* f) {
         return result;
     }
 
-    qmemcpy(dest, &buf, cnt * sz);
+    memcpy(dest, &buf, cnt * sz);
     return 1;
 }

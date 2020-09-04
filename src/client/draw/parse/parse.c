@@ -15,12 +15,12 @@ void* __cdecl sub_44C000(char* attr_value, nox_memfile* f) {
 	unsigned __int8 v15; // [esp+18h] [ebp+8h]
 	int v16;             // [esp+18h] [ebp+8h]
 
-	v2 = nox_calloc(1u, 0xCu);
+	v2 = calloc(1u, 0xCu);
 	v4 = v2;
 	*v2 = 12;
 	v15 = nox_memfile_read_u8(f);
 	*((_BYTE*)v4 + 8) = v15;
-	result = nox_malloc(4 * v15);
+	result = malloc(4 * v15);
 	v4[1] = result;
 	if (result) {
 		v7 = 0;
@@ -92,7 +92,7 @@ int __cdecl sub_44BC50(int a1, nox_memfile* f) {
 	while (1) {
 		v13 = v2 >= 16 ? v2 + 4 : v2;
 		v3 = a1;
-		v4 = nox_malloc(4 * *(__int16*)(a1 + 40));
+		v4 = malloc(4 * *(__int16*)(a1 + 40));
 		*(_DWORD*)(v13 + a1 + 4) = v4;
 		if (!v4)
 			break;

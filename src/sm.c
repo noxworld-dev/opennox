@@ -195,7 +195,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660099));
 	strcpy((char*)&Data[128], sub_41FA40());
 	*(_DWORD*)&Data[138] = dword_5d4594_2660032;
-	qmemcpy(Data, v1, 0x61u);
+	memcpy(Data, v1, 0x61u);
 
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		sub_4D3860(Data);
@@ -341,7 +341,7 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 		*getMemAt( 0x5D4594, 2512893) = *(_BYTE*)(v5[12] + 1);
 		*getMemAt( 0x5D4594, 2512894) = 32;
 		if (a4)
-			qmemcpy(getMemAt(0x5D4594, 2512895), (const void*)a4, a5);
+			memcpy(getMemAt(0x5D4594, 2512895), (const void*)a4, a5);
 		sub_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
 	}
 	GOTO_NET_CONNECT_THEN(v5[5]);

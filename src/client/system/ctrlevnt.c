@@ -379,7 +379,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 		} else {
 			v22 = getMemAt(0x5D4594, 750964);
 			do {
-				qmemcpy(v22, getMemAt(0x5D4594, 24 * v19 + 747884), 0x18u);
+				memcpy(v22, getMemAt(0x5D4594, 24 * v19 + 747884), 0x18u);
 				v19 = (v19 + 1) % 128;
 				++v21;
 				v22 += 24;
@@ -436,7 +436,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				v30 += 24;
 			} while (v28 < v27);
 			if (v27 > 0)
-				qmemcpy(getMemAt(0x5D4594, 750964), getMemAt(0x5D4594, 747884), 4 * ((unsigned int)(24 * v27) >> 2));
+				memcpy(getMemAt(0x5D4594, 750964), getMemAt(0x5D4594, 747884), 4 * ((unsigned int)(24 * v27) >> 2));
 		}
 		dword_5d4594_754044 = v27;
 	}

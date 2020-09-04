@@ -126,7 +126,7 @@ int sub_4A5150() {
 	strcat(PathName, "\\Save\\");
 	CreateDirectoryA(PathName, 0);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		dword_5d4594_1307780 = nox_calloc(0xEu, 0x4FEu);
+		dword_5d4594_1307780 = calloc(0xEu, 0x4FEu);
 		result = sub_46CE40(*(int*)&dword_5d4594_1307744, *(int*)&dword_5d4594_1307776, *(int*)&dword_5d4594_1307768,
 							*(_BYTE**)&dword_5d4594_1307780);
 	} else {
@@ -145,7 +145,7 @@ int sub_4A5150() {
 			}
 			FindClose(v8);
 		}
-		dword_5d4594_1307780 = nox_calloc(v0, 0x4FEu);
+		dword_5d4594_1307780 = calloc(v0, 0x4FEu);
 		v9 = 0;
 		v10 = FindFirstFileA("*.plr", &FindFileData);
 		if (v10 != (HANDLE)-1) {
@@ -284,7 +284,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 				nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + 1278 * v8 + 4), v20);
 				if ((!nox_common_gameFlags_check_40A5C0(2048) || sub_4DC100((int)v20, (int)getMemAt(0x587000, 171268))) &&
 					sub_41A000((char*)(dword_5d4594_1307780 + 1278 * *(_DWORD*)(v7 + 48) + 4), v23)) {
-					qmemcpy(getMemAt(0x5D4594, 2660684), v23, 0x4FCu);
+					memcpy(getMemAt(0x5D4594, 2660684), v23, 0x4FCu);
 					*(_WORD*)getMemAt(0x5D4594, 2661960) = *(_WORD*)&v23[1276];
 					sub_43BDC0();
 					if (getMemByte(0x5D4594, 2661958)) {
