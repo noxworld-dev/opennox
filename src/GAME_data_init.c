@@ -38,7 +38,15 @@ void nullsub_68() {}
 void nullsub_69() {}
 void nullsub_70() {}
 
+#ifdef NOX_LOG_MEM
+void dumpMemMap(void);
+#endif // NOX_LOG_MEM
+
 void init_data() {
+#ifdef NOX_LOG_MEM
+	dumpMemMap();
+#endif // NOX_LOG_MEM
+
 	*(void**)getMemAt(0x587000, 26824) = &sub_4235C0;
 	*(void**)getMemAt(0x587000, 26872) = &sub_4235C0;
 	*(void**)getMemAt(0x587000, 26896) = &sub_4235C0;

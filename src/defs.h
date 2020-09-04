@@ -102,6 +102,22 @@ typedef struct __m64 __m64;
 #define __PAIR64__(x, y) ((((_QWORD)(x)) << 32) | ((_DWORD)(y)))
 #define __SPAIR64__(x, y) ((__int64)((((_QWORD)(x)) << 32) | ((_DWORD)(y))))
 
+#ifdef NOX_LOG_MEM
+
+#define memset(x, y, z) nox_memset(__func__, x, y, z)
+void nox_memset(const char* fnc, void* ptr, int v, int sz);
+
+#define memcpy(x, y, z) nox_memcpy(__func__, x, y, z)
+void nox_memcpy(const char* fnc, void* dst, void* src, int sz);
+
+#define strlen(x) nox_strlen(__func__, x)
+int nox_strlen(const char* fnc, const char* src);
+
+#define strcpy(x, y) nox_strcpy(__func__, x, y)
+int nox_strcpy(const char* fnc, char* dst, const char* src);
+
+#endif // NOX_LOG_MEM
+
 void nox_exit(int exitCode);
 
 static int __OFSUB__(int x, int y) {
