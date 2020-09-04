@@ -7,6 +7,8 @@
 #undef memcpy
 #undef strlen
 #undef strcpy
+#undef getMemAt
+#undef getMemByte
 #endif // NOX_LOG_MEM
 
 extern unsigned __int8 byte_581450[23472];
@@ -2812,13 +2814,17 @@ blobOff inBlob(void* ptr) {
 	return out;
 }
 
+void logReadOn(const char* fnc, blobOff bo, int sz) {
+	ensureMemLog();
+	fprintf(mem_log, "{\"type\":\"read\",\"func\":\"%s\",\"base\":%d,\"off\":%d,\"size\":%d}\n", fnc, bo.base, bo.off, sz);
+}
+
 void maybeLogRead(const char* fnc, void* ptr, int sz) {
 	blobOff bo = inBlob(ptr);
 	if (bo.base == 0) {
 		return;
 	}
-	ensureMemLog();
-	fprintf(mem_log, "{\"type\":\"read\",\"func\":\"%s\",\"base\":%d,\"off\":%d,\"size\":%d}\n", fnc, bo.base, bo.off, sz);
+	logReadOn(fnc, bo, sz);
 }
 
 void maybeLogWrite(const char* fnc, void* ptr, int sz) {
@@ -2852,5 +2858,54 @@ int nox_strcpy(const char* fnc, char* dst, const char* src) {
 	maybeLogRead(fnc, src, sz);
 	maybeLogWrite(fnc, dst, sz);
 	return strcpy(dst, src);
+}
+
+uint8_t seenBuf_581450[sizeof(byte_581450)/8+1] = {0};
+uint8_t seenBuf_587000[sizeof(byte_587000)/8+1] = {0};
+uint8_t seenBuf_5D4594[sizeof(byte_5D4594)/8+1] = {0};
+
+bool seenAccess(uintptr_t base, uintptr_t off) {
+	uint8_t* p = 0;
+	if (base == 0x581450)
+		p = seenBuf_581450;
+	else if (base == 0x587000)
+		p = seenBuf_587000;
+	else if (base == 0x5D4594)
+		p = seenBuf_5D4594;
+	else
+		return true; // ignore
+
+	int i = off/8;
+	int j = off%8;
+
+	uint8_t v = p[i];
+	uint8_t mask = 1 << j;
+
+	if (v & mask)
+		return true;
+
+	v |= mask;
+	p[i] = v;
+	return false;
+}
+
+_BYTE* nox_getMemAt(const char* fnc, uintptr_t base, uintptr_t off) {
+	if (!seenAccess(base, off)) {
+		blobOff bo;
+		bo.base = base;
+		bo.off = off;
+		logReadOn(fnc, bo, 4);
+	}
+	return getMemAt(base, off);
+}
+
+_BYTE nox_getMemByte(const char* fnc, uintptr_t base, uintptr_t off) {
+	if (!seenAccess(base, off)) {
+		blobOff bo;
+		bo.base = base;
+		bo.off = off;
+		logReadOn(fnc, bo, 1);
+	}
+	return getMemByte(base, off);
 }
 #endif // NOX_LOG_MEM
