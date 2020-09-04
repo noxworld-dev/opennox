@@ -298,7 +298,7 @@ int __cdecl sub_458230(int a1, char* a2, int a3) {
 			v5 = sub_4CFFC0((int)v4);
 			if (v5 & v3) {
 				strcpy(v19, (const char*)v4 + 12);
-				qmemcpy(v20, v19, 0x38u);
+				memcpy(v20, v19, 0x38u);
 				*(_WORD*)&v20[56] = *(_WORD*)&v19[56];
 				sub_57A1E0((int*)v19, 0, 0, 1, a1);
 				sub_57A1E0((int*)v20, "user.rul", 0, 3, a1);

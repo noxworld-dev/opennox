@@ -40,7 +40,7 @@ void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
 			strcpy(&v19[8], (const char*)getMemAt(0x5D4594, 2387068));
 			sub_552640(*a1 + 1, v19, 88, 3);
 		}
-		v3 = nox_malloc(*((unsigned __int16*)a1 + 10) + 6);
+		v3 = malloc(*((unsigned __int16*)a1 + 10) + 6);
 		if (v3) {
 			v4 = *((unsigned __int16*)a1 + 10);
 			if ((unsigned __int16)v4 >= (unsigned int)(*((_DWORD*)a1 + 3) - *((_DWORD*)a1 + 6))) {
@@ -60,7 +60,7 @@ void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
 				v5 = *((_DWORD*)a1 + 6);
 				v6 = dword_5d4594_2388640;
 			}
-			qmemcpy(v3 + 3, (const void*)(v6 + v5), v4);
+			memcpy(v3 + 3, (const void*)(v6 + v5), v4);
 			sub_552640(*a1 + 1, v3, v4 + 6, 3);
 			free(v3);
 			v7 = *((_DWORD*)a1 + 3);
@@ -197,13 +197,13 @@ int sub_519EB0_net_mapsend() {
 		v1 = getMemAt(0x5D4594, 2387156);
 		do {
 			if (*((_WORD*)v1 - 3) == 1) {
-				v2 = nox_malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
+				v2 = malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
 				*(_DWORD*)v1 = v2;
 				if (v2) {
 					v3 = *(const void**)&dword_5d4594_2388640;
 					v4 = *(_DWORD*)getMemAt(0x5D4594, 2388644);
 					*((_WORD*)v1 - 2) = 1;
-					qmemcpy(v2, v3, v4);
+					memcpy(v2, v3, v4);
 					*((_DWORD*)v1 + 1) = *(_DWORD*)getMemAt(0x5D4594, 2388644);
 					v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249788), 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 478);
@@ -245,7 +245,7 @@ int sub_519EB0_net_mapsend() {
 	fseek(v8, 0, 2);
 	*(_DWORD*)getMemAt(0x5D4594, 2388644) = ftell(v8);
 	fseek(v8, 0, 0);
-	dword_5d4594_2388640 = nox_malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
+	dword_5d4594_2388640 = malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
 	sub_40ADD0_fread(*(char**)&dword_5d4594_2388640, 1u, *(size_t*)getMemAt(0x5D4594, 2388644), v8);
 	fclose(v8);
 	return 1;

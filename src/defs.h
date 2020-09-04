@@ -102,17 +102,6 @@ typedef struct __m64 __m64;
 #define __PAIR64__(x, y) ((((_QWORD)(x)) << 32) | ((_DWORD)(y)))
 #define __SPAIR64__(x, y) ((__int64)((((_QWORD)(x)) << 32) | ((_DWORD)(y))))
 
-//#define DEBUG_MALLOCS
-
-#ifdef DEBUG_MALLOCS
-#define nox_malloc(x) nox_malloc2(x, __func__, __LINE__, __FILE__)
-#define nox_calloc(x, y) nox_malloc2((x) * (y), __func__, __LINE__, __FILE__)
-void* nox_malloc2(size_t x, char* func, int line, char* file);
-#else
-#define nox_malloc(x) malloc(x)
-#define nox_calloc(x, y) calloc(x, y)
-#endif
-
 void nox_exit(int exitCode);
 
 static int __OFSUB__(int x, int y) {
@@ -143,7 +132,6 @@ static _BYTE SADD8(_BYTE x, _BYTE y) {
 }
 
 #define abs32 abs
-#define qmemcpy memcpy
 
 static void memset32(_DWORD* x, _DWORD y, size_t z) {
 	while (z--)
@@ -176,7 +164,7 @@ static void std___Xran() { DebugBreak(); }
 
 static void std___Xlen() { DebugBreak(); }
 
-static void* operator_new(size_t x) { return nox_malloc(x); }
+static void* operator_new(size_t x) { return malloc(x); }
 
 static void operator_delete(void* x) { free(x); }
 

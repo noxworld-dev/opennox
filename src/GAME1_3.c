@@ -721,7 +721,7 @@ nox_wnd_xxx* sub_43C520(int a1) {
 
 //----- (0043C540) --------------------------------------------------------
 nox_wnd_xxx* nox_wnd_sub_43C540() {
-	nox_wnd_xxx* p = nox_calloc(1, sizeof(nox_wnd_xxx));
+	nox_wnd_xxx* p = calloc(1, sizeof(nox_wnd_xxx));
 	if (!p) {
 		return 0;
 	}
@@ -2077,13 +2077,13 @@ int __cdecl sub_43EC30(int a1) {
 	_DWORD* v1; // esi
 	int v2;     // eax
 
-	v1 = nox_malloc(0x20u);
+	v1 = malloc(0x20u);
 	memset(v1, 0, 0x20u);
 	*(_DWORD*)(a1 + 272) = v1;
 	v1[1] = a1;
 	*v1 = dword_5d4594_816432;
-	v1[5] = nox_malloc(0x4000u);
-	v1[6] = nox_malloc(0x4000u);
+	v1[5] = malloc(0x4000u);
+	v1[6] = malloc(0x4000u);
 	v2 = AIL_allocate_sample_handle(dword_5d4594_816432);
 	v1[2] = v2;
 	if (!v2 || !v1[5] || !v1[6])
@@ -2262,13 +2262,13 @@ int __cdecl sub_43EE00(int a1) {
 				v9 = v5;
 				v10 = v6;
 				v11 = v6 >> 2;
-				qmemcpy(v22, v9, 4 * v11);
+				memcpy(v22, v9, 4 * v11);
 				v13 = &v9[4 * v11];
 				v12 = &v22[4 * v11];
 				v19 = v22;
 				v14 = v10 & 3;
 				v5 = 0;
-				qmemcpy(v12, v13, v14);
+				memcpy(v12, v13, v14);
 			}
 		} else if (!v6) {
 			v5 = *(char**)(v3 + 296);
@@ -2280,7 +2280,7 @@ int __cdecl sub_43EE00(int a1) {
 			v6 = v18;
 			goto LABEL_24;
 		}
-		qmemcpy(v17, *(const void**)(v3 + 296), v8);
+		memcpy(v17, *(const void**)(v3 + 296), v8);
 		v4 = v21;
 		goto LABEL_23;
 	}
@@ -2559,7 +2559,7 @@ _DWORD* __cdecl sub_43F3B0(char* a1) {
 		return 0;
 	v3 = fopen(a1, "rb");
 	if (v3) {
-		v1 = nox_malloc(0x20u);
+		v1 = malloc(0x20u);
 		if (v1) {
 			memset(v1, 0, 0x20u);
 			if (sub_40ADD0_fread((char*)v17, 0x1Cu, 1u, v3) != 1)
@@ -2570,7 +2570,7 @@ _DWORD* __cdecl sub_43F3B0(char* a1) {
 				*v1 = v17[2];
 				v1[5] = v17[6];
 				v1[3] = v17[5];
-				v4 = (char*)nox_malloc(8 * v17[5]);
+				v4 = (char*)malloc(8 * v17[5]);
 				v1[4] = v4;
 				if (!v4 || sub_40ADD0_fread(v4, 8 * v1[3], 1u, v3) != 1)
 					goto LABEL_15;
@@ -2586,15 +2586,15 @@ _DWORD* __cdecl sub_43F3B0(char* a1) {
 				v1[1] = v5;
 				*v1 = v6;
 				v1[3] = v7;
-				v8 = (unsigned __int8*)nox_malloc(8 * v7);
+				v8 = (unsigned __int8*)malloc(8 * v7);
 				v1[4] = v8;
 				if (!v8)
 					goto LABEL_15;
-				qmemcpy(v8, &v18[8], 8 * v1[3]);
+				memcpy(v8, &v18[8], 8 * v1[3]);
 			}
 			v1[7] = v1[2];
 			v9 = v1[5] * sub_440870((int)v1);
-			v10 = (char*)nox_malloc(v9);
+			v10 = (char*)malloc(v9);
 			v1[6] = v10;
 			if (!v10 || sub_40ADD0_fread(v10, v9, 1u, v3) != 1) {
 			LABEL_15:
@@ -3787,12 +3787,12 @@ char* __cdecl sub_440BC0(int a1, unsigned __int8 a2, int a3) {
 			nox_sprintf(v12, "%S", *v11);
 			v5 = strlen(v12) + 1;
 			v6 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 818100)) + 818100);
-			qmemcpy(v6, v12, 4 * (v5 >> 2));
+			memcpy(v6, v12, 4 * (v5 >> 2));
 			v8 = &v12[4 * (v5 >> 2)];
 			v7 = &v6[4 * (v5 >> 2)];
 			v9 = v5;
 			v10 = v3 + 1;
-			qmemcpy(v7, v8, v9 & 3);
+			memcpy(v7, v8, v9 & 3);
 			if (v3 + 1 < a2)
 				*(_WORD*)getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 818100)) + 818100) =
 					*(_WORD*)getMemAt(0x587000, 101624);
@@ -4186,13 +4186,13 @@ void sub_444D00() {
 }
 
 //----- (00444D30) --------------------------------------------------------
-void sub_444D30() { qmemcpy(ptr_5D4594_3799572, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t)); }
+void sub_444D30() { memcpy(ptr_5D4594_3799572, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t)); }
 
 //----- (00444D50) --------------------------------------------------------
-void __cdecl sub_444D50(obj_5D4594_3799572_t* a1) { qmemcpy(a1, ptr_5D4594_3799572, sizeof(obj_5D4594_3799572_t)); }
+void __cdecl sub_444D50(obj_5D4594_3799572_t* a1) { memcpy(a1, ptr_5D4594_3799572, sizeof(obj_5D4594_3799572_t)); }
 
 //----- (00444D70) --------------------------------------------------------
-void __cdecl sub_444D70(obj_5D4594_3799572_t* a1) { qmemcpy(ptr_5D4594_3799572, a1, sizeof(obj_5D4594_3799572_t)); }
+void __cdecl sub_444D70(obj_5D4594_3799572_t* a1) { memcpy(ptr_5D4594_3799572, a1, sizeof(obj_5D4594_3799572_t)); }
 
 #if 0
 //----- (00444D90) --------------------------------------------------------
@@ -4584,7 +4584,7 @@ int __cdecl nox_motd_4463E0(int a1) {
 		fseek(result, 0, 2);
 		*(_DWORD*)getMemAt(0x5D4594, 4 * a1 + 826040) = ftell(v2);
 		fseek(v2, 0, 0);
-		v3 = (char*)nox_calloc(*(_DWORD*)getMemAt(0x5D4594, 4 * a1 + 826040) + 1, 1u);
+		v3 = (char*)calloc(*(_DWORD*)getMemAt(0x5D4594, 4 * a1 + 826040) + 1, 1u);
 		dword_5d4594_826036 = v3;
 		if (v3) {
 			sub_40ADD0_fread(v3, *(_DWORD*)getMemAt(0x5D4594, 4 * a1 + 826040), 1u, v2);
@@ -4630,9 +4630,9 @@ void __cdecl sub_446520(int a1, const void* a2, int a3) {
 
 	if (a2) {
 		if (a3 > 0) {
-			v3 = nox_calloc(a3, 1u);
+			v3 = calloc(a3, 1u);
 			*(_DWORD*)getMemAt(0x5D4594, 4 * a1 + 826056) = v3;
-			qmemcpy(v3, a2, a3);
+			memcpy(v3, a2, a3);
 			*(_DWORD*)getMemAt(0x5D4594, 4 * a1 + 826048) = a3;
 			*(_DWORD*)getMemAt(0x5D4594, 4 * a1 + 826064) = 1;
 		}
@@ -5138,7 +5138,7 @@ unsigned int __cdecl sub_447410(char* a1) {
 	}
 	*getMemAt( 0x5D4594, v1 + 826096) = 0;
 	result = strlen((const char*)getMemAt(0x5D4594, 826096)) + 1;
-	qmemcpy(a1, getMemAt(0x5D4594, 826096), result);
+	memcpy(a1, getMemAt(0x5D4594, 826096), result);
 	return result;
 }
 
@@ -5556,7 +5556,7 @@ int __cdecl sub_448680(wchar_t* a1, char* a2) {
 	sub_425550(a1, v4, 16 * (v3 + 1));
 	result = 0;
 	*a2 = -16;
-	qmemcpy(a2 + 1, v4, strlen(v4));
+	memcpy(a2 + 1, v4, strlen(v4));
 	return result;
 }
 
@@ -6518,7 +6518,7 @@ int __cdecl sub_44B940(_DWORD* a1, int a2, int a3) {
 	v14 = 0;
 	while (1) {
 		v13 = v4 >= 16 ? v4 + 4 : v4;
-		v5 = nox_malloc(4 * v3);
+		v5 = malloc(4 * v3);
 		*(_DWORD*)((char*)a1 + v13 + 4) = v5;
 		if (!v5)
 			break;

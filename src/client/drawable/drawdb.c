@@ -417,7 +417,7 @@ size_t sub_44CCD0() {
 	for (i = 0; i < 108; i += 4) {
 		result = *(_DWORD*)getMemAt(0x5D4594, i + 830616);
 		if (result) {
-			result = (size_t)nox_calloc(1u, 8 * result);
+			result = (size_t)calloc(1u, 8 * result);
 			*(_DWORD*)getMemAt(0x5D4594, i + 830296) = result;
 		} else {
 			*(_DWORD*)getMemAt(0x5D4594, i + 830296) = 0;
@@ -562,7 +562,7 @@ int sub_42BF10() {
 		v1 = nox_get_things_count();
 	}
 	dword_5d4594_741680 = v1;
-	dword_5d4594_741676 = nox_malloc(2 * v1);
+	dword_5d4594_741676 = malloc(2 * v1);
 	if (dword_5d4594_741676) {
 		sub_42BFB0();
 		return 1;
@@ -572,7 +572,7 @@ int sub_42BF10() {
 
 //----- (0044C840) --------------------------------------------------------
 void* __cdecl sub_44C840_read_things(void) {
-	char* scratch_buffer = (char*)nox_malloc(256 * 1024);
+	char* scratch_buffer = (char*)malloc(256 * 1024);
 	sub_44CCA0();
 	nox_things_free_44C580();
 	nox_things_count = 1;
@@ -621,7 +621,7 @@ void* __cdecl sub_44C840_read_things(void) {
 			break;
 		case 0x54484E47: // "THNG"
 			;
-			nox_thing* obj = (nox_thing*)nox_calloc(1, sizeof(nox_thing));
+			nox_thing* obj = (nox_thing*)calloc(1, sizeof(nox_thing));
 			if (!obj) {
 				return 0;
 			}
@@ -655,7 +655,7 @@ void* __cdecl sub_44C840_read_things(void) {
 	} else {
 		nox_memfile_free(things);
 	}
-	void* result = nox_malloc(sizeof(nox_thing*) * nox_things_count);
+	void* result = malloc(sizeof(nox_thing*) * nox_things_count);
 	nox_things_array = result;
 	if (result) {
 		sub_44CCD0();
@@ -671,12 +671,12 @@ void* __cdecl sub_44C840_read_things(void) {
 					CHAR* cur_name = cur->name;
 					unsigned int cur_name_len_plus_one = strlen(cur->name) + 1;
 					unsigned __int8* v11 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 830404)) + 830404);
-					qmemcpy(v11, cur->name, 4 * (cur_name_len_plus_one >> 2));
+					memcpy(v11, cur->name, 4 * (cur_name_len_plus_one >> 2));
 					CHAR* v13 = &cur_name[4 * (cur_name_len_plus_one >> 2)];
 					unsigned __int8* v12 = &v11[4 * (cur_name_len_plus_one >> 2)];
 					char v14 = cur_name_len_plus_one;
 					LOWORD(cur_name_len_plus_one) = *(_WORD*)getMemAt(0x587000, 122728);
-					qmemcpy(v12, v13, v14 & 3);
+					memcpy(v12, v13, v14 & 3);
 					unsigned __int8* v15 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 830404)) + 830405);
 					int v16 = *(_DWORD*)getMemAt(0x587000, 122724);
 					*(_DWORD*)--v15 = *(_DWORD*)getMemAt(0x587000, 122720);
@@ -693,12 +693,12 @@ void* __cdecl sub_44C840_read_things(void) {
 					CHAR* v18 = cur->name;
 					unsigned int v19 = strlen(cur->name) + 1;
 					unsigned __int8* v20 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 830404)) + 830404);
-					qmemcpy(v20, cur->name, 4 * (v19 >> 2));
+					memcpy(v20, cur->name, 4 * (v19 >> 2));
 					CHAR* v22 = &v18[4 * (v19 >> 2)];
 					unsigned __int8* v21 = &v20[4 * (v19 >> 2)];
 					char v23 = v19;
 					int v24 = *(_DWORD*)getMemAt(0x587000, 122792);
-					qmemcpy(v21, v22, v23 & 3);
+					memcpy(v21, v22, v23 & 3);
 					unsigned __int8* v25 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 830404)) + 830405);
 					int v26 = *(_DWORD*)getMemAt(0x587000, 122788);
 					*(_DWORD*)--v25 = *(_DWORD*)getMemAt(0x587000, 122784);
@@ -874,7 +874,7 @@ size_t sub_4E3040() {
 	for (i = 0; i < 108; i += 4) {
 		result = *(_DWORD*)getMemAt(0x5D4594, i + 1563668);
 		if (result) {
-			result = (size_t)nox_calloc(1u, 4 * result);
+			result = (size_t)calloc(1u, 4 * result);
 			*(_DWORD*)getMemAt(0x5D4594, i + 1563348) = result;
 		} else {
 			*(_DWORD*)getMemAt(0x5D4594, i + 1563348) = 0;
@@ -1017,7 +1017,7 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 		sub_4E2A20();
 	sub_4E3010();
 	dword_5d4594_1563664 = 0;
-	v1 = nox_malloc(0x40000u);
+	v1 = malloc(0x40000u);
 	v3 = v1;
 	v21 = v1;
 
@@ -1061,7 +1061,7 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 			nox_thing_read_image_415240(things);
 			break;
 		case 1414024775:
-			v5 = nox_calloc(1u, 0xE0u);
+			v5 = calloc(1u, 0xE0u);
 			if (!v5) {
 				nox_memfile_free(things);
 				return 0;
@@ -1129,7 +1129,7 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 			}
 			if (*((_DWORD*)v5 + 6) & 0x3000006) {
 				if (!*((_DWORD*)v5 + 34)) {
-					v15 = nox_calloc(1u, 0x14u);
+					v15 = calloc(1u, 0x14u);
 					*((_DWORD*)v5 + 34) = v15;
 					if (!v15)
 						return 0;
@@ -1159,7 +1159,7 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 		return 0;
 	}
 	sub_4E3C20();
-	result = nox_malloc(4 * *(_DWORD*)getMemAt(0x587000, 201384));
+	result = malloc(4 * *(_DWORD*)getMemAt(0x587000, 201384));
 	*(_DWORD*)getMemAt(0x5D4594, 1563456) = result;
 	if (!result) {
 		return 0;

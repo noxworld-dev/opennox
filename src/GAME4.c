@@ -2889,7 +2889,7 @@ int __cdecl sub_4FA700(int a1) {
 	result = a1;
 	v2 = *(_DWORD*)(a1 + 748);
 	if (!*(_DWORD*)(v2 + 292)) {
-		result = (int)nox_calloc(1u, 0x898u);
+		result = (int)calloc(1u, 0x898u);
 		*(_DWORD*)(v2 + 292) = result;
 	}
 	v3 = *(_DWORD**)(v2 + 292);
@@ -6633,7 +6633,7 @@ char* __cdecl sub_500540(char* a1, int a2) {
 	if (result) {
 		*((_DWORD*)result + 34) = a2;
 	} else {
-		result = (char*)nox_malloc(0x94u);
+		result = (char*)malloc(0x94u);
 		v3 = result;
 		if (result) {
 			strcpy(result, (const char*)getMemAt(0x5D4594, 1570140));
@@ -6665,7 +6665,7 @@ char* __cdecl sub_5005E0(char* a1) {
 		v6 = strlen(a1) + 1;
 		v7 = v6;
 		v6 >>= 2;
-		qmemcpy(getMemAt(0x5D4594, 1570140), a1, 4 * v6);
+		memcpy(getMemAt(0x5D4594, 1570140), a1, 4 * v6);
 		v4 = &a1[4 * v6];
 		v3 = getMemAt(0x5D4594, 4 * v6 + 1570140);
 		v5 = v7;
@@ -6674,12 +6674,12 @@ char* __cdecl sub_5005E0(char* a1) {
 		*(_WORD*)getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 1570140)) + 1570140) = *(_WORD*)getMemAt(0x587000, 217952);
 		v1 = strlen(a1) + 1;
 		v2 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 1570140)) + 1570140);
-		qmemcpy(v2, a1, 4 * (v1 >> 2));
+		memcpy(v2, a1, 4 * (v1 >> 2));
 		v4 = &a1[4 * (v1 >> 2)];
 		v3 = &v2[4 * (v1 >> 2)];
 		v5 = v1;
 	}
-	qmemcpy(v3, v4, v5 & 3);
+	memcpy(v3, v4, v5 & 3);
 	for (i = dword_5d4594_1570272; i; i = *(_DWORD*)(i + 140)) {
 		if (!_strcmpi((const char*)i, (const char*)getMemAt(0x5D4594, 1570140)))
 			break;
@@ -6696,7 +6696,7 @@ char* __cdecl sub_5006B0(char* a1, int a2) {
 	if (result) {
 		*((_DWORD*)result + 34) = a2;
 	} else {
-		result = (char*)nox_malloc(0x94u);
+		result = (char*)malloc(0x94u);
 		v3 = result;
 		if (result) {
 			strcpy(result, (const char*)getMemAt(0x5D4594, 1570140));
@@ -6859,17 +6859,17 @@ unsigned int __cdecl sub_5009B0(char* a1) {
 
 	if (strchr(a1, 58)) {
 		result = strlen(a1) + 1;
-		qmemcpy(getMemAt(0x5D4594, 1570140), a1, result);
+		memcpy(getMemAt(0x5D4594, 1570140), a1, result);
 	} else {
 		v1 = strlen((const char*)getMemAt(0x5D4594, 1570008)) + 1;
 		v2 = v1;
 		v1 >>= 2;
-		qmemcpy(getMemAt(0x5D4594, 1570140), getMemAt(0x5D4594, 1570008), 4 * v1);
+		memcpy(getMemAt(0x5D4594, 1570140), getMemAt(0x5D4594, 1570008), 4 * v1);
 		v4 = getMemAt(0x5D4594, 4 * v1 + 1570008);
 		v3 = getMemAt(0x5D4594, 4 * v1 + 1570140);
 		LOBYTE(v1) = v2;
 		result = 0;
-		qmemcpy(v3, v4, v1 & 3);
+		memcpy(v3, v4, v1 & 3);
 		*(_WORD*)getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 1570140)) + 1570140) = *(_WORD*)getMemAt(0x587000, 217960);
 		strcat((char*)getMemAt(0x5D4594, 1570140), a1);
 	}
@@ -8346,10 +8346,10 @@ char* sub_5028E0() {
 	*(_DWORD*)getMemAt(0x5D4594, 1599496) = 0;
 	memset(getMemAt(0x5D4594, 1599500), 0, 0x20u);
 	if (!dword_5d4594_1599588)
-		dword_5d4594_1599588 = nox_malloc(0x800u);
+		dword_5d4594_1599588 = malloc(0x800u);
 	result = *(char**)&dword_5d4594_1599592;
 	if (!dword_5d4594_1599592) {
-		result = (char*)nox_malloc(0x800u);
+		result = (char*)malloc(0x800u);
 		dword_5d4594_1599592 = result;
 	}
 	return result;
@@ -8444,11 +8444,11 @@ int sub_502B10() {
 
 	dword_5d4594_1599596 = 0;
 	if (!dword_5d4594_1599588)
-		dword_5d4594_1599588 = nox_malloc(0x800u);
+		dword_5d4594_1599588 = malloc(0x800u);
 	if (!dword_5d4594_1599592)
-		dword_5d4594_1599592 = nox_malloc(0x800u);
+		dword_5d4594_1599592 = malloc(0x800u);
 	if (!dword_5d4594_1599576)
-		dword_5d4594_1599576 = nox_malloc(0x26000u);
+		dword_5d4594_1599576 = malloc(0x26000u);
 	result = 0;
 	if (strlen(*(const char**)&dword_5d4594_1599588)) {
 		result = sub_502DA0(*(char**)&dword_5d4594_1599588);
@@ -8962,7 +8962,7 @@ int __cdecl sub_503830(int a1) {
 	fread(&v11[4], 4u, 1u, v1);
 	fread(&v11[5], 4u, 1u, v1);
 	sub_4D3C80(v11);
-	qmemcpy(getMemAt(0x5D4594, 1599500), v11, 0x20u);
+	memcpy(getMemAt(0x5D4594, 1599500), v11, 0x20u);
 	sub_428170(&v11, &v25);
 	sub_426A50(1);
 	while (1) {
@@ -9225,10 +9225,10 @@ _DWORD* __cdecl sub_5040A0(int a1, int a2, float a3) {
 	bool v7;        // zf
 	float v8;       // [esp+10h] [ebp+Ch]
 
-	result = nox_malloc(0x18u);
+	result = malloc(0x18u);
 	v4 = result;
 	if (result) {
-		v5 = nox_malloc(0x14u);
+		v5 = malloc(0x14u);
 		*v4 = v5;
 		if (v5) {
 			v4[5] = 0;
@@ -9283,7 +9283,7 @@ int __cdecl sub_504150(int a1, int a2) {
 				return 0;
 		}
 	}
-	qmemcpy(v8, sub_4D3C70(), sizeof(v8));
+	memcpy(v8, sub_4D3C70(), sizeof(v8));
 	v5 = dword_5d4594_1599556;
 	if (dword_5d4594_1599556) {
 		v9 = (double)a1;
@@ -9316,7 +9316,7 @@ _DWORD* __cdecl sub_504290(char a1, char a2) {
 	_DWORD* v3;     // esi
 	_BYTE* v4;      // eax
 
-	result = nox_malloc(0xCu);
+	result = malloc(0xCu);
 	v3 = result;
 	if (result) {
 		result[2] = 0;
@@ -9324,7 +9324,7 @@ _DWORD* __cdecl sub_504290(char a1, char a2) {
 		if (dword_5d4594_1599532)
 			*(_DWORD*)(dword_5d4594_1599532 + 8) = result;
 		dword_5d4594_1599532 = result;
-		v4 = nox_calloc(1u, 0x24u);
+		v4 = calloc(1u, 0x24u);
 		*v3 = v4;
 		v4[5] = a1;
 		*(_BYTE*)(*v3 + 6) = a2;
@@ -9419,7 +9419,7 @@ _DWORD* __cdecl sub_5044B0(int a1, float a2, float a3) {
 	_DWORD* v5;     // eax
 	_DWORD* v6;     // eax
 
-	result = nox_malloc(0xCu);
+	result = malloc(0xCu);
 	v4 = result;
 	if (result) {
 		v5 = sub_579E70();
@@ -9504,7 +9504,7 @@ _DWORD* __cdecl sub_504600(const char* a1, int a2, char a3) {
 	char* v9;        // edi
 	const char* v10; // esi
 
-	v3 = nox_malloc(0xCu);
+	v3 = malloc(0xCu);
 	if (!v3)
 		return 0;
 	v5 = sub_57C330();
@@ -9525,12 +9525,12 @@ _DWORD* __cdecl sub_504600(const char* a1, int a2, char a3) {
 	v7 = strlen(a1) + 1;
 	v8 = v7;
 	v7 >>= 2;
-	qmemcpy(v6, a1, 4 * v7);
+	memcpy(v6, a1, 4 * v7);
 	v10 = &a1[4 * v7];
 	v9 = &v6[4 * v7];
 	LOBYTE(v7) = v8;
 	result = v3;
-	qmemcpy(v9, v10, v7 & 3);
+	memcpy(v9, v10, v7 & 3);
 	return result;
 }
 
@@ -9657,7 +9657,7 @@ _DWORD* __cdecl sub_5048A0(int a1) {
 	_DWORD* result; // eax
 	_DWORD* v2;     // ecx
 
-	result = nox_malloc(0xCu);
+	result = malloc(0xCu);
 	if (!result)
 		return 0;
 	result[2] = 0;
@@ -10054,7 +10054,7 @@ int nox_server_mapRWMapIntro_505080() {
 			}
 			v14 = (_BYTE*)v18;
 		} else {
-			v13 = nox_malloc(v17);
+			v13 = malloc(v17);
 			dword_5d4594_1599616 = v13;
 			if (!v13) {
 				return 0;
@@ -10145,7 +10145,7 @@ int sub_505360() {
 		do {
 			v4 = sub_505800();
 			v5 = v4;
-			v6 = nox_calloc(1u, v4 + 1);
+			v6 = calloc(1u, v4 + 1);
 			*(_DWORD*)v3 = v6;
 			if (!sub_505830(v5, v6))
 				goto LABEL_45;
@@ -10161,7 +10161,7 @@ int sub_505360() {
 	v9 = sub_505800();
 	dword_5d4594_1599640 = v9;
 	if (v9) {
-		dword_5d4594_1599636 = nox_calloc(1u, 48 * v9);
+		dword_5d4594_1599636 = calloc(1u, 48 * v9);
 		v9 = dword_5d4594_1599640;
 	}
 	v10 = 0;
@@ -10170,7 +10170,7 @@ int sub_505360() {
 		while (sub_505870("FUNC")) {
 			v12 = sub_505800();
 			v13 = 48 * v10;
-			*(_DWORD*)(dword_5d4594_1599636 + v13) = nox_calloc(1u, v12 + 1);
+			*(_DWORD*)(dword_5d4594_1599636 + v13) = calloc(1u, v12 + 1);
 			if (!sub_505830(v12, *(void**)(dword_5d4594_1599636 + v13)))
 				goto LABEL_51;
 			if (strlen(*(const char**)(dword_5d4594_1599636 + v13)) >= 0x400)
@@ -10203,7 +10203,7 @@ int sub_505360() {
 			if (v19) {
 				v20 = strtok(0, v36);
 				nox_sprintf(v38, "%%%s", v20);
-				*(_DWORD*)(dword_5d4594_1599636 + v13 + 36) = nox_calloc(1u, strlen(v38) + 1);
+				*(_DWORD*)(dword_5d4594_1599636 + v13 + 36) = calloc(1u, strlen(v38) + 1);
 				strcpy(*(char**)(dword_5d4594_1599636 + v13 + 36), v38);
 				v21 = strtok(0, v36);
 				*(_DWORD*)(dword_5d4594_1599636 + v13 + 40) = atoi(v21);
@@ -10230,8 +10230,8 @@ int sub_505360() {
 			*(_DWORD*)(dword_5d4594_1599636 + v13 + 12) = v30;
 			sub_505800();
 			if (v30) {
-				*(_DWORD*)(dword_5d4594_1599636 + v13 + 20) = nox_calloc(1u, 4 * v30);
-				*(_DWORD*)(dword_5d4594_1599636 + v13 + 24) = nox_calloc(1u, 4 * v30);
+				*(_DWORD*)(dword_5d4594_1599636 + v13 + 20) = calloc(1u, 4 * v30);
+				*(_DWORD*)(dword_5d4594_1599636 + v13 + 24) = calloc(1u, 4 * v30);
 			} else {
 				*(_DWORD*)(dword_5d4594_1599636 + v13 + 20) = 0;
 				v31 = dword_5d4594_1599636;
@@ -10252,13 +10252,13 @@ int sub_505360() {
 			}
 			*(_DWORD*)(dword_5d4594_1599636 + v13 + 16) = i;
 			if (i)
-				*(_DWORD*)(dword_5d4594_1599636 + v13 + 28) = nox_calloc(1u, 4 * i);
+				*(_DWORD*)(dword_5d4594_1599636 + v13 + 28) = calloc(1u, 4 * i);
 			else
 				*(_DWORD*)(dword_5d4594_1599636 + v13 + 28) = 0;
 			if (!sub_505870("DATA"))
 				goto LABEL_9;
 			v35 = sub_505800();
-			*(_DWORD*)(dword_5d4594_1599636 + v13 + 32) = nox_calloc(1u, v35);
+			*(_DWORD*)(dword_5d4594_1599636 + v13 + 32) = calloc(1u, v35);
 			if (fread(*(void**)(dword_5d4594_1599636 + v13 + 32), 1u, v35, nox_file_7) != v35) {
 			LABEL_51:
 				fclose(nox_file_7);

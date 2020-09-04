@@ -446,7 +446,7 @@ int sub_48D120() {
 
 	v0 = 0;
 	dword_5d4594_1197328 = dword_5d4594_1197324;
-	qmemcpy(getMemAt(0x5D4594, 1195512), getMemAt(0x5D4594, 1193720), 0x700u);
+	memcpy(getMemAt(0x5D4594, 1195512), getMemAt(0x5D4594, 1193720), 0x700u);
 	dword_5d4594_1197324 = 0;
 	v1 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16404, 0, 0);
 	v2 = v1;
@@ -683,14 +683,14 @@ _DWORD* __cdecl sub_48D5A0(int a1) {
 	if (!result) {
 		result = (_DWORD*)sub_48D560(*(_WORD*)(a1 + 1));
 		if (!result) {
-			result = nox_calloc(*(unsigned __int8*)(a1 + 3) + 32, 1u);
+			result = calloc(*(unsigned __int8*)(a1 + 3) + 32, 1u);
 			v2 = result;
 			if (result) {
 				sub_425770(result);
 				v2[2] = *(unsigned __int16*)(a1 + 1);
 				*((_WORD*)v2 + 12) = *(unsigned __int8*)(a1 + 3);
 				*((_QWORD*)v2 + 2) = sub_416BB0();
-				qmemcpy(v2 + 8, (const void*)(a1 + 4), *(unsigned __int8*)(a1 + 3));
+				memcpy(v2 + 8, (const void*)(a1 + 4), *(unsigned __int8*)(a1 + 3));
 				if (*(_WORD*)getMemAt(0x5D4594, 1197360) == *(_WORD*)(a1 + 1))
 					dword_5d4594_1197352 = v2;
 				result = (_DWORD*)sub_425790((int*)getMemAt(0x5D4594, 1197340), v2);
@@ -2830,7 +2830,7 @@ void __cdecl sub_496050(int a1) {
 int sub_4960B0() {
 	int result; // eax
 
-	result = (int)nox_malloc(4 * (4 * nox_win_width / 23 * (nox_win_height / 23) / 2));
+	result = (int)malloc(4 * (4 * nox_win_width / 23 * (nox_win_height / 23) / 2));
 	dword_5d4594_1217456 = result;
 	if (result) {
 		sub_4CA860();
@@ -5192,7 +5192,7 @@ _DWORD* __cdecl sub_499F60(int a1, int a2, int a3, __int16 a4, char a5, char a6,
 // 49A025: variable 'v12' is possibly undefined
 
 //----- (0049A2C0) --------------------------------------------------------
-void nox_alloc_npcs() { npc_array = nox_calloc(nox_max_npcs, sizeof(nox_npc)); }
+void nox_alloc_npcs() { npc_array = calloc(nox_max_npcs, sizeof(nox_npc)); }
 
 //----- (0049A300) --------------------------------------------------------
 nox_npc* __cdecl nox_new_npc(int id) {
@@ -5415,7 +5415,7 @@ int sub_49A8C0() {
 //----- (0049A8E0) --------------------------------------------------------
 int sub_49A8E0_init() {
 	nox_drawable_2d_index_size = nox_drawable_2d_index_cap;
-	nox_drawable_2d_index = nox_malloc(nox_drawable_2d_index_size * sizeof(void*));
+	nox_drawable_2d_index = malloc(nox_drawable_2d_index_size * sizeof(void*));
 	if (!nox_drawable_2d_index)
 		return 0;
 
@@ -5423,7 +5423,7 @@ int sub_49A8E0_init() {
 		return 1;
 
 	for (int i = 0; i < nox_drawable_2d_index_size; i++) {
-		nox_drawable_2d_index[i] = nox_calloc(nox_drawable_2d_index_size, sizeof(void*));
+		nox_drawable_2d_index[i] = calloc(nox_drawable_2d_index_size, sizeof(void*));
 		if (!nox_drawable_2d_index[i])
 			return 0;
 	}
@@ -5713,7 +5713,7 @@ int __cdecl sub_49ADD0(int a1) {
 	if (!nox_alloc_pixelSpan_1301844)
 		return 0;
 	dword_5d4594_1301824 = nox_win_height;
-	v2 = nox_malloc(4 * nox_win_height);
+	v2 = malloc(4 * nox_win_height);
 	dword_5d4594_1301848 = v2;
 	if (!v2)
 		return 0;
@@ -9083,7 +9083,7 @@ void __cdecl sub_49F420(int a1, int a2, int a3) {
 BOOL sub_49F4A0() {
 	dword_5d4594_1305724 = 32;
 	*(_DWORD*)getMemAt(0x5D4594, 3798692) = 0;
-	dword_5d4594_3798696 = nox_calloc(0x20u, 8u);
+	dword_5d4594_3798696 = calloc(0x20u, 8u);
 	return dword_5d4594_3798696 != 0;
 }
 
@@ -9629,8 +9629,8 @@ int __cdecl sub_4A0030(const void* a1) {
 	wchar_t* v8; // ebp
 	wchar_t* v9; // eax
 
-	v1 = nox_calloc(1u, 0xA9u);
-	qmemcpy(v1, a1, 0xA9u);
+	v1 = calloc(1u, 0xA9u);
+	memcpy(v1, a1, 0xA9u);
 	v2 = 0;
 	switch (dword_587000_166704) {
 	case 0:

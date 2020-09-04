@@ -36,7 +36,7 @@ _DWORD* __cdecl sub_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a
 		if (!*(_DWORD*)(a7 + 16))
 			*(_DWORD*)(a7 + 16) = v8;
 		sub_46AF80_copy_window_part((int)v8, (const void*)a7);
-		v9 = nox_malloc(524 * *a8);
+		v9 = malloc(524 * *a8);
 		*((_DWORD*)a8 + 6) = v9;
 		if (!v9)
 			return 0;
@@ -52,7 +52,7 @@ _DWORD* __cdecl sub_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a
 		a8[22] = 0;
 		*((_DWORD*)a8 + 10) = 0;
 		if (v11) {
-			v12 = nox_malloc(4 * *a8);
+			v12 = malloc(4 * *a8);
 			*((_DWORD*)a8 + 12) = v12;
 			if (!v12) {
 				free(*((LPVOID*)a8 + 6));
@@ -144,8 +144,8 @@ _DWORD* __cdecl sub_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a
 			*(_DWORD*)&v25[16] = v8;
 			*((_DWORD*)a8 + 9) = sub_4B4EE0((int)v8, v17, a5 - v19, v22 + v23, v19, v10 - 2 * v23, v25, (float*)v24);
 		}
-		v20 = (__int16*)nox_malloc(0x38u);
-		qmemcpy(v20, a8, 0x38u);
+		v20 = (__int16*)malloc(0x38u);
+		memcpy(v20, a8, 0x38u);
 		v8[8] = v20;
 	}
 	return v8;

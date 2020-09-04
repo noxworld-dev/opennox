@@ -118,7 +118,7 @@ bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char*
 	unsigned __int8 v21; // [esp+20h] [ebp+8h]
 	int v22;             // [esp+24h] [ebp+Ch]
 
-	v3 = nox_calloc(1u, 0x10u);
+	v3 = calloc(1u, 0x10u);
 	v5 = v3;
 	v6 = a3;
 	*v3 = 16;
@@ -130,7 +130,7 @@ bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char*
 	nox_memfile_read(a3, 1u, v20, f);
 	a3[v20] = 0;
 	v5[3] = get_animation_kind_id_44B4C0(a3);
-	result = (int)nox_malloc(4 * *((unsigned __int8*)v5 + 8));
+	result = (int)malloc(4 * *((unsigned __int8*)v5 + 8));
 	v5[1] = result;
 	if (!result)
 		return 0;
@@ -175,7 +175,7 @@ int __cdecl sub_44BE90(int a1, nox_memfile* f) {
 	char v12[128];       // [esp+Ch] [ebp-80h]
 
 	v2 = a1;
-	result = (int)nox_malloc(4 * *(__int16*)(a1 + 40));
+	result = (int)malloc(4 * *(__int16*)(a1 + 40));
 	*(_DWORD*)(a1 + 4) = result;
 	if (result) {
 		v4 = 0;
@@ -208,7 +208,7 @@ int __cdecl sub_44BE90(int a1, nox_memfile* f) {
 //----- (0044BD90) --------------------------------------------------------
 bool __cdecl nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	const size_t data_sz = 0x94u;
-	_DWORD* draw_cb_data = nox_calloc(1u, data_sz);
+	_DWORD* draw_cb_data = calloc(1u, data_sz);
 	draw_cb_data[0] = data_sz;
 	while (1) {
 		int cmd = nox_memfile_read_u32(f);
