@@ -1362,6 +1362,26 @@ extern int (*func_5D4594_816388)(void);
 extern int (*func_5D4594_816392)(void);
 extern void (*func_5D4594_830220)(void);
 
+typedef struct mem_blob {
+	uintptr_t base;
+	uintptr_t size;
+	unsigned __int8* ptr;
+} mem_blob;
+
+mem_blob blobs[] = { // keep them sorted!
+#if 0
+	{0x563002, sizeof(byte_563002), byte_563002},
+	{0x563006, sizeof(byte_563006), byte_563006},
+#endif
+	{0x581450, sizeof(byte_581450), byte_581450},
+	{0x587000, sizeof(byte_587000), byte_587000},
+	{0x5D4594, sizeof(byte_5D4594), byte_5D4594},
+	{0x9800B0, sizeof(asc_9800B0), asc_9800B0},
+	{0x980858, sizeof(mix_dword_980858), mix_dword_980858},
+};
+
+size_t blobs_cnt = sizeof(blobs) / sizeof(mem_blob);
+
 typedef struct mem_mapping {
 	uintptr_t base;
 	void* ptr;
@@ -2697,22 +2717,12 @@ mem_mapping mappings[] = {
 	{0x587000 + 122104, (void*)&nox_parse_thing_funcs, sizeof(nox_parse_thing_funcs_t) * 21, 1},           // TODO
 	{0x587000 + 80848, (void*)&nox_video_dxFullScreen, sizeof(nox_video_dxFullScreen), 1},
 	{0x587000 + 84400, (void*)&nox_video_gammaValue, sizeof(nox_video_gammaValue), 1},
-
-// full blobs
-#if 0
-        {0x563002, (void*)byte_563002, sizeof(byte_563002),0},
-    {0x563006, (void*)byte_563006, sizeof(byte_563006),0},
-#endif
-	{0x581450, (void*)byte_581450, sizeof(byte_581450), 0},
-	{0x587000, (void*)byte_587000, sizeof(byte_587000), 0},
-	{0x5D4594, (void*)byte_5D4594, sizeof(byte_5D4594), 0},
-	{0x9800B0, (void*)asc_9800B0, sizeof(asc_9800B0), 0},
-	{0x980858, (void*)mix_dword_980858, sizeof(mix_dword_980858), 0},
 };
 
 size_t mappings_cnt = sizeof(mappings) / sizeof(mem_mapping);
 
 _BYTE* getMem(uintptr_t addr) {
+	// overlay first
 	for (int i = 0; i < mappings_cnt; i++) {
 		mem_mapping* m = &mappings[i];
 		if (addr >= m->base && addr < m->base + (uintptr_t)m->size) {
@@ -2720,6 +2730,14 @@ _BYTE* getMem(uintptr_t addr) {
 				break;
 			addr -= m->base;
 			return &((_BYTE*)m->ptr)[addr];
+		}
+	}
+	// fallback to blobs
+	for (int i = 0; i < blobs_cnt; i++) {
+		mem_blob* m = &blobs[i];
+		if (addr >= m->base && addr < m->base + (uintptr_t)m->size) {
+			addr -= m->base;
+			return &(m->ptr[addr]);
 		}
 	}
 	fprintf(stderr, "Invalid memory access! Requested = %x\n", addr);
