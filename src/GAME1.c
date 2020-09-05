@@ -38,7 +38,6 @@ extern _DWORD dword_5d4594_251704;
 extern _DWORD dword_5d4594_1304;
 extern _DWORD dword_5d4594_371756;
 extern _DWORD dword_5d4594_251712;
-extern _DWORD dword_5d4594_1280;
 extern _DWORD dword_587000_80800;
 extern _DWORD dword_5d4594_251708;
 extern _DWORD dword_5d4594_251716;
@@ -521,7 +520,7 @@ FILE* __cdecl sub_408CC0_fopen(const char* path, int mode) {
 	nox_file_10 = f;
 	*getMemU32Ptr(0x5D4594, 1284) = 0;
 	dword_5d4594_1292 = 0;
-	dword_5d4594_1280 = 0;
+	*getMemU32Ptr(0x5D4594, 1280) = 0;
 	dword_5d4594_1304 = 0;
 	return f;
 }
@@ -558,7 +557,7 @@ int __cdecl sub_408D90(FILE* a1) {
 	nox_file_10 = 0;
 	*getMemU32Ptr(0x5D4594, 1284) = 0;
 	dword_5d4594_1292 = 0;
-	dword_5d4594_1280 = 0;
+	*getMemU32Ptr(0x5D4594, 1280) = 0;
 	sub_409580(0, 0);
 	return 1;
 }
@@ -594,7 +593,7 @@ signed int __cdecl sub_408E40_fread(char* a1, int a2, signed int a3, FILE* a4) {
 		v7 = a3;
 		v5 = v14;
 		*getMemU32Ptr(0x5D4594, 1276) = 0;
-		dword_5d4594_1280 = 0;
+		*getMemU32Ptr(0x5D4594, 1280) = 0;
 		*getMemU32Ptr(0x5D4594, 1284) += v4;
 	}
 	v10 = v5 - v4;
@@ -618,7 +617,7 @@ signed int __cdecl sub_408E40_fread(char* a1, int a2, signed int a3, FILE* a4) {
 			sub_4099C0(getMemAt(0x5D4594, 1288), v12, getMemAt(0x5D4594, 1276));
 			memcpy(&a1[v6 + v4], getMemAt(0x5D4594, 1276), v11);
 			*getMemU32Ptr(0x5D4594, 1276) = 0;
-			dword_5d4594_1280 = 0;
+			*getMemU32Ptr(0x5D4594, 1280) = 0;
 			*getMemU32Ptr(0x5D4594, 1284) += v11;
 			return a3;
 		}
@@ -687,7 +686,7 @@ int __cdecl sub_409110(FILE* a1) {
 	}
 	v2 = *getMemU32Ptr(0x5D4594, 1284);
 	*getMemU32Ptr(0x5D4594, 1276) = 0;
-	dword_5d4594_1280 = 0;
+	*getMemU32Ptr(0x5D4594, 1280) = 0;
 	fwrite(getMemAt(0x5D4594, 1276), 8u, 1u, a1);
 	*getMemU32Ptr(0x5D4594, 1284) += 8;
 	return v2;
@@ -799,7 +798,7 @@ void sub_4093A0() {
 	*getMemU32Ptr(0x5D4594, 1288) = 0;
 	*getMemU32Ptr(0x5D4594, 1276) = 0;
 	dword_5d4594_1292 = 0;
-	dword_5d4594_1280 = 0;
+	*getMemU32Ptr(0x5D4594, 1280) = 0;
 	dword_5d4594_1308 = 0;
 }
 
