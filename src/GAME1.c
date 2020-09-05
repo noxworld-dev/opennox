@@ -5863,14 +5863,14 @@ void sub_410020() {
 	if (string_entries)
 		free(string_entries);
 
-	nox_missing_string* v4 = *(nox_missing_string**)getMemAt(0x5D4594, 251520);
+	nox_missing_string* v4 = missing_strings;
 	while (v4) {
 		nox_missing_string* v5 = v4->next;
 		free(v4);
 		v4 = v5;
 	}
 
-	*getMemU32Ptr(0x5D4594, 251520) = 0;
+	missing_strings = 0;
 	*getMemU32Ptr(0x5D4594, 251512) = 0;
 }
 
