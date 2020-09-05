@@ -126,7 +126,7 @@ int sub_423CF0() {
 	if (SectorsPerCluster[7] != 49)
 		return 0;
 LABEL_23:
-	*getMemAt( 0x5D4594, 588116) = *v0;
+	*getMemU8Ptr(0x5D4594, 588116) = *v0;
 	return result;
 }
 // 423CF0: using guessed type CHAR Buffer[260];

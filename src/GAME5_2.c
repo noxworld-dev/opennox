@@ -815,7 +815,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 				if (v69) {
 					sub_425920((_DWORD**)v69);
 					free(v70);
-					--*getMemAt( 0x5D4594, 2500076);
+					--*getMemU8Ptr( 0x5D4594, 2500076);
 				}
 				sub_5545B0(v6);
 				return 0;
@@ -947,7 +947,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 					v50 = malloc(0x10u);
 					v50[3] = (unsigned __int8)i[2064] + 1;
 					sub_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
-					++*getMemAt( 0x5D4594, 2500076);
+					++*getMemU8Ptr( 0x5D4594, 2500076);
 					*(_BYTE*)(v4 + 2) = 21;
 					return 3;
 				}
@@ -1006,8 +1006,8 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 			if (v53 >= 0) {
 				v54 = 68 * v53;
 				*getMemU32Ptr(0x5D4594, v54 + 2500084) = 1;
-				*getMemAt( 0x5D4594, v54 + 2500089) = 0;
-				*getMemAt( 0x5D4594, v54 + 2500088) = 0;
+				*getMemU8Ptr( 0x5D4594, v54 + 2500089) = 0;
+				*getMemU8Ptr( 0x5D4594, v54 + 2500088) = 0;
 				v55 = getMemAt(0x5D4594, 68 * v53 + 2500092);
 				*(_QWORD*)v55 = *(_QWORD*)v74;
 				*((_DWORD*)v55 + 2) = v75;
@@ -1398,9 +1398,9 @@ int __cdecl sub_554380(size_t* a1) {
 	if ((int)a1[4] > 128)
 		return -2;
 	v2 = 0;
-	*getMemAt( 0x5D4594, 3843644) = 0;
+	*getMemU8Ptr(0x5D4594, 3843644) = 0;
 	dword_5d4594_3843632 = 0;
-	*getMemAt( 0x5D4594, 3843660) = 0;
+	*getMemU8Ptr(0x5D4594, 3843660) = 0;
 	v3 = getMemAt(0x5D4594, 3843788);
 	while (*(_DWORD*)v3) {
 		v3 += 4;
@@ -1631,9 +1631,9 @@ int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	printf("bar %d\n", dword_5d4594_3844304);
 	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
 		memset(getMemAt(0x5D4594, 2512892), 0, 0x400u);
-		*getMemAt( 0x5D4594, 2512892) = 31;
-		*getMemAt( 0x5D4594, 2512893) = *(_BYTE*)(v5[12] + 1);
-		*getMemAt( 0x5D4594, 2512894) = 32;
+		*getMemU8Ptr(0x5D4594, 2512892) = 31;
+		*getMemU8Ptr(0x5D4594, 2512893) = *(_BYTE*)(v5[12] + 1);
+		*getMemU8Ptr(0x5D4594, 2512894) = 32;
 		if (a4)
 			memcpy(getMemAt(0x5D4594, 2512895), (const void*)a4, a5);
 		sub_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
@@ -3359,7 +3359,7 @@ int sub_578C60() {
 //----- (00578C90) --------------------------------------------------------
 int __cdecl sub_578C90(int a1) {
 	dword_587000_311372 = a1;
-	*getMemAt( 0x5D4594, 2516476) |= 1 << a1;
+	*getMemU8Ptr( 0x5D4594, 2516476) |= 1 << a1;
 	sub_44E0B0(1);
 	sub_413960();
 	sub_477530(0);
@@ -3421,7 +3421,7 @@ char __cdecl sub_578DE0(char a1) {
 	char result; // al
 
 	result = a1;
-	*getMemAt( 0x5D4594, 2516476) = a1;
+	*getMemU8Ptr(0x5D4594, 2516476) = a1;
 	return result;
 }
 
@@ -3492,7 +3492,7 @@ int __cdecl sub_579350(int a1) {
 	}
 	result = 0;
 	*getMemU32Ptr(0x5D4594, 1044 * a1 + 2516484) = -1;
-	*getMemAt( 0x5D4594, 1044 * a1 + 2516488) = 0;
+	*getMemU8Ptr( 0x5D4594, 1044 * a1 + 2516488) = 0;
 	*getMemU16Ptr(0x5D4594, 1044 * a1 + 2517512) = 0;
 	*getMemU16Ptr(0x5D4594, 1044 * a1 + 2517514) = 0;
 	*getMemU16Ptr(0x5D4594, 1044 * a1 + 2517516) = 0;

@@ -2203,9 +2203,9 @@ int __cdecl sub_4E4F40(int a1) {
 	int v1; // esi
 
 	v1 = 12 * a1;
-	*getMemAt( 0x5D4594, v1 + 1565125) = 2;
-	*getMemAt( 0x5D4594, v1 + 1565124) = 1;
-	*getMemAt( 0x5D4594, v1 + 1565126) = sub_40A6C0();
+	*getMemU8Ptr( 0x5D4594, v1 + 1565125) = 2;
+	*getMemU8Ptr( 0x5D4594, v1 + 1565124) = 1;
+	*getMemU8Ptr( 0x5D4594, v1 + 1565126) = sub_40A6C0();
 	return sub_4E4E50(a1);
 }
 
@@ -2680,9 +2680,9 @@ void __cdecl sub_4E5770(unsigned __int8 a1, int a2) {
 				goto LABEL_36;
 			}
 			if (true) { // TODO: byte_5D4594 != (unsigned __int8*)-1564964
-				*getMemAt(0x5D4594, 1564964) = -52;
+				*getMemU8Ptr(0x5D4594, 1564964) = -52;
 				*getMemU16Ptr(0x5D4594, 1564965) = *(_WORD*)(v4 + 2 * a1 + 186);
-				*getMemAt( 0x5D4594, 1564967) = *(_BYTE*)(v4 + 401);
+				*getMemU8Ptr(0x5D4594, 1564967) = *(_BYTE*)(v4 + 401);
 				memcpy(getMemAt(0x5D4594, 1564968), (const void*)(v4 + 251), *(unsigned __int8*)(v4 + 401));
 				v11 = v13(a1, a2, getMemAt(0x5D4594, 1564964), *(unsigned __int8*)(v4 + 401) + 4);
 				v2 = v16;
@@ -4436,7 +4436,7 @@ int __cdecl sub_4E8210(int a1, int a2) {
 
 //----- (004E8290) --------------------------------------------------------
 int __cdecl sub_4E8290(char a1, __int16 a2) {
-	*getMemAt( 0x5D4594, 1567736) = a1;
+	*getMemU8Ptr(0x5D4594, 1567736) = a1;
 	*getMemU16Ptr(0x5D4594, 1567738) = a2;
 	return sub_4D95F0(255, a1, a2);
 }
@@ -4446,9 +4446,9 @@ int __cdecl sub_4E82C0(unsigned __int8 a1, char a2, char a3, __int16 a4) {
 	int v4; // eax
 
 	v4 = 6 * a1;
-	*getMemAt( 0x5D4594, v4 + 1567740) = a1;
-	*getMemAt( 0x5D4594, v4 + 1567741) = a3;
-	*getMemAt( 0x5D4594, v4 + 1567742) = a2;
+	*getMemU8Ptr( 0x5D4594, v4 + 1567740) = a1;
+	*getMemU8Ptr( 0x5D4594, v4 + 1567741) = a3;
+	*getMemU8Ptr( 0x5D4594, v4 + 1567742) = a2;
 	*getMemU16Ptr(0x5D4594, v4 + 1567744) = a4;
 	return sub_4D95A0(255, a1, a2, a3, a4);
 }

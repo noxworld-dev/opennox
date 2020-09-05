@@ -366,7 +366,7 @@ void __cdecl sub_484E60(int a1) {
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
 		memset(getMemAt(0x5D4594, 2616332), 0x1Fu, 0xA04u);
-		*getMemAt( 0x5D4594, 2618896) = 31;
+		*getMemU8Ptr(0x5D4594, 2618896) = 31;
 	} else {
 		if (sub_57AF20()) {
 			v8 = 50;
@@ -381,7 +381,7 @@ void __cdecl sub_484E60(int a1) {
 		v4 = v3 << 16;
 		LOWORD(v4) = v3;
 		memset32(getMemAt(0x5D4594, 2616332), v4, 0x281u);
-		*getMemAt( 0x5D4594, 2618896) = v3;
+		*getMemU8Ptr(0x5D4594, 2618896) = v3;
 		v5 = v1[4];
 		v10.field_0 = v5 - 100;
 		v6 = v1[5];

@@ -60,7 +60,7 @@ int sub_4C1D80() {
 	sub_46AEC0(*(int*)&dword_5d4594_1321040, *(int*)&dword_5d4594_1321024);
 	sub_46AEA0(*(int*)&dword_5d4594_1321040, *(int*)&dword_5d4594_1321024);
 	sub_46AE40(*(int*)&dword_5d4594_1321040, -27, -12);
-	*getMemAt( 0x5D4594, 1321200) = 0;
+	*getMemU8Ptr(0x5D4594, 1321200) = 0;
 	nox_window_set_hidden(*(int*)&dword_5d4594_1321032, 1);
 	nox_window_set_hidden(*(int*)&dword_5d4594_1321040, 1);
 	v6 = getMemAt(0x5D4594, 1321060);

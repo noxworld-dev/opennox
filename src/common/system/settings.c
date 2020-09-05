@@ -59,7 +59,7 @@ void __cdecl sub_40A040_settings(__int16 a1, unsigned __int8 a2) {
 			}
 		}
 	}
-	*getMemAt( 0x5D4594, v2 + 3500) = a2;
+	*getMemU8Ptr( 0x5D4594, v2 + 3500) = a2;
 	*(_QWORD*)getMemAt(0x5D4594, 3468) = 60000 * a2 + sub_416BB0();
 }
 // 40A0D1: variable 'v4' is possibly undefined

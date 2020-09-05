@@ -266,7 +266,7 @@ int __cdecl sub_43BD90(int a1) {
 int sub_43BDB0() { return *getMemU32Ptr(0x5D4594, 815092); }
 
 //----- (0043BDC0) --------------------------------------------------------
-void sub_43BDC0() { --*getMemAt( 0x5D4594, 815208); }
+void sub_43BDC0() { --*getMemU8Ptr( 0x5D4594, 815208); }
 
 //----- (0043BDD0) --------------------------------------------------------
 int __cdecl sub_43BDD0(int a1) {
@@ -274,7 +274,7 @@ int __cdecl sub_43BDD0(int a1) {
 
 	result = a1;
 	if (*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140) != a1) {
-		++*getMemAt( 0x5D4594, 815208);
+		++*getMemU8Ptr( 0x5D4594, 815208);
 		*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140) = a1;
 	}
 	return result;
@@ -3780,7 +3780,7 @@ char* __cdecl sub_440BC0(int a1, unsigned __int8 a2, int a3) {
 	v3 = a1;
 	if (a1 == a2)
 		return 0;
-	*getMemAt( 0x5D4594, 818100) = 0;
+	*getMemU8Ptr(0x5D4594, 818100) = 0;
 	if (a1 < a2) {
 		v11 = (_DWORD*)(a3 + 4 * a1);
 		do {
@@ -5132,11 +5132,11 @@ unsigned int __cdecl sub_447410(char* a1) {
 	if (*a1) {
 		do {
 			if ((unsigned __int8)*v2 < 0x80u)
-				*getMemAt( 0x5D4594, v1++ + 826096) = *v2;
+				*getMemU8Ptr( 0x5D4594, v1++ + 826096) = *v2;
 			v3 = *++v2;
 		} while (v3);
 	}
-	*getMemAt( 0x5D4594, v1 + 826096) = 0;
+	*getMemU8Ptr( 0x5D4594, v1 + 826096) = 0;
 	result = strlen((const char*)getMemAt(0x5D4594, 826096)) + 1;
 	memcpy(a1, getMemAt(0x5D4594, 826096), result);
 	return result;
