@@ -2685,7 +2685,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 3799572, (void*)&ptr_5D4594_3799572, sizeof(ptr_5D4594_3799572), 1},
 	{0x5D4594 + 3799660, (void*)&obj_5D4594_3799660, sizeof(obj_5D4594_3799660), 1},
 	{0x5D4594 + 3800716, (void*)&obj_5D4594_3800716, sizeof(obj_5D4594_3800716), 1},
-	{0x5D4594 + 3800716, (void*)&nox_draw_unk1, sizeof(nox_draw_unk1), 1},
+	{0x5D4594 + 816396, (void*)&nox_draw_unk1, sizeof(nox_draw_unk1), 1},
 	{0x5D4594 + 2650668, (void*)&ptr_5D4594_2650668, sizeof(ptr_5D4594_2650668), 1},
 	{0x5D4594 + 2650636, (void*)&nox_common_engineFlags, sizeof(nox_common_engineFlags), 1},
 	{0x5D4594 + 3600, (void*)&nox_common_gameFlags, sizeof(nox_common_gameFlags), 1},
