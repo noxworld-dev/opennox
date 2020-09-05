@@ -42,11 +42,11 @@ int sub_578FF0() {
 		} else {
 			v3 = 1044 * v0;
 			argp = 1;
-			*(_DWORD*)getMemAt(0x5D4594, v3 + 2517520) = addr.sin_addr.s_addr;
+			*getMemU32Ptr(0x5D4594, v3 + 2517520) = addr.sin_addr.s_addr;
 			if (ioctlsocket(v2, -2147195266, &argp) == -1)
 				sub_578F20(-5);
-			++*(_WORD*)getMemAt(0x5D4594, 2523738);
-			*(_DWORD*)getMemAt(0x5D4594, v3 + 2516484) = v2;
+			++*getMemU16Ptr(0x5D4594, 2523738);
+			*getMemU32Ptr(0x5D4594, v3 + 2516484) = v2;
 			v7 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, v3 + 2517520));
 			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311532), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   142);
@@ -56,10 +56,10 @@ int sub_578FF0() {
 			v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311652), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   146);
 			nox_sprintf(buf, "%S", v5);
-			send(*(_DWORD*)getMemAt(0x5D4594, v3 + 2516484), buf, strlen(buf), 0);
-			result = *(_DWORD*)getMemAt(0x5D4594, v3 + 2517524);
+			send(*getMemU32Ptr(0x5D4594, v3 + 2516484), buf, strlen(buf), 0);
+			result = *getMemU32Ptr(0x5D4594, v3 + 2517524);
 			LOBYTE(result) = result | 1;
-			*(_DWORD*)getMemAt(0x5D4594, v3 + 2517524) = result;
+			*getMemU32Ptr(0x5D4594, v3 + 2517524) = result;
 		}
 	}
 	return result;

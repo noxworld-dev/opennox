@@ -186,7 +186,7 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 		else
 			nox_client_drawImageAt_47D2C0(a2[6], xLeft, v3);
 	}
-	if (*(_DWORD*)getMemAt(0x587000, 168836)) {
+	if (*getMemU32Ptr(0x587000, 168836)) {
 		v4 = getMemAt(0x587000, 168868);
 		do {
 			v5 = *((_DWORD*)v4 + 2);
@@ -218,7 +218,7 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 			v4 += 48;
 		} while (v9);
 	}
-	if (*(_DWORD*)getMemAt(0x587000, 168832)) {
+	if (*getMemU32Ptr(0x587000, 168832)) {
 		v10 = getMemAt(0x587000, 168872);
 		do {
 			if (!*((_DWORD*)v10 - 6) && !*(_DWORD*)v10)

@@ -28,7 +28,7 @@ int sub_455C30() {
 			result = dword_5d4594_1045604;
 		}
 		sub_455A00(0);
-		*(_DWORD*)getMemAt(0x5D4594, 1045632) = sub_42F970("FlagTeamBorder");
+		*getMemU32Ptr(0x5D4594, 1045632) = sub_42F970("FlagTeamBorder");
 		result = 1;
 	}
 	return result;

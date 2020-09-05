@@ -22,12 +22,12 @@ int __cdecl nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	if (!*(_DWORD*)getMemAt(0x5D4594, 1313728)) {
-		*(_DWORD*)getMemAt(0x5D4594, 1313736) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176812));
-		*(_DWORD*)getMemAt(0x5D4594, 1313732) = sub_4344A0(100, 100, 255);
-		*(_DWORD*)getMemAt(0x5D4594, 1313728) = 1;
+	if (!*getMemU32Ptr(0x5D4594, 1313728)) {
+		*getMemU32Ptr(0x5D4594, 1313736) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176812));
+		*getMemU32Ptr(0x5D4594, 1313732) = sub_4344A0(100, 100, 255);
+		*getMemU32Ptr(0x5D4594, 1313728) = 1;
 	}
-	if ((unsigned int)(*(_DWORD*)getMemAt(0x5D4594, 2598000) - *(_DWORD*)(a2 + 316)) <= 0x46) {
+	if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(a2 + 316)) <= 0x46) {
 		if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 54) > 85) {
 			v3 = *(_WORD*)(a2 + 328);
 			v14[0] = *(_WORD*)(a2 + 324);

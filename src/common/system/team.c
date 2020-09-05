@@ -19,13 +19,13 @@ int sub_417C60() {
 		*((_DWORD*)v0 - 3) = 0;
 		v0 += 80;
 	} while ((int)v0 < (int)getMemAt(0x5D4594, 527644));
-	if (!*(_DWORD*)getMemAt(0x5D4594, 526288)) {
+	if (!*getMemU32Ptr(0x5D4594, 526288)) {
 		v1 = getMemAt(0x587000, 54596);
 		do {
 			*(_DWORD*)v1 = loadString_sub_40F1D0(*((char**)v1 - 1), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 233);
 			v1 += 16;
 		} while ((int)v1 < (int)getMemAt(0x587000, 54756));
-		*(_DWORD*)getMemAt(0x5D4594, 526288) = 1;
+		*getMemU32Ptr(0x5D4594, 526288) = 1;
 	}
 	sub_417D50(2);
 	sub_417D70(1);
@@ -155,7 +155,7 @@ void sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 	*(_BYTE*)(a2 + 4) = v6[57];
 	*(_DWORD*)a2 = *((_DWORD*)v6 + 11);
 	*((_DWORD*)v6 + 11) = a2;
-	if (a4 == *(_DWORD*)getMemAt(0x5D4594, 2616328))
+	if (a4 == *getMemU32Ptr(0x5D4594, 2616328))
 		sub_455E70(v6[57]);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		if (nox_common_gameFlags_check_40A5C0(0x2000)) {

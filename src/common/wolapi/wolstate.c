@@ -46,11 +46,11 @@ int sub_41DDB0() {
 	wchar_t* v2; // eax
 	wchar_t* v3; // eax
 
-	if (!*(_DWORD*)getMemAt(0x587000, 58232)) {
+	if (!*getMemU32Ptr(0x587000, 58232)) {
 		sub_40D250();
 		return 1;
 	}
-	v0 = *(_DWORD*)getMemAt(0x587000, 58232);
+	v0 = *getMemU32Ptr(0x587000, 58232);
 	do {
 		v1 = sub_41E2F0();
 		switch (sub_41DCC0(v1)) {
@@ -59,7 +59,7 @@ int sub_41DDB0() {
 					sub_468F30_wol_reg();
 					break;
 				}
-				if (*(_WORD*)getMemAt(0x5D4594, 2660140)) {
+				if (*getMemU16Ptr(0x5D4594, 2660140)) {
 					sub_468DF0((wchar_t*)getMemAt(0x5D4594, 2660140));
 					break;
 				}

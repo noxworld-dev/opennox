@@ -231,7 +231,7 @@ int sub_4A75C0() {
 	if (*(_BYTE*)(dword_5d4594_1308136 + 4) & 8) {
 		v8 = (*(_DWORD*)(dword_5d4594_1308100 + 32) >> 16) +
 			 32 * (unsigned __int16)*(_DWORD*)(dword_5d4594_1308100 + 32);
-		*(_WORD*)&v25[1207] = *(_WORD*)getMemAt(0x5D4594, 3 * v8 + 1307796);
+		*(_WORD*)&v25[1207] = *getMemU16Ptr(0x5D4594, 3 * v8 + 1307796);
 		v7 = getMemByte(0x5D4594, 3 * v8 + 1307798);
 	} else {
 		v6 = *(_WORD*)v4;
@@ -254,7 +254,7 @@ int sub_4A75C0() {
 	if (*(_BYTE*)(dword_5d4594_1308144 + 4) & 8) {
 		v11 = (*(_DWORD*)(dword_5d4594_1308108 + 32) >> 16) +
 			  32 * (unsigned __int16)*(_DWORD*)(dword_5d4594_1308108 + 32);
-		*(_WORD*)&v25[1213] = *(_WORD*)getMemAt(0x5D4594, 3 * v11 + 1307796);
+		*(_WORD*)&v25[1213] = *getMemU16Ptr(0x5D4594, 3 * v11 + 1307796);
 		v25[1215] = getMemByte(0x5D4594, 3 * v11 + 1307798);
 	} else {
 		*(_WORD*)&v25[1213] = v5;
@@ -276,19 +276,19 @@ int sub_4A75C0() {
 	v25[1222] = *(_DWORD*)(dword_5d4594_1308128 + 32) >> 16;
 	v25[1223] = *(_DWORD*)(dword_5d4594_1308132 + 32) >> 16;
 	v13 = nox_common_get_data_path_409E10();
-	v14 = *(_WORD*)getMemAt(0x587000, 171768);
+	v14 = *getMemU16Ptr(0x587000, 171768);
 	strcpy(&v25[4], v13);
 	v15 = getMemByte(0x587000, 171770);
 	v16 = &v25[strlen(&v25[4]) + 4];
-	*(_DWORD*)v16 = *(_DWORD*)getMemAt(0x587000, 171764);
+	*(_DWORD*)v16 = *getMemU32Ptr(0x587000, 171764);
 	*((_WORD*)v16 + 2) = v14;
 	v16[6] = v15;
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		v17 = *(_DWORD*)getMemAt(0x587000, 171776);
+		v17 = *getMemU32Ptr(0x587000, 171776);
 		v18 = &v25[strlen(&v25[4]) + 4];
-		*(_DWORD*)v18 = *(_DWORD*)getMemAt(0x587000, 171772);
+		*(_DWORD*)v18 = *getMemU32Ptr(0x587000, 171772);
 		*((_DWORD*)v18 + 1) = v17;
-		*(_WORD*)&v25[strlen(&v25[4]) + 4] = *(_WORD*)getMemAt(0x587000, 171780);
+		*(_WORD*)&v25[strlen(&v25[4]) + 4] = *getMemU16Ptr(0x587000, 171780);
 	}
 	CreateDirectoryA(&v25[4], 0);
 	SetCurrentDirectoryA(&v25[4]);

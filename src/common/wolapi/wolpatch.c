@@ -6,7 +6,7 @@
 wchar_t* sub_41E5D0() {
 	wchar_t* result; // eax
 
-	switch (*(_DWORD*)getMemAt(0x587000, 59168)) {
+	switch (*getMemU32Ptr(0x587000, 59168)) {
 	case 1:
 		result =
 			loadString_sub_40F1D0((char*)getMemAt(0x587000, 59212), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolpatch.c", 101);

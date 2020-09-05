@@ -87,20 +87,20 @@ int sub_4C09D0() {
 	} while ((int)v18 < (int)getMemAt(0x5D4594, 1320592));
 	v21 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 184100), 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 749);
 	nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1319972), v21);
-	*(_DWORD*)getMemAt(0x5D4594, 1320188) = 0;
-	*(_DWORD*)getMemAt(0x5D4594, 1320192) = 0;
-	*(_DWORD*)getMemAt(0x5D4594, 1320196) = nox_win_width;
-	*(_DWORD*)getMemAt(0x5D4594, 1320200) = nox_win_height;
-	*(_DWORD*)getMemAt(0x5D4594, 1320220) = nox_win_width;
-	*(_DWORD*)getMemAt(0x5D4594, 1320224) = nox_win_height;
-	*(_DWORD*)getMemAt(0x5D4594, 1320204) = 0;
-	*(_DWORD*)getMemAt(0x5D4594, 1320208) = 0;
-	*(_DWORD*)getMemAt(0x5D4594, 1320164) = sub_42F970("TradeBase");
-	*(_DWORD*)getMemAt(0x5D4594, 1320168) = sub_42F970("TradeLeftAcceptPushed");
-	*(_DWORD*)getMemAt(0x5D4594, 1320172) = sub_42F970("TradeLeftAcceptLit");
-	*(_DWORD*)getMemAt(0x5D4594, 1320176) = sub_42F970("TradeRightAcceptLit");
-	*(_DWORD*)getMemAt(0x5D4594, 1320180) = sub_42F970("TradeCancelLit");
-	*(_DWORD*)getMemAt(0x5D4594, 1320184) = sub_42F970("TradeGold");
+	*getMemU32Ptr(0x5D4594, 1320188) = 0;
+	*getMemU32Ptr(0x5D4594, 1320192) = 0;
+	*getMemU32Ptr(0x5D4594, 1320196) = nox_win_width;
+	*getMemU32Ptr(0x5D4594, 1320200) = nox_win_height;
+	*getMemU32Ptr(0x5D4594, 1320220) = nox_win_width;
+	*getMemU32Ptr(0x5D4594, 1320224) = nox_win_height;
+	*getMemU32Ptr(0x5D4594, 1320204) = 0;
+	*getMemU32Ptr(0x5D4594, 1320208) = 0;
+	*getMemU32Ptr(0x5D4594, 1320164) = sub_42F970("TradeBase");
+	*getMemU32Ptr(0x5D4594, 1320168) = sub_42F970("TradeLeftAcceptPushed");
+	*getMemU32Ptr(0x5D4594, 1320172) = sub_42F970("TradeLeftAcceptLit");
+	*getMemU32Ptr(0x5D4594, 1320176) = sub_42F970("TradeRightAcceptLit");
+	*getMemU32Ptr(0x5D4594, 1320180) = sub_42F970("TradeCancelLit");
+	*getMemU32Ptr(0x5D4594, 1320184) = sub_42F970("TradeGold");
 	return 1;
 }
 

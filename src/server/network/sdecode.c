@@ -108,7 +108,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 	}
 
 	if (a3 <= 0) {
-		*((_DWORD*)sub_417090(a1) + 899) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+		*((_DWORD*)sub_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
 		return 1;
 	}
 	v4 = a2;
@@ -125,7 +125,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 		sub_4DE7C0(a1);
 		return 1;
 	case 0x25u:
-		*((_DWORD*)sub_417090(a1) + 899) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+		*((_DWORD*)sub_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
 		return 1;
 	}
 	v91 = &a2[a3];
@@ -141,7 +141,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 	v10 = *(int**)(v93 + 748);
 	v85 = *(_DWORD*)(v93 + 748);
 	if (a2 >= v91) {
-		*(_DWORD*)(v8 + 3596) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+		*(_DWORD*)(v8 + 3596) = *getMemU32Ptr(0x5D4594, 2598000);
 		return 1;
 	}
 	while (v4 < v91) {
@@ -799,7 +799,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			return 0;
 		}
 	}
-	*(_DWORD*)(v8 + 3596) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+	*(_DWORD*)(v8 + 3596) = *getMemU32Ptr(0x5D4594, 2598000);
 	return 1;
 }
 // 51C788: variable 'v7' is possibly undefined

@@ -62,16 +62,16 @@ void __cdecl sub_57AF30(int a1, int a2) {
 			*(_BYTE*)(v5 + 236) = 4;
 	}
 	if (a2) {
-		*(_DWORD*)getMemAt(0x5D4594, 2523796) = 0;
+		*getMemU32Ptr(0x5D4594, 2523796) = 0;
 		if (a2 != 1) {
 			goto LABEL_30;
 		}
 	}
 	LABEL_29:
-	*(_DWORD*)getMemAt(0x5D4594, 2523796) = 5000;
+	*getMemU32Ptr(0x5D4594, 2523796) = 5000;
 	LABEL_30:
-	*(_DWORD*)getMemAt(0x5D4594, 2523800) = 0;
-	*(_DWORD*)getMemAt(0x5D4594, 2523772) = a2;
+	*getMemU32Ptr(0x5D4594, 2523800) = 0;
+	*getMemU32Ptr(0x5D4594, 2523772) = a2;
 	dword_5d4594_2523804 = 1;
 	sub_413A00(1);
 	*(_QWORD*)getMemAt(0x5D4594, 2523788) = sub_416BB0();

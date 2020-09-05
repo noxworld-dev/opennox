@@ -122,7 +122,7 @@ int __cdecl sub_4567C0(int a1, int a2, int* a3, int a4) {
 			} else {
 				if (nox_common_gameFlags_check_40A5C0(1))
 					sub_46ABB0(*(int*)&dword_5d4594_1045692, 1);
-				if (nox_common_gameFlags_check_40A5C0(128) || !*(_DWORD*)getMemAt(0x5D4594, 1045696))
+				if (nox_common_gameFlags_check_40A5C0(128) || !*getMemU32Ptr(0x5D4594, 1045696))
 					sub_46ABB0(*(int*)&dword_5d4594_1045688, 1);
 				else
 					sub_46ABB0(*(int*)&dword_5d4594_1045688, 0);

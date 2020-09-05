@@ -31,7 +31,7 @@ int __cdecl sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 	v4 = a2;
 	v5 = *(_DWORD*)(a2 + 444);
 	v6 = *(_DWORD*)(a2 + 448) - v5;
-	v7 = *(_DWORD*)(a2 + 448) - *(_DWORD*)getMemAt(0x5D4594, 2598000);
+	v7 = *(_DWORD*)(a2 + 448) - *getMemU32Ptr(0x5D4594, 2598000);
 	v16 = *(_DWORD*)(a2 + 448) - v5;
 	v18 = v7;
 	if (v7 == v6)
@@ -151,10 +151,10 @@ int __cdecl nox_thing_blue_rain_spark_draw(_DWORD* a1, nox_drawable* dr) {
 
 	result = sub_4B6970(a1, dr, *(int*)getMemAt(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
 	if (result == 1 && *(_BYTE*)(a2 + 296) >= 5) {
-		v3 = *(_DWORD*)getMemAt(0x5D4594, 1313688);
-		if (!*(_DWORD*)getMemAt(0x5D4594, 1313688)) {
+		v3 = *getMemU32Ptr(0x5D4594, 1313688);
+		if (!*getMemU32Ptr(0x5D4594, 1313688)) {
 			v3 = sub_44CFC0((CHAR*)getMemAt(0x587000, 176184));
-			*(_DWORD*)getMemAt(0x5D4594, 1313688) = v3;
+			*getMemU32Ptr(0x5D4594, 1313688) = v3;
 		}
 		v4 = sub_45A360_drawable(v3, *(_DWORD*)(a2 + 12), *(_DWORD*)(a2 + 16));
 		v5 = v4;
@@ -164,9 +164,9 @@ int __cdecl nox_thing_blue_rain_spark_draw(_DWORD* a1, nox_drawable* dr) {
 				*(_DWORD*)(v4 + 436) = *(_DWORD*)(a2 + 16) << 12;
 				*(_BYTE*)(v4 + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
 				*(_DWORD*)(v5 + 440) = sub_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
-				*(_DWORD*)(v5 + 448) = *(_DWORD*)getMemAt(0x5D4594, 2598000) +
+				*(_DWORD*)(v5 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
 									   sub_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
-				*(_DWORD*)(v5 + 444) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+				*(_DWORD*)(v5 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 			}
 			*(_WORD*)(v5 + 104) = sub_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);
 			*(_WORD*)(v5 + 106) = 0;
@@ -211,7 +211,7 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 	v2 = (_DWORD*)a2;
 	if (!dword_5d4594_1313692) {
 		dword_5d4594_1313692 = sub_44CFC0((CHAR*)getMemAt(0x587000, 176396));
-		*(_DWORD*)getMemAt(0x5D4594, 1313696) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176412));
+		*getMemU32Ptr(0x5D4594, 1313696) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176412));
 	}
 	v3 = *(_WORD*)(a2 + 104);
 	if (v3 > 0) {
@@ -219,7 +219,7 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 		v15 = *(_DWORD*)(a2 + 16);
 		xLeft.field_0 = *a1 + *(_DWORD*)(a2 + 12) - a1[4];
 		v16 = a1[1] - v14;
-		v17 = *(_DWORD*)getMemAt(0x5D4594, 1313588);
+		v17 = *getMemU32Ptr(0x5D4594, 1313588);
 		v18 = *(_DWORD*)(a2 + 108);
 		xLeft.field_4 = v15 + v16 - v3;
 		if (v18 != dword_5d4594_1313692)
@@ -236,9 +236,9 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 		sub_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(a2 + 442) / 3);
 		result = 1;
 	} else {
-		if (!*(_DWORD*)getMemAt(0x5D4594, 1313700)) {
-			*(_DWORD*)getMemAt(0x5D4594, 1313700) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176424));
-			*(_DWORD*)getMemAt(0x5D4594, 1313704) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176440));
+		if (!*getMemU32Ptr(0x5D4594, 1313700)) {
+			*getMemU32Ptr(0x5D4594, 1313700) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176424));
+			*getMemU32Ptr(0x5D4594, 1313704) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176440));
 		}
 		v4 = *(_DWORD*)(a2 + 12);
 		v5 = *(_DWORD*)(a2 + 16);
@@ -255,10 +255,10 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 		v23[0] = v8;
 		v21 = v9 + (double)(int)v2[109];
 		v10 = nox_float2int(v21);
-		v11 = *(_DWORD*)getMemAt(0x5D4594, 1313700);
+		v11 = *getMemU32Ptr(0x5D4594, 1313700);
 		v23[1] = v10;
 		if (v2[27] != dword_5d4594_1313692)
-			v11 = *(_DWORD*)getMemAt(0x5D4594, 1313704);
+			v11 = *getMemU32Ptr(0x5D4594, 1313704);
 		v12 = sub_415FF0(6, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 793);
 		sub_499490(v11, v23, 0, 0, v12, 1);
 		sub_45A4E0_drawable(dr);

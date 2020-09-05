@@ -8,7 +8,7 @@ int __cdecl sub_512E80(int a1) {
 
 	v1 = dword_5d4594_1599628;
 	if (*(int*)&dword_5d4594_1599628 < 1024) {
-		*(_DWORD*)getMemAt(0x5D4594, 4 * dword_5d4594_1599628 + 3826092) = a1;
+		*getMemU32Ptr(0x5D4594, 4 * dword_5d4594_1599628 + 3826092) = a1;
 		dword_5d4594_1599628 = ++v1;
 	}
 	return v1 - 1;
@@ -138,7 +138,7 @@ int sub_514A80() {
 	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
 		v4 = *(char**)getMemAt(0x5D4594, 4 * v1 + 3831212);
-		v7 = v0 * *(_WORD*)getMemAt(0x5D4594, 2649704);
+		v7 = v0 * *getMemU16Ptr(0x5D4594, 2649704);
 		v8 = 0;
 		v5 = loadString_sub_40F1D0(v4, &v8, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3629);
 		sub_528AC0(v3, v5, v7);

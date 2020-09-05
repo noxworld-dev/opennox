@@ -84,7 +84,7 @@ int __cdecl nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr) {
 	v2 = dr->field_70;
 	v3 = dr->field_76;
 	if (v2 & 2) {
-		dr->field_79 = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+		dr->field_79 = *getMemU32Ptr(0x5D4594, 2598000);
 		v4 = 0;
 	} else if (v2 & 4) {
 		v4 = 1;
@@ -93,7 +93,7 @@ int __cdecl nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr) {
 	}
 	v5 = 48 * v4 + v3 + 4;
 	if (*(_DWORD*)(v5 + 44) == 2)
-		dr->field_79 = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+		dr->field_79 = *getMemU32Ptr(0x5D4594, 2598000);
 	if (*(_WORD*)(v5 + 40))
 		result = sub_4BC6B0(a1, dr, v5);
 	else

@@ -44,7 +44,7 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
 		v9 = loadString_sub_40F1D0(*(char**)getMemAt(0x587000, 4 * (unsigned __int8)(v7 - 89) + 170208), 0,
 								   "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 279);
 		nox_window_call_field_94((int)v8, 16385, (int)v9, 0);
-		*(_DWORD*)getMemAt(0x5D4594, 1307740) = v7;
+		*getMemU32Ptr(0x5D4594, 1307740) = v7;
 	}
 	sub_452D80(920, 100);
 	return 1;

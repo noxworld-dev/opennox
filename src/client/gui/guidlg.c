@@ -73,11 +73,11 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	}
 	sub_467C10();
 	sub_45ACA0(0);
-	*(_DWORD*)getMemAt(0x587000, 153436) = nox_client_renderGUI_80828;
+	*getMemU32Ptr(0x587000, 153436) = nox_client_renderGUI_80828;
 	nox_client_renderGUI_80828 = 0;
 	sub_46ABB0(*(int*)&dword_5d4594_1123524, 1);
 	sub_46A8C0(*(int*)&dword_5d4594_1123524);
-	*(_DWORD*)getMemAt(0x5D4594, 1123528) = a2;
+	*getMemU32Ptr(0x5D4594, 1123528) = a2;
 	result = sub_44D900(*(int*)getMemAt(0x5D4594, 1115312), 100);
 	dword_5d4594_1123520 = 1;
 	return result;
@@ -99,8 +99,8 @@ wchar_t* __cdecl sub_47A020(char* a1) {
 	__int16* v12;    // [esp+1Ch] [ebp-Ch]
 	wchar_t v13[4];  // [esp+20h] [ebp-8h]
 
-	*(_DWORD*)v13 = *(_DWORD*)getMemAt(0x587000, 153644);
-	v13[2] = *(_WORD*)getMemAt(0x587000, 153648);
+	*(_DWORD*)v13 = *getMemU32Ptr(0x587000, 153644);
+	v13[2] = *getMemU16Ptr(0x587000, 153648);
 	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3901);
 	v2 = (int)v1;
 	v3 = 0;
@@ -134,7 +134,7 @@ wchar_t* __cdecl sub_47A020(char* a1) {
 						break;
 					v7 = v6 - 1;
 					nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 1115324), v3, v6);
-					*(_WORD*)getMemAt(0x5D4594, 2 * v6 + 1115324) = 0;
+					*getMemU16Ptr(0x5D4594, 2 * v6 + 1115324) = 0;
 					sub_43F840(*(_DWORD*)(v2 + 236), (unsigned __int16*)getMemAt(0x5D4594, 1115324), (int*)&a1, 0, 0);
 					if ((int)a1 <= v9)
 						goto LABEL_16;
@@ -145,7 +145,7 @@ wchar_t* __cdecl sub_47A020(char* a1) {
 		LABEL_16:
 			nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 1115324), v3, v6);
 			v3 += v6;
-			*(_WORD*)getMemAt(0x5D4594, 2 * v6 + 1115324) = 0;
+			*getMemU16Ptr(0x5D4594, 2 * v6 + 1115324) = 0;
 			if (*v3 == 32)
 				++v3;
 			result = (wchar_t*)*v12;

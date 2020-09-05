@@ -34,7 +34,7 @@ char* sub_457410() {
 	result = *(char**)&dword_5d4594_1046548;
 	if (!dword_5d4594_1046548) {
 		result = *(char**)getMemAt(0x587000, 129664);
-		if (*(_DWORD*)getMemAt(0x587000, 129664)) {
+		if (*getMemU32Ptr(0x587000, 129664)) {
 			v1 = getMemAt(0x587000, 129664);
 			do {
 				*((_DWORD*)v1 + 1) =
@@ -111,7 +111,7 @@ int sub_457500() {
 		sub_46B2C0(*(int*)&dword_5d4594_1046500, sub_4585D0);
 		sub_46B2C0(*(int*)&dword_5d4594_1046504, sub_4585D0);
 		sub_46B2C0(*(int*)&dword_5d4594_1046508, sub_4585D0);
-		*(_DWORD*)getMemAt(0x5D4594, 1046352) = sub_42F970("UITabs1");
+		*getMemU32Ptr(0x5D4594, 1046352) = sub_42F970("UITabs1");
 		dword_5d4594_1046356 = sub_42F970("UITabs2");
 		dword_5d4594_1046360 = sub_42F970("UITabs3");
 		v4 = *(_DWORD**)(dword_5d4594_1046496 + 32);
@@ -288,7 +288,7 @@ int __cdecl sub_458230(int a1, char* a2, int a3) {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16399, 0, 0);
 	v3 = a1;
 	v18 = -1;
-	*(_DWORD*)getMemAt(0x5D4594, 1046552) = a1;
+	*getMemU32Ptr(0x5D4594, 1046552) = a1;
 	v4 = sub_4D09B0();
 	v17 = 0;
 	if (!v4)
@@ -625,7 +625,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4) {
 		return 0;
 	if ((unsigned __int16)a3 == 1) {
 		if (a4 == 10101) {
-			v4[26] = *(_DWORD*)getMemAt(0x5D4594, 2523948);
+			v4[26] = *getMemU32Ptr(0x5D4594, 2523948);
 			return 1;
 		}
 		return 1;

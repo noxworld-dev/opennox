@@ -11,10 +11,10 @@ void __cdecl sub_409FB0_settings(__int16 a1, unsigned __int16 a2) {
 
 	v2 = sub_409A70(a1);
 	v3 = a2;
-	if (*(_WORD*)getMemAt(0x5D4594, 2 * v2 + 3488) != a2) {
+	if (*getMemU16Ptr(0x5D4594, 2 * v2 + 3488) != a2) {
 		if (a2 > 0x3E7u)
 			v3 = 999;
-		*(_WORD*)getMemAt(0x5D4594, 2 * v2 + 3488) = v3;
+		*getMemU16Ptr(0x5D4594, 2 * v2 + 3488) = v3;
 		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
 		if (nox_client_isConnected_43C700()) {
 			v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 4804), 0, "C:\\NoxPost\\src\\Common\\System\\settings.c",

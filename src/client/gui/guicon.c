@@ -31,7 +31,7 @@ int sub_450FD0() {
 
 	if (!*(_DWORD*)(*(_DWORD*)(dword_5d4594_833716 + 32) + 1044)) {
 		v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_833716, 16413, 0, 0);
-		if (dword_5d4594_833732 && *(_WORD*)getMemAt(0x5D4594, 832552)) {
+		if (dword_5d4594_833732 && *getMemU16Ptr(0x5D4594, 832552)) {
 			if (_nox_wcsicmp(v0, (const wchar_t*)getMemAt(0x5D4594, 832552))) {
 				v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 126560), 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c",
 										   124);

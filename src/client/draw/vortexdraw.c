@@ -21,9 +21,9 @@ int __cdecl nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	if (!*(_DWORD*)getMemAt(0x5D4594, 1313820)) {
+	if (!*getMemU32Ptr(0x5D4594, 1313820)) {
 		dword_5d4594_1313816 = sub_4344A0(170, 170, 170);
-		*(_DWORD*)getMemAt(0x5D4594, 1313820) = 1;
+		*getMemU32Ptr(0x5D4594, 1313820) = 1;
 	}
 	v2 = 8 * *(unsigned __int8*)(a2 + 448);
 	v3 = *(unsigned __int8*)(a2 + 450);
@@ -53,8 +53,8 @@ int __cdecl nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 		v7 -= 256;
 	}
 	v8 = *(unsigned __int8*)(a2 + 450);
-	a2a.field_0 = *(_DWORD*)(a2 + 440) + v8 * *(_DWORD*)getMemAt(0x587000, 8 * v7 + 192088) / 16;
-	a2a.field_4 = *(_DWORD*)(a2 + 444) + v8 * *(_DWORD*)getMemAt(0x587000, 8 * v7 + 192092) / 16;
+	a2a.field_0 = *(_DWORD*)(a2 + 440) + v8 * *getMemU32Ptr(0x587000, 8 * v7 + 192088) / 16;
+	a2a.field_4 = *(_DWORD*)(a2 + 444) + v8 * *getMemU32Ptr(0x587000, 8 * v7 + 192092) / 16;
 	sub_4739E0(a1, &a2a, &xLeft);
 	xLeft.field_4 -= *(__int16*)(a2 + 104);
 	nox_client_drawAddPoint_49F500(xLeft.field_0, xLeft.field_4);

@@ -27,8 +27,8 @@ int __cdecl sub_4CD450(_DWORD* a1, int a2) {
 	__int16 v23; // [esp+4h] [ebp-4h]
 	int v24;     // [esp+Ch] [ebp+4h]
 
-	if (!*(_DWORD*)getMemAt(0x5D4594, 1522972))
-		*(_DWORD*)getMemAt(0x5D4594, 1522972) = sub_44CFC0((CHAR*)getMemAt(0x587000, 189112));
+	if (!*getMemU32Ptr(0x5D4594, 1522972))
+		*getMemU32Ptr(0x5D4594, 1522972) = sub_44CFC0((CHAR*)getMemAt(0x587000, 189112));
 	if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 20) < 50) {
 		if (*(_BYTE*)(a2 + 432)) {
 			if (a2 == -432)

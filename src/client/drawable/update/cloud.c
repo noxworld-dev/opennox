@@ -15,9 +15,9 @@ int __cdecl sub_4CE200(int a1, int a2, int a3, int a4) {
 	int v12;    // esi
 	int v13;    // eax
 
-	if (!*(_DWORD*)getMemAt(0x5D4594, 1523016)) {
-		*(_DWORD*)getMemAt(0x5D4594, 1523016) = sub_44CFC0((CHAR*)getMemAt(0x587000, 191240));
-		*(_DWORD*)getMemAt(0x5D4594, 1523020) = sub_44CFC0((CHAR*)getMemAt(0x587000, 191252));
+	if (!*getMemU32Ptr(0x5D4594, 1523016)) {
+		*getMemU32Ptr(0x5D4594, 1523016) = sub_44CFC0((CHAR*)getMemAt(0x587000, 191240));
+		*getMemU32Ptr(0x5D4594, 1523020) = sub_44CFC0((CHAR*)getMemAt(0x587000, 191252));
 	}
 	result = a3;
 	if (a3 > 0) {
@@ -27,9 +27,9 @@ int __cdecl sub_4CE200(int a1, int a2, int a3, int a4) {
 			v7 = *(_DWORD*)(a2 + 12) + v6 * *(int*)getMemAt(0x587000, 8 * v5 + 192088) / 16;
 			v8 = *(_DWORD*)(a2 + 16) + v6 * *(int*)getMemAt(0x587000, 8 * v5 + 192092) / 16;
 			v9 = sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 46) < 3;
-			v10 = *(_DWORD*)getMemAt(0x5D4594, 1523020);
+			v10 = *getMemU32Ptr(0x5D4594, 1523020);
 			if (!v9)
-				v10 = *(_DWORD*)getMemAt(0x5D4594, 1523016);
+				v10 = *getMemU32Ptr(0x5D4594, 1523016);
 			v11 = sub_45A360_drawable(v10, v7, v8);
 			v12 = v11;
 			if (v11) {
