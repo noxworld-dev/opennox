@@ -5487,7 +5487,7 @@ int sub_430190() {
 		*(v2 - 1) = 1;
 		v2 += 8;
 		++v1;
-	} while ((int)v2 < (int)getMemAt(0x5D4594, 791326));
+	} while (v1 < 256);
 	initMouse_sub_47D8D0();
 	sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
 	sub_47D660(0, (int)&v4);
@@ -5736,7 +5736,6 @@ int sub_4307D0() {
 	unsigned __int8* v2; // ecx
 	unsigned __int8 v3;  // al
 	int v4;              // esi
-	int v5;              // ebx
 	unsigned __int8* v6; // ecx
 	unsigned __int8* v7; // eax
 
@@ -5752,23 +5751,25 @@ int sub_4307D0() {
 		} while (v3);
 	}
 	v4 = nox_mouse_prev_seq;
-	v5 = 0;
+	int v5 = 0;
 	v6 = getMemAt(0x5D4594, 789280);
 	while (*(v6 - 3) != 2 || (unsigned int)(nox_mouse_prev_seq - *(_DWORD*)v6) <= 0xA) {
 		v6 += 8;
 		++v5;
-		if ((int)v6 >= (int)getMemAt(0x5D4594, 791328))
+		if (v5 >= 256)
 			return 0;
 	}
 	*getMemAt( 0x5D4594, 8 * v0 + 787228) = v5;
 	*getMemAt( 0x5D4594, 8 * v0 + 787229) = 2;
 	*getMemAt( 0x5D4594, 8 * v0 + 787230) = 0;
 	*getMemAt( 0x5D4594, 8 * v0 + 787236) = 0;
+	int v8 = 0;
 	v7 = getMemAt(0x5D4594, 789280);
 	do {
 		*(_DWORD*)v7 = v4;
 		v7 += 8;
-	} while ((int)v7 < (int)getMemAt(0x5D4594, 791328));
+		++v8;
+	} while (v8 < 256);
 	*getMemU32Ptr(0x5D4594, 8 * v5 + 789280) = v4 - 12;
 	return 1;
 }
