@@ -61,10 +61,10 @@ int sub_413520_gamedisk() {
 		v0 = v3 - *(_QWORD*)getMemAt(0x5D4594, 251732);
 		if (v0 > 0x7D0) {
 			sub_423C60();
-			LODWORD(v0) = *(_DWORD*)getMemAt(0x5D4594, 251628);
+			LODWORD(v0) = *getMemU32Ptr(0x5D4594, 251628);
 			dword_5d4594_251700 = 3;
-			*(_DWORD*)getMemAt(0x5D4594, 251732) = *(_DWORD*)getMemAt(0x5D4594, 251628);
-			*(_DWORD*)getMemAt(0x5D4594, 251736) = *(_DWORD*)getMemAt(0x5D4594, 251632);
+			*getMemU32Ptr(0x5D4594, 251732) = *getMemU32Ptr(0x5D4594, 251628);
+			*getMemU32Ptr(0x5D4594, 251736) = *getMemU32Ptr(0x5D4594, 251632);
 		}
 		break;
 	case 3:

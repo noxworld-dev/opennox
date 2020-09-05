@@ -27,18 +27,18 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 	WORD v19[4];         // [esp+14h] [ebp-8h]
 	int v20;             // [esp+20h] [ebp+4h]
 
-	result = *(_DWORD*)getMemAt(0x5D4594, 1304308);
+	result = *getMemU32Ptr(0x5D4594, 1304308);
 	if (*(int*)getMemAt(0x5D4594, 1304308) < 96) {
-		if (!*(_DWORD*)getMemAt(0x5D4594, 1304316)) {
-			*(_DWORD*)getMemAt(0x5D4594, 1304316) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163612));
-			*(_DWORD*)getMemAt(0x5D4594, 1304320) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163632));
-			*(_DWORD*)getMemAt(0x5D4594, 1304324) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163656));
-			*(_DWORD*)getMemAt(0x5D4594, 1304348) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163676));
+		if (!*getMemU32Ptr(0x5D4594, 1304316)) {
+			*getMemU32Ptr(0x5D4594, 1304316) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163612));
+			*getMemU32Ptr(0x5D4594, 1304320) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163632));
+			*getMemU32Ptr(0x5D4594, 1304324) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163656));
+			*getMemU32Ptr(0x5D4594, 1304348) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163676));
 			dword_5d4594_1304328 = sub_44CFC0((CHAR*)getMemAt(0x587000, 163688));
-			*(_DWORD*)getMemAt(0x5D4594, 1304332) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163696));
-			*(_DWORD*)getMemAt(0x5D4594, 1304336) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163708));
-			*(_DWORD*)getMemAt(0x5D4594, 1304340) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163724));
-			*(_DWORD*)getMemAt(0x5D4594, 1304344) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163732));
+			*getMemU32Ptr(0x5D4594, 1304332) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163696));
+			*getMemU32Ptr(0x5D4594, 1304336) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163708));
+			*getMemU32Ptr(0x5D4594, 1304340) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163724));
+			*getMemU32Ptr(0x5D4594, 1304344) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163732));
 		}
 		v2 = a1;
 		v3 = a1 + 1;
@@ -47,16 +47,16 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 		v5 = *(unsigned __int16*)(a1 + 3) + (*(unsigned __int16*)(a1 + 7) - *(unsigned __int16*)(a1 + 3)) / 2;
 		switch (*a1) {
 		case 0x7Du:
-			v20 = *(_DWORD*)getMemAt(0x5D4594, 1304332);
+			v20 = *getMemU32Ptr(0x5D4594, 1304332);
 			goto LABEL_17;
 		case 0x8Cu:
-			v20 = *(_DWORD*)getMemAt(0x5D4594, 1304316);
+			v20 = *getMemU32Ptr(0x5D4594, 1304316);
 			goto LABEL_17;
 		case 0x8Du:
-			v20 = *(_DWORD*)getMemAt(0x5D4594, 1304324);
+			v20 = *getMemU32Ptr(0x5D4594, 1304324);
 			goto LABEL_17;
 		case 0x8Eu:
-			v20 = *(_DWORD*)getMemAt(0x5D4594, 1304320);
+			v20 = *getMemU32Ptr(0x5D4594, 1304320);
 			goto LABEL_17;
 		case 0x8Fu:
 			v18 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 137);
@@ -98,9 +98,9 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 				*(_BYTE*)(result + 432) = 0;
 				*(_DWORD*)(result + 437) = *(_DWORD*)v3;
 				*(_DWORD*)(result + 441) = *((_DWORD*)v3 + 1);
-				v11 = *(_DWORD*)getMemAt(0x5D4594, 1304308);
-				*(_DWORD*)getMemAt(0x5D4594, 4 * *(_DWORD*)getMemAt(0x5D4594, 1304308) + 1303540) = result;
-				*(_DWORD*)getMemAt(0x5D4594, 1304308) = v11 + 1;
+				v11 = *getMemU32Ptr(0x5D4594, 1304308);
+				*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 1304308) + 1303540) = result;
+				*getMemU32Ptr(0x5D4594, 1304308) = v11 + 1;
 			}
 			break;
 		default:

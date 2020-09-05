@@ -20,8 +20,8 @@ void sub_469BC0() {
 	char v13[76];      // [esp+Ch] [ebp-104Ch]
 	wchar_t v14[2048]; // [esp+58h] [ebp-1000h]
 
-	v0 = *(_DWORD*)getMemAt(0x5D4594, 2618908);
-	if (*(_DWORD*)getMemAt(0x5D4594, 2618908)) {
+	v0 = *getMemU32Ptr(0x5D4594, 2618908);
+	if (*getMemU32Ptr(0x5D4594, 2618908)) {
 		v1 = sub_43F320(0);
 		v2 = *(_DWORD*)(v0 + 3644);
 		v11 = v1;
@@ -57,7 +57,7 @@ void sub_469BC0() {
 			sub_43F840(0, v14, 0, &v12, 240);
 			v2 = *(_DWORD*)(v2 + 64);
 		}
-		*(_DWORD*)getMemAt(0x5D4594, 1064848) = i <= 0 ? 0 : i;
+		*getMemU32Ptr(0x5D4594, 1064848) = i <= 0 ? 0 : i;
 	}
 }
 
@@ -79,9 +79,9 @@ void __cdecl sub_469D40(int xLeft, int yTop, int a3) {
 	char v16[76];      // [esp+18h] [ebp-104Ch]
 	wchar_t v17[2048]; // [esp+64h] [ebp-1000h]
 
-	v3 = *(_DWORD*)getMemAt(0x5D4594, 2618908);
+	v3 = *getMemU32Ptr(0x5D4594, 2618908);
 	v4 = yTop - a3;
-	if (*(_DWORD*)getMemAt(0x5D4594, 2618908)) {
+	if (*getMemU32Ptr(0x5D4594, 2618908)) {
 		nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650656));
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150);
 		v5 = *(_DWORD*)(v3 + 3644);
@@ -96,28 +96,28 @@ void __cdecl sub_469D40(int xLeft, int yTop, int a3) {
 				LOWORD(v7) = *(_WORD*)(v5 + 72);
 				switch (v7) {
 				case 1:
-					v8 = *(_DWORD*)getMemAt(0x5D4594, 2523948);
+					v8 = *getMemU32Ptr(0x5D4594, 2523948);
 					goto LABEL_12;
 				case 2:
-					v8 = *(_DWORD*)getMemAt(0x5D4594, 2650644);
+					v8 = *getMemU32Ptr(0x5D4594, 2650644);
 					v9 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 142680), 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 135);
 					nox_wcscpy(v17, v9);
 					break;
 				case 4:
-					v8 = *(_DWORD*)getMemAt(0x5D4594, 2650660);
+					v8 = *getMemU32Ptr(0x5D4594, 2650660);
 					v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 142740), 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 140);
 					nox_wcscpy(v17, v10);
 					break;
 				case 8:
-					v8 = *(_DWORD*)getMemAt(0x5D4594, 2589772);
+					v8 = *getMemU32Ptr(0x5D4594, 2589772);
 					v11 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 142804), 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 145);
 					nox_wcscpy(v17, v11);
 					break;
 				default:
-					v8 = *(_DWORD*)getMemAt(0x5D4594, 2618904);
+					v8 = *getMemU32Ptr(0x5D4594, 2618904);
 				LABEL_12:
 					v17[0] = 0;
 					break;

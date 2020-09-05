@@ -8,13 +8,13 @@ int sub_451610() {
 	int result;          // eax
 	unsigned __int8* v1; // ecx
 
-	result = *(_DWORD*)getMemAt(0x5D4594, 835876);
+	result = *getMemU32Ptr(0x5D4594, 835876);
 	v1 = getMemAt(0x5D4594, 835876);
 	do {
 		*(_DWORD*)v1 = *((_DWORD*)v1 - 1);
 		v1 -= 4;
 	} while ((int)v1 > (int)getMemAt(0x5D4594, 835800));
-	*(_DWORD*)getMemAt(0x5D4594, 835800) = result;
+	*getMemU32Ptr(0x5D4594, 835800) = result;
 	return result;
 }
 

@@ -167,15 +167,15 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	v1 = sub_431770();
 	nox_wcscpy((wchar_t*)v1, (const wchar_t*)getMemAt(0x5D4594, 2661908));
 	v1[66] = getMemByte(0x5D4594, 2661958);
-	*(_WORD*)(v1 + 71) = *(_WORD*)getMemAt(0x5D4594, 2661888);
+	*(_WORD*)(v1 + 71) = *getMemU16Ptr(0x5D4594, 2661888);
 	v1[73] = getMemByte(0x5D4594, 2661890);
-	*((_WORD*)v1 + 34) = *(_WORD*)getMemAt(0x5D4594, 2661891);
+	*((_WORD*)v1 + 34) = *getMemU16Ptr(0x5D4594, 2661891);
 	v1[70] = getMemByte(0x5D4594, 2661893);
-	*((_WORD*)v1 + 37) = *(_WORD*)getMemAt(0x5D4594, 2661894);
+	*((_WORD*)v1 + 37) = *getMemU16Ptr(0x5D4594, 2661894);
 	v1[76] = getMemByte(0x5D4594, 2661896);
-	*(_WORD*)(v1 + 77) = *(_WORD*)getMemAt(0x5D4594, 2661897);
+	*(_WORD*)(v1 + 77) = *getMemU16Ptr(0x5D4594, 2661897);
 	v1[79] = getMemByte(0x5D4594, 2661899);
-	*((_WORD*)v1 + 40) = *(_WORD*)getMemAt(0x5D4594, 2661900);
+	*((_WORD*)v1 + 40) = *getMemU16Ptr(0x5D4594, 2661900);
 	v1[82] = getMemByte(0x5D4594, 2661902);
 	v1[83] = getMemByte(0x5D4594, 2661903);
 	v1[84] = getMemByte(0x5D4594, 2661904);
@@ -199,7 +199,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		sub_4D3860(Data);
-		*(_DWORD*)getMemAt(0x5D4594, 2616328) = sub_4DD320(31, Data);
+		*getMemU32Ptr(0x5D4594, 2616328) = sub_4DD320(31, Data);
 		sub_409AE0(66458);
 		sub_494E90(31);
 		dword_5d4594_811372 = 2;
@@ -308,7 +308,7 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 	char a4 = args->net_connect_wait_loop.flags;
 	int v6 = args->net_connect_wait_loop.counter;
 
-	v4 = *(_DWORD*)getMemAt(0x5D4594, 4 * a1 + 3843788);
+	v4 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
 	if (a1 >= 0x80)
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
 	if (!v4)
@@ -474,10 +474,10 @@ void f(int reentrant) {
 		g_v20 = 1;
 		sub_43F140(800);
 		sub_415F70();
-		*(_DWORD*)getMemAt(0x5D4594, 2598000) = nox_common_gameFlags_check_40A5C0(1);
+		*getMemU32Ptr(0x5D4594, 2598000) = nox_common_gameFlags_check_40A5C0(1);
 		nox_ensure_thing_bin();
-		*(_DWORD*)getMemAt(0x5D4594, 2650664) = 0;
-		*(_DWORD*)getMemAt(0x5D4594, 2649708) = 0;
+		*getMemU32Ptr(0x5D4594, 2650664) = 0;
+		*getMemU32Ptr(0x5D4594, 2649708) = 0;
 		if (g_v21)
 			GOTO_CONNECT_RESULT(0);
 		if (nox_common_gameFlags_check_40A5C0(1)) {

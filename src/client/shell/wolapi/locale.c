@@ -19,7 +19,7 @@ int __cdecl sub_4B5770_wol_locale(int a1) {
 	char* v8;    // eax
 	char* v10;   // [esp+14h] [ebp+4h]
 
-	*(_DWORD*)getMemAt(0x5D4594, 1312488) = a1;
+	*getMemU32Ptr(0x5D4594, 1312488) = a1;
 	dword_5d4594_1312480 = nox_new_window_from_file("locale.wnd", sub_4B5AB0);
 	nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1312480, nox_win_width / 2 - 75, nox_win_height / 2 - 77);
 	sub_46B120(*(_DWORD**)&dword_5d4594_1312480, 0);
@@ -105,7 +105,7 @@ int __cdecl sub_4B5B70_wol_locale(wchar_t* a1) {
 			if (v1 >= *(int*)&dword_5d4594_1312472)
 				goto LABEL_5;
 		}
-		result = *(_DWORD*)getMemAt(0x587000, 8 * v1 + 174364);
+		result = *getMemU32Ptr(0x587000, 8 * v1 + 174364);
 	}
 	return result;
 }

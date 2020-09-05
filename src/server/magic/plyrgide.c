@@ -57,7 +57,7 @@ int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 	}
 	v8 = getMemAt(0x587000, 216292);
 	v17 = getMemAt(0x587000, 216292);
-	if (*(_DWORD*)getMemAt(0x587000, 216292)) {
+	if (*getMemU32Ptr(0x587000, 216292)) {
 		do {
 			v9 = *(_DWORD**)v8;
 			if (a2 == **(_DWORD**)v8) {

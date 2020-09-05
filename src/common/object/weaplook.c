@@ -7,9 +7,9 @@ char** sub_4158C0() {
 	int v2;              // ecx
 
 	result = *(char***)getMemAt(0x5D4594, 371248);
-	if (!*(_DWORD*)getMemAt(0x5D4594, 371248)) {
+	if (!*getMemU32Ptr(0x5D4594, 371248)) {
 		result = *(char***)getMemAt(0x587000, 33396);
-		if (*(_DWORD*)getMemAt(0x587000, 33396)) {
+		if (*getMemU32Ptr(0x587000, 33396)) {
 			result = (char**)getMemAt(0x587000, 33396);
 			v1 = getMemAt(0x587000, 33396);
 			do {
@@ -20,7 +20,7 @@ char** sub_4158C0() {
 				result = (char**)v1;
 			} while (v2);
 		}
-		*(_DWORD*)getMemAt(0x5D4594, 371248) = 1;
+		*getMemU32Ptr(0x5D4594, 371248) = 1;
 	}
 	return result;
 }

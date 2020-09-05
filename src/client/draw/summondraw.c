@@ -39,7 +39,7 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 		v6 = sub_44CFC0((CHAR*)getMemAt(0x587000, 177040));
 		dword_5d4594_1313740 = v6;
 	}
-	v7 = *(_DWORD*)getMemAt(0x5D4594, 2598000) - v2[79];
+	v7 = *getMemU32Ptr(0x5D4594, 2598000) - v2[79];
 	v8 = *((unsigned __int16*)v2 + 218);
 	if (v7 < (unsigned int)(unsigned __int16)v8) {
 		if (v7 >= v8 - 1)
@@ -50,7 +50,7 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 		do {
 			if (v10 >= *(unsigned __int8*)(v5 + 8))
 			v10 = 0;
-			v12 = (v10 + *(_DWORD*)getMemAt(0x5D4594, 2598000) + v2[32]) / ((unsigned int)*(unsigned __int8*)(v5 + 9) + 1);
+			v12 = (v10 + *getMemU32Ptr(0x5D4594, 2598000) + v2[32]) / ((unsigned int)*(unsigned __int8*)(v5 + 9) + 1);
 			v2[77] = v12;
 			if (v12 >= *(unsigned __int8*)(v5 + 8))
 			v2[77] = v12 % *(unsigned __int8*)(v5 + 8);

@@ -9,8 +9,8 @@ _DWORD* __cdecl sub_4CDFA0(int a1, _DWORD* a2) {
 	_DWORD* v3;     // ebp
 	_DWORD* v4;     // esi
 
-	if (!*(_DWORD*)getMemAt(0x5D4594, 1523008))
-		*(_DWORD*)getMemAt(0x5D4594, 1523008) = sub_44CFC0((CHAR*)getMemAt(0x587000, 190732));
+	if (!*getMemU32Ptr(0x5D4594, 1523008))
+		*getMemU32Ptr(0x5D4594, 1523008) = sub_44CFC0((CHAR*)getMemAt(0x587000, 190732));
 	result = a2;
 	if ((int)a2 > 0) {
 		v3 = a2;
@@ -23,9 +23,9 @@ _DWORD* __cdecl sub_4CDFA0(int a1, _DWORD* a2) {
 				result[109] = *(_DWORD*)(a1 + 16) << 12;
 				*((_BYTE*)result + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 37);
 				v4[110] = sub_415FF0(1000, 3000, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 40);
-				v4[112] = *(_DWORD*)getMemAt(0x5D4594, 2598000) +
+				v4[112] = *getMemU32Ptr(0x5D4594, 2598000) +
 						  sub_415FF0(10, 40, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 43);
-				v4[111] = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+				v4[111] = *getMemU32Ptr(0x5D4594, 2598000);
 				*((_WORD*)v4 + 52) = 22;
 				*((_BYTE*)v4 + 296) = sub_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 49);
 				result = sub_45A110_drawable(v4);
@@ -48,8 +48,8 @@ int __cdecl sub_4CE0C0(int a1, int a2) {
 	char v10;       // [esp-14h] [ebp-1Ch]
 	__int16 v11[4]; // [esp+0h] [ebp-8h]
 
-	if (!*(_DWORD*)getMemAt(0x5D4594, 1523012))
-		*(_DWORD*)getMemAt(0x5D4594, 1523012) = sub_44CFC0((CHAR*)getMemAt(0x587000, 190940));
+	if (!*getMemU32Ptr(0x5D4594, 1523012))
+		*getMemU32Ptr(0x5D4594, 1523012) = sub_44CFC0((CHAR*)getMemAt(0x587000, 190940));
 	v2 = 10;
 	v3 = *(_WORD*)(a2 + 16);
 	v11[0] = *(_WORD*)(a2 + 12);

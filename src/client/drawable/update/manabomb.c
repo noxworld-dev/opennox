@@ -28,7 +28,7 @@ int __cdecl sub_4CCAC0(int a1, _DWORD* a2) {
 	v2 = nox_float2int(v14);
 	if (!dword_5d4594_1522956) {
 		dword_5d4594_1522956 = sub_44CFC0((CHAR*)getMemAt(0x587000, 188072));
-		*(_DWORD*)getMemAt(0x5D4594, 1522960) = sub_44CFC0((CHAR*)getMemAt(0x587000, 188084));
+		*getMemU32Ptr(0x5D4594, 1522960) = sub_44CFC0((CHAR*)getMemAt(0x587000, 188084));
 	}
 	v3 = a2;
 	v19 = 20;
@@ -47,9 +47,9 @@ int __cdecl sub_4CCAC0(int a1, _DWORD* a2) {
 			*(_DWORD*)(v7 + 436) = *(_DWORD*)(v7 + 16) << 12;
 			*(_BYTE*)(v7 + 299) = 0;
 			*(_DWORD*)(v7 + 440) = 0;
-			*(_DWORD*)(v7 + 448) = *(_DWORD*)getMemAt(0x5D4594, 2598000) +
+			*(_DWORD*)(v7 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
 								   sub_415FF0(10, 30, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 88);
-			*(_DWORD*)(v8 + 444) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+			*(_DWORD*)(v8 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 			*(_WORD*)(v8 + 104) = 0;
 			*(_BYTE*)(v8 + 296) = sub_415FF0(2, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 94);
 			sub_45A110_drawable((_DWORD*)v8);
@@ -58,12 +58,12 @@ int __cdecl sub_4CCAC0(int a1, _DWORD* a2) {
 			break;
 	}
 	if (getMemByte(0x5D4594, 2598000) & 1) {
-		if ((unsigned int)(*(_DWORD*)getMemAt(0x5D4594, 2598000) - v3[80]) < 0xA) {
+		if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - v3[80]) < 0xA) {
 			v9 = *((_WORD*)v3 + 8);
 			LOWORD(i) = *((_WORD*)v3 + 6);
 			HIWORD(i) = v9;
-			v10 = *(_DWORD*)getMemAt(0x5D4594, 2598000) % 0x33u;
-			if ((int)(*(_DWORD*)getMemAt(0x5D4594, 2598000) % 0x33u) < 256) {
+			v10 = *getMemU32Ptr(0x5D4594, 2598000) % 0x33u;
+			if ((int)(*getMemU32Ptr(0x5D4594, 2598000) % 0x33u) < 256) {
 				v11 = getMemAt(0x587000, 8 * v10 + 192092);
 				do {
 					v12 = v18 * *(_WORD*)v11;
