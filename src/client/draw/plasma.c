@@ -50,10 +50,10 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 		*getMemU32Ptr(0x5D4594, 1313852) = 8;
 		*getMemU32Ptr(0x5D4594, 1313856) = 0;
 		*getMemU32Ptr(0x5D4594, 1313860) = 0;
-		*getMemAt( 0x5D4594, 1313840) = 16;
-		*getMemAt( 0x5D4594, 1313842) = 16;
+		*getMemU8Ptr(0x5D4594, 1313840) = 16;
+		*getMemU8Ptr(0x5D4594, 1313842) = 16;
 		*getMemU32Ptr(0x5D4594, 1313848) = 12;
-		*getMemAt( 0x5D4594, 1313841) = 24;
+		*getMemU8Ptr(0x5D4594, 1313841) = 24;
 		v6 = getMemAt(0x5D4594, 1313900);
 		*getMemU32Ptr(0x5D4594, 1313864) = 0;
 		do {

@@ -2291,7 +2291,7 @@ int __cdecl sub_4D34C0(char* a1) {
 	dword_5d4594_1548732 = 0;
 	dword_5d4594_1548736 = 0;
 	*getMemU32Ptr(0x5D4594, 1548728) = 0;
-	*getMemAt( 0x5D4594, 1548724) = 0;
+	*getMemU8Ptr(0x5D4594, 1548724) = 0;
 	nox_common_setEngineFlag(NOX_ENGINE_FLAG_23);
 	v2 = sub_417040(255);
 	sub_4E6860((int)v2, 0, 1);
@@ -2334,7 +2334,7 @@ int sub_4D38D0() {
 		_write(*(int*)&dword_587000_197424, getMemAt(0x5D4594, 2598000), 4u);
 		_write(*(int*)&dword_587000_197424, getMemAt(0x587000, 197434), 1u);
 		*getMemU32Ptr(0x5D4594, 1549764) = nox_server_currentMapGetFilename_409B30();
-		*getMemAt( 0x5D4594, 1548725) = strlen(*(const char**)getMemAt(0x5D4594, 1549764)) + 1;
+		*getMemU8Ptr(0x5D4594, 1548725) = strlen(*(const char**)getMemAt(0x5D4594, 1549764)) + 1;
 		_write(*(int*)&dword_587000_197424, getMemAt(0x5D4594, 1548725), 1u);
 		_write(*(int*)&dword_587000_197424, *(const void**)getMemAt(0x5D4594, 1549764), getMemByte(0x5D4594, 1548725));
 		v2 = 66458;
@@ -2396,7 +2396,7 @@ int __cdecl sub_4D39F0(const char* a3) {
 	dword_5d4594_3835388 = 0;
 	dword_5d4594_3835392 = 1;
 	dword_5d4594_3835396 = -1;
-	*getMemAt( 0x5D4594, 3835400) = 2;
+	*getMemU8Ptr(0x5D4594, 3835400) = 2;
 	*getMemU32Ptr(0x5D4594, 3835404) = 0;
 	*getMemU32Ptr(0x5D4594, 3835408) = 0;
 	sub_51D0E0();
@@ -2435,10 +2435,10 @@ int __cdecl sub_4D39F0(const char* a3) {
 		DeleteFileA((LPCSTR)getMemAt(0x5D4594, 3835436));
 		DeleteFileA((LPCSTR)getMemAt(0x5D4594, 3837484));
 	} else {
-		*getMemAt( 0x5D4594, 3841580) = getMemByte(0x5D4594, 1549780);
-		*getMemAt( 0x5D4594, 3839532) = getMemByte(0x5D4594, 1549784);
-		*getMemAt( 0x5D4594, 3835436) = getMemByte(0x5D4594, 1549788);
-		*getMemAt( 0x5D4594, 3837484) = getMemByte(0x5D4594, 1549792);
+		*getMemU8Ptr(0x5D4594, 3841580) = getMemByte(0x5D4594, 1549780);
+		*getMemU8Ptr(0x5D4594, 3839532) = getMemByte(0x5D4594, 1549784);
+		*getMemU8Ptr(0x5D4594, 3835436) = getMemByte(0x5D4594, 1549788);
+		*getMemU8Ptr(0x5D4594, 3837484) = getMemByte(0x5D4594, 1549792);
 	}
 	sub_5028E0();
 	v13 = *getMemU32Ptr(0x587000, 197584);
@@ -7675,7 +7675,7 @@ int sub_4DB090() { return *getMemU32Ptr(0x587000, 201376); }
 
 //----- (004DB0A0) --------------------------------------------------------
 int sub_4DB0A0() {
-	*getMemAt( 0x5D4594, 1560984) = getMemByte(0x5D4594, 1563136);
+	*getMemU8Ptr(0x5D4594, 1560984) = getMemByte(0x5D4594, 1563136);
 	dword_5d4594_1563080 = 0;
 	dword_5d4594_1563084 = 0;
 	dword_5d4594_1563096 = 0;
@@ -7686,7 +7686,7 @@ int sub_4DB0A0() {
 	*getMemU32Ptr(0x5D4594, 1563048) = 0;
 	dword_5d4594_1563052 = 0;
 	*getMemU32Ptr(0x5D4594, 1563100) = 0;
-	*getMemAt( 0x5D4594, 1563104) = getMemByte(0x5D4594, 1563140);
+	*getMemU8Ptr(0x5D4594, 1563104) = getMemByte(0x5D4594, 1563140);
 	return 1;
 }
 

@@ -6257,9 +6257,9 @@ BOOL __cdecl sub_4FFD00(int a1, int a2, int a3, unsigned __int8 a4) {
 	v12 = 0;
 	v11 = 0;
 	if (!getMemByte(0x5D4594, 1570004)) {
-		*getMemAt( 0x5D4594, 1570004) = sub_410D60("MagicWallSystemUseOnly");
-		*getMemAt( 0x5D4594, 1570005) = sub_410D60("InvisibleWallSet");
-		*getMemAt( 0x5D4594, 1570006) = sub_410D60("InvisibleBlockingWallSet");
+		*getMemU8Ptr(0x5D4594, 1570004) = sub_410D60("MagicWallSystemUseOnly");
+		*getMemU8Ptr(0x5D4594, 1570005) = sub_410D60("InvisibleWallSet");
+		*getMemU8Ptr(0x5D4594, 1570006) = sub_410D60("InvisibleBlockingWallSet");
 	}
 	v5 = nox_server_getWallAtPoint_410580(a2, a3);
 	v6 = (unsigned __int8*)v5;
@@ -6588,16 +6588,16 @@ void __cdecl sub_500330(char a1, char a2, int a3, char a4, char a5, char a6, cha
 	if (*(int*)&dword_5d4594_1569756 < 15) {
 		result = 16 * dword_5d4594_1569756;
 		v11 = dword_5d4594_1569756 + 1;
-		*getMemAt( 0x5D4594, result + 1569764) = a1;
-		*getMemAt( 0x5D4594, result + 1569765) = a2;
+		*getMemU8Ptr( 0x5D4594, result + 1569764) = a1;
+		*getMemU8Ptr( 0x5D4594, result + 1569765) = a2;
 		*getMemU32Ptr(0x5D4594, result + 1569768) = a3;
-		*getMemAt( 0x5D4594, result + 1569772) = a4;
-		*getMemAt( 0x5D4594, result + 1569773) = a5;
-		*getMemAt( 0x5D4594, result + 1569774) = a6;
-		*getMemAt( 0x5D4594, result + 1569775) = a7;
-		*getMemAt( 0x5D4594, result + 1569776) = a8;
-		*getMemAt( 0x5D4594, result + 1569777) = a9;
-		*getMemAt( 0x5D4594, result + 1569778) = a10;
+		*getMemU8Ptr( 0x5D4594, result + 1569772) = a4;
+		*getMemU8Ptr( 0x5D4594, result + 1569773) = a5;
+		*getMemU8Ptr( 0x5D4594, result + 1569774) = a6;
+		*getMemU8Ptr( 0x5D4594, result + 1569775) = a7;
+		*getMemU8Ptr( 0x5D4594, result + 1569776) = a8;
+		*getMemU8Ptr( 0x5D4594, result + 1569777) = a9;
+		*getMemU8Ptr( 0x5D4594, result + 1569778) = a10;
 		dword_5d4594_1569756 = v11;
 	}
 }
@@ -11489,7 +11489,7 @@ LPVOID sub_507290() {
 	LPVOID result; // eax
 
 	dword_5d4594_3821640 = 0;
-	*getMemAt( 0x5D4594, 3821644) = getMemByte(0x5D4594, 1599668);
+	*getMemU8Ptr(0x5D4594, 3821644) = getMemByte(0x5D4594, 1599668);
 	result = *(LPVOID*)&dword_5d4594_1599636;
 	dword_5d4594_3821636 = 0;
 	if (dword_5d4594_1599636) {
@@ -12398,7 +12398,7 @@ int __cdecl nox_server_scriptCallBuiltinFn_508B70(int a1, int a2) {
 		dword_5d4594_3821640 = *(_DWORD*)(v2 + dword_5d4594_1599636 + 44);
 	}
 	result = (*(int(__cdecl**)()) getMemAt(0x587000, 4 * a2 + 245900))();
-	*getMemAt( 0x5D4594, 3821644) = getMemByte(0x5D4594, 1599672);
+	*getMemU8Ptr(0x5D4594, 3821644) = getMemByte(0x5D4594, 1599672);
 	dword_5d4594_3821640 = 0;
 	dword_5d4594_3821636 = 0;
 	return result;

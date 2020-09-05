@@ -563,7 +563,7 @@ signed int initMouse_sub_47D8D0() {
 	}
 	v9.dwSize = 24;
 	if (g_device_mouse->lpVtbl->GetCapabilities(g_device_mouse, (LPDIDEVCAPS)&v9) >= 0)
-		*getMemAt( 0x5D4594, 1193128) = v9.dwButtons;
+		*getMemU8Ptr(0x5D4594, 1193128) = v9.dwButtons;
 	*getMemU32Ptr(0x5D4594, 1193108) = 1;
 	sub_42EBB0(2, sub_47D890, 0, "DXInput");
 	sub_42EBB0(1, sub_47D8A0, 0, "DXInput");

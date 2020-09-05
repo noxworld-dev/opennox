@@ -9,6 +9,7 @@
 #undef strcpy
 #undef getMemAt
 #undef getMemByte
+#undef getMemU8Ptr
 #undef getMemU16Ptr
 #undef getMemU32Ptr
 #endif // NOX_LOG_MEM
@@ -2750,7 +2751,7 @@ _BYTE* getMem(uintptr_t addr) {
 	return 0;
 }
 
-uint8_t* getMemAt(uintptr_t base, uintptr_t off) {
+void* getMemAt(uintptr_t base, uintptr_t off) {
 	switch (base) {
 	case 0x581450:
 		return &byte_581450[off];
@@ -2764,19 +2765,24 @@ uint8_t* getMemAt(uintptr_t base, uintptr_t off) {
 	return 0;
 }
 
-uint8_t getMemByte(uintptr_t base, uintptr_t off) {
-	uint8_t* ptr = getMemAt(base, off);
-	return *ptr;
+uint8_t* getMemU8Ptr(uintptr_t base, uintptr_t off) {
+	void* ptr = getMemAt(base, off);
+	return (uint8_t*)ptr;
 }
 
 uint16_t* getMemU16Ptr(uintptr_t base, uintptr_t off) {
-	uint8_t* ptr = getMemAt(base, off);
+	void* ptr = getMemAt(base, off);
 	return (uint16_t*)ptr;
 }
 
 uint32_t* getMemU32Ptr(uintptr_t base, uintptr_t off) {
-	uint8_t* ptr = getMemAt(base, off);
+	void* ptr = getMemAt(base, off);
 	return (uint32_t*)ptr;
+}
+
+uint8_t getMemByte(uintptr_t base, uintptr_t off) {
+	uint8_t* ptr = getMemU8Ptr(base, off);
+	return *ptr;
 }
 
 #ifdef NOX_LOG_MEM
@@ -2904,14 +2910,14 @@ void maybeLogAccess(const char* fnc, uintptr_t base, uintptr_t off, uintptr_t sz
 	logReadOn(fnc, bo, sz);
 }
 
-uint8_t* nox_getMemAt(const char* fnc, uintptr_t base, uintptr_t off) {
+void* nox_getMemAt(const char* fnc, uintptr_t base, uintptr_t off) {
 	maybeLogAccess(fnc, base, off, 4); // we don't know the exact size; assume int
 	return getMemAt(base, off);
 }
 
-uint8_t nox_getMemByte(const char* fnc, uintptr_t base, uintptr_t off) {
+uint8_t* nox_getMemU8Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
 	maybeLogAccess(fnc, base, off, 1);
-	return getMemByte(base, off);
+	return getMemU8Ptr(base, off);
 }
 
 uint16_t* nox_getMemU16Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
@@ -2922,5 +2928,10 @@ uint16_t* nox_getMemU16Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
 uint32_t* nox_getMemU32Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
 	maybeLogAccess(fnc, base, off, 4);
 	return getMemU32Ptr(base, off);
+}
+
+uint8_t nox_getMemByte(const char* fnc, uintptr_t base, uintptr_t off) {
+	maybeLogAccess(fnc, base, off, 1);
+	return getMemByte(base, off);
 }
 #endif // NOX_LOG_MEM

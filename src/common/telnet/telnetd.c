@@ -180,7 +180,7 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 				} while (v8 < v4);
 			}
 			memset(getMemAt(0x5D4594, 2521684), 0x2Au, v9);
-			*getMemAt( 0x5D4594, v9 + 2521684) = 0;
+			*getMemU8Ptr( 0x5D4594, v9 + 2521684) = 0;
 			send(*(_DWORD*)v2, (const char*)getMemAt(0x5D4594, 2521684), v9, 0);
 		} else {
 			send(*(_DWORD*)v2, (const char*)getMemAt(0x5D4594, 2522712), v3, 0);
@@ -230,7 +230,7 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 				++v16;
 				continue;
 			case 0xAu:
-				*getMemAt( 0x5D4594, v17 + 2521684) = 0;
+				*getMemU8Ptr( 0x5D4594, v17 + 2521684) = 0;
 				*(_WORD*)(v2 + 1032) += -1 - v17;
 				*(_WORD*)(v2 + 1028) = v16 + 1;
 				return (char*)getMemAt(0x5D4594, 2521684);
@@ -238,7 +238,7 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 				++v16;
 				break;
 			default:
-				*getMemAt( 0x5D4594, v17++ + 2521684) = *(_BYTE*)(v16 + v2 + 4);
+				*getMemU8Ptr( 0x5D4594, v17++ + 2521684) = *(_BYTE*)(v16 + v2 + 4);
 				++v16;
 				break;
 		}

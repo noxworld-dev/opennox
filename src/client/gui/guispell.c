@@ -87,7 +87,7 @@ _DWORD* sub_45E040() {
 			}
 		}
 	} else {
-		*getMemAt( 0x5D4594, 1049488) = 0;
+		*getMemU8Ptr(0x5D4594, 1049488) = 0;
 		v6 = v9;
 		v7 = 3;
 		do {
@@ -187,12 +187,12 @@ int sub_45E190() {
 
 	v0 = 0;
 	*getMemU32Ptr(0x5D4594, 1047916) = 0;
-	*getMemAt( 0x5D4594, 1047920) = 0;
+	*getMemU8Ptr(0x5D4594, 1047920) = 0;
 	sub_416170(5);
 	*getMemU32Ptr(0x5D4594, 1047924) = 0;
 	*getMemU32Ptr(0x5D4594, 1047928) = 0;
 	*getMemU32Ptr(0x5D4594, 1049480) = 0;
-	*getMemAt( 0x5D4594, 1049488) = 0;
+	*getMemU8Ptr(0x5D4594, 1049488) = 0;
 	v68 = sub_43F320(0);
 	dword_5d4594_1047548 = (nox_win_width - 320) / 2;
 	dword_5d4594_1047552 = nox_win_height - 74;
@@ -688,7 +688,7 @@ int __cdecl sub_45FDE0(int yTop) {
 		v9 = v7;
 		v10 = getMemByte(0x5D4594, v8 + 1049544);
 		if ((char)v10 > 0)
-			*getMemAt( 0x5D4594, v8 + 1049544) = v10 - 1;
+			*getMemU8Ptr( 0x5D4594, v8 + 1049544) = v10 - 1;
 		v11 = (wchar_t*)sub_424930(v4[2 * v2]);
 		sub_46B000((wchar_t*)(v1 + 36), v11);
 		if (v9) {

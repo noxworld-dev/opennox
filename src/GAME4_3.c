@@ -2901,8 +2901,8 @@ unsigned __int8* __cdecl sub_533D00(int a1) {
 		*getMemU32Ptr(0x5D4594, 2487964) = 0;
 		*getMemU32Ptr(0x5D4594, 2487972) = 0;
 		*getMemU32Ptr(0x5D4594, 2487976) = 0;
-		*getMemAt( 0x5D4594, 2487973) = a1;
-		*getMemAt( 0x5D4594, 2487974) = v6;
+		*getMemU8Ptr(0x5D4594, 2487973) = a1;
+		*getMemU8Ptr(0x5D4594, 2487974) = v6;
 		result = getMemAt(0x5D4594, 2487964);
 	} else if (*(_DWORD*)(v1 + 476)) {
 		result = (unsigned __int8*)(*(_DWORD*)(v1 + 476) + 16 * sub_533790(a1));
