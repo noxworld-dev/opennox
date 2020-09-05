@@ -114,12 +114,12 @@ LPVOID sub_426060() {
 				*getMemU16Ptr(0x5D4594, 739396) = sub_40A770();
 				*getMemU32Ptr(0x5D4594, 739400) = *((_DWORD*)v5 + 10);
 				*getMemU32Ptr(0x5D4594, 739404) = sub_4200E0();
-				*getMemAt( 0x5D4594, 739412) = (v6[53] & 0xC0) != 0;
+				*getMemU8Ptr(0x5D4594, 739412) = (v6[53] & 0xC0) != 0;
 				*getMemU32Ptr(0x5D4594, 739408) = 5;
 				strncpy((char*)getMemAt(0x5D4594, 739676), v6 + 9, 0xFu);
-				*getMemAt( 0x5D4594, 739691) = 0;
+				*getMemU8Ptr(0x5D4594, 739691) = 0;
 				strncpy((char*)getMemAt(0x5D4594, 739420), v6, 8u);
-				*getMemAt( 0x5D4594, 739428) = 0;
+				*getMemU8Ptr(0x5D4594, 739428) = 0;
 				result = sub_4289D0((LPVOID*)getMemAt(0x5D4594, 739396));
 			}
 		}
@@ -1548,19 +1548,19 @@ float* sub_50AFA0() {
 				v2 = nox_float2int(v23);
 				v24 = *(float*)(i + 60) * 0.043478262;
 				v3 = nox_float2int(v24);
-				*getMemAt( 0x5D4594, 12 * (v3 + (v2 << 8)) + 1599724) |= 0x10u;
+				*getMemU8Ptr( 0x5D4594, 12 * (v3 + (v2 << 8)) + 1599724) |= 0x10u;
 			} else if (v1 & 0x400) {
 				v25 = *(float*)(i + 56) * 0.043478262;
 				v4 = nox_float2int(v25);
 				v26 = *(float*)(i + 60) * 0.043478262;
 				v5 = nox_float2int(v26);
-				*getMemAt( 0x5D4594, 12 * (v5 + (v4 << 8)) + 1599724) |= 0x20u;
+				*getMemU8Ptr( 0x5D4594, 12 * (v5 + (v4 << 8)) + 1599724) |= 0x20u;
 			} else if (v1 & 0x4000) {
 				v27 = *(float*)(i + 56) * 0.043478262;
 				v6 = nox_float2int(v27);
 				v28 = *(float*)(i + 60) * 0.043478262;
 				v7 = nox_float2int(v28);
-				*getMemAt( 0x5D4594, 12 * (v7 + (v6 << 8)) + 1599724) |= 4u;
+				*getMemU8Ptr( 0x5D4594, 12 * (v7 + (v6 << 8)) + 1599724) |= 4u;
 			} else if ((v1 & 0x8000) == 0) {
 				if (!(*(_BYTE*)(i + 16) & 0x49)) {
 					if (v1 & 0x400000) {
@@ -1619,7 +1619,7 @@ float* sub_50AFA0() {
 				v8 = nox_float2int(v29);
 				v30 = *(float*)(i + 60) * 0.043478262;
 				v9 = nox_float2int(v30);
-				*getMemAt( 0x5D4594, 12 * (v9 + (v8 << 8)) + 1599724) |= 8u;
+				*getMemU8Ptr( 0x5D4594, 12 * (v9 + (v8 << 8)) + 1599724) |= 8u;
 			}
 		}
 	}

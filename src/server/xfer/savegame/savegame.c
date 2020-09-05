@@ -198,7 +198,7 @@ int __cdecl sub_4DB370_savegame(const char* a1) {
 		LOBYTE(v9) = v8 | 8;
 		*getMemU32Ptr(0x5D4594, 2660684) = v9;
 	}
-	*getMemAt( 0x5D4594, 2661961) = sub_450750();
+	*getMemU8Ptr(0x5D4594, 2661961) = sub_450750();
 	if (!sub_41A140(v14, (unsigned __int8)v2[2064]))
 		return 0;
 	if (!sub_41A230(v14))

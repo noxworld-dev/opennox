@@ -36,9 +36,9 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 				}
 				sub_408D90(nox_file_2);
 				if (nox_common_gameFlags_check_40A5C0(4096))
-					*getMemAt( 0x5D4594, 2661961) = sub_465DF0();
+					*getMemU8Ptr(0x5D4594, 2661961) = sub_465DF0();
 				else
-					*getMemAt( 0x5D4594, 2661961) = 0;
+					*getMemU8Ptr(0x5D4594, 2661961) = 0;
 				if (sub_41A230((char*)getMemAt(0x5D4594, 2660688))) {
 					v9 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 56752), 0,
 											   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3420);

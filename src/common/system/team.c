@@ -81,7 +81,7 @@ char* __cdecl sub_4186D0(char a1) {
 		v7[57] = v6;
 		v7[56] = v4;
 		*((_DWORD*)v7 + 16) = 1;
-		++*getMemAt( 0x5D4594, 526280);
+		++*getMemU8Ptr( 0x5D4594, 526280);
 		sub_459CD0();
 		if (!nox_common_gameFlags_check_40A5C0(512)) {
 			v8 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55444), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1009);

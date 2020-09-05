@@ -120,10 +120,13 @@ int nox_strlen(const char* fnc, const char* src);
 int nox_strcpy(const char* fnc, char* dst, const char* src);
 
 #define getMemAt(x, y) nox_getMemAt(__func__, x, y)
-uint8_t* nox_getMemAt(const char* fnc, uintptr_t base, uintptr_t off);
+void* nox_getMemAt(const char* fnc, uintptr_t base, uintptr_t off);
 
 #define getMemByte(x, y) nox_getMemByte(__func__, x, y)
 uint8_t nox_getMemByte(const char* fnc, uintptr_t base, uintptr_t off);
+
+#define getMemU8Ptr(x, y) nox_getMemU8Ptr(__func__, x, y)
+uint8_t* nox_getMemU8Ptr(const char* fnc, uintptr_t base, uintptr_t off);
 
 #define getMemU16Ptr(x, y) nox_getMemU16Ptr(__func__, x, y)
 uint16_t* nox_getMemU16Ptr(const char* fnc, uintptr_t base, uintptr_t off);

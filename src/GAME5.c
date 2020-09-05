@@ -8261,7 +8261,7 @@ int __cdecl sub_5520B0(int a1, int a2) {
 				v4 = sub_4258A0(v3);
 				sub_425920((_DWORD**)v3);
 				free(v3);
-				--*getMemAt( 0x5D4594, 2500076);
+				--*getMemU8Ptr( 0x5D4594, 2500076);
 				v3 = v4;
 			} while (v4);
 		}

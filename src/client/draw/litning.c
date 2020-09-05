@@ -328,7 +328,7 @@ int __cdecl nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 	dword_5d4594_1316436 = *getMemU32Ptr(0x5D4594, 1316464);
 	dword_5d4594_1316456 = *getMemU32Ptr(0x5D4594, 1316424);
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316488);
-	*getMemAt( 0x5D4594, 1316420) = 1;
+	*getMemU8Ptr(0x5D4594, 1316420) = 1;
 	sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
 	if (!sub_413A50())
 		sub_4999D0(*(int*)getMemAt(0x5D4594, 1316520), &v18, &a3);
@@ -402,7 +402,7 @@ int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 	dword_5d4594_1316436 = *getMemU32Ptr(0x5D4594, 1316464);
 	dword_5d4594_1316456 = *getMemU32Ptr(0x5D4594, 1316424);
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316488);
-	*getMemAt( 0x5D4594, 1316420) = 1;
+	*getMemU8Ptr(0x5D4594, 1316420) = 1;
 	sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
 	if (!sub_413A50())
 		sub_4999D0(*(int*)getMemAt(0x5D4594, 1316520), &v19, &a3);
@@ -476,7 +476,7 @@ int __cdecl nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 		a2a.field_4 = v11[4] - v14 + v15 - 20;
 		a3 = *(int2*)(v11 + 3);
 	}
-	*getMemAt( 0x5D4594, 1316420) = 2 * (v22 + 127);
+	*getMemU8Ptr(0x5D4594, 1316420) = 2 * (v22 + 127);
 	dword_5d4594_1316436 = *getMemU32Ptr(0x5D4594, 1316496);
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316468);
 	sub_4BAE60(&a1a, &a2a, 2, 0, 0, 0, 1);
@@ -560,7 +560,7 @@ int __cdecl nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 	dword_5d4594_1316436 = *getMemU32Ptr(0x5D4594, 1316504);
 	dword_5d4594_1316456 = *getMemU32Ptr(0x5D4594, 1316460);
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316480);
-	*getMemAt( 0x5D4594, 1316420) = 1;
+	*getMemU8Ptr(0x5D4594, 1316420) = 1;
 	sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
 	if (!sub_413A50())
 		sub_4999D0(*(int*)getMemAt(0x5D4594, 1316528), &v20, &a3);

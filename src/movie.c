@@ -129,7 +129,7 @@ char __cdecl sub_555500(char a1) {
 	char result; // al
 
 	result = a1;
-	*getMemAt( 0x5D4594, 2513936) = a1;
+	*getMemU8Ptr(0x5D4594, 2513936) = a1;
 	return result;
 }
 
@@ -2079,7 +2079,7 @@ LABEL_13:
 		if (!*getMemU32Ptr(0x587000, 293604) || *((_BYTE*)v3 + 1556)) {
 			if (!getMemByte(0x5D4594, 2515932)) {
 				sub_5586A0((int)v3);
-				*getMemAt( 0x5D4594, 2515932) = 1;
+				*getMemU8Ptr(0x5D4594, 2515932) = 1;
 			}
 		} else {
 			v5 = v3[377] + ((int (*)(void)) * v3)();

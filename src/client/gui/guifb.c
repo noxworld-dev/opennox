@@ -13,7 +13,7 @@ wchar_t* __cdecl sub_456140(unsigned __int8 a1) {
 	wchar_t* v5;     // eax
 	wchar_t* v6;     // eax
 
-	*getMemAt( 0x5D4594, 1045644) = a1;
+	*getMemU8Ptr(0x5D4594, 1045644) = a1;
 	result = (wchar_t*)a1;
 	v2 = dword_5d4594_1045636 + 36;
 	switch (a1) {
