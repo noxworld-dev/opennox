@@ -1532,7 +1532,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 815096, (void*)&dword_5d4594_815096, sizeof(dword_5d4594_815096), 1},
 	{0x5D4594 + 1090828, (void*)&dword_5d4594_1090828, sizeof(dword_5d4594_1090828), 1},
 	{0x5D4594 + 2491592, (void*)&dword_5d4594_2491592, sizeof(dword_5d4594_2491592), 1},
-	{0x5D4594 + 3801748, (void*)&dword_5d4594_3801748, sizeof(dword_5d4594_3801748), 1},
+	{0x5D4594 + 3801748, (void*)&dword_5d4594_3801748, sizeof(dword_5d4594_3801748), 1}, // FIXME: BAD, see 3800716
 	{0x5D4594 + 3798672, (void*)&dword_5d4594_3798672, sizeof(dword_5d4594_3798672), 1},
 	{0x587000 + 60064, (void*)&dword_587000_60064, sizeof(dword_587000_60064), 1},
 	{0x5D4594 + 2386548, (void*)&dword_5d4594_2386548, sizeof(dword_5d4594_2386548), 1},
@@ -1570,7 +1570,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 787192, (void*)&dword_5d4594_787192, sizeof(dword_5d4594_787192), 1},
 	{0x5D4594 + 1320948, (void*)&dword_5d4594_1320948, sizeof(dword_5d4594_1320948), 1},
 	{0x5D4594 + 2491704, (void*)&dword_5d4594_2491704, sizeof(dword_5d4594_2491704), 1},
-	{0x5D4594 + 1306860, (void*)&dword_5d4594_1306860, sizeof(dword_5d4594_1306860), 1},
+	{0x5D4594 + 1306860, (void*)&dword_5d4594_1306860, sizeof(dword_5d4594_1306860), 1}, // FIXME: BAD, see 1305836
 	{0x5D4594 + 1568288, (void*)&dword_5d4594_1568288, sizeof(dword_5d4594_1568288), 1},
 	{0x5D4594 + 2523904, (void*)&dword_5d4594_2523904, sizeof(dword_5d4594_2523904), 1},
 	{0x5D4594 + 1303508, (void*)&dword_5d4594_1303508, sizeof(dword_5d4594_1303508), 1},
@@ -1825,7 +1825,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 237036, (void*)&dword_587000_237036, sizeof(dword_587000_237036), 1},
 	{0x5D4594 + 1313740, (void*)&dword_5d4594_1313740, sizeof(dword_5d4594_1313740), 1},
 	{0x5D4594 + 830204, (void*)&dword_5d4594_830204, sizeof(dword_5d4594_830204), 1},
-	{0x5D4594 + 1280, (void*)&dword_5d4594_1280, sizeof(dword_5d4594_1280), 1},
+	{0x5D4594 + 1280, (void*)&dword_5d4594_1280, sizeof(dword_5d4594_1280), 1}, // FIXME: BAD
 	{0x5D4594 + 1193664, (void*)&dword_5d4594_1193664, sizeof(dword_5d4594_1193664), 1},
 	{0x5D4594 + 741244, (void*)&dword_5d4594_741244, sizeof(dword_5d4594_741244), 1},
 	{0x5D4594 + 3798712, (void*)&dword_5d4594_3798712, sizeof(dword_5d4594_3798712), 1},
@@ -2669,7 +2669,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1064904, (void*)&nox_win_unk3, sizeof(nox_win_unk3), 1},
 	{0x5D4594 + 1064908, (void*)&nox_win_unk2, sizeof(nox_win_unk2), 1},
 	{0x5D4594 + 1064884, (void*)&nox_alloc_window, sizeof(nox_alloc_window), 1},
-	{0x5D4594 + 1093116, (void*)&nox_win_cur_weapon, sizeof(nox_win_cur_weapon), 1},
+	{0x5D4594 + 1093116, (void*)&nox_win_cur_weapon, sizeof(nox_win_cur_weapon), 1}, // FIXME: BAD, see 1093036
 	{0x5D4594 + 1193492, (void*)&nox_backbuffer1_pix, sizeof(nox_backbuffer1_pix), 1},
 	{0x5D4594 + 1096464, (void*)&nox_drawable_list_1, sizeof(nox_drawable_list_1), 1},
 	{0x5D4594 + 1096468, (void*)&nox_drawable_list_1_size, sizeof(nox_drawable_list_1_size), 1},
@@ -2684,7 +2684,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 3801800, (void*)&nox_backbuffer_width32, sizeof(nox_backbuffer_width32), 1},
 	{0x5D4594 + 3799572, (void*)&ptr_5D4594_3799572, sizeof(ptr_5D4594_3799572), 1},
 	{0x5D4594 + 3799660, (void*)&obj_5D4594_3799660, sizeof(obj_5D4594_3799660), 1},
-	{0x5D4594 + 3800716, (void*)&obj_5D4594_3800716, sizeof(obj_5D4594_3800716), 1},
+	{0x5D4594 + 3800716, (void*)&obj_5D4594_3800716, sizeof(obj_5D4594_3800716), 1}, // FIXME: BAD, see 3801748
 	{0x5D4594 + 816396, (void*)&nox_draw_unk1, sizeof(nox_draw_unk1), 1},
 	{0x5D4594 + 2650668, (void*)&ptr_5D4594_2650668, sizeof(ptr_5D4594_2650668), 1},
 	{0x5D4594 + 2650636, (void*)&nox_common_engineFlags, sizeof(nox_common_engineFlags), 1},
