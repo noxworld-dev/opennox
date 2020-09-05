@@ -104,6 +104,9 @@ typedef struct __m64 __m64;
 
 #ifdef NOX_LOG_MEM
 
+void maybeLogRead(const char* fnc, void* ptr, int sz);
+void maybeLogWrite(const char* fnc, void* ptr, int sz);
+
 #define memset(x, y, z) nox_memset(__func__, x, y, z)
 void nox_memset(const char* fnc, void* ptr, int v, int sz);
 
