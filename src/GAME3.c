@@ -1896,11 +1896,10 @@ LABEL_9:
 }
 
 //----- (004A62B0) --------------------------------------------------------
-char sub_4A62B0() {
+void sub_4A62B0() {
 	unsigned __int8* v0; // esi
 	int v1;              // eax
 	int v3;              // ebp
-	char result;         // al
 	unsigned __int8* v5; // [esp+10h] [ebp-18h]
 	int v6;              // [esp+14h] [ebp-14h]
 	char v7[16];         // [esp+18h] [ebp-10h]
@@ -2090,7 +2089,6 @@ char sub_4A62B0() {
 	*getMemAt( 0x5D4594, 1307962) = 117;
 	*getMemAt( 0x5D4594, 1307963) = 117;
 	*getMemAt( 0x5D4594, 1307981) = 104;
-	result = 53;
 	*getMemAt( 0x5D4594, 1307948) = 0;
 	*getMemAt( 0x5D4594, 1307950) = 0;
 	*getMemAt( 0x5D4594, 1307984) = 0;
@@ -2125,7 +2123,6 @@ char sub_4A62B0() {
 	*getMemAt( 0x5D4594, 1307985) = 87;
 	*getMemAt( 0x5D4594, 1307986) = 53;
 	*getMemAt( 0x5D4594, 1307987) = 53;
-	return result;
 }
 
 //----- (004A6890) --------------------------------------------------------
