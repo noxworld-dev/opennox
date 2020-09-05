@@ -51,8 +51,8 @@ int __cdecl sub_49B4B0(unsigned __int16* a1) {
 	sub_46AEE0((int)v8, (int)getMemAt(0x5D4594, 1302428));
 	v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10711);
 	sub_46AEE0((int)v9, (int)getMemAt(0x5D4594, 1303196));
-	result = *(_DWORD*)getMemAt(0x5D4594, 2598000);
-	*(_DWORD*)getMemAt(0x5D4594, 1303456) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+	result = *getMemU32Ptr(0x5D4594, 2598000);
+	*getMemU32Ptr(0x5D4594, 1303456) = *getMemU32Ptr(0x5D4594, 2598000);
 	return result;
 }
 
@@ -68,14 +68,14 @@ int sub_49B6E0() {
 	if (dword_5d4594_1303452) {
 		result = wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1303452);
 		if (!result) {
-			v1 = *(_DWORD*)getMemAt(0x5D4594, 1303456) + 30 * *(_DWORD*)getMemAt(0x5D4594, 2649704) -
-				 *(_DWORD*)getMemAt(0x5D4594, 2598000);
+			v1 = *getMemU32Ptr(0x5D4594, 1303456) + 30 * *getMemU32Ptr(0x5D4594, 2649704) -
+				 *getMemU32Ptr(0x5D4594, 2598000);
 			if (v1 < 0)
 				v1 = 0;
-			if (*(_DWORD*)getMemAt(0x5D4594, 2618908) && *(_BYTE*)(*(_DWORD*)getMemAt(0x5D4594, 2618908) + 2064) == 31) {
+			if (*getMemU32Ptr(0x5D4594, 2618908) && *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2064) == 31) {
 				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1301852), (const wchar_t*)getMemAt(0x5D4594, 1303464));
 			} else {
-				v4 = (unsigned int)v1 / *(_DWORD*)getMemAt(0x5D4594, 2649704);
+				v4 = (unsigned int)v1 / *getMemU32Ptr(0x5D4594, 2649704);
 				v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 163544), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c",
 										   265);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1301852), L"%s - %d", v2, v4);

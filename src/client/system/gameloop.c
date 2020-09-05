@@ -84,7 +84,7 @@ int sub_43DEB0() {
 		else
 			sub_43C9F0();
 		sub_43C720(1);
-		if ((int)*(_DWORD*)getMemAt(0x5D4594, 3803228) < 0) {
+		if ((int)*getMemU32Ptr(0x5D4594, 3803228) < 0) {
 			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 93408), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
 									   338);
 			sub_445490(v7);
@@ -287,7 +287,7 @@ void mainloop() {
 				if (*(int*)getMemAt(0x5D4594, 2598000) >= *(int*)getMemAt(0x5D4594, 816400)) {
 					sub_4161E0();
 					sub_416690();
-					*(_DWORD*)getMemAt(0x5D4594, 816400) = *(_DWORD*)getMemAt(0x5D4594, 2598000) + 60 * *(_DWORD*)getMemAt(0x5D4594, 2649704);
+					*getMemU32Ptr(0x5D4594, 816400) = *getMemU32Ptr(0x5D4594, 2598000) + 60 * *getMemU32Ptr(0x5D4594, 2649704);
 				}
 			}
 		}
@@ -295,20 +295,20 @@ void mainloop() {
 	if (dword_5d4594_815132) {
 		sub_43C380();
 		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
-		if (!*(_DWORD*)getMemAt(0x5D4594, 816408)) {
+		if (!*getMemU32Ptr(0x5D4594, 816408)) {
 			v1 = nox_client_getMousePos_4309F0();
 			v27 = v1;
-			v2 = v1->field_0 - *(_DWORD*)getMemAt(0x5D4594, 816420);
-			v3 = v1->field_4 - *(_DWORD*)getMemAt(0x5D4594, 816424);
+			v2 = v1->field_0 - *getMemU32Ptr(0x5D4594, 816420);
+			v3 = v1->field_4 - *getMemU32Ptr(0x5D4594, 816424);
 			v4 = v2 * v2 + v3 * v3;
-			if (*(_DWORD*)getMemAt(0x5D4594, 816428)) {
+			if (*getMemU32Ptr(0x5D4594, 816428)) {
 				v5 = nox_double2int(sqrt((double)(v2 * v2 + v3 * v3))) / 4;
 				if (v5 > 0) {
 					v26 = v5;
 					do {
 						v6 = sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 570);
-						v7 = *(_DWORD*)getMemAt(0x5D4594, 816420) + v2 * v6 / 100;
-						v9 = *(_DWORD*)getMemAt(0x5D4594, 816424) + v3 * v6 / 100;
+						v7 = *getMemU32Ptr(0x5D4594, 816420) + v2 * v6 / 100;
+						v9 = *getMemU32Ptr(0x5D4594, 816424) + v3 * v6 / 100;
 						v23 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 582);
 						v22 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 581);
 						v21 = sub_415FF0(-7, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 579);
@@ -320,16 +320,16 @@ void mainloop() {
 					v1 = v27;
 				}
 				if (v4 < 10)
-					*(_DWORD*)getMemAt(0x5D4594, 816428) = 0;
-				*(_DWORD*)getMemAt(0x5D4594, 816420) = v1->field_0;
-				*(_DWORD*)getMemAt(0x5D4594, 816424) = v1->field_4;
+					*getMemU32Ptr(0x5D4594, 816428) = 0;
+				*getMemU32Ptr(0x5D4594, 816420) = v1->field_0;
+				*getMemU32Ptr(0x5D4594, 816424) = v1->field_4;
 			} else if (v4 > 64) {
-				*(_DWORD*)getMemAt(0x5D4594, 816428) = 1;
+				*getMemU32Ptr(0x5D4594, 816428) = 1;
 			}
 			if (v1[2].field_4 == 1) {
 				sub_415FF0(0, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 608);
-				if (!*(_DWORD*)getMemAt(0x5D4594, 816416)) {
-					*(_DWORD*)getMemAt(0x5D4594, 816416) = 1;
+				if (!*getMemU32Ptr(0x5D4594, 816416)) {
+					*getMemU32Ptr(0x5D4594, 816416) = 1;
 					sub_452D80(924, 100);
 					v11 = 75;
 					do {
@@ -344,7 +344,7 @@ void mainloop() {
 					} while (v11);
 				}
 			} else {
-				*(_DWORD*)getMemAt(0x5D4594, 816416) = 0;
+				*getMemU32Ptr(0x5D4594, 816416) = 0;
 			}
 		}
 	}
@@ -376,7 +376,7 @@ void mainloop() {
 		}
 	}
 	sub_435750();
-	if (!*(_DWORD*)getMemAt(0x587000, 93192)) {
+	if (!*getMemU32Ptr(0x587000, 93192)) {
 		mainloop_stop();
 		return;
 	}

@@ -83,11 +83,11 @@ void sub_4DB6A0() {
 	v0 = sub_417090(31);
 	v1 = v0;
 	if (v0 && *((_DWORD*)v0 + 514)) {
-		if (!*(_DWORD*)getMemAt(0x5D4594, 1563124))
-			*(_DWORD*)getMemAt(0x5D4594, 1563124) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 199388));
+		if (!*getMemU32Ptr(0x5D4594, 1563124))
+			*getMemU32Ptr(0x5D4594, 1563124) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 199388));
 		v2 = nox_server_getFirstObject_4DA790();
 		if (v2) {
-			while (*(unsigned __int16*)(v2 + 4) != *(_DWORD*)getMemAt(0x5D4594, 1563124)) {
+			while (*(unsigned __int16*)(v2 + 4) != *getMemU32Ptr(0x5D4594, 1563124)) {
 				v2 = nox_server_getNextObject_4DA7A0(v2);
 				if (!v2)
 					return;
@@ -191,12 +191,12 @@ int __cdecl sub_4DB370_savegame(const char* a1) {
 	sub_4DB6A0();
 	v7 = nox_common_get_data_path_409E10();
 	nox_sprintf(v14, "%s\\Save\\%s\\Player.plr", v7, getMemAt(0x587000, 199224));
-	v8 = *(_DWORD*)getMemAt(0x5D4594, 2660684) & 0xFFFFFFF7;
-	*(_DWORD*)getMemAt(0x5D4594, 2660684) &= 0xFFFFFFF7;
-	if (*(_DWORD*)getMemAt(0x5D4594, 1563076)) {
+	v8 = *getMemU32Ptr(0x5D4594, 2660684) & 0xFFFFFFF7;
+	*getMemU32Ptr(0x5D4594, 2660684) &= 0xFFFFFFF7;
+	if (*getMemU32Ptr(0x5D4594, 1563076)) {
 		v9 = v8;
 		LOBYTE(v9) = v8 | 8;
-		*(_DWORD*)getMemAt(0x5D4594, 2660684) = v9;
+		*getMemU32Ptr(0x5D4594, 2660684) = v9;
 	}
 	*getMemAt( 0x5D4594, 2661961) = sub_450750();
 	if (!sub_41A140(v14, (unsigned __int8)v2[2064]))

@@ -30,9 +30,9 @@ int sub_46C730() {
 		sub_46B2C0(*(int*)&dword_5d4594_1082860, sub_46C920);
 		sub_46B120(*(_DWORD**)&dword_5d4594_1082864, *(int*)&dword_5d4594_1082860);
 		sub_46B120(*(_DWORD**)&dword_5d4594_1082868, *(int*)&dword_5d4594_1082860);
-		*(_DWORD*)getMemAt(0x5D4594, 1082872) = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 501);
-		*(_DWORD*)getMemAt(0x5D4594, 1082876) = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 502);
-		*(_DWORD*)getMemAt(0x5D4594, 1082880) = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 503);
+		*getMemU32Ptr(0x5D4594, 1082872) = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 501);
+		*getMemU32Ptr(0x5D4594, 1082876) = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 502);
+		*getMemU32Ptr(0x5D4594, 1082880) = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 503);
 		v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 504);
 		nox_window_set_hidden((int)v1, 1);
 		v2 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 505);
@@ -84,7 +84,7 @@ int __cdecl sub_46C920(_DWORD* a1, int a2, int* a3, int a4) {
 		if (v8 < 0) {
 			return 0;
 		}
-		v9 = *(_DWORD*)(*(_DWORD*)getMemAt(0x5D4594, 2614252) + 120);
+		v9 = *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 120);
 		if ((v9 & 0x8000) != 0) {
 			v10 = sub_46B0C0(a1, 501);
 			sub_46ABB0((int)v10, 0);
@@ -213,7 +213,7 @@ int __cdecl sub_46CE40(int a1, int a2, int a3, _BYTE* a4) {
 		v10 = (int)&v6[1278 * v9];
 		if (strlen((const char*)(v10 + 4))) {
 			nox_savegame_nameFromPath_4DC970((char*)(v10 + 4), &v41);
-			nox_sprintf(&DateStr, "nox.str:%s", *(_DWORD*)getMemAt(0x587000, 4 * *(unsigned __int8*)(v10 + 1274) + 29456));
+			nox_sprintf(&DateStr, "nox.str:%s", *getMemU32Ptr(0x587000, 4 * *(unsigned __int8*)(v10 + 1274) + 29456));
 			wchar_t* v39 = loadString_sub_40F1D0(&DateStr, 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 667);
 			wchar_t* v13 =
 				loadString_sub_40F1D0((char*)getMemAt(0x587000, 144092), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 666);
@@ -381,7 +381,7 @@ void sub_46D580() {
 		sub_46ABB0(*(int*)&dword_5d4594_1082856, 1);
 		sub_46ADC0(*(int*)&dword_5d4594_1082856);
 		v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 501);
-		if (sub_450560() && !sub_450570() || (v2 = *(_DWORD*)(*(_DWORD*)getMemAt(0x5D4594, 2614252) + 276), v2 == 2) ||
+		if (sub_450560() && !sub_450570() || (v2 = *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 276), v2 == 2) ||
 			v2 == 1 || v2 == 51) {
 			sub_46ABB0((int)v1, 0);
 		} else {

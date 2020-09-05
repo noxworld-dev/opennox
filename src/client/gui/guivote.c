@@ -45,7 +45,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 	dword_5d4594_1197308 = a1;
 	switch (a1) {
 	case 4:
-		if (*(_DWORD*)getMemAt(0x5D4594, 2618908) && !*(_DWORD*)(*(_DWORD*)getMemAt(0x5D4594, 2618908) + 4792)) {
+		if (*getMemU32Ptr(0x5D4594, 2618908) && !*(_DWORD*)(*getMemU32Ptr(0x5D4594, 2618908) + 4792)) {
 			v24 =
 				loadString_sub_40F1D0((char*)getMemAt(0x587000, 156516), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 452);
 			v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 156580), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 451);
@@ -104,7 +104,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 							if (sub_419180((int)v18, v16[57])) {
 								nox_window_call_field_94(
 									*(int*)&dword_5d4594_1197316, 16397, (int)(i + 4704),
-									*(_DWORD*)getMemAt(0x587000, 8 * ((unsigned __int8)v16[57] % 10) + 156400));
+									*getMemU32Ptr(0x587000, 8 * ((unsigned __int8)v16[57] % 10) + 156400));
 								v19 = 0;
 								if (dword_5d4594_1197324 > 0) {
 									v20 = (const wchar_t*)getMemAt(0x5D4594, 1193720);

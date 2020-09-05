@@ -31,37 +31,37 @@ int sub_448730_wol_dialogs() {
 	result = nox_new_window_from_file("wolfind.wnd", sub_4489C0_wol_dialogs);
 	dword_5d4594_830124 = result;
 	if (result) {
-		*(_DWORD*)(result + 56) = *(_DWORD*)getMemAt(0x5D4594, 2650656);
+		*(_DWORD*)(result + 56) = *getMemU32Ptr(0x5D4594, 2650656);
 		*(_DWORD*)(dword_5d4594_830124 + 16) = (nox_win_width - *(_DWORD*)(dword_5d4594_830124 + 8)) / 2;
 		*(_DWORD*)(dword_5d4594_830124 + 24) =
 			*(_DWORD*)(dword_5d4594_830124 + 8) + *(_DWORD*)(dword_5d4594_830124 + 16);
-		*(_DWORD*)getMemAt(0x5D4594, 830128) = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1933);
+		*getMemU32Ptr(0x5D4594, 830128) = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1933);
 		sub_46B300(*(int*)getMemAt(0x5D4594, 830128), sub_448F00);
 		dword_5d4594_830136 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1934);
 		dword_5d4594_830132 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1935);
 		sub_46B300(*(int*)&dword_5d4594_830132, sub_448F60);
 		dword_5d4594_830152 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1931);
-		*(_DWORD*)getMemAt(0x5D4594, 830156) = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1932);
+		*getMemU32Ptr(0x5D4594, 830156) = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1932);
 		sub_46ABB0(*(int*)&dword_5d4594_830152, 0);
 		dword_5d4594_830140 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1938);
-		*(_DWORD*)getMemAt(0x5D4594, 830144) = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1939);
+		*getMemU32Ptr(0x5D4594, 830144) = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1939);
 		dword_5d4594_830148 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1936);
 		sub_46B500(*(int*)&dword_5d4594_830132);
-		*(_DWORD*)getMemAt(0x5D4594, 830160) = loadString_sub_40F1D0(
+		*getMemU32Ptr(0x5D4594, 830160) = loadString_sub_40F1D0(
 			(char*)getMemAt(0x587000, 111732), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 579);
-		*(_DWORD*)getMemAt(0x5D4594, 830164) = loadString_sub_40F1D0(
+		*getMemU32Ptr(0x5D4594, 830164) = loadString_sub_40F1D0(
 			(char*)getMemAt(0x587000, 111800), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 580);
-		*(_DWORD*)getMemAt(0x5D4594, 830168) = loadString_sub_40F1D0(
+		*getMemU32Ptr(0x5D4594, 830168) = loadString_sub_40F1D0(
 			(char*)getMemAt(0x587000, 111872), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 581);
-		*(_DWORD*)getMemAt(0x5D4594, 830172) = loadString_sub_40F1D0(
+		*getMemU32Ptr(0x5D4594, 830172) = loadString_sub_40F1D0(
 			(char*)getMemAt(0x587000, 111936), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 582);
-		*(_DWORD*)getMemAt(0x5D4594, 830176) = loadString_sub_40F1D0(
+		*getMemU32Ptr(0x5D4594, 830176) = loadString_sub_40F1D0(
 			(char*)getMemAt(0x587000, 112000), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 583);
-		*(_DWORD*)getMemAt(0x5D4594, 830180) = loadString_sub_40F1D0(
+		*getMemU32Ptr(0x5D4594, 830180) = loadString_sub_40F1D0(
 			(char*)getMemAt(0x587000, 112068), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 584);
-		*(_DWORD*)getMemAt(0x5D4594, 830184) = loadString_sub_40F1D0(
+		*getMemU32Ptr(0x5D4594, 830184) = loadString_sub_40F1D0(
 			(char*)getMemAt(0x587000, 112136), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 585);
-		*(_DWORD*)getMemAt(0x5D4594, 830188) = loadString_sub_40F1D0(
+		*getMemU32Ptr(0x5D4594, 830188) = loadString_sub_40F1D0(
 			(char*)getMemAt(0x587000, 112196), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 586);
 		dword_587000_111668 = 1;
 		dword_5d4594_830116 = 1;

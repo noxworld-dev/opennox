@@ -33,8 +33,8 @@ _DWORD* __cdecl sub_478730(int* a1) {
 	int v13;             // [esp-1Ch] [ebp-2Ch]
 	int v14;             // [esp-18h] [ebp-28h]
 
-	v1 = (*a1 - *(_DWORD*)getMemAt(0x5D4594, 1098380)) / 50;
-	v2 = (a1[1] - *(_DWORD*)getMemAt(0x5D4594, 1098384) + dword_5d4594_1107036) / 50;
+	v1 = (*a1 - *getMemU32Ptr(0x5D4594, 1098380)) / 50;
+	v2 = (a1[1] - *getMemU32Ptr(0x5D4594, 1098384) + dword_5d4594_1107036) / 50;
 	if (v1 >= 6)
 		v1 = 5;
 	if (v2 >= 10)
@@ -158,7 +158,7 @@ int __cdecl sub_478FD0(const wchar_t* a1, char* a2, int a3) {
 	nox_window_set_hidden(*(int*)&dword_5d4594_1098576, 0);
 	sub_46ABB0(*(int*)&dword_5d4594_1098576, 1);
 	sub_46A8C0(*(int*)&dword_5d4594_1098576);
-	*(_DWORD*)getMemAt(0x5D4594, 1098612) = nox_client_renderGUI_80828;
+	*getMemU32Ptr(0x5D4594, 1098612) = nox_client_renderGUI_80828;
 	nox_client_renderGUI_80828 = 0;
 	sub_467BB0();
 	if (a1)
@@ -171,10 +171,10 @@ int __cdecl sub_478FD0(const wchar_t* a1, char* a2, int a3) {
 			loadString_sub_40F1D0(a2, getMemAt(0x5D4594, 1098608), "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1128);
 	} else {
 		dword_5d4594_1098604 = 0;
-		*(_DWORD*)getMemAt(0x5D4594, 1098608) = 0;
+		*getMemU32Ptr(0x5D4594, 1098608) = 0;
 	}
 	sub_4790F0(a3);
-	if (*(_DWORD*)getMemAt(0x5D4594, 1098608))
+	if (*getMemU32Ptr(0x5D4594, 1098608))
 		sub_44D900(*(int*)getMemAt(0x5D4594, 1098608), 100);
 	dword_5d4594_1107036 = 0;
 	return nox_window_call_field_94(*(int*)&dword_5d4594_1098580, 16394, *(int*)&dword_5d4594_1098592, 0);

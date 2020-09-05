@@ -20,8 +20,8 @@ void __cdecl sub_4CCEA0(_DWORD* a1, int a2) {
 	float2 v17; // [esp+Ch] [ebp-8h]
 	int v18;    // [esp+18h] [ebp+4h]
 
-	if (!*(_DWORD*)getMemAt(0x5D4594, 1522964))
-		*(_DWORD*)getMemAt(0x5D4594, 1522964) = sub_44CFC0((CHAR*)getMemAt(0x587000, 188304));
+	if (!*getMemU32Ptr(0x5D4594, 1522964))
+		*getMemU32Ptr(0x5D4594, 1522964) = sub_44CFC0((CHAR*)getMemAt(0x587000, 188304));
 	v2 = a1;
 	v3 = a1[4] - a1[9];
 	v4 = a1[3] - a1[8];
@@ -49,9 +49,9 @@ void __cdecl sub_4CCEA0(_DWORD* a1, int a2) {
 				*(_DWORD*)(v12 + 440) =
 					a2 * sub_415FF0(100, 300, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 74);
 				*(_DWORD*)(v12 + 448) =
-					*(_DWORD*)getMemAt(0x5D4594, 2598000) +
+					*getMemU32Ptr(0x5D4594, 2598000) +
 					sub_415FF0(30, 45, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 77);
-				*(_DWORD*)(v12 + 444) = *(_DWORD*)getMemAt(0x5D4594, 2598000);
+				*(_DWORD*)(v12 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 				*(_WORD*)(v12 + 104) = 28;
 				*(_WORD*)(v12 + 106) = 0;
 				*(_BYTE*)(v12 + 296) = sub_415FF0(-2, 4, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 84);

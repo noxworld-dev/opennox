@@ -27,8 +27,8 @@ int sub_4C1D80() {
 	int v5;              // edx
 	unsigned __int8* v6; // eax
 
-	*(_DWORD*)getMemAt(0x5D4594, 1321004) = 0;
-	*(_DWORD*)getMemAt(0x5D4594, 1321000) = -145;
+	*getMemU32Ptr(0x5D4594, 1321004) = 0;
+	*getMemU32Ptr(0x5D4594, 1321000) = -145;
 	dword_5d4594_1320988 = nox_win_width - 95;
 	dword_5d4594_1320992 = -145;
 	dword_5d4594_1321032 = nox_window_new(0, 8, nox_win_width - 95, -145, 87, 115, 0);
@@ -37,19 +37,19 @@ int sub_4C1D80() {
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1321036, sub_4C2B10, sub_4C1FE0, sub_4C2C20);
 	v0 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 184592), 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 818);
 	sub_46B000((wchar_t*)(dword_5d4594_1321036 + 36), v0);
-	*(_DWORD*)getMemAt(0x5D4594, 1320996) = sub_42F970("CreatureCageBottom");
+	*getMemU32Ptr(0x5D4594, 1320996) = sub_42F970("CreatureCageBottom");
 	v1 = nox_window_new(*(int*)&dword_5d4594_1321036, 160, 0, 0, 1, 1, 0);
 	v2 = sub_42F970("CreatureCageTop");
 	sub_46AE60((int)v1, (int)v2);
 	sub_46AE40((int)v1, -5, -38);
 	v3 = nox_window_new(*(int*)&dword_5d4594_1321032, 8, 19, 0, 48, 39, 0);
 	nox_window_set_all_funcs(v3, sub_4C2BE0, sub_4C24A0, 0);
-	*(_DWORD*)getMemAt(0x5D4594, 1321008) = sub_42F970("CreatureCageHuntButtonLit");
-	*(_DWORD*)getMemAt(0x5D4594, 1321012) = sub_42F970("CreatureCageHuntButton");
-	*(_DWORD*)getMemAt(0x5D4594, 1321016) = sub_42F970("CreatureCageGuardButtonLit");
-	*(_DWORD*)getMemAt(0x5D4594, 1321020) = sub_42F970("CreatureCageGuardButton");
+	*getMemU32Ptr(0x5D4594, 1321008) = sub_42F970("CreatureCageHuntButtonLit");
+	*getMemU32Ptr(0x5D4594, 1321012) = sub_42F970("CreatureCageHuntButton");
+	*getMemU32Ptr(0x5D4594, 1321016) = sub_42F970("CreatureCageGuardButtonLit");
+	*getMemU32Ptr(0x5D4594, 1321020) = sub_42F970("CreatureCageGuardButton");
 	dword_5d4594_1321024 = sub_42F970("CreatureCageEscortButtonLit");
-	*(_DWORD*)getMemAt(0x5D4594, 1321028) = sub_42F970("CreatureCageEscortButton");
+	*getMemU32Ptr(0x5D4594, 1321028) = sub_42F970("CreatureCageEscortButton");
 	v4 = nox_window_new(0, 168, dword_5d4594_1320988 + 27, dword_5d4594_1320992 + 12, 34, 34, 0);
 	dword_5d4594_1321040 = v4;
 	v5 = v4[11];
@@ -171,8 +171,8 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 		v4 = (dword_587000_184452 - v12) / 2 + 1;
 		if (sub_46AAB0(a1, v3->field_0, v3->field_4)) {
 			sub_4C2A00(v11 + v4, v10 + 3, *(int*)getMemAt(0x5D4594, 2589772), *(int*)getMemAt(0x5D4594, 2650656), (__int16*)v2);
-			if (a1[8] != *(_DWORD*)getMemAt(0x587000, 184552)) {
-				*(_DWORD*)getMemAt(0x587000, 184552) = a1[8];
+			if (a1[8] != *getMemU32Ptr(0x587000, 184552)) {
+				*getMemU32Ptr(0x587000, 184552) = a1[8];
 				sub_452D80(920, 100);
 				return 1;
 			}
@@ -188,9 +188,9 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 				sub_4C2A00(v11 + v4, v10 + 3, *(int*)getMemAt(0x5D4594, 2523948), *(int*)getMemAt(0x5D4594, 2650656), (__int16*)v2);
 				return 1;
 			}
-			v6 = *(_DWORD*)getMemAt(0x5D4594, 2650660);
+			v6 = *getMemU32Ptr(0x5D4594, 2650660);
 			v9 = (__int16*)v2;
-			v8 = *(_DWORD*)getMemAt(0x5D4594, 2650656);
+			v8 = *getMemU32Ptr(0x5D4594, 2650656);
 		} else {
 			v7 = a1[8];
 			if (v7 != 4 && v7 != 5) {
@@ -202,8 +202,8 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 				sub_4C2A00(v11 + v4, v10 + 3, *(int*)getMemAt(0x5D4594, 2650660), *(int*)getMemAt(0x5D4594, 2650656), (__int16*)v2);
 				return 1;
 			}
-			v6 = *(_DWORD*)getMemAt(0x5D4594, 2650684);
-			v8 = *(_DWORD*)getMemAt(0x5D4594, 2650656);
+			v6 = *getMemU32Ptr(0x5D4594, 2650684);
+			v8 = *getMemU32Ptr(0x5D4594, 2650656);
 		}
 		sub_4C2A00(v11 + v4, v10 + 3, v6, v8, v9);
 		return 1;
@@ -217,7 +217,7 @@ int sub_4C2CE0() {
 	wchar_t* v2; // eax
 	wchar_t* v3; // eax
 
-	switch (*(_DWORD*)getMemAt(0x587000, 184448)) {
+	switch (*getMemU32Ptr(0x587000, 184448)) {
 	case 3:
 		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 184980), 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 785);
 		sub_4776B0(v3);

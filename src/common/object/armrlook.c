@@ -8,7 +8,7 @@ wchar_t* __cdecl sub_415B60(int a1) {
 	int v4;             // esi
 
 	v1 = 0;
-	if (!*(_DWORD*)getMemAt(0x587000, 34848))
+	if (!*getMemU32Ptr(0x587000, 34848))
 		return loadString_sub_40F1D0((char*)getMemAt(0x587000, 37836), 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c",
 									 263);
 	HIWORD(v2) = 0;
@@ -33,9 +33,9 @@ char** sub_415D50() {
 	int v2;              // ecx
 
 	result = *(char***)getMemAt(0x5D4594, 371256);
-	if (!*(_DWORD*)getMemAt(0x5D4594, 371256)) {
+	if (!*getMemU32Ptr(0x5D4594, 371256)) {
 		result = *(char***)getMemAt(0x587000, 35500);
-		if (*(_DWORD*)getMemAt(0x587000, 35500)) {
+		if (*getMemU32Ptr(0x587000, 35500)) {
 			result = (char**)getMemAt(0x587000, 35500);
 			v1 = getMemAt(0x587000, 35500);
 			do {
@@ -46,7 +46,7 @@ char** sub_415D50() {
 				result = (char**)v1;
 			} while (v2);
 		}
-		*(_DWORD*)getMemAt(0x5D4594, 371256) = 1;
+		*getMemU32Ptr(0x5D4594, 371256) = 1;
 	}
 	return result;
 }

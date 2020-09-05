@@ -31,8 +31,8 @@ int sub_427070() {
 			*(_DWORD*)i = sub_44CFC0(*v0);
 		nox_sprintf(v13, "creature_desc:%s", *v0);
 		v3 = loadString_sub_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 65);
-		v4 = *(_DWORD*)getMemAt(0x587000, 71248);
-		v5 = *(_DWORD*)getMemAt(0x587000, 71252);
+		v4 = *getMemU32Ptr(0x587000, 71248);
+		v5 = *getMemU32Ptr(0x587000, 71252);
 		v6 = *v0;
 		*((_DWORD*)i + 1) = v3;
 		*(_DWORD*)v13 = v4;
@@ -40,8 +40,8 @@ int sub_427070() {
 		*(_DWORD*)&v13[4] = v5;
 		strcat(v13, v6);
 		v7 = sub_42F970(v13);
-		v8 = *(_DWORD*)getMemAt(0x587000, 71264);
-		v9 = *(_DWORD*)getMemAt(0x587000, 71268);
+		v8 = *getMemU32Ptr(0x587000, 71264);
+		v9 = *getMemU32Ptr(0x587000, 71268);
 		v10 = *v0;
 		*((_DWORD*)i + 2) = v7;
 		*(_DWORD*)v13 = v8;

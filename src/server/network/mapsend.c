@@ -138,12 +138,12 @@ char* __cdecl sub_519D20(int a1) {
 									   397);
 		result = (char*)sub_450B90(6u, (int)v2);
 	} else {
-		++*(_WORD*)getMemAt(0x5D4594, 2388636);
+		++*getMemU16Ptr(0x5D4594, 2388636);
 		*((_WORD*)v1 + 1) = 1;
 		*((_DWORD*)v1 + 6) = 0;
 		*((_DWORD*)v1 + 4) = 1;
 		*((_WORD*)v1 + 10) = 512;
-		*((_DWORD*)v1 + 3) = *(_DWORD*)getMemAt(0x5D4594, 2388644);
+		*((_DWORD*)v1 + 3) = *getMemU32Ptr(0x5D4594, 2388644);
 		*((_QWORD*)v1 + 5) = sub_416BB0();
 		result = sub_417090(a1);
 	}
@@ -161,7 +161,7 @@ int __cdecl sub_519DE0_net_mapsend(int a1) {
 	v2 = sub_417090(a1);
 	*((_WORD*)v1 + 1) = 0;
 	nullsub_27(v1);
-	++*(_WORD*)getMemAt(0x5D4594, 2388638);
+	++*getMemU16Ptr(0x5D4594, 2388638);
 	if (*((_WORD*)v1 + 2) == 1 && *((_DWORD*)v1 + 2))
 		free(*((LPVOID*)v1 + 2));
 	sub_519830((int)v1, a1);
@@ -201,10 +201,10 @@ int sub_519EB0_net_mapsend() {
 				*(_DWORD*)v1 = v2;
 				if (v2) {
 					v3 = *(const void**)&dword_5d4594_2388640;
-					v4 = *(_DWORD*)getMemAt(0x5D4594, 2388644);
+					v4 = *getMemU32Ptr(0x5D4594, 2388644);
 					*((_WORD*)v1 - 2) = 1;
 					memcpy(v2, v3, v4);
-					*((_DWORD*)v1 + 1) = *(_DWORD*)getMemAt(0x5D4594, 2388644);
+					*((_DWORD*)v1 + 1) = *getMemU32Ptr(0x5D4594, 2388644);
 					v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249788), 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 478);
 					sub_450B90(6u, (int)v5);
@@ -228,11 +228,11 @@ int sub_519EB0_net_mapsend() {
 	}
 	strcpy(v12, "maps\\");
 	strcat(v12, sub_409B40());
-	*(_WORD*)&v12[strlen(v12)] = *(_WORD*)getMemAt(0x587000, 249808);
+	*(_WORD*)&v12[strlen(v12)] = *getMemU16Ptr(0x587000, 249808);
 	strcat(v12, sub_409B40());
 	v6 = &v12[strlen(v12) + 1];
 	v7 = getMemByte(0x587000, 249816);
-	*(_DWORD*)--v6 = *(_DWORD*)getMemAt(0x587000, 249812);
+	*(_DWORD*)--v6 = *getMemU32Ptr(0x587000, 249812);
 	v6[4] = v7;
 	v8 = fopen(v12, "rb");
 	if (!v8) {
@@ -243,7 +243,7 @@ int sub_519EB0_net_mapsend() {
 	strcpy((char*)getMemAt(0x5D4594, 2386988), v12);
 	strcpy((char*)getMemAt(0x5D4594, 2387068), v11);
 	fseek(v8, 0, 2);
-	*(_DWORD*)getMemAt(0x5D4594, 2388644) = ftell(v8);
+	*getMemU32Ptr(0x5D4594, 2388644) = ftell(v8);
 	fseek(v8, 0, 0);
 	dword_5d4594_2388640 = malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
 	sub_40ADD0_fread(*(char**)&dword_5d4594_2388640, 1u, *(size_t*)getMemAt(0x5D4594, 2388644), v8);

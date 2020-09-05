@@ -41,7 +41,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 	wchar_t* v34;       // [esp+Ch] [ebp-8h]
 	wchar_t* v35;       // [esp+10h] [ebp-4h]
 
-	*(_WORD*)getMemAt(0x5D4594, 1317000) = 0;
+	*getMemU16Ptr(0x5D4594, 1317000) = 0;
 	nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1317000), (const wchar_t*)getMemAt(0x5D4594, 1319048));
 	v1 = (int*)a1;
 	if (!a1)

@@ -176,7 +176,7 @@ int sub_4A5150() {
 			v13 = v9;
 			do {
 				nox_sprintf(v28, "nox.str:%s",
-							*(_DWORD*)getMemAt(0x587000, 4 * *(unsigned __int8*)(v12 + dword_5d4594_1307780 + 1274) + 29456));
+							*getMemU32Ptr(0x587000, 4 * *(unsigned __int8*)(v12 + dword_5d4594_1307780 + 1274) + 29456));
 				v26 = loadString_sub_40F1D0(v28, 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 285);
 				v24 = v12 + dword_5d4594_1307780 + 1224;
 				v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 170600), 0,
@@ -285,7 +285,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 				if ((!nox_common_gameFlags_check_40A5C0(2048) || sub_4DC100((int)v20, (int)getMemAt(0x587000, 171268))) &&
 					sub_41A000((char*)(dword_5d4594_1307780 + 1278 * *(_DWORD*)(v7 + 48) + 4), v23)) {
 					memcpy(getMemAt(0x5D4594, 2660684), v23, 0x4FCu);
-					*(_WORD*)getMemAt(0x5D4594, 2661960) = *(_WORD*)&v23[1276];
+					*getMemU16Ptr(0x5D4594, 2661960) = *(_WORD*)&v23[1276];
 					sub_43BDC0();
 					if (getMemByte(0x5D4594, 2661958)) {
 						if (getMemByte(0x5D4594, 2661958) == 1) {
@@ -332,7 +332,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 			v5 = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1307776 + 32) + 48);
 			if (v5 == -1)
 				goto LABEL_40;
-			*(_DWORD*)getMemAt(0x5D4594, 1307772) = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1307776 + 32) + 48);
+			*getMemU32Ptr(0x5D4594, 1307772) = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1307776 + 32) + 48);
 			nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + 1278 * v5 + 4), nox_savegame_name_1307752);
 			if (nox_common_gameFlags_check_40A5C0(2048) && !strcmp(nox_savegame_name_1307752, "AUTOSAVE")) {
 				sub_452D80(925, 100);
@@ -343,7 +343,7 @@ int __cdecl sub_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 				v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 170952), 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c",
 										   465);
 			} else {
-				if (!strlen((const char*)(dword_5d4594_1307780 + 1278 * *(_DWORD*)getMemAt(0x5D4594, 1307772) + 4))) {
+				if (!strlen((const char*)(dword_5d4594_1307780 + 1278 * *getMemU32Ptr(0x5D4594, 1307772) + 4))) {
 				LABEL_38:
 					sub_452D80(925, 100);
 					goto LABEL_40;
