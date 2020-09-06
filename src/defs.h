@@ -119,6 +119,12 @@ int nox_strlen(const char* fnc, const char* src);
 #define strcpy(x, y) nox_strcpy(__func__, x, y)
 int nox_strcpy(const char* fnc, char* dst, const char* src);
 
+#define fread(x, y, z, f) nox_fread(__func__, x, y, z, f)
+size_t nox_fread(const char* fnc, void* ptr, size_t size, size_t count, FILE* stream);
+
+#define fwrite(x, y, z, f) nox_fwrite(__func__, x, y, z, f)
+size_t nox_fwrite(const char* fnc, void* ptr, size_t size, size_t count, FILE* stream);
+
 #define getMemAt(x, y) nox_getMemAt(__func__, x, y)
 void* nox_getMemAt(const char* fnc, uintptr_t base, uintptr_t off);
 
