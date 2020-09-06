@@ -333,8 +333,8 @@ void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5) {
 	if (v8 / 40 + 2 >= 30)
 		dword_5d4594_1316408 = 28;
 	a1a.field_0 = a2;
-	v9 = *(float*)getMemAt(0x587000, 8 * a1 + 194136);
-	v10 = *(float*)getMemAt(0x587000, 8 * a1 + 194140);
+	v9 = *getMemFloatPtr(0x587000, 8 * a1 + 194136);
+	v10 = *getMemFloatPtr(0x587000, 8 * a1 + 194140);
 	v11 = (double)(a4 - a2);
 	v12 = (double)v7;
 	a1a.field_4 = a3;
@@ -342,17 +342,17 @@ void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5) {
 	a2a.field_4 = v5;
 	*(float*)&dword_5d4594_1313880 = v12;
 	v26 = sqrt(v12 * *(float*)&dword_5d4594_1313880 + v11 * v11) + 0.0099999998;
-	*(float*)getMemAt(0x5D4594, 1313876) = v11 / v26;
+	*getMemFloatPtr(0x5D4594, 1313876) = v11 / v26;
 	v13 = *(float*)&dword_5d4594_1313880 / v26;
 	*(float*)&dword_5d4594_1313880 = v13;
-	v14 = v13 * v10 + *(float*)getMemAt(0x5D4594, 1313876) * v9;
+	v14 = v13 * v10 + *getMemFloatPtr(0x5D4594, 1313876) * v9;
 	if (v14 < 0.0)
 		v14 = v14 * 0.2;
 	v15 = (1.0 - v14) * (double)v8 * 2.3;
-	*(float*)getMemAt(0x5D4594, 1313868) = v9 * v15;
-	*(float*)getMemAt(0x5D4594, 1313872) = v10 * v15;
-	a3a.field_0 = nox_float2int(*(float*)getMemAt(0x5D4594, 1313868));
-	v16 = nox_float2int(*(float*)getMemAt(0x5D4594, 1313872));
+	*getMemFloatPtr(0x5D4594, 1313868) = v9 * v15;
+	*getMemFloatPtr(0x5D4594, 1313872) = v10 * v15;
+	a3a.field_0 = nox_float2int(*getMemFloatPtr(0x5D4594, 1313868));
+	v16 = nox_float2int(*getMemFloatPtr(0x5D4594, 1313872));
 	a4a.field_0 = v6;
 	v17 = 0;
 	a3a.field_4 = v16;
@@ -360,11 +360,11 @@ void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5) {
 	a5 = 0;
 	do {
 		if (v17)
-			*(float*)getMemAt(0x5D4594, 4 * v17 + 1313856) = *(float*)getMemAt(0x5D4594, 4 * v17 + 1313856) + 0.25;
+			*getMemFloatPtr(0x5D4594, 4 * v17 + 1313856) = *getMemFloatPtr(0x5D4594, 4 * v17 + 1313856) + 0.25;
 		else
-			*(float*)getMemAt(0x5D4594, 1313856) = *(float*)getMemAt(0x5D4594, 1313856) + 0.2;
+			*getMemFloatPtr(0x5D4594, 1313856) = *getMemFloatPtr(0x5D4594, 1313856) + 0.2;
 		v18 = dword_5d4594_1316408;
-		if (*(float*)getMemAt(0x5D4594, 4 * v17 + 1313856) >= 1.0) {
+		if (*getMemFloatPtr(0x5D4594, 4 * v17 + 1313856) >= 1.0) {
 			v19 = dword_5d4594_1316408 + 1;
 			if (dword_5d4594_1316408 + 1 > 0) {
 				v20 = getMemAt(0x5D4594, 28 * (v19 + 30 * v17) + 1313872);
@@ -381,7 +381,7 @@ void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5) {
 			*getMemU32Ptr(0x5D4594, 4 * v17 + 1313856) = 0;
 			*getMemU32Ptr(0x5D4594, 840 * v17 + 1313908) = 0;
 		}
-		v21 = *(float*)getMemAt(0x5D4594, 4 * v17 + 1313856);
+		v21 = *getMemFloatPtr(0x5D4594, 4 * v17 + 1313856);
 		dword_5d4594_1316412 = 0;
 		sub_4BEDE0(&a1a, &a2a, &a3a, &a4a, v18, v21, sub_4BA8B0, (int)&a5);
 		v17 = ++a5;
@@ -1686,15 +1686,15 @@ int __cdecl sub_4BE840(int* a1, int* a2, int* a3, int* a4, int a5) {
 		v35[v43] = v34 * v9 + v12 + v11;
 		v43++;
 	} while ((int)v8 < (int)getMemAt(0x581450, 9876));
-	*(float*)getMemAt(0x587000, 180484) = v6;
+	*getMemFloatPtr(0x587000, 180484) = v6;
 	v14 = getMemAt(0x587000, 180468);
 	v15 = 0;
 	*(float*)&dword_587000_180480 = v6 * v6;
 	*(float*)&dword_587000_180476 = v6 * v6 * v6;
-	*(float*)getMemAt(0x587000, 180496) = *(float*)&dword_587000_180480 + *(float*)&dword_587000_180480;
+	*getMemFloatPtr(0x587000, 180496) = *(float*)&dword_587000_180480 + *(float*)&dword_587000_180480;
 	v16 = *(float*)&dword_587000_180476 * 6.0;
-	*(float*)getMemAt(0x587000, 180492) = v16;
-	*(float*)getMemAt(0x587000, 180508) = v16;
+	*getMemFloatPtr(0x587000, 180492) = v16;
+	*getMemFloatPtr(0x587000, 180508) = v16;
 	v17 = (double)v39[3];
 	v18 = (double)v39[2];
 	v19 = (double)v39[1];
@@ -1818,15 +1818,15 @@ void __cdecl sub_4BEAD0(int2* a1, int2* a2, int2* a3, int2* a4, int a5, int a6) 
 		*(int*)((char*)&v40[0] + v45 * 4) = v14 + v11 + v38 * v37 + v44 * v10;
 		++v45;
 	} while ((int)v8 < (int)getMemAt(0x581450, 9940));
-	*(float*)getMemAt(0x587000, 180484) = v7;
+	*getMemFloatPtr(0x587000, 180484) = v7;
 	v16 = getMemAt(0x587000, 180468);
 	v17 = 0;
 	*(float*)&dword_587000_180480 = v7 * v7;
 	*(float*)&dword_587000_180476 = v7 * v7 * v7;
-	*(float*)getMemAt(0x587000, 180496) = *(float*)&dword_587000_180480 + *(float*)&dword_587000_180480;
+	*getMemFloatPtr(0x587000, 180496) = *(float*)&dword_587000_180480 + *(float*)&dword_587000_180480;
 	v18 = *(float*)&dword_587000_180476 * 6.0;
-	*(float*)getMemAt(0x587000, 180492) = v18;
-	*(float*)getMemAt(0x587000, 180508) = v18;
+	*getMemFloatPtr(0x587000, 180492) = v18;
+	*getMemFloatPtr(0x587000, 180508) = v18;
 	v19 = (double)v40[7];
 	v20 = (double)v40[6];
 	v21 = (double)v40[5];
@@ -9091,7 +9091,7 @@ int sub_4CA860() {
 	v3 = 0;
 	v0 = getMemAt(0x5D4594, 1322584);
 	do {
-		v1 = (__int64)(atan2((double)v3 * *(double*)getMemAt(0x581450, 9960), 1.0) * *(double*)getMemAt(0x581450, 9952) +
+		v1 = (__int64)(atan2((double)v3 * *getMemDoublePtr(0x581450, 9960), 1.0) * *getMemDoublePtr(0x581450, 9952) +
 					   *(double*)&qword_581450_9544);
 		*(_WORD*)v0 = v1;
 		v0 += 2;
@@ -9233,7 +9233,7 @@ void __cdecl sub_4CAA90(int2* a1, float4* a2, float2* a3, int a4, int a5) {
 			v17 = nox_double2float(v21);
 			a3->field_0 = v17;
 			if (v19 <= *(double*)&qword_581450_9544) {
-				if (v19 < *(double*)getMemAt(0x581450, 9968))
+				if (v19 < *getMemDoublePtr(0x581450, 9968))
 					a3->field_0 = v17 - 1.0;
 			} else {
 				a3->field_0 = v17 + 1.0;
@@ -9291,7 +9291,7 @@ void __cdecl sub_4CAC30(int2* a1, float4* a2, float2* a3, int a4, int a5) {
 		v12 = nox_double2float(v16);
 		a3->field_0 = v12;
 		if (v14 <= *(double*)&qword_581450_9544) {
-			if (v14 < *(double*)getMemAt(0x581450, 9968))
+			if (v14 < *getMemDoublePtr(0x581450, 9968))
 				a3->field_0 = v12 - 1.0;
 		} else {
 			a3->field_0 = v12 + 1.0;

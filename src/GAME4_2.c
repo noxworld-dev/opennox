@@ -4949,7 +4949,7 @@ float* __cdecl sub_524610(int a1, float* a2, int a3) {
 }
 
 //----- (00524660) --------------------------------------------------------
-BOOL __cdecl sub_524660(float a1, float a2) { return fabs(a1 - a2) < *(double*)getMemAt(0x581450, 10432); }
+BOOL __cdecl sub_524660(float a1, float a2) { return fabs(a1 - a2) < *getMemDoublePtr(0x581450, 10432); }
 
 //----- (00524680) --------------------------------------------------------
 int __cdecl sub_524680(int a1, int a2, int a3) {
@@ -6138,20 +6138,20 @@ LABEL_10:
 	switch (v2) {
 	case 1:
 		v14 = -v16;
-		*(float*)getMemAt(0x5D4594, 2487612) = sub_526BC0(v14, v16);
-		*(float*)getMemAt(0x5D4594, 2487616) = sub_526BC0(v14, v16);
+		*getMemFloatPtr(0x5D4594, 2487612) = sub_526BC0(v14, v16);
+		*getMemFloatPtr(0x5D4594, 2487616) = sub_526BC0(v14, v16);
 		break;
 	case 2:
 		v8 = -v16;
 		v15 = v8;
 		if (sub_526AC0(0, 100) >= 50) {
-			*(float*)getMemAt(0x5D4594, 2487612) = v8;
-			*(float*)getMemAt(0x5D4594, 2487616) = sub_526BC0(v15, v16);
+			*getMemFloatPtr(0x5D4594, 2487612) = v8;
+			*getMemFloatPtr(0x5D4594, 2487616) = sub_526BC0(v15, v16);
 			*(float*)&dword_5d4594_2487620 = v16;
 			*(float*)&dword_5d4594_2487624 = sub_526BC0(v15, v16);
 		} else {
-			*(float*)getMemAt(0x5D4594, 2487612) = sub_526BC0(v15, v16);
-			*(float*)getMemAt(0x5D4594, 2487616) = v15;
+			*getMemFloatPtr(0x5D4594, 2487612) = sub_526BC0(v15, v16);
+			*getMemFloatPtr(0x5D4594, 2487616) = v15;
 			*(float*)&dword_5d4594_2487620 = sub_526BC0(v15, v16);
 			*(float*)&dword_5d4594_2487624 = v16;
 		}
@@ -6162,32 +6162,32 @@ LABEL_10:
 			if (v9 >= 50) {
 				v12 = -v16;
 				if (v9 >= 75) {
-					*(float*)getMemAt(0x5D4594, 2487612) = v12;
-					*(float*)getMemAt(0x5D4594, 2487616) = v12;
+					*getMemFloatPtr(0x5D4594, 2487612) = v12;
+					*getMemFloatPtr(0x5D4594, 2487616) = v12;
 					*(float*)&dword_5d4594_2487620 = v12;
 					*(float*)&dword_5d4594_2487624 = v16;
 					*(float*)&dword_5d4594_2487628 = v16;
 				} else {
-					*(float*)getMemAt(0x5D4594, 2487616) = v12;
+					*getMemFloatPtr(0x5D4594, 2487616) = v12;
 					*(float*)&dword_5d4594_2487628 = v12;
-					*(float*)getMemAt(0x5D4594, 2487612) = v16;
+					*getMemFloatPtr(0x5D4594, 2487612) = v16;
 					*(float*)&dword_5d4594_2487620 = v16;
 					*(float*)&dword_5d4594_2487624 = v16;
 				}
 				dword_5d4594_2487632 = 0;
 			} else {
 				v11 = -v16;
-				*(float*)getMemAt(0x5D4594, 2487612) = v11;
+				*getMemFloatPtr(0x5D4594, 2487612) = v11;
 				*(float*)&dword_5d4594_2487632 = v11;
-				*(float*)getMemAt(0x5D4594, 2487616) = v16;
+				*getMemFloatPtr(0x5D4594, 2487616) = v16;
 				*(float*)&dword_5d4594_2487620 = v16;
 				*(float*)&dword_5d4594_2487624 = v16;
 				dword_5d4594_2487628 = 0;
 			}
 		} else {
 			v10 = -v16;
-			*(float*)getMemAt(0x5D4594, 2487612) = v10;
-			*(float*)getMemAt(0x5D4594, 2487616) = v10;
+			*getMemFloatPtr(0x5D4594, 2487612) = v10;
+			*getMemFloatPtr(0x5D4594, 2487616) = v10;
 			*(float*)&dword_5d4594_2487624 = v10;
 			*(float*)&dword_5d4594_2487620 = v16;
 			dword_5d4594_2487628 = 0;
@@ -6198,14 +6198,14 @@ LABEL_10:
 	case 5:
 		*getMemU32Ptr(0x5D4594, 2487644) = 0;
 		v13 = -v16;
-		*(float*)getMemAt(0x5D4594, 2487612) = v13;
-		*(float*)getMemAt(0x5D4594, 2487616) = v13;
+		*getMemFloatPtr(0x5D4594, 2487612) = v13;
+		*getMemFloatPtr(0x5D4594, 2487616) = v13;
 		*(float*)&dword_5d4594_2487624 = v13;
 		*(float*)&dword_5d4594_2487628 = v13;
 		*(float*)&dword_5d4594_2487620 = v16;
 		*(float*)&dword_5d4594_2487632 = v16;
-		*(float*)getMemAt(0x5D4594, 2487636) = v16;
-		*(float*)getMemAt(0x5D4594, 2487640) = v16;
+		*getMemFloatPtr(0x5D4594, 2487636) = v16;
+		*getMemFloatPtr(0x5D4594, 2487640) = v16;
 		*getMemU32Ptr(0x5D4594, 2487648) = 0;
 		break;
 	default:
@@ -6265,8 +6265,8 @@ __int64 __cdecl sub_526260(int a1, float* a2) {
 	__int64 result; // rax
 
 	v2 = *getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2487608) + 2487588);
-	*a2 = *(float*)getMemAt(0x5D4594, 8 * v2 + 2487612);
-	a2[1] = *(float*)getMemAt(0x5D4594, 8 * v2 + 2487616);
+	*a2 = *getMemFloatPtr(0x5D4594, 8 * v2 + 2487612);
+	a2[1] = *getMemFloatPtr(0x5D4594, 8 * v2 + 2487616);
 	++*getMemU32Ptr(0x5D4594, 2487608);
 	*a2 = *a2 - *(float*)(a1 + 28) * 0.5;
 	a2[1] = a2[1] - *(float*)(a1 + 32) * 0.5;
@@ -8075,7 +8075,7 @@ void __cdecl sub_5286D0(int a1, int a2) {
 					v5 = *(_DWORD*)(v3 + 1440);
 					if (v5 & 0x100 ||
 						(v6 = *(float*)(a1 + 56) - *(float*)(a2 + 56), v7 = *(float*)(a1 + 60) - *(float*)(a2 + 60),
-						 v9 = v7, v8 = (float*)getMemAt(0x587000, 8 * *(__int16*)(a2 + 124) + 194136),
+						 v9 = v7, v8 = getMemFloatPtr(0x587000, 8 * *(__int16*)(a2 + 124) + 194136),
 						 v10 = sqrt(v7 * v9 + v6 * v6) + 0.001, v9 / v10 * v8[1] + v6 / v10 * *v8 >= 0.5)) {
 						if (sub_5370E0(v2, a1, 0))
 							sub_5287B0(v2, a1);
@@ -10016,8 +10016,8 @@ int __cdecl sub_52BD30(int* a1) {
 			v4 = nox_common_randomInt_415FA0(0, 255);
 			*((_WORD*)v3 + 62) = v4;
 			result = 8 * v4;
-			v3[20] = *(float*)getMemAt(0x587000, result + 194136) * v3[136];
-			v3[21] = *(float*)getMemAt(0x587000, result + 194140) * v3[136];
+			v3[20] = *getMemFloatPtr(0x587000, result + 194136) * v3[136];
+			v3[21] = *getMemFloatPtr(0x587000, result + 194140) * v3[136];
 		}
 		--v1;
 	} while (v1);
@@ -10521,8 +10521,8 @@ int __cdecl sub_52C790(int a1, int a2, int a3, int a4, int a5, int a6) {
 	v8 = a4;
 	v9 = *(float*)(a4 + 176) + *(float*)(a4 + 176);
 	v10 = 8 * *(__int16*)(a4 + 124);
-	v21 = *(float*)getMemAt(0x587000, v10 + 194136);
-	v20 = *(float*)getMemAt(0x587000, v10 + 194140);
+	v21 = *getMemFloatPtr(0x587000, v10 + 194136);
+	v20 = *getMemFloatPtr(0x587000, v10 + 194140);
 	v11 = *(float*)(v8 + 60);
 	v19.field_0 = *(float*)(v8 + 56);
 	v12 = v9 * v21 + *(float*)(v8 + 56);
@@ -10884,7 +10884,7 @@ void __cdecl sub_52CF90(int a1, int a2) {
 		v3 = *(float*)(a2 + 56) - *(float*)(a1 + 56);
 		v4 = *(float*)(a2 + 60) - *(float*)(a1 + 60);
 		v8 = v4 * v4 + v3 * v3;
-		if (v8 <= 22500.0 && v8 < (double)*(float*)getMemAt(0x5D4594, 2487704)) {
+		if (v8 <= 22500.0 && v8 < (double)*getMemFloatPtr(0x5D4594, 2487704)) {
 			v5 = *(_DWORD*)(v2 + 748);
 			v6 = *(float*)(a2 + 60);
 			v7.field_0 = *(float*)(a2 + 56);
@@ -10893,7 +10893,7 @@ void __cdecl sub_52CF90(int a1, int a2) {
 			v7.field_C = (double)*(int*)getMemAt(0x587000, 8 * *(_DWORD*)(v5 + 12) + 196188) * 0.5 + *(float*)(v2 + 60);
 			if (sub_535250(&v7, 0, 0, 0)) {
 				dword_5d4594_2487708 = v2;
-				*(float*)getMemAt(0x5D4594, 2487704) = v4 * v4 + v3 * v3;
+				*getMemFloatPtr(0x5D4594, 2487704) = v4 * v4 + v3 * v3;
 			}
 		}
 	}
@@ -11182,8 +11182,8 @@ int __cdecl sub_52D5C0(int a1, int a2, int a3, int a4, int a5, int a6) {
 				*((_WORD*)v9 + 62) = v10;
 				v12 = v11 + *(float*)(a4 + 176) + 4.0;
 				v13 = 8 * v10;
-				v21 = *(float*)getMemAt(0x587000, v13 + 194136);
-				v22 = *(float*)getMemAt(0x587000, v13 + 194140);
+				v21 = *getMemFloatPtr(0x587000, v13 + 194136);
+				v22 = *getMemFloatPtr(0x587000, v13 + 194140);
 				v14 = *(float*)(a4 + 60);
 				v15 = v12 * v21 + *(float*)(a4 + 56);
 				v20.field_0 = *(float*)(a4 + 56);
@@ -11895,20 +11895,20 @@ void __cdecl sub_52E660(int a1, int a2) {
 			v4 = 0.5;
 		}
 	LABEL_18:
-		v6 = *(float*)getMemAt(0x5D4594, 2487836) - *(float*)(a1 + 56);
-		v7 = *(float*)getMemAt(0x5D4594, 2487840) - *(float*)(a1 + 60);
+		v6 = *getMemFloatPtr(0x5D4594, 2487836) - *(float*)(a1 + 56);
+		v7 = *getMemFloatPtr(0x5D4594, 2487840) - *(float*)(a1 + 60);
 		v8 = v4 * (v7 * v7 + v6 * v6);
-		if (v8 < *(float*)getMemAt(0x5D4594, 2487876)) {
+		if (v8 < *getMemFloatPtr(0x5D4594, 2487876)) {
 			v9 = *(float*)(a1 + 56);
-			v11.field_4 = *(float*)getMemAt(0x5D4594, 2487840);
-			v11.field_0 = *(float*)getMemAt(0x5D4594, 2487836);
+			v11.field_4 = *getMemFloatPtr(0x5D4594, 2487840);
+			v11.field_0 = *getMemFloatPtr(0x5D4594, 2487836);
 			v10 = *(float*)(a1 + 60);
 			v11.field_8 = v9;
 			v11.field_C = v10;
 			if (sub_535250(&v11, 0, 0, 5)) {
 				*getMemU32Ptr(0x5D4594, 2487828) = a1;
 				v12 = v8;
-				*(float*)getMemAt(0x5D4594, 2487876) = v12;
+				*getMemFloatPtr(0x5D4594, 2487876) = v12;
 			}
 		}
 		return;
@@ -12124,8 +12124,8 @@ void __cdecl sub_52EC60(int a1, int a2) {
 													  (float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) &
 														  1 &&
 													  sub_5370E0(a2, a1, 0))) {
-					v4 = *(float*)(a1 + 56) - *(float*)getMemAt(0x5D4594, 2487868);
-					v5 = *(float*)(a1 + 60) - *(float*)getMemAt(0x5D4594, 2487872);
+					v4 = *(float*)(a1 + 56) - *getMemFloatPtr(0x5D4594, 2487868);
+					v5 = *(float*)(a1 + 60) - *getMemFloatPtr(0x5D4594, 2487872);
 					v6 = v5 * v5 + v4 * v4;
 					if (v6 < *(float*)&dword_5d4594_2487884) {
 						*(float*)&dword_5d4594_2487884 = v6;
@@ -12324,8 +12324,8 @@ int __cdecl sub_52EFD0(int a1) {
 			}
 			v10 = 8 * v7;
 			v15.field_4 = v6;
-			v16 = *(float*)getMemAt(0x587000, v10 + 194136);
-			v12 = *(float*)getMemAt(0x587000, v10 + 194140);
+			v16 = *getMemFloatPtr(0x587000, v10 + 194136);
+			v12 = *getMemFloatPtr(0x587000, v10 + 194140);
 			v15.field_0 = v5;
 			v15.field_8 = v16 * v8 + v13;
 			v15.field_C = v12 * v8 + v14;
@@ -12456,7 +12456,7 @@ int __cdecl sub_52F2E0(float a1) {
 	if (v6 == sub_4EE780(*(_DWORD*)(LODWORD(a1) + 48)))
 		return 1;
 	v7 = *(_DWORD*)(LODWORD(a1) + 16);
-	v11 = *(float*)(LODWORD(a1) + 72) + *(float*)getMemAt(0x587000, 4 * *(_DWORD*)(LODWORD(a1) + 8) + 260360);
+	v11 = *(float*)(LODWORD(a1) + 72) + *getMemFloatPtr(0x587000, 4 * *(_DWORD*)(LODWORD(a1) + 8) + 260360);
 	if (v7 && *(_BYTE*)(v7 + 8) & 4) {
 		v8 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(v7 + 748) + 276) + 2251);
 		switch (v8) {

@@ -106,7 +106,7 @@ void sub_436100_draw() {
 	if (dword_5d4594_811904)
 		sub_436F50();
 	if (nox_common_gameFlags_check_40A5C0(8)) {
-		v13 = sub_416BB0() - *(_QWORD*)getMemAt(0x5D4594, 811908);
+		v13 = sub_416BB0() - *getMemU64Ptr(0x5D4594, 811908);
 		v24 = HIDWORD(v13);
 		if (v13 > 0x2710 && !nox_common_gameFlags_check_40A5C0(1))
 			nox_common_gameFlags_unset_40A540(8);

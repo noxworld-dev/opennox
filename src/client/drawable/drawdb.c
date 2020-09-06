@@ -206,7 +206,7 @@ bool __cdecl nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* att
 		return 0;
 	if (deg < 0 || deg >= 360)
 		return 0;
-	obj->light_dir = (__int64)((double)deg * *(double*)getMemAt(0x581450, 9560) * *(double*)&qword_581450_9552 +
+	obj->light_dir = (__int64)((double)deg * *getMemDoublePtr(0x581450, 9560) * *(double*)&qword_581450_9552 +
 							   *(double*)&qword_581450_9544);
 	obj->field_10 = 0;
 	return 1;
@@ -219,7 +219,7 @@ bool __cdecl nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char
 		return 0;
 	if (deg < 0 || deg >= 180)
 		return 0;
-	obj->light_penumbra = (__int64)((double)deg * *(double*)getMemAt(0x581450, 9560) * *(double*)&qword_581450_9552 +
+	obj->light_penumbra = (__int64)((double)deg * *getMemDoublePtr(0x581450, 9560) * *(double*)&qword_581450_9552 +
 									*(double*)&qword_581450_9544);
 	return 1;
 }

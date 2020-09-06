@@ -2687,11 +2687,11 @@ int __cdecl sub_495D00(_DWORD* a1, int a2, _DWORD* a3) {
 	v9 = v6[3] + *a3 - a3[4];
 	v10 = 8 * v6[77];
 	v30 = v6[4] - *((__int16*)v6 + 52) - *((__int16*)v6 + 53) - a3[5] + a3[1] - 10;
-	v28 = (float*)getMemAt(0x587000, 64 * v6[77] + 194136);
-	v22 = *(float*)getMemAt(0x587000, 64 * v6[77] + 194136) * -12.0;
+	v28 = getMemFloatPtr(0x587000, 64 * v6[77] + 194136);
+	v22 = *getMemFloatPtr(0x587000, 64 * v6[77] + 194136) * -12.0;
 	v11 = nox_float2int(v22) + v9;
-	v29 = (float*)getMemAt(0x587000, 8 * v10 + 194140);
-	v23 = *(float*)getMemAt(0x587000, 8 * v10 + 194140) * -12.0;
+	v29 = getMemFloatPtr(0x587000, 8 * v10 + 194140);
+	v23 = *getMemFloatPtr(0x587000, 8 * v10 + 194140) * -12.0;
 	v27 = 0;
 	v31 = nox_float2int(v23) + v30;
 	v12 = a2;
@@ -5049,8 +5049,8 @@ _DWORD* __cdecl sub_499880(__int16* a1) {
 		if (result) {
 			v4 = 8 * (__int16)i;
 			*((_WORD*)v3 + 254) = i;
-			*((float*)v3 + 117) = *(float*)getMemAt(0x587000, v4 + 194136) * 4.0;
-			v5 = *(float*)getMemAt(0x587000, v4 + 194140) * 4.0;
+			*((float*)v3 + 117) = *getMemFloatPtr(0x587000, v4 + 194136) * 4.0;
+			v5 = *getMemFloatPtr(0x587000, v4 + 194140) * 4.0;
 			v3[119] = 0;
 			*((float*)v3 + 118) = v5;
 			v3[79] = *getMemU32Ptr(0x5D4594, 2598000);
@@ -9533,7 +9533,7 @@ void __cdecl sub_49FDB0(int a1) {
 				do {
 					for (i = 0; i < (char)*v4; ++i) {
 						v6 = 8 * (12 * a1 + (char)v4[i + 1]);
-						sub_420DA0(*(float*)getMemAt(0x587000, v6 + 165360), *(float*)getMemAt(0x587000, v6 + 165364));
+						sub_420DA0(*getMemFloatPtr(0x587000, v6 + 165360), *getMemFloatPtr(0x587000, v6 + 165364));
 					}
 					strcpy(&v8[4], *((const char**)v4 + 3));
 					sub_4211D0((int)v8);
@@ -9547,7 +9547,7 @@ void __cdecl sub_49FDB0(int a1) {
 			do {
 				for (j = 0; j < (char)*v1; ++j) {
 					v3 = 8 * (char)v1[j + 1];
-					sub_420DA0(*(float*)getMemAt(0x587000, v3 + 165104), *(float*)getMemAt(0x587000, v3 + 165108));
+					sub_420DA0(*getMemFloatPtr(0x587000, v3 + 165104), *getMemFloatPtr(0x587000, v3 + 165108));
 				}
 				strcpy(&v8[4], *((const char**)v1 + 3));
 				sub_4211D0((int)v8);
