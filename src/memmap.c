@@ -7,6 +7,8 @@
 #undef memcpy
 #undef strlen
 #undef strcpy
+#undef fread
+#undef fwrite
 #undef getMemAt
 #undef getMemByte
 #undef getMemU8Ptr
@@ -2888,6 +2890,16 @@ int nox_strcpy(const char* fnc, char* dst, const char* src) {
 	maybeLogRead(fnc, src, sz);
 	maybeLogWrite(fnc, dst, sz);
 	return strcpy(dst, src);
+}
+
+size_t nox_fread(const char* fnc, void* ptr, size_t size, size_t count, FILE* stream) {
+	maybeLogWrite(fnc, ptr, size*count);
+	return fread(ptr, size, count, stream);
+}
+
+size_t nox_fwrite(const char* fnc, void* ptr, size_t size, size_t count, FILE* stream) {
+	maybeLogRead(fnc, ptr, size*count);
+	return fwrite(ptr, size, count, stream);
 }
 
 uint8_t seenBuf_581450[sizeof(byte_581450)/8+1] = {0};
