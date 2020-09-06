@@ -1243,7 +1243,6 @@ extern _DWORD dword_5d4594_1556128;
 extern _DWORD dword_5d4594_2386548;
 extern _DWORD dword_587000_60064;
 extern _DWORD dword_5d4594_3798672;
-extern _DWORD dword_5d4594_3801748;
 extern _DWORD dword_5d4594_2491592;
 extern _DWORD dword_5d4594_1090828;
 extern _DWORD dword_5d4594_815096;
@@ -1536,7 +1535,6 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 815096, (void*)&dword_5d4594_815096, sizeof(dword_5d4594_815096), 1},
 	{0x5D4594 + 1090828, (void*)&dword_5d4594_1090828, sizeof(dword_5d4594_1090828), 1},
 	{0x5D4594 + 2491592, (void*)&dword_5d4594_2491592, sizeof(dword_5d4594_2491592), 1},
-	{0x5D4594 + 3801748, (void*)&dword_5d4594_3801748, sizeof(dword_5d4594_3801748), 1}, // FIXME: BAD, see 3800716
 	{0x5D4594 + 3798672, (void*)&dword_5d4594_3798672, sizeof(dword_5d4594_3798672), 1},
 	{0x587000 + 60064, (void*)&dword_587000_60064, sizeof(dword_587000_60064), 1},
 	{0x5D4594 + 2386548, (void*)&dword_5d4594_2386548, sizeof(dword_5d4594_2386548), 1},
@@ -2686,7 +2684,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 3801800, (void*)&nox_backbuffer_width32, sizeof(nox_backbuffer_width32), 1},
 	{0x5D4594 + 3799572, (void*)&ptr_5D4594_3799572, sizeof(ptr_5D4594_3799572), 1},
 	{0x5D4594 + 3799660, (void*)&obj_5D4594_3799660, sizeof(obj_5D4594_3799660), 1},
-	{0x5D4594 + 3800716, (void*)&obj_5D4594_3800716, sizeof(obj_5D4594_3800716), 1}, // FIXME: BAD, see 3801748
+	{0x5D4594 + 3800716, (void*)&obj_5D4594_3800716, sizeof(obj_5D4594_3800716), 1},
 	{0x5D4594 + 816396, (void*)&nox_draw_unk1, sizeof(nox_draw_unk1), 1},
 	{0x5D4594 + 2650668, (void*)&ptr_5D4594_2650668, sizeof(ptr_5D4594_2650668), 1},
 	{0x5D4594 + 2650636, (void*)&nox_common_engineFlags, sizeof(nox_common_engineFlags), 1},
