@@ -134,6 +134,15 @@ uint16_t* nox_getMemU16Ptr(const char* fnc, uintptr_t base, uintptr_t off);
 #define getMemU32Ptr(x, y) nox_getMemU32Ptr(__func__, x, y)
 uint32_t* nox_getMemU32Ptr(const char* fnc, uintptr_t base, uintptr_t off);
 
+#define getMemU64Ptr(x, y) nox_getMemU64Ptr(__func__, x, y)
+uint64_t* nox_getMemU64Ptr(const char* fnc, uintptr_t base, uintptr_t off);
+
+#define getMemFloatPtr(x, y) nox_getMemFloatPtr(__func__, x, y)
+float* nox_getMemFloatPtr(const char* fnc, uintptr_t base, uintptr_t off);
+
+#define getMemDoublePtr(x, y) nox_getMemDoublePtr(__func__, x, y)
+double* nox_getMemDoublePtr(const char* fnc, uintptr_t base, uintptr_t off);
+
 #endif // NOX_LOG_MEM
 
 void nox_exit(int exitCode);

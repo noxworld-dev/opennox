@@ -1972,7 +1972,7 @@ double __cdecl sub_42AAA0(int* a1) {
 		v13 = v11;
 	}
 	*getMemU32Ptr(0x5D4594, 4 * v9 + 741384) = v11;
-	return (double)v13 * *(double*)getMemAt(0x581450, 8368);
+	return (double)v13 * *getMemDoublePtr(0x581450, 8368);
 }
 
 //----- (0042ABF0) --------------------------------------------------------
@@ -6152,12 +6152,12 @@ int sub_4312C0() {
 		dword_5d4594_805988 = 1;
 		v1 = sub_416BB0();
 		v2 = v1;
-		v3 = (unsigned __int64)(v1 - *(_QWORD*)getMemAt(0x5D4594, 805996)) >> 32;
+		v3 = (unsigned __int64)(v1 - *getMemU64Ptr(0x5D4594, 805996)) >> 32;
 		result = v1 - *getMemU32Ptr(0x5D4594, 805996);
 		if (__PAIR64__(v3, result) > 0x21) {
 			sub_44D3A0();
 			result = sub_43D440();
-			*(_QWORD*)getMemAt(0x5D4594, 805996) = v2;
+			*getMemU64Ptr(0x5D4594, 805996) = v2;
 		}
 		dword_5d4594_805988 = 0;
 	}
@@ -8377,7 +8377,7 @@ __int64 sub_435570() {
 	__int64 result; // rax
 
 	result = sub_416BB0();
-	*(_QWORD*)getMemAt(0x5D4594, 811908) = result;
+	*getMemU64Ptr(0x5D4594, 811908) = result;
 	return result;
 }
 

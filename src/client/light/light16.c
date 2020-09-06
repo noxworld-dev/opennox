@@ -276,11 +276,11 @@ void __cdecl sub_484F90(int a1) {
 									v18 = (double)v45 * (double)v45 + v15;
 									if (v18 <= v38) {
 										v19 =
-											(*(float*)getMemAt(0x587000, 154996) + v37) /
-											(*(float*)getMemAt(0x587000, 154992) * *(float*)getMemAt(0x587000, 154972) * v18 / v39 +
+											(*getMemFloatPtr(0x587000, 154996) + v37) /
+											(*getMemFloatPtr(0x587000, 154992) * *getMemFloatPtr(0x587000, 154972) * v18 / v39 +
 											 1.0);
-										if (v19 > *(float*)getMemAt(0x587000, 154996)) {
-											v20 = v19 - *(float*)getMemAt(0x587000, 154996);
+										if (v19 > *getMemFloatPtr(0x587000, 154996)) {
+											v20 = v19 - *getMemFloatPtr(0x587000, 154996);
 											if (*(_DWORD*)(v1 + 172))
 												v21 = (double)*v16 - v20;
 											else

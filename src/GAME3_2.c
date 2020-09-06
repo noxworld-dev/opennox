@@ -2379,7 +2379,7 @@ int __cdecl sub_4D39F0(const char* a3) {
 	int result;           // eax
 	char v18[2048];       // [esp+10h] [ebp-800h]
 
-	*(_QWORD*)getMemAt(0x5D4594, 1549772) = sub_416BB0();
+	*getMemU64Ptr(0x5D4594, 1549772) = sub_416BB0();
 	memset(getMemAt(0x5D4594, 3835340), 0, 0x48u);
 	*getMemU32Ptr(0x5D4594, 3835340) = 0;
 	*getMemU32Ptr(0x5D4594, 3835344) = 0;
@@ -2898,7 +2898,7 @@ int sub_4D44E0() {
 	sub_51D100(0);
 	result = sub_51E260((int*)getMemAt(0x5D4594, 1549796), (int)getMemAt(0x587000, 197860));
 	if (result) {
-		*getMemU32Ptr(0x5D4594, 1549864) = (__int64)(*(float*)getMemAt(0x5D4594, 1549860) * 0.030743772);
+		*getMemU32Ptr(0x5D4594, 1549864) = (__int64)(*getMemFloatPtr(0x5D4594, 1549860) * 0.030743772);
 		sub_526AB0(*(unsigned int*)getMemAt(0x5D4594, 1549872));
 		sub_526950();
 		result = sub_5213E0();
@@ -2921,7 +2921,7 @@ int sub_4D44E0() {
 						sub_5259F0(*(int*)&dword_5d4594_1550916, 0, 0.0);
 						sub_525AF0(*(int*)&dword_5d4594_1550916);
 						if (*getMemU32Ptr(0x5D4594, 1549980)) {
-							v3 = (__int64)(*(float*)getMemAt(0x5D4594, 1549860) * 0.030743772);
+							v3 = (__int64)(*getMemFloatPtr(0x5D4594, 1549860) * 0.030743772);
 							v4 = sub_521940(2 * v3 + 1, 2 * v3 + 1);
 							v5 = (double)-v3 * 32.526913;
 							a2.field_0 = v5;
@@ -5257,7 +5257,7 @@ int sub_4D7C60() {
 	float v2;   // [esp+0h] [ebp-4h]
 
 	dword_5d4594_1556316 = 0;
-	*(float*)getMemAt(0x5D4594, 1556308) = sub_419D40(getMemAt(0x587000, 198788));
+	*getMemFloatPtr(0x5D4594, 1556308) = sub_419D40(getMemAt(0x587000, 198788));
 	v1 = sub_419D40(getMemAt(0x587000, 198804));
 	*getMemU32Ptr(0x5D4594, 1556312) = nox_float2int(v1);
 	v2 = sub_419D40(getMemAt(0x587000, 198820));
@@ -5287,7 +5287,7 @@ int sub_4D7CC0() {
 					if (!(*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 1)) {
 						v3 = *(float*)(i + 60) - *(float*)(v2 + 252);
 						v4 = *(float*)(i + 56) - *(float*)(v2 + 248);
-						if (v4 * v4 + v3 * v3 < *(float*)getMemAt(0x5D4594, 1556308))
+						if (v4 * v4 + v3 * v3 < *getMemFloatPtr(0x5D4594, 1556308))
 							*(_DWORD*)(v2 + 256) = *getMemU32Ptr(0x5D4594, 2598000);
 						*(_DWORD*)(v2 + 248) = *(_DWORD*)(i + 56);
 						*(_DWORD*)(v2 + 252) = *(_DWORD*)(i + 60);

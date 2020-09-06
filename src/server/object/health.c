@@ -11,7 +11,7 @@ double __cdecl sub_4EF270(int a1, float a2) {
 	if (*(float*)(a1 + 28) >= (double)a2)
 		return 0.0;
 	v3 = *(_DWORD*)(a1 + 748);
-	v4 = (a2 - *(float*)(a1 + 28)) * *(float*)getMemAt(0x587000, 206148) + 1.0;
+	v4 = (a2 - *(float*)(a1 + 28)) * *getMemFloatPtr(0x587000, 206148) + 1.0;
 	v5 = v4;
 	*(float*)(a1 + 28) = v4 + *(float*)(a1 + 28);
 	sub_56FA40(*(_DWORD*)(*(_DWORD*)(v3 + 276) + 4604), v5);

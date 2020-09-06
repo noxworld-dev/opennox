@@ -1244,7 +1244,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 	}
 	nox_client_copyRect_49F6F0(0, 0, nox_backbuffer_width, nox_backbuffer_height);
 	if ((__int64)*(float*)&dword_5d4594_831276 <= *(int*)getMemAt(0x5D4594, 831280) && dword_5d4594_831244 == 1 &&
-		!sub_44D930() && (unsigned __int64)(sub_416BB0() - *(_QWORD*)getMemAt(0x5D4594, 831292)) > 0x3A98 &&
+		!sub_44D930() && (unsigned __int64)(sub_416BB0() - *getMemU64Ptr(0x5D4594, 831292)) > 0x3A98 &&
 		(*getMemU32Ptr(0x5D4594, 832488) == 1 || !(getMemByte(0x5D4594, 832472) & 5))) {
 		if (getMemByte(0x5D4594, 832472) & 2 && dword_5d4594_832480)
 			sub_452D80(582, 100);
@@ -1394,7 +1394,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		}
 	}
 	sub_43DD70(v6, 50);
-	*(_QWORD*)getMemAt(0x5D4594, 831292) = sub_416BB0();
+	*getMemU64Ptr(0x5D4594, 831292) = sub_416BB0();
 	*getMemU32Ptr(0x5D4594, 831248) = 0;
 	v12 = nox_client_getIntroScreenDuration_44E3B0();
 	sub_44DB30(v12, 1, sub_44E3E0);
@@ -7171,8 +7171,8 @@ void sub_45D570(int a1, int a2) {
 					sub_4BEDE0((int2*)getMemAt(0x5D4594, 1046844), (int2*)getMemAt(0x5D4594, 1046668), &a3, &a4, 19, 0.0,
 							   sub_45D7D0, 0);
 					*getMemU32Ptr(0x5D4594, 1046628) = 0;
-					*(float*)getMemAt(0x5D4594, 1046620) = *(float*)getMemAt(0x5D4594, 1046692) - *(float*)getMemAt(0x5D4594, 1046684);
-					*(float*)&dword_5d4594_1046624 = *(float*)getMemAt(0x5D4594, 1046696) - *(float*)getMemAt(0x5D4594, 1046688);
+					*getMemFloatPtr(0x5D4594, 1046620) = *getMemFloatPtr(0x5D4594, 1046692) - *getMemFloatPtr(0x5D4594, 1046684);
+					*(float*)&dword_5d4594_1046624 = *getMemFloatPtr(0x5D4594, 1046696) - *getMemFloatPtr(0x5D4594, 1046688);
 					sub_509F20((float2*)getMemAt(0x5D4594, 1046620));
 					if (nox_win_width < 1000) {
 						if (nox_win_width < 750)
@@ -7182,7 +7182,7 @@ void sub_45D570(int a1, int a2) {
 					} else {
 						v3 = 10.0;
 					}
-					*(float*)getMemAt(0x5D4594, 1046620) = *(float*)getMemAt(0x5D4594, 1046620) * v3;
+					*getMemFloatPtr(0x5D4594, 1046620) = *getMemFloatPtr(0x5D4594, 1046620) * v3;
 					*(float*)&dword_5d4594_1046624 = *(float*)&dword_5d4594_1046624 * v3;
 					nox_window_set_hidden(*(int*)&dword_5d4594_1046956, 0);
 					sub_46A8C0(*(int*)&dword_5d4594_1046956);
@@ -7206,12 +7206,12 @@ int __cdecl sub_45D7D0(int* a1, int* a2) {
 	result = *getMemU32Ptr(0x5D4594, 1046680);
 	if (*(int*)getMemAt(0x5D4594, 1046680) < 20) {
 		result = *getMemU32Ptr(0x5D4594, 1046680) + 1;
-		*(float*)getMemAt(0x5D4594, 8 * result + 1046676) = (double)*a1;
-		*(float*)getMemAt(0x5D4594, 8 * result + 1046680) = (double)a1[1];
-		*(float*)getMemAt(0x5D4594, 8 * result + 1046684) = (double)*a2;
+		*getMemFloatPtr(0x5D4594, 8 * result + 1046676) = (double)*a1;
+		*getMemFloatPtr(0x5D4594, 8 * result + 1046680) = (double)a1[1];
+		*getMemFloatPtr(0x5D4594, 8 * result + 1046684) = (double)*a2;
 		v3 = (double)a2[1];
 		*getMemU32Ptr(0x5D4594, 1046680) = result;
-		*(float*)getMemAt(0x5D4594, 8 * result + 1046688) = v3;
+		*getMemFloatPtr(0x5D4594, 8 * result + 1046688) = v3;
 	}
 	return result;
 }

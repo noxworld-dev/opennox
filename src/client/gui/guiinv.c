@@ -519,7 +519,7 @@ LABEL_14:
 		v23 = *getMemU32Ptr(0x5D4594, 2618908);
 		LODWORD(v68) = dword_5d4594_1063116 + 432;
 		v69 = 1.0;
-		v70 = *(float*)getMemAt(0x5D4594, 2618908);
+		v70 = *getMemFloatPtr(0x5D4594, 2618908);
 		if (!*getMemU32Ptr(0x5D4594, 1063644)) {
 			*getMemU32Ptr(0x5D4594, 1063644) = sub_44CFC0((CHAR*)getMemAt(0x587000, 137608));
 			v24 = sub_44CFC0((CHAR*)getMemAt(0x587000, 137620));
@@ -898,7 +898,7 @@ int* __cdecl sub_463880(int* a1) {
 		nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2589772));
 		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v25, v67, v1);
 		sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
-		v69 = *(float*)getMemAt(0x5D4594, 1063100) / (v71[2] * 0.000001);
+		v69 = *getMemFloatPtr(0x5D4594, 1063100) / (v71[2] * 0.000001);
 		if (getMemByte(0x5D4594, 1062541) & 2)
 			v69 = ((double)v67 + v69) * 1.25 - (double)v67;
 		if (getMemByte(0x5D4594, 1062540) & 0x10)
@@ -943,7 +943,7 @@ int* __cdecl sub_463880(int* a1) {
 		nox_wcscpy(v77, v31);
 		sub_43F840(0, v77, &v75, 0, 0);
 		sub_43FAF0(0, v77, v10, v30, 0, 0);
-		v49 = *(float*)getMemAt(0x5D4594, 1062548) * 1000.0 + 0.5;
+		v49 = *getMemFloatPtr(0x5D4594, 1062548) * 1000.0 + 0.5;
 		v50 = nox_float2int(v49);
 		v32 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 138984), 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2076);
 		nox_swprintf(v77, v32, v50, 1000);
@@ -951,7 +951,7 @@ int* __cdecl sub_463880(int* a1) {
 		v33 = getMemAt(0x5D4594, 1050160);
 		v74 = v30 + v1 + 1;
 		v34 = 0;
-		v71 = (float*)getMemAt(0x5D4594, 1050160);
+		v71 = getMemFloatPtr(0x5D4594, 1050160);
 		do {
 			v68 = 4;
 			do {

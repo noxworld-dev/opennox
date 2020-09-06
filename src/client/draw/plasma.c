@@ -143,14 +143,14 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 				a1a.field_0 = *((_DWORD*)v17 - 3);
 				a1a.field_4 = v19;
 				v37 = (double)v36;
-				v28 = v37 * *(float*)getMemAt(0x587000, 8 * v18 + 194136);
+				v28 = v37 * *getMemFloatPtr(0x587000, 8 * v18 + 194136);
 				v20 = nox_float2int(v28);
 				v21 = *(_DWORD*)v17;
 				a3a.field_0 = v20;
-				v29 = v37 * *(float*)getMemAt(0x587000, 8 * v21 + 194140);
+				v29 = v37 * *getMemFloatPtr(0x587000, 8 * v21 + 194140);
 				v22 = nox_float2int(v29);
 				v23 = *((_DWORD*)v17 + 4);
-				v24 = v37 * *(float*)getMemAt(0x587000, 8 * *((_DWORD*)v17 + 7) + 194136);
+				v24 = v37 * *getMemFloatPtr(0x587000, 8 * *((_DWORD*)v17 + 7) + 194136);
 				a3a.field_4 = v22;
 				v25 = *((_DWORD*)v17 + 5);
 				a2a.field_0 = v23;
@@ -159,7 +159,7 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 				v26 = nox_float2int(v30);
 				v27 = *((_DWORD*)v17 + 7);
 				a4a.field_0 = v26;
-				v31 = v37 * *(float*)getMemAt(0x587000, 8 * v27 + 194140);
+				v31 = v37 * *getMemFloatPtr(0x587000, 8 * v27 + 194140);
 				a4a.field_4 = nox_float2int(v31);
 				sub_4BE800(*getMemU32Ptr(0x5D4594, 4 * j + 1313828));
 				sub_4BE810(1, *getMemU32Ptr(0x5D4594, 4 * j + 1313828), *getMemU32Ptr(0x5D4594, 4 * j + 1313844),

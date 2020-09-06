@@ -456,7 +456,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 	else
 		v9 = sub_424A90(*(int*)&dword_5d4594_1047524);
 	nox_client_drawImageAt_47D2C0(v9, v21, v22);
-	*(float*)&dword_5d4594_1046636 = *(float*)&dword_5d4594_1046636 + *(float*)getMemAt(0x5D4594, 1046620);
+	*(float*)&dword_5d4594_1046636 = *(float*)&dword_5d4594_1046636 + *getMemFloatPtr(0x5D4594, 1046620);
 	*(float*)&dword_5d4594_1046640 = *(float*)&dword_5d4594_1046640 + *(float*)&dword_5d4594_1046624;
 	if ((double)*(int*)getMemAt(0x5D4594, 1046668) <= *(float*)&dword_5d4594_1046636 &&
 		(double)*(int*)getMemAt(0x5D4594, 1046672) <= *(float*)&dword_5d4594_1046640) {
@@ -465,15 +465,15 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 		sub_45D810();
 		goto LABEL_27;
 	}
-	if (*(float*)&dword_5d4594_1046636 > (double)*(float*)getMemAt(0x5D4594, 8 * *getMemU32Ptr(0x5D4594, 1046628) + 1046692)) {
+	if (*(float*)&dword_5d4594_1046636 > (double)*getMemFloatPtr(0x5D4594, 8 * *getMemU32Ptr(0x5D4594, 1046628) + 1046692)) {
 		v10 = *getMemU32Ptr(0x5D4594, 1046628) + 1;
 		*getMemU32Ptr(0x5D4594, 1046628) = v10;
 		if (v10 < *(int*)getMemAt(0x5D4594, 1046680)) {
 			if (v10 <= *(int*)getMemAt(0x5D4594, 1046680) - 1) {
-				*(float*)getMemAt(0x5D4594, 1046620) =
-					*(float*)getMemAt(0x5D4594, 8 * v10 + 1046692) - *(float*)getMemAt(0x5D4594, 8 * v10 + 1046684);
+				*getMemFloatPtr(0x5D4594, 1046620) =
+					*getMemFloatPtr(0x5D4594, 8 * v10 + 1046692) - *getMemFloatPtr(0x5D4594, 8 * v10 + 1046684);
 				*(float*)&dword_5d4594_1046624 =
-					*(float*)getMemAt(0x5D4594, 8 * v10 + 1046696) - *(float*)getMemAt(0x5D4594, 8 * v10 + 1046688);
+					*getMemFloatPtr(0x5D4594, 8 * v10 + 1046696) - *getMemFloatPtr(0x5D4594, 8 * v10 + 1046688);
 				sub_509F20((float2*)getMemAt(0x5D4594, 1046620));
 				if (nox_win_width < 1000) {
 					if (nox_win_width < 750)
@@ -483,7 +483,7 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 				} else {
 					v11 = 10.0;
 				}
-				*(float*)getMemAt(0x5D4594, 1046620) = *(float*)getMemAt(0x5D4594, 1046620) * v11;
+				*getMemFloatPtr(0x5D4594, 1046620) = *getMemFloatPtr(0x5D4594, 1046620) * v11;
 				*(float*)&dword_5d4594_1046624 = *(float*)&dword_5d4594_1046624 * v11;
 			}
 			goto LABEL_27;

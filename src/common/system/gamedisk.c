@@ -57,8 +57,8 @@ int sub_413520_gamedisk() {
 		break;
 	case 2:
 		v3 = sub_416BB0();
-		*(_QWORD*)getMemAt(0x5D4594, 251628) = v3;
-		v0 = v3 - *(_QWORD*)getMemAt(0x5D4594, 251732);
+		*getMemU64Ptr(0x5D4594, 251628) = v3;
+		v0 = v3 - *getMemU64Ptr(0x5D4594, 251732);
 		if (v0 > 0x7D0) {
 			sub_423C60();
 			LODWORD(v0) = *getMemU32Ptr(0x5D4594, 251628);

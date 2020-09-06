@@ -53,6 +53,9 @@ uint8_t getMemByte(uintptr_t base, uintptr_t off);
 uint8_t* getMemU8Ptr(uintptr_t base, uintptr_t off);
 uint16_t* getMemU16Ptr(uintptr_t base, uintptr_t off);
 uint32_t* getMemU32Ptr(uintptr_t base, uintptr_t off);
+uint64_t* getMemU64Ptr(uintptr_t base, uintptr_t off);
+float* getMemFloatPtr(uintptr_t base, uintptr_t off);
+double* getMemDoublePtr(uintptr_t base, uintptr_t off);
 #endif // NOX_LOG_MEM
 
 #ifdef USE_SDL

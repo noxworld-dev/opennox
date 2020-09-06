@@ -1398,7 +1398,7 @@ BOOL sub_40A1A0() {
 
 	v0 = nox_common_gameFlags_getVal_40A5B0();
 	return (sub_40A180(v0) || dword_5d4594_3592) && *getMemU32Ptr(0x587000, 4660) &&
-		   (unsigned __int64)sub_416BB0() > *(_QWORD*)getMemAt(0x5D4594, 3468);
+		   (unsigned __int64)sub_416BB0() > *getMemU64Ptr(0x5D4594, 3468);
 }
 
 //----- (0040A1F0) --------------------------------------------------------
@@ -1429,7 +1429,7 @@ __int64 sub_40A250() {
 	v1 = sub_409A70(v0);
 	v2 = sub_416BB0();
 	result = 60000 * getMemByte(0x5D4594, v1 + 3500);
-	*(_QWORD*)getMemAt(0x5D4594, 3468) = result + v2;
+	*getMemU64Ptr(0x5D4594, 3468) = result + v2;
 	return result;
 }
 
@@ -1437,7 +1437,7 @@ __int64 sub_40A250() {
 const char* __cdecl sub_40A2A0(int a1, const char* a2) {
 	const char* result; // eax
 
-	*(_QWORD*)getMemAt(0x5D4594, 3468) = 1000 * a1 + sub_416BB0();
+	*getMemU64Ptr(0x5D4594, 3468) = 1000 * a1 + sub_416BB0();
 	sub_40A1F0(1);
 	result = a2;
 	if (a2)
@@ -1456,7 +1456,7 @@ __int64 __cdecl sub_40A310(int a1) {
 
 	v1 = sub_416BB0();
 	result = a1;
-	*(_QWORD*)getMemAt(0x5D4594, 3468) = a1 + v1;
+	*getMemU64Ptr(0x5D4594, 3468) = a1 + v1;
 	return result;
 }
 
@@ -9150,14 +9150,14 @@ char sub_414C90() {
 		v4 = 0;
 		v1 = getMemAt(0x5D4594, 2661964);
 		do {
-			*(_DWORD*)v1 = (__int64)(sin((double)v4 * 0.0015339808) * *(double*)getMemAt(0x581450, 7200));
+			*(_DWORD*)v1 = (__int64)(sin((double)v4 * 0.0015339808) * *getMemDoublePtr(0x581450, 7200));
 			v1 += 4;
 			++v4;
 		} while ((int)v1 < (int)getMemAt(0x5D4594, 2678348));
 		v5 = 0;
 		v2 = getMemAt(0x5D4594, 338472);
 		do {
-			v0 = (__int64)(acos((double)v5 * 0.00024414062 - 1.0) * *(double*)getMemAt(0x581450, 7184));
+			v0 = (__int64)(acos((double)v5 * 0.00024414062 - 1.0) * *getMemDoublePtr(0x581450, 7184));
 			*(_DWORD*)v2 = v0;
 			v2 += 4;
 			++v5;
@@ -10678,7 +10678,7 @@ void __cdecl sub_416B20() {
 #else
 	LARGE_INTEGER Frequency; // [esp+0h] [ebp-8h]
 	if (sub_416B80() && QueryPerformanceFrequency(&Frequency)) {
-		*(_QWORD*)getMemAt(0x5D4594, 371724) = Frequency.QuadPart / 1000;
+		*getMemU64Ptr(0x5D4594, 371724) = Frequency.QuadPart / 1000;
 		*getMemU32Ptr(0x5D4594, 371716) = sub_416BC0;
 	} else {
 		*getMemU32Ptr(0x5D4594, 371716) = sub_416BF0;
@@ -10697,7 +10697,7 @@ LONGLONG sub_416BC0() {
 	LARGE_INTEGER PerformanceCount; // [esp+0h] [ebp-8h]
 
 	QueryPerformanceCounter(&PerformanceCount);
-	return PerformanceCount.QuadPart / *(_QWORD*)getMemAt(0x5D4594, 371724);
+	return PerformanceCount.QuadPart / *getMemU64Ptr(0x5D4594, 371724);
 }
 
 //----- (00416BF0) --------------------------------------------------------
@@ -10722,7 +10722,7 @@ __int64 sub_416BF0() {
 			break;
 		v0 = dword_5d4594_371756;
 	}
-	return *(_QWORD*)getMemAt(0x587000, 54416);
+	return *getMemU64Ptr(0x587000, 54416);
 }
 
 //----- (00416C70) --------------------------------------------------------
@@ -10732,36 +10732,36 @@ __int64 __cdecl sub_416C70(int a1) // frameratelimiter
 	__int64 result; // rax
 
 	if (a1) {
-		*(_QWORD*)getMemAt(0x5D4594, 371740) = 1000 / a1;
+		*getMemU64Ptr(0x5D4594, 371740) = 1000 / a1;
 	} else {
 		*getMemU32Ptr(0x5D4594, 371740) = 0;
 		*getMemU32Ptr(0x5D4594, 371744) = 0;
 	}
 	v1 = sub_416BB0();
-	*(_QWORD*)getMemAt(0x5D4594, 371732) = v1;
+	*getMemU64Ptr(0x5D4594, 371732) = v1;
 	*getMemU32Ptr(0x5D4594, 371748) = *getMemU32Ptr(0x5D4594, 371740) + v1;
-	result = *(_QWORD*)getMemAt(0x5D4594, 371740) + v1;
+	result = *getMemU64Ptr(0x5D4594, 371740) + v1;
 	*getMemU32Ptr(0x5D4594, 371752) = HIDWORD(result);
 	return result;
 }
 
 //----- (00416CD0) --------------------------------------------------------
 BOOL sub_416CD0() {
-	*(_QWORD*)getMemAt(0x5D4594, 371732) = sub_416BB0();
-	return *(_QWORD*)getMemAt(0x5D4594, 371732) >= *(_QWORD*)getMemAt(0x5D4594, 371748);
+	*getMemU64Ptr(0x5D4594, 371732) = sub_416BB0();
+	return *getMemU64Ptr(0x5D4594, 371732) >= *getMemU64Ptr(0x5D4594, 371748);
 }
 
 //----- (00416D00) --------------------------------------------------------
 int sub_416D00() {
 	int v0 = *getMemU32Ptr(0x5D4594, 371748) - (unsigned __int64)sub_416BB0();
-	if (v0 < 0 || (unsigned __int64)v0 > *(_QWORD*)getMemAt(0x5D4594, 371748))
+	if (v0 < 0 || (unsigned __int64)v0 > *getMemU64Ptr(0x5D4594, 371748))
 		return 0;
 	return v0;
 }
 
 //----- (00416D40) --------------------------------------------------------
 void sub_416D40() {
-	*(_QWORD*)getMemAt(0x5D4594, 371764) = sub_416BB0();
+	*getMemU64Ptr(0x5D4594, 371764) = sub_416BB0();
 	*getMemU32Ptr(0x5D4594, 371772) = *getMemU32Ptr(0x5D4594, 2598000);
 
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
@@ -10772,14 +10772,14 @@ BOOL sub_416D70() {
 	float v2; // [esp+4h] [ebp-8h]
 
 	v2 = (double)(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 371772)) *
-		 *(float*)getMemAt(0x587000, 54424);
+		 *getMemFloatPtr(0x587000, 54424);
 	return (double)(int)((unsigned __int64)sub_416BB0() - *getMemU32Ptr(0x5D4594, 371764)) * 0.001 <= v2;
 }
 
 //----- (00416DD0) --------------------------------------------------------
 void sub_416DD0() {
 	int v1 = (__int64)((double)(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 371772)) *
-					   *(float*)getMemAt(0x587000, 54428));
+					   *getMemFloatPtr(0x587000, 54428));
 	int ms = v1 + *getMemU32Ptr(0x5D4594, 371764) - (unsigned __int64)sub_416BB0();
 	if (ms > 0)
 		nox_sleep(ms);
