@@ -9741,8 +9741,8 @@ int __cdecl sub_484C60(float a1) {
 	else
 		v2 = 31.0;
 	return nox_double2int(sqrt(
-		((*(float*)getMemAt(0x587000, 154980) + v2) / (*(float*)getMemAt(0x587000, 154980) + *(float*)&dword_587000_154968) + 1.0) *
-		(a1 * a1 / (*(float*)getMemAt(0x587000, 154976) * *(float*)getMemAt(0x587000, 154972)))));
+		((*getMemFloatPtr(0x587000, 154980) + v2) / (*getMemFloatPtr(0x587000, 154980) + *(float*)&dword_587000_154968) + 1.0) *
+		(a1 * a1 / (*getMemFloatPtr(0x587000, 154976) * *getMemFloatPtr(0x587000, 154972)))));
 }
 
 //----- (00484CE0) --------------------------------------------------------
@@ -9923,14 +9923,14 @@ int __cdecl sub_4855D0(int a1, int a2, int a3, float a4) {
 				v12 = *(_DWORD*)((char*)v11 + result);
 				v13 = (double)(int)(23 * v12 - *(_DWORD*)a3);
 				if (v12 < *v11) {
-					v14 = *(float*)getMemAt(0x587000, 154988) + v8;
+					v14 = *getMemFloatPtr(0x587000, 154988) + v8;
 					v15 = getMemAt(0x5D4594, 40 * v12 + 2616332 + 5 * v12 + v9);
 					do {
-						v16 = v14 / ((v13 * v13 + v10 * v10) * *(float*)getMemAt(0x587000, 154984) *
-										 *(float*)getMemAt(0x587000, 154972) / *(float*)&v18 +
+						v16 = v14 / ((v13 * v13 + v10 * v10) * *getMemFloatPtr(0x587000, 154984) *
+										 *getMemFloatPtr(0x587000, 154972) / *(float*)&v18 +
 									 1.0);
-						if (v16 > *(float*)getMemAt(0x587000, 154988)) {
-							v17 = v16 - *(float*)getMemAt(0x587000, 154988) + (double)*v15;
+						if (v16 > *getMemFloatPtr(0x587000, 154988)) {
+							v17 = v16 - *getMemFloatPtr(0x587000, 154988) + (double)*v15;
 							if (v17 > 31.0)
 								v17 = 31.0;
 							*v15 = (__int64)v17;

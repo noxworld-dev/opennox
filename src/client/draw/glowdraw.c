@@ -249,9 +249,9 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 		v7 = sub_509ED0(&v24);
 		v23[2] = v4;
 		v23[3] = v6;
-		v20 = *(float*)getMemAt(0x587000, 8 * v7 + 194136) * 150.0 + (double)(int)v2[108];
+		v20 = *getMemFloatPtr(0x587000, 8 * v7 + 194136) * 150.0 + (double)(int)v2[108];
 		v8 = nox_float2int(v20);
-		v9 = *(float*)getMemAt(0x587000, 8 * v7 + 194140) * 150.0;
+		v9 = *getMemFloatPtr(0x587000, 8 * v7 + 194140) * 150.0;
 		v23[0] = v8;
 		v21 = v9 + (double)(int)v2[109];
 		v10 = nox_float2int(v21);

@@ -109,7 +109,7 @@ int sub_4378B0() {
 	if (result) {
 		*getMemU32Ptr(0x5D4594, 815104) = 1;
 	} else {
-		*(_QWORD*)getMemAt(0x5D4594, 815076) = sub_416BB0();
+		*getMemU64Ptr(0x5D4594, 815076) = sub_416BB0();
 		dword_5d4594_815060 = 0;
 		sub_4379C0();
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16399, 0, 0);
@@ -130,8 +130,8 @@ int sub_4378B0() {
 			sub_449A10(*(int*)&dword_5d4594_814980, 0, (int)v2, 0, 0, 0);
 		}
 		*getMemU32Ptr(0x5D4594, 815104) = 0;
-		result = (unsigned __int64)(*(_QWORD*)getMemAt(0x5D4594, 815076) + (__int64)120000) >> 32;
-		*(_QWORD*)&qword_5d4594_815068 = *(_QWORD*)getMemAt(0x5D4594, 815076) + (__int64)120000;
+		result = (unsigned __int64)(*getMemU64Ptr(0x5D4594, 815076) + (__int64)120000) >> 32;
+		*(_QWORD*)&qword_5d4594_815068 = *getMemU64Ptr(0x5D4594, 815076) + (__int64)120000;
 	}
 	return result;
 }
@@ -443,11 +443,11 @@ int sub_438770() {
 		case 8:
 			v1 = sub_416BB0();
 			dword_5d4594_814548 = 9;
-			*(_QWORD*)getMemAt(0x5D4594, 814972) = v1 + 1000;
+			*getMemU64Ptr(0x5D4594, 814972) = v1 + 1000;
 			result = 1;
 			break;
 		case 9:
-			if ((unsigned __int64)sub_416BB0() <= *(_QWORD*)getMemAt(0x5D4594, 814972))
+			if ((unsigned __int64)sub_416BB0() <= *getMemU64Ptr(0x5D4594, 814972))
 				goto LABEL_29;
 			sub_438A90();
 			result = 1;
@@ -476,7 +476,7 @@ int sub_438770() {
 				sub_4378B0();
 				return 1;
 			}
-			if ((unsigned __int64)(sub_416BB0() - *(_QWORD*)getMemAt(0x5D4594, 815076)) > 0x3E8 && !dword_5d4594_815060 &&
+			if ((unsigned __int64)(sub_416BB0() - *getMemU64Ptr(0x5D4594, 815076)) > 0x3E8 && !dword_5d4594_815060 &&
 				!dword_587000_87404) {
 				sub_44A400();
 				sub_4379C0();

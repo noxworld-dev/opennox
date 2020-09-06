@@ -341,7 +341,7 @@ BOOL __cdecl sub_4A2560(_DWORD* a1, int a2) {
 
 	v2 = (double)(*(__int16*)(a2 + 44) - *a1);
 	v3 = (double)(*(__int16*)(a2 + 46) - a1[1]);
-	return sqrt(v3 * v3 + v2 * v2) <= *(double*)getMemAt(0x581450, 9720);
+	return sqrt(v3 * v3 + v2 * v2) <= *getMemDoublePtr(0x581450, 9720);
 }
 
 //----- (004A25C0) --------------------------------------------------------
@@ -5729,7 +5729,7 @@ int __cdecl sub_4AC980(int a1) {
 		if (*getMemU32Ptr(0x5D4594, 3803300) != 1)
 			goto LABEL_24;
 		if (*(float*)(v2 + 140) <= 63.0 &&
-			(double)*(int*)(v2 + 148) * *(double*)getMemAt(0x581450, 9752) <= *(double*)getMemAt(0x581450, 9744)) {
+			(double)*(int*)(v2 + 148) * *getMemDoublePtr(0x581450, 9752) <= *getMemDoublePtr(0x581450, 9744)) {
 		LABEL_13:
 			*(_BYTE*)(v2 + 432) = 0;
 			*(_BYTE*)(v2 + 433) = 0;
@@ -5747,7 +5747,7 @@ int __cdecl sub_4AC980(int a1) {
 				++v5;
 			} while ((int)&v5[-242 - v2] < 16);
 			a1 = *v4;
-			*(_WORD*)(v2 + 268) = (__int64)((double)a1 * *(double*)getMemAt(0x581450, 9752) * *(double*)getMemAt(0x581450, 9736));
+			*(_WORD*)(v2 + 268) = (__int64)((double)a1 * *getMemDoublePtr(0x581450, 9752) * *getMemDoublePtr(0x581450, 9736));
 			goto LABEL_24;
 		}
 		sub_484CE0(v2 + 136, 63.0);
@@ -6902,7 +6902,7 @@ __int64 sub_4AEE30() {
 	v0 = 0;
 	v1 = getMemAt(0x5D4594, 1309840);
 	do {
-		result = (__int64)(sin((double)(v0 + 192) * *(double*)getMemAt(0x581450, 9768) * *(double*)getMemAt(0x581450, 9760)) *
+		result = (__int64)(sin((double)(v0 + 192) * *getMemDoublePtr(0x581450, 9768) * *getMemDoublePtr(0x581450, 9760)) *
 						   *(double*)&qword_581450_9552);
 		*(_DWORD*)v1 = result;
 		v1 += 4;
