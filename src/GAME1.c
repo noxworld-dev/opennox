@@ -10226,19 +10226,19 @@ int __cdecl sub_4160D0(int a1) {
 	result = a1;
 	if ((unsigned __int8)a1 < 0x18u) {
 		result = (unsigned __int8)a1;
-		*getMemU32Ptr(0x5D4594, 4 * (unsigned __int8)a1 + 371268) = *getMemU32Ptr(0x5D4594, 2598000);
+		*getMemU32Ptr(0x5D4594, 371268 + 4 * (unsigned __int8)a1) = *getMemU32Ptr(0x5D4594, 2598000);
 	}
 	return result;
 }
 
 //----- (004160F0) --------------------------------------------------------
 BOOL __cdecl sub_4160F0(unsigned __int8 a1, unsigned int a2) {
-	return a1 < 0x18u && *getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 4 * a1 + 371268) > a2;
+	return a1 < 0x18u && *getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 371268 + 4 * a1) > a2;
 }
 
 //----- (00416120) --------------------------------------------------------
 BOOL __cdecl sub_416120(unsigned __int8 a1) {
-	return a1 < 0x18u && *getMemU32Ptr(0x5D4594, 2598000) != *getMemU32Ptr(0x5D4594, 4 * a1 + 371268);
+	return a1 < 0x18u && *getMemU32Ptr(0x5D4594, 2598000) != *getMemU32Ptr(0x5D4594, 371268 + 4 * a1);
 }
 
 //----- (00416150) --------------------------------------------------------
@@ -10248,7 +10248,7 @@ int __cdecl sub_416150(int a1, int a2) {
 	result = a1;
 	if ((unsigned __int8)a1 < 0x18u) {
 		result = (unsigned __int8)a1;
-		*getMemU32Ptr(0x5D4594, 4 * (unsigned __int8)a1 + 371268) = a2;
+		*getMemU32Ptr(0x5D4594, 371268 + 4 * (unsigned __int8)a1) = a2;
 	}
 	return result;
 }
@@ -10260,7 +10260,7 @@ int __cdecl sub_416170(int a1) {
 	result = a1;
 	if ((unsigned __int8)a1 < 0x18u) {
 		result = (unsigned __int8)a1;
-		*getMemU32Ptr(0x5D4594, 4 * (unsigned __int8)a1 + 371268) = 0;
+		*getMemU32Ptr(0x5D4594, 371268 + 4 * (unsigned __int8)a1) = 0;
 	}
 	return result;
 }
@@ -10275,7 +10275,7 @@ int sub_416190() {
 }
 
 //----- (004161B0) --------------------------------------------------------
-BOOL __cdecl sub_4161B0(unsigned __int8 a1) { return a1 < 0x18u && !*getMemU32Ptr(0x5D4594, 4 * a1 + 371268); }
+BOOL __cdecl sub_4161B0(unsigned __int8 a1) { return a1 < 0x18u && !*getMemU32Ptr(0x5D4594, 371268 + 4 * a1); }
 
 //----- (004161E0) --------------------------------------------------------
 int sub_4161E0() {
