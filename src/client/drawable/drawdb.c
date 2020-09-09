@@ -879,7 +879,7 @@ size_t sub_4E3040() {
 		} else {
 			*getMemU32Ptr(0x5D4594, 1563348 + i) = 0;
 		}
-		*getMemU32Ptr(0x5D4594, i + 1563776) = 0;
+		*getMemU32Ptr(0x5D4594, 1563776 + i) = 0;
 	}
 	return result;
 }
@@ -893,8 +893,8 @@ void __cdecl sub_4E30D0(int a1) {
 		v1 = sub_4E30A0(*(CHAR**)(a1 + 4));
 		v2 = *getMemU32Ptr(0x5D4594, 1563348 + 4 * v1);
 		if (v2) {
-			*(_DWORD*)(v2 + 4 * *getMemU32Ptr(0x5D4594, 4 * v1 + 1563776)) = a1;
-			++*getMemU32Ptr(0x5D4594, 4 * v1 + 1563776);
+			*(_DWORD*)(v2 + 4 * *getMemU32Ptr(0x5D4594, 1563776 + 4 * v1)) = a1;
+			++*getMemU32Ptr(0x5D4594, 1563776 + 4 * v1);
 		}
 	}
 }
