@@ -1501,7 +1501,7 @@ wchar_t* __cdecl sub_466660(int a1, int2* a2) {
 	v3 = sub_465990(a2);
 	if (v3 == -1)
 		return loadString_sub_40F1D0((char*)getMemAt(0x587000, 139728), 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 3155);
-	v5 = *(wchar_t**)getMemAt(0x5D4594, 4 * v3 + 1049872);
+	v5 = *(wchar_t**)getMemAt(0x5D4594, 1049872 + 4 * v3);
 	if (v5)
 		result = sub_4BF050(v5);
 	else
