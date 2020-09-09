@@ -5156,7 +5156,7 @@ int __cdecl sub_4D7A60(int a1) {
 	int result; // eax
 
 	result = a1;
-	*getMemU32Ptr(0x5D4594, 4 * a1 + 1556172) = *getMemU32Ptr(0x5D4594, 2598000);
+	*getMemU32Ptr(0x5D4594, 1556172 + 4 * a1) = *getMemU32Ptr(0x5D4594, 2598000);
 	return result;
 }
 
