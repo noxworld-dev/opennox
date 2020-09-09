@@ -10412,7 +10412,7 @@ int __cdecl sub_4A18C0(int a1) {
 	int result; // eax
 
 	result = dword_5d4594_1307204;
-	if (*(unsigned __int8**)&dword_5d4594_1307204 != getMemAt(0x5D4594, 1307244)) {
+	if (*(unsigned __int8**)&dword_5d4594_1307204 != getMemAt(0x5D4594, 1307208 + 36)) {
 		**(_DWORD**)&dword_5d4594_1307204 = a1;
 		result = dword_5d4594_1307204 + 4;
 		dword_5d4594_1307204 += 4;
