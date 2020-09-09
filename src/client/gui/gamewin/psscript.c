@@ -66,17 +66,17 @@ int __cdecl sub_4A10A0(_DWORD* a1, const char* a2, char* a3) {
 		v3 = strtok(a3, " \t\n\r");
 		*getMemU16Ptr(0x5D4594, 1306892) = atoi(v3);
 		v4 = strtok(0, " \t\n\r");
-		*getMemU16Ptr(0x5D4594, 1306894) = atoi(v4);
+		*getMemU16Ptr(0x5D4594, 1306892 + 2) = atoi(v4);
 		v5 = strtok(0, " \t\n\r");
-		*getMemU32Ptr(0x5D4594, 1306896) = atoi(v5);
+		*getMemU32Ptr(0x5D4594, 1306892 + 4) = atoi(v5);
 		v6 = strtok(0, " \t\n\r");
-		*getMemU32Ptr(0x5D4594, 1306900) = atoi(v6);
+		*getMemU32Ptr(0x5D4594, 1306892 + 8) = atoi(v6);
 		v7 = strtok(0, " \t\n\r");
-		*getMemU32Ptr(0x5D4594, 1306904) = atoi(v7);
+		*getMemU32Ptr(0x5D4594, 1306892 + 12) = atoi(v7);
 		v8 = strtok(0, " \t\n\r");
-		*getMemU32Ptr(0x5D4594, 1306908) = atoi(v8);
+		*getMemU32Ptr(0x5D4594, 1306892 + 16) = atoi(v8);
 		v9 = strtok(0, " \t\n\r");
-		*getMemU32Ptr(0x5D4594, 1306912) = atoi(v9);
+		*getMemU32Ptr(0x5D4594, 1306892 + 20) = atoi(v9);
 		result = 1;
 		*a1 = getMemAt(0x5D4594, 1306892);
 	} else if (!strcmp(a2, "ENTRYFIELD")) {
