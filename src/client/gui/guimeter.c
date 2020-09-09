@@ -244,8 +244,8 @@ int __cdecl sub_471D10(int xLeft) {
 	v1 = (_DWORD*)xLeft;
 	v18 = *(_DWORD*)(xLeft + 32);
 	v2 = v18;
-	v3 = getMemAt(0x5D4594, 20 * v18 + 1093036);
-	v20 = getMemAt(0x5D4594, 20 * v18 + 1093036);
+	v3 = getMemAt(0x5D4594, sizeof(nox_window_yyy) * v18 + 1093036);
+	v20 = getMemAt(0x5D4594, sizeof(nox_window_yyy) * v18 + 1093036);
 	if (!v18 && dword_5d4594_1096264) {
 		nox_client_wndGetPosition_46AA60(*(_DWORD**)&dword_5d4594_1090276, &xLeft, &yTop);
 		nox_client_drawImageAt_47D2C0(*(int*)getMemAt(0x5D4594, 1091900), xLeft, yTop);

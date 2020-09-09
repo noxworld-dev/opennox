@@ -510,6 +510,15 @@ typedef struct nox_window {
 } nox_window;
 _Static_assert(sizeof(nox_window) == 404, "wrong size of nox_window structure!");
 
+typedef struct nox_window_yyy {
+	nox_window* win;
+	_DWORD field_1;
+	_DWORD field_2;
+	_DWORD field_3;
+	_DWORD field_4;
+} nox_window_yyy;
+_Static_assert(sizeof(nox_window_yyy) == 20, "wrong size of nox_window_yyy structure!");
+
 typedef struct nox_drawable {
 	_DWORD field_0;        // 0, 0
 	_DWORD field_1;        // 1, 4
