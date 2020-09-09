@@ -3058,7 +3058,7 @@ unsigned __int8* sub_41D5E0() {
 		result = *(unsigned __int8**)&dword_5d4594_2660032;
 		if (dword_5d4594_2660032) {
 			*((_DWORD*)v1 + 517) = dword_5d4594_2660032;
-			nox_swprintf((wchar_t*)v1 + 1036, L"%S", getMemAt(0x5D4594, 2660099));
+			nox_swprintf((wchar_t*)v1 + 1036, L"%S", getMemAt(0x5D4594, 2660012 + 87));
 			v2 = sub_425A70(*((_DWORD*)v1 + 517));
 			if (!v2)
 				v2 = sub_425AD0(*((_DWORD*)v1 + 517), (wchar_t*)v1 + 1036);
