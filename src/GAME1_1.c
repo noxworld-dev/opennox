@@ -9050,8 +9050,8 @@ char* __cdecl sub_425CA0(int a1, int a2) {
 					LOBYTE(v12) = -1;
 				}
 				v11 = dword_5d4594_739392;
-				*getMemU8Ptr( 0x5D4594, 2 * dword_5d4594_739392 + 608320) = v13;
-				*getMemU8Ptr( 0x5D4594, 2 * v11 + 608321) = v12;
+				*getMemU8Ptr(0x5D4594, 608320 + 2 * dword_5d4594_739392) = v13;
+				*getMemU8Ptr(0x5D4594, 608320 + 1 + 2 * v11) = v12;
 				dword_5d4594_739392 = v11 + 1;
 				result = *(char**)&dword_5d4594_608316;
 				if (dword_5d4594_608316 >= 0xFFu)
