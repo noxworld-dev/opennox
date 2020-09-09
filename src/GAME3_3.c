@@ -2194,7 +2194,7 @@ int __cdecl sub_4E4F30(int a1) {
 	int result; // eax
 
 	result = a1;
-	*getMemU16Ptr(0x5D4594, 2 * a1 + 1565524) = 0;
+	*getMemU16Ptr(0x5D4594, 1565524 + 2 * a1) = 0;
 	return result;
 }
 
@@ -2306,7 +2306,7 @@ int __cdecl sub_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, ch
 					++v9;
 				} while ((int)v11 < (int)getMemAt(0x5D4594, 1565588));
 			} else if ((a1 & 0x80u) == 0) {
-				*(_WORD*)&v8[2 * a1 + 186] = (*getMemU16Ptr(0x5D4594, 2 * a1 + 1565524))++;
+				*(_WORD*)&v8[2 * a1 + 186] = (*getMemU16Ptr(0x5D4594, 1565524 + 2 * a1))++;
 			} else {
 				v12 = getMemAt(0x5D4594, 1565524);
 				v13 = v8[250] & 0x7F;
