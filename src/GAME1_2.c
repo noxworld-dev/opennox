@@ -8590,7 +8590,7 @@ int __cdecl sub_435A10(signed int* a1) {
 	Data[152] = !sub_40ABD0();
 	if (getMemByte(0x5D4594, 2660684) & 4)
 		Data[152] |= 0x80u;
-	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660099));
+	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660012 + 87));
 	strcpy((char*)&Data[128], sub_41FA40());
 	*(_DWORD*)&Data[138] = dword_5d4594_2660032;
 	memcpy(Data, v1, 0x61u);
@@ -9198,7 +9198,7 @@ int sub_438A90() {
 		buf[98] = !v3;
 		*(_DWORD*)&buf[80] = 0x1039A;
 		*(_DWORD*)&buf[84] = dword_5d4594_2660032;
-		strcpy(&buf[88], (const char*)getMemAt(0x5D4594, 2660048));
+		strcpy(&buf[88], (const char*)getMemAt(0x5D4594, 2660012 + 36));
 		nox_wcscpy((wchar_t*)&buf[4], (const wchar_t*)getMemAt(0x5D4594, 2661908));
 		sub_43AF90(3);
 		*(_QWORD*)&qword_5d4594_814956 = sub_416BB0() + 20000;
