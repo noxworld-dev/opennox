@@ -9686,7 +9686,7 @@ void __cdecl sub_426C90() {
 			fwrite(&v5, 4u, 1u, nox_file_3);
 			++dword_5d4594_740072;
 		} else {
-			*getMemU32Ptr(0x5D4594, 4 * dword_5d4594_740072 + 740040) = sub_409110(nox_file_3);
+			*getMemU32Ptr(0x5D4594, 740040 + 4 * dword_5d4594_740072) = sub_409110(nox_file_3);
 			v3 = sub_409390();
 			v4 = dword_5d4594_740072;
 			*getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072) = v3;
@@ -9719,7 +9719,7 @@ void __cdecl sub_426D40() {
 		v5 = sub_409390();
 		v3 = (void*)(v5 - *getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072));
 		sub_409190(nox_file_3, v5 - *getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072),
-				   *getMemU32Ptr(0x5D4594, 4 * dword_5d4594_740072 + 740040));
+				   *getMemU32Ptr(0x5D4594, 740040 + 4 * dword_5d4594_740072));
 	}
 }
 
