@@ -268,12 +268,12 @@ char* sub_4D0CF0() {
 	v2 = *getMemU32Ptr(0x5D4594, 1548428 + 4 * v1);
 	if (!v2)
 		return 0;
-	v4 = *getMemU32Ptr(0x5D4594, 4 * v1 + 1548452);
+	v4 = *getMemU32Ptr(0x5D4594, 1548452 + 4 * v1);
 	if (v4 > v2) {
-		*getMemU32Ptr(0x5D4594, 4 * v1 + 1548452) = 0;
+		*getMemU32Ptr(0x5D4594, 1548452 + 4 * v1) = 0;
 		v4 = 0;
 	}
-	*getMemU32Ptr(0x5D4594, 4 * v1 + 1548452) = (*getMemU32Ptr(0x5D4594, 4 * v1 + 1548452) + 1) % v2;
+	*getMemU32Ptr(0x5D4594, 1548452 + 4 * v1) = (*getMemU32Ptr(0x5D4594, 1548452 + 4 * v1) + 1) % v2;
 	return (char*)getMemAt(0x5D4594, 128 * (v4 + 20 * v1 + 5 * v1) + 1529228);
 }
 
