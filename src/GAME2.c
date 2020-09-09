@@ -261,7 +261,7 @@ int __cdecl sub_44CFD0(CHAR* a1) {
 	int result;     // eax
 
 	if (a1 && (v1 = sub_44CD30(a1), v1 >= 0) && (v2 = *getMemU32Ptr(0x5D4594, 4 * v1 + 830616), v2 >= 0) &&
-		(v3 = *(const void**)getMemAt(0x5D4594, 4 * v1 + 830296)) != 0 && (v4 = bsearch(a1, v3, v2, 8u, sub_44D020)) != 0) {
+		(v3 = *(const void**)getMemAt(0x5D4594, 830296 + 4 * v1)) != 0 && (v4 = bsearch(a1, v3, v2, 8u, sub_44D020)) != 0) {
 		result = v4[1];
 	} else {
 		result = 0;
@@ -415,7 +415,7 @@ int __cdecl sub_44D340(CHAR* a1) {
 	int result;    // eax
 
 	if (a1 && (v1 = sub_44CD30(a1), v1 >= 0) && (v2 = *getMemU32Ptr(0x5D4594, 4 * v1 + 830616), v2 >= 0) &&
-		(v3 = (int*)bsearch(a1, *(const void**)getMemAt(0x5D4594, 4 * v1 + 830296), v2, 8u, sub_44D020)) != 0) {
+		(v3 = (int*)bsearch(a1, *(const void**)getMemAt(0x5D4594, 830296 + 4 * v1), v2, 8u, sub_44D020)) != 0) {
 		result = *v3;
 	} else {
 		result = 0;

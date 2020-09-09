@@ -418,9 +418,9 @@ size_t sub_44CCD0() {
 		result = *getMemU32Ptr(0x5D4594, i + 830616);
 		if (result) {
 			result = (size_t)calloc(1u, 8 * result);
-			*getMemU32Ptr(0x5D4594, i + 830296) = result;
+			*getMemU32Ptr(0x5D4594, 830296 + i) = result;
 		} else {
-			*getMemU32Ptr(0x5D4594, i + 830296) = 0;
+			*getMemU32Ptr(0x5D4594, 830296 + i) = 0;
 		}
 		*getMemU32Ptr(0x5D4594, i + 830724) = 0;
 	}
@@ -436,7 +436,7 @@ void __cdecl sub_44CD60(nox_thing* a1, int a2) {
 	if (v2 < 0)
 		return;
 
-	int v3 = *getMemU32Ptr(0x5D4594, 4 * v2 + 830296);
+	int v3 = *getMemU32Ptr(0x5D4594, 830296 + 4 * v2);
 	if (!v3)
 		return;
 
@@ -457,7 +457,7 @@ void sub_44CDB0() {
 	for (i = 0; i < 108; i += 4) {
 		v1 = *getMemU32Ptr(0x5D4594, i + 830616);
 		if (v1 > 1)
-			qsort(*(void**)getMemAt(0x5D4594, i + 830296), v1, 8u, sub_44CDE0);
+			qsort(*(void**)getMemAt(0x5D4594, 830296 + i), v1, 8u, sub_44CDE0);
 	}
 }
 
