@@ -2272,7 +2272,7 @@ void __cdecl sub_548630(int a1, unsigned int a2, float2* a3) {
 	if (a2 > 6)
 		v3 += *(_DWORD*)(a2 + 36);
 	v4 = v3 % 256;
-	v5 = *(_DWORD**)getMemAt(0x5D4594, 4 * v4 + 2490520);
+	v5 = *(_DWORD**)getMemAt(0x5D4594, 2490520 + 4 * v4);
 	if (v5) {
 		while (1) {
 			v6 = v5[2];
@@ -2292,9 +2292,9 @@ void __cdecl sub_548630(int a1, unsigned int a2, float2* a3) {
 			v7[3] = a2;
 			*((float2*)v7 + 2) = *a3;
 			v7[6] = v4;
-			*v7 = *getMemU32Ptr(0x5D4594, 4 * v4 + 2490520);
+			*v7 = *getMemU32Ptr(0x5D4594, 2490520 + 4 * v4);
 			v8 = dword_5d4594_2491544;
-			*getMemU32Ptr(0x5D4594, 4 * v4 + 2490520) = v7;
+			*getMemU32Ptr(0x5D4594, 2490520 + 4 * v4) = v7;
 			v7[1] = v8;
 			dword_5d4594_2491544 = v7;
 		}
@@ -2313,7 +2313,7 @@ void sub_5486D0() {
 		memset(getMemAt(0x5D4594, 2490520), 0, 0x400u);
 	}
 	for (i = dword_5d4594_2491544; i; i = *(_DWORD*)(i + 4))
-		*getMemU32Ptr(0x5D4594, 4 * *(_DWORD*)(i + 24) + 2490520) = 0;
+		*getMemU32Ptr(0x5D4594, 2490520 + 4 * *(_DWORD*)(i + 24)) = 0;
 	sub_4144D0(v0);
 	dword_5d4594_2491544 = 0;
 }
