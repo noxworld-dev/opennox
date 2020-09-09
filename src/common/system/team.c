@@ -11,14 +11,14 @@ int sub_417C60() {
 	unsigned __int8* v1; // esi
 
 	memset(getMemAt(0x5D4594, 526292), 0, 0x550u);
-	v0 = getMemAt(0x5D4594, 526364);
+	v0 = getMemAt(0x5D4594, 526292 + 72);
 	do {
 		*(v0 - 15) = 0;
 		*(_DWORD*)v0 = 0;
 		*((_DWORD*)v0 + 1) = 0;
 		*((_DWORD*)v0 - 3) = 0;
 		v0 += 80;
-	} while ((int)v0 < (int)getMemAt(0x5D4594, 527644));
+	} while ((int)v0 < (int)getMemAt(0x5D4594, 526292 + 1352));
 	if (!*getMemU32Ptr(0x5D4594, 526288)) {
 		v1 = getMemAt(0x587000, 54596);
 		do {
@@ -68,7 +68,7 @@ char* __cdecl sub_4186D0(char a1) {
 		v4 = v3;
 		v5 = 5 * v3;
 		v6 = a1;
-		v7 = getMemAt(0x5D4594, 16 * v5 + 526292);
+		v7 = getMemAt(0x5D4594, 526292 + 16 * v5);
 		*((_DWORD*)v7 + 13) = 0;
 		*((_DWORD*)v7 + 12) = 0;
 		*(_WORD*)v7 = 0;
