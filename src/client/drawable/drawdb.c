@@ -422,7 +422,7 @@ size_t sub_44CCD0() {
 		} else {
 			*getMemU32Ptr(0x5D4594, 830296 + i) = 0;
 		}
-		*getMemU32Ptr(0x5D4594, i + 830724) = 0;
+		*getMemU32Ptr(0x5D4594, 830724 + i) = 0;
 	}
 	return result;
 }
@@ -440,10 +440,10 @@ void __cdecl sub_44CD60(nox_thing* a1, int a2) {
 	if (!v3)
 		return;
 
-	int v4 = *getMemU32Ptr(0x5D4594, 4 * v2 + 830724);
+	int v4 = *getMemU32Ptr(0x5D4594, 830724 + 4 * v2);
 	*(_DWORD*)(v3 + 8 * v4) = a1;
 	*(_DWORD*)(v3 + 8 * v4 + 4) = a2;
-	++*getMemU32Ptr(0x5D4594, 4 * v2 + 830724);
+	++*getMemU32Ptr(0x5D4594, 830724 + 4 * v2);
 }
 
 //----- (0044CDE0) --------------------------------------------------------
