@@ -1212,10 +1212,10 @@ void sub_4FBEE0() {
 		if (*((_DWORD*)p + 514) && !p[2251]) {
 			for (int i = 0; i < 6; ++i) {
 				int v2 = i + 6 * (unsigned __int8)p[2064];
-				int v3 = *getMemU32Ptr(0x5D4594, 4 * v2 + 1568876);
+				int v3 = *getMemU32Ptr(0x5D4594, 1568876 + 4 * v2);
 				if (v3) {
-					*getMemU32Ptr(0x5D4594, 4 * v2 + 1568876) = v3 - 1;
-					if (!*getMemU32Ptr(0x5D4594, 4 * (i + 6 * (unsigned __int8)p[2064]) + 1568876))
+					*getMemU32Ptr(0x5D4594, 1568876 + 4 * v2) = v3 - 1;
+					if (!*getMemU32Ptr(0x5D4594, 1568876 + 4 * (i + 6 * (unsigned __int8)p[2064])))
 						sub_4D8100(*((_DWORD*)p + 514), i, 1);
 				}
 			}
