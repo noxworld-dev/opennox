@@ -686,9 +686,9 @@ int __cdecl sub_45FDE0(int yTop) {
 		}
 		v8 = v4[2 * v2];
 		v9 = v7;
-		v10 = getMemByte(0x5D4594, v8 + 1049544);
+		v10 = getMemByte(0x5D4594, 1049544 + v8);
 		if ((char)v10 > 0)
-			*getMemU8Ptr( 0x5D4594, v8 + 1049544) = v10 - 1;
+			*getMemU8Ptr(0x5D4594, 1049544 + v8) = v10 - 1;
 		v11 = (wchar_t*)sub_424930(v4[2 * v2]);
 		sub_46B000((wchar_t*)(v1 + 36), v11);
 		if (v9) {
