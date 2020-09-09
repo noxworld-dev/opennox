@@ -633,7 +633,7 @@ int __cdecl sub_450770(int a1) {
 	v1 = 0;
 	*getMemU32Ptr(0x5D4594, 832356) = *(unsigned __int16*)(a1 + 2);
 	*getMemU32Ptr(0x5D4594, 831228) = *(unsigned __int16*)(a1 + 4);
-	v2 = getMemAt(0x5D4594, 832368);
+	v2 = getMemAt(0x5D4594, 832364 + 4);
 	v3 = (unsigned __int16*)(a1 + 6);
 	do {
 		if (*v3) {
