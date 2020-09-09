@@ -265,7 +265,7 @@ char* sub_4D0CF0() {
 
 	v0 = nox_common_gameFlags_getVal_40A5B0();
 	v1 = sub_4D0D50(v0);
-	v2 = *getMemU32Ptr(0x5D4594, 4 * v1 + 1548428);
+	v2 = *getMemU32Ptr(0x5D4594, 1548428 + 4 * v1);
 	if (!v2)
 		return 0;
 	v4 = *getMemU32Ptr(0x5D4594, 4 * v1 + 1548452);

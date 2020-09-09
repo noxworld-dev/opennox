@@ -1407,9 +1407,9 @@ FILE* sub_4D0A30() {
 			sub_4D0CC0(v16);
 			v8 = sub_4D0C80(v16);
 			if (v8 < 0) {
-				v9 = *getMemU32Ptr(0x5D4594, 1548432);
-				strcpy((char*)getMemAt(0x5D4594, 128 * *getMemU32Ptr(0x5D4594, 1548432) + 1532428), v16);
-				*getMemU32Ptr(0x5D4594, 1548432) = v9 + 1;
+				v9 = *getMemU32Ptr(0x5D4594, 1548428 + 4);
+				strcpy((char*)getMemAt(0x5D4594, 128 * *getMemU32Ptr(0x5D4594, 1548428 + 4) + 1532428), v16);
+				*getMemU32Ptr(0x5D4594, 1548428 + 4) = v9 + 1;
 			} else {
 				v0 = v8;
 			}
@@ -1419,16 +1419,16 @@ FILE* sub_4D0A30() {
 				sub_4D0CC0(v16);
 				v10 = sub_4D0C80(v16);
 				if (v10 < 0) {
-					if (*getMemIntPtr(0x5D4594, 4 * v0 + 1548428) < 25 && v16[0]) {
+					if (*getMemIntPtr(0x5D4594, 1548428 + 4 * v0) < 25 && v16[0]) {
 						v11 = sub_4D0C70(v0);
 						strcpy(v17, v16);
 						v12 = strtok(v17, ".\n");
 						if (sub_4CFE10(v12)) {
 							v13 = sub_4CFFA0((int)getMemAt(0x5D4594, 3801836));
 							if (v13 & v11) {
-								v14 = *getMemU32Ptr(0x5D4594, 4 * v0 + 1548428);
+								v14 = *getMemU32Ptr(0x5D4594, 1548428 + 4 * v0);
 								strcpy((char*)getMemAt(0x5D4594, 128 * (v14 + 20 * v0 + 5 * v0) + 1529228), v16);
-								*getMemU32Ptr(0x5D4594, 4 * v0 + 1548428) = v14 + 1;
+								*getMemU32Ptr(0x5D4594, 1548428 + 4 * v0) = v14 + 1;
 							}
 						}
 						v7 = v15;
