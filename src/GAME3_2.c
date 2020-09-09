@@ -1519,12 +1519,12 @@ int __cdecl sub_4D0DC0(int a1, int a2) {
 	int result; // eax
 
 	result = sub_4D0D50(a1);
-	*getMemU32Ptr(0x5D4594, 4 * result + 1548452) = a2;
+	*getMemU32Ptr(0x5D4594, 1548452 + 4 * result) = a2;
 	return result;
 }
 
 //----- (004D0DE0) --------------------------------------------------------
-int __cdecl sub_4D0DE0(int a1) { return *getMemU32Ptr(0x5D4594, 4 * sub_4D0D50(a1) + 1548452); }
+int __cdecl sub_4D0DE0(int a1) { return *getMemU32Ptr(0x5D4594, 1548452 + 4 * sub_4D0D50(a1)); }
 
 //----- (004D0E00) --------------------------------------------------------
 int sub_4D0E00() {
