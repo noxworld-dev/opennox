@@ -875,9 +875,9 @@ size_t sub_4E3040() {
 		result = *getMemU32Ptr(0x5D4594, i + 1563668);
 		if (result) {
 			result = (size_t)calloc(1u, 4 * result);
-			*getMemU32Ptr(0x5D4594, i + 1563348) = result;
+			*getMemU32Ptr(0x5D4594, 1563348 + i) = result;
 		} else {
-			*getMemU32Ptr(0x5D4594, i + 1563348) = 0;
+			*getMemU32Ptr(0x5D4594, 1563348 + i) = 0;
 		}
 		*getMemU32Ptr(0x5D4594, i + 1563776) = 0;
 	}
@@ -891,7 +891,7 @@ void __cdecl sub_4E30D0(int a1) {
 
 	if (a1) {
 		v1 = sub_4E30A0(*(CHAR**)(a1 + 4));
-		v2 = *getMemU32Ptr(0x5D4594, 4 * v1 + 1563348);
+		v2 = *getMemU32Ptr(0x5D4594, 1563348 + 4 * v1);
 		if (v2) {
 			*(_DWORD*)(v2 + 4 * *getMemU32Ptr(0x5D4594, 4 * v1 + 1563776)) = a1;
 			++*getMemU32Ptr(0x5D4594, 4 * v1 + 1563776);
@@ -911,7 +911,7 @@ void sub_4E29D0() {
 	for (i = 0; i < 108; i += 4) {
 		v1 = *getMemU32Ptr(0x5D4594, i + 1563668);
 		if (v1 > 1)
-			qsort(*(void**)getMemAt(0x5D4594, i + 1563348), v1, 4u, sub_4E2A00);
+			qsort(*(void**)getMemAt(0x5D4594, 1563348 + i), v1, 4u, sub_4E2A00);
 	}
 }
 

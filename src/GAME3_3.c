@@ -1079,7 +1079,7 @@ int __cdecl sub_4E3830(CHAR* a1) {
 	int result;     // eax
 
 	if (a1 && (v1 = sub_4E30A0(a1), v1 >= 0) && (v2 = *getMemU32Ptr(0x5D4594, 4 * v1 + 1563668), v2 >= 0) &&
-		(v3 = *(const void**)getMemAt(0x5D4594, 4 * v1 + 1563348)) != 0 &&
+		(v3 = *(const void**)getMemAt(0x5D4594, 1563348 + 4 * v1)) != 0 &&
 		(v4 = (int*)bsearch(a1, v3, v2, 4u, sub_4E3880)) != 0) {
 		result = *v4;
 	} else {
