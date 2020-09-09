@@ -3439,13 +3439,13 @@ LABEL_25:
 		sub_4DA0F0(*(unsigned __int8*)(*(_DWORD*)(v4 + 276) + 2064), 2, &a1);
 		return;
 	}
-	if (*getMemU32Ptr(0x5D4594, 4 * (v3 + 6 * *(unsigned __int8*)(v9 + 2064)) + 1568876)) {
+	if (*getMemU32Ptr(0x5D4594, 1568876 + 4 * (v3 + 6 * *(unsigned __int8*)(v9 + 2064)))) {
 		a1 = 2;
 	LABEL_48:
 		sub_4DA0F0(*(unsigned __int8*)(*(_DWORD*)(v4 + 276) + 2064), 2, &a1);
 		goto LABEL_49;
 	}
-	*getMemU32Ptr(0x5D4594, 4 * (v3 + 6 * *(unsigned __int8*)(v9 + 2064)) + 1568876) = sub_4252D0(v3);
+	*getMemU32Ptr(0x5D4594, 1568876 + 4 * (v3 + 6 * *(unsigned __int8*)(v9 + 2064))) = sub_4252D0(v3);
 	if (sub_4252D0(v3))
 		sub_4D8100((int)v2, v3, 0);
 	v10 = sub_425470(v3);
@@ -3476,7 +3476,7 @@ int __cdecl sub_4FBE60(int a1, int a2) {
 
 	v2 = sub_417040(*(_DWORD*)(a1 + 36));
 	if (v2)
-		result = *getMemU32Ptr(0x5D4594, 4 * (a2 + 6 * (unsigned __int8)v2[2064]) + 1568876);
+		result = *getMemU32Ptr(0x5D4594, 1568876 + 4 * (a2 + 6 * (unsigned __int8)v2[2064]));
 	else
 		result = 0;
 	return result;
@@ -3491,7 +3491,7 @@ char* __cdecl sub_4FBEA0(int a1, int a2, int a3) {
 	if (result) {
 		v4 = a2 + 6 * (unsigned __int8)result[2064];
 		result = (char*)a3;
-		*getMemU32Ptr(0x5D4594, 4 * v4 + 1568876) = a3;
+		*getMemU32Ptr(0x5D4594, 1568876 + 4 * v4) = a3;
 	}
 	return result;
 }
@@ -3540,7 +3540,7 @@ void __cdecl sub_4FC0B0(int a1, int a2) {
 		if (*(_BYTE*)(a1 + 8) & 4) {
 			v2 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 276);
 			if (!*(_BYTE*)(v2 + 2251)) {
-				*getMemU32Ptr(0x5D4594, 4 * (a2 + 6 * *(unsigned __int8*)(v2 + 2064)) + 1568876) = 0;
+				*getMemU32Ptr(0x5D4594, 1568876 + 4 * (a2 + 6 * *(unsigned __int8*)(v2 + 2064))) = 0;
 				sub_4D80C0(a1, a2);
 				v3 = *getMemU32Ptr(0x5D4594, 1569648) ;
 				if (*getMemU32Ptr(0x5D4594, 1569648) ) {
@@ -3584,7 +3584,7 @@ void __cdecl sub_4FC180(int a1) {
 			if (!*(_BYTE*)(*(_DWORD*)(v1 + 276) + 2251)) {
 				for (i = 1; i < 6; ++i) {
 					v3 = i + 6 * *(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064);
-					*getMemU32Ptr(0x5D4594, 4 * v3 + 1568876) = 0;
+					*getMemU32Ptr(0x5D4594, 1568876 + 4 * v3) = 0;
 				}
 				sub_4D80C0(a1, 6);
 				v4 = *getMemU32Ptr(0x5D4594, 1569648) ;
@@ -3760,7 +3760,7 @@ int __cdecl sub_4FC4A0(int a1, int a2, int a3) {
 	int result; // eax
 
 	result = a3;
-	*getMemU32Ptr(0x5D4594, 4 * (a2 + 6 * a1) + 1568876) = a3;
+	*getMemU32Ptr(0x5D4594, 1568876 + 4 * (a2 + 6 * a1)) = a3;
 	return result;
 }
 
