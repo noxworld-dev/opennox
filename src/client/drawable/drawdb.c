@@ -415,7 +415,7 @@ size_t sub_44CCD0() {
 	size_t result; // eax
 
 	for (i = 0; i < 108; i += 4) {
-		result = *getMemU32Ptr(0x5D4594, i + 830616);
+		result = *getMemU32Ptr(0x5D4594, 830616 + i);
 		if (result) {
 			result = (size_t)calloc(1u, 8 * result);
 			*getMemU32Ptr(0x5D4594, 830296 + i) = result;
@@ -455,7 +455,7 @@ void sub_44CDB0() {
 	signed int v1; // eax
 
 	for (i = 0; i < 108; i += 4) {
-		v1 = *getMemU32Ptr(0x5D4594, i + 830616);
+		v1 = *getMemU32Ptr(0x5D4594, 830616 + i);
 		if (v1 > 1)
 			qsort(*(void**)getMemAt(0x5D4594, 830296 + i), v1, 8u, sub_44CDE0);
 	}
