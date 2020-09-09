@@ -828,7 +828,7 @@ CHAR* __cdecl sub_4E3080(CHAR* a1) {
 	if (a1) {
 		result = (CHAR*)sub_4E30A0(a1);
 		if ((int)result >= 0)
-			++*getMemU32Ptr(0x5D4594, 4 * (_DWORD)result + 1563668);
+			++*getMemU32Ptr(0x5D4594, 1563668 + 4 * (_DWORD)result);
 	}
 	return result;
 }
@@ -872,7 +872,7 @@ size_t sub_4E3040() {
 	size_t result; // eax
 
 	for (i = 0; i < 108; i += 4) {
-		result = *getMemU32Ptr(0x5D4594, i + 1563668);
+		result = *getMemU32Ptr(0x5D4594, 1563668 + i);
 		if (result) {
 			result = (size_t)calloc(1u, 4 * result);
 			*getMemU32Ptr(0x5D4594, 1563348 + i) = result;
@@ -909,7 +909,7 @@ void sub_4E29D0() {
 	signed int v1; // eax
 
 	for (i = 0; i < 108; i += 4) {
-		v1 = *getMemU32Ptr(0x5D4594, i + 1563668);
+		v1 = *getMemU32Ptr(0x5D4594, 1563668 + i);
 		if (v1 > 1)
 			qsort(*(void**)getMemAt(0x5D4594, 1563348 + i), v1, 4u, sub_4E2A00);
 	}
