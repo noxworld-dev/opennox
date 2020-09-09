@@ -7508,7 +7508,7 @@ int sub_501860() {
 		*((_DWORD*)v1 + 3) = 0;
 		*((_DWORD*)v1 + 4) = 0;
 		v1 += 28;
-	} while ((int)v1 < (int)getMemAt(0x5D4594, 1598936));
+	} while ((int)v1 < (int)getMemAt(0x5D4594, 1598928 + 8));
 	result = 1;
 	dword_5d4594_1599064 = 1;
 	return result;
@@ -7800,14 +7800,14 @@ _DWORD* __cdecl sub_501EA0(_DWORD* a1, int a2) {
 }
 
 //----- (00501EF0) --------------------------------------------------------
-int __cdecl sub_501EF0(unsigned int a1) { return *getMemU32Ptr(0x5D4594, 4 * (a1 >> 5) + 1598928) & (1 << (a1 & 0x1F)); }
+int __cdecl sub_501EF0(unsigned int a1) { return *getMemU32Ptr(0x5D4594, 1598928 + 4 * (a1 >> 5)) & (1 << (a1 & 0x1F)); }
 
 //----- (00501F10) --------------------------------------------------------
 unsigned int __cdecl sub_501F10(unsigned int a1) {
 	unsigned int result; // eax
 
 	result = a1 >> 5;
-	*getMemU32Ptr(0x5D4594, 4 * (a1 >> 5) + 1598928) |= 1 << (a1 & 0x1F);
+	*getMemU32Ptr(0x5D4594, 1598928 + 4 * (a1 >> 5)) |= 1 << (a1 & 0x1F);
 	return result;
 }
 
