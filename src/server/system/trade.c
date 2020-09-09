@@ -47,7 +47,7 @@ _DWORD* __cdecl sub_50E8F0(int a1, int a2) {
 	v2 = 0;
 	if (nox_common_gameFlags_check_40A5C0(4096) &&
 		(v3 = *(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064),
-		 v4 = *(_DWORD**)getMemAt(0x5D4594, 4 * v3 + 2386364), *getMemU32Ptr(0x5D4594, 4 * v3 + 2386364) = 0, v4)) {
+		 v4 = *(_DWORD**)getMemAt(0x5D4594, 2386364 + 4 * v3), *getMemU32Ptr(0x5D4594, 2386364 + 4 * v3) = 0, v4)) {
 		v2 = 1;
 	} else {
 		result = sub_50E870();

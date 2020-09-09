@@ -3915,7 +3915,7 @@ void __cdecl sub_50F4C0(_DWORD* a1) {
 		v3 = a1[3];
 	}
 	if (nox_common_gameFlags_check_40A5C0(4096))
-		*getMemU32Ptr(0x5D4594, 4 * *(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(v3 + 748) + 276) + 2064) + 2386364) = a1;
+		*getMemU32Ptr(0x5D4594, 2386364 + 4 * *(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(v3 + 748) + 276) + 2064)) = a1;
 	else
 		sub_510000((int)a1);
 }
@@ -4546,9 +4546,9 @@ int __cdecl sub_510DE0(int a1, int a2) {
 
 //----- (00510E20) --------------------------------------------------------
 void __cdecl sub_510E20(int a1) {
-	if (*getMemU32Ptr(0x5D4594, 4 * a1 + 2386364))
-		sub_510000(*getMemU32Ptr(0x5D4594, 4 * a1 + 2386364));
-	*getMemU32Ptr(0x5D4594, 4 * a1 + 2386364) = 0;
+	if (*getMemU32Ptr(0x5D4594, 2386364 + 4 * a1))
+		sub_510000(*getMemU32Ptr(0x5D4594, 2386364 + 4 * a1));
+	*getMemU32Ptr(0x5D4594, 2386364 + 4 * a1) = 0;
 }
 
 //----- (00510E50) --------------------------------------------------------
