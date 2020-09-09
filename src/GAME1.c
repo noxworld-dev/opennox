@@ -3179,8 +3179,8 @@ int __stdcall sub_40C8F0(int a1, int a2, int a3, int a4) {
 
 	if (sub_41E2F0() == 8 && !a2) {
 		dword_5d4594_2660032 = *(_DWORD*)a4;
-		strncpy((char*)getMemAt(0x5D4594, 2660099), (const char*)(a4 + 401), 9u);
-		*getMemU8Ptr(0x5D4594, 2660108) = 0;
+		strncpy((char*)getMemAt(0x5D4594, 2660012 + 87), (const char*)(a4 + 401), 9u);
+		*getMemU8Ptr(0x5D4594, 2660012 + 96) = 0;
 		if (*getMemU32Ptr(0x5D4594, 10980)) {
 			*getMemU32Ptr(0x5D4594, 10980) = 0;
 			sub_41D5E0();

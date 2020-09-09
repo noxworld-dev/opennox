@@ -192,7 +192,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	Data[152] = !sub_40ABD0();
 	if (getMemByte(0x5D4594, 2660684) & 4)
 		Data[152] |= 0x80u;
-	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660099));
+	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660012 + 87));
 	strcpy((char*)&Data[128], sub_41FA40());
 	*(_DWORD*)&Data[138] = dword_5d4594_2660032;
 	memcpy(Data, v1, 0x61u);
