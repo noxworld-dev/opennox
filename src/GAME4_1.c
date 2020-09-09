@@ -12565,7 +12565,7 @@ void sub_51D0E0() { dword_5d4594_2487244 = 0; }
 
 //----- (0051D0F0) --------------------------------------------------------
 int __cdecl sub_51D0F0(char a1) {
-	*getMemU8Ptr(0x5D4594, 3835400) = a1;
+	*getMemU8Ptr(0x5D4594, 3835340 + 60) = a1;
 	return 1;
 }
 
@@ -12573,7 +12573,7 @@ int __cdecl sub_51D0F0(char a1) {
 int __cdecl sub_51D100(int a1) {
 	if (a1 != 1 && a1)
 		return 0;
-	*getMemU32Ptr(0x5D4594, 3835404) = a1;
+	*getMemU32Ptr(0x5D4594, 3835340 + 64) = a1;
 	return 1;
 }
 
@@ -12589,9 +12589,9 @@ _DWORD* __cdecl sub_51D120(float* a1) {
 		v2 = result;
 		if (result) {
 			if (dword_5d4594_2487244) {
-				if (*getMemU32Ptr(0x5D4594, 3835404) == 1) {
-					sub_51D300(*(int*)&dword_5d4594_2487244, (int)result, getMemByte(0x5D4594, 3835400));
-					sub_51D300((int)v2, *(int*)&dword_5d4594_2487244, getMemByte(0x5D4594, 3835400));
+				if (*getMemU32Ptr(0x5D4594, 3835340 + 64) == 1) {
+					sub_51D300(*(int*)&dword_5d4594_2487244, (int)result, getMemByte(0x5D4594, 3835340 + 60));
+					sub_51D300((int)v2, *(int*)&dword_5d4594_2487244, getMemByte(0x5D4594, 3835340 + 60));
 				}
 			}
 			dword_5d4594_2487244 = v2;
@@ -12660,10 +12660,10 @@ float* __cdecl sub_51D270(float* a1) {
 }
 
 //----- (0051D2C0) --------------------------------------------------------
-int __cdecl sub_51D2C0(int a1, int a2) { return sub_51D300(a1, a2, getMemByte(0x5D4594, 3835400)); }
+int __cdecl sub_51D2C0(int a1, int a2) { return sub_51D300(a1, a2, getMemByte(0x5D4594, 3835340 + 60)); }
 
 //----- (0051D2E0) --------------------------------------------------------
-int __cdecl sub_51D2E0(int a1, int a2) { return sub_51D370(a1, a2, getMemByte(0x5D4594, 3835400)); }
+int __cdecl sub_51D2E0(int a1, int a2) { return sub_51D370(a1, a2, getMemByte(0x5D4594, 3835340 + 60)); }
 
 //----- (0051D300) --------------------------------------------------------
 int __cdecl sub_51D300(int a1, int a2, char a3) {
@@ -12848,7 +12848,7 @@ int __cdecl sub_51D570(int a1) {
 int __cdecl sub_51D5C0(int a1) {
 	if (a1 != 1 && a1)
 		return 0;
-	*getMemU32Ptr(0x5D4594, 3835344) = a1;
+	*getMemU32Ptr(0x5D4594, 3835340 + 4) = a1;
 	return 1;
 }
 
