@@ -82,28 +82,28 @@ int __cdecl sub_4A10A0(_DWORD* a1, const char* a2, char* a3) {
 	} else if (!strcmp(a2, "ENTRYFIELD")) {
 		memset(getMemAt(0x5D4594, 1305836), 0, 0x420u);
 		v11 = strtok(a3, " \t\n\r");
-		*getMemU16Ptr(0x5D4594, 1306876) = atoi(v11);
+		*getMemU16Ptr(0x5D4594, 1305836 + 1040) = atoi(v11);
 		v12 = strtok(0, " \t\n\r");
 		if (v12)
-			*getMemU16Ptr(0x5D4594, 1306878) = atoi(v12);
+			*getMemU16Ptr(0x5D4594, 1305836 + 1042) = atoi(v12);
 		else
-			*getMemU16Ptr(0x5D4594, 1306878) = -1;
+			*getMemU16Ptr(0x5D4594, 1305836 + 1042) = -1;
 		v13 = strtok(0, " \t\n\r");
 		if (v13) {
-			*getMemU32Ptr(0x5D4594, 1306860) = atoi(v13) != 0;
+			*getMemU32Ptr(0x5D4594, 1305836 + 1024) = atoi(v13) != 0;
 		} else {
-			*getMemU32Ptr(0x5D4594, 1306860) = 0;
+			*getMemU32Ptr(0x5D4594, 1305836 + 1024) = 0;
 		}
 		v14 = strtok(0, " \t\n\r");
 		v15 = v14;
 		if (v14) {
-			*getMemU32Ptr(0x5D4594, 1306864) = atoi(v14) == 1;
-			*getMemU32Ptr(0x5D4594, 1306868) = atoi(v15) == 2;
-			*getMemU32Ptr(0x5D4594, 1306872) = atoi(v15) == 3;
+			*getMemU32Ptr(0x5D4594, 1305836 + 1028) = atoi(v14) == 1;
+			*getMemU32Ptr(0x5D4594, 1305836 + 1032) = atoi(v15) == 2;
+			*getMemU32Ptr(0x5D4594, 1305836 + 1036) = atoi(v15) == 3;
 		} else {
-			*getMemU32Ptr(0x5D4594, 1306864) = 0;
-			*getMemU32Ptr(0x5D4594, 1306868) = 0;
-			*getMemU32Ptr(0x5D4594, 1306872) = 0;
+			*getMemU32Ptr(0x5D4594, 1305836 + 1028) = 0;
+			*getMemU32Ptr(0x5D4594, 1305836 + 1032) = 0;
+			*getMemU32Ptr(0x5D4594, 1305836 + 1036) = 0;
 		}
 		*a1 = getMemAt(0x5D4594, 1305836);
 		result = 1;
