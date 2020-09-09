@@ -1632,10 +1632,10 @@ int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
 		memset(getMemAt(0x5D4594, 2512892), 0, 0x400u);
 		*getMemU8Ptr(0x5D4594, 2512892) = 31;
-		*getMemU8Ptr(0x5D4594, 2512893) = *(_BYTE*)(v5[12] + 1);
-		*getMemU8Ptr(0x5D4594, 2512894) = 32;
+		*getMemU8Ptr(0x5D4594, 2512892 + 1) = *(_BYTE*)(v5[12] + 1);
+		*getMemU8Ptr(0x5D4594, 2512892 + 2) = 32;
 		if (a4)
-			memcpy(getMemAt(0x5D4594, 2512895), (const void*)a4, a5);
+			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void*)a4, a5);
 		sub_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
 	}
 	return v5[5];
