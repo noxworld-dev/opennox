@@ -84,7 +84,7 @@ int sub_43DEB0() {
 		else
 			sub_43C9F0();
 		sub_43C720(1);
-		if ((int)*getMemU32Ptr(0x5D4594, 3803228) < 0) {
+		if ((int)*getMemU32Ptr(0x5D4594, 3801836 + 1392) < 0) {
 			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 93408), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
 									   338);
 			sub_445490(v7);
