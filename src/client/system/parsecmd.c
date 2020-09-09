@@ -1674,7 +1674,7 @@ int __cdecl nox_server_parseCmdText_443C80(wchar_t* a1, int a2) {
 		}
 		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 820276), a1);
 		if (*getMemU16Ptr(0x5D4594, 820276) == 34) {
-			v5 = nox_wcstok((wchar_t*)getMemAt(0x5D4594, 820278), L"\"\n\r");
+			v5 = nox_wcstok((wchar_t*)getMemAt(0x5D4594, 820276 + 2), L"\"\n\r");
 			v2 = 1;
 		} else {
 			v5 = nox_wcstok((wchar_t*)getMemAt(0x5D4594, 820276), L" ");
