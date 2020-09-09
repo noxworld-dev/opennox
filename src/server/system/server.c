@@ -1548,19 +1548,19 @@ float* sub_50AFA0() {
 				v2 = nox_float2int(v23);
 				v24 = *(float*)(i + 60) * 0.043478262;
 				v3 = nox_float2int(v24);
-				*getMemU8Ptr( 0x5D4594, 12 * (v3 + (v2 << 8)) + 1599724) |= 0x10u;
+				*getMemU8Ptr(0x5D4594, 1599716 + 8 + 12 * (v3 + (v2 << 8))) |= 0x10u;
 			} else if (v1 & 0x400) {
 				v25 = *(float*)(i + 56) * 0.043478262;
 				v4 = nox_float2int(v25);
 				v26 = *(float*)(i + 60) * 0.043478262;
 				v5 = nox_float2int(v26);
-				*getMemU8Ptr( 0x5D4594, 12 * (v5 + (v4 << 8)) + 1599724) |= 0x20u;
+				*getMemU8Ptr(0x5D4594, 1599716 + 8 + 12 * (v5 + (v4 << 8))) |= 0x20u;
 			} else if (v1 & 0x4000) {
 				v27 = *(float*)(i + 56) * 0.043478262;
 				v6 = nox_float2int(v27);
 				v28 = *(float*)(i + 60) * 0.043478262;
 				v7 = nox_float2int(v28);
-				*getMemU8Ptr( 0x5D4594, 12 * (v7 + (v6 << 8)) + 1599724) |= 4u;
+				*getMemU8Ptr(0x5D4594, 1599716 + 8 + 12 * (v7 + (v6 << 8))) |= 4u;
 			} else if ((v1 & 0x8000) == 0) {
 				if (!(*(_BYTE*)(i + 16) & 0x49)) {
 					if (v1 & 0x400000) {
@@ -1580,7 +1580,7 @@ float* sub_50AFA0() {
 						for (j = v13; v15 <= v14; j = v15) {
 							v38 = v12;
 							if (v12 <= v39) {
-								v16 = getMemAt(0x5D4594, 12 * (v15 + (v12 << 8)) + 1599724);
+								v16 = getMemAt(0x5D4594, 1599716 + 8 + 12 * (v15 + (v12 << 8)));
 								do {
 									v17 = getMemFloatPtr(0x587000, 234108);
 									while (1) {
@@ -1619,7 +1619,7 @@ float* sub_50AFA0() {
 				v8 = nox_float2int(v29);
 				v30 = *(float*)(i + 60) * 0.043478262;
 				v9 = nox_float2int(v30);
-				*getMemU8Ptr( 0x5D4594, 12 * (v9 + (v8 << 8)) + 1599724) |= 8u;
+				*getMemU8Ptr(0x5D4594, 1599716 + 8 + 12 * (v9 + (v8 << 8))) |= 8u;
 			}
 		}
 	}
@@ -1630,7 +1630,7 @@ float* sub_50AFA0() {
 			v21 = nox_float2int(v35);
 			v36 = k[3] * 0.043478262;
 			v22 = nox_float2int(v36);
-			*getMemU16Ptr(0x5D4594, 12 * (v22 + (v21 << 8)) + 1599724) |= 0x40u;
+			*getMemU16Ptr(0x5D4594, 1599716 + 8 + 12 * (v22 + (v21 << 8))) |= 0x40u;
 		}
 		result = (float*)sub_579870((int)k);
 	}
