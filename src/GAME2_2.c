@@ -6844,7 +6844,7 @@ char __cdecl sub_481900(_DWORD* a1, _DWORD* a2) {
 		(*getMemU32Ptr(0x5D4594, 60 * v4 + 2678380) + 4 * (a2[3] + *getMemU16Ptr(0x5D4594, 60 * v4 + 2678394)));
 	v6 = *(_DWORD*)addr;
 	v7 = dword_5d4594_3798840;
-	*getMemU32Ptr(0x5D4594, 4 * v4 + 2523980) = 1;
+	*getMemU32Ptr(0x5D4594, 2523980 + 4 * v4) = 1;
 	v8 = dword_5d4594_3798804 * (v7 + a1[1] - v2) + dword_5d4594_3798796 +
 		 ((v5 + *a1 - dword_5d4594_3798820) << getMemByte(0x5D4594, 3807124));
 	v9 = sub_42FB30(v6);
