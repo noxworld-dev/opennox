@@ -260,7 +260,7 @@ char __cdecl sub_460EB0(int a1, char a2) {
 	char result; // al
 
 	result = a2;
-	*getMemU8Ptr( 0x5D4594, a1 + 1049544) = a2;
+	*getMemU8Ptr(0x5D4594, 1049544 + a1) = a2;
 	return result;
 }
 
