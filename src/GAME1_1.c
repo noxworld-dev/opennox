@@ -96,7 +96,7 @@ int sub_4187E0() {
 	unsigned __int8* v1; // ecx
 
 	result = 1;
-	v1 = getMemAt(0x5D4594, 526436);
+	v1 = getMemAt(0x5D4594, 526292 + 144);
 	while (*(_DWORD*)v1) {
 		v1 += 80;
 		++result;
@@ -286,12 +286,12 @@ char* sub_418B10() {
 
 	v0 = 1;
 	v2 = 1;
-	while (!*getMemU32Ptr(0x5D4594, 80 * v2 + 526356)) {
+	while (!*getMemU32Ptr(0x5D4594, 526292 + 64 + 80 * v2)) {
 		v2 = ++v0;
 		if ((unsigned __int8)v0 >= 0x11u)
 			return 0;
 	}
-	return (char*)getMemAt(0x5D4594, 80 * v2 + 526292);
+	return (char*)getMemAt(0x5D4594, 526292 + 80 * v2);
 }
 
 //----- (00418B60) --------------------------------------------------------
@@ -305,12 +305,12 @@ char* __cdecl sub_418B60(int a1) {
 	v1 = v3;
 	if (v3 >= 0x11u)
 		return 0;
-	while (!*getMemU32Ptr(0x5D4594, 80 * v3 + 526356)) {
+	while (!*getMemU32Ptr(0x5D4594, 526292 + 64 + 80 * v3)) {
 		v3 = ++v1;
 		if (v1 >= 0x11u)
 			return 0;
 	}
-	return (char*)getMemAt(0x5D4594, 80 * v3 + 526292);
+	return (char*)getMemAt(0x5D4594, 526292 + 80 * v3);
 }
 
 //----- (00418BC0) --------------------------------------------------------
@@ -525,7 +525,7 @@ int __cdecl sub_419030(int a1) {
 	int result;          // eax
 
 	sub_417D70(4);
-	v1 = getMemAt(0x5D4594, 526372);
+	v1 = getMemAt(0x5D4594, 526292 + 80);
 	do {
 		if (*((_DWORD*)v1 + 16))
 			sub_418F20((wchar_t*)v1, 0);

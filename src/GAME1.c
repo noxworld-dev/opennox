@@ -11507,7 +11507,7 @@ int sub_417D00() {
 	int result;          // eax
 	__int16 v3;          // [esp+0h] [ebp-2h]
 
-	v1 = getMemAt(0x5D4594, 526424);
+	v1 = getMemAt(0x5D4594, 526292 + 132);
 	do {
 		*(_DWORD*)v1 = 0;
 		v1 += 80;
