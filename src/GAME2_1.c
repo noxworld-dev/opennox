@@ -7052,7 +7052,7 @@ int __cdecl sub_471250(_DWORD* a1) {
 	float v21;            // [esp+28h] [ebp-4h]
 	float v22;            // [esp+30h] [ebp+4h]
 
-	v20 = getMemAt(0x5D4594, 20 * a1[8] + 1093036);
+	v20 = getMemAt(0x5D4594, sizeof(nox_window_yyy) * a1[8] + 1093036);
 	v1 = v20;
 	nox_client_wndGetPosition_46AA60(a1, &v18, &v17);
 	v2 = 1;
@@ -7215,7 +7215,7 @@ int __cdecl sub_471C00(int a1) {
 
 	v1 = *(_DWORD*)(a1 + 32);
 	v7 = v1;
-	v2 = getMemAt(0x5D4594, 20 * v1 + 1093036);
+	v2 = getMemAt(0x5D4594, sizeof(nox_window_yyy) * v1 + 1093036);
 	if (sub_4372E0() || dword_5d4594_2650672 || nox_common_gameFlags_check_40A5C0(9437184))
 		return 1;
 	if (v1)
