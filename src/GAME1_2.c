@@ -1739,38 +1739,38 @@ int nox_server_mapRWMapInfo_42A6E0() {
 		return 0;
 	if ((__int16)v3 >= 1) {
 		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836), 0x40u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801900), 0x200u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3802412), 0x10u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3802428), 0x40u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3802492), 0x40u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3802556), 0x80u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3802684), 0x80u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3802812), 0x100u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3803068), 0x80u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3803196), 0x20u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3803228), 4u);
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 64), 0x200u);
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 576), 0x10u);
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 592), 0x40u);
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 656), 0x40u);
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 720), 0x80u);
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 848), 0x80u);
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 976), 0x100u);
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1232), 0x80u);
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1360), 0x20u);
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1392), 4u);
 		v0 = v3;
 		if ((_WORD)v3 == 2) {
-			sub_426AC0_file3_fread(getMemAt(0x5D4594, 3803232), 1u);
-			sub_426AC0_file3_fread(getMemAt(0x5D4594, 3803233), 1u);
+			sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1396), 1u);
+			sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1397), 1u);
 			v0 = v3;
 		} else if (*getMemU32Ptr(0x5D4594, 3803300) == 1) {
-			*getMemU8Ptr(0x5D4594, 3803232) = 2;
-			*getMemU8Ptr(0x5D4594, 3803233) = 16;
+			*getMemU8Ptr(0x5D4594, 3801836 + 1396) = 2;
+			*getMemU8Ptr(0x5D4594, 3801836 + 1397) = 16;
 		}
 	}
 	if (v0 < 3) {
-		*getMemU8Ptr(0x5D4594, 3803234) = getMemByte(0x5D4594, 741376);
-		*getMemU8Ptr(0x5D4594, 3803266) = getMemByte(0x5D4594, 741380);
+		*getMemU8Ptr(0x5D4594, 3801836 + 1398) = getMemByte(0x5D4594, 741376);
+		*getMemU8Ptr(0x5D4594, 3801836 + 1430) = getMemByte(0x5D4594, 741380);
 	} else {
-		LOBYTE(v2) = strlen((const char*)getMemAt(0x5D4594, 3803234));
+		LOBYTE(v2) = strlen((const char*)getMemAt(0x5D4594, 3801836 + 1398));
 		sub_426AC0_file3_fread(&v2, 1u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3803234), (unsigned __int8)v2);
-		*getMemU8Ptr( 0x5D4594, (unsigned __int8)v2 + 3803234) = 0;
-		LOBYTE(v2) = strlen((const char*)getMemAt(0x5D4594, 3803266));
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1398), (unsigned __int8)v2);
+		*getMemU8Ptr(0x5D4594, 3801836 + 1398 + (unsigned __int8)v2) = 0;
+		LOBYTE(v2) = strlen((const char*)getMemAt(0x5D4594, 3801836 + 1430));
 		sub_426AC0_file3_fread(&v2, 1u);
-		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3803266), (unsigned __int8)v2);
-		*getMemU8Ptr( 0x5D4594, (unsigned __int8)v2 + 3803266) = 0;
+		sub_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1430), (unsigned __int8)v2);
+		*getMemU8Ptr(0x5D4594, 3801836 + 1430 + (unsigned __int8)v2) = 0;
 	}
 	return 1;
 }

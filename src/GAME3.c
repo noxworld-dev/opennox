@@ -5492,7 +5492,7 @@ char* __cdecl sub_4AC2B0(char* a1) {
 		v2 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
 		sub_422140((int)v2);
 		sub_4DB230(0);
-		if (*getMemIntPtr(0x5D4594, 3803228) < 0) {
+		if (*getMemIntPtr(0x5D4594, 3801836 + 1392) < 0) {
 			if (sub_461450() == 1) {
 				sub_461400();
 				sub_461440(0);
