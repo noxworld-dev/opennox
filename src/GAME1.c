@@ -4941,8 +4941,8 @@ unsigned __int8* __cdecl sub_40ED60(int a1, unsigned int a2, _DWORD* a3) {
 	if (v5) {
 		v6 = a2;
 		while (1) {
-			memcpy(getMemAt(0x5D4594, v4 + 207988), v5, 4 * (v6 >> 2));
-			v7 = getMemAt(0x5D4594, 4 * (v6 >> 2) + 207988 + v4);
+			memcpy(getMemAt(0x5D4594, 207988 + v4), v5, 4 * (v6 >> 2));
+			v7 = getMemAt(0x5D4594, 207988 + 4 * (v6 >> 2) + v4);
 			v4 += v6;
 			memcpy(v7, &v5[v6 >> 2], v6 & 3);
 			v5 = sub_420A90(v3, &a2);
@@ -5153,11 +5153,11 @@ unsigned __int8* __cdecl sub_40F120(int a1, _DWORD* a2) {
 	if (v4) {
 		v5 = a1;
 		while (1) {
-			dest = getMemAt(0x5D4594, v3 + 207988);
+			dest = getMemAt(0x5D4594, 207988 + v3);
 			src = v4;
 			size = 4 * (v5 >> 2);
 			memcpy(dest, src, size);
-			v6 = getMemAt(0x5D4594, 4 * (v5 >> 2) + 207988 + v3);
+			v6 = getMemAt(0x5D4594, 207988 + 4 * (v5 >> 2) + v3);
 			v3 += v5;
 			memcpy(v6, &v4[v5 >> 2], v5 & 3);
 			v4 = sub_420A90(v2, &a1);
