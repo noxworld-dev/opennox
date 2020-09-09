@@ -1278,23 +1278,23 @@ char* sub_477710() {
 
 	memset(getMemAt(0x5D4594, 1097220), 0, 0x44u);
 	*getMemU32Ptr(0x5D4594, 1097220) = sub_42FA20("CursorSelect");
-	*getMemU32Ptr(0x5D4594, 1097224) = sub_42FA20("CursorGrab");
-	*getMemU32Ptr(0x5D4594, 1097228) = sub_42FA20("CursorPickup");
-	*getMemU32Ptr(0x5D4594, 1097232) = sub_42FA20("CursorTrade");
-	*getMemU32Ptr(0x5D4594, 1097240) = sub_42FA20("CursorTarget");
-	*getMemU32Ptr(0x5D4594, 1097236) = sub_42FA20("CursorTalk");
-	*getMemU32Ptr(0x5D4594, 1097244) = sub_42FA20("CursorIdentify");
-	*getMemU32Ptr(0x5D4594, 1097248) = sub_42FA20("CursorIdentifyNo");
-	*getMemU32Ptr(0x5D4594, 1097252) = sub_42FA20("CursorRepair");
-	*getMemU32Ptr(0x5D4594, 1097256) = sub_42FA20("CursorCreateGame");
-	*getMemU32Ptr(0x5D4594, 1097260) = sub_42FA20("CursorBusy");
-	*getMemU32Ptr(0x5D4594, 1097264) = sub_42FA20("CursorBuy");
-	*getMemU32Ptr(0x5D4594, 1097268) = sub_42FA20("CursorSell");
-	*getMemU32Ptr(0x5D4594, 1097272) = sub_42FA20("CursorUse");
-	*getMemU32Ptr(0x5D4594, 1097276) = sub_42FA20("CursorMove");
-	*getMemU32Ptr(0x5D4594, 1097280) = sub_42FA20("CursorPickupFar");
+	*getMemU32Ptr(0x5D4594, 1097220 + 4) = sub_42FA20("CursorGrab");
+	*getMemU32Ptr(0x5D4594, 1097220 + 8) = sub_42FA20("CursorPickup");
+	*getMemU32Ptr(0x5D4594, 1097220 + 12) = sub_42FA20("CursorTrade");
+	*getMemU32Ptr(0x5D4594, 1097220 + 20) = sub_42FA20("CursorTarget");
+	*getMemU32Ptr(0x5D4594, 1097220 + 16) = sub_42FA20("CursorTalk");
+	*getMemU32Ptr(0x5D4594, 1097220 + 24) = sub_42FA20("CursorIdentify");
+	*getMemU32Ptr(0x5D4594, 1097220 + 28) = sub_42FA20("CursorIdentifyNo");
+	*getMemU32Ptr(0x5D4594, 1097220 + 32) = sub_42FA20("CursorRepair");
+	*getMemU32Ptr(0x5D4594, 1097220 + 36) = sub_42FA20("CursorCreateGame");
+	*getMemU32Ptr(0x5D4594, 1097220 + 40) = sub_42FA20("CursorBusy");
+	*getMemU32Ptr(0x5D4594, 1097220 + 44) = sub_42FA20("CursorBuy");
+	*getMemU32Ptr(0x5D4594, 1097220 + 48) = sub_42FA20("CursorSell");
+	*getMemU32Ptr(0x5D4594, 1097220 + 52) = sub_42FA20("CursorUse");
+	*getMemU32Ptr(0x5D4594, 1097220 + 56) = sub_42FA20("CursorMove");
+	*getMemU32Ptr(0x5D4594, 1097220 + 60) = sub_42FA20("CursorPickupFar");
 	result = sub_42FA20("CursorCaution");
-	*getMemU32Ptr(0x5D4594, 1097284) = result;
+	*getMemU32Ptr(0x5D4594, 1097220 + 64) = result;
 	return result;
 }
 
@@ -1427,7 +1427,7 @@ void sub_477F80() {
 }
 
 //----- (00477FF0) --------------------------------------------------------
-int sub_477FF0() { return sub_4BE7B0(*getMemIntPtr(0x5D4594, 1097260)); }
+int sub_477FF0() { return sub_4BE7B0(*getMemIntPtr(0x5D4594, 1097220 + 40)); }
 
 //----- (00478000) --------------------------------------------------------
 int sub_478000() {
