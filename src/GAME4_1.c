@@ -2896,7 +2896,7 @@ int sub_50D960() {
 	if (v0) {
 		do {
 			v1 = *(_DWORD*)(v0 + 748);
-			*getMemU32Ptr(0x5D4594, 4 * *(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064) + 2386232) = 0;
+			*getMemU32Ptr(0x5D4594, 2386232 + 4 * *(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064)) = 0;
 			v2 = *(_DWORD*)(v1 + 276);
 			if (*(_DWORD*)(v2 + 4792)) {
 				v3 = *(int**)&dword_5d4594_2386212;
@@ -2928,9 +2928,8 @@ int sub_50D960() {
 								}
 								v5[2] |= 1 << *(_BYTE*)(*(_DWORD*)(v1 + 276) + 2064);
 								v7 = *(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064);
-								++*getMemU32Ptr(0x5D4594, 4 * v7 + 2386232);
-								if (*getMemU32Ptr(0x5D4594, 4 * *(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064) +
-														   2386232) > v35)
+								++*getMemU32Ptr(0x5D4594, 2386232 + 4 * v7);
+								if (*getMemU32Ptr(0x5D4594, 2386232 + 4 * *(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064)) > v35)
 									v36 = 1;
 								*(float*)&v5[*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064) + 3] =
 									sub_4E6C00(*v3, v0);
@@ -3039,7 +3038,7 @@ int sub_50D960() {
 							else
 								dword_5d4594_2386224 = v26[35];
 							sub_414330(*(unsigned int**)&nox_alloc_monsterList_2386220, v26);
-							v32 = *getMemU32Ptr(0x5D4594, 4 * v23 + 2386232);
+							v32 = *getMemU32Ptr(0x5D4594, 2386232 + 4 * v23);
 							--dword_5d4594_2386228;
 							if (v32 <= v35)
 								v37 = 0;
