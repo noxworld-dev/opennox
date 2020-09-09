@@ -9056,8 +9056,8 @@ int __cdecl sub_503B30(float2* a1) {
 		*getMemU32Ptr(0x5D4594, 1599488) = *((_DWORD*)v6 + 1);
 		*getMemFloatPtr(0x5D4594, 1599492) = (double)(23 * v7);
 		*getMemFloatPtr(0x5D4594, 1599496) = (double)(int)(23 * *getMemU32Ptr(0x5D4594, 1599488));
-		v8 = (__int64)(a2.field_0 - (double)*getMemIntPtr(0x5D4594, 1599508));
-		v9 = (__int64)(a2.field_4 - (double)*getMemIntPtr(0x5D4594, 1599512));
+		v8 = (__int64)(a2.field_0 - (double)*getMemIntPtr(0x5D4594, 1599500 + 8));
+		v9 = (__int64)(a2.field_4 - (double)*getMemIntPtr(0x5D4594, 1599500 + 12));
 		result = sub_504150(v8, v9);
 		if (result) {
 			result = sub_504330(v8, v9);
@@ -9116,8 +9116,8 @@ int __cdecl sub_503EC0(int a1, float* a2) {
 		dword_5d4594_1599476 == 1) {
 		return 0;
 	}
-	a1a.field_0 = (double)*getMemIntPtr(0x5D4594, 1599508);
-	a1a.field_4 = (double)*getMemIntPtr(0x5D4594, 1599512);
+	a1a.field_0 = (double)*getMemIntPtr(0x5D4594, 1599500 + 8);
+	a1a.field_4 = (double)*getMemIntPtr(0x5D4594, 1599500 + 12);
 	sub_4D3E30(&a1a, &a2a);
 	sub_4D3E30((float2*)(a1 + 56), &v4);
 	*a2 = v4.field_0 - a2a.field_0;
