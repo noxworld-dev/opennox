@@ -2149,8 +2149,8 @@ int __cdecl sub_4E4E50(int a1) {
 	v1 = 1;
 	if (dword_5d4594_2650652 == 1)
 		v1 = sub_40A6C0();
-	v2 = getMemByte(0x5D4594, 12 * a1 + 1565125);
-	v3 = getMemAt(0x5D4594, 12 * a1 + 1565124);
+	v2 = getMemByte(0x5D4594, 1565124 + 1 + 12 * a1);
+	v3 = getMemAt(0x5D4594, 1565124 + 12 * a1);
 	if (v2 > 2u)
 		*((_DWORD*)v3 + 2) = *v3 * (v2 - 1) * (*getMemU32Ptr(0x5D4594, 2649704) / v1);
 	else
@@ -2203,9 +2203,9 @@ int __cdecl sub_4E4F40(int a1) {
 	int v1; // esi
 
 	v1 = 12 * a1;
-	*getMemU8Ptr( 0x5D4594, v1 + 1565125) = 2;
-	*getMemU8Ptr( 0x5D4594, v1 + 1565124) = 1;
-	*getMemU8Ptr( 0x5D4594, v1 + 1565126) = sub_40A6C0();
+	*getMemU8Ptr(0x5D4594, 1565124 + 1 + v1) = 2;
+	*getMemU8Ptr(0x5D4594, 1565124 + v1) = 1;
+	*getMemU8Ptr(0x5D4594, 1565124 + 2 + v1) = sub_40A6C0();
 	return sub_4E4E50(a1);
 }
 
@@ -2517,9 +2517,9 @@ int __cdecl sub_4E5630(unsigned __int8 a1, _DWORD* a2, _DWORD* a3, _DWORD* a4) {
 	int result; // eax
 
 	result = 12 * a1;
-	*a2 = *getMemU32Ptr(0x5D4594, result + 1565128);
-	*a3 = getMemByte(0x5D4594, result + 1565125);
-	*a4 = getMemByte(0x5D4594, result + 1565124);
+	*a2 = *getMemU32Ptr(0x5D4594, 1565124 + 4 + result);
+	*a3 = getMemByte(0x5D4594, 1565124 + 1 + result);
+	*a4 = getMemByte(0x5D4594, 1565124 + result);
 	return result;
 }
 
@@ -2559,7 +2559,7 @@ unsigned int __cdecl sub_4E5670(unsigned __int8 a1) {
 			v2 = v3;
 		} while (v3);
 	}
-	v5 = getMemAt(0x5D4594, 12 * a1 + 1565124);
+	v5 = getMemAt(0x5D4594, 1565124 + 12 * a1);
 	if (sub_40A6C0() != v5[2])
 		v5[2] = sub_40A6C0();
 	if (v1 <= *((_DWORD*)v5 + 1)) {
@@ -2649,7 +2649,7 @@ void __cdecl sub_4E5770(unsigned __int8 a1, int a2) {
 					*(_BYTE*)(a1 + v4 + 132) = v8 - 1;
 					goto LABEL_39;
 				}
-				if (v14 < getMemByte(0x5D4594, 12 * a1 + 1565124))
+				if (v14 < getMemByte(0x5D4594, 1565124 + 12 * a1))
 					break;
 			LABEL_39:
 				v4 = v17;
@@ -2690,7 +2690,7 @@ void __cdecl sub_4E5770(unsigned __int8 a1, int a2) {
 				if (v11) {
 					*(_DWORD*)(v4 + 172) |= v2;
 					*(_BYTE*)(a1 + v4 + 132) =
-						*getMemU32Ptr(0x5D4594, 2649704) * (unsigned int)getMemByte(0x5D4594, 12 * a1 + 1565125) / sub_40A6C0();
+						*getMemU32Ptr(0x5D4594, 2649704) * (unsigned int)getMemByte(0x5D4594, 1565124 + 1 + 12 * a1) / sub_40A6C0();
 					*(_DWORD*)(v4 + 4 * a1 + 4) = *getMemU32Ptr(0x5D4594, 2598000);
 					if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))
 						sub_4E54D0(v2, v4, a1);
@@ -2702,7 +2702,7 @@ void __cdecl sub_4E5770(unsigned __int8 a1, int a2) {
 	LABEL_40:
 		if (nox_common_gameFlags_check_40A5C0(1) &&
 			!(*getMemU32Ptr(0x5D4594, 2598000) %
-			  (*getMemU32Ptr(0x5D4594, 2649704) * (unsigned int)getMemByte(0x5D4594, 12 * a1 + 1565125)))) {
+			  (*getMemU32Ptr(0x5D4594, 2649704) * (unsigned int)getMemByte(0x5D4594, 1565124 + 1 + 12 * a1)))) {
 			sub_4E5670(a1);
 		}
 	}
