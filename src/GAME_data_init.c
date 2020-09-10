@@ -38,6 +38,14 @@ void nullsub_68() {}
 void nullsub_69() {}
 void nullsub_70() {}
 
+extern _DWORD dword_587000_133480;
+extern _DWORD dword_587000_155144;
+extern _DWORD dword_587000_127004;
+extern _DWORD dword_587000_93164;
+extern _DWORD dword_587000_122852;
+extern _DWORD dword_587000_81128;
+extern _DWORD dword_587000_66120;
+
 #ifdef NOX_LOG_MEM
 void dumpMemMap(void);
 #endif // NOX_LOG_MEM
@@ -5572,6 +5580,14 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 316744) = getMemAt(0x581450, 11564);
 	*(void**)getMemAt(0x587000, 316784) = getMemAt(0x581450, 11564);
 	*(void**)getMemAt(0x587000, 316808) = (void*)0xdeadbeef;
+
+	dword_587000_133480 = getMemAt(0x5D4594, 1049220);
+	dword_587000_155144 = getMemAt(0x5D4594, 1193204);
+	dword_587000_127004 = getMemAt(0x5D4594, 1045324);
+	dword_587000_93164 = getMemAt(0x5D4594, 816244);
+	dword_587000_122852 = getMemAt(0x5D4594, 830980);
+	dword_587000_81128 = getMemAt(0x5D4594, 805884);
+	dword_587000_66120 = getMemAt(0x5D4594, 599084);
 
 	init_data_mix();
 }
