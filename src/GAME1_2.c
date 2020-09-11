@@ -99,7 +99,7 @@ extern void* nox_alloc_screenParticles_806044;
 extern _DWORD dword_5d4594_3798828;
 extern _DWORD nox_client_translucentFrontWalls_805844;
 extern _QWORD qword_5d4594_814956;
-extern _DWORD dword_587000_93164;
+extern void* dword_587000_93164;
 extern _DWORD dword_5d4594_787152;
 extern _DWORD dword_5d4594_815044;
 extern _DWORD dword_5d4594_787208;
@@ -7668,7 +7668,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 		v4 = 0;
 	fprintf(a1, "DialogVolume = %d\n", v4);
 	if (sub_43DC30() == 1)
-		v5 = *(_DWORD*)(dword_587000_93164 + 4) >> 16;
+		v5 = *(_DWORD*)((_DWORD)dword_587000_93164 + 4) >> 16;
 	else
 		v5 = 0;
 	fprintf(a1, "MusicVolume = %d\n", v5);
