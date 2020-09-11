@@ -409,7 +409,7 @@ extern _DWORD dword_5d4594_1096516;
 extern _DWORD dword_5d4594_833720;
 extern _DWORD dword_5d4594_1045468;
 extern _DWORD dword_5d4594_2487904;
-extern _DWORD dword_587000_127004;
+extern void* dword_587000_127004;
 extern void* nox_alloc_visitNode_2386184;
 extern _DWORD dword_5d4594_815088;
 extern _DWORD dword_5d4594_2495920;
