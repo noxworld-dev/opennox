@@ -44,7 +44,7 @@ extern void* dword_587000_127004;
 extern void* dword_587000_93164;
 extern void* dword_587000_122852;
 extern void* dword_587000_81128;
-extern _DWORD dword_587000_66120;
+extern void* dword_587000_66120;
 
 #ifdef NOX_LOG_MEM
 void dumpMemMap(void);

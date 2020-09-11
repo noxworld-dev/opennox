@@ -1,7 +1,7 @@
 #include "speltree.h"
 
 #include "../../proto.h"
-extern _DWORD dword_587000_66120;
+extern void* dword_587000_66120;
 
 //----- (00424460) --------------------------------------------------------
 int __cdecl sub_424460(int a1, void* a2) {
