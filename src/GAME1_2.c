@@ -92,7 +92,7 @@ extern _DWORD dword_5d4594_3798812;
 extern _DWORD dword_5d4594_3798800;
 extern _DWORD nox_client_drawFrontWalls_80812;
 extern _DWORD dword_587000_81128;
-extern _DWORD dword_587000_122852;
+extern void* dword_587000_122852;
 extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_528252;
 extern void* nox_alloc_screenParticles_806044;
@@ -7663,7 +7663,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 		v3 = 0;
 	fprintf(a1, "FXVolume = %d\n", v3);
 	if (sub_44D990() == 1)
-		v4 = *(_DWORD*)(dword_587000_122852 + 4) >> 16;
+		v4 = *(_DWORD*)((_DWORD)dword_587000_122852 + 4) >> 16;
 	else
 		v4 = 0;
 	fprintf(a1, "DialogVolume = %d\n", v4);

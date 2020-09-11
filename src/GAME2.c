@@ -120,7 +120,7 @@ extern _DWORD dword_5d4594_839888;
 extern _DWORD dword_5d4594_832536;
 extern _DWORD dword_5d4594_1046952;
 extern _DWORD dword_587000_81128;
-extern _DWORD dword_587000_122852;
+extern void* dword_587000_122852;
 extern _DWORD dword_5d4594_1046532;
 extern _QWORD qword_581450_9568;
 extern _DWORD dword_5d4594_1049496;
