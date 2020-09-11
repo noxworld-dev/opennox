@@ -104,7 +104,7 @@ extern _DWORD dword_5d4594_787152;
 extern _DWORD dword_5d4594_815044;
 extern _DWORD dword_5d4594_787208;
 extern _DWORD dword_5d4594_815088;
-extern _DWORD dword_587000_127004;
+extern void* dword_587000_127004;
 extern _DWORD dword_5d4594_814624;
 extern _DWORD dword_5d4594_3801804;
 extern _DWORD dword_5d4594_528256;
@@ -7658,7 +7658,7 @@ int __cdecl sub_4332E0(FILE* a1) {
 	fprintf(a1, "Gamma2 = %f\n", draw_gamma);
 	fprintf(a1, "InputSensitivity = %f\n", input_sensitivity);
 	if (sub_453070() == 1)
-		v3 = *(_DWORD*)(dword_587000_127004 + 4) >> 16;
+		v3 = *(_DWORD*)((_DWORD)dword_587000_127004 + 4) >> 16;
 	else
 		v3 = 0;
 	fprintf(a1, "FXVolume = %d\n", v3);
