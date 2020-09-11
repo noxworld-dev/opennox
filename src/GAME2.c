@@ -119,7 +119,7 @@ extern _DWORD dword_5d4594_1046516;
 extern _DWORD dword_5d4594_839888;
 extern _DWORD dword_5d4594_832536;
 extern _DWORD dword_5d4594_1046952;
-extern _DWORD dword_587000_81128;
+extern void* dword_587000_81128;
 extern void* dword_587000_122852;
 extern _DWORD dword_5d4594_1046532;
 extern _QWORD qword_581450_9568;
@@ -495,7 +495,7 @@ void __cdecl sub_44D5C0(int a1, int a2) {
 	unsigned int v2; // eax
 
 	if (a1) {
-		v2 = (*(_DWORD*)(dword_587000_81128 + 4) >> 16) *
+		v2 = (*(_DWORD*)((_DWORD)dword_587000_81128 + 4) >> 16) *
 			 ((*getMemU16Ptr(0x5D4594, 830882) *
 			   ((a2 * (unsigned int)*getMemU16Ptr(0x5D4594, 830986)) >> 14)) >>
 			  14);

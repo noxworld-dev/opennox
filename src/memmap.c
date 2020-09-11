@@ -520,7 +520,7 @@ extern _DWORD dword_5d4594_1301832;
 extern int nox_pitch_3801808;
 extern _DWORD dword_5d4594_1550916;
 extern _DWORD dword_5d4594_2487540;
-extern _DWORD dword_587000_81128;
+extern void* dword_587000_81128;
 extern _DWORD nox_client_drawFrontWalls_80812;
 extern _DWORD dword_5d4594_2386572;
 extern _DWORD dword_5d4594_251700;
