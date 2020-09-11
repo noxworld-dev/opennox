@@ -80,7 +80,7 @@ extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_815708;
 extern _DWORD dword_5d4594_816460;
 extern _DWORD nox_client_drawFrontWalls_80812;
-extern _DWORD dword_587000_81128;
+extern void* dword_587000_81128;
 extern _DWORD dword_5d4594_2649712;
 extern _DWORD nox_client_translucentFrontWalls_805844;
 extern _QWORD qword_5d4594_815724;
@@ -1212,12 +1212,12 @@ void sub_43D2D0() {
 		if (dword_5d4594_816364) {
 			sub_486520(getMemUintPtr(0x5D4594, 816244));
 			sub_486520(getMemUintPtr(0x5D4594, 816148));
-			v1 = *(_DWORD*)(dword_587000_81128 + 4) >> 16;
+			v1 = *(_DWORD*)((_DWORD)dword_587000_81128 + 4) >> 16;
 			if (v1 == *getMemU32Ptr(0x587000, 93168)) {
 				if ((unsigned __int64)(sub_416BB0() - *getMemU64Ptr(0x5D4594, 816380)) > 0x32) {
 					**(_DWORD**)&dword_587000_81128 &= 0xFFFFFFFD;
-					*(_DWORD*)(dword_587000_81128 + 32) &= 0xFFFFFFFD;
-					*(_DWORD*)(dword_587000_81128 + 64) &= 0xFFFFFFFD;
+					*(_DWORD*)((_DWORD)dword_587000_81128 + 32) &= 0xFFFFFFFD;
+					*(_DWORD*)((_DWORD)dword_587000_81128 + 64) &= 0xFFFFFFFD;
 				}
 			} else {
 				*getMemU64Ptr(0x5D4594, 816380) = sub_416BB0();
@@ -1236,7 +1236,7 @@ void __cdecl sub_43D3C0(int a1, int a2) {
 	unsigned int v2; // eax
 
 	if (a1) {
-		v2 = (*(_DWORD*)(dword_587000_81128 + 4) >> 16) *
+		v2 = (*(_DWORD*)((_DWORD)dword_587000_81128 + 4) >> 16) *
 			 ((*getMemU16Ptr(0x5D4594, 816154) *
 			   ((a2 * (unsigned int)*getMemU16Ptr(0x5D4594, 816250)) >> 14)) >>
 			  14);
