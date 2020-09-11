@@ -91,7 +91,7 @@ extern _DWORD dword_587000_87408;
 extern _DWORD dword_5d4594_3798812;
 extern _DWORD dword_5d4594_3798800;
 extern _DWORD nox_client_drawFrontWalls_80812;
-extern _DWORD dword_587000_81128;
+extern void* dword_587000_81128;
 extern void* dword_587000_122852;
 extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_528252;
