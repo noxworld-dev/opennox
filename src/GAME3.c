@@ -96,7 +96,7 @@ extern _DWORD dword_5d4594_1309780;
 extern _DWORD dword_5d4594_1307768;
 extern _DWORD dword_5d4594_1313792;
 extern _DWORD dword_5d4594_1307744;
-extern _DWORD dword_587000_122852;
+extern void* dword_587000_122852;
 extern _DWORD dword_5d4594_1309828;
 extern _DWORD dword_5d4594_1309836;
 extern _DWORD dword_5d4594_1312460;
@@ -4348,7 +4348,7 @@ int sub_4AA6B0() {
 				v7 = sub_42F970("OptionsVolumeSlider");
 				sub_4B5700((int)v6, 0, 0, (int)v7, (int)v17, (int)v20);
 				nox_window_call_field_94((int)v6, 16395, 0, 0x4000);
-				nox_window_call_field_94((int)v6, 16394, *(_DWORD*)(dword_587000_122852 + 4) >> 16, 0);
+				nox_window_call_field_94((int)v6, 16394, *(_DWORD*)((_DWORD)dword_587000_122852 + 4) >> 16, 0);
 				dword_5d4594_1309732 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 362);
 				v8 = sub_44D990();
 				v9 = *(_DWORD*)(dword_5d4594_1309732 + 36);
@@ -6109,7 +6109,7 @@ int sub_4ADAD0() {
 			v7 = sub_42F970("OptionsVolumeSlider");
 			sub_4B5700((int)v6, 0, 0, (int)v7, (int)v26, (int)v29);
 			nox_window_call_field_94((int)v6, 16395, 0, 0x4000);
-			nox_window_call_field_94((int)v6, 16394, *(_DWORD*)(dword_587000_122852 + 4) >> 16, 0);
+			nox_window_call_field_94((int)v6, 16394, *(_DWORD*)((_DWORD)dword_587000_122852 + 4) >> 16, 0);
 			dword_5d4594_1309836 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 362);
 			v8 = sub_44D990();
 			v9 = *(_DWORD*)(dword_5d4594_1309836 + 36);

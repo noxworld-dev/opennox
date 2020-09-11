@@ -42,7 +42,7 @@ extern void* dword_587000_133480;
 extern void* dword_587000_155144;
 extern void* dword_587000_127004;
 extern void* dword_587000_93164;
-extern _DWORD dword_587000_122852;
+extern void* dword_587000_122852;
 extern _DWORD dword_587000_81128;
 extern _DWORD dword_587000_66120;
 
