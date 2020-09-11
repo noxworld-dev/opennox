@@ -32,7 +32,7 @@ extern _DWORD dword_587000_60068;
 extern _DWORD dword_5d4594_528264;
 extern _DWORD dword_5d4594_741296;
 extern _DWORD dword_5d4594_599496;
-extern _DWORD dword_587000_66120;
+extern void* dword_587000_66120;
 extern _DWORD dword_5d4594_739996;
 extern _DWORD dword_5d4594_528260;
 extern _DWORD dword_5d4594_741260;
