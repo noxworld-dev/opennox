@@ -1,7 +1,7 @@
 #include "../../client/gui/guimsg.h"
 
 #include "../../proto.h"
-extern _DWORD dword_587000_66120;
+extern void* dword_587000_66120;
 
 //----- (00424850) --------------------------------------------------------
 BOOL __cdecl sub_424850(void* a1) { return a1 == *(void**)&dword_587000_66120; }
