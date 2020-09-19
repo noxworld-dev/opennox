@@ -156,7 +156,6 @@ nox_window* nox_win_unk2 = 0;
 nox_window* nox_win_unk3 = 0;
 nox_window* nox_win_unk4 = 0;
 nox_window* nox_win_unk5 = 0;
-nox_window* nox_win_cur_weapon = 0;
 
 const int nox_drawable_lists_cap = 512;
 
@@ -6944,9 +6943,9 @@ int __cdecl sub_470E90(int a1, int a2) {
 
 //----- (00470EE0) --------------------------------------------------------
 void __cdecl nox_win_init_cur_weapon(nox_window* a1, int a2, int a3, int w, int h) {
-	nox_win_cur_weapon = nox_window_new(a1, 0x408, a2, a3, w, h, 0);
-	nox_window_set_all_funcs(nox_win_cur_weapon, sub_470E90, sub_470F40_draw, sub_4710B0);
-	nox_win_cur_weapon->field_8 = 4;
+	*getMemU32Ptr(0x5D4594, 1093036 + 20*4) = nox_window_new(a1, 0x408, a2, a3, w, h, 0);
+	nox_window_set_all_funcs(*getMemU32Ptr(0x5D4594, 1093036 + 20*4), sub_470E90, sub_470F40_draw, sub_4710B0);
+	((nox_window*)*getMemU32Ptr(0x5D4594, 1093036 + 20*4))->field_8 = 4;
 }
 
 //----- (00470F40) --------------------------------------------------------

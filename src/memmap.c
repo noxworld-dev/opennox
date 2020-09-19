@@ -79,7 +79,6 @@ extern nox_window* nox_win_unk2;
 extern nox_window* nox_win_unk3;
 extern nox_window* nox_win_unk4;
 extern nox_window* nox_win_unk5;
-extern nox_window* nox_win_cur_weapon;
 
 extern int nox_cheats_disabled;
 
@@ -2657,7 +2656,6 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1064904, (void*)&nox_win_unk3, sizeof(nox_win_unk3), 1},
 	{0x5D4594 + 1064908, (void*)&nox_win_unk2, sizeof(nox_win_unk2), 1},
 	{0x5D4594 + 1064884, (void*)&nox_alloc_window, sizeof(nox_alloc_window), 1},
-	{0x5D4594 + 1093116, (void*)&nox_win_cur_weapon, sizeof(nox_win_cur_weapon), 1}, // FIXME: BAD, see 1093036
 	{0x5D4594 + 1193492, (void*)&nox_backbuffer1_pix, sizeof(nox_backbuffer1_pix), 1},
 	{0x5D4594 + 1096464, (void*)&nox_drawable_list_1, sizeof(nox_drawable_list_1), 1},
 	{0x5D4594 + 1096468, (void*)&nox_drawable_list_1_size, sizeof(nox_drawable_list_1_size), 1},
