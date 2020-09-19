@@ -5869,7 +5869,7 @@ int __cdecl sub_55CDB0(int a1, char a2) {
 					case '0LPC':
 						if (a2 & 1)
 							goto LABEL_152;
-						v26 = sub_55F570(v2, *(unsigned int*)getMemAt(0x5D4594, 2516196));
+						v26 = sub_55F570(v2, *getMemUintPtr(0x5D4594, 2516196));
 						goto LABEL_59;
 					case '0ANS':
 						if (a2 & 2)
@@ -5880,7 +5880,7 @@ int __cdecl sub_55CDB0(int a1, char a2) {
 						if (sub_5615C0(v2) == -11)
 							goto LABEL_155;
 						*(_DWORD*)(v2 + 336) &= 0xFFFFFFFE;
-						v24 = sub_55F780(v2, *(unsigned int*)getMemAt(0x5D4594, 2516196));
+						v24 = sub_55F780(v2, *getMemUintPtr(0x5D4594, 2516196));
 						goto LABEL_50;
 					case '0DNS':
 						if (a2 & 2)
@@ -5894,7 +5894,7 @@ int __cdecl sub_55CDB0(int a1, char a2) {
 							goto LABEL_156;
 						LOBYTE(v23) = v23 & 0xFE;
 						*(_DWORD*)(v2 + 336) = v23;
-						v24 = sub_55F780(v2, *(unsigned int*)getMemAt(0x5D4594, 2516196));
+						v24 = sub_55F780(v2, *getMemUintPtr(0x5D4594, 2516196));
 						goto LABEL_50;
 					}
 					if (v20 != '0FBC')

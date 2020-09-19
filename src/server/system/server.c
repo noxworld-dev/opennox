@@ -800,7 +800,7 @@ int sub_4DCF20() {
 //----- (004DEB30) --------------------------------------------------------
 void sub_4DEB30() {
 	if (!(nox_common_getEngineFlag(NOX_ENGINE_FLAG_23)))
-		sub_552A80(*(unsigned int*)getMemAt(0x5D4594, 1563148), 1);
+		sub_552A80(*getMemUintPtr(0x5D4594, 1563148), 1);
 }
 
 //----- (004DEB50) --------------------------------------------------------
@@ -2198,7 +2198,7 @@ void sub_5524C0() {
 
 	dword_5d4594_2495920 = nox_get_ticks();
 	v0 = 0;
-	v1 = (unsigned int*)getMemAt(0x5D4594, 3843788);
+	v1 = getMemUintPtr(0x5D4594, 3843788);
 	do {
 		unsigned int result = *v1;
 		if (*v1 && *(_DWORD*)(result + 152) == 1) {
@@ -2463,8 +2463,8 @@ int sub_4D1860_server() {
 				*v36 = v38;
 				v39 = strtok(0, " ");
 				v40 = atof(v39);
-				v62 = *(unsigned int*)getMemAt(0x5D4594, 2649704);
-				v36[2] = v40 * *getMemDoublePtr(0x581450, 10000) / (double)*(unsigned int*)getMemAt(0x5D4594, 2649704);
+				v62 = *getMemUintPtr(0x5D4594, 2649704);
+				v36[2] = v40 * *getMemDoublePtr(0x581450, 10000) / (double)*getMemUintPtr(0x5D4594, 2649704);
 			}
 		}
 	}

@@ -11,7 +11,7 @@ extern int nox_win_height;
 int sub_445650() {
 	unsigned short* v0; // eax
 
-	*(unsigned int*)getMemAt(0x5D4594, 825748) = sub_42F970("ChatIcon");
+	*getMemUintPtr(0x5D4594, 825748) = sub_42F970("ChatIcon");
 	*(unsigned int*)&dword_5d4594_825744 =
 		nox_window_new(0, 136, nox_win_width - 50, nox_win_height / 2 - 50, 50, 50, 0);
 	sub_46AE60(*(int*)&dword_5d4594_825744, *getMemIntPtr(0x5D4594, 825748));

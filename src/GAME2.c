@@ -480,8 +480,8 @@ void sub_44D3A0() {
 		default:
 			break;
 		}
-		sub_486520((unsigned int*)getMemAt(0x5D4594, 830980));
-		sub_486520((unsigned int*)getMemAt(0x5D4594, 830876));
+		sub_486520(getMemUintPtr(0x5D4594, 830980));
+		sub_486520(getMemUintPtr(0x5D4594, 830876));
 		if (dword_5d4594_831088 &&
 			(**(_BYTE**)&dword_587000_81128 & 2 || getMemByte(0x5D4594, 830876) & 2 || getMemByte(0x5D4594, 830980) & 2)) {
 			sub_44D5C0(*(int*)&dword_5d4594_831088, *getMemIntPtr(0x5D4594, 830860));
@@ -1967,7 +1967,7 @@ int sub_4519C0() {
 				sub_486350((int)getMemAt(0x5D4594, 1045228), 0x4000);
 			else
 				sub_486350((int)getMemAt(0x5D4594, 1045228), 0x190000u / v3);
-			result = sub_486520((unsigned int*)getMemAt(0x5D4594, 1045228));
+			result = sub_486520(getMemUintPtr(0x5D4594, 1045228));
 			v6 = *(unsigned __int8**)getMemAt(0x5D4594, 840612);
 			if (*(unsigned __int8**)getMemAt(0x5D4594, 840612) != getMemAt(0x5D4594, 840612)) {
 				do {

@@ -600,7 +600,7 @@ BOOL __cdecl sub_428810(int a1, int a2) {
 	BOOL v4;     // esi
 	char v6[72]; // [esp+8h] [ebp-48h]
 
-	v2 = sub_42ADA0(a1, a2, *getMemI16Ptr(0x5D4594, 741308), (unsigned int*)getMemAt(0x5D4594, 741312));
+	v2 = sub_42ADA0(a1, a2, *getMemI16Ptr(0x5D4594, 741308), getMemUintPtr(0x5D4594, 741312));
 	v3 = sub_42A8B0(v2, getMemIntPtr(0x5D4594, 741312));
 	free(v2);
 	v4 = 1;
@@ -617,7 +617,7 @@ BOOL __cdecl sub_428890(__int16* a1) {
 	BOOL v3;     // esi
 	char v5[72]; // [esp+8h] [ebp-48h]
 
-	v1 = sub_42B810(a1, (unsigned int*)getMemAt(0x5D4594, 741300));
+	v1 = sub_42B810(a1, getMemUintPtr(0x5D4594, 741300));
 	v2 = sub_42A8B0(v1, getMemIntPtr(0x5D4594, 741300));
 	free(v1);
 	v3 = 1;
