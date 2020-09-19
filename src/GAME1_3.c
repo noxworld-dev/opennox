@@ -790,7 +790,7 @@ int sub_43C650() {
 		*getMemU32Ptr(0x5D4594, 8 * *getMemU32Ptr(0x5D4594, 815756) + 815220) = v0;
 		*getMemU32Ptr(0x5D4594, 8 * v1 + 815224) = HIDWORD(v0);
 	}
-	*getMemU64Ptr(0x5D4594, 815756) = (__PAIR64__(*(unsigned int*)getMemAt(0x5D4594, 815760), v1) + 1) % 0x3C;
+	*getMemU64Ptr(0x5D4594, 815756) = (__PAIR64__(*getMemUintPtr(0x5D4594, 815760), v1) + 1) % 0x3C;
 	result = dword_5d4594_815748 + 1;
 	*getMemU64Ptr(0x5D4594, 815740) = v0;
 	++dword_5d4594_815748;
@@ -1210,8 +1210,8 @@ void sub_43D2D0() {
 
 	if (dword_5d4594_816340) {
 		if (dword_5d4594_816364) {
-			sub_486520((unsigned int*)getMemAt(0x5D4594, 816244));
-			sub_486520((unsigned int*)getMemAt(0x5D4594, 816148));
+			sub_486520(getMemUintPtr(0x5D4594, 816244));
+			sub_486520(getMemUintPtr(0x5D4594, 816148));
 			v1 = *(_DWORD*)(dword_587000_81128 + 4) >> 16;
 			if (v1 == *getMemU32Ptr(0x587000, 93168)) {
 				if ((unsigned __int64)(sub_416BB0() - *getMemU64Ptr(0x5D4594, 816380)) > 0x32) {

@@ -289,7 +289,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				break;
 			case 0x2E:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
-					sub_4160F0(0x15u, *(unsigned int*)getMemAt(0x5D4594, 2649704))) {
+					sub_4160F0(0x15u, *getMemUintPtr(0x5D4594, 2649704))) {
 					sub_4160D0(21);
 					sub_42E670(47, 0);
 				}
@@ -303,7 +303,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				break;
 			case 0x30:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
-					sub_4160F0(0x16u, *(unsigned int*)getMemAt(0x5D4594, 2649704))) {
+					sub_4160F0(0x16u, *getMemUintPtr(0x5D4594, 2649704))) {
 					sub_4160D0(22);
 					sub_42E670(49, 0);
 				}

@@ -664,9 +664,9 @@ UINT __cdecl sub_47D660(UINT uJoyID, int a2) {
 				sub_4517A0(v4, uJoyID);
 				result = 0;
 			} else {
-				v6 = *(unsigned int*)getMemAt(0x5D4594, 404 * uJoyID + 1189748);
+				v6 = *getMemUintPtr(0x5D4594, 404 * uJoyID + 1189748);
 				*getMemU32Ptr(0x5D4594, 48 * uJoyID + 1189636) =
-					(__int64)(200.0 / (double)*(unsigned int*)getMemAt(0x5D4594, 404 * uJoyID + 1189740) * 1000000.0);
+					(__int64)(200.0 / (double)*getMemUintPtr(0x5D4594, 404 * uJoyID + 1189740) * 1000000.0);
 				v5 = (__int64)(200.0 / (double)v6 * 1000000.0);
 				HIDWORD(v5) = *getMemU32Ptr(0x5D4594, 404 * uJoyID + 1189760);
 				*getMemU32Ptr(0x5D4594, 48 * uJoyID + 1189640) = v5;

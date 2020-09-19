@@ -6499,7 +6499,7 @@ int sub_5132E0() {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v1);
 		if (v3) {
 			v6[0] = v2;
-			v6[1] = (__int64)((double)*(unsigned int*)getMemAt(0x5D4594, 2649704) * v5);
+			v6[1] = (__int64)((double)*getMemUintPtr(0x5D4594, 2649704) * v5);
 			sub_513390(v3, v6);
 		}
 	}
@@ -6526,7 +6526,7 @@ int sub_5133B0() {
 	v2 = sub_424880(v7);
 	if (v2 != -1) {
 		v6[0] = v2;
-		v6[1] = (__int64)((double)*(unsigned int*)getMemAt(0x5D4594, 2649704) * v5);
+		v6[1] = (__int64)((double)*getMemUintPtr(0x5D4594, 2649704) * v5);
 		v3 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
 		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, sub_513390, (int)v6);
 	}
