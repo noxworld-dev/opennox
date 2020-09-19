@@ -8677,7 +8677,7 @@ int __cdecl sub_4EE2F0(int a1, int a2, int* a3) {
 	if (v3) {
 		v4 = *getMemU16Ptr(0x5D4594, 3815180);
 		v5 = getMemAt(0x5D4594, 3815180);
-		if (*(short*)getMemAt(0x5D4594, 3815180) != -1) {
+		if (*getMemI16Ptr(0x5D4594, 3815180) != -1) {
 			while (v4 != *(_WORD*)(a2 + 4)) {
 				v4 = *((_WORD*)v5 + 2);
 				v5 += 4;
@@ -12761,7 +12761,7 @@ int __cdecl sub_4F3D50(int a1, int a2, int a3) {
 	if (v3) {
 		v4 = *getMemU16Ptr(0x5D4594, 3815404);
 		v5 = getMemAt(0x5D4594, 3815404);
-		if (*(short*)getMemAt(0x5D4594, 3815404) != -1) {
+		if (*getMemI16Ptr(0x5D4594, 3815404) != -1) {
 			while (v4 != *(_WORD*)(a2 + 4)) {
 				v4 = *((_WORD*)v5 + 2);
 				v5 += 4;

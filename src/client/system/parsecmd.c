@@ -1758,7 +1758,7 @@ int __cdecl sub_443E90(int a1, char a2, wchar_t* a3) {
 	case 0:
 		if (nox_common_gameFlags_check_40A5C0(8) || nox_common_gameFlags_check_40A5C0(4096) || *(_BYTE*)(a1 + 3680) & 1)
 			goto LABEL_61;
-		v5 = *(short*)getMemAt(0x5D4594, 818228) == -4083 && *(short*)getMemAt(0x5D4594, 818230) == -3923 &&
+		v5 = *getMemI16Ptr(0x5D4594, 818228) == -4083 && *getMemI16Ptr(0x5D4594, 818230) == -3923 &&
 			 !*getMemU16Ptr(0x5D4594, 818232);
 		if (sub_4E6860(a1, v5, 0) != 1)
 			goto LABEL_61;
