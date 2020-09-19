@@ -679,7 +679,7 @@ _DWORD* __cdecl sub_48D5A0(int a1) {
 	_DWORD* result; // eax
 	_DWORD* v2;     // ebx
 
-	result = (_DWORD*)sub_48D4F0(*(unsigned __int16*)getMemAt(0x5D4594, 1197360), *(_WORD*)(a1 + 1));
+	result = (_DWORD*)sub_48D4F0(*getMemU16Ptr(0x5D4594, 1197360), *(_WORD*)(a1 + 1));
 	if (!result) {
 		result = (_DWORD*)sub_48D560(*(_WORD*)(a1 + 1));
 		if (!result) {
@@ -722,7 +722,7 @@ int sub_48D660() {
 	if (dword_5d4594_1197352) {
 		do {
 			LODWORD(v0) = v1[2];
-			if ((_DWORD)v0 != *(unsigned __int16*)getMemAt(0x5D4594, 1197360))
+			if ((_DWORD)v0 != *getMemU16Ptr(0x5D4594, 1197360))
 				break;
 			v2 = sub_4258A0(v1);
 			if (!v2) {

@@ -496,8 +496,8 @@ void __cdecl sub_44D5C0(int a1, int a2) {
 
 	if (a1) {
 		v2 = (*(_DWORD*)(dword_587000_81128 + 4) >> 16) *
-			 ((*(unsigned __int16*)getMemAt(0x5D4594, 830882) *
-			   ((a2 * (unsigned int)*(unsigned __int16*)getMemAt(0x5D4594, 830986)) >> 14)) >>
+			 ((*getMemU16Ptr(0x5D4594, 830882) *
+			   ((a2 * (unsigned int)*getMemU16Ptr(0x5D4594, 830986)) >> 14)) >>
 			  14);
 		*getMemU32Ptr(0x5D4594, 830876) &= 0xFFFFFFFD;
 		**(_DWORD**)&dword_587000_122852 &= 0xFFFFFFFD;

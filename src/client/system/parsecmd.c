@@ -397,7 +397,7 @@ int __cdecl nox_cmd_show_bindings(int a1, char a2) {
 }
 
 //----- (00409AC0) --------------------------------------------------------
-int nox_client_getBuildVersion_409AC0() { return *(unsigned __int16*)getMemAt(0x5D4594, 3480); }
+int nox_client_getBuildVersion_409AC0() { return *getMemU16Ptr(0x5D4594, 3480); }
 
 //----- (00441550) --------------------------------------------------------
 int __cdecl nox_cmd_show_game(int a1, char a2) {

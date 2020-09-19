@@ -119,7 +119,7 @@ int sub_46E870() {
 	v35 = nox_win_width;
 	v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 145964), 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1657);
 	sub_43F840(0, v6, &v41, &v44, v35);
-	sub_43F840(0, (unsigned __int16*)getMemAt(0x587000, 145972), &v42, &v43, nox_win_width);
+	sub_43F840(0, getMemU16Ptr(0x587000, 145972), &v42, &v43, nox_win_width);
 	v7 = v41;
 	if (v42 > v41) {
 		v7 = v42;

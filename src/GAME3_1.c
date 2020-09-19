@@ -5221,7 +5221,7 @@ int __cdecl sub_4C5060(_DWORD* a1) {
 		result = dword_5d4594_1321800;
 		v10 = 0;
 		if (dword_5d4594_1321800 > 0) {
-			v2 = (unsigned __int16*)getMemAt(0x5D4594, 1321540);
+			v2 = getMemU16Ptr(0x5D4594, 1321540);
 			do {
 				v3 = *a1 + *v2 - a1[4];
 				v4 = a1[1] + v2[1] - a1[5];
