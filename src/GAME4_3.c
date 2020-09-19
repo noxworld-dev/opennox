@@ -4534,7 +4534,7 @@ char* __cdecl sub_5361B0(char* a1, int a2) {
 		*(_DWORD*)(a2 + 112) = 100;
 		result = strtok(0, " ");
 		if (result) {
-			v4 = (double)*(unsigned int*)getMemAt(0x5D4594, 2649704);
+			v4 = (double)*getMemUintPtr(0x5D4594, 2649704);
 			*(_DWORD*)(a2 + 100) = (__int64)(v4 / atof(result));
 			result = strtok(0, " ");
 			if (result) {
@@ -4569,7 +4569,7 @@ char* __cdecl sub_536260(char* a1, int a2) {
 			*(_DWORD*)(a2 + 84) = 0;
 			result = strtok(0, " ");
 			if (result) {
-				v7 = (double)*(unsigned int*)getMemAt(0x5D4594, 2649704);
+				v7 = (double)*getMemUintPtr(0x5D4594, 2649704);
 				v8 = atof(result);
 				if (v8 == 0.0) {
 					*(_DWORD*)(a2 + 100) = 0;

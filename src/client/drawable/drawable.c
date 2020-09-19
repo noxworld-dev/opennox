@@ -162,8 +162,8 @@ nox_drawable* __cdecl nox_new_drawable_for_thing(int i) {
 	} else {
 		sub_45AB80(v1, 0);
 	}
-	v1->field_79 = *(unsigned int*)getMemAt(0x5D4594, 2598000);
-	v1->field_85 = *(unsigned int*)getMemAt(0x5D4594, 2598000);
+	v1->field_79 = *getMemUintPtr(0x5D4594, 2598000);
+	v1->field_85 = *getMemUintPtr(0x5D4594, 2598000);
 	nox_drawable_count++;
 	v1->field_120 = 0;
 	v1->field_121 = 0;

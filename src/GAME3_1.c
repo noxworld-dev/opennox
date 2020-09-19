@@ -4987,7 +4987,7 @@ LABEL_33:
 	if (*((_DWORD*)a2 + 120)) {
 		v60 = (unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *((_DWORD*)a2 + 85));
 		v36 = (double)v60;
-		v60 = *(unsigned int*)getMemAt(0x5D4594, 2649704);
+		v60 = *getMemUintPtr(0x5D4594, 2649704);
 		v37 = 1.0 - v36 / (double)*getMemIntPtr(0x5D4594, 2649704);
 		if (v37 < 0.0)
 			v37 = 0.001;

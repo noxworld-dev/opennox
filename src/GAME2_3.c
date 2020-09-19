@@ -1774,7 +1774,7 @@ int __cdecl sub_494A60(unsigned __int8* a1, int a2, _DWORD* a3) {
 		v4 = *(_WORD*)(a1 + 3);
 		v5 = a1 + 5;
 		v6 = *(unsigned __int16*)(a1 + 3);
-		v24 = sub_57B9A0((int)getMemAt(0x5D4594, 1198020), v3, v6, *(unsigned int*)getMemAt(0x5D4594, 2598000));
+		v24 = sub_57B9A0((int)getMemAt(0x5D4594, 1198020), v3, v6, *getMemUintPtr(0x5D4594, 2598000));
 		if (v24 != -1) {
 			sub_57BA10((int)getMemAt(0x5D4594, 8 * v24 + 1198020), v3, v6, -1);
 			v23[0] = -91;
@@ -1872,7 +1872,7 @@ unsigned __int8* __cdecl sub_494C30(unsigned __int8* a1, int a2, int* a3) {
 		v8 = *v7;
 		v9 = *v7;
 		v10 = v7 + 1;
-		v24 = sub_57B9A0((int)getMemAt(0x5D4594, 1198020), v6, v9, *(unsigned int*)getMemAt(0x5D4594, 2598000));
+		v24 = sub_57B9A0((int)getMemAt(0x5D4594, 1198020), v6, v9, *getMemUintPtr(0x5D4594, 2598000));
 		if (v24 != -1) {
 			sub_57BA10((int)getMemAt(0x5D4594, 8 * v24 + 1198020), v6, v9, *getMemU32Ptr(0x5D4594, 2598000) + 60);
 			v26[1] = v24;
@@ -7547,10 +7547,10 @@ int __cdecl sub_49DBB0(int a1, int a2, int a3, int a4) {
 				*(_DWORD*)(dword_5d4594_3804664 + 2 * (~HIDWORD(v8) & v8)) |
 				*(_DWORD*)(dword_5d4594_3804656 + 2 * (~HIDWORD(v7) & v7)) |
 				*(_DWORD*)(dword_5d4594_3804672 +
-						   2 * (~((__PAIR64__(*(unsigned int*)getMemAt(0x5D4594, 3804376),
+						   2 * (~((__PAIR64__(*getMemUintPtr(0x5D4594, 3804376),
 											  (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v6) >>
 												  getMemByte(0x5D4594, 3804376)) -
-								   __PAIR64__(*(unsigned int*)getMemAt(0x5D4594, 3804376),
+								   __PAIR64__(*getMemUintPtr(0x5D4594, 3804376),
 											  *(unsigned int*)&obj_5D4594_3800716.data[54])) >>
 								  32) &
 								(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v6) >> getMemByte(0x5D4594, 3804376)) -

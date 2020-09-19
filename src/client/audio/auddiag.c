@@ -20,7 +20,7 @@ int sub_44D810() {
 		*(unsigned int*)&dword_5d4594_830864 = 0;
 		*(unsigned int*)&dword_5d4594_830972 = 0;
 		*(unsigned int*)&dword_5d4594_830872 = 0;
-		*(unsigned int*)getMemAt(0x5D4594, 831080) = 0;
+		*getMemUintPtr(0x5D4594, 831080) = 0;
 		*(unsigned int*)&dword_5d4594_831084 = 0;
 		*(unsigned int*)&dword_5d4594_831076 = 1;
 		loadString_sub_40F1D0((char*)getMemAt(0x587000, 122920), &v1, "C:\\NoxPost\\src\\client\\Audio\\AudDiag.c", 279);

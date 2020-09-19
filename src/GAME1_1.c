@@ -5735,7 +5735,7 @@ unsigned int* __cdecl sub_420D40(int a1, int a2, unsigned int a3, int a4) {
 	if (a4)
 		sub_420C40(a3, a4);
 	v4 = a3 < *(int*)&dword_587000_60356;
-	result = (unsigned int*)getMemAt(0x5D4594, 16 * a3 + 535844);
+	result = getMemUintPtr(0x5D4594, 16 * a3 + 535844);
 	*result = a3;
 	if (!v4)
 		dword_587000_60356 = a3 + 1;
