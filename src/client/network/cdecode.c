@@ -2710,7 +2710,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 					HIDWORD(v5) = *(unsigned __int8*)(v3 + 15);
 					v3 += 2 * HIDWORD(v5) + 18;
 				} else {
-					sub_419900((int)v272, (int)v273, *(__int16*)getMemAt(0x5D4594, 2616328));
+					sub_419900((int)v272, (int)v273, *getMemI16Ptr(0x5D4594, 2616328));
 				LABEL_888:
 					HIDWORD(v5) = *(unsigned __int8*)(v3 + 15);
 					v3 += 2 * HIDWORD(v5) + 18;

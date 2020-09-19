@@ -10326,11 +10326,11 @@ int sub_4161E0() {
 		dword_5d4594_371692 = 1;
 	}
 	if (*getMemU16Ptr(0x5D4594, 371434) != sub_40A020(v4)) {
-		*getMemU16Ptr(0x5D4594, 371434) = sub_40A020(*(__int16*)getMemAt(0x5D4594, 371432));
+		*getMemU16Ptr(0x5D4594, 371434) = sub_40A020(*getMemI16Ptr(0x5D4594, 371432));
 		dword_5d4594_371692 = 1;
 	}
-	if (getMemByte(0x5D4594, 371436) != sub_40A180(*(__int16*)getMemAt(0x5D4594, 371432))) {
-		*getMemU8Ptr(0x5D4594, 371436) = sub_40A180(*(__int16*)getMemAt(0x5D4594, 371432));
+	if (getMemByte(0x5D4594, 371436) != sub_40A180(*getMemI16Ptr(0x5D4594, 371432))) {
+		*getMemU8Ptr(0x5D4594, 371436) = sub_40A180(*getMemI16Ptr(0x5D4594, 371432));
 		dword_5d4594_371692 = 1;
 	}
 	strncpy(v14, (const char*)getMemAt(0x5D4594, 371389), 0xFu);

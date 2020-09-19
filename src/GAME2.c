@@ -4474,7 +4474,7 @@ char __cdecl sub_456BB0(int a1) {
 		if (v1) {
 			if (sub_419130((int)v1)) {
 				if (!v2) {
-					sub_419960(a1, v3, *(__int16*)getMemAt(0x5D4594, 2616328));
+					sub_419960(a1, v3, *getMemI16Ptr(0x5D4594, 2616328));
 					LOBYTE(v1) = getMemByte(0x5D4594, 1045696) + 1;
 					++*getMemU32Ptr(0x5D4594, 1045696);
 					return (char)v1;
@@ -4499,7 +4499,7 @@ char __cdecl sub_456BB0(int a1) {
 					++*getMemU32Ptr(0x5D4594, 1045696);
 					return (char)v1;
 				}
-				LOBYTE(v1) = sub_419900(a1, v3, *(__int16*)getMemAt(0x5D4594, 2616328));
+				LOBYTE(v1) = sub_419900(a1, v3, *getMemI16Ptr(0x5D4594, 2616328));
 			}
 			++*getMemU32Ptr(0x5D4594, 1045696);
 			return (char)v1;
