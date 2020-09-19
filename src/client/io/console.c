@@ -55,8 +55,8 @@ void sub_4516C0(wchar_t* a1, ...) {
 		sub_451630();
 	sub_451610();
 	v1 = loadString_sub_40F1D0("FatalErrorHeader", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 314);
-	nox_swprintf((unsigned short*)getMemAt(0x5D4594, 833752), v1);
-	nox_vswprintf((unsigned short*)getMemAt(0x5D4594, 833778), a1, va);
+	nox_swprintf(getMemU16Ptr(0x5D4594, 833752), v1);
+	nox_vswprintf(getMemU16Ptr(0x5D4594, 833778), a1, va);
 	fprintf(nox_file_log, "%S", getMemAt(0x5D4594, 833752));
 	fflush(nox_file_log);
 	v3 = loadString_sub_40F1D0("FatalError", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 324);
