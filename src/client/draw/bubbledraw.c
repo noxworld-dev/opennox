@@ -24,11 +24,11 @@ int __cdecl nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	if (*(_BYTE*)(a2 + 441) == 3)
 		goto LABEL_29;
 	v2 = *(_DWORD*)(a2 + 356);
-	if (v2 && v2 <= *(int*)getMemAt(0x5D4594, 2598000)) {
+	if (v2 && v2 <= *getMemIntPtr(0x5D4594, 2598000)) {
 		*(_BYTE*)(a2 + 441) = 3;
 		*(_BYTE*)(a2 + 442) = 4;
 		*(_BYTE*)(a2 + 443) = 4;
-		sub_49B950((_DWORD*)a2, *(int*)getMemAt(0x5D4594, 2649704));
+		sub_49B950((_DWORD*)a2, *getMemIntPtr(0x5D4594, 2649704));
 	}
 	if (*(_BYTE*)(a2 + 441) == 3) {
 		LABEL_29:

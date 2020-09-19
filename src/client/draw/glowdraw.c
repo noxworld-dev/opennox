@@ -66,7 +66,7 @@ int __cdecl nox_thing_magic_sparkle_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
 	if (sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5)
-		result = sub_4B6770(a1, dr, *(int*)getMemAt(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
+		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
 	else
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
 	return result;
@@ -111,7 +111,7 @@ LABEL_7:
 	v15.field_0 = v7;
 	v15.field_4 = v8;
 	if (v7 - 10 >= v5 && v8 - 10 >= v6 && v7 + 10 < a1[2] && v8 + 10 < a1[3]) {
-		sub_4B6720(&v15, *(int*)getMemAt(0x5D4594, 1313560), 10, 4);
+		sub_4B6720(&v15, *getMemIntPtr(0x5D4594, 1313560), 10, 4);
 		v9 = *a1 + *(_DWORD*)(a2 + 32) - a1[4];
 		v10 = a1[1] + *(_DWORD*)(a2 + 36) - *(__int16*)(a2 + 104) - a1[5];
 		v11 = v15.field_0 - v9;
@@ -134,9 +134,9 @@ int __cdecl nox_thing_pixie_dust_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
 	if (sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5)
-		result = sub_4B6770(a1, dr, *(int*)getMemAt(0x5D4594, 2523948), *(int*)&dword_5d4594_1313564);
+		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313564);
 	else
-		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313564, *(int*)getMemAt(0x5D4594, 1313560));
+		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313564, *getMemIntPtr(0x5D4594, 1313560));
 	return result;
 }
 
@@ -149,7 +149,7 @@ int __cdecl nox_thing_blue_rain_spark_draw(_DWORD* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	result = sub_4B6970(a1, dr, *(int*)getMemAt(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
+	result = sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
 	if (result == 1 && *(_BYTE*)(a2 + 296) >= 5) {
 		v3 = *getMemU32Ptr(0x5D4594, 1313688);
 		if (!*getMemU32Ptr(0x5D4594, 1313688)) {
@@ -232,7 +232,7 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 		nox_client_drawLineFromPoints_49E4B0();
 		*(_WORD*)(a2 + 440) = *(_WORD*)(a2 + 104);
 		*(_WORD*)(a2 + 104) += *(char*)(a2 + 296);
-		nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 1313592));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 1313592));
 		sub_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(a2 + 442) / 3);
 		result = 1;
 	} else {
@@ -269,7 +269,7 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 
 //----- (004B6A60) --------------------------------------------------------
 int __cdecl nox_thing_red_spark_draw(_DWORD* a1, nox_drawable* dr) {
-	return sub_4B6970(a1, dr, *(int*)&dword_5d4594_1313532, *(int*)getMemAt(0x5D4594, 1313528));
+	return sub_4B6970(a1, dr, *(int*)&dword_5d4594_1313532, *getMemIntPtr(0x5D4594, 1313528));
 }
 
 //----- (004B6A80) --------------------------------------------------------
@@ -279,32 +279,32 @@ int __cdecl nox_thing_blue_spark_draw(_DWORD* a1, nox_drawable* dr) {
 
 //----- (004B6AA0) --------------------------------------------------------
 int __cdecl nox_thing_cyan_spark_draw(_DWORD* a1, nox_drawable* dr) {
-	return sub_4B6970(a1, dr, *(int*)getMemAt(0x5D4594, 1313548), *(int*)getMemAt(0x5D4594, 1313544));
+	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 1313548), *getMemIntPtr(0x5D4594, 1313544));
 }
 
 //----- (004B6AC0) --------------------------------------------------------
 int __cdecl nox_thing_green_spark_draw(_DWORD* a1, nox_drawable* dr) {
-	return sub_4B6970(a1, dr, *(int*)getMemAt(0x5D4594, 1313584), *(int*)getMemAt(0x5D4594, 1313580));
+	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 1313584), *getMemIntPtr(0x5D4594, 1313580));
 }
 
 //----- (004B6AE0) --------------------------------------------------------
 int __cdecl nox_thing_yellow_spark_draw(_DWORD* a1, nox_drawable* dr) {
-	return sub_4B6970(a1, dr, *(int*)&dword_5d4594_1313532, *(int*)getMemAt(0x5D4594, 1313576));
+	return sub_4B6970(a1, dr, *(int*)&dword_5d4594_1313532, *getMemIntPtr(0x5D4594, 1313576));
 }
 
 //----- (004B6E40) --------------------------------------------------------
 int __cdecl nox_thing_violet_spark_draw(_DWORD* a1, nox_drawable* dr) {
-	return sub_4B6970(a1, dr, *(int*)getMemAt(0x5D4594, 1313556), *(int*)getMemAt(0x5D4594, 1313552));
+	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 1313556), *getMemIntPtr(0x5D4594, 1313552));
 }
 
 //----- (004B6E60) --------------------------------------------------------
 int __cdecl nox_thing_death_ball_spark_draw(_DWORD* a1, nox_drawable* dr) {
-	return sub_4B6970(a1, dr, *(int*)getMemAt(0x5D4594, 1313572), *(int*)getMemAt(0x5D4594, 1313568));
+	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 1313572), *getMemIntPtr(0x5D4594, 1313568));
 }
 
 //----- (004B7040) --------------------------------------------------------
 int __cdecl nox_thing_white_spark_draw(_DWORD* a1, nox_drawable* dr) {
-	return sub_4B6970(a1, dr, *(int*)getMemAt(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
+	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
 }
 
 //----- (004AFE80) --------------------------------------------------------

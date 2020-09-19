@@ -1868,7 +1868,7 @@ void sub_51ADF0() {
 	v0 = *(_DWORD**)&dword_5d4594_2487236;
 	if (dword_5d4594_2487236) {
 		do {
-			if (*v0 > *(int*)getMemAt(0x5D4594, 2598000)) {
+			if (*v0 > *getMemIntPtr(0x5D4594, 2598000)) {
 				v0 = (_DWORD*)v0[6];
 			} else {
 				v1 = v0[1];
@@ -2203,7 +2203,7 @@ void sub_5524C0() {
 		unsigned int result = *v1;
 		if (*v1 && *(_DWORD*)(result + 152) == 1) {
 			_DWORD result = *(_DWORD*)(result + 160) + 300;
-			if (result < *(int*)getMemAt(0x5D4594, 2598000))
+			if (result < *getMemIntPtr(0x5D4594, 2598000))
 				result = sub_5545B0(v0);
 		}
 		++v1;

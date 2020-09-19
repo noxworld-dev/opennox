@@ -2597,7 +2597,7 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3) {
 			dword_5d4594_1193624 = a1;
 			sub_48A670(g_cursor_surf);
 			for (i = 0; i < 512; i += 4)
-				sub_49D1C0(*(_DWORD*)(i + dword_5d4594_1193704), *(int*)getMemAt(0x5D4594, 1193592), 128);
+				sub_49D1C0(*(_DWORD*)(i + dword_5d4594_1193704), *getMemIntPtr(0x5D4594, 1193592), 128);
 			a3 = 0;
 			a2 = 0;
 			if (sub_48C0C0(a1, &a2, &a3)) {
@@ -3166,7 +3166,7 @@ int __cdecl sub_4B0300(char* a1) {
 	int result; // eax
 
 	result = *getMemU32Ptr(0x5D4594, 1311928);
-	if (*(int*)getMemAt(0x5D4594, 1311928) < 2) {
+	if (*getMemIntPtr(0x5D4594, 1311928) < 2) {
 		strncpy((char*)getMemAt(0x5D4594, 260 * *getMemU32Ptr(0x5D4594, 1311928) + 1311940), a1, 0x104u);
 		result = ++*getMemU32Ptr(0x5D4594, 1311928);
 	}

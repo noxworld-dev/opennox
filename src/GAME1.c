@@ -406,7 +406,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	if (!result) {
 		return result;
 	}
-	sub_434350(*(int*)getMemAt(0x5D4594, 2650656));
+	sub_434350(*getMemIntPtr(0x5D4594, 2650656));
 	sub_440900();
 	result = nox_video_read_videobag(*(int*)&dword_5d4594_3804680);
 	if (!result) {
@@ -531,7 +531,7 @@ int __cdecl sub_408D40(FILE* f, int a2) {
 	if (a2 == -1)
 		sub_409580(0, 0);
 	else
-		sub_409580((int*)getMemAt(0x587000, 28 * a2 + 3744), 56);
+		sub_409580(getMemIntPtr(0x587000, 28 * a2 + 3744), 56);
 	return 1;
 }
 
@@ -928,7 +928,7 @@ void __cdecl sub_409580(int* a1, int a2) {
 	memcpy(getMemAt(0x5D4594, 2655724), getMemAt(0x581450, 1488), 0x1000u);
 	v3 = 0;
 	if (a1 && (v4 = a2) != 0) {
-		a1 = (int*)getMemAt(0x5D4594, 2659820);
+		a1 = getMemIntPtr(0x5D4594, 2659820);
 		a2 = 18;
 		do {
 			v5 = v3 % v4;
@@ -2474,7 +2474,7 @@ void sub_40B970() {
 							v4 = *(_DWORD*)(v2 + 12);
 							if (v4) {
 								v5 = *getMemU32Ptr(0x5D4594, 2598000);
-								if ((unsigned int)(v4 + 90) < *(int*)getMemAt(0x5D4594, 2598000)) {
+								if ((unsigned int)(v4 + 90) < *getMemIntPtr(0x5D4594, 2598000)) {
 									if (*(_WORD*)(v2 + 16) >= 20) {
 										if (*(_WORD*)(v1 + 6) == 2) {
 											LOBYTE(v5) = *(_BYTE*)(v1 + 4);
@@ -3542,17 +3542,17 @@ void sub_40D0F0() {
 	if (*getMemU32Ptr(0x5D4594, 10976)) {
 		if (dword_5d4594_10956) {
 			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & dword_5d4594_10956, (int)getMemAt(0x581450, 5704),
-					   *(int*)getMemAt(0x5D4594, 10968));
+					   *getMemIntPtr(0x5D4594, 10968));
 			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_10956 + 8))(dword_5d4594_10956);
 		}
 		if (dword_5d4594_4808) {
 			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & dword_5d4594_4808, (int)getMemAt(0x581450, 5672),
-					   *(int*)getMemAt(0x5D4594, 10964));
+					   *getMemIntPtr(0x5D4594, 10964));
 			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4808 + 8))(dword_5d4594_4808);
 		}
 		if (dword_5d4594_4668) {
 			sub_40E320(*(int(__stdcall****)(_DWORD, void*, int*)) & dword_5d4594_4668, (int)getMemAt(0x581450, 5640),
-					   *(int*)getMemAt(0x5D4594, 10960));
+					   *getMemIntPtr(0x5D4594, 10960));
 			(*(void(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 8))(dword_5d4594_4668);
 		}
 		v0 = getMemAt(0x5D4594, 4676);
@@ -3592,7 +3592,7 @@ void sub_40D0F0() {
 						v5 = 0;
 						do
 							HeapDestroy(*(HANDLE*)(*getMemU32Ptr(0x5D4594, 4796) + 4 * v5++));
-						while (v5 <= *(int*)getMemAt(0x5D4594, 4792));
+						while (v5 <= *getMemIntPtr(0x5D4594, 4792));
 					}
 					LOBYTE(v0) = HeapDestroy(*(HANDLE*)getMemAt(0x5D4594, 4700));
 				}
@@ -4842,7 +4842,7 @@ BOOL __cdecl sub_40EB60(int a1, int a2, int a3) {
 	int v4;      // edi
 	BOOL result; // eax
 
-	v3 = (int*)getMemAt(0x5D4594, 4 * (a1 + 32 * a2) + 210036);
+	v3 = getMemIntPtr(0x5D4594, 4 * (a1 + 32 * a2) + 210036);
 	v4 = sub_420BD0(*v3);
 	if ((unsigned int)(a3 + v4 + sub_4DFB20()) <= 0x7F0)
 		result = sub_420BC0((FILE*)*v3) < 512;
@@ -7193,7 +7193,7 @@ BOOL __cdecl sub_411A90(float2* a1) {
 	const char* v2; // eax
 	int v3;         // eax
 
-	if (*(int*)getMemAt(0x587000, 26520) == -1) {
+	if (*getMemIntPtr(0x587000, 26520) == -1) {
 		v1 = 0;
 		v2 = (const char*)getMemAt(0x5D4594, 2682188);
 		do {
@@ -10178,7 +10178,7 @@ int __cdecl nox_common_randomInt_415FA0(int a1, int a2) {
 	result = a2;
 	v3 = *getMemU32Ptr(0x5D4594, 371260);
 	if (a2 - a1 != -1) {
-		if (++*(int*)getMemAt(0x5D4594, 371260) >= 4096)
+		if (++*getMemIntPtr(0x5D4594, 371260) >= 4096)
 			*getMemU32Ptr(0x5D4594, 371260) = 0;
 		result = a1 + *getMemU32Ptr(0x587000, 4 * v3 + 37892) % (a2 - a1 + 1);
 	}
@@ -10192,7 +10192,7 @@ int __cdecl sub_415FF0(int a1, int a2, const char* a3, int a4) {
 	v4 = (*(int*)&dword_5d4594_371264)++;
 	if (*(int*)&dword_5d4594_371264 >= 4096)
 		*(int*)&dword_5d4594_371264 = 0;
-	return a1 + *(int*)getMemAt(0x587000, 4 * v4 + 37892) % (a2 - a1 + 1);
+	return a1 + *getMemIntPtr(0x587000, 4 * v4 + 37892) % (a2 - a1 + 1);
 }
 
 //----- (00416030) --------------------------------------------------------
@@ -10201,12 +10201,12 @@ double __cdecl sub_416030(float a1, float a2) {
 	int v3;    // edx
 
 	v2 = a2 - a1;
-	v3 = *(int*)getMemAt(0x5D4594, 371260);
+	v3 = *getMemIntPtr(0x5D4594, 371260);
 	if (v2 == 0.0)
 		return a2;
-	if (++*(int*)getMemAt(0x5D4594, 371260) >= 4096)
-		*(int*)getMemAt(0x5D4594, 371260) = 0;
-	return v2 * ((double)*(int*)getMemAt(0x587000, 4 * v3 + 37892) * 0.000030518509) + a1;
+	if (++*getMemIntPtr(0x5D4594, 371260) >= 4096)
+		*getMemIntPtr(0x5D4594, 371260) = 0;
+	return v2 * ((double)*getMemIntPtr(0x587000, 4 * v3 + 37892) * 0.000030518509) + a1;
 }
 
 //----- (00416090) --------------------------------------------------------
@@ -10216,7 +10216,7 @@ double __cdecl sub_416090(float a1, float a2) {
 	v2 = (dword_5d4594_371264)++;
 	if (*(int*)&dword_5d4594_371264 >= 4096)
 		dword_5d4594_371264 = 0;
-	return (a2 - a1) * ((double)*(int*)getMemAt(0x587000, 4 * v2 + 37892) * 0.000030518509) + a1;
+	return (a2 - a1) * ((double)*getMemIntPtr(0x587000, 4 * v2 + 37892) * 0.000030518509) + a1;
 }
 
 //----- (004160D0) --------------------------------------------------------
@@ -10582,13 +10582,13 @@ int* __cdecl sub_4168A0(wchar_t* a1) {
 }
 
 //----- (004168E0) --------------------------------------------------------
-int* sub_4168E0() { return sub_425890((int*)getMemAt(0x5D4594, 371364)); }
+int* sub_4168E0() { return sub_425890(getMemIntPtr(0x5D4594, 371364)); }
 
 //----- (004168F0) --------------------------------------------------------
 int* __cdecl sub_4168F0(int* a1) { return sub_4258A0(a1); }
 
 //----- (00416900) --------------------------------------------------------
-int* sub_416900() { return sub_425890((int*)getMemAt(0x5D4594, 371500)); }
+int* sub_416900() { return sub_425890(getMemIntPtr(0x5D4594, 371500)); }
 
 //----- (00416910) --------------------------------------------------------
 int* __cdecl sub_416910(int* a1) { return sub_4258A0(a1); }

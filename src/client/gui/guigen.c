@@ -43,8 +43,8 @@ __int16 __cdecl sub_4A9D00(unsigned __int8* a1) {
 	sub_43F840(0, *(unsigned __int16**)getMemAt(0x5D4594, 1309660), (int*)&a1, 0, 0);
 	v6 = nox_win_width - (_DWORD)a1;
 	v7 = nox_win_height / 2 - (2 * sub_43F320(0) + 70);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
-	sub_4343E0(*(int*)getMemAt(0x5D4594, 2614248));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
+	sub_4343E0(*getMemIntPtr(0x5D4594, 2614248));
 	sub_43F730(0, *(__int16**)getMemAt(0x5D4594, 1309660), v6 / 2, v7);
 	if (++*getMemU32Ptr(0x5D4594, 1309672) >= 32)
 		*getMemU32Ptr(0x5D4594, 1309672) = 0;

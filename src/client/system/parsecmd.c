@@ -627,7 +627,7 @@ int nox_cmd_set_obs() {
 	v0 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 103680), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2440);
 	sub_450C00(6u, v0);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
-		v2 = sub_417040(*(int*)getMemAt(0x5D4594, 2616328));
+		v2 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
 		sub_443E90((int)v2, 0, *(wchar_t**)&dword_5d4594_823700);
 	} else {
 		sub_440950(0, *(wchar_t**)&dword_5d4594_823700);
@@ -1923,7 +1923,7 @@ int sub_444570() {
 	int result;  // eax
 	char v3[80]; // [esp+4h] [ebp-50h]
 
-	v0 = (int*)getMemAt(0x587000, 94504);
+	v0 = getMemIntPtr(0x587000, 94504);
 	do {
 		nox_sprintf(v3, "keybind:%S", *v0);
 		v1 = loadString_sub_40F1D0(v3, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 874);
@@ -1944,7 +1944,7 @@ int sub_4444F0() {
 	char v3[80]; // [esp+4h] [ebp-50h]
 
 	sub_444560();
-	v0 = (int*)getMemAt(0x587000, 94468);
+	v0 = getMemIntPtr(0x587000, 94468);
 	do {
 		nox_sprintf(v3, "cmd_token:%S", *v0);
 		v1 = loadString_sub_40F1D0(v3, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4476);
@@ -1952,7 +1952,7 @@ int sub_4444F0() {
 		++v0;
 	} while ((int)v0 < (int)getMemAt(0x587000, 94500));
 	dword_5d4594_823696 = 0;
-	sub_444440((int*)getMemAt(0x587000, 97368));
+	sub_444440(getMemIntPtr(0x587000, 97368));
 	return sub_444570();
 }
 
@@ -2232,7 +2232,7 @@ int __cdecl nox_cmd_cheat_goto(int a1, unsigned __int8 a2, int a3) {
 	if (nox_common_gameFlags_check_40A5C0(0x2000))
 		return 1;
 	if (a2 >= 4u) {
-		v7 = sub_417040(*(int*)getMemAt(0x5D4594, 2616328));
+		v7 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
 		v8 = v7;
 		if (!v7 || !*((_DWORD*)v7 + 514))
 			return 0;
@@ -2399,7 +2399,7 @@ int __cdecl nox_cmd_watch(int a1, unsigned __int8 a2, int a3) {
 	if (result) {
 		nox_swprintf(v5, L"%S", result);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			v4 = sub_417040(*(int*)getMemAt(0x5D4594, 2616328));
+			v4 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
 			if (a2 <= 1u)
 				sub_443E90((int)v4, 4, (wchar_t*)getMemAt(0x5D4594, 823768));
 			else

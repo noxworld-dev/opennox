@@ -28,7 +28,7 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 	int v20;             // [esp+20h] [ebp+4h]
 
 	result = *getMemU32Ptr(0x5D4594, 1304308);
-	if (*(int*)getMemAt(0x5D4594, 1304308) < 96) {
+	if (*getMemIntPtr(0x5D4594, 1304308) < 96) {
 		if (!*getMemU32Ptr(0x5D4594, 1304316)) {
 			*getMemU32Ptr(0x5D4594, 1304316) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163612));
 			*getMemU32Ptr(0x5D4594, 1304320) = sub_44CFC0((CHAR*)getMemAt(0x587000, 163632));
@@ -64,7 +64,7 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 			if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 140) < 50) {
 				v15 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 143);
 				v10 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 142);
-				sub_499490(*(int*)getMemAt(0x5D4594, 1304336), v3, v10, v15, v18, 0);
+				sub_499490(*getMemIntPtr(0x5D4594, 1304336), v3, v10, v15, v18, 0);
 			}
 			goto LABEL_17;
 		case 0x90u:
@@ -73,7 +73,7 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 			if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 104) < 50) {
 				v12 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 107);
 				v6 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 106);
-				sub_499490(*(int*)getMemAt(0x5D4594, 1304344), v3, v6, v12, v16, 0);
+				sub_499490(*getMemIntPtr(0x5D4594, 1304344), v3, v6, v12, v16, 0);
 			}
 			v7 = *(_DWORD*)v3;
 			*(_DWORD*)v19 = *(_DWORD*)(v2 + 5);
@@ -81,7 +81,7 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 			if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 112) < 50) {
 				v13 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 115);
 				v8 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 114);
-				sub_499490(*(int*)getMemAt(0x5D4594, 1304344), v19, v8, v13, v16, 0);
+				sub_499490(*getMemIntPtr(0x5D4594, 1304344), v19, v8, v13, v16, 0);
 			}
 			goto LABEL_17;
 		case 0x91u:
@@ -90,7 +90,7 @@ int __cdecl sub_49BDD0(unsigned __int8* a1) {
 			if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 126) < 50) {
 				v14 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 129);
 				v9 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 128);
-				sub_499490(*(int*)getMemAt(0x5D4594, 1304340), v3, v9, v14, v17, 0);
+				sub_499490(*getMemIntPtr(0x5D4594, 1304340), v3, v9, v14, v17, 0);
 			}
 		LABEL_17:
 			result = sub_45A360_drawable(v20, v4, v5);

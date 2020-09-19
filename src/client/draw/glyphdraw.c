@@ -26,9 +26,9 @@ int __cdecl nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 		sub_434600(0);
 		return v7;
 	}
-	if (sub_4356C0(*(int*)getMemAt(0x5D4594, 2614252), 21)) {
+	if (sub_4356C0(*getMemIntPtr(0x5D4594, 2614252), 21)) {
 		sub_434600(1);
-		sub_433E40(*(int*)getMemAt(0x5D4594, 2618904));
+		sub_433E40(*getMemIntPtr(0x5D4594, 2618904));
 		v3 = nox_backbuffer_depth >= 16 ? -1 : -128;
 		LABEL_9:
 		LOBYTE(a2) = v3;

@@ -135,7 +135,7 @@ wchar_t* __cdecl sub_478BC0(int* a1) {
 	v1 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3806);
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1098456, *a1, a1[1]);
 	result = *(wchar_t**)&dword_5d4594_1098600;
 	if (dword_5d4594_1098600 ||
@@ -175,7 +175,7 @@ int __cdecl sub_478FD0(const wchar_t* a1, char* a2, int a3) {
 	}
 	sub_4790F0(a3);
 	if (*getMemU32Ptr(0x5D4594, 1098608))
-		sub_44D900(*(int*)getMemAt(0x5D4594, 1098608), 100);
+		sub_44D900(*getMemIntPtr(0x5D4594, 1098608), 100);
 	dword_5d4594_1107036 = 0;
 	return nox_window_call_field_94(*(int*)&dword_5d4594_1098580, 16394, *(int*)&dword_5d4594_1098592, 0);
 }

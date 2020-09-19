@@ -42,9 +42,9 @@ int sub_417E10() {
 	v0 = sub_418AB0(1);
 	if (!v0)
 		v0 = sub_4186D0(1);
-	v1 = sub_418C80(*(int*)getMemAt(0x5D4594, 2616328));
+	v1 = sub_418C80(*getMemIntPtr(0x5D4594, 2616328));
 	if (v1)
-		sub_4191D0(v0[57], (int)v1, 0, *(int*)getMemAt(0x5D4594, 2616328), 0);
+		sub_4191D0(v0[57], (int)v1, 0, *getMemIntPtr(0x5D4594, 2616328), 0);
 	if (v0) {
 		v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55164), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 405);
 		sub_418800((wchar_t*)v0, v2, 0);

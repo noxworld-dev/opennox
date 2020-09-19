@@ -29,7 +29,7 @@ int __cdecl sub_48C9F0(int* a1) {
 int sub_48C980() {
 	*getMemU32Ptr(0x5D4594, 1193716) = sub_42F970("ObserverIcon");
 	dword_5d4594_1193712 = nox_window_new(0, 136, nox_win_width - 50, nox_win_height / 2 - 100, 50, 50, 0);
-	sub_46AE60(*(int*)&dword_5d4594_1193712, *(int*)getMemAt(0x5D4594, 1193716));
+	sub_46AE60(*(int*)&dword_5d4594_1193712, *getMemIntPtr(0x5D4594, 1193716));
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1193712, 0, sub_48C9F0, 0);
 	return 1;
 }

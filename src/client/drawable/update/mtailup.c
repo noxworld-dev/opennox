@@ -33,7 +33,7 @@ void __cdecl sub_4CDD80(int a1, _DWORD* a2) {
 		sub_45A110_drawable(v5);
 		a2[108] = a2[3];
 		a2[109] = a2[4];
-		sub_49B950(v5, *(int*)getMemAt(0x5D4594, 2649704));
+		sub_49B950(v5, *getMemIntPtr(0x5D4594, 2649704));
 	}
 	v13 = a2[3] - a2[8];
 	v14 = a2[4] - a2[9];
@@ -45,7 +45,7 @@ void __cdecl sub_4CDD80(int a1, _DWORD* a2) {
 	do {
 		v8 = v2[8] + v7 / 4 + sub_415FF0(-8, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 66);
 		v9 = sub_415FF0(-8, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 68);
-		v10 = sub_45A360_drawable(*(int*)getMemAt(0x5D4594, 1523004), v8, v2[9] + v6 / 4 + v9);
+		v10 = sub_45A360_drawable(*getMemIntPtr(0x5D4594, 1523004), v8, v2[9] + v6 / 4 + v9);
 		v11 = v10;
 		if (v10) {
 			*(_DWORD*)(v10 + 300) = nox_thing_magic_sparkle_draw;
