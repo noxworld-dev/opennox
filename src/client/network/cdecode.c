@@ -476,7 +476,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				*getMemU32Ptr(0x5D4594, 2598000) = *(_DWORD*)(v3 + 1);
 				*getMemU32Ptr(0x5D4594, 1200800) = *getMemU32Ptr(0x5D4594, 2598000);
 				v364 = *getMemU32Ptr(0x5D4594, 2598000);
-				*getMemU32Ptr(0x5D4594, 1200808) = *(unsigned __int16*)getMemAt(0x5D4594, 2598000) >> 14;
+				*getMemU32Ptr(0x5D4594, 1200808) = *getMemU16Ptr(0x5D4594, 2598000) >> 14;
 				if (*getMemU32Ptr(0x5D4594, 2618908))
 					sub_417530(*(int*)getMemAt(0x5D4594, 2618908), 64);
 				sub_43C650();

@@ -13402,7 +13402,7 @@ int __cdecl sub_544070(int a1) {
 int __cdecl sub_5440A0(int a1) {
 	if (!dword_5d4594_2489436)
 		return 1;
-	if (*(int*)&dword_5d4594_3835356 == -1 || a1 < 0 || a1 >= *(unsigned __int16*)getMemAt(0x5D4594, 60 * a1 + 2678392))
+	if (*(int*)&dword_5d4594_3835356 == -1 || a1 < 0 || a1 >= *getMemU16Ptr(0x5D4594, 60 * a1 + 2678392))
 		return 0;
 	dword_5d4594_3835360 = a1;
 	return 1;

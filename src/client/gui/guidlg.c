@@ -135,7 +135,7 @@ wchar_t* __cdecl sub_47A020(char* a1) {
 					v7 = v6 - 1;
 					nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 1115324), v3, v6);
 					*getMemU16Ptr(0x5D4594, 2 * v6 + 1115324) = 0;
-					sub_43F840(*(_DWORD*)(v2 + 236), (unsigned __int16*)getMemAt(0x5D4594, 1115324), (int*)&a1, 0, 0);
+					sub_43F840(*(_DWORD*)(v2 + 236), getMemU16Ptr(0x5D4594, 1115324), (int*)&a1, 0, 0);
 					if ((int)a1 <= v9)
 						goto LABEL_16;
 				}
