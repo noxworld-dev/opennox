@@ -65,14 +65,14 @@ int __cdecl nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					v6 = 0;
 					do {
 						v7 = v6 + 1;
-						sub_4341D0(v6 + 1, *(int*)getMemAt(0x5D4594, 2523948));
+						sub_4341D0(v6 + 1, *getMemIntPtr(0x5D4594, 2523948));
 						v6 = v7;
 					} while (v7 < 6);
 				} else {
 					v8 = 0;
 					do {
 						v9 = v8 + 1;
-						sub_4341D0(v8 + 1, *(int*)getMemAt(0x5D4594, 2650684));
+						sub_4341D0(v8 + 1, *getMemIntPtr(0x5D4594, 2650684));
 						v8 = v9;
 					} while (v9 < 6);
 				}
@@ -80,7 +80,7 @@ int __cdecl nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 				v10 = 0;
 				do {
 					v11 = v10 + 1;
-					sub_4341D0(v10 + 1, *(int*)getMemAt(0x5D4594, 2650684));
+					sub_4341D0(v10 + 1, *getMemIntPtr(0x5D4594, 2650684));
 					v10 = v11;
 				} while (v11 < 6);
 			} else if (v5[328] == 1) {
@@ -159,7 +159,7 @@ int __cdecl nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					sub_4BC080(v21, v4, (unsigned __int16)v33, (unsigned __int16)a1, a2);
 				}
 				for (i = 0; i < 6; ++i)
-					sub_4341D0(i, *(int*)getMemAt(0x5D4594, 2523948));
+					sub_4341D0(i, *getMemIntPtr(0x5D4594, 2523948));
 			}
 		}
 	}

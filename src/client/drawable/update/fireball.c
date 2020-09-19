@@ -35,7 +35,7 @@ void __cdecl sub_4CCEA0(_DWORD* a1, int a2) {
 			v8 = sub_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 46);
 			v9 = v2[8] + v4 * v8 / 100;
 			v11 = v2[9] + (v3 * v8) / 100;
-			v12 = sub_45A360_drawable(*(int*)getMemAt(0x5D4594, 1522964), v9, v11);
+			v12 = sub_45A360_drawable(*getMemIntPtr(0x5D4594, 1522964), v9, v11);
 			if (v12) {
 				*(_DWORD*)(v12 + 432) = v9 << 12;
 				*(_DWORD*)(v12 + 436) = v11 << 12;

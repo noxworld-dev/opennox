@@ -81,7 +81,7 @@ int __cdecl sub_4CD690(_DWORD* a1, int a2) {
 			v2 = v13[2] + v13[4] - 1;
 		if (v18 >= v13[9])
 			v3 = v13[3] - v24 + v16 - 1;
-		v19 = sub_45A360_drawable(*(int*)getMemAt(0x5D4594, 1522976), v2, v3);
+		v19 = sub_45A360_drawable(*getMemIntPtr(0x5D4594, 1522976), v2, v3);
 		if (v19) {
 			v20 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 93);
 			*(_WORD*)(v19 + 432) = v22;

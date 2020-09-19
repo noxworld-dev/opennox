@@ -24,8 +24,8 @@ int __cdecl sub_4CE200(int a1, int a2, int a3, int a4) {
 		do {
 			v5 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 40);
 			v6 = sub_415FF0(0, a4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 41);
-			v7 = *(_DWORD*)(a2 + 12) + v6 * *(int*)getMemAt(0x587000, 8 * v5 + 192088) / 16;
-			v8 = *(_DWORD*)(a2 + 16) + v6 * *(int*)getMemAt(0x587000, 8 * v5 + 192092) / 16;
+			v7 = *(_DWORD*)(a2 + 12) + v6 * *getMemIntPtr(0x587000, 8 * v5 + 192088) / 16;
+			v8 = *(_DWORD*)(a2 + 16) + v6 * *getMemIntPtr(0x587000, 8 * v5 + 192092) / 16;
 			v9 = sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 46) < 3;
 			v10 = *getMemU32Ptr(0x5D4594, 1523020);
 			if (!v9)

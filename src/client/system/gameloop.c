@@ -284,7 +284,7 @@ void mainloop() {
 						sub_4DF020();
 					sub_459D50(0);
 				}
-				if (*(int*)getMemAt(0x5D4594, 2598000) >= *(int*)getMemAt(0x5D4594, 816400)) {
+				if (*getMemIntPtr(0x5D4594, 2598000) >= *getMemIntPtr(0x5D4594, 816400)) {
 					sub_4161E0();
 					sub_416690();
 					*getMemU32Ptr(0x5D4594, 816400) = *getMemU32Ptr(0x5D4594, 2598000) + 60 * *getMemU32Ptr(0x5D4594, 2649704);
@@ -335,8 +335,8 @@ void mainloop() {
 					do {
 						v12 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 620);
 						v13 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 621);
-						v14 = v13 * *(int*)getMemAt(0x587000, 8 * v12 + 192088);
-						v15 = v13 * *(int*)getMemAt(0x587000, 8 * v12 + 192092) / 16 - 6;
+						v14 = v13 * *getMemIntPtr(0x587000, 8 * v12 + 192088);
+						v15 = v13 * *getMemIntPtr(0x587000, 8 * v12 + 192092) / 16 - 6;
 						v24 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 633);
 						v16 = sub_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 632);
 						nox_client_newScreenParticle_431540(4, v14 / 16 + v27->field_0, v27->field_4 + v15, v14 / 16, v15, 1, v16, v24, 2, 1);

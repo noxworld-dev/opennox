@@ -20,10 +20,10 @@ int __cdecl nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 	int v20;   // [esp+28h] [ebp-8h]
 
 	v2 = *getMemU32Ptr(0x5D4594, 2618904);
-	if (dr->field_72 >= *(int*)getMemAt(0x5D4594, 2598000))
+	if (dr->field_72 >= *getMemIntPtr(0x5D4594, 2598000))
 		v2 = *getMemU32Ptr(0x5D4594, 2589772);
 	nox_client_drawSetColor_434460(v2);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v3 = dr->field_4;
 	v4 = *a1 + dr->field_3 - a1[4];
 	v5 = dr->field_28;
@@ -66,8 +66,8 @@ int __cdecl nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 		v19 = a2a.field_0;
 		v9 = a2a.field_4 - nox_float2int(v16);
 		v10 = 8 * dr->field_74_4;
-		v11 = *(int*)getMemAt(0x587000, v10 + 196184);
-		v18 = *(int*)getMemAt(0x587000, v10 + 196188);
+		v11 = *getMemIntPtr(0x587000, v10 + 196184);
+		v18 = *getMemIntPtr(0x587000, v10 + 196188);
 		nox_client_drawAddPoint_49F500(a2a.field_0, v9);
 		sub_49F570(v11, v18);
 		nox_client_drawLineFromPoints_49E4B0();

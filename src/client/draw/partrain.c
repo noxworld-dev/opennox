@@ -25,7 +25,7 @@ int __cdecl nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 		v4 = *(_DWORD*)(v3 + 12) + sub_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 42);
 		v5 = sub_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 43);
 		v6 = *(_DWORD*)(v3 + 16) + v5;
-		v7 = sub_45A360_drawable(*(int*)getMemAt(0x5D4594, 1313716), v4, v6);
+		v7 = sub_45A360_drawable(*getMemIntPtr(0x5D4594, 1313716), v4, v6);
 		v8 = v7;
 		if (v7) {
 			*(_DWORD*)(v7 + 432) = v4 << 12;

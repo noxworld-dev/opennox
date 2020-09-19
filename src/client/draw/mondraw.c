@@ -116,7 +116,7 @@ int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 			v5 = *(_DWORD*)(v2 + 276);
 			if (v5 != 1 && v5 != 3 && v5 != 5) {
 				if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v2 + 436)) >=
-				    *(int*)getMemAt(0x5D4594, 2649704) >> 2) {
+				    *getMemIntPtr(0x5D4594, 2649704) >> 2) {
 					*(_DWORD*)(v2 + 436) = *getMemU32Ptr(0x5D4594, 2598000);
 					*(_BYTE*)(v2 + 432) = *(_BYTE*)(v2 + 297);
 				} else {
@@ -143,9 +143,9 @@ int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		v10 = *(_DWORD*)(v2 + 12) - *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 12);
 		v11 = *(_DWORD*)(v2 + 16) - *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 16);
 	}
-	if (*getMemU32Ptr(0x5D4594, 2614252) && sub_4356C0(*(int*)getMemAt(0x5D4594, 2614252), 21)) {
+	if (*getMemU32Ptr(0x5D4594, 2614252) && sub_4356C0(*getMemIntPtr(0x5D4594, 2614252), 21)) {
 		sub_434600(1);
-		sub_433E40(*(int*)getMemAt(0x5D4594, 2618904));
+		sub_433E40(*getMemIntPtr(0x5D4594, 2618904));
 		LOBYTE(a2) = nox_backbuffer_depth >= 16 ? -1 : -128;
 		LABEL_21:
 		nox_client_drawEnableAlpha_434560(1);
