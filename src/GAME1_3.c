@@ -919,7 +919,7 @@ int __cdecl sub_43C8F0(int a1, int a2, int a3) {
 			result = sub_40EBC0(a1, 0, v4, (unsigned __int8)v8);
 			if (result) {
 				v6 = v3 ? *(_DWORD*)(v3 + 16) : a3;
-				if (a2 == *(unsigned __int16*)getMemAt(0x5D4594, 815768) && v6 == *(unsigned __int16*)getMemAt(0x5D4594, 815770))
+				if (a2 == *getMemU16Ptr(0x5D4594, 815768) && v6 == *getMemU16Ptr(0x5D4594, 815770))
 					return 1;
 				*getMemU16Ptr(0x5D4594, 815770) = v6;
 				*(_WORD*)&v9[3] = v6;
@@ -1237,8 +1237,8 @@ void __cdecl sub_43D3C0(int a1, int a2) {
 
 	if (a1) {
 		v2 = (*(_DWORD*)(dword_587000_81128 + 4) >> 16) *
-			 ((*(unsigned __int16*)getMemAt(0x5D4594, 816154) *
-			   ((a2 * (unsigned int)*(unsigned __int16*)getMemAt(0x5D4594, 816250)) >> 14)) >>
+			 ((*getMemU16Ptr(0x5D4594, 816154) *
+			   ((a2 * (unsigned int)*getMemU16Ptr(0x5D4594, 816250)) >> 14)) >>
 			  14);
 		*getMemU32Ptr(0x5D4594, 816148) &= 0xFFFFFFFD;
 		*getMemU32Ptr(0x5D4594, 816244) &= 0xFFFFFFFD;
@@ -4352,7 +4352,7 @@ int sub_445530() {
 		if (*getMemU32Ptr(0x5D4594, v5 + 824440) < *(int*)getMemAt(0x5D4594, 2598000))
 			break;
 		sub_434390(*(int*)getMemAt(0x5D4594, 2650656));
-		v6 = (unsigned __int16*)getMemAt(0x5D4594, v5 + 823804);
+		v6 = getMemU16Ptr(0x5D4594, v5 + 823804);
 		sub_43F840(0, v6, &v14, 0, 0);
 		v7 = nox_win_width - v14;
 		v8 = getMemAt(0x587000, 107848);

@@ -2529,7 +2529,7 @@ int __cdecl sub_56F2F0(_DWORD* a1) {
 	v1 = dword_5d4594_2516344;
 	v2 = 0;
 	if (*getMemU16Ptr(0x587000, 311204)) {
-		for (i = nox_common_randomInt_415FA0(0, *(unsigned __int16*)getMemAt(0x587000, 311204) - 1); v1; ++v2) {
+		for (i = nox_common_randomInt_415FA0(0, *getMemU16Ptr(0x587000, 311204) - 1); v1; ++v2) {
 			if (v2 == i)
 				break;
 			v1 = *(_DWORD*)(v1 + 8);
@@ -2703,11 +2703,11 @@ int sub_56F5C0() {
 	v2 = sub_56F240() ^ v0;
 	v3 = v2 ^ v1;
 	dword_5d4594_2516328 = ~v2;
-	v4 = *(unsigned __int16*)getMemAt(0x587000, 311204);
-	for (i = 0; i < (*(unsigned __int16*)getMemAt(0x587000, 311204) >> 2); v4 = *(unsigned __int16*)getMemAt(0x587000, 311204)) {
+	v4 = *getMemU16Ptr(0x587000, 311204);
+	for (i = 0; i < (*getMemU16Ptr(0x587000, 311204) >> 2); v4 = *getMemU16Ptr(0x587000, 311204)) {
 		v6 = nox_common_randomInt_415FA0(0, v4 >> 1);
-		v7 = nox_common_randomInt_415FA0((*(unsigned __int16*)getMemAt(0x587000, 311204) >> 1) + 1,
-										 *(unsigned __int16*)getMemAt(0x587000, 311204) - 1);
+		v7 = nox_common_randomInt_415FA0((*getMemU16Ptr(0x587000, 311204) >> 1) + 1,
+										 *getMemU16Ptr(0x587000, 311204) - 1);
 		if (v6 != v7) {
 			v14 = sub_56F6F0(v7);
 			v8 = sub_56F6F0(v6);
@@ -7234,7 +7234,7 @@ int __thiscall sub_57E4C0(_DWORD** this, unsigned int a2, int a3, unsigned int a
 				goto LABEL_14;
 		} else {
 			v13 = *getMemU16Ptr(0x587000, 12 * ((a4 - 8) >> 1) + 314640);
-			v14 = (a4 - 8) & 1 | *(unsigned __int16*)getMemAt(0x587000, 12 * ((a4 - 8) >> 1) + 314648);
+			v14 = (a4 - 8) & 1 | *getMemU16Ptr(0x587000, 12 * ((a4 - 8) >> 1) + 314648);
 			v15 = *getMemU32Ptr(0x587000, 12 * ((a4 - 8) >> 1) + 314644);
 			if ((int)--*v5[2] <= 0)
 				sub_57E2C0(v5);
@@ -7281,7 +7281,7 @@ int __thiscall sub_57E4C0(_DWORD** this, unsigned int a2, int a3, unsigned int a
 	}
 LABEL_15:
 	v34 = *getMemU32Ptr(0x587000, 8 * (a5 >> 9) + 314824) + 9;
-	v35 = a5 & 0x1FF | (*(unsigned __int16*)getMemAt(0x587000, 8 * (a5 >> 9) + 314828) << 9);
+	v35 = a5 & 0x1FF | (*getMemU16Ptr(0x587000, 8 * (a5 >> 9) + 314828) << 9);
 	if (v34 <= 16) {
 		v47 = v5[6];
 		v48 = 32 - (_BYTE)v47 - v34;

@@ -1828,19 +1828,19 @@ int sub_4A5E90() {
 	v5[8] = 589825;
 	v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 725);
 	dword_5d4594_1308116 = v6;
-	v6[8] = *(unsigned __int16*)getMemAt(0x587000, 171372) << 16;
+	v6[8] = *getMemU16Ptr(0x587000, 171372) << 16;
 	v7 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 726);
 	dword_5d4594_1308120 = v7;
-	v7[8] = *(unsigned __int16*)getMemAt(0x587000, 171374) << 16;
+	v7[8] = *getMemU16Ptr(0x587000, 171374) << 16;
 	v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 727);
 	dword_5d4594_1308124 = v8;
-	v8[8] = *(unsigned __int16*)getMemAt(0x587000, 171376) << 16;
+	v8[8] = *getMemU16Ptr(0x587000, 171376) << 16;
 	v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 728);
 	dword_5d4594_1308128 = v9;
-	v9[8] = *(unsigned __int16*)getMemAt(0x587000, 171378) << 16;
+	v9[8] = *getMemU16Ptr(0x587000, 171378) << 16;
 	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 729);
 	dword_5d4594_1308132 = v10;
-	v10[8] = *(unsigned __int16*)getMemAt(0x587000, 171380) << 16;
+	v10[8] = *getMemU16Ptr(0x587000, 171380) << 16;
 	dword_5d4594_1308136 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 711);
 	dword_5d4594_1308140 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 712);
 	dword_5d4594_1308144 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308084, 713);
@@ -2486,7 +2486,7 @@ _DWORD* __cdecl sub_4A72D0(unsigned __int16 a1) {
 	if (a1 < 0x20u) {
 		result = sub_46B0C0(*(_DWORD**)&dword_5d4594_1308088, *(int*)&dword_5d4594_1307792);
 		if (result)
-			result[8] = *(unsigned __int16*)getMemAt(0x5D4594, 1307788) | (a1 << 16);
+			result[8] = *getMemU16Ptr(0x5D4594, 1307788) | (a1 << 16);
 	}
 	return result;
 }
