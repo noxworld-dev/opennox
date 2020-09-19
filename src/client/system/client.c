@@ -205,26 +205,26 @@ int sub_4365C0() {
 	v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86708), 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1159);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v6, v24);
 	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
-	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), v0, v5);
+	sub_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), v0, v5);
 	v5 += 10;
 	v7 = sub_43C760();
 	v8 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86756), 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1165);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v8, v7);
 	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
-	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), v0, v5);
+	sub_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), v0, v5);
 	sub_436970(v7);
 	v5 += 10;
 	v25 = nox_get_drawable_count();
 	v9 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86808), 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1172);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v9, v25);
 	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
-	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), v0, v5);
+	sub_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), v0, v5);
 	v5 += 10;
 	v26 = *getMemU32Ptr(0x5D4594, 2649824);
 	v19 = dword_5d4594_2618900;
 	v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 86860), 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1177);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v10, v19, v26);
-	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), v0, v5);
+	sub_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), v0, v5);
 	v5 += 10;
 	v27 = *getMemU32Ptr(0x587000, 85732);
 	v20 = dword_5d4594_2614264;
@@ -232,7 +232,7 @@ int sub_4365C0() {
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v11, v20, v27);
 	nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650656));
 	nox_client_drawRectFilledOpaque_49CE30(v0 + 80, v5, 16, 8);
-	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), v0, v5);
+	sub_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), v0, v5);
 	v12 = 200;
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		if (i[3680] & 8) {
@@ -242,7 +242,7 @@ int sub_4365C0() {
 		} else {
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), L"%s", i + 4704);
 		}
-		sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), 10, v12);
+		sub_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), 10, v12);
 		sub_4E5630(i[2064], &v31, &v30, &v29);
 		v28 = v29;
 		v22 = v30;
@@ -257,7 +257,7 @@ int sub_4365C0() {
 										1216);
 		}
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v14, v16, v17, v22, v28);
-		sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 810900), 70, v12);
+		sub_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), 70, v12);
 		v12 += 10;
 	}
 	return ++*getMemU32Ptr(0x5D4594, 814520);
@@ -519,7 +519,7 @@ int sub_436F50() {
 	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
 	v4 = nox_server_currentMapGetFilename_409B30();
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), L"%S", v4);
-	sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 811120), v2, v3);
+	sub_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v3);
 	result = *getMemU32Ptr(0x5D4594, 2614252);
 	v6 = v0 + v3;
 	if (*getMemU32Ptr(0x5D4594, 2614252)) {
@@ -527,7 +527,7 @@ int sub_436F50() {
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), L"X:%d\tY:%d",
 						 *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 12),
 						 *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 16));
-			sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 811120), v2, v6);
+			sub_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v6);
 			v9 = loadString_sub_40F1D0(
 				*(char**)getMemAt(0x587000, 4 * *(unsigned __int8*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251) + 29456), 0,
 				"C:\\NoxPost\\src\\client\\System\\client.c", 1357);
@@ -535,7 +535,7 @@ int sub_436F50() {
 			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 87392), 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 									   1355);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), v7, v8, v9);
-			result = sub_43F6E0(0, (__int16*)getMemAt(0x5D4594, 811120), v2, v0 + v6);
+			result = sub_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v0 + v6);
 		}
 	}
 	return result;

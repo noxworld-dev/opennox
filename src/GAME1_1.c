@@ -9289,8 +9289,8 @@ BOOL sub_4264D0() {
 	}
 	if (!nox_common_gameFlags_check_40A5C0(4096))
 		return sub_428810((int)getMemAt(0x5D4594, 599476), 2);
-	sub_4285C0((__int16*)getMemAt(0x5D4594, 739396));
-	return sub_428890((__int16*)getMemAt(0x5D4594, 739396));
+	sub_4285C0(getMemI16Ptr(0x5D4594, 739396));
+	return sub_428890(getMemI16Ptr(0x5D4594, 739396));
 }
 
 //----- (00426590) --------------------------------------------------------

@@ -9130,7 +9130,7 @@ int __cdecl sub_4CA8B0(int a1, int a2) {
 	v5 = 1000 * v4 / v2;
 	if (v5 >= 100000)
 		v5 = 99999;
-	result = *(__int16*)getMemAt(0x5D4594, 2 * v5 + 1322584);
+	result = *getMemI16Ptr(0x5D4594, 2 * v5 + 1322584);
 	switch (v6) {
 	case 2:
 		return 37500 - result;
@@ -10194,7 +10194,7 @@ int sub_4CC6F0(int a1, int a2) {
 		nox_window_set_hidden((int)v0, 0);
 	}
 	sub_4343B0(150, 150, 150);
-	sub_43F6E0(0, (__int16*)getMemAt(0x587000, 187860), 500, 150);
+	sub_43F6E0(0, getMemI16Ptr(0x587000, 187860), 500, 150);
 	return 1;
 }
 

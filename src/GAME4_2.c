@@ -10578,7 +10578,7 @@ int __cdecl sub_52C920(int a1, int a2, int a3, int a4, int* a5, char a6) {
 		if (sub_4FF350(result, 16)) {
 			result = 0;
 		} else {
-			sub_4FF380(*a5, 16, *(__int16*)getMemAt(0x587000, 258404), a6);
+			sub_4FF380(*a5, 16, *getMemI16Ptr(0x587000, 258404), a6);
 			if (a3)
 				sub_4E7540(a3, *a5);
 			result = 1;
