@@ -236,7 +236,7 @@ int sub_4379F0() {
 				sub_46B2C0(*(int*)&dword_5d4594_815012, sub_439E70);
 				nox_window_set_hidden(*(int*)&dword_5d4594_815012, 1);
 				nox_window_set_hidden(*(int*)&dword_5d4594_815000, 1);
-				sub_46B280(*(int*)getMemAt(0x5D4594, 815008), *(int*)&dword_5d4594_814980);
+				sub_46B280(*getMemIntPtr(0x5D4594, 815008), *(int*)&dword_5d4594_814980);
 				if (dword_587000_87404) {
 					nox_set_draw_unk1(sub_41E210);
 					v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10007);
@@ -530,7 +530,7 @@ void __cdecl sub_439370(int2* a1, int a2) {
 		dword_5d4594_815056 = 1;
 		*getMemU16Ptr(0x5D4594, 814604) = *(_WORD*)(a2 + 109);
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
-			sub_46ABB0(*(int*)getMemAt(0x5D4594, 815008), 0);
+			sub_46ABB0(*getMemIntPtr(0x5D4594, 815008), 0);
 	} else {
 		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 89244), 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 688);
 		sub_449A10(*(int*)&dword_5d4594_814980, 0, (int)v3, 33, 0, 0);
@@ -1070,7 +1070,7 @@ void sub_43A810() {
 	if (dword_587000_87404 == 1) {
 		sub_46ACE0(*(_DWORD**)&dword_5d4594_814984, 10600, 10611, 1);
 		v0 = 0;
-		v1 = (int*)getMemAt(0x587000, 87560);
+		v1 = getMemIntPtr(0x587000, 87560);
 		do {
 			sub_46ACE0(*(_DWORD**)&dword_5d4594_814984, *v1, v1[1], v0 != dword_587000_87412);
 			v1 += 2;

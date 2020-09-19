@@ -89,7 +89,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 			v14 = *getMemU32Ptr(0x5D4594, 280 * *a2 + 2598288 + 12 * a3);
 			dword_5d4594_1193176 = v14;
 			v15 =
-				*getMemU32Ptr(0x5D4594, 4 * ((*(int*)getMemAt(0x5D4594, 280 * *a2 + 2598568 + 12 * a3) - v14) >> 8) + 2615304);
+				*getMemU32Ptr(0x5D4594, 4 * ((*getMemIntPtr(0x5D4594, 280 * *a2 + 2598568 + 12 * a3) - v14) >> 8) + 2615304);
 			if (v12 <= 0) {
 				v23 = 23;
 				v16 = 23;
@@ -126,7 +126,7 @@ signed int __cdecl sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* 
 				*a2 = v18;
 				v9 = *(char**)&dword_5d4594_1193184;
 				dword_5d4594_1193176 = *getMemU32Ptr(0x5D4594, 280 * v19 + 2598288 + v13);
-				v15 = *getMemU32Ptr(0x5D4594, 4 * ((*(int*)getMemAt(0x5D4594, 280 * *a2 + 2598568 + v13) - *(int*)&dword_5d4594_1193176) >> 8) +
+				v15 = *getMemU32Ptr(0x5D4594, 4 * ((*getMemIntPtr(0x5D4594, 280 * *a2 + 2598568 + v13) - *(int*)&dword_5d4594_1193176) >> 8) +
 						   2615304);
 			}
 		}
@@ -546,7 +546,7 @@ int __cdecl sub_4697C0(int* a1, int* a2, int2* a3, signed int a4, int* a5) {
 	}
 	if (v7 - result > 1) {
 		v23 = *getMemU32Ptr(0x587000, 142308);
-		if ((unsigned int)a4 <= *(int*)getMemAt(0x587000, 142308))
+		if ((unsigned int)a4 <= *getMemIntPtr(0x587000, 142308))
 			v23 = a4;
 		v21 = (a4 >> 16) * (a4 >> 16);
 		v8 = 23 * result - a3->field_4;
@@ -709,7 +709,7 @@ void __cdecl sub_469140(int arg0) {
 			v28 = sub_484BD0() * 65536.0;
 			if (v3 > nox_float2int(v28)) {
 				v33 = *getMemU32Ptr(0x587000, 142320);
-				if ((unsigned int)v3 <= *(int*)getMemAt(0x587000, 142320))
+				if ((unsigned int)v3 <= *getMemIntPtr(0x587000, 142320))
 					v33 = v3;
 				v5 = *(_DWORD*)(arg0 + 12) - dword_5d4594_2650676;
 				v36 = (v3 >> 16) * (v3 >> 16);

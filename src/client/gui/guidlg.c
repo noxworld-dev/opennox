@@ -78,7 +78,7 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	sub_46ABB0(*(int*)&dword_5d4594_1123524, 1);
 	sub_46A8C0(*(int*)&dword_5d4594_1123524);
 	*getMemU32Ptr(0x5D4594, 1123528) = a2;
-	result = sub_44D900(*(int*)getMemAt(0x5D4594, 1115312), 100);
+	result = sub_44D900(*getMemIntPtr(0x5D4594, 1115312), 100);
 	dword_5d4594_1123520 = 1;
 	return result;
 }

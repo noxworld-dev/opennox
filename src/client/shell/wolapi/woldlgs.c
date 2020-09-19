@@ -36,7 +36,7 @@ int sub_448730_wol_dialogs() {
 		*(_DWORD*)(dword_5d4594_830124 + 24) =
 			*(_DWORD*)(dword_5d4594_830124 + 8) + *(_DWORD*)(dword_5d4594_830124 + 16);
 		*getMemU32Ptr(0x5D4594, 830128) = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1933);
-		sub_46B300(*(int*)getMemAt(0x5D4594, 830128), sub_448F00);
+		sub_46B300(*getMemIntPtr(0x5D4594, 830128), sub_448F00);
 		dword_5d4594_830136 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1934);
 		dword_5d4594_830132 = sub_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1935);
 		sub_46B300(*(int*)&dword_5d4594_830132, sub_448F60);
@@ -90,11 +90,11 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 		case 1931:
 			nox_window_set_hidden(*(int*)&dword_5d4594_830136, 0);
 			nox_window_set_hidden(*(int*)&dword_5d4594_830132, 1);
-			nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, *(int*)getMemAt(0x5D4594, 830160), 0);
-			nox_window_call_field_94(*(int*)getMemAt(0x5D4594, 830144), 16385, *(int*)getMemAt(0x5D4594, 830168), 0);
-			nox_window_call_field_94(*(int*)&dword_5d4594_830148, 16385, *(int*)getMemAt(0x5D4594, 830176), 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, *getMemIntPtr(0x5D4594, 830160), 0);
+			nox_window_call_field_94(*getMemIntPtr(0x5D4594, 830144), 16385, *getMemIntPtr(0x5D4594, 830168), 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_830148, 16385, *getMemIntPtr(0x5D4594, 830176), 0);
 			sub_46ABB0(*(int*)&dword_5d4594_830152, 0);
-			sub_46ABB0(*(int*)getMemAt(0x5D4594, 830156), 1);
+			sub_46ABB0(*getMemIntPtr(0x5D4594, 830156), 1);
 			if (dword_5d4594_830204)
 				sub_46ABB0(*(int*)&dword_5d4594_830148, 0);
 			else
@@ -105,11 +105,11 @@ int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 		case 1932:
 			nox_window_set_hidden(*(int*)&dword_5d4594_830136, 1);
 			nox_window_set_hidden(*(int*)&dword_5d4594_830132, 0);
-			nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, *(int*)getMemAt(0x5D4594, 830164), 0);
-			nox_window_call_field_94(*(int*)getMemAt(0x5D4594, 830144), 16385, *(int*)getMemAt(0x5D4594, 830172), 0);
-			nox_window_call_field_94(*(int*)&dword_5d4594_830148, 16385, *(int*)getMemAt(0x5D4594, 830180), 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, *getMemIntPtr(0x5D4594, 830164), 0);
+			nox_window_call_field_94(*getMemIntPtr(0x5D4594, 830144), 16385, *getMemIntPtr(0x5D4594, 830172), 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_830148, 16385, *getMemIntPtr(0x5D4594, 830180), 0);
 			sub_46ABB0(*(int*)&dword_5d4594_830152, 1);
-			sub_46ABB0(*(int*)getMemAt(0x5D4594, 830156), 0);
+			sub_46ABB0(*getMemIntPtr(0x5D4594, 830156), 0);
 			dword_587000_111668 = 0;
 			if (dword_5d4594_830208)
 				sub_46ABB0(*(int*)&dword_5d4594_830148, 0);
@@ -172,7 +172,7 @@ int sub_448CF0_wol_dialogs() {
 	char v7[72];  // [esp+28h] [ebp-148h]
 	char v8[256]; // [esp+70h] [ebp-100h]
 
-	v0 = (_WORD*)nox_window_call_field_94(*(int*)getMemAt(0x5D4594, 830128), 16413, 0, 0);
+	v0 = (_WORD*)nox_window_call_field_94(*getMemIntPtr(0x5D4594, 830128), 16413, 0, 0);
 	if (dword_587000_111668) {
 		if (v0 && *v0) {
 			nox_sprintf(v7, "%S", v0);
@@ -363,7 +363,7 @@ int __cdecl sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 				}
 			}
 		} else {
-			sub_46C6E0(*(int*)getMemAt(0x5D4594, 830096));
+			sub_46C6E0(*getMemIntPtr(0x5D4594, 830096));
 			sub_46C4E0(*(_DWORD**)getMemAt(0x5D4594, 830096));
 			dword_5d4594_830112 = 0;
 			sub_447600();

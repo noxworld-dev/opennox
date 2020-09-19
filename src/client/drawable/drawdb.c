@@ -1168,7 +1168,7 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 	v17 = *getMemU32Ptr(0x587000, 201384);
 	v18 = dword_5d4594_1563660;
 	v19 = 1;
-	for (i = 1; i < *(int*)getMemAt(0x587000, 201384); ++i) {
+	for (i = 1; i < *getMemIntPtr(0x587000, 201384); ++i) {
 		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * (v17 - v19)) = v18;
 		sub_4E30D0(v18);
 		v17 = *getMemU32Ptr(0x587000, 201384);

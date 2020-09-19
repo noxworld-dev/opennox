@@ -27,7 +27,7 @@ int __cdecl sub_4CDBF0(int a1, _DWORD* a2) {
 	do {
 		v3 = v2[8] + v12 / 5 + sub_415FF0(-3, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 28);
 		v4 = v2[9] + sub_415FF0(-3, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 29) + v8 / 5;
-		v5 = sub_45A360_drawable(*(int*)getMemAt(0x5D4594, 1522996), v3, v4);
+		v5 = sub_45A360_drawable(*getMemIntPtr(0x5D4594, 1522996), v3, v4);
 		if (v5) {
 			*(_DWORD*)(v5 + 300) = nox_thing_pixie_dust_draw;
 			sub_484BE0((_DWORD*)(v5 + 136), 255, 200, 75);

@@ -93,7 +93,7 @@ _DWORD* __cdecl sub_48CB10(int a1) {
 		v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 157056), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 520);
 		sub_46AEE0((int)v13, (int)v14);
 		if (sub_417DD0()) {
-			v15 = sub_418C80(*(int*)getMemAt(0x5D4594, 2616328));
+			v15 = sub_418C80(*getMemIntPtr(0x5D4594, 2616328));
 			v16 = sub_418AB0(*((unsigned __int8*)v15 + 4));
 			v26 = v16;
 			if (v16) {

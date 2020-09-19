@@ -1247,7 +1247,7 @@ unsigned __int8* sub_571905() {
 }
 
 //----- (0057194A) --------------------------------------------------------
-void __cdecl sub_57194A() { sub_573C80((int*)getMemAt(0x5D4594, 2516428)); }
+void __cdecl sub_57194A() { sub_573C80(getMemIntPtr(0x5D4594, 2516428)); }
 
 //----- (00571960) --------------------------------------------------------
 int __thiscall sub_571960(int* this, char a2) {
@@ -3963,11 +3963,11 @@ void __thiscall sub_576DA0(int* this) {
 	v3 = 0;
 	if (!*getMemU32Ptr(0x5D4594, 2516468)) {
 		*getMemU32Ptr(0x5D4594, 2516468) = sub_578080(0, 1);
-		*(_DWORD*)sub_5769E0(*(int*)getMemAt(0x5D4594, 2516468)) = 0;
-		*(_DWORD*)sub_576A00(*(int*)getMemAt(0x5D4594, 2516468)) = 0;
+		*(_DWORD*)sub_5769E0(*getMemIntPtr(0x5D4594, 2516468)) = 0;
+		*(_DWORD*)sub_576A00(*getMemIntPtr(0x5D4594, 2516468)) = 0;
 	}
 	++*getMemU32Ptr(0x5D4594, 2516472);
-	v1[1] = sub_578080(*(int*)getMemAt(0x5D4594, 2516468), 0);
+	v1[1] = sub_578080(*getMemIntPtr(0x5D4594, 2516468), 0);
 	v1[3] = 0;
 	*(_DWORD*)sub_576EA0(v1) = v1[1];
 	*(_DWORD*)sub_5771A0(v1) = v1[1];

@@ -16,7 +16,7 @@ _DWORD* __cdecl sub_4CDFA0(int a1, _DWORD* a2) {
 		v3 = a2;
 		do {
 			result =
-				(_DWORD*)sub_45A360_drawable(*(int*)getMemAt(0x5D4594, 1523008), *(_DWORD*)(a1 + 12), *(_DWORD*)(a1 + 16));
+				(_DWORD*)sub_45A360_drawable(*getMemIntPtr(0x5D4594, 1523008), *(_DWORD*)(a1 + 12), *(_DWORD*)(a1 + 16));
 			v4 = result;
 			if (result) {
 				result[108] = *(_DWORD*)(a1 + 12) << 12;
@@ -64,7 +64,7 @@ int __cdecl sub_4CE0C0(int a1, int a2) {
 			v10 = sub_415FF0(6, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 116);
 			v9 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 115);
 			v7 = sub_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 114);
-			sub_499490(*(int*)getMemAt(0x5D4594, 1523012), v11, v7, v9, v10, 0);
+			sub_499490(*getMemIntPtr(0x5D4594, 1523012), v11, v7, v9, v10, 0);
 		}
 		--v2;
 	} while (v2);

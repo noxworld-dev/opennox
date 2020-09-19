@@ -62,7 +62,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	if (*getMemU32Ptr(0x5D4594, 2618908) && *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 3680) & 1)
 		v30 = 1;
 	if (*getMemU32Ptr(0x5D4594, 2616328) == dr->field_32) {
-		v4 = sub_418C80(*(int*)getMemAt(0x5D4594, 2616328));
+		v4 = sub_418C80(*getMemIntPtr(0x5D4594, 2616328));
 		if (!v4)
 			goto LABEL_15;
 		v5 = sub_418AB0(*((unsigned __int8*)v4 + 4));
@@ -70,7 +70,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	}
 	if (v3[3680] & 1)
 		return 1;
-	v6 = sub_418C80(*(int*)getMemAt(0x5D4594, 2616328));
+	v6 = sub_418C80(*getMemIntPtr(0x5D4594, 2616328));
 	if (v6) {
 		v7 = sub_418C80(dr->field_32);
 		v8 = v7;
@@ -132,7 +132,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 			dword_5d4594_3798688 = *((_DWORD*)v3 + 573);
 			v16 = *((_DWORD*)v3 + 920);
 			if (v16 & 0x400) {
-				v17 = (int*)getMemAt(0x5D4594, 3798668);
+				v17 = getMemIntPtr(0x5D4594, 3798668);
 				do {
 					int a2 = 0;
 					sub_434480(*v17, (int)&v33, &a2, (int)&a1);
@@ -166,7 +166,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	dword_5d4594_3798684 = *getMemU32Ptr(0x5D4594, 2523948);
 	dword_5d4594_3798688 = *getMemU32Ptr(0x5D4594, 2523948);
 	LABEL_37:
-	sub_4341D0(1, *(int*)getMemAt(0x5D4594, 3798668));
+	sub_4341D0(1, *getMemIntPtr(0x5D4594, 3798668));
 	sub_4341D0(2, *(int*)&dword_5d4594_3798672);
 	sub_4341D0(3, *(int*)&dword_5d4594_3798676);
 	sub_4341D0(4, *(int*)&dword_5d4594_3798680);
@@ -201,14 +201,14 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	}
 
 	if (v30 || !sub_4356C0(dr, 0) || dr->field_32 == *getMemU32Ptr(0x5D4594, 2616328) ||
-	    *getMemU32Ptr(0x5D4594, 2614252) && (sub_4356C0(*(int*)getMemAt(0x5D4594, 2614252), 21) || v31)) {
+	    *getMemU32Ptr(0x5D4594, 2614252) && (sub_4356C0(*getMemIntPtr(0x5D4594, 2614252), 21) || v31)) {
 		a1 = sub_4344A0(155, 155, 155);
 		if (!sub_48D830(dr) && !nox_common_gameFlags_check_40A5C0(2048)) {
 			v21 = (__int16*)(v3 + 4704);
 			sub_43F840(0, (unsigned __int16*)v3 + 2352, &v34, 0, 0);
 			v22 = *v10 + dr->field_3 + v34 / -2 - v10[4];
 			int a2 = v10[1] - v10[5] + dr->field_4 - 64;
-			sub_434390(*(int*)getMemAt(0x5D4594, 2614248));
+			sub_434390(*getMemIntPtr(0x5D4594, 2614248));
 			sub_43F6E0(0, v21, v22 + 1, a2 + 1);
 			sub_434390(a1);
 			if (v35) {
@@ -259,7 +259,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 			(*(void(__cdecl**)(int*, _DWORD))(dword_5d4594_1313800 + 300))(v36, dword_5d4594_1313800);
 		}
 		do
-			sub_4341D0(v12++, *(int*)getMemAt(0x5D4594, 2523948));
+			sub_4341D0(v12++, *getMemIntPtr(0x5D4594, 2523948));
 		while (v12 < 6);
 		if (dr != *getMemU32Ptr(0x5D4594, 2614252) && sub_470A90()) {
 			if (nox_common_gameFlags_check_40A5C0(4096))
@@ -281,7 +281,7 @@ int __cdecl nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 
 	v2 = *getMemU32Ptr(0x5D4594, 2650644);
 	sub_4C32A0(*(_DWORD*)(a2 + 12) - *(_DWORD*)(a1 + 16), *(_DWORD*)(a2 + 16) - *(_DWORD*)(a1 + 20), 10,
-	           *(int*)getMemAt(0x5D4594, 2650644));
+	           *getMemIntPtr(0x5D4594, 2650644));
 	v3 = *(_DWORD*)(a2 + 16) - *(_DWORD*)(a1 + 20);
 	v4 = *(_DWORD*)(a2 + 12) - *(_DWORD*)(a1 + 16);
 	v5 = (unsigned __int8)(2 * getMemByte(0x5D4594, 2598000));
@@ -289,10 +289,10 @@ int __cdecl nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 	nox_client_drawSetColor_434460(v2);
 	v7 = 5;
 	do {
-		nox_client_drawAddPoint_49F500(v4 + 10 * *(int*)getMemAt(0x587000, 8 * v5 + 192088) / 16,
-		                               v3 + 10 * *(int*)getMemAt(0x587000, 8 * v5 + 192092) / 16);
-		nox_client_drawAddPoint_49F500(v4 + 10 * *(int*)getMemAt(0x587000, 8 * ((v5 + 102) % 256) + 192088) / 16,
-		                               v3 + 10 * *(int*)getMemAt(0x587000, 8 * ((v5 + 102) % 256) + 192092) / 16);
+		nox_client_drawAddPoint_49F500(v4 + 10 * *getMemIntPtr(0x587000, 8 * v5 + 192088) / 16,
+		                               v3 + 10 * *getMemIntPtr(0x587000, 8 * v5 + 192092) / 16);
+		nox_client_drawAddPoint_49F500(v4 + 10 * *getMemIntPtr(0x587000, 8 * ((v5 + 102) % 256) + 192088) / 16,
+		                               v3 + 10 * *getMemIntPtr(0x587000, 8 * ((v5 + 102) % 256) + 192092) / 16);
 		nox_client_drawLineFromPoints_49E4B0();
 		v5 = (v5 + 102) % 256;
 		--v7;

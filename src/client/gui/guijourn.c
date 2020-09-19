@@ -82,7 +82,7 @@ void __cdecl sub_469D40(int xLeft, int yTop, int a3) {
 	v3 = *getMemU32Ptr(0x5D4594, 2618908);
 	v4 = yTop - a3;
 	if (*getMemU32Ptr(0x5D4594, 2618908)) {
-		nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650656));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650656));
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150);
 		v5 = *(_DWORD*)(v3 + 3644);
 		if (v5) {

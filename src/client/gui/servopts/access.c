@@ -136,7 +136,7 @@ int* sub_454740() {
 		}
 	}
 	_itow((unsigned __int8)v0[104], WideCharStr, 10);
-	nox_window_call_field_94(*(int*)getMemAt(0x5D4594, 1045592), 16414, (int)WideCharStr, 0);
+	nox_window_call_field_94(*getMemIntPtr(0x5D4594, 1045592), 16414, (int)WideCharStr, 0);
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		if (i[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
 			sub_455920((int)(i + 4704));

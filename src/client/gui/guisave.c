@@ -43,9 +43,9 @@ int sub_46C730() {
 				sub_46AD60((int)v4, 1024);
 		}
 		v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 143360), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 341);
-		sub_46AEE0(*(int*)getMemAt(0x5D4594, 1082872), (int)v5);
+		sub_46AEE0(*getMemIntPtr(0x5D4594, 1082872), (int)v5);
 		v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 143408), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 342);
-		sub_46AEE0(*(int*)getMemAt(0x5D4594, 1082876), (int)v6);
+		sub_46AEE0(*getMemIntPtr(0x5D4594, 1082876), (int)v6);
 		nox_wnd_sub_46A9B0(*(_DWORD**)&dword_5d4594_1082856, (nox_win_width - *(int*)(dword_5d4594_1082856 + 8)) / 2,
 						   0);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1082856, 1);
@@ -389,12 +389,12 @@ void sub_46D580() {
 		}
 		if (sub_450560()) {
 			v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 145376), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 860);
-			sub_46AEE0(*(int*)getMemAt(0x5D4594, 1082880), (int)v3);
+			sub_46AEE0(*getMemIntPtr(0x5D4594, 1082880), (int)v3);
 			v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 509);
 			v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 145424), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 862);
 		} else {
 			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 145472), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 866);
-			sub_46AEE0(*(int*)getMemAt(0x5D4594, 1082880), (int)v6);
+			sub_46AEE0(*getMemIntPtr(0x5D4594, 1082880), (int)v6);
 			v4 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 509);
 			v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 145524), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 868);
 		}

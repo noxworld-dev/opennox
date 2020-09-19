@@ -27,8 +27,8 @@ int __cdecl nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	}
 	v2 = 8 * *(unsigned __int8*)(a2 + 448);
 	v3 = *(unsigned __int8*)(a2 + 450);
-	a2a.field_0 = *(_DWORD*)(a2 + 440) + v3 * *(int*)getMemAt(0x587000, v2 + 192088) / 16;
-	a2a.field_4 = *(_DWORD*)(a2 + 444) + v3 * *(int*)getMemAt(0x587000, v2 + 192092) / 16;
+	a2a.field_0 = *(_DWORD*)(a2 + 440) + v3 * *getMemIntPtr(0x587000, v2 + 192088) / 16;
+	a2a.field_4 = *(_DWORD*)(a2 + 444) + v3 * *getMemIntPtr(0x587000, v2 + 192092) / 16;
 	sub_4739E0(a1, &a2a, &xLeft);
 	v4 = xLeft.field_4 - *(__int16*)(a2 + 104);
 	v5 = xLeft.field_0 <= *a1;

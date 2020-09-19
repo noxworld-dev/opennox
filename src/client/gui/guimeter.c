@@ -128,7 +128,7 @@ int sub_4714E0() {
 		dword_5d4594_1096284 = sub_44CFC0((CHAR*)getMemAt(0x587000, 148656));
 	}
 	dword_5d4594_1090276 = nox_window_new(0, 136, nox_win_width - 91, nox_win_height - 201, 91, 201, 0);
-	sub_46AE60(*(int*)&dword_5d4594_1090276, *(int*)getMemAt(0x5D4594, 1092996));
+	sub_46AE60(*(int*)&dword_5d4594_1090276, *getMemIntPtr(0x5D4594, 1092996));
 	dword_5d4594_1091364 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 6, 166, 28, 30, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1091364, sub_471B90, sub_471A80, 0);
 	v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148704), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1029);
@@ -211,8 +211,8 @@ int sub_4714E0() {
 		dword_5d4594_1096252 = 1;
 	} else {
 		dword_5d4594_1096252 = 0;
-		nox_window_set_hidden(*(int*)getMemAt(0x5D4594, 1093076), 1);
-		nox_window_set_hidden(*(int*)getMemAt(0x5D4594, 1093096), 1);
+		nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1093076), 1);
+		nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1093096), 1);
 	}
 	return 1;
 }
@@ -248,12 +248,12 @@ int __cdecl sub_471D10(int xLeft) {
 	v20 = getMemAt(0x5D4594, sizeof(nox_window_yyy) * v18 + 1093036);
 	if (!v18 && dword_5d4594_1096264) {
 		nox_client_wndGetPosition_46AA60(*(_DWORD**)&dword_5d4594_1090276, &xLeft, &yTop);
-		nox_client_drawImageAt_47D2C0(*(int*)getMemAt(0x5D4594, 1091900), xLeft, yTop);
+		nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1091900), xLeft, yTop);
 	}
 	nox_client_wndGetPosition_46AA60(v1, &xLeft, &yTop);
 	xLeft += 5;
 	if (dword_5d4594_3799468) {
-		nox_client_drawSetColor_434460(*(int*)getMemAt(0x5D4594, 2650656));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650656));
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 15, 125);
 	}
 	v4 = *((_DWORD*)v3 + 2);
@@ -269,7 +269,7 @@ int __cdecl sub_471D10(int xLeft) {
 		nox_client_drawLineFromPoints_49E4B0();
 		if (v2 < 2 && nox_client_renderBubbles_80844 == 1) {
 			v19 = 64;
-			v7 = (int*)getMemAt(0x5D4594, 1536 * v2 + 1093188);
+			v7 = getMemIntPtr(0x5D4594, 1536 * v2 + 1093188);
 			v21 = getMemAt(0x5D4594, 1536 * v2 + 1093188);
 			do {
 				if (v7[2]) {

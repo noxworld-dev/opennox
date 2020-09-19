@@ -141,7 +141,7 @@ int __cdecl sub_44E8E0(int a1, int a2) {
 	v47 = 0;
 	v45 = 0;
 	v50 = (nox_win_height - NOX_DEFAULT_HEIGHT) / 2;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v2 = nox_win_width / 2;
 	v3 = nox_win_height / 2;
 	v51 = nox_win_width / 2;
@@ -151,11 +151,11 @@ int __cdecl sub_44E8E0(int a1, int a2) {
 	v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 123552), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 451);
 	nox_wcscpy(v56, v5);
 	nox_wcscat(v56, L" ");
-	_itow(*(int*)getMemAt(0x5D4594, 831228), WideCharStr, 10);
+	_itow(*getMemIntPtr(0x5D4594, 831228), WideCharStr, 10);
 	nox_wcscat(v56, WideCharStr);
 	nox_swprintf(v57, L"%s - %s", &v55[1], v56);
 	sub_43F840(*(_DWORD*)(a2 + 200), v57, &v39, &v38, 0);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	sub_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)v57, v2 - v39 / 2, v38 + v3 - 240);
 	v40 = *getMemU32Ptr(0x587000, 122968) - *getMemU32Ptr(0x587000, 122964);
 	v36 = (double)v38 * 1.5;
@@ -175,7 +175,7 @@ int __cdecl sub_44E8E0(int a1, int a2) {
 				v47 = *((unsigned __int16*)v7 + 5);
 			else
 				v45 += *((unsigned __int16*)v7 + 5);
-			sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+			sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 			nox_swprintf(&v55[1], L"%d) %s", v42 + 1, *(_DWORD*)v7 + 4704);
 			v11 = *(_DWORD*)(a2 + 200);
 			v46 = *getMemU32Ptr(0x587000, 122968) - *getMemU32Ptr(0x587000, 122960) + v10 - 16;
@@ -189,39 +189,39 @@ int __cdecl sub_44E8E0(int a1, int a2) {
 			}
 			sub_43FAF0(*(_DWORD*)(a2 + 200), &v55[1], v10, v8, v40 - 8, v38);
 			v13 = v41 + v41 / 2 + v8;
-			sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+			sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 			v14 =
 				loadString_sub_40F1D0((char*)getMemAt(0x587000, 123648), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 529);
 			sub_43FAF0(*(_DWORD*)(a2 + 200), v14, v10, v13, *(int*)&dword_5d4594_832476, v38);
 			nox_swprintf(&v55[1], L" %d", *((unsigned __int16*)v7 + 3));
-			sub_434390(*(int*)getMemAt(0x5D4594, 2614268));
+			sub_434390(*getMemIntPtr(0x5D4594, 2614268));
 			sub_43FAF0(*(_DWORD*)(a2 + 200), &v55[1], v10 + dword_5d4594_832476, v13, v40 - dword_5d4594_832476 - 8,
 					   v38);
 			v15 = v41 + v13;
-			sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+			sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 			v16 =
 				loadString_sub_40F1D0((char*)getMemAt(0x587000, 123728), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 541);
 			sub_43FAF0(*(_DWORD*)(a2 + 200), v16, v10, v15, *(int*)&dword_5d4594_832476, v38);
 			nox_swprintf(&v55[1], L" %d", *((unsigned __int16*)v7 + 4));
-			sub_434390(*(int*)getMemAt(0x5D4594, 2614268));
+			sub_434390(*getMemIntPtr(0x5D4594, 2614268));
 			sub_43FAF0(*(_DWORD*)(a2 + 200), &v55[1], v10 + dword_5d4594_832476, v15, v40 - dword_5d4594_832476 - 8,
 					   v38);
 			v17 = v41 + v15;
-			sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+			sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 			v18 =
 				loadString_sub_40F1D0((char*)getMemAt(0x587000, 123804), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 553);
 			sub_43FAF0(*(_DWORD*)(a2 + 200), v18, v10, v17, *(int*)&dword_5d4594_832476, v38);
 			nox_swprintf(&v55[1], L" %d", *((unsigned __int16*)v7 + 2));
-			sub_434390(*(int*)getMemAt(0x5D4594, 2614268));
+			sub_434390(*getMemIntPtr(0x5D4594, 2614268));
 			sub_43FAF0(*(_DWORD*)(a2 + 200), &v55[1], v10 + dword_5d4594_832476, v17, v40 - dword_5d4594_832476 - 8,
 					   v38);
 			v19 = v41 + v17;
-			sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+			sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 			v20 =
 				loadString_sub_40F1D0((char*)getMemAt(0x587000, 123872), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 565);
 			sub_43FAF0(*(_DWORD*)(a2 + 200), v20, v10, v19, *(int*)&dword_5d4594_832476, v38);
 			nox_swprintf(&v55[1], L" %d", *((_DWORD*)v7 + 3));
-			sub_434390(*(int*)getMemAt(0x5D4594, 2650684));
+			sub_434390(*getMemIntPtr(0x5D4594, 2650684));
 			sub_43FAF0(*(_DWORD*)(a2 + 200), &v55[1], v10 + dword_5d4594_832476, v19, v40 - dword_5d4594_832476 - 8,
 					   v38);
 			v6 = v48;
@@ -241,7 +241,7 @@ int __cdecl sub_44E8E0(int a1, int a2) {
 	v22 = v49;
 	v23 = v49 - v39 / 2 + 320;
 	v24 = v50 + 2 * (150 - v38) + 150 - v38;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+	sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 	sub_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)&v55[1], v23, v24);
 	if (v47) {
 		v37 = v47;
@@ -270,7 +270,7 @@ int __cdecl sub_44E8E0(int a1, int a2) {
 	sub_43F840(*(_DWORD*)(a2 + 200), v57, &v39, &v38, 0);
 	v30 = v22 - v39 / 2 + 320;
 	v31 = v50 + 2 * (225 - v38);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+	sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 	sub_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)v57, v30, v31);
 	result = *getMemU32Ptr(0x5D4594, 2598000) / 0x1Eu;
 	if (*getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu) {
@@ -310,7 +310,7 @@ int __cdecl sub_44F0F0(int a1, int a2) {
 
 	v2 = nox_win_width / 2;
 	v3 = nox_win_height / 2;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 124392), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 668);
 	nox_wcscpy(v13, v4);
 	nox_wcscat(v13, L" %d");
@@ -391,7 +391,7 @@ int __cdecl sub_44F300(int a1, int a2) {
 	sub_43F840(*(_DWORD*)(a2 + 200), v5, &v31, 0, 0);
 	v29 = (unsigned __int16*)(v3 - v31 / 2 + 320);
 	v30 = (unsigned __int16*)(v4 + 20);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2650656));
+	sub_434390(*getMemIntPtr(0x5D4594, 2650656));
 	v26 = *(_DWORD*)(a2 + 200);
 	v32 = (unsigned __int16*)((char*)v29 - 1);
 	sub_43F6E0(v26, (__int16*)v5, (int)v29 - 1, v4 + 19);
@@ -399,7 +399,7 @@ int __cdecl sub_44F300(int a1, int a2) {
 	sub_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)v5, (int)v29 + 1, v4 + 19);
 	sub_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)v5, (int)v32, v4 + 21);
 	sub_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)v5, (int)v33, v4 + 21);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+	sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 	sub_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)v5, (int)v29, v4 + 20);
 	v34.field_0 = v3 + 73;
 	v34.field_4 = v4 + 123;
@@ -409,11 +409,11 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_4 = v4 + 76;
 	v6 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 124596), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
 										 792);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+	sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 	sub_43F6E0(*(int*)&dword_5d4594_832484, v6, v34.field_0, v34.field_4);
 	sub_43F840(*(int*)&dword_5d4594_832484, (unsigned __int16*)v6, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 124664), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 799);
 	sub_43FAF0(*(int*)&dword_5d4594_832484, v7, v34.field_0, v34.field_4, v3 - v34.field_0 + 520, 0);
 	v34.field_0 = v3 + 565;
@@ -428,19 +428,19 @@ int __cdecl sub_44F300(int a1, int a2) {
 	if (v28 + v27 <= 390) {
 		v34.field_4 = v4 + 115;
 		v34.field_0 = v8 - v28 - v27 - 4;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+		sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 = v8 - v28;
 		v34.field_4 = v4 + 115;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+		sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v30, v34.field_0, v34.field_4);
 	} else {
 		v34.field_0 = v3 + 199;
 		v34.field_4 = v4 + 115;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+		sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 += v27 + 4;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+		sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 		sub_43FAF0(*(int*)&dword_5d4594_832484, v30, v34.field_0, v34.field_4, v8 - v34.field_0, 0);
 	}
 	v34.field_0 = v3 + 133;
@@ -451,11 +451,11 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_4 = v4 + 156;
 	v9 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 124868), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
 										 862);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+	sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 	sub_43F6E0(*(int*)&dword_5d4594_832484, v9, v34.field_0, v34.field_4);
 	sub_43F840(*(int*)&dword_5d4594_832484, (unsigned __int16*)v9, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 124936), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 869);
 	sub_43FAF0(*(int*)&dword_5d4594_832484, v10, v34.field_0, v34.field_4, v4 - v34.field_0 + 630, 0);
 	v34.field_0 = v3 + 525;
@@ -470,19 +470,19 @@ int __cdecl sub_44F300(int a1, int a2) {
 	if (v28 + v27 <= 215) {
 		v34.field_4 = v4 + 198;
 		v34.field_0 = v11 - v28 - v27 - 4;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+		sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 = v11 - v28;
 		v34.field_4 = v4 + 198;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+		sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v30, v34.field_0, v34.field_4);
 	} else {
 		v34.field_0 = v3 + 250;
 		v34.field_4 = v4 + 198;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+		sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 += v27 + 4;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+		sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 		sub_43FAF0(*(int*)&dword_5d4594_832484, v30, v34.field_0, v34.field_4, v11 - v34.field_0, 0);
 	}
 	v34.field_0 = v3 + 182;
@@ -501,11 +501,11 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_4 = v4 + 240;
 	v12 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 125140), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
 										  942);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+	sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 	sub_43F6E0(*(int*)&dword_5d4594_832484, v12, v34.field_0, v34.field_4);
 	sub_43F840(*(int*)&dword_5d4594_832484, (unsigned __int16*)v12, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v13 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 125208), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 949);
 	sub_43FAF0(*(int*)&dword_5d4594_832484, v13, v34.field_0, v34.field_4, v3 - v34.field_0 + 470, 0);
 	v34.field_0 = v3 + 484;
@@ -524,19 +524,19 @@ int __cdecl sub_44F300(int a1, int a2) {
 	if (v28 + v27 <= 350) {
 		v34.field_4 = v4 + 286;
 		v34.field_0 = v14 - v28 - v27 - 4;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+		sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 = v14 - v28;
 		v34.field_4 = v4 + 286;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+		sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v30, v34.field_0, v34.field_4);
 	} else {
 		v34.field_0 = v3 + 113;
 		v34.field_4 = v4 + 286;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+		sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 		sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v29, v34.field_0, v34.field_4);
 		v34.field_0 += v27 + 4;
-		sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+		sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 		sub_43FAF0(*(int*)&dword_5d4594_832484, v30, v34.field_0, v34.field_4, v14 - v34.field_0, 0);
 	}
 	v34.field_0 = v3 + 186;
@@ -555,11 +555,11 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_4 = v4 + 330;
 	v15 = (__int16*)loadString_sub_40F1D0((char*)getMemAt(0x587000, 125412), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
 										  1027);
-	sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+	sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 	sub_43F6E0(*(int*)&dword_5d4594_832484, v15, v34.field_0, v34.field_4);
 	sub_43F840(*(int*)&dword_5d4594_832484, (unsigned __int16*)v15, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v16 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 125480), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1034);
 	sub_43FAF0(*(int*)&dword_5d4594_832484, v16, v34.field_0, v34.field_4, v3 - v34.field_0 + 550, 0);
 	v17 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 125548), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1040);
@@ -568,10 +568,10 @@ int __cdecl sub_44F300(int a1, int a2) {
 	sub_43F840(*(int*)&dword_5d4594_832484, v18, &v28, 0, 0);
 	v34.field_0 = v3 - (v27 + v28) / 2 + 320;
 	v34.field_4 = v4 + 370;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+	sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v17, v34.field_0, v34.field_4);
 	v34.field_0 += v27 + 4;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v18, v34.field_0, v34.field_4);
 	v19 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 125684), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1055);
 	v20 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 125752), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1056);
@@ -579,10 +579,10 @@ int __cdecl sub_44F300(int a1, int a2) {
 	sub_43F840(*(int*)&dword_5d4594_832484, v20, &v28, 0, 0);
 	v34.field_0 = v3 - (v28 + v27) / 2 + 320;
 	v34.field_4 = v4 + 395;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+	sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v19, v34.field_0, v34.field_4);
 	v34.field_0 += v27 + 4;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v20, v34.field_0, v34.field_4);
 	v21 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 125820), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1070);
 	v22 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 125888), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1071);
@@ -590,10 +590,10 @@ int __cdecl sub_44F300(int a1, int a2) {
 	sub_43F840(*(int*)&dword_5d4594_832484, v22, &v28, 0, 0);
 	v34.field_0 = v3 - (v28 + v27) / 2 + 320;
 	v34.field_4 = v4 + 420;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2614256));
+	sub_434390(*getMemIntPtr(0x5D4594, 2614256));
 	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v21, v34.field_0, v34.field_4);
 	v34.field_0 += v27 + 4;
-	sub_434390(*(int*)getMemAt(0x5D4594, 2523948));
+	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
 	sub_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v22, v34.field_0, v34.field_4);
 	result = *getMemU32Ptr(0x5D4594, 2598000) / 0x1Eu;
 	if (*getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu) {

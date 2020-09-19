@@ -18,7 +18,7 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 	wchar_t* v10;        // eax
 	CHAR PathName[1024]; // [esp+4h] [ebp-400h]
 
-	if (nox_common_gameFlags_check_40A5C0(1) || a2 >= *(int*)getMemAt(0x587000, 55984)) {
+	if (nox_common_gameFlags_check_40A5C0(1) || a2 >= *getMemIntPtr(0x587000, 55984)) {
 		v5 = nox_common_get_data_path_409E10();
 		nox_sprintf(PathName, "%s\\Save\\", v5);
 		CreateDirectoryA(PathName, 0);
