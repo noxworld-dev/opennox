@@ -14,7 +14,7 @@ void __cdecl sub_445490(wchar_t* a1) {
 			v1 = 0;
 			*(unsigned int*)&dword_5d4594_825736 = 0;
 		}
-		nox_wcscpy((unsigned short*)getMemAt(0x5D4594, 644 * v1 + 823804), a1);
+		nox_wcscpy(getMemU16Ptr(0x5D4594, 644 * v1 + 823804), a1);
 		v2 = 644 * *(unsigned int*)&dword_5d4594_825736;
 		*getMemUintPtr(0x5D4594, v2 + 824440) = *getMemUintPtr(0x5D4594, 2598000) +
 													4 * *getMemUintPtr(0x5D4594, 2649704) +
