@@ -10185,11 +10185,11 @@ int __cdecl sub_4CC6A0(_DWORD* a1, int a2, int* a3, int a4) {
 int sub_4CC6F0(int a1, int a2) {
 	_DWORD* v0; // eax
 
-	if (--*(short*)getMemAt(0x5D4594, 1522928) < 0) {
+	if (--*getMemI16Ptr(0x5D4594, 1522928) < 0) {
 		sub_46C4E0(*(_DWORD**)&dword_5d4594_1522892);
 		sub_4A1C00();
 	}
-	if (*(short*)getMemAt(0x5D4594, 1522928) < 270) {
+	if (*getMemI16Ptr(0x5D4594, 1522928) < 270) {
 		v0 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522892, 9910);
 		nox_window_set_hidden((int)v0, 0);
 	}

@@ -57,8 +57,8 @@ int __cdecl sub_4CE0C0(int a1, int a2) {
 	do {
 		v4 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 102);
 		v5 = sub_415FF0(2, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 105);
-		v6 = *(_WORD*)(a2 + 16) + v5 * *(short*)getMemAt(0x587000, 8 * v4 + 192092);
-		v11[2] = *(_WORD*)(a2 + 12) + v5 * *(short*)getMemAt(0x587000, 8 * v4 + 192088);
+		v6 = *(_WORD*)(a2 + 16) + v5 * *getMemI16Ptr(0x587000, 8 * v4 + 192092);
+		v11[2] = *(_WORD*)(a2 + 12) + v5 * *getMemI16Ptr(0x587000, 8 * v4 + 192088);
 		v11[3] = v6;
 		if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 112) < 50) {
 			v10 = sub_415FF0(6, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 116);
