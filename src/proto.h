@@ -38,29 +38,12 @@ extern int nox_server_gameSettingsUpdated;
 extern char byte_563002[4];
 extern char byte_563006[26];
 
-#define MEMACCESS(x) *((_DWORD*)getMem(x))
-
 void nox_common_setEngineFlag(const nox_engine_flag flags);
 void nox_common_resetEngineFlag(const nox_engine_flag flags);
 void nox_common_toggleEngineFlag(const nox_engine_flag flags);
 bool nox_common_getEngineFlag(const nox_engine_flag flags);
 
 void init_data();
-_BYTE* getMem(uintptr_t addr);
-#ifndef NOX_LOG_MEM
-void* getMemAt(uintptr_t base, uintptr_t off);
-uint8_t getMemByte(uintptr_t base, uintptr_t off);
-uint8_t* getMemU8Ptr(uintptr_t base, uintptr_t off);
-int8_t* getMemI8Ptr(uintptr_t base, uintptr_t off);
-uint16_t* getMemU16Ptr(uintptr_t base, uintptr_t off);
-int16_t* getMemI16Ptr(uintptr_t base, uintptr_t off);
-uint32_t* getMemU32Ptr(uintptr_t base, uintptr_t off);
-int32_t* getMemI32Ptr(uintptr_t base, uintptr_t off);
-uint64_t* getMemU64Ptr(uintptr_t base, uintptr_t off);
-int64_t* getMemI64Ptr(uintptr_t base, uintptr_t off);
-float* getMemFloatPtr(uintptr_t base, uintptr_t off);
-double* getMemDoublePtr(uintptr_t base, uintptr_t off);
-#endif // NOX_LOG_MEM
 
 #ifdef USE_SDL
 void change_windowed_fullscreen();
