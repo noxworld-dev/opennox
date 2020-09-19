@@ -174,22 +174,22 @@ int sub_4714E0() {
 		v8 = nox_window_new(*(int*)&dword_5d4594_1090276, 136, 0, 0, 91, 159, 0);
 		v9 = sub_42F970("HealthManaTubes");
 		sub_46AE60((int)v8, (int)v9);
-		*getMemU32Ptr(0x5D4594, 1093056) = nox_window_new((int)v8, 8, 60, 34, 25, 125, 0);
-		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093056), sub_472100, sub_471D10, 0);
+		*getMemU32Ptr(0x5D4594, 1093036 + 20*1) = nox_window_new((int)v8, 8, 60, 34, 25, 125, 0);
+		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*1), sub_472100, sub_471D10, 0);
 		v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148900), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1122);
-		sub_46B000((wchar_t*)(*getMemU32Ptr(0x5D4594, 1093056) + 36), v10);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093056) + 32) = 1;
+		sub_46B000((wchar_t*)(*getMemU32Ptr(0x5D4594, 1093036 + 20*1) + 36), v10);
+		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036 + 20*1) + 32) = 1;
 		*getMemU32Ptr(0x5D4594, 1093036) = nox_window_new((int)v8, 8, 34, 34, 25, 125, 0);
 		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036), sub_472100, sub_471D10, 0);
 		v11 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148952), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1135);
 		sub_46B000((wchar_t*)(*getMemU32Ptr(0x5D4594, 1093036) + 36), v11);
 		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036) + 32) = 0;
-		*getMemU32Ptr(0x5D4594, 1093076) = nox_window_new(0, 8, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093076), 0, sub_471C00, 0);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093076) + 32) = 0;
-		*getMemU32Ptr(0x5D4594, 1093096) = nox_window_new(0, 8, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093096), 0, sub_471C00, 0);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093096) + 32) = 1;
+		*getMemU32Ptr(0x5D4594, 1093036 + 20*2) = nox_window_new(0, 8, 0, 0, 0, 0, 0);
+		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*2), 0, sub_471C00, 0);
+		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036 + 20*2) + 32) = 0;
+		*getMemU32Ptr(0x5D4594, 1093036 + 20*3) = nox_window_new(0, 8, 0, 0, 0, 0, 0);
+		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*3), 0, sub_471C00, 0);
+		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036 + 20*3) + 32) = 1;
 		*getMemU32Ptr(0x5D4594, 1093176) = 1;
 	} else {
 		*getMemU32Ptr(0x5D4594, 1091900) = sub_42F970("WarriorPoisonTube");
@@ -201,9 +201,9 @@ int sub_4714E0() {
 		v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 149048), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1173);
 		sub_46B000((wchar_t*)(*getMemU32Ptr(0x5D4594, 1093036) + 36), v14);
 		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036) + 32) = 0;
-		*getMemU32Ptr(0x5D4594, 1093076) = nox_window_new(0, 24, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093076), 0, sub_471C00, 0);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093076) + 32) = 0;
+		*getMemU32Ptr(0x5D4594, 1093036 + 20*2) = nox_window_new(0, 24, 0, 0, 0, 0, 0);
+		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*2), 0, sub_471C00, 0);
+		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036 + 20*2) + 32) = 0;
 	}
 	sub_472280();
 	sub_470B00();
@@ -211,8 +211,8 @@ int sub_4714E0() {
 		dword_5d4594_1096252 = 1;
 	} else {
 		dword_5d4594_1096252 = 0;
-		nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1093076), 1);
-		nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1093096), 1);
+		nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1093036 + 20*2), 1);
+		nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1093036 + 20*3), 1);
 	}
 	return 1;
 }
@@ -244,8 +244,8 @@ int __cdecl sub_471D10(int xLeft) {
 	v1 = (_DWORD*)xLeft;
 	v18 = *(_DWORD*)(xLeft + 32);
 	v2 = v18;
-	v3 = getMemAt(0x5D4594, sizeof(nox_window_yyy) * v18 + 1093036);
-	v20 = getMemAt(0x5D4594, sizeof(nox_window_yyy) * v18 + 1093036);
+	v3 = getMemAt(0x5D4594, 1093036 + sizeof(nox_window_yyy) * v18);
+	v20 = getMemAt(0x5D4594, 1093036 + sizeof(nox_window_yyy) * v18);
 	if (!v18 && dword_5d4594_1096264) {
 		nox_client_wndGetPosition_46AA60(*(_DWORD**)&dword_5d4594_1090276, &xLeft, &yTop);
 		nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1091900), xLeft, yTop);
