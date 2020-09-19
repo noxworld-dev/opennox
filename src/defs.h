@@ -134,14 +134,26 @@ uint8_t nox_getMemByte(const char* fnc, uintptr_t base, uintptr_t off);
 #define getMemU8Ptr(x, y) nox_getMemU8Ptr(__func__, x, y)
 uint8_t* nox_getMemU8Ptr(const char* fnc, uintptr_t base, uintptr_t off);
 
+#define getMemI8Ptr(x, y) nox_getMemI8Ptr(__func__, x, y)
+int8_t* nox_getMemI8Ptr(const char* fnc, uintptr_t base, uintptr_t off);
+
 #define getMemU16Ptr(x, y) nox_getMemU16Ptr(__func__, x, y)
 uint16_t* nox_getMemU16Ptr(const char* fnc, uintptr_t base, uintptr_t off);
+
+#define getMemI16Ptr(x, y) nox_getMemI16Ptr(__func__, x, y)
+int16_t* nox_getMemI16Ptr(const char* fnc, uintptr_t base, uintptr_t off);
 
 #define getMemU32Ptr(x, y) nox_getMemU32Ptr(__func__, x, y)
 uint32_t* nox_getMemU32Ptr(const char* fnc, uintptr_t base, uintptr_t off);
 
+#define getMemI32Ptr(x, y) nox_getMemI32Ptr(__func__, x, y)
+int32_t* nox_getMemI32Ptr(const char* fnc, uintptr_t base, uintptr_t off);
+
 #define getMemU64Ptr(x, y) nox_getMemU64Ptr(__func__, x, y)
 uint64_t* nox_getMemU64Ptr(const char* fnc, uintptr_t base, uintptr_t off);
+
+#define getMemI64Ptr(x, y) nox_getMemI64Ptr(__func__, x, y)
+int64_t* nox_getMemI64Ptr(const char* fnc, uintptr_t base, uintptr_t off);
 
 #define getMemFloatPtr(x, y) nox_getMemFloatPtr(__func__, x, y)
 float* nox_getMemFloatPtr(const char* fnc, uintptr_t base, uintptr_t off);

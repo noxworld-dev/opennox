@@ -11,9 +11,13 @@
 #undef fwrite
 #undef getMemAt
 #undef getMemByte
+#undef getMemI8Ptr
 #undef getMemU8Ptr
+#undef getMemI16Ptr
 #undef getMemU16Ptr
+#undef getMemI32Ptr
 #undef getMemU32Ptr
+#undef getMemI64Ptr
 #undef getMemU64Ptr
 #undef getMemFloatPtr
 #undef getMemDoublePtr
@@ -2773,9 +2777,19 @@ uint8_t* getMemU8Ptr(uintptr_t base, uintptr_t off) {
 	return (uint8_t*)ptr;
 }
 
+int8_t* getMemI8Ptr(uintptr_t base, uintptr_t off) {
+	void* ptr = getMemAt(base, off);
+	return (int8_t*)ptr;
+}
+
 uint16_t* getMemU16Ptr(uintptr_t base, uintptr_t off) {
 	void* ptr = getMemAt(base, off);
 	return (uint16_t*)ptr;
+}
+
+int16_t* getMemI16Ptr(uintptr_t base, uintptr_t off) {
+	void* ptr = getMemAt(base, off);
+	return (int16_t*)ptr;
 }
 
 uint32_t* getMemU32Ptr(uintptr_t base, uintptr_t off) {
@@ -2783,9 +2797,19 @@ uint32_t* getMemU32Ptr(uintptr_t base, uintptr_t off) {
 	return (uint32_t*)ptr;
 }
 
+int32_t* getMemI32Ptr(uintptr_t base, uintptr_t off) {
+	void* ptr = getMemAt(base, off);
+	return (int32_t*)ptr;
+}
+
 uint64_t* getMemU64Ptr(uintptr_t base, uintptr_t off) {
 	void* ptr = getMemAt(base, off);
 	return (uint64_t*)ptr;
+}
+
+int64_t* getMemI64Ptr(uintptr_t base, uintptr_t off) {
+	void* ptr = getMemAt(base, off);
+	return (int64_t*)ptr;
 }
 
 float* getMemFloatPtr(uintptr_t base, uintptr_t off) {
@@ -2948,9 +2972,19 @@ uint8_t* nox_getMemU8Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
 	return getMemU8Ptr(base, off);
 }
 
+int8_t* nox_getMemI8Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
+	maybeLogAccess(fnc, base, off, 1);
+	return getMemI8Ptr(base, off);
+}
+
 uint16_t* nox_getMemU16Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
 	maybeLogAccess(fnc, base, off, 2);
 	return getMemU16Ptr(base, off);
+}
+
+int16_t* nox_getMemI16Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
+	maybeLogAccess(fnc, base, off, 2);
+	return getMemI16Ptr(base, off);
 }
 
 uint32_t* nox_getMemU32Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
@@ -2958,9 +2992,19 @@ uint32_t* nox_getMemU32Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
 	return getMemU32Ptr(base, off);
 }
 
+int32_t* nox_getMemI32Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
+	maybeLogAccess(fnc, base, off, 4);
+	return getMemI32Ptr(base, off);
+}
+
 uint64_t* nox_getMemU64Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
 	maybeLogAccess(fnc, base, off, 8);
 	return getMemU64Ptr(base, off);
+}
+
+int64_t* nox_getMemI64Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
+	maybeLogAccess(fnc, base, off, 8);
+	return getMemI64Ptr(base, off);
 }
 
 float* nox_getMemFloatPtr(const char* fnc, uintptr_t base, uintptr_t off) {
