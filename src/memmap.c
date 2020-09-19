@@ -1,27 +1,10 @@
+// must be before any includes
+#define NOX_IN_MEMMAP
+#include "memmap.h"
+
 #include "client/drawable/drawdb.h"
 #include "static.h"
 #include "proto.h"
-
-#ifdef NOX_LOG_MEM
-#undef memset
-#undef memcpy
-#undef strlen
-#undef strcpy
-#undef fread
-#undef fwrite
-#undef getMemAt
-#undef getMemByte
-#undef getMemI8Ptr
-#undef getMemU8Ptr
-#undef getMemI16Ptr
-#undef getMemU16Ptr
-#undef getMemI32Ptr
-#undef getMemU32Ptr
-#undef getMemI64Ptr
-#undef getMemU64Ptr
-#undef getMemFloatPtr
-#undef getMemDoublePtr
-#endif // NOX_LOG_MEM
 
 extern unsigned __int8 byte_581450[23472];
 extern unsigned __int8 byte_5D4594[3844309];
@@ -2734,7 +2717,7 @@ mem_mapping mappings[] = {
 
 size_t mappings_cnt = sizeof(mappings) / sizeof(mem_mapping);
 
-_BYTE* getMem(uintptr_t addr) {
+uint8_t* getMem(uintptr_t addr) {
 	// overlay first
 	for (int i = 0; i < mappings_cnt; i++) {
 		mem_mapping* m = &mappings[i];
@@ -2756,75 +2739,6 @@ _BYTE* getMem(uintptr_t addr) {
 	fprintf(stderr, "Invalid memory access! Requested = %x\n", addr);
 	DebugBreak();
 	return 0;
-}
-
-void* getMemAt(uintptr_t base, uintptr_t off) {
-	switch (base) {
-	case 0x581450:
-		return &byte_581450[off];
-	case 0x5D4594:
-		return &byte_5D4594[off];
-	case 0x587000:
-		return &byte_587000[off];
-	}
-	fprintf(stderr, "Invalid memory access! Requested = %x+%x\n", base, off);
-	DebugBreak();
-	return 0;
-}
-
-uint8_t* getMemU8Ptr(uintptr_t base, uintptr_t off) {
-	void* ptr = getMemAt(base, off);
-	return (uint8_t*)ptr;
-}
-
-int8_t* getMemI8Ptr(uintptr_t base, uintptr_t off) {
-	void* ptr = getMemAt(base, off);
-	return (int8_t*)ptr;
-}
-
-uint16_t* getMemU16Ptr(uintptr_t base, uintptr_t off) {
-	void* ptr = getMemAt(base, off);
-	return (uint16_t*)ptr;
-}
-
-int16_t* getMemI16Ptr(uintptr_t base, uintptr_t off) {
-	void* ptr = getMemAt(base, off);
-	return (int16_t*)ptr;
-}
-
-uint32_t* getMemU32Ptr(uintptr_t base, uintptr_t off) {
-	void* ptr = getMemAt(base, off);
-	return (uint32_t*)ptr;
-}
-
-int32_t* getMemI32Ptr(uintptr_t base, uintptr_t off) {
-	void* ptr = getMemAt(base, off);
-	return (int32_t*)ptr;
-}
-
-uint64_t* getMemU64Ptr(uintptr_t base, uintptr_t off) {
-	void* ptr = getMemAt(base, off);
-	return (uint64_t*)ptr;
-}
-
-int64_t* getMemI64Ptr(uintptr_t base, uintptr_t off) {
-	void* ptr = getMemAt(base, off);
-	return (int64_t*)ptr;
-}
-
-float* getMemFloatPtr(uintptr_t base, uintptr_t off) {
-	void* ptr = getMemAt(base, off);
-	return (float*)ptr;
-}
-
-double* getMemDoublePtr(uintptr_t base, uintptr_t off) {
-	void* ptr = getMemAt(base, off);
-	return (double*)ptr;
-}
-
-uint8_t getMemByte(uintptr_t base, uintptr_t off) {
-	uint8_t* ptr = getMemU8Ptr(base, off);
-	return *ptr;
 }
 
 #ifdef NOX_LOG_MEM
@@ -2961,64 +2875,45 @@ void maybeLogAccess(const char* fnc, uintptr_t base, uintptr_t off, uintptr_t sz
 	bo.off = off;
 	logReadOn(fnc, bo, sz);
 }
-
-void* nox_getMemAt(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 4); // we don't know the exact size; assume int
-	return getMemAt(base, off);
-}
-
-uint8_t* nox_getMemU8Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 1);
-	return getMemU8Ptr(base, off);
-}
-
-int8_t* nox_getMemI8Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 1);
-	return getMemI8Ptr(base, off);
-}
-
-uint16_t* nox_getMemU16Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 2);
-	return getMemU16Ptr(base, off);
-}
-
-int16_t* nox_getMemI16Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 2);
-	return getMemI16Ptr(base, off);
-}
-
-uint32_t* nox_getMemU32Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 4);
-	return getMemU32Ptr(base, off);
-}
-
-int32_t* nox_getMemI32Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 4);
-	return getMemI32Ptr(base, off);
-}
-
-uint64_t* nox_getMemU64Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 8);
-	return getMemU64Ptr(base, off);
-}
-
-int64_t* nox_getMemI64Ptr(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 8);
-	return getMemI64Ptr(base, off);
-}
-
-float* nox_getMemFloatPtr(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 4);
-	return getMemFloatPtr(base, off);
-}
-
-double* nox_getMemDoublePtr(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 8);
-	return getMemDoublePtr(base, off);
-}
-
-uint8_t nox_getMemByte(const char* fnc, uintptr_t base, uintptr_t off) {
-	maybeLogAccess(fnc, base, off, 1);
-	return getMemByte(base, off);
-}
 #endif // NOX_LOG_MEM
+
+#ifndef NOX_LOG_MEM
+void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size) {
+#else
+void* mem_getPtrSize(const char* fnc, uintptr_t base, uintptr_t off, uintptr_t size) {
+	maybeLogAccess(fnc, base, off, size);
+#endif
+	switch (base) {
+	case 0x581450:
+		return &byte_581450[off];
+	case 0x5D4594:
+		return &byte_5D4594[off];
+	case 0x587000:
+		return &byte_587000[off];
+	}
+	fprintf(stderr, "Invalid memory access! Requested = %x+%x[%d]\n", base, off, size);
+	DebugBreak();
+	return 0;
+}
+
+// defined in the header, emits the signature; we need an implementation now
+#undef MEM_FUNC_PTR
+
+#ifndef NOX_LOG_MEM
+void* mem_getPtr(uintptr_t base, uintptr_t off) { return mem_getPtrSize(base, off, MEMLOG_UNK_SIZE); }
+#define MEM_FUNC_PTR(T, NAME, SIZE) T* NAME(uintptr_t base, uintptr_t off) { return (T*)mem_getPtrSize(base, off, SIZE); }
+#else
+void* mem_getPtr(const char* fnc, uintptr_t base, uintptr_t off) { return mem_getPtrSize(fnc, base, off, MEMLOG_UNK_SIZE); }
+#define MEM_FUNC_PTR(T, NAME, SIZE) T* NAME(const char* fnc, uintptr_t base, uintptr_t off) { return (T*)mem_getPtrSize(fnc, base, off, SIZE); }
+#endif
+
+MEM_FUNC_PTR(uint8_t, mem_getU8Ptr, 1)
+MEM_FUNC_PTR( int8_t, mem_getI8Ptr, 1)
+MEM_FUNC_PTR(uint16_t, mem_getU16Ptr, 2)
+MEM_FUNC_PTR( int16_t, mem_getI16Ptr, 2)
+MEM_FUNC_PTR(uint32_t, mem_getU32Ptr, 4)
+MEM_FUNC_PTR( int32_t, mem_getI32Ptr, 4)
+MEM_FUNC_PTR(uint64_t, mem_getU64Ptr, 8)
+MEM_FUNC_PTR( int64_t, mem_getI64Ptr, 8)
+MEM_FUNC_PTR(float, mem_getFloatPtr, 4)
+MEM_FUNC_PTR(double, mem_getDoublePtr, 8)

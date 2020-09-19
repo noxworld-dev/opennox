@@ -28,6 +28,7 @@
 #define USE_SDL 1
 #include <SDL2/SDL.h>
 
+#include "memmap.h"
 #include "platform.h"
 
 #ifdef __EMSCRIPTEN__
@@ -101,67 +102,6 @@ typedef struct __m64 __m64;
 
 #define __PAIR64__(x, y) ((((_QWORD)(x)) << 32) | ((_DWORD)(y)))
 #define __SPAIR64__(x, y) ((__int64)((((_QWORD)(x)) << 32) | ((_DWORD)(y))))
-
-#ifdef NOX_LOG_MEM
-
-void maybeLogRead(const char* fnc, void* ptr, int sz);
-void maybeLogWrite(const char* fnc, void* ptr, int sz);
-
-#define memset(x, y, z) nox_memset(__func__, x, y, z)
-void nox_memset(const char* fnc, void* ptr, int v, int sz);
-
-#define memcpy(x, y, z) nox_memcpy(__func__, x, y, z)
-void nox_memcpy(const char* fnc, void* dst, void* src, int sz);
-
-#define strlen(x) nox_strlen(__func__, x)
-int nox_strlen(const char* fnc, const char* src);
-
-#define strcpy(x, y) nox_strcpy(__func__, x, y)
-int nox_strcpy(const char* fnc, char* dst, const char* src);
-
-#define fread(x, y, z, f) nox_fread(__func__, x, y, z, f)
-size_t nox_fread(const char* fnc, void* ptr, size_t size, size_t count, FILE* stream);
-
-#define fwrite(x, y, z, f) nox_fwrite(__func__, x, y, z, f)
-size_t nox_fwrite(const char* fnc, void* ptr, size_t size, size_t count, FILE* stream);
-
-#define getMemAt(x, y) nox_getMemAt(__func__, x, y)
-void* nox_getMemAt(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemByte(x, y) nox_getMemByte(__func__, x, y)
-uint8_t nox_getMemByte(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemU8Ptr(x, y) nox_getMemU8Ptr(__func__, x, y)
-uint8_t* nox_getMemU8Ptr(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemI8Ptr(x, y) nox_getMemI8Ptr(__func__, x, y)
-int8_t* nox_getMemI8Ptr(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemU16Ptr(x, y) nox_getMemU16Ptr(__func__, x, y)
-uint16_t* nox_getMemU16Ptr(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemI16Ptr(x, y) nox_getMemI16Ptr(__func__, x, y)
-int16_t* nox_getMemI16Ptr(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemU32Ptr(x, y) nox_getMemU32Ptr(__func__, x, y)
-uint32_t* nox_getMemU32Ptr(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemI32Ptr(x, y) nox_getMemI32Ptr(__func__, x, y)
-int32_t* nox_getMemI32Ptr(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemU64Ptr(x, y) nox_getMemU64Ptr(__func__, x, y)
-uint64_t* nox_getMemU64Ptr(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemI64Ptr(x, y) nox_getMemI64Ptr(__func__, x, y)
-int64_t* nox_getMemI64Ptr(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemFloatPtr(x, y) nox_getMemFloatPtr(__func__, x, y)
-float* nox_getMemFloatPtr(const char* fnc, uintptr_t base, uintptr_t off);
-
-#define getMemDoublePtr(x, y) nox_getMemDoublePtr(__func__, x, y)
-double* nox_getMemDoublePtr(const char* fnc, uintptr_t base, uintptr_t off);
-
-#endif // NOX_LOG_MEM
 
 void nox_exit(int exitCode);
 
