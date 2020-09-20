@@ -15,7 +15,6 @@ extern _DWORD dword_5d4594_1096280;
 extern _DWORD dword_5d4594_1096260;
 extern _DWORD dword_5d4594_1096284;
 extern _DWORD dword_5d4594_1096288;
-extern _DWORD dword_5d4594_1093156;
 extern _DWORD dword_5d4594_1096252;
 extern _DWORD dword_5d4594_3799468;
 extern _DWORD nox_client_renderBubbles_80844;
@@ -69,16 +68,16 @@ int __cdecl sub_471160(int a1, int a2, int a3, int a4, int a5) {
 	int result;  // eax
 
 	*getMemIntPtr(0x5D4594, 1093036 + 20*5) = nox_window_new(a1, 1032, a2, a3, a4, a5, 0);
-	dword_5d4594_1093156 = nox_window_new(a1, 1032, a2 - 17, a3 - 15, 15, 15, 0);
+	*getMemIntPtr(0x5D4594, 1093036 + 20*6) = nox_window_new(a1, 1032, a2 - 17, a3 - 15, 15, 15, 0);
 	nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*5), 0, sub_471250, 0);
 	v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148504), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 921);
 	sub_46B000((wchar_t*)(*getMemUintPtr(0x5D4594, 1093036 + 20*5) + 36), v5);
-	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1093156, 0, sub_471450, 0);
+	nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*6), 0, sub_471450, 0);
 	v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148560), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 925);
-	sub_46B000((wchar_t*)(dword_5d4594_1093156 + 36), v6);
+	sub_46B000((wchar_t*)(*getMemUintPtr(0x5D4594, 1093036 + 20*6) + 36), v6);
 	result = *getMemIntPtr(0x5D4594, 1093036 + 20*5);
 	*(_DWORD*)(*getMemUintPtr(0x5D4594, 1093036 + 20*5) + 32) = 5;
-	*(_DWORD*)(dword_5d4594_1093156 + 32) = 6;
+	*(_DWORD*)(*getMemUintPtr(0x5D4594, 1093036 + 20*6) + 32) = 6;
 	return result;
 }
 
