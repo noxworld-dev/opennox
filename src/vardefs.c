@@ -630,7 +630,6 @@ _DWORD dword_5d4594_2386920 = 0;
 _DWORD dword_5d4594_1062452 = 0;
 _DWORD dword_5d4594_1046576 = 0;
 _DWORD dword_5d4594_2386564 = 0;
-_DWORD dword_5d4594_1093156 = 0;
 _DWORD dword_5d4594_830292 = 0;
 _DWORD dword_5d4594_1563664 = 0;
 void* nox_alloc_magicWall_1569748 = 0;
