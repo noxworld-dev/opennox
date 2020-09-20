@@ -93,7 +93,7 @@ int __cdecl nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					else
 					LOBYTE(a2) = a2 + 100;
 					++v12;
-					v14 = sub_4344A0(v35, a2, v34);
+					v14 = nox_color_rgb_4344A0(v35, a2, v34);
 					sub_4341D0(v12, v14);
 					++v13;
 				} while (v12 < 6);

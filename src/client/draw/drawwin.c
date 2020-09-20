@@ -220,8 +220,8 @@ int __cdecl sub_474E60(_DWORD* a1, int a2) {
 	}
 	if (sub_4356C0(v2, 13) && !sub_413A50()) {
 		if (!*getMemU32Ptr(0x5D4594, 1096552)) {
-			*getMemU32Ptr(0x5D4594, 1096452) = sub_4344A0(255, 0, 255);
-			*getMemU32Ptr(0x5D4594, 1096436) = sub_4344A0(255, 180, 255);
+			*getMemU32Ptr(0x5D4594, 1096452) = nox_color_rgb_4344A0(255, 0, 255);
+			*getMemU32Ptr(0x5D4594, 1096436) = nox_color_rgb_4344A0(255, 180, 255);
 			*getMemU32Ptr(0x5D4594, 1096552) = 1;
 		}
 		sub_4739E0(v4, (int2*)(v2 + 12), &a3);

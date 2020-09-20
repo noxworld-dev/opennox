@@ -371,12 +371,12 @@ char sub_48A190()
 {
 }
 
-int __cdecl sub_4344A0(int a1, int a2, int a3)
+uint32_t nox_color_rgb_4344A0(int r, int g, int b)
 {
     return 0;
 }
 
-void sub_434430(int a1, int a2, int a3)
+void nox_set_color_rgb_434430(int a1, int a2, int a3)
 {
 }
 
@@ -413,7 +413,7 @@ int __cdecl sub_434AA0(int a1, int a2, int a3)
 {
 }
 
-void sub_4343B0(int a1, int a2, int a3)
+void nox_set_color_rgb_4343B0(int a1, int a2, int a3)
 {
 }
 
@@ -567,7 +567,7 @@ __int16 (*dword_6F7C40)();
 __int16 (*dword_6F7C34)();
 void (*dword_975240)(_DWORD, _DWORD*, _DWORD*, _DWORD*);
 int (*dword_975380)(_DWORD, _DWORD, _DWORD);
-void (*dword_69A014)(_DWORD, _DWORD, _DWORD, _DWORD*);
+void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
 void (*g_copy_backbuffer_ptr)();
 
 //----- (0048A040) --------------------------------------------------------
@@ -1933,7 +1933,7 @@ void __cdecl sub_4340A0(int a1, int a2, int a3, int a4) {
 		*(_DWORD*)(v5 + 32) = (unsigned __int8)a4;
 		*(_DWORD*)(v5 + 24) = (unsigned __int8)a2;
 		*(_DWORD*)(v5 + 28) = (unsigned __int8)a3;
-		dword_69A014(a2, a3, a4, (DWORD*)(v5 + 40));
+		nox_color_rgb_func(a2, a3, a4, (DWORD*)(v5 + 40));
 		LODWORD(v4) = dword_5d4594_3801804;
 		if (dword_5d4594_3801804) {
 			v6 = ((unsigned __int8)a2 | (((unsigned __int8)a2 | ((unsigned __int64)(unsigned __int8)a2 << 16)) << 16))
@@ -2630,7 +2630,7 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3) {
 BOOL sub_48BDE0() {
 	int v0; // eax
 
-	v0 = sub_4344A0(255, 0, 255);
+	v0 = nox_color_rgb_4344A0(255, 0, 255);
 	*getMemU32Ptr(0x5D4594, 1193592) = v0;
 	if (g_cursor_surf) {
 #if USE_SDL
@@ -2732,21 +2732,21 @@ int sub_4338D0() {
 
 	switch (dword_5d4594_3799624) {
 	case 0:
-		dword_69A014 = sub_435180;
+		nox_color_rgb_func = nox_color_func_435180;
 		dword_975240 = sub_435240;
 		dword_975380 = sub_434E80;
 		v0 = getMemAt(0x581450, 9176);
 		memcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
 		break;
 	case 1:
-		dword_69A014 = sub_4351C0;
+		nox_color_rgb_func = nox_color_func_4351C0;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434E80;
 		v0 = getMemAt(0x581450, 9176);
 		memcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
 		break;
 	case 2:
-		dword_69A014 = sub_435200;
+		nox_color_rgb_func = nox_color_func_435200;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434EC0;
 		v0 = getMemAt(0x581450, 9336);
@@ -2926,59 +2926,54 @@ int __cdecl sub_4341D0(int a1, int a2) {
 }
 
 //----- (00434320) --------------------------------------------------------
-void sub_434320(int a1, int a2, int a3) {
-	a1 = a1 & 0xFF;
-	a2 = a2 & 0xFF;
-	a3 = a3 & 0xFF;
-	if (dword_69A014)
-		dword_69A014(a1, a2, a3, &ptr_5D4594_3799572->data[58]);
+void nox_set_color_rgb_434320(int r, int g, int b) {
+	r = r & 0xFF;
+	g = g & 0xFF;
+	b = b & 0xFF;
+	if (nox_color_rgb_func)
+		nox_color_rgb_func(r, g, b, &ptr_5D4594_3799572->data[58]);
 }
 
 //----- (004343B0) --------------------------------------------------------
-void sub_4343B0(int a1, int a2, int a3) {
-	a1 = a1 & 0xFF;
-	a2 = a2 & 0xFF;
-	a3 = a3 & 0xFF;
-	if (dword_69A014)
-		dword_69A014(a1, a2, a3, &ptr_5D4594_3799572->data[59]);
+void nox_set_color_rgb_4343B0(int r, int g, int b) {
+	r = r & 0xFF;
+	g = g & 0xFF;
+	b = b & 0xFF;
+	if (nox_color_rgb_func)
+		nox_color_rgb_func(r, g, b, &ptr_5D4594_3799572->data[59]);
 }
 
 //----- (00434400) --------------------------------------------------------
-void sub_434400(int a1, int a2, int a3) {
-	a1 = a1 & 0xFF;
-	a2 = a2 & 0xFF;
-	a3 = a3 & 0xFF;
-	if (dword_69A014)
-		dword_69A014(a1, a2, a3, &ptr_5D4594_3799572->data[60]);
+void nox_set_color_rgb_434400(int r, int g, int b) {
+	r = r & 0xFF;
+	g = g & 0xFF;
+	b = b & 0xFF;
+	if (nox_color_rgb_func)
+		nox_color_rgb_func(r, g, b, &ptr_5D4594_3799572->data[60]);
 }
 
 //----- (00434430) --------------------------------------------------------
-void sub_434430(int a1, int a2, int a3) {
-	a1 = a1 & 0xFF;
-	a2 = a2 & 0xFF;
-	a3 = a3 & 0xFF;
-	if (dword_69A014)
-		dword_69A014(a1, a2, a3, &ptr_5D4594_3799572->data[61]);
+void nox_set_color_rgb_434430(int r, int g, int b) {
+	r = r & 0xFF;
+	g = g & 0xFF;
+	b = b & 0xFF;
+	if (nox_color_rgb_func)
+		nox_color_rgb_func(r, g, b, &ptr_5D4594_3799572->data[61]);
 }
 
 //----- (00434480) --------------------------------------------------------
 void __cdecl sub_434480(int a1, int a2, int a3, int a4) { dword_975240(a1, a2, a3, a4); }
 
 //----- (004344A0) --------------------------------------------------------
-int __cdecl sub_4344A0(int a1, int a2, int a3) {
-	int result; // eax
-	int v4;     // [esp+0h] [ebp-4h]
-
-	a1 = a1 & 0xFF;
-	a2 = a2 & 0xFF;
-	a3 = a3 & 0xFF;
-	result = 0;
-	v4 = 0;
-	if (dword_69A014) {
-		dword_69A014(a1, a2, a3, (DWORD*)&v4);
-		result = v4;
+uint32_t nox_color_rgb_4344A0(int r, int g, int b) {
+	r = r & 0xFF;
+	g = g & 0xFF;
+	b = b & 0xFF;
+	int color = 0;
+	if (nox_color_rgb_func) {
+		nox_color_rgb_func(r, g, b, &color);
 	}
-	return result;
+	return color;
 }
 
 //----- (00434AA0) --------------------------------------------------------
@@ -3132,8 +3127,8 @@ int sub_434CC0() {
 	int i;        // esi
 
 	if (!dword_5d4594_3801780) {
-		v0 = dword_69A014;
-		dword_69A014 = sub_4351C0;
+		v0 = nox_color_rgb_func;
+		nox_color_rgb_func = nox_color_func_4351C0;
 	}
 	result = calloc(257, 2);
 	dword_5d4594_3804672 = result;
@@ -3151,12 +3146,12 @@ int sub_434CC0() {
 		return 0;
 	}
 	for (i = 0; i < 256; ++i) {
-		*(_WORD*)(dword_5d4594_3804672 + 2 * i) = sub_4344A0(i, 0, 0);
-		*(_WORD*)(dword_5d4594_3804656 + 2 * i) = sub_4344A0(0, i, 0);
-		*(_WORD*)(dword_5d4594_3804664 + 2 * i) = sub_4344A0(0, 0, i);
+		*(_WORD*)(dword_5d4594_3804672 + 2 * i) = nox_color_rgb_4344A0(i, 0, 0);
+		*(_WORD*)(dword_5d4594_3804656 + 2 * i) = nox_color_rgb_4344A0(0, i, 0);
+		*(_WORD*)(dword_5d4594_3804664 + 2 * i) = nox_color_rgb_4344A0(0, 0, i);
 	}
 	if (!dword_5d4594_3801780)
-		dword_69A014 = v0;
+		nox_color_rgb_func = v0;
 	return 1;
 }
 // 434CDD: variable 'v3' is possibly undefined

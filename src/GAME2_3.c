@@ -2707,7 +2707,7 @@ int __cdecl sub_495D00(_DWORD* a1, int a2, _DWORD* a3) {
 			v15 = nox_float2int(v24) + v13;
 			v25 = *v29 * -12.0;
 			v16 = nox_float2int(v25) + v14;
-			v17 = sub_4344A0(200, 200, 200);
+			v17 = nox_color_rgb_4344A0(200, 200, 200);
 			nox_client_drawSetColor_434460(v17);
 			nox_client_drawAddPoint_49F500(v11, v31);
 			nox_client_drawAddPoint_49F500(v15, v16);
@@ -4517,7 +4517,7 @@ void sub_498AE0() {
 	int i;  // eax
 
 	nox_client_drawEnableAlpha_434560(1);
-	sub_434430(0, 0, 0);
+	nox_set_color_rgb_434430(0, 0, 0);
 	v0 = dword_5d4594_1217464;
 	v1 = 0;
 	for (i = dword_5d4594_1217464 - 1; v1 < v0; ++v1) {
@@ -5156,23 +5156,23 @@ _DWORD* __cdecl sub_499F60(int a1, int a2, int a3, __int16 a4, char a5, char a6,
 		LOBYTE(v12) = *((_BYTE*)v13 + 156);
 		*((_WORD*)v13 + 52) = a4;
 		LOBYTE(v11) = *((_BYTE*)v13 + 152);
-		v13[108] = sub_4344A0(v11, v12, (int)result);
+		v13[108] = nox_color_rgb_4344A0(v11, v12, (int)result);
 		if (a1 == *getMemU32Ptr(0x5D4594, 1217512)) {
-			v14 = sub_4344A0(255, 128, 128);
+			v14 = nox_color_rgb_4344A0(255, 128, 128);
 		} else if (a1 == *getMemU32Ptr(0x5D4594, 1217516)) {
-			v14 = sub_4344A0(255, 255, 255);
+			v14 = nox_color_rgb_4344A0(255, 255, 255);
 		} else if (a1 == *getMemU32Ptr(0x5D4594, 1217524)) {
-			v14 = sub_4344A0(255, 100, 50);
+			v14 = nox_color_rgb_4344A0(255, 100, 50);
 		} else if (a1 == *getMemU32Ptr(0x5D4594, 1217528)) {
-			v14 = sub_4344A0(64, 255, 64);
+			v14 = nox_color_rgb_4344A0(64, 255, 64);
 		} else if (a1 == *getMemU32Ptr(0x5D4594, 1217532)) {
-			v14 = sub_4344A0(255, 100, 255);
+			v14 = nox_color_rgb_4344A0(255, 100, 255);
 		} else if (a1 == *getMemU32Ptr(0x5D4594, 1217536)) {
-			v14 = sub_4344A0(255, 200, 255);
+			v14 = nox_color_rgb_4344A0(255, 200, 255);
 		} else if (a1 == *getMemU32Ptr(0x5D4594, 1217540)) {
-			v14 = sub_4344A0(255, 255, 200);
+			v14 = nox_color_rgb_4344A0(255, 255, 200);
 		} else {
-			v14 = sub_4344A0(200, 200, 255);
+			v14 = nox_color_rgb_4344A0(200, 200, 255);
 		}
 		v13[109] = v14;
 		*((_BYTE*)v13 + 440) = a5;
@@ -9897,7 +9897,7 @@ int __cdecl sub_4A0570(int* a1, char* a2) {
 	v6 = atoi(v3);
 	v4 = strtok(0, " \t\n\r");
 	v8 = atoi(v4);
-	*a1 = sub_4344A0(v7, v6, (int)v8);
+	*a1 = nox_color_rgb_4344A0(v7, v6, (int)v8);
 	return 1;
 }
 // 4A05C7: variable 'v7' is possibly undefined

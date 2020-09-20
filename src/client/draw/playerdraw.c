@@ -140,7 +140,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 					LOBYTE(a2) = -1;
 					else
 					LOBYTE(a2) = a2 + 100;
-					*v17 = sub_4344A0(v33, a2, a1);
+					*v17 = nox_color_rgb_4344A0(v33, a2, a1);
 					++v17;
 				} while ((int)v17 < (int)getMemAt(0x5D4594, 3798692));
 				v12 = 0;
@@ -202,7 +202,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 
 	if (v30 || !sub_4356C0(dr, 0) || dr->field_32 == *getMemU32Ptr(0x5D4594, 2616328) ||
 	    *getMemU32Ptr(0x5D4594, 2614252) && (sub_4356C0(*getMemIntPtr(0x5D4594, 2614252), 21) || v31)) {
-		a1 = sub_4344A0(155, 155, 155);
+		a1 = nox_color_rgb_4344A0(155, 155, 155);
 		if (!sub_48D830(dr) && !nox_common_gameFlags_check_40A5C0(2048)) {
 			v21 = (__int16*)(v3 + 4704);
 			sub_43F840(0, (unsigned __int16*)v3 + 2352, &v34, 0, 0);

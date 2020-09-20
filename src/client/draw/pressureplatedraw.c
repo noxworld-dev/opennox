@@ -54,7 +54,7 @@ int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, nox_drawable* dr) {
 			LOBYTE(v11) = *(_BYTE*)(v2 + 433);
 			LOBYTE(v10) = *(_BYTE*)(v2 + 432);
 		}
-		sub_434430(v10, v11, v9);
+		nox_set_color_rgb_434430(v10, v11, v9);
 		nox_client_drawAddPoint_49F500(v12 + v18, v6);
 		nox_client_drawAddPoint_49F500(v12 + v14, v15);
 		nox_client_drawLineFromPoints_49E4B0();
