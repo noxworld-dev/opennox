@@ -638,7 +638,7 @@ int __cdecl sub_4585D0(int a1, unsigned int a2, int a3, int a4) {
 	if (v8 < 0)
 		v8 = 0;
 	if (a4 == 10101) {
-		v4[26] = sub_4344A0(230, 165, 65);
+		v4[26] = nox_color_rgb_4344A0(230, 165, 65);
 		strcpy(v5 + 9, v41);
 		sub_40A440(v41);
 		return 1;

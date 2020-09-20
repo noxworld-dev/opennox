@@ -320,9 +320,9 @@ int __cdecl sub_471D10(int xLeft) {
 						*((_DWORD*)v9 + 2) = 1;
 						LOBYTE(v19) = sub_415FF0(0, 64, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 688);
 						if (v18)
-							v14 = sub_4344A0(v19, v19, 255);
+							v14 = nox_color_rgb_4344A0(v19, v19, 255);
 						else
-							v14 = sub_4344A0(255, v19, v19);
+							v14 = nox_color_rgb_4344A0(255, v19, v19);
 						*((_DWORD*)v9 + 3) = v14;
 					}
 					v9 += 24;

@@ -399,12 +399,12 @@ int __cdecl sub_476270(_DWORD* a1) {
 			if (sub_57B500(v17, v13, 64) == -1) {
 				v19 = sub_50AB50(v17, v13);
 				if (v19 & 0x40) {
-					sub_434430(0, 255, 0);
+					nox_set_color_rgb_434430(0, 255, 0);
 				} else if (v19 & 2) {
-					sub_434430(0, 255, 255);
+					nox_set_color_rgb_434430(0, 255, 255);
 				} else {
 					if (v19 & 1) {
-						sub_434430(0, 100, 100);
+						nox_set_color_rgb_434430(0, 100, 100);
 						goto LABEL_34;
 					}
 					if (v19 & 0x3C) {
@@ -412,7 +412,7 @@ int __cdecl sub_476270(_DWORD* a1) {
 					LABEL_32:
 						v21 = 0;
 					LABEL_33:
-						sub_434430(255, v21, v22);
+						nox_set_color_rgb_434430(255, v21, v22);
 						goto LABEL_34;
 					}
 					if (v19 & 0x400) {
@@ -426,10 +426,10 @@ int __cdecl sub_476270(_DWORD* a1) {
 					}
 					if (!(v19 & 0x100))
 						goto LABEL_35;
-					sub_434430(100, 100, 0);
+					nox_set_color_rgb_434430(100, 100, 0);
 				}
 			} else {
-				sub_434430(0, 0, 255);
+				nox_set_color_rgb_434430(0, 0, 255);
 			}
 		LABEL_34:
 			nox_client_drawBorderLines_49CC70(v18 - v1[4], v31 - v1[5], 23, 23);
@@ -2248,7 +2248,7 @@ int sub_4799A0() {
 	char* v9;    // [esp-14h] [ebp-18h]
 	_DWORD* v10; // [esp+0h] [ebp-4h]
 
-	*getMemU32Ptr(0x5D4594, 1107052) = sub_4344A0(240, 128, 64);
+	*getMemU32Ptr(0x5D4594, 1107052) = nox_color_rgb_4344A0(240, 128, 64);
 	result = nox_new_window_from_file("Dialog.wnd", sub_479B00);
 	dword_5d4594_1123524 = result;
 	if (result) {
@@ -11883,7 +11883,7 @@ int __cdecl sub_488160(int a1, int a2) {
 			nox_wnd_sub_46A9B0(v14, v4 + v22, v29 + v7);
 		sub_434390(*(_DWORD*)(a2 + 68));
 		sub_43FAF0(*(_DWORD*)(a2 + 200), v26, v4 + 5, v7, 0, 0);
-		v15 = sub_4344A0(192, 0, 192);
+		v15 = nox_color_rgb_4344A0(192, 0, 192);
 		sub_434390(v15);
 		sub_43FAF0(*(_DWORD*)(a2 + 200), v25, v4 + v22 + 5, v7, 0, 0);
 		v16 = v4 + v22 + v24 + 5;
@@ -11956,7 +11956,7 @@ _DWORD* __cdecl sub_488500(int a1, int a2, int a3, int a4, int a5, int a6, int a
 		if (v12) {
 			sub_46AD80((int)v12, 128);
 			sub_4A3C00(v10[262], *(_DWORD*)(v10[262] + 32));
-			v13 = sub_4344A0(0, 0, 0);
+			v13 = nox_color_rgb_4344A0(0, 0, 0);
 			sub_46AFE0(v10[262], v13);
 			return v8;
 		}
@@ -12107,7 +12107,7 @@ int __cdecl sub_488870(int a1, int a2) {
 		}
 		sub_434390(*(_DWORD*)(a2 + 68));
 		sub_43FAF0(*(_DWORD*)(a2 + 200), v18, xLeft + 5, v6, v3, 0);
-		v12 = sub_4344A0(192, 0, 192);
+		v12 = nox_color_rgb_4344A0(192, 0, 192);
 		sub_434390(v12);
 		sub_43FAF0(*(_DWORD*)(a2 + 200), v20, v17 + xLeft + 5, v6, v3, 0);
 		xLeft += v17 + v19 + 5;

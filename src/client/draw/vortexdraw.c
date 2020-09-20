@@ -22,7 +22,7 @@ int __cdecl nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	if (!*getMemU32Ptr(0x5D4594, 1313820)) {
-		dword_5d4594_1313816 = sub_4344A0(170, 170, 170);
+		dword_5d4594_1313816 = nox_color_rgb_4344A0(170, 170, 170);
 		*getMemU32Ptr(0x5D4594, 1313820) = 1;
 	}
 	v2 = 8 * *(unsigned __int8*)(a2 + 448);

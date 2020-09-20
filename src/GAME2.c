@@ -880,7 +880,7 @@ void __cdecl sub_44DE80(_DWORD* a1) {
 	if (a1[1])
 		a1[2] += a1[3];
 	v1 = a1[2] >> 16;
-	sub_434430(0, 0, 0);
+	nox_set_color_rgb_434430(0, 0, 0);
 	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_backbuffer_width, v1);
 	nox_client_drawRectFilledOpaque_49CE30(0, nox_backbuffer_height - v1, nox_backbuffer_width, v1);
 }
@@ -897,7 +897,7 @@ void __cdecl sub_44DEE0(_DWORD* a1) {
 	v1 = a1[2] - a1[3];
 	a1[2] = v1;
 	v2 = v1 >> 16;
-	sub_434430(0, 0, 0);
+	nox_set_color_rgb_434430(0, 0, 0);
 	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_backbuffer_width, v2);
 	nox_client_drawRectFilledOpaque_49CE30(0, nox_backbuffer_height - v2, nox_backbuffer_width, v2);
 }
@@ -6112,8 +6112,8 @@ int __cdecl sub_45ABC0(const void* a1, const void* a2) {
 int sub_45AC40() {
 	int result; // eax
 
-	*getMemU32Ptr(0x5D4594, 1046880) = sub_4344A0(15, 15, 15);
-	result = sub_4344A0(115, 100, 100);
+	*getMemU32Ptr(0x5D4594, 1046880) = nox_color_rgb_4344A0(15, 15, 15);
+	result = nox_color_rgb_4344A0(115, 100, 100);
 	*getMemU32Ptr(0x5D4594, 1046884) = result;
 	return result;
 }

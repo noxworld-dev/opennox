@@ -17,8 +17,8 @@ int __cdecl nox_thing_magic_draw(int* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	if (!dword_5d4594_1313804) {
-		*getMemU32Ptr(0x5D4594, 1313808) = sub_4344A0(0, 200, 255);
-		*getMemU32Ptr(0x5D4594, 1313812) = sub_4344A0(255, 255, 50);
+		*getMemU32Ptr(0x5D4594, 1313808) = nox_color_rgb_4344A0(0, 200, 255);
+		*getMemU32Ptr(0x5D4594, 1313812) = nox_color_rgb_4344A0(255, 255, 50);
 		dword_5d4594_1313804 = 1;
 	}
 	v2 = *a1;
@@ -54,8 +54,8 @@ int __cdecl nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	if (!dword_5d4594_1313804) {
-		*getMemU32Ptr(0x5D4594, 1313808) = sub_4344A0(0, 200, 255);
-		*getMemU32Ptr(0x5D4594, 1313812) = sub_4344A0(255, 255, 50);
+		*getMemU32Ptr(0x5D4594, 1313808) = nox_color_rgb_4344A0(0, 200, 255);
+		*getMemU32Ptr(0x5D4594, 1313812) = nox_color_rgb_4344A0(255, 255, 50);
 		dword_5d4594_1313804 = 1;
 	}
 	v2 = *a1;

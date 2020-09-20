@@ -43,9 +43,9 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 
 	v5 = 0;
 	if (!*getMemU32Ptr(0x5D4594, 1316404)) {
-		*getMemU32Ptr(0x5D4594, 1313828) = sub_4344A0(40, 180, 255);
-		*getMemU32Ptr(0x5D4594, 1313832) = sub_4344A0(255, 255, 255);
-		*getMemU32Ptr(0x5D4594, 1313836) = sub_4344A0(40, 180, 255);
+		*getMemU32Ptr(0x5D4594, 1313828) = nox_color_rgb_4344A0(40, 180, 255);
+		*getMemU32Ptr(0x5D4594, 1313832) = nox_color_rgb_4344A0(255, 255, 255);
+		*getMemU32Ptr(0x5D4594, 1313836) = nox_color_rgb_4344A0(40, 180, 255);
 		*getMemU32Ptr(0x5D4594, 1313844) = 8;
 		*getMemU32Ptr(0x5D4594, 1313852) = 8;
 		*getMemU32Ptr(0x5D4594, 1313856) = 0;

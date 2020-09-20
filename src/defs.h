@@ -466,8 +466,8 @@ typedef struct nox_window_yyy {
 	nox_window* win; // 0
 	_DWORD field_1; // 4
 	_DWORD field_2; // 8
-	_DWORD field_3; // 12
-	_DWORD field_4; // 16
+	uint32_t color_1; // 12
+	uint32_t color_2; // 16
 } nox_window_yyy;
 _Static_assert(sizeof(nox_window_yyy) == 20, "wrong size of nox_window_yyy structure!");
 

@@ -6198,16 +6198,16 @@ int nox_client_initScreenParticles_431390() {
 int sub_4313E0() {
 	int result; // eax
 
-	*getMemU32Ptr(0x5D4594, 806012) = sub_4344A0(255, 255, 200);
-	*getMemU32Ptr(0x5D4594, 806004) = sub_4344A0(50, 150, 255);
-	*getMemU32Ptr(0x5D4594, 806036) = sub_4344A0(200, 255, 255);
-	*getMemU32Ptr(0x5D4594, 806024) = sub_4344A0(255, 200, 100);
-	*getMemU32Ptr(0x5D4594, 806040) = sub_4344A0(200, 255, 200);
-	*getMemU32Ptr(0x5D4594, 806020) = sub_4344A0(255, 255, 0);
-	*getMemU32Ptr(0x5D4594, 806028) = sub_4344A0(0, 0, 255);
-	*getMemU32Ptr(0x5D4594, 806016) = sub_4344A0(128, 128, 255);
-	*getMemU32Ptr(0x5D4594, 806008) = sub_4344A0(255, 128, 64);
-	result = sub_4344A0(0, 255, 0);
+	*getMemU32Ptr(0x5D4594, 806012) = nox_color_rgb_4344A0(255, 255, 200);
+	*getMemU32Ptr(0x5D4594, 806004) = nox_color_rgb_4344A0(50, 150, 255);
+	*getMemU32Ptr(0x5D4594, 806036) = nox_color_rgb_4344A0(200, 255, 255);
+	*getMemU32Ptr(0x5D4594, 806024) = nox_color_rgb_4344A0(255, 200, 100);
+	*getMemU32Ptr(0x5D4594, 806040) = nox_color_rgb_4344A0(200, 255, 200);
+	*getMemU32Ptr(0x5D4594, 806020) = nox_color_rgb_4344A0(255, 255, 0);
+	*getMemU32Ptr(0x5D4594, 806028) = nox_color_rgb_4344A0(0, 0, 255);
+	*getMemU32Ptr(0x5D4594, 806016) = nox_color_rgb_4344A0(128, 128, 255);
+	*getMemU32Ptr(0x5D4594, 806008) = nox_color_rgb_4344A0(255, 128, 64);
+	result = nox_color_rgb_4344A0(0, 255, 0);
 	*getMemU32Ptr(0x5D4594, 806032) = result;
 	return result;
 }
@@ -8325,29 +8325,22 @@ void __cdecl sub_435150(_BYTE* a1, char* a2) {
 }
 
 //----- (00435180) --------------------------------------------------------
-void __cdecl sub_435180(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, int* a4) {
-	unsigned __int8 v4; // al
-	int result;         // eax
-
-	v4 = sub_434630(a1, a2, a3);
-	result = v4 | (v4 << 8);
-	*a4 = result | (result << 16);
+void nox_color_func_435180(uint8_t r, uint8_t g, uint8_t b, uint32_t* color) {
+	uint8_t c = sub_434630(r, g, b);
+	uint32_t val = c | (c << 8);
+	*color = val | (val << 16);
 }
 
 //----- (004351C0) --------------------------------------------------------
-void __cdecl sub_4351C0(char a1, char a2, unsigned __int8 a3, int* a4) {
-	int result; // eax
-
-	result = (a3 >> 3) | (4 * (a2 & 0xF8 | (32 * (a1 & 0xF8))));
-	*a4 = result | (result << 16);
+void nox_color_func_4351C0(uint8_t r, uint8_t g, uint8_t b, uint32_t* color) {
+	uint32_t val = (b >> 3) | (4 * (g & 0xF8 | (32 * (r & 0xF8))));
+	*color = val | (val << 16);
 }
 
 //----- (00435200) --------------------------------------------------------
-void __cdecl sub_435200(char a1, char a2, unsigned __int8 a3, int* a4) {
-	int result; // eax
-
-	result = (a3 >> 3) | (8 * (a2 & 0xFC | (32 * (a1 & 0xF8))));
-	*a4 = result | (result << 16);
+void nox_color_func_435200(uint8_t r, uint8_t g, uint8_t b, uint32_t* color) {
+	uint32_t val = (b >> 3) | (8 * (g & 0xFC | (32 * (r & 0xF8))));
+	*color = val | (val << 16);
 }
 
 //----- (00435240) --------------------------------------------------------

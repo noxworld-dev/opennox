@@ -40,8 +40,8 @@ int __cdecl nox_thing_harpoon_rope_draw(int* a1, nox_drawable* dr) {
 		a2a.field_0 = v3 + v7;
 		a2a.field_4 = v8 + v6 - 20;
 		LABEL_12:
-		*getMemU32Ptr(0x5D4594, 1312492) = sub_4344A0(144, 104, 64);
-		*getMemU32Ptr(0x5D4594, 1312496) = sub_4344A0(24, 16, 0);
+		*getMemU32Ptr(0x5D4594, 1312492) = nox_color_rgb_4344A0(144, 104, 64);
+		*getMemU32Ptr(0x5D4594, 1312496) = nox_color_rgb_4344A0(24, 16, 0);
 		sub_4B63B0(&a1a, &a2a);
 		return 1;
 	}

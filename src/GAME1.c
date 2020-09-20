@@ -6980,7 +6980,7 @@ int __cdecl sub_411540(int a1, _BYTE* a2) {
 	*(_DWORD*)(v3 + 8) = v6 + 1;
 	if (v7 != -1 || v29[1] || v9 != -1) {
 		v10 = 60 * dword_5d4594_251568;
-		*getMemU32Ptr(0x5D4594, v10 + 2682236) = sub_4344A0(*(int*)v29, *(int*)&v29[1], *(int*)&v29[2]);
+		*getMemU32Ptr(0x5D4594, v10 + 2682236) = nox_color_rgb_4344A0(*(int*)v29, *(int*)&v29[1], *(int*)&v29[2]);
 	} else {
 		v10 = 60 * dword_5d4594_251568;
 		*getMemU32Ptr(0x5D4594, 60 * dword_5d4594_251568 + 2682236) = 2147483648;
