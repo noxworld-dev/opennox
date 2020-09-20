@@ -396,18 +396,18 @@ void __cdecl sub_4BA670(int a1, int a2, int a3, int a4, int a5) {
 int sub_4BAB30() {
 	int result; // eax
 
-	*getMemU32Ptr(0x5D4594, 1316464) = sub_4344A0(255, 255, 255);
-	*getMemU32Ptr(0x5D4594, 1316488) = sub_4344A0(128, 128, 255);
-	*getMemU32Ptr(0x5D4594, 1316424) = sub_4344A0(128, 128, 255);
-	*getMemU32Ptr(0x5D4594, 1316428) = sub_4344A0(64, 64, 255);
-	*getMemU32Ptr(0x5D4594, 1316516) = sub_4344A0(200, 200, 255);
-	*getMemU32Ptr(0x5D4594, 1316512) = sub_4344A0(128, 128, 255);
-	*getMemU32Ptr(0x5D4594, 1316496) = sub_4344A0(255, 255, 255);
-	*getMemU32Ptr(0x5D4594, 1316468) = sub_4344A0(255, 255, 0);
-	*getMemU32Ptr(0x5D4594, 1316460) = sub_4344A0(30, 160, 30);
-	*getMemU32Ptr(0x5D4594, 1316444) = sub_4344A0(60, 140, 60);
-	*getMemU32Ptr(0x5D4594, 1316504) = sub_4344A0(40, 225, 40);
-	*getMemU32Ptr(0x5D4594, 1316480) = sub_4344A0(150, 220, 150);
+	*getMemU32Ptr(0x5D4594, 1316464) = nox_color_rgb_4344A0(255, 255, 255);
+	*getMemU32Ptr(0x5D4594, 1316488) = nox_color_rgb_4344A0(128, 128, 255);
+	*getMemU32Ptr(0x5D4594, 1316424) = nox_color_rgb_4344A0(128, 128, 255);
+	*getMemU32Ptr(0x5D4594, 1316428) = nox_color_rgb_4344A0(64, 64, 255);
+	*getMemU32Ptr(0x5D4594, 1316516) = nox_color_rgb_4344A0(200, 200, 255);
+	*getMemU32Ptr(0x5D4594, 1316512) = nox_color_rgb_4344A0(128, 128, 255);
+	*getMemU32Ptr(0x5D4594, 1316496) = nox_color_rgb_4344A0(255, 255, 255);
+	*getMemU32Ptr(0x5D4594, 1316468) = nox_color_rgb_4344A0(255, 255, 0);
+	*getMemU32Ptr(0x5D4594, 1316460) = nox_color_rgb_4344A0(30, 160, 30);
+	*getMemU32Ptr(0x5D4594, 1316444) = nox_color_rgb_4344A0(60, 140, 60);
+	*getMemU32Ptr(0x5D4594, 1316504) = nox_color_rgb_4344A0(40, 225, 40);
+	*getMemU32Ptr(0x5D4594, 1316480) = nox_color_rgb_4344A0(150, 220, 150);
 	*getMemU32Ptr(0x5D4594, 1316520) = sub_44CFC0((CHAR*)getMemAt(0x587000, 178220));
 	*getMemU32Ptr(0x5D4594, 1316524) = sub_44CFC0((CHAR*)getMemAt(0x587000, 178232));
 	result = sub_44CFC0((CHAR*)getMemAt(0x587000, 178244));
@@ -5176,9 +5176,9 @@ __int16 __cdecl sub_4C4F40(_DWORD* a1, int a2) {
 int sub_4C4FD0() {
 	int result; // eax
 
-	*getMemU32Ptr(0x5D4594, 1321536) = sub_4344A0(255, 200, 255);
-	*getMemU32Ptr(0x5D4594, 1321796) = sub_4344A0(255, 0, 255);
-	result = sub_4344A0(100, 40, 100);
+	*getMemU32Ptr(0x5D4594, 1321536) = nox_color_rgb_4344A0(255, 200, 255);
+	*getMemU32Ptr(0x5D4594, 1321796) = nox_color_rgb_4344A0(255, 0, 255);
+	result = nox_color_rgb_4344A0(100, 40, 100);
 	*getMemU32Ptr(0x5D4594, 1321532) = result;
 	return result;
 }
@@ -10193,7 +10193,7 @@ int sub_4CC6F0(int a1, int a2) {
 		v0 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1522892, 9910);
 		nox_window_set_hidden((int)v0, 0);
 	}
-	sub_4343B0(150, 150, 150);
+	nox_set_color_rgb_4343B0(150, 150, 150);
 	sub_43F6E0(0, getMemI16Ptr(0x587000, 187860), 500, 150);
 	return 1;
 }

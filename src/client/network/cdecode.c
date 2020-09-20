@@ -1606,7 +1606,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 						LOBYTE(v5) = *v289;
 						LOBYTE(k) = *(v289 - 1);
 						v289 += 3;
-						*v358 = sub_4344A0(k, v5, SHIDWORD(v5));
+						*v358 = nox_color_rgb_4344A0(k, v5, SHIDWORD(v5));
 						k = (int)(v358 + 1);
 						LODWORD(v5) = v360 - 1;
 						v250 = v360 == 1;

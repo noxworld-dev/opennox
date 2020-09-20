@@ -14,8 +14,8 @@ int __cdecl sub_4CC950(int a1, int a2) {
 
 	if (!*getMemU32Ptr(0x5D4594, 1522952)) {
 		*getMemU32Ptr(0x5D4594, 1522952) = sub_44CFC0((CHAR*)getMemAt(0x587000, 187880));
-		*getMemU32Ptr(0x5D4594, 1522944) = sub_4344A0(200, 200, 200);
-		*getMemU32Ptr(0x5D4594, 1522948) = sub_4344A0(255, 255, 255);
+		*getMemU32Ptr(0x5D4594, 1522944) = nox_color_rgb_4344A0(200, 200, 200);
+		*getMemU32Ptr(0x5D4594, 1522948) = nox_color_rgb_4344A0(255, 255, 255);
 	}
 	v2 = *getMemU32Ptr(0x5D4594, 1522944);
 	v3 = *getMemU32Ptr(0x5D4594, 1522952);

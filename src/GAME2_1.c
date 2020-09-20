@@ -569,23 +569,23 @@ int __cdecl sub_461460(int a1) {
 	char v12;   // dl
 	int result; // eax
 
-	v1 = sub_4344A0(*(_BYTE*)(a1 + 2253), *(_BYTE*)(a1 + 2254), *(_BYTE*)(a1 + 2255));
+	v1 = nox_color_rgb_4344A0(*(_BYTE*)(a1 + 2253), *(_BYTE*)(a1 + 2254), *(_BYTE*)(a1 + 2255));
 	v2 = *(_BYTE*)(a1 + 2257);
 	v3 = *(_BYTE*)(a1 + 2256);
 	*(_DWORD*)(a1 + 2296) = v1;
-	v4 = sub_4344A0(v3, v2, *(_BYTE*)(a1 + 2258));
+	v4 = nox_color_rgb_4344A0(v3, v2, *(_BYTE*)(a1 + 2258));
 	v5 = *(_BYTE*)(a1 + 2260);
 	v6 = *(_BYTE*)(a1 + 2259);
 	*(_DWORD*)(a1 + 2292) = v4;
-	v7 = sub_4344A0(v6, v5, *(_BYTE*)(a1 + 2261));
+	v7 = nox_color_rgb_4344A0(v6, v5, *(_BYTE*)(a1 + 2261));
 	v8 = *(_BYTE*)(a1 + 2263);
 	v9 = *(_BYTE*)(a1 + 2262);
 	*(_DWORD*)(a1 + 2300) = v7;
-	v10 = sub_4344A0(v9, v8, *(_BYTE*)(a1 + 2264));
+	v10 = nox_color_rgb_4344A0(v9, v8, *(_BYTE*)(a1 + 2264));
 	v11 = *(_BYTE*)(a1 + 2266);
 	v12 = *(_BYTE*)(a1 + 2265);
 	*(_DWORD*)(a1 + 2304) = v10;
-	*(_DWORD*)(a1 + 2308) = sub_4344A0(v12, v11, *(_BYTE*)(a1 + 2267));
+	*(_DWORD*)(a1 + 2308) = nox_color_rgb_4344A0(v12, v11, *(_BYTE*)(a1 + 2267));
 	result = *getMemU32Ptr(0x5D4594, 2523948);
 	*(_DWORD*)(a1 + 2312) = *getMemU32Ptr(0x5D4594, 2523948);
 	return result;
@@ -6747,25 +6747,25 @@ void sub_470AA0(int a1) {
 unsigned __int8* sub_470B00() {
 	unsigned __int8* result; // eax
 
-	dword_5d4594_1090284 = sub_4344A0(255, 0, 0);
-	dword_5d4594_1090280 = sub_4344A0(100, 0, 0);
-	*getMemU32Ptr(0x5D4594, 1091964) = sub_4344A0(0, 255, 0);
-	*getMemU32Ptr(0x5D4594, 1092992) = sub_4344A0(0, 100, 0);
+	dword_5d4594_1090284 = nox_color_rgb_4344A0(255, 0, 0);
+	dword_5d4594_1090280 = nox_color_rgb_4344A0(100, 0, 0);
+	*getMemU32Ptr(0x5D4594, 1091964) = nox_color_rgb_4344A0(0, 255, 0);
+	*getMemU32Ptr(0x5D4594, 1092992) = nox_color_rgb_4344A0(0, 100, 0);
 
-	nox_windows_arr_1093036[0].field_3 = dword_5d4594_1090284;
-	nox_windows_arr_1093036[0].field_4 = dword_5d4594_1090280;
+	nox_windows_arr_1093036[0].color_1 = dword_5d4594_1090284;
+	nox_windows_arr_1093036[0].color_2 = dword_5d4594_1090280;
 
-	nox_windows_arr_1093036[1].field_3 = sub_4344A0(0, 0, 255);
-	nox_windows_arr_1093036[1].field_4 = sub_4344A0(0, 0, 100);
+	nox_windows_arr_1093036[1].color_1 = nox_color_rgb_4344A0(0, 0, 255);
+	nox_windows_arr_1093036[1].color_2 = nox_color_rgb_4344A0(0, 0, 100);
 
-	nox_windows_arr_1093036[4].field_3 = sub_4344A0(240, 0, 240);
-	nox_windows_arr_1093036[4].field_4 = sub_4344A0(50, 0, 50);
+	nox_windows_arr_1093036[4].color_1 = nox_color_rgb_4344A0(240, 0, 240);
+	nox_windows_arr_1093036[4].color_2 = nox_color_rgb_4344A0(50, 0, 50);
 
-	nox_windows_arr_1093036[5].field_3 = sub_4344A0(255, 0, 255);
-	nox_windows_arr_1093036[5].field_4 = sub_4344A0(50, 0, 50);
+	nox_windows_arr_1093036[5].color_1 = nox_color_rgb_4344A0(255, 0, 255);
+	nox_windows_arr_1093036[5].color_2 = nox_color_rgb_4344A0(50, 0, 50);
 
-	nox_windows_arr_1093036[6].field_3 = sub_4344A0(255, 0, 255);
-	nox_windows_arr_1093036[6].field_4 = sub_4344A0(50, 0, 50);
+	nox_windows_arr_1093036[6].color_1 = nox_color_rgb_4344A0(255, 0, 255);
+	nox_windows_arr_1093036[6].color_2 = nox_color_rgb_4344A0(50, 0, 50);
 
 	result = getMemAt(0x5D4594, 1094732);
 	do {
@@ -6793,12 +6793,12 @@ int __cdecl sub_470C40(int a1) {
 	dword_5d4594_1096264 = a1;
 	if (a1) {
 		result = *getMemU32Ptr(0x5D4594, 1091964);
-		nox_windows_arr_1093036[0].field_3 = *getMemU32Ptr(0x5D4594, 1091964);
-		nox_windows_arr_1093036[0].field_4 = *getMemU32Ptr(0x5D4594, 1092992);
+		nox_windows_arr_1093036[0].color_1 = *getMemU32Ptr(0x5D4594, 1091964);
+		nox_windows_arr_1093036[0].color_2 = *getMemU32Ptr(0x5D4594, 1092992);
 	} else {
 		result = dword_5d4594_1090280;
-		nox_windows_arr_1093036[0].field_3 = dword_5d4594_1090284;
-		nox_windows_arr_1093036[0].field_4 = dword_5d4594_1090280;
+		nox_windows_arr_1093036[0].color_1 = dword_5d4594_1090284;
+		nox_windows_arr_1093036[0].color_2 = dword_5d4594_1090280;
 	}
 	return result;
 }
