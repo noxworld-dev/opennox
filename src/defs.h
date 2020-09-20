@@ -448,8 +448,8 @@ typedef struct nox_window {
 	_DWORD field_5;
 	_DWORD field_6;
 	_DWORD field_7;
-	_DWORD field_8;
-	_DWORD field_9[83];
+	_DWORD field_8; // index in nox_windows_arr_1093036?
+	_DWORD field_9[83]; // wchar_t[???]
 	_DWORD field_92;                      // 92
 	int (*field_93)(int, int, int, int);  // 93
 	int (*field_94)(int, int, int, int);  // 94
@@ -463,11 +463,11 @@ typedef struct nox_window {
 _Static_assert(sizeof(nox_window) == 404, "wrong size of nox_window structure!");
 
 typedef struct nox_window_yyy {
-	nox_window* win;
-	_DWORD field_1;
-	_DWORD field_2;
-	_DWORD field_3;
-	_DWORD field_4;
+	nox_window* win; // 0
+	_DWORD field_1; // 4
+	_DWORD field_2; // 8
+	_DWORD field_3; // 12
+	_DWORD field_4; // 16
 } nox_window_yyy;
 _Static_assert(sizeof(nox_window_yyy) == 20, "wrong size of nox_window_yyy structure!");
 

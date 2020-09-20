@@ -21,6 +21,7 @@ extern _DWORD nox_client_renderBubbles_80844;
 extern _DWORD dword_5d4594_1090276;
 extern int nox_win_width;
 extern int nox_win_height;
+extern nox_window_yyy nox_windows_arr_1093036[7];
 
 //----- (004710B0) --------------------------------------------------------
 int sub_4710B0() {
@@ -67,17 +68,17 @@ int __cdecl sub_471160(int a1, int a2, int a3, int a4, int a5) {
 	wchar_t* v6; // eax
 	int result;  // eax
 
-	*getMemIntPtr(0x5D4594, 1093036 + 20*5) = nox_window_new(a1, 1032, a2, a3, a4, a5, 0);
-	*getMemIntPtr(0x5D4594, 1093036 + 20*6) = nox_window_new(a1, 1032, a2 - 17, a3 - 15, 15, 15, 0);
-	nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*5), 0, sub_471250, 0);
+	nox_windows_arr_1093036[5].win = nox_window_new(a1, 1032, a2, a3, a4, a5, 0);
+	nox_windows_arr_1093036[6].win = nox_window_new(a1, 1032, a2 - 17, a3 - 15, 15, 15, 0);
+	nox_window_set_all_funcs(nox_windows_arr_1093036[5].win, 0, sub_471250, 0);
 	v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148504), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 921);
-	sub_46B000((wchar_t*)(*getMemUintPtr(0x5D4594, 1093036 + 20*5) + 36), v5);
-	nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*6), 0, sub_471450, 0);
+	sub_46B000((wchar_t*)(&nox_windows_arr_1093036[5].win->field_9), v5);
+	nox_window_set_all_funcs(nox_windows_arr_1093036[6].win, 0, sub_471450, 0);
 	v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148560), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 925);
-	sub_46B000((wchar_t*)(*getMemUintPtr(0x5D4594, 1093036 + 20*6) + 36), v6);
-	result = *getMemIntPtr(0x5D4594, 1093036 + 20*5);
-	*(_DWORD*)(*getMemUintPtr(0x5D4594, 1093036 + 20*5) + 32) = 5;
-	*(_DWORD*)(*getMemUintPtr(0x5D4594, 1093036 + 20*6) + 32) = 6;
+	sub_46B000((wchar_t*)(&nox_windows_arr_1093036[6].win->field_9), v6);
+	result = nox_windows_arr_1093036[5].win;
+	nox_windows_arr_1093036[5].win->field_8 = 5;
+	nox_windows_arr_1093036[6].win->field_8 = 6;
 	return result;
 }
 
@@ -113,11 +114,13 @@ int sub_4714E0() {
 	*getMemU32Ptr(0x5D4594, 1091928) = 0;
 	v1 = 0;
 	v2 = getMemAt(0x5D4594, 1092996);
+	int v2i = 0;
 	do {
 		nox_sprintf(v15, "HealthMana%d", ++v1);
 		*(_DWORD*)v2 = sub_42F970(v15);
 		v2 += 4;
-	} while ((int)v2 < (int)getMemAt(0x5D4594, 1093036));
+		v2i++;
+	} while (v2i < 10);
 	if (!*getMemU32Ptr(0x5D4594, 1096268)) {
 		*getMemU32Ptr(0x5D4594, 1096268) = sub_44CFC0((CHAR*)getMemAt(0x587000, 148600));
 		dword_5d4594_1096272 = sub_44CFC0((CHAR*)getMemAt(0x587000, 148612));
@@ -172,36 +175,43 @@ int sub_4714E0() {
 		v8 = nox_window_new(*(int*)&dword_5d4594_1090276, 136, 0, 0, 91, 159, 0);
 		v9 = sub_42F970("HealthManaTubes");
 		sub_46AE60((int)v8, (int)v9);
-		*getMemU32Ptr(0x5D4594, 1093036 + 20*1) = nox_window_new((int)v8, 8, 60, 34, 25, 125, 0);
-		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*1), sub_472100, sub_471D10, 0);
+
+		nox_windows_arr_1093036[1].win = nox_window_new((int)v8, 8, 60, 34, 25, 125, 0);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[1].win, sub_472100, sub_471D10, 0);
 		v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148900), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1122);
-		sub_46B000((wchar_t*)(*getMemU32Ptr(0x5D4594, 1093036 + 20*1) + 36), v10);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036 + 20*1) + 32) = 1;
-		*getMemU32Ptr(0x5D4594, 1093036) = nox_window_new((int)v8, 8, 34, 34, 25, 125, 0);
-		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036), sub_472100, sub_471D10, 0);
+		sub_46B000((wchar_t*)(&nox_windows_arr_1093036[1].win->field_9), v10);
+		nox_windows_arr_1093036[1].win->field_8 = 1;
+
+		nox_windows_arr_1093036[0].win = nox_window_new((int)v8, 8, 34, 34, 25, 125, 0);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, sub_472100, sub_471D10, 0);
 		v11 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148952), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1135);
-		sub_46B000((wchar_t*)(*getMemU32Ptr(0x5D4594, 1093036) + 36), v11);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036) + 32) = 0;
-		*getMemU32Ptr(0x5D4594, 1093036 + 20*2) = nox_window_new(0, 8, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*2), 0, sub_471C00, 0);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036 + 20*2) + 32) = 0;
-		*getMemU32Ptr(0x5D4594, 1093036 + 20*3) = nox_window_new(0, 8, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*3), 0, sub_471C00, 0);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036 + 20*3) + 32) = 1;
+		sub_46B000((wchar_t*)(&nox_windows_arr_1093036[0].win->field_9), v11);
+		nox_windows_arr_1093036[0].win->field_8 = 0;
+
+		nox_windows_arr_1093036[2].win = nox_window_new(0, 8, 0, 0, 0, 0, 0);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[2].win, 0, sub_471C00, 0);
+		nox_windows_arr_1093036[2].win->field_8 = 0;
+
+		nox_windows_arr_1093036[3].win = nox_window_new(0, 8, 0, 0, 0, 0, 0);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[3].win, 0, sub_471C00, 0);
+		nox_windows_arr_1093036[3].win->field_8 = 1;
+
 		*getMemU32Ptr(0x5D4594, 1093176) = 1;
 	} else {
 		*getMemU32Ptr(0x5D4594, 1091900) = sub_42F970("WarriorPoisonTube");
 		v12 = nox_window_new(*(int*)&dword_5d4594_1090276, 136, 0, 0, 91, 159, 0);
 		v13 = sub_42F970("WarriorHealthTube");
 		sub_46AE60((int)v12, (int)v13);
-		*getMemU32Ptr(0x5D4594, 1093036) = nox_window_new((int)v12, 8, 34, 34, 25, 125, 0);
-		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036), sub_472100, sub_471D10, 0);
+
+		nox_windows_arr_1093036[0].win = nox_window_new((int)v12, 8, 34, 34, 25, 125, 0);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, sub_472100, sub_471D10, 0);
 		v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 149048), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1173);
-		sub_46B000((wchar_t*)(*getMemU32Ptr(0x5D4594, 1093036) + 36), v14);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036) + 32) = 0;
-		*getMemU32Ptr(0x5D4594, 1093036 + 20*2) = nox_window_new(0, 24, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1093036 + 20*2), 0, sub_471C00, 0);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1093036 + 20*2) + 32) = 0;
+		sub_46B000((wchar_t*)(&nox_windows_arr_1093036[0].win->field_9), v14);
+		nox_windows_arr_1093036[0].win->field_8 = 0;
+
+		nox_windows_arr_1093036[2].win = nox_window_new(0, 24, 0, 0, 0, 0, 0);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[2].win, 0, sub_471C00, 0);
+		nox_windows_arr_1093036[2].win->field_8 = 0;
 	}
 	sub_472280();
 	sub_470B00();
@@ -209,8 +219,8 @@ int sub_4714E0() {
 		dword_5d4594_1096252 = 1;
 	} else {
 		dword_5d4594_1096252 = 0;
-		nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1093036 + 20*2), 1);
-		nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1093036 + 20*3), 1);
+		nox_window_set_hidden(nox_windows_arr_1093036[2].win, 1);
+		nox_window_set_hidden(nox_windows_arr_1093036[3].win, 1);
 	}
 	return 1;
 }
@@ -242,8 +252,8 @@ int __cdecl sub_471D10(int xLeft) {
 	v1 = (_DWORD*)xLeft;
 	v18 = *(_DWORD*)(xLeft + 32);
 	v2 = v18;
-	v3 = getMemAt(0x5D4594, 1093036 + sizeof(nox_window_yyy) * v18);
-	v20 = getMemAt(0x5D4594, 1093036 + sizeof(nox_window_yyy) * v18);
+	v3 = &nox_windows_arr_1093036[v18];
+	v20 = v3;
 	if (!v18 && dword_5d4594_1096264) {
 		nox_client_wndGetPosition_46AA60(*(_DWORD**)&dword_5d4594_1090276, &xLeft, &yTop);
 		nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1091900), xLeft, yTop);

@@ -80,6 +80,8 @@ extern nox_window* nox_win_unk3;
 extern nox_window* nox_win_unk4;
 extern nox_window* nox_win_unk5;
 
+extern nox_window_yyy nox_windows_arr_1093036[7];
+
 extern int nox_cheats_disabled;
 
 extern nox_window* nox_win_main_menu;
@@ -2683,6 +2685,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 3799620, (void*)&nox_video_windowsPlatformVersion, sizeof(nox_video_windowsPlatformVersion), 1},
 	{0x5D4594 + 1568036, (void*)&nox_server_netCodeCache, sizeof(nox_server_netCodeCache), 1},
 	{0x5D4594 + 1049872, (void*)&array_5D4594_1049872, sizeof(array_5D4594_1049872), 1},
+	{0x5D4594 + 1093036, (void*)&nox_windows_arr_1093036, sizeof(nox_windows_arr_1093036), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
 	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},
