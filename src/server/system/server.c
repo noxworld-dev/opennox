@@ -51,6 +51,9 @@ extern _DWORD dword_5d4594_1599656;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_1599636;
 
+// monster AI?
+nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE*NOX_SERVER_XXX_SIZE] = {0};
+
 void nullsub_21(void) {}
 void nullsub_25(_DWORD a1) {}
 
@@ -1537,7 +1540,7 @@ float* sub_50AFA0() {
 	int v44;              // [esp+34h] [ebp-8h]
 
 	dword_5d4594_2386160 = 0;
-	memset(getMemAt(0x5D4594, 1599716), 0, 0xC0000u);
+	memset(nox_server_xxx_1599716, 0, sizeof(nox_server_xxx_1599716));
 	dword_5d4594_2386164 = 0;
 	for (i = nox_server_getFirstObject_4DA790(); i; i = nox_server_getNextObject_4DA7A0(i)) {
 		sub_50B2C0(i);
@@ -1548,19 +1551,19 @@ float* sub_50AFA0() {
 				v2 = nox_float2int(v23);
 				v24 = *(float*)(i + 60) * 0.043478262;
 				v3 = nox_float2int(v24);
-				*getMemU8Ptr(0x5D4594, 1599716 + 8 + 12 * (v3 + (v2 << 8))) |= 0x10u;
+				nox_server_xxx_1599716[v3 + (v2 << 8)].field_8 |= 0x10;
 			} else if (v1 & 0x400) {
 				v25 = *(float*)(i + 56) * 0.043478262;
 				v4 = nox_float2int(v25);
 				v26 = *(float*)(i + 60) * 0.043478262;
 				v5 = nox_float2int(v26);
-				*getMemU8Ptr(0x5D4594, 1599716 + 8 + 12 * (v5 + (v4 << 8))) |= 0x20u;
+				nox_server_xxx_1599716[v5 + (v4 << 8)].field_8 |= 0x20;
 			} else if (v1 & 0x4000) {
 				v27 = *(float*)(i + 56) * 0.043478262;
 				v6 = nox_float2int(v27);
 				v28 = *(float*)(i + 60) * 0.043478262;
 				v7 = nox_float2int(v28);
-				*getMemU8Ptr(0x5D4594, 1599716 + 8 + 12 * (v7 + (v6 << 8))) |= 4u;
+				nox_server_xxx_1599716[v7 + (v6 << 8)].field_8 |= 0x4;
 			} else if ((v1 & 0x8000) == 0) {
 				if (!(*(_BYTE*)(i + 16) & 0x49)) {
 					if (v1 & 0x400000) {
@@ -1580,7 +1583,7 @@ float* sub_50AFA0() {
 						for (j = v13; v15 <= v14; j = v15) {
 							v38 = v12;
 							if (v12 <= v39) {
-								v16 = getMemAt(0x5D4594, 1599716 + 8 + 12 * (v15 + (v12 << 8)));
+								v16 = (_BYTE*)&(nox_server_xxx_1599716[v15 + (v12 << 8)].field_8);
 								do {
 									v17 = getMemFloatPtr(0x587000, 234108);
 									while (1) {
@@ -1603,7 +1606,7 @@ float* sub_50AFA0() {
 									}
 								LABEL_22:
 									++v12;
-									v16 += 3072;
+									v16 += sizeof(nox_server_xxx)*NOX_SERVER_XXX_SIZE;
 									v38 = v12;
 								} while (v12 <= v39);
 								v15 = j;
@@ -1619,7 +1622,7 @@ float* sub_50AFA0() {
 				v8 = nox_float2int(v29);
 				v30 = *(float*)(i + 60) * 0.043478262;
 				v9 = nox_float2int(v30);
-				*getMemU8Ptr(0x5D4594, 1599716 + 8 + 12 * (v9 + (v8 << 8))) |= 8u;
+				nox_server_xxx_1599716[v9 + (v8 << 8)].field_8 |= 0x8;
 			}
 		}
 	}
@@ -1630,7 +1633,7 @@ float* sub_50AFA0() {
 			v21 = nox_float2int(v35);
 			v36 = k[3] * 0.043478262;
 			v22 = nox_float2int(v36);
-			*getMemU16Ptr(0x5D4594, 1599716 + 8 + 12 * (v22 + (v21 << 8))) |= 0x40u;
+			nox_server_xxx_1599716[v22 + (v21 << 8)].field_8 |= 0x40;
 		}
 		result = (float*)sub_579870((int)k);
 	}
