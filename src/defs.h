@@ -475,6 +475,13 @@ typedef struct nox_window_yyy {
 } nox_window_yyy;
 _Static_assert(sizeof(nox_window_yyy) == 20, "wrong size of nox_window_yyy structure!");
 
+#define NOX_SAVEGAME_XXX_MAX 14
+typedef struct __attribute__((__packed__)) nox_savegame_xxx {
+	_DWORD field_0;
+	_BYTE field_4[1274];
+} nox_savegame_xxx;
+_Static_assert(sizeof(nox_savegame_xxx) == 1278, "wrong size of nox_savegame_xxx structure!");
+
 typedef struct nox_drawable {
 	_DWORD field_0;        // 0, 0
 	_DWORD field_1;        // 1, 4

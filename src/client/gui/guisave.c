@@ -8,6 +8,7 @@ extern _DWORD dword_5d4594_1082864;
 extern _DWORD dword_5d4594_1082856;
 extern int nox_win_width;
 extern int nox_win_height;
+extern nox_savegame_xxx nox_savegame_arr_1064948[NOX_SAVEGAME_XXX_MAX];
 
 //----- (0046C730) --------------------------------------------------------
 int sub_46C730() {
@@ -90,8 +91,8 @@ int __cdecl sub_46C920(_DWORD* a1, int a2, int* a3, int a4) {
 			sub_46ABB0((int)v10, 0);
 			return 0;
 		}
-		if (strlen((const char*)getMemAt(0x5D4594, 1064948 + 1278*v8 + 4))) {
-			nox_savegame_nameFromPath_4DC970((char*)getMemAt(0x5D4594, 1064948 + 1278*v8 + 4), (char*)getMemAt(0x5D4594, 1082840));
+		if (strlen(&nox_savegame_arr_1064948[v8].field_4)) {
+			nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[v8].field_4, (char*)getMemAt(0x5D4594, 1082840));
 			sub_46ADE0(*(int*)&dword_5d4594_1082856);
 			v13 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 143456), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
 										184);
@@ -110,7 +111,7 @@ int __cdecl sub_46C920(_DWORD* a1, int a2, int* a3, int a4) {
 		return 0;
 	} else if (v5 == 502) {
 		v6 = *(_DWORD*)(*(_DWORD*)(dword_5d4594_1082864 + 32) + 48);
-		if (v6 >= 0 && strlen((const char*)getMemAt(0x5D4594, 1064948 + 1278*v6 + 4))) {
+		if (v6 >= 0 && strlen(&nox_savegame_arr_1064948[v6].field_4)) {
 			if (sub_4372B0()) {
 				sub_46CBD0();
 				return 0;
@@ -147,8 +148,8 @@ int sub_46CBD0() {
 	char v3[12]; // [esp+4h] [ebp-Ch]
 
 	result = 0;
-	if (strlen((const char*)getMemAt(0x5D4594, 1064948 + 4 + 1278 * *(_DWORD*)(*(_DWORD*)(dword_5d4594_1082864 + 32) + 48)))) {
-		nox_savegame_nameFromPath_4DC970((char*)getMemAt(0x5D4594, 1064948 + 4 + 1278 * *(_DWORD*)(*(_DWORD*)(dword_5d4594_1082864 + 32) + 48)), v3);
+	if (strlen(&nox_savegame_arr_1064948[*(_DWORD*)(*(_DWORD*)(dword_5d4594_1082864 + 32) + 48)].field_4)) {
+		nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[*(_DWORD*)(*(_DWORD*)(dword_5d4594_1082864 + 32) + 48)].field_4, v3);
 		if (!sub_4DB790(v3)) {
 			v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 143736), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 75);
 			v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 143788), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 74);
@@ -199,18 +200,18 @@ int __cdecl sub_46CE40(int a1, int a2, int a3, _BYTE* a4) {
 	if (sub_41A000(&v45, a4))
 		v4 = 1;
 	v7 = 1;
-	v8 = a4 + 1278;
+	v8 = a4 + sizeof(nox_savegame_xxx);
 	do {
 		nox_sprintf(&v45, "%sSAVE%04d\\Player.plr", &PathName, v7);
 		if (sub_41A000(&v45, v8))
 			++v4;
 		++v7;
-		v8 += 1278;
-	} while (v7 < 14);
+		v8 += sizeof(nox_savegame_xxx);
+	} while (v7 < NOX_SAVEGAME_XXX_MAX);
 	v9 = 0;
 	v40 = 0;
 	while (1) {
-		v10 = (int)&v6[1278 * v9];
+		v10 = (int)&v6[sizeof(nox_savegame_xxx) * v9];
 		if (strlen((const char*)(v10 + 4))) {
 			nox_savegame_nameFromPath_4DC970((char*)(v10 + 4), &v41);
 			nox_sprintf(&DateStr, "nox.str:%s", *getMemU32Ptr(0x587000, 4 * *(unsigned __int8*)(v10 + 1274) + 29456));
@@ -339,7 +340,7 @@ int __cdecl sub_46CE40(int a1, int a2, int a3, _BYTE* a4) {
 			}
 		}
 		v40 = ++v9;
-		if (v9 >= 14)
+		if (v9 >= NOX_SAVEGAME_XXX_MAX)
 			break;
 		v6 = a4;
 	}
@@ -374,9 +375,8 @@ void sub_46D580() {
 	wchar_t* v6; // eax
 
 	if (!nox_common_gameFlags_check_40A5C0(4096)) {
-		memset(getMemAt(0x5D4594, 1064948), 0, 0x45E4u);
-		sub_46CE40(*(int*)&dword_5d4594_1082860, *(int*)&dword_5d4594_1082864, *(int*)&dword_5d4594_1082868,
-				   getMemAt(0x5D4594, 1064948));
+		memset(nox_savegame_arr_1064948, 0, NOX_SAVEGAME_XXX_MAX * sizeof(nox_savegame_xxx));
+		sub_46CE40(*(int*)&dword_5d4594_1082860, *(int*)&dword_5d4594_1082864, *(int*)&dword_5d4594_1082868, nox_savegame_arr_1064948);
 		sub_46A8C0(*(int*)&dword_5d4594_1082856);
 		sub_46ABB0(*(int*)&dword_5d4594_1082856, 1);
 		sub_46ADC0(*(int*)&dword_5d4594_1082856);
