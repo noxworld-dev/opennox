@@ -7192,8 +7192,10 @@ int __cdecl sub_53A140(_DWORD* a1, int a2, int a3, int a4) {
 		*(_DWORD*)(v10 + 104) = 0;
 	}
 	sub_4F3030((int)v4, (int)v6);
-	sub_980523(v6);
-	v16 = v6[187];
+	sub_980523(v6); // Mix patch call!
+	// Following code is not present in the original exe(!) and it's responsible for automatically equipping shields 
+	// whenever possible
+	v16 = v6[187]; 
 	if (!*(_DWORD*)(v16 + 108) || !(sub_415820(*(_DWORD*)(v16 + 108)) & 0x7FFE40C)) {
 		v17 = *(_DWORD*)(*(_DWORD*)(v16 + 276) + 2500);
 		if (v17 && (unsigned __int8)*(_DWORD*)(v17 + 16) == 16) {
