@@ -129,7 +129,7 @@ LPVOID sub_426060() {
 	} else {
 		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i))
 			*((_DWORD*)i + 1162) = -1;
-		v2 = sub_417090(31);
+		v2 = nox_common_playerInfoGetXXX_417090(31);
 		if (v2)
 			sub_425F10((int)v2);
 		for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {
@@ -332,7 +332,7 @@ char* sub_4D2160() {
 	int v4;       // eax
 	int v5;       // [esp+4h] [ebp-4h]
 
-	v5 = sub_416F40();
+	v5 = nox_common_playerInfoCount_416F40();
 	result = sub_418B10();
 	for (i = result; result; i = result) {
 		if (!*(_DWORD*)(*((_DWORD*)i + 19) + 492) && sub_418BC0((int)i)) {
@@ -624,7 +624,7 @@ void sub_4DBA30(int a1) {
 	int v25;      // [esp+10h] [ebp-4h]
 	int v26;      // [esp+18h] [ebp+4h]
 
-	result = sub_417090(31);
+	result = nox_common_playerInfoGetXXX_417090(31);
 	v2 = result;
 	v3 = 0;
 	v24 = result;
@@ -783,7 +783,7 @@ int sub_4DCF20() {
 	char* v0;   // esi
 	int result; // eax
 
-	v0 = sub_417090(31);
+	v0 = nox_common_playerInfoGetXXX_417090(31);
 	result = dword_5d4594_1563052;
 	if (dword_5d4594_1563052) {
 		result = sub_4D6FC0();
@@ -2786,7 +2786,7 @@ int sub_4D2580_server() {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22 | NOX_ENGINE_FLAG_23))
 		sub_4E76C0();
 	if (sub_4DB1B0()) {
-		v20 = sub_417090(31);
+		v20 = nox_common_playerInfoGetXXX_417090(31);
 		v21 = v20;
 		if (v20) {
 			if (*((_DWORD*)v20 + 514) && sub_4DCC10(*((_DWORD*)v20 + 514)) == 1) {
@@ -2848,7 +2848,7 @@ int sub_4D2580_server() {
 	sub_4FC590();
 	sub_4FC600();
 	sub_4FC680();
-	v33 = sub_417090(31);
+	v33 = nox_common_playerInfoGetXXX_417090(31);
 	if (v33) {
 		v34 = *((_DWORD*)v33 + 514);
 		if (v34)

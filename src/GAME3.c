@@ -5489,7 +5489,7 @@ char* __cdecl sub_4AC2B0(char* a1) {
 		sub_470680();
 		sub_461520();
 		sub_486060();
-		v2 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
+		v2 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 		sub_422140((int)v2);
 		sub_4DB230(0);
 		if (*getMemIntPtr(0x5D4594, 3801836 + 1392) < 0) {

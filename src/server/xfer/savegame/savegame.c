@@ -40,7 +40,7 @@ int __cdecl sub_4DB600(int a1) {
 	int v7;     // eax
 	int v8;     // esi
 
-	v1 = sub_417090(31);
+	v1 = nox_common_playerInfoGetXXX_417090(31);
 	if (!v1)
 		return 0;
 	v2 = (float*)*((_DWORD*)v1 + 514);
@@ -80,7 +80,7 @@ void sub_4DB6A0() {
 	int v4;   // ebp
 	int v5;   // eax
 
-	v0 = sub_417090(31);
+	v0 = nox_common_playerInfoGetXXX_417090(31);
 	v1 = v0;
 	if (v0 && *((_DWORD*)v0 + 514)) {
 		if (!*getMemU32Ptr(0x5D4594, 1563124))
@@ -161,7 +161,7 @@ int __cdecl sub_4DB370_savegame(const char* a1) {
 
 	sub_478000();
 	sub_4606B0();
-	v1 = sub_417090(31);
+	v1 = nox_common_playerInfoGetXXX_417090(31);
 	v2 = v1;
 	if (!v1)
 		return 0;
@@ -227,7 +227,7 @@ char* __cdecl sub_4DB7E0_savegame(const char* a1) {
 	char v8[20];         // [esp+Ch] [ebp-414h]
 	char FileName[1024]; // [esp+20h] [ebp-400h]
 
-	v1 = sub_417090(31);
+	v1 = nox_common_playerInfoGetXXX_417090(31);
 	if (!a1)
 		return 0;
 	if (!nox_common_gameFlags_check_40A5C0(2) || (result = (char*)sub_4738D0()) != 0) {

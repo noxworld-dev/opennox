@@ -9552,7 +9552,7 @@ char* sub_43AA70() {
 			*(_WORD*)(v1 + 165) = 1;
 	}
 	v1[104] = sub_409FA0();
-	v3 = sub_416F40();
+	v3 = nox_common_playerInfoCount_416F40();
 	v1[103] = v3;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		v1[103] = v3 - 1;

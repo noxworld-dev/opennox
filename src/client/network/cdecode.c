@@ -547,7 +547,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 		case 0x2Cu:
 			v42 = sub_578B30(*(_WORD*)(v3 + 1));
 			*getMemU32Ptr(0x5D4594, 2616328) = v42;
-			v43 = sub_416F60(v42);
+			v43 = nox_common_playerInfoNew_416F60(v42);
 			if (v43) {
 				*((_DWORD*)v43 + 517) = *(_DWORD*)(v3 + 3);
 				*getMemU32Ptr(0x5D4594, 2618908) = v43;
@@ -566,7 +566,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v209 = sub_578B30(*(_WORD*)(v3 + 1));
 			v210 = v209;
 			v360 = v209;
-			v211 = sub_416F60(v209);
+			v211 = nox_common_playerInfoNew_416F60(v209);
 			if (v211) {
 				if (!nox_common_gameFlags_check_40A5C0(1)) {
 					*((_DWORD*)v211 + 515) = v210;
@@ -605,7 +605,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			if (nox_client_isConnected_43C700()) {
 				v214 = sub_578B30(*(_WORD*)(v3 + 1));
 				v215 = v214;
-				v216 = sub_417040(v214);
+				v216 = nox_common_playerInfoGetByID_417040(v214);
 				if (v216) {
 					sub_456DF0(v215);
 					sub_455950((wchar_t*)v216 + 2352);
@@ -1041,7 +1041,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v125 = v124;
 			v126 = sub_416590(0);
 			if (nox_client_isConnected_43C700()) {
-				v127 = sub_417040(v125);
+				v127 = nox_common_playerInfoGetByID_417040(v125);
 				if (v127) {
 					if (!nox_common_gameFlags_check_40A5C0(1)) {
 						*((_DWORD*)v127 + 534) = *(_DWORD*)(v3 + 3);
@@ -1112,7 +1112,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			if (nox_client_isConnected_43C700()) {
 				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
 					sub_578B70(*(unsigned __int16*)(v3 + 1));
-				v142 = sub_417040(v141);
+				v142 = nox_common_playerInfoGetByID_417040(v141);
 				if (v142) {
 					if (!nox_common_gameFlags_check_40A5C0(1) &&
 						*getMemU32Ptr(0x5D4594, 2598000) > *((_DWORD*)v142 + 540)) {
@@ -1232,7 +1232,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				v372 = v152;
 			}
 			v153 = v372;
-			v154 = sub_417040(v372);
+			v154 = nox_common_playerInfoGetByID_417040(v372);
 			if (!nox_common_gameFlags_check_40A5C0(1024)) {
 				if (*(_WORD*)(v3 + 1)) {
 					if (!v154)
@@ -1619,7 +1619,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v3 += 21;
 			break;
 		case 0x6Au:
-			v119 = sub_417040(*(unsigned __int16*)(v3 + 1));
+			v119 = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 1));
 			if (!v119)
 				goto LABEL_1070;
 			if (!nox_common_gameFlags_check_40A5C0(1)) {
@@ -2324,7 +2324,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				}
 			} else if (*(_WORD*)(v3 + 1)) {
 				if (sub_4356B0() == 3) {
-					v206 = sub_417040(*(unsigned __int16*)(v3 + 1));
+					v206 = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 1));
 					v207 = v206;
 					if (v206) {
 						if (!sub_57A160((int)v206)) {
@@ -2809,7 +2809,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			case 0xCu:
 				if (nox_client_isConnected_43C700()) {
-					LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 2));
+					LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 2));
 					if ((_DWORD)v5)
 						*(_BYTE*)(v5 + 2282) = *(_BYTE*)(v3 + 4);
 				}
@@ -3054,7 +3054,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			v3 += 3;
 			break;
 		case 0xD7u:
-			LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 1));
+			LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 1));
 			if ((_DWORD)v5) {
 				LOWORD(k) = *(_WORD*)(v3 + 3);
 				*(_WORD*)(v5 + 2148) = k;
@@ -3222,7 +3222,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			break;
 		case 0xE8u:
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 1));
+				LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 1));
 				v111 = (_DWORD*)v5;
 				if ((_DWORD)v5) {
 					if ((_DWORD)v5 == *getMemU32Ptr(0x5D4594, 2618908)) {
@@ -3272,7 +3272,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 						sub_45A670(*(_DWORD*)(v3 + 3));
 				}
 				if (*(_BYTE*)(v3 + 8) & 1) {
-					LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 1));
+					LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 1));
 					if ((_DWORD)v5)
 						sub_417680(v5, *(_BYTE*)(v3 + 7));
 				}
@@ -3366,7 +3366,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			case 1u:
 				if (nox_client_isConnected_43C700() == 1) {
 					sub_452D80(1008, 100);
-					v299 = sub_417040(*(unsigned __int16*)(v3 + 2));
+					v299 = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 2));
 					if (v299) {
 						if (!nox_common_gameFlags_check_40A5C0(1))
 							*((_DWORD*)v299 + 1198) = 1;
@@ -3381,7 +3381,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			case 4u:
 				if (nox_client_isConnected_43C700()) {
-					v300 = sub_417040(*(unsigned __int16*)(v3 + 3));
+					v300 = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 3));
 					if (v300)
 						v300[4816] = *(_BYTE*)(v3 + 2);
 					HIDWORD(v5) = *(unsigned __int16*)(v3 + 3);
@@ -3468,7 +3468,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			case 0x15u:
 				if (nox_client_isConnected_43C700()) {
-					LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 6));
+					LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 6));
 					if ((_DWORD)v5) {
 						HIDWORD(v5) = *(_DWORD*)(v3 + 2);
 						*(_DWORD*)(v5 + 4820) = HIDWORD(v5);
@@ -3478,7 +3478,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			case 0x16u:
 				if (nox_client_isConnected_43C700()) {
-					LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 3));
+					LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 3));
 					if ((_DWORD)v5)
 						*(_BYTE*)(v5 + 4824) = *(_BYTE*)(v3 + 2);
 				}
@@ -3486,7 +3486,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			case 0x17u:
 				if (nox_client_isConnected_43C700()) {
-					LODWORD(v5) = sub_417040(*(unsigned __int16*)(v3 + 3));
+					LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 3));
 					if ((_DWORD)v5)
 						*(_BYTE*)(v5 + 4825) = *(_BYTE*)(v3 + 2);
 				}
@@ -3532,7 +3532,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				}
 				break;
 			case 0x1Eu:
-				v303 = sub_417040(*(unsigned __int16*)(v3 + 3));
+				v303 = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 3));
 				if (nox_client_isConnected_43C700() && v303) {
 					if (v303 == *(char**)getMemAt(0x5D4594, 2618908)) {
 						v348 = sub_424930(*(unsigned __int8*)(v3 + 2));
@@ -3549,7 +3549,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				}
 				goto LABEL_1163;
 			case 0x1Fu:
-				v306 = sub_417040(*(unsigned __int16*)(v3 + 3));
+				v306 = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 3));
 				if (!nox_client_isConnected_43C700() || !v306)
 					goto LABEL_1163;
 				if (v306 == *(char**)getMemAt(0x5D4594, 2618908)) {
@@ -3567,7 +3567,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				v3 += 5;
 				break;
 			case 0x20u:
-				v309 = sub_417040(*(unsigned __int16*)(v3 + 3));
+				v309 = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(v3 + 3));
 				if (!nox_client_isConnected_43C700() || !v309)
 					goto LABEL_1163;
 				if (v309 == *(char**)getMemAt(0x5D4594, 2618908)) {

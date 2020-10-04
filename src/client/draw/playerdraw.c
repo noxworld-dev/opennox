@@ -55,7 +55,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	v31 = 0;
 	v30 = 0;
 	v29 = 0;
-	v3 = sub_417040(v26);
+	v3 = nox_common_playerInfoGetByID_417040(v26);
 	v32 = v3;
 	if (!v3)
 		return 1;

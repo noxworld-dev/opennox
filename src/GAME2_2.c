@@ -1042,7 +1042,7 @@ void __cdecl sub_477050(int arg0, int a2) {
 				if (v4 & 0x80400206 || *(_DWORD*)(arg0 + 108) == *getMemU32Ptr(0x5D4594, 1096648)) {
 					if (sub_4984B0_drawable(arg0)) {
 						if (!(*(_BYTE*)(arg0 + 112) & 4) ||
-							(v6 = sub_417040(*(_DWORD*)(arg0 + 128))) != 0 && !(v6[3680] & 1)) {
+							(v6 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(arg0 + 128))) != 0 && !(v6[3680] & 1)) {
 							v7 = *(_DWORD*)(arg0 + 112);
 							if ((!(v7 & 0x400000) || (*(_BYTE*)(arg0 + 116) & 0x80)) &&
 								(!(v7 & 2) || *(_DWORD*)(arg0 + 276) != 10)) {
@@ -1332,7 +1332,7 @@ char* nox_client_drawCursorAndTooltips_477830() {
 	}
 	if (dword_5d4594_1097192) // Player is dragging spell or ability
 	{
-		v1 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
+		v1 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 		if (!v1 || v1[2251]) {
 			v2 = sub_424A90(*(int*)&dword_5d4594_1097192); // Spell icon
 			if (v2) {

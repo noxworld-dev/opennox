@@ -785,7 +785,38 @@ _Static_assert(sizeof(nox_wnd_xxx) == 68, "wrong size of nox_wnd_xxx structure!"
 
 #define NOX_PLAYERINFO_MAX 32
 typedef struct nox_playerInfo {
-	_DWORD data[1207];
+	_DWORD data_0[100];
+	_DWORD data_400[100];
+	_DWORD data_800[100];
+	_DWORD data_1200[100];
+	_DWORD data_1600[100];
+	_DWORD data_2000[8];
+	_DWORD data_2032[4];
+	_DWORD data_2048[2];
+	_DWORD field_2056;
+	_DWORD field_2060;
+	_DWORD field_2064;
+	_DWORD data_2068[4];
+	_DWORD data_2084[2];
+	_DWORD field_2092;
+	_DWORD field_2096;
+	_DWORD data_2100[25];
+	_DWORD data_2200[50];
+	_DWORD data_2400[100];
+	_DWORD data_2800[100];
+	_DWORD data_3200[100];
+	_DWORD data_3600[12];
+	_DWORD field_3648;
+	_DWORD data_3652[12];
+	_DWORD data_3700[25];
+	_DWORD data_3800[50];
+	_DWORD data_4000[100];
+	_DWORD data_4400[25];
+	_DWORD data_4500[20];
+	_DWORD field_4580;
+	_DWORD data_4584[4];
+	_DWORD data_4600[50];
+	_DWORD data_4800[7];
 } nox_playerInfo;
 _Static_assert(sizeof(nox_playerInfo) == 4828, "wrong size of nox_playerInfo structure!");
 

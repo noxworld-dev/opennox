@@ -3921,7 +3921,7 @@ void __cdecl sub_54AFB0(int a1, float* a2) {
 		if (sub_537110(a1, *(int*)&dword_5d4594_2491592)) {
 			if (!(*(_BYTE*)(a1 + 8) & 4) || (*(_DWORD*)(a1 + 36) != *getMemU32Ptr(0x5D4594, 2616328) ||
 											 !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) &&
-												(v3 = sub_417040(*(_DWORD*)(a1 + 36))) != 0 && !(v3[3680] & 1)) {
+												(v3 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 36))) != 0 && !(v3[3680] & 1)) {
 				if ((*(_DWORD*)(a1 + 8) & 0x200) != 512 || (v4 = *(_DWORD*)(a1 + 16), BYTE1(v4) & 0x40)) {
 					v5 = *(float*)(a1 + 60) - *(float*)(a1 + 104);
 					v14 = v5;
@@ -5311,7 +5311,7 @@ int __cdecl sub_54D2B0(int a1) {
 		v24 = sub_4EC580(v24);
 	v4 = *(_DWORD**)(v3 + 276);
 	if (v4[900] && *getMemU32Ptr(0x5D4594, 2598000) - v4[902] < (unsigned int)(10 * *getMemU32Ptr(0x5D4594, 2649704))) {
-		v5 = sub_417090(v4[901]);
+		v5 = nox_common_playerInfoGetXXX_417090(v4[901]);
 		v6 = (int)v5;
 		v22 = v5;
 		if (v5) {
@@ -6259,7 +6259,7 @@ int __cdecl sub_54EBA0(_DWORD* a1, float2* a2, int a4) {
 	if (!v13)
 		return 0;
 	v10 = nox_common_randomInt_415FA0(0, v13 - 1);
-	v11 = sub_417090(v18[v10]);
+	v11 = nox_common_playerInfoGetXXX_417090(v18[v10]);
 	return sub_54ED50((int)a1, a2, *((_DWORD*)v11 + 514), a4);
 }
 // 54EBA0: using guessed type int var_80[32];

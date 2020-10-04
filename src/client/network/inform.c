@@ -87,7 +87,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		sub_4FB960_ability(*(_DWORD*)(a1 + 2));
 		return 6;
 	case 3u:
-		v13 = sub_417040(*(_DWORD*)(a1 + 2));
+		v13 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (!v13)
 			return 6;
 		v51 = (int)(v13 + 4704);
@@ -96,7 +96,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		sub_445490(v62);
 		return 6;
 	case 4u:
-		v15 = sub_417040(*(_DWORD*)(a1 + 2));
+		v15 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (!v15)
 			return 6;
 		v52 = (int)(v15 + 4704);
@@ -104,7 +104,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		nox_swprintf(v62, v16, v52);
 		goto LABEL_22;
 	case 5u:
-		v18 = sub_417040(*(_DWORD*)(a1 + 2));
+		v18 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (!v18)
 			return 10;
 		v54 = sub_418C20(*(_DWORD*)(a1 + 6));
@@ -114,7 +114,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		sub_452D80(306, 100);
 		return 10;
 	case 6u:
-		v20 = sub_417040(*(_DWORD*)(a1 + 2));
+		v20 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (!v20)
 			return 10;
 		v55 = sub_418C20(*(_DWORD*)(a1 + 6));
@@ -124,7 +124,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		sub_452D80(303, 100);
 		return 10;
 	case 7u:
-		v22 = sub_417040(*(_DWORD*)(a1 + 2));
+		v22 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (v22) {
 			v56 = sub_418C20(*(_DWORD*)(a1 + 6));
 			v23 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 186660), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
@@ -144,7 +144,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		return 6;
 	case 9u:
 		v38 = sub_418AB0(*(_DWORD*)(a1 + 6));
-		v39 = sub_417040(*(_DWORD*)(a1 + 2));
+		v39 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (!v39) {
 			if (v38) {
 				v41 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 187308), 0,
@@ -162,7 +162,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		sub_445490(v62);
 		return 10;
 	case 0xAu:
-		v34 = sub_417040(*(_DWORD*)(a1 + 2));
+		v34 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		v35 = sub_418AB0(*(_DWORD*)(a1 + 6));
 		if (v35) {
 			if (!v34)
@@ -184,7 +184,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		}
 		return result;
 	case 0xBu:
-		v30 = sub_417040(*(_DWORD*)(a1 + 2));
+		v30 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		v31 = sub_418AB0(*(_DWORD*)(a1 + 6));
 		if (v31) {
 			if (v30) {
@@ -274,7 +274,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		sub_449A10(0, (int)v6, (int)v45, 33, 0, 0);
 		return 2;
 	case 0x12u:
-		v24 = sub_417040(*(_DWORD*)(a1 + 2));
+		v24 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (!v24)
 			return 6;
 		v57 = (int)(v24 + 4704);
@@ -283,7 +283,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		sub_445490(v62);
 		return 6;
 	case 0x13u:
-		v26 = sub_417040(*(_DWORD*)(a1 + 2));
+		v26 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (v26) {
 			v58 = (int)(v26 + 4704);
 			v27 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 186788), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
@@ -293,7 +293,7 @@ int __cdecl sub_4C9BF0(int a1) {
 		}
 		return 6;
 	case 0x14u:
-		v7 = sub_417040(*(_DWORD*)(a1 + 2));
+		v7 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (!v7)
 			return 6;
 		v48 = (int)(v7 + 4704);

@@ -192,7 +192,7 @@ int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		}
 		goto LABEL_45;
 	}
-	v13 = sub_417090(31);
+	v13 = nox_common_playerInfoGetXXX_417090(31);
 	if (v13) {
 		v14 = *((_DWORD*)v13 + 514);
 		if (v14) {
