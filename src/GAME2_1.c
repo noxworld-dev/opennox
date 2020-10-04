@@ -148,6 +148,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
+extern _DWORD array_5D4594_1049872[9];
 
 nox_alloc_class* nox_alloc_window = 0;
 
@@ -629,15 +630,15 @@ int sub_4615C0() {
 		v0 = sub_44CFC0((CHAR*)getMemAt(0x587000, 136416));
 		*getMemU32Ptr(0x5D4594, 1063640) = v0;
 	}
-	if (!*getMemU32Ptr(0x5D4594, 1049872 + 32))
-		return *getMemU32Ptr(0x5D4594, 1049872 + 28);
-	v1 = *getMemU32Ptr(0x5D4594, 1049872 + 32);
+	if (!array_5D4594_1049872[8])
+		return array_5D4594_1049872[7];
+	v1 = array_5D4594_1049872[8];
 	while (*(_DWORD*)(v1 + 108) != v0) {
 		v1 = *(_DWORD*)(v1 + 368);
 		if (!v1)
-			return *getMemU32Ptr(0x5D4594, 1049872 + 28);
+			return array_5D4594_1049872[7];
 	}
-	return *getMemU32Ptr(0x5D4594, 1049872 + 32);
+	return array_5D4594_1049872[8];
 }
 
 //----- (00461600) --------------------------------------------------------
@@ -645,14 +646,14 @@ int __cdecl sub_461600(int a1) {
 	int* v1;    // ecx
 	int result; // eax
 
-	v1 = getMemIntPtr(0x5D4594, 1049872);
+	v1 = &array_5D4594_1049872;
 	while (1) {
 		result = *v1;
 		if (*v1)
 			break;
 	LABEL_5:
 		++v1;
-		if ((int)v1 >= (int)getMemAt(0x5D4594, 1049908))
+		if ((int)v1 >= &array_5D4594_1049872[9])
 			return 0;
 	}
 	while (*(_DWORD*)(result + 108) != a1) {
@@ -680,14 +681,14 @@ int sub_461930() {
 	unsigned __int8* v0; // ecx
 	int v1;              // eax
 
-	v0 = getMemAt(0x5D4594, 1049872);
+	v0 = &array_5D4594_1049872;
 	while (1) {
 		v1 = *(_DWORD*)v0;
 		if (*(_DWORD*)v0)
 			break;
 	LABEL_5:
 		v0 += 4;
-		if ((int)v0 >= (int)getMemAt(0x5D4594, 1049908))
+		if ((int)v0 >= &array_5D4594_1049872[9])
 			return 0;
 	}
 	while (!(*(_DWORD*)(v1 + 112) & 0x1001000)) {
@@ -1003,7 +1004,7 @@ int __cdecl sub_461F90(int a1) {
 	int v7;              // eax
 
 	v1 = 0;
-	v2 = getMemAt(0x5D4594, 1049872);
+	v2 = &array_5D4594_1049872;
 	while (1) {
 		v3 = *(_DWORD*)v2;
 		if (*(_DWORD*)v2)
@@ -1011,7 +1012,7 @@ int __cdecl sub_461F90(int a1) {
 	LABEL_5:
 		v2 += 4;
 		++v1;
-		if ((int)v2 >= (int)getMemAt(0x5D4594, 1049908))
+		if ((int)v2 >= &array_5D4594_1049872[9])
 			return 0;
 	}
 	while (*(_DWORD*)(v3 + 128) != a1) {
@@ -1023,7 +1024,7 @@ int __cdecl sub_461F90(int a1) {
 	if (v5)
 		*(_DWORD*)(v5 + 368) = *(_DWORD*)(v3 + 368);
 	else
-		*getMemU32Ptr(0x5D4594, 1049872 + 4 * v1) = *(_DWORD*)(v3 + 368);
+		array_5D4594_1049872[v1] = *(_DWORD*)(v3 + 368);
 	v6 = *(_DWORD*)(v3 + 368);
 	if (v6)
 		*(_DWORD*)(v6 + 372) = *(_DWORD*)(v3 + 372);
@@ -1089,7 +1090,7 @@ _DWORD* __cdecl sub_4623E0(_DWORD* a1, int a2) {
 		goto LABEL_19;
 	v2 = a1[29];
 	if (v2 & 0x140) {
-		result = *(_DWORD**)getMemAt(0x5D4594, 1049872 + 4 * a2);
+		result = (_DWORD*)array_5D4594_1049872[a2];
 		if (!result)
 			goto LABEL_19;
 		while (result[92])
@@ -1106,7 +1107,7 @@ _DWORD* __cdecl sub_4623E0(_DWORD* a1, int a2) {
 	} else {
 		if (!(v2 & 0x10))
 			goto LABEL_19;
-		result = *(_DWORD**)getMemAt(0x5D4594, 1049872 + 4 * a2);
+		result = (_DWORD*)array_5D4594_1049872[a2];
 		if (!result)
 			goto LABEL_19;
 		while (result[92])
@@ -1123,11 +1124,11 @@ _DWORD* __cdecl sub_4623E0(_DWORD* a1, int a2) {
 	}
 LABEL_19:
 	a1[93] = 0;
-	a1[92] = *getMemU32Ptr(0x5D4594, 1049872 + 4 * a2);
-	result = *(_DWORD**)getMemAt(0x5D4594, 1049872 + 4 * a2);
+	a1[92] = array_5D4594_1049872[a2];
+	result = *(_DWORD**)&array_5D4594_1049872[a2];
 	if (result)
 		result[93] = a1;
-	*getMemU32Ptr(0x5D4594, 1049872 + 4 * a2) = a1;
+	array_5D4594_1049872[a2] = a1;
 	return result;
 }
 
@@ -1615,7 +1616,7 @@ int __cdecl sub_464770(int a1, int a2, unsigned int a3) {
 		if (dword_5d4594_1049856) {
 			if (*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 112) & 0x1001000) {
 				if (dword_5d4594_1062480) {
-					sub_4672C0();
+					nox_client_invAlterWeapon_4672C0();
 				} else {
 					dword_5d4594_1062492 = *getMemU32Ptr(0x5D4594, 1049848);
 					sub_464B70(*getMemIntPtr(0x5D4594, 1049848));
@@ -1660,7 +1661,7 @@ int __cdecl sub_464770(int a1, int a2, unsigned int a3) {
 		break;
 	case 7:
 		if (dword_5d4594_1062480)
-			sub_4672C0();
+			nox_client_invAlterWeapon_4672C0();
 		return 1;
 	default:
 		return 0;
@@ -1747,7 +1748,7 @@ int __cdecl sub_465870(__int16 a1) {
 void __cdecl sub_4658A0(int a1, int2* a2) {
 	if (getMemByte(0x5D4594, 1049868) == 2) {
 		if (sub_4281F0(a2, (int4*)getMemAt(0x587000, 136336))) {
-			*getMemU32Ptr(0x5D4594, 1049848) = *getMemU32Ptr(0x5D4594, 1049872 + 4 * sub_465990(a2));
+			*getMemU32Ptr(0x5D4594, 1049848) = array_5D4594_1049872[sub_465990(a2)];
 			dword_5d4594_1049856 = 1;
 		} else {
 			dword_5d4594_1049856 = 0;
@@ -1787,14 +1788,14 @@ int __cdecl sub_465990(_DWORD* a1) {
 			break;
 		if (v2)
 			return v2;
-		if (*getMemU32Ptr(0x5D4594, 1049872))
+		if (array_5D4594_1049872[0])
 			return 0;
 	LABEL_6:
 		if (++v2 >= 9)
 			return -1;
 	}
-	v5 = *getMemU32Ptr(0x5D4594, 1049872 + 32);
-	if (!*getMemU32Ptr(0x5D4594, 1049872 + 32))
+	v5 = array_5D4594_1049872[8];
+	if (!array_5D4594_1049872[8])
 		return 5;
 	while (!(*(_DWORD*)(v5 + 112) & 0x2000000) || !(*(_BYTE*)(v5 + 116) & 2)) {
 		v5 = *(_DWORD*)(v5 + 368);
@@ -2417,7 +2418,7 @@ char* sub_467050() {
 }
 
 //----- (004672C0) --------------------------------------------------------
-int sub_4672C0() {
+int nox_client_invAlterWeapon_4672C0() { // Switch onto secondary weapon
 	int result; // eax
 	int v1;     // edi
 	int v2;     // eax
@@ -2836,7 +2837,7 @@ int sub_467980() {
 	dword_5d4594_1049864 = 0;
 	sub_461550(0);
 	dword_5d4594_1062488 = 0;
-	memset(getMemAt(0x5D4594, 1049872), 0, 0x24u);
+	memset(&array_5D4594_1049872, 0, 0x24u); // equipped weapon array?
 	dword_5d4594_1062492 = 0;
 	dword_5d4594_1062496 = 0;
 	*getMemU8Ptr(0x5D4594, 1062536) = 0;
@@ -2990,7 +2991,7 @@ int sub_467CD0() {
 			v1 = sub_461EF0(*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 128));
 			v2 = v1;
 			if (v1) {
-				v3 = getMemAt(0x5D4594, 1049872);
+				v3 = &array_5D4594_1049872;
 				*(_DWORD*)(*(_DWORD*)v1 + 132) = 0;
 				do {
 					v4 = *(_DWORD*)v3;
@@ -3008,7 +3009,7 @@ int sub_467CD0() {
 					}
 				LABEL_12:
 					v3 += 4;
-				} while ((int)v3 < (int)getMemAt(0x5D4594, 1049908));
+				} while ((int)v3 < &array_5D4594_1049872[9]);
 			}
 		}
 		*getMemU32Ptr(0x5D4594, 1049848) = 0;
@@ -6926,7 +6927,7 @@ int __cdecl sub_470E90(int a1, int a2) {
 
 	switch (a2) {
 	case 5:
-		sub_4672C0();
+		nox_client_invAlterWeapon_4672C0();
 		goto LABEL_4;
 	case 8:
 	case 12:

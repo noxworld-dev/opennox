@@ -2380,7 +2380,7 @@ int __cdecl sub_466C40(int a1);
 int __cdecl sub_466ED0(int a1);
 int __cdecl sub_466F50(_DWORD* a1, int* a2);
 char* sub_467050();
-int sub_4672C0();
+int nox_client_invAlterWeapon_4672C0();
 int __cdecl sub_4673F0(int a1, int a2);
 int __cdecl sub_467410(int a1);
 char __cdecl sub_467420(char a1);
