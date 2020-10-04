@@ -1354,6 +1354,7 @@ extern _DWORD dword_5d4594_2491716;
 extern _DWORD dword_587000_180476;
 extern _DWORD dword_5d4594_1046852;
 extern _DWORD dword_5d4594_2386848;
+extern _DWORD array_5D4594_1049872[9]; // size guessed from memset in sub_467980
 extern char nox_workdir[1025];
 extern char nox_savegame_name_1307752[9];
 extern int4*(__cdecl* func_5D4594_1305696)(int, int, int, int, int);
@@ -2687,6 +2688,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1193656, (void*)&nox_video_cursorDrawThreadHandle, sizeof(nox_video_cursorDrawThreadHandle), 1},
 	{0x5D4594 + 3799620, (void*)&nox_video_windowsPlatformVersion, sizeof(nox_video_windowsPlatformVersion), 1},
 	{0x5D4594 + 1568036, (void*)&nox_server_netCodeCache, sizeof(nox_server_netCodeCache), 1},
+	{0x5D4594 + 1049872, (void*)&array_5D4594_1049872, sizeof(array_5D4594_1049872), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
 	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},
