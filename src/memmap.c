@@ -3,8 +3,8 @@
 #include "memmap.h"
 
 #include "client/drawable/drawdb.h"
-#include "static.h"
 #include "proto.h"
+#include "static.h"
 
 extern unsigned __int8 byte_581450[23472];
 extern unsigned __int8 byte_5D4594[3844309];
@@ -614,7 +614,7 @@ extern _DWORD dword_5d4594_832492;
 extern _DWORD dword_5d4594_1046504;
 extern _DWORD dword_5d4594_1045508;
 extern _DWORD dword_5d4594_825744;
-extern void(__cdecl *func_587000_154940)(int2*, _DWORD, _DWORD);
+extern void(__cdecl* func_587000_154940)(int2*, _DWORD, _DWORD);
 extern _DWORD dword_5d4594_1217452;
 extern _DWORD dword_5d4594_1193704;
 extern _DWORD dword_5d4594_1319264;
@@ -1220,7 +1220,7 @@ extern _DWORD dword_5d4594_1568028;
 extern _DWORD dword_5d4594_815052;
 extern _DWORD dword_5d4594_2386860;
 extern _DWORD dword_5d4594_1548524;
-extern int (__cdecl *func_587000_154944)(int, int);
+extern int(__cdecl* func_587000_154944)(int, int);
 extern _DWORD dword_5d4594_815060;
 extern _DWORD dword_5d4594_2386560;
 extern _DWORD dword_5d4594_1556316;
@@ -1354,6 +1354,7 @@ extern _DWORD dword_5d4594_2491716;
 extern _DWORD dword_587000_180476;
 extern _DWORD dword_5d4594_1046852;
 extern _DWORD dword_5d4594_2386848;
+extern _DWORD array_5D4594_1049872[9]; // size guessed from memset in sub_467980
 extern char nox_workdir[1025];
 extern char nox_savegame_name_1307752[9];
 extern int4*(__cdecl* func_5D4594_1305696)(int, int, int, int, int);
@@ -1368,15 +1369,14 @@ typedef struct mem_blob {
 	unsigned __int8* ptr;
 } mem_blob;
 
-mem_blob blobs[] = { // keep them sorted!
+mem_blob blobs[] = {
+// keep them sorted!
 #if 0
 	{0x563002, sizeof(byte_563002), byte_563002},
 	{0x563006, sizeof(byte_563006), byte_563006},
 #endif
-	{0x581450, sizeof(byte_581450), byte_581450},
-	{0x587000, sizeof(byte_587000), byte_587000},
-	{0x5D4594, sizeof(byte_5D4594), byte_5D4594},
-	{0x9800B0, sizeof(asc_9800B0), asc_9800B0},
+	{0x581450, sizeof(byte_581450), byte_581450},           {0x587000, sizeof(byte_587000), byte_587000},
+	{0x5D4594, sizeof(byte_5D4594), byte_5D4594},           {0x9800B0, sizeof(asc_9800B0), asc_9800B0},
 	{0x980858, sizeof(mix_dword_980858), mix_dword_980858},
 };
 
@@ -1573,7 +1573,8 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1096432, (void*)&dword_5d4594_1096432, sizeof(dword_5d4594_1096432), 1},
 	{0x5D4594 + 1523040, (void*)&dword_5d4594_1523040, sizeof(dword_5d4594_1523040), 1},
 	{0x5D4594 + 805872, (void*)&dword_5d4594_805872, sizeof(dword_5d4594_805872), 1},
-	{0x587000 + 229992, (void*)&nox_server_kickQuestPlayerMinVotes_229992, sizeof(nox_server_kickQuestPlayerMinVotes_229992), 1},
+	{0x587000 + 229992, (void*)&nox_server_kickQuestPlayerMinVotes_229992,
+	 sizeof(nox_server_kickQuestPlayerMinVotes_229992), 1},
 	{0x5D4594 + 1307724, (void*)&dword_5d4594_1307724, sizeof(dword_5d4594_1307724), 1},
 	{0x5D4594 + 2386164, (void*)&dword_5d4594_2386164, sizeof(dword_5d4594_2386164), 1},
 	{0x5D4594 + 1599688, (void*)&dword_5d4594_1599688, sizeof(dword_5d4594_1599688), 1},
@@ -2269,7 +2270,8 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 251600, (void*)&dword_5d4594_251600, sizeof(dword_5d4594_251600), 1},
 	{0x5D4594 + 1309732, (void*)&dword_5d4594_1309732, sizeof(dword_5d4594_1309732), 1},
 	{0x5D4594 + 251608, (void*)&dword_5d4594_251608, sizeof(dword_5d4594_251608), 1},
-	{0x5D4594 + 805844, (void*)&nox_client_translucentFrontWalls_805844, sizeof(nox_client_translucentFrontWalls_805844), 1},
+	{0x5D4594 + 805844, (void*)&nox_client_translucentFrontWalls_805844,
+	 sizeof(nox_client_translucentFrontWalls_805844), 1},
 	{0x587000 + 292492, (void*)&dword_587000_292492, sizeof(dword_587000_292492), 1},
 	{0x5D4594 + 2488660, (void*)&dword_5d4594_2488660, sizeof(dword_5d4594_2488660), 1},
 	{0x5D4594 + 1522620, (void*)&dword_5d4594_1522620, sizeof(dword_5d4594_1522620), 1},
@@ -2687,6 +2689,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1193656, (void*)&nox_video_cursorDrawThreadHandle, sizeof(nox_video_cursorDrawThreadHandle), 1},
 	{0x5D4594 + 3799620, (void*)&nox_video_windowsPlatformVersion, sizeof(nox_video_windowsPlatformVersion), 1},
 	{0x5D4594 + 1568036, (void*)&nox_server_netCodeCache, sizeof(nox_server_netCodeCache), 1},
+	{0x5D4594 + 1049872, (void*)&array_5D4594_1049872, sizeof(array_5D4594_1049872), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
 	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},
@@ -2762,7 +2765,7 @@ void dumpMemMap(void) {
 	}
 }
 
-typedef struct{
+typedef struct {
 	uintptr_t base;
 	uintptr_t off;
 } blobOff;
@@ -2773,9 +2776,9 @@ blobOff inBlob(void* ptr) {
 	out.off = 0;
 	for (int i = 0; i < blobs_cnt; i++) {
 		mem_blob m = blobs[i];
-		if (&(m.ptr[0]) <= ptr && ptr <= &(m.ptr[m.size-1])) {
+		if (&(m.ptr[0]) <= ptr && ptr <= &(m.ptr[m.size - 1])) {
 			out.base = m.base;
-			out.off = (uintptr_t)ptr - (uintptr_t)&(m.ptr[0]);
+			out.off = (uintptr_t)ptr - (uintptr_t) & (m.ptr[0]);
 			break;
 		}
 	}
@@ -2784,7 +2787,8 @@ blobOff inBlob(void* ptr) {
 
 void logReadOn(const char* fnc, blobOff bo, int sz) {
 	ensureMemLog();
-	fprintf(mem_log, "{\"type\":\"read\",\"func\":\"%s\",\"base\":%d,\"off\":%d,\"size\":%d}\n", fnc, bo.base, bo.off, sz);
+	fprintf(mem_log, "{\"type\":\"read\",\"func\":\"%s\",\"base\":%d,\"off\":%d,\"size\":%d}\n", fnc, bo.base, bo.off,
+			sz);
 }
 
 void maybeLogRead(const char* fnc, void* ptr, int sz) {
@@ -2801,7 +2805,8 @@ void maybeLogWrite(const char* fnc, void* ptr, int sz) {
 		return;
 	}
 	ensureMemLog();
-	fprintf(mem_log, "{\"type\":\"write\",\"func\":\"%s\",\"base\":%d,\"off\":%d,\"size\":%d}\n", fnc, bo.base, bo.off, sz);
+	fprintf(mem_log, "{\"type\":\"write\",\"func\":\"%s\",\"base\":%d,\"off\":%d,\"size\":%d}\n", fnc, bo.base, bo.off,
+			sz);
 }
 
 void nox_memset(const char* fnc, void* ptr, int v, int sz) {
@@ -2829,18 +2834,18 @@ int nox_strcpy(const char* fnc, char* dst, const char* src) {
 }
 
 size_t nox_fread(const char* fnc, void* ptr, size_t size, size_t count, FILE* stream) {
-	maybeLogWrite(fnc, ptr, size*count);
+	maybeLogWrite(fnc, ptr, size * count);
 	return fread(ptr, size, count, stream);
 }
 
 size_t nox_fwrite(const char* fnc, void* ptr, size_t size, size_t count, FILE* stream) {
-	maybeLogRead(fnc, ptr, size*count);
+	maybeLogRead(fnc, ptr, size * count);
 	return fwrite(ptr, size, count, stream);
 }
 
-uint8_t seenBuf_581450[sizeof(byte_581450)/8+1] = {0};
-uint8_t seenBuf_587000[sizeof(byte_587000)/8+1] = {0};
-uint8_t seenBuf_5D4594[sizeof(byte_5D4594)/8+1] = {0};
+uint8_t seenBuf_581450[sizeof(byte_581450) / 8 + 1] = {0};
+uint8_t seenBuf_587000[sizeof(byte_587000) / 8 + 1] = {0};
+uint8_t seenBuf_5D4594[sizeof(byte_5D4594) / 8 + 1] = {0};
 
 bool seenAccess(uintptr_t base, uintptr_t off) {
 	uint8_t* p = 0;
@@ -2853,8 +2858,8 @@ bool seenAccess(uintptr_t base, uintptr_t off) {
 	else
 		return true; // ignore
 
-	int i = off/8;
-	int j = off%8;
+	int i = off / 8;
+	int j = off % 8;
 
 	uint8_t v = p[i];
 	uint8_t mask = 1 << j;
@@ -2901,19 +2906,23 @@ void* mem_getPtrSize(const char* fnc, uintptr_t base, uintptr_t off, uintptr_t s
 
 #ifndef NOX_LOG_MEM
 void* mem_getPtr(uintptr_t base, uintptr_t off) { return mem_getPtrSize(base, off, MEMLOG_UNK_SIZE); }
-#define MEM_FUNC_PTR(T, NAME, SIZE) T* NAME(uintptr_t base, uintptr_t off) { return (T*)mem_getPtrSize(base, off, SIZE); }
+#define MEM_FUNC_PTR(T, NAME, SIZE)                                                                                    \
+	T* NAME(uintptr_t base, uintptr_t off) { return (T*)mem_getPtrSize(base, off, SIZE); }
 #else
-void* mem_getPtr(const char* fnc, uintptr_t base, uintptr_t off) { return mem_getPtrSize(fnc, base, off, MEMLOG_UNK_SIZE); }
-#define MEM_FUNC_PTR(T, NAME, SIZE) T* NAME(const char* fnc, uintptr_t base, uintptr_t off) { return (T*)mem_getPtrSize(fnc, base, off, SIZE); }
+void* mem_getPtr(const char* fnc, uintptr_t base, uintptr_t off) {
+	return mem_getPtrSize(fnc, base, off, MEMLOG_UNK_SIZE);
+}
+#define MEM_FUNC_PTR(T, NAME, SIZE)                                                                                    \
+	T* NAME(const char* fnc, uintptr_t base, uintptr_t off) { return (T*)mem_getPtrSize(fnc, base, off, SIZE); }
 #endif
 
 MEM_FUNC_PTR(uint8_t, mem_getU8Ptr, 1)
-MEM_FUNC_PTR( int8_t, mem_getI8Ptr, 1)
+MEM_FUNC_PTR(int8_t, mem_getI8Ptr, 1)
 MEM_FUNC_PTR(uint16_t, mem_getU16Ptr, 2)
-MEM_FUNC_PTR( int16_t, mem_getI16Ptr, 2)
+MEM_FUNC_PTR(int16_t, mem_getI16Ptr, 2)
 MEM_FUNC_PTR(uint32_t, mem_getU32Ptr, 4)
-MEM_FUNC_PTR( int32_t, mem_getI32Ptr, 4)
+MEM_FUNC_PTR(int32_t, mem_getI32Ptr, 4)
 MEM_FUNC_PTR(uint64_t, mem_getU64Ptr, 8)
-MEM_FUNC_PTR( int64_t, mem_getI64Ptr, 8)
+MEM_FUNC_PTR(int64_t, mem_getI64Ptr, 8)
 MEM_FUNC_PTR(float, mem_getFloatPtr, 4)
 MEM_FUNC_PTR(double, mem_getDoublePtr, 8)
