@@ -605,7 +605,7 @@ char __usercall playerInfoStructParser_1(int a1, int a2, int* a3) {
 }
 
 //----- (10001EE0) --------------------------------------------------------
-char __cdecl playerDoAutoShield(int playerObj, char a2) {
+char __cdecl mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 	int v2;        // esi
 	int v3;        // esi MAPDST
 	signed int v4; // edi
@@ -634,9 +634,11 @@ char __cdecl playerDoAutoShield(int playerObj, char a2) {
 						if (sub_57B3D0(v3, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 748) + 276) + 2251))) {
 							v11 = sub_4F3180(playerObj, v3);
 							if (v11) {
-								if (sub_4F2FB0((_DWORD*)playerObj, v3) && sub_4F2F70((_DWORD*)playerObj,
-																					 v3)) // dequip&equip item
+								// It will surely fail to work if left this way (4F2FB0 will return 0 if given weapon is not currently equipped)
+								// but in asm it's almost the same (4F2FB0; >0?: and 4F2F70)
+								if (sub_4F2FB0((_DWORD*)playerObj, v3) && sub_4F2F70((_DWORD*)playerObj, v3)) {
 									v16 = 1;
+								}
 								return v16;
 							}
 						}
@@ -955,7 +957,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 				if (v36)
 					buf[8] = v9 & 0xEF;
 				if (!getPlayerClassFromObjPtr(v10) || v36) {
-					if (playerDoAutoShield(v10, buf[8])) {
+					if (mix_MouseKeyboardWeaponRoll(v10, buf[8])) {
 						*((_WORD*)buf + 1) = 2;
 						sendto(s, buf, 4, 0, from, 16);
 					}
@@ -1166,10 +1168,13 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 	case 264:
 		return (_DWORD*)nox_common_gameFlags_check_40A5C0(1);
 	case 265:
-		a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1;
+		// toggles weapons by mouse wheel
+		// autoshield is actually implemented in appendix of sub_53A140
+		//a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1; 
+		a2a = vaArg3 > 0; // scroll weapons back or forth
 		result = (_DWORD*)((unsigned __int8)vaArg2 - 2);
 		if ((unsigned __int8)vaArg2 == 2 &&
-			(_DWORD*)MEMACCESS(0x6D8555 - 1) == result) { // TODO: memaccess was 1 byte off
+			(_DWORD*)MEMACCESS(0x6D8555) == result) { // checked in asm (cmp ds:6D8555, eax)
 			if ((MEMACCESS(0x98085A) >> 3) & 1) {
 				result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
 				if (result) {
@@ -1177,9 +1182,9 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 					if (result) {
 						v6 = MEMACCESS(0x97EBC0); // playerObjServerHost
 						if (MEMACCESS(0x97EBC0)) {
-							LOBYTE(result) = getPlayerClassFromObjPtr(MEMACCESS(0x97EBC0));
+							LOBYTE(result) = getPlayerClassFromObjPtr(MEMACCESS(0x97EBC0)); 
 							if (!(_BYTE)result) {
-								LOBYTE(result) = playerDoAutoShield(v6, a2a);
+								LOBYTE(result) = mix_MouseKeyboardWeaponRoll(v6, a2a);
 								if ((_BYTE)result)
 									result = sub_452D80(895, 100); // clientPlaySound
 							}
@@ -1206,13 +1211,13 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 		}
 		vaArg1_1[1] = v8;
 		if ((MEMACCESS(0x98085A) >> 3) & 1) {
-			result = (_DWORD*)nox_common_gameFlags_check_40A5C0(0x204); // проверяет какие-то неизвестные пока геймфлаги
+			result = (_DWORD*)nox_common_gameFlags_check_40A5C0(0x204); // checks some gameFlags that are yet undiscovered
 			if (result) {
 				if (MEMACCESS(0x6D8538) || MEMACCESS(0x6D855D))
 					return result;
 				if (nox_common_gameFlags_check_40A5C0(1)) // isServer
 				{
-					if (MEMACCESS(0x97EBC0) && playerDoAutoShield(MEMACCESS(0x97EBC0), vaArg1_1[1]))
+					if (MEMACCESS(0x97EBC0) && mix_MouseKeyboardWeaponRoll(MEMACCESS(0x97EBC0), vaArg1_1[1]))
 						sub_452D80(895, 100);
 				} else {
 					notifyThisIsServeronly((int)&buf, 0, 1);
