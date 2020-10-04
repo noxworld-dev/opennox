@@ -175,6 +175,8 @@ int nox_drawable_list_1_size = 0;
 obj_5D4594_2650668_t** ptr_5D4594_2650668 = 0;
 const int ptr_5D4594_2650668_cap = 128;
 
+nox_savegame_xxx nox_savegame_arr_1064948[NOX_SAVEGAME_XXX_MAX] = {0};
+
 //----- (00460D40) --------------------------------------------------------
 BOOL sub_460D40() { return dword_5d4594_1049508 != 0; }
 
@@ -5523,14 +5525,14 @@ int __cdecl sub_46CDC0(int a1) {
 			}
 		}
 		++v2;
-		v3 = (const SYSTEMTIME*)((char*)v3 + 1278);
+		v3 = (const SYSTEMTIME*)((char*)v3 + sizeof(nox_savegame_xxx));
 	} while (v2 < 14);
 	return v1;
 }
 
 //----- (0046D6F0) --------------------------------------------------------
 int sub_46D6F0() {
-	memset(getMemAt(0x5D4594, 1064948), 0, 0x45E4u);
+	memset(nox_savegame_arr_1064948, 0, NOX_SAVEGAME_XXX_MAX * sizeof(nox_savegame_xxx));
 	if (wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_1082856))
 		return 0;
 	nox_window_set_hidden(*(int*)&dword_5d4594_1082856, 1);
