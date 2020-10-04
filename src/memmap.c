@@ -1362,6 +1362,7 @@ extern int (*func_5D4594_816388)(void);
 extern int (*func_5D4594_816392)(void);
 extern void (*func_5D4594_830220)(void);
 extern nox_server_xxx nox_server_xxx_1599716[256*256];
+extern nox_playerInfo nox_playerinfo_arr[32];
 
 typedef struct mem_blob {
 	uintptr_t base;
@@ -2688,6 +2689,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1049872, (void*)&array_5D4594_1049872, sizeof(array_5D4594_1049872), 1},
 	{0x5D4594 + 1093036, (void*)&nox_windows_arr_1093036, sizeof(nox_windows_arr_1093036), 1},
 	{0x5D4594 + 1599716, (void*)&nox_server_xxx_1599716, sizeof(nox_server_xxx_1599716), 1},
+	{0x5D4594 + 371780, (void*)&nox_playerinfo_arr, sizeof(nox_playerinfo_arr), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
 	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},

@@ -915,7 +915,7 @@ int4* __cdecl sub_48D990(_DWORD* a1) {
 				v20 = 0;
 				if (v3 && *(_BYTE*)(v3 + 112) & 4) {
 					v4 = sub_418C80(*(_DWORD*)(v3 + 128));
-					v5 = sub_417040(v2[164]);
+					v5 = nox_common_playerInfoGetByID_417040(v2[164]);
 					if (v5)
 						v20 = v5 + 4704;
 					if (v4) {
@@ -1704,7 +1704,7 @@ int __cdecl sub_4948B0(int a1) {
 		result = sub_4DA7C0();
 		for (j = result; result; j = result) {
 			if (!sub_419180(j + 48, *(_BYTE*)(a1 + 57))) {
-				v6 = sub_417040(*(_DWORD*)(j + 36));
+				v6 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(j + 36));
 				v7 = v6;
 				if (v6) {
 					if (!(v6[3680] & 1)) {
@@ -1723,7 +1723,7 @@ int __cdecl sub_4948B0(int a1) {
 		result = sub_45A000();
 		for (k = result; result; k = result) {
 			if (!sub_419180(k + 24, *(_BYTE*)(a1 + 57))) {
-				v9 = sub_417040(*(_DWORD*)(k + 128));
+				v9 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(k + 128));
 				v10 = v9;
 				if (v9) {
 					if (!(v9[3680] & 1)) {
@@ -2261,14 +2261,14 @@ int* __cdecl sub_495500(int* a1) {
 	v27 = 0;
 	v26 = 0;
 	if (!v4) {
-		v5 = sub_417040(v2);
+		v5 = nox_common_playerInfoGetByID_417040(v2);
 		if (v5) {
 			v3 = 1;
 			nox_swprintf(v29, (const wchar_t*)v5 + 2352);
 		}
 	}
 	if (a1[1]) {
-		v6 = sub_417040(a1[1]);
+		v6 = nox_common_playerInfoGetByID_417040(a1[1]);
 		if (v6) {
 			if (v3)
 				nox_swprintf(v28, L"+%s", v6 + 4704);
@@ -2277,7 +2277,7 @@ int* __cdecl sub_495500(int* a1) {
 		}
 	}
 	if (a1[2]) {
-		v7 = sub_417040(a1[2]);
+		v7 = nox_common_playerInfoGetByID_417040(a1[2]);
 		if (v7)
 			nox_swprintf(v30, (const wchar_t*)v7 + 2352);
 	}

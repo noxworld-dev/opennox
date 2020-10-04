@@ -710,7 +710,7 @@ int __cdecl sub_51E800(int a1, _DWORD* a2) {
 		}
 		return 0;
 	}
-	v9 = sub_416F40();
+	v9 = nox_common_playerInfoCount_416F40();
 	if (!sub_51EAF0((int)v2, &a1) || !sub_51E540(v2, getMemAt(0x5D4594, 2487264)))
 		return 0;
 	v10 = atoi((const char*)getMemAt(0x5D4594, 2487264));

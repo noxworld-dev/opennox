@@ -439,7 +439,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 					sub_46DC30(*getMemU32Ptr(0x5D4594, 4 * v16 + 1090092), v40, (wchar_t*)getMemAt(0x587000, 146648),
 							   *getMemU32Ptr(0x5D4594, 80 * v32 + 1084200));
 					if (dword_5d4594_1090120 == 5) {
-						v20 = sub_417040(*getMemU32Ptr(0x5D4594, 80 * v32 + 1084192));
+						v20 = nox_common_playerInfoGetByID_417040(*getMemU32Ptr(0x5D4594, 80 * v32 + 1084192));
 						if (v20)
 							sub_46DC30(*getMemU32Ptr(0x5D4594, 4 * v16 + 1090068), v40, (wchar_t*)getMemAt(0x587000, 146656),
 									   v20 + 2096);

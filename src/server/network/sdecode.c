@@ -108,12 +108,12 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 	}
 
 	if (a3 <= 0) {
-		*((_DWORD*)sub_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
+		*((_DWORD*)nox_common_playerInfoGetXXX_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
 		return 1;
 	}
 	v4 = a2;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22)) {
-		v5 = sub_417090(a1);
+		v5 = nox_common_playerInfoGetXXX_417090(a1);
 		sub_4D3450((int)v5, a2, a3);
 	}
 	switch (*a2) {
@@ -125,11 +125,11 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 		sub_4DE7C0(a1);
 		return 1;
 	case 0x25u:
-		*((_DWORD*)sub_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
+		*((_DWORD*)nox_common_playerInfoGetXXX_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
 		return 1;
 	}
 	v91 = &a2[a3];
-	v6 = sub_417090(a1);
+	v6 = nox_common_playerInfoGetXXX_417090(a1);
 	v8 = (int)v6;
 	v89 = v6;
 	if (!v6)
@@ -374,7 +374,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 							v86 = sub_418AB0(*((unsigned __int8 *) v47 + 4));
 							if (v86) {
 								for (int j = sub_4DA7C0(); j; j = sub_4DA7F0(j)) {
-									v49 = sub_417040(*(_DWORD *) (j + 36));
+									v49 = nox_common_playerInfoGetByID_417040(*(_DWORD *) (j + 36));
 									if (v49 && sub_419180(j + 48, v86[57])) {
 										if (nox_common_gameFlags_check_40A5C0(2) &&
 											*(_DWORD *) (j + 36) == *(_DWORD *) getMemAt(0x5D4594, 2616328)) {
