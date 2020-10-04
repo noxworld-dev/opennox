@@ -695,7 +695,7 @@ char* nox_common_playerInfoGetFirst_416EA0();
 char* __cdecl nox_common_playerInfoGetNext_416EE0(int a1);
 int sub_416F40();
 char* __cdecl sub_416F60(int a1);
-int __cdecl sub_416FD0(_DWORD* a1);
+void sub_416FD0(_DWORD* a1);
 char* __cdecl sub_417000(int a1);
 char* __cdecl sub_417040(int a1);
 char* __cdecl sub_417090(int a1);
