@@ -56,7 +56,7 @@ char __cdecl getPlayerClassFromObjPtr(int a1);
 int __usercall playerInfoStructsToVector(smallPlayerStructVector* vector);
 char __cdecl playerInfoStructParser_0(char* a1); // idb
 char __usercall playerInfoStructParser_1(int a1, int a2, int* a3);
-char __cdecl playerDoAutoShield(int playerObj, char a2); // idb
+char __cdecl mix_MouseKeyboardWeaponRoll(int playerObj, char a2); // idb
 char __cdecl playerDropATrap(int playerObj);             // idb
 HANDLE __usercall GameIpParser(int a1, int a2, int a3);
 unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a2, int a3);
