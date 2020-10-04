@@ -4880,7 +4880,7 @@ __int16 __cdecl sub_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 		dword_5d4594_1321520 = sub_44CFC0((CHAR*)getMemAt(0x587000, 185484));
 	v3 = a2;
 	if (a2[112] & 4) {
-		v4 = sub_417040(*((_DWORD*)a2 + 32));
+		v4 = nox_common_playerInfoGetByID_417040(*((_DWORD*)a2 + 32));
 		if (*getMemU32Ptr(0x5D4594, 2616328) == *((_DWORD*)a2 + 32)) {
 			if (v4 && v4[3680] & 1)
 				v54 = 1;

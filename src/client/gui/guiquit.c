@@ -139,7 +139,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4) {
 		goto LABEL_11;
 	case 9007:
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			v8 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
+			v8 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 			sub_443E90((int)v8, 0, 0);
 		LABEL_11:
 			sub_445C40();
@@ -337,7 +337,7 @@ void sub_446190() {
 			sub_509CB0();
 		}
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			dword_5d4594_825752 = sub_416F40() - 1;
+			dword_5d4594_825752 = nox_common_playerInfoCount_416F40() - 1;
 			sub_467440(0);
 			if (dword_5d4594_825752 > 0) {
 				v4 = -57;

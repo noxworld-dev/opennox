@@ -160,7 +160,7 @@ void sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 			v7 = nox_server_getObjectFromNetCode_4ECCB0(a4);
-			v8 = sub_417040(a4);
+			v8 = nox_common_playerInfoGetByID_417040(a4);
 			v23 = v8;
 			if (v8) {
 				if (nox_common_gameFlags_check_40A5C0(0x8000))
@@ -170,7 +170,7 @@ void sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 						sub_4ED970(50.0, (float2*)(*((_DWORD*)v6 + 18) + 56), &v21);
 						sub_4E7010(v7, &v21);
 					}
-					v9 = sub_417040(a4);
+					v9 = nox_common_playerInfoGetByID_417040(a4);
 					if (v9) {
 						if (nox_common_gameFlags_check_40A5C0(4096)) {
 							v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55548), 0,
@@ -200,7 +200,7 @@ void sub_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int a5) {
 	} else {
 		v14 = sub_45A6F0(a4);
 		if (v14 && v14[28] & 4) {
-			v15 = sub_417040(a4);
+			v15 = nox_common_playerInfoGetByID_417040(a4);
 			if (v15) {
 				if (nox_common_gameFlags_check_40A5C0(4096)) {
 					v16 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 55664), 0,

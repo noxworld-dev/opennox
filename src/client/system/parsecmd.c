@@ -421,7 +421,7 @@ int __cdecl nox_cmd_show_game(int a1, char a2) {
 	v2 = sub_4165B0();
 	if (a2 != 2)
 		return 0;
-	v4 = sub_416F40();
+	v4 = nox_common_playerInfoCount_416F40();
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
 		--v4;
 	v5 = nox_client_getBuildVersion_409AC0();
@@ -627,7 +627,7 @@ int nox_cmd_set_obs() {
 	v0 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 103680), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2440);
 	sub_450C00(6u, v0);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
-		v2 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
+		v2 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 		sub_443E90((int)v2, 0, *(wchar_t**)&dword_5d4594_823700);
 	} else {
 		sub_440950(0, *(wchar_t**)&dword_5d4594_823700);
@@ -2232,7 +2232,7 @@ int __cdecl nox_cmd_cheat_goto(int a1, unsigned __int8 a2, int a3) {
 	if (nox_common_gameFlags_check_40A5C0(0x2000))
 		return 1;
 	if (a2 >= 4u) {
-		v7 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
+		v7 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 		v8 = v7;
 		if (!v7 || !*((_DWORD*)v7 + 514))
 			return 0;
@@ -2399,7 +2399,7 @@ int __cdecl nox_cmd_watch(int a1, unsigned __int8 a2, int a3) {
 	if (result) {
 		nox_swprintf(v5, L"%S", result);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			v4 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
+			v4 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 			if (a2 <= 1u)
 				sub_443E90((int)v4, 4, (wchar_t*)getMemAt(0x5D4594, 823768));
 			else

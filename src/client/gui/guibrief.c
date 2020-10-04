@@ -637,7 +637,7 @@ int __cdecl sub_450770(int a1) {
 	v3 = (unsigned __int16*)(a1 + 6);
 	do {
 		if (*v3) {
-			*((_DWORD*)v2 - 1) = sub_417040(*v3);
+			*((_DWORD*)v2 - 1) = nox_common_playerInfoGetByID_417040(*v3);
 			*(_WORD*)v2 = v3[4];
 			*((_WORD*)v2 + 1) = v3[1];
 			*((_WORD*)v2 + 2) = v3[2];

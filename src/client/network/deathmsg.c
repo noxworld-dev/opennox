@@ -17,12 +17,12 @@ int __cdecl sub_4952E0(_WORD* a1) {
 	wchar_t v12[32]; // [esp+44h] [ebp-C0h]
 	wchar_t v13[64]; // [esp+84h] [ebp-80h]
 
-	if (a1[1] && (v1 = sub_417040((unsigned __int16)a1[1])) != 0) {
+	if (a1[1] && (v1 = nox_common_playerInfoGetByID_417040((unsigned __int16)a1[1])) != 0) {
 		v8 = (int)(v1 + 4704);
 		v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 161432), 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 48);
 		nox_swprintf(v13, v2, v8);
 		if (a1[2]) {
-			v3 = sub_417040((unsigned __int16)a1[2]);
+			v3 = nox_common_playerInfoGetByID_417040((unsigned __int16)a1[2]);
 			if (v3) {
 				nox_swprintf(v12, L" + %s", v3 + 4704);
 				nox_wcscat(v13, v12);
@@ -34,7 +34,7 @@ int __cdecl sub_4952E0(_WORD* a1) {
 		nox_swprintf(v13, v4, v9);
 	}
 	if (a1[3]) {
-		v5 = sub_417040((unsigned __int16)a1[3]);
+		v5 = nox_common_playerInfoGetByID_417040((unsigned __int16)a1[3]);
 		if (v5) {
 			v10 = (int)(v5 + 4704);
 			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 161644), 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c",

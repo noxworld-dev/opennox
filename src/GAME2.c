@@ -4482,7 +4482,7 @@ char __cdecl sub_456BB0(int a1) {
 				sub_4196D0(v3, a1, *getMemIntPtr(0x5D4594, 2616328), 1);
 				v1 = (_DWORD*)nox_common_gameFlags_check_40A5C0(128);
 				if (!v1) {
-					v1 = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
+					v1 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 					v4 = v1;
 					if (v1) {
 						sub_4F7AB0(&v6, v1[514]);
@@ -6979,7 +6979,7 @@ void sub_45D290(int a1, char* a2, int a3) {
 	char* result; // eax
 	int v4;       // esi
 
-	result = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
+	result = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 	if (result) {
 		dword_5d4594_1046868 = 0;
 		dword_5d4594_1046872 = 0;
@@ -7090,7 +7090,7 @@ char* __cdecl sub_45D4A0(int a1) {
 	if (dword_5d4594_1047516)
 		*(_DWORD*)(dword_5d4594_1047516 + 4 * a1 + 3696) = 0;
 	sub_461360(a1);
-	result = sub_417040(*getMemIntPtr(0x5D4594, 2616328));
+	result = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 	if (result)
 		result = (char*)sub_45ADF0((unsigned __int8)result[2251]);
 	return result;
