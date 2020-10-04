@@ -438,6 +438,15 @@ _Static_assert(sizeof(nox_thing) == 128, "wrong size of nox_thing structure!");
 
 typedef enum { NOX_WIN_HIDDEN = 0x10, NOX_WIN_LAYER_FRONT = 0x20, NOX_WIN_LAYER_BACK = 0x40 } nox_window_flags;
 
+#define NOX_SERVER_XXX_SIZE 256
+typedef struct nox_server_xxx {
+	_DWORD field_0;
+	_DWORD field_4;
+	_WORD field_8;
+	_WORD field_10;
+} nox_server_xxx;
+_Static_assert(sizeof(nox_server_xxx) == 12, "wrong size of nox_server_xxx structure!");
+
 typedef struct nox_window nox_window;
 typedef struct nox_window {
 	_DWORD field_0;
