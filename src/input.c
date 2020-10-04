@@ -16,6 +16,7 @@ extern _DWORD dword_5d4594_1193132;
 
 enum {
 	MOUSE_MOTION,
+	MOUSE_WHEEL,
 	MOUSE_BUTTON0,
 	MOUSE_BUTTON1,
 	MOUSE_BUTTON2,
@@ -146,7 +147,7 @@ void process_motion_event(const SDL_MouseMotionEvent* event) {
 void process_wheel_event(const SDL_MouseWheelEvent* event) {
 	struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
 
-	me->type = MOUSE_MOTION;
+	me->type = MOUSE_WHEEL;
 	me->x = 0;
 	me->y = 0;
 	me->z = event->y;
@@ -478,9 +479,10 @@ char __cdecl sub_47DB20_get_mouse_data(nox_mouse_state_t* e) {
 		e->pos.x = me->x;
 		e->pos.y = me->y;
 		e->z = me->z;
-		DIDEVICEOBJECTDATA data;
-		data.dwData = me->z;
-		OnLibraryNotice(265, &e, 2, &data);
+		break;
+	case MOUSE_WHEEL:
+		e->z = me->z;
+		OnLibraryNotice(265, &e, 2, me->z); // mix event hanlder is triggered only for wheel events
 		break;
 	case MOUSE_BUTTON0:
 		e->left_state = me->state;
