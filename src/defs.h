@@ -186,11 +186,6 @@ typedef struct struc_13 {
 	int field_50;
 } struc_13;
 
-/* 288 */
-typedef struct struc_14 {
-	char field_0[4828];
-} struc_14;
-
 /* 289 */
 typedef struct struc_15 {
 	char field_0[80];
