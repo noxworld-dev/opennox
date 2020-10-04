@@ -28,6 +28,7 @@ extern _DWORD dword_5d4594_1049864;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1063116;
 extern _DWORD dword_5d4594_1062480;
+extern _DWORD array_5D4594_1049872[9];
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -1019,7 +1020,7 @@ BOOL __cdecl sub_4649B0(int a1, int a2, int a3) {
 			*(_WORD*)(*(_DWORD*)v4 + 292) = *(_WORD*)(a1 + 292);
 			*(_WORD*)(*(_DWORD*)v4 + 294) = *(_WORD*)(a1 + 294);
 		}
-		v8 = getMemAt(0x5D4594, 1049872);
+		v8 = &array_5D4594_1049872;
 		*(_DWORD*)&v4[4 * v4[140]++ + 4] = *(_DWORD*)(a1 + 128);
 		*((_DWORD*)v4 + 33) = 0;
 		while (1) {
@@ -1028,7 +1029,7 @@ BOOL __cdecl sub_4649B0(int a1, int a2, int a3) {
 				break;
 		LABEL_17:
 			v8 += 4;
-			if ((int)v8 >= (int)getMemAt(0x5D4594, 1049908))
+			if ((int)v8 >= &array_5D4594_1049872[9])
 				return 1;
 		}
 		while (*(_DWORD*)(v9 + 128) != *(_DWORD*)(a1 + 128)) {
@@ -1501,7 +1502,7 @@ wchar_t* __cdecl sub_466660(int a1, int2* a2) {
 	v3 = sub_465990(a2);
 	if (v3 == -1)
 		return loadString_sub_40F1D0((char*)getMemAt(0x587000, 139728), 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 3155);
-	v5 = *(wchar_t**)getMemAt(0x5D4594, 1049872 + 4 * v3);
+	v5 = *(wchar_t**)&array_5D4594_1049872[v3];
 	if (v5)
 		result = sub_4BF050(v5);
 	else
