@@ -589,7 +589,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
 				break;
 			case 38:
-				nox_client_invAlterWeapon_4672C0();
+				sub_4672C0();
 				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
 				break;
 			case 39:
