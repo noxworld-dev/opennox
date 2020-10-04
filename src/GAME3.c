@@ -1776,7 +1776,7 @@ int sub_4A5C70() {
 	if (nox_common_gameFlags_check_40A5C0(2048))
 		nox_savegame_rm_4DBE10(nox_savegame_name_1307752, 1);
 	else
-		DeleteFileA((LPCSTR)(dword_5d4594_1307780 + 1278 * *getMemU32Ptr(0x5D4594, 1307772) + 4));
+		DeleteFileA((LPCSTR)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *getMemU32Ptr(0x5D4594, 1307772) + 4));
 	nox_window_call_field_94(*(int*)&dword_5d4594_1307744, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1307776, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1307768, 16399, 0, 0);

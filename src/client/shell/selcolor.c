@@ -202,7 +202,7 @@ int sub_4A75C0() {
 	char* v21;            // eax
 	char v23;             // [esp+2h] [ebp-512h]
 	char v24[16];         // [esp+4h] [ebp-510h]
-	char v25[1278];       // [esp+14h] [ebp-500h]
+	char v25[sizeof(nox_savegame_xxx)];       // [esp+14h] [ebp-500h]
 
 	if (nox_common_gameFlags_check_40A5C0(2048))
 		nox_savegame_rm_4DBE10("WORKING", 0);
