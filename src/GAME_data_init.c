@@ -55,37 +55,6 @@ void init_data() {
 	dumpMemMap();
 #endif // NOX_LOG_MEM
 
-	*(void**)getMemAt(0x587000, 26824) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 26872) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 26896) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 26908) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 26920) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 26956) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 26980) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 26836) = &sub_423780;
-	*(void**)getMemAt(0x587000, 26848) = &sub_423780;
-	*(void**)getMemAt(0x587000, 26860) = &sub_423780;
-	*(void**)getMemAt(0x587000, 26884) = &sub_423780;
-	*(void**)getMemAt(0x587000, 26932) = &sub_423780;
-	*(void**)getMemAt(0x587000, 26944) = &sub_423780;
-	*(void**)getMemAt(0x587000, 26968) = &sub_423780;
-	*(void**)getMemAt(0x587000, 26992) = &sub_423780;
-	*(void**)getMemAt(0x587000, 27028) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27040) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27076) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27088) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27064) = &sub_423780;
-	*(void**)getMemAt(0x587000, 27124) = &sub_423780;
-	*(void**)getMemAt(0x587000, 27136) = &sub_423780;
-	*(void**)getMemAt(0x587000, 27148) = &sub_423780;
-	*(void**)getMemAt(0x587000, 27212) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27224) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27236) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27248) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27260) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27272) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27284) = &sub_4235C0;
-	*(void**)getMemAt(0x587000, 27188) = &sub_423780;
 	*(void**)getMemAt(0x587000, 28620) = &sub_411C40;
 	*(void**)getMemAt(0x587000, 28628) = &sub_411C40;
 	*(void**)getMemAt(0x587000, 28636) = &sub_411C40;
@@ -104,21 +73,6 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 94028) = getMemAt(0x587000, 93952);
 
 	*(void**)getMemAt(0x587000, 98228) = &nox_cmd_help;
-	*(void**)getMemAt(0x587000, 116612) = &nox_things_animate_draw_parse;
-	*(void**)getMemAt(0x587000, 116820) = &nox_things_animate_draw_parse;
-	*(void**)getMemAt(0x587000, 116836) = &nox_things_animate_draw_parse;
-	*(void**)getMemAt(0x587000, 116852) = &nox_things_animate_draw_parse;
-	*(void**)getMemAt(0x587000, 116900) = &nox_things_animate_draw_parse;
-	*(void**)getMemAt(0x587000, 116916) = &nox_things_animate_draw_parse;
-	*(void**)getMemAt(0x587000, 116132) = &nox_things_cond_animate_draw_parse;
-	*(void**)getMemAt(0x587000, 116932) = &nox_things_vector_animate_draw_parse;
-	*(void**)getMemAt(0x587000, 116628) = &nox_things_slave_draw_parse;
-	*(void**)getMemAt(0x587000, 116964) = &nox_things_slave_draw_parse;
-	*(void**)getMemAt(0x587000, 116980) = &nox_things_slave_draw_parse;
-	*(void**)getMemAt(0x587000, 117092) = &nox_things_slave_draw_parse;
-	*(void**)getMemAt(0x587000, 116788) = &nox_things_static_draw_parse;
-	*(void**)getMemAt(0x587000, 116804) = &nox_things_static_draw_parse;
-	*(void**)getMemAt(0x587000, 116868) = &nox_things_static_draw_parse;
 
 	*(void**)getMemAt(0x587000, 32600) = getMemAt(0x5D4594, 338468);
 
