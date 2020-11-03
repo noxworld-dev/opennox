@@ -1046,7 +1046,7 @@ int __cdecl sub_419F10(const char* a1, const char* a2) {
 // 419F10: using guessed type char var_400[1024];
 
 //----- (0041A000) --------------------------------------------------------
-int __cdecl sub_41A000(char* a1, _BYTE* a2) {
+int __cdecl sub_41A000(char* a1, nox_savegame_xxx* sv) {
 	int result;          // eax
 	int v3;              // ecx
 	unsigned __int8* v4; // eax
@@ -1060,52 +1060,52 @@ int __cdecl sub_41A000(char* a1, _BYTE* a2) {
 	char v12[1276];      // [esp+18h] [ebp-500h]
 	__int16 v13;         // [esp+514h] [ebp-4h]
 
-	a2[1028] = getMemByte(0x5D4594, 527728);
+	sv->field_1028[0] = getMemByte(0x5D4594, 527728);
 	result = sub_426910(a1, 1, 27);
-	if (result) {
-		while (1) {
-			sub_426AC0_file3_fread(&v10, 4u);
-			if (!v10)
-				break;
-			sub_426C20(&v11, 4u);
-			if (v10 == 1) {
-				memcpy(v12, getMemAt(0x5D4594, 2660684), sizeof(v12));
-				v3 = 0;
-				v13 = *getMemU16Ptr(0x5D4594, 2661960);
-				if (*getMemU32Ptr(0x587000, 55936)) {
-					v4 = getMemAt(0x587000, 55936);
-					while (v4 != getMemAt(0x587000, 55948)) {
-						v5 = *((_DWORD*)v4 + 3);
-						v4 += 12;
-						++v3;
-						if (!v5)
-							goto LABEL_10;
-					}
-					if (!(*(int(__cdecl**)(_DWORD)) getMemAt(0x587000, 55956))(0)) {
-						sub_4269F0();
-						return 0;
-					}
-				}
-			LABEL_10:
-				memcpy(a2, getMemAt(0x5D4594, 2660684), 0x4FEu);
-				memcpy(getMemAt(0x5D4594, 2660684), v12, 0x4FCu);
-				*getMemU16Ptr(0x5D4594, 2661960) = v13;
-			} else {
-				sub_426AA0(v11);
-			}
-		}
-		sub_4269F0();
-		v6 = strlen(a1) + 1;
-		v7 = v6;
-		v6 >>= 2;
-		memcpy(a2 + 4, a1, 4 * v6);
-		v9 = &a1[4 * v6];
-		v8 = &a2[4 * v6 + 4];
-		LOBYTE(v6) = v7;
-		result = 1;
-		memcpy(v8, v9, v6 & 3);
+	if (!result) {
+		return 0;
 	}
-	return result;
+	while (1) {
+		sub_426AC0_file3_fread(&v10, 4u);
+		if (!v10)
+			break;
+		sub_426C20(&v11, 4u);
+		if (v10 == 1) {
+			memcpy(v12, getMemAt(0x5D4594, 2660684), sizeof(v12));
+			v3 = 0;
+			v13 = *getMemU16Ptr(0x5D4594, 2661960);
+			if (*getMemU32Ptr(0x587000, 55936)) {
+				v4 = getMemAt(0x587000, 55936);
+				while (v4 != getMemAt(0x587000, 55948)) {
+					v5 = *((_DWORD*)v4 + 3);
+					v4 += 12;
+					++v3;
+					if (!v5)
+						goto LABEL_10;
+				}
+				if (!(*(int(__cdecl**)(_DWORD)) getMemAt(0x587000, 55956))(0)) {
+					sub_4269F0();
+					return 0;
+				}
+			}
+			LABEL_10:
+			memcpy(sv, getMemAt(0x5D4594, 2660684), sizeof(nox_savegame_xxx));
+			memcpy(getMemAt(0x5D4594, 2660684), v12, 0x4FCu);
+			*getMemU16Ptr(0x5D4594, 2661960) = v13;
+		} else {
+			sub_426AA0(v11);
+		}
+	}
+	sub_4269F0();
+	v6 = strlen(a1) + 1;
+	v7 = v6;
+	v6 >>= 2;
+	memcpy(&sv->field_4, a1, 4 * v6);
+	v9 = &a1[4 * v6];
+	v8 = &sv->field_4[4 * v6];
+	LOBYTE(v6) = v7;
+	memcpy(v8, v9, v6 & 3);
+	return 1;
 }
 
 //----- (0041A140) --------------------------------------------------------
@@ -2810,7 +2810,7 @@ int __cdecl sub_41CEE0(int a1, int a2) {
 	int v6;              // edi
 	int v8;              // eax
 
-	memcpy(getMemAt(0x5D4594, 2660684), (const void*)a1, 0x4FEu);
+	memcpy(getMemAt(0x5D4594, 2660684), (const void*)a1, sizeof(nox_savegame_xxx));
 	result = sub_426910((char*)getMemAt(0x5D4594, 2660688), 0, 27);
 	if (result) {
 		v3 = a2;

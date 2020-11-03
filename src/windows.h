@@ -253,6 +253,20 @@ enum {
 	ERROR_NO_MORE_FILES = 18,
 };
 
+enum {
+	LOCALE_SYSTEM_DEFAULT = 0x800,
+};
+
+enum {
+	DATE_SHORTDATE = 0x1,
+};
+
+enum {
+	TIME_NOSECONDS = 0x2,
+	TIME_NOTIMEMARKER = 0x4,
+	TIME_FORCE24HOURFORMAT = 0x8,
+};
+
 #define DebugBreak compatDebugBreak
 #define CloseHandle compatCloseHandle
 #define GetLastError compatGetLastError
