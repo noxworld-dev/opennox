@@ -7108,7 +7108,7 @@ LABEL_9:
 	if (*(int*)&dword_5d4594_3798832 < *(int*)&dword_5d4594_3798832 + *(int*)&dword_5d4594_3798816) {
 		v12 = 44 * dword_5d4594_3798832;
 		for (i = 44 * dword_5d4594_3798832;; v12 = i) {
-			HIWORD(v13) = *getMemU16Ptr(0x5D4594, 2650670);
+			HIWORD(v13) = HIWORD(ptr_5D4594_2650668); // TODO: why it's doing it?
 			v14 = v12 + (_DWORD)(ptr_5D4594_2650668[j]);
 			if (*(_BYTE*)v14 & 2) {
 				LOWORD(v13) = *(_WORD*)(v14 + 24);
@@ -7502,7 +7502,7 @@ int __cdecl sub_4826A0(_DWORD* a1) {
 			v22 = v5;
 			if (v5 < v7) {
 				do {
-					HIWORD(v10) = *getMemU16Ptr(0x5D4594, 2650670);
+					HIWORD(v10) = HIWORD(ptr_5D4594_2650668); // TODO: why it's doing it?
 					v8 += 46;
 					v11 = ptr_5D4594_2650668[v9];
 					v12 = *(_BYTE*)(v11 + v21);
