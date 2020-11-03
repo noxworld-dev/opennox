@@ -58,12 +58,12 @@ int __cdecl sub_461660(int a1, int a2, const void* a3) {
 			}
 			v6 = a4.field_0;
 			v7 = a4.field_4;
-			if (*(_BYTE*)((_BYTE*)nox_obj_arr_1050020[a4.field_4 + NOX_OBJ_1050020_XXX * a4.field_0].field_0 + 112) & 0x10) {
+			if (nox_obj_arr_1050020[a4.field_4 + NOX_OBJ_1050020_XXX * a4.field_0].field_0->field_28 & 0x10) {
 				sub_472310();
 				v7 = a4.field_4;
 				v6 = a4.field_0;
 			}
-			if (*(_DWORD*)((_BYTE*)nox_obj_arr_1050020[v7 + NOX_OBJ_1050020_XXX * v6].field_0 + 112) & 0x3001000) {
+			if (nox_obj_arr_1050020[v7 + NOX_OBJ_1050020_XXX * v6].field_0->field_28 & 0x3001000) {
 				dword_5d4594_1062516 = 0;
 				if (v7 >= 3)
 					dword_5d4594_1062516 = 10 * (5 * v7 - 10);
@@ -282,7 +282,7 @@ void __cdecl sub_462040(int a1) {
 						goto LABEL_26;
 				}
 				int v15 = v9 + NOX_OBJ_1050020_XXX * v13;
-				*(_DWORD*)((_BYTE*)nox_obj_arr_1050020[v15].field_0 + 128) = nox_obj_arr_1050020[v15].field_4;
+				nox_obj_arr_1050020[v15].field_0->field_32 = nox_obj_arr_1050020[v15].field_4;
 				sub_4623B0(nox_obj_arr_1050020[v15].field_0);
 				v10 = 0;
 			LABEL_26:
@@ -1056,8 +1056,6 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 	int v8;          // eax
 	int v9;          // esi
 	int v10;         // edi
-	int v12;         // ecx
-	int v13;         // eax
 	int v14;         // eax
 	int v15;         // eax
 	int v16;         // esi
@@ -1112,10 +1110,9 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 					return 1;
 				int v11 = v10 + NOX_OBJ_1050020_XXX * v9;
 				if (nox_obj_arr_1050020[v11].field_140) {
-					v12 = nox_obj_arr_1050020[v11].field_0;
-					v13 = nox_obj_arr_1050020[v11].field_4;
-					dword_5d4594_1063116 = v12;
-					*(_DWORD*)(v12 + 128) = v13;
+					nox_drawable* dr = nox_obj_arr_1050020[v11].field_0;
+					dword_5d4594_1063116 = dr;
+					dr->field_32 = nox_obj_arr_1050020[v11].field_4;
 				} else {
 					dword_5d4594_1063116 = 0;
 				}
@@ -1386,20 +1383,20 @@ int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
 void sub_465A30() {
 	_DWORD* v1;  // eax
 	wchar_t* v2; // eax
-	int* v3[2];  // [esp+0h] [ebp-8h]
 
 	int v0 = dword_5d4594_1049800 + NOX_OBJ_1050020_XXX * dword_5d4594_1049796;
 	if (nox_obj_arr_1050020[v0].field_140) {
-		v1 = nox_new_drawable_for_thing(*(_DWORD*)((_BYTE*)nox_obj_arr_1050020[v0].field_0 + 108));
+		v1 = nox_new_drawable_for_thing(nox_obj_arr_1050020[v0].field_0->field_27);
 		*getMemU32Ptr(0x5D4594, 1049848) = v1;
 		if (v1) {
 			v1[30] |= 0x40000000u;
 			*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 128) = nox_obj_arr_1050020[v0].field_4;
-			memcpy((void*)(*getMemU32Ptr(0x5D4594, 1049848) + 432), (const void*)((_BYTE*)nox_obj_arr_1050020[v0].field_0 + 432), 0x18u);
-			*(_WORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 292) = *(_WORD*)((_BYTE*)nox_obj_arr_1050020[v0].field_0 + 292);
-			*(_WORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 294) = *(_WORD*)((_BYTE*)nox_obj_arr_1050020[v0].field_0 + 294);
-			v3[1] = 0;
+			memcpy((void*)(*getMemU32Ptr(0x5D4594, 1049848) + 432), (const void*)&(nox_obj_arr_1050020[v0].field_0->field_108_1), 24);
+			*(_WORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 292) = nox_obj_arr_1050020[v0].field_0->field_73_1;
+			*(_WORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 294) = nox_obj_arr_1050020[v0].field_0->field_73_2;
+			int* v3[2];
 			v3[0] = &nox_obj_arr_1050020[v0].field_0;
+			v3[1] = 0;
 			sub_461E60((_QWORD***)v3);
 		} else {
 			v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 139404), 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1123);
