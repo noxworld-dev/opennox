@@ -8079,139 +8079,120 @@ int sub_473670() { return getMemByte(0x5D4594, 1096424) & 1; }
 
 //----- (00473680) --------------------------------------------------------
 int sub_473680() {
-	int result; // eax
-
 	*getMemU32Ptr(0x5D4594, 1096420) = sub_42F970("CursorBitmap");
-	result = sub_455C30();
-	if (result) {
-		result = sub_456070();
-		if (result) {
-			result = sub_470710();
-			if (result) {
-				result = sub_4714E0();
-				if (result) {
-					result = sub_45B9D0();
-					if (result) {
-						result = sub_476E20();
-						if (result) {
-							result = sub_4BFAD0();
-							if (result) {
-								result = sub_465E00();
-								*getMemU32Ptr(0x5D4594, 1096328) = result;
-								if (result) {
-									result = sub_4ADAD0();
-									if (result) {
-										result = sub_48D000();
-										if (result) {
-											result = sub_4C3760();
-											if (result) {
-												result = nox_savegame_sub_46C730();
-												if (result) {
-													result = sub_4C09D0();
-													if (result) {
-														result = sub_478110();
-														if (result) {
-															result = sub_49B3E0();
-															if (result) {
-																result = sub_4BFC90();
-																if (result) {
-																	result = sub_4BFEF0();
-																	if (result) {
-																		result = sub_4799A0();
-																		if (result) {
-																			result = sub_460E60();
-																			if (result) {
-																				result = sub_450C70();
-																				*getMemU32Ptr(0x5D4594, 1096352) =
-																					result;
-																				if (result) {
-																					result = sub_46A730();
-																					if (result) {
-																						result = sub_44E560();
-																						if (result) {
-																							result = sub_4C3500();
-																							if (result) {
-																								result = sub_46E870();
-																								*getMemU32Ptr(0x5D4594, 1096340) = result;
-																								if (result) {
-																									result =
-																										sub_4465C0();
-																									*getMemU32Ptr(0x5D4594, 1096324) =
-																										result;
-																									if (result) {
-																										result =
-																											sub_4C1D80();
-																										if (result) {
-																											result =
-																												sub_445790();
-																											if (result) {
-																												result =
-																													sub_4AB260();
-																												if (result) {
-																													result =
-																														sub_445650();
-																													if (result) {
-																														result =
-																															sub_4C3390();
-																														if (result) {
-																															result =
-																																sub_48C980();
-																															if (result) {
-																																sub_450BE0();
-																																sub_4AB4A0(
-																																	0);
-																																sub_4AB4D0(
-																																	0);
-																																if (!nox_client_renderGUI_80828 ||
-																																	nox_common_getEngineFlag(
-																																		NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-																																	sub_4721A0(
-																																		0);
-																																	sub_460EA0(
-																																		0);
-																																	nox_window_set_visible_unk5(
-																																		0);
-																																	sub_45D500(
-																																		0);
-																																	sub_455A00(
-																																		0);
-																																	sub_455F10(
-																																		0);
-																																}
-																																result =
-																																	1;
-																															}
-																														}
-																													}
-																												}
-																											}
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+	if(!sub_455C30()) {
+		return 0;
 	}
-	return result;
+	if(!sub_456070()) {
+		return 0;
+	}
+	if (!sub_470710()) {
+		return 0;
+	}
+	if (!sub_4714E0()) {
+		return 0;
+	}
+	if (!sub_45B9D0()) {
+		return 0;
+	}
+	if (!sub_476E20()) {
+		return 0;
+	}
+	if (!sub_4BFAD0()) {
+		return 0;
+	}
+	int tmp = sub_465E00();
+	*getMemU32Ptr(0x5D4594, 1096328) = tmp;
+	if (!tmp) {
+		return 0;
+	}
+	if (!sub_4ADAD0()) {
+		return 0;
+	}
+	if (!sub_48D000()) {
+		return 0;
+	}
+	if (!sub_4C3760()) {
+		return 0;
+	}
+	if (!nox_savegame_sub_46C730()) {
+		return 0;
+	}
+	if (!sub_4C09D0()) {
+		return 0;
+	}
+	if (!sub_478110()) {
+		return 0;
+	}
+	if (!sub_49B3E0()) {
+		return 0;
+	}
+	if (!sub_4BFC90()) {
+		return 0;
+	}
+	if (!sub_4BFEF0()) {
+		return 0;
+	}
+	if (!sub_4799A0()) {
+		return 0;
+	}
+	if (!sub_460E60()) {
+		return 0;
+	}
+	tmp = sub_450C70();
+	*getMemU32Ptr(0x5D4594, 1096352) = tmp;
+	if (!tmp) {
+		return 0;
+	}
+	if (!sub_46A730()) {
+		return 0;
+	}
+	if (!sub_44E560()) {
+		return 0;
+	}
+	if (!sub_4C3500()) {
+		return 0;
+	}
+	tmp = sub_46E870();
+	*getMemU32Ptr(0x5D4594, 1096340) = tmp;
+	if (!tmp) {
+		return 0;
+	}
+	tmp = sub_4465C0();
+	*getMemU32Ptr(0x5D4594, 1096324) = tmp;
+	if (!tmp) {
+		return 0;
+	}
+	if (!sub_4C1D80()) {
+		return 0;
+	}
+	if (!sub_445790()) {
+		return 0;
+	}
+	if (!sub_4AB260()) {
+		return 0;
+	}
+	if (!sub_445650()) {
+		return 0;
+	}
+	if (!sub_4C3390()) {
+		return 0;
+	}
+	if (!sub_48C980()) {
+		return 0;
+	}
+	sub_450BE0();
+	sub_4AB4A0(0);
+	sub_4AB4D0(0);
+	if (!nox_client_renderGUI_80828 || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+		sub_4721A0(0);
+		sub_460EA0(0);
+		nox_window_set_visible_unk5(0);
+		sub_45D500(0);
+		sub_455A00(0);
+		sub_455F10(0);
+	}
+	return 1;
 }
 
 //----- (00473840) --------------------------------------------------------
