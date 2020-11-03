@@ -1213,7 +1213,7 @@ int __cdecl nox_client_wndQuestBriefProc_44E630(int a1, int a2, int a3, int a4) 
 			sub_46ADE0(*(int*)&dword_5d4594_831236);
 			sub_46B500(0);
 			dword_5d4594_831256 = 1;
-			sub_46D580();
+			nox_savegame_sub_46D580();
 		}
 		sub_46B300(*(int*)&dword_5d4594_831236, 0);
 	}
@@ -1257,7 +1257,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 		} else if (!dword_5d4594_831256) {
 			sub_46ADE0(*(int*)&dword_5d4594_831236);
 			dword_5d4594_831256 = 1;
-			sub_46D580();
+			nox_savegame_sub_46D580();
 			sub_46B300(*(int*)&dword_5d4594_831236, 0);
 		}
 		sub_46B340((int)a1, sub_44E8D0);
@@ -1386,7 +1386,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		if (*(_DWORD*)(v14 + 4 * v3 + 4408)) {
 			sub_46ADE0(*(int*)&dword_5d4594_831236);
 			dword_5d4594_831256 = 1;
-			sub_46D580();
+			nox_savegame_sub_46D580();
 			sub_46B300(*(int*)&dword_5d4594_831236, 0);
 		} else {
 			dword_5d4594_831224 = 1;

@@ -559,7 +559,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				break;
 			case 17:
 				if (sub_450560())
-					sub_46D580();
+					nox_savegame_sub_46D580();
 				else
 					sub_42EB90(1);
 				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;

@@ -106,7 +106,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4) {
 	case 9003:
 		sub_445C40();
 		if (nox_common_gameFlags_check_40A5C0(2048))
-			sub_46D580();
+			nox_savegame_sub_46D580();
 		else
 			sub_41CE00();
 		if (sub_43C6E0())
