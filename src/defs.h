@@ -539,7 +539,8 @@ typedef struct nox_drawable {
 	_DWORD field_70; // 70, 280
 	_DWORD field_71; // 71, 284
 	_DWORD field_72; // 72, 288
-	_DWORD field_73;
+	_WORD field_73_1; // 73, 292
+	_WORD field_73_2; // 73, 294
 	_BYTE field_74_1;                                // 74, 296
 	_BYTE field_74_2;                                // 74, 297
 	_BYTE field_74_3;                                // 74, 298
@@ -608,7 +609,7 @@ _Static_assert(sizeof(nox_drawable) == 512, "wrong size of nox_drawable structur
 #define NOX_OBJ_1050020_XXX 21
 #define NOX_OBJ_1050020_MAX NOX_OBJ_1050020_XXX*4
 typedef struct nox_obj_1050020_t {
-	void* field_0;
+	nox_drawable* field_0;
 	_DWORD field_4;
 	_DWORD data_4[30];
 	_DWORD field_128;
