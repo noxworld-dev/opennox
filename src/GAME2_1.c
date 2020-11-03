@@ -5496,38 +5496,31 @@ int __cdecl sub_46CCD0(int a1, int a2) {
 }
 
 //----- (0046CD70) --------------------------------------------------------
-int __cdecl sub_46CD70(_BYTE* a1) {
-	char v2[12]; // [esp+0h] [ebp-Ch]
-
-	if (*a1 & 8)
+int sub_46CD70(nox_savegame_xxx* sv) {
+	if (sv->field_0 & 8)
 		return 10;
-	nox_savegame_nameFromPath_4DC970(a1 + 4, v2);
-	return (strcmp(v2, "AUTOSAVE") != 0) + 13;
+
+	char buf[12];
+	nox_savegame_nameFromPath_4DC970(&sv->field_4, buf);
+	return (strcmp(buf, "AUTOSAVE") != 0) + (NOX_SAVEGAME_XXX_MAX-1);
 }
 
 //----- (0046CDC0) --------------------------------------------------------
-int __cdecl sub_46CDC0(int a1) {
-	int v1;                    // ebp
-	int v2;                    // ebx
-	const SYSTEMTIME* v3;      // esi
-	struct _FILETIME FileTime; // [esp+10h] [ebp-10h]
-	FILETIME FileTime2;        // [esp+18h] [ebp-8h]
-
-	v1 = -1;
-	v2 = 0;
-	v3 = (const SYSTEMTIME*)(a1 + 1188);
-	do {
-		if (strlen((const char*)&v3[-74])) {
-			SystemTimeToFileTime(v3, &FileTime);
-			if (v1 == -1 || CompareFileTime(&FileTime, &FileTime2) == 1) {
-				v1 = v2;
-				FileTime2 = FileTime;
+int nox_savegame_findLatestSave_46CDC0(nox_savegame_xxx* sarr) {
+	int ind = -1;
+	FILETIME latest;
+	for (int i = 0; i < NOX_SAVEGAME_XXX_MAX; i++) {
+		nox_savegame_xxx* sv = &sarr[i];
+		if (strlen(&sv->field_4)) {
+			struct _FILETIME t;
+			SystemTimeToFileTime(&sv->field_1188, &t);
+			if (ind == -1 || CompareFileTime(&t, &latest) == 1) {
+				ind = i;
+				latest = t;
 			}
 		}
-		++v2;
-		v3 = (const SYSTEMTIME*)((char*)v3 + sizeof(nox_savegame_xxx));
-	} while (v2 < 14);
-	return v1;
+	};
+	return ind;
 }
 
 //----- (0046D6F0) --------------------------------------------------------
@@ -8112,7 +8105,7 @@ int sub_473680() {
 										if (result) {
 											result = sub_4C3760();
 											if (result) {
-												result = sub_46C730();
+												result = nox_savegame_sub_46C730();
 												if (result) {
 													result = sub_4C09D0();
 													if (result) {

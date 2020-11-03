@@ -126,8 +126,8 @@ int sub_4A5150() {
 	strcat(PathName, "\\Save\\");
 	CreateDirectoryA(PathName, 0);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		dword_5d4594_1307780 = calloc(0xEu, 0x4FEu);
-		result = sub_46CE40(*(int*)&dword_5d4594_1307744, *(int*)&dword_5d4594_1307776, *(int*)&dword_5d4594_1307768,
+		dword_5d4594_1307780 = calloc(NOX_SAVEGAME_XXX_MAX, sizeof(nox_savegame_xxx));
+		result = nox_savegame_sub_46CE40(*(int*)&dword_5d4594_1307744, *(int*)&dword_5d4594_1307776, *(int*)&dword_5d4594_1307768,
 							*(_BYTE**)&dword_5d4594_1307780);
 	} else {
 		SetCurrentDirectoryA(PathName);
@@ -145,7 +145,7 @@ int sub_4A5150() {
 			}
 			FindClose(v8);
 		}
-		dword_5d4594_1307780 = calloc(v0, 0x4FEu);
+		dword_5d4594_1307780 = calloc(v0, sizeof(nox_savegame_xxx));
 		v9 = 0;
 		v10 = FindFirstFileA("*.plr", &FindFileData);
 		if (v10 != (HANDLE)-1) {
@@ -170,7 +170,7 @@ int sub_4A5150() {
 			}
 			FindClose(v10);
 		}
-		qsort(*(void**)&dword_5d4594_1307780, v9, 0x4FEu, sub_4A4CB0);
+		qsort(*(void**)&dword_5d4594_1307780, v9, sizeof(nox_savegame_xxx), sub_4A4CB0);
 		if (v9) {
 			v12 = 0;
 			v13 = v9;
