@@ -9343,190 +9343,190 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	v56 = a3; // Radius?
 	colourBase = *(unsigned __int16*)(&ptr_5D4594_3799572->data[61]);
 	v55 = 3;
-	grencol = (*getMemU32Ptr(0x5D4594, 3804368) & colourBase) >> getMemByte(0x5D4594, 3804380);
+	grencol = (*getMemU32Ptr(0x5D4594, 3804364 + 4) & colourBase) >> getMemByte(0x5D4594, 3804364 + 16);
 	v44 = 1 - a3;
-	bluecol = ((unsigned __int8)*(_WORD*)(&ptr_5D4594_3799572->data[61]) & getMemByte(0x5D4594, 3804372))
-			  << getMemByte(0x5D4594, 3804384);
+	bluecol = ((unsigned __int8)*(_WORD*)(&ptr_5D4594_3799572->data[61]) & getMemByte(0x5D4594, 3804364 + 8))
+			  << getMemByte(0x5D4594, 3804364 + 20);
 	v45 = 5 - 2 * a3;
 	v5 = 4 * (a3 + a2);
 	v53 = v5;
 	v46 = 2 * a1;
 	v6 = 2 * a1 + (_DWORD)nox_pixbuffer_rows_3798784[v5/4];
-	redcol = (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & colourBase) >> getMemByte(0x5D4594, 3804376));
+	redcol = (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & colourBase) >> getMemByte(0x5D4594, 3804364 + 12));
 	bluecol2 = bluecol;
 	grencol2 = grencol;
 	*v6 =
 		*(_WORD*)(dword_5d4594_3804664 +
-				  2 * (unsigned __int8)((((unsigned __int8)*v6 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
-										((bluecol - (unsigned __int8)(((unsigned __int8)*v6 & getMemByte(0x5D4594, 3804372))
-																	  << getMemByte(0x5D4594, 3804384))) >>
+				  2 * (unsigned __int8)((((unsigned __int8)*v6 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
+										((bluecol - (unsigned __int8)(((unsigned __int8)*v6 & getMemByte(0x5D4594, 3804364 + 8))
+																	  << getMemByte(0x5D4594, 3804364 + 20))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804656 +
-				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v6) >>
-										 getMemByte(0x5D4594, 3804380)) +
+				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v6) >>
+										 getMemByte(0x5D4594, 3804364 + 16)) +
 										((grencol -
-										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v6) >>
-															getMemByte(0x5D4594, 3804380))) >>
+										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v6) >>
+															getMemByte(0x5D4594, 3804364 + 16))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v6) >>
-										 getMemByte(0x5D4594, 3804376)) +
+										 getMemByte(0x5D4594, 3804364 + 12)) +
 										((redcol -
 										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v6) >>
-															getMemByte(0x5D4594, 3804376))) >>
+															getMemByte(0x5D4594, 3804364 + 12))) >>
 										 2)));
 	v49 = 4 * a2;
 	v10 = 2 * (a1 + a3) + *(_DWORD*)(4 * a2 + (_DWORD)nox_pixbuffer_rows_3798784);
 	v59 = 2 * (a1 + a3);
 	*v10 =
 		*(_WORD*)(dword_5d4594_3804664 +
-				  2 * (unsigned __int8)((((unsigned __int8)*v10 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
-										((bluecol - (unsigned __int8)(((unsigned __int8)*v10 & getMemByte(0x5D4594, 3804372))
-																	  << getMemByte(0x5D4594, 3804384))) >>
+				  2 * (unsigned __int8)((((unsigned __int8)*v10 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
+										((bluecol - (unsigned __int8)(((unsigned __int8)*v10 & getMemByte(0x5D4594, 3804364 + 8))
+																	  << getMemByte(0x5D4594, 3804364 + 20))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804656 +
-				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v10) >>
-										 getMemByte(0x5D4594, 3804380)) +
+				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v10) >>
+										 getMemByte(0x5D4594, 3804364 + 16)) +
 										((grencol2 -
-										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v10) >>
-															getMemByte(0x5D4594, 3804380))) >>
+										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v10) >>
+															getMemByte(0x5D4594, 3804364 + 16))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v10) >>
-										 getMemByte(0x5D4594, 3804376)) +
+										 getMemByte(0x5D4594, 3804364 + 12)) +
 										((redcol -
 										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v10) >>
-															getMemByte(0x5D4594, 3804376))) >>
+															getMemByte(0x5D4594, 3804364 + 12))) >>
 										 2)));
 	v11 = v59 + (_DWORD)nox_pixbuffer_rows_3798784[a2];
 	*v11 =
 		*(_WORD*)(dword_5d4594_3804664 +
-				  2 * (unsigned __int8)((((unsigned __int8)*v11 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
-										((bluecol - (unsigned __int8)(((unsigned __int8)*v11 & getMemByte(0x5D4594, 3804372))
-																	  << getMemByte(0x5D4594, 3804384))) >>
+				  2 * (unsigned __int8)((((unsigned __int8)*v11 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
+										((bluecol - (unsigned __int8)(((unsigned __int8)*v11 & getMemByte(0x5D4594, 3804364 + 8))
+																	  << getMemByte(0x5D4594, 3804364 + 20))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804656 +
-				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v11) >>
-										 getMemByte(0x5D4594, 3804380)) +
+				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v11) >>
+										 getMemByte(0x5D4594, 3804364 + 16)) +
 										((grencol2 -
-										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v11) >>
-															getMemByte(0x5D4594, 3804380))) >>
+										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v11) >>
+															getMemByte(0x5D4594, 3804364 + 16))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v11) >>
-										 getMemByte(0x5D4594, 3804376)) +
+										 getMemByte(0x5D4594, 3804364 + 12)) +
 										((redcol -
 										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v11) >>
-															getMemByte(0x5D4594, 3804376))) >>
+															getMemByte(0x5D4594, 3804364 + 12))) >>
 										 2)));
 	v12 = 4 * (a2 - a3);
 	v61 = v12;
 	v13 = 2 * a1 + (_DWORD)nox_pixbuffer_rows_3798784[v12/4];
 	*v13 =
 		*(_WORD*)(dword_5d4594_3804664 +
-				  2 * (unsigned __int8)((((unsigned __int8)*v13 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
-										((bluecol2 - (unsigned __int8)(((unsigned __int8)*v13 & getMemByte(0x5D4594, 3804372))
-																	   << getMemByte(0x5D4594, 3804384))) >>
+				  2 * (unsigned __int8)((((unsigned __int8)*v13 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
+										((bluecol2 - (unsigned __int8)(((unsigned __int8)*v13 & getMemByte(0x5D4594, 3804364 + 8))
+																	   << getMemByte(0x5D4594, 3804364 + 20))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804656 +
-				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v13) >>
-										 getMemByte(0x5D4594, 3804380)) +
+				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v13) >>
+										 getMemByte(0x5D4594, 3804364 + 16)) +
 										((grencol2 -
-										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v13) >>
-															getMemByte(0x5D4594, 3804380))) >>
+										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v13) >>
+															getMemByte(0x5D4594, 3804364 + 16))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v13) >>
-										 getMemByte(0x5D4594, 3804376)) +
+										 getMemByte(0x5D4594, 3804364 + 12)) +
 										((redcol -
 										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v13) >>
-															getMemByte(0x5D4594, 3804376))) >>
+															getMemByte(0x5D4594, 3804364 + 12))) >>
 										 2)));
 	v51 = 2 * a1;
 	v14 = 2 * a1 + (_DWORD)nox_pixbuffer_rows_3798784[v61/4];
 	*v14 =
 		*(_WORD*)(dword_5d4594_3804664 +
-				  2 * (unsigned __int8)((((unsigned __int8)*v14 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
-										((bluecol2 - (unsigned __int8)(((unsigned __int8)*v14 & getMemByte(0x5D4594, 3804372))
-																	   << getMemByte(0x5D4594, 3804384))) >>
+				  2 * (unsigned __int8)((((unsigned __int8)*v14 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
+										((bluecol2 - (unsigned __int8)(((unsigned __int8)*v14 & getMemByte(0x5D4594, 3804364 + 8))
+																	   << getMemByte(0x5D4594, 3804364 + 20))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804656 +
-				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v14) >>
-										 getMemByte(0x5D4594, 3804380)) +
+				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v14) >>
+										 getMemByte(0x5D4594, 3804364 + 16)) +
 										((grencol2 -
-										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v14) >>
-															getMemByte(0x5D4594, 3804380))) >>
+										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v14) >>
+															getMemByte(0x5D4594, 3804364 + 16))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v14) >>
-										 getMemByte(0x5D4594, 3804376)) +
+										 getMemByte(0x5D4594, 3804364 + 12)) +
 										((redcol -
 										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v14) >>
-															getMemByte(0x5D4594, 3804376))) >>
+															getMemByte(0x5D4594, 3804364 + 12))) >>
 										 2)));
 	v62 = 2 * (a1 - a3);
 	v15 = v62 + (_DWORD)nox_pixbuffer_rows_3798784[a2];
 	*v15 =
 		*(_WORD*)(dword_5d4594_3804664 +
-				  2 * (unsigned __int8)((((unsigned __int8)*v15 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
-										((bluecol2 - (unsigned __int8)(((unsigned __int8)*v15 & getMemByte(0x5D4594, 3804372))
-																	   << getMemByte(0x5D4594, 3804384))) >>
+				  2 * (unsigned __int8)((((unsigned __int8)*v15 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
+										((bluecol2 - (unsigned __int8)(((unsigned __int8)*v15 & getMemByte(0x5D4594, 3804364 + 8))
+																	   << getMemByte(0x5D4594, 3804364 + 20))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804656 +
-				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v15) >>
-										 getMemByte(0x5D4594, 3804380)) +
+				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v15) >>
+										 getMemByte(0x5D4594, 3804364 + 16)) +
 										((grencol2 -
-										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v15) >>
-															getMemByte(0x5D4594, 3804380))) >>
+										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v15) >>
+															getMemByte(0x5D4594, 3804364 + 16))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v15) >>
-										 getMemByte(0x5D4594, 3804376)) +
+										 getMemByte(0x5D4594, 3804364 + 12)) +
 										((redcol -
 										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v15) >>
-															getMemByte(0x5D4594, 3804376))) >>
+															getMemByte(0x5D4594, 3804364 + 12))) >>
 										 2)));
 	v16 = v62 + *(_DWORD*)(4 * a2 + (_DWORD)nox_pixbuffer_rows_3798784);
 	*v16 =
 		*(_WORD*)(dword_5d4594_3804664 +
-				  2 * (unsigned __int8)((((unsigned __int8)*v16 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
-										((bluecol2 - (unsigned __int8)(((unsigned __int8)*v16 & getMemByte(0x5D4594, 3804372))
-																	   << getMemByte(0x5D4594, 3804384))) >>
+				  2 * (unsigned __int8)((((unsigned __int8)*v16 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
+										((bluecol2 - (unsigned __int8)(((unsigned __int8)*v16 & getMemByte(0x5D4594, 3804364 + 8))
+																	   << getMemByte(0x5D4594, 3804364 + 20))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804656 +
-				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v16) >>
-										 getMemByte(0x5D4594, 3804380)) +
+				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v16) >>
+										 getMemByte(0x5D4594, 3804364 + 16)) +
 										((grencol2 -
-										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v16) >>
-															getMemByte(0x5D4594, 3804380))) >>
+										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v16) >>
+															getMemByte(0x5D4594, 3804364 + 16))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v16) >>
-										 getMemByte(0x5D4594, 3804376)) +
+										 getMemByte(0x5D4594, 3804364 + 12)) +
 										((redcol -
 										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v16) >>
-															getMemByte(0x5D4594, 3804376))) >>
+															getMemByte(0x5D4594, 3804364 + 12))) >>
 										 2)));
 	v17 = v51 + (_DWORD)nox_pixbuffer_rows_3798784[v53/4];
 	*v17 =
 		*(_WORD*)(dword_5d4594_3804664 +
-				  2 * (unsigned __int8)((((unsigned __int8)*v17 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
-										((bluecol2 - (unsigned __int8)(((unsigned __int8)*v17 & getMemByte(0x5D4594, 3804372))
-																	   << getMemByte(0x5D4594, 3804384))) >>
+				  2 * (unsigned __int8)((((unsigned __int8)*v17 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
+										((bluecol2 - (unsigned __int8)(((unsigned __int8)*v17 & getMemByte(0x5D4594, 3804364 + 8))
+																	   << getMemByte(0x5D4594, 3804364 + 20))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804656 +
-				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v17) >>
-										 getMemByte(0x5D4594, 3804380)) +
+				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v17) >>
+										 getMemByte(0x5D4594, 3804364 + 16)) +
 										((grencol2 -
-										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v17) >>
-															getMemByte(0x5D4594, 3804380))) >>
+										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v17) >>
+															getMemByte(0x5D4594, 3804364 + 16))) >>
 										 2))) |
 		*(_WORD*)(dword_5d4594_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v17) >>
-										 getMemByte(0x5D4594, 3804376)) +
+										 getMemByte(0x5D4594, 3804364 + 12)) +
 										((redcol -
 										  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v17) >>
-															getMemByte(0x5D4594, 3804376))) >>
+															getMemByte(0x5D4594, 3804364 + 12))) >>
 										 2)));
 	result = v17;
 	if (a3 > 0) {
@@ -9559,202 +9559,202 @@ _WORD* __cdecl nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 			v20 = v19 + 2 + (_DWORD)nox_pixbuffer_rows_3798784[v52/4];
 			*v20 =
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)((((unsigned __int8)*v20 & getMemByte(0x5D4594, 3804372))
-												 << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)((((unsigned __int8)*v20 & getMemByte(0x5D4594, 3804364 + 8))
+												 << getMemByte(0x5D4594, 3804364 + 20)) +
 												((bluecol2 -
-												  (unsigned __int8)(((unsigned __int8)*v20 & getMemByte(0x5D4594, 3804372))
-																	<< getMemByte(0x5D4594, 3804384))) >>
+												  (unsigned __int8)(((unsigned __int8)*v20 & getMemByte(0x5D4594, 3804364 + 8))
+																	<< getMemByte(0x5D4594, 3804364 + 20))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804656 +
-						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v20) >>
-												 getMemByte(0x5D4594, 3804380)) +
+						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v20) >>
+												 getMemByte(0x5D4594, 3804364 + 16)) +
 												((grencol2 -
-												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																					   *v20) >>
-																	getMemByte(0x5D4594, 3804380))) >>
+																	getMemByte(0x5D4594, 3804364 + 16))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v20) >>
-												 getMemByte(0x5D4594, 3804376)) +
+												 getMemByte(0x5D4594, 3804364 + 12)) +
 												((redcol -
 												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																					   *v20) >>
-																	getMemByte(0x5D4594, 3804376))) >>
+																	getMemByte(0x5D4594, 3804364 + 12))) >>
 												 2)));
 			v21 = v64 + (_DWORD)nox_pixbuffer_rows_3798784[v48/4];
 			*v21 =
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)((((unsigned __int8)*v21 & getMemByte(0x5D4594, 3804372))
-												 << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)((((unsigned __int8)*v21 & getMemByte(0x5D4594, 3804364 + 8))
+												 << getMemByte(0x5D4594, 3804364 + 20)) +
 												((bluecol2 -
-												  (unsigned __int8)(((unsigned __int8)*v21 & getMemByte(0x5D4594, 3804372))
-																	<< getMemByte(0x5D4594, 3804384))) >>
+												  (unsigned __int8)(((unsigned __int8)*v21 & getMemByte(0x5D4594, 3804364 + 8))
+																	<< getMemByte(0x5D4594, 3804364 + 20))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804656 +
-						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v21) >>
-												 getMemByte(0x5D4594, 3804380)) +
+						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v21) >>
+												 getMemByte(0x5D4594, 3804364 + 16)) +
 												((grencol2 -
-												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																					   *v21) >>
-																	getMemByte(0x5D4594, 3804380))) >>
+																	getMemByte(0x5D4594, 3804364 + 16))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v21) >>
-												 getMemByte(0x5D4594, 3804376)) +
+												 getMemByte(0x5D4594, 3804364 + 12)) +
 												((redcol -
 												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																					   *v21) >>
-																	getMemByte(0x5D4594, 3804376))) >>
+																	getMemByte(0x5D4594, 3804364 + 12))) >>
 												 2)));
 			v22 = v64 + (_DWORD)nox_pixbuffer_rows_3798784[v47/4];
 			*v22 =
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)((((unsigned __int8)*v22 & getMemByte(0x5D4594, 3804372))
-												 << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)((((unsigned __int8)*v22 & getMemByte(0x5D4594, 3804364 + 8))
+												 << getMemByte(0x5D4594, 3804364 + 20)) +
 												((bluecol2 -
-												  (unsigned __int8)(((unsigned __int8)*v22 & getMemByte(0x5D4594, 3804372))
-																	<< getMemByte(0x5D4594, 3804384))) >>
+												  (unsigned __int8)(((unsigned __int8)*v22 & getMemByte(0x5D4594, 3804364 + 8))
+																	<< getMemByte(0x5D4594, 3804364 + 20))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804656 +
-						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v22) >>
-												 getMemByte(0x5D4594, 3804380)) +
+						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v22) >>
+												 getMemByte(0x5D4594, 3804364 + 16)) +
 												((grencol2 -
-												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																					   *v22) >>
-																	getMemByte(0x5D4594, 3804380))) >>
+																	getMemByte(0x5D4594, 3804364 + 16))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v22) >>
-												 getMemByte(0x5D4594, 3804376)) +
+												 getMemByte(0x5D4594, 3804364 + 12)) +
 												((redcol -
 												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																					   *v22) >>
-																	getMemByte(0x5D4594, 3804376))) >>
+																	getMemByte(0x5D4594, 3804364 + 12))) >>
 												 2)));
 			v23 = v19 + 2 + (_DWORD)nox_pixbuffer_rows_3798784[v63/4];
 			*v23 =
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)((((unsigned __int8)*v23 & getMemByte(0x5D4594, 3804372))
-												 << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)((((unsigned __int8)*v23 & getMemByte(0x5D4594, 3804364 + 8))
+												 << getMemByte(0x5D4594, 3804364 + 20)) +
 												((bluecol2 -
-												  (unsigned __int8)(((unsigned __int8)*v23 & getMemByte(0x5D4594, 3804372))
-																	<< getMemByte(0x5D4594, 3804384))) >>
+												  (unsigned __int8)(((unsigned __int8)*v23 & getMemByte(0x5D4594, 3804364 + 8))
+																	<< getMemByte(0x5D4594, 3804364 + 20))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804656 +
-						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v23) >>
-												 getMemByte(0x5D4594, 3804380)) +
+						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v23) >>
+												 getMemByte(0x5D4594, 3804364 + 16)) +
 												((grencol2 -
-												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																					   *v23) >>
-																	getMemByte(0x5D4594, 3804380))) >>
+																	getMemByte(0x5D4594, 3804364 + 16))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v23) >>
-												 getMemByte(0x5D4594, 3804376)) +
+												 getMemByte(0x5D4594, 3804364 + 12)) +
 												((redcol -
 												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																					   *v23) >>
-																	getMemByte(0x5D4594, 3804376))) >>
+																	getMemByte(0x5D4594, 3804364 + 12))) >>
 												 2)));
 			v24 = v54 + (_DWORD)nox_pixbuffer_rows_3798784[v63/4];
 			*v24 =
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)((((unsigned __int8)*v24 & getMemByte(0x5D4594, 3804372))
-												 << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)((((unsigned __int8)*v24 & getMemByte(0x5D4594, 3804364 + 8))
+												 << getMemByte(0x5D4594, 3804364 + 20)) +
 												((bluecol2 -
-												  (unsigned __int8)(((unsigned __int8)*v24 & getMemByte(0x5D4594, 3804372))
-																	<< getMemByte(0x5D4594, 3804384))) >>
+												  (unsigned __int8)(((unsigned __int8)*v24 & getMemByte(0x5D4594, 3804364 + 8))
+																	<< getMemByte(0x5D4594, 3804364 + 20))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804656 +
-						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v24) >>
-												 getMemByte(0x5D4594, 3804380)) +
+						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v24) >>
+												 getMemByte(0x5D4594, 3804364 + 16)) +
 												((grencol2 -
-												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																					   *v24) >>
-																	getMemByte(0x5D4594, 3804380))) >>
+																	getMemByte(0x5D4594, 3804364 + 16))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v24) >>
-												 getMemByte(0x5D4594, 3804376)) +
+												 getMemByte(0x5D4594, 3804364 + 12)) +
 												((redcol -
 												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																					   *v24) >>
-																	getMemByte(0x5D4594, 3804376))) >>
+																	getMemByte(0x5D4594, 3804364 + 12))) >>
 												 2)));
 			v25 = v50 + (_DWORD)nox_pixbuffer_rows_3798784[v47/4];
 			*v25 =
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)((((unsigned __int8)*v25 & getMemByte(0x5D4594, 3804372))
-												 << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)((((unsigned __int8)*v25 & getMemByte(0x5D4594, 3804364 + 8))
+												 << getMemByte(0x5D4594, 3804364 + 20)) +
 												((bluecol2 -
-												  (unsigned __int8)(((unsigned __int8)*v25 & getMemByte(0x5D4594, 3804372))
-																	<< getMemByte(0x5D4594, 3804384))) >>
+												  (unsigned __int8)(((unsigned __int8)*v25 & getMemByte(0x5D4594, 3804364 + 8))
+																	<< getMemByte(0x5D4594, 3804364 + 20))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804656 +
-						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v25) >>
-												 getMemByte(0x5D4594, 3804380)) +
+						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v25) >>
+												 getMemByte(0x5D4594, 3804364 + 16)) +
 												((grencol2 -
-												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																					   *v25) >>
-																	getMemByte(0x5D4594, 3804380))) >>
+																	getMemByte(0x5D4594, 3804364 + 16))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v25) >>
-												 getMemByte(0x5D4594, 3804376)) +
+												 getMemByte(0x5D4594, 3804364 + 12)) +
 												((redcol -
 												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																					   *v25) >>
-																	getMemByte(0x5D4594, 3804376))) >>
+																	getMemByte(0x5D4594, 3804364 + 12))) >>
 												 2)));
 			v26 = v50 + (_DWORD)nox_pixbuffer_rows_3798784[v48/4];
 			*v26 =
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)((((unsigned __int8)*v26 & getMemByte(0x5D4594, 3804372))
-												 << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)((((unsigned __int8)*v26 & getMemByte(0x5D4594, 3804364 + 8))
+												 << getMemByte(0x5D4594, 3804364 + 20)) +
 												((bluecol2 -
-												  (unsigned __int8)(((unsigned __int8)*v26 & getMemByte(0x5D4594, 3804372))
-																	<< getMemByte(0x5D4594, 3804384))) >>
+												  (unsigned __int8)(((unsigned __int8)*v26 & getMemByte(0x5D4594, 3804364 + 8))
+																	<< getMemByte(0x5D4594, 3804364 + 20))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804656 +
-						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v26) >>
-												 getMemByte(0x5D4594, 3804380)) +
+						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v26) >>
+												 getMemByte(0x5D4594, 3804364 + 16)) +
 												((grencol2 -
-												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																					   *v26) >>
-																	getMemByte(0x5D4594, 3804380))) >>
+																	getMemByte(0x5D4594, 3804364 + 16))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v26) >>
-												 getMemByte(0x5D4594, 3804376)) +
+												 getMemByte(0x5D4594, 3804364 + 12)) +
 												((redcol -
 												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																					   *v26) >>
-																	getMemByte(0x5D4594, 3804376))) >>
+																	getMemByte(0x5D4594, 3804364 + 12))) >>
 												 2)));
 			v27 = v54 + (_DWORD)nox_pixbuffer_rows_3798784[v52/4];
 			*v27 =
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)((((unsigned __int8)*v27 & getMemByte(0x5D4594, 3804372))
-												 << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)((((unsigned __int8)*v27 & getMemByte(0x5D4594, 3804364 + 8))
+												 << getMemByte(0x5D4594, 3804364 + 20)) +
 												((bluecol2 -
-												  (unsigned __int8)(((unsigned __int8)*v27 & getMemByte(0x5D4594, 3804372))
-																	<< getMemByte(0x5D4594, 3804384))) >>
+												  (unsigned __int8)(((unsigned __int8)*v27 & getMemByte(0x5D4594, 3804364 + 8))
+																	<< getMemByte(0x5D4594, 3804364 + 20))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804656 +
-						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v27) >>
-												 getMemByte(0x5D4594, 3804380)) +
+						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v27) >>
+												 getMemByte(0x5D4594, 3804364 + 16)) +
 												((grencol2 -
-												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																					   *v27) >>
-																	getMemByte(0x5D4594, 3804380))) >>
+																	getMemByte(0x5D4594, 3804364 + 16))) >>
 												 2))) |
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v27) >>
-												 getMemByte(0x5D4594, 3804376)) +
+												 getMemByte(0x5D4594, 3804364 + 12)) +
 												((redcol -
 												  (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																					   *v27) >>
-																	getMemByte(0x5D4594, 3804376))) >>
+																	getMemByte(0x5D4594, 3804364 + 12))) >>
 												 2)));
 			result = v56;
 			if (v56 <= v57)
@@ -9859,36 +9859,36 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 	v50 = ptr_5D4594_3799572->data[4];
 	v78 = 0;
 	v75 = 3;
-	v71 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & v3) >> getMemByte(0x5D4594, 3804376);
-	v4 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & v3) >> getMemByte(0x5D4594, 3804376);
-	v76 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & v3) >> getMemByte(0x5D4594, 3804380);
-	v5 = getMemByte(0x5D4594, 3804372);
-	v6 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & v3) >> getMemByte(0x5D4594, 3804380);
-	v7 = v3 & getMemByte(0x5D4594, 3804372);
-	v8 = getMemByte(0x5D4594, 3804384);
+	v71 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & v3) >> getMemByte(0x5D4594, 3804364 + 12);
+	v4 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & v3) >> getMemByte(0x5D4594, 3804364 + 12);
+	v76 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & v3) >> getMemByte(0x5D4594, 3804364 + 16);
+	v5 = getMemByte(0x5D4594, 3804364 + 8);
+	v6 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & v3) >> getMemByte(0x5D4594, 3804364 + 16);
+	v7 = v3 & getMemByte(0x5D4594, 3804364 + 8);
+	v8 = getMemByte(0x5D4594, 3804364 + 20);
 	v73 = a3 + a2;
-	v80 = v7 << getMemByte(0x5D4594, 3804384);
-	v9 = v7 << getMemByte(0x5D4594, 3804384);
+	v80 = v7 << getMemByte(0x5D4594, 3804364 + 20);
+	v9 = v7 << getMemByte(0x5D4594, 3804364 + 20);
 	if (a1 >= v60 && a1 < v48 && v73 >= v49 && v73 < v50) {
 		v39 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v73] + 2 * a1);
 		v51 = (unsigned __int16)*v39;
 		*v39 = *(_WORD*)(dword_5d4594_3804672 +
-						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v51) >> getMemByte(0x5D4594, 3804376)) +
+						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v51) >> getMemByte(0x5D4594, 3804364 + 12)) +
 											   ((v71 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v51) >>
-																		 getMemByte(0x5D4594, 3804376))) >>
+																		 getMemByte(0x5D4594, 3804364 + 12))) >>
 												2))) |
 			   *(_WORD*)(dword_5d4594_3804656 +
-						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v51) >> getMemByte(0x5D4594, 3804380)) +
-											   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v51) >>
-																		 getMemByte(0x5D4594, 3804380))) >>
+						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v51) >> getMemByte(0x5D4594, 3804364 + 16)) +
+											   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v51) >>
+																		 getMemByte(0x5D4594, 3804364 + 16))) >>
 												2))) |
 			   *(_WORD*)(dword_5d4594_3804664 +
-						 2 * (unsigned __int8)(((*(_BYTE*)v39 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
-											   ((v80 - (unsigned __int8)((*(_BYTE*)v39 & getMemByte(0x5D4594, 3804372))
-																		 << getMemByte(0x5D4594, 3804384))) >>
+						 2 * (unsigned __int8)(((*(_BYTE*)v39 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
+											   ((v80 - (unsigned __int8)((*(_BYTE*)v39 & getMemByte(0x5D4594, 3804364 + 8))
+																		 << getMemByte(0x5D4594, 3804364 + 20))) >>
 												2)));
-		v8 = getMemByte(0x5D4594, 3804384);
-		v5 = getMemByte(0x5D4594, 3804372);
+		v8 = getMemByte(0x5D4594, 3804364 + 20);
+		v5 = getMemByte(0x5D4594, 3804364 + 8);
 	}
 	v10 = a3 + a1;
 	v63 = a3 + a1;
@@ -9899,20 +9899,20 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 			v40 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[a2] + 2 * v63);
 			v52 = (unsigned __int16)*v40;
 			*v40 = *(_WORD*)(dword_5d4594_3804672 +
-							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v52) >> getMemByte(0x5D4594, 3804376)) +
+							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v52) >> getMemByte(0x5D4594, 3804364 + 12)) +
 												   ((v71 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v52) >>
-																			 getMemByte(0x5D4594, 3804376))) >>
+																			 getMemByte(0x5D4594, 3804364 + 12))) >>
 													2))) |
 				   *(_WORD*)(dword_5d4594_3804656 +
-							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v52) >> getMemByte(0x5D4594, 3804380)) +
-												   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v52) >>
-																			 getMemByte(0x5D4594, 3804380))) >>
+							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v52) >> getMemByte(0x5D4594, 3804364 + 16)) +
+												   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v52) >>
+																			 getMemByte(0x5D4594, 3804364 + 16))) >>
 													2))) |
 				   *(_WORD*)(dword_5d4594_3804664 +
 							 2 * (unsigned __int8)(((*(_BYTE*)v40 & v5) << v8) +
 												   ((v80 - (unsigned __int8)((*(_BYTE*)v40 & v5) << v8)) >> 2)));
-			v8 = getMemByte(0x5D4594, 3804384);
-			v5 = getMemByte(0x5D4594, 3804372);
+			v8 = getMemByte(0x5D4594, 3804364 + 20);
+			v5 = getMemByte(0x5D4594, 3804364 + 8);
 		}
 		v10 = a3 + a1;
 	}
@@ -9923,20 +9923,20 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 		v41 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[a2] + 2 * v63);
 		v53 = (unsigned __int16)*v41;
 		*v41 = *(_WORD*)(dword_5d4594_3804672 +
-						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v53) >> getMemByte(0x5D4594, 3804376)) +
+						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v53) >> getMemByte(0x5D4594, 3804364 + 12)) +
 											   ((v71 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v53) >>
-																		 getMemByte(0x5D4594, 3804376))) >>
+																		 getMemByte(0x5D4594, 3804364 + 12))) >>
 												2))) |
 			   *(_WORD*)(dword_5d4594_3804656 +
-						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v53) >> getMemByte(0x5D4594, 3804380)) +
-											   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v53) >>
-																		 getMemByte(0x5D4594, 3804380))) >>
+						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v53) >> getMemByte(0x5D4594, 3804364 + 16)) +
+											   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v53) >>
+																		 getMemByte(0x5D4594, 3804364 + 16))) >>
 												2))) |
 			   *(_WORD*)(dword_5d4594_3804664 +
 						 2 * (unsigned __int8)(((*(_BYTE*)v41 & v5) << v8) +
 											   ((v80 - (unsigned __int8)((*(_BYTE*)v41 & v5) << v8)) >> 2)));
-		v8 = getMemByte(0x5D4594, 3804384);
-		v5 = getMemByte(0x5D4594, 3804372);
+		v8 = getMemByte(0x5D4594, 3804364 + 20);
+		v5 = getMemByte(0x5D4594, 3804364 + 8);
 	LABEL_17:
 		v11 = a2;
 	}
@@ -9945,39 +9945,39 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 		v42 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v67] + 2 * a1);
 		v54 = (unsigned __int16)*v42;
 		*v42 = *(_WORD*)(dword_5d4594_3804672 +
-						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v54) >> getMemByte(0x5D4594, 3804376)) +
+						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v54) >> getMemByte(0x5D4594, 3804364 + 12)) +
 											   ((v71 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v54) >>
-																		 getMemByte(0x5D4594, 3804376))) >>
+																		 getMemByte(0x5D4594, 3804364 + 12))) >>
 												2))) |
 			   *(_WORD*)(dword_5d4594_3804656 +
-						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v54) >> getMemByte(0x5D4594, 3804380)) +
-											   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v54) >>
-																		 getMemByte(0x5D4594, 3804380))) >>
+						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v54) >> getMemByte(0x5D4594, 3804364 + 16)) +
+											   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v54) >>
+																		 getMemByte(0x5D4594, 3804364 + 16))) >>
 												2))) |
 			   *(_WORD*)(dword_5d4594_3804664 +
 						 2 * (unsigned __int8)(((*(_BYTE*)v42 & v5) << v8) +
 											   ((v80 - (unsigned __int8)((*(_BYTE*)v42 & v5) << v8)) >> 2)));
-		v8 = getMemByte(0x5D4594, 3804384);
-		v5 = getMemByte(0x5D4594, 3804372);
+		v8 = getMemByte(0x5D4594, 3804364 + 20);
+		v5 = getMemByte(0x5D4594, 3804364 + 8);
 	}
 	if (a1 >= v60 && a1 < v48 && v67 >= v49 && v67 < v50) {
 		v43 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v67] + 2 * a1);
 		v55 = (unsigned __int16)*v43;
 		*v43 = *(_WORD*)(dword_5d4594_3804672 +
-						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v55) >> getMemByte(0x5D4594, 3804376)) +
+						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v55) >> getMemByte(0x5D4594, 3804364 + 12)) +
 											   ((v71 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v55) >>
-																		 getMemByte(0x5D4594, 3804376))) >>
+																		 getMemByte(0x5D4594, 3804364 + 12))) >>
 												2))) |
 			   *(_WORD*)(dword_5d4594_3804656 +
-						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v55) >> getMemByte(0x5D4594, 3804380)) +
-											   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v55) >>
-																		 getMemByte(0x5D4594, 3804380))) >>
+						 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v55) >> getMemByte(0x5D4594, 3804364 + 16)) +
+											   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v55) >>
+																		 getMemByte(0x5D4594, 3804364 + 16))) >>
 												2))) |
 			   *(_WORD*)(dword_5d4594_3804664 +
 						 2 * (unsigned __int8)(((*(_BYTE*)v43 & v5) << v8) +
 											   ((v80 - (unsigned __int8)((*(_BYTE*)v43 & v5) << v8)) >> 2)));
-		v8 = getMemByte(0x5D4594, 3804384);
-		v5 = getMemByte(0x5D4594, 3804372);
+		v8 = getMemByte(0x5D4594, 3804364 + 20);
+		v5 = getMemByte(0x5D4594, 3804364 + 8);
 	}
 	v12 = a1 - a3;
 	v61 = a1 - a3;
@@ -9988,20 +9988,20 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 				v56 = (unsigned __int16)*v44;
 				*v44 =
 					*(_WORD*)(dword_5d4594_3804672 +
-							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v56) >> getMemByte(0x5D4594, 3804376)) +
+							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v56) >> getMemByte(0x5D4594, 3804364 + 12)) +
 													((v71 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v56) >>
-																			  getMemByte(0x5D4594, 3804376))) >>
+																			  getMemByte(0x5D4594, 3804364 + 12))) >>
 													 2))) |
 					*(_WORD*)(dword_5d4594_3804656 +
-							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v56) >> getMemByte(0x5D4594, 3804380)) +
-													((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v56) >>
-																			  getMemByte(0x5D4594, 3804380))) >>
+							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v56) >> getMemByte(0x5D4594, 3804364 + 16)) +
+													((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v56) >>
+																			  getMemByte(0x5D4594, 3804364 + 16))) >>
 													 2))) |
 					*(_WORD*)(dword_5d4594_3804664 +
 							  2 * (unsigned __int8)(((*(_BYTE*)v44 & v5) << v8) +
 													((v80 - (unsigned __int8)((*(_BYTE*)v44 & v5) << v8)) >> 2)));
-				v8 = getMemByte(0x5D4594, 3804384);
-				v5 = getMemByte(0x5D4594, 3804372);
+				v8 = getMemByte(0x5D4594, 3804364 + 20);
+				v5 = getMemByte(0x5D4594, 3804364 + 8);
 			}
 			v12 = a1 - a3;
 		}
@@ -10009,20 +10009,20 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 			v45 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[a2] + 2 * v61);
 			v57 = (unsigned __int16)*v45;
 			*v45 = *(_WORD*)(dword_5d4594_3804672 +
-							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v57) >> getMemByte(0x5D4594, 3804376)) +
+							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v57) >> getMemByte(0x5D4594, 3804364 + 12)) +
 												   ((v71 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v57) >>
-																			 getMemByte(0x5D4594, 3804376))) >>
+																			 getMemByte(0x5D4594, 3804364 + 12))) >>
 													2))) |
 				   *(_WORD*)(dword_5d4594_3804656 +
-							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v57) >> getMemByte(0x5D4594, 3804380)) +
-												   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v57) >>
-																			 getMemByte(0x5D4594, 3804380))) >>
+							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v57) >> getMemByte(0x5D4594, 3804364 + 16)) +
+												   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v57) >>
+																			 getMemByte(0x5D4594, 3804364 + 16))) >>
 													2))) |
 				   *(_WORD*)(dword_5d4594_3804664 +
 							 2 * (unsigned __int8)(((*(_BYTE*)v45 & v5) << v8) +
 												   ((v80 - (unsigned __int8)((*(_BYTE*)v45 & v5) << v8)) >> 2)));
-			v8 = getMemByte(0x5D4594, 3804384);
-			v5 = getMemByte(0x5D4594, 3804372);
+			v8 = getMemByte(0x5D4594, 3804364 + 20);
+			v5 = getMemByte(0x5D4594, 3804364 + 8);
 		}
 	}
 	v13 = a1;
@@ -10031,14 +10031,14 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 			v46 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v73] + 2 * a1);
 			v58 = (unsigned __int16)*v46;
 			*v46 = *(_WORD*)(dword_5d4594_3804672 +
-							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v58) >> getMemByte(0x5D4594, 3804376)) +
+							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v58) >> getMemByte(0x5D4594, 3804364 + 12)) +
 												   ((v71 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v58) >>
-																			 getMemByte(0x5D4594, 3804376))) >>
+																			 getMemByte(0x5D4594, 3804364 + 12))) >>
 													2))) |
 				   *(_WORD*)(dword_5d4594_3804656 +
-							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v58) >> getMemByte(0x5D4594, 3804380)) +
-												   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v58) >>
-																			 getMemByte(0x5D4594, 3804380))) >>
+							 2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v58) >> getMemByte(0x5D4594, 3804364 + 16)) +
+												   ((v76 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v58) >>
+																			 getMemByte(0x5D4594, 3804364 + 16))) >>
 													2))) |
 				   *(_WORD*)(dword_5d4594_3804664 +
 							 2 * (unsigned __int8)(((*(_BYTE*)v46 & v5) << v8) +
@@ -10093,21 +10093,21 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 				v23 = (unsigned __int16)*v22;
 				*v22 =
 					*(_WORD*)(dword_5d4594_3804672 +
-							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v23) >> getMemByte(0x5D4594, 3804376)) +
+							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v23) >> getMemByte(0x5D4594, 3804364 + 12)) +
 													((v4 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v23) >>
-																			 getMemByte(0x5D4594, 3804376))) >>
+																			 getMemByte(0x5D4594, 3804364 + 12))) >>
 													 2))) |
 					*(_WORD*)(dword_5d4594_3804656 +
-							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v23) >> getMemByte(0x5D4594, 3804380)) +
-													((v6 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v23) >>
-																			 getMemByte(0x5D4594, 3804380))) >>
+							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v23) >> getMemByte(0x5D4594, 3804364 + 16)) +
+													((v6 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v23) >>
+																			 getMemByte(0x5D4594, 3804364 + 16))) >>
 													 2))) |
 					*(_WORD*)(dword_5d4594_3804664 +
-							  2 * (unsigned __int8)((((unsigned __int8)*v22 & getMemByte(0x5D4594, 3804372))
-													 << getMemByte(0x5D4594, 3804384)) +
+							  2 * (unsigned __int8)((((unsigned __int8)*v22 & getMemByte(0x5D4594, 3804364 + 8))
+													 << getMemByte(0x5D4594, 3804364 + 20)) +
 													((v9 -
-													  (unsigned __int8)(((unsigned __int8)*v22 & getMemByte(0x5D4594, 3804372))
-																		<< getMemByte(0x5D4594, 3804384))) >>
+													  (unsigned __int8)(((unsigned __int8)*v22 & getMemByte(0x5D4594, 3804364 + 8))
+																		<< getMemByte(0x5D4594, 3804364 + 20))) >>
 													 2)));
 				v21 = v77;
 			}
@@ -10120,24 +10120,24 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 					*v25 =
 						*(_WORD*)(dword_5d4594_3804672 +
 								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v26) >>
-														 getMemByte(0x5D4594, 3804376)) +
+														 getMemByte(0x5D4594, 3804364 + 12)) +
 														((v4 -
 														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v26) >>
-																			getMemByte(0x5D4594, 3804376))) >>
+																			getMemByte(0x5D4594, 3804364 + 12))) >>
 														 2))) |
 						*(_WORD*)(dword_5d4594_3804656 +
-								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v26) >>
-														 getMemByte(0x5D4594, 3804380)) +
+								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v26) >>
+														 getMemByte(0x5D4594, 3804364 + 16)) +
 														((v6 -
-														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v26) >>
-																			getMemByte(0x5D4594, 3804380))) >>
+														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v26) >>
+																			getMemByte(0x5D4594, 3804364 + 16))) >>
 														 2))) |
 						*(_WORD*)(dword_5d4594_3804664 +
-								  2 * (unsigned __int8)((((unsigned __int8)*v25 & getMemByte(0x5D4594, 3804372))
-														 << getMemByte(0x5D4594, 3804384)) +
+								  2 * (unsigned __int8)((((unsigned __int8)*v25 & getMemByte(0x5D4594, 3804364 + 8))
+														 << getMemByte(0x5D4594, 3804364 + 20)) +
 														((v9 - (unsigned __int8)(((unsigned __int8)*v25 &
-																				  getMemByte(0x5D4594, 3804372))
-																				 << getMemByte(0x5D4594, 3804384))) >>
+																				  getMemByte(0x5D4594, 3804364 + 8))
+																				 << getMemByte(0x5D4594, 3804364 + 20))) >>
 														 2)));
 					v21 = v77;
 				}
@@ -10147,24 +10147,24 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 					*v27 =
 						*(_WORD*)(dword_5d4594_3804672 +
 								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v28) >>
-														 getMemByte(0x5D4594, 3804376)) +
+														 getMemByte(0x5D4594, 3804364 + 12)) +
 														((v4 -
 														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v28) >>
-																			getMemByte(0x5D4594, 3804376))) >>
+																			getMemByte(0x5D4594, 3804364 + 12))) >>
 														 2))) |
 						*(_WORD*)(dword_5d4594_3804656 +
-								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v28) >>
-														 getMemByte(0x5D4594, 3804380)) +
+								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v28) >>
+														 getMemByte(0x5D4594, 3804364 + 16)) +
 														((v6 -
-														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v28) >>
-																			getMemByte(0x5D4594, 3804380))) >>
+														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v28) >>
+																			getMemByte(0x5D4594, 3804364 + 16))) >>
 														 2))) |
 						*(_WORD*)(dword_5d4594_3804664 +
-								  2 * (unsigned __int8)((((unsigned __int8)*v27 & getMemByte(0x5D4594, 3804372))
-														 << getMemByte(0x5D4594, 3804384)) +
+								  2 * (unsigned __int8)((((unsigned __int8)*v27 & getMemByte(0x5D4594, 3804364 + 8))
+														 << getMemByte(0x5D4594, 3804364 + 20)) +
 														((v9 - (unsigned __int8)(((unsigned __int8)*v27 &
-																				  getMemByte(0x5D4594, 3804372))
-																				 << getMemByte(0x5D4594, 3804384))) >>
+																				  getMemByte(0x5D4594, 3804364 + 8))
+																				 << getMemByte(0x5D4594, 3804364 + 20))) >>
 														 2)));
 					v21 = v77;
 				}
@@ -10174,21 +10174,21 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 				v30 = (unsigned __int16)*v29;
 				*v29 =
 					*(_WORD*)(dword_5d4594_3804672 +
-							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v30) >> getMemByte(0x5D4594, 3804376)) +
+							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v30) >> getMemByte(0x5D4594, 3804364 + 12)) +
 													((v4 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v30) >>
-																			 getMemByte(0x5D4594, 3804376))) >>
+																			 getMemByte(0x5D4594, 3804364 + 12))) >>
 													 2))) |
 					*(_WORD*)(dword_5d4594_3804656 +
-							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v30) >> getMemByte(0x5D4594, 3804380)) +
-													((v6 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v30) >>
-																			 getMemByte(0x5D4594, 3804380))) >>
+							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v30) >> getMemByte(0x5D4594, 3804364 + 16)) +
+													((v6 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v30) >>
+																			 getMemByte(0x5D4594, 3804364 + 16))) >>
 													 2))) |
 					*(_WORD*)(dword_5d4594_3804664 +
-							  2 * (unsigned __int8)((((unsigned __int8)*v29 & getMemByte(0x5D4594, 3804372))
-													 << getMemByte(0x5D4594, 3804384)) +
+							  2 * (unsigned __int8)((((unsigned __int8)*v29 & getMemByte(0x5D4594, 3804364 + 8))
+													 << getMemByte(0x5D4594, 3804364 + 20)) +
 													((v9 -
-													  (unsigned __int8)(((unsigned __int8)*v29 & getMemByte(0x5D4594, 3804372))
-																		<< getMemByte(0x5D4594, 3804384))) >>
+													  (unsigned __int8)(((unsigned __int8)*v29 & getMemByte(0x5D4594, 3804364 + 8))
+																		<< getMemByte(0x5D4594, 3804364 + 20))) >>
 													 2)));
 			}
 			if (v83 >= v60 && v83 < v48 && v68 + v82 >= v49 && v68 + v82 < v50) {
@@ -10196,21 +10196,21 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 				v32 = (unsigned __int16)*v31;
 				*v31 =
 					*(_WORD*)(dword_5d4594_3804672 +
-							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v32) >> getMemByte(0x5D4594, 3804376)) +
+							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v32) >> getMemByte(0x5D4594, 3804364 + 12)) +
 													((v4 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v32) >>
-																			 getMemByte(0x5D4594, 3804376))) >>
+																			 getMemByte(0x5D4594, 3804364 + 12))) >>
 													 2))) |
 					*(_WORD*)(dword_5d4594_3804656 +
-							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v32) >> getMemByte(0x5D4594, 3804380)) +
-													((v6 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v32) >>
-																			 getMemByte(0x5D4594, 3804380))) >>
+							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v32) >> getMemByte(0x5D4594, 3804364 + 16)) +
+													((v6 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v32) >>
+																			 getMemByte(0x5D4594, 3804364 + 16))) >>
 													 2))) |
 					*(_WORD*)(dword_5d4594_3804664 +
-							  2 * (unsigned __int8)((((unsigned __int8)*v31 & getMemByte(0x5D4594, 3804372))
-													 << getMemByte(0x5D4594, 3804384)) +
+							  2 * (unsigned __int8)((((unsigned __int8)*v31 & getMemByte(0x5D4594, 3804364 + 8))
+													 << getMemByte(0x5D4594, 3804364 + 20)) +
 													((v9 -
-													  (unsigned __int8)(((unsigned __int8)*v31 & getMemByte(0x5D4594, 3804372))
-																		<< getMemByte(0x5D4594, 3804384))) >>
+													  (unsigned __int8)(((unsigned __int8)*v31 & getMemByte(0x5D4594, 3804364 + 8))
+																		<< getMemByte(0x5D4594, 3804364 + 20))) >>
 													 2)));
 			}
 			if (v82 >= v60) {
@@ -10220,24 +10220,24 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 					*v33 =
 						*(_WORD*)(dword_5d4594_3804672 +
 								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v34) >>
-														 getMemByte(0x5D4594, 3804376)) +
+														 getMemByte(0x5D4594, 3804364 + 12)) +
 														((v4 -
 														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v34) >>
-																			getMemByte(0x5D4594, 3804376))) >>
+																			getMemByte(0x5D4594, 3804364 + 12))) >>
 														 2))) |
 						*(_WORD*)(dword_5d4594_3804656 +
-								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v34) >>
-														 getMemByte(0x5D4594, 3804380)) +
+								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v34) >>
+														 getMemByte(0x5D4594, 3804364 + 16)) +
 														((v6 -
-														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v34) >>
-																			getMemByte(0x5D4594, 3804380))) >>
+														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v34) >>
+																			getMemByte(0x5D4594, 3804364 + 16))) >>
 														 2))) |
 						*(_WORD*)(dword_5d4594_3804664 +
-								  2 * (unsigned __int8)((((unsigned __int8)*v33 & getMemByte(0x5D4594, 3804372))
-														 << getMemByte(0x5D4594, 3804384)) +
+								  2 * (unsigned __int8)((((unsigned __int8)*v33 & getMemByte(0x5D4594, 3804364 + 8))
+														 << getMemByte(0x5D4594, 3804364 + 20)) +
 														((v9 - (unsigned __int8)(((unsigned __int8)*v33 &
-																				  getMemByte(0x5D4594, 3804372))
-																				 << getMemByte(0x5D4594, 3804384))) >>
+																				  getMemByte(0x5D4594, 3804364 + 8))
+																				 << getMemByte(0x5D4594, 3804364 + 20))) >>
 														 2)));
 				}
 				if (v82 < v48 && v70 >= v49 && v70 < v50) {
@@ -10246,24 +10246,24 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 					*v35 =
 						*(_WORD*)(dword_5d4594_3804672 +
 								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v36) >>
-														 getMemByte(0x5D4594, 3804376)) +
+														 getMemByte(0x5D4594, 3804364 + 12)) +
 														((v4 -
 														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v36) >>
-																			getMemByte(0x5D4594, 3804376))) >>
+																			getMemByte(0x5D4594, 3804364 + 12))) >>
 														 2))) |
 						*(_WORD*)(dword_5d4594_3804656 +
-								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v36) >>
-														 getMemByte(0x5D4594, 3804380)) +
+								  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v36) >>
+														 getMemByte(0x5D4594, 3804364 + 16)) +
 														((v6 -
-														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v36) >>
-																			getMemByte(0x5D4594, 3804380))) >>
+														  (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v36) >>
+																			getMemByte(0x5D4594, 3804364 + 16))) >>
 														 2))) |
 						*(_WORD*)(dword_5d4594_3804664 +
-								  2 * (unsigned __int8)((((unsigned __int8)*v35 & getMemByte(0x5D4594, 3804372))
-														 << getMemByte(0x5D4594, 3804384)) +
+								  2 * (unsigned __int8)((((unsigned __int8)*v35 & getMemByte(0x5D4594, 3804364 + 8))
+														 << getMemByte(0x5D4594, 3804364 + 20)) +
 														((v9 - (unsigned __int8)(((unsigned __int8)*v35 &
-																				  getMemByte(0x5D4594, 3804372))
-																				 << getMemByte(0x5D4594, 3804384))) >>
+																				  getMemByte(0x5D4594, 3804364 + 8))
+																				 << getMemByte(0x5D4594, 3804364 + 20))) >>
 														 2)));
 				}
 			}
@@ -10272,21 +10272,21 @@ int __cdecl sub_4B3450(int a1, int a2, int a3) {
 				v38 = (unsigned __int16)*v37;
 				*v37 =
 					*(_WORD*)(dword_5d4594_3804672 +
-							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v38) >> getMemByte(0x5D4594, 3804376)) +
+							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v38) >> getMemByte(0x5D4594, 3804364 + 12)) +
 													((v4 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v38) >>
-																			 getMemByte(0x5D4594, 3804376))) >>
+																			 getMemByte(0x5D4594, 3804364 + 12))) >>
 													 2))) |
 					*(_WORD*)(dword_5d4594_3804656 +
-							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v38) >> getMemByte(0x5D4594, 3804380)) +
-													((v6 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v38) >>
-																			 getMemByte(0x5D4594, 3804380))) >>
+							  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v38) >> getMemByte(0x5D4594, 3804364 + 16)) +
+													((v6 - (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v38) >>
+																			 getMemByte(0x5D4594, 3804364 + 16))) >>
 													 2))) |
 					*(_WORD*)(dword_5d4594_3804664 +
-							  2 * (unsigned __int8)((((unsigned __int8)*v37 & getMemByte(0x5D4594, 3804372))
-													 << getMemByte(0x5D4594, 3804384)) +
+							  2 * (unsigned __int8)((((unsigned __int8)*v37 & getMemByte(0x5D4594, 3804364 + 8))
+													 << getMemByte(0x5D4594, 3804364 + 20)) +
 													((v9 -
-													  (unsigned __int8)(((unsigned __int8)*v37 & getMemByte(0x5D4594, 3804372))
-																		<< getMemByte(0x5D4594, 3804384))) >>
+													  (unsigned __int8)(((unsigned __int8)*v37 & getMemByte(0x5D4594, 3804364 + 8))
+																		<< getMemByte(0x5D4594, 3804364 + 20))) >>
 													 2)));
 			}
 			result = v79;
