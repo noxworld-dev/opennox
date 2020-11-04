@@ -7757,34 +7757,34 @@ void sub_4C8130() {
 		v2 = *(_WORD**)&dword_5d4594_3799540;
 		v3 = *getMemU32Ptr(0x5D4594, 3799456);
 		do {
-			v5 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v2) >> getMemByte(0x5D4594, 3804376);
-			v4 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v2) >> getMemByte(0x5D4594, 3804380);
+			v5 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v2) >> getMemByte(0x5D4594, 3804364 + 12);
+			v4 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v2) >> getMemByte(0x5D4594, 3804364 + 16);
 			*v2 =
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(v5 +
 												((unsigned __int16)(v1 *
 																	((unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																										  **(_WORD**)getMemAt(0x5D4594, 3799444)) >>
-																					   getMemByte(0x5D4594, 3804376)) -
+																					   getMemByte(0x5D4594, 3804364 + 12)) -
 																	 v5)) >>
 												 8))) |
 				*(_WORD*)(dword_5d4594_3804656 +
 						  2 * (unsigned __int8)(v4 +
 												((unsigned __int16)(v1 *
-																	((unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+																	((unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																										  **(_WORD**)getMemAt(0x5D4594, 3799444)) >>
-																					   getMemByte(0x5D4594, 3804380)) -
+																					   getMemByte(0x5D4594, 3804364 + 16)) -
 																	 v4)) >>
 												 8))) |
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)(((*(_BYTE*)v2 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)(((*(_BYTE*)v2 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
 												((unsigned __int16)(v1 *
 																	((unsigned __int8)(((unsigned __int8)**(
-																							_WORD**)getMemAt(0x5D4594, 3799444) & getMemByte(0x5D4594, 3804372))
-																					   << getMemByte(0x5D4594, 3804384)) -
+																							_WORD**)getMemAt(0x5D4594, 3799444) & getMemByte(0x5D4594, 3804364 + 8))
+																					   << getMemByte(0x5D4594, 3804364 + 20)) -
 																	 (unsigned __int8)((*(_BYTE*)v2 &
-																						getMemByte(0x5D4594, 3804372))
-																					   << getMemByte(0x5D4594, 3804384)))) >>
+																						getMemByte(0x5D4594, 3804364 + 8))
+																					   << getMemByte(0x5D4594, 3804364 + 20)))) >>
 												 8)));
 			v2 = (_WORD*)(dword_5d4594_3799540 + 2);
 			result = v3 - 1;
@@ -7823,9 +7823,9 @@ __int16 sub_4C82C0()
     v3 = *(__m64*)(&ptr_5D4594_3799572->data[260]);
     while (1)
     {
-        v4 = _m_psrlw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804396)), *(__m64*) getMemAt(0x5D4594, 3804444));
-        v5 = _m_psrlw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804404)), *(__m64*) getMemAt(0x5D4594, 3804452));
-        v6 = _m_psllw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804412)), *(__m64*) getMemAt(0x5D4594, 3804460));
+        v4 = _m_psrlw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 32)), *(__m64*) getMemAt(0x5D4594, 3804364 + 80));
+        v5 = _m_psrlw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 40)), *(__m64*) getMemAt(0x5D4594, 3804364 + 88));
+        v6 = _m_psllw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 48)), *(__m64*) getMemAt(0x5D4594, 3804364 + 96));
         v7 = _m_por(
             _m_por(
                 _m_pand(
@@ -7835,12 +7835,12 @@ __int16 sub_4C82C0()
                             _m_pmullw(
                                 _m_psubw(
                                     _m_psrlw(
-                                        _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804396)),
-                                        *(__m64*) getMemAt(0x5D4594, 3804444)),
+                                        _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 32)),
+                                        *(__m64*) getMemAt(0x5D4594, 3804364 + 80)),
                                     v4),
                                 v3)),
-                        *(__m64*) getMemAt(0x5D4594, 3804468)),
-                    *(__m64*) getMemAt(0x5D4594, 3804396)),
+                        *(__m64*) getMemAt(0x5D4594, 3804364 + 104)),
+                    *(__m64*) getMemAt(0x5D4594, 3804364 + 32)),
                 _m_pand(
                     _m_psrlw(
                         _m_paddw(
@@ -7848,23 +7848,23 @@ __int16 sub_4C82C0()
                             _m_pmullw(
                                 _m_psubw(
                                     _m_psrlw(
-                                        _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804404)),
-                                        *(__m64*) getMemAt(0x5D4594, 3804452)),
+                                        _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 40)),
+                                        *(__m64*) getMemAt(0x5D4594, 3804364 + 88)),
                                     v5),
                                 v3)),
-                        *(__m64*) getMemAt(0x5D4594, 3804476)),
-                    *(__m64*) getMemAt(0x5D4594, 3804404))),
+                        *(__m64*) getMemAt(0x5D4594, 3804364 + 112)),
+                    *(__m64*) getMemAt(0x5D4594, 3804364 + 40))),
             _m_psrlw(
                 _m_paddw(
                     _m_psllwi(v6, 8u),
                     _m_pmullw(
                         _m_psubw(
                             _m_psllw(
-                                _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804412)),
-                                *(__m64*) getMemAt(0x5D4594, 3804460)),
+                                _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 48)),
+                                *(__m64*) getMemAt(0x5D4594, 3804364 + 96)),
                             v6),
                         v3)),
-                *(__m64*) getMemAt(0x5D4594, 3804484)));
+                *(__m64*) getMemAt(0x5D4594, 3804364 + 120)));
         v8 = v0 < 4;
         v0 -= 4;
         if (v8)
@@ -7915,29 +7915,29 @@ void sub_4C8410() {
 		v1 = *(_WORD**)&dword_5d4594_3799540;
 		v2 = *getMemU32Ptr(0x5D4594, 3799456);
 		do {
-			v3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v1) >> getMemByte(0x5D4594, 3804380);
-			v4 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >> getMemByte(0x5D4594, 3804376);
+			v3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v1) >> getMemByte(0x5D4594, 3804364 + 16);
+			v4 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >> getMemByte(0x5D4594, 3804364 + 12);
 			*v1 =
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(v4 +
 												(((unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																					   **(_WORD**)getMemAt(0x5D4594, 3799444)) >>
-																	getMemByte(0x5D4594, 3804376)) -
+																	getMemByte(0x5D4594, 3804364 + 12)) -
 												  v4) >>
 												 1))) |
 				*(_WORD*)(dword_5d4594_3804656 +
 						  2 * (unsigned __int8)(v3 +
-												(((unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+												(((unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																					   **(_WORD**)getMemAt(0x5D4594, 3799444)) >>
-																	getMemByte(0x5D4594, 3804380)) -
+																	getMemByte(0x5D4594, 3804364 + 16)) -
 												  v3) >>
 												 1))) |
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)(((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
-												(((unsigned __int8)(((unsigned __int8)**(_WORD**)getMemAt(0x5D4594, 3799444) & getMemByte(0x5D4594, 3804372))
-																	<< getMemByte(0x5D4594, 3804384)) -
-												  (unsigned __int8)((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804372))
-																	<< getMemByte(0x5D4594, 3804384))) >>
+						  2 * (unsigned __int8)(((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
+												(((unsigned __int8)(((unsigned __int8)**(_WORD**)getMemAt(0x5D4594, 3799444) & getMemByte(0x5D4594, 3804364 + 8))
+																	<< getMemByte(0x5D4594, 3804364 + 20)) -
+												  (unsigned __int8)((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804364 + 8))
+																	<< getMemByte(0x5D4594, 3804364 + 20))) >>
 												 1)));
 			v1 = (_WORD*)(dword_5d4594_3799540 + 2);
 			result = v2 - 1;
@@ -7974,9 +7974,9 @@ __int16 sub_4C8570()
     v2 = *(__m64 * *) & dword_5d4594_3799540;
     while (1)
     {
-        v3 = _m_psrlw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804396)), *(__m64*) getMemAt(0x5D4594, 3804444));
-        v4 = _m_psrlw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804404)), *(__m64*) getMemAt(0x5D4594, 3804452));
-        v5 = _m_psllw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804412)), *(__m64*) getMemAt(0x5D4594, 3804460));
+        v3 = _m_psrlw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 32)), *(__m64*) getMemAt(0x5D4594, 3804364 + 80));
+        v4 = _m_psrlw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 40)), *(__m64*) getMemAt(0x5D4594, 3804364 + 88));
+        v5 = _m_psllw(_m_pand((__m64)v2->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 48)), *(__m64*) getMemAt(0x5D4594, 3804364 + 96));
         v6 = _m_por(
             _m_por(
                 _m_pand(
@@ -7986,12 +7986,12 @@ __int16 sub_4C8570()
                             _m_psrlwi(
                                 _m_psubw(
                                     _m_psrlw(
-                                        _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804396)),
-                                        *(__m64*) getMemAt(0x5D4594, 3804444)),
+                                        _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 32)),
+                                        *(__m64*) getMemAt(0x5D4594, 3804364 + 80)),
                                     v3),
                                 1u)),
-                        *(__m64*) getMemAt(0x5D4594, 3804444)),
-                    *(__m64*) getMemAt(0x5D4594, 3804396)),
+                        *(__m64*) getMemAt(0x5D4594, 3804364 + 80)),
+                    *(__m64*) getMemAt(0x5D4594, 3804364 + 32)),
                 _m_pand(
                     _m_psllw(
                         _m_paddw(
@@ -7999,23 +7999,23 @@ __int16 sub_4C8570()
                             _m_psrlwi(
                                 _m_psubw(
                                     _m_psrlw(
-                                        _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804404)),
-                                        *(__m64*) getMemAt(0x5D4594, 3804452)),
+                                        _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 40)),
+                                        *(__m64*) getMemAt(0x5D4594, 3804364 + 88)),
                                     v4),
                                 1u)),
-                        *(__m64*) getMemAt(0x5D4594, 3804452)),
-                    *(__m64*) getMemAt(0x5D4594, 3804404))),
+                        *(__m64*) getMemAt(0x5D4594, 3804364 + 88)),
+                    *(__m64*) getMemAt(0x5D4594, 3804364 + 40))),
             _m_psrlw(
                 _m_paddw(
                     v5,
                     _m_psrlwi(
                         _m_psubw(
                             _m_psllw(
-                                _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804412)),
-                                *(__m64*) getMemAt(0x5D4594, 3804460)),
+                                _m_pand((__m64)v1->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 48)),
+                                *(__m64*) getMemAt(0x5D4594, 3804364 + 96)),
                             v5),
                         1u)),
-                *(__m64*) getMemAt(0x5D4594, 3804460)));
+                *(__m64*) getMemAt(0x5D4594, 3804364 + 96)));
         v7 = v0 < 4;
         v0 -= 4;
         if (v7)
@@ -8070,17 +8070,17 @@ void sub_4C86B0() {
 		result = *(_DWORD*)(dword_5d4594_3804672 +
 							2 * ((unsigned int)(*(_DWORD*)(&obj_5D4594_3800716.data[24]) *
 												((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & v2) >>
-												 getMemByte(0x5D4594, 3804376))) >>
+												 getMemByte(0x5D4594, 3804364 + 12))) >>
 								 8)) |
 				 *(_DWORD*)(dword_5d4594_3804656 +
 							2 * ((unsigned int)(*(_DWORD*)(&obj_5D4594_3800716.data[25]) *
-												((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & v2) >>
-												 getMemByte(0x5D4594, 3804380))) >>
+												((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & v2) >>
+												 getMemByte(0x5D4594, 3804364 + 16))) >>
 								 8)) |
 				 *(_DWORD*)(dword_5d4594_3804664 +
 							2 * ((unsigned int)(*(_DWORD*)(&obj_5D4594_3800716.data[26]) *
-												((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804372) & v2)
-												 << getMemByte(0x5D4594, 3804384))) >>
+												((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 8) & v2)
+												 << getMemByte(0x5D4594, 3804364 + 20))) >>
 								 8));
 		*v1 = result;
 		++v1;
@@ -8112,10 +8112,10 @@ __int32 sub_4C8760()
     int v10; // ecx
     __m64 v11; // [esp+Ch] [ebp-8h]
 
-    v0 = *(__m64*) getMemAt(0x5D4594, 3804404);
-    v1 = *(__m64*) getMemAt(0x5D4594, 3804396);
-    v2 = *(__m64*) getMemAt(0x5D4594, 3804452);
-    v3 = *(__m64*) getMemAt(0x5D4594, 3804444);
+    v0 = *(__m64*) getMemAt(0x5D4594, 3804364 + 40);
+    v1 = *(__m64*) getMemAt(0x5D4594, 3804364 + 32);
+    v2 = *(__m64*) getMemAt(0x5D4594, 3804364 + 88);
+    v3 = *(__m64*) getMemAt(0x5D4594, 3804364 + 80);
     v4 = *(__m64 * *) & dword_5d4594_3799540;
     v5 = *(__m64 * *) getMemAt(0x5D4594, 3799444);
     v6 = *getMemU32Ptr(0x5D4594, 3799456);
@@ -8128,17 +8128,17 @@ __int32 sub_4C8760()
                 _m_pand(
                     _m_psrlw(
                         _m_pmullw(_m_psrlw(_m_pand((__m64)v5->m64_u64, v1), v3), *(__m64*)(&obj_5D4594_3800716.data[18])),
-                        *(__m64*) getMemAt(0x5D4594, 3804468)),
+                        *(__m64*) getMemAt(0x5D4594, 3804364 + 104)),
                     v1),
                 _m_psrlw(
                     _m_pmullw(
-                        _m_psllw(_m_pand((__m64)v5->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804412)), *(__m64*) getMemAt(0x5D4594, 3804460)),
+                        _m_psllw(_m_pand((__m64)v5->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 48)), *(__m64*) getMemAt(0x5D4594, 3804364 + 96)),
                         *(__m64*)(&obj_5D4594_3800716.data[22])),
-                    *(__m64*) getMemAt(0x5D4594, 3804484))),
+                    *(__m64*) getMemAt(0x5D4594, 3804364 + 120))),
             _m_pand(
                 _m_psrlw(
                     _m_pmullw(_m_psrlw(_m_pand((__m64)v5->m64_u64, v0), v2), *(__m64*)(&obj_5D4594_3800716.data[20])),
-                    *(__m64*) getMemAt(0x5D4594, 3804476)),
+                    *(__m64*) getMemAt(0x5D4594, 3804364 + 112)),
                 v0));
         if (v7)
             break;
@@ -8198,17 +8198,17 @@ void sub_4C8850() {
 		v1 = *(_WORD**)&dword_5d4594_3799540;
 		v4 = *getMemU32Ptr(0x5D4594, 3799456);
 		do {
-			v5 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >> getMemByte(0x5D4594, 3804376);
-			v2 = (*(_BYTE*)v1 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384);
-			v9 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v1) >> getMemByte(0x5D4594, 3804380);
+			v5 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >> getMemByte(0x5D4594, 3804364 + 12);
+			v2 = (*(_BYTE*)v1 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20);
+			v9 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v1) >> getMemByte(0x5D4594, 3804364 + 16);
 			*v1 =
 				*(_WORD*)(dword_5d4594_3804664 +
 						  2 * (unsigned __int8)(v2 +
 												((unsigned __int16)(v7 *
 																	(((v10 *
 																	   (unsigned __int8)(((unsigned __int8)**(
-																							  _WORD**)getMemAt(0x5D4594, 3799444) & getMemByte(0x5D4594, 3804372))
-																						 << getMemByte(0x5D4594, 3804384))) >>
+																							  _WORD**)getMemAt(0x5D4594, 3799444) & getMemByte(0x5D4594, 3804364 + 8))
+																						 << getMemByte(0x5D4594, 3804364 + 20))) >>
 																	  8) -
 																	 v2)) >>
 												 8))) |
@@ -8216,9 +8216,9 @@ void sub_4C8850() {
 						  2 * (unsigned __int8)(v9 +
 												((unsigned __int16)(v7 *
 																	(((v8 *
-																	   (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) &
+																	   (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) &
 																											**(_WORD**)getMemAt(0x5D4594, 3799444)) >>
-																						 getMemByte(0x5D4594, 3804380))) >>
+																						 getMemByte(0x5D4594, 3804364 + 16))) >>
 																	  8) -
 																	 v9)) >>
 												 8))) |
@@ -8228,7 +8228,7 @@ void sub_4C8850() {
 																	(((v6 *
 																	   (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																											**(_WORD**)getMemAt(0x5D4594, 3799444)) >>
-																						 getMemByte(0x5D4594, 3804376))) >>
+																						 getMemByte(0x5D4594, 3804364 + 12))) >>
 																	  8) -
 																	 v5)) >>
 												 8)));
@@ -8250,12 +8250,12 @@ void sub_4C8A30() {
 	unsigned __int8 v7; // [esp+8h] [ebp-20h]
 	__int16 v8;         // [esp+Ch] [ebp-1Ch]
 
-	unsigned int rshift = *(DWORD*)getMemAt(0x5D4594, 3804384);
-	unsigned int gshift = *(DWORD*)getMemAt(0x5D4594, 3804380);
-	unsigned int bshift = *(DWORD*)getMemAt(0x5D4594, 3804376);
+	unsigned int rshift = *(DWORD*)getMemAt(0x5D4594, 3804364 + 20);
+	unsigned int gshift = *(DWORD*)getMemAt(0x5D4594, 3804364 + 16);
+	unsigned int bshift = *(DWORD*)getMemAt(0x5D4594, 3804364 + 12);
 
-	unsigned int rmask = *(DWORD*)getMemAt(0x5D4594, 3804372);
-	unsigned int gmask = *(DWORD*)getMemAt(0x5D4594, 3804368);
+	unsigned int rmask = *(DWORD*)getMemAt(0x5D4594, 3804364 + 8);
+	unsigned int gmask = *(DWORD*)getMemAt(0x5D4594, 3804364 + 4);
 	unsigned int bmask = *(DWORD*)getMemAt(0x5D4594, 3804364);
 
 	WORD* add1 = dword_5d4594_3804672;
@@ -8325,9 +8325,9 @@ __int16 sub_4C8C00()
     {
         v6 = v0 < 4;
         v0 -= 4;
-        v7 = _m_psrlw(_m_pand((__m64)v5->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804396)), *(__m64*) getMemAt(0x5D4594, 3804444));
-        v8 = _m_psrlw(_m_pand((__m64)v5->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804404)), *(__m64*) getMemAt(0x5D4594, 3804452));
-        v9 = _m_psllw(_m_pand((__m64)v5->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804412)), *(__m64*) getMemAt(0x5D4594, 3804460));
+        v7 = _m_psrlw(_m_pand((__m64)v5->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 32)), *(__m64*) getMemAt(0x5D4594, 3804364 + 80));
+        v8 = _m_psrlw(_m_pand((__m64)v5->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 40)), *(__m64*) getMemAt(0x5D4594, 3804364 + 88));
+        v9 = _m_psllw(_m_pand((__m64)v5->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 48)), *(__m64*) getMemAt(0x5D4594, 3804364 + 96));
         v10 = _m_por(
             _m_por(
                 _m_pand(
@@ -8339,14 +8339,14 @@ __int16 sub_4C8C00()
                                     _m_psrlwi(
                                         _m_pmullw(
                                             _m_psrlw(
-                                                _m_pand((__m64)v4->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804396)),
-                                                *(__m64*) getMemAt(0x5D4594, 3804444)),
+                                                _m_pand((__m64)v4->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 32)),
+                                                *(__m64*) getMemAt(0x5D4594, 3804364 + 80)),
                                             v1),
                                         8u),
                                     v7),
                                 1u)),
-                        *(__m64*) getMemAt(0x5D4594, 3804444)),
-                    *(__m64*) getMemAt(0x5D4594, 3804396)),
+                        *(__m64*) getMemAt(0x5D4594, 3804364 + 80)),
+                    *(__m64*) getMemAt(0x5D4594, 3804364 + 32)),
                 _m_pand(
                     _m_psllw(
                         _m_paddw(
@@ -8356,14 +8356,14 @@ __int16 sub_4C8C00()
                                     _m_psrlwi(
                                         _m_pmullw(
                                             _m_psrlw(
-                                                _m_pand((__m64)v4->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804404)),
-                                                *(__m64*) getMemAt(0x5D4594, 3804452)),
+                                                _m_pand((__m64)v4->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 40)),
+                                                *(__m64*) getMemAt(0x5D4594, 3804364 + 88)),
                                             v2),
                                         8u),
                                     v8),
                                 1u)),
-                        *(__m64*) getMemAt(0x5D4594, 3804452)),
-                    *(__m64*) getMemAt(0x5D4594, 3804404))),
+                        *(__m64*) getMemAt(0x5D4594, 3804364 + 88)),
+                    *(__m64*) getMemAt(0x5D4594, 3804364 + 40))),
             _m_pand(
                 _m_psrlw(
                     _m_paddw(
@@ -8373,14 +8373,14 @@ __int16 sub_4C8C00()
                                 _m_psrlwi(
                                     _m_pmullw(
                                         _m_psllw(
-                                            _m_pand((__m64)v4->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804412)),
-                                            *(__m64*) getMemAt(0x5D4594, 3804460)),
+                                            _m_pand((__m64)v4->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 48)),
+                                            *(__m64*) getMemAt(0x5D4594, 3804364 + 96)),
                                         v3),
                                     8u),
                                 v9),
                             1u)),
-                    *(__m64*) getMemAt(0x5D4594, 3804460)),
-                *(__m64*) getMemAt(0x5D4594, 3804412)));
+                    *(__m64*) getMemAt(0x5D4594, 3804364 + 96)),
+                *(__m64*) getMemAt(0x5D4594, 3804364 + 48)));
         if (v6)
             break;
         v5->m64_u64 = (unsigned __int64)v10;
@@ -8501,11 +8501,11 @@ void sub_4C8EC0() {
 		do {
 			v5 = **(_BYTE**)getMemAt(0x5D4594, 3799444);
 			++*getMemU32Ptr(0x5D4594, 3799444);
-			v6 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v1) >> getMemByte(0x5D4594, 3804380);
+			v6 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v1) >> getMemByte(0x5D4594, 3804364 + 16);
 			**(_WORD**)&dword_5d4594_3799540 =
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >>
-												 getMemByte(0x5D4594, 3804376)) +
+												 getMemByte(0x5D4594, 3804364 + 12)) +
 												((unsigned __int16)(v2 *
 																	((unsigned __int8)((unsigned __int16)(*(_WORD*)&v7
 																											  [24] *
@@ -8513,7 +8513,7 @@ void sub_4C8EC0() {
 																					   8) -
 																	 (unsigned __int8)((unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) &
 																										  *v1) >>
-																					   getMemByte(0x5D4594, 3804376)))) >>
+																					   getMemByte(0x5D4594, 3804364 + 12)))) >>
 												 8))) |
 				*(_WORD*)(dword_5d4594_3804656 +
 						  2 * (unsigned __int8)(v6 +
@@ -8525,15 +8525,15 @@ void sub_4C8EC0() {
 																	 v6)) >>
 												 8))) |
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)(((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)(((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
 												((unsigned __int16)(v2 *
 																	((unsigned __int8)((unsigned __int16)(*(_WORD*)&v7
 																											  [32] *
 																										  v5) >>
 																					   8) -
 																	 (unsigned __int8)((*(_BYTE*)v1 &
-																						getMemByte(0x5D4594, 3804372))
-																					   << getMemByte(0x5D4594, 3804384)))) >>
+																						getMemByte(0x5D4594, 3804364 + 8))
+																					   << getMemByte(0x5D4594, 3804364 + 20)))) >>
 												 8)));
 			v1 = (_WORD*)(dword_5d4594_3799540 + 2);
 			result = v4 - 1;
@@ -8563,22 +8563,22 @@ void sub_4C9050() {
 			++*getMemU32Ptr(0x5D4594, 3799444);
 			v3 = (unsigned __int16)*v1;
 			*v1 = *(_WORD*)(dword_5d4594_3804672 +
-							2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v3) >> getMemByte(0x5D4594, 3804376)) +
+							2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v3) >> getMemByte(0x5D4594, 3804364 + 12)) +
 												  ((int)((((*(_DWORD*)&v5[24] * (unsigned int)v2) >> 8) & 0xFF) -
 														 (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) & v3) >>
-																		   getMemByte(0x5D4594, 3804376))) >>
+																		   getMemByte(0x5D4594, 3804364 + 12))) >>
 												   1))) |
 				  *(_WORD*)(dword_5d4594_3804656 +
-							2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v3) >> getMemByte(0x5D4594, 3804380)) +
+							2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v3) >> getMemByte(0x5D4594, 3804364 + 16)) +
 												  ((int)((((*(_DWORD*)&v5[28] * (unsigned int)v2) >> 8) & 0xFF) -
-														 (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) & v3) >>
-																		   getMemByte(0x5D4594, 3804380))) >>
+														 (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v3) >>
+																		   getMemByte(0x5D4594, 3804364 + 16))) >>
 												   1))) |
 				  *(_WORD*)(dword_5d4594_3804664 +
-							2 * (unsigned __int8)(((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
+							2 * (unsigned __int8)(((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
 												  ((int)((((*(_DWORD*)&v5[32] * (unsigned int)v2) >> 8) & 0xFF) -
-														 (unsigned __int8)((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804372))
-																		   << getMemByte(0x5D4594, 3804384))) >>
+														 (unsigned __int8)((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804364 + 8))
+																		   << getMemByte(0x5D4594, 3804364 + 20))) >>
 												   1)));
 			v1 = (_WORD*)(dword_5d4594_3799540 + 2);
 			result = v4 - 1;
@@ -8659,11 +8659,11 @@ void sub_4C92F0() {
 		do {
 			v2 = **(_BYTE**)getMemAt(0x5D4594, 3799444);
 			++*getMemU32Ptr(0x5D4594, 3799444);
-			v3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >> getMemByte(0x5D4594, 3804376);
-			v10 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v1) >> getMemByte(0x5D4594, 3804380);
+			v3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >> getMemByte(0x5D4594, 3804364 + 12);
+			v10 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v1) >> getMemByte(0x5D4594, 3804364 + 16);
 			**(_WORD**)&dword_5d4594_3799540 =
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)(((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)(((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
 												((unsigned __int16)(v9 *
 																	(((int)(v11 *
 																			(((*(_DWORD*)&v12[32] * (unsigned int)v2) >>
@@ -8671,8 +8671,8 @@ void sub_4C92F0() {
 																			 0xFF)) >>
 																	  8) -
 																	 (unsigned __int8)((*(_BYTE*)v1 &
-																						getMemByte(0x5D4594, 3804372))
-																					   << getMemByte(0x5D4594, 3804384)))) >>
+																						getMemByte(0x5D4594, 3804364 + 8))
+																					   << getMemByte(0x5D4594, 3804364 + 20)))) >>
 												 8))) |
 				*(_WORD*)(dword_5d4594_3804656 +
 						  2 * (unsigned __int8)(v10 + ((unsigned __int16)(v9 * (((int)(v7 * (((*(_DWORD*)&v12[28] *
@@ -8724,8 +8724,8 @@ void sub_4C94D0() {
 		do {
 			v6 = **(_BYTE**)getMemAt(0x5D4594, 3799444);
 			++*getMemU32Ptr(0x5D4594, 3799444);
-			v3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v2) >> getMemByte(0x5D4594, 3804376);
-			v5 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v2) >> getMemByte(0x5D4594, 3804380);
+			v3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v2) >> getMemByte(0x5D4594, 3804364 + 12);
+			v5 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v2) >> getMemByte(0x5D4594, 3804364 + 16);
 			*v2 =
 				*(_WORD*)(dword_5d4594_3804672 +
 						  2 * (((v0 *
@@ -8735,10 +8735,10 @@ void sub_4C94D0() {
 								8) &
 							   0xFF)) |
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (((v8 * (unsigned __int8)(((*(_BYTE*)v2 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
+						  2 * (((v8 * (unsigned __int8)(((*(_BYTE*)v2 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
 														((int)((((*(_DWORD*)&v9[32] * (unsigned int)v6) >> 8) & 0xFF) -
-															   (unsigned __int8)((*(_BYTE*)v2 & getMemByte(0x5D4594, 3804372))
-																				 << getMemByte(0x5D4594, 3804384))) >>
+															   (unsigned __int8)((*(_BYTE*)v2 & getMemByte(0x5D4594, 3804364 + 8))
+																				 << getMemByte(0x5D4594, 3804364 + 20))) >>
 														 1))) >>
 								8) &
 							   0xFF)) |
@@ -8774,15 +8774,15 @@ void sub_4C96A0() {
 		do {
 			LOWORD(result) = **(_WORD**)getMemAt(0x5D4594, 3799444);
 			v2 = (unsigned __int8)(16 * **(_WORD**)getMemAt(0x5D4594, 3799444));
-			v5 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >> getMemByte(0x5D4594, 3804376);
-			v3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v1) >> getMemByte(0x5D4594, 3804380);
+			v5 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >> getMemByte(0x5D4594, 3804364 + 12);
+			v3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v1) >> getMemByte(0x5D4594, 3804364 + 16);
 			*v1 = *(_WORD*)(dword_5d4594_3804664 +
-							2 * (unsigned __int8)(((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
+							2 * (unsigned __int8)(((*(_BYTE*)v1 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
 												  ((unsigned __int16)(v2 *
 																	  ((**(_WORD**)getMemAt(0x5D4594, 3799444) & 0xF0) -
 																	   (unsigned __int8)((*(_BYTE*)v1 &
-																						  getMemByte(0x5D4594, 3804372))
-																						 << getMemByte(0x5D4594, 3804384)))) >>
+																						  getMemByte(0x5D4594, 3804364 + 8))
+																						 << getMemByte(0x5D4594, 3804364 + 20)))) >>
 												   8))) |
 				  *(_WORD*)(dword_5d4594_3804672 +
 							2 * (unsigned __int8)(v5 +
@@ -8827,28 +8827,28 @@ void sub_4C97F0() {
 			v5 = v1 * 16 * (**(_WORD**)getMemAt(0x5D4594, 3799444) & 0xF);
 			*v2 =
 				*(_WORD*)(dword_5d4594_3804664 +
-						  2 * (unsigned __int8)(((*(_BYTE*)v2 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
+						  2 * (unsigned __int8)(((*(_BYTE*)v2 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
 												((unsigned __int16)(BYTE1(v5) *
 																	((**(_WORD**)getMemAt(0x5D4594, 3799444) & 0xF0) -
 																	 (unsigned __int8)((*(_BYTE*)v2 &
-																						getMemByte(0x5D4594, 3804372))
-																					   << getMemByte(0x5D4594, 3804384)))) >>
+																						getMemByte(0x5D4594, 3804364 + 8))
+																					   << getMemByte(0x5D4594, 3804364 + 20)))) >>
 												 8))) |
 				*(_WORD*)(dword_5d4594_3804672 +
-						  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v4) >> getMemByte(0x5D4594, 3804376)) +
+						  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364) & v4) >> getMemByte(0x5D4594, 3804364 + 12)) +
 												((unsigned __int16)(BYTE1(v5) *
 																	(((**(_WORD**)getMemAt(0x5D4594, 3799444) >> 8) & 0xF0) -
 																	 (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364) &
 																						v4) >>
-																					   getMemByte(0x5D4594, 3804376)))) >>
+																					   getMemByte(0x5D4594, 3804364 + 12)))) >>
 												 8))) |
 				*(_WORD*)(dword_5d4594_3804656 +
-						  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804368) & v4) >> getMemByte(0x5D4594, 3804380)) +
+						  2 * (unsigned __int8)(((*getMemU32Ptr(0x5D4594, 3804364 + 4) & v4) >> getMemByte(0x5D4594, 3804364 + 16)) +
 												((unsigned __int16)(BYTE1(v5) *
 																	(((v3 >> 4) & 0xF0) -
-																	 (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804368) &
+																	 (unsigned __int8)((*getMemU32Ptr(0x5D4594, 3804364 + 4) &
 																						v4) >>
-																					   getMemByte(0x5D4594, 3804380)))) >>
+																					   getMemByte(0x5D4594, 3804364 + 16)))) >>
 												 8)));
 			v2 = (_WORD*)(dword_5d4594_3799540 + 2);
 			result = v7 - 1;
@@ -8884,18 +8884,18 @@ void sub_4C9970() {
 		v6 = *getMemU32Ptr(0x5D4594, 3799456);
 		do {
 			LOWORD(result) = **(_WORD**)getMemAt(0x5D4594, 3799444);
-			v7 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v2) >> getMemByte(0x5D4594, 3804376);
+			v7 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v2) >> getMemByte(0x5D4594, 3804364 + 12);
 			v3 = (unsigned __int8)(16 * **(_WORD**)getMemAt(0x5D4594, 3799444));
-			v4 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804368) & *v2) >> getMemByte(0x5D4594, 3804380);
+			v4 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & *v2) >> getMemByte(0x5D4594, 3804364 + 16);
 			*v2 = *(_WORD*)(dword_5d4594_3804664 +
-							2 * (unsigned __int8)(((*(_BYTE*)v2 & getMemByte(0x5D4594, 3804372)) << getMemByte(0x5D4594, 3804384)) +
+							2 * (unsigned __int8)(((*(_BYTE*)v2 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20)) +
 												  ((unsigned __int16)(v3 *
 																	  (((v8 *
 																		 (**(_WORD**)getMemAt(0x5D4594, 3799444) & 0xF0)) >>
 																		8) -
 																	   (unsigned __int8)((*(_BYTE*)v2 &
-																						  getMemByte(0x5D4594, 3804372))
-																						 << getMemByte(0x5D4594, 3804384)))) >>
+																						  getMemByte(0x5D4594, 3804364 + 8))
+																						 << getMemByte(0x5D4594, 3804364 + 20)))) >>
 												   8))) |
 				  *(_WORD*)(dword_5d4594_3804656 +
 							2 * (unsigned __int8)(v4 +
@@ -8936,9 +8936,9 @@ void sub_4C9B20() {
 	v9 = *getMemU32Ptr(0x5D4594, 3799456);
 	do {
 		v2 = (unsigned __int16)*v1;
-		v3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >> getMemByte(0x5D4594, 3804376);
-		v4 = (*getMemU32Ptr(0x5D4594, 3804368) & v2) >> getMemByte(0x5D4594, 3804380);
-		v5 = (*getMemU32Ptr(0x5D4594, 3804372) & v2) << getMemByte(0x5D4594, 3804384);
+		v3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & *v1) >> getMemByte(0x5D4594, 3804364 + 12);
+		v4 = (*getMemU32Ptr(0x5D4594, 3804364 + 4) & v2) >> getMemByte(0x5D4594, 3804364 + 16);
+		v5 = (*getMemU32Ptr(0x5D4594, 3804364 + 8) & v2) << getMemByte(0x5D4594, 3804364 + 20);
 		v6 = *v0;
 		++v0;
 		LOBYTE(v3) = SADD8(HIBYTE(v6) & 0xF8 | 7, (_BYTE)v3);
