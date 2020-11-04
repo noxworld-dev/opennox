@@ -21,6 +21,8 @@
 
 #include "proto.h"
 
+extern unsigned char byte_5D4594_3804364[160];
+
 extern _DWORD dword_5d4594_787188;
 extern _DWORD dword_587000_80772;
 extern _DWORD dword_5d4594_811904;
@@ -8183,11 +8185,11 @@ LABEL_6:
 		v3 = 0;
 		while (1) {
 			*(_BYTE*)((char*)result + v3) =
-				(unsigned __int16)(28 * ((((unsigned __int16)v3 & *getMemU16Ptr(0x5D4594, 3804364 + 8))
-										  << getMemByte(0x5D4594, 3804364 + 20)) |
+				(unsigned __int16)(28 * ((((unsigned __int16)v3 & *((_WORD*)((_BYTE*)byte_5D4594_3804364 + 8)))
+										  << *((_BYTE*)byte_5D4594_3804364 + 20)) |
 										 7) +
-								   150 * (v0 | ((v3 & *getMemU32Ptr(0x5D4594, 3804364 + 4)) >> getMemByte(0x5D4594, 3804364 + 16))) +
-								   76 * (((v3 & *getMemU32Ptr(0x5D4594, 3804364)) >> getMemByte(0x5D4594, 3804364 + 12)) | 7)) >>
+								   150 * (v0 | ((v3 & *((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 4))) >> *((_BYTE*)byte_5D4594_3804364 + 16))) +
+								   76 * (((v3 & *((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0))) >> *((_BYTE*)byte_5D4594_3804364 + 12)) | 7)) >>
 				8;
 			if ((int)++v3 > v1)
 				break;
@@ -8359,9 +8361,9 @@ void __cdecl sub_435240(unsigned __int8 a1, _BYTE* a2, _BYTE* a3, char* a4) {
 void __cdecl sub_435280(__int16 a1, _BYTE* a2, _BYTE* a3, _BYTE* a4) {
 	char result; // al
 
-	*a2 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364) & a1) >> getMemByte(0x5D4594, 3804364 + 12);
-	*a3 = (unsigned __int16)(*getMemU16Ptr(0x5D4594, 3804364 + 4) & a1) >> getMemByte(0x5D4594, 3804364 + 16);
-	result = ((unsigned __int8)a1 & getMemByte(0x5D4594, 3804364 + 8)) << getMemByte(0x5D4594, 3804364 + 20);
+	*a2 = (unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & a1) >> *((_BYTE*)byte_5D4594_3804364 + 12);
+	*a3 = (unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4)) & a1) >> *((_BYTE*)byte_5D4594_3804364 + 16);
+	result = ((unsigned __int8)a1 & *((_BYTE*)byte_5D4594_3804364 + 8)) << *((_BYTE*)byte_5D4594_3804364 + 20);
 	*a4 = result;
 }
 
