@@ -25,6 +25,8 @@
 
 #include "proto.h"
 
+extern unsigned char byte_581450_9176[160];
+
 extern _DWORD dword_5d4594_823772;
 extern _DWORD dword_5d4594_1193568;
 extern _DWORD dword_5d4594_1193576;
@@ -2726,7 +2728,6 @@ void __cdecl sub_4353A0(LPDIRECTDRAWPALETTE* a1) {
 
 //----- (004338D0) --------------------------------------------------------
 int sub_4338D0() {
-	unsigned __int8* v0; // esi
 	int result;          // eax
 	pixel888 v2[256];    // [esp+Ch] [ebp-300h]
 
@@ -2735,21 +2736,19 @@ int sub_4338D0() {
 		nox_color_rgb_func = nox_color_func_435180;
 		dword_975240 = sub_435240;
 		dword_975380 = sub_434E80;
-		v0 = getMemAt(0x581450, 9176);
-		memcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
+		memcpy(getMemAt(0x5D4594, 3804364), byte_581450_9176, sizeof(byte_581450_9176));
 		break;
 	case 1:
 		nox_color_rgb_func = nox_color_func_4351C0;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434E80;
-		v0 = getMemAt(0x581450, 9176);
-		memcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
+		memcpy(getMemAt(0x5D4594, 3804364), byte_581450_9176, sizeof(byte_581450_9176));
 		break;
 	case 2:
 		nox_color_rgb_func = nox_color_func_435200;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434EC0;
-		v0 = getMemAt(0x581450, 9336);
+		void* v0 = getMemAt(0x581450, 9336);
 		memcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
 		break;
 	}
