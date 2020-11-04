@@ -84,6 +84,8 @@ extern SDL_GLContext g_ddraw;
 extern unsigned char byte_581450_1488[4096];
 extern unsigned char byte_581450_1416[72];
 
+unsigned char byte_5D4594_2655724[4096] = {0};
+
 int nox_enable_audio = 1;
 int nox_enable_threads = 1;
 int nox_video_dxFullScreen = 0;
@@ -871,7 +873,7 @@ int __cdecl sub_409470(FILE* a1, _BYTE* a2) {
 			if (v6)
 				break;
 			v4 = 0;
-			if (v3 != 47 || v5 != 47) {
+			if (v3 != '/' || v5 != '/') {
 				*v2++ = v3;
 			} else {
 				sub_409520(a1);
@@ -925,65 +927,61 @@ void __cdecl sub_409580(int* a1, int a2) {
 	int v17;              // ecx
 	int* v18;             // esi
 	int* v19;             // edi
-	unsigned __int8* v20; // esi
-	int v21;              // edi
 
 	v2 = a1;
 	memcpy(getMemAt(0x5D4594, 2659820), byte_581450_1416, sizeof(byte_581450_1416));
 	memcpy(getMemAt(0x5D4594, 2659916), byte_581450_1416, sizeof(byte_581450_1416));
-	memcpy(getMemAt(0x5D4594, 2655724), byte_581450_1488, sizeof(byte_581450_1488));
+	memcpy(byte_5D4594_2655724, byte_581450_1488, sizeof(byte_5D4594_2655724));
 	v3 = 0;
-	if (a1 && (v4 = a2) != 0) {
-		a1 = getMemIntPtr(0x5D4594, 2659820);
-		a2 = 18;
-		do {
-			v5 = v3 % v4;
-			v6 = v3 + 1;
-			v7 = (*((unsigned __int8*)v2 + v5) << 8) | *((unsigned __int8*)v2 + v6++ % v4);
-			v8 = (v7 << 8) | *((unsigned __int8*)v2 + v6++ % v4);
-			v9 = (v8 << 8) | *((unsigned __int8*)v2 + v6 % v4);
-			v3 = v6 + 1;
-			v10 = a1 + 1;
-			v11 = v9 ^ *a1;
-			v12 = a2;
-			*a1 = v11;
-			a1 = v10;
-			a2 = v12 - 1;
-		} while (v12 != 1);
-		v13 = getMemAt(0x5D4594, 2659820);
-		a1 = 0;
-		a2 = 0;
-		v14 = getMemAt(0x5D4594, 2659916 + 68);
-		v15 = 9;
-		do {
-			sub_4096E0((int*)&a1, &a2);
-			v16 = a1;
-			v17 = a2;
-			*(_DWORD*)v13 = a1;
-			*(_DWORD*)v14 = v16;
-			v18 = (int*)(v13 + 4);
-			v19 = (int*)(v14 - 4);
-			*v18 = v17;
-			*v19 = v17;
-			v13 = (unsigned __int8*)(v18 + 1);
-			v14 = (unsigned __int8*)(v19 - 1);
-			--v15;
-		} while (v15);
-		v20 = getMemAt(0x5D4594, 2655724 + 4);
-		do {
-			v21 = 128;
-			do {
-				sub_4096E0((int*)&a1, &a2);
-				*((_DWORD*)v20 - 1) = a1;
-				*(_DWORD*)v20 = a2;
-				v20 += 8;
-				--v21;
-			} while (v21);
-		} while ((int)v20 < (int)getMemAt(0x5D4594, 2659820 + 4));
-		dword_5d4594_1308 = 1;
-	} else {
+	if (!(a1 && (v4 = a2) != 0)) {
 		dword_5d4594_1308 = 0;
+		return;
 	}
+	a1 = getMemIntPtr(0x5D4594, 2659820);
+	a2 = 18;
+	do {
+		v5 = v3 % v4;
+		v6 = v3 + 1;
+		v7 = (*((unsigned __int8*)v2 + v5) << 8) | *((unsigned __int8*)v2 + v6++ % v4);
+		v8 = (v7 << 8) | *((unsigned __int8*)v2 + v6++ % v4);
+		v9 = (v8 << 8) | *((unsigned __int8*)v2 + v6 % v4);
+		v3 = v6 + 1;
+		v10 = a1 + 1;
+		v11 = v9 ^ *a1;
+		v12 = a2;
+		*a1 = v11;
+		a1 = v10;
+		a2 = v12 - 1;
+	} while (v12 != 1);
+	v13 = getMemAt(0x5D4594, 2659820);
+	a1 = 0;
+	a2 = 0;
+	v14 = getMemAt(0x5D4594, 2659916 + 68);
+	v15 = 9;
+	do {
+		sub_4096E0((int*)&a1, &a2);
+		v16 = a1;
+		v17 = a2;
+		*(_DWORD*)v13 = a1;
+		*(_DWORD*)v14 = v16;
+		v18 = (int*)(v13 + 4);
+		v19 = (int*)(v14 - 4);
+		*v18 = v17;
+		*v19 = v17;
+		v13 = (unsigned __int8*)(v18 + 1);
+		v14 = (unsigned __int8*)(v19 - 1);
+		--v15;
+	} while (v15);
+	_DWORD* v20 = byte_5D4594_2655724;
+	for (int i = 0; i < 1024;) {
+		for (int j = 0; j < 128; j++) {
+			sub_4096E0(&a1, &a2);
+			v20[i+0] = a1;
+			v20[i+1] = a2;
+			i += 2;
+		};
+	};
+	dword_5d4594_1308 = 1;
 }
 
 //----- (004096E0) --------------------------------------------------------
@@ -1001,14 +999,14 @@ int __cdecl sub_4096E0(int* a1, int* a2) {
 		v5 = *((_DWORD*)v2 - 1);
 		v2 += 8;
 		v6 = v5 ^ result;
-		v4 ^= (*getMemU32Ptr(0x5D4594, 2655724 + 3072 + 4*(unsigned __int8)v6) +
-			   (*getMemU32Ptr(0x5D4594, 2655724 + 2048 + 4*BYTE1(v6)) ^
-				(*getMemU32Ptr(0x5D4594, 2655724 + 4*HIBYTE(v6)) + *getMemU32Ptr(0x5D4594, 2655724 + 1024 + 4*BYTE2(v6))))) ^
+		v4 ^= (*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 3072 + 4*(unsigned __int8)v6) +
+			   (*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 2048 + 4*BYTE1(v6)) ^
+				(*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 4*HIBYTE(v6)) + *(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 1024 + 4*BYTE2(v6))))) ^
 			  *((_DWORD*)v2 - 2);
 		result =
-			(*getMemU32Ptr(0x5D4594, 2655724 + 3072 + 4*(unsigned __int8)v4) +
-			 (*getMemU32Ptr(0x5D4594, 2655724 + 2048 + 4*BYTE1(v4)) ^
-			  (*getMemU32Ptr(0x5D4594, 2655724 + 4*HIBYTE(v4)) + *getMemU32Ptr(0x5D4594, 2655724 + 1024 + 4*BYTE2(v4))))) ^
+			(*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 3072 + 4*(unsigned __int8)v4) +
+			 (*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 2048 + 4*BYTE1(v4)) ^
+			  (*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 4*HIBYTE(v4)) + *(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 1024 + 4*BYTE2(v4))))) ^
 			v6;
 	} while ((int)v2 < (int)getMemAt(0x5D4594, 2659820 + 68));
 	*a1 = v4 ^ *getMemU32Ptr(0x5D4594, 2659820 + 68);
@@ -1074,12 +1072,12 @@ _BYTE* __cdecl sub_409860(_BYTE* a1, _BYTE* a2, _DWORD* a3) {
 		v7 = *v5 ^ v4;
 		v5 += 2;
 		v6 ^= *(v5 - 1) ^
-			  (*getMemU32Ptr(0x5D4594, 2655724 + 3072 + 4*(unsigned __int8)v7) +
-			   (*getMemU32Ptr(0x5D4594, 2655724 + 2048 + 4*BYTE1(v7)) ^
-				(*getMemU32Ptr(0x5D4594, 2655724 + 4*HIBYTE(v7)) + *getMemU32Ptr(0x5D4594, 2655724 + 1024 + 4*BYTE2(v7)))));
-		v4 = (*getMemU32Ptr(0x5D4594, 2655724 + 3072 + 4*(unsigned __int8)v6) +
-			  (*getMemU32Ptr(0x5D4594, 2655724 + 2048 + 4*BYTE1(v6)) ^
-			   (*getMemU32Ptr(0x5D4594, 2655724 + 4*HIBYTE(v6)) + *getMemU32Ptr(0x5D4594, 2655724 + 1024 + 4*BYTE2(v6))))) ^
+			  (*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 3072 + 4*(unsigned __int8)v7) +
+			   (*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 2048 + 4*BYTE1(v7)) ^
+				(*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 4*HIBYTE(v7)) + *(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 1024 + 4*BYTE2(v7)))));
+		v4 = (*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 3072 + 4*(unsigned __int8)v6) +
+			  (*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 2048 + 4*BYTE1(v6)) ^
+			   (*(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 4*HIBYTE(v6)) + *(_DWORD*)((_BYTE*)byte_5D4594_2655724 + 1024 + 4*BYTE2(v6))))) ^
 			 v7;
 		--v3;
 	} while (v3);
