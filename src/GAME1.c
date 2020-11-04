@@ -81,6 +81,8 @@ extern _DWORD dword_5d4594_4668;
 extern SDL_GLContext g_ddraw;
 #endif
 
+extern unsigned char byte_581450_1488[4096];
+
 int nox_enable_audio = 1;
 int nox_enable_threads = 1;
 int nox_video_dxFullScreen = 0;
@@ -930,7 +932,7 @@ void __cdecl sub_409580(int* a1, int a2) {
 	v2 = a1;
 	memcpy(getMemAt(0x5D4594, 2659820), getMemAt(0x581450, 1416), 0x48u);
 	memcpy(getMemAt(0x5D4594, 2659916), getMemAt(0x581450, 1416), 0x48u);
-	memcpy(getMemAt(0x5D4594, 2655724), getMemAt(0x581450, 1488), 0x1000u);
+	memcpy(getMemAt(0x5D4594, 2655724), byte_581450_1488, sizeof(byte_581450_1488));
 	v3 = 0;
 	if (a1 && (v4 = a2) != 0) {
 		a1 = getMemIntPtr(0x5D4594, 2659820);
