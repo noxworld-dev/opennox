@@ -10,6 +10,7 @@ extern unsigned __int8 byte_581450[23472];
 extern unsigned __int8 byte_5D4594[3844309];
 extern unsigned __int8 byte_587000[316820];
 extern unsigned char byte_581450_1488[4096];
+extern unsigned char byte_581450_1416[72];
 
 extern nox_engine_flag nox_common_engineFlags;
 extern int nox_enable_audio;
@@ -2723,6 +2724,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 84400, (void*)&nox_video_gammaValue, sizeof(nox_video_gammaValue), 1},
 
 	{0x581450 + 1488, (void*)byte_581450_1488, sizeof(byte_581450_1488), 1},
+	{0x581450 + 1416, (void*)byte_581450_1416, sizeof(byte_581450_1416), 1},
 };
 
 size_t mappings_cnt = sizeof(mappings) / sizeof(mem_mapping);
