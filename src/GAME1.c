@@ -6393,7 +6393,7 @@ int* __cdecl sub_410890(int* lpMem) {
 }
 
 //----- (00410900) --------------------------------------------------------
-int __cdecl sub_410900(_DWORD* a1, char* a2) {
+int __cdecl nox_thing_read_WALL_410900(_DWORD* a1, char* a2) {
 	_DWORD* v3;           // esi
 	char* v4;             // ebx
 	unsigned __int8* v5;  // ebp
@@ -6924,7 +6924,7 @@ int __cdecl sub_411490(int a1, int a2) {
 }
 
 //----- (00411540) --------------------------------------------------------
-int __cdecl sub_411540(int a1, _BYTE* a2) {
+int __cdecl nox_thing_read_FLOR_411540(int a1, _BYTE* a2) {
 	int v3;               // esi
 	unsigned __int8* v4;  // edi
 	int v5;               // eax
@@ -7069,7 +7069,7 @@ int __cdecl sub_4117E0(const char* a1) {
 }
 
 //----- (00411850) --------------------------------------------------------
-int __cdecl sub_411850(int a1, _BYTE* a2) {
+int __cdecl nox_thing_read_EDGE_411850(int a1, _BYTE* a2) {
 	int v3;               // ebp
 	unsigned __int8* v4;  // eax
 	int v5;               // eax
@@ -9631,54 +9631,54 @@ bool __cdecl sub_415470(void) {
 	dword_5d4594_251572 = 0;
 	while (nox_memfile_read(&v4, 4u, 1, things)) {
 		switch (v4) {
-		case 1397769548:
-			if (!sub_4156B0(things, v1)) {
+		case 0x5350454C: // SPEL
+			if (!nox_thing_read_SPEL_4156B0(things, v1)) {
 				nox_memfile_free(things);
 				return 0;
 			}
 			break;
-		case 1096107040:
+		case 0x41554420: // AUD
 			if (nox_common_gameFlags_check_40A5C0(0x200000)) {
 				nox_thing_read_audio_414D40(things);
-			} else if (!sub_415660(things, v1)) {
+			} else if (!nox_thing_read_audio_415660(things, v1)) {
 				nox_memfile_free(things);
 				return 0;
 			}
 			break;
-		case 1096175188:
+		case 0x41564E54: // AVNT
 			if (nox_common_gameFlags_check_40A5C0(0x200000)) {
 				nox_thing_read_AVNT_452B00(things);
-			} else if (!sub_452890(things, v1)) {
+			} else if (!nox_thing_read_AVNT_452890(things, v1)) {
 				nox_memfile_free(things);
 				return 0;
 			}
 			break;
-		case 1463897164:
-			if (!sub_410900(things, v1)) {
+		case 0x57414C4C: // WALL
+			if (!nox_thing_read_WALL_410900(things, v1)) {
 				nox_memfile_free(things);
 				return 0;
 			}
 			break;
-		case 1179406162:
-			if (!sub_411540(things, v1)) {
+		case 0x464C4F52: // FLOR
+			if (!nox_thing_read_FLOR_411540(things, v1)) {
 				nox_memfile_free(things);
 				return 0;
 			}
 			break;
-		case 1162102597:
-			if (!sub_411850(things, v1)) {
+		case 0x45444745: // EDGE
+			if (!nox_thing_read_EDGE_411850(things, v1)) {
 				nox_memfile_free(things);
 				return 0;
 			}
 			break;
-		case 1094863180:
-			if (!sub_415750(things, v1)) {
+		case 0x4142494C: // ABIL
+			if (!nox_thing_read_ABIL_415750(things, v1)) {
 				nox_memfile_free(things);
 				return 0;
 			}
 			break;
-		case 1229799751:
-			if (!sub_415700(things, v1)) {
+		case 0x494D4147: // IMAG
+			if (!nox_thing_read_IMAG_415700(things, v1)) {
 				nox_memfile_free(things);
 				return 0;
 			}
@@ -9693,7 +9693,7 @@ bool __cdecl sub_415470(void) {
 }
 
 //----- (00415660) --------------------------------------------------------
-int __cdecl sub_415660(int a1, char* a2) {
+int __cdecl nox_thing_read_audio_415660(int a1, char* a2) {
 	int v2;  // ebx
 	int* v3; // eax
 	int v4;  // edi
@@ -9712,7 +9712,7 @@ int __cdecl sub_415660(int a1, char* a2) {
 }
 
 //----- (004156B0) --------------------------------------------------------
-int __cdecl sub_4156B0(nox_memfile* f, void* a2) {
+int __cdecl nox_thing_read_SPEL_4156B0(nox_memfile* f, void* a2) {
 	int v2 = 0;  // ebx
 	int v4;  // edi
 	v4 = nox_memfile_read_u32(f);
@@ -9726,7 +9726,7 @@ int __cdecl sub_4156B0(nox_memfile* f, void* a2) {
 }
 
 //----- (00415700) --------------------------------------------------------
-int __cdecl sub_415700(int a1, void* a2) {
+int __cdecl nox_thing_read_IMAG_415700(int a1, void* a2) {
 	int* v2; // eax
 	int v3;  // esi
 	int v5;  // edi
@@ -9748,7 +9748,7 @@ int __cdecl sub_415700(int a1, void* a2) {
 }
 
 //----- (00415750) --------------------------------------------------------
-int __cdecl sub_415750(int a1, void* a2) {
+int __cdecl nox_thing_read_ABIL_415750(int a1, void* a2) {
 	int v2;  // ebx
 	int* v3; // eax
 	int v4;  // edi

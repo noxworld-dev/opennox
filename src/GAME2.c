@@ -2527,7 +2527,7 @@ int* __cdecl sub_452810(int a1, char a2) {
 }
 
 //----- (00452890) --------------------------------------------------------
-BOOL __cdecl sub_452890(int a1, void* a2) {
+BOOL __cdecl nox_thing_read_AVNT_452890(int a1, void* a2) {
 	int v2;               // esi
 	unsigned __int8* v3;  // eax
 	int v4;               // eax
