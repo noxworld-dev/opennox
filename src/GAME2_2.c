@@ -13,6 +13,8 @@
 
 #include "proto.h"
 
+extern unsigned char byte_5D4594_3804364[160];
+
 extern _DWORD dword_587000_149360;
 extern _DWORD dword_5d4594_1098456;
 extern _DWORD dword_5d4594_1193180;
@@ -6055,25 +6057,25 @@ __int16 __cdecl sub_480700(int a1, __m64 * a2, int a3, unsigned int* a4, unsigne
         v27 = (__m64)v6->m64_u64;
         v28 = v21;
         v21 = _m_paddw(v21, v36);
-        v29 = _m_psrlw(_m_pand((__m64)v6->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 40)), *(__m64*) getMemAt(0x5D4594, 3804364 + 88));
+        v29 = _m_psrlw(_m_pand((__m64)v6->m64_u64, *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 40)), *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 88));
         v30 = _m_pmullw(
-            _m_psrlw(_m_pand((__m64)v6->m64_u64, *(__m64*) getMemAt(0x5D4594, 3804364 + 32)), *(__m64*) getMemAt(0x5D4594, 3804364 + 80)),
+            _m_psrlw(_m_pand((__m64)v6->m64_u64, *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 32)), *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 80)),
             _m_psrlwi(v28, 8u));
         ++v6;
         v31 = _m_psrlw(
-            _m_pand(_m_pmullw(v29, _m_psrlwi(v24, 8u)), *(__m64*) getMemAt(0x5D4594, 3804364 + 64)),
-            *(__m64*) getMemAt(0x5D4594, 3804364 + 136));
+            _m_pand(_m_pmullw(v29, _m_psrlwi(v24, 8u)), *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 64)),
+            *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 136));
         v24 = _m_paddw(v24, v37);
         v32 = _m_pand(
             _m_pmullw(
-                _m_psllw(_m_pand(v27, *(__m64*) getMemAt(0x5D4594, 3804364 + 48)), *(__m64*) getMemAt(0x5D4594, 3804364 + 96)),
+                _m_psllw(_m_pand(v27, *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 48)), *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 96)),
                 _m_psrlwi(v25, 8u)),
-            *(__m64*) getMemAt(0x5D4594, 3804364 + 72));
+            *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 72));
         v25 = _m_paddw(v25, v38);
         ++v26;
         v33 = _m_por(
-            _m_por(_m_psrlw(_m_pand(v30, *(__m64*) getMemAt(0x5D4594, 3804364 + 56)), *(__m64*) getMemAt(0x5D4594, 3804364 + 128)), v31),
-            _m_psrlw(v32, *(__m64*) getMemAt(0x5D4594, 3804364 + 144)));
+            _m_por(_m_psrlw(_m_pand(v30, *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 56)), *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 128)), v31),
+            _m_psrlw(v32, *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 144)));
         if (v15 < 4)
             break;
         v26->m64_u64 = (unsigned __int64)v33;
@@ -6103,12 +6105,12 @@ void __cdecl sub_480860(WORD* a1, WORD* a2, int a3, int* a4, int* a5) {
 	WORD* dword_975384 = dword_5d4594_3804656;
 	WORD* dword_97538C = dword_5d4594_3804664;
 	WORD* dword_975394 = dword_5d4594_3804672;
-	WORD dword_975260 = *getMemU16Ptr(0x5D4594, 3804364);
-	WORD dword_975264 = *getMemU16Ptr(0x5D4594, 3804364 + 4);
-	WORD dword_975268 = *getMemU16Ptr(0x5D4594, 3804364 + 8);
-	WORD dword_97526C = *getMemU16Ptr(0x5D4594, 3804364 + 12);
-	WORD dword_975270 = *getMemU16Ptr(0x5D4594, 3804364 + 16);
-	WORD dword_975274 = *getMemU16Ptr(0x5D4594, 3804364 + 20);
+	WORD dword_975260 = *((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0));
+	WORD dword_975264 = *((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4));
+	WORD dword_975268 = *((_WORD*)((_BYTE*)byte_5D4594_3804364 + 8));
+	WORD dword_97526C = *((_WORD*)((_BYTE*)byte_5D4594_3804364 + 12));
+	WORD dword_975270 = *((_WORD*)((_BYTE*)byte_5D4594_3804364 + 16));
+	WORD dword_975274 = *((_WORD*)((_BYTE*)byte_5D4594_3804364 + 20));
 
 	while (a3 > 0) {
 		*a1 = (dword_97538C[((a4[2] * ((*a2 & dword_975268) << dword_975274)) >> 16) & 0xFF] |

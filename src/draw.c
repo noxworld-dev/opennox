@@ -28,6 +28,8 @@
 extern unsigned char byte_581450_9176[160];
 extern unsigned char byte_581450_9336[160];
 
+unsigned char byte_5D4594_3804364[160] = {0};
+
 extern _DWORD dword_5d4594_823772;
 extern _DWORD dword_5d4594_1193568;
 extern _DWORD dword_5d4594_1193576;
@@ -2737,19 +2739,19 @@ int sub_4338D0() {
 		nox_color_rgb_func = nox_color_func_435180;
 		dword_975240 = sub_435240;
 		dword_975380 = sub_434E80;
-		memcpy(getMemAt(0x5D4594, 3804364), byte_581450_9176, sizeof(byte_581450_9176));
+		memcpy(byte_5D4594_3804364, byte_581450_9176, sizeof(byte_581450_9176));
 		break;
 	case 1:
 		nox_color_rgb_func = nox_color_func_4351C0;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434E80;
-		memcpy(getMemAt(0x5D4594, 3804364), byte_581450_9176, sizeof(byte_581450_9176));
+		memcpy(byte_5D4594_3804364, byte_581450_9176, sizeof(byte_581450_9176));
 		break;
 	case 2:
 		nox_color_rgb_func = nox_color_func_435200;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434EC0;
-		memcpy(getMemAt(0x5D4594, 3804364), byte_581450_9336, sizeof(byte_581450_9336));
+		memcpy(byte_5D4594_3804364, byte_581450_9336, sizeof(byte_581450_9336));
 		break;
 	}
 	ptr_5D4594_3799572->data[13] = 0;
