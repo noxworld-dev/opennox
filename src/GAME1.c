@@ -978,7 +978,7 @@ void __cdecl sub_409580(int* a1, int a2) {
 				v20 += 8;
 				--v21;
 			} while (v21);
-		} while ((int)v20 < (int)getMemAt(0x5D4594, 2659824));
+		} while ((int)v20 < (int)getMemAt(0x5D4594, 2659820 + 4));
 		dword_5d4594_1308 = 1;
 	} else {
 		dword_5d4594_1308 = 0;
@@ -993,7 +993,7 @@ int __cdecl sub_4096E0(int* a1, int* a2) {
 	int v5;              // ebx
 	int v6;              // eax
 
-	v2 = getMemAt(0x5D4594, 2659824);
+	v2 = getMemAt(0x5D4594, 2659820 + 4);
 	result = *a1;
 	v4 = *a2;
 	do {
@@ -1009,9 +1009,9 @@ int __cdecl sub_4096E0(int* a1, int* a2) {
 			 (*getMemU32Ptr(0x5D4594, 2655724 + 2048 + 4*BYTE1(v4)) ^
 			  (*getMemU32Ptr(0x5D4594, 2655724 + 4*HIBYTE(v4)) + *getMemU32Ptr(0x5D4594, 2655724 + 1024 + 4*BYTE2(v4))))) ^
 			v6;
-	} while ((int)v2 < (int)getMemAt(0x5D4594, 2659888));
-	*a1 = v4 ^ *getMemU32Ptr(0x5D4594, 2659888);
-	*a2 = result ^ *getMemU32Ptr(0x5D4594, 2659884);
+	} while ((int)v2 < (int)getMemAt(0x5D4594, 2659820 + 68));
+	*a1 = v4 ^ *getMemU32Ptr(0x5D4594, 2659820 + 68);
+	*a2 = result ^ *getMemU32Ptr(0x5D4594, 2659820 + 64);
 	return result;
 }
 
