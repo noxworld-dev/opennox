@@ -968,7 +968,7 @@ void __cdecl sub_409580(int* a1, int a2) {
 			v14 = (unsigned __int8*)(v19 - 1);
 			--v15;
 		} while (v15);
-		v20 = getMemAt(0x5D4594, 2655728);
+		v20 = getMemAt(0x5D4594, 2655724 + 4);
 		do {
 			v21 = 128;
 			do {
@@ -1000,14 +1000,14 @@ int __cdecl sub_4096E0(int* a1, int* a2) {
 		v5 = *((_DWORD*)v2 - 1);
 		v2 += 8;
 		v6 = v5 ^ result;
-		v4 ^= (*getMemU32Ptr(0x5D4594, 4 * (unsigned __int8)v6 + 2658796) +
-			   (*getMemU32Ptr(0x5D4594, 4 * BYTE1(v6) + 2657772) ^
-				(*getMemU32Ptr(0x5D4594, 4 * HIBYTE(v6) + 2655724) + *getMemU32Ptr(0x5D4594, 4 * BYTE2(v6) + 2656748)))) ^
+		v4 ^= (*getMemU32Ptr(0x5D4594, 2655724 + 3072 + 4*(unsigned __int8)v6) +
+			   (*getMemU32Ptr(0x5D4594, 2655724 + 2048 + 4*BYTE1(v6)) ^
+				(*getMemU32Ptr(0x5D4594, 2655724 + 4*HIBYTE(v6)) + *getMemU32Ptr(0x5D4594, 2655724 + 1024 + 4*BYTE2(v6))))) ^
 			  *((_DWORD*)v2 - 2);
 		result =
-			(*getMemU32Ptr(0x5D4594, 4 * (unsigned __int8)v4 + 2658796) +
-			 (*getMemU32Ptr(0x5D4594, 4 * BYTE1(v4) + 2657772) ^
-			  (*getMemU32Ptr(0x5D4594, 4 * HIBYTE(v4) + 2655724) + *getMemU32Ptr(0x5D4594, 4 * BYTE2(v4) + 2656748)))) ^
+			(*getMemU32Ptr(0x5D4594, 2655724 + 3072 + 4*(unsigned __int8)v4) +
+			 (*getMemU32Ptr(0x5D4594, 2655724 + 2048 + 4*BYTE1(v4)) ^
+			  (*getMemU32Ptr(0x5D4594, 2655724 + 4*HIBYTE(v4)) + *getMemU32Ptr(0x5D4594, 2655724 + 1024 + 4*BYTE2(v4))))) ^
 			v6;
 	} while ((int)v2 < (int)getMemAt(0x5D4594, 2659888));
 	*a1 = v4 ^ *getMemU32Ptr(0x5D4594, 2659888);
@@ -1073,12 +1073,12 @@ _BYTE* __cdecl sub_409860(_BYTE* a1, _BYTE* a2, _DWORD* a3) {
 		v7 = *v5 ^ v4;
 		v5 += 2;
 		v6 ^= *(v5 - 1) ^
-			  (*getMemU32Ptr(0x5D4594, 4 * (unsigned __int8)v7 + 2658796) +
-			   (*getMemU32Ptr(0x5D4594, 4 * BYTE1(v7) + 2657772) ^
-				(*getMemU32Ptr(0x5D4594, 4 * HIBYTE(v7) + 2655724) + *getMemU32Ptr(0x5D4594, 4 * BYTE2(v7) + 2656748))));
-		v4 = (*getMemU32Ptr(0x5D4594, 4 * (unsigned __int8)v6 + 2658796) +
-			  (*getMemU32Ptr(0x5D4594, 4 * BYTE1(v6) + 2657772) ^
-			   (*getMemU32Ptr(0x5D4594, 4 * HIBYTE(v6) + 2655724) + *getMemU32Ptr(0x5D4594, 4 * BYTE2(v6) + 2656748)))) ^
+			  (*getMemU32Ptr(0x5D4594, 2655724 + 3072 + 4*(unsigned __int8)v7) +
+			   (*getMemU32Ptr(0x5D4594, 2655724 + 2048 + 4*BYTE1(v7)) ^
+				(*getMemU32Ptr(0x5D4594, 2655724 + 4*HIBYTE(v7)) + *getMemU32Ptr(0x5D4594, 2655724 + 1024 + 4*BYTE2(v7)))));
+		v4 = (*getMemU32Ptr(0x5D4594, 2655724 + 3072 + 4*(unsigned __int8)v6) +
+			  (*getMemU32Ptr(0x5D4594, 2655724 + 2048 + 4*BYTE1(v6)) ^
+			   (*getMemU32Ptr(0x5D4594, 2655724 + 4*HIBYTE(v6)) + *getMemU32Ptr(0x5D4594, 2655724 + 1024 + 4*BYTE2(v6))))) ^
 			 v7;
 		--v3;
 	} while (v3);
