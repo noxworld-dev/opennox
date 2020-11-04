@@ -7800,7 +7800,6 @@ int __cdecl sub_4240F0(int a1, const char* a2, int a3) {
 
 //----- (00424170) --------------------------------------------------------
 int __cdecl sub_424170(char* a1) {
-	int result;   // eax
 	FILE* v2;     // ebp
 	_DWORD* v3;   // ebx
 	char* v4;     // edx
@@ -7808,31 +7807,29 @@ int __cdecl sub_424170(char* a1) {
 	char v6[256]; // [esp+10h] [ebp-200h]
 	char v7[256]; // [esp+110h] [ebp-100h]
 
-	result = sub_408CC0_fopen(a1, 0);
-	v2 = (FILE*)result;
-	if (result) {
-		result = sub_408D40(result, 5);
-		if (result) {
-			while (sub_409470(v2, v6)) {
-				v3 = calloc(1u, 0x54u);
-				v3[19] = dword_5d4594_588120;
-				v3[20] = 0;
-				dword_5d4594_588120 = v3;
-				v4 = (char*)malloc(strlen(v6) + 1);
-				*v3 = v4;
-				strcpy(v4, v6);
-				while (sub_409470(v2, v6) && strcmp(v6, "END") && sub_409470(v2, v7)) {
-					v5 = sub_40AF50(v7);
-					result = sub_4240F0((int)v3, v6, v5);
-					if (!result)
-						return result;
-				}
-			}
-			sub_408D90(v2);
-			result = 1;
+	v2 = sub_408CC0_fopen(a1, 0);
+	if (!v2) {
+		return 0;
+	}
+	if (!sub_408D40(v2, 5)) {
+		return 0;
+	}
+	while (sub_409470(v2, v6)) {
+		v3 = calloc(1u, 0x54u);
+		v3[19] = dword_5d4594_588120;
+		v3[20] = 0;
+		dword_5d4594_588120 = v3;
+		v4 = (char*)malloc(strlen(v6) + 1);
+		*v3 = v4;
+		strcpy(v4, v6);
+		while (sub_409470(v2, v6) && strcmp(v6, "END") && sub_409470(v2, v7)) {
+			v5 = sub_40AF50(v7);
+			if (!sub_4240F0((int)v3, v6, v5))
+				return 0;
 		}
 	}
-	return result;
+	sub_408D90(v2);
+	return 1;
 }
 
 //----- (004242C0) --------------------------------------------------------
