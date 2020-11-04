@@ -952,7 +952,7 @@ void __cdecl sub_409580(int* a1, int a2) {
 		v13 = getMemAt(0x5D4594, 2659820);
 		a1 = 0;
 		a2 = 0;
-		v14 = getMemAt(0x5D4594, 2659984);
+		v14 = getMemAt(0x5D4594, 2659916 + 68);
 		v15 = 9;
 		do {
 			sub_4096E0((int*)&a1, &a2);
