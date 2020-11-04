@@ -26,6 +26,7 @@
 #include "proto.h"
 
 extern unsigned char byte_581450_9176[160];
+extern unsigned char byte_581450_9336[160];
 
 extern _DWORD dword_5d4594_823772;
 extern _DWORD dword_5d4594_1193568;
@@ -2748,8 +2749,7 @@ int sub_4338D0() {
 		nox_color_rgb_func = nox_color_func_435200;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434EC0;
-		void* v0 = getMemAt(0x581450, 9336);
-		memcpy(getMemAt(0x5D4594, 3804364), v0, 0xA0u);
+		memcpy(getMemAt(0x5D4594, 3804364), byte_581450_9336, sizeof(byte_581450_9336));
 		break;
 	}
 	ptr_5D4594_3799572->data[13] = 0;
