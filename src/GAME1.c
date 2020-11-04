@@ -572,7 +572,6 @@ signed int __cdecl sub_408E40_fread(char* a1, int a2, signed int a3, FILE* a4) {
 	unsigned int v5; // edi
 	signed int v6;   // ebx
 	signed int v7;   // esi
-	bool v8;         // zf
 	int v9;          // eax
 	int v10;         // eax
 	signed int v11;  // edi
@@ -583,12 +582,11 @@ signed int __cdecl sub_408E40_fread(char* a1, int a2, signed int a3, FILE* a4) {
 	v5 = a3 * a2;
 	v6 = 0;
 	v7 = 0;
-	v8 = a2 == 0;
 	v14 = a3 * a2;
-	if (v8 || !a3)
+	if (a2 == 0 || !a3)
 		return 0;
 	v9 = getMemByte(0x5D4594, 1284) & 7;
-	if (getMemByte(0x5D4594, 1284) & 7) {
+	if (v9) {
 		v4 = 8 - v9;
 		if (v5 < 8 - v9)
 			v4 = v5;
