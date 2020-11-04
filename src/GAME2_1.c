@@ -3553,7 +3553,7 @@ BOOL __cdecl nox_thing_read_wall_46A010(_DWORD* a1, char* a2) {
 		++v5;
 		v6 = (const char*)(v48 + 12332);
 		v48 += 12332;
-		if (v5 >= *(int*)&dword_5d4594_251540)
+		if (v5 >= dword_5d4594_251540)
 			return 0;
 	}
 	v49 = v5;

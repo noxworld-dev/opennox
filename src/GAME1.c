@@ -6575,10 +6575,10 @@ int __cdecl sub_410D60(const char* a1) {
 	const char* i; // edi
 
 	v1 = 0;
-	if (*(int*)&dword_5d4594_251540 <= 0)
+	if (dword_5d4594_251540 <= 0)
 		return -1;
 	for (i = (const char*)getMemAt(0x5D4594, 2692748); strcmp(a1, i); i += 12332) {
-		if (++v1 >= *(int*)&dword_5d4594_251540)
+		if (++v1 >= dword_5d4594_251540)
 			return -1;
 	}
 	return v1;

@@ -6762,13 +6762,13 @@ int __cdecl sub_526BF0(char* a1) {
 	if (!a1)
 		return -1;
 	v1 = 0;
-	if (*(int*)&dword_5d4594_251540 <= 0)
+	if (dword_5d4594_251540 <= 0)
 		return -1;
 	while (1) {
 		v2 = sub_410D40(v1);
 		if (!_strcmpi(v2, a1))
 			break;
-		if (++v1 >= *(int*)&dword_5d4594_251540)
+		if (++v1 >= dword_5d4594_251540)
 			return -1;
 	}
 	return v1;
@@ -6805,7 +6805,7 @@ int __cdecl sub_526CA0(char* a1) {
 	char* v3; // eax
 
 	v1 = 0;
-	for (i = 0; i < *(int*)&dword_5d4594_251540; ++i) {
+	for (i = 0; i < dword_5d4594_251540; ++i) {
 		v3 = sub_410D40(i);
 		if (!_strcmpi(v3, a1)) {
 			*getMemU32Ptr(0x5D4594, 3835340 + 36) = i;
@@ -6826,7 +6826,7 @@ int __cdecl sub_526CA0(char* a1) {
 int __cdecl sub_526D20(int a1) {
 	int result; // eax
 
-	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_251540) {
+	if (a1 < 0 || a1 >= dword_5d4594_251540) {
 		*getMemU32Ptr(0x5D4594, 3835340 + 36) = 0;
 		result = 0;
 	} else {
@@ -7425,7 +7425,7 @@ int* __cdecl sub_5277D0(int* a1, int a2) {
 															*((unsigned __int8*)result + 6));
 			v3 = result;
 			if (result) {
-				if (a2 < *(int*)&dword_5d4594_251540) {
+				if (a2 < dword_5d4594_251540) {
 					*((_BYTE*)result + 1) = a2;
 					if (*((_BYTE*)result + 2) >= sub_410DD0((unsigned __int8)a2, *(unsigned __int8*)result, 0))
 						*((_BYTE*)v3 + 2) = 0;
