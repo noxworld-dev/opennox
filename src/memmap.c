@@ -14,6 +14,8 @@ extern unsigned char byte_581450_1416[72];
 extern unsigned char byte_581450_9176[160];
 extern unsigned char byte_581450_9336[160];
 
+extern unsigned char byte_5D4594_3804364[160];
+
 extern nox_engine_flag nox_common_engineFlags;
 extern int nox_enable_audio;
 extern int nox_enable_threads;
@@ -2698,6 +2700,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 371780, (void*)&nox_playerinfo_arr, sizeof(nox_playerinfo_arr), 1},
 	{0x5D4594 + 1064948, (void*)&nox_savegame_arr_1064948, sizeof(nox_savegame_arr_1064948), 1},
 	{0x5D4594 + 1050020, (void*)&nox_obj_arr_1050020, sizeof(nox_obj_arr_1050020), 1},
+	{0x5D4594 + 3804364, (void*)byte_5D4594_3804364, sizeof(byte_5D4594_3804364), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
 	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},
