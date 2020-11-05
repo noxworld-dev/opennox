@@ -8,14 +8,14 @@ nox_memfile* nox_memfile_load(const char* path, int a2) {
 	if (!nf) {
 		return 0;
 	}
-	FILE* f = sub_408CC0_fopen(path, 0);
+	FILE* f = nox_xxx_openFileBin_408CC0(path, 0);
 	if (!f) {
 		nox_memfile_free(nf);
 		return 0;
 	}
-	if (!sub_408D40(f, a2)) {
+	if (!nox_xxx_cryptOpen_408D40(f, a2)) {
 		nox_memfile_free(nf);
-		sub_408D90(f);
+		nox_xxx_fileBinClose_408D90(f);
 		return 0;
 	}
 	sub_409050(f, 0, SEEK_END);
@@ -24,19 +24,19 @@ nox_memfile* nox_memfile_load(const char* path, int a2) {
 	nf->data = (char*)malloc(nf->size);
 	if (nf->data == 0) {
 		nox_memfile_free(nf);
-		sub_408D90(f);
+		nox_xxx_fileBinClose_408D90(f);
 		return 0;
 	}
 	int csize = nf->size;
 	int x1 = sub_408E40_fread(nf->data, 1, nf->size, f);
 	if (x1 != csize) {
 		nox_memfile_free(nf);
-		sub_408D90(f);
+		nox_xxx_fileBinClose_408D90(f);
 		return 0;
 	}
 	nf->cur = nf->data;
 	nf->end = nf->data + csize;
-	sub_408D90(f);
+	nox_xxx_fileBinClose_408D90(f);
 	return nf;
 }
 

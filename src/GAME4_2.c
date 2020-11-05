@@ -300,7 +300,7 @@ int __cdecl sub_51DF90(int a1) {
 	if (!(_WORD)v2)
 		return 0;
 	sub_426AC0_file3_fread(&a1, 2u);
-	sub_426C90();
+	nox_xxx_crypt_426C90();
 	result = (*(int(__cdecl**)(int, _DWORD))(v1 + 704))(v1, 0);
 	if (result) {
 		sub_426D40();
@@ -335,7 +335,7 @@ int __cdecl sub_51E010(char* a1, int a2) {
 	v3 = getMemByte(0x587000, 253116);
 	*(_DWORD*)--v2 = *getMemU32Ptr(0x587000, 253112);
 	v2[4] = v3;
-	result = sub_426910(Mem, 0, 19);
+	result = nox_xxx_cryptOpen_426910(Mem, 0, 19);
 	if (result) {
 		sub_426AC0_file3_fread(&v7, 4u);
 		v5 = sub_4268E0();
@@ -426,9 +426,9 @@ int __cdecl sub_51E260(int* a1, int a2) {
 	a1[38] = 0;
 	a1[46] = 0;
 	*getMemU32Ptr(0x5D4594, 2487520) = 0;
-	v2 = sub_408CC0_fopen(v7, 0);
+	v2 = nox_xxx_openFileBin_408CC0(v7, 0);
 	v3 = v2;
-	if (!v2 || !sub_408D40((int)v2, 1))
+	if (!v2 || !nox_xxx_cryptOpen_408D40((int)v2, 1))
 		return 0;
 	while (sub_51E540(v3, getMemAt(0x5D4594, 2487264))) {
 		if (!_strcmpi("ALGORITHM_DATA", (const char*)getMemAt(0x5D4594, 2487264))) {
@@ -476,7 +476,7 @@ int __cdecl sub_51E260(int* a1, int a2) {
 	}
 	v5 = 1;
 LABEL_27:
-	sub_408D90(v3);
+	nox_xxx_fileBinClose_408D90(v3);
 	if (v5 != 1 || sub_520AD0(a1 + 22) && sub_520AD0(a1 + 30) && (!a1[46] || sub_520AD0(a1 + 46)))
 		return v5;
 	return 0;

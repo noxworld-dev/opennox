@@ -52,7 +52,7 @@ int sub_578FF0() {
 									   142);
 			v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311592), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   142);
-			sub_413D30((char*)getMemAt(0x587000, 311600), v4, v6, v7);
+			nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 311600), v4, v6, v7);
 			v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311652), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   146);
 			nox_sprintf(buf, "%S", v5);
@@ -101,7 +101,7 @@ char* sub_579190() {
 													   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
 							v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311768), 0,
 													   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
-							sub_413D30((char*)getMemAt(0x587000, 311776), v4, v6, v8);
+							nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 311776), v4, v6, v8);
 							result = (char*)sub_579350(v10);
 							goto LABEL_14;
 						}
@@ -111,7 +111,7 @@ char* sub_579190() {
 												   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
 						v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 311888), 0,
 												   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
-						sub_413D30((char*)getMemAt(0x587000, 311896), v5, v7, v9);
+						nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 311896), v5, v7, v9);
 					} else {
 						nox_server_parseCmdText_443C80(v11, 0);
 					}
@@ -165,7 +165,7 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 										211);
 			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 312012), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   211);
-			sub_413D30((char*)getMemAt(0x587000, 312020), v6, v20, v22);
+			nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 312020), v6, v20, v22);
 			return 0;
 		}
 		if (*(_BYTE*)(v2 + 1040) & 1) {
@@ -208,7 +208,7 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 		v23 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, 1044 * v18 + 2517520));
 		v21 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 312072), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
 		v19 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 312136), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
-		sub_413D30((char*)getMemAt(0x587000, 312144), v19, v21, v23);
+		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 312144), v19, v21, v23);
 		return 0;
 	}
 	if (!sub_579700(v2)) {

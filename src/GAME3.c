@@ -5449,7 +5449,7 @@ char* __cdecl sub_4AC2B0(char* a1) {
 			if (!result)
 				return result;
 		}
-		result = (char*)sub_426910(FileName, 1, 19);
+		result = (char*)nox_xxx_cryptOpen_426910(FileName, 1, 19);
 		if (!result)
 			return result;
 		sub_426AC0_file3_fread(&v5, 4u);

@@ -96,7 +96,7 @@ _DWORD* __cdecl sub_41D1D0(int a1) {
 	}
 	sub_44A400();
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-		sub_413D30((char*)getMemAt(0x587000, 58064), v1, v6);
+		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 58064), v1, v6);
 		sub_43DDD0(0);
 		sub_43DE60();
 	}

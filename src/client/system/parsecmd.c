@@ -1618,7 +1618,7 @@ int __cdecl sub_4409D0(wchar_t* a1) {
 	nox_wcsncpy((wchar_t*)&v2[1], a1, 8u);
 	*(_WORD*)&v2[17] = 0;
 	*(_WORD*)&v2[19] = *getMemU16Ptr(0x5D4594, 2616328);
-	return sub_4E53C0(31, v2, 21, 0, 1);
+	return nox_xxx_netClientSend2_4E53C0(31, v2, 21, 0, 1);
 }
 
 //----- (00443E40) --------------------------------------------------------

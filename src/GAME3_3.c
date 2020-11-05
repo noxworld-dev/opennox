@@ -2385,7 +2385,7 @@ char* __cdecl sub_4E5360(int a1) {
 	char* result; // eax
 	char* v2;     // esi
 
-	result = nox_common_playerInfoGetXXX_417090(a1);
+	result = nox_common_playerInfoFromNum_417090(a1);
 	v2 = result;
 	if (result) {
 		sub_4E55F0(a1);
@@ -2400,7 +2400,7 @@ int __cdecl sub_4E5390(int a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (004E53C0) --------------------------------------------------------
-int __cdecl sub_4E53C0(int a1, const void* a2, int a3, int a4, int a5) {
+int __cdecl nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5) {
 	int result; // eax
 
 	if (nox_common_gameFlags_check_40A5C0(1)) {
@@ -2536,7 +2536,7 @@ unsigned int __cdecl sub_4E5670(unsigned __int8 a1) {
 	unsigned __int8 v9;  // al
 
 	v1 = 0;
-	nox_common_playerInfoGetXXX_417090(a1);
+	nox_common_playerInfoFromNum_417090(a1);
 	v2 = dword_5d4594_1565516;
 	if (dword_5d4594_1565516) {
 		do {
@@ -2614,7 +2614,7 @@ void __cdecl sub_4E5770(unsigned __int8 a1, int a2) {
 	v15 = 1;
 	v14 = 0;
 	v16 = 1 << a1;
-	v3 = nox_common_playerInfoGetXXX_417090(a1);
+	v3 = nox_common_playerInfoFromNum_417090(a1);
 	v13 = sub_40EBC0;
 	if (a1 != 31)
 		v13 = sub_40ECA0;
@@ -4347,7 +4347,7 @@ char* __cdecl sub_4E8110(int a1) {
 	int v11;      // ecx
 
 	v1 = 1 << a1;
-	result = nox_common_playerInfoGetXXX_417090(a1);
+	result = nox_common_playerInfoFromNum_417090(a1);
 	v3 = result;
 	if (result) {
 		result = (char*)nox_server_getFirstObject_4DA790();
@@ -8987,7 +8987,7 @@ void __cdecl sub_4EE8F0(int a1, int a2) {
 				sub_4DA2C0(a1, "Health.c:PoisonFade", 0);
 			} else if (v3 & 2) {
 				if (nox_common_gameFlags_check_40A5C0(2048) && *(_BYTE*)(a1 + 12) & 0x10) {
-					v4 = nox_common_playerInfoGetXXX_417090(31);
+					v4 = nox_common_playerInfoFromNum_417090(31);
 					if (v4) {
 						v5 = *((_DWORD*)v4 + 514);
 						if (v5)
@@ -9021,7 +9021,7 @@ void __cdecl sub_4EE9D0(int a1) {
 			sub_417530(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276), 1024);
 		} else if (v2 & 2) {
 			if (nox_common_gameFlags_check_40A5C0(2048) && *(_BYTE*)(a1 + 12) & 0x10) {
-				v3 = nox_common_playerInfoGetXXX_417090(31);
+				v3 = nox_common_playerInfoFromNum_417090(31);
 				if (v3) {
 					v4 = *((_DWORD*)v3 + 514);
 					if (v4)
@@ -9060,7 +9060,7 @@ void __cdecl sub_4EEA90(int a1, int a2) {
 				sub_417530(*(_DWORD*)(v4 + 276), 1024);
 		} else if (v3 & 2) {
 			if (nox_common_gameFlags_check_40A5C0(2048) && *(_BYTE*)(a1 + 12) & 0x10) {
-				v5 = nox_common_playerInfoGetXXX_417090(31);
+				v5 = nox_common_playerInfoFromNum_417090(31);
 				if (!v5)
 					goto LABEL_19;
 				v6 = *((_DWORD*)v5 + 514);

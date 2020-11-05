@@ -118,7 +118,7 @@ extern _DWORD dword_5d4594_1049800;
 extern _DWORD dword_5d4594_1064296;
 extern _DWORD dword_5d4594_1064888;
 extern _DWORD dword_587000_149232;
-extern _DWORD dword_5d4594_2650672;
+extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_1062456;
 extern _DWORD dword_5d4594_1063636;
 extern _DWORD dword_5d4594_815132;
@@ -675,7 +675,7 @@ int __cdecl sub_461630(__int16 a1) {
 	v4 = HIBYTE(v1);
 	v3[0] = -15;
 	*(_WORD*)&v3[1] = a1;
-	return sub_4E53C0(31, v3, 3, 0, 0);
+	return nox_xxx_netClientSend2_4E53C0(31, v3, 3, 0, 0);
 }
 
 //----- (00461930) --------------------------------------------------------
@@ -3187,7 +3187,7 @@ int sub_4683B0() {
 	_DWORD* v0; // eax
 	_DWORD* v1; // eax
 
-	nox_set_draw_unk1(sub_41E210);
+	nox_game_SetCliDrawFunc(sub_41E210);
 	dword_5d4594_1064816 = nox_new_window_from_file("wolreg.wnd", sub_4685D0);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1064816, sub_468480, 0, 0);
 	dword_5d4594_1064820 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1755);
@@ -7179,7 +7179,7 @@ int __cdecl sub_471C00(int a1) {
 	v1 = *(_DWORD*)(a1 + 32);
 	v7 = v1;
 	v2 = &nox_windows_arr_1093036[v1];
-	if (sub_4372E0() || dword_5d4594_2650672 || nox_common_gameFlags_check_40A5C0(9437184))
+	if (sub_4372E0() || nox_gameDisableMapDraw_5d4594_2650672 || nox_common_gameFlags_check_40A5C0(9437184))
 		return 1;
 	if (v1)
 		v3 = nox_win_width / 2 + 21;
@@ -9209,7 +9209,7 @@ int4* __cdecl sub_475810_draw(int* a1) {
 	v8 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(2048) && !sub_413830() ||
 		nox_common_gameFlags_check_40A5C0(2048) && !sub_413840() || sub_4356C0(*getMemIntPtr(0x5D4594, 2614252), 2) ||
-		dword_5d4594_2650672) {
+		nox_gameDisableMapDraw_5d4594_2650672) {
 		v8 = 1;
 	}
 	if (dword_5d4594_1556112 || v8) {

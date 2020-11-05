@@ -141,7 +141,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 		}
 	LABEL_93:
 		if ((_BYTE)a1 != (_BYTE)-13) {
-			sub_4E53C0(31, &a1, 4, 0, 1);
+			nox_xxx_netClientSend2_4E53C0(31, &a1, 4, 0, 1);
 			return (wchar_t*)getMemAt(0x5D4594, 1317000);
 		}
 		return (wchar_t*)getMemAt(0x5D4594, 1317000);
