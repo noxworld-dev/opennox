@@ -83,37 +83,37 @@ void CONNECT_WAIT_THEN(sm_args_t* args);
 void CONNECT_RESULT(sm_args_t* args);
 
 #define GOTO_(state, fps)                                                                                              \
-	do {                                                                                                               \
+	{                                                                                                               \
 		mainloop_enter = state;                                                                                        \
 		mainloop_enter_args = args;                                                                                    \
 		printf("goto %s\n", #state);                                                                                   \
 		return;                                                                                                        \
-	} while (0)
+	}
 
 #define GOTO_CONNECT_PREPARE()                                                                                         \
-	do {                                                                                                               \
+	{                                                                                                               \
 		GOTO_(CONNECT_PREPARE, 0);                                                                                     \
-	} while (0)
+	}
 
 #define GOTO_CONNECT_SERVER(hostname_, port_, data_)                                                                   \
-	do {                                                                                                               \
+	{                                                                                                               \
 		args->connect_server.hostname = hostname_;                                                                     \
 		args->connect_server.port = port_;                                                                             \
 		memmove(args->connect_server.data, data_, sizeof(args->connect_server.data));                                  \
 		GOTO_(CONNECT_SERVER, 0);                                                                                      \
-	} while (0)
+	}
 
 #define GOTO_NET_CONNECT(id_, hostname_, port_, data_)                                                                 \
-	do {                                                                                                               \
+	{                                                                                                               \
 		args->net_connect.id = id_;                                                                                    \
 		args->net_connect.hostname = hostname_;                                                                        \
 		args->net_connect.port = port_;                                                                                \
 		memmove(args->net_connect.data, data_, sizeof(args->net_connect.data));                                        \
 		GOTO_(NET_CONNECT, 0);                                                                                         \
-	} while (0)
+	}
 
 #define GOTO_NET_CONNECT_WAIT_LOOP(data_, id_, val_, retries_, flags_)                                                 \
-	do {                                                                                                               \
+	{                                                                                                               \
 		memmove(args->net_connect_wait_loop.data, data_, sizeof(args->net_connect_wait_loop.data));                    \
 		args->net_connect_wait_loop.id = id_;                                                                          \
 		args->net_connect_wait_loop.val = val_;                                                                        \
@@ -121,39 +121,39 @@ void CONNECT_RESULT(sm_args_t* args);
 		args->net_connect_wait_loop.flags = flags_;                                                                    \
 		args->net_connect_wait_loop.counter = 0;                                                                       \
 		GOTO_(NET_CONNECT_WAIT_LOOP, 0);                                                                               \
-	} while (0)
+	}
 
 #define GOTO_NET_CONNECT_WAIT_THEN(data_, id_, result_)                                                                \
-	do {                                                                                                               \
+	{                                                                                                               \
 		memmove(args->net_connect_wait_then.data, data_, sizeof(args->net_connect_wait_then.data));                    \
 		args->net_connect_wait_then.id = id_;                                                                          \
 		args->net_connect_wait_then.result = result_;                                                                  \
 		GOTO_(NET_CONNECT_WAIT_THEN, 0);                                                                               \
-	} while (0)
+	}
 
 #define GOTO_NET_CONNECT_THEN(result_)                                                                                 \
-	do {                                                                                                               \
+	{                                                                                                               \
 		args->net_connect_then.result = result_;                                                                       \
 		GOTO_(NET_CONNECT_THEN, 0);                                                                                    \
-	} while (0)
+	}
 
 #define GOTO_CONNECT_WAIT_LOOP(timeout_)                                                                               \
-	do {                                                                                                               \
+	{                                                                                                               \
 		args->connect_wait_loop.timeout = timeout_;                                                                    \
 		GOTO_(CONNECT_WAIT_LOOP, 0);                                                                                   \
-	} while (0)
+	}
 
 #define GOTO_CONNECT_WAIT_THEN(result_)                                                                                \
-	do {                                                                                                               \
+	{                                                                                                               \
 		args->connect_wait_then.result = result_;                                                                      \
 		GOTO_(CONNECT_WAIT_THEN, 0);                                                                                   \
-	} while (0)
+	}
 
 #define GOTO_CONNECT_RESULT(result_)                                                                                   \
-	do {                                                                                                               \
+	{                                                                                                               \
 		args->connect_result.result = result_;                                                                         \
 		GOTO_(CONNECT_RESULT, 0);                                                                                      \
-	} while (0)
+	}
 
 void CONNECT_PREPARE(sm_args_t* args) {
 	char* v1;            // ebx
@@ -187,11 +187,13 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	*(_DWORD*)&Data[97] = v5;
 	*(_DWORD*)&Data[101] = v4;
 	nox_xxx_regGetSerial_420120(&Data[105]);
-	if (!sub_43AF70())
-		sub_40E0D0((int)&Data[105], (LPCSTR)getMemAt(0x587000, 86344), 0);
+	if (!sub_43AF70()) {
+		sub_40E0D0((int) &Data[105], (LPCSTR) getMemAt(0x587000, 86344), 0);
+	}
 	Data[152] = !nox_xxx_checkConjSoloMap_40ABD0();
-	if (getMemByte(0x5D4594, 2660684) & 4)
+	if (getMemByte(0x5D4594, 2660684) & 4) {
 		Data[152] |= 0x80u;
+	}
 	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660012 + 87));
 	strcpy((char*)&Data[128], sub_41FA40());
 	*(_DWORD*)&Data[138] = dword_5d4594_2660032;
@@ -248,16 +250,21 @@ void NET_CONNECT(sm_args_t* args) {
 	int hostshort = args->net_connect.port;
 
 	v5 = *(int**)getMemAt(0x5D4594, 4 * a1 + 3843788);
-	if ((unsigned int)a1 >= 0x80)
+	if ((unsigned int)a1 >= 0x80) {
 		GOTO_NET_CONNECT_THEN(-3);
-	if (!v5)
+	}
+	if (!v5) {
 		GOTO_NET_CONNECT_THEN(-3);
-	if (!cp)
+	}
+	if (!cp) {
 		GOTO_NET_CONNECT_THEN(-4);
-	if (hostshort < 1024 || hostshort > 0x10000)
+	}
+	if (hostshort < 1024 || hostshort > 0x10000) {
 		GOTO_NET_CONNECT_THEN(-15);
-	if (WSAStartup(0x101u, &WSAData) == -1)
+	}
+	if (WSAStartup(0x101u, &WSAData) == -1) {
 		GOTO_NET_CONNECT_THEN(-21);
+	}
 	v7 = socket(AF_INET, SOCK_DGRAM, 0);
 	*v5 = v7;
 	if (v7 == -1) {
@@ -309,17 +316,21 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 	int v6 = args->net_connect_wait_loop.counter;
 
 	v4 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
-	if (a1 >= 0x80)
+	if (a1 >= 0x80) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
-	if (!v4)
+	}
+	if (!v4) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
+	}
 	v6 = 0;
-	if (20 * a3 < ++v6)
+	if (20 * a3 < ++v6) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -23);
+	}
 	nox_xxx_servNetInitialPackets_552A80(a1, a4 | 1);
 	sub_552460();
-	if (*(char*)(v4 + 113) >= a2)
+	if (*(char*)(v4 + 113) >= a2) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, 0);
+	}
 
 	args->net_connect_wait_loop.counter = v6;
 }
@@ -331,8 +342,9 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 	void* a4 = args->net_connect_wait_then.data;
 	unsigned int a5 = sizeof(args->net_connect_wait_then.data);
 
-	if (args->net_connect_wait_then.result)
+	if (args->net_connect_wait_then.result) {
 		GOTO_NET_CONNECT_THEN(-23);
+	}
 
 	v5 = *(int**)getMemAt(0x5D4594, 4 * a1 + 3843788);
 	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
@@ -340,8 +352,9 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 		*getMemU8Ptr(0x5D4594, 2512892) = 31;
 		*getMemU8Ptr(0x5D4594, 2512892 + 1) = *(_BYTE*)(v5[12] + 1);
 		*getMemU8Ptr(0x5D4594, 2512892 + 2) = 32;
-		if (a4)
-			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void*)a4, a5);
+		if (a4) {
+			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void *) a4, a5);
+		}
 		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
 	}
 	GOTO_NET_CONNECT_THEN(v5[5]);
@@ -349,11 +362,13 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 
 void NET_CONNECT_THEN(sm_args_t* args) {
 	int v5 = args->net_connect_then.result;
-	if (v5 < 0)
+	if (v5 < 0) {
 		GOTO_CONNECT_RESULT(v5);
+	}
 
-	if (!nox_common_gameFlags_check_40A5C0(1))
+	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		dword_5d4594_2649712 |= 0x80000000;
+	}
 	sub_40ED10(31, 0);
 	sub_40A340(0);
 	nox_xxx_mapCrcMb_40A360(0);
@@ -361,25 +376,30 @@ void NET_CONNECT_THEN(sm_args_t* args) {
 }
 
 void CONNECT_WAIT_LOOP(sm_args_t* args) {
-	if (nox_call_get_ticks() >= args->connect_wait_loop.timeout)
+	if (nox_call_get_ticks() >= args->connect_wait_loop.timeout) {
 		GOTO_CONNECT_WAIT_THEN(0);
+	}
 
 	nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
 	nox_xxx_netSendBySock_40EE10(*(unsigned int*)&dword_5d4594_815700, 31, 0);
 	sub_40ED10(31, 0);
 	sub_552460();
-	if (nox_xxx_crc_40A370())
+	if (nox_xxx_crc_40A370()) {
 		GOTO_CONNECT_WAIT_THEN(1);
+	}
 }
 
 void CONNECT_WAIT_THEN(sm_args_t* args) {
-	if (!args->connect_wait_then.result)
+	if (!args->connect_wait_then.result) {
 		GOTO_CONNECT_RESULT(-19);
-	if (sub_409AD0() != 66458)
+	}
+	if (sub_409AD0() != 66458) {
 		GOTO_CONNECT_RESULT(-20);
+	}
 	dword_5d4594_811372 = 2;
-	if (!nox_common_gameFlags_check_40A5C0(1))
+	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		sub_417C60();
+	}
 	GOTO_CONNECT_RESULT(0);
 }
 
@@ -388,13 +408,16 @@ void CONNECT_RESULT(sm_args_t* args) {
 	if (result) {
 		nox_common_gameFlags_unset_40A540(0x100000);
 		g_v21 = 0;
-		if (nox_common_gameFlags_check_40A5C0(1))
+		if (nox_common_gameFlags_check_40A5C0(1)) {
 			nox_xxx_servEndSession_4D3200();
-		if (nox_common_gameFlags_check_40A5C0(2))
+		}
+		if (nox_common_gameFlags_check_40A5C0(2)) {
 			nox_xxx_cliSetupSession_437190();
+		}
 		nox_xxx_clear18hDD_416190();
-		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
+		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13)) {
 			sub_413E30();
+		}
 		sub_43D0A0(result);
 		cmain_loop(0);
 		return;
@@ -418,20 +441,24 @@ void CONNECT_RESULT(sm_args_t* args) {
 			int v26;
 			int v28;
 			nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v26, &v28, &v25);
-			if (!v26)
+			if (!v26) {
 				nox_xxx_gameResizeScreen_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v25);
-			if (!nox_xxx_video_43BF10_upd_video_mode(0))
+			}
+			if (!nox_xxx_video_43BF10_upd_video_mode(0)) {
 				return;
+			}
 		}
 		if (!nox_xxx_initGameSession_435CC0()) {
 			cmain_loop(0);
 			return;
 		}
 	}
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13)) {
 		sub_413E30();
-	if (nox_common_gameFlags_check_40A5C0(0x2000) && nox_common_gameFlags_check_40A5C0(1) && sub_43AF40())
+	}
+	if (nox_common_gameFlags_check_40A5C0(0x2000) && nox_common_gameFlags_check_40A5C0(1) && sub_43AF40()) {
 		sub_43AA70();
+	}
 	sub_43F1A0();
 	nox_video_setGammaSetting_434B30(*getMemIntPtr(0x587000, 80852));
 	sub_434B60();
@@ -448,10 +475,12 @@ void cmain_loop(int reentrant) {
 	while (1) {
 		if (!reentrant) {
 			sub_43F140(300);
-			if (!sub_43C060())
+			if (!sub_43C060()) {
 				return;
-			if (!nox_xxx_cliWaitForJoinData_43BFE0())
+			}
+			if (!nox_xxx_cliWaitForJoinData_43BFE0()) {
 				return;
+			}
 			if (g_v20) {
 				sub_43DBA0();
 				g_v20 = 0;
@@ -478,14 +507,17 @@ void cmain_loop(int reentrant) {
 		nox_ensure_thing_bin();
 		*getMemU32Ptr(0x5D4594, 2650664) = 0;
 		*getMemU32Ptr(0x5D4594, 2649708) = 0;
-		if (g_v21)
+		if (g_v21) {
 			GOTO_CONNECT_RESULT(0);
-		if (nox_common_gameFlags_check_40A5C0(1)) {
-			if (!nox_xxx_servNewSession_4D1660())
-				return;
 		}
-		if (!nox_xxx_clientResetSpriteAndGui_4357D0(g_argc2, g_argv2))
+		if (nox_common_gameFlags_check_40A5C0(1)) {
+			if (!nox_xxx_servNewSession_4D1660()) {
+				return;
+			}
+		}
+		if (!nox_xxx_clientResetSpriteAndGui_4357D0(g_argc2, g_argv2)) {
 			return;
+		}
 		if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x400000) &&
 			nox_common_getEngineFlag(NOX_ENGINE_FLAG_1)) {
 			v23 = nox_common_get_data_path_409E10();
