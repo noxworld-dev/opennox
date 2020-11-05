@@ -96,7 +96,7 @@ nox_engine_flag nox_common_engineFlags = 0u;
 _DWORD nox_common_gameFlags;        // & 1 = host server; & 0x800 = solo game
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
-void f(int);
+void cmain_loop(int);
 int g_v20, g_v21;
 int g_argc2;
 char** g_argv2;
@@ -213,7 +213,7 @@ void mainloop_exit_1() {
 	}
 
 	// repeat
-	f(1);
+	cmain_loop(1);
 }
 
 void mainloop_exit_2() {
@@ -243,7 +243,7 @@ void mainloop_exit_2() {
 	nullsub_2();
 
 	// repeat
-	f(0);
+	cmain_loop(0);
 }
 
 //----- (00401000) --------------------------------------------------------
@@ -461,7 +461,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	g_argv2 = argv;
 	g_v20 = 0;
 	g_v21 = 0;
-	f(0);
+	cmain_loop(0);
 	return result;
 }
 // 4015E2: variable 'v18' is possibly undefined

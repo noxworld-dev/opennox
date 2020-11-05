@@ -6,7 +6,7 @@
 
 #include "proto.h"
 
-void f(int);
+void cmain_loop(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
 // defined in GAME1.c
@@ -396,18 +396,18 @@ void CONNECT_RESULT(sm_args_t* args) {
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
 			sub_413E30();
 		sub_43D0A0(result);
-		f(0);
+		cmain_loop(0);
 		return;
 	}
 	g_v21 = 1;
 	if (nox_xxx_replayStartReadingOrSaving_4D38D0() == 1) {
-		f(0);
+		cmain_loop(0);
 		return;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_setGameState_43DDF0(0);
 	} else if (!nox_xxx_servInitialMapLoad_4D17F0()) {
-		f(0);
+		cmain_loop(0);
 		return;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(2)) {
@@ -424,7 +424,7 @@ void CONNECT_RESULT(sm_args_t* args) {
 				return;
 		}
 		if (!nox_xxx_initGameSession_435CC0()) {
-			f(0);
+			cmain_loop(0);
 			return;
 		}
 	}
@@ -440,7 +440,7 @@ void CONNECT_RESULT(sm_args_t* args) {
 	mainloop_43E290();
 }
 
-void f(int reentrant) {
+void cmain_loop(int reentrant) {
 	static sm_args_t args_;
 	sm_args_t* args = &args_;
 	char* v23;
