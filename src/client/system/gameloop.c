@@ -210,7 +210,7 @@ void mainloop() {
 	static DWORD last_tick;
 
 	// rate limit to < 40 fps
-	cur_tick = nox_get_ticks();
+	cur_tick = nox_platform_get_ticks();
 	if (cur_tick - last_tick < 1000 / 40)
 		return;
 	last_tick = cur_tick;
@@ -243,7 +243,7 @@ void mainloop() {
 		sub_40D250();
 		sub_40DF90();
 	}
-	sub_416C70(30);
+	nox_framerate_limit_416C70(30);
 	sub_4453A0_poll_events();
 	sub_413520_gamedisk();
 	sub_435770();
@@ -387,7 +387,7 @@ void mainloop() {
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		if (nox_common_gameFlags_check_40A5C0(0x10000000)) {
 			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_32))
-				sub_416DD0();
+				nox_ticks_maybe_sleep_416DD0();
 			mainloop_stop();
 			return;
 		}

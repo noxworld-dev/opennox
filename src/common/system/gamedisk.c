@@ -56,7 +56,7 @@ int sub_413520_gamedisk() {
 		dword_5d4594_251728 = 0;
 		break;
 	case 2:
-		v3 = sub_416BB0();
+		v3 = nox_call_get_ticks();
 		*getMemU64Ptr(0x5D4594, 251628) = v3;
 		v0 = v3 - *getMemU64Ptr(0x5D4594, 251732);
 		if (v0 > 0x7D0) {

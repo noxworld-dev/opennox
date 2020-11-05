@@ -9779,7 +9779,7 @@ void __cdecl sub_53DF40(int a3) {
 		sub_419570(a3 + 48, *(_DWORD*)(a3 + 36));
 		sub_4E8290(1, 0);
 	}
-	v2 = sub_416BB0() - *(_QWORD*)(v1 + 8);
+	v2 = nox_call_get_ticks() - *(_QWORD*)(v1 + 8);
 	v11.field_4 = *((float*)&v2 + 1);
 	if (v2 <= 0x4E20) {
 		v3 = *(_DWORD*)(a3 + 508);
@@ -9787,7 +9787,7 @@ void __cdecl sub_53DF40(int a3) {
 			if (v3 != *(_DWORD*)v1 ||
 				(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v1 + 16)) <= *(int*)(v1 + 20)) {
 				*(_DWORD*)(a3 + 16) |= 0x40u;
-				*(_QWORD*)(v1 + 8) = sub_416BB0();
+				*(_QWORD*)(v1 + 8) = nox_call_get_ticks();
 				v5 = *(_DWORD*)(a3 + 508);
 				if (*(_DWORD*)(v5 + 16) & 0x8020) {
 					sub_4EC300(a3);

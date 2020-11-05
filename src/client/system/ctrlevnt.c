@@ -93,7 +93,7 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 	char v42[2];          // [esp+2h] [ebp-6h]
 	int v43;              // [esp+4h] [ebp-4h]
 
-	*getMemU64Ptr(0x5D4594, 747876) = sub_416BB0();
+	*getMemU64Ptr(0x5D4594, 747876) = nox_call_get_ticks();
 	if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x2000))
 		*getMemU64Ptr(0x5D4594, 747876) += sub_42E630();
 	v2 = *getMemU32Ptr(0x5D4594, 2618908);
