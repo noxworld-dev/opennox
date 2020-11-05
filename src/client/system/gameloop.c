@@ -10,10 +10,10 @@
 #endif
 
 extern _DWORD dword_5d4594_1556112;
-extern _DWORD dword_587000_93200;
+extern _DWORD nox_xxx_aBlindcast_587000_93200;
 extern _DWORD dword_587000_93196;
-extern _DWORD dword_587000_173328;
-extern _DWORD dword_587000_173332;
+extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
+extern _DWORD nox_xxx_mapDownloadOK_587000_173332;
 extern _DWORD dword_5d4594_2618912;
 extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_815132;
@@ -34,8 +34,8 @@ extern int (*func_5D4594_816392)(void);
 void map_download_start() {
 	nox_xxx_gameClearAll_467DF0(1);
 	nox_xxx_gameDownloadShowDialog_4CC770();
-	dword_587000_173328 = 1;
-	dword_587000_173332 = 1;
+	nox_xxx_gameDownloadInProgress_587000_173328 = 1;
+	nox_xxx_mapDownloadOK_587000_173332 = 1;
 	map_download_loop(1);
 }
 
@@ -132,15 +132,15 @@ int map_download_finish() {
 	char* v13;   // [esp-4h] [ebp-10Ch]
 
 	nox_xxx_guiDownloadClose_4CC930();
-	result = dword_587000_173332;
-	if (dword_587000_173332) {
+	result = nox_xxx_mapDownloadOK_587000_173332;
+	if (nox_xxx_mapDownloadOK_587000_173332) {
 		int v3; // [esp+4h] [ebp-Ch]
 		int v4; // [esp+8h] [ebp-8h]
 		int v5; // [esp+Ch] [ebp-4h]
 		nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v3, &v5, &v4);
 		if (!v3)
 			nox_xxx_gameResizeScreen_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
-		result = dword_587000_173332;
+		result = nox_xxx_mapDownloadOK_587000_173332;
 	}
 
 	if (!result) {
@@ -216,14 +216,14 @@ void mainloop() {
 	last_tick = cur_tick;
 #endif
 
-	if (dword_587000_173328) {
+	if (nox_xxx_gameDownloadInProgress_587000_173328) {
 		int ret = map_download_loop(0);
 		if (ret == -1) {
 			return;
 		} else if (ret == 0) {
 			// map error
 			dword_587000_93196 = 0;
-			dword_587000_93200 = 0;
+			nox_xxx_aBlindcast_587000_93200 = 0;
 			mainloop_exit();
 			return;
 		}
@@ -231,10 +231,10 @@ void mainloop() {
 		_control87(0x300u, 0x300u);
 		if (!nox_xxx_gameChangeMap_43DEB0()) {
 			// XXX
-			if (dword_587000_173328)
+			if (nox_xxx_gameDownloadInProgress_587000_173328)
 				return;
 			dword_587000_93196 = 0;
-			dword_587000_93200 = 0;
+			nox_xxx_aBlindcast_587000_93200 = 0;
 			mainloop_exit();
 			return;
 		}
@@ -273,7 +273,7 @@ void mainloop() {
 	sub_4519C0();
 	sub_4312C0();
 	sub_495430();
-	if (nox_common_gameFlags_check_40A5C0(1) && dword_587000_93200 == 1) {
+	if (nox_common_gameFlags_check_40A5C0(1) && nox_xxx_aBlindcast_587000_93200 == 1) {
 		if (!dword_5d4594_815132) {
 			if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 				if (nox_server_gameDoSwitchMap_40A680()) {

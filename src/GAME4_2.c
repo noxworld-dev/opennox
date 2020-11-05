@@ -31,16 +31,16 @@ extern _DWORD dword_5d4594_2487620;
 extern _DWORD dword_5d4594_2487708;
 extern _DWORD dword_5d4594_2487552;
 extern _DWORD dword_5d4594_2487880;
-extern _DWORD dword_587000_312788;
+extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
 extern _DWORD dword_5d4594_2487532;
-extern _DWORD dword_587000_312784;
+extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
 extern _DWORD dword_5d4594_2487248;
-extern _DWORD dword_587000_312800;
-extern _DWORD dword_587000_312816;
-extern _DWORD dword_587000_312804;
+extern _DWORD nox_xxx_conjurerMaxHealth_587000_312800;
+extern _DWORD nox_xxx_wizardMaxHealth_587000_312816;
+extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
 extern _DWORD dword_5d4594_2487560;
 extern _DWORD dword_5d4594_2487540;
-extern _DWORD dword_587000_312820;
+extern _DWORD nox_xxx_wizardMaximumMana_587000_312820;
 extern _DWORD dword_5d4594_2487712;
 extern _DWORD dword_5d4594_2487524;
 extern _DWORD dword_5d4594_251540;
@@ -11468,15 +11468,15 @@ int __cdecl sub_52DD50(int a1, int a2, int a3, int a4, void* a5) {
 		v10 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a3 + 748) + 276) + 2251);
 		switch (v10) {
 		case 0:
-			v11 = *(float*)&dword_587000_312784;
+			v11 = *(float*)&nox_xxx_warriorMaxHealth_587000_312784;
 		LABEL_14:
 			v15 = v11 * v15;
 			break;
 		case 2:
-			v11 = *(float*)&dword_587000_312800;
+			v11 = *(float*)&nox_xxx_conjurerMaxHealth_587000_312800;
 			goto LABEL_14;
 		case 1:
-			v11 = *(float*)&dword_587000_312816;
+			v11 = *(float*)&nox_xxx_wizardMaxHealth_587000_312816;
 			goto LABEL_14;
 		}
 	}
@@ -11816,17 +11816,17 @@ int __cdecl sub_52E450(int a1, int a2, int a3) {
 			v8 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251);
 			if (v8) {
 				if (v8 == 1) {
-					v9 = (double)a3 * *(float*)&dword_587000_312820;
+					v9 = (double)a3 * *(float*)&nox_xxx_wizardMaximumMana_587000_312820;
 				} else {
 					if (v8 != 2) {
 					LABEL_33:
 						nox_xxx_playerManaAdd_4EEB80(a1, v6);
 						return 1;
 					}
-					v9 = (double)a3 * *(float*)&dword_587000_312804;
+					v9 = (double)a3 * *(float*)&nox_xxx_conjurerMaxMana_587000_312804;
 				}
 			} else {
-				v9 = (double)a3 * *(float*)&dword_587000_312788;
+				v9 = (double)a3 * *(float*)&nox_xxx_warriorMaxMana_587000_312788;
 			}
 			v11 = v9;
 			LOWORD(v6) = nox_float2int(v11);
@@ -12466,15 +12466,15 @@ int __cdecl sub_52F2E0(float a1) {
 		v8 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(v7 + 748) + 276) + 2251);
 		switch (v8) {
 		case 0:
-			v9 = *(float*)&dword_587000_312784;
+			v9 = *(float*)&nox_xxx_warriorMaxHealth_587000_312784;
 		LABEL_27:
 			v11 = v9 * v11;
 			break;
 		case 2:
-			v9 = *(float*)&dword_587000_312800;
+			v9 = *(float*)&nox_xxx_conjurerMaxHealth_587000_312800;
 			goto LABEL_27;
 		case 1:
-			v9 = *(float*)&dword_587000_312816;
+			v9 = *(float*)&nox_xxx_wizardMaxHealth_587000_312816;
 			goto LABEL_27;
 		}
 	}

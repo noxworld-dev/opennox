@@ -38,7 +38,7 @@ void nullsub_68() {}
 void nullsub_69() {}
 void nullsub_70() {}
 
-extern void* dword_587000_133480;
+extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern void* dword_587000_155144;
 extern void* dword_587000_127004;
 extern void* dword_587000_93164;
@@ -5535,7 +5535,7 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 316784) = getMemAt(0x581450, 11564);
 	*(void**)getMemAt(0x587000, 316808) = (void*)0xdeadbeef;
 
-	dword_587000_133480 = getMemAt(0x5D4594, 1049220);
+	nox_xxx_aClosewoodengat_587000_133480 = getMemAt(0x5D4594, 1049220);
 	dword_587000_155144 = getMemAt(0x5D4594, 1193204);
 	dword_587000_127004 = getMemAt(0x5D4594, 1045324);
 	dword_587000_93164 = getMemAt(0x5D4594, 816244);

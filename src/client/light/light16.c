@@ -11,7 +11,7 @@ extern _DWORD dword_5d4594_1193176;
 extern _DWORD dword_587000_142328;
 extern _DWORD dword_587000_154968;
 extern _DWORD dword_5d4594_3805484;
-extern _DWORD dword_587000_80800;
+extern _DWORD nox_xxx_useAudio_587000_80800;
 extern _DWORD dword_5d4594_1193184;
 extern _DWORD dword_5d4594_2650680;
 extern _DWORD dword_5d4594_805836;
@@ -447,7 +447,7 @@ int sub_430D60() {
 
 	result = 0;
 	dword_5d4594_3805484 = sub_485880;
-	dword_587000_80800 = 0;
+	nox_xxx_useAudio_587000_80800 = 0;
 	dword_5d4594_805836 = 0;
 	*getMemU32Ptr(0x5D4594, 3807124) = 0;
 	*getMemU32Ptr(0x5D4594, 3807148) = sub_481470;
@@ -938,7 +938,7 @@ BOOL nox_xxx___cfltcvt_init_430CC0() {
 	*getMemU32Ptr(0x5D4594, 3807148) = sub_4814F0;
 	dword_5d4594_3807156 = sub_469920;
 	result = sub_430D40();
-	dword_587000_80800 = result;
+	nox_xxx_useAudio_587000_80800 = result;
 	if (result) {
 		dword_5d4594_805836 = 1;
 		dword_5d4594_3805484 = sub_480950;

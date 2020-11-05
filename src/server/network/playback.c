@@ -4,7 +4,7 @@
 #include "../../proto.h"
 extern _DWORD dword_5d4594_1548736;
 extern _DWORD dword_5d4594_1548732;
-extern _DWORD dword_587000_197428;
+extern _DWORD nox_xxx_replayFile_587000_197428;
 
 //----- (004D3580) --------------------------------------------------------
 int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
@@ -20,18 +20,18 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 	char v11[512];   // [esp+6Ch] [ebp-200h]
 
 	v1 = 0;
-	if (*(int*)&dword_587000_197428 == -1) {
+	if (*(int*)&nox_xxx_replayFile_587000_197428 == -1) {
 		v1 = 1;
 	} else {
 		if (!dword_5d4594_1548732) {
-			if (_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548728), 4u)) {
+			if (_read(*(int *) &nox_xxx_replayFile_587000_197428, getMemAt(0x5D4594, 1548728), 4u)) {
 				dword_5d4594_1548732 = 1;
 			} else {
 				v1 = 1;
 			}
 		}
 		if (!dword_5d4594_1548736) {
-			if (_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548724), 1u)) {
+			if (_read(*(int *) &nox_xxx_replayFile_587000_197428, getMemAt(0x5D4594, 1548724), 1u)) {
 				dword_5d4594_1548736 = 1;
 			} else {
 				v1 = 1;
@@ -51,18 +51,18 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 			case 1u:
 				if (a1 == 1)
 					return v1;
-				_read(*(int *) &dword_587000_197428, &v9, 1u);
-				_read(*(int *) &dword_587000_197428, &v5, 4u);
-				_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548740), v5);
+				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v9, 1u);
+				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v5, 4u);
+				_read(*(int *) &nox_xxx_replayFile_587000_197428, getMemAt(0x5D4594, 1548740), v5);
 				nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode((unsigned __int8) v9, getMemAt(0x5D4594, 1548740), v5);
 				break;
 			case 2u:
 				if (a1 == 1)
 					return v1;
-				_read(*(int *) &dword_587000_197428, &v6, 1u);
-				_read(*(int *) &dword_587000_197428, v10, (unsigned __int8) v6);
+				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v6, 1u);
+				_read(*(int *) &nox_xxx_replayFile_587000_197428, v10, (unsigned __int8) v6);
 				nox_xxx_gameSetMapPath_409D70(v10);
-				_read(*(int *) &dword_587000_197428, &v7, 4u);
+				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v7, 4u);
 				if ((v7 & 0xFF0000) != 0x10000) {
 					v2 = nox_xxx_loadString_40F1D0((char *) getMemAt(0x587000, 197480), 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 355);
@@ -76,8 +76,8 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 				break;
 			case 3u:
 				if (a1 == 1) {
-					_read(*(int *) &dword_587000_197428, &v8, 4u);
-					_read(*(int *) &dword_587000_197428, v11, 2 * v8);
+					_read(*(int *) &nox_xxx_replayFile_587000_197428, &v8, 4u);
+					_read(*(int *) &nox_xxx_replayFile_587000_197428, v11, 2 * v8);
 					nox_server_parseCmdText_443C80((wchar_t *) v11, 0);
 				}
 				break;
@@ -90,11 +90,11 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 			default:
 				break;
 		}
-		if (!_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548728), 4u)) {
+		if (!_read(*(int *) &nox_xxx_replayFile_587000_197428, getMemAt(0x5D4594, 1548728), 4u)) {
 			dword_5d4594_1548732 = 0;
 			return v1;
 		}
-		if (!_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548724), 1u)) {
+		if (!_read(*(int *) &nox_xxx_replayFile_587000_197428, getMemAt(0x5D4594, 1548724), 1u)) {
 			dword_5d4594_1548736 = 0;
 			return v1;
 		}

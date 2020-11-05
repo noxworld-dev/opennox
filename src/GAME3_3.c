@@ -11,13 +11,13 @@
 
 #include "proto.h"
 
-extern _DWORD dword_587000_205200;
+extern _DWORD nox_xxx_respawnAllow_587000_205200;
 extern _DWORD dword_5d4594_1567960;
 extern _DWORD dword_5d4594_1567956;
 extern _DWORD dword_5d4594_1568280;
 extern _DWORD dword_5d4594_1568288;
 extern _DWORD dword_5d4594_1563320;
-extern _DWORD dword_587000_201380;
+extern _DWORD nox_xxx_cliPlayerGuidMb_587000_201380;
 extern _DWORD dword_5d4594_1568308;
 extern _DWORD dword_5d4594_1567988;
 extern _DWORD dword_5d4594_1565628;
@@ -33,13 +33,13 @@ extern void* nox_alloc_respawn_1568020;
 extern void* nox_alloc_objMem_1563344;
 extern _DWORD dword_5d4594_1565616;
 extern _DWORD dword_587000_202404;
-extern _DWORD dword_587000_312788;
+extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
 extern _DWORD dword_5d4594_1563660;
-extern _DWORD dword_587000_312784;
-extern _DWORD dword_587000_312800;
-extern _DWORD dword_587000_312816;
-extern _DWORD dword_587000_312804;
-extern _DWORD dword_587000_312820;
+extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
+extern _DWORD nox_xxx_conjurerMaxHealth_587000_312800;
+extern _DWORD nox_xxx_wizardMaxHealth_587000_312816;
+extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
+extern _DWORD nox_xxx_wizardMaximumMana_587000_312820;
 extern _DWORD dword_5d4594_2649712;
 extern _QWORD qword_581450_10176;
 extern _QWORD qword_581450_10256;
@@ -1263,7 +1263,7 @@ int __cdecl nox_xxx_cliSetPlrGuid_4E3C60(int a1) {
 	int result; // eax
 
 	result = a1;
-	dword_587000_201380 = a1;
+	nox_xxx_cliPlayerGuidMb_587000_201380 = a1;
 	return result;
 }
 
@@ -1271,10 +1271,10 @@ int __cdecl nox_xxx_cliSetPlrGuid_4E3C60(int a1) {
 int nox_xxx_servResetObjectGIDs_4E3C70() {
 	int result; // eax
 
-	result = dword_587000_201380;
+	result = nox_xxx_cliPlayerGuidMb_587000_201380;
 	*getMemU32Ptr(0x587000, 201376) = 1000000000;
-	if (dword_587000_201380)
-		*getMemU32Ptr(0x587000, 201376) = dword_587000_201380;
+	if (nox_xxx_cliPlayerGuidMb_587000_201380)
+		*getMemU32Ptr(0x587000, 201376) = nox_xxx_cliPlayerGuidMb_587000_201380;
 	return result;
 }
 
@@ -7392,7 +7392,7 @@ int __cdecl nox_xxx_findParentChainPlayer_4EC580(int a1) {
 void sub_4EC5B0() {
 	dword_5d4594_1568024 = 0;
 	nox_xxx_class_4144D0(*(_DWORD**)&nox_alloc_respawn_1568020);
-	dword_587000_205200 = 1;
+	nox_xxx_respawnAllow_587000_205200 = 1;
 }
 
 //----- (004EC5E0) --------------------------------------------------------
@@ -7402,8 +7402,8 @@ _DWORD* __cdecl nox_xxx_respawnAdd_4EC5E0(int a1) {
 	unsigned __int16 v3; // cx
 	_BYTE* v4;           // ebp
 
-	result = *(_DWORD**)&dword_587000_205200;
-	if (dword_587000_205200) {
+	result = *(_DWORD**)&nox_xxx_respawnAllow_587000_205200;
+	if (nox_xxx_respawnAllow_587000_205200) {
 		result = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_respawn_1568020);
 		v2 = result;
 		if (result) {
@@ -12584,14 +12584,14 @@ int __cdecl nox_xxx_pickupPotion_4F37D0(int a1, int a2, int a3) {
 		v7 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251);
 		if (v7) {
 			if (v7 == 1) {
-				v8 = (double)v17 * *(float*)&dword_587000_312816;
+				v8 = (double)v17 * *(float*)&nox_xxx_wizardMaxHealth_587000_312816;
 			} else {
 				if (v7 != 2)
 					goto LABEL_17;
-				v8 = (double)v17 * *(float*)&dword_587000_312800;
+				v8 = (double)v17 * *(float*)&nox_xxx_conjurerMaxHealth_587000_312800;
 			}
 		} else {
-			v8 = (double)v17 * *(float*)&dword_587000_312784;
+			v8 = (double)v17 * *(float*)&nox_xxx_warriorMaxHealth_587000_312784;
 		}
 		v15 = v8;
 		v5 = nox_float2int(v15);
@@ -12609,14 +12609,14 @@ int __cdecl nox_xxx_pickupPotion_4F37D0(int a1, int a2, int a3) {
 	v10 = *(_BYTE*)(*(_DWORD*)(v9 + 276) + 2251);
 	if (v10) {
 		if (v10 == 1) {
-			v11 = (double)v17 * *(float*)&dword_587000_312820;
+			v11 = (double)v17 * *(float*)&nox_xxx_wizardMaximumMana_587000_312820;
 		} else {
 			if (v10 != 2)
 				goto LABEL_28;
-			v11 = (double)v17 * *(float*)&dword_587000_312804;
+			v11 = (double)v17 * *(float*)&nox_xxx_conjurerMaxMana_587000_312804;
 		}
 	} else {
-		v11 = (double)v17 * *(float*)&dword_587000_312788;
+		v11 = (double)v17 * *(float*)&nox_xxx_warriorMaxMana_587000_312788;
 	}
 	v14 = v11;
 	v5 = nox_float2int(v14);

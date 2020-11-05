@@ -3,7 +3,7 @@
 #include "../../proto.h"
 
 extern _DWORD dword_587000_122956;
-extern _DWORD dword_587000_123008;
+extern _DWORD nox_xxx_aSpellphoneme_3_587000_123008;
 extern _DWORD dword_5d4594_832480;
 extern _DWORD dword_5d4594_832520;
 extern _DWORD dword_5d4594_832500;
@@ -324,15 +324,15 @@ int __cdecl sub_44F0F0(int a1, int a2) {
 	}
 	result = *getMemU32Ptr(0x5D4594, 2598000) / 0x1Eu;
 	if (*getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu) {
-		if (dword_587000_123008 != 1)
+		if (nox_xxx_aSpellphoneme_3_587000_123008 != 1)
 			return result;
 	} else {
 		result = 1;
-		if (dword_587000_123008 == 1) {
-			dword_587000_123008 = *getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu;
+		if (nox_xxx_aSpellphoneme_3_587000_123008 == 1) {
+			nox_xxx_aSpellphoneme_3_587000_123008 = *getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu;
 			return result;
 		}
-		dword_587000_123008 = 1;
+		nox_xxx_aSpellphoneme_3_587000_123008 = 1;
 	}
 	v12 = *getMemU32Ptr(0x5D4594, 2523948);
 	v6 = (nox_win_width - NOX_DEFAULT_WIDTH) / 2;

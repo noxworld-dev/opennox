@@ -4,7 +4,7 @@
 extern _DWORD dword_5d4594_1316452;
 extern _DWORD dword_5d4594_1316448;
 extern _DWORD dword_5d4594_1316456;
-extern _DWORD dword_587000_178216;
+extern _DWORD nox_xxx_lightningSteps_587000_178216;
 extern _DWORD dword_5d4594_1316484;
 extern _DWORD dword_5d4594_1316472;
 extern _DWORD dword_5d4594_1316436;
@@ -197,20 +197,20 @@ int __cdecl nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, __int16* a
 	v12 = (__int64)sqrt((double)(v9 * v9 + v11 * v11));
 	if ((int)v12 >= 512) {
 		dword_5d4594_1316476 = *getMemU32Ptr(0x587000, 178204);
-		dword_5d4594_1316448 = dword_587000_178216;
+		dword_5d4594_1316448 = nox_xxx_lightningSteps_587000_178216;
 	} else {
 		*(_DWORD*)&dword_5d4594_1316476 =
 			*getMemU32Ptr(0x587000, 178208) +
 			(int)v12 * (*getMemU32Ptr(0x587000, 178204) - *getMemU32Ptr(0x587000, 178208)) / 512;
 		bool v13p = 0;
 		if ((int)v12 < 64) {
-			v13 = *(_DWORD*)&dword_587000_178216 - 3;
+			v13 = *(_DWORD*)&nox_xxx_lightningSteps_587000_178216 - 3;
 		} else if ((int)v12 < 128) {
-			v13 = *(_DWORD*)&dword_587000_178216 - 2;
+			v13 = *(_DWORD*)&nox_xxx_lightningSteps_587000_178216 - 2;
 		} else if ((int)v12 < 256) {
-			v13 = *(_DWORD*)&dword_587000_178216 - 1;
+			v13 = *(_DWORD*)&nox_xxx_lightningSteps_587000_178216 - 1;
 		} else {
-			v13 = *(_DWORD*)&dword_587000_178216;
+			v13 = *(_DWORD*)&nox_xxx_lightningSteps_587000_178216;
 			v13p = 1;
 		}
 		if (v13 >= 1 || v13p) {
