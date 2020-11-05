@@ -72,7 +72,7 @@ extern _DWORD dword_5d4594_251540;
 extern _DWORD dword_5d4594_251548;
 extern _DWORD dword_5d4594_251568;
 extern _DWORD dword_5d4594_251572;
-extern _DWORD dword_5d4594_2650672;
+extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_10956;
 extern _DWORD dword_5d4594_2660652;
 extern _DWORD dword_587000_26048;
@@ -288,14 +288,14 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	nox_init_ticks_func();
 	*getMemU32Ptr(0x5D4594, 2650640) = 0;
 	*getMemU32Ptr(0x5D4594, 2618916) = 0;
-	dword_5d4594_2650672 = 0;
+	nox_gameDisableMapDraw_5d4594_2650672 = 0;
 	sub_43BDD0(10);
 	nox_common_gameFlags_unset_40A540(-1);
 	sub_40A4D0(3);
 	nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
 	dword_5d4594_2650652 = 0;
 	BOOL v2 = nox_common_gameFlags_check_40A5C0(1);
-	*getMemU32Ptr(0x5D4594, 2649704) = 30;
+	*getMemU32Ptr(0x5D4594, 2649704) = 30; // gameFPS
 	*getMemU32Ptr(0x5D4594, 2598000) = v2;
 	nox_ticks_xxx_416D40();
 	bool isServer = 0;
@@ -306,12 +306,12 @@ int __cdecl cmain(int argc, const char* argv[]) {
 		}
 	}
 	if (!isServer) {
-		result = sub_416A10();
+		result = nox_xxx_createMutexCheck_416A10();
 		if (!result)
 			return 0;
 	}
 	sub_43DDF0(0);
-	nox_set_draw_unk1(0);
+	nox_game_SetCliDrawFunc(0);
 	sub_43DE40(0);
 	sub_40A4D0(256);
 	for (int i = 1; i < argc; i++) {
@@ -505,7 +505,7 @@ void __cdecl sub_401B20(char* a1) {
 }
 
 //----- (00408CC0) --------------------------------------------------------
-FILE* __cdecl sub_408CC0_fopen(const char* path, int mode) {
+FILE* __cdecl nox_xxx_openFileBin_408CC0(const char* path, int mode) {
 	FILE* f = 0;
 	if (mode) {
 		if (mode == 1) {
@@ -532,7 +532,7 @@ FILE* __cdecl sub_408CC0_fopen(const char* path, int mode) {
 }
 
 //----- (00408D40) --------------------------------------------------------
-int __cdecl sub_408D40(FILE* f, int a2) {
+int __cdecl nox_xxx_cryptOpen_408D40(FILE* f, int a2) {
 	if (sub_409A60())
 		return 0;
 	if (a2 == -1)
@@ -543,7 +543,7 @@ int __cdecl sub_408D40(FILE* f, int a2) {
 }
 
 //----- (00408D90) --------------------------------------------------------
-int __cdecl sub_408D90(FILE* a1) {
+int __cdecl nox_xxx_fileBinClose_408D90(FILE* a1) {
 	int v1; // esi
 
 	if (sub_409A60()) {
@@ -1639,10 +1639,10 @@ wchar_t* sub_40A660() { return (wchar_t*)getMemAt(0x5D4594, 3560); }
 void sub_40A670() { *(_DWORD*)&nox_server_gameSettingsUpdated = 1; }
 
 //----- (0040A680) --------------------------------------------------------
-int sub_40A680() { return *(_DWORD*)&nox_server_gameSettingsUpdated; }
+int nox_server_gameDoSwitchMap_40A680() { return *(_DWORD*)&nox_server_gameSettingsUpdated; }
 
 //----- (0040A690) --------------------------------------------------------
-void sub_40A690() { *(_DWORD*)&nox_server_gameSettingsUpdated = 0; }
+void nox_server_gameUnsetMapLoad_40A690() { *(_DWORD*)&nox_server_gameSettingsUpdated = 0; }
 
 //----- (0040A6A0) --------------------------------------------------------
 int __cdecl sub_40A6A0(int a1) {
@@ -2034,14 +2034,14 @@ void __cdecl sub_40AF90(int a1, int a2, char a3, int a4, _BYTE* a5, unsigned int
 	case 3:
 		v6 = nox_common_get_data_path_409E10();
 		nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v6);
-		if (sub_41CD70(FileName, a5, a6)) {
+		if (nox_xxx_SavePlayerDataFromClient_41CD70(FileName, a5, a6)) {
 			if (sub_4D6F50() && a1 == 31) {
 				sub_4DCEE0(FileName);
 			} else {
 				v7 = sub_41A2E0(FileName, a1);
 				if (nox_common_gameFlags_check_40A5C0(4096)) {
 					if (v7) {
-						v8 = nox_common_playerInfoGetXXX_417090(a1);
+						v8 = nox_common_playerInfoFromNum_417090(a1);
 						if (v8) {
 							v9 = *((_DWORD*)v8 + 514);
 							if (v9)
@@ -5042,7 +5042,7 @@ int __cdecl sub_40EF40(int a1, const void* a2, int a3) {
 		if (a1 == 31)
 			sub_494E90(a1);
 		else
-			sub_5528B0(*((DWORD*)nox_common_playerInfoGetXXX_417090(a1) + 516) + 1, 0);
+			sub_5528B0(*((DWORD*)nox_common_playerInfoFromNum_417090(a1) + 516) + 1, 0);
 
 		// Set buffer length and re-queue updates.
 		*(DWORD*)(buffer + 0x800) = len1 + len2;
@@ -7689,11 +7689,11 @@ int __cdecl sub_412930(char* a1, char* a2) {
 	*getMemU32Ptr(0x5D4594, 251604) = 0;
 	dword_5d4594_251608 = 0;
 	*getMemU32Ptr(0x5D4594, 251612) = 0;
-	v2 = sub_408CC0_fopen(a1, 0);
+	v2 = nox_xxx_openFileBin_408CC0(a1, 0);
 	v3 = v2;
 	if (!v2)
 		return 0;
-	if (!sub_408D40((int)v2, 13))
+	if (!nox_xxx_cryptOpen_408D40((int)v2, 13))
 		return 0;
 	while (sub_409470(v3, v10)) {
 		if (!strcmp(v10, "WEAPON_DEFINITIONS")) {
@@ -7707,7 +7707,7 @@ int __cdecl sub_412930(char* a1, char* a2) {
 			return 0;
 		}
 	}
-	sub_408D90(v3);
+	nox_xxx_fileBinClose_408D90(v3);
 	for (LPVOID i = sub_413370(); i; i = (LPVOID)sub_413380((int)i))
 		;
 	for (LPVOID j = sub_413390(); j; j = (LPVOID)sub_4133A0((int)j))
@@ -8397,19 +8397,19 @@ FILE* sub_413CC0() {
 	result = fopen("network.log", "a");
 	nox_file_net_log = result;
 	if (result)
-		result = (FILE*)sub_413D30("StartLog%c%s", 240, "1.0");
+		result = (FILE*)nox_xxx_networkLog_413D30("StartLog%c%s", 240, "1.0");
 	return result;
 }
 
 //----- (00413D00) --------------------------------------------------------
 void sub_413D00() {
-	sub_413D30((char*)getMemAt(0x587000, 32528));
+	nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 32528));
 	fclose(nox_file_net_log);
 	nox_file_net_log = 0;
 }
 
 //----- (00413D30) --------------------------------------------------------
-int sub_413D30(char* a1, ...) {
+int nox_xxx_networkLog_413D30(char* a1, ...) {
 	struct tm* v1;       // esi
 	int result;          // eax
 	unsigned __int8* v3; // edi
@@ -10889,7 +10889,7 @@ nox_playerInfo* nox_common_playerInfoGetByID_417040(int a1) {
 }
 
 //----- (00417090) --------------------------------------------------------
-nox_playerInfo* nox_common_playerInfoGetXXX_417090(int i) {
+nox_playerInfo* nox_common_playerInfoFromNum_417090(int i) {
 	nox_playerInfo* p = &nox_playerinfo_arr[i];
 	if (!p->field_2092)
 		return 0;

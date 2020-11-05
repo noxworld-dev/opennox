@@ -22,10 +22,10 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 		v5 = nox_common_get_data_path_409E10();
 		nox_sprintf(PathName, "%s\\Save\\", v5);
 		CreateDirectoryA(PathName, 0);
-		v6 = sub_408CC0_fopen((char*)getMemAt(0x5D4594, 2660688), 1);
+		v6 = nox_xxx_openFileBin_408CC0((char*)getMemAt(0x5D4594, 2660688), 1);
 		nox_file_2 = v6;
 		if (v6) {
-			if (sub_408D40((int)v6, 27)) {
+			if (nox_xxx_cryptOpen_408D40((int)v6, 27)) {
 				v7 = a1;
 				if ((_WORD)a2) {
 					v8 = (unsigned __int16)a2;
@@ -34,7 +34,7 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 						--v8;
 					} while (v8);
 				}
-				sub_408D90(nox_file_2);
+				nox_xxx_fileBinClose_408D90(nox_file_2);
 				if (nox_common_gameFlags_check_40A5C0(4096))
 					*getMemU8Ptr(0x5D4594, 2661961) = sub_465DF0();
 				else
@@ -48,15 +48,15 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 					sub_445490(v10);
 					result = 1;
 				} else {
-					sub_413D30((char*)getMemAt(0x587000, 56648));
+					nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 56648));
 					result = 0;
 				}
 			} else {
-				sub_413D30((char*)getMemAt(0x587000, 56600), getMemAt(0x5D4594, 2660688));
+				nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 56600), getMemAt(0x5D4594, 2660688));
 				result = 0;
 			}
 		} else {
-			sub_413D30((char*)getMemAt(0x587000, 56552), getMemAt(0x5D4594, 2660688));
+			nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 56552), getMemAt(0x5D4594, 2660688));
 			result = 0;
 		}
 	} else {
@@ -66,7 +66,7 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 56460), 0,
 								   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3342);
 		sub_445490(v3);
-		sub_413D30((char*)getMemAt(0x587000, 56480), getMemAt(0x5D4594, 2660688));
+		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 56480), getMemAt(0x5D4594, 2660688));
 		result = 0;
 	}
 	return result;

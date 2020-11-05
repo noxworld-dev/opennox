@@ -2011,7 +2011,7 @@ int __cdecl sub_4BF010(int a1) {
 	v4 = HIBYTE(v1);
 	v3[0] = -32;
 	*(_WORD*)&v3[1] = sub_578B00(a1);
-	return sub_4E53C0(31, v3, 3, 0, 1);
+	return nox_xxx_netClientSend2_4E53C0(31, v3, 3, 0, 1);
 }
 
 //----- (004BF040) --------------------------------------------------------

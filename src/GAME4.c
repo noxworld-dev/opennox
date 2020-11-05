@@ -6955,7 +6955,7 @@ int sub_500B70() {
 
 //----- (00500C70) --------------------------------------------------------
 int __cdecl sub_500C70(int a1, int a2) {
-	*((_DWORD*)nox_common_playerInfoGetXXX_417090(a1) + 912) = a2;
+	*((_DWORD*)nox_common_playerInfoFromNum_417090(a1) + 912) = a2;
 	return sub_4D7EE0(a1, a2);
 }
 
@@ -8505,7 +8505,7 @@ FILE* __cdecl sub_502DA0(char* a1) {
 
 	result = nox_file_8;
 	if (nox_file_8 ||
-		(result = (FILE*)sub_426910(a1, 1, -1)) != 0 && (result = sub_426A60(), (nox_file_8 = result) != 0)) {
+		(result = (FILE*)nox_xxx_cryptOpen_426910(a1, 1, -1)) != 0 && (result = sub_426A60(), (nox_file_8 = result) != 0)) {
 		fseek(result, 0, SEEK_SET);
 		result = (FILE*)1;
 	}
@@ -8964,7 +8964,7 @@ int __cdecl sub_503830(int a1) {
 	sub_4D3C80(v11);
 	memcpy(getMemAt(0x5D4594, 1599500), v11, 0x20u);
 	sub_428170(&v11, &v25);
-	sub_426A50(1);
+	nox_xxx_cryptSetTypeMB_426A50(1);
 	while (1) {
 		v6 = 0;
 		LOBYTE(v8) = 0;
@@ -8989,7 +8989,7 @@ int __cdecl sub_503830(int a1) {
 			sub_4F3F50(v3, 0, &v25.field_0);
 		}
 	}
-	sub_426A50(0);
+	nox_xxx_cryptSetTypeMB_426A50(0);
 	dword_5d4594_1599480 = a1;
 	dword_5d4594_1599476 = 0;
 	dword_5d4594_3835396 = a1;

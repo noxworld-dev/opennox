@@ -244,7 +244,7 @@ int sub_447620_wol_chat() {
 	_DWORD* v9;          // edi
 
 	sub_43BDD0(1900);
-	nox_set_draw_unk1(sub_41E210);
+	nox_game_SetCliDrawFunc(sub_41E210);
 	sub_43FE20(150);
 	dword_5d4594_829480 = nox_new_window_from_file("wolchat.wnd", sub_447CC0);
 	sub_446970_wol_chat();

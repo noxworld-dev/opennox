@@ -827,11 +827,11 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 55840) = getMemAt(0x587000, 56012);
 	*(void**)getMemAt(0x587000, 55848) = &sub_41AC30;
 	*(void**)getMemAt(0x587000, 55852) = getMemAt(0x587000, 56028);
-	*(void**)getMemAt(0x587000, 55860) = &sub_41B420;
+	*(void**)getMemAt(0x587000, 55860) = &nox_xxx_guiFieldbook_41B420;
 	*(void**)getMemAt(0x587000, 55864) = getMemAt(0x587000, 56044);
-	*(void**)getMemAt(0x587000, 55872) = &sub_41B660;
+	*(void**)getMemAt(0x587000, 55872) = &nox_xxx_guiSpellbook_41B660;
 	*(void**)getMemAt(0x587000, 55876) = getMemAt(0x587000, 56060);
-	*(void**)getMemAt(0x587000, 55884) = &sub_41B9C0;
+	*(void**)getMemAt(0x587000, 55884) = &nox_xxx_guiEnchantment_41B9C0;
 	*(void**)getMemAt(0x587000, 55888) = getMemAt(0x587000, 56080);
 	*(void**)getMemAt(0x587000, 55896) = &sub_41BEC0;
 	*(void**)getMemAt(0x587000, 55900) = getMemAt(0x587000, 56096);

@@ -17,7 +17,7 @@ void sub_44B010() {
 	sub_44E040();
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		v0 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 113772), 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 75);
-		sub_413D30((char*)getMemAt(0x587000, 113788), v0);
+		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 113788), v0);
 		if (sub_43C710())
 			sub_41E400();
 		else

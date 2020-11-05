@@ -375,7 +375,7 @@ BOOL __cdecl sub_4147E0(HWND hWnd) {
 // 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
 
 //----- (00416A10) --------------------------------------------------------
-int sub_416A10() {
+int nox_xxx_createMutexCheck_416A10() {
 #ifdef USE_SDL
 	return 1;
 #else

@@ -108,12 +108,12 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 	}
 
 	if (a3 <= 0) {
-		*((_DWORD*)nox_common_playerInfoGetXXX_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
+		*((_DWORD*)nox_common_playerInfoFromNum_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
 		return 1;
 	}
 	v4 = a2;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22)) {
-		v5 = nox_common_playerInfoGetXXX_417090(a1);
+		v5 = nox_common_playerInfoFromNum_417090(a1);
 		sub_4D3450((int)v5, a2, a3);
 	}
 	switch (*a2) {
@@ -125,11 +125,11 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 		sub_4DE7C0(a1);
 		return 1;
 	case 0x25u:
-		*((_DWORD*)nox_common_playerInfoGetXXX_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
+		*((_DWORD*)nox_common_playerInfoFromNum_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
 		return 1;
 	}
 	v91 = &a2[a3];
-	v6 = nox_common_playerInfoGetXXX_417090(a1);
+	v6 = nox_common_playerInfoFromNum_417090(a1);
 	v8 = (int)v6;
 	v89 = v6;
 	if (!v6)
@@ -473,7 +473,7 @@ int __cdecl sub_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 			} else {
 				v52 = nox_common_get_data_path_409E10();
 				nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v52);
-				if (sub_41A140(FileName, *(unsigned __int8*)(v8 + 2064)))
+				if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned __int8*)(v8 + 2064)))
 					sub_41CFA0(FileName, *(unsigned __int8*)(v8 + 2064));
 				DeleteFileA(FileName);
 				v4 += 3;

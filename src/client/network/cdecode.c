@@ -43,7 +43,7 @@ extern _DWORD dword_587000_312800;
 extern _DWORD dword_587000_312816;
 extern _DWORD dword_587000_312804;
 extern _DWORD dword_587000_312820;
-extern _DWORD dword_5d4594_2650672;
+extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_2650652;
 
@@ -3009,7 +3009,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 				goto LABEL_112;
 			if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v3 + 9)) >= 0x1E) {
 				v359 = -44;
-				sub_4E53C0(31, &v359, 1, 0, 1);
+				nox_xxx_netClientSend2_4E53C0(31, &v359, 1, 0, 1);
 			LABEL_112:
 				v3 += 13;
 			} else {
@@ -3194,7 +3194,7 @@ int __cdecl sub_48EA70(int a1, unsigned int a2, int a3) {
 			if (nox_client_isConnected_43C700()) {
 				if (*(_BYTE*)(v3 + 1) == 1) {
 					if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-						dword_5d4594_2650672 = 0;
+						nox_gameDisableMapDraw_5d4594_2650672 = 0;
 						sub_42EE00();
 						sub_413A00(1);
 						sub_44DB30(25, *(_BYTE*)(v3 + 2) == 1, sub_44E020);

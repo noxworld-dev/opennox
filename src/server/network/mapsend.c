@@ -27,7 +27,7 @@ void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
 
 	if (a1) {
 		if (!*((_DWORD*)a1 + 6)) {
-			v1 = nox_common_playerInfoGetXXX_417090(*a1);
+			v1 = nox_common_playerInfoFromNum_417090(*a1);
 			if (v1) {
 				v15 = (int)(v1 + 4704);
 				v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249408), 0,
@@ -75,7 +75,7 @@ void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
 					v10 = *((_DWORD*)a1 + 3) / v9;
 				else
 					v10 = *((_DWORD*)a1 + 3);
-				v11 = nox_common_playerInfoGetXXX_417090(*a1);
+				v11 = nox_common_playerInfoFromNum_417090(*a1);
 				if (v11) {
 					v12 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 249464), 0,
 												"C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 299);
@@ -145,7 +145,7 @@ char* __cdecl sub_519D20(int a1) {
 		*((_WORD*)v1 + 10) = 512;
 		*((_DWORD*)v1 + 3) = *getMemU32Ptr(0x5D4594, 2388644);
 		*((_QWORD*)v1 + 5) = nox_call_get_ticks();
-		result = nox_common_playerInfoGetXXX_417090(a1);
+		result = nox_common_playerInfoFromNum_417090(a1);
 	}
 	return result;
 }
@@ -158,7 +158,7 @@ int __cdecl sub_519DE0_net_mapsend(int a1) {
 	wchar_t* v4;         // eax
 
 	v1 = getMemAt(0x5D4594, 48 * a1 + 2387148);
-	v2 = nox_common_playerInfoGetXXX_417090(a1);
+	v2 = nox_common_playerInfoFromNum_417090(a1);
 	*((_WORD*)v1 + 1) = 0;
 	nullsub_27(v1);
 	++*getMemU16Ptr(0x5D4594, 2388638);

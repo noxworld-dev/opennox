@@ -129,7 +129,7 @@ extern _DWORD dword_5d4594_815028;
 extern _DWORD dword_5d4594_3798836;
 extern _DWORD dword_5d4594_814984;
 extern _DWORD dword_5d4594_815016;
-extern _DWORD dword_5d4594_2650672;
+extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_815048;
 extern _DWORD dword_5d4594_3798804;
 extern _DWORD dword_587000_87404;
@@ -8540,7 +8540,7 @@ BOOL __cdecl sub_4357D0(int argc, const char** argv) {
 	sub_4E4EF0();
 	sub_48D740();
 	sub_43C720(0);
-	dword_5d4594_2650672 = 0;
+	nox_gameDisableMapDraw_5d4594_2650672 = 0;
 	sub_473930();
 	sub_48D4B0(0);
 	return 1;
@@ -8686,7 +8686,7 @@ int sub_435CC0() {
 		sub_4DDF60(31);
 	else
 		sub_43CB00();
-	nox_set_draw_unk1(sub_435F80_draw);
+	nox_game_SetCliDrawFunc(sub_435F80_draw);
 	dword_5d4594_811372 = 3;
 	*getMemU32Ptr(0x587000, 85720) = 1;
 	*getMemU32Ptr(0x5D4594, 811076) = nox_win_width - 1;
@@ -9483,7 +9483,7 @@ int sub_43A920() {
 	sub_46B500(*(int*)&dword_5d4594_814980);
 	if (dword_587000_87404 == 1) {
 		sub_554D10();
-		nox_set_draw_unk1(sub_41E210);
+		nox_game_SetCliDrawFunc(sub_41E210);
 	}
 	if (!sub_43BE30() || !*getMemU32Ptr(0x5D4594, 815084))
 		sub_44A400();
@@ -9530,7 +9530,7 @@ char* sub_43AA70() {
 	char v10[268]; // [esp+20h] [ebp-10Ch]
 
 	if (dword_5d4594_528252 && dword_5d4594_528256)
-		sub_413D30((char*)getMemAt(0x587000, 90708));
+		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 90708));
 	dword_5d4594_815048 = 0;
 	dword_5d4594_815052 = 1;
 	v0 = sub_416590(0);

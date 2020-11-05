@@ -112,9 +112,9 @@ int sub_44A560_wol_login() {
 			if (dword_5d4594_830272 == 1) {
 				v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 113496), 0,
 											"C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 485);
-				sub_413D30((char*)getMemAt(0x587000, 113524), v10);
+				nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 113524), v10);
 			} else {
-				sub_413D30((char*)getMemAt(0x587000, 113528));
+				nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 113528));
 			}
 			sub_43DDD0(0);
 			sub_43DE60();

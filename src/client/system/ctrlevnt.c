@@ -628,16 +628,16 @@ int __cdecl sub_42D6B0(_DWORD* a3, int a4) {
 				break;
 			case 47:
 				LOWORD(a4) = 739;
-				sub_4E53C0(31, &a4, 2, 0, 1);
+				nox_xxx_netClientSend2_4E53C0(31, &a4, 2, 0, 1);
 				break;
 			case 48:
 				LOWORD(a3) = 483;
-				sub_4E53C0(31, &a3, 2, 0, 1);
+				nox_xxx_netClientSend2_4E53C0(31, &a3, 2, 0, 1);
 				break;
 			case 49:
 				v42[0] = -29;
 				v42[1] = 4;
-				sub_4E53C0(31, v42, 2, 0, 1);
+				nox_xxx_netClientSend2_4E53C0(31, v42, 2, 0, 1);
 				break;
 			case 50:
 				sub_460630();
