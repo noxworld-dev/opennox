@@ -189,7 +189,7 @@ int __cdecl sub_4567C0(int a1, int a2, int* a3, int a4) {
 						v15 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)v13 + 515));
 						v16 = (int)v15;
 						if (v15) {
-							if (sub_419130((int)v15))
+							if (nox_xxx_servObjectHasTeam_419130((int)v15))
 								sub_4196D0(v16, (int)v29, *((_DWORD*)v14 + 515), 1);
 							else
 								nox_xxx_createAtImpl_4191D0(v29[57], v16, 1, *((_DWORD*)v14 + 515), 1);

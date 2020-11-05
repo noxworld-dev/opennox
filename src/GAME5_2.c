@@ -810,7 +810,7 @@ int __cdecl nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, in
 				(*(void(__cdecl**)(unsigned int, unsigned __int8**, int, _DWORD))(v7 + 144))(v6, &a2, 1,
 																							 *(_DWORD*)(v68 + 120));
 				memset(getMemAt(0x5D4594, 32 * a1 + 2508788), 0, 0x20u);
-				v69 = sub_5541D0(v6);
+				v69 = nox_xxx_findPlayerID_5541D0(v6);
 				v70 = v69;
 				if (v69) {
 					sub_425920((_DWORD**)v69);
@@ -942,7 +942,7 @@ int __cdecl nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, in
 			goto LABEL_73;
 		if (v43 && *(_DWORD*)(v78 + 54)) {
 			for (i = nox_xxx_firstReplaceablePlayer_425C40(); i; i = nox_xxx_nextReplaceablePlayer_425C70((int)i)) {
-				if (!sub_5541D0((unsigned __int8)i[2064] + 1)) {
+				if (!nox_xxx_findPlayerID_5541D0((unsigned __int8)i[2064] + 1)) {
 					nox_xxx_playerCallDisconnect_4DEAB0((unsigned __int8)i[2064], 4);
 					v50 = malloc(0x10u);
 					v50[3] = (unsigned __int8)i[2064] + 1;
@@ -1259,7 +1259,7 @@ unsigned int __cdecl sub_554040(int a1, int a2, char* a3) {
 }
 
 //----- (005541D0) --------------------------------------------------------
-int* __cdecl sub_5541D0(int a1) {
+int* __cdecl nox_xxx_findPlayerID_5541D0(int a1) {
 	int* result; // eax
 
 	result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 2495908));
@@ -1820,7 +1820,7 @@ int __cdecl sub_554D70(char a1) {
 			LOBYTE(v12) = buf[2];
 			if (buf[2] < 0x20u) {
 				memcpy(in, &from, fromlen);
-				if (v3 == 13 || sub_43B300() == *(_DWORD*)&from.sa_data[2]) {
+				if (v3 == 13 || nox_xxx_inServerGetAddr_43B300() == *(_DWORD*)&from.sa_data[2]) {
 					switch ((unsigned __int8)v12) {
 					case 0xDu:
 						v4 = inet_ntoa(*(struct in_addr*)&in[4]);
@@ -4002,7 +4002,7 @@ int __cdecl nox_xxx_waypoint_579F00(_DWORD* a1, int a2) {
 		if (a2) {
 			v3 = nox_server_getFirstObject_4DA790();
 			if (v3) {
-				while (!(*(_DWORD*)(v3 + 8) & 0x10000000) || sub_419150(a2 + 48, v3 + 48)) {
+				while (!(*(_DWORD*)(v3 + 8) & 0x10000000) || nox_xxx_servCompareTeams_419150(a2 + 48, v3 + 48)) {
 					v3 = nox_server_getNextObject_4DA7A0(v3);
 					if (!v3)
 						goto LABEL_9;
@@ -4953,7 +4953,7 @@ LABEL_11:
 }
 
 //----- (0057B9A0) --------------------------------------------------------
-char __cdecl sub_57B9A0(int a1, int a2, int a3, unsigned int a4) {
+char __cdecl nox_xxx_cliGenerateAlias_57B9A0(int a1, int a2, int a3, unsigned int a4) {
 	int v4; // eax
 	int v5; // edx
 

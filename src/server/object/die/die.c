@@ -72,7 +72,7 @@ void __cdecl nox_xxx_dieArmor_54E170_obj_die(int a1) {
 		v7 =
 			nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 291324), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c", 1579);
 	}
-	v9 = sub_4E77E0_obj_util(v1);
+	v9 = nox_xxx_itemGetName_4E77E0_obj_util(v1);
 	nox_xxx_netSendLineMessage_4D9EB0(v5, v7, v9);
 	nox_xxx_audCreate_501A30(v8, v10, 0, 0);
 	nox_xxx_delayedDeleteObject_4E5CC0(v1);
@@ -96,7 +96,7 @@ void __cdecl nox_xxx_dieWeapon_54E370_obj_die(int a1) {
 		v2 = (float2*)(a1 + 56);
 	v3 = *(_WORD*)(a1 + 24);
 	if (v3 & 0x10) {
-		v7 = sub_4E77E0_obj_util(a1);
+		v7 = nox_xxx_itemGetName_4E77E0_obj_util(a1);
 		v4 =
 			nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 291380), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c", 1626);
 		nox_xxx_netSendLineMessage_4D9EB0(v1, v4, v7);
@@ -104,7 +104,7 @@ void __cdecl nox_xxx_dieWeapon_54E370_obj_die(int a1) {
 		nox_xxx_delayedDeleteObject_4E5CC0(a1);
 	} else {
 		if (v3 & 8) {
-			v8 = sub_4E77E0_obj_util(a1);
+			v8 = nox_xxx_itemGetName_4E77E0_obj_util(a1);
 			v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 291436), 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1633);
 			nox_xxx_netSendLineMessage_4D9EB0(v1, v5, v8);

@@ -1776,7 +1776,7 @@ int __cdecl nox_xxx_netCliProcUpdateStream_494A60(unsigned __int8* a1, int a2, _
 		v4 = *(_WORD*)(a1 + 3);
 		v5 = a1 + 5;
 		v6 = *(unsigned __int16*)(a1 + 3);
-		v24 = sub_57B9A0((int)getMemAt(0x5D4594, 1198020), v3, v6, *getMemUintPtr(0x5D4594, 2598000));
+		v24 = nox_xxx_cliGenerateAlias_57B9A0((int)getMemAt(0x5D4594, 1198020), v3, v6, *getMemUintPtr(0x5D4594, 2598000));
 		if (v24 != -1) {
 			sub_57BA10((int)getMemAt(0x5D4594, 8 * v24 + 1198020), v3, v6, -1);
 			v23[0] = -91;
@@ -1874,7 +1874,7 @@ unsigned __int8* __cdecl nox_xxx_netCliUpdateStream2_494C30(unsigned __int8* a1,
 		v8 = *v7;
 		v9 = *v7;
 		v10 = v7 + 1;
-		v24 = sub_57B9A0((int)getMemAt(0x5D4594, 1198020), v6, v9, *getMemUintPtr(0x5D4594, 2598000));
+		v24 = nox_xxx_cliGenerateAlias_57B9A0((int)getMemAt(0x5D4594, 1198020), v6, v9, *getMemUintPtr(0x5D4594, 2598000));
 		if (v24 != -1) {
 			sub_57BA10((int)getMemAt(0x5D4594, 8 * v24 + 1198020), v6, v9, *getMemU32Ptr(0x5D4594, 2598000) + 60);
 			v26[1] = v24;
@@ -2986,20 +2986,20 @@ int __cdecl nox_xxx_drawBlack_496150(int* a1) {
 						}
 						if (v10) {
 							if (v10 == 1) {
-								sub_497C40(v8, v5, 6);
+								nox_xxx_drawBlackofWall_497C40(v8, v5, 6);
 							} else {
 								v16 = getMemAt(0x587000, v10 + 161764);
 								if (getMemByte(0x587000, v10 + 161764) & 2)
-									sub_497C40(v8, v5, 2);
+									nox_xxx_drawBlackofWall_497C40(v8, v5, 2);
 								if (*v16 & 1)
-									sub_497C40(v8, v5, 1);
+									nox_xxx_drawBlackofWall_497C40(v8, v5, 1);
 								if (*v16 & 8)
-									sub_497C40(v8, v5, 8);
+									nox_xxx_drawBlackofWall_497C40(v8, v5, 8);
 								if (*v16 & 4)
-									sub_497C40(v8, v5, 4);
+									nox_xxx_drawBlackofWall_497C40(v8, v5, 4);
 							}
 						} else {
-							sub_497C40(v8, v5, 9);
+							nox_xxx_drawBlackofWall_497C40(v8, v5, 9);
 						}
 					} else {
 						v13 = v12 | 1;
@@ -3766,7 +3766,7 @@ char __cdecl sub_497B80(float* a1, int* a2) {
 }
 
 //----- (00497C40) --------------------------------------------------------
-int __cdecl sub_497C40(int a1, int a2, char a3) {
+int __cdecl nox_xxx_drawBlackofWall_497C40(int a1, int a2, char a3) {
 	int v3;  // edi
 	int v4;  // ebp
 	int v5;  // ebx
@@ -6278,7 +6278,7 @@ void sub_49BBC0() {
 	if (getMemByte(0x5D4594, 1303504)) {
 		v1 = nox_xxx_spellGetPhonemeMB_424A20(getMemByte(0x5D4594, 1303504))[getMemByte(0x5D4594, 1303512)];
 		if (*getMemU32Ptr(0x5D4594, 2598000) >= *getMemIntPtr(0x5D4594, 1303516)) {
-			v0 = sub_4FE1C0(*getMemIntPtr(0x5D4594, 2616328), v1);
+			v0 = nox_xxx_spellGetPhoneme_4FE1C0(*getMemIntPtr(0x5D4594, 2616328), v1);
 			nox_xxx_clientPlaySoundSpecial_452D80(v0, 100);
 			sub_476E00(*getMemU32Ptr(0x587000, 4 * v1 + 163576));
 			*getMemU32Ptr(0x5D4594, 1303516) = *getMemU32Ptr(0x5D4594, 2598000) + 3;
@@ -9583,7 +9583,7 @@ char* __cdecl sub_49FF40(__int16* a1) {
 	v1 = a1[1] + 10;
 	v4.field_0 = *a1 + 10;
 	v4.field_4 = v1;
-	v2 = sub_4217B0(&v4, 0);
+	v2 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v4, 0);
 	if (v2 || (v2 = (struc_19*)sub_421990(&v4, 100.0, 0)) != 0)
 		result = (char*)&v2->field_0[1];
 	else

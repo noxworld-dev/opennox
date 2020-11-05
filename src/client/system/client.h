@@ -11,6 +11,6 @@ int nox_xxx_drawTimingMB_436C40();
 int __cdecl nox_xxx_drawPing_436DF0(int a1);
 int sub_436F50();
 
-char* sub_4358A0();
+char* nox_xxx_getRandomName_4358A0();
 
 #endif // NOX_PORT_CLIENT_SYSTEM_CLIENT

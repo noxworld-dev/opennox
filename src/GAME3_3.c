@@ -164,7 +164,7 @@ int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a
 					nox_xxx_unitSetOwner_4EC290(v5, v9);
 				}
 				if (*(_BYTE*)(v9 + 8) & 1 && *(_BYTE*)(v9 + 12) & 2)
-					sub_52BE40(v9, v5);
+					nox_xxx_changeOwner_52BE40(v9, v5);
 				if (LODWORD(a5) == 16)
 					nox_xxx_netSendPointFx_522FF0(132, v16);
 				nox_xxx_aud_501960(122, v5, 0, 0);
@@ -549,7 +549,7 @@ int __cdecl sub_4E22A0(int a1, int a2, int a3, int a4, float a5, int a6) {
 	v7 = a3;
 	if (!a3)
 		v7 = a2;
-	sub_4E1560((int)i, a1, a2, v7, a5, a6);
+	nox_xxx_playerDamageWeapon_4E1560((int)i, a1, a2, v7, a5, a6);
 	if (!(i[4] & 0x20))
 		return 0;
 	if (*(_BYTE*)(a1 + 8) & 4)
@@ -1929,7 +1929,7 @@ double __cdecl nox_xxx_objectGetMass_4E4A70(int a1) { return *(float*)(a1 + 120)
 int __cdecl sub_4E4A80(int a1) { return *(_DWORD*)(a1 + 340); }
 
 //----- (004E4A90) --------------------------------------------------------
-int* __cdecl sub_4E4A90(int a1, unsigned __int8 a2, int a3) {
+int* __cdecl nox_xxx_setNPCColor_4E4A90(int a1, unsigned __int8 a2, int a3) {
 	int v3;      // edi
 	int v4;      // eax
 	int* result; // eax
@@ -2843,7 +2843,7 @@ void __cdecl nox_xxx_delayedDeleteObject_4E5CC0(int a1) {
 		*(_DWORD*)(a1 + 452) = *getMemU32Ptr(0x5D4594, 1565588);
 		*getMemU32Ptr(0x5D4594, 1565588) = a1;
 		*(_DWORD*)(a1 + 456) = *getMemU32Ptr(0x5D4594, 2598000);
-		if (sub_419130(a1 + 48))
+		if (nox_xxx_servObjectHasTeam_419130(a1 + 48))
 			nox_xxx_netChangeTeamMb_419570(a1 + 48, *(_DWORD*)(a1 + 36));
 	}
 }
@@ -4539,7 +4539,7 @@ void __cdecl nox_xxx_collidePlayer_4E8460(int a1, int a2) {
 			if (!(*(_BYTE*)(a2 + 16) & 9) && !(v2 & 1)) {
 			LABEL_14:
 				nox_xxx_playerSetState_4FA020((_DWORD*)a1, 13);
-				sub_4D9110((float*)(a1 + 56), 10);
+				nox_xxx_earthquakeSend_4D9110((float*)(a1 + 56), 10);
 				sub_4FC300((_DWORD*)a1, 1);
 				if (a2) {
 					v16 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 203928));
@@ -5270,7 +5270,7 @@ _DWORD* __cdecl nox_xxx_collideManadrain_4E9490(int a1, int a2) {
 	{
 	  nox_xxx_aud_501960(878, v3, 0, 0);
 	  nox_xxx_projectileReflect_4E0A70((int)v4, v3);
-	  sub_52BE40((int)v4, v3);
+	  nox_xxx_changeOwner_52BE40((int)v4, v3);
 	  return;
 	}
 	if ( *(_BYTE *)(v6 + 88) == 13 || (!*(_BYTE *)(v6 + 88) && dword_980858[0] & 0x40000 ) )
@@ -5283,7 +5283,7 @@ _DWORD* __cdecl nox_xxx_collideManadrain_4E9490(int a1, int a2) {
 	  v8 = nox_xxx_randInt_415FA0(18, 20);
 	  nox_xxx_aud_501960(890, v3, 0, 0);
 	  nox_xxx_projectileReflect_4E0A70((int)v4, v3);
-	  sub_52BE40((int)v4, v3);
+	  nox_xxx_changeOwner_52BE40((int)v4, v3);
 	  nox_xxx_playerSetState_4FA020((_DWORD *)v3, v8);
 	  v9 = nox_xxx_playerMapAnimState_4FA2B0(v3);
 	  nox_xxx_animPlayerGetFrameRange_4F9F90(v9, &a1, &a2);
@@ -5295,12 +5295,12 @@ _DWORD* __cdecl nox_xxx_collideManadrain_4E9490(int a1, int a2) {
 M_LABEL_13:
 	if ( nox_xxx_checkInversionEffect_4FA4F0(v3, (int)v4) )
 	{
-	  sub_52BE40((int)v4, v3);
+	  nox_xxx_changeOwner_52BE40((int)v4, v3);
 	  return;
 	}
 	if ( nox_xxx_testUnitBuffs_4FF350(v3, 27) && nox_xxx_checkReflectShield_4E6E50((float2 *)(v3 + 56), *(__int16 *)(v3 + 124), v4 + 7) & 1 )
 	{
-	  sub_52BE40((int)v4, v3);
+	  nox_xxx_changeOwner_52BE40((int)v4, v3);
 	  nox_xxx_aud_501960(122, v3, 0, 0);
 	}
 	else
@@ -5362,7 +5362,7 @@ void __cdecl nox_xxx_spellFlyCollide_4E9500(int a1, int a2, float* a3) {
 						v8 = nox_common_randomInt_415FA0(18, 20);
 						nox_xxx_aud_501960(890, v3, 0, 0);
 						nox_xxx_projectileReflect_4E0A70((int)v4, v3);
-						sub_52BE40((int)v4, v3);
+						nox_xxx_changeOwner_52BE40((int)v4, v3);
 						nox_xxx_playerSetState_4FA020((_DWORD*)v3, v8);
 						v9 = nox_common_mapPlrActionToStateId_4FA2B0(v3);
 						nox_xxx_animPlayerGetFrameRange_4F9F90(v9, &a1, &a2);
@@ -5372,13 +5372,13 @@ void __cdecl nox_xxx_spellFlyCollide_4E9500(int a1, int a2, float* a3) {
 				}
 			LABEL_13:
 				if (nox_xxx_checkInversionEffect_4FA4F0(v3, (int)v4)) {
-					sub_52BE40((int)v4, v3);
+					nox_xxx_changeOwner_52BE40((int)v4, v3);
 					return;
 				}
 				if (nox_xxx_testUnitBuffs_4FF350(v3, 27) &&
 					nox_server_testTwoPointsAndDirection_4E6E50((float2*)(v3 + 56), *(__int16*)(v3 + 124), v4 + 7) &
 						1) {
-					sub_52BE40((int)v4, v3);
+					nox_xxx_changeOwner_52BE40((int)v4, v3);
 					nox_xxx_aud_501960(122, v3, 0, 0);
 					return;
 				}
@@ -5391,7 +5391,7 @@ void __cdecl nox_xxx_spellFlyCollide_4E9500(int a1, int a2, float* a3) {
 			1) {
 			nox_xxx_aud_501960(878, v3, 0, 0);
 			nox_xxx_projectileReflect_4E0A70((int)v4, v3);
-			sub_52BE40((int)v4, v3);
+			nox_xxx_changeOwner_52BE40((int)v4, v3);
 			return;
 		}
 		goto LABEL_22;
@@ -5454,13 +5454,13 @@ void __cdecl nox_xxx_collideBoom_4E9770(int a1, int a2, float* a3) {
 		if (a2) {
 			if (*(_BYTE*)(a2 + 8) & 4) {
 				if (nox_xxx_checkInversionEffect_4FA4F0(a2, a1)) {
-					sub_52BE40(a1, a2);
+					nox_xxx_changeOwner_52BE40(a1, a2);
 					return;
 				}
 				if (nox_xxx_testUnitBuffs_4FF350(a2, 27) && nox_server_testTwoPointsAndDirection_4E6E50(
 											  (float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) &
 											  1) {
-					sub_52BE40(a1, a2);
+					nox_xxx_changeOwner_52BE40(a1, a2);
 					nox_xxx_aud_501960(122, a2, 0, 0);
 					return;
 				}
@@ -5791,13 +5791,13 @@ void __cdecl nox_xxx_collidePixie_4EA080(int a1, int a2, float* a3) {
 						if (!(v8 & 4))
 							goto LABEL_20;
 						if (nox_xxx_checkInversionEffect_4FA4F0(a2, a1)) {
-							sub_52BE40(a1, a2);
+							nox_xxx_changeOwner_52BE40(a1, a2);
 							return;
 						}
 						if (nox_xxx_testUnitBuffs_4FF350(a2, 27) && nox_server_testTwoPointsAndDirection_4E6E50(
 													  (float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) &
 													  1) {
-							sub_52BE40(a1, a2);
+							nox_xxx_changeOwner_52BE40(a1, a2);
 							nox_xxx_aud_501960(122, a2, 0, 0);
 						} else {
 						LABEL_20:
@@ -5970,7 +5970,7 @@ void __cdecl nox_xxx_pickupFlagCtf_4EA490(int a1, int a2) {
 	a2 = *(_DWORD*)(a2 + 748);
 	v4 = sub_4ECBD0(a1);
 	v16 = *(_BYTE*)(a1 + 52);
-	if (sub_419150(v3 + 48, a1 + 48)) {
+	if (nox_xxx_servCompareTeams_419150(v3 + 48, a1 + 48)) {
 		v5 = *(_DWORD*)(a1 + 748);
 		if (fabs(*(float*)(a1 + 56) - *(float*)v5) > *getMemDoublePtr(0x581450, 10160) ||
 			fabs(*(float*)(a1 + 60) - *(float*)(v5 + 4)) > *getMemDoublePtr(0x581450, 10160)) {
@@ -5992,7 +5992,7 @@ void __cdecl nox_xxx_pickupFlagCtf_4EA490(int a1, int a2) {
 						v17 = *(_BYTE*)(v6 + 52);
 						nox_xxx_changeScore_4D8E90(v3, 1);
 						nox_xxx_netReportLesson_4D8EF0(v3);
-						if (sub_419130(v3 + 48)) {
+						if (nox_xxx_servObjectHasTeam_419130(v3 + 48)) {
 							v10 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(v3 + 52));
 							nox_xxx_netChangeTeamID_419090((int)v10, *((_DWORD*)v10 + 13) + 1);
 							if (dword_5d4594_2650652) {
@@ -6331,7 +6331,7 @@ void __cdecl nox_xxx_unused_4EAD50(int a1, int a2) {
 		if (*(_BYTE*)(a2 + 8) & 4) {
 			v2 = *(_DWORD**)(a1 + 748);
 			if (*(_WORD*)(*(_DWORD*)(a2 + 748) + 4) < *(_WORD*)(*(_DWORD*)(a2 + 748) + 8) && *v2 > 0) {
-				if (!sub_419130(a1 + 48) || sub_419130(a2 + 48) &&
+				if (!nox_xxx_servObjectHasTeam_419130(a1 + 48) || nox_xxx_servObjectHasTeam_419130(a2 + 48) &&
 												(v3 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(a2 + 52))) != 0 &&
 												nox_xxx_teamCompare2_419180(a1 + 48, v3[57])) {
 					nox_xxx_playerManaAdd_4EEB80(a2, 1);
@@ -6453,7 +6453,7 @@ void __cdecl nox_xxx_collideChakram_4EAF00(int a1, int a2, float* a3) {
 			nox_xxx_inventoryPutImpl_4F3070(*(_DWORD*)(v3 + 508), (int)v6, 1);
 			v10 = *(_DWORD*)(v3 + 508);
 			if (v10 && *(_BYTE*)(v10 + 8) & 4 && !*(_DWORD*)(*(_DWORD*)(v10 + 748) + 104))
-				sub_53A420((_DWORD*)v10, (int)v6, 1, 1);
+				nox_xxx_playerEquipWeapon_53A420((_DWORD*)v10, (int)v6, 1, 1);
 			nox_xxx_aud_501960(892, v3, 0, 0);
 			nox_xxx_delayedDeleteObject_4E5CC0(v3);
 		} else {
@@ -6872,7 +6872,7 @@ _DWORD* __cdecl nox_xxx_collideBall_4EBA00(int a1, int a2) {
 	if (!result) {
 	LABEL_17:
 		nox_xxx_unitSetOwner_4EC290(a2, a1);
-		if (sub_419130(a1 + 48)) {
+		if (nox_xxx_servObjectHasTeam_419130(a1 + 48)) {
 			if (!v2) {
 			LABEL_25:
 				sub_4EB9B0(a1, a2);
@@ -6936,9 +6936,9 @@ __int16 __cdecl nox_xxx_collideHomeBase_4EBB80(int a1, int a2) {
 			v4 = *(int**)(a2 + 748);
 			v5 = 0;
 			v6 = 0;
-			if (sub_419130(a1 + 48))
+			if (nox_xxx_servObjectHasTeam_419130(a1 + 48))
 				v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(a1 + 52));
-			if (*v4 && sub_419130(*v4 + 48))
+			if (*v4 && nox_xxx_servObjectHasTeam_419130(*v4 + 48))
 				v6 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(*v4 + 52));
 			if (v5 == v6) {
 				nox_xxx_changeScore_4D8E90(*v4, 1);
@@ -7359,7 +7359,7 @@ int __cdecl nox_xxx_unitsHaveSameTeam_4EC520(int a1, int a2) {
 		while (2) {
 			v3 = a2;
 			do {
-				if (sub_419150(v2 + 48, v3 + 48) || v2 == v3)
+				if (nox_xxx_servCompareTeams_419150(v2 + 48, v3 + 48) || v2 == v3)
 					return 1;
 				v3 = *(_DWORD*)(v3 + 508);
 			} while (v3);
@@ -7921,14 +7921,14 @@ void __cdecl sub_4ED0C0(int a1, int* a2) {
 				}
 			}
 			sub_53E430((_DWORD*)a1, (int)a2, 0, v2);
-			sub_53A140((_DWORD*)a1, (int)a2, 0, v2);
+			nox_xxx_playerDequipWeapon_53A140((_DWORD*)a1, (int)a2, 0, v2);
 			nox_xxx_netReportDrop_4D8B50(*(unsigned __int8*)(*(_DWORD*)(v4 + 276) + 2064), (int)a2);
 			nox_xxx_protect_56FC50(*(_DWORD*)(*(_DWORD*)(v4 + 276) + 4632), a2);
 		} else if (v3 & 2) {
 			if (*(_BYTE*)(a1 + 12) & 0x10 && a2[2] & 0x10000000 && nox_common_gameFlags_check_40A5C0(32))
 				nox_xxx_npcSetItemEquipFlags_4E4B20(a1, (int)a2, 0);
 			sub_53E430((_DWORD*)a1, (int)a2, 1, 1);
-			sub_53A140((_DWORD*)a1, (int)a2, 1, 1);
+			nox_xxx_playerDequipWeapon_53A140((_DWORD*)a1, (int)a2, 1, 1);
 		}
 		v5 = a2[125];
 		if (v5)
@@ -8118,7 +8118,7 @@ LABEL_15:
 	nox_xxx_unitClearOwner_4EC300(v3);
 	nox_xxx_spellBuffOff_4FF5B0(v8, 30);
 	*(_DWORD*)&v11[2] = *(_DWORD*)(v8 + 36);
-	if (sub_419130(v8 + 48))
+	if (nox_xxx_servObjectHasTeam_419130(v8 + 48))
 		*(_DWORD*)&v11[6] = *(unsigned __int8*)(v8 + 52);
 	else
 		*(_DWORD*)&v11[6] = 0;
@@ -8913,7 +8913,7 @@ int __cdecl nox_xxx_unitSetMaxHP_4EE7C0(int a1, __int16 a2) {
 }
 
 //----- (004EE7E0) --------------------------------------------------------
-int __cdecl sub_4EE7E0(int a1, int a2, int a3) {
+int __cdecl nox_xxx_activatePoison_4EE7E0(int a1, int a2, int a3) {
 	int v3;    // ebx
 	int v5;    // eax
 	int v6;    // eax
@@ -8937,7 +8937,7 @@ int __cdecl sub_4EE7E0(int a1, int a2, int a3) {
 		if (v6 & 0x200)
 			return 0;
 	}
-	v10 = sub_4E0040((_DWORD*)a1) * 100.0;
+	v10 = nox_xxx_getPoisonDmg_4E0040((_DWORD*)a1) * 100.0;
 	v7 = nox_float2int(v10);
 	if (nox_common_randomInt_415FA0(0, 100) < v7) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "Health.c:ResistPoison", 0);
@@ -8966,7 +8966,7 @@ LABEL_21:
 }
 
 //----- (004EE8F0) --------------------------------------------------------
-void __cdecl sub_4EE8F0(int a1, int a2) {
+void __cdecl nox_xxx_updatePoison_4EE8F0(int a1, int a2) {
 	int v2;   // eax
 	int v3;   // eax
 	char* v4; // eax
@@ -9004,7 +9004,7 @@ void __cdecl sub_4EE8F0(int a1, int a2) {
 }
 
 //----- (004EE9D0) --------------------------------------------------------
-void __cdecl sub_4EE9D0(int a1) {
+void __cdecl nox_xxx_removePoison_4EE9D0(int a1) {
 	int v1;   // eax
 	int v2;   // eax
 	char* v3; // eax
@@ -9529,7 +9529,7 @@ char __cdecl nox_xxx_playerMakeDefItems_4EF7D0(int a1, int a2, int a3) {
 	v4 = *(_DWORD*)(a1 + 748);
 	v19 = (unsigned __int8*)(*(_DWORD*)(v4 + 276) + 2185);
 	if (a2) {
-		sub_4EE9D0(v3);
+		nox_xxx_removePoison_4EE9D0(v3);
 		nox_xxx_unitHPsetOnMax_4EE6F0(v3);
 		nox_xxx_playerManaRefresh_4EECF0(v3);
 	}
@@ -9805,7 +9805,7 @@ int __cdecl sub_4EFF10(int a1) {
 	nox_xxx_playerSetState_4FA020((_DWORD*)a1, 13);
 	nox_xxx_unitClearBuffs_4FF580(a1);
 	nox_xxx_playerCancelSpells_4FEAE0(a1);
-	sub_4EE9D0(a1);
+	nox_xxx_removePoison_4EE9D0(a1);
 	sub_4F7950(a1);
 	nox_xxx_netReportTotalHealth_4D85C0(*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064), (_DWORD*)a1);
 	nox_xxx_netReportTotalMana_4D88C0(*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064), a1);
@@ -10073,7 +10073,7 @@ int __cdecl nox_xxx_unitInitGenerator_4F0590(int a1) {
 	int result; // eax
 
 	v1 = *(_DWORD*)(a1 + 748);
-	switch (*(unsigned __int8*)(sub_51A930() + v1 + 83)) {
+	switch (*(unsigned __int8*)(nox_xxx_getQuestStage_51A930() + v1 + 83)) {
 	case 0u:
 		v2 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 206868));
 		goto LABEL_6;
@@ -10213,7 +10213,7 @@ _DWORD* __cdecl nox_server_rewardgen_activateMarker_4F0720(int a1, unsigned int 
 				result = nox_xxx_rewardMakeArmor_4F0E80(v3, a2);
 				break;
 			case 0x20u:
-				result = sub_4F1D30(v3, a2);
+				result = nox_xxx_createGem_4F1D30(v3, a2);
 				break;
 			case 0x40u:
 				result = nox_xxx_rewardMakePotion_4F1C40(v3, a2);
@@ -10222,7 +10222,7 @@ _DWORD* __cdecl nox_server_rewardgen_activateMarker_4F0720(int a1, unsigned int 
 				result = nox_xxx_createGem2_4F1F00(v3, a2);
 				break;
 			default:
-				result = sub_4F1D30(v3, a2);
+				result = nox_xxx_createGem_4F1D30(v3, a2);
 				break;
 			}
 		} else {
@@ -11429,7 +11429,7 @@ _DWORD* __cdecl nox_xxx_rewardMakePotion_4F1C40(int a1, unsigned int a2) {
 }
 
 //----- (004F1D30) --------------------------------------------------------
-_DWORD* __cdecl sub_4F1D30(int a1, unsigned int a2) {
+_DWORD* __cdecl nox_xxx_createGem_4F1D30(int a1, unsigned int a2) {
 	unsigned int v2; // ebx
 	int v3;          // eax
 	_DWORD* result;  // eax
@@ -11483,7 +11483,7 @@ _DWORD* __cdecl sub_4F1D30(int a1, unsigned int a2) {
 }
 
 //----- (004F1F00) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_createGem2_4F1F00(int a1, unsigned int a2) { return sub_4F1D30(a1, a2); }
+_DWORD* __cdecl nox_xxx_createGem2_4F1F00(int a1, unsigned int a2) { return nox_xxx_createGem_4F1D30(a1, a2); }
 
 //----- (004F2110) --------------------------------------------------------
 void sub_4F2110() {
@@ -12209,7 +12209,7 @@ LABEL_8:
 int __cdecl nox_xxx_playerTryEquip_4F2F70(_DWORD* a1, int a2) {
 	int result; // eax
 
-	if (sub_53A420(a1, a2, 1, 1) || (result = nox_xxx_playerEquipArmor_53E650(a1, a2, 1, 1)) != 0)
+	if (nox_xxx_playerEquipWeapon_53A420(a1, a2, 1, 1) || (result = nox_xxx_playerEquipArmor_53E650(a1, a2, 1, 1)) != 0)
 		result = 1;
 	return result;
 }
@@ -12218,7 +12218,7 @@ int __cdecl nox_xxx_playerTryEquip_4F2F70(_DWORD* a1, int a2) {
 int __cdecl nox_xxx_playerTryDequip_4F2FB0(_DWORD* a1, int a2) {
 	int result; // eax
 
-	if (sub_53A140(a1, a2, 1, 1) || (result = sub_53E430(a1, a2, 1, 1)) != 0)
+	if (nox_xxx_playerDequipWeapon_53A140(a1, a2, 1, 1) || (result = sub_53E430(a1, a2, 1, 1)) != 0)
 		result = 1;
 	return result;
 }
@@ -12335,7 +12335,7 @@ int __cdecl nox_xxx_pickupDefault_4F31E0(int a1, int a2, int a3) {
 	v3 = nox_common_gameFlags_check_40A5C0(4096);
 	v4 = a1;
 	v5 = a2;
-	if (v3 || !sub_419130(a2 + 48) || sub_419150(v4 + 48, v5 + 48) ||
+	if (v3 || !nox_xxx_servObjectHasTeam_419130(a2 + 48) || nox_xxx_servCompareTeams_419150(v4 + 48, v5 + 48) ||
 		(v6 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(v5 + 52))) == 0) {
 		if (*(_DWORD*)(v5 + 492)) {
 			result = 0;
@@ -12419,7 +12419,7 @@ int __cdecl sub_4F3400(int a1, int a2, int a3) {
 		nox_xxx_buffApplyTo_4FF380(a1, 30, 0, 5);
 		nox_xxx_aud_501960(313, a1, 0, 0);
 		*(_DWORD*)&v6[2] = *(_DWORD*)(a1 + 36);
-		if (sub_419130(a1 + 48))
+		if (nox_xxx_servObjectHasTeam_419130(a1 + 48))
 			*(_DWORD*)&v6[6] = *(unsigned __int8*)(a1 + 52);
 		else
 			*(_DWORD*)&v6[6] = 0;
@@ -12480,7 +12480,7 @@ int __cdecl nox_xxx_pickupTreasure_4F3580(int a1, int a2, int a3) {
 	++*(_DWORD*)(*(_DWORD*)(v3 + 276) + 2152);
 	*(_DWORD*)(*(_DWORD*)(v3 + 276) + 2156) = nox_xxx_scavengerTreasureMax_4D1600();
 	nox_xxx_scavengerHuntReport_4D8CD0(a1);
-	if (!sub_419130(a1 + 48)) {
+	if (!nox_xxx_servObjectHasTeam_419130(a1 + 48)) {
 		if (*(_DWORD*)(*(_DWORD*)(v3 + 276) + 2152) == nox_xxx_scavengerTreasureMax_4D1600()) {
 			nox_xxx_setGameFlags_40A4D0(8);
 			nox_xxx_changeScore_4D8E90(a1, 1);
@@ -12628,7 +12628,7 @@ LABEL_28:
 	}
 LABEL_30:
 	if (*(_BYTE*)(v3 + 12) & 0x40 && *(_BYTE*)(a1 + 8) & 4 && *(_BYTE*)(a1 + 540)) {
-		sub_4EE9D0(a1);
+		nox_xxx_removePoison_4EE9D0(a1);
 		v12 = nox_xxx_spellGetAud44_424800(14, 1);
 		nox_xxx_aud_501960(v12, a1, 0, 0);
 		nox_xxx_delayedDeleteObject_4E5CC0(v3);
@@ -12849,7 +12849,7 @@ int __cdecl nox_xxx_servMapLoadPlaceObj_4F3F50(int a1, int a2, int* a3) {
 
 	if (nox_common_gameFlags_check_40A5C0(0x400000) || nox_xxx_getUnitDefDd10_4E3BA0(*(unsigned __int16*)(a1 + 4))) {
 		if (a3) {
-			v6 = sub_426A70();
+			v6 = nox_xxx_mapGetWallSize_426A70();
 			*(float*)(a1 + 56) = *(float*)(a1 + 56) - (double)(int)(23 * *(_DWORD*)v6) + (double)*a3 - 11.0;
 			*(float*)(a1 + 60) = *(float*)(a1 + 60) - (double)(int)(23 * *((_DWORD*)v6 + 1)) + (double)a3[1] - 11.0;
 		}

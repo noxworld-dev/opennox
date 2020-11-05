@@ -828,7 +828,7 @@ int __cdecl nox_server_mapRWPolygons_428CD0(int a1) {
 			do {
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 4u);
 				nox_xxx_fileReadWrite_426AC0_file3_fread(v29, 8u);
-				if (!sub_420D40(SLODWORD(v29[0]), SLODWORD(v29[1]), v9, a1))
+				if (!nox_xxx_polygonSetAngl_420D40(SLODWORD(v29[0]), SLODWORD(v29[1]), v9, a1))
 					return 0;
 				if ((__int16)v26 < 3)
 					nox_xxx_fileReadWrite_426AC0_file3_fread(&v31, 4u);
@@ -927,10 +927,10 @@ int __cdecl nox_server_mapRWPolygons_428CD0(int a1) {
 		v3 = nox_xxx_polygon_420CD0(v3);
 	}
 	v25 = 0;
-	for (k = sub_4210A0(); k; ++v25)
+	for (k = nox_xxx_polygonGetNext_4210A0(); k; ++v25)
 		k = sub_4210E0((int)k);
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v25, 4u);
-	v6 = sub_4210A0();
+	v6 = nox_xxx_polygonGetNext_4210A0();
 	v28 = 0;
 	if (v25 <= 0)
 		return 1;
@@ -983,7 +983,7 @@ int nox_server_mapRWAmbientData_429200() {
 		}
 		result = 1;
 	} else {
-		v1 = sub_469BB0();
+		v1 = nox_xxx_getAmbientColor_469BB0();
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v1, 4u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v1 + 4, 4u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v1 + 8, 4u);
@@ -1015,13 +1015,13 @@ int __cdecl nox_server_mapRWWindowWalls_4292C0(_DWORD* a1) {
 			do {
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&v7, 8u);
 				if (a1) {
-					v3 = sub_426A70();
+					v3 = nox_xxx_mapGetWallSize_426A70();
 					sub_428170(a1, &v9);
 					v7.field_0 += v9.field_0 / 23 - *(_DWORD*)v3;
 					v7.field_4 += v9.field_4 / 23 - *((_DWORD*)v3 + 1);
 				}
 				if (nox_common_gameFlags_check_40A5C0(0x400000)) {
-					v4 = sub_5042F0(v7.field_0, v7.field_4);
+					v4 = nox_xxx_cliWallGet_5042F0(v7.field_0, v7.field_4);
 					if (v4)
 						v2 = (_DWORD*)*v4;
 				} else {
@@ -1101,13 +1101,13 @@ int __cdecl nox_server_mapRWDestructableWalls_429530(_DWORD* a1) {
 			do {
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&v7, 8u);
 				if (a1) {
-					v3 = sub_426A70();
+					v3 = nox_xxx_mapGetWallSize_426A70();
 					sub_428170(a1, &v9);
 					v7.field_0 += v9.field_0 / 23 - *(_DWORD*)v3;
 					v7.field_4 += v9.field_4 / 23 - *((_DWORD*)v3 + 1);
 				}
 				if (nox_common_gameFlags_check_40A5C0(0x400000)) {
-					v4 = sub_5042F0(v7.field_0, v7.field_4);
+					v4 = nox_xxx_cliWallGet_5042F0(v7.field_0, v7.field_4);
 					if (v4)
 						v2 = (_DWORD*)*v4;
 				} else {
@@ -1209,14 +1209,14 @@ int __cdecl nox_server_mapRWSecretWalls_4297C0(_DWORD* a1) {
 				nox_xxx_fileReadWrite_426AC0_file3_fread(v2 + 28, 4u);
 			}
 			if (a1) {
-				v5 = sub_426A70();
+				v5 = nox_xxx_mapGetWallSize_426A70();
 				sub_428170(a1, &v12);
 				*v3 += v12.field_0 / 23 - *(_DWORD*)v5;
 				*((_DWORD*)v2 + 2) += v12.field_4 / 23 - *((_DWORD*)v5 + 1);
 			}
 			if (!nox_common_gameFlags_check_40A5C0(0x400000))
 				break;
-			v6 = sub_5042F0(*v3, *((_DWORD*)v2 + 2));
+			v6 = nox_xxx_cliWallGet_5042F0(*v3, *((_DWORD*)v2 + 2));
 			if (!v6)
 				goto LABEL_14;
 			v7 = *v6;
@@ -1455,7 +1455,7 @@ int __cdecl nox_server_mapRWWallMap_429B20(_DWORD* a1) {
 								nox_xxx_fileReadWrite_426AC0_file3_fread(v11 + 2, 1u);
 								v32.field_0 = 23 * (unsigned __int8)v11[5] + 11;
 								v32.field_4 = 23 * (unsigned __int8)v11[6] + 11;
-								v12 = sub_4217B0(&v32, 0);
+								v12 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v32, 0);
 								if (v12 || (v12 = (struc_19*)sub_421990(&v32, 10.0, 0)) != 0)
 									v23 = BYTE2(v12->field_0[32]);
 								else
@@ -1605,7 +1605,7 @@ int __cdecl sub_42A150(__int16 a1, _DWORD* a2) {
 					nox_xxx_fileReadWrite_426AC0_file3_fread(v13 + 2, 1u);
 					v32.field_0 = 23 * (unsigned __int8)v13[5] + 11;
 					v32.field_4 = 23 * (unsigned __int8)v13[6] + 11;
-					v14 = sub_4217B0(&v32, 0);
+					v14 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v32, 0);
 					if (v14 || (v14 = (struc_19*)sub_421990(&v32, 10.0, 0)) != 0)
 						v26 = BYTE2(v14->field_0[32]);
 					else
@@ -1719,7 +1719,7 @@ int __cdecl sub_42A650(unsigned __int8* a1) {
 		a1[2] = a1[5] % 3;
 	if (v1 == 1)
 		a1[2] = a1[5] % 3;
-	result = sub_46A3B0(a1[1], v1, a1[2], (a1[4] >> 2) & 2);
+	result = nox_xxx_getWallSprite_46A3B0(a1[1], v1, a1[2], (a1[4] >> 2) & 2);
 	if (!result)
 		a1[2] = 0;
 	return result;
@@ -5474,7 +5474,7 @@ void sub_430140(int a1) {
 }
 
 //----- (00430190) --------------------------------------------------------
-int sub_430190() {
+int nox_xxx_initInput_430190() {
 	int v1;              // ecx
 	unsigned __int8* v2; // eax
 	int v4;              // [esp+0h] [ebp-4h]
@@ -5972,7 +5972,7 @@ void __cdecl nox_xxx_screenGetSize_430C50_get_video_max(int* w, int* h) {
 }
 
 //----- (00430D40) --------------------------------------------------------
-BOOL sub_430D40() {
+BOOL nox_xxx_testMMXSupport_430D40() {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 805840))
@@ -7859,7 +7859,7 @@ int __cdecl sub_434080(int a1) {
 }
 
 //----- (00434350) --------------------------------------------------------
-int __cdecl sub_434350(int a1) {
+int __cdecl nox_xxx_drawSelectColor_434350(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -8515,7 +8515,7 @@ BOOL __cdecl nox_xxx_clientResetSpriteAndGui_4357D0(int argc, const char** argv)
 	*getMemU32Ptr(0x5D4594, 2616328) = 0;
 	*getMemU32Ptr(0x5D4594, 2614252) = 0;
 	*getMemU32Ptr(0x5D4594, 2618908) = 0;
-	strcpy((char*)getMemAt(0x5D4594, 811280), sub_4358A0());
+	strcpy((char*)getMemAt(0x5D4594, 811280), nox_xxx_getRandomName_4358A0());
 	if (argc > 1) {
 		int v2 = argc - 1;
 		const char** v3 = argv + 1;
@@ -8795,7 +8795,7 @@ int nox_xxx_client_435F80_draw() {
 	}
 	sub_49BD70((int)getMemAt(0x5D4594, 811068));
 	sub_49BBC0();
-	sub_421B80();
+	nox_xxx_polygonDrawColor_421B80();
 	if (nox_client_isConnected_43C700())
 		nox_xxx_cliToggleObsWindow_4357A0();
 	nox_xxx_clientDrawAll_436100_draw();
@@ -9198,7 +9198,7 @@ int nox_xxx_initSomethingNetGame_438A90() {
 		sub_43AF90(3);
 		*(_QWORD*)&qword_5d4594_814956 = nox_call_get_ticks() + 20000;
 		v5 = sub_43B320();
-		v4 = sub_43B300();
+		v4 = nox_xxx_inServerGetAddr_43B300();
 		result = sub_5550A0(v4, v5, buf);
 	}
 	/*else
@@ -9814,7 +9814,7 @@ int __cdecl sub_43B2A0(int a1) {
 }
 
 //----- (0043B300) --------------------------------------------------------
-unsigned int sub_43B300() {
+unsigned int nox_xxx_inServerGetAddr_43B300() {
 	unsigned int result; // eax
 
 	if (dword_5d4594_815056)
@@ -9897,7 +9897,7 @@ int sub_43B490() {
 }
 
 //----- (0043B4D0) --------------------------------------------------------
-_DWORD* sub_43B4D0() {
+_DWORD* nox_xxx_serverHost_43B4D0() {
 	if (dword_5d4594_815048) {
 		sub_43B510();
 		sub_43A9D0();

@@ -1185,7 +1185,7 @@ _DWORD* __cdecl nox_xxx_mapFindPlayerStart_4F7AB0(float2* a1, int a2) {
 		dword_5d4594_1568868 = result;
 	}
 	if (a2) {
-		if (sub_419130(a2 + 48)) {
+		if (nox_xxx_servObjectHasTeam_419130(a2 + 48)) {
 			v16 = *(unsigned __int8*)(a2 + 52);
 			nox_xxx_clientGetTeamColor_418AB0(v16);
 			v3 = v16;
@@ -1261,7 +1261,7 @@ _DWORD* __cdecl nox_xxx_mapFindPlayerStart_4F7AB0(float2* a1, int a2) {
 
 //----- (004F7CE0) --------------------------------------------------------
 BOOL __cdecl sub_4F7CE0(int a1, int a2) {
-	return *(_DWORD*)(a1 + 16) & 0x1000000 && (!a2 || !sub_419130(a1 + 48) || nox_xxx_teamCompare2_419180(a1 + 48, a2));
+	return *(_DWORD*)(a1 + 16) & 0x1000000 && (!a2 || !nox_xxx_servObjectHasTeam_419130(a1 + 48) || nox_xxx_teamCompare2_419180(a1 + 48, a2));
 }
 
 //----- (004F7D30) --------------------------------------------------------
@@ -1883,7 +1883,7 @@ void __cdecl nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 				case 0x14:
 					if (!nox_common_gameFlags_check_40A5C0(128)) {
 						if (!*(_DWORD*)(v2 + 216))
-							sub_4F9B90(v1);
+							nox_xxx_plrSetSpellType_4F9B90(v1);
 						*(_DWORD*)(v2 + 184) = nox_xxx_updateSpellRelated_424830(*(_DWORD*)(v2 + 184), 1);
 						nox_xxx_aud_501960(186, v1, 0, 0);
 						*(_BYTE*)(v2 + 188) = 0;
@@ -1892,7 +1892,7 @@ void __cdecl nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 				case 0x15:
 					if (!nox_common_gameFlags_check_40A5C0(128)) {
 						if (!*(_DWORD*)(v2 + 216))
-							sub_4F9B90(v1);
+							nox_xxx_plrSetSpellType_4F9B90(v1);
 						*(_DWORD*)(v2 + 184) = nox_xxx_updateSpellRelated_424830(*(_DWORD*)(v2 + 184), 7);
 						nox_xxx_aud_501960(190, v1, 0, 0);
 						*(_BYTE*)(v2 + 188) = 0;
@@ -1901,7 +1901,7 @@ void __cdecl nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 				case 0x16:
 					if (!nox_common_gameFlags_check_40A5C0(128)) {
 						if (!*(_DWORD*)(v2 + 216))
-							sub_4F9B90(v1);
+							nox_xxx_plrSetSpellType_4F9B90(v1);
 						*(_DWORD*)(v2 + 184) = nox_xxx_updateSpellRelated_424830(*(_DWORD*)(v2 + 184), 3);
 						nox_xxx_aud_501960(192, v1, 0, 0);
 						*(_BYTE*)(v2 + 188) = 0;
@@ -1910,7 +1910,7 @@ void __cdecl nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 				case 0x17:
 					if (!nox_common_gameFlags_check_40A5C0(128)) {
 						if (!*(_DWORD*)(v2 + 216))
-							sub_4F9B90(v1);
+							nox_xxx_plrSetSpellType_4F9B90(v1);
 						*(_DWORD*)(v2 + 184) = nox_xxx_updateSpellRelated_424830(*(_DWORD*)(v2 + 184), 5);
 						nox_xxx_aud_501960(188, v1, 0, 0);
 						*(_BYTE*)(v2 + 188) = 0;
@@ -1919,7 +1919,7 @@ void __cdecl nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 				case 0x18:
 					if (!nox_common_gameFlags_check_40A5C0(128)) {
 						if (!*(_DWORD*)(v2 + 216))
-							sub_4F9B90(v1);
+							nox_xxx_plrSetSpellType_4F9B90(v1);
 						*(_DWORD*)(v2 + 184) = nox_xxx_updateSpellRelated_424830(*(_DWORD*)(v2 + 184), 2);
 						nox_xxx_aud_501960(187, v1, 0, 0);
 						*(_BYTE*)(v2 + 188) = 0;
@@ -1928,7 +1928,7 @@ void __cdecl nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 				case 0x19:
 					if (!nox_common_gameFlags_check_40A5C0(128)) {
 						if (!*(_DWORD*)(v2 + 216))
-							sub_4F9B90(v1);
+							nox_xxx_plrSetSpellType_4F9B90(v1);
 						*(_DWORD*)(v2 + 184) = nox_xxx_updateSpellRelated_424830(*(_DWORD*)(v2 + 184), 0);
 						nox_xxx_aud_501960(193, v1, 0, 0);
 						*(_BYTE*)(v2 + 188) = 0;
@@ -1937,7 +1937,7 @@ void __cdecl nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 				case 0x1A:
 					if (!nox_common_gameFlags_check_40A5C0(128)) {
 						if (!*(_DWORD*)(v2 + 216))
-							sub_4F9B90(v1);
+							nox_xxx_plrSetSpellType_4F9B90(v1);
 						*(_DWORD*)(v2 + 184) = nox_xxx_updateSpellRelated_424830(*(_DWORD*)(v2 + 184), 8);
 						nox_xxx_aud_501960(189, v1, 0, 0);
 						*(_BYTE*)(v2 + 188) = 0;
@@ -1946,7 +1946,7 @@ void __cdecl nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 				case 0x1B:
 					if (!nox_common_gameFlags_check_40A5C0(128)) {
 						if (!*(_DWORD*)(v2 + 216))
-							sub_4F9B90(v1);
+							nox_xxx_plrSetSpellType_4F9B90(v1);
 						*(_DWORD*)(v2 + 184) = nox_xxx_updateSpellRelated_424830(*(_DWORD*)(v2 + 184), 6);
 						nox_xxx_aud_501960(191, v1, 0, 0);
 						*(_BYTE*)(v2 + 188) = 0;
@@ -2000,7 +2000,7 @@ void __cdecl nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 				goto LABEL_247;
 		}
 	case 1u:
-		if (!sub_538960(v1)) {
+		if (!nox_xxx_playerAttack_538960(v1)) {
 			if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 4) & 4) {
 				nox_xxx_playerSetState_4FA020((_DWORD*)v1, 14);
 				*(_DWORD*)(v1 + 136) = *getMemU32Ptr(0x5D4594, 2598000);
@@ -2322,7 +2322,7 @@ int __cdecl sub_4F9AB0(int a1) {
 }
 
 //----- (004F9B90) --------------------------------------------------------
-void* __cdecl sub_4F9B90(int a1) {
+void* __cdecl nox_xxx_plrSetSpellType_4F9B90(int a1) {
 	int v1;       // esi
 	void* result; // eax
 
@@ -3841,7 +3841,7 @@ int __cdecl sub_4FC960(int a1, char a2) {
 	for (i = result; result; i = result) {
 		if (i != a1) {
 			v5 = *(_DWORD*)(i + 36);
-			v4 = sub_4FE1C0(*(_DWORD*)(a1 + 36), a2);
+			v4 = nox_xxx_spellGetPhoneme_4FE1C0(*(_DWORD*)(a1 + 36), a2);
 			nox_xxx_aud_501960(v4, a1, 2, v5);
 		}
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
@@ -4242,7 +4242,7 @@ int __cdecl nox_xxx_checkPlrCantCastSpell_4FD150(int a1, int a2, int a3) {
 					if (!v3)
 						goto LABEL_9;
 				}
-				if (sub_419130(a1 + 48))
+				if (nox_xxx_servObjectHasTeam_419130(a1 + 48))
 					return 17;
 			}
 		}
@@ -4421,7 +4421,7 @@ int __cdecl nox_xxx_spellAccept_4FD400(int a1, int a2, _DWORD* a3, int a4, int* 
 			v7 = nox_xxx_castFumble_52C060;
 			goto LABEL_95;
 		case 34:
-			v7 = sub_537FA0;
+			v7 = nox_xxx_castGlyph_537FA0;
 			goto LABEL_95;
 		case 35:
 			return nox_xxx_spellDurationBased_4FEBA0(a1, a2, a3, a4, a5, a6, sub_52F220, sub_52F2E0, 0, 0);
@@ -4486,7 +4486,7 @@ int __cdecl nox_xxx_spellAccept_4FD400(int a1, int a2, _DWORD* a3, int a4, int* 
 			goto LABEL_95;
 		case 59:
 			v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 217640));
-			return nox_xxx_spellDurationBased_4FEBA0(a1, a2, a3, a4, a5, a6, nox_xxx_plasmaSmth_531580, sub_531600, sub_5319E0, (__int64)v8);
+			return nox_xxx_spellDurationBased_4FEBA0(a1, a2, a3, a4, a5, a6, nox_xxx_plasmaSmth_531580, nox_xxx_plasmaShot_531600, sub_5319E0, (__int64)v8);
 		case 60:
 			v7 = nox_xxx_castPoison_52C720;
 			goto LABEL_95;
@@ -4607,7 +4607,7 @@ int __cdecl nox_xxx_spellAccept_4FD400(int a1, int a2, _DWORD* a3, int a4, int* 
 			result = v9;
 			break;
 		case 132:
-			result = nox_xxx_spellDurationBased_4FEBA0(a1, a2, a3, a4, a5, a6, sub_4FFA90, sub_500070, sub_500080, 0);
+			result = nox_xxx_spellDurationBased_4FEBA0(a1, a2, a3, a4, a5, a6, nox_xxx_spellWallCreate_4FFA90, nox_xxx_spellWallUpdate_500070, nox_xxx_spellWallDestroy_500080, 0);
 			break;
 		default:
 			result = 1;
@@ -4651,7 +4651,7 @@ int __cdecl nox_xxx_gameCaptureMagic_4FDC10(int a1, int a2) {
 		} else if (nox_common_gameFlags_check_40A5C0(16)) {
 			v5 = *(_DWORD*)(a2 + 516);
 			if (v5) {
-				while (*(unsigned __int16*)(v5 + 4) != *getMemU32Ptr(0x5D4594, 1569716) || !sub_419130(a2 + 48)) {
+				while (*(unsigned __int16*)(v5 + 4) != *getMemU32Ptr(0x5D4594, 1569716) || !nox_xxx_servObjectHasTeam_419130(a2 + 48)) {
 					v5 = *(_DWORD*)(v5 + 512);
 					if (!v5)
 						return 1;
@@ -4859,7 +4859,7 @@ int __cdecl sub_4FE100(int a1) {
 }
 
 //----- (004FE1C0) --------------------------------------------------------
-int __cdecl sub_4FE1C0(int a1, char a2) {
+int __cdecl nox_xxx_spellGetPhoneme_4FE1C0(int a1, char a2) {
 	char* v2;   // eax
 	int result; // eax
 
@@ -5139,7 +5139,7 @@ void __cdecl nox_xxx_spell_4FE680(int a1, float a2) {
 		v3 = a1;
 		do {
 			v4 = *(_DWORD*)(v2 + 4);
-			if (((*(_BYTE*)(v4 + 8) & 4) != 4 || !sub_419150(v3 + 48, v4 + 48)) &&
+			if (((*(_BYTE*)(v4 + 8) & 4) != 4 || !nox_xxx_servCompareTeams_419150(v3 + 48, v4 + 48)) &&
 				(v5 = *(_DWORD*)(v2 + 4), v6 = *(float*)(v5 + 56) - *(float*)(v3 + 56),
 				 v7 = *(float*)(v5 + 60) - *(float*)(v3 + 60), sqrt(v7 * v7 + v6 * v6) + 0.1 < a2) &&
 				nox_xxx_mapCheck_537110(v3, *(_DWORD*)(v2 + 4))) {
@@ -6162,7 +6162,7 @@ char __cdecl sub_4FFA40(int a1) {
 }
 
 //----- (004FFA90) --------------------------------------------------------
-int __cdecl sub_4FFA90(int a1) {
+int __cdecl nox_xxx_spellWallCreate_4FFA90(int a1) {
 	int v1;              // edi
 	int v2;              // eax
 	float v3;            // edx
@@ -6481,10 +6481,10 @@ char __cdecl nox_xxx_spellWallCreateCalcYMB_4FFFB0(int a1, int a2, int a3, char 
 }
 
 //----- (00500070) --------------------------------------------------------
-int sub_500070() { return 0; }
+int nox_xxx_spellWallUpdate_500070() { return 0; }
 
 //----- (00500080) --------------------------------------------------------
-int __cdecl sub_500080(int a1) {
+int __cdecl nox_xxx_spellWallDestroy_500080(int a1) {
 	int result; // eax
 	int v2;     // esi
 
@@ -7369,7 +7369,7 @@ int __cdecl nox_xxx_charmCreatureFinish_5013E0(int* a1) {
 	}
 	nox_xxx_unitClearOwner_4EC300(a1[12]);
 	nox_xxx_unitSetOwner_4EC290(a1[4], a1[12]);
-	if (sub_419130(a1[12] + 48))
+	if (nox_xxx_servObjectHasTeam_419130(a1[12] + 48))
 		nox_xxx_netChangeTeamMb_419570(a1[12] + 48, *(_DWORD*)(a1[12] + 36));
 	v10 = *(_DWORD*)(a1[12] + 748);
 	v11 = *(_DWORD*)(v10 + 1440);
@@ -7459,7 +7459,7 @@ _DWORD* __cdecl nox_xxx_unitDoSummonAt_5016C0(int a1, int* a2, int a3, unsigned 
 	nox_xxx_netReportAcquireCreature_4D91A0(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (int)v5);
 	nox_xxx_netMarkMinimapObject_417190(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (int)v5, 1);
 	nox_xxx_netSendSimpleObject2_4DF360(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (int)v5);
-	if (sub_419130(a3 + 48))
+	if (nox_xxx_servObjectHasTeam_419130(a3 + 48))
 		nox_xxx_createAtImpl_4191D0(*(_BYTE*)(a3 + 52), a3 + 48, 1, v5[9], 0);
 	v9 = v5[3];
 	BYTE1(v9) |= 1u;
@@ -7695,7 +7695,7 @@ LABEL_8:
 	v6 = a1[1];
 	v9.field_0 = v5;
 	v9.field_4 = nox_float2int(v6);
-	v7 = sub_4217B0(&v9, 0);
+	v7 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v9, 0);
 	if (v7)
 		return BYTE2(v7->field_0[32]);
 	return v2;
@@ -7741,14 +7741,14 @@ int __cdecl nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
 	v7 = *(_DWORD*)(v2 + 276);
 	v17.field_0 = v6;
 	v17.field_4 = nox_float2int(*(float*)(*(_DWORD*)(v7 + 3628) + 60));
-	v8 = sub_4217B0(&v17, 0);
+	v8 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v17, 0);
 	if (v8)
 		v18 = BYTE2(v8->field_0[32]);
 	else
 		v18 = 0;
 LABEL_12:
 	sub_501E80();
-	if (sub_419130(v1 + 48))
+	if (nox_xxx_servObjectHasTeam_419130(v1 + 48))
 		v16 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(v1 + 52));
 	for (i = dword_5d4594_1599060; i; i = *(_DWORD*)i) {
 		v10 = *(_DWORD*)(i + 20);
@@ -7945,7 +7945,7 @@ BOOL __cdecl nox_thing_read_AVNT_502120(int a1, void* a2) {
 	*(_DWORD*)(v15 + 8) = v4 + 1;
 	nox_memfile_read(a2, 1u, v19, v15);
 	*((_BYTE*)a2 + v19) = 0;
-	v5 = sub_40AF50(a2);
+	v5 = nox_xxx_utilFindSound_40AF50(a2);
 	if (!v5)
 		v3 = 0;
 	while (2) {
@@ -8060,7 +8060,7 @@ int __cdecl sub_502370(int a1, void* a2) {
 	*(_DWORD*)(a1 + 8) = v2 + 1;
 	nox_memfile_read(a2, 1u, v3, a1);
 	*((_BYTE*)a2 + v3) = 0;
-	v4 = sub_40AF50(a2);
+	v4 = nox_xxx_utilFindSound_40AF50(a2);
 	if (v4 && dword_5d4594_1599064) {
 		v5 = *(unsigned __int8**)(a1 + 8);
 		v6 = *(_WORD*)v5;
@@ -8496,7 +8496,7 @@ BOOL __cdecl sub_502D70(int a1) {
 	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_1599596)
 		return 0;
 	dword_5d4594_3835396 = a1;
-	return sub_503830(a1) == 0;
+	return nox_xxx_mapgenSaveMap_503830(a1) == 0;
 }
 
 //----- (00502DA0) --------------------------------------------------------
@@ -8905,7 +8905,7 @@ int __cdecl sub_5036D0(char* a1, LPCSTR lpFileName) {
 // 5036D0: using guessed type char var_40[64];
 
 //----- (00503830) --------------------------------------------------------
-int __cdecl sub_503830(int a1) {
+int __cdecl nox_xxx_mapgenSaveMap_503830(int a1) {
 	FILE* v1;           // esi
 	_DWORD* v2;         // eax
 	int v3;             // esi
@@ -9023,7 +9023,7 @@ int __cdecl sub_503B30(float2* a1) {
 		v2 = dword_5d4594_3835396;
 		if (dword_5d4594_1599480 != dword_5d4594_3835396 || *(int*)&dword_5d4594_1599480 == -1 ||
 			dword_5d4594_1599476 == 1) {
-			result = sub_503830(*(int*)&dword_5d4594_3835396);
+			result = nox_xxx_mapgenSaveMap_503830(*(int*)&dword_5d4594_3835396);
 			if (!result)
 				return result;
 			v2 = dword_5d4594_3835396;
@@ -9049,7 +9049,7 @@ int __cdecl sub_503B30(float2* a1) {
 		v18[7] = (__int64)v14.field_4;
 		sub_4D3C80(v18);
 		sub_428170(v18, &v17);
-		v5 = sub_426A70();
+		v5 = nox_xxx_mapGetWallSize_426A70();
 		v6 = v5;
 		v7 = *(_DWORD*)v5;
 		*getMemU32Ptr(0x5D4594, 1599484) = v7;
@@ -9334,7 +9334,7 @@ _DWORD* __cdecl sub_504290(char a1, char a2) {
 }
 
 //----- (005042F0) --------------------------------------------------------
-_DWORD* __cdecl sub_5042F0(int a1, int a2) {
+_DWORD* __cdecl nox_xxx_cliWallGet_5042F0(int a1, int a2) {
 	_DWORD* result; // eax
 
 	result = *(_DWORD**)&dword_5d4594_1599532;
@@ -9477,7 +9477,7 @@ int sub_5045B0() {
 
 	if (dword_5d4594_1599480 == dword_5d4594_3835396 && *(int*)&dword_5d4594_1599480 != -1 &&
 			dword_5d4594_1599476 != 1 ||
-		(result = sub_503830(*(int*)&dword_5d4594_3835396)) != 0) {
+		(result = nox_xxx_mapgenSaveMap_503830(*(int*)&dword_5d4594_3835396)) != 0) {
 		result = **(_DWORD**)&dword_5d4594_1599548;
 	}
 	return result;
@@ -9704,7 +9704,7 @@ int sub_504980() {
 
 	if ((dword_5d4594_1599480 == dword_5d4594_3835396 && *(int*)&dword_5d4594_1599480 != -1 &&
 			 dword_5d4594_1599476 != 1 ||
-		 sub_503830(*(int*)&dword_5d4594_3835396)) &&
+		 nox_xxx_mapgenSaveMap_503830(*(int*)&dword_5d4594_3835396)) &&
 		dword_5d4594_1599540) {
 		result = **(_DWORD**)&dword_5d4594_1599540;
 	} else {
@@ -10707,7 +10707,7 @@ int __cdecl nox_server_mapRWWaypoints_506260(_DWORD* a1) {
 					}
 				}
 				if (a1) {
-					v7 = sub_426A70();
+					v7 = nox_xxx_mapGetWallSize_426A70();
 					sub_428170(a1, &v30);
 					v22 = v22 - (double)(int)(23 * *(_DWORD*)v7) + (double)v30.field_0 - 11.0;
 					v23 = v23 - (double)(int)(23 * *((_DWORD*)v7 + 1)) + (double)v30.field_4 - 11.0;
@@ -10980,7 +10980,7 @@ char __cdecl sub_5068E0(int a1, int a2, wchar_t* a3) {
 							v6 = *(_DWORD*)(v5 + 2056);
 							if (v6) {
 								if (a2 != v6) {
-									if (!nox_xxx_CheckGameplayFlags_417DA0(4) || (v3 = sub_419150(a2 + 48, v6 + 48)) != 0) {
+									if (!nox_xxx_CheckGameplayFlags_417DA0(4) || (v3 = nox_xxx_servCompareTeams_419150(a2 + 48, v6 + 48)) != 0) {
 										v7 = dword_5d4594_1599656;
 										if (!dword_5d4594_1599656)
 											goto LABEL_21;
@@ -11345,7 +11345,7 @@ BOOL __cdecl sub_507000(int a1) {
 		return 1;
 	if (*(_DWORD*)(a1 + 20) == 1) {
 		for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-			if (sub_419150(*(_DWORD*)(a1 + 16), i + 48))
+			if (nox_xxx_servCompareTeams_419150(*(_DWORD*)(a1 + 16), i + 48))
 				++v1;
 		}
 	} else {
@@ -12796,7 +12796,7 @@ int sub_5095E0() {
 	if (v5) {
 		do {
 			v6 = *(_DWORD*)(v5 + 748);
-			if (!sub_419130(v5 + 48)) {
+			if (!nox_xxx_servObjectHasTeam_419130(v5 + 48)) {
 				v7 = *(_DWORD*)(v6 + 276);
 				if (!(*(_BYTE*)(v7 + 3680) & 1)) {
 					v8 = *(_DWORD*)(v7 + 2140);

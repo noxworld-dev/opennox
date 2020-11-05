@@ -3553,7 +3553,7 @@ int __cdecl nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1) {
 		v11 = v1->field_4;
 		a1a.field_0 = (v1->field_0 - v28) / 38;
 		a1a.field_4 = (v11 - v29) / 38;
-		v13 = sub_4C2410(&a1a);
+		v13 = nox_xxx_wndSummonGet_4C2410(&a1a);
 		*getMemU32Ptr(0x5D4594, 1321212) = 0;
 		v14 = (int*)sub_4C2D60();
 		if (v14) {
@@ -3578,7 +3578,7 @@ int __cdecl nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1) {
 }
 
 //----- (004C2410) --------------------------------------------------------
-int __cdecl sub_4C2410(int2* a1) {
+int __cdecl nox_xxx_wndSummonGet_4C2410(int2* a1) {
 	int result; // eax
 	int v2;     // edx
 	int v3;     // ecx
@@ -3740,7 +3740,7 @@ int __cdecl nox_xxx_wndSummonProc_4C2B10(_DWORD* a1, unsigned int a2, unsigned i
 			nox_client_wndGetPosition_46AA60(a1, &a2, &a3);
 			a1a.field_0 = (v5.field_0 - (int)a2) / 38;
 			a1a.field_4 = (v5.field_4 - (int)a3) / 38;
-			dword_5d4594_1321204 = sub_4C2410(&a1a);
+			dword_5d4594_1321204 = nox_xxx_wndSummonGet_4C2410(&a1a);
 			if (dword_5d4594_1321204)
 				nox_xxx_wndSummonCreateList_4C2560(&v5);
 			return 1;
@@ -3797,7 +3797,7 @@ int __cdecl sub_4C2C60(_DWORD* a1, int2* a2) {
 	nox_client_wndGetPosition_46AA60(a1, &a1, &v6);
 	a1a.field_0 = (a2->field_0 - (int)a1) / 38;
 	a1a.field_4 = (a2->field_4 - (int)v6) / 38;
-	v4 = sub_4C2410(&a1a);
+	v4 = nox_xxx_wndSummonGet_4C2410(&a1a);
 	if (v4)
 		result = nox_get_thing_pretty_name(*(_DWORD*)(v4 + 4));
 	else
@@ -4146,7 +4146,7 @@ int __cdecl sub_4C3270(int a1, int a2, int a3, int a4) {
 }
 
 //----- (004C32A0) --------------------------------------------------------
-int __cdecl sub_4C32A0(int a1, int a2, int a3, int a4) {
+int __cdecl nox_xxx_spriteDrawCircleMB_4C32A0(int a1, int a2, int a3, int a4) {
 	unsigned __int8* v4; // ebx
 	int v5;              // esi
 	int v6;              // edi
@@ -4893,7 +4893,7 @@ __int16 __cdecl nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3
 		if (v5) {
 			v6 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)a2 + 32));
 			if (v6) {
-				if (*getMemU32Ptr(0x5D4594, 2616328) == *((_DWORD*)a2 + 32) || sub_419150((int)v5, (int)v6))
+				if (*getMemU32Ptr(0x5D4594, 2616328) == *((_DWORD*)a2 + 32) || nox_xxx_servCompareTeams_419150((int)v5, (int)v6))
 					v53 = 1;
 			}
 		}

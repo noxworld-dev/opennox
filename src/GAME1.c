@@ -403,8 +403,8 @@ int __cdecl cmain(int argc, const char* argv[]) {
 		sub_4445C0();
 	nox_xxx_clear18hDD_416190();
 	nox_xxx_initRnd_415F70();
-	sub_42EAE0();
-	sub_415D50();
+	nox_xxx_bindevent_42EAE0();
+	nox_xxx_loadLook_415D50();
 	nox_xxx_loadModifyers_4158C0();
 	nox_xxx_cmdTokensLoad_4444F0();
 	sub_4D11A0();
@@ -413,7 +413,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	if (!result) {
 		return 0;
 	}
-	sub_434350(*getMemIntPtr(0x5D4594, 2650656));
+	nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2650656));
 	sub_440900();
 	result = nox_video_read_videobag(*(int*)&dword_5d4594_3804680);
 	if (!result) {
@@ -431,7 +431,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	if (!result) {
 		return 0;
 	}
-	result = sub_430190();
+	result = nox_xxx_initInput_430190();
 	if (!result) {
 		return 0;
 	}
@@ -445,7 +445,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	}
 	nox_xxx_initSinCosTables_414C90();
 	nox_xxx_loadMapCycle_4D0A30();
-	sub_4D0E00();
+	nox_xxx_mapSelectFirst_4D0E00();
 	nox_xxx_netInitMsgBufs_40EA10();
 	sub_40B890(32);
 	sub_40B170(32);
@@ -1991,7 +1991,7 @@ void sub_40AF30() {
 }
 
 //----- (0040AF50) --------------------------------------------------------
-int __cdecl sub_40AF50(void* a1) {
+int __cdecl nox_xxx_utilFindSound_40AF50(void* a1) {
 	int* v1;    // eax
 	int result; // eax
 
@@ -2004,7 +2004,7 @@ int __cdecl sub_40AF50(void* a1) {
 }
 
 //----- (0040AF80) --------------------------------------------------------
-const char* __cdecl sub_40AF80(int a1) { return table_5184[a1]; }
+const char* __cdecl nox_xxx_getSndName_40AF80(int a1) { return table_5184[a1]; }
 
 //----- (0040AF90) --------------------------------------------------------
 void __cdecl nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int a4, _BYTE* a5, unsigned int a6) {
@@ -6039,7 +6039,7 @@ _DWORD* __cdecl sub_410390(int a1, int a2, int a3) {
 		v3[8] = a1;
 		v7[1] = v5;
 		*((_BYTE*)v3 + 4) = v6 | 0x10;
-		result = sub_4217B0((int2*)v7, 0);
+		result = nox_xxx_polygonIsPlayerInPolygon_4217B0((int2*)v7, 0);
 		if (result || (result = sub_421990((int2*)v7, 10.0, 0)) != 0)
 			*((_BYTE*)v3 + 8) = *((_BYTE*)result + 130);
 		else
@@ -8185,7 +8185,7 @@ int sub_413800() {
 BOOL nox_xxx_testCD_413830() { return dword_5d4594_251704 != 0; }
 
 //----- (00413840) --------------------------------------------------------
-BOOL sub_413840() { return dword_5d4594_251704 == 2; }
+BOOL nox_xxx_testCDAndSolo_413840() { return dword_5d4594_251704 == 2; }
 
 //----- (00413850) --------------------------------------------------------
 int sub_413850() {
@@ -11177,7 +11177,7 @@ char __cdecl nox_xxx_playerUnsetStatus_417530(int a1, int a2) {
 // 417577: variable 'v2' is possibly undefined
 
 //----- (004175C0) --------------------------------------------------------
-char* __cdecl sub_4175C0(int a1) {
+char* __cdecl nox_xxx_sendAllClientStatus_4175C0(int a1) {
 	char* result; // eax
 	int i;        // esi
 	int v3;       // [esp-18h] [ebp-24h]
@@ -11745,7 +11745,7 @@ void sub_4181F0(int a1) {
 		if (v5 && (*((_DWORD*)v4 + 515) != *getMemU32Ptr(0x5D4594, 2616328) ||
 				   !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 			v6 = *((_DWORD*)v4 + 920);
-			if ((!(v6 & 1) || v6 & 0x20) && !sub_419130(v5 + 48)) {
+			if ((!(v6 & 1) || v6 & 0x20) && !nox_xxx_servObjectHasTeam_419130(v5 + 48)) {
 				v7 = v19;
 				v19 = ++v1;
 				v22[v7] = *((_DWORD*)v4 + 514);

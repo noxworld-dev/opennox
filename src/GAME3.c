@@ -1729,7 +1729,7 @@ int sub_4A50D0() {
 	mainloop_draw();
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		if (!sub_43AF70()) {
-			sub_43B4D0();
+			nox_xxx_serverHost_43B4D0();
 			return 1;
 		}
 		if (sub_43AF70() == 1) {
@@ -2217,7 +2217,7 @@ int sub_4A6C90() {
 			return 1;
 		}
 		if (!sub_43AF70()) {
-			sub_43B4D0();
+			nox_xxx_serverHost_43B4D0();
 			return 1;
 		}
 		if (sub_43AF70() == 1) {
@@ -3819,7 +3819,7 @@ int nox_xxx_loadDefColor_4A94A0() // initListBoxColors, recall that one
 }
 
 //----- (004A96C0) --------------------------------------------------------
-FILE* __cdecl sub_4A96C0_video_read_palette(char* a1) {
+FILE* __cdecl nox_xxx_loadPal_4A96C0_video_read_palette(char* a1) {
 	FILE* result; // eax
 	FILE* v2;     // ebp
 	char v3[8];   // [esp+Ch] [ebp-40h]
@@ -5531,7 +5531,7 @@ int nox_client_mapSpecialRWObjectData_4AC610() {
 			if (!v1)
 				break;
 			if (sub_44D090(v1)) {
-				v3 = sub_4AC6E0(v2);
+				v3 = nox_xxx_clientLoadSomeObject_4AC6E0(v2);
 				v5 -= v3;
 			}
 			if (v5 > 0)
@@ -5546,7 +5546,7 @@ int nox_client_mapSpecialRWObjectData_4AC610() {
 }
 
 //----- (004AC6E0) --------------------------------------------------------
-int __cdecl sub_4AC6E0(unsigned __int16 a1) {
+int __cdecl nox_xxx_clientLoadSomeObject_4AC6E0(unsigned __int16 a1) {
 	if (!*getMemU32Ptr(0x5D4594, 1309792)) {
 		*getMemU32Ptr(0x5D4594, 1309792) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 173476));
 		*getMemU32Ptr(0x5D4594, 1309796) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 173488));
@@ -6945,7 +6945,7 @@ char* __cdecl sub_4AEED0(int* a1, int a2, int a3) {
 	v4 = sub_4B0680(0, 0xFFu);
 	v5 = sub_48C5E0(0, 40);
 	v6 = sub_48C5E0(0, a1[7]);
-	result = sub_4AF990(a2, a3 + v5, v5, v6);
+	result = nox_xxx_drawPartFx2_4AF990(a2, a3 + v5, v5, v6);
 	v8 = result;
 	if (result) {
 		sub_4AFB00((int)result, (int)v4);
@@ -6981,7 +6981,7 @@ int __cdecl nox_xxx_ParticleFxT1_4AEF80(int* a1) {
 	if (v3) {
 		v9 = a1[5];
 		do {
-			v5 = sub_4AF990(v2, v8, 0, 128);
+			v5 = nox_xxx_drawPartFx2_4AF990(v2, v8, 0, 128);
 			if (v5) {
 				*((_DWORD*)v5 + 17) = sub_48C5E0(-256, 256);
 				*((_DWORD*)v5 + 18) = 0;
@@ -7094,7 +7094,7 @@ unsigned __int8* __cdecl nox_xxx_ParticleFxT2_4AF0F0(unsigned __int8** a1) {
 				v8 = sub_48C5E0(-8, -2);
 				v12 = (char*)a1 + v8;
 				v9 = sub_48C5E0((int)&v14[v5 / 2], (int)&v14[v15]);
-				v10 = sub_4AF990(v9, (int)v12, 0, v13);
+				v10 = nox_xxx_drawPartFx2_4AF990(v9, (int)v12, 0, v13);
 				v11 = (int)v10;
 				if (v10) {
 					sub_4AFB50((int)v10, 2);
@@ -7196,7 +7196,7 @@ void __cdecl sub_4AF2D0(int* a1, int a2, int a3) {
 	v8 = a3;
 	sub_48C650(0, 256, 120, &v9, &v8);
 	v5 = sub_48C5E0(1, a1[7]);
-	v7 = sub_4AF990(v9, v8, 0, v5);
+	v7 = nox_xxx_drawPartFx2_4AF990(v9, v8, 0, v5);
 	if (v7) {
 		nox_xxx_partfxLoadParticle_4AFE20(v7, *(CHAR**)getMemAt(0x5D4594, 3798628));
 		sub_4AFB10((int)v7, *a1);
@@ -7219,7 +7219,7 @@ int __cdecl sub_4AF400(int a1, int a2, int a3) {
 	int v6;   // eax
 
 	v3 = sub_48C5E0(0, 100);
-	v4 = sub_4AF990(a2, a3, 0, v3);
+	v4 = nox_xxx_drawPartFx2_4AF990(a2, a3, 0, v3);
 	sub_4AFB50((int)v4, 1);
 	v5 = sub_48C5E0(0, 64);
 	sub_4AFB90((int)v4, v5);
@@ -7237,12 +7237,12 @@ char* __cdecl nox_xxx_ParticleFxT5_4AF450(int* a1) {
 	nox_xxx_drawMakeRGB_433F10(0x32u, 0x32u, 0x32u);
 	sub_434080(10);
 	v1 = sub_4B0680(0, 0xFFu);
-	result = sub_4AF990(0, 0, 0, 0x7FFFFFFF);
+	result = nox_xxx_drawPartFx2_4AF990(0, 0, 0, 0x7FFFFFFF);
 	v3 = result;
 	if (result) {
 		sub_4AFB10((int)result, *a1);
 		sub_4AFB00((int)v3, (int)v1);
-		result = (char*)sub_4AFCF0(sub_4AF4C0, (int)v3, 1, a1[7]);
+		result = (char*)nox_xxx_registerParticleFx_4AFCF0(sub_4AF4C0, (int)v3, 1, a1[7]);
 	}
 	return result;
 }
@@ -7266,7 +7266,7 @@ int __cdecl sub_4AF4C0(int a1) {
 	nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2589772));
 	v11 = sub_48C5E0(v3 - 2, v3 + 2);
 	v4 = sub_48C5E0(v2 - 2, v2 + 2);
-	v5 = sub_4AF990(v4, v11, 2, 10);
+	v5 = nox_xxx_drawPartFx2_4AF990(v4, v11, 2, 10);
 	v6 = (int)v5;
 	if (!v5)
 		return 0;
@@ -7292,14 +7292,14 @@ char* __cdecl nox_xxx_ParticleFxT6_4AF5A0(int* a1) {
 	char* result; // eax
 	char* v2;     // esi
 
-	result = sub_4AF990(0, 0, 0, 0x7FFFFFFF);
+	result = nox_xxx_drawPartFx2_4AF990(0, 0, 0, 0x7FFFFFFF);
 	v2 = result;
 	if (result) {
 		sub_4AFB40((int)result, a1[2]);
 		sub_4AFB10((int)v2, *a1);
 		sub_4AFB60((int)v2, 0);
 		sub_4AFB70((int)v2, 0);
-		result = (char*)sub_4AFCF0(nox_xxx_partFx_4AF600, (int)v2, 1, 500);
+		result = (char*)nox_xxx_registerParticleFx_4AFCF0(nox_xxx_partFx_4AF600, (int)v2, 1, 500);
 	}
 	return result;
 }
@@ -7307,7 +7307,7 @@ char* __cdecl nox_xxx_ParticleFxT6_4AF5A0(int* a1) {
 int __cdecl sub_4AF650(int* a1) {
 	nox_client_drawEnableAlpha_434560(1);
 	nox_client_drawSetAlpha_434580(255 * a1[12] / a1[13]);
-	sub_4AFEB0(a1);
+	nox_xxx_drawParticlefx_4AFEB0(a1);
 	return nox_client_drawEnableAlpha_434560(0);
 }
 
@@ -7315,7 +7315,7 @@ int __cdecl sub_4AF650(int* a1) {
 int __cdecl nox_xxx_partFx_4AF600(int a1) {
 	char* v1; // esi
 
-	v1 = sub_4AF990(0, 0, 0, 5);
+	v1 = nox_xxx_drawPartFx2_4AF990(0, 0, 0, 5);
 	if (!v1)
 		return 0;
 	sub_4AFB40((int)v1, *(_DWORD*)(*(_DWORD*)(a1 + 20) + 16));
@@ -7542,7 +7542,7 @@ void sub_4AF950() {
 }
 
 //----- (004AF990) --------------------------------------------------------
-char* __cdecl sub_4AF990(int a1, int a2, int a3, int a4) {
+char* __cdecl nox_xxx_drawPartFx2_4AF990(int a1, int a2, int a3, int a4) {
 	char* result; // eax
 
 	result = nox_xxx_partfxAllocSmth_4B01B0();
@@ -7574,7 +7574,7 @@ char* __cdecl sub_4AF990(int a1, int a2, int a3, int a4) {
 		*((_DWORD*)result + 30) = 0;
 		*((_DWORD*)result + 16) = 0;
 		*((_DWORD*)result + 32) = sub_4B0020;
-		*((_DWORD*)result + 31) = sub_4AFEB0;
+		*((_DWORD*)result + 31) = nox_xxx_drawParticlefx_4AFEB0;
 		*((_DWORD*)result + 33) = sub_4B01A0;
 	}
 	return result;
@@ -7847,7 +7847,7 @@ _DWORD* __cdecl sub_4AFCD0(_DWORD* a1) {
 }
 
 //----- (004AFCF0) --------------------------------------------------------
-int __cdecl sub_4AFCF0(int a1, int a2, int a3, int a4) {
+int __cdecl nox_xxx_registerParticleFx_4AFCF0(int a1, int a2, int a3, int a4) {
 	unsigned __int8* v4; // eax
 	int v5;              // ecx
 
@@ -7947,7 +7947,7 @@ int __cdecl nox_xxx_partfxLoadParticle_4AFE20(_DWORD* a1, CHAR* a2) {
 }
 
 //----- (004AFEB0) --------------------------------------------------------
-int __cdecl sub_4AFEB0(int* a1) {
+int __cdecl nox_xxx_drawParticlefx_4AFEB0(int* a1) {
 	int* v1;    // esi
 	int v2;     // ecx
 	int v3;     // edx

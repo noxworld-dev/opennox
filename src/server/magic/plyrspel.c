@@ -230,7 +230,7 @@ int __cdecl nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(int a1, int a2, int
 	if (nox_common_gameFlags_check_40A5C0(2048) && a3 == 1 && a4 == 1) {
 		v18 = *(_DWORD**)(v7 + 280);
 		if (v18)
-			sub_50F4C0(v18);
+			nox_xxx_shopExit_50F4C0(v18);
 	}
 	nox_xxx_netSendSpellAward_4D7F90(v5, v6, a3, a4);
 	return 1;
