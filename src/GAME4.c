@@ -7917,7 +7917,7 @@ int __cdecl sub_502060(int a1) {
 }
 
 //----- (00502120) --------------------------------------------------------
-BOOL __cdecl sub_502120(int a1, void* a2) {
+BOOL __cdecl nox_thing_read_AVNT_502120(int a1, void* a2) {
 	int v2;              // esi
 	int v3;              // ebp
 	unsigned __int8* v4; // eax
@@ -8019,7 +8019,7 @@ BOOL __cdecl sub_502120(int a1, void* a2) {
 }
 
 //----- (00502320) --------------------------------------------------------
-int __cdecl sub_502320(int a1, void* a2) {
+int __cdecl nox_thing_read_audio_502320(int a1, void* a2) {
 	int v2;  // ebx
 	int* v3; // eax
 	int v4;  // edi
