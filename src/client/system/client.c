@@ -40,14 +40,14 @@ void sub_436100_draw() {
 	int v24;               // [esp+14h] [ebp-204h]
 	wchar_t v25[128];      // [esp+18h] [ebp-200h]
 
-	v0 = sub_416BB0();
+	v0 = nox_call_get_ticks();
 	v1 = HIDWORD(v0);
 	v2 = v0;
 	if ((unsigned int)(v0 - *getMemU32Ptr(0x5D4594, 814532)) < *getMemIntPtr(0x587000, 85748)) {
 		v3 = 0;
 	} else {
 		v3 = 1;
-		sub_416D40();
+		nox_ticks_xxx_416D40();
 	}
 	if (!(!*getMemU32Ptr(0x587000, 85724) || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
 		  dword_5d4594_815132 || sub_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
@@ -106,7 +106,7 @@ void sub_436100_draw() {
 	if (dword_5d4594_811904)
 		sub_436F50();
 	if (nox_common_gameFlags_check_40A5C0(8)) {
-		v13 = sub_416BB0() - *getMemU64Ptr(0x5D4594, 811908);
+		v13 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 811908);
 		v24 = HIDWORD(v13);
 		if (v13 > 0x2710 && !nox_common_gameFlags_check_40A5C0(1))
 			nox_common_gameFlags_unset_40A540(8);
@@ -177,7 +177,7 @@ int sub_4365C0() {
 	v1 = nox_win_height - 80;
 	if (*getMemIntPtr(0x5D4594, 814520) >= *getMemIntPtr(0x587000, 85740)) {
 		*getMemU32Ptr(0x587000, 85740) = *getMemU32Ptr(0x5D4594, 814520) + 10;
-		v2 = nox_get_ticks();
+		v2 = nox_platform_get_ticks();
 		v3 = 0x2710 / (v2 - *getMemU32Ptr(0x5D4594, 814528));
 		*getMemU32Ptr(0x5D4594, 814524) = v2;
 		*getMemU32Ptr(0x5D4594, 814528) = v2;

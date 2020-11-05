@@ -357,11 +357,11 @@ void NET_CONNECT_THEN(sm_args_t* args) {
 	sub_40ED10(31, 0);
 	sub_40A340(0);
 	sub_40A360(0);
-	GOTO_CONNECT_WAIT_LOOP(sub_416BB0() + 10000);
+	GOTO_CONNECT_WAIT_LOOP(nox_call_get_ticks() + 10000);
 }
 
 void CONNECT_WAIT_LOOP(sm_args_t* args) {
-	if (sub_416BB0() >= args->connect_wait_loop.timeout)
+	if (nox_call_get_ticks() >= args->connect_wait_loop.timeout)
 		GOTO_CONNECT_WAIT_THEN(0);
 
 	sub_552A80(*(unsigned int*)&dword_5d4594_815700, 1);

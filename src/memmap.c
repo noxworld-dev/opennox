@@ -126,6 +126,12 @@ extern int obj_5D4594_754104_switch;
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
+extern unsigned __int64 nox_tick_freq;
+extern __int64 (*nox_get_ticks_func)(void);
+extern unsigned __int64 nox_framerate_cur_ticks;
+extern unsigned __int64 nox_framerate_next_ticks;
+extern unsigned __int64 nox_framerate_step_ticks;
+
 extern nox_mouse_state_t nox_input_buffer[256];
 extern int nox_processing_input;
 
@@ -2703,6 +2709,11 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1050020, (void*)&nox_obj_arr_1050020, sizeof(nox_obj_arr_1050020), 1},
 	{0x5D4594 + 3804364, (void*)byte_5D4594_3804364, sizeof(byte_5D4594_3804364), 1},
 	{0x5D4594 + 2655724, (void*)byte_5D4594_2655724, sizeof(byte_5D4594_2655724), 1},
+	{0x5D4594 + 371724, (void*)&nox_tick_freq, sizeof(nox_tick_freq), 1},
+	{0x5D4594 + 371716, (void*)&nox_get_ticks_func, sizeof(nox_get_ticks_func), 1},
+	{0x5D4594 + 371732, (void*)&nox_framerate_cur_ticks, sizeof(nox_framerate_cur_ticks), 1},
+	{0x5D4594 + 371748, (void*)&nox_framerate_next_ticks, sizeof(nox_framerate_next_ticks), 1},
+	{0x5D4594 + 371740, (void*)&nox_framerate_step_ticks, sizeof(nox_framerate_step_ticks), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
 	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},

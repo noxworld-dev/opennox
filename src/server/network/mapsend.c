@@ -70,7 +70,7 @@ void __cdecl sub_5199F0_net_mapsend(unsigned __int8* a1) {
 			if (v8 < v7) {
 				*((_WORD*)a1 + 1) = 1;
 			} else {
-				v9 = (sub_416BB0() - *((_QWORD*)a1 + 5)) / (unsigned __int64)1000;
+				v9 = (nox_call_get_ticks() - *((_QWORD*)a1 + 5)) / (unsigned __int64)1000;
 				if (v9)
 					v10 = *((_DWORD*)a1 + 3) / v9;
 				else
@@ -144,7 +144,7 @@ char* __cdecl sub_519D20(int a1) {
 		*((_DWORD*)v1 + 4) = 1;
 		*((_WORD*)v1 + 10) = 512;
 		*((_DWORD*)v1 + 3) = *getMemU32Ptr(0x5D4594, 2388644);
-		*((_QWORD*)v1 + 5) = sub_416BB0();
+		*((_QWORD*)v1 + 5) = nox_call_get_ticks();
 		result = nox_common_playerInfoGetXXX_417090(a1);
 	}
 	return result;

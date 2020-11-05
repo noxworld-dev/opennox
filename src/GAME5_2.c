@@ -856,7 +856,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 					goto LABEL_97;
 				goto LABEL_96;
 			case 18:
-				v37 = nox_get_ticks();
+				v37 = nox_platform_get_ticks();
 				v38 = a2;
 				v39 = v37 - *((_DWORD*)a2 + 1);
 				v40 = sub_553D30((int)v74);
@@ -1149,7 +1149,7 @@ int __cdecl sub_553ED0(int a3) {
 	int result;          // eax
 	int v4;              // edi
 
-	v1 = sub_416BB0();
+	v1 = nox_call_get_ticks();
 	LODWORD(v2) = *getMemU32Ptr(0x5D4594, 8 * a3 + 2499052);
 	HIDWORD(v2) = *getMemU32Ptr(0x5D4594, 8 * a3 + 2499056);
 	if (v1 < v2 + 1000)
@@ -8572,8 +8572,6 @@ int __cdecl SEH_57EA00(int a1, int a2, int a3, int a4)
 void nullsub_2() {}
 
 void sub_4093D0(void) { sub_409560(); }
-
-__int64 sub_416BB0() { return ((__int64(__fastcall*)()) * getMemU32Ptr(0x5D4594, 371716))(); }
 
 int sub_448640(void) { return sub_44A400(); }
 

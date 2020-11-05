@@ -5336,7 +5336,7 @@ unsigned int __cdecl sub_55C530(int a1, _WORD* a2, int* a3, unsigned int a4, int
 
 //----- (0055C8E0) --------------------------------------------------------
 unsigned __int8* sub_55C8E0() {
-	*getMemU32Ptr(0x5D4594, 2516192) = nox_get_ticks();
+	*getMemU32Ptr(0x5D4594, 2516192) = nox_platform_get_ticks();
 	return getMemAt(0x5D4594, 2516192);
 }
 
@@ -5348,7 +5348,7 @@ DWORD __thiscall sub_55C900(DWORD* this) {
 	DWORD result; // eax
 
 	v1 = this;
-	v2 = nox_get_ticks();
+	v2 = nox_platform_get_ticks();
 	v3 = *v1;
 	if (v2 > *v1)
 		result = v2 - v3;

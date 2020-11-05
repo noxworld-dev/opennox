@@ -4137,7 +4137,7 @@ unsigned int sub_42D510() {
 	unsigned __int8 v10; // al
 
 	v0 = 0;
-	v1 = sub_416BB0();
+	v1 = nox_call_get_ticks();
 	*getMemU32Ptr(0x5D4594, 747864) = 0;
 	result = nox_common_gameFlags_check_40A5C0(1);
 	if (result) {
@@ -6152,7 +6152,7 @@ int sub_4312C0() {
 	result = dword_5d4594_805988;
 	if (!dword_5d4594_805988) {
 		dword_5d4594_805988 = 1;
-		v1 = sub_416BB0();
+		v1 = nox_call_get_ticks();
 		v2 = v1;
 		v3 = (unsigned __int64)(v1 - *getMemU64Ptr(0x5D4594, 805996)) >> 32;
 		result = v1 - *getMemU32Ptr(0x5D4594, 805996);
@@ -8371,7 +8371,7 @@ void __cdecl sub_435280(__int16 a1, _BYTE* a2, _BYTE* a3, _BYTE* a4) {
 __int64 sub_435570() {
 	__int64 result; // rax
 
-	result = sub_416BB0();
+	result = nox_call_get_ticks();
 	*getMemU64Ptr(0x5D4594, 811908) = result;
 	return result;
 }
@@ -8467,7 +8467,7 @@ char* __cdecl sub_435720(char* a1) { return strncpy((char*)getMemAt(0x587000, 85
 DWORD sub_435740() {
 	DWORD result; // eax
 
-	result = nox_get_ticks();
+	result = nox_platform_get_ticks();
 	*getMemU32Ptr(0x5D4594, 811924) = result;
 	return result;
 }
@@ -8476,7 +8476,7 @@ DWORD sub_435740() {
 DWORD sub_435750() {
 	DWORD result; // eax
 
-	result = nox_get_ticks() - *getMemU32Ptr(0x5D4594, 811924);
+	result = nox_platform_get_ticks() - *getMemU32Ptr(0x5D4594, 811924);
 	*getMemU32Ptr(0x5D4594, 811928) = result;
 	return result;
 }
@@ -8485,7 +8485,7 @@ DWORD sub_435750() {
 DWORD sub_435770() {
 	DWORD result; // eax
 
-	result = nox_get_ticks();
+	result = nox_platform_get_ticks();
 	*getMemU32Ptr(0x5D4594, 811932) = result;
 	return result;
 }
@@ -8494,7 +8494,7 @@ DWORD sub_435770() {
 DWORD sub_435780() {
 	DWORD result; // eax
 
-	result = nox_get_ticks() - *getMemU32Ptr(0x5D4594, 811932);
+	result = nox_platform_get_ticks() - *getMemU32Ptr(0x5D4594, 811932);
 	*getMemU32Ptr(0x5D4594, 811936) = result;
 	return result;
 }
@@ -9026,7 +9026,7 @@ int __cdecl sub_4375F0(const char* a1, __int16 a2, char* a3, int a4) {
 				if (sub_4A0410(a1, a2)) {
 					memset(v13, 0, 0xA8u);
 					v13[168] = 0;
-					v4 = nox_get_ticks();
+					v4 = nox_platform_get_ticks();
 					v5 = *(_DWORD*)(a4 + 44);
 					v6 = *(_WORD*)(a4 + 36);
 					v13[101] = *(_BYTE*)(a4 + 5) | (16 * *(_BYTE*)(a4 + 6));
@@ -9196,7 +9196,7 @@ int sub_438A90() {
 		strcpy(&buf[88], (const char*)getMemAt(0x5D4594, 2660012 + 36));
 		nox_wcscpy((wchar_t*)&buf[4], (const wchar_t*)getMemAt(0x5D4594, 2661908));
 		sub_43AF90(3);
-		*(_QWORD*)&qword_5d4594_814956 = sub_416BB0() + 20000;
+		*(_QWORD*)&qword_5d4594_814956 = nox_call_get_ticks() + 20000;
 		v5 = sub_43B320();
 		v4 = sub_43B300();
 		result = sub_5550A0(v4, v5, buf);

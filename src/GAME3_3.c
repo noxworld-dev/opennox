@@ -4819,7 +4819,7 @@ void __cdecl sub_4E8AC0(int a2, int a3) {
 			if (*(_DWORD*)(a2 + 136) <= *getMemIntPtr(0x5D4594, 2598000)) {
 				*(_DWORD*)(a2 + 508) = 0;
 			} else if (v4 != a3) {
-				v5 = sub_416BB0() - *(_QWORD*)&qword_5d4594_1567940;
+				v5 = nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_1567940;
 				a3a[1] = HIDWORD(v5);
 				if (v5 <= 0x5DC)
 					return;
@@ -4831,7 +4831,7 @@ void __cdecl sub_4E8AC0(int a2, int a3) {
 					sub_4DA2C0(a3, "objcoll.c:DoorLockedMagic", 0);
 				}
 			LABEL_38:
-				*(_QWORD*)&qword_5d4594_1567940 = sub_416BB0();
+				*(_QWORD*)&qword_5d4594_1567940 = nox_call_get_ticks();
 				return;
 			}
 		}
@@ -4839,7 +4839,7 @@ void __cdecl sub_4E8AC0(int a2, int a3) {
 		if (!v6)
 			return;
 		if (v6 == 5) {
-			v7 = sub_416BB0() - *(_QWORD*)&qword_5d4594_1567940;
+			v7 = nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_1567940;
 			a3a[1] = HIDWORD(v7);
 			if (v7 <= 0x5DC)
 				return;
@@ -4854,7 +4854,7 @@ void __cdecl sub_4E8AC0(int a2, int a3) {
 		}
 		v8 = sub_4E8910(a3, a2);
 		if (!v8) {
-			v17 = sub_416BB0() - *(_QWORD*)&qword_5d4594_1567940;
+			v17 = nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_1567940;
 			a3a[1] = HIDWORD(v17);
 			if (v17 <= 0x5DC)
 				return;
@@ -5626,10 +5626,10 @@ void __cdecl sub_4E9C40(_DWORD* a1, int a2) {
 							v2 = a2;
 						}
 					}
-					if ((unsigned __int64)(sub_416BB0() - *(_QWORD*)&qword_5d4594_1567940) > 0x5DC) {
+					if ((unsigned __int64)(nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_1567940) > 0x5DC) {
 						sub_501960(1012, (int)a1, 0, 0);
 						sub_4DA2C0(v2, "objcoll.c:ChestLockedSilver", 0);
-						*(_QWORD*)&qword_5d4594_1567940 = sub_416BB0();
+						*(_QWORD*)&qword_5d4594_1567940 = nox_call_get_ticks();
 					}
 				} else {
 				LABEL_14:
@@ -6182,7 +6182,7 @@ __int16 __cdecl sub_4EA800(int a1, int a2) {
 								sub_4EB9B0(v3, 0);
 								sub_419570(v3 + 48, *(_DWORD*)(v3 + 36));
 								sub_4EE6F0(v3);
-								*(_QWORD*)(v15 + 8) = sub_416BB0();
+								*(_QWORD*)(v15 + 8) = nox_call_get_ticks();
 								sub_4E7010(v3, (float2*)(j + 56));
 								sub_4E8290(0, 0);
 								LOWORD(v2) = sub_522FF0(129, (float2*)(v3 + 56));
@@ -7139,12 +7139,12 @@ void __cdecl sub_4EBF40(int a1, int a2) {
 					v2 = a2;
 					*(_DWORD*)(v9 + 4 * v10 + 4796) = a1;
 				LABEL_17:
-					if ((unsigned __int64)(sub_416BB0() - *(_QWORD*)&qword_5d4594_1567940) <= 0x5DC)
+					if ((unsigned __int64)(nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_1567940) <= 0x5DC)
 						return;
 					sub_4DA2C0(v2, "objcoll.c:ExtraLifeAlreadyAwarded", 0);
 				LABEL_19:
 					sub_501960(925, v2, 0, 0);
-					*(_QWORD*)&qword_5d4594_1567940 = sub_416BB0();
+					*(_QWORD*)&qword_5d4594_1567940 = nox_call_get_ticks();
 					return;
 				}
 				v2 = a2;
@@ -7183,7 +7183,7 @@ void __cdecl sub_4EBF40(int a1, int a2) {
 			*(_BYTE*)(v3 + 5120) = v16;
 			if (v16 >= 0x40u)
 				*(_BYTE*)(v3 + 5120) = 0;
-		} else if ((unsigned __int64)(sub_416BB0() - *(_QWORD*)&qword_5d4594_1567940) > 0x5DC) {
+		} else if ((unsigned __int64)(nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_1567940) > 0x5DC) {
 			sub_4DA2C0(v2, "pickup.c:MaxTradableAnkhsReached", 0);
 			goto LABEL_19;
 		}

@@ -8294,7 +8294,7 @@ int sub_5521A0() {
 
 	v13 = sub_416640();
 	v0 = 0;
-	v12 = nox_get_ticks();
+	v12 = nox_platform_get_ticks();
 	v11 = 0;
 	v1 = getMemAt(0x5D4594, 2500089);
 	do {
@@ -8357,7 +8357,7 @@ void __cdecl sub_5522E0(int a1) {
 
 //----- (00552340) --------------------------------------------------------
 int __cdecl sub_552340(int a1, int a2) {
-	*getMemU32Ptr(0x5D4594, 68 * a1 + 2500148) = nox_get_ticks();
+	*getMemU32Ptr(0x5D4594, 68 * a1 + 2500148) = nox_platform_get_ticks();
 	*(_BYTE*)(a2 + 2) = 16;
 	*(_DWORD*)(a2 + 4) = *getMemU32Ptr(0x5D4594, 68 * a1 + 2500148);
 	*(_BYTE*)(a2 + 3) = getMemByte(0x5D4594, 68 * a1 + 2500089);
@@ -8405,7 +8405,7 @@ int sub_552460() {
 	unsigned int v0;     // esi
 	unsigned __int8* v1; // edi
 
-	dword_5d4594_2495920 = nox_get_ticks();
+	dword_5d4594_2495920 = nox_platform_get_ticks();
 	if (dword_5d4594_2495920 - *getMemU32Ptr(0x5D4594, 2512888) <= 1000)
 		return 0;
 	v0 = 0;

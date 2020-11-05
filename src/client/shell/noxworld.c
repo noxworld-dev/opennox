@@ -109,7 +109,7 @@ int sub_4378B0() {
 	if (result) {
 		*getMemU32Ptr(0x5D4594, 815104) = 1;
 	} else {
-		*getMemU64Ptr(0x5D4594, 815076) = sub_416BB0();
+		*getMemU64Ptr(0x5D4594, 815076) = nox_call_get_ticks();
 		dword_5d4594_815060 = 0;
 		sub_4379C0();
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16399, 0, 0);
@@ -121,7 +121,7 @@ int sub_4378B0() {
 			sub_41DA70(v3, 12);
 		} else {
 			sub_555000(sub_4375F0);
-			v4 = nox_get_ticks();
+			v4 = nox_platform_get_ticks();
 			*getMemU32Ptr(0x5D4594, 814964) = v4;
 			v1 = sub_40A430();
 			sub_554AA0(v1, 0, 0, v4);
@@ -303,7 +303,7 @@ int sub_4379F0() {
 				dword_5d4594_815044 = 0;
 				dword_5d4594_815052 = 0;
 				dword_5d4594_814548 = 0;
-				*(_QWORD*)&qword_5d4594_815068 = sub_416BB0() + 1000;
+				*(_QWORD*)&qword_5d4594_815068 = nox_call_get_ticks() + 1000;
 				if (dword_587000_87408 == 1)
 					sub_4383A0();
 				if (!dword_587000_87404)
@@ -404,7 +404,7 @@ int sub_438770() {
 			result = 1;
 			break;
 		case 3:
-			if ((unsigned __int64)sub_416BB0() < *(_QWORD*)&qword_5d4594_814956)
+			if ((unsigned __int64)nox_call_get_ticks() < *(_QWORD*)&qword_5d4594_814956)
 				goto LABEL_29;
 			sub_43AFA0(8);
 			result = 1;
@@ -414,7 +414,7 @@ int sub_438770() {
 			v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 88816), 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 									   1343);
 			sub_449E30((int)v2);
-			*(_QWORD*)&qword_5d4594_814956 = sub_416BB0() + 20000;
+			*(_QWORD*)&qword_5d4594_814956 = nox_call_get_ticks() + 20000;
 			result = 1;
 			break;
 		case 5:
@@ -441,13 +441,13 @@ int sub_438770() {
 			result = 1;
 			break;
 		case 8:
-			v1 = sub_416BB0();
+			v1 = nox_call_get_ticks();
 			dword_5d4594_814548 = 9;
 			*getMemU64Ptr(0x5D4594, 814972) = v1 + 1000;
 			result = 1;
 			break;
 		case 9:
-			if ((unsigned __int64)sub_416BB0() <= *getMemU64Ptr(0x5D4594, 814972))
+			if ((unsigned __int64)nox_call_get_ticks() <= *getMemU64Ptr(0x5D4594, 814972))
 				goto LABEL_29;
 			sub_438A90();
 			result = 1;
@@ -472,11 +472,11 @@ int sub_438770() {
 			 !wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815012)) &&
 			!dword_5d4594_815048 && !dword_5d4594_815044 && !dword_5d4594_815052 &&
 			wndIsShown_sub_46ACC0(*(int*)&dword_5d4594_815000)) {
-			if ((unsigned __int64)sub_416BB0() > *(_QWORD*)&qword_5d4594_815068) {
+			if ((unsigned __int64)nox_call_get_ticks() > *(_QWORD*)&qword_5d4594_815068) {
 				sub_4378B0();
 				return 1;
 			}
-			if ((unsigned __int64)(sub_416BB0() - *getMemU64Ptr(0x5D4594, 815076)) > 0x3E8 && !dword_5d4594_815060 &&
+			if ((unsigned __int64)(nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815076)) > 0x3E8 && !dword_5d4594_815060 &&
 				!dword_587000_87404) {
 				sub_44A400();
 				sub_4379C0();
@@ -988,7 +988,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 			v13 = sub_43B300();
 			sub_5550D0(v13, v28, buf);
 			sub_43AF90(3);
-			*(_QWORD*)&qword_5d4594_814956 = sub_416BB0() + 20000;
+			*(_QWORD*)&qword_5d4594_814956 = nox_call_get_ticks() + 20000;
 			sub_449EA0(0);
 			return 0;
 		}
@@ -1011,7 +1011,7 @@ int __cdecl sub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 			return 0;
 		}
 		if (*getMemU32Ptr(0x5D4594, 815104)) {
-			*(_QWORD*)&qword_5d4594_815068 = sub_416BB0() + 1000;
+			*(_QWORD*)&qword_5d4594_815068 = nox_call_get_ticks() + 1000;
 			return 0;
 		}
 		return 0;
