@@ -833,7 +833,7 @@ int __cdecl sub_4E31E0(_DWORD* a1) {
 }
 
 //----- (004E3220) --------------------------------------------------------
-int __cdecl sub_4E3220(int a1, char* a2, int a3) {
+int __cdecl nox_thing_read_xxx_4E3220(int a1, char* a2, int a3) {
 	char* v3;            // ebx
 	unsigned __int8* v4; // eax
 	char* v5;            // edi

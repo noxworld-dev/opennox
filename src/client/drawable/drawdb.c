@@ -1027,40 +1027,40 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 	nox_memfile_seek_40AD10(things, 0, 0);
 	while (nox_memfile_read(&i, 4u, 1, things)) {
 		switch (i) {
-		case 1397769548:
+		case 0x5350454C: // SPEL
 			nox_thing_read_spells_415100(things);
 			break;
-		case 1094863180:
+		case 0x4142494C: // ABIL
 			nox_thing_read_ability_415320(things);
 			break;
-		case 1096107040:
-			sub_502320(things, v3);
+		case 0x41554420: // AUD
+			nox_thing_read_audio_502320(things, v3);
 			break;
-		case 1096175188:
-			sub_502120(things, v3);
+		case 0x41564E54: // AVNT
+			nox_thing_read_AVNT_502120(things, v3);
 			break;
-		case 1463897164:
-			if (!sub_414F60(things, v3)) {
+		case 0x57414C4C: // WALL
+			if (!nox_thing_read_WALL_414F60(things, v3)) {
 				nox_memfile_free(things);
 				return 0;
 			}
 			break;
-		case 1179406162:
-			if (!sub_414DB0(things)) {
+		case 0x464C4F52: // FLOR
+			if (!nox_thing_read_FLOR_414DB0(things)) {
 				nox_memfile_free(things);
 				return 0;
 			}
 			break;
-		case 1162102597:
-			if (!sub_414E70(things, v3)) {
+		case 0x45444745: // EDGE
+			if (!nox_thing_read_EDGE_414E70(things, v3)) {
 				nox_memfile_free(things);
 				return 0;
 			}
 			break;
-		case 1229799751:
+		case 0x494D4147: // IMAG
 			nox_thing_read_image_415240(things);
 			break;
-		case 1414024775:
+		case 0x54484E47: // THNG
 			v5 = calloc(1u, 0xE0u);
 			if (!v5) {
 				nox_memfile_free(things);
@@ -1082,7 +1082,7 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 			*((_DWORD*)v5 + 38) = sub_4E0B30;
 			*((_DWORD*)v5 + 39) = sub_532E20;
 			*((_DWORD*)v5 + 53) = sub_4F49A0;
-			if (!sub_4E3220(things, (char*)v3, (int)v5)) {
+			if (!nox_thing_read_xxx_4E3220(things, (char*)v3, (int)v5)) {
 				nox_memfile_free(things);
 				return 0;
 			}
