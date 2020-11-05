@@ -173,7 +173,7 @@ int nox_xxx_unused_418840() {
 		}
 	}
 	for (k = nox_xxx_getFirstPlayerUnit_4DA7C0(); k; k = nox_xxx_getNextPlayerUnit_4DA7F0(k)) {
-		if (!sub_419130(k + 48)) {
+		if (!nox_xxx_servObjectHasTeam_419130(k + 48)) {
 			v11 = *(_DWORD*)(*(_DWORD*)(k + 748) + 276);
 			if ((*(_DWORD*)(v11 + 2060) != *getMemU32Ptr(0x5D4594, 2616328) ||
 				 !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) &&
@@ -576,7 +576,7 @@ int __cdecl sub_4190F0(wchar_t* a1) {
 }
 
 //----- (00419130) --------------------------------------------------------
-BOOL __cdecl sub_419130(int a1) {
+BOOL __cdecl nox_xxx_servObjectHasTeam_419130(int a1) {
 	BOOL result; // eax
 
 	result = a1;
@@ -586,7 +586,7 @@ BOOL __cdecl sub_419130(int a1) {
 }
 
 //----- (00419150) --------------------------------------------------------
-BOOL __cdecl sub_419150(int a1, int a2) {
+BOOL __cdecl nox_xxx_servCompareTeams_419150(int a1, int a2) {
 	char v2;     // cl
 	char v3;     // al
 	BOOL result; // eax
@@ -5728,7 +5728,7 @@ int sub_420D10() {
 }
 
 //----- (00420D40) --------------------------------------------------------
-unsigned int* __cdecl sub_420D40(int a1, int a2, unsigned int a3, int a4) {
+unsigned int* __cdecl nox_xxx_polygonSetAngl_420D40(int a1, int a2, unsigned int a3, int a4) {
 	bool v4;              // cf
 	unsigned int* result; // eax
 
@@ -5766,9 +5766,9 @@ unsigned int* __cdecl sub_420DA0(float a1, float a2) {
 			++*getMemU16Ptr(0x5D4594, 588072);
 			*getMemU32Ptr(0x5D4594, 4 * v9 + 534820) = v8;
 		}
-	} else if (!nox_common_gameFlags_check_40A5C0(0x200000) || !sub_4217B0(&v10, 0)) {
+	} else if (!nox_common_gameFlags_check_40A5C0(0x200000) || !nox_xxx_polygonIsPlayerInPolygon_4217B0(&v10, 0)) {
 		v4 = sub_420D10();
-		result = sub_420D40(SLODWORD(a1), SLODWORD(a2), v4, 0);
+		result = nox_xxx_polygonSetAngl_420D40(SLODWORD(a1), SLODWORD(a2), v4, 0);
 		v6 = *result;
 		v7 = *getMemU16Ptr(0x5D4594, 588072);
 		++*getMemU16Ptr(0x5D4594, 588072);
@@ -5911,7 +5911,7 @@ void __cdecl sub_421040(int a1) {
 }
 
 //----- (004210A0) --------------------------------------------------------
-char* sub_4210A0() {
+char* nox_xxx_polygonGetNext_4210A0() {
 	int v0;             // eax
 	unsigned __int8* i; // ecx
 
@@ -6250,7 +6250,7 @@ int __cdecl nox_xxx_polygonGetIdxA_421790(int2* a1, int a2) {
 	struc_19* v2; // eax
 	int result;   // eax
 
-	v2 = sub_4217B0(a1, a2);
+	v2 = nox_xxx_polygonIsPlayerInPolygon_4217B0(a1, a2);
 	if (v2)
 		result = v2->field_0[20];
 	else
@@ -6259,7 +6259,7 @@ int __cdecl nox_xxx_polygonGetIdxA_421790(int2* a1, int a2) {
 }
 
 //----- (004217B0) --------------------------------------------------------
-struc_19* __cdecl sub_4217B0(int2* a1, int a2) {
+struc_19* __cdecl nox_xxx_polygonIsPlayerInPolygon_4217B0(int2* a1, int a2) {
 	int v2;             // eax
 	int v4;             // edi
 	unsigned __int8* i; // esi
@@ -6457,7 +6457,7 @@ int __cdecl sub_421B40(_DWORD* a1) {
 }
 
 //----- (00421B80) --------------------------------------------------------
-void sub_421B80() {
+void nox_xxx_polygonDrawColor_421B80() {
 	int v0;       // esi
 	char* v1;     // eax
 	char* v2;     // esi
@@ -6477,12 +6477,12 @@ void sub_421B80() {
 			LABEL_8:
 				v2[3668] = 1;
 				*((_DWORD*)v2 + 915) = 0;
-				v4 = sub_469BB0();
+				v4 = nox_xxx_getAmbientColor_469BB0();
 				sub_4349C0(v4);
 				return;
 			}
 			if (*((int*)v1 + 915) == -559023410 || v5.field_0 != v6.field_0 || v5.field_4 != v6.field_4) {
-				v3 = sub_4217B0(&v5, *((_DWORD*)v1 + 915));
+				v3 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v5, *((_DWORD*)v1 + 915));
 				if (!v3)
 					goto LABEL_8;
 				if (*((_DWORD*)v2 + 915) != v3->field_0[20]) {
@@ -6533,7 +6533,7 @@ void __cdecl nox_xxx_questCheckSecretArea_421C70(int a1) {
 	v3 = *(float*)(a1 + 60);
 	v13.field_0 = v2;
 	v13.field_4 = nox_float2int(v3);
-	v4 = (unsigned __int8*)sub_4217B0(&v13, *(_DWORD*)(v1 + 3664));
+	v4 = (unsigned __int8*)nox_xxx_polygonIsPlayerInPolygon_4217B0(&v13, *(_DWORD*)(v1 + 3664));
 	if (v4)
 		goto LABEL_12;
 	v5 = *(_DWORD*)(v1 + 3664);
@@ -6647,7 +6647,7 @@ void __cdecl nox_xxx_monsterPolygonEnter_421FF0(int a1) {
 		v10.field_0 = v2;
 		v10.field_4 = nox_float2int(v3);
 		if (*v1 == -559023410)
-			v4 = sub_4217B0(&v10, 0);
+			v4 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v10, 0);
 		else
 			v4 = sub_421F10(&v10.field_0, *v1);
 		v5 = *v1;
@@ -7823,7 +7823,7 @@ int __cdecl nox_xxx_parseSoundSetBin_424170(char* a1) {
 		*v3 = v4;
 		strcpy(v4, v6);
 		while (nox_xxx_parseString_409470(v2, v6) && strcmp(v6, "END") && nox_xxx_parseString_409470(v2, v7)) {
-			v5 = sub_40AF50(v7);
+			v5 = nox_xxx_utilFindSound_40AF50(v7);
 			if (!sub_4240F0((int)v3, v6, v5))
 				return 0;
 		}
@@ -9575,7 +9575,7 @@ int __cdecl nox_xxx_cryptSetTypeMB_426A50(int a1) {
 FILE* nox_xxx_mapgenGetSomeFile_426A60() { return nox_file_3; }
 
 //----- (00426A70) --------------------------------------------------------
-char* sub_426A70() { return (char*)getMemAt(0x5D4594, 739980); }
+char* nox_xxx_mapGetWallSize_426A70() { return (char*)getMemAt(0x5D4594, 739980); }
 
 //----- (00426A80) --------------------------------------------------------
 int* __cdecl nox_xxx_mapWall_426A80(int* a1) {

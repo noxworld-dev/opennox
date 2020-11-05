@@ -200,7 +200,7 @@ char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3) {
 	if (getMemByte(0x5D4594, 2598000) & 4) {
 		v6 = nox_xxx_randGetMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
 		if (v6 > 5)
-			LOBYTE(v6) = sub_499710(*a2 + *((_DWORD*)v4 + 4) - *(_DWORD*)v4,
+			LOBYTE(v6) = nox_xxx_drawEnergyBolt_499710(*a2 + *((_DWORD*)v4 + 4) - *(_DWORD*)v4,
 									a2[1] + *((_DWORD*)v4 + 5) - *((_DWORD*)v4 + 1), 8, *getMemIntPtr(0x5D4594, 1316416));
 	}
 	return v6;

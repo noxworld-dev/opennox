@@ -65,7 +65,7 @@ int nox_xxx_consoleF1_451350() {
 	int result;  // eax
 	wchar_t* v1; // eax
 
-	if (!(sub_46ADA0(*(int*)&dword_5d4594_833712) & 0x10))
+	if (!(nox_xxx_wndGetFlags_46ADA0(*(int*)&dword_5d4594_833712) & 0x10))
 		return sub_4512B0();
 	result = sub_446360();
 	if (!result) {

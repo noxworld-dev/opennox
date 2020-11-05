@@ -75,7 +75,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		v7 = nox_xxx_objGetTeamByNetCode_418C80(dr->field_32);
 		v8 = v7;
 		if (v7) {
-			if (sub_419150((int)v6, (int)v7))
+			if (nox_xxx_servCompareTeams_419150((int)v6, (int)v7))
 				v31 = 1;
 			v5 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v8 + 4));
 			LABEL_14:
@@ -280,7 +280,7 @@ int __cdecl nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	v2 = *getMemU32Ptr(0x5D4594, 2650644);
-	sub_4C32A0(*(_DWORD*)(a2 + 12) - *(_DWORD*)(a1 + 16), *(_DWORD*)(a2 + 16) - *(_DWORD*)(a1 + 20), 10,
+	nox_xxx_spriteDrawCircleMB_4C32A0(*(_DWORD*)(a2 + 12) - *(_DWORD*)(a1 + 16), *(_DWORD*)(a2 + 16) - *(_DWORD*)(a1 + 20), 10,
 	           *getMemIntPtr(0x5D4594, 2650644));
 	v3 = *(_DWORD*)(a2 + 16) - *(_DWORD*)(a1 + 20);
 	v4 = *(_DWORD*)(a2 + 12) - *(_DWORD*)(a1 + 16);

@@ -8688,17 +8688,17 @@ LABEL_137:
 		do {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v29, 3u);
 			if (*getMemU32Ptr(0x5D4594, 3803300) == 1)
-				sub_4E4A90(a1, v46, (int)v29);
+				nox_xxx_setNPCColor_4E4A90(a1, v46, (int)v29);
 			++v28;
 			v29 += 3;
 			LOBYTE(v46) = v28;
 		} while (v28 < 6u);
 	}
 	if ((__int16)v45 >= 55 && *(_BYTE*)(a1 + 12) & 0x20)
-		sub_52AD10(a1);
+		nox_xxx_readNPCVoiceSet_52AD10(a1);
 	if ((__int16)v45 < 62 || (result = nox_xxx_XFer_ReadMonsterBuffs_52AAB0((_DWORD*)a1)) != 0) {
 		if ((__int16)v45 >= 63 && *(_DWORD*)(a1 + 12) & 0x80000)
-			sub_52AD10(a1);
+			nox_xxx_readNPCVoiceSet_52AD10(a1);
 		if ((__int16)v45 >= 64) {
 			LOBYTE(v47) = *(_BYTE*)(a1 + 540);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v47, 1u);
@@ -8914,12 +8914,12 @@ int __cdecl nox_xxx_XFer_ActionData_529CE0(int a1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread((_BYTE*)(v1 + 368), 8u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread((_BYTE*)(v1 + 376), 4u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread((_BYTE*)(v1 + 380), 8u);
-		strcpy(v24, sub_40AF80(*(_DWORD*)(v1 + 388)));
+		strcpy(v24, nox_xxx_getSndName_40AF80(*(_DWORD*)(v1 + 388)));
 		LOBYTE(v20) = strlen(v24);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v20, 1u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v24, (unsigned __int8)v20);
 		v24[(unsigned __int8)v20] = 0;
-		*(_DWORD*)(v1 + 388) = sub_40AF50(v24);
+		*(_DWORD*)(v1 + 388) = nox_xxx_utilFindSound_40AF50(v24);
 		nox_xxx_fileReadWrite_426AC0_file3_fread((_BYTE*)(v1 + 396), 8u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread((_BYTE*)(v1 + 404), 4u);
 		if (*getMemU32Ptr(0x5D4594, 3803300) == 1)
@@ -9412,7 +9412,7 @@ int __cdecl nox_xxx_XFer_ReadMonsterBuffs_52AAB0(_DWORD* a1) {
 // 52AAB0: using guessed type char var_100[256];
 
 //----- (0052AD10) --------------------------------------------------------
-size_t __cdecl sub_52AD10(int a1) {
+size_t __cdecl nox_xxx_readNPCVoiceSet_52AD10(int a1) {
 	const char** v1; // eax
 	const char** v2; // esi
 	size_t result;   // eax
@@ -9571,7 +9571,7 @@ int __cdecl nox_xxx_XFerNPC_52ADE0(int a1) {
 			LOBYTE(v48) = 0;
 			do {
 				nox_xxx_fileReadWrite_426AC0_file3_fread(v53, 3u);
-				sub_4E4A90(a1, v48, v53);
+				nox_xxx_setNPCColor_4E4A90(a1, v48, v53);
 				LOBYTE(v48) = ++v17;
 			} while (v17 < 6u);
 		} else {
@@ -9800,7 +9800,7 @@ int __cdecl nox_xxx_XFerNPC_52ADE0(int a1) {
 		if ((__int16)v44 >= 51)
 			nox_xxx_fileReadWrite_426AC0_file3_fread((_BYTE*)(v35 + 28), 4u);
 		if ((__int16)v44 >= 52)
-			sub_52AD10(v35);
+			nox_xxx_readNPCVoiceSet_52AD10(v35);
 		if ((__int16)v44 < 61 || (result = nox_xxx_XFer_ReadMonsterBuffs_52AAB0((_DWORD*)v35)) != 0) {
 			if ((__int16)v44 >= 62) {
 				LOBYTE(v45) = *(_BYTE*)(v35 + 540);
@@ -10062,7 +10062,7 @@ int __cdecl sub_52BDB0(int a1, int a2) {
 }
 
 //----- (0052BE40) --------------------------------------------------------
-void __cdecl sub_52BE40(int a1, int a2) {
+void __cdecl nox_xxx_changeOwner_52BE40(int a1, int a2) {
 	int* v2; // eax
 
 	if (*(_BYTE*)(a1 + 8) & 1 && *(_BYTE*)(a1 + 12) & 2) {
@@ -10086,7 +10086,7 @@ int __cdecl sub_52BEB0(int a1, int a2, int a3, int a4) {
 	float v6; // [esp+0h] [ebp-10h]
 
 	v6 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258516));
-	sub_518170(a4 + 56, v6, sub_52BE40, a3);
+	sub_518170(a4 + 56, v6, nox_xxx_changeOwner_52BE40, a3);
 	v4 = nox_xxx_spellGetAud44_424800(a1, 0);
 	nox_xxx_aud_501960(v4, a4, 0, 0);
 	return 1;
@@ -10480,7 +10480,7 @@ int __cdecl nox_xxx_castPoison_52C720(int a1, int a2, int a3, int a4, int* a5, i
 
 	result = *a5;
 	if (*a5) {
-		sub_4EE7E0(result, a6, a6);
+		nox_xxx_activatePoison_4EE7E0(result, a6, a6);
 		sub_4E7540(a3, *a5);
 		result = 1;
 	}
@@ -10814,10 +10814,10 @@ int __cdecl nox_xxx_castCurePoison_52CDB0(int a1, int a2, int a3, int a4, int* a
 	if (*a5) {
 		if (*(_BYTE*)(result + 540)) {
 			if (*(unsigned __int8*)(result + 540) > a6) {
-				sub_4EE8F0(result, a6);
+				nox_xxx_updatePoison_4EE8F0(result, a6);
 				nox_xxx_netPriMsgToPlayer_4DA2C0(*a5, "ExecSpel.c:PoisonCure", 0);
 			} else {
-				sub_4EE9D0(*a5);
+				nox_xxx_removePoison_4EE9D0(*a5);
 				nox_xxx_netPriMsgToPlayer_4DA2C0(*a5, "ExecSpel.c:PoisonClean", 0);
 			}
 			goto LABEL_5;
@@ -11502,7 +11502,7 @@ int __cdecl nox_xxx_castEquake_52DE40(int a1, int a2, int a3, int a4, int a5, in
 	nox_xxx_aud_501960(v6, a4, 0, 0);
 	v10 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 260288), a6 - 1);
 	v7 = nox_float2int(v10);
-	sub_4D9110((float*)(a4 + 56), v7);
+	nox_xxx_earthquakeSend_4D9110((float*)(a4 + 56), v7);
 	return 1;
 }
 
@@ -11558,7 +11558,7 @@ char __cdecl nox_xxx_objectApplyForce_52DF80(int a1, int a2, float a3) {
 	float v11;       // [esp+14h] [ebp+Ch]
 
 	v3 = a2;
-	v4 = sub_52E020(a2);
+	v4 = nox_xxx_isObjectMovable_52E020(a2);
 	if (v4) {
 		v10 = *(float*)(a2 + 56) - *(float*)a1;
 		v5 = *(float*)(v3 + 60) - *(float*)(a1 + 4);
@@ -11576,7 +11576,7 @@ char __cdecl nox_xxx_objectApplyForce_52DF80(int a1, int a2, float a3) {
 }
 
 //----- (0052E020) --------------------------------------------------------
-unsigned int __cdecl sub_52E020(int a1) {
+unsigned int __cdecl nox_xxx_isObjectMovable_52E020(int a1) {
 	unsigned int result; // eax
 
 	if (*(_DWORD*)(a1 + 16) & 0x8068)
@@ -11633,7 +11633,7 @@ void __cdecl nox_xxx_unitPushAroundFn_52E0E0(int a1, int** a2) {
 	float v18;      // [esp+28h] [ebp+8h]
 
 	v2 = a1;
-	if (sub_52E020(a1)) {
+	if (nox_xxx_isObjectMovable_52E020(a1)) {
 		v3 = a2;
 		v4 = *a2;
 		LODWORD(v15.field_0) = **a2;
@@ -11789,7 +11789,7 @@ int __cdecl sub_52E450(int a1, int a2, int a3) {
 	v4 = *(_DWORD*)(a2 + 8);
 	if (v4 & 0x400000 && *(_BYTE*)(a2 + 12) & 0x18) {
 		v5 = *(int**)(a2 + 748);
-		if (sub_419130(a2 + 48) && !sub_419150(a2 + 48, a1 + 48))
+		if (nox_xxx_servObjectHasTeam_419130(a2 + 48) && !nox_xxx_servCompareTeams_419150(a2 + 48, a1 + 48))
 			return 0;
 		v6 = a3;
 		if (*v5 <= a3) {

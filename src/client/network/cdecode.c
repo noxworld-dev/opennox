@@ -616,7 +616,7 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					v218 = nox_xxx_objGetTeamByNetCode_418C80(v215);
 					v219 = (int)v218;
 					OnLibraryNotice(264, v216 + 4704);
-					if (v218 && sub_419130((int)v218))
+					if (v218 && nox_xxx_servObjectHasTeam_419130((int)v218))
 						nox_xxx_netChangeTeamMb_419570(v219, v215);
 				} else {
 					v220 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 159180), 0,
@@ -1774,7 +1774,7 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 			if (*(_BYTE*)v3 == (_BYTE)-116 || (_BYTE)v5 == (_BYTE)-114) {
 				nox_xxx_makeLightningParticles_4999D0(*(int*)&dword_5d4594_1200776, &v379, &v377);
 			} else if ((_BYTE)v5 == 125) {
-				sub_499710(*(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7), 10,
+				nox_xxx_drawEnergyBolt_499710(*(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7), 10,
 						   *(int*)&dword_5d4594_1200776);
 				v3 += 9;
 				break;
@@ -2892,7 +2892,7 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			case 0xDu:
 				if (nox_client_isConnected_43C700())
-					sub_478FD0((const wchar_t*)(v3 + 4), (char*)(v3 + 54), *(unsigned __int16*)(v3 + 2));
+					nox_xxx_cliStartShopDlg_478FD0((const wchar_t*)(v3 + 4), (char*)(v3 + 54), *(unsigned __int16*)(v3 + 2));
 				v3 += 86;
 				break;
 			case 0x1Bu:

@@ -27,7 +27,7 @@ wchar_t* __cdecl sub_415B60(int a1) {
 }
 
 //----- (00415D50) --------------------------------------------------------
-char** sub_415D50() {
+char** nox_xxx_loadLook_415D50() {
 	char** result;       // eax
 	unsigned __int8* v1; // esi
 	int v2;              // ecx

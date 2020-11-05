@@ -154,19 +154,19 @@ int __cdecl nox_xxx_spellLoadSpells_424460(int a1, void* a2) {
 	v30 = v29;
 	nox_memfile_read(v43, 1u, v29, a1);
 	v43[v30] = 0;
-	*((_DWORD*)v6 + 17) = sub_40AF50(v43);
+	*((_DWORD*)v6 + 17) = nox_xxx_utilFindSound_40AF50(v43);
 	v31 = *(unsigned __int8**)(a1 + 8);
 	v37 = *v31;
 	*(_DWORD*)(a1 + 8) = v31 + 1;
 	nox_memfile_read(v43, 1u, v37, a1);
 	v43[v37] = 0;
-	*((_DWORD*)v6 + 18) = sub_40AF50(v43);
+	*((_DWORD*)v6 + 18) = nox_xxx_utilFindSound_40AF50(v43);
 	v32 = *(unsigned __int8**)(a1 + 8);
 	v38 = *v32;
 	*(_DWORD*)(a1 + 8) = v32 + 1;
 	nox_memfile_read(v43, 1u, v38, a1);
 	v43[v38] = 0;
-	*((_DWORD*)v6 + 19) = sub_40AF50(v43);
+	*((_DWORD*)v6 + 19) = nox_xxx_utilFindSound_40AF50(v43);
 	if ((int)v40 > 0) {
 		memcpy(v6 + 28, v44, v40);
 		v3 = v40;

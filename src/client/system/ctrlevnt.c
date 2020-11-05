@@ -17,7 +17,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 //----- (0042EAE0) --------------------------------------------------------
-char* sub_42EAE0() {
+char* nox_xxx_bindevent_42EAE0() {
 	unsigned __int8* v0; // esi
 	int v1;              // eax
 	char* result;        // eax

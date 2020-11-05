@@ -228,7 +228,7 @@ bool __cdecl nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char
 
 //----- (0044C3F0) --------------------------------------------------------
 bool __cdecl nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->audio_loop = sub_40AF50(attr_value);
+	obj->audio_loop = nox_xxx_utilFindSound_40AF50(attr_value);
 	return 1;
 }
 

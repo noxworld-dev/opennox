@@ -102,7 +102,7 @@ int sub_5098A0() {
 	if (v5) {
 		do {
 			v6 = *(_DWORD*)(v5 + 748);
-			if (!sub_419130(v5 + 48)) {
+			if (!nox_xxx_servObjectHasTeam_419130(v5 + 48)) {
 				v7 = *(_DWORD*)(v6 + 276);
 				if (!(*(_BYTE*)(v7 + 3680) & 1)) {
 					v8 = *(_DWORD*)(v7 + 2136);
@@ -187,7 +187,7 @@ char sub_509A60() {
 			for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
 				v11 = *(_DWORD*)(*(_DWORD*)(i + 748) + 276);
 				if (!(*(_BYTE*)(v11 + 3680) & 1) && *(_DWORD*)(v11 + 2140) < v8) {
-					v0 = (char*)sub_419130(i + 48);
+					v0 = (char*)nox_xxx_servObjectHasTeam_419130(i + 48);
 					if (v0) {
 						if (v6) {
 							v0 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(i + 52));
@@ -2160,7 +2160,7 @@ int __cdecl nox_xxx_appendWorkPath_50C990(int a1, int a2, int a3) {
 }
 
 //----- (0050CA00) --------------------------------------------------------
-int __cdecl sub_50CA00(int a1, int a2, int a3, float* a4) {
+int __cdecl nox_xxx_generateRetreatPath_50CA00(int a1, int a2, int a3, float* a4) {
 	*(_BYTE*)(*(_DWORD*)(a3 + 748) + 2172) = 0;
 	nox_xxx_pathFind_50BA00(1, a3, (float*)(a3 + 56), a4, sub_50CA60, 6);
 	if (dword_5d4594_2386180 > a2 && !dword_5d4594_1599712)
@@ -2415,7 +2415,7 @@ BOOL __cdecl sub_50CF10(int a1, int a2) {
 		v8 = *(float*)(v2 + 60);
 		v10.field_0 = v7;
 		v10.field_4 = nox_float2int(v8);
-		v9 = sub_4217B0(&v10, 0);
+		v9 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v10, 0);
 		if (v9) {
 			if (v12 != BYTE2(v9->field_0[32]))
 				return 0;
@@ -3889,7 +3889,7 @@ int __cdecl sub_50F490(_DWORD* a1, int a2) {
 }
 
 //----- (0050F4C0) --------------------------------------------------------
-void __cdecl sub_50F4C0(_DWORD* a1) {
+void __cdecl nox_xxx_shopExit_50F4C0(_DWORD* a1) {
 	int v1; // eax
 	int v2; // eax
 	int v3; // edi
@@ -4515,7 +4515,7 @@ unsigned __int16 __cdecl sub_510D10(int* a1, int a2, int a3, unsigned int a4) {
 //----- (00510DC0) --------------------------------------------------------
 void __cdecl nox_xxx_shopCancelSession_510DC0(_DWORD* a1) {
 	if (a1[4])
-		sub_50F4C0(a1);
+		nox_xxx_shopExit_50F4C0(a1);
 	else
 		sub_50F3A0(a1);
 }
@@ -5015,7 +5015,7 @@ void __cdecl nox_xxx_unit_511810(int a1) {
 }
 
 //----- (00511850) --------------------------------------------------------
-void sub_511850() {
+void nox_xxx_collisions_511850() {
 	int v0; // esi
 	int v1; // eax
 
@@ -5398,7 +5398,7 @@ void __cdecl sub_511F80(int a1) {
 			v7.field_4 = (double)v8 + 11.5;
 			if (!dword_5d4594_2386840) {
 				v5 = nox_xxx_wallFindOpenSound_410EE0(*(unsigned __int8*)(v1 + 1));
-				v6 = sub_40AF50(v5);
+				v6 = nox_xxx_utilFindSound_40AF50(v5);
 				nox_xxx_audCreate_501A30(v6, &v7, 0, 0);
 			}
 		}
@@ -5451,7 +5451,7 @@ void __cdecl sub_512070(int a1) {
 			v7.field_4 = (double)v8 + 11.5;
 			if (!dword_5d4594_2386840) {
 				v5 = nox_xxx_wallFindCloseSound_410F20(*(unsigned __int8*)(v1 + 1));
-				v6 = sub_40AF50(v5);
+				v6 = nox_xxx_utilFindSound_40AF50(v5);
 				nox_xxx_audCreate_501A30(v6, &v7, 0, 0);
 			}
 		}
@@ -5511,7 +5511,7 @@ void __cdecl sub_512160(int a1) {
 				return;
 			v4 = nox_xxx_wallFindCloseSound_410F20(*(unsigned __int8*)(a1 + 1));
 		}
-		v6 = sub_40AF50(v4);
+		v6 = nox_xxx_utilFindSound_40AF50(v4);
 		nox_xxx_audCreate_501A30(v6, &v7, 0, 0);
 	}
 }
@@ -6082,7 +6082,7 @@ int nox_xxx_scriptAudioEven_512AC0() {
 	v2 = (float2*)nox_server_getWaypointById_579C40(v0);
 	if (v2) {
 		v5 = v2 + 1;
-		v3 = sub_40AF50(*(void**)getMemAt(0x5D4594, 4 * v1 + 3831212));
+		v3 = nox_xxx_utilFindSound_40AF50(*(void**)getMemAt(0x5D4594, 4 * v1 + 3831212));
 		nox_xxx_audCreate_501A30(v3, v5, 0, 0);
 	}
 	return 0;
@@ -6555,7 +6555,7 @@ int nox_xxx_script_ObjectGet_513490() {
 }
 
 //----- (00513530) --------------------------------------------------------
-int sub_513530() {
+int nox_xxx_script_GetObjectX_513530() {
 	int v0; // eax
 	int v1; // eax
 
@@ -6583,7 +6583,7 @@ int nox_xxx_script_GetWaypointX_513570() {
 }
 
 //----- (005135B0) --------------------------------------------------------
-int sub_5135B0() {
+int nox_xxx_script_GetObjectY_5135B0() {
 	int v0; // eax
 	int v1; // eax
 
@@ -7368,7 +7368,7 @@ int nox_xxx_script_Effect_514210() {
 		break;
 	case 0x97u:
 		v11 = nox_float2int(*(float*)&v0);
-		sub_4D9110(&v17, v11);
+		nox_xxx_earthquakeSend_4D9110(&v17, v11);
 		result = 0;
 		break;
 	case 0x98u:
@@ -7897,7 +7897,7 @@ int nox_xxx_scriptTellStory_514E90() {
 	v0 = script_pop();
 	v1 = script_pop();
 	v4 = *(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212);
-	v2 = sub_40AF50(*(void**)getMemAt(0x5D4594, 4 * v1 + 3831212));
+	v2 = nox_xxx_utilFindSound_40AF50(*(void**)getMemAt(0x5D4594, 4 * v1 + 3831212));
 	nox_xxx_startShopDialog_548DE0(*(int*)&dword_5d4594_3821964, *(int*)&dword_5d4594_3821968, v2, v4);
 	return 0;
 }
@@ -8527,7 +8527,7 @@ void __cdecl nox_xxx_monsterActionMelee_515A30(int a1, float2* a2) {
 		if (*(_BYTE*)(a1 + 8) & 2) {
 			v2 = *(_DWORD*)(a1 + 16);
 			if ((v2 & 0x8000) == 0) {
-				if (sub_534220(a1)) {
+				if (nox_xxx_monsterCanMelee_534220(a1)) {
 					nox_xxx_monsterClearActionStack_50A3A0(a1);
 					v3 = nox_xxx_monsterPushAction_50A260(a1, 32);
 					if (v3)
@@ -8596,7 +8596,7 @@ void __cdecl nox_xxx_monsterMissileAttack_515B80(int a1, _DWORD* a2) {
 			if (*(_BYTE*)(a1 + 8) & 2) {
 				v2 = *(_DWORD*)(a1 + 16);
 				if ((v2 & 0x8000) == 0) {
-					if (sub_534280(a1)) {
+					if (nox_xxx_monsterCanShoot_534280(a1)) {
 						nox_xxx_monsterClearActionStack_50A3A0(a1);
 						v3 = nox_xxx_monsterPushAction_50A260(a1, 32);
 						if (v3)
@@ -9689,7 +9689,7 @@ unsigned int __cdecl sub_516D00(int a1) {
 		v2 = *(_DWORD*)(a1 + 16);
 		if ((v2 & 0x8000) != 0) {
 			*(_DWORD*)(*(_DWORD*)(a1 + 748) + 1440) &= 0xFFEFFFFF;
-			result = sub_534AB0(a1);
+			result = nox_xxx_mobRaiseZombie_534AB0(a1);
 		}
 	}
 	return result;
@@ -10005,7 +10005,7 @@ int __cdecl nox_xxx_servParseMonsterDef_517170(FILE* a1, const char* a2) {
 							continue;
 						case 2:
 							nox_xxx_readStr_517090(a1, v10);
-							*(_DWORD*)v6 = sub_40AF50(v10);
+							*(_DWORD*)v6 = nox_xxx_utilFindSound_40AF50(v10);
 							continue;
 						case 3:
 							nox_xxx_readStr_517090(a1, v10);
@@ -12022,7 +12022,7 @@ void __cdecl nox_xxx_spawnNecroQuest_51A7A0(int* a1) {
 }
 
 //----- (0051A930) --------------------------------------------------------
-int sub_51A930() { return *getMemU32Ptr(0x5D4594, 2388660); }
+int nox_xxx_getQuestStage_51A930() { return *getMemU32Ptr(0x5D4594, 2388660); }
 
 //----- (0051A940) --------------------------------------------------------
 int __cdecl sub_51A940(int a1) {

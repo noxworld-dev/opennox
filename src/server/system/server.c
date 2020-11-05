@@ -1419,9 +1419,9 @@ int __cdecl nox_xxx_playerSomeWallsUpdate_5003B0(int a1) {
 		}
 		if (!v1)
 			return 0;
-		*(_DWORD*)(v1 + 92) = sub_4FFA90;
-		*(_DWORD*)(v1 + 96) = sub_500070;
-		*(_DWORD*)(v1 + 100) = sub_500080;
+		*(_DWORD*)(v1 + 92) = nox_xxx_spellWallCreate_4FFA90;
+		*(_DWORD*)(v1 + 96) = nox_xxx_spellWallUpdate_500070;
+		*(_DWORD*)(v1 + 100) = nox_xxx_spellWallDestroy_500080;
 		*(_DWORD*)(v1 + 48) = 0;
 	}
 	v3 = 0;
@@ -2053,7 +2053,7 @@ char nox_xxx_updateUnits_51B100() {
 			nox_xxx_moveUpdateSpecial_517970(j);
 		}
 	}
-	sub_511850();
+	nox_xxx_collisions_511850();
 	for (k = nox_xxx_getFirstUpdatableObject_4DA8A0(); k; k = nox_xxx_getNextUpdatableObject_4DA8B0(k)) {
 		v20 = *(_DWORD*)(k + 64);
 		v21 = *(_DWORD*)(k + 60);
@@ -2085,7 +2085,7 @@ char nox_xxx_updateUnits_51B100() {
 					if (*(_BYTE*)(k + 540)) {
 						v26 = *(_DWORD*)(k + 16);
 						if ((v26 & 0x8000) == 0)
-							sub_4EE8F0(k, 1);
+							nox_xxx_updatePoison_4EE8F0(k, 1);
 					}
 					*(_WORD*)(k + 542) = 1000;
 				}
@@ -2134,7 +2134,7 @@ char nox_xxx_updateUnits_51B100() {
 				v64.field_0 = v52;
 				v64.field_4 = (double)(23 * v51 + 11);
 				v54 = nox_xxx_wallFindOpenSound_410EE0(*(unsigned __int8*)(v53 + 1));
-				v55 = sub_40AF50(v54);
+				v55 = nox_xxx_utilFindSound_40AF50(v54);
 				nox_xxx_audCreate_501A30(v55, &v64, 0, 0);
 				v33 = 0;
 				break;
@@ -2160,7 +2160,7 @@ char nox_xxx_updateUnits_51B100() {
 					v63.field_0 = v43;
 					v63.field_4 = (double)(23 * v42 + 11);
 					v45 = nox_xxx_wallFindCloseSound_410F20(*(unsigned __int8*)(v44 + 1));
-					v46 = sub_40AF50(v45);
+					v46 = nox_xxx_utilFindSound_40AF50(v45);
 					nox_xxx_audCreate_501A30(v46, &v63, 0, 0);
 				}
 				v33 = 0;
@@ -2518,7 +2518,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 						v49[3] = m;
 					}
 					if (*(_BYTE*)(n + 8) & 2 && *(_BYTE*)(n + 12) & 0x30)
-						sub_4E4A90(n, 0, *(_DWORD*)(n + 748) + 2076);
+						nox_xxx_setNPCColor_4E4A90(n, 0, *(_DWORD*)(n + 748) + 2076);
 				} else if (*(_BYTE*)(m + 8) & 1 && sub_4E5B80(m)) {
 					sub_4E81D0(m);
 				}
@@ -2533,12 +2533,12 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	if (nox_common_gameFlags_check_40A5C0(16) && nox_xxx_CheckGameplayFlags_417DA0(4))
 		sub_4D2160();
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		sub_51A930();
+		nox_xxx_getQuestStage_51A930();
 		v52 = nox_common_randomInt_415FA0(0, 2);
 		sub_51A920(v52);
 		v53 = nox_xxx_GetQuestStage_4E3CC0();
 		sub_4E3CD0(v53 + 1);
-		v54 = sub_51A930();
+		v54 = nox_xxx_getQuestStage_51A930();
 		sub_51A1F0(v54);
 		sub_4E3D50();
 		sub_4E3DD0();
@@ -2554,7 +2554,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 		sub_4DB130("AUTOSAVE");
 		sub_4DB170(1, 0, 30);
 	}
-	sub_4DCC70(0);
+	nox_xxx_mapLoadOrSaveMB_4DCC70(0);
 	if (nox_common_gameFlags_check_40A5C0(2048))
 		sub_413980(30);
 	if (nox_common_gameFlags_check_40A5C0(4096))
