@@ -3,7 +3,7 @@
 #include "../../proto.h"
 
 //----- (004EF270) --------------------------------------------------------
-double __cdecl sub_4EF270(int a1, float a2) {
+double __cdecl nox_xxx_unitGiveXP_4EF270(int a1, float a2) {
 	int v3;    // ecx
 	double v4; // st7
 	float v5;  // [esp+Ch] [ebp+8h]
@@ -21,7 +21,7 @@ double __cdecl sub_4EF270(int a1, float a2) {
 }
 
 //----- (004EE500) --------------------------------------------------------
-void __cdecl sub_4EE500_obj_health(int a1) {
+void __cdecl nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1) {
 	int v1;      // ebx
 	int v2;      // esi
 	int v3;      // ebp
@@ -42,7 +42,7 @@ void __cdecl sub_4EE500_obj_health(int a1) {
 		return;
 	}
 	v3 = 1;
-	v4 = sub_4EC580(*(_DWORD*)(a1 + 520));
+	v4 = nox_xxx_findParentChainPlayer_4EC580(*(_DWORD*)(a1 + 520));
 	if (!(*(_BYTE*)(v4 + 8) & 4)) {
 		return;
 	}
@@ -52,7 +52,7 @@ void __cdecl sub_4EE500_obj_health(int a1) {
 			if (v5)
 				break;
 			if (*(_BYTE *) (v2 + 8) & 2) {
-				v3 = sub_500CC0(v4, v2);
+				v3 = nox_xxx_creatureIsMonitored_500CC0(v4, v2);
 				v5 = 1;
 			}
 			v2 = *(_DWORD *) (v2 + 508);
@@ -62,11 +62,11 @@ void __cdecl sub_4EE500_obj_health(int a1) {
 		}
 		v1 = a1;
 	}
-	v6 = sub_4EF270(v4, *(float*)(v1 + 28));
+	v6 = nox_xxx_unitGiveXP_4EF270(v4, *(float*)(v1 + 28));
 	if (v6 > 0.0) {
-		v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 206012), 0,
+		v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 206012), 0,
 								   "C:\\NoxPost\\src\\Server\\Object\\health.c", 172);
-		sub_4D9EB0(v4, v7, (unsigned int)(__int64)v6);
+		nox_xxx_netSendLineMessage_4D9EB0(v4, v7, (unsigned int)(__int64)v6);
 	}
 	return;
 }

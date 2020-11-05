@@ -13,19 +13,19 @@ int __cdecl nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 
 	v2 = *getMemU32Ptr(0x5D4594, 1313720);
 	if (!*getMemU32Ptr(0x5D4594, 1313720)) {
-		v2 = sub_44CFC0((CHAR*)getMemAt(0x587000, 176776));
+		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176776));
 		*getMemU32Ptr(0x5D4594, 1313720) = v2;
 	}
 	v3 = a2[81];
 	if ((a2[3] - v3) * (a2[3] - v3) + (a2[4] - a2[82]) * (a2[4] - a2[82]) > 200) {
-		v4 = (_DWORD*)sub_45A360_drawable(v2, v3, a2[82]);
+		v4 = (_DWORD*)nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, a2[82]);
 		v4[108] = a2[3];
 		v4[109] = a2[4];
-		sub_45A110_drawable(v4);
+		nox_xxx_sprite_45A110_drawable(v4);
 		v5 = a2[4];
 		a2[81] = a2[3];
 		a2[82] = v5;
-		sub_49B950(v4, *getMemU32Ptr(0x5D4594, 2649704) / 3u);
+		nox_xxx_spriteTransparentDecay_49B950(v4, *getMemU32Ptr(0x5D4594, 2649704) / 3u);
 	}
 	return nox_thing_slave_draw(a1, dr);
 }
@@ -41,19 +41,19 @@ int __cdecl nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
 
 	v2 = *getMemU32Ptr(0x5D4594, 1313724);
 	if (!*getMemU32Ptr(0x5D4594, 1313724)) {
-		v2 = sub_44CFC0((CHAR*)getMemAt(0x587000, 176792));
+		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176792));
 		*getMemU32Ptr(0x5D4594, 1313724) = v2;
 	}
 	v3 = a2[81];
 	if ((a2[3] - v3) * (a2[3] - v3) + (a2[4] - a2[82]) * (a2[4] - a2[82]) > 200) {
-		v4 = (_DWORD*)sub_45A360_drawable(v2, v3, a2[82]);
+		v4 = (_DWORD*)nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, a2[82]);
 		v4[108] = a2[3];
 		v4[109] = a2[4];
-		sub_45A110_drawable(v4);
+		nox_xxx_sprite_45A110_drawable(v4);
 		v5 = a2[4];
 		a2[81] = a2[3];
 		a2[82] = v5;
-		sub_49B950(v4, *getMemU32Ptr(0x5D4594, 2649704) / 3u);
+		nox_xxx_spriteTransparentDecay_49B950(v4, *getMemU32Ptr(0x5D4594, 2649704) / 3u);
 	}
 	return nox_thing_slave_draw(a1, dr);
 }

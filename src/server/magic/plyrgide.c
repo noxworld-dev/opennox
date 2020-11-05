@@ -1,7 +1,7 @@
 #include "../../proto.h"
 
 //----- (004D8000) --------------------------------------------------------
-int __cdecl sub_4D8000(int a1, char a2, char a3, int a4) {
+int __cdecl nox_xxx_netReportGuideAward_4D8000(int a1, char a2, char a3, int a4) {
 	int result; // eax
 	int v5;     // ecx
 
@@ -13,13 +13,13 @@ int __cdecl sub_4D8000(int a1, char a2, char a3, int a4) {
 		BYTE2(a1) = a3;
 		if (a4)
 			BYTE2(a1) = a3 | 0x80;
-		result = sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), (int)&a1, 3, 0, 1);
+		result = nox_xxx_netSendPacket1_4E5390(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), (int)&a1, 3, 0, 1);
 	}
 	return result;
 }
 
 //----- (004FAE80) --------------------------------------------------------
-int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
+int __cdecl nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 	int v3;               // ebp
 	int v4;               // edi
 	int v5;               // eax
@@ -39,8 +39,8 @@ int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 	if (!(*(_BYTE*)(a1 + 8) & 4))
 		return 0;
 	if (a2 <= 0 || a2 >= 41) {
-		v16 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 216340), 0, "C:\\NoxPost\\src\\Server\\Magic\\PlyrGide.c", 39);
-		sub_4D9EB0(a1, v16);
+		v16 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 216340), 0, "C:\\NoxPost\\src\\Server\\Magic\\PlyrGide.c", 39);
+		nox_xxx_netSendLineMessage_4D9EB0(a1, v16);
 		return 0;
 	}
 	v4 = *(_DWORD*)(a1 + 748);
@@ -50,10 +50,10 @@ int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 	if (v6)
 		return 0;
 	*v7 = 1;
-	sub_56FCE0(*(_DWORD*)(*(_DWORD*)(v4 + 276) + 4640), a2, *(_DWORD*)(*(_DWORD*)(v4 + 276) + 4 * a2 + 4244));
+	nox_xxx_playerAwardSpellProtection_56FCE0(*(_DWORD*)(*(_DWORD*)(v4 + 276) + 4640), a2, *(_DWORD*)(*(_DWORD*)(v4 + 276) + 4 * a2 + 4244));
 	if (a3) {
-		sub_501960(227, a1, 0, 0);
-		sub_4FAD50(a1, 1, a1, a2);
+		nox_xxx_aud_501960(227, a1, 0, 0);
+		nox_xxx_netSendRewardNotify_4FAD50(a1, 1, a1, a2);
 	}
 	v8 = getMemAt(0x587000, 216292);
 	v17 = getMemAt(0x587000, 216292);
@@ -66,7 +66,7 @@ int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 				if (v10) {
 					do {
 						*(_DWORD*)(*(_DWORD*)(v4 + 276) + 4 * v10 + 4244) = 1;
-						sub_56FCE0(*(_DWORD*)(*(_DWORD*)(v4 + 276) + 4640), *v11,
+						nox_xxx_playerAwardSpellProtection_56FCE0(*(_DWORD*)(*(_DWORD*)(v4 + 276) + 4640), *v11,
 								   *(_DWORD*)(*(_DWORD*)(v4 + 276) + 4 * *v11 + 4244));
 						v10 = v11[1];
 						++v11;
@@ -84,10 +84,10 @@ int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 			v14 = *((_DWORD*)i + 514);
 			if (v14 != v3) {
 				if (v14)
-					sub_4FAD50(v14, 1, v3, a2);
+					nox_xxx_netSendRewardNotify_4FAD50(v14, 1, v3, a2);
 			}
 		}
 	}
-	sub_4D8000(v3, a2, a3, 0);
+	nox_xxx_netReportGuideAward_4D8000(v3, a2, a3, 0);
 	return 1;
 }

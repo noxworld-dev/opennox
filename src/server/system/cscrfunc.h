@@ -3,10 +3,10 @@
 
 #include "../../defs.h"
 
-int sub_512B10();
-int sub_512B60();
-int sub_512B90();
-int sub_513F70();
+int nox_xxx_scriptPrintToCaller_512B10();
+int nox_xxx_scriptPrintToAll_512B60();
+int nox_xxx_scriptSayChat_512B90();
+int nox_xxx_script_Fn5E_513F70();
 int sub_514A80();
 int sub_514B10();
 

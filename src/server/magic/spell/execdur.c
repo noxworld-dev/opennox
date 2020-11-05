@@ -22,11 +22,11 @@ int __cdecl sub_530A30_spell_execdur(int a1) {
 	v3 = *(_DWORD*)(v1 + 16);
 	if (*(_BYTE*)(v3 + 8) & 4)
 		v2 = *(_DWORD*)(v3 + 748);
-	if (sub_411A90((float2*)(v1 + 52))) {
-		v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 260960), 0, "C:\\NoxPost\\src\\Server\\Magic\\Spell\\ExecDur.c",
+	if (nox_xxx_mapTileAllowTeleport_411A90((float2*)(v1 + 52))) {
+		v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 260960), 0, "C:\\NoxPost\\src\\Server\\Magic\\Spell\\ExecDur.c",
 								   2912);
-		sub_4D9EB0(*(_DWORD*)(v1 + 48), v4);
-		sub_501960(231, *(_DWORD*)(v1 + 48), 0, 0);
+		nox_xxx_netSendLineMessage_4D9EB0(*(_DWORD*)(v1 + 48), v4);
+		nox_xxx_aud_501960(231, *(_DWORD*)(v1 + 48), 0, 0);
 		result = 1;
 	} else {
 		v6 = *(_DWORD*)(v1 + 48);
@@ -37,9 +37,9 @@ int __cdecl sub_530A30_spell_execdur(int a1) {
 		v9 = *(_DWORD*)(v1 + 16);
 		v12.field_4 = v8;
 		v12.field_C = v7;
-		if (!v9 || (unsigned __int8)sub_5374B0((float4*)&v12)) {
+		if (!v9 || (unsigned __int8)nox_xxx_traceRay_5374B0((float4*)&v12)) {
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
-				v11 = sub_419D70(getMemAt(0x587000, 260976), *(_DWORD*)(v1 + 8) - 1);
+				v11 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 260976), *(_DWORD*)(v1 + 8) - 1);
 				*(_DWORD*)(v1 + 68) = *getMemU32Ptr(0x5D4594, 2598000) + nox_float2int(v11);
 				result = 0;
 			} else {
@@ -50,7 +50,7 @@ int __cdecl sub_530A30_spell_execdur(int a1) {
 			if (v2) {
 				v10 = *(_DWORD*)(v2 + 276);
 				a1 = 2;
-				sub_4DA0F0(*(unsigned __int8*)(v10 + 2064), 0, &a1);
+				nox_xxx_netInformTextMsg_4DA0F0(*(unsigned __int8*)(v10 + 2064), 0, &a1);
 			}
 			result = 1;
 		}

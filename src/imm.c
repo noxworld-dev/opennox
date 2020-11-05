@@ -63,9 +63,9 @@ static void update_ime(int finished) {
 		if (ConvertUTF8toUTF16(&src, src + strlen(src), &dst, wtmp + 3, strictConversion) == conversionOK) {
 			unsigned int i;
 			for (i = 0; &wtmp[i] != dst; i++)
-				sub_488BD0(wtmp[i]);
+				nox_xxx_onChar_488BD0(wtmp[i]);
 		} else {
-			sub_488BD0(UNI_REPLACEMENT_CHAR);
+			nox_xxx_onChar_488BD0(UNI_REPLACEMENT_CHAR);
 		}
 	}
 
@@ -74,9 +74,9 @@ static void update_ime(int finished) {
 		wchar_t wc = g_ime_buf[0];
 		if (wc) {
 			g_ime_buf[0] = 0;
-			sub_488BD0(wc);
+			nox_xxx_onChar_488BD0(wc);
 			for (i = 1; g_ime_buf[i]; i++)
-				sub_488BD0(g_ime_buf[i]);
+				nox_xxx_onChar_488BD0(g_ime_buf[i]);
 		}
 		g_ime_raw[0] = 0;
 	}
@@ -108,9 +108,9 @@ void process_textinput_event(const SDL_TextInputEvent* event) {
 	if (ConvertUTF8toUTF16(&src, event->text + strlen(event->text), &dst, tmp + 3, strictConversion) == conversionOK) {
 		unsigned int i;
 		for (i = 0; &tmp[i] != dst; i++)
-			sub_488BD0(tmp[i]);
+			nox_xxx_onChar_488BD0(tmp[i]);
 	} else {
-		sub_488BD0(UNI_REPLACEMENT_CHAR);
+		nox_xxx_onChar_488BD0(UNI_REPLACEMENT_CHAR);
 	}
 #endif
 }
@@ -157,30 +157,30 @@ int** __thiscall sub_56FFE0(int** this) { return this; }
 int** __thiscall sub_570070(int*** this) { return this; }
 
 //----- (005700CA) --------------------------------------------------------
-int __thiscall sub_5700CA(int** this, HWND hWnd) {
+int __thiscall nox_xxx_changeWinProcToEdit_5700CA(int** this, HWND hWnd) {
 	SDL_StartTextInput();
 	g_textinput = 1;
 	return 0;
 }
 
 //----- (005700F6) --------------------------------------------------------
-int* __thiscall sub_5700F6(int** this) {
+int* __thiscall nox_xxx_changeWinProcToNormal_5700F6(int** this) {
 	SDL_StopTextInput();
 	g_textinput = 0;
 	return 0;
 }
 
 //----- (0057011C) --------------------------------------------------------
-wchar_t* __thiscall sub_57011C(_DWORD** this) { return g_ime_buf; }
+wchar_t* __thiscall nox_xxx_string_57011C(_DWORD** this) { return g_ime_buf; }
 
 //----- (00570142) --------------------------------------------------------
 _DWORD* __thiscall sub_570142(_DWORD** this, char a2) { return 0; }
 
 //----- (005702B4) --------------------------------------------------------
-bool __thiscall sub_5702B4(_DWORD** this) { return 1; }
+bool __thiscall nox_xxx_string_5702B4(_DWORD** this) { return 1; }
 
 //----- (00570392) --------------------------------------------------------
-int __thiscall sub_570392(_DWORD** this) { return 0; }
+int __thiscall nox_xxx_string_570392(_DWORD** this) { return 0; }
 
 #else
 
@@ -240,7 +240,7 @@ int* __thiscall sub_5716F0(int* this, _WORD* a2, unsigned int a3);
 char sub_571750();
 void* __cdecl sub_571760(int a1);
 int sub_571790();
-void __cdecl sub_5717C0(); // idb
+void __cdecl nox_xxx___initp_misc_winxfltr_5717C0(); // idb
 _DWORD* __thiscall sub_5717D0(_DWORD* this);
 char __cdecl sub_571810(int a1, LPCSTR lpMultiByteStr);
 unsigned __int8* sub_571905();
@@ -284,7 +284,7 @@ int __thiscall sub_57366C(int* this, HWND hWnd);
 int* __thiscall sub_57381A(int* this);
 void __thiscall sub_57390B(int* this, DWORD dwValue, int a3, int a4);
 void __thiscall sub_5739D2(int* this, DWORD dwValue);
-LRESULT __stdcall sub_573A68(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
+LRESULT __stdcall nox_xxx_windowProcForEdit_573A68(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 int __thiscall sub_573AE4(_DWORD* this);
 _DWORD* __thiscall sub_573B1F(_DWORD* this, _DWORD a2);
 unsigned __int8* __thiscall sub_573B56(_DWORD* this);
@@ -496,13 +496,13 @@ int** __thiscall sub_570070(int*** this) {
 }
 
 //----- (005700CA) --------------------------------------------------------
-int __thiscall sub_5700CA(int** this, HWND hWnd) { return sub_57366C(*this, hWnd); }
+int __thiscall nox_xxx_changeWinProcToEdit_5700CA(int** this, HWND hWnd) { return sub_57366C(*this, hWnd); }
 
 //----- (005700F6) --------------------------------------------------------
-int* __thiscall sub_5700F6(int** this) { return sub_57381A(*this); }
+int* __thiscall nox_xxx_changeWinProcToNormal_5700F6(int** this) { return sub_57381A(*this); }
 
 //----- (0057011C) --------------------------------------------------------
-wchar_t* __thiscall sub_57011C(_DWORD** this) { return sub_573B56(*this); }
+wchar_t* __thiscall nox_xxx_string_57011C(_DWORD** this) { return sub_573B56(*this); }
 
 //----- (00570142) --------------------------------------------------------
 _DWORD* __thiscall sub_570142(_DWORD** this, char a2) { return sub_573B1F(*this, a2); }
@@ -552,7 +552,7 @@ int* __thiscall sub_57027C(int** this, DWORD dwValue) {
 }
 
 //----- (005702B4) --------------------------------------------------------
-bool __thiscall sub_5702B4(_DWORD** this) {
+bool __thiscall nox_xxx_string_5702B4(_DWORD** this) {
 	bool v2;     // [esp+0h] [ebp-10h]
 	_DWORD** v3; // [esp+4h] [ebp-Ch]
 	_DWORD* v4;  // [esp+8h] [ebp-8h]
@@ -576,7 +576,7 @@ bool __thiscall sub_5702B4(_DWORD** this) {
 }
 
 //----- (00570392) --------------------------------------------------------
-int __thiscall sub_570392(_DWORD** this) {
+int __thiscall nox_xxx_string_570392(_DWORD** this) {
 	int v2;      // [esp+0h] [ebp-Ch]
 	_DWORD** v3; // [esp+4h] [ebp-8h]
 	_DWORD* v4;  // [esp+8h] [ebp-4h]
@@ -608,7 +608,7 @@ int sub_570485() {
 }
 
 //----- (0057049B) --------------------------------------------------------
-int sub_57049B() { return atexit(sub_5717C0); }
+int sub_57049B() { return atexit(nox_xxx___initp_misc_winxfltr_5717C0); }
 
 //----- (005704C0) --------------------------------------------------------
 int* __thiscall sub_5704C0(int* this) {
@@ -1189,7 +1189,7 @@ int sub_571790() {
 }
 
 //----- (005717C0) --------------------------------------------------------
-void __cdecl sub_5717C0() { ; }
+void __cdecl nox_xxx___initp_misc_winxfltr_5717C0() { ; }
 
 //----- (005717D0) --------------------------------------------------------
 _DWORD* __thiscall sub_5717D0(_DWORD* this) {
@@ -2189,7 +2189,7 @@ int __thiscall sub_57366C(int* this, HWND hWnd) {
 	v6 = sub_571A54(v4, (char)hWnd, (int)v3, -1);
 	if (v6 < 0)
 		return v6;
-	v3[20] = SetWindowLongA(hWnd, GWL_WNDPROC, (LONG)sub_573A68);
+	v3[20] = SetWindowLongA(hWnd, GWL_WNDPROC, (LONG)nox_xxx_windowProcForEdit_573A68);
 	if (v3[20] || !GetLastError()) {
 		v3[19] = (int)hWnd;
 		sub_574E10(&v7, (HWND)v3[19]);
@@ -2274,7 +2274,7 @@ void __thiscall sub_5739D2(int* this, DWORD dwValue) {
 }
 
 //----- (00573A68) --------------------------------------------------------
-LRESULT __stdcall sub_573A68(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+LRESULT __stdcall nox_xxx_windowProcForEdit_573A68(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 	int* v4;        // eax
 	LRESULT result; // eax
 	_DWORD* v6;     // [esp+8h] [ebp-4h]
@@ -2333,7 +2333,7 @@ int sub_573C05() {
 }
 
 //----- (00573C1B) --------------------------------------------------------
-int sub_573C1B() { return atexit(sub_5717C0); }
+int sub_573C1B() { return atexit(nox_xxx___initp_misc_winxfltr_5717C0); }
 
 //----- (00573C40) --------------------------------------------------------
 void* __thiscall sub_573C40(void* this) {
@@ -4127,7 +4127,7 @@ void __thiscall sub_577200(int* this, int a2) {
 // 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (00577390) --------------------------------------------------------
-void __stdcall sub_577390(int a1) { sub_5717C0(); }
+void __stdcall sub_577390(int a1) { nox_xxx___initp_misc_winxfltr_5717C0(); }
 
 //----- (005773C0) --------------------------------------------------------
 int __thiscall sub_5773C0(void* this) { return *(_DWORD*)this; }

@@ -3,7 +3,7 @@
 
 #include "../../../defs.h"
 
-int __cdecl sub_456270(int a1);
+int __cdecl nox_xxx_guiServerPlayersLoad_456270(int a1);
 int __cdecl sub_4567C0(int a1, int a2, int* a3, int a4);
 int __cdecl sub_457010(int a1, wchar_t* a2);
 char* __cdecl sub_457230(wchar_t* a1);

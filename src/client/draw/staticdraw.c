@@ -5,13 +5,13 @@
 //----- (004BCC20) --------------------------------------------------------
 int __cdecl nox_thing_static_draw(_DWORD* a1, nox_drawable* dr) {
 	if (!(dr->field_28 & 0x40000) || dr->flags & 0x1000000)
-		sub_4C4770_draw(a1, dr, *(_DWORD*)((char*)dr->field_76 + 4));
+		nox_xxx_drawObject_4C4770_draw(a1, dr, *(_DWORD*)((char*)dr->field_76 + 4));
 	return 1;
 }
 
 //----- (004BCC60) --------------------------------------------------------
 int __cdecl nox_thing_static_random_draw(_DWORD* a1, nox_drawable* dr) {
-	sub_4C4770_draw(a1, dr, *(_DWORD*)(*(_DWORD*)((char*)dr->field_76 + 4) + 4 * dr->field_77));
+	nox_xxx_drawObject_4C4770_draw(a1, dr, *(_DWORD*)(*(_DWORD*)((char*)dr->field_76 + 4) + 4 * dr->field_77));
 	return 1;
 }
 
@@ -36,7 +36,7 @@ bool __cdecl nox_things_static_draw_parse(nox_thing* obj, nox_memfile* f, char* 
 		nox_memfile_read(v6, 1u, v11, f);
 		v6[v11] = 0;
 	}
-	data[1] = sub_42FAA0(v8, a3, v6);
+	data[1] = nox_xxx_readImgMB_42FAA0(v8, a3, v6);
 	obj->draw_func = &nox_thing_static_draw;
 	obj->field_5c = data;
 	return 1;
@@ -45,7 +45,7 @@ bool __cdecl nox_things_static_draw_parse(nox_thing* obj, nox_memfile* f, char* 
 //----- (0044BFD0) --------------------------------------------------------
 bool __cdecl nox_things_static_random_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->draw_func = nox_thing_static_random_draw;
-	obj->field_5c = sub_44C000(attr_value, f);
+	obj->field_5c = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f);
 
 	return obj->field_5c != 0;
 }

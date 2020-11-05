@@ -44,7 +44,7 @@ void __cdecl sub_980523(_DWORD* a1) {
 		if (i[2] & 0x2000000) {
 			v2 = i[4];
 			if (v2 & 0x100) {
-				if (sub_415C70((int)i) & 0x3000000)
+				if (nox_xxx_unitArmorInventoryEquipFlags_415C70((int)i) & 0x3000000)
 					*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(a1 + 187) + 276) + 2500) = i;
 			}
 		}

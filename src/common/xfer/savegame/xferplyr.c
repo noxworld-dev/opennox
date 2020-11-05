@@ -6,7 +6,7 @@
 extern FILE* nox_file_2;
 
 //----- (0041C8F0) --------------------------------------------------------
-int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
+int __cdecl nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 	wchar_t* v2;         // eax
 	wchar_t* v3;         // eax
 	int result;          // eax
@@ -39,13 +39,13 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 					*getMemU8Ptr(0x5D4594, 2661961) = sub_465DF0();
 				else
 					*getMemU8Ptr(0x5D4594, 2661961) = 0;
-				if (sub_41A230((char*)getMemAt(0x5D4594, 2660688))) {
-					v9 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 56752), 0,
+				if (nox_xxx_mapSavePlayerDataMB_41A230((char*)getMemAt(0x5D4594, 2660688))) {
+					v9 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 56752), 0,
 											   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3420);
-					sub_450C00(0xCu, v9);
-					v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 56816), 0,
+					nox_xxx_consoleVPrint_450C00(0xCu, v9);
+					v10 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 56816), 0,
 												"C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3421);
-					sub_445490(v10);
+					nox_xxx_printCentered_445490(v10);
 					result = 1;
 				} else {
 					nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 56648));
@@ -60,12 +60,12 @@ int __cdecl sub_41C8F0(char* a1, unsigned int a2) {
 			result = 0;
 		}
 	} else {
-		v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 56392), 0,
+		v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 56392), 0,
 								   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3341);
-		sub_450C00(0xCu, v2);
-		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 56460), 0,
+		nox_xxx_consoleVPrint_450C00(0xCu, v2);
+		v3 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 56460), 0,
 								   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3342);
-		sub_445490(v3);
+		nox_xxx_printCentered_445490(v3);
 		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 56480), getMemAt(0x5D4594, 2660688));
 		result = 0;
 	}

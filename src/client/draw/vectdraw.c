@@ -19,7 +19,7 @@ int __cdecl sub_4BC5D0(nox_drawable* dr, int a2) {
 	case 1:
 		result = (*getMemUintPtr(0x5D4594, 2598000) - a1[79]) / (unsigned int)(*(__int16*)(a2 + 42) + 1);
 		if (result >= *(__int16*)(a2 + 40)) {
-			sub_45A4E0_drawable(dr);
+			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 			result = -1;
 		}
 		break;
@@ -30,7 +30,7 @@ int __cdecl sub_4BC5D0(nox_drawable* dr, int a2) {
 			result %= v3;
 		break;
 	case 4:
-		result = sub_415FF0(0, *(__int16*)(a2 + 40) - 1, "C:\\NoxPost\\src\\Client\\Draw\\vectdraw.c", 19);
+		result = nox_xxx_randGetMinMax_415FF0(0, *(__int16*)(a2 + 40) - 1, "C:\\NoxPost\\src\\Client\\Draw\\vectdraw.c", 19);
 		break;
 	case 5:
 		result = a1[77];
@@ -54,7 +54,7 @@ bool __cdecl nox_things_vector_animate_draw_parse(nox_thing* obj, nox_memfile* f
 	v2 = calloc(1u, 0x30u);
 	v3 = v2;
 	*v2 = 48;
-	result = sub_44BFA0((int)v2, f);
+	result = nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0((int)v2, f);
 	if (result) {
 		obj->draw_func = nox_thing_vector_animate_draw;
 		obj->field_5c = v3;

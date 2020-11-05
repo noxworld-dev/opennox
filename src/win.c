@@ -38,7 +38,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	g_argv[0] = "nox.exe";
 	g_argc = 1;
 
-	sub_43BEF0_set_video_mode(0, 0, 0); // probably not needed
+	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0); // probably not needed
 
 	for (v4 = strtok(lpCmdLine, " \t"); v4; v4 = strtok(0, " \t")) {
 		if (!strcmp("-window", v4)) {
@@ -111,7 +111,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		g_wnd_class.cbSize = 48;
 		g_wnd_class.style = 4099;
-		g_wnd_class.lpfnWndProc = sub_444FF0;
+		g_wnd_class.lpfnWndProc = nox_xxx_windowProc_444FF0;
 		g_wnd_class.cbClsExtra = 0;
 		g_wnd_class.cbWndExtra = 0;
 		g_wnd_class.hInstance = hInstance;
@@ -133,7 +133,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
 			sub_413E30(/* "Memory dump after GameLoop() :" */);
 		*getMemU32Ptr(0x5D4594, 823800) = 1;
-		sub_4453A0_poll_events();
+		nox_xxx_processWinMessages_4453A0_poll_events();
 		DestroyWindow(g_hwnd);
 		sub_416B00();
 		UnregisterClassA(g_wnd_class.lpszClassName, hInstance);
@@ -148,9 +148,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 //----- (00401FD0) --------------------------------------------------------
 #ifdef USE_SDL
-SDL_Window* getWindowHandle_sub_401FD0() { return g_window; }
+SDL_Window* getWindowHandle_nox_xxx_getHWND_401FD0() { return g_window; }
 #else
-HWND getWindowHandle_sub_401FD0() { return g_hwnd; }
+HWND getWindowHandle_nox_xxx_getHWND_401FD0() { return g_hwnd; }
 #endif
 
 //----- (00401FE0) --------------------------------------------------------
@@ -165,11 +165,11 @@ void __cdecl sub_401FE0(LPCSTR lpString) {
 }
 
 //----- (0047D8A0) --------------------------------------------------------
-void sub_47D8A0() {
+void nox_xxx_showWindow_47D8A0() {
 #ifdef USE_SDL
 	SDL_RestoreWindow(g_window);
 #else
-	ShowWindow(getWindowHandle_sub_401FD0(), SW_RESTORE);
+	ShowWindow(getWindowHandle_nox_xxx_getHWND_401FD0(), SW_RESTORE);
 #endif
 }
 
@@ -226,7 +226,7 @@ void process_event(const SDL_Event* event) {
 }
 #else
 //----- (00444FF0) --------------------------------------------------------
-int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+int __stdcall nox_xxx_windowProc_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 	LPARAM v4;  // ebx
 	WPARAM v5;  // esi
 	UINT v6;    // edi
@@ -241,7 +241,7 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 			if (Msg == 1040) {
 				// character from IME
 				v8 = wParam;
-				sub_488BD0(wParam);
+				nox_xxx_onChar_488BD0(wParam);
 				return DefWindowProcA(hWnd, 0x410u, v8, v4);
 			}
 			if (Msg == 3024) {
@@ -249,7 +249,7 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 				if (sub_414800()) {
 				LABEL_41:
 					PostQuitMessage(0);
-					sub_43DDD0(0);
+					nox_xxx_setExitMenuOrHost_43DDD0(0);
 					sub_43DE60();
 					return DefWindowProcA(hWnd, v6, v5, v4);
 				}
@@ -283,7 +283,7 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 		Msg = wParam;
 		wParam = 0;
 		if (MultiByteToWideChar(0, 0, (LPCSTR)&Msg, -1, (LPWSTR)&wParam, 2) > 0) {
-			sub_488BD0(wParam);
+			nox_xxx_onChar_488BD0(wParam);
 			return DefWindowProcA(hWnd, 0x102u, v5, v4);
 		}
 		return DefWindowProcA(hWnd, v6, v5, v4);
@@ -303,7 +303,7 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 		*getMemU32Ptr(0x5D4594, 823792) = v5;
 		if (v5) {
 			if (dword_5d4594_823776) {
-				if (sub_48A2A0())
+				if (nox_xxx_directDrawBlitImpl_48A2A0())
 					dword_974854 = 0;
 			}
 			sub_42ED20();
@@ -340,7 +340,7 @@ int __stdcall sub_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 #endif
 
 //----- (004453A0) --------------------------------------------------------
-int sub_4453A0_poll_events() {
+int nox_xxx_processWinMessages_4453A0_poll_events() {
 #ifdef USE_SDL
 	SDL_Event event;
 	while (nox_SDL_PollEvent(&event))

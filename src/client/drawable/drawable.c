@@ -123,12 +123,12 @@ nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[] = {
 int nox_parse_thing_draw_funcs_cnt = sizeof(nox_parse_thing_draw_funcs) / sizeof(nox_parse_thing_draw_funcs_t);
 
 //----- (0045A330) --------------------------------------------------------
-void* sub_45A330_drawable() {
+void* nox_xxx_spriteFromCache_45A330_drawable() {
 	if (!nox_drawable_head_unk4) {
 		return 0;
 	}
 
-	sub_45A4E0_drawable(nox_drawable_head_unk4);
+	nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable_head_unk4);
 	return nox_alloc_class_new_obj_zero(nox_alloc_drawable);
 }
 
@@ -138,7 +138,7 @@ nox_drawable* __cdecl nox_new_drawable_for_thing(int i) {
 
 	nox_drawable* v1 = (nox_drawable*)nox_alloc_class_new_obj_zero(nox_alloc_drawable);
 	if (!v1) {
-		v1 = sub_45A330_drawable();
+		v1 = nox_xxx_spriteFromCache_45A330_drawable();
 	}
 	if (!v1) {
 		return 0;
@@ -151,16 +151,16 @@ nox_drawable* __cdecl nox_new_drawable_for_thing(int i) {
 	int(__cdecl * draw_fnc)(unsigned int*, nox_drawable*);
 	draw_fnc = v1->draw_func;
 	if (draw_fnc == nox_thing_static_random_draw) {
-		v4 = sub_415FF0(0, *(unsigned __int8*)((char*)v1->field_76 + 8) - 1,
+		v4 = nox_xxx_randGetMinMax_415FF0(0, *(unsigned __int8*)((char*)v1->field_76 + 8) - 1,
 						"C:\\NoxPost\\src\\Client\\Drawable\\drawable.c", 401);
-		sub_45AB80(v1, v4);
+		nox_xxx_spriteSetFrameMB_45AB80(v1, v4);
 	} else if (draw_fnc == nox_thing_red_spark_draw || draw_fnc == nox_thing_blue_spark_draw ||
 			   draw_fnc == nox_thing_yellow_spark_draw || draw_fnc == nox_thing_green_spark_draw ||
 			   draw_fnc == nox_thing_cyan_spark_draw) {
 		*((unsigned short*)v1 + 26 * 2) = 35;
 		*((unsigned char*)v1 + 74 * 4) = 2;
 	} else {
-		sub_45AB80(v1, 0);
+		nox_xxx_spriteSetFrameMB_45AB80(v1, 0);
 	}
 	v1->field_79 = *getMemUintPtr(0x5D4594, 2598000);
 	v1->field_85 = *getMemUintPtr(0x5D4594, 2598000);

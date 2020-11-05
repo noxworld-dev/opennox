@@ -12,7 +12,7 @@ wchar_t* __cdecl sub_4E39F0_obj_db(const char** a1) {
 
 	v1 = *a1;
 	if (!*a1)
-		v1 = (const char*)sub_4E39D0((int)a1);
+		v1 = (const char*)nox_xxx_getUnitName_4E39D0((int)a1);
 	v2 = strrchr(v1, 58);
 	if (v2)
 		v3 = v2 + 1;
@@ -28,5 +28,5 @@ wchar_t* __cdecl sub_4E39F0_obj_db(const char** a1) {
 		v5 = *i;
 	}
 	*v6 = 0;
-	return loadString_sub_40F1D0((char*)getMemAt(0x5D4594, 1563460), 0, "C:\\NoxPost\\src\\Server\\DBase\\objdb.c", 1577);
+	return nox_xxx_loadString_40F1D0((char*)getMemAt(0x5D4594, 1563460), 0, "C:\\NoxPost\\src\\Server\\DBase\\objdb.c", 1577);
 }

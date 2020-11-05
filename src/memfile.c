@@ -18,9 +18,9 @@ nox_memfile* nox_memfile_load(const char* path, int a2) {
 		nox_xxx_fileBinClose_408D90(f);
 		return 0;
 	}
-	sub_409050(f, 0, SEEK_END);
-	nf->size = sub_409390();
-	sub_409050(f, 0, SEEK_SET);
+	nox_xxx_fseek_409050(f, 0, SEEK_END);
+	nf->size = nox_xxx_fileBinGetInPtr_409390();
+	nox_xxx_fseek_409050(f, 0, SEEK_SET);
 	nf->data = (char*)malloc(nf->size);
 	if (nf->data == 0) {
 		nox_memfile_free(nf);
@@ -28,7 +28,7 @@ nox_memfile* nox_memfile_load(const char* path, int a2) {
 		return 0;
 	}
 	int csize = nf->size;
-	int x1 = sub_408E40_fread(nf->data, 1, nf->size, f);
+	int x1 = nox_xxx_fread_408E40_fread(nf->data, 1, nf->size, f);
 	if (x1 != csize) {
 		nox_memfile_free(nf);
 		nox_xxx_fileBinClose_408D90(f);
@@ -121,7 +121,7 @@ unsigned int __cdecl nox_memfile_seek_40AD10(nox_memfile* memfile, const int off
 }
 
 //----- (0040AD60) --------------------------------------------------------
-unsigned int sub_40AD60(char* dest, int sz, int cnt, nox_memfile* f) {
+unsigned int nox_xxx_freadMB_40AD60(char* dest, int sz, int cnt, nox_memfile* f) {
     const size_t cur_offset = f->cur - f->data;
     const uint8_t read_past_8 = cur_offset & 0x7;
 

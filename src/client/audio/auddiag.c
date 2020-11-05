@@ -9,7 +9,7 @@ extern _DWORD dword_5d4594_830864;
 extern _DWORD dword_5d4594_830872;
 
 //----- (0044D810) --------------------------------------------------------
-int sub_44D810() {
+int nox_xxx_WorkerHurt_44D810() {
 	int v1; // [esp+4h] [ebp-4h]
 
 	if (!*(unsigned int*)&dword_5d4594_831076) {
@@ -23,9 +23,9 @@ int sub_44D810() {
 		*getMemUintPtr(0x5D4594, 831080) = 0;
 		*(unsigned int*)&dword_5d4594_831084 = 0;
 		*(unsigned int*)&dword_5d4594_831076 = 1;
-		loadString_sub_40F1D0((char*)getMemAt(0x587000, 122920), &v1, "C:\\NoxPost\\src\\client\\Audio\\AudDiag.c", 279);
+		nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 122920), &v1, "C:\\NoxPost\\src\\client\\Audio\\AudDiag.c", 279);
 		if (v1)
-			sub_44D900(v1, 0);
+			nox_xxx_playDialogFile_44D900(v1, 0);
 	}
 	return 1;
 }
