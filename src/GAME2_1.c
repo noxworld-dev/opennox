@@ -74,7 +74,7 @@ extern _DWORD dword_5d4594_1047936;
 extern _DWORD dword_5d4594_1062488;
 extern _DWORD dword_5d4594_1062452;
 extern _DWORD dword_5d4594_1096496;
-extern _DWORD dword_587000_80832;
+extern _DWORD nox_xxx_useAudio_587000_80832;
 extern _DWORD dword_5d4594_1062468;
 extern _DWORD dword_5d4594_1064860;
 extern _DWORD dword_5d4594_1064820;
@@ -117,7 +117,7 @@ extern _DWORD nox_client_highResFrontWalls_80820;
 extern _DWORD dword_5d4594_1049800;
 extern _DWORD dword_5d4594_1064296;
 extern _DWORD dword_5d4594_1064888;
-extern _DWORD dword_587000_149232;
+extern _DWORD nox_xxx_minimap_587000_149232;
 extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_1062456;
 extern _DWORD dword_5d4594_1063636;
@@ -140,7 +140,7 @@ extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_1064916;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_1062480;
-extern void* dword_587000_133480;
+extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern BYTE** nox_pixbuffer_rows_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -409,10 +409,10 @@ int nox_xxx_buttonFindFirstEmptySlot_461250() {
 	int v1;     // esi
 	_DWORD* v2; // eax
 
-	v0 = *(unsigned __int8*)((_DWORD)dword_587000_133480 + 200);
+	v0 = *(unsigned __int8*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 200);
 	do {
 		v1 = 0;
-		v2 = (_DWORD*)((_DWORD)dword_587000_133480 + 40 * v0);
+		v2 = (_DWORD*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 40 * v0);
 		do {
 			if (!*v2) {
 				nox_xxx_clientUpdateButtonRow_45E110(v0);
@@ -423,7 +423,7 @@ int nox_xxx_buttonFindFirstEmptySlot_461250() {
 		} while (v1 < 5);
 		if (++v0 >= 5)
 			v0 = 0;
-	} while (v0 != *(unsigned __int8*)((_DWORD)dword_587000_133480 + 200));
+	} while (v0 != *(unsigned __int8*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 200));
 	return -1;
 }
 
@@ -433,7 +433,7 @@ int sub_4612A0() {
 	_DWORD* i;  // ecx
 
 	result = 0;
-	for (i = (_DWORD*)((_DWORD)dword_587000_133480 + 40 * *(unsigned __int8*)((_DWORD)dword_587000_133480 + 200)); *i; i += 2) {
+	for (i = (_DWORD*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 40 * *(unsigned __int8*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 200)); *i; i += 2) {
 		if (++result >= 5)
 			return -1;
 	}
@@ -446,10 +446,10 @@ int __cdecl nox_xxx_buttonHaveSpellInBarMB_4612D0(int a1) {
 	int v2;     // eax
 	_DWORD* v3; // ecx
 
-	v1 = *(unsigned __int8*)((_DWORD)dword_587000_133480 + 200);
+	v1 = *(unsigned __int8*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 200);
 	do {
 		v2 = 0;
-		v3 = (_DWORD*)((_DWORD)dword_587000_133480 + 40 * v1);
+		v3 = (_DWORD*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 40 * v1);
 		do {
 			if (*v3 == a1)
 				return 1;
@@ -458,7 +458,7 @@ int __cdecl nox_xxx_buttonHaveSpellInBarMB_4612D0(int a1) {
 		} while (v2 < 5);
 		if (++v1 >= 5)
 			v1 = 0;
-	} while (v1 != *(unsigned __int8*)((_DWORD)dword_587000_133480 + 200));
+	} while (v1 != *(unsigned __int8*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 200));
 	return 0;
 }
 
@@ -466,7 +466,7 @@ int __cdecl nox_xxx_buttonHaveSpellInBarMB_4612D0(int a1) {
 void __cdecl nox_xxx_buttonSetImgMB_461320(int a1, _DWORD* a2) {
 	if (a2) {
 		if (a1 >= 0 && a1 < 5)
-			nox_client_wndGetPosition_46AA60(*(_DWORD**)((_DWORD)dword_587000_133480 + 4 * a1 + 212), a2, a2 + 1);
+			nox_client_wndGetPosition_46AA60(*(_DWORD**)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 4 * a1 + 212), a2, a2 + 1);
 	}
 }
 
@@ -478,16 +478,16 @@ int __cdecl sub_461360(int a1) {
 	int v4;     // esi
 	int result; // eax
 
-	v1 = dword_587000_133480;
-	v2 = *(unsigned __int8*)((_DWORD)dword_587000_133480 + 200);
-	v3 = *(unsigned __int8*)((_DWORD)dword_587000_133480 + 200);
+	v1 = nox_xxx_aClosewoodengat_587000_133480;
+	v2 = *(unsigned __int8*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 200);
+	v3 = *(unsigned __int8*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 200);
 	do {
 		v4 = 5;
 		result = 40 * v2;
 		do {
 			if (*(_DWORD*)(result + v1) == a1) {
 				*(_DWORD*)(result + v1) = 0;
-				v1 = dword_587000_133480;
+				v1 = nox_xxx_aClosewoodengat_587000_133480;
 			}
 			result += 8;
 			--v4;
@@ -507,8 +507,8 @@ int sub_4613B0() {
 	int result; // eax
 	int v5;     // [esp+10h] [ebp-4h]
 
-	v0 = dword_587000_133480;
-	v1 = dword_587000_133480;
+	v0 = nox_xxx_aClosewoodengat_587000_133480;
+	v1 = nox_xxx_aClosewoodengat_587000_133480;
 	v5 = 5;
 	do {
 		v2 = v1;
@@ -535,8 +535,8 @@ int sub_461400() {
 		result = i;
 		v2 = 5;
 		do {
-			*(_DWORD*)(result + (_DWORD)dword_587000_133480) = *getMemU32Ptr(0x5D4594, result + 1047564);
-			*(_BYTE*)(result + (_DWORD)dword_587000_133480 + 4) = getMemByte(0x5D4594, result + 1047568);
+			*(_DWORD*)(result + (_DWORD)nox_xxx_aClosewoodengat_587000_133480) = *getMemU32Ptr(0x5D4594, result + 1047564);
+			*(_BYTE*)(result + (_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 4) = getMemByte(0x5D4594, result + 1047568);
 			result += 40;
 			--v2;
 		} while (v2);
@@ -7396,16 +7396,16 @@ unsigned __int8* sub_472310() {
 
 //----- (004724E0) --------------------------------------------------------
 void sub_4724E0() {
-	dword_587000_149232 -= 10;
-	if (*(int*)&dword_587000_149232 < 500)
-		dword_587000_149232 = 500;
+	nox_xxx_minimap_587000_149232 -= 10;
+	if (*(int*)&nox_xxx_minimap_587000_149232 < 500)
+		nox_xxx_minimap_587000_149232 = 500;
 }
 
 //----- (00472500) --------------------------------------------------------
 void sub_472500() {
-	dword_587000_149232 += 10;
-	if (dword_587000_149232 > 4000)
-		dword_587000_149232 = 4000;
+	nox_xxx_minimap_587000_149232 += 10;
+	if (nox_xxx_minimap_587000_149232 > 4000)
+		nox_xxx_minimap_587000_149232 = 4000;
 }
 
 //----- (00472520) --------------------------------------------------------
@@ -7413,12 +7413,12 @@ int __cdecl nox_xxx_cliSetMinimapZoom_472520(int a1) {
 	int result; // eax
 
 	result = a1;
-	dword_587000_149232 = a1;
+	nox_xxx_minimap_587000_149232 = a1;
 	return result;
 }
 
 //----- (00472530) --------------------------------------------------------
-int sub_472530() { return dword_587000_149232; }
+int sub_472530() { return nox_xxx_minimap_587000_149232; }
 
 //----- (00472540) --------------------------------------------------------
 int __cdecl sub_472540(int a1) {
@@ -7579,7 +7579,7 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 	nox_client_drawRectLines_473510(-3, yTop - 3, v3 + 6, v3 + 6);
 	nox_client_drawEnableAlpha_434560(0);
 	nox_client_copyRect_49F6F0(0, yTop, v3, v3);
-	v6 = dword_587000_149232;
+	v6 = nox_xxx_minimap_587000_149232;
 	v7 = v3 * v6 / 100;
 	nox_xxx_getSomeCoods_435670(&v84);
 	v8 = v84.field_0 - v7 / 2;
@@ -7629,7 +7629,7 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 								*(_DWORD*)(v19 + 12)) {
 						LABEL_28:
 							if (v69 < 4) {
-								v20 = dword_587000_149232;
+								v20 = nox_xxx_minimap_587000_149232;
 								v21 = 8 * *(unsigned __int8*)(v15 + 299);
 								v22 = 100 * (*(int*)(v15 + 12) - xLeft.field_0) / v20;
 								v85 = 100 * (*(int*)(v15 + 16) - xLeft.field_4) / v20;
@@ -7651,7 +7651,7 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 				}
 			}
 			if (nox_common_gameFlags_check_40A5C0(0x10000) || *(_DWORD*)(v11 + 12)) {
-				v26 = dword_587000_149232;
+				v26 = nox_xxx_minimap_587000_149232;
 				v25 = v26;
 				v76.field_0 = 100 * (v14 - v8) / v26;
 				v76.field_4 = yTop + 100 * (v80 - v9) / v26;
@@ -7677,12 +7677,12 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 				v31 = (float*)(v30 + 8);
 				v72 = v29 - 1;
 				do {
-					v32 = dword_587000_149232;
+					v32 = nox_xxx_minimap_587000_149232;
 					v33 = *(v31 - 1);
 					xLeft.field_0 = (int)(100 * ((unsigned __int64)(__int64)*(v31 - 2) - v8)) / v32;
 					nox_client_drawAddPoint_49F500(xLeft.field_0,
 												   yTop + (int)(100 * ((unsigned __int64)(__int64)v33 - v9)) / v32);
-					v34 = dword_587000_149232;
+					v34 = nox_xxx_minimap_587000_149232;
 					v35 = v31[1];
 					xLeft.field_0 = (int)(100 * ((unsigned __int64)(__int64)*v31 - v8)) / v34;
 					nox_client_drawAddPoint_49F500(xLeft.field_0,
@@ -7695,7 +7695,7 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		}
 		for (j = (float*)nox_xxx_minimapFirstMonster_50AAE0(); j; j = (float*)nox_xxx_minimapNextMonster_50AB10()) {
 			nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650644));
-			v37 = dword_587000_149232;
+			v37 = nox_xxx_minimap_587000_149232;
 			v38 = j[1];
 			xLeft.field_0 = (int)(100 * ((unsigned __int64)(__int64)*j - v8)) / v37;
 			nox_xxx_minimapDrawPoint_473570(xLeft.field_0, yTop + (int)(100 * ((unsigned __int64)(__int64)v38 - v9)) / v37);
@@ -7718,7 +7718,7 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		} else if (a2 != 1) {
 			continue;
 		}
-		v42 = dword_587000_149232;
+		v42 = nox_xxx_minimap_587000_149232;
 		xLeft.field_0 = 100 * (*(int*)(k + 12) - v8) / v42;
 		xLeft.field_4 = yTop + 100 * (*(int*)(k + 16) - v9) / v42;
 		if (!(*(_DWORD*)(k + 112) & 0x400000) || (v43 = *getMemU32Ptr(0x5D4594, 2650684), !(*(_BYTE*)(k + 116) & 8)))
@@ -7825,7 +7825,7 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		LABEL_103:
 			v63 = sub_4217B0((int2*)(l + 12), 0);
 			if ((!v63 || BYTE2(v63->field_0[32]) == a2) && v75 && (v75[3680] & 1) != 1) {
-				v64 = dword_587000_149232;
+				v64 = nox_xxx_minimap_587000_149232;
 				xLeft.field_0 = 100 * (*(int*)(l + 12) - v8) / v64;
 				xLeft.field_4 = yTop + 100 * (*(int*)(l + 16) - v9) / v64;
 				if (l == *getMemU32Ptr(0x5D4594, 2614252) || v76.field_0)
@@ -7857,7 +7857,7 @@ int __cdecl sub_4730D0(int2* a1, unsigned __int8 a2, int a3) {
 	int v5;     // edi
 	int2* v6;   // ebp
 
-	if (dword_587000_149232 <= 2000) {
+	if (nox_xxx_minimap_587000_149232 <= 2000) {
 		v4 = *getMemU32Ptr(0x5D4594, 2650660);
 		result = a2;
 		v5 = a3 / 2;
@@ -8017,16 +8017,16 @@ int __cdecl nox_client_drawRectLines_473510(int a1, int a2, int a3, int a4) {
 
 //----- (00473570) --------------------------------------------------------
 void __cdecl nox_xxx_minimapDrawPoint_473570(int xLeft, int yTop) {
-	if (dword_587000_149232 > 1200)
-		nox_xxx_drawPointMB_499B70(xLeft, yTop, (dword_587000_149232 < 1750) + 2);
+	if (nox_xxx_minimap_587000_149232 > 1200)
+		nox_xxx_drawPointMB_499B70(xLeft, yTop, (nox_xxx_minimap_587000_149232 < 1750) + 2);
 	else
 		nox_xxx_drawPointMB_499B70(xLeft, yTop, 4);
 }
 
 //----- (004735C0) --------------------------------------------------------
 void __cdecl sub_4735C0(int xLeft, int yTop) {
-	if (dword_587000_149232 > 1200)
-		nox_xxx_drawPointMB_499B70(xLeft, yTop, (dword_587000_149232 < 1750) + 4);
+	if (nox_xxx_minimap_587000_149232 > 1200)
+		nox_xxx_drawPointMB_499B70(xLeft, yTop, (nox_xxx_minimap_587000_149232 < 1750) + 4);
 	else
 		nox_xxx_drawPointMB_499B70(xLeft, yTop, 6);
 }
@@ -8198,7 +8198,7 @@ int sub_473840() {
 	nox_xxx_guiServerOptionsHide_4597E0(1);
 	sub_467980();
 	sub_46C5D0();
-	nox_client_renderGUI_80828 = dword_587000_80832;
+	nox_client_renderGUI_80828 = nox_xxx_useAudio_587000_80832;
 	return 1;
 }
 

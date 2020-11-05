@@ -20,7 +20,7 @@ extern _DWORD dword_5d4594_2386872;
 extern _DWORD dword_5d4594_2386928;
 extern _DWORD dword_587000_234176;
 extern _DWORD dword_5d4594_2487244;
-extern _DWORD dword_587000_249172;
+extern _DWORD nox_xxx_triggersCount_587000_249172;
 extern _DWORD dword_5d4594_2386840;
 extern _DWORD dword_5d4594_1599696;
 extern _DWORD dword_587000_237036;
@@ -10465,14 +10465,14 @@ void __cdecl nox_xxx_getUnitsInRect_517C10(float4* a1, void(__cdecl* a2)(float*,
 	int v27;                         // [esp+1Ch] [ebp+8h]
 	int v28;                         // [esp+20h] [ebp+Ch]
 
-	v4 = dword_587000_249172;
+	v4 = nox_xxx_triggersCount_587000_249172;
 	v3 = v4;
 	if (v4 < 1) {
 		v5 = a2;
 		if (a2) {
 			v6 = v3 + 1;
 			v7 = *getMemU32Ptr(0x5D4594, 4 * v6 + 2386964);
-			dword_587000_249172 = v6;
+			nox_xxx_triggersCount_587000_249172 = v6;
 			*getMemU32Ptr(0x5D4594, 4 * v6 + 2386964) = v7 + 1;
 			v8 = a1;
 			nox_xxx_roundCoord_5175E0(a1->field_0, (int)&v24);
@@ -10510,7 +10510,7 @@ void __cdecl nox_xxx_getUnitsInRect_517C10(float4* a1, void(__cdecl* a2)(float*,
 							v16 = *(_DWORD*)(*(_DWORD*)(dword_5d4594_2386940 + 4 * v14) + v15 + 4);
 							if (v16) {
 								do {
-									v17 = dword_587000_249172;
+									v17 = nox_xxx_triggersCount_587000_249172;
 									v18 = (_DWORD*)(*(_DWORD*)(v16 + 12) + 4 * v17 + 248);
 									v19 = *getMemU32Ptr(0x5D4594, 4 * v17 + 2386964);
 									if (*v18 != v19) {
@@ -10535,8 +10535,8 @@ void __cdecl nox_xxx_getUnitsInRect_517C10(float4* a1, void(__cdecl* a2)(float*,
 					v26 = ++v12;
 				} while (v12 <= v23);
 			}
-			v21 = dword_587000_249172;
-			dword_587000_249172 = v21 - 1;
+			v21 = nox_xxx_triggersCount_587000_249172;
+			nox_xxx_triggersCount_587000_249172 = v21 - 1;
 		}
 	}
 }

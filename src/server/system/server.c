@@ -8,7 +8,7 @@
 #include "../network/playback.h"
 #include "../network/sdecode.h"
 #include "../xfer/savegame/savegame.h"
-extern _DWORD dword_587000_205200;
+extern _DWORD nox_xxx_respawnAllow_587000_205200;
 extern _DWORD dword_5d4594_1569656;
 extern _DWORD dword_5d4594_1563064;
 extern _DWORD dword_5d4594_1548532;
@@ -982,7 +982,7 @@ void sub_4EC720() {
 	if (nox_common_gameFlags_check_40A5C0(4608)) {
 		return;
 	}
-	dword_587000_205200 = 0;
+	nox_xxx_respawnAllow_587000_205200 = 0;
 	for (int v0 = dword_5d4594_1568024; v0; v0 = *(_DWORD*)(v0 + 52)) {
 		if (!*(_DWORD*)(v0 + 24)) {
 			v1 = *(_DWORD *) (v0 + 4);

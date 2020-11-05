@@ -37,21 +37,21 @@ extern _DWORD dword_5d4594_2487980;
 extern _DWORD dword_5d4594_3835356;
 extern _DWORD dword_5d4594_2487852;
 extern _DWORD dword_5d4594_2487848;
-extern _DWORD dword_587000_312788;
-extern _DWORD dword_587000_312784;
+extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
+extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
 extern _DWORD dword_5d4594_2487984;
 extern _DWORD dword_5d4594_2487248;
-extern _DWORD dword_587000_312800;
-extern _DWORD dword_587000_312816;
-extern _DWORD dword_587000_312804;
-extern _DWORD dword_587000_312820;
+extern _DWORD nox_xxx_conjurerMaxHealth_587000_312800;
+extern _DWORD nox_xxx_wizardMaxHealth_587000_312816;
+extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
+extern _DWORD nox_xxx_wizardMaximumMana_587000_312820;
 extern _DWORD dword_5d4594_2488660;
 extern _QWORD qword_581450_10176;
 extern _QWORD qword_581450_9512;
 extern _QWORD qword_581450_9568;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_2488604;
-extern _DWORD dword_587000_264364;
+extern _DWORD nox_xxx_float_23_587000_264364;
 extern _DWORD dword_5d4594_2487904;
 extern _DWORD dword_5d4594_2487908;
 extern _DWORD dword_5d4594_251572;
@@ -3964,17 +3964,17 @@ int __cdecl nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4
 				v30 = a1->field_0;
 				if (v30 <= v55) {
 					while (v30 >= v58) {
-						v31 = *(float*)&dword_587000_264364;
+						v31 = *(float*)&nox_xxx_float_23_587000_264364;
 						modf(v30 / v31, &v73);
-						v32 = *(float*)&dword_587000_264364;
+						v32 = *(float*)&nox_xxx_float_23_587000_264364;
 						v33 = nox_double2float(v32 * v73);
 						if (v51 <= *(double*)&qword_581450_9568) {
 							v70 = v33;
-							v35 = *(float*)&dword_587000_264364;
+							v35 = *(float*)&nox_xxx_float_23_587000_264364;
 							v74 = v33 + v35;
 						} else {
 							v74 = v33;
-							v34 = *(float*)&dword_587000_264364;
+							v34 = *(float*)&nox_xxx_float_23_587000_264364;
 							v70 = v33 + v34;
 						}
 						a1b = nox_double2int(v73);
@@ -3988,10 +3988,10 @@ int __cdecl nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4
 							v49 < *(double*)&qword_581450_9568 && v72 < (double)a1->field_C) {
 							v72 = a1->field_C;
 						}
-						v37 = *(float*)&dword_587000_264364;
+						v37 = *(float*)&nox_xxx_float_23_587000_264364;
 						modf(v36 / v37, &v73);
 						v38 = nox_double2int(v73 - v49);
-						v39 = *(float*)&dword_587000_264364;
+						v39 = *(float*)&nox_xxx_float_23_587000_264364;
 						v40 = v38;
 						modf(v72 / v39, &v73);
 						v41 = nox_double2int(v49 + v73);
@@ -4037,18 +4037,18 @@ int __cdecl nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4
 				v15 = a1->field_4;
 				if (v15 <= v54) {
 					while (v15 >= v57) {
-						v16 = *(float*)&dword_587000_264364;
+						v16 = *(float*)&nox_xxx_float_23_587000_264364;
 						modf(v15 / v16, &v73);
-						v17 = *(float*)&dword_587000_264364;
+						v17 = *(float*)&nox_xxx_float_23_587000_264364;
 						v18 = v17 * v73;
 						if (v50 <= *(double*)&qword_581450_9568) {
 							v20 = nox_double2float(v18);
 							v71 = v20;
-							v21 = *(float*)&dword_587000_264364;
+							v21 = *(float*)&nox_xxx_float_23_587000_264364;
 							v75 = v20 + v21;
 						} else {
 							v75 = nox_double2float(v18);
-							v19 = *(float*)&dword_587000_264364;
+							v19 = *(float*)&nox_xxx_float_23_587000_264364;
 							v71 = v19 + v75;
 						}
 						a1a = nox_double2int(v73);
@@ -4062,10 +4062,10 @@ int __cdecl nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4
 							v48 < *(double*)&qword_581450_9568 && v69 < (double)a1->field_8) {
 							v69 = a1->field_8;
 						}
-						v23 = *(float*)&dword_587000_264364;
+						v23 = *(float*)&nox_xxx_float_23_587000_264364;
 						modf(v22 / v23, &v73);
 						v24 = nox_double2int(v73 - v48);
-						v25 = *(float*)&dword_587000_264364;
+						v25 = *(float*)&nox_xxx_float_23_587000_264364;
 						v26 = v24;
 						modf(v69 / v25, &v73);
 						v27 = nox_double2int(v48 + v73);
@@ -8784,14 +8784,14 @@ signed int __cdecl nox_xxx_updateObelisk_53C580(int a1) {
 			v13 = *(_BYTE*)(*(_DWORD*)(v5 + 276) + 2251);
 			if (v13) {
 				if (v13 == 1) {
-					v14 = nox_float2int(*(float*)&dword_587000_312820);
+					v14 = nox_float2int(*(float*)&nox_xxx_wizardMaximumMana_587000_312820);
 				} else {
 					if (v13 != 2)
 						goto LABEL_36;
-					v14 = nox_float2int(*(float*)&dword_587000_312804);
+					v14 = nox_float2int(*(float*)&nox_xxx_conjurerMaxMana_587000_312804);
 				}
 			} else {
-				v14 = nox_float2int(*(float*)&dword_587000_312788);
+				v14 = nox_float2int(*(float*)&nox_xxx_warriorMaxMana_587000_312788);
 			}
 			v12 = v14;
 		}
@@ -10555,7 +10555,7 @@ int __cdecl nox_xxx_usePotion_53EF70(int a1, int a2) {
 			v10 = *(_BYTE*)(*(_DWORD*)(v9 + 276) + 2251);
 			if (v10) {
 				if (v10 == 1) {
-					v11 = (double)v25 * *(float*)&dword_587000_312820;
+					v11 = (double)v25 * *(float*)&nox_xxx_wizardMaximumMana_587000_312820;
 				} else {
 					if (v10 != 2) {
 					LABEL_26:
@@ -10564,10 +10564,10 @@ int __cdecl nox_xxx_usePotion_53EF70(int a1, int a2) {
 						result = 1;
 						goto LABEL_27;
 					}
-					v11 = (double)v25 * *(float*)&dword_587000_312804;
+					v11 = (double)v25 * *(float*)&nox_xxx_conjurerMaxMana_587000_312804;
 				}
 			} else {
-				v11 = (double)v25 * *(float*)&dword_587000_312788;
+				v11 = (double)v25 * *(float*)&nox_xxx_warriorMaxMana_587000_312788;
 			}
 			v24 = v11;
 			v3 = nox_float2int(v24);
@@ -10582,17 +10582,17 @@ int __cdecl nox_xxx_usePotion_53EF70(int a1, int a2) {
 			v7 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251);
 			switch (v7) {
 			case 0:
-				v8 = (double)v25 * *(float*)&dword_587000_312784;
+				v8 = (double)v25 * *(float*)&nox_xxx_warriorMaxHealth_587000_312784;
 			LABEL_13:
 				v23 = v8;
 				v3 = nox_float2int(v23);
 				v25 = v3;
 				break;
 			case 1:
-				v8 = (double)v25 * *(float*)&dword_587000_312816;
+				v8 = (double)v25 * *(float*)&nox_xxx_wizardMaxHealth_587000_312816;
 				goto LABEL_13;
 			case 2:
-				v8 = (double)v25 * *(float*)&dword_587000_312800;
+				v8 = (double)v25 * *(float*)&nox_xxx_conjurerMaxHealth_587000_312800;
 				goto LABEL_13;
 			}
 		}

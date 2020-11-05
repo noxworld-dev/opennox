@@ -37,7 +37,7 @@ extern _DWORD dword_5d4594_251704;
 extern _DWORD dword_5d4594_1304;
 extern _DWORD dword_5d4594_371756;
 extern _DWORD dword_5d4594_251712;
-extern _DWORD dword_587000_80800;
+extern _DWORD nox_xxx_useAudio_587000_80800;
 extern _DWORD dword_5d4594_251708;
 extern _DWORD dword_5d4594_251716;
 extern _DWORD dword_5d4594_10984;
@@ -45,7 +45,7 @@ extern _DWORD dword_5d4594_371264;
 extern _DWORD dword_5d4594_1308;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_3616;
-extern _DWORD dword_587000_93200;
+extern _DWORD nox_xxx_aBlindcast_587000_93200;
 extern _DWORD dword_5d4594_252276;
 extern _DWORD dword_5d4594_251720;
 extern _DWORD dword_5d4594_3804680;
@@ -207,7 +207,7 @@ void cleanup() {
 }
 
 void mainloop_exit_1() {
-	if (!dword_587000_93200) {
+	if (!nox_xxx_aBlindcast_587000_93200) {
 		cleanup();
 		nox_exit(0);
 	}
@@ -340,7 +340,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE);
 			nox_enable_audio = 0;
 			nox_video_dxUnlockSurface = 1;
-			dword_587000_80800 = 0;
+			nox_xxx_useAudio_587000_80800 = 0;
 			*getMemU32Ptr(0x5D4594, 805840) = 1;
 			nox_enable_threads = 0;
 			int v12 = 16;
@@ -355,7 +355,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-noaudio")) {
 			nox_enable_audio = 0;
 		} else if (!_strcmpi(flag, "-noMMX")) {
-			dword_587000_80800 = 0;
+			nox_xxx_useAudio_587000_80800 = 0;
 			*getMemU32Ptr(0x5D4594, 805840) = 1;
 		} else if (!_strcmpi(flag, "-nothread")) {
 			nox_enable_threads = 0;

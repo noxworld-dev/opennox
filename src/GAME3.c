@@ -29,11 +29,11 @@ extern unsigned char byte_5D4594_3804364[160];
 
 extern _DWORD dword_5d4594_3798688;
 extern _DWORD dword_5d4594_1307792;
-extern _DWORD dword_587000_172876;
-extern _DWORD dword_587000_172872;
+extern _DWORD nox_xxx_normalWndHeight_587000_172876;
+extern _DWORD nox_xxx_normalWndWidth_587000_172872;
 extern _DWORD dword_5d4594_1313788;
 extern _DWORD dword_5d4594_1308136;
-extern _DWORD dword_587000_172880;
+extern _DWORD nox_xxx_normalWndBits_587000_172880;
 extern _DWORD dword_5d4594_1308104;
 extern _DWORD dword_5d4594_1313532;
 extern _DWORD dword_5d4594_3798672;
@@ -79,8 +79,8 @@ extern _DWORD dword_5d4594_1308160;
 extern _DWORD dword_5d4594_1309824;
 extern _DWORD dword_5d4594_1307720;
 extern _DWORD dword_5d4594_1308164;
-extern _DWORD dword_587000_173336;
-extern _DWORD dword_587000_173328;
+extern _DWORD nox_xxx_mapPartN_587000_173336;
+extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
 extern _DWORD dword_5d4594_1309784;
 extern _DWORD dword_5d4594_1312476;
 extern nox_wnd_xxx* nox_wnd_xxx_1307748;
@@ -90,7 +90,7 @@ extern _DWORD dword_5d4594_1309776;
 extern _DWORD dword_5d4594_1309708;
 extern _DWORD nox_client_renderGlow_805852;
 extern _DWORD dword_5d4594_3798716;
-extern _DWORD dword_587000_173332;
+extern _DWORD nox_xxx_mapDownloadOK_587000_173332;
 extern _DWORD dword_5d4594_1312472;
 extern _DWORD nox_server_connectionType_3596;
 extern _DWORD dword_5d4594_1309716;
@@ -4391,7 +4391,7 @@ int sub_4AA6B0() {
 //----- (004AA9C0) --------------------------------------------------------
 int sub_4AA9C0() {
 	sub_44D8F0();
-	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(*(int*)&dword_587000_172876, *(int*)&dword_587000_172872, *(int*)&dword_587000_172880);
+	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(*(int*)&nox_xxx_normalWndHeight_587000_172876, *(int*)&nox_xxx_normalWndWidth_587000_172872, *(int*)&nox_xxx_normalWndBits_587000_172880);
 	nox_common_writecfgfile((char*)getMemAt(0x587000, 173256));
 	*(_BYTE*)(&nox_wnd_xxx_1309740->field_16) = 2;
 	sub_43BE40(2);
@@ -4429,7 +4429,7 @@ _DWORD* sub_4AAA70() {
 	int v10;        // [esp+8h] [ebp-4h]
 
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v8, &v10, &v9);
-	v9 = dword_587000_172880;
+	v9 = nox_xxx_normalWndBits_587000_172880;
 	if (v10 == 480)
 		v6 = 321;
 	else if (v10 == 576)
@@ -4559,24 +4559,24 @@ int __cdecl sub_4AABE0(int a1, int a2, int* a3, int a4) {
 				sub_4766A0(100);
 				break;
 			case 321:
-				dword_587000_172876 = 848;
-				dword_587000_172872 = 480;
+				nox_xxx_normalWndHeight_587000_172876 = 848;
+				nox_xxx_normalWndWidth_587000_172872 = 480;
 				break;
 			case 322:
-				dword_587000_172876 = 1024;
-				dword_587000_172872 = 576;
+				nox_xxx_normalWndHeight_587000_172876 = 1024;
+				nox_xxx_normalWndWidth_587000_172872 = 576;
 				break;
 			case 323:
-				dword_587000_172876 = 1024;
-				dword_587000_172872 = 768;
+				nox_xxx_normalWndHeight_587000_172876 = 1024;
+				nox_xxx_normalWndWidth_587000_172872 = 768;
 				break;
 			case 332:
-				dword_587000_172880 = 16;
+				nox_xxx_normalWndBits_587000_172880 = 16;
 			case 333:
 				g_fullscreen = 1;
 				break;
 			case 331:
-				dword_587000_172880 = 8;
+				nox_xxx_normalWndBits_587000_172880 = 8;
 			case 334:
 				g_fullscreen = 0;
 				break;
@@ -4912,7 +4912,7 @@ int __cdecl nox_xxx_gameStopDownload_4AB560(int a1) {
 	int result; // eax
 
 	result = a1;
-	dword_587000_173328 = a1;
+	nox_xxx_gameDownloadInProgress_587000_173328 = a1;
 	return result;
 }
 
@@ -4921,7 +4921,7 @@ int __cdecl nox_xxx_mapSetDownloadOK_4AB570(int a1) {
 	int result; // eax
 
 	result = a1;
-	dword_587000_173332 = a1;
+	nox_xxx_mapDownloadOK_587000_173332 = a1;
 	return result;
 }
 
@@ -4938,7 +4938,7 @@ LPCSTR sub_4AB580() {
 	dword_5d4594_1309780 = 0;
 	dword_5d4594_1309772 = 0;
 	dword_5d4594_1309768 = 0;
-	dword_587000_173336 = 1;
+	nox_xxx_mapPartN_587000_173336 = 1;
 	if (dword_5d4594_1309776)
 		free(*(LPVOID*)&dword_5d4594_1309776);
 	return result;
@@ -4956,8 +4956,8 @@ int nox_xxx_gameDownloadMap_4AB5E0() {
 	v0 = 0;
 	nox_xxx_gameClearAll_467DF0(1);
 	nox_xxx_gameDownloadShowDialog_4CC770();
-	dword_587000_173328 = 1;
-	dword_587000_173332 = 1;
+	nox_xxx_gameDownloadInProgress_587000_173328 = 1;
+	nox_xxx_mapDownloadOK_587000_173332 = 1;
 	do {
 		nox_framerate_limit_416C70(30);
 		nox_xxx_processWinMessages_4453A0_poll_events();
@@ -4986,14 +4986,14 @@ int nox_xxx_gameDownloadMap_4AB5E0() {
 		sub_48A290_call_present();
 		while (!nox_ticks_should_update_416CD0())
 			;
-	} while (dword_587000_173328);
+	} while (nox_xxx_gameDownloadInProgress_587000_173328);
 	nox_xxx_guiDownloadClose_4CC930();
-	result = dword_587000_173332;
-	if (dword_587000_173332) {
+	result = nox_xxx_mapDownloadOK_587000_173332;
+	if (nox_xxx_mapDownloadOK_587000_173332) {
 		nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v3, &v5, &v4);
 		if (!v3)
 			nox_xxx_gameResizeScreen_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
-		result = dword_587000_173332;
+		result = nox_xxx_mapDownloadOK_587000_173332;
 	}
 	return result;
 }
@@ -5009,7 +5009,7 @@ int nox_xxx_mapDeleteFile_4AB720() {
 	v0 = dword_5d4594_1309780;
 	nox_file_9 = 0;
 	dword_5d4594_1309764 = 0;
-	dword_587000_173336 = 1;
+	nox_xxx_mapPartN_587000_173336 = 1;
 	dword_5d4594_1309772 = 0;
 	dword_5d4594_1309768 = 0;
 	if (dword_5d4594_1309780) {
@@ -5036,13 +5036,13 @@ void __cdecl nox_xxx_netMapDownloadPart_4AB7C0(unsigned __int16 a1, void* a2, si
 	int v6;               // eax
 	int v7;               // eax
 
-	// fprintf(stderr, "a1=%d, a2=%d, a3=%d, expected=%d\n", a1, a2, a3, *(_DWORD *)&dword_587000_173336);
+	// fprintf(stderr, "a1=%d, a2=%d, a3=%d, expected=%d\n", a1, a2, a3, *(_DWORD *)&nox_xxx_mapPartN_587000_173336);
 
 	if (a2 && a3) {
-		if (a1 == dword_587000_173336) {
+		if (a1 == nox_xxx_mapPartN_587000_173336) {
 			fwrite(a2, a3, 1u, nox_file_9);
 			dword_5d4594_1309768 += a3;
-			++dword_587000_173336;
+			++nox_xxx_mapPartN_587000_173336;
 		} else {
 			v3 = malloc(0x14u);
 			if (v3) {
@@ -5065,10 +5065,10 @@ void __cdecl nox_xxx_netMapDownloadPart_4AB7C0(unsigned __int16 a1, void* a2, si
 		v5 = *(unsigned __int16**)&dword_5d4594_1309780;
 		if (dword_5d4594_1309780) {
 			do {
-				if (dword_587000_173336 == *v5) {
+				if (nox_xxx_mapPartN_587000_173336 == *v5) {
 					fwrite(*((void**)v5 + 1), *((_DWORD*)v5 + 2), 1u, nox_file_9);
 					dword_5d4594_1309768 += *((_DWORD*)v5 + 2);
-					++dword_587000_173336;
+					++nox_xxx_mapPartN_587000_173336;
 					v6 = *((_DWORD*)v5 + 4);
 					if (v6)
 						*(_DWORD*)(v6 + 12) = *((_DWORD*)v5 + 3);
@@ -5151,7 +5151,7 @@ int __cdecl nox_xxx_mapDownloadStart_4ABAD0(char* a1, unsigned int a2) {
 	if (!a1 || a2 <= 0)
 		return 0;
 	dword_5d4594_1309764 = 1;
-	dword_587000_173336 = 1;
+	nox_xxx_mapPartN_587000_173336 = 1;
 	dword_5d4594_1309772 = a2;
 	dword_5d4594_1309768 = 0;
 	dword_5d4594_1309780 = 0;
@@ -5196,7 +5196,7 @@ int __cdecl nox_xxx_mapDownloadStart_4ABAD0(char* a1, unsigned int a2) {
 		nox_file_9 = fopen(*(const char**)&dword_5d4594_1309776, "wb");
 		if (nox_file_9) {
 			result = 1;
-			dword_587000_173336 = 1;
+			nox_xxx_mapPartN_587000_173336 = 1;
 			return result;
 		}
 	}

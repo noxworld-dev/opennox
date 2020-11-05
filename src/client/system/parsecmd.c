@@ -14,7 +14,7 @@ extern _DWORD dword_5d4594_833732;
 extern _DWORD dword_5d4594_823708;
 extern _DWORD dword_5d4594_823684;
 extern _DWORD dword_5d4594_1563664;
-extern _DWORD dword_587000_80832;
+extern _DWORD nox_xxx_useAudio_587000_80832;
 extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_823700;
 extern _DWORD nox_server_connectionType_3596;
@@ -2082,7 +2082,7 @@ int nox_cmd_show_gui() {
 
 	v0 = nox_client_renderGUI_80828 ^ 1;
 	nox_client_renderGUI_80828 = v0;
-	dword_587000_80832 = v0;
+	nox_xxx_useAudio_587000_80832 = v0;
 	return 1;
 }
 

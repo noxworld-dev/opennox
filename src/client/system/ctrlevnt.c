@@ -9,7 +9,7 @@
 extern _DWORD dword_5d4594_754060;
 extern _DWORD dword_5d4594_754048;
 extern _DWORD dword_5d4594_754044;
-extern _DWORD dword_587000_80832;
+extern _DWORD nox_xxx_useAudio_587000_80832;
 extern _DWORD dword_5d4594_754040;
 extern _DWORD dword_5d4594_754036;
 extern _DWORD nox_client_renderGUI_80828;
@@ -656,7 +656,7 @@ int __cdecl nox_xxx_clientControl_42D6B0(_DWORD* a3, int a4) {
 			case 53:
 				if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 					nox_client_renderGUI_80828 ^= 1u;
-					dword_587000_80832 = nox_client_renderGUI_80828;
+					nox_xxx_useAudio_587000_80832 = nox_client_renderGUI_80828;
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				}
 				*(_DWORD *) getMemAt(0x5D4594, v36 + 747900) = 0;

@@ -25,24 +25,24 @@ extern _DWORD dword_5d4594_2618900;
 extern _DWORD dword_5d4594_1200776;
 extern _DWORD dword_5d4594_1200796;
 extern _DWORD dword_5d4594_1200768;
-extern _DWORD dword_587000_312796;
+extern _DWORD nox_xxx_warriorMaxSpeed_587000_312796;
 extern _DWORD nox_server_sanctuaryHelp_54276;
-extern _DWORD dword_587000_312812;
-extern _DWORD dword_587000_312828;
-extern _DWORD dword_587000_312824;
-extern _DWORD dword_587000_312792;
-extern _DWORD dword_587000_312808;
+extern _DWORD nox_xxx_conjurerSpeed_587000_312812;
+extern _DWORD nox_xxx_wizardSpeed_587000_312828;
+extern _DWORD nox_xxx_wizardStrength_587000_312824;
+extern _DWORD nox_xxx_warriorMaxStrength_587000_312792;
+extern _DWORD nox_xxx_conjurerStrength_587000_312808;
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_5d4594_2614264;
-extern _DWORD dword_587000_80832;
-extern _DWORD dword_587000_312788;
+extern _DWORD nox_xxx_useAudio_587000_80832;
+extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
 extern _DWORD dword_5d4594_1200804;
 extern _DWORD nox_client_fadeObjects_80836;
-extern _DWORD dword_587000_312784;
-extern _DWORD dword_587000_312800;
-extern _DWORD dword_587000_312816;
-extern _DWORD dword_587000_312804;
-extern _DWORD dword_587000_312820;
+extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
+extern _DWORD nox_xxx_conjurerMaxHealth_587000_312800;
+extern _DWORD nox_xxx_wizardMaxHealth_587000_312816;
+extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
+extern _DWORD nox_xxx_wizardMaximumMana_587000_312820;
 extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_2650652;
@@ -1633,7 +1633,7 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 			} else {
 				if (v119[3680] & 1) {
 					nox_client_renderGUI_80828 = 0;
-				} else if (dword_587000_80832 == 1) {
+				} else if (nox_xxx_useAudio_587000_80832 == 1) {
 					nox_client_renderGUI_80828 = 1;
 				}
 				sub_470C40((*((_DWORD*)v119 + 920) >> 10) & 1);
@@ -3322,27 +3322,27 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 		case 0xEFu:
 			if (getMemByte(0x5D4594, 2661958)) {
 				if (getMemByte(0x5D4594, 2661958) == 1) {
-					dword_587000_312816 = *(_DWORD*)(v3 + 1);
-					dword_587000_312820 = *(_DWORD*)(v3 + 5);
-					dword_587000_312824 = *(_DWORD*)(v3 + 9);
-					dword_587000_312828 = *(_DWORD*)(v3 + 13);
+					nox_xxx_wizardMaxHealth_587000_312816 = *(_DWORD*)(v3 + 1);
+					nox_xxx_wizardMaximumMana_587000_312820 = *(_DWORD*)(v3 + 5);
+					nox_xxx_wizardStrength_587000_312824 = *(_DWORD*)(v3 + 9);
+					nox_xxx_wizardSpeed_587000_312828 = *(_DWORD*)(v3 + 13);
 					nox_xxx_loadBaseValues_57B200();
 					v3 += 17;
 					break;
 				} else if (getMemByte(0x5D4594, 2661958) == 2) {
-					dword_587000_312800 = *(_DWORD*)(v3 + 1);
-					dword_587000_312804 = *(_DWORD*)(v3 + 5);
-					dword_587000_312808 = *(_DWORD*)(v3 + 9);
-					dword_587000_312812 = *(_DWORD*)(v3 + 13);
+					nox_xxx_conjurerMaxHealth_587000_312800 = *(_DWORD*)(v3 + 1);
+					nox_xxx_conjurerMaxMana_587000_312804 = *(_DWORD*)(v3 + 5);
+					nox_xxx_conjurerStrength_587000_312808 = *(_DWORD*)(v3 + 9);
+					nox_xxx_conjurerSpeed_587000_312812 = *(_DWORD*)(v3 + 13);
 					nox_xxx_loadBaseValues_57B200();
 					v3 += 17;
 					break;
 				}
 			} else {
-				dword_587000_312784 = *(_DWORD*)(v3 + 1);
-				dword_587000_312788 = *(_DWORD*)(v3 + 5);
-				dword_587000_312792 = *(_DWORD*)(v3 + 9);
-				dword_587000_312796 = *(_DWORD*)(v3 + 13);
+				nox_xxx_warriorMaxHealth_587000_312784 = *(_DWORD*)(v3 + 1);
+				nox_xxx_warriorMaxMana_587000_312788 = *(_DWORD*)(v3 + 5);
+				nox_xxx_warriorMaxStrength_587000_312792 = *(_DWORD*)(v3 + 9);
+				nox_xxx_warriorMaxSpeed_587000_312796 = *(_DWORD*)(v3 + 13);
 			}
 			nox_xxx_loadBaseValues_57B200();
 			v3 += 17;

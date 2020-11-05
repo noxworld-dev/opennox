@@ -43,7 +43,7 @@ extern _DWORD dword_5d4594_830260;
 extern _DWORD dword_5d4594_829544;
 extern _DWORD dword_5d4594_816412;
 extern _DWORD dword_5d4594_829500;
-extern _DWORD dword_587000_80840;
+extern _DWORD nox_xxx_useAudio_587000_80840;
 extern _DWORD dword_5d4594_830120;
 extern _DWORD dword_5d4594_830256;
 extern _DWORD dword_587000_93944;
@@ -55,17 +55,17 @@ extern _DWORD dword_5d4594_816376;
 extern _DWORD dword_587000_111668;
 extern _DWORD dword_5d4594_825768;
 extern _DWORD dword_5d4594_825736;
-extern _DWORD dword_587000_93200;
+extern _DWORD nox_xxx_aBlindcast_587000_93200;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_830292;
 extern _DWORD dword_5d4594_816448;
 extern _DWORD dword_5d4594_815704;
-extern _DWORD dword_587000_80832;
+extern _DWORD nox_xxx_useAudio_587000_80832;
 extern _DWORD dword_587000_93196;
 extern _DWORD dword_5d4594_826036;
 extern _DWORD dword_5d4594_816356;
 extern _DWORD dword_5d4594_826032;
-extern _DWORD dword_587000_173328;
+extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
 extern _DWORD nox_client_renderBubbles_80844;
 extern _DWORD dword_5d4594_830276;
 extern _DWORD dword_5d4594_3804680;
@@ -1705,7 +1705,7 @@ void sub_43DDC0() { nox_srand(0x1E77u); }
 
 //----- (0043DDD0) --------------------------------------------------------
 int __cdecl nox_xxx_setExitMenuOrHost_43DDD0(int a1) {
-	dword_587000_93200 = a1;
+	nox_xxx_aBlindcast_587000_93200 = a1;
 	return a1;
 }
 
@@ -1779,7 +1779,7 @@ int map_download_loop(int first) {
 	if (*getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu)
 		nox_xxx_netKeepAliveSocket_43CA20();
 
-	if (!dword_587000_173328)
+	if (!nox_xxx_gameDownloadInProgress_587000_173328)
 		return map_download_finish();
 
 	mainloop_draw();
@@ -1788,7 +1788,7 @@ int map_download_loop(int first) {
 	sub_4AD170_call_copy_backbuffer();
 	sub_48A290_call_present();
 
-	if (!dword_587000_173328)
+	if (!nox_xxx_gameDownloadInProgress_587000_173328)
 		return map_download_finish();
 	return -1;
 }
@@ -1839,7 +1839,7 @@ int sub_43E230() {
 //-------------------------------------------------------------------------
 void mainloop_stop() {
 	if (dword_5d4594_805872) {
-		dword_587000_93200 = 1;
+		nox_xxx_aBlindcast_587000_93200 = 1;
 		mainloop_exit();
 		return;
 	}
@@ -1867,7 +1867,7 @@ void mainloop_wait_and_exit() {
 
 void mainloop_43E290() {
 	dword_587000_93196 = 1;
-	dword_587000_93200 = 1;
+	nox_xxx_aBlindcast_587000_93200 = 1;
 	*getMemU32Ptr(0x5D4594, 816400) = 60 * *getMemU32Ptr(0x5D4594, 2649704);
 
 	// XXX
@@ -3963,9 +3963,9 @@ void sub_4445C0() {
 	{ v0 = 0; }
 	*getMemU32Ptr(0x587000, 80808) = 1;
 	*getMemU32Ptr(0x587000, 80816) = 1;
-	dword_587000_80840 = 1;
+	nox_xxx_useAudio_587000_80840 = 1;
 	nox_client_renderGUI_80828 = 1;
-	dword_587000_80832 = 1;
+	nox_xxx_useAudio_587000_80832 = 1;
 	if (v0 <= 266) {
 		if (v0 != 266) {
 			if (!v0) {
