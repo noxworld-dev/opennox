@@ -916,7 +916,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 			a4 = 1;
 		if (!sub_40A740())
 			goto LABEL_67;
-		v46 = sub_425BF0();
+		v46 = nox_xxx_countObserverPlayers_425BF0();
 		if (!*((_DWORD*)a2 + 21)) {
 			if (v46 >= (unsigned __int8)v78[53])
 				goto LABEL_80;
@@ -941,7 +941,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 		if (!a4)
 			goto LABEL_73;
 		if (v43 && *(_DWORD*)(v78 + 54)) {
-			for (i = sub_425C40(); i; i = sub_425C70((int)i)) {
+			for (i = nox_xxx_firstReplaceablePlayer_425C40(); i; i = nox_xxx_nextReplaceablePlayer_425C70((int)i)) {
 				if (!sub_5541D0((unsigned __int8)i[2064] + 1)) {
 					sub_4DEAB0((unsigned __int8)i[2064], 4);
 					v50 = malloc(0x10u);
@@ -1739,7 +1739,7 @@ int __cdecl sub_554B40(uint16_t hostshort) {
 	if (result == -1) {
 		return -1;
 	}
-	nox_set_draw_unk1((int)sub_554FF0);
+	nox_game_SetCliDrawFunc((int)sub_554FF0);
 	dword_5d4594_2513916 = 1;
 	return 0;
 }
@@ -1774,7 +1774,7 @@ int sub_554D10() {
 		dword_5d4594_2513920 = 0;
 		dword_5d4594_2513924 = 0;
 		dword_5d4594_2513916 = 0;
-		nox_set_draw_unk1(0);
+		nox_game_SetCliDrawFunc(0);
 		sub_555000(0);
 		WSACleanup();
 	}

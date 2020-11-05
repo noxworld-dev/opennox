@@ -238,7 +238,7 @@ int sub_4379F0() {
 				nox_window_set_hidden(*(int*)&dword_5d4594_815000, 1);
 				sub_46B280(*getMemIntPtr(0x5D4594, 815008), *(int*)&dword_5d4594_814980);
 				if (dword_587000_87404) {
-					nox_set_draw_unk1(sub_41E210);
+					nox_game_SetCliDrawFunc(sub_41E210);
 					v6 = sub_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10007);
 					nox_window_set_hidden((int)v6, 0);
 					dword_587000_87412 = -1;
@@ -436,7 +436,7 @@ int sub_438770() {
 									   1364);
 			sub_449E30((int)v5);
 			sub_449EA0(0);
-			nox_set_draw_unk1(sub_43B360);
+			nox_game_SetCliDrawFunc(sub_43B360);
 			sub_43AF90(1);
 			result = 1;
 			break;

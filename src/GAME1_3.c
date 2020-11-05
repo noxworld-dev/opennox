@@ -376,7 +376,7 @@ int sub_43BFE0() {
 	int result; // eax
 
 	sub_43DDF0(sub_43C020);
-	nox_set_draw_unk1(0);
+	nox_game_SetCliDrawFunc(0);
 	if (*getMemU32Ptr(0x587000, 91840)) {
 		*getMemU32Ptr(0x587000, 91840) = 0;
 		dword_5d4594_815132 = 1;
@@ -1169,7 +1169,7 @@ int sub_43CF70() {
 		if (*getMemU32Ptr(0x5D4594, 2618908)) {
 			sub_4174F0(*getMemIntPtr(0x5D4594, 2618908), 64);
 			v2 = 41;
-			result = sub_4E53C0(31, &v2, 1, 0, 1);
+			result = nox_xxx_netClientSend2_4E53C0(31, &v2, 1, 0, 1);
 		}
 	}
 	return result;
@@ -1727,7 +1727,7 @@ int __cdecl sub_43DDF0(int (*a1)(void)) {
 int nox_return_1_43DE10() { return 1; }
 
 //----- (0043DE20) --------------------------------------------------------
-int __cdecl nox_set_draw_unk1(int (*fnc)(void)) {
+int __cdecl nox_game_SetCliDrawFunc(int (*fnc)(void)) {
 	nox_draw_unk1 = fnc;
 	if (!fnc)
 		nox_draw_unk1 = nox_return_1_43DE10;
@@ -3746,7 +3746,7 @@ int __cdecl sub_440950(char a1, wchar_t* a2) {
 		v3[4] = nox_wcslen(a2) + 1;
 		nox_wcscpy((wchar_t*)&v3[5], a2);
 	}
-	return sub_4E53C0(31, v3, 2 * (unsigned __int8)v3[4] + 7, 0, 1);
+	return nox_xxx_netClientSend2_4E53C0(31, v3, 2 * (unsigned __int8)v3[4] + 7, 0, 1);
 }
 
 //----- (00440AC0) --------------------------------------------------------
@@ -4515,7 +4515,7 @@ int sub_4460C0() {
 			sub_4460A0(0);
 			result = sub_446140();
 		} else {
-			sub_41CE00();
+			nox_xxx_netSavePlayer_41CE00();
 			result = sub_4460A0(1);
 		}
 	} else {

@@ -108,7 +108,7 @@ int __cdecl sub_445840(_DWORD* a1, int a2, int* a3, int a4) {
 		if (nox_common_gameFlags_check_40A5C0(2048))
 			nox_savegame_sub_46D580();
 		else
-			sub_41CE00();
+			nox_xxx_netSavePlayer_41CE00();
 		if (sub_43C6E0())
 			goto LABEL_27;
 		sub_43CF70();
@@ -315,7 +315,7 @@ void sub_446190() {
 	dword_5d4594_825764 = 0;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 108608), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 667);
-		sub_413D30((char*)getMemAt(0x587000, 108632), v1);
+		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 108632), v1);
 	}
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		sub_43C260();

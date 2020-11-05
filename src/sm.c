@@ -411,7 +411,7 @@ void CONNECT_RESULT(sm_args_t* args) {
 		return;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(2)) {
-		nox_set_draw_unk1(0);
+		nox_game_SetCliDrawFunc(0);
 	} else {
 		if (!nox_common_gameFlags_check_40A5C0(0x100000)) {
 			int v25;

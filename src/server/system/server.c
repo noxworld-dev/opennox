@@ -129,7 +129,7 @@ LPVOID sub_426060() {
 	} else {
 		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i))
 			*((_DWORD*)i + 1162) = -1;
-		v2 = nox_common_playerInfoGetXXX_417090(31);
+		v2 = nox_common_playerInfoFromNum_417090(31);
 		if (v2)
 			sub_425F10((int)v2);
 		for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {
@@ -220,9 +220,9 @@ int __cdecl nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
 	v8 = sub_409B40();
 	sub_4CFE10(v8);
 	if (a2)
-		v9 = sub_426910(FileName, 1, -1);
+		v9 = nox_xxx_cryptOpen_426910(FileName, 1, -1);
 	else
-		v9 = sub_426910(FileName, 1, 19);
+		v9 = nox_xxx_cryptOpen_426910(FileName, 1, 19);
 	if (!v9)
 		return 0;
 	sub_426AC0_file3_fread(&v10, 4u);
@@ -624,7 +624,7 @@ void sub_4DBA30(int a1) {
 	int v25;      // [esp+10h] [ebp-4h]
 	int v26;      // [esp+18h] [ebp+4h]
 
-	result = nox_common_playerInfoGetXXX_417090(31);
+	result = nox_common_playerInfoFromNum_417090(31);
 	v2 = result;
 	v3 = 0;
 	v24 = result;
@@ -783,7 +783,7 @@ int sub_4DCF20() {
 	char* v0;   // esi
 	int result; // eax
 
-	v0 = nox_common_playerInfoGetXXX_417090(31);
+	v0 = nox_common_playerInfoFromNum_417090(31);
 	result = dword_5d4594_1563052;
 	if (dword_5d4594_1563052) {
 		result = sub_4D6FC0();
@@ -1351,7 +1351,7 @@ int sub_4FC6D0() {
 							v3 = *(_DWORD*)(i + 748);
 							v4 = *(_DWORD*)(v3 + 276);
 							if (*(_DWORD*)(v4 + 4792) == 1 && !*(_DWORD*)(v3 + 552) &&
-								sub_41A140(FileName, *(unsigned __int8*)(v4 + 2064))) {
+								nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned __int8*)(v4 + 2064))) {
 								v5 = sub_419EE0(*(_BYTE*)(*(_DWORD*)(v3 + 276) + 2064));
 								sub_4DCF80(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), 1);
 								if (!sub_41CFA0(FileName, *(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064)) && !v5)
@@ -2659,7 +2659,7 @@ int sub_4D2580_server() {
 				if (!sub_4165B0()[57])
 					sub_41D650();
 			}
-			sub_413D30((char*)getMemAt(0x587000, 196872));
+			nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 196872));
 			sub_46DCB0();
 		}
 		sub_4DEB30();
@@ -2786,7 +2786,7 @@ int sub_4D2580_server() {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22 | NOX_ENGINE_FLAG_23))
 		sub_4E76C0();
 	if (sub_4DB1B0()) {
-		v20 = nox_common_playerInfoGetXXX_417090(31);
+		v20 = nox_common_playerInfoFromNum_417090(31);
 		v21 = v20;
 		if (v20) {
 			if (*((_DWORD*)v20 + 514) && sub_4DCC10(*((_DWORD*)v20 + 514)) == 1) {
@@ -2848,7 +2848,7 @@ int sub_4D2580_server() {
 	sub_4FC590();
 	sub_4FC600();
 	sub_4FC680();
-	v33 = nox_common_playerInfoGetXXX_417090(31);
+	v33 = nox_common_playerInfoFromNum_417090(31);
 	if (v33) {
 		v34 = *((_DWORD*)v33 + 514);
 		if (v34)

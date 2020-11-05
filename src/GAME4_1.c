@@ -60,7 +60,7 @@ extern _DWORD dword_5d4594_3821636;
 extern _DWORD dword_5d4594_3821640;
 extern _DWORD dword_5d4594_2386152;
 extern _DWORD dword_5d4594_2386224;
-extern _DWORD dword_5d4594_2650672;
+extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_2386940;
 extern _DWORD dword_5d4594_2487236;
 extern _DWORD dword_5d4594_2386176;
@@ -4679,7 +4679,7 @@ void __cdecl sub_511100(int a1) {
 	float v13; // [esp+2Ch] [ebp+4h]
 
 	v1 = a1;
-	v2 = nox_common_playerInfoGetXXX_417090(a1);
+	v2 = nox_common_playerInfoFromNum_417090(a1);
 	v3 = dword_5d4594_2386564;
 	v4 = (double)*((unsigned __int16*)v2 + 5);
 	v9 = *((float*)v2 + 908) - v4;
@@ -6531,7 +6531,7 @@ int sub_5133B0() {
 int sub_513460() {
 	int v0; // eax
 
-	v0 = *((_DWORD*)nox_common_playerInfoGetXXX_417090(31) + 514);
+	v0 = *((_DWORD*)nox_common_playerInfoFromNum_417090(31) + 514);
 	if (v0)
 		sub_507230(*(_DWORD*)(v0 + 44));
 	else
@@ -8054,7 +8054,7 @@ int sub_515130() {
 
 //----- (00515200) --------------------------------------------------------
 int sub_515200() {
-	dword_5d4594_2650672 = 0;
+	nox_gameDisableMapDraw_5d4594_2650672 = 0;
 	sub_44DB30(25, 0, 0);
 	return 0;
 }
@@ -9203,7 +9203,7 @@ int __thiscall sub_516570(_BYTE* this) {
 	} else {
 		v2 = v4;
 	}
-	dword_5d4594_2650672 = 1;
+	nox_gameDisableMapDraw_5d4594_2650672 = 1;
 	return sub_4D9560((unsigned __int8)v2[2064], getMemByte(0x5D4594, 2386828), *getMemIntPtr(0x5D4594, 2386832));
 }
 
@@ -9251,7 +9251,7 @@ int sub_5166A0() {
 	char* v0; // eax
 	int v1;   // ecx
 
-	v0 = nox_common_playerInfoGetXXX_417090(31);
+	v0 = nox_common_playerInfoFromNum_417090(31);
 	v1 = 0;
 	if (v0 && *(_DWORD*)(*(_DWORD*)(*((_DWORD*)v0 + 514) + 748) + 284))
 		v1 = 1;
@@ -9264,7 +9264,7 @@ int sub_5166E0() {
 	char* v0; // eax
 	int v1;   // ecx
 
-	v0 = nox_common_playerInfoGetXXX_417090(31);
+	v0 = nox_common_playerInfoFromNum_417090(31);
 	v1 = 0;
 	if (v0 && *(_DWORD*)(*(_DWORD*)(*((_DWORD*)v0 + 514) + 748) + 280))
 		v1 = 1;
@@ -9280,7 +9280,7 @@ int sub_516720() {
 	int v3;   // ecx
 	int v4;   // ecx
 
-	v0 = nox_common_playerInfoGetXXX_417090(31);
+	v0 = nox_common_playerInfoFromNum_417090(31);
 	v1 = script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
@@ -9334,7 +9334,7 @@ int sub_5167D0() {
 	int v2;   // eax
 	int v3;   // ecx
 
-	v0 = nox_common_playerInfoGetXXX_417090(31);
+	v0 = nox_common_playerInfoFromNum_417090(31);
 	v1 = script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
@@ -9352,7 +9352,7 @@ int sub_516810() {
 	_DWORD* v2; // eax
 	int v3;     // ecx
 
-	v0 = nox_common_playerInfoGetXXX_417090(31);
+	v0 = nox_common_playerInfoFromNum_417090(31);
 	v1 = script_pop();
 	v2 = (_DWORD*)nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
@@ -9387,7 +9387,7 @@ int sub_516890() {
 	_DWORD* v3; // eax
 	_DWORD* v4; // eax
 
-	v0 = (_DWORD*)*((_DWORD*)nox_common_playerInfoGetXXX_417090(31) + 514);
+	v0 = (_DWORD*)*((_DWORD*)nox_common_playerInfoFromNum_417090(31) + 514);
 	v1 = 0;
 	v2 = script_pop();
 	v3 = (_DWORD*)v0[126];
@@ -9873,14 +9873,14 @@ int sub_517010() {
 	char v2[256]; // [esp+4h] [ebp-100h]
 
 	dword_5d4594_2386924 = 0;
-	result = sub_408CC0_fopen((char*)getMemAt(0x587000, 249116), 0);
+	result = nox_xxx_openFileBin_408CC0((char*)getMemAt(0x587000, 249116), 0);
 	v1 = (FILE*)result;
 	if (result) {
-		result = sub_408D40(result, 23);
+		result = nox_xxx_cryptOpen_408D40(result, 23);
 		if (result) {
 			while (sub_517090(v1, v2) && sub_517170(v1, v2))
 				;
-			sub_408D90(v1);
+			nox_xxx_fileBinClose_408D90(v1);
 			result = 1;
 		}
 	}
@@ -11787,7 +11787,7 @@ int __cdecl sub_519930(int a1) {
 
 //----- (00519E80) --------------------------------------------------------
 _DWORD* __cdecl sub_519E80(int a1) {
-	nox_common_playerInfoGetXXX_417090(a1);
+	nox_common_playerInfoFromNum_417090(a1);
 	return sub_4DE410(getMemByte(0x5D4594, 48 * a1 + 2387148));
 }
 
@@ -12045,7 +12045,7 @@ int __cdecl sub_51A960(int a1, unsigned __int8* a2) {
 	int v7;        // [esp+Ch] [ebp-C04h]
 	char v8[3072]; // [esp+10h] [ebp-C00h]
 
-	v2 = nox_common_playerInfoGetXXX_417090(a1);
+	v2 = nox_common_playerInfoFromNum_417090(a1);
 	v3 = *a2;
 	v7 = *a2;
 	if (v2 && !(v2[3680] & 0x10))

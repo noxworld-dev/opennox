@@ -15,7 +15,7 @@ extern _DWORD dword_587000_93196;
 extern _DWORD dword_587000_173328;
 extern _DWORD dword_587000_173332;
 extern _DWORD dword_5d4594_2618912;
-extern _DWORD dword_5d4594_2650672;
+extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_815132;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -113,7 +113,7 @@ int sub_43DEB0() {
 		sub_4DD180(31);
 	}
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-		dword_5d4594_2650672 = 1;
+		nox_gameDisableMapDraw_5d4594_2650672 = 1;
 		sub_44DA60(1);
 	}
 LABEL_16:
@@ -149,7 +149,7 @@ int map_download_finish() {
 	}
 	sub_43E1A0(0);
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-		dword_5d4594_2650672 = 1;
+		nox_gameDisableMapDraw_5d4594_2650672 = 1;
 		sub_44DA60(1);
 	}
 	if (!sub_4AC2B0(nox_server_currentMapGetFilename_409B30())) {
@@ -276,9 +276,9 @@ void mainloop() {
 	if (nox_common_gameFlags_check_40A5C0(1) && dword_587000_93200 == 1) {
 		if (!dword_5d4594_815132) {
 			if (nox_common_gameFlags_check_40A5C0(0x2000)) {
-				if (sub_40A680()) {
+				if (nox_server_gameDoSwitchMap_40A680()) {
 					sub_4DEF00();
-					sub_40A690();
+					nox_server_gameUnsetMapLoad_40A690();
 				} else if (sub_459D60() && !nox_common_gameFlags_check_40A5C0(9437184)) {
 					if (sub_459DA0())
 						sub_4DF020();

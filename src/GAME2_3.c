@@ -581,7 +581,7 @@ int sub_48D3B0() {
 
 	v1[0] = -18;
 	v1[1] = 4;
-	return sub_4E53C0(31, v1, 2, 0, 1);
+	return nox_xxx_netClientSend2_4E53C0(31, v1, 2, 0, 1);
 }
 
 //----- (0048D3E0) --------------------------------------------------------
@@ -590,7 +590,7 @@ int sub_48D3E0() {
 
 	v1[0] = -18;
 	v1[1] = 5;
-	return sub_4E53C0(31, v1, 2, 0, 1);
+	return nox_xxx_netClientSend2_4E53C0(31, v1, 2, 0, 1);
 }
 
 //----- (0048D410) --------------------------------------------------------
@@ -6039,7 +6039,7 @@ int __cdecl sub_49B420(int a1, int a2, int* a3, int a4) {
 			sub_49B6B0();
 		} else if (v3 == 10702) {
 			LOWORD(a2) = 1008;
-			sub_4E53C0(31, &a2, 2, 0, 1);
+			nox_xxx_netClientSend2_4E53C0(31, &a2, 2, 0, 1);
 			sub_49B6B0();
 			return 0;
 		}
