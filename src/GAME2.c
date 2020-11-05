@@ -250,10 +250,10 @@ int __cdecl nox_get_thing_pretty_image(int i) {
 }
 
 //----- (0044CFC0) --------------------------------------------------------
-int __cdecl nox_xxx_getTTByNameSpriteMB_44CFC0(CHAR* a1) { return sub_44CFD0(a1); }
+int __cdecl nox_xxx_getTTByNameSpriteMB_44CFC0(CHAR* a1) { return nox_xxx_getvalByName2Imp_44CFD0(a1); }
 
 //----- (0044CFD0) --------------------------------------------------------
-int __cdecl sub_44CFD0(CHAR* a1) {
+int __cdecl nox_xxx_getvalByName2Imp_44CFD0(CHAR* a1) {
 	int v1;         // eax
 	signed int v2;  // ecx
 	const void* v3; // eax
@@ -1776,7 +1776,7 @@ int sub_4512B0() {
 }
 
 //----- (00451410) --------------------------------------------------------
-int sub_451410() { return ((unsigned __int8)~sub_46ADA0(*(int*)&dword_5d4594_833712) >> 4) & 1; }
+int sub_451410() { return ((unsigned __int8)~nox_xxx_wndGetFlags_46ADA0(*(int*)&dword_5d4594_833712) >> 4) & 1; }
 
 //----- (00451430) --------------------------------------------------------
 void nox_xxx_unused_451430() {
@@ -1846,7 +1846,7 @@ int __cdecl sub_451850(int a2, int a3) {
 	v3 = getMemAt(0x5D4594, 840712);
 	do {
 		sub_451920((_DWORD*)v3 - 21);
-		*(_DWORD*)v3 = sub_40AF80(v2);
+		*(_DWORD*)v3 = nox_xxx_getSndName_40AF80(v2);
 		v3 += 200;
 		++v2;
 	} while ((int)v3 < (int)getMemAt(0x5D4594, 1045312));
@@ -2564,7 +2564,7 @@ BOOL __cdecl nox_thing_read_AVNT_452890(int a1, void* a2) {
 	*(_DWORD*)(v21 + 8) = v3 + 1;
 	nox_memfile_read(a2, 1u, v28, v21);
 	*((_BYTE*)a2 + v28) = 0;
-	v4 = sub_40AF50(a2);
+	v4 = nox_xxx_utilFindSound_40AF50(a2);
 	if (v4 && (v5 = nox_xxx_draw_452270(v4)) != 0) {
 		while (1) {
 			v6 = *(char**)(v2 + 8);
@@ -2768,7 +2768,7 @@ int __cdecl sub_452BD0(int a1, char* a2) {
 	*(_DWORD*)(a1 + 8) = v4 + 1;
 	nox_memfile_read(a2, 1u, v5, a1);
 	a2[v5] = 0;
-	v6 = sub_40AF50(a2);
+	v6 = nox_xxx_utilFindSound_40AF50(a2);
 	if (v6 && (v7 = nox_xxx_draw_452270(v6)) != 0) {
 		v8 = *(__int16**)(a1 + 8);
 		v9 = *v8;
@@ -4154,7 +4154,7 @@ int __cdecl sub_4559B0(wchar_t* a1) {
 int __cdecl sub_455A00(int a1) {
 	int result; // eax
 
-	if (a1 && *getMemU32Ptr(0x5D4594, 1045608) && sub_46ADA0(*(int*)&dword_5d4594_1045604) & 0x10)
+	if (a1 && *getMemU32Ptr(0x5D4594, 1045608) && nox_xxx_wndGetFlags_46ADA0(*(int*)&dword_5d4594_1045604) & 0x10)
 		result = nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1045604);
 	else
 		result = nox_window_set_hidden(*(int*)&dword_5d4594_1045604, 1);
@@ -4296,7 +4296,7 @@ int sub_455EE0() {
 int __cdecl sub_455F10(int a1) {
 	int result; // eax
 
-	if (a1 && dword_5d4594_1045640 && sub_46ADA0(*(int*)&dword_5d4594_1045636) & 0x10)
+	if (a1 && dword_5d4594_1045640 && nox_xxx_wndGetFlags_46ADA0(*(int*)&dword_5d4594_1045636) & 0x10)
 		result = nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1045636);
 	else
 		result = nox_window_set_hidden(*(int*)&dword_5d4594_1045636, 1);
@@ -4404,7 +4404,7 @@ int sub_456500() {
 		if (j[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 			sub_457140(*((_DWORD*)j + 515), (wchar_t*)j + 2352);
 			v4 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)j + 515));
-			if (sub_419130((int)v4))
+			if (nox_xxx_servObjectHasTeam_419130((int)v4))
 				sub_4571A0(*((_DWORD*)j + 515), *((unsigned __int8*)v4 + 4));
 		}
 	}
@@ -4472,7 +4472,7 @@ char __cdecl sub_456BB0(int a1) {
 		v1 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x5D4594, 2616328));
 		v3 = (int)v1;
 		if (v1) {
-			if (sub_419130((int)v1)) {
+			if (nox_xxx_servObjectHasTeam_419130((int)v1)) {
 				if (!v2) {
 					sub_419960(a1, v3, *getMemI16Ptr(0x5D4594, 2616328));
 					LOBYTE(v1) = getMemByte(0x5D4594, 1045696) + 1;
@@ -5756,7 +5756,7 @@ void __cdecl nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable* dr) {
 	if (*(_BYTE*)(&dr->field_28) & 0x4)
 		sub_459F00(dr);
 
-	if (sub_419130(&dr->field_6))
+	if (nox_xxx_servObjectHasTeam_419130(&dr->field_6))
 		nox_xxx_netChangeTeamMb_419570(&dr->field_6, dr->field_32);
 
 	nox_xxx_spriteDelete_45A4B0(dr);
@@ -6818,7 +6818,7 @@ int sub_45CFA0() {
 }
 
 //----- (0045CFC0) --------------------------------------------------------
-int sub_45CFC0() { return ((unsigned __int8)~sub_46ADA0(nox_win_unk1) >> 4) & 1; }
+int sub_45CFC0() { return ((unsigned __int8)~nox_xxx_wndGetFlags_46ADA0(nox_win_unk1) >> 4) & 1; }
 
 //----- (0045CFE0) --------------------------------------------------------
 void __cdecl nox_xxx_netSpellRewardCli_45CFE0(int a1, int a2, int a3, int a4) {

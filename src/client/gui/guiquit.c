@@ -226,7 +226,7 @@ void sub_445C40() {
 	wchar_t* v20; // [esp-4h] [ebp-8h]
 	wchar_t* v21; // [esp-4h] [ebp-8h]
 
-	if (sub_46ADA0(*(int*)&dword_5d4594_825760) & 0x10) {
+	if (nox_xxx_wndGetFlags_46ADA0(*(int*)&dword_5d4594_825760) & 0x10) {
 		if (!*getMemU32Ptr(0x5D4594, 2614252) || !nox_common_gameFlags_check_40A5C0(2048) ||
 			(result = *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 276), result != 2) && result != 1 && result != 51) {
 			if (sub_45D9B0() != 1) {

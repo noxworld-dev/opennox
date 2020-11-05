@@ -937,7 +937,7 @@ BOOL nox_xxx___cfltcvt_init_430CC0() {
 	*getMemU32Ptr(0x5D4594, 3807132) = sub_468F80;
 	*getMemU32Ptr(0x5D4594, 3807148) = sub_4814F0;
 	dword_5d4594_3807156 = sub_469920;
-	result = sub_430D40();
+	result = nox_xxx_testMMXSupport_430D40();
 	nox_xxx_useAudio_587000_80800 = result;
 	if (result) {
 		dword_5d4594_805836 = 1;

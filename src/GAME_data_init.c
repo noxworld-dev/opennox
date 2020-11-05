@@ -4059,9 +4059,9 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 246132) = &nox_xxx_scriptGroupEnchant_5133B0;
 	*(void**)getMemAt(0x587000, 246136) = &nox_xxx_scriptGetHost_513460;
 	*(void**)getMemAt(0x587000, 246140) = &nox_xxx_script_ObjectGet_513490;
-	*(void**)getMemAt(0x587000, 246144) = &sub_513530;
+	*(void**)getMemAt(0x587000, 246144) = &nox_xxx_script_GetObjectX_513530;
 	*(void**)getMemAt(0x587000, 246148) = &nox_xxx_script_GetWaypointX_513570;
-	*(void**)getMemAt(0x587000, 246152) = &sub_5135B0;
+	*(void**)getMemAt(0x587000, 246152) = &nox_xxx_script_GetObjectY_5135B0;
 	*(void**)getMemAt(0x587000, 246156) = &nox_xxx_scriptWaypointY_5135F0;
 	*(void**)getMemAt(0x587000, 246160) = &nox_xxx_script_UnitHeight_513630;
 	*(void**)getMemAt(0x587000, 246164) = &nox_xxx_script_GetUnitLook_513670;

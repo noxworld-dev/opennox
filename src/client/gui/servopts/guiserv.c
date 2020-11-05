@@ -289,7 +289,7 @@ int __cdecl sub_458230(int a1, char* a2, int a3) {
 	v3 = a1;
 	v18 = -1;
 	*getMemU32Ptr(0x5D4594, 1046552) = a1;
-	v4 = sub_4D09B0();
+	v4 = nox_xxx_validateMapList_4D09B0();
 	v17 = 0;
 	if (!v4)
 		goto LABEL_30;

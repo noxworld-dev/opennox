@@ -1,7 +1,7 @@
 #include "../../proto.h"
 
 //----- (004E77E0) --------------------------------------------------------
-wchar_t* __cdecl sub_4E77E0_obj_util(int a1) {
+wchar_t* __cdecl nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 	int v1;            // eax
 	_DWORD* v2;        // edi
 	_DWORD* v3;        // eax

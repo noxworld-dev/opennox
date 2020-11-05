@@ -117,7 +117,7 @@ int __cdecl sub_50F1A0(int a1, int a2) {
 }
 
 //----- (0050F280) --------------------------------------------------------
-int __cdecl sub_50F280(int a1, int a2) {
+int __cdecl nox_xxx_servSendShopItems_50F280(int a1, int a2) {
 	int result; // eax
 	_DWORD* i;  // esi
 
@@ -306,7 +306,7 @@ BOOL __cdecl sub_5105D0(int a1) {
 }
 
 //----- (0050EF10) --------------------------------------------------------
-_DWORD* __cdecl sub_50EF10_trade(int a1, int a2) {
+_DWORD* __cdecl nox_xxx_servShopStart_50EF10_trade(int a1, int a2) {
 	int v2;           // edx
 	int v3;           // eax
 	wchar_t* v4;      // eax
@@ -383,9 +383,9 @@ LABEL_18:
 	if (v9[4]) {
 		v11 = v9[2];
 		if (*(_BYTE*)(v11 + 8) & 4)
-			sub_50F280(v11, (int)v9);
+			nox_xxx_servSendShopItems_50F280(v11, (int)v9);
 		else
-			sub_50F280(v9[3], (int)v9);
+			nox_xxx_servSendShopItems_50F280(v9[3], (int)v9);
 		if (v9[4] && nox_common_gameFlags_check_40A5C0(2048)) {
 			v12 = v9[2];
 			if (!(*(_BYTE*)(v12 + 8) & 4))

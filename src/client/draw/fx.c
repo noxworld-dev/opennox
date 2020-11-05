@@ -80,7 +80,7 @@ int __cdecl nox_xxx_makePointFxCli_499610(int a1, int a2, int a3, int a4, int a5
 }
 
 //----- (00499710) --------------------------------------------------------
-int __cdecl sub_499710(int a1, int a2, __int16 a3, int a4) {
+int __cdecl nox_xxx_drawEnergyBolt_499710(int a1, int a2, __int16 a3, int a4) {
 	int v4;     // eax
 	int v5;     // esi
 	int result; // eax

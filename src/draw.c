@@ -274,7 +274,7 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3)
 }
 
 // GfxInit
-int __cdecl sub_444930(HWND a1, int a2, int a3, int a4, int a5)
+int __cdecl nox_xxx_GfxInit_444930(HWND a1, int a2, int a3, int a4, int a5)
 {
     return 1;
 }
@@ -599,7 +599,7 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
 	dword_5ACFAC = 1;
 	if (!(nox_video_renderTargetFlags & 4)) {
 		sub_48AA40();
-		result = sub_48B000();
+		result = nox_xxx_initDDraw_48B000();
 		if (!result)
 			return result;
 #ifdef USE_SDL
@@ -1366,7 +1366,7 @@ const GLchar* fragment_source =
 					"    gl_FragColor.rgb = pow(texture2D(uSampler, coordTex * uMatrix).rgb, vec3(1.0/uGamma));\n"
 					"}\n";
 
-int sub_48B000() {
+int nox_xxx_initDDraw_48B000() {
 	GLint status;
 	GLuint vertex, fragment;
 	float coords[] = {1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0};
@@ -1476,7 +1476,7 @@ int sub_48B000() {
 }
 #else
 //----- (0048B000) --------------------------------------------------------
-int sub_48B000() {
+int nox_xxx_initDDraw_48B000() {
 	int result;        // eax
 	GUID* v1;          // eax
 	LPDIRECTDRAW lpDD; // [esp+14h] [ebp-8h]
@@ -2197,7 +2197,7 @@ void sub_433C20() {
 }
 
 //----- (00444930) --------------------------------------------------------
-int __cdecl sub_444930(HWND wnd, int w, int h, int depth, int flags) {
+int __cdecl nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
 	dword_5d4594_823776 = 0;
 	ptr_5D4594_3799572 = &obj_5D4594_3799660;
 	int result = sub_4449D0(wnd, w, h, depth, flags);

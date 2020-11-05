@@ -1399,7 +1399,7 @@ int sub_477EA0() {
 //----- (00477EF0) --------------------------------------------------------
 int __cdecl sub_477EF0(int a1, int a2, int a3) {
 	if (nox_client_mouseCursorType == 2)
-		return sub_4C32A0(a2, a3, 5 - *getMemU32Ptr(0x5D4594, 2598000) % 5u, a1);
+		return nox_xxx_spriteDrawCircleMB_4C32A0(a2, a3, 5 - *getMemU32Ptr(0x5D4594, 2598000) % 5u, a1);
 	nox_client_drawSetColor_434460(a1);
 	nox_client_drawEnableAlpha_434560(1);
 	nox_client_drawAddPoint_49F500(a2 - 4, a3 - 4);
@@ -2612,7 +2612,7 @@ int __cdecl nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 		switch ((unsigned __int8)a1 & 0x3F) {
 		case 0:
 			*(_DWORD*)(dword_5d4594_1189584 + v3 + 324) = malloc(3 * v18 * v19);
-			v5 = sub_47AD60(v19, v18, *(_WORD**)(dword_5d4594_1189584 + v3 + 324)) == 0;
+			v5 = nox_xxx_videoBag_LoadTile_47AD60(v19, v18, *(_WORD**)(dword_5d4594_1189584 + v3 + 324)) == 0;
 			v6 = dword_5d4594_1189584;
 			if (v5)
 				goto LABEL_6;
@@ -2693,7 +2693,7 @@ int __cdecl nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 // 47A960: using guessed type char var_288[68];
 
 //----- (0047AD60) --------------------------------------------------------
-int __cdecl sub_47AD60(int a1, int a2, _WORD* a3) {
+int __cdecl nox_xxx_videoBag_LoadTile_47AD60(int a1, int a2, _WORD* a3) {
 	int v3;      // edi
 	int v4;      // edx
 	int i;       // esi
@@ -5586,7 +5586,7 @@ int sub_4800F0() {
 	v4 = dword_5d4594_3804680 != 0 ? 16 : 8;
 	v3 = nox_win_height;
 	v2 = nox_win_width;
-	if (sub_444930(getWindowHandle_nox_xxx_getHWND_401FD0(), v2, v3, v4, v5)) {
+	if (nox_xxx_GfxInit_444930(getWindowHandle_nox_xxx_getHWND_401FD0(), v2, v3, v4, v5)) {
 		sub_440900();
 		nox_xxx_setupSomeVideo_47FEF0();
 		sub_49F6D0(1);

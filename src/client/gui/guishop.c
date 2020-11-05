@@ -148,7 +148,7 @@ wchar_t* __cdecl sub_478BC0(int* a1) {
 }
 
 //----- (00478FD0) --------------------------------------------------------
-int __cdecl sub_478FD0(const wchar_t* a1, char* a2, int a3) {
+int __cdecl nox_xxx_cliStartShopDlg_478FD0(const wchar_t* a1, char* a2, int a3) {
 	_DWORD* v3; // esi
 
 	v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3810);

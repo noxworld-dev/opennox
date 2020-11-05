@@ -370,7 +370,7 @@ int __cdecl nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __in
 				} else {
 					_DWORD* v47 = nox_xxx_objGetTeamByNetCode_418C80(*(unsigned __int16 *) (v4 + 1));
 					if (v47) {
-						if (sub_419130((int) v47)) {
+						if (nox_xxx_servObjectHasTeam_419130((int) v47)) {
 							v86 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8 *) v47 + 4));
 							if (v86) {
 								for (int j = nox_xxx_getFirstPlayerUnit_4DA7C0(); j; j = nox_xxx_getNextPlayerUnit_4DA7F0(j)) {
@@ -703,7 +703,7 @@ int __cdecl nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __in
 				break;
 			case 0x12u:
 				if (v10[70])
-					sub_50F4C0((_DWORD*)v10[70]);
+					nox_xxx_shopExit_50F4C0((_DWORD*)v10[70]);
 				v4 += 2;
 				break;
 			case 0x15u:
@@ -712,7 +712,7 @@ int __cdecl nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __in
 					v65 = nox_server_getObjectFromNetCode_4ECCB0(v64);
 					if (v65) {
 						if (*(_BYTE*)(v65 + 12) & 8)
-							sub_50EF10_trade(v9, v65);
+							nox_xxx_servShopStart_50EF10_trade(v9, v65);
 					}
 				}
 				v4 += 4;

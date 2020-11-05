@@ -313,7 +313,7 @@ int __cdecl nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, i
 						}
 						nox_xxx_gameSetSoloSavePath_4DB270(v22);
 						nox_xxx_gameSetMapPath_409D70(v21);
-						sub_4DCC70(1);
+						nox_xxx_mapLoadOrSaveMB_4DCC70(1);
 						v13 = sub_41D090((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(_DWORD*)(v7 + 48) + 4));
 						nox_xxx_cliSetPlrGuid_4E3C60(v13);
 					} else if (sub_4D6F30()) {

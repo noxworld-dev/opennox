@@ -211,7 +211,7 @@ int* __stdcall sub_570AF0(int* a1);
 int* __cdecl sub_570B20(int* a1, int* a2, int* a3);
 void* __cdecl sub_570B60(int a1);
 wstring* __cdecl sub_570B90(void* a1, int* a2);
-int __cdecl sub_570C20(int a1, int a2);
+int __cdecl nox_xxx_operator_new_570C20(int a1, int a2);
 int* __cdecl sub_570C30(int* a1);
 int* __thiscall sub_570C50(int* this, char a2);
 wstring* __thiscall sub_570C90(int* this, int* a2);
@@ -829,14 +829,14 @@ void* __cdecl sub_570B60(int a1) {
 wstring* __cdecl sub_570B90(void* a1, int* a2) {
 	wstring* result; // eax
 
-	result = (wstring*)sub_570C20(16, (int)a1);
+	result = (wstring*)nox_xxx_operator_new_570C20(16, (int)a1);
 	if (result)
 		result = sub_570C90(&result->_A, a2);
 	return result;
 }
 
 //----- (00570C20) --------------------------------------------------------
-int __cdecl sub_570C20(int a1, int a2) { return a2; }
+int __cdecl nox_xxx_operator_new_570C20(int a1, int a2) { return a2; }
 
 //----- (00570C30) --------------------------------------------------------
 int* __cdecl sub_570C30(int* a1) { return sub_570C50(a1, 0); }
@@ -4804,7 +4804,7 @@ _DWORD* __cdecl sub_5787B0(void* a1, _DWORD* a2) {
 	_DWORD* result; // eax
 	_DWORD* v3;     // [esp+4h] [ebp-4h]
 
-	result = (_DWORD*)sub_570C20(4, (int)a1);
+	result = (_DWORD*)nox_xxx_operator_new_570C20(4, (int)a1);
 	v3 = result;
 	if (result) {
 		result = (_DWORD*)*a2;
@@ -4817,7 +4817,7 @@ _DWORD* __cdecl sub_5787B0(void* a1, _DWORD* a2) {
 _DWORD* __cdecl sub_578810(void* a1, _DWORD* a2) {
 	_DWORD* result; // eax
 
-	result = (_DWORD*)sub_570C20(36, (int)a1);
+	result = (_DWORD*)nox_xxx_operator_new_570C20(36, (int)a1);
 	if (result)
 		result = sub_578970(result, a2);
 	return result;
@@ -4836,7 +4836,7 @@ _DWORD* __cdecl sub_5788D0(void* a1, _DWORD* a2) {
 	_DWORD* result; // eax
 	_DWORD* v3;     // [esp+4h] [ebp-4h]
 
-	result = (_DWORD*)sub_570C20(12, (int)a1);
+	result = (_DWORD*)nox_xxx_operator_new_570C20(12, (int)a1);
 	v3 = result;
 	if (result) {
 		*result = *a2;

@@ -1169,7 +1169,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 		return (_DWORD*)nox_common_gameFlags_check_40A5C0(1);
 	case 265:
 		// toggles weapons by mouse wheel
-		// autoshield is actually implemented in appendix of sub_53A140
+		// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
 		//a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1; 
 		a2a = vaArg3 > 0; // scroll weapons back or forth
 		result = (_DWORD*)((unsigned __int8)vaArg2 - 2);

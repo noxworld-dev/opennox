@@ -28,7 +28,7 @@ int __cdecl nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 		} else {
 			switch (nox_xxx_wndGetID_46B0A0(a3)) {
 			case 111:
-				if (nox_xxx_checkConjSoloMap_40ABD0() && sub_413840()) {
+				if (nox_xxx_checkConjSoloMap_40ABD0() && nox_xxx_testCDAndSolo_413840()) {
 					nox_xxx_setGameFlags_40A4D0(2048);
 					nox_common_gameFlags_unset_40A540(0x2000);
 					nox_common_gameFlags_unset_40A540(0x10000);

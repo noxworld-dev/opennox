@@ -98,7 +98,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		nox_xxx_drawAllMB_475810_draw(getMemIntPtr(0x5D4594, 811068));
 		nox_xxx_drawMinimapAndLines_4738E0();
 	} else {
-		sub_434350(*getMemIntPtr(0x5D4594, 2650656));
+		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2650656));
 		sub_440900();
 	}
 	if (dword_5d4594_811896)
@@ -542,7 +542,7 @@ int sub_436F50() {
 }
 
 //----- (004358A0) --------------------------------------------------------
-char* sub_4358A0() {
+char* nox_xxx_getRandomName_4358A0() {
 	int v0;             // ecx
 	const char** v1;    // eax
 	const char* v2;     // edx

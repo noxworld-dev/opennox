@@ -3463,7 +3463,7 @@ int __cdecl sub_469B90(int* a1) {
 }
 
 //----- (00469BB0) --------------------------------------------------------
-char* sub_469BB0() { return (char*)getMemAt(0x587000, 142296); }
+char* nox_xxx_getAmbientColor_469BB0() { return (char*)getMemAt(0x587000, 142296); }
 
 //----- (00469FA0) --------------------------------------------------------
 int sub_469FA0() { return *getMemU32Ptr(0x5D4594, 1064848); }
@@ -3667,12 +3667,12 @@ BOOL __cdecl nox_thing_read_wall_46A010(_DWORD* a1, char* a2) {
 }
 
 //----- (0046A3B0) --------------------------------------------------------
-int __cdecl sub_46A3B0(int a1, int a2, int a3, int a4) {
+int __cdecl nox_xxx_getWallSprite_46A3B0(int a1, int a2, int a3, int a4) {
 	return *getMemU32Ptr(0x5D4594, 4 * (16 * (a2 + 12 * a4 + 3 * a4) + a3 + 3083 * a1) + 2701180);
 }
 
 //----- (0046A3F0) --------------------------------------------------------
-char* __cdecl sub_46A3F0(int a1, int a2, int a3, int a4) {
+char* __cdecl nox_xxx_getWallDrawOffset_46A3F0(int a1, int a2, int a3, int a4) {
 	return (char*)getMemAt(0x5D4594, 12332 * a1 + 2693500 + 8 * (a3 + 16 * (a2 + 12 * a4 + 3 * a4)));
 }
 
@@ -4134,7 +4134,7 @@ int __cdecl nox_xxx_wndClearFlag_46AD80(int a1, int a2) {
 }
 
 //----- (0046ADA0) --------------------------------------------------------
-int __cdecl sub_46ADA0(int a1) {
+int __cdecl nox_xxx_wndGetFlags_46ADA0(int a1) {
 	int result; // eax
 
 	if (a1)
@@ -5830,7 +5830,7 @@ char* sub_46DCC0() {
 				*getMemU8Ptr( 0x5D4594, 80 * getMemByte(0x5D4594, 1090117) + 1084188) = *(_BYTE*)(v27 + 2251);
 				v35 = nox_xxx_objGetTeamByNetCode_418C80(*(_DWORD*)(v27 + 2060));
 				v36 = v35;
-				if (v35 && sub_419130((int)v35)) {
+				if (v35 && nox_xxx_servObjectHasTeam_419130((int)v35)) {
 					v37 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v36 + 4));
 					if (v37) {
 						v38 = (unsigned __int8)v37[57];
@@ -5923,7 +5923,7 @@ char* sub_46DCC0() {
 				*getMemU8Ptr( 0x5D4594, 80 * getMemByte(0x5D4594, 1090117) + 1084188) = *(_BYTE*)(v10 + 2251);
 				v17 = nox_xxx_objGetTeamByNetCode_418C80(*(_DWORD*)(v10 + 2060));
 				v18 = v17;
-				if (v17 && sub_419130((int)v17)) {
+				if (v17 && nox_xxx_servObjectHasTeam_419130((int)v17)) {
 					v19 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v18 + 4));
 					if (v19) {
 						v20 = (unsigned __int8)v19[57];
@@ -6121,7 +6121,7 @@ char* sub_46E4E0() {
 			*getMemU8Ptr( 0x5D4594, 80 * getMemByte(0x5D4594, 1090117) + 1084188) = *(_BYTE*)(v9 + 2251);
 			v16 = nox_xxx_objGetTeamByNetCode_418C80(*(_DWORD*)(v9 + 2060));
 			v17 = v16;
-			if (v16 && sub_419130((int)v16)) {
+			if (v16 && nox_xxx_servObjectHasTeam_419130((int)v16)) {
 				v18 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v17 + 4));
 				if (v18) {
 					v19 = (unsigned __int8)v18[57];
@@ -6572,7 +6572,7 @@ BOOL sub_4706A0() { return dword_5d4594_1090048 && dword_5d4594_1090120; }
 int __cdecl sub_4706C0(int a1) {
 	int result; // eax
 
-	if (a1 && dword_5d4594_1090180 && sub_46ADA0(*(int*)&dword_5d4594_1090176) & 0x10)
+	if (a1 && dword_5d4594_1090180 && nox_xxx_wndGetFlags_46ADA0(*(int*)&dword_5d4594_1090176) & 0x10)
 		result = nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1090176);
 	else
 		result = nox_window_set_hidden(*(int*)&dword_5d4594_1090176, 1);
@@ -7708,10 +7708,10 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 	}
 	v39 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x5D4594, 2616328));
 	v70 = (int)v39;
-	if (v39 && sub_419130((int)v39))
+	if (v39 && nox_xxx_servObjectHasTeam_419130((int)v39))
 		v73 = 1;
 	for (k = nox_xxx_cliFirstMinimapObj_459EB0(); k; k = nox_xxx_cliNextMinimapObj_459EC0(k)) {
-		v41 = sub_4217B0((int2*)(k + 12), 0);
+		v41 = nox_xxx_polygonIsPlayerInPolygon_4217B0((int2*)(k + 12), 0);
 		if (v41) {
 			if (BYTE2(v41->field_0[32]) != a2)
 				continue;
@@ -7750,7 +7750,7 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		if (v44 == *getMemIntPtr(0x5D4594, 1096308)) {
 			v49 = nox_xxx_objGetTeamByNetCode_418C80(*(_DWORD*)(k + 128));
 			v50 = v49;
-			if (v49 && sub_419130((int)v49)) {
+			if (v49 && nox_xxx_servObjectHasTeam_419130((int)v49)) {
 				v51 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v50 + 4));
 				if (v51) {
 					v52 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v51);
@@ -7815,7 +7815,7 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		v81 = (int)v62;
 		v75 = nox_common_playerInfoGetByID_417040(v68);
 		if (v70 && v62 && v73) {
-			v76.field_0 = sub_419150(v70, (int)v62);
+			v76.field_0 = nox_xxx_servCompareTeams_419150(v70, (int)v62);
 			if (v76.field_0)
 				goto LABEL_103;
 		} else {
@@ -7823,7 +7823,7 @@ int __cdecl nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		}
 		if (v77 || l == *getMemU32Ptr(0x5D4594, 2614252) || *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 3680) & 1) {
 		LABEL_103:
-			v63 = sub_4217B0((int2*)(l + 12), 0);
+			v63 = nox_xxx_polygonIsPlayerInPolygon_4217B0((int2*)(l + 12), 0);
 			if ((!v63 || BYTE2(v63->field_0[32]) == a2) && v75 && (v75[3680] & 1) != 1) {
 				v64 = nox_xxx_minimap_587000_149232;
 				xLeft.field_0 = 100 * (*(int*)(l + 12) - v8) / v64;
@@ -8358,7 +8358,7 @@ int sub_473B30_free() {
 }
 
 //----- (00473C10) --------------------------------------------------------
-char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
+char __cdecl nox_xxx_drawWalls_473C10(_DWORD* a1, unsigned __int8* a2) {
 	int v2;              // eax
 	unsigned __int8* v3; // esi
 	unsigned __int8 v4;  // dl
@@ -8639,7 +8639,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					v34 = (*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
 				LABEL_96:
 					v74 = v34;
-					v45 = sub_46A3F0(v3[1], v84, v3[2], v73);
+					v45 = nox_xxx_getWallDrawOffset_46A3F0(v3[1], v84, v3[2], v73);
 					v46 = v82 + *(_DWORD*)v45 - 51;
 					v47 = -73 - *((_DWORD*)v45 + 1) + v7;
 					v48 = sub_4345F0(1);
@@ -8653,7 +8653,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 						v65 = a3;
 						v64 = nox_win_height;
 						v63 = v74;
-						v52 = sub_46A3B0(v3[1], v84, v3[2], v73);
+						v52 = nox_xxx_getWallSprite_46A3B0(v3[1], v84, v3[2], v73);
 						(*(void(__cdecl**)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD,
 										   _DWORD)) getMemAt(0x5D4594, 3807128))(v52, v46, v47, v32, v63, v64, v65, v66, 0, v69);
 						goto LABEL_106;
@@ -8665,7 +8665,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 					sub_47D400(nox_client_highResFrontWalls_80820 == 0, a1[5]);
 					v68 = v47;
 					v67 = v46;
-					v51 = sub_46A3B0(v3[1], v84, v3[2], v73);
+					v51 = nox_xxx_getWallSprite_46A3B0(v3[1], v84, v3[2], v73);
 					break;
 				}
 			} else {
@@ -8673,7 +8673,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 				v77.field_0 = 23 * v3[5] + 11;
 				v77.field_4 = 23 * v53 + 11;
 				v54 = (_BYTE*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)(&v77);
-				v55 = sub_46A3F0(v3[1], v84, v3[2], v73);
+				v55 = nox_xxx_getWallDrawOffset_46A3F0(v3[1], v84, v3[2], v73);
 				v56 = v82 + *(_DWORD*)v55 - 50;
 				v57 = -72 - *((_DWORD*)v55 + 1) + v7;
 				v58 = sub_4345F0(1);
@@ -8684,7 +8684,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 				if (!(v72 & 2)) {
 					if (sub_47D380(a3, a4)) {
 						sub_47D400(nox_client_highResFrontWalls_80820 == 0, a1[5]);
-						v61 = sub_46A3B0(v3[1], v84, v3[2], v73);
+						v61 = nox_xxx_getWallSprite_46A3B0(v3[1], v84, v3[2], v73);
 						nox_client_drawImageAt_47D2C0(v61, v56, v57);
 						sub_47D400(0, 0);
 					}
@@ -8704,7 +8704,7 @@ char __cdecl sub_473C10(_DWORD* a1, unsigned __int8* a2) {
 				sub_47D400(nox_client_highResFrontWalls_80820 == 0, a1[5]);
 				v68 = v57;
 				v67 = v56;
-				v51 = sub_46A3B0(v3[1], v84, v3[2], v73);
+				v51 = nox_xxx_getWallSprite_46A3B0(v3[1], v84, v3[2], v73);
 			}
 			nox_client_drawImageAt_47D2C0(v51, v67, v68);
 			sub_47D400(0, 0);
@@ -8845,7 +8845,7 @@ int __cdecl sub_474B40(int a1) {
 	if (v1) {
 		v2 = nox_xxx_objGetTeamByNetCode_418C80(*(_DWORD*)(a1 + 128));
 		if (v2) {
-			if (*getMemU32Ptr(0x5D4594, 2616328) == *(_DWORD*)(a1 + 128) || sub_419150((int)v1, (int)v2))
+			if (*getMemU32Ptr(0x5D4594, 2616328) == *(_DWORD*)(a1 + 128) || nox_xxx_servCompareTeams_419150((int)v1, (int)v2))
 				return 1;
 		}
 	}
@@ -9208,21 +9208,21 @@ int4* __cdecl nox_xxx_drawAllMB_475810_draw(int* a1) {
 	nox_xxx_drawBlack_496150(v1);
 	v8 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(2048) && !nox_xxx_testCD_413830() ||
-		nox_common_gameFlags_check_40A5C0(2048) && !sub_413840() || nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x5D4594, 2614252), 2) ||
+		nox_common_gameFlags_check_40A5C0(2048) && !nox_xxx_testCDAndSolo_413840() || nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x5D4594, 2614252), 2) ||
 		nox_gameDisableMapDraw_5d4594_2650672) {
 		v8 = 1;
 	}
 	if (dword_5d4594_1556112 || v8) {
-		sub_434350(*getMemIntPtr(0x5D4594, 2650656));
+		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2650656));
 		sub_440900();
 		result = sub_437290();
 		dword_5d4594_3799524 = 1;
 		return result;
 	}
 	if (*getMemU32Ptr(0x5D4594, 1096520)) {
-		sub_434350(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2523948));
 		sub_440900();
-		sub_434350(*getMemIntPtr(0x5D4594, 2650656));
+		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2650656));
 		*getMemU32Ptr(0x5D4594, 1096520) = 0;
 		result = sub_437290();
 		dword_5d4594_3799524 = 1;
@@ -9269,7 +9269,7 @@ int4* __cdecl nox_xxx_drawAllMB_475810_draw(int* a1) {
 	for (j = (dword_5d4594_1096500)-- == 0; !j; --dword_5d4594_1096500) {
 		v20 = *v18;
 		++v18;
-		sub_473C10(v1, v20);
+		nox_xxx_drawWalls_473C10(v1, v20);
 		j = dword_5d4594_1096500 == 0;
 	}
 	sub_475FE0(v1);
@@ -9291,7 +9291,7 @@ int4* __cdecl nox_xxx_drawAllMB_475810_draw(int* a1) {
 	while (nox_drawable_list_1_size || dword_5d4594_1096516) {
 		if (v41 >= v21) {
 			if (dword_5d4594_1096516) {
-				sub_473C10(v1, *v37);
+				nox_xxx_drawWalls_473C10(v1, *v37);
 				v29 = v37 + 1;
 				j = dword_5d4594_1096516 == 1;
 				++v37;
@@ -9360,7 +9360,7 @@ int4* __cdecl nox_xxx_drawAllMB_475810_draw(int* a1) {
 			do {
 				v32 = *v30;
 				++v30;
-				sub_473C10(v1, v32);
+				nox_xxx_drawWalls_473C10(v1, v32);
 				j = (dword_5d4594_1096508)-- == 0;
 			} while (!j);
 		}

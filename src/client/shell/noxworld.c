@@ -310,7 +310,7 @@ int sub_4379F0() {
 					nox_xxx_createSocketLocal_554B40(0);
 				dword_5d4594_815088 = 0;
 				nox_xxx_loadModifyers_4158C0();
-				sub_415D50();
+				nox_xxx_loadLook_415D50();
 				sub_430C30_set_video_max(NOX_MAX_WIDTH, NOX_MAX_HEIGHT);
 				nox_client_setCursorType_477610(0);
 				if (dword_5d4594_815096) {
@@ -985,7 +985,7 @@ int __cdecl nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3
 			nox_wcsncpy(v33, v12, 9u);
 			v33[8] = 0;
 			v28 = sub_43B320();
-			v13 = sub_43B300();
+			v13 = nox_xxx_inServerGetAddr_43B300();
 			sub_5550D0(v13, v28, buf);
 			sub_43AF90(3);
 			*(_QWORD*)&qword_5d4594_814956 = nox_call_get_ticks() + 20000;

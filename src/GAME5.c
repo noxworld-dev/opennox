@@ -85,13 +85,13 @@ char __cdecl nox_xxx_mobActionConfuse_545140(int a1) {
 		LOBYTE(v1) = nox_xxx_mobActionRandomWalk_545020(a1);
 		return (char)v1;
 	}
-	if (sub_534220(a1)) {
-		if (!sub_534280(a1) || nox_common_randomInt_415FA0(0, 100) < 50) {
+	if (nox_xxx_monsterCanMelee_534220(a1)) {
+		if (!nox_xxx_monsterCanShoot_534280(a1) || nox_common_randomInt_415FA0(0, 100) < 50) {
 			LOBYTE(v1) = (unsigned int)nox_xxx_monsterPushAction_50A260(a1, 16);
 			return (char)v1;
 		}
 	} else {
-		v1 = (int*)sub_534280(a1);
+		v1 = (int*)nox_xxx_monsterCanShoot_534280(a1);
 		if (!v1)
 			return (char)v1;
 	}
@@ -2078,7 +2078,7 @@ void __cdecl sub_548100(int2* a1, int a2) {
 						v9.field_0 = (double)v5 + 11.5;
 						v9.field_4 = (double)v10 + 11.5;
 						v7 = nox_xxx_wallFindOpenSound_410EE0(v6);
-						v8 = sub_40AF50(v7);
+						v8 = nox_xxx_utilFindSound_40AF50(v7);
 						nox_xxx_audCreate_501A30(v8, &v9, 0, 0);
 					}
 				}
@@ -2456,8 +2456,8 @@ void __cdecl sub_5488B0(int* a1, float* a2, int a3) {
 			*((_DWORD*)v7 + 4) &= 0xF7FFFFFF;
 		}
 		nox_xxx_unitHasCollideOrUpdateFn_537610((int)v3);
-		if (!sub_419130((int)(v3 + 12)) || *(_DWORD*)(v4 + 12) != *(_DWORD*)(v4 + 4) ||
-			sub_419150((int)(v3 + 12), (int)(v7 + 12))) {
+		if (!nox_xxx_servObjectHasTeam_419130((int)(v3 + 12)) || *(_DWORD*)(v4 + 12) != *(_DWORD*)(v4 + 4) ||
+			nox_xxx_servCompareTeams_419150((int)(v3 + 12), (int)(v7 + 12))) {
 			if (!a3 && !*(_BYTE*)(v4 + 1)) {
 				v18 = (float*)v3[127];
 				if (!v18 || v18 == v7) {
@@ -2991,7 +2991,7 @@ BOOL __cdecl sub_549690(int a1, int a2) {
 	if (*(_DWORD*)(v2 + 136)) {
 		v3 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 484);
 		if (nox_common_randomInt_415FA0(1, 100) <= *(int*)(v2 + 136)) {
-			if (sub_4EE7E0(a2, *(_DWORD*)(v3 + 140), *(_DWORD*)(v3 + 144)))
+			if (nox_xxx_activatePoison_4EE7E0(a2, *(_DWORD*)(v3 + 140), *(_DWORD*)(v3 + 144)))
 				result = 1;
 		}
 	}
@@ -3055,7 +3055,7 @@ int __cdecl nox_xxx_sendEquakeAfterGolem_549800(float a1) {
 	*getMemU32Ptr(0x5D4594, 2491576) = 0;
 	v5 = v2 + *getMemFloatPtr(0x587000, 287328);
 	nox_xxx_unitsGetInCircle_517F90(v1, v5, (int)nox_xxx_monsterAttackAreaDamage_549860, v4);
-	sub_4D9110(&v1->field_0, 30);
+	nox_xxx_earthquakeSend_4D9110(&v1->field_0, 30);
 	return *getMemU32Ptr(0x5D4594, 2491576);
 }
 
@@ -5482,11 +5482,11 @@ void __cdecl nox_xxx_playerHandleElimDeath_54D7A0(int a1, int a2) {
 	v8 = 0;
 	v6 = a1 + 48;
 	v9 = *(_DWORD*)(a1 + 748);
-	if (sub_419130(v6))
+	if (nox_xxx_servObjectHasTeam_419130(v6))
 		v8 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(v2 + 52));
 	if (a2) {
 		v3 = *(_DWORD*)(a2 + 748);
-		if (sub_419130(a2 + 48))
+		if (nox_xxx_servObjectHasTeam_419130(a2 + 48))
 			v4 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(a2 + 52));
 	}
 	if (a2 == v2) {
@@ -5567,17 +5567,17 @@ void __cdecl nox_xxx_playerUpdateScore_54D980(int a1, int a2, int a3, int a4) {
 	v17 = *(_DWORD*)(a1 + 748);
 	v6 = 0;
 	v16 = 0;
-	if (sub_419130(v12))
+	if (nox_xxx_servObjectHasTeam_419130(v12))
 		v14 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(v4 + 52));
 	if (a2) {
 		v6 = *(_DWORD*)(a2 + 748);
-		if (sub_419130(a2 + 48))
+		if (nox_xxx_servObjectHasTeam_419130(a2 + 48))
 			v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(a2 + 52));
 	}
 	if (a4) {
 		if (a3) {
 			v16 = *(char**)(a3 + 748);
-			if (sub_419130(a3 + 48))
+			if (nox_xxx_servObjectHasTeam_419130(a3 + 48))
 				v15 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(a3 + 52));
 		}
 	}
@@ -5703,14 +5703,14 @@ void __cdecl nox_xxx_playerHandleKotrDeath_54DC40(int a1, int a2) {
 	v2 = 0;
 	v3 = 0;
 	v16 = *(_DWORD*)(a1 + 748);
-	result = (char*)sub_419130(a1 + 48);
+	result = (char*)nox_xxx_servObjectHasTeam_419130(a1 + 48);
 	if (result) {
 		result = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(a1 + 52));
 		v3 = result;
 	}
 	if (a2) {
 		v5 = *(_DWORD*)(a2 + 748);
-		result = (char*)sub_419130(a2 + 48);
+		result = (char*)nox_xxx_servObjectHasTeam_419130(a2 + 48);
 		if (result) {
 			result = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(a2 + 52));
 			v2 = result;
@@ -6110,7 +6110,7 @@ char __cdecl nox_xxx_updateMonsterGenerator_54E930(_DWORD* a1) {
 
 	v1 = nox_xxx_GetQuestStage_4E3CC0();
 	v2 = a1[187];
-	v3 = sub_51A930();
+	v3 = nox_xxx_getQuestStage_51A930();
 	if (!dword_5d4594_2491716) {
 		v14 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 291920));
 		dword_5d4594_2491716 = nox_float2int(v14);
@@ -6407,7 +6407,7 @@ _DWORD* __cdecl nox_xxx_mobGeneratorSpawn_54F070(int a1, int a2, int a3) {
 
 	v3 = a1;
 	v20 = *(_DWORD*)(a1 + 748);
-	sub_51A930();
+	nox_xxx_getQuestStage_51A930();
 	if (!*getMemU32Ptr(0x5D4594, 2491712))
 		*getMemU32Ptr(0x5D4594, 2491712) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 292256));
 	result = (_DWORD*)sub_50DE80(a1, (float*)a2);
@@ -7859,8 +7859,8 @@ void __cdecl sub_551250(unsigned int a1, float* a2, int a3) {
 								*((_DWORD*)v4 + 4) &= 0xF7FFFFFF;
 							}
 							nox_xxx_unitHasCollideOrUpdateFn_537610(v3);
-							if (!sub_419130(v3 + 48) || *(_DWORD*)(v5 + 12) != *(_DWORD*)(v5 + 4) ||
-								sub_419150(v3 + 48, (int)(v4 + 12))) {
+							if (!nox_xxx_servObjectHasTeam_419130(v3 + 48) || *(_DWORD*)(v5 + 12) != *(_DWORD*)(v5 + 4) ||
+								nox_xxx_servCompareTeams_419150(v3 + 48, (int)(v4 + 12))) {
 								if (!a3 && !*(_BYTE*)(v5 + 1)) {
 									v23 = *(float**)(v3 + 508);
 									if (!v23 || v23 == v4) {

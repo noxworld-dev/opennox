@@ -160,7 +160,7 @@ int __cdecl nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 			v3 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 150500));
 			*getMemU32Ptr(0x5D4594, 1096540) = v3;
 		}
-		sub_499710(*(_DWORD*)(a2 + 12), *(_DWORD*)(a2 + 16), *(_WORD*)(a2 + 104), v3);
+		nox_xxx_drawEnergyBolt_499710(*(_DWORD*)(a2 + 12), *(_DWORD*)(a2 + 16), *(_WORD*)(a2 + 104), v3);
 	}
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 3) || nox_xxx_spriteTestBuf_4356C0(a2, 5) || nox_xxx_spriteTestBuf_4356C0(a2, 29) || nox_xxx_spriteTestBuf_4356C0(a2, 28)) {
 		v4 = a1;

@@ -168,7 +168,7 @@ int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		sub_495180(*(_DWORD*)(v2 + 128), &v22, &v21, &a2);
 		nox_xxx_spriteDrawMonsterHP_4BC080(v12, v2, v22, v21, a2);
 	}
-	if (!nox_xxx_CheckGameplayFlags_417DA0(4) && (!*getMemU32Ptr(0x5D4594, 2614252) || !sub_419130(*getMemU32Ptr(0x5D4594, 2614252) + 24)))
+	if (!nox_xxx_CheckGameplayFlags_417DA0(4) && (!*getMemU32Ptr(0x5D4594, 2614252) || !nox_xxx_servObjectHasTeam_419130(*getMemU32Ptr(0x5D4594, 2614252) + 24)))
 		goto LABEL_45;
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		v15 = *getMemU32Ptr(0x5D4594, 2614252) + 24;

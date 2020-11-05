@@ -527,7 +527,7 @@ int __cdecl nox_cmd_load(int a1, char a2, int a3) {
 		v9 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 103512), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 								   2076);
 	} else {
-		sub_4DCC70(1);
+		nox_xxx_mapLoadOrSaveMB_4DCC70(1);
 		nox_xxx_mapLoad_4D2450(v8);
 		sub_41D650();
 		v10 = v8;
@@ -2151,7 +2151,7 @@ int nox_cmd_list_maps() {
 	signed int v3; // edi
 
 	memset(getMemAt(0x5D4594, 822404), 0, 0x100u);
-	v0 = sub_4D09B0();
+	v0 = nox_xxx_validateMapList_4D09B0();
 	for (i = 1; v0; ++i) {
 		sub_4417E0((wchar_t*)getMemAt(0x5D4594, 822404), (const char*)v0 + 12);
 		if (!(i % 4)) {
