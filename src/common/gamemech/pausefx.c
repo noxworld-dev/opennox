@@ -74,5 +74,5 @@ void __cdecl sub_57AF30(int a1, int a2) {
 	*getMemU32Ptr(0x5D4594, 2523772) = a2;
 	dword_5d4594_2523804 = 1;
 	sub_413A00(1);
-	*getMemU64Ptr(0x5D4594, 2523788) = sub_416BB0();
+	*getMemU64Ptr(0x5D4594, 2523788) = nox_call_get_ticks();
 }

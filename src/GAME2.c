@@ -1244,7 +1244,7 @@ int __cdecl sub_44E6F0(_DWORD* a1, int xLeft) {
 	}
 	nox_client_copyRect_49F6F0(0, 0, nox_backbuffer_width, nox_backbuffer_height);
 	if ((__int64)*(float*)&dword_5d4594_831276 <= *getMemIntPtr(0x5D4594, 831280) && dword_5d4594_831244 == 1 &&
-		!sub_44D930() && (unsigned __int64)(sub_416BB0() - *getMemU64Ptr(0x5D4594, 831292)) > 0x3A98 &&
+		!sub_44D930() && (unsigned __int64)(nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 831292)) > 0x3A98 &&
 		(*getMemU32Ptr(0x5D4594, 832488) == 1 || !(getMemByte(0x5D4594, 832472) & 5))) {
 		if (getMemByte(0x5D4594, 832472) & 2 && dword_5d4594_832480)
 			sub_452D80(582, 100);
@@ -1394,7 +1394,7 @@ int __cdecl nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		}
 	}
 	sub_43DD70(v6, 50);
-	*getMemU64Ptr(0x5D4594, 831292) = sub_416BB0();
+	*getMemU64Ptr(0x5D4594, 831292) = nox_call_get_ticks();
 	*getMemU32Ptr(0x5D4594, 831248) = 0;
 	v12 = nox_client_getIntroScreenDuration_44E3B0();
 	sub_44DB30(v12, 1, sub_44E3E0);
@@ -2450,7 +2450,7 @@ int __cdecl sub_452510(int a3) {
 				LODWORD(v3) = sub_4523D0((_DWORD*)a3);
 			return v3;
 		}
-		v3 = sub_416BB0();
+		v3 = nox_call_get_ticks();
 		if (v3 <= *(_QWORD*)(a3 + 288))
 			return v3;
 		*(_DWORD*)(a3 + 28) = *(_DWORD*)(a3 + 32);
@@ -2466,7 +2466,7 @@ __int64 __cdecl sub_452690(int a3, __int64 a4, int a5) {
 	__int64 result; // rax
 
 	*(_DWORD*)(a3 + 32) = a5;
-	result = a4 + sub_416BB0();
+	result = a4 + nox_call_get_ticks();
 	*(_QWORD*)(a3 + 288) = result;
 	*(_DWORD*)(a3 + 28) = 2;
 	return result;

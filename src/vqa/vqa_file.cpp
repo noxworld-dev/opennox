@@ -189,7 +189,7 @@ int Cvqa_file::extract_both()
 
     unsigned int cachedFramesReadPosition = 0;
 
-    dword startTime = nox_get_ticks();
+    dword startTime = nox_platform_get_ticks();
 
     int delayInNextFrame = 0;
 
@@ -377,13 +377,13 @@ int Cvqa_file::extract_both()
 
         if (skipRenderingFor > 0)
         {
-            int afterNoRenderPass = nox_get_ticks();
+            int afterNoRenderPass = nox_platform_get_ticks();
             int sleepFor = skipRenderingFor - (afterNoRenderPass - beforeNoRenderPass);
             if (sleepFor < 0)
             {
                 printf("SkipRenderPass overrun...\n");
                 delayInNextFrame += sleepFor;
-                startTime = nox_get_ticks();
+                startTime = nox_platform_get_ticks();
                 skipRenderingFor = 0;
             }
             else if (sleepFor > 5 && !cachesFull && currentFrame < get_c_frames())
@@ -394,12 +394,12 @@ int Cvqa_file::extract_both()
             else
             {
                 skipRenderingFor = 0;
-                dword beforeSleepTime = nox_get_ticks();
+                dword beforeSleepTime = nox_platform_get_ticks();
                 // We need to wait between frames
                 nox_sleep(sleepFor);
-                dword afterSleepTime = nox_get_ticks();
+                dword afterSleepTime = nox_platform_get_ticks();
                 delayInNextFrame -= afterSleepTime - beforeSleepTime - sleepFor;
-                startTime = nox_get_ticks();
+                startTime = nox_platform_get_ticks();
             }
         }
         else if (cachesUnavailable)
@@ -631,7 +631,7 @@ int Cvqa_file::extract_both()
 
             fpsCompensator = fpsCompensator % howMuchFrames + howMuchMilliseconds % howMuchFrames;
 
-            dword currentTime = nox_get_ticks();
+            dword currentTime = nox_platform_get_ticks();
             timeBetweenFrames -= currentTime - startTime;
             if (timeBetweenFrames > (howMuchMilliseconds / howMuchFrames))
             {
@@ -644,7 +644,7 @@ int Cvqa_file::extract_both()
             if (timeBetweenFrames > 0)
             {
                 delayInNextFrame = 0;
-                beforeNoRenderPass = nox_get_ticks();
+                beforeNoRenderPass = nox_platform_get_ticks();
                 skipRenderingFor = timeBetweenFrames;
                 //printf("RenderEnd: Next pass skip rendering %d\n", timeBetweenFrames);
             }
@@ -652,7 +652,7 @@ int Cvqa_file::extract_both()
             {
                 // How much time we "won back"
                 delayInNextFrame += (howMuchMilliseconds / howMuchFrames);
-                startTime = nox_get_ticks();
+                startTime = nox_platform_get_ticks();
             }
         }
 

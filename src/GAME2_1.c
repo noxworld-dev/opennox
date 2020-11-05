@@ -6615,7 +6615,7 @@ int __cdecl sub_470770(int a1, int a2) {
 	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
 	if (*getMemIntPtr(0x5D4594, 1090256) >= *getMemIntPtr(0x587000, 147864)) {
 		*getMemU32Ptr(0x587000, 147864) = *getMemU32Ptr(0x5D4594, 1090256) + 10;
-		v2 = nox_get_ticks();
+		v2 = nox_platform_get_ticks();
 		v3 = v2;
 		v4 = 0x2710 / (v2 - *getMemU32Ptr(0x5D4594, 1090268));
 		*getMemU32Ptr(0x5D4594, 1090264) = v3;

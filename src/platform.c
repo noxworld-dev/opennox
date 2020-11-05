@@ -15,7 +15,7 @@ void nox_srand(unsigned int seed) { srand(seed); }
 
 void nox_srand_time() { srand(time(0)); }
 
-unsigned int nox_get_ticks() { return SDL_GetTicks(); }
+unsigned int nox_platform_get_ticks() { return SDL_GetTicks(); }
 
 void nox_sleep(unsigned int ms) {
 #ifdef __EMSCRIPTEN__
@@ -45,7 +45,7 @@ void nox_sleep(unsigned int ms) {
 	sleep(0);
 }
 
-unsigned int nox_get_ticks() { return ticks; }
+unsigned int nox_platform_get_ticks() { return ticks; }
 
 unsigned int nox_get_loop_ticks() { return loop_ticks; }
 

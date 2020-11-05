@@ -4959,7 +4959,7 @@ int sub_4AB5E0() {
 	dword_587000_173328 = 1;
 	dword_587000_173332 = 1;
 	do {
-		sub_416C70(30);
+		nox_framerate_limit_416C70(30);
 		sub_4453A0_poll_events();
 		nox_client_processMouseInput_4308A0(1);
 		sub_46B740();
@@ -4984,7 +4984,7 @@ int sub_4AB5E0() {
 		sub_48A220();
 		sub_4AD170_call_copy_backbuffer();
 		sub_48A290_call_present();
-		while (!sub_416CD0())
+		while (!nox_ticks_should_update_416CD0())
 			;
 	} while (dword_587000_173328);
 	sub_4CC930();
