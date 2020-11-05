@@ -308,7 +308,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	if (!isServer) {
 		result = sub_416A10();
 		if (!result)
-			return result;
+			return 0;
 	}
 	sub_43DDF0(0);
 	nox_set_draw_unk1(0);
@@ -390,14 +390,14 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	nox_ensure_thing_bin();
 	result = nox_strman_readfile("nox.str"); // strange, should be .csf but it works anyway
 	if (!result) {
-		return result;
+		return 0;
 	}
 	sub_4D07F0();
 	sub_40AED0();
 	sub_416500();
 	result = nox_common_readcfgfile("nox.cfg", 0);
 	if (!result) {
-		return result;
+		return 0;
 	}
 	if (!nox_profiled_805856)
 		sub_4445C0();
@@ -411,17 +411,17 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	nox_video_resizewnd(0, 0, 16);
 	result = sub_43BF10_upd_video_mode(1);
 	if (!result) {
-		return result;
+		return 0;
 	}
 	sub_434350(*getMemIntPtr(0x5D4594, 2650656));
 	sub_440900();
 	result = nox_video_read_videobag(*(int*)&dword_5d4594_3804680);
 	if (!result) {
-		return result;
+		return 0;
 	}
 	result = sub_431370();
 	if (!result) {
-		return result;
+		return 0;
 	}
 	result = nox_audio_initall(nox_enable_audio);
 	if (!(result || !nox_enable_audio)) {
@@ -429,19 +429,19 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	}
 	result = sub_415470();
 	if (!result) {
-		return result;
+		return 0;
 	}
 	result = sub_430190();
 	if (!result) {
-		return result;
+		return 0;
 	}
 	result = sub_4101D0();
 	if (!result) {
-		return result;
+		return 0;
 	}
 	result = sub_410F60_init();
 	if (!result) {
-		return result;
+		return 0;
 	}
 	sub_414C90();
 	sub_4D0A30();
