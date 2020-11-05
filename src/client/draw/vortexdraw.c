@@ -38,11 +38,11 @@ int __cdecl nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	if (a2a.field_4 >= *(int*)(a2 + 444)) {
 		sub_4B6720(&xLeft, *(_DWORD*)(a2 + 432), 3, 5);
 		nox_client_drawSetColor_434460(*(_DWORD*)(a2 + 436));
-		sub_499B70(xLeft.field_0, xLeft.field_4, 3);
+		nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, 3);
 	} else {
 		sub_4B6720(&xLeft, *(int*)&dword_5d4594_1313816, 2, 4);
 		nox_client_drawSetColor_434460(*(int*)&dword_5d4594_1313816);
-		sub_499B70(xLeft.field_0, xLeft.field_4, 2);
+		nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, 2);
 	}
 	nox_client_drawAddPoint_49F500(xLeft.field_0, xLeft.field_4);
 	v6 = *(_BYTE*)(a2 + 449);
@@ -70,7 +70,7 @@ int __cdecl nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	v9 = nox_float2int(v11);
 	if (50 - v9 <= 0) {
 		LABEL_22:
-		sub_45A4E0_drawable(dr);
+		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 		result = 0;
 	} else {
 		*(_BYTE*)(a2 + 450) = 50 - v9;

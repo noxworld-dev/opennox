@@ -46,6 +46,6 @@ int __cdecl nox_thing_boulder_draw(int* a1, nox_drawable* dr) {
 		*(_DWORD*)(a2 + 432) = *(_DWORD*)(a2 + 12);
 		*(_DWORD*)(a2 + 436) = *(_DWORD*)(a2 + 16);
 	}
-		sub_4C4770_draw(a1, dr, *(_DWORD*)(*(_DWORD*)(v2 + 4) + 4 * (*(_DWORD*)(a2 + 440) + *(_DWORD*)(a2 + 444))));
+		nox_xxx_drawObject_4C4770_draw(a1, dr, *(_DWORD*)(*(_DWORD*)(v2 + 4) + 4 * (*(_DWORD*)(a2 + 440) + *(_DWORD*)(a2 + 444))));
 		return 1;
 }

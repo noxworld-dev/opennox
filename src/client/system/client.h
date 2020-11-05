@@ -3,12 +3,12 @@
 
 #include "../../defs.h"
 
-void sub_436100_draw();
+void nox_xxx_clientDrawAll_436100_draw();
 int sub_4365C0();
-int __cdecl sub_436970(int a1);
+int __cdecl nox_xxx_drawBandwith_436970(int a1);
 int __cdecl sub_436AA0(int a1);
-int sub_436C40();
-int __cdecl sub_436DF0(int a1);
+int nox_xxx_drawTimingMB_436C40();
+int __cdecl nox_xxx_drawPing_436DF0(int a1);
 int sub_436F50();
 
 char* sub_4358A0();

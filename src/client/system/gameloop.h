@@ -3,7 +3,7 @@
 
 #include "../../defs.h"
 
-int sub_43DEB0();
+int nox_xxx_gameChangeMap_43DEB0();
 int map_download_finish();
 
 void mainloop();

@@ -15,7 +15,7 @@ extern _DWORD dword_5d4594_1316492;
 void sub_49F5A0() { *getMemU32Ptr(0x5D4594, 3798692) = 0; }
 
 //----- (004BB070) --------------------------------------------------------
-int __cdecl sub_4BB070(int a1, int a2) {
+int __cdecl nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 	int v2;             // eax
 	bool v3;            // zf
 	int v4;             // esi
@@ -59,17 +59,17 @@ int __cdecl sub_4BB070(int a1, int a2) {
 			} while (v16);
 		}
 		LOWORD(v24) = v15 *
-						  sub_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
+						  nox_xxx_randGetMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
 									 "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 193) /
 						  v14 +
 					  (((__int16)a1 + (__int16)a2) >> 1);
 		HIWORD(v24) = v15 *
-						  sub_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
+						  nox_xxx_randGetMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
 									 "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 196) /
 						  v14 +
 					  ((SHIWORD(a1) + SHIWORD(a2)) >> 1);
-		sub_4BB070(a1, v24);
-		sub_4BB070(v24, a2);
+		nox_xxx_drawLightningStep_4BB070(a1, v24);
+		nox_xxx_drawLightningStep_4BB070(v24, a2);
 		return --dword_5d4594_1316492;
 	}
 	if (*getMemU32Ptr(0x5D4594, 1316508)) {
@@ -165,7 +165,7 @@ int __cdecl sub_4BB070(int a1, int a2) {
 }
 
 //----- (004BAE60) --------------------------------------------------------
-int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, int a7) {
+int __cdecl nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, int a7) {
 	int2* v7;    // ebx
 	int2* v8;    // ebp
 	int v9;      // esi
@@ -247,10 +247,10 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
 		dword_5d4594_1316492 = 1;
 		dword_5d4594_1316472 = dword_5d4594_1316456;
 		*getMemU32Ptr(0x5D4594, 1316508) = 0;
-		sub_4BB070((int)v22, (int)v21);
+		nox_xxx_drawLightningStep_4BB070((int)v22, (int)v21);
 		dword_5d4594_1316492 = 1;
 		dword_5d4594_1316472 = dword_5d4594_1316452;
-		sub_4BB070((int)v22, (int)v21);
+		nox_xxx_drawLightningStep_4BB070((int)v22, (int)v21);
 	}
 	result = a7;
 	if (a7) {
@@ -258,7 +258,7 @@ int __cdecl sub_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, 
 		dword_5d4594_1316472 = dword_5d4594_1316436;
 		*getMemU32Ptr(0x5D4594, 1316440) = dword_5d4594_1316484;
 		*getMemU32Ptr(0x5D4594, 1316508) = 1;
-		result = sub_4BB070((int)v22, (int)v21);
+		result = nox_xxx_drawLightningStep_4BB070((int)v22, (int)v21);
 	}
 	return result;
 }
@@ -301,15 +301,15 @@ int __cdecl nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 		a3.field_4 = *(unsigned __int16*)(a2 + 443);
 		a2a.field_4 = a3.field_4 - v4 + v19 - 20;
 	} else {
-		if (sub_578B70(*(_DWORD*)(a2 + 437)))
-			v7 = sub_45A720(*(_DWORD*)(a2 + 437));
+		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437)))
+			v7 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 437));
 		else
-			v7 = sub_45A6F0(*(_DWORD*)(a2 + 437));
+			v7 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 437));
 		v8 = v7;
-		if (sub_578B70(*(_DWORD*)(a2 + 441)))
-			v9 = sub_45A720(*(_DWORD*)(a2 + 441));
+		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 441)))
+			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 441));
 		else
-			v9 = sub_45A6F0(*(_DWORD*)(a2 + 441));
+			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 441));
 		if (!(v8 && v9)) {
 			return 1;
 		}
@@ -329,9 +329,9 @@ int __cdecl nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 	dword_5d4594_1316456 = *getMemU32Ptr(0x5D4594, 1316424);
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316488);
 	*getMemU8Ptr(0x5D4594, 1316420) = 1;
-	sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
-	if (!sub_413A50())
-		sub_4999D0(*getMemIntPtr(0x5D4594, 1316520), &v18, &a3);
+	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
+	if (!nox_xxx_checkGFlagNoParticles_413A50())
+		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316520), &v18, &a3);
 	return 1;
 }
 
@@ -375,15 +375,15 @@ int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 		a3.field_0 = v8;
 		a2a.field_4 = v8 - v5 + v6 - 20;
 	} else {
-		if (sub_578B70(*(_DWORD*)(a2 + 437)))
-			v9 = sub_45A720(*(_DWORD*)(a2 + 437));
+		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437)))
+			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 437));
 		else
-			v9 = sub_45A6F0(*(_DWORD*)(a2 + 437));
+			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 437));
 		v10 = v9;
-		if (sub_578B70(*(_DWORD*)(a2 + 441)))
-			v11 = sub_45A720(*(_DWORD*)(a2 + 441));
+		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 441)))
+			v11 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 441));
 		else
-			v11 = sub_45A6F0(*(_DWORD*)(a2 + 441));
+			v11 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 441));
 		if (!(v10 && v11)) {
 			return 1;
 		}
@@ -403,9 +403,9 @@ int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 	dword_5d4594_1316456 = *getMemU32Ptr(0x5D4594, 1316424);
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316488);
 	*getMemU8Ptr(0x5D4594, 1316420) = 1;
-	sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
-	if (!sub_413A50())
-		sub_4999D0(*getMemIntPtr(0x5D4594, 1316520), &v19, &a3);
+	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
+	if (!nox_xxx_checkGFlagNoParticles_413A50())
+		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316520), &v19, &a3);
 	return 1;
 }
 
@@ -453,15 +453,15 @@ int __cdecl nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 		a3.field_4 = *(unsigned __int16*)(v2 + 443);
 		a2a.field_4 = a3.field_4 - v6 + v21 - 20;
 	} else {
-		if (sub_578B70(*(_DWORD*)(v2 + 437)))
-			v9 = sub_45A720(*(_DWORD*)(v2 + 437));
+		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(v2 + 437)))
+			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(v2 + 437));
 		else
-			v9 = sub_45A6F0(*(_DWORD*)(v2 + 437));
+			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(v2 + 437));
 		v10 = v9;
-		if (sub_578B70(*(_DWORD*)(v2 + 441)))
-			v11 = sub_45A720(*(_DWORD*)(v2 + 441));
+		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(v2 + 441)))
+			v11 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(v2 + 441));
 		else
-			v11 = sub_45A6F0(*(_DWORD*)(v2 + 441));
+			v11 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(v2 + 441));
 		if (!(v10 && v11)) {
 			return 1;
 		}
@@ -479,9 +479,9 @@ int __cdecl nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 	*getMemU8Ptr(0x5D4594, 1316420) = 2 * (v22 + 127);
 	dword_5d4594_1316436 = *getMemU32Ptr(0x5D4594, 1316496);
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316468);
-	sub_4BAE60(&a1a, &a2a, 2, 0, 0, 0, 1);
-	if (!sub_413A50())
-		sub_4999D0(*getMemIntPtr(0x5D4594, 1316524), &v20, &a3);
+	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 0, 0, 1);
+	if (!nox_xxx_checkGFlagNoParticles_413A50())
+		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316524), &v20, &a3);
 	return 1;
 }
 
@@ -510,15 +510,15 @@ int __cdecl nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	if (*(_BYTE*)(a2 + 432)) {
-		if (sub_578B70(*(_DWORD*)(a2 + 437)))
-			v10 = sub_45A720(*(_DWORD*)(a2 + 437));
+		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437)))
+			v10 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 437));
 		else
-			v10 = sub_45A6F0(*(_DWORD*)(a2 + 437));
+			v10 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 437));
 		v11 = v10;
-		if (sub_578B70(*(_DWORD*)(a2 + 441)))
-			v12 = sub_45A720(*(_DWORD*)(a2 + 441));
+		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 441)))
+			v12 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 441));
 		else
-			v12 = sub_45A6F0(*(_DWORD*)(a2 + 441));
+			v12 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 441));
 		if (!v11 || !v12)
 			return 1;
 		v13 = *a1;
@@ -537,7 +537,7 @@ int __cdecl nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 			v3 = v2 - 1;
 			*(_DWORD*)(a2 + 433) = v3;
 			if (!v3) {
-				sub_45A4E0_drawable(dr);
+				nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 				return 0;
 			}
 		}
@@ -561,8 +561,8 @@ int __cdecl nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 	dword_5d4594_1316456 = *getMemU32Ptr(0x5D4594, 1316460);
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316480);
 	*getMemU8Ptr(0x5D4594, 1316420) = 1;
-	sub_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
-	if (!sub_413A50())
-		sub_4999D0(*getMemIntPtr(0x5D4594, 1316528), &v20, &a3);
+	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
+	if (!nox_xxx_checkGFlagNoParticles_413A50())
+		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316528), &v20, &a3);
 	return 1;
 }

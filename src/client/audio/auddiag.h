@@ -1,6 +1,6 @@
 #ifndef NOX_PORT_CLIENT_AUDIO_AUDDIAG
 #define NOX_PORT_CLIENT_AUDIO_AUDDIAG
 
-int sub_44D810();
+int nox_xxx_WorkerHurt_44D810();
 
 #endif // NOX_PORT_CLIENT_AUDIO_AUDDIAG

@@ -23,7 +23,7 @@ int __cdecl nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 	if (dr->field_72 >= *getMemIntPtr(0x5D4594, 2598000))
 		v2 = *getMemU32Ptr(0x5D4594, 2589772);
 	nox_client_drawSetColor_434460(v2);
-	sub_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v3 = dr->field_4;
 	v4 = *a1 + dr->field_3 - a1[4];
 	v5 = dr->field_28;
@@ -34,27 +34,27 @@ int __cdecl nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 		if (v5 & 0x2) {
 			sub_4BD010(dr, &a2a, v2);
 			nox_client_drawAddPoint_49F500(a2a.field_0, a2a.field_4);
-			sub_49F570(*getMemU32Ptr(0x587000, 8 * dr->field_74_2 + 179880),
+			nox_xxx_rasterPointRel_49F570(*getMemU32Ptr(0x587000, 8 * dr->field_74_2 + 179880),
 			           *getMemU32Ptr(0x587000, 8 * dr->field_74_2 + 179884));
 			nox_client_drawLineFromPoints_49E4B0();
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%d", dr->field_32);
-			sub_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 - 10);
+			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 - 10);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S", nox_get_thing_name(dr->field_27));
-			sub_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4);
+			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S", *getMemU32Ptr(0x587000, 4 * dr->field_69 + 178920));
-			sub_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 + 10);
+			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 + 10);
 		} else if (v5 & 0x4) {
 			sub_4BD010(dr, &a2a, v2);
 			nox_client_drawAddPoint_49F500(a2a.field_0, a2a.field_4);
-			sub_49F570(*getMemU32Ptr(0x587000, 8 * dr->field_74_2 + 179880),
+			nox_xxx_rasterPointRel_49F570(*getMemU32Ptr(0x587000, 8 * dr->field_74_2 + 179880),
 			           *getMemU32Ptr(0x587000, 8 * dr->field_74_2 + 179884));
 			nox_client_drawLineFromPoints_49E4B0();
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%d", dr->field_32);
-			sub_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 - 10);
+			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 - 10);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S", nox_get_thing_name(dr->field_27));
-			sub_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4);
+			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S", *getMemU32Ptr(0x587000, 4 * dr->field_69 + 178696));
-			sub_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 + 10);
+			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 + 10);
 		} else {
 			sub_4BD010(dr, &a2a, v2);
 		}
@@ -69,10 +69,10 @@ int __cdecl nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 		v11 = *getMemIntPtr(0x587000, v10 + 196184);
 		v18 = *getMemIntPtr(0x587000, v10 + 196188);
 		nox_client_drawAddPoint_49F500(a2a.field_0, v9);
-		sub_49F570(v11, v18);
+		nox_xxx_rasterPointRel_49F570(v11, v18);
 		nox_client_drawLineFromPoints_49E4B0();
 		nox_client_drawAddPoint_49F500(v20, v8);
-		sub_49F570(v11, v18);
+		nox_xxx_rasterPointRel_49F570(v11, v18);
 		nox_client_drawLineFromPoints_49E4B0();
 		nox_client_drawAddPoint_49F500(a2a.field_0, v9);
 		nox_client_drawAddPoint_49F500(v20, v8);
@@ -82,8 +82,8 @@ int __cdecl nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 		nox_client_drawLineFromPoints_49E4B0();
 	}
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%d", dr->field_32);
-	sub_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 - 10);
+	nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 - 10);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S", nox_get_thing_name(dr->field_27));
-	sub_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4);
+	nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4);
 	return 1;
 }

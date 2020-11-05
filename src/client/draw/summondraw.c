@@ -36,14 +36,14 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 	v15 = v3;
 	v17 = v4;
 	if (!dword_5d4594_1313740) {
-		v6 = sub_44CFC0((CHAR*)getMemAt(0x587000, 177040));
+		v6 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177040));
 		dword_5d4594_1313740 = v6;
 	}
 	v7 = *getMemU32Ptr(0x5D4594, 2598000) - v2[79];
 	v8 = *((unsigned __int16*)v2 + 218);
 	if (v7 < (unsigned int)(unsigned __int16)v8) {
 		if (v7 >= v8 - 1)
-			sub_499610(v6, 50, 1000, 30, v2[3], v2[4]);
+			nox_xxx_makePointFxCli_499610(v6, 50, 1000, 30, v2[3], v2[4]);
 		nox_thing_animate_draw(a1, dr);
 		v10 = 0;
 		v11 = getMemAt(0x587000, 192092);
@@ -77,8 +77,8 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 		nox_client_drawEnableAlpha_434560(0);
 		result = 1;
 	} else {
-		sub_45A4B0((_QWORD*)v2[108]);
-		sub_45A4E0_drawable(dr);
+		nox_xxx_spriteDelete_45A4B0((_QWORD*)v2[108]);
+		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 		result = 0;
 	}
 	return result;

@@ -37,26 +37,26 @@ int sub_4710B0() {
 	v0 = (wchar_t*)sub_4615C0();
 	v1 = v0;
 	if (v0) {
-		v2 = sub_4BF050(v0);
+		v2 = nox_xxx_clientAskInfoMb_4BF050(v0);
 		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1091968), v2);
 		if (v1[58] & 0xC) {
 			v3 = *getMemU32Ptr(0x5D4594, 1096292);
 			if (!*getMemU32Ptr(0x5D4594, 1096292)) {
-				v3 = sub_4E3AA0((CHAR*)getMemAt(0x587000, 148392));
+				v3 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 148392));
 				*getMemU32Ptr(0x5D4594, 1096292) = v3;
 			}
 			v4 = (wchar_t*)sub_461600(v3);
 			if (v4) {
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1091968), L"\n");
-				v5 = sub_4BF050(v4);
+				v5 = nox_xxx_clientAskInfoMb_4BF050(v4);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1091968), v5);
 			}
 		}
-		sub_4776B0((wchar_t*)getMemAt(0x5D4594, 1091968));
+		nox_xxx_cursorSetTooltip_4776B0((wchar_t*)getMemAt(0x5D4594, 1091968));
 		result = 1;
 	} else {
-		v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148444), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 881);
-		sub_4776B0(v7);
+		v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 148444), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 881);
+		nox_xxx_cursorSetTooltip_4776B0(v7);
 		result = 1;
 	}
 	return result;
@@ -71,11 +71,11 @@ int __cdecl sub_471160(int a1, int a2, int a3, int a4, int a5) {
 	nox_windows_arr_1093036[5].win = nox_window_new(a1, 1032, a2, a3, a4, a5, 0);
 	nox_windows_arr_1093036[6].win = nox_window_new(a1, 1032, a2 - 17, a3 - 15, 15, 15, 0);
 	nox_window_set_all_funcs(nox_windows_arr_1093036[5].win, 0, sub_471250, 0);
-	v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148504), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 921);
-	sub_46B000((wchar_t*)(&nox_windows_arr_1093036[5].win->field_9), v5);
+	v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 148504), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 921);
+	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[5].win->field_9), v5);
 	nox_window_set_all_funcs(nox_windows_arr_1093036[6].win, 0, sub_471450, 0);
-	v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148560), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 925);
-	sub_46B000((wchar_t*)(&nox_windows_arr_1093036[6].win->field_9), v6);
+	v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 148560), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 925);
+	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[6].win->field_9), v6);
 	result = nox_windows_arr_1093036[5].win;
 	nox_windows_arr_1093036[5].win->field_8 = 5;
 	nox_windows_arr_1093036[6].win->field_8 = 6;
@@ -83,7 +83,7 @@ int __cdecl sub_471160(int a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (004714E0) --------------------------------------------------------
-int sub_4714E0() {
+int nox_xxx_guiHealthManaInit_4714E0() {
 	int v1;              // edi
 	unsigned __int8* v2; // esi
 	wchar_t* v3;         // eax
@@ -100,7 +100,7 @@ int sub_4714E0() {
 
 	if (!*getMemU32Ptr(0x5D4594, 2618908))
 		return 0;
-	dword_5d4594_1096288 = sub_43F360((char*)getMemAt(0x587000, 148576));
+	dword_5d4594_1096288 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 148576));
 	dword_5d4594_1096264 = 0;
 	dword_5d4594_1096256 = 0;
 	dword_5d4594_1096260 = 0;
@@ -117,23 +117,23 @@ int sub_4714E0() {
 	int v2i = 0;
 	do {
 		nox_sprintf(v15, "HealthMana%d", ++v1);
-		*(_DWORD*)v2 = sub_42F970(v15);
+		*(_DWORD*)v2 = nox_xxx_gLoadImg_42F970(v15);
 		v2 += 4;
 		v2i++;
 	} while (v2i < 10);
 	if (!*getMemU32Ptr(0x5D4594, 1096268)) {
-		*getMemU32Ptr(0x5D4594, 1096268) = sub_44CFC0((CHAR*)getMemAt(0x587000, 148600));
-		dword_5d4594_1096272 = sub_44CFC0((CHAR*)getMemAt(0x587000, 148612));
-		dword_5d4594_1096276 = sub_44CFC0((CHAR*)getMemAt(0x587000, 148624));
-		dword_5d4594_1096280 = sub_44CFC0((CHAR*)getMemAt(0x587000, 148644));
-		dword_5d4594_1096284 = sub_44CFC0((CHAR*)getMemAt(0x587000, 148656));
+		*getMemU32Ptr(0x5D4594, 1096268) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 148600));
+		dword_5d4594_1096272 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 148612));
+		dword_5d4594_1096276 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 148624));
+		dword_5d4594_1096280 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 148644));
+		dword_5d4594_1096284 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 148656));
 	}
 	dword_5d4594_1090276 = nox_window_new(0, 136, nox_win_width - 91, nox_win_height - 201, 91, 201, 0);
-	sub_46AE60(*(int*)&dword_5d4594_1090276, *getMemIntPtr(0x5D4594, 1092996));
+	nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1090276, *getMemIntPtr(0x5D4594, 1092996));
 	dword_5d4594_1091364 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 6, 166, 28, 30, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1091364, sub_471B90, sub_471A80, 0);
-	v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148704), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1029);
-	sub_46B000((wchar_t*)(dword_5d4594_1091364 + 36), v3);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1091364, nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, 0);
+	v3 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 148704), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1029);
+	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1091364 + 36), v3);
 	*(_DWORD*)(dword_5d4594_1091364 + 32) = 2;
 	*getMemU16Ptr(0x5D4594, 1091384) = 0;
 	nox_thing* t4 = nox_get_thing(*(int*)&dword_5d4594_1096276);
@@ -147,18 +147,18 @@ int sub_4714E0() {
 	}
 	*getMemU32Ptr(0x5D4594, 1091380) = dword_5d4594_1096276;
 	dword_5d4594_1090292 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 34, 166, 28, 30, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090292, sub_471B90, sub_471A80, 0);
-	v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148764), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1060);
-	sub_46B000((wchar_t*)(dword_5d4594_1090292 + 36), v5);
+	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090292, nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, 0);
+	v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 148764), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1060);
+	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1090292 + 36), v5);
 	*(_DWORD*)(dword_5d4594_1090292 + 32) = 0;
 	*getMemU16Ptr(0x5D4594, 1090312) = 0;
 	*getMemU32Ptr(0x5D4594, 1090296) = 0;
 	*getMemU32Ptr(0x5D4594, 1090308) = 0;
 	if (*(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251)) {
 		dword_5d4594_1090828 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 62, 166, 28, 30, 0);
-		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090828, sub_471B90, sub_471A80, 0);
-		v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148820), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1083);
-		sub_46B000((wchar_t*)(dword_5d4594_1090828 + 36), v6);
+		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090828, nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, 0);
+		v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 148820), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1083);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1090828 + 36), v6);
 		*(_DWORD*)(dword_5d4594_1090828 + 32) = 1;
 		*getMemU16Ptr(0x5D4594, 1090848) = 0;
 		nox_thing* t7 = nox_get_thing(*(int*)&dword_5d4594_1096272);
@@ -171,50 +171,50 @@ int sub_4714E0() {
 			*getMemU32Ptr(0x5D4594, 1090832) = 0;
 		}
 		*getMemU32Ptr(0x5D4594, 1090844) = dword_5d4594_1096272;
-		*getMemU32Ptr(0x5D4594, 1091900) = sub_42F970("PoisonTube");
+		*getMemU32Ptr(0x5D4594, 1091900) = nox_xxx_gLoadImg_42F970("PoisonTube");
 		v8 = nox_window_new(*(int*)&dword_5d4594_1090276, 136, 0, 0, 91, 159, 0);
-		v9 = sub_42F970("HealthManaTubes");
-		sub_46AE60((int)v8, (int)v9);
+		v9 = nox_xxx_gLoadImg_42F970("HealthManaTubes");
+		nox_xxx_wndSetIcon_46AE60((int)v8, (int)v9);
 
 		nox_windows_arr_1093036[1].win = nox_window_new((int)v8, 8, 60, 34, 25, 125, 0);
-		nox_window_set_all_funcs(nox_windows_arr_1093036[1].win, sub_472100, sub_471D10, 0);
-		v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148900), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1122);
-		sub_46B000((wchar_t*)(&nox_windows_arr_1093036[1].win->field_9), v10);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[1].win, nox_xxx_guiHealthManaTubeProc_472100, nox_xxx_guiHealthManaTubeDraw_471D10, 0);
+		v10 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 148900), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1122);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[1].win->field_9), v10);
 		nox_windows_arr_1093036[1].win->field_8 = 1;
 
 		nox_windows_arr_1093036[0].win = nox_window_new((int)v8, 8, 34, 34, 25, 125, 0);
-		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, sub_472100, sub_471D10, 0);
-		v11 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 148952), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1135);
-		sub_46B000((wchar_t*)(&nox_windows_arr_1093036[0].win->field_9), v11);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, nox_xxx_guiHealthManaTubeProc_472100, nox_xxx_guiHealthManaTubeDraw_471D10, 0);
+		v11 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 148952), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1135);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[0].win->field_9), v11);
 		nox_windows_arr_1093036[0].win->field_8 = 0;
 
 		nox_windows_arr_1093036[2].win = nox_window_new(0, 8, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(nox_windows_arr_1093036[2].win, 0, sub_471C00, 0);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[2].win, 0, nox_xxx_drawHealthManaBar_471C00, 0);
 		nox_windows_arr_1093036[2].win->field_8 = 0;
 
 		nox_windows_arr_1093036[3].win = nox_window_new(0, 8, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(nox_windows_arr_1093036[3].win, 0, sub_471C00, 0);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[3].win, 0, nox_xxx_drawHealthManaBar_471C00, 0);
 		nox_windows_arr_1093036[3].win->field_8 = 1;
 
 		*getMemU32Ptr(0x5D4594, 1093176) = 1;
 	} else {
-		*getMemU32Ptr(0x5D4594, 1091900) = sub_42F970("WarriorPoisonTube");
+		*getMemU32Ptr(0x5D4594, 1091900) = nox_xxx_gLoadImg_42F970("WarriorPoisonTube");
 		v12 = nox_window_new(*(int*)&dword_5d4594_1090276, 136, 0, 0, 91, 159, 0);
-		v13 = sub_42F970("WarriorHealthTube");
-		sub_46AE60((int)v12, (int)v13);
+		v13 = nox_xxx_gLoadImg_42F970("WarriorHealthTube");
+		nox_xxx_wndSetIcon_46AE60((int)v12, (int)v13);
 
 		nox_windows_arr_1093036[0].win = nox_window_new((int)v12, 8, 34, 34, 25, 125, 0);
-		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, sub_472100, sub_471D10, 0);
-		v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 149048), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1173);
-		sub_46B000((wchar_t*)(&nox_windows_arr_1093036[0].win->field_9), v14);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, nox_xxx_guiHealthManaTubeProc_472100, nox_xxx_guiHealthManaTubeDraw_471D10, 0);
+		v14 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 149048), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1173);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[0].win->field_9), v14);
 		nox_windows_arr_1093036[0].win->field_8 = 0;
 
 		nox_windows_arr_1093036[2].win = nox_window_new(0, 24, 0, 0, 0, 0, 0);
-		nox_window_set_all_funcs(nox_windows_arr_1093036[2].win, 0, sub_471C00, 0);
+		nox_window_set_all_funcs(nox_windows_arr_1093036[2].win, 0, nox_xxx_drawHealthManaBar_471C00, 0);
 		nox_windows_arr_1093036[2].win->field_8 = 0;
 	}
 	sub_472280();
-	sub_470B00();
+	nox_xxx_guiHealthManaColorInit_470B00();
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
 		dword_5d4594_1096252 = 1;
 	} else {
@@ -226,7 +226,7 @@ int sub_4714E0() {
 }
 
 //----- (00471D10) --------------------------------------------------------
-int __cdecl sub_471D10(int xLeft) {
+int __cdecl nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 	_DWORD* v1;           // ebx
 	int v2;               // esi
 	unsigned __int8* v3;  // edi
@@ -273,7 +273,7 @@ int __cdecl sub_471D10(int xLeft) {
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop - v6 + 125, 15, v6);
 		nox_client_drawEnableAlpha_434560(0);
 		nox_client_drawAddPoint_49F500(xLeft, yTop - v6 + 125);
-		sub_49F570(14, 0);
+		nox_xxx_rasterPointRel_49F570(14, 0);
 		nox_client_drawLineFromPoints_49E4B0();
 		if (v2 < 2 && nox_client_renderBubbles_80844 == 1) {
 			v19 = 64;
@@ -305,20 +305,20 @@ int __cdecl sub_471D10(int xLeft) {
 				v10 = 64;
 				do {
 					if (!*((_DWORD*)v9 + 2)) {
-						v11 = sub_415FF0(1, 100, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 668);
+						v11 = nox_xxx_randGetMinMax_415FF0(1, 100, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 668);
 						if (v11 >= 80)
 							*(_DWORD*)v9 = (v11 >= 95) + 2;
 						else
 							*(_DWORD*)v9 = 1;
-						v12 = sub_415FF0(0, 14, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 676);
+						v12 = nox_xxx_randGetMinMax_415FF0(0, 14, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 676);
 						v13 = *(_DWORD*)v9;
 						*((_DWORD*)v9 - 2) = v12;
 						if (v13 + v12 > 15)
 							*((_DWORD*)v9 - 2) = 15 - v13;
 						*((_DWORD*)v9 - 1) = 16 * (125 - v13);
-						*((_DWORD*)v9 + 1) = sub_415FF0(4, 48, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 684);
+						*((_DWORD*)v9 + 1) = nox_xxx_randGetMinMax_415FF0(4, 48, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 684);
 						*((_DWORD*)v9 + 2) = 1;
-						LOBYTE(v19) = sub_415FF0(0, 64, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 688);
+						LOBYTE(v19) = nox_xxx_randGetMinMax_415FF0(0, 64, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 688);
 						if (v18)
 							v14 = nox_color_rgb_4344A0(v19, v19, 255);
 						else
@@ -344,7 +344,7 @@ int __cdecl sub_471D10(int xLeft) {
 					dword_5d4594_1096256 = 0;
 				}
 			}
-			sub_46AE60(*(int*)&dword_5d4594_1090276, *getMemU32Ptr(0x5D4594, 4 * v16 + 1092996));
+			nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1090276, *getMemU32Ptr(0x5D4594, 4 * v16 + 1092996));
 		}
 		sub_472080();
 		result = 1;

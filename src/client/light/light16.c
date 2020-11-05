@@ -210,7 +210,7 @@ void __cdecl sub_484F90(int a1) {
 	v1 = a1;
 	if (sub_45A840((_DWORD*)a1) || *(_DWORD*)(a1 + 112) & 0x80000 && (v2 = *(_DWORD*)(a1 + 120), v2 & 0x1000000) &&
 									   v2 & 4 && *(_DWORD*)(a1 + 144) > 0) {
-		if (!sub_57AF20() || a1 == *getMemU32Ptr(0x5D4594, 2614252) ||
+		if (!nox_xxx_get_57AF20() || a1 == *getMemU32Ptr(0x5D4594, 2614252) ||
 			*(int(__cdecl**)(int*, int))(a1 + 300) == nox_thing_glow_orb_draw) {
 			if (*(_DWORD*)(a1 + 120) & 0x20000000 && dword_5d4594_3801780 == 1) {
 				a5 = sub_416090(0.89999998, 1.1) * *(float*)(a1 + 140);
@@ -368,7 +368,7 @@ void __cdecl sub_484E60(int a1) {
 		memset(getMemAt(0x5D4594, 2616332), 0x1Fu, 0xA04u);
 		*getMemU8Ptr(0x5D4594, 2618896) = 31;
 	} else {
-		if (sub_57AF20()) {
+		if (nox_xxx_get_57AF20()) {
 			v8 = 50;
 			a1 = 50;
 			v9 = 50;
@@ -389,7 +389,7 @@ void __cdecl sub_484E60(int a1) {
 		v7 = v1[9];
 		v10.field_8 = v1[8] + v5 + 100;
 		v10.field_C = v7 + v6 + 100;
-		sub_49AB00(&v10, sub_484F90, (int)v1);
+		nox_xxx_spriteEnum_49AB00(&v10, sub_484F90, (int)v1);
 	}
 }
 
@@ -645,7 +645,7 @@ LABEL_9:
 }
 
 //----- (00469140) --------------------------------------------------------
-void __cdecl sub_469140(int arg0) {
+void __cdecl nox_xxx_cliLight16_469140(int arg0) {
 	int v1;           // esi
 	int v2;           // eax
 	signed int v3;    // ebp
@@ -696,12 +696,12 @@ void __cdecl sub_469140(int arg0) {
 	if (sub_45A840((_DWORD*)arg0) || *(_DWORD*)(arg0 + 112) & 0x80000 &&
 										 (v2 = *(_DWORD*)(arg0 + 120), v2 & 0x1000000) && *(_DWORD*)(arg0 + 144) > 0 &&
 										 v2 & 4) {
-		if (!sub_57AF20() || arg0 == *getMemU32Ptr(0x5D4594, 2614252) ||
+		if (!nox_xxx_get_57AF20() || arg0 == *getMemU32Ptr(0x5D4594, 2614252) ||
 			*(int(__cdecl**)(int*, int))(arg0 + 300) == nox_thing_glow_orb_draw) {
 			v3 = *(_DWORD*)(arg0 + 148);
 			v4 = *(_DWORD*)(arg0 + 144);
 			if (*(_DWORD*)(arg0 + 120) & 0x20000000) {
-				v3 += sub_415FF0(0, *(_DWORD*)(arg0 + 148) >> 18, "C:\\NoxPost\\src\\Client\\Light\\Light16.c", 267)
+				v3 += nox_xxx_randGetMinMax_415FF0(0, *(_DWORD*)(arg0 + 148) >> 18, "C:\\NoxPost\\src\\Client\\Light\\Light16.c", 267)
 					  << 16;
 				v27 = (double)v3 * 0.000015258789;
 				v4 = sub_484C60(v27);
@@ -870,7 +870,7 @@ void __cdecl sub_468F80(int a1) {
 		} while (!v4);
 	} else {
 		sub_434A10(&a1, &v22, &v21);
-		if (sub_57AF20()) {
+		if (nox_xxx_get_57AF20()) {
 			v5 = 50;
 			v6 = 50;
 			v7 = 50;
@@ -924,16 +924,16 @@ void __cdecl sub_468F80(int a1) {
 		v16 = v1[9];
 		v17.field_8 = v1[8] + v14 + 100;
 		v17.field_C = v16 + v15 + 100;
-		sub_49AB00(&v17, sub_469140, (int)v1);
+		nox_xxx_spriteEnum_49AB00(&v17, nox_xxx_cliLight16_469140, (int)v1);
 	}
 }
 
 //----- (00430CC0) --------------------------------------------------------
-BOOL sub_430CC0() {
+BOOL nox_xxx___cfltcvt_init_430CC0() {
 	BOOL result; // eax
 
 	*getMemU32Ptr(0x5D4594, 3807124) = 1;
-	*getMemU32Ptr(0x5D4594, 3807128) = sub_480EF0;
+	*getMemU32Ptr(0x5D4594, 3807128) = nox_xxx_someEdgeProcessing_480EF0;
 	*getMemU32Ptr(0x5D4594, 3807132) = sub_468F80;
 	*getMemU32Ptr(0x5D4594, 3807148) = sub_4814F0;
 	dword_5d4594_3807156 = sub_469920;
@@ -954,10 +954,10 @@ BOOL sub_430CC0() {
 //----- (00430BA0) --------------------------------------------------------
 int nox_video_initFloorBuffer_430BA0() {
 	if (dword_5d4594_3801780 == 1)
-		sub_430CC0();
+		nox_xxx___cfltcvt_init_430CC0();
 	else
 		sub_430D60();
-	if (!sub_430DB0(nox_backbuffer_width, nox_backbuffer_height)) {
+	if (!nox_xxx_tileInitBuf_430DB0(nox_backbuffer_width, nox_backbuffer_height)) {
 		printf("VideoInit: error initializing floor buffer\n");
 		return 0;
 	}
@@ -965,7 +965,7 @@ int nox_video_initFloorBuffer_430BA0() {
 }
 
 //----- (00431040) --------------------------------------------------------
-int __cdecl sub_431040(int a1, int a2, int a3) {
+int __cdecl nox_xxx_unused_431040(int a1, int a2, int a3) {
 	nox_win_width = a2;
 	nox_win_height = a3;
 	*(_DWORD*)&nox_video_dxFullScreen = 0;

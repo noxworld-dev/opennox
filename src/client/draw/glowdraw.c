@@ -45,17 +45,17 @@ int __cdecl sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 		v13 = v10 + v12;
 		xLeft.field_4 = v13;
 		if (v11 - 10 >= v9 && v13 - 10 >= v10 && v11 + 10 < a1[2] && v13 + 10 < a1[3]) {
-			v14 = v18 * sub_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 213) / v16;
+			v14 = v18 * nox_xxx_randGetMinMax_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 213) / v16;
 			v15 = v14;
 			if (v14) {
 				sub_4B6720(&xLeft, a4, 2 * v14 + 1, v14 + 1);
 				nox_client_drawSetColor_434460(a3);
-				sub_499B70(xLeft.field_0, xLeft.field_4, v15);
+				nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, v15);
 			}
 		}
 		result = 1;
 	} else {
-		sub_45A4E0_drawable(dr);
+		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 		result = 0;
 	}
 	return result;
@@ -65,7 +65,7 @@ int __cdecl sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 int __cdecl nox_thing_magic_sparkle_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
-	if (sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5)
+	if (nox_xxx_randGetMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5)
 		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
 	else
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
@@ -90,7 +90,7 @@ int __cdecl nox_thing_pixie_draw(int* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	v2 = sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 503) < 50;
+	v2 = nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 503) < 50;
 	v3 = *(_WORD*)(a2 + 104);
 	if (v2) {
 		if (v3 > 0) {
@@ -133,7 +133,7 @@ LABEL_7:
 int __cdecl nox_thing_pixie_dust_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
-	if (sub_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5)
+	if (nox_xxx_randGetMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5)
 		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313564);
 	else
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313564, *getMemIntPtr(0x5D4594, 1313560));
@@ -153,27 +153,27 @@ int __cdecl nox_thing_blue_rain_spark_draw(_DWORD* a1, nox_drawable* dr) {
 	if (result == 1 && *(_BYTE*)(a2 + 296) >= 5) {
 		v3 = *getMemU32Ptr(0x5D4594, 1313688);
 		if (!*getMemU32Ptr(0x5D4594, 1313688)) {
-			v3 = sub_44CFC0((CHAR*)getMemAt(0x587000, 176184));
+			v3 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176184));
 			*getMemU32Ptr(0x5D4594, 1313688) = v3;
 		}
-		v4 = sub_45A360_drawable(v3, *(_DWORD*)(a2 + 12), *(_DWORD*)(a2 + 16));
+		v4 = nox_xxx_spriteLoadAdd_45A360_drawable(v3, *(_DWORD*)(a2 + 12), *(_DWORD*)(a2 + 16));
 		v5 = v4;
 		if (v4) {
 			if (v4 != -432) {
 				*(_DWORD*)(v4 + 432) = *(_DWORD*)(a2 + 12) << 12;
 				*(_DWORD*)(v4 + 436) = *(_DWORD*)(a2 + 16) << 12;
-				*(_BYTE*)(v4 + 299) = sub_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
-				*(_DWORD*)(v5 + 440) = sub_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
+				*(_BYTE*)(v4 + 299) = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
+				*(_DWORD*)(v5 + 440) = nox_xxx_randGetMinMax_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
 				*(_DWORD*)(v5 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
-									   sub_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
+									   nox_xxx_randGetMinMax_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
 				*(_DWORD*)(v5 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 			}
-			*(_WORD*)(v5 + 104) = sub_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);
+			*(_WORD*)(v5 + 104) = nox_xxx_randGetMinMax_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);
 			*(_WORD*)(v5 + 106) = 0;
-			*(_BYTE*)(v5 + 296) = sub_415FF0(0, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 620);
-			sub_45A110_drawable((_DWORD*)v5);
+			*(_BYTE*)(v5 + 296) = nox_xxx_randGetMinMax_415FF0(0, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 620);
+			nox_xxx_sprite_45A110_drawable((_DWORD*)v5);
 		}
-		sub_45A4E0_drawable(dr);
+		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 		result = 0;
 	}
 	return result;
@@ -210,8 +210,8 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 
 	v2 = (_DWORD*)a2;
 	if (!dword_5d4594_1313692) {
-		dword_5d4594_1313692 = sub_44CFC0((CHAR*)getMemAt(0x587000, 176396));
-		*getMemU32Ptr(0x5D4594, 1313696) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176412));
+		dword_5d4594_1313692 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176396));
+		*getMemU32Ptr(0x5D4594, 1313696) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176412));
 	}
 	v3 = *(_WORD*)(a2 + 104);
 	if (v3 > 0) {
@@ -228,17 +228,17 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 		v19 = *(__int16*)(a2 + 104) - *(__int16*)(a2 + 440);
 		nox_client_drawSetColor_434460(v17);
 		nox_client_drawAddPoint_49F500(xLeft.field_0, xLeft.field_4);
-		sub_49F570(0, v19);
+		nox_xxx_rasterPointRel_49F570(0, v19);
 		nox_client_drawLineFromPoints_49E4B0();
 		*(_WORD*)(a2 + 440) = *(_WORD*)(a2 + 104);
 		*(_WORD*)(a2 + 104) += *(char*)(a2 + 296);
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 1313592));
-		sub_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(a2 + 442) / 3);
+		nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(a2 + 442) / 3);
 		result = 1;
 	} else {
 		if (!*getMemU32Ptr(0x5D4594, 1313700)) {
-			*getMemU32Ptr(0x5D4594, 1313700) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176424));
-			*getMemU32Ptr(0x5D4594, 1313704) = sub_44CFC0((CHAR*)getMemAt(0x587000, 176440));
+			*getMemU32Ptr(0x5D4594, 1313700) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176424));
+			*getMemU32Ptr(0x5D4594, 1313704) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176440));
 		}
 		v4 = *(_DWORD*)(a2 + 12);
 		v5 = *(_DWORD*)(a2 + 16);
@@ -246,7 +246,7 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 		v25 = v5 - *(_DWORD*)(a2 + 436);
 		v24.field_0 = (double)(v2[3] - v2[108]);
 		v24.field_4 = (double)v25;
-		v7 = sub_509ED0(&v24);
+		v7 = nox_xxx_math_509ED0(&v24);
 		v23[2] = v4;
 		v23[3] = v6;
 		v20 = *getMemFloatPtr(0x587000, 8 * v7 + 194136) * 150.0 + (double)(int)v2[108];
@@ -259,9 +259,9 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 		v23[1] = v10;
 		if (v2[27] != dword_5d4594_1313692)
 			v11 = *getMemU32Ptr(0x5D4594, 1313704);
-		v12 = sub_415FF0(6, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 793);
+		v12 = nox_xxx_randGetMinMax_415FF0(6, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 793);
 		sub_499490(v11, v23, 0, 0, v12, 1);
-		sub_45A4E0_drawable(dr);
+		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 		result = 0;
 	}
 	return result;

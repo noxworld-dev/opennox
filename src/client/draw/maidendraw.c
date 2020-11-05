@@ -23,7 +23,7 @@ int __cdecl nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr) {
 		v11 = (int*)(v9 + 8);
 		do {
 			v12 = v10 + 1;
-			sub_4341D0(v10 + 1, *v11);
+			nox_xxx_drawPlayer_4341D0(v10 + 1, *v11);
 			v10 = v12;
 			++v11;
 		} while (v12 < 6);

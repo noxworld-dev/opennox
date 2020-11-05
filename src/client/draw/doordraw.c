@@ -21,14 +21,14 @@ int __cdecl nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
 	int v15;   // [esp-4h] [ebp-18h]
 	int2 a3;   // [esp+Ch] [ebp-8h]
 
-	sub_4C4770_draw(a1, dr, *(_DWORD*)(*(_DWORD*)((char*)dr->field_76 + 4) + 4 * dr->field_74_4));
+	nox_xxx_drawObject_4C4770_draw(a1, dr, *(_DWORD*)(*(_DWORD*)((char*)dr->field_76 + 4) + 4 * dr->field_74_4));
 	if (!nox_common_gameFlags_check_40A5C0(4096) || dr->field_108_1 != 1)
 		return 1;
 	if (!dr->field_109) {
-		dr->field_110 = sub_42F970("DoorLockSilverSW");
-		dr->field_109 = sub_42F970("DoorLockSilverSE");
-		dr->field_111 = sub_42F970("DoorLockGoldSW");
-		dr->field_112 = sub_42F970("DoorLockGoldSE");
+		dr->field_110 = nox_xxx_gLoadImg_42F970("DoorLockSilverSW");
+		dr->field_109 = nox_xxx_gLoadImg_42F970("DoorLockSilverSE");
+		dr->field_111 = nox_xxx_gLoadImg_42F970("DoorLockGoldSW");
+		dr->field_112 = nox_xxx_gLoadImg_42F970("DoorLockGoldSE");
 	}
 	sub_4739E0(a1, (int2*)&dr->field_3, &a3);
 	a3.field_0 -= 64;
@@ -86,7 +86,7 @@ int __cdecl nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
 //----- (0044C0F0) --------------------------------------------------------
 bool __cdecl nox_things_door_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->draw_func = &nox_thing_door_draw;
-	void* v3 = sub_44C000(attr_value, f);
+	void* v3 = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f);
 	obj->field_5c = v3;
 	return v3 != 0;
 }

@@ -477,8 +477,8 @@ int __usercall DestroyNoxWindow() {
 
 	v1 = modifyWndPntr;
 	v1 = modifyWndPntr;
-	sub_46C6E0((int)modifyWndPntr);
-	sub_46C4E0(v1);
+	nox_xxx_wnd_46C6E0((int)modifyWndPntr);
+	nox_xxx_windowDestroyMB_46C4E0(v1);
 	return (int)v1;
 }
 
@@ -541,7 +541,7 @@ int __usercall playerInfoStructsToVector(smallPlayerStructVector* vector) {
 	v7 = result;
 	if (result) {
 		do {
-			pDst.string[1] = *((_BYTE*)sub_418C80(*((_DWORD*)v7 + 515)) + 4);
+			pDst.string[1] = *((_BYTE*)nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)v7 + 515)) + 4);
 			pDst.string[0] = v7[2251];
 			nox_CharToOemW((LPCWSTR)v7 + 2352, &(pDst.string[2]));
 			da_add(*vector, pDst);
@@ -570,7 +570,7 @@ char __cdecl playerInfoStructParser_0(char* a1) {
 		if (!v1)
 			return 0;
 	}
-	a1[1] = *((_BYTE*)sub_418C80(*((_DWORD*)v1 + 515)) + 4);
+	a1[1] = *((_BYTE*)nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)v1 + 515)) + 4);
 	*a1 = v1[2251];
 	return 1;
 }
@@ -597,7 +597,7 @@ char __usercall playerInfoStructParser_1(int a1, int a2, int* a3) {
 		if (!v4)
 			return 0;
 	}
-	v6 = sub_418C80(*(_DWORD*)(*(_DWORD*)a2 + 2060));
+	v6 = nox_xxx_objGetTeamByNetCode_418C80(*(_DWORD*)(*(_DWORD*)a2 + 2060));
 	*a3 = (int)v6;
 	*(_BYTE*)(a1 + 1) = *((_BYTE*)v6 + 4);
 	*(_BYTE*)a1 = *(_BYTE*)(*(_DWORD*)a2 + 2251);
@@ -628,15 +628,15 @@ char __cdecl mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 				v3 = *(_DWORD*)(v3 + v4);
 				if (!v3)
 					break;
-				weapFlags = sub_415820(v3); // weaponEquipFlags
+				weapFlags = nox_xxx_unitWeaponInventoryEquipFlags_415820(v3); // weaponEquipFlags
 				if (weapFlags) {
 					if (weapFlags != 2) {
-						if (sub_57B3D0(v3, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 748) + 276) + 2251))) {
-							v11 = sub_4F3180(playerObj, v3);
+						if (nox_xxx_playerClassCanUseItem_57B3D0(v3, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 748) + 276) + 2251))) {
+							v11 = nox_xxx_playerCheckStrength_4F3180(playerObj, v3);
 							if (v11) {
 								// It will surely fail to work if left this way (4F2FB0 will return 0 if given weapon is not currently equipped)
 								// but in asm it's almost the same (4F2FB0; >0?: and 4F2F70)
-								if (sub_4F2FB0((_DWORD*)playerObj, v3) && sub_4F2F70((_DWORD*)playerObj, v3)) {
+								if (nox_xxx_playerTryDequip_4F2FB0((_DWORD*)playerObj, v3) && nox_xxx_playerTryEquip_4F2F70((_DWORD*)playerObj, v3)) {
 									v16 = 1;
 								}
 								return v16;
@@ -647,13 +647,13 @@ char __cdecl mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 			}
 		} else {
 			for (i = *(_DWORD*)(playerObj + 504); i; i = *(_DWORD*)(i + 496)) {
-				v6 = sub_415820(i); // weaponEquipFlags
+				v6 = nox_xxx_unitWeaponInventoryEquipFlags_415820(i); // weaponEquipFlags
 				if (v6) {
 					if (v6 != 2) {
-						if (sub_57B3D0(i, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114) + 0x8CB))) {
-							v8 = sub_4F3180(playerObj, i);
+						if (nox_xxx_playerClassCanUseItem_57B3D0(i, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114) + 0x8CB))) {
+							v8 = nox_xxx_playerCheckStrength_4F3180(playerObj, i);
 							if (v8) {
-								if (sub_4F2F70((_DWORD*)playerObj, i))
+								if (nox_xxx_playerTryEquip_4F2F70((_DWORD*)playerObj, i))
 									v16 = 1;
 								return v16;
 							}
@@ -694,7 +694,7 @@ char __cdecl playerDropATrap(int playerObj) {
 		for (i = *(_DWORD*)(playerObj + 0x1F8); i; i = *(_DWORD*)(i + 0x1F0)) {
 			if (*(_BYTE*)(i + 0xA) == v7) // check if something from *(byte*)(unit+0xA)=17
 			{
-				sub_4ED810(playerObj, i, v6); // drop this item
+				nox_xxx_drop_4ED810(playerObj, i, v6); // drop this item
 				return 1;
 			}
 		}
@@ -740,7 +740,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 							currentFileBufferPntr == 32 || currentFileBufferPntr == 10) {
 							if (v9) {
 								NumberOfBytesRead = inet_addr(cp);
-								sub_555010(NumberOfBytesRead, a2, (char*)a1, a3);
+								nox_xxx_makeTempSocket_555010(NumberOfBytesRead, a2, (char*)a1, a3);
 								*(_DWORD*)cp = 0;
 								*(_DWORD*)&cp[4] = 0;
 								*(_DWORD*)&cp[8] = 0;
@@ -769,7 +769,7 @@ unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a
 	int* end = da_end(gameIps);
 
 	for (it = da_begin(gameIps), end = da_end(gameIps); it != end; ++it) {
-		sub_555010(*it, a1, (char*)a2,
+		nox_xxx_makeTempSocket_555010(*it, a1, (char*)a2,
 				   a3); // Вызывает какую-то функцию которая создаёт структуру сокета и отпр 16 байт
 	}
 	return end;
@@ -783,9 +783,9 @@ signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4) {
 	LPCWSTR pSrc;    // [esp+18h] [ebp-24h]
 	char pDst[28];   // [esp+1Ch] [ebp-20h]
 
-	v7 = sub_46B0A0((int*)a4);
+	v7 = nox_xxx_wndGetID_46B0A0((int*)a4);
 	pSrc = (LPCWSTR)sub_449E60(-88);
-	sub_452D80(766, 100); // playSound
+	nox_xxx_clientPlaySoundSpecial_452D80(766, 100); // playSound
 	if (v7 == 4001) {
 		if (nox_CharToOemW(pSrc, pDst)) {
 			v6 = inet_addr(pDst);
@@ -795,7 +795,7 @@ signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4) {
 				return 1;
 			}
 		}
-		sub_452D80(925, 100); // playSound
+		nox_xxx_clientPlaySoundSpecial_452D80(925, 100); // playSound
 	}
 	isInvalidIp = 1;
 	return 0;
@@ -804,14 +804,14 @@ signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4) {
 // 10002300: using guessed type CHAR pDst[28];
 
 //----- (100023E0) --------------------------------------------------------
-_DWORD* playErrSoundClient() { return sub_452D80(766, 100); }
+_DWORD* playErrSoundClient() { return nox_xxx_clientPlaySoundSpecial_452D80(766, 100); }
 
 //----- (10002400) --------------------------------------------------------
 unsigned int invalidIpChecker(unsigned int interval, void* param) {
 	while (sub_44A4A0())
 		return 1;
 	if (isInvalidIp) {
-		sub_449A10(0, 0, (int)L"Invalid Address", 33, playErrSoundClient, 0);
+		nox_xxx_dialogMsgBoxCreate_449A10(0, 0, (int)L"Invalid Address", 33, playErrSoundClient, 0);
 		return 0;
 	}
 	sub_4378B0();
@@ -837,20 +837,20 @@ int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 
 	if (a2 != 16391)
 		return 0;
-	sub_452D80(766, 100);
-	v4 = sub_46B0A0((int*)a3);
+	nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
+	v4 = nox_xxx_wndGetID_46B0A0((int*)a3);
 	if (v4 > 0x791) {
 		if (v4 == 1938 && !nox_common_gameFlags_check_40A5C0(512)) {
 			sub_4BDFD0();
-			nox_wnd_sub_46A9B0((_DWORD*)getMem(0x715E00), 200, 100);
+			nox_wnd_nox_xxx_wndDraw_46A9B0((_DWORD*)getMem(0x715E00), 200, 100);
 		}
 		return 0;
 	}
 	if (v4 == 1937) {
 		GameExCfgSaver();
 		v6 = modifyWndPntr;
-		sub_46C6E0((int)modifyWndPntr);
-		sub_46C4E0(v6);
+		nox_xxx_wnd_46C6E0((int)modifyWndPntr);
+		nox_xxx_windowDestroyMB_46C4E0(v6);
 		modifyWndPntr = 0;
 		result = 0;
 	} else {
@@ -950,7 +950,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 		{
 		case 0u:
 			if ((MEMACCESS(0x98085A) >> 3) & 1) {
-				v8 = sub_418C80(*((_DWORD*)buf + 1));
+				v8 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)buf + 1));
 				v9 = buf[8];
 				v10 = (int)(v8 - 12);
 				v36 = ((unsigned int)v9 >> 4) & 1;
@@ -968,7 +968,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 		case 6u:
 			break;
 		case 2u: // clientPlaySoundSpecial
-			sub_452D80(895, 100);
+			nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 			break;
 		case 3u: // Send back playerInfoStructs
 			if (nox_common_gameFlags_check_40A5C0(1) && (MEMACCESS(0x98085A) >> 5) & 1) {
@@ -1035,15 +1035,15 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 			if ((MEMACCESS(0x98085A) >> 5) & 1) {
 				memset(v44, 0, 0x80u);
 				mbstowcs((wchar_t*)v44, buf + 4, strlen(buf + 4));
-				sub_445490((wchar_t*)v44);
-				sub_452D80(901, 100);
+				nox_xxx_printCentered_445490((wchar_t*)v44);
+				nox_xxx_clientPlaySoundSpecial_452D80(901, 100);
 			}
 			break;
 		case 7u:
 			memset(v44, 0, 0x80u);
 			mbstowcs((wchar_t*)v44, buf + 4, strlen(buf + 4));
-			sub_445490((wchar_t*)v44);
-			sub_452D80(901, 100);
+			nox_xxx_printCentered_445490((wchar_t*)v44);
+			nox_xxx_clientPlaySoundSpecial_452D80(901, 100);
 			break;
 		case 8u:
 			if (nox_common_gameFlags_check_40A5C0(1) && (MEMACCESS(0x98085A) >> 5) & 1) {
@@ -1075,7 +1075,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 			break;
 		case 9u:
 			if ((MEMACCESS(0x98085A) >> 3) & 1) {
-				v35 = sub_418C80(*((_DWORD*)buf + 1));
+				v35 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)buf + 1));
 				playerDropATrap((int)(v35 - 12));
 			}
 			break;
@@ -1186,7 +1186,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 							if (!(_BYTE)result) {
 								LOBYTE(result) = mix_MouseKeyboardWeaponRoll(v6, a2a);
 								if ((_BYTE)result)
-									result = sub_452D80(895, 100); // clientPlaySound
+									result = nox_xxx_clientPlaySoundSpecial_452D80(895, 100); // clientPlaySound
 							}
 						}
 					} else {
@@ -1218,7 +1218,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 				if (nox_common_gameFlags_check_40A5C0(1)) // isServer
 				{
 					if (MEMACCESS(0x97EBC0) && mix_MouseKeyboardWeaponRoll(MEMACCESS(0x97EBC0), vaArg1_1[1]))
-						sub_452D80(895, 100);
+						nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 				} else {
 					notifyThisIsServeronly((int)&buf, 0, 1);
 					// v27 = v8 | 0x10;
@@ -1235,7 +1235,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 						return result;
 					if (nox_common_gameFlags_check_40A5C0(1)) // checkGameFlags isServer
 					{
-						v9 = sub_418C80(MEMACCESS(0x85319C));
+						v9 = nox_xxx_objGetTeamByNetCode_418C80(MEMACCESS(0x85319C));
 						playerDropATrap((int)(v9 - 12));
 					} else {
 						notifyThisIsServeronly((int)&buf, 9, 1);
@@ -1247,12 +1247,12 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 		if ((_BYTE)v7 != 66)
 			goto LABEL_60;
 		if (!nox_common_gameFlags_check_40A5C0(1)) {
-			sub_445490(L"only server can change these options");
-			return sub_452D80(231, 100);
+			nox_xxx_printCentered_445490(L"only server can change these options");
+			return nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
 		}
 		result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
 		if (result) {
-			sub_452D80(921, 100);
+			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 			if (modifyWndPntr) {
 				GameExCfgSaver();
 				DestroyNoxWindow();
@@ -1263,23 +1263,23 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 				if (!result)
 					return result;
 				if (nox_common_gameFlags_check_40A5C0(512)) {
-					v10 = sub_46B0C0(modifyWndPntr, 1938);
+					v10 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1938);
 					nox_window_set_hidden((int)v10, 1);
-					v11 = sub_46B0C0(modifyWndPntr, 1524);
-					sub_46ABB0((int)v11, 0);
+					v11 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1524);
+					nox_xxx_wnd_46ABB0((int)v11, 0);
 				}
 				sub_46B120(modifyWndPntr, 0);
-				a2b = sub_46B0C0(modifyWndPntr, 1981);
+				a2b = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1981);
 				v12 = 1520;
 				v13 = wndEntryNames;
 				*(_DWORD*)vaArg1_1 = 5;
 				do {
 					nox_window_call_field_94((int)a2b, 16397, (int)v13, -1);
 					if (getFlagValueFromFlagIndex(v12 - 1519) & MEMACCESS(0x98085A)) {
-						v14 = sub_46B0C0(modifyWndPntr, v12);
+						v14 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, v12);
 						v14[9] |= 4u;
 					} else {
-						v15 = sub_46B0C0(modifyWndPntr, v12);
+						v15 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, v12);
 						v15[9] &= 0xFBu;
 					}
 					++v13;
@@ -1294,7 +1294,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 				if ((signed int)result >= 5)
 					return result;
 			}
-			result = (_DWORD*)sub_45E110((int)result);
+			result = (_DWORD*)nox_xxx_clientUpdateButtonRow_45E110((int)result);
 		}
 		return result;
 	case 418:
@@ -1302,7 +1302,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 		if (!result) {
 			memset(inputNewIpMsgBox, 0, 0x200u);
 			*(_DWORD*)&inputNewIpMsgBox[376] = inputNewIp_;
-			result = sub_449A10((int)inputNewIpMsgBox, (int)L"Ip Address", (int)L"Enter address", 163,
+			result = nox_xxx_dialogMsgBoxCreate_449A10((int)inputNewIpMsgBox, (int)L"Ip Address", (int)L"Enter address", 163,
 								(int (*)(void))startInvalidIpChecker, 0);
 		}
 		return result;
@@ -1318,14 +1318,14 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 			if ((v17 == 0x6B || v17 == 0x6D) && (_BYTE)v16)
 				goto ifIsWarrior;
 		LABEL_71:
-			sub_4F36F0(v23, v19, 1, 1);
+			nox_xxx_inventoryServPlace_4F36F0(v23, v19, 1, 1);
 			return v18;
 		}
 		if ((_BYTE)v16 == 1)
 			goto LABEL_71;
 	ifIsWarrior:
-		sub_4DA2C0(v23, (const char*)getMem(0x5BBAB4), 0); // 0x5BBAB4 = pickup.c:ObjectEquipClassFail
-		sub_501960(925, v23, 2, *(_DWORD*)(v23 + 36));
+		nox_xxx_netPriMsgToPlayer_4DA2C0(v23, (const char*)getMem(0x5BBAB4), 0); // 0x5BBAB4 = pickup.c:ObjectEquipClassFail
+		nox_xxx_aud_501960(925, v23, 2, *(_DWORD*)(v23 + 36));
 		return v18;
 	default:
 		return result;

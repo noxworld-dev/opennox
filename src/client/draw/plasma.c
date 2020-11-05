@@ -110,20 +110,20 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 			*getMemU32Ptr(0x5D4594, v11 + 1313908) = v15;
 			if (v15 <= 0) {
 				*getMemU32Ptr(0x5D4594, v11 + 1313908) =
-					sub_415FF0(10, 90, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 378);
+					nox_xxx_randGetMinMax_415FF0(10, 90, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 378);
 				*getMemU32Ptr(0x5D4594, v11 + 1313904) =
-					sub_415FF0(4, 8, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 382);
-				if (sub_415FF0(0, 1, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 385))
+					nox_xxx_randGetMinMax_415FF0(4, 8, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 382);
+				if (nox_xxx_randGetMinMax_415FF0(0, 1, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 385))
 					*getMemU32Ptr(0x5D4594, v11 + 1313904) = -*getMemU32Ptr(0x5D4594, v11 + 1313904);
 				if (i == 1) {
 					*getMemU32Ptr(0x5D4594, 28 * v10 + 1314732) =
-						sub_415FF0(40, 50, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 392);
+						nox_xxx_randGetMinMax_415FF0(40, 50, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 392);
 				} else {
 					*getMemU32Ptr(0x5D4594, v11 + 1313892) =
-						sub_415FF0(80, 110, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 395);
-					if (v10 < 4 && sub_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 402) > 90) {
+						nox_xxx_randGetMinMax_415FF0(80, 110, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 395);
+					if (v10 < 4 && nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 402) > 90) {
 						*getMemU32Ptr(0x5D4594, v11 + 1313892) =
-							sub_415FF0(150, 200, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 407);
+							nox_xxx_randGetMinMax_415FF0(150, 200, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 407);
 						*getMemU32Ptr(0x5D4594, v11 + 1313908) *= 2;
 					}
 				}
@@ -188,7 +188,7 @@ char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3) {
 	v3 = *a3;
 	v4 = sub_437250();
 	if (!*getMemU32Ptr(0x5D4594, 1316416))
-		*getMemU32Ptr(0x5D4594, 1316416) = sub_44CFC0((CHAR*)getMemAt(0x587000, 178156));
+		*getMemU32Ptr(0x5D4594, 1316416) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 178156));
 	v6 = 28 * (dword_5d4594_1316412 + 30 * v3);
 	v5 = dword_5d4594_1316412 + 1;
 	*getMemU32Ptr(0x5D4594, v6 + 1313884) = *a1;
@@ -198,7 +198,7 @@ char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3) {
 	LOBYTE(v6) = getMemByte(0x5D4594, 2598000);
 	dword_5d4594_1316412 = v5;
 	if (getMemByte(0x5D4594, 2598000) & 4) {
-		v6 = sub_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
+		v6 = nox_xxx_randGetMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
 		if (v6 > 5)
 			LOBYTE(v6) = sub_499710(*a2 + *((_DWORD*)v4 + 4) - *(_DWORD*)v4,
 									a2[1] + *((_DWORD*)v4 + 5) - *((_DWORD*)v4 + 1), 8, *getMemIntPtr(0x5D4594, 1316416));
@@ -238,20 +238,20 @@ int __cdecl nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
 	v24 = nox_client_getMousePos_4309F0();
 	v3 = a2;
 	if (*(_BYTE*)(a2 + 432)) {
-		if (sub_578B70(*(_DWORD*)(a2 + 437))) {
-			v12 = sub_578B30(*(_DWORD*)(a2 + 437));
-			v13 = sub_45A720(v12);
+		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437))) {
+			v12 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 437));
+			v13 = nox_xxx_netSpriteByCodeStatic_45A720(v12);
 		} else {
-			v14 = sub_578B30(*(_DWORD*)(a2 + 437));
-			v13 = sub_45A6F0(v14);
+			v14 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 437));
+			v13 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v14);
 		}
 		v15 = v13;
-		if (sub_578B70(*(_DWORD*)(a2 + 441))) {
-			v16 = sub_578B30(*(_DWORD*)(a2 + 441));
-			v17 = sub_45A720(v16);
+		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 441))) {
+			v16 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 441));
+			v17 = nox_xxx_netSpriteByCodeStatic_45A720(v16);
 		} else {
-			v18 = sub_578B30(*(_DWORD*)(a2 + 441));
-			v17 = sub_45A6F0(v18);
+			v18 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 441));
+			v17 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v18);
 		}
 		v19 = v17;
 		if (v15 && v17) {
@@ -271,7 +271,7 @@ int __cdecl nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
 		}
 		v25.field_0 = (double)v24->field_0 - (double)a2;
 		v25.field_4 = (double)v24->field_4 - (double)(int)a1;
-		v26 = sub_509ED0(&v25);
+		v26 = nox_xxx_math_509ED0(&v25);
 	} else {
 		v4 = *(_WORD*)(a2 + 439);
 		v26 = *(_BYTE*)(a2 + 433);

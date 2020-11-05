@@ -3,7 +3,7 @@
 extern _DWORD dword_5d4594_825736;
 
 //----- (00445490) --------------------------------------------------------
-void __cdecl sub_445490(wchar_t* a1) {
+void __cdecl nox_xxx_printCentered_445490(wchar_t* a1) {
 	int v1;             // eax
 	int v2;             // eax
 	unsigned short* v3; // eax
@@ -20,7 +20,7 @@ void __cdecl sub_445490(wchar_t* a1) {
 													4 * *getMemUintPtr(0x5D4594, 2649704) +
 													*getMemUintPtr(0x5D4594, 2649704);
 		*getMemU8Ptr( 0x5D4594, v2 + 824444) = 0;
-		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 107916), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimsg.c", 69);
-		sub_450C00(6u, v3, a1);
+		v3 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 107916), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimsg.c", 69);
+		nox_xxx_consoleVPrint_450C00(6u, v3, a1);
 	}
 }

@@ -8,7 +8,7 @@ extern _DWORD dword_5d4594_1550916;
 int sub_4D42C0() { return dword_5d4594_1550916; }
 
 //----- (00522AD0) --------------------------------------------------------
-float* __cdecl sub_522AD0(float* a1, int a2) {
+float* __cdecl nox_xxx_mapgen_522AD0(float* a1, int a2) {
 	int v2;     // eax
 	double v4;  // st7
 	double v5;  // st7
@@ -51,10 +51,10 @@ float* __cdecl sub_522AD0(float* a1, int a2) {
 	default:
 		break;
 	}
-	sub_527940((char*)a2);
-	v6 = sub_5279B0(&a1a);
+	nox_xxx_mapGenGetObjID_527940((char*)a2);
+	v6 = nox_xxx_mapGenPlaceObj_5279B0(&a1a);
 	if (v6) {
-		sub_520DF0(&a1a, &a2a);
+		nox_xxx_mapGenRoundFloatToPtr_520DF0(&a1a, &a2a);
 		switch (*(_DWORD*)(a2 + 60)) {
 		case 0:
 			v13 = 3.0;
@@ -102,15 +102,15 @@ int __cdecl sub_527D50(int a1, char* a2) {
 		return 0;
 	if (!a2)
 		return 0;
-	v3 = (CHAR*)sub_4E39D0(a1);
-	if (*(int(__cdecl**)(int))(sub_4E3B60(v3) + 212) != sub_4F4B90)
+	v3 = (CHAR*)nox_xxx_getUnitName_4E39D0(a1);
+	if (*(int(__cdecl**)(int))(nox_xxx_utilThingDefByName_4E3B60(v3) + 212) != nox_xxx_XFerExit_4F4B90)
 		return 0;
 	strncpy(*(char**)(a1 + 700), a2, 0x50u);
 	return 1;
 }
 
 //----- (00522A40) --------------------------------------------------------
-int __cdecl sub_522A40(int a1) {
+int __cdecl nox_xxx_mapGenMakeExit_522A40(int a1) {
 	if (!*(_DWORD*)(a1 + 472))
 		return 1;
 	for (int v2 = sub_5259E0(); v2; v2 = *(_DWORD*)(v2 + 68)) {
@@ -120,7 +120,7 @@ int __cdecl sub_522A40(int a1) {
 		int v3 = 0;
 		int v4 = a1 + 216;
 		while (v3 < *(int*)(a1 + 472)) {
-			float* v5 = sub_522AD0((float*)v2, v4);
+			float* v5 = nox_xxx_mapgen_522AD0((float*)v2, v4);
 			if (v5) {
 				sub_527D50((int)v5, (char*)(a1 + 476));
 				return 1;
@@ -139,7 +139,7 @@ double sub_5259D0() { return *(float*)&dword_5d4594_2487580; }
 void sub_526A90() { free(*(LPVOID*)&dword_5d4594_2487672); }
 
 //----- (005228B0) --------------------------------------------------------
-void __cdecl sub_5228B0_mapgen_populate(int a1) {
+void __cdecl nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
 	wchar_t* v1; // eax
 	wchar_t* v2; // eax
 	wchar_t* v3; // eax
@@ -149,29 +149,29 @@ void __cdecl sub_5228B0_mapgen_populate(int a1) {
 	float v8;    // [esp+8h] [ebp-8h]
 	float v9;    // [esp+Ch] [ebp-4h]
 
-	sub_5235F0(157);
-	if (!sub_522A40(a1)) {
-		v1 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 254784), 0,
+	nox_xxx_mapGenSetFlags_5235F0(157);
+	if (!nox_xxx_mapGenMakeExit_522A40(a1)) {
+		v1 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 254784), 0,
 								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 848);
-		sub_4D9FD0(0, v1);
-		v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 254844), 0,
+		nox_xxx_printToAll_4D9FD0(0, v1);
+		v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 254844), 0,
 								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 849);
-		sub_4D9FD0(0, v2);
-		v3 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 254904), 0,
+		nox_xxx_printToAll_4D9FD0(0, v2);
+		v3 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 254904), 0,
 								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 850);
-		sub_4D9FD0(0, v3);
+		nox_xxx_printToAll_4D9FD0(0, v3);
 	}
 	sub_5259D0();
 	for (i = sub_4D42C0(); i; i = *(_DWORD*)(i + 64)) {
-		sub_5235F0(157);
+		nox_xxx_mapGenSetFlags_5235F0(157);
 		if (*(_DWORD*)(i + 372) && !(*(_BYTE*)(i + 52) & 2))
-			sub_522340(a1, i);
+			nox_xxx_mapgen_522340(a1, i);
 		if (*(_DWORD*)(a1 + 60)) {
 			for (j = *(_DWORD*)(i + 368); j; j = *(_DWORD*)(j + 24)) {
 				if (*(_DWORD*)j)
-					sub_51D4D0((char*)getMemAt(0x587000, 254924));
+					nox_xxx_tileGetDefByName_51D4D0((char*)getMemAt(0x587000, 254924));
 				else
-					sub_51D4D0((char*)getMemAt(0x587000, 254912));
+					nox_xxx_tileGetDefByName_51D4D0((char*)getMemAt(0x587000, 254912));
 				sub_5245A0(a1, (float*)(j + 4), (__int64)((*(float*)(j + 12) - *(float*)(j + 4) + 0.5) * 0.030743772),
 						   (__int64)((*(float*)(j + 16) - *(float*)(j + 8) + 0.5) * 0.030743772));
 			}
@@ -180,8 +180,8 @@ void __cdecl sub_5228B0_mapgen_populate(int a1) {
 	v6 = (float*)sub_4D42C0();
 	v8 = (v6[11] + v6[9]) * 0.5;
 	v9 = (v6[12] + v6[10]) * 0.5;
-	sub_527940((char*)getMemAt(0x587000, 254936));
-	sub_5279B0(&v8);
+	nox_xxx_mapGenGetObjID_527940((char*)getMemAt(0x587000, 254936));
+	nox_xxx_mapGenPlaceObj_5279B0(&v8);
 	sub_469B90((int*)(a1 + 536));
 	sub_526A90();
 }

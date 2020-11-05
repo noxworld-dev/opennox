@@ -135,7 +135,7 @@ void __cdecl sub_48B190(LPDIRECTDRAWCLIPPER* a1);
 void __cdecl sub_48B1B0(LPDIRECTDRAW* a1);
 void __cdecl sub_48B1D0(LPDIRECTDRAWSURFACE* a1);
 int __cdecl sub_48AD40(HWND a1, int a2, int a3, int a4);
-int __cdecl sub_48AED0(HWND a1, int a2, int a3);
+int __cdecl nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3);
 
 HWND windowHandle_dword_973FE0;
 #endif
@@ -181,7 +181,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	if (!(v7 & 4)) {
 		if (!sub_48A040(wnd, v8, h, depth))
 			return 0;
-		dword_5d4594_3801804 = sub_444D90();
+		dword_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
 		return 1;
 	}
 	v9 = (v7 & 0x17) - 20;
@@ -196,7 +196,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 		dword_5d4594_3801780 = 0;
 		*getMemU32Ptr(0x5D4594, 3801776) = v8 >> 2;
 		nox_backbuffer_width32 = v8 >> 5;
-		dword_5d4594_3801804 = sub_444D90();
+		dword_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
 		return 1;
 	}
 	v10 = v9 - 1;
@@ -211,7 +211,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	nox_pitch_3801808 = 2 * v8;
 	*getMemU32Ptr(0x5D4594, 3801776) = v8 >> 1;
 	nox_backbuffer_width32 = v8 >> 4;
-	dword_5d4594_3801804 = sub_444D90();
+	dword_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
 	return 1;
 }
 
@@ -233,13 +233,13 @@ void __cdecl sub_48A9C0(int a1)
 }
 
 // restore device
-int sub_48A2A0()
+int nox_xxx_directDrawBlitImpl_48A2A0()
 {
     return 0;
 }
 
 // check flip status, restore device if needed
-void __cdecl sub_48A220()
+void __cdecl nox_xxx_directDrawBlitMB_48A220()
 {
 }
 
@@ -317,7 +317,7 @@ int sub_4348C0()
 }
 
 // set color key of g_cursor_surf
-BOOL sub_48BDE0()
+BOOL nox_xxx_makeFillerColor_48BDE0()
 {
     return 1;
 }
@@ -395,7 +395,7 @@ int __cdecl sub_434040(int a1)
     return 0;
 }
 
-int __cdecl sub_4341D0(int a1, int a2)
+int __cdecl nox_xxx_drawPlayer_4341D0(int a1, int a2)
 {
     return 0;
 }
@@ -460,7 +460,7 @@ int4 sdl_get_display_dim() {
 	result.field_8 = 0;
 	result.field_C = 0;
 
-	display_id = SDL_GetWindowDisplayIndex(getWindowHandle_sub_401FD0());
+	display_id = SDL_GetWindowDisplayIndex(getWindowHandle_nox_xxx_getHWND_401FD0());
 
 	if (display_id >= 0 && SDL_GetDisplayBounds(display_id, &bounds) == 0) {
 		result.field_0 = bounds.w;
@@ -473,8 +473,8 @@ int4 sdl_get_display_dim() {
 }
 
 void sdl_set_window_rect(int2 size, int2 position) {
-	SDL_SetWindowSize(getWindowHandle_sub_401FD0(), size.field_0, size.field_4);
-	SDL_SetWindowPosition(getWindowHandle_sub_401FD0(), position.field_0, position.field_4);
+	SDL_SetWindowSize(getWindowHandle_nox_xxx_getHWND_401FD0(), size.field_0, size.field_4);
+	SDL_SetWindowPosition(getWindowHandle_nox_xxx_getHWND_401FD0(), position.field_0, position.field_4);
 }
 
 extern int g_fullscreen;
@@ -511,24 +511,24 @@ void change_windowed_fullscreen() {
 	case -1:
 	case 1:
 		// Normal fullscreen
-		SDL_SetWindowResizable(getWindowHandle_sub_401FD0(), SDL_FALSE);
-		SDL_SetWindowBordered(getWindowHandle_sub_401FD0(), SDL_FALSE);
+		SDL_SetWindowResizable(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_FALSE);
+		SDL_SetWindowBordered(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_FALSE);
 		sdl_set_window_rect(fullscreenSize, fullscreenPosition);
-		SDL_SetWindowFullscreen(getWindowHandle_sub_401FD0(), SDL_WINDOW_FULLSCREEN_DESKTOP);
+		SDL_SetWindowFullscreen(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_WINDOW_FULLSCREEN_DESKTOP);
 		break;
 	case -2:
 	case 2:
 		// Borderless fullscreen
-		SDL_SetWindowFullscreen(getWindowHandle_sub_401FD0(), 0);
-		SDL_SetWindowResizable(getWindowHandle_sub_401FD0(), SDL_FALSE);
-		SDL_SetWindowBordered(getWindowHandle_sub_401FD0(), SDL_TRUE);
+		SDL_SetWindowFullscreen(getWindowHandle_nox_xxx_getHWND_401FD0(), 0);
+		SDL_SetWindowResizable(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_FALSE);
+		SDL_SetWindowBordered(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
 		sdl_set_window_rect(fullscreenSize, fullscreenPosition);
 		break;
 	default:
 		// Windowed
-		SDL_SetWindowFullscreen(getWindowHandle_sub_401FD0(), 0);
-		SDL_SetWindowResizable(getWindowHandle_sub_401FD0(), SDL_TRUE);
-		SDL_SetWindowBordered(getWindowHandle_sub_401FD0(), SDL_TRUE);
+		SDL_SetWindowFullscreen(getWindowHandle_nox_xxx_getHWND_401FD0(), 0);
+		SDL_SetWindowResizable(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
+		SDL_SetWindowBordered(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
 		sdl_set_window_rect(windowedSize, windowedPosition);
 		break;
 	}
@@ -607,7 +607,7 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
 #else
 		if (nox_video_renderTargetFlags & 0x10) {
 			// windowed mode
-			result = sub_48AED0(a1, a2, a3);
+			result = nox_xxx_initWindowed1_48AED0(a1, a2, a3);
 			if (!result)
 				return result;
 		} else {
@@ -676,15 +676,15 @@ char sub_48A190() {
 }
 
 //----- (0048A220) --------------------------------------------------------
-void __cdecl sub_48A220() {
+void __cdecl nox_xxx_directDrawBlitMB_48A220() {
 #ifndef USE_SDL
 	HRESULT i; // eax
 
-	if (g_ddraw && !dword_974854 && dword_973C64 && (!dword_973C70 || sub_48A2A0())) {
+	if (g_ddraw && !dword_974854 && dword_973C64 && (!dword_973C70 || nox_xxx_directDrawBlitImpl_48A2A0())) {
 		for (i = g_frontbuffer->lpVtbl->GetFlipStatus(g_frontbuffer, 2); i;
 			 i = g_frontbuffer->lpVtbl->GetFlipStatus(g_frontbuffer, 2)) {
 			if (i == DDERR_SURFACELOST) {
-				if (!sub_48A2A0())
+				if (!nox_xxx_directDrawBlitImpl_48A2A0())
 					return;
 			} else if (i == DDERR_SURFACEBUSY) {
 				return;
@@ -728,7 +728,7 @@ void __cdecl sub_48A670(SDL_Surface* a1) { SDL_LockSurface(a1); }
 void __cdecl sub_48A6B0(SDL_Surface* a1) { SDL_UnlockSurface(a1); }
 #else
 //----- (0048A2A0) --------------------------------------------------------
-int sub_48A2A0() {
+int nox_xxx_directDrawBlitImpl_48A2A0() {
 	int v0; // esi
 
 	if (!dword_6F7BB0 || !dword_974854)
@@ -1038,7 +1038,7 @@ void sdl_present() {
 
 		dstrect.x = 0;
 		dstrect.y = 0;
-		SDL_GL_GetDrawableSize(getWindowHandle_sub_401FD0(), &(dstrect.w), &(dstrect.h));
+		SDL_GL_GetDrawableSize(getWindowHandle_nox_xxx_getHWND_401FD0(), &(dstrect.w), &(dstrect.h));
 		SDL_GetClipRect(g_backbuffer1, &srcrect);
 		if (dstrect.w != srcrect.w || dstrect.h != srcrect.h) {
 			float newW;
@@ -1151,7 +1151,7 @@ void sdl_present() {
 #else
 //----- (0048AAF0) --------------------------------------------------------
 void __cdecl sub_48AAF0() {
-	if (g_ddraw && !dword_974854 && (!g_frontbuffer->lpVtbl->IsLost(g_frontbuffer) || sub_48A2A0())) {
+	if (g_ddraw && !dword_974854 && (!g_frontbuffer->lpVtbl->IsLost(g_frontbuffer) || nox_xxx_directDrawBlitImpl_48A2A0())) {
 		sub_48BE50(1);
 		sub_48B5D0(0, 0);
 		g_frontbuffer->lpVtbl->Flip(g_frontbuffer, 0, DDFLIP_WAIT);
@@ -1184,7 +1184,7 @@ void __cdecl sub_48ABC0() {
 	RECT rectClient; // [esp+Ch] [ebp-20h]
 	RECT rc;         // [esp+1Ch] [ebp-10h]
 
-	if (!dword_974854 && g_ddraw && (!g_frontbuffer->lpVtbl->IsLost(g_frontbuffer) || sub_48A2A0())) {
+	if (!dword_974854 && g_ddraw && (!g_frontbuffer->lpVtbl->IsLost(g_frontbuffer) || nox_xxx_directDrawBlitImpl_48A2A0())) {
 		if (IsWindow(windowHandle_dword_973FE0)) {
 			Point.x = 0;
 			Point.y = 0;
@@ -1293,7 +1293,7 @@ int __stdcall sub_48AE80(LPDIRECTDRAWSURFACE a1, LPDDSURFACEDESC a2, LPVOID a3) 
 }
 
 //----- (0048AED0) --------------------------------------------------------
-int __cdecl sub_48AED0(HWND a1, int a2, int a3) {
+int __cdecl nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3) {
 	char v3;    // al
 	HDC v4;     // esi
 	int v5;     // edi
@@ -1306,11 +1306,11 @@ int __cdecl sub_48AED0(HWND a1, int a2, int a3) {
 		DeleteDC(v4);
 		if (nox_backbuffer_depth == 8) {
 			if (v5 != nox_backbuffer_depth) {
-				sub_48C940("8 bit color windowed mode requires you switch your desktop to 256 colors");
+				nox_xxx_msgError_48C940("8 bit color windowed mode requires you switch your desktop to 256 colors");
 				return 0;
 			}
 		} else if (nox_backbuffer_depth == 16 && v5 != 16) {
-			sub_48C940("16 bit color windowed mode requires you switch your desktop to High Color (65536 colors)");
+			nox_xxx_msgError_48C940("16 bit color windowed mode requires you switch your desktop to High Color (65536 colors)");
 			return 0;
 		}
 	}
@@ -1495,7 +1495,7 @@ int sub_48B000() {
 			lpDD->lpVtbl->Release(lpDD);
 		result = 1;
 	} else {
-		sub_48C940("You do not have the correct version of DirectX!");
+		nox_xxx_msgError_48C940("You do not have the correct version of DirectX!");
 		result = 0;
 	}
 	return result;
@@ -1631,7 +1631,7 @@ int nox_video_initCursorDrawVars_48B1F0() {
 		result = sub_48C060();
 		printf("%s: %d\n", __FUNCTION__, result);
 		if (result) {
-			result = sub_48BDE0();
+			result = nox_xxx_makeFillerColor_48BDE0();
 			printf("%s: %d\n", __FUNCTION__, result);
 			if (result) {
 				result = nox_video_createCursorDrawThread_48BE70();
@@ -1666,7 +1666,7 @@ int sdl_drawCursorThreaded(int a1) {
 	r1->bottom = r1->top + *getMemU32Ptr(0x5D4594, 1193620);
 
 	if ((!a1 || dword_5d4594_1193668 || dword_5d4594_1193664) &&
-		sub_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.data[9]))) {
+		nox_xxx_utilRect_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.data[9]))) {
 		r2->left = 0;
 		r2->top = 0;
 		r2->right = v4.right - v4.left;
@@ -1679,7 +1679,7 @@ int sdl_drawCursorThreaded(int a1) {
 		//    return 0;
 	}
 
-	if (sub_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.data[9]))) {
+	if (nox_xxx_utilRect_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.data[9]))) {
 		r3->left = v4.left - r1->left;
 		r3->top = v4.top - r1->top;
 		r3->right = v4.right - r1->left;
@@ -1765,7 +1765,7 @@ int __cdecl sub_48B840(int a1)
         - *getMemU32Ptr(0x5D4594, 1193636)
         + *getMemU32Ptr(0x5D4594, 1193620);
     if ((!a1 || *(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& dword_5d4594_1193664)
-        && sub_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532),(int4*)(&obj_5D4594_3800716.data[9])))
+        && nox_xxx_utilRect_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532),(int4*)(&obj_5D4594_3800716.data[9])))
     {
         *getMemU32Ptr(0x5D4594, 1193556) = v4.right - v4.left;
         v1 = g_frontbuffer;
@@ -1784,7 +1784,7 @@ int __cdecl sub_48B840(int a1)
             return 0;
         }
     }
-    if (sub_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532), (int4*)(&obj_5D4594_3800716.data[9])))
+    if (nox_xxx_utilRect_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532), (int4*)(&obj_5D4594_3800716.data[9])))
     {
         *getMemU32Ptr(0x5D4594, 1193604) = v4.left - *getMemU32Ptr(0x5D4594, 1193532);
         *getMemU32Ptr(0x5D4594, 1193608) = v4.top - *getMemU32Ptr(0x5D4594, 1193536);
@@ -1844,7 +1844,7 @@ int __cdecl sub_48BA50(int a1)
         - *getMemU32Ptr(0x5D4594, 1193636)
         + *getMemU32Ptr(0x5D4594, 1193620);
     if ((!a1 || *(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& dword_5d4594_1193664)
-        && sub_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532), (int4*)(&obj_5D4594_3800716.data[9])))
+        && nox_xxx_utilRect_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532), (int4*)(&obj_5D4594_3800716.data[9])))
     {
         *getMemU32Ptr(0x5D4594, 1193556) = v4.right - v4.left;
         *getMemU32Ptr(0x5D4594, 1193548) = 0;
@@ -1882,7 +1882,7 @@ int __cdecl sub_48BA50(int a1)
             }
         }
     }
-    if (sub_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532), (int4*)(&obj_5D4594_3800716.data[9])))
+    if (nox_xxx_utilRect_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532), (int4*)(&obj_5D4594_3800716.data[9])))
     {
         *getMemU32Ptr(0x5D4594, 1193604) = v4.left - *getMemU32Ptr(0x5D4594, 1193532);
         *getMemU32Ptr(0x5D4594, 1193608) = v4.top - *getMemU32Ptr(0x5D4594, 1193536);
@@ -1965,7 +1965,7 @@ BOOL __cdecl sub_4347F0(char* a1, int a2) {
 		sub_435040();
 		sub_434F00();
 	}
-	return sub_48BDE0();
+	return nox_xxx_makeFillerColor_48BDE0();
 }
 
 //----- (004348C0) --------------------------------------------------------
@@ -2242,7 +2242,7 @@ void sub_444C50() {
 		nullsub_17();
 		sub_4AE540();
 		nullsub_12();
-		sub_43F2E0();
+		nox_xxx_FontDestroy_43F2E0();
 		nullsub_16();
 		sub_49F4D0();
 		windowHandle_dword_973FE0 = 0;
@@ -2275,7 +2275,7 @@ void sub_48C110() {
 
 #ifndef USE_SDL
 //----- (0048C940) --------------------------------------------------------
-int __cdecl sub_48C940(LPCSTR lpText) {
+int __cdecl nox_xxx_msgError_48C940(LPCSTR lpText) {
 	if (g_ddraw)
 		g_ddraw->lpVtbl->FlipToGDISurface(g_ddraw);
 	ClipCursor(0);
@@ -2462,7 +2462,7 @@ int sub_48A3D0() {
 	*getMemU32Ptr(0x5D4594, 3801796) = 0;
 	if (g_backbuffer1) {
 		if (g_backbuffer1->lpVtbl->IsLost(g_backbuffer1)) {
-			result = sub_48A2A0();
+			result = nox_xxx_directDrawBlitImpl_48A2A0();
 			if (!result)
 				return result;
 		}
@@ -2536,11 +2536,11 @@ int sub_48A3D0() {
 	}
 	if (!(nox_video_renderTargetFlags & 4)) {
 		if (nox_video_renderTargetFlags & 0x10) {
-			sub_48C940("Unsupported windowed video mode detected\r\n\r\nPlease change your desktop to 16 "
+			nox_xxx_msgError_48C940("Unsupported windowed video mode detected\r\n\r\nPlease change your desktop to 16 "
 					   "bit color");
 			return 0;
 		}
-		sub_48C940("Unsupported video mode\r\n\r\nPlease select either 16 bit color or 256 colors");
+		nox_xxx_msgError_48C940("Unsupported video mode\r\n\r\nPlease select either 16 bit color or 256 colors");
 	}
 	return 0;
 #endif
@@ -2632,7 +2632,7 @@ int __cdecl sub_48B3F0(int a1, int a2, int a3) {
 }
 
 //----- (0048BDE0) --------------------------------------------------------
-BOOL sub_48BDE0() {
+BOOL nox_xxx_makeFillerColor_48BDE0() {
 	int v0; // eax
 
 	v0 = nox_color_rgb_4344A0(255, 0, 255);
@@ -2878,11 +2878,11 @@ int __cdecl sub_434040(int a1) {
 	int v3; // [esp+4h] [ebp-4h]
 
 	dword_975240(a1, &v3, &v2, &a1);
-	return sub_433F10(v3, v2, a1);
+	return nox_xxx_drawMakeRGB_433F10(v3, v2, a1);
 }
 
 //----- (004341D0) --------------------------------------------------------
-int __cdecl sub_4341D0(int a1, int a2) {
+int __cdecl nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 	int result;          // eax
 	int v3;              // edi
 	int v4;              // esi

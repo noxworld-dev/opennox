@@ -9,7 +9,7 @@ wchar_t* __cdecl sub_415B60(int a1) {
 
 	v1 = 0;
 	if (!*getMemU32Ptr(0x587000, 34848))
-		return loadString_sub_40F1D0((char*)getMemAt(0x587000, 37836), 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c",
+		return nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 37836), 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c",
 									 263);
 	HIWORD(v2) = 0;
 	for (i = getMemAt(0x587000, 34848);; i += 24) {
@@ -19,10 +19,10 @@ wchar_t* __cdecl sub_415B60(int a1) {
 		v4 = *((_DWORD*)i + 6);
 		++v1;
 		if (!v4)
-			return loadString_sub_40F1D0((char*)getMemAt(0x587000, 37836), 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c",
+			return nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 37836), 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c",
 										 263);
 	}
-	return loadString_sub_40F1D0(*(char**)getMemAt(0x587000, 24 * v1 + 34852), 0,
+	return nox_xxx_loadString_40F1D0(*(char**)getMemAt(0x587000, 24 * v1 + 34852), 0,
 								 "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 261);
 }
 
@@ -40,7 +40,7 @@ char** sub_415D50() {
 			v1 = getMemAt(0x587000, 35500);
 			do {
 				*((_DWORD*)v1 - 1) =
-					loadString_sub_40F1D0(*result, 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 380);
+					nox_xxx_loadString_40F1D0(*result, 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 380);
 				v2 = *((_DWORD*)v1 + 3);
 				v1 += 12;
 				result = (char**)v1;

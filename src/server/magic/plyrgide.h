@@ -3,6 +3,6 @@
 
 #include "../../defs.h"
 
-int __cdecl sub_4FAE80_magic_plyrgide(int a1, int a2, int a3);
+int __cdecl nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3);
 
 #endif // NOX_PORT_SERVER_MAGIC_PLYRGIDE

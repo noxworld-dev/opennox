@@ -3,7 +3,7 @@
 #include "../../proto.h"
 
 //----- (00427070) --------------------------------------------------------
-int sub_427070() {
+int nox_xxx_loadGuides_427070() {
 	CHAR** v0;          // ebx
 	unsigned __int8* i; // ebp
 	int v2;             // esi
@@ -24,13 +24,13 @@ int sub_427070() {
 		if (!v2)
 			break;
 		nox_sprintf(v13, "creature:%s", *v0);
-		*((_DWORD*)i - 1) = loadString_sub_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 57);
+		*((_DWORD*)i - 1) = nox_xxx_loadString_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 57);
 		if (!strcmp(*(const char**)v2, "Bomber"))
 			*(_DWORD*)i = 0;
 		else
-			*(_DWORD*)i = sub_44CFC0(*v0);
+			*(_DWORD*)i = nox_xxx_getTTByNameSpriteMB_44CFC0(*v0);
 		nox_sprintf(v13, "creature_desc:%s", *v0);
-		v3 = loadString_sub_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 65);
+		v3 = nox_xxx_loadString_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 65);
 		v4 = *getMemU32Ptr(0x587000, 71248);
 		v5 = *getMemU32Ptr(0x587000, 71252);
 		v6 = *v0;
@@ -39,7 +39,7 @@ int sub_427070() {
 		strcpy(&v13[8], "Cage");
 		*(_DWORD*)&v13[4] = v5;
 		strcat(v13, v6);
-		v7 = sub_42F970(v13);
+		v7 = nox_xxx_gLoadImg_42F970(v13);
 		v8 = *getMemU32Ptr(0x587000, 71264);
 		v9 = *getMemU32Ptr(0x587000, 71268);
 		v10 = *v0;
@@ -48,7 +48,7 @@ int sub_427070() {
 		strcpy(&v13[8], "k");
 		*(_DWORD*)&v13[4] = v9;
 		strcat(v13, v10);
-		*((_DWORD*)i + 3) = sub_42F970(v13);
+		*((_DWORD*)i + 3) = nox_xxx_gLoadImg_42F970(v13);
 		*((_DWORD*)i + 4) = 0;
 		v11 = *(_DWORD*)(v2 + 36);
 		if (v11 & 1) {

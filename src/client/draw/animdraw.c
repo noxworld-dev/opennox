@@ -23,7 +23,7 @@ int __cdecl nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		v3 = (*getMemUintPtr(0x5D4594, 2598000) - dr->field_79) / ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 		if (v3 < *(unsigned __int8*)(v2 + 8))
 			goto LABEL_12;
-		sub_45A4E0_drawable(dr);
+		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 		return 0;
 	case 2:
 		if (dr->flags & 0x1000000)
@@ -52,18 +52,18 @@ int __cdecl nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 			if (v3 >= v4)
 				v3 %= v4;
 		LABEL_12:
-			sub_4C4770_draw(a1, dr, *(unsigned int*)(*(unsigned int*)(v2 + 4) + 4 * v3));
+			nox_xxx_drawObject_4C4770_draw(a1, dr, *(unsigned int*)(*(unsigned int*)(v2 + 4) + 4 * v3));
 			if (*(unsigned int*)(v2 + 12) == 3)
 				nox_client_drawEnableAlpha_434560(0);
 		LABEL_14:
 			result = 1;
 		} else {
-			sub_45A4E0_drawable(dr);
+			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 			result = 0;
 		}
 		return result;
 	case 4:
-		v3 = sub_415FF0(0, *(unsigned __int8*)(v2 + 8) - 1, "C:\\NoxPost\\src\\Client\\Draw\\animdraw.c", 24);
+		v3 = nox_xxx_randGetMinMax_415FF0(0, *(unsigned __int8*)(v2 + 8) - 1, "C:\\NoxPost\\src\\Client\\Draw\\animdraw.c", 24);
 		goto LABEL_12;
 	case 5:
 		v3 = dr->field_77;
@@ -150,7 +150,7 @@ bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char*
 				v6[v21] = 0;
 				v13 = v22;
 			}
-			*(_DWORD*)(v5[1] + 4 * v13++) = sub_42FAA0(v15, v19, v6);
+			*(_DWORD*)(v5[1] + 4 * v13++) = nox_xxx_readImgMB_42FAA0(v15, v19, v6);
 			v22 = v13;
 		} while (v13 < *((unsigned __int8*)v5 + 8));
 	}
@@ -197,7 +197,7 @@ int __cdecl sub_44BE90(int a1, nox_memfile* f) {
 					v12[v10] = 0;
 					v2 = a1;
 				}
-				*(_DWORD*)(*(_DWORD*)(v2 + 4) + 4 * v4++) = sub_42FAA0(v6, v11, v12);
+				*(_DWORD*)(*(_DWORD*)(v2 + 4) + 4 * v4++) = nox_xxx_readImgMB_42FAA0(v6, v11, v12);
 			} while (v4 < *(__int16*)(v2 + 40));
 		}
 		result = 1;
@@ -242,7 +242,7 @@ bool __cdecl nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f,
 
 		int v9 = (int)&draw_cb_data[12 * offset_idx + 1];
 
-		if (!sub_44B8B0(v9, f)) {
+		if (!nox_xxx_loadVectorAnimated_44B8B0(v9, f)) {
 			return 0;
 		}
 

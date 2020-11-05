@@ -9,7 +9,7 @@ extern _DWORD dword_5d4594_815132;
 extern nox_window* nox_win_main_menu;
 
 //----- (004A1DC0) --------------------------------------------------------
-int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
+int __cdecl nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 	wchar_t* v5;   // eax
 	int v6;        // eax
 	wchar_t* v7;   // eax
@@ -18,32 +18,32 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 	char v10[128]; // [esp+4h] [ebp-80h]
 
 	if (a2 == 16389) {
-		sub_452D80(920, 100);
+		nox_xxx_clientPlaySoundSpecial_452D80(920, 100);
 	} else {
 		if (a2 != 16391)
 			return 0;
 		if (*(_BYTE*)(&nox_wnd_xxx_1307308->field_16) && !nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		LABEL_32:
-			sub_452D80(921, 100);
+			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 		} else {
-			switch (sub_46B0A0(a3)) {
+			switch (nox_xxx_wndGetID_46B0A0(a3)) {
 			case 111:
-				if (sub_40ABD0() && sub_413840()) {
-					sub_40A4D0(2048);
+				if (nox_xxx_checkConjSoloMap_40ABD0() && sub_413840()) {
+					nox_xxx_setGameFlags_40A4D0(2048);
 					nox_common_gameFlags_unset_40A540(0x2000);
 					nox_common_gameFlags_unset_40A540(0x10000);
-					sub_501AC0(0);
+					nox_xxx_gameSetAudioFadeoutMb_501AC0(0);
 					nox_common_resetEngineFlag(NOX_ENGINE_FLAG_5 | NOX_ENGINE_FLAG_6);
 					sub_4D6F40(0);
 					sub_4D6F90(0);
 					sub_4D6F60(0);
 					sub_4D6F80(0);
-					sub_470AA0(0);
+					nox_xxx_cliShowHideTubes_470AA0(0);
 					sub_461440(0);
 					sub_4A1D40();
-					sub_472520(1110);
-					if (!sub_4D1630()) {
-						sub_43DDD0(0);
+					nox_xxx_cliSetMinimapZoom_472520(1110);
+					if (!nox_xxx_parseGamedataBinPre_4D1630()) {
+						nox_xxx_setExitMenuOrHost_43DDD0(0);
 						dword_5d4594_815132 = 0;
 						return 0;
 					}
@@ -54,24 +54,24 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 						sub_4A7A70(0);
 						nox_wnd_xxx_1307308->field_13 = sub_4A4840;
 					}
-					sub_452D80(921, 100);
+					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				} else {
-					v9 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 169256), 0,
+					v9 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 169256), 0,
 											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 341);
-					v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 169304), 0,
+					v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 169304), 0,
 											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 341);
-					sub_449A10(nox_win_main_menu, (int)v5, (int)v9, 33, 0, 0);
+					nox_xxx_dialogMsgBoxCreate_449A10(nox_win_main_menu, (int)v5, (int)v9, 33, 0, 0);
 					sub_44A360(1);
 					sub_44A4B0();
-					sub_452D80(921, 100);
+					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				}
 				return 1;
 			case 112:
 				sub_4A1D40();
 				nox_common_setEngineFlag(NOX_ENGINE_FLAG_5);
 				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_6);
-				sub_40A4D0(0x2000);
-				sub_40A4D0(0x10000);
+				nox_xxx_setGameFlags_40A4D0(0x2000);
+				nox_xxx_setGameFlags_40A4D0(0x10000);
 				nox_common_gameFlags_unset_40A540(2048);
 				sub_461440(0);
 				sub_4D6F40(0);
@@ -80,11 +80,11 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_4D6F80(0);
 				if (!sub_473670())
 					sub_473610();
-				sub_470AA0(0);
-				sub_472520(2300);
-				if (sub_4D1630())
+				nox_xxx_cliShowHideTubes_470AA0(0);
+				nox_xxx_cliSetMinimapZoom_472520(2300);
+				if (nox_xxx_parseGamedataBinPre_4D1630())
 					goto LABEL_26;
-				sub_43DDD0(0);
+				nox_xxx_setExitMenuOrHost_43DDD0(0);
 				dword_5d4594_815132 = 0;
 				return 0;
 			case 121:
@@ -94,7 +94,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_4B0300(v10);
 				sub_4B0640(sub_43C0A0);
 				nox_wnd_xxx_1307308->field_13 = sub_4A2200;
-				sub_452D80(921, 100);
+				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				return 1;
 			case 122:
 				if (sub_44E560()) {
@@ -108,30 +108,30 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 			case 131:
 				LOBYTE(v6) = nox_client_checkQuestExp_SKU2_4D7700();
 				if (!v6) {
-					v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 169352), 0,
+					v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 169352), 0,
 											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 416);
-					sub_449A10(nox_win_main_menu, 0, (int)v7, 33, 0, 0);
+					nox_xxx_dialogMsgBoxCreate_449A10(nox_win_main_menu, 0, (int)v7, 33, 0, 0);
 					sub_44A360(0);
 					sub_44A4B0();
-					sub_452D80(921, 100);
+					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 					return 1;
 				}
 				sub_4A1D40();
 				nox_common_setEngineFlag(NOX_ENGINE_FLAG_5);
 				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_6);
-				sub_40A4D0(0x2000);
-				sub_40A4D0(0x10000);
+				nox_xxx_setGameFlags_40A4D0(0x2000);
+				nox_xxx_setGameFlags_40A4D0(0x10000);
 				nox_common_gameFlags_unset_40A540(2048);
 				sub_4D6F40(1);
 				sub_4D6F90(1);
 				sub_4E3CD0(0);
 				sub_4D7440(0);
-				sub_472520(2300);
+				nox_xxx_cliSetMinimapZoom_472520(2300);
 				if (!sub_473670())
 					sub_473610();
 				sub_461440(0);
-				if (!sub_4D1630()) {
-					sub_43DDD0(0);
+				if (!nox_xxx_parseGamedataBinPre_4D1630()) {
+					nox_xxx_setExitMenuOrHost_43DDD0(0);
 					dword_5d4594_815132 = 0;
 					return 0;
 				}
@@ -143,7 +143,7 @@ int __cdecl sub_4A1DC0(int a1, int a2, int* a3, int a4) {
 #else
 				nox_wnd_xxx_1307308->field_13 = sub_4AA270;
 #endif
-				sub_452D80(921, 100);
+				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				break;
 			default:
 				goto LABEL_32;
@@ -168,7 +168,7 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 	int xLeft;            // [esp+4h] [ebp-8h]
 	int yTop;             // [esp+8h] [ebp-4h]
 
-	sub_430B40_get_mouse_prev_seq();
+	nox_xxx_bookGet_430B40_get_mouse_prev_seq();
 	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
 	if ((signed char)*(_BYTE*)(a1 + 4) >= 0) {
 		if (a2[5] != 0x80000000) {
@@ -195,24 +195,24 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 			v6 = *((_DWORD*)v4 + 1);
 			if (v6) {
 				*((_DWORD*)v4 + 1) = v6 - 1;
-				*((_DWORD*)v4 + 2) = sub_415FF0(60, 120, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 180);
+				*((_DWORD*)v4 + 2) = nox_xxx_randGetMinMax_415FF0(60, 120, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 180);
 			}
 			v7 = (*(_DWORD*)v4)-- == 1;
 			v8 = *((_DWORD*)v4 - 5);
 			if (v7) {
 				if (v8) {
 					*((_DWORD*)v4 - 5) = 0;
-					*(_DWORD*)v4 = sub_415FF0(*((_DWORD*)v4 - 4), *((_DWORD*)v4 - 3),
+					*(_DWORD*)v4 = nox_xxx_randGetMinMax_415FF0(*((_DWORD*)v4 - 4), *((_DWORD*)v4 - 3),
 											  "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 211);
-					*((_DWORD*)v4 + 2) = sub_415FF0(60, 90, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 214);
+					*((_DWORD*)v4 + 2) = nox_xxx_randGetMinMax_415FF0(60, 90, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 214);
 				} else {
 					*((_DWORD*)v4 - 5) = 1;
-					*(_DWORD*)v4 = sub_415FF0(*((_DWORD*)v4 - 2), *((_DWORD*)v4 - 1),
+					*(_DWORD*)v4 = nox_xxx_randGetMinMax_415FF0(*((_DWORD*)v4 - 2), *((_DWORD*)v4 - 1),
 											  "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 199);
 				}
 			} else if (!v8 && !*((_DWORD*)v4 + 2) && !*((_DWORD*)v4 + 1) &&
-					   sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 228) > 75) {
-				*((_DWORD*)v4 + 1) = sub_415FF0(4, 8, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 229);
+					   nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 228) > 75) {
+				*((_DWORD*)v4 + 1) = nox_xxx_randGetMinMax_415FF0(4, 8, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 229);
 			}
 			v9 = *((_DWORD*)v4 + 4);
 			v4 += 48;

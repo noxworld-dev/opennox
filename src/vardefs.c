@@ -20,7 +20,7 @@
 
 #include "proto.h"
 
-void sub_57F634();
+void nox_xxx_unknown_libname_86_57F634();
 void nullsub_45();
 void nullsub_46();
 void nullsub_47();

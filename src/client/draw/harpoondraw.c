@@ -45,15 +45,15 @@ int __cdecl nox_thing_harpoon_rope_draw(int* a1, nox_drawable* dr) {
 		sub_4B63B0(&a1a, &a2a);
 		return 1;
 	}
-	if (sub_578B70(*(_DWORD*)(a2 + 437)))
-		v9 = sub_45A720(*(_DWORD*)(a2 + 437));
+	if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437)))
+		v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 437));
 	else
-		v9 = sub_45A6F0(*(_DWORD*)(a2 + 437));
+		v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 437));
 	v10 = v9;
-	if (sub_578B70(*(_DWORD*)(a2 + 441)))
-		v11 = sub_45A720(*(_DWORD*)(a2 + 441));
+	if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 441)))
+		v11 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 441));
 	else
-		v11 = sub_45A6F0(*(_DWORD*)(a2 + 441));
+		v11 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 441));
 	if (v10 && v11) {
 		v12 = a1[4];
 		v13 = *a1;

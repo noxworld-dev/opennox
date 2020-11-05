@@ -3,6 +3,6 @@
 
 #include "../../defs.h"
 
-_DWORD* sub_49C560();
+_DWORD* nox_xxx_cliShowHelpGui_49C560();
 
 #endif // NOX_PORT_CLIENT_GUI_CHATHELP

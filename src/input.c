@@ -84,7 +84,7 @@ void process_window_event(const SDL_WindowEvent* event) {
 		unacquireMouse_sub_47D8B0();
 		break;
 	case SDL_WINDOWEVENT_FOCUS_GAINED:
-		if (is_mouse_inside(getWindowHandle_sub_401FD0()))
+		if (is_mouse_inside(getWindowHandle_nox_xxx_getHWND_401FD0()))
 			acquireMouse_sub_47D8C0();
 		break;
 	default:
@@ -195,13 +195,13 @@ void send_mouse1_event() {
 }
 
 #ifdef __EMSCRIPTEN__
-void sub_42D6B0_em_not_mouse_down() {
-	sub_42E670(1, orientation);
+void nox_xxx_clientControl_42D6B0_em_not_mouse_down() {
+	nox_xxx_keys_42E670(1, orientation);
 	if (move_speed)
-		sub_42E670(2, 3);
+		nox_xxx_keys_42E670(2, 3);
 	if (jump) {
-		sub_42E670(2, 3);
-		sub_42E670(7, 0);
+		nox_xxx_keys_42E670(2, 3);
+		nox_xxx_keys_42E670(7, 0);
 		jump = 0;
 	}
 }
@@ -349,7 +349,7 @@ void sub_47FB10() {
 
 // SDLMODDED
 //----- (0047F950) --------------------------------------------------------
-unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1) {
+unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1) {
 	unsigned __int16 result; // ax
 	int scrollLockStatus;
 
@@ -395,7 +395,7 @@ unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1) {
 int sub_47FCC0() { return 0; }
 
 // get keyboard data
-void __cdecl sub_47FA80(signed int a1) {
+void __cdecl nox_xxx_getKeyFromKeyboardImpl_47FA80(signed int a1) {
 	struct keyboard_event* ke = &keyboard_event_queue[keyboard_event_ridx];
 
 	*(_BYTE*)a1 = 0;
@@ -415,7 +415,7 @@ void __cdecl sub_47FA80(signed int a1) {
 // init mouse
 int initMouse_sub_47D8D0() {
 #ifndef NOX_NO_MOUSE_GRAB
-	SDL_SetWindowGrab(getWindowHandle_sub_401FD0(), SDL_TRUE);
+	SDL_SetWindowGrab(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 #endif
 
@@ -433,7 +433,7 @@ int initMouse_sub_47D8D0() {
 int acquireMouse_sub_47D8C0() {
 	if (!g_mouse_aquired) {
 #ifndef NOX_NO_MOUSE_GRAB
-		SDL_SetWindowGrab(getWindowHandle_sub_401FD0(), SDL_TRUE);
+		SDL_SetWindowGrab(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
 		SDL_SetRelativeMouseMode(SDL_TRUE);
 #endif
 		g_mouse_aquired = 1;
@@ -444,7 +444,7 @@ int acquireMouse_sub_47D8C0() {
 // unacquire mouse
 int unacquireMouse_sub_47D8B0() {
 	SDL_SetRelativeMouseMode(SDL_FALSE);
-	SDL_SetWindowGrab(getWindowHandle_sub_401FD0(), SDL_FALSE);
+	SDL_SetWindowGrab(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_FALSE);
 	g_mouse_aquired = 0;
 	return 0;
 }
@@ -503,7 +503,7 @@ char __cdecl sub_47DB20_get_mouse_data(nox_mouse_state_t* e) {
 }
 
 // init joystick
-UINT __cdecl sub_47D660(UINT uJoyID, int a2) { return 0; }
+UINT __cdecl nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) { return 0; }
 
 #else
 
@@ -528,18 +528,18 @@ signed int initMouse_sub_47D8D0() {
 	DIDEVCAPS_DX3 v9;
 
 	if (DirectInputCreateA(*(HINSTANCE*)getMemAt(0x5D4594, 823784), 0x300u, &g_dinput_mouse, 0) < 0) {
-		v0 = loadString_sub_40F1D0("Dxinput.c:IM_CreateFailed", 0,
+		v0 = nox_xxx_loadString_40F1D0("Dxinput.c:IM_CreateFailed", 0,
 								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 73);
 		sub_4516C0(v0);
 	}
 	if (g_dinput_mouse->lpVtbl->CreateDevice(g_dinput_mouse, &GUID_SysMouse, &g_device_mouse, 0) < 0) {
-		v0 = loadString_sub_40F1D0("Dxinput.c:IM_CreateDeviceFailed", 0,
+		v0 = nox_xxx_loadString_40F1D0("Dxinput.c:IM_CreateDeviceFailed", 0,
 								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 87);
 		sub_4516C0(v0);
 	}
-	if (g_device_mouse->lpVtbl->SetCooperativeLevel(g_device_mouse, getWindowHandle_sub_401FD0(),
+	if (g_device_mouse->lpVtbl->SetCooperativeLevel(g_device_mouse, getWindowHandle_nox_xxx_getHWND_401FD0(),
 													DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0) {
-		v0 = loadString_sub_40F1D0("Dxinput.c:IM_SetCoopFailed", 0,
+		v0 = nox_xxx_loadString_40F1D0("Dxinput.c:IM_SetCoopFailed", 0,
 								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 105);
 		sub_4516C0(v0);
 	}
@@ -549,17 +549,17 @@ signed int initMouse_sub_47D8D0() {
 	v4.diph.dwHow = 0;
 	v4.dwData = 256;
 	if (g_device_mouse->lpVtbl->SetProperty(g_device_mouse, DIPROP_BUFFERSIZE, (LPCDIPROPHEADER)&v4) < 0) {
-		v0 = loadString_sub_40F1D0("Dxinput.c:IM_SetPropertyFailed", 0,
+		v0 = nox_xxx_loadString_40F1D0("Dxinput.c:IM_SetPropertyFailed", 0,
 								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 123);
 		sub_4516C0(v0);
 	}
 	if (g_device_mouse->lpVtbl->SetDataFormat(g_device_mouse, &c_dfDIMouse) < 0) {
-		v0 = loadString_sub_40F1D0("Dxinput.c:IM_SetFormatFailed", 0,
+		v0 = nox_xxx_loadString_40F1D0("Dxinput.c:IM_SetFormatFailed", 0,
 								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 135);
 		sub_4516C0(v0);
 	}
 	if (g_device_mouse->lpVtbl->Acquire(g_device_mouse) < 0) {
-		v0 = loadString_sub_40F1D0("Dxinput.c:IM_AquireFailed", 0,
+		v0 = nox_xxx_loadString_40F1D0("Dxinput.c:IM_AquireFailed", 0,
 								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 147);
 		sub_4516C0(v0);
 	}
@@ -568,7 +568,7 @@ signed int initMouse_sub_47D8D0() {
 		*getMemU8Ptr(0x5D4594, 1193128) = v9.dwButtons;
 	*getMemU32Ptr(0x5D4594, 1193108) = 1;
 	sub_42EBB0(2, sub_47D890, 0, "DXInput");
-	sub_42EBB0(1, sub_47D8A0, 0, "DXInput");
+	sub_42EBB0(1, nox_xxx_showWindow_47D8A0, 0, "DXInput");
 	return 1;
 }
 // 47D890: using guessed type int sub_47D890();
@@ -636,7 +636,7 @@ char __cdecl sub_47DB20(signed int* a1) {
 }
 
 //----- (0047D660) --------------------------------------------------------
-UINT __cdecl sub_47D660(UINT uJoyID, int a2) {
+UINT __cdecl nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) {
 	UINT result;              // eax
 	UINT v3;                  // esi
 	wchar_t* v4;              // eax
@@ -661,7 +661,7 @@ UINT __cdecl sub_47D660(UINT uJoyID, int a2) {
 			*getMemU32Ptr(0x5D4594, v3 + 1189608) = -100;
 			*getMemU32Ptr(0x5D4594, v3 + 1189632) = 0;
 			if (joyGetDevCapsA(uJoyID, (LPJOYCAPSA)getMemAt(0x5D4594, 404 * uJoyID + 1189700), 0x194u)) {
-				v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 153832), 0,
+				v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 153832), 0,
 										   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Jstick.c", 79);
 				sub_4517A0(v4, uJoyID);
 				result = 0;
@@ -726,26 +726,26 @@ void sub_47FB10() {
 	DIPROPDWORD v15; // [esp+24h] [ebp-14h]
 
 	if (DirectInputCreateA(*(HINSTANCE*)getMemAt(0x5D4594, 823784), 0x300u, &g_dinput_keyboard, 0) < 0) {
-		v0 = loadString_sub_40F1D0("Dxinput.c:OK_CreateFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
+		v0 = nox_xxx_loadString_40F1D0("Dxinput.c:OK_CreateFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
 								   827);
 		sub_4516C0(v0);
 	}
 
 	if (g_dinput_keyboard->lpVtbl->CreateDevice(g_dinput_keyboard, &GUID_SysKeyboard, &g_device_keyboard, NULL) < 0) {
-		v1 = loadString_sub_40F1D0("Dxinput.c:OK_CreateDeviceFailed", 0,
+		v1 = nox_xxx_loadString_40F1D0("Dxinput.c:OK_CreateDeviceFailed", 0,
 								   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 841);
 		sub_4516C0(v1);
 	}
 
 	if (g_device_keyboard->lpVtbl->SetDataFormat(g_device_keyboard, &c_dfDIKeyboard) < 0) {
-		v2 = loadString_sub_40F1D0("Dxinput.c:OK_SetFormatFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
+		v2 = nox_xxx_loadString_40F1D0("Dxinput.c:OK_SetFormatFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
 								   853);
 		sub_4516C0(v2);
 	}
 
-	if (g_device_keyboard->lpVtbl->SetCooperativeLevel(g_device_keyboard, getWindowHandle_sub_401FD0(),
+	if (g_device_keyboard->lpVtbl->SetCooperativeLevel(g_device_keyboard, getWindowHandle_nox_xxx_getHWND_401FD0(),
 													   DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0) {
-		v5 = loadString_sub_40F1D0("Dxinput.c:OK_SetCoopFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
+		v5 = nox_xxx_loadString_40F1D0("Dxinput.c:OK_SetCoopFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
 								   868);
 		sub_4516C0(v5);
 	}
@@ -756,13 +756,13 @@ void sub_47FB10() {
 	v15.diph.dwHow = 0;
 	v15.dwData = 256;
 	if (g_device_keyboard->lpVtbl->SetProperty(g_device_keyboard, DIPROP_BUFFERSIZE, &v15) < 0) {
-		v6 = loadString_sub_40F1D0("Dxinput.c:OK_SetPropertyFailed", 0,
+		v6 = nox_xxx_loadString_40F1D0("Dxinput.c:OK_SetPropertyFailed", 0,
 								   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 886);
 		sub_4516C0(v6);
 	}
 
 	if (g_device_keyboard->lpVtbl->Acquire(g_device_keyboard) < 0) {
-		v7 = loadString_sub_40F1D0("Dxinput.c:OK_AquireFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
+		v7 = nox_xxx_loadString_40F1D0("Dxinput.c:OK_AquireFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
 								   899);
 		sub_4516C0(v7);
 	}
@@ -774,7 +774,7 @@ void sub_47FB10() {
 
 // ORIGINAL
 //----- (0047F950) --------------------------------------------------------
-/*unsigned __int16 __cdecl sub_47F950(unsigned __int16 a1)
+/*unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1)
 {
   unsigned __int16 result; // ax
   int scrollLockStatus;
@@ -840,7 +840,7 @@ int sub_47FCC0() {
 }
 
 //----- (0047FA80) --------------------------------------------------------
-void __cdecl sub_47FA80(signed int a1) {
+void __cdecl nox_xxx_getKeyFromKeyboardImpl_47FA80(signed int a1) {
 	HRESULT v2;            // eax
 	char v3;               // al
 	char v4;               // dl

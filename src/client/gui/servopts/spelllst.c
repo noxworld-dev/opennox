@@ -7,7 +7,7 @@ extern _DWORD dword_5d4594_1045484;
 extern _DWORD dword_5d4594_2650652;
 
 //----- (00453850) --------------------------------------------------------
-int __cdecl sub_453850(int a1) {
+int __cdecl nox_xxx_guiSpelllistLoad_453850(int a1) {
 	int v1;            // ebx
 	int v2;            // eax
 	int v3;            // esi
@@ -21,22 +21,22 @@ int __cdecl sub_453850(int a1) {
 	wchar_t v12[64];   // [esp+Ch] [ebp-80h]
 
 	dword_5d4594_1045484 = nox_new_window_from_file("spelllst.wnd", sub_453C00);
-	sub_46B340(*(int*)&dword_5d4594_1045484, sub_453B80);
+	nox_xxx_wndSetDrawFn_46B340(*(int*)&dword_5d4594_1045484, sub_453B80);
 	sub_46B120(*(_DWORD**)&dword_5d4594_1045484, a1);
-	sub_46B280(*(int*)&dword_5d4594_1045484, a1);
-	dword_5d4594_1045480 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1110);
-	dword_5d4594_1045508 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1112);
+	nox_xxx_wnd_46B280(*(int*)&dword_5d4594_1045484, a1);
+	dword_5d4594_1045480 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1110);
+	dword_5d4594_1045508 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1112);
 	sub_453B00();
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16399, 0, 0);
 	v1 = 1;
 	do {
-		if (sub_424B50(v1)) {
-			v2 = sub_424A70(v1);
+		if (nox_xxx_spellGetValidMB_424B50(v1)) {
+			v2 = nox_xxx_spellGetFlags_424A70(v1);
 			v3 = v2;
 			if (!(v2 & 0x15000)) {
 				if (v2 & 0x1000000 || (v4 = v2 & 0x2000000) != 0 && v2 & 0x4000000) {
-					v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 127452), 0,
+					v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 127452), 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 307);
 					nox_wcscpy(v12, v7);
 				} else {
@@ -44,18 +44,18 @@ int __cdecl sub_453850(int a1) {
 						goto LABEL_14;
 					nox_wcscpy(v12, (const wchar_t*)getMemAt(0x5D4594, 1045512));
 					if (v4) {
-						v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 127508), 0,
+						v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 127508), 0,
 												   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 314);
 						nox_wcscat(v12, v5);
 					}
 					if (v3 & 0x4000000) {
-						v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 127568), 0,
+						v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 127568), 0,
 												   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 318);
 						nox_wcscat(v12, v6);
 					}
 				}
 				nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16397, (int)v12, -1);
-				v8 = (const wchar_t*)sub_424930(v1);
+				v8 = (const wchar_t*)nox_xxx_spellLoadName_424930(v1);
 				nox_wcsncpy(v12, v8, 0x3Fu);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16397, (int)v12, -1);
 			}
@@ -63,10 +63,10 @@ int __cdecl sub_453850(int a1) {
 	LABEL_14:
 		++v1;
 	} while (v1 < 137);
-	v9 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113);
+	v9 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16408, (int)v9, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16408, (int)v9, 0);
-	v10 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1114);
+	v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1114);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16409, (int)v10, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16409, (int)v10, 0);
 	sub_454040(getMemAt(0x5D4594, 1045488));
@@ -99,8 +99,8 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 	int v21;      // [esp+58h] [ebp+Ch]
 
 	if (a2 == 0x4000) {
-		if (a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113) ||
-			a3 == sub_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1114)) {
+		if (a3 == nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113) ||
+			a3 == nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1114)) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 0x4000, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 0x4000, (int)a3, 0);
 		LABEL_37:
@@ -111,7 +111,7 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 	if (a2 != 16391)
 		return 0;
 	v3 = a3;
-	v4 = sub_46B0A0(a3);
+	v4 = nox_xxx_wndGetID_46B0A0(a3);
 	v21 = v4;
 	switch (v4) {
 	case 1113:
@@ -175,11 +175,11 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 			v15 = sub_4165B0();
 			if ((nox_common_gameFlags_check_40A5C0(64) || v15[52] & 0x40) && v13 == 132) {
 				v3[9] ^= 4u;
-				v18 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 127748), 0,
+				v18 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 127748), 0,
 											"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 226);
-				v16 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 127816), 0,
+				v16 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 127816), 0,
 											"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 225);
-				sub_449A10(*(int*)&dword_5d4594_1045484, (int)v16, (int)v18, 33, 0, 0);
+				nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1045484, (int)v16, (int)v18, 33, 0, 0);
 				sub_44A360(1);
 			} else {
 				if (v3[9] & 4)
@@ -191,15 +191,15 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 			}
 		} else {
 			v3[9] ^= 4u;
-			v17 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 127632), 0,
+			v17 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 127632), 0,
 										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 211);
-			v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 127692), 0,
+			v14 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 127692), 0,
 										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 210);
-			sub_449A10(*(int*)&dword_5d4594_1045484, (int)v14, (int)v17, 33, 0, 0);
+			nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1045484, (int)v14, (int)v17, 33, 0, 0);
 			sub_44A360(1);
 		}
 	LABEL_20:
-		sub_452D80(766, 100);
+		nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 		result = 0;
 		break;
 	default:
