@@ -41,7 +41,7 @@ extern _DWORD dword_5d4594_1321520;
 extern _DWORD dword_5d4594_1319268;
 extern _DWORD dword_5d4594_1321024;
 extern _DWORD dword_5d4594_1320936;
-extern _DWORD dword_587000_80840;
+extern _DWORD nox_xxx_useAudio_587000_80840;
 extern _DWORD dword_587000_183456;
 extern _DWORD dword_5d4594_1320988;
 extern _DWORD dword_5d4594_1522596;
@@ -55,7 +55,7 @@ extern _DWORD dword_5d4594_1320972;
 extern _DWORD dword_5d4594_3679316;
 extern _DWORD dword_5d4594_1316704;
 extern _DWORD dword_5d4594_1321208;
-extern _DWORD dword_587000_80832;
+extern _DWORD nox_xxx_useAudio_587000_80832;
 extern _DWORD dword_5d4594_1321800;
 extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_3799476;
@@ -9646,7 +9646,7 @@ _DWORD* sub_4CB330() {
 	v30[9] = v32;
 	v33 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2017);
 	v34 = v33[9];
-	if (dword_587000_80840)
+	if (nox_xxx_useAudio_587000_80840)
 		v35 = v34 | 4;
 	else
 		v35 = v34 & 0xFFFFFFFB;
@@ -9719,7 +9719,7 @@ int __cdecl sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			nox_client_fadeObjects_80836 = 1 - nox_client_fadeObjects_80836;
 			break;
 		case 2017:
-			dword_587000_80840 = 1 - dword_587000_80840;
+			nox_xxx_useAudio_587000_80840 = 1 - nox_xxx_useAudio_587000_80840;
 			result = 0;
 			break;
 		case 2020:
@@ -9753,7 +9753,7 @@ int __cdecl sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 		case 2040:
 			v8 = 1 - nox_client_renderGUI_80828;
 			nox_client_renderGUI_80828 = v8;
-			dword_587000_80832 = v8;
+			nox_xxx_useAudio_587000_80832 = v8;
 			result = 0;
 			break;
 		case 2041:

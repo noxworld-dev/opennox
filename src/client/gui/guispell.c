@@ -16,7 +16,7 @@ extern _DWORD dword_5d4594_1049520;
 extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1049500;
 extern _DWORD dword_5d4594_1049504;
-extern void* dword_587000_133480;
+extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -206,10 +206,10 @@ int nox_xxx_quickBarCreate_45E190() {
 	if (!*getMemU32Ptr(0x5D4594, 2618908))
 		return 0;
 	if (*(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251))
-		nox_xxx_quickBarInitWindow_4601F0(*(int*)&dword_587000_133480, dword_5d4594_1047548 + 69, dword_5d4594_1047552 + 32, 5, 0, nox_xxx_quickBarWnd_45EF50,
+		nox_xxx_quickBarInitWindow_4601F0(*(int*)&nox_xxx_aClosewoodengat_587000_133480, dword_5d4594_1047548 + 69, dword_5d4594_1047552 + 32, 5, 0, nox_xxx_quickBarWnd_45EF50,
 				   nox_xxx_quickBarWarriorDraw_45FDE0);
 	else
-		nox_xxx_quickBarInitWindow_4601F0(*(int*)&dword_587000_133480, dword_5d4594_1047548 + 69, dword_5d4594_1047552 + 32, 5, 0, nox_xxx_quickBarWnd_45EF50,
+		nox_xxx_quickBarInitWindow_4601F0(*(int*)&nox_xxx_aClosewoodengat_587000_133480, dword_5d4594_1047548 + 69, dword_5d4594_1047552 + 32, 5, 0, nox_xxx_quickBarWnd_45EF50,
 				   nox_xxx_quickBarDrawFn_45FBD0);
 	v4 = getMemAt(0x5D4594, 1048964);
 	do {
@@ -512,7 +512,7 @@ int __cdecl sub_45F9B0(_DWORD* a1) {
 		v1 = a1;
 		nox_client_wndGetPosition_46AA60(a1, &v6, &a1);
 		nox_window_get_size((int)v1, &v7, &v9);
-		v5 = *(unsigned __int8*)((_DWORD)dword_587000_133480 + 200) + 1;
+		v5 = *(unsigned __int8*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 200) + 1;
 		v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 135296), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1276);
 		nox_swprintf(v11, v2, v5);
 		nox_xxx_drawGetStringSize_43F840(0, v11, &v8, &v10, 0);
@@ -585,7 +585,7 @@ int __cdecl nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 		return 0;
 	nox_client_wndGetPosition_46AA60((_DWORD*)yTop, &xLeft, &yTop);
 	v5 = nox_xxx_guiFontHeightMB_43F320(0);
-	v6 = *(_DWORD*)((_DWORD)dword_587000_133480 + 204);
+	v6 = *(_DWORD*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 204);
 	v7 = (int*)(v6 + 8 * v2);
 	v8 = *(_DWORD*)(v6 + 8 * v2);
 	if (v8) {

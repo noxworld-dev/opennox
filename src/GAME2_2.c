@@ -25,14 +25,14 @@ extern _DWORD dword_5d4594_1097216;
 extern _DWORD dword_5d4594_3799500;
 extern _DWORD dword_5d4594_3807116;
 extern _DWORD dword_5d4594_1098620;
-extern _DWORD dword_587000_151528;
+extern _DWORD nox_xxx_cursorTypePrev_587000_151528;
 extern _DWORD dword_5d4594_1123520;
 extern _DWORD dword_5d4594_1193188;
 extern _DWORD dword_5d4594_1097196;
 extern _DWORD dword_5d4594_1193176;
 extern _DWORD dword_5d4594_1098596;
 extern _DWORD dword_5d4594_1193336;
-extern _DWORD dword_587000_80840;
+extern _DWORD nox_xxx_useAudio_587000_80840;
 extern _DWORD dword_5d4594_1097192;
 extern _DWORD dword_5d4594_3799452;
 extern _DWORD dword_5d4594_1098600;
@@ -55,12 +55,12 @@ extern _DWORD dword_5d4594_1193648;
 extern _DWORD dword_5d4594_1193668;
 extern _DWORD dword_5d4594_1096644;
 extern _DWORD dword_5d4594_787144;
-extern _DWORD dword_587000_80832;
+extern _DWORD nox_xxx_useAudio_587000_80832;
 extern _DWORD dword_5d4594_1097188;
 extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_3799476;
 extern _DWORD dword_5d4594_3799468;
-extern _DWORD dword_587000_154948;
+extern _DWORD nox_xxx_waypointCounterMB_587000_154948;
 extern _DWORD dword_5d4594_3807160;
 extern _DWORD dword_5d4594_1098592;
 extern _DWORD dword_5d4594_1193184;
@@ -627,11 +627,11 @@ void __cdecl sub_476850(int a1, unsigned __int8* a2) {
 			v10 < *(int*)&dword_5d4594_3798824 || v10 + v26 >= *(int*)&dword_5d4594_3798824 + dword_5d4594_3798808) {
 			*((_DWORD*)a2 + 86) = 0;
 		} else {
-			v11 = dword_587000_154948;
-			if (*(int*)&dword_587000_154948 <= 0) {
+			v11 = nox_xxx_waypointCounterMB_587000_154948;
+			if (*(int*)&nox_xxx_waypointCounterMB_587000_154948 <= 0) {
 				*((_DWORD*)a2 + 86) = 0;
 				v7 = dword_5d4594_3798820;
-				v11 = dword_587000_154948;
+				v11 = nox_xxx_waypointCounterMB_587000_154948;
 			}
 			if (v11 - *((int*)a2 + 86) > 1 || v11 <= 0) {
 				v12 = dword_5d4594_3798844;
@@ -764,11 +764,11 @@ int(__cdecl* __cdecl sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2) {
 			(int)result + v6 >= *(int*)&dword_5d4594_3798824 + dword_5d4594_3798808) {
 			*((_DWORD*)v2 + 86) = 0;
 		} else {
-			v10 = dword_587000_154948;
-			if (*(int*)&dword_587000_154948 <= 0) {
+			v10 = nox_xxx_waypointCounterMB_587000_154948;
+			if (*(int*)&nox_xxx_waypointCounterMB_587000_154948 <= 0) {
 				*((_DWORD*)v2 + 86) = 0;
 				v9 = dword_5d4594_3798824;
-				v10 = dword_587000_154948;
+				v10 = nox_xxx_waypointCounterMB_587000_154948;
 			}
 			if (v10 - *((int*)v2 + 86) > 1 || v10 <= 0) {
 				v11 = dword_5d4594_3798844;
@@ -1198,7 +1198,7 @@ unsigned __int8 __cdecl sub_477530(int a1) {
 		result = getMemByte(0x5D4594, 1096656);
 		if (*getMemU32Ptr(0x5D4594, 1096656))
 			result = sub_473610();
-		if (dword_587000_80832 == 1)
+		if (nox_xxx_useAudio_587000_80832 == 1)
 			nox_client_renderGUI_80828 = 1;
 	}
 	return result;
@@ -1220,7 +1220,7 @@ int __cdecl nox_client_setCursorType_477610(int a1) {
 int nox_client_getCursorType_477620() { return nox_client_mouseCursorType; }
 
 //----- (00477630) --------------------------------------------------------
-int nox_xxx_cursorGetTypePrev_477630() { return dword_587000_151528; }
+int nox_xxx_cursorGetTypePrev_477630() { return nox_xxx_cursorTypePrev_587000_151528; }
 
 //----- (00477640) --------------------------------------------------------
 int __cdecl nox_xxx_bookSaveSpellForDragDrop_477640(int a1, int a2) {
@@ -1351,7 +1351,7 @@ char* nox_client_drawCursorAndTooltips_477830() {
 	}
 LABEL_12:
 	result = (char*)nox_video_cursorDrawImpl_477A30(*getMemIntPtr(0x5D4594, 2523948), v0->field_0, v0->field_4);
-	if (*getMemU16Ptr(0x5D4594, 1096676) && dword_587000_80840 == 1) {
+	if (*getMemU16Ptr(0x5D4594, 1096676) && nox_xxx_useAudio_587000_80840 == 1) {
 		nox_xxx_drawGetStringSize_43F840(0, getMemU16Ptr(0x5D4594, 1096676), &v8, &v7, 0);
 		v4 = v0->field_0 - *getMemU32Ptr(0x5D4594, 1097204);
 		v5 = v0->field_4 - dword_5d4594_1097208;
@@ -6614,7 +6614,7 @@ int* __cdecl nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, 
 }
 
 //----- (00481410) --------------------------------------------------------
-void sub_481410() { dword_587000_154948 = -1; }
+void sub_481410() { nox_xxx_waypointCounterMB_587000_154948 = -1; }
 
 //----- (00481420) --------------------------------------------------------
 int nox_xxx_tileSetDrawFn_481420() {
@@ -7034,7 +7034,7 @@ int __cdecl nox_xxx_tileDrawMB_481C20(int* a1) {
 	int v79;              // [esp+54h] [ebp+8h]
 	int v80;              // [esp+54h] [ebp+8h]
 
-	++dword_587000_154948;
+	++nox_xxx_waypointCounterMB_587000_154948;
 	v1 = a1[4];
 	v2 = *a1;
 	v78 = (unsigned __int8*)(a1[5] - a1[1]);

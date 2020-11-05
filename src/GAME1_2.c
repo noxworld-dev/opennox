@@ -24,7 +24,7 @@
 extern unsigned char byte_5D4594_3804364[160];
 
 extern _DWORD dword_5d4594_787188;
-extern _DWORD dword_587000_80772;
+extern _DWORD nox_xxx_useAudio_587000_80772;
 extern _DWORD dword_5d4594_811904;
 extern _DWORD dword_5d4594_805988;
 extern _DWORD dword_5d4594_3805492;
@@ -56,7 +56,7 @@ extern _DWORD nox_server_sanctuaryHelp_54276;
 extern _DWORD dword_5d4594_814548;
 extern _DWORD dword_5d4594_3804684;
 extern _DWORD dword_5d4594_1193156;
-extern _DWORD dword_587000_80800;
+extern _DWORD nox_xxx_useAudio_587000_80800;
 extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_814552;
 extern _DWORD dword_5d4594_815056;
@@ -5887,15 +5887,15 @@ int __cdecl sub_430AA0(int a1) {
 	result = a1 - 1;
 	if (a1 == 1) {
 		dword_5d4594_805820 = 1;
-		dword_587000_80772 = 9;
+		nox_xxx_useAudio_587000_80772 = 9;
 	} else {
 		result = a1 - 2;
 		if (a1 == 2) {
 			dword_5d4594_805820 = 2;
-			dword_587000_80772 = 13;
+			nox_xxx_useAudio_587000_80772 = 13;
 		} else {
 			dword_5d4594_805820 = 0;
-			dword_587000_80772 = 5;
+			nox_xxx_useAudio_587000_80772 = 5;
 		}
 	}
 	return result;
@@ -5905,7 +5905,7 @@ int __cdecl sub_430AA0(int a1) {
 int nox_xxx_cursor_430AF0() { return dword_5d4594_805820; }
 
 //----- (00430B00) --------------------------------------------------------
-int nox_xxx_cursor_430B00() { return dword_587000_80772; }
+int nox_xxx_cursor_430B00() { return nox_xxx_useAudio_587000_80772; }
 
 //----- (00430B10) --------------------------------------------------------
 void __cdecl sub_430B10_set_mouse_pos(int x, int y) { sub_430A00_change_mouse_pos(x, y, 1); }
@@ -6011,8 +6011,8 @@ int __cdecl nox_xxx_tileInitBuf_430DB0(int a1, int a2) {
 int sub_430E70() {
 	int result; // eax
 
-	result = dword_587000_80800;
-	if (dword_587000_80800) {
+	result = nox_xxx_useAudio_587000_80800;
+	if (nox_xxx_useAudio_587000_80800) {
 		result = dword_5d4594_805836;
 		if (dword_5d4594_805836) {
 			dword_5d4594_805836 = 0;

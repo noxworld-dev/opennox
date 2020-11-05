@@ -51,18 +51,18 @@ extern _DWORD dword_5d4594_1523044;
 extern _DWORD dword_5d4594_1523032;
 extern _DWORD dword_5d4594_1563088;
 extern _DWORD dword_5d4594_1556848;
-extern _DWORD dword_587000_312796;
+extern _DWORD nox_xxx_warriorMaxSpeed_587000_312796;
 extern _DWORD nox_server_sanctuaryHelp_54276;
 extern _DWORD dword_5d4594_3835312;
 extern _DWORD dword_5d4594_1563052;
-extern _DWORD dword_587000_312812;
-extern _DWORD dword_587000_312828;
+extern _DWORD nox_xxx_conjurerSpeed_587000_312812;
+extern _DWORD nox_xxx_wizardSpeed_587000_312828;
 extern _DWORD dword_5d4594_1556852;
-extern _DWORD dword_587000_312824;
-extern _DWORD dword_587000_312792;
+extern _DWORD nox_xxx_wizardStrength_587000_312824;
+extern _DWORD nox_xxx_warriorMaxStrength_587000_312792;
 extern _DWORD dword_5d4594_1556148;
 extern _DWORD dword_5d4594_3835388;
-extern _DWORD dword_587000_312808;
+extern _DWORD nox_xxx_conjurerStrength_587000_312808;
 extern _DWORD dword_5d4594_1563092;
 extern _DWORD dword_5d4594_3835348;
 extern _DWORD dword_5d4594_1556112;
@@ -71,22 +71,22 @@ extern _DWORD dword_5d4594_1550912;
 extern _DWORD dword_5d4594_1523036;
 extern _DWORD dword_5d4594_1548700;
 extern _DWORD dword_5d4594_3835356;
-extern _DWORD dword_587000_312788;
+extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
 extern _DWORD nox_server_connectionType_3596;
-extern _DWORD dword_587000_312784;
-extern _DWORD dword_587000_312800;
-extern _DWORD dword_587000_312816;
-extern _DWORD dword_587000_312804;
+extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
+extern _DWORD nox_xxx_conjurerMaxHealth_587000_312800;
+extern _DWORD nox_xxx_wizardMaxHealth_587000_312816;
+extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
 extern _DWORD dword_5d4594_1550916;
-extern _DWORD dword_587000_312820;
+extern _DWORD nox_xxx_wizardMaximumMana_587000_312820;
 extern _DWORD dword_5d4594_2649712;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_3835396;
 extern _DWORD dword_5d4594_1523024;
 extern _DWORD dword_5d4594_1523028;
-extern _DWORD dword_587000_197428;
+extern _DWORD nox_xxx_replayFile_587000_197428;
 extern _DWORD dword_5d4594_1548476;
-extern _DWORD dword_587000_197424;
+extern _DWORD nox_xxx_replayWriteFile_587000_197424;
 extern _DWORD dword_5d4594_2650652;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -2237,8 +2237,8 @@ void sub_4D3360() { nox_srand(0x141Fu); }
 
 //----- (004D3370) --------------------------------------------------------
 int __cdecl nox_xxx_replayStartSave_4D3370(char* a1) {
-	dword_587000_197424 = _open(a1, 33537, 384);
-	if (*(int*)&dword_587000_197424 == -1)
+	nox_xxx_replayWriteFile_587000_197424 = _open(a1, 33537, 384);
+	if (*(int*)&nox_xxx_replayWriteFile_587000_197424 == -1)
 		return 0;
 	nox_common_setEngineFlag(NOX_ENGINE_FLAG_22);
 	return 1;
@@ -2246,9 +2246,9 @@ int __cdecl nox_xxx_replayStartSave_4D3370(char* a1) {
 
 //----- (004D33B0) --------------------------------------------------------
 void nox_xxx_replayStopSave_4D33B0() {
-	if (*(int*)&dword_587000_197424 != -1)
-		_close(*(int*)&dword_587000_197424);
-	dword_587000_197424 = -1;
+	if (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1)
+		_close(*(int*)&nox_xxx_replayWriteFile_587000_197424);
+	nox_xxx_replayWriteFile_587000_197424 = -1;
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_22);
 }
 
@@ -2256,12 +2256,12 @@ void nox_xxx_replayStopSave_4D33B0() {
 int __cdecl nox_xxx_replaySaveConsole_4D33E0(void* a1, int a2) {
 	int result; // eax
 
-	result = dword_587000_197424;
-	if (*(int*)&dword_587000_197424 != -1 && a1 && a2 >= 1) {
-		_write(*(int*)&dword_587000_197424, getMemAt(0x5D4594, 2598000), 4u);
-		_write(*(int*)&dword_587000_197424, getMemAt(0x587000, 197432), 1u);
-		_write(*(int*)&dword_587000_197424, &a2, 4u);
-		result = _write(*(int*)&dword_587000_197424, a1, 2 * a2);
+	result = nox_xxx_replayWriteFile_587000_197424;
+	if (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1 && a1 && a2 >= 1) {
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x5D4594, 2598000), 4u);
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197432), 1u);
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &a2, 4u);
+		result = _write(*(int*)&nox_xxx_replayWriteFile_587000_197424, a1, 2 * a2);
 	}
 	return result;
 }
@@ -2270,13 +2270,13 @@ int __cdecl nox_xxx_replaySaveConsole_4D33E0(void* a1, int a2) {
 int __cdecl nox_xxx_replayWriteMSgMB_4D3450(int a1, void* a2, unsigned int a3) {
 	int result; // eax
 
-	result = dword_587000_197424;
-	if (*(int*)&dword_587000_197424 != -1) {
-		_write(*(int*)&dword_587000_197424, getMemAt(0x5D4594, 2598000), 4u);
-		_write(*(int*)&dword_587000_197424, getMemAt(0x587000, 197433), 1u);
-		_write(*(int*)&dword_587000_197424, (const void*)(a1 + 2064), 1u);
-		_write(*(int*)&dword_587000_197424, &a3, 4u);
-		result = _write(*(int*)&dword_587000_197424, a2, a3);
+	result = nox_xxx_replayWriteFile_587000_197424;
+	if (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1) {
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x5D4594, 2598000), 4u);
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197433), 1u);
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, (const void*)(a1 + 2064), 1u);
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &a3, 4u);
+		result = _write(*(int*)&nox_xxx_replayWriteFile_587000_197424, a2, a3);
 	}
 	return result;
 }
@@ -2285,8 +2285,8 @@ int __cdecl nox_xxx_replayWriteMSgMB_4D3450(int a1, void* a2, unsigned int a3) {
 int __cdecl nox_xxx_replayFileOpen_4D34C0(char* a1) {
 	char* v2; // eax
 
-	dword_587000_197428 = _open(a1, 0x8000);
-	if (*(int*)&dword_587000_197428 == -1)
+	nox_xxx_replayFile_587000_197428 = _open(a1, 0x8000);
+	if (*(int*)&nox_xxx_replayFile_587000_197428 == -1)
 		return 0;
 	dword_5d4594_1548732 = 0;
 	dword_5d4594_1548736 = 0;
@@ -2302,9 +2302,9 @@ int __cdecl nox_xxx_replayFileOpen_4D34C0(char* a1) {
 void nox_xxx_replayStopReadMB_4D3530() {
 	char* v0; // eax
 
-	if (*(int*)&dword_587000_197428 != -1)
-		_close(*(int*)&dword_587000_197428);
-	dword_587000_197428 = -1;
+	if (*(int*)&nox_xxx_replayFile_587000_197428 != -1)
+		_close(*(int*)&nox_xxx_replayFile_587000_197428);
+	nox_xxx_replayFile_587000_197428 = -1;
 	dword_5d4594_1548732 = 0;
 	dword_5d4594_1548736 = 0;
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_23);
@@ -2314,13 +2314,13 @@ void nox_xxx_replayStopReadMB_4D3530() {
 
 //----- (004D3860) --------------------------------------------------------
 void __cdecl nox_xxx_replay_4D3860(void* a1) {
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22) && (*(int*)&dword_587000_197424 != -1)) {
-		nox_xxx_replayWriteRndCounter_415F30(*(int*)&dword_587000_197424);
-		_write(*(int*)&dword_587000_197424, a1, 0x99u);
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22) && (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1)) {
+		nox_xxx_replayWriteRndCounter_415F30(*(int*)&nox_xxx_replayWriteFile_587000_197424);
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, a1, 0x99u);
 	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23)) {
-		if (*(int*)&dword_587000_197428 != -1) {
-			nox_xxx_replayReadeRndCounter_415F50(*(int*)&dword_587000_197428);
-			_read(*(int*)&dword_587000_197428, a1, 0x99u);
+		if (*(int*)&nox_xxx_replayFile_587000_197428 != -1) {
+			nox_xxx_replayReadeRndCounter_415F50(*(int*)&nox_xxx_replayFile_587000_197428);
+			_read(*(int*)&nox_xxx_replayFile_587000_197428, a1, 0x99u);
 		}
 	}
 }
@@ -2330,17 +2330,17 @@ int nox_xxx_replayStartReadingOrSaving_4D38D0() {
 	int result; // eax
 	int v2;     // [esp+0h] [ebp-4h]
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22) && *(int*)&dword_587000_197424 != -1) {
-		_write(*(int*)&dword_587000_197424, getMemAt(0x5D4594, 2598000), 4u);
-		_write(*(int*)&dword_587000_197424, getMemAt(0x587000, 197434), 1u);
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22) && *(int*)&nox_xxx_replayWriteFile_587000_197424 != -1) {
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x5D4594, 2598000), 4u);
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197434), 1u);
 		*getMemU32Ptr(0x5D4594, 1549764) = nox_server_currentMapGetFilename_409B30();
 		*getMemU8Ptr(0x5D4594, 1548725) = strlen(*(const char**)getMemAt(0x5D4594, 1549764)) + 1;
-		_write(*(int*)&dword_587000_197424, getMemAt(0x5D4594, 1548725), 1u);
-		_write(*(int*)&dword_587000_197424, *(const void**)getMemAt(0x5D4594, 1549764), getMemByte(0x5D4594, 1548725));
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x5D4594, 1548725), 1u);
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, *(const void**)getMemAt(0x5D4594, 1549764), getMemByte(0x5D4594, 1548725));
 		v2 = 66458;
-		_write(*(int*)&dword_587000_197424, &v2, 4u);
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &v2, 4u);
 		result = 0;
-	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23) && *(int*)&dword_587000_197428 != -1) {
+	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23) && *(int*)&nox_xxx_replayFile_587000_197428 != -1) {
 		result = nox_xxx_replayTickMB_4D3580_net_playback(0);
 	} else {
 		result = 0;
@@ -2351,9 +2351,9 @@ int nox_xxx_replayStartReadingOrSaving_4D38D0() {
 //----- (004D39B0) --------------------------------------------------------
 void nox_xxx_replayWriteSomeInt_4D39B0() {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22)) {
-		if (*(int*)&dword_587000_197424 != -1) {
-			_write(*(int*)&dword_587000_197424, getMemAt(0x5D4594, 2598000), 4u);
-			_write(*(int*)&dword_587000_197424, getMemAt(0x587000, 197435), 1u);
+		if (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1) {
+			_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x5D4594, 2598000), 4u);
+			_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197435), 1u);
 		}
 	}
 }
@@ -4418,18 +4418,18 @@ int sub_4D6A60() {
 	int result; // eax
 	int i;      // esi
 
-	dword_587000_312784 = 1077936128;
-	dword_587000_312788 = 1065353216;
-	dword_587000_312792 = 1065353216;
-	dword_587000_312796 = 1065353216;
-	dword_587000_312800 = 1077936128;
-	dword_587000_312804 = 1077936128;
-	dword_587000_312808 = 1065353216;
-	dword_587000_312812 = 1065353216;
-	dword_587000_312816 = 1077936128;
-	dword_587000_312820 = 1077936128;
-	dword_587000_312824 = 1065353216;
-	dword_587000_312828 = 1065353216;
+	nox_xxx_warriorMaxHealth_587000_312784 = 1077936128;
+	nox_xxx_warriorMaxMana_587000_312788 = 1065353216;
+	nox_xxx_warriorMaxStrength_587000_312792 = 1065353216;
+	nox_xxx_warriorMaxSpeed_587000_312796 = 1065353216;
+	nox_xxx_conjurerMaxHealth_587000_312800 = 1077936128;
+	nox_xxx_conjurerMaxMana_587000_312804 = 1077936128;
+	nox_xxx_conjurerStrength_587000_312808 = 1065353216;
+	nox_xxx_conjurerSpeed_587000_312812 = 1065353216;
+	nox_xxx_wizardMaxHealth_587000_312816 = 1077936128;
+	nox_xxx_wizardMaximumMana_587000_312820 = 1077936128;
+	nox_xxx_wizardStrength_587000_312824 = 1065353216;
+	nox_xxx_wizardSpeed_587000_312828 = 1065353216;
 	nox_xxx_loadBaseValues_57B200();
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
@@ -4445,18 +4445,18 @@ int __cdecl sub_4D6B10(int a1) {
 	int result; // eax
 	int i;      // esi
 
-	dword_587000_312784 = *getMemU32Ptr(0x5D4594, 1556076);
-	dword_587000_312788 = *getMemU32Ptr(0x5D4594, 1556084);
-	dword_587000_312792 = *getMemU32Ptr(0x5D4594, 1556064);
-	dword_587000_312796 = *getMemU32Ptr(0x5D4594, 1556072);
-	dword_587000_312800 = *getMemU32Ptr(0x5D4594, 1556060);
-	dword_587000_312804 = *getMemU32Ptr(0x5D4594, 1556096);
-	dword_587000_312808 = *getMemU32Ptr(0x5D4594, 1550932);
-	dword_587000_312812 = *getMemU32Ptr(0x5D4594, 1556080);
-	dword_587000_312816 = *getMemU32Ptr(0x5D4594, 1556088);
-	dword_587000_312820 = *getMemU32Ptr(0x5D4594, 1556068);
-	dword_587000_312824 = *getMemU32Ptr(0x5D4594, 1556100);
-	dword_587000_312828 = *getMemU32Ptr(0x5D4594, 1556092);
+	nox_xxx_warriorMaxHealth_587000_312784 = *getMemU32Ptr(0x5D4594, 1556076);
+	nox_xxx_warriorMaxMana_587000_312788 = *getMemU32Ptr(0x5D4594, 1556084);
+	nox_xxx_warriorMaxStrength_587000_312792 = *getMemU32Ptr(0x5D4594, 1556064);
+	nox_xxx_warriorMaxSpeed_587000_312796 = *getMemU32Ptr(0x5D4594, 1556072);
+	nox_xxx_conjurerMaxHealth_587000_312800 = *getMemU32Ptr(0x5D4594, 1556060);
+	nox_xxx_conjurerMaxMana_587000_312804 = *getMemU32Ptr(0x5D4594, 1556096);
+	nox_xxx_conjurerStrength_587000_312808 = *getMemU32Ptr(0x5D4594, 1550932);
+	nox_xxx_conjurerSpeed_587000_312812 = *getMemU32Ptr(0x5D4594, 1556080);
+	nox_xxx_wizardMaxHealth_587000_312816 = *getMemU32Ptr(0x5D4594, 1556088);
+	nox_xxx_wizardMaximumMana_587000_312820 = *getMemU32Ptr(0x5D4594, 1556068);
+	nox_xxx_wizardStrength_587000_312824 = *getMemU32Ptr(0x5D4594, 1556100);
+	nox_xxx_wizardSpeed_587000_312828 = *getMemU32Ptr(0x5D4594, 1556092);
 	nox_xxx_loadBaseValues_57B200();
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
@@ -4472,19 +4472,19 @@ int __cdecl sub_4D6B10(int a1) {
 int sub_4D6BE0() {
 	int result; // eax
 
-	*getMemU32Ptr(0x5D4594, 1556076) = dword_587000_312784;
-	*getMemU32Ptr(0x5D4594, 1556084) = dword_587000_312788;
-	*getMemU32Ptr(0x5D4594, 1556064) = dword_587000_312792;
-	*getMemU32Ptr(0x5D4594, 1556072) = dword_587000_312796;
-	*getMemU32Ptr(0x5D4594, 1556060) = dword_587000_312800;
-	*getMemU32Ptr(0x5D4594, 1556096) = dword_587000_312804;
-	*getMemU32Ptr(0x5D4594, 1550932) = dword_587000_312808;
-	result = dword_587000_312820;
-	*getMemU32Ptr(0x5D4594, 1556080) = dword_587000_312812;
-	*getMemU32Ptr(0x5D4594, 1556088) = dword_587000_312816;
-	*getMemU32Ptr(0x5D4594, 1556068) = dword_587000_312820;
-	*getMemU32Ptr(0x5D4594, 1556100) = dword_587000_312824;
-	*getMemU32Ptr(0x5D4594, 1556092) = dword_587000_312828;
+	*getMemU32Ptr(0x5D4594, 1556076) = nox_xxx_warriorMaxHealth_587000_312784;
+	*getMemU32Ptr(0x5D4594, 1556084) = nox_xxx_warriorMaxMana_587000_312788;
+	*getMemU32Ptr(0x5D4594, 1556064) = nox_xxx_warriorMaxStrength_587000_312792;
+	*getMemU32Ptr(0x5D4594, 1556072) = nox_xxx_warriorMaxSpeed_587000_312796;
+	*getMemU32Ptr(0x5D4594, 1556060) = nox_xxx_conjurerMaxHealth_587000_312800;
+	*getMemU32Ptr(0x5D4594, 1556096) = nox_xxx_conjurerMaxMana_587000_312804;
+	*getMemU32Ptr(0x5D4594, 1550932) = nox_xxx_conjurerStrength_587000_312808;
+	result = nox_xxx_wizardMaximumMana_587000_312820;
+	*getMemU32Ptr(0x5D4594, 1556080) = nox_xxx_conjurerSpeed_587000_312812;
+	*getMemU32Ptr(0x5D4594, 1556088) = nox_xxx_wizardMaxHealth_587000_312816;
+	*getMemU32Ptr(0x5D4594, 1556068) = nox_xxx_wizardMaximumMana_587000_312820;
+	*getMemU32Ptr(0x5D4594, 1556100) = nox_xxx_wizardStrength_587000_312824;
+	*getMemU32Ptr(0x5D4594, 1556092) = nox_xxx_wizardSpeed_587000_312828;
 	return result;
 }
 
@@ -6683,24 +6683,24 @@ int __cdecl nox_xxx_netStatsMultiplier_4D9C20(int a1) {
 		v4[0] = -17;
 		if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 2251)) {
 			if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 2251) == 1) {
-				*(_DWORD*)&v4[1] = dword_587000_312816;
-				*(_DWORD*)&v4[5] = dword_587000_312820;
-				v3 = dword_587000_312828;
-				*(_DWORD*)&v4[9] = dword_587000_312824;
+				*(_DWORD*)&v4[1] = nox_xxx_wizardMaxHealth_587000_312816;
+				*(_DWORD*)&v4[5] = nox_xxx_wizardMaximumMana_587000_312820;
+				v3 = nox_xxx_wizardSpeed_587000_312828;
+				*(_DWORD*)&v4[9] = nox_xxx_wizardStrength_587000_312824;
 			} else {
 				result = *(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2251) - 2;
 				if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 2251) != 2)
 					return result;
-				*(_DWORD*)&v4[1] = dword_587000_312800;
-				*(_DWORD*)&v4[5] = dword_587000_312804;
-				v3 = dword_587000_312812;
-				*(_DWORD*)&v4[9] = dword_587000_312808;
+				*(_DWORD*)&v4[1] = nox_xxx_conjurerMaxHealth_587000_312800;
+				*(_DWORD*)&v4[5] = nox_xxx_conjurerMaxMana_587000_312804;
+				v3 = nox_xxx_conjurerSpeed_587000_312812;
+				*(_DWORD*)&v4[9] = nox_xxx_conjurerStrength_587000_312808;
 			}
 		} else {
-			*(_DWORD*)&v4[1] = dword_587000_312784;
-			*(_DWORD*)&v4[5] = dword_587000_312788;
-			v3 = dword_587000_312796;
-			*(_DWORD*)&v4[9] = dword_587000_312792;
+			*(_DWORD*)&v4[1] = nox_xxx_warriorMaxHealth_587000_312784;
+			*(_DWORD*)&v4[5] = nox_xxx_warriorMaxMana_587000_312788;
+			v3 = nox_xxx_warriorMaxSpeed_587000_312796;
+			*(_DWORD*)&v4[9] = nox_xxx_warriorMaxStrength_587000_312792;
 		}
 		*(_DWORD*)&v4[13] = v3;
 		result = nox_xxx_netSendPacket0_4E5420(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064), v4, 17, 0, 1);
