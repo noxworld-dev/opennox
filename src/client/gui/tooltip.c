@@ -4,7 +4,7 @@
 extern _DWORD dword_587000_26048;
 
 //----- (004BF050) --------------------------------------------------------
-wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
+wchar_t* __cdecl nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
 	int* v1;            // esi
 	int v2;             // eax
 	const wchar_t* v3;  // ebx
@@ -60,24 +60,24 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			v19 = v1[108];
 			if (!v19) {
 				LOBYTE(a1) = -30;
-				*(_WORD*)((char*)&a1 + 1) = sub_578B00((int)v1);
+				*(_WORD*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00((int)v1);
 				HIBYTE(a1) = 1;
 				v1[108] = 137;
 				goto LABEL_93;
 			}
 			if (v19 != 137) {
 				if (dword_587000_26048 != 6) {
-					v22 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180736), 0,
+					v22 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180736), 0,
 												"C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 292);
 					nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v22);
-					v23 = (const wchar_t*)sub_424930(v1[108]);
+					v23 = (const wchar_t*)nox_xxx_spellLoadName_424930(v1[108]);
 					nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v23);
 					goto LABEL_93;
 				}
-				v20 = (const wchar_t*)sub_424930(v1[108]);
+				v20 = (const wchar_t*)nox_xxx_spellLoadName_424930(v1[108]);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v20);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
-				v21 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180692), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				v21 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180692), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											288);
 				goto LABEL_90;
 			}
@@ -87,7 +87,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			v24 = v1[108];
 			if (!v24) {
 				LOBYTE(a1) = -30;
-				*(_WORD*)((char*)&a1 + 1) = sub_578B00((int)v1);
+				*(_WORD*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00((int)v1);
 				HIBYTE(a1) = 2;
 				v1[108] = 41;
 				goto LABEL_93;
@@ -95,16 +95,16 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			if (v24 == 41)
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
 			if (dword_587000_26048 == 3 || dword_587000_26048 == 5) {
-				v27 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180788), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				v27 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180788), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											313);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v27);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
-				v28 = (const wchar_t*)sub_427240(v1[108]);
+				v28 = (const wchar_t*)nox_xxx_guiCreatureGetName_427240(v1[108]);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v28);
 			} else {
-				v25 = sub_427240(v1[108]);
+				v25 = nox_xxx_guiCreatureGetName_427240(v1[108]);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v25);
-				v26 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180848), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				v26 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180848), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											320);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v26);
 			}
@@ -112,7 +112,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			v29 = v1[108];
 			if (!v29) {
 				LOBYTE(a1) = -30;
-				*(_WORD*)((char*)&a1 + 1) = sub_578B00((int)v1);
+				*(_WORD*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00((int)v1);
 				HIBYTE(a1) = 4;
 				v1[108] = 6;
 				goto LABEL_93;
@@ -120,19 +120,19 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 			if (v29 == 6)
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
 			if (dword_587000_26048 == 6) {
-				v30 = (const wchar_t*)sub_425260(v1[108]);
+				v30 = (const wchar_t*)nox_xxx_abilityGetName_0_425260(v1[108]);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v30);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
-				v21 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180900), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				v21 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180900), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											342);
 			LABEL_90:
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v21);
 				goto LABEL_93;
 			}
 			v31 =
-				loadString_sub_40F1D0((char*)getMemAt(0x587000, 180944), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
+				nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180944), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v31);
-			v32 = (const wchar_t*)sub_425260(v1[108]);
+			v32 = (const wchar_t*)nox_xxx_abilityGetName_0_425260(v1[108]);
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v32);
 		} else {
 			result = (wchar_t*)nox_get_thing_pretty_name(v1[27]);
@@ -151,9 +151,9 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 	v35 = 0;
 	a1 = 0;
 	if (v2 & 0x11001000)
-		v4 = sub_413250(v1[27]);
+		v4 = nox_xxx_getProjectileClassById_413250(v1[27]);
 	else
-		v4 = sub_413270(v1[27]);
+		v4 = nox_xxx_equipClothFindDefByTT_413270(v1[27]);
 	if (v4) {
 		v7 = v1[28] & 0x1000000;
 		if (!v7 || v7 == 0x1000000 && !(v1[29] & 0x7800000)) {
@@ -289,7 +289,7 @@ wchar_t* __cdecl sub_4BF050(wchar_t* a1) {
 		}
 	} else {
 		v33 = nox_get_thing_name(v1[27]);
-		v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 180560), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 53);
+		v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180560), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 53);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), v5, v33);
 		result = (wchar_t*)getMemAt(0x5D4594, 1317000);
 	}

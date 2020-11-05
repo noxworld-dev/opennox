@@ -49,7 +49,7 @@ int __cdecl nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 			v7 %= v6;
 		goto LABEL_12;
 	case 4:
-		v7 = sub_415FF0(0, v6, "C:\\NoxPost\\src\\client\\Draw\\MGenDraw.c", 86);
+		v7 = nox_xxx_randGetMinMax_415FF0(0, v6, "C:\\NoxPost\\src\\client\\Draw\\MGenDraw.c", 86);
 		goto LABEL_12;
 	case 5:
 		v7 = *(unsigned int*)(v2 + 308);
@@ -76,7 +76,7 @@ int __cdecl nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 				*(unsigned int*)(v2 + 280) = v12;
 			}
 		}
-		sub_4C4770_draw(a1, (unsigned __int8*)v2, *(unsigned int*)(v20 + 4 * v7));
+		nox_xxx_drawObject_4C4770_draw(a1, (unsigned __int8*)v2, *(unsigned int*)(v20 + 4 * v7));
 		v13 = *(unsigned int*)(v2 + 280);
 		if (!(v13 & 0xC00)) {
 			v14 = *(unsigned __int8*)(v4 + 28);
@@ -84,7 +84,7 @@ int __cdecl nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 				  ((unsigned int)*(unsigned __int8*)(v4 + 33) + 1);
 			if (v15 >= v14)
 				v15 %= v14;
-			sub_4C4770_draw(a1, (unsigned __int8*)v2, *(unsigned int*)(*(unsigned int*)(v4 + 20) + 4 * v15));
+			nox_xxx_drawObject_4C4770_draw(a1, (unsigned __int8*)v2, *(unsigned int*)(*(unsigned int*)(v4 + 20) + 4 * v15));
 		}
 		v16 = *(unsigned int*)(v2 + 280);
 		if (v16 & 0x800) {

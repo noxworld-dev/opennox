@@ -3,7 +3,7 @@
 
 #include "../../defs.h"
 
-void sub_469BC0();
-void __cdecl sub_469D40(int xLeft, int yTop, int a3);
+void nox_xxx_cliBuildJournalString_469BC0();
+void __cdecl nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3);
 
 #endif // NOX_PORT_CLIENT_GUI_GUIJOURN

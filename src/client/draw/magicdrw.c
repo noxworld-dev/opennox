@@ -29,13 +29,13 @@ int __cdecl nox_thing_magic_draw(int* a1, nox_drawable* dr) {
 	v6 = v3 + v5;
 	v10.field_4 = v6;
 	if (v4 - 10 >= v2 && v6 - 10 >= v3 && v4 + 10 < a1[2] && v6 + 10 < a1[3]) {
-		v7 = sub_415FF0(1, 4, "C:\\NoxPost\\src\\Client\\Draw\\magicdrw.c", 48);
+		v7 = nox_xxx_randGetMinMax_415FF0(1, 4, "C:\\NoxPost\\src\\Client\\Draw\\magicdrw.c", 48);
 		sub_4B6720(&v10, *getMemIntPtr(0x5D4594, 1313808), 2 * v7 + 1, (v7 >> 1) + 3);
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2523948));
 		nox_client_drawRectFilledOpaque_49CE30(v10.field_0 - (v7 >> 1), v10.field_4 - (v7 >> 1), v7, v7);
-		sub_484BE0((_DWORD*)(a2 + 136), 200, 200, 255);
+		nox_xxx_spriteChangeLightColor_484BE0((_DWORD*)(a2 + 136), 200, 200, 255);
 		v9 = sub_416090(0.0, 100.0);
-		sub_484D70_light_intensity(a2 + 136, v9);
+		nox_xxx_spriteChangeIntensity_484D70_light_intensity(a2 + 136, v9);
 	}
 	return 1;
 }
@@ -66,13 +66,13 @@ int __cdecl nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 	v6 = v3 + v5;
 	v10.field_4 = v6;
 	if (v4 - 10 >= v2 && v6 - 10 >= v3 && v4 + 10 < a1[2] && v6 + 10 < a1[3]) {
-		v7 = sub_415FF0(1, 4, "C:\\NoxPost\\src\\Client\\Draw\\magicdrw.c", 91);
+		v7 = nox_xxx_randGetMinMax_415FF0(1, 4, "C:\\NoxPost\\src\\Client\\Draw\\magicdrw.c", 91);
 		sub_4B6720(&v10, *getMemIntPtr(0x5D4594, 1313812), 2 * v7 + 1, (v7 >> 1) + 3);
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2523948));
 		nox_client_drawRectFilledOpaque_49CE30(v10.field_0 - (v7 >> 1), v10.field_4 - (v7 >> 1), v7, v7);
-		sub_484BE0((_DWORD*)(a2 + 136), 255, 180, 50);
+		nox_xxx_spriteChangeLightColor_484BE0((_DWORD*)(a2 + 136), 255, 180, 50);
 		v9 = sub_416090(0.0, 100.0);
-		sub_484D70_light_intensity(a2 + 136, v9);
+		nox_xxx_spriteChangeIntensity_484D70_light_intensity(a2 + 136, v9);
 	}
 	return 1;
 }
@@ -108,9 +108,9 @@ int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) 
 			v6 = 63;
 		v7 = *getMemU32Ptr(0x5D4594, 4 * v6 + 1312756);
 		v8 = v2 + 136;
-		sub_484BE0((_DWORD*)(v2 + 136), 255, 128, 50);
+		nox_xxx_spriteChangeLightColor_484BE0((_DWORD*)(v2 + 136), 255, 128, 50);
 		v10 = (double)v14 * 20.0 / (double)v13;
-		sub_484D70_light_intensity(v8, v10);
+		nox_xxx_spriteChangeIntensity_484D70_light_intensity(v8, v10);
 		nox_client_drawSetColor_434460(v7);
 		nox_client_drawEnableAlpha_434560(1);
 		nox_client_drawSetAlpha_434580(0x80u);
@@ -155,9 +155,9 @@ int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 			v7 = 63;
 		v9 = *getMemU32Ptr(0x5D4594, 4 * v7 + 1312500);
 		v10 = v2 + 136;
-		sub_484BE0((_DWORD*)(v2 + 136), 128, 128, 255);
+		nox_xxx_spriteChangeLightColor_484BE0((_DWORD*)(v2 + 136), 128, 128, 255);
 		v12 = (double)v15 * 20.0 / (double)*getMemIntPtr(0x5D4594, 2649704);
-		sub_484D70_light_intensity(v10, v12);
+		nox_xxx_spriteChangeIntensity_484D70_light_intensity(v10, v12);
 		nox_client_drawSetColor_434460(v9);
 		nox_client_drawEnableAlpha_434560(1);
 		nox_client_drawSetAlpha_434580(0x80u);

@@ -163,8 +163,8 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	int v6;              // [esp+14h] [ebp-A0h]
 	BYTE Data[1024];     // [esp+18h] [ebp-9Ch]
 
-	sub_43BEB0_get_video_mode(&v5, &v4, &v6);
-	v1 = sub_431770();
+	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v5, &v4, &v6);
+	v1 = nox_xxx_getHostInfoPtr_431770();
 	nox_wcscpy((wchar_t*)v1, (const wchar_t*)getMemAt(0x5D4594, 2661908));
 	v1[66] = getMemByte(0x5D4594, 2661958);
 	*(_WORD*)(v1 + 71) = *getMemU16Ptr(0x5D4594, 2661888);
@@ -186,10 +186,10 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	sub_48D740();
 	*(_DWORD*)&Data[97] = v5;
 	*(_DWORD*)&Data[101] = v4;
-	sub_420120(&Data[105]);
+	nox_xxx_regGetSerial_420120(&Data[105]);
 	if (!sub_43AF70())
 		sub_40E0D0((int)&Data[105], (LPCSTR)getMemAt(0x587000, 86344), 0);
-	Data[152] = !sub_40ABD0();
+	Data[152] = !nox_xxx_checkConjSoloMap_40ABD0();
 	if (getMemByte(0x5D4594, 2660684) & 4)
 		Data[152] |= 0x80u;
 	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660012 + 87));
@@ -198,10 +198,10 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	memcpy(Data, v1, 0x61u);
 
 	if (nox_common_gameFlags_check_40A5C0(1)) {
-		sub_4D3860(Data);
-		*getMemU32Ptr(0x5D4594, 2616328) = sub_4DD320(31, Data);
+		nox_xxx_replay_4D3860(Data);
+		*getMemU32Ptr(0x5D4594, 2616328) = nox_xxx_playerNew_4DD320(31, Data);
 		sub_409AE0(66458);
-		sub_494E90(31);
+		nox_xxx_netlist_494E90(31);
 		dword_5d4594_811372 = 2;
 		GOTO_CONNECT_RESULT(0);
 	} else {
@@ -222,9 +222,9 @@ void CONNECT_SERVER(sm_args_t* args) {
 	dword_5d4594_815708 = 0;
 	*(_DWORD*)&v7[20] = 2048;
 	*(_DWORD*)&v7[8] = hostshort;
-	sub_5520B0(200, 1024);
-	*(_DWORD*)&v7[36] = sub_43C860;
-	v4 = sub_5546F0((size_t*)v7);
+	nox_xxx_allocNetGQueue_5520B0(200, 1024);
+	*(_DWORD*)&v7[36] = nox_xxx_netHandleCliPacket_43C860;
+	v4 = nox_xxx_netPreStructToFull_5546F0((size_t*)v7);
 	dword_5d4594_815700 = v4;
 
 	GOTO_NET_CONNECT(v4, cp, hostshort, args->connect_server.data);
@@ -295,7 +295,7 @@ void NET_CONNECT(sm_args_t* args) {
 	}
 	dword_5d4594_3844304 = 0;
 	v12 = 0;
-	v11 = sub_552640(a1, &v12, 1, 3);
+	v11 = nox_xxx_netSendSock_552640(a1, &v12, 1, 3);
 	GOTO_NET_CONNECT_WAIT_LOOP(args->net_connect.data, a1, v11, 60, 6);
 }
 
@@ -316,7 +316,7 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 	v6 = 0;
 	if (20 * a3 < ++v6)
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -23);
-	sub_552A80(a1, a4 | 1);
+	nox_xxx_servNetInitialPackets_552A80(a1, a4 | 1);
 	sub_552460();
 	if (*(char*)(v4 + 113) >= a2)
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, 0);
@@ -342,7 +342,7 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 		*getMemU8Ptr(0x5D4594, 2512892 + 2) = 32;
 		if (a4)
 			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void*)a4, a5);
-		sub_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
+		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
 	}
 	GOTO_NET_CONNECT_THEN(v5[5]);
 }
@@ -356,7 +356,7 @@ void NET_CONNECT_THEN(sm_args_t* args) {
 		dword_5d4594_2649712 |= 0x80000000;
 	sub_40ED10(31, 0);
 	sub_40A340(0);
-	sub_40A360(0);
+	nox_xxx_mapCrcMb_40A360(0);
 	GOTO_CONNECT_WAIT_LOOP(nox_call_get_ticks() + 10000);
 }
 
@@ -364,11 +364,11 @@ void CONNECT_WAIT_LOOP(sm_args_t* args) {
 	if (nox_call_get_ticks() >= args->connect_wait_loop.timeout)
 		GOTO_CONNECT_WAIT_THEN(0);
 
-	sub_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
-	sub_40EE10(*(unsigned int*)&dword_5d4594_815700, 31, 0);
+	nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
+	nox_xxx_netSendBySock_40EE10(*(unsigned int*)&dword_5d4594_815700, 31, 0);
 	sub_40ED10(31, 0);
 	sub_552460();
-	if (sub_40A370())
+	if (nox_xxx_crc_40A370())
 		GOTO_CONNECT_WAIT_THEN(1);
 }
 
@@ -389,10 +389,10 @@ void CONNECT_RESULT(sm_args_t* args) {
 		nox_common_gameFlags_unset_40A540(0x100000);
 		g_v21 = 0;
 		if (nox_common_gameFlags_check_40A5C0(1))
-			sub_4D3200();
+			nox_xxx_servEndSession_4D3200();
 		if (nox_common_gameFlags_check_40A5C0(2))
-			sub_437190();
-		sub_416190();
+			nox_xxx_cliSetupSession_437190();
+		nox_xxx_clear18hDD_416190();
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
 			sub_413E30();
 		sub_43D0A0(result);
@@ -400,13 +400,13 @@ void CONNECT_RESULT(sm_args_t* args) {
 		return;
 	}
 	g_v21 = 1;
-	if (sub_4D38D0() == 1) {
+	if (nox_xxx_replayStartReadingOrSaving_4D38D0() == 1) {
 		f(0);
 		return;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		sub_43DDF0(0);
-	} else if (!sub_4D17F0()) {
+		nox_xxx_setGameState_43DDF0(0);
+	} else if (!nox_xxx_servInitialMapLoad_4D17F0()) {
 		f(0);
 		return;
 	}
@@ -417,13 +417,13 @@ void CONNECT_RESULT(sm_args_t* args) {
 			int v25;
 			int v26;
 			int v28;
-			sub_43BEB0_get_video_mode(&v26, &v28, &v25);
+			nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v26, &v28, &v25);
 			if (!v26)
-				sub_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v25);
-			if (!sub_43BF10_upd_video_mode(0))
+				nox_xxx_gameResizeScreen_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v25);
+			if (!nox_xxx_video_43BF10_upd_video_mode(0))
 				return;
 		}
-		if (!sub_435CC0()) {
+		if (!nox_xxx_initGameSession_435CC0()) {
 			f(0);
 			return;
 		}
@@ -435,7 +435,7 @@ void CONNECT_RESULT(sm_args_t* args) {
 	sub_43F1A0();
 	nox_video_setGammaSetting_434B30(*getMemIntPtr(0x587000, 80852));
 	sub_434B60();
-	sub_40A4D0(0x10000000);
+	nox_xxx_setGameFlags_40A4D0(0x10000000);
 	mainloop_exit = mainloop_exit_2;
 	mainloop_43E290();
 }
@@ -450,7 +450,7 @@ void f(int reentrant) {
 			sub_43F140(300);
 			if (!sub_43C060())
 				return;
-			if (!sub_43BFE0())
+			if (!nox_xxx_cliWaitForJoinData_43BFE0())
 				return;
 			if (g_v20) {
 				sub_43DBA0();
@@ -464,8 +464,8 @@ void f(int reentrant) {
 		reentrant = 0;
 
 		if (dword_5d4594_805872) {
-			sub_437190();
-			sub_43BF10_upd_video_mode(1);
+			nox_xxx_cliSetupSession_437190();
+			nox_xxx_video_43BF10_upd_video_mode(1);
 			nox_client_initScreenParticles_431390();
 			continue;
 		}
@@ -473,7 +473,7 @@ void f(int reentrant) {
 		sub_43D990();
 		g_v20 = 1;
 		sub_43F140(800);
-		sub_415F70();
+		nox_xxx_initRnd_415F70();
 		*getMemU32Ptr(0x5D4594, 2598000) = nox_common_gameFlags_check_40A5C0(1);
 		nox_ensure_thing_bin();
 		*getMemU32Ptr(0x5D4594, 2650664) = 0;
@@ -481,17 +481,17 @@ void f(int reentrant) {
 		if (g_v21)
 			GOTO_CONNECT_RESULT(0);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			if (!sub_4D1660())
+			if (!nox_xxx_servNewSession_4D1660())
 				return;
 		}
-		if (!sub_4357D0(g_argc2, g_argv2))
+		if (!nox_xxx_clientResetSpriteAndGui_4357D0(g_argc2, g_argv2))
 			return;
 		if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x400000) &&
 			nox_common_getEngineFlag(NOX_ENGINE_FLAG_1)) {
 			v23 = nox_common_get_data_path_409E10();
 			sub_4D39F0(v23);
-			if (!sub_4D4320()) {
-				sub_4D12E0(0);
+			if (!nox_xxx_mapGenStart_4D4320()) {
+				nox_xxx_mapSwitchLevel_4D12E0(0);
 				return;
 			}
 			sub_4D3C30();

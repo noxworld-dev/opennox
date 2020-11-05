@@ -33,14 +33,14 @@ int __cdecl nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* d
 				return 0;
 			v10 = dr->field_77;
 		} else {
-			v10 = sub_415FF0(0, v4, "C:\\NoxPost\\src\\client\\Draw\\CAniDraw.c", 57);
+			v10 = nox_xxx_randGetMinMax_415FF0(0, v4, "C:\\NoxPost\\src\\client\\Draw\\CAniDraw.c", 57);
 		}
 	} else {
 		v10 = (*getMemUintPtr(0x5D4594, 2598000) + dr->field_32) / (unsigned int)(v5 + 1);
 		if (v10 >= v4)
 			v10 %= v4;
 	}
-	sub_4C4770_draw(a1, dr, *(unsigned int*)(v3 + 4 * v10));
+	nox_xxx_drawObject_4C4770_draw(a1, dr, *(unsigned int*)(v3 + 4 * v10));
 	return 1;
 }
 
@@ -108,7 +108,7 @@ bool __cdecl nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, 
 					v6[v27] = 0;
 					v13 = v20;
 				}
-				*(_DWORD*)(*v13 + 4 * v28++) = sub_42FAA0(v16, v21, v6);
+				*(_DWORD*)(*v13 + 4 * v28++) = nox_xxx_readImgMB_42FAA0(v16, v21, v6);
 			} while (v28 < *v7);
 		}
 		++v7;

@@ -33,12 +33,12 @@ int __cdecl sub_50E7A0(_DWORD* a1, int a2) {
 	if (!(*(_BYTE*)(v6 + 8) & 4))
 		v6 = a1[3];
 	sub_50E820(v6, *v2);
-	sub_414330(*(unsigned int**)&nox_alloc_tradeItems_2386496, v2);
+	nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_tradeItems_2386496, v2);
 	return 1;
 }
 
 //----- (0050E8F0) --------------------------------------------------------
-_DWORD* __cdecl sub_50E8F0(int a1, int a2) {
+_DWORD* __cdecl nox_xxx_createPlayerShopSession_50E8F0(int a1, int a2) {
 	int v2;         // ebx
 	int v3;         // eax
 	_DWORD* v4;     // esi
@@ -50,7 +50,7 @@ _DWORD* __cdecl sub_50E8F0(int a1, int a2) {
 		 v4 = *(_DWORD**)getMemAt(0x5D4594, 2386364 + 4 * v3), *getMemU32Ptr(0x5D4594, 2386364 + 4 * v3) = 0, v4)) {
 		v2 = 1;
 	} else {
-		result = sub_50E870();
+		result = nox_xxx_createShopStruct_50E870();
 		v4 = result;
 		if (!result)
 			return result;
@@ -59,7 +59,7 @@ _DWORD* __cdecl sub_50E8F0(int a1, int a2) {
 	v4[3] = a2;
 	v4[4] = 1;
 	if (!v2)
-		sub_50E970((int)v4);
+		nox_xxx_loadShopItems_50E970((int)v4);
 	return v4;
 }
 
@@ -83,7 +83,7 @@ int __cdecl sub_50F0F0(int a1, int a2) {
 	*(_WORD*)&v6[52] = 0;
 	strcpy(&v6[54], (const char*)(*(_DWORD*)(v2 + 692) + 1684));
 	*(_WORD*)&v6[2] = *(_WORD*)(v2 + 4);
-	return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(v3 + 748) + 276) + 2064), (int)v6, 86, 0, 1);
+	return nox_xxx_netSendPacket1_4E5390(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(v3 + 748) + 276) + 2064), (int)v6, 86, 0, 1);
 }
 
 //----- (0050F1A0) --------------------------------------------------------
@@ -100,20 +100,20 @@ int __cdecl sub_50F1A0(int a1, int a2) {
 	if (a1 != v2) {
 		if (*(_BYTE*)(v2 + 8) & 4) {
 			nox_wcscpy((wchar_t*)&v8[2], (const wchar_t*)(*(_DWORD*)(*(_DWORD*)(v2 + 748) + 276) + 4704));
-			return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
+			return nox_xxx_netSendPacket1_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
 		}
 		v6 = sub_4E39F0_obj_db(*(const char***)(a2 + 12));
 	} else {
 		v4 = *(_DWORD *) (a2 + 12);
 		if (*(_BYTE *) (v4 + 8) & 4) {
 			nox_wcscpy((wchar_t *) &v8[2], (const wchar_t *) (*(_DWORD *) (*(_DWORD *) (v4 + 748) + 276) + 4704));
-			return sub_4E5390(*(unsigned __int8 *) (*(_DWORD *) (v3 + 276) + 2064), (int) v8, 52, 0, 1);
+			return nox_xxx_netSendPacket1_4E5390(*(unsigned __int8 *) (*(_DWORD *) (v3 + 276) + 2064), (int) v8, 52, 0, 1);
 		}
 		v6 = sub_4E39F0_obj_db((const char **) v4);
 	}
 	nox_wcsncpy((wchar_t *) &v8[2], v6, 0x18u);
 	*(_WORD*)&v8[50] = 0;
-	return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
+	return nox_xxx_netSendPacket1_4E5390(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
 }
 
 //----- (0050F280) --------------------------------------------------------
@@ -128,7 +128,7 @@ int __cdecl sub_50F280(int a1, int a2) {
 }
 
 //----- (0050F370) --------------------------------------------------------
-_DWORD* __cdecl sub_50F370(_DWORD* a1, int a2) {
+_DWORD* __cdecl nox_xxx_tradeSetPlayer_50F370(_DWORD* a1, int a2) {
 	_DWORD* result; // eax
 
 	result = a1;
@@ -168,7 +168,7 @@ int __cdecl sub_50FAE0(int a1, int a2, int a3, int a4, int a5) {
 	} else {
 		*(_DWORD*)&v11[11] = -1;
 	}
-	return sub_4E5390(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), (int)v11, 15, 0, 1);
+	return nox_xxx_netSendPacket1_4E5390(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), (int)v11, 15, 0, 1);
 }
 
 //----- (0050FD60) --------------------------------------------------------
@@ -240,7 +240,7 @@ void __cdecl sub_510320(int a1, int a2) {
 		if (*(_BYTE*)(v2 + 8) & 4)
 			v2 = *(_DWORD*)(a2 + 12);
 		v3 = *(_BYTE**)(v2 + 692);
-		v4 = sub_5103A0(a2, a1);
+		v4 = nox_xxx_getSomeShopData_5103A0(a2, a1);
 		if (v4 != -1) {
 			v5 = (int)&v3[28 * v4];
 			v6 = v3[28 * v4 + 8] - 1;
@@ -270,7 +270,7 @@ int __cdecl sub_5104F0(int a1, __int16 a2) {
 	v2 = *(_DWORD*)(a1 + 748);
 	v4[0] = -55;
 	v4[1] = 27;
-	return sub_4E5420(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064), v4, 4, 0, 1);
+	return nox_xxx_netSendPacket0_4E5420(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064), v4, 4, 0, 1);
 }
 
 //----- (00510540) --------------------------------------------------------
@@ -278,10 +278,10 @@ int __cdecl sub_510540(int a1) {
 	if (!nox_common_gameFlags_check_40A5C0(4096))
 		return 1;
 	if (!*getMemU32Ptr(0x5D4594, 2386520)) {
-		*getMemU32Ptr(0x5D4594, 2386520) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236324));
-		*getMemU32Ptr(0x5D4594, 2386528) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236332));
-		*getMemU32Ptr(0x5D4594, 2386524) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236340));
-		*getMemU32Ptr(0x5D4594, 2386532) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236348));
+		*getMemU32Ptr(0x5D4594, 2386520) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236324));
+		*getMemU32Ptr(0x5D4594, 2386528) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236332));
+		*getMemU32Ptr(0x5D4594, 2386524) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236340));
+		*getMemU32Ptr(0x5D4594, 2386532) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236348));
 	}
 	int v1 = *(unsigned __int16*)(a1 + 4);
 	if ((unsigned __int16)v1 == *getMemU32Ptr(0x5D4594, 2386520) || v1 == *getMemU32Ptr(0x5D4594, 2386524) ||
@@ -296,9 +296,9 @@ BOOL __cdecl sub_5105D0(int a1) {
 	int v1; // eax
 
 	if (!*getMemU32Ptr(0x5D4594, 2386536)) {
-		*getMemU32Ptr(0x5D4594, 2386536) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236364));
-		*getMemU32Ptr(0x5D4594, 2386544) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236372));
-		*getMemU32Ptr(0x5D4594, 2386540) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236380));
+		*getMemU32Ptr(0x5D4594, 2386536) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236364));
+		*getMemU32Ptr(0x5D4594, 2386544) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236372));
+		*getMemU32Ptr(0x5D4594, 2386540) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236380));
 	}
 	v1 = *(unsigned __int16*)(a1 + 4);
 	return (unsigned __int16)v1 == *getMemU32Ptr(0x5D4594, 2386536) || v1 == *getMemU32Ptr(0x5D4594, 2386540) ||
@@ -325,9 +325,9 @@ _DWORD* __cdecl sub_50EF10_trade(int a1, int a2) {
 		v3 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 280);
 		if (v3) {
 			if (*(_DWORD*)(v3 + 12) != a2) {
-				v4 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 235924), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+				v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 235924), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 										   1836);
-				sub_4D9EB0(a1, v4);
+				nox_xxx_netSendLineMessage_4D9EB0(a1, v4);
 			}
 			return 0;
 		}
@@ -338,36 +338,36 @@ _DWORD* __cdecl sub_50EF10_trade(int a1, int a2) {
 		if (*(_DWORD*)(v7 + 280)) {
 			if (v2) {
 				v13 = *(_DWORD*)(v7 + 276) + 4704;
-				v8 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 235988), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+				v8 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 235988), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 										   1878);
 				nox_swprintf(v14, v8, v13);
-				sub_4D9EB0(a1, v14);
+				nox_xxx_netSendLineMessage_4D9EB0(a1, v14);
 			}
 			return 0;
 		}
 	}
 	if (v2) {
 		if (!v6) {
-			v9 = sub_50E8F0(a1, a2);
+			v9 = nox_xxx_createPlayerShopSession_50E8F0(a1, a2);
 			goto LABEL_18;
 		}
 	} else if (!v6) {
 		goto LABEL_17;
 	}
 	if (!v2) {
-		v9 = sub_50E8F0(a2, a1);
+		v9 = nox_xxx_createPlayerShopSession_50E8F0(a2, a1);
 		goto LABEL_18;
 	}
 LABEL_17:
-	v9 = sub_50E870();
+	v9 = nox_xxx_createShopStruct_50E870();
 	v9[2] = a1;
 	v9[3] = a2;
 LABEL_18:
 	if (!v9)
 		return 0;
 	v9[1] = *getMemU32Ptr(0x5D4594, 2598000);
-	sub_50F370(v9, a1);
-	sub_50F370(v9, a2);
+	nox_xxx_tradeSetPlayer_50F370(v9, a1);
+	nox_xxx_tradeSetPlayer_50F370(v9, a2);
 	v10 = *(_BYTE*)(a1 + 8);
 	if (v9[4]) {
 		if (v10 & 4)
@@ -390,14 +390,14 @@ LABEL_18:
 			v12 = v9[2];
 			if (!(*(_BYTE*)(v12 + 8) & 4))
 				v12 = v9[3];
-			sub_4E79C0(v12, 0);
+			nox_xxx_unitFreeze_4E79C0(v12, 0);
 		}
 	}
 	return v9;
 }
 
 //----- (0050F820) --------------------------------------------------------
-int __cdecl sub_50F820_trade(int a1, int a2, float a3) {
+int __cdecl nox_xxx_tradeP2PAddOffer2_50F820_trade(int a1, int a2, float a3) {
 	float v3;    // ebx
 	int result;  // eax
 	int* v5;     // eax
@@ -410,7 +410,7 @@ int __cdecl sub_50F820_trade(int a1, int a2, float a3) {
 	int v12;     // eax
 
 	if (!*getMemU32Ptr(0x5D4594, 2386516))
-		*getMemU32Ptr(0x5D4594, 2386516) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236008));
+		*getMemU32Ptr(0x5D4594, 2386516) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236008));
 	if (*(_DWORD*)(a1 + 8) == a2) {
 		v3 = a3;
 		if (!sub_50FD60(*(_DWORD**)(a1 + 32), SLODWORD(a3)))
@@ -428,7 +428,7 @@ int __cdecl sub_50F820_trade(int a1, int a2, float a3) {
 		*(float*)v5 = v3;
 		v5[2] = 0;
 		v5[3] = 0;
-		v5[1] = sub_50E3D0(1, a1, v3);
+		v5[1] = nox_xxx_shopGetItemCost_50E3D0(1, a1, v3);
 		if (*(_DWORD*)(a1 + 8) == a2) {
 			v6[2] = *(_DWORD*)(a1 + 32);
 			v9 = *(_DWORD*)(a1 + 32);
@@ -453,27 +453,27 @@ int __cdecl sub_50F820_trade(int a1, int a2, float a3) {
 			*(_DWORD*)(a1 + 24) = 1;
 		}
 		if (*(_BYTE*)(v11 + 8) & 4) {
-			sub_50FA00(v11, (_DWORD*)a1);
+			nox_xxx_tradeP2PUpdStuff_50FA00(v11, (_DWORD*)a1);
 			sub_50FAE0(*(_DWORD*)(a1 + 8), a2, a1, *v6, v6[1]);
 			sub_50F720(*(_DWORD*)(a1 + 8), (_DWORD*)a1);
 		}
 		v12 = *(_DWORD*)(a1 + 12);
 		if (*(_BYTE*)(v12 + 8) & 4) {
-			sub_50FA00(v12, (_DWORD*)a1);
+			nox_xxx_tradeP2PUpdStuff_50FA00(v12, (_DWORD*)a1);
 			sub_50FAE0(*(_DWORD*)(a1 + 12), a2, a1, *v6, v6[1]);
 			sub_50F720(*(_DWORD*)(a1 + 12), (_DWORD*)a1);
 		}
 		result = 1;
 	} else {
 		if (*(_BYTE*)(*(_DWORD*)(a1 + 8) + 8) & 4) {
-			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236056), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236056), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   2487);
-			sub_4D9EB0(*(_DWORD*)(a1 + 8), v7);
+			nox_xxx_netSendLineMessage_4D9EB0(*(_DWORD*)(a1 + 8), v7);
 		}
 		if (!(*(_BYTE*)(*(_DWORD*)(a1 + 12) + 8) & 4))
 			return 0;
-		v8 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236120), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2490);
-		sub_4D9EB0(*(_DWORD*)(a1 + 12), v8);
+		v8 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236120), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2490);
+		nox_xxx_netSendLineMessage_4D9EB0(*(_DWORD*)(a1 + 12), v8);
 		result = 0;
 	}
 	return result;
@@ -501,9 +501,9 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 	v3 = a1;
 	v15 = a1;
 	v18 = *(_DWORD*)(a1 + 748);
-	v4 = sub_4FA6B0(v15);
+	v4 = nox_xxx_playerGetGold_4FA6B0(v15);
 	if (!dword_5d4594_2386548)
-		dword_5d4594_2386548 = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236144));
+		dword_5d4594_2386548 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236144));
 	result = (float*)a2[5];
 	if (result) {
 		while (!*(_DWORD*)result || *(_DWORD*)(*(_DWORD*)result + 36) != a3) {
@@ -513,34 +513,34 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 		}
 		v6 = *(_DWORD*)result;
 		if (*(_DWORD*)result) {
-			v7 = sub_50E3D0(1, (int)a2, *result);
+			v7 = nox_xxx_shopGetItemCost_50E3D0(1, (int)a2, *result);
 			v8 = v7;
 			if (v7 > v4)
 				return (float*)sub_5104F0(v3, v7 - v4);
 			if (*(_BYTE*)(v6 + 8) & 0x10) {
-				v9 = sub_4E7D30(v3, *(unsigned __int16*)(v6 + 4));
+				v9 = nox_xxx_inventoryCountObjects_4E7D30(v3, *(unsigned __int16*)(v6 + 4));
 				if (v9 >= (nox_common_gameFlags_check_40A5C0(6144) ? 9 : 3)) {
-					v10 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236200), 0,
+					v10 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236200), 0,
 												"C:\\NoxPost\\src\\Server\\System\\Trade.c", 2943);
-					return (float*)sub_4D9EB0(v3, v10);
+					return (float*)nox_xxx_netSendLineMessage_4D9EB0(v3, v10);
 				}
 			}
 			if (*(unsigned __int16*)(v6 + 4) == dword_5d4594_2386548) {
-				v16 = sub_419D40(getMemAt(0x587000, 236224));
+				v16 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 236224));
 				if (*(_DWORD*)(v18 + 320) >= nox_float2int(v16)) {
-					sub_4DA2C0(v3, "pickup.c:MaxTradableAnkhsReached", 0);
-					return (float*)sub_501960(925, v3, 0, 0);
+					nox_xxx_netPriMsgToPlayer_4DA2C0(v3, "pickup.c:MaxTradableAnkhsReached", 0);
+					return (float*)nox_xxx_aud_501960(925, v3, 0, 0);
 				}
 			}
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
 				v11 = *(_DWORD*)(v6 + 8);
 				if (v11 & 0x1000) {
 					if (*(_DWORD*)(v6 + 12) & 0x200000) {
-						v17 = sub_419D40(getMemAt(0x587000, 236276));
+						v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 236276));
 						v12 = nox_float2int(v17);
-						if (sub_4E7D30(v3, *(unsigned __int16*)(v6 + 4)) >= v12) {
-							sub_4DA2C0(v3, "pickup.c:MaxSameItem", 0);
-							return (float*)sub_501960(925, v3, 0, 0);
+						if (nox_xxx_inventoryCountObjects_4E7D30(v3, *(unsigned __int16*)(v6 + 4)) >= v12) {
+							nox_xxx_netPriMsgToPlayer_4DA2C0(v3, "pickup.c:MaxSameItem", 0);
+							return (float*)nox_xxx_aud_501960(925, v3, 0, 0);
 						}
 					}
 				}
@@ -551,15 +551,15 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 			else
 				v13 = (_DWORD*)v6;
 			if (v13[2] & 0x110 || (v14 = (void(__cdecl*)(int, _DWORD*, int, int))v13[177]) == 0) {
-				sub_4F3070(v3, (int)v13, 1);
-				sub_501960(307, v3, 2, *(_DWORD*)(v3 + 36));
+				nox_xxx_inventoryPutImpl_4F3070(v3, (int)v13, 1);
+				nox_xxx_aud_501960(307, v3, 2, *(_DWORD*)(v3 + 36));
 			} else {
 				v14(v3, v13, 1, 1);
 			}
 			sub_510320(v6, (int)a2);
 			if (sub_510540(v6))
 				sub_50E7A0(a2, v6);
-			sub_4FA5D0(v3, v8);
+			nox_xxx_playerSubGold_4FA5D0(v3, v8);
 			result = (float*)sub_4D8870(*(unsigned __int8*)(*(_DWORD*)(v18 + 276) + 2064), v3);
 		}
 	}
@@ -589,9 +589,9 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 	v4 = a1;
 	v15 = a1;
 	v20 = *(_DWORD*)(a1 + 748);
-	v19 = sub_4FA6B0(v15);
+	v19 = nox_xxx_playerGetGold_4FA6B0(v15);
 	if (!dword_5d4594_2386552)
-		dword_5d4594_2386552 = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236388));
+		dword_5d4594_2386552 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236388));
 	result = a4;
 	v18 = 0;
 	if (a4) {
@@ -608,20 +608,20 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 			v7 = *(_DWORD*)result;
 			if (!*(_DWORD*)result)
 				return result;
-			v8 = sub_50E3D0(1, a2, *result);
+			v8 = nox_xxx_shopGetItemCost_50E3D0(1, a2, *result);
 			if (v8 > v19)
 				return (float*)sub_5104F0(v4, v8 - v19);
 			if (*(_BYTE*)(v7 + 8) & 0x10) {
-				v9 = sub_4E7D30(v4, *(unsigned __int16*)(v7 + 4));
+				v9 = nox_xxx_inventoryCountObjects_4E7D30(v4, *(unsigned __int16*)(v7 + 4));
 				if (v9 >= (nox_common_gameFlags_check_40A5C0(6144) ? 9 : 3)) {
-					v14 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236444), 0,
+					v14 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236444), 0,
 												"C:\\NoxPost\\src\\Server\\System\\Trade.c", 3108);
-					return (float*)sub_4D9EB0(v4, v14);
+					return (float*)nox_xxx_netSendLineMessage_4D9EB0(v4, v14);
 				}
 				v6 = (_DWORD*)a2;
 			}
 			if (*(unsigned __int16*)(v7 + 4) == dword_5d4594_2386552) {
-				v16 = sub_419D40(getMemAt(0x587000, 236468));
+				v16 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 236468));
 				if (*(_DWORD*)(v20 + 320) >= nox_float2int(v16))
 					break;
 			}
@@ -629,10 +629,10 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 				v10 = *(_DWORD*)(v7 + 8);
 				if (v10 & 0x1000) {
 					if (*(_DWORD*)(v7 + 12) & 0x200000) {
-						v17 = sub_419D40(getMemAt(0x587000, 236520));
+						v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 236520));
 						v11 = nox_float2int(v17);
-						if (sub_4E7D30(v4, *(unsigned __int16*)(v7 + 4)) >= v11) {
-							sub_4DA2C0(v4, "pickup.c:MaxSameItem", 0);
+						if (nox_xxx_inventoryCountObjects_4E7D30(v4, *(unsigned __int16*)(v7 + 4)) >= v11) {
+							nox_xxx_netPriMsgToPlayer_4DA2C0(v4, "pickup.c:MaxSameItem", 0);
 							goto LABEL_36;
 						}
 						v6 = (_DWORD*)a2;
@@ -648,19 +648,19 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 			if (v13)
 				v13(v4, v12, 1, 1);
 			else
-				sub_4F3070(v4, (int)v12, 1);
+				nox_xxx_inventoryPutImpl_4F3070(v4, (int)v12, 1);
 			sub_510320(v7, (int)v6);
 			if (sub_510540(v7))
 				sub_50E7A0(v6, v7);
-			sub_4FA5D0(v4, v8);
+			nox_xxx_playerSubGold_4FA5D0(v4, v8);
 			sub_4D8870(*(unsigned __int8*)(*(_DWORD*)(v20 + 276) + 2064), v4);
 			result = (float*)++v18;
 			if (v18 >= (unsigned int)a4)
 				return result;
 		}
-		sub_4DA2C0(v4, "pickup.c:MaxTradableAnkhsReached", 0);
+		nox_xxx_netPriMsgToPlayer_4DA2C0(v4, "pickup.c:MaxTradableAnkhsReached", 0);
 	LABEL_36:
-		result = (float*)sub_501960(925, v4, 0, 0);
+		result = (float*)nox_xxx_aud_501960(925, v4, 0, 0);
 	}
 	return result;
 }
@@ -676,7 +676,7 @@ _DWORD* __cdecl sub_5109C0_trade(int* a1, int a2, _DWORD* a3) {
 
 	v3 = a1[187];
 	if (!*getMemU32Ptr(0x5D4594, 2386556))
-		*getMemU32Ptr(0x5D4594, 2386556) = sub_4E3AA0((CHAR*)getMemAt(0x587000, 236568));
+		*getMemU32Ptr(0x5D4594, 2386556) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236568));
 	v4 = a1[126];
 	result = a3;
 	v8[0] = -55;
@@ -688,19 +688,19 @@ _DWORD* __cdecl sub_5109C0_trade(int* a1, int a2, _DWORD* a3) {
 			if (!v4)
 				return result;
 		}
-		if (sub_53EBF0(v4) == 1) {
-			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236616), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+		if (nox_xxx_ItemIsDroppable_53EBF0(v4) == 1) {
+			v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236616), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3298);
-			sub_4D9EB0((int)a1, v6);
-			result = sub_501960(925, (int)a1, 2, a1[9]);
+			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v6);
+			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		} else if (*(unsigned __int16*)(v4 + 4) == *getMemU32Ptr(0x5D4594, 2386556)) {
-			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236676), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236676), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3308);
-			sub_4D9EB0((int)a1, v7);
-			result = sub_501960(925, (int)a1, 2, a1[9]);
+			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v7);
+			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		} else {
-			*(_DWORD*)&v8[4] = sub_50E3D0(0, a2, *(float*)&v4);
-			result = (_DWORD*)sub_4E5420(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), v8, 8, 0, 1);
+			*(_DWORD*)&v8[4] = nox_xxx_shopGetItemCost_50E3D0(0, a2, *(float*)&v4);
+			result = (_DWORD*)nox_xxx_netSendPacket0_4E5420(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), v8, 8, 0, 1);
 		}
 	}
 	return result;
@@ -715,11 +715,11 @@ _DWORD* __cdecl sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
 	wchar_t* v7;    // eax
 	int v8;         // eax
 
-	sub_4FA6B0((int)a1);
+	nox_xxx_playerGetGold_4FA6B0((int)a1);
 	result = *(_DWORD**)&dword_5d4594_2386560;
 	v4 = a1[187];
 	if (!dword_5d4594_2386560) {
-		result = (_DWORD*)sub_4E3AA0((CHAR*)getMemAt(0x587000, 236692));
+		result = (_DWORD*)nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236692));
 		dword_5d4594_2386560 = result;
 	}
 	v5 = a1[126];
@@ -730,23 +730,23 @@ _DWORD* __cdecl sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
 			if (!v5)
 				return result;
 		}
-		if (sub_53EBF0(v5) == 1) {
-			v6 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236740), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+		if (nox_xxx_ItemIsDroppable_53EBF0(v5) == 1) {
+			v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236740), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3413);
-			sub_4D9EB0((int)a1, v6);
-			result = sub_501960(925, (int)a1, 2, a1[9]);
+			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v6);
+			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		} else if (*(unsigned __int16*)(v5 + 4) == dword_5d4594_2386560) {
-			v7 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 236800), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236800), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3423);
-			sub_4D9EB0((int)a1, v7);
-			result = sub_501960(925, (int)a1, 2, a1[9]);
+			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v7);
+			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		} else {
 			sub_4ED0C0((int)a1, (int*)v5);
-			sub_4E5CC0(v5);
-			v8 = sub_50E3D0(0, a2, *(float*)&v5);
-			sub_4FA590((int)a1, v8);
+			nox_xxx_delayedDeleteObject_4E5CC0(v5);
+			v8 = nox_xxx_shopGetItemCost_50E3D0(0, a2, *(float*)&v5);
+			nox_xxx_playerAddGold_4FA590((int)a1, v8);
 			sub_4D8870(*(unsigned __int8*)(*(_DWORD*)(v4 + 276) + 2064), (int)a1);
-			result = sub_501960(307, (int)a1, 2, a1[9]);
+			result = nox_xxx_aud_501960(307, (int)a1, 2, a1[9]);
 		}
 	}
 	return result;

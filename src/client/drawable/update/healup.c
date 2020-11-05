@@ -28,40 +28,40 @@ int __cdecl sub_4CD450(_DWORD* a1, int a2) {
 	int v24;     // [esp+Ch] [ebp+4h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1522972))
-		*getMemU32Ptr(0x5D4594, 1522972) = sub_44CFC0((CHAR*)getMemAt(0x587000, 189112));
-	if (sub_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 20) < 50) {
+		*getMemU32Ptr(0x5D4594, 1522972) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 189112));
+	if (nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 20) < 50) {
 		if (*(_BYTE*)(a2 + 432)) {
 			if (a2 == -432)
 				return 1;
-			if (sub_578B70(*(_DWORD*)(a2 + 437))) {
-				v5 = sub_578B30(*(_DWORD*)(a2 + 437));
-				v6 = sub_45A720(v5);
+			if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437))) {
+				v5 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 437));
+				v6 = nox_xxx_netSpriteByCodeStatic_45A720(v5);
 			} else {
-				v7 = sub_578B30(*(_DWORD*)(a2 + 437));
-				v6 = sub_45A6F0(v7);
+				v7 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 437));
+				v6 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v7);
 			}
 			v8 = v6;
-			if (sub_578B70(*(_DWORD*)(a2 + 441))) {
-				v9 = sub_578B30(*(_DWORD*)(a2 + 441));
-				v10 = sub_45A720(v9);
+			if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 441))) {
+				v9 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 441));
+				v10 = nox_xxx_netSpriteByCodeStatic_45A720(v9);
 			} else {
-				v11 = sub_578B30(*(_DWORD*)(a2 + 441));
-				v10 = sub_45A6F0(v11);
+				v11 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 441));
+				v10 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v11);
 			}
 			v12 = v10;
 			if (!v8 || !v10)
 				return 1;
-			v2 = v10[3] + sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 61);
-			v3 = v12[4] + sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 62);
+			v2 = v10[3] + nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 61);
+			v3 = v12[4] + nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 62);
 			v4 = v8[4];
 			v22 = v8[3];
 		} else {
 			if (a2 == -432)
 				return 1;
 			v2 = *(unsigned __int16*)(a2 + 441) +
-				 sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 31);
+				 nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 31);
 			v3 = *(unsigned __int16*)(a2 + 443) +
-				 sub_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 32);
+				 nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 32);
 			LOWORD(v22) = *(_WORD*)(a2 + 437);
 			LOWORD(v4) = *(_WORD*)(a2 + 439);
 		}
@@ -81,13 +81,13 @@ int __cdecl sub_4CD450(_DWORD* a1, int a2) {
 			v2 = v13[2] + v13[4] - 1;
 		if (v18 >= v13[9])
 			v3 = v13[3] - v24 + v16 - 1;
-		v19 = sub_45A360_drawable(*getMemIntPtr(0x5D4594, 1522972), v2, v3);
+		v19 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522972), v2, v3);
 		if (v19) {
-			v20 = sub_415FF0(6, 12, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 92);
+			v20 = nox_xxx_randGetMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 92);
 			*(_WORD*)(v19 + 432) = v22;
 			*(_WORD*)(v19 + 434) = v23;
 			*(_BYTE*)(v19 + 443) = v20;
-			*(_BYTE*)(v19 + 444) = sub_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 99);
+			*(_BYTE*)(v19 + 444) = nox_xxx_randGetMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 99);
 		}
 	}
 	return 1;

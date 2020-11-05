@@ -19,6 +19,6 @@ uint32_t nox_memfile_read_u32(nox_memfile* f);
 void nox_memfile_skip(nox_memfile* f, int n);
 unsigned int nox_memfile_read(void* dst, unsigned int sz, int cnt, nox_memfile* f);
 unsigned int nox_memfile_seek_40AD10(nox_memfile* memfile, const int offset, const int fromStartOrEnd);
-unsigned int sub_40AD60(char* dest, int sz, int cnt, nox_memfile* f);
+unsigned int nox_xxx_freadMB_40AD60(char* dest, int sz, int cnt, nox_memfile* f);
 
 #endif // NOX_MEMFILE_H

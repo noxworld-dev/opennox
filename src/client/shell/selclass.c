@@ -18,7 +18,7 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
 	if (a2 != 16389) {
 		if (a2 != 16391)
 			return 0;
-		v4 = sub_46B0A0(a3);
+		v4 = nox_xxx_wndGetID_46B0A0(a3);
 		if (v4 >= 601) {
 			if (v4 <= 603)
 				return 1;
@@ -32,21 +32,21 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
 				nox_wnd_xxx_1307732->field_13 = sub_4A5D00;
 			}
 		}
-		sub_452D80(921, 100);
+		nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 		return 1;
 	}
-	v6 = sub_46B0A0(a3);
+	v6 = nox_xxx_wndGetID_46B0A0(a3);
 	v7 = v6;
 	if (v6 >= 601 && v6 <= 603) {
-		sub_46ABB0(*getMemIntPtr(0x5D4594, 1307728), 1);
-		v8 = sub_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 605);
+		nox_xxx_wnd_46ABB0(*getMemIntPtr(0x5D4594, 1307728), 1);
+		v8 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 605);
 		*(_BYTE*)(dword_5d4594_1307724 + 66) = v7 - 89;
-		v9 = loadString_sub_40F1D0(*(char**)getMemAt(0x587000, 4 * (unsigned __int8)(v7 - 89) + 170208), 0,
+		v9 = nox_xxx_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * (unsigned __int8)(v7 - 89) + 170208), 0,
 								   "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 279);
 		nox_window_call_field_94((int)v8, 16385, (int)v9, 0);
 		*getMemU32Ptr(0x5D4594, 1307740) = v7;
 	}
-	sub_452D80(920, 100);
+	nox_xxx_clientPlaySoundSpecial_452D80(920, 100);
 	return 1;
 }
 
@@ -73,19 +73,19 @@ void* __cdecl sub_4A4B70(int a1) {
 		while (v3[4 * v1 + v1]);
 		if (v1) {
 			v4 = 0;
-			v9 = sub_415FF0(0, v1 - 1, "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 195);
+			v9 = nox_xxx_randGetMinMax_415FF0(0, v1 - 1, "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 195);
 			if (*(_BYTE*)(dword_5d4594_1307724 + 66)) {
 				v10 = 0;
 				v11 = 5;
 				do {
-					sub_45E110(v10);
+					nox_xxx_clientUpdateButtonRow_45E110(v10);
 					v6 = 0;
 					v7 = 5;
 					do {
 						if (a1 == 1)
-							sub_45DBE0((void*)2, 0, v6);
+							nox_xxx_book_45DBE0((void*)2, 0, v6);
 						else
-							sub_45DBE0((void*)2, (unsigned __int8)v3[4 * v9 + v6 + v9], v6);
+							nox_xxx_book_45DBE0((void*)2, (unsigned __int8)v3[4 * v9 + v6 + v9], v6);
 						++v6;
 						--v7;
 					} while (v7);
@@ -93,15 +93,15 @@ void* __cdecl sub_4A4B70(int a1) {
 					++v10;
 					--v11;
 				} while (!v8);
-				result = (void*)sub_45E110(0);
+				result = (void*)nox_xxx_clientUpdateButtonRow_45E110(0);
 			} else {
-				sub_45E110(0);
+				nox_xxx_clientUpdateButtonRow_45E110(0);
 				v5 = 5;
 				do {
 					if (a1 == 1)
-						result = sub_45DBE0((void*)3, 0, v4);
+						result = nox_xxx_book_45DBE0((void*)3, 0, v4);
 					else
-						result = sub_45DBE0((void*)3, (unsigned __int8)v3[4 * v9 + v4 + v9], v4);
+						result = nox_xxx_book_45DBE0((void*)3, (unsigned __int8)v3[4 * v9 + v4 + v9], v4);
 					++v4;
 					--v5;
 				} while (v5);

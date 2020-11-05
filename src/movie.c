@@ -116,7 +116,7 @@ void __cdecl sub_555430(HWND* a1) {
 	sub_556280(15);
 	sub_413B70("Before VQA_Test\n");
 	if (v2)
-		sub_555C40(a1);
+		nox_xxx_VQA_Test_555C40(a1);
 	sub_413B70("Before Reset_Video_System\n");
 	sub_555A40();
 	ShowCursor(1);
@@ -458,7 +458,7 @@ int __cdecl sub_555C10(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 }
 
 //----- (00555C40) --------------------------------------------------------
-int __cdecl sub_555C40(_DWORD* a1) {
+int __cdecl nox_xxx_VQA_Test_555C40(_DWORD* a1) {
 	const char* v1;   // ebp
 	int v2;           // ebx
 	int v3;           // esi
@@ -537,7 +537,7 @@ int __cdecl sub_555C40(_DWORD* a1) {
 	sub_555620(a1);
 	sub_413B70((char*)getMemAt(0x587000, 293496));
 	if (v21 == 1 || v21 == 4) {
-		v11 = sub_556A10();
+		v11 = nox_xxx_unknown_libname_14_556A10();
 		sub_558790(*(_DWORD**)getMemAt(0x5D4594, 2513964), v11);
 	}
 	if (sub_5562A0(7) || sub_5562A0(16)) {
@@ -1107,7 +1107,7 @@ void __cdecl sub_556920(int* a1, char a2) {
 
 //----- (005569A0) --------------------------------------------------------
 // Microsoft VisualC 2-14/net runtime
-_DWORD* sub_5569A0() { return sub_556AC0(getMemAt(0x5D4594, 2514012)); }
+_DWORD* nox_xxx_unknown_libname_13_5569A0() { return sub_556AC0(getMemAt(0x5D4594, 2514012)); }
 
 //----- (005569B0) --------------------------------------------------------
 int __cdecl sub_5569B0(HWND a1) {
@@ -1134,7 +1134,7 @@ int sub_5569F0() {
 
 //----- (00556A10) --------------------------------------------------------
 // Microsoft VisualC 2-14/net runtime
-int sub_556A10() { return sub_556B80(getMemIntPtr(0x5D4594, 2514012)); }
+int nox_xxx_unknown_libname_14_556A10() { return sub_556B80(getMemIntPtr(0x5D4594, 2514012)); }
 
 //----- (00556A20) --------------------------------------------------------
 char* __cdecl sub_556A20(char* a1) {
@@ -2072,7 +2072,7 @@ BOOL __thiscall sub_558370(int* this, int a2) {
 	}
 LABEL_13:
 	v4 = 0;
-	v14 = sub_55C920();
+	v14 = nox_xxx_unknown_libname_15_55C920();
 	sub_555500(0);
 	while ((v4 >= 0 || v4 == -10 || v4 == -9 || v4 == -11 || v4 == -1) && !v11) {
 		sub_558300();
@@ -2107,7 +2107,7 @@ LABEL_13:
 				v11 = 1;
 		}
 	}
-	*(_QWORD*)String = sub_55C920() - v14;
+	*(_QWORD*)String = nox_xxx_unknown_libname_15_55C920() - v14;
 	nullsub_31(getMemAt(0x587000, 300288));
 	if (v10)
 		sub_55BC60();
@@ -5359,7 +5359,7 @@ DWORD __thiscall sub_55C900(DWORD* this) {
 
 //----- (0055C920) --------------------------------------------------------
 // Microsoft VisualC 2-14/net runtime
-DWORD sub_55C920() { return sub_55C900((DWORD*)getMemAt(0x5D4594, 2516192)); }
+DWORD nox_xxx_unknown_libname_15_55C920() { return sub_55C900((DWORD*)getMemAt(0x5D4594, 2516192)); }
 
 //----- (0055C930) --------------------------------------------------------
 DWORD sub_55C930() { return 3 * sub_55C900((DWORD*)getMemAt(0x5D4594, 2516192)) / 0x32; }
@@ -13353,7 +13353,7 @@ unsigned int __cdecl sub_564FB0(int a1, unsigned __int8* a2, int* a3, unsigned i
 	return result;
 }
 
-_DWORD* sub_556990() { return sub_5569A0(); }
+_DWORD* nox_xxx_j_unknown_libname_13_556990() { return nox_xxx_unknown_libname_13_5569A0(); }
 
 void* sub_55C8D0() { return sub_55C8E0(); }
 

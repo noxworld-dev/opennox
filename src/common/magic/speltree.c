@@ -4,7 +4,7 @@
 extern void* dword_587000_66120;
 
 //----- (00424460) --------------------------------------------------------
-int __cdecl sub_424460(int a1, void* a2) {
+int __cdecl nox_xxx_spellLoadSpells_424460(int a1, void* a2) {
 	unsigned __int8* v2;  // eax
 	int v3;               // ebx
 	int v4;               // eax
@@ -55,7 +55,7 @@ int __cdecl sub_424460(int a1, void* a2) {
 	nox_memfile_read(a2, 1u, v33, a1);
 	v3 = 0;
 	*((_BYTE*)a2 + v33) = 0;
-	v4 = sub_4243F0((const char*)a2);
+	v4 = nox_xxx_spellNameToN_4243F0((const char*)a2);
 	v41 = v4;
 	if (!v4)
 		return 0;
@@ -113,7 +113,7 @@ int __cdecl sub_424460(int a1, void* a2) {
 		v16 = -1;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2))
-		*((_DWORD*)v6 + 2) = sub_42FAA0(v16, v39, v43);
+		*((_DWORD*)v6 + 2) = nox_xxx_readImgMB_42FAA0(v16, v39, v43);
 	v19 = *(int**)(a1 + 8);
 	v20 = *v19;
 	*(_DWORD*)(a1 + 8) = v19 + 1;
@@ -131,7 +131,7 @@ int __cdecl sub_424460(int a1, void* a2) {
 		v20 = -1;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2))
-		*((_DWORD*)v6 + 3) = sub_42FAA0(v20, v39, v43);
+		*((_DWORD*)v6 + 3) = nox_xxx_readImgMB_42FAA0(v20, v39, v43);
 	v23 = *(int**)(a1 + 8);
 	v24 = *v23;
 	*(_DWORD*)(a1 + 8) = v23 + 1;
@@ -141,13 +141,13 @@ int __cdecl sub_424460(int a1, void* a2) {
 	*(_DWORD*)(a1 + 8) = v25 + 1;
 	nox_memfile_read(v43, 1u, v36, a1);
 	v43[v36] = 0;
-	*(_DWORD*)v6 = loadString_sub_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 481);
+	*(_DWORD*)v6 = nox_xxx_loadString_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 481);
 	v26 = *(__int16**)(a1 + 8);
 	v27 = *v26;
 	*(_DWORD*)(a1 + 8) = v26 + 1;
 	nox_memfile_read(v43, 1u, v27, a1);
 	v43[v27] = 0;
-	*((_DWORD*)v6 + 1) = loadString_sub_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 488);
+	*((_DWORD*)v6 + 1) = nox_xxx_loadString_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 488);
 	v28 = *(unsigned __int8**)(a1 + 8);
 	v29 = *v28;
 	*(_DWORD*)(a1 + 8) = v28 + 1;

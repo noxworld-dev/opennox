@@ -116,7 +116,7 @@ bool __cdecl nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_val
 	// TODO: After cleanup: Figure out if this value has any significance to the data in the file, or if the file was
 	// simply 16byte-aligned
 	uint32_t tmp;
-	sub_40AD60((char*)&tmp, sizeof(tmp), 1, f);
+	nox_xxx_freadMB_40AD60((char*)&tmp, sizeof(tmp), 1, f);
 
 	if (!*(_DWORD*)nox_parse_thing_draw_funcs) {
 		return 1;
@@ -277,13 +277,13 @@ bool __cdecl nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_v
 
 //----- (0044C480) --------------------------------------------------------
 bool __cdecl nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->pretty_name = loadString_sub_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
+	obj->pretty_name = nox_xxx_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
 	return 1;
 }
 
 //----- (0044C4B0) --------------------------------------------------------
 bool __cdecl nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->desc = loadString_sub_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
+	obj->desc = nox_xxx_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
 	return 1;
 }
 
@@ -293,7 +293,7 @@ bool __cdecl nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* 
 
 	const uint32_t known_idx = nox_memfile_read_u32(f);
 	if (known_idx != -1) {
-		obj->pretty_image = sub_42FAA0(known_idx, 0, v10);
+		obj->pretty_image = nox_xxx_readImgMB_42FAA0(known_idx, 0, v10);
 		return 1;
 	}
 
@@ -301,7 +301,7 @@ bool __cdecl nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* 
 	const int v8 = nox_memfile_read_u8(f);
 	const int n = nox_memfile_read_u8(f);
 	nox_memfile_read(v10, 1u, n, f);
-	obj->pretty_image = sub_42FAA0(known_idx, v8, v10);
+	obj->pretty_image = nox_xxx_readImgMB_42FAA0(known_idx, v8, v10);
 	return 1;
 }
 
@@ -337,7 +337,7 @@ int __cdecl nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_t
 }
 
 //----- (0044CCA0) --------------------------------------------------------
-int sub_44CCA0() {
+int nox_xxx_spriteDefByAlphabetClear_44CCA0() {
 	int result; // eax
 
 	result = 0;
@@ -410,7 +410,7 @@ int sub_46A360() {
 }
 
 //----- (0044CCD0) --------------------------------------------------------
-size_t sub_44CCD0() {
+size_t nox_xxx_spriteDefByAlphabetAlloc_44CCD0() {
 	int i;         // esi
 	size_t result; // eax
 
@@ -428,11 +428,11 @@ size_t sub_44CCD0() {
 }
 
 //----- (0044CD60) --------------------------------------------------------
-void __cdecl sub_44CD60(nox_thing* a1, int a2) {
+void __cdecl nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2) {
 	if (!a1)
 		return;
 
-	int v2 = sub_44CD30(a1->name);
+	int v2 = nox_xxx_keyFirstLetterNumberCli_44CD30(a1->name);
 	if (v2 < 0)
 		return;
 
@@ -447,22 +447,22 @@ void __cdecl sub_44CD60(nox_thing* a1, int a2) {
 }
 
 //----- (0044CDE0) --------------------------------------------------------
-int __cdecl sub_44CDE0(const void* a1, const void* a2) { return _strcmpi(**(const char***)a1, **(const char***)a2); }
+int __cdecl nox_xxx_spriteDefByAlphabetCompare_44CDE0(const void* a1, const void* a2) { return _strcmpi(**(const char***)a1, **(const char***)a2); }
 
 //----- (0044CDB0) --------------------------------------------------------
-void sub_44CDB0() {
+void nox_xxx_spriteDefByAlphabetSort_44CDB0() {
 	int i;         // esi
 	signed int v1; // eax
 
 	for (i = 0; i < 108; i += 4) {
 		v1 = *getMemU32Ptr(0x5D4594, 830616 + i);
 		if (v1 > 1)
-			qsort(*(void**)getMemAt(0x5D4594, 830296 + i), v1, 8u, sub_44CDE0);
+			qsort(*(void**)getMemAt(0x5D4594, 830296 + i), v1, 8u, nox_xxx_spriteDefByAlphabetCompare_44CDE0);
 	}
 }
 
 //----- (004131A0) --------------------------------------------------------
-CHAR* sub_4131A0() {
+CHAR* nox_xxx_equipWeapon_4131A0() {
 	CHAR* result; // eax
 	int i;        // esi
 	int j;        // esi
@@ -471,23 +471,23 @@ CHAR* sub_4131A0() {
 	if (*getMemU32Ptr(0x5D4594, 251616) != 1) {
 		for (i = dword_5d4594_251600; i; i = *(_DWORD*)(i + 80)) {
 			if (nox_common_gameFlags_check_40A5C0(2097153)) {
-				result = (CHAR*)sub_4E3AA0(*(CHAR**)i);
+				result = (CHAR*)nox_xxx_getNameId_4E3AA0(*(CHAR**)i);
 			} else {
 				result = (CHAR*)nox_common_gameFlags_check_40A5C0(2);
 				if (!result)
 					return result;
-				result = (CHAR*)sub_44CFC0(*(CHAR**)i);
+				result = (CHAR*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(CHAR**)i);
 			}
 			*(_DWORD*)(i + 4) = result;
 		}
 		for (j = dword_5d4594_251608; j; j = *(_DWORD*)(j + 80)) {
 			if (nox_common_gameFlags_check_40A5C0(2097153)) {
-				result = (CHAR*)sub_4E3AA0(*(CHAR**)j);
+				result = (CHAR*)nox_xxx_getNameId_4E3AA0(*(CHAR**)j);
 			} else {
 				result = (CHAR*)nox_common_gameFlags_check_40A5C0(2);
 				if (!result)
 					return result;
-				result = (CHAR*)sub_44CFC0(*(CHAR**)j);
+				result = (CHAR*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(CHAR**)j);
 			}
 			*(_DWORD*)(j + 4) = result;
 		}
@@ -497,7 +497,7 @@ CHAR* sub_4131A0() {
 }
 
 //----- (00415AB0) --------------------------------------------------------
-void sub_415AB0() {
+void nox_xxx_equipArmor_415AB0() {
 	unsigned __int8* v0; // esi
 	int v1;              // eax
 	int v2;              // eax
@@ -507,11 +507,11 @@ void sub_415AB0() {
 			v0 = getMemAt(0x587000, 34864);
 			do {
 				if (nox_common_gameFlags_check_40A5C0(2097153)) {
-					*((_DWORD*)v0 - 2) = sub_4E3AA0(*((CHAR**)v0 - 4));
-					v1 = sub_4E3AA0(*(CHAR**)v0);
+					*((_DWORD*)v0 - 2) = nox_xxx_getNameId_4E3AA0(*((CHAR**)v0 - 4));
+					v1 = nox_xxx_getNameId_4E3AA0(*(CHAR**)v0);
 				} else {
-					*((_DWORD*)v0 - 2) = sub_44CFC0(*((CHAR**)v0 - 4));
-					v1 = sub_44CFC0(*(CHAR**)v0);
+					*((_DWORD*)v0 - 2) = nox_xxx_getTTByNameSpriteMB_44CFC0(*((CHAR**)v0 - 4));
+					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(CHAR**)v0);
 				}
 				*((_DWORD*)v0 + 1) = v1;
 				v2 = *((_DWORD*)v0 + 2);
@@ -523,7 +523,7 @@ void sub_415AB0() {
 }
 
 //----- (004157C0) --------------------------------------------------------
-void sub_4157C0() {
+void nox_xxx_equipWeapon_4157C0() {
 	unsigned __int8* v0; // esi
 	int v1;              // eax
 	int v2;              // eax
@@ -533,9 +533,9 @@ void sub_4157C0() {
 			v0 = getMemAt(0x587000, 33064);
 			do {
 				if (nox_common_gameFlags_check_40A5C0(2097153))
-					v1 = sub_4E3AA0(*(CHAR**)v0);
+					v1 = nox_xxx_getNameId_4E3AA0(*(CHAR**)v0);
 				else
-					v1 = sub_44CFC0(*(CHAR**)v0);
+					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(CHAR**)v0);
 				*((_DWORD*)v0 + 1) = v1;
 				v2 = *((_DWORD*)v0 + 3);
 				v0 += 12;
@@ -555,7 +555,7 @@ int sub_42BF10() {
 	if (dword_5d4594_741676)
 		return 1;
 	if (nox_common_gameFlags_check_40A5C0(2097153)) {
-		v1 = sub_4E3AC0();
+		v1 = nox_xxx_unitDefGetCount_4E3AC0();
 	} else {
 		if (!nox_common_gameFlags_check_40A5C0(2))
 			return 0;
@@ -571,9 +571,9 @@ int sub_42BF10() {
 }
 
 //----- (0044C840) --------------------------------------------------------
-void* __cdecl sub_44C840_read_things(void) {
+void* __cdecl nox_xxx_parseThingBinClient_44C840_read_things(void) {
 	char* scratch_buffer = (char*)malloc(256 * 1024);
-	sub_44CCA0();
+	nox_xxx_spriteDefByAlphabetClear_44CCA0();
 	nox_things_free_44C580();
 	nox_things_count = 1;
 	sub_485CF0();
@@ -643,7 +643,7 @@ void* __cdecl sub_44C840_read_things(void) {
 			}
 			obj->next = nox_things_head;
 			nox_things_head = obj;
-			sub_44CD10(obj->name);
+			nox_xxx_spriteDefByAlphabetAdd_44CD10(obj->name);
 			break;
 		}
 	}
@@ -658,11 +658,11 @@ void* __cdecl sub_44C840_read_things(void) {
 	void* result = malloc(sizeof(nox_thing*) * nox_things_count);
 	nox_things_array = result;
 	if (result) {
-		sub_44CCD0();
+		nox_xxx_spriteDefByAlphabetAlloc_44CCD0();
 		nox_thing* cur = nox_things_head;
 		for (int i = 1; i < nox_things_count; i++) {
 			nox_things_array[nox_things_count - i] = cur;
-			sub_44CD60(cur, nox_things_count - i);
+			nox_xxx_spriteDefByAlphabetAdd_0_44CD60(cur, nox_things_count - i);
 			if (*((_BYTE*)cur + 0xe)) {
 				// The large amount of logic in the following two branches is due to copying strings as WORDs.
 				// If not loaded, set cur->pretty_name = load_string "thing.db:${cur->name}PrettyName"
@@ -684,7 +684,7 @@ void* __cdecl sub_44C840_read_things(void) {
 					*((_DWORD*)v15 + 1) = v16;
 					*((_WORD*)v15 + 4) = cur_name_len_plus_one;
 					v15[10] = v17;
-					cur->pretty_name = loadString_sub_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
+					cur->pretty_name = nox_xxx_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
 															 "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
 				}
 				// if not loaded, set cur->desc = load_string "thing.db:${cur->name}Description"
@@ -704,17 +704,17 @@ void* __cdecl sub_44C840_read_things(void) {
 					*(_DWORD*)--v25 = *getMemU32Ptr(0x587000, 122784);
 					*((_DWORD*)v25 + 1) = v26;
 					*((_DWORD*)v25 + 2) = v24;
-					cur->desc = loadString_sub_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
+					cur->desc = nox_xxx_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
 													  "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
 				}
 			}
 			cur = cur->next;
 		}
-		sub_44CDB0();
+		nox_xxx_spriteDefByAlphabetSort_44CDB0();
 		free(scratch_buffer);
-		sub_4131A0();
-		sub_415AB0();
-		sub_4157C0();
+		nox_xxx_equipWeapon_4131A0();
+		nox_xxx_equipArmor_415AB0();
+		nox_xxx_equipWeapon_4157C0();
 		result = (void*)(sub_42BF10() != 0);
 	}
 	return result;
@@ -734,7 +734,7 @@ void sub_44C620_free() {
 }
 
 //----- (004E2B30) --------------------------------------------------------
-LPVOID sub_4E2B30() {
+LPVOID nox_xxx_unitDefByAlphabetFree_4E2B30() {
 	LPVOID* v0;    // esi
 	LPVOID result; // eax
 
@@ -763,7 +763,7 @@ LPVOID sub_42BF80() {
 }
 
 //----- (004E2A20) --------------------------------------------------------
-int sub_4E2A20() {
+int nox_xxx_free_4E2A20() {
 	int v0;   // esi
 	int v1;   // ebp
 	int v2;   // eax
@@ -804,7 +804,7 @@ int sub_4E2A20() {
 		*getMemU32Ptr(0x5D4594, 1563456) = 0;
 	}
 	*getMemU32Ptr(0x587000, 201384) = 1;
-	sub_4E2B30();
+	nox_xxx_unitDefByAlphabetFree_4E2B30();
 	sub_42BF80();
 	return 1;
 }
@@ -821,12 +821,12 @@ int sub_4E3010() {
 }
 
 //----- (004E3080) --------------------------------------------------------
-CHAR* __cdecl sub_4E3080(CHAR* a1) {
+CHAR* __cdecl nox_xxx_unitDefByAlphabetAdd_4E3080(CHAR* a1) {
 	CHAR* result; // eax
 
 	result = a1;
 	if (a1) {
-		result = (CHAR*)sub_4E30A0(a1);
+		result = (CHAR*)nox_xxx_keyFirstLetterNumber_4E30A0(a1);
 		if ((int)result >= 0)
 			++*getMemU32Ptr(0x5D4594, 1563668 + 4 * (_DWORD)result);
 	}
@@ -867,7 +867,7 @@ int sub_4E3110() {
 }
 
 //----- (004E3040) --------------------------------------------------------
-size_t sub_4E3040() {
+size_t nox_xxx_unitDefByAlphabetInit_4E3040() {
 	int i;         // esi
 	size_t result; // eax
 
@@ -890,7 +890,7 @@ void __cdecl sub_4E30D0(int a1) {
 	int v2; // ecx
 
 	if (a1) {
-		v1 = sub_4E30A0(*(CHAR**)(a1 + 4));
+		v1 = nox_xxx_keyFirstLetterNumber_4E30A0(*(CHAR**)(a1 + 4));
 		v2 = *getMemU32Ptr(0x5D4594, 1563348 + 4 * v1);
 		if (v2) {
 			*(_DWORD*)(v2 + 4 * *getMemU32Ptr(0x5D4594, 1563776 + 4 * v1)) = a1;
@@ -942,7 +942,7 @@ const char* sub_4F0640() {
 			v3 = *(CHAR**)v1;
 			if (v2 == 35)
 				++v3;
-			*((_DWORD*)v1 + 1) = sub_4E3AA0(v3);
+			*((_DWORD*)v1 + 1) = nox_xxx_getNameId_4E3AA0(v3);
 			v0 = (char*)*((_DWORD*)v1 + 5);
 			v1 += 20;
 		} while (v0);
@@ -951,8 +951,8 @@ const char* sub_4F0640() {
 	if (*getMemU32Ptr(0x587000, 210712)) {
 		v5 = getMemAt(0x587000, 210712);
 		do {
-			v6 = sub_413290(v4);
-			*((_DWORD*)v5 - 1) = sub_413330(v6);
+			v6 = nox_xxx_modifGetIdByName_413290(v4);
+			*((_DWORD*)v5 - 1) = nox_xxx_modifGetDescById_413330(v6);
 			v4 = (const char*)*((_DWORD*)v5 + 6);
 			v5 += 24;
 		} while (v4);
@@ -961,8 +961,8 @@ const char* sub_4F0640() {
 	if (*getMemU32Ptr(0x587000, 210856)) {
 		v8 = getMemAt(0x587000, 210856);
 		do {
-			v9 = sub_413290(v7);
-			*((_DWORD*)v8 - 1) = sub_413330(v9);
+			v9 = nox_xxx_modifGetIdByName_413290(v7);
+			*((_DWORD*)v8 - 1) = nox_xxx_modifGetDescById_413330(v9);
 			v7 = (const char*)*((_DWORD*)v8 + 6);
 			v8 += 24;
 		} while (v7);
@@ -971,8 +971,8 @@ const char* sub_4F0640() {
 	if (*getMemU32Ptr(0x587000, 211000)) {
 		v11 = getMemAt(0x587000, 211000);
 		do {
-			v12 = sub_413290(v10);
-			*((_DWORD*)v11 - 1) = sub_413330(v12);
+			v12 = nox_xxx_modifGetIdByName_413290(v10);
+			*((_DWORD*)v11 - 1) = nox_xxx_modifGetDescById_413330(v12);
 			v10 = (const char*)*((_DWORD*)v11 + 6);
 			v11 += 24;
 		} while (v10);
@@ -981,8 +981,8 @@ const char* sub_4F0640() {
 	if (*getMemU32Ptr(0x587000, 209344)) {
 		v14 = getMemAt(0x587000, 209344);
 		do {
-			v15 = sub_413290(result);
-			*((_DWORD*)v14 - 1) = sub_413330(v15);
+			v15 = nox_xxx_modifGetIdByName_413290(result);
+			*((_DWORD*)v14 - 1) = nox_xxx_modifGetDescById_413330(v15);
 			result = (const char*)*((_DWORD*)v14 + 6);
 			v14 += 24;
 		} while (result);
@@ -1014,7 +1014,7 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 	unsigned __int8 v22; // [esp+Ch] [ebp+4h]
 
 	if (dword_5d4594_1563660)
-		sub_4E2A20();
+		nox_xxx_free_4E2A20();
 	sub_4E3010();
 	dword_5d4594_1563664 = 0;
 	v1 = malloc(0x40000u);
@@ -1079,9 +1079,9 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 			*((_DWORD*)v5 + 29) = 1106247680;
 			*((_DWORD*)v5 + 3) = -1;
 			*((_WORD*)v5 + 20) = 0x4000;
-			*((_DWORD*)v5 + 38) = sub_4E0B30;
-			*((_DWORD*)v5 + 39) = sub_532E20;
-			*((_DWORD*)v5 + 53) = sub_4F49A0;
+			*((_DWORD*)v5 + 38) = nox_xxx_damageDefaultProc_4E0B30;
+			*((_DWORD*)v5 + 39) = nox_xxx_soundDefaultDamageSound_532E20;
+			*((_DWORD*)v5 + 53) = nox_xxx_XFerDefault_4F49A0;
 			if (!nox_thing_read_xxx_4E3220(things, (char*)v3, (int)v5)) {
 				nox_memfile_free(things);
 				return 0;
@@ -1138,10 +1138,10 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 			v16 = *((float*)v5 + 14) * 10.0;
 			*((_DWORD*)v5 + 4) = 1;
 			*((float*)v5 + 14) = v16;
-			dword_5d4594_1563664 ^= sub_4E31A0((int)v5);
+			dword_5d4594_1563664 ^= nox_xxx_unitDefProtectMB_4E31A0((int)v5);
 			*((_DWORD*)v5 + 55) = dword_5d4594_1563660;
 			dword_5d4594_1563660 = v5;
-			sub_4E3080(*((CHAR**)v5 + 1));
+			nox_xxx_unitDefByAlphabetAdd_4E3080(*((CHAR**)v5 + 1));
 			v3 = v21;
 			break;
 		}
@@ -1158,13 +1158,13 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 	if (!result) {
 		return 0;
 	}
-	sub_4E3C20();
+	nox_xxx_protectUnitDefUpdateMB_4E3C20();
 	result = malloc(4 * *getMemU32Ptr(0x587000, 201384));
 	*getMemU32Ptr(0x5D4594, 1563456) = result;
 	if (!result) {
 		return 0;
 	}
-	sub_4E3040();
+	nox_xxx_unitDefByAlphabetInit_4E3040();
 	v17 = *getMemU32Ptr(0x587000, 201384);
 	v18 = dword_5d4594_1563660;
 	v19 = 1;
@@ -1177,9 +1177,9 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 	}
 	sub_4E29D0();
 	free(v3);
-	sub_4131A0();
-	sub_415AB0();
-	sub_4157C0();
+	nox_xxx_equipWeapon_4131A0();
+	nox_xxx_equipArmor_415AB0();
+	nox_xxx_equipWeapon_4157C0();
 	sub_4F0640();
 	if (!sub_42BF10())
 		return 0;
@@ -1187,7 +1187,7 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 }
 
 //----- (0044C780) --------------------------------------------------------
-void* __cdecl sub_44C780(int a1) {
+void* __cdecl nox_xxx_draw_44C780(int a1) {
 	int i;        // esi
 	int v2;       // eax
 	void* result; // eax
@@ -1217,14 +1217,14 @@ LPVOID __cdecl sub_44C7B0(int a1) {
 	v2 = 55;
 	do {
 		if (*v1) {
-			sub_44C780((int)*v1 + 4);
+			nox_xxx_draw_44C780((int)*v1 + 4);
 			free(*v1);
 		}
 		v3 = v1 + 1;
 		v4 = 26;
 		do {
 			if (*v3) {
-				sub_44C780((int)*v3 + 4);
+				nox_xxx_draw_44C780((int)*v3 + 4);
 				free(*v3);
 			}
 			++v3;
@@ -1235,7 +1235,7 @@ LPVOID __cdecl sub_44C7B0(int a1) {
 		do {
 			result = *v5;
 			if (*v5) {
-				sub_44C780((int)result + 4);
+				nox_xxx_draw_44C780((int)result + 4);
 				free(*v5);
 			}
 			++v5;
@@ -1248,7 +1248,7 @@ LPVOID __cdecl sub_44C7B0(int a1) {
 }
 
 //----- (0044C650) --------------------------------------------------------
-void __cdecl sub_44C650_free(LPVOID lpMem, void* draw) {
+void __cdecl nox_xxx_draw_44C650_free(LPVOID lpMem, void* draw) {
 	int kind = 0;
 	if (*(_DWORD*)nox_parse_thing_draw_funcs) {
 		nox_parse_thing_draw_funcs_t* item = NULL;
@@ -1292,7 +1292,7 @@ void __cdecl sub_44C650_free(LPVOID lpMem, void* draw) {
 			free(lpMem);
 			break;
 		case 5:
-			sub_44C780((int)lpMem + 4);
+			nox_xxx_draw_44C780((int)lpMem + 4);
 			free(lpMem);
 			break;
 		case 6:
@@ -1303,7 +1303,7 @@ void __cdecl sub_44C650_free(LPVOID lpMem, void* draw) {
 			v9 = (char*)lpMem + 8;
 			v10 = 16;
 			do {
-				sub_44C780((int)v9);
+				nox_xxx_draw_44C780((int)v9);
 				v9 += 48;
 				--v10;
 			} while (v10);
@@ -1313,7 +1313,7 @@ void __cdecl sub_44C650_free(LPVOID lpMem, void* draw) {
 			v11 = (char*)lpMem + 8;
 			v12 = 3;
 			do {
-				sub_44C780((int)v11);
+				nox_xxx_draw_44C780((int)v11);
 				v11 += 48;
 				--v12;
 			} while (v12);
@@ -1333,7 +1333,7 @@ void nox_things_free_44C580() {
 			if (cur->name)
 				free(cur->name);
 			if (cur->field_5c)
-				sub_44C650_free(cur->field_5c, cur->draw_func);
+				nox_xxx_draw_44C650_free(cur->field_5c, cur->draw_func);
 			nox_thing* next = cur->next;
 			free(cur);
 			cur = next;

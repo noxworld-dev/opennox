@@ -2,7 +2,7 @@
 #include "../../../proto.h"
 
 //----- (0044C000) --------------------------------------------------------
-void* __cdecl sub_44C000(char* attr_value, nox_memfile* f) {
+void* __cdecl nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* f) {
 	_DWORD* v2;          // eax
 	_DWORD* v4;          // ebp
 	void* result;        // eax
@@ -39,7 +39,7 @@ void* __cdecl sub_44C000(char* attr_value, nox_memfile* f) {
 					v8[v14] = 0;
 					v7 = v16;
 				}
-				*(_DWORD*)(v4[1] + 4 * v7++) = sub_42FAA0(v10, v13, v8);
+				*(_DWORD*)(v4[1] + 4 * v7++) = nox_xxx_readImgMB_42FAA0(v10, v13, v8);
 				v16 = v7;
 			} while (v7 < *((unsigned __int8*)v4 + 8));
 		}
@@ -49,15 +49,15 @@ void* __cdecl sub_44C000(char* attr_value, nox_memfile* f) {
 }
 
 //----- (0044BFA0) --------------------------------------------------------
-int __cdecl sub_44BFA0(int a1, nox_memfile* f) {
-	if (!sub_44B8B0(a1, f))
+int __cdecl nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int a1, nox_memfile* f) {
+	if (!nox_xxx_loadVectorAnimated_44B8B0(a1, f))
 		return 0;
 
-	return sub_44BC50(a1, f);
+	return nox_xxx_loadVectorAnimated_44BC50(a1, f);
 }
 
 //----- (0044B8B0) --------------------------------------------------------
-int __cdecl sub_44B8B0(int a1, nox_memfile* f) {
+int __cdecl nox_xxx_loadVectorAnimated_44B8B0(int a1, nox_memfile* f) {
 	*(_WORD*)(a1 + 40) = nox_memfile_read_u8(f);
 
 	*(_WORD*)(a1 + 42) = nox_memfile_read_u8(f);
@@ -74,7 +74,7 @@ int __cdecl sub_44B8B0(int a1, nox_memfile* f) {
 }
 
 //----- (0044BC50) --------------------------------------------------------
-int __cdecl sub_44BC50(int a1, nox_memfile* f) {
+int __cdecl nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
 	int v2;               // ebp
 	int v3;               // esi
 	void* v4;             // eax
@@ -109,7 +109,7 @@ int __cdecl sub_44BC50(int a1, nox_memfile* f) {
 					v16[v11] = 0;
 					v3 = a1;
 				}
-				*(_DWORD*)(*(_DWORD*)(v13 + v3 + 4) + 4 * ++v5 - 4) = sub_42FAA0(v7, v15, v16);
+				*(_DWORD*)(*(_DWORD*)(v13 + v3 + 4) + 4 * ++v5 - 4) = nox_xxx_readImgMB_42FAA0(v7, v15, v16);
 			} while (v5 < *(__int16*)(v3 + 40));
 			v2 = v14;
 		}

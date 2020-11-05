@@ -3,6 +3,6 @@
 
 #include "../../defs.h"
 
-int sub_427070();
+int nox_xxx_loadGuides_427070();
 
 #endif // NOX_PORT_COMMON_MAGIC_COMGUIDE

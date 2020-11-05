@@ -7,7 +7,7 @@ extern _DWORD dword_5d4594_1548732;
 extern _DWORD dword_587000_197428;
 
 //----- (004D3580) --------------------------------------------------------
-int __cdecl sub_4D3580_net_playback(int a1) {
+int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 	int v1;          // esi
 	wchar_t* v2;     // esi
 	wchar_t* v3;     // eax
@@ -39,8 +39,8 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 		}
 	}
 	if (v1) {
-		sub_4D3530();
-		sub_43DDD0(0);
+		nox_xxx_replayStopReadMB_4D3530();
+		nox_xxx_setExitMenuOrHost_43DDD0(0);
 		sub_43DE60();
 		return v1;
 	}
@@ -54,22 +54,22 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 				_read(*(int *) &dword_587000_197428, &v9, 1u);
 				_read(*(int *) &dword_587000_197428, &v5, 4u);
 				_read(*(int *) &dword_587000_197428, getMemAt(0x5D4594, 1548740), v5);
-				sub_51BAD0_net_sdecode((unsigned __int8) v9, getMemAt(0x5D4594, 1548740), v5);
+				nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode((unsigned __int8) v9, getMemAt(0x5D4594, 1548740), v5);
 				break;
 			case 2u:
 				if (a1 == 1)
 					return v1;
 				_read(*(int *) &dword_587000_197428, &v6, 1u);
 				_read(*(int *) &dword_587000_197428, v10, (unsigned __int8) v6);
-				sub_409D70(v10);
+				nox_xxx_gameSetMapPath_409D70(v10);
 				_read(*(int *) &dword_587000_197428, &v7, 4u);
 				if ((v7 & 0xFF0000) != 0x10000) {
-					v2 = loadString_sub_40F1D0((char *) getMemAt(0x587000, 197480), 0,
+					v2 = nox_xxx_loadString_40F1D0((char *) getMemAt(0x587000, 197480), 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 355);
-					v3 = loadString_sub_40F1D0((char *) getMemAt(0x587000, 197540), 0,
+					v3 = nox_xxx_loadString_40F1D0((char *) getMemAt(0x587000, 197540), 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 356);
 					nullsub_4(0, v2, v3, 1);
-					sub_43DDD0(0);
+					nox_xxx_setExitMenuOrHost_43DDD0(0);
 					sub_43DE60();
 					v1 = 1;
 				}
@@ -84,7 +84,7 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 			case 4u:
 				if (a1 == 1)
 					return v1;
-				sub_43DDD0(0);
+				nox_xxx_setExitMenuOrHost_43DDD0(0);
 				sub_43DE60();
 				break;
 			default:
@@ -103,8 +103,8 @@ int __cdecl sub_4D3580_net_playback(int a1) {
 		if (*(_DWORD *) getMemAt(0x5D4594, 2598000) == *(_DWORD *) getMemAt(0x5D4594, 1548728))
 			return v1;
 	}
-	sub_4D3530();
-	sub_43DDD0(0);
+	nox_xxx_replayStopReadMB_4D3530();
+	nox_xxx_setExitMenuOrHost_43DDD0(0);
 	sub_43DE60();
 	return v1;
 }

@@ -20,7 +20,7 @@ int sub_413520_gamedisk() {
 	switch (dword_5d4594_251700) {
 	case 1:
 		// XXX NO CD
-		// v1 = sub_423CF0();
+		// v1 = nox_xxx_noxCDinDriver_423CF0();
 		v1 = 2;
 		dword_5d4594_251704 = v1;
 		if (!v1) {
@@ -31,9 +31,9 @@ int sub_413520_gamedisk() {
 			v8 = sub_413760;
 			v7 = sub_413780;
 			v6 = 35;
-			v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 32036), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+			v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 32036), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
 									   200);
-			v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 32088), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+			v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 32088), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
 									   199);
 			goto LABEL_9;
 		}
@@ -44,9 +44,9 @@ int sub_413520_gamedisk() {
 			v8 = sub_413760;
 			v7 = sub_413780;
 			v6 = 35;
-			v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 32140), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+			v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 32140), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
 									   219);
-			v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 32192), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+			v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 32192), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
 									   218);
 			goto LABEL_9;
 		}
@@ -84,10 +84,10 @@ int sub_413520_gamedisk() {
 		v8 = 0;
 		v7 = sub_413760;
 		v6 = 33;
-		v5 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 32244), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 293);
-		v2 = loadString_sub_40F1D0((char*)getMemAt(0x587000, 32296), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 292);
+		v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 32244), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 293);
+		v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 32296), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 292);
 	LABEL_9:
-		sub_449A10(0, (int)v2, (int)v5, v6, v7, v8);
+		nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v2, (int)v5, v6, v7, v8);
 		sub_44A360(0);
 		LODWORD(v0) = sub_44A4B0();
 		dword_5d4594_251700 = 6;
@@ -95,7 +95,7 @@ int sub_413520_gamedisk() {
 	case 6:
 		return v0;
 	default:
-		sub_43DDD0(0);
+		nox_xxx_setExitMenuOrHost_43DDD0(0);
 		LODWORD(v0) = sub_43DE60();
 		break;
 	}

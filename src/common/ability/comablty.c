@@ -3,7 +3,7 @@
 #include "../../proto.h"
 
 //----- (00424F00) --------------------------------------------------------
-int __cdecl sub_424F00(int a1, void* a2) {
+int __cdecl nox_xxx_abil_424F00(int a1, void* a2) {
 	unsigned __int8* v2;  // eax
 	int v3;               // eax
 	unsigned __int8* v5;  // edi
@@ -43,7 +43,7 @@ int __cdecl sub_424F00(int a1, void* a2) {
 	*(_DWORD*)(a1 + 8) = v2 + 1;
 	nox_memfile_read(a2, 1u, v28, a1);
 	*((_BYTE*)a2 + v28) = 0;
-	v3 = sub_424D80((const char*)a2);
+	v3 = nox_xxx_abilityNameToN_424D80((const char*)a2);
 	if (!v3)
 		return 0;
 	v5 = getMemAt(0x5D4594, 52 * v3 + 599132);
@@ -66,7 +66,7 @@ int __cdecl sub_424F00(int a1, void* a2) {
 		v7 = -1;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2))
-		*((_DWORD*)v5 + 2) = sub_42FAA0(v7, v34, v35);
+		*((_DWORD*)v5 + 2) = nox_xxx_readImgMB_42FAA0(v7, v34, v35);
 	v10 = *(int**)(a1 + 8);
 	v11 = *v10;
 	*(_DWORD*)(a1 + 8) = v10 + 1;
@@ -84,7 +84,7 @@ int __cdecl sub_424F00(int a1, void* a2) {
 		v11 = -1;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2))
-		*((_DWORD*)v5 + 3) = sub_42FAA0(v11, v34, v35);
+		*((_DWORD*)v5 + 3) = nox_xxx_readImgMB_42FAA0(v11, v34, v35);
 	v14 = *(int**)(a1 + 8);
 	v15 = *v14;
 	*(_DWORD*)(a1 + 8) = v14 + 1;
@@ -102,19 +102,19 @@ int __cdecl sub_424F00(int a1, void* a2) {
 		v15 = -1;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2))
-		*((_DWORD*)v5 + 4) = sub_42FAA0(v15, v34, v35);
+		*((_DWORD*)v5 + 4) = nox_xxx_readImgMB_42FAA0(v15, v34, v35);
 	v18 = *(unsigned __int8**)(a1 + 8);
 	v32 = *v18;
 	*(_DWORD*)(a1 + 8) = v18 + 1;
 	nox_memfile_read(v35, 1u, v32, a1);
 	v35[v32] = 0;
-	*(_DWORD*)v5 = loadString_sub_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 185);
+	*(_DWORD*)v5 = nox_xxx_loadString_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 185);
 	v19 = *(__int16**)(a1 + 8);
 	v20 = *v19;
 	*(_DWORD*)(a1 + 8) = v19 + 1;
 	nox_memfile_read(v35, 1u, v20, a1);
 	v35[v20] = 0;
-	*((_DWORD*)v5 + 1) = loadString_sub_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 193);
+	*((_DWORD*)v5 + 1) = nox_xxx_loadString_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 193);
 	v21 = *(unsigned __int8**)(a1 + 8);
 	v22 = *v21;
 	*(_DWORD*)(a1 + 8) = v21 + 1;

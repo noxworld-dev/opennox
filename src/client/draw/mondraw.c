@@ -23,7 +23,7 @@ char __cdecl sub_4BC490(int a1) {
 			v4 = v3 - 2;
 			if (v4) {
 				if (v4 == 2) {
-					v1 = sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 74);
+					v1 = nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 74);
 					if (v1 < 15) {
 						v5 = *(_DWORD*)(a1 + 308);
 						*(_BYTE*)(a1 + 299) = 0;
@@ -53,7 +53,7 @@ char __cdecl sub_4BC490(int a1) {
 					}
 				}
 			} else {
-				v1 = sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 52);
+				v1 = nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 52);
 				if (v1 >= 5) {
 					if (v1 < 10) {
 						v7 = *(_DWORD*)(a1 + 308);
@@ -69,7 +69,7 @@ char __cdecl sub_4BC490(int a1) {
 				}
 			}
 		} else {
-			v1 = sub_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 66);
+			v1 = nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 66);
 			if (v1 < 15) {
 				v8 = *(_DWORD*)(a1 + 308);
 				*(_BYTE*)(a1 + 299) = 0;
@@ -127,7 +127,7 @@ int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	}
 	v6 = *getMemU32Ptr(0x5D4594, 1316536);
 	if (!*getMemU32Ptr(0x5D4594, 1316536)) {
-		v6 = sub_44CFC0((CHAR*)getMemAt(0x587000, 178376));
+		v6 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 178376));
 		*getMemU32Ptr(0x5D4594, 1316536) = v6;
 	}
 	v7 = 48 * *(_DWORD*)(v2 + 276);
@@ -143,8 +143,8 @@ int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		v10 = *(_DWORD*)(v2 + 12) - *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 12);
 		v11 = *(_DWORD*)(v2 + 16) - *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 16);
 	}
-	if (*getMemU32Ptr(0x5D4594, 2614252) && sub_4356C0(*getMemIntPtr(0x5D4594, 2614252), 21)) {
-		sub_434600(1);
+	if (*getMemU32Ptr(0x5D4594, 2614252) && nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x5D4594, 2614252), 21)) {
+		nox_xxx_draw_434600(1);
 		sub_433E40(*getMemIntPtr(0x5D4594, 2618904));
 		LOBYTE(a2) = nox_backbuffer_depth >= 16 ? -1 : -128;
 		LABEL_21:
@@ -154,34 +154,34 @@ int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		sub_4BC490(v2);
 		v12 = a1;
 		v23 = sub_4BC6B0(a1, v2, v8);
-		sub_434600(0);
+		nox_xxx_draw_434600(0);
 		goto LABEL_24;
 	}
 	if (v10 * v10 + v11 * v11 < 40000)
 		goto LABEL_21;
 	v12 = a1;
 	LABEL_24:
-	if (sub_4951F0(*(_DWORD*)(v2 + 128))) {
+	if (nox_xxx_unitSpriteCheckAlly_4951F0(*(_DWORD*)(v2 + 128))) {
 		v22 = 0;
 		v21 = 0;
 		LOBYTE(a2) = 0;
 		sub_495180(*(_DWORD*)(v2 + 128), &v22, &v21, &a2);
-		sub_4BC080(v12, v2, v22, v21, a2);
+		nox_xxx_spriteDrawMonsterHP_4BC080(v12, v2, v22, v21, a2);
 	}
-	if (!sub_417DA0(4) && (!*getMemU32Ptr(0x5D4594, 2614252) || !sub_419130(*getMemU32Ptr(0x5D4594, 2614252) + 24)))
+	if (!nox_xxx_CheckGameplayFlags_417DA0(4) && (!*getMemU32Ptr(0x5D4594, 2614252) || !sub_419130(*getMemU32Ptr(0x5D4594, 2614252) + 24)))
 		goto LABEL_45;
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		v15 = *getMemU32Ptr(0x5D4594, 2614252) + 24;
 		LABEL_34:
 		if (v15) {
 			v16 = 0;
-			v17 = sub_418AB0(*(unsigned __int8*)(v15 + 4));
+			v17 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(v15 + 4));
 			if (v17 && sub_495A80(*(_DWORD*)(v2 + 128)))
 				v16 = 1;
 			if ((!nox_common_gameFlags_check_40A5C0(4096) || !(*(_BYTE*)(v2 + 112) & 2) ||
 			     !(*(_BYTE*)(v2 + 116) & 8)) &&
 			    v16) {
-				v18 = (int*)sub_418D50((int)v17);
+				v18 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v17);
 				v19 = *v12 + *(_DWORD*)(v2 + 12) - v12[4];
 				v20 = *(_DWORD*)(v2 + 16) + v12[1] - *(__int16*)(v2 + 104) - a1[5] -
 				      2 * nox_float2int(*(float*)(v2 + 100));
@@ -226,8 +226,8 @@ bool __cdecl nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char*
 			n = nox_memfile_read_u8(f);
 			nox_memfile_skip(f, n);
 			v9 = (int)&v2[12 * v6 + 1];
-			if (sub_44B8B0(v9, f)) {
-				if (sub_44BC50(v9, f))
+			if (nox_xxx_loadVectorAnimated_44B8B0(v9, f)) {
+				if (nox_xxx_loadVectorAnimated_44BC50(v9, f))
 					continue;
 			}
 		}

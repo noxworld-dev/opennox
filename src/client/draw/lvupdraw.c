@@ -17,11 +17,11 @@ _DWORD* __cdecl nox_thing_falling_sparks_draw_4B7740(int a1, int a2, nox_drawabl
 	v3 = (int2*)(a3 + 12);
 	v4 = 2;
 	do {
-		a2a.field_0 = v3->field_0 + sub_415FF0(-15, 15, "C:\\NoxPost\\src\\client\\Draw\\LvUpDraw.c", 35);
-		v5 = *(_DWORD*)(a3 + 16) + sub_415FF0(-15, 15, "C:\\NoxPost\\src\\client\\Draw\\LvUpDraw.c", 36);
+		a2a.field_0 = v3->field_0 + nox_xxx_randGetMinMax_415FF0(-15, 15, "C:\\NoxPost\\src\\client\\Draw\\LvUpDraw.c", 35);
+		v5 = *(_DWORD*)(a3 + 16) + nox_xxx_randGetMinMax_415FF0(-15, 15, "C:\\NoxPost\\src\\client\\Draw\\LvUpDraw.c", 36);
 		a2a.field_4 = v5;
 		v6 = v5 - *(_DWORD*)(a2 + 20);
-		v7 = sub_415FF0(8, 12, "C:\\NoxPost\\src\\client\\Draw\\LvUpDraw.c", 40);
+		v7 = nox_xxx_randGetMinMax_415FF0(8, 12, "C:\\NoxPost\\src\\client\\Draw\\LvUpDraw.c", 40);
 		result = (_DWORD*)sub_499950(a1, &a2a, v3, v6, -v7);
 		--v4;
 	} while (v4);

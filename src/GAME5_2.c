@@ -56,7 +56,7 @@ extern _DWORD dword_5d4594_2516348;
 extern _DWORD dword_5d4594_2650652;
 
 //----- (005528B0) --------------------------------------------------------
-int __cdecl sub_5528B0(unsigned int a1, char a2) {
+int __cdecl nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
 	unsigned int v2;     // ecx
 	int v3;              // edx
 	unsigned int v5;     // eax
@@ -101,7 +101,7 @@ int __cdecl sub_5528B0(unsigned int a1, char a2) {
 		for (i = v8;; i += 4) {
 			v9 = *(_DWORD*)v8;
 			if (*(_DWORD*)v8 && *(_DWORD*)(v9 + 20) == v15) {
-				sub_5552D0(v6, 0, 0);
+				nox_xxx_netSend_5552D0(v6, 0, 0);
 				v10 = WaitForSingleObject(*(HANDLE*)(v9 + 128), 0x3E8u);
 				v7 = v10;
 				if (v10 == -1 || v10 == 258)
@@ -119,11 +119,11 @@ int __cdecl sub_5528B0(unsigned int a1, char a2) {
 				v13 = *(char**)(v9 + 48);
 				v14 = *(_DWORD*)(v9 + 52) - (_DWORD)v13;
 				if (v14 > 2) {
-					v7 = sub_551F90(*v17, v13, v14, 0, (struct sockaddr*)(v9 + 4), 16);
+					v7 = nox_xxx_sendto_551F90(*v17, v13, v14, 0, (struct sockaddr*)(v9 + 4), 16);
 					if (v7 == -1)
 						return -1;
 					sub_553F40(v14, 1);
-					sub_554030(v14, v6);
+					nox_xxx_netCountData_554030(v14, v6);
 					*(_DWORD*)(v9 + 52) = *(_DWORD*)(v9 + 56);
 				}
 				if (!ReleaseMutex(*(HANDLE*)(v9 + 128)))
@@ -139,7 +139,7 @@ int __cdecl sub_5528B0(unsigned int a1, char a2) {
 }
 
 //----- (00552A80) --------------------------------------------------------
-int __cdecl sub_552A80(unsigned int a1, char a2) {
+int __cdecl nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 	int v2;              // ebp
 	int result;          // eax
 	SOCKET v4;           // eax
@@ -288,9 +288,9 @@ int __cdecl sub_552A80(unsigned int a1, char a2) {
 				v15 = v21;
 			LABEL_29:
 				memcpy(v13, v14, v15 & 3);
-				v6 = sub_553210(a1, *(unsigned __int8**)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40), (int)buf);
+				v6 = nox_xxx_netBigSwitch_553210(a1, *(unsigned __int8**)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40), (int)buf);
 				if (v6 > 0) {
-					v6 = sub_551F90(*(_DWORD*)v2, buf, v6, 0, &to, tolen);
+					v6 = nox_xxx_sendto_551F90(*(_DWORD*)v2, buf, v6, 0, &to, tolen);
 					sub_553F40(v6, 1);
 				}
 				goto LABEL_48;
@@ -358,7 +358,7 @@ int __cdecl sub_552E70(unsigned int a1) {
 					v7[22] = dword_5d4594_2495920;
 					v7[23] = dword_5d4594_2495920;
 					*(_DWORD*)&v9[1] = v8;
-					sub_552640(v3, v9, 5, 2);
+					nox_xxx_netSendSock_552640(v3, v9, 5, 2);
 				}
 			}
 			++v3;
@@ -404,7 +404,7 @@ int __cdecl sub_552F20(unsigned int a1) {
 					v7[25] = v8;
 					v7[26] = dword_5d4594_2495920;
 					*(_DWORD*)&v9[1] = v8;
-					sub_552640(v3, v9, 256, 2);
+					nox_xxx_netSendSock_552640(v3, v9, 256, 2);
 				}
 			}
 			++v3;
@@ -426,7 +426,7 @@ u_long __cdecl sub_552FD0(u_long argp) {
 }
 
 //----- (00553000) --------------------------------------------------------
-void* __cdecl sub_553000(size_t* a1) {
+void* __cdecl nox_xxx_makeNewNetStruct_553000(size_t* a1) {
 	void* result;  // eax
 	void* v2;      // esi
 	HANDLE v3;     // eax
@@ -527,7 +527,7 @@ void __cdecl sub_5531C0(LPVOID lpMem) {
 }
 
 //----- (00553210) --------------------------------------------------------
-int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
+int __cdecl nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 	int v4;                 // ebp
 	unsigned __int8* v5;    // ecx
 	unsigned int v6;        // esi
@@ -628,7 +628,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 				v56 = a3;
 				*(_BYTE*)v4 = 0;
 				*(_BYTE*)(v4 + 1) = v56;
-				if (*(_DWORD*)(v7 + 84) >= sub_409FA0() + (unsigned int)getMemByte(0x5D4594, 2500076) - 1)
+				if (*(_DWORD*)(v7 + 84) >= nox_xxx_servGetPlrLimit_409FA0() + (unsigned int)getMemByte(0x5D4594, 2500076) - 1)
 					goto LABEL_113;
 				v57 = 0;
 				v58 = getMemAt(0x5D4594, 3843788);
@@ -656,7 +656,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 					v60 = *(_DWORD*)(v7 + 60) - *(_DWORD*)(v7 + 48);
 					*(_DWORD*)&v77[12] = 4;
 					*(_DWORD*)&v77[20] = v60;
-					v61 = sub_553000((size_t*)v77);
+					v61 = nox_xxx_makeNewNetStruct_553000((size_t*)v77);
 					*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) = v61;
 					if (v61) {
 						++*(_DWORD*)(v7 + 84);
@@ -684,7 +684,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 						*(_BYTE*)(v4 + 2) = 1;
 						*(_DWORD*)(v4 + 3) = v6;
 						*(_BYTE*)(v4 + 7) = v64;
-						v67 = sub_552640(v6, (const void*)v4, 8, 3);
+						v67 = nox_xxx_netSendSock_552640(v6, (const void*)v4, 8, 3);
 						*(_BYTE*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 148) = v65;
 						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 152) = 1;
 						*(_BYTE*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 156) = v67;
@@ -817,7 +817,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 					free(v70);
 					--*getMemU8Ptr( 0x5D4594, 2500076);
 				}
-				sub_5545B0(v6);
+				nox_xxx_netStructReadPackets_5545B0(v6);
 				return 0;
 			case 11:
 				v71 = *getMemU32Ptr(0x5D4594, 4 * v6 + 3843788);
@@ -829,7 +829,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 			case 14:
 				v43 = 0;
 				v78 = sub_416640();
-				sub_416590(0);
+				nox_xxx_cliGamedataGet_416590(0);
 				v44 = a3;
 				a4 = 0;
 				*(_BYTE*)v4 = 0;
@@ -870,7 +870,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 				*v41 = v42;
 				if (v42 >= 0xAu)
 					return 0;
-				return sub_552340(v40, v4);
+				return nox_xxx_makePacketTime_552340(v40, v4);
 			case 31:
 				v14 = *v9;
 				v15 = *(_BYTE*)(v8 + 113);
@@ -912,7 +912,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 			*(_BYTE*)(v4 + 3) = 13;
 			return 4;
 		}
-		if (*(_DWORD*)(v7 + 84) >= (unsigned int)(sub_409FA0() - 1))
+		if (*(_DWORD*)(v7 + 84) >= (unsigned int)(nox_xxx_servGetPlrLimit_409FA0() - 1))
 			a4 = 1;
 		if (!sub_40A740())
 			goto LABEL_67;
@@ -943,7 +943,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 		if (v43 && *(_DWORD*)(v78 + 54)) {
 			for (i = nox_xxx_firstReplaceablePlayer_425C40(); i; i = nox_xxx_nextReplaceablePlayer_425C70((int)i)) {
 				if (!sub_5541D0((unsigned __int8)i[2064] + 1)) {
-					sub_4DEAB0((unsigned __int8)i[2064], 4);
+					nox_xxx_playerCallDisconnect_4DEAB0((unsigned __int8)i[2064], 4);
 					v50 = malloc(0x10u);
 					v50[3] = (unsigned __int8)i[2064] + 1;
 					sub_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
@@ -1012,7 +1012,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4) {
 				*(_QWORD*)v55 = *(_QWORD*)v74;
 				*((_DWORD*)v55 + 2) = v75;
 				*((_DWORD*)v55 + 3) = v76;
-				return sub_552340(v53, v4);
+				return nox_xxx_makePacketTime_552340(v53, v4);
 			}
 			goto LABEL_99;
 		}
@@ -1189,7 +1189,7 @@ void __cdecl sub_553FC0(int a1, int a2) {
 }
 
 //----- (00554030) --------------------------------------------------------
-void __cdecl sub_554030(int a1, int a2) { *getMemU32Ptr(0x5D4594, 4 * a2 + 2498024) += a1; }
+void __cdecl nox_xxx_netCountData_554030(int a1, int a2) { *getMemU32Ptr(0x5D4594, 4 * a2 + 2498024) += a1; }
 
 //----- (00554040) --------------------------------------------------------
 unsigned int __cdecl sub_554040(int a1, int a2, char* a3) {
@@ -1209,16 +1209,16 @@ unsigned int __cdecl sub_554040(int a1, int a2, char* a3) {
 	char v17[72];       // [esp+Ch] [ebp-48h]
 
 	v3 = sub_416640();
-	v4 = sub_416590(0);
+	v4 = nox_xxx_cliGamedataGet_416590(0);
 	if (!sub_43AF30() || sub_4D6F30())
 		return 0;
-	v16 = sub_409FA0();
+	v16 = nox_xxx_servGetPlrLimit_409FA0();
 	v5 = nox_common_playerInfoCount_416F40();
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		--v5;
 		--v16;
 	}
-	v6 = sub_40A4C0();
+	v6 = nox_xxx_serverOptionsGetServername_40A4C0();
 	v17[0] = 0;
 	v17[1] = 0;
 	v17[2] = 13;
@@ -1230,7 +1230,7 @@ unsigned int __cdecl sub_554040(int a1, int a2, char* a3) {
 		LOBYTE(v7) = v7 & 0x7F;
 		BYTE1(v7) |= 0x10u;
 		*(_DWORD*)&v17[28] = v7;
-		*(_WORD*)&v17[68] = sub_4E3CC0();
+		*(_WORD*)&v17[68] = nox_xxx_GetQuestStage_4E3CC0();
 	}
 	v8 = v3[101];
 	v9 = v3[101];
@@ -1252,7 +1252,7 @@ unsigned int __cdecl sub_554040(int a1, int a2, char* a3) {
 	*(_DWORD*)&v17[24] = v13;
 	*(_DWORD*)&v17[7] = v14;
 	memcpy(&v17[48], v4 + 24, 0x14u);
-	strcpy(&v17[10], sub_409B40());
+	strcpy(&v17[10], nox_xxx_mapGetMapName_409B40());
 	memcpy(a3, v17, 0x48u);
 	strcpy(a3 + 72, v6);
 	return strlen(v6) + 73;
@@ -1262,7 +1262,7 @@ unsigned int __cdecl sub_554040(int a1, int a2, char* a3) {
 int* __cdecl sub_5541D0(int a1) {
 	int* result; // eax
 
-	result = sub_425890(getMemIntPtr(0x5D4594, 2495908));
+	result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 2495908));
 	if (!result)
 		return 0;
 	while (result[3] != a1) {
@@ -1378,7 +1378,7 @@ int __cdecl sub_554240(int a1) {
 void sub_554370() { nox_srand(0x8FDu); }
 
 //----- (00554380) --------------------------------------------------------
-int __cdecl sub_554380(size_t* a1) {
+int __cdecl nox_xxx_netInit_554380(size_t* a1) {
 	int v2;                 // ebx
 	unsigned __int8* v3;    // eax
 	SOCKET* v4;             // eax
@@ -1410,7 +1410,7 @@ int __cdecl sub_554380(size_t* a1) {
 	}
 	if (v2 == -1)
 		return -8;
-	v4 = (SOCKET*)sub_553000(a1);
+	v4 = (SOCKET*)nox_xxx_makeNewNetStruct_553000(a1);
 	v5 = v4;
 	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = v4;
 	if (!v4)
@@ -1464,7 +1464,7 @@ int __cdecl sub_554380(size_t* a1) {
 __int16 sub_5545A0() { return *getMemU16Ptr(0x5D4594, 3843636); }
 
 //----- (005545B0) --------------------------------------------------------
-int __cdecl sub_5545B0(unsigned int a1) {
+int __cdecl nox_xxx_netStructReadPackets_5545B0(unsigned int a1) {
 	unsigned int v1; // ebx
 	_DWORD* v3;      // ecx
 	int v4;          // ebp
@@ -1502,9 +1502,9 @@ int __cdecl sub_5545B0(unsigned int a1) {
 	do {
 		if (*v7) {
 			if (*((int*)*v7 + 5) == v4) {
-				sub_5528B0(v5, 1);
-				sub_552640(v5, &v8, 1, 0);
-				sub_5528B0(v5, 1);
+				nox_xxx_netSendReadPacket_5528B0(v5, 1);
+				nox_xxx_netSendSock_552640(v5, &v8, 1, 0);
+				nox_xxx_netSendReadPacket_5528B0(v5, 1);
 				--*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * v4 + 3843788) + 84);
 				sub_555360(v1, 0, 2);
 				sub_5531C0(*v7);
@@ -1534,7 +1534,7 @@ int __cdecl sub_5546A0(unsigned int a1) {
 }
 
 //----- (005546F0) --------------------------------------------------------
-int __cdecl sub_5546F0(size_t* a1) {
+int __cdecl nox_xxx_netPreStructToFull_5546F0(size_t* a1) {
 	int result;          // eax
 	int v2;              // esi
 	unsigned __int8* v3; // eax
@@ -1554,7 +1554,7 @@ int __cdecl sub_5546F0(size_t* a1) {
 	}
 	if (v2 == -1)
 		return -8;
-	v4 = sub_553000(a1);
+	v4 = nox_xxx_makeNewNetStruct_553000(a1);
 	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = v4;
 	if (v4)
 		result = v2;
@@ -1625,8 +1625,8 @@ int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	}
 	dword_5d4594_3844304 = 0;
 	v12 = 0;
-	v11 = sub_552640(a1, &v12, 1, 3);
-	if (sub_5525B0(a1, v11, 60, 6))
+	v11 = nox_xxx_netSendSock_552640(a1, &v12, 1, 3);
+	if (nox_xxx_cliWaitServerResponse_5525B0(a1, v11, 60, 6))
 		return -23;
 	printf("bar %d\n", dword_5d4594_3844304);
 	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
@@ -1636,7 +1636,7 @@ int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 		*getMemU8Ptr(0x5D4594, 2512892 + 2) = 32;
 		if (a4)
 			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void*)a4, a5);
-		sub_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
+		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
 	}
 	return v5[5];
 }
@@ -1649,9 +1649,9 @@ int __cdecl sub_5549F0(unsigned int a1) {
 	if (a1 >= 0x80)
 		return -3;
 	if (*getMemU32Ptr(0x5D4594, 4 * a1 + 3843788)) {
-		sub_5528B0(a1, 0);
-		sub_552640(a1, &v2, 1, 0);
-		sub_5528B0(a1, 0);
+		nox_xxx_netSendReadPacket_5528B0(a1, 0);
+		nox_xxx_netSendSock_552640(a1, &v2, 1, 0);
+		nox_xxx_netSendReadPacket_5528B0(a1, 0);
 		sub_554A50(a1);
 	}
 	return 0;
@@ -1675,7 +1675,7 @@ int __cdecl sub_554A50(unsigned int a1) {
 }
 
 //----- (00554AA0) --------------------------------------------------------
-void __cdecl sub_554AA0(uint16_t hostshort, int a2, int a3, int a4) {
+void __cdecl nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, int a2, int a3, int a4) {
 	int v4;   // esi
 	char* v5; // ebx
 	int v6[3];
@@ -1693,7 +1693,7 @@ void __cdecl sub_554AA0(uint16_t hostshort, int a2, int a3, int a4) {
 		v4 = a3 + 12;
 	}
 	dword_5d4594_3844304 = 0;
-	sub_554C80(hostshort, v5, v4);
+	nox_xxx_sendLobbyPacket_554C80(hostshort, v5, v4);
 	v6[0] = hostshort;
 	v6[1] = v5;
 	v6[2] = v4;
@@ -1705,7 +1705,7 @@ void __cdecl sub_554AA0(uint16_t hostshort, int a2, int a3, int a4) {
 void sub_554B30() { nox_srand(0x910u); }
 
 //----- (00554B40) --------------------------------------------------------
-int __cdecl sub_554B40(uint16_t hostshort) {
+int __cdecl nox_xxx_createSocketLocal_554B40(uint16_t hostshort) {
 	int result;             // eax
 	struct WSAData WSAData; // [esp+18h] [ebp-190h]
 
@@ -1745,7 +1745,7 @@ int __cdecl sub_554B40(uint16_t hostshort) {
 }
 
 //----- (00554C80) --------------------------------------------------------
-int __cdecl sub_554C80(uint16_t hostshort, char* buf, int a3) {
+int __cdecl nox_xxx_sendLobbyPacket_554C80(uint16_t hostshort, char* buf, int a3) {
 	int v3 = 0;
 	if (!dword_5d4594_2513916) {
 		return -17;
@@ -1845,7 +1845,7 @@ int __cdecl sub_554D70(char a1) {
 							sub_43AF90(4);
 							buf[2] = 18;
 							v7 = htons(*(uint16_t*)from.sa_data);
-							sub_555010(*(int*)&from.sa_data[2], v7, buf, 8);
+							nox_xxx_makeTempSocket_555010(*(int*)&from.sa_data[2], v7, buf, 8);
 						}
 						break;
 						/*case 0x13u:
@@ -1895,7 +1895,7 @@ int __cdecl sub_555000(int a1) {
 }
 
 //----- (00555010) --------------------------------------------------------
-int __cdecl sub_555010(int a1, uint16_t hostshort, char* buf, int a4) {
+int __cdecl nox_xxx_makeTempSocket_555010(int a1, uint16_t hostshort, char* buf, int a4) {
 	int v4;             // esi
 	int result;         // eax
 	struct sockaddr_in to; // [esp+4h] [ebp-10h]
@@ -1920,7 +1920,7 @@ int __cdecl sub_5550A0(int a1, uint16_t hostshort, char* buf) {
 	*buf = 0;
 	buf[1] = 0;
 	buf[2] = 14;
-	return sub_555010(a1, hostshort, buf, 100);
+	return nox_xxx_makeTempSocket_555010(a1, hostshort, buf, 100);
 }
 
 //----- (005550D0) --------------------------------------------------------
@@ -1928,7 +1928,7 @@ int __cdecl sub_5550D0(int a1, uint16_t hostshort, char* buf) {
 	*buf = 0;
 	buf[1] = 0;
 	buf[2] = 17;
-	return sub_555010(a1, hostshort, buf, 22);
+	return nox_xxx_makeTempSocket_555010(a1, hostshort, buf, 22);
 }
 
 //----- (00555100) --------------------------------------------------------
@@ -2025,7 +2025,7 @@ int __cdecl sub_555290(unsigned int a1, _DWORD* a2) {
 }
 
 //----- (005552D0) --------------------------------------------------------
-int __cdecl sub_5552D0(unsigned int a1, char a2, int a3) {
+int __cdecl nox_xxx_netSend_5552D0(unsigned int a1, char a2, int a3) {
 	int v3; // edi
 	int* i; // esi
 	int v6; // eax
@@ -2044,7 +2044,7 @@ int __cdecl sub_5552D0(unsigned int a1, char a2, int a3) {
 			v6 = i[4];
 			i[3] = 0;
 			i[1] = dword_5d4594_2495920 + 2000;
-			if (sub_551F90(*(_DWORD*)v3, (char*)i + 20, v6, 0, (struct sockaddr*)(v3 + 4), 16) == -1)
+			if (nox_xxx_sendto_551F90(*(_DWORD*)v3, (char*)i + 20, v6, 0, (struct sockaddr*)(v3 + 4), 16) == -1)
 				return 0;
 			continue;
 		}
@@ -2084,7 +2084,7 @@ int __cdecl sub_555360(unsigned int a1, unsigned __int8 a2, int a3) {
 					*(_DWORD*)(v3 + 116) = *v7;
 				*(_DWORD*)v5 = **(_DWORD**)v5;
 				*(_DWORD*)v6 = 0;
-				sub_414330(*(unsigned int**)getMemAt(0x5D4594, 3844300), v6);
+				nox_xxx_memDeleteAdv_414330(*(unsigned int**)getMemAt(0x5D4594, 3844300), v6);
 				continue;
 			}
 		} else if (*(_BYTE*)(*(_DWORD*)v5 + 21) == a2) {
@@ -2471,17 +2471,17 @@ int sub_56F1C0() {
 	dword_5d4594_2516344 = 0;
 	*getMemU16Ptr(0x587000, 311204) = 0;
 	dword_5d4594_2516356 = 657757279;
-	dword_5d4594_2516348 ^= sub_56F240();
+	dword_5d4594_2516348 ^= nox_xxx_protect_56F240();
 	dword_5d4594_2516328 = ~dword_5d4594_2516348;
-	*getMemU32Ptr(0x5D4594, 2516340) = sub_56F400(0);
+	*getMemU32Ptr(0x5D4594, 2516340) = nox_xxx_protectionCreateInt_56F400(0);
 	sub_56F250();
-	result = sub_56F400(1);
+	result = nox_xxx_protectionCreateInt_56F400(1);
 	*getMemU32Ptr(0x5D4594, 2516332) = result;
 	return result;
 }
 
 //----- (0056F240) --------------------------------------------------------
-int sub_56F240() { return sub_56FF80(1, -1); }
+int nox_xxx_protect_56F240() { return sub_56FF80(1, -1); }
 
 //----- (0056F250) --------------------------------------------------------
 int sub_56F250() {
@@ -2490,7 +2490,7 @@ int sub_56F250() {
 
 	v0 = 7;
 	do {
-		result = sub_56F280(*(int*)&dword_5d4594_2516356, 0);
+		result = nox_xxx_protectionCreateStructForInt_56F280(*(int*)&dword_5d4594_2516356, 0);
 		--v0;
 		++dword_5d4594_2516356;
 	} while (v0);
@@ -2498,7 +2498,7 @@ int sub_56F250() {
 }
 
 //----- (0056F280) --------------------------------------------------------
-int __cdecl sub_56F280(int a1, int a2) {
+int __cdecl nox_xxx_protectionCreateStructForInt_56F280(int a1, int a2) {
 	_DWORD* v2; // eax
 	int v3;     // ecx
 	int v4;     // ecx
@@ -2580,8 +2580,8 @@ _DWORD* sub_56F3B0() {
 }
 
 //----- (0056F400) --------------------------------------------------------
-int __cdecl sub_56F400(int a1) {
-	if (sub_56F280(*(int*)&dword_5d4594_2516356, a1))
+int __cdecl nox_xxx_protectionCreateInt_56F400(int a1) {
+	if (nox_xxx_protectionCreateStructForInt_56F280(*(int*)&dword_5d4594_2516356, a1))
 		return (dword_5d4594_2516356)++;
 	nullsub_31(1);
 	return 0;
@@ -2589,8 +2589,8 @@ int __cdecl sub_56F400(int a1) {
 // 560840: using guessed type void __cdecl nullsub_31(_DWORD);
 
 //----- (0056F440) --------------------------------------------------------
-int __cdecl sub_56F440(int a1) {
-	if (sub_56F480(*(int*)&dword_5d4594_2516356, a1))
+int __cdecl nox_xxx_protectionCreateFloat_56F440(int a1) {
+	if (nox_xxx_protectionCreateStructForFloat_56F480(*(int*)&dword_5d4594_2516356, a1))
 		return (dword_5d4594_2516356)++;
 	nullsub_31(1);
 	return 0;
@@ -2598,7 +2598,7 @@ int __cdecl sub_56F440(int a1) {
 // 560840: using guessed type void __cdecl nullsub_31(_DWORD);
 
 //----- (0056F480) --------------------------------------------------------
-int __cdecl sub_56F480(int a1, int a2) {
+int __cdecl nox_xxx_protectionCreateStructForFloat_56F480(int a1, int a2) {
 	_DWORD* v2; // eax
 	int v3;     // ecx
 	int v4;     // ecx
@@ -2679,7 +2679,7 @@ _DWORD* __cdecl sub_56F590(int a1) {
 // 560840: using guessed type void __cdecl nullsub_31(_DWORD);
 
 //----- (0056F5C0) --------------------------------------------------------
-int sub_56F5C0() {
+int nox_xxx_protectData_56F5C0() {
 	int v0;          // ebx
 	int v1;          // edi
 	int v2;          // ebx
@@ -2700,7 +2700,7 @@ int sub_56F5C0() {
 		nullsub_31(1);
 	v0 = *getMemU32Ptr(0x5D4594, 2598000);
 	v1 = dword_5d4594_2516348;
-	v2 = sub_56F240() ^ v0;
+	v2 = nox_xxx_protect_56F240() ^ v0;
 	v3 = v2 ^ v1;
 	dword_5d4594_2516328 = ~v2;
 	v4 = *getMemU16Ptr(0x587000, 311204);
@@ -2795,14 +2795,14 @@ _DWORD* __cdecl sub_56F780(int a1, int a2) {
 			v3 = a2 ^ dword_5d4594_2516348;
 			result[1] = a2 ^ dword_5d4594_2516348;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)sub_56F5C0();
+			result = (_DWORD*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056F7D0) --------------------------------------------------------
-_DWORD* __cdecl sub_56F7D0(int a1, int a2) {
+_DWORD* __cdecl nox_xxx_playerUpdateNetBuffs_56F7D0(int a1, int a2) {
 	_DWORD* result; // eax
 	int v3;         // ecx
 
@@ -2814,7 +2814,7 @@ _DWORD* __cdecl sub_56F7D0(int a1, int a2) {
 			v3 = a2 ^ dword_5d4594_2516348;
 			result[1] = a2 ^ dword_5d4594_2516348;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)sub_56F5C0();
+			result = (_DWORD*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
@@ -2833,14 +2833,14 @@ _DWORD* __cdecl sub_56F820(int a1, unsigned __int8 a2) {
 			v3 = dword_5d4594_2516348 ^ a2;
 			result[1] = v3;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)sub_56F5C0();
+			result = (_DWORD*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056F870) --------------------------------------------------------
-_DWORD* __cdecl sub_56F870(int a1, unsigned __int16 a2) {
+_DWORD* __cdecl nox_xxx_protectPlayerHPMana_56F870(int a1, unsigned __int16 a2) {
 	_DWORD* result; // eax
 	int v3;         // ecx
 
@@ -2852,7 +2852,7 @@ _DWORD* __cdecl sub_56F870(int a1, unsigned __int16 a2) {
 			v3 = dword_5d4594_2516348 ^ a2;
 			result[1] = v3;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)sub_56F5C0();
+			result = (_DWORD*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
@@ -2873,7 +2873,7 @@ _DWORD* __cdecl sub_56F8C0(int a1, float a2) {
 			v4 = dword_5d4594_2516348 ^ (unsigned __int64)(__int64)a2;
 			v3[1] = v4;
 			dword_5d4594_2516328 ^= v4;
-			result = (_DWORD*)sub_56F5C0();
+			result = (_DWORD*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
@@ -2892,14 +2892,14 @@ _DWORD* __cdecl sub_56F920(int a1, int a2) {
 			v3 = dword_5d4594_2516348 ^ (a2 + (dword_5d4594_2516348 ^ result[1]));
 			result[1] = v3;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)sub_56F5C0();
+			result = (_DWORD*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056F9E0) --------------------------------------------------------
-_DWORD* __cdecl sub_56F9E0(int a1, __int16 a2) {
+_DWORD* __cdecl nox_xxx_protectMana_56F9E0(int a1, __int16 a2) {
 	_DWORD* result; // eax
 	int v3;         // ecx
 
@@ -2911,7 +2911,7 @@ _DWORD* __cdecl sub_56F9E0(int a1, __int16 a2) {
 			v3 = dword_5d4594_2516348 ^ (a2 + (dword_5d4594_2516348 ^ result[1]));
 			result[1] = v3;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)sub_56F5C0();
+			result = (_DWORD*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
@@ -2933,14 +2933,14 @@ _DWORD* __cdecl sub_56FA40(int a1, float a2) {
 				 (unsigned __int64)(__int64)((double)(unsigned int)(dword_5d4594_2516348 ^ result[1]) + a2);
 			v3[1] = v4;
 			dword_5d4594_2516328 ^= v4;
-			result = (_DWORD*)sub_56F5C0();
+			result = (_DWORD*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056FAC0) --------------------------------------------------------
-int __cdecl sub_56FAC0(int* a1, unsigned int a2) {
+int __cdecl nox_xxx_protectionStringCRC_56FAC0(int* a1, unsigned int a2) {
 	int* v2;        // ecx
 	int result;     // eax
 	unsigned int i; // edx
@@ -2957,12 +2957,12 @@ int __cdecl sub_56FAC0(int* a1, unsigned int a2) {
 }
 
 //----- (0056FAE0) --------------------------------------------------------
-int __cdecl sub_56FAE0(int* a1, unsigned int a2) {
+int __cdecl nox_xxx_protectionStringCRCLen_56FAE0(int* a1, unsigned int a2) {
 	int result; // eax
 
 	result = 0;
 	if (a1)
-		result = sub_56FAC0(a1, a2);
+		result = nox_xxx_protectionStringCRC_56FAC0(a1, a2);
 	return result;
 }
 
@@ -2972,7 +2972,7 @@ int __cdecl sub_56FB00(int* a1, unsigned int a2, int a3) {
 
 	if (a3 >= 657757279) {
 		v3 = sub_56F590(a3);
-		if (v3 && (dword_5d4594_2516348 ^ sub_56FAE0(a1, a2)) == v3[1])
+		if (v3 && (dword_5d4594_2516348 ^ nox_xxx_protectionStringCRCLen_56FAE0(a1, a2)) == v3[1])
 			return 1;
 		nullsub_31(1);
 	}
@@ -2993,16 +2993,16 @@ int __cdecl sub_56FB60(int* a1) {
 	result = 0;
 	if (a1) {
 		v2 = sub_4E4C00((int)a1);
-		v3 = (unsigned __int16)sub_4EE780((int)a1) ^ v2;
+		v3 = (unsigned __int16)nox_xxx_unitGetHP_4EE780((int)a1) ^ v2;
 		v4 = sub_4E4C10((int)a1) ^ v3;
 		v5 = (int*)sub_4E4C30((int)a1);
 		v6 = sub_4E4C50((int)a1);
 		if (v5 && v6 > 0)
-			v4 ^= sub_56FAC0(v5, v6);
+			v4 ^= nox_xxx_protectionStringCRC_56FAC0(v5, v6);
 		v7 = (int*)sub_4E4C80(a1);
 		if (v7) {
 			if (strlen((const char*)v7))
-				v4 ^= sub_56FAC0(v7, strlen((const char*)v7));
+				v4 ^= nox_xxx_protectionStringCRC_56FAC0(v7, strlen((const char*)v7));
 		}
 		result = v4;
 	}
@@ -3010,7 +3010,7 @@ int __cdecl sub_56FB60(int* a1) {
 }
 
 //----- (0056FBF0) --------------------------------------------------------
-int __cdecl sub_56FBF0(int a1, int* a2) {
+int __cdecl nox_xxx_protect_56FBF0(int a1, int* a2) {
 	int result; // eax
 	_DWORD* v3; // eax
 	_DWORD* v4; // esi
@@ -3035,7 +3035,7 @@ int __cdecl sub_56FBF0(int a1, int* a2) {
 // 560840: using guessed type void __cdecl nullsub_31(_DWORD);
 
 //----- (0056FC50) --------------------------------------------------------
-int __cdecl sub_56FC50(int a1, int* a2) {
+int __cdecl nox_xxx_protect_56FC50(int a1, int* a2) {
 	int result; // eax
 	_DWORD* v3; // eax
 	_DWORD* v4; // esi
@@ -3070,7 +3070,7 @@ int __cdecl sub_56FCB0(int a1, int a2) {
 }
 
 //----- (0056FCE0) --------------------------------------------------------
-int __cdecl sub_56FCE0(int a1, int a2, int a3) {
+int __cdecl nox_xxx_playerAwardSpellProtection_56FCE0(int a1, int a2, int a3) {
 	int result; // eax
 	_DWORD* v4; // eax
 	_DWORD* v5; // esi
@@ -3124,7 +3124,7 @@ int __cdecl sub_56FD50(int a1, int a2, int a3) {
 // 560840: using guessed type void __cdecl nullsub_31(_DWORD);
 
 //----- (0056FDD0) --------------------------------------------------------
-_BYTE* __cdecl sub_56FDD0(char a1, _BYTE* a2, int a3) {
+_BYTE* __cdecl nox_xxx_cryptXor_56FDD0(char a1, _BYTE* a2, int a3) {
 	_BYTE* result; // eax
 	int i;         // ecx
 
@@ -3160,7 +3160,7 @@ void __cdecl sub_56FE00(char a1, _BYTE* a2, int a3, _BYTE* a4) {
 }
 
 //----- (0056FE30) --------------------------------------------------------
-double sub_56FE30() {
+double nox_xxx_unkDoubleSmth_56FE30() {
 	double v0; // st7
 
 	*getMemU64Ptr(0x5D4594, 2516412) = *getMemU64Ptr(0x5D4594, 2516404);
@@ -3196,7 +3196,7 @@ void __cdecl sub_56FF00(int a1) {
 	} while ((int)v2 < (int)getMemAt(0x5D4594, 2516428));
 	v4 = 19;
 	do {
-		sub_56FE30();
+		nox_xxx_unkDoubleSmth_56FE30();
 		--v4;
 	} while (v4);
 	dword_5d4594_2516380 = 0;
@@ -3212,7 +3212,7 @@ int __cdecl sub_56FF80(int a1, int a2) {
 	*getMemU32Ptr(0x5D4594, 2516376) = a2;
 	dword_5d4594_2516380 = a1;
 	dword_5d4594_2516372 = a2 - a1 + 1;
-	v2 = (__int64)(sub_56FE30() * (double)*(unsigned int*)&dword_5d4594_2516372);
+	v2 = (__int64)(nox_xxx_unkDoubleSmth_56FE30() * (double)*(unsigned int*)&dword_5d4594_2516372);
 	if ((unsigned int)v2 < *(int*)&dword_5d4594_2516372)
 		result = dword_5d4594_2516380 + v2;
 	else
@@ -3221,7 +3221,7 @@ int __cdecl sub_56FF80(int a1, int a2) {
 }
 
 //----- (00578AC0) --------------------------------------------------------
-unsigned int __cdecl sub_578AC0(_DWORD* a1) {
+unsigned int __cdecl nox_xxx_netGetUnitCodeServ_578AC0(_DWORD* a1) {
 	unsigned int result; // eax
 
 	if (!a1)
@@ -3238,7 +3238,7 @@ unsigned int __cdecl sub_578AC0(_DWORD* a1) {
 }
 
 //----- (00578B00) --------------------------------------------------------
-unsigned int __cdecl sub_578B00(int a1) {
+unsigned int __cdecl nox_xxx_netGetUnitCodeCli_578B00(int a1) {
 	unsigned int result; // eax
 
 	if (!a1)
@@ -3252,17 +3252,17 @@ unsigned int __cdecl sub_578B00(int a1) {
 }
 
 //----- (00578B30) --------------------------------------------------------
-int __cdecl sub_578B30(__int16 a1) { return a1 & 0x7FFF; }
+int __cdecl nox_xxx_netClearHighBit_578B30(__int16 a1) { return a1 & 0x7FFF; }
 
 //----- (00578B40) --------------------------------------------------------
-int __cdecl sub_578B40(int a1) {
+int __cdecl nox_xxx_packetDynamicUnitCode_578B40(int a1) {
 	int result; // eax
 	int v2;     // eax
 
 	result = a1;
 	if ((a1 & 0x8000) == 0x8000) {
 		BYTE1(result) &= 0x7Fu;
-		v2 = sub_4ED020(result);
+		v2 = nox_xxx_netGetUnitByExtent_4ED020(result);
 		if (v2)
 			result = *(_DWORD*)(v2 + 36);
 		else
@@ -3272,7 +3272,7 @@ int __cdecl sub_578B40(int a1) {
 }
 
 //----- (00578B70) --------------------------------------------------------
-unsigned int __cdecl sub_578B70(unsigned int a1) { return (a1 >> 15) & 1; }
+unsigned int __cdecl nox_xxx_netTestHighBit_578B70(unsigned int a1) { return (a1 >> 15) & 1; }
 
 //----- (00578B80) --------------------------------------------------------
 _DWORD* sub_578B80() {
@@ -3329,8 +3329,8 @@ _DWORD* sub_578BF0() {
 // 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
 
 //----- (00578C10) --------------------------------------------------------
-int __cdecl sub_578C10(_DWORD* a1, _BYTE* a2, _DWORD* a3, unsigned int a4, _DWORD* a5) {
-	return sub_57EA80(a1, a2, a3, a4, a5);
+int __cdecl nox_xxx_nxzDecompress_578C10(_DWORD* a1, _BYTE* a2, _DWORD* a3, unsigned int a4, _DWORD* a5) {
+	return nox_xxx_nxzDecompressImpl_57EA80(a1, a2, a3, a4, a5);
 }
 
 //----- (00578C30) --------------------------------------------------------
@@ -3360,7 +3360,7 @@ int sub_578C60() {
 int __cdecl sub_578C90(int a1) {
 	dword_587000_311372 = a1;
 	*getMemU8Ptr( 0x5D4594, 2516476) |= 1 << a1;
-	sub_44E0B0(1);
+	nox_xxx_cliPlayMapIntro_44E0B0(1);
 	sub_413960();
 	sub_477530(0);
 	return sub_4460C0();
@@ -3394,7 +3394,7 @@ int sub_578CD0() {
 // 578CD0: using guessed type char var_90[16];
 
 //----- (00578D80) --------------------------------------------------------
-char* sub_578D80() {
+char* nox_xxx_GetEndgameDialog_578D80() {
 	if (dword_587000_311372) {
 		if (dword_587000_311372 == 1) {
 			if (!(getMemByte(0x5D4594, 2516476) & 1))
@@ -3554,10 +3554,10 @@ int __cdecl sub_579750(int a1) {
 int sub_5797E0() { return dword_5d4594_2523744; }
 
 //----- (00579860) --------------------------------------------------------
-LPVOID sub_579860() { return *(LPVOID*)&dword_5d4594_2523752; }
+LPVOID nox_xxx_waypointGetList_579860() { return *(LPVOID*)&dword_5d4594_2523752; }
 
 //----- (00579870) --------------------------------------------------------
-int __cdecl sub_579870(int a1) {
+int __cdecl nox_xxx_waypointNext_579870(int a1) {
 	int result; // eax
 
 	if (a1)
@@ -3582,7 +3582,7 @@ int __cdecl sub_5798A0(int a1) {
 }
 
 //----- (005798C0) --------------------------------------------------------
-unsigned int sub_5798C0() {
+unsigned int nox_xxx_waypoint_5798C0() {
 	_DWORD* v0;          // ecx
 	unsigned int result; // eax
 
@@ -3599,13 +3599,13 @@ unsigned int sub_5798C0() {
 }
 
 //----- (005798F0) --------------------------------------------------------
-_DWORD* __cdecl sub_5798F0(float a1, float a2) {
+_DWORD* __cdecl nox_xxx_waypointNew_5798F0(float a1, float a2) {
 	_DWORD* v2;      // esi
 	unsigned int v3; // eax
 	int v4;          // edx
 
 	v2 = calloc(1u, 0x204u);
-	v3 = sub_5798C0();
+	v3 = nox_xxx_waypoint_5798C0();
 	v4 = v2[120];
 	*v2 = v3;
 	*((float*)v2 + 2) = a1;
@@ -3616,12 +3616,12 @@ _DWORD* __cdecl sub_5798F0(float a1, float a2) {
 		*(_DWORD*)(dword_5d4594_2523752 + 488) = v2;
 	dword_5d4594_2523752 = v2;
 	if (nox_common_gameFlags_check_40A5C0(1))
-		sub_5179B0((int)v2);
+		nox_xxx_waypointMapRegister_5179B0((int)v2);
 	return v2;
 }
 
 //----- (00579970) --------------------------------------------------------
-float* __cdecl sub_579970(int a1, float a2, float a3) {
+float* __cdecl nox_xxx_waypointNewNotMap_579970(int a1, float a2, float a3) {
 	float* result; // eax
 	int v4;        // ecx
 
@@ -3637,7 +3637,7 @@ float* __cdecl sub_579970(int a1, float a2, float a3) {
 }
 
 //----- (005799C0) --------------------------------------------------------
-char* sub_5799C0() {
+char* nox_xxx_waypoint_5799C0() {
 	int v0; // esi
 	int v1; // edi
 
@@ -3650,7 +3650,7 @@ char* sub_5799C0() {
 				*(_DWORD*)(dword_5d4594_2523752 + 488) = v0;
 			dword_5d4594_2523752 = v0;
 			if (nox_common_gameFlags_check_40A5C0(1))
-				sub_5179B0(v0);
+				nox_xxx_waypointMapRegister_5179B0(v0);
 			v0 = v1;
 		} while (v1);
 	}
@@ -3669,7 +3669,7 @@ char* sub_579A30() {
 	int v6;       // edi
 	_BYTE* v7;    // ecx
 
-	result = (char*)sub_579860();
+	result = (char*)nox_xxx_waypointGetList_579860();
 	for (i = result; result; i = result) {
 		i[477] = 0;
 		v2 = 0;
@@ -3682,7 +3682,7 @@ char* sub_579A30() {
 				++v2;
 			} while (v2 < (unsigned __int8)i[476]);
 		}
-		for (j = (char*)sub_579860(); j; j = (char*)sub_579870((int)j)) {
+		for (j = (char*)nox_xxx_waypointGetList_579860(); j; j = (char*)nox_xxx_waypointNext_579870((int)j)) {
 			v6 = 0;
 			if (j[476]) {
 				v7 = j + 96;
@@ -3694,7 +3694,7 @@ char* sub_579A30() {
 				} while (v6 < (unsigned __int8)j[476]);
 			}
 		}
-		result = (char*)sub_579870((int)i);
+		result = (char*)nox_xxx_waypointNext_579870((int)i);
 	}
 	return result;
 }
@@ -3891,7 +3891,7 @@ int sub_579D20() {
 	int v7;           // eax
 	char v9;          // [esp+0h] [ebp-4h]
 
-	v0 = sub_5798C0();
+	v0 = nox_xxx_waypoint_5798C0();
 	v1 = *(unsigned int**)&dword_5d4594_2523756;
 	if (dword_5d4594_2523756) {
 		do {
@@ -3930,7 +3930,7 @@ int sub_579D20() {
 }
 
 //----- (00579DD0) --------------------------------------------------------
-void sub_579DD0() {
+void nox_xxx_waypointDeleteAll_579DD0() {
 	_DWORD* v0; // esi
 	_DWORD* v1; // edi
 
@@ -3950,10 +3950,10 @@ void sub_579DD0() {
 }
 
 //----- (00579E30) --------------------------------------------------------
-const char* __cdecl sub_579E30(const char* a1) {
+const char* __cdecl nox_xxx_waypointByName_579E30(const char* a1) {
 	const char* i; // esi
 
-	for (i = (const char*)sub_579860(); i; i = (const char*)sub_579870((int)i)) {
+	for (i = (const char*)nox_xxx_waypointGetList_579860(); i; i = (const char*)nox_xxx_waypointNext_579870((int)i)) {
 		if (nox_server_strcmpWithoutMapname_4DA3F0(i + 16, a1))
 			break;
 	}
@@ -3978,14 +3978,14 @@ void __cdecl sub_579E90(int a1) {
 		*(_DWORD*)(dword_5d4594_2523756 + 488) = a1;
 	dword_5d4594_2523756 = a1;
 	if (nox_common_gameFlags_check_40A5C0(1))
-		sub_5179B0(a1);
+		nox_xxx_waypointMapRegister_5179B0(a1);
 }
 
 //----- (00579EE0) --------------------------------------------------------
 BOOL __cdecl sub_579EE0(int a1, unsigned __int8 a2) { return (a2 & *(_BYTE*)(a1 + 477)) != 0; }
 
 //----- (00579F00) --------------------------------------------------------
-int __cdecl sub_579F00(_DWORD* a1, int a2) {
+int __cdecl nox_xxx_waypoint_579F00(_DWORD* a1, int a2) {
 	int v2;     // ebp
 	int v3;     // esi
 	_BYTE* i;   // esi
@@ -4013,14 +4013,14 @@ int __cdecl sub_579F00(_DWORD* a1, int a2) {
 	}
 LABEL_9:
 	dword_5d4594_2523760 = 0;
-	for (i = sub_579860(); i; i = (_BYTE*)sub_579870((int)i)) {
+	for (i = nox_xxx_waypointGetList_579860(); i; i = (_BYTE*)nox_xxx_waypointNext_579870((int)i)) {
 		if (sub_579EE0((int)i, 0x80u) && i[480] & 1)
 			++dword_5d4594_2523760;
 	}
 	if (!dword_5d4594_2523760)
 		return 0;
 	v5 = nox_common_randomInt_415FA0(0, dword_5d4594_2523760 - 1);
-	v6 = sub_579860();
+	v6 = nox_xxx_waypointGetList_579860();
 	if (!v6)
 		return 0;
 	while (1) {
@@ -4039,7 +4039,7 @@ LABEL_9:
 					v12.field_4 = v9;
 					v12.field_8 = v10;
 					v12.field_C = v8;
-					if (sub_535250(&v12, 0, 0, 9) == 1)
+					if (nox_xxx_mapTraceRay_535250(&v12, 0, 0, 9) == 1)
 						goto LABEL_24;
 				}
 			}
@@ -4048,7 +4048,7 @@ LABEL_9:
 			break;
 		--v5;
 	LABEL_24:
-		v6 = (LPVOID)sub_579870((int)v6);
+		v6 = (LPVOID)nox_xxx_waypointNext_579870((int)v6);
 		if (!v6)
 			return 0;
 	}
@@ -4058,7 +4058,7 @@ LABEL_9:
 }
 
 //----- (0057A160) --------------------------------------------------------
-int __cdecl sub_57A160(int a1) {
+int __cdecl nox_xxx_playerCanTalkMB_57A160(int a1) {
 	int result; // eax
 
 	if (a1 && nox_common_gameFlags_check_40A5C0(2))
@@ -4069,7 +4069,7 @@ int __cdecl sub_57A160(int a1) {
 }
 
 //----- (0057A190) --------------------------------------------------------
-int __cdecl sub_57A190(int a1) {
+int __cdecl nox_xxx_giant_57A190(int a1) {
 	int result; // eax
 
 	if (a1)
@@ -4310,7 +4310,7 @@ BOOL __cdecl sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4) 
 			v8 = (unsigned __int16*)sub_415A30(v16);
 			if (!v8)
 				return 0;
-			v9 = sub_415880((char*)*v8);
+			v9 = nox_xxx_ammoCheck_415880((char*)*v8);
 			v10 = v9;
 			if (!v9)
 				return 0;
@@ -4334,15 +4334,15 @@ BOOL __cdecl sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4) 
 		if (a1 != 4)
 			return 0;
 		nox_sprintf(v16, "%S", v4[2]);
-		v6 = sub_4243F0(v16);
+		v6 = nox_xxx_spellNameToN_4243F0(v16);
 		if (!v6) {
 			v6 = sub_424960((wchar_t*)v4[2]);
 			if (!v6)
 				return 0;
 		}
-		if (!sub_424B50(v6))
+		if (!nox_xxx_spellGetValidMB_424B50(v6))
 			return 0;
-		if (sub_424A70(v6) & 0x7000000) {
+		if (nox_xxx_spellGetFlags_424A70(v6) & 0x7000000) {
 			if (!_nox_wcsicmp(v4[3], L"off"))
 				sub_453FA0(a3 + 24, v6, 0);
 		}
@@ -4415,7 +4415,7 @@ char __cdecl sub_57AAA0(const char* a1, char* a2, int* a3) {
 				sub_57A1E0((int*)v19, 0, 0, 3, *((_WORD*)a2 + 26));
 			}
 			if (a3) {
-				for (i = sub_425890(a3); i; i = sub_4258A0(i)) {
+				for (i = nox_xxx_gameMapsValidateListMB_425890(a3); i; i = sub_4258A0(i)) {
 					nox_sprintf(v23, "%S\n", i + 3);
 					fputs(v23, v4);
 				}
@@ -4426,9 +4426,9 @@ char __cdecl sub_57AAA0(const char* a1, char* a2, int* a3) {
 			v7 = 1;
 			v8 = 136;
 			do {
-				if (sub_424B50(v7) && !sub_454000((int)(a2 + 24), v7) && sub_424A70(v7) & 0x7000000 &&
+				if (nox_xxx_spellGetValidMB_424B50(v7) && !sub_454000((int)(a2 + 24), v7) && nox_xxx_spellGetFlags_424A70(v7) & 0x7000000 &&
 					(!dword_5d4594_2650652 || sub_454000((int)v22, v7) || !sub_454000((int)v20, v7))) {
-					v9 = sub_424870(v7);
+					v9 = nox_xxx_spellNameByN_424870(v7);
 					nox_sprintf(v23, "%s %s \"%s\" %s\n", getMemAt(0x587000, 312616), getMemAt(0x587000, 312608), v9,
 								getMemAt(0x587000, 312604));
 					fputs(v23, v4);
@@ -4484,7 +4484,7 @@ int* __cdecl sub_57ADF0(int* a1) {
 	int* v2;     // esi
 	int* v3;     // edi
 
-	result = sub_425890(a1);
+	result = nox_xxx_gameMapsValidateListMB_425890(a1);
 	v2 = result;
 	if (result) {
 		do {
@@ -4517,12 +4517,12 @@ int __cdecl sub_57AE30(const char* a1) {
 void sub_57AE90() { nox_srand(0x9DCu); }
 
 //----- (0057AEA0) --------------------------------------------------------
-int __cdecl sub_57AEA0(int a1, int a2) {
+int __cdecl nox_xxx_playerCheckSpellClass_57AEA0(int a1, int a2) {
 	int v2;     // eax
 	int result; // eax
 	int v4;     // ecx
 
-	v2 = sub_424A70(a2);
+	v2 = nox_xxx_spellGetFlags_424A70(a2);
 	if (a1 == 1) {
 		v4 = 0x2000000;
 	} else {
@@ -4538,13 +4538,13 @@ int __cdecl sub_57AEA0(int a1, int a2) {
 }
 
 //----- (0057AEE0) --------------------------------------------------------
-BOOL __cdecl sub_57AEE0(int a1, int a2) { return a1 < 75 || a1 > 114 || sub_500D10(a2) <= 4; }
+BOOL __cdecl sub_57AEE0(int a1, int a2) { return a1 < 75 || a1 > 114 || nox_xxx_countControlledCreatures_500D10(a2) <= 4; }
 
 //----- (0057AF10) --------------------------------------------------------
 void sub_57AF10() { nox_srand(0x9DDu); }
 
 //----- (0057AF20) --------------------------------------------------------
-int sub_57AF20() { return dword_5d4594_2523804; }
+int nox_xxx_get_57AF20() { return dword_5d4594_2523804; }
 
 //----- (0057B0A0) --------------------------------------------------------
 void sub_57B0A0() {
@@ -4557,16 +4557,16 @@ void sub_57B0A0() {
 	}
 	v1 = *(_DWORD**)&dword_5d4594_2523780;
 	if (dword_5d4594_2523780 && (!*getMemU32Ptr(0x5D4594, 2523772) || *getMemU32Ptr(0x5D4594, 2523772) == 1)) {
-		sub_522FF0(154, (float2*)(dword_5d4594_2523780 + 56));
+		nox_xxx_netSendPointFx_522FF0(154, (float2*)(dword_5d4594_2523780 + 56));
 		v1 = *(_DWORD**)&dword_5d4594_2523780;
 	}
 	if (dword_5d4594_2523776) {
-		sub_4E5CC0(*(int*)&dword_5d4594_2523776);
+		nox_xxx_delayedDeleteObject_4E5CC0(*(int*)&dword_5d4594_2523776);
 		v1 = *(_DWORD**)&dword_5d4594_2523780;
 	}
 	dword_5d4594_2523776 = 0;
 	if (v1)
-		sub_4FA020(v1, 13);
+		nox_xxx_playerSetState_4FA020(v1, 13);
 	dword_5d4594_2523780 = 0;
 	if (!sub_45D9B0())
 		sub_413A00(0);
@@ -4574,7 +4574,7 @@ void sub_57B0A0() {
 }
 
 //----- (0057B180) --------------------------------------------------------
-__int64 sub_57B180() { return *getMemU64Ptr(0x5D4594, 2523788); }
+__int64 nox_xxx___Getcvt_57B180() { return *getMemU64Ptr(0x5D4594, 2523788); }
 
 //----- (0057B190) --------------------------------------------------------
 int __cdecl sub_57B190(unsigned __int16 a1, unsigned __int16 a2) {
@@ -4597,30 +4597,30 @@ int __cdecl sub_57B190(unsigned __int16 a1, unsigned __int16 a2) {
 }
 
 //----- (0057B200) --------------------------------------------------------
-void sub_57B200() {
-	*getMemFloatPtr(0x5D4594, 2523812) = sub_419D40(getMemAt(0x587000, 312832));
-	*getMemFloatPtr(0x5D4594, 2523816) = sub_419D40(getMemAt(0x587000, 312844));
-	*getMemFloatPtr(0x5D4594, 2523824) = sub_419D40(getMemAt(0x587000, 312856));
-	*getMemFloatPtr(0x5D4594, 2523820) = sub_419D40(getMemAt(0x587000, 312872));
-	*getMemFloatPtr(0x5D4594, 2523828) = sub_419D40(getMemAt(0x587000, 312884)) * *(float*)&dword_587000_312784;
-	*getMemFloatPtr(0x5D4594, 2523832) = sub_419D40(getMemAt(0x587000, 312904)) * *(float*)&dword_587000_312788;
-	*getMemFloatPtr(0x5D4594, 2523840) = sub_419D40(getMemAt(0x587000, 312920)) * *(float*)&dword_587000_312792;
-	*getMemFloatPtr(0x5D4594, 2523836) = sub_419D40(getMemAt(0x587000, 312940)) * *(float*)&dword_587000_312796;
-	*getMemFloatPtr(0x5D4594, 2523860) = sub_419D40(getMemAt(0x587000, 312956)) * *(float*)&dword_587000_312800;
-	*getMemFloatPtr(0x5D4594, 2523864) = sub_419D40(getMemAt(0x587000, 312976)) * *(float*)&dword_587000_312804;
-	*getMemFloatPtr(0x5D4594, 2523872) = sub_419D40(getMemAt(0x587000, 312992)) * *(float*)&dword_587000_312808;
-	*getMemFloatPtr(0x5D4594, 2523868) = sub_419D40(getMemAt(0x587000, 313012)) * *(float*)&dword_587000_312812;
-	*getMemFloatPtr(0x5D4594, 2523844) = sub_419D40(getMemAt(0x587000, 313032)) * *(float*)&dword_587000_312816;
-	*getMemFloatPtr(0x5D4594, 2523848) = sub_419D40(getMemAt(0x587000, 313048)) * *(float*)&dword_587000_312820;
-	*getMemFloatPtr(0x5D4594, 2523856) = sub_419D40(getMemAt(0x587000, 313064)) * *(float*)&dword_587000_312824;
-	*getMemFloatPtr(0x5D4594, 2523852) = sub_419D40(getMemAt(0x587000, 313084)) * *(float*)&dword_587000_312828;
+void nox_xxx_loadBaseValues_57B200() {
+	*getMemFloatPtr(0x5D4594, 2523812) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312832));
+	*getMemFloatPtr(0x5D4594, 2523816) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312844));
+	*getMemFloatPtr(0x5D4594, 2523824) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312856));
+	*getMemFloatPtr(0x5D4594, 2523820) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312872));
+	*getMemFloatPtr(0x5D4594, 2523828) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312884)) * *(float*)&dword_587000_312784;
+	*getMemFloatPtr(0x5D4594, 2523832) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312904)) * *(float*)&dword_587000_312788;
+	*getMemFloatPtr(0x5D4594, 2523840) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312920)) * *(float*)&dword_587000_312792;
+	*getMemFloatPtr(0x5D4594, 2523836) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312940)) * *(float*)&dword_587000_312796;
+	*getMemFloatPtr(0x5D4594, 2523860) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312956)) * *(float*)&dword_587000_312800;
+	*getMemFloatPtr(0x5D4594, 2523864) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312976)) * *(float*)&dword_587000_312804;
+	*getMemFloatPtr(0x5D4594, 2523872) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312992)) * *(float*)&dword_587000_312808;
+	*getMemFloatPtr(0x5D4594, 2523868) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 313012)) * *(float*)&dword_587000_312812;
+	*getMemFloatPtr(0x5D4594, 2523844) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 313032)) * *(float*)&dword_587000_312816;
+	*getMemFloatPtr(0x5D4594, 2523848) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 313048)) * *(float*)&dword_587000_312820;
+	*getMemFloatPtr(0x5D4594, 2523856) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 313064)) * *(float*)&dword_587000_312824;
+	*getMemFloatPtr(0x5D4594, 2523852) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 313084)) * *(float*)&dword_587000_312828;
 }
 
 //----- (0057B350) --------------------------------------------------------
 float* sub_57B350() { return getMemFloatPtr(0x5D4594, 2523812); }
 
 //----- (0057B360) --------------------------------------------------------
-float* __cdecl sub_57B360(int a1) { return getMemFloatPtr(0x5D4594, 16 * a1 + 2523828); }
+float* __cdecl nox_xxx_plrGetMaxVarsPtr_57B360(int a1) { return getMemFloatPtr(0x5D4594, 16 * a1 + 2523828); }
 
 //----- (0057B370) --------------------------------------------------------
 char __cdecl sub_57B370(int a1, unsigned __int8 a2, int a3) {
@@ -4630,11 +4630,11 @@ char __cdecl sub_57B370(int a1, unsigned __int8 a2, int a3) {
 	if (!(a1 & 0x3001010))
 		return -1;
 	if (a1 & 0x1001000) {
-		v3 = sub_413250(a3);
+		v3 = nox_xxx_getProjectileClassById_413250(a3);
 		goto LABEL_4;
 	}
 	if (a1 & 0x2000000) {
-		v3 = sub_413270(a3);
+		v3 = nox_xxx_equipClothFindDefByTT_413270(a3);
 	LABEL_4:
 		if (v3)
 			result = *((_BYTE*)v3 + 62);
@@ -4650,18 +4650,18 @@ char __cdecl sub_57B370(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (0057B3D0) --------------------------------------------------------
-BOOL __cdecl sub_57B3D0(int a1, char a2) {
+BOOL __cdecl nox_xxx_playerClassCanUseItem_57B3D0(int a1, char a2) {
 	return ((unsigned __int8)(1 << a2) &
 			(unsigned __int8)sub_57B370(*(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12), *(unsigned __int16*)(a1 + 4))) != 0;
 }
 
 //----- (0057B400) --------------------------------------------------------
-int __cdecl sub_57B400(int a1) {
+int __cdecl nox_xxx_client_57B400(int a1) {
 	int v1; // eax
 
 	v1 = *getMemU32Ptr(0x5D4594, 2523876);
 	if (!*getMemU32Ptr(0x5D4594, 2523876)) {
-		v1 = sub_44CFC0((CHAR*)getMemAt(0x587000, 313100));
+		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 313100));
 		*getMemU32Ptr(0x5D4594, 2523876) = v1;
 	}
 	if (!*getMemU32Ptr(0x5D4594, 2618908))
@@ -4678,7 +4678,7 @@ BOOL __cdecl sub_57B450(int* a1) {
 
 	v1 = *getMemU32Ptr(0x5D4594, 2523880);
 	if (!*getMemU32Ptr(0x5D4594, 2523880)) {
-		v1 = sub_44CFC0((CHAR*)getMemAt(0x587000, 313108));
+		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 313108));
 		*getMemU32Ptr(0x5D4594, 2523880) = v1;
 	}
 	if (!a1 || !*getMemU32Ptr(0x5D4594, 2614252) || !*getMemU32Ptr(0x5D4594, 2618908) ||
@@ -4723,7 +4723,7 @@ char __cdecl sub_57B500(int a1, int a2, char a3) {
 		return -1;
 	if (a2 >= 256)
 		return -1;
-	v3 = sub_4105E0(a1, a2);
+	v3 = nox_xxx_wall_4105E0(a1, a2);
 	if (!v3)
 		return -1;
 	v4 = *(_BYTE*)(v3 + 4);
@@ -4737,7 +4737,7 @@ char __cdecl sub_57B500(int a1, int a2, char a3) {
 		if (a3 & 8) {
 			if (!*(_BYTE*)(v6 + 1))
 				return -1;
-			if (dword_5d4594_2523888 && sub_4E8910(*getMemIntPtr(0x5D4594, 2523884), v5)) {
+			if (dword_5d4594_2523888 && nox_xxx_doorGetSomeKey_4E8910(*getMemIntPtr(0x5D4594, 2523884), v5)) {
 				dword_5d4594_2523888 = 0;
 				return -1;
 			}
@@ -4791,7 +4791,7 @@ char __cdecl sub_57B630(int a1, int a2, int a3) {
 	int v13;  // ecx
 
 	if (a2 >= 0 && a2 < 256 && (a3 >= 0 || a3 < 256)) {
-		v3 = sub_4105E0(a2, a3);
+		v3 = nox_xxx_wall_4105E0(a2, a3);
 		if (v3) {
 			v4 = *(_BYTE*)(v3 + 4);
 			if (v4 & 0x10) {
@@ -4825,7 +4825,7 @@ char __cdecl sub_57B630(int a1, int a2, int a3) {
 									if (*(_DWORD*)(v5 + 508)) {
 										if (nox_common_randomInt_415FA0(0, 100) >= 50)
 											return v11;
-									} else if (*(_BYTE*)(v6 + 1) && !sub_4E8910(a1, v5)) {
+									} else if (*(_BYTE*)(v6 + 1) && !nox_xxx_doorGetSomeKey_4E8910(a1, v5)) {
 										return v11;
 									}
 									return -1;
@@ -4878,7 +4878,7 @@ float2* __cdecl sub_57B770(float2* a1, float2* a2) {
 }
 
 //----- (0057B810) --------------------------------------------------------
-int __cdecl sub_57B810(float* a1, int a2) {
+int __cdecl nox_xxx_collideReflect_57B810(float* a1, int a2) {
 	int result; // eax
 	double v3;  // st7
 	int v4;     // ecx
@@ -4897,7 +4897,7 @@ int __cdecl sub_57B810(float* a1, int a2) {
 }
 
 //----- (0057B850) --------------------------------------------------------
-BOOL __cdecl sub_57B850(float2* a1, float* a2, float2* a3) {
+BOOL __cdecl nox_xxx_map_57B850(float2* a1, float* a2, float2* a3) {
 	BOOL result; // eax
 	float v4;    // [esp+0h] [ebp-10h]
 	float v5;    // [esp+4h] [ebp-Ch]
@@ -5068,7 +5068,7 @@ LABEL_30:
 }
 
 //----- (0057BBC0) --------------------------------------------------------
-int __cdecl sub_57BBC0(FILE* a1, int a2, int a3) {
+int __cdecl nox_xxx_getToken_57BBC0(FILE* a1, int a2, int a3) {
 	int v3;     // esi
 	int v4;     // ebx
 	char v5;    // al
@@ -5106,7 +5106,7 @@ int __cdecl sub_57BBC0(FILE* a1, int a2, int a3) {
 }
 
 //----- (0057BC50) --------------------------------------------------------
-int __cdecl sub_57BC50(char* a1, char* a2) {
+int __cdecl nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
 	FILE* v2;   // eax
 	FILE* v3;   // edi
 	int v4;     // esi
@@ -5132,19 +5132,19 @@ int __cdecl sub_57BC50(char* a1, char* a2) {
 	v4 = ftell(v3);
 	fseek(v3, 0, SEEK_SET);
 	v5 = (char*)(v4 - 4);
-	sub_40ADD0_fread((char*)&v12, 1u, 4u, v3);
+	nox_xxx_fileBinRead_40ADD0_fread((char*)&v12, 1u, 4u, v3);
 	v6 = (char*)malloc((size_t)v5);
 	v7 = (char*)malloc(v12);
 	v8 = v7;
 	if (!v6 || !v7)
 		return 0;
-	sub_40ADD0_fread(v6, 1u, (size_t)v5, v3);
+	nox_xxx_fileBinRead_40ADD0_fread(v6, 1u, (size_t)v5, v3);
 	fclose(v3);
 	a1 = v5;
 	v13 = v12;
 	v9 = sub_578BF0();
-	if (sub_578C10(v9, &v8[v12 - v13], &v13, (unsigned int)&v5[v6 - a1], &a1)) {
-		while ((int)a1 > 0 && sub_578C10(v9, &v8[v12 - v13], &v13, (unsigned int)&v5[v6 - a1], &a1))
+	if (nox_xxx_nxzDecompress_578C10(v9, &v8[v12 - v13], &v13, (unsigned int)&v5[v6 - a1], &a1)) {
+		while ((int)a1 > 0 && nox_xxx_nxzDecompress_578C10(v9, &v8[v12 - v13], &v13, (unsigned int)&v5[v6 - a1], &a1))
 			;
 	}
 	sub_578C40(v9);
@@ -5159,7 +5159,7 @@ int __cdecl sub_57BC50(char* a1, char* a2) {
 }
 
 //----- (0057BDD0) --------------------------------------------------------
-int __cdecl sub_57BDD0(LPVOID lpMem, int a2) {
+int __cdecl nox_xxx_mapFile_57BDD0(LPVOID lpMem, int a2) {
 	size_t v2;        // ebx
 	FILE* v3;         // eax
 	FILE* v4;         // esi
@@ -5194,7 +5194,7 @@ int __cdecl sub_57BDD0(LPVOID lpMem, int a2) {
 	lpMema = v7;
 	if (!v5 || !v7)
 		return 0;
-	sub_40ADD0_fread(v5, 1u, v15, v4);
+	nox_xxx_fileBinRead_40ADD0_fread(v5, 1u, v15, v4);
 	fclose(v4);
 	v8 = (void**)sub_578B80();
 	v9 = v15;
@@ -5246,7 +5246,7 @@ unsigned int sub_57BF80() {
 }
 
 //----- (0057BFB0) --------------------------------------------------------
-char* sub_57BFB0() {
+char* nox_xxx_allocGroupRelatedArrays_57BFB0() {
 	char* result; // eax
 
 	dword_5d4594_2523904 = 0;
@@ -5262,8 +5262,8 @@ char* sub_57BFB0() {
 //----- (0057C000) --------------------------------------------------------
 void sub_57C000() {
 	dword_5d4594_2523904 = 0;
-	sub_4144D0(*(_DWORD**)&nox_alloc_itemGroupElem_2523896);
-	sub_4144D0(*(_DWORD**)&nox_alloc_groupInfo_2523892);
+	nox_xxx_class_4144D0(*(_DWORD**)&nox_alloc_itemGroupElem_2523896);
+	nox_xxx_class_4144D0(*(_DWORD**)&nox_alloc_groupInfo_2523892);
 	dword_5d4594_2523900 = 0;
 }
 
@@ -5361,7 +5361,7 @@ int __cdecl sub_57C130(_DWORD* a1, int a2) {
 	if (result) {
 		if (v4 && v4 != 1 && v4 != 3) {
 			if (v4 != 2) {
-				sub_414330(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, (_QWORD*)result);
+				nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, (_QWORD*)result);
 				return 0;
 			}
 			*(_DWORD*)result = *a1;
@@ -5447,10 +5447,10 @@ void* sub_57C330() {
 void* sub_57C360() { return nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_itemGroupElem_2523896); }
 
 //----- (0057C370) --------------------------------------------------------
-void __cdecl sub_57C370(_QWORD* a1) { sub_414330(*(unsigned int**)&nox_alloc_groupInfo_2523892, a1); }
+void __cdecl sub_57C370(_QWORD* a1) { nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_groupInfo_2523892, a1); }
 
 //----- (0057C390) --------------------------------------------------------
-void __cdecl sub_57C390(_QWORD* a1) { sub_414330(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, a1); }
+void __cdecl sub_57C390(_QWORD* a1) { nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, a1); }
 
 //----- (0057C3B0) --------------------------------------------------------
 int __cdecl nox_server_addNewMapGroup_57C3B0(int a1) {
@@ -5466,10 +5466,10 @@ int __cdecl nox_server_addNewMapGroup_57C3B0(int a1) {
 }
 
 //----- (0057C3E0) --------------------------------------------------------
-int sub_57C3E0() { return dword_5d4594_2523912; }
+int nox_xxx_getDebugData_57C3E0() { return dword_5d4594_2523912; }
 
 //----- (0057C3F0) --------------------------------------------------------
-int __cdecl sub_57C3F0(int a1) {
+int __cdecl nox_xxx_nextDebugObject_57C3F0(int a1) {
 	int result; // eax
 
 	if (a1)
@@ -5480,14 +5480,14 @@ int __cdecl sub_57C3F0(int a1) {
 }
 
 //----- (0057C410) --------------------------------------------------------
-BOOL sub_57C410() {
+BOOL nox_xxx_allocDebugDataArray_57C410() {
 	nox_alloc_debugData_2523908 = nox_new_alloc_class("DebugData", 344, 256);
 	return nox_alloc_debugData_2523908 != 0;
 }
 
 //----- (0057C440) --------------------------------------------------------
 void sub_57C440() {
-	sub_4144D0(*(_DWORD**)&nox_alloc_debugData_2523908);
+	nox_xxx_class_4144D0(*(_DWORD**)&nox_alloc_debugData_2523908);
 	dword_5d4594_2523912 = 0;
 }
 
@@ -5554,7 +5554,7 @@ void __cdecl sub_57C5A0(const char* a1) {
 		v3 = *(_DWORD*)(v1 + 336);
 		if (v3)
 			*(_DWORD*)(v3 + 340) = *(_DWORD*)(v1 + 340);
-		sub_414330(*(unsigned int**)&nox_alloc_debugData_2523908, (_QWORD*)v1);
+		nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_debugData_2523908, (_QWORD*)v1);
 	}
 }
 
@@ -5667,7 +5667,7 @@ void __cdecl sub_57C790(float4* a1, float2* a2, float2* a3, float a4) {
 }
 
 //----- (0057C8A0) --------------------------------------------------------
-BOOL __cdecl sub_57C8A0(float4* a1, float2* a2, float2* a3) {
+BOOL __cdecl nox_xxx_mathPointOnTheLine_57C8A0(float4* a1, float2* a2, float2* a3) {
 	float4* v3; // ecx
 	float2* v4; // edx
 	double v5;  // st7
@@ -5713,7 +5713,7 @@ BOOL __cdecl sub_57C8A0(float4* a1, float2* a2, float2* a3) {
 }
 
 //----- (0057C9A0) --------------------------------------------------------
-char __cdecl sub_57C9A0(int a1, int a2, float* a3, float* a4, char a5) {
+char __cdecl nox_xxx_mapTraceRayImpl_57C9A0(int a1, int a2, float* a3, float* a4, char a5) {
 	int v5;    // ebp
 	char v6;   // bl
 	double v7; // st7
@@ -5758,7 +5758,7 @@ char __cdecl sub_57C9A0(int a1, int a2, float* a3, float* a4, char a5) {
 	v31 = (unsigned char)sub_57B500(v5, a2, v30);
 	if (v31 == 255)
 		return 0;
-	v9 = v6 & 1 ? sub_4105E0(v5, a2) : nox_server_getWallAtPoint_410580(v5, a2);
+	v9 = v6 & 1 ? nox_xxx_wall_4105E0(v5, a2) : nox_server_getWallAtPoint_410580(v5, a2);
 	if (!v9 || v6 < 0 && *(_BYTE*)(v9 + 4) & 4 && *(_BYTE*)(*(_DWORD*)(v9 + 28) + 20) & 2)
 		return 0;
 	v10 = *getMemU32Ptr(0x5D4594, 12332 * *(unsigned __int8*)(v9 + 1) + 2692780);
@@ -7447,7 +7447,7 @@ int __thiscall sub_57EA60(int this) {
 }
 
 //----- (0057EA80) --------------------------------------------------------
-int __thiscall sub_57EA80(_DWORD* this, _BYTE* a2, _DWORD* a3, unsigned int a4, _DWORD* a5) {
+int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD* a3, unsigned int a4, _DWORD* a5) {
 	unsigned __int8* v5; // ebp
 	_DWORD* v6;          // ebx
 	unsigned int v7;     // edx
@@ -8044,7 +8044,7 @@ int __cdecl SEH_570570(int a1, int a2, int a3, int a4)
 //----- (0057FCD0) --------------------------------------------------------
 void sub_57FCD0()
 {
-    sub_5717C0();
+    nox_xxx___initp_misc_winxfltr_5717C0();
 }
 
 //----- (0057FCE1) --------------------------------------------------------
@@ -8474,7 +8474,7 @@ int __cdecl SEH_578370(int a1, int a2, int a3, int a4)
 //----- (005800B0) --------------------------------------------------------
 void sub_5800B0()
 {
-    sub_5717C0();
+    nox_xxx___initp_misc_winxfltr_5717C0();
 }
 
 //----- (005800C1) --------------------------------------------------------
@@ -8585,7 +8585,7 @@ void nullsub_10(_DWORD a1) {}
 
 int __thiscall sub_42CC50(LPVOID* this) { return sub_42C770(this); }
 
-void sub_49A2E0(void) { nox_alloc_npcs(); }
+void nox_xxx_j_resetNPCRenderData_49A2E0(void) { nox_alloc_npcs(); }
 
 void nullsub_16(void) {}
 
@@ -8609,7 +8609,7 @@ void nullsub_6(void) {}
 
 void nullsub_19(void) {}
 
-int sub_467460(void) { return sub_4671E0(); }
+int nox_xxx_j_inventoryNameSignInit_467460(void) { return nox_xxx_inventoryNameSignInit_4671E0(); }
 
 void __cdecl nox_alloc_npcs_2() { nox_alloc_npcs(); }
 
@@ -8633,7 +8633,7 @@ void nullsub_9(_DWORD a1) {}
 void nullsub_33(_DWORD a1, _DWORD a2, _DWORD a3) {}
 int __thiscall sub_558800(int (**this)(void)) { return this[385](); }
 int __thiscall sub_558810(int (**this)(void)) { return this[386](); }
-BOOL sub_444D90() { return 0; }
-void sub_511840(void) { sub_5486D0(); }
+BOOL nox_xxx_testCPUID2_444D90() { return 0; }
+void nox_xxx_j_allocHitArray_511840(void) { nox_xxx_allocHitArray_5486D0(); }
 
 // ALL OK, 8062 function(s) have been successfully decompiled

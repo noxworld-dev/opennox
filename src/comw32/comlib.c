@@ -13,12 +13,12 @@ int __cdecl sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr*
 		if (v7) {
 			v8 = v7[148];
 			if (v8)
-				sub_56FDD0(v8, buf, v6);
+				nox_xxx_cryptXor_56FDD0(v8, buf, v6);
 		}
 	}
 	if (nox_common_gameFlags_check_40A5C0(1))
 		result = v6;
 	else
-		result = sub_415FF0(1, 99, "C:\\NoxPost\\src\\comw32\\comlib.c", 450) < *getMemIntPtr(0x5D4594, 2495940) ? 0 : v6;
+		result = nox_xxx_randGetMinMax_415FF0(1, 99, "C:\\NoxPost\\src\\comw32\\comlib.c", 450) < *getMemIntPtr(0x5D4594, 2495940) ? 0 : v6;
 	return result;
 }

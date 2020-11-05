@@ -42,25 +42,25 @@ int nox_video_recreateRenderTarget_47FD70() {
 	nox_client_setCursorType_477610(0);
 	v2 = sub_48B3E0(0);
 	int depth = dword_5d4594_3804680 != 0 ? 16 : 8;
-	if (!sub_444930(getWindowHandle_sub_401FD0(), nox_win_width, nox_win_height, depth, flags)) {
-		wchar_t* v9 = loadString_sub_40F1D0("result:ERROR", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);
+	if (!sub_444930(getWindowHandle_nox_xxx_getHWND_401FD0(), nox_win_width, nox_win_height, depth, flags)) {
+		wchar_t* v9 = nox_xxx_loadString_40F1D0("result:ERROR", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);
 		wchar_t* v4 =
-			loadString_sub_40F1D0("gfxDdraw.c:DXWarning", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);
+			nox_xxx_loadString_40F1D0("gfxDdraw.c:DXWarning", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);
 		nullsub_4(0, v4, v9, 1);
 		return 0;
 	}
 	printf("%s: %d\n", __FUNCTION__, 1);
-	sub_477710();
+	nox_xxx_cursorLoadAll_477710();
 	nox_client_setCursorType_477610(v1);
 	sub_48B3E0(v2);
 	sub_440900();
-	sub_47FEF0();
+	nox_xxx_setupSomeVideo_47FEF0();
 	sub_49F6D0(1);
 	sub_437290();
 	dword_5d4594_3804680 = dword_5d4594_3801780;
 	*getMemU32Ptr(0x5D4594, 3805488) = nox_pitch_3801808 * nox_backbuffer_height;
 	*getMemU32Ptr(0x5D4594, 3807124) = dword_5d4594_3801780 == 1;
 	sub_430B50(0, 0, NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1);
-	sub_4453A0_poll_events();
+	nox_xxx_processWinMessages_4453A0_poll_events();
 	return 1;
 }

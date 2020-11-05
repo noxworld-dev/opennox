@@ -5,7 +5,7 @@
 extern _DWORD dword_5d4594_1522956;
 
 //----- (004CCAC0) --------------------------------------------------------
-int __cdecl sub_4CCAC0(int a1, _DWORD* a2) {
+int __cdecl nox_xxx_updDrawManabombCharge_4CCAC0(int a1, _DWORD* a2) {
 	unsigned int v2;      // ebx
 	_DWORD* v3;           // ebp
 	int v4;               // edi
@@ -24,22 +24,22 @@ int __cdecl sub_4CCAC0(int a1, _DWORD* a2) {
 	unsigned int v18;     // [esp+1Ch] [ebp-4h]
 	int v19;              // [esp+28h] [ebp+8h]
 
-	v14 = sub_419D40(getMemAt(0x587000, 188052));
+	v14 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 188052));
 	v2 = nox_float2int(v14);
 	if (!dword_5d4594_1522956) {
-		dword_5d4594_1522956 = sub_44CFC0((CHAR*)getMemAt(0x587000, 188072));
-		*getMemU32Ptr(0x5D4594, 1522960) = sub_44CFC0((CHAR*)getMemAt(0x587000, 188084));
+		dword_5d4594_1522956 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 188072));
+		*getMemU32Ptr(0x5D4594, 1522960) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 188084));
 	}
 	v3 = a2;
 	v19 = 20;
 	v4 = v2 >> 2;
 	v18 = v2 >> 4;
 	for (i = v2 >> 2;; v4 = i) {
-		v5 = v4 + sub_415FF0(0, v2, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 63);
+		v5 = v4 + nox_xxx_randGetMinMax_415FF0(0, v2, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 63);
 		if (v5 > (int)v2)
 			v5 = v2;
-		v6 = sub_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 68);
-		v7 = sub_45A360_drawable(*getMemIntPtr(0x5D4594, 1522960), v3[3] + v5 * *getMemIntPtr(0x587000, 8 * v6 + 192088) / 16,
+		v6 = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 68);
+		v7 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522960), v3[3] + v5 * *getMemIntPtr(0x587000, 8 * v6 + 192088) / 16,
 								 v3[4] + v5 * *getMemIntPtr(0x587000, 8 * v6 + 192092) / 16);
 		v8 = v7;
 		if (v7) {
@@ -48,11 +48,11 @@ int __cdecl sub_4CCAC0(int a1, _DWORD* a2) {
 			*(_BYTE*)(v7 + 299) = 0;
 			*(_DWORD*)(v7 + 440) = 0;
 			*(_DWORD*)(v7 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
-								   sub_415FF0(10, 30, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 88);
+								   nox_xxx_randGetMinMax_415FF0(10, 30, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 88);
 			*(_DWORD*)(v8 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 			*(_WORD*)(v8 + 104) = 0;
-			*(_BYTE*)(v8 + 296) = sub_415FF0(2, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 94);
-			sub_45A110_drawable((_DWORD*)v8);
+			*(_BYTE*)(v8 + 296) = nox_xxx_randGetMinMax_415FF0(2, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 94);
+			nox_xxx_sprite_45A110_drawable((_DWORD*)v8);
 		}
 		if (!--v19)
 			break;
