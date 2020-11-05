@@ -9193,7 +9193,7 @@ int __cdecl nox_thing_read_audio_414D40(int a1) {
 }
 
 //----- (00414DB0) --------------------------------------------------------
-BOOL __cdecl sub_414DB0(nox_memfile* f) {
+BOOL __cdecl nox_thing_read_FLOR_414DB0(nox_memfile* f) {
 	unsigned __int8* v2;  // ecx
 	unsigned __int8* v3;  // ecx
 	unsigned __int8* v4;  // esi
@@ -9243,7 +9243,7 @@ BOOL __cdecl sub_414DB0(nox_memfile* f) {
 }
 
 //----- (00414E70) --------------------------------------------------------
-BOOL __cdecl sub_414E70(int a1, void* a2) {
+BOOL __cdecl nox_thing_read_EDGE_414E70(int a1, void* a2) {
 	int v2;               // esi
 	unsigned __int8* v3;  // edx
 	unsigned __int8* v4;  // eax
@@ -9309,7 +9309,7 @@ BOOL __cdecl sub_414E70(int a1, void* a2) {
 }
 
 //----- (00414F60) --------------------------------------------------------
-BOOL __cdecl sub_414F60(_DWORD* a1, void* a2) {
+BOOL __cdecl nox_thing_read_WALL_414F60(_DWORD* a1, void* a2) {
 	_DWORD* v2;           // esi
 	void* v3;             // edi
 	unsigned __int8* v4;  // eax
