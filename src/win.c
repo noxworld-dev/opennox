@@ -249,7 +249,7 @@ int __stdcall nox_xxx_windowProc_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPAR
 				if (sub_414800()) {
 				LABEL_41:
 					PostQuitMessage(0);
-					nox_xxx_setExitMenuOrHost_43DDD0(0);
+					nox_xxx_setContinueMenuOrHost_43DDD0(0);
 					nox_game_exit_xxx_43DE60();
 					return DefWindowProcA(hWnd, v6, v5, v4);
 				}

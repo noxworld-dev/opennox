@@ -8769,7 +8769,7 @@ int nox_xxx_client_435F80_draw() {
 	if (nox_xxx_serverIsClosing_446180())
 		sub_446190();
 	if (!sub_437060() && !nox_common_gameFlags_check_40A5C0(8)) {
-		nox_xxx_setExitMenuOrHost_43DDD0(0);
+		nox_xxx_setContinueMenuOrHost_43DDD0(0);
 		return 0;
 	}
 	sub_437100();

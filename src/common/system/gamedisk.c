@@ -92,7 +92,7 @@ void sub_413520_gamedisk() {
 	case 6:
 		break;
 	default:
-		nox_xxx_setExitMenuOrHost_43DDD0(0);
+		nox_xxx_setContinueMenuOrHost_43DDD0(0);
 		nox_game_exit_xxx_43DE60();
 		break;
 	}
