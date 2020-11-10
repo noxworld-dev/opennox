@@ -45,7 +45,7 @@ extern _DWORD dword_5d4594_371264;
 extern _DWORD dword_5d4594_1308;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_3616;
-extern _DWORD nox_xxx_aBlindcast_587000_93200;
+extern _DWORD nox_game_continueMenuOrHost_93200;
 extern _DWORD dword_5d4594_252276;
 extern _DWORD dword_5d4594_251720;
 extern _DWORD dword_5d4594_3804680;
@@ -207,7 +207,7 @@ void cleanup() {
 }
 
 void mainloop_exit_1() {
-	if (!nox_xxx_aBlindcast_587000_93200) {
+	if (!nox_game_continueMenuOrHost_93200) {
 		cleanup();
 		nox_exit(0);
 	}

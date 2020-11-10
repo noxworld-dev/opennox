@@ -55,7 +55,7 @@ extern _DWORD dword_5d4594_816376;
 extern _DWORD dword_587000_111668;
 extern _DWORD dword_5d4594_825768;
 extern _DWORD dword_5d4594_825736;
-extern _DWORD nox_xxx_aBlindcast_587000_93200;
+extern _DWORD nox_game_continueMenuOrHost_93200;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_830292;
 extern _DWORD dword_5d4594_816448;
@@ -1705,7 +1705,7 @@ void sub_43DDC0() { nox_srand(0x1E77u); }
 
 //----- (0043DDD0) --------------------------------------------------------
 int __cdecl nox_xxx_setExitMenuOrHost_43DDD0(int a1) {
-	nox_xxx_aBlindcast_587000_93200 = a1;
+	nox_game_continueMenuOrHost_93200 = a1;
 	return a1;
 }
 
@@ -1835,7 +1835,7 @@ int sub_43E230() {
 //-------------------------------------------------------------------------
 void mainloop_stop() {
 	if (dword_5d4594_805872) {
-		nox_xxx_aBlindcast_587000_93200 = 1;
+		nox_game_continueMenuOrHost_93200 = 1;
 		mainloop_exit();
 		return;
 	}
@@ -1863,7 +1863,7 @@ void mainloop_wait_and_exit() {
 
 void mainloop_43E290() {
 	nox_continue_mainloop_93196 = 1;
-	nox_xxx_aBlindcast_587000_93200 = 1;
+	nox_game_continueMenuOrHost_93200 = 1;
 	*getMemU32Ptr(0x5D4594, 816400) = 60 * *getMemU32Ptr(0x5D4594, 2649704);
 
 	// XXX
