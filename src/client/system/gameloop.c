@@ -175,6 +175,22 @@ void mainloop() {
 #ifdef NOX_E2E_TEST
 	time_hook();
 #endif
+
+#ifdef __EMSCRIPTEN__
+	DWORD cur_tick;
+	static DWORD last_tick;
+
+	// rate limit to < 40 fps
+	cur_tick = nox_platform_get_ticks();
+	if (cur_tick - last_tick < 1000 / 40)
+		return;
+	last_tick = cur_tick;
+#endif // __EMSCRIPTEN__
+
+	if (mainloop_enter) {
+		mainloop_enter(mainloop_enter_args);
+		return;
+	}
 	unsigned __int8* v0; // eax
 	int2* v1;            // edi
 	int v2;              // ebp
@@ -199,22 +215,6 @@ void mainloop() {
 	int v26;             // [esp+18h] [ebp-40h]
 	int2* v27;           // [esp+20h] [ebp-38h]
 	int v28[10];         // [esp+24h] [ebp-34h]
-
-	if (mainloop_enter) {
-		mainloop_enter(mainloop_enter_args);
-		return;
-	}
-
-#ifdef __EMSCRIPTEN__
-	DWORD cur_tick;
-	static DWORD last_tick;
-
-	// rate limit to < 40 fps
-	cur_tick = nox_platform_get_ticks();
-	if (cur_tick - last_tick < 1000 / 40)
-		return;
-	last_tick = cur_tick;
-#endif
 
 	if (nox_xxx_gameDownloadInProgress_587000_173328) {
 		int ret = map_download_loop(0);
