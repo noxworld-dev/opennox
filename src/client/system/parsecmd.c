@@ -2385,7 +2385,7 @@ int nox_cmd_exit() {
 	if (nox_common_gameFlags_check_40A5C0(0x2000000))
 		sub_4460C0();
 	nox_xxx_setExitMenuOrHost_43DDD0(0);
-	sub_43DE60();
+	nox_game_exit_xxx_43DE60();
 	return 1;
 }
 

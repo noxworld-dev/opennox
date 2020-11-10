@@ -2423,7 +2423,7 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					}
 					if (!nox_common_gameFlags_check_40A5C0(0x20000) && nox_xxx_gameGetPlayState_4356B0() == 3) {
 						nox_xxx_setExitMenuOrHost_43DDD0(0);
-						sub_43DE60();
+						nox_game_exit_xxx_43DE60();
 					}
 				}
 			}

@@ -41,7 +41,7 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 	if (v1) {
 		nox_xxx_replayStopReadMB_4D3530();
 		nox_xxx_setExitMenuOrHost_43DDD0(0);
-		sub_43DE60();
+		nox_game_exit_xxx_43DE60();
 		return v1;
 	}
 	if (*(_DWORD *) getMemAt(0x5D4594, 2598000) == *(_DWORD *) getMemAt(0x5D4594, 1548728))
@@ -70,7 +70,7 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 											   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 356);
 					nullsub_4(0, v2, v3, 1);
 					nox_xxx_setExitMenuOrHost_43DDD0(0);
-					sub_43DE60();
+					nox_game_exit_xxx_43DE60();
 					v1 = 1;
 				}
 				break;
@@ -85,7 +85,7 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 				if (a1 == 1)
 					return v1;
 				nox_xxx_setExitMenuOrHost_43DDD0(0);
-				sub_43DE60();
+				nox_game_exit_xxx_43DE60();
 				break;
 			default:
 				break;
@@ -105,7 +105,7 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 	}
 	nox_xxx_replayStopReadMB_4D3530();
 	nox_xxx_setExitMenuOrHost_43DDD0(0);
-	sub_43DE60();
+	nox_game_exit_xxx_43DE60();
 	return v1;
 }
 // 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
