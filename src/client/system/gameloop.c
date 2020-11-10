@@ -10,7 +10,7 @@
 #endif
 
 extern _DWORD dword_5d4594_1556112;
-extern _DWORD nox_xxx_aBlindcast_587000_93200;
+extern _DWORD nox_game_continueMenuOrHost_93200;
 extern _DWORD nox_continue_mainloop_93196;
 extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
 extern _DWORD nox_xxx_mapDownloadOK_587000_173332;
@@ -223,7 +223,7 @@ void mainloop() {
 		} else if (ret == 0) {
 			// map error
 			nox_continue_mainloop_93196 = 0;
-			nox_xxx_aBlindcast_587000_93200 = 0;
+			nox_game_continueMenuOrHost_93200 = 0;
 			mainloop_exit();
 			return;
 		}
@@ -234,7 +234,7 @@ void mainloop() {
 			if (nox_xxx_gameDownloadInProgress_587000_173328)
 				return;
 			nox_continue_mainloop_93196 = 0;
-			nox_xxx_aBlindcast_587000_93200 = 0;
+			nox_game_continueMenuOrHost_93200 = 0;
 			mainloop_exit();
 			return;
 		}
@@ -273,7 +273,7 @@ void mainloop() {
 	sub_4519C0();
 	sub_4312C0();
 	sub_495430();
-	if (nox_common_gameFlags_check_40A5C0(1) && nox_xxx_aBlindcast_587000_93200 == 1) {
+	if (nox_common_gameFlags_check_40A5C0(1) && nox_game_continueMenuOrHost_93200 == 1) {
 		if (!dword_5d4594_815132) {
 			if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 				if (nox_server_gameDoSwitchMap_40A680()) {
