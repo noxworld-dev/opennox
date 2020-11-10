@@ -2000,7 +2000,7 @@ void __cdecl sub_4BEDE0(int2* a1, int2* a2, int2* a3, int2* a4, int a5, float a6
 }
 
 //----- (004BF000) --------------------------------------------------------
-void sub_4BF000() { nox_srand(0x15EA1u); }
+void sub_4BF000() { nox_platform_srand(0x15EA1u); }
 
 //----- (004BF010) --------------------------------------------------------
 int __cdecl nox_xxx_clientReportSecondaryWeapon_4BF010(int a1) {
@@ -2015,7 +2015,7 @@ int __cdecl nox_xxx_clientReportSecondaryWeapon_4BF010(int a1) {
 }
 
 //----- (004BF040) --------------------------------------------------------
-void sub_4BF040() { nox_srand(0x15EABu); }
+void sub_4BF040() { nox_platform_srand(0x15EABu); }
 
 //----- (004BF7E0) --------------------------------------------------------
 __int16 __cdecl sub_4BF7E0(_DWORD* a1) {

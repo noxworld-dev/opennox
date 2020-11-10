@@ -173,7 +173,7 @@ int map_download_finish() {
 //----- (0043E290) --------------------------------------------------------
 void mainloop() {
 #ifdef NOX_E2E_TEST
-	time_hook();
+	nox_platform_time_hook();
 #endif
 
 #ifdef __EMSCRIPTEN__

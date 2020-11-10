@@ -771,7 +771,7 @@ nox_wnd_xxx* nox_wnd_sub_43C5B0(_DWORD* a1, int a2, int a3, int a4, int a5, int 
 }
 
 //----- (0043C640) --------------------------------------------------------
-void sub_43C640() { nox_srand(0x2710u); }
+void sub_43C640() { nox_platform_srand(0x2710u); }
 
 //----- (0043C650) --------------------------------------------------------
 int sub_43C650() {
@@ -1202,7 +1202,7 @@ int sub_43CFF0() {
 }
 
 //----- (0043D2C0) --------------------------------------------------------
-void sub_43D2C0() { nox_srand(0x2711u); }
+void sub_43D2C0() { nox_platform_srand(0x2711u); }
 
 //----- (0043D2D0) --------------------------------------------------------
 void sub_43D2D0() {
@@ -1657,7 +1657,7 @@ int sub_43DCC0() {
 				}
 				sub_4312C0();
 #ifdef __EMSCRIPTEN__
-				nox_sleep(0x32u);
+				nox_platform_sleep(0x32u);
 #endif // __EMSCRIPTEN__
 			}
 		}
@@ -1701,7 +1701,7 @@ void sub_43DDA0() {
 }
 
 //----- (0043DDC0) --------------------------------------------------------
-void sub_43DDC0() { nox_srand(0x1E77u); }
+void sub_43DDC0() { nox_platform_srand(0x1E77u); }
 
 //----- (0043DDD0) --------------------------------------------------------
 void nox_xxx_setContinueMenuOrHost_43DDD0(int v) {
@@ -1856,7 +1856,7 @@ void mainloop_wait_and_exit() {
 	int ms = nox_ticks_until_next_416D00();
 	*getMemU32Ptr(0x5D4594, 816404) = ms;
 	if (ms > 0)
-		nox_sleep(ms);
+		nox_platform_sleep(ms);
 	mainloop_stop();
 }
 
@@ -1897,7 +1897,7 @@ int __cdecl sub_43E8C0(int a1) {
 }
 
 //----- (0043E8D0) --------------------------------------------------------
-void sub_43E8D0() { nox_srand(0x1E76u); }
+void sub_43E8D0() { nox_platform_srand(0x1E76u); }
 
 //----- (0043E8E0) --------------------------------------------------------
 void sub_43E8E0(int a1) {

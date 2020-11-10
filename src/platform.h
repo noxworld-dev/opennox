@@ -3,12 +3,12 @@
 
 #include <SDL2/SDL.h>
 
-int nox_rand();
-void nox_srand(unsigned int seed);
-void nox_srand_time();
+int nox_platform_rand();
+void nox_platform_srand(unsigned int seed);
+void nox_platform_srand_time();
 
 unsigned int nox_platform_get_ticks();
-void nox_sleep(unsigned int ms);
+void nox_platform_sleep(unsigned int ms);
 
 int nox_SDL_PollEvent(SDL_Event* event);
 Uint8 nox_SDL_GetEventState(Uint32 type);
@@ -22,7 +22,7 @@ void script_move_to(int x, int y);
 void script_hold(int btn);
 void script_release(int btn);
 void script_click(int btn);
-void time_hook();
+void nox_platform_time_hook();
 void init_script_events();
 #endif
 

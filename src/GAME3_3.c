@@ -784,10 +784,10 @@ int __cdecl nox_xxx_damageMonsterGen_4E27D0(int a1, int a2, int a3, int a4, int 
 }
 
 //----- (004E29B0) --------------------------------------------------------
-void sub_4E29B0() { nox_srand(0x7DDu); }
+void sub_4E29B0() { nox_platform_srand(0x7DDu); }
 
 //----- (004E29C0) --------------------------------------------------------
-void sub_4E29C0() { nox_srand(0x898u); }
+void sub_4E29C0() { nox_platform_srand(0x898u); }
 
 //----- (004E30A0) --------------------------------------------------------
 int __cdecl nox_xxx_keyFirstLetterNumber_4E30A0(CHAR* a1) {
@@ -1279,7 +1279,7 @@ int nox_xxx_servResetObjectGIDs_4E3C70() {
 }
 
 //----- (004E3C90) --------------------------------------------------------
-void sub_4E3C90() { nox_srand(0x899u); }
+void sub_4E3C90() { nox_platform_srand(0x899u); }
 
 //----- (004E3CA0) --------------------------------------------------------
 double sub_4E3CA0() { return *getMemFloatPtr(0x587000, 202024); }
@@ -1606,7 +1606,7 @@ FILE* __cdecl sub_4E43F0(char* a1) {
 }
 
 //----- (004E44D0) --------------------------------------------------------
-void sub_4E44D0() { nox_srand(0x1428u); }
+void sub_4E44D0() { nox_platform_srand(0x1428u); }
 
 //----- (004E44E0) --------------------------------------------------------
 int __cdecl nox_xxx_objectMakeUnseenByNoone_4E44E0(int a1) {
@@ -2108,10 +2108,10 @@ BOOL __cdecl sub_4E4C90(int a1, unsigned int a2) {
 }
 
 //----- (004E4DC0) --------------------------------------------------------
-void sub_4E4DC0() { nox_srand(0x1429u); }
+void sub_4E4DC0() { nox_platform_srand(0x1429u); }
 
 //----- (004E4DD0) --------------------------------------------------------
-void sub_4E4DD0() { nox_srand(0x490u); }
+void sub_4E4DD0() { nox_platform_srand(0x490u); }
 
 //----- (004E4DE0) --------------------------------------------------------
 int sub_4E4DE0() {
@@ -2720,7 +2720,7 @@ int nox_xxx_unused_4E5A90() {
 }
 
 //----- (004E5AC0) --------------------------------------------------------
-void sub_4E5AC0() { nox_srand(0x13D11u); }
+void sub_4E5AC0() { nox_platform_srand(0x13D11u); }
 
 //----- (004E5AD0) --------------------------------------------------------
 void __cdecl nox_xxx_playerRemoveSpawnedStuff_4E5AD0(int a1) {
@@ -9200,7 +9200,7 @@ _DWORD* __cdecl nox_xxx_playerManaRefresh_4EECF0(int a1) {
 }
 
 //----- (004EED30) --------------------------------------------------------
-void sub_4EED30() { nox_srand(0x22D6u); }
+void sub_4EED30() { nox_platform_srand(0x22D6u); }
 
 //----- (004EED40) --------------------------------------------------------
 void __cdecl nox_xxx_abilGivePlayerAll_4EED40(int a1, char a2, int a3) {
@@ -9421,10 +9421,10 @@ char* __cdecl nox_xxx_godSetOrUnSet_4EF500(int a1) {
 }
 
 //----- (004EF560) --------------------------------------------------------
-void sub_4EF560() { nox_srand(0x22D7u); }
+void sub_4EF560() { nox_platform_srand(0x22D7u); }
 
 //----- (004EF570) --------------------------------------------------------
-void sub_4EF570() { nox_srand(0x7DAu); }
+void sub_4EF570() { nox_platform_srand(0x7DAu); }
 
 //----- (004EF580) --------------------------------------------------------
 char nox_xxx_getRespawnWeaponFlags_4EF580() {
@@ -10116,7 +10116,7 @@ LABEL_16:
 }
 
 //----- (004F0630) --------------------------------------------------------
-void sub_4F0630() { nox_srand(0x7DBu); }
+void sub_4F0630() { nox_platform_srand(0x7DBu); }
 
 //----- (004F0720) --------------------------------------------------------
 _DWORD* __cdecl nox_server_rewardgen_activateMarker_4F0720(int a1, unsigned int a2) {
@@ -12785,7 +12785,7 @@ int __cdecl sub_4F3DD0(int a1, int a2) {
 }
 
 //----- (004F3E20) --------------------------------------------------------
-void sub_4F3E20() { nox_srand(0x4E2Au); }
+void sub_4F3E20() { nox_platform_srand(0x4E2Au); }
 
 //----- (004F3E30) --------------------------------------------------------
 int __cdecl nox_xxx_xfer_4F3E30(unsigned __int16 a1, int a2, int a3) {

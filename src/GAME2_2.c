@@ -12990,7 +12990,7 @@ int nox_video_cursorThreadWorker_48BEB0() {
 	int v4;     // [esp-Ch] [ebp-Ch]
 
 	while (nox_video_allowCursorDrawThread) {
-		nox_sleep(33);
+		nox_platform_sleep(33);
 		if (!nox_video_pauseThreadedDrawCursor && nox_video_drawCursorThreadOk && dword_5d4594_823776 &&
 			dword_5d4594_1193672 && *getMemU32Ptr(0x5D4594, 1193108) && dword_5d4594_787144 && !nox_xxx_get_430890()) {
 			nox_client_readMouseBuffer_4306A0(0);
