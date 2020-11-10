@@ -40,7 +40,7 @@ extern _DWORD dword_5d4594_3798672;
 extern _DWORD dword_5d4594_1313564;
 extern _DWORD dword_5d4594_1308096;
 extern int (*func_5d4594_1311924)(void);
-extern _DWORD dword_5d4594_805872;
+extern _DWORD nox_game_loop_xxx_805872;
 extern _DWORD dword_5d4594_1307724;
 extern _DWORD dword_5d4594_3798684;
 extern _DWORD dword_5d4594_3798680;
@@ -4408,7 +4408,7 @@ int sub_4AAA10() {
 		v0();
 	} else {
 		nox_win_depth_2 = nox_win_depth_1;
-		dword_5d4594_805872 = 1;
+		nox_game_loop_xxx_805872 = 1;
 	}
 	return 1;
 }

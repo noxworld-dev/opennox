@@ -34,7 +34,7 @@ extern _DWORD dword_5d4594_830196;
 extern _DWORD dword_5d4594_830252;
 extern _DWORD dword_5d4594_830236;
 extern _DWORD dword_587000_109280;
-extern _DWORD dword_5d4594_805872;
+extern _DWORD nox_game_loop_xxx_805872;
 extern _DWORD dword_5d4594_830112;
 extern _DWORD dword_5d4594_830192;
 extern _DWORD dword_5d4594_816444;
@@ -353,7 +353,7 @@ int __cdecl nox_xxx_video_43BF10_upd_video_mode(int defaults) {
 		v3 = nox_win_depth_1;
 	}
 	nox_video_resizewnd(v1, v2, v3);
-	dword_5d4594_805872 = 0;
+	nox_game_loop_xxx_805872 = 0;
 	if (v1 == nox_backbuffer_width && v2 == nox_backbuffer_height && v3 == nox_backbuffer_depth) {
 		return 1;
 	}
@@ -1833,7 +1833,7 @@ int sub_43E230() {
 
 //-------------------------------------------------------------------------
 void mainloop_stop() {
-	if (dword_5d4594_805872) {
+	if (nox_game_loop_xxx_805872) {
 		nox_game_continueMenuOrHost_93200 = 1;
 		mainloop_exit();
 		return;
