@@ -754,7 +754,7 @@ extern _DWORD dword_5d4594_826036;
 extern _DWORD dword_5d4594_1064860;
 extern _DWORD nox_xxx_mapPartN_587000_173336;
 extern BYTE* nox_pixbuffer_3798788;
-extern _DWORD dword_587000_93196;
+extern _DWORD nox_continue_mainloop_93196;
 extern _DWORD dword_5d4594_1046536;
 extern _DWORD dword_5d4594_1062468;
 extern _DWORD nox_xxx_useAudio_587000_80832;
@@ -2026,7 +2026,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 80832, (void*)&nox_xxx_useAudio_587000_80832, sizeof(nox_xxx_useAudio_587000_80832), 1},
 	{0x5D4594 + 1062468, (void*)&dword_5d4594_1062468, sizeof(dword_5d4594_1062468), 1},
 	{0x5D4594 + 1046536, (void*)&dword_5d4594_1046536, sizeof(dword_5d4594_1046536), 1},
-	{0x587000 + 93196, (void*)&dword_587000_93196, sizeof(dword_587000_93196), 1},
+	{0x587000 + 93196, (void*)&nox_continue_mainloop_93196, sizeof(nox_continue_mainloop_93196), 1},
 	{0x5D4594 + 3798788, (void*)&nox_pixbuffer_3798788, sizeof(nox_pixbuffer_3798788), 1},
 	{0x587000 + 173336, (void*)&nox_xxx_mapPartN_587000_173336, sizeof(nox_xxx_mapPartN_587000_173336), 1},
 	{0x5D4594 + 1064860, (void*)&dword_5d4594_1064860, sizeof(dword_5d4594_1064860), 1},
