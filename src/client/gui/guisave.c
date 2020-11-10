@@ -127,7 +127,7 @@ int nox_savegame_sub_46C920(_DWORD* a1, int a2, int* a3, int a4) {
 		if (sub_450560()) {
 			sub_450580();
 			sub_43DDA0();
-			nox_xxx_setExitMenuOrHost_43DDD0(0);
+			nox_xxx_setContinueMenuOrHost_43DDD0(0);
 			nox_game_exit_xxx_43DE60();
 			sub_446060();
 			sub_46D6F0();

@@ -43,7 +43,7 @@ int __cdecl nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 					sub_4A1D40();
 					nox_xxx_cliSetMinimapZoom_472520(1110);
 					if (!nox_xxx_parseGamedataBinPre_4D1630()) {
-						nox_xxx_setExitMenuOrHost_43DDD0(0);
+						nox_xxx_setContinueMenuOrHost_43DDD0(0);
 						dword_5d4594_815132 = 0;
 						return 0;
 					}
@@ -84,7 +84,7 @@ int __cdecl nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				nox_xxx_cliSetMinimapZoom_472520(2300);
 				if (nox_xxx_parseGamedataBinPre_4D1630())
 					goto LABEL_26;
-				nox_xxx_setExitMenuOrHost_43DDD0(0);
+				nox_xxx_setContinueMenuOrHost_43DDD0(0);
 				dword_5d4594_815132 = 0;
 				return 0;
 			case 121:
@@ -131,7 +131,7 @@ int __cdecl nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 					sub_473610();
 				sub_461440(0);
 				if (!nox_xxx_parseGamedataBinPre_4D1630()) {
-					nox_xxx_setExitMenuOrHost_43DDD0(0);
+					nox_xxx_setContinueMenuOrHost_43DDD0(0);
 					dword_5d4594_815132 = 0;
 					return 0;
 				}

@@ -40,7 +40,7 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 	}
 	if (v1) {
 		nox_xxx_replayStopReadMB_4D3530();
-		nox_xxx_setExitMenuOrHost_43DDD0(0);
+		nox_xxx_setContinueMenuOrHost_43DDD0(0);
 		nox_game_exit_xxx_43DE60();
 		return v1;
 	}
@@ -69,7 +69,7 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 					v3 = nox_xxx_loadString_40F1D0((char *) getMemAt(0x587000, 197540), 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 356);
 					nullsub_4(0, v2, v3, 1);
-					nox_xxx_setExitMenuOrHost_43DDD0(0);
+					nox_xxx_setContinueMenuOrHost_43DDD0(0);
 					nox_game_exit_xxx_43DE60();
 					v1 = 1;
 				}
@@ -84,7 +84,7 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 			case 4u:
 				if (a1 == 1)
 					return v1;
-				nox_xxx_setExitMenuOrHost_43DDD0(0);
+				nox_xxx_setContinueMenuOrHost_43DDD0(0);
 				nox_game_exit_xxx_43DE60();
 				break;
 			default:
@@ -104,7 +104,7 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 			return v1;
 	}
 	nox_xxx_replayStopReadMB_4D3530();
-	nox_xxx_setExitMenuOrHost_43DDD0(0);
+	nox_xxx_setContinueMenuOrHost_43DDD0(0);
 	nox_game_exit_xxx_43DE60();
 	return v1;
 }

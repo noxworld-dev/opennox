@@ -2223,7 +2223,7 @@ int sub_4D3320() { return *getMemU32Ptr(0x5D4594, 1548716); }
 void nox_xxx_unused_4D3330() {
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 197384));
-		nox_xxx_setExitMenuOrHost_43DDD0(0);
+		nox_xxx_setContinueMenuOrHost_43DDD0(0);
 		nox_game_exit_xxx_43DE60();
 	}
 }
