@@ -162,7 +162,7 @@ bool nox_common_getEngineFlag(const nox_engine_flag flags) { return (nox_common_
 
 void nox_exit(int exitCode) {
 #ifdef __EMSCRIPTEN__
-	nox_sleep(0x32u);
+	nox_platform_sleep(0x32u);
 #endif
 	exit(exitCode);
 }
@@ -250,7 +250,7 @@ void mainloop_exit_2() {
 int nox_get_audio_enabled() { return nox_enable_audio; }
 
 //----- (00401010) --------------------------------------------------------
-void sub_401010() { nox_srand(1u); }
+void sub_401010() { nox_platform_srand(1u); }
 
 //----- (00401020) --------------------------------------------------------
 wchar_t* nox_xxx_getNoxVer_401020() {
@@ -470,7 +470,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 // 413F80: using guessed type void nullsub_2(void);
 
 //----- (00401B10) --------------------------------------------------------
-void sub_401B10() { nox_srand(0xCu); }
+void sub_401B10() { nox_platform_srand(0xCu); }
 
 //----- (00401B20) --------------------------------------------------------
 void __cdecl sub_401B20(char* a1) {
@@ -7212,7 +7212,7 @@ BOOL __cdecl nox_xxx_mapTileAllowTeleport_411A90(float2* a1) {
 }
 
 //----- (00411B80) --------------------------------------------------------
-void sub_411B80() { nox_srand(0x962u); }
+void sub_411B80() { nox_platform_srand(0x962u); }
 
 //----- (00411C40) --------------------------------------------------------
 BOOL __cdecl nox_xxx_parseWeapColor_411C40(const char* a1, char* a2, int a3) {
@@ -8085,7 +8085,7 @@ int __cdecl sub_413420(char a1) {
 }
 
 //----- (004134C0) --------------------------------------------------------
-void sub_4134C0() { nox_srand(0x963u); }
+void sub_4134C0() { nox_platform_srand(0x963u); }
 
 //----- (004134D0) --------------------------------------------------------
 int sub_4134D0() {
@@ -9148,7 +9148,7 @@ char nox_xxx_initSinCosTables_414C90() {
 }
 
 //----- (00414D30) --------------------------------------------------------
-void sub_414D30() { nox_srand(0x9E0u); }
+void sub_414D30() { nox_platform_srand(0x9E0u); }
 
 //----- (00414D40) --------------------------------------------------------
 int __cdecl nox_thing_read_audio_414D40(int a1) {
@@ -9754,10 +9754,10 @@ int __cdecl nox_thing_read_ABIL_415750(int a1, void* a2) {
 }
 
 //----- (004157A0) --------------------------------------------------------
-void sub_4157A0() { nox_srand(0x9E1u); }
+void sub_4157A0() { nox_platform_srand(0x9E1u); }
 
 //----- (004157B0) --------------------------------------------------------
-void sub_4157B0() { nox_srand(0x964u); }
+void sub_4157B0() { nox_platform_srand(0x964u); }
 
 //----- (00415820) --------------------------------------------------------
 int __cdecl nox_xxx_unitWeaponInventoryEquipFlags_415820(int a1) {
@@ -9902,10 +9902,10 @@ int __cdecl sub_415A30(char* a1) {
 }
 
 //----- (00415A90) --------------------------------------------------------
-void sub_415A90() { nox_srand(0x965u); }
+void sub_415A90() { nox_platform_srand(0x965u); }
 
 //----- (00415AA0) --------------------------------------------------------
-void sub_415AA0() { nox_srand(0x960u); }
+void sub_415AA0() { nox_platform_srand(0x960u); }
 
 //----- (00415B20) --------------------------------------------------------
 int __cdecl sub_415B20(char* a1) {
@@ -10133,7 +10133,7 @@ int __cdecl sub_415EC0(char* a1) {
 }
 
 //----- (00415F20) --------------------------------------------------------
-void sub_415F20() { nox_srand(0x961u); }
+void sub_415F20() { nox_platform_srand(0x961u); }
 
 //----- (00415F30) --------------------------------------------------------
 int __cdecl nox_xxx_replayWriteRndCounter_415F30(int a1) { return _write(a1, getMemAt(0x5D4594, 371260), 4u); }
@@ -10769,11 +10769,11 @@ void nox_ticks_maybe_sleep_416DD0() {
 					   *getMemFloatPtr(0x587000, 54428));
 	int ms = v1 + *getMemU32Ptr(0x5D4594, 371764) - (unsigned __int64)nox_call_get_ticks();
 	if (ms > 0)
-		nox_sleep(ms);
+		nox_platform_sleep(ms);
 }
 
 //----- (00416E20) --------------------------------------------------------
-void sub_416E20() { nox_srand(0x9D8u); }
+void sub_416E20() { nox_platform_srand(0x9D8u); }
 
 //----- (00416E30) --------------------------------------------------------
 void nox_xxx_cliResetAllPlayers_416E30() { memset(nox_playerinfo_arr, 0, NOX_PLAYERINFO_MAX * sizeof(nox_playerInfo)); }
@@ -11445,7 +11445,7 @@ char* __cdecl sub_417C00(char* a1, int a2) {
 }
 
 //----- (00417C50) --------------------------------------------------------
-void sub_417C50() { nox_srand(0x9D9u); }
+void sub_417C50() { nox_platform_srand(0x9D9u); }
 
 //----- (00417CF0) --------------------------------------------------------
 int sub_417CF0() { return sub_419030(0); }

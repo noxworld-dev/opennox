@@ -7,17 +7,17 @@
 #include <emscripten/emscripten.h>
 #endif
 
-int nox_rand() { return rand(); }
+int nox_platform_rand() { return rand(); }
 
-void nox_srand(unsigned int seed) { srand(seed); }
+void nox_platform_srand(unsigned int seed) { srand(seed); }
 
 #ifndef NOX_PREDICTABLE // ------------------------------------------------
 
-void nox_srand_time() { srand(time(0)); }
+void nox_platform_srand_time() { srand(time(0)); }
 
 unsigned int nox_platform_get_ticks() { return SDL_GetTicks(); }
 
-void nox_sleep(unsigned int ms) {
+void nox_platform_sleep(unsigned int ms) {
 #ifdef __EMSCRIPTEN__
 	emscripten_sleep(ms);
 #else
@@ -34,13 +34,13 @@ Uint8 nox_SDL_GetEventState(Uint32 type) { return SDL_GetEventState(type); }
 volatile unsigned int ticks = 0;
 volatile unsigned int loop_ticks = 0;
 
-void nox_srand_time() { srand(loop_ticks); }
+void nox_platform_srand_time() { srand(loop_ticks); }
 
 #ifdef NOX_E2E_TEST
-void time_hook();
+void nox_platform_time_hook();
 #endif
 
-void nox_sleep(unsigned int ms) {
+void nox_platform_sleep(unsigned int ms) {
 	ticks += ms;
 	sleep(0);
 }
@@ -121,7 +121,7 @@ void script_click(int btn) {
 	script_release(btn);
 }
 
-void time_hook() {
+void nox_platform_time_hook() {
 	// fprintf(stderr, "loop %d\n", loop_ticks);
 	if (event_cnt == 0) {
 		init_script_events();

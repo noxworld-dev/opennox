@@ -961,7 +961,7 @@ void __cdecl sub_419DE0(int a1, LPVOID* lpMem) {
 }
 
 //----- (00419E00) --------------------------------------------------------
-void sub_419E00() { nox_srand(0x9CEu); }
+void sub_419E00() { nox_platform_srand(0x9CEu); }
 
 //----- (00419E10) --------------------------------------------------------
 int __cdecl sub_419E10(int a1, int a2) {
@@ -2952,7 +2952,7 @@ int __cdecl sub_41D1A0(int a1) {
 int sub_41D1B0() { return *getMemU32Ptr(0x5D4594, 527720); }
 
 //----- (0041D1C0) --------------------------------------------------------
-void sub_41D1C0() { nox_srand(0x9CFu); }
+void sub_41D1C0() { nox_platform_srand(0x9CFu); }
 
 //----- (0041D440) --------------------------------------------------------
 int sub_41D440() {
@@ -7913,7 +7913,7 @@ int __cdecl sub_4243D0(int a1) {
 }
 
 //----- (004243E0) --------------------------------------------------------
-void sub_4243E0() { nox_srand(0x9DEu); }
+void sub_4243E0() { nox_platform_srand(0x9DEu); }
 
 //----- (004243F0) --------------------------------------------------------
 int __cdecl nox_xxx_spellNameToN_4243F0(const char* a1) {
@@ -8236,10 +8236,10 @@ int __cdecl sub_424D20(int a1) {
 }
 
 //----- (00424D60) --------------------------------------------------------
-void sub_424D60() { nox_srand(0x9DFu); }
+void sub_424D60() { nox_platform_srand(0x9DFu); }
 
 //----- (00424D70) --------------------------------------------------------
-void sub_424D70() { nox_srand(0x91Au); }
+void sub_424D70() { nox_platform_srand(0x91Au); }
 
 //----- (00424D80) --------------------------------------------------------
 int __cdecl nox_xxx_abilityNameToN_424D80(const char* a1) {
@@ -8430,7 +8430,7 @@ int __cdecl sub_425450(int a1) { return *getMemU32Ptr(0x5D4594, 52 * a1 + 599168
 int __cdecl sub_425470(int a1) { return *getMemU32Ptr(0x5D4594, 52 * a1 + 599164); }
 
 //----- (00425490) --------------------------------------------------------
-void sub_425490() { nox_srand(0x91Bu); }
+void sub_425490() { nox_platform_srand(0x91Bu); }
 
 //----- (004254A0) --------------------------------------------------------
 int __cdecl sub_4254A0(int a1, _BYTE* a2) {
@@ -9492,7 +9492,7 @@ int __cdecl sub_4268B0(int a1) {
 }
 
 //----- (004268D0) --------------------------------------------------------
-void sub_4268D0() { nox_srand(0x9C4u); }
+void sub_4268D0() { nox_platform_srand(0x9C4u); }
 
 //----- (004268E0) --------------------------------------------------------
 int nox_xxx_file_4268E0() { return sub_409110(nox_file_3); }
@@ -9812,10 +9812,10 @@ BOOL __cdecl sub_426F40(int a1, const char* a2, _DWORD* a3, int(__cdecl* a4)(int
 }
 
 //----- (00426FF0) --------------------------------------------------------
-void sub_426FF0() { nox_srand(0x9C5u); }
+void sub_426FF0() { nox_platform_srand(0x9C5u); }
 
 //----- (00427000) --------------------------------------------------------
-void sub_427000() { nox_srand(0x9DAu); }
+void sub_427000() { nox_platform_srand(0x9DAu); }
 
 //----- (00427010) --------------------------------------------------------
 int __cdecl nox_xxx_guide_427010(const char* a1) {
@@ -9983,7 +9983,7 @@ int __cdecl sub_427430(int a1) {
 unsigned __int8 __cdecl nox_xxx_guideGetUnitSize_427460(int a1) { return getMemByte(0x5D4594, 28 * a1 + 740100); }
 
 //----- (00427480) --------------------------------------------------------
-void sub_427480() { nox_srand(0x9DBu); }
+void sub_427480() { nox_platform_srand(0x9DBu); }
 
 //----- (00427490) --------------------------------------------------------
 _BYTE* __cdecl nox_xxx_journalEntryAdd_427490(int a1, char* a2, __int16 a3) {

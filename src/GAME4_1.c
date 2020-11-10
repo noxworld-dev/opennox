@@ -11053,7 +11053,7 @@ int __cdecl sub_518550(int* a1, int* a2, unsigned __int8 a3, int a4) {
 int __cdecl sub_518740(float2* a1, unsigned __int8 a2) { return sub_518460(a1, a2, 1); }
 
 //----- (00518760) --------------------------------------------------------
-void sub_518760() { nox_srand(0x22F4u); }
+void sub_518760() { nox_platform_srand(0x22F4u); }
 
 //----- (00518770) --------------------------------------------------------
 int sub_518770() {
@@ -11693,7 +11693,7 @@ void __cdecl sub_519760(int a1, float* a2) {
 }
 
 //----- (00519820) --------------------------------------------------------
-void sub_519820() { nox_srand(0x22F5u); }
+void sub_519820() { nox_platform_srand(0x22F5u); }
 
 //----- (00519830) --------------------------------------------------------
 int __cdecl nox_xxx_netMapSendClear_519830(int a1, char a2) {
@@ -12550,10 +12550,10 @@ void __cdecl nox_xxx_updateFallLogic_51B870(int a1) {
 }
 
 //----- (0051BAC0) --------------------------------------------------------
-void sub_51BAC0() { nox_srand(0x2308u); }
+void sub_51BAC0() { nox_platform_srand(0x2308u); }
 
 //----- (0051D0D0) --------------------------------------------------------
-void sub_51D0D0() { nox_srand(0x2309u); }
+void sub_51D0D0() { nox_platform_srand(0x2309u); }
 
 //----- (0051D0E0) --------------------------------------------------------
 void sub_51D0E0() { dword_5d4594_2487244 = 0; }

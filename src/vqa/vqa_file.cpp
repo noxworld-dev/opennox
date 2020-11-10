@@ -396,7 +396,7 @@ int Cvqa_file::extract_both()
                 skipRenderingFor = 0;
                 dword beforeSleepTime = nox_platform_get_ticks();
                 // We need to wait between frames
-                nox_sleep(sleepFor);
+                nox_platform_sleep(sleepFor);
                 dword afterSleepTime = nox_platform_get_ticks();
                 delayInNextFrame -= afterSleepTime - beforeSleepTime - sleepFor;
                 startTime = nox_platform_get_ticks();
@@ -481,7 +481,7 @@ int Cvqa_file::extract_both()
                         }
 
 #ifdef __EMSCRIPTEN__
-                        nox_sleep(5);
+                        nox_platform_sleep(5);
 #endif
                     } // while (currentBuffer == 0)
 

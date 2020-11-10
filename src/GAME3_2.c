@@ -670,7 +670,7 @@ int __cdecl sub_4CF060(int a1, unsigned int a2, int* a3, int a4) {
 }
 
 //----- (004CF460) --------------------------------------------------------
-void sub_4CF460() { nox_srand(0x7D2u); }
+void sub_4CF460() { nox_platform_srand(0x7D2u); }
 
 //----- (004CF470) --------------------------------------------------------
 int __cdecl nox_xxx_mapValidateMB_4CF470(char* a1, int a2) {
@@ -1377,7 +1377,7 @@ int* __cdecl sub_4D09D0(char* a1) {
 }
 
 //----- (004D0A20) --------------------------------------------------------
-void sub_4D0A20() { nox_srand(0x7D3u); }
+void sub_4D0A20() { nox_platform_srand(0x7D3u); }
 
 //----- (004D0A30) --------------------------------------------------------
 FILE* nox_xxx_loadMapCycle_4D0A30() {
@@ -1541,7 +1541,7 @@ int nox_xxx_mapSelectFirst_4D0E00() {
 	int v12;              // esi
 	int v13;              // [esp+10h] [ebp-4h]
 
-	nox_srand_time();
+	nox_platform_srand_time();
 	dword_5d4594_1548476 = 0;
 	for (i = nox_xxx_validateMapList_4D09B0(); i; i = sub_4D09C0(i)) {
 		if (i[6]) {
@@ -1909,7 +1909,7 @@ void sub_4D15C0() { *getMemU32Ptr(0x5D4594, 1548508) = 0; }
 int sub_4D15D0() { return *getMemU32Ptr(0x5D4594, 1548508); }
 
 //----- (004D15E0) --------------------------------------------------------
-void sub_4D15E0() { nox_srand(0x141Eu); }
+void sub_4D15E0() { nox_platform_srand(0x141Eu); }
 
 //----- (004D1600) --------------------------------------------------------
 int nox_xxx_scavengerTreasureMax_4D1600() { return *getMemU32Ptr(0x5D4594, 1548528); }
@@ -2229,7 +2229,7 @@ void nox_xxx_unused_4D3330() {
 }
 
 //----- (004D3360) --------------------------------------------------------
-void sub_4D3360() { nox_srand(0x141Fu); }
+void sub_4D3360() { nox_platform_srand(0x141Fu); }
 
 //----- (004D3370) --------------------------------------------------------
 int __cdecl nox_xxx_replayStartSave_4D3370(char* a1) {
@@ -5349,7 +5349,7 @@ int sub_4D7EA0() {
 }
 
 //----- (004D7ED0) --------------------------------------------------------
-void sub_4D7ED0() { nox_srand(0x2310u); }
+void sub_4D7ED0() { nox_platform_srand(0x2310u); }
 
 //----- (004D7EE0) --------------------------------------------------------
 int __cdecl nox_xxx_netCreatureCmd_4D7EE0(int a1, char a2) {
@@ -6780,7 +6780,7 @@ int __cdecl nox_xxx_netGauntlet_4D9E70(int a1) {
 }
 
 //----- (004D9EA0) --------------------------------------------------------
-void sub_4D9EA0() { nox_srand(0x2311u); }
+void sub_4D9EA0() { nox_platform_srand(0x2311u); }
 
 //----- (004D9EB0) --------------------------------------------------------
 int nox_xxx_netSendLineMessage_4D9EB0(int a1, wchar_t* a2, ...) {
@@ -8496,7 +8496,7 @@ char* __cdecl sub_4DD0B0(int a1) {
 }
 
 //----- (004DD130) --------------------------------------------------------
-void sub_4DD130() { nox_srand(0x49C3B96u); }
+void sub_4DD130() { nox_platform_srand(0x49C3B96u); }
 
 //----- (004DD140) --------------------------------------------------------
 LPVOID __cdecl nox_xxx_playerSendMOTD_4DD140(int a1) {
@@ -9690,10 +9690,10 @@ void sub_4DF3C0(int a1) {
 int sub_4DF550() { return *getMemU32Ptr(0x5D4594, 1563148); }
 
 //----- (004DF560) --------------------------------------------------------
-void sub_4DF560() { nox_srand(0x49C3B97u); }
+void sub_4DF560() { nox_platform_srand(0x49C3B97u); }
 
 //----- (004DF570) --------------------------------------------------------
-void sub_4DF570() { nox_srand(0x22FEu); }
+void sub_4DF570() { nox_platform_srand(0x22FEu); }
 
 //----- (004DF580) --------------------------------------------------------
 int __cdecl sub_4DF580(int a1, _DWORD* a2) {
@@ -9961,10 +9961,10 @@ signed int __cdecl sub_4DFAF0(void* a1, int a2, const void* a3, signed int a4) {
 int sub_4DFB20() { return *getMemU32Ptr(0x5D4594, 1563312); }
 
 //----- (004DFB30) --------------------------------------------------------
-void sub_4DFB30() { nox_srand(0x22FFu); }
+void sub_4DFB30() { nox_platform_srand(0x22FFu); }
 
 //----- (004DFB40) --------------------------------------------------------
-void sub_4DFB40() { nox_srand(0x2274u); }
+void sub_4DFB40() { nox_platform_srand(0x2274u); }
 
 //----- (004DFB50) --------------------------------------------------------
 _DWORD* __cdecl sub_4DFB50(int a1, int a2) {
@@ -10306,10 +10306,10 @@ void __cdecl sub_4E0170(int a1, int a2) {
 }
 
 //----- (004E01B0) --------------------------------------------------------
-void sub_4E01B0() { nox_srand(0x2275u); }
+void sub_4E01B0() { nox_platform_srand(0x2275u); }
 
 //----- (004E01C0) --------------------------------------------------------
-void sub_4E01C0() { nox_srand(0x227Eu); }
+void sub_4E01C0() { nox_platform_srand(0x227Eu); }
 
 //----- (004E01D0) --------------------------------------------------------
 void __cdecl nox_xxx_effectRegeneration_4E01D0(int a1, int a2) {
@@ -10377,10 +10377,10 @@ void __cdecl nox_xxx_attribContinualReplen_4E02C0(int a1, _DWORD* a2) {
 }
 
 //----- (004E0350) --------------------------------------------------------
-void sub_4E0350() { nox_srand(0x227Fu); }
+void sub_4E0350() { nox_platform_srand(0x227Fu); }
 
 //----- (004E0360) --------------------------------------------------------
-void sub_4E0360() { nox_srand(0x2260u); }
+void sub_4E0360() { nox_platform_srand(0x2260u); }
 
 //----- (004E0370) --------------------------------------------------------
 float* __cdecl sub_4E0370(int a1, int a2, int a3, int a4, int a5, float* a6) {
@@ -10454,10 +10454,10 @@ BOOL __cdecl nox_xxx_gripEffect_4E0480(int a1, int a2, int a3, int a4, int a5, B
 }
 
 //----- (004E04A0) --------------------------------------------------------
-void sub_4E04A0() { nox_srand(0x2261u); }
+void sub_4E04A0() { nox_platform_srand(0x2261u); }
 
 //----- (004E04B0) --------------------------------------------------------
-void sub_4E04B0() { nox_srand(0x226Au); }
+void sub_4E04B0() { nox_platform_srand(0x226Au); }
 
 //----- (004E04C0) --------------------------------------------------------
 float* __cdecl nox_xxx_effectDamageMultiplier_4E04C0(int a1, int a2, int a3, int a4, float* a5) {
@@ -10697,10 +10697,10 @@ int __cdecl nox_xxx_effectProjectileSpeed_4E09B0(int a1, int a2, int a3, int a4,
 }
 
 //----- (004E09E0) --------------------------------------------------------
-void sub_4E09E0() { nox_srand(0x226Bu); }
+void sub_4E09E0() { nox_platform_srand(0x226Bu); }
 
 //----- (004E09F0) --------------------------------------------------------
-void sub_4E09F0() { nox_srand(0x7DCu); }
+void sub_4E09F0() { nox_platform_srand(0x7DCu); }
 
 //----- (004E0A00) --------------------------------------------------------
 int __cdecl nox_xxx_parseDamageTypeByName_4E0A00(const char* a1) {

@@ -236,7 +236,7 @@ int __cdecl sub_51DE30(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 }
 
 //----- (0051DE90) --------------------------------------------------------
-void sub_51DE90() { nox_srand(0x7D4u); }
+void sub_51DE90() { nox_platform_srand(0x7D4u); }
 
 //----- (0051DEA0) --------------------------------------------------------
 int __cdecl nox_xxx_mapCountWallsMB_51DEA0(int a1) {
@@ -378,7 +378,7 @@ int nox_xxx_map_51E140() {
 }
 
 //----- (0051E1C0) --------------------------------------------------------
-void sub_51E1C0() { nox_srand(0x7D5u); }
+void sub_51E1C0() { nox_platform_srand(0x7D5u); }
 
 //----- (0051E1D0) --------------------------------------------------------
 int __cdecl nox_xxx_mapGenSpellIdByName_51E1D0(const char* a1) {
@@ -6703,13 +6703,13 @@ char* sub_526950() {
 char* __cdecl sub_526AA0(int a1) { return (char*)(dword_5d4594_2487672 + (a1 << 6)); }
 
 //----- (00526AB0) --------------------------------------------------------
-void __cdecl nox_xxx_mapGenSetRngSeed_526AB0(unsigned int a1) { nox_srand(a1); }
+void __cdecl nox_xxx_mapGenSetRngSeed_526AB0(unsigned int a1) { nox_platform_srand(a1); }
 
 //----- (00526AC0) --------------------------------------------------------
 signed int __cdecl nox_xxx_mapGenRandFunc_526AC0(int a1, signed int a2) {
 	signed int result; // eax
 
-	result = a1 + (a2 - a1 + 1) * nox_rand() / 0x7FFFu;
+	result = a1 + (a2 - a1 + 1) * nox_platform_rand() / 0x7FFFu;
 	if (result > a2)
 		result = a2;
 	return result;
@@ -6751,7 +6751,7 @@ int __cdecl sub_526B60(int a1, signed int a2) {
 
 //----- (00526BC0) --------------------------------------------------------
 double __cdecl sub_526BC0(float a1, float a2) {
-	return (double)(unsigned int)nox_rand() * (a2 - a1) * 0.000030518509 + a1;
+	return (double)(unsigned int)nox_platform_rand() * (a2 - a1) * 0.000030518509 + a1;
 }
 
 //----- (00526BF0) --------------------------------------------------------
