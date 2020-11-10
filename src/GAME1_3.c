@@ -1704,7 +1704,7 @@ void sub_43DDA0() {
 void sub_43DDC0() { nox_srand(0x1E77u); }
 
 //----- (0043DDD0) --------------------------------------------------------
-void nox_xxx_setExitMenuOrHost_43DDD0(int v) {
+void nox_xxx_setContinueMenuOrHost_43DDD0(int v) {
 	nox_game_continueMenuOrHost_93200 = v;
 }
 
@@ -1810,7 +1810,7 @@ _DWORD* __cdecl nox_xxx_gui_43E1A0(int a1) {
 int sub_43E200() {
 	sub_477530(0);
 	nox_xxx_gui_43E1A0(0);
-	nox_xxx_setExitMenuOrHost_43DDD0(0);
+	nox_xxx_setContinueMenuOrHost_43DDD0(0);
 	nox_game_exit_xxx_43DE60();
 	return sub_44A400();
 }
@@ -4560,7 +4560,7 @@ void sub_446380() {
 	if (nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096) && !sub_4D6F30())
 		sub_41CEE0((int)getMemAt(0x5D4594, 2660684), 1);
 	nox_xxx_guiServerOptionsHide_4597E0(1);
-	nox_xxx_setExitMenuOrHost_43DDD0(0);
+	nox_xxx_setContinueMenuOrHost_43DDD0(0);
 	nox_game_exit_xxx_43DE60();
 	sub_446060();
 }

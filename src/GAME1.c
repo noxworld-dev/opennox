@@ -2026,7 +2026,7 @@ void __cdecl nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int
 			else
 				sub_41D170();
 		} else if (sub_446030() && sub_446090()) {
-			nox_xxx_setExitMenuOrHost_43DDD0(0);
+			nox_xxx_setContinueMenuOrHost_43DDD0(0);
 			nox_game_exit_xxx_43DE60();
 			sub_446060();
 		}
@@ -2390,7 +2390,7 @@ void __cdecl sub_40B850(int a1, char a2) {
 	if (a2 == 2 && sub_446030()) {
 		sub_446070();
 		if (sub_446090()) {
-			nox_xxx_setExitMenuOrHost_43DDD0(0);
+			nox_xxx_setContinueMenuOrHost_43DDD0(0);
 			nox_game_exit_xxx_43DE60();
 			sub_446060();
 		}
@@ -2563,13 +2563,13 @@ void __cdecl sub_40BBC0(int a1, char a2) {
 		if (sub_446030()) {
 			sub_446070();
 			if (sub_446090()) {
-				nox_xxx_setExitMenuOrHost_43DDD0(0);
+				nox_xxx_setContinueMenuOrHost_43DDD0(0);
 				nox_game_exit_xxx_43DE60();
 				sub_446060();
 			}
 		}
 	} else if (a2 == 3) {
-		nox_xxx_setExitMenuOrHost_43DDD0(0);
+		nox_xxx_setContinueMenuOrHost_43DDD0(0);
 		nox_game_exit_xxx_43DE60();
 	}
 }
@@ -8109,7 +8109,7 @@ void sub_4134F0() {
 
 //----- (00413760) --------------------------------------------------------
 void sub_413760() {
-	nox_xxx_setExitMenuOrHost_43DDD0(0);
+	nox_xxx_setContinueMenuOrHost_43DDD0(0);
 	nox_game_exit_xxx_43DE60();
 	dword_5d4594_251700 = 5;
 }

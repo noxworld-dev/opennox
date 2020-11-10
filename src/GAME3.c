@@ -164,7 +164,7 @@ nox_wnd_xxx* nox_wnd_xxx_1309740 = 0;
 
 //----- (004A19D0) --------------------------------------------------------
 void sub_4A19D0() {
-	nox_xxx_setExitMenuOrHost_43DDD0(0);
+	nox_xxx_setContinueMenuOrHost_43DDD0(0);
 	dword_5d4594_815132 = 0;
 }
 
@@ -4735,7 +4735,7 @@ int nox_xxx_gameStartup_4AB0F0() // playmovielogo
 
 	if (nox_common_gameFlags_check_40A5C0(0x2000000) || !sub_4CB230("NoxLogo.vqa", v1)) {
 		if (!sub_4CC4E0()) {
-			nox_xxx_setExitMenuOrHost_43DDD0(0);
+			nox_xxx_setContinueMenuOrHost_43DDD0(0);
 			dword_5d4594_815132 = 0;
 		}
 		result = 1;

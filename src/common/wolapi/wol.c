@@ -97,7 +97,7 @@ _DWORD* __cdecl nox_xxx_wolApiError_41D1D0(int a1) {
 	sub_44A400();
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 58064), v1, v6);
-		nox_xxx_setExitMenuOrHost_43DDD0(0);
+		nox_xxx_setContinueMenuOrHost_43DDD0(0);
 		nox_game_exit_xxx_43DE60();
 	}
 	if (a1)

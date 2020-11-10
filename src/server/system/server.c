@@ -2762,7 +2762,7 @@ int nox_xxx_gameTick_4D2580_server() {
 			v15 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 197032), 0,
 										"C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
 			nullsub_4(0, v15, v36, 1);
-			nox_xxx_setExitMenuOrHost_43DDD0(0);
+			nox_xxx_setContinueMenuOrHost_43DDD0(0);
 			return 0;
 		}
 		v17 = nox_xxx_mapGetMapName_409B40();
