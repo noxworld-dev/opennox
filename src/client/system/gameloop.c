@@ -11,7 +11,7 @@
 
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD nox_xxx_aBlindcast_587000_93200;
-extern _DWORD dword_587000_93196;
+extern _DWORD nox_continue_mainloop_93196;
 extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
 extern _DWORD nox_xxx_mapDownloadOK_587000_173332;
 extern _DWORD dword_5d4594_2618912;
@@ -222,7 +222,7 @@ void mainloop() {
 			return;
 		} else if (ret == 0) {
 			// map error
-			dword_587000_93196 = 0;
+			nox_continue_mainloop_93196 = 0;
 			nox_xxx_aBlindcast_587000_93200 = 0;
 			mainloop_exit();
 			return;
@@ -233,7 +233,7 @@ void mainloop() {
 			// XXX
 			if (nox_xxx_gameDownloadInProgress_587000_173328)
 				return;
-			dword_587000_93196 = 0;
+			nox_continue_mainloop_93196 = 0;
 			nox_xxx_aBlindcast_587000_93200 = 0;
 			mainloop_exit();
 			return;

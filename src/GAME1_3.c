@@ -61,7 +61,7 @@ extern _DWORD dword_5d4594_830292;
 extern _DWORD dword_5d4594_816448;
 extern _DWORD dword_5d4594_815704;
 extern _DWORD nox_xxx_useAudio_587000_80832;
-extern _DWORD dword_587000_93196;
+extern _DWORD nox_continue_mainloop_93196;
 extern _DWORD dword_5d4594_826036;
 extern _DWORD dword_5d4594_816356;
 extern _DWORD dword_5d4594_826032;
@@ -1746,7 +1746,7 @@ int __cdecl sub_43DE40(int (*a1)(void)) {
 int sub_43DE60() {
 	int result; // eax
 
-	dword_587000_93196 = 0;
+	nox_continue_mainloop_93196 = 0;
 	nox_xxx_gameSetCliConnected_43C720(0);
 	result = sub_43AF70();
 	if (result == 1) {
@@ -1845,7 +1845,7 @@ void mainloop_stop() {
 	}
 
 	// "exit the loop" ?
-	if (dword_587000_93196) {
+	if (nox_continue_mainloop_93196) {
 		return;
 	}
 	mainloop_exit();
@@ -1866,7 +1866,7 @@ void mainloop_wait_and_exit() {
 }
 
 void mainloop_43E290() {
-	dword_587000_93196 = 1;
+	nox_continue_mainloop_93196 = 1;
 	nox_xxx_aBlindcast_587000_93200 = 1;
 	*getMemU32Ptr(0x5D4594, 816400) = 60 * *getMemU32Ptr(0x5D4594, 2649704);
 
@@ -1881,7 +1881,7 @@ void mainloop_43E290() {
 	return;
 	// never get here
 #else // !__EMSCRIPTEN__
-	while (dword_587000_93196) {
+	while (nox_continue_mainloop_93196) {
 		mainloop();
 	}
 #endif // __EMSCRIPTEN__
