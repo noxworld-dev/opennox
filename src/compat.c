@@ -954,7 +954,7 @@ LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserve
 	if (strcmp(hKey->path, "HKEY_LOCAL_MACHINE\\SOFTWARE\\Westwood\\Nox") == 0 && strcmp(lpValueName, "Serial") == 0) {
 		int i;
 		for (i = 0; i < *lpcbData - 1; i++)
-			lpData[i] = (nox_rand() % 10) + '0';
+			lpData[i] = (nox_platform_rand() % 10) + '0';
 		lpData[i] = 0;
 		*lpType = 1; // REG_SZ
 		return 0;

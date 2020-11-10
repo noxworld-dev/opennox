@@ -8143,7 +8143,7 @@ void __cdecl sub_551C40(int a1, int a2) {
 }
 
 //----- (00551DF0) --------------------------------------------------------
-void sub_551DF0() { nox_srand(0x8FCu); }
+void sub_551DF0() { nox_platform_srand(0x8FCu); }
 
 //----- (00551E00) --------------------------------------------------------
 int __cdecl sub_551E00(unsigned __int8 a1, int a2) {
@@ -8475,7 +8475,7 @@ int __cdecl nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a
 	if (*(char*)(v4 + 113) >= a2)
 		return 0;
 	while (1) {
-		nox_sleep(50);
+		nox_platform_sleep(50);
 		if (20 * a3 < ++v6)
 			break;
 		nox_xxx_servNetInitialPackets_552A80(a1, a4 | 1);
