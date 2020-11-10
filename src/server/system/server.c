@@ -144,7 +144,7 @@ LPVOID sub_426060() {
 }
 
 //----- (0043DEA0) --------------------------------------------------------
-BOOL sub_43DEA0() { return nox_continue_mainloop_93196 == 0; }
+BOOL nox_server_mainloop_exiting_43DEA0() { return nox_continue_mainloop_93196 == 0; }
 
 //----- (00446040) --------------------------------------------------------
 int sub_446040() { return dword_5d4594_825768; }
@@ -2707,7 +2707,7 @@ int nox_xxx_gameTick_4D2580_server() {
 		nox_xxx_updateServer_4D2DA0(__SPAIR64__(v3, v1));
 		sub_4DEB30();
 		nox_xxx_netlist_4DEB50();
-		if (sub_43DEA0()) {
+		if (nox_server_mainloop_exiting_43DEA0()) {
 			return 1;
 		}
 		if (!(getMemByte(0x5D4594, 2598000) & 1))
