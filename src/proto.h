@@ -1715,7 +1715,7 @@ int __cdecl sub_43DD10(int* a1);
 void sub_43DD70(int a1, int a2);
 void sub_43DDA0();
 void sub_43DDC0();
-int __cdecl nox_xxx_setExitMenuOrHost_43DDD0(int a1);
+void nox_xxx_setExitMenuOrHost_43DDD0(int v);
 int __cdecl sub_43DDE0(int a1);
 int __cdecl nox_xxx_setGameState_43DDF0(int (*a1)(void));
 int nox_return_1_43DE10();
@@ -3308,7 +3308,7 @@ BOOL __cdecl nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3);
 int sub_4A18A0();
 int __cdecl sub_4A18C0(int a1);
 int __cdecl sub_4A18E0(int, int, int, int); // weak
-int sub_4A19D0();
+void sub_4A19D0();
 int __cdecl sub_4A1A40(int a1);
 int sub_4A1A60();
 int sub_4A1BD0();
