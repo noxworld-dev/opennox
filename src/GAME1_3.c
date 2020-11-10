@@ -1704,9 +1704,8 @@ void sub_43DDA0() {
 void sub_43DDC0() { nox_srand(0x1E77u); }
 
 //----- (0043DDD0) --------------------------------------------------------
-int __cdecl nox_xxx_setExitMenuOrHost_43DDD0(int a1) {
-	nox_game_continueMenuOrHost_93200 = a1;
-	return a1;
+void nox_xxx_setExitMenuOrHost_43DDD0(int v) {
+	nox_game_continueMenuOrHost_93200 = v;
 }
 
 //----- (0043DDE0) --------------------------------------------------------
