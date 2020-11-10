@@ -3,6 +3,6 @@
 
 #include "../../defs.h"
 
-int sub_413520_gamedisk();
+void sub_413520_gamedisk();
 
 #endif // NOX_PORT_COMMON_GAMEDISK

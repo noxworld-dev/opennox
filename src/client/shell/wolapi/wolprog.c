@@ -56,10 +56,9 @@ int sub_468170_wol_prog() {
 }
 
 //----- (004682B0) --------------------------------------------------------
-int sub_4682B0_wol_prog() {
+void sub_4682B0_wol_prog() {
 	_DWORD* v0;  // esi
 	wchar_t* v1; // eax
-	int result;  // eax
 	_DWORD* v3;  // eax
 	_DWORD* v4;  // eax
 
@@ -70,14 +69,12 @@ int sub_4682B0_wol_prog() {
 		if (v1)
 			nox_window_call_field_94((int)v0, 16385, (int)v1, 0);
 	}
-	result = sub_41E540();
-	if (!result) {
+	if (!sub_41E540()) {
 		v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064192, 1806);
 		nox_window_set_hidden((int)v3, 1);
 		v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064192, 1807);
 		nox_window_set_hidden((int)v4, 0);
 		nox_xxx_setExitMenuOrHost_43DDD0(0);
-		result = sub_43DE60();
+		nox_game_exit_xxx_43DE60();
 	}
-	return result;
 }

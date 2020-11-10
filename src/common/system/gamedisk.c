@@ -6,17 +6,15 @@ extern _DWORD dword_5d4594_251708;
 extern _DWORD dword_5d4594_251700;
 
 //----- (00413520) --------------------------------------------------------
-int sub_413520_gamedisk() {
-	unsigned __int64 v0; // rax
+void sub_413520_gamedisk() {
 	int v1;              // eax
 	wchar_t* v2;         // eax
 	__int64 v3;          // rax
 	wchar_t* v5;         // [esp-10h] [ebp-1Ch]
 	int v6;              // [esp-Ch] [ebp-18h]
-	int (*v7)();         // [esp-8h] [ebp-14h]
-	int (*v8)();         // [esp-4h] [ebp-10h]
+	void (*v7)();         // [esp-8h] [ebp-14h]
+	void (*v8)();         // [esp-4h] [ebp-10h]
 
-	LODWORD(v0) = dword_5d4594_251700;
 	switch (dword_5d4594_251700) {
 	case 1:
 		// XXX NO CD
@@ -51,26 +49,25 @@ int sub_413520_gamedisk() {
 			goto LABEL_9;
 		}
 		sub_4137E0();
-		LODWORD(v0) = sub_413800();
+		sub_413800();
 		dword_5d4594_251700 = 6;
 		dword_5d4594_251728 = 0;
 		break;
 	case 2:
 		v3 = nox_call_get_ticks();
 		*getMemU64Ptr(0x5D4594, 251628) = v3;
-		v0 = v3 - *getMemU64Ptr(0x5D4594, 251732);
+		int v0 = v3 - *getMemU64Ptr(0x5D4594, 251732);
 		if (v0 > 0x7D0) {
 			sub_423C60();
-			LODWORD(v0) = *getMemU32Ptr(0x5D4594, 251628);
 			dword_5d4594_251700 = 3;
 			*getMemU32Ptr(0x5D4594, 251732) = *getMemU32Ptr(0x5D4594, 251628);
 			*getMemU32Ptr(0x5D4594, 251736) = *getMemU32Ptr(0x5D4594, 251632);
 		}
 		break;
 	case 3:
-		LODWORD(v0) = dword_5d4594_251708;
+		dword_5d4594_251708;
 		if (dword_5d4594_251708) {
-			LODWORD(v0) = dword_5d4594_251712;
+			dword_5d4594_251712;
 			dword_5d4594_251708 = 0;
 			if (dword_5d4594_251712) {
 				dword_5d4594_251712 = 0;
@@ -89,15 +86,14 @@ int sub_413520_gamedisk() {
 	LABEL_9:
 		nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v2, (int)v5, v6, v7, v8);
 		sub_44A360(0);
-		LODWORD(v0) = sub_44A4B0();
+		sub_44A4B0();
 		dword_5d4594_251700 = 6;
 		break;
 	case 6:
-		return v0;
+		break;
 	default:
 		nox_xxx_setExitMenuOrHost_43DDD0(0);
-		LODWORD(v0) = sub_43DE60();
+		nox_game_exit_xxx_43DE60();
 		break;
 	}
-	return v0;
 }
