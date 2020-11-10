@@ -2027,7 +2027,7 @@ void __cdecl nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int
 				sub_41D170();
 		} else if (sub_446030() && sub_446090()) {
 			nox_xxx_setExitMenuOrHost_43DDD0(0);
-			sub_43DE60();
+			nox_game_exit_xxx_43DE60();
 			sub_446060();
 		}
 		break;
@@ -2391,7 +2391,7 @@ void __cdecl sub_40B850(int a1, char a2) {
 		sub_446070();
 		if (sub_446090()) {
 			nox_xxx_setExitMenuOrHost_43DDD0(0);
-			sub_43DE60();
+			nox_game_exit_xxx_43DE60();
 			sub_446060();
 		}
 	}
@@ -2564,13 +2564,13 @@ void __cdecl sub_40BBC0(int a1, char a2) {
 			sub_446070();
 			if (sub_446090()) {
 				nox_xxx_setExitMenuOrHost_43DDD0(0);
-				sub_43DE60();
+				nox_game_exit_xxx_43DE60();
 				sub_446060();
 			}
 		}
 	} else if (a2 == 3) {
 		nox_xxx_setExitMenuOrHost_43DDD0(0);
-		sub_43DE60();
+		nox_game_exit_xxx_43DE60();
 	}
 }
 
@@ -3665,14 +3665,9 @@ BOOL __cdecl sub_40D350(int a1) {
 }
 
 //----- (0040D380) --------------------------------------------------------
-BOOL sub_40D380() {
-	BOOL result; // eax
-
+void sub_40D380() {
 	if (*getMemU32Ptr(0x5D4594, 10976))
-		result = (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 36))(dword_5d4594_4668) >= 0;
-	else
-		result = 0;
-	return result;
+		(*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4668 + 36))(dword_5d4594_4668);
 }
 
 //----- (0040D3B0) --------------------------------------------------------
@@ -8113,24 +8108,17 @@ void sub_4134F0() {
 }
 
 //----- (00413760) --------------------------------------------------------
-int sub_413760() {
-	int result; // eax
-
+void sub_413760() {
 	nox_xxx_setExitMenuOrHost_43DDD0(0);
-	result = sub_43DE60();
+	nox_game_exit_xxx_43DE60();
 	dword_5d4594_251700 = 5;
-	return result;
 }
 
 //----- (00413780) --------------------------------------------------------
-int sub_413780() {
-	int result; // eax
-
-	result = dword_5d4594_251716;
+void sub_413780() {
 	dword_5d4594_251700 = 1;
 	if (dword_5d4594_251716)
 		dword_5d4594_251716 = 0;
-	return result;
 }
 
 //----- (004137A0) --------------------------------------------------------
@@ -8168,17 +8156,12 @@ int sub_4137E0() {
 }
 
 //----- (00413800) --------------------------------------------------------
-int sub_413800() {
-	int result; // eax
-
-	result = *getMemU32Ptr(0x5D4594, 251724);
+void sub_413800() {
 	if (!*getMemU32Ptr(0x5D4594, 251724)) {
 		*getMemU32Ptr(0x5D4594, 251724) = 1;
-		result = sub_43C0A0();
-		if (!result)
-			result = sub_413760();
+		if (!sub_43C0A0())
+			sub_413760();
 	}
-	return result;
 }
 
 //----- (00413830) --------------------------------------------------------

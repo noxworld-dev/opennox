@@ -117,7 +117,7 @@ int sub_44A560_wol_login() {
 				nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 113528));
 			}
 			nox_xxx_setExitMenuOrHost_43DDD0(0);
-			sub_43DE60();
+			nox_game_exit_xxx_43DE60();
 			return 0;
 		}
 		v15 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 113628), 0,

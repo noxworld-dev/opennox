@@ -1743,18 +1743,14 @@ int __cdecl sub_43DE40(int (*a1)(void)) {
 }
 
 //----- (0043DE60) --------------------------------------------------------
-int sub_43DE60() {
-	int result; // eax
-
+void nox_game_exit_xxx_43DE60() {
 	nox_continue_mainloop_93196 = 0;
 	nox_xxx_gameSetCliConnected_43C720(0);
-	result = sub_43AF70();
-	if (result == 1) {
-		result = nox_common_gameFlags_check_40A5C0(0x2000000);
-		if (!result)
-			result = sub_40D380();
+	if (sub_43AF70() != 1) {
+		return;
 	}
-	return result;
+	if (!nox_common_gameFlags_check_40A5C0(0x2000000))
+		sub_40D380();
 }
 
 int map_download_loop(int first) {
@@ -1816,7 +1812,7 @@ int sub_43E200() {
 	sub_477530(0);
 	nox_xxx_gui_43E1A0(0);
 	nox_xxx_setExitMenuOrHost_43DDD0(0);
-	sub_43DE60();
+	nox_game_exit_xxx_43DE60();
 	return sub_44A400();
 }
 
@@ -1844,8 +1840,8 @@ void mainloop_stop() {
 		return;
 	}
 
-	// "exit the loop" ?
 	if (nox_continue_mainloop_93196) {
+		// unwind the stack and continue the mainloop
 		return;
 	}
 	mainloop_exit();
@@ -4566,7 +4562,7 @@ void sub_446380() {
 		sub_41CEE0((int)getMemAt(0x5D4594, 2660684), 1);
 	nox_xxx_guiServerOptionsHide_4597E0(1);
 	nox_xxx_setExitMenuOrHost_43DDD0(0);
-	sub_43DE60();
+	nox_game_exit_xxx_43DE60();
 	sub_446060();
 }
 
