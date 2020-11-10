@@ -163,12 +163,9 @@ nox_wnd_xxx* nox_wnd_xxx_1308092 = 0;
 nox_wnd_xxx* nox_wnd_xxx_1309740 = 0;
 
 //----- (004A19D0) --------------------------------------------------------
-int sub_4A19D0() {
-	int result; // eax
-
-	result = nox_xxx_setExitMenuOrHost_43DDD0(0);
+void sub_4A19D0() {
+	nox_xxx_setExitMenuOrHost_43DDD0(0);
 	dword_5d4594_815132 = 0;
-	return result;
 }
 
 //----- (004A1A40) --------------------------------------------------------
