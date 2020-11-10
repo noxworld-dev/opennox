@@ -472,63 +472,61 @@ void cmain_loop(int reentrant) {
 	sm_args_t* args = &args_;
 	char* v23;
 	printf("%s %d\n", __FUNCTION__, reentrant);
-	while (1) {
-		if (!reentrant) {
-			sub_43F140(300);
-			if (!sub_43C060()) {
-				return;
-			}
-			if (!nox_xxx_cliWaitForJoinData_43BFE0()) {
-				return;
-			}
-			if (g_v20) {
-				sub_43DBA0();
-				g_v20 = 0;
-			}
-			sub_43F1A0();
-			mainloop_exit = mainloop_exit_1;
-			mainloop_43E290();
-			return;
-		}
-		reentrant = 0;
-
-		if (dword_5d4594_805872) {
-			nox_xxx_cliSetupSession_437190();
-			nox_xxx_video_43BF10_upd_video_mode(1);
-			nox_client_initScreenParticles_431390();
-			continue;
-		}
-		sub_43DB60();
-		sub_43D990();
-		g_v20 = 1;
-		sub_43F140(800);
-		nox_xxx_initRnd_415F70();
-		*getMemU32Ptr(0x5D4594, 2598000) = nox_common_gameFlags_check_40A5C0(1);
-		nox_ensure_thing_bin();
-		*getMemU32Ptr(0x5D4594, 2650664) = 0;
-		*getMemU32Ptr(0x5D4594, 2649708) = 0;
-		if (g_v21) {
-			GOTO_CONNECT_RESULT(0);
-		}
-		if (nox_common_gameFlags_check_40A5C0(1)) {
-			if (!nox_xxx_servNewSession_4D1660()) {
-				return;
-			}
-		}
-		if (!nox_xxx_clientResetSpriteAndGui_4357D0(g_argc2, g_argv2)) {
-			return;
-		}
-		if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x400000) &&
-			nox_common_getEngineFlag(NOX_ENGINE_FLAG_1)) {
-			v23 = nox_common_get_data_path_409E10();
-			sub_4D39F0(v23);
-			if (!nox_xxx_mapGenStart_4D4320()) {
-				nox_xxx_mapSwitchLevel_4D12E0(0);
-				return;
-			}
-			sub_4D3C30();
-			nox_common_gameFlags_unset_40A540(0x400000);
-		}
-		GOTO_CONNECT_PREPARE();
+	if (!reentrant) {
+		goto LOOP;
 	}
+
+	if (dword_5d4594_805872) {
+		nox_xxx_cliSetupSession_437190();
+		nox_xxx_video_43BF10_upd_video_mode(1);
+		nox_client_initScreenParticles_431390();
+		goto LOOP;
+	}
+	sub_43DB60();
+	sub_43D990();
+	g_v20 = 1;
+	sub_43F140(800);
+	nox_xxx_initRnd_415F70();
+	*getMemU32Ptr(0x5D4594, 2598000) = nox_common_gameFlags_check_40A5C0(1);
+	nox_ensure_thing_bin();
+	*getMemU32Ptr(0x5D4594, 2650664) = 0;
+	*getMemU32Ptr(0x5D4594, 2649708) = 0;
+	if (g_v21) {
+		GOTO_CONNECT_RESULT(0);
+	}
+	if (nox_common_gameFlags_check_40A5C0(1)) {
+		if (!nox_xxx_servNewSession_4D1660()) {
+			return;
+		}
+	}
+	if (!nox_xxx_clientResetSpriteAndGui_4357D0(g_argc2, g_argv2)) {
+		return;
+	}
+	if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x400000) &&
+		nox_common_getEngineFlag(NOX_ENGINE_FLAG_1)) {
+		v23 = nox_common_get_data_path_409E10();
+		sub_4D39F0(v23);
+		if (!nox_xxx_mapGenStart_4D4320()) {
+			nox_xxx_mapSwitchLevel_4D12E0(0);
+			return;
+		}
+		sub_4D3C30();
+		nox_common_gameFlags_unset_40A540(0x400000);
+	}
+	GOTO_CONNECT_PREPARE();
+LOOP:
+	sub_43F140(300);
+	if (!sub_43C060()) {
+		return;
+	}
+	if (!nox_xxx_cliWaitForJoinData_43BFE0()) {
+		return;
+	}
+	if (g_v20) {
+		sub_43DBA0();
+		g_v20 = 0;
+	}
+	sub_43F1A0();
+	mainloop_exit = mainloop_exit_1;
+	mainloop_43E290();
 }
