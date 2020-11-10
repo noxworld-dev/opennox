@@ -1880,10 +1880,11 @@ void mainloop_43E290() {
 	// emscripten_set_main_loop_timing(EM_TIMING_RAF, 2);
 	return;
 	// never get here
-#else
-	while (dword_587000_93196)
+#else // !__EMSCRIPTEN__
+	while (dword_587000_93196) {
 		mainloop();
-#endif
+	}
+#endif // __EMSCRIPTEN__
 }
 // 43E815: variable 'v18' is possibly undefined
 // 4AD170: using guessed type int sub_4AD170_call_copy_backbuffer(void);
