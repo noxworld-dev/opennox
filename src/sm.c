@@ -10,7 +10,7 @@ void cmain_loop(int);
 void mainloop_exit_1();
 void mainloop_exit_2();
 // defined in GAME1.c
-extern _DWORD dword_5d4594_805872;
+extern _DWORD nox_game_loop_xxx_805872;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_811372;
 extern _DWORD dword_5d4594_815704;
@@ -476,7 +476,7 @@ void cmain_loop(int reentrant) {
 		goto LOOP;
 	}
 
-	if (dword_5d4594_805872) {
+	if (nox_game_loop_xxx_805872) {
 		nox_xxx_cliSetupSession_437190();
 		nox_xxx_video_43BF10_upd_video_mode(1);
 		nox_client_initScreenParticles_431390();
