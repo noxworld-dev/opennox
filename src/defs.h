@@ -476,7 +476,8 @@ typedef struct nox_window_yyy {
 _Static_assert(sizeof(nox_window_yyy) == 20, "wrong size of nox_window_yyy structure!");
 
 #define NOX_SAVEGAME_XXX_MAX 14
-typedef struct __attribute__((__packed__)) nox_savegame_xxx {
+#pragma pack(push,1)
+typedef struct nox_savegame_xxx {
 	_DWORD field_0;
 	_BYTE field_4[1024];
 	_BYTE field_1028[160];
@@ -488,6 +489,7 @@ typedef struct __attribute__((__packed__)) nox_savegame_xxx {
 	_BYTE field_1276;
 	_BYTE field_1277;
 } nox_savegame_xxx;
+#pragma pack(pop)
 _Static_assert(sizeof(nox_savegame_xxx) == 1278, "wrong size of nox_savegame_xxx structure!");
 _Static_assert(sizeof(SYSTEMTIME) == 16, "wrong size of SYSTEMTIME structure!");
 
