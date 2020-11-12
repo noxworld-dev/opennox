@@ -7,8 +7,6 @@
 #include "proto.h"
 
 void cmain_loop(int);
-void mainloop_exit_1();
-void mainloop_exit_2();
 // defined in GAME1.c
 extern _DWORD nox_game_loop_xxx_805872;
 extern _DWORD dword_5d4594_2660032;
@@ -20,7 +18,7 @@ extern _DWORD dword_5d4594_2649712;
 extern _DWORD dword_5d4594_815700;
 extern void (*mainloop_enter)(void*);
 extern void* mainloop_enter_args;
-extern void (*mainloop_exit)();
+extern BOOL mainloop_exit_path;
 extern int g_v20, g_v21;
 extern int g_argc2;
 extern char** g_argv2;
@@ -463,7 +461,7 @@ void CONNECT_RESULT(sm_args_t* args) {
 	nox_video_setGammaSetting_434B30(*getMemIntPtr(0x587000, 80852));
 	sub_434B60();
 	nox_xxx_setGameFlags_40A4D0(0x10000000);
-	mainloop_exit = mainloop_exit_2;
+	mainloop_exit_path = 1;
 	mainloop_43E290();
 }
 
@@ -527,6 +525,6 @@ LOOP:
 		g_v20 = 0;
 	}
 	sub_43F1A0();
-	mainloop_exit = mainloop_exit_1;
+	mainloop_exit_path = 0;
 	mainloop_43E290();
 }

@@ -11,6 +11,7 @@
 
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD nox_game_continueMenuOrHost_93200;
+extern _DWORD nox_game_loop_xxx_805872;
 extern _DWORD nox_continue_mainloop_93196;
 extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
 extern _DWORD nox_xxx_mapDownloadOK_587000_173332;
@@ -20,12 +21,16 @@ extern _DWORD dword_5d4594_815132;
 extern int nox_win_width;
 extern int nox_win_height;
 
+#ifdef USE_SDL
+extern SDL_GLContext g_ddraw;
+#endif
+
+void cmain_loop(int);
+extern int g_v20, g_v21;
+
 extern void (*mainloop_enter)(void*);
 extern void* mainloop_enter_args;
-extern void (*mainloop_exit)();
-
-extern void mainloop_stop();
-extern void mainloop_wait_and_exit();
+extern BOOL mainloop_exit_path;
 
 extern int (*nox_draw_unk1)(void);
 extern int (*func_5D4594_816388)(void);
@@ -171,6 +176,45 @@ int map_download_finish() {
 }
 
 //----- (0043E290) --------------------------------------------------------
+#ifdef USE_SDL
+void __cdecl sub_48B1B0(SDL_GLContext* a1);
+#endif
+
+void cleanup() {
+	printf("%s\n", __FUNCTION__);
+	if (nox_common_gameFlags_check_40A5C0(0x2000000))
+		sub_413D00();
+	nox_common_writecfgfile("nox.cfg");
+	sub_4314D0();
+	sub_413960();
+	sub_431380();
+	sub_4134F0();
+	nox_xxx_freeWeaponArmorDefAndModifs_413060();
+	sub_4311B0();
+	sub_430EF0();
+	sub_430210();
+	nox_xxx_tileFree_410FC0_free();
+	sub_4106C0();
+	sub_42F4D0();
+	sub_42EDC0();
+	sub_42CD90();
+	sub_410020();
+	nox_xxx_net_40EA70();
+	sub_40D0F0();
+	sub_40E070();
+	sub_4D11D0();
+	sub_4D0DA0();
+	sub_40C0D0();
+	sub_40B740();
+	sub_4D0970();
+	sub_4093D0();
+	sub_40AF30();
+#ifdef USE_SDL
+	sub_48B1B0(&g_ddraw);
+#endif
+	nox_free_thing_bin();
+}
+
 void mainloop() {
 #ifdef NOX_E2E_TEST
 	nox_platform_time_hook();
@@ -182,8 +226,9 @@ void mainloop() {
 
 	// rate limit to < 40 fps
 	cur_tick = nox_platform_get_ticks();
-	if (cur_tick - last_tick < 1000 / 40)
+	if (cur_tick - last_tick < 1000 / 40) {
 		return;
+	}
 	last_tick = cur_tick;
 #endif // __EMSCRIPTEN__
 
@@ -224,19 +269,18 @@ void mainloop() {
 			// map error
 			nox_continue_mainloop_93196 = 0;
 			nox_game_continueMenuOrHost_93200 = 0;
-			mainloop_exit();
-			return;
+			goto MAINLOOP_EXIT;
 		}
 	} else {
 		_control87(0x300u, 0x300u);
 		if (!nox_xxx_gameChangeMap_43DEB0()) {
 			// XXX
-			if (nox_xxx_gameDownloadInProgress_587000_173328)
+			if (nox_xxx_gameDownloadInProgress_587000_173328) {
 				return;
+			}
 			nox_continue_mainloop_93196 = 0;
 			nox_game_continueMenuOrHost_93200 = 0;
-			mainloop_exit();
-			return;
+			goto MAINLOOP_EXIT;
 		}
 	}
 	if (sub_43AF70() == 1) {
@@ -248,8 +292,7 @@ void mainloop() {
 	sub_413520_gamedisk();
 	nox_xxx_time_startProfile_435770();
 	if (!func_5D4594_816388()) {
-		mainloop_exit();
-		return;
+		goto MAINLOOP_EXIT;
 	}
 	nox_xxx_time_endProfile_435780();
 	sub_435740();
@@ -262,13 +305,11 @@ void mainloop() {
 		v0 = (unsigned __int8*)(dword_5d4594_2618912 + 8);
 	}
 	if (!nox_draw_unk1()) {
-		mainloop_exit();
-		return;
+		goto MAINLOOP_EXIT;
 	}
 	sub_430880(0);
 	if (!func_5D4594_816392()) {
-		mainloop_exit();
-		return;
+		goto MAINLOOP_EXIT;
 	}
 	sub_4519C0();
 	sub_4312C0();
@@ -280,8 +321,9 @@ void mainloop() {
 					nox_xxx_netGameSettings_4DEF00();
 					nox_server_gameUnsetMapLoad_40A690();
 				} else if (sub_459D60() && !nox_common_gameFlags_check_40A5C0(9437184)) {
-					if (sub_459DA0())
+					if (sub_459DA0()) {
 						sub_4DF020();
+					}
 					sub_459D50(0);
 				}
 				if (*getMemIntPtr(0x5D4594, 2598000) >= *getMemIntPtr(0x5D4594, 816400)) {
@@ -319,8 +361,9 @@ void mainloop() {
 					v4 = v2 * v2 + v3 * v3;
 					v1 = v27;
 				}
-				if (v4 < 10)
+				if (v4 < 10) {
 					*getMemU32Ptr(0x5D4594, 816428) = 0;
+				}
 				*getMemU32Ptr(0x5D4594, 816420) = v1->field_0;
 				*getMemU32Ptr(0x5D4594, 816424) = v1->field_4;
 			} else if (v4 > 64) {
@@ -364,11 +407,13 @@ void mainloop() {
 			v25 = (int*)sub_437250();
 			nox_client_screenParticlesDraw_431720(v25);
 		}
-		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132)
+		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132) {
 			nox_client_drawCursorAndTooltips_477830(); // Draw cursor
+		}
 		sub_44D9F0(1);
-		if (!sub_409F40(4096)) // CheckRuleFlags and smth
+		if (!sub_409F40(4096)) { // CheckRuleFlags and smth
 			sub_46D830();
+		}
 		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132) {
 			nox_xxx_directDrawBlitMB_48A220();
 			sub_4AD170_call_copy_backbuffer();
@@ -377,20 +422,81 @@ void mainloop() {
 	}
 	sub_435750();
 	if (!*getMemU32Ptr(0x587000, 93192)) {
-		mainloop_stop();
-		return;
+		goto MAINLOOP_CHECK_STOP;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_gameFlags_check_40A5C0(2)) {
-		mainloop_wait_and_exit();
-		return;
+		goto MAINLOOP_WAIT;
 	}
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		if (nox_common_gameFlags_check_40A5C0(0x10000000)) {
-			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_32))
+			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_32)) {
 				nox_ticks_maybe_sleep_416DD0();
-			mainloop_stop();
+			}
+			goto MAINLOOP_CHECK_STOP;
+		}
+	}
+	goto MAINLOOP_WAIT;
+MAINLOOP_WAIT:
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_31)) {
+		while (!nox_ticks_should_update_416CD0()) {}
+	} else {
+		int ms = nox_ticks_until_next_416D00();
+		*getMemU32Ptr(0x5D4594, 816404) = ms;
+		if (ms > 0) {
+			nox_platform_sleep(ms);
+		}
+	}
+MAINLOOP_CHECK_STOP:
+	if (nox_game_loop_xxx_805872) {
+		nox_game_continueMenuOrHost_93200 = 1;
+	} else {
+		if (nox_continue_mainloop_93196) {
+			// unwind the stack and continue the mainloop
 			return;
 		}
 	}
-	mainloop_wait_and_exit();
+MAINLOOP_EXIT:
+	if (!mainloop_exit_path) {
+		if (!nox_game_continueMenuOrHost_93200) {
+			cleanup();
+			nox_exit(0);
+		}
+		// repeat
+		cmain_loop(1);
+		return;
+	}
+	nox_common_gameFlags_unset_40A540(0x10000000);
+	nox_common_gameFlags_unset_40A540(55280);
+	nox_common_gameFlags_unset_40A540(9437184);
+	sub_43F140(300);
+	sub_43D990();
+	nox_xxx_replayWriteSomeInt_4D39B0();
+	if (nox_common_gameFlags_check_40A5C0(1)) {
+		nox_xxx_servResetPlayers_4D23C0();
+	}
+	if (nox_common_gameFlags_check_40A5C0(2)) {
+		sub_435EB0();
+	}
+	if (!nox_xxx_video_43BF10_upd_video_mode(1)) {
+		return;
+	}
+	*getMemU32Ptr(0x587000, 80852) = nox_video_getGammaSetting_434B00();
+	nox_video_setGammaSetting_434B30(1);
+	sub_434B60();
+	g_v21 = 0;
+	if (nox_common_gameFlags_check_40A5C0(1)) {
+		nox_xxx_servEndSession_4D3200();
+	}
+	if (nox_common_gameFlags_check_40A5C0(2)) {
+		nox_xxx_cliSetupSession_437190();
+	}
+	nox_xxx_clear18hDD_416190();
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13)) {
+		sub_413E30();
+	}
+	nullsub_2();
+
+	// repeat
+	cmain_loop(0);
+	return;
 }
