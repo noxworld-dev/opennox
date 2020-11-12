@@ -21,7 +21,6 @@
 #include "static.h"
 #include "proto.h"
 
-#ifdef USE_SDL
 extern _DWORD dword_5d4594_526284;
 extern _DWORD dword_5d4594_338300;
 extern _DWORD nox_profiled_805856;
@@ -78,8 +77,6 @@ extern _DWORD dword_5d4594_2660652;
 extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_4668;
-extern SDL_GLContext g_ddraw;
-#endif
 
 extern unsigned char byte_581450_1488[4096];
 extern unsigned char byte_581450_1416[72];
@@ -165,85 +162,6 @@ void nox_exit(int exitCode) {
 	nox_platform_sleep(0x32u);
 #endif
 	exit(exitCode);
-}
-
-#ifdef USE_SDL
-void __cdecl sub_48B1B0(SDL_GLContext* a1);
-#endif
-
-void cleanup() {
-	printf("%s\n", __FUNCTION__);
-	if (nox_common_gameFlags_check_40A5C0(0x2000000))
-		sub_413D00();
-	nox_common_writecfgfile("nox.cfg");
-	sub_4314D0();
-	sub_413960();
-	sub_431380();
-	sub_4134F0();
-	nox_xxx_freeWeaponArmorDefAndModifs_413060();
-	sub_4311B0();
-	sub_430EF0();
-	sub_430210();
-	nox_xxx_tileFree_410FC0_free();
-	sub_4106C0();
-	sub_42F4D0();
-	sub_42EDC0();
-	sub_42CD90();
-	sub_410020();
-	nox_xxx_net_40EA70();
-	sub_40D0F0();
-	sub_40E070();
-	sub_4D11D0();
-	sub_4D0DA0();
-	sub_40C0D0();
-	sub_40B740();
-	sub_4D0970();
-	sub_4093D0();
-	sub_40AF30();
-#ifdef USE_SDL
-	sub_48B1B0(&g_ddraw);
-#endif
-	nox_free_thing_bin();
-}
-
-void mainloop_exit_1() {
-	if (!nox_game_continueMenuOrHost_93200) {
-		cleanup();
-		nox_exit(0);
-	}
-
-	// repeat
-	cmain_loop(1);
-}
-
-void mainloop_exit_2() {
-	nox_common_gameFlags_unset_40A540(0x10000000);
-	nox_common_gameFlags_unset_40A540(55280);
-	nox_common_gameFlags_unset_40A540(9437184);
-	sub_43F140(300);
-	sub_43D990();
-	nox_xxx_replayWriteSomeInt_4D39B0();
-	if (nox_common_gameFlags_check_40A5C0(1))
-		nox_xxx_servResetPlayers_4D23C0();
-	if (nox_common_gameFlags_check_40A5C0(2))
-		sub_435EB0();
-	if (!nox_xxx_video_43BF10_upd_video_mode(1))
-		return;
-	*getMemU32Ptr(0x587000, 80852) = nox_video_getGammaSetting_434B00();
-	nox_video_setGammaSetting_434B30(1);
-	sub_434B60();
-	g_v21 = 0;
-	if (nox_common_gameFlags_check_40A5C0(1))
-		nox_xxx_servEndSession_4D3200();
-	if (nox_common_gameFlags_check_40A5C0(2))
-		nox_xxx_cliSetupSession_437190();
-	nox_xxx_clear18hDD_416190();
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
-		sub_413E30();
-	nullsub_2();
-
-	// repeat
-	cmain_loop(0);
 }
 
 //----- (00401000) --------------------------------------------------------

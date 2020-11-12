@@ -154,7 +154,7 @@ int (*nox_draw_unk1)(void) = 0;
 
 void (*mainloop_enter)(void*);
 void* mainloop_enter_args;
-void (*mainloop_exit)();
+BOOL mainloop_exit_path = 0;
 
 nox_thing* nox_things_head = 0;
 nox_thing** nox_things_array = 0;
@@ -1832,33 +1832,6 @@ int sub_43E230() {
 }
 
 //-------------------------------------------------------------------------
-void mainloop_stop() {
-	if (nox_game_loop_xxx_805872) {
-		nox_game_continueMenuOrHost_93200 = 1;
-		mainloop_exit();
-		return;
-	}
-
-	if (nox_continue_mainloop_93196) {
-		// unwind the stack and continue the mainloop
-		return;
-	}
-	mainloop_exit();
-}
-//-------------------------------------------------------------------------
-void mainloop_wait_and_exit() {
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_31)) {
-		while (!nox_ticks_should_update_416CD0()) {
-		}
-		mainloop_stop();
-		return;
-	}
-	int ms = nox_ticks_until_next_416D00();
-	*getMemU32Ptr(0x5D4594, 816404) = ms;
-	if (ms > 0)
-		nox_platform_sleep(ms);
-	mainloop_stop();
-}
 
 void mainloop_43E290() {
 	nox_continue_mainloop_93196 = 1;
