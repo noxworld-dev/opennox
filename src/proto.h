@@ -1375,7 +1375,7 @@ unsigned __int8 __cdecl sub_430970(unsigned __int8 a1);
 int __cdecl sub_430990(unsigned __int8 a1);
 int __cdecl sub_4309B0(unsigned __int8 a1, char a2);
 int __cdecl sub_4309D0(unsigned __int8 a1, char a2);
-int2* __cdecl nox_client_getMousePos_4309F0();
+nox_mouse_state_t* nox_client_getMousePos_4309F0();
 void nox_client_changeMousePos_430A00(int x, int y, bool isAbs);
 int __cdecl sub_430A70_set_mouse_bounds(int x_min, int x_max, int y_min, int y_max);
 int __cdecl sub_430AA0(int a1);

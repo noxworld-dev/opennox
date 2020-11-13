@@ -732,12 +732,12 @@ typedef struct nox_mouse_btn_t {
 _Static_assert(sizeof(nox_mouse_btn_t) == 12, "wrong size of nox_mouse_btn_t structure!");
 
 typedef struct nox_mouse_state_t {
-	mouse_pos_t pos;
-	int wheel;
+	mouse_pos_t pos; // 0
+	int wheel; // 8
 
-	mouse_pos_t dpos;
+	mouse_pos_t dpos; // 12
 
-	nox_mouse_btn_t btn[3];
+	nox_mouse_btn_t btn[3]; // 20, 32, 44
 } nox_mouse_state_t;
 _Static_assert(sizeof(nox_mouse_state_t) == 56, "wrong size of nox_mouse_state_t structure!");
 
