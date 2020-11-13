@@ -4700,13 +4700,6 @@ void __cdecl nox_xxx_windowUpdateKeysMB_46B6B0(unsigned __int8* a1) {
 void nox_xxx_cursorUpdate_46B740() {
 	wchar_t* v0;                                  // edi
 	wchar_t* v1;                                  // ebx
-	int2* v2;                                     // ebp
-	unsigned __int16 v3;                          // si
-	int v4;                                       // eax
-	int v5;                                       // edx
-	unsigned __int16 v6;                          // cx
-	int v7;                                       // eax
-	int v8;                                       // esi
 	int v9;                                       // edi
 	int v10;                                      // esi
 	int v11;                                      // esi
@@ -4756,9 +4749,6 @@ void nox_xxx_cursorUpdate_46B740() {
 	wchar_t* v55;                                 // eax
 	int v56;                                      // esi
 	int v57;                                      // ecx
-	int v58;                                      // ecx
-	int v59;                                      // edx
-	int v60;                                      // [esp+0h] [ebp-2Ch]
 	wchar_t* v61;                                 // [esp+4h] [ebp-28h]
 	int v62;                                      // [esp+4h] [ebp-28h]
 	int v63;                                      // [esp+8h] [ebp-24h]
@@ -4771,46 +4761,47 @@ void nox_xxx_cursorUpdate_46B740() {
 	v63 = 0;
 	v61 = 0;
 	v64 = 0;
-	v2 = nox_client_getMousePos_4309F0();
-	v65.field_0 = (int)v2;
-	v3 = v2->field_4;
-	v4 = v2[3].field_0;
-	v5 = v2[6].field_0;
-	v66[1] = v2[4].field_4;
-	v6 = v2->field_0;
-	v66[0] = v4;
-	v7 = v2[1].field_0;
-	v66[2] = v5;
-	v8 = v6 | (v3 << 16);
-	v66[3] = v7;
-	v60 = v8;
+
+	nox_mouse_state_t* m = nox_client_getMousePos_4309F0();
+
+	v66[0] = m->btn[NOX_MOUSE_LEFT].state;
+	v66[1] = m->btn[NOX_MOUSE_RIGHT].state;
+	v66[2] = m->btn[NOX_MOUSE_MIDDLE].state;
+	v66[3] = m->wheel;
+
+	unsigned __int16 sx = m->pos.x;
+	unsigned __int16 sy = m->pos.y;
+	_DWORD spos = sx | (sy << 16);
+	_DWORD spos2 = spos;
+
 	nox_xxx_cursorSetTooltip_4776B0(0);
-	if (dword_5d4594_815132 || nox_xxx_guiCursor_477600())
+	if (dword_5d4594_815132 || nox_xxx_guiCursor_477600()) {
 		nox_client_setCursorType_477610(0);
-	else
+	} else {
 		nox_client_setCursorType_477610(14);
+	}
 	if (nox_win_unk3) {
 		nox_client_setCursorType_477610(0);
 		dword_5d4594_1064916 = 0;
-		v1 = (wchar_t*)nox_xxx_wnd_46B5B0(nox_win_unk3, v2->field_0, v2->field_4);
+		v1 = (wchar_t*)nox_xxx_wnd_46B5B0(nox_win_unk3, m->pos.x, m->pos.y);
 		v62 = 0;
 		while (1) {
 			v9 = v66[v62];
 			if (!v9) {
-				if (!v62 && v2[2].field_4 == 1)
-					nox_window_call_field_93((int)v1, 8, v60, 0);
+				if (!v62 && m->btn[NOX_MOUSE_LEFT].pressed == 1)
+					nox_window_call_field_93((int)v1, 8, spos2, 0);
 				goto LABEL_18;
 			}
 			v10 = (int)v1;
 			if (v1)
 				break;
-			if (nox_window_call_field_93(nox_win_unk3, v9, v60, 0))
+			if (nox_window_call_field_93(nox_win_unk3, v9, spos2, 0))
 				goto LABEL_14;
 		LABEL_18:
 			if (++v62 >= 4)
 				goto LABEL_123;
 		}
-		while (!nox_window_call_field_93(v10, v9, v60, 0)) {
+		while (!nox_window_call_field_93(v10, v9, spos2, 0)) {
 			if (v10 != nox_win_unk3) {
 				v10 = *(_DWORD*)(v10 + 396);
 				if (v10)
@@ -4829,8 +4820,8 @@ void nox_xxx_cursorUpdate_46B740() {
 		case 8:
 			if (!(*(_BYTE*)(dword_5d4594_1064916 + 4) & 4) || sub_45D9B0())
 				goto LABEL_50;
-			v11 = v2[1].field_4;
-			v12 = v2[2].field_0;
+			v11 = m->dpos.x;
+			v12 = m->dpos.y;
 			v13 = *(_DWORD*)(dword_5d4594_1064916 + 396);
 			if (!v13)
 				goto LABEL_41;
@@ -4873,13 +4864,12 @@ void nox_xxx_cursorUpdate_46B740() {
 						v22[7] = nox_win_height;
 						v22 = *(_DWORD**)&dword_5d4594_1064916;
 					}
-					v2 = (int2*)v65.field_0;
 					v22[4] = v22[6] - v22[2];
-					v8 = v60;
+					spos = spos2;
 					*(_DWORD*)(dword_5d4594_1064916 + 20) =
 						*(_DWORD*)(dword_5d4594_1064916 + 28) - *(_DWORD*)(dword_5d4594_1064916 + 12);
 				LABEL_50:
-					nox_window_call_field_93(*(int*)&dword_5d4594_1064916, 8, v8, 0);
+					nox_window_call_field_93(*(int*)&dword_5d4594_1064916, 8, spos, 0);
 					goto LABEL_51;
 				}
 				v18 = v20 - v19;
@@ -4890,17 +4880,17 @@ void nox_xxx_cursorUpdate_46B740() {
 			goto LABEL_41;
 		case 6:
 			*(_DWORD*)(dword_5d4594_1064916 + 4) &= 0xFFFFFFFE;
-			if (nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_1064916, v2->field_0, v2->field_4)) {
-				nox_window_call_field_93(*(int*)&dword_5d4594_1064916, 6, v8, 0);
+			if (nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_1064916, m->pos.x, m->pos.y)) {
+				nox_window_call_field_93(*(int*)&dword_5d4594_1064916, 6, spos, 0);
 			} else if (*(_BYTE*)(dword_5d4594_1064916 + 4) & 4) {
-				nox_window_call_field_93(*(int*)&dword_5d4594_1064916, 6, v8, 0);
+				nox_window_call_field_93(*(int*)&dword_5d4594_1064916, 6, spos, 0);
 			}
 			v64 = 1;
 			v66[0] = 0;
 			goto LABEL_123;
 		case 7:
 			nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_1064916);
-			nox_window_call_field_93(*(int*)&dword_5d4594_1064916, 7, v8, 0);
+			nox_window_call_field_93(*(int*)&dword_5d4594_1064916, 7, spos, 0);
 			v64 = 1;
 			v66[0] = 0;
 			goto LABEL_123;
@@ -4911,7 +4901,7 @@ void nox_xxx_cursorUpdate_46B740() {
 		}
 	}
 	if (dword_5d4594_1064912) {
-		v23 = (wchar_t*)nox_xxx_wnd_46B5B0(**(_DWORD***)&dword_5d4594_1064912, v2->field_0, v2->field_4);
+		v23 = (wchar_t*)nox_xxx_wnd_46B5B0(**(_DWORD***)&dword_5d4594_1064912, m->pos.x, m->pos.y);
 		goto LABEL_98;
 	}
 	v24 = *(_DWORD**)&dword_5d4594_1064888;
@@ -4921,9 +4911,9 @@ void nox_xxx_cursorUpdate_46B740() {
 		v25 = v24[1];
 		if (v25 & 0x20) {
 			if (!(v25 & 0x10)) {
-				v26 = v2->field_0;
-				if (v2->field_0 >= (int)v24[4] && v26 <= (int)v24[6]) {
-					v27 = v2->field_4;
+				v26 = m->pos.x;
+				if (v26 >= (int)v24[4] && v26 <= (int)v24[6]) {
+					v27 = m->pos.y;
 					if (v27 >= (int)v24[5] && v27 <= (int)v24[7]) {
 						v28 = sub_46B630((int)v24, v26, v27);
 						if (!v0 && (*(_DWORD*)(v28 + 384) || *(_WORD*)(v28 + 240)))
@@ -4939,7 +4929,7 @@ void nox_xxx_cursorUpdate_46B740() {
 			goto LABEL_69;
 	}
 	v61 = v0;
-	v1 = (wchar_t*)nox_xxx_wnd_46B5B0(v24, v2->field_0, v2->field_4);
+	v1 = (wchar_t*)nox_xxx_wnd_46B5B0(v24, m->pos.x, m->pos.y);
 	if (!v1) {
 	LABEL_69:
 		v29 = dword_5d4594_1064888;
@@ -4947,9 +4937,9 @@ void nox_xxx_cursorUpdate_46B740() {
 			goto LABEL_83;
 		while (1) {
 			if (!(*(_BYTE*)(v29 + 4) & 0x70)) {
-				v30 = v2->field_0;
-				if (v2->field_0 >= *(int*)(v29 + 16) && v30 <= *(int*)(v29 + 24)) {
-					v31 = v2->field_4;
+				v30 = m->pos.x;
+				if (v30 >= *(int*)(v29 + 16) && v30 <= *(int*)(v29 + 24)) {
+					v31 = m->pos.y;
 					if (v31 >= *(int*)(v29 + 20) && v31 <= *(int*)(v29 + 28)) {
 						v32 = sub_46B630(v29, v30, v31);
 						if (!v0 && (*(_DWORD*)(v32 + 384) || *(_WORD*)(v32 + 240)))
@@ -4964,7 +4954,7 @@ void nox_xxx_cursorUpdate_46B740() {
 				goto LABEL_83;
 		}
 		v61 = v0;
-		v1 = (wchar_t*)nox_xxx_wnd_46B5B0((_DWORD*)v29, v2->field_0, v2->field_4);
+		v1 = (wchar_t*)nox_xxx_wnd_46B5B0((_DWORD*)v29, m->pos.x, m->pos.y);
 		if (!v1) {
 		LABEL_83:
 			v1 = *(wchar_t**)&dword_5d4594_1064888;
@@ -4974,9 +4964,9 @@ void nox_xxx_cursorUpdate_46B740() {
 				v33 = *((_DWORD*)v1 + 1);
 				if (v33 & 0x40) {
 					if (!(v33 & 0x10)) {
-						v34 = v2->field_0;
-						if (v2->field_0 >= *((int*)v1 + 4) && v34 <= *((int*)v1 + 6)) {
-							v35 = v2->field_4;
+						v34 = m->pos.x;
+						if (v34 >= *((int*)v1 + 4) && v34 <= *((int*)v1 + 6)) {
+							v35 = m->pos.y;
 							if (v35 >= *((int*)v1 + 5) && v35 <= *((int*)v1 + 7)) {
 								v36 = sub_46B630((int)v1, v34, v35);
 								if (!v0 && (*(_DWORD*)(v36 + 384) || *(_WORD*)(v36 + 240)))
@@ -4992,7 +4982,7 @@ void nox_xxx_cursorUpdate_46B740() {
 					goto LABEL_113;
 			}
 			v61 = v0;
-			v23 = (wchar_t*)nox_xxx_wnd_46B5B0(v1, v2->field_0, v2->field_4);
+			v23 = (wchar_t*)nox_xxx_wnd_46B5B0(v1, m->pos.x, m->pos.y);
 		LABEL_98:
 			v1 = v23;
 			if (!v23)
@@ -5011,7 +5001,7 @@ LABEL_99:
 			v39 = v66[i];
 			if (v39) {
 				v40 = (int)v1;
-				if (nox_window_call_field_93((int)v1, v39, v60, 0)) {
+				if (nox_window_call_field_93((int)v1, v39, spos2, 0)) {
 				LABEL_107:
 					if (!i && v66[0] == 5)
 						dword_5d4594_1064916 = v40;
@@ -5021,14 +5011,13 @@ LABEL_99:
 						v40 = *(_DWORD*)(v40 + 396);
 						if (!v40)
 							break;
-						if (nox_window_call_field_93(v40, v39, v60, 0))
+						if (nox_window_call_field_93(v40, v39, spos2, 0))
 							goto LABEL_107;
 					}
 				}
 			}
 		}
 		v0 = v61;
-		v2 = (int2*)v65.field_0;
 	}
 LABEL_113:
 	if (!v0 && !nox_xxx_wnd_46C2A0((int)v1))
@@ -5037,7 +5026,7 @@ LABEL_113:
 		if (v0) {
 			v41 = (void(__cdecl*)(wchar_t*, wchar_t*, int)) * ((_DWORD*)v0 + 96);
 			if (v41) {
-				v41(v0, v0 + 18, v60);
+				v41(v0, v0 + 18, spos2);
 			} else if (v0[120]) {
 				nox_xxx_cursorSetTooltip_4776B0(v0 + 120);
 			}
@@ -5049,12 +5038,12 @@ LABEL_123:
 	if (!dword_5d4594_1064916 && v1 != *(wchar_t**)&dword_5d4594_1064900) {
 		if (nox_win_unk3) {
 			if (nox_window_is_child(nox_win_unk3, *(int*)&dword_5d4594_1064900))
-				nox_window_call_field_93(*(int*)&dword_5d4594_1064900, 18, v60, 0);
+				nox_window_call_field_93(*(int*)&dword_5d4594_1064900, 18, spos2, 0);
 		} else if (dword_5d4594_1064900) {
-			nox_window_call_field_93(*(int*)&dword_5d4594_1064900, 18, v60, 0);
+			nox_window_call_field_93(*(int*)&dword_5d4594_1064900, 18, spos2, 0);
 		}
 		if (v1)
-			nox_window_call_field_93((int)v1, 17, v60, 0);
+			nox_window_call_field_93((int)v1, 17, spos2, 0);
 		dword_5d4594_1064900 = v1;
 	}
 	if (nox_xxx_gameGetPlayState_4356B0() == 3 && !*getMemU32Ptr(0x5D4594, 1064940) && !nox_xxx_playerAnimCheck_4372B0() && !nox_xxx_checkGFlagNoParticles_413A50() && !nox_xxx_guiCursor_477600() &&
@@ -5078,9 +5067,9 @@ LABEL_123:
 				v47 = dword_5d4594_1064888;
 				if (dword_5d4594_1064888) {
 					while (1) {
-						if (!(*(_BYTE*)(v47 + 4) & 0x10) && v2->field_0 >= *(int*)(v47 + 16) &&
-							v2->field_0 <= *(int*)(v47 + 24)) {
-							v48 = v2->field_4;
+						if (!(*(_BYTE*)(v47 + 4) & 0x10) && m->pos.x >= *(int*)(v47 + 16) &&
+							m->pos.x <= *(int*)(v47 + 24)) {
+							v48 = m->pos.y;
 							if (v48 >= *(int*)(v47 + 20) && v48 <= *(int*)(v47 + 28))
 								break;
 						}
@@ -5088,7 +5077,7 @@ LABEL_123:
 						if (!v47)
 							goto LABEL_175;
 					}
-					if (v47 == v46 && ((v49 = v2->field_4, v65.field_0 = v2->field_0, v65.field_4 = v49,
+					if (v47 == v46 && ((v49 = m->pos.y, v65.field_0 = m->pos.x, v65.field_4 = v49,
 										v50 = sub_4676B0(), v51 = sub_4281F0(&v65, (int4*)v50), v51) ||
 									   (v52 = sub_4676C0(), v53 = sub_4281F0(&v65, (int4*)v52), v53))) {
 						v63 = 1;
@@ -5157,12 +5146,10 @@ LABEL_123:
 		}
 	}
 LABEL_201:
-	v58 = v66[1];
-	v59 = v66[2];
-	v2[3].field_0 = v66[0];
-	v2[1].field_0 = v66[3];
-	v2[4].field_4 = v58;
-	v2[6].field_0 = v59;
+	m->btn[NOX_MOUSE_LEFT].state = v66[0];
+	m->btn[NOX_MOUSE_RIGHT].state = v66[1];
+	m->btn[NOX_MOUSE_MIDDLE].state = v66[2];
+	m->wheel = v66[3];
 	if (v64 == 1)
 		dword_5d4594_1064916 = 0;
 	sub_46C200();
