@@ -5800,7 +5800,7 @@ int __cdecl sub_4309D0(unsigned __int8 a1, char a2) {
 }
 
 //----- (004309F0) --------------------------------------------------------
-int2* __cdecl nox_client_getMousePos_4309F0() { return &nox_mouse.pos; }
+nox_mouse_state_t* nox_client_getMousePos_4309F0() { return &nox_mouse; }
 
 //----- (00430A00) --------------------------------------------------------
 void nox_client_changeMousePos_430A00(int x, int y, bool isAbs) {
@@ -9287,7 +9287,7 @@ int __cdecl sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4) {
 				nox_window_call_field_94(*(int*)&dword_5d4594_815028, 16403, a4, 0);
 				nox_window_call_field_94(*(int*)&dword_5d4594_815032, 16403, a4, 0);
 				if (a4 < *(int*)&dword_5d4594_815088) {
-					v8 = *nox_client_getMousePos_4309F0();
+					v8 = *(int2*)nox_client_getMousePos_4309F0();
 					dword_5d4594_814624 = sub_4A04C0(a4);
 					sub_439370(&v8, *(int*)&dword_5d4594_814624);
 				}
