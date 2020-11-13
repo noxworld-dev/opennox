@@ -938,7 +938,7 @@ int __cdecl nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3
 		}
 		dword_5d4594_815048 = 1;
 		nox_common_gameFlags_unset_40A540(0x10000);
-		sub_430B10_set_mouse_pos(408, 239);
+		nox_client_setMousePos_430B10(408, 239);
 		sub_4375C0(0);
 		if (!wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_814992))
 			sub_489870();
@@ -961,7 +961,7 @@ int __cdecl nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3
 		dword_5d4594_815048 = 1;
 		nox_xxx_setGameFlags_40A4D0(0x10000);
 		nox_xxx_cliShowHideTubes_470AA0(0);
-		sub_430B10_set_mouse_pos(408, 239);
+		nox_client_setMousePos_430B10(408, 239);
 		sub_4375C0(0);
 		if (!wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_814992))
 			sub_489870();

@@ -30,8 +30,8 @@ struct keyboard_event {
 
 struct mouse_event {
 	unsigned int type;
-	int x, y, z;
-	DWORD state;
+	int x, y, wheel;
+	int pressed;
 	DWORD seq;
 };
 
@@ -92,19 +92,36 @@ void process_window_event(const SDL_WindowEvent* event) {
 	}
 }
 
-void process_keyboard_event(const SDL_KeyboardEvent* event) {
+struct keyboard_event* nox_newKeyboardEvent() {
 	struct keyboard_event* ke = &keyboard_event_queue[keyboard_event_widx];
+	ke->seq = seqnum++;
+	keyboard_event_widx = (keyboard_event_widx + 1) % 256;
+	return ke;
+}
+
+struct mouse_event* nox_newMouseEvent() {
+	struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
+	me->seq = seqnum++;
+	mouse_event_widx = (mouse_event_widx + 1) % 256;
+	return me;
+}
+
+void process_keyboard_event(const SDL_KeyboardEvent* event) {
+	struct keyboard_event* ke = nox_newKeyboardEvent();
 
 	ke->code = scanCodeToKeyNum[event->keysym.scancode];
 	ke->state = event->state == SDL_PRESSED;
-	ke->seq = seqnum++;
-
-	keyboard_event_widx = (keyboard_event_widx + 1) % 256;
 }
 
 void process_mouse_event(const SDL_MouseButtonEvent* event) {
-	struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
+	bool pressed = event->state == SDL_PRESSED;
+	if (pressed) {
+		SDL_WindowEvent wndEvt;
+		wndEvt.event = SDL_WINDOWEVENT_FOCUS_GAINED;
+		process_window_event(&wndEvt);
+	}
 
+	struct mouse_event* me = nox_newMouseEvent();
 	switch (event->button) {
 	case SDL_BUTTON_LEFT:
 		me->type = MOUSE_BUTTON0;
@@ -118,58 +135,37 @@ void process_mouse_event(const SDL_MouseButtonEvent* event) {
 	default:
 		return;
 	}
-
-	me->state = event->state == SDL_PRESSED;
-
-	if (me->state) {
-		SDL_WindowEvent wndEvt;
-		wndEvt.event = SDL_WINDOWEVENT_FOCUS_GAINED;
-		process_window_event(&wndEvt);
-	}
-
-	me->seq = seqnum++;
-
-	mouse_event_widx = (mouse_event_widx + 1) % 256;
+	me->pressed = pressed;
 }
 
 void process_motion_event(const SDL_MouseMotionEvent* event) {
-	struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
+	struct mouse_event* me = nox_newMouseEvent();
 
 	me->type = MOUSE_MOTION;
 	me->x = input_sensitivity * event->xrel;
 	me->y = input_sensitivity * event->yrel;
-	me->z = 0;
-	me->seq = seqnum++;
-
-	mouse_event_widx = (mouse_event_widx + 1) % 256;
+	me->wheel = 0;
 }
 
 void process_wheel_event(const SDL_MouseWheelEvent* event) {
-	struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
+	struct mouse_event* me = nox_newMouseEvent();
 
 	me->type = MOUSE_WHEEL;
 	me->x = 0;
 	me->y = 0;
-	me->z = event->y;
-	me->seq = seqnum++;
-
-	mouse_event_widx = (mouse_event_widx + 1) % 256;
+	me->wheel = event->y;
 }
 
 void fake_keyup(void* arg) {
-	struct keyboard_event* ke = &keyboard_event_queue[keyboard_event_widx];
+	struct keyboard_event* ke = nox_newKeyboardEvent();
 	ke->code = scanCodeToKeyNum[SDL_SCANCODE_SPACE];
 	ke->state = 0;
-	ke->seq = seqnum++;
-	keyboard_event_widx = (keyboard_event_widx + 1) % 256;
 }
 
 void fake_mouseup(void* arg) {
-	struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
+	struct mouse_event* me = nox_newMouseEvent();
 	me->type = MOUSE_BUTTON0;
-	me->state = 0;
-	me->seq = seqnum++;
-	mouse_event_widx = (mouse_event_widx + 1) % 256;
+	me->pressed = 0;
 }
 
 struct finger_state* find_finger(SDL_FingerID id, int alloc) {
@@ -187,11 +183,9 @@ struct finger_state* find_finger(SDL_FingerID id, int alloc) {
 }
 
 void send_mouse1_event() {
-	struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
+	struct mouse_event* me = nox_newMouseEvent();
 	me->type = MOUSE_BUTTON1;
-	me->state = mouse1_state; // && !mouse0_state;
-	me->seq = seqnum++;
-	mouse_event_widx = (mouse_event_widx + 1) % 256;
+	me->pressed = mouse1_state; // && !mouse0_state;
 }
 
 #ifdef __EMSCRIPTEN__
@@ -233,19 +227,17 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 #if 0
     else if (finger->y < 0.25)
     {
-        struct keyboard_event* ke = &keyboard_event_queue[keyboard_event_widx];
+        struct keyboard_event* ke = nox_newKeyboardEvent();
         ke->code = scanCodeToKeyNum[SDL_SCANCODE_SPACE];
         ke->state = 1;
         ke->seq = event->timestamp;
-        keyboard_event_widx = (keyboard_event_widx + 1) % 256;
     }
     else
     {
-        struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
+        struct mouse_event* me = nox_newMouseEvent();
         me->type = MOUSE_BUTTON0;
         me->state = 1;
         me->seq = event->timestamp;
-        mouse_event_widx = (mouse_event_widx + 1) % 256;
     }
 #endif
 	} else if (event->type == SDL_FINGERUP) {
@@ -274,19 +266,15 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 			// send_mouse1_event();
 
 			if (ms < 500 && dist > 0.1 && theta <= 0.7 && theta >= 0.3) {
-				struct keyboard_event* ke = &keyboard_event_queue[keyboard_event_widx];
+				struct keyboard_event* ke = nox_newKeyboardEvent();
 				ke->code = scanCodeToKeyNum[SDL_SCANCODE_SPACE];
 				ke->state = 1;
-				ke->seq = seqnum++;
-				keyboard_event_widx = (keyboard_event_widx + 1) % 256;
 
 				emscripten_set_timeout(fake_keyup, 90, NULL);
 			} else {
-				struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
+				struct mouse_event* me = nox_newMouseEvent();
 				me->type = MOUSE_BUTTON0;
-				me->state = 1;
-				me->seq = seqnum++;
-				mouse_event_widx = (mouse_event_widx + 1) % 256;
+				me->pressed = 1;
 
 				emscripten_set_timeout(fake_mouseup, 90, NULL);
 			}
@@ -310,13 +298,11 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 			dist = sqrtf((event->x - 0.1) * (event->x - 0.1) + (event->y - 0.5) * (event->y - 0.5));
 			theta = atan2f(-event->y + 0.5, -event->x + 0.1) / M_PI;
 #if 0
-            struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
+            struct mouse_event* me = nox_newMouseEvent();
             me->type = MOUSE_MOTION;
             me->x = 2000.0f * event->dx;
             me->y = 2000.0f * event->dy;
             me->z = 0;
-            me->seq = seqnum++;
-            mouse_event_widx = (mouse_event_widx + 1) % 256;
 #endif
 			orientation = ((int)((theta + 1) * 128 + 0.5)) & 255;
 			if (dist < 0.05)
@@ -324,13 +310,11 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 			else
 				move_speed = 1;
 		} else if ((event->timestamp - finger->timestamp) > 200) {
-			struct mouse_event* me = &mouse_event_queue[mouse_event_widx];
+			struct mouse_event* me = nox_newMouseEvent();
 			me->type = MOUSE_MOTION;
 			me->x = 2000.0f * event->dx;
 			me->y = 2000.0f * event->dy;
-			me->z = 0;
-			me->seq = seqnum++;
-			mouse_event_widx = (mouse_event_widx + 1) % 256;
+			me->wheel = 0;
 		}
 	}
 }
@@ -458,18 +442,9 @@ typedef struct DIDEVICEOBJECTDATA {
 } DIDEVICEOBJECTDATA, *LPDIDEVICEOBJECTDATA;
 
 // get mouse data
-char __cdecl sub_47DB20_get_mouse_data(nox_mouse_state_t* e) {
+BOOL nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* e) {
+	memset(e, 0, sizeof(nox_mouse_state_t));
 	struct mouse_event* me = &mouse_event_queue[mouse_event_ridx];
-
-	e->pos.x = 0;
-	e->pos.y = 0;
-	e->z = 0;
-	e->left_state = 0;
-	e->left_seq = 0;
-	e->right_state = 0;
-	e->right_seq = 0;
-	e->middle_state = 0;
-	e->middle_seq = 0;
 
 	if (mouse_event_ridx == mouse_event_widx)
 		return 0;
@@ -478,23 +453,23 @@ char __cdecl sub_47DB20_get_mouse_data(nox_mouse_state_t* e) {
 	case MOUSE_MOTION:
 		e->pos.x = me->x;
 		e->pos.y = me->y;
-		e->z = me->z;
+		e->wheel = me->wheel;
 		break;
 	case MOUSE_WHEEL:
-		e->z = me->z;
-		OnLibraryNotice(265, &e, 2, me->z); // mix event hanlder is triggered only for wheel events
+		e->wheel = me->wheel;
+		OnLibraryNotice(265, &e, 2, me->wheel); // mix event hanlder is triggered only for wheel events
 		break;
 	case MOUSE_BUTTON0:
-		e->left_state = me->state;
-		e->left_seq = me->seq;
+		e->btn[NOX_MOUSE_LEFT].pressed = me->pressed;
+		e->btn[NOX_MOUSE_LEFT].seq = me->seq;
 		break;
 	case MOUSE_BUTTON1:
-		e->right_state = me->state;
-		e->right_seq = me->seq;
+		e->btn[NOX_MOUSE_RIGHT].pressed = me->pressed;
+		e->btn[NOX_MOUSE_RIGHT].seq = me->seq;
 		break;
 	case MOUSE_BUTTON2:
-		e->middle_state = me->state;
-		e->middle_seq = me->seq;
+		e->btn[NOX_MOUSE_MIDDLE].pressed = me->pressed;
+		e->btn[NOX_MOUSE_MIDDLE].seq = me->seq;
 		break;
 	}
 
