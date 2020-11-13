@@ -133,7 +133,7 @@ extern unsigned __int64 nox_framerate_next_ticks;
 extern unsigned __int64 nox_framerate_step_ticks;
 
 extern nox_mouse_state_t nox_input_buffer[256];
-extern int nox_processing_input;
+extern int nox_readingMouseBuffer;
 
 extern nox_mouse_state_t nox_mouse;
 extern nox_mouse_state_t nox_mouse_prev;
@@ -141,9 +141,7 @@ extern _DWORD nox_mouse_prev_seq;
 extern _DWORD nox_mouse_prev_seq_2;
 extern mouse_pos_t nox_mouse_min;
 extern mouse_pos_t nox_mouse_max;
-extern mouse_pos_t nox_mouse_prev_left;
-extern mouse_pos_t nox_mouse_prev_right;
-extern mouse_pos_t nox_mouse_prev_middle;
+extern mouse_pos_t nox_mouse_prev_btn[3];
 
 extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
@@ -2641,13 +2639,11 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 754100, (void*)&ptr_5D4594_754092_cnt, sizeof(ptr_5D4594_754092_cnt), 1},
 	{0x5D4594 + 754104, (void*)&obj_5D4594_754104_switch, sizeof(obj_5D4594_754104_switch), 1},
 	{0x5D4594 + 791324, (void*)nox_input_buffer, sizeof(nox_input_buffer), 1},
-	{0x5D4594 + 805832, (void*)&nox_processing_input, sizeof(nox_processing_input), 1},
+	{0x5D4594 + 805832, (void*)&nox_readingMouseBuffer, sizeof(nox_readingMouseBuffer), 1},
 	{0x5D4594 + 805660, (void*)&nox_mouse, sizeof(nox_mouse), 1},
 	{0x5D4594 + 805716, (void*)&nox_mouse_prev, sizeof(nox_mouse_prev), 1},
 	{0x5D4594 + 805772, (void*)&nox_mouse_min, sizeof(nox_mouse_min), 1},
-	{0x5D4594 + 805780, (void*)&nox_mouse_prev_left, sizeof(nox_mouse_prev_left), 1},
-	{0x5D4594 + 805788, (void*)&nox_mouse_prev_right, sizeof(nox_mouse_prev_right), 1},
-	{0x5D4594 + 805796, (void*)&nox_mouse_prev_middle, sizeof(nox_mouse_prev_middle), 1},
+	{0x5D4594 + 805780, (void*)&nox_mouse_prev_btn, sizeof(nox_mouse_prev_btn), 1},
 	{0x5D4594 + 805812, (void*)&nox_mouse_prev_seq, sizeof(nox_mouse_prev_seq), 1},
 	{0x5D4594 + 805828, (void*)&nox_mouse_prev_seq_2, sizeof(nox_mouse_prev_seq_2), 1},
 	{0x5D4594 + 830604, (void*)&nox_things_head, sizeof(nox_things_head), 1},

@@ -183,7 +183,6 @@ FILE* nox_video_bag_fileptr = 0;
 
 nox_mouse_state_t nox_input_buffer[256] = {0};
 int nox_input_buffer_cap = sizeof(nox_input_buffer) / sizeof(nox_mouse_state_t);
-int nox_processing_input = 0;
 
 nox_mouse_state_t nox_mouse = {0};
 nox_mouse_state_t nox_mouse_prev = {0};
@@ -195,9 +194,7 @@ mouse_pos_t nox_mouse_max = {NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1};
 #else
 mouse_pos_t nox_mouse_max = {639, 478}; // ugly hack for MSVC
 #endif
-mouse_pos_t nox_mouse_prev_left = {0};
-mouse_pos_t nox_mouse_prev_right = {0};
-mouse_pos_t nox_mouse_prev_middle = {0};
+mouse_pos_t nox_mouse_prev_btn[3] = {0};
 
 obj_5D4594_754088_t* ptr_5D4594_754088 = 0;
 int ptr_5D4594_754088_cnt = 0;
@@ -5470,7 +5467,7 @@ void sub_430140(int a1) {
 	*getMemU32Ptr(0x5D4594, 791356) = 0;
 	*getMemU32Ptr(0x5D4594, 791376) = 1;
 	*getMemU32Ptr(0x5D4594, 791368) = 0;
-	sub_4302A0_process_events(1, 1);
+	nox_client_processMouseEvents_4302A0(1, 1);
 }
 
 //----- (00430190) --------------------------------------------------------
@@ -5505,140 +5502,99 @@ void sub_430210() {
 }
 
 //----- (00430230) --------------------------------------------------------
-void sub_430230() {
-	if (nox_mouse.left_state && (nox_mouse_prev.field_6 == 5 || nox_mouse_prev.field_6 == 8)) {
-		nox_mouse.field_6 = 8;
+void nox_client_mouseBtnStateReset(int ind) {
+	nox_mouse_btn_t* cur = &nox_mouse.btn[ind];
+	nox_mouse_btn_t* prev = &nox_mouse_prev.btn[ind];
+	int btn = 4*(ind+1);
+
+	if (cur->pressed && (prev->state == btn + NOX_MOUSE_DOWN || prev->state == btn + NOX_MOUSE_PRESSED)) {
+		cur->state = btn + NOX_MOUSE_PRESSED;
 	}
-	if (nox_mouse.right_state && (nox_mouse_prev.field_9 == 9 || nox_mouse_prev.field_9 == 12)) {
-		nox_mouse.field_9 = 12;
-	}
-	if (nox_mouse.middle_state && (nox_mouse_prev.field_12 == 13 || nox_mouse_prev.field_12 == 16)) {
-		nox_mouse.field_12 = 16;
-	}
+}
+void nox_client_mouseBtnState_430230() {
+	nox_client_mouseBtnStateReset(NOX_MOUSE_LEFT);
+	nox_client_mouseBtnStateReset(NOX_MOUSE_RIGHT);
+	nox_client_mouseBtnStateReset(NOX_MOUSE_MIDDLE);
 }
 
 //----- (004302A0) --------------------------------------------------------
-void __cdecl sub_4302A0_process_events(int evNum, int a2) {
+void nox_client_mouseBtnStateApply(nox_mouse_state_t* evt, mouse_pos_t pos, int ind) {
+	nox_mouse_btn_t* ev = &evt->btn[ind];
+	nox_mouse_btn_t* cur = &nox_mouse.btn[ind];
+	mouse_pos_t prevPos = nox_mouse_prev_btn[ind];
+	int btn = 4*(ind+1);
+
+	if (ev->seq == 0) {
+		nox_client_mouseBtnStateReset(ind);
+		return;
+	}
+	if (cur->pressed == ev->pressed) {
+		return;
+	}
+	int dx = pos.x - prevPos.x;
+	int dy = pos.y - prevPos.y;
+	if (ev->pressed) {
+		if (cur->state != btn + NOX_MOUSE_UP) {
+			cur->state = btn + NOX_MOUSE_DOWN;
+			cur->pressed = 1;
+			cur->seq = nox_mouse_prev_seq;
+		}
+	} else {
+		if (((int)nox_mouse_prev_seq - cur->seq) >= 15 || (dx*dx + dy*dy >= 100)) {
+			cur->state = btn + NOX_MOUSE_DRAG_END;
+		} else {
+			cur->state = btn + NOX_MOUSE_UP;
+		}
+		cur->pressed = 0;
+		cur->seq = nox_mouse_prev_seq;
+	}
+}
+void nox_client_mouseBtnStateFinal(mouse_pos_t pos, int ind) {
+	nox_mouse_btn_t* cur = &nox_mouse.btn[ind];
+	int btn = 4*(ind+1);
+
+	if (cur->state == btn + NOX_MOUSE_DOWN) {
+		nox_mouse_prev_btn[ind]= pos;
+	}
+}
+void nox_client_processMouseEvents_4302A0(int evNum, int a2) {
 	if (nox_mouse_prev_seq_2 != nox_mouse_prev_seq) {
-		nox_mouse.field_6 = 0;
-		nox_mouse.field_9 = 0;
-		nox_mouse.field_12 = 0;
-		nox_mouse.z = 0;
+		nox_mouse.btn[NOX_MOUSE_LEFT].state = 0;
+		nox_mouse.btn[NOX_MOUSE_RIGHT].state = 0;
+		nox_mouse.btn[NOX_MOUSE_MIDDLE].state = 0;
+		nox_mouse.wheel = 0;
 		nox_mouse_prev_seq_2 = nox_mouse_prev_seq;
 	}
 	int num = 0;
 	if (obj_5D4594_754104_switch != 1) {
 		num = evNum;
-		if (!evNum)
-			sub_430230();
-	}
-	int x = 0;
-	int y = 0;
-	if (num <= 0) {
-		y = nox_mouse.pos.y;
-		x = nox_mouse.pos.x;
-	} else {
-		for (int i = 0; i < num; i++) {
-			nox_mouse_state_t* ev = &nox_input_buffer[i];
-			sub_430A00_change_mouse_pos(ev->pos.x, ev->pos.y, 0);
-
-			x = nox_mouse.pos.x;
-			y = nox_mouse.pos.y;
-			nox_mouse.z += ev->z;
-
-			int dx, dy;
-
-			// left mouse button
-			if (ev->left_seq == 0) {
-				if (nox_mouse.left_state && (nox_mouse_prev.field_6 == 5 || nox_mouse_prev.field_6 == 8)) {
-					nox_mouse.field_6 = 8;
-				}
-			} else if (nox_mouse.left_state != ev->left_state) {
-				if (ev->left_state) {
-					if (nox_mouse.field_6 != 7) {
-						nox_mouse.field_6 = 5;
-						nox_mouse.left_state = 1;
-						nox_mouse.left_seq = nox_mouse_prev_seq;
-					}
-				} else if ((unsigned int)((int)(nox_mouse_prev_seq)-nox_mouse.left_seq) >= 15 ||
-						   (dx = nox_mouse.pos.x - nox_mouse_prev_left.x, dy = nox_mouse.pos.y - nox_mouse_prev_left.y,
-							dx * dx + dy * dy >= 100)) {
-					nox_mouse.field_6 = 6;
-					nox_mouse.left_state = 0;
-					nox_mouse.left_seq = nox_mouse_prev_seq;
-				} else {
-					nox_mouse.field_6 = 7;
-					nox_mouse.left_state = 0;
-					nox_mouse.left_seq = nox_mouse_prev_seq;
-				}
-			}
-
-			// right mouse button
-			if (ev->right_seq == 0) {
-				if (nox_mouse.right_state && (nox_mouse_prev.field_9 == 9 || nox_mouse_prev.field_9 == 12)) {
-					nox_mouse.field_9 = 12;
-				}
-			} else if (nox_mouse.right_state != ev->right_state) {
-				if (ev->right_state) {
-					if (nox_mouse.field_9 != 11) {
-						nox_mouse.field_9 = 9;
-						nox_mouse.right_state = 1;
-						nox_mouse.right_seq = nox_mouse_prev_seq;
-					}
-				} else if ((unsigned int)((int)(nox_mouse_prev_seq)-nox_mouse.right_seq) >= 15 ||
-						   (dx = nox_mouse.pos.x - nox_mouse_prev_right.x,
-							dy = nox_mouse.pos.y - nox_mouse_prev_right.y, dx * dx + dy * dy >= 100)) {
-					nox_mouse.field_9 = 10;
-					nox_mouse.right_state = 0;
-					nox_mouse.right_seq = nox_mouse_prev_seq;
-				} else {
-					nox_mouse.field_9 = 11;
-					nox_mouse.right_state = 0;
-					nox_mouse.right_seq = nox_mouse_prev_seq;
-				}
-			}
-
-			// middle mouse button
-			if (ev->middle_seq == 0) {
-				if (nox_mouse.middle_state && (nox_mouse_prev.field_12 == 13 || nox_mouse_prev.field_12 == 16)) {
-					nox_mouse.field_12 = 16;
-				}
-			} else if (nox_mouse.middle_state != ev->middle_state) {
-				if (ev->middle_state) {
-					if (nox_mouse.field_12 != 15) {
-						nox_mouse.field_12 = 13;
-						nox_mouse.middle_state = 1;
-						nox_mouse.middle_seq = nox_mouse_prev_seq;
-					}
-				} else if ((unsigned int)((int)(nox_mouse_prev_seq)-nox_mouse.middle_seq) >= 15 ||
-						   (dx = nox_mouse.pos.x - nox_mouse_prev_middle.x,
-							dy = nox_mouse.pos.y - nox_mouse_prev_middle.y, dx * dx + dy * dy >= 100)) {
-					nox_mouse.field_12 = 14;
-					nox_mouse.middle_state = 0;
-					nox_mouse.middle_seq = nox_mouse_prev_seq;
-				} else {
-					nox_mouse.field_12 = 15;
-					nox_mouse.middle_state = 0;
-					nox_mouse.middle_seq = nox_mouse_prev_seq;
-				}
-			}
+		if (num == 0) {
+			nox_client_mouseBtnState_430230();
 		}
 	}
-	if (nox_mouse.field_6 == 5) {
-		nox_mouse_prev_left.x = x;
-		nox_mouse_prev_left.y = y;
+	mouse_pos_t pos = nox_mouse.pos;
+	for (int i = 0; i < num; i++) {
+		nox_mouse_state_t* ev = &nox_input_buffer[i];
+		// apply relative pos
+		nox_client_changeMousePos_430A00(ev->pos.x, ev->pos.y, false);
+		nox_mouse.wheel += ev->wheel;
+
+		// variable needs to be updated as well
+		pos = nox_mouse.pos;
+
+		// apply button states
+		nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_LEFT);
+		nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_RIGHT);
+		nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_MIDDLE);
 	}
-	if (nox_mouse.field_9 == 9) {
-		nox_mouse_prev_right.x = x;
-		nox_mouse_prev_right.y = y;
-	}
-	if (nox_mouse.field_12 == 13) {
-		nox_mouse_prev_middle.x = x;
-		nox_mouse_prev_middle.y = y;
-	}
-	nox_mouse.field_3 = x - nox_mouse_prev.pos.x;
-	nox_mouse.field_4 = y - nox_mouse_prev.pos.y;
-	if (nox_mouse.field_3 * nox_mouse.field_3 + (y - nox_mouse_prev.pos.y) * (y - nox_mouse_prev.pos.y) >= 4) {
+	// update button prev pos, if necessary
+	nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_LEFT);
+	nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_RIGHT);
+	nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_MIDDLE);
+
+	nox_mouse.dpos.x = pos.x - nox_mouse_prev.pos.x;
+	nox_mouse.dpos.y = pos.y - nox_mouse_prev.pos.y;
+	if (nox_mouse.dpos.x * nox_mouse.dpos.x + nox_mouse.dpos.y * nox_mouse.dpos.y >= 4) {
 		*getMemU32Ptr(0x5D4594, 805824) = 0;
 		*getMemU32Ptr(0x5D4594, 805804) = 0;
 	} else {
@@ -5647,32 +5603,33 @@ void __cdecl sub_4302A0_process_events(int evNum, int a2) {
 			*getMemU32Ptr(0x5D4594, 805804) = 1;
 	}
 	if (a2) {
-		if (nox_mouse.z <= 0)
-			nox_mouse.z = nox_mouse.z >= 0 ? 0 : 20;
-		else
-			nox_mouse.z = 19;
+		if (nox_mouse.wheel <= 0) {
+			nox_mouse.wheel = nox_mouse.wheel >= 0 ? 0 : 20;
+		} else {
+			nox_mouse.wheel = 19;
+		}
 		nox_mouse_prev = nox_mouse;
 	}
 }
 
 //----- (004306A0) --------------------------------------------------------
+int nox_readingMouseBuffer = 0;
 void __cdecl nox_client_readMouseBuffer_4306A0(int a1) {
-	if (nox_processing_input)
+	if (nox_readingMouseBuffer) {
 		return;
-	nox_processing_input = 1;
-	int v2 = 0;
-	while (1) {
-		char v4 = sub_47DB20_get_mouse_data(&nox_input_buffer[v2]);
-		if (v4 == -1)
-			continue;
-		v2++;
-		if (!v4 || v2 >= nox_input_buffer_cap)
-			break;
 	}
-	int v5 = v2 - 1;
-	sub_4302A0_process_events(v5, a1);
-	nox_processing_input = 0;
-	if (v5) {
+	nox_readingMouseBuffer = 1;
+	int n = 0;
+	for (int i = 0; i < nox_input_buffer_cap; i++) {
+		nox_mouse_state_t* e = &nox_input_buffer[i];
+		if (!nox_client_nextMouseEvent_47DB20(e)) {
+			break;
+		}
+		n++;
+	}
+	nox_client_processMouseEvents_4302A0(n, a1);
+	nox_readingMouseBuffer = 0;
+	if (n > 0) {
 		*getMemU32Ptr(0x5D4594, 805816) = nox_mouse_prev_seq;
 	}
 }
@@ -5846,7 +5803,7 @@ int __cdecl sub_4309D0(unsigned __int8 a1, char a2) {
 int2* __cdecl nox_client_getMousePos_4309F0() { return &nox_mouse.pos; }
 
 //----- (00430A00) --------------------------------------------------------
-void __cdecl sub_430A00_change_mouse_pos(int x, int y, int isAbs) {
+void nox_client_changeMousePos_430A00(int x, int y, bool isAbs) {
 	mouse_pos_t p;
 	p.x = x;
 	p.y = y;
@@ -5908,7 +5865,7 @@ int nox_xxx_cursor_430AF0() { return dword_5d4594_805820; }
 int nox_xxx_cursor_430B00() { return nox_xxx_useAudio_587000_80772; }
 
 //----- (00430B10) --------------------------------------------------------
-void __cdecl sub_430B10_set_mouse_pos(int x, int y) { sub_430A00_change_mouse_pos(x, y, 1); }
+void __cdecl nox_client_setMousePos_430B10(int x, int y) { nox_client_changeMousePos_430A00(x, y, true); }
 
 //----- (00430B30) --------------------------------------------------------
 int sub_430B30() { return *getMemU32Ptr(0x5D4594, 805804); }
@@ -9723,7 +9680,7 @@ void __cdecl sub_43AFC0(int a1) {
 		v10.field_4 = *((__int16*)v1 + 23) + 27;
 		dword_5d4594_814624 = v1;
 		sub_439370(&v10, (int)v1);
-		sub_430B10_set_mouse_pos(v10.field_0, v10.field_4);
+		nox_client_setMousePos_430B10(v10.field_0, v10.field_4);
 		return;
 	}
 	sub_43A920();
@@ -9740,7 +9697,7 @@ void __cdecl sub_43AFC0(int a1) {
 	dword_5d4594_814624 = v1;
 	v10.field_4 = v9 - v8 + v5 + 27;
 	sub_439370(&v10, (int)v1);
-	sub_430B10_set_mouse_pos(v10.field_0, v10.field_4);
+	nox_client_setMousePos_430B10(v10.field_0, v10.field_4);
 }
 
 //----- (0043B0E0) --------------------------------------------------------

@@ -711,24 +711,33 @@ typedef struct mouse_pos_t {
 	int y;
 } mouse_pos_t;
 
+enum {
+	NOX_MOUSE_LEFT = 0,
+	NOX_MOUSE_RIGHT = 1,
+	NOX_MOUSE_MIDDLE = 2
+};
+
+enum {
+	NOX_MOUSE_DOWN = 1,
+	NOX_MOUSE_DRAG_END = 2,
+	NOX_MOUSE_UP = 3,
+	NOX_MOUSE_PRESSED = 4
+};
+
+typedef struct nox_mouse_btn_t {
+	int pressed;
+	_DWORD state;
+	_DWORD seq;
+} nox_mouse_btn_t;
+_Static_assert(sizeof(nox_mouse_btn_t) == 12, "wrong size of nox_mouse_btn_t structure!");
+
 typedef struct nox_mouse_state_t {
 	mouse_pos_t pos;
-	int z;
+	int wheel;
 
-	_DWORD field_3;
-	_DWORD field_4;
+	mouse_pos_t dpos;
 
-	_DWORD left_state;
-	_DWORD field_6;
-	_DWORD left_seq;
-
-	_DWORD right_state;
-	_DWORD field_9;
-	_DWORD right_seq;
-
-	_DWORD middle_state;
-	_DWORD field_12;
-	_DWORD middle_seq;
+	nox_mouse_btn_t btn[3];
 } nox_mouse_state_t;
 _Static_assert(sizeof(nox_mouse_state_t) == 56, "wrong size of nox_mouse_state_t structure!");
 
