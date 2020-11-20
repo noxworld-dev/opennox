@@ -608,7 +608,17 @@ _Static_assert(sizeof(nox_drawable) == 512, "wrong size of nox_drawable structur
 #define NOX_OBJ_1050020_XXX 21
 #define NOX_OBJ_1050020_MAX NOX_OBJ_1050020_XXX*4
 typedef struct nox_obj_1050020_t {
-	_BYTE data[148];
+	void* field_0;
+	_DWORD field_4;
+	_DWORD data_4[30];
+	_DWORD field_128;
+	_DWORD field_132;
+	_DWORD field_136;
+	_BYTE field_140;
+	_BYTE field_141;
+	_BYTE field_142;
+	_BYTE field_143;
+	_DWORD field_144;
 } nox_obj_1050020_t;
 _Static_assert(sizeof(nox_obj_1050020_t) == 148, "wrong size of nox_obj_1050020_t structure!");
 
