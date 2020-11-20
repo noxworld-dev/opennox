@@ -493,12 +493,6 @@ typedef struct nox_savegame_xxx {
 _Static_assert(sizeof(nox_savegame_xxx) == 1278, "wrong size of nox_savegame_xxx structure!");
 _Static_assert(sizeof(SYSTEMTIME) == 16, "wrong size of SYSTEMTIME structure!");
 
-#define NOX_OBJ_1050020_MAX 84
-typedef struct nox_obj_1050020_t {
-	_BYTE data[148];
-} nox_obj_1050020_t;
-_Static_assert(sizeof(nox_obj_1050020_t) == 148, "wrong size of nox_obj_1050020_t structure!");
-
 typedef struct nox_drawable {
 	_DWORD field_0;        // 0, 0
 	_DWORD field_1;        // 1, 4
@@ -607,6 +601,16 @@ typedef struct nox_drawable {
 	_DWORD field_127;
 } nox_drawable;
 _Static_assert(sizeof(nox_drawable) == 512, "wrong size of nox_drawable structure!");
+
+// 3108 = NOX_OBJ_1050020_XXX * sizeof(nox_obj_1050020_t)
+// 777 = NOX_OBJ_1050020_XXX * (sizeof(nox_obj_1050020_t)/4)
+// 37 = (sizeof(nox_obj_1050020_t)/4)
+#define NOX_OBJ_1050020_XXX 21
+#define NOX_OBJ_1050020_MAX NOX_OBJ_1050020_XXX*4
+typedef struct nox_obj_1050020_t {
+	_BYTE data[148];
+} nox_obj_1050020_t;
+_Static_assert(sizeof(nox_obj_1050020_t) == 148, "wrong size of nox_obj_1050020_t structure!");
 
 typedef struct obj_412ae0_t obj_412ae0_t;
 typedef struct obj_412ae0_t {
