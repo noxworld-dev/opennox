@@ -763,7 +763,6 @@ unsigned __int8* sub_461B50() {
 	int v3;                  // ecx
 	int v4;                  // edi
 	int v5;                  // esi
-	int v6;                  // ebx
 	int v7;                  // eax
 	unsigned __int8* v8;     // edx
 	unsigned __int8* v9;     // eax
@@ -838,7 +837,7 @@ LABEL_2:
 			}
 		}
 		v5 = 7 * v4 + v3 + 14 * v4;
-		v6 = sizeof(nox_obj_1050020_t) * v5;
+		int v6 = sizeof(nox_obj_1050020_t) * v5;
 		v7 = *getMemU32Ptr(0x5D4594, 1050020 + sizeof(nox_obj_1050020_t) * v5);
 		v8 = getMemAt(0x5D4594, 1050020 + sizeof(nox_obj_1050020_t) * v5);
 		v29 = getMemAt(0x5D4594, 1050020 + sizeof(nox_obj_1050020_t) * v5);
@@ -2701,57 +2700,42 @@ int __cdecl sub_467700(int a1) {
 
 //----- (00467740) --------------------------------------------------------
 int __cdecl sub_467740(int a1) {
-	int result; // eax
-
-	result = a1;
 	dword_5d4594_1062488 = a1;
-	return result;
+	return a1;
 }
 
 //----- (00467810) --------------------------------------------------------
 int __cdecl sub_467810(int a1, int a2) {
-	int result; // eax
-
-	if (a1 < 0 || a2 < 0 || a1 >= 4 || a2 >= 20)
-		result = 0;
-	else
-		result = getMemByte(0x5D4594, 1050020 + 140 + sizeof(nox_obj_1050020_t) * (a2 + 14 * a1 + 7 * a1));
-	return result;
+	if (a1 < 0 || a2 < 0 || a1 >= 4 || a2 >= 20) {
+		return 0;
+	}
+	return getMemByte(0x5D4594, 1050020 + 140 + sizeof(nox_obj_1050020_t) * (a2 + 14 * a1 + 7 * a1));
 }
 
 //----- (00467850) --------------------------------------------------------
 int __cdecl sub_467850(int a1) {
 	char* v1;   // eax
-	int result; // eax
-
 	v1 = sub_467520(a1);
-	if (v1)
-		result = (unsigned __int8)v1[140];
-	else
-		result = 0;
-	return result;
+	if (v1) {
+		return (unsigned __int8) v1[140];
+	}
+	return 0;
 }
 
 //----- (00467870) --------------------------------------------------------
 char* __cdecl sub_467870(int a1, int a2) {
-	char* result; // eax
-
-	if (a1 < 0 || a2 < 0 || a1 >= 4 || a2 >= 20)
-		result = 0;
-	else
-		result = (char*)getMemAt(0x5D4594, 1050020 + 4 + sizeof(nox_obj_1050020_t) * (a2 + 14 * a1 + 7 * a1));
-	return result;
+	if (a1 < 0 || a2 < 0 || a1 >= 4 || a2 >= 20) {
+		return 0;
+	}
+	return (char*)getMemAt(0x5D4594, 1050020 + 4 + sizeof(nox_obj_1050020_t) * (a2 + 14 * a1 + 7 * a1));
 }
 
 //----- (004678B0) --------------------------------------------------------
 int sub_4678B0() {
-	int result; // eax
-
-	if (dword_5d4594_1062480)
-		result = *(_DWORD*)(dword_5d4594_1062480 + 4);
-	else
-		result = 0;
-	return result;
+	if (dword_5d4594_1062480) {
+		return *(_DWORD *) (dword_5d4594_1062480 + 4);
+	}
+	return 0;
 }
 
 //----- (004678C0) --------------------------------------------------------
