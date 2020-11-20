@@ -85,7 +85,7 @@ jobs:
       - uses: lukka/get-cmake@latest
 
       - name: Restore artifacts, or run vcpkg, build and cache artifacts
-        uses: lukka/run-vcpkg@v3
+        uses: lukka/run-vcpkg@v5
         id: runvcpkg
         with:
           vcpkgArguments: '@${{ github.workspace }}/${{ matrix.config.vcpkg.responseFile }}'
