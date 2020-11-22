@@ -8179,12 +8179,12 @@ unsigned int __cdecl nox_xxx_spellMayTrap_424BF0(int a1) {
 }
 
 //----- (00424C40) --------------------------------------------------------
-__int16 __cdecl nox_xxx_spellGetWorth_424C40(float a1) {
+__int16 __cdecl nox_xxx_spellGetWorth_424C40(int a1) {
 	float v2; // [esp+4h] [ebp+4h]
 
-	if ((int)SLODWORD(a1) <= 0 || SLODWORD(a1) >= 137)
+	if (a1 <= 0 || a1 >= 137)
 		return 0;
-	v2 = (double)*getMemU16Ptr(0x5D4594, 80 * LODWORD(a1) + 588188);
+	v2 = (double)*getMemU16Ptr(0x5D4594, 80 * a1 + 588188);
 	if (nox_common_gameFlags_check_40A5C0(4096))
 		v2 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69708)) * v2;
 	return nox_float2int(v2);

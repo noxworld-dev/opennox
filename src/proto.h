@@ -1063,7 +1063,7 @@ int __cdecl sub_424B90(int a1);
 int __cdecl nox_xxx_spellDisable_424BB0(int a1);
 int sub_424BD0();
 unsigned int __cdecl nox_xxx_spellMayTrap_424BF0(int a1);
-__int16 __cdecl nox_xxx_spellGetWorth_424C40(float a1);
+__int16 __cdecl nox_xxx_spellGetWorth_424C40(int a1);
 char __cdecl sub_424CB0(int a1);
 int sub_424D00();
 int __cdecl sub_424D20(int a1);
