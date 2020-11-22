@@ -13,6 +13,7 @@
 #include "common/wolapi/wolchnl.h"
 #include "common/wolapi/wolstate.h"
 #include "common/wolapi/woluser.h"
+#include "common/random.h"
 
 #include "client/gui/guibook.h"
 

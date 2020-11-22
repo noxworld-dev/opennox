@@ -1,5 +1,6 @@
 #include "guimeter.h"
 
+#include "../../common/random.h"
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
 #include "tooltip.h"

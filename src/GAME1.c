@@ -17,6 +17,7 @@
 #include "common/ability/comablty.h"
 #include "common/magic/speltree.h"
 #include "common/wolapi/woluser.h"
+#include "common/random.h"
 
 #include "static.h"
 #include "proto.h"
@@ -40,8 +41,6 @@ extern _DWORD nox_xxx_useAudio_587000_80800;
 extern _DWORD dword_5d4594_251708;
 extern _DWORD dword_5d4594_251716;
 extern _DWORD dword_5d4594_10984;
-int dword_5d4594_371260 = 0;
-int dword_5d4594_371264 = 0;
 extern _DWORD dword_5d4594_1308;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_3616;
@@ -81,7 +80,7 @@ extern _DWORD dword_5d4594_4668;
 
 extern unsigned char byte_581450_1488[4096];
 extern unsigned char byte_581450_1416[72];
-extern unsigned int arr_587000_37892[4096];
+extern unsigned int nox_rnd_table_37892[4096];
 
 unsigned char byte_5D4594_2655724[4096] = {0};
 
@@ -10054,66 +10053,6 @@ int __cdecl sub_415EC0(char* a1) {
 
 //----- (00415F20) --------------------------------------------------------
 void sub_415F20() { nox_platform_srand(0x961u); }
-
-//----- (00415F30) --------------------------------------------------------
-int __cdecl nox_xxx_replayWriteRndCounter_415F30(int a1) { return _write(a1, &dword_5d4594_371260, 4); }
-
-//----- (00415F50) --------------------------------------------------------
-int __cdecl nox_xxx_replayReadeRndCounter_415F50(int a1) { return _read(a1, &dword_5d4594_371260, 4); }
-
-//----- (00415F70) --------------------------------------------------------
-void nox_common_initRandom_415F70() {
-	int v = time(0) % 4096;
-	dword_5d4594_371260 = v;
-	dword_5d4594_371264 = v;
-}
-
-//----- (00415FA0) --------------------------------------------------------
-int nox_common_randomInt_415FA0(int a1, int a2) {
-	int result; // eax
-	int v3;     // edx
-
-	result = a2;
-	v3 = dword_5d4594_371260;
-	if (a2 - a1 != -1) {
-		if (++dword_5d4594_371260 >= 4096)
-			dword_5d4594_371260 = 0;
-		result = a1 + arr_587000_37892[v3] % (a2 - a1 + 1);
-	}
-	return result;
-}
-
-//----- (00415FF0) --------------------------------------------------------
-int nox_common_randomIntMinMax_415FF0(int min, int max, const char* file, int line) {
-	int v4 = (*(int*)&dword_5d4594_371264)++;
-	if (*(int*)&dword_5d4594_371264 >= 4096)
-		*(int*)&dword_5d4594_371264 = 0;
-	return min + arr_587000_37892[v4] % (max - min + 1);
-}
-
-//----- (00416030) --------------------------------------------------------
-double nox_common_randomFloat_416030(float a1, float a2) {
-	double v2; // st7
-	int v3;    // edx
-
-	v2 = a2 - a1;
-	v3 = dword_5d4594_371260;
-	if (v2 == 0.0)
-		return a2;
-	if (++dword_5d4594_371260 >= 4096)
-		dword_5d4594_371260 = 0;
-	return v2 * ((double)arr_587000_37892[v3] * 0.000030518509) + a1;
-}
-
-//----- (00416090) --------------------------------------------------------
-double nox_common_randomFloatXxx_416090(float a1, float a2) {
-	int v2; // ecx
-
-	v2 = (dword_5d4594_371264)++;
-	if (*(int*)&dword_5d4594_371264 >= 4096)
-		dword_5d4594_371264 = 0;
-	return (a2 - a1) * ((double)arr_587000_37892[v2] * 0.000030518509) + a1;
-}
 
 //----- (004160D0) --------------------------------------------------------
 int __cdecl nox_xxx_setKeybTimeout_4160D0(int a1) {

@@ -1,5 +1,6 @@
 #include "guibook.h"
 
+#include "../../common/random.h"
 #include "../../proto.h"
 #include "guimsg.h"
 

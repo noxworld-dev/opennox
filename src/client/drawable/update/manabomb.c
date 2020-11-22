@@ -1,5 +1,6 @@
 #include "manabomb.h"
 
+#include "../../../common/random.h"
 #include "../../../proto.h"
 #include "../../draw/fx.h"
 extern _DWORD dword_5d4594_1522956;

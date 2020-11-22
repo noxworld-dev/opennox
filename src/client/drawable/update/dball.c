@@ -1,4 +1,5 @@
 #include "dball.h"
+#include "../../../common/random.h"
 
 #include "../../../proto.h"
 #include "../../draw/fx.h"

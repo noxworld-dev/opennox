@@ -1,4 +1,5 @@
 #include "fx.h"
+#include "../../common/random.h"
 
 #include "../../proto.h"
 

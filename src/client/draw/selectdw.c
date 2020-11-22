@@ -1,4 +1,5 @@
 #include "selectdw.h"
+#include "../../common/random.h"
 
 #include "../../proto.h"
 extern _DWORD dword_5d4594_1096640;

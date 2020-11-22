@@ -1,5 +1,6 @@
 #include "selclass.h"
 
+#include "../../common/random.h"
 #include "../../proto.h"
 #include "selcolor.h"
 extern _DWORD dword_5d4594_1307724;

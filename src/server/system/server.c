@@ -1,5 +1,6 @@
 #include "server.h"
 
+#include "../../common/random.h"
 #include "../../client/gui/guiquit.h"
 #include "../../common/system/settings.h"
 #include "../../common/telnet/telnetd.h"

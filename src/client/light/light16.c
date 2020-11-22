@@ -1,6 +1,7 @@
 #include "light16.h"
 #include "../draw/glowdraw.h"
 
+#include "../../common/random.h"
 #include "../../proto.h"
 #include "../io/win95/dxvideo.h"
 

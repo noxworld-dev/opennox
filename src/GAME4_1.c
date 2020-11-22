@@ -2,6 +2,7 @@
 #include "server/magic/plyrspel.h"
 #include "server/network/mapsend.h"
 #include "server/system/trade.h"
+#include "common/random.h"
 
 #include "proto.h"
 

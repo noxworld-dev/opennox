@@ -1,5 +1,6 @@
 #include "drainup.h"
 
+#include "../../../common/random.h"
 #include "../../../proto.h"
 
 //----- (004CD690) --------------------------------------------------------
