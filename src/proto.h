@@ -1668,7 +1668,7 @@ int nox_xxx_cliSendOutgoingClient_43CB50();
 int sub_43CBB0();
 BOOL __cdecl sub_43CC60(int a1);
 int sub_43CC80();
-int sub_43CCA0();
+void sub_43CCA0();
 int sub_43CEB0();
 int sub_43CF40();
 int sub_43CF70();
