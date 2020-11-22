@@ -1978,15 +1978,14 @@ double __cdecl sub_42AAA0(int* a1) {
 void __cdecl sub_42ABF0(int a1, int a2, int a3) {
 	double v3;  // st7
 	int i;      // esi
-	__int64 v5; // rax
 
 	if (a3 > 0)
 		a3 = -a3;
 	v3 = sub_42AAA0(&a3);
 	for (i = 0; i < a2; ++i) {
-		v5 = (__int64)(v3 * 255.0);
-		if ((int)v5 < 0)
-			LODWORD(v5) = -(int)v5;
+		int v5 = (int)(v3 * 255.0);
+		if (v5 < 0)
+			v5 = -v5;
 		*(_BYTE*)(i + a1) = v5;
 		v3 = sub_42AAA0(&a3);
 	}
