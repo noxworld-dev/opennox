@@ -195,24 +195,24 @@ int __cdecl sub_4A22A0(int a1, int* a2) {
 			v6 = *((_DWORD*)v4 + 1);
 			if (v6) {
 				*((_DWORD*)v4 + 1) = v6 - 1;
-				*((_DWORD*)v4 + 2) = nox_xxx_randGetMinMax_415FF0(60, 120, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 180);
+				*((_DWORD*)v4 + 2) = nox_common_randomIntMinMax_415FF0(60, 120, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 180);
 			}
 			v7 = (*(_DWORD*)v4)-- == 1;
 			v8 = *((_DWORD*)v4 - 5);
 			if (v7) {
 				if (v8) {
 					*((_DWORD*)v4 - 5) = 0;
-					*(_DWORD*)v4 = nox_xxx_randGetMinMax_415FF0(*((_DWORD*)v4 - 4), *((_DWORD*)v4 - 3),
+					*(_DWORD*)v4 = nox_common_randomIntMinMax_415FF0(*((_DWORD*)v4 - 4), *((_DWORD*)v4 - 3),
 											  "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 211);
-					*((_DWORD*)v4 + 2) = nox_xxx_randGetMinMax_415FF0(60, 90, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 214);
+					*((_DWORD*)v4 + 2) = nox_common_randomIntMinMax_415FF0(60, 90, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 214);
 				} else {
 					*((_DWORD*)v4 - 5) = 1;
-					*(_DWORD*)v4 = nox_xxx_randGetMinMax_415FF0(*((_DWORD*)v4 - 2), *((_DWORD*)v4 - 1),
+					*(_DWORD*)v4 = nox_common_randomIntMinMax_415FF0(*((_DWORD*)v4 - 2), *((_DWORD*)v4 - 1),
 											  "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 199);
 				}
 			} else if (!v8 && !*((_DWORD*)v4 + 2) && !*((_DWORD*)v4 + 1) &&
-					   nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 228) > 75) {
-				*((_DWORD*)v4 + 1) = nox_xxx_randGetMinMax_415FF0(4, 8, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 229);
+					   nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 228) > 75) {
+				*((_DWORD*)v4 + 1) = nox_common_randomIntMinMax_415FF0(4, 8, "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 229);
 			}
 			v9 = *((_DWORD*)v4 + 4);
 			v4 += 48;

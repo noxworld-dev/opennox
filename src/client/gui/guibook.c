@@ -426,13 +426,13 @@ int __cdecl nox_xxx_bookDrawFn_45C7D0(_DWORD* a1) {
 	if (dword_5d4594_1046648) {
 		v3 = 50;
 		do {
-			v19 = nox_xxx_randGetMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1287);
-			v17 = nox_xxx_randGetMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1286);
-			v16 = nox_xxx_randGetMinMax_415FF0(-10, -1, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1284);
-			v15 = nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1283);
-			v4 = nox_xxx_randGetMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1282);
+			v19 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1287);
+			v17 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1286);
+			v16 = nox_common_randomIntMinMax_415FF0(-10, -1, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1284);
+			v15 = nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1283);
+			v4 = nox_common_randomIntMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1282);
 			v13 = v24 + v4;
-			v5 = nox_xxx_randGetMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1281);
+			v5 = nox_common_randomIntMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1281);
 			nox_client_newScreenParticle_431540(v1, v25 + v5, v13, v15, v16, 1, v17, v19, 2, 1);
 			--v3;
 		} while (v3);
@@ -441,11 +441,11 @@ int __cdecl nox_xxx_bookDrawFn_45C7D0(_DWORD* a1) {
 	}
 	v6 = 2;
 	do {
-		v20 = nox_xxx_randGetMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1331);
-		v18 = nox_xxx_randGetMinMax_415FF0(1, 2, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1330);
-		v7 = nox_xxx_randGetMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1326);
+		v20 = nox_common_randomIntMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1331);
+		v18 = nox_common_randomIntMinMax_415FF0(1, 2, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1330);
+		v7 = nox_common_randomIntMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1326);
 		v14 = v24 + v7;
-		v8 = nox_xxx_randGetMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1325);
+		v8 = nox_common_randomIntMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1325);
 		nox_client_newScreenParticle_431540(v1, v25 + v8, v14, 0, 0, 0, v18, v20, 1, 1);
 		--v6;
 	} while (v6);
@@ -517,9 +517,9 @@ void sub_45D870() {
 		v4 = nox_float2int(*(float*)&dword_5d4594_1046640);
 		v5 = 50;
 		do {
-			v8 = nox_xxx_randGetMinMax_415FF0(3, 4, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2483);
-			v7 = v4 - nox_xxx_randGetMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2479);
-			v6 = nox_xxx_randGetMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2478);
+			v8 = nox_common_randomIntMinMax_415FF0(3, 4, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2483);
+			v7 = v4 - nox_common_randomIntMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2479);
+			v6 = nox_common_randomIntMinMax_415FF0(0, 30, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 2478);
 			nox_client_newScreenParticle_431540(v1, v3 + v6, v7, 0, 0, 1, v8, 0, 0, 1);
 			v3 += v9;
 			v4 += v10;

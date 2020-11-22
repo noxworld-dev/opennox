@@ -22,8 +22,8 @@ int __cdecl nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 	v3 = a2;
 	v9 = 2;
 	do {
-		v4 = *(_DWORD*)(v3 + 12) + nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 42);
-		v5 = nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 43);
+		v4 = *(_DWORD*)(v3 + 12) + nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 42);
+		v5 = nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 43);
 		v6 = *(_DWORD*)(v3 + 16) + v5;
 		v7 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1313716), v4, v6);
 		v8 = v7;
@@ -33,7 +33,7 @@ int __cdecl nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 			*(_BYTE*)(v7 + 299) = 0;
 			*(_DWORD*)(v7 + 440) = 0;
 			*(_DWORD*)(v7 + 448) =
-				*getMemU32Ptr(0x5D4594, 2598000) + nox_xxx_randGetMinMax_415FF0(90, 120, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 63);
+				*getMemU32Ptr(0x5D4594, 2598000) + nox_common_randomIntMinMax_415FF0(90, 120, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 63);
 			*(_DWORD*)(v8 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 			*(_WORD*)(v8 + 106) = 0;
 			*(_BYTE*)(v8 + 296) = -5;

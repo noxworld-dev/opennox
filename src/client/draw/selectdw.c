@@ -13,7 +13,7 @@ void __cdecl nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 
 	if (dword_5d4594_1096640) {
 		if (*(_BYTE*)(dword_5d4594_1096640 + 112) & 6 && !sub_495A80(*(_DWORD*)(dword_5d4594_1096640 + 128))) {
-			v4 = nox_xxx_randGetMinMax_415FF0(0, 1, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 440);
+			v4 = nox_common_randomIntMinMax_415FF0(0, 1, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 440);
 			if (!v4) {
 				v3 = *(_DWORD**)getMemAt(0x5D4594, 2598268);
 				goto LABEL_15;
@@ -23,7 +23,7 @@ void __cdecl nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 				goto LABEL_15;
 			}
 		} else {
-			v1 = nox_xxx_randGetMinMax_415FF0(0, 2, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 423);
+			v1 = nox_common_randomIntMinMax_415FF0(0, 2, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 423);
 			if (!v1) {
 				v3 = *(_DWORD**)getMemAt(0x5D4594, 2523948);
 				goto LABEL_15;

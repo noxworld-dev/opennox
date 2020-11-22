@@ -29,7 +29,7 @@ int __cdecl sub_4CD690(_DWORD* a1, int a2) {
 
 	if (!*getMemU32Ptr(0x5D4594, 1522976))
 		*getMemU32Ptr(0x5D4594, 1522976) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 189456));
-	if (nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 20) < 50) {
+	if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 20) < 50) {
 		if (*(_BYTE*)(a2 + 432)) {
 			if (a2 == -432)
 				return 1;
@@ -51,17 +51,17 @@ int __cdecl sub_4CD690(_DWORD* a1, int a2) {
 			v12 = v10;
 			if (!v8 || !v10)
 				return 1;
-			v2 = v10[3] + nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 61);
-			v3 = v12[4] + nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 62);
+			v2 = v10[3] + nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 61);
+			v3 = v12[4] + nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 62);
 			v4 = v8[4];
 			v22 = v8[3];
 		} else {
 			if (a2 == -432)
 				return 1;
 			v2 = *(unsigned __int16*)(a2 + 441) +
-				 nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 31);
+				 nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 31);
 			v3 = *(unsigned __int16*)(a2 + 443) +
-				 nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 32);
+				 nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 32);
 			LOWORD(v22) = *(_WORD*)(a2 + 437);
 			LOWORD(v4) = *(_WORD*)(a2 + 439);
 		}
@@ -83,11 +83,11 @@ int __cdecl sub_4CD690(_DWORD* a1, int a2) {
 			v3 = v13[3] - v24 + v16 - 1;
 		v19 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522976), v2, v3);
 		if (v19) {
-			v20 = nox_xxx_randGetMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 93);
+			v20 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 93);
 			*(_WORD*)(v19 + 432) = v22;
 			*(_WORD*)(v19 + 434) = v23;
 			*(_BYTE*)(v19 + 443) = v20;
-			*(_BYTE*)(v19 + 444) = nox_xxx_randGetMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 100);
+			*(_BYTE*)(v19 + 444) = nox_common_randomIntMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 100);
 		}
 	}
 	return 1;

@@ -32,7 +32,7 @@ void __cdecl sub_4CCEA0(_DWORD* a1, int a2) {
 	if (v6 / 7 > 0) {
 		v16 = v6 / 7;
 		while (1) {
-			v8 = nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 46);
+			v8 = nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 46);
 			v9 = v2[8] + v4 * v8 / 100;
 			v11 = v2[9] + (v3 * v8) / 100;
 			v12 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522964), v9, v11);
@@ -41,20 +41,20 @@ void __cdecl sub_4CCEA0(_DWORD* a1, int a2) {
 				*(_DWORD*)(v12 + 436) = v11 << 12;
 				v17.field_0 = (double)-v18;
 				v17.field_4 = (double)-v15;
-				v13 = nox_xxx_randGetMinMax_415FF0(-25, 25, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 63);
+				v13 = nox_common_randomIntMinMax_415FF0(-25, 25, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 63);
 				v14 = nox_xxx_math_509ED0(&v17) + v13;
 				if (v14 < 0)
 					v14 += (unsigned int)(255 - v14) >> 8 << 8;
 				*(_BYTE*)(v12 + 299) = v14;
 				*(_DWORD*)(v12 + 440) =
-					a2 * nox_xxx_randGetMinMax_415FF0(100, 300, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 74);
+					a2 * nox_common_randomIntMinMax_415FF0(100, 300, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 74);
 				*(_DWORD*)(v12 + 448) =
 					*getMemU32Ptr(0x5D4594, 2598000) +
-					nox_xxx_randGetMinMax_415FF0(30, 45, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 77);
+					nox_common_randomIntMinMax_415FF0(30, 45, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 77);
 				*(_DWORD*)(v12 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 				*(_WORD*)(v12 + 104) = 28;
 				*(_WORD*)(v12 + 106) = 0;
-				*(_BYTE*)(v12 + 296) = nox_xxx_randGetMinMax_415FF0(-2, 4, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 84);
+				*(_BYTE*)(v12 + 296) = nox_common_randomIntMinMax_415FF0(-2, 4, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 84);
 				nox_xxx_sprite_45A110_drawable((_DWORD*)v12);
 			}
 			--v16;

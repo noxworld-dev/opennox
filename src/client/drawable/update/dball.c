@@ -21,13 +21,13 @@ _DWORD* __cdecl nox_xxx_updDrawAddRndSpark_4CDFA0(int a1, _DWORD* a2) {
 			if (result) {
 				result[108] = *(_DWORD*)(a1 + 12) << 12;
 				result[109] = *(_DWORD*)(a1 + 16) << 12;
-				*((_BYTE*)result + 299) = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 37);
-				v4[110] = nox_xxx_randGetMinMax_415FF0(1000, 3000, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 40);
+				*((_BYTE*)result + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 37);
+				v4[110] = nox_common_randomIntMinMax_415FF0(1000, 3000, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 40);
 				v4[112] = *getMemU32Ptr(0x5D4594, 2598000) +
-						  nox_xxx_randGetMinMax_415FF0(10, 40, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 43);
+						  nox_common_randomIntMinMax_415FF0(10, 40, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 43);
 				v4[111] = *getMemU32Ptr(0x5D4594, 2598000);
 				*((_WORD*)v4 + 52) = 22;
-				*((_BYTE*)v4 + 296) = nox_xxx_randGetMinMax_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 49);
+				*((_BYTE*)v4 + 296) = nox_common_randomIntMinMax_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 49);
 				result = nox_xxx_sprite_45A110_drawable(v4);
 			}
 			v3 = (_DWORD*)((char*)v3 - 1);
@@ -55,15 +55,15 @@ int __cdecl nox_xxx_updDrawDBallCharge_4CE0C0(int a1, int a2) {
 	v11[0] = *(_WORD*)(a2 + 12);
 	v11[1] = v3;
 	do {
-		v4 = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 102);
-		v5 = nox_xxx_randGetMinMax_415FF0(2, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 105);
+		v4 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 102);
+		v5 = nox_common_randomIntMinMax_415FF0(2, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 105);
 		v6 = *(_WORD*)(a2 + 16) + v5 * *getMemI16Ptr(0x587000, 8 * v4 + 192092);
 		v11[2] = *(_WORD*)(a2 + 12) + v5 * *getMemI16Ptr(0x587000, 8 * v4 + 192088);
 		v11[3] = v6;
-		if (nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 112) < 50) {
-			v10 = nox_xxx_randGetMinMax_415FF0(6, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 116);
-			v9 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 115);
-			v7 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 114);
+		if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 112) < 50) {
+			v10 = nox_common_randomIntMinMax_415FF0(6, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 116);
+			v9 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 115);
+			v7 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 114);
 			sub_499490(*getMemIntPtr(0x5D4594, 1523012), v11, v7, v9, v10, 0);
 		}
 		--v2;

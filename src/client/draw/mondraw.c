@@ -23,7 +23,7 @@ char __cdecl sub_4BC490(int a1) {
 			v4 = v3 - 2;
 			if (v4) {
 				if (v4 == 2) {
-					v1 = nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 74);
+					v1 = nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 74);
 					if (v1 < 15) {
 						v5 = *(_DWORD*)(a1 + 308);
 						*(_BYTE*)(a1 + 299) = 0;
@@ -53,7 +53,7 @@ char __cdecl sub_4BC490(int a1) {
 					}
 				}
 			} else {
-				v1 = nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 52);
+				v1 = nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 52);
 				if (v1 >= 5) {
 					if (v1 < 10) {
 						v7 = *(_DWORD*)(a1 + 308);
@@ -69,7 +69,7 @@ char __cdecl sub_4BC490(int a1) {
 				}
 			}
 		} else {
-			v1 = nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 66);
+			v1 = nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\mondraw.c", 66);
 			if (v1 < 15) {
 				v8 = *(_DWORD*)(a1 + 308);
 				*(_BYTE*)(a1 + 299) = 0;

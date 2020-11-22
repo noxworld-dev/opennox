@@ -20,7 +20,7 @@ int __cdecl nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {
 	v2 = *getMemU32Ptr(0x5D4594, 1522944);
 	v3 = *getMemU32Ptr(0x5D4594, 1522952);
 	v9 = *getMemU32Ptr(0x5D4594, 1522948);
-	v4 = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 54);
+	v4 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 54);
 	v5 = v4;
 	v6 = nox_xxx_spriteLoadAdd_45A360_drawable(v3, *(_DWORD*)(a2 + 12) + 50 * *getMemIntPtr(0x587000, 8 * v4 + 192088) / 16,
 							 *(_DWORD*)(a2 + 16) + 50 * *getMemIntPtr(0x587000, 8 * v4 + 192092) / 16);
@@ -28,8 +28,8 @@ int __cdecl nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {
 	if (v6) {
 		*(_BYTE*)(v6 + 448) = v5;
 		*(_WORD*)(a2 + 104) = 0;
-		*(_BYTE*)(v6 + 449) = nox_xxx_randGetMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 74);
-		if (nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 75) > 50)
+		*(_BYTE*)(v6 + 449) = nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 74);
+		if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 75) > 50)
 			*(_BYTE*)(v7 + 449) = -*(_BYTE*)(v7 + 449);
 		*(_BYTE*)(v7 + 451) = 1;
 		*(_BYTE*)(v7 + 450) = 50;

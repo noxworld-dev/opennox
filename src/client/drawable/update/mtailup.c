@@ -43,8 +43,8 @@ void __cdecl nox_xxx_updDrawMagic_4CDD80(int a1, _DWORD* a2) {
 	v7 = 0;
 	v15 = 4;
 	do {
-		v8 = v2[8] + v7 / 4 + nox_xxx_randGetMinMax_415FF0(-8, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 66);
-		v9 = nox_xxx_randGetMinMax_415FF0(-8, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 68);
+		v8 = v2[8] + v7 / 4 + nox_common_randomIntMinMax_415FF0(-8, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 66);
+		v9 = nox_common_randomIntMinMax_415FF0(-8, 8, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 68);
 		v10 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1523004), v8, v2[9] + v6 / 4 + v9);
 		v11 = v10;
 		if (v10) {
@@ -55,7 +55,7 @@ void __cdecl nox_xxx_updDrawMagic_4CDD80(int a1, _DWORD* a2) {
 			*(_BYTE*)(v11 + 299) = 0;
 			*(_DWORD*)(v11 + 440) = 0;
 			*(_DWORD*)(v11 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
-									nox_xxx_randGetMinMax_415FF0(10, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 90);
+									nox_common_randomIntMinMax_415FF0(10, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 90);
 			*(_DWORD*)(v11 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 			*(_WORD*)(v11 + 104) = *((_WORD*)v2 + 52);
 			*(_WORD*)(v11 + 106) = *((_WORD*)v2 + 53);

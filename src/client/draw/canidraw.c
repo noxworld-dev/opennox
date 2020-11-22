@@ -33,7 +33,7 @@ int __cdecl nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* d
 				return 0;
 			v10 = dr->field_77;
 		} else {
-			v10 = nox_xxx_randGetMinMax_415FF0(0, v4, "C:\\NoxPost\\src\\client\\Draw\\CAniDraw.c", 57);
+			v10 = nox_common_randomIntMinMax_415FF0(0, v4, "C:\\NoxPost\\src\\client\\Draw\\CAniDraw.c", 57);
 		}
 	} else {
 		v10 = (*getMemUintPtr(0x5D4594, 2598000) + dr->field_32) / (unsigned int)(v5 + 1);

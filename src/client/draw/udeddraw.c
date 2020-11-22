@@ -28,14 +28,14 @@ int __cdecl nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 		*getMemU32Ptr(0x5D4594, 1313728) = 1;
 	}
 	if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(a2 + 316)) <= 0x46) {
-		if (nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 54) > 85) {
+		if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 54) > 85) {
 			v3 = *(_WORD*)(a2 + 328);
 			v14[0] = *(_WORD*)(a2 + 324);
 			v14[1] = v3;
-			v14[2] = *(_WORD*)(a2 + 12) + nox_xxx_randGetMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 60);
-			v14[3] = *(_WORD*)(a2 + 16) + nox_xxx_randGetMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 61);
-			v13 = nox_xxx_randGetMinMax_415FF0(6, 10, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 66);
-			v4 = nox_xxx_randGetMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 65);
+			v14[2] = *(_WORD*)(a2 + 12) + nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 60);
+			v14[3] = *(_WORD*)(a2 + 16) + nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 61);
+			v13 = nox_common_randomIntMinMax_415FF0(6, 10, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 66);
+			v4 = nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 65);
 			sub_499490(*getMemIntPtr(0x5D4594, 1313736), v14, 0, v4, v13, 0);
 		}
 		v5 = *(_DWORD*)(a2 + 12);

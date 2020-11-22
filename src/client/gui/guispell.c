@@ -797,13 +797,13 @@ _DWORD* __cdecl nox_xxx_quickbarAddTrap_460EC0(int a1) {
 		v2 = 50;
 		dword_5d4594_1049536 = nox_win_height + 1;
 		do {
-			v8 = nox_xxx_randGetMinMax_415FF0(4, 6, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2732);
-			v7 = nox_xxx_randGetMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2731);
-			v6 = nox_xxx_randGetMinMax_415FF0(-20, -5, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2729);
-			v5 = nox_xxx_randGetMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2728);
-			v4 = nox_xxx_randGetMinMax_415FF0(0, 20, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2727) +
+			v8 = nox_common_randomIntMinMax_415FF0(4, 6, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2732);
+			v7 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2731);
+			v6 = nox_common_randomIntMinMax_415FF0(-20, -5, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2729);
+			v5 = nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2728);
+			v4 = nox_common_randomIntMinMax_415FF0(0, 20, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2727) +
 				 *(_DWORD*)(dword_5d4594_1049504 + 20) + 10;
-			v3 = nox_xxx_randGetMinMax_415FF0(0, 20, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2726);
+			v3 = nox_common_randomIntMinMax_415FF0(0, 20, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 2726);
 			result = nox_client_newScreenParticle_431540(0, v3 + *(_DWORD*)(dword_5d4594_1049504 + 16) + 10, v4, v5, v6, 1, v7, v8, 2, 1);
 			--v2;
 		} while (v2);

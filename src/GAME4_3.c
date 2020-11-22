@@ -3599,7 +3599,7 @@ int __cdecl nox_xxx_damageToMap_534BC0(int a1, int a2, int a3, int a4, int a5) {
 			v15 = nox_xxx_objectCreateByName_4E3810(v14);
 			if (v15) {
 				nox_xxx_createAt_4DAA50((int)v15, 0, *(float*)&v17.field_0, *(float*)&v17.field_4);
-				v16 = nox_xxx_randFloat_416030(10.0, 20.0);
+				v16 = nox_common_randomFloat_416030(10.0, 20.0);
 				nox_xxx_objectApplyForce_52DF80((int)&v17, (int)v15, v16);
 			}
 		}
@@ -3660,10 +3660,10 @@ int __cdecl nox_xxx_wallPreDestroy_534DA0(int* a1) {
 					v10 = nox_xxx_wallGetBrickObj_410E60(*(unsigned __int8*)(v1 + 1), v7);
 					v11 = nox_xxx_objectCreateByName_4E3810(v10);
 					if (v11) {
-						v15 = nox_xxx_randFloat_416030(-2.0, 2.0) + v17.field_4;
-						v14 = nox_xxx_randFloat_416030(-2.0, 2.0) + v17.field_0;
+						v15 = nox_common_randomFloat_416030(-2.0, 2.0) + v17.field_4;
+						v14 = nox_common_randomFloat_416030(-2.0, 2.0) + v17.field_0;
 						nox_xxx_createAt_4DAA50((int)v11, 0, v14, v15);
-						v16 = nox_xxx_randFloat_416030(4.0, 10.0);
+						v16 = nox_common_randomFloat_416030(4.0, 10.0);
 						nox_xxx_objectApplyForce_52DF80((int)&v17, (int)v11, v16);
 					}
 					if (++v7 >= nox_xxx_wallGetBrickTypeMB_410E40(*(unsigned __int8*)(v1 + 1)))
@@ -7763,10 +7763,10 @@ float* __cdecl nox_xxx_updateProjTrail_53AEC0(int a1) {
 		v20 = (double)nox_float2int(v13);
 		v17 = (double)v16;
 		do {
-			v11 = nox_xxx_randFloat_416030(-2.0, 2.0);
-			v10 = nox_xxx_randFloat_416030(-2.0, 2.0);
-			v9 = nox_xxx_randFloat_416030(-4.0, 4.0) + v20;
-			v8 = nox_xxx_randFloat_416030(-4.0, 4.0) + v17;
+			v11 = nox_common_randomFloat_416030(-2.0, 2.0);
+			v10 = nox_common_randomFloat_416030(-2.0, 2.0);
+			v9 = nox_common_randomFloat_416030(-4.0, 4.0) + v20;
+			v8 = nox_common_randomFloat_416030(-4.0, 4.0) + v17;
 			result = nox_xxx_createSpark_54FD80(v8, v9, 1, 6, v10, v11, 0.0, (int)v1);
 			--v6;
 		} while (v6);
@@ -8300,11 +8300,11 @@ void __cdecl nox_xxx_updateAntiSpellProj_53BB00(int a1) {
 		}
 		v17 = *(float*)(a1 + 56);
 		v18 = *(int*)(a1 + 60);
-		v16 = nox_xxx_randFloat_416030(-2.0, 2.0);
-		v15 = nox_xxx_randFloat_416030(-2.0, 2.0);
+		v16 = nox_common_randomFloat_416030(-2.0, 2.0);
+		v15 = nox_common_randomFloat_416030(-2.0, 2.0);
 		v14 = nox_common_randomInt_415FA0(15, 30);
-		v13 = nox_xxx_randFloat_416030(-4.0, 4.0) + *(float*)&v18;
-		v12 = nox_xxx_randFloat_416030(-4.0, 4.0) + v17;
+		v13 = nox_common_randomFloat_416030(-4.0, 4.0) + *(float*)&v18;
+		v12 = nox_common_randomFloat_416030(-4.0, 4.0) + v17;
 		nox_xxx_createSpark_54FD80(v12, v13, 3, v14, v15, v16, 0.0, v2);
 	} else {
 		nox_xxx_delayedDeleteObject_4E5CC0(a1);
@@ -8919,7 +8919,7 @@ void __cdecl nox_xxx_updateBlackPowderBarrel_53C9A0(float* a1) {
 		v6 = 4;
 		do {
 			v7 = nox_common_randomInt_415FA0(0, 1);
-			v13 = nox_xxx_randFloat_416030(0.0, 15.0) + 10.0;
+			v13 = nox_common_randomFloat_416030(0.0, 15.0) + 10.0;
 			v8 = nox_common_randomInt_415FA0(0, 255);
 			v12.field_8 = v13 * *getMemFloatPtr(0x587000, 8 * v8 + 194136) + *v4;
 			v12.field_C = v13 * *getMemFloatPtr(0x587000, 8 * v8 + 194140) + v1[15];
@@ -9365,7 +9365,7 @@ void __cdecl nox_xxx_updateMeteorShower_53D5A0(float* a2) {
 		if (*((_DWORD*)a2 + 34) <= *getMemIntPtr(0x5D4594, 2598000)) {
 			v1 = (_DWORD*)*((_DWORD*)a2 + 187);
 			v2 = nox_common_randomInt_415FA0(0, 255);
-			v3 = nox_xxx_randFloat_416030(4.0, 12.0);
+			v3 = nox_common_randomFloat_416030(4.0, 12.0);
 			v4 = v3 * v3;
 			v5 = a2[15];
 			a1.field_0 = a2[14];
@@ -10770,9 +10770,9 @@ int __cdecl nox_xxx_useFireWand_53F670(int a1, int a2) {
 	v11 = *getMemFloatPtr(0x587000, v3 + 194136) * *(float*)(a1 + 176) * 1.5;
 	v10 = *getMemFloatPtr(0x587000, v3 + 194140) * *(float*)(a1 + 176) * 1.5;
 	do {
-		v12 = nox_xxx_randFloat_416030(12.0, 25.0);
-		v9 = nox_xxx_randFloat_416030(-2.0, 2.0) + v12 * *getMemFloatPtr(0x587000, 8 * *(__int16*)(v2 + 124) + 194136);
-		v13 = nox_xxx_randFloat_416030(-2.0, 2.0) + v12 * *getMemFloatPtr(0x587000, 8 * *(__int16*)(v2 + 124) + 194140);
+		v12 = nox_common_randomFloat_416030(12.0, 25.0);
+		v9 = nox_common_randomFloat_416030(-2.0, 2.0) + v12 * *getMemFloatPtr(0x587000, 8 * *(__int16*)(v2 + 124) + 194136);
+		v13 = nox_common_randomFloat_416030(-2.0, 2.0) + v12 * *getMemFloatPtr(0x587000, 8 * *(__int16*)(v2 + 124) + 194140);
 		v7 = v10 + *(float*)(v2 + 60);
 		v6 = v11 + *(float*)(v2 + 56);
 		nox_xxx_createSpark_54FD80(v6, v7, 1, 20, v9, v13, 0.0, 0);
@@ -11248,7 +11248,7 @@ int __cdecl nox_xxx_castMissilesOM_540160(int a1, int a2, int a3, int a4, int a5
 					if (v16) {
 						v17 = (int*)*((_DWORD*)v16 + 187);
 						nox_xxx_createAt_4DAA50((int)v16, a3, a1a.field_8, a1a.field_C);
-						v18 = nox_xxx_randFloat_416030(0.80000001, 1.2) * v16[136];
+						v18 = nox_common_randomFloat_416030(0.80000001, 1.2) * v16[136];
 						v16[136] = v18;
 						v19 = 8 * (__int16)v11;
 						*((_WORD*)v16 + 63) = v11;
@@ -12000,12 +12000,12 @@ void __cdecl nox_xxx_mobCastRandomRecoil_541490(int a1, float* a2, float2* a3) {
 	v5 = 1.0 - *(float*)(*(_DWORD*)(a1 + 748) + 1320);
 	*a3 = *((float2*)a2 + 7);
 	v4 = v5 + 1.0;
-	v3 = nox_xxx_randFloat_416030(v5, v4);
+	v3 = nox_common_randomFloat_416030(v5, v4);
 	a3->field_0 = a3->field_0 - v3 * a2[20] * 6.0;
 	a3->field_4 = a3->field_4 - v3 * a2[21] * 6.0;
 	v6 = v5 * 0.80000001 + 0.2;
-	a3->field_0 = nox_xxx_randFloat_416030(-60.0, 60.0) * v6 + a3->field_0;
-	a3->field_4 = nox_xxx_randFloat_416030(-60.0, 60.0) * v6 + a3->field_4;
+	a3->field_0 = nox_common_randomFloat_416030(-60.0, 60.0) * v6 + a3->field_0;
+	a3->field_4 = nox_common_randomFloat_416030(-60.0, 60.0) * v6 + a3->field_4;
 }
 
 //----- (00541560) --------------------------------------------------------

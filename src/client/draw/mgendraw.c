@@ -49,7 +49,7 @@ int __cdecl nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 			v7 %= v6;
 		goto LABEL_12;
 	case 4:
-		v7 = nox_xxx_randGetMinMax_415FF0(0, v6, "C:\\NoxPost\\src\\client\\Draw\\MGenDraw.c", 86);
+		v7 = nox_common_randomIntMinMax_415FF0(0, v6, "C:\\NoxPost\\src\\client\\Draw\\MGenDraw.c", 86);
 		goto LABEL_12;
 	case 5:
 		v7 = *(unsigned int*)(v2 + 308);

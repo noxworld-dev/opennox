@@ -25,8 +25,8 @@ int __cdecl nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, _DWORD* a2) {
 	v12 = 0;
 	v9 = 5;
 	do {
-		v3 = v2[8] + v12 / 5 + nox_xxx_randGetMinMax_415FF0(-3, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 28);
-		v4 = v2[9] + nox_xxx_randGetMinMax_415FF0(-3, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 29) + v8 / 5;
+		v3 = v2[8] + v12 / 5 + nox_common_randomIntMinMax_415FF0(-3, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 28);
+		v4 = v2[9] + nox_common_randomIntMinMax_415FF0(-3, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 29) + v8 / 5;
 		v5 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522996), v3, v4);
 		if (v5) {
 			*(_DWORD*)(v5 + 300) = nox_thing_pixie_dust_draw;
@@ -36,7 +36,7 @@ int __cdecl nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, _DWORD* a2) {
 			*(_BYTE*)(v5 + 299) = 0;
 			*(_DWORD*)(v5 + 440) = 0;
 			*(_DWORD*)(v5 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
-								   nox_xxx_randGetMinMax_415FF0(2, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 51);
+								   nox_common_randomIntMinMax_415FF0(2, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 51);
 			*(_DWORD*)(v5 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 			*(_WORD*)(v5 + 104) = *((_WORD*)v2 + 52);
 			*(_WORD*)(v5 + 106) = *((_WORD*)v2 + 53);

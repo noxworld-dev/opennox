@@ -30,7 +30,7 @@ int __cdecl sub_4BC5D0(nox_drawable* dr, int a2) {
 			result %= v3;
 		break;
 	case 4:
-		result = nox_xxx_randGetMinMax_415FF0(0, *(__int16*)(a2 + 40) - 1, "C:\\NoxPost\\src\\Client\\Draw\\vectdraw.c", 19);
+		result = nox_common_randomIntMinMax_415FF0(0, *(__int16*)(a2 + 40) - 1, "C:\\NoxPost\\src\\Client\\Draw\\vectdraw.c", 19);
 		break;
 	case 5:
 		result = a1[77];

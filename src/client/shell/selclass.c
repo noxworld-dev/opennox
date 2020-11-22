@@ -73,7 +73,7 @@ void* __cdecl sub_4A4B70(int a1) {
 		while (v3[4 * v1 + v1]);
 		if (v1) {
 			v4 = 0;
-			v9 = nox_xxx_randGetMinMax_415FF0(0, v1 - 1, "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 195);
+			v9 = nox_common_randomIntMinMax_415FF0(0, v1 - 1, "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 195);
 			if (*(_BYTE*)(dword_5d4594_1307724 + 66)) {
 				v10 = 0;
 				v11 = 5;
