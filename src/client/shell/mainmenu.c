@@ -1,5 +1,6 @@
 #include "mainmenu.h"
 
+#include "../../common/random.h"
 #include "../../proto.h"
 #include "noxworld.h"
 #include "selchar.h"

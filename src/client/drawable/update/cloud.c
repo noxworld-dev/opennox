@@ -1,4 +1,5 @@
 #include "cloud.h"
+#include "../../../common/random.h"
 
 #include "../../../proto.h"
 

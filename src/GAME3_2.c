@@ -9,6 +9,7 @@
 #include "server/network/sdecode.h"
 #include "server/system/server.h"
 #include "server/xfer/savegame/savegame.h"
+#include "common/random.h"
 
 #include "client/gui/chathelp.h"
 #include "client/gui/conntype.h"

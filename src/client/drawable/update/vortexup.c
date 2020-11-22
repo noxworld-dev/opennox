@@ -1,5 +1,6 @@
 #include "vortexup.h"
 
+#include "../../../common/random.h"
 #include "../../../proto.h"
 
 //----- (004CC950) --------------------------------------------------------

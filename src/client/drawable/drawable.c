@@ -40,6 +40,7 @@
 #include "../draw/vortexdraw.h"
 #include "../draw/weapondraw.h"
 
+#include "../../common/random.h"
 #include "../../proto.h"
 
 extern nox_alloc_class* nox_alloc_drawable;

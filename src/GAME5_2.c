@@ -1,4 +1,5 @@
 #include "client/system/parsecmd.h"
+#include "common/random.h"
 
 #include "client/gui/guiinv.h"
 #include "common/system/group.h"

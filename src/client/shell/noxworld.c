@@ -1,5 +1,6 @@
 #include "noxworld.h"
 
+#include "../../common/random.h"
 #include "../../common/object/armrlook.h"
 #include "../../common/object/weaplook.h"
 #include "../../proto.h"

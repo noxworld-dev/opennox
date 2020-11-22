@@ -306,6 +306,7 @@ set (
     client/system/gameloop.c
     client/system/npcinfo.c
     client/system/parsecmd.c
+    common/random.c
     common/ability/comablty.c
     common/gamemech/pausefx.c
     common/magic/comguide.c

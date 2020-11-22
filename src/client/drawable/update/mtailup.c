@@ -1,5 +1,6 @@
 #include "mtailup.h"
 
+#include "../../../common/random.h"
 #include "../../../proto.h"
 #include "../../draw/glowdraw.h"
 

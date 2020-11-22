@@ -4,6 +4,7 @@
    Detected compiler: Visual C++
 */
 #include "server/dbase/objdb.h"
+#include "common/random.h"
 #include <float.h>
 
 #include "proto.h"

@@ -1,5 +1,6 @@
 #include "mmislup.h"
 
+#include "../../../common/random.h"
 #include "../../../proto.h"
 
 //----- (004CD9E0) --------------------------------------------------------

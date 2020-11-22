@@ -1,4 +1,5 @@
 #include "mgendraw.h"
+#include "../../common/random.h"
 #include "../../proto.h"
 
 //----- (004BC750) --------------------------------------------------------

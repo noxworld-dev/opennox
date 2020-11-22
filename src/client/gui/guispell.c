@@ -1,5 +1,6 @@
 #include "guispell.h"
 
+#include "../../common/random.h"
 #include "../../proto.h"
 #include "gamewin/gamewin.h"
 #include "guimsg.h"

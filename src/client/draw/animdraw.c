@@ -1,5 +1,6 @@
 #include "animdraw.h"
 #include "parse/parse.h"
+#include "../../common/random.h"
 #include "../../proto.h"
 
 //----- (004BBD60) --------------------------------------------------------

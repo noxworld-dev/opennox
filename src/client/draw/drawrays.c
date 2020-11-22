@@ -1,4 +1,5 @@
 #include "drawrays.h"
+#include "../../common/random.h"
 
 #include "../../proto.h"
 #include "fx.h"

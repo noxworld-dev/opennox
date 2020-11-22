@@ -1,5 +1,6 @@
 #include "fireball.h"
 
+#include "../../../common/random.h"
 #include "../../../proto.h"
 
 //----- (004CCEA0) --------------------------------------------------------
