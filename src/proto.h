@@ -3916,7 +3916,7 @@ void __cdecl nox_xxx_colorLightAlterB0ArrayColor_4CE440(int a1);
 void __cdecl nox_xxx_colorLightAlterIntensity_4CE610(int a1);
 int __cdecl nox_xxx_colorLightAlterRadius_4CE760(int a1);
 void __cdecl sub_4CE8C0(int a1);
-__int16 __cdecl sub_4CE960(int a1);
+void sub_4CE960(int a1);
 int __cdecl sub_4CEA90(float* a1, int2* a2, int a3); // idb
 int __cdecl sub_4CEBA0(int a1, char* a2);
 HANDLE __cdecl sub_4CED40(char* a1);
