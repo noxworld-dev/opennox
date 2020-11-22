@@ -654,7 +654,7 @@ int __cdecl sub_416670(int a1);
 void sub_416690();
 void sub_416720();
 int* __cdecl sub_416770(int a1, wchar_t* a2, const char* a3);
-int* __cdecl sub_416820(int a1);
+void sub_416820(int a1);
 int* __cdecl sub_416860(int a1);
 int* __cdecl sub_4168A0(wchar_t* a1);
 int* sub_4168E0();
