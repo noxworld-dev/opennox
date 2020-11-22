@@ -593,5 +593,5 @@ char* nox_xxx_getRandomName_4358A0() {
 		} while (v2);
 		*getMemU32Ptr(0x5D4594, 814516) = v0;
 	}
-	return (char*)v4[nox_xxx_randGetMinMax_415FF0(0, v0 - 1, "C:\\NoxPost\\src\\client\\System\\client.c", 559)];
+	return (char*)v4[nox_common_randomIntMinMax_415FF0(0, v0 - 1, "C:\\NoxPost\\src\\client\\System\\client.c", 559)];
 }

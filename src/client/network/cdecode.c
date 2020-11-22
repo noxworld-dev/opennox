@@ -1888,12 +1888,12 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					v260 = 6;
 					do {
 						v341 = *(__int16*)(v3 + 3) +
-							   nox_xxx_randGetMinMax_415FF0(-15, 15, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5711);
-						v261 = nox_xxx_randGetMinMax_415FF0(-15, 15, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5710);
+							   nox_common_randomIntMinMax_415FF0(-15, 15, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5711);
+						v261 = nox_common_randomIntMinMax_415FF0(-15, 15, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5710);
 						v262 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1200896), *(__int16*)(v3 + 1) + v261, v341);
 						if (v262) {
 							*(_WORD*)(v262 + 104) =
-								nox_xxx_randGetMinMax_415FF0(5, 25, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5712);
+								nox_common_randomIntMinMax_415FF0(5, 25, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5712);
 							nox_xxx_sprite_45A110_drawable((_DWORD*)v262);
 						}
 						--v260;
@@ -1920,10 +1920,10 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					v357 = 150;
 					v253 = v252 >> 2;
 					for (i = v252 >> 2;; v253 = i) {
-						v254 = v253 + nox_xxx_randGetMinMax_415FF0(0, v252, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5536);
+						v254 = v253 + nox_common_randomIntMinMax_415FF0(0, v252, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5536);
 						if (v254 > (int)v252)
 							v254 = v252;
-						v255 = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5541);
+						v255 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5541);
 						LODWORD(v5) = nox_xxx_spriteLoadAdd_45A360_drawable(
 							*getMemIntPtr(0x5D4594, 1200784),
 							*(__int16*)(v3 + 1) + v254 * *getMemIntPtr(0x587000, 8 * v255 + 192088) / 16,
@@ -1936,11 +1936,11 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 							*(_DWORD*)(v5 + 440) = 0;
 							*(_DWORD*)(v5 + 448) =
 								*getMemU32Ptr(0x5D4594, 2598000) +
-								nox_xxx_randGetMinMax_415FF0(30, 40, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5562);
+								nox_common_randomIntMinMax_415FF0(30, 40, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5562);
 							*(_DWORD*)(v256 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 							*(_WORD*)(v256 + 104) = 0;
 							*(_BYTE*)(v256 + 296) =
-								nox_xxx_randGetMinMax_415FF0(4, 10, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5568);
+								nox_common_randomIntMinMax_415FF0(4, 10, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5568);
 							nox_xxx_sprite_45A110_drawable((_DWORD*)v256);
 						}
 						if (!--v357)
@@ -2002,18 +2002,18 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 							if (v245 != -432) {
 								*(_DWORD*)(v245 + 432) = v243 << 12;
 								*(_DWORD*)(v245 + 436) = v244 << 12;
-								v247 = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5393);
+								v247 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5393);
 								*(_BYTE*)(v362 + 299) = v247;
-								v246[2] = nox_xxx_randGetMinMax_415FF0(1, 200, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5396);
+								v246[2] = nox_common_randomIntMinMax_415FF0(1, 200, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5396);
 								v246[4] = *getMemU32Ptr(0x5D4594, 2598000) +
-										  nox_xxx_randGetMinMax_415FF0(20, 40, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5399);
+										  nox_common_randomIntMinMax_415FF0(20, 40, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5399);
 								v246[3] = *getMemU32Ptr(0x5D4594, 2598000);
 							}
-							v248 = nox_xxx_randGetMinMax_415FF0(15, 30, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5405);
+							v248 = nox_common_randomIntMinMax_415FF0(15, 30, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5405);
 							v249 = v362;
 							*(_WORD*)(v362 + 104) = v248;
 							*(_BYTE*)(v249 + 296) =
-								nox_xxx_randGetMinMax_415FF0(-4, 4, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5406);
+								nox_common_randomIntMinMax_415FF0(-4, 4, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5406);
 							nox_xxx_sprite_45A110_drawable((_DWORD*)v249);
 						}
 						k = i;
@@ -2030,7 +2030,7 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 		case 0x95u:
 			if (nox_client_isConnected_43C700()) {
 				sub_4C5020(v3);
-				if (nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4987) < 25) {
+				if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4987) < 25) {
 					if (*getMemU32Ptr(0x5D4594, 2614252)) {
 						v225 = *(unsigned __int16*)(v3 + 5) - *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 12);
 						v226 = nox_double2int(
@@ -2057,16 +2057,16 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 						if ((_DWORD)v5 != (_DWORD)-432) {
 							*(_DWORD*)(v5 + 432) = v230 << 12;
 							*(_DWORD*)(v5 + 436) = v231 << 12;
-							v233 = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5024);
+							v233 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5024);
 							*(_BYTE*)(v362 + 299) = v233;
-							v232[2] = nox_xxx_randGetMinMax_415FF0(1, 1500, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5027);
+							v232[2] = nox_common_randomIntMinMax_415FF0(1, 1500, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5027);
 							v232[4] = *getMemU32Ptr(0x5D4594, 2598000) +
-									  nox_xxx_randGetMinMax_415FF0(5, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5030);
+									  nox_common_randomIntMinMax_415FF0(5, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5030);
 							v232[3] = *getMemU32Ptr(0x5D4594, 2598000);
 						}
 						v234 = v362;
 						*(_WORD*)(v362 + 104) = 22;
-						*(_BYTE*)(v234 + 296) = nox_xxx_randGetMinMax_415FF0(-4, 4, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5037);
+						*(_BYTE*)(v234 + 296) = nox_common_randomIntMinMax_415FF0(-4, 4, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5037);
 						nox_xxx_sprite_45A110_drawable((_DWORD*)v234);
 					}
 				}
@@ -2087,16 +2087,16 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 							*(_DWORD*)(v5 + 432) = *(_DWORD*)(v5 + 12) << 12;
 							*(_DWORD*)(v5 + 436) = *(_DWORD*)(v5 + 16) << 12;
 							*(_BYTE*)(v5 + 299) =
-								nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5338);
+								nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5338);
 							*(_DWORD*)(v240 + 440) =
-								nox_xxx_randGetMinMax_415FF0(1333, 4000, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5341);
+								nox_common_randomIntMinMax_415FF0(1333, 4000, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5341);
 							*(_DWORD*)(v240 + 448) =
 								*getMemU32Ptr(0x5D4594, 2598000) +
-								nox_xxx_randGetMinMax_415FF0(5, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5344);
+								nox_common_randomIntMinMax_415FF0(5, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5344);
 							*(_DWORD*)(v240 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 						}
 						*(_WORD*)(v240 + 104) = 20;
-						*(_BYTE*)(v240 + 296) = nox_xxx_randGetMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5351);
+						*(_BYTE*)(v240 + 296) = nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5351);
 						nox_xxx_sprite_45A110_drawable((_DWORD*)v240);
 					}
 					--v239;
@@ -2237,10 +2237,10 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				v223 = v222 + 1;
 				if (v222 + 1 > 0) {
 					do {
-						LOBYTE(v368) = nox_xxx_randGetMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4957);
+						LOBYTE(v368) = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4957);
 						v323 = v368;
-						v318 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4961);
-						v224 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4960);
+						v318 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4961);
+						v224 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4960);
 						sub_499490(*getMemIntPtr(0x5D4594, 1200848), (_WORD*)(v3 + 1), v224, v318, v323, 0);
 						--v223;
 					} while (v223);

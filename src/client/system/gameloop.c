@@ -348,13 +348,13 @@ void mainloop() {
 				if (v5 > 0) {
 					v26 = v5;
 					do {
-						v6 = nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 570);
+						v6 = nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 570);
 						v7 = *getMemU32Ptr(0x5D4594, 816420) + v2 * v6 / 100;
 						v9 = *getMemU32Ptr(0x5D4594, 816424) + v3 * v6 / 100;
-						v23 = nox_xxx_randGetMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 582);
-						v22 = nox_xxx_randGetMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 581);
-						v21 = nox_xxx_randGetMinMax_415FF0(-7, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 579);
-						v10 = nox_xxx_randGetMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 578);
+						v23 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 582);
+						v22 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 581);
+						v21 = nox_common_randomIntMinMax_415FF0(-7, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 579);
+						v10 = nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 578);
 						nox_client_newScreenParticle_431540(4, v7, v9, v10, v21, 1, v22, v23, 2, 1);
 						--v26;
 					} while (v26);
@@ -370,18 +370,18 @@ void mainloop() {
 				*getMemU32Ptr(0x5D4594, 816428) = 1;
 			}
 			if (v1[2].field_4 == 1) {
-				nox_xxx_randGetMinMax_415FF0(0, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 608);
+				nox_common_randomIntMinMax_415FF0(0, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 608);
 				if (!*getMemU32Ptr(0x5D4594, 816416)) {
 					*getMemU32Ptr(0x5D4594, 816416) = 1;
 					nox_xxx_clientPlaySoundSpecial_452D80(924, 100);
 					v11 = 75;
 					do {
-						v12 = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 620);
-						v13 = nox_xxx_randGetMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 621);
+						v12 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 620);
+						v13 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 621);
 						v14 = v13 * *getMemIntPtr(0x587000, 8 * v12 + 192088);
 						v15 = v13 * *getMemIntPtr(0x587000, 8 * v12 + 192092) / 16 - 6;
-						v24 = nox_xxx_randGetMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 633);
-						v16 = nox_xxx_randGetMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 632);
+						v24 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 633);
+						v16 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 632);
 						nox_client_newScreenParticle_431540(4, v14 / 16 + v27->field_0, v27->field_4 + v15, v14 / 16, v15, 1, v16, v24, 2, 1);
 						--v11;
 					} while (v11);

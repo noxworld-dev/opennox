@@ -484,7 +484,7 @@ void cmain_loop(int reentrant) {
 	sub_43D990();
 	g_v20 = 1;
 	sub_43F140(800);
-	nox_xxx_initRnd_415F70();
+	nox_common_initRandom_415F70();
 	*getMemU32Ptr(0x5D4594, 2598000) = nox_common_gameFlags_check_40A5C0(1);
 	nox_ensure_thing_bin();
 	*getMemU32Ptr(0x5D4594, 2650664) = 0;

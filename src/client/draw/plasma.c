@@ -110,20 +110,20 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 			*getMemU32Ptr(0x5D4594, v11 + 1313908) = v15;
 			if (v15 <= 0) {
 				*getMemU32Ptr(0x5D4594, v11 + 1313908) =
-					nox_xxx_randGetMinMax_415FF0(10, 90, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 378);
+					nox_common_randomIntMinMax_415FF0(10, 90, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 378);
 				*getMemU32Ptr(0x5D4594, v11 + 1313904) =
-					nox_xxx_randGetMinMax_415FF0(4, 8, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 382);
-				if (nox_xxx_randGetMinMax_415FF0(0, 1, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 385))
+					nox_common_randomIntMinMax_415FF0(4, 8, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 382);
+				if (nox_common_randomIntMinMax_415FF0(0, 1, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 385))
 					*getMemU32Ptr(0x5D4594, v11 + 1313904) = -*getMemU32Ptr(0x5D4594, v11 + 1313904);
 				if (i == 1) {
 					*getMemU32Ptr(0x5D4594, 28 * v10 + 1314732) =
-						nox_xxx_randGetMinMax_415FF0(40, 50, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 392);
+						nox_common_randomIntMinMax_415FF0(40, 50, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 392);
 				} else {
 					*getMemU32Ptr(0x5D4594, v11 + 1313892) =
-						nox_xxx_randGetMinMax_415FF0(80, 110, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 395);
-					if (v10 < 4 && nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 402) > 90) {
+						nox_common_randomIntMinMax_415FF0(80, 110, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 395);
+					if (v10 < 4 && nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 402) > 90) {
 						*getMemU32Ptr(0x5D4594, v11 + 1313892) =
-							nox_xxx_randGetMinMax_415FF0(150, 200, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 407);
+							nox_common_randomIntMinMax_415FF0(150, 200, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 407);
 						*getMemU32Ptr(0x5D4594, v11 + 1313908) *= 2;
 					}
 				}
@@ -198,7 +198,7 @@ char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3) {
 	LOBYTE(v6) = getMemByte(0x5D4594, 2598000);
 	dword_5d4594_1316412 = v5;
 	if (getMemByte(0x5D4594, 2598000) & 4) {
-		v6 = nox_xxx_randGetMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
+		v6 = nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
 		if (v6 > 5)
 			LOBYTE(v6) = nox_xxx_drawEnergyBolt_499710(*a2 + *((_DWORD*)v4 + 4) - *(_DWORD*)v4,
 									a2[1] + *((_DWORD*)v4 + 5) - *((_DWORD*)v4 + 1), 8, *getMemIntPtr(0x5D4594, 1316416));

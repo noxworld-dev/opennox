@@ -6181,7 +6181,7 @@ int nox_xxx_scriptRandomFloat_512D70() {
 
 	v0 = script_pop();
 	v1 = script_pop();
-	*(float*)&v3 = nox_xxx_randFloat_416030(*(float*)&v1, *(float*)&v0);
+	*(float*)&v3 = nox_common_randomFloat_416030(*(float*)&v1, *(float*)&v0);
 	nox_xxx_scriptPushValue_507230(v3);
 	return 0;
 }

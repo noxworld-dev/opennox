@@ -8240,7 +8240,7 @@ float2* __cdecl sub_4ED970(float a1, float2* a2, float2* a3) {
 	v9 = a1 * 0.015625;
 	v10.field_0 = a2->field_0;
 	v10.field_4 = v4;
-	v11 = nox_xxx_randFloat_416030(-3.1415927, 3.1415927);
+	v11 = nox_common_randomFloat_416030(-3.1415927, 3.1415927);
 	v5 = 0;
 	while (1) {
 		v6 = v11 + 1.8849558;
@@ -8324,8 +8324,8 @@ _DWORD* __cdecl nox_xxx_dropAllItems_4EDA40(_DWORD* a1) {
 			while (1) {
 				v22.field_8 = (double) v20 * v13 + v1[7].field_0;
 				v22.field_C = v1[7].field_4 - (double) v21 * v13;
-				v22.field_8 = nox_xxx_randFloat_416030(-3.0, 3.0) + v22.field_8;
-				v22.field_C = nox_xxx_randFloat_416030(-3.0, 3.0) + v22.field_C;
+				v22.field_8 = nox_common_randomFloat_416030(-3.0, 3.0) + v22.field_8;
+				v22.field_C = nox_common_randomFloat_416030(-3.0, 3.0) + v22.field_C;
 				if (nox_xxx_mapTraceRay_535250(&v22, 0, 0, 1)) {
 					nox_xxx_drop_4ED790((int) v1, v23, (float2 *) &v22.field_8);
 					v8 = 1;
@@ -9932,7 +9932,7 @@ LABEL_15:
 	if (*(_BYTE*)(a1 + 12) & 0x30)
 		v13 = *(float*)(v2 + 1328) * 0.5 + 1.7;
 	else
-		v13 = nox_xxx_randFloat_416030(0.94999999, 1.05) * *(float*)(a1 + 548);
+		v13 = nox_common_randomFloat_416030(0.94999999, 1.05) * *(float*)(a1 + 548);
 	*(float*)(a1 + 548) = v13;
 	if (nox_xxx_monsterCanCast_534300(a1))
 		*(_DWORD*)(v2 + 1356) = 1120403456;

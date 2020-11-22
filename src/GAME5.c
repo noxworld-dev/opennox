@@ -1870,7 +1870,7 @@ int __cdecl nox_xxx_monsterCheckDodgeables_547C50(int a1) {
 	v11 = -v4;
 	v13.field_4 = v5;
 	while (1) {
-		v6 = nox_xxx_randFloat_416030(2.0, 3.0) * v1[44];
+		v6 = nox_common_randomFloat_416030(2.0, 3.0) * v1[44];
 		v14 = v6;
 		if (v6 > 15.0)
 			v14 = 15.0;
@@ -3319,9 +3319,9 @@ int __cdecl sub_549E90(int a1) {
 				break;
 			sub_4ED970(30.0, (float2*)(a1 + 56), &a3);
 			nox_xxx_createAt_4DAA50((int)v3, 0, a3.field_0, a3.field_4);
-			v9 = nox_xxx_randFloat_416030(10.0, 70.0);
+			v9 = nox_common_randomFloat_416030(10.0, 70.0);
 			nox_xxx_unitRaise_4E46F0((int)v3, v9);
-			v4 = nox_xxx_randFloat_416030(-2.0, 0.0);
+			v4 = nox_common_randomFloat_416030(-2.0, 0.0);
 			v5 = *((_DWORD*)v3 + 4);
 			v3[27] = v4;
 			v3[29] = 2.0;
@@ -3365,13 +3365,13 @@ int __cdecl sub_549FA0(int a1) {
 				break;
 			sub_4ED970(30.0, v1, &a3);
 			nox_xxx_createAt_4DAA50((int)v4, 0, a3.field_0, a3.field_4);
-			v8 = nox_xxx_randFloat_416030(10.0, 70.0);
+			v8 = nox_common_randomFloat_416030(10.0, 70.0);
 			nox_xxx_unitRaise_4E46F0((int)v4, v8);
-			v4[27] = nox_xxx_randFloat_416030(-2.0, 0.0);
+			v4[27] = nox_common_randomFloat_416030(-2.0, 0.0);
 			v5 = (double)getMemByte(0x587000, dword_5d4594_2491580 + 287332);
 			*((_DWORD*)v4 + 4) |= 0x800000;
 			v4[29] = v5;
-			v9 = nox_xxx_randFloat_416030(5.0, 20.0);
+			v9 = nox_common_randomFloat_416030(5.0, 20.0);
 			nox_xxx_objectApplyForce_52DF80((int)v1, (int)v4, v9);
 			v6 = nox_common_gameFlags_check_40A5C0(2048) ? nox_common_randomInt_415FA0(10, 20)
 														 : nox_common_randomInt_415FA0(5, 10);
@@ -3536,12 +3536,12 @@ void __cdecl sub_54A4C0(int a1) {
 		sub_4ED970(20.0, v1, &a3);
 		nox_xxx_createAt_4DAA50((int)v2, 0, a3.field_0, a3.field_4);
 		nox_xxx_unitRaise_4E46F0((int)v2, 40.0);
-		v3 = nox_xxx_randFloat_416030(-2.0, 0.0);
+		v3 = nox_common_randomFloat_416030(-2.0, 0.0);
 		v4 = *((_DWORD*)v2 + 4);
 		v2[27] = v3;
 		v2[29] = 4.0;
 		*((_DWORD*)v2 + 4) = 0x800000 | v4;
-		v15 = nox_xxx_randFloat_416030(5.0, 25.0);
+		v15 = nox_common_randomFloat_416030(5.0, 25.0);
 		nox_xxx_objectApplyForce_52DF80((int)v1, (int)v2, v15);
 		if (nox_common_gameFlags_check_40A5C0(2048)) {
 			v5 = nox_common_randomInt_415FA0(10, 20);
@@ -3562,14 +3562,14 @@ void __cdecl sub_54A4C0(int a1) {
 					break;
 				sub_4ED970(20.0, v1, &a3);
 				nox_xxx_createAt_4DAA50((int)v9, 0, a3.field_0, a3.field_4);
-				v16 = nox_xxx_randFloat_416030(10.0, 35.0);
+				v16 = nox_common_randomFloat_416030(10.0, 35.0);
 				nox_xxx_unitRaise_4E46F0((int)v9, v16);
-				v10 = nox_xxx_randFloat_416030(-2.0, 0.0);
+				v10 = nox_common_randomFloat_416030(-2.0, 0.0);
 				v11 = *((_DWORD*)v9 + 4);
 				v9[27] = v10;
 				v9[29] = 4.0;
 				*((_DWORD*)v9 + 4) = 0x800000 | v11;
-				v17 = nox_xxx_randFloat_416030(5.0, 25.0);
+				v17 = nox_common_randomFloat_416030(5.0, 25.0);
 				nox_xxx_objectApplyForce_52DF80((int)v1, (int)v9, v17);
 				v12 = nox_common_gameFlags_check_40A5C0(2048) ? nox_common_randomInt_415FA0(10, 20)
 															  : nox_common_randomInt_415FA0(2, 5);
@@ -5944,13 +5944,13 @@ void __cdecl nox_xxx_dieBoulder_54E4B0(int a1) {
 				break;
 			sub_4ED970(30.0, v2, &a3);
 			nox_xxx_createAt_4DAA50((int)v6, 0, a3.field_0, a3.field_4);
-			v9 = nox_xxx_randFloat_416030(10.0, 70.0);
+			v9 = nox_common_randomFloat_416030(10.0, 70.0);
 			nox_xxx_unitRaise_4E46F0((int)v6, v9);
-			v6[27] = nox_xxx_randFloat_416030(-2.0, 0.0);
+			v6[27] = nox_common_randomFloat_416030(-2.0, 0.0);
 			v7 = (double)getMemByte(0x587000, dword_5d4594_2491704 + 290328);
 			*((_DWORD*)v6 + 4) |= 0x800000;
 			v6[29] = v7;
-			v10 = nox_xxx_randFloat_416030(5.0, 20.0);
+			v10 = nox_common_randomFloat_416030(5.0, 20.0);
 			nox_xxx_objectApplyForce_52DF80((int)v2, (int)v6, v10);
 			v8 = nox_common_randomInt_415FA0(45, 75);
 			nox_xxx_unitSetDecayTime_511660(v6, *getMemU32Ptr(0x5D4594, 2649704) * v8);
@@ -6358,7 +6358,7 @@ int __cdecl sub_54EF90(float a1, int a2, int a3, int a4) {
 	v6 = 1;
 	v12.field_0 = *(float*)a2;
 	v12.field_4 = v5;
-	*(float*)&v13 = nox_xxx_randFloat_416030(-3.1415927, 3.1415927);
+	*(float*)&v13 = nox_common_randomFloat_416030(-3.1415927, 3.1415927);
 	v7 = *(_DWORD*)(a4 + 16);
 	if (v7 & 0x4000)
 		v6 = 5;

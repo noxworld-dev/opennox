@@ -63,7 +63,7 @@ int __cdecl nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		}
 		return result;
 	case 4:
-		v3 = nox_xxx_randGetMinMax_415FF0(0, *(unsigned __int8*)(v2 + 8) - 1, "C:\\NoxPost\\src\\Client\\Draw\\animdraw.c", 24);
+		v3 = nox_common_randomIntMinMax_415FF0(0, *(unsigned __int8*)(v2 + 8) - 1, "C:\\NoxPost\\src\\Client\\Draw\\animdraw.c", 24);
 		goto LABEL_12;
 	case 5:
 		v3 = dr->field_77;

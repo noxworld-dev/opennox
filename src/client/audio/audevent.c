@@ -19,7 +19,7 @@ int __cdecl sub_451CF0(_DWORD* a1) {
 	v3 = *(_DWORD*)(v1 + 4);
 	if (result) {
 		if (v3 & 2) {
-			v5 = nox_xxx_randGetMinMax_415FF0(0, result - 1, "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 376);
+			v5 = nox_common_randomIntMinMax_415FF0(0, result - 1, "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 376);
 			v6 = a1[108] - 1;
 			a1[43] = a1[v5 + 76];
 			v7 = v5;
@@ -75,7 +75,7 @@ int __cdecl sub_451DC0(int a1) {
 			}
 		}
 	} else if (v3 & 2) {
-		v6 = nox_xxx_randGetMinMax_415FF0(0, v1[48] - 1, "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 536);
+		v6 = nox_common_randomIntMinMax_415FF0(0, v1[48] - 1, "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 536);
 		result = sub_451F30(a1, v6);
 	} else {
 		result = sub_451F30(a1, 0);
@@ -117,7 +117,7 @@ int __cdecl sub_451E80(int a1) {
 	*(_DWORD*)(a1 + 568) = v7;
 	if (!(v2 & 2))
 		return *(_DWORD*)(a1 + 4 * v7 + 440);
-	v8 = nox_xxx_randGetMinMax_415FF0(0, v7, "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 431);
+	v8 = nox_common_randomIntMinMax_415FF0(0, v7, "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 431);
 	v9 = *(_DWORD*)(a1 + 4 * v8 + 440);
 	v10 = v8;
 	if (v8 < *(int*)(a1 + 568)) {
@@ -147,7 +147,7 @@ int __cdecl sub_452580(_DWORD* a1) {
 	result = sub_452810(*(_DWORD*)(v1 + 48) + v3, 0);
 	a1[44] = result;
 	if (result) {
-		v4 = nox_xxx_randGetMinMax_415FF0(*(_DWORD*)(v1 + 76), *(_DWORD*)(v1 + 80), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 1482);
+		v4 = nox_common_randomIntMinMax_415FF0(*(_DWORD*)(v1 + 76), *(_DWORD*)(v1 + 80), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 1482);
 		sub_486320((_DWORD*)(a1[44] + 48), v4 + 100);
 		sub_4BDB20(a1[44]);
 		*(_DWORD*)(a1[44] + 152) = a1;
@@ -157,7 +157,7 @@ int __cdecl sub_452580(_DWORD* a1) {
 		a1[7] = 1;
 		*(_DWORD*)(a1[44] + 112) = a1 + 46;
 		if (*(_BYTE*)(v1 + 4) & 8) {
-			v5 = nox_xxx_randGetMinMax_415FF0(*(_DWORD*)(v1 + 68), *(_DWORD*)(v1 + 72), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c",
+			v5 = nox_common_randomIntMinMax_415FF0(*(_DWORD*)(v1 + 68), *(_DWORD*)(v1 + 72), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c",
 							1497);
 			if (v5 > 33)
 				sub_452690((int)a1, v5, 1);
@@ -183,7 +183,7 @@ int __cdecl sub_452770(_DWORD* a1) {
 	sub_4BDB90(a1, 0);
 	v4 = v1[9];
 	if (!(*(_BYTE*)(v4 + 4) & 8) || v2 || v1[142]) {
-		v5 = nox_xxx_randGetMinMax_415FF0(*(_DWORD*)(v4 + 68), *(_DWORD*)(v4 + 72), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 706);
+		v5 = nox_common_randomIntMinMax_415FF0(*(_DWORD*)(v4 + 68), *(_DWORD*)(v4 + 72), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 706);
 		if (v5 < 0x21) {
 			sub_4BDB90(a1, v2);
 			return 0;
