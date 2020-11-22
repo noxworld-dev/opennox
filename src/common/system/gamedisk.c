@@ -57,7 +57,7 @@ void sub_413520_gamedisk() {
 		v3 = nox_call_get_ticks();
 		*getMemU64Ptr(0x5D4594, 251628) = v3;
 		int v0 = v3 - *getMemU64Ptr(0x5D4594, 251732);
-		if (v0 > 0x7D0) {
+		if (v0 > 2000) {
 			sub_423C60();
 			dword_5d4594_251700 = 3;
 			*getMemU32Ptr(0x5D4594, 251732) = *getMemU32Ptr(0x5D4594, 251628);

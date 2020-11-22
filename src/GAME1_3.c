@@ -1014,13 +1014,13 @@ int nox_xxx_cliSendOutgoingClient_43CB50() {
 //----- (0043CBB0) --------------------------------------------------------
 int sub_43CBB0() {
 	nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
-	if ((unsigned __int64)(nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_815724) >= 0x7D0) {
+	if ((unsigned __int64)(nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_815724) >= 2000) {
 		*(_QWORD*)&qword_5d4594_815724 = nox_call_get_ticks();
 		sub_552E70(*(unsigned int*)&dword_5d4594_815700);
 	}
 	sub_552460();
 	if (!*getMemU32Ptr(0x5D4594, 815720) && !*getMemU32Ptr(0x5D4594, 815716) ||
-		(unsigned __int64)(nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815716)) <= 0x4E20) {
+		(unsigned __int64)(nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815716)) <= 20000) {
 		return 1;
 	}
 	sub_43B750();
@@ -1072,7 +1072,7 @@ int sub_43CCA0() {
 	}
 	v3 = nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_815724;
 	*(_DWORD*)&v7[4] = HIDWORD(v3);
-	if (v3 >= 0x7D0) {
+	if (v3 >= 2000) {
 		*(_QWORD*)&qword_5d4594_815724 = nox_call_get_ticks();
 		sub_552E70(*(unsigned int*)&dword_5d4594_815700);
 	}
@@ -1084,7 +1084,7 @@ int sub_43CCA0() {
 	if (*getMemU32Ptr(0x5D4594, 815720) || (LODWORD(v4) = *getMemU32Ptr(0x5D4594, 815716)) != 0) {
 		v5 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815716);
 		*(_DWORD*)&v7[4] = HIDWORD(v5);
-		if (v5 > 0x7D0 && !dword_5d4594_815704) {
+		if (v5 > 2000 && !dword_5d4594_815704) {
 			dword_5d4594_815704 = 1;
 			sub_4AB4A0(1);
 			*getMemU64Ptr(0x5D4594, 815732) = nox_call_get_ticks();
@@ -1092,12 +1092,12 @@ int sub_43CCA0() {
 		if (*getMemU32Ptr(0x5D4594, 815720) || (LODWORD(v4) = *getMemU32Ptr(0x5D4594, 815716)) != 0) {
 			v4 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815716);
 			*(_DWORD*)&v7[4] = HIDWORD(v4);
-			if (v4 > 0x4E20) {
+			if (v4 > 20000) {
 				LODWORD(v4) = dword_5d4594_815708;
 				if (!dword_5d4594_815708) {
 					v4 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815732);
 					*(_DWORD*)&v7[4] = HIDWORD(v4);
-					if (v4 > 0x4E20)
+					if (v4 > 20000)
 						LODWORD(v4) = sub_43CF70();
 				}
 			}
