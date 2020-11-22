@@ -11441,8 +11441,8 @@ int __cdecl sub_52DC80(int a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (0052DD50) --------------------------------------------------------
-int __cdecl sub_52DD50(int a1, int a2, int a3, int a4, float a5) {
-	float v5;   // edi
+int __cdecl sub_52DD50(int a1, int a2, int a3, int a4, void* a5) {
+	void* v5;   // edi
 	int v6;     // esi
 	__int16 v8; // bx
 	__int16 v9; // ax
@@ -11454,11 +11454,11 @@ int __cdecl sub_52DD50(int a1, int a2, int a3, int a4, float a5) {
 	float v15;  // [esp+1Ch] [ebp+14h]
 
 	v5 = a5;
-	v6 = *(_DWORD*)LODWORD(a5);
-	if (!*(_DWORD*)LODWORD(a5))
+	v6 = *(_DWORD*)a5;
+	if (!*(_DWORD*)a5)
 		return 0;
-	v8 = sub_4EE780(*(_DWORD*)LODWORD(a5));
-	if (v8 == sub_4EE7A0(v6) && a2 == *(_DWORD*)LODWORD(a5)) {
+	v8 = sub_4EE780(*(_DWORD*)a5);
+	if (v8 == sub_4EE7A0(v6) && a2 == *(_DWORD*)a5) {
 		v9 = sub_4249A0(a1, 1);
 		sub_4FD030(a3, v9);
 		return 1;
@@ -11481,8 +11481,8 @@ int __cdecl sub_52DD50(int a1, int a2, int a3, int a4, float a5) {
 		}
 	}
 	v12 = nox_float2int(v15);
-	sub_4EE460(*(_DWORD*)LODWORD(v5), v12);
-	v14 = *(_DWORD*)LODWORD(v5);
+	sub_4EE460(*(_DWORD*)v5, v12);
+	v14 = *(_DWORD*)v5;
 	v13 = sub_424800(a1, 1);
 	sub_501960(v13, v14, 0, 0);
 	return 1;
