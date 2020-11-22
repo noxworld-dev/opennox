@@ -5967,7 +5967,7 @@ int __cdecl sub_52D8A0(int a1, int a2, int a3, int a4, int a5, int a6);
 int __cdecl sub_52D9D0(int a1, int a2, int a3, int a4, int a5, int a6);
 int __cdecl sub_52DB60(int a1, int a2, int a3, int a4, int a5);
 int __cdecl sub_52DC80(int a1, int a2, int a3, int a4, int a5);
-int __cdecl sub_52DD50(int, int, int, int, float); // idb
+int __cdecl sub_52DD50(int, int, int, int, void*); // idb
 int __cdecl sub_52DE40(int a1, int a2, int a3, int a4, int a5, int a6);
 __int16 __cdecl sub_52DEC0(int a1, int a2);
 int __cdecl sub_52DF40(int a1, int a2, int a3, int a4, int* a5, char a6);
