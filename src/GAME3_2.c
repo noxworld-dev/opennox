@@ -351,42 +351,41 @@ void __cdecl sub_4CE8C0(int a1) {
 }
 
 //----- (004CE960) --------------------------------------------------------
-__int16 __cdecl sub_4CE960(int a1) {
-	int v1;     // eax
+void sub_4CE960(int a1) {
 	__int16 v2; // cx
 	double v3;  // st7
 	double v4;  // st6
 	double v5;  // st5
-	__int64 v6; // rax
 
-	v1 = *(_DWORD*)(a1 + 168);
-	if (!v1) {
-		v2 = *(_WORD*)(a1 + 176);
-		if ((v2 & 0x80u) != 0) {
-			LOWORD(v1) = *(_WORD*)(a1 + 270);
-			if ((_WORD)v1) {
-				if ((v2 & 0x100) == 256)
-					v5 = (double)(*(unsigned __int16*)(a1 + 272) - *(unsigned __int16*)(a1 + 268));
-				else
-					v5 = 360.0;
-				v4 = (double)*getMemUintPtr(0x5D4594, 2649704);
-				v3 = (double)(__int16)v1;
-				v6 =
-					(__int64)(((double)*getMemUintPtr(0x5D4594, 2598000) / (v5 / v3 * v4) -
-							   (double)(int)(__int64)((double)*getMemUintPtr(0x5D4594, 2598000) / (v5 / v3 * v4))) *
-								  (v5 / v3 * v4) * (v3 / v4) +
-							  (double)*(unsigned __int16*)(a1 + 268));
-				if ((int)v6 >= 0) {
-					if ((int)v6 >= 360)
-						LODWORD(v6) = v6 - 360;
-				} else {
-					LODWORD(v6) = v6 + 360;
-				}
-				LOWORD(v1) = sub_484C00(a1 + 136, v6);
-			}
-		}
+	if (!*(_DWORD*)(a1 + 168)) {
+		return;
 	}
-	return v1;
+	v2 = *(_WORD*)(a1 + 176);
+	if ((v2 & 0x80u) == 0) {
+		return;
+	}
+	__int16 v1 = *(_WORD*)(a1 + 270);
+	if (!v1) {
+		return;
+	}
+	if ((v2 & 0x100) == 256)
+		v5 = (double)(*(unsigned __int16*)(a1 + 272) - *(unsigned __int16*)(a1 + 268));
+	else
+		v5 = 360.0;
+	v4 = (double)*getMemUintPtr(0x5D4594, 2649704);
+	v3 = (double)v1;
+	int v6 =
+			(int)(((double)*getMemUintPtr(0x5D4594, 2598000) / (v5 / v3 * v4) -
+					   (double)(int)(__int64)((double)*getMemUintPtr(0x5D4594, 2598000) / (v5 / v3 * v4))) *
+					  (v5 / v3 * v4) * (v3 / v4) +
+					  (double)*(unsigned __int16*)(a1 + 268));
+	if (v6 >= 0) {
+		if (v6 >= 360)
+			v6 -= 360;
+	} else {
+		v6 += 360;
+	}
+	sub_484C00(a1 + 136, v6);
 }
 
 //----- (004CEA90) --------------------------------------------------------
