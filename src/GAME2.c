@@ -77,7 +77,7 @@ extern _DWORD dword_5d4594_1046956;
 extern _DWORD dword_5d4594_1047936;
 extern _DWORD dword_5d4594_1046576;
 extern _DWORD dword_5d4594_1048144;
-extern _DWORD dword_5d4594_1046624;
+extern float2 obj_5d4594_1046620;
 extern _DWORD dword_5d4594_839884;
 extern _DWORD dword_5d4594_1046536;
 extern _DWORD dword_5d4594_1045436;
@@ -7171,9 +7171,9 @@ void sub_45D570(int a1, int a2) {
 					sub_4BEDE0((int2*)getMemAt(0x5D4594, 1046844), (int2*)getMemAt(0x5D4594, 1046668), &a3, &a4, 19, 0.0,
 							   sub_45D7D0, 0);
 					*getMemU32Ptr(0x5D4594, 1046628) = 0;
-					*getMemFloatPtr(0x5D4594, 1046620) = *getMemFloatPtr(0x5D4594, 1046692) - *getMemFloatPtr(0x5D4594, 1046684);
-					*(float*)&dword_5d4594_1046624 = *getMemFloatPtr(0x5D4594, 1046696) - *getMemFloatPtr(0x5D4594, 1046688);
-					sub_509F20((float2*)getMemAt(0x5D4594, 1046620));
+					obj_5d4594_1046620.field_0 = *getMemFloatPtr(0x5D4594, 1046692) - *getMemFloatPtr(0x5D4594, 1046684);
+					obj_5d4594_1046620.field_4 = *getMemFloatPtr(0x5D4594, 1046696) - *getMemFloatPtr(0x5D4594, 1046688);
+					sub_509F20(&obj_5d4594_1046620);
 					if (nox_win_width < 1000) {
 						if (nox_win_width < 750)
 							v3 = 6.0;
@@ -7182,8 +7182,8 @@ void sub_45D570(int a1, int a2) {
 					} else {
 						v3 = 10.0;
 					}
-					*getMemFloatPtr(0x5D4594, 1046620) = *getMemFloatPtr(0x5D4594, 1046620) * v3;
-					*(float*)&dword_5d4594_1046624 = *(float*)&dword_5d4594_1046624 * v3;
+					obj_5d4594_1046620.field_0 = obj_5d4594_1046620.field_0 * v3;
+					obj_5d4594_1046620.field_4 = obj_5d4594_1046620.field_4 * v3;
 					nox_window_set_hidden(*(int*)&dword_5d4594_1046956, 0);
 					sub_46A8C0(*(int*)&dword_5d4594_1046956);
 					if (nox_common_gameFlags_check_40A5C0(2048))
