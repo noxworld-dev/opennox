@@ -3404,7 +3404,7 @@ int __cdecl nox_xxx_shopGetItemCost_50E3D0(int a1, int a2, float a3) {
 	if (v7 & 0x100) {
 		v8 = *(_DWORD*)(LODWORD(v3) + 12);
 		if (v8 & 1) {
-			v9 = (double)(unsigned __int16)nox_xxx_spellGetWorth_424C40(COERCE_FLOAT(**(_BYTE**)(LODWORD(v3) + 736)));
+			v9 = (double)(unsigned __int16)nox_xxx_spellGetWorth_424C40(**(_BYTE**)(LODWORD(v3) + 736));
 		LABEL_16:
 			v31 = v9;
 			goto LABEL_17;
