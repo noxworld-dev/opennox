@@ -13,6 +13,7 @@ extern unsigned char byte_581450_1488[4096];
 extern unsigned char byte_581450_1416[72];
 extern unsigned char byte_581450_9176[160];
 extern unsigned char byte_581450_9336[160];
+extern unsigned int arr_587000_37892[4096];
 
 extern unsigned char byte_5D4594_3804364[160];
 extern unsigned char byte_5D4594_2655724[4096];
@@ -2721,6 +2722,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 27104, (void*)table_27104, sizeof(table_27104_t) * 4, 1},  // TODO
 	{0x587000 + 27168, (void*)table_27168, sizeof(table_27168_t) * 12, 1}, // TODO
 	{0x587000 + 28760, (void*)table_28760, sizeof(table_28760_t) * 17, 1}, // TODO
+	{0x587000 + 37892, (void*)arr_587000_37892, sizeof(arr_587000_37892), 1},
 	{0x587000 + 80764, (void*)&nox_mouse_max, sizeof(nox_mouse_max), 1},
 	{0x587000 + 80804, (void*)&nox_enable_threads, sizeof(nox_enable_threads), 1},
 	{0x587000 + 80856, (void*)&nox_max_width, sizeof(nox_max_width), 1},
