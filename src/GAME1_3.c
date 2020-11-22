@@ -1046,14 +1046,13 @@ int sub_43CC80() {
 }
 
 //----- (0043CCA0) --------------------------------------------------------
-int sub_43CCA0() {
+void sub_43CCA0() {
 	int v0;              // esi
 	int v1;              // esi
 	unsigned __int64 v2; // rdi
 	unsigned __int64 v3; // rax
 	unsigned __int64 v4; // rax
 	unsigned __int64 v5; // rax
-	char v7[8];          // [esp+8h] [ebp-8h]
 
 	nox_xxx_spriteDeleteSomeList_49C4B0();
 	v0 = *getMemU32Ptr(0x5D4594, 2598000);
@@ -1064,6 +1063,7 @@ int sub_43CCA0() {
 			sub_43CEB0();
 			v2 = *getMemU64Ptr(0x5D4594, 815740) + *getMemU64Ptr(0x587000, 91880) / (unsigned __int64)sub_43C790();
 			if (nox_call_get_ticks() >= v2) {
+				char v7[8];
 				v7[0] = 40;
 				*(_DWORD*)&v7[1] = *getMemU32Ptr(0x5D4594, 2598000) + 1;
 				nox_xxx_netOnPacketRecvCli_48EA70(31, (unsigned int)v7, 5);
@@ -1071,7 +1071,6 @@ int sub_43CCA0() {
 		}
 	}
 	v3 = nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_815724;
-	*(_DWORD*)&v7[4] = HIDWORD(v3);
 	if (v3 >= 2000) {
 		*(_QWORD*)&qword_5d4594_815724 = nox_call_get_ticks();
 		sub_552E70(*(unsigned int*)&dword_5d4594_815700);
@@ -1081,29 +1080,29 @@ int sub_43CCA0() {
 	nox_xxx_netSendBySock_40EE10(*(unsigned int*)&dword_5d4594_815700, 31, 0);
 	sub_40ED10(31, 0);
 	sub_552460();
-	if (*getMemU32Ptr(0x5D4594, 815720) || (LODWORD(v4) = *getMemU32Ptr(0x5D4594, 815716)) != 0) {
-		v5 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815716);
-		*(_DWORD*)&v7[4] = HIDWORD(v5);
-		if (v5 > 2000 && !dword_5d4594_815704) {
-			dword_5d4594_815704 = 1;
-			sub_4AB4A0(1);
-			*getMemU64Ptr(0x5D4594, 815732) = nox_call_get_ticks();
-		}
-		if (*getMemU32Ptr(0x5D4594, 815720) || (LODWORD(v4) = *getMemU32Ptr(0x5D4594, 815716)) != 0) {
-			v4 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815716);
-			*(_DWORD*)&v7[4] = HIDWORD(v4);
-			if (v4 > 20000) {
-				LODWORD(v4) = dword_5d4594_815708;
-				if (!dword_5d4594_815708) {
-					v4 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815732);
-					*(_DWORD*)&v7[4] = HIDWORD(v4);
-					if (v4 > 20000)
-						LODWORD(v4) = sub_43CF70();
-				}
-			}
-		}
+	if (!(*getMemU32Ptr(0x5D4594, 815720) || (*getMemU32Ptr(0x5D4594, 815716) != 0))) {
+		return;
 	}
-	return v4;
+	v5 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815716);
+	if (v5 > 2000 && !dword_5d4594_815704) {
+		dword_5d4594_815704 = 1;
+		sub_4AB4A0(1);
+		*getMemU64Ptr(0x5D4594, 815732) = nox_call_get_ticks();
+	}
+	if (!(*getMemU32Ptr(0x5D4594, 815720) || (*getMemU32Ptr(0x5D4594, 815716) != 0))) {
+		return;
+	}
+	v4 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815716);
+	if (v4 <= 20000) {
+		return;
+	}
+	if (dword_5d4594_815708) {
+		return;
+	}
+	v4 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815732);
+	if (v4 > 20000) {
+		sub_43CF70();
+	}
 }
 
 //----- (0043CEB0) --------------------------------------------------------
