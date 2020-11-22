@@ -10077,7 +10077,7 @@ int nox_common_randomInt_415FA0(int a1, int a2) {
 	if (a2 - a1 != -1) {
 		if (++dword_5d4594_371260 >= 4096)
 			dword_5d4594_371260 = 0;
-		result = a1 + *getMemU32Ptr(0x587000, 4 * v3 + 37892) % (a2 - a1 + 1);
+		result = a1 + *getMemU32Ptr(0x587000, 37892 + 4*v3) % (a2 - a1 + 1);
 	}
 	return result;
 }
@@ -10087,7 +10087,7 @@ int nox_common_randomIntMinMax_415FF0(int min, int max, const char* file, int li
 	int v4 = (*(int*)&dword_5d4594_371264)++;
 	if (*(int*)&dword_5d4594_371264 >= 4096)
 		*(int*)&dword_5d4594_371264 = 0;
-	return min + *getMemIntPtr(0x587000, 4 * v4 + 37892) % (max - min + 1);
+	return min + *getMemIntPtr(0x587000, 37892 + 4*v4) % (max - min + 1);
 }
 
 //----- (00416030) --------------------------------------------------------
@@ -10101,7 +10101,7 @@ double nox_common_randomFloat_416030(float a1, float a2) {
 		return a2;
 	if (++dword_5d4594_371260 >= 4096)
 		dword_5d4594_371260 = 0;
-	return v2 * ((double)*getMemIntPtr(0x587000, 4 * v3 + 37892) * 0.000030518509) + a1;
+	return v2 * ((double)*getMemIntPtr(0x587000, 37892 + 4*v3) * 0.000030518509) + a1;
 }
 
 //----- (00416090) --------------------------------------------------------
@@ -10111,7 +10111,7 @@ double nox_common_randomFloatXxx_416090(float a1, float a2) {
 	v2 = (dword_5d4594_371264)++;
 	if (*(int*)&dword_5d4594_371264 >= 4096)
 		dword_5d4594_371264 = 0;
-	return (a2 - a1) * ((double)*getMemIntPtr(0x587000, 4 * v2 + 37892) * 0.000030518509) + a1;
+	return (a2 - a1) * ((double)*getMemIntPtr(0x587000, 37892 + 4*v2) * 0.000030518509) + a1;
 }
 
 //----- (004160D0) --------------------------------------------------------
