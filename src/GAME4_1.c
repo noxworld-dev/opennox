@@ -12251,7 +12251,7 @@ int nox_xxx_getTimerHandle_51AD20() {
 	int result; // eax
 
 	result = ++*getMemU32Ptr(0x587000, 252868);
-	if (*getMemU32Ptr(0x587000, 252868) > 0x7D00u) {
+	if (*getMemU32Ptr(0x587000, 252868) > 32000) {
 		result = 1;
 		*getMemU32Ptr(0x587000, 252868) = 1;
 	}
