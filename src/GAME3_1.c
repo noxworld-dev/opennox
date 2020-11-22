@@ -4869,7 +4869,8 @@ __int16 __cdecl nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3
 	int2 a2a;             // [esp+28h] [ebp-20h]
 	int a4;               // [esp+30h] [ebp-18h]
 	int a3a;              // [esp+34h] [ebp-14h]
-	__int64 v59;          // [esp+38h] [ebp-10h]
+	int v59a;          // [esp+38h] [ebp-10h]
+	int v59b;          // [esp+38h] [ebp-10h]
 	__int64 v60;          // [esp+40h] [ebp-8h]
 	unsigned __int8 v61;  // [esp+4Ch] [ebp+4h]
 	unsigned __int8 v62;  // [esp+4Ch] [ebp+4h]
@@ -4904,11 +4905,11 @@ __int16 __cdecl nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3
 	v9 = v7 - a1[4];
 	v10 = a1[1];
 	v11 = *((__int16*)a2 + 53);
-	LODWORD(v59) = v9 + *a1 - *a2;
+	v59a = v9 + *a1 - *a2;
 	v12 = *((_DWORD*)a2 + 4);
 	v13 = *((_DWORD*)a2 + 4) - v11 - a2[1] - *((__int16*)a2 + 52);
 	v14 = a1[5];
-	HIDWORD(v59) = v10 + v13 - v14;
+	v59b = v10 + v13 - v14;
 	a4 = nox_win_width;
 	if (*getMemU32Ptr(0x587000, 80808)) {
 		v15 = *((_DWORD*)a2 + 30);
@@ -5116,7 +5117,7 @@ LABEL_105:
 	} else {
 		sub_47D370(v30);
 	}
-	nox_client_drawImageAt_47D2C0(a3, v59, SHIDWORD(v59));
+	nox_client_drawImageAt_47D2C0(a3, v59a, v59b);
 	sub_4345F0(0);
 	nox_client_drawEnableAlpha_434560(0);
 	nox_xxx_draw_434600(0);
