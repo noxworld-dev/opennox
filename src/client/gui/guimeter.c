@@ -305,20 +305,20 @@ int __cdecl nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 				v10 = 64;
 				do {
 					if (!*((_DWORD*)v9 + 2)) {
-						v11 = nox_xxx_randGetMinMax_415FF0(1, 100, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 668);
+						v11 = nox_common_randomIntMinMax_415FF0(1, 100, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 668);
 						if (v11 >= 80)
 							*(_DWORD*)v9 = (v11 >= 95) + 2;
 						else
 							*(_DWORD*)v9 = 1;
-						v12 = nox_xxx_randGetMinMax_415FF0(0, 14, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 676);
+						v12 = nox_common_randomIntMinMax_415FF0(0, 14, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 676);
 						v13 = *(_DWORD*)v9;
 						*((_DWORD*)v9 - 2) = v12;
 						if (v13 + v12 > 15)
 							*((_DWORD*)v9 - 2) = 15 - v13;
 						*((_DWORD*)v9 - 1) = 16 * (125 - v13);
-						*((_DWORD*)v9 + 1) = nox_xxx_randGetMinMax_415FF0(4, 48, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 684);
+						*((_DWORD*)v9 + 1) = nox_common_randomIntMinMax_415FF0(4, 48, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 684);
 						*((_DWORD*)v9 + 2) = 1;
-						LOBYTE(v19) = nox_xxx_randGetMinMax_415FF0(0, 64, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 688);
+						LOBYTE(v19) = nox_common_randomIntMinMax_415FF0(0, 64, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 688);
 						if (v18)
 							v14 = nox_color_rgb_4344A0(v19, v19, 255);
 						else

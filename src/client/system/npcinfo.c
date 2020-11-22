@@ -17,7 +17,7 @@ int __cdecl nox_xxx_spriteNPCInfo_49A4B0(_DWORD* a1, int a2, int a3) {
 	case 3:
 		if (!(a2 & 0xFFFFFFFC)) {
 			if (!result || !a1[77])
-				result = nox_xxx_randGetMinMax_415FF0(23, 24, "C:\\NoxPost\\src\\client\\System\\NPCInfo.c", 286);
+				result = nox_common_randomIntMinMax_415FF0(23, 24, "C:\\NoxPost\\src\\client\\System\\NPCInfo.c", 286);
 			goto LABEL_12;
 		}
 		result = sub_4FA280(a2 & 0xFFFFFFFC);
@@ -29,7 +29,7 @@ int __cdecl nox_xxx_spriteNPCInfo_49A4B0(_DWORD* a1, int a2, int a3) {
 			LABEL_12:
 				a1[108] = result;
 			} else {
-				result = nox_xxx_randGetMinMax_415FF0(47, 49, "C:\\NoxPost\\src\\client\\System\\NPCInfo.c", 314);
+				result = nox_common_randomIntMinMax_415FF0(47, 49, "C:\\NoxPost\\src\\client\\System\\NPCInfo.c", 314);
 				a1[108] = result;
 			}
 		} else if (a2 & 0x7FF8000) {

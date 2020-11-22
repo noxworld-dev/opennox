@@ -22,11 +22,11 @@ int __cdecl sub_4CE200(int a1, int a2, int a3, int a4) {
 	result = a3;
 	if (a3 > 0) {
 		do {
-			v5 = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 40);
-			v6 = nox_xxx_randGetMinMax_415FF0(0, a4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 41);
+			v5 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 40);
+			v6 = nox_common_randomIntMinMax_415FF0(0, a4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 41);
 			v7 = *(_DWORD*)(a2 + 12) + v6 * *getMemIntPtr(0x587000, 8 * v5 + 192088) / 16;
 			v8 = *(_DWORD*)(a2 + 16) + v6 * *getMemIntPtr(0x587000, 8 * v5 + 192092) / 16;
-			v9 = nox_xxx_randGetMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 46) < 3;
+			v9 = nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 46) < 3;
 			v10 = *getMemU32Ptr(0x5D4594, 1523020);
 			if (!v9)
 				v10 = *getMemU32Ptr(0x5D4594, 1523016);
@@ -35,9 +35,9 @@ int __cdecl sub_4CE200(int a1, int a2, int a3, int a4) {
 			if (v11) {
 				*(_WORD*)(v11 + 104) = 0;
 				nox_xxx_sprite_45A110_drawable((_DWORD*)v11);
-				*(_BYTE*)(v12 + 432) = nox_xxx_randGetMinMax_415FF0(1, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 57);
+				*(_BYTE*)(v12 + 432) = nox_common_randomIntMinMax_415FF0(1, 3, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 57);
 				*(_DWORD*)(v12 + 460) = sub_4CE340;
-				v13 = nox_xxx_randGetMinMax_415FF0(10, 32, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 61);
+				v13 = nox_common_randomIntMinMax_415FF0(10, 32, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 61);
 				nox_xxx_spriteTransparentDecay_49B950((_DWORD*)v12, v13);
 				nox_xxx_spriteToList_49BC80_drawable((_DWORD*)v12);
 				nox_xxx_spriteToSightDestroyList_49BAB0_drawable((_DWORD*)v12);

@@ -45,7 +45,7 @@ int __cdecl sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 		v13 = v10 + v12;
 		xLeft.field_4 = v13;
 		if (v11 - 10 >= v9 && v13 - 10 >= v10 && v11 + 10 < a1[2] && v13 + 10 < a1[3]) {
-			v14 = v18 * nox_xxx_randGetMinMax_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 213) / v16;
+			v14 = v18 * nox_common_randomIntMinMax_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 213) / v16;
 			v15 = v14;
 			if (v14) {
 				sub_4B6720(&xLeft, a4, 2 * v14 + 1, v14 + 1);
@@ -65,7 +65,7 @@ int __cdecl sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 int __cdecl nox_thing_magic_sparkle_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
-	if (nox_xxx_randGetMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5)
+	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5)
 		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
 	else
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
@@ -90,7 +90,7 @@ int __cdecl nox_thing_pixie_draw(int* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	v2 = nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 503) < 50;
+	v2 = nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 503) < 50;
 	v3 = *(_WORD*)(a2 + 104);
 	if (v2) {
 		if (v3 > 0) {
@@ -133,7 +133,7 @@ LABEL_7:
 int __cdecl nox_thing_pixie_dust_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
-	if (nox_xxx_randGetMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5)
+	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5)
 		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313564);
 	else
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313564, *getMemIntPtr(0x5D4594, 1313560));
@@ -162,15 +162,15 @@ int __cdecl nox_thing_blue_rain_spark_draw(_DWORD* a1, nox_drawable* dr) {
 			if (v4 != -432) {
 				*(_DWORD*)(v4 + 432) = *(_DWORD*)(a2 + 12) << 12;
 				*(_DWORD*)(v4 + 436) = *(_DWORD*)(a2 + 16) << 12;
-				*(_BYTE*)(v4 + 299) = nox_xxx_randGetMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
-				*(_DWORD*)(v5 + 440) = nox_xxx_randGetMinMax_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
+				*(_BYTE*)(v4 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
+				*(_DWORD*)(v5 + 440) = nox_common_randomIntMinMax_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
 				*(_DWORD*)(v5 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
-									   nox_xxx_randGetMinMax_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
+									   nox_common_randomIntMinMax_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
 				*(_DWORD*)(v5 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
 			}
-			*(_WORD*)(v5 + 104) = nox_xxx_randGetMinMax_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);
+			*(_WORD*)(v5 + 104) = nox_common_randomIntMinMax_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);
 			*(_WORD*)(v5 + 106) = 0;
-			*(_BYTE*)(v5 + 296) = nox_xxx_randGetMinMax_415FF0(0, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 620);
+			*(_BYTE*)(v5 + 296) = nox_common_randomIntMinMax_415FF0(0, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 620);
 			nox_xxx_sprite_45A110_drawable((_DWORD*)v5);
 		}
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
@@ -259,7 +259,7 @@ int __cdecl nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 		v23[1] = v10;
 		if (v2[27] != dword_5d4594_1313692)
 			v11 = *getMemU32Ptr(0x5D4594, 1313704);
-		v12 = nox_xxx_randGetMinMax_415FF0(6, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 793);
+		v12 = nox_common_randomIntMinMax_415FF0(6, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 793);
 		sub_499490(v11, v23, 0, 0, v12, 1);
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 		result = 0;

@@ -40,7 +40,8 @@ extern _DWORD nox_xxx_useAudio_587000_80800;
 extern _DWORD dword_5d4594_251708;
 extern _DWORD dword_5d4594_251716;
 extern _DWORD dword_5d4594_10984;
-extern _DWORD dword_5d4594_371264;
+int dword_5d4594_371260 = 0;
+int dword_5d4594_371264 = 0;
 extern _DWORD dword_5d4594_1308;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_3616;
@@ -320,7 +321,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	if (!nox_profiled_805856)
 		sub_4445C0();
 	nox_xxx_clear18hDD_416190();
-	nox_xxx_initRnd_415F70();
+	nox_common_initRandom_415F70();
 	nox_xxx_bindevent_42EAE0();
 	nox_xxx_loadLook_415D50();
 	nox_xxx_loadModifyers_4158C0();
@@ -10054,62 +10055,57 @@ int __cdecl sub_415EC0(char* a1) {
 void sub_415F20() { nox_platform_srand(0x961u); }
 
 //----- (00415F30) --------------------------------------------------------
-int __cdecl nox_xxx_replayWriteRndCounter_415F30(int a1) { return _write(a1, getMemAt(0x5D4594, 371260), 4u); }
+int __cdecl nox_xxx_replayWriteRndCounter_415F30(int a1) { return _write(a1, &dword_5d4594_371260, 4); }
 
 //----- (00415F50) --------------------------------------------------------
-int __cdecl nox_xxx_replayReadeRndCounter_415F50(int a1) { return _read(a1, getMemAt(0x5D4594, 371260), 4u); }
+int __cdecl nox_xxx_replayReadeRndCounter_415F50(int a1) { return _read(a1, &dword_5d4594_371260, 4); }
 
 //----- (00415F70) --------------------------------------------------------
-int nox_xxx_initRnd_415F70() {
-	int result; // eax
-
-	result = time(0) % 4096;
-	*getMemU32Ptr(0x5D4594, 371260) = result;
-	dword_5d4594_371264 = result;
-	return result;
+void nox_common_initRandom_415F70() {
+	int v = time(0) % 4096;
+	dword_5d4594_371260 = v;
+	dword_5d4594_371264 = v;
 }
 
 //----- (00415FA0) --------------------------------------------------------
-int __cdecl nox_common_randomInt_415FA0(int a1, int a2) {
+int nox_common_randomInt_415FA0(int a1, int a2) {
 	int result; // eax
 	int v3;     // edx
 
 	result = a2;
-	v3 = *getMemU32Ptr(0x5D4594, 371260);
+	v3 = dword_5d4594_371260;
 	if (a2 - a1 != -1) {
-		if (++*getMemIntPtr(0x5D4594, 371260) >= 4096)
-			*getMemU32Ptr(0x5D4594, 371260) = 0;
+		if (++dword_5d4594_371260 >= 4096)
+			dword_5d4594_371260 = 0;
 		result = a1 + *getMemU32Ptr(0x587000, 4 * v3 + 37892) % (a2 - a1 + 1);
 	}
 	return result;
 }
 
 //----- (00415FF0) --------------------------------------------------------
-int __cdecl nox_xxx_randGetMinMax_415FF0(int a1, int a2, const char* a3, int a4) {
-	int v4; // edx
-
-	v4 = (*(int*)&dword_5d4594_371264)++;
+int nox_common_randomIntMinMax_415FF0(int min, int max, const char* file, int line) {
+	int v4 = (*(int*)&dword_5d4594_371264)++;
 	if (*(int*)&dword_5d4594_371264 >= 4096)
 		*(int*)&dword_5d4594_371264 = 0;
-	return a1 + *getMemIntPtr(0x587000, 4 * v4 + 37892) % (a2 - a1 + 1);
+	return min + *getMemIntPtr(0x587000, 4 * v4 + 37892) % (max - min + 1);
 }
 
 //----- (00416030) --------------------------------------------------------
-double __cdecl nox_xxx_randFloat_416030(float a1, float a2) {
+double nox_common_randomFloat_416030(float a1, float a2) {
 	double v2; // st7
 	int v3;    // edx
 
 	v2 = a2 - a1;
-	v3 = *getMemIntPtr(0x5D4594, 371260);
+	v3 = dword_5d4594_371260;
 	if (v2 == 0.0)
 		return a2;
-	if (++*getMemIntPtr(0x5D4594, 371260) >= 4096)
-		*getMemIntPtr(0x5D4594, 371260) = 0;
+	if (++dword_5d4594_371260 >= 4096)
+		dword_5d4594_371260 = 0;
 	return v2 * ((double)*getMemIntPtr(0x587000, 4 * v3 + 37892) * 0.000030518509) + a1;
 }
 
 //----- (00416090) --------------------------------------------------------
-double __cdecl sub_416090(float a1, float a2) {
+double nox_common_randomFloatXxx_416090(float a1, float a2) {
 	int v2; // ecx
 
 	v2 = (dword_5d4594_371264)++;

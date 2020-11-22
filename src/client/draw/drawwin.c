@@ -48,19 +48,19 @@ int __cdecl nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 			v2 = 0;
 		if (v2 > 0) {
 			do {
-				v22 = nox_xxx_randGetMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1055);
-				v18 = nox_xxx_randGetMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1051);
-				v14 = nox_xxx_randGetMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1050);
+				v22 = nox_common_randomIntMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1055);
+				v18 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1051);
+				v14 = nox_common_randomIntMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1050);
 				v10 = *(_DWORD*)(a2 + 16) + *(__int16*)(a2 + 104) +
-					  nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1048);
-				v3 = nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1047);
+					  nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1048);
+				v3 = nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1047);
 				sub_499F60(*getMemIntPtr(0x5D4594, 1096524), *(_DWORD*)(a2 + 12) + v3, v10, 1, v14, v18, 0, 0, 0, v22);
-				v23 = nox_xxx_randGetMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1066);
-				v19 = nox_xxx_randGetMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1062);
-				v15 = nox_xxx_randGetMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1061);
+				v23 = nox_common_randomIntMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1066);
+				v19 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1062);
+				v15 = nox_common_randomIntMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1061);
 				v11 = *(_DWORD*)(a2 + 16) + *(__int16*)(a2 + 104) +
-					  nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1059);
-				v4 = nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1058);
+					  nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1059);
+				v4 = nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1058);
 				sub_499F60(*getMemIntPtr(0x5D4594, 1096528), *(_DWORD*)(a2 + 12) + v4, v11, 1, v15, v19, 0, 0, 0, v23);
 				--v2;
 			} while (v2);
@@ -74,19 +74,19 @@ int __cdecl nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 		if (*(_DWORD*)(a2 + 12) != *(_DWORD*)(a2 + 32) || (v5 = 1, *(_DWORD*)(a2 + 16) != *(_DWORD*)(a2 + 36)))
 			v5 = 2;
 		do {
-			v24 = nox_xxx_randGetMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1108);
-			v20 = nox_xxx_randGetMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1104);
-			v16 = nox_xxx_randGetMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1103);
+			v24 = nox_common_randomIntMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1108);
+			v20 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1104);
+			v16 = nox_common_randomIntMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1103);
 			v12 = *(_DWORD*)(a2 + 16) + *(__int16*)(a2 + 104) +
-				  nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1101);
-			v6 = nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1100);
+				  nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1101);
+			v6 = nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1100);
 			sub_499F60(*getMemIntPtr(0x5D4594, 1096532), *(_DWORD*)(a2 + 12) + v6, v12, 1, v16, v20, 0, 0, 0, v24);
-			v25 = nox_xxx_randGetMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1119);
-			v21 = nox_xxx_randGetMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1115);
-			v17 = nox_xxx_randGetMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1114);
+			v25 = nox_common_randomIntMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1119);
+			v21 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1115);
+			v17 = nox_common_randomIntMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1114);
 			v13 = *(_DWORD*)(a2 + 16) + *(__int16*)(a2 + 104) +
-				  nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1112);
-			v7 = nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1111);
+				  nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1112);
+			v7 = nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1111);
 			sub_499F60(*getMemIntPtr(0x5D4594, 1096536), *(_DWORD*)(a2 + 12) + v7, v13, 1, v17, v21, 0, 0, 0, v25);
 			--v5;
 		} while (v5);
@@ -194,12 +194,12 @@ int __cdecl nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 			*getMemU32Ptr(0x5D4594, 1096544) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 150512));
 		v12 = 2;
 		do {
-			v40 = nox_xxx_randGetMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1307);
-			v36 = nox_xxx_randGetMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1303);
-			v34 = nox_xxx_randGetMinMax_415FF0(1, 2, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1302);
-			v32 = nox_xxx_randGetMinMax_415FF0(0, v44, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1301);
-			v30 = *(_DWORD*)(v2 + 16) + nox_xxx_randGetMinMax_415FF0(-v11, v11, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1300);
-			v13 = nox_xxx_randGetMinMax_415FF0(-v11, v11, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1299);
+			v40 = nox_common_randomIntMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1307);
+			v36 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1303);
+			v34 = nox_common_randomIntMinMax_415FF0(1, 2, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1302);
+			v32 = nox_common_randomIntMinMax_415FF0(0, v44, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1301);
+			v30 = *(_DWORD*)(v2 + 16) + nox_common_randomIntMinMax_415FF0(-v11, v11, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1300);
+			v13 = nox_common_randomIntMinMax_415FF0(-v11, v11, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1299);
 			sub_499F60(*getMemIntPtr(0x5D4594, 1096544), *(_DWORD*)(v2 + 12) + v13, v30, v32, v34, v36, -5, 0, 0, v40);
 			--v12;
 		} while (v12);
@@ -208,14 +208,14 @@ int __cdecl nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 21) && !nox_xxx_checkGFlagNoParticles_413A50()) {
 		if (!*getMemU32Ptr(0x5D4594, 1096548))
 			*getMemU32Ptr(0x5D4594, 1096548) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 150776));
-		v41 = nox_xxx_randGetMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1335);
-		v37 = nox_xxx_randGetMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1331);
-		v35 = nox_xxx_randGetMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1330);
+		v41 = nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1335);
+		v37 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1331);
+		v35 = nox_common_randomIntMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1330);
 		v29 = nox_float2int(*(float*)(v2 + 100)) + 12;
 		v14 = nox_float2int(*(float*)(v2 + 100));
-		v33 = nox_xxx_randGetMinMax_415FF0(v14 + 8, v29, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1329);
-		v31 = *(_DWORD*)(v2 + 16) + nox_xxx_randGetMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1327);
-		v15 = nox_xxx_randGetMinMax_415FF0(-6, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1326);
+		v33 = nox_common_randomIntMinMax_415FF0(v14 + 8, v29, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1329);
+		v31 = *(_DWORD*)(v2 + 16) + nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1327);
+		v15 = nox_common_randomIntMinMax_415FF0(-6, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1326);
 		sub_499F60(*getMemIntPtr(0x5D4594, 1096548), *(_DWORD*)(v2 + 12) + v15, v31, v33, v35, v37, 1, 0, 0, v41);
 	}
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 13) && !nox_xxx_checkGFlagNoParticles_413A50()) {
@@ -227,15 +227,15 @@ int __cdecl nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 		sub_4739E0(v4, (int2*)(v2 + 12), &a3);
 		v16 = 10;
 		do {
-			v17 = nox_xxx_randGetMinMax_415FF0(1, 2, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1366);
+			v17 = nox_common_randomIntMinMax_415FF0(1, 2, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1366);
 			v38 = nox_float2int(*(float*)(v2 + 48));
 			v18 = nox_float2int(*(float*)(v2 + 48));
-			v19 = nox_xxx_randGetMinMax_415FF0(-v18, v38, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1369);
+			v19 = nox_common_randomIntMinMax_415FF0(-v18, v38, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1369);
 			xLeft.field_0 = a3.field_0 + v19;
 			v20 = nox_float2int(*(float*)(v2 + 100));
-			v21 = nox_xxx_randGetMinMax_415FF0(-10 - v20, 0, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1370);
+			v21 = nox_common_randomIntMinMax_415FF0(-10 - v20, 0, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1370);
 			xLeft.field_4 = v21 + a3.field_4 + *(__int16*)(v2 + 104);
-			v22 = nox_xxx_randGetMinMax_415FF0(3, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1372);
+			v22 = nox_common_randomIntMinMax_415FF0(3, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1372);
 			sub_4B6720(&xLeft, *getMemIntPtr(0x5D4594, 1096452), v17 + v22, v17 + 2);
 			nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 1096436));
 			nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, v17);

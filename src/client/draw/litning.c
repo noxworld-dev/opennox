@@ -59,12 +59,12 @@ int __cdecl nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 			} while (v16);
 		}
 		LOWORD(v24) = v15 *
-						  nox_xxx_randGetMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
+						  nox_common_randomIntMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
 									 "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 193) /
 						  v14 +
 					  (((__int16)a1 + (__int16)a2) >> 1);
 		HIWORD(v24) = v15 *
-						  nox_xxx_randGetMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
+						  nox_common_randomIntMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
 									 "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 196) /
 						  v14 +
 					  ((SHIWORD(a1) + SHIWORD(a2)) >> 1);

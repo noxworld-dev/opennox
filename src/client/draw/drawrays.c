@@ -59,37 +59,37 @@ int __cdecl nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1) {
 			v20 = *getMemU32Ptr(0x5D4594, 1304320);
 			goto LABEL_17;
 		case 0x8Fu:
-			v18 = nox_xxx_randGetMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 137);
+			v18 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 137);
 			v20 = dword_5d4594_1304328;
-			if (nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 140) < 50) {
-				v15 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 143);
-				v10 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 142);
+			if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 140) < 50) {
+				v15 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 143);
+				v10 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 142);
 				sub_499490(*getMemIntPtr(0x5D4594, 1304336), v3, v10, v15, v18, 0);
 			}
 			goto LABEL_17;
 		case 0x90u:
-			v16 = nox_xxx_randGetMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 101);
+			v16 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 101);
 			v20 = dword_5d4594_1304328;
-			if (nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 104) < 50) {
-				v12 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 107);
-				v6 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 106);
+			if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 104) < 50) {
+				v12 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 107);
+				v6 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 106);
 				sub_499490(*getMemIntPtr(0x5D4594, 1304344), v3, v6, v12, v16, 0);
 			}
 			v7 = *(_DWORD*)v3;
 			*(_DWORD*)v19 = *(_DWORD*)(v2 + 5);
 			*(_DWORD*)&v19[2] = v7;
-			if (nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 112) < 50) {
-				v13 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 115);
-				v8 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 114);
+			if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 112) < 50) {
+				v13 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 115);
+				v8 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 114);
 				sub_499490(*getMemIntPtr(0x5D4594, 1304344), v19, v8, v13, v16, 0);
 			}
 			goto LABEL_17;
 		case 0x91u:
-			v17 = nox_xxx_randGetMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 123);
+			v17 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 123);
 			v20 = dword_5d4594_1304328;
-			if (nox_xxx_randGetMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 126) < 50) {
-				v14 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 129);
-				v9 = nox_xxx_randGetMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 128);
+			if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 126) < 50) {
+				v14 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 129);
+				v9 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 128);
 				sub_499490(*getMemIntPtr(0x5D4594, 1304340), v3, v9, v14, v17, 0);
 			}
 		LABEL_17:

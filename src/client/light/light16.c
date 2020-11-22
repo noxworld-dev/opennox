@@ -213,7 +213,7 @@ void __cdecl sub_484F90(int a1) {
 		if (!nox_xxx_get_57AF20() || a1 == *getMemU32Ptr(0x5D4594, 2614252) ||
 			*(int(__cdecl**)(int*, int))(a1 + 300) == nox_thing_glow_orb_draw) {
 			if (*(_DWORD*)(a1 + 120) & 0x20000000 && dword_5d4594_3801780 == 1) {
-				a5 = sub_416090(0.89999998, 1.1) * *(float*)(a1 + 140);
+				a5 = nox_common_randomFloatXxx_416090(0.89999998, 1.1) * *(float*)(a1 + 140);
 				v3 = (double)sub_484C60(a5);
 			} else {
 				v3 = (double)*(int*)(a1 + 144);
@@ -701,7 +701,7 @@ void __cdecl nox_xxx_cliLight16_469140(int arg0) {
 			v3 = *(_DWORD*)(arg0 + 148);
 			v4 = *(_DWORD*)(arg0 + 144);
 			if (*(_DWORD*)(arg0 + 120) & 0x20000000) {
-				v3 += nox_xxx_randGetMinMax_415FF0(0, *(_DWORD*)(arg0 + 148) >> 18, "C:\\NoxPost\\src\\Client\\Light\\Light16.c", 267)
+				v3 += nox_common_randomIntMinMax_415FF0(0, *(_DWORD*)(arg0 + 148) >> 18, "C:\\NoxPost\\src\\Client\\Light\\Light16.c", 267)
 					  << 16;
 				v27 = (double)v3 * 0.000015258789;
 				v4 = sub_484C60(v27);
