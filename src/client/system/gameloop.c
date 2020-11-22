@@ -1,5 +1,6 @@
 #include "gameloop.h"
 
+#include "../../common/random.h"
 #include "../../common/system/gamedisk.h"
 #include "../../proto.h"
 #include "../gui/guimsg.h"

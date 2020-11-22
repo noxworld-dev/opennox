@@ -1,5 +1,6 @@
 #include "mondraw.h"
 #include "parse/parse.h"
+#include "../../common/random.h"
 #include "../../proto.h"
 
 extern int nox_backbuffer_depth;

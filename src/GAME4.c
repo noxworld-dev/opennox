@@ -1,6 +1,7 @@
 #include "common/system/team.h"
 #include "server/magic/plyrspel.h"
 #include "server/magic/spell/execdur.h"
+#include "common/random.h"
 
 #include "proto.h"
 

@@ -2,6 +2,7 @@
 #include "server/magic/plyrgide.h"
 #include "server/magic/plyrspel.h"
 #include "server/object/health.h"
+#include "common/random.h"
 
 #include "common/gamemech/pausefx.h"
 

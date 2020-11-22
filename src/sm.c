@@ -3,6 +3,7 @@
 #endif
 
 #include "common/system/team.h"
+#include "common/random.h"
 
 #include "proto.h"
 

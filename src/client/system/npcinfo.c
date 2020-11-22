@@ -1,5 +1,6 @@
 #include "npcinfo.h"
 
+#include "../../common/random.h"
 #include "../../proto.h"
 
 //----- (0049A4B0) --------------------------------------------------------

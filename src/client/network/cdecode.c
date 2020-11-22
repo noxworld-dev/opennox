@@ -1,5 +1,6 @@
 #include "cdecode.h"
 
+#include "../../common/random.h"
 #include "../../common/system/team.h"
 #include "../../proto.h"
 #include "../draw/animdraw.h"

@@ -1,5 +1,6 @@
 #include "client/drawable/drawdb.h"
 #include "client/gui/guigen.h"
+#include "common/random.h"
 
 #include "proto.h"
 
