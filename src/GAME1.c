@@ -10345,29 +10345,27 @@ int* __cdecl sub_416770(int a1, wchar_t* a2, const char* a3) {
 }
 
 //----- (00416820) --------------------------------------------------------
-int* __cdecl sub_416820(int a1) {
-	int* result; // eax
+void sub_416820(int a1) {
 	int* v2;     // esi
 	int v3;      // edi
 	int v4;      // eax
 
-	result = sub_416900();
-	v2 = result;
-	if (result) {
-		v3 = a1;
-		while (1) {
-			v4 = v3--;
-			if (!v4)
-				break;
-			result = sub_416910(v2);
-			v2 = result;
-			if (!result)
-				return result;
-		}
-		sub_425920((_DWORD**)v2);
-		free(v2);
+	v2 = sub_416900();
+	if (!v2) {
+		return;
 	}
-	return result;
+	v3 = a1;
+	while (1) {
+		v4 = v3--;
+		if (!v4)
+			break;
+		v2 = sub_416910(v2);
+		if (!v2) {
+			return;
+		}
+	}
+	sub_425920((_DWORD**)v2);
+	free(v2);
 }
 
 //----- (00416860) --------------------------------------------------------
