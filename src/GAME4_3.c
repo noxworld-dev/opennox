@@ -9782,7 +9782,7 @@ void __cdecl nox_xxx_updateGameBall_53DF40(int a3) {
 	}
 	v2 = nox_call_get_ticks() - *(_QWORD*)(v1 + 8);
 	v11.field_4 = *((float*)&v2 + 1);
-	if (v2 <= 0x4E20) {
+	if (v2 <= 20000) {
 		v3 = *(_DWORD*)(a3 + 508);
 		if (v3) {
 			if (v3 != *(_DWORD*)v1 ||
