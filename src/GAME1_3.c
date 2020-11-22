@@ -1106,8 +1106,7 @@ void sub_43CCA0() {
 }
 
 //----- (0043CEB0) --------------------------------------------------------
-int sub_43CEB0() {
-	unsigned __int64 v0; // rax
+void sub_43CEB0() {
 	unsigned int v1;     // esi
 	unsigned int v2;     // edi
 	unsigned int v3;     // ebx
@@ -1117,35 +1116,33 @@ int sub_43CEB0() {
 	unsigned int v7;     // kr08_4
 	unsigned int v9;     // [esp+0h] [ebp-8h]
 
-	LODWORD(v0) = dword_5d4594_815748;
+	int v0 = dword_5d4594_815748;
 	if (*(int*)&dword_5d4594_815748 >= 60)
-		LODWORD(v0) = 60;
+		v0 = 60;
 	v1 = 0;
 	v2 = 0;
 	v3 = 0;
-	if ((_DWORD)v0 && (int)v0 > 10) {
-		v0 = (int)v0;
-		v5 = 0;
-		v9 = v0;
-		do {
-			do {
-				v6 = *getMemU32Ptr(0x5D4594, 8 * v5 + 815220) + v2;
-				v3 = (__PAIR64__(*getMemU32Ptr(0x5D4594, 8 * v5 + 815224), *getMemU32Ptr(0x5D4594, 8 * v5 + 815220)) +
-					  __PAIR64__(v3, v2)) >>
-					 32;
-				v2 += *getMemU32Ptr(0x5D4594, 8 * v5 + 815220);
-				v7 = v5 + 1;
-				v1 = (__PAIR64__(v1, v5++) + 1) >> 32;
-			} while (v1 < HIDWORD(v4));
-			LODWORD(v4) = v9;
-		} while (v1 <= HIDWORD(v4) && v7 < v9);
-		v0 = __PAIR64__(v3, v6) / v4;
-		*getMemU64Ptr(0x587000, 91880) = v0;
-	} else {
+	if (!(v0 && v0 > 10)) {
 		*getMemU32Ptr(0x587000, 91884) = 0;
 		*getMemU32Ptr(0x587000, 91880) = 33;
+		return;
 	}
-	return v0;
+	v5 = 0;
+	v9 = v0;
+	do {
+		do {
+			v6 = *getMemU32Ptr(0x5D4594, 8 * v5 + 815220) + v2;
+			v3 = (__PAIR64__(*getMemU32Ptr(0x5D4594, 8 * v5 + 815224), *getMemU32Ptr(0x5D4594, 8 * v5 + 815220)) +
+				  __PAIR64__(v3, v2)) >>
+									  32;
+			v2 += *getMemU32Ptr(0x5D4594, 8 * v5 + 815220);
+			v7 = v5 + 1;
+			v1 = (__PAIR64__(v1, v5++) + 1) >> 32;
+		} while (v1 < HIDWORD(v4));
+		LODWORD(v4) = v9;
+	} while (v1 <= HIDWORD(v4) && v7 < v9);
+	__int64 v0a = __PAIR64__(v3, v6) / v4;
+	*getMemU64Ptr(0x587000, 91880) = v0a;
 }
 
 //----- (0043CF40) --------------------------------------------------------
