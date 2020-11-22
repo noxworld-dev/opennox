@@ -10308,28 +10308,19 @@ void sub_416690() {
 // 416690: using guessed type char var_54[84];
 
 //----- (00416720) --------------------------------------------------------
-int sub_416720() {
-	int v0;              // ebx
-	unsigned __int64 v1; // rax
-	int v2;              // esi
-	int* v3;             // edi
-
-	v0 = 0;
-	LODWORD(v1) = sub_416900();
-	v2 = v1;
-	if ((_DWORD)v1) {
-		do {
-			v3 = sub_416910((int*)v2);
-			if (*(_DWORD*)(v2 + 68) || (LODWORD(v1) = *(_DWORD*)(v2 + 64), (_DWORD)v1)) {
-				v1 = nox_call_get_ticks();
-				if (v1 > *(_QWORD*)(v2 + 64))
-					LODWORD(v1) = sub_416820(v0);
+void sub_416720() {
+	int v0 = 0;
+	int v2 = sub_416900();
+	while (v2) {
+		int* v3 = sub_416910((int*)v2);
+		if (*(_DWORD*)(v2 + 68) || (*(_DWORD*)(v2 + 64))) {
+			if (nox_call_get_ticks() > *(_QWORD*)(v2 + 64)) {
+				sub_416820(v0);
 			}
-			++v0;
-			v2 = (int)v3;
-		} while (v3);
+		}
+		++v0;
+		v2 = (int)v3;
 	}
-	return v1;
 }
 
 //----- (00416770) --------------------------------------------------------
