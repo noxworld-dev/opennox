@@ -9,7 +9,7 @@ extern _DWORD dword_5d4594_1047524;
 extern _DWORD dword_5d4594_1046944;
 extern _DWORD dword_5d4594_1046648;
 extern _DWORD dword_5d4594_1046640;
-extern _DWORD dword_5d4594_1046624;
+float2 obj_5d4594_1046620 = {0};
 extern _DWORD dword_5d4594_1046932;
 extern _DWORD dword_5d4594_1046948;
 extern _DWORD dword_5d4594_1046636;
@@ -456,8 +456,8 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 	else
 		v9 = sub_424A90(*(int*)&dword_5d4594_1047524);
 	nox_client_drawImageAt_47D2C0(v9, v21, v22);
-	*(float*)&dword_5d4594_1046636 = *(float*)&dword_5d4594_1046636 + *getMemFloatPtr(0x5D4594, 1046620);
-	*(float*)&dword_5d4594_1046640 = *(float*)&dword_5d4594_1046640 + *(float*)&dword_5d4594_1046624;
+	*(float*)&dword_5d4594_1046636 = *(float*)&dword_5d4594_1046636 + obj_5d4594_1046620.field_0;
+	*(float*)&dword_5d4594_1046640 = *(float*)&dword_5d4594_1046640 + obj_5d4594_1046620.field_4;
 	if ((double)*getMemIntPtr(0x5D4594, 1046668) <= *(float*)&dword_5d4594_1046636 &&
 		(double)*getMemIntPtr(0x5D4594, 1046672) <= *(float*)&dword_5d4594_1046640) {
 	LABEL_26:
@@ -470,11 +470,11 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 		*getMemU32Ptr(0x5D4594, 1046628) = v10;
 		if (v10 < *getMemIntPtr(0x5D4594, 1046680)) {
 			if (v10 <= *getMemIntPtr(0x5D4594, 1046680) - 1) {
-				*getMemFloatPtr(0x5D4594, 1046620) =
+				obj_5d4594_1046620.field_0 =
 					*getMemFloatPtr(0x5D4594, 8 * v10 + 1046692) - *getMemFloatPtr(0x5D4594, 8 * v10 + 1046684);
-				*(float*)&dword_5d4594_1046624 =
+				obj_5d4594_1046620.field_4 =
 					*getMemFloatPtr(0x5D4594, 8 * v10 + 1046696) - *getMemFloatPtr(0x5D4594, 8 * v10 + 1046688);
-				sub_509F20((float2*)getMemAt(0x5D4594, 1046620));
+				sub_509F20(&obj_5d4594_1046620);
 				if (nox_win_width < 1000) {
 					if (nox_win_width < 750)
 						v11 = 6.0;
@@ -483,8 +483,8 @@ int __cdecl sub_45C7D0(_DWORD* a1) {
 				} else {
 					v11 = 10.0;
 				}
-				*getMemFloatPtr(0x5D4594, 1046620) = *getMemFloatPtr(0x5D4594, 1046620) * v11;
-				*(float*)&dword_5d4594_1046624 = *(float*)&dword_5d4594_1046624 * v11;
+				obj_5d4594_1046620.field_0 = obj_5d4594_1046620.field_0 * v11;
+				obj_5d4594_1046620.field_4 = obj_5d4594_1046620.field_4 * v11;
 			}
 			goto LABEL_27;
 		}
