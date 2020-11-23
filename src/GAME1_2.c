@@ -5634,16 +5634,7 @@ void __cdecl nox_client_readMouseBuffer_4306A0(int a1) {
 }
 
 //----- (00430710) --------------------------------------------------------
-int nox_xxx_getKeyFromKeyboard_430710() {
-	int v2;              // ebp
-	unsigned __int8* v3; // edi
-	unsigned __int8* v4; // esi
-	unsigned __int8 v5;  // cl
-	unsigned __int8 v6;  // dl
-	int v7;              // eax
-	int v8;              // ecx
-	int result;          // eax
-
+void nox_xxx_getKeyFromKeyboard_430710() {
 	nox_keyboard_btn_t* ev = getMemAt(0x5D4594, 787228);
 	unsigned __int8 code;
 	do {
@@ -5653,38 +5644,31 @@ int nox_xxx_getKeyFromKeyboard_430710() {
 		} while (code == -1);
 		ev++;
 	} while (code);
-	v2 = 0;
-	if (getMemByte(0x5D4594, 787228)) {
-		v3 = getMemAt(0x5D4594, 787228);
-		v4 = getMemAt(0x5D4594, 787228);
-		do {
-			if (*v3 == 15) {
-				if (getMemByte(0x5D4594, 789725) == 2 || getMemByte(0x5D4594, 790749) == 2)
-					v4[2] = 1;
-			} else {
-				v3 = v4;
-				if (*v4 == 58)
-					nox_xxx_conScanCode2Alpha_47F950(0x3Au);
+
+	int cnt = 0;
+	ev = getMemAt(0x5D4594, 787228);
+	while (ev->code) {
+		if (ev->code == 15) {
+			if (getMemByte(0x5D4594, 789725) == 2 || getMemByte(0x5D4594, 790749) == 2) {
+				ev->field_2 = 1;
 			}
-			if (obj_5D4594_754104_switch == 1)
-				v4[2] = 1;
-			v5 = v4[1];
-			v6 = v4[2];
-			v4 += 8;
-			v7 = *v3;
-			v3 = v4;
-			v7 *= 8;
-			++v2;
-			*getMemU8Ptr( 0x5D4594, v7 + 789277) = v5;
-			v8 = nox_mouse_prev_seq;
-			*getMemU8Ptr( 0x5D4594, v7 + 789278) = v6;
-			*getMemU32Ptr(0x5D4594, v7 + 789280) = v8;
-		} while (*v4);
+		} else if (ev->code == 58) {
+			nox_xxx_conScanCode2Alpha_47F950(0x3Au);
+		}
+		if (obj_5D4594_754104_switch == 1) {
+			ev->field_2 = 1;
+		}
+		int code = ev->code;
+		*getMemU8Ptr( 0x5D4594, code*8 + 789277) = ev->state;
+		*getMemU8Ptr( 0x5D4594, code*8 + 789278) = ev->field_2;
+		*getMemU32Ptr(0x5D4594, code*8 + 789280) = nox_mouse_prev_seq;
+		ev++;
+		cnt++;
 	}
-	result = sub_4307D0();
-	if (result == 1 || v2)
+
+	if (sub_4307D0() == 1 || cnt != 0) {
 		*getMemU32Ptr(0x5D4594, 805816) = nox_mouse_prev_seq;
-	return result;
+	}
 }
 
 //----- (004307D0) --------------------------------------------------------
