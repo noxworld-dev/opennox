@@ -1357,7 +1357,7 @@ void sub_430210();
 void nox_client_mouseBtnState_430230();
 void nox_client_processMouseEvents_4302A0(int a1, int a2);
 void __cdecl nox_client_readMouseBuffer_4306A0(int a1);
-int nox_xxx_getKeyFromKeyboard_430710();
+void nox_xxx_getKeyFromKeyboard_430710();
 int sub_4307D0();
 int __cdecl sub_430880(int a1);
 int nox_xxx_get_430890();
