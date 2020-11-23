@@ -804,7 +804,7 @@ signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4) {
 // 10002300: using guessed type CHAR pDst[28];
 
 //----- (100023E0) --------------------------------------------------------
-_DWORD* playErrSoundClient() { return nox_xxx_clientPlaySoundSpecial_452D80(766, 100); }
+void playErrSoundClient() { nox_xxx_clientPlaySoundSpecial_452D80(766, 100); }
 
 //----- (10002400) --------------------------------------------------------
 unsigned int invalidIpChecker(unsigned int interval, void* param) {
@@ -1093,7 +1093,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 // 1000EF00: using guessed type int DefaultPacket[4];
 
 //----- (10002C30) --------------------------------------------------------
-_DWORD* OnLibraryNotice(int a1, ...) {
+void OnLibraryNotice(int a1, ...) {
 	int v1;                  // edi
 	_DWORD* result;          // eax
 	int v3;                  // ST34_4
@@ -1137,19 +1137,20 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 	{
 	case 257:
 		MEMACCESS(0x97EBC0) = 0;
-		return result;
+		return;
 	case 258: // вызывается в экзешнике отсюда 0x980650
 		someSwitch = 1;
-		return result;
+		return;
 	case 259: // предполагаю что маркер выгрузки из нокса
 		someSwitch = 0;
-		return result;
+		return;
 	case 260: // пингует все сервера из файла game.ip
 		LOWORD(a2) = **(_DWORD**)vaArg1_1;
 		v3 = *(_DWORD*)(*(_DWORD*)vaArg1_1 + 8);
 		v4 = *(_DWORD*)(*(_DWORD*)vaArg1_1 + 4);
 		GameIpParser(v4, a2, v3);
-		return (_DWORD*)pingAllServersInGameIp(v4, v1, a2, v4, v3);
+		pingAllServersInGameIp(v4, v1, a2, v4, v3);
+		return;
 	case 261: // вызывается при обновлении параметров сервера через гуй
 			  // Просто копирует данные из сервера в переменную serverData
 		copyServerMatchData((char*)v24);
@@ -1159,14 +1160,16 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 			--result;
 			v5 += 4;
 			if ((unsigned int)result < 4)
-				return result;
+				return;
 		}
 		memcpy(serverData, v24, sizeof(serverData));
-		return result;
+		return;
 	case 263: // просто проверяет является ли инстанс игры хостом
-		return (_DWORD*)nox_common_gameFlags_check_40A5C0(1);
+		nox_common_gameFlags_check_40A5C0(1);
+		return;
 	case 264:
-		return (_DWORD*)nox_common_gameFlags_check_40A5C0(1);
+		nox_common_gameFlags_check_40A5C0(1);
+		return;
 	case 265:
 		// toggles weapons by mouse wheel
 		// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
@@ -1186,22 +1189,22 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 							if (!(_BYTE)result) {
 								LOBYTE(result) = mix_MouseKeyboardWeaponRoll(v6, a2a);
 								if ((_BYTE)result)
-									result = nox_xxx_clientPlaySoundSpecial_452D80(895, 100); // clientPlaySound
+									nox_xxx_clientPlaySoundSpecial_452D80(895, 100); // clientPlaySound
 							}
 						}
 					} else {
 						notifyThisIsServeronly((int)&buf, 0, 1);
 						// v27 = a2a;
-						result = (_DWORD*)sendtoWrapper(&buf, 9, 0);
+						sendtoWrapper(&buf, 9, 0);
 					}
 				}
 			}
 		}
-		return result;
+		return;
 	case 417:
 		v7 = *(_WORD*)vaArg1_1;
 		if (vaArg1_1[1] != 2)
-			return result;
+			return;
 		if (vaArg1_1[0] == 26) {
 			v8 = 1;
 		} else {
@@ -1214,7 +1217,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 			result = (_DWORD*)nox_common_gameFlags_check_40A5C0(0x204); // checks some gameFlags that are yet undiscovered
 			if (result) {
 				if (MEMACCESS(0x6D8538) || MEMACCESS(0x6D855D))
-					return result;
+					return;
 				if (nox_common_gameFlags_check_40A5C0(1)) // isServer
 				{
 					if (MEMACCESS(0x97EBC0) && mix_MouseKeyboardWeaponRoll(MEMACCESS(0x97EBC0), vaArg1_1[1]))
@@ -1232,7 +1235,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 				result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
 				if (result) {
 					if (MEMACCESS(0x6D8538) || MEMACCESS(0x6D855D))
-						return result;
+						return;
 					if (nox_common_gameFlags_check_40A5C0(1)) // checkGameFlags isServer
 					{
 						v9 = nox_xxx_objGetTeamByNetCode_418C80(MEMACCESS(0x85319C));
@@ -1248,7 +1251,8 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 			goto LABEL_60;
 		if (!nox_common_gameFlags_check_40A5C0(1)) {
 			nox_xxx_printCentered_445490(L"only server can change these options");
-			return nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
+			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
+			return;
 		}
 		result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
 		if (result) {
@@ -1261,7 +1265,7 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 				result = nox_new_window_from_file("modify.wnd", modifyWndInputHandler);
 				modifyWndPntr = result;
 				if (!result)
-					return result;
+					return;
 				if (nox_common_gameFlags_check_40A5C0(512)) {
 					v10 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1938);
 					nox_window_set_hidden((int)v10, 1);
@@ -1292,20 +1296,20 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 			while ((_BYTE)v7 != functionalKeyCodes[(_DWORD)result]) {
 				result = (_DWORD*)((char*)result + 1);
 				if ((signed int)result >= 5)
-					return result;
+					return;
 			}
-			result = (_DWORD*)nox_xxx_clientUpdateButtonRow_45E110((int)result);
+			nox_xxx_clientUpdateButtonRow_45E110((int)result);
 		}
-		return result;
+		return;
 	case 418:
 		result = (_DWORD*)sub_44A4A0();
 		if (!result) {
 			memset(inputNewIpMsgBox, 0, 0x200u);
 			*(_DWORD*)&inputNewIpMsgBox[376] = inputNewIp_;
-			result = nox_xxx_dialogMsgBoxCreate_449A10((int)inputNewIpMsgBox, (int)L"Ip Address", (int)L"Enter address", 163,
+			nox_xxx_dialogMsgBoxCreate_449A10((int)inputNewIpMsgBox, (int)L"Ip Address", (int)L"Enter address", 163,
 								(int (*)(void))startInvalidIpChecker, 0);
 		}
-		return result;
+		return;
 	case 420:
 		v23 = **(_DWORD**)vaArg1_1;
 		v19 = *(_DWORD*)(*(_DWORD*)vaArg1_1 + 4);
@@ -1319,16 +1323,16 @@ _DWORD* OnLibraryNotice(int a1, ...) {
 				goto ifIsWarrior;
 		LABEL_71:
 			nox_xxx_inventoryServPlace_4F36F0(v23, v19, 1, 1);
-			return v18;
+			return;
 		}
 		if ((_BYTE)v16 == 1)
 			goto LABEL_71;
 	ifIsWarrior:
 		nox_xxx_netPriMsgToPlayer_4DA2C0(v23, (const char*)getMem(0x5BBAB4), 0); // 0x5BBAB4 = pickup.c:ObjectEquipClassFail
 		nox_xxx_aud_501960(925, v23, 2, *(_DWORD*)(v23 + 36));
-		return v18;
+		return;
 	default:
-		return result;
+		return;
 	}
 }
 // 1000F198: using guessed type wchar_t aEnterAddress[14];

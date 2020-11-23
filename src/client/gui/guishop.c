@@ -17,7 +17,7 @@ extern _DWORD dword_5d4594_1098576;
 extern _DWORD nox_client_renderGUI_80828;
 
 //----- (00478730) --------------------------------------------------------
-_DWORD* __cdecl sub_478730(int* a1) {
+void sub_478730(int* a1) {
 	int v1;              // ecx
 	int v2;              // edx
 	int v3;              // ecx
@@ -42,29 +42,29 @@ _DWORD* __cdecl sub_478730(int* a1) {
 	v3 = v2 + 10 * v1;
 	result = *(_DWORD**)getMemAt(0x5D4594, 140 * v3 + 1098640);
 	v5 = getMemAt(0x5D4594, 140 * v3 + 1098636);
-	if (result) {
-		v6 = sub_4674A0();
-		v7 = *((_DWORD*)v5 + 34);
-		v8 = *((_DWORD*)v5 + 1);
-		if (v6 < v8 * *((_DWORD*)v5 + 34))
-			v8 = v6 / v7;
-		if (v8) {
-			v9 = 0;
-			if (*(_DWORD*)(*(_DWORD*)v5 + 112) & 0x13001000)
-				v9 = (const void*)(*(_DWORD*)v5 + 432);
-			sub_4C05F0(1, *((_DWORD*)v5 + 34));
-			v14 = *(_DWORD*)(*(_DWORD*)v5 + 108);
-			v13 = *(_DWORD*)&v5[4 * *((_DWORD*)v5 + 1) + 4];
-			v12 = a1[1];
-			v11 = *a1;
-			v10 =
-				nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 152564), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 328);
-			result = (_DWORD*)sub_4C0430((int)v10, v11, v12, v13, v14, v9, v8, 0, sub_478850, 0);
-		} else {
-			result = sub_479520(v7 - v6);
-		}
+	if (!result) {
+		return;
 	}
-	return result;
+	v6 = sub_4674A0();
+	v7 = *((_DWORD*)v5 + 34);
+	v8 = *((_DWORD*)v5 + 1);
+	if (v6 < v8 * *((_DWORD*)v5 + 34))
+		v8 = v6 / v7;
+	if (!v8) {
+		sub_479520(v7 - v6);
+		return;
+	}
+	v9 = 0;
+	if (*(_DWORD*)(*(_DWORD*)v5 + 112) & 0x13001000)
+		v9 = (const void*)(*(_DWORD*)v5 + 432);
+	sub_4C05F0(1, *((_DWORD*)v5 + 34));
+	v14 = *(_DWORD*)(*(_DWORD*)v5 + 108);
+	v13 = *(_DWORD*)&v5[4 * *((_DWORD*)v5 + 1) + 4];
+	v12 = a1[1];
+	v11 = *a1;
+	v10 =
+			nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 152564), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 328);
+	sub_4C0430((int)v10, v11, v12, v13, v14, v9, v8, 0, sub_478850, 0);
 }
 
 //----- (00478880) --------------------------------------------------------
@@ -181,7 +181,7 @@ int __cdecl nox_xxx_cliStartShopDlg_478FD0(const wchar_t* a1, char* a2, int a3) 
 }
 
 //----- (00479520) --------------------------------------------------------
-_DWORD* __cdecl sub_479520(int a1) {
+void sub_479520(int a1) {
 	wchar_t* v1; // eax
 	wchar_t* v2; // eax
 
@@ -189,7 +189,7 @@ _DWORD* __cdecl sub_479520(int a1) {
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1097352), v1, a1);
 	v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 153316), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1350);
 	nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1098576, (int)v2, (int)getMemAt(0x5D4594, 1097352), 33, 0, 0);
-	return nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
+	nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
 }
 
 void sub_479680() { dword_5d4594_1098616 = 0; }
