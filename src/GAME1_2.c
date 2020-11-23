@@ -5635,8 +5635,6 @@ void __cdecl nox_client_readMouseBuffer_4306A0(int a1) {
 
 //----- (00430710) --------------------------------------------------------
 int nox_xxx_getKeyFromKeyboard_430710() {
-	unsigned __int8* v0; // esi
-	unsigned __int8 v1;  // al
 	int v2;              // ebp
 	unsigned __int8* v3; // edi
 	unsigned __int8* v4; // esi
@@ -5646,14 +5644,15 @@ int nox_xxx_getKeyFromKeyboard_430710() {
 	int v8;              // ecx
 	int result;          // eax
 
-	v0 = getMemAt(0x5D4594, 787228);
+	nox_keyboard_btn_t* ev = getMemAt(0x5D4594, 787228);
+	unsigned __int8 code;
 	do {
 		do {
-			nox_xxx_getKeyFromKeyboardImpl_47FA80((int)v0);
-			v1 = *v0;
-		} while (*v0 == -1);
-		v0 += 8;
-	} while (v1);
+			nox_xxx_getKeyFromKeyboardImpl_47FA80(ev);
+			code = ev->code;
+		} while (code == -1);
+		ev++;
+	} while (code);
 	v2 = 0;
 	if (getMemByte(0x5D4594, 787228)) {
 		v3 = getMemAt(0x5D4594, 787228);
