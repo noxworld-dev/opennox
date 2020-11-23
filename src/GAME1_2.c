@@ -5700,10 +5700,10 @@ int sub_4307D0() {
 		if (v5 >= 256)
 			return 0;
 	}
-	*getMemU8Ptr( 0x5D4594, 8 * v0 + 787228) = v5;
-	*getMemU8Ptr( 0x5D4594, 8 * v0 + 787229) = 2;
-	*getMemU8Ptr( 0x5D4594, 8 * v0 + 787230) = 0;
-	*getMemU8Ptr( 0x5D4594, 8 * v0 + 787236) = 0;
+	*getMemU8Ptr(0x5D4594, 787228 + 8*v0) = v5;
+	*getMemU8Ptr(0x5D4594, 787228 + 8*v0 + 1) = 2;
+	*getMemU8Ptr(0x5D4594, 787228 + 8*v0 + 2) = 0;
+	*getMemU8Ptr(0x5D4594, 787228 + 8*(1 + v0)) = 0;
 	int v8 = 0;
 	v7 = getMemAt(0x5D4594, 789276 + 4);
 	do {
