@@ -2657,7 +2657,7 @@ int __cdecl sub_476080(unsigned __int8* a1);
 int __cdecl sub_476160(const void*, const void*); // idb
 int __cdecl sub_4761B0(int a1);
 int __cdecl sub_476240(const void*, const void*); // idb
-int __cdecl sub_476270(_DWORD* a1);
+void sub_476270(_DWORD* a1);
 int __cdecl sub_4765F0(int a1);
 int sub_476680();
 int __cdecl sub_4766A0(int a1);

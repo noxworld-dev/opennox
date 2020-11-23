@@ -310,7 +310,7 @@ int __cdecl sub_476240(const void* a1, const void* a2) {
 }
 
 //----- (00476270) --------------------------------------------------------
-int __cdecl sub_476270(_DWORD* a1) {
+void sub_476270(_DWORD* a1) {
 	_DWORD* v1;  // esi
 	int v2;      // ebp
 	int v3;      // ebx
@@ -324,7 +324,6 @@ int __cdecl sub_476270(_DWORD* a1) {
 	int v11;     // edi
 	int v12;     // ebx
 	int v13;     // ebp
-	__int64 v14; // rax
 	int v15;     // ecx
 	int v16;     // edx
 	int v17;     // ebx
@@ -384,15 +383,14 @@ int __cdecl sub_476270(_DWORD* a1) {
 	v26 = (__int64)((double)(v11 / 23) + 0.5);
 	v13 = (__int64)((double)(v12 / 23) + 0.5);
 	v28 = (__int64)((double)((nox_win_width + v11) / 23) + 0.5);
-	v14 = (__int64)((double)((nox_win_height + v12) / 23) + 0.5);
+	int v14 = (__int64)((double)((nox_win_height + v12) / 23) + 0.5);
 	v15 = v14;
 	v29 = v14;
-	if (v13 > (int)v14)
-		return v14;
+	if (v13 > v14)
+		return;
 	v16 = 23 * v13;
 	v31 = 23 * v13;
 	do {
-		LODWORD(v14) = v26;
 		v17 = v26;
 		if (v26 > v28)
 			goto LABEL_37;
@@ -436,7 +434,6 @@ int __cdecl sub_476270(_DWORD* a1) {
 		LABEL_34:
 			nox_client_drawBorderLines_49CC70(v18 - v1[4], v31 - v1[5], 23, 23);
 		LABEL_35:
-			LODWORD(v14) = v28;
 			++v17;
 			v18 += 23;
 		} while (v17 <= v28);
@@ -447,7 +444,6 @@ int __cdecl sub_476270(_DWORD* a1) {
 		v16 += 23;
 		v31 = v16;
 	} while (v13 <= v15);
-	return v14;
 }
 
 //----- (004765F0) --------------------------------------------------------
