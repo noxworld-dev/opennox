@@ -2435,29 +2435,31 @@ int __cdecl sub_452490(_DWORD* a1) {
 void sub_452510(int a3) {
 	int v1;              // eax
 	int v2;              // eax
-	unsigned __int64 v3; // rax
 
-	if (!dword_587000_126996)
-		*(_DWORD*)(a3 + 28) = 4;
+	if (!dword_587000_126996) {
+		*(_DWORD *) (a3 + 28) = 4;
+	}
 	while (1) {
 		v1 = *(_DWORD*)(a3 + 28);
-		if (!v1)
+		if (!v1) {
 			break;
+		}
 		v2 = v1 - 2;
 		if (v2) {
-			LODWORD(v3) = v2 - 2;
-			if (!(_DWORD)v3)
-				sub_4523D0((_DWORD*)a3);
+			_DWORD v3 = v2 - 2;
+			if (!v3) {
+				sub_4523D0((_DWORD *) a3);
+			}
 			return;
 		}
-		v3 = nox_call_get_ticks();
-		if (v3 <= *(_QWORD*)(a3 + 288))
+		if (nox_call_get_ticks() <= *(_QWORD*)(a3 + 288)) {
 			return;
+		}
 		*(_DWORD*)(a3 + 28) = *(_DWORD*)(a3 + 32);
 	}
-	LODWORD(v3) = sub_452580((_DWORD*)a3);
-	if (!(_DWORD)v3)
-		sub_4523D0((_DWORD*)a3);
+	if (!sub_452580((_DWORD*)a3)) {
+		sub_4523D0((_DWORD *) a3);
+	}
 }
 
 //----- (00452690) --------------------------------------------------------
