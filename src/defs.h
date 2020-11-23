@@ -741,6 +741,15 @@ typedef struct nox_mouse_state_t {
 } nox_mouse_state_t;
 _Static_assert(sizeof(nox_mouse_state_t) == 56, "wrong size of nox_mouse_state_t structure!");
 
+typedef struct nox_keyboard_btn_t {
+	_BYTE code;
+	_BYTE state;
+	_BYTE field_2;
+	_BYTE field_3;
+	_DWORD seq;
+} nox_keyboard_btn_t;
+_Static_assert(sizeof(nox_keyboard_btn_t) == 8, "wrong size of nox_keyboard_btn_t structure!");
+
 typedef struct obj_5D4594_3799572_t {
 	_DWORD data[264];
 } obj_5D4594_3799572_t;

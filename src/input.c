@@ -379,19 +379,20 @@ unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1) {
 int sub_47FCC0() { return 0; }
 
 // get keyboard data
-void __cdecl nox_xxx_getKeyFromKeyboardImpl_47FA80(signed int a1) {
+void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
 	struct keyboard_event* ke = &keyboard_event_queue[keyboard_event_ridx];
 
-	*(_BYTE*)a1 = 0;
-	*(_DWORD*)(a1 + 4) = 0;
+	ev->code = 0;
+	ev->seq = 0;
 
 	if (keyboard_event_ridx == keyboard_event_widx)
 		return;
 
-	*(_BYTE*)a1 = ke->code;
-	*(_BYTE*)(a1 + 1) = ke->state + 1;
-	*(_BYTE*)(a1 + 2) = 0;
-	*(_DWORD*)(a1 + 4) = ke->seq;
+	ev->code = ke->code;
+	ev->state = ke->state + 1;
+	ev->field_2 = 0;
+	ev->field_3 = 0;
+	ev->seq = ke->seq;
 
 	keyboard_event_ridx = (keyboard_event_ridx + 1) % 256;
 }
@@ -815,7 +816,7 @@ int sub_47FCC0() {
 }
 
 //----- (0047FA80) --------------------------------------------------------
-void __cdecl nox_xxx_getKeyFromKeyboardImpl_47FA80(signed int a1) {
+void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
 	HRESULT v2;            // eax
 	char v3;               // al
 	char v4;               // dl
@@ -823,20 +824,21 @@ void __cdecl nox_xxx_getKeyFromKeyboardImpl_47FA80(signed int a1) {
 	DIDEVICEOBJECTDATA v6; // [esp+14h] [ebp-10h]
 	DWORD dw;
 
-	*(_BYTE*)a1 = 0;
-	*(_DWORD*)(a1 + 4) = 0;
+	ev->code = 0;
+	ev->seq = 0;
 	if (g_device_keyboard) {
 		dw = 1;
 		v2 = g_device_keyboard->lpVtbl->GetDeviceData(g_device_keyboard, 16, &v6, &dw, 0);
 		if (v2 == DIERR_INPUTLOST) {
 			v5 = g_device_keyboard->lpVtbl->Acquire(g_device_keyboard);
 			if (v5 >= 0 && v5 <= 1)
-				*(_BYTE*)a1 = -1;
+				ev->code = -1;
 		} else if (!v2 && dw) {
-			*(_BYTE*)a1 = v6.dwOfs; // key code
-			*(_BYTE*)(a1 + 1) = (v6.dwData & 0x80 != 0) + 1;
-			*(_BYTE*)(a1 + 2) = 0;
-			*(_DWORD*)(a1 + 4) = v6.dwSequence;
+			ev->code = v6.dwOfs; // key code
+			ev->state = (v6.dwData & 0x80 != 0) + 1;
+			ev->field_2 = 0;
+			ev->field_3 = 0;
+			ev->seq = v6.dwSequence;
 		}
 	}
 }
