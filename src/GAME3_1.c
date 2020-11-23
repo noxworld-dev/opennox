@@ -6,6 +6,7 @@
 #include "client/draw/vectdraw.h"
 #include "client/drawable/drawable.h"
 #include "client/gui/servopts/advserv.h"
+#include "client/gui/guisumn.h"
 #include "common/system/team.h"
 
 #include "client/gui/guiinput.h"
@@ -2187,39 +2188,29 @@ int sub_4BFAD0() {
 }
 
 //----- (004BFB70) --------------------------------------------------------
-_DWORD* __cdecl sub_4BFB70(int a1) {
-	_DWORD* result; // eax
-
-	result = *(_DWORD**)&dword_5d4594_1319056;
+void sub_4BFB70(int a1) {
 	if (dword_5d4594_1319056) {
-		result = (_DWORD*)a1;
 		dword_5d4594_1319056 = a1;
 	} else {
 		if (a1 == 1)
-			result = nox_xxx_clientPlaySoundSpecial_452D80(1022, 100);
+			nox_xxx_clientPlaySoundSpecial_452D80(1022, 100);
 		dword_5d4594_1319056 = a1;
 	}
-	return result;
 }
 
 //----- (004BFBB0) --------------------------------------------------------
-_DWORD* __cdecl sub_4BFBB0(_DWORD* a1) {
-	_DWORD* result; // eax
-
-	result = *(_DWORD**)&dword_5d4594_1319056;
+void sub_4BFBB0(_DWORD* a1) {
 	if (dword_5d4594_1319056) {
 		if (dword_5d4594_1319056 == 1) {
-			result = a1;
 			if (!a1) {
 				sub_4BFC70();
-				result = sub_4BFB70(0);
+				sub_4BFB70(0);
 			}
 		}
 	} else if (a1 == (_DWORD*)1) {
 		sub_4BFBF0();
-		result = sub_4BFB70(1);
+		sub_4BFB70(1);
 	}
-	return result;
 }
 
 //----- (004BFBF0) --------------------------------------------------------
@@ -2279,10 +2270,10 @@ int __cdecl sub_4BFCD0(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (004BFD10) --------------------------------------------------------
-_DWORD* sub_4BFD10() {
+void sub_4BFD10() {
 	nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1319060);
 	dword_5d4594_1319060 = 0;
-	return sub_4BFB70(0);
+	sub_4BFB70(0);
 }
 
 //----- (004BFD30) --------------------------------------------------------
@@ -4078,31 +4069,30 @@ int __cdecl sub_4C30C0(int* a1, int a2) {
 }
 
 //----- (004C3140) --------------------------------------------------------
-int* __cdecl nox_xxx_cliSummonOnDieOrBanish_4C3140(int a1, void* a2) {
+void nox_xxx_cliSummonOnDieOrBanish_4C3140(int a1, void* a2) {
 	int* result; // eax
 	int* v3;     // esi
 	_DWORD* v4;  // eax
 
 	result = (int*)sub_4C31D0(a1);
 	v3 = result;
-	if (result) {
-		if (result == *(int**)&dword_5d4594_1321204)
-			sub_4C2470();
-		v4 = nox_xxx_netSpriteByCodeDynamic_45A6F0(a1);
-		if (v4)
-			v4[30] &= 0xBFFFFFFF;
-		sub_4C3030(v3 + 3, *((unsigned __int8*)v3 + 20), 0);
-		sub_4C3210((int)v3);
-		sub_4C2F70();
-		result = (int*)--dword_5d4594_1321196;
-		if (!dword_5d4594_1321196) {
-			result = (int*)a2;
-			if (!a2)
-				result = nox_xxx_clientPlaySoundSpecial_452D80(802, 100);
-			*getMemU8Ptr(0x5D4594, 1321200) = 3;
-		}
+	if (!result) {
+		return;
 	}
-	return result;
+	if (result == *(int**)&dword_5d4594_1321204)
+		sub_4C2470();
+	v4 = nox_xxx_netSpriteByCodeDynamic_45A6F0(a1);
+	if (v4)
+		v4[30] &= 0xBFFFFFFF;
+	sub_4C3030(v3 + 3, *((unsigned __int8*)v3 + 20), 0);
+	sub_4C3210((int)v3);
+	sub_4C2F70();
+	--dword_5d4594_1321196;
+	if (!dword_5d4594_1321196) {
+		if (!a2)
+			nox_xxx_clientPlaySoundSpecial_452D80(802, 100);
+		*getMemU8Ptr(0x5D4594, 1321200) = 3;
+	}
 }
 
 //----- (004C31D0) --------------------------------------------------------

@@ -5059,30 +5059,29 @@ int __cdecl sub_447310(int a1, int a2) {
 }
 
 //----- (00447380) --------------------------------------------------------
-wchar_t* __cdecl sub_447380(const char* a1, char* a2) {
-	wchar_t* result;   // eax
+void sub_447380(const char* a1, char* a2) {
 	const wchar_t* v3; // edi
 
-	result = (wchar_t*)sub_427880(a1);
-	if (!result) {
-		result = *(wchar_t**)&dword_5d4594_829492;
-		if (dword_5d4594_829492) {
-			result = *(wchar_t**)&dword_5d4594_829544;
-			if (dword_5d4594_829544) {
-				if (a2) {
-					v3 = *(const wchar_t**)getMemAt(0x5D4594, 829540);
-					sub_447410(a2);
-					if (a1)
-						nox_swprintf((wchar_t*)getMemAt(0x5D4594, 827176), v3, a1, a2);
-					else
-						nox_swprintf((wchar_t*)getMemAt(0x5D4594, 827176), L"%S", a2);
-					nox_window_call_field_94(*(int*)&dword_5d4594_829492, 16397, (int)getMemAt(0x5D4594, 827176), 4);
-					result = (wchar_t*)nox_xxx_clientPlaySoundSpecial_452D80(226, 100);
-				}
-			}
-		}
+	if (sub_427880(a1)) {
+		return;
 	}
-	return result;
+	if (!dword_5d4594_829492) {
+		return;
+	}
+	if (!dword_5d4594_829544) {
+		return;
+	}
+	if (!a2) {
+		return;
+	}
+	v3 = *(const wchar_t**)getMemAt(0x5D4594, 829540);
+	sub_447410(a2);
+	if (a1)
+		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 827176), v3, a1, a2);
+	else
+		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 827176), L"%S", a2);
+	nox_window_call_field_94(*(int*)&dword_5d4594_829492, 16397, (int)getMemAt(0x5D4594, 827176), 4);
+	nox_xxx_clientPlaySoundSpecial_452D80(226, 100);
 }
 
 //----- (00447410) --------------------------------------------------------

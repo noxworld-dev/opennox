@@ -4,7 +4,7 @@
 #include "../../defs.h"
 
 int nox_xxx_guiSummonCreatureLoad_4C1D80();
-_DWORD* __cdecl nox_xxx_wndSummonCreateList_4C2560(int2* a1);
+void nox_xxx_wndSummonCreateList_4C2560(int2* a1);
 int __cdecl sub_4C27F0(_DWORD* a1);
 int sub_4C2CE0();
 

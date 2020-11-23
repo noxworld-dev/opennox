@@ -4,7 +4,7 @@
 #include "../../defs.h"
 
 int __cdecl nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4);
-_DWORD* nox_xxx_clientUseTrap_45E040();
+void nox_xxx_clientUseTrap_45E040();
 int nox_xxx_quickBarCreate_45E190();
 int nox_xxx_quickbarButtonBook_45F3F0();
 int __cdecl sub_45F480(int a1);

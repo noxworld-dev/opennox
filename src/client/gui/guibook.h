@@ -3,7 +3,7 @@
 
 #include "../../defs.h"
 
-unsigned int __cdecl nox_xxx_bookShowMB_45AD70(int a1);
+void nox_xxx_bookShowMB_45AD70(int a1);
 int __cdecl nox_xxx_bookDrawList_45BD40(int a1);
 int __cdecl nox_xxx_book_45CF00(_DWORD* a1);
 

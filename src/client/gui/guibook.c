@@ -28,25 +28,25 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 //----- (0045AD70) --------------------------------------------------------
-unsigned int __cdecl nox_xxx_bookShowMB_45AD70(int a1) {
+void nox_xxx_bookShowMB_45AD70(int a1) {
 	unsigned int result; // eax
 	wchar_t* v2;         // eax
 
 	result = nox_xxx_guiCursor_477600();
-	if (!result) {
-		if (!nox_xxx_playerAnimCheck_4372B0() || (result = nox_common_gameFlags_check_40A5C0(2048)) == 0) {
-			if (!*getMemU32Ptr(0x5D4594, 2618908) ||
-				nox_xxx_guiSpellSortList_45ADF0(*(unsigned __int8*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251))) {
-				result = nox_xxx_book_45B010(a1);
-			} else {
-				v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 132176), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c",
-										   377);
-				nox_xxx_printCentered_445490(v2);
-				result = (unsigned int)nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
-			}
-		}
+	if (result) {
+		return;
 	}
-	return result;
+	if (!(!nox_xxx_playerAnimCheck_4372B0() || (result = nox_common_gameFlags_check_40A5C0(2048)) == 0)) {
+		return;
+	}
+	if (!*getMemU32Ptr(0x5D4594, 2618908) ||
+		nox_xxx_guiSpellSortList_45ADF0(*(unsigned __int8*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251))) {
+		nox_xxx_book_45B010(a1);
+	} else {
+		v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 132176), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 377);
+		nox_xxx_printCentered_445490(v2);
+		nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
+	}
 }
 
 //----- (0045BD40) --------------------------------------------------------

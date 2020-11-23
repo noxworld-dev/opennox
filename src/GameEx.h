@@ -61,7 +61,7 @@ char __cdecl playerDropATrap(int playerObj);             // idb
 HANDLE __usercall GameIpParser(int a1, int a2, int a3);
 unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a2, int a3);
 signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4);
-_DWORD* playErrSoundClient();
+void playErrSoundClient();
 unsigned int invalidIpChecker(unsigned int interval, void* param);
 HANDLE __usercall startInvalidIpChecker();
 int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4);
