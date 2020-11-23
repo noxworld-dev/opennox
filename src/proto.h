@@ -2777,7 +2777,7 @@ BOOL nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* a1);
 unsigned __int8 sub_47DBC0();
 void sub_47DBD0();
 unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1);
-void __cdecl nox_xxx_getKeyFromKeyboardImpl_47FA80(int a1);
+void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev);
 void sub_47FB10();
 void nox_xxx_clientControl_42D6B0_em_not_mouse_down();
 int sub_47FCC0();
