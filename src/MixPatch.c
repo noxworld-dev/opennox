@@ -29,9 +29,8 @@ _DWORD mix_dword_980858[] = {1966080, 1821179904, 2415929931};
 
 void init_data_mix() { GameEx_DllMain(NULL, 1, NULL); }
 
-int OnLibraryNotice_stub(int a1, ...) {
+void OnLibraryNotice_stub(int a1, ...) {
 	/* TODO: STUB */
-	return 0;
 }
 
 void __cdecl sub_980523(_DWORD* a1) {

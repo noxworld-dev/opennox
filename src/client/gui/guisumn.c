@@ -76,7 +76,7 @@ int nox_xxx_guiSummonCreatureLoad_4C1D80() {
 }
 
 //----- (004C2560) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_wndSummonCreateList_4C2560(int2* a1) {
+void nox_xxx_wndSummonCreateList_4C2560(int2* a1) {
 	char** v1;            // esi
 	unsigned __int16* v2; // eax
 	int v3;               // esi
@@ -141,7 +141,7 @@ LABEL_16:
 			v8 += v3 + 2;
 		}
 	}
-	return nox_xxx_clientPlaySoundSpecial_452D80(791, 100);
+	nox_xxx_clientPlaySoundSpecial_452D80(791, 100);
 }
 
 //----- (004C27F0) --------------------------------------------------------

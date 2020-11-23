@@ -268,34 +268,31 @@ char __cdecl sub_460EB0(int a1, char a2) {
 }
 
 //----- (00461010) --------------------------------------------------------
-_DWORD* sub_461010() {
-	_DWORD* result; // eax
-
-	result = *(_DWORD**)&dword_5d4594_1049484;
-	if (dword_5d4594_1049484) {
-		nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1048148), 1);
-		nox_window_set_hidden(*(int*)&dword_5d4594_1049512, 0);
-		sub_46AE10(*(int*)&dword_5d4594_1049500, 0);
-		result = nox_xxx_clientPlaySoundSpecial_452D80(797, 100);
-		dword_5d4594_1049484 = 0;
+void sub_461010() {
+	if (!dword_5d4594_1049484) {
+		return;
 	}
-	return result;
+	nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1048148), 1);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1049512, 0);
+	sub_46AE10(*(int*)&dword_5d4594_1049500, 0);
+	nox_xxx_clientPlaySoundSpecial_452D80(797, 100);
+	dword_5d4594_1049484 = 0;
 }
 
 //----- (00461060) --------------------------------------------------------
-_DWORD* sub_461060() {
-	_DWORD* result; // eax
-
-	if (dword_5d4594_1049484 == 1)
-		return sub_461010();
-	if (*getMemU32Ptr(0x5D4594, 1049476) == 1)
+void sub_461060() {
+	if (dword_5d4594_1049484 == 1) {
+		sub_461010();
+		return;
+	}
+	if (*getMemU32Ptr(0x5D4594, 1049476) == 1) {
 		nox_xxx_quickBarClose_4606B0();
+	}
 	nox_window_set_hidden(*getMemIntPtr(0x5D4594, 1048148), 0);
 	nox_window_set_hidden(*(int*)&dword_5d4594_1049512, 1);
 	sub_46AE10(*(int*)&dword_5d4594_1049500, 1);
-	result = nox_xxx_clientPlaySoundSpecial_452D80(796, 100);
+	nox_xxx_clientPlaySoundSpecial_452D80(796, 100);
 	dword_5d4594_1049484 = 1;
-	return result;
 }
 
 //----- (00461080) --------------------------------------------------------
@@ -2416,7 +2413,7 @@ char* nox_xxx_inventoryLoadImages_467050() {
 }
 
 //----- (004672C0) --------------------------------------------------------
-int nox_client_invAlterWeapon_4672C0() { // Switch onto secondary weapon
+void nox_client_invAlterWeapon_4672C0() { // Switch onto secondary weapon
 	int result; // eax
 	int v1;     // edi
 	int v2;     // eax
@@ -2427,19 +2424,19 @@ int nox_client_invAlterWeapon_4672C0() { // Switch onto secondary weapon
 
 	result = *getMemU32Ptr(0x5D4594, 2614252);
 	if (!*getMemU32Ptr(0x5D4594, 2614252))
-		return result;
+		return;
 	result = nox_xxx_guiCursor_477600();
 	if (result)
-		return result;
+		return;
 	result = sub_461160(1);
 	if (result)
-		return result;
+		return;
 	v1 = *getMemU32Ptr(0x5D4594, 2618908);
 	if (!*getMemU32Ptr(0x5D4594, 2618908))
-		return result;
+		return;
 	result = *getMemU32Ptr(0x5D4594, 2614252);
 	if (*(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 276) == 34)
-		return result;
+		return;
 	v2 = sub_4281F0((int2*)getMemAt(0x5D4594, 1062572), (int4*)getMemAt(0x587000, 136336));
 	if (v2 == 1)
 		nox_xxx_cursorSetDraggedItem_477690(0);
@@ -2452,9 +2449,9 @@ int nox_client_invAlterWeapon_4672C0() { // Switch onto secondary weapon
 			LABEL_11:
 				dword_5d4594_1062492 = result;
 				nox_xxx_clientDequip_464B70(result);
-				result = nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
+				nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 			}
-			return result;
+			return;
 		}
 		v3 = *(_DWORD**)&dword_5d4594_1062480;
 	}
@@ -2471,9 +2468,8 @@ int nox_client_invAlterWeapon_4672C0() { // Switch onto secondary weapon
 	if (v3) {
 		*(_DWORD*)(*v3 + 128) = v3[1];
 		nox_xxx_clientEquip_4623B0(**(_DWORD**)&dword_5d4594_1062480);
-		result = nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
+		nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 	}
-	return result;
 }
 // 467323: variable 'v2' is possibly undefined
 

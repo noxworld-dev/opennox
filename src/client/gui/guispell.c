@@ -57,7 +57,7 @@ int __cdecl nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4) {
 }
 
 //----- (0045E040) --------------------------------------------------------
-_DWORD* nox_xxx_clientUseTrap_45E040() {
+void nox_xxx_clientUseTrap_45E040() {
 	_DWORD** v0;    // edx
 	_DWORD* v1;     // ecx
 	int v2;         // edi
@@ -78,13 +78,12 @@ _DWORD* nox_xxx_clientUseTrap_45E040() {
 		v1 += 2;
 	}
 	if (i == 3) {
-		result = *(_DWORD**)getMemAt(0x5D4594, 2618908);
 		if (*getMemU32Ptr(0x5D4594, 2618908)) {
 			if (*(_DWORD*)(*getMemU32Ptr(0x5D4594, 2618908) + 3832)) {
 				v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 133828), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 										   1145);
 				nox_xxx_printCentered_445490(v5);
-				result = nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
+				nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
 			}
 		}
 	} else {
@@ -104,12 +103,11 @@ _DWORD* nox_xxx_clientUseTrap_45E040() {
 		if (v2 < 5) {
 			v8 = getMemByte(0x5D4594, 1047924);
 			v9[v2] = 34;
-			result = (_DWORD*)nox_xxx_clientSendSpell_45DB20((char*)v9, v2 + 1, v8);
+			nox_xxx_clientSendSpell_45DB20((char*)v9, v2 + 1, v8);
 			*getMemU32Ptr(0x5D4594, 1047916) = 0;
 			*getMemU32Ptr(0x5D4594, 1049480) = 0;
 		}
 	}
-	return result;
 }
 //----- (0045E190) --------------------------------------------------------
 int nox_xxx_quickBarCreate_45E190() {
