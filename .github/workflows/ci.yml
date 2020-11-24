@@ -16,13 +16,13 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: true
-      
+
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           submodules: true
-        
+
       - name: Set up cache for ccache
         uses: actions/cache@v2
         with:
@@ -31,9 +31,19 @@ jobs:
           restore-keys: |
             ccache-gcc-
             ccache-
-        
+
       - name: Build GCC
         uses: docker://noxworld/alpine-386-gcc-github
+
+      - name: Prepare the binary
+        run: |
+          mv ./build/out ./build/nox-linux
+
+      - name: Upload the binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: nox-linux
+          path: ./build/nox-linux
         
   hybrid_linux_wasm:
     name: alpine-wasm-github on Linux Host
@@ -46,7 +56,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
-            
+
       - name: Set up cache for emcache
         uses: actions/cache@v2
         with:
@@ -55,7 +65,7 @@ jobs:
           restore-keys: |
             emcache-emsdk-
             emcache-
-        
+
       - name: Build WASM
         uses: docker://noxworld/alpine-wasm-github
           
@@ -103,3 +113,15 @@ jobs:
           cmakeListsTxtPath: '${{ github.workspace }}/src/CMakeLists.txt'
           buildWithCMakeArgs: ''
           buildDirectory: '${{ runner.workspace }}/b/gmake/'
+
+      - name: Prepare the binary
+        run: |
+          move ${{ runner.workspace }}\b\gmake\Debug\out.exe ${{ runner.workspace }}\b\gmake\Debug\nox.exe
+
+      - name: Upload the binary
+        uses: actions/upload-artifact@v2
+        with:
+           name: nox-win
+           path: |
+             ${{ runner.workspace }}\b\gmake\Debug\*.exe
+             ${{ runner.workspace }}\b\gmake\Debug\*.dll
