@@ -111,17 +111,18 @@ jobs:
           cmakeGenerator: 'VS16Win32'
           cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
           cmakeListsTxtPath: '${{ github.workspace }}/src/CMakeLists.txt'
-          buildWithCMakeArgs: ''
+          cmakeBuildType: 'Release'
+          buildWithCMakeArgs: '--config Release'
           buildDirectory: '${{ runner.workspace }}/b/gmake/'
 
       - name: Prepare the binary
         run: |
-          move ${{ runner.workspace }}\b\gmake\Debug\out.exe ${{ runner.workspace }}\b\gmake\Debug\nox.exe
+          move ${{ runner.workspace }}\b\gmake\Release\out.exe ${{ runner.workspace }}\b\gmake\Release\nox.exe
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
         with:
            name: nox-win
            path: |
-             ${{ runner.workspace }}\b\gmake\Debug\*.exe
-             ${{ runner.workspace }}\b\gmake\Debug\*.dll
+             ${{ runner.workspace }}\b\gmake\Release\*.exe
+             ${{ runner.workspace }}\b\gmake\Release\*.dll
