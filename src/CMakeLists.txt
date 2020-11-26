@@ -140,9 +140,9 @@ else ()
     set (MOVIE_DECODER_SOURCES )
 endif ()
 
-add_executable (
-    out
-    ConvertUTF.c
+set (
+	SOURCE_LIST
+	ConvertUTF.c
     platform.c
     e2e.c
     GAME1.c
@@ -350,6 +350,11 @@ add_executable (
     "${AUDIO_BACKEND}"
     "${MOVIE_DECODER_SOURCES}"
 )
+
+add_executable (
+    out
+    ${SOURCE_LIST}
+)
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM_FLAGS "-g -o out.html --pre-js ${CMAKE_SOURCE_DIR}/pre.js -lidbfs.js -s CASE_INSENSITIVE_FS=1 -s ASYNCIFY -s TOTAL_MEMORY=201326592 -s EMULATE_FUNCTION_POINTER_CASTS=1 -s ASSERTIONS=2 -mnontrapping-fptoint -s EXIT_RUNTIME=1")
 endif ()
@@ -365,7 +370,9 @@ target_link_libraries (
     "${WIN32_LIBRARIES}"
     "${EXTRA_LIBRARIES}"
 )
+
 if (MSVC)
+	source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCE_LIST})
     find_path(SDL_INCLUDE_DIR SDL2/SDL.h)
     find_path(GLEW_INCLUDE_DIR GL/glew.h)
     include_directories("${SDL_INCLUDE_DIR}")
