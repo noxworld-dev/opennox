@@ -10851,7 +10851,7 @@ nox_playerInfo* nox_common_playerInfoNew_416F60(int a1) {
 	}
 	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
 		p = &nox_playerinfo_arr[i];
-		if (p->field_2092) {
+		if (!p->field_2092) {
 			nox_common_playerInfoReset_416FD0(p);
 			*(_BYTE*)(&p->field_2064) = i;
 			p->field_2060 = a1;
