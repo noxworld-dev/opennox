@@ -62,7 +62,7 @@ extern _DWORD dword_587000_60044;
 extern _DWORD dword_5d4594_741284;
 extern _DWORD dword_5d4594_529328;
 extern _DWORD dword_5d4594_531648;
-extern _DWORD nox_xxx_polygonNextUgol_587000_60356;
+extern _DWORD nox_xxx_polygonNextAngle_587000_60356;
 extern _DWORD dword_5d4594_528256;
 extern _DWORD dword_5d4594_534808;
 extern _DWORD dword_5d4594_529340;
@@ -5688,10 +5688,10 @@ char* nox_xxx_polygon_420CA0() {
 	unsigned __int8* i; // ecx
 
 	v0 = 1;
-	if (nox_xxx_polygonNextUgol_587000_60356 <= 1u)
+	if (nox_xxx_polygonNextAngle_587000_60356 <= 1u)
 		return 0;
 	for (i = getMemAt(0x5D4594, 535872); !*(_DWORD*)i; i += 16) {
-		if ((unsigned int)++v0 >= *(int*)&nox_xxx_polygonNextUgol_587000_60356)
+		if ((unsigned int)++v0 >= *(int*)&nox_xxx_polygonNextAngle_587000_60356)
 			return 0;
 	}
 	return (char*)getMemAt(0x5D4594, 16 * v0 + 535844);
@@ -5703,10 +5703,10 @@ char* __cdecl nox_xxx_polygon_420CD0(_DWORD* a1) {
 	unsigned __int8* i; // ecx
 
 	v1 = *a1 + 1;
-	if (v1 >= *(int*)&nox_xxx_polygonNextUgol_587000_60356)
+	if (v1 >= *(int*)&nox_xxx_polygonNextAngle_587000_60356)
 		return 0;
 	for (i = getMemAt(0x5D4594, 16 * v1 + 535856); !*(_DWORD*)i; i += 16) {
-		if (++v1 >= *(int*)&nox_xxx_polygonNextUgol_587000_60356)
+		if (++v1 >= *(int*)&nox_xxx_polygonNextAngle_587000_60356)
 			return 0;
 	}
 	return (char*)getMemAt(0x5D4594, 16 * v1 + 535844);
@@ -5718,27 +5718,27 @@ int sub_420D10() {
 	unsigned __int8* i; // ecx
 
 	result = 1;
-	if (nox_xxx_polygonNextUgol_587000_60356 <= 1u)
-		return (nox_xxx_polygonNextUgol_587000_60356)++;
+	if (nox_xxx_polygonNextAngle_587000_60356 <= 1u)
+		return (nox_xxx_polygonNextAngle_587000_60356)++;
 	for (i = getMemAt(0x5D4594, 535872); *(_DWORD*)i; i += 16) {
-		if ((unsigned int)++result >= *(int*)&nox_xxx_polygonNextUgol_587000_60356)
-			return (nox_xxx_polygonNextUgol_587000_60356)++;
+		if ((unsigned int)++result >= *(int*)&nox_xxx_polygonNextAngle_587000_60356)
+			return (nox_xxx_polygonNextAngle_587000_60356)++;
 	}
 	return result;
 }
 
 //----- (00420D40) --------------------------------------------------------
-unsigned int* __cdecl nox_xxx_polygonSetAngl_420D40(int a1, int a2, unsigned int a3, int a4) {
+unsigned int* __cdecl nox_xxx_polygonSetAngle_420D40(int a1, int a2, unsigned int a3, int a4) {
 	bool v4;              // cf
 	unsigned int* result; // eax
 
 	if (a4)
 		sub_420C40(a3, a4);
-	v4 = a3 < *(int*)&nox_xxx_polygonNextUgol_587000_60356;
+	v4 = a3 < *(int*)&nox_xxx_polygonNextAngle_587000_60356;
 	result = getMemUintPtr(0x5D4594, 16 * a3 + 535844);
 	*result = a3;
 	if (!v4)
-		nox_xxx_polygonNextUgol_587000_60356 = a3 + 1;
+		nox_xxx_polygonNextAngle_587000_60356 = a3 + 1;
 	*getMemU32Ptr(0x5D4594, 16 * a3 + 535848) = a1;
 	*getMemU32Ptr(0x5D4594, 16 * a3 + 535852) = a2;
 	*getMemU32Ptr(0x5D4594, 16 * a3 + 535856) = 1;
@@ -5768,7 +5768,7 @@ unsigned int* __cdecl sub_420DA0(float a1, float a2) {
 		}
 	} else if (!nox_common_gameFlags_check_40A5C0(0x200000) || !nox_xxx_polygonIsPlayerInPolygon_4217B0(&v10, 0)) {
 		v4 = sub_420D10();
-		result = nox_xxx_polygonSetAngl_420D40(SLODWORD(a1), SLODWORD(a2), v4, 0);
+		result = nox_xxx_polygonSetAngle_420D40(SLODWORD(a1), SLODWORD(a2), v4, 0);
 		v6 = *result;
 		v7 = *getMemU16Ptr(0x5D4594, 588072);
 		++*getMemU16Ptr(0x5D4594, 588072);
@@ -5787,9 +5787,9 @@ int __cdecl sub_420E80(float a1, float a2, float a3) {
 	double v7;           // st5
 
 	v3 = 0;
-	if (nox_xxx_polygonNextUgol_587000_60356 > 1u) {
+	if (nox_xxx_polygonNextAngle_587000_60356 > 1u) {
 		v4 = getMemAt(0x5D4594, 535864);
-		v5 = nox_xxx_polygonNextUgol_587000_60356 - 1;
+		v5 = nox_xxx_polygonNextAngle_587000_60356 - 1;
 		do {
 			if (*((_DWORD*)v4 + 2)) {
 				v6 = *((float*)v4 + 1) - a2;
@@ -5871,12 +5871,12 @@ char* sub_421010() {
 		*(_DWORD*)result = 0;
 		result += 16;
 	} while ((int)result < (int)getMemAt(0x5D4594, 552240));
-	nox_xxx_polygonNextUgol_587000_60356 = 1;
+	nox_xxx_polygonNextAngle_587000_60356 = 1;
 	return result;
 }
 
 //----- (00421030) --------------------------------------------------------
-char* __cdecl nox_xxx_polygonGetUgol_421030(int a1) { return (char*)getMemAt(0x5D4594, 16 * a1 + 535844); }
+char* __cdecl nox_xxx_polygonGetAngle_421030(int a1) { return (char*)getMemAt(0x5D4594, 16 * a1 + 535844); }
 
 //----- (00421040) --------------------------------------------------------
 void __cdecl sub_421040(int a1) {

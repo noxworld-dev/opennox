@@ -828,7 +828,7 @@ int __cdecl nox_server_mapRWPolygons_428CD0(int a1) {
 			do {
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 4u);
 				nox_xxx_fileReadWrite_426AC0_file3_fread(v29, 8u);
-				if (!nox_xxx_polygonSetAngl_420D40(SLODWORD(v29[0]), SLODWORD(v29[1]), v9, a1))
+				if (!nox_xxx_polygonSetAngle_420D40(SLODWORD(v29[0]), SLODWORD(v29[1]), v9, a1))
 					return 0;
 				if ((__int16)v26 < 3)
 					nox_xxx_fileReadWrite_426AC0_file3_fread(&v31, 4u);
@@ -862,7 +862,7 @@ int __cdecl nox_server_mapRWPolygons_428CD0(int a1) {
 					return 0;
 				nox_xxx_fileReadWrite_426AC0_file3_fread(v12, 4 * (unsigned __int16)*v11);
 				sub_421040((int)v10);
-				v13 = nox_xxx_polygonGetUgol_421030(**((_DWORD**)v10 + 27));
+				v13 = nox_xxx_polygonGetAngle_421030(**((_DWORD**)v10 + 27));
 				*((_DWORD*)v10 + 22) = nox_float2int(*((float*)v13 + 1));
 				*((_DWORD*)v10 + 23) = nox_float2int(*((float*)v13 + 2));
 				*((_DWORD*)v10 + 24) = nox_float2int(*((float*)v13 + 1));
@@ -872,7 +872,7 @@ int __cdecl nox_server_mapRWPolygons_428CD0(int a1) {
 				*((_DWORD*)v10 + 25) = v14;
 				if (!v16) {
 					do {
-						v17 = nox_xxx_polygonGetUgol_421030(*(_DWORD*)(*((_DWORD*)v10 + 27) + 4 * v15));
+						v17 = nox_xxx_polygonGetAngle_421030(*(_DWORD*)(*((_DWORD*)v10 + 27) + 4 * v15));
 						v18 = *((float*)v17 + 1);
 						v29[0] = *((float*)v17 + 1);
 						if (v18 >= (double)*((int*)v10 + 22)) {
