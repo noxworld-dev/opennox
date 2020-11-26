@@ -978,13 +978,13 @@ _DWORD* sub_420C70();
 char* nox_xxx_polygon_420CA0();
 char* __cdecl nox_xxx_polygon_420CD0(_DWORD* a1);
 int sub_420D10();
-unsigned int* __cdecl nox_xxx_polygonSetAngl_420D40(int a1, int a2, unsigned int a3, int a4);
+unsigned int* __cdecl nox_xxx_polygonSetAngle_420D40(int a1, int a2, unsigned int a3, int a4);
 unsigned int* __cdecl sub_420DA0(float a1, float a2);
 int __cdecl sub_420E80(float, float, float); // idb
 int __cdecl sub_420EE0(int a1);
 int __cdecl sub_420EF0(_DWORD* a1);
 char* sub_421010();
-char* __cdecl nox_xxx_polygonGetUgol_421030(int a1);
+char* __cdecl nox_xxx_polygonGetAngle_421030(int a1);
 void __cdecl sub_421040(int a1);
 char* nox_xxx_polygonGetNext_4210A0();
 char* __cdecl sub_4210E0(int a1);
