@@ -18,6 +18,7 @@ option (STRICT_MODE "Fail on compilation warnings" OFF)
 option (E2E_TEST "Run in end-to-end test mode" OFF)
 
 option (USE_OPENAL "Use OpenAL in Nox, disabling results in no sound" ON)
+option (USE_OPENGL "Use OpenGL in Nox, disabling results in running in SDL Rendering" ON)
 option (PLAY_MOVIES "Disable movies playback" ON)
 
 if (LOG_MEM)
@@ -96,22 +97,30 @@ link_directories (${PROJECT_SOURCE_DIR}/external/lib)
 if (WIN32)
     find_library (SDL2_LIBRARIES SDL2.lib)
     find_library (OPENAL_LIBRARIES OpenAL32.lib)
-    find_library (GLEW_LIBRARIES glew32.lib)
-    find_library (OPENGL_LIBRARIES OpenGL32.lib)
+    if (USE_OPENGL)
+        find_library (GLEW_LIBRARIES glew32.lib)
+        find_library (OPENGL_LIBRARIES OpenGL32.lib)
+    endif ()
     set (WIN32_LIBRARIES ws2_32 winmm)
 elseif (APPLE)
     set (OPENAL_LIBRARIES "-framework OpenAL")
-    set (OPENGL_LIBRARIES "-framework OpenGL")
+    if (USE_OPENGL)
+        set (OPENGL_LIBRARIES "-framework OpenGL")
+	endif ()
 elseif (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (SDL2_LIBRARIES SDL2)
     set (OPENAL_LIBRARIES openal)
-    set (OPENGL_LIBRARIES GL)
+    if (USE_OPENGL)
+        set (OPENGL_LIBRARIES GL)
+	endif ()
     set (PTHREAD_LIBRARIES pthread)
 else ()
     find_package(PkgConfig REQUIRED)
     pkg_check_modules(SDL2 REQUIRED sdl2)
     set (OPENAL_LIBRARIES openal)
-    set (OPENGL_LIBRARIES GL)
+    if (USE_OPENGL)
+        set (OPENGL_LIBRARIES GL)
+	endif ()
     set (PTHREAD_LIBRARIES pthread)
 endif ()
 
@@ -131,14 +140,18 @@ else ()
     unset (NOX_PLAY_MOVIES )
 endif ()
 
+if (USE_OPENGL)
+	set (DRAW_BACKEND draw_gl.c)
+else ()
+	set (DRAW_BACKEND draw_nogl.c)
+endif()
+
 if (PLAY_MOVIES)
     set (MOVIE_DECODER_SOURCES vqa/aud_decode.cpp vqa/ddpf_conversion.cpp vqa/vqa_decode.cpp vqa/vqa_file.cpp vqa/vqa_public.cpp)
     add_definitions (-DNOX_PLAY_MOVIES)
 else ()
     set (MOVIE_DECODER_SOURCES )
 endif ()
-
-    set (DRAW_BACKEND draw_gl.c)
 
 set (
 	SOURCE_LIST
@@ -366,7 +379,7 @@ target_link_libraries (
     "${SDL2_LIBRARIES}"
     "${GLEW_LIBRARIES}"
     "${OPENGL_LIBRARIES}"
-    "${OPENGL_LIBRARIES}"
+    "${OPENAL_LIBRARIES}"
     "${PTHREAD_LIBRARIES}"
     "${WIN32_LIBRARIES}"
     "${EXTRA_LIBRARIES}"
@@ -375,9 +388,11 @@ target_link_libraries (
 if (MSVC)
 	source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCE_LIST})
     find_path(SDL_INCLUDE_DIR SDL2/SDL.h)
-    find_path(GLEW_INCLUDE_DIR GL/glew.h)
     include_directories("${SDL_INCLUDE_DIR}")
-    include_directories("${GLEW_INCLUDE_DIR}")
+	if (USE_OPENGL)
+	    find_path(GLEW_INCLUDE_DIR GL/glew.h)
+        include_directories("${GLEW_INCLUDE_DIR}")
+	endif ()
     if (USE_OPENAL)
         find_path(OPENAL_INCLUDE_DIR AL/al.h)
         include_directories("${OPENAL_INCLUDE_DIR}")
