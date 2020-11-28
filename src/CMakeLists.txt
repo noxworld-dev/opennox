@@ -138,6 +138,8 @@ else ()
     set (MOVIE_DECODER_SOURCES )
 endif ()
 
+    set (DRAW_BACKEND draw_gl.c)
+
 set (
 	SOURCE_LIST
 	ConvertUTF.c
@@ -164,7 +166,6 @@ set (
     GAME_data.c
     GAME_data_init.c
     cdrom.c
-    draw.c
     imm.c
     input.c
     main.cpp
@@ -345,6 +346,7 @@ set (
     server/system/trade.c
     server/xfer/savegame/savegame.c
 
+    "${DRAW_BACKEND}"
     "${COMPAT_SOURCES}"
     "${AUDIO_BACKEND}"
     "${MOVIE_DECODER_SOURCES}"
