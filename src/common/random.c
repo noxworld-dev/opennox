@@ -5,7 +5,7 @@
 #else // _WIN32
 
 #include <unistd.h>
-#include <time.h>
+#include "../platform.h"
 #define _read read
 #define _write write
 
@@ -1049,7 +1049,7 @@ int nox_xxx_replayReadeRndCounter_415F50(int fd) { return _read(fd, &nox_rnd_cou
 
 //----- (00415F70) --------------------------------------------------------
 void nox_common_initRandom_415F70() {
-	int v = time(0) % 4096;
+	int v = nox_platform_time_seed() % 4096;
 	nox_rnd_counter1_371260 = v;
 	nox_rnd_counter2_371264 = v;
 }
