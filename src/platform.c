@@ -15,6 +15,8 @@ void nox_platform_srand(unsigned int seed) { srand(seed); }
 
 void nox_platform_srand_time() { srand(time(0)); }
 
+unsigned int nox_platform_time_seed() { return time(0); }
+
 unsigned int nox_platform_get_ticks() { return SDL_GetTicks(); }
 
 void nox_platform_sleep(unsigned int ms) {
@@ -33,6 +35,8 @@ Uint8 nox_SDL_GetEventState(Uint32 type) { return SDL_GetEventState(type); }
 
 volatile unsigned int ticks = 0;
 volatile unsigned int loop_ticks = 0;
+
+unsigned int nox_platform_time_seed() { return loop_ticks; }
 
 void nox_platform_srand_time() { srand(loop_ticks); }
 
