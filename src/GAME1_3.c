@@ -144,6 +144,8 @@ extern int nox_backbuffer_height;
 extern int nox_backbuffer_depth;
 extern int nox_backbuffer_width32;
 
+extern unsigned int nox_gameFPS;
+
 extern nox_video_mode nox_video_modes[];
 extern int nox_video_modes_cnt;
 
@@ -1832,7 +1834,7 @@ int sub_43E230() {
 void mainloop_43E290() {
 	nox_continue_mainloop_93196 = 1;
 	nox_game_continueMenuOrHost_93200 = 1;
-	*getMemU32Ptr(0x5D4594, 816400) = 60 * *getMemU32Ptr(0x5D4594, 2649704);
+	*getMemU32Ptr(0x5D4594, 816400) = 60 * nox_gameFPS;
 
 	// XXX
 	nox_xxx_gameStopDownload_4AB560(0);
@@ -5573,12 +5575,12 @@ int __cdecl sub_448FC0(int a1, int a2) {
 		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
 	}
 	if (dword_587000_111668) {
-		if (dword_5d4594_830204 && nox_xxx_checkKeybTimeout_4160F0(0x12u, 10 * *getMemU32Ptr(0x5D4594, 2649704))) {
+		if (dword_5d4594_830204 && nox_xxx_checkKeybTimeout_4160F0(0x12u, 10 * nox_gameFPS)) {
 			nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 1);
 			dword_5d4594_830204 = 0;
 			return 1;
 		}
-	} else if (dword_5d4594_830208 && nox_xxx_checkKeybTimeout_4160F0(0x13u, 10 * *getMemU32Ptr(0x5D4594, 2649704))) {
+	} else if (dword_5d4594_830208 && nox_xxx_checkKeybTimeout_4160F0(0x13u, 10 * nox_gameFPS)) {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 1);
 		dword_5d4594_830208 = 0;
 	}

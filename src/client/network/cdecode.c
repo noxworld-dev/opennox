@@ -47,6 +47,7 @@ extern _DWORD nox_xxx_wizardMaximumMana_587000_312820;
 extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_2650652;
+extern unsigned int nox_gameFPS;
 
 //----- (0048EA70) --------------------------------------------------------
 int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
@@ -761,7 +762,7 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 			*(_DWORD*)(v5 + 488) = 1;
 			if (nox_client_fadeObjects_80836) {
 				if ((_DWORD)v5 != *getMemU32Ptr(0x5D4594, 2614252))
-					nox_xxx_spriteTransparentDecay_49B950((_DWORD*)v5, *getMemIntPtr(0x5D4594, 2649704));
+					nox_xxx_spriteTransparentDecay_49B950((_DWORD*)v5, (int)nox_gameFPS);
 			} else if (*(int(__cdecl**)(int*, int))(v5 + 300) != nox_thing_animate_draw ||
 					   (v56 = *(_DWORD*)(v5 + 304)) == 0 || *(_DWORD*)(v56 + 12) != 1) {
 				if (v51 != *getMemU32Ptr(0x5D4594, 2614252)) {

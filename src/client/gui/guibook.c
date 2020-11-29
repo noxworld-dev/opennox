@@ -26,6 +26,7 @@ extern _DWORD dword_5d4594_1047516;
 extern _DWORD dword_5d4594_1046868;
 extern int nox_win_width;
 extern int nox_win_height;
+extern unsigned int nox_gameFPS;
 
 //----- (0045AD70) --------------------------------------------------------
 void nox_xxx_bookShowMB_45AD70(int a1) {
@@ -420,7 +421,7 @@ int __cdecl nox_xxx_bookDrawFn_45C7D0(_DWORD* a1) {
 	if (!dword_5d4594_1047520)
 		return 1;
 	if (dword_5d4594_1046648 &&
-		nox_xxx_bookGet_430B40_get_mouse_prev_seq() - dword_5d4594_1046648 < (unsigned int)(2 * *getMemU32Ptr(0x5D4594, 2649704))) {
+		nox_xxx_bookGet_430B40_get_mouse_prev_seq() - dword_5d4594_1046648 < (unsigned int)(2 * nox_gameFPS)) {
 		return 1;
 	}
 	nox_client_wndGetPosition_46AA60(a1, &v25, &v24);
