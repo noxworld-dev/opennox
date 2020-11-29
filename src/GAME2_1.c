@@ -148,6 +148,8 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 extern _DWORD array_5D4594_1049872[9];
 
+extern unsigned int nox_gameFPS;
+
 nox_alloc_class* nox_alloc_window = 0;
 
 nox_window* nox_win_unk2 = 0;
@@ -6852,8 +6854,8 @@ int sub_470DE0() {
 			v3 = v2;
 			if (nox_windows_arr_1093036[0].field_1 < v2) {
 				*getMemU32Ptr(0x5D4594, 1091960) =
-					*getMemU32Ptr(0x5D4594, 2649704) / 3u +
-					nox_windows_arr_1093036[0].field_1 * ((unsigned int)(3 * *getMemU32Ptr(0x5D4594, 2649704)) >> 2) / v2;
+					nox_gameFPS / 3u +
+					nox_windows_arr_1093036[0].field_1 * ((unsigned int)(3 * nox_gameFPS) >> 2) / v2;
 				result = nox_xxx_checkKeybTimeout_4160F0(4u, *getMemU32Ptr(0x5D4594, 1091960) - 1);
 				if (result) {
 					nox_xxx_clientPlaySoundSpecial_452D80(896, 66 * (v3 - v1) / v3 + 33);
@@ -7180,8 +7182,8 @@ int sub_472080() {
 	if (nox_windows_arr_1093036[4].field_1 != nox_windows_arr_1093036[4].field_2) {
 		result = sub_416120(0x11u);
 		if (result) {
-			result = 0x64u / *getMemIntPtr(0x5D4594, 2649704);
-			nox_windows_arr_1093036[4].field_1 += 0x64u / *getMemIntPtr(0x5D4594, 2649704);
+			result = 0x64u / (int)nox_gameFPS;
+			nox_windows_arr_1093036[4].field_1 += 0x64u / (int)nox_gameFPS;
 		}
 	}
 	return result;
@@ -9010,7 +9012,7 @@ void __cdecl nox_xxx_spriteAddQueue_475560_draw(nox_drawable* dr, int a2) {
 			}
 		}
 		if ((dr->field_120 || dr->field_122) &&
-			(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - dr->field_85) > *getMemIntPtr(0x5D4594, 2649704)) {
+			(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - dr->field_85) > (int)nox_gameFPS) {
 			dr->field_120 = 0;
 		} else if (nox_drawable_list_1_size < nox_drawable_list_1_cap) {
 			nox_drawable_list_1[nox_drawable_list_1_size++] = dr;

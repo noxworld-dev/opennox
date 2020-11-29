@@ -1,6 +1,7 @@
 #include "../../proto.h"
 extern _DWORD dword_5d4594_1599628;
 extern _DWORD dword_5d4594_3821964;
+extern unsigned int nox_gameFPS;
 
 //----- (00512E80) --------------------------------------------------------
 int __cdecl sub_512E80(int a1) {
@@ -138,7 +139,7 @@ int sub_514A80() {
 	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
 		v4 = *(char**)getMemAt(0x5D4594, 4 * v1 + 3831212);
-		v7 = v0 * *getMemU16Ptr(0x5D4594, 2649704);
+		v7 = v0 * (_WORD)nox_gameFPS;
 		v8 = 0;
 		v5 = nox_xxx_loadString_40F1D0(v4, &v8, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3629);
 		nox_xxx_netSendChat_528AC0(v3, v5, v7);

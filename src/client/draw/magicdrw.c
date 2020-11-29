@@ -3,6 +3,7 @@
 
 #include "../../proto.h"
 extern _DWORD dword_5d4594_1313804;
+extern unsigned int nox_gameFPS;
 
 //----- (004B98A0) --------------------------------------------------------
 int __cdecl nox_thing_magic_draw(int* a1, nox_drawable* dr) {
@@ -103,8 +104,8 @@ int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) 
 	v11 = *a1 - a1[4] + *(_DWORD*)(a2 + 432);
 	v14 = v5;
 	if (v5 > 0) {
-		v6 = (v5 << 6) / (int)(*getMemU32Ptr(0x5D4594, 2649704) / 3u);
-		v13 = *getMemU32Ptr(0x5D4594, 2649704) / 3u;
+		v6 = (v5 << 6) / (int)(nox_gameFPS / 3u);
+		v13 = nox_gameFPS / 3u;
 		if (v6 >= 64)
 			v6 = 63;
 		v7 = *getMemU32Ptr(0x5D4594, 4 * v6 + 1312756);
@@ -151,13 +152,13 @@ int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	v15 = v5;
 	if (v5 >= 0 && !v6) {
 		v8 = v5 << 6;
-		v7 = (unsigned int)(v5 << 6) / *getMemU32Ptr(0x5D4594, 2649704);
-		if ((int)(v8 / *getMemU32Ptr(0x5D4594, 2649704)) >= 64)
+		v7 = (unsigned int)(v5 << 6) / nox_gameFPS;
+		if ((int)(v8 / nox_gameFPS) >= 64)
 			v7 = 63;
 		v9 = *getMemU32Ptr(0x5D4594, 4 * v7 + 1312500);
 		v10 = v2 + 136;
 		nox_xxx_spriteChangeLightColor_484BE0((_DWORD*)(v2 + 136), 128, 128, 255);
-		v12 = (double)v15 * 20.0 / (double)*getMemIntPtr(0x5D4594, 2649704);
+		v12 = (double)v15 * 20.0 / (double)(int)nox_gameFPS;
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(v10, v12);
 		nox_client_drawSetColor_434460(v9);
 		nox_client_drawEnableAlpha_434560(1);

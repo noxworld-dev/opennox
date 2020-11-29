@@ -20,6 +20,7 @@ extern _DWORD dword_5d4594_1049504;
 extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern int nox_win_width;
 extern int nox_win_height;
+extern unsigned int nox_gameFPS;
 
 //----- (0045DEB0) --------------------------------------------------------
 int __cdecl nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4) {
@@ -607,12 +608,12 @@ int __cdecl nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 				v13 = 24 * *v7;
 				if (*getMemU32Ptr(0x5D4594, v13 + 1047776) || !*getMemU32Ptr(0x5D4594, v13 + 1047772) || nox_xxx_playerAnimCheck_4372B0()) {
 					v14 = nox_xxx_abilityCooldown_4252D0(*v7);
-					if (v14 / *getMemU32Ptr(0x5D4594, 2649704)) {
+					if (v14 / nox_gameFPS) {
 						if (!v19)
 							nox_client_drawRectFilledAlpha_49CF10(
 								xLeft, yTop, 34,
 								34 - (*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 24 * *v7 + 1047784)) /
-										 (v14 / *getMemU32Ptr(0x5D4594, 2649704)));
+										 (v14 / nox_gameFPS));
 					}
 				}
 				return 1;

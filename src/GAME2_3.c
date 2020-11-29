@@ -101,6 +101,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
+extern unsigned int nox_gameFPS;
 
 const int nox_max_npcs = 1024;
 nox_npc* npc_array;
@@ -849,7 +850,7 @@ wchar_t* __cdecl nox_xxx_createTextBubble_48D880(int a1, wchar_t* a2) {
 		v5 = *((_DWORD*)v2 + 159) / 8;
 		if (v5 >= 8)
 			v5 = 8;
-		v6 = *getMemU32Ptr(0x5D4594, 2649704) * (v5 + 2);
+		v6 = nox_gameFPS * (v5 + 2);
 	}
 	result = (wchar_t*)(*getMemU32Ptr(0x5D4594, 2598000) + v6);
 	*((_DWORD*)v2 + 160) = result;

@@ -18,6 +18,7 @@ extern _DWORD dword_5d4594_1090048;
 extern _DWORD dword_5d4594_1090120;
 extern int nox_win_width;
 extern int nox_win_height;
+extern unsigned int nox_gameFPS;
 
 //----- (0046DC60) --------------------------------------------------------
 wchar_t* __cdecl sub_46DC60(int a1, unsigned __int8 a2, int a3) {
@@ -330,7 +331,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
 	}
 	if (dword_587000_145664 || *getMemU32Ptr(0x5D4594, 2598000) >
-								   (unsigned int)(*getMemU32Ptr(0x5D4594, 1090124) + *getMemU32Ptr(0x5D4594, 2649704))) {
+								   (unsigned int)(*getMemU32Ptr(0x5D4594, 1090124) + nox_gameFPS)) {
 		dword_5d4594_3799524 = 1;
 		*getMemU32Ptr(0x5D4594, 1090124) = *getMemU32Ptr(0x5D4594, 2598000);
 		dword_587000_145672 = -1;

@@ -15,6 +15,7 @@ extern _DWORD dword_5d4594_754036;
 extern _DWORD nox_client_renderGUI_80828;
 extern int nox_win_width;
 extern int nox_win_height;
+extern unsigned int nox_gameFPS;
 
 //----- (0042EAE0) --------------------------------------------------------
 char* nox_xxx_bindevent_42EAE0() {
@@ -307,21 +308,21 @@ void nox_xxx_clientControl_42D6B0(_DWORD* a3, int a4) {
 				break;
 			case 0x2E:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
-					nox_xxx_checkKeybTimeout_4160F0(0x15u, *getMemUintPtr(0x5D4594, 2649704))) {
+					nox_xxx_checkKeybTimeout_4160F0(0x15u, nox_gameFPS)) {
 					nox_xxx_setKeybTimeout_4160D0(21);
 					nox_xxx_keys_42E670(47, 0);
 				}
 				break;
 			case 0x2F:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
-					nox_xxx_checkKeybTimeout_4160F0(0x14u, 2 * *getMemU32Ptr(0x5D4594, 2649704))) {
+					nox_xxx_checkKeybTimeout_4160F0(0x14u, 2 * nox_gameFPS)) {
 					nox_xxx_setKeybTimeout_4160D0(20);
 					nox_xxx_keys_42E670(48, 0);
 				}
 				break;
 			case 0x30:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
-					nox_xxx_checkKeybTimeout_4160F0(0x16u, *getMemUintPtr(0x5D4594, 2649704))) {
+					nox_xxx_checkKeybTimeout_4160F0(0x16u, nox_gameFPS)) {
 					nox_xxx_setKeybTimeout_4160D0(22);
 					nox_xxx_keys_42E670(49, 0);
 				}

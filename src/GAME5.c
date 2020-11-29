@@ -27,6 +27,7 @@ extern _DWORD dword_587000_292492;
 extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2650652;
+extern unsigned int nox_gameFPS;
 
 //-------------------------------------------------------------------------
 // Function declarations
@@ -210,8 +211,8 @@ char __cdecl nox_xxx_mobActionRetreat_545440(int a1) {
 				v3 = nox_xxx_monsterPushAction_50A260(a1, 41);
 				if (v3)
 					v3[1] = *getMemU32Ptr(0x5D4594, 2598000) +
-							nox_common_randomInt_415FA0(4 * *getMemU32Ptr(0x5D4594, 2649704),
-														6 * *getMemU32Ptr(0x5D4594, 2649704));
+							nox_common_randomInt_415FA0(4 * nox_gameFPS,
+														6 * nox_gameFPS);
 				v2 = nox_xxx_monsterPushAction_50A260(a1, 24);
 				if (v2) {
 					v4 = *(_DWORD*)(v1 + 1196);
@@ -410,7 +411,7 @@ char __cdecl nox_xxx_mobActionRoam_5457E0(int* a1) {
 		v6 = v3;
 		if (v3) {
 			v3 = (int*)(*getMemU32Ptr(0x5D4594, 2598000) +
-						*getMemU32Ptr(0x5D4594, 2649704) * nox_common_randomInt_415FA0(3, 10));
+						nox_gameFPS * nox_common_randomInt_415FA0(3, 10));
 			v6[1] = (int)v3;
 		}
 		return (char)v3;
@@ -448,8 +449,8 @@ char __cdecl nox_xxx_mobActionRoam_5457E0(int* a1) {
 			v11 = v3;
 			if (v3) {
 				v3 = (int*)(*getMemU32Ptr(0x5D4594, 2598000) +
-							nox_common_randomInt_415FA0(*getMemIntPtr(0x5D4594, 2649704),
-														2 * *getMemU32Ptr(0x5D4594, 2649704)));
+							nox_common_randomInt_415FA0((int)nox_gameFPS,
+														2 * nox_gameFPS));
 				v11[1] = (int)v3;
 			}
 			return (char)v3;
@@ -639,14 +640,14 @@ int __cdecl sub_545DA0(int a1) {
 	int* v3;    // eax
 
 	v1 = *(_DWORD**)(a1 + 748);
-	if (!v1[97] || *getMemU32Ptr(0x5D4594, 2598000) - v1[101] >= (unsigned int)(3 * *getMemU32Ptr(0x5D4594, 2649704)))
+	if (!v1[97] || *getMemU32Ptr(0x5D4594, 2598000) - v1[101] >= (unsigned int)(3 * nox_gameFPS))
 		return 0;
 	nox_xxx_monsterPushAction_50A260(a1, 59);
 	nox_xxx_monsterPushAction_50A260(a1, 56);
 	v2 = nox_xxx_monsterPushAction_50A260(a1, 1);
 	if (v2)
 		v2[1] = *getMemU32Ptr(0x5D4594, 2598000) +
-				nox_common_randomInt_415FA0(*getMemIntPtr(0x5D4594, 2649704), 2 * *getMemU32Ptr(0x5D4594, 2649704));
+				nox_common_randomInt_415FA0((int)nox_gameFPS, 2 * nox_gameFPS);
 	v3 = nox_xxx_monsterPushAction_50A260(a1, 25);
 	if (v3) {
 		v3[1] = v1[99];
@@ -672,14 +673,14 @@ int __cdecl sub_545E60(int* a1) {
 
 	v1 = a1[187];
 	v2 = a1[134];
-	if (*(_DWORD*)(v1 + 516) >= v2 || *getMemU32Ptr(0x5D4594, 2598000) - v2 >= 10 * *getMemU32Ptr(0x5D4594, 2649704))
+	if (*(_DWORD*)(v1 + 516) >= v2 || *getMemU32Ptr(0x5D4594, 2598000) - v2 >= 10 * nox_gameFPS)
 		return 0;
 	*(_DWORD*)(v1 + 516) = v2;
 	if (!a1[130] || (v3 = sub_534160(a1[130]), (v4 = v3) == 0)) {
 		if (!nox_xxx_checkMobAction_50A0D0((int)a1, 10)) {
 			v11 = nox_xxx_monsterPushAction_50A260((int)a1, 41);
 			if (v11)
-				v11[1] = 5 * *getMemU32Ptr(0x5D4594, 2649704);
+				v11[1] = 5 * nox_gameFPS;
 			nox_xxx_monsterPushAction_50A260((int)a1, 56);
 			if (nox_xxx_monsterCanAttackAtWill_534390((int)a1))
 				nox_xxx_monsterPushAction_50A260((int)a1, 59);
@@ -878,7 +879,7 @@ int* __cdecl nox_xxx_mobActionGuard_546010(int a1) {
 		LABEL_49:
 			if (nox_xxx_unitIsMimic_534840(a1) ||
 				(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v1 + 548)) <=
-					*getMemU32Ptr(0x5D4594, 2649704) >> 1 ||
+					nox_gameFPS >> 1 ||
 				*(float*)(a1 + 56) == *(float*)(a1 + 72) && *(float*)(a1 + 60) == *(float*)(a1 + 76)) {
 				result = (int*)nox_xxx_testUnitBuffs_4FF350(a1, 29);
 				if (!result)
@@ -1046,7 +1047,7 @@ int __cdecl sub_5466F0(_DWORD* a1) {
 
 	v1 = a1[187];
 	if (!*(_DWORD*)(v1 + 388) ||
-		*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v1 + 404) >= (unsigned int)(3 * *getMemU32Ptr(0x5D4594, 2649704))) {
+		*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v1 + 404) >= (unsigned int)(3 * nox_gameFPS)) {
 		return 0;
 	}
 	if (sub_534020((int)a1) || nox_xxx_tileNFromPoint_411160((float2*)(v1 + 396)) != 6) {
@@ -1125,7 +1126,7 @@ int* __cdecl nox_xxx_monsterUpdateIdleLogic_546850(int a1) {
 		result = (int*)nox_xxx_monsterLookAtDamager_5466B0(a1);
 		if (result)
 			return result;
-		if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v1 + 548)) <= *getMemIntPtr(0x5D4594, 2649704) >>
+		if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v1 + 548)) <= (int)nox_gameFPS >>
 				1 ||
 			*(float*)(a1 + 56) == *(float*)(a1 + 72) && *(float*)(a1 + 60) == *(float*)(a1 + 76)) {
 		LABEL_24:
@@ -1155,8 +1156,8 @@ void __cdecl nox_xxx_mobAction_5469B0(int a1) {
 			v2 = nox_xxx_mobActionGet_50A020(a1);
 			if ((!v2 || v2 == 4) && *getMemU32Ptr(0x5D4594, 2598000) >= *(int*)(v1 + 528)) {
 				*(_DWORD*)(v1 + 528) =
-					*getMemU32Ptr(0x5D4594, 2598000) + nox_common_randomInt_415FA0(20 * *getMemU32Ptr(0x5D4594, 2649704),
-																				  60 * *getMemU32Ptr(0x5D4594, 2649704));
+					*getMemU32Ptr(0x5D4594, 2598000) + nox_common_randomInt_415FA0(20 * nox_gameFPS,
+																				  60 * nox_gameFPS);
 				v3 = nox_xxx_monsterGetSoundSet_424300(a1);
 				if (v3)
 					nox_xxx_aud_501960(*(_DWORD*)(v3 + 16), a1, 0, 0);
@@ -1240,7 +1241,7 @@ char __cdecl nox_xxx_mobActionDependency_546A70(int a1) {
 					if (!v12 || !(*(_BYTE*)(v12 + 8) & 6) || (v13 = *(_WORD**)(v12 + 556), !*v13) && v13[2]) {
 						v4 = 0;
 						*(_DWORD*)(v2 + 388) = 0;
-						*(_DWORD*)(v2 + 404) = *getMemU32Ptr(0x5D4594, 2598000) + *getMemU32Ptr(0x5D4594, 2649704);
+						*(_DWORD*)(v2 + 404) = *getMemU32Ptr(0x5D4594, 2598000) + nox_gameFPS;
 					}
 					goto LABEL_90;
 				case 0x2B:
@@ -1254,7 +1255,7 @@ char __cdecl nox_xxx_mobActionDependency_546A70(int a1) {
 						}
 					}
 					if (*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v5 + 4) >
-						(unsigned int)(10 * *getMemU32Ptr(0x5D4594, 2649704)))
+						(unsigned int)(10 * nox_gameFPS))
 						goto LABEL_89;
 					goto LABEL_90;
 				case 0x2C:
@@ -1342,7 +1343,7 @@ char __cdecl nox_xxx_mobActionDependency_546A70(int a1) {
 					goto LABEL_40;
 				case 0x3B:
 					if (*(_DWORD*)(v2 + 388) && *getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v2 + 404) <
-													(unsigned int)(3 * *getMemU32Ptr(0x5D4594, 2649704))) {
+													(unsigned int)(3 * nox_gameFPS)) {
 						goto LABEL_89;
 					}
 					goto LABEL_90;
@@ -1598,7 +1599,7 @@ char __cdecl nox_xxx_monsterMainAIFn_547210(int a1) {
 								nox_xxx_monsterPushAction_50A260(v1, 71);
 								v12 = nox_xxx_monsterPushAction_50A260(v1, 2);
 								if (v12)
-									v12[1] = *getMemU32Ptr(0x5D4594, 2649704);
+									v12[1] = nox_gameFPS;
 								nox_xxx_monsterPushAction_50A260(v1, 67);
 								v13 = nox_xxx_monsterPushAction_50A260(v1, 2);
 								if (v13)
@@ -1742,7 +1743,7 @@ char __cdecl nox_xxx_monsterMainAIFn_547210(int a1) {
 						nox_xxx_monsterPopAttackActions_5471B0(v1);
 						v3 = nox_xxx_monsterPushAction_50A260(v1, 1);
 						if (v3)
-							v3[1] = *getMemU32Ptr(0x5D4594, 2598000) + *getMemU32Ptr(0x5D4594, 2649704);
+							v3[1] = *getMemU32Ptr(0x5D4594, 2598000) + nox_gameFPS;
 					}
 					return (char)v3;
 				}
@@ -1755,7 +1756,7 @@ char __cdecl nox_xxx_monsterMainAIFn_547210(int a1) {
 					nox_xxx_monsterPopAttackActions_5471B0(v1);
 					v3 = nox_xxx_monsterPushAction_50A260(v1, 21);
 					if (v3)
-						v3[1] = *getMemU32Ptr(0x5D4594, 2598000) + (*getMemU32Ptr(0x5D4594, 2649704) >> 1);
+						v3[1] = *getMemU32Ptr(0x5D4594, 2598000) + (nox_gameFPS >> 1);
 				}
 				return (char)v3;
 			}
@@ -1781,7 +1782,7 @@ char __cdecl nox_xxx_monsterMainAIFn_547210(int a1) {
 					*(_DWORD*)(v2 + 500) = *(_DWORD*)(v1 + 56);
 					*(_DWORD*)(v2 + 504) = *(_DWORD*)(v1 + 60);
 				} else if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v2 + 496)) >
-						   *getMemIntPtr(0x5D4594, 2649704) >> 1) {
+						   (int)nox_gameFPS >> 1) {
 					v39 = *(_DWORD*)(v1 + 36);
 					v34 = nox_xxx_getUnitName_4E39D0(v1);
 					nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 286616), *getMemU32Ptr(0x5D4594, 2598000), v34, v39);
@@ -1794,8 +1795,8 @@ char __cdecl nox_xxx_monsterMainAIFn_547210(int a1) {
 						v35 = nox_xxx_monsterPushAction_50A260(v1, 1);
 						if (v35)
 							v35[1] = *getMemU32Ptr(0x5D4594, 2598000) +
-									 nox_common_randomInt_415FA0(*getMemU32Ptr(0x5D4594, 2649704) >> 1,
-																 2 * *getMemU32Ptr(0x5D4594, 2649704));
+									 nox_common_randomInt_415FA0(nox_gameFPS >> 1,
+																 2 * nox_gameFPS);
 					}
 					LOBYTE(v3) = getMemByte(0x5D4594, 2598000);
 					*(_DWORD*)(v2 + 496) = *getMemU32Ptr(0x5D4594, 2598000);
@@ -1890,7 +1891,7 @@ int __cdecl nox_xxx_monsterCheckDodgeables_547C50(int a1) {
 	nox_xxx_monsterPopAttackActions_5471B0((int)v1);
 	v9 = nox_xxx_monsterPushAction_50A260((int)v1, 41);
 	if (v9)
-		v9[1] = *getMemU32Ptr(0x5D4594, 2598000) + *getMemU32Ptr(0x5D4594, 2649704);
+		v9[1] = *getMemU32Ptr(0x5D4594, 2598000) + nox_gameFPS;
 	v10 = nox_xxx_monsterPushAction_50A260((int)v1, 9);
 	if (v10) {
 		v10[1] = LODWORD(v13.field_8);
@@ -2477,7 +2478,7 @@ void __cdecl sub_5488B0(int* a1, float* a2, int a3) {
 			}
 		} else if (*getMemU32Ptr(0x5D4594, 2598000) > (unsigned int)v3[34]) {
 			v23 = *((unsigned __int8*)v3 + 52);
-			v3[34] = *getMemU32Ptr(0x5D4594, 2598000) + *getMemU32Ptr(0x5D4594, 2649704);
+			v3[34] = *getMemU32Ptr(0x5D4594, 2598000) + nox_gameFPS;
 			nox_xxx_clientGetTeamColor_418AB0(v23);
 			nox_xxx_netPriMsgToPlayer_4DA2C0((int)v7, "objcoll.c:GateLockedMechanism", 0);
 		}
@@ -3175,7 +3176,7 @@ int __cdecl nox_xxx_strikeGhost_549A60(float a1) {
 		v12 = *(float*)(*(_DWORD*)(v2 + 484) + 120);
 		if (v12 > 0.0)
 			nox_xxx_objectApplyForce_52DF80(v1 + 56, v3, v12);
-		nox_xxx_buffApplyTo_4FF380(v3, 5, 2 * *getMemU16Ptr(0x5D4594, 2649704), 3);
+		nox_xxx_buffApplyTo_4FF380(v3, 5, 2 * (_WORD)nox_gameFPS, 3);
 		v8 = nox_xxx_monsterPushAction_50A260(v1, 25);
 		if (v8) {
 			v8[1] = *(_DWORD*)(v3 + 56);
@@ -3183,8 +3184,8 @@ int __cdecl nox_xxx_strikeGhost_549A60(float a1) {
 		}
 		v9 = nox_xxx_monsterPushAction_50A260(v1, 41);
 		if (v9)
-			v9[1] = *getMemU32Ptr(0x5D4594, 2598000) + nox_common_randomInt_415FA0(2 * *getMemU32Ptr(0x5D4594, 2649704),
-																				  4 * *getMemU32Ptr(0x5D4594, 2649704));
+			v9[1] = *getMemU32Ptr(0x5D4594, 2598000) + nox_common_randomInt_415FA0(2 * nox_gameFPS,
+																				  4 * nox_gameFPS);
 		v10 = nox_xxx_monsterPushAction_50A260(v1, 24);
 		if (v10) {
 			v10[1] = *(_DWORD*)(v3 + 56);
@@ -3328,7 +3329,7 @@ int __cdecl sub_549E90(int a1) {
 			v3[29] = 2.0;
 			*((_DWORD*)v3 + 4) = 0x800000 | v5;
 			v6 = nox_common_randomInt_415FA0(10, 20);
-			nox_xxx_unitSetDecayTime_511660(v3, *getMemU32Ptr(0x5D4594, 2649704) * v6);
+			nox_xxx_unitSetDecayTime_511660(v3, nox_gameFPS * v6);
 			v7 = *((_DWORD*)v2 + 1);
 			v2 += 4;
 			v1 = (CHAR**)v2;
@@ -3376,7 +3377,7 @@ int __cdecl sub_549FA0(int a1) {
 			nox_xxx_objectApplyForce_52DF80((int)v1, (int)v4, v9);
 			v6 = nox_common_gameFlags_check_40A5C0(2048) ? nox_common_randomInt_415FA0(10, 20)
 														 : nox_common_randomInt_415FA0(5, 10);
-			nox_xxx_unitSetDecayTime_511660(v4, *getMemU32Ptr(0x5D4594, 2649704) * v6);
+			nox_xxx_unitSetDecayTime_511660(v4, nox_gameFPS * v6);
 			v3 = (dword_5d4594_2491580 + 1) % *getMemU32Ptr(0x587000, 287344);
 			++v2;
 			dword_5d4594_2491580 = (dword_5d4594_2491580 + 1) % *getMemU32Ptr(0x587000, 287344);
@@ -3445,7 +3446,7 @@ int __cdecl nox_xxx_monsterDeadTroll_54A270(int a1) {
 		v3 = (_DWORD*)v2[187];
 		nox_xxx_createAt_4DAA50((int)v2, a1, *(float*)(a1 + 56), *(float*)(a1 + 60));
 		nox_xxx_aud_501960(644, a1, 0, 0);
-		v5 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 288732)) * (double)*getMemIntPtr(0x5D4594, 2649704);
+		v5 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 288732)) * (double)(int)nox_gameFPS;
 		*v3 = nox_float2int(v5);
 	}
 	return 1;
@@ -3546,11 +3547,11 @@ void __cdecl sub_54A4C0(int a1) {
 		nox_xxx_objectApplyForce_52DF80((int)v1, (int)v2, v15);
 		if (nox_common_gameFlags_check_40A5C0(2048)) {
 			v5 = nox_common_randomInt_415FA0(10, 20);
-			nox_xxx_unitSetDecayTime_511660(v2, *getMemU32Ptr(0x5D4594, 2649704) * v5);
+			nox_xxx_unitSetDecayTime_511660(v2, nox_gameFPS * v5);
 			v6 = nox_common_randomInt_415FA0(10, 20);
 		} else {
 			v7 = nox_common_randomInt_415FA0(2, 5);
-			nox_xxx_unitSetDecayTime_511660(v2, *getMemU32Ptr(0x5D4594, 2649704) * v7);
+			nox_xxx_unitSetDecayTime_511660(v2, nox_gameFPS * v7);
 			v6 = nox_common_randomInt_415FA0(5, 10);
 		}
 		v20 = v6;
@@ -3574,7 +3575,7 @@ void __cdecl sub_54A4C0(int a1) {
 				nox_xxx_objectApplyForce_52DF80((int)v1, (int)v9, v17);
 				v12 = nox_common_gameFlags_check_40A5C0(2048) ? nox_common_randomInt_415FA0(10, 20)
 															  : nox_common_randomInt_415FA0(2, 5);
-				nox_xxx_unitSetDecayTime_511660(v9, *getMemU32Ptr(0x5D4594, 2649704) * v12);
+				nox_xxx_unitSetDecayTime_511660(v9, nox_gameFPS * v12);
 				v8 = (dword_5d4594_2491588 + 1) % *getMemU32Ptr(0x587000, 287348);
 				v13 = ++v18 < v20;
 				dword_5d4594_2491588 = (dword_5d4594_2491588 + 1) % *getMemU32Ptr(0x587000, 287348);
@@ -4527,8 +4528,8 @@ __int16 __cdecl nox_xxx_monsterAutoSpells_54C0C0(int a1) {
 				*(_DWORD*)(v1 + 1540) = 0x8000000;
 				*(_DWORD*)(v1 + 1640) = 0x8000000;
 				*(_DWORD*)(v1 + 1772) = 0x10000000;
-				*(_WORD*)(v1 + 1472) = 3 * *getMemU16Ptr(0x5D4594, 2649704);
-				LOWORD(v2) = *getMemU16Ptr(0x5D4594, 2649704);
+				*(_WORD*)(v1 + 1472) = 3 * (_WORD)nox_gameFPS;
+				LOWORD(v2) = (_WORD)nox_gameFPS;
 				*(_DWORD*)(v1 + 1612) = 0x40000000;
 				*(_DWORD*)(v1 + 1644) = 2147483648;
 				*(_BYTE*)(v1 + 2036) = 1;
@@ -4571,19 +4572,19 @@ __int16 __cdecl nox_xxx_monsterAutoSpells_54C0C0(int a1) {
 	*(_DWORD*)(v1 + 2040) = 2;
 	*(_DWORD*)(v1 + 1640) = 0x8000000;
 	*(_WORD*)(v1 + 1448) = 0;
-	*(_WORD*)(v1 + 1450) = *getMemU32Ptr(0x5D4594, 2649704) >> 1;
+	*(_WORD*)(v1 + 1450) = nox_gameFPS >> 1;
 	*(_DWORD*)(v1 + 1536) = 0x20000000;
-	*(_WORD*)(v1 + 1464) = 3 * *getMemU16Ptr(0x5D4594, 2649704);
-	v3 = *getMemU16Ptr(0x5D4594, 2649704);
+	*(_WORD*)(v1 + 1464) = 3 * (_WORD)nox_gameFPS;
+	v3 = (_WORD)nox_gameFPS;
 	*(_WORD*)(v1 + 1472) = 0;
 	*(_WORD*)(v1 + 1466) = 5 * v3;
 	*(_DWORD*)(v1 + 1720) = 0x40000000;
 	*(_DWORD*)(v1 + 1696) = 0x40000000;
-	v4 = *getMemU16Ptr(0x5D4594, 2649704);
+	v4 = (_WORD)nox_gameFPS;
 	*(_DWORD*)(v1 + 1752) = 2147483648;
 	*(_WORD*)(v1 + 1474) = 3 * v4;
-	*(_WORD*)(v1 + 1480) = *getMemU16Ptr(0x5D4594, 2649704);
-	LOWORD(v2) = *getMemU16Ptr(0x5D4594, 2649704);
+	*(_WORD*)(v1 + 1480) = (_WORD)nox_gameFPS;
+	LOWORD(v2) = (_WORD)nox_gameFPS;
 	*(_BYTE*)(v1 + 2036) = 1;
 	*(_WORD*)(v1 + 1482) = 3 * v2;
 	return v2;
@@ -4650,17 +4651,17 @@ char __cdecl nox_xxx_monsterCreateFn_54C480(int a1) {
 	*(_DWORD*)(v1 + 1300) = -1;
 	*(_DWORD*)(v1 + 2040) = 1;
 	*(_WORD*)(v1 + 1448) = 0;
-	*(_WORD*)(v1 + 1450) = *getMemU32Ptr(0x5D4594, 2649704) >> 1;
-	*(_WORD*)(v1 + 1456) = 3 * *getMemU16Ptr(0x5D4594, 2649704);
-	*(_WORD*)(v1 + 1458) = 10 * *getMemU16Ptr(0x5D4594, 2649704);
-	*(_WORD*)(v1 + 1464) = 3 * *getMemU16Ptr(0x5D4594, 2649704);
-	v7 = *getMemU16Ptr(0x5D4594, 2649704);
+	*(_WORD*)(v1 + 1450) = nox_gameFPS >> 1;
+	*(_WORD*)(v1 + 1456) = 3 * (_WORD)nox_gameFPS;
+	*(_WORD*)(v1 + 1458) = 10 * (_WORD)nox_gameFPS;
+	*(_WORD*)(v1 + 1464) = 3 * (_WORD)nox_gameFPS;
+	v7 = (_WORD)nox_gameFPS;
 	*(_WORD*)(v1 + 1472) = 0;
 	*(_WORD*)(v1 + 1466) = 6 * v7;
-	v8 = *getMemU16Ptr(0x5D4594, 2649704);
+	v8 = (_WORD)nox_gameFPS;
 	*(_WORD*)(v1 + 1480) = 0;
 	*(_WORD*)(v1 + 1474) = 3 * v8;
-	v9 = *getMemU16Ptr(0x5D4594, 2649704);
+	v9 = (_WORD)nox_gameFPS;
 	*(_DWORD*)(v1 + 2096) = -1;
 	*(_DWORD*)(v1 + 2100) = -1;
 	*(_DWORD*)v1 = -559023410;
@@ -4887,7 +4888,7 @@ void __cdecl nox_xxx_diePolyp_54CB10(int a1) {
 	if (v2) {
 		v3 = (_DWORD*)v2[187];
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
-		v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290356)) * (double)*getMemIntPtr(0x5D4594, 2649704);
+		v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290356)) * (double)(int)nox_gameFPS;
 		*v3 = nox_float2int(v4);
 	}
 	nox_xxx_aud_501960(284, a1, 0, 0);
@@ -5311,7 +5312,7 @@ int __cdecl nox_xxx_diePlayer_54D2B0(int a1) {
 	if (v24)
 		v24 = nox_xxx_findParentChainPlayer_4EC580(v24);
 	v4 = *(_DWORD**)(v3 + 276);
-	if (v4[900] && *getMemU32Ptr(0x5D4594, 2598000) - v4[902] < (unsigned int)(10 * *getMemU32Ptr(0x5D4594, 2649704))) {
+	if (v4[900] && *getMemU32Ptr(0x5D4594, 2598000) - v4[902] < (unsigned int)(10 * nox_gameFPS)) {
 		v5 = nox_common_playerInfoFromNum_417090(v4[901]);
 		v6 = (int)v5;
 		v22 = v5;
@@ -5882,7 +5883,7 @@ void __cdecl sub_54E0D0(int a1) {
 	if (v2) {
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 		v3 = nox_common_randomInt_415FA0(45, 75);
-		nox_xxx_unitSetDecayTime_511660(v2, *getMemU32Ptr(0x5D4594, 2649704) * v3);
+		nox_xxx_unitSetDecayTime_511660(v2, nox_gameFPS * v3);
 	}
 	nox_xxx_mapDamageUnitsAround_4E25B0(a1 + 56, 30.0, 30.0, 1, 1, a1, 0);
 	nox_xxx_aud_501960(282, a1, 0, 0);
@@ -5954,7 +5955,7 @@ void __cdecl nox_xxx_dieBoulder_54E4B0(int a1) {
 			v10 = nox_common_randomFloat_416030(5.0, 20.0);
 			nox_xxx_objectApplyForce_52DF80((int)v2, (int)v6, v10);
 			v8 = nox_common_randomInt_415FA0(45, 75);
-			nox_xxx_unitSetDecayTime_511660(v6, *getMemU32Ptr(0x5D4594, 2649704) * v8);
+			nox_xxx_unitSetDecayTime_511660(v6, nox_gameFPS * v8);
 			v5 = (dword_5d4594_2491704 + 1) % *getMemU32Ptr(0x587000, 290340);
 			++v4;
 			dword_5d4594_2491704 = (dword_5d4594_2491704 + 1) % *getMemU32Ptr(0x587000, 290340);
@@ -6770,7 +6771,7 @@ int __cdecl nox_xxx_updateShootingTrap_54F9A0(int a1) {
 		*((_BYTE*)v2 + 48) = 1;
 		if (!v3) {
 			sub_54FBB0(a1);
-			*v2 = *getMemU32Ptr(0x5D4594, 2649704);
+			*v2 = nox_gameFPS;
 		}
 		if (*((_BYTE*)v2 + 8) == 1 && !v2[1]) {
 			if (!*getMemU32Ptr(0x5D4594, 2491780)) {
@@ -7885,7 +7886,7 @@ void __cdecl sub_551250(unsigned int a1, float* a2, int a3) {
 							} else if (*getMemU32Ptr(0x5D4594, 2598000) > *(_DWORD*)(v3 + 136)) {
 								v22 = *(unsigned __int8*)(v3 + 52);
 								*(_DWORD*)(v3 + 136) =
-									*getMemU32Ptr(0x5D4594, 2598000) + *getMemU32Ptr(0x5D4594, 2649704);
+									*getMemU32Ptr(0x5D4594, 2598000) + nox_gameFPS;
 								nox_xxx_clientGetTeamColor_418AB0(v22);
 								nox_xxx_netPriMsgToPlayer_4DA2C0((int)v4, "objcoll.c:GateLockedMechanism", 0);
 							}

@@ -5,6 +5,7 @@
 extern _DWORD dword_5d4594_1303452;
 extern int nox_win_width;
 extern int nox_win_height;
+extern unsigned int nox_gameFPS;
 
 //----- (0049B4B0) --------------------------------------------------------
 int __cdecl sub_49B4B0(unsigned __int16* a1) {
@@ -68,14 +69,14 @@ int sub_49B6E0() {
 	if (dword_5d4594_1303452) {
 		result = wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1303452);
 		if (!result) {
-			v1 = *getMemU32Ptr(0x5D4594, 1303456) + 30 * *getMemU32Ptr(0x5D4594, 2649704) -
+			v1 = *getMemU32Ptr(0x5D4594, 1303456) + 30 * nox_gameFPS -
 				 *getMemU32Ptr(0x5D4594, 2598000);
 			if (v1 < 0)
 				v1 = 0;
 			if (*getMemU32Ptr(0x5D4594, 2618908) && *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2064) == 31) {
 				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1301852), (const wchar_t*)getMemAt(0x5D4594, 1303464));
 			} else {
-				v4 = (unsigned int)v1 / *getMemU32Ptr(0x5D4594, 2649704);
+				v4 = (unsigned int)v1 / nox_gameFPS;
 				v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 163544), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c",
 										   265);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1301852), L"%s - %d", v2, v4);

@@ -3,6 +3,7 @@
 #include "../../../common/random.h"
 #include "../../../proto.h"
 
+extern unsigned int nox_gameFPS;
 //----- (004CD9E0) --------------------------------------------------------
 int __cdecl nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
 	_DWORD* v2;  // ebp
@@ -62,7 +63,7 @@ int __cdecl nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
 		nox_xxx_sprite_45A110_drawable(v12);
 		v2[108] = v2[3];
 		v2[109] = v2[4];
-		nox_xxx_spriteTransparentDecay_49B950(v12, *getMemU32Ptr(0x5D4594, 2649704) / 3u);
+		nox_xxx_spriteTransparentDecay_49B950(v12, nox_gameFPS / 3u);
 	}
 	return 1;
 }

@@ -1,6 +1,7 @@
 #include "bubbledraw.h"
 #include "../../proto.h"
 
+extern unsigned int nox_gameFPS;
 //----- (004B7540) --------------------------------------------------------
 int __cdecl nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	unsigned int v2;    // eax
@@ -28,7 +29,7 @@ int __cdecl nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 		*(_BYTE*)(a2 + 441) = 3;
 		*(_BYTE*)(a2 + 442) = 4;
 		*(_BYTE*)(a2 + 443) = 4;
-		nox_xxx_spriteTransparentDecay_49B950((_DWORD*)a2, *getMemIntPtr(0x5D4594, 2649704));
+		nox_xxx_spriteTransparentDecay_49B950((_DWORD*)a2, (int)nox_gameFPS);
 	}
 	if (*(_BYTE*)(a2 + 441) == 3) {
 		LABEL_29:

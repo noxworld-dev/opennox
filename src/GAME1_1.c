@@ -72,6 +72,7 @@ extern _DWORD dword_5d4594_2660652;
 extern _DWORD dword_5d4594_529316;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
+extern unsigned int nox_gameFPS;
 
 //----- (004187A0) --------------------------------------------------------
 char sub_4187A0() {
@@ -2184,8 +2185,8 @@ BOOL __cdecl nox_xxx_guiEnchantment_41B9C0(_DWORD* a1) {
 					nox_xxx_spellAccept_4FD400(v8, (int)a1, a1, (int)a1, (int*)&v24, v13);
 					v9 = v17;
 					if (!(_WORD)v17) {
-						v9 = *getMemU16Ptr(0x5D4594, 2649704);
-						v17 = *getMemU32Ptr(0x5D4594, 2649704);
+						v9 = (_WORD)nox_gameFPS;
+						v17 = nox_gameFPS;
 					}
 					*((_WORD*)a1 + v6 + 172) = v9;
 					if (v6 == 26 && (__int16)v18 >= 3) {
@@ -3624,7 +3625,7 @@ int nox_xxx_reconAttempt_41E390() {
 	int result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 2598000) - dword_5d4594_528264 <=
-		(unsigned int)(3600 * *getMemU32Ptr(0x5D4594, 2649704))) {
+		(unsigned int)(3600 * nox_gameFPS)) {
 		result = dword_5d4594_528252;
 		if (dword_5d4594_528252) {
 			result = dword_5d4594_528256;
@@ -3654,7 +3655,7 @@ void nox_xxx_reconStart_41E400() {
 				dword_5d4594_528252 = 1;
 				dword_5d4594_528256 = 0;
 				dword_5d4594_528264 = *getMemU32Ptr(0x5D4594, 2598000);
-				dword_5d4594_528260 = *getMemU32Ptr(0x5D4594, 2598000) + 120 * *getMemU32Ptr(0x5D4594, 2649704);
+				dword_5d4594_528260 = *getMemU32Ptr(0x5D4594, 2598000) + 120 * nox_gameFPS;
 			}
 		}
 	}
@@ -3666,8 +3667,8 @@ int sub_41E470() {
 
 	nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 59048), *getMemU32Ptr(0x5D4594, 2598000));
 	dword_5d4594_528256 = 0;
-	result = *getMemU32Ptr(0x5D4594, 2598000) + 120 * *getMemU32Ptr(0x5D4594, 2649704);
-	dword_5d4594_528260 = *getMemU32Ptr(0x5D4594, 2598000) + 120 * *getMemU32Ptr(0x5D4594, 2649704);
+	result = *getMemU32Ptr(0x5D4594, 2598000) + 120 * nox_gameFPS;
+	dword_5d4594_528260 = *getMemU32Ptr(0x5D4594, 2598000) + 120 * nox_gameFPS;
 	return result;
 }
 
