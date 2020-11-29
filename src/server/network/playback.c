@@ -44,7 +44,7 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 		nox_game_exit_xxx_43DE60();
 		return v1;
 	}
-	if (*(_DWORD *) getMemAt(0x5D4594, 2598000) == *(_DWORD *) getMemAt(0x5D4594, 1548728))
+	if (*getMemU32Ptr(0x5D4594, 2598000) == *getMemU32Ptr(0x5D4594, 1548728))
 		return v1;
 	while (1) {
 		switch (getMemByte(0x5D4594, 1548724)) {
@@ -100,7 +100,7 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 		}
 		if (v1)
 			break;
-		if (*(_DWORD *) getMemAt(0x5D4594, 2598000) == *(_DWORD *) getMemAt(0x5D4594, 1548728))
+		if (*getMemU32Ptr(0x5D4594, 2598000) == *getMemU32Ptr(0x5D4594, 1548728))
 			return v1;
 	}
 	nox_xxx_replayStopReadMB_4D3530();

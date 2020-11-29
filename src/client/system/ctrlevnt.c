@@ -688,7 +688,7 @@ void nox_xxx_clientControl_42D6B0(_DWORD* a3, int a4) {
 					nox_xxx_useAudio_587000_80832 = nox_client_renderGUI_80828;
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				}
-				*(_DWORD *) getMemAt(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
 				break;
 			case 54:
 				if (nox_common_gameFlags_check_40A5C0(2048)) {
