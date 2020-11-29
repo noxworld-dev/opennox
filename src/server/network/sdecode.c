@@ -377,7 +377,7 @@ int __cdecl nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __in
 									v49 = nox_common_playerInfoGetByID_417040(*(_DWORD *) (j + 36));
 									if (v49 && nox_xxx_teamCompare2_419180(j + 48, v86[57])) {
 										if (nox_common_gameFlags_check_40A5C0(2) &&
-											*(_DWORD *) (j + 36) == *(_DWORD *) getMemAt(0x5D4594, 2616328)) {
+											*(_DWORD *) (j + 36) == *getMemU32Ptr(0x5D4594, 2616328)) {
 											nox_xxx_netOnPacketRecvCli_48EA70((unsigned __int8) v49[2064], (unsigned int) v4, v45);
 										} else {
 											nox_xxx_netSendSock_552640((unsigned __int8) v49[2064] + 1, v4, v45, 0);
