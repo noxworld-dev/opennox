@@ -4,6 +4,7 @@
 #include "../../../proto.h"
 #include "../../draw/glowdraw.h"
 
+extern unsigned int nox_gameFPS;
 //----- (004CDD80) --------------------------------------------------------
 void __cdecl nox_xxx_updDrawMagic_4CDD80(int a1, _DWORD* a2) {
 	_DWORD* v2; // edi
@@ -34,7 +35,7 @@ void __cdecl nox_xxx_updDrawMagic_4CDD80(int a1, _DWORD* a2) {
 		nox_xxx_sprite_45A110_drawable(v5);
 		a2[108] = a2[3];
 		a2[109] = a2[4];
-		nox_xxx_spriteTransparentDecay_49B950(v5, *getMemIntPtr(0x5D4594, 2649704));
+		nox_xxx_spriteTransparentDecay_49B950(v5, (int)nox_gameFPS);
 	}
 	v13 = a2[3] - a2[8];
 	v14 = a2[4] - a2[9];

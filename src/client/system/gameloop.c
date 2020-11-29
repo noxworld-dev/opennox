@@ -21,6 +21,7 @@ extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_815132;
 extern int nox_win_width;
 extern int nox_win_height;
+extern unsigned int nox_gameFPS;
 
 #ifdef USE_SDL
 extern SDL_GLContext g_ddraw;
@@ -330,7 +331,7 @@ void mainloop() {
 				if (*getMemIntPtr(0x5D4594, 2598000) >= *getMemIntPtr(0x5D4594, 816400)) {
 					sub_4161E0();
 					sub_416690();
-					*getMemU32Ptr(0x5D4594, 816400) = *getMemU32Ptr(0x5D4594, 2598000) + 60 * *getMemU32Ptr(0x5D4594, 2649704);
+					*getMemU32Ptr(0x5D4594, 816400) = *getMemU32Ptr(0x5D4594, 2598000) + 60 * nox_gameFPS;
 				}
 			}
 		}

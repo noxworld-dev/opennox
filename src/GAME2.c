@@ -171,6 +171,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
+extern unsigned int nox_gameFPS;
 
 extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
@@ -8118,7 +8119,7 @@ void sub_4603F0() {
 void sub_460440() {
 	_DWORD* result; // eax
 
-	if (nox_xxx_checkKeybTimeout_4160F0(6u, *getMemU32Ptr(0x5D4594, 2649704) >> 1)) {
+	if (nox_xxx_checkKeybTimeout_4160F0(6u, nox_gameFPS >> 1)) {
 		LOBYTE(result) = 0;
 		*getMemU32Ptr(0x5D4594, 1049708) = 0;
 	} else {
@@ -8202,7 +8203,7 @@ void nox_xxx_spellReset_460590() {
 	if (!*getMemU32Ptr(0x5D4594, 1049476)) {
 		result = dword_5d4594_1049496;
 		if (!dword_5d4594_1049496) {
-			if (nox_xxx_checkKeybTimeout_4160F0(7u, *getMemU32Ptr(0x5D4594, 2649704) >> 1)) {
+			if (nox_xxx_checkKeybTimeout_4160F0(7u, nox_gameFPS >> 1)) {
 				LOBYTE(result) = 0;
 				*getMemU32Ptr(0x5D4594, 1049712) = 0;
 			} else {

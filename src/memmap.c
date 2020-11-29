@@ -30,6 +30,7 @@ extern int nox_video_cursorDrawIsThreaded;
 extern int nox_client_mouseCursorType;
 extern int nox_video_gammaValue;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
+extern unsigned int nox_gameFPS;
 
 extern nox_server_netCodeCacheStruct nox_server_netCodeCache;
 
@@ -2713,6 +2714,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 371732, (void*)&nox_framerate_cur_ticks, sizeof(nox_framerate_cur_ticks), 1},
 	{0x5D4594 + 371748, (void*)&nox_framerate_next_ticks, sizeof(nox_framerate_next_ticks), 1},
 	{0x5D4594 + 371740, (void*)&nox_framerate_step_ticks, sizeof(nox_framerate_step_ticks), 1},
+	{0x5D4594 + 2649704, (void*)&nox_gameFPS, sizeof(nox_gameFPS), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
 	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},

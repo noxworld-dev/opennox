@@ -4,6 +4,7 @@
 #include "../../proto.h"
 
 extern int nox_backbuffer_depth;
+extern unsigned int nox_gameFPS;
 
 //----- (004BC490) --------------------------------------------------------
 char __cdecl sub_4BC490(int a1) {
@@ -117,7 +118,7 @@ int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 			v5 = *(_DWORD*)(v2 + 276);
 			if (v5 != 1 && v5 != 3 && v5 != 5) {
 				if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v2 + 436)) >=
-				    *getMemIntPtr(0x5D4594, 2649704) >> 2) {
+				    (int)nox_gameFPS >> 2) {
 					*(_DWORD*)(v2 + 436) = *getMemU32Ptr(0x5D4594, 2598000);
 					*(_BYTE*)(v2 + 432) = *(_BYTE*)(v2 + 297);
 				} else {

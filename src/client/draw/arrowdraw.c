@@ -2,6 +2,7 @@
 #include "slavedraw.h"
 #include "../../proto.h"
 
+extern unsigned int nox_gameFPS;
 //----- (004B7920) --------------------------------------------------------
 int __cdecl nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 	int v2;     // eax
@@ -25,7 +26,7 @@ int __cdecl nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 		v5 = a2[4];
 		a2[81] = a2[3];
 		a2[82] = v5;
-		nox_xxx_spriteTransparentDecay_49B950(v4, *getMemU32Ptr(0x5D4594, 2649704) / 3u);
+		nox_xxx_spriteTransparentDecay_49B950(v4, nox_gameFPS / 3u);
 	}
 	return nox_thing_slave_draw(a1, dr);
 }
@@ -53,7 +54,7 @@ int __cdecl nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
 		v5 = a2[4];
 		a2[81] = a2[3];
 		a2[82] = v5;
-		nox_xxx_spriteTransparentDecay_49B950(v4, *getMemU32Ptr(0x5D4594, 2649704) / 3u);
+		nox_xxx_spriteTransparentDecay_49B950(v4, nox_gameFPS / 3u);
 	}
 	return nox_thing_slave_draw(a1, dr);
 }
@@ -76,7 +77,7 @@ int __cdecl nox_thing_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	v6 = *(_DWORD*)(a2 + 432) + *a1 - a1[4];
 	if (*(_DWORD*)(a2 + 356) - *getMemU32Ptr(0x5D4594, 2598000) > 0) {
 		v7 = ((*(_DWORD*)(a2 + 356) - *getMemU32Ptr(0x5D4594, 2598000)) << 6) /
-		     (int)(*getMemU32Ptr(0x5D4594, 2649704) / 3u);
+		     (int)(nox_gameFPS / 3u);
 		if (v7 >= 64)
 			v7 = 63;
 		nox_client_drawSetColor_434460(*getMemU32Ptr(0x5D4594, 4 * v7 + 1313012));
@@ -108,7 +109,7 @@ int __cdecl nox_thing_weak_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	v6 = *(_DWORD*)(a2 + 432) + *a1 - a1[4];
 	if (*(_DWORD*)(a2 + 356) - *getMemU32Ptr(0x5D4594, 2598000) > 0) {
 		v7 = ((*(_DWORD*)(a2 + 356) - *getMemU32Ptr(0x5D4594, 2598000)) << 6) /
-		     (int)(*getMemU32Ptr(0x5D4594, 2649704) / 3u);
+		     (int)(nox_gameFPS / 3u);
 		if (v7 >= 64)
 			v7 = 63;
 		nox_client_drawSetColor_434460(*getMemU32Ptr(0x5D4594, 4 * v7 + 1313268));
