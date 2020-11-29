@@ -187,21 +187,21 @@ int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a
 		v17 = dword_5d4594_1563320;
 		if (!dword_5d4594_1563320) {
 			dword_5d4594_1563320 = nox_xxx_getNameId_4E3AA0((CHAR *) getMemAt(0x587000, 201156));
-			*(_DWORD *) getMemAt(0x5D4594, 1563324) = nox_xxx_getNameId_4E3AA0((CHAR *) getMemAt(0x587000, 201168));
-			*(_DWORD *) getMemAt(0x5D4594, 1563328) = nox_xxx_getNameId_4E3AA0((CHAR *) getMemAt(0x587000, 201180));
-			*(_DWORD *) getMemAt(0x5D4594, 1563332) = nox_xxx_getNameId_4E3AA0((CHAR *) getMemAt(0x587000, 201192));
-			*(_DWORD *) getMemAt(0x5D4594, 1563336) = nox_xxx_getNameId_4E3AA0((CHAR *) getMemAt(0x587000, 201200));
+			*getMemU32Ptr(0x5D4594, 1563324) = nox_xxx_getNameId_4E3AA0((CHAR *) getMemAt(0x587000, 201168));
+			*getMemU32Ptr(0x5D4594, 1563328) = nox_xxx_getNameId_4E3AA0((CHAR *) getMemAt(0x587000, 201180));
+			*getMemU32Ptr(0x5D4594, 1563332) = nox_xxx_getNameId_4E3AA0((CHAR *) getMemAt(0x587000, 201192));
+			*getMemU32Ptr(0x5D4594, 1563336) = nox_xxx_getNameId_4E3AA0((CHAR *) getMemAt(0x587000, 201200));
 			v18 = nox_xxx_getNameId_4E3AA0((CHAR *) getMemAt(0x587000, 201212));
 			v17 = dword_5d4594_1563320;
-			*(_DWORD *) getMemAt(0x5D4594, 1563340) = v18;
+			*getMemU32Ptr(0x5D4594, 1563340) = v18;
 		}
 		v19 = a3;
 		if (a3) {
 			a3a = *(float2 *) (a3 + 72);
 			v20 = *(unsigned __int16 *) (a3 + 4);
-			v21 = (unsigned __int16) v20 != v17 && v20 != *(_DWORD *) getMemAt(0x5D4594, 1563324) &&
-				  v20 != *(_DWORD *) getMemAt(0x5D4594, 1563328) && v20 != *(_DWORD *) getMemAt(0x5D4594, 1563332) &&
-				  v20 != *(_DWORD *) getMemAt(0x5D4594, 1563336) && v20 != *(_DWORD *) getMemAt(0x5D4594, 1563340);
+			v21 = (unsigned __int16) v20 != v17 && v20 != *getMemU32Ptr(0x5D4594, 1563324) &&
+				  v20 != *getMemU32Ptr(0x5D4594, 1563328) && v20 != *getMemU32Ptr(0x5D4594, 1563332) &&
+				  v20 != *getMemU32Ptr(0x5D4594, 1563336) && v20 != *getMemU32Ptr(0x5D4594, 1563340);
 			if (a2 != a3) {
 				v22 = *(_DWORD *) (v5 + 8);
 				if (v22 & 4) {
@@ -216,8 +216,8 @@ int __cdecl nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a
 			v19 = a2;
 			a3a = *(float2 *) (a2 + 72);
 			v23 = *(unsigned __int16 *) (a2 + 4);
-			v21 = (unsigned __int16) v23 != v17 && v23 != *(_DWORD *) getMemAt(0x5D4594, 1563324) &&
-				  v23 != *(_DWORD *) getMemAt(0x5D4594, 1563328) && v23 != *(_DWORD *) getMemAt(0x5D4594, 1563332);
+			v21 = (unsigned __int16) v23 != v17 && v23 != *getMemU32Ptr(0x5D4594, 1563324) &&
+				  v23 != *getMemU32Ptr(0x5D4594, 1563328) && v23 != *getMemU32Ptr(0x5D4594, 1563332);
 			if (LODWORD(a5) == 10 || LODWORD(a5) == 2) {
 				v24 = *(_DWORD *) (v5 + 8);
 				if (v24 & 4) {
