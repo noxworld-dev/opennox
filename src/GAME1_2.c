@@ -48,7 +48,6 @@ extern _DWORD dword_5d4594_810628;
 extern _DWORD dword_5d4594_808564;
 extern _DWORD dword_5d4594_741680;
 extern _DWORD dword_5d4594_1193336;
-extern _DWORD dword_5d4594_811072;
 extern _DWORD dword_5d4594_3807152;
 extern _DWORD dword_5d4594_3807136;
 extern _DWORD dword_5d4594_3805484;
@@ -60,7 +59,6 @@ extern _DWORD nox_xxx_useAudio_587000_80800;
 extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_814552;
 extern _DWORD dword_5d4594_815056;
-extern _DWORD dword_5d4594_811100;
 extern _DWORD dword_5d4594_808568;
 extern _DWORD dword_5d4594_787184;
 extern _DWORD dword_5d4594_2660032;
@@ -75,7 +73,6 @@ extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_741332;
 extern _DWORD dword_5d4594_741364;
 extern _DWORD dword_5d4594_787212;
-extern _DWORD dword_5d4594_811104;
 extern _DWORD nox_client_renderBubbles_80844;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD nox_client_renderGlow_805852;
@@ -8326,7 +8323,7 @@ int __cdecl sub_4355B0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*getMemU32Ptr(0x5D4594, 811116) = a1;
+	*getMemU32Ptr(0x5D4594, 811068 + 48) = a1;
 	return result;
 }
 
@@ -8335,8 +8332,8 @@ BOOL sub_4355C0() {
 	int v0;    // eax
 	float2 v2; // [esp+0h] [ebp-8h]
 
-	v2.field_0 = (double)*getMemIntPtr(0x5D4594, 811092);
-	v2.field_4 = (double)*getMemIntPtr(0x5D4594, 811096);
+	v2.field_0 = (double)*getMemIntPtr(0x5D4594, 811068 + 24);
+	v2.field_4 = (double)*getMemIntPtr(0x5D4594, 811068 + 28);
 	v0 = nox_xxx_tileNFromPoint_411160(&v2);
 	return v0 == 255 || v0 == -1;
 }
@@ -8346,19 +8343,19 @@ int __cdecl nox_xxx_cliUpdateCameraPos_435600(int a1, int a2) {
 	int v2;     // ecx
 	int result; // eax
 
-	v2 = a2 + *getMemU32Ptr(0x5D4594, 811116) - dword_5d4594_811104 / 2;
-	*getMemU32Ptr(0x5D4594, 811364) = *getMemU32Ptr(0x5D4594, 811092);
-	*getMemU32Ptr(0x5D4594, 811368) = *getMemU32Ptr(0x5D4594, 811096);
-	result = v2 + dword_5d4594_811104 / 2;
-	*getMemU32Ptr(0x5D4594, 811092) = a1;
-	*getMemU32Ptr(0x5D4594, 811096) = v2 + dword_5d4594_811104 / 2;
-	*getMemU32Ptr(0x5D4594, 811084) = a1 - dword_5d4594_811100 / 2;
-	*getMemU32Ptr(0x5D4594, 811088) = a2 + *getMemU32Ptr(0x5D4594, 811116) - dword_5d4594_811104 / 2;
+	v2 = a2 + *getMemU32Ptr(0x5D4594, 811068 + 48) - *getMemU32Ptr(0x5D4594, 811068 + 36) / 2;
+	*getMemU32Ptr(0x5D4594, 811364) = *getMemU32Ptr(0x5D4594, 811068 + 24);
+	*getMemU32Ptr(0x5D4594, 811368) = *getMemU32Ptr(0x5D4594, 811068 + 28);
+	result = v2 + *getMemU32Ptr(0x5D4594, 811068 + 36) / 2;
+	*getMemU32Ptr(0x5D4594, 811068 + 24) = a1;
+	*getMemU32Ptr(0x5D4594, 811068 + 28) = v2 + *getMemU32Ptr(0x5D4594, 811068 + 36) / 2;
+	*getMemU32Ptr(0x5D4594, 811068 + 16) = a1 - *getMemU32Ptr(0x5D4594, 811068 + 32) / 2;
+	*getMemU32Ptr(0x5D4594, 811068 + 20) = a2 + *getMemU32Ptr(0x5D4594, 811068 + 48) - *getMemU32Ptr(0x5D4594, 811068 + 36) / 2;
 	return result;
 }
 
 //----- (00435670) --------------------------------------------------------
-void __cdecl nox_xxx_getSomeCoods_435670(int2* a1) { *a1 = *(int2*)getMemAt(0x5D4594, 811092); }
+void __cdecl nox_xxx_getSomeCoods_435670(int2* a1) { *a1 = *(int2*)getMemAt(0x5D4594, 811068 + 24); }
 
 //----- (00435690) --------------------------------------------------------
 _DWORD* __cdecl sub_435690(_DWORD* a1) {
@@ -8628,15 +8625,15 @@ int nox_xxx_initGameSession_435CC0() {
 	nox_game_SetCliDrawFunc(nox_xxx_client_435F80_draw);
 	dword_5d4594_811372 = 3;
 	*getMemU32Ptr(0x587000, 85720) = 1;
-	*getMemU32Ptr(0x5D4594, 811076) = nox_win_width - 1;
+	*getMemU32Ptr(0x5D4594, 811068 + 8) = nox_win_width - 1;
 	*getMemU32Ptr(0x5D4594, 811068) = 0;
-	dword_5d4594_811072 = 0;
-	dword_5d4594_811100 = nox_win_width;
-	*getMemU32Ptr(0x5D4594, 811080) = nox_win_height - 1;
-	dword_5d4594_811104 = nox_win_height;
-	*getMemU8Ptr(0x5D4594, 811108) = 0;
-	*getMemU32Ptr(0x5D4594, 811112) = 0;
-	*getMemU32Ptr(0x5D4594, 811116) = 0;
+	*getMemU32Ptr(0x5D4594, 811068 + 4) = 0;
+	*getMemU32Ptr(0x5D4594, 811068 + 32) = nox_win_width;
+	*getMemU32Ptr(0x5D4594, 811068 + 12) = nox_win_height - 1;
+	*getMemU32Ptr(0x5D4594, 811068 + 36) = nox_win_height;
+	*getMemU8Ptr(0x5D4594, 811068 + 40) = 0;
+	*getMemU32Ptr(0x5D4594, 811068 + 44) = 0;
+	*getMemU32Ptr(0x5D4594, 811068 + 48) = 0;
 	v1 = sub_4766D0();
 	sub_476700(v1, 0);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
@@ -8718,8 +8715,8 @@ int nox_xxx_client_435F80_draw() {
 	if (nox_xxx_get_430890() == 1)
 		sub_430880(0);
 	nox_xxx_clientEnumHover_476FA0();
-	if (!nox_xxx_clientSendInput_43C8F0(31, *getMemU32Ptr(0x5D4594, 811084) + v0->field_0 - *getMemU32Ptr(0x5D4594, 811068),
-					*getMemU32Ptr(0x5D4594, 811088) + v0->field_4 - dword_5d4594_811072))
+	if (!nox_xxx_clientSendInput_43C8F0(31, *getMemU32Ptr(0x5D4594, 811068 + 16) + v0->field_0 - *getMemU32Ptr(0x5D4594, 811068),
+					*getMemU32Ptr(0x5D4594, 811068 + 20) + v0->field_4 - *getMemU32Ptr(0x5D4594, 811068 + 4)))
 		return 1;
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		sub_40B970();
@@ -8872,8 +8869,8 @@ char* sub_437250() { return (char*)getMemAt(0x5D4594, 811068); }
 
 //----- (00437260) --------------------------------------------------------
 int4* sub_437260() {
-	return nox_client_copyRect_49F6F0(*getMemIntPtr(0x5D4594, 811068), *(int*)&dword_5d4594_811072,
-									  *(int*)&dword_5d4594_811100, *(int*)&dword_5d4594_811104);
+	return nox_client_copyRect_49F6F0(*getMemIntPtr(0x5D4594, 811068), *getMemIntPtr(0x5D4594, 811068 + 4),
+									  *getMemIntPtr(0x5D4594, 811068 + 32), *getMemIntPtr(0x5D4594, 811068 + 36));
 }
 
 //----- (00437290) --------------------------------------------------------
