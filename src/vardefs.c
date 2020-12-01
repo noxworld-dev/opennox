@@ -712,7 +712,6 @@ _DWORD dword_5d4594_1319236 = 0;
 _DWORD dword_5d4594_815056 = 0;
 _DWORD dword_5d4594_1308128 = 0;
 _DWORD dword_5d4594_830208 = 0;
-_DWORD dword_5d4594_1305800 = 0;
 _DWORD dword_5d4594_1556148 = 0;
 void* nox_alloc_spellDur_1569724 = 0;
 _DWORD nox_xxx_warriorMaxStrength_587000_312792 = 0x3f800000;
