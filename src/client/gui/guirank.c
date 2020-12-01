@@ -5,7 +5,6 @@
 
 extern _DWORD dword_5d4594_1084044;
 extern _DWORD dword_587000_145672;
-extern _DWORD dword_5d4594_1084040;
 extern _DWORD dword_5d4594_1090108;
 extern _DWORD dword_5d4594_1090112;
 extern _DWORD dword_587000_145668;
@@ -104,7 +103,7 @@ int nox_xxx_guiDrawRank_46E870() {
 		v2 = 18;
 		v41 = 18;
 	}
-	dword_5d4594_1084040 = v2 + 14;
+	*getMemU32Ptr(0x5D4594, 1084040) = v2 + 14;
 	v33 = nox_win_width;
 	v3 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 145868), 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1649);
 	nox_xxx_drawGetStringSize_43F840(0, v3, &v41, &v44, v33);
@@ -201,20 +200,20 @@ int nox_xxx_guiDrawRank_46E870() {
 		v25 = dword_5d4594_1090044;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090060) = v24;
 		v26 = nox_xxx_wndListboxCreate_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088, *getMemIntPtr(0x5D4594, 1084036), v20,
-						 *(int*)&dword_5d4594_1084040, v25 - v19, (int)v49, (__int16*)v48);
+						 *getMemIntPtr(0x5D4594, 1084040), v25 - v19, (int)v49, (__int16*)v48);
 		v27 = dword_5d4594_1090044;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090068) = v26;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090076) = nox_xxx_wndListboxCreate_4A4310(
-			*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088, *getMemU32Ptr(0x5D4594, 1084036) + dword_5d4594_1084040,
+			*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088, *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040),
 			v20, *(int*)&dword_5d4594_1084044, v27 - v19, (int)v49, (__int16*)v48);
 		v28 = nox_xxx_wndListboxCreate_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088,
-						 *getMemU32Ptr(0x5D4594, 1084036) + dword_5d4594_1084040 + dword_5d4594_1084044, v20,
+						 *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040) + dword_5d4594_1084044, v20,
 						 *getMemIntPtr(0x5D4594, 1084048), dword_5d4594_1090044 - v19, (int)v49, (__int16*)v48);
 		v29 = dword_5d4594_1090044;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090084) = v28;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090092) =
 			nox_xxx_wndListboxCreate_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088,
-					   *getMemU32Ptr(0x5D4594, 1084036) + dword_5d4594_1084040 + *getMemU32Ptr(0x5D4594, 1084048) +
+					   *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040) + *getMemU32Ptr(0x5D4594, 1084048) +
 						   dword_5d4594_1084044,
 					   v20, *getMemIntPtr(0x5D4594, 1084052), v29 - v19, (int)v49, (__int16*)v48);
 		nox_xxx_wndSetProc_46B2C0(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), nox_xxx_Proc_46F070);
