@@ -43,7 +43,6 @@ extern _DWORD dword_5d4594_1064828;
 extern _DWORD dword_5d4594_1049976;
 extern _DWORD dword_5d4594_1090284;
 extern _DWORD dword_5d4594_1062484;
-extern _DWORD dword_5d4594_1090436;
 extern _DWORD dword_5d4594_1082868;
 extern _DWORD dword_5d4594_1049992;
 extern _DWORD dword_5d4594_1062556;
@@ -7310,9 +7309,9 @@ unsigned __int8* sub_472310() {
 			*getMemU32Ptr(0x5D4594, 1090296) = getMemAt(0x5D4594, 1090316);
 			if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
 			{
-				result = (unsigned __int8*)(dword_5d4594_1090436 | 0x40000000);
+				result = (unsigned __int8*)(*getMemU32Ptr(0x5D4594, 1090436) | 0x40000000);
 				*getMemU32Ptr(0x5D4594, 1090308) = *getMemU32Ptr(0x5D4594, 1096268);
-				dword_5d4594_1090436 |= 0x40000000u;
+				*getMemU32Ptr(0x5D4594, 1090436) |= 0x40000000u;
 				return result;
 			}
 		} else {
@@ -7328,7 +7327,7 @@ unsigned __int8* sub_472310() {
 				*getMemU32Ptr(0x5D4594, 1090296) = getMemAt(0x5D4594, 1090316);
 				if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
 				{
-					dword_5d4594_1090436 |= 0x40000000u;
+					*getMemU32Ptr(0x5D4594, 1090436) |= 0x40000000u;
 					result = *(unsigned __int8**)&dword_5d4594_1096284;
 					*getMemU32Ptr(0x5D4594, 1090308) = dword_5d4594_1096284;
 					return result;
@@ -7348,9 +7347,9 @@ unsigned __int8* sub_472310() {
 					*getMemU32Ptr(0x5D4594, 1090296) = getMemAt(0x5D4594, 1090316);
 					if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090316
 					{
-						result = (unsigned __int8*)(dword_5d4594_1090436 | 0x40000000);
+						result = (unsigned __int8*)(*getMemU32Ptr(0x5D4594, 1090436) | 0x40000000);
 						*getMemU32Ptr(0x5D4594, 1090308) = dword_5d4594_1096280;
-						dword_5d4594_1090436 |= 0x40000000u;
+						*getMemU32Ptr(0x5D4594, 1090436) |= 0x40000000u;
 						return result;
 					}
 				} else {
