@@ -1080,7 +1080,6 @@ extern _DWORD dword_5d4594_1082868;
 extern _DWORD dword_5d4594_810628;
 extern _DWORD dword_5d4594_3798708;
 extern _DWORD dword_5d4594_754144;
-extern _DWORD dword_5d4594_1090436;
 extern _DWORD dword_5d4594_1563044;
 extern _DWORD dword_5d4594_2489460;
 extern _DWORD dword_5d4594_805860;
@@ -1697,7 +1696,6 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 805860, (void*)&dword_5d4594_805860, sizeof(dword_5d4594_805860), 1},
 	{0x5D4594 + 2489460, (void*)&dword_5d4594_2489460, sizeof(dword_5d4594_2489460), 1},
 	{0x5D4594 + 1563044, (void*)&dword_5d4594_1563044, sizeof(dword_5d4594_1563044), 1},
-	{0x5D4594 + 1090436, (void*)&dword_5d4594_1090436, sizeof(dword_5d4594_1090436), 1}, // FIXME: BAD, see 1090316 (nox_drawable?)
 	{0x5D4594 + 754144, (void*)&dword_5d4594_754144, sizeof(dword_5d4594_754144), 1},
 	{0x5D4594 + 3798708, (void*)&dword_5d4594_3798708, sizeof(dword_5d4594_3798708), 1},
 	{0x5D4594 + 810628, (void*)&dword_5d4594_810628, sizeof(dword_5d4594_810628), 1},
