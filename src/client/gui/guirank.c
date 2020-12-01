@@ -3,7 +3,6 @@
 #include "../../proto.h"
 #include "gadgets/listbox.h"
 
-extern _DWORD dword_5d4594_1084044;
 extern _DWORD dword_587000_145672;
 extern _DWORD dword_5d4594_1090108;
 extern _DWORD dword_5d4594_1090112;
@@ -153,7 +152,7 @@ int nox_xxx_guiDrawRank_46E870() {
 		v41 = v42;
 	}
 	v14 = 0;
-	dword_5d4594_1084044 = v13 + 7;
+	*getMemU32Ptr(0x5D4594, 1084044) = v13 + 7;
 	v15 = getMemAt(0x5D4594, 1084036);
 	do {
 		v16 = *(_DWORD*)v15;
@@ -205,16 +204,16 @@ int nox_xxx_guiDrawRank_46E870() {
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090068) = v26;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090076) = nox_xxx_wndListboxCreate_4A4310(
 			*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088, *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040),
-			v20, *(int*)&dword_5d4594_1084044, v27 - v19, (int)v49, (__int16*)v48);
+			v20, *getMemIntPtr(0x5D4594, 1084044), v27 - v19, (int)v49, (__int16*)v48);
 		v28 = nox_xxx_wndListboxCreate_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088,
-						 *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040) + dword_5d4594_1084044, v20,
+						 *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040) + *getMemU32Ptr(0x5D4594, 1084044), v20,
 						 *getMemIntPtr(0x5D4594, 1084048), dword_5d4594_1090044 - v19, (int)v49, (__int16*)v48);
 		v29 = dword_5d4594_1090044;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090084) = v28;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090092) =
 			nox_xxx_wndListboxCreate_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088,
 					   *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040) + *getMemU32Ptr(0x5D4594, 1084048) +
-						   dword_5d4594_1084044,
+							   *getMemU32Ptr(0x5D4594, 1084044),
 					   v20, *getMemIntPtr(0x5D4594, 1084052), v29 - v19, (int)v49, (__int16*)v48);
 		nox_xxx_wndSetProc_46B2C0(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), nox_xxx_Proc_46F070);
 		sub_46B120(*(_DWORD**)getMemAt(0x5D4594, 4 * v17 + 1090060), *getMemU32Ptr(0x5D4594, 4 * v17 + 1090052));
