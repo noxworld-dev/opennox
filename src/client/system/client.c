@@ -6,10 +6,7 @@
 extern _DWORD dword_5d4594_811904;
 extern _DWORD dword_5d4594_811896;
 extern _DWORD dword_5d4594_2618900;
-extern _DWORD dword_5d4594_811072;
-extern _DWORD dword_5d4594_811100;
 extern _DWORD dword_5d4594_2614264;
-extern _DWORD dword_5d4594_811104;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_815132;
 extern int nox_win_width;
@@ -60,18 +57,18 @@ void nox_xxx_clientDrawAll_436100_draw() {
 	*getMemU32Ptr(0x5D4594, 814536) = v1;
 	*getMemU32Ptr(0x5D4594, 811916) = *getMemU32Ptr(0x5D4594, 2598000);
 	if (*getMemU32Ptr(0x587000, 85744)) {
-		dword_5d4594_811104 = dword_5d4594_811100 * nox_win_height / nox_win_width;
-		v6 = (nox_win_width - dword_5d4594_811100) / 2;
+		*getMemU32Ptr(0x5D4594, 811068 + 36) = *getMemU32Ptr(0x5D4594, 811068 + 32) * nox_win_height / nox_win_width;
+		v6 = (nox_win_width - *getMemU32Ptr(0x5D4594, 811068 + 32)) / 2;
 		*getMemU32Ptr(0x5D4594, 811068) = v6;
-		v7 = (nox_win_height - dword_5d4594_811104) / 2;
-		dword_5d4594_811072 = v7;
-		*getMemU32Ptr(0x5D4594, 811076) = v6 + dword_5d4594_811100 - 1;
-		*getMemU32Ptr(0x5D4594, 811080) = v7 + dword_5d4594_811104 - 1;
+		v7 = (nox_win_height - *getMemU32Ptr(0x5D4594, 811068 + 36)) / 2;
+		*getMemU32Ptr(0x5D4594, 811068 + 4) = v7;
+		*getMemU32Ptr(0x5D4594, 811068 + 8) = v6 + *getMemU32Ptr(0x5D4594, 811068 + 32) - 1;
+		*getMemU32Ptr(0x5D4594, 811068 + 12) = v7 + *getMemU32Ptr(0x5D4594, 811068 + 36) - 1;
 	} else {
-		v7 = dword_5d4594_811072;
+		v7 = *getMemU32Ptr(0x5D4594, 811068 + 4);
 		v6 = *getMemU32Ptr(0x5D4594, 811068);
 	}
-	sub_430B50(v6, v7, *getMemIntPtr(0x5D4594, 811076), *getMemIntPtr(0x5D4594, 811080));
+	sub_430B50(v6, v7, *getMemIntPtr(0x5D4594, 811068 + 8), *getMemIntPtr(0x5D4594, 811068 + 12));
 	if (*getMemU32Ptr(0x5D4594, 2616328))
 		*getMemU32Ptr(0x5D4594, 2614252) = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x5D4594, 2616328));
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
