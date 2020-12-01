@@ -6352,33 +6352,25 @@ int __cdecl nox_xxx_getSprite178_49BD50(int a1) {
 }
 
 //----- (0049BD70) --------------------------------------------------------
-int(__cdecl* __cdecl sub_49BD70(int a1))(int, int) {
-	int result;                       // eax
-	int(__cdecl * result2)(int, int); // eax
-	int v2;                           // esi
-	int v3;                           // edi
-	int(__cdecl * v4)(int, _DWORD);   // eax
+void sub_49BD70(int a1) {
+	void(__cdecl * result2)(int, int); // eax
+	int (__cdecl * v4)(int, _DWORD);   // eax
 
-	result = nox_xxx_checkGFlagNoParticles_413A50();
-	if (result != 1) {
-		result = nox_xxx_getSomeSprite_49BD40();
-		v2 = result;
-		if (result) {
-			do {
-				v3 = nox_xxx_getSprite178_49BD50(v2);
-				v4 = (int(__cdecl*)(int, _DWORD)) * ((_DWORD*)v2 + 116);
-				if (!v4 || (result = v4(a1, v2)) != 0) {
-					result2 = (int(__cdecl*)(int, int)) * ((_DWORD*)v2 + 115);
-					if (result2)
-						result = result2(a1, (int)v2);
-					else
-						result = 0;
-				}
-				v2 = v3;
-			} while (v3);
-		}
+	if (nox_xxx_checkGFlagNoParticles_413A50() == 1) {
+		return;
 	}
-	return result;
+	int v2 = nox_xxx_getSomeSprite_49BD40();
+	while (v2) {
+		int v3 = nox_xxx_getSprite178_49BD50(v2);
+		v4 = (int(__cdecl*)(int, _DWORD)) * ((_DWORD*)v2 + 116);
+		if (!v4 || v4(a1, v2) != 0) {
+			result2 = (int(__cdecl*)(int, int)) * ((_DWORD*)v2 + 115);
+			if (result2) {
+				result2(a1, (int) v2);
+			}
+		}
+		v2 = v3;
+	}
 }
 
 //----- (0049C160) --------------------------------------------------------
