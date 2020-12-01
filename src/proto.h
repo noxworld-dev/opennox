@@ -3174,7 +3174,7 @@ _DWORD* __cdecl nox_xxx_spriteToList_49BC80_drawable(_DWORD* a1);
 _DWORD* __cdecl sub_49BCD0(nox_drawable* dr);
 int nox_xxx_getSomeSprite_49BD40();
 int __cdecl nox_xxx_getSprite178_49BD50(int a1);
-int(__cdecl* __cdecl sub_49BD70(int a1))(int, int);
+void sub_49BD70(int a1);
 _DWORD* __cdecl nox_xxx_clientAddRayEffect_49C160(int a1);
 void __cdecl nox_xxx_clientRemoveRayEffect_49C450(int a1);
 void nox_xxx_spriteDeleteSomeList_49C4B0();
