@@ -76,7 +76,6 @@ extern _DWORD dword_5d4594_831084;
 extern _DWORD dword_5d4594_1046956;
 extern _DWORD dword_5d4594_1047936;
 extern _DWORD dword_5d4594_1046576;
-extern _DWORD dword_5d4594_1048144;
 extern float2 obj_5d4594_1046620;
 extern _DWORD dword_5d4594_839884;
 extern _DWORD dword_5d4594_1046536;
@@ -7895,7 +7894,7 @@ int sub_45F890() {
 	int* v0; // esi
 	int v1;  // edi
 
-	v0 = *(int**)&dword_5d4594_1048144;
+	v0 = *(int**)getMemAt(0x5D4594, 1048144);
 	v1 = 0;
 	while (!*v0 || (nox_xxx_spellGetFlags_424A70(*v0) & 8) != 8) {
 		++v1;
@@ -8101,7 +8100,7 @@ void sub_4603A0() {
 		*getMemU8Ptr(0x5D4594, 1048140) = 0;
 	else
 		++*getMemU8Ptr( 0x5D4594, 1048140);
-	dword_5d4594_1048144 = getMemAt(0x5D4594, 40 * getMemByte(0x5D4594, 1048140) + 1047940);
+	*getMemU32Ptr(0x5D4594, 1048144) = getMemAt(0x5D4594, 40 * getMemByte(0x5D4594, 1048140) + 1047940);
 	nox_xxx_clientPlaySoundSpecial_452D80(798, 100);
 }
 
@@ -8111,7 +8110,7 @@ void sub_4603F0() {
 		--*getMemU8Ptr( 0x5D4594, 1048140);
 	else
 		*getMemU8Ptr(0x5D4594, 1048140) = 2;
-	dword_5d4594_1048144 = getMemAt(0x5D4594, 40 * getMemByte(0x5D4594, 1048140) + 1047940);
+	*getMemU32Ptr(0x5D4594, 1048144) = getMemAt(0x5D4594, 40 * getMemByte(0x5D4594, 1048140) + 1047940);
 	nox_xxx_clientPlaySoundSpecial_452D80(798, 100);
 }
 
@@ -8130,7 +8129,7 @@ void sub_460440() {
 		}
 	}
 	*getMemU8Ptr(0x5D4594, 1048140) = (unsigned __int8)result;
-	dword_5d4594_1048144 = getMemAt(0x5D4594, 40 * (unsigned __int8)result + 1047940);
+	*getMemU32Ptr(0x5D4594, 1048144) = getMemAt(0x5D4594, 40 * (unsigned __int8)result + 1047940);
 	nox_xxx_setKeybTimeout_4160D0(6);
 	nox_xxx_clientPlaySoundSpecial_452D80(798, 100);
 }
@@ -8143,7 +8142,7 @@ int __cdecl sub_4604B0(int a1) {
 	if (a1 >= 0 && a1 < 3) {
 		*getMemU8Ptr(0x5D4594, 1048140) = a1;
 		result = 5 * (unsigned __int8)a1;
-		dword_5d4594_1048144 = getMemAt(0x5D4594, 40 * (unsigned __int8)a1 + 1047940);
+		*getMemU32Ptr(0x5D4594, 1048144) = getMemAt(0x5D4594, 40 * (unsigned __int8)a1 + 1047940);
 	}
 	return result;
 }
