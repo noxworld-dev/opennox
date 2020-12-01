@@ -620,7 +620,6 @@ _DWORD dword_5d4594_252276 = 0;
 _DWORD dword_5d4594_2489432 = 0;
 _DWORD dword_5d4594_1567928 = 0;
 _DWORD dword_5d4594_1307720 = 0;
-_DWORD dword_5d4594_1048144 = 0;
 _DWORD dword_5d4594_787144 = 0;
 void* nox_alloc_springs_2386568 = 0;
 _DWORD dword_587000_311372 = 0xffffffff;
