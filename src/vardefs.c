@@ -1136,7 +1136,6 @@ _DWORD dword_5d4594_1304328 = 0;
 _DWORD dword_5d4594_1047536 = 0;
 _DWORD dword_5d4594_2516352 = 0;
 _DWORD dword_5d4594_1549844 = 0;
-_DWORD dword_5d4594_1084044 = 0;
 _DWORD dword_5d4594_1313804 = 0;
 _DWORD nox_xxx_normalWndWidth_587000_172872 = 0x280;
 _DWORD nox_xxx_respawnAllow_587000_205200 = 0x1;
