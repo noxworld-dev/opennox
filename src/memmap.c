@@ -1471,7 +1471,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 205200, (void*)&nox_xxx_respawnAllow_587000_205200, sizeof(nox_xxx_respawnAllow_587000_205200), 1},
 	{0x587000 + 172872, (void*)&nox_xxx_normalWndWidth_587000_172872, sizeof(nox_xxx_normalWndWidth_587000_172872), 1},
 	{0x5D4594 + 1313804, (void*)&dword_5d4594_1313804, sizeof(dword_5d4594_1313804), 1},
-	{0x5D4594 + 1084044, (void*)&dword_5d4594_1084044, sizeof(dword_5d4594_1084044), 1},
+	{0x5D4594 + 1084044, (void*)&dword_5d4594_1084044, sizeof(dword_5d4594_1084044), 1}, // FIXME: BAD, see 1084036
 	{0x5D4594 + 1549844, (void*)&dword_5d4594_1549844, sizeof(dword_5d4594_1549844), 1},
 	{0x5D4594 + 2516352, (void*)&dword_5d4594_2516352, sizeof(dword_5d4594_2516352), 1},
 	{0x5D4594 + 1047536, (void*)&dword_5d4594_1047536, sizeof(dword_5d4594_1047536), 1},
@@ -1697,7 +1697,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 805860, (void*)&dword_5d4594_805860, sizeof(dword_5d4594_805860), 1},
 	{0x5D4594 + 2489460, (void*)&dword_5d4594_2489460, sizeof(dword_5d4594_2489460), 1},
 	{0x5D4594 + 1563044, (void*)&dword_5d4594_1563044, sizeof(dword_5d4594_1563044), 1},
-	{0x5D4594 + 1090436, (void*)&dword_5d4594_1090436, sizeof(dword_5d4594_1090436), 1},
+	{0x5D4594 + 1090436, (void*)&dword_5d4594_1090436, sizeof(dword_5d4594_1090436), 1}, // FIXME: BAD, see 1090316 (nox_drawable?)
 	{0x5D4594 + 754144, (void*)&dword_5d4594_754144, sizeof(dword_5d4594_754144), 1},
 	{0x5D4594 + 3798708, (void*)&dword_5d4594_3798708, sizeof(dword_5d4594_3798708), 1},
 	{0x5D4594 + 810628, (void*)&dword_5d4594_810628, sizeof(dword_5d4594_810628), 1},
@@ -1783,7 +1783,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 831256, (void*)&dword_5d4594_831256, sizeof(dword_5d4594_831256), 1},
 	{0x5D4594 + 1523032, (void*)&dword_5d4594_1523032, sizeof(dword_5d4594_1523032), 1},
 	{0x5D4594 + 1200768, (void*)&dword_5d4594_1200768, sizeof(dword_5d4594_1200768), 1},
-	{0x5D4594 + 1084040, (void*)&dword_5d4594_1084040, sizeof(dword_5d4594_1084040), 1},
+	{0x5D4594 + 1084040, (void*)&dword_5d4594_1084040, sizeof(dword_5d4594_1084040), 1}, // FIXME: BAD, see 1084036
 	{0x5D4594 + 830120, (void*)&dword_5d4594_830120, sizeof(dword_5d4594_830120), 1},
 	{0x5D4594 + 823708, (void*)&dword_5d4594_823708, sizeof(dword_5d4594_823708), 1},
 	{0x5D4594 + 251704, (void*)&dword_5d4594_251704, sizeof(dword_5d4594_251704), 1},
@@ -1904,7 +1904,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 312792, (void*)&nox_xxx_warriorMaxStrength_587000_312792, sizeof(nox_xxx_warriorMaxStrength_587000_312792), 1},
 	{0x5D4594 + 1569724, (void*)&nox_alloc_spellDur_1569724, sizeof(nox_alloc_spellDur_1569724), 1},
 	{0x5D4594 + 1556148, (void*)&dword_5d4594_1556148, sizeof(dword_5d4594_1556148), 1},
-	{0x5D4594 + 1305800, (void*)&dword_5d4594_1305800, sizeof(dword_5d4594_1305800), 1},
+	{0x5D4594 + 1305800, (void*)&dword_5d4594_1305800, sizeof(dword_5d4594_1305800), 1}, // FIXME: BAD, see 1305796
 	{0x5D4594 + 830208, (void*)&dword_5d4594_830208, sizeof(dword_5d4594_830208), 1},
 	{0x5D4594 + 1308128, (void*)&dword_5d4594_1308128, sizeof(dword_5d4594_1308128), 1},
 	{0x5D4594 + 815056, (void*)&dword_5d4594_815056, sizeof(dword_5d4594_815056), 1},
@@ -1967,7 +1967,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 825736, (void*)&dword_5d4594_825736, sizeof(dword_5d4594_825736), 1},
 	{0x587000 + 93200, (void*)&nox_game_continueMenuOrHost_93200, sizeof(nox_game_continueMenuOrHost_93200), 1},
 	{0x5D4594 + 1082864, (void*)&dword_5d4594_1082864, sizeof(dword_5d4594_1082864), 1},
-	{0x5D4594 + 3679316, (void*)&dword_5d4594_3679316, sizeof(dword_5d4594_3679316), 1},
+	{0x5D4594 + 3679316, (void*)&dword_5d4594_3679316, sizeof(dword_5d4594_3679316), 1}, // FIXME: BAD, see 3679340?
 	{0x5D4594 + 1307732, (void*)&nox_wnd_xxx_1307732, sizeof(nox_wnd_xxx_1307732), 1},
 	{0x5D4594 + 1316704, (void*)&dword_5d4594_1316704, sizeof(dword_5d4594_1316704), 1},
 	{0x5D4594 + 787200, (void*)&dword_5d4594_787200, sizeof(dword_5d4594_787200), 1},
@@ -2001,7 +2001,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 311372, (void*)&dword_587000_311372, sizeof(dword_587000_311372), 1},
 	{0x5D4594 + 2386568, (void*)&nox_alloc_springs_2386568, sizeof(nox_alloc_springs_2386568), 1},
 	{0x5D4594 + 787144, (void*)&dword_5d4594_787144, sizeof(dword_5d4594_787144), 1},
-	{0x5D4594 + 1048144, (void*)&dword_5d4594_1048144, sizeof(dword_5d4594_1048144), 1},
+	{0x5D4594 + 1048144, (void*)&dword_5d4594_1048144, sizeof(dword_5d4594_1048144), 1}, // FIXME: BAD, see 1047940
 	{0x5D4594 + 1307720, (void*)&dword_5d4594_1307720, sizeof(dword_5d4594_1307720), 1},
 	{0x5D4594 + 1567928, (void*)&dword_5d4594_1567928, sizeof(dword_5d4594_1567928), 1},
 	{0x5D4594 + 2489432, (void*)&dword_5d4594_2489432, sizeof(dword_5d4594_2489432), 1},
