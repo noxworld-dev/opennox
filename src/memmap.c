@@ -665,7 +665,6 @@ extern _DWORD dword_5d4594_832512;
 extern void* nox_alloc_monsterListen_2386188;
 extern _DWORD dword_5d4594_832524;
 extern _DWORD dword_5d4594_1309776;
-extern _DWORD dword_5d4594_811104;
 extern void* nox_alloc_itemGroupElem_2523896;
 extern _DWORD dword_5d4594_1599556;
 extern _DWORD dword_5d4594_1599592;
@@ -871,7 +870,6 @@ extern _DWORD dword_5d4594_528272;
 extern _DWORD dword_5d4594_1045588;
 extern _DWORD dword_5d4594_1599616;
 extern _DWORD dword_5d4594_1319236;
-extern _DWORD dword_5d4594_811100;
 extern _DWORD dword_5d4594_815056;
 extern _DWORD dword_5d4594_1308128;
 extern _DWORD dword_5d4594_830208;
@@ -991,7 +989,6 @@ extern _DWORD dword_5d4594_2523760;
 extern _DWORD dword_5d4594_1064868;
 extern _DWORD dword_5d4594_1565520;
 extern _DWORD dword_5d4594_1320988;
-extern _DWORD dword_5d4594_811072;
 extern _DWORD dword_5d4594_1599696;
 extern _DWORD dword_587000_261388;
 extern _DWORD dword_5d4594_251704;
@@ -1791,7 +1788,6 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 251704, (void*)&dword_5d4594_251704, sizeof(dword_5d4594_251704), 1},
 	{0x587000 + 261388, (void*)&dword_587000_261388, sizeof(dword_587000_261388), 1},
 	{0x5D4594 + 1599696, (void*)&dword_5d4594_1599696, sizeof(dword_5d4594_1599696), 1},
-	{0x5D4594 + 811072, (void*)&dword_5d4594_811072, sizeof(dword_5d4594_811072), 1},
 	{0x5D4594 + 1320988, (void*)&dword_5d4594_1320988, sizeof(dword_5d4594_1320988), 1},
 	{0x5D4594 + 1565520, (void*)&dword_5d4594_1565520, sizeof(dword_5d4594_1565520), 1},
 	{0x5D4594 + 1064868, (void*)&dword_5d4594_1064868, sizeof(dword_5d4594_1064868), 1},
@@ -1911,7 +1907,6 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 830208, (void*)&dword_5d4594_830208, sizeof(dword_5d4594_830208), 1},
 	{0x5D4594 + 1308128, (void*)&dword_5d4594_1308128, sizeof(dword_5d4594_1308128), 1},
 	{0x5D4594 + 815056, (void*)&dword_5d4594_815056, sizeof(dword_5d4594_815056), 1},
-	{0x5D4594 + 811100, (void*)&dword_5d4594_811100, sizeof(dword_5d4594_811100), 1},
 	{0x5D4594 + 1319236, (void*)&dword_5d4594_1319236, sizeof(dword_5d4594_1319236), 1},
 	{0x5D4594 + 1599616, (void*)&dword_5d4594_1599616, sizeof(dword_5d4594_1599616), 1},
 	{0x5D4594 + 1045588, (void*)&dword_5d4594_1045588, sizeof(dword_5d4594_1045588), 1},
@@ -2117,7 +2112,6 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1599592, (void*)&dword_5d4594_1599592, sizeof(dword_5d4594_1599592), 1},
 	{0x5D4594 + 1599556, (void*)&dword_5d4594_1599556, sizeof(dword_5d4594_1599556), 1},
 	{0x5D4594 + 2523896, (void*)&nox_alloc_itemGroupElem_2523896, sizeof(nox_alloc_itemGroupElem_2523896), 1},
-	{0x5D4594 + 811104, (void*)&dword_5d4594_811104, sizeof(dword_5d4594_811104), 1},
 	{0x5D4594 + 1309776, (void*)&dword_5d4594_1309776, sizeof(dword_5d4594_1309776), 1},
 	{0x5D4594 + 832524, (void*)&dword_5d4594_832524, sizeof(dword_5d4594_832524), 1},
 	{0x5D4594 + 2386188, (void*)&nox_alloc_monsterListen_2386188, sizeof(nox_alloc_monsterListen_2386188), 1},
