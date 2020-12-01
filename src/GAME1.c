@@ -10568,13 +10568,10 @@ void nox_framerate_limit_416C70(int fps) {
 		nox_framerate_step_ticks = 1000 / fps;
 	} else {
 		nox_framerate_step_ticks = 0;
-		*getMemU32Ptr(0x5D4594, 371744) = 0;
 	}
 	__int64 ticks = nox_call_get_ticks();
 	nox_framerate_cur_ticks = ticks;
 	nox_framerate_next_ticks = nox_framerate_step_ticks + ticks;
-	__int64 res = nox_framerate_step_ticks + ticks;
-	*getMemU32Ptr(0x5D4594, 371752) = HIDWORD(res);
 }
 
 //----- (00416CD0) --------------------------------------------------------
