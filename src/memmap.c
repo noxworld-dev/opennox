@@ -1376,6 +1376,7 @@ extern nox_server_xxx nox_server_xxx_1599716[256*256];
 extern nox_playerInfo nox_playerinfo_arr[32];
 extern nox_savegame_xxx nox_savegame_arr_1064948[14];
 extern nox_obj_1050020_t nox_obj_arr_1050020[84];
+extern obj_5D4594_811068_t obj_5D4594_811068;
 
 typedef struct mem_blob {
 	uintptr_t base;
@@ -2709,6 +2710,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 371748, (void*)&nox_framerate_next_ticks, sizeof(nox_framerate_next_ticks), 1},
 	{0x5D4594 + 371740, (void*)&nox_framerate_step_ticks, sizeof(nox_framerate_step_ticks), 1},
 	{0x5D4594 + 2649704, (void*)&nox_gameFPS, sizeof(nox_gameFPS), 1},
+	{0x5D4594 + 811068, (void*)&obj_5D4594_811068, sizeof(obj_5D4594_811068), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
 	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},

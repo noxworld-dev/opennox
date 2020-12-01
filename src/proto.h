@@ -1567,7 +1567,7 @@ int sub_437060();
 int sub_437100();
 int4* sub_437180();
 int nox_xxx_cliSetupSession_437190();
-char* sub_437250();
+obj_5D4594_811068_t* sub_437250();
 int4* sub_437260();
 int4* sub_437290();
 BOOL nox_xxx_playerAnimCheck_4372B0();
