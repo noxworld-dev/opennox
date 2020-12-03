@@ -361,6 +361,7 @@ set (
     server/system/trade.c
     server/xfer/savegame/savegame.c
 
+	draw_common.c
     "${DRAW_BACKEND}"
     "${COMPAT_SOURCES}"
     "${AUDIO_BACKEND}"
