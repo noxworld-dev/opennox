@@ -70,7 +70,6 @@ int sdl_drawCursorThreaded(int);
 int create_surfaces(HWND a1, int width, int height);
 
 void __cdecl sub_48B1B0(SDL_GLContext* a1);
-void __cdecl sub_48B1D0_free_surface(SDL_Surface** a1);
 SDL_Surface* __cdecl nox_video_createSurface_48A600(int a1, int a2, int a3, int a4);
 int __cdecl sub_48A720(SDL_Surface* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5);
 void __cdecl sub_48A670(SDL_Surface* a1);

@@ -63,6 +63,8 @@ extern int g_fullscreen;
 extern int g_scaled;
 
 #ifndef IGNORE_EXTERNS
+void __cdecl sub_48B1D0_free_surface(SDL_Surface** a1);
+
 extern unsigned char byte_5D4594_3804364[160];
 
 extern void* nox_backbuffer1_pix;
