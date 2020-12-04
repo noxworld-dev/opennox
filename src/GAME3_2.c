@@ -1298,7 +1298,7 @@ _DWORD* __cdecl sub_4D0760(int a1) {
 }
 
 //----- (004D07F0) --------------------------------------------------------
-HANDLE sub_4D07F0() {
+HANDLE nox_common_scanAllMaps_4D07F0() {
 	HANDLE result;                         // eax
 	HANDLE v1;                             // ebp
 	char* v2;                              // ebp
@@ -1307,7 +1307,7 @@ HANDLE sub_4D07F0() {
 	struct _WIN32_FIND_DATAA FindFileData; // [esp+14h] [ebp-140h]
 
 	sub_425760(getMemAt(0x5D4594, 1523060));
-	result = FindFirstFileA((LPCSTR)getMemAt(0x587000, 191796), &FindFileData);
+	result = FindFirstFileA((LPCSTR)"maps\\*.*", &FindFileData);
 	v1 = result;
 	v3 = result;
 	if (result != (HANDLE)-1) {
@@ -5016,20 +5016,23 @@ int sub_4D76F0() { return *getMemU32Ptr(0x5D4594, 1556124); }
 
 //----- (004D7700) --------------------------------------------------------
 bool nox_client_checkQuestExp_SKU2_4D7700() {
-	HKEY phkResult;   // [esp+8h] [ebp-90h]
+	/*HKEY phkResult;   // [esp+8h] [ebp-90h]
 	BYTE Data[4];     // [esp+Ch] [ebp-8Ch]
 	DWORD cbData;     // [esp+10h] [ebp-88h]
 	DWORD Type;       // [esp+14h] [ebp-84h]
-	CHAR SubKey[128]; // [esp+18h] [ebp-80h]
+	CHAR SubKey[128]; // [esp+18h] [ebp-80h]*/
 
+	return true; // License checks, we just allow it
+
+	/*
 	strcpy(SubKey, "SOFTWARE\\Westwood\\Nox");
 	*(_DWORD*)Data = -1;
 	cbData = 4;
 	if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult)) {
-		RegQueryValueExA(phkResult, (LPCSTR)getMemAt(0x587000, 198712), 0, &Type, Data, &cbData);
+		RegQueryValueExA(phkResult, "SKU", 0, &Type, Data, &cbData);
 		RegCloseKey(phkResult);
 	}
-	return *(_DWORD*)Data >= 9472;
+	return *(_DWORD*)Data >= 9472;*/
 }
 
 //----- (004D7790) --------------------------------------------------------
@@ -5072,7 +5075,7 @@ LSTATUS __cdecl sub_4D77D0(int a1) {
 		strcpy(SubKey, "SOFTWARE\\Westwood\\Nox");
 		result = RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult);
 		if (!result) {
-			RegSetValueExA(phkResult, (LPCSTR)getMemAt(0x587000, 198756), 0, 4u, Data, 4u);
+			RegSetValueExA(phkResult, "SKU", 0, 4u, Data, 4u);
 			result = RegCloseKey(phkResult);
 		}
 		break;
@@ -5096,7 +5099,7 @@ LSTATUS nox_common_readSKU_fromRegistry_4D78C0() {
 	cbData = 4;
 	result = RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult);
 	if (!result) {
-		RegQueryValueExA(phkResult, (LPCSTR)getMemAt(0x587000, 198784), 0, &Type, Data, &cbData);
+		RegQueryValueExA(phkResult, "SKU", 0, &Type, Data, &cbData);
 		result = RegCloseKey(phkResult);
 	}
 	if (*(int*)Data < 9472) {

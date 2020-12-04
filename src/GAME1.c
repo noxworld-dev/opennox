@@ -300,7 +300,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	_getcwd(cwd, 1023);
 	nox_common_set_data_path_409E20(cwd);
 
-	nox_common_readSKU_fromRegistry_4D78C0();
+	//nox_common_readSKU_fromRegistry_4D78C0();
 	_controlfp(0x300u, 0x300u);
 	nox_win_width = 0;
 	nox_xxx_servSetPlrLimit_409F80(32);
@@ -311,7 +311,7 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	if (!result) {
 		return 0;
 	}
-	sub_4D07F0();
+	nox_common_scanAllMaps_4D07F0();
 	sub_40AED0();
 	nox_xxx_mapSetDataDefault_416500();
 	result = nox_common_readcfgfile("nox.cfg", 0);
@@ -4283,7 +4283,7 @@ BOOL sub_40E0B0() { return dword_5d4594_10984 == 0; }
 int sub_40E0C0() { return *getMemU32Ptr(0x5D4594, 10976); }
 
 //----- (0040E0D0) --------------------------------------------------------
-int __cdecl sub_40E0D0(int a1, LPCSTR lpSubKey, int a3) {
+int __cdecl nox_common_getInstallPath_40E0D0(int a1, LPCSTR lpSubKey, int a3) {
 	int result;     // eax
 	signed int i;   // ecx
 	char* v5;       // edi
@@ -4303,7 +4303,7 @@ int __cdecl sub_40E0D0(int a1, LPCSTR lpSubKey, int a3) {
 		return 0;
 	Data[0] = 0;
 	cbData = 513;
-	if (RegQueryValueExA(phkResult, (LPCSTR)getMemAt(0x587000, 25796), 0, &Type, (LPBYTE)Data, &cbData)) {
+	if (RegQueryValueExA(phkResult, "InstallPath", 0, &Type, (LPBYTE)Data, &cbData)) {
 		RegCloseKey(phkResult);
 		result = 0;
 	} else {
@@ -8829,10 +8829,8 @@ char __cdecl sub_414690(unsigned int* a1, void(__stdcall* a2)(char*)) {
 			}
 		}
 	}
-	sub_414B00(*(LPCWSTR*)getMemAt(0x587000, 32592), SubKey, 128);
-	sub_414B00(*(LPCWSTR*)getMemAt(0x587000, 32596), ValueName, 64);
-	sub_414B00(*(LPCWSTR*)getMemAt(0x587000, 32600), (LPSTR)Data, 32);
-	v6 = sub_414A40(SubKey, ValueName) == 0;
+	Data[0] = 0;
+	v6 = nox_common_getRegistryValue_414A40("Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce", "nxsys") == 0;
 	v7 = *a1;
 	if (v6) {
 		if (v7)
@@ -8854,8 +8852,8 @@ int sub_414800() {
 
 	if (!*getMemU32Ptr(0x5D4594, 338464))
 		return 0;
-	sub_414B00(*(LPCWSTR*)getMemAt(0x587000, 32584), MultiByteStr, 128);
-	sub_414B00(*(LPCWSTR*)getMemAt(0x587000, 32588), v3, 256);
+	nox_common_convertWideToMbString_414B00(*(LPCWSTR*)getMemAt(0x587000, 32584), MultiByteStr, 128);
+	nox_common_convertWideToMbString_414B00(*(LPCWSTR*)getMemAt(0x587000, 32588), v3, 256);
 	nox_wsprintfA(v2, MultiByteStr, *getMemU32Ptr(0x5D4594, 338464));
 	nox_swprintf(v5, L"%S", v3);
 	nox_swprintf(v4, L"%S", v2);
@@ -8915,7 +8913,7 @@ int __cdecl sub_4149A0(LPCSTR lpFileName, LPVOID lpBuffer, LPVOID a3, LPVOID a4)
 }
 
 //----- (00414A40) --------------------------------------------------------
-int __cdecl sub_414A40(LPCSTR lpSubKey, LPCSTR lpValueName) {
+int __cdecl nox_common_getRegistryValue_414A40(LPCSTR lpSubKey, LPCSTR lpValueName) {
 	int v2; // esi
 
 	v2 = 0;
@@ -8942,7 +8940,7 @@ int __cdecl sub_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData) {
 }
 
 //----- (00414B00) --------------------------------------------------------
-char* __cdecl sub_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMultiByte) {
+char* __cdecl nox_common_convertWideToMbString_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMultiByte) {
 	WideCharToMultiByte(0, 0, lpWideCharStr, -1, lpMultiByteStr, cbMultiByte, 0, 0);
 	return _strrev(lpMultiByteStr);
 }
