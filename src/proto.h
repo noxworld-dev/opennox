@@ -7534,3 +7534,6 @@ int __cdecl SEH_57EA00(int a1, int a2, int a3, int a4);
 // void __stdcall CoUninitialize();
 // HRESULT __stdcall CoCreateInstance(const IID *const rclsid, LPUNKNOWN pUnkOuter, DWORD dwClsContext, const IID *const
 // riid, LPVOID *ppv);
+void sdl_render_start_threaded();
+void sdl_render_notify_thread();
+void __cdecl sdl_render_threaded(void* data);

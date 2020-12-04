@@ -1474,3 +1474,33 @@ void sub_48A290_call_present() {
 	g_present_ptr();
 	++g_present_ticks;
 }
+
+SDL_mutex* renderLock = NULL;
+SDL_cond* renderReady = NULL;
+
+void sdl_render_start_threaded()
+{
+	renderLock = SDL_CreateMutex();
+	renderReady = SDL_CreateCond();
+
+	_beginthread(sdl_render_threaded, NULL, NULL);
+}
+
+void sdl_render_notify_thread()
+{
+	SDL_LockMutex(renderLock);
+	sub_4AD170_call_copy_backbuffer();
+	SDL_CondSignal(renderReady);
+	SDL_UnlockMutex(renderLock);
+}
+
+void __cdecl sdl_render_threaded(void* data)
+{
+	while (true)
+	{
+		SDL_LockMutex(renderLock);
+		SDL_CondWait(renderReady, renderLock);
+		sub_48A290_call_present();
+		SDL_UnlockMutex(renderLock);
+	}
+}

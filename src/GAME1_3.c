@@ -1830,6 +1830,7 @@ int sub_43E230() {
 }
 
 //-------------------------------------------------------------------------
+extern int nox_enable_threads;
 
 void mainloop_43E290() {
 	nox_continue_mainloop_93196 = 1;
@@ -1840,6 +1841,13 @@ void mainloop_43E290() {
 	nox_xxx_gameStopDownload_4AB560(0);
 
 	mainloop_enter = NULL;
+
+#ifndef __EMSCRIPTEN__
+	if (nox_enable_threads)
+	{
+		sdl_render_start_threaded();
+	}
+#endif
 #ifdef __EMSCRIPTEN__
 	emscripten_cancel_main_loop();
 	emscripten_set_main_loop(mainloop, 0, 0);

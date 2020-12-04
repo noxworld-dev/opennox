@@ -217,6 +217,8 @@ void cleanup() {
 	nox_free_thing_bin();
 }
 
+extern int nox_enable_threads;
+
 void mainloop() {
 #ifdef NOX_E2E_TEST
 	nox_platform_time_hook();
@@ -418,8 +420,19 @@ void mainloop() {
 		}
 		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132) {
 			nox_xxx_directDrawBlitMB_48A220();
-			sub_4AD170_call_copy_backbuffer();
-			sub_48A290_call_present();
+#ifndef __EMSCRIPTEN__
+			if (nox_enable_threads)
+			{
+				sdl_render_notify_thread();
+			}
+			else
+			{
+#endif
+				sub_4AD170_call_copy_backbuffer();
+				sub_48A290_call_present();
+#ifndef __EMSCRIPTEN__
+			}
+#endif
 		}
 	}
 	sub_435750();
