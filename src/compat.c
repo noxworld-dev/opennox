@@ -877,8 +877,8 @@ char* _getcwd(char* buffer, int maxlen) {
 	if (maxlen < 2)
 		return NULL;
 
-	strcpy(buffer, "C:");
-	if (!getcwd(buffer + 2, maxlen - 2))
+	//strcpy(buffer, "C:");
+	if (!getcwd(buffer, maxlen))
 		return NULL;
 
 	for (i = 0; buffer[i]; i++)
