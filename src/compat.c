@@ -8,6 +8,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include <wctype.h>
+#include <dirent.h> 
 
 #include <SDL2/SDL_stdinc.h>
 
@@ -543,30 +544,132 @@ BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
 	return TRUE;
 }
 
+char* dos_to_unix_recurse_paths(char* currentPath, char dirs[10][255], int idx)
+{
+	if (dirs[idx][0] == 0)
+	{
+		char* result = malloc(strlen(currentPath) + 1);
+		strcpy(result, currentPath);
+		//printf("recurse finish: %s\n", result);
+		return result;
+	}
+
+	// Special check for glob characters
+	if (strchr(dirs[idx], '*'))
+	{
+		//printf("GLOB: %d %s %s %s %s\n", currentPath, dirs[0], dirs[1], dirs[2]);
+		char* result = malloc(strlen(currentPath) + strlen(dirs[idx]) + 3);
+		sprintf(result, "%s/%s", currentPath, dirs[idx]);
+		return result;
+	}
+
+	// Open the directory and compare all the lowercased files/folders with the current lowercased token
+	DIR* d = opendir(currentPath);
+	if (d)
+	{
+		struct dirent* dir;
+		while ((dir = readdir(d)) != NULL)
+		{
+			int i;
+			char buf[255] = { 0 };
+			for (i = 0; dir->d_name[i]; i++)
+			{
+				if (dir->d_name[i] >= 'A' && dir->d_name[i] <= 'Z')
+					buf[i] = 'a' + (dir->d_name[i] - 'A');
+				else
+					buf[i] = dir->d_name[i];
+			}
+			if (!strcmp(buf, dirs[idx]))
+			{
+				char newPath[255];
+				sprintf(newPath, "%s/%s", currentPath, dir->d_name);
+				//printf("dos2unix recurse: %s\n", newPath);
+				// Check if we still have something left to recurse
+				idx++;
+				return dos_to_unix_recurse_paths(newPath, dirs, idx);
+			}
+		}
+	}
+	// If we still found nothing means the file or folder probably doesn't exist
+	return NULL;
+}
+
 // File functions
 char* dos_to_unix(const char* path) {
 	int i, len = strlen(path);
-	char* str = malloc(len + 1);
+	char* str = malloc(len + 10);
+
+	//printf("dos2unix: accessing file %s\n", path);
 
 	if (path[0] == 'C' && path[1] == ':')
 		path += 2;
 
-	for (i = 0; path[i]; i++) {
-		if (path[i] == '\\')
+	// Let's first convert the full path into relative path against cwd (all Nox files are in one place)
+	char* pathrel = path;
+	char* curpath = nox_common_get_data_path_409E10();
+	//printf("dos2unix: curpath: %s\n", curpath);
+	if (strlen(curpath) > 0 && curpath[0] == '/' && strstr(pathrel, curpath) == pathrel)
+	{
+		pathrel += strlen(curpath) + 1;
+	}
+
+	for (i = 0; pathrel[i]; i++) {
+		if (pathrel[i] == '\\')
 			str[i] = '/';
-// TODO: workaround for a case-sensitive lookup: lower-case the path
-//       since some lookups are on absolute path, this will work only
-//       if the whole path game path is lower-case
-#ifdef __linux__
-		else if (path[i] >= 'A' && path[i] <= 'Z')
-			str[i] = 'a' + (path[i] - 'A');
-#endif
+		// TODO: workaround for a case-sensitive lookup: lower-case the path
+		//       since some lookups are on absolute path, this will work only
+		//       if the whole path game path is lower-case
+//#ifdef __linux__
+		else if (pathrel[i] >= 'A' && pathrel[i] <= 'Z')
+			str[i] = 'a' + (pathrel[i] - 'A');
+//#endif
 		else
-			str[i] = path[i];
+			str[i] = pathrel[i];
 	}
 	str[i] = 0;
 
-	return str;
+	if (!access(str, 0))
+	{
+		printf("dos2unix: file %s exists, fast translate to %s\n", path, str);
+		return str;
+	}
+
+	// If we're still here it means we didn't managed to find the file, we need to check for case now
+
+	// First split the file into directory tokens
+	char dirs[10][255];
+	memset(dirs, 0, sizeof(char) * 10 * 255);
+	char* pntr = str;
+	int idx = 0;
+	char* find;
+	char* strend = str + len;
+	while (find = strchr(pntr, '/'))
+	{
+		//find = strchr(pntr, '/');
+		strncpy(dirs[idx], pntr, find - pntr);
+		pntr = find+1;
+		if (pntr > strend)
+		{
+			break;
+		}
+		//printf("dos2unix dirs: %s\n", dirs[idx]);
+		idx++;
+	}
+	strncpy(dirs[idx], pntr, str + len - pntr);
+	//printf("dos2unix last: %s\n", dirs[idx]);
+
+	// Now list every directory recursively until we find a match
+	char* recursedPath = dos_to_unix_recurse_paths(".", dirs, 0);
+
+	// File does not exist, just return the original path
+	if (!recursedPath)
+	{
+		printf("dos2unix: file %s not found in any case, returning %s\n", path, str);
+		return str;
+	}
+	printf("dos2unix: translated %s into %s\n", path, recursedPath);
+	free(str);
+	return recursedPath;
 }
 
 struct _FIND_FILE {
