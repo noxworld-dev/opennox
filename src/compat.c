@@ -546,6 +546,7 @@ BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
 
 char* dos_to_unix_recurse_paths(char* currentPath, char dirs[10][255], int idx)
 {
+	// Check if we still have something left to recurse
 	if (dirs[idx][0] == 0)
 	{
 		char* result = malloc(strlen(currentPath) + 1);
@@ -584,7 +585,6 @@ char* dos_to_unix_recurse_paths(char* currentPath, char dirs[10][255], int idx)
 				char newPath[255];
 				sprintf(newPath, "%s/%s", currentPath, dir->d_name);
 				//printf("dos2unix recurse: %s\n", newPath);
-				// Check if we still have something left to recurse
 				idx++;
 				return dos_to_unix_recurse_paths(newPath, dirs, idx);
 			}
@@ -616,9 +616,6 @@ char* dos_to_unix(const char* path) {
 	for (i = 0; pathrel[i]; i++) {
 		if (pathrel[i] == '\\')
 			str[i] = '/';
-		// TODO: workaround for a case-sensitive lookup: lower-case the path
-		//       since some lookups are on absolute path, this will work only
-		//       if the whole path game path is lower-case
 //#ifdef __linux__
 		else if (pathrel[i] >= 'A' && pathrel[i] <= 'Z')
 			str[i] = 'a' + (pathrel[i] - 'A');
@@ -630,13 +627,14 @@ char* dos_to_unix(const char* path) {
 
 	if (!access(str, 0))
 	{
-		printf("dos2unix: file %s exists, fast translate to %s\n", path, str);
+		//printf("dos2unix: file %s exists, fast translate to %s\n", path, str);
 		return str;
 	}
 
 	// If we're still here it means we didn't managed to find the file, we need to check for case now
 
 	// First split the file into directory tokens
+	// Tbh 10 subfolders should be enough, Nox uses only 3 maximum anyway
 	char dirs[10][255];
 	memset(dirs, 0, sizeof(char) * 10 * 255);
 	char* pntr = str;
@@ -667,7 +665,7 @@ char* dos_to_unix(const char* path) {
 		printf("dos2unix: file %s not found in any case, returning %s\n", path, str);
 		return str;
 	}
-	printf("dos2unix: translated %s into %s\n", path, recursedPath);
+	//printf("dos2unix: translated %s into %s\n", path, recursedPath);
 	free(str);
 	return recursedPath;
 }
