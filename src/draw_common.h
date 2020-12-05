@@ -62,8 +62,7 @@ extern DWORD dword_974854;
 extern int g_fullscreen;
 extern int g_scaled;
 
-void sdl_render_threaded_specific();
-SDL_Surface* sdl_render_threaded_get_backbuffer();
+void sdl_render_threaded_specific(bool endingThread);
 
 #ifndef IGNORE_EXTERNS
 void __cdecl sub_48B1D0_free_surface(SDL_Surface** a1);

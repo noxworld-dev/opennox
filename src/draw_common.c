@@ -110,7 +110,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	}
 	v8 = w & 0xFFFFFFE0;
 	if (!(v7 & 4)) {
-		if (!sub_48A040(wnd, v8, h, depth))
+		if (!sdl_render_start_threaded(wnd, v8, h, depth))
 			return 0;
 		dword_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
 		return 1;
@@ -581,7 +581,7 @@ void sub_444C50() {
 		nullsub_14();
 		sub_433C20();
 		nullsub_15();
-		sub_48A120();
+		nox_client_CleanupRender_48A120();
 		sub_44D9D0();
 		sub_4B0660();
 		nullsub_13();
@@ -1476,62 +1476,152 @@ void sub_48A290_call_present() {
 	++g_present_ticks;
 }
 
+extern int nox_enable_threads;
+
+#define THREAD_ERROR (unsigned int)(-1)
+
+unsigned int renderCommand = 0;
+void (*renderExec)() = NULL;
 SDL_mutex* renderLock = NULL;
 SDL_cond* renderReady = NULL;
 
-void sdl_render_start_threaded()
+typedef struct render_thread_data
 {
-	renderLock = SDL_CreateMutex();
-	renderReady = SDL_CreateCond();
-	sdl_render_threaded_specific();
-	_beginthread(sdl_render_threaded, NULL, NULL);
+	HWND wnd;
+	int width;
+	int height;
+	int depth;
+	int result;
+	SDL_cond* startupWait;
+} render_thread_data;
+
+int sdl_render_start_threaded(HWND wnd, int width, int height, int depth)
+{
+	if (nox_enable_threads)
+	{
+		//sdl_render_notify_thread(RENDER_THREAD_EXIT, NULL);
+
+		render_thread_data data;
+		memset(&data, 0, sizeof(render_thread_data));
+		SDL_mutex *startupLock = SDL_CreateMutex();
+		SDL_cond *startupWait = SDL_CreateCond();
+		renderLock = SDL_CreateMutex();
+		renderReady = SDL_CreateCond();
+
+		data.wnd = wnd;
+		data.width = width;
+		data.height = height;
+		data.depth = depth;
+		data.startupWait = startupWait;
+
+		sdl_render_threaded_specific(false);
+		SDL_LockMutex(startupLock);
+		unsigned int thread = _beginthread(sdl_render_threaded, NULL, &data);
+		if (thread == 0 || thread == THREAD_ERROR)
+		{
+			nox_enable_threads = 0;
+			SDL_UnlockMutex(startupLock);
+			SDL_DestroyMutex(startupLock);
+			SDL_DestroyCond(startupWait);
+			SDL_DestroyMutex(renderLock);
+			SDL_DestroyCond(renderReady);
+			renderLock = 0;
+			renderReady = 0;
+			return nox_client_initRender_48A040(wnd, width, height, depth);
+		}
+		SDL_CondWait(startupWait, startupLock);
+		SDL_UnlockMutex(startupLock);
+		SDL_DestroyMutex(startupLock);
+		SDL_DestroyCond(startupWait);
+		return data.result;
+	}
+	else
+	{
+		return nox_client_initRender_48A040(wnd, width, height, depth);
+	}
 }
 
-void sdl_render_notify_thread()
+#ifndef __EMSCRIPTEN__
+void sdl_render_notify_thread(unsigned int cmd, void (*exec)())
 {
 	SDL_LockMutex(renderLock);
-	sub_4AD170_call_copy_backbuffer();
+	renderCommand = cmd;
+	renderExec = NULL;
+	switch (cmd)
+	{
+	case RENDER_THREAD_RENDER:
+		sub_4AD170_call_copy_backbuffer();
+		break;
+	case RENDER_THREAD_EXEC:
+		renderExec = exec;
+		break;
+	case RENDER_THREAD_EXIT:
+		break;
+	default:
+		DebugBreak();
+	}
 	SDL_CondSignal(renderReady);
 	SDL_UnlockMutex(renderLock);
 }
 
-void __cdecl sdl_render_threaded(void* data)
+void __cdecl sdl_render_threaded(void* d)
 {
+	render_thread_data* data = d;
+	data->result = nox_client_initRender_48A040(data->wnd, data->width, data->height, data->depth);
+	SDL_CondSignal(data->startupWait);
 	while (true)
 	{
-		sub_48A290_call_present();
+		void (*exec)() = NULL;
+		unsigned int cmd = 0;
+		SDL_mutex* lRenderLock = renderLock;
+		SDL_cond* lRenderReady = renderReady;
+		SDL_LockMutex(lRenderLock);
+		SDL_CondWait(lRenderReady, lRenderLock);
+		cmd = renderCommand;
+		exec = renderExec;
+		if (cmd == RENDER_THREAD_RENDER)
+		{
+			sdl_render_threaded_get_backbuffer();
+		}
+		SDL_UnlockMutex(lRenderLock);
+		switch (cmd)
+		{
+		case RENDER_THREAD_RENDER:
+			sub_48A290_call_present();
+			break;
+		case RENDER_THREAD_EXEC:
+			exec();
+			break;
+		case RENDER_THREAD_EXIT:
+			SDL_DestroyCond(lRenderReady);
+			SDL_DestroyMutex(lRenderLock);
+			sdl_render_threaded_specific(true);
+			return;
+		default:
+			DebugBreak();
+		}
 	}
 }
-extern int nox_enable_threads;
+#endif
 
 SDL_Surface* sdl_render_threaded_get_backbuffer()
 {
-#ifndef __EMSCRIPTEN__
-	if (nox_enable_threads)
-	{
-		SDL_LockMutex(renderLock);
-		SDL_CondWait(renderReady, renderLock);
-	}
-#endif
 	SDL_Surface* backbuffer_copy = NULL;
 	if (g_backbuffer1 != NULL)
 	{
-		backbuffer_copy = SDL_CreateRGBSurfaceWithFormat(0, g_backbuffer1->w, g_backbuffer1->h, g_backbuffer1->format->BitsPerPixel, g_backbuffer1->format->format);
+		if (g_backbuffer2 != NULL)
+		{
+			backbuffer_copy = g_backbuffer2;
+		}
+		else
+		{
+			backbuffer_copy = SDL_CreateRGBSurfaceWithFormat(0, g_backbuffer1->w, g_backbuffer1->h, g_backbuffer1->format->BitsPerPixel, g_backbuffer1->format->format);
+		}
+		//char* error = SDL_GetError();
 		SDL_SetSurfaceBlendMode(backbuffer_copy, SDL_BLENDMODE_NONE);
 		SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
 		SDL_BlitSurface(g_backbuffer1, NULL, backbuffer_copy, NULL);
+		g_backbuffer2 = backbuffer_copy;
 	}
-#ifndef __EMSCRIPTEN__
-	if (nox_enable_threads)
-	{
-		SDL_UnlockMutex(renderLock);
-	}
-#endif
-	if (g_backbuffer2 != NULL)
-	{
-		SDL_FreeSurface(g_backbuffer2);
-		g_backbuffer2 = NULL;
-	}
-	g_backbuffer2 = backbuffer_copy;
 	return backbuffer_copy;
 }

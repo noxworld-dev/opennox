@@ -2941,8 +2941,8 @@ int __cdecl nox_xxx_windowMplayFilterProc_489E70(int a1, int a2, int* a3, int a4
 int sub_489FB0();
 int __cdecl sub_489FF0(int a1, int a2, const void* a3);
 int __cdecl sub_48A020(int a1, _DWORD* a2);
-int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4);
-void sub_48A120();
+int __cdecl nox_client_initRender_48A040(HWND wnd, int width, int height, int depth);
+void nox_client_CleanupRender_48A120();
 char sub_48A190();
 int __cdecl nox_video_checkIsWinNT_48A1D0(int a1);
 int __cdecl sub_48A210(int a1);
@@ -7534,6 +7534,15 @@ int __cdecl SEH_57EA00(int a1, int a2, int a3, int a4);
 // void __stdcall CoUninitialize();
 // HRESULT __stdcall CoCreateInstance(const IID *const rclsid, LPUNKNOWN pUnkOuter, DWORD dwClsContext, const IID *const
 // riid, LPVOID *ppv);
-void sdl_render_start_threaded();
-void sdl_render_notify_thread();
+#ifndef __EMSCRIPTEN__
+#define RENDER_THREAD_RENDER 0
+#define RENDER_THREAD_EXEC 1
+#define RENDER_THREAD_EXIT 2
+
+void sdl_render_notify_thread(unsigned int cmd, void (*exec)());
 void __cdecl sdl_render_threaded(void* data);
+#endif
+
+int sdl_render_start_threaded(HWND wnd, int width, int height, int depth);
+SDL_Surface* sdl_render_threaded_get_backbuffer();
+

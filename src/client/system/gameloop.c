@@ -423,12 +423,13 @@ void mainloop() {
 #ifndef __EMSCRIPTEN__
 			if (nox_enable_threads)
 			{
-				sdl_render_notify_thread();
+				sdl_render_notify_thread(RENDER_THREAD_RENDER, NULL);
 			}
 			else
 			{
 #endif
 				sub_4AD170_call_copy_backbuffer();
+				sdl_render_threaded_get_backbuffer();
 				sub_48A290_call_present();
 #ifndef __EMSCRIPTEN__
 			}

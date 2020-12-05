@@ -8,12 +8,14 @@ uint32_t g_texture, g_program, g_tex_coord_buffer, g_tex_coord_attr, g_gamma_uni
 
 
 //----- (0048A120) --------------------------------------------------------
-void sub_48A120() {
+void nox_client_CleanupRender_48A120() {
+	sdl_render_notify_thread(RENDER_THREAD_EXIT, NULL);
 	dword_6F7BB0 = 0;
 
 	sub_48B1D0_free_surface(&dword_973C60);
 	sub_48B1D0_free_surface(&dword_973C88);
 	sub_48B1D0_free_surface(&g_backbuffer1);
+	sub_48B1D0_free_surface(&g_backbuffer2);
 	sub_48A9C0(0);
 	sub_48AA40();
 	SDL_DestroyRenderer(g_ddraw);
@@ -84,8 +86,8 @@ static void set_viewport(float srcw, float srch) {
 }
 
 void sdl_present() {
-	sdl_render_threaded_get_backbuffer();
-	if (g_backbuffer2) {
+	SDL_Surface* l_backbuffer2 = sdl_render_threaded_get_backbuffer();
+	if (g_ddraw && l_backbuffer2) {
 		SDL_Rect srcrect;
 		SDL_Rect dstrect;
 		//SDL_Rect currrect;
@@ -95,14 +97,14 @@ void sdl_present() {
 		dstrect.x = 0;
 		dstrect.y = 0;
 		SDL_GetWindowSize(getWindowHandle_nox_xxx_getHWND_401FD0(), &(dstrect.w), &(dstrect.h));
-		SDL_GetClipRect(g_backbuffer2, &srcrect);
+		SDL_GetClipRect(l_backbuffer2, &srcrect);
 		
 		sub_48BE50(1);
 		nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0);
 
-		set_viewport(g_backbuffer2->w, g_backbuffer2->h);
+		set_viewport(l_backbuffer2->w, l_backbuffer2->h);
 
-		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_backbuffer2); //Maybe find a way to get the buffer
+		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, l_backbuffer2); //Maybe find a way to get the buffer
 
 		//This is only available after SDL 2.0.12
 #if SDL_PATCHLEVEL >= 12
@@ -235,9 +237,9 @@ int __cdecl sub_4B0340(int a1) // draw general
 
 		if (!v2) {
 			nox_free_pixbuffers_486110();
-			sub_48A120();
+			nox_client_CleanupRender_48A120();
 			nox_video_renderTargetFlags = v4;
-			result = sub_48A040(v3, v8, v7, a1);
+			result = sdl_render_start_threaded(v3, v8, v7, a1);
 			if (!result)
 				return result;
 			result = sub_486090();
@@ -269,9 +271,9 @@ int __cdecl sub_4B0340(int a1) // draw general
 	nox_video_stopCursorDrawThread_48B350();
 	sub_433C20();
 	nox_free_pixbuffers_486110();
-	sub_48A120();
+	nox_client_CleanupRender_48A120();
 	nox_video_renderTargetFlags = v4;
-	result = sub_48A040(v3, NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
+	result = sdl_render_start_threaded(v3, NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
 	if (result) {
 		result = sub_486090();
 		if (result)
@@ -281,14 +283,19 @@ int __cdecl sub_4B0340(int a1) // draw general
 }
 
 //----- (0048A040) --------------------------------------------------------
-int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
+int __cdecl nox_client_initRender_48A040(HWND wnd, int width, int height, int depth) {
 	int result; // eax
 
 	g_backbuffer_count = 2;
 	dword_6F7BB0 = 0;
 
 	g_ddraw = 0;
+
 	g_backbuffer1 = 0;
+	g_backbuffer2 = 0;
+
+	/*sub_48B1D0_free_surface(&g_backbuffer1);
+	sub_48B1D0_free_surface(&g_backbuffer2);*/
 
 	dword_973C88 = 0;
 	dword_973C60 = 0;
@@ -303,7 +310,7 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
 		if (!result)
 			return result;
 
-		create_surfaces(a1, a2, a3);
+		create_surfaces(wnd, width, height);
 
 	}
 	dword_6F7BB0 = 1;
@@ -316,7 +323,7 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
 	return result;
 }
 
-void sdl_render_threaded_specific()
+void sdl_render_threaded_specific(bool endingThread)
 {
 
 }

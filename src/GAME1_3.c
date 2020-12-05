@@ -1842,12 +1842,6 @@ void mainloop_43E290() {
 
 	mainloop_enter = NULL;
 
-#ifndef __EMSCRIPTEN__
-	if (nox_enable_threads)
-	{
-		sdl_render_start_threaded();
-	}
-#endif
 #ifdef __EMSCRIPTEN__
 	emscripten_cancel_main_loop();
 	emscripten_set_main_loop(mainloop, 0, 0);

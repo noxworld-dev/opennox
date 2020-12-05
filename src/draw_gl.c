@@ -36,17 +36,19 @@ static void glCheckError() {
 
 
 //----- (0048A120) --------------------------------------------------------
-void sub_48A120() {
+void nox_client_CleanupRender_48A120() {
+	sdl_render_notify_thread(RENDER_THREAD_EXIT, NULL);
 	dword_6F7BB0 = 0;
 
 	sub_48B1D0_free_surface(&dword_973C60);
 	sub_48B1D0_free_surface(&dword_973C88);
-	if (g_backbuffer1 != g_frontbuffer1) {
+	if (g_backbuffer2 != g_frontbuffer1) {
 		sub_48B1D0_free_surface(&g_frontbuffer1);
 	} else {
 		g_frontbuffer1 = 0;
 	}
 	sub_48B1D0_free_surface(&g_backbuffer1);
+	sub_48B1D0_free_surface(&g_backbuffer2);
 	sub_48A9C0(0);
 	sub_48AA40();
 }
@@ -116,21 +118,21 @@ static void set_viewport(float srcw, float srch) {
 }
 
 void sdl_present() {
-	sdl_render_threaded_get_backbuffer();
-	if (g_ddraw && g_backbuffer2) {
+	SDL_Surface* l_backbuffer2 = sdl_render_threaded_get_backbuffer();
+	if (g_ddraw && l_backbuffer2) {
 		SDL_Rect srcrect;
 		SDL_Rect dstrect;
 		SDL_Rect currrect;
 		int res;
 		BOOL isRectDifferent = 0;
 
-		SDL_GL_MakeCurrent(windowHandle_dword_973FE0, g_ddraw);
+		//SDL_GL_MakeCurrent(windowHandle_dword_973FE0, g_ddraw);
 
 		dstrect.x = 0;
 		dstrect.y = 0;
 		SDL_GL_GetDrawableSize(getWindowHandle_nox_xxx_getHWND_401FD0(), &(dstrect.w), &(dstrect.h));
 
-		SDL_GetClipRect(g_backbuffer2, &srcrect);
+		SDL_GetClipRect(l_backbuffer2, &srcrect);
 		if (dstrect.w != srcrect.w || dstrect.h != srcrect.h) {
 			float newW;
 			float newH;
@@ -148,7 +150,7 @@ void sdl_present() {
 
 			isRectDifferent = 1;
 		}
-		if (g_frontbuffer1 != g_backbuffer2) {
+		if (g_frontbuffer1 != l_backbuffer2) {
 			if (!g_scaled || isRectDifferent) {
 				sub_48B1D0_free_surface(&g_frontbuffer1);
 				g_frontbuffer1 = 0;
@@ -163,13 +165,14 @@ void sdl_present() {
 		if (g_scaled && g_frontbuffer1 == 0) {
 			g_frontbuffer1 =
 				nox_video_createSurface_48A600(dstrect.w, dstrect.h, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
-			SDL_SetSurfaceBlendMode(g_backbuffer2, SDL_BLENDMODE_NONE);
+			SDL_SetSurfaceBlendMode(l_backbuffer2, SDL_BLENDMODE_NONE);
 			SDL_SetSurfaceBlendMode(g_frontbuffer1, SDL_BLENDMODE_NONE);
 		}
 		if (g_scaled) {
-			res = SDL_BlitScaled(g_backbuffer2, &srcrect, g_frontbuffer1, &dstrect);
+			res = SDL_BlitScaled(l_backbuffer2, &srcrect, g_frontbuffer1, &dstrect);
+			//sub_48B1D0_free_surface(&l_backbuffer2);
 		} else {
-			g_frontbuffer1 = g_backbuffer2;
+			g_frontbuffer1 = l_backbuffer2;
 		}
 		const float matrix[] = {1.0, 0.0, 0.0, 1.0};
 		const float matrixRotated[] = {0.0, 1.0, 1.0, 0.0};
@@ -204,7 +207,7 @@ void sdl_present() {
 		/*
 			EM_ASM_({
 				Module['renderTexture']($0, $1);
-			}, g_backbuffer2->w, g_backbuffer2->h);
+			}, l_backbuffer2->w, l_backbuffer2->h);
 		*/
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -479,9 +482,9 @@ int __cdecl sub_4B0340(int a1) // draw general
 		;
 		if (!v2) {
 			nox_free_pixbuffers_486110();
-			sub_48A120();
+			nox_client_CleanupRender_48A120();
 			nox_video_renderTargetFlags = v4;
-			result = sub_48A040(v3, v8, v7, a1);
+			result = sdl_render_start_threaded(v3, v8, v7, a1);
 			if (!result)
 				return result;
 			result = sub_486090();
@@ -513,9 +516,9 @@ int __cdecl sub_4B0340(int a1) // draw general
 	nox_video_stopCursorDrawThread_48B350();
 	sub_433C20();
 	nox_free_pixbuffers_486110();
-	sub_48A120();
+	nox_client_CleanupRender_48A120();
 	nox_video_renderTargetFlags = v4;
-	result = sub_48A040(v3, NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
+	result = sdl_render_start_threaded(v3, NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
 	if (result) {
 		result = sub_486090();
 		if (result)
@@ -525,14 +528,20 @@ int __cdecl sub_4B0340(int a1) // draw general
 }
 
 //----- (0048A040) --------------------------------------------------------
-int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
+int __cdecl nox_client_initRender_48A040(HWND wnd, int width, int height, int depth) {
 	int result; // eax
 
 	g_backbuffer_count = 2;
 	dword_6F7BB0 = 0;
 
 	g_ddraw = 0;
+
 	g_backbuffer1 = 0;
+	g_backbuffer2 = 0;
+	g_frontbuffer1 = 0;
+
+	/*sub_48B1D0_free_surface(&g_backbuffer1);
+	sub_48B1D0_free_surface(&g_backbuffer2);*/
 
 	dword_973C88 = 0;
 	dword_973C60 = 0;
@@ -547,7 +556,7 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
 		if (!result)
 			return result;
 
-		create_surfaces(a1, a2, a3);
+		create_surfaces(wnd, width, height);
 
 	}
 	dword_6F7BB0 = 1;
@@ -560,8 +569,8 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
 	return result;
 }
 
-void sdl_render_threaded_specific()
+void sdl_render_threaded_specific(bool endingThread)
 {
-	SDL_GL_MakeCurrent(windowHandle_dword_973FE0, NULL);
+	//SDL_GL_MakeCurrent(windowHandle_dword_973FE0, NULL);
 }
 
