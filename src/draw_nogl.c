@@ -19,13 +19,6 @@ void sub_48A120() {
 	SDL_DestroyRenderer(g_ddraw);
 }
 
-
-//----- (0048A290) --------------------------------------------------------
-void sub_48A290_call_present() {
-	g_present_ptr();
-	++g_present_ticks;
-}
-
 SDL_Surface* __cdecl nox_video_createSurface_48A600(int width, int height, int flags, int caps) {
 	if (!(flags & DDSD_WIDTH))
 		DebugBreak();

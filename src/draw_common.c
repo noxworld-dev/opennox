@@ -1466,3 +1466,9 @@ unsigned __int8* __cdecl sub_48C320(int a1, int a2, int a3) {
 	}
 	return result;
 }
+
+//----- (0048A290) --------------------------------------------------------
+void sub_48A290_call_present() {
+	g_present_ptr();
+	++g_present_ticks;
+}
