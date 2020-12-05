@@ -1527,6 +1527,11 @@ SDL_Surface* sdl_render_threaded_get_backbuffer()
 		SDL_UnlockMutex(renderLock);
 	}
 #endif
+	if (g_backbuffer2 != NULL)
+	{
+		SDL_FreeSurface(g_backbuffer2);
+		g_backbuffer2 = NULL;
+	}
 	g_backbuffer2 = backbuffer_copy;
 	return backbuffer_copy;
 }
