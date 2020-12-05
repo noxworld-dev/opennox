@@ -123,6 +123,8 @@ void sdl_present() {
 		int res;
 		BOOL isRectDifferent = 0;
 
+		SDL_GL_MakeCurrent(windowHandle_dword_973FE0, g_ddraw);
+
 		dstrect.x = 0;
 		dstrect.y = 0;
 		SDL_GL_GetDrawableSize(getWindowHandle_nox_xxx_getHWND_401FD0(), &(dstrect.w), &(dstrect.h));
@@ -555,3 +557,9 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
 	}
 	return result;
 }
+
+void sdl_render_threaded_specific()
+{
+	SDL_GL_MakeCurrent(windowHandle_dword_973FE0, NULL);
+}
+

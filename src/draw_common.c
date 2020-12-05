@@ -1482,7 +1482,7 @@ void sdl_render_start_threaded()
 {
 	renderLock = SDL_CreateMutex();
 	renderReady = SDL_CreateCond();
-
+	sdl_render_threaded_specific();
 	_beginthread(sdl_render_threaded, NULL, NULL);
 }
 
