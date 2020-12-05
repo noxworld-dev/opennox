@@ -43,6 +43,7 @@ SDL_Surface* dword_6F7C48;
 SDL_Surface* g_cursor_surf;
 SDL_Surface* dword_973C60;
 SDL_Surface* g_backbuffer1;
+SDL_Surface* g_backbuffer2;
 SDL_Surface* dword_973C88;
 Uint32 g_format;
 
@@ -1498,9 +1499,34 @@ void __cdecl sdl_render_threaded(void* data)
 {
 	while (true)
 	{
+		sub_48A290_call_present();
+	}
+}
+extern int nox_enable_threads;
+
+SDL_Surface* sdl_render_threaded_get_backbuffer()
+{
+#ifndef __EMSCRIPTEN__
+	if (nox_enable_threads)
+	{
 		SDL_LockMutex(renderLock);
 		SDL_CondWait(renderReady, renderLock);
-		sub_48A290_call_present();
+	}
+#endif
+	SDL_Surface* backbuffer_copy = NULL;
+	if (g_backbuffer1 != NULL)
+	{
+		backbuffer_copy = SDL_CreateRGBSurfaceWithFormat(0, g_backbuffer1->w, g_backbuffer1->h, g_backbuffer1->format->BitsPerPixel, g_backbuffer1->format->format);
+		SDL_SetSurfaceBlendMode(backbuffer_copy, SDL_BLENDMODE_NONE);
+		SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
+		SDL_BlitSurface(g_backbuffer1, NULL, backbuffer_copy, NULL);
+	}
+#ifndef __EMSCRIPTEN__
+	if (nox_enable_threads)
+	{
 		SDL_UnlockMutex(renderLock);
 	}
+#endif
+	g_backbuffer2 = backbuffer_copy;
+	return backbuffer_copy;
 }

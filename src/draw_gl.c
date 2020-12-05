@@ -116,7 +116,8 @@ static void set_viewport(float srcw, float srch) {
 }
 
 void sdl_present() {
-	if (g_ddraw && g_backbuffer1) {
+	sdl_render_threaded_get_backbuffer();
+	if (g_ddraw && g_backbuffer2) {
 		SDL_Rect srcrect;
 		SDL_Rect dstrect;
 		SDL_Rect currrect;
@@ -128,7 +129,8 @@ void sdl_present() {
 		dstrect.x = 0;
 		dstrect.y = 0;
 		SDL_GL_GetDrawableSize(getWindowHandle_nox_xxx_getHWND_401FD0(), &(dstrect.w), &(dstrect.h));
-		SDL_GetClipRect(g_backbuffer1, &srcrect);
+
+		SDL_GetClipRect(g_backbuffer2, &srcrect);
 		if (dstrect.w != srcrect.w || dstrect.h != srcrect.h) {
 			float newW;
 			float newH;
@@ -146,7 +148,7 @@ void sdl_present() {
 
 			isRectDifferent = 1;
 		}
-		if (g_frontbuffer1 != g_backbuffer1) {
+		if (g_frontbuffer1 != g_backbuffer2) {
 			if (!g_scaled || isRectDifferent) {
 				sub_48B1D0_free_surface(&g_frontbuffer1);
 				g_frontbuffer1 = 0;
@@ -161,13 +163,13 @@ void sdl_present() {
 		if (g_scaled && g_frontbuffer1 == 0) {
 			g_frontbuffer1 =
 				nox_video_createSurface_48A600(dstrect.w, dstrect.h, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
-			SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
+			SDL_SetSurfaceBlendMode(g_backbuffer2, SDL_BLENDMODE_NONE);
 			SDL_SetSurfaceBlendMode(g_frontbuffer1, SDL_BLENDMODE_NONE);
 		}
 		if (g_scaled) {
-			res = SDL_BlitScaled(g_backbuffer1, &srcrect, g_frontbuffer1, &dstrect);
+			res = SDL_BlitScaled(g_backbuffer2, &srcrect, g_frontbuffer1, &dstrect);
 		} else {
-			g_frontbuffer1 = g_backbuffer1;
+			g_frontbuffer1 = g_backbuffer2;
 		}
 		const float matrix[] = {1.0, 0.0, 0.0, 1.0};
 		const float matrixRotated[] = {0.0, 1.0, 1.0, 0.0};
@@ -202,7 +204,7 @@ void sdl_present() {
 		/*
 			EM_ASM_({
 				Module['renderTexture']($0, $1);
-			}, g_backbuffer1->w, g_backbuffer1->h);
+			}, g_backbuffer2->w, g_backbuffer2->h);
 		*/
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);

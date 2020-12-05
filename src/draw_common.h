@@ -63,6 +63,7 @@ extern int g_fullscreen;
 extern int g_scaled;
 
 void sdl_render_threaded_specific();
+SDL_Surface* sdl_render_threaded_get_backbuffer();
 
 #ifndef IGNORE_EXTERNS
 void __cdecl sub_48B1D0_free_surface(SDL_Surface** a1);
@@ -108,6 +109,7 @@ extern SDL_Surface* dword_6F7C48;
 extern SDL_Surface* g_cursor_surf;
 extern SDL_Surface* dword_973C60;
 extern SDL_Surface* g_backbuffer1;
+extern SDL_Surface* g_backbuffer2;
 extern SDL_Surface* dword_973C88;
 extern Uint32 g_format;
 

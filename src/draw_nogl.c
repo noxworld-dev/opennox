@@ -84,7 +84,8 @@ static void set_viewport(float srcw, float srch) {
 }
 
 void sdl_present() {
-	if (g_backbuffer1) {
+	sdl_render_threaded_get_backbuffer();
+	if (g_backbuffer2) {
 		SDL_Rect srcrect;
 		SDL_Rect dstrect;
 		//SDL_Rect currrect;
@@ -94,14 +95,14 @@ void sdl_present() {
 		dstrect.x = 0;
 		dstrect.y = 0;
 		SDL_GetWindowSize(getWindowHandle_nox_xxx_getHWND_401FD0(), &(dstrect.w), &(dstrect.h));
-		SDL_GetClipRect(g_backbuffer1, &srcrect);
+		SDL_GetClipRect(g_backbuffer2, &srcrect);
 		
 		sub_48BE50(1);
 		nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0);
 
-		set_viewport(g_backbuffer1->w, g_backbuffer1->h);
+		set_viewport(g_backbuffer2->w, g_backbuffer2->h);
 
-		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_backbuffer1); //Maybe find a way to get the buffer
+		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_backbuffer2); //Maybe find a way to get the buffer
 
 		//This is only available after SDL 2.0.12
 #if SDL_PATCHLEVEL >= 12
@@ -113,6 +114,7 @@ void sdl_present() {
 		SDL_DestroyTexture(tex);
 
 		sub_48BE50(0);
+		//SDL_FreeSurface(g_backbuffer2);
 	}
 }
 
