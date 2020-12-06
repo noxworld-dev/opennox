@@ -1504,6 +1504,7 @@ typedef struct render_thread_data
 
 int sdl_render_start_threaded(HWND wnd, int width, int height, int depth)
 {
+#ifndef __EMSCRIPTEN__
 	if (nox_enable_threads)
 	{
 		//sdl_render_notify_thread(RENDER_THREAD_EXIT, NULL);
@@ -1548,13 +1549,20 @@ int sdl_render_start_threaded(HWND wnd, int width, int height, int depth)
 	}
 	else
 	{
+#endif
 		return nox_client_initRender_48A040(wnd, width, height, depth);
+#ifndef __EMSCRIPTEN__
 	}
+#endif
 }
 
 #ifndef __EMSCRIPTEN__
 void sdl_render_notify_thread(unsigned int cmd, void (*exec)())
 {
+	if (!nox_enable_threads)
+	{
+		return;
+	}
 	SDL_LockMutex(renderLock);
 	renderCommand = cmd;
 	renderExec = NULL;

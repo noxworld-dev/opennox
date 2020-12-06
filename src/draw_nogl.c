@@ -9,7 +9,9 @@ uint32_t g_texture, g_program, g_tex_coord_buffer, g_tex_coord_attr, g_gamma_uni
 
 //----- (0048A120) --------------------------------------------------------
 void nox_client_CleanupRender_48A120() {
+#ifndef __EMSCRIPTEN__
 	sdl_render_notify_thread(RENDER_THREAD_EXIT, NULL);
+#endif
 	dword_6F7BB0 = 0;
 
 	sub_48B1D0_free_surface(&dword_973C60);
