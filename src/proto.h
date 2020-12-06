@@ -587,7 +587,7 @@ int sub_414800();
 unsigned int __cdecl sub_4148D0(LPCSTR lpFileName);
 int __cdecl sub_4149A0(LPCSTR lpFileName, LPVOID lpBuffer, LPVOID, LPVOID); // idb
 int __cdecl nox_common_getRegistryValue_414A40(LPCSTR lpSubKey, LPCSTR lpValueName);                // idb
-int __cdecl sub_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData);  // idb
+int __cdecl nox_common_setRegistryValue_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData);  // idb
 char* __cdecl nox_common_convertWideToMbString_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMultiByte);
 void nox_common_readHiddenExeMsg_414B30(uint8_t* src_8byte, uint8_t* dst_12byte);
 int __cdecl sub_414BA0(int a1);

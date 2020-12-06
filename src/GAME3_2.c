@@ -5016,15 +5016,14 @@ int sub_4D76F0() { return *getMemU32Ptr(0x5D4594, 1556124); }
 
 //----- (004D7700) --------------------------------------------------------
 bool nox_client_checkQuestExp_SKU2_4D7700() {
-	/*HKEY phkResult;   // [esp+8h] [ebp-90h]
+	return true; // License checks, we just allow it
+#if 0
+	HKEY phkResult;   // [esp+8h] [ebp-90h]
 	BYTE Data[4];     // [esp+Ch] [ebp-8Ch]
 	DWORD cbData;     // [esp+10h] [ebp-88h]
 	DWORD Type;       // [esp+14h] [ebp-84h]
-	CHAR SubKey[128]; // [esp+18h] [ebp-80h]*/
+	CHAR SubKey[128]; // [esp+18h] [ebp-80h]
 
-	return true; // License checks, we just allow it
-
-	/*
 	strcpy(SubKey, "SOFTWARE\\Westwood\\Nox");
 	*(_DWORD*)Data = -1;
 	cbData = 4;
@@ -5032,7 +5031,8 @@ bool nox_client_checkQuestExp_SKU2_4D7700() {
 		RegQueryValueExA(phkResult, "SKU", 0, &Type, Data, &cbData);
 		RegCloseKey(phkResult);
 	}
-	return *(_DWORD*)Data >= 9472;*/
+	return *(_DWORD*)Data >= 9472;
+#endif
 }
 
 //----- (004D7790) --------------------------------------------------------

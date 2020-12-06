@@ -566,28 +566,28 @@ char* dos_to_unix_recurse_paths(char* currentPath, char dirs[10][255], int idx)
 
 	// Open the directory and compare all the lowercased files/folders with the current lowercased token
 	DIR* d = opendir(currentPath);
-	if (d)
+	if (!d)
+		return NULL;
+
+	struct dirent* dir;
+	while ((dir = readdir(d)) != NULL)
 	{
-		struct dirent* dir;
-		while ((dir = readdir(d)) != NULL)
+		int i;
+		char buf[255] = { 0 };
+		for (i = 0; dir->d_name[i]; i++)
 		{
-			int i;
-			char buf[255] = { 0 };
-			for (i = 0; dir->d_name[i]; i++)
-			{
-				if (dir->d_name[i] >= 'A' && dir->d_name[i] <= 'Z')
-					buf[i] = 'a' + (dir->d_name[i] - 'A');
-				else
-					buf[i] = dir->d_name[i];
-			}
-			if (!strcmp(buf, dirs[idx]))
-			{
-				char newPath[255];
-				sprintf(newPath, "%s/%s", currentPath, dir->d_name);
-				//printf("dos2unix recurse: %s\n", newPath);
-				idx++;
-				return dos_to_unix_recurse_paths(newPath, dirs, idx);
-			}
+			if (dir->d_name[i] >= 'A' && dir->d_name[i] <= 'Z')
+				buf[i] = 'a' + (dir->d_name[i] - 'A');
+			else
+				buf[i] = dir->d_name[i];
+		}
+		if (!strcmp(buf, dirs[idx]))
+		{
+			char newPath[255];
+			sprintf(newPath, "%s/%s", currentPath, dir->d_name);
+			//printf("dos2unix recurse: %s\n", newPath);
+			idx++;
+			return dos_to_unix_recurse_paths(newPath, dirs, idx);
 		}
 	}
 	// If we still found nothing means the file or folder probably doesn't exist
@@ -616,10 +616,8 @@ char* dos_to_unix(const char* path) {
 	for (i = 0; pathrel[i]; i++) {
 		if (pathrel[i] == '\\')
 			str[i] = '/';
-//#ifdef __linux__
 		else if (pathrel[i] >= 'A' && pathrel[i] <= 'Z')
 			str[i] = 'a' + (pathrel[i] - 'A');
-//#endif
 		else
 			str[i] = pathrel[i];
 	}

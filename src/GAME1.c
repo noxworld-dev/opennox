@@ -299,8 +299,9 @@ int __cdecl cmain(int argc, const char* argv[]) {
 	char cwd[1024]; // [esp+44h] [ebp-400h]
 	_getcwd(cwd, 1023);
 	nox_common_set_data_path_409E20(cwd);
-
-	//nox_common_readSKU_fromRegistry_4D78C0();
+#if 0
+	nox_common_readSKU_fromRegistry_4D78C0();
+#endif
 	_controlfp(0x300u, 0x300u);
 	nox_win_width = 0;
 	nox_xxx_servSetPlrLimit_409F80(32);
@@ -8806,9 +8807,9 @@ char __cdecl sub_414690(unsigned int* a1, void(__stdcall* a2)(char*)) {
 	unsigned int v10; // [esp+Ch] [ebp-1FCh]
 	unsigned int v11; // [esp+10h] [ebp-1F8h]
 	char v12[16];
-	BYTE Data[32];      // [esp+24h] [ebp-1E4h]
-	CHAR ValueName[64]; // [esp+44h] [ebp-1C4h]
-	CHAR SubKey[128];   // [esp+84h] [ebp-184h]
+	//BYTE Data[32];      // [esp+24h] [ebp-1E4h]
+	//CHAR ValueName[64]; // [esp+44h] [ebp-1C4h]
+	//CHAR SubKey[128];   // [esp+84h] [ebp-184h]
 	CHAR Filename[260]; // [esp+104h] [ebp-104h]
 
 	GetModuleFileNameA(0, Filename, 0x104u);
@@ -8829,12 +8830,11 @@ char __cdecl sub_414690(unsigned int* a1, void(__stdcall* a2)(char*)) {
 			}
 		}
 	}
-	Data[0] = 0;
 	v6 = nox_common_getRegistryValue_414A40("Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce", "nxsys") == 0;
 	v7 = *a1;
 	if (v6) {
 		if (v7)
-			LOBYTE(v7) = sub_414A90(SubKey, ValueName, Data);
+			LOBYTE(v7) = nox_common_setRegistryValue_414A90("Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce", "nxsys", "");
 	} else {
 		LOBYTE(v7) = v7 | 4;
 		*a1 = v7;
@@ -8926,7 +8926,7 @@ int __cdecl nox_common_getRegistryValue_414A40(LPCSTR lpSubKey, LPCSTR lpValueNa
 }
 
 //----- (00414A90) --------------------------------------------------------
-int __cdecl sub_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData) {
+int __cdecl nox_common_setRegistryValue_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData) {
 	int v3;              // esi
 	DWORD dwDisposition; // [esp+4h] [ebp-4h]
 

@@ -74,7 +74,10 @@ void init_data() {
 
 	*(void**)getMemAt(0x587000, 98228) = &nox_cmd_help;
 
-	/**(void**)getMemAt(0x587000, 32600) = getMemAt(0x5D4594, 338468);*/
+#if 0
+	*(void**)getMemAt(0x587000, 32600) = getMemAt(0x5D4594, 338468);
+#endif
+
 
 #if 0
     * (void**)getMemAt(0x581450, 4) = &sub_401F81;
@@ -642,8 +645,10 @@ void init_data() {
 #endif
 	*(void**)getMemAt(0x587000, 32584) = getMemAt(0x587000, 32608);
 	*(void**)getMemAt(0x587000, 32588) = getMemAt(0x587000, 32652);
-	/**(void**)getMemAt(0x587000, 32592) = getMemAt(0x587000, 32860);
-	*(void**)getMemAt(0x587000, 32596) = getMemAt(0x587000, 32964);*/
+#if 0
+	*(void**)getMemAt(0x587000, 32592) = getMemAt(0x587000, 32860);
+	*(void**)getMemAt(0x587000, 32596) = getMemAt(0x587000, 32964);
+#endif
 	*(void**)getMemAt(0x587000, 32604) = getMemAt(0x587000, 32980);
 	*(void**)getMemAt(0x587000, 33064) = getMemAt(0x587000, 33704);
 	*(void**)getMemAt(0x587000, 33076) = getMemAt(0x587000, 33708);
