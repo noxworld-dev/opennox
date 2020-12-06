@@ -1484,6 +1484,12 @@ unsigned int renderCommand = 0;
 void (*renderExec)() = NULL;
 SDL_mutex* renderLock = NULL;
 SDL_cond* renderReady = NULL;
+bool renderNotified = false;
+
+bool renderThreadStarted = false;
+
+SDL_mutex* renderExitLock = NULL;
+SDL_cond* renderExitCond = NULL;
 
 typedef struct render_thread_data
 {
@@ -1493,6 +1499,7 @@ typedef struct render_thread_data
 	int depth;
 	int result;
 	SDL_cond* startupWait;
+	SDL_mutex* startupLock;
 } render_thread_data;
 
 int sdl_render_start_threaded(HWND wnd, int width, int height, int depth)
@@ -1513,6 +1520,7 @@ int sdl_render_start_threaded(HWND wnd, int width, int height, int depth)
 		data.height = height;
 		data.depth = depth;
 		data.startupWait = startupWait;
+		data.startupLock = startupLock;
 
 		sdl_render_threaded_specific(false);
 		SDL_LockMutex(startupLock);
@@ -1529,7 +1537,10 @@ int sdl_render_start_threaded(HWND wnd, int width, int height, int depth)
 			renderReady = 0;
 			return nox_client_initRender_48A040(wnd, width, height, depth);
 		}
-		SDL_CondWait(startupWait, startupLock);
+		while (!renderThreadStarted)
+		{
+			SDL_CondWait(startupWait, startupLock);
+		}
 		SDL_UnlockMutex(startupLock);
 		SDL_DestroyMutex(startupLock);
 		SDL_DestroyCond(startupWait);
@@ -1556,19 +1567,38 @@ void sdl_render_notify_thread(unsigned int cmd, void (*exec)())
 		renderExec = exec;
 		break;
 	case RENDER_THREAD_EXIT:
+		renderExitLock = SDL_CreateMutex();
+		renderExitCond = SDL_CreateCond();
+		SDL_LockMutex(renderExitLock);
 		break;
 	default:
 		DebugBreak();
 	}
+	renderNotified = true;
 	SDL_CondSignal(renderReady);
 	SDL_UnlockMutex(renderLock);
+	if (cmd == RENDER_THREAD_EXIT)
+	{
+		while (renderThreadStarted)
+		{
+			SDL_CondWait(renderExitCond, renderExitLock);
+		}
+		SDL_UnlockMutex(renderExitLock);
+		SDL_DestroyMutex(renderExitLock);
+		SDL_DestroyCond(renderExitCond);
+	}
 }
 
 void __cdecl sdl_render_threaded(void* d)
 {
+	printf("Render thread created!\n");
 	render_thread_data* data = d;
 	data->result = nox_client_initRender_48A040(data->wnd, data->width, data->height, data->depth);
+	SDL_LockMutex(data->startupLock);
+	renderThreadStarted = true;
+	renderNotified = false;
 	SDL_CondSignal(data->startupWait);
+	SDL_UnlockMutex(data->startupLock);
 	while (true)
 	{
 		void (*exec)() = NULL;
@@ -1576,13 +1606,17 @@ void __cdecl sdl_render_threaded(void* d)
 		SDL_mutex* lRenderLock = renderLock;
 		SDL_cond* lRenderReady = renderReady;
 		SDL_LockMutex(lRenderLock);
-		SDL_CondWait(lRenderReady, lRenderLock);
+		while (!renderNotified)
+		{
+			SDL_CondWait(lRenderReady, lRenderLock);
+		}
 		cmd = renderCommand;
 		exec = renderExec;
 		if (cmd == RENDER_THREAD_RENDER)
 		{
 			sdl_render_threaded_get_backbuffer();
 		}
+		renderNotified = false;
 		SDL_UnlockMutex(lRenderLock);
 		switch (cmd)
 		{
@@ -1593,9 +1627,15 @@ void __cdecl sdl_render_threaded(void* d)
 			exec();
 			break;
 		case RENDER_THREAD_EXIT:
+			sdl_render_threaded_specific(true);
 			SDL_DestroyCond(lRenderReady);
 			SDL_DestroyMutex(lRenderLock);
-			sdl_render_threaded_specific(true);
+
+			renderThreadStarted = false;
+			SDL_CondSignal(renderExitCond);
+
+			SDL_UnlockMutex(renderExitLock);
+			printf("Render thread exited!\n");
 			return;
 		default:
 			DebugBreak();
