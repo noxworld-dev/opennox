@@ -669,6 +669,10 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 	// If we still found nothing means the file or folder probably doesn't exist
 	// Let's just return whatever we constructed before with anything left
 	char temp[NOX_FILEPATH_MAX];
+	int i;
+	for (i = 0; unparsedPath[i]; i++)
+		if (unparsedPath[i] >= 'A' && unparsedPath[i] <= 'Z')
+			unparsedPath[i] = 'a' + (unparsedPath[i] - 'A');
 	sprintf(temp, "%s/%s", currentPath, unparsedPath);
 	strcpy(currentPath, temp);
 	printf("dos2unix: file not found, returning %s\n", currentPath);
