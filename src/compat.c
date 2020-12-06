@@ -8,7 +8,8 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include <wctype.h>
-#include <dirent.h> 
+#include <dirent.h>
+#include <errno.h>
 
 #include <SDL2/SDL_stdinc.h>
 
@@ -544,36 +545,93 @@ BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
 	return TRUE;
 }
 
-char* dos_to_unix_recurse_paths(char* currentPath, char dirs[10][255], int idx)
+char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 {
 	// Check if we still have something left to recurse
-	if (dirs[idx][0] == 0)
+	if (unparsedPath[0] == 0 || (unparsedPath[0] == '/' && unparsedPath[1] == 0))
 	{
-		char* result = malloc(strlen(currentPath) + 1);
-		strcpy(result, currentPath);
-		//printf("recurse finish: %s\n", result);
-		return result;
+		return currentPath;
+	}
+
+	// Extract the current token from the unparsed string
+	char dirOrig[NOX_FILEPATH_MAX] = { 0 };
+	char dirLower[NOX_FILEPATH_MAX] = { 0 };
+	char* unparsedLeft = unparsedPath;
+	char* token = strchr(unparsedLeft, '/');
+	if (token != NULL)
+	{
+		strncpy(dirOrig, unparsedLeft, token - unparsedLeft);
+		unparsedLeft += strlen(dirOrig) + 1;
+		int i;
+		for (i = 0; dirOrig[i]; i++) {
+			if (dirOrig[i] >= 'A' && dirOrig[i] <= 'Z')
+				dirLower[i] = 'a' + (dirOrig[i] - 'A');
+			else
+				dirLower[i] = dirOrig[i];
+		}
+	}
+	else
+	{
+		strcpy(dirOrig, unparsedLeft);
+		unparsedLeft += strlen(dirOrig);
+		int i;
+		for (i = 0; dirOrig[i]; i++) {
+			if (dirOrig[i] >= 'A' && dirOrig[i] <= 'Z')
+				dirLower[i] = 'a' + (dirOrig[i] - 'A');
+			else
+				dirLower[i] = dirOrig[i];
+		}
 	}
 
 	// Special check for glob characters
-	if (strchr(dirs[idx], '*'))
+	if (strchr(dirOrig, '*'))
 	{
-		//printf("GLOB: %d %s %s %s %s\n", currentPath, dirs[0], dirs[1], dirs[2]);
-		char* result = malloc(strlen(currentPath) + strlen(dirs[idx]) + 3);
-		sprintf(result, "%s/%s", currentPath, dirs[idx]);
-		return result;
+		char temp[NOX_FILEPATH_MAX];
+		sprintf(temp, "%s/%s", currentPath, dirOrig);
+		strcpy(currentPath, temp);
+		return currentPath;
 	}
 
 	// Open the directory and compare all the lowercased files/folders with the current lowercased token
-	DIR* d = opendir(currentPath);
+	DIR* d = opendir(currentPath[0] == 0 ? "/" : currentPath);
 	if (!d)
-		return NULL;
+	{
+		printf("Opendir errno: %d\n", errno);
+		//DebugBreak();
+		// If we couldn't open the directory, just assume it's correct - this might be access errors in root paths
+		char temp[NOX_FILEPATH_MAX];
+		sprintf(temp, "%s/%s", currentPath, dirOrig);
+		strcpy(currentPath, temp);
+		return dos_to_unix_recurse_paths(currentPath, unparsedLeft);
+	}
 
 	struct dirent* dir;
+	char foundLowerCaseExact[NOX_FILEPATH_MAX] = { 0 };
+	char foundLowerCase[NOX_FILEPATH_MAX] = { 0 };
+
 	while ((dir = readdir(d)) != NULL)
 	{
 		int i;
-		char buf[255] = { 0 };
+
+		// First we try to match an exact match
+		if (!strcmp(dir->d_name, dirOrig))
+		{
+			char temp[NOX_FILEPATH_MAX];
+			sprintf(temp, "%s/%s", currentPath, dirOrig);
+			strcpy(currentPath, temp);
+			closedir(d);
+			return dos_to_unix_recurse_paths(currentPath, unparsedLeft);
+		}
+
+		// Next we try to match an existing lowercased version
+		if (!strcmp(dir->d_name, dirLower))
+		{
+			strcpy(foundLowerCaseExact, dir->d_name);
+			// We do not break because we still hope to find an exact match
+		}
+
+		// And then we try to match whatever left, by lowercasing whatever we got
+		char buf[NOX_FILEPATH_MAX] = { 0 };
 		for (i = 0; dir->d_name[i]; i++)
 		{
 			if (dir->d_name[i] >= 'A' && dir->d_name[i] <= 'Z')
@@ -581,91 +639,139 @@ char* dos_to_unix_recurse_paths(char* currentPath, char dirs[10][255], int idx)
 			else
 				buf[i] = dir->d_name[i];
 		}
-		if (!strcmp(buf, dirs[idx]))
+
+		if (!strcmp(buf, dirLower))
 		{
-			char newPath[255];
-			sprintf(newPath, "%s/%s", currentPath, dir->d_name);
-			//printf("dos2unix recurse: %s\n", newPath);
-			idx++;
-			return dos_to_unix_recurse_paths(newPath, dirs, idx);
+			strcpy(foundLowerCase, dir->d_name);
+			// We do not break because we still hope to find an exact or lowercased match
 		}
 	}
+	closedir(d);
+
+	// Now check if we found an exact lowercased match
+	if (foundLowerCaseExact[0] != 0)
+	{
+		char temp[NOX_FILEPATH_MAX];
+		sprintf(temp, "%s/%s", currentPath, foundLowerCaseExact);
+		strcpy(currentPath, temp);
+		return dos_to_unix_recurse_paths(currentPath, unparsedLeft);
+	}
+
+	// ... or at least a fully lowercased one?
+	if (foundLowerCase[0] != 0)
+	{
+		char temp[NOX_FILEPATH_MAX];
+		sprintf(temp, "%s/%s", currentPath, foundLowerCase);
+		strcpy(currentPath, temp);
+		return dos_to_unix_recurse_paths(currentPath, unparsedLeft);
+	}
+
 	// If we still found nothing means the file or folder probably doesn't exist
-	return NULL;
+	// Let's just return whatever we constructed before with anything left
+	char temp[NOX_FILEPATH_MAX];
+	sprintf(temp, "%s/%s", currentPath, unparsedPath);
+	strcpy(currentPath, temp);
+	printf("dos2unix: file not found, returning %s\n", currentPath);
+	return currentPath;
 }
 
 // File functions
 char* dos_to_unix(const char* path) {
 	int i, len = strlen(path);
-	char* str = malloc(len + 10);
+	
 
 	//printf("dos2unix: accessing file %s\n", path);
 
 	if (path[0] == 'C' && path[1] == ':')
 		path += 2;
 
-	// Let's first convert the full path into relative path against cwd (all Nox files are in one place)
-	char* pathrel = path;
-	char* curpath = nox_common_get_data_path_409E10();
-	//printf("dos2unix: curpath: %s\n", curpath);
-	if (strlen(curpath) > 0 && curpath[0] == '/' && strstr(pathrel, curpath) == pathrel)
+	// Let's first convert relative paths into full paths
+	char cwd[NOX_FILEPATH_MAX];
+	GetCurrentDirectoryA(NOX_FILEPATH_MAX-1, cwd);
+
+	char* str = calloc(len + strlen(cwd) + 10, 1);
+
+	bool absolute = true;
+
+	if (path[0] != '\\')
 	{
-		pathrel += strlen(curpath) + 1;
+		absolute = false;
+		sprintf(str, "%s/%s", cwd, path);
+	}
+	else
+	{
+		strcpy(str, path);
 	}
 
-	for (i = 0; pathrel[i]; i++) {
-		if (pathrel[i] == '\\')
+	// Fixup dir separators
+	for (i = 0; str[i]; i++) {
+		if (str[i] == '\\')
 			str[i] = '/';
-		else if (pathrel[i] >= 'A' && pathrel[i] <= 'Z')
-			str[i] = 'a' + (pathrel[i] - 'A');
-		else
-			str[i] = pathrel[i];
 	}
-	str[i] = 0;
 
+	// Check if exact filename exists
 	if (!access(str, 0))
 	{
 		//printf("dos2unix: file %s exists, fast translate to %s\n", path, str);
 		return str;
 	}
 
-	// If we're still here it means we didn't managed to find the file, we need to check for case now
-
-	// First split the file into directory tokens
-	// Tbh 10 subfolders should be enough, Nox uses only 3 maximum anyway
-	char dirs[10][255];
-	memset(dirs, 0, sizeof(char) * 10 * 255);
-	char* pntr = str;
-	int idx = 0;
-	char* find;
-	char* strend = str + len;
-	while (find = strchr(pntr, '/'))
-	{
-		//find = strchr(pntr, '/');
-		strncpy(dirs[idx], pntr, find - pntr);
-		pntr = find+1;
-		if (pntr > strend)
-		{
-			break;
-		}
-		//printf("dos2unix dirs: %s\n", dirs[idx]);
-		idx++;
+	// Check if lowered filename exists
+	char* pathLowercased = calloc(len + strlen(cwd) + 10, 1);
+	for (i = 0; str[i]; i++) {
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			pathLowercased[i] = 'a' + (str[i] - 'A');
+		else
+			pathLowercased[i] = str[i];
 	}
-	strncpy(dirs[idx], pntr, str + len - pntr);
-	//printf("dos2unix last: %s\n", dirs[idx]);
-
-	// Now list every directory recursively until we find a match
-	char* recursedPath = dos_to_unix_recurse_paths(".", dirs, 0);
-
-	// File does not exist, just return the original path
-	if (!recursedPath)
+	pathLowercased[i] = 0;
+	if (!access(pathLowercased, 0))
 	{
-		printf("dos2unix: file %s not found in any case, returning %s\n", path, str);
+		//printf("dos2unix: file %s exists, fast translate to %s\n", path, str);
+		free(str);
+		return pathLowercased;
+	}
+	free(pathLowercased);
+	
+	// If we're still here it means we didn't managed to find the file, we need to check for case now
+	char* resultBuffer = calloc(len + strlen(cwd) + 10, 1);
+
+	char* dataPath = nox_common_get_data_path_409E10();
+
+	char* strPntr = &str[1];
+	if (strstr(str, cwd) == str)
+	{
+		strPntr = str + strlen(cwd) + 1;
+		strcpy(resultBuffer, cwd);
+	}
+	else if (strlen(dataPath) > 0 && dataPath[0] == '/' && strstr(str, dataPath))
+	{
+		strPntr = str + strlen(dataPath) + 1;
+		strcpy(resultBuffer, dataPath);
+	}
+
+	// We skip the leading "/" as we already have it (we start seeking from root folder)
+	char* result = dos_to_unix_recurse_paths(resultBuffer, strPntr);
+
+	// Something terribly wrong, just break here
+	if (!result)
+	{
+		DebugBreak();
+		free(resultBuffer);
 		return str;
 	}
-	//printf("dos2unix: translated %s into %s\n", path, recursedPath);
+
+	if (!absolute)
+	{
+		result = calloc(strlen(resultBuffer), 1);
+		strcpy(result, &resultBuffer[strlen(cwd) + 1]);
+		free(resultBuffer);
+	}
+
+	// Success, return it
+	//printf("dos2unix: translated %s into %s\n", path, result);
 	free(str);
-	return recursedPath;
+	return result;
 }
 
 struct _FIND_FILE {
@@ -716,6 +822,8 @@ BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 
 	if (ff->idx >= ff->globbuf.gl_pathc) {
 		last_error = ERROR_NO_MORE_FILES;
+		globfree(&ff->globbuf);
+		free(ff);
 		return FALSE;
 	}
 
@@ -724,10 +832,12 @@ BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 }
 
 BOOL WINAPI FindClose(HANDLE hFindFile) {
-	struct _FIND_FILE* ff = (struct _FIND_FILE*)hFindFile;
 
-	globfree(&ff->globbuf);
-	free(ff);
+	// It is freed already
+	//struct _FIND_FILE* ff = (struct _FIND_FILE*)hFindFile;
+
+	/*globfree(&ff->globbuf);
+	free(ff);*/
 	return TRUE;
 }
 
