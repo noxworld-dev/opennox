@@ -545,6 +545,8 @@ BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
 	return TRUE;
 }
 
+//#define DOS2UNIX_LOGGING
+
 char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 {
 	// Check if we still have something left to recurse
@@ -606,28 +608,28 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 	}
 
 	struct dirent* dir;
-	char foundLowerCaseExact[NOX_FILEPATH_MAX] = { 0 };
-	char foundLowerCase[NOX_FILEPATH_MAX] = { 0 };
+	char foundExactCase[NOX_FILEPATH_MAX] = { 0 };
+	char foundAnyCase[NOX_FILEPATH_MAX] = { 0 };
 
 	while ((dir = readdir(d)) != NULL)
 	{
 		int i;
 
-		// First we try to match an exact match
-		if (!strcmp(dir->d_name, dirOrig))
+		// First we try to match a lowercased match
+		if (!strcmp(dir->d_name, dirLower))
 		{
 			char temp[NOX_FILEPATH_MAX];
-			sprintf(temp, "%s/%s", currentPath, dirOrig);
+			sprintf(temp, "%s/%s", currentPath, dirLower);
 			strcpy(currentPath, temp);
 			closedir(d);
 			return dos_to_unix_recurse_paths(currentPath, unparsedLeft);
 		}
 
-		// Next we try to match an existing lowercased version
-		if (!strcmp(dir->d_name, dirLower))
+		// Next we try to match an existing exact matched version
+		if (!strcmp(dir->d_name, dirOrig))
 		{
-			strcpy(foundLowerCaseExact, dir->d_name);
-			// We do not break because we still hope to find an exact match
+			strcpy(foundExactCase, dir->d_name);
+			// We do not break because we still hope to find a lowercased match
 		}
 
 		// And then we try to match whatever left, by lowercasing whatever we got
@@ -642,27 +644,33 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 
 		if (!strcmp(buf, dirLower))
 		{
-			strcpy(foundLowerCase, dir->d_name);
+			strcpy(foundAnyCase, dir->d_name);
 			// We do not break because we still hope to find an exact or lowercased match
 		}
 	}
 	closedir(d);
 
-	// Now check if we found an exact lowercased match
-	if (foundLowerCaseExact[0] != 0)
+	// Now check if we found an exact match
+	if (foundExactCase[0] != 0)
 	{
 		char temp[NOX_FILEPATH_MAX];
-		sprintf(temp, "%s/%s", currentPath, foundLowerCaseExact);
+		sprintf(temp, "%s/%s", currentPath, foundExactCase);
 		strcpy(currentPath, temp);
+#ifdef DOS2UNIX_LOGGING
+		printf("dos2unix: file %s not found in lower case, returning exact found case %s\n", dirOrig, foundExactCase);
+#endif
 		return dos_to_unix_recurse_paths(currentPath, unparsedLeft);
 	}
 
-	// ... or at least a fully lowercased one?
-	if (foundLowerCase[0] != 0)
+	// ... or at least in any case?
+	if (foundAnyCase[0] != 0)
 	{
 		char temp[NOX_FILEPATH_MAX];
-		sprintf(temp, "%s/%s", currentPath, foundLowerCase);
+		sprintf(temp, "%s/%s", currentPath, foundAnyCase);
 		strcpy(currentPath, temp);
+#ifdef DOS2UNIX_LOGGING
+		printf("dos2unix: file %s not found in lower or exact case, returning any other found case %s\n", dirOrig, foundAnyCase);
+#endif
 		return dos_to_unix_recurse_paths(currentPath, unparsedLeft);
 	}
 
@@ -675,7 +683,9 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 			unparsedPath[i] = 'a' + (unparsedPath[i] - 'A');
 	sprintf(temp, "%s/%s", currentPath, unparsedPath);
 	strcpy(currentPath, temp);
-	printf("dos2unix: file not found, returning %s\n", currentPath);
+#ifdef DOS2UNIX_LOGGING
+	printf("dos2unix: file %s not found, returning %s\n", dirOrig, currentPath);
+#endif
 	return currentPath;
 }
 
@@ -683,7 +693,6 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 char* dos_to_unix(const char* path) {
 	int i, len = strlen(path);
 	
-
 	//printf("dos2unix: accessing file %s\n", path);
 
 	if (path[0] == 'C' && path[1] == ':')
@@ -692,6 +701,7 @@ char* dos_to_unix(const char* path) {
 	// Let's first convert relative paths into full paths
 	char cwd[NOX_FILEPATH_MAX];
 	GetCurrentDirectoryA(NOX_FILEPATH_MAX-1, cwd);
+	bool isInCwd = false;
 
 	char* str = calloc(len + strlen(cwd) + 10, 1);
 
@@ -701,6 +711,7 @@ char* dos_to_unix(const char* path) {
 	{
 		absolute = false;
 		sprintf(str, "%s/%s", cwd, path);
+		isInCwd = true;
 	}
 	else
 	{
@@ -713,16 +724,45 @@ char* dos_to_unix(const char* path) {
 			str[i] = '/';
 	}
 
-	// Check if exact filename exists
-	if (!access(str, 0))
+	char* dataPathUnfixed = nox_common_get_data_path_409E10();
+	char dataPath[NOX_FILEPATH_MAX];
+	strcpy(dataPath, dataPathUnfixed);
+
+	for (i = 0; dataPath[i]; i++) {
+		if (dataPath[i] == '\\')
+			dataPath[i] = '/';
+	}
+
+	for (i = 0; cwd[i]; i++) {
+		if (cwd[i] == '\\')
+			cwd[i] = '/';
+	}
+	
+	// Find out which known path part is in out path part to reduce lookups
+	bool isInDataPath = false;
+	if (absolute && !isInCwd && strstr(str, cwd) == str)
 	{
-		//printf("dos2unix: file %s exists, fast translate to %s\n", path, str);
-		return str;
+		isInCwd = true;
+	}
+
+	if (!isInCwd && strlen(dataPath) > 0 && dataPath[0] == '/' && strstr(str, dataPath) == str)
+	{
+		isInDataPath = true;
 	}
 
 	// Check if lowered filename exists
+	// We do not lowercase the known path
 	char* pathLowercased = calloc(len + strlen(cwd) + 10, 1);
-	for (i = 0; str[i]; i++) {
+	int seekLoc = 0;
+	if (isInCwd && seekLoc == 0)
+	{
+		seekLoc = strlen(cwd) + 1;
+	}
+	else if (isInDataPath && seekLoc == 0)
+	{
+		seekLoc = strlen(dataPath) + 1;
+	}
+	for (i = seekLoc; str[i]; i++) {
 		if (str[i] >= 'A' && str[i] <= 'Z')
 			pathLowercased[i] = 'a' + (str[i] - 'A');
 		else
@@ -731,24 +771,47 @@ char* dos_to_unix(const char* path) {
 	pathLowercased[i] = 0;
 	if (!access(pathLowercased, 0))
 	{
-		//printf("dos2unix: file %s exists, fast translate to %s\n", path, str);
+		if (!absolute)
+		{
+			char* result = calloc(strlen(pathLowercased) + 1, 1);
+			strcpy(result, &pathLowercased[strlen(cwd) + 1]);
+			free(pathLowercased);
+			pathLowercased = result;
+		}
+#ifdef DOS2UNIX_LOGGING
+		printf("dos2unix: file %s exists, fast lowercase translate to %s\n", path, pathLowercased);
+#endif
 		free(str);
 		return pathLowercased;
 	}
 	free(pathLowercased);
+
+	// Check if exact filename exists
+	if (!access(str, 0))
+	{
+		if (!absolute)
+		{
+			char* result = calloc(strlen(str) + 1, 1);
+			strcpy(result, &str[strlen(cwd) + 1]);
+			free(str);
+			str = result;
+		}
+#ifdef DOS2UNIX_LOGGING
+		printf("dos2unix: file %s exists, fast exact translate to %s\n", path, str);
+#endif
+		return str;
+	}
 	
 	// If we're still here it means we didn't managed to find the file, we need to check for case now
 	char* resultBuffer = calloc(len + strlen(cwd) + 10, 1);
 
-	char* dataPath = nox_common_get_data_path_409E10();
-
 	char* strPntr = &str[1];
-	if (strstr(str, cwd) == str)
+	if (isInCwd)
 	{
 		strPntr = str + strlen(cwd) + 1;
 		strcpy(resultBuffer, cwd);
 	}
-	else if (strlen(dataPath) > 0 && dataPath[0] == '/' && strstr(str, dataPath))
+	else if (isInDataPath)
 	{
 		strPntr = str + strlen(dataPath) + 1;
 		strcpy(resultBuffer, dataPath);
@@ -773,7 +836,9 @@ char* dos_to_unix(const char* path) {
 	}
 
 	// Success, return it
-	//printf("dos2unix: translated %s into %s\n", path, result);
+#ifdef DOS2UNIX_LOGGING
+	printf("dos2unix: translated %s into %s\n", path, result);
+#endif
 	free(str);
 	return result;
 }
