@@ -566,10 +566,7 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 		unparsedLeft += strlen(dirOrig) + 1;
 		int i;
 		for (i = 0; dirOrig[i]; i++) {
-			if (dirOrig[i] >= 'A' && dirOrig[i] <= 'Z')
-				dirLower[i] = 'a' + (dirOrig[i] - 'A');
-			else
-				dirLower[i] = dirOrig[i];
+			dirLower[i] = tolower(dirOrig[i]);
 		}
 	}
 	else
@@ -578,10 +575,7 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 		unparsedLeft += strlen(dirOrig);
 		int i;
 		for (i = 0; dirOrig[i]; i++) {
-			if (dirOrig[i] >= 'A' && dirOrig[i] <= 'Z')
-				dirLower[i] = 'a' + (dirOrig[i] - 'A');
-			else
-				dirLower[i] = dirOrig[i];
+			dirLower[i] = tolower(dirOrig[i]);
 		}
 	}
 
@@ -636,10 +630,7 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 		char buf[NOX_FILEPATH_MAX] = { 0 };
 		for (i = 0; dir->d_name[i]; i++)
 		{
-			if (dir->d_name[i] >= 'A' && dir->d_name[i] <= 'Z')
-				buf[i] = 'a' + (dir->d_name[i] - 'A');
-			else
-				buf[i] = dir->d_name[i];
+			buf[i] = tolower(dir->d_name[i]);
 		}
 
 		if (!strcmp(buf, dirLower))
@@ -679,8 +670,8 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 	char temp[NOX_FILEPATH_MAX];
 	int i;
 	for (i = 0; unparsedPath[i]; i++)
-		if (unparsedPath[i] >= 'A' && unparsedPath[i] <= 'Z')
-			unparsedPath[i] = 'a' + (unparsedPath[i] - 'A');
+		if (isupper(unparsedPath[i]))
+			unparsedPath[i] = tolower(unparsedPath[i]);
 	sprintf(temp, "%s/%s", currentPath, unparsedPath);
 	strcpy(currentPath, temp);
 #ifdef DOS2UNIX_LOGGING
@@ -763,12 +754,9 @@ char* dos_to_unix(const char* path) {
 		seekLoc = strlen(dataPath) + 1;
 	}
 	for (i = seekLoc; str[i]; i++) {
-		if (str[i] >= 'A' && str[i] <= 'Z')
-			pathLowercased[i] = 'a' + (str[i] - 'A');
-		else
-			pathLowercased[i] = str[i];
+		pathLowercased[i] = tolower(str[i]);
 	}
-	pathLowercased[i] = 0;
+
 	if (!access(pathLowercased, 0))
 	{
 		if (!absolute)
@@ -1152,10 +1140,6 @@ int _unlink(const char* filename) {
 char* _getcwd(char* buffer, int maxlen) {
 	int i;
 
-	if (maxlen < 2)
-		return NULL;
-
-	//strcpy(buffer, "C:");
 	if (!getcwd(buffer, maxlen))
 		return NULL;
 
