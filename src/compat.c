@@ -879,8 +879,6 @@ BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 
 	if (ff->idx >= ff->globbuf.gl_pathc) {
 		last_error = ERROR_NO_MORE_FILES;
-		globfree(&ff->globbuf);
-		free(ff);
 		return FALSE;
 	}
 
@@ -889,12 +887,10 @@ BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 }
 
 BOOL WINAPI FindClose(HANDLE hFindFile) {
+	struct _FIND_FILE* ff = (struct _FIND_FILE*)hFindFile;
 
-	// It is freed already
-	//struct _FIND_FILE* ff = (struct _FIND_FILE*)hFindFile;
-
-	/*globfree(&ff->globbuf);
-	free(ff);*/
+	globfree(&ff->globbuf);
+	free(ff);
 	return TRUE;
 }
 
