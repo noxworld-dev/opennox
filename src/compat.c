@@ -413,7 +413,7 @@ int WINAPI recvfrom(int sockfd, void* buffer, unsigned int length, int flags, st
 	struct sockaddr_in* addr_in = addr;
 	ret = EM_ASM_INT(({
 						 const[remote, port, data] = network.recvfrom($4);
-						 if (remote == = null)
+						 if (remote === null)
 							 return -1;
 						 const length = Math.min(data.length, $1);
 						 Module.HEAPU8.set(new Uint8Array(data, 0, length), $0);

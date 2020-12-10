@@ -18,13 +18,10 @@ WORKDIR /home/runner/emsdk
 USER runner
 
 RUN ./emsdk install latest && \
-    ./emsdk activate latest && \
-    ./emsdk_env.sh
+    ./emsdk activate latest
 
 ENV PATH="/home/runner/emsdk/upstream/emscripten:${PATH}"
 
 COPY --chown=runner ./start_wasm.sh /home/runner/
-RUN chmod u+x /home/runner/start_wasm.sh
 
-ENTRYPOINT ["sh", "-c"]
-CMD ["/home/runner/start_wasm.sh"]
+ENTRYPOINT ["/home/runner/start_wasm.sh"]
