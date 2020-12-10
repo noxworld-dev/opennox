@@ -187,7 +187,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	*(_DWORD*)&Data[101] = v4;
 	nox_xxx_regGetSerial_420120(&Data[105]);
 	if (!sub_43AF70()) {
-		sub_40E0D0((int) &Data[105], (LPCSTR) getMemAt(0x587000, 86344), 0);
+		nox_common_getInstallPath_40E0D0((int) &Data[105], (LPCSTR) getMemAt(0x587000, 86344), 0);
 	}
 	Data[152] = !nox_xxx_checkConjSoloMap_40ABD0();
 	if (getMemByte(0x5D4594, 2660684) & 4) {

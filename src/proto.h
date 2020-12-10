@@ -371,7 +371,7 @@ void sub_40E090();
 void nox_xxx____setargv_0_40E0A0();
 BOOL sub_40E0B0();
 int sub_40E0C0();
-int __cdecl sub_40E0D0(int, LPCSTR lpSubKey, int); // idb
+int __cdecl nox_common_getInstallPath_40E0D0(int, LPCSTR lpSubKey, int); // idb
 int __stdcall sub_40E260(int(__stdcall*** a1)(_DWORD, void*, int*), int a2, int a3, int a4);
 int __stdcall sub_40E320(int(__stdcall*** a1)(_DWORD, void*, int*), int a2, int a3);
 int __thiscall sub_40E3D0(int* this);
@@ -586,9 +586,9 @@ BOOL __cdecl sub_4147E0(HWND hWnd);
 int sub_414800();
 unsigned int __cdecl sub_4148D0(LPCSTR lpFileName);
 int __cdecl sub_4149A0(LPCSTR lpFileName, LPVOID lpBuffer, LPVOID, LPVOID); // idb
-int __cdecl sub_414A40(LPCSTR lpSubKey, LPCSTR lpValueName);                // idb
-int __cdecl sub_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData);  // idb
-char* __cdecl sub_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMultiByte);
+int __cdecl nox_common_getRegistryValue_414A40(LPCSTR lpSubKey, LPCSTR lpValueName);                // idb
+int __cdecl nox_common_setRegistryValue_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData);  // idb
+char* __cdecl nox_common_convertWideToMbString_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMultiByte);
 void nox_common_readHiddenExeMsg_414B30(uint8_t* src_8byte, uint8_t* dst_12byte);
 int __cdecl sub_414BA0(int a1);
 int __cdecl sub_414BD0(signed int a1);
@@ -3939,7 +3939,7 @@ int __cdecl sub_4D0250(char* a1, char* a2, int a3, int a4);
 int __cdecl sub_4D0550(char* a1);
 int __cdecl sub_4D0670(char* a1);
 _DWORD* __cdecl sub_4D0760(int a1);
-HANDLE sub_4D07F0();
+HANDLE nox_common_scanAllMaps_4D07F0();
 void sub_4D0970();
 int* nox_xxx_validateMapList_4D09B0();
 int* __cdecl sub_4D09C0(int* a1);
