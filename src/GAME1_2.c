@@ -8519,7 +8519,7 @@ int __cdecl nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 	*(_DWORD*)&Data[101] = v4;
 	nox_xxx_regGetSerial_420120(&Data[105]);
 	if (!sub_43AF70())
-		sub_40E0D0((int)&Data[105], (LPCSTR)getMemAt(0x587000, 86344), 0);
+		nox_common_getInstallPath_40E0D0((int)&Data[105], (LPCSTR)getMemAt(0x587000, 86344), 0);
 	Data[152] = !nox_xxx_checkConjSoloMap_40ABD0();
 	if (getMemByte(0x5D4594, 2660684) & 4)
 		Data[152] |= 0x80u;
@@ -9124,7 +9124,7 @@ int nox_xxx_initSomethingNetGame_438A90() {
 	/*if (*/ nox_xxx_regGetSerial_420120((LPBYTE)&buf[56]); //)
 	{
 		/*if ( !*(_DWORD *)&dword_587000_87404 )
-		  sub_40E0D0((int)&buf[56], (LPCSTR)getMemAt(0x587000, 89088), 0);*/
+		  nox_common_getInstallPath_40E0D0((int)&buf[56], (LPCSTR)getMemAt(0x587000, 89088), 0);*/
 		v3 = nox_xxx_checkConjSoloMap_40ABD0();
 		buf[55] = getMemByte(0x5D4594, 2661960);
 		buf[54] = getMemByte(0x5D4594, 2661958);

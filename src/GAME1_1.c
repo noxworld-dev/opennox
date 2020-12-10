@@ -5032,9 +5032,9 @@ LSTATUS sub_420030() {
 	*getMemU32Ptr(0x587000, 60072) = -1;
 	result = RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult);
 	if (!result) {
-		if (!RegQueryValueExA(phkResult, (LPCSTR)getMemAt(0x587000, 60100), 0, &Type, Data, &cbData) && Type == 4) {
+		if (!RegQueryValueExA(phkResult, "SKU", 0, &Type, Data, &cbData) && Type == 4) {
 			*getMemU32Ptr(0x587000, 60072) = *(_DWORD*)Data;
-			nox_sprintf((char*)getMemAt(0x5D4594, 534780), "%s%d_", getMemAt(0x587000, 60104), *(_DWORD*)Data >> 8);
+			nox_sprintf((char*)getMemAt(0x5D4594, 534780), "%s%d_", "Lob_", *(_DWORD*)Data >> 8);
 		}
 		result = RegCloseKey(phkResult);
 	}
@@ -5067,7 +5067,7 @@ int __cdecl nox_xxx_regGetSerial_420120(LPBYTE lpData) {
 	cbData = 23;
 	res = RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult);
 	if (!res) {
-		res = RegQueryValueExA(phkResult, (LPCSTR)getMemAt(0x587000, 60144), 0, &Type, lpData, &cbData);
+		res = RegQueryValueExA(phkResult, "Serial", 0, &Type, lpData, &cbData);
 		if (!res && Type == 1)
 			v1 = 1;
 		RegCloseKey(phkResult);
