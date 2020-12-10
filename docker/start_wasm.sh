@@ -1,7 +1,7 @@
-#! /bin/sh
+#!/bin/sh
 set -xe
 
 cd ~/emsdk
-emconfigure cmake ~/src
+emcmake cmake ~/src
 emmake make
 cp out* ~/bin/
