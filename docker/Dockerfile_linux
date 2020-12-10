@@ -2,7 +2,5 @@ FROM nox:base_build_image
 USER runner
 
 COPY --chown=runner ./start_linux.sh /home/runner/
-RUN chmod u+x /home/runner/start_linux.sh
 
-ENTRYPOINT ["sh", "-c"]
-CMD ["/home/runner/start_linux.sh"]
+ENTRYPOINT ["/home/runner/start_linux.sh"]

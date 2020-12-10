@@ -26,7 +26,7 @@ __setup_dir_structure() {
 
 __build_docker_images() {
 	echo "Building builder images..."
-	docker build -t nox:base_build_image -f "${DOCKERFILES_DIR}/Dockerfile_base" "${DOCKERFILES_DIR}"
+	docker build --build-arg GID=$(id -g) --build-arg UID=$(id -u) -t nox:base_build_image -f "${DOCKERFILES_DIR}/Dockerfile_base" "${DOCKERFILES_DIR}"
 	if [ $? -ne 0 ]
 	then
 		>&2 echo "ERROR: Failed to build base build image"
@@ -89,7 +89,9 @@ __build_app_wasm() {
 		return 2
 	fi
 
-	cp ${DIR}/src/ws-server/static/* ${DIR}/build/web/
+	git clone git@github.com:noxworld-dev/nox-ws-server.git /tmp/nox-ws-server
+	cp /tmp/nox-ws-server/static/* ${DIR}/build/web/
+	rm -rf /tmp/nox-ws-server
 	return $?
 }
 
