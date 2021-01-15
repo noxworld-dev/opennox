@@ -752,6 +752,17 @@ typedef struct nox_keyboard_btn_t {
 } nox_keyboard_btn_t;
 _Static_assert(sizeof(nox_keyboard_btn_t) == 8, "wrong size of nox_keyboard_btn_t structure!");
 
+#define NOX_CTRLEVENT_XXX_MAX 128
+typedef struct nox_ctrlevent_xxx_t {
+	_DWORD field_0;
+	_DWORD field_4;
+	_DWORD field_8;
+	_DWORD field_12;
+	_DWORD field_16;
+	_DWORD field_20;
+} nox_ctrlevent_xxx_t;
+_Static_assert(sizeof(nox_ctrlevent_xxx_t) == 24, "wrong size of nox_ctrlevent_xxx_t structure!");
+
 typedef struct obj_5D4594_3799572_t {
 	_DWORD data[264];
 } obj_5D4594_3799572_t;

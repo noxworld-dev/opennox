@@ -4159,7 +4159,7 @@ unsigned int nox_xxx_netBuf_42D510() {
 						*getMemU32Ptr(0x5D4594, 747864) += result;
 					}
 				}
-				v3 = (v3 + 1) % 128;
+				v3 = (v3 + 1) % NOX_CTRLEVENT_XXX_MAX;
 			} while (v3 != dword_5d4594_754036);
 		}
 		dword_5d4594_754040 = v3;
@@ -4179,7 +4179,7 @@ unsigned int nox_xxx_netBuf_42D510() {
 			}
 			result = dword_5d4594_754036;
 			++v0;
-			v7 += 6;
+			v7 += sizeof(nox_ctrlevent_xxx_t)/4;
 		} while (v0 < *(int*)&dword_5d4594_754036);
 	}
 	return result;
@@ -4222,7 +4222,7 @@ int sub_42E630() {
 //----- (0042E670) --------------------------------------------------------
 void __cdecl nox_xxx_keys_42E670(int a1, int a2) {
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		if (*(int*)&dword_5d4594_754036 >= 128) {
+		if (*(int*)&dword_5d4594_754036 >= NOX_CTRLEVENT_XXX_MAX) {
 			return;
 		}
 	} else {
@@ -4234,7 +4234,7 @@ void __cdecl nox_xxx_keys_42E670(int a1, int a2) {
 		int j = dword_5d4594_754036;
 		if (nox_common_gameFlags_check_40A5C0(1) && nox_xxx_keyCanPauseMode_42D4B0(a1)) {
 			// ring buffer?
-			for (int i = dword_5d4594_754040; i != dword_5d4594_754036; i = (i + 1) % 128) {
+			for (int i = dword_5d4594_754040; i != dword_5d4594_754036; i = (i + 1) % NOX_CTRLEVENT_XXX_MAX) {
 				if (*getMemU32Ptr(0x5D4594, 747884 + 24*i + 8) == a1) {
 					return;
 				}
@@ -4247,7 +4247,7 @@ void __cdecl nox_xxx_keys_42E670(int a1, int a2) {
 		*getMemU32Ptr(0x5D4594, 747884 + 24*j + 12) = a2;
 		dword_5d4594_754036 = j + 1;
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			dword_5d4594_754036 %= 128;
+			dword_5d4594_754036 %= NOX_CTRLEVENT_XXX_MAX;
 		}
 	}
 }
@@ -4302,7 +4302,9 @@ void __cdecl nox_xxx_clientTrade_42E850(int a1) {
 }
 
 //----- (0042E8C0) --------------------------------------------------------
-void __cdecl sub_42E8C0(int a1) { nullsub_33(a1, getMemAt(0x5D4594, 747884), dword_5d4594_754036); }
+void __cdecl sub_42E8C0(int a1) {
+	nullsub_33(a1, getMemAt(0x5D4594, 747884), dword_5d4594_754036);
+}
 // 42E8B0: using guessed type void __cdecl nullsub_33(_DWORD, _DWORD, _DWORD);
 
 //----- (0042E8E0) --------------------------------------------------------

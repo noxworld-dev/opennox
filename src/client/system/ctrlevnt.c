@@ -406,10 +406,10 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 		} else {
 			v22 = getMemAt(0x5D4594, 750964);
 			do {
-				memcpy(v22, getMemAt(0x5D4594, 747884 + 24*v19), 0x18u);
-				v19 = (v19 + 1) % 128;
+				memcpy(v22, getMemAt(0x5D4594, 747884 + 24*v19), sizeof(nox_ctrlevent_xxx_t));
+				v19 = (v19 + 1) % NOX_CTRLEVENT_XXX_MAX;
 				++v21;
-				v22 += 24;
+				v22 += sizeof(nox_ctrlevent_xxx_t);
 			} while (v19 != v20);
 			if (v21 <= 0) {
 				v23 = dword_5d4594_754044;
@@ -427,7 +427,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 			v26 = getMemAt(0x5D4594, 750972);
 			while (*getMemU32Ptr(0x5D4594, 747884 + 24*k + 8) != *(_DWORD*)v26) {
 				++v25;
-				v26 += 24;
+				v26 += sizeof(nox_ctrlevent_xxx_t);
 				if (v25 >= v23) {
 					goto LABEL_137;
 				}
@@ -462,7 +462,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				}
 			LABEL_149:
 				++v28;
-				v30 += 24;
+				v30 += sizeof(nox_ctrlevent_xxx_t);
 			} while (v28 < v27);
 			if (v27 > 0) {
 				memcpy(getMemAt(0x5D4594, 750964), getMemAt(0x5D4594, 747884), 4 * ((unsigned int) (24 * v27) >> 2));
@@ -483,7 +483,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 	}
 	v43 = v34;
 	for (l = l0; l < v43; ++l) {
-		v36 = 24 * (l % 128);
+		v36 = 24 * (l % NOX_CTRLEVENT_XXX_MAX);
 		if (!(*getMemU32Ptr(0x5D4594, 747884 + v36 + 16))) {
 			continue;
 		}
