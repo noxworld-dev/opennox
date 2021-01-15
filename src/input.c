@@ -78,6 +78,39 @@ int is_mouse_inside(HWND wnd) {
 #endif
 }
 
+// size of the actual window
+int input_window_width = 0;
+int input_window_height = 0;
+// size of the image that Nox draws
+int input_draw_window_width = 0;
+int input_draw_window_height = 0;
+
+void input_set_win_size(int w, int h) {
+	if (w == 0 || h == 0) {
+		return;
+	}
+	input_window_width = w;
+	input_window_height = h;
+}
+
+void input_set_draw_win_size(int w, int h) {
+	if (w == 0 || h == 0) {
+		return;
+	}
+	input_draw_window_width = w;
+	input_draw_window_height = h;
+}
+
+// remaps window position to position on the video buffer
+void fix_input_pos(int* x, int* y) {
+	if (input_window_width != 0 && input_draw_window_width != 0) {
+		*x = (float)*x * input_draw_window_width / input_window_width;
+	}
+	if (input_window_height != 0 && input_draw_window_height != 0) {
+		*y = (float)*y * input_draw_window_height / input_window_height;
+	}
+}
+
 void process_window_event(const SDL_WindowEvent* event) {
 	switch (event->event) {
 	case SDL_WINDOWEVENT_FOCUS_LOST:
@@ -138,6 +171,7 @@ void process_mouse_event(const SDL_MouseButtonEvent* event) {
 	me->x = event->x;
 	me->y = event->y;
 	me->pressed = pressed;
+	fix_input_pos(&me->x, &me->y);
 }
 
 void process_motion_event(const SDL_MouseMotionEvent* event) {
@@ -147,6 +181,7 @@ void process_motion_event(const SDL_MouseMotionEvent* event) {
 	me->x = event->x;
 	me->y = event->y;
 	me->wheel = 0;
+	fix_input_pos(&me->x, &me->y);
 }
 
 void process_wheel_event(const SDL_MouseWheelEvent* event) {
@@ -156,6 +191,7 @@ void process_wheel_event(const SDL_MouseWheelEvent* event) {
 	me->x = event->x;
 	me->y = event->y;
 	me->wheel = event->y;
+	fix_input_pos(&me->x, &me->y);
 }
 
 void fake_keyup(void* arg) {
@@ -242,6 +278,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
         me->seq = event->timestamp;
         me->x = event->x;
         me->y = event->y;
+        fix_input_pos(&me->x, &me->y);
     }
 #endif
 	} else if (event->type == SDL_FINGERUP) {
@@ -307,6 +344,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
             me->x = event->x;
             me->y = event->y;
             me->wheel = 0;
+            fix_input_pos(&me->x, &me->y);
 #endif
 			orientation = ((int)((theta + 1) * 128 + 0.5)) & 255;
 			if (dist < 0.05)
@@ -319,6 +357,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 			me->x = event->x;
 			me->y = event->y;
 			me->wheel = 0;
+			fix_input_pos(&me->x, &me->y);
 		}
 	}
 }

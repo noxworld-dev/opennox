@@ -167,7 +167,9 @@ int4 sdl_get_display_dim() {
 	return result;
 }
 
+void input_set_win_size(int w, int h);
 void sdl_set_window_rect(int2 size, int2 position) {
+	input_set_win_size(size.field_0, size.field_4);
 	SDL_SetWindowSize(getWindowHandle_nox_xxx_getHWND_401FD0(), size.field_0, size.field_4);
 	SDL_SetWindowPosition(getWindowHandle_nox_xxx_getHWND_401FD0(), position.field_0, position.field_4);
 }
