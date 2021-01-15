@@ -4139,22 +4139,22 @@ unsigned int nox_xxx_netBuf_42D510() {
 		if (dword_5d4594_754040 != dword_5d4594_754036) {
 			v4 = v1 + 50;
 			do {
-				if (HIDWORD(v4) < *getMemIntPtr(0x5D4594, 24 * v3 + 747888))
+				if (HIDWORD(v4) < *getMemIntPtr(0x5D4594, 747884 + 24*v3 + 4))
 					break;
-				if (HIDWORD(v4) <= *getMemIntPtr(0x5D4594, 24 * v3 + 747888)) {
+				if (HIDWORD(v4) <= *getMemIntPtr(0x5D4594, 747884 + 24*v3 + 4)) {
 					result = v1 + 50;
-					if ((unsigned int)v4 < *getMemIntPtr(0x5D4594, 24 * v3 + 747884))
+					if ((unsigned int)v4 < *getMemIntPtr(0x5D4594, 747884 + 24*v3))
 						break;
 				}
-				if (*getMemU32Ptr(0x5D4594, 24 * v3 + 747900) == 1) {
+				if (*getMemU32Ptr(0x5D4594, 747884 + 24*v3 + 16) == 1) {
 					v5 = *getMemU32Ptr(0x5D4594, 747864);
-					v6 = *getMemU32Ptr(0x5D4594, 24 * v3 + 747892);
-					*getMemU8Ptr( 0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692) = getMemByte(0x5D4594, 24 * v3 + 747892);
+					v6 = *getMemU32Ptr(0x5D4594, 747884 + 24*v3 + 8);
+					*getMemU8Ptr( 0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692) = getMemByte(0x5D4594, 747884 + 24*v3 + 8);
 					*getMemU32Ptr(0x5D4594, 747864) = v5 + 4;
 					result = sub_42D440(v6);
 					if (result) {
-						result = sub_42D450(*getMemU32Ptr(0x5D4594, 24 * v3 + 747892));
-						memcpy(getMemAt(0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692), getMemAt(0x5D4594, 24 * v3 + 747896),
+						result = sub_42D450(*getMemU32Ptr(0x5D4594, 747884 + 24*v3 + 8));
+						memcpy(getMemAt(0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692), getMemAt(0x5D4594, 747884 + 24*v3 + 12),
 								result);
 						*getMemU32Ptr(0x5D4594, 747864) += result;
 					}
@@ -4164,7 +4164,7 @@ unsigned int nox_xxx_netBuf_42D510() {
 		}
 		dword_5d4594_754040 = v3;
 	} else if (dword_5d4594_754036 > 0) {
-		v7 = getMemIntPtr(0x5D4594, 747892);
+		v7 = getMemIntPtr(0x5D4594, 747884 + 8);
 		do {
 			if (v7[2] == 1) {
 				v8 = *getMemU32Ptr(0x5D4594, 747864);
@@ -4235,16 +4235,16 @@ void __cdecl nox_xxx_keys_42E670(int a1, int a2) {
 		if (nox_common_gameFlags_check_40A5C0(1) && nox_xxx_keyCanPauseMode_42D4B0(a1)) {
 			// ring buffer?
 			for (int i = dword_5d4594_754040; i != dword_5d4594_754036; i = (i + 1) % 128) {
-				if (*getMemU32Ptr(0x5D4594, 24 * i + 747892) == a1) {
+				if (*getMemU32Ptr(0x5D4594, 747884 + 24*i + 8) == a1) {
 					return;
 				}
 			}
 		}
-		*getMemU32Ptr(0x5D4594, 24 * j + 747884) = *getMemU32Ptr(0x5D4594, 747876);
-		*getMemU32Ptr(0x5D4594, 24 * j + 747888) = *getMemU32Ptr(0x5D4594, 747880);
-		*getMemU32Ptr(0x5D4594, 24 * j + 747892) = a1;
-		*getMemU32Ptr(0x5D4594, 24 * j + 747900) = 1;
-		*getMemU32Ptr(0x5D4594, 24 * j + 747896) = a2;
+		*getMemU32Ptr(0x5D4594, 747884 + 24*j) = *getMemU32Ptr(0x5D4594, 747876);
+		*getMemU32Ptr(0x5D4594, 747884 + 24*j + 4) = *getMemU32Ptr(0x5D4594, 747880);
+		*getMemU32Ptr(0x5D4594, 747884 + 24*j + 8) = a1;
+		*getMemU32Ptr(0x5D4594, 747884 + 24*j + 16) = 1;
+		*getMemU32Ptr(0x5D4594, 747884 + 24*j + 12) = a2;
 		dword_5d4594_754036 = j + 1;
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			dword_5d4594_754036 %= 128;
