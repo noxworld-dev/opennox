@@ -239,16 +239,10 @@ void mainloop() {
 		return;
 	}
 	unsigned __int8* v0; // eax
-	int2* v1;            // edi
-	int v2;              // ebp
-	int v3;              // ebx
-	int v4;              // esi
-	int v5;              // eax
 	int v6;              // eax
 	int v7;              // esi
 	int v9;              // edi
 	int v10;             // eax
-	int v11;             // ebx
 	int v12;             // esi
 	int v13;             // eax
 	int v14;             // kr00_4
@@ -259,8 +253,6 @@ void mainloop() {
 	char v23;            // [esp-4h] [ebp-5Ch]
 	char v24;            // [esp-4h] [ebp-5Ch]
 	int* v25;            // [esp+4h] [ebp-54h]
-	int v26;             // [esp+18h] [ebp-40h]
-	int2* v27;           // [esp+20h] [ebp-38h]
 	int v28[10];         // [esp+24h] [ebp-34h]
 
 	if (nox_xxx_gameDownloadInProgress_587000_173328) {
@@ -340,53 +332,48 @@ void mainloop() {
 		sub_43C380();
 		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
 		if (!*getMemU32Ptr(0x5D4594, 816408)) {
-			v1 = nox_client_getMousePos_4309F0();
-			v27 = v1;
-			v2 = v1->field_0 - *getMemU32Ptr(0x5D4594, 816420);
-			v3 = v1->field_4 - *getMemU32Ptr(0x5D4594, 816424);
-			v4 = v2 * v2 + v3 * v3;
+			nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
+			// emit sparks when passing a certain distance
+			const double distance_sparks = 0.25;
+			int dx = mouse->pos.x - *getMemU32Ptr(0x5D4594, 816420);
+			int dy = mouse->pos.y - *getMemU32Ptr(0x5D4594, 816424);
+			int r2 = dx * dx + dy * dy;
 			if (*getMemU32Ptr(0x5D4594, 816428)) {
-				v5 = nox_double2int(sqrt((double)(v2 * v2 + v3 * v3))) / 4;
-				if (v5 > 0) {
-					v26 = v5;
-					do {
-						v6 = nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 570);
-						v7 = *getMemU32Ptr(0x5D4594, 816420) + v2 * v6 / 100;
-						v9 = *getMemU32Ptr(0x5D4594, 816424) + v3 * v6 / 100;
-						v23 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 582);
-						v22 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 581);
-						v21 = nox_common_randomIntMinMax_415FF0(-7, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 579);
-						v10 = nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 578);
-						nox_client_newScreenParticle_431540(4, v7, v9, v10, v21, 1, v22, v23, 2, 1);
-						--v26;
-					} while (v26);
-					v4 = v2 * v2 + v3 * v3;
-					v1 = v27;
+				int cnt = (int)(sqrt((double)r2) * distance_sparks);
+				for (int i = cnt; i > 0; i--) {
+					v6 = nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 570);
+					v7 = *getMemU32Ptr(0x5D4594, 816420) + dx * v6 / 100;
+					v9 = *getMemU32Ptr(0x5D4594, 816424) + dy * v6 / 100;
+					v23 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 582);
+					v22 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 581);
+					v21 = nox_common_randomIntMinMax_415FF0(-7, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 579);
+					v10 = nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 578);
+					nox_client_newScreenParticle_431540(4, v7, v9, v10, v21, 1, v22, v23, 2, 1);
 				}
-				if (v4 < 10) {
+				if (r2 < 10) {
 					*getMemU32Ptr(0x5D4594, 816428) = 0;
 				}
-				*getMemU32Ptr(0x5D4594, 816420) = v1->field_0;
-				*getMemU32Ptr(0x5D4594, 816424) = v1->field_4;
-			} else if (v4 > 64) {
+				*getMemU32Ptr(0x5D4594, 816420) = mouse->pos.x;
+				*getMemU32Ptr(0x5D4594, 816424) = mouse->pos.y;
+			} else if (r2 > 64) {
 				*getMemU32Ptr(0x5D4594, 816428) = 1;
 			}
-			if (v1[2].field_4 == 1) {
+			// explode with sparks when clicking
+			const int explosion_sparks = 75;
+			if (mouse->btn[NOX_MOUSE_LEFT].pressed == 1) {
 				nox_common_randomIntMinMax_415FF0(0, 2, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 608);
 				if (!*getMemU32Ptr(0x5D4594, 816416)) {
 					*getMemU32Ptr(0x5D4594, 816416) = 1;
 					nox_xxx_clientPlaySoundSpecial_452D80(924, 100);
-					v11 = 75;
-					do {
+					for (int i = explosion_sparks; i > 0; i--) {
 						v12 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 620);
 						v13 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 621);
 						v14 = v13 * *getMemIntPtr(0x587000, 8 * v12 + 192088);
 						v15 = v13 * *getMemIntPtr(0x587000, 8 * v12 + 192092) / 16 - 6;
 						v24 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 633);
 						v16 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 632);
-						nox_client_newScreenParticle_431540(4, v14 / 16 + v27->field_0, v27->field_4 + v15, v14 / 16, v15, 1, v16, v24, 2, 1);
-						--v11;
-					} while (v11);
+						nox_client_newScreenParticle_431540(4, v14 / 16 + mouse->pos.x, mouse->pos.y + v15, v14 / 16, v15, 1, v16, v24, 2, 1);
+					}
 				}
 			} else {
 				*getMemU32Ptr(0x5D4594, 816416) = 0;
