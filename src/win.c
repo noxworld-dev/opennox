@@ -99,10 +99,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		SDL_EventState(SDL_FINGERUP, SDL_IGNORE);
 		SDL_EventState(SDL_FINGERMOTION, SDL_IGNORE);
 	}
-#endif
+#endif // __EMSCRIPTEN__
 
 	cmain(g_argc, g_argv);
-#else
+	SDL_Quit();
+#else // !USE_SDL
 	HWND v11; // esi
 	HWND v13; // eax
 	if (v10 || !(v11 = FindWindowA("Nox Game Window", 0))) {
@@ -142,7 +143,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		SetForegroundWindow(v11);
 		ShowWindow(v11, SW_RESTORE);
 	}
-#endif
+#endif // USE_SDL
 	return 1;
 }
 
