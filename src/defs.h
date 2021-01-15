@@ -724,6 +724,8 @@ enum {
 	NOX_MOUSE_PRESSED = 4
 };
 
+int nox_mouse_state(int btn, int st);
+
 typedef struct nox_mouse_btn_t {
 	int pressed;
 	_DWORD state;
