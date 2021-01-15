@@ -5573,8 +5573,8 @@ void nox_client_processMouseEvents_4302A0(int evNum, int a2) {
 	mouse_pos_t pos = nox_mouse.pos;
 	for (int i = 0; i < num; i++) {
 		nox_mouse_state_t* ev = &nox_input_buffer[i];
-		// apply relative pos
-		nox_client_changeMousePos_430A00(ev->pos.x, ev->pos.y, false);
+		// apply absolute mouse pos
+		nox_client_changeMousePos_430A00(ev->pos.x, ev->pos.y, true);
 		nox_mouse.wheel += ev->wheel;
 
 		// variable needs to be updated as well
