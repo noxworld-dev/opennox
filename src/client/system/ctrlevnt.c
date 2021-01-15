@@ -1,3 +1,4 @@
+#include <math.h>
 #include "ctrlevnt.h"
 
 #include "../../proto.h"
@@ -6,7 +7,7 @@
 #include "../gui/guispell.h"
 #include "../gui/servopts/guiserv.h"
 
-extern _DWORD dword_5d4594_754060;
+_DWORD dword_5d4594_754060 = 0;
 extern _DWORD dword_5d4594_754048;
 extern _DWORD dword_5d4594_754044;
 extern _DWORD nox_xxx_useAudio_587000_80832;
@@ -50,7 +51,7 @@ char* nox_xxx_bindevent_42EAE0() {
 }
 
 //----- (0042D6B0) --------------------------------------------------------
-void nox_xxx_clientControl_42D6B0(_DWORD* a3, int a4) {
+void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 	int v2;               // ebp
 	int i;                // edi
 	int j;                // esi
@@ -64,10 +65,6 @@ void nox_xxx_clientControl_42D6B0(_DWORD* a3, int a4) {
 	int v12;              // eax
 	int v13;              // eax
 	int v14;              // eax
-	int v15;              // eax
-	_DWORD* v16;          // esi
-	int v17;              // ecx
-	__int64 v18;          // rax
 	int v19;              // eax
 	int v20;              // ebp
 	int v21;              // ebx
@@ -368,27 +365,28 @@ void nox_xxx_clientControl_42D6B0(_DWORD* a3, int a4) {
 #endif
 	{
 		if (getMemByte(0x5D4594, 747848) != 2 && *getMemU32Ptr(0x5D4594, 747868) == 4) {
-			v15 = nox_xxx_spriteGetMB_476F80();
-			v16 = a3;
+			// calculates player view direction?
+			void* v15 = nox_xxx_spriteGetMB_476F80();
+			int x = mouse->pos.x;
+			int y = mouse->pos.y;
 			if (v15) {
-				v17 = sub_4739D0(*(_DWORD *) (v15 + 16));
-			} else {
-				v17 = a3[1];
+				y = sub_4739D0(*(_DWORD *) ((_DWORD)v15 + 16));
 			}
-			a4 = *v16 - nox_win_width / 2;
-			v18 = (__int64)((atan2((double)(v17 - nox_win_height / 2), (double)a4) + 6.2831855) * 40.743664 + 0.5);
-			dword_5d4594_754060 = v18;
-			if ((int)v18 < 0) {
-				LODWORD(v18) = ((unsigned int)(255 - v18) >> 8 << 8) + v18;
-				dword_5d4594_754060 = v18;
+			int cx = x - nox_win_width / 2;
+			int cy = y - nox_win_height / 2;
+			double rad = atan2(cy, cx);
+			// represent as integer
+			int ang = (int)((rad + 2 * M_PI) * 128.0/M_PI + 0.5);
+			if (ang < 0) {
+				ang += ((unsigned int)(255 - ang) >> 8) << 8;
 			}
-			if ((int)v18 >= 256) {
-				LODWORD(v18) = -256 * ((unsigned int)v18 >> 8) + v18;
-				dword_5d4594_754060 = v18;
+			if (ang >= 256) {
+				ang -= ((unsigned int)ang >> 8) << 8;
 			}
-			nox_xxx_keys_42E670(1, v18);
+			dword_5d4594_754060 = ang;
+			nox_xxx_keys_42E670(1, ang);
 		}
-		nox_xxx_keys_42E670(1, *(int*)&dword_5d4594_754060);
+		nox_xxx_keys_42E670(1, dword_5d4594_754060);
 	}
 	if (getMemByte(0x5D4594, 2661958)) {
 		nox_xxx_guiSpellTargetClickCheckSend_45DBB0();
@@ -539,6 +537,7 @@ void nox_xxx_clientControl_42D6B0(_DWORD* a3, int a4) {
 				break;
 		}
 		v37 = *getMemU32Ptr(0x5D4594, v36 + 747892);
+		int tmp = 0;
 		switch (v37) {
 			case 8:
 				sub_46A430(0);
@@ -657,12 +656,12 @@ void nox_xxx_clientControl_42D6B0(_DWORD* a3, int a4) {
 				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
 				break;
 			case 47:
-				LOWORD(a4) = 739;
-				nox_xxx_netClientSend2_4E53C0(31, &a4, 2, 0, 1);
+				tmp = 739;
+				nox_xxx_netClientSend2_4E53C0(31, &tmp, 2, 0, 1);
 				break;
 			case 48:
-				LOWORD(a3) = 483;
-				nox_xxx_netClientSend2_4E53C0(31, &a3, 2, 0, 1);
+				tmp = 483;
+				nox_xxx_netClientSend2_4E53C0(31, &tmp, 2, 0, 1);
 				break;
 			case 49:
 				v42[0] = -29;
