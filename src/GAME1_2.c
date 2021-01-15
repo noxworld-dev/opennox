@@ -5880,6 +5880,7 @@ void __cdecl sub_430BB0(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 }
 
 //----- (00430BE0) --------------------------------------------------------
+void input_set_draw_win_size(int w, int h);
 BOOL __cdecl nox_video_resizewnd(int a1, int a2, int a3) {
 	BOOL result; // eax
 
@@ -5894,6 +5895,7 @@ BOOL __cdecl nox_video_resizewnd(int a1, int a2, int a3) {
 	a3 = 16;
 	result = a3 != 8;
 	dword_5d4594_3804680 = a3 != 8;
+	input_set_draw_win_size(nox_win_width, nox_win_height);
 	return result;
 }
 
