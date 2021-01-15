@@ -79,11 +79,19 @@ int is_mouse_inside(HWND wnd) {
 }
 
 // size of the actual window
-int input_window_width = 0;
-int input_window_height = 0;
+int input_window_width = NOX_DEFAULT_WIDTH;
+int input_window_height = NOX_DEFAULT_HEIGHT;
 // size of the image that Nox draws
-int input_draw_window_width = 0;
-int input_draw_window_height = 0;
+int input_draw_window_width = NOX_DEFAULT_WIDTH;
+int input_draw_window_height = NOX_DEFAULT_HEIGHT;
+// scale factors calculated from sizes above
+float input_scale_width = 1.0;
+float input_scale_height = 1.0;
+
+void input_update_scale() {
+	input_scale_width = (float)input_draw_window_width / input_window_width;
+	input_scale_height = (float)input_draw_window_height / input_window_height;
+}
 
 void input_set_win_size(int w, int h) {
 	if (w == 0 || h == 0) {
@@ -91,6 +99,7 @@ void input_set_win_size(int w, int h) {
 	}
 	input_window_width = w;
 	input_window_height = h;
+	input_update_scale();
 }
 
 void input_set_draw_win_size(int w, int h) {
@@ -99,16 +108,13 @@ void input_set_draw_win_size(int w, int h) {
 	}
 	input_draw_window_width = w;
 	input_draw_window_height = h;
+	input_update_scale();
 }
 
-// remaps window position to position on the video buffer
-void fix_input_pos(int* x, int* y) {
-	if (input_window_width != 0 && input_draw_window_width != 0) {
-		*x = (float)*x * input_draw_window_width / input_window_width;
-	}
-	if (input_window_height != 0 && input_draw_window_height != 0) {
-		*y = (float)*y * input_draw_window_height / input_window_height;
-	}
+// input_to_draw_space remaps window position to position on the video buffer
+void input_to_draw_space(int* x, int* y) {
+	*x = (float)*x * input_scale_width;
+	*y = (float)*y * input_scale_height;
 }
 
 void process_window_event(const SDL_WindowEvent* event) {
@@ -146,6 +152,78 @@ void process_keyboard_event(const SDL_KeyboardEvent* event) {
 	ke->state = event->state == SDL_PRESSED;
 }
 
+// last mouse coordinates (in window space)
+int input_mouse_x = 0;
+int input_mouse_y = 0;
+
+// input_mouse_set sets mouse to a specific position in the window space.
+void input_mouse_set(int x, int y) {
+	input_mouse_x = x;
+	input_mouse_y = y;
+	input_to_draw_space(&x, &y);
+
+	struct mouse_event* me = nox_newMouseEvent();
+	me->type = MOUSE_MOTION;
+	me->x = x;
+	me->y = y;
+	me->wheel = 0;
+}
+
+// input_mouse_move moves mouse by a specific amount in the window space.
+void input_mouse_move(float dx, float dy) {
+	input_mouse_x += dx;
+	input_mouse_y += dy;
+	// TODO: native support for relative events
+	input_mouse_set(input_mouse_x, input_mouse_y);
+}
+
+// input_mouse_wheel moves mouse wheel by a specific amount.
+void input_mouse_wheel(int dv) {
+	int x = input_mouse_x;
+	int y = input_mouse_y;
+	input_to_draw_space(&x, &y);
+
+	struct mouse_event* me = nox_newMouseEvent();
+	me->type = MOUSE_WHEEL;
+	me->x = x;
+	me->y = y;
+	me->wheel = dv;
+}
+
+// input_mouse_button_at sets mouse pos to a given position and sets a specified mouse button state.
+void input_mouse_button_at(int x, int y, int button, bool pressed) {
+	input_mouse_x = x;
+	input_mouse_y = y;
+	input_to_draw_space(&x, &y);
+
+	struct mouse_event* me = nox_newMouseEvent();
+	me->type = button;
+	me->x = x;
+	me->y = y;
+	me->pressed = pressed;
+}
+
+// input_mouse_button_at sets a specified mouse button state.
+void input_mouse_button(int button, bool pressed) {
+	input_mouse_button_at(input_mouse_x, input_mouse_y, button, pressed);
+}
+
+void input_mouse_down_at(int x, int y, int button) {
+	input_mouse_button_at(x, y, button, true);
+}
+
+void input_mouse_up_at(int x, int y, int button) {
+	input_mouse_button_at(x, y, button, false);
+}
+
+void input_mouse_down(int button) {
+	input_mouse_button(button, true);
+}
+
+void input_mouse_up(int button) {
+	input_mouse_button(button, false);
+}
+
 void process_mouse_event(const SDL_MouseButtonEvent* event) {
 	bool pressed = event->state == SDL_PRESSED;
 	if (pressed) {
@@ -154,44 +232,29 @@ void process_mouse_event(const SDL_MouseButtonEvent* event) {
 		process_window_event(&wndEvt);
 	}
 
-	struct mouse_event* me = nox_newMouseEvent();
+	int button = 0;
 	switch (event->button) {
 	case SDL_BUTTON_LEFT:
-		me->type = MOUSE_BUTTON0;
+		button = MOUSE_BUTTON0;
 		break;
 	case SDL_BUTTON_RIGHT:
-		me->type = MOUSE_BUTTON1;
+		button = MOUSE_BUTTON1;
 		break;
 	case SDL_BUTTON_MIDDLE:
-		me->type = MOUSE_BUTTON2;
+		button = MOUSE_BUTTON2;
 		break;
 	default:
 		return;
 	}
-	me->x = event->x;
-	me->y = event->y;
-	me->pressed = pressed;
-	fix_input_pos(&me->x, &me->y);
+	input_mouse_button_at(event->x, event->y, button, pressed);
 }
 
 void process_motion_event(const SDL_MouseMotionEvent* event) {
-	struct mouse_event* me = nox_newMouseEvent();
-
-	me->type = MOUSE_MOTION;
-	me->x = event->x;
-	me->y = event->y;
-	me->wheel = 0;
-	fix_input_pos(&me->x, &me->y);
+	input_mouse_set(event->x, event->y);
 }
 
 void process_wheel_event(const SDL_MouseWheelEvent* event) {
-	struct mouse_event* me = nox_newMouseEvent();
-
-	me->type = MOUSE_WHEEL;
-	me->x = event->x;
-	me->y = event->y;
-	me->wheel = event->y;
-	fix_input_pos(&me->x, &me->y);
+	input_mouse_wheel(event->y);
 }
 
 void fake_keyup(void* arg) {
@@ -201,9 +264,7 @@ void fake_keyup(void* arg) {
 }
 
 void fake_mouseup(void* arg) {
-	struct mouse_event* me = nox_newMouseEvent();
-	me->type = MOUSE_BUTTON0;
-	me->pressed = 0;
+	input_mouse_up(MOUSE_BUTTON0);
 }
 
 struct finger_state* find_finger(SDL_FingerID id, int alloc) {
@@ -221,9 +282,7 @@ struct finger_state* find_finger(SDL_FingerID id, int alloc) {
 }
 
 void send_mouse1_event() {
-	struct mouse_event* me = nox_newMouseEvent();
-	me->type = MOUSE_BUTTON1;
-	me->pressed = mouse1_state; // && !mouse0_state;
+	input_mouse_button(MOUSE_BUTTON1, mouse1_state /* && !mouse0_state */ );
 }
 
 #ifdef __EMSCRIPTEN__
@@ -272,13 +331,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
     }
     else
     {
-        struct mouse_event* me = nox_newMouseEvent();
-        me->type = MOUSE_BUTTON0;
-        me->state = 1;
-        me->seq = event->timestamp;
-        me->x = event->x;
-        me->y = event->y;
-        fix_input_pos(&me->x, &me->y);
+        input_mouse_button_at(event->x, event->y, MOUSE_BUTTON0, true);
     }
 #endif
 	} else if (event->type == SDL_FINGERUP) {
@@ -313,10 +366,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 
 				emscripten_set_timeout(fake_keyup, 90, NULL);
 			} else {
-				struct mouse_event* me = nox_newMouseEvent();
-				me->type = MOUSE_BUTTON0;
-				me->pressed = 1;
-
+				input_mouse_button(MOUSE_BUTTON0, true);
 				emscripten_set_timeout(fake_mouseup, 90, NULL);
 			}
 		}
@@ -339,12 +389,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 			dist = sqrtf((event->x - 0.1) * (event->x - 0.1) + (event->y - 0.5) * (event->y - 0.5));
 			theta = atan2f(-event->y + 0.5, -event->x + 0.1) / M_PI;
 #if 0
-            struct mouse_event* me = nox_newMouseEvent();
-            me->type = MOUSE_MOTION;
-            me->x = event->x;
-            me->y = event->y;
-            me->wheel = 0;
-            fix_input_pos(&me->x, &me->y);
+            input_mouse_set(event->x, event->y);
 #endif
 			orientation = ((int)((theta + 1) * 128 + 0.5)) & 255;
 			if (dist < 0.05)
@@ -352,12 +397,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 			else
 				move_speed = 1;
 		} else if ((event->timestamp - finger->timestamp) > 200) {
-			struct mouse_event* me = nox_newMouseEvent();
-			me->type = MOUSE_MOTION;
-			me->x = event->x;
-			me->y = event->y;
-			me->wheel = 0;
-			fix_input_pos(&me->x, &me->y);
+			input_mouse_set(event->x, event->y);
 		}
 	}
 }
