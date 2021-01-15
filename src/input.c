@@ -135,6 +135,8 @@ void process_mouse_event(const SDL_MouseButtonEvent* event) {
 	default:
 		return;
 	}
+	me->x = event->x;
+	me->y = event->y;
 	me->pressed = pressed;
 }
 
@@ -142,8 +144,8 @@ void process_motion_event(const SDL_MouseMotionEvent* event) {
 	struct mouse_event* me = nox_newMouseEvent();
 
 	me->type = MOUSE_MOTION;
-	me->x = input_sensitivity * event->xrel;
-	me->y = input_sensitivity * event->yrel;
+	me->x = event->x;
+	me->y = event->y;
 	me->wheel = 0;
 }
 
@@ -151,8 +153,8 @@ void process_wheel_event(const SDL_MouseWheelEvent* event) {
 	struct mouse_event* me = nox_newMouseEvent();
 
 	me->type = MOUSE_WHEEL;
-	me->x = 0;
-	me->y = 0;
+	me->x = event->x;
+	me->y = event->y;
 	me->wheel = event->y;
 }
 
@@ -238,6 +240,8 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
         me->type = MOUSE_BUTTON0;
         me->state = 1;
         me->seq = event->timestamp;
+        me->x = event->x;
+        me->y = event->y;
     }
 #endif
 	} else if (event->type == SDL_FINGERUP) {
@@ -300,9 +304,9 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 #if 0
             struct mouse_event* me = nox_newMouseEvent();
             me->type = MOUSE_MOTION;
-            me->x = 2000.0f * event->dx;
-            me->y = 2000.0f * event->dy;
-            me->z = 0;
+            me->x = event->x;
+            me->y = event->y;
+            me->wheel = 0;
 #endif
 			orientation = ((int)((theta + 1) * 128 + 0.5)) & 255;
 			if (dist < 0.05)
@@ -312,8 +316,8 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 		} else if ((event->timestamp - finger->timestamp) > 200) {
 			struct mouse_event* me = nox_newMouseEvent();
 			me->type = MOUSE_MOTION;
-			me->x = 2000.0f * event->dx;
-			me->y = 2000.0f * event->dy;
+			me->x = event->x;
+			me->y = event->y;
 			me->wheel = 0;
 		}
 	}
@@ -428,8 +432,10 @@ int acquireMouse_sub_47D8C0() {
 
 // unacquire mouse
 int unacquireMouse_sub_47D8B0() {
+#ifndef NOX_NO_MOUSE_GRAB
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_SetWindowGrab(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_FALSE);
+#endif
 	g_mouse_aquired = 0;
 	return 0;
 }
@@ -449,11 +455,11 @@ BOOL nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* e) {
 
 	if (mouse_event_ridx == mouse_event_widx)
 		return 0;
+	e->pos.x = me->x;
+	e->pos.y = me->y;
 
 	switch (me->type) {
 	case MOUSE_MOTION:
-		e->pos.x = me->x;
-		e->pos.y = me->y;
 		e->wheel = me->wheel;
 		break;
 	case MOUSE_WHEEL:
