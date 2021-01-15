@@ -406,7 +406,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 		} else {
 			v22 = getMemAt(0x5D4594, 750964);
 			do {
-				memcpy(v22, getMemAt(0x5D4594, 24 * v19 + 747884), 0x18u);
+				memcpy(v22, getMemAt(0x5D4594, 747884 + 24*v19), 0x18u);
 				v19 = (v19 + 1) % 128;
 				++v21;
 				v22 += 24;
@@ -425,15 +425,15 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				continue;
 			}
 			v26 = getMemAt(0x5D4594, 750972);
-			while (*getMemU32Ptr(0x5D4594, 24 * k + 747892) != *(_DWORD*)v26) {
+			while (*getMemU32Ptr(0x5D4594, 747884 + 24*k + 8) != *(_DWORD*)v26) {
 				++v25;
 				v26 += 24;
 				if (v25 >= v23) {
 					goto LABEL_137;
 				}
 			}
-			if (nox_xxx_keyCanPauseMode_42D4B0(*getMemU32Ptr(0x5D4594, 24 * k + 747892))) {
-				*getMemU32Ptr(0x5D4594, 24 * k + 747900) = 0;
+			if (nox_xxx_keyCanPauseMode_42D4B0(*getMemU32Ptr(0x5D4594, 747884 + 24*k + 8))) {
+				*getMemU32Ptr(0x5D4594, 747884 + 24*k + 16) = 0;
 			}
 			v23 = dword_5d4594_754044;
 		LABEL_137:;
@@ -443,7 +443,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 		v28 = 0;
 		if (dword_5d4594_754036 > 0) {
 			v29 = dword_5d4594_754044;
-			v30 = getMemAt(0x5D4594, 747900);
+			v30 = getMemAt(0x5D4594, 747884 + 16);
 			do {
 				v31 = 0;
 				*(_DWORD*)v30 = 1;
@@ -484,10 +484,10 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 	v43 = v34;
 	for (l = l0; l < v43; ++l) {
 		v36 = 24 * (l % 128);
-		if (!(*getMemU32Ptr(0x5D4594, 24 * (l % 128) + 747900))) {
+		if (!(*getMemU32Ptr(0x5D4594, 747884 + v36 + 16))) {
 			continue;
 		}
-		switch (*getMemU32Ptr(0x5D4594, 24 * (l % 128) + 747892)) {
+		switch (*getMemU32Ptr(0x5D4594, 747884 + v36 + 8)) {
 			case 0x14:
 				if (!nox_common_gameFlags_check_40A5C0(128)) {
 					nox_xxx_clientPlaySoundSpecial_452D80(186, 100);
@@ -539,34 +539,34 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 			default:
 				break;
 		}
-		v37 = *getMemU32Ptr(0x5D4594, v36 + 747892);
+		v37 = *getMemU32Ptr(0x5D4594, 747884 + 8 + v36);
 		int tmp = 0;
 		switch (v37) {
 			case 8:
 				sub_46A430(0);
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 9:
 				sub_46A430(1);
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 10:
 				sub_45AC70();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 11:
 				nox_xxx_consoleF1_451350();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 12:
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				sub_4766E0();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 13:
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				sub_4766F0();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 14:
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
@@ -574,7 +574,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				nox_video_setGammaSetting_434B30(v38 + 1);
 				updateGamma(1);
 				sub_434B60();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 15:
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
@@ -582,11 +582,11 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				nox_video_setGammaSetting_434B30(v39 - 1);
 				updateGamma(-1);
 				sub_434B60();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 16:
 				sub_4460C0();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 17:
 				if (sub_450560()) {
@@ -594,15 +594,15 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				} else {
 					sub_42EB90(1);
 				}
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 18:
 				sub_473610();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 19:
 				sub_467C60();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 31:
 			case 32:
@@ -610,53 +610,53 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 			case 34:
 			case 35:
 				nox_xxx_clientUseQWEButton_45DA50(v37 - 31);
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 36:
 				sub_4724E0();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 37:
 				sub_472500();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 38:
 				nox_client_invAlterWeapon_4672C0();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 39:
 				sub_472220();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 40:
 				sub_472240();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 41:
 				sub_472260();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 42:
 				nox_xxx_spellNext_4604F0();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 43:
 				nox_xxx_spellPrev_460540();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 44:
 				nox_xxx_spellReset_460590();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 45:
 				nox_xxx_clientUseTrap_45E040();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 46:
 				if (!(nox_common_gameFlags_check_40A5C0(8) || !nox_common_gameFlags_check_40A5C0(0x2000))) {
 					nox_xxx_guiServerOptsLoad_457500();
 				}
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 47:
 				tmp = 739;
@@ -673,17 +673,17 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				break;
 			case 50:
 				sub_460630();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 51:
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				sub_4703F0();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 52:
 				sub_470A60();
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 53:
 				if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
@@ -691,7 +691,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 					nox_xxx_useAudio_587000_80832 = nox_client_renderGUI_80828;
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				}
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 54:
 				if (nox_common_gameFlags_check_40A5C0(2048)) {
@@ -703,7 +703,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 						nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
 					}
 				}
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 55:
 				if (nox_common_gameFlags_check_40A5C0(2048)) {
@@ -719,11 +719,11 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 						nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
 					}
 				}
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			case 56:
 				sub_46DB00();
-				*getMemU32Ptr(0x5D4594, v36 + 747900) = 0;
+				*getMemU32Ptr(0x5D4594, 747884 + 16 + v36) = 0;
 				break;
 			default:
 				break;
