@@ -22,6 +22,7 @@ extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 
 nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX] = {0};
+nox_ctrlevent_xxx_t nox_ctrlevent_buf_750964[NOX_CTRLEVENT_XXX_MAX] = {0}; // TODO: size a guess
 
 //----- (0042EAE0) --------------------------------------------------------
 char* nox_xxx_bindevent_42EAE0() {
@@ -399,7 +400,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 		if (dword_5d4594_754048 == dword_5d4594_754040) {
 			v23 = dword_5d4594_754044;
 		} else {
-			v22 = getMemAt(0x5D4594, 750964);
+			v22 = nox_ctrlevent_buf_750964;
 			do {
 				memcpy(v22, &nox_ctrlevent_buf_747884[v19], sizeof(nox_ctrlevent_xxx_t));
 				v19 = (v19 + 1) % NOX_CTRLEVENT_XXX_MAX;
@@ -414,12 +415,12 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				dword_5d4594_754044 = v21;
 			}
 		}
-		for (k = v20; k != dword_5d4594_754036; k = (k + 1) % 128) {
+		for (k = v20; k != dword_5d4594_754036; k = (k + 1) % NOX_CTRLEVENT_XXX_MAX) {
 			v25 = 0;
 			if (v23 <= 0) {
 				continue;
 			}
-			v26 = getMemAt(0x5D4594, 750964 + 8);
+			v26 = (int)nox_ctrlevent_buf_750964 + 8;
 			while (nox_ctrlevent_buf_747884[k].field_8 != *(_DWORD*)v26) {
 				++v25;
 				v26 += sizeof(nox_ctrlevent_xxx_t);
@@ -439,7 +440,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				nox_ctrlevent_xxx_t* p = &nox_ctrlevent_buf_747884[i];
 				p->field_16 = 1;
 				if (dword_5d4594_754044 > 0) {
-					unsigned __int8* v32 = getMemAt(0x5D4594, 750964 + 8);
+					unsigned __int8* v32 = (int)nox_ctrlevent_buf_750964 + 8;
 					for (int j = 0; j < dword_5d4594_754044; j++) {
 						if (p->field_8 == *(_DWORD*)v32) {
 							if (nox_xxx_keyCanPauseMode_42D4B0(p->field_8)) {
@@ -451,7 +452,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 					}
 				}
 			}
-			memcpy(getMemAt(0x5D4594, 750964), nox_ctrlevent_buf_747884, sizeof(nox_ctrlevent_xxx_t) * dword_5d4594_754036);
+			memcpy(nox_ctrlevent_buf_750964, nox_ctrlevent_buf_747884, sizeof(nox_ctrlevent_xxx_t) * dword_5d4594_754036);
 		}
 		dword_5d4594_754044 = dword_5d4594_754036;
 	}
