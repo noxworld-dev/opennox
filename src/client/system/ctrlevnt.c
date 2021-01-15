@@ -419,7 +419,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 			if (v23 <= 0) {
 				continue;
 			}
-			v26 = getMemAt(0x5D4594, 750972);
+			v26 = getMemAt(0x5D4594, 750964 + 8);
 			while (nox_ctrlevent_buf_747884[k].field_8 != *(_DWORD*)v26) {
 				++v25;
 				v26 += sizeof(nox_ctrlevent_xxx_t);
@@ -439,7 +439,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				nox_ctrlevent_xxx_t* p = &nox_ctrlevent_buf_747884[i];
 				p->field_16 = 1;
 				if (dword_5d4594_754044 > 0) {
-					unsigned __int8* v32 = getMemAt(0x5D4594, 750972);
+					unsigned __int8* v32 = getMemAt(0x5D4594, 750964 + 8);
 					for (int j = 0; j < dword_5d4594_754044; j++) {
 						if (p->field_8 == *(_DWORD*)v32) {
 							if (nox_xxx_keyCanPauseMode_42D4B0(p->field_8)) {
