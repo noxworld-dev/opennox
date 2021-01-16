@@ -3,6 +3,7 @@
 #include "server/network/mapsend.h"
 #include "server/system/trade.h"
 #include "common/random.h"
+#include "client/system/ctrlevnt.h"
 
 #include "proto.h"
 
