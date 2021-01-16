@@ -5842,15 +5842,13 @@ _DWORD* __cdecl nox_xxx_dialogMsgBoxCreate_449A10(int a1, int a2, int a3, int a4
 
 //----- (00449BE0) --------------------------------------------------------
 int __cdecl sub_449BE0(int a1, int a2, int a3, int a4) {
-	int2* v4; // eax
-
 	if (a2 != 21)
 		return 0;
 	if (a3 == 1)
 		return 1;
 	if (a3 == 57) {
-		v4 = nox_client_getMousePos_4309F0();
-		nox_window_call_field_93(a1, 5, v4->field_0 | (v4->field_4 << 16), 0);
+		nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
+		nox_window_call_field_93(a1, 5, mouse->pos.x | (mouse->pos.y << 16), 0);
 	}
 	return 0;
 }
