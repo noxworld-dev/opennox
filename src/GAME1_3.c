@@ -5170,7 +5170,6 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4) {
 	const wchar_t* v5; // edi
 	const wchar_t* v6; // eax
 	wchar_t* v7;       // esi
-	int2* v8;          // eax
 	int v9;            // ebx
 	int v10;           // esi
 	int v11;           // edi
@@ -5267,10 +5266,10 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4) {
 				dword_587000_109280 = -1;
 				result = 0;
 			} else {
-				v8 = nox_client_getMousePos_4309F0();
+				nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
 				dword_587000_109280 = a4;
-				v9 = v8->field_0;
-				v10 = v8->field_4;
+				v9 = mouse->pos.x;
+				v10 = mouse->pos.y;
 				v11 = nox_xxx_guiFontHeightMB_43F320(0);
 				dword_5d4594_829504 = nox_window_new(0, 40, v9 - 40, v10 - (v11 + 4) / 2, 80, v11 + 4, 0);
 				nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_829504, 0, sub_448140, 0);
