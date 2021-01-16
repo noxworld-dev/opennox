@@ -8587,9 +8587,7 @@ int sub_435F60() {
 
 //----- (00435F80) --------------------------------------------------------
 int nox_xxx_client_435F80_draw() {
-	int2* v0; // esi
-
-	v0 = nox_client_getMousePos_4309F0();
+	nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
 	if (nox_xxx_serverIsClosing_446180())
 		sub_446190();
 	if (!sub_437060() && !nox_common_gameFlags_check_40A5C0(8)) {
@@ -8603,8 +8601,8 @@ int nox_xxx_client_435F80_draw() {
 	if (nox_xxx_get_430890() == 1)
 		sub_430880(0);
 	nox_xxx_clientEnumHover_476FA0();
-	if (!nox_xxx_clientSendInput_43C8F0(31, obj_5D4594_811068.field_4 + v0->field_0 - obj_5D4594_811068.field_0,
-					obj_5D4594_811068.field_5 + v0->field_4 - obj_5D4594_811068.field_1))
+	if (!nox_xxx_clientSendInput_43C8F0(31, obj_5D4594_811068.field_4 + mouse->pos.x - obj_5D4594_811068.field_0,
+					obj_5D4594_811068.field_5 + mouse->pos.y - obj_5D4594_811068.field_1))
 		return 1;
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		sub_40B970();
