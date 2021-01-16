@@ -5398,14 +5398,13 @@ void sub_448380() {
 
 //----- (004483A0) --------------------------------------------------------
 int __cdecl sub_4483A0(int a1, int a2) {
-	int2* v2;   // eax
 	int result; // eax
 	int xLeft;  // [esp+0h] [ebp-8h]
 	int yTop;   // [esp+4h] [ebp-4h]
 
 	if (dword_5d4594_829504) {
-		v2 = nox_client_getMousePos_4309F0();
-		if (!nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_829504, v2->field_0, v2->field_4))
+		nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
+		if (!nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_829504, mouse->pos.x, mouse->pos.y))
 			sub_448380();
 	}
 	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
