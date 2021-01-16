@@ -1,6 +1,7 @@
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
 #include <emscripten/html5.h>
+#include "client/system/ctrlevnt.h"
 #endif
 
 #include "client/io/console.h"
