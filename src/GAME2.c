@@ -4954,16 +4954,15 @@ int __cdecl sub_457F30(int a1) {
 
 //----- (00458500) --------------------------------------------------------
 int __cdecl nox_xxx_windowServerOptionsDrawProc_458500(_DWORD* a1, int a2) {
-	int2* v1;   // edi
 	_DWORD* v2; // esi
 	int xLeft;  // [esp+8h] [ebp-8h]
 	int v5;     // [esp+Ch] [ebp-4h]
 
-	v1 = nox_client_getMousePos_4309F0();
+	nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
 	nox_client_wndGetPosition_46AA60(a1, &xLeft, &v5);
 	nox_client_drawRectFilledAlpha_49CF10(xLeft, v5 + 25, a1[2], a1[3] - 25);
 	v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10120);
-	if (!wndIsShown_nox_xxx_wndIsShown_46ACC0((int)v2) && !nox_xxx_wndPointInWnd_46AAB0(v2, v1->field_0, v1->field_4)) {
+	if (!wndIsShown_nox_xxx_wndIsShown_46ACC0((int)v2) && !nox_xxx_wndPointInWnd_46AAB0(v2, mouse->pos.x, mouse->pos.y)) {
 		nox_xxx_wndClearCaptureMain_46ADE0((int)v2);
 		nox_window_set_hidden((int)v2, 1);
 	}
