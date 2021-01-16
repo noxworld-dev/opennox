@@ -109,7 +109,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 					nox_xxx_clientCollideOrUse_42E810(v12);
 					break;
 				default:
-					nox_xxx_keys_42E670(6, 0);
+					nox_ctrlevent_action_42E670(CC_Action, 0);
 					break;
 				}
 				break;
@@ -119,7 +119,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 					if (getMemByte(0x5D4594, 754064) & 8) {
 						v5 = 3;
 					}
-					nox_xxx_keys_42E670(2, v5);
+					nox_ctrlevent_action_42E670(CC_MoveForward, v5);
 				}
 				break;
 			case 3:
@@ -127,221 +127,221 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				if (getMemByte(0x5D4594, 754064) & 8) {
 					LOBYTE(v6) = v6 | 2;
 				}
-				nox_xxx_keys_42E670(3, v6);
+				nox_ctrlevent_action_42E670(CC_MoveBackward, v6);
 				break;
 			case 4:
 				v7 = (getMemByte(0x5D4594, 754064) & 1) != 0;
 				if (getMemByte(0x5D4594, 754064) & 8) {
 					LOBYTE(v7) = v7 | 2;
 				}
-				nox_xxx_keys_42E670(4, v7);
+				nox_ctrlevent_action_42E670(CC_MoveLeft, v7);
 				break;
 			case 5:
 				v8 = (getMemByte(0x5D4594, 754064) & 1) != 0;
 				if (getMemByte(0x5D4594, 754064) & 8) {
 					LOBYTE(v8) = v8 | 2;
 				}
-				nox_xxx_keys_42E670(5, v8);
+				nox_ctrlevent_action_42E670(CC_MoveRight, v8);
 				break;
 			case 6:
-				nox_xxx_keys_42E670(7, 0);
+				nox_ctrlevent_action_42E670(CC_Jump, 0);
 				break;
 			case 7:
-				nox_xxx_keys_42E670(19, 0);
+				nox_ctrlevent_action_42E670(CC_SpellGestureDown, 0);
 				break;
 			case 8:
-				nox_xxx_keys_42E670(8, 0);
+				nox_ctrlevent_action_42E670(CC_Chat, 0);
 				break;
 			case 9:
 				if (!(*(_BYTE*)(v2 + 3680) & 1)) {
-					nox_xxx_keys_42E670(9, 0);
+					nox_ctrlevent_action_42E670(CC_TeamChat, 0);
 				}
 				break;
 			case 0xA:
-				nox_xxx_keys_42E670(10, 0);
+				nox_ctrlevent_action_42E670(CC_ReadSpellbook, 0);
 				break;
 			case 0xB:
-				nox_xxx_keys_42E670(11, 0);
+				nox_ctrlevent_action_42E670(CC_ToggleConsole, 0);
 				break;
 			case 0xC:
 				if (!nox_xxx_checkGFlagNoParticles_413A50()) {
-					nox_xxx_keys_42E670(12, 0);
+					nox_ctrlevent_action_42E670(CC_IncreaseWindowSize, 0);
 				}
 				break;
 			case 0xD:
 				if (!nox_xxx_checkGFlagNoParticles_413A50()) {
-					nox_xxx_keys_42E670(13, 0);
+					nox_ctrlevent_action_42E670(CC_DecreaseWindowSize, 0);
 				}
 				break;
 			case 0xE:
-				nox_xxx_keys_42E670(14, 0);
+				nox_ctrlevent_action_42E670(CC_Quit, 0);
 				break;
 			case 0xF:
-				nox_xxx_keys_42E670(15, 0);
+				nox_ctrlevent_action_42E670(CC_QuitMenu, 0);
 				break;
 			case 0x10:
-				nox_xxx_keys_42E670(18, 0);
+				nox_ctrlevent_action_42E670(CC_SpellGestureUp, 0);
 				break;
 			case 0x11:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
 					v13 = nox_xxx_packetGetMarshall_476F40();
-					nox_xxx_keys_42E780(29, v13);
+					nox_ctrlevent_action_42E780(CC_CastSpell1, v13);
 				}
 				break;
 			case 0x12:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
-					nox_xxx_keys_42E780(20, 0);
+					nox_ctrlevent_action_42E780(CC_SpellGestureLeft, 0);
 				}
 				break;
 			case 0x13:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
-					nox_xxx_keys_42E780(21, 0);
+					nox_ctrlevent_action_42E780(CC_SpellGestureRight, 0);
 				}
 				break;
 			case 0x14:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
-					nox_xxx_keys_42E780(22, 0);
+					nox_ctrlevent_action_42E780(CC_SpellGestureUpperRight, 0);
 				}
 				break;
 			case 0x15:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
-					nox_xxx_keys_42E780(23, 0);
+					nox_ctrlevent_action_42E780(CC_SpellGestureUpperLeft, 0);
 				}
 				break;
 			case 0x16:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
-					nox_xxx_keys_42E780(24, 0);
+					nox_ctrlevent_action_42E780(CC_SpellGestureLowerRight, 0);
 				}
 				break;
 			case 0x17:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
-					nox_xxx_keys_42E780(25, 0);
+					nox_ctrlevent_action_42E780(CC_SpellGestureLowerLeft, 0);
 				}
 				break;
 			case 0x18:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
-					nox_xxx_keys_42E780(26, 0);
+					nox_ctrlevent_action_42E780(CC_SpellPatternEnd, 0);
 				}
 				break;
 			case 0x19:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
-					nox_xxx_keys_42E780(27, 0);
+					nox_ctrlevent_action_42E780(CC_CastQueuedSpell, 0);
 				}
 				break;
 			case 0x1A:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
-					nox_xxx_keys_42E780(28, 0);
+					nox_ctrlevent_action_42E780(CC_CastMostRecentSpell, 0);
 				}
 				break;
 			case 0x1B:
 				if (!nox_xxx_guiSpellTest_45D9C0()) {
 					v14 = nox_xxx_packetGetMarshall_476F40();
-					nox_xxx_keys_42E780(30, v14);
+					nox_ctrlevent_action_42E780(CC_CastSpell2, v14);
 				}
 				break;
 			case 0x1C:
-				nox_xxx_keys_42E780(31, 0);
+				nox_ctrlevent_action_42E780(CC_CastSpell3, 0);
 				break;
 			case 0x1D:
-				nox_xxx_keys_42E780(32, 0);
+				nox_ctrlevent_action_42E780(CC_CastSpell4, 0);
 				break;
 			case 0x1E:
-				nox_xxx_keys_42E780(33, 0);
+				nox_ctrlevent_action_42E780(CC_CastSpell5, 0);
 				break;
 			case 0x1F:
-				nox_xxx_keys_42E780(34, 0);
+				nox_ctrlevent_action_42E780(CC_MapZoomIn, 0);
 				break;
 			case 0x20:
-				nox_xxx_keys_42E780(35, 0);
+				nox_ctrlevent_action_42E780(CC_MapZoomOut, 0);
 				break;
 			case 0x21:
-				nox_xxx_keys_42E670(36, 0);
+				nox_ctrlevent_action_42E670(CC_NextWeapon, 0);
 				break;
 			case 0x22:
-				nox_xxx_keys_42E670(37, 0);
+				nox_ctrlevent_action_42E670(CC_QuickHealthPotion, 0);
 				break;
 			case 0x23:
-				nox_xxx_keys_42E780(38, 0);
+				nox_ctrlevent_action_42E780(CC_QuickManaPotion, 0);
 				break;
 			case 0x24:
-				nox_xxx_keys_42E780(39, 0);
+				nox_ctrlevent_action_42E780(CC_QuickCurePoisonPotion, 0);
 				break;
 			case 0x25:
-				nox_xxx_keys_42E780(40, 0);
+				nox_ctrlevent_action_42E780(CC_NextSpellSet, 0);
 				break;
 			case 0x26:
-				nox_xxx_keys_42E780(41, 0);
+				nox_ctrlevent_action_42E780(CC_PreviousSpellSet, 0);
 				break;
 			case 0x27:
-				nox_xxx_keys_42E780(42, 0);
+				nox_ctrlevent_action_42E780(CC_SelectSpellSet, 0);
 				break;
 			case 0x28:
-				nox_xxx_keys_42E780(43, 0);
+				nox_ctrlevent_action_42E780(CC_BuildTrap, 0);
 				break;
 			case 0x29:
-				nox_xxx_keys_42E780(44, 0);
+				nox_ctrlevent_action_42E780(CC_ServerOptions, 0);
 				break;
 			case 0x2A:
-				nox_xxx_keys_42E780(45, 0);
+				nox_ctrlevent_action_42E780(CC_Taunt, 0);
 				break;
 			case 0x2B:
-				nox_xxx_keys_42E670(16, 0);
+				nox_ctrlevent_action_42E670(CC_ReadMap, 0);
 				break;
 			case 0x2C:
-				nox_xxx_keys_42E670(17, 0);
+				nox_ctrlevent_action_42E670(CC_Inventory, 0);
 				break;
 			case 0x2D:
-				nox_xxx_keys_42E670(46, 0);
+				nox_ctrlevent_action_42E670(CC_Laugh, 0);
 				break;
 			case 0x2E:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
 					nox_xxx_checkKeybTimeout_4160F0(0x15u, nox_gameFPS)) {
 					nox_xxx_setKeybTimeout_4160D0(21);
-					nox_xxx_keys_42E670(47, 0);
+					nox_ctrlevent_action_42E670(CC_Point, 0);
 				}
 				break;
 			case 0x2F:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
 					nox_xxx_checkKeybTimeout_4160F0(0x14u, 2 * nox_gameFPS)) {
 					nox_xxx_setKeybTimeout_4160D0(20);
-					nox_xxx_keys_42E670(48, 0);
+					nox_ctrlevent_action_42E670(CC_InvertSpellTarget, 0);
 				}
 				break;
 			case 0x30:
 				if (nox_common_gameFlags_check_40A5C0(0x2000) &&
 					nox_xxx_checkKeybTimeout_4160F0(0x16u, nox_gameFPS)) {
 					nox_xxx_setKeybTimeout_4160D0(22);
-					nox_xxx_keys_42E670(49, 0);
+					nox_ctrlevent_action_42E670(CC_ToggleRank, 0);
 				}
 				break;
 			case 0x31:
-				nox_xxx_keys_42E670(50, 0);
+				nox_ctrlevent_action_42E670(CC_ToggleNetstat, 0);
 				break;
 			case 0x32:
 				if (nox_common_gameFlags_check_40A5C0(0x2000)) {
-					nox_xxx_keys_42E670(51, 0);
+					nox_ctrlevent_action_42E670(CC_ToggleGUI, 0);
 				}
 				break;
 			case 0x33:
 				if (!nox_xxx_checkGFlagNoParticles_413A50()) {
-					nox_xxx_keys_42E670(52, 0);
+					nox_ctrlevent_action_42E670(CC_AutoSave, 0);
 				}
 				break;
 			case 0x34:
-				nox_xxx_keys_42E670(53, 0);
+				nox_ctrlevent_action_42E670(CC_AutoLoad, 0);
 				break;
 			case 0x35:
 				if (nox_common_gameFlags_check_40A5C0(2048) && !nox_xxx_guiCursor_477600()) {
-					nox_xxx_keys_42E670(54, 0);
+					nox_ctrlevent_action_42E670(CC_ScreenShot, 0);
 				}
 				break;
 			case 0x36:
 				if (nox_common_gameFlags_check_40A5C0(2048) && !nox_xxx_guiCursor_477600()) {
-					nox_xxx_keys_42E670(55, 0);
+					nox_ctrlevent_action_42E670(CC_Unknown55, 0);
 				}
 				break;
 			case 0x37:
-				nox_xxx_keys_42E670(56, 0);
+				nox_ctrlevent_action_42E670(CC_Unknown56, 0);
 				break;
 			default:
 				break;
@@ -355,7 +355,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 #endif
 	{
 		if (getMemByte(0x5D4594, 747848) != 2 && *getMemU32Ptr(0x5D4594, 747868) == 4) {
-			// calculates player view direction?
+			// calculates player orientation
 			void* v15 = nox_xxx_spriteGetMB_476F80();
 			int x = mouse->pos.x;
 			int y = mouse->pos.y;
@@ -374,15 +374,15 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 				ang -= ((unsigned int)ang >> 8) << 8;
 			}
 			dword_5d4594_754060 = ang;
-			nox_xxx_keys_42E670(1, ang);
+			nox_ctrlevent_action_42E670(CC_Orientation, ang);
 		}
-		nox_xxx_keys_42E670(1, dword_5d4594_754060);
+		nox_ctrlevent_action_42E670(CC_Orientation, dword_5d4594_754060);
 	}
 	if (getMemByte(0x5D4594, 2661958)) {
 		nox_xxx_guiSpellTargetClickCheckSend_45DBB0();
 	}
 	if (getMemByte(0x5D4594, 754064) & 4) {
-		nox_xxx_keys_42E670(28, 0);
+		nox_ctrlevent_action_42E670(CC_CastMostRecentSpell, 0);
 	}
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		int v20 = dword_5d4594_754040;
