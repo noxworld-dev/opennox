@@ -146,6 +146,7 @@ extern mouse_pos_t nox_mouse_min;
 extern mouse_pos_t nox_mouse_max;
 extern mouse_pos_t nox_mouse_prev_btn[3];
 
+extern __int64 nox_ctrlevent_ticks;
 extern nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX];
 extern nox_ctrlevent_xxx_t nox_ctrlevent_buf_750964[NOX_CTRLEVENT_XXX_MAX];
 
@@ -2705,6 +2706,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 811068, (void*)&obj_5D4594_811068, sizeof(obj_5D4594_811068), 1},
 	{0x5D4594 + 747884, (void*)nox_ctrlevent_buf_747884, sizeof(nox_ctrlevent_buf_747884), 1},
 	{0x5D4594 + 750964, (void*)nox_ctrlevent_buf_750964, sizeof(nox_ctrlevent_buf_750964), 1},
+	{0x5D4594 + 747876, (void*)&nox_ctrlevent_ticks, sizeof(nox_ctrlevent_ticks), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
 	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},
