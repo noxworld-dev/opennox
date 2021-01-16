@@ -4021,10 +4021,14 @@ LABEL_37:
 }
 
 //----- (0042D440) --------------------------------------------------------
-int __cdecl sub_42D440(int a1) { return *getMemU32Ptr(0x587000, 12 * a1 + 72020); }
+int sub_42D440(int code) {
+	return *getMemU32Ptr(0x587000, 12 * code + 72020); // TODO: base address; size >= 54
+}
 
 //----- (0042D450) --------------------------------------------------------
-unsigned __int8 __cdecl sub_42D450(int a1) { return getMemByte(0x587000, 12 * a1 + 72024); }
+unsigned __int8 sub_42D450(int code) {
+	return getMemByte(0x587000, 12 * code + 72020 + 4); // TODO: base address + 4; size >= 54
+}
 
 //----- (0042D460) --------------------------------------------------------
 int __cdecl nox_xxx_keyCheckWarrorKeys_42D460(int a1) {
@@ -4119,56 +4123,39 @@ int __cdecl nox_xxx_keyCanPauseMode_42D4B0(int a1) {
 
 //----- (0042D510) --------------------------------------------------------
 void nox_xxx_netBuf_42D510() {
-	__int64 v1;          // kr00_8
-	int v3;              // ebx
-	__int64 v4;          // kr08_8
-	int v5;              // eax
-	int v6;              // edx
-	int v8;              // eax
-	int v9;              // edx
-	unsigned __int8 v10; // al
-
-	v1 = nox_call_get_ticks();
+	__int64 ticks = nox_call_get_ticks();
 	*getMemU32Ptr(0x5D4594, 747864) = 0;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
-		v3 = dword_5d4594_754040;
 		if (dword_5d4594_754040 != dword_5d4594_754036) {
-			v4 = v1 + 50;
-			do {
-				if (HIDWORD(v4) < (int)nox_ctrlevent_buf_747884[v3].field_4)
+			for (int i = dword_5d4594_754040; i != dword_5d4594_754036; i = (i + 1) % NOX_CTRLEVENT_XXX_MAX) {
+				nox_ctrlevent_xxx_t* p = &nox_ctrlevent_buf_747884[i];
+				if (p->tick > ticks + 50) {
 					break;
-				if (HIDWORD(v4) <= (int)nox_ctrlevent_buf_747884[v3].field_4) {
-					if ((unsigned int)v4 < (int)nox_ctrlevent_buf_747884[v3].field_0)
-						break;
 				}
-				if (nox_ctrlevent_buf_747884[v3].field_16 == 1) {
-					v5 = *getMemU32Ptr(0x5D4594, 747864);
-					v6 = nox_ctrlevent_buf_747884[v3].field_8;
-					*getMemU8Ptr( 0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692) = *(_BYTE*)(&nox_ctrlevent_buf_747884[v3].field_8);
-					*getMemU32Ptr(0x5D4594, 747864) = v5 + 4;
-					if (sub_42D440(v6)) {
-						int n = sub_42D450(nox_ctrlevent_buf_747884[v3].field_8);
-						memcpy(getMemAt(0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692), &nox_ctrlevent_buf_747884[v3].field_12, n);
-						*getMemU32Ptr(0x5D4594, 747864) += n;
-					}
+				if (p->active != 1) {
+					continue;
 				}
-				v3 = (v3 + 1) % NOX_CTRLEVENT_XXX_MAX;
-			} while (v3 != dword_5d4594_754036);
+				int v5 = *getMemU32Ptr(0x5D4594, 747864);
+				*getMemU8Ptr( 0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692) = p->code & 0xff;
+				*getMemU32Ptr(0x5D4594, 747864) = v5 + 4;
+				if (sub_42D440(p->code)) {
+					memcpy(getMemAt(0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692), &p->data, sub_42D450(p->code));
+					*getMemU32Ptr(0x5D4594, 747864) += n;
+				}
+			}
+			dword_5d4594_754040 = dword_5d4594_754036;
 		}
-		dword_5d4594_754040 = v3;
 	} else if (dword_5d4594_754036 > 0) {
 		for (int i = 0; i < dword_5d4594_754036; i++) {
 			nox_ctrlevent_xxx_t* p = &nox_ctrlevent_buf_747884[i];
-			if (p->field_16 != 1) {
+			if (p->active != 1) {
 				continue;
 			}
-			v8 = *getMemU32Ptr(0x5D4594, 747864);
-			v9 = p->field_8;
-			*getMemU8Ptr( 0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692) = *(_BYTE*)(&p->field_8);
+			int v8 = *getMemU32Ptr(0x5D4594, 747864);
+			*getMemU8Ptr( 0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692) = p->code & 0xff;
 			*getMemU32Ptr(0x5D4594, 747864) = v8 + 4;
-			if (sub_42D440(v9)) {
-				v10 = sub_42D450(p->field_8);
-				memcpy(getMemAt(0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692), &p->field_12, v10);
+			if (sub_42D440(p->code)) {
+				memcpy(getMemAt(0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692), &p->data, sub_42D450(p->code));
 				*getMemU32Ptr(0x5D4594, 747864) += v10;
 			}
 		}
@@ -4210,9 +4197,9 @@ int sub_42E630() {
 // 42E649: control flows out of bounds to 554300
 
 //----- (0042E670) --------------------------------------------------------
-void __cdecl nox_xxx_keys_42E670(int a1, int a2) {
+void nox_xxx_keys_42E670(int code, _DWORD data) {
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		if (*(int*)&dword_5d4594_754036 >= NOX_CTRLEVENT_XXX_MAX) {
+		if (dword_5d4594_754036 >= NOX_CTRLEVENT_XXX_MAX) {
 			return;
 		}
 	} else {
@@ -4220,21 +4207,19 @@ void __cdecl nox_xxx_keys_42E670(int a1, int a2) {
 			return;
 		}
 	}
-	if (getMemByte(0x5D4594, 2661958) || (nox_xxx_keyCheckWarrorKeys_42D460(a1) == 0)) {
+	if (getMemByte(0x5D4594, 2661958) || (nox_xxx_keyCheckWarrorKeys_42D460(code) == 0)) {
 		int j = dword_5d4594_754036;
-		if (nox_common_gameFlags_check_40A5C0(1) && nox_xxx_keyCanPauseMode_42D4B0(a1)) {
-			// ring buffer?
+		if (nox_common_gameFlags_check_40A5C0(1) && nox_xxx_keyCanPauseMode_42D4B0(code)) {
 			for (int i = dword_5d4594_754040; i != dword_5d4594_754036; i = (i + 1) % NOX_CTRLEVENT_XXX_MAX) {
-				if (nox_ctrlevent_buf_747884[i].field_8 == a1) {
+				if (nox_ctrlevent_buf_747884[i].code == code) {
 					return;
 				}
 			}
 		}
-		nox_ctrlevent_buf_747884[j].field_0 = *getMemU32Ptr(0x5D4594, 747876);
-		nox_ctrlevent_buf_747884[j].field_4 = *getMemU32Ptr(0x5D4594, 747880);
-		nox_ctrlevent_buf_747884[j].field_8 = a1;
-		nox_ctrlevent_buf_747884[j].field_16 = 1;
-		nox_ctrlevent_buf_747884[j].field_12 = a2;
+		nox_ctrlevent_buf_747884[j].tick = *getMemU64Ptr(0x5D4594, 747876);
+		nox_ctrlevent_buf_747884[j].code = code;
+		nox_ctrlevent_buf_747884[j].data = data;
+		nox_ctrlevent_buf_747884[j].active = 1;
 		dword_5d4594_754036 = j + 1;
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			dword_5d4594_754036 %= NOX_CTRLEVENT_XXX_MAX;
@@ -4243,11 +4228,11 @@ void __cdecl nox_xxx_keys_42E670(int a1, int a2) {
 }
 
 //----- (0042E780) --------------------------------------------------------
-void __cdecl nox_xxx_keys_42E780(int a1, int a2) {
+void nox_xxx_keys_42E780(int code, _DWORD data) {
 	if (*getMemU32Ptr(0x5D4594, 2614252) && !(*(_BYTE*)(*getMemU32Ptr(0x5D4594, 2614252) + 120) & 2)) {
-		int result = nox_xxx_checkGFlagNoParticles_413A50();
-		if (!result)
-			nox_xxx_keys_42E670(a1, a2);
+		if (!nox_xxx_checkGFlagNoParticles_413A50()) {
+			nox_xxx_keys_42E670(code, data);
+		}
 	}
 }
 
