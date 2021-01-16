@@ -9151,7 +9151,7 @@ int __cdecl sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4) {
 				nox_window_call_field_94(*(int*)&dword_5d4594_815028, 16403, a4, 0);
 				nox_window_call_field_94(*(int*)&dword_5d4594_815032, 16403, a4, 0);
 				if (a4 < *(int*)&dword_5d4594_815088) {
-					v8 = *(int2*)nox_client_getMousePos_4309F0();
+					v8 = *(int2*)(&nox_client_getMousePos_4309F0()->pos);
 					dword_5d4594_814624 = sub_4A04C0(a4);
 					sub_439370(&v8, *(int*)&dword_5d4594_814624);
 				}
@@ -9241,8 +9241,6 @@ char* __cdecl sub_439CC0(int a1, char* a2) {
 
 //----- (00439D00) --------------------------------------------------------
 int __cdecl sub_439D00(int* a1, int a2, unsigned int a3, int a4) {
-	int2* v4; // eax
-
 	if (a2 == 5) {
 		if (nox_xxx_wndGetID_46B0A0(a1) == 10020 && dword_5d4594_815048 == 1) {
 			sub_439D90((unsigned __int16)a3, a3 >> 16);
@@ -9254,8 +9252,8 @@ int __cdecl sub_439D00(int* a1, int a2, unsigned int a3, int a4) {
 		return 0;
 	if (a3 != 1) {
 		if (a3 != 28 && a3 == 57) {
-			v4 = nox_client_getMousePos_4309F0();
-			nox_window_call_field_93((int)a1, 5, v4->field_0 | (v4->field_4 << 16), 0);
+			nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
+			nox_window_call_field_93((int)a1, 5, mouse->pos.x | (mouse->pos.y << 16), 0);
 		}
 		return 0;
 	}
