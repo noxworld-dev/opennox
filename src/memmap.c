@@ -106,6 +106,7 @@ extern table_27008_t table_27008[];
 extern table_27104_t table_27104[];
 extern table_27168_t table_27168[];
 extern table_28760_t table_28760[];
+extern nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[];
 extern nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[];
 
 // unresolved
@@ -2713,6 +2714,7 @@ mem_mapping mappings[] = {
 	{0x587000 + 27104, (void*)table_27104, sizeof(table_27104_t) * 4, 1},  // TODO
 	{0x587000 + 27168, (void*)table_27168, sizeof(table_27168_t) * 12, 1}, // TODO
 	{0x587000 + 28760, (void*)table_28760, sizeof(table_28760_t) * 17, 1}, // TODO
+	{0x587000 + 72016, (void*)nox_ctrlevent_code_infos, sizeof(nox_ctrlevent_code_info_t) * 55, 1}, // TODO
 	{0x587000 + 37892, (void*)nox_rnd_table_37892, sizeof(nox_rnd_table_37892), 1},
 	{0x587000 + 80764, (void*)&nox_mouse_max, sizeof(nox_mouse_max), 1},
 	{0x587000 + 80804, (void*)&nox_enable_threads, sizeof(nox_enable_threads), 1},
