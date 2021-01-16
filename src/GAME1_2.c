@@ -3866,7 +3866,7 @@ int __cdecl sub_42CF50(const char* a1) {
 }
 
 //----- (0042D220) --------------------------------------------------------
-void sub_42D220() {
+void nox_xxx_input_42D220() {
 	int v0;      // ebx
 	int v2;      // esi
 	int* v3;     // edi
@@ -8599,7 +8599,7 @@ int nox_xxx_client_435F80_draw() {
 	sub_437100();
 	if (!sub_478030() && !nox_xxx_guiCursor_477600())
 		sub_470DE0();
-	sub_42D220();
+	nox_xxx_input_42D220();
 	if (nox_xxx_get_430890() == 1)
 		sub_430880(0);
 	nox_xxx_clientEnumHover_476FA0();
