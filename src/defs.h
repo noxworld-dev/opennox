@@ -754,12 +754,11 @@ _Static_assert(sizeof(nox_keyboard_btn_t) == 8, "wrong size of nox_keyboard_btn_
 
 #define NOX_CTRLEVENT_XXX_MAX 128
 typedef struct nox_ctrlevent_xxx_t {
-	_DWORD field_0;
-	_DWORD field_4;
-	_DWORD field_8;
-	_DWORD field_12;
-	_DWORD field_16;
-	_DWORD field_20;
+	__int64 tick; // 0
+	int     code; // 8
+	_DWORD  data; // 12
+	int     active; // 16
+	_DWORD  paddding; // 20
 } nox_ctrlevent_xxx_t;
 _Static_assert(sizeof(nox_ctrlevent_xxx_t) == 24, "wrong size of nox_ctrlevent_xxx_t structure!");
 
