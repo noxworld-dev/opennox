@@ -4021,16 +4021,6 @@ LABEL_37:
 	nox_xxx_netBuf_42D510();
 }
 
-//----- (0042D440) --------------------------------------------------------
-int nox_ctrlevent_has_data_42D440(nox_ctrlevent_code code) {
-	return nox_ctrlevent_code_infos[code].has_data;
-}
-
-//----- (0042D450) --------------------------------------------------------
-unsigned __int8 nox_ctrlevent_data_size_42D450(nox_ctrlevent_code code) {
-	return nox_ctrlevent_code_infos[code].data_size;
-}
-
 //----- (0042D460) --------------------------------------------------------
 int nox_xxx_keyCheckWarrorKeys_42D460(nox_ctrlevent_code code) {
 	switch (code) {

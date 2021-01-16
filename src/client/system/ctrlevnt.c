@@ -26,6 +26,77 @@ __int64 nox_ctrlevent_ticks = 0;
 nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX] = {0};
 nox_ctrlevent_xxx_t nox_ctrlevent_buf_750964[NOX_CTRLEVENT_XXX_MAX] = {0}; // TODO: size a guess
 
+nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[] = {
+		{"CC_Null", 0, 0},
+		{"CC_Orientation", 0x1, 0x1},
+		{"CC_MoveForward", 0x1, 0x1},
+		{"CC_MoveBackward", 0x1, 0x1},
+		{"CC_MoveLeft", 0x1, 0x1},
+		{"CC_MoveRight", 0x1, 0x1},
+		{"CC_Action", 0, 0},
+		{"CC_Jump", 0, 0},
+		{"CC_Chat", 0, 0},
+		{"CC_TeamChat", 0, 0},
+		{"CC_ReadSpellbook", 0, 0},
+		{"CC_ToggleConsole", 0, 0},
+		{"CC_IncreaseWindowSize", 0, 0},
+		{"CC_DecreaseWindowSize", 0, 0},
+		{"CC_Quit", 0, 0},
+		{"CC_QuitMenu", 0, 0},
+		{"CC_ReadMap", 0, 0},
+		{"CC_Inventory", 0, 0},
+		{"CC_SpellGestureUp", 0, 0},
+		{"CC_SpellGestureDown", 0, 0},
+		{"CC_SpellGestureLeft", 0, 0},
+		{"CC_SpellGestureRight", 0, 0},
+		{"CC_SpellGestureUpperRight", 0, 0},
+		{"CC_SpellGestureUpperLeft", 0, 0},
+		{"CC_SpellGestureLowerRight", 0, 0},
+		{"CC_SpellGestureLowerLeft", 0, 0},
+		{"CC_SpellPatternEnd", 0x1, 0x1},
+		{"CC_CastQueuedSpell", 0x1, 0x4},
+		{"CC_CastMostRecentSpell", 0x1, 0x4},
+		{"CC_CastSpell1", 0, 0},
+		{"CC_CastSpell2", 0, 0},
+		{"CC_CastSpell3", 0, 0},
+		{"CC_CastSpell4", 0, 0},
+		{"CC_CastSpell5", 0, 0},
+		{"CC_MapZoomIn", 0, 0},
+		{"CC_MapZoomOut", 0, 0},
+		{"CC_NextWeapon", 0, 0},
+		{"CC_QuickHealthPotion", 0, 0},
+		{"CC_QuickManaPotion", 0, 0},
+		{"CC_QuickCurePoisonPotion", 0, 0},
+		{"CC_NextSpellSet", 0, 0},
+		{"CC_PreviousSpellSet", 0, 0},
+		{"CC_SelectSpellSet", 0, 0},
+		{"CC_BuildTrap", 0, 0},
+		{"CC_ServerOptions", 0, 0},
+		{"CC_Taunt", 0, 0},
+		{"CC_Laugh", 0, 0},
+		{"CC_Point", 0, 0},
+		{"CC_InvertSpellTarget", 0, 0},
+		{"CC_ToggleRank", 0, 0},
+		{"CC_ToggleNetstat", 0, 0},
+		{"CC_ToggleGUI", 0, 0},
+		{"CC_AutoSave", 0, 0},
+		{"CC_AutoLoad", 0, 0},
+		{"CC_ScreenShot", 0, 0},
+		{"CC_Unknown55", 0, 0},
+		{"CC_Unknown56", 0, 0},
+};
+int nox_ctrlevent_code_infos_cnt = sizeof(nox_ctrlevent_code_infos) / sizeof(nox_ctrlevent_code_info_t);
+
+//----- (0042D440) --------------------------------------------------------
+int nox_ctrlevent_has_data_42D440(nox_ctrlevent_code code) {
+	return nox_ctrlevent_code_infos[code].has_data;
+}
+
+//----- (0042D450) --------------------------------------------------------
+unsigned __int8 nox_ctrlevent_data_size_42D450(nox_ctrlevent_code code) {
+	return nox_ctrlevent_code_infos[code].data_size;
+}
+
 //----- (0042E630) --------------------------------------------------------
 int nox_ctrlevent_add_ticks_42E630() {
 	char* v0 = (char*)sub_416640();
