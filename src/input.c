@@ -287,12 +287,12 @@ void send_mouse1_event() {
 
 #ifdef __EMSCRIPTEN__
 void nox_xxx_clientControl_42D6B0_em_not_mouse_down() {
-	nox_xxx_keys_42E670(1, orientation);
+	nox_ctrlevent_action_42E670(CC_Orientation, orientation);
 	if (move_speed)
-		nox_xxx_keys_42E670(2, 3);
+		nox_ctrlevent_action_42E670(CC_MoveForward, 3);
 	if (jump) {
-		nox_xxx_keys_42E670(2, 3);
-		nox_xxx_keys_42E670(7, 0);
+		nox_ctrlevent_action_42E670(CC_MoveForward, 3);
+		nox_ctrlevent_action_42E670(CC_Jump, 0);
 		jump = 0;
 	}
 }

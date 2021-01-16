@@ -1170,6 +1170,8 @@ nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[] = {
 		{"CC_AutoSave", 0, 0},
 		{"CC_AutoLoad", 0, 0},
 		{"CC_ScreenShot", 0, 0},
+		{"CC_Unknown55", 0, 0},
+		{"CC_Unknown56", 0, 0},
 };
 int nox_ctrlevent_code_infos_cnt = sizeof(nox_ctrlevent_code_infos) / sizeof(nox_ctrlevent_code_info_t);
 

@@ -699,6 +699,69 @@ typedef struct nox_ctrlevent_code_info_t {
 	unsigned int data_size; // in bytes; see nox_ctrlevent_xxx_t.data
 } nox_ctrlevent_code_info_t;
 
+typedef enum {
+	CC_Null = 0,
+	CC_Orientation = 1,
+	CC_MoveForward = 2,
+	CC_MoveBackward = 3,
+	CC_MoveLeft = 4,
+	CC_MoveRight = 5,
+	CC_Action = 6,
+	CC_Jump = 7,
+	CC_Chat = 8,
+	CC_TeamChat = 9,
+	CC_ReadSpellbook = 10,
+	CC_ToggleConsole = 11,
+	CC_IncreaseWindowSize = 12,
+	CC_DecreaseWindowSize = 13,
+	CC_Quit = 14,
+	CC_QuitMenu = 15,
+	CC_ReadMap = 16,
+	CC_Inventory = 17,
+	CC_SpellGestureUp = 18,
+	CC_SpellGestureDown = 19,
+	CC_SpellGestureLeft = 20,
+	CC_SpellGestureRight = 21,
+	CC_SpellGestureUpperRight = 22,
+	CC_SpellGestureUpperLeft = 23,
+	CC_SpellGestureLowerRight = 24,
+	CC_SpellGestureLowerLeft = 25,
+	CC_SpellPatternEnd = 26,
+	CC_CastQueuedSpell = 27,
+	CC_CastMostRecentSpell = 28,
+	CC_CastSpell1 = 29,
+	CC_CastSpell2 = 30,
+	CC_CastSpell3 = 31,
+	CC_CastSpell4 = 32,
+	CC_CastSpell5 = 33,
+	CC_MapZoomIn = 34,
+	CC_MapZoomOut = 35,
+	CC_NextWeapon = 36,
+	CC_QuickHealthPotion = 37,
+	CC_QuickManaPotion = 38,
+	CC_QuickCurePoisonPotion = 39,
+	CC_NextSpellSet = 40,
+	CC_PreviousSpellSet = 41,
+	CC_SelectSpellSet = 42,
+	CC_BuildTrap = 43,
+	CC_ServerOptions = 44,
+	CC_Taunt = 45,
+	CC_Laugh = 46,
+	CC_Point = 47,
+	CC_InvertSpellTarget = 48,
+	CC_ToggleRank = 49,
+	CC_ToggleNetstat = 50,
+	CC_ToggleGUI = 51,
+	CC_AutoSave = 52,
+	CC_AutoLoad = 53,
+	CC_ScreenShot = 54,
+	CC_Unknown55 = 55,
+	CC_Unknown56 = 56
+} nox_ctrlevent_code;
+_Static_assert(CC_Null == 0, "wrong value for CC_Null!");
+_Static_assert(CC_Orientation == 1, "wrong value for CC_Orientation!");
+_Static_assert(CC_ScreenShot == 54, "wrong value for CC_ScreenShot!");
+
 typedef struct nox_parse_thing_draw_funcs_t {
 	const char* name;
 	void* draw;

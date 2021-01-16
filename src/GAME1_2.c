@@ -4022,12 +4022,12 @@ LABEL_37:
 }
 
 //----- (0042D440) --------------------------------------------------------
-int nox_ctrlevent_has_data_42D440(int code) {
+int nox_ctrlevent_has_data_42D440(nox_ctrlevent_code code) {
 	return nox_ctrlevent_code_infos[code].has_data;
 }
 
 //----- (0042D450) --------------------------------------------------------
-unsigned __int8 nox_ctrlevent_data_size_42D450(int code) {
+unsigned __int8 nox_ctrlevent_data_size_42D450(nox_ctrlevent_code code) {
 	return nox_ctrlevent_code_infos[code].data_size;
 }
 
@@ -4200,7 +4200,7 @@ int sub_42E630() {
 // 42E649: control flows out of bounds to 554300
 
 //----- (0042E670) --------------------------------------------------------
-void nox_xxx_keys_42E670(int code, _DWORD data) {
+void nox_ctrlevent_action_42E670(nox_ctrlevent_code code, _DWORD data) {
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		if (dword_5d4594_754036 >= NOX_CTRLEVENT_XXX_MAX) {
 			return;
@@ -4231,10 +4231,10 @@ void nox_xxx_keys_42E670(int code, _DWORD data) {
 }
 
 //----- (0042E780) --------------------------------------------------------
-void nox_xxx_keys_42E780(int code, _DWORD data) {
+void nox_ctrlevent_action_42E780(nox_ctrlevent_code code, _DWORD data) {
 	if (*getMemU32Ptr(0x5D4594, 2614252) && !(*(_BYTE*)(*getMemU32Ptr(0x5D4594, 2614252) + 120) & 2)) {
 		if (!nox_xxx_checkGFlagNoParticles_413A50()) {
-			nox_xxx_keys_42E670(code, data);
+			nox_ctrlevent_action_42E670(code, data);
 		}
 	}
 }
