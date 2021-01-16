@@ -693,6 +693,12 @@ typedef struct table_28760_t {
 	int(__cdecl* parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_28760_t;
 
+typedef struct nox_ctrlevent_code_info_t {
+	const char* name;
+	unsigned int has_data;
+	unsigned int data_size; // in bytes; see nox_ctrlevent_xxx_t.data
+} nox_ctrlevent_code_info_t;
+
 typedef struct nox_parse_thing_draw_funcs_t {
 	const char* name;
 	void* draw;

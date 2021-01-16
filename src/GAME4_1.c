@@ -12131,8 +12131,8 @@ int __cdecl sub_51AAA0(int a1, int a2, int a3) {
 		v6 = *(unsigned __int8*)(a1 + v4);
 		v4 += 4;
 		*(v5 - 1) = v6;
-		if (sub_42D440(v6)) {
-			v7 = sub_42D450(*(v5 - 1));
+		if (nox_ctrlevent_has_data_42D440(v6)) {
+			v7 = nox_ctrlevent_data_size_42D450(*(v5 - 1));
 			*v5 = 0;
 			memcpy(v5, (const void*)(v4 + a1), v7);
 			v4 += v7;

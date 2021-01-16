@@ -194,6 +194,7 @@ mouse_pos_t nox_mouse_max = {639, 478}; // ugly hack for MSVC
 mouse_pos_t nox_mouse_prev_btn[3] = {0};
 
 extern nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX];
+extern nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[];
 
 obj_5D4594_754088_t* ptr_5D4594_754088 = 0;
 int ptr_5D4594_754088_cnt = 0;
@@ -4021,13 +4022,13 @@ LABEL_37:
 }
 
 //----- (0042D440) --------------------------------------------------------
-int sub_42D440(int code) {
-	return *getMemU32Ptr(0x587000, 12 * code + 72020); // TODO: base address; size >= 54
+int nox_ctrlevent_has_data_42D440(int code) {
+	return nox_ctrlevent_code_infos[code].has_data;
 }
 
 //----- (0042D450) --------------------------------------------------------
-unsigned __int8 sub_42D450(int code) {
-	return getMemByte(0x587000, 12 * code + 72020 + 4); // TODO: base address + 4; size >= 54
+unsigned __int8 nox_ctrlevent_data_size_42D450(int code) {
+	return nox_ctrlevent_code_infos[code].data_size;
 }
 
 //----- (0042D460) --------------------------------------------------------
@@ -4138,9 +4139,10 @@ void nox_xxx_netBuf_42D510() {
 				int v5 = *getMemU32Ptr(0x5D4594, 747864);
 				*getMemU8Ptr( 0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692) = p->code & 0xff;
 				*getMemU32Ptr(0x5D4594, 747864) = v5 + 4;
-				if (sub_42D440(p->code)) {
-					memcpy(getMemAt(0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692), &p->data, sub_42D450(p->code));
-					*getMemU32Ptr(0x5D4594, 747864) += n;
+				if (nox_ctrlevent_has_data_42D440(p->code)) {
+					int sz = nox_ctrlevent_data_size_42D450(p->code);
+					memcpy(getMemAt(0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692), &p->data, sz);
+					*getMemU32Ptr(0x5D4594, 747864) += sz;
 				}
 			}
 			dword_5d4594_754040 = dword_5d4594_754036;
@@ -4154,9 +4156,10 @@ void nox_xxx_netBuf_42D510() {
 			int v8 = *getMemU32Ptr(0x5D4594, 747864);
 			*getMemU8Ptr( 0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692) = p->code & 0xff;
 			*getMemU32Ptr(0x5D4594, 747864) = v8 + 4;
-			if (sub_42D440(p->code)) {
-				memcpy(getMemAt(0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692), &p->data, sub_42D450(p->code));
-				*getMemU32Ptr(0x5D4594, 747864) += v10;
+			if (nox_ctrlevent_has_data_42D440(p->code)) {
+				int sz = nox_ctrlevent_data_size_42D450(p->code);
+				memcpy(getMemAt(0x5D4594, *getMemU32Ptr(0x5D4594, 747864) + 741692), &p->data, sz);
+				*getMemU32Ptr(0x5D4594, 747864) += sz;
 			}
 		}
 	}
