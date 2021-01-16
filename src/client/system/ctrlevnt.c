@@ -10,7 +10,7 @@
 #include "../gui/guispell.h"
 #include "../gui/servopts/guiserv.h"
 
-_DWORD dword_5d4594_754060 = 0;
+_DWORD nox_ctrlevent_player_orientation = 0;
 extern _DWORD dword_5d4594_754048;
 extern _DWORD dword_5d4594_754044;
 extern _DWORD nox_xxx_useAudio_587000_80832;
@@ -463,10 +463,9 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 			if (ang >= 256) {
 				ang -= ((unsigned int)ang >> 8) << 8;
 			}
-			dword_5d4594_754060 = ang;
-			nox_ctrlevent_action_42E670(CC_Orientation, ang);
+			nox_ctrlevent_player_orientation = ang;
 		}
-		nox_ctrlevent_action_42E670(CC_Orientation, dword_5d4594_754060);
+		nox_ctrlevent_action_42E670(CC_Orientation, nox_ctrlevent_player_orientation);
 	}
 	if (getMemByte(0x5D4594, 2661958)) {
 		nox_xxx_guiSpellTargetClickCheckSend_45DBB0();
