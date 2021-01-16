@@ -4032,94 +4032,84 @@ unsigned __int8 nox_ctrlevent_data_size_42D450(nox_ctrlevent_code code) {
 }
 
 //----- (0042D460) --------------------------------------------------------
-int __cdecl nox_xxx_keyCheckWarrorKeys_42D460(int a1) {
-	int result; // eax
-
-	switch (a1) {
-	case 20:
-	case 21:
-	case 22:
-	case 23:
-	case 24:
-	case 25:
-	case 26:
-	case 27:
-	case 28:
-	case 29:
-	case 30:
-	case 42:
-	case 43:
-	case 44:
-	case 45:
-		result = 1;
-		break;
+int nox_xxx_keyCheckWarrorKeys_42D460(nox_ctrlevent_code code) {
+	switch (code) {
+	case CC_SpellGestureLeft:
+	case CC_SpellGestureRight:
+	case CC_SpellGestureUpperRight:
+	case CC_SpellGestureUpperLeft:
+	case CC_SpellGestureLowerRight:
+	case CC_SpellGestureLowerLeft:
+	case CC_SpellPatternEnd:
+	case CC_CastQueuedSpell:
+	case CC_CastMostRecentSpell:
+	case CC_CastSpell1:
+	case CC_CastSpell2:
+	case CC_SelectSpellSet:
+	case CC_BuildTrap:
+	case CC_ServerOptions:
+	case CC_Taunt:
+		return 1;
 	default:
-		result = 0;
-		break;
+		return 0;
 	}
-	return result;
 }
 
 //----- (0042D4B0) --------------------------------------------------------
-int __cdecl nox_xxx_keyCanPauseMode_42D4B0(int a1) {
-	int result; // eax
-
-	switch (a1) {
-	case 6:
-	case 7:
-	case 8:
-	case 9:
-	case 10:
-	case 11:
-	case 12:
-	case 13:
-	case 14:
-	case 15:
-	case 16:
-	case 17:
-	case 18:
-	case 19:
-	case 20:
-	case 21:
-	case 22:
-	case 23:
-	case 24:
-	case 25:
-	case 26:
-	case 27:
-	case 28:
-	case 29:
-	case 30:
-	case 31:
-	case 32:
-	case 33:
-	case 34:
-	case 35:
-	case 38:
-	case 39:
-	case 40:
-	case 41:
-	case 42:
-	case 43:
-	case 44:
-	case 45:
-	case 46:
-	case 47:
-	case 48:
-	case 49:
-	case 51:
-	case 52:
-	case 53:
-	case 54:
-	case 55:
-	case 56:
-		result = 1;
-		break;
+int nox_xxx_keyCanPauseMode_42D4B0(nox_ctrlevent_code code) {
+	switch (code) {
+	case CC_Action:
+	case CC_Jump:
+	case CC_Chat:
+	case CC_TeamChat:
+	case CC_ReadSpellbook:
+	case CC_ToggleConsole:
+	case CC_IncreaseWindowSize:
+	case CC_DecreaseWindowSize:
+	case CC_Quit:
+	case CC_QuitMenu:
+	case CC_ReadMap:
+	case CC_Inventory:
+	case CC_SpellGestureUp:
+	case CC_SpellGestureDown:
+	case CC_SpellGestureLeft:
+	case CC_SpellGestureRight:
+	case CC_SpellGestureUpperRight:
+	case CC_SpellGestureUpperLeft:
+	case CC_SpellGestureLowerRight:
+	case CC_SpellGestureLowerLeft:
+	case CC_SpellPatternEnd:
+	case CC_CastQueuedSpell:
+	case CC_CastMostRecentSpell:
+	case CC_CastSpell1:
+	case CC_CastSpell2:
+	case CC_CastSpell3:
+	case CC_CastSpell4:
+	case CC_CastSpell5:
+	case CC_MapZoomIn:
+	case CC_MapZoomOut:
+	case CC_QuickManaPotion:
+	case CC_QuickCurePoisonPotion:
+	case CC_NextSpellSet:
+	case CC_PreviousSpellSet:
+	case CC_SelectSpellSet:
+	case CC_BuildTrap:
+	case CC_ServerOptions:
+	case CC_Taunt:
+	case CC_Laugh:
+	case CC_Point:
+	case CC_InvertSpellTarget:
+	case CC_ToggleRank:
+	case CC_ToggleGUI:
+	case CC_AutoSave:
+	case CC_AutoLoad:
+	case CC_ScreenShot:
+	case CC_Unknown55:
+	case CC_Unknown56:
+		return 1;
 	default:
-		result = 0;
-		break;
+		return 0;
 	}
-	return result;
 }
 
 //----- (0042D510) --------------------------------------------------------
