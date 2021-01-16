@@ -1299,7 +1299,7 @@ void* __cdecl sub_42CD80(void* a1);
 void sub_42CD90();
 _DWORD* __cdecl sub_42CDF0(FILE* a1);
 int __cdecl sub_42CF50(const char* a1);
-void sub_42D220();
+void nox_xxx_input_42D220();
 int nox_xxx_keyCheckWarrorKeys_42D460(nox_ctrlevent_code code);
 int nox_xxx_keyCanPauseMode_42D4B0(nox_ctrlevent_code code);
 void nox_xxx_netBuf_42D510();
