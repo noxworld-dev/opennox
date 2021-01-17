@@ -4958,7 +4958,7 @@ int __cdecl nox_xxx_windowServerOptionsDrawProc_458500(_DWORD* a1, int a2) {
 	int xLeft;  // [esp+8h] [ebp-8h]
 	int v5;     // [esp+Ch] [ebp-4h]
 
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	nox_client_wndGetPosition_46AA60(a1, &xLeft, &v5);
 	nox_client_drawRectFilledAlpha_49CF10(xLeft, v5 + 25, a1[2], a1[3] - 25);
 	v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10120);

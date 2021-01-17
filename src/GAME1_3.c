@@ -5266,7 +5266,7 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4) {
 				dword_587000_109280 = -1;
 				result = 0;
 			} else {
-				mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+				nox_point mpos = nox_client_getMousePos_4309F0();
 				dword_587000_109280 = a4;
 				v9 = mpos.x;
 				v10 = mpos.y;
@@ -5403,7 +5403,7 @@ int __cdecl sub_4483A0(int a1, int a2) {
 	int yTop;   // [esp+4h] [ebp-4h]
 
 	if (dword_5d4594_829504) {
-		mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+		nox_point mpos = nox_client_getMousePos_4309F0();
 		if (!nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_829504, mpos.x, mpos.y))
 			sub_448380();
 	}
@@ -5847,7 +5847,7 @@ int __cdecl sub_449BE0(int a1, int a2, int a3, int a4) {
 	if (a3 == 1)
 		return 1;
 	if (a3 == 57) {
-		mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+		nox_point mpos = nox_client_getMousePos_4309F0();
 		nox_window_call_field_93(a1, 5, mpos.x | (mpos.y << 16), 0);
 	}
 	return 0;

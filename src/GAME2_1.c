@@ -1239,7 +1239,7 @@ double __cdecl sub_462700(int a1) {
 // 4628E8: variable 'v7' is possibly undefined
 
 //----- (00463370) --------------------------------------------------------
-int __cdecl sub_463370(_DWORD* a1, mouse_pos_t* pos, _DWORD* a3) {
+int __cdecl sub_463370(_DWORD* a1, nox_point* pos, _DWORD* a3) {
 	_DWORD* v5; // ecx
 	int result; // eax
 	int v7;     // [esp+0h] [ebp-4h]

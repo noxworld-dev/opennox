@@ -4807,7 +4807,7 @@ int __cdecl sub_4AB340(int a1, int a2, int a3, int a4) {
 	if (a3 == 1)
 		return 1;
 	if (a3 == 57) {
-		mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+		nox_point mpos = nox_client_getMousePos_4309F0();
 		nox_window_call_field_93(a1, 5, mpos.x | (mpos.y << 16), 0);
 	}
 	return 0;
@@ -5886,7 +5886,7 @@ int __cdecl sub_4AD040(int a1) {
 int sub_4AD570() {
 	_DWORD* v1; // esi
 
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	if (sub_43AF70() == 1) {
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10317);
 		if (!wndIsShown_nox_xxx_wndIsShown_46ACC0((int)v1) && !nox_xxx_wndPointInWnd_46AAB0(v1, mpos.x, mpos.y)) {

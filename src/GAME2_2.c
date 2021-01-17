@@ -981,7 +981,7 @@ void nox_xxx_clientEnumHover_476FA0() {
 
 	if (!*getMemU32Ptr(0x5D4594, 1096632))
 		*getMemU32Ptr(0x5D4594, 1096632) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 151432));
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	sub_437250();
 	sub_473970(&mpos, &mpos);
 	dword_5d4594_1096640 = 0;
@@ -1318,7 +1318,7 @@ char* nox_client_drawCursorAndTooltips_477830() {
 
 	if (!*getMemU32Ptr(0x5D4594, 1097220))
 		nox_xxx_cursorLoadAll_477710();
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	v9[0] = 0;
 	v9[1] = 0;
 	v9[2] = nox_win_width;
@@ -1384,7 +1384,7 @@ char* nox_client_drawCursorAndTooltips_477830() {
 
 //----- (00477EA0) --------------------------------------------------------
 int sub_477EA0() {
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	int x = mpos.x;
 	int y = mpos.y + 22;
 	nox_video_cursorDrawImpl_477A30(*getMemIntPtr(0x5D4594, 2650656), x, y);
@@ -12989,7 +12989,7 @@ int nox_video_cursorThreadWorker_48BEB0() {
 		if (!nox_video_pauseThreadedDrawCursor && nox_video_drawCursorThreadOk && dword_5d4594_823776 &&
 			dword_5d4594_1193672 && *getMemU32Ptr(0x5D4594, 1193108) && dword_5d4594_787144 && !nox_xxx_get_430890()) {
 			nox_client_readMouseBuffer_4306A0(0);
-			mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+			nox_point mpos = nox_client_getMousePos_4309F0();
 			if (nox_client_getCursorType_477620() == 10) {
 				v3 = mpos.x - 64;
 				v4 = mpos.y - 64;
