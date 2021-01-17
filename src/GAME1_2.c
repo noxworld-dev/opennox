@@ -9253,7 +9253,7 @@ int __cdecl sub_439D00(int* a1, int a2, unsigned int a3, int a4) {
 	if (a3 != 1) {
 		if (a3 != 28 && a3 == 57) {
 			nox_point mpos = nox_client_getMousePos_4309F0();
-			nox_window_call_field_93((int)a1, 5, mpos.x | (mpos.y << 16), 0);
+			nox_window_call_field_93(a1, 5, mpos.x | (mpos.y << 16), 0);
 		}
 		return 0;
 	}
