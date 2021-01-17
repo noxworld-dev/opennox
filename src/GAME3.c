@@ -2972,7 +2972,7 @@ int __cdecl sub_4A7F40(int a1) {
 }
 
 //----- (004A7F50) --------------------------------------------------------
-int __cdecl nox_xxx_wndButtonProc_4A7F50(_DWORD* a1, int a2, int a3, int a4) {
+int __cdecl nox_xxx_wndButtonProc_4A7F50(_DWORD* a1, int a2, int xy, int a4) {
 	int v4;      // eax
 	int v5;      // eax
 	int result;  // eax
@@ -2993,10 +2993,10 @@ int __cdecl nox_xxx_wndButtonProc_4A7F50(_DWORD* a1, int a2, int a3, int a4) {
 		v10 = a1;
 		if (!(a1[9] & 4))
 			goto LABEL_22;
-		nox_window_call_field_94(a1[13], 16391, (int)a1, a3);
+		nox_window_call_field_94(a1[13], 16391, (int)a1, xy);
 		goto LABEL_16;
 	case 8:
-		nox_window_call_field_94(a1[13], 0x4000, (int)a1, a3);
+		nox_window_call_field_94(a1[13], 0x4000, (int)a1, xy);
 		return 1;
 	case 17:
 		v4 = a1[11];
@@ -3004,7 +3004,7 @@ int __cdecl nox_xxx_wndButtonProc_4A7F50(_DWORD* a1, int a2, int a3, int a4) {
 			goto LABEL_21;
 		v5 = a1[13];
 		a1[9] |= 2u;
-		nox_window_call_field_94(v5, 16389, (int)a1, a3);
+		nox_window_call_field_94(v5, 16389, (int)a1, xy);
 		nox_xxx_windowDestroyChildsMB_46B500((int)a1);
 		result = 1;
 		break;
@@ -3015,7 +3015,7 @@ int __cdecl nox_xxx_wndButtonProc_4A7F50(_DWORD* a1, int a2, int a3, int a4) {
 			LOBYTE(v8) = v8 & 0xFD;
 			v12 = a1[13];
 			a1[9] = v8;
-			nox_window_call_field_94(v12, 16390, (int)a1, a3);
+			nox_window_call_field_94(v12, 16390, (int)a1, xy);
 		}
 		v9 = a1[9];
 		if (v9 & 4) {
@@ -3028,7 +3028,7 @@ int __cdecl nox_xxx_wndButtonProc_4A7F50(_DWORD* a1, int a2, int a3, int a4) {
 		}
 		break;
 	case 21:
-		switch (a3) {
+		switch (xy) {
 		case 15:
 		case 205:
 		case 208:

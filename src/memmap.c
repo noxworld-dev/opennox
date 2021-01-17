@@ -576,7 +576,7 @@ extern _DWORD dword_5d4594_815708;
 extern _DWORD nox_xxx_wizardMaxHealth_587000_312816;
 extern _DWORD dword_5d4594_3821968;
 extern _DWORD nox_xxx_conjurerMaxHealth_587000_312800;
-extern _DWORD dword_5d4594_251508;
+extern void* dword_5d4594_251508;
 extern _DWORD dword_5d4594_1313792;
 extern _DWORD dword_5d4594_810636;
 extern _DWORD dword_5d4594_529324;

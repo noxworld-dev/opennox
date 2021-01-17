@@ -426,7 +426,6 @@ _DWORD dword_5d4594_815708 = 0;
 _DWORD nox_xxx_wizardMaxHealth_587000_312816 = 0x3f800000;
 _DWORD dword_5d4594_3821968 = 0;
 _DWORD nox_xxx_conjurerMaxHealth_587000_312800 = 0x3f800000;
-_DWORD dword_5d4594_251508 = 0;
 _DWORD dword_5d4594_1313792 = 0;
 _DWORD dword_5d4594_810636 = 0;
 _DWORD dword_5d4594_529324 = 0;

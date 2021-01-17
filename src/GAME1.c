@@ -50,7 +50,6 @@ extern _DWORD dword_5d4594_251720;
 extern _DWORD dword_5d4594_3804680;
 extern _DWORD dword_5d4594_251496;
 extern _DWORD dword_5d4594_3620;
-extern _DWORD dword_5d4594_251508;
 extern _DWORD dword_5d4594_251744;
 extern _DWORD dword_5d4594_251504;
 extern _DWORD dword_5d4594_251556;
@@ -83,6 +82,8 @@ extern unsigned char byte_581450_1416[72];
 extern unsigned int nox_rnd_table_37892[4096];
 
 unsigned char byte_5D4594_2655724[4096] = {0};
+
+void* dword_5d4594_251508 = 0;
 
 int nox_enable_audio = 1;
 int nox_enable_threads = 1;
@@ -5140,7 +5141,7 @@ wchar_t* __cdecl nox_xxx_loadString_40F1D0(const char* stringName, char** storeT
 	}
 	const int offset = 4 * (variant + entry->field_50);
 	if (storeTo) {
-		*storeTo = *(char**)(dword_5d4594_251508 + offset);
+		*storeTo = *(char**)((_DWORD)dword_5d4594_251508 + offset);
 	}
 
 	return *(wchar_t**)(dword_5d4594_251504 + offset);
@@ -5486,8 +5487,8 @@ int __cdecl sub_40F830(const char* path) {
 					}
 					file_buffer[sz] = 0;
 					if (sz > 0) {
-						*(_DWORD*)(v9 + dword_5d4594_251508) = calloc(sz + 1, 1);
-						strcpy(*(char**)(v9 + dword_5d4594_251508), (const char*)file_buffer);
+						*(_DWORD*)(v9 + (_DWORD)dword_5d4594_251508) = calloc(sz + 1, 1);
+						strcpy(*(char**)(v9 + (_DWORD)dword_5d4594_251508), (const char*)file_buffer);
 					}
 				}
 				v8 = v17;
@@ -5588,8 +5589,8 @@ int sub_40FBE0() {
 			nox_wcscpy(*(wchar_t**)(dword_5d4594_251504 + v4), (const wchar_t*)file_buffer_w);
 			v7 = strlen((const char*)getMemAt(0x5D4594, 222708)) + 1;
 			if (v7 > 1) {
-				*(_DWORD*)(dword_5d4594_251508 + v4) = calloc(v7, 1u);
-				strcpy(*(char**)(dword_5d4594_251508 + v4), (const char*)getMemAt(0x5D4594, 222708));
+				*(_DWORD*)((_DWORD)dword_5d4594_251508 + v4) = calloc(v7, 1u);
+				strcpy(*(char**)((_DWORD)dword_5d4594_251508 + v4), (const char*)getMemAt(0x5D4594, 222708));
 			}
 			++v3;
 			v4 += 4;
