@@ -564,7 +564,7 @@ extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_2487560;
 extern _DWORD dword_5d4594_251556;
 extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
-extern _DWORD dword_5d4594_251504;
+extern void* dword_5d4594_251504;
 extern _DWORD dword_5d4594_1599480;
 extern _DWORD dword_5d4594_1062516;
 extern _DWORD dword_5d4594_1301828;
