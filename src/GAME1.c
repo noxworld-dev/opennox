@@ -48,7 +48,6 @@ extern _DWORD nox_game_continueMenuOrHost_93200;
 extern _DWORD dword_5d4594_252276;
 extern _DWORD dword_5d4594_251720;
 extern _DWORD dword_5d4594_3804680;
-extern _DWORD dword_5d4594_251496;
 extern _DWORD dword_5d4594_3620;
 extern _DWORD dword_5d4594_251744;
 extern _DWORD dword_5d4594_251556;
@@ -82,8 +81,9 @@ extern unsigned int nox_rnd_table_37892[4096];
 
 unsigned char byte_5D4594_2655724[4096] = {0};
 
-wchar_t** dword_5d4594_251504 = 0;
-char** dword_5d4594_251508 = 0;
+int nox_string_str_cnt = 0;
+wchar_t** nox_string_wstr_arr = 0;
+char** nox_string_str_arr = 0;
 
 int nox_enable_audio = 1;
 int nox_enable_threads = 1;
@@ -5141,9 +5141,9 @@ wchar_t* __cdecl nox_xxx_loadString_40F1D0(const char* stringName, char** storeT
 	}
 	const int ind = variant + entry->field_50;
 	if (storeTo) {
-		*storeTo = dword_5d4594_251508[ind];
+		*storeTo = nox_string_str_arr[ind];
 	}
-	return dword_5d4594_251504[ind];
+	return nox_string_wstr_arr[ind];
 }
 
 //----- (0040F300) --------------------------------------------------------
@@ -5181,18 +5181,18 @@ int __cdecl nox_strman_readfile(char* a1) {
 		fclose(nox_file_1);
 		v6 = 0;
 	}
-	if (!dword_5d4594_251496)
+	if (!nox_string_str_cnt)
 		return 0;
 	if (!string_entries_cnt)
 		return 0;
 	string_entries = (nox_string_entry*)calloc(string_entries_cnt, sizeof(nox_string_entry));
 	if (!string_entries)
 		return 0;
-	dword_5d4594_251504 = calloc(dword_5d4594_251496, 4);
-	if (!dword_5d4594_251504)
+	nox_string_wstr_arr = calloc(nox_string_str_cnt, sizeof(wchar_t*));
+	if (!nox_string_wstr_arr)
 		return 0;
-	dword_5d4594_251508 = calloc(dword_5d4594_251496, 4);
-	if (!dword_5d4594_251508)
+	nox_string_str_arr = calloc(nox_string_str_cnt, sizeof(char*));
+	if (!nox_string_str_arr)
 		return 0;
 	if (v6) {
 		sub_40F830((int)getMemAt(0x5D4594, 226804));
@@ -5219,7 +5219,7 @@ int sub_40F4E0() {
 	v0 = 0;
 	string_entries_cnt = 0;
 LABEL_2:
-	dword_5d4594_251496 = v0;
+	nox_string_str_cnt = v0;
 	while (fgets(file_buffer, sizeof(file_buffer) - 1, nox_file_1)) {
 		sub_40F5C0(file_buffer);
 		if (file_buffer[0] == '"') {
@@ -5227,13 +5227,13 @@ LABEL_2:
 			file_buffer[v1 + 0] = 10;
 			file_buffer[v1 + 1] = 0;
 			sub_40F640(nox_file_1, (char*)file_buffer + 1, (char*)getMemAt(0x5D4594, 218612), getMemAt(0x5D4594, 222708), 4096);
-			v0 = dword_5d4594_251496 + 1;
+			v0 = nox_string_str_cnt + 1;
 			goto LABEL_2;
 		}
 		if (!_strcmpi((const char*)file_buffer, "END"))
 			++*getMemU32Ptr(0x5D4594, 251492);
 	}
-	dword_5d4594_251496 += 1000;
+	nox_string_str_cnt += 1000;
 	string_entries_cnt += 500;
 	return 1;
 }
@@ -5385,7 +5385,7 @@ int __cdecl sub_40F7A0(char* a1) {
 	if (!v2)
 		return 0;
 	if (nox_xxx_fileBinRead_40ADD0_fread((char*)v5, 0x18u, 1u, v2) == 1 && *(_DWORD*)v5 == 1129530912) {
-		dword_5d4594_251496 = *(_DWORD*)&v5[12];
+		nox_string_str_cnt = *(_DWORD*)&v5[12];
 		string_entries_cnt = *(_DWORD*)&v5[8];
 		v1 = 1;
 		dword_587000_26048 = *(int*)&v5[4] < 2 ? 0 : *(_DWORD*)&v5[20];
@@ -5474,8 +5474,8 @@ int __cdecl sub_40F830(const char* path) {
 				}
 				sub_40FB60(file_buffer_w);
 				v13 = nox_wcslen((const wchar_t*)file_buffer_w);
-				dword_5d4594_251504[v9] = calloc(v13 + 1, 2);
-				nox_wcscpy(dword_5d4594_251504[v9], (const wchar_t*)file_buffer_w);
+				nox_string_wstr_arr[v9] = calloc(v13 + 1, 2);
+				nox_wcscpy(nox_string_wstr_arr[v9], (const wchar_t*)file_buffer_w);
 				if (v16 == 0x53545257 || v16 == 0x53747257) // "STRW" || "StrW"
 				{
 					int sz = 0;
@@ -5485,8 +5485,8 @@ int __cdecl sub_40F830(const char* path) {
 					}
 					file_buffer[sz] = 0;
 					if (sz > 0) {
-						dword_5d4594_251508[v9] = calloc(sz + 1, 1);
-						strcpy(dword_5d4594_251508[v9], (const char*)file_buffer);
+						nox_string_str_arr[v9] = calloc(sz + 1, 1);
+						strcpy(nox_string_str_arr[v9], (const char*)file_buffer);
 					}
 				}
 				v8 = v17;
@@ -5582,12 +5582,12 @@ int sub_40FBE0() {
 			sub_40FE00(file_buffer_w, getMemAt(0x5D4594, 218612));
 			sub_40FB60(file_buffer_w);
 			v6 = nox_wcslen((const wchar_t*)file_buffer_w);
-			dword_5d4594_251504[v4] = calloc(v6 + 1, sizeof(wchar_t));
-			nox_wcscpy(dword_5d4594_251504[v4], (const wchar_t*)file_buffer_w);
+			nox_string_wstr_arr[v4] = calloc(v6 + 1, sizeof(wchar_t));
+			nox_wcscpy(nox_string_wstr_arr[v4], (const wchar_t*)file_buffer_w);
 			v7 = strlen((const char*)getMemAt(0x5D4594, 222708)) + 1;
 			if (v7 > 1) {
-				dword_5d4594_251508[v4] = calloc(v7, 1);
-				strcpy(dword_5d4594_251508[v4], (const char*)getMemAt(0x5D4594, 222708));
+				nox_string_str_arr[v4] = calloc(v7, 1);
+				strcpy(nox_string_str_arr[v4], (const char*)getMemAt(0x5D4594, 222708));
 			}
 			++v3;
 			++v4;
@@ -5748,21 +5748,21 @@ void __cdecl sub_40FFE0(char* a1, char* a2) {
 
 //----- (00410020) --------------------------------------------------------
 void sub_410020() {
-	if (dword_5d4594_251504) {
-		for (int i = 0; i < dword_5d4594_251496; ++i) {
-			if (dword_5d4594_251504[i]) {
-				free(dword_5d4594_251504[i]);
+	if (nox_string_wstr_arr) {
+		for (int i = 0; i < nox_string_str_cnt; ++i) {
+			if (nox_string_wstr_arr[i]) {
+				free(nox_string_wstr_arr[i]);
 			}
 		}
-		free(dword_5d4594_251504);
+		free(nox_string_wstr_arr);
 	}
-	if (dword_5d4594_251508) {
-		for (int j = 0; j < dword_5d4594_251496; ++j) {
-			if (dword_5d4594_251508[j]) {
-				free(dword_5d4594_251508[j]);
+	if (nox_string_str_arr) {
+		for (int j = 0; j < nox_string_str_cnt; ++j) {
+			if (nox_string_str_arr[j]) {
+				free(nox_string_str_arr[j]);
 			}
 		}
-		free(dword_5d4594_251508);
+		free(nox_string_str_arr);
 	}
 	if (string_entries)
 		free(string_entries);
