@@ -5369,25 +5369,20 @@ LABEL_18:
 }
 
 //----- (0040F7A0) --------------------------------------------------------
-int __cdecl sub_40F7A0(char* a1) {
-	int v1;                 // edi
-	FILE* v2;               // eax
-	FILE* v3;               // esi
-	unsigned __int8 v5[24]; // [esp+8h] [ebp-18h]
-
-	v1 = 0;
-	v2 = fopen(a1, "rb");
-	v3 = v2;
-	if (!v2)
+int sub_40F7A0(char* path) {
+	FILE* file = fopen(path, "rb");
+	if (!file)
 		return 0;
-	if (nox_xxx_fileBinRead_40ADD0_fread((char*)v5, 0x18u, 1u, v2) == 1 && *(_DWORD*)v5 == 1129530912) {
-		nox_string_str_cnt = *(_DWORD*)&v5[12];
-		string_entries_cnt = *(_DWORD*)&v5[8];
-		v1 = 1;
-		dword_587000_26048 = *(int*)&v5[4] < 2 ? 0 : *(_DWORD*)&v5[20];
+	int ok = 0;
+	_DWORD buf[6];
+	if (nox_xxx_fileBinRead_40ADD0_fread((char*)buf, 24, 1, file) == 1 && buf[0] == 0x43534620) { // "CSF "
+		nox_string_str_cnt = buf[3];
+		string_entries_cnt = buf[2];
+		dword_587000_26048 = (int)buf[1] < 2 ? 0 : buf[5];
+		ok = 1;
 	}
-	fclose(v3);
-	return v1;
+	fclose(file);
+	return ok;
 }
 
 //----- (0040F830) --------------------------------------------------------

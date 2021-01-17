@@ -422,7 +422,7 @@ int __cdecl nox_strman_readfile(char* a1);
 int sub_40F4E0();
 char __cdecl sub_40F5C0(_BYTE* a1);
 char __cdecl sub_40F640(FILE* a1, char* a2, char* a3, _BYTE* a4, int a5);
-int __cdecl sub_40F7A0(char* a1);
+int sub_40F7A0(char* a1);
 int __cdecl sub_40F830(const char* a1);
 void __cdecl sub_40FB60(wchar_t* a1);
 int sub_40FBE0();
