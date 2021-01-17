@@ -235,7 +235,7 @@ int __cdecl nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
+	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 	v3 = a2;
 	if (*(_BYTE*)(a2 + 432)) {
 		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437))) {
@@ -269,8 +269,8 @@ int __cdecl nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
 			v10 = a1;
 			v11 = a1;
 		}
-		v25.field_0 = (double)mouse->pos.x - (double)a2;
-		v25.field_4 = (double)mouse->pos.y - (double)(int)a1;
+		v25.field_0 = (double)mpos.x - (double)a2;
+		v25.field_4 = (double)mpos.y - (double)(int)a1;
 		v26 = nox_xxx_math_509ED0(&v25);
 	} else {
 		v4 = *(_WORD*)(a2 + 439);

@@ -1239,17 +1239,15 @@ double __cdecl sub_462700(int a1) {
 // 4628E8: variable 'v7' is possibly undefined
 
 //----- (00463370) --------------------------------------------------------
-int __cdecl sub_463370(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
-	_DWORD* v4; // eax
+int __cdecl sub_463370(_DWORD* a1, mouse_pos_t* pos, _DWORD* a3) {
 	_DWORD* v5; // ecx
 	int result; // eax
 	int v7;     // [esp+0h] [ebp-4h]
 
 	nox_client_wndGetPosition_46AA60(a1, &a1, &v7);
-	v4 = a2;
 	v5 = a3;
-	*a3 = *a2 - (_DWORD)a1;
-	result = v4[1] - v7;
+	*a3 = pos->x - (_DWORD)a1;
+	result = pos->y - v7;
 	v5[1] = result;
 	return result;
 }
@@ -4546,10 +4544,10 @@ int __cdecl nox_window_call_field_94(nox_window* win, int a2, int a3, int a4) {
 }
 
 //----- (0046B4C0) --------------------------------------------------------
-int __cdecl nox_window_call_field_93(nox_window* win, int a2, int a3, int a4) {
+int __cdecl nox_window_call_field_93(nox_window* win, int a2, int xy, int a4) {
 	if (!win)
 		return 0;
-	return win->field_93(win, a2, a3, a4);
+	return win->field_93(win, a2, xy, a4);
 }
 
 //----- (0046B4F0) --------------------------------------------------------
@@ -4752,7 +4750,7 @@ void nox_xxx_cursorUpdate_46B740() {
 	v61 = 0;
 	v64 = 0;
 
-	nox_mouse_state_t* m = nox_client_getMousePos_4309F0();
+	nox_mouse_state_t* m = nox_client_getMouseState_4309F0();
 
 	v66[0] = m->btn[NOX_MOUSE_LEFT].state;
 	v66[1] = m->btn[NOX_MOUSE_RIGHT].state;

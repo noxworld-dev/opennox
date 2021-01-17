@@ -5266,10 +5266,10 @@ int __cdecl sub_447CC0(int a1, unsigned int a2, int* a3, int a4) {
 				dword_587000_109280 = -1;
 				result = 0;
 			} else {
-				nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
+				mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 				dword_587000_109280 = a4;
-				v9 = mouse->pos.x;
-				v10 = mouse->pos.y;
+				v9 = mpos.x;
+				v10 = mpos.y;
 				v11 = nox_xxx_guiFontHeightMB_43F320(0);
 				dword_5d4594_829504 = nox_window_new(0, 40, v9 - 40, v10 - (v11 + 4) / 2, 80, v11 + 4, 0);
 				nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_829504, 0, sub_448140, 0);
@@ -5403,8 +5403,8 @@ int __cdecl sub_4483A0(int a1, int a2) {
 	int yTop;   // [esp+4h] [ebp-4h]
 
 	if (dword_5d4594_829504) {
-		nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
-		if (!nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_829504, mouse->pos.x, mouse->pos.y))
+		mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+		if (!nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_829504, mpos.x, mpos.y))
 			sub_448380();
 	}
 	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
@@ -5847,8 +5847,8 @@ int __cdecl sub_449BE0(int a1, int a2, int a3, int a4) {
 	if (a3 == 1)
 		return 1;
 	if (a3 == 57) {
-		nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
-		nox_window_call_field_93(a1, 5, mouse->pos.x | (mouse->pos.y << 16), 0);
+		mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+		nox_window_call_field_93(a1, 5, mpos.x | (mpos.y << 16), 0);
 	}
 	return 0;
 }
