@@ -148,7 +148,6 @@ LABEL_16:
 int __cdecl sub_4C27F0(_DWORD* a1) {
 	int result;           // eax
 	unsigned __int16* v2; // edi
-	int2* v3;             // ebp
 	int v4;               // esi
 	int v5;               // ebx
 	int v6;               // edx
@@ -166,10 +165,10 @@ int __cdecl sub_4C27F0(_DWORD* a1) {
 								   "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);
 		nox_client_wndGetPosition_46AA60(a1, &v11, &v10);
 		nox_xxx_drawGetStringSize_43F840(0, v2, &v12, 0, 0);
-		v3 = nox_client_getMousePos_4309F0();
+		mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 		nox_xxx_guiFontHeightMB_43F320(0);
 		v4 = (nox_xxx_screenWidth_587000_184452 - v12) / 2 + 1;
-		if (nox_xxx_wndPointInWnd_46AAB0(a1, v3->field_0, v3->field_4)) {
+		if (nox_xxx_wndPointInWnd_46AAB0(a1, mpos.x, mpos.y)) {
 			sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2589772), *getMemIntPtr(0x5D4594, 2650656), (__int16*)v2);
 			if (a1[8] != *getMemU32Ptr(0x587000, 184552)) {
 				*getMemU32Ptr(0x587000, 184552) = a1[8];

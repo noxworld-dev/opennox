@@ -24,7 +24,6 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	__int16* v11; // eax
 	__int16* v12; // eax
 	__int16* v13; // eax
-	int2* v14;    // eax
 	int v15;      // esi
 	int v16;      // ebx
 	int result;   // eax
@@ -107,10 +106,10 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 		LABEL_16:
 			dword_5d4594_1097208 = -2 * v5;
 			break;
-		case 14:
-			v14 = nox_client_getMousePos_4309F0();
-			v19.field_0 = (double)(v14->field_0 - nox_win_width / 2);
-			v19.field_4 = (double)(v14->field_4 - nox_win_height / 2);
+		case 14:;
+			mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+			v19.field_0 = (double)(mpos.x - nox_win_width / 2);
+			v19.field_4 = (double)(mpos.y - nox_win_height / 2);
 			// dprintf("cur %f %f %d", v19.field_0, v19.field_4, nox_xxx_math_509ED0(&v19));
 			v15 = nox_xxx_math_509ED0(&v19) / 8;
 			if (v19.field_4 * v19.field_4 + v19.field_0 * v19.field_0 > 10000.0 ||

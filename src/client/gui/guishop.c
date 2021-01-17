@@ -197,7 +197,6 @@ void sub_479680() { dword_5d4594_1098616 = 0; }
 //----- (004795E0) --------------------------------------------------------
 int __cdecl sub_4795E0(int a1, int a2) {
 	const void* v2; // ebp
-	int2* v3;       // ebx
 	int result;     // eax
 	int v5;         // esi
 	wchar_t* v6;    // eax
@@ -207,7 +206,7 @@ int __cdecl sub_4795E0(int a1, int a2) {
 	int v10;        // [esp-10h] [ebp-20h]
 
 	v2 = 0;
-	v3 = nox_client_getMousePos_4309F0();
+	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 	result = dword_5d4594_1098616;
 	if (dword_5d4594_1098616 != 1) {
 		result = sub_4676D0(a1);
@@ -218,8 +217,8 @@ int __cdecl sub_4795E0(int a1, int a2) {
 			sub_4C05F0(1, a2);
 			v10 = sub_467700(a1);
 			v9 = *(_DWORD*)(v5 + 108);
-			v8 = v3->field_4;
-			v7 = v3->field_0;
+			v8 = mpos.y;
+			v7 = mpos.x;
 			v6 =
 				nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 153376), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1504);
 			result = sub_4C0430((int)v6, v7, v8, a1, v9, v2, v10, 0, sub_479690, (int)&sub_479680);
@@ -232,7 +231,6 @@ int __cdecl sub_4795E0(int a1, int a2) {
 //----- (00479740) --------------------------------------------------------
 void __cdecl sub_479740(int a1, unsigned int a2) {
 	const void* v2;   // ebp
-	int2* v3;         // ebx
 	int v4;           // eax
 	int v5;           // edi
 	wchar_t* v6;      // eax
@@ -242,7 +240,7 @@ void __cdecl sub_479740(int a1, unsigned int a2) {
 	unsigned int v10; // [esp+10h] [ebp-4h]
 
 	v2 = 0;
-	v3 = nox_client_getMousePos_4309F0();
+	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 	v10 = sub_4674A0();
 	if (dword_5d4594_1098620 != 1) {
 		v4 = sub_4676D0(a1);
@@ -256,8 +254,8 @@ void __cdecl sub_479740(int a1, unsigned int a2) {
 				sub_467680();
 			} else {
 				v9 = *(_DWORD*)(v5 + 108);
-				v8 = v3->field_4;
-				v7 = v3->field_0;
+				v8 = mpos.y;
+				v7 = mpos.x;
 				v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 153424), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c",
 										   1580);
 				sub_4C0430((int)v6, v7, v8, a1, v9, v2, 1, 0, sub_479820, sub_479810);

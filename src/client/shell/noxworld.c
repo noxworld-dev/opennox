@@ -761,7 +761,6 @@ int __cdecl nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3
 	char* v26;          // eax
 	int v27;            // eax
 	uint16_t v28;        // [esp-8h] [ebp-A0h]
-	int2 v29;           // [esp+4h] [ebp-94h]
 	int v30;            // [esp+Ch] [ebp-8Ch]
 	int v31;            // [esp+10h] [ebp-88h]
 	char buf[4];        // [esp+14h] [ebp-84h]
@@ -782,9 +781,9 @@ int __cdecl nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3
 	switch (a2) {
 	case 0x4010u:
 		if (nox_xxx_wndGetID_46B0A0(a3) == 10061) {
-			v29 = *(int2*)(&nox_client_getMousePos_4309F0()->pos);
+			mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 			dword_5d4594_814624 = sub_4A28C0(a4);
-			sub_439370(&v29, *(int*)&dword_5d4594_814624);
+			sub_439370(&mpos, *(int*)&dword_5d4594_814624);
 			return 0;
 		}
 		return 0;
@@ -809,16 +808,16 @@ int __cdecl nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3
 	if (v4 != 10043 && v4 != 10044 && v4 != 10035 && v4 != 10036)
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 	if (v5 >= 10070) {
-		v29 = *(int2*)(&nox_client_getMousePos_4309F0()->pos);
-		v30 = v29.field_0 - 216;
-		v31 = v29.field_4 - 27;
+		mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+		v30 = mpos.x - 216;
+		v31 = mpos.y - 27;
 		v6 = (int*)sub_4A0020();
 		if (sub_4A25C0(&v30, v6) >= 2) {
 			v7 = (int*)sub_4A0020();
 			*getMemU32Ptr(0x5D4594, 815036) = sub_4A2610(*(int*)&dword_5d4594_814980, &v30, v7);
 		} else {
 			dword_5d4594_814624 = sub_4A0490(v5 - 10070);
-			sub_439370(&v29, *(int*)&dword_5d4594_814624);
+			sub_439370(&mpos, *(int*)&dword_5d4594_814624);
 		}
 		nox_xxx_cursorSetTooltip_4776B0((wchar_t*)getMemAt(0x5D4594, 815112));
 	}

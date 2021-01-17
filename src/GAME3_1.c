@@ -3424,7 +3424,6 @@ int sub_4C1D70() { return *getMemU32Ptr(0x587000, 184448); }
 
 //----- (004C1FE0) --------------------------------------------------------
 int __cdecl nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1) {
-	int2* v1;            // ebp
 	unsigned __int8* v2; // ebx
 	int v3;              // ebp
 	int v4;              // eax
@@ -3445,15 +3444,14 @@ int __cdecl nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1) {
 	int v21;             // [esp+Ch] [ebp-28h]
 	int v22;             // [esp+10h] [ebp-24h]
 	int v23;             // [esp+14h] [ebp-20h]
-	int2* v24;           // [esp+18h] [ebp-1Ch]
 	int2 a1a;            // [esp+1Ch] [ebp-18h]
 	int v26;             // [esp+24h] [ebp-10h]
 	int v27;             // [esp+28h] [ebp-Ch]
 	int v28;             // [esp+2Ch] [ebp-8h]
 	int v29;             // [esp+30h] [ebp-4h]
 
-	v1 = nox_client_getMousePos_4309F0();
-	v24 = v1;
+	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	mouse_pos_t v24 = mpos;
 	if (getMemByte(0x5D4594, 1321200) == 1) {
 		dword_5d4594_1320992 += 20;
 		if (dword_5d4594_1320992 >= *getMemIntPtr(0x5D4594, 1321004)) {
@@ -3535,14 +3533,14 @@ int __cdecl nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1) {
 					nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650644));
 				nox_client_drawRectFilledOpaque_49CE30(v21 + v3 - 2, v20 + v5 - v9, 2, v9);
 			}
-			v1 = v24;
+			mpos = v24;
 		}
 		v2 += 32;
 	} while ((int)v2 < (int)getMemAt(0x5D4594, 1321192));
-	v10 = nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_1321040, v1->field_0, v1->field_4);
-	if (nox_xxx_wndPointInWnd_46AAB0(a1, v1->field_0, v1->field_4) || v10 || *getMemU32Ptr(0x5D4594, 1321212) == 1) {
-		v11 = v1->field_4;
-		a1a.field_0 = (v1->field_0 - v28) / 38;
+	v10 = nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_1321040, mpos.x, mpos.y);
+	if (nox_xxx_wndPointInWnd_46AAB0(a1, mpos.x, mpos.y) || v10 || *getMemU32Ptr(0x5D4594, 1321212) == 1) {
+		v11 = mpos.y;
+		a1a.field_0 = (mpos.x - v28) / 38;
 		a1a.field_4 = (v11 - v29) / 38;
 		v13 = nox_xxx_wndSummonGet_4C2410(&a1a);
 		*getMemU32Ptr(0x5D4594, 1321212) = 0;
@@ -3560,10 +3558,10 @@ int __cdecl nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1) {
 				}
 				v14 = (int*)sub_4C2D90((int)v14);
 			} while (v14);
-			v1 = v24;
+			mpos = v24;
 		}
 	}
-	if (dword_5d4594_1321044 && !nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_1321044, v1->field_0, v1->field_4))
+	if (dword_5d4594_1321044 && !nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_1321044, mpos.x, mpos.y))
 		sub_4C2470();
 	return 1;
 }

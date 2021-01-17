@@ -4958,11 +4958,11 @@ int __cdecl nox_xxx_windowServerOptionsDrawProc_458500(_DWORD* a1, int a2) {
 	int xLeft;  // [esp+8h] [ebp-8h]
 	int v5;     // [esp+Ch] [ebp-4h]
 
-	nox_mouse_state_t* mouse = nox_client_getMousePos_4309F0();
+	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 	nox_client_wndGetPosition_46AA60(a1, &xLeft, &v5);
 	nox_client_drawRectFilledAlpha_49CF10(xLeft, v5 + 25, a1[2], a1[3] - 25);
 	v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10120);
-	if (!wndIsShown_nox_xxx_wndIsShown_46ACC0((int)v2) && !nox_xxx_wndPointInWnd_46AAB0(v2, mouse->pos.x, mouse->pos.y)) {
+	if (!wndIsShown_nox_xxx_wndIsShown_46ACC0((int)v2) && !nox_xxx_wndPointInWnd_46AAB0(v2, mpos.x, mpos.y)) {
 		nox_xxx_wndClearCaptureMain_46ADE0((int)v2);
 		nox_window_set_hidden((int)v2, 1);
 	}
