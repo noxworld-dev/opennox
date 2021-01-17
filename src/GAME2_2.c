@@ -977,25 +977,22 @@ int nox_xxx_clientGetSpriteAtCursor_476F90() { return dword_5d4594_1096644; }
 
 //----- (00476FA0) --------------------------------------------------------
 void nox_xxx_clientEnumHover_476FA0() {
-	int2* v0; // esi
-	int2 v1;  // [esp+8h] [ebp-18h]
 	int4 v2;  // [esp+10h] [ebp-10h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1096632))
 		*getMemU32Ptr(0x5D4594, 1096632) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 151432));
-	v0 = nox_client_getMousePos_4309F0();
+	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 	sub_437250();
-	v1 = *v0;
-	sub_473970(&v1, &v1);
+	sub_473970(&mpos, &mpos);
 	dword_5d4594_1096640 = 0;
 	dword_5d4594_1096644 = 0;
 	*getMemU32Ptr(0x5D4594, 1096628) = 0;
-	v2.field_0 = v1.field_0 - 96;
-	v2.field_8 = v1.field_0 + 96;
-	v2.field_C = v1.field_4 + 96;
-	v2.field_4 = v1.field_4 - 96;
+	v2.field_0 = mpos.x - 96;
+	v2.field_8 = mpos.x + 96;
+	v2.field_C = mpos.y + 96;
+	v2.field_4 = mpos.y - 96;
 	dword_5d4594_1096636 = 0;
-	nox_xxx_spriteEnum_49AB00(&v2, nox_xxx_clientOnCursorHover_477050, (int)&v1);
+	nox_xxx_spriteEnum_49AB00(&v2, nox_xxx_clientOnCursorHover_477050, &mpos);
 }
 
 //----- (00477050) --------------------------------------------------------
@@ -1309,7 +1306,6 @@ char* nox_xxx_cursorLoadAll_477710() {
 
 //----- (00477830) --------------------------------------------------------
 char* nox_client_drawCursorAndTooltips_477830() {
-	int2* v0;     // edi
 	char* v1;     // eax
 	int v2;       // eax
 	char* result; // eax
@@ -1322,7 +1318,7 @@ char* nox_client_drawCursorAndTooltips_477830() {
 
 	if (!*getMemU32Ptr(0x5D4594, 1097220))
 		nox_xxx_cursorLoadAll_477710();
-	v0 = nox_client_getMousePos_4309F0();
+	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 	v9[0] = 0;
 	v9[1] = 0;
 	v9[2] = nox_win_width;
@@ -1335,8 +1331,8 @@ char* nox_client_drawCursorAndTooltips_477830() {
 	dword_5d4594_1097208 = nox_xxx_guiFontHeightMB_43F320(0) + 4;
 	if (dword_5d4594_1097188) // Dragging item
 	{
-		*(_DWORD*)(dword_5d4594_1097188 + 12) = v0->field_0;
-		*(_DWORD*)(dword_5d4594_1097188 + 16) = v0->field_4;
+		*(_DWORD*)(dword_5d4594_1097188 + 12) = mpos.x;
+		*(_DWORD*)(dword_5d4594_1097188 + 16) = mpos.y;
 		(*(void(__cdecl**)(int*, _DWORD))(dword_5d4594_1097188 + 300))(v9, dword_5d4594_1097188);
 	}
 	if (dword_5d4594_1097192) // Player is dragging spell or ability
@@ -1345,23 +1341,20 @@ char* nox_client_drawCursorAndTooltips_477830() {
 		if (!v1 || v1[2251]) {
 			v2 = nox_xxx_spellGetIcon_424A90(*(int*)&dword_5d4594_1097192); // Spell icon
 			if (v2) {
-				nox_client_drawImageAt_47D2C0(v2, v0->field_0 - 15, v0->field_4 - 15);
-				goto LABEL_12;
+				nox_client_drawImageAt_47D2C0(v2, mpos.x - 15, mpos.y - 15);
 			}
 		} else {
 			v2 = nox_xxx_spellGetAbilityIcon_425310(*(int*)&dword_5d4594_1097192, 0); // Ability icon
 			if (v2) {
-				nox_client_drawImageAt_47D2C0(v2, v0->field_0 - 15, v0->field_4 - 15);
-				goto LABEL_12;
+				nox_client_drawImageAt_47D2C0(v2, mpos.x - 15, mpos.y - 15);
 			}
 		}
 	}
-LABEL_12:
-	result = (char*)nox_video_cursorDrawImpl_477A30(*getMemIntPtr(0x5D4594, 2523948), v0->field_0, v0->field_4);
+	result = (char*)nox_video_cursorDrawImpl_477A30(*getMemIntPtr(0x5D4594, 2523948), mpos.x, mpos.y);
 	if (*getMemU16Ptr(0x5D4594, 1096676) && nox_xxx_useAudio_587000_80840 == 1) {
 		nox_xxx_drawGetStringSize_43F840(0, getMemU16Ptr(0x5D4594, 1096676), &v8, &v7, 0);
-		v4 = v0->field_0 - *getMemU32Ptr(0x5D4594, 1097204);
-		v5 = v0->field_4 - dword_5d4594_1097208;
+		v4 = mpos.x - *getMemU32Ptr(0x5D4594, 1097204);
+		v5 = mpos.y - dword_5d4594_1097208;
 		v6 = v7 + 4;
 		v7 += 4;
 		if (v4 + v8 + 4 >= nox_win_width)
@@ -1391,16 +1384,12 @@ LABEL_12:
 
 //----- (00477EA0) --------------------------------------------------------
 int sub_477EA0() {
-	int2* v0; // eax
-	int v1;   // edi
-	int v2;   // esi
-
-	v0 = nox_client_getMousePos_4309F0();
-	v1 = v0->field_0;
-	v2 = v0->field_4 + 22;
-	nox_video_cursorDrawImpl_477A30(*getMemIntPtr(0x5D4594, 2650656), v0->field_0, v2);
-	sub_477EF0(*getMemIntPtr(0x5D4594, 2614248), --v1, v2);
-	return sub_477EF0(*getMemIntPtr(0x5D4594, 2614248), v1 + 2, v2);
+	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	int x = mpos.x;
+	int y = mpos.y + 22;
+	nox_video_cursorDrawImpl_477A30(*getMemIntPtr(0x5D4594, 2650656), x, y);
+	sub_477EF0(*getMemIntPtr(0x5D4594, 2614248), --x, y);
+	return sub_477EF0(*getMemIntPtr(0x5D4594, 2614248), x + 2, y);
 }
 
 //----- (00477EF0) --------------------------------------------------------
@@ -12991,7 +12980,6 @@ int nox_video_createCursorDrawThread_48BE70() {
 //----- (0048BEB0) --------------------------------------------------------
 int nox_video_cursorThreadWorker_48BEB0() {
 	int result; // eax
-	int2* v1;   // esi
 	int v2;     // [esp-14h] [ebp-14h]
 	int v3;     // [esp-10h] [ebp-10h]
 	int v4;     // [esp-Ch] [ebp-Ch]
@@ -13001,14 +12989,14 @@ int nox_video_cursorThreadWorker_48BEB0() {
 		if (!nox_video_pauseThreadedDrawCursor && nox_video_drawCursorThreadOk && dword_5d4594_823776 &&
 			dword_5d4594_1193672 && *getMemU32Ptr(0x5D4594, 1193108) && dword_5d4594_787144 && !nox_xxx_get_430890()) {
 			nox_client_readMouseBuffer_4306A0(0);
-			v1 = nox_client_getMousePos_4309F0();
+			mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 			if (nox_client_getCursorType_477620() == 10) {
-				v4 = v1->field_4 - 64;
-				v3 = v1->field_0 - 64;
+				v3 = mpos.x - 64;
+				v4 = mpos.y - 64;
 				v2 = sub_477FF0();
 				sub_48B3F0(v2, v3, v4);
 			} else {
-				sub_48B3F0(0, v1->field_0 - 64, v1->field_4 - 64);
+				sub_48B3F0(0, mpos.x - 64, mpos.y - 64);
 			}
 			nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(1, 1);
 		}

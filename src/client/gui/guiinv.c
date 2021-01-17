@@ -329,7 +329,6 @@ int sub_462740() {
 
 //----- (004627F0) --------------------------------------------------------
 int __cdecl sub_4627F0(_DWORD* a1) {
-	int2* v1;         // esi
 	int v2;           // ebx
 	int v3;           // eax
 	int result;       // eax
@@ -407,14 +406,14 @@ int __cdecl sub_4627F0(_DWORD* a1) {
 	wchar_t v76[256]; // [esp+238h] [ebp-200h]
 
 	v73 = 1;
-	v1 = nox_client_getMousePos_4309F0();
+	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v2 = 0;
 	nox_xxx_Font_43F340(0);
 	nox_xxx_guiFontHeightMB_43F320(0);
 	nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650656));
 	nox_client_drawRectFilledOpaque_49CE30(*a1 + 11, a1[1] + 15, 200, 200);
-	sub_463370(*(_DWORD**)&dword_5d4594_1062456, v1, &v74);
+	sub_463370(*(_DWORD**)&dword_5d4594_1062456, &mpos, &v74);
 	if (sub_4281F0(&v74, (int4*)getMemAt(0x587000, 136352)) || sub_4281F0(&v74, (int4*)getMemAt(0x587000, 136368))) {
 		if (sub_4281F0(&v74, (int4*)getMemAt(0x587000, 136368)) && (v74.field_4 - 13) / 50 != 1) {
 			nox_client_setCursorType_477610(7);
