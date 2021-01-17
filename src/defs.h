@@ -776,10 +776,10 @@ typedef struct nox_video_mode {
 	int id;
 } nox_video_mode;
 
-typedef struct mouse_pos_t {
+typedef struct nox_point {
 	int x;
 	int y;
-} mouse_pos_t;
+} nox_point;
 
 enum {
 	NOX_MOUSE_LEFT = 0,
@@ -804,10 +804,10 @@ typedef struct nox_mouse_btn_t {
 _Static_assert(sizeof(nox_mouse_btn_t) == 12, "wrong size of nox_mouse_btn_t structure!");
 
 typedef struct nox_mouse_state_t {
-	mouse_pos_t pos; // 0
+	nox_point pos; // 0
 	int wheel; // 8
 
-	mouse_pos_t dpos; // 12
+	nox_point dpos; // 12
 
 	nox_mouse_btn_t btn[3]; // 20, 32, 44
 } nox_mouse_state_t;

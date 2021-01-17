@@ -235,7 +235,7 @@ int __cdecl nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	v3 = a2;
 	if (*(_BYTE*)(a2 + 432)) {
 		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437))) {

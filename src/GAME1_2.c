@@ -185,13 +185,13 @@ nox_mouse_state_t nox_mouse = {0};
 nox_mouse_state_t nox_mouse_prev = {0};
 _DWORD nox_mouse_prev_seq = 0;
 _DWORD nox_mouse_prev_seq_2 = 0;
-mouse_pos_t nox_mouse_min = {0, 0};
+nox_point nox_mouse_min = {0, 0};
 #ifdef __GNUC__
-mouse_pos_t nox_mouse_max = {NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1};
+nox_point nox_mouse_max = {NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1};
 #else
-mouse_pos_t nox_mouse_max = {639, 478}; // ugly hack for MSVC
+nox_point nox_mouse_max = {639, 478}; // ugly hack for MSVC
 #endif
-mouse_pos_t nox_mouse_prev_btn[3] = {0};
+nox_point nox_mouse_prev_btn[3] = {0};
 
 extern nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX];
 extern nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[];
@@ -5400,10 +5400,10 @@ void nox_client_mouseBtnState_430230() {
 }
 
 //----- (004302A0) --------------------------------------------------------
-void nox_client_mouseBtnStateApply(nox_mouse_state_t* evt, mouse_pos_t pos, int ind) {
+void nox_client_mouseBtnStateApply(nox_mouse_state_t* evt, nox_point pos, int ind) {
 	nox_mouse_btn_t* ev = &evt->btn[ind];
 	nox_mouse_btn_t* cur = &nox_mouse.btn[ind];
-	mouse_pos_t prevPos = nox_mouse_prev_btn[ind];
+	nox_point prevPos = nox_mouse_prev_btn[ind];
 	int btn = 4*(ind+1);
 
 	if (ev->seq == 0) {
@@ -5431,7 +5431,7 @@ void nox_client_mouseBtnStateApply(nox_mouse_state_t* evt, mouse_pos_t pos, int 
 		cur->seq = nox_mouse_prev_seq;
 	}
 }
-void nox_client_mouseBtnStateFinal(mouse_pos_t pos, int ind) {
+void nox_client_mouseBtnStateFinal(nox_point pos, int ind) {
 	nox_mouse_btn_t* cur = &nox_mouse.btn[ind];
 	int btn = 4*(ind+1);
 
@@ -5454,7 +5454,7 @@ void nox_client_processMouseEvents_4302A0(int evNum, int a2) {
 			nox_client_mouseBtnState_430230();
 		}
 	}
-	mouse_pos_t pos = nox_mouse.pos;
+	nox_point pos = nox_mouse.pos;
 	for (int i = 0; i < num; i++) {
 		nox_mouse_state_t* ev = &nox_input_buffer[i];
 		// apply absolute mouse pos
@@ -5665,12 +5665,12 @@ int __cdecl sub_4309D0(unsigned __int8 a1, char a2) {
 }
 
 //----- (004309F0) --------------------------------------------------------
-mouse_pos_t nox_client_getMousePos_4309F0() { return nox_mouse.pos; }
+nox_point nox_client_getMousePos_4309F0() { return nox_mouse.pos; }
 nox_mouse_state_t* nox_client_getMouseState_4309F0() { return &nox_mouse; }
 
 //----- (00430A00) --------------------------------------------------------
 void nox_client_changeMousePos_430A00(int x, int y, bool isAbs) {
-	mouse_pos_t p;
+	nox_point p;
 	p.x = x;
 	p.y = y;
 
@@ -8588,7 +8588,7 @@ int sub_435F60() {
 
 //----- (00435F80) --------------------------------------------------------
 int nox_xxx_client_435F80_draw() {
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	if (nox_xxx_serverIsClosing_446180())
 		sub_446190();
 	if (!sub_437060() && !nox_common_gameFlags_check_40A5C0(8)) {
@@ -9038,7 +9038,7 @@ int nox_xxx_initSomethingNetGame_438A90() {
 int sub_438C80(int a1, int a2) {
 	char v2[404]; // [esp+4h] [ebp-194h]
 
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	if (!wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_815000)) {
 		memcpy(v2, *(const void**)&dword_5d4594_815000, sizeof(v2));
 		*(_DWORD*)&v2[16] -= 32;
@@ -9151,7 +9151,7 @@ int __cdecl sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4) {
 				nox_window_call_field_94(*(int*)&dword_5d4594_815028, 16403, a4, 0);
 				nox_window_call_field_94(*(int*)&dword_5d4594_815032, 16403, a4, 0);
 				if (a4 < *(int*)&dword_5d4594_815088) {
-					mouse_pos_t pos = nox_client_getMousePos_4309F0();
+					nox_point pos = nox_client_getMousePos_4309F0();
 					dword_5d4594_814624 = sub_4A04C0(a4);
 					sub_439370(&pos, *(int*)&dword_5d4594_814624);
 				}
@@ -9252,7 +9252,7 @@ int __cdecl sub_439D00(int* a1, int a2, unsigned int a3, int a4) {
 		return 0;
 	if (a3 != 1) {
 		if (a3 != 28 && a3 == 57) {
-			mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+			nox_point mpos = nox_client_getMousePos_4309F0();
 			nox_window_call_field_93((int)a1, 5, mpos.x | (mpos.y << 16), 0);
 		}
 		return 0;

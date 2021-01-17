@@ -781,7 +781,7 @@ int __cdecl nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3
 	switch (a2) {
 	case 0x4010u:
 		if (nox_xxx_wndGetID_46B0A0(a3) == 10061) {
-			mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+			nox_point mpos = nox_client_getMousePos_4309F0();
 			dword_5d4594_814624 = sub_4A28C0(a4);
 			sub_439370(&mpos, *(int*)&dword_5d4594_814624);
 			return 0;
@@ -808,7 +808,7 @@ int __cdecl nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3
 	if (v4 != 10043 && v4 != 10044 && v4 != 10035 && v4 != 10036)
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 	if (v5 >= 10070) {
-		mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+		nox_point mpos = nox_client_getMousePos_4309F0();
 		v30 = mpos.x - 216;
 		v31 = mpos.y - 27;
 		v6 = (int*)sub_4A0020();

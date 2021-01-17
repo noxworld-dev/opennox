@@ -142,9 +142,9 @@ extern nox_mouse_state_t nox_mouse;
 extern nox_mouse_state_t nox_mouse_prev;
 extern _DWORD nox_mouse_prev_seq;
 extern _DWORD nox_mouse_prev_seq_2;
-extern mouse_pos_t nox_mouse_min;
-extern mouse_pos_t nox_mouse_max;
-extern mouse_pos_t nox_mouse_prev_btn[3];
+extern nox_point nox_mouse_min;
+extern nox_point nox_mouse_max;
+extern nox_point nox_mouse_prev_btn[3];
 
 extern __int64 nox_ctrlevent_ticks;
 extern nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX];

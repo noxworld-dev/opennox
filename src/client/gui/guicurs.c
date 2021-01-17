@@ -107,7 +107,7 @@ int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			dword_5d4594_1097208 = -2 * v5;
 			break;
 		case 14:;
-			mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+			nox_point mpos = nox_client_getMousePos_4309F0();
 			v19.field_0 = (double)(mpos.x - nox_win_width / 2);
 			v19.field_4 = (double)(mpos.y - nox_win_height / 2);
 			// dprintf("cur %f %f %d", v19.field_0, v19.field_4, nox_xxx_math_509ED0(&v19));

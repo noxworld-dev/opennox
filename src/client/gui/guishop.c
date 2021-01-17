@@ -206,7 +206,7 @@ int __cdecl sub_4795E0(int a1, int a2) {
 	int v10;        // [esp-10h] [ebp-20h]
 
 	v2 = 0;
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	result = dword_5d4594_1098616;
 	if (dword_5d4594_1098616 != 1) {
 		result = sub_4676D0(a1);
@@ -240,7 +240,7 @@ void __cdecl sub_479740(int a1, unsigned int a2) {
 	unsigned int v10; // [esp+10h] [ebp-4h]
 
 	v2 = 0;
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	v10 = sub_4674A0();
 	if (dword_5d4594_1098620 != 1) {
 		v4 = sub_4676D0(a1);

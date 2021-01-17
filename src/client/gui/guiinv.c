@@ -406,7 +406,7 @@ int __cdecl sub_4627F0(_DWORD* a1) {
 	wchar_t v76[256]; // [esp+238h] [ebp-200h]
 
 	v73 = 1;
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
+	nox_point mpos = nox_client_getMousePos_4309F0();
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v2 = 0;
 	nox_xxx_Font_43F340(0);

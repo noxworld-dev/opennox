@@ -3450,8 +3450,8 @@ int __cdecl nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1) {
 	int v28;             // [esp+2Ch] [ebp-8h]
 	int v29;             // [esp+30h] [ebp-4h]
 
-	mouse_pos_t mpos = nox_client_getMousePos_4309F0();
-	mouse_pos_t v24 = mpos;
+	nox_point mpos = nox_client_getMousePos_4309F0();
+	nox_point v24 = mpos;
 	if (getMemByte(0x5D4594, 1321200) == 1) {
 		dword_5d4594_1320992 += 20;
 		if (dword_5d4594_1320992 >= *getMemIntPtr(0x5D4594, 1321004)) {
