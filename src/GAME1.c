@@ -5213,25 +5213,21 @@ int __cdecl nox_strman_readfile(char* a1) {
 
 //----- (0040F4E0) --------------------------------------------------------
 int sub_40F4E0() {
-	int v0;          // eax
-	unsigned int v1; // ecx
-
-	v0 = 0;
 	string_entries_cnt = 0;
-LABEL_2:
-	nox_string_str_cnt = v0;
+	nox_string_str_cnt = 0;
 	while (fgets(file_buffer, sizeof(file_buffer) - 1, nox_file_1)) {
 		sub_40F5C0(file_buffer);
 		if (file_buffer[0] == '"') {
-			v1 = strlen((const char*)file_buffer);
-			file_buffer[v1 + 0] = 10;
-			file_buffer[v1 + 1] = 0;
+			unsigned int n = strlen((const char*)file_buffer);
+			file_buffer[n + 0] = '\n';
+			file_buffer[n + 1] = 0;
 			sub_40F640(nox_file_1, (char*)file_buffer + 1, (char*)getMemAt(0x5D4594, 218612), getMemAt(0x5D4594, 222708), 4096);
-			v0 = nox_string_str_cnt + 1;
-			goto LABEL_2;
+			nox_string_str_cnt++;
+			continue;
 		}
-		if (!_strcmpi((const char*)file_buffer, "END"))
+		if (!_strcmpi((const char*)file_buffer, "END")) {
 			++*getMemU32Ptr(0x5D4594, 251492);
+		}
 	}
 	nox_string_str_cnt += 1000;
 	string_entries_cnt += 500;
