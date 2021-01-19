@@ -39,7 +39,7 @@ int __cdecl nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3
 	if (!(*(_BYTE*)(a1 + 8) & 4))
 		return 0;
 	if (a2 <= 0 || a2 >= 41) {
-		v16 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 216340), 0, "C:\\NoxPost\\src\\Server\\Magic\\PlyrGide.c", 39);
+		v16 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 216340), 0, "C:\\NoxPost\\src\\Server\\Magic\\PlyrGide.c", 39);
 		nox_xxx_netSendLineMessage_4D9EB0(a1, v16);
 		return 0;
 	}

@@ -1,7 +1,6 @@
 #include "tooltip.h"
 
 #include "../../proto.h"
-extern _DWORD dword_587000_26048;
 
 //----- (004BF050) --------------------------------------------------------
 wchar_t* __cdecl nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
@@ -66,8 +65,8 @@ wchar_t* __cdecl nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
 				goto LABEL_93;
 			}
 			if (v19 != 137) {
-				if (dword_587000_26048 != 6) {
-					v22 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180736), 0,
+				if (nox_strman_get_lang_code() != 6) {
+					v22 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 180736), 0,
 												"C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 292);
 					nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v22);
 					v23 = (const wchar_t*)nox_xxx_spellLoadName_424930(v1[108]);
@@ -77,7 +76,7 @@ wchar_t* __cdecl nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
 				v20 = (const wchar_t*)nox_xxx_spellLoadName_424930(v1[108]);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v20);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
-				v21 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180692), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				v21 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 180692), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											288);
 				goto LABEL_90;
 			}
@@ -94,8 +93,8 @@ wchar_t* __cdecl nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
 			}
 			if (v24 == 41)
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
-			if (dword_587000_26048 == 3 || dword_587000_26048 == 5) {
-				v27 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180788), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+			if (nox_strman_get_lang_code() == 3 || nox_strman_get_lang_code() == 5) {
+				v27 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 180788), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											313);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v27);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
@@ -104,7 +103,7 @@ wchar_t* __cdecl nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
 			} else {
 				v25 = nox_xxx_guiCreatureGetName_427240(v1[108]);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v25);
-				v26 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180848), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				v26 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 180848), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											320);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v26);
 			}
@@ -119,18 +118,18 @@ wchar_t* __cdecl nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
 			}
 			if (v29 == 6)
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
-			if (dword_587000_26048 == 6) {
+			if (nox_strman_get_lang_code() == 6) {
 				v30 = (const wchar_t*)nox_xxx_abilityGetName_0_425260(v1[108]);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v30);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
-				v21 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180900), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
+				v21 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 180900), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											342);
 			LABEL_90:
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v21);
 				goto LABEL_93;
 			}
 			v31 =
-				nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180944), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
+				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 180944), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v31);
 			v32 = (const wchar_t*)nox_xxx_abilityGetName_0_425260(v1[108]);
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v32);
@@ -185,7 +184,7 @@ wchar_t* __cdecl nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
 					a1 = v16;
 			}
 		}
-		switch (dword_587000_26048) {
+		switch (nox_strman_get_lang_code()) {
 		case 2:
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v12);
 			if (v35) {
@@ -289,7 +288,7 @@ wchar_t* __cdecl nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
 		}
 	} else {
 		v33 = nox_get_thing_name(v1[27]);
-		v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 180560), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 53);
+		v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 180560), 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 53);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), v5, v33);
 		result = (wchar_t*)getMemAt(0x5D4594, 1317000);
 	}

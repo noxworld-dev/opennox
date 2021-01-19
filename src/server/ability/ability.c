@@ -24,7 +24,7 @@ int __cdecl nox_xxx_netAbilityReport_4D8060(int a1, int a2, int a3) {
 void __cdecl nox_xxx_abilGetSuccess_4FB960_ability(int a1) {
 	wchar_t* v1; // eax
 
-	v1 = nox_xxx_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * a1 + 217092), 0,
+	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * a1 + 217092), 0,
 							   "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 75);
 	nox_xxx_printCentered_445490(v1);
 }
@@ -44,7 +44,7 @@ int __cdecl nox_xxx_abilityRewardServ_4FB9C0_ability(int a1, int a2, int a3) {
 		return 0;
 	if (a2 <= 0 || a2 >= 6) {
 		v10 =
-			nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 217368), 0, "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 108);
+			nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 217368), 0, "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 108);
 		nox_xxx_netSendLineMessage_4D9EB0(a1, v10);
 		return 0;
 	}

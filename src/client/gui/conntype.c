@@ -26,7 +26,7 @@ int sub_49C820() {
 	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1305684, 10352);
 	v1 = (char**)getMemAt(0x587000, 164928);
 	do {
-		v2 = nox_xxx_loadString_40F1D0(*v1, 0, "C:\\NoxPost\\src\\client\\Gui\\conntype.c", 158);
+		v2 = nox_strman_loadString_40F1D0(*v1, 0, "C:\\NoxPost\\src\\client\\Gui\\conntype.c", 158);
 		nox_window_call_field_94((int)v0, 16397, (int)v2, -1);
 		++v1;
 	} while ((int)v1 < (int)getMemAt(0x587000, 164944));
@@ -57,7 +57,7 @@ _DWORD* sub_49C910() {
 	*((_DWORD*)v1 + 3) = v3 + 2;
 	v4 = 0;
 	do {
-		v5 = nox_xxx_loadString_40F1D0(*v2, 0, "C:\\NoxPost\\src\\client\\Gui\\conntype.c", 53);
+		v5 = nox_strman_loadString_40F1D0(*v2, 0, "C:\\NoxPost\\src\\client\\Gui\\conntype.c", 53);
 		nox_xxx_drawGetStringSize_43F840(*((_DWORD*)v1 + 59), v5, &v11, 0, 0);
 		if (v11 > v4)
 			v4 = v11;

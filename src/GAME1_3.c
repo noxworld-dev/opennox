@@ -119,7 +119,6 @@ extern _DWORD dword_5d4594_816364;
 extern _DWORD dword_5d4594_815700;
 extern _DWORD dword_5d4594_830248;
 extern _DWORD dword_5d4594_829480;
-extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_825760;
@@ -2399,7 +2398,7 @@ int nox_xxx_fontLoadMB_43F1C0() {
 		v1 -= 4;
 		*(_DWORD*)v1 = 0;
 	} while (v1 != getMemAt(0x5D4594, 816464));
-	if (dword_587000_26048 == 6 || (v2 = getMemAt(0x587000, 94112), dword_587000_26048 == 8))
+	if (nox_strman_get_lang_code() == 6 || (v2 = getMemAt(0x587000, 94112), nox_strman_get_lang_code() == 8))
 		v2 = getMemAt(0x587000, 94176);
 	dword_5d4594_816488 = v2;
 	v3 = 0;
@@ -2585,9 +2584,9 @@ _DWORD* __cdecl nox_xxx_FontLoadFile_43F3B0(char* a1) {
 				++v1[7];
 				v14 = (_BYTE*)nox_xxx_FontGetChar_43FE30((int)v1, 0x20u);
 				v15 = v14;
-				if (v14 && dword_587000_26048 == 8)
+				if (v14 && nox_strman_get_lang_code() == 8)
 					++*v14;
-				if (dword_587000_26048 == 6) {
+				if (nox_strman_get_lang_code() == 6) {
 					v16 = (_BYTE*)nox_xxx_FontGetChar_43FE30((int)v1, 0x3000u);
 					if (v16) {
 						if (v15) {
@@ -5791,7 +5790,7 @@ _DWORD* __cdecl nox_xxx_dialogMsgBoxCreate_449A10(int a1, int a2, int a3, int a4
 	_DWORD* v10;    // eax
 	_DWORD* v11;    // eax
 
-	v6 = dword_587000_26048;
+	v6 = nox_strman_get_lang_code();
 	if (dword_5d4594_830224 && func_5d4594_830216)
 		func_5d4594_830216();
 	dword_5d4594_830228 = a1;

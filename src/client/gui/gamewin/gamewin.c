@@ -13,7 +13,7 @@ wchar_t* __cdecl nox_xxx_wndWddSetTooltip_46B000(wchar_t* a1, wchar_t* a2) {
 		if (nox_wcslen(a2) < 0x40) {
 			result = nox_wcscpy(a1 + 102, a2);
 		} else {
-			v3 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 143168), 0,
+			v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 143168), 0,
 									   "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c", 1004);
 			result = nox_wcscpy(a1 + 102, v3);
 		}
@@ -44,7 +44,7 @@ void __cdecl nox_xxx_clientPickup_46C140(int a1) {
 			nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &v4, 3);
 		} else {
 			nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
-			v3 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 143276), 0,
+			v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 143276), 0,
 									   "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c", 83);
 			nox_xxx_printCentered_445490(v3);
 		}
