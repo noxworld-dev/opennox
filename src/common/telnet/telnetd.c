@@ -48,12 +48,12 @@ int sub_578FF0() {
 			++*getMemU16Ptr(0x5D4594, 2523738);
 			*getMemU32Ptr(0x5D4594, v3 + 2516484) = v2;
 			v7 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, v3 + 2517520));
-			v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 311532), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+			v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 311532), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   142);
-			v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 311592), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+			v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 311592), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   142);
 			nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 311600), v4, v6, v7);
-			v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 311652), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+			v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 311652), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   146);
 			nox_sprintf(buf, "%S", v5);
 			send(*getMemU32Ptr(0x5D4594, v3 + 2516484), buf, strlen(buf), 0);
@@ -97,9 +97,9 @@ char* sub_579190() {
 						*(_DWORD*)v0 &= 0xFFFFFFFE;
 						if (nox_wcscmp(v3, (const wchar_t*)getMemAt(0x5D4594, 2523748)) && _nox_wcsicmp(v11, v3)) {
 							v8 = inet_ntoa(*(struct in_addr*)(v0 - 4));
-							v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 311716), 0,
+							v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 311716), 0,
 													   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
-							v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 311768), 0,
+							v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 311768), 0,
 													   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
 							nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 311776), v4, v6, v8);
 							result = (char*)sub_579350(v10);
@@ -107,9 +107,9 @@ char* sub_579190() {
 						}
 						send(*v2, "\r\n", 2, 0);
 						v9 = inet_ntoa(*(struct in_addr*)(v0 - 4));
-						v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 311832), 0,
+						v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 311832), 0,
 												   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
-						v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 311888), 0,
+						v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 311888), 0,
 												   "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
 						nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 311896), v5, v7, v9);
 					} else {
@@ -161,9 +161,9 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 			v5 = a2;
 			sub_579350(a2);
 			v22 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, 1044 * v5 + 2517520));
-			v20 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 311948), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+			v20 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 311948), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 										211);
-			v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 312012), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
+			v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 312012), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   211);
 			nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 312020), v6, v20, v22);
 			return 0;
@@ -206,8 +206,8 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 		v18 = a2;
 		sub_579350(a2);
 		v23 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, 1044 * v18 + 2517520));
-		v21 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 312072), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
-		v19 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 312136), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
+		v21 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 312072), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
+		v19 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 312136), 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
 		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 312144), v19, v21, v23);
 		return 0;
 	}

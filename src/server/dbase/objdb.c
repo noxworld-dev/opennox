@@ -28,5 +28,5 @@ wchar_t* __cdecl sub_4E39F0_obj_db(const char** a1) {
 		v5 = *i;
 	}
 	*v6 = 0;
-	return nox_xxx_loadString_40F1D0((char*)getMemAt(0x5D4594, 1563460), 0, "C:\\NoxPost\\src\\Server\\DBase\\objdb.c", 1577);
+	return nox_strman_loadString_40F1D0((char*)getMemAt(0x5D4594, 1563460), 0, "C:\\NoxPost\\src\\Server\\DBase\\objdb.c", 1577);
 }

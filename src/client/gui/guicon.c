@@ -15,7 +15,7 @@ wchar_t* __cdecl sub_450C30(unsigned __int8 a1, int a2) {
 
 	if (a2)
 		return (wchar_t*)nox_xxx_consolePrint_450B90(a1, a2);
-	result = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 126456), 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 97);
+	result = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 126456), 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 97);
 	if (result)
 		result = (wchar_t*)nox_xxx_consolePrint_450B90(a1, (int)result);
 	return result;
@@ -33,12 +33,12 @@ int nox_xxx_consoleEnter_450FD0() {
 		v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_833716, 16413, 0, 0);
 		if (dword_5d4594_833732 && *getMemU16Ptr(0x5D4594, 832552)) {
 			if (_nox_wcsicmp(v0, (const wchar_t*)getMemAt(0x5D4594, 832552))) {
-				v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 126560), 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c",
+				v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 126560), 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c",
 										   124);
 				sub_450C30(4u, (int)v4);
 			} else {
 				dword_5d4594_833732 = 0;
-				v3 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 126508), 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c",
+				v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 126508), 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c",
 										   121);
 				sub_450C30(6u, (int)v3);
 			}
@@ -78,7 +78,7 @@ int nox_xxx_consoleF1_451350() {
 		result = dword_5d4594_833728;
 		if (dword_5d4594_833728) {
 			nox_xxx_conClear_450B70();
-			v1 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 126620), 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 459);
+			v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 126620), 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 459);
 			result = nox_xxx_consoleVPrint_450C00(4u, v1);
 			dword_5d4594_833732 = 1;
 		}

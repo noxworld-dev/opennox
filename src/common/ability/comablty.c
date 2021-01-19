@@ -108,13 +108,13 @@ int __cdecl nox_xxx_abil_424F00(int a1, void* a2) {
 	*(_DWORD*)(a1 + 8) = v18 + 1;
 	nox_memfile_read(v35, 1u, v32, a1);
 	v35[v32] = 0;
-	*(_DWORD*)v5 = nox_xxx_loadString_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 185);
+	*(_DWORD*)v5 = nox_strman_loadString_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 185);
 	v19 = *(__int16**)(a1 + 8);
 	v20 = *v19;
 	*(_DWORD*)(a1 + 8) = v19 + 1;
 	nox_memfile_read(v35, 1u, v20, a1);
 	v35[v20] = 0;
-	*((_DWORD*)v5 + 1) = nox_xxx_loadString_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 193);
+	*((_DWORD*)v5 + 1) = nox_strman_loadString_40F1D0(v35, 0, "C:\\NoxPost\\src\\common\\Ability\\ComAblty.c", 193);
 	v21 = *(unsigned __int8**)(a1 + 8);
 	v22 = *v21;
 	*(_DWORD*)(a1 + 8) = v21 + 1;

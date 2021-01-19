@@ -23,7 +23,7 @@ int __cdecl sub_530A30_spell_execdur(int a1) {
 	if (*(_BYTE*)(v3 + 8) & 4)
 		v2 = *(_DWORD*)(v3 + 748);
 	if (nox_xxx_mapTileAllowTeleport_411A90((float2*)(v1 + 52))) {
-		v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 260960), 0, "C:\\NoxPost\\src\\Server\\Magic\\Spell\\ExecDur.c",
+		v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 260960), 0, "C:\\NoxPost\\src\\Server\\Magic\\Spell\\ExecDur.c",
 								   2912);
 		nox_xxx_netSendLineMessage_4D9EB0(*(_DWORD*)(v1 + 48), v4);
 		nox_xxx_aud_501960(231, *(_DWORD*)(v1 + 48), 0, 0);

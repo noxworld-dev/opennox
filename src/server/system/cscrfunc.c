@@ -66,7 +66,7 @@ int nox_xxx_scriptPrintToCaller_512B10() {
 
 	v0 = script_pop();
 	if (dword_5d4594_3821964 && *(_BYTE*)(dword_5d4594_3821964 + 8) & 4) {
-		v1 = nox_xxx_loadString_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
+		v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
 								   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1285);
 		nox_xxx_netSendLineMessage_4D9EB0(*(int*)&dword_5d4594_3821964, v1);
 	}
@@ -79,7 +79,7 @@ int nox_xxx_scriptPrintToAll_512B60() {
 	wchar_t* v1; // eax
 
 	v0 = script_pop();
-	v1 = nox_xxx_loadString_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
+	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
 							   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1310);
 	nox_xxx_printToAll_4D9FD0(0, v1);
 	return 0;
@@ -100,7 +100,7 @@ int nox_xxx_scriptSayChat_512B90() {
 	if (v2) {
 		v3 = *(char**)getMemAt(0x5D4594, 4 * v0 + 3831212);
 		v6 = 0;
-		v4 = nox_xxx_loadString_40F1D0(v3, &v6, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1342);
+		v4 = nox_strman_loadString_40F1D0(v3, &v6, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1342);
 		nox_xxx_netSendChat_528AC0(v2, v4, 0);
 		if (nox_common_gameFlags_check_40A5C0(2048))
 			nox_xxx_playDialogFile_44D900(v6, 100);
@@ -115,7 +115,7 @@ int nox_xxx_script_Fn5E_513F70() {
 	int v2;      // eax
 
 	v0 = script_pop();
-	v1 = nox_xxx_loadString_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
+	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
 							   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 2901);
 	v2 = sub_512E80((int)v1);
 	nox_xxx_scriptPushValue_507230(v2);
@@ -141,7 +141,7 @@ int sub_514A80() {
 		v4 = *(char**)getMemAt(0x5D4594, 4 * v1 + 3831212);
 		v7 = v0 * (_WORD)nox_gameFPS;
 		v8 = 0;
-		v5 = nox_xxx_loadString_40F1D0(v4, &v8, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3629);
+		v5 = nox_strman_loadString_40F1D0(v4, &v8, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3629);
 		nox_xxx_netSendChat_528AC0(v3, v5, v7);
 		if (nox_common_gameFlags_check_40A5C0(2048))
 			nox_xxx_playDialogFile_44D900(v8, 100);
@@ -166,7 +166,7 @@ int sub_514B10() {
 	if (v3) {
 		v4 = *(char**)getMemAt(0x5D4594, 4 * v1 + 3831212);
 		v7 = 0;
-		v5 = nox_xxx_loadString_40F1D0(v4, &v7, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3670);
+		v5 = nox_strman_loadString_40F1D0(v4, &v7, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3670);
 		nox_xxx_netSendChat_528AC0(v3, v5, v0);
 		if (v7) {
 			if (nox_common_gameFlags_check_40A5C0(2048))

@@ -204,7 +204,7 @@ int __cdecl nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 	if (!nox_xxx_mapSavePlayerDataMB_41A230(v14))
 		return 0;
 	if (strcmp(a1, "WORKING")) {
-		v10 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 199312), 0,
+		v10 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 199312), 0,
 									"C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 661);
 		nox_xxx_printToAll_4D9FD0(0, v10);
 		if (!sub_4DC100((int)getMemAt(0x587000, 199332), (int)a1))
@@ -236,7 +236,7 @@ char* __cdecl nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 			v3 = nox_common_get_data_path_409E10();
 			nox_sprintf(FileName, "%s\\Save\\%s\\Player.plr", v3, getMemAt(0x587000, 199424));
 			if (_access(FileName, 0) == -1) {
-				v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 199504), 0,
+				v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 199504), 0,
 										   "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 755);
 				nox_xxx_printToAll_4D9FD0(0, v4);
 				result = 0;
@@ -262,7 +262,7 @@ char* __cdecl nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 						nox_xxx_conClear_450B70();
 						sub_445450();
 						nox_xxx_destroyEveryChatMB_528D60();
-						v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 199612), 0,
+						v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 199612), 0,
 												   "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 824);
 						nox_xxx_printToAll_4D9FD0(0, v7);
 						result = (char*)1;

@@ -151,13 +151,13 @@ void __cdecl nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
 
 	nox_xxx_mapGenSetFlags_5235F0(157);
 	if (!nox_xxx_mapGenMakeExit_522A40(a1)) {
-		v1 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 254784), 0,
+		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 254784), 0,
 								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 848);
 		nox_xxx_printToAll_4D9FD0(0, v1);
-		v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 254844), 0,
+		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 254844), 0,
 								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 849);
 		nox_xxx_printToAll_4D9FD0(0, v2);
-		v3 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 254904), 0,
+		v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 254904), 0,
 								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 850);
 		nox_xxx_printToAll_4D9FD0(0, v3);
 	}

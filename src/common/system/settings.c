@@ -17,7 +17,7 @@ void __cdecl sub_409FB0_settings(__int16 a1, unsigned __int16 a2) {
 		*getMemU16Ptr(0x5D4594, 2 * v2 + 3488) = v3;
 		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
 		if (nox_client_isConnected_43C700()) {
-			v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 4804), 0, "C:\\NoxPost\\src\\Common\\System\\settings.c",
+			v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 4804), 0, "C:\\NoxPost\\src\\Common\\System\\settings.c",
 									   389);
 			sub_440A20(v4, v3);
 		}
@@ -37,23 +37,23 @@ void __cdecl sub_40A040_settings(__int16 a1, unsigned __int8 a2) {
 		return;
 	}
 	if (!(!nox_common_gameFlags_check_40A5C0(0x4000000) && !dword_5d4594_3592)) {
-		v6 = nox_xxx_loadString_40F1D0((char *) getMemAt(0x587000, 4868), 0, "C:\\NoxPost\\src\\Common\\System\\settings.c", 414);
+		v6 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 4868), 0, "C:\\NoxPost\\src\\Common\\System\\settings.c", 414);
 		nox_xxx_printCentered_445490(v6);
 		return;
 	}
 	*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
 	if (nox_client_isConnected_43C700()) {
 		if (!a2) {
-			v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 5048), 0,
+			v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 5048), 0,
 									   "C:\\NoxPost\\src\\Common\\System\\settings.c", 431);
 			sub_440A20(v5);
 		} else {
-			v3 = nox_xxx_loadString_40F1D0((char *) getMemAt(0x587000, 4928), 0, "C:\\NoxPost\\src\\Common\\System\\settings.c",
+			v3 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 4928), 0, "C:\\NoxPost\\src\\Common\\System\\settings.c",
 									   423);
 			sub_440A20(v3, a2);
 			LOBYTE(v4) = nox_xxx_gamePlayIsAnyPlayers_40A8A0();
 			if (!v4) {
-				v5 = nox_xxx_loadString_40F1D0((char *) getMemAt(0x587000, 4988), 0,
+				v5 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 4988), 0,
 										   "C:\\NoxPost\\src\\Common\\System\\settings.c", 426);
 				sub_440A20(v5);
 			}

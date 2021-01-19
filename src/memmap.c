@@ -40,8 +40,11 @@ extern size_t string_entries_cnt;
 
 extern wchar_t file_buffer_w[4096 * 2];
 extern char file_buffer[4096];
+extern char strman_buf_1[4096];
+extern char strman_buf_2[4096];
+extern char strman_buf_3[8192];
 
-extern FILE* nox_file_1;
+extern FILE* nox_strman_file;
 extern FILE* nox_file_2;
 extern FILE* nox_file_3;
 extern FILE* nox_file_4;
@@ -215,7 +218,6 @@ extern _DWORD dword_5d4594_1049504;
 extern _DWORD dword_5d4594_1046868;
 extern _DWORD dword_5d4594_1082856;
 extern _DWORD dword_5d4594_1193380;
-extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_3799624;
 extern _DWORD dword_5d4594_1316972;
 extern _DWORD dword_5d4594_1123524;
@@ -833,6 +835,9 @@ extern _DWORD dword_5d4594_1309736;
 extern _DWORD dword_5d4594_754044;
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD dword_5d4594_1301812;
+extern int dword_5d4594_251512;
+extern char nox_strman_path_buf[1024];
+extern char nox_strman_name_buf[1024];
 extern void* nox_alloc_friendList_1203860;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_1090040;
@@ -1097,7 +1102,7 @@ extern _DWORD dword_5d4594_3592;
 extern _DWORD dword_5d4594_1045544;
 extern _DWORD dword_5d4594_1548480;
 extern _DWORD nox_xxx_lightningSteps_587000_178216;
-extern _DWORD dword_5d4594_251480;
+extern int dword_5d4594_251480;
 extern _DWORD dword_5d4594_739996;
 extern _DWORD dword_5d4594_1045428;
 extern _DWORD dword_5d4594_2487536;
@@ -1262,7 +1267,7 @@ extern _DWORD dword_5d4594_823772;
 extern _DWORD dword_5d4594_527988;
 extern _DWORD dword_5d4594_1097212;
 extern _DWORD dword_5d4594_2491588;
-extern _DWORD dword_5d4594_3612;
+extern int dword_5d4594_3612;
 extern _DWORD dword_5d4594_1046604;
 extern _DWORD dword_5d4594_1316448;
 extern _DWORD dword_5d4594_1193180;
@@ -1363,6 +1368,9 @@ extern _DWORD dword_5d4594_2491716;
 extern _DWORD dword_587000_180476;
 extern _DWORD dword_5d4594_1046852;
 extern _DWORD dword_5d4594_2386848;
+extern int dword_5d4594_251492;
+extern int dword_5d4594_251484;
+extern int dword_5d4594_251516;
 extern _DWORD array_5D4594_1049872[9]; // size guessed from memset in sub_467980
 extern char nox_workdir[1025];
 extern char nox_savegame_name_1307752[9];
@@ -2560,7 +2568,6 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1123524, (void*)&dword_5d4594_1123524, sizeof(dword_5d4594_1123524), 1},
 	{0x5D4594 + 1316972, (void*)&dword_5d4594_1316972, sizeof(dword_5d4594_1316972), 1},
 	{0x5D4594 + 3799624, (void*)&dword_5d4594_3799624, sizeof(dword_5d4594_3799624), 1},
-	{0x587000 + 26048, (void*)&dword_587000_26048, sizeof(dword_587000_26048), 1},
 	{0x5D4594 + 1193380, (void*)&dword_5d4594_1193380, sizeof(dword_5d4594_1193380), 1},
 	{0x5D4594 + 1082856, (void*)&dword_5d4594_1082856, sizeof(dword_5d4594_1082856), 1},
 	{0x5D4594 + 1046868, (void*)&dword_5d4594_1046868, sizeof(dword_5d4594_1046868), 1},
@@ -2606,7 +2613,13 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1300, (void*)&nox_file_10_mode, sizeof(nox_file_10_mode), 1},
 	{0x5D4594 + 226904, (void*)file_buffer_w, sizeof(file_buffer_w), 1},
 	{0x5D4594 + 247384, (void*)file_buffer, sizeof(file_buffer), 1},
-	{0x5D4594 + 251488, (void*)&nox_file_1, sizeof(nox_file_1), 1},
+	{0x5D4594 + 218612, (void*)strman_buf_1, sizeof(strman_buf_1), 1},
+	{0x5D4594 + 222708, (void*)strman_buf_2, sizeof(strman_buf_2), 1},
+	{0x5D4594 + 210420, (void*)strman_buf_3, sizeof(strman_buf_3), 1},
+	{0x5D4594 + 251492, (void*)&dword_5d4594_251492, sizeof(dword_5d4594_251492), 1},
+	{0x5D4594 + 251484, (void*)&dword_5d4594_251484, sizeof(dword_5d4594_251484), 1},
+	{0x5D4594 + 251516, (void*)&dword_5d4594_251516, sizeof(dword_5d4594_251516), 1},
+	{0x5D4594 + 251488, (void*)&nox_strman_file, sizeof(nox_strman_file), 1},
 	{0x5D4594 + 251492, (void*)&string_entries_cnt, sizeof(string_entries_cnt), 1},
 	{0x5D4594 + 251500, (void*)&string_entries, sizeof(string_entries), 1},
 	{0x5D4594 + 251520, (void*)&missing_strings, sizeof(missing_strings), 1},
@@ -2707,6 +2720,9 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 747884, (void*)nox_ctrlevent_buf_747884, sizeof(nox_ctrlevent_buf_747884), 1},
 	{0x5D4594 + 750964, (void*)nox_ctrlevent_buf_750964, sizeof(nox_ctrlevent_buf_750964), 1},
 	{0x5D4594 + 747876, (void*)&nox_ctrlevent_ticks, sizeof(nox_ctrlevent_ticks), 1},
+	{0x5D4594 + 251512, (void*)&dword_5d4594_251512, sizeof(dword_5d4594_251512), 1},
+	{0x5D4594 + 226804, (void*)&nox_strman_path_buf, sizeof(nox_strman_path_buf), 1},
+	{0x5D4594 + 243288, (void*)&nox_strman_name_buf, sizeof(nox_strman_name_buf), 1},
 
 	{0x587000 + 80, (void*)&nox_enable_audio, sizeof(nox_enable_audio), 1},
 	{0x587000 + 180, (void*)&nox_version_string_180, sizeof(nox_version_string_180), 1},

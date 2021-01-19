@@ -46,9 +46,9 @@ char* sub_4C3620() {
 			sub_42CF50(v12);
 		}
 	}
-	v8 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 185172), 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 191);
+	v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185172), 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 191);
 	v9 = sub_42EA40(v8);
-	v10 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 185240), 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 192);
+	v10 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185240), 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 192);
 	result = sub_42E960(v10);
 	if (result) {
 		nox_sprintf(v12, "%s = %s", result, v9);
@@ -125,7 +125,7 @@ int sub_4C3760() {
 			sub_46AEE0((int)v9, (int)getMemAt(0x5D4594, 1321256));
 			v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 932);
 			v11 =
-				nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 185316), 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 603);
+				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185316), 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 603);
 			sub_46AEE0((int)v10, (int)v11);
 			nox_xxx_wnd_46ABB0((int)v10, 1);
 			nox_window_set_hidden(*(int*)&dword_5d4594_1321228, 1);
@@ -156,7 +156,7 @@ int __cdecl sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 			if ((int)*(_DWORD*)(v5 + 48) >= 0) {
 				dword_5d4594_1321252 = a3;
 				v9 = nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16406, *(_DWORD*)(v5 + 48), 0);
-				v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 185404), 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c",
+				v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185404), 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c",
 										   436);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1321256), L"%s\n'%s'", v6, v9);
 				nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1321232);

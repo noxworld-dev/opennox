@@ -42,7 +42,7 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
 		nox_xxx_wnd_46ABB0(*getMemIntPtr(0x5D4594, 1307728), 1);
 		v8 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 605);
 		*(_BYTE*)(dword_5d4594_1307724 + 66) = v7 - 89;
-		v9 = nox_xxx_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * (unsigned __int8)(v7 - 89) + 170208), 0,
+		v9 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * (unsigned __int8)(v7 - 89) + 170208), 0,
 								   "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 279);
 		nox_window_call_field_94((int)v8, 16385, (int)v9, 0);
 		*getMemU32Ptr(0x5D4594, 1307740) = v7;
