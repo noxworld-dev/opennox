@@ -57,9 +57,9 @@ int __cdecl nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 					}
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				} else {
-					v9 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 169256), 0,
+					v9 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 169256), 0,
 											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 341);
-					v5 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 169304), 0,
+					v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 169304), 0,
 											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 341);
 					nox_xxx_dialogMsgBoxCreate_449A10(nox_win_main_menu, (int)v5, (int)v9, 33, 0, 0);
 					sub_44A360(1);
@@ -109,7 +109,7 @@ int __cdecl nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 			case 131:
 				LOBYTE(v6) = nox_client_checkQuestExp_SKU2_4D7700();
 				if (!v6) {
-					v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 169352), 0,
+					v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 169352), 0,
 											   "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c", 416);
 					nox_xxx_dialogMsgBoxCreate_449A10(nox_win_main_menu, 0, (int)v7, 33, 0, 0);
 					sub_44A360(0);

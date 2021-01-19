@@ -7,7 +7,7 @@
 int __cdecl sub_4A0800(wchar_t* a1, char* a2) {
 	wchar_t* v2; // eax
 
-	v2 = nox_xxx_loadString_40F1D0(a2, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 267);
+	v2 = nox_strman_loadString_40F1D0(a2, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 267);
 	nox_xxx_wndWddSetTooltip_46B000(a1, v2);
 	return 1;
 }
@@ -21,7 +21,7 @@ int __cdecl sub_4A0A90(int a1, char* a2) {
 	} else if (!strcmp(a2, "Options.wnd:16BitColor")) {
 		v2 = L"\tFullscreen";
 	} else {
-		v2 = nox_xxx_loadString_40F1D0(a2, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 424);
+		v2 = nox_strman_loadString_40F1D0(a2, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 424);
 	}
 	nox_wcsncpy((wchar_t*)(a1 + 72), v2, 0x3Fu);
 	*(_WORD*)(a1 + 196) = 0;
@@ -116,7 +116,7 @@ int __cdecl nox_xxx_wndParseDataField_4A10A0(_DWORD* a1, const char* a2, char* a
 		*getMemU32Ptr(0x5D4594, 1307260) = *getMemU32Ptr(0x5D4594, 1307260) != 0;
 		v18 = strtok(0, " \t\n\r");
 		*getMemU32Ptr(0x5D4594, 1307252) =
-			nox_xxx_loadString_40F1D0(v18, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 542);
+			nox_strman_loadString_40F1D0(v18, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 542);
 		result = 1;
 		*a1 = getMemAt(0x5D4594, 1307252);
 	} else if (!strcmp(a2, "RADIOBUTTON")) {

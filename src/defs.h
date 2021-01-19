@@ -45,22 +45,22 @@ typedef INT_PTR LSTATUS;
 
 #include <windows.h>
 //#include <mmreg.h>
-
 #ifndef _Static_assert
 #define _Static_assert static_assert
-#endif
-#else
-// Non-windows platform headers
-#pragma GCC poison fgetwln fgetws fputwc fputws fwprintf fwscanf mbrtowc mbsnrtowcs mbsrtowcs putwc putwchar swprintf  \
-	swscanf vfwprintf vfwscanf vswprintf vswscanf vwprintf vwscanf wcrtomb wcscat wcschr wcscmp wcscoll wcscpy wcscspn \
-		wcsftime wcsftime wcslcat wcslcpy wcslen wcsncat wcsncmp wcsncpy wcsnrtombs wcspbrk wcsrchr wcsrtombs wcsspn   \
-			wcsstr wcstod wcstof wcstok wcstol wcstold wcstoll wcstoul wcstoull wcswidth wcsxfrm wcwidth wmemchr       \
-				wmemcmp wmemcpy wmemmove wmemset wprintf wscanf
+#endif // _Static_assert
+#else // _WIN32
 #include "windows.h"
-#endif
+#endif // _WIN32
+
 #include "compat_mss.h"
+#include "common/noxfile.h"
+#include "common/strman.h"
 #include "noxstring.h"
 #include <stdbool.h>
+
+#ifndef _WIN32
+#include "common/poison.h"
+#endif // _WIN32
 
 // For now bools are kept 1-byte long
 //_Static_assert(sizeof(bool) == 4, "boolean values must be aligned to 32-bit int");
@@ -345,17 +345,6 @@ typedef struct struc_36 {
 	void (*field_5)(void);
 	_DWORD field_6;
 } struc_36;
-
-typedef struct nox_missing_string nox_missing_string;
-typedef struct nox_missing_string {
-	nox_missing_string* next;
-	wchar_t data[258];
-} nox_missing_string;
-
-typedef struct nox_string_entry {
-	char data[50];
-	_WORD field_50;
-} nox_string_entry;
 
 typedef struct nox_alloc_hdr nox_alloc_hdr;
 typedef struct nox_alloc_hdr {

@@ -10,14 +10,14 @@ int __cdecl nox_xxx_parseWeapDescription_411B90(const char* a1, char* a2, obj_41
 	}
 
 	// POST_CLEANUP: Why load the string twice?
-	const wchar_t* str1 = nox_xxx_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 418);
+	const wchar_t* str1 = nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 418);
 	const size_t str1len = nox_wcslen(str1);
 	obj->field_2 = malloc(2 * str1len + 2);
 	if (!obj->field_2) {
 		return 0;
 	}
 
-	const wchar_t* str2 = nox_xxx_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 426);
+	const wchar_t* str2 = nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 426);
 	nox_wcsncpy(obj->field_2, str2, str1len);
 	obj->field_2[str1len] = 0;
 
@@ -33,14 +33,14 @@ int __cdecl nox_xxx_parseEnchDesc_412100_parse_desc(const char* a1, char* a2, ob
 		return 0;
 	}
 
-	const wchar_t* str1 = nox_xxx_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 733);
+	const wchar_t* str1 = nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 733);
 	const size_t str1len = nox_wcslen(str1);
 	obj->field_2 = malloc(2 * str1len + 2);
 	if (!obj->field_2) {
 		return 0;
 	}
 
-	const wchar_t* str2 = nox_xxx_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 741);
+	const wchar_t* str2 = nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 741);
 	nox_wcsncpy(obj->field_2, str2, str1len);
 	obj->field_2[str1len] = 0;
 
@@ -56,14 +56,14 @@ int __cdecl nox_xxx_parseEnchDescSecondary_4121B0_parse_second_desc(const char* 
 		return 0;
 	}
 
-	const wchar_t* str1 = nox_xxx_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 767);
+	const wchar_t* str1 = nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 767);
 	const size_t str1len = nox_wcslen(str1);
 	obj->field_3 = malloc(2 * str1len + 2);
 	if (!obj->field_3) {
 		return 0;
 	}
 
-	const wchar_t* str2 = nox_xxx_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 775);
+	const wchar_t* str2 = nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 775);
 	nox_wcsncpy(obj->field_3, str2, str1len);
 	obj->field_3[str1len] = 0;
 
@@ -79,14 +79,14 @@ int __cdecl nox_xxx_parseIdentifyDesc_412260_parse_ident_desc(const char* a1, ch
 		return 0;
 	}
 
-	const wchar_t* str1 = nox_xxx_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
+	const wchar_t* str1 = nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
 	const size_t str1len = nox_wcslen(str1);
 	obj->field_4 = malloc(2 * str1len + 2);
 	if (!obj->field_4) {
 		return 0;
 	}
 
-	const wchar_t* str2 = nox_xxx_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 809);
+	const wchar_t* str2 = nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 809);
 	nox_wcsncpy(obj->field_4, str2, str1len);
 	obj->field_4[str1len] = 0;
 
@@ -106,6 +106,6 @@ wchar_t* __cdecl sub_413480(char a1) {
 		if ((int)v2 >= (int)getMemAt(0x587000, 27452))
 			return 0;
 	}
-	return nox_xxx_loadString_40F1D0(*(char**)getMemAt(0x587000, 20 * v1 + 27344), 0,
+	return nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 20 * v1 + 27344), 0,
 								 "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 2087);
 }

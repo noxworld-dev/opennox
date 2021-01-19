@@ -122,7 +122,6 @@ extern _DWORD dword_5d4594_1319228;
 extern _DWORD dword_5d4594_1321228;
 extern _DWORD dword_5d4594_1321040;
 extern _DWORD dword_5d4594_1316972;
-extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_810632;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_1320940;
@@ -1277,7 +1276,7 @@ int sub_4BDFD0() {
 	int v10;    // [esp+Ch] [ebp-4h]
 
 	v0 = sub_416640();
-	v1 = dword_587000_26048;
+	v1 = nox_strman_get_lang_code();
 	v2 = (int)v0;
 	if (nox_xxx_guiFontHeightMB_43F320(0) > 10)
 		v1 = 2;

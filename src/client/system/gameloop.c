@@ -80,7 +80,7 @@ int nox_xxx_gameChangeMap_43DEB0() {
 		sub_43F1A0();
 		if (!v5) {
 			v13 = nox_server_currentMapGetFilename_409B30();
-			v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 93352), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
+			v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 93352), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
 									   318);
 			sub_4516C0(v6, v13);
 			nox_xxx_spriteLoadError_4356E0();
@@ -92,11 +92,11 @@ int nox_xxx_gameChangeMap_43DEB0() {
 			nox_xxx_netSendClientReady_43C9F0();
 		nox_xxx_gameSetCliConnected_43C720(1);
 		if ((int)*getMemU32Ptr(0x5D4594, 3801836 + 1392) < 0) {
-			v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 93408), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
+			v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 93408), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
 									   338);
 			nox_xxx_printCentered_445490(v7);
 			v14 = sub_42E8E0(8, 1);
-			v8 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 93468), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
+			v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 93468), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
 									   339);
 			nox_swprintf(v15, v8, v14);
 			nox_xxx_printCentered_445490(v15);
@@ -109,9 +109,9 @@ int nox_xxx_gameChangeMap_43DEB0() {
 				nox_common_gameFlags_unset_40A540(9437184);
 				sub_477530(1);
 				nox_xxx_gui_43E1A0(1);
-				v12 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 93244), 0,
+				v12 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 93244), 0,
 											"C:\\NoxPost\\src\\Client\\System\\gameloop.c", 298);
-				v10 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 93304), 0,
+				v10 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 93304), 0,
 											"C:\\NoxPost\\src\\Client\\System\\gameloop.c", 297);
 				nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v10, (int)v12, 24, sub_43E230, sub_43E200);
 			}
@@ -161,7 +161,7 @@ int map_download_finish() {
 	}
 	if (!nox_xxx_mapCliReadAll_4AC2B0(nox_server_currentMapGetFilename_409B30())) {
 		v13 = nox_server_currentMapGetFilename_409B30();
-		v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 93528), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 386);
+		v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 93528), 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 386);
 		sub_4516C0(v6, v13);
 		nox_xxx_spriteLoadError_4356E0();
 		return 0;
@@ -200,7 +200,7 @@ void cleanup() {
 	sub_42F4D0();
 	sub_42EDC0();
 	sub_42CD90();
-	sub_410020();
+	nox_strman_free_410020();
 	nox_xxx_net_40EA70();
 	sub_40D0F0();
 	sub_40E070();

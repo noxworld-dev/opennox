@@ -24,13 +24,13 @@ int nox_xxx_loadGuides_427070() {
 		if (!v2)
 			break;
 		nox_sprintf(v13, "creature:%s", *v0);
-		*((_DWORD*)i - 1) = nox_xxx_loadString_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 57);
+		*((_DWORD*)i - 1) = nox_strman_loadString_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 57);
 		if (!strcmp(*(const char**)v2, "Bomber"))
 			*(_DWORD*)i = 0;
 		else
 			*(_DWORD*)i = nox_xxx_getTTByNameSpriteMB_44CFC0(*v0);
 		nox_sprintf(v13, "creature_desc:%s", *v0);
-		v3 = nox_xxx_loadString_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 65);
+		v3 = nox_strman_loadString_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 65);
 		v4 = *getMemU32Ptr(0x587000, 71248);
 		v5 = *getMemU32Ptr(0x587000, 71252);
 		v6 = *v0;

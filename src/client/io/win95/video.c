@@ -20,7 +20,7 @@ int sub_430F00_screenshot() {
 	++screenshot_num;
 	FILE* file = fopen(path, "w");
 	if (!file) {
-		v2 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 80968), 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 375);
+		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 80968), 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 375);
 		return sub_4517A0(v2, path);
 	}
 	fprintf(file, "P3\n#Nox Bitmap data\n640 480 256\n");
@@ -35,7 +35,7 @@ int sub_430F00_screenshot() {
 		}
 		v4 += nox_pitch_3801808;
 	}
-	v8 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 81068), 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 399);
+	v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 81068), 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 399);
 	sub_4517A0(v8, path);
 	return fclose(file);
 }

@@ -4,7 +4,6 @@
 extern _DWORD nox_server_sendMotd_108752;
 extern _DWORD nox_server_connectionType_3596;
 extern _DWORD dword_5d4594_1309812;
-extern _DWORD dword_587000_26048;
 
 //----- (004AD320) --------------------------------------------------------
 int __cdecl nox_xxx_gui_4AD320(int a1) {
@@ -18,7 +17,7 @@ int __cdecl nox_xxx_gui_4AD320(int a1) {
 	_DWORD* v9;  // eax
 	_DWORD* v10; // eax
 
-	v1 = dword_587000_26048;
+	v1 = nox_strman_get_lang_code();
 	if (nox_xxx_guiFontHeightMB_43F320(0) > 10)
 		v1 = 2;
 	if (dword_5d4594_1309812)
@@ -43,7 +42,7 @@ int __cdecl nox_xxx_gui_4AD320(int a1) {
 		v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10317);
 		v7 = (char**)getMemAt(0x587000, 173540);
 		do {
-			v8 = nox_xxx_loadString_40F1D0(*v7, 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 308);
+			v8 = nox_strman_loadString_40F1D0(*v7, 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 308);
 			nox_window_call_field_94((int)v6, 16397, (int)v8, -1);
 			++v7;
 		} while ((int)v7 < (int)getMemAt(0x587000, 173556));
@@ -79,7 +78,7 @@ int sub_4AD4B0() {
 	v1[7] = v1[5] + 4 * v2 + 2;
 	v1[3] = 4 * v2 + 2;
 	do {
-		v5 = nox_xxx_loadString_40F1D0(*v4, 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 92);
+		v5 = nox_strman_loadString_40F1D0(*v4, 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 92);
 		nox_xxx_drawGetStringSize_43F840(v1[59], v5, &v9, 0, 0);
 		if (v9 > v3)
 			v3 = v9;
@@ -135,7 +134,7 @@ int sub_4AD840() {
 		result = sub_43AF70();
 		if (result == 1) {
 			v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10316);
-			v7 = nox_xxx_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * nox_server_connectionType_3596 + 173536), 0,
+			v7 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * nox_server_connectionType_3596 + 173536), 0,
 									   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 391);
 			nox_window_call_field_94((int)v6, 16385, (int)v7, -1);
 			v8 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10312);

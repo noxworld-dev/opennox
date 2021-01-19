@@ -1,6 +1,17 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <ctype.h>
+#include <wctype.h>
 #include "noxstring.h"
 
-int __cdecl nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list ap) {
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include "windows.h"
+#endif
+
+int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list ap) {
 	int i = 0, j, out = 0;
 	wchar_t ch;
 
@@ -52,7 +63,7 @@ int __cdecl nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format,
 
 		switch (ch) {
 		case 'c': {
-			wchar_t c = va_arg(ap, wchar_t);
+			wchar_t c = va_arg(ap, int);
 			EMIT(c);
 		} break;
 		case 's': {
@@ -143,7 +154,7 @@ int __cdecl nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format,
 #undef EMIT
 }
 
-int __cdecl nox_vsnprintf(char* buffer, size_t count, const char* format, va_list ap) {
+int nox_vsnprintf(char* buffer, size_t count, const char* format, va_list ap) {
 	// return vsnprintf(buffer, count, format, ap);
 	int i = 0, j, out = 0;
 	char ch;
@@ -363,7 +374,7 @@ wchar_t* nox_wcsstr(wchar_t* haystack, const wchar_t* needle) {
 	return NULL;
 }
 
-wchar_t* __cdecl nox_wcstok(wchar_t* str, const wchar_t* delim) {
+wchar_t* nox_wcstok(wchar_t* str, const wchar_t* delim) {
 	static wchar_t* next;
 	size_t i;
 
@@ -426,7 +437,43 @@ long nox_wcstol(const wchar_t* nptr, wchar_t** endptr, int base) {
 	return result;
 }
 
-int WINAPIV nox_wsprintfA(LPSTR lpBuffer, LPCSTR lpFmt, ...) {
+int nox_wsprintfA(char* lpBuffer, const char* lpFmt, ...) {
 	DebugBreak();
 	return 0;
+}
+
+int nox_swprintf(wchar_t* str, const wchar_t* fmt, ...) {
+	int len;
+	va_list ap;
+	va_start(ap, fmt);
+	len = nox_vsnwprintf(str, 0x3fffffff, fmt, ap);
+	va_end(ap);
+	return len;
+}
+
+int nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap) {
+	return nox_vsnwprintf(str, 0x3fffffff, fmt, ap);
+}
+
+void _dprintf(const char* fmt, ...) {
+	char buf[1024];
+	int len;
+	va_list ap;
+	va_start(ap, fmt);
+	len = nox_vsnprintf(buf, sizeof(buf) - 1, fmt, ap);
+	buf[len] = '\n';
+	buf[len + 1] = 0;
+	OutputDebugStringA(buf);
+	va_end(ap);
+}
+
+void dhexdump(const char* data, unsigned int len) {
+	char tmp[4];
+	unsigned int i;
+
+	for (i = 0; i < len; i++) {
+		sprintf(tmp, "%02X ", (unsigned char)data[i]);
+		OutputDebugStringA(tmp);
+	}
+	OutputDebugStringA("\n");
 }

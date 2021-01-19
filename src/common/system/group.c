@@ -14,7 +14,7 @@ int __cdecl nox_server_scriptGetGroupId_57C2D0(int** a1) {
 	if (*(_BYTE*)a1) {
 		while (v2 != 1 && v2 != 2) {
 			if (v2 != 3 || !v1) {
-				v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 313244), 0, "C:\\NoxPost\\src\\Common\\System\\Group.c",
+				v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 313244), 0, "C:\\NoxPost\\src\\Common\\System\\Group.c",
 										   358);
 				sub_450C30(6u, (int)v4);
 				return 0;

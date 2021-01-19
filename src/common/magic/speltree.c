@@ -141,13 +141,13 @@ int __cdecl nox_xxx_spellLoadSpells_424460(int a1, void* a2) {
 	*(_DWORD*)(a1 + 8) = v25 + 1;
 	nox_memfile_read(v43, 1u, v36, a1);
 	v43[v36] = 0;
-	*(_DWORD*)v6 = nox_xxx_loadString_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 481);
+	*(_DWORD*)v6 = nox_strman_loadString_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 481);
 	v26 = *(__int16**)(a1 + 8);
 	v27 = *v26;
 	*(_DWORD*)(a1 + 8) = v26 + 1;
 	nox_memfile_read(v43, 1u, v27, a1);
 	v43[v27] = 0;
-	*((_DWORD*)v6 + 1) = nox_xxx_loadString_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 488);
+	*((_DWORD*)v6 + 1) = nox_strman_loadString_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 488);
 	v28 = *(unsigned __int8**)(a1 + 8);
 	v29 = *v28;
 	*(_DWORD*)(a1 + 8) = v28 + 1;

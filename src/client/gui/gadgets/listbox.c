@@ -83,7 +83,7 @@ _DWORD* __cdecl nox_xxx_wndListboxCreate_4A4310(int a1, int a2, int a3, int a4, 
 				*(_DWORD*)&v25[36] = *getMemU32Ptr(0x5D4594, 2523948);
 				*(_DWORD*)&v25[52] = *getMemU32Ptr(0x5D4594, 2589772);
 				*(_DWORD*)&v25[68] = *getMemU32Ptr(0x5D4594, 2614256);
-				v16 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 169844), 0,
+				v16 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 169844), 0,
 											"C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1483);
 				nox_wcscpy((wchar_t*)&v25[72], v16);
 				v23 = 10;
@@ -107,7 +107,7 @@ _DWORD* __cdecl nox_xxx_wndListboxCreate_4A4310(int a1, int a2, int a3, int a4, 
 				*(_DWORD*)&v25[36] = *getMemU32Ptr(0x5D4594, 2523948);
 				*(_DWORD*)&v25[52] = *getMemU32Ptr(0x5D4594, 2589772);
 				*(_DWORD*)&v25[68] = *getMemU32Ptr(0x5D4594, 2614256);
-				v18 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 169996), 0,
+				v18 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 169996), 0,
 											"C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1519);
 				nox_wcscpy((wchar_t*)&v25[72], v18);
 			} else {

@@ -127,19 +127,19 @@ char* nox_xxx_bindevent_42EAE0() {
 		v0 = getMemAt(0x587000, 73684);
 		do {
 			*(_DWORD*)v0 =
-				nox_xxx_loadString_40F1D0(*((char**)v0 - 1), 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2092);
+				nox_strman_loadString_40F1D0(*((char**)v0 - 1), 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2092);
 			v1 = *((_DWORD*)v0 + 1);
 			v0 += 16;
 		} while (v1);
 	}
 	*getMemU32Ptr(0x587000, 75888) =
-		nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 80484), 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2095);
+		nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 80484), 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2095);
 	result = *(char**)getMemAt(0x587000, 75892);
 	if (*getMemU32Ptr(0x587000, 75892)) {
 		v3 = getMemAt(0x587000, 75892);
 		do {
 			nox_sprintf(v4, "bindevent:%s", result);
-			*((_DWORD*)v3 + 2) = nox_xxx_loadString_40F1D0(v4, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
+			*((_DWORD*)v3 + 2) = nox_strman_loadString_40F1D0(v4, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
 			result = (char*)*((_DWORD*)v3 + 3);
 			v3 += 12;
 		} while (result);
@@ -677,9 +677,9 @@ void nox_xxx_clientControl_42D6B0_B() {
 					if (nox_xxx_game_4DCCB0()) {
 						nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 						sub_413A00(1);
-						wchar_t* v41 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 80304), 0,
+						wchar_t* v41 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 80304), 0,
 																 "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 1867);
-						wchar_t* v40 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 80372), 0,
+						wchar_t* v40 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 80372), 0,
 																 "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 1866);
 						nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v40, (int)v41, 56, sub_42E600, sub_42E620);
 					} else {

@@ -48,7 +48,7 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 		nox_window_set_hidden((int)v9, 0);
 		v9[5] = 35;
 		v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3906);
-		v11 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 153524), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 460);
+		v11 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 153524), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 460);
 	} else {
 		nox_xxx_wnd_46ABB0((int)v8, 0);
 		nox_window_set_hidden((int)v8, 1);
@@ -56,7 +56,7 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 		nox_xxx_wnd_46ABB0((int)v12, 0);
 		nox_window_set_hidden((int)v12, 1);
 		v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3906);
-		v11 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 153576), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 483);
+		v11 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 153576), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 483);
 	}
 	sub_46AEE0((int)v10, (int)v11);
 	nox_xxx_wnd_46ABB0((int)v10, 1);
@@ -68,7 +68,7 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	v13[5] = 65;
 	if (a5 & 2) {
 		v14 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1123524, 3906);
-		v15 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 153628), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 503);
+		v15 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 153628), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 503);
 		sub_46AEE0((int)v14, (int)v15);
 	}
 	sub_467C10();
@@ -107,7 +107,7 @@ wchar_t* __cdecl sub_47A020(char* a1) {
 	v12 = (__int16*)v1[8];
 	v11 = 0;
 	v9 = v1[2] - 10;
-	v4 = nox_xxx_loadString_40F1D0(a1, getMemAt(0x5D4594, 1115312), "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 338);
+	v4 = nox_strman_loadString_40F1D0(a1, getMemAt(0x5D4594, 1115312), "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 338);
 	nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1107120), v4);
 	result = nox_wcstok((wchar_t*)getMemAt(0x5D4594, 1107120), v13);
 	v10 = result;

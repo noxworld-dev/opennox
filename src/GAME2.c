@@ -157,7 +157,6 @@ extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1047516;
 extern _DWORD dword_5d4594_1049500;
 extern _DWORD dword_5d4594_1045604;
-extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1046868;
 extern _DWORD dword_5d4594_1049504;
 extern _DWORD nox_client_renderGUI_80828;
@@ -3549,7 +3548,7 @@ int __cdecl nox_xxx_guiServerAccessLoad_4541D0(int a1) {
 
 	if (dword_5d4594_1045516)
 		return 0;
-	v2 = dword_587000_26048;
+	v2 = nox_strman_get_lang_code();
 	if (nox_xxx_guiFontHeightMB_43F320(0) > 10)
 		v2 = 2;
 	dword_5d4594_1045516 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 4 * v2 + 127824), nox_xxx_windowAccessProc_454BA0);

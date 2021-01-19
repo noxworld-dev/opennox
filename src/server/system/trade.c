@@ -325,7 +325,7 @@ _DWORD* __cdecl nox_xxx_servShopStart_50EF10_trade(int a1, int a2) {
 		v3 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 280);
 		if (v3) {
 			if (*(_DWORD*)(v3 + 12) != a2) {
-				v4 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 235924), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+				v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 235924), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 										   1836);
 				nox_xxx_netSendLineMessage_4D9EB0(a1, v4);
 			}
@@ -338,7 +338,7 @@ _DWORD* __cdecl nox_xxx_servShopStart_50EF10_trade(int a1, int a2) {
 		if (*(_DWORD*)(v7 + 280)) {
 			if (v2) {
 				v13 = *(_DWORD*)(v7 + 276) + 4704;
-				v8 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 235988), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+				v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 235988), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 										   1878);
 				nox_swprintf(v14, v8, v13);
 				nox_xxx_netSendLineMessage_4D9EB0(a1, v14);
@@ -466,13 +466,13 @@ int __cdecl nox_xxx_tradeP2PAddOffer2_50F820_trade(int a1, int a2, float a3) {
 		result = 1;
 	} else {
 		if (*(_BYTE*)(*(_DWORD*)(a1 + 8) + 8) & 4) {
-			v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236056), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 236056), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   2487);
 			nox_xxx_netSendLineMessage_4D9EB0(*(_DWORD*)(a1 + 8), v7);
 		}
 		if (!(*(_BYTE*)(*(_DWORD*)(a1 + 12) + 8) & 4))
 			return 0;
-		v8 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236120), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2490);
+		v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 236120), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2490);
 		nox_xxx_netSendLineMessage_4D9EB0(*(_DWORD*)(a1 + 12), v8);
 		result = 0;
 	}
@@ -520,7 +520,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 			if (*(_BYTE*)(v6 + 8) & 0x10) {
 				v9 = nox_xxx_inventoryCountObjects_4E7D30(v3, *(unsigned __int16*)(v6 + 4));
 				if (v9 >= (nox_common_gameFlags_check_40A5C0(6144) ? 9 : 3)) {
-					v10 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236200), 0,
+					v10 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 236200), 0,
 												"C:\\NoxPost\\src\\Server\\System\\Trade.c", 2943);
 					return (float*)nox_xxx_netSendLineMessage_4D9EB0(v3, v10);
 				}
@@ -614,7 +614,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 			if (*(_BYTE*)(v7 + 8) & 0x10) {
 				v9 = nox_xxx_inventoryCountObjects_4E7D30(v4, *(unsigned __int16*)(v7 + 4));
 				if (v9 >= (nox_common_gameFlags_check_40A5C0(6144) ? 9 : 3)) {
-					v14 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236444), 0,
+					v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 236444), 0,
 												"C:\\NoxPost\\src\\Server\\System\\Trade.c", 3108);
 					return (float*)nox_xxx_netSendLineMessage_4D9EB0(v4, v14);
 				}
@@ -689,12 +689,12 @@ _DWORD* __cdecl sub_5109C0_trade(int* a1, int a2, _DWORD* a3) {
 				return result;
 		}
 		if (nox_xxx_ItemIsDroppable_53EBF0(v4) == 1) {
-			v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236616), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 236616), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3298);
 			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v6);
 			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		} else if (*(unsigned __int16*)(v4 + 4) == *getMemU32Ptr(0x5D4594, 2386556)) {
-			v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236676), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 236676), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3308);
 			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v7);
 			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
@@ -731,12 +731,12 @@ _DWORD* __cdecl sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
 				return result;
 		}
 		if (nox_xxx_ItemIsDroppable_53EBF0(v5) == 1) {
-			v6 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236740), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 236740), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3413);
 			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v6);
 			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		} else if (*(unsigned __int16*)(v5 + 4) == dword_5d4594_2386560) {
-			v7 = nox_xxx_loadString_40F1D0((char*)getMemAt(0x587000, 236800), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
+			v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 236800), 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c",
 									   3423);
 			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v7);
 			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);

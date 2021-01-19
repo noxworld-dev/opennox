@@ -115,7 +115,6 @@ extern void* dword_587000_155144;
 extern _DWORD dword_5d4594_3798840;
 extern _DWORD dword_5d4594_1123524;
 extern _DWORD dword_5d4594_3799624;
-extern _DWORD dword_587000_26048;
 extern _DWORD dword_5d4594_1193380;
 extern _DWORD dword_5d4594_1189584;
 extern _DWORD dword_5d4594_3801780;
@@ -4624,7 +4623,7 @@ void sub_47DBD0() {
 	*getMemU16Ptr(0x5D4594, 1192066) = *getMemU16Ptr(0x5D4594, 1192064);
 	*getMemU16Ptr(0x5D4594, 1192068) = 0;
 	*getMemU16Ptr(0x5D4594, 1191918) = 0;
-	switch (dword_587000_26048) {
+	switch (nox_strman_get_lang_code()) {
 	case 0:
 	case 4:
 	case 6:
@@ -11686,9 +11685,9 @@ int __cdecl nox_xxx_wndEditProc_487D70(_DWORD* a1, int a2, int a3, int a4) {
 		case 211:
 			if (a3 == 14)
 				goto LABEL_13;
-			if (dword_587000_26048 == 6)
+			if (nox_strman_get_lang_code() == 6)
 				goto LABEL_19;
-			if (dword_587000_26048 == 8)
+			if (nox_strman_get_lang_code() == 8)
 				goto LABEL_17;
 		LABEL_13:
 			if (a4 != 2)
@@ -11703,7 +11702,7 @@ int __cdecl nox_xxx_wndEditProc_487D70(_DWORD* a1, int a2, int a3, int a4) {
 				return 1;
 			}
 		LABEL_17:
-			if (dword_587000_26048 != 6 && dword_587000_26048 != 8)
+			if (nox_strman_get_lang_code() != 6 && nox_strman_get_lang_code() != 8)
 				goto LABEL_24;
 		LABEL_19:
 			if (!*(_DWORD*)(v4 + 1036) && !*(_DWORD*)(v4 + 1032) && !*(_DWORD*)(v4 + 1028)) {
@@ -11928,7 +11927,7 @@ _DWORD* __cdecl nox_xxx_wndEditCreate_488500(int a1, int a2, int a3, int a4, int
 		v10 = (int*)malloc(0x420u);
 		memcpy(v10, a8, 0x420u);
 		v8[8] = v10;
-		if (dword_587000_26048 != 8 && dword_587000_26048 != 6) {
+		if (nox_strman_get_lang_code() != 8 && nox_strman_get_lang_code() != 6) {
 			result = v8;
 			v10[262] = 0;
 			return result;
@@ -12160,7 +12159,7 @@ void __cdecl nox_xxx_onChar_488BD0(unsigned __int16 a1) {
 	if (dword_5d4594_1193348) {
 		if (dword_5d4594_1193352) {
 			v2 = *(_DWORD*)(dword_5d4594_1193352 + 32);
-			if (dword_587000_26048 == 6 || dword_587000_26048 == 8) {
+			if (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8) {
 				if (!*(DWORD*)(v2 + 1036)) {
 					if (!*(DWORD*)(v2 + 1032)) {
 						if (!*(DWORD*)(v2 + 1028)) {

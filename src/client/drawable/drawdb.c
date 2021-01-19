@@ -277,13 +277,13 @@ bool __cdecl nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_v
 
 //----- (0044C480) --------------------------------------------------------
 bool __cdecl nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->pretty_name = nox_xxx_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
+	obj->pretty_name = nox_strman_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
 	return 1;
 }
 
 //----- (0044C4B0) --------------------------------------------------------
 bool __cdecl nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->desc = nox_xxx_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
+	obj->desc = nox_strman_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
 	return 1;
 }
 
@@ -684,7 +684,7 @@ void* __cdecl nox_xxx_parseThingBinClient_44C840_read_things(void) {
 					*((_DWORD*)v15 + 1) = v16;
 					*((_WORD*)v15 + 4) = cur_name_len_plus_one;
 					v15[10] = v17;
-					cur->pretty_name = nox_xxx_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
+					cur->pretty_name = nox_strman_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
 															 "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
 				}
 				// if not loaded, set cur->desc = load_string "thing.db:${cur->name}Description"
@@ -704,7 +704,7 @@ void* __cdecl nox_xxx_parseThingBinClient_44C840_read_things(void) {
 					*(_DWORD*)--v25 = *getMemU32Ptr(0x587000, 122784);
 					*((_DWORD*)v25 + 1) = v26;
 					*((_DWORD*)v25 + 2) = v24;
-					cur->desc = nox_xxx_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
+					cur->desc = nox_strman_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
 													  "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
 				}
 			}
