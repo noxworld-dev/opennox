@@ -160,6 +160,7 @@ endif ()
 
 set (
 	SOURCE_LIST
+    main/main.cpp
 	ConvertUTF.c
     platform.c
     e2e.c
@@ -186,7 +187,6 @@ set (
     cdrom.c
     imm.c
     input.c
-    main.cpp
     movie.c
     sm.c
     noxstring.c
