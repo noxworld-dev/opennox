@@ -765,10 +765,15 @@ typedef struct nox_video_mode {
 	int id;
 } nox_video_mode;
 
-typedef struct nox_point {
+typedef struct {
 	int x;
 	int y;
 } nox_point;
+
+typedef struct {
+	float x;
+	float y;
+} nox_pointf;
 
 enum {
 	NOX_MOUSE_LEFT = 0,

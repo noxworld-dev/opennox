@@ -5,6 +5,7 @@
 #include "ctrlevnt.h"
 
 #include "../../proto.h"
+#include "../../input.h"
 #include "../gui/guicon.h"
 #include "../gui/guisave.h"
 #include "../gui/guispell.h"
@@ -160,6 +161,10 @@ void nox_xxx_clientControl_42D6B0_orientation(nox_mouse_state_t* mouse) {
 		int cx = x - nox_win_width / 2;
 		int cy = y - nox_win_height / 2;
 		double rad = atan2(cy, cx);
+		if (controller_relative()) {
+			nox_pointf p = controller_relative_pos();
+			rad = atan2(p.y, p.x);
+		}
 		// represent as integer
 		int ang = (int)((rad + 2 * M_PI) * 128.0/M_PI + 0.5);
 		if (ang < 0) {

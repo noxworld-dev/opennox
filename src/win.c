@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "input.h"
 #include "proto.h"
 
 #ifdef USE_SDL
@@ -77,7 +78,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 	}
 #ifdef USE_SDL
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) < 0) {
 		fprintf(stderr, "ERROR: SDL Initialization failed: %s\n", SDL_GetError());
 		return 0;
 	}
@@ -102,6 +103,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif // __EMSCRIPTEN__
 
 	cmain(g_argc, g_argv);
+	input_cleanup(); // TODO: move inside the cmain
 #ifndef __EMSCRIPTEN__
 	SDL_Quit();
 #endif
@@ -176,58 +178,7 @@ void nox_xxx_showWindow_47D8A0() {
 #endif
 }
 
-#ifdef USE_SDL
-void process_keyboard_event(const SDL_KeyboardEvent* event);
-void process_mouse_event(const SDL_MouseButtonEvent* event);
-void process_motion_event(const SDL_MouseMotionEvent* event);
-void process_wheel_event(const SDL_MouseWheelEvent* event);
-void process_touch_event(const SDL_TouchFingerEvent* event);
-void process_textediting_event(const SDL_TextEditingEvent* event);
-void process_textinput_event(const SDL_TextInputEvent* event);
-void process_textinput_keyboard_event(const SDL_KeyboardEvent* event);
-void process_window_event(const SDL_WindowEvent* event);
-extern int g_textinput;
-
-void process_event(const SDL_Event* event) {
-	switch (event->type) {
-	case SDL_TEXTEDITING:
-		process_textediting_event(&event->edit);
-		break;
-	case SDL_TEXTINPUT:
-		process_textinput_event(&event->text);
-		break;
-	case SDL_KEYDOWN:
-	case SDL_KEYUP:
-		if (g_textinput)
-			process_textinput_keyboard_event(&event->key);
-		else
-			process_keyboard_event(&event->key);
-		break;
-	case SDL_MOUSEBUTTONDOWN:
-	case SDL_MOUSEBUTTONUP:
-		process_mouse_event(&event->button);
-		break;
-	case SDL_MOUSEMOTION:
-		process_motion_event(&event->motion);
-		break;
-	case SDL_MOUSEWHEEL:
-		process_wheel_event(&event->wheel);
-		break;
-#ifdef __EMSCRIPTEN__
-	case SDL_FINGERMOTION:
-	case SDL_FINGERDOWN:
-	case SDL_FINGERUP:
-		process_touch_event(&event->tfinger);
-		break;
-#endif
-	case SDL_WINDOWEVENT:
-		process_window_event(&event->window);
-		break;
-	default:
-		break;
-	}
-}
-#else
+#ifndef USE_SDL
 //----- (00444FF0) --------------------------------------------------------
 int __stdcall nox_xxx_windowProc_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 	LPARAM v4;  // ebx
@@ -345,6 +296,7 @@ int __stdcall nox_xxx_windowProc_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPAR
 //----- (004453A0) --------------------------------------------------------
 int nox_xxx_processWinMessages_4453A0_poll_events() {
 #ifdef USE_SDL
+	input_events_tick();
 	SDL_Event event;
 	while (nox_SDL_PollEvent(&event))
 		process_event(&event);

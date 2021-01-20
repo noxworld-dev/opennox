@@ -4,7 +4,9 @@
 #include "client/system/ctrlevnt.h"
 #endif
 
+#include <limits.h>
 #include "client/io/console.h"
+#include "input.h"
 
 #include "proto.h"
 
@@ -14,6 +16,15 @@ extern int nox_win_height;
 #ifdef USE_SDL
 #include "sdl2_scancode_to_dinput.h"
 extern _DWORD dword_5d4594_1193132;
+extern int g_textinput;
+
+SDL_GameController *gpad = NULL;
+int gpad_ind = -1;
+
+// from imm.c
+void process_textediting_event(const SDL_TextEditingEvent* event);
+void process_textinput_event(const SDL_TextInputEvent* event);
+void process_textinput_keyboard_event(const SDL_KeyboardEvent* event);
 
 enum {
 	MOUSE_MOTION,
@@ -118,6 +129,38 @@ void input_to_draw_space(int* x, int* y) {
 	*y = (float)*y * input_scale_height;
 }
 
+// input_clamp clamps window coords according to the current screen size.
+void input_clamp(int* x, int* y) {
+	if (*x < 0) {
+		*x = 0;
+	}
+	if (*y < 0) {
+		*y = 0;
+	}
+	if (input_window_width > 0 && *x > input_window_width) {
+		*x = input_window_width;
+	}
+	if (input_window_height > 0 && *y > input_window_height) {
+		*y = input_window_height;
+	}
+}
+
+// input_clampf clamps window coords according to the current screen size.
+void input_clampf(float* x, float* y) {
+	if (*x < 0) {
+		*x = 0;
+	}
+	if (*y < 0) {
+		*y = 0;
+	}
+	if (input_window_width > 0 && *x > input_window_width) {
+		*x = input_window_width;
+	}
+	if (input_window_height > 0 && *y > input_window_height) {
+		*y = input_window_height;
+	}
+}
+
 void process_window_event(const SDL_WindowEvent* event) {
 	switch (event->event) {
 	case SDL_WINDOWEVENT_FOCUS_LOST:
@@ -146,11 +189,14 @@ struct mouse_event* nox_newMouseEvent() {
 	return me;
 }
 
-void process_keyboard_event(const SDL_KeyboardEvent* event) {
+void input_keyboard(SDL_Scancode code, bool pressed) {
 	struct keyboard_event* ke = nox_newKeyboardEvent();
+	ke->code = scanCodeToKeyNum[code];
+	ke->state = pressed;
+}
 
-	ke->code = scanCodeToKeyNum[event->keysym.scancode];
-	ke->state = event->state == SDL_PRESSED;
+void process_keyboard_event(const SDL_KeyboardEvent* event) {
+	input_keyboard(event->keysym.scancode, event->state == SDL_PRESSED);
 }
 
 // last mouse coordinates (in window space)
@@ -259,9 +305,7 @@ void process_wheel_event(const SDL_MouseWheelEvent* event) {
 }
 
 void fake_keyup(void* arg) {
-	struct keyboard_event* ke = nox_newKeyboardEvent();
-	ke->code = scanCodeToKeyNum[SDL_SCANCODE_SPACE];
-	ke->state = 0;
+	input_keyboard(SDL_SCANCODE_SPACE, 0);
 }
 
 void fake_mouseup(void* arg) {
@@ -284,6 +328,169 @@ struct finger_state* find_finger(SDL_FingerID id, int alloc) {
 
 void send_mouse1_event() {
 	input_mouse_button(MOUSE_BUTTON1, mouse1_state /* && !mouse0_state */ );
+}
+
+float gpad_mouse_speed = 50.0;
+
+nox_point gpad_left = {0};
+nox_point gpad_left_dv = {0};
+nox_point gpad_right = {0};
+nox_point gpad_right_dv = {0};
+int gpad_ltrig_v = 0;
+int gpad_ltrig_dv = 0;
+int gpad_rtrig_v = 0;
+int gpad_rtrig_dv = 0;
+
+bool gpad_trig_attack = false;
+
+// acts like a relative mouse pointer
+nox_point* gpad_stick_rel = &gpad_right;
+bool gpad_stick_rel_running = false;
+const float gpad_stick_rel_auto_run = 0.3;
+
+// acts like an absolute mouse pointer
+nox_point* gpad_stick_abs = &gpad_left;
+nox_pointf gpad_stick_abs_mouse = {0};
+
+bool controller_relative() {
+	return abs(gpad_stick_rel->x) > 256 || abs(gpad_stick_rel->y) > 256;
+}
+
+nox_pointf controller_relative_pos() {
+	nox_pointf p;
+	p.x = ((float)gpad_stick_rel->x / SHRT_MAX);
+	p.y = ((float)gpad_stick_rel->y / SHRT_MAX);
+	return p;
+}
+
+void controller_tick() {
+	// absolute stick acts as a mouse pointer, os it should move as long as stick has any values
+	if (abs(gpad_stick_abs->x) > 256 || abs(gpad_stick_abs->y) > 256) {
+		float dx = ((float)gpad_stick_abs->x / SHRT_MAX);
+		float dy = ((float)gpad_stick_abs->y / SHRT_MAX);
+		if (dx >= 0) {
+			gpad_stick_abs_mouse.x += dx*dx * gpad_mouse_speed;
+		} else {
+			gpad_stick_abs_mouse.x -= dx*dx * gpad_mouse_speed;
+		}
+		if (dy >= 0) {
+			gpad_stick_abs_mouse.y += dy*dy * gpad_mouse_speed;
+		} else {
+			gpad_stick_abs_mouse.y -= dy*dy * gpad_mouse_speed;
+		}
+		input_clampf(&gpad_stick_abs_mouse.x, &gpad_stick_abs_mouse.y);
+		input_mouse_set(gpad_stick_abs_mouse.x, gpad_stick_abs_mouse.y);
+	}
+	// automatically start running on a specific threshold on relative stick
+	nox_pointf rel = controller_relative_pos();
+	float relV = rel.x*rel.x + rel.y*rel.y;
+	if (gpad_stick_rel_running) {
+		if (relV < gpad_stick_rel_auto_run) {
+			input_mouse_up(MOUSE_BUTTON1); // stop running
+			gpad_stick_rel_running = false;
+		}
+	} else {
+		if (relV > gpad_stick_rel_auto_run) {
+			input_mouse_down(MOUSE_BUTTON1); // start running
+			gpad_stick_rel_running = true;
+		}
+	}
+}
+
+void process_gpad_axis_event(const SDL_ControllerAxisEvent* event) {
+	int v = event->value;
+	switch (event->axis) {
+	case SDL_CONTROLLER_AXIS_LEFTX:
+		gpad_left_dv.x = v - gpad_left.x;
+		gpad_left.x = v;
+		break;
+	case SDL_CONTROLLER_AXIS_LEFTY:
+		gpad_left_dv.y = v - gpad_left.y;
+		gpad_left.y = v;
+		break;
+	case SDL_CONTROLLER_AXIS_RIGHTX:
+		gpad_right_dv.x = v - gpad_right.x;
+		gpad_right.x = v;
+		break;
+	case SDL_CONTROLLER_AXIS_RIGHTY:
+		gpad_right_dv.y = v - gpad_right.y;
+		gpad_right.y = v;
+		break;
+	case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
+		gpad_ltrig_dv = v - gpad_ltrig_v;
+		gpad_ltrig_v = v;
+		break;
+	case SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
+		gpad_rtrig_dv = v - gpad_rtrig_v;
+		gpad_rtrig_v = v;
+		if (gpad_trig_attack) {
+			if (gpad_rtrig_dv < 0) {
+				input_mouse_up(MOUSE_BUTTON0);
+				gpad_trig_attack = false;
+			}
+		} else {
+			if (gpad_rtrig_dv > 0) {
+				input_mouse_down(MOUSE_BUTTON0);
+				gpad_trig_attack = true;
+			}
+		}
+		break;
+	}
+}
+
+void process_gpad_button_event(const SDL_ControllerButtonEvent* event) {
+	bool pressed = event->state == SDL_PRESSED;
+	switch (event->button) {
+	// spells are on the dpad
+	case SDL_CONTROLLER_BUTTON_DPAD_UP:
+		input_keyboard(SDL_SCANCODE_S, pressed);
+		break;
+	case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+		input_keyboard(SDL_SCANCODE_W, pressed);
+		break;
+	case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
+		input_keyboard(SDL_SCANCODE_A, pressed);
+		break;
+	case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
+		input_keyboard(SDL_SCANCODE_D, pressed);
+		break;
+	// A is attack/action
+	case SDL_CONTROLLER_BUTTON_A: // down button
+		input_mouse_button(MOUSE_BUTTON0, pressed);
+		break;
+	// rest is for bottles
+	case SDL_CONTROLLER_BUTTON_B:
+		input_keyboard(SDL_SCANCODE_Z, pressed);
+		break;
+	case SDL_CONTROLLER_BUTTON_X:
+		input_keyboard(SDL_SCANCODE_C, pressed);
+		break;
+	case SDL_CONTROLLER_BUTTON_Y: // up button
+		input_keyboard(SDL_SCANCODE_X, pressed);
+		break;
+	// back is escape
+	case SDL_CONTROLLER_BUTTON_BACK:
+		input_keyboard(SDL_SCANCODE_ESCAPE, pressed);
+		break;
+	case SDL_CONTROLLER_BUTTON_GUIDE:
+		break;
+	// start is inventory
+	case SDL_CONTROLLER_BUTTON_START:
+		input_keyboard(SDL_SCANCODE_Q, pressed);
+		break;
+	case SDL_CONTROLLER_BUTTON_LEFTSTICK:
+		break;
+	case SDL_CONTROLLER_BUTTON_RIGHTSTICK:
+		break;
+	// left shoulder means run (in abs mode)
+	case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+		input_mouse_button(MOUSE_BUTTON1, pressed);
+		break;
+	// right shoulder means jump
+	case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
+		input_keyboard(SDL_SCANCODE_SPACE, pressed);
+		break;
+	}
 }
 
 #ifdef __EMSCRIPTEN__
@@ -325,10 +532,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 #if 0
     else if (finger->y < 0.25)
     {
-        struct keyboard_event* ke = nox_newKeyboardEvent();
-        ke->code = scanCodeToKeyNum[SDL_SCANCODE_SPACE];
-        ke->state = 1;
-        ke->seq = event->timestamp;
+        input_keyboard(SDL_SCANCODE_SPACE, 1);
     }
     else
     {
@@ -361,10 +565,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 			// send_mouse1_event();
 
 			if (ms < 500 && dist > 0.1 && theta <= 0.7 && theta >= 0.3) {
-				struct keyboard_event* ke = nox_newKeyboardEvent();
-				ke->code = scanCodeToKeyNum[SDL_SCANCODE_SPACE];
-				ke->state = 1;
-
+				input_keyboard(SDL_SCANCODE_SPACE, 1);
 				emscripten_set_timeout(fake_keyup, 90, NULL);
 			} else {
 				input_mouse_button(MOUSE_BUTTON0, true);
@@ -567,7 +768,117 @@ BOOL nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* e) {
 // init joystick
 UINT __cdecl nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) { return 0; }
 
-#else
+void cleanupControllers() {
+	if (gpad) { // Close if opened
+		SDL_GameControllerClose(gpad);
+		gpad = NULL;
+		gpad_ind = -1;
+	}
+}
+
+void process_gpad_device_event(const SDL_ControllerDeviceEvent* event) {
+	int i = event->which;
+	if (event->type == SDL_CONTROLLERDEVICEREMOVED) {
+		if (i != gpad_ind) {
+			return;
+		}
+		printf("Closed controller %d\n", i);
+		SDL_GameControllerClose(gpad);
+		gpad = NULL;
+		gpad_ind = -1;
+		// TODO: check if other devices are still available
+		return;
+	}
+	if (!SDL_IsGameController(i)) {
+		return;
+	}
+	const char* name = SDL_GameControllerNameForIndex(i);
+	printf("Game controller connected %d: %s\n", i, name);
+	if (gpad) {
+		return; // already have one
+	}
+	gpad = SDL_GameControllerOpen(i);
+	if (!gpad) {
+		fprintf(stderr, "ERROR: Could not open gamecontroller %i: %s\n", i, SDL_GetError());
+	} else {
+		gpad_ind = i;
+		printf("Opened controller %d\n", i);
+	}
+}
+
+void input_events_tick() {
+	controller_tick();
+}
+
+void process_event(const SDL_Event* event) {
+	switch (event->type) {
+		case SDL_TEXTEDITING:
+			process_textediting_event(&event->edit);
+			break;
+		case SDL_TEXTINPUT:
+			process_textinput_event(&event->text);
+			break;
+		case SDL_KEYDOWN:
+		case SDL_KEYUP:
+			if (g_textinput)
+				process_textinput_keyboard_event(&event->key);
+			else
+				process_keyboard_event(&event->key);
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+		case SDL_MOUSEBUTTONUP:
+			process_mouse_event(&event->button);
+			break;
+		case SDL_MOUSEMOTION:
+			process_motion_event(&event->motion);
+			break;
+		case SDL_MOUSEWHEEL:
+			process_wheel_event(&event->wheel);
+			break;
+		case SDL_CONTROLLERAXISMOTION:
+			printf("SDL event: SDL_CONTROLLERAXISMOTION (%x): joy=%d, axis=%d, val=%d\n",
+				   event->type, (int)event->caxis.which, (int)event->caxis.axis, (int)event->caxis.value);
+			process_gpad_axis_event(&event->caxis);
+			break;
+		case SDL_CONTROLLERBUTTONDOWN:
+		case SDL_CONTROLLERBUTTONUP:
+			printf("SDL event: SDL_CONTROLLERBUTTON (%x): joy=%d, btn=%d, state=%d\n",
+				   event->type, (int)event->cbutton.which, (int)event->cbutton.button, (int)event->cbutton.state);
+			process_gpad_button_event(&event->cbutton);
+			break;
+		case SDL_CONTROLLERDEVICEADDED:
+			printf("SDL event: SDL_CONTROLLERDEVICEADDED (%x): joy=%d\n",
+				   event->type, (int)event->cdevice.which);
+			process_gpad_device_event(&event->cdevice);
+			break;
+		case SDL_CONTROLLERDEVICEREMOVED:
+			printf("SDL event: SDL_CONTROLLERDEVICEREMOVED (%x): joy=%d\n",
+				   event->type, (int)event->cdevice.which);
+			process_gpad_device_event(&event->cdevice);
+			break;
+		case SDL_CONTROLLERDEVICEREMAPPED:
+			printf("SDL event: SDL_CONTROLLERDEVICEREMAPPED (%x)\n", event->type);
+			break;
+#ifdef __EMSCRIPTEN__
+			case SDL_FINGERMOTION:
+	case SDL_FINGERDOWN:
+	case SDL_FINGERUP:
+		process_touch_event(&event->tfinger);
+		break;
+#endif
+		case SDL_WINDOWEVENT:
+			process_window_event(&event->window);
+			break;
+		default:
+			break;
+	}
+}
+
+void input_cleanup() {
+	cleanupControllers();
+}
+
+#else // USE_SDL
 
 void __cdecl sub_47DA70(_DWORD* a1, LPDIDEVICEOBJECTDATA a2);
 
@@ -930,4 +1241,4 @@ void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
 }
 
 int sub_47D890() { return unacquireMouse_sub_47D8B0(); }
-#endif
+#endif // USE_SDL
