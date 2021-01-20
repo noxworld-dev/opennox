@@ -12,9 +12,9 @@
 #define MINIMP3_ONLY_MP3
 #define MINIMP3_NO_SIMD
 #define MINIMP3_IMPLEMENTATION
-#include "minimp3.h"
+#include "../mp3/minimp3.h"
 
-#include "defs.h"
+#include "../../../defs.h"
 
 struct _DIG_DRIVER {
 	ALCdevice* device;
