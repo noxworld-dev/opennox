@@ -43,6 +43,7 @@ int __cdecl sub_48A720(SDL_Surface* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int*
 }
 
 
+#ifndef NOX_CGO
 static void set_viewport(float srcw, float srch) {
 	float ratio = srcw / srch, offx = 0, offy = 0;
 	int vpw, vph, vpx, vpy;
@@ -95,7 +96,7 @@ void sdl_present() {
 		dstrect.y = 0;
 		SDL_GetWindowSize(getWindowHandle_nox_xxx_getHWND_401FD0(), &(dstrect.w), &(dstrect.h));
 		SDL_GetClipRect(g_backbuffer1, &srcrect);
-		
+
 		sub_48BE50(1);
 		nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0);
 
@@ -115,6 +116,7 @@ void sdl_present() {
 		sub_48BE50(0);
 	}
 }
+#endif // NOX_CGO
 
 int create_surfaces(HWND a1, int width, int height) {
 	BYTE v3;
