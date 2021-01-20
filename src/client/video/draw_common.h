@@ -11,7 +11,7 @@
 #include <emscripten/html5.h>
 #endif
 
-#include "proto.h"
+#include "../../proto.h"
 
 extern unsigned char byte_581450_9176[160];
 extern unsigned char byte_581450_9336[160];

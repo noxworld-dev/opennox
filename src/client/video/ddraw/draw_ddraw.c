@@ -2,8 +2,8 @@
 // variables used here.
 #ifdef USE_DDRAW
 
-#include "proto.h"
-#include "draw_common.h"
+#include "../../../proto.h"
+#include "../draw_common.h"
 
 unsigned char byte_5D4594_3804364[160] = {0};
 

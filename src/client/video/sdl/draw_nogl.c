@@ -1,4 +1,4 @@
-#include "draw_common.h"
+#include "../draw_common.h"
 
 SDL_Renderer* g_ddraw;
 uint32_t g_texture, g_program, g_tex_coord_buffer, g_tex_coord_attr, g_gamma_uniform, g_matrix_uniform, g_sampler_uniform;

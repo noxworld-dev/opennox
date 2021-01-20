@@ -3,7 +3,7 @@
 #else
 #define GL_GLEXT_PROTOTYPES
 #endif
-#include "draw_common.h"
+#include "../draw_common.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
