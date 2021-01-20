@@ -29,7 +29,7 @@ struct _REGKEY {
 	char* path;
 };
 
-extern const char* progname;
+const char* progname = "nox";
 DWORD last_error;
 DWORD last_socket_error;
 void* handles[1024];

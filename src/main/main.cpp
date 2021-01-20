@@ -4,7 +4,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #else
-#include "windows.h"
+#include "../windows.h"
 #endif
 
 #ifdef __EMSCRIPTEN__
@@ -12,7 +12,6 @@
 #endif
 
 extern "C" const char* progname;
-const char* progname;
 
 #if defined(__EMSCRIPTEN__)
 extern "C" int main()
