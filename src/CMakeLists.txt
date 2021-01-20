@@ -146,9 +146,9 @@ else ()
 endif ()
 
 if (USE_OPENGL)
-	set (DRAW_BACKEND draw_gl.c)
+	set (DRAW_BACKEND client/video/sdlgl/draw_gl.c)
 else ()
-	set (DRAW_BACKEND draw_nogl.c)
+	set (DRAW_BACKEND client/video/sdl/draw_nogl.c)
 endif()
 
 if (PLAY_MOVIES)
@@ -366,7 +366,7 @@ set (
     server/system/trade.c
     server/xfer/savegame/savegame.c
 
-	draw_common.c
+    client/video/draw_common.c
     "${DRAW_BACKEND}"
     "${COMPAT_SOURCES}"
     "${AUDIO_BACKEND}"
