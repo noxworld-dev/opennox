@@ -115,6 +115,7 @@ static void set_viewport(float srcw, float srch) {
 	glViewport(vpx, vpy, vpw, vph);
 }
 
+#ifndef NOX_CGO
 void sdl_present() {
 	if (g_ddraw && g_backbuffer1) {
 		SDL_Rect srcrect;
@@ -235,6 +236,7 @@ void sdl_present() {
 		sub_48BE50(0);
 	}
 }
+#endif // NOX_CGO
 
 int create_surfaces(HWND a1, int width, int height) {
 	int result = 0;
