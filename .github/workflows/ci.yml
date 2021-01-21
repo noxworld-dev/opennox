@@ -37,13 +37,13 @@ jobs:
 
       - name: Prepare the binary
         run: |
-          mv ./build/out ./build/nox-linux
+          cp ./build/out /tmp/nox-linux
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
         with:
           name: nox-linux
-          path: ./build/nox-linux
+          path: /tmp/nox-linux
         
   hybrid_linux_wasm:
     name: alpine-wasm-github on Linux Host
