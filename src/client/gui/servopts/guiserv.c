@@ -154,9 +154,9 @@ int nox_xxx_guiServerOptsLoad_457500() {
 		}
 		if (dword_587000_129656) {
 			if (sub_4D6F30() || sub_4D6F50()) {
-				nox_server_parseCmdText_443C80((wchar_t*)getMemAt(0x587000, 130244), 1);
+				nox_server_parseCmdText_443C80(L"execrul OTQuest.rul", 1);
 			} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-				nox_server_parseCmdText_443C80((wchar_t*)getMemAt(0x587000, 130284), 1);
+				nox_server_parseCmdText_443C80(L"execrul server.rul", 1);
 			}
 		}
 		dword_587000_129656 = 0;
