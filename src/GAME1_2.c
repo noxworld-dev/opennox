@@ -8537,7 +8537,7 @@ int nox_xxx_initGameSession_435CC0() {
 			sub_41CC00((char*)getMemAt(0x5D4594, 2660688));
 	}
 	nox_xxx_plrLoad_41A480((char*)getMemAt(0x5D4594, 2660688));
-	nox_server_parseCmdText_443C80((wchar_t*)getMemAt(0x587000, 86380), 1);
+	nox_server_parseCmdText_443C80(L"execrul autoexec.rul", 1);
 	sub_4951C0();
 	sub_465DE0(0);
 	return 1;
