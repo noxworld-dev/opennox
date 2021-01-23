@@ -310,14 +310,14 @@ int sub_4A75C0() {
 		return 0;
 	strcat(&v25[4], v24);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		if (v25[1274]) {
+		if (v25[1274] != 0) {
 			if (v25[1274] == 1) {
-				nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x587000, 171828));
+				nox_xxx_gameSetMapPath_409D70("Wiz01a.map");
 			} else if (v25[1274] == 2) {
-				nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x587000, 171840));
+				nox_xxx_gameSetMapPath_409D70("Con01a.map");
 			}
 		} else {
-			nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x587000, 171816));
+			nox_xxx_gameSetMapPath_409D70("War01a.map");
 		}
 	}
 	return sub_41CEE0((int)v25, 1);
