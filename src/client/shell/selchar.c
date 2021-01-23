@@ -287,14 +287,14 @@ int __cdecl nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, i
 					memcpy(getMemAt(0x5D4594, 2660684), v23, 0x4FCu);
 					*getMemU16Ptr(0x5D4594, 2661960) = *(_WORD*)&v23[1276];
 					sub_43BDC0();
-					if (getMemByte(0x5D4594, 2661958)) {
+					if (getMemByte(0x5D4594, 2661958) != 0) {
 						if (getMemByte(0x5D4594, 2661958) == 1) {
-							nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x587000, 171288));
+							nox_xxx_gameSetMapPath_409D70("Wiz01a.map");
 						} else if (getMemByte(0x5D4594, 2661958) == 2) {
-							nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x587000, 171300));
+							nox_xxx_gameSetMapPath_409D70("Con01a.map");
 						}
 					} else {
-						nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x587000, 171276));
+						nox_xxx_gameSetMapPath_409D70("War01a.map");
 					}
 					if (nox_common_gameFlags_check_40A5C0(2048)) {
 						nox_xxx_gameSetSwitchSolo_4DB220(1);

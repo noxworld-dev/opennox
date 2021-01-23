@@ -2575,14 +2575,14 @@ int __cdecl sub_4A7330(int a1, int a2, int* a3, unsigned int a4) {
 			sub_43BDC0();
 			dword_587000_171388 = 1;
 			if (sub_4A75C0()) {
-				if (*(_BYTE*)(dword_5d4594_1307784 + 66)) {
+				if (*(_BYTE*)(dword_5d4594_1307784 + 66) != 0) {
 					if (*(_BYTE*)(dword_5d4594_1307784 + 66) == 1) {
-						nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x587000, 171628));
+						nox_xxx_gameSetMapPath_409D70("Wiz01a.map");
 					} else if (*(_BYTE*)(dword_5d4594_1307784 + 66) == 2) {
-						nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x587000, 171640));
+						nox_xxx_gameSetMapPath_409D70("Con01a.map");
 					}
 				} else {
-					nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x587000, 171616));
+					nox_xxx_gameSetMapPath_409D70("War01a.map");
 				}
 				sub_4A24C0(0);
 				sub_4A6890();
