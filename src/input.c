@@ -399,6 +399,20 @@ void controller_tick() {
 	}
 }
 
+void gamepad_trigger_click(int value, bool *clicked, SDL_Scancode button) {
+	if (*clicked) {
+		if (value < SHRT_MAX/2) {
+			input_keyboard(button, false);
+			*clicked = false;
+		}
+	} else {
+		if (value > SHRT_MAX/2) {
+			input_keyboard(button, true);
+			*clicked = true;
+		}
+	}
+}
+
 void process_gpad_axis_event(const SDL_ControllerAxisEvent* event) {
 	int v = event->value;
 	switch (event->axis) {
@@ -421,32 +435,12 @@ void process_gpad_axis_event(const SDL_ControllerAxisEvent* event) {
 	case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
 		gpad_ltrig_dv = v - gpad_ltrig_v;
 		gpad_ltrig_v = v;
-		if (gpad_ltrig_click) {
-			if (gpad_ltrig_v < SHRT_MAX/2) {
-				input_keyboard(SDL_SCANCODE_W, false);
-				gpad_ltrig_click = false;
-			}
-		} else {
-			if (gpad_ltrig_v > SHRT_MAX/2) {
-				input_keyboard(SDL_SCANCODE_W, true);
-				gpad_ltrig_click = true;
-			}
-		}
+		gamepad_trigger_click(gpad_ltrig_v, &gpad_ltrig_click, SDL_SCANCODE_W);
 		break;
 	case SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
 		gpad_rtrig_dv = v - gpad_rtrig_v;
 		gpad_rtrig_v = v;
-		if (gpad_rtrig_click) {
-			if (gpad_rtrig_v < SHRT_MAX/2) {
-				input_keyboard(SDL_SCANCODE_E, false);
-				gpad_rtrig_click = false;
-			}
-		} else {
-			if (gpad_rtrig_v > SHRT_MAX/2) {
-				input_keyboard(SDL_SCANCODE_E, true);
-				gpad_rtrig_click = true;
-			}
-		}
+		gamepad_trigger_click(gpad_rtrig_v, &gpad_rtrig_click, SDL_SCANCODE_E);
 		break;
 	}
 }
