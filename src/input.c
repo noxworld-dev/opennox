@@ -338,18 +338,20 @@ nox_point gpad_right = {0};
 nox_point gpad_right_dv = {0};
 int gpad_ltrig_v = 0;
 int gpad_ltrig_dv = 0;
+bool gpad_ltrig_click = false;
 int gpad_rtrig_v = 0;
 int gpad_rtrig_dv = 0;
+bool gpad_rtrig_click = false;
 
 bool gpad_trig_attack = false;
 
 // acts like a relative mouse pointer
-nox_point* gpad_stick_rel = &gpad_right;
+nox_point* gpad_stick_rel = &gpad_left;
 bool gpad_stick_rel_running = false;
 const float gpad_stick_rel_auto_run = 0.3;
 
 // acts like an absolute mouse pointer
-nox_point* gpad_stick_abs = &gpad_left;
+nox_point* gpad_stick_abs = &gpad_right;
 nox_pointf gpad_stick_abs_mouse = {0};
 
 bool controller_relative() {
@@ -419,19 +421,30 @@ void process_gpad_axis_event(const SDL_ControllerAxisEvent* event) {
 	case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
 		gpad_ltrig_dv = v - gpad_ltrig_v;
 		gpad_ltrig_v = v;
+		if (gpad_ltrig_click) {
+			if (gpad_ltrig_v < SHRT_MAX/2) {
+				input_keyboard(SDL_SCANCODE_W, false);
+				gpad_ltrig_click = false;
+			}
+		} else {
+			if (gpad_ltrig_v > SHRT_MAX/2) {
+				input_keyboard(SDL_SCANCODE_W, true);
+				gpad_ltrig_click = true;
+			}
+		}
 		break;
 	case SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
 		gpad_rtrig_dv = v - gpad_rtrig_v;
 		gpad_rtrig_v = v;
-		if (gpad_trig_attack) {
-			if (gpad_rtrig_dv < 0) {
-				input_mouse_up(MOUSE_BUTTON0);
-				gpad_trig_attack = false;
+		if (gpad_rtrig_click) {
+			if (gpad_rtrig_v < SHRT_MAX/2) {
+				input_keyboard(SDL_SCANCODE_E, false);
+				gpad_rtrig_click = false;
 			}
 		} else {
-			if (gpad_rtrig_dv > 0) {
-				input_mouse_down(MOUSE_BUTTON0);
-				gpad_trig_attack = true;
+			if (gpad_rtrig_v > SHRT_MAX/2) {
+				input_keyboard(SDL_SCANCODE_E, true);
+				gpad_rtrig_click = true;
 			}
 		}
 		break;
@@ -443,52 +456,48 @@ void process_gpad_button_event(const SDL_ControllerButtonEvent* event) {
 	switch (event->button) {
 	// spells are on the dpad
 	case SDL_CONTROLLER_BUTTON_DPAD_UP:
-		input_keyboard(SDL_SCANCODE_S, pressed);
+		input_keyboard(SDL_SCANCODE_S, pressed); // spell 2
 		break;
 	case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
-		input_keyboard(SDL_SCANCODE_W, pressed);
+		input_keyboard(SDL_SCANCODE_F, pressed); // spell 4
 		break;
 	case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
-		input_keyboard(SDL_SCANCODE_A, pressed);
+		input_keyboard(SDL_SCANCODE_A, pressed); // spell 1
 		break;
 	case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
-		input_keyboard(SDL_SCANCODE_D, pressed);
+		input_keyboard(SDL_SCANCODE_D, pressed); // spell 3
 		break;
-	// A is attack/action
 	case SDL_CONTROLLER_BUTTON_A: // down button
-		input_mouse_button(MOUSE_BUTTON0, pressed);
+		input_keyboard(SDL_SCANCODE_SPACE, pressed); // jump
 		break;
-	// rest is for bottles
-	case SDL_CONTROLLER_BUTTON_B:
-		input_keyboard(SDL_SCANCODE_Z, pressed);
+	case SDL_CONTROLLER_BUTTON_B: // right button
+		input_keyboard(SDL_SCANCODE_Z, pressed); // poison potion
 		break;
-	case SDL_CONTROLLER_BUTTON_X:
-		input_keyboard(SDL_SCANCODE_C, pressed);
+	case SDL_CONTROLLER_BUTTON_X: // left button
+		input_keyboard(SDL_SCANCODE_Q, pressed); // inventory
 		break;
 	case SDL_CONTROLLER_BUTTON_Y: // up button
-		input_keyboard(SDL_SCANCODE_X, pressed);
+		input_keyboard(SDL_SCANCODE_V, pressed); // switch weapons
 		break;
-	// back is escape
 	case SDL_CONTROLLER_BUTTON_BACK:
-		input_keyboard(SDL_SCANCODE_ESCAPE, pressed);
+		input_keyboard(SDL_SCANCODE_ESCAPE, pressed); // back
 		break;
 	case SDL_CONTROLLER_BUTTON_GUIDE:
 		break;
-	// start is inventory
 	case SDL_CONTROLLER_BUTTON_START:
-		input_keyboard(SDL_SCANCODE_Q, pressed);
+		input_keyboard(SDL_SCANCODE_TAB, pressed); // map
 		break;
 	case SDL_CONTROLLER_BUTTON_LEFTSTICK:
+		input_keyboard(SDL_SCANCODE_X, pressed); // health potion
 		break;
 	case SDL_CONTROLLER_BUTTON_RIGHTSTICK:
+		input_keyboard(SDL_SCANCODE_C, pressed); // mana potion
 		break;
-	// left shoulder means run (in abs mode)
 	case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
-		input_mouse_button(MOUSE_BUTTON1, pressed);
+		input_keyboard(SDL_SCANCODE_G, pressed); // spell 5
 		break;
-	// right shoulder means jump
 	case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
-		input_keyboard(SDL_SCANCODE_SPACE, pressed);
+		input_mouse_button(MOUSE_BUTTON0, pressed); // attack
 		break;
 	}
 }
