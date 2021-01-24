@@ -331,6 +331,7 @@ void send_mouse1_event() {
 }
 
 float gpad_mouse_speed = 50.0;
+int gpad_dead_zone = 1500;
 
 nox_point gpad_left = {0};
 nox_point gpad_left_dv = {0};
@@ -355,7 +356,7 @@ nox_point* gpad_stick_abs = &gpad_right;
 nox_pointf gpad_stick_abs_mouse = {0};
 
 bool controller_relative() {
-	return abs(gpad_stick_rel->x) > 256 || abs(gpad_stick_rel->y) > 256;
+	return abs(gpad_stick_rel->x) > gpad_dead_zone || abs(gpad_stick_rel->y) > gpad_dead_zone;
 }
 
 nox_pointf controller_relative_pos() {
@@ -367,7 +368,7 @@ nox_pointf controller_relative_pos() {
 
 void controller_tick() {
 	// absolute stick acts as a mouse pointer, os it should move as long as stick has any values
-	if (abs(gpad_stick_abs->x) > 256 || abs(gpad_stick_abs->y) > 256) {
+	if (abs(gpad_stick_abs->x) > gpad_dead_zone || abs(gpad_stick_abs->y) > gpad_dead_zone) {
 		float dx = ((float)gpad_stick_abs->x / SHRT_MAX);
 		float dy = ((float)gpad_stick_abs->y / SHRT_MAX);
 		if (dx >= 0) {
