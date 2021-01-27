@@ -39,6 +39,7 @@ nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[] = {
 		{"CC_TeamChat", 0, 0},
 		{"CC_ReadSpellbook", 0, 0},
 		{"CC_ToggleConsole", 0, 0},
+		// TODO: somewhere around here the names for indexes are off by +2 (e.g. CC_QuitMenu = 17)
 		{"CC_IncreaseWindowSize", 0, 0},
 		{"CC_DecreaseWindowSize", 0, 0},
 		{"CC_Quit", 0, 0},

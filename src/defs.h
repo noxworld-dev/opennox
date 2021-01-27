@@ -712,6 +712,7 @@ typedef enum {
 	CC_TeamChat = 9,
 	CC_ReadSpellbook = 10,
 	CC_ToggleConsole = 11,
+	// TODO: somewhere around here the indexes are off by +2 (e.g. CC_QuitMenu = 17)
 	CC_IncreaseWindowSize = 12,
 	CC_DecreaseWindowSize = 13,
 	CC_Quit = 14,
