@@ -60,7 +60,6 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 	"os"
-	"strings"
 	"unsafe"
 
 	_ "nox/client"
@@ -112,31 +111,7 @@ func CStringArray(arr []string) []*C.char {
 }
 
 func run() error { // aka WinMain
-	args := []string{os.Args[0]}
-	cmdline := strings.Join(os.Args[1:], " ")
-
 	C.nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0) // probably not needed
-
-	for _, arg := range strings.Fields(cmdline) {
-		switch arg {
-		case "-window":
-			C.nox_video_dxFullScreen = 0
-			C.dword_5d4594_805860 = 0
-			C.g_fullscreen = -2
-		case "-swindow":
-			C.nox_video_dxFullScreen = 0
-			C.dword_5d4594_805860 = 1
-			C.g_fullscreen = -3
-		case "-fullscreen":
-			C.g_fullscreen = -1
-		case "-stretch":
-			C.g_scaled = -1
-		case "-minimize":
-			*C.getMemU32Ptr(0x5D4594, 805864) = 1
-		default:
-			args = append(args, arg)
-		}
-	}
 	if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER | sdl.INIT_GAMECONTROLLER); err != nil {
 		return fmt.Errorf("SDL Initialization failed: %w", err)
 	}
@@ -153,7 +128,7 @@ func run() error { // aka WinMain
 	noxWindow = win
 	C.g_window = (*C.SDL_Window)(win)
 
-	return cmain(args)
+	return cmain(os.Args)
 }
 
 func cmain(args []string) error {
@@ -161,6 +136,11 @@ func cmain(args []string) error {
 	// TODO: add missing flag descriptions
 	var (
 		fServer     = flag.Bool("serveronly", false, "run the server only")
+		fWindow     = flag.Bool("window", false, "window")
+		fSWindow    = flag.Bool("swindow", false, "swindow")
+		fFullScreen = flag.Bool("fullscreen", false, "fullscreen")
+		fStretch    = flag.Bool("stretch", false, "stretch")
+		fMinimize   = flag.Bool("minimize", false, "minimize")
 		fNoLimit    = flag.Bool("nolimit", false, "nolimit")
 		fSleep      = flag.Bool("sleep", false, "sleep")
 		fDrop       = flag.Int("drop", 0, "drop")
@@ -180,6 +160,25 @@ func cmain(args []string) error {
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
+	}
+	if *fWindow {
+		C.nox_video_dxFullScreen = 0
+		C.dword_5d4594_805860 = 0
+		C.g_fullscreen = -2
+	}
+	if *fSWindow {
+		C.nox_video_dxFullScreen = 0
+		C.dword_5d4594_805860 = 1
+		C.g_fullscreen = -3
+	}
+	if *fFullScreen {
+		C.g_fullscreen = -1
+	}
+	if *fStretch {
+		C.g_scaled = -1
+	}
+	if *fMinimize {
+		*C.getMemU32Ptr(0x5D4594, 805864) = 1
 	}
 
 	C.nox_init_ticks_func()
