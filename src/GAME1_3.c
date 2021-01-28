@@ -327,7 +327,7 @@ void __cdecl nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(int* w, int* 
 }
 
 //----- (0043BEF0) --------------------------------------------------------
-void __cdecl nox_xxx_gameResizeScreen_43BEF0_set_video_mode(int w, int h, int d) {
+void nox_xxx_gameResizeScreen_43BEF0_set_video_mode(int w, int h, int d) {
 	d = 16; // 8 bit not supported
 	nox_win_width_1 = w;
 	nox_win_height_1 = h;

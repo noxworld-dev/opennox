@@ -179,7 +179,7 @@ BOOL sub_401040() {
 int sub_401060() { return *getMemU32Ptr(0x5D4594, 264); }
 
 //----- (00401070) --------------------------------------------------------
-int __cdecl cmain(int argc, const char* argv[]) {
+int cmain(int argc, const char* argv[]) {
 	int result; // eax
 	// int v20; // ebx
 	// int v21; // esi
