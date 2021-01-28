@@ -1041,6 +1041,7 @@ unsigned int nox_rnd_table_37892[4096] = {
 	0x00001eda, 0x0000460d, 0x00005112, 0x0000561e
 };
 
+#ifndef NOX_CGO
 //----- (00415F30) --------------------------------------------------------
 int nox_xxx_replayWriteRndCounter_415F30(int fd) { return _write(fd, &nox_rnd_counter1_371260, 4); }
 
@@ -1100,3 +1101,4 @@ double nox_common_randomFloatXxx_416090(float a1, float a2) {
 		nox_rnd_counter2_371264 = 0;
 	return (a2 - a1) * ((double)nox_rnd_table_37892[v2] * 0.000030518509) + a1;
 }
+#endif // NOX_CGO
