@@ -82,6 +82,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		fprintf(stderr, "ERROR: SDL Initialization failed: %s\n", SDL_GetError());
 		return 0;
 	}
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	g_window = SDL_CreateWindow("Nox Game Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, nox_win_width,
 								nox_win_height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	if (g_window == NULL) {
