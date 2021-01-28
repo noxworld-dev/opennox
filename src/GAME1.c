@@ -267,6 +267,7 @@ int cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-nothread")) {
 			nox_enable_threads = 0;
 		} else if (!_strcmpi(flag, "-vol")) {
+			++i;
 			*getMemU8Ptr( 0x587000, 88) = atoi(argv[i]);
 		} else if (!_strcmpi(flag, "-noFloor")) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING);
