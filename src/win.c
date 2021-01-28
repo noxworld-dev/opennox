@@ -18,9 +18,6 @@ extern _DWORD dword_5d4594_805860;
 extern _DWORD dword_5d4594_823776;
 extern int nox_video_dxFullScreen;
 
-const char* g_argv[21];
-unsigned int g_argc;
-
 extern int g_scaled;
 // FIXME: w&h are set to 0 at initialization (but window will be resized a moment later)
 extern int nox_win_width;
@@ -33,6 +30,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #ifdef __EMSCRIPTEN__
 	int v10; // eax
 #endif
+	const char* g_argv[21];
+	unsigned int g_argc;
 
 	init_data();
 
