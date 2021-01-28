@@ -327,6 +327,7 @@ void __cdecl nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(int* w, int* 
 }
 
 //----- (0043BEF0) --------------------------------------------------------
+#ifndef NOX_CGO
 void nox_xxx_gameResizeScreen_43BEF0_set_video_mode(int w, int h, int d) {
 	d = 16; // 8 bit not supported
 	nox_win_width_1 = w;
@@ -335,6 +336,7 @@ void nox_xxx_gameResizeScreen_43BEF0_set_video_mode(int w, int h, int d) {
 
 	change_windowed_fullscreen();
 }
+#endif // NOX_CGO
 
 //----- (0043BF10) --------------------------------------------------------
 int __cdecl nox_xxx_video_43BF10_upd_video_mode(int defaults) {

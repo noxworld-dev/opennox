@@ -50,6 +50,7 @@ extern SDL_Window* g_window;
 void init_data();
 void cmain_loop(int);
 void input_cleanup();
+void input_set_win_size(int w, int h);
 */
 import "C"
 import (
@@ -111,7 +112,7 @@ func CStringArray(arr []string) []*C.char {
 }
 
 func run() error { // aka WinMain
-	C.nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0) // probably not needed
+	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0) // probably not needed
 	if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER | sdl.INIT_GAMECONTROLLER); err != nil {
 		return fmt.Errorf("SDL Initialization failed: %w", err)
 	}
@@ -355,4 +356,58 @@ func cmain(args []string) error {
 	C.g_v21 = 0
 	C.cmain_loop(0)
 	return nil
+}
+
+//export nox_xxx_gameResizeScreen_43BEF0_set_video_mode
+func nox_xxx_gameResizeScreen_43BEF0_set_video_mode(w, h, d C.int) {
+	nox_xxx_gameResizeScreen_setVideoMode(int(w), int(h), int(d))
+}
+
+func nox_xxx_gameResizeScreen_setVideoMode(w, h, d int) {
+	d = 16 // 8 bit not supported
+	C.nox_win_width_1 = C.int(w)
+	C.nox_win_height_1 = C.int(h)
+	C.nox_win_depth_1 = C.int(d)
+
+	changeWindowedOrFullscreen()
+}
+
+func noxGetWinSize1() [2]int {
+	return [2]int{int(C.nox_win_width_1), int(C.nox_win_height_1)}
+}
+
+func noxGetScreenMode() int {
+	return int(C.g_fullscreen)
+}
+
+//export change_windowed_fullscreen
+func change_windowed_fullscreen() {
+	changeWindowedOrFullscreen()
+}
+
+func input_set_win_size(size [2]int) {
+	C.input_set_win_size(C.int(size[0]), C.int(size[1]))
+}
+
+//export sdl_set_window_rect
+func sdl_set_window_rect(size, pos C.int2) {
+	sdlSetWindowRect(int2go(size), int2go(pos))
+}
+
+func int2go(v C.int2) [2]int {
+	return [2]int{
+		int(v.field_0),
+		int(v.field_4),
+	}
+}
+
+//export sdl_get_display_dim
+func sdl_get_display_dim() C.int4 {
+	r := sdlGetDisplayDim()
+	var v C.int4
+	v.field_0 = C.int(r[0])
+	v.field_4 = C.int(r[1])
+	v.field_8 = C.int(r[2])
+	v.field_C = C.int(r[3])
+	return v
 }

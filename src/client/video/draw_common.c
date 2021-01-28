@@ -153,6 +153,7 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 int4 sdl_get_display_dim() {
 	int display_id;
 	int4 result;
@@ -236,6 +237,7 @@ void change_windowed_fullscreen() {
 		break;
 	}
 }
+#endif // NOX_CGO
 
 
 //----- (0048A190) --------------------------------------------------------
