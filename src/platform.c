@@ -7,12 +7,15 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#ifndef NOX_CGO
 int nox_platform_rand() { return rand(); }
 
 void nox_platform_srand(unsigned int seed) { srand(seed); }
+#endif // NOX_CGO
 
 #ifndef NOX_PREDICTABLE // ------------------------------------------------
 
+#ifndef NOX_CGO
 void nox_platform_srand_time() { srand(time(0)); }
 
 unsigned int nox_platform_time_seed() { return time(0); }
@@ -26,6 +29,7 @@ void nox_platform_sleep(unsigned int ms) {
 	SDL_Delay(ms);
 #endif
 }
+#endif // NOX_CGO
 
 int nox_SDL_PollEvent(SDL_Event* event) { return SDL_PollEvent(event); }
 
