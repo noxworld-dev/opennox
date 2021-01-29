@@ -12151,7 +12151,7 @@ int sub_488BA0() {
 }
 
 //----- (00488BD0) --------------------------------------------------------
-void __cdecl nox_xxx_onChar_488BD0(unsigned __int16 a1) {
+void nox_xxx_onChar_488BD0(unsigned __int16 a1) {
 	int v2;              // esi
 	int v3;              // eax
 	unsigned __int8* v4; // eax
