@@ -7,6 +7,7 @@
 extern int nox_win_width_1;
 extern int nox_win_height_1;
 extern int dword_5d4594_3484;
+extern unsigned int dword_5d4594_3843628;
 
 //-------------------------------------------------------------------------
 // Data declarations
@@ -1136,7 +1137,7 @@ void OnLibraryNotice(int a1, ...) {
 				//  -- видимо микс вырезал функционал
 	{
 	case 257:
-		MEMACCESS(0x97EBC0) = 0;
+		dword_5d4594_3843628 = 0;
 		return;
 	case 258: // вызывается в экзешнике отсюда 0x980650
 		someSwitch = 1;
@@ -1173,7 +1174,7 @@ void OnLibraryNotice(int a1, ...) {
 	case 265:
 		// toggles weapons by mouse wheel
 		// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
-		//a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1; 
+		//a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1;
 		a2a = vaArg3 > 0; // scroll weapons back or forth
 		result = (_DWORD*)((unsigned __int8)vaArg2 - 2);
 		if ((unsigned __int8)vaArg2 == 2 &&
@@ -1183,9 +1184,9 @@ void OnLibraryNotice(int a1, ...) {
 				if (result) {
 					result = (_DWORD*)nox_common_gameFlags_check_40A5C0(1);
 					if (result) {
-						v6 = MEMACCESS(0x97EBC0); // playerObjServerHost
-						if (MEMACCESS(0x97EBC0)) {
-							LOBYTE(result) = getPlayerClassFromObjPtr(MEMACCESS(0x97EBC0)); 
+						v6 = dword_5d4594_3843628; // playerObjServerHost
+						if (dword_5d4594_3843628) {
+							LOBYTE(result) = getPlayerClassFromObjPtr(dword_5d4594_3843628);
 							if (!(_BYTE)result) {
 								LOBYTE(result) = mix_MouseKeyboardWeaponRoll(v6, a2a);
 								if ((_BYTE)result)
@@ -1220,7 +1221,7 @@ void OnLibraryNotice(int a1, ...) {
 					return;
 				if (nox_common_gameFlags_check_40A5C0(1)) // isServer
 				{
-					if (MEMACCESS(0x97EBC0) && mix_MouseKeyboardWeaponRoll(MEMACCESS(0x97EBC0), vaArg1_1[1]))
+					if (dword_5d4594_3843628 && mix_MouseKeyboardWeaponRoll(dword_5d4594_3843628, vaArg1_1[1]))
 						nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 				} else {
 					notifyThisIsServeronly((int)&buf, 0, 1);
