@@ -294,6 +294,7 @@ int __stdcall nox_xxx_windowProc_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPAR
 #endif
 
 //----- (004453A0) --------------------------------------------------------
+#ifndef NOX_CGO
 int nox_xxx_processWinMessages_4453A0_poll_events() {
 #ifdef USE_SDL
 	input_events_tick();
@@ -316,6 +317,7 @@ int nox_xxx_processWinMessages_4453A0_poll_events() {
 	return 1;
 #endif
 }
+#endif // NOX_CGO
 
 //----- (004147E0) --------------------------------------------------------
 BOOL __cdecl sub_4147E0(HWND hWnd) {
