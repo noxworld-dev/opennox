@@ -60,6 +60,7 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof"
+	"nox/common/types"
 	"os"
 	"unsafe"
 
@@ -372,8 +373,8 @@ func nox_xxx_gameResizeScreen_setVideoMode(w, h, d int) {
 	changeWindowedOrFullscreen()
 }
 
-func noxGetWinSize1() [2]int {
-	return [2]int{int(C.nox_win_width_1), int(C.nox_win_height_1)}
+func noxGetWinSize1() types.Size {
+	return types.Size{W: int(C.nox_win_width_1), H: int(C.nox_win_height_1)}
 }
 
 func noxGetScreenMode() int {
@@ -385,19 +386,22 @@ func change_windowed_fullscreen() {
 	changeWindowedOrFullscreen()
 }
 
-func input_set_win_size(size [2]int) {
-	C.input_set_win_size(C.int(size[0]), C.int(size[1]))
-}
-
 //export sdl_set_window_rect
 func sdl_set_window_rect(size, pos C.int2) {
-	sdlSetWindowRect(int2go(size), int2go(pos))
+	sdlSetWindowRect(int2size(size), int2pos(pos))
 }
 
-func int2go(v C.int2) [2]int {
-	return [2]int{
-		int(v.field_0),
-		int(v.field_4),
+func int2size(v C.int2) types.Size {
+	return types.Size{
+		W: int(v.field_0),
+		H: int(v.field_4),
+	}
+}
+
+func int2pos(v C.int2) types.Point {
+	return types.Point{
+		X: int(v.field_0),
+		Y: int(v.field_4),
 	}
 }
 

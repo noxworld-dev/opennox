@@ -2,14 +2,15 @@ package main
 
 import (
 	"log"
+	"nox/common/types"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-func sdlSetWindowRect(size, pos [2]int) {
-	input_set_win_size(size)
-	noxWindow.SetSize(int32(size[0]), int32(size[1]))
-	noxWindow.SetPosition(int32(pos[0]), int32(pos[1]))
+func sdlSetWindowRect(size types.Size, pos types.Point) {
+	inputSetWinSize(size)
+	noxWindow.SetSize(int32(size.W), int32(size.H))
+	noxWindow.SetPosition(int32(pos.X), int32(pos.Y))
 }
 
 func sdlGetDisplayDim() (r [4]int) {
@@ -35,18 +36,20 @@ func sdlGetDisplayDim() (r [4]int) {
 func changeWindowedOrFullscreen() {
 	winSize := noxGetWinSize1()
 	dispSize := sdlGetDisplayDim()
-	centeredPosX := dispSize[2] + (dispSize[0]-winSize[0])/2
-	centeredPosY := dispSize[3] + (dispSize[1]-winSize[1])/2
+	centeredPos := types.Point{
+		X: dispSize[2] + (dispSize[0]-winSize.W)/2,
+		Y: dispSize[3] + (dispSize[1]-winSize.H)/2,
+	}
 
 	// Init all sizes
 
 	// Windowed
 	windowedSize := winSize
-	windowedPos := [2]int{centeredPosX, centeredPosY}
+	windowedPos := centeredPos
 
 	// Fullscreen
-	fullscreenSize := [2]int{dispSize[0], dispSize[1]}
-	fullscreenPos := [2]int{dispSize[2], dispSize[3]}
+	fullscreenSize := types.Size{W: dispSize[0], H: dispSize[1]}
+	fullscreenPos := types.Point{X: dispSize[2], Y: dispSize[3]}
 
 	switch noxGetScreenMode() {
 	case -1, 1:

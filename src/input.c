@@ -35,16 +35,16 @@ enum {
 };
 
 struct keyboard_event {
-	BYTE code;
-	BYTE state;
-	DWORD seq;
+	unsigned char code;
+	unsigned char state;
+	unsigned int seq;
 };
 
 struct mouse_event {
 	unsigned int type;
 	int x, y, wheel;
 	int pressed;
-	DWORD seq;
+	unsigned int seq;
 };
 
 struct finger_state {
@@ -59,10 +59,10 @@ static struct keyboard_event keyboard_event_queue[256];
 static DWORD keyboard_event_ridx;
 static DWORD keyboard_event_widx;
 static struct mouse_event mouse_event_queue[256];
-static DWORD mouse_event_ridx;
-static DWORD mouse_event_widx;
+DWORD mouse_event_ridx = 0;
+DWORD mouse_event_widx = 0;
 static struct finger_state fingers[8];
-static int mouse1_state;
+int mouse1_state;
 static int seqnum;
 #ifdef __EMSCRIPTEN__
 static int mouse0_state;
@@ -72,6 +72,10 @@ static int jump;
 #endif
 int g_mouse_aquired = 0;
 
+// init joystick
+UINT __cdecl nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) { return 0; }
+
+#ifndef NOX_CGO
 int is_mouse_inside(HWND wnd) {
 #ifdef __EMSCRIPTEN__
 	return 1;
@@ -174,6 +178,7 @@ void process_window_event(const SDL_WindowEvent* event) {
 		break;
 	}
 }
+#endif // NOX_CGO
 
 struct keyboard_event* nox_newKeyboardEvent() {
 	struct keyboard_event* ke = &keyboard_event_queue[keyboard_event_widx];
@@ -189,6 +194,7 @@ struct mouse_event* nox_newMouseEvent() {
 	return me;
 }
 
+#ifndef NOX_CGO
 void input_keyboard(SDL_Scancode code, bool pressed) {
 	struct keyboard_event* ke = nox_newKeyboardEvent();
 	ke->code = scanCodeToKeyNum[code];
@@ -303,6 +309,7 @@ void process_motion_event(const SDL_MouseMotionEvent* event) {
 void process_wheel_event(const SDL_MouseWheelEvent* event) {
 	input_mouse_wheel(event->y);
 }
+#endif // NOX_CGO
 
 void fake_keyup(void* arg) {
 	input_keyboard(SDL_SCANCODE_SPACE, 0);
@@ -326,6 +333,7 @@ struct finger_state* find_finger(SDL_FingerID id, int alloc) {
 	return NULL;
 }
 
+#ifndef NOX_CGO
 void send_mouse1_event() {
 	input_mouse_button(MOUSE_BUTTON1, mouse1_state /* && !mouse0_state */ );
 }
@@ -496,6 +504,7 @@ void process_gpad_button_event(const SDL_ControllerButtonEvent* event) {
 		break;
 	}
 }
+#endif // NOX_CGO
 
 #ifdef __EMSCRIPTEN__
 void nox_xxx_clientControl_42D6B0_em_not_mouse_down() {
@@ -686,6 +695,7 @@ void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
 	keyboard_event_ridx = (keyboard_event_ridx + 1) % 256;
 }
 
+#ifndef NOX_CGO
 // init mouse
 int initMouse_sub_47D8D0() {
 #ifndef NOX_NO_MOUSE_GRAB
@@ -724,6 +734,7 @@ int unacquireMouse_sub_47D8B0() {
 	g_mouse_aquired = 0;
 	return 0;
 }
+#endif // NOX_CGO
 
 typedef struct DIDEVICEOBJECTDATA {
 	DWORD dwOfs;
@@ -769,9 +780,7 @@ BOOL nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* e) {
 	return 1;
 }
 
-// init joystick
-UINT __cdecl nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) { return 0; }
-
+#ifndef NOX_CGO
 void cleanupControllers() {
 	if (gpad) { // Close if opened
 		SDL_GameControllerClose(gpad);
@@ -881,6 +890,7 @@ void process_event(const SDL_Event* event) {
 void input_cleanup() {
 	cleanupControllers();
 }
+#endif // NOX_CGO
 
 #else // USE_SDL
 
