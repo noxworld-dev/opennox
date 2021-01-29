@@ -1763,7 +1763,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1096256, (void*)&dword_5d4594_1096256, sizeof(dword_5d4594_1096256), 1},
 	{0x5D4594 + 1565612, (void*)&dword_5d4594_1565612, sizeof(dword_5d4594_1565612), 1},
 	{0x5D4594 + 2489420, (void*)&dword_5d4594_2489420, sizeof(dword_5d4594_2489420), 1},
-	{0x5D4594 + 1064896, (void*)&dword_5d4594_1064896, sizeof(dword_5d4594_1064896), 0},
+	{0x5D4594 + 1064896, (void*)&dword_5d4594_1064896, sizeof(dword_5d4594_1064896), 0}, // TODO
 	{0x5D4594 + 2487900, (void*)&dword_5d4594_2487900, sizeof(dword_5d4594_2487900), 1},
 	{0x587000 + 80840, (void*)&nox_xxx_useAudio_587000_80840, sizeof(nox_xxx_useAudio_587000_80840), 1},
 	{0x587000 + 249172, (void*)&nox_xxx_triggersCount_587000_249172, sizeof(nox_xxx_triggersCount_587000_249172), 1},
@@ -2326,7 +2326,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1319060, (void*)&dword_5d4594_1319060, sizeof(dword_5d4594_1319060), 1},
 	{0x5D4594 + 3798720, (void*)&dword_5d4594_3798720, sizeof(dword_5d4594_3798720), 1},
 	{0x5D4594 + 2386212, (void*)&dword_5d4594_2386212, sizeof(dword_5d4594_2386212), 1},
-	{0x5D4594 + 3843628, (void*)&dword_5d4594_3843628, sizeof(dword_5d4594_3843628), 0}, // TODO
+	{0x5D4594 + 3843628, (void*)&dword_5d4594_3843628, sizeof(dword_5d4594_3843628), 1},
 	{0x5D4594 + 2386180, (void*)&dword_5d4594_2386180, sizeof(dword_5d4594_2386180), 1},
 	{0x5D4594 + 529328, (void*)&dword_5d4594_529328, sizeof(dword_5d4594_529328), 1},
 	{0x5D4594 + 2386496, (void*)&nox_alloc_tradeItems_2386496, sizeof(nox_alloc_tradeItems_2386496), 1},
