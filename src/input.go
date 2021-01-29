@@ -96,12 +96,12 @@ func inputPollEvents() {
 			// no more events
 			return
 		case *sdl.TextEditingEvent:
-			process_textediting_event(ev)
+			processTextEditingEvent(ev)
 		case *sdl.TextInputEvent:
-			process_textinput_event(ev)
+			processTextInputEvent(ev)
 		case *sdl.KeyboardEvent:
-			if noxInTextInput() {
-				process_textinput_keyboard_event(ev)
+			if inTextInput {
+				processTextInputKeyboardEvent(ev)
 			} else {
 				processKeyboardEvent(ev)
 			}
