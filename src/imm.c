@@ -6,27 +6,12 @@
 
 #ifdef NO_IMM
 int g_textinput;
-static wchar_t g_ime_buf[512];
+wchar_t g_ime_buf[512];
 //static unsigned int g_ime_idx;
 
 #ifdef __EMSCRIPTEN__
 static char g_ime_raw[512];
-#endif
 
-void process_textediting_event(const SDL_TextEditingEvent* event) {
-	const char* src = event->text;
-	wchar_t* dst = g_ime_buf;
-
-	if (ConvertUTF8toUTF16(&src, event->text + strlen(event->text), &dst, g_ime_buf + 512, strictConversion) ==
-		conversionOK) {
-		*dst = 0;
-	} else {
-		g_ime_buf[0] = UNI_REPLACEMENT_CHAR;
-		g_ime_buf[1] = 0;
-	}
-}
-
-#ifdef __EMSCRIPTEN__
 static void update_ime(int finished) {
 	char tmp[512], complete[512];
 	const char* src;
@@ -81,7 +66,21 @@ static void update_ime(int finished) {
 		g_ime_raw[0] = 0;
 	}
 }
-#endif
+#endif // __EMSCRIPTEN__
+
+#ifndef NOX_CGO
+void process_textediting_event(const SDL_TextEditingEvent* event) {
+	const char* src = event->text;
+	wchar_t* dst = g_ime_buf;
+
+	if (ConvertUTF8toUTF16(&src, event->text + strlen(event->text), &dst, g_ime_buf + 512, strictConversion) ==
+		conversionOK) {
+		*dst = 0;
+	} else {
+		g_ime_buf[0] = UNI_REPLACEMENT_CHAR;
+		g_ime_buf[1] = 0;
+	}
+}
 
 void process_textinput_event(const SDL_TextInputEvent* event) {
 #ifdef __EMSCRIPTEN__
@@ -97,7 +96,7 @@ void process_textinput_event(const SDL_TextInputEvent* event) {
 		event->text);
 	strcat(g_ime_raw, event->text);
 	update_ime(!hangul);
-#else
+#else // !__EMSCRIPTEN__
 	const char* src = event->text;
 	wchar_t tmp[3], *dst = tmp;
 
@@ -112,7 +111,7 @@ void process_textinput_event(const SDL_TextInputEvent* event) {
 	} else {
 		nox_xxx_onChar_488BD0(UNI_REPLACEMENT_CHAR);
 	}
-#endif
+#endif // __EMSCRIPTEN__
 }
 
 void process_keyboard_event(const SDL_KeyboardEvent* event);
@@ -148,27 +147,28 @@ void process_textinput_keyboard_event(const SDL_KeyboardEvent* event) {
 	default:
 		break;
 	}
-#endif
+#endif // __EMSCRIPTEN__
 	process_keyboard_event(event);
 }
 
-int** __thiscall sub_56FFE0(int** this) { return this; }
-
-int** __thiscall sub_570070(int*** this) { return this; }
-
 //----- (005700CA) --------------------------------------------------------
-int __thiscall nox_xxx_changeWinProcToEdit_5700CA(int** this, HWND hWnd) {
+int nox_xxx_changeWinProcToEdit_5700CA(int** a1, HWND hWnd) {
 	SDL_StartTextInput();
 	g_textinput = 1;
 	return 0;
 }
 
 //----- (005700F6) --------------------------------------------------------
-int* __thiscall nox_xxx_changeWinProcToNormal_5700F6(int** this) {
+int* nox_xxx_changeWinProcToNormal_5700F6(int** a1) {
 	SDL_StopTextInput();
 	g_textinput = 0;
 	return 0;
 }
+#endif // NOX_CGO
+
+int** __thiscall sub_56FFE0(int** this) { return this; }
+
+int** __thiscall sub_570070(int*** this) { return this; }
 
 //----- (0057011C) --------------------------------------------------------
 wchar_t* __thiscall nox_xxx_string_57011C(_DWORD** this) { return g_ime_buf; }
@@ -182,7 +182,7 @@ bool __thiscall nox_xxx_string_5702B4(_DWORD** this) { return 1; }
 //----- (00570392) --------------------------------------------------------
 int __thiscall nox_xxx_string_570392(_DWORD** this) { return 0; }
 
-#else
+#else // !NO_IMM
 
 unsigned __int8* __thiscall sub_57016E(void* this, unsigned int a2);
 int __thiscall sub_5701D1(void* this);
@@ -496,10 +496,10 @@ int** __thiscall sub_570070(int*** this) {
 }
 
 //----- (005700CA) --------------------------------------------------------
-int __thiscall nox_xxx_changeWinProcToEdit_5700CA(int** this, HWND hWnd) { return sub_57366C(*this, hWnd); }
+int nox_xxx_changeWinProcToEdit_5700CA(int** a1, HWND hWnd) { return sub_57366C(*a1, hWnd); }
 
 //----- (005700F6) --------------------------------------------------------
-int* __thiscall nox_xxx_changeWinProcToNormal_5700F6(int** this) { return sub_57381A(*this); }
+int* nox_xxx_changeWinProcToNormal_5700F6(int** this) { return sub_57381A(*this); }
 
 //----- (0057011C) --------------------------------------------------------
 wchar_t* __thiscall nox_xxx_string_57011C(_DWORD** this) { return sub_573B56(*this); }

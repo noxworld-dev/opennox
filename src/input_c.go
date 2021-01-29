@@ -7,10 +7,10 @@ package main
 #include "defs.h"
 #include "memmap.h"
 
-extern int g_textinput;
 extern int mouse1_state;
 extern unsigned int mouse_event_ridx;
 extern unsigned int mouse_event_widx;
+extern wchar_t g_ime_buf[512];
 
 struct keyboard_event {
 	unsigned char code;
@@ -25,17 +25,12 @@ struct mouse_event {
 	unsigned int seq;
 };
 
+void nox_xxx_onChar_488BD0(unsigned short c);
 struct keyboard_event* nox_newKeyboardEvent();
 struct mouse_event* nox_newMouseEvent();
-
-void process_textediting_event(const SDL_TextEditingEvent* event);
-void process_textinput_event(const SDL_TextInputEvent* event);
-void process_textinput_keyboard_event(const SDL_KeyboardEvent* event);
 */
 import "C"
 import (
-	"unsafe"
-
 	"nox/common/types"
 
 	"github.com/veandco/go-sdl2/sdl"
@@ -53,10 +48,6 @@ const ( // must be in sync with C
 func nox_xxx_processWinMessages_4453A0_poll_events() C.int {
 	inputPollEvents()
 	return 0
-}
-
-func noxInTextInput() bool {
-	return C.g_textinput != 0
 }
 
 //export input_cleanup
@@ -82,6 +73,18 @@ func initMouse_sub_47D8D0() C.int {
 	return 1
 }
 
+//export nox_xxx_changeWinProcToEdit_5700CA
+func nox_xxx_changeWinProcToEdit_5700CA(a1 **C.int, hwnd C.int) C.int {
+	inputStartTextInput()
+	return 0
+}
+
+//export nox_xxx_changeWinProcToNormal_5700F6
+func nox_xxx_changeWinProcToNormal_5700F6(a1 **C.int) *C.int {
+	inputStopTextInput()
+	return nil
+}
+
 func inputInitMouse() {
 	inputAcquireMouse()
 
@@ -102,16 +105,18 @@ func input_set_draw_win_size(w, h C.int) {
 	inputSetDrawWinSize(types.Size{W: int(w), H: int(h)})
 }
 
-func process_textediting_event(ev *sdl.TextEditingEvent) {
-	C.process_textediting_event((*C.SDL_TextEditingEvent)(unsafe.Pointer(ev)))
+func setIMEBuffer(buf []uint16) {
+	if len(buf) >= 512 {
+		buf = buf[:512-1]
+	}
+	for i, c := range buf {
+		C.g_ime_buf[i] = C.wchar_t(c)
+	}
+	C.g_ime_buf[len(buf)] = 0
 }
 
-func process_textinput_event(ev *sdl.TextInputEvent) {
-	C.process_textinput_event((*C.SDL_TextInputEvent)(unsafe.Pointer(ev)))
-}
-
-func process_textinput_keyboard_event(ev *sdl.KeyboardEvent) {
-	C.process_textinput_keyboard_event((*C.SDL_KeyboardEvent)(unsafe.Pointer(ev)))
+func noxInputOnChar(c uint16) {
+	C.nox_xxx_onChar_488BD0(C.wchar_t(c))
 }
 
 // inputMouseSet sets mouse to a specific position in the window space.
