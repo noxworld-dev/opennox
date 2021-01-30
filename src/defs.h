@@ -28,7 +28,7 @@
 #define USE_SDL 1
 #include <SDL2/SDL.h>
 
-#include "memmap.h"
+#include "blobs/memmap.h"
 #include "platform.h"
 
 #ifdef __EMSCRIPTEN__
