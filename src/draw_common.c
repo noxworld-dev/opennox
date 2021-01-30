@@ -98,7 +98,15 @@ int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	nox_backbuffer_depth = depth;
 	nox_video_renderTargetFlags = flags;
 
-	v5 = 5; // Fix for Linux
+#ifdef __EMSCRIPTEN__
+	v5 = nox_client_winVerGetMajor_48C870(0); // Check Windows version
+#else // !__EMSCRIPTEN__
+#ifdef USE_SDL
+	v5 = 5; // Force always WINNT, forces always using unlocked DX surfaces
+#else // !USE_SDL
+	v5 = nox_client_winVerGetMajor_48C870(0); // Check Windows version
+#endif // USE_SDL
+#endif // __EMSCRIPTEN__
 	nox_video_windowsPlatformVersion = v5;
 
 	v6 = v5 == 5;
