@@ -1763,7 +1763,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1096256, (void*)&dword_5d4594_1096256, sizeof(dword_5d4594_1096256), 1},
 	{0x5D4594 + 1565612, (void*)&dword_5d4594_1565612, sizeof(dword_5d4594_1565612), 1},
 	{0x5D4594 + 2489420, (void*)&dword_5d4594_2489420, sizeof(dword_5d4594_2489420), 1},
-	{0x5D4594 + 1064896, (void*)&dword_5d4594_1064896, sizeof(dword_5d4594_1064896), 0}, // TODO
+	{0x5D4594 + 1064896, (void*)&dword_5d4594_1064896, sizeof(dword_5d4594_1064896), 1},
 	{0x5D4594 + 2487900, (void*)&dword_5d4594_2487900, sizeof(dword_5d4594_2487900), 1},
 	{0x587000 + 80840, (void*)&nox_xxx_useAudio_587000_80840, sizeof(nox_xxx_useAudio_587000_80840), 1},
 	{0x587000 + 249172, (void*)&nox_xxx_triggersCount_587000_249172, sizeof(nox_xxx_triggersCount_587000_249172), 1},

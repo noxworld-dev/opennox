@@ -8,6 +8,8 @@ extern int nox_win_width_1;
 extern int nox_win_height_1;
 extern int dword_5d4594_3484;
 extern unsigned int dword_5d4594_3843628;
+extern unsigned int dword_5d4594_1064896;
+extern unsigned int dword_5d4594_1064900;
 
 //-------------------------------------------------------------------------
 // Data declarations
@@ -1178,7 +1180,8 @@ void OnLibraryNotice(int a1, ...) {
 		a2a = vaArg3 > 0; // scroll weapons back or forth
 		result = (_DWORD*)((unsigned __int8)vaArg2 - 2);
 		if ((unsigned __int8)vaArg2 == 2 &&
-			(_DWORD*)MEMACCESS(0x6D8555) == result) { // checked in asm (cmp ds:6D8555, eax)
+			// FIXME: checked in asm (cmp ds:6D8555, eax)
+			((dword_5d4594_1064896 >> 8) | (dword_5d4594_1064900 << 24)) == result) {
 			if ((MEMACCESS(0x98085A) >> 3) & 1) {
 				result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
 				if (result) {
