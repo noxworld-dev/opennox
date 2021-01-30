@@ -2,22 +2,22 @@
 #include <emscripten/emscripten.h>
 #endif
 
-#include "client/system/parsecmd.h"
-#include "common/system/team.h"
-#include "server/mapgen/generate/populate.h"
-#include "server/network/playback.h"
-#include "server/network/sdecode.h"
-#include "server/system/server.h"
-#include "server/xfer/savegame/savegame.h"
-#include "common/random.h"
+#include "client__system__parsecmd.h"
+#include "common__system__team.h"
+#include "server__mapgen__generate__populate.h"
+#include "server__network__playback.h"
+#include "server__network__sdecode.h"
+#include "server__system__server.h"
+#include "server__xfer__savegame__savegame.h"
+#include "common__random.h"
 
-#include "client/gui/chathelp.h"
-#include "client/gui/conntype.h"
-#include "client/gui/servopts/guiserv.h"
+#include "client__gui__chathelp.h"
+#include "client__gui__conntype.h"
+#include "client__gui__servopts__guiserv.h"
 
-#include "client/drawable/update/cloud.h"
-#include "client/drawable/update/dball.h"
-#include "client/drawable/drawdb.h"
+#include "client__drawable__update__cloud.h"
+#include "client__drawable__update__dball.h"
+#include "client__drawable__drawdb.h"
 
 #include "proto.h"
 

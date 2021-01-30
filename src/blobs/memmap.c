@@ -2,7 +2,7 @@
 #define NOX_IN_MEMMAP
 #include "memmap.h"
 
-#include "../client/drawable/drawdb.h"
+#include "../client__drawable__drawdb.h"
 #include "../static.h"
 #include "../proto.h"
 

@@ -3,8 +3,8 @@
 
    Detected compiler: Visual C++
 */
-#include "server/dbase/objdb.h"
-#include "common/random.h"
+#include "server__dbase__objdb.h"
+#include "common__random.h"
 #include <float.h>
 
 #include "proto.h"

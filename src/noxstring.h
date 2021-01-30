@@ -2,7 +2,7 @@
 #define NOX_STRING_H
 #include <stdarg.h>
 #include <wchar.h>
-#include "common/poison.h"
+#include "common__poison.h"
 
 int _nox_wcsicmp(const wchar_t* string1, const wchar_t* string2);
 int nox_wsprintfA(char* lpBuffer, const char* lpFmt, ...);
