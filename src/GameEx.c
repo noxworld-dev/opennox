@@ -1,8 +1,8 @@
 #define DG_DYNARR_IMPLEMENTATION
 #include "GameEx.h"
-#include "client/gui/guimsg.h"
+#include "client__gui__guimsg.h"
 
-#include "client/shell/noxworld.h"
+#include "client__shell__noxworld.h"
 
 extern int nox_win_width_1;
 extern int nox_win_height_1;

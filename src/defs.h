@@ -53,13 +53,13 @@ typedef INT_PTR LSTATUS;
 #endif // _WIN32
 
 #include "compat_mss.h"
-#include "common/noxfile.h"
-#include "common/strman.h"
+#include "common__noxfile.h"
+#include "common__strman.h"
 #include "noxstring.h"
 #include <stdbool.h>
 
 #ifndef _WIN32
-#include "common/poison.h"
+#include "common__poison.h"
 #endif // _WIN32
 
 // For now bools are kept 1-byte long

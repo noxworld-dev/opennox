@@ -2,21 +2,21 @@
 #include <emscripten/emscripten.h>
 #endif
 
-#include "client/draw/animdraw.h"
-#include "client/draw/canidraw.h"
-#include "client/light/light16.h"
-#include "client/shell/wolapi/locale.h"
-#include "client/shell/wolapi/wolchat.h"
-#include "client/shell/wolapi/woldlgs.h"
-#include "client/shell/wolapi/wollogin.h"
-#include "client/system/parsecmd.h"
+#include "client__draw__animdraw.h"
+#include "client__draw__canidraw.h"
+#include "client__light__light16.h"
+#include "client__shell__wolapi__locale.h"
+#include "client__shell__wolapi__wolchat.h"
+#include "client__shell__wolapi__woldlgs.h"
+#include "client__shell__wolapi__wollogin.h"
+#include "client__system__parsecmd.h"
 
-#include "client/gui/guiquit.h"
-#include "client/network/cdecode.h"
-#include "client/shell/noxworld.h"
-#include "client/shell/selchar.h"
-#include "client/shell/selcolor.h"
-#include "client/system/gameloop.h"
+#include "client__gui__guiquit.h"
+#include "client__network__cdecode.h"
+#include "client__shell__noxworld.h"
+#include "client__shell__selchar.h"
+#include "client__shell__selcolor.h"
+#include "client__system__gameloop.h"
 
 #include "proto.h"
 

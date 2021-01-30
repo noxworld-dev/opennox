@@ -1,9 +1,9 @@
-#include "client/system/parsecmd.h"
-#include "common/random.h"
+#include "client__system__parsecmd.h"
+#include "common__random.h"
 
-#include "client/gui/guiinv.h"
-#include "common/system/group.h"
-#include "comw32/comlib.h"
+#include "client__gui__guiinv.h"
+#include "common__system__group.h"
+#include "comw32__comlib.h"
 
 #include "proto.h"
 

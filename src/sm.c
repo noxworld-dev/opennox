@@ -2,8 +2,8 @@
 #include <emscripten/emscripten.h>
 #endif
 
-#include "common/system/team.h"
-#include "common/random.h"
+#include "common__system__team.h"
+#include "common__random.h"
 
 #include "proto.h"
 

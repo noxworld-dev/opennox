@@ -1,11 +1,11 @@
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
 #include <emscripten/html5.h>
-#include "client/system/ctrlevnt.h"
+#include "client__system__ctrlevnt.h"
 #endif
 
 #include <limits.h>
-#include "client/io/console.h"
+#include "client__io__console.h"
 #include "input.h"
 
 #include "proto.h"

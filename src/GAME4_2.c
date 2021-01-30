@@ -1,6 +1,6 @@
-#include "client/drawable/drawdb.h"
-#include "client/gui/guigen.h"
-#include "common/random.h"
+#include "client__drawable__drawdb.h"
+#include "client__gui__guigen.h"
+#include "common__random.h"
 
 #include "proto.h"
 

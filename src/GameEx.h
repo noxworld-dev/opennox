@@ -9,7 +9,7 @@ typedef INT_PTR LSTATUS;
 #include <mmreg.h>
 #include <windows.h>
 #else
-#include "common/poison.h"
+#include "common__poison.h"
 #include "windows.h"
 #endif
 
