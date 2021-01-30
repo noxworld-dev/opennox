@@ -17,8 +17,9 @@ WORKDIR /home/runner/emsdk
 
 USER runner
 
-RUN ./emsdk install latest && \
-    ./emsdk activate latest
+RUN export EMSDK_VER="2.0.9" && \
+    ./emsdk install $EMSDK_VER && \
+    ./emsdk activate $EMSDK_VER
 
 ENV PATH="/home/runner/emsdk/upstream/emscripten:${PATH}"
 
