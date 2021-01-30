@@ -102,7 +102,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif // __EMSCRIPTEN__
 
 	cmain(g_argc, g_argv);
+#ifndef __EMSCRIPTEN__
 	SDL_Quit();
+#endif
 #else // !USE_SDL
 	HWND v11; // esi
 	HWND v13; // eax
