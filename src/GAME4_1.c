@@ -1,9 +1,9 @@
-#include "server/gamemech/explevel.h"
-#include "server/magic/plyrspel.h"
-#include "server/network/mapsend.h"
-#include "server/system/trade.h"
-#include "common/random.h"
-#include "client/system/ctrlevnt.h"
+#include "server__gamemech__explevel.h"
+#include "server__magic__plyrspel.h"
+#include "server__network__mapsend.h"
+#include "server__system__trade.h"
+#include "common__random.h"
+#include "client__system__ctrlevnt.h"
 
 #include "proto.h"
 

@@ -1,10 +1,10 @@
-#include "server/ability/ability.h"
-#include "server/magic/plyrgide.h"
-#include "server/magic/plyrspel.h"
-#include "server/object/health.h"
-#include "common/random.h"
+#include "server__ability__ability.h"
+#include "server__magic__plyrgide.h"
+#include "server__magic__plyrspel.h"
+#include "server__object__health.h"
+#include "common__random.h"
 
-#include "common/gamemech/pausefx.h"
+#include "common__gamemech__pausefx.h"
 
 #include "proto.h"
 

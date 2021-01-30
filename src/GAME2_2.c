@@ -1,15 +1,15 @@
-#include "client/draw/debugdraw.h"
-#include "client/draw/staticdraw.h"
-#include "client/drawable/drawable.h"
+#include "client__draw__debugdraw.h"
+#include "client__draw__staticdraw.h"
+#include "client__drawable__drawable.h"
 
-#include "client/gui/gadgets/listbox.h"
-#include "client/gui/guibook.h"
-#include "client/gui/guicurs.h"
-#include "client/gui/guishop.h"
-#include "client/gui/servopts/guiserv.h"
-#include "client/gui/tooltip.h"
+#include "client__gui__gadgets__listbox.h"
+#include "client__gui__guibook.h"
+#include "client__gui__guicurs.h"
+#include "client__gui__guishop.h"
+#include "client__gui__servopts__guiserv.h"
+#include "client__gui__tooltip.h"
 
-#include "client/draw/drawwin.h"
+#include "client__draw__drawwin.h"
 
 #include "proto.h"
 

@@ -1,7 +1,7 @@
-#include "common/system/team.h"
-#include "server/magic/plyrspel.h"
-#include "server/magic/spell/execdur.h"
-#include "common/random.h"
+#include "common__system__team.h"
+#include "server__magic__plyrspel.h"
+#include "server__magic__spell__execdur.h"
+#include "common__random.h"
 
 #include "proto.h"
 

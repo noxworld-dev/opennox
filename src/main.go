@@ -5,18 +5,16 @@ package main
 #cgo linux LDFLAGS: -Wl,-unresolved-symbols=ignore-all
 #cgo darwin LDFLAGS: -Wl,-undefined,dynamic_lookup
 #cgo windows LDFLAGS: -lSDL2
+#cgo linux LDFLAGS: -lm
 #cgo linux freebsd darwin openbsd pkg-config: sdl2
-#cgo CFLAGS: -DNOX_NO_MOUSE_GRAB
 #cgo CFLAGS: -DNOX_CGO
 
 #include <SDL2/SDL.h>
-#include "blobs/memmap.h"
 #include "proto.h"
-#include "common/random.h"
-#include "common/object/armrlook.h"
-#include "common/object/weaplook.h"
-#include "client/system/ctrlevnt.h"
-#include "client/system/parsecmd.h"
+#include "common__object__armrlook.h"
+#include "common__object__weaplook.h"
+#include "client__system__ctrlevnt.h"
+#include "client__system__parsecmd.h"
 
 extern unsigned int dword_5d4594_805860;
 extern int g_fullscreen;
@@ -66,10 +64,6 @@ import (
 	"unsafe"
 
 	_ "nox/blobs"
-	_ "nox/client"
-	_ "nox/common"
-	_ "nox/comw32"
-	_ "nox/server"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -305,7 +299,7 @@ func cmain(args []string) error {
 		C.sub_4445C0()
 	}
 	C.nox_xxx_clear18hDD_416190()
-	C.nox_common_initRandom_415F70()
+	noxCommonInitRandom()
 	C.nox_xxx_bindevent_42EAE0()
 	C.nox_xxx_loadLook_415D50()
 	C.nox_xxx_loadModifyers_4158C0()

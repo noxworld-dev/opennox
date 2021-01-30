@@ -2,22 +2,22 @@
 #include <emscripten/emscripten.h>
 #endif
 
-#include "client/audio/auddiag.h"
-#include "client/system/parsecmd.h"
-#include "common/system/settings.h"
-#include "common/system/team.h"
+#include "client__audio__auddiag.h"
+#include "client__system__parsecmd.h"
+#include "common__system__settings.h"
+#include "common__system__team.h"
 
-#include "client/drawable/drawdb.h"
-#include "client/gui/gamewin/gamewin.h"
-#include "client/gui/guiggovr.h"
-#include "client/gui/guiquit.h"
-#include "client/shell/noxworld.h"
-#include "client/shell/selchar.h"
-#include "client/system/client.h"
-#include "client/system/ctrlevnt.h"
-#include "common/magic/comguide.h"
+#include "client__drawable__drawdb.h"
+#include "client__gui__gamewin__gamewin.h"
+#include "client__gui__guiggovr.h"
+#include "client__gui__guiquit.h"
+#include "client__shell__noxworld.h"
+#include "client__shell__selchar.h"
+#include "client__system__client.h"
+#include "client__system__ctrlevnt.h"
+#include "common__magic__comguide.h"
 
-#include "client/draw/partscrn.h"
+#include "client__draw__partscrn.h"
 
 #include "proto.h"
 

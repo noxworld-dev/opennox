@@ -2,24 +2,24 @@
 #include <emscripten/emscripten.h>
 #endif
 
-#include "client/draw/animdraw.h"
-#include "client/draw/vectdraw.h"
-#include "client/drawable/drawable.h"
-#include "client/gui/servopts/advserv.h"
-#include "client/gui/guisumn.h"
-#include "common/system/team.h"
+#include "client__draw__animdraw.h"
+#include "client__draw__vectdraw.h"
+#include "client__drawable__drawable.h"
+#include "client__gui__servopts__advserv.h"
+#include "client__gui__guisumn.h"
+#include "common__system__team.h"
 
-#include "client/gui/guiinput.h"
-#include "client/gui/servopts/objlst.h"
-#include "client/gui/servopts/spelllst.h"
-#include "client/gui/tooltip.h"
-#include "client/shell/inputcfg/inputcfg.h"
+#include "client__gui__guiinput.h"
+#include "client__gui__servopts__objlst.h"
+#include "client__gui__servopts__spelllst.h"
+#include "client__gui__tooltip.h"
+#include "client__shell__inputcfg__inputcfg.h"
 
-#include "client/draw/mondraw.h"
-#include "client/draw/plasma.h"
-#include "client/drawable/update/charmup.h"
-#include "client/drawable/update/fireball.h"
-#include "client/system/npcinfo.h"
+#include "client__draw__mondraw.h"
+#include "client__draw__plasma.h"
+#include "client__drawable__update__charmup.h"
+#include "client__drawable__update__fireball.h"
+#include "client__system__npcinfo.h"
 
 #include "proto.h"
 

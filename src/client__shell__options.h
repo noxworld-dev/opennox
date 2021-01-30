@@ -1,0 +1,8 @@
+#ifndef NOX_PORT_CLIENT_SHELL_OPTIONS
+#define NOX_PORT_CLIENT_SHELL_OPTIONS
+
+#include "defs.h"
+
+void sub_4AA650();
+
+#endif // NOX_PORT_CLIENT_SHELL_OPTIONS
