@@ -191,7 +191,7 @@ set (
     sm.c
     noxstring.c
     win.c
-    memmap.c
+    blobs/memmap.c
     static.c
     MixPatch.c
     GameEx.c

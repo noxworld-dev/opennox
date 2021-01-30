@@ -2,9 +2,9 @@
 #define NOX_IN_MEMMAP
 #include "memmap.h"
 
-#include "client/drawable/drawdb.h"
-#include "static.h"
-#include "proto.h"
+#include "../client/drawable/drawdb.h"
+#include "../static.h"
+#include "../proto.h"
 
 extern unsigned __int8 byte_581450[23472];
 extern unsigned __int8 byte_5D4594[3844309];
@@ -2920,6 +2920,7 @@ void maybeLogAccess(const char* fnc, uintptr_t base, uintptr_t off, uintptr_t sz
 }
 #endif // NOX_LOG_MEM
 
+#ifndef NOX_CGO
 #ifndef NOX_LOG_MEM
 void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size) {
 #else
@@ -2938,15 +2939,20 @@ void* mem_getPtrSize(const char* fnc, uintptr_t base, uintptr_t off, uintptr_t s
 	DebugBreak();
 	return 0;
 }
+#endif // NOX_CGO
 
 // defined in the header, emits the signature; we need an implementation now
 #undef MEM_FUNC_PTR
 
 #ifndef NOX_LOG_MEM
+#ifndef NOX_CGO
 void* mem_getPtr(uintptr_t base, uintptr_t off) { return mem_getPtrSize(base, off, MEMLOG_UNK_SIZE); }
+#endif // NOX_CGO
 #define MEM_FUNC_PTR(T, NAME, SIZE) T* NAME(uintptr_t base, uintptr_t off) { return (T*)mem_getPtrSize(base, off, SIZE); }
 #else
+#ifndef NOX_CGO
 void* mem_getPtr(const char* fnc, uintptr_t base, uintptr_t off) { return mem_getPtrSize(fnc, base, off, MEMLOG_UNK_SIZE); }
+#endif // NOX_CGO
 #define MEM_FUNC_PTR(T, NAME, SIZE) T* NAME(const char* fnc, uintptr_t base, uintptr_t off) { return (T*)mem_getPtrSize(fnc, base, off, SIZE); }
 #endif
 
