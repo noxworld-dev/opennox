@@ -1807,7 +1807,7 @@ void sub_446070();
 BOOL sub_446090();
 int __cdecl sub_4460A0(int a1);
 int sub_4460B0();
-int sub_4460C0();
+int nox_xxx_quit_4460C0();
 int sub_446140();
 int nox_xxx_serverIsClosing_446180();
 unsigned int sub_446360();

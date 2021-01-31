@@ -2722,7 +2722,7 @@ int nox_cmd_image(int tokInd, int tokCnt, wchar_t** tokens) {
 
 //----- (00442130) --------------------------------------------------------
 int nox_cmd_quit(int tokInd, int tokCnt, wchar_t** tokens) {
-	sub_4460C0();
+	nox_xxx_quit_4460C0();
 	return 1;
 }
 
@@ -2731,7 +2731,7 @@ int nox_cmd_exit(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (nox_common_gameFlags_check_40A5C0(4096) && nox_common_gameFlags_check_40A5C0(1))
 		sub_4D6B10(0);
 	if (nox_common_gameFlags_check_40A5C0(0x2000000))
-		sub_4460C0();
+		nox_xxx_quit_4460C0();
 	nox_xxx_setContinueMenuOrHost_43DDD0(0);
 	nox_game_exit_xxx_43DE60();
 	return 1;

@@ -556,7 +556,7 @@ void nox_xxx_clientControl_42D6B0_B() {
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 16:
-				sub_4460C0();
+				nox_xxx_quit_4460C0();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 17:

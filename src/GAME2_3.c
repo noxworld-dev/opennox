@@ -6035,7 +6035,7 @@ int __cdecl sub_49B420(int a1, int a2, int* a3, int a4) {
 		v3 = nox_xxx_wndGetID_46B0A0(a3);
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 		if (v3 == 10701) {
-			sub_4460C0();
+			nox_xxx_quit_4460C0();
 			sub_49B6B0();
 		} else if (v3 == 10702) {
 			LOWORD(a2) = 1008;
