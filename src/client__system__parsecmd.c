@@ -30,6 +30,101 @@ int nox_cheats_disabled = 0;
 int nox_cheats_disabled = 1;
 #endif
 
+int nox_cmd_racoiaws(int, int, wchar_t**);
+int nox_cmd_lock(int, int, wchar_t**);
+int nox_cmd_unlock(int, int, wchar_t**);
+int nox_cmd_set_sysop(int, int, wchar_t**);
+int nox_cmd_telnet_off(int, int, wchar_t**);
+int nox_cmd_telnet_on(int, int, wchar_t**);
+int nox_cmd_macros_on(int, int, wchar_t**);
+int nox_cmd_macros_off(int, int, wchar_t**);
+int nox_cmd_list_weapons(int, int, wchar_t**);
+int nox_cmd_list_armor(int, int, wchar_t**);
+int nox_cmd_list_spells(int, int, wchar_t**);
+int nox_cmd_list_staffs(int, int, wchar_t**);
+int nox_cmd_show_bindings(int, int, wchar_t**);
+int nox_cmd_show_game(int, int, wchar_t**);
+int nox_cmd_show_mmx(int, int, wchar_t**);
+int nox_cmd_load(int, int, wchar_t**);
+int nox_cmd_set_obs(int, int, wchar_t**);
+int nox_cmd_set_save_debug(int, int, wchar_t**);
+int nox_cmd_set_god(int, int, wchar_t**);
+int nox_cmd_unset_god(int, int, wchar_t**);
+int nox_cmd_set_sage(int, int, wchar_t**);
+int nox_cmd_unset_sage(int, int, wchar_t**);
+int nox_cmd_set_cycle(int, int, wchar_t**);
+int nox_cmd_set_weapons(int, int, wchar_t**);
+int nox_cmd_set_staffs(int, int, wchar_t**);
+int nox_cmd_set_name(int, int, wchar_t**);
+int nox_cmd_set_mnstrs(int, int, wchar_t**);
+int nox_cmd_set_spell(int, int, wchar_t**);
+int nox_cmd_set_weapon(int, int, wchar_t**);
+int nox_cmd_set_armor(int, int, wchar_t**);
+int nox_cmd_set_staff(int, int, wchar_t**);
+int nox_cmd_ban(int, int, wchar_t**);
+int nox_cmd_allow_user(int, int, wchar_t**);
+int nox_cmd_allow_ip(int, int, wchar_t**);
+int nox_cmd_kick(int, int, wchar_t**);
+int nox_cmd_set_players(int, int, wchar_t**);
+int nox_cmd_set_spellpts(int, int, wchar_t**);
+int nox_cmd_list_users(int, int, wchar_t**);
+int nox_cmd_unmute(int, int, wchar_t**);
+int nox_cmd_mute(int, int, wchar_t**);
+int nox_cmd_exec(int, int, wchar_t**);
+int nox_cmd_exec_rul(int, int, wchar_t**);
+int nox_cmd_sysop(int, int, wchar_t**);
+int nox_cmd_unbind(int, int, wchar_t**);
+int nox_cmd_broadcast(int, int, wchar_t**);
+int nox_cmd_say(int, int, wchar_t**);
+int nox_cmd_offonly1(int, int, wchar_t**);
+int nox_cmd_offonly2(int, int, wchar_t**);
+int nox_cmd_set_fr(int, int, wchar_t**);
+int nox_cmd_unset_fr(int, int, wchar_t**);
+int nox_cmd_set_net_debug(int, int, wchar_t**);
+int nox_cmd_unset_net_debug(int, int, wchar_t**);
+int nox_cmd_show_ai(int, int, wchar_t**);
+int nox_cmd_show_gui(int, int, wchar_t**);
+int nox_cmd_show_extents(int, int, wchar_t**);
+int nox_cmd_show_perfmon(int, int, wchar_t**);
+int nox_cmd_show_netstat(int, int, wchar_t**);
+int nox_cmd_show_info(int, int, wchar_t**);
+int nox_cmd_show_mem(int, int, wchar_t**);
+int nox_cmd_show_rank(int, int, wchar_t**);
+int nox_cmd_show_motd(int, int, wchar_t**);
+int nox_cmd_show_seq(int, int, wchar_t**);
+int nox_cmd_list_maps(int, int, wchar_t**);
+int nox_cmd_log_file(int, int, wchar_t**);
+int nox_cmd_log_console(int, int, wchar_t**);
+int nox_cmd_log_stop(int, int, wchar_t**);
+int nox_cmd_set(int, int, wchar_t**);
+int nox_cmd_cheat_ability(int, int, wchar_t**);
+int nox_cmd_cheat_goto(int, int, wchar_t**);
+int nox_cmd_cheat_health(int, int, wchar_t**);
+int nox_cmd_cheat_mana(int, int, wchar_t**);
+int nox_cmd_cheat_level(int, int, wchar_t**);
+int nox_cmd_cheat_spells(int, int, wchar_t**);
+int nox_cmd_cheat_gold(int, int, wchar_t**);
+int nox_cmd_image(int, int, wchar_t**);
+int nox_cmd_quit(int, int, wchar_t**);
+int nox_cmd_exit(int, int, wchar_t**);
+int nox_cmd_watch(int, int, wchar_t**);
+int nox_cmd_gamma(int, int, wchar_t**);
+int nox_cmd_window(int, int, wchar_t**);
+int nox_cmd_set_qual_modem(int, int, wchar_t**);
+int nox_cmd_set_qual_isdn(int, int, wchar_t**);
+int nox_cmd_set_qual_cable(int, int, wchar_t**);
+int nox_cmd_set_qual_t1(int, int, wchar_t**);
+int nox_cmd_set_qual_lan(int, int, wchar_t**);
+int nox_cmd_set_time(int, int, wchar_t**);
+int nox_cmd_set_lessons(int, int, wchar_t**);
+int nox_cmd_clear(int, int, wchar_t**);
+int nox_cmd_menu_options(int, int, wchar_t**);
+int nox_cmd_menu_vidopt(int, int, wchar_t**);
+int nox_cmd_help(int, int, wchar_t**);
+int nox_cmd_bind(int, int, wchar_t**);
+int nox_cmd_reenter(int, int, wchar_t**);
+int nox_cmd_startSoloQuest(int, int, wchar_t**);
+
 typedef struct nox_cmd_t nox_cmd_t;
 typedef struct nox_cmd_t {
 	const wchar_t* field_0;
@@ -37,7 +132,7 @@ typedef struct nox_cmd_t {
 	const char* help_id;
 	unsigned int flags;
 	nox_cmd_t *sub;
-	int(__cdecl* fnc)(int, int, int);
+	int(*fnc)(int tokInd, int tokCnt, wchar_t** tokens);
 } nox_cmd_t;
 
 nox_cmd_t nox_commands_quality[] = {
@@ -63,7 +158,7 @@ nox_cmd_t nox_commands_cheat[] = {
 	{L"level", 0, "cheatlevelhelp", 0x1, 0, &nox_cmd_cheat_level},
 	{L"spells", 0, "cheatspellshelp", 0x1, 0, &nox_cmd_cheat_spells},
 	{L"gold", 0, "cheatgoldhelp", 0x1, 0, &nox_cmd_cheat_gold},
-	{L"re-enter", 0, "", 0x1, 0, &sub_4420F0},
+	{L"re-enter", 0, "", 0x1, 0, &nox_cmd_reenter},
 	{},
 };
 
@@ -181,7 +276,7 @@ nox_cmd_t nox_commands[] = {
 	{L"say", 0, "sayhelp", 0x3, 0, &nox_cmd_say},
 	{L"set", 0, "sethelp", 0x3, nox_commands_set, 0},
 	{L"show", 0, "showhelp", 0x3, nox_commands_show, 0},
-	{L"sysop", 0, "nohelp", 0x7, 0, &nox_xxx_cmdSysop_4439B0},
+	{L"sysop", 0, "nohelp", 0x7, 0, &nox_cmd_sysop},
 	{L"telnet", 0, "telnethelp", 0x1, nox_commands_telnet, 0},
 	{L"unset", 0, "unsethelp", 0x3, nox_commands_unset, 0},
 	{L"unmute", 0, "unmutehelp", 0x3, 0, &nox_cmd_unmute},
@@ -189,13 +284,13 @@ nox_cmd_t nox_commands[] = {
 	{L"unlock", 0, "unlockhelp", 0x3, 0, &nox_cmd_unlock},
 	{L"watch", 0, "watchhelp", 0x3, 0, &nox_cmd_watch},
 	{L"window", 0, "windowhelp", 0x3, 0, &nox_cmd_window},
-	{L"startSoloQuest", 0, "nohelp", 0x5, 0, &nox_xxx_conStartSoloQuest_4423A0},
+	{L"startSoloQuest", 0, "nohelp", 0x5, 0, &nox_cmd_startSoloQuest},
 	{L"ques", 0, "helphelp", 0x3, 0, &nox_cmd_help},
 	{},
 };
 
 //----- (00440D70) --------------------------------------------------------
-int nox_cmd_racoiaws() {
+int nox_cmd_racoiaws(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_cheats_disabled = 0;
 	return 1;
 }
@@ -215,7 +310,10 @@ wchar_t* __cdecl sub_450B20(wchar_t* a1) {
 }
 
 //----- (00440D80) --------------------------------------------------------
-int __cdecl nox_cmd_lock(int a1, char a2, int a3) {
+int nox_cmd_lock(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v4; // eax
 
 	if (a2 != 2)
@@ -239,7 +337,9 @@ int sub_450B50() {
 }
 
 //----- (00440DD0) --------------------------------------------------------
-int __cdecl nox_cmd_unlock(int a1, char a2) {
+int nox_cmd_unlock(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	wchar_t* v3; // eax
 
 	if (a2 != 1)
@@ -251,7 +351,10 @@ int __cdecl nox_cmd_unlock(int a1, char a2) {
 }
 
 //----- (00440E10) --------------------------------------------------------
-int __cdecl nox_cmd_set_sysop(int a1, char a2, int a3) {
+int nox_cmd_set_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v4; // eax
 
 	if (a2 != 3)
@@ -304,7 +407,9 @@ int sub_579830() {
 }
 
 //----- (00440E60) --------------------------------------------------------
-int __cdecl nox_cmd_telnet_off(int a1, char a2) {
+int nox_cmd_telnet_off(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	wchar_t* v3; // eax
 
 	if (a2 != 2)
@@ -334,7 +439,10 @@ void nox_xxx_setPort_5797F0(uint16_t port) {
 uint16_t nox_xxx_getPort_579850() { return *getMemU16Ptr(0x5D4594, 2523736); }
 
 //----- (00440EB0) --------------------------------------------------------
-int __cdecl nox_cmd_telnet_on(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_telnet_on(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	unsigned __int16 v4; // ax
 	wchar_t* v5;         // eax
 	int v6;              // [esp-4h] [ebp-8h]
@@ -356,7 +464,9 @@ int __cdecl nox_cmd_telnet_on(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (00440F50) --------------------------------------------------------
-int __cdecl nox_cmd_macros_on(int a1, char a2) {
+int nox_cmd_macros_on(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	wchar_t* v3; // eax
 
 	if (a2 != 2)
@@ -368,7 +478,9 @@ int __cdecl nox_cmd_macros_on(int a1, char a2) {
 }
 
 //----- (00440F90) --------------------------------------------------------
-int __cdecl nox_cmd_macros_off(int a1, char a2) {
+int nox_cmd_macros_off(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	wchar_t* v3; // eax
 
 	if (a2 != 2)
@@ -380,7 +492,7 @@ int __cdecl nox_cmd_macros_off(int a1, char a2) {
 }
 
 //----- (00441050) --------------------------------------------------------
-int nox_cmd_list_weapons() {
+int nox_cmd_list_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // ebx
 	wchar_t* v1; // ebp
 	char** v2;   // edi
@@ -420,7 +532,7 @@ int nox_cmd_list_weapons() {
 }
 
 //----- (00441130) --------------------------------------------------------
-int nox_cmd_list_armor() {
+int nox_cmd_list_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // ebx
 	wchar_t* v1; // ebp
 	char** v2;   // edi
@@ -460,7 +572,7 @@ int nox_cmd_list_armor() {
 }
 
 //----- (00441210) --------------------------------------------------------
-int nox_cmd_list_spells() {
+int nox_cmd_list_spells(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // edi
 	wchar_t* v1; // ebx
 	int v2;      // esi
@@ -495,7 +607,7 @@ int nox_cmd_list_spells() {
 }
 
 //----- (004412E0) --------------------------------------------------------
-int nox_cmd_list_staffs() {
+int nox_cmd_list_staffs(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0;          // ebx
 	wchar_t* v1;          // ebp
 	unsigned __int16* v2; // edi
@@ -537,7 +649,9 @@ int nox_cmd_list_staffs() {
 }
 
 //----- (004413C0) --------------------------------------------------------
-int __cdecl nox_cmd_show_bindings(int a1, char a2) {
+int nox_cmd_show_bindings(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	unsigned __int8* v3; // esi
 	wchar_t* v4;         // eax
 
@@ -563,7 +677,9 @@ int __cdecl nox_cmd_show_bindings(int a1, char a2) {
 int nox_client_getBuildVersion_409AC0() { return *getMemU16Ptr(0x5D4594, 3480); }
 
 //----- (00441550) --------------------------------------------------------
-int __cdecl nox_cmd_show_game(int a1, char a2) {
+int nox_cmd_show_game(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	char* v2;           // esi
 	int v4;             // edi
 	int v5;             // eax
@@ -615,7 +731,7 @@ int __cdecl nox_cmd_show_game(int a1, char a2) {
 }
 
 //----- (004416F0) --------------------------------------------------------
-int nox_cmd_show_mmx() {
+int nox_cmd_show_mmx(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // eax
 
 	if (dword_5d4594_805836)
@@ -638,7 +754,10 @@ void sub_440A20(wchar_t* a1, ...) {
 }
 
 //----- (00441910) --------------------------------------------------------
-int __cdecl nox_cmd_load(int a1, char a2, int a3) {
+int nox_cmd_load(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	int v4;             // eax
 	int v5;             // ebx
 	wchar_t* v6;        // eax
@@ -775,7 +894,10 @@ int __cdecl sub_441BF0(int a1, int a2, int a3, const wchar_t** a4) {
 }
 
 //----- (00441CE0) --------------------------------------------------------
-int __cdecl nox_cmd_help(int a1, int a2, int a3) {
+int nox_cmd_help(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	int a2 = tokCnt;
+	int a3 = tokens;
 	if ((unsigned __int8)a2 != 1)
 		return sub_441BF0(1, a2, a3, nox_commands);
 	sub_441B90(nox_commands);
@@ -783,7 +905,7 @@ int __cdecl nox_cmd_help(int a1, int a2, int a3) {
 }
 
 //----- (004421A0) --------------------------------------------------------
-int nox_cmd_set_obs() {
+int nox_cmd_set_obs(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // eax
 	char* v2;    // eax
 
@@ -799,7 +921,7 @@ int nox_cmd_set_obs() {
 }
 
 //----- (004423D0) --------------------------------------------------------
-int nox_cmd_set_save_debug() {
+int nox_cmd_set_save_debug(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // eax
 
 	nox_common_setEngineFlag(NOX_ENGINE_FLAG_28);
@@ -809,7 +931,7 @@ int nox_cmd_set_save_debug() {
 }
 
 //----- (00442410) --------------------------------------------------------
-int nox_cmd_set_god() {
+int nox_cmd_set_god(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // eax
 
 	if (!nox_common_gameFlags_check_40A5C0(4096)) {
@@ -822,7 +944,7 @@ int nox_cmd_set_god() {
 }
 
 //----- (00442450) --------------------------------------------------------
-int nox_cmd_unset_god() {
+int nox_cmd_unset_god(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // eax
 
 	nox_xxx_godSetOrUnSet_4EF500(0);
@@ -831,7 +953,7 @@ int nox_cmd_unset_god() {
 	return 1;
 }
 //----- (00442480) --------------------------------------------------------
-int nox_cmd_set_sage() {
+int nox_cmd_set_sage(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // eax
 
 	if (!nox_common_gameFlags_check_40A5C0(4096)) {
@@ -845,7 +967,7 @@ int nox_cmd_set_sage() {
 
 // 4EF4F0: using guessed type void __cdecl nullsub_26(_DWORD);
 //----- (004424C0) --------------------------------------------------------
-int nox_cmd_unset_sage() {
+int nox_cmd_unset_sage(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // eax
 
 	nullsub_26(0);
@@ -857,7 +979,10 @@ int nox_cmd_unset_sage() {
 // 4EF4F0: using guessed type void __cdecl nullsub_26(_DWORD);
 
 //----- (004424F0) --------------------------------------------------------
-int __cdecl nox_cmd_set_cycle(int a1, char a2, int a3) {
+int nox_cmd_set_cycle(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v3; // eax
 
 	if (a2 == 3) {
@@ -881,7 +1006,10 @@ int __cdecl nox_cmd_set_cycle(int a1, char a2, int a3) {
 }
 
 //----- (00442590) --------------------------------------------------------
-int __cdecl nox_cmd_set_weapons(int a1, char a2, int a3) {
+int nox_cmd_set_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v3; // eax
 	wchar_t* v5; // [esp-4h] [ebp-Ch]
 
@@ -911,7 +1039,10 @@ int __cdecl nox_cmd_set_weapons(int a1, char a2, int a3) {
 }
 
 //----- (00442670) --------------------------------------------------------
-int __cdecl nox_cmd_set_staffs(int a1, char a2, int a3) {
+int nox_cmd_set_staffs(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v3; // eax
 	wchar_t* v5; // [esp-4h] [ebp-Ch]
 
@@ -940,7 +1071,10 @@ int __cdecl nox_cmd_set_staffs(int a1, char a2, int a3) {
 	return 0;
 }
 //----- (00442840) --------------------------------------------------------
-int __cdecl nox_cmd_set_name(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_set_name(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	int v3;          // ebx
 	unsigned int v5; // edx
 	char* v6;        // edi
@@ -987,7 +1121,10 @@ int __cdecl nox_cmd_set_name(int a1, unsigned __int8 a2, int a3) {
 // 442840: using guessed type char var_80[128];
 
 //----- (00442950) --------------------------------------------------------
-int __cdecl nox_cmd_set_mnstrs(int a1, char a2, int a3) {
+int nox_cmd_set_mnstrs(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v3; // eax
 	wchar_t* v5; // [esp-4h] [ebp-10h]
 
@@ -1038,7 +1175,10 @@ int __cdecl nox_cmd_set_mnstrs(int a1, char a2, int a3) {
 }
 
 //----- (00442B00) --------------------------------------------------------
-int __cdecl nox_cmd_set_spell(int a1, char a2, int a3) {
+int nox_cmd_set_spell(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v3;   // eax
 	int v4;        // esi
 	char* v5;      // ebx
@@ -1143,7 +1283,10 @@ int __cdecl sub_415A60(wchar_t* a1) {
 }
 
 //----- (00442C90) --------------------------------------------------------
-int __cdecl nox_cmd_set_weapon(int a1, char a2, int a3) {
+int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v3;          // eax
 	wchar_t* v4;          // eax
 	unsigned __int16* v6; // esi
@@ -1230,7 +1373,10 @@ int __cdecl sub_415EF0(wchar_t* a1) {
 }
 
 //----- (00442ED0) --------------------------------------------------------
-int __cdecl nox_cmd_set_armor(int a1, char a2, int a3) {
+int nox_cmd_set_armor(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v3;          // eax
 	unsigned __int16* v4; // esi
 	wchar_t* v6;          // eax
@@ -1283,7 +1429,10 @@ int __cdecl nox_cmd_set_armor(int a1, char a2, int a3) {
 }
 
 //----- (00443050) --------------------------------------------------------
-int __cdecl nox_cmd_set_staff(int a1, char a2, int a3) {
+int nox_cmd_set_staff(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	int v3;       // edi
 	wchar_t* v4;  // eax
 	wchar_t* v6;  // eax
@@ -1322,7 +1471,10 @@ int __cdecl nox_cmd_set_staff(int a1, char a2, int a3) {
 }
 
 //----- (00443160) --------------------------------------------------------
-int __cdecl nox_cmd_ban(int a1, char a2, int a3) {
+int nox_cmd_ban(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v4; // edi
 	char* v5;    // eax
 	char* v6;    // esi
@@ -1361,7 +1513,7 @@ int __cdecl nox_cmd_ban(int a1, char a2, int a3) {
 }
 
 //----- (00443250) --------------------------------------------------------
-int nox_cmd_allow_user() {
+int nox_cmd_allow_user(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // eax
 
 	v0 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 106132), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3698);
@@ -1370,7 +1522,7 @@ int nox_cmd_allow_user() {
 }
 
 //----- (00443280) --------------------------------------------------------
-int nox_cmd_allow_ip() {
+int nox_cmd_allow_ip(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // eax
 
 	v0 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 106192), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3704);
@@ -1379,7 +1531,10 @@ int nox_cmd_allow_ip() {
 }
 
 //----- (004432B0) --------------------------------------------------------
-int __cdecl nox_cmd_kick(int a1, char a2, int a3) {
+int nox_cmd_kick(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	char* v4;    // eax
 	char* v5;    // esi
 	wchar_t* v6; // eax
@@ -1409,7 +1564,10 @@ int __cdecl nox_cmd_kick(int a1, char a2, int a3) {
 }
 
 //----- (00443380) --------------------------------------------------------
-int __cdecl nox_cmd_set_players(int a1, char a2, int a3) {
+int nox_cmd_set_players(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	int v3;            // esi
 	const wchar_t* v5; // eax
 	int v6;            // eax
@@ -1439,7 +1597,7 @@ int __cdecl nox_cmd_set_players(int a1, char a2, int a3) {
 }
 
 //----- (00443480) --------------------------------------------------------
-int nox_cmd_set_spellpts() {
+int nox_cmd_set_spellpts(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // eax
 
 	v0 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 106412), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3830);
@@ -1448,7 +1606,7 @@ int nox_cmd_set_spellpts() {
 }
 
 //----- (004434B0) --------------------------------------------------------
-int nox_cmd_list_users() {
+int nox_cmd_list_users(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0;     // eax
 	char* i;         // esi
 	wchar_t* v2;     // eax
@@ -1506,7 +1664,10 @@ int __cdecl sub_57A130(wchar_t* a1) {
 }
 
 //----- (00443610) --------------------------------------------------------
-int __cdecl nox_cmd_unmute(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_unmute(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t** v3; // esi
 	int v4;       // eax
 	int v5;       // eax
@@ -1571,7 +1732,10 @@ int __cdecl sub_57A0C0(wchar_t* a1) {
 }
 
 //----- (004436E0) --------------------------------------------------------
-int __cdecl nox_cmd_mute(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_mute(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t** v3; // esi
 	int v4;       // eax
 	int v5;       // eax
@@ -1608,7 +1772,9 @@ LABEL_9:
 }
 
 //----- (004437B0) --------------------------------------------------------
-int __cdecl nox_cmd_exec(int a1, char a2) {
+int nox_cmd_exec(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	wchar_t* v3; // eax
 	int v4;      // [esp-4h] [ebp-4h]
 
@@ -1625,7 +1791,10 @@ int __cdecl nox_cmd_exec(int a1, char a2) {
 }
 
 //----- (00443810) --------------------------------------------------------
-int __cdecl nox_cmd_exec_rul(int a1, char a2, int a3) {
+int nox_cmd_exec_rul(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	wchar_t* v4;     // eax
 	wchar_t v5[128]; // [esp+0h] [ebp-100h]
 
@@ -1641,7 +1810,11 @@ int __cdecl nox_cmd_exec_rul(int a1, char a2, int a3) {
 }
 
 //----- (004439B0) --------------------------------------------------------
-int __cdecl nox_xxx_cmdSysop_4439B0(int a1, unsigned __int8 a2) {
+int nox_cmd_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
+
 	wchar_t* v2; // eax
 	int result;  // eax
 	wchar_t* v4; // eax
@@ -2088,7 +2261,10 @@ int nox_xxx_cmdTokensLoad_4444F0() {
 }
 
 //----- (00440B00) --------------------------------------------------------
-int __cdecl nox_cmd_unbind(int a1, char a2, int a3) {
+int nox_cmd_unbind(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	int v3; // eax
 
 	if (a2 != 2)
@@ -2103,7 +2279,10 @@ int __cdecl nox_cmd_unbind(int a1, char a2, int a3) {
 }
 
 //----- (00440B50) --------------------------------------------------------
-int __cdecl nox_cmd_broadcast(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_broadcast(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	int result;      // eax
 	wchar_t v4[128]; // [esp+0h] [ebp-100h]
 
@@ -2119,7 +2298,9 @@ int __cdecl nox_cmd_broadcast(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (00440C90) --------------------------------------------------------
-int __cdecl nox_cmd_say(int a1, char a2) {
+int nox_cmd_say(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	if (a2 == 1)
 		return 0;
 	nox_xxx_cmdSayDo_46A4B0((wchar_t*)(dword_5d4594_823700 + 8), 0);
@@ -2127,7 +2308,9 @@ int __cdecl nox_cmd_say(int a1, char a2) {
 }
 
 //----- (00440CC0) --------------------------------------------------------
-int __cdecl nox_cmd_offonly1(int a1, char a2) {
+int nox_cmd_offonly1(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	if (a2 != 2)
 		return 0;
 	nox_xxx_wndGuiTeamCreate_4185B0();
@@ -2135,7 +2318,10 @@ int __cdecl nox_cmd_offonly1(int a1, char a2) {
 }
 
 //----- (00440CE0) --------------------------------------------------------
-int __cdecl nox_cmd_offonly2(int a1, char a2, int a3) {
+int nox_cmd_offonly2(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	int result;          // eax
 	char* v4;            // ebx
 	const wchar_t* v5;   // eax
@@ -2168,7 +2354,9 @@ int __cdecl nox_cmd_offonly2(int a1, char a2, int a3) {
 }
 
 //----- (00440FD0) --------------------------------------------------------
-int __cdecl nox_cmd_set_fr(int a1, char a2) {
+int nox_cmd_set_fr(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	if (a2 != 2)
 		return 0;
 	sub_43DDE0(1);
@@ -2176,7 +2364,9 @@ int __cdecl nox_cmd_set_fr(int a1, char a2) {
 }
 
 //----- (00440FF0) --------------------------------------------------------
-int __cdecl nox_cmd_unset_fr(int a1, char a2) {
+int nox_cmd_unset_fr(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	if (a2 != 2)
 		return 0;
 	sub_43DDE0(0);
@@ -2184,7 +2374,9 @@ int __cdecl nox_cmd_unset_fr(int a1, char a2) {
 }
 
 //----- (00441010) --------------------------------------------------------
-int __cdecl nox_cmd_set_net_debug(int a1, char a2) {
+int nox_cmd_set_net_debug(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	if (a2 != 2)
 		return 0;
 
@@ -2193,7 +2385,9 @@ int __cdecl nox_cmd_set_net_debug(int a1, char a2) {
 }
 
 //----- (00441030) --------------------------------------------------------
-int __cdecl nox_cmd_unset_net_debug(int a1, char a2) {
+int nox_cmd_unset_net_debug(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	if (a2 != 2)
 		return 0;
 
@@ -2202,13 +2396,13 @@ int __cdecl nox_cmd_unset_net_debug(int a1, char a2) {
 }
 
 //----- (00441440) --------------------------------------------------------
-int nox_cmd_show_ai() {
+int nox_cmd_show_ai(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI);
 	return 1;
 }
 
 //----- (00441460) --------------------------------------------------------
-int nox_cmd_show_gui() {
+int nox_cmd_show_gui(int tokInd, int tokCnt, wchar_t** tokens) {
 	int v0; // eax
 
 	v0 = nox_client_renderGUI_80828 ^ 1;
@@ -2218,48 +2412,50 @@ int nox_cmd_show_gui() {
 }
 
 //----- (00441480) --------------------------------------------------------
-int nox_cmd_show_extents() {
+int nox_cmd_show_extents(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 	nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS);
 	return 1;
 }
 
 //----- (004414B0) --------------------------------------------------------
-int nox_cmd_show_perfmon() {
+int nox_cmd_show_perfmon(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 	sub_435F40();
 	return 1;
 }
 
 //----- (004414D0) --------------------------------------------------------
-int nox_cmd_show_netstat() {
+int nox_cmd_show_netstat(int tokInd, int tokCnt, wchar_t** tokens) {
 	sub_470A60();
 	return 1;
 }
 
 //----- (004414E0) --------------------------------------------------------
-int nox_cmd_show_info() {
+int nox_cmd_show_info(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 	sub_435F60();
 	return 1;
 }
 
 //----- (00441500) --------------------------------------------------------
-int nox_cmd_show_mem() {
+int nox_cmd_show_mem(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_server_currentMapGetFilename_409B30();
 	sub_413E30();
 	return 1;
 }
 
 //----- (00441530) --------------------------------------------------------
-int nox_cmd_show_rank() {
+int nox_cmd_show_rank(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (nox_common_gameFlags_check_40A5C0(0x2000))
 		sub_4703F0();
 	return 1;
 }
 
 //----- (004416B0) --------------------------------------------------------
-int __cdecl nox_cmd_show_motd(int a1, char a2) {
+int nox_cmd_show_motd(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	if (a2 != 2)
 		return 0;
 	nox_xxx_motd_4467F0();
@@ -2267,7 +2463,9 @@ int __cdecl nox_cmd_show_motd(int a1, char a2) {
 }
 
 //----- (004416D0) --------------------------------------------------------
-int __cdecl nox_cmd_show_seq(int a1, char a2) {
+int nox_cmd_show_seq(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	if (a2 != 2)
 		return 0;
 	sub_48D7B0();
@@ -2275,7 +2473,7 @@ int __cdecl nox_cmd_show_seq(int a1, char a2) {
 }
 
 //----- (00441740) --------------------------------------------------------
-int nox_cmd_list_maps() {
+int nox_cmd_list_maps(int tokInd, int tokCnt, wchar_t** tokens) {
 	int* v0;       // esi
 	int i;         // edi
 	bool v2;       // zf
@@ -2301,7 +2499,10 @@ int nox_cmd_list_maps() {
 }
 
 //----- (00441870) --------------------------------------------------------
-int __cdecl nox_cmd_log_file(int a1, char a2, int a3) {
+int nox_cmd_log_file(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	int result;   // eax
 	char v4[256]; // [esp+0h] [ebp-100h]
 
@@ -2317,7 +2518,9 @@ int __cdecl nox_cmd_log_file(int a1, char a2, int a3) {
 }
 
 //----- (004418D0) --------------------------------------------------------
-int __cdecl nox_cmd_log_console(int a1, char a2) {
+int nox_cmd_log_console(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	if (a2 != 2)
 		return 0;
 	nox_common_setEngineFlag(NOX_ENGINE_FLAG_25);
@@ -2325,7 +2528,9 @@ int __cdecl nox_cmd_log_console(int a1, char a2) {
 }
 
 //----- (004418F0) --------------------------------------------------------
-int __cdecl nox_cmd_log_stop(int a1, char a2) {
+int nox_cmd_log_stop(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
 	if (a2 != 2)
 		return 0;
 	sub_413C00();
@@ -2333,10 +2538,10 @@ int __cdecl nox_cmd_log_stop(int a1, char a2) {
 }
 
 //----- (00441D20) --------------------------------------------------------
-int nox_cmd_set() { return 1; }
+int nox_cmd_set(int tokInd, int tokCnt, wchar_t** tokens) { return 1; }
 
 //----- (00441D30) --------------------------------------------------------
-int nox_cmd_cheat_ability() {
+int nox_cmd_cheat_ability(int tokInd, int tokCnt, wchar_t** tokens) {
 	char* i; // esi
 
 	if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
@@ -2349,7 +2554,10 @@ int nox_cmd_cheat_ability() {
 }
 
 //----- (00441D80) --------------------------------------------------------
-int __cdecl nox_cmd_cheat_goto(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_cheat_goto(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	const char* v4; // edi
 	char* v5;       // esi
 	int v6;         // eax
@@ -2395,7 +2603,7 @@ int __cdecl nox_cmd_cheat_goto(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (00441EB0) --------------------------------------------------------
-int nox_cmd_cheat_health() {
+int nox_cmd_cheat_health(int tokInd, int tokCnt, wchar_t** tokens) {
 	char* i; // esi
 
 	if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
@@ -2408,7 +2616,7 @@ int nox_cmd_cheat_health() {
 }
 
 //----- (00441F00) --------------------------------------------------------
-int nox_cmd_cheat_mana() {
+int nox_cmd_cheat_mana(int tokInd, int tokCnt, wchar_t** tokens) {
 	char* i; // esi
 	int v1;  // eax
 
@@ -2423,7 +2631,10 @@ int nox_cmd_cheat_mana() {
 }
 
 //----- (00441F50) --------------------------------------------------------
-int __cdecl nox_cmd_cheat_level(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_cheat_level(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	char* i;            // esi
 	unsigned __int8 v5; // al
 
@@ -2441,7 +2652,10 @@ int __cdecl nox_cmd_cheat_level(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (00441FC0) --------------------------------------------------------
-int __cdecl nox_cmd_cheat_spells(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_cheat_spells(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	int v4;  // eax
 	int v5;  // edi
 	char* i; // ebp
@@ -2475,7 +2689,10 @@ int __cdecl nox_cmd_cheat_spells(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (00442070) --------------------------------------------------------
-int __cdecl nox_cmd_cheat_gold(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_cheat_gold(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	int v4;  // edi
 	char* i; // esi
 	int v6;  // eax
@@ -2498,19 +2715,19 @@ int __cdecl nox_cmd_cheat_gold(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (00442120) --------------------------------------------------------
-int nox_cmd_image() {
+int nox_cmd_image(int tokInd, int tokCnt, wchar_t** tokens) {
 	sub_46DB00();
 	return 1;
 }
 
 //----- (00442130) --------------------------------------------------------
-int nox_cmd_quit() {
+int nox_cmd_quit(int tokInd, int tokCnt, wchar_t** tokens) {
 	sub_4460C0();
 	return 1;
 }
 
 //----- (00442140) --------------------------------------------------------
-int nox_cmd_exit() {
+int nox_cmd_exit(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (nox_common_gameFlags_check_40A5C0(4096) && nox_common_gameFlags_check_40A5C0(1))
 		sub_4D6B10(0);
 	if (nox_common_gameFlags_check_40A5C0(0x2000000))
@@ -2521,7 +2738,10 @@ int nox_cmd_exit() {
 }
 
 //----- (00442210) --------------------------------------------------------
-int __cdecl nox_cmd_watch(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_watch(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	int result;      // eax
 	char* v4;        // eax
 	wchar_t v5[128]; // [esp+4h] [ebp-100h]
@@ -2548,7 +2768,10 @@ int __cdecl nox_cmd_watch(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (004422D0) --------------------------------------------------------
-int __cdecl nox_cmd_gamma(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_gamma(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	const wchar_t* v3; // eax
 	int v4;            // esi
 	int v5;            // esi
@@ -2576,7 +2799,10 @@ int __cdecl nox_cmd_gamma(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (00442340) --------------------------------------------------------
-int __cdecl nox_cmd_window(int a1, unsigned __int8 a2, int a3) {
+int nox_cmd_window(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	unsigned __int8 a2 = tokCnt;
+	int a3 = tokens;
 	const wchar_t* v3; // eax
 	int v4;            // eax
 	int v6;            // eax
@@ -2595,7 +2821,7 @@ int __cdecl nox_cmd_window(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (00442750) --------------------------------------------------------
-int nox_cmd_set_qual_modem() {
+int nox_cmd_set_qual_modem(int tokInd, int tokCnt, wchar_t** tokens) {
 	int v0; // eax
 
 	dword_5d4594_2650652 = 1;
@@ -2607,7 +2833,7 @@ int nox_cmd_set_qual_modem() {
 }
 
 //----- (00442780) --------------------------------------------------------
-int nox_cmd_set_qual_isdn() {
+int nox_cmd_set_qual_isdn(int tokInd, int tokCnt, wchar_t** tokens) {
 	int v0; // eax
 
 	dword_5d4594_2650652 = 1;
@@ -2619,7 +2845,7 @@ int nox_cmd_set_qual_isdn() {
 }
 
 //----- (004427B0) --------------------------------------------------------
-int nox_cmd_set_qual_cable() {
+int nox_cmd_set_qual_cable(int tokInd, int tokCnt, wchar_t** tokens) {
 	int v0; // eax
 
 	dword_5d4594_2650652 = 1;
@@ -2631,7 +2857,7 @@ int nox_cmd_set_qual_cable() {
 }
 
 //----- (004427E0) --------------------------------------------------------
-int nox_cmd_set_qual_t1() {
+int nox_cmd_set_qual_t1(int tokInd, int tokCnt, wchar_t** tokens) {
 	int v0; // eax
 
 	dword_5d4594_2650652 = 1;
@@ -2643,7 +2869,7 @@ int nox_cmd_set_qual_t1() {
 }
 
 //----- (00442810) --------------------------------------------------------
-int nox_cmd_set_qual_lan() {
+int nox_cmd_set_qual_lan(int tokInd, int tokCnt, wchar_t** tokens) {
 	int v0; // eax
 
 	dword_5d4594_2650652 = 0;
@@ -2655,7 +2881,10 @@ int nox_cmd_set_qual_lan() {
 }
 
 //----- (00443400) --------------------------------------------------------
-int __cdecl nox_cmd_set_time(int a1, char a2, int a3) {
+int nox_cmd_set_time(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	char* v4;           // esi
 	const wchar_t* v5;  // eax
 	unsigned __int8 v6; // al
@@ -2672,7 +2901,10 @@ int __cdecl nox_cmd_set_time(int a1, char a2, int a3) {
 }
 
 //----- (00443440) --------------------------------------------------------
-int __cdecl nox_cmd_set_lessons(int a1, char a2, int a3) {
+int nox_cmd_set_lessons(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	const wchar_t* v4;   // esi
 	char* v5;            // edi
 	unsigned __int16 v6; // ax
@@ -2689,26 +2921,29 @@ int __cdecl nox_cmd_set_lessons(int a1, char a2, int a3) {
 }
 
 //----- (004435C0) --------------------------------------------------------
-int nox_cmd_clear() {
+int nox_cmd_clear(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_conClear_450B70();
 	return 1;
 }
 
 //----- (004435D0) --------------------------------------------------------
-int nox_cmd_menu_options() {
+int nox_cmd_menu_options(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (!nox_common_gameFlags_check_40A5C0(8) && nox_common_gameFlags_check_40A5C0(0x2000))
 		nox_xxx_guiServerOptsLoad_457500();
 	return 1;
 }
 
 //----- (00443600) --------------------------------------------------------
-int nox_cmd_menu_vidopt() {
+int nox_cmd_menu_vidopt(int tokInd, int tokCnt, wchar_t** tokens) {
 	sub_4ADA40();
 	return 1;
 }
 
 //----- (00440A50) --------------------------------------------------------
-int __cdecl nox_cmd_bind(int a1, char a2, int a3) {
+int __cdecl nox_cmd_bind(int tokInd, int tokCnt, wchar_t** tokens) {
+	int a1 = tokInd;
+	char a2 = tokCnt;
+	int a3 = tokens;
 	int v3; // esi
 
 	if (a2 != 3)
@@ -2719,5 +2954,19 @@ int __cdecl nox_cmd_bind(int a1, char a2, int a3) {
 	if (v3 == -1 || nox_wcslen(*(const wchar_t**)(a3 + 8)) >= 0x80)
 		return 0;
 	nox_wcscpy((wchar_t*)getMemAt(0x587000, 76 * v3 + 94516), *(const wchar_t**)(a3 + 8));
+	return 1;
+}
+
+//----- (004420F0) --------------------------------------------------------
+int nox_cmd_reenter(int tokInd, int tokCnt, wchar_t** tokens) {
+	if (!nox_common_gameFlags_check_40A5C0(0x2000))
+		sub_40AA60(1);
+	return 1;
+}
+
+//----- (004423A0) --------------------------------------------------------
+int nox_cmd_startSoloQuest(int tokInd, int tokCnt, wchar_t** tokens) {
+	if (sub_4D6F50() && !nox_common_gameFlags_check_40A5C0(4096))
+		nox_server_conCmdHandler_startSoloQuest_4D7080();
 	return 1;
 }

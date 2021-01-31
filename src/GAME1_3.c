@@ -3791,20 +3791,6 @@ void __cdecl sub_4417E0(wchar_t* a1, const char* a2) {
 }
 // 4417E0: using guessed type char var_C0[64];
 
-//----- (004420F0) --------------------------------------------------------
-int sub_4420F0() {
-	if (!nox_common_gameFlags_check_40A5C0(0x2000))
-		sub_40AA60(1);
-	return 1;
-}
-
-//----- (004423A0) --------------------------------------------------------
-int nox_xxx_conStartSoloQuest_4423A0() {
-	if (sub_4D6F50() && !nox_common_gameFlags_check_40A5C0(4096))
-		nox_server_conCmdHandler_startSoloQuest_4D7080();
-	return 1;
-}
-
 //----- (004438A0) --------------------------------------------------------
 int __cdecl nox_xxx_doExecrul_4438A0(int a1) {
 	FILE* v1;        // eax
