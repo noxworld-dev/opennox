@@ -3441,7 +3441,7 @@ SOCKET sub_578E10() {
 
 	argp = 1;
 	name.sin_family = AF_INET;
-	name.sin_port = htons(*(uint16_t*)getMemAt(0x5D4594, 2523736));
+	name.sin_port = htons(getMemU16Ptr(0x5D4594, 2523736));
 	name.sin_addr.s_addr = 0;
 	memset(name.sin_zero, 0, 8);
 	result = socket(AF_INET, SOCK_STREAM, 0);
