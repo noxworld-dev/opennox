@@ -4653,42 +4653,31 @@ int __cdecl sub_46B630(int a1, int a2, int a3) {
 }
 
 //----- (0046B6B0) --------------------------------------------------------
-void __cdecl nox_xxx_windowUpdateKeysMB_46B6B0(unsigned __int8* a1) {
-	int v1;              // edi
-	unsigned __int8* v2; // esi
-	char v3;             // bl
-	int v4;              // eax
-	int v5;              // ecx
-	unsigned __int8 v6;  // [esp-8h] [ebp-14h]
-	char v7;             // [esp+10h] [ebp+4h]
-
-	v1 = nox_win_unk2;
-	if (v1) {
-		v2 = a1;
-		if (*a1) {
-			v3 = 1;
-			if (a1[2] != 1) {
-				v4 = *a1;
-				v5 = a1[1];
-				v7 = 1;
-				if (!nox_window_call_field_93(nox_win_unk2, 21, v4, v5)) {
-					while (1) {
-						v1 = *(_DWORD*)(v1 + 396);
-						if (!v1)
-							break;
-						if (nox_window_call_field_93(v1, 21, *v2, v2[1]))
-							goto LABEL_9;
-					}
-					v3 = 0;
-					v7 = 0;
-				}
-			LABEL_9:
-				v6 = *v2;
-				v2[2] = v3;
-				sub_4309B0(v6, v7);
-			}
+void nox_xxx_windowUpdateKeysMB_46B6B0(unsigned __int8* a1) {
+	if (!nox_win_unk2) {
+		return;
+	}
+	if (!*a1) {
+		return;
+	}
+	if (a1[2] == 1) {
+		return;
+	}
+	char v3 = 1;
+	char v7 = 1;
+	unsigned __int8* v2 = a1;
+	int v1 = nox_win_unk2;
+	while (!nox_window_call_field_93(v1, 21, *v2, v2[1])) {
+		v1 = *(_DWORD*)(v1 + 396);
+		if (!v1) {
+			v3 = 0;
+			v7 = 0;
+			break;
 		}
 	}
+	unsigned __int8 v6 = *v2;
+	v2[2] = v3;
+	sub_4309B0(v6, v7);
 }
 
 //----- (0046B740) --------------------------------------------------------
