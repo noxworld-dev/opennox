@@ -40,13 +40,165 @@ typedef struct nox_cmd_t {
 	int(__cdecl* fnc)(int, int, int);
 } nox_cmd_t;
 
-//#ifndef NOX_CGO
+nox_cmd_t nox_commands_quality[] = {
+	{L"modem", 0, "setqualmodemhelp", 0x3, 0, &nox_cmd_set_qual_modem},
+	{L"isdn", 0, "setqualisdnhelp", 0x3, 0, &nox_cmd_set_qual_isdn},
+	{L"cable", 0, "setqualcablehelp", 0x3, 0, &nox_cmd_set_qual_cable},
+	{L"T1", 0, "setqualT1help", 0x3, 0, &nox_cmd_set_qual_t1},
+	{L"LAN", 0, "setqualLANhelp", 0x3, 0, &nox_cmd_set_qual_lan},
+	{},
+};
+
+nox_cmd_t nox_commands_allow[] = {
+	{L"user", 0, "allowuserhelp", 0x1, 0, &nox_cmd_allow_user},
+	{L"IP", 0, "allowiphelp", 0x1, 0, &nox_cmd_allow_ip},
+	{},
+};
+
+nox_cmd_t nox_commands_cheat[] = {
+	{L"ability", 0, "cheatabilityhelp", 0x1, 0, &nox_cmd_cheat_ability},
+	{L"goto", 0, "cheatgotohelp", 0x1, 0, &nox_cmd_cheat_goto},
+	{L"health", 0, "cheathealthhelp", 0x1, 0, &nox_cmd_cheat_health},
+	{L"mana", 0, "cheatmanahelp", 0x1, 0, &nox_cmd_cheat_mana},
+	{L"level", 0, "cheatlevelhelp", 0x1, 0, &nox_cmd_cheat_level},
+	{L"spells", 0, "cheatspellshelp", 0x1, 0, &nox_cmd_cheat_spells},
+	{L"gold", 0, "cheatgoldhelp", 0x1, 0, &nox_cmd_cheat_gold},
+	{L"re-enter", 0, "", 0x1, 0, &sub_4420F0},
+	{},
+};
+
+nox_cmd_t nox_commands_list[] = {
+	{L"armor", 0, "listarmorhelp", 0x3, 0, &nox_cmd_list_armor},
+	{L"maps", 0, "listmapshelp", 0x3, 0, &nox_cmd_list_maps},
+	{L"spells", 0, "listspellshelp", 0x3, 0, &nox_cmd_list_spells},
+	{L"staffs", 0, "liststaffshelp", 0x3, 0, &nox_cmd_list_staffs},
+	{L"weapons", 0, "listweaponshelp", 0x3, 0, &nox_cmd_list_weapons},
+	{L"users", 0, "listusershelp", 0x3, 0, &nox_cmd_list_users},
+	{},
+};
+
+nox_cmd_t nox_commands_log[] = {
+	{L"console", 0, "logconsolehelp", 0x3, 0, &nox_cmd_log_console},
+	{L"file", 0, "logfilehelp", 0x3, 0, &nox_cmd_log_file},
+	{L"stop", 0, "logstophelp", 0x3, 0, &nox_cmd_log_stop},
+	{},
+};
+
+nox_cmd_t nox_commands_macros[] = {
+	{L"on", 0, "macrosonhelp", 0x1, 0, &nox_cmd_macros_on},
+	{L"off", 0, "macrosoffhelp", 0x1, 0, &nox_cmd_macros_off},
+	{},
+};
+
+nox_cmd_t nox_commands_menu[] = {
+	{L"vidopt", 0, "menuvidopthelp", 0x3, 0, &nox_cmd_menu_vidopt},
+	{L"options", 0, "menuoptionshelp", 0x3, 0, &nox_cmd_menu_options},
+	{},
+};
+
+nox_cmd_t nox_commands_set[] = {
+	{L"armor", 0, "setarmorhelp", 0x1, 0, &nox_cmd_set_armor},
+	{L"cycle", 0, "setcyclehelp", 0x1, 0, &nox_cmd_set_cycle},
+	{L"frameratelimiter", 0, "setfrhelp", 0x11, 0, &nox_cmd_set_fr},
+	{L"god", 0, "setgodhelp", 0x11, 0, &nox_cmd_set_god},
+	{L"lessons", 0, "setlessonshelp", 0x1, 0, &nox_cmd_set_lessons},
+	{L"monsters", 0, "setmnstrshelp", 0x11, 0, &nox_cmd_set_mnstrs},
+	{L"name", 0, "setnamehelp", 0x1, 0, &nox_cmd_set_name},
+	{L"netdebug", 0, "setnetdebughelp", 0x13, 0, &nox_cmd_set_net_debug},
+	{L"ob", 0, "setobshelp", 0x13, 0, &nox_cmd_set_obs},
+	{L"players", 0, "setplayershelp", 0x1, 0, &nox_cmd_set_players},
+	{L"quality", 0, "setqualityhelp", 0x3, nox_commands_quality, 0},
+	{L"sage", 0, "setsagehelp", 0x11, 0, &nox_cmd_set_sage},
+	{L"savedebugcmd", 0, "setsavedebughelp", 0x1, 0, &nox_cmd_set_save_debug},
+	{L"spell", 0, "setspellhelp", 0x1, 0, &nox_cmd_set_spell},
+	{L"spellpoints", 0, "setspellptshelp", 0x11, 0, &nox_cmd_set_spellpts},
+	{L"staff", 0, "setstaffhelp", 0x11, 0, &nox_cmd_set_staff},
+	{L"staffs", 0, "setstaffshelp", 0x11, 0, &nox_cmd_set_staffs},
+	{L"sysop", 0, "setsysophelp", 0x1, 0, &nox_cmd_set_sysop},
+	{L"time", 0, "settimehelp", 0x1, 0, &nox_cmd_set_time},
+	{L"weapon", 0, "setweaponhelp", 0x1, 0, &nox_cmd_set_weapon},
+	{L"weapons", 0, "setweaponshelp", 0x11, 0, &nox_cmd_set_weapons},
+	{L"team", 0, "officialonly", 0x31, 0, &nox_cmd_offonly1},
+	{L"mode", 0, "officialonly", 0x31, 0, &nox_cmd_offonly2},
+	{},
+};
+
+nox_cmd_t nox_commands_show[] = {
+	{L"bindings", 0, "showbindingshelp", 0x3, 0, &nox_cmd_show_bindings},
+	{L"game", 0, "showgamehelp", 0x3, 0, &nox_cmd_show_game},
+	{L"motd", 0, "showmotdhelp", 0x3, 0, &nox_cmd_show_motd},
+	{L"rank", 0, "showrankhelp", 0x3, 0, &nox_cmd_show_rank},
+	{L"perfmon", 0, "showperfmonhelp", 0x3, 0, &nox_cmd_show_perfmon},
+	{L"extents", 0, "showextentshelp", 0x13, 0, &nox_cmd_show_extents},
+	{L"gui", 0, "showguihelp", 0x3, 0, &nox_cmd_show_gui},
+	{L"ai", 0, "showaihelp", 0x11, 0, &nox_cmd_show_ai},
+	{L"info", 0, "showinfohelp", 0x7, 0, &nox_cmd_show_info},
+	{L"mem", 0, "showmemhelp", 0x13, 0, &nox_cmd_show_mem},
+	{L"netstat", 0, "shownetstathelp", 0x3, 0, &nox_cmd_show_netstat},
+	{L"mmx", 0, "showmmxhelp", 0x3, 0, &nox_cmd_show_mmx},
+	{L"seq", 0, "showseqhelp", 0x13, 0, &nox_cmd_show_seq},
+	{},
+};
+
+nox_cmd_t nox_commands_telnet[] = {
+	{L"on", 0, "telnetonhelp", 0x1, 0, &nox_cmd_telnet_on},
+	{L"off", 0, "telnetoffhelp", 0x1, 0, &nox_cmd_telnet_off},
+	{},
+};
+
+nox_cmd_t nox_commands_unset[] = {
+	{L"god", 0, "unsetgodhelp", 0x1, 0, &nox_cmd_unset_god},
+	{L"frameratelimiter", 0, "unsetfrhelp", 0x1, 0, &nox_cmd_unset_fr},
+	{L"netdebug", 0, "unsetnetdebug", 0x3, 0, &nox_cmd_unset_net_debug},
+	{L"sage", 0, "unsetsagehelp", 0x1, 0, &nox_cmd_unset_sage},
+	{},
+};
+
+nox_cmd_t nox_commands[] = {
+	{L"0YAKikQs", 0, "noHelp", 0x47, 0, &nox_cmd_racoiaws},
+	{L"allow", 0, "allowhelp", 0x1, nox_commands_allow, 0},
+	{L"audtest", 0, "sethelp", 0x3, 0, &nox_cmd_set},
+	{L"ban", 0, "banhelp", 0x1, 0, &nox_cmd_ban},
+	{L"bind", 0, "bindHelp", 0x3, 0, &nox_cmd_bind},
+	{L"broadcast", 0, "broadcasthelp", 0x1, 0, &nox_cmd_broadcast},
+	{L"cheat", 0, "cheathelp", 0x11, nox_commands_cheat, 0},
+	{L"clear", 0, "clearhelp", 0x3, 0, &nox_cmd_clear},
+	{L"exec", 0, "exechelp", 0x1, 0, &nox_cmd_exec},
+	{L"execrul", 0, "execrulhelp", 0x3, 0, &nox_cmd_exec_rul},
+	{L"exit", 0, "exithelp", 0x3, 0, &nox_cmd_exit},
+	{L"gamma", 0, "gammahelp", 0x3, 0, &nox_cmd_gamma},
+	{L"help", 0, "helphelp", 0x3, 0, &nox_cmd_help},
+	{L"image", 0, "imagehelp", 0x3, 0, &nox_cmd_image},
+	{L"kick", 0, "kickhelp", 0x1, 0, &nox_cmd_kick},
+	{L"list", 0, "listhelp", 0x3, nox_commands_list, 0},
+	{L"lock", 0, "lockhelp", 0x3, 0, &nox_cmd_lock},
+	{L"load", 0, "loadhelp", 0x11, 0, &nox_cmd_load},
+	{L"log", 0, "loghelp", 0x13, nox_commands_log, 0},
+	{L"macros", 0, "macroshelp", 0x3, nox_commands_macros, 0},
+	{L"menu", 0, "menuhelp", 0x3, nox_commands_menu, 0},
+	{L"mute", 0, "mutehelp", 0x3, 0, &nox_cmd_mute},
+	{L"quit", 0, "quithelp", 0x3, 0, &nox_cmd_quit},
+	{L"say", 0, "sayhelp", 0x3, 0, &nox_cmd_say},
+	{L"set", 0, "sethelp", 0x3, nox_commands_set, 0},
+	{L"show", 0, "showhelp", 0x3, nox_commands_show, 0},
+	{L"sysop", 0, "nohelp", 0x7, 0, &nox_xxx_cmdSysop_4439B0},
+	{L"telnet", 0, "telnethelp", 0x1, nox_commands_telnet, 0},
+	{L"unset", 0, "unsethelp", 0x3, nox_commands_unset, 0},
+	{L"unmute", 0, "unmutehelp", 0x3, 0, &nox_cmd_unmute},
+	{L"unbind", 0, "unbindHelp", 0x3, 0, &nox_cmd_unbind},
+	{L"unlock", 0, "unlockhelp", 0x3, 0, &nox_cmd_unlock},
+	{L"watch", 0, "watchhelp", 0x3, 0, &nox_cmd_watch},
+	{L"window", 0, "windowhelp", 0x3, 0, &nox_cmd_window},
+	{L"startSoloQuest", 0, "nohelp", 0x5, 0, &nox_xxx_conStartSoloQuest_4423A0},
+	{L"ques", 0, "helphelp", 0x3, 0, &nox_cmd_help},
+	{},
+};
+
 //----- (00440D70) --------------------------------------------------------
 int nox_cmd_racoiaws() {
 	nox_cheats_disabled = 0;
 	return 1;
 }
-//#endif // NOX_CGO
 
 //----- (00450B20) --------------------------------------------------------
 wchar_t* __cdecl sub_450B20(wchar_t* a1) {
@@ -396,7 +548,7 @@ int __cdecl nox_cmd_show_bindings(int a1, char a2) {
 		if (*(_WORD*)v3)
 			nox_xxx_consoleVPrint_450C00(4u, (wchar_t*)getMemAt(0x587000, 102824), *((_DWORD*)v3 - 2), v3);
 		v3 += 76;
-	} while ((int)v3 < (int)getMemAt(0x587000, 95428));
+	} while ((int)v3 - (int)getMemAt(0x587000, 94516) < 912);
 	if (*getMemU32Ptr(0x587000, 95416))
 		v4 =
 			nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 102880), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1630);
@@ -625,8 +777,8 @@ int __cdecl sub_441BF0(int a1, int a2, int a3, const wchar_t** a4) {
 //----- (00441CE0) --------------------------------------------------------
 int __cdecl nox_cmd_help(int a1, int a2, int a3) {
 	if ((unsigned __int8)a2 != 1)
-		return sub_441BF0(1, a2, a3, (const wchar_t**)getMemAt(0x587000, 97368));
-	sub_441B90(getMemAt(0x587000, 97368));
+		return sub_441BF0(1, a2, a3, nox_commands);
+	sub_441B90(nox_commands);
 	return 1;
 }
 
@@ -1687,7 +1839,7 @@ int nox_server_parseCmdText_443C80(wchar_t* cmdText, int a2) {
 	}
 	int res = 0;
 	if (tokCnt > 0) {
-		res = nox_xxx_consoleParseToken_443A20(0, tokCnt, tokens, getMemAt(0x587000, 97368), a2);
+		res = nox_xxx_consoleParseToken_443A20(0, tokCnt, tokens, nox_commands, a2);
 		if (!res) {
 			wchar_t* help = nox_strman_loadString_40F1D0("typehelp", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4226);
 			nox_xxx_consoleVPrint_450C00(6, help);
@@ -1931,7 +2083,7 @@ int nox_xxx_cmdTokensLoad_4444F0() {
 		++v0;
 	} while ((int)v0 < (int)getMemAt(0x587000, 94500));
 	dword_5d4594_823696 = 0;
-	sub_444440(getMemIntPtr(0x587000, 97368));
+	sub_444440(nox_commands);
 	return sub_444570();
 }
 
