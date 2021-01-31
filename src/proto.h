@@ -1766,8 +1766,6 @@ int __cdecl nox_xxx_netServerCmd_440950(char a1, wchar_t* a2);
 int __cdecl sub_440AC0(wchar_t* a1);
 char* __cdecl sub_440BC0(int a1, unsigned __int8 a2, int a3);
 void __cdecl sub_4417E0(wchar_t* a1, const char* a2);
-int sub_4420F0();
-int nox_xxx_conStartSoloQuest_4423A0();
 int __cdecl nox_xxx_doExecrul_4438A0(int a1);
 void __cdecl sub_4443B0(unsigned __int8 a1);
 char* __cdecl sub_444410(int a1);
