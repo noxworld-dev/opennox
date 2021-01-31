@@ -168,7 +168,7 @@ SOCKET __cdecl sub_5797F0(unsigned __int16 a1) {
 }
 
 //----- (00579850) --------------------------------------------------------
-uint16_t sub_579850() { return *getMemU16Ptr(0x5D4594, 2523736); }
+uint16_t nox_xxx_getPort_579850() { return *getMemU16Ptr(0x5D4594, 2523736); }
 
 //----- (00440EB0) --------------------------------------------------------
 int __cdecl nox_cmd_telnet_on(int a1, unsigned __int8 a2, int a3) {
@@ -186,7 +186,7 @@ int __cdecl nox_cmd_telnet_on(int a1, unsigned __int8 a2, int a3) {
 		v4 = nox_wcstol(*(const wchar_t**)(a3 + 4 * a2 - 4), 0, 10);
 		sub_5797F0(v4);
 	}
-	v6 = sub_579850();
+	v6 = nox_xxx_getPort_579850();
 	v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 101892), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1388);
 	nox_xxx_consoleVPrint_450C00(6u, v5, v6);
 	return 1;
