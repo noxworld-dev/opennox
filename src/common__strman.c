@@ -148,36 +148,31 @@ void nox_strman_free_410020() {
 }
 
 //----- (0040F5C0) --------------------------------------------------------
-char sub_40F5C0(unsigned char* a1) {
-	unsigned char v1;   // al
-	unsigned char* i;  // edi
-	int v3;    // eax
-	unsigned char* v4; // edi
-	unsigned char* j;  // esi
-	unsigned char* k;  // esi
-
-	v1 = *a1;
-	for (i = a1; v1; v1 = *++i) {
-		if (!iswspace(v1))
+void sub_40F5C0(unsigned char* buf) {
+	unsigned char* i;
+	for (i = buf; *i; ++i) {
+		if (!iswspace(*i)) {
 			break;
+		}
 	}
-	v3 = *i;
-	v4 = i + 1;
-	*a1 = v3;
-	for (j = a1 + 1; v3; ++v4) {
+	int v3 = *i;
+	unsigned char* v4 = i + 1;
+	*buf = v3;
+	unsigned char* j;
+	for (j = buf + 1; v3; ++v4) {
 		v3 = *v4;
 		*j++ = *v4;
 	}
-	for (k = j - 2; k > a1; --k) {
-		v3 = *k;
-		if (!*k)
+	unsigned char* k;
+	for (k = j - 2; k > buf; --k) {
+		if (!*k) {
 			break;
-		v3 = iswspace((char)v3);
-		if (!v3)
+		}
+		if (!iswspace(*k)) {
 			break;
+		}
 	}
 	k[1] = 0;
-	return v3;
 }
 
 //----- (0040F640) --------------------------------------------------------
