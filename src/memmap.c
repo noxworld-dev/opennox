@@ -1344,7 +1344,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 747884, 3072, "nox_ctrlevent_buf_747884"}, // 0x68AF00
 	{0x5D4594 + 750964, 3072, "nox_ctrlevent_buf_750964"}, // 0x68BB08
 	{0x5D4594 + 747876, 8, "nox_ctrlevent_ticks"}, // 0x68AEF8
-	{0x5D4594 + 251512, 4, "dword_5d4594_251512"}, // 0x611C0C
+	{0x5D4594 + 251512, 4, "nox_strman_complete"}, // 0x611C0C
 	{0x5D4594 + 226804, 1024, "nox_strman_path_buf"}, // 0x60BB88
 	{0x5D4594 + 243288, 1024, "nox_strman_name_buf"}, // 0x60FBEC
 	{0x587000 + 80, 4, "nox_enable_audio"}, // 0x587050
