@@ -3874,7 +3874,7 @@ char* __cdecl sub_444410(int a1) {
 	while (a1 != *(_DWORD*)v3) {
 		v3 += 76;
 		++v2;
-		if ((int)v3 >= (int)getMemAt(0x587000, 95424))
+		if ((int)v3 - (int)getMemAt(0x587000, 94512) >= 912)
 			return result;
 	}
 	return (char*)getMemAt(0x587000, 76 * v2 + 94516);

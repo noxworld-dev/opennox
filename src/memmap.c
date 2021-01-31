@@ -1378,6 +1378,18 @@ mem_mapping mappings[] = {
 	{0x581450 + 1416, 72, "byte_581450_1416"}, // 0x5819D8
 	{0x581450 + 9176, 160, "byte_581450_9176"}, // 0x583828
 	{0x581450 + 9336, 160, "byte_581450_9336"}, // 0x5838C8
+	{0x587000 + 95424, 120, "nox_commands_quality"},
+	{0x587000 + 96600, 48, "nox_commands_allow"},
+	{0x587000 + 97008, 192, "nox_commands_cheat"},
+	{0x587000 + 96672, 144, "nox_commands_list"},
+	{0x587000 + 96912, 72, "nox_commands_log"},
+	{0x587000 + 97224, 48, "nox_commands_macros"},
+	{0x587000 + 96840, 48, "nox_commands_menu"},
+	{0x587000 + 95688, 552, "nox_commands_set"},
+	{0x587000 + 96264, 312, "nox_commands_show"},
+	{0x587000 + 97296, 48, "nox_commands_telnet"},
+	{0x587000 + 95568, 96, "nox_commands_unset"},
+	{0x587000 + 97368, 864, "nox_commands"},
 };
 
 size_t mappings_cnt = sizeof(mappings) / sizeof(mem_mapping);
