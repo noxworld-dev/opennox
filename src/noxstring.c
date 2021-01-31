@@ -8,7 +8,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #else
-#include "windows.h"
+#include "windows_compat.h"
 #endif
 
 int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list ap) {

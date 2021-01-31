@@ -4,13 +4,12 @@
 
 #ifdef _WIN32
 typedef intptr_t INT_PTR;
-typedef INT_PTR LSTATUS;
 
 #include <mmreg.h>
 #include <windows.h>
 #else
 #include "common__poison.h"
-#include "windows.h"
+#include "windows_compat.h"
 #endif
 
 typedef struct keyCodeStruct {

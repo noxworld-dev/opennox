@@ -7050,7 +7050,11 @@ void __cdecl sub_56FF00(int a1);
 int __cdecl sub_56FF80(int a1, int a2);
 int** __thiscall sub_56FFE0(int** this);
 int** __thiscall sub_570070(int*** this);
+#ifndef NOX_CGO
 int nox_xxx_changeWinProcToEdit_5700CA(int** a1, HWND hWnd);
+#else // NOX_CGO
+int nox_xxx_changeWinProcToEdit_5700CA(int** a1, int hWnd);
+#endif // NOX_CGO
 int* nox_xxx_changeWinProcToNormal_5700F6(int** this);
 wchar_t* __thiscall nox_xxx_string_57011C(_DWORD** this);
 _DWORD* __thiscall sub_570142(_DWORD** this, char a2);
