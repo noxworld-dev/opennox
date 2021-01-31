@@ -4,7 +4,6 @@
 #include "proto.h"
 
 extern __int16 asc_9800B0[526];
-extern _DWORD mix_dword_980858[3]; // weak
 
 void init_data_mix();
 

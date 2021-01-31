@@ -5,7 +5,6 @@ package main
 #include <SDL2/SDL.h>
 
 #include "defs.h"
-#include "blobs/memmap.h"
 
 extern int mouse1_state;
 extern unsigned int mouse_event_ridx;
@@ -31,7 +30,6 @@ struct mouse_event* nox_newMouseEvent();
 */
 import "C"
 import (
-	"nox/blobs"
 	"nox/common/types"
 
 	"github.com/veandco/go-sdl2/sdl"
@@ -93,7 +91,7 @@ func inputInitMouse() {
 	C.mouse_event_widx = 0
 
 	// indicates that mouse is present so cursor should be drawn
-	*blobs.PtrUint32(0x5D4594, 1193108) = 1
+	*PtrUint32(0x5D4594, 1193108) = 1
 }
 
 //export input_set_win_size
