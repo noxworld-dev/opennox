@@ -1530,40 +1530,36 @@ void __cdecl sub_443BF0(unsigned __int16* a1, char* a2) {
 }
 
 //----- (00443A20) --------------------------------------------------------
-int nox_xxx_consoleParseToken_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5) {
-	if (!*(_DWORD*)(a3 + 4 * a1) || !a4 || !*a4)
+int nox_xxx_consoleParseToken_443A20(int a1, int a2, void* a3, void** table, int a5) {
+	if (!*(_DWORD*)((_DWORD)a3 + 4 * a1) || !table || !table[0])
 		return 0;
 
-	int v5 = a3;
-	int v6 = a1;
-	int v7 = 0;
-	const wchar_t** v8 = a4;
-	const wchar_t** v9 = a4;
+	void** v8 = table;
+	void** v9 = table;
 	wchar_t v19[256];
+	int v7 = 0;
 	while (1) {
 		if ((_BYTE)v8[3] & 0x40) {
-			sub_443BF0(*(unsigned __int16**)(v5 + 4 * v6), (char*)v19);
+			sub_443BF0(*(unsigned __int16**)((_DWORD)a3 + 4 * a1), (char*)v19);
 		} else {
-			nox_wcscpy(v19, *(const wchar_t**)(v5 + 4 * v6));
+			nox_wcscpy(v19, *(const wchar_t**)((_DWORD)a3 + 4 * a1));
 		}
-		if (!_nox_wcsicmp(v19, *v8)) {
+		if (!_nox_wcsicmp(v19, v8[0])) {
 			break;
 		}
-		const wchar_t* v10 = v9[6];
+		void* v10 = v9[6];
 		v9 += 6;
 		++v7;
 		v8 = v9;
 		if (!v10) {
 			return 0;
 		}
-		v6 = a1;
-		v5 = a3;
 	}
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && nox_cheats_disabled && (int)a4[6 * v7 + 3] & 0x10) {
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && nox_cheats_disabled && (int)table[6 * v7 + 3] & 0x10) {
 		return 0;
 	}
-	const wchar_t** v12 = &a4[6 * v7];
-	char v13 = (char)a4[6 * v7 + 3];
+	void** v12 = &table[6 * v7];
+	char v13 = (char)table[6 * v7 + 3];
 	if (dword_5d4594_823684) {
 		if (!(v13 & 1)) {
 			wchar_t* v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 107068), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
