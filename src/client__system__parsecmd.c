@@ -155,16 +155,15 @@ int __cdecl nox_cmd_telnet_off(int a1, char a2) {
 }
 
 //----- (005797F0) --------------------------------------------------------
-SOCKET __cdecl sub_5797F0(unsigned __int16 a1) {
-	SOCKET result; // eax
-
+void nox_xxx_setPort_5797F0(uint16_t port) {
 	if (dword_5d4594_2523744 != 1) {
-		if (!a1 || (*getMemU16Ptr(0x5D4594, 2523736) = a1, a1 <= 0x400u))
-			*getMemU16Ptr(0x5D4594, 2523736) = 18500;
-		result = sub_578E10();
+		if (port <= 1024) {
+			port = 18500;
+		}
+		*getMemU16Ptr(0x5D4594, 2523736) = port;
+		sub_578E10();
 		dword_5d4594_2523744 = 1;
 	}
-	return result;
 }
 
 //----- (00579850) --------------------------------------------------------
@@ -181,10 +180,10 @@ int __cdecl nox_cmd_telnet_on(int a1, unsigned __int8 a2, int a3) {
 	if (nox_common_gameFlags_check_40A5C0(2048))
 		return 1;
 	if (a2 == 2) {
-		sub_5797F0(0);
+		nox_xxx_setPort_5797F0(0);
 	} else {
 		v4 = nox_wcstol(*(const wchar_t**)(a3 + 4 * a2 - 4), 0, 10);
-		sub_5797F0(v4);
+		nox_xxx_setPort_5797F0(v4);
 	}
 	v6 = nox_xxx_getPort_579850();
 	v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 101892), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1388);
