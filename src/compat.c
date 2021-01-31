@@ -1,3 +1,5 @@
+#ifndef _WIN32
+
 #include "proto.h"
 #include <ctype.h>
 #include <fcntl.h>
@@ -683,7 +685,7 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath)
 // File functions
 char* dos_to_unix(const char* path) {
 	int i, len = strlen(path);
-	
+
 	//printf("dos2unix: accessing file %s\n", path);
 
 	if (path[0] == 'C' && path[1] == ':')
@@ -728,7 +730,7 @@ char* dos_to_unix(const char* path) {
 		if (cwd[i] == '\\')
 			cwd[i] = '/';
 	}
-	
+
 	// Find out which known path part is in out path part to reduce lookups
 	bool isInDataPath = false;
 	if (absolute && !isInCwd && strstr(str, cwd) == str)
@@ -789,7 +791,7 @@ char* dos_to_unix(const char* path) {
 #endif
 		return str;
 	}
-	
+
 	// If we're still here it means we didn't managed to find the file, we need to check for case now
 	char* resultBuffer = calloc(len + strlen(cwd) + 10, 1);
 
@@ -1323,3 +1325,5 @@ DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds) {
 
 	return result;
 }
+
+#endif // _WIN32

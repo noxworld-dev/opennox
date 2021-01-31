@@ -1,0 +1,8 @@
+/build
+/cmake-*
+/tmp
+*.dat
+*.gz
+*.log
+*.user
+*.json

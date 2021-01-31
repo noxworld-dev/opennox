@@ -4,7 +4,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #else
-#include "../windows.h"
+#include "../windows_compat.h"
 #endif
 
 #ifdef __EMSCRIPTEN__

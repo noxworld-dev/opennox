@@ -2,11 +2,12 @@ package main
 
 /*
 #cgo CFLAGS: -w -fshort-wchar -fno-strict-aliasing -fno-strict-overflow
-#cgo windows LDFLAGS: -lSDL2
+#cgo windows LDFLAGS: -lSDL2 -lws2_32
 #cgo linux LDFLAGS: -lm
 #cgo linux freebsd darwin openbsd pkg-config: sdl2
 #cgo CFLAGS: -DNOX_CGO
 
+#include <fenv.h>
 #include <SDL2/SDL.h>
 #include "proto.h"
 #include "common__object__armrlook.h"
@@ -274,7 +275,7 @@ func cmain(args []string) error {
 	}
 	C.nox_common_set_data_path_409E20(C.CString(wd))
 	// C.nox_common_readSKU_fromRegistry_4D78C0()
-	C._controlfp(0x300, 0x300)
+	C.fesetround(C.FE_TOWARDZERO)
 	C.nox_win_width = 0
 	C.nox_xxx_servSetPlrLimit_409F80(32)
 	*PtrUint32(0x5D4594, 2614260) = uint32(C.nox_gameFPS) >> 1
@@ -341,7 +342,8 @@ func cmain(args []string) error {
 	if C.nox_client_initScreenParticles_431390() == 0 {
 		return fmt.Errorf("failed to init particles")
 	}
-	C.sub_4147E0(C.int(uintptr(unsafe.Pointer(noxWindow)))) // TODO: fix argument type
+	// does nothing on SDL
+	// C.sub_4147E0(C.int(uintptr(unsafe.Pointer(noxWindow))))
 	C.g_argc2 = C.int(len(args))
 	C.g_argv2 = &CStringArray(args)[0]
 	C.g_v20 = 0

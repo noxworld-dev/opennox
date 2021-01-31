@@ -3,8 +3,6 @@ package main
 import "C"
 import (
 	"encoding/binary"
-	"syscall"
-
 	"nox/common/platform"
 	"nox/common/prand"
 )
@@ -19,14 +17,13 @@ func nox_xxx_replayWriteRndCounter_415F30(fd C.int) C.int {
 	i := noxRndCounter1.Index()
 	var buf [4]byte
 	binary.LittleEndian.PutUint32(buf[:], uint32(i))
-	n, _ := syscall.Write(int(fd), buf[:])
-	return C.int(n)
+	return C.int(fdWrite(int(fd), buf[:]))
 }
 
 //export nox_xxx_replayReadeRndCounter_415F50
 func nox_xxx_replayReadeRndCounter_415F50(fd C.int) C.int {
 	var buf [4]byte
-	n, _ := syscall.Read(int(fd), buf[:])
+	n := fdRead(int(fd), buf[:])
 	i := int(binary.LittleEndian.Uint32(buf[:]))
 	noxRndCounter1.Reset(i)
 	return C.int(n)
