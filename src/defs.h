@@ -45,11 +45,15 @@ typedef INT_PTR LSTATUS;
 
 #include <windows.h>
 //#include <mmreg.h>
+
+#ifdef _MSC_VER
 #ifndef _Static_assert
 #define _Static_assert static_assert
 #endif // _Static_assert
+#endif // _MSC_VER
+
 #else // _WIN32
-#include "windows.h"
+#include "windows_compat.h"
 #endif // _WIN32
 
 #include "compat_mss.h"

@@ -1,0 +1,20 @@
+FROM golang:1.15
+
+RUN apt-get update && apt-get install -y curl gcc-multilib gcc-mingw-w64
+
+WORKDIR /tmp
+
+RUN curl -so /tmp/sdl2.tar.gz https://www.libsdl.org/release/SDL2-devel-2.0.14-mingw.tar.gz && \
+    tar -xzf /tmp/sdl2.tar.gz
+RUN mv /tmp/SDL2-2.0.14/i686-w64-mingw32/include/* /usr/i686-w64-mingw32/include/ && \
+    mv /tmp/SDL2-2.0.14/i686-w64-mingw32/lib/* /usr/i686-w64-mingw32/lib/
+
+WORKDIR /app
+
+ADD go.* ./
+
+RUN go mod download
+
+ADD . .
+
+RUN ./build_go_win.sh
