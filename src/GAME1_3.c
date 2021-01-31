@@ -4369,7 +4369,7 @@ int sub_445770() {
 //----- (00445B20) --------------------------------------------------------
 // Microsoft VisualC 2-14/net runtime
 void nox_xxx_quitDialogYes_445B20() {
-	sub_4460C0();
+	nox_xxx_quit_4460C0();
 	sub_445C40();
 }
 // 445B20: using guessed type int nox_xxx_quitDialogYes_445B20();
@@ -4459,7 +4459,7 @@ int __cdecl sub_4460A0(int a1) {
 int sub_4460B0() { return *getMemU32Ptr(0x5D4594, 825756); }
 
 //----- (004460C0) --------------------------------------------------------
-int sub_4460C0() {
+int nox_xxx_quit_4460C0() {
 	int result; // eax
 
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
@@ -6426,7 +6426,7 @@ int __cdecl sub_44B0F0(int a1, int a2, int* a3, int a4) {
 				goto LABEL_7;
 			}
 			if (v3 == 1) {
-				sub_4460C0();
+				nox_xxx_quit_4460C0();
 				sub_44A400();
 				nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_830292);
 			LABEL_7:

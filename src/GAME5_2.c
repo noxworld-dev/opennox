@@ -3364,7 +3364,7 @@ int __cdecl sub_578C90(int a1) {
 	nox_xxx_cliPlayMapIntro_44E0B0(1);
 	sub_413960();
 	sub_477530(0);
-	return sub_4460C0();
+	return nox_xxx_quit_4460C0();
 }
 
 //----- (00578CD0) --------------------------------------------------------

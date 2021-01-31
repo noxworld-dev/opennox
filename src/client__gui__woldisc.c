@@ -21,7 +21,7 @@ void sub_44B010() {
 		if (sub_43C710())
 			nox_xxx_reconStart_41E400();
 		else
-			sub_4460C0();
+			nox_xxx_quit_4460C0();
 	} else if (nox_common_gameFlags_check_40A5C0(1)) {
 		dword_5d4594_830292 = nox_new_window_from_file("woldisc.wnd", sub_44B0F0);
 		nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_830292, nox_win_width / 2 - *(int*)(dword_5d4594_830292 + 24) / 2,
