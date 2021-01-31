@@ -1531,29 +1531,15 @@ void __cdecl sub_443BF0(unsigned __int16* a1, char* a2) {
 
 //----- (00443A20) --------------------------------------------------------
 int nox_xxx_consoleParseToken_443A20(int a1, int a2, int a3, const wchar_t** a4, int a5) {
-	int v5;              // eax
-	int v6;              // ecx
-	int v7;              // edi
-	const wchar_t** v8;  // ebp
-	const wchar_t** v9;  // esi
-	const wchar_t* v10;  // eax
-	const wchar_t** v12; // esi
-	char v13;            // al
-	wchar_t* v14;        // eax
-	const wchar_t** v15; // ecx
-	int v16;             // eax
-	wchar_t* v17;        // eax
-	int v18;             // [esp+10h] [ebp-44h]
-	wchar_t v19[256];    // [esp+14h] [ebp-40h]
-
-	v5 = a3;
-	v6 = a1;
-	v7 = 0;
-	v18 = 0;
 	if (!*(_DWORD*)(a3 + 4 * a1) || !a4 || !*a4)
-		return v18;
-	v8 = a4;
-	v9 = a4;
+		return 0;
+
+	int v5 = a3;
+	int v6 = a1;
+	int v7 = 0;
+	const wchar_t** v8 = a4;
+	const wchar_t** v9 = a4;
+	wchar_t v19[256];
 	while (1) {
 		if ((_BYTE)v8[3] & 0x40) {
 			sub_443BF0(*(unsigned __int16**)(v5 + 4 * v6), (char*)v19);
@@ -1563,7 +1549,7 @@ int nox_xxx_consoleParseToken_443A20(int a1, int a2, int a3, const wchar_t** a4,
 		if (!_nox_wcsicmp(v19, *v8)) {
 			break;
 		}
-		v10 = v9[6];
+		const wchar_t* v10 = v9[6];
 		v9 += 6;
 		++v7;
 		v8 = v9;
@@ -1576,20 +1562,18 @@ int nox_xxx_consoleParseToken_443A20(int a1, int a2, int a3, const wchar_t** a4,
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && nox_cheats_disabled && (int)a4[6 * v7 + 3] & 0x10) {
 		return 0;
 	}
+	const wchar_t** v12 = &a4[6 * v7];
+	char v13 = (char)a4[6 * v7 + 3];
 	if (dword_5d4594_823684) {
-		v12 = &a4[6 * v7];
-		v13 = (char)a4[6 * v7 + 3];
 		if (!(v13 & 1)) {
-			v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 107068), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+			wchar_t* v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 107068), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 										4091);
 			nox_xxx_consoleVPrint_450C00(6u, v14);
 			return 1;
 		}
 	} else {
-		v13 = (char)a4[6 * v7 + 3];
-		v12 = &a4[6 * v7];
 		if (!(v13 & 2)) {
-			v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 107120), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
+			wchar_t* v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 107120), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 										4097);
 			nox_xxx_consoleVPrint_450C00(6u, v14);
 			return 1;
@@ -1598,10 +1582,11 @@ int nox_xxx_consoleParseToken_443A20(int a1, int a2, int a3, const wchar_t** a4,
 	if (v13 & 0x20 && !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		return 1;
 	}
-	v15 = (const wchar_t**)v12[4];
+	const wchar_t** v15 = (const wchar_t**)v12[4];
+	int v16;
 	if (v15) {
 		if ((unsigned __int8)a2 <= a1 + 1) {
-			v17 = nox_strman_loadString_40F1D0((char*)v12[2], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4125);
+			wchar_t* v17 = nox_strman_loadString_40F1D0((char*)v12[2], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4125);
 			nox_xxx_consoleVPrint_450C00(6u, v17);
 			return 1;
 		}
@@ -1610,13 +1595,12 @@ int nox_xxx_consoleParseToken_443A20(int a1, int a2, int a3, const wchar_t** a4,
 		// call console command handler?
 		v16 = ((int(__cdecl*)(int, int, int))v12[5])(a1 + 1, a2, a3);
 	}
-	v18 = v16;
 	if (!v16) {
-		v17 = nox_strman_loadString_40F1D0((char*)v12[2], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4125);
+		wchar_t* v17 = nox_strman_loadString_40F1D0((char*)v12[2], 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4125);
 		nox_xxx_consoleVPrint_450C00(6u, v17);
 		return 1;
 	}
-	return v18;
+	return v16;
 }
 
 //----- (004409D0) --------------------------------------------------------
