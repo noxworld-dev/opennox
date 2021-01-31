@@ -48,7 +48,7 @@ char** nox_string_str_arr = 0;
 
 FILE* nox_strman_file = 0;
 
-int dword_5d4594_251512 = 0;
+int nox_strman_complete = 0;
 int dword_5d4594_251480 = 0;
 int dword_5d4594_251492 = 0;
 int dword_5d4594_251484 = 0;
@@ -144,7 +144,7 @@ void nox_strman_free_410020() {
 	}
 
 	missing_strings = 0;
-	dword_5d4594_251512 = 0;
+	nox_strman_complete = 0;
 }
 
 //----- (0040F5C0) --------------------------------------------------------
@@ -494,7 +494,6 @@ void sub_40FB60(wchar_t* a1) {
 
 //----- (0040FBE0) --------------------------------------------------------
 int sub_40FBE0() {
-	unsigned int v2; // kr08_4
 	int v3;          // ebx
 	int v8;          // eax
 
@@ -509,9 +508,9 @@ int sub_40FBE0() {
 		sub_40F5C0(file_buffer);
 	} while (*(unsigned short*)file_buffer == 0x2F2F || !file_buffer[0]);
 	strcpy((char*)(string_entries[v1].data), (const char*)file_buffer);
-	v2 = strlen((const char*)file_buffer) + 1;
-	if ((int)(v2 - 1) > *(int*)&dword_5d4594_251480)
-		dword_5d4594_251480 = v2 - 1;
+	int sz = strlen((const char*)file_buffer);
+	if (sz > dword_5d4594_251480)
+		dword_5d4594_251480 = sz;
 	string_entries[v1].field_50 = v0;
 	v3 = 0;
 	int v4 = v0;
@@ -590,7 +589,7 @@ int sub_40F830(const char* path) {
 		}
 		file_buffer[sz] = 0;
 		strcpy(string_entries[i].data, file_buffer);
-		if (sz > *(int*)&dword_5d4594_251480)
+		if (sz > dword_5d4594_251480)
 			dword_5d4594_251480 = sz;
 		v7 = v18;
 		v19 = 0;
@@ -661,9 +660,9 @@ int sub_40F830(const char* path) {
 
 //----- (0040F300) --------------------------------------------------------
 int nox_strman_readfile(const char* path) {
-	if (dword_5d4594_251512)
+	if (nox_strman_complete)
 		return 1;
-	dword_5d4594_251512 = 1;
+	nox_strman_complete = 1;
 	dword_5d4594_251480 = 0;
 	if (!path || !path[0])
 		return 0;
