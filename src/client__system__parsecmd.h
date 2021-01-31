@@ -51,7 +51,7 @@ int __cdecl nox_cmd_mute(int a1, unsigned __int8 a2, int a3);
 int __cdecl nox_cmd_exec(int a1, char a2);
 int __cdecl nox_cmd_exec_rul(int a1, char a2, int a3);
 int __cdecl nox_xxx_cmdSysop_4439B0(int a1, unsigned __int8 a2);
-int __cdecl nox_server_parseCmdText_443C80(wchar_t* a1, int a2);
+int nox_server_parseCmdText_443C80(wchar_t* a1, int a2);
 int __cdecl nox_cmd_unbind(int a1, char a2, int a3);
 int __cdecl nox_cmd_broadcast(int a1, unsigned __int8 a2, int a3);
 int __cdecl nox_cmd_say(int a1, char a2);
