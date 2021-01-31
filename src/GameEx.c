@@ -1,4 +1,5 @@
 #define DG_DYNARR_IMPLEMENTATION
+#include "memmap.h"
 #include "GameEx.h"
 #include "client__gui__guimsg.h"
 
@@ -220,27 +221,27 @@ int __cdecl GameExCfgSaver() {
 	}
 	fwrite("AUTO_SHIELD = ", 0xEu, 1, v1);
 	v2 = "1\r\n";
-	if (!((MEMACCESS(0x98085A) >> 1) & 1))
+	if (!((*getMemU32Ptr(0x980858, 2) >> 1) & 1))
 		v2 = "0\r\n";
 	fwrite(v2, 3u, 1, v1);
 	fwrite("GREAT_SWORD_BLOKING_WALK = ", 0x1Bu, 1, v1);
 	v3 = "1\r\n";
-	if (!((MEMACCESS(0x98085A) >> 2) & 1))
+	if (!((*getMemU32Ptr(0x980858, 2) >> 2) & 1))
 		v3 = "0\r\n";
 	fwrite(v3, 3u, 1, v1);
 	fwrite("MOUSE_KEYBOARD_ROLL = ", 0x16u, 1, v1);
 	v4 = "1\r\n";
-	if (!((MEMACCESS(0x98085A) >> 3) & 1))
+	if (!((*getMemU32Ptr(0x980858, 2) >> 3) & 1))
 		v4 = "0\r\n";
 	fwrite(v4, 3u, 1, v1);
 	fwrite("BERSERKER_SHIED_BLOCK = ", 0x18u, 1, v1);
 	v5 = "1\r\n";
-	if (!((MEMACCESS(0x98085A) >> 4) & 1))
+	if (!((*getMemU32Ptr(0x980858, 2) >> 4) & 1))
 		v5 = "0\r\n";
 	fwrite(v5, 3u, 1, v1);
 	fwrite("EXTENSION_MESSAGES = ", 0x15u, 1, v1);
 	v6 = "1\r\n";
-	if (!((MEMACCESS(0x98085A) >> 5) & 1))
+	if (!((*getMemU32Ptr(0x980858, 2) >> 5) & 1))
 		v6 = "0\r\n";
 	fwrite(v6, 3u, 1, v1);
 	fwrite("PANEL1 = ", 9u, 1, v1);
@@ -389,34 +390,34 @@ char GameExCfgLoader() {
 		if (fread(v4, 1, v3, v1) == v3) {
 			SomeStringSearcher(v4, "AUTO_SHIELD", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				MEMACCESS(0x98085A) &= 0xFFFFFFFD;
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFFD;
 			else
-				MEMACCESS(0x98085A) |= 2u;
+				*getMemU32Ptr(0x980858, 2) |= 2u;
 			SomeStringSearcher(v4, "GREAT_SWORD_BLOKING_WALK", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				MEMACCESS(0x98085A) &= 0xFFFFFFFB;
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFFB;
 			else
-				MEMACCESS(0x98085A) |= 4u;
+				*getMemU32Ptr(0x980858, 2) |= 4u;
 			SomeStringSearcher(v4, "MOUSE_KEYBOARD_ROLL", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				MEMACCESS(0x98085A) &= 0xFFFFFFF7;
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFF7;
 			else
-				MEMACCESS(0x98085A) |= 8u;
+				*getMemU32Ptr(0x980858, 2) |= 8u;
 			SomeStringSearcher(v4, "MOUSE_KEYBOARD_ROLL", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				MEMACCESS(0x98085A) &= 0xFFFFFFF7;
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFF7;
 			else
-				MEMACCESS(0x98085A) |= 8u;
+				*getMemU32Ptr(0x980858, 2) |= 8u;
 			SomeStringSearcher(v4, "BERSERKER_SHIED_BLOCK", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				MEMACCESS(0x98085A) &= 0xFFFFFFEF;
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFEF;
 			else
-				MEMACCESS(0x98085A) |= 0x10u;
+				*getMemU32Ptr(0x980858, 2) |= 0x10u;
 			SomeStringSearcher(v4, "EXTENSION_MESSAGES", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				MEMACCESS(0x98085A) &= 0xFFFFFFDF;
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFDF;
 			else
-				MEMACCESS(0x98085A) |= 0x20u;
+				*getMemU32Ptr(0x980858, 2) |= 0x20u;
 			v6[0] = 0;
 			SomeStringSearcher(v4, "PANEL1", (char*)&v6);
 			functionalKeyCodes[0] = KeyCodeMatcher((char*)&v6);
@@ -452,12 +453,12 @@ int __cdecl sendtoWrapper(char* buf, int len, int smth) {
 	int v4;     // eax
 	int result; // eax
 
-	if (buf && len && (v3 = *(SOCKET**)getMem(4 * MEMACCESS(0x69B7E8) + 0x97EC60)) != 0 // 0x97EC60 = netstructList
+	if (buf && len && (v3 = *(SOCKET**)getMemAt(0x5D4594, 3843788 + 4 * (*getMemU32Ptr(0x5D4594, 815700)))) != 0 // 0x97EC60 = netstructList
 																						// 0x69B7E8 = netSocketData
-		&& 4 * MEMACCESS(0x69B7E8) != 0xFF6813A0                                        // Seems to be bug
+		&& 4 * (*getMemU32Ptr(0x5D4594, 815700)) != 0xFF6813A0                                        // Seems to be bug
 												 // lea     eax, ds:97EC60h[eax*4]
 												 // test    eax, eax
-		&& (v4 = *(_DWORD*)getMem(4 * MEMACCESS(0x69B7E8) + 0x97EC60)) != 0) {
+		&& (v4 = *getMemU32Ptr(0x5D4594, 3843788 + 4 * (*getMemU32Ptr(0x5D4594, 815700)))) != 0) {
 		result = sendto(*v3, buf, len, 0, (const struct sockaddr*)(v4 + 4), 16);
 	} else {
 		result = 0; // A call here is lost? - nope, as somehow the checks in ASM denies it completely
@@ -471,7 +472,7 @@ void __cdecl notifyThisIsServeronly(int ptr, __int16 shortval, BOOL boolval) {
 	*(_WORD*)ptr = 0xF13Au;        // packet id
 	*(_WORD*)(ptr + 2) = shortval; // always zero
 	if (boolval)
-		*(_DWORD*)(ptr + 4) = MEMACCESS(0x85319C); // playerNetCode
+		*(_DWORD*)(ptr + 4) = (*getMemU32Ptr(0x5D4594, 2616328)); // playerNetCode
 }
 
 //----- (10001B10) --------------------------------------------------------
@@ -494,14 +495,14 @@ int __usercall copyServerMatchData(char* a1) {
 	int result; // eax
 	int cntr = 0;
 
-	v1 = (char*)&(MEMACCESS(0x62F051)); // gameServerName
+	v1 = (char*)getMemAt(0x5D4594, 371389); // gameServerName
 	do {
 		v2 = *v1;
 		a1[cntr] = v2;
 		++v1;
 	} while (v2);
-	*((_WORD*)a1 + 8) = MEMACCESS(0x62F0B6);
-	v3 = (char*)&(MEMACCESS(0x62F048));
+	*((_WORD*)a1 + 8) = *getMemU32Ptr(0x5D4594, 371490);
+	v3 = (char*)getMemAt(0x5D4594, 371380);
 	cntr = 18;
 	do {
 		v4 = *v3;
@@ -509,24 +510,24 @@ int __usercall copyServerMatchData(char* a1) {
 		++v3;
 		cntr++;
 	} while (v4);
-	a1[34] = MEMACCESS(0x62F138);
-	a1[35] = MEMACCESS(0x62FA04) + 1;
-	a1[36] = MEMACCESS(0x62F134);
-	*((_WORD*)a1 + 20) = MEMACCESS(0x62F139);
-	*((_WORD*)a1 + 21) = MEMACCESS(0x62F13B);
-	a1[44] = MEMACCESS(0x62F136);
-	a1[45] = MEMACCESS(0x62F134);
+	a1[34] = *getMemU32Ptr(0x5D4594, 371620);
+	a1[35] = *getMemU32Ptr(0x5D4594, 373872) + 1;
+	a1[36] = *getMemU32Ptr(0x5D4594, 371616);
+	*((_WORD*)a1 + 20) = *getMemU32Ptr(0x5D4594, 371621);
+	*((_WORD*)a1 + 21) = *getMemU32Ptr(0x5D4594, 371623);
+	a1[44] = *getMemU32Ptr(0x5D4594, 371618);
+	a1[45] = *getMemU32Ptr(0x5D4594, 371616);
 	a1[37] = sub_409F40(2);
 	// a1[38] = MEMACCESS(0x5D5331); // serverRuleFlags + 1
 	a1[38] = *(int*)((char*)&dword_5d4594_3484 + 1);
 	*((_DWORD*)a1 + 12) = 65540;
 	*((_WORD*)a1 + 26) = nox_win_height_1;
 	*((_WORD*)a1 + 27) = nox_win_width_1;
-	*((_WORD*)a1 + 28) = MEMACCESS(0x62F112);
-	*((_WORD*)a1 + 29) = MEMACCESS(0x62F116);
-	a1[60] = MEMACCESS(0x62F0BA);
-	result = MEMACCESS(0x62F07E);
-	*((_WORD*)a1 + 31) = MEMACCESS(0x62F07E);
+	*((_WORD*)a1 + 28) = *getMemU32Ptr(0x5D4594, 371582);
+	*((_WORD*)a1 + 29) = *getMemU32Ptr(0x5D4594, 371586);
+	a1[60] = *getMemU32Ptr(0x5D4594, 371494);
+	result = *getMemU32Ptr(0x5D4594, 371434);
+	*((_WORD*)a1 + 31) = *getMemU32Ptr(0x5D4594, 371434);
 	return result;
 }
 
@@ -827,7 +828,7 @@ unsigned int invalidIpChecker(unsigned int interval, void* param) {
 HANDLE __usercall startInvalidIpChecker() {
 	HANDLE result; // eax
 
-	if (!MEMACCESS(0x59C56C))
+	if (!*getMemU32Ptr(0x587000, 87404))
 		result = SDL_AddTimer(0x12Cu, invalidIpChecker, NULL);
 	return result;
 }
@@ -845,7 +846,7 @@ int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 	if (v4 > 0x791) {
 		if (v4 == 1938 && !nox_common_gameFlags_check_40A5C0(512)) {
 			sub_4BDFD0();
-			nox_wnd_nox_xxx_wndDraw_46A9B0((_DWORD*)getMem(0x715E00), 200, 100);
+			nox_wnd_nox_xxx_wndDraw_46A9B0((_DWORD*)getMemAt(0x5D4594, 1316972), 200, 100);
 		}
 		return 0;
 	}
@@ -859,38 +860,38 @@ int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 	} else {
 		switch (v4) {
 		case 0x5F0u:
-			if ((MEMACCESS(0x98085A) >> 1) & 1)
-				MEMACCESS(0x98085A) &= 0xFFFFFFFD;
+			if ((*getMemU32Ptr(0x980858, 2) >> 1) & 1)
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFFD;
 			else
-				MEMACCESS(0x98085A) |= 2u;
+				*getMemU32Ptr(0x980858, 2) |= 2u;
 			result = 0;
 			break;
 		case 0x5F1u:
-			if ((MEMACCESS(0x98085A) >> 2) & 1)
-				MEMACCESS(0x98085A) &= 0xFFFFFFFB;
+			if ((*getMemU32Ptr(0x980858, 2) >> 2) & 1)
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFFB;
 			else
-				MEMACCESS(0x98085A) |= 4u;
+				*getMemU32Ptr(0x980858, 2) |= 4u;
 			result = 0;
 			break;
 		case 0x5F2u:
-			if ((MEMACCESS(0x98085A) >> 3) & 1)
-				MEMACCESS(0x98085A) &= 0xFFFFFFF7;
+			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1)
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFF7;
 			else
-				MEMACCESS(0x98085A) |= 8u;
+				*getMemU32Ptr(0x980858, 2) |= 8u;
 			result = 0;
 			break;
 		case 0x5F3u:
-			if ((MEMACCESS(0x98085A) >> 4) & 1)
-				MEMACCESS(0x98085A) &= 0xFFFFFFEF;
+			if ((*getMemU32Ptr(0x980858, 2) >> 4) & 1)
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFEF;
 			else
-				MEMACCESS(0x98085A) |= 0x10u;
+				*getMemU32Ptr(0x980858, 2) |= 0x10u;
 			result = 0;
 			break;
 		case 0x5F4u:
-			if ((MEMACCESS(0x98085A) >> 5) & 1)
-				MEMACCESS(0x98085A) &= 0xFFFFFFDF;
+			if ((*getMemU32Ptr(0x980858, 2) >> 5) & 1)
+				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFDF;
 			else
-				MEMACCESS(0x98085A) |= 0x20u;
+				*getMemU32Ptr(0x980858, 2) |= 0x20u;
 			result = 0;
 			break;
 		default:
@@ -952,7 +953,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 		switch (*((unsigned __int16*)buf + 1)) // packet id
 		{
 		case 0u:
-			if ((MEMACCESS(0x98085A) >> 3) & 1) {
+			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 				v8 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)buf + 1));
 				v9 = buf[8];
 				v10 = (int)(v8 - 12);
@@ -974,7 +975,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 			nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 			break;
 		case 3u: // Send back playerInfoStructs
-			if (nox_common_gameFlags_check_40A5C0(1) && (MEMACCESS(0x98085A) >> 5) & 1) {
+			if (nox_common_gameFlags_check_40A5C0(1) && (*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
 				smallPlayerStructVector vector;
 				smallPlayerStruct* it;
 				smallPlayerStruct* end;
@@ -983,7 +984,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 				// v45 = 0;
 				if (playerInfoStructsToVector(&vector)) {
 					copyServerMatchData((char*)v44);
-					v11 = MEMACCESS(0x98085A);
+					v11 = *getMemU32Ptr(0x980858, 2);
 					v39 = 18 * da_count(vector) + 68;
 					memcpy(buf + 8, v44, 0x40u);
 					*((_DWORD*)buf + 1) = v11;
@@ -1005,7 +1006,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 			break;
 		case 4u:
 			if (nox_common_gameFlags_check_40A5C0(1)) {
-				if ((MEMACCESS(0x98085A) >> 5) & 1) {
+				if ((*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
 					v18 = buf + 4;
 					do {
 						v19 = *v18;
@@ -1035,7 +1036,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 			}
 			break;
 		case 5u:
-			if ((MEMACCESS(0x98085A) >> 5) & 1) {
+			if ((*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
 				memset(v44, 0, 0x80u);
 				mbstowcs((wchar_t*)v44, buf + 4, strlen(buf + 4));
 				nox_xxx_printCentered_445490((wchar_t*)v44);
@@ -1049,7 +1050,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 			nox_xxx_clientPlaySoundSpecial_452D80(901, 100);
 			break;
 		case 8u:
-			if (nox_common_gameFlags_check_40A5C0(1) && (MEMACCESS(0x98085A) >> 5) & 1) {
+			if (nox_common_gameFlags_check_40A5C0(1) && (*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
 				v26 = buf + 4;
 				v27 = buf + 4;
 				do {
@@ -1077,7 +1078,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 			}
 			break;
 		case 9u:
-			if ((MEMACCESS(0x98085A) >> 3) & 1) {
+			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 				v35 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)buf + 1));
 				playerDropATrap((int)(v35 - 12));
 			}
@@ -1182,7 +1183,7 @@ void OnLibraryNotice(int a1, ...) {
 		if ((unsigned __int8)vaArg2 == 2 &&
 			// FIXME: checked in asm (cmp ds:6D8555, eax)
 			((dword_5d4594_1064896 >> 8) | (dword_5d4594_1064900 << 24)) == result) {
-			if ((MEMACCESS(0x98085A) >> 3) & 1) {
+			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 				result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
 				if (result) {
 					result = (_DWORD*)nox_common_gameFlags_check_40A5C0(1);
@@ -1217,10 +1218,10 @@ void OnLibraryNotice(int a1, ...) {
 			v8 = 0;
 		}
 		vaArg1_1[1] = v8;
-		if ((MEMACCESS(0x98085A) >> 3) & 1) {
+		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 			result = (_DWORD*)nox_common_gameFlags_check_40A5C0(0x204); // checks some gameFlags that are yet undiscovered
 			if (result) {
-				if (MEMACCESS(0x6D8538) || MEMACCESS(0x6D855D))
+				if (*getMemU32Ptr(0x5D4594, 1064868) || *getMemU32Ptr(0x5D4594, 1064905))
 					return;
 				if (nox_common_gameFlags_check_40A5C0(1)) // isServer
 				{
@@ -1235,14 +1236,14 @@ void OnLibraryNotice(int a1, ...) {
 		}
 	LABEL_37:
 		if ((_BYTE)v7 == functionalKeyCodes[5]) {
-			if ((MEMACCESS(0x98085A) >> 3) & 1) {
+			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 				result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
 				if (result) {
-					if (MEMACCESS(0x6D8538) || MEMACCESS(0x6D855D))
+					if (*getMemU32Ptr(0x5D4594, 1064868) || *getMemU32Ptr(0x5D4594, 1064905))
 						return;
 					if (nox_common_gameFlags_check_40A5C0(1)) // checkGameFlags isServer
 					{
-						v9 = nox_xxx_objGetTeamByNetCode_418C80(MEMACCESS(0x85319C));
+						v9 = nox_xxx_objGetTeamByNetCode_418C80(*getMemU32Ptr(0x5D4594, 2616328));
 						playerDropATrap((int)(v9 - 12));
 					} else {
 						notifyThisIsServeronly((int)&buf, 9, 1);
@@ -1283,7 +1284,7 @@ void OnLibraryNotice(int a1, ...) {
 				*(_DWORD*)vaArg1_1 = 5;
 				do {
 					nox_window_call_field_94((int)a2b, 16397, (int)v13, -1);
-					if (getFlagValueFromFlagIndex(v12 - 1519) & MEMACCESS(0x98085A)) {
+					if (getFlagValueFromFlagIndex(v12 - 1519) & *getMemU32Ptr(0x980858, 2)) {
 						v14 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, v12);
 						v14[9] |= 4u;
 					} else {
@@ -1332,7 +1333,7 @@ void OnLibraryNotice(int a1, ...) {
 		if ((_BYTE)v16 == 1)
 			goto LABEL_71;
 	ifIsWarrior:
-		nox_xxx_netPriMsgToPlayer_4DA2C0(v23, (const char*)getMem(0x5BBAB4), 0); // 0x5BBAB4 = pickup.c:ObjectEquipClassFail
+		nox_xxx_netPriMsgToPlayer_4DA2C0(v23, (const char*)getMemAt(0x587000, 215732), 0); // 0x5BBAB4 = pickup.c:ObjectEquipClassFail
 		nox_xxx_aud_501960(925, v23, 2, *(_DWORD*)(v23 + 36));
 		return;
 	default:

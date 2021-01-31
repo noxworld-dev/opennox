@@ -309,7 +309,6 @@ void process_motion_event(const SDL_MouseMotionEvent* event) {
 void process_wheel_event(const SDL_MouseWheelEvent* event) {
 	input_mouse_wheel(event->y);
 }
-#endif // NOX_CGO
 
 void fake_keyup(void* arg) {
 	input_keyboard(SDL_SCANCODE_SPACE, 0);
@@ -318,6 +317,7 @@ void fake_keyup(void* arg) {
 void fake_mouseup(void* arg) {
 	input_mouse_up(MOUSE_BUTTON0);
 }
+#endif // NOX_CGO
 
 struct finger_state* find_finger(SDL_FingerID id, int alloc) {
 	int i;

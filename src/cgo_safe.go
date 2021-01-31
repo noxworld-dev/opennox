@@ -1,14 +1,13 @@
 //+build safe
 
-package blobs
+package main
 
 /*
-#cgo CFLAGS: -w -fshort-wchar -fno-strict-aliasing -fno-strict-overflow
-#cgo linux LDFLAGS: -Wl,-unresolved-symbols=ignore-all
-#cgo darwin LDFLAGS: -Wl,-undefined,dynamic_lookup
-#cgo CFLAGS: -DNOX_CGO
+#cgo CFLAGS: -DNOX_CGO_MEMMAP
+typedef unsigned int uintptr_t;
 */
 import "C"
+import "unsafe"
 
 //export mem_getPtr
 func mem_getPtr(base, off C.uintptr_t) unsafe.Pointer {

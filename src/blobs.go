@@ -1,9 +1,10 @@
-package blobs
+package main
 
 /*
 extern unsigned char byte_581450[23472];
-extern unsigned char byte_5D4594[3844309];
 extern unsigned char byte_587000[316820];
+extern unsigned char byte_5D4594[3844309];
+extern unsigned int mix_dword_980858[3];
 typedef unsigned int uintptr_t;
 */
 import "C"
@@ -16,10 +17,12 @@ func Ptr(base, off uintptr) unsafe.Pointer {
 	switch base {
 	case 0x581450:
 		return unsafe.Pointer(&C.byte_581450[off])
-	case 0x5D4594:
-		return unsafe.Pointer(&C.byte_5D4594[off])
 	case 0x587000:
 		return unsafe.Pointer(&C.byte_587000[off])
+	case 0x5D4594:
+		return unsafe.Pointer(&C.byte_5D4594[off])
+	case 0x980858:
+		return unsafe.Pointer(uintptr(unsafe.Pointer(&C.mix_dword_980858[0])) + off)
 	}
 	panic(fmt.Errorf("Invalid memory access! Requested = %x+%x[???]\n", base, off))
 }
@@ -28,10 +31,12 @@ func PtrSize(base, off, size uintptr) unsafe.Pointer {
 	switch base {
 	case 0x581450:
 		return unsafe.Pointer(&C.byte_581450[off])
-	case 0x5D4594:
-		return unsafe.Pointer(&C.byte_5D4594[off])
 	case 0x587000:
 		return unsafe.Pointer(&C.byte_587000[off])
+	case 0x5D4594:
+		return unsafe.Pointer(&C.byte_5D4594[off])
+	case 0x980858:
+		return unsafe.Pointer(uintptr(unsafe.Pointer(&C.mix_dword_980858[0])) + off)
 	}
 	panic(fmt.Errorf("Invalid memory access! Requested = %x+%x[%d]\n", base, off, size))
 }

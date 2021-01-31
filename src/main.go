@@ -2,8 +2,6 @@ package main
 
 /*
 #cgo CFLAGS: -w -fshort-wchar -fno-strict-aliasing -fno-strict-overflow
-#cgo linux LDFLAGS: -Wl,-unresolved-symbols=ignore-all
-#cgo darwin LDFLAGS: -Wl,-undefined,dynamic_lookup
 #cgo windows LDFLAGS: -lSDL2
 #cgo linux LDFLAGS: -lm
 #cgo linux freebsd darwin openbsd pkg-config: sdl2
@@ -58,12 +56,9 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof"
-	"nox/blobs"
 	"nox/common/types"
 	"os"
 	"unsafe"
-
-	_ "nox/blobs"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -176,12 +171,12 @@ func cmain(args []string) error {
 		C.g_scaled = -1
 	}
 	if *fMinimize {
-		*blobs.PtrUint32(0x5D4594, 805864) = 1
+		*PtrUint32(0x5D4594, 805864) = 1
 	}
 
 	C.nox_init_ticks_func()
-	*blobs.PtrUint32(0x5D4594, 2650640) = 0
-	*blobs.PtrUint32(0x5D4594, 2618916) = 0
+	*PtrUint32(0x5D4594, 2650640) = 0
+	*PtrUint32(0x5D4594, 2618916) = 0
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	C.sub_43BDD0(10)
 	C.nox_common_gameFlags_unset_40A540(-1)
@@ -190,7 +185,7 @@ func cmain(args []string) error {
 	C.dword_5d4594_2650652 = 0
 	v2 := C.nox_common_gameFlags_check_40A5C0(1)
 	C.nox_gameFPS = 30
-	*blobs.PtrUint32(0x5D4594, 2598000) = uint32(v2)
+	*PtrUint32(0x5D4594, 2598000) = uint32(v2)
 	C.nox_ticks_xxx_416D40()
 	if !*fServer {
 		if C.nox_xxx_createMutexCheck_416A10() == 0 {
@@ -203,7 +198,7 @@ func cmain(args []string) error {
 	C.nox_xxx_setGameFlags_40A4D0(256)
 	if *fNoLimit {
 		C.sub_43DDE0(0)
-		*blobs.PtrUint32(0x587000, 84) = 0
+		*PtrUint32(0x587000, 84) = 0
 	}
 	if *fServer {
 		C.nox_enable_audio = 0
@@ -232,7 +227,7 @@ func cmain(args []string) error {
 		C.nox_enable_audio = 0
 		C.nox_video_dxUnlockSurface = 1
 		C.nox_xxx_useAudio_587000_80800 = 0
-		*blobs.PtrUint32(0x5D4594, 805840) = 1
+		*PtrUint32(0x5D4594, 805840) = 1
 		C.nox_enable_threads = 0
 		depth := 16
 		if C.sub_4300D0(1) == 0 {
@@ -250,13 +245,13 @@ func cmain(args []string) error {
 	}
 	if *fNoMMX {
 		C.nox_xxx_useAudio_587000_80800 = 0
-		*blobs.PtrUint32(0x5D4594, 805840) = 1
+		*PtrUint32(0x5D4594, 805840) = 1
 	}
 	if *fNoThreads {
 		C.nox_enable_threads = 0
 	}
 	if v := *fVol; v >= 0 {
-		*blobs.PtrUint8(0x587000, 88) = byte(v)
+		*PtrUint8(0x587000, 88) = byte(v)
 	}
 	if *fNoFloor {
 		C.nox_common_setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING)
@@ -282,7 +277,7 @@ func cmain(args []string) error {
 	C._controlfp(0x300, 0x300)
 	C.nox_win_width = 0
 	C.nox_xxx_servSetPlrLimit_409F80(32)
-	*blobs.PtrUint32(0x5D4594, 2614260) = uint32(C.nox_gameFPS) >> 1
+	*PtrUint32(0x5D4594, 2614260) = uint32(C.nox_gameFPS) >> 1
 	C.sub_4093A0()
 	C.nox_ensure_thing_bin()
 	// should be .csf but it works anyway
@@ -309,7 +304,7 @@ func cmain(args []string) error {
 	if C.nox_xxx_video_43BF10_upd_video_mode(1) == 0 {
 		return fmt.Errorf("failed to update video mode")
 	}
-	C.nox_xxx_drawSelectColor_434350(C.int(blobs.Int32(0x5D4594, 2650656)))
+	C.nox_xxx_drawSelectColor_434350(C.int(Int32(0x5D4594, 2650656)))
 	C.sub_440900()
 	if C.nox_video_read_videobag(C.int(C.dword_5d4594_3804680)) == 0 {
 		return fmt.Errorf("failed to read videos")
