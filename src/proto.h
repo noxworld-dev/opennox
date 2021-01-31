@@ -2496,7 +2496,7 @@ int __cdecl nox_xxx_windowDestroyChildsMB_46B500(nox_window* win);
 int __cdecl sub_46B580(int a1);
 _DWORD* __cdecl nox_xxx_wnd_46B5B0(_DWORD* a1, int a2, int a3);
 int __cdecl sub_46B630(int a1, int a2, int a3);
-void __cdecl nox_xxx_windowUpdateKeysMB_46B6B0(unsigned __int8* a1);
+void nox_xxx_windowUpdateKeysMB_46B6B0(unsigned __int8* a1);
 void nox_xxx_cursorUpdate_46B740();
 void sub_46C200();
 int __cdecl nox_xxx_wnd_46C2A0(int a1);
