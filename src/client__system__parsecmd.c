@@ -1668,7 +1668,7 @@ int nox_cmd_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
 }
 
 //----- (00443BF0) --------------------------------------------------------
-void sub_443BF0(unsigned __int16* a1, char* a2) {
+void nox_console_decodeSecretToken_443BF0(unsigned __int16* a1, char* a2) {
 	int v2;               // esi
 	signed int v3;        // ebp
 	unsigned __int16 v4;  // ax
@@ -1705,7 +1705,7 @@ int nox_xxx_consoleParseToken_443A20(int tokInd, int tokCnt, wchar_t** tokens, n
 	for (ind = 0; cmds[ind].token; ind++) {
 		nox_cmd_t* cur = &cmds[ind];
 		if (cur->flags & 0x40) {
-			sub_443BF0(tokens[tokInd], buf);
+			nox_console_decodeSecretToken_443BF0(tokens[tokInd], buf);
 		} else {
 			nox_wcscpy(buf, tokens[tokInd]);
 		}
