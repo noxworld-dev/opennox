@@ -194,7 +194,7 @@ wchar_t* __cdecl nox_xxx_sysopSetPass_40A610(wchar_t* a1);
 wchar_t* nox_xxx_sysopGetPass_40A630();
 wchar_t* __cdecl sub_40A640(wchar_t* a1);
 wchar_t* sub_40A660();
-void nox_xxx____setargv_40A670();
+void nox_server_gameSettingsUpdated_40A670();
 int nox_server_gameDoSwitchMap_40A680();
 void nox_server_gameUnsetMapLoad_40A690();
 int __cdecl sub_40A6A0(int a1);
@@ -1764,7 +1764,6 @@ void nullsub_3(void); // weak
 void sub_440900();
 int __cdecl nox_xxx_netServerCmd_440950(char a1, wchar_t* a2);
 int __cdecl sub_440AC0(wchar_t* a1);
-char* __cdecl sub_440BC0(int a1, unsigned __int8 a2, int a3);
 void __cdecl sub_4417E0(wchar_t* a1, const char* a2);
 int __cdecl nox_xxx_doExecrul_4438A0(int a1);
 void __cdecl sub_4443B0(unsigned __int8 a1);
@@ -4684,8 +4683,8 @@ int __cdecl nox_xxx_plrReadVals_4EEDC0(int a1, int a2);
 int __cdecl sub_4EF140(int a1);
 double __cdecl nox_xxx_calcBoltDamage_4EF1E0(int a1, int a2);
 void __cdecl sub_4EF410(int a1, unsigned __int8 a2);
-void __cdecl nullsub_26(_DWORD); // weak
-char* __cdecl nox_xxx_godSetOrUnSet_4EF500(int a1);
+void nox_xxx_set_sage(_DWORD); // weak
+void nox_xxx_set_god_4EF500(int a1);
 void sub_4EF560();
 void sub_4EF570();
 char nox_xxx_getRespawnWeaponFlags_4EF580();

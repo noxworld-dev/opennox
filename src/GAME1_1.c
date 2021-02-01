@@ -1230,8 +1230,8 @@ char* __cdecl nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2) {
 			result = (char*)nox_xxx_cryptOpen_426910(a1, 1, 27);
 			if (result) {
 				if (nox_common_gameFlags_check_40A5C0(2048)) {
-					nox_xxx_godSetOrUnSet_4EF500(0);
-					nullsub_26(0);
+					nox_xxx_set_god_4EF500(0);
+					nox_xxx_set_sage(0);
 				}
 				*getMemU16Ptr(0x5D4594, 527696) = nox_xxx_unitGetHP_4EE780(v3);
 				*getMemU32Ptr(0x5D4594, 527696) = *getMemU16Ptr(0x5D4594, 527696);
@@ -1287,7 +1287,6 @@ char* __cdecl nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2) {
 	}
 	return result;
 }
-// 4EF4F0: using guessed type void __cdecl nullsub_26(_DWORD);
 
 //----- (0041A480) --------------------------------------------------------
 int __cdecl nox_xxx_plrLoad_41A480(char* a1) {
