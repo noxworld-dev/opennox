@@ -1545,7 +1545,7 @@ wchar_t* __cdecl sub_40A640(wchar_t* a1) {
 wchar_t* sub_40A660() { return (wchar_t*)getMemAt(0x5D4594, 3560); }
 
 //----- (0040A670) --------------------------------------------------------
-void nox_xxx____setargv_40A670() { *(_DWORD*)&nox_server_gameSettingsUpdated = 1; }
+void nox_server_gameSettingsUpdated_40A670() { *(_DWORD*)&nox_server_gameSettingsUpdated = 1; }
 
 //----- (0040A680) --------------------------------------------------------
 int nox_server_gameDoSwitchMap_40A680() { return *(_DWORD*)&nox_server_gameSettingsUpdated; }

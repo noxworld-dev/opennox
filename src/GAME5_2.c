@@ -8578,7 +8578,7 @@ int sub_448640(void) { return sub_44A400(); }
 
 void nullsub_4(_DWORD a1, _DWORD a2, _DWORD a3, _DWORD a4) {}
 
-void nullsub_26(_DWORD a1) {}
+void nox_xxx_set_sage(_DWORD a1) {}
 
 void nullsub_5(void) {}
 

@@ -9401,26 +9401,21 @@ void __cdecl sub_4EF410(int a1, unsigned __int8 a2) {
 }
 
 //----- (004EF500) --------------------------------------------------------
-char* __cdecl nox_xxx_godSetOrUnSet_4EF500(int a1) {
-	char* result; // eax
-	int i;        // esi
-
-	result = (char*)nox_common_gameFlags_check_40A5C0(2048);
-	if (result) {
+void nox_xxx_set_god_4EF500(int a1) {
+	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		if (a1 == 1) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_5 | NOX_ENGINE_FLAG_6);
 		} else {
 			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_5 | NOX_ENGINE_FLAG_6);
 		}
-		result = nox_common_playerInfoGetFirst_416EA0();
-		for (i = (int)result; result; i = (int)result) {
+		char* result = nox_common_playerInfoGetFirst_416EA0();
+		for (int i = (int)result; result; i = (int)result) {
 			nox_xxx_spellAdward_4EFD80(i);
 			nox_xxx_spellAdward_4EFC80(i);
 			nox_xxx_spellAdward_4EFE10(i);
 			result = nox_common_playerInfoGetNext_416EE0(i);
 		}
 	}
-	return result;
 }
 
 //----- (004EF560) --------------------------------------------------------

@@ -3733,45 +3733,6 @@ int __cdecl sub_440AC0(wchar_t* a1) {
 	return v1;
 }
 
-//----- (00440BC0) --------------------------------------------------------
-char* __cdecl sub_440BC0(int a1, unsigned __int8 a2, int a3) {
-	int v3;              // ebx
-	unsigned int v5;     // edx
-	unsigned __int8* v6; // edi
-	unsigned __int8* v7; // edi
-	char* v8;            // esi
-	char v9;             // cl
-	int v10;             // edx
-	_DWORD* v11;         // [esp+8h] [ebp-84h]
-	char v12[128];       // [esp+Ch] [ebp-80h]
-
-	v3 = a1;
-	if (a1 == a2)
-		return 0;
-	*getMemU8Ptr(0x5D4594, 818100) = 0;
-	if (a1 < a2) {
-		v11 = (_DWORD*)(a3 + 4 * a1);
-		do {
-			nox_sprintf(v12, "%S", *v11);
-			v5 = strlen(v12) + 1;
-			v6 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 818100)) + 818100);
-			memcpy(v6, v12, 4 * (v5 >> 2));
-			v8 = &v12[4 * (v5 >> 2)];
-			v7 = &v6[4 * (v5 >> 2)];
-			v9 = v5;
-			v10 = v3 + 1;
-			memcpy(v7, v8, v9 & 3);
-			if (v3 + 1 < a2)
-				*getMemU16Ptr(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 818100)) + 818100) =
-					*getMemU16Ptr(0x587000, 101624);
-			++v3;
-			++v11;
-		} while (v10 < a2);
-	}
-	return (char*)getMemAt(0x5D4594, 818100);
-}
-// 440BC0: using guessed type char var_80[128];
-
 //----- (004417E0) --------------------------------------------------------
 void __cdecl sub_4417E0(wchar_t* a1, const char* a2) {
 	unsigned __int8 v2; // dl
