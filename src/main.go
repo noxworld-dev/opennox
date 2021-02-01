@@ -282,8 +282,8 @@ func cmain(args []string) error {
 	C.sub_4093A0()
 	C.nox_ensure_thing_bin()
 	// should be .csf but it works anyway
-	if C.nox_strman_readfile(C.CString("nox.str")) == 0 {
-		return fmt.Errorf("failed to load strings file")
+	if err := strmanReadFile("nox.str"); err != nil {
+		return fmt.Errorf("failed to load strings file: %w", err)
 	}
 	C.nox_common_scanAllMaps_4D07F0()
 	C.sub_40AED0()
@@ -335,7 +335,7 @@ func cmain(args []string) error {
 	C.sub_40B890(32)
 	C.sub_40B170(32)
 	C.sub_4134D0()
-	if v := C.nox_strman_get_lang_code(); v == 6 || v == 8 {
+	if v := strMan.Lang(); v == 6 || v == 8 {
 		C.sub_43F680(0)
 	}
 	C.sub_413920()
