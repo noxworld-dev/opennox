@@ -125,6 +125,10 @@ int nox_cmd_bind(int, int, wchar_t**);
 int nox_cmd_reenter(int, int, wchar_t**);
 int nox_cmd_startSoloQuest(int, int, wchar_t**);
 
+enum {
+	NOX_CONSOLE_SECRET = 0x40,
+};
+
 typedef struct nox_cmd_t nox_cmd_t;
 typedef struct nox_cmd_t {
 	const wchar_t* token;
@@ -250,7 +254,7 @@ nox_cmd_t nox_commands_unset[] = {
 };
 
 nox_cmd_t nox_commands[] = {
-	{L"0YAKikQs", 0, "noHelp", 0x47, 0, &nox_cmd_racoiaws},
+	{L"0YAKikQs", 0, "noHelp", NOX_CONSOLE_SECRET | 0x7, 0, &nox_cmd_racoiaws},
 	{L"allow", 0, "allowhelp", 0x1, nox_commands_allow, 0},
 	{L"audtest", 0, "sethelp", 0x3, 0, &nox_cmd_set},
 	{L"ban", 0, "banhelp", 0x1, 0, &nox_cmd_ban},
@@ -1704,7 +1708,7 @@ int nox_xxx_consoleParseToken_443A20(int tokInd, int tokCnt, wchar_t** tokens, n
 	int ind = 0;
 	for (ind = 0; cmds[ind].token; ind++) {
 		nox_cmd_t* cur = &cmds[ind];
-		if (cur->flags & 0x40) {
+		if (cur->flags & NOX_CONSOLE_SECRET) {
 			nox_console_decodeSecretToken_443BF0(tokens[tokInd], buf);
 		} else {
 			nox_wcscpy(buf, tokens[tokInd]);
