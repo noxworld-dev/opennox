@@ -1,3 +1,5 @@
+#ifndef NOX_CGO
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -20,6 +22,17 @@ typedef struct nox_strman_lang_t {
 	unsigned int code;
 } nox_strman_lang_t;
 
+typedef struct nox_missing_string nox_missing_string;
+typedef struct nox_missing_string {
+	nox_missing_string* next;
+	wchar_t data[258];
+} nox_missing_string;
+
+typedef struct nox_string_entry {
+	char data[50];
+	unsigned short field_50;
+} nox_string_entry;
+
 nox_strman_lang_t nox_strman_lang[] = {
 	{"US", "us", "e", NOX_LANG_US},
 	{"UK", "uk", "e", NOX_LANG_UK},
@@ -40,20 +53,17 @@ int nox_strman_get_lang_code() {
 
 nox_missing_string* missing_strings = 0;
 nox_string_entry* string_entries = 0;
-size_t string_entries_cnt = 0;
+int string_entries_cnt = 0;
 
 int nox_string_str_cnt = 0;
 wchar_t** nox_string_wstr_arr = 0;
 char** nox_string_str_arr = 0;
-
-FILE* nox_strman_file = 0;
 
 int nox_strman_complete = 0;
 int dword_5d4594_251480 = 0;
 int dword_5d4594_251492 = 0;
 int dword_5d4594_251484 = 0;
 int dword_5d4594_251516 = 0;
-char nox_strman_path_buf[1024] = {0};
 char nox_strman_name_buf[1024] = {0};
 char file_buffer[4096] = {0};
 wchar_t file_buffer_w[4096 * 2] = {0};
@@ -271,16 +281,16 @@ char sub_40F640(FILE* a1, char* a2, char* a3, unsigned char* a4, int cnt) {
 }
 
 //----- (0040F4E0) --------------------------------------------------------
-int sub_40F4E0() {
+int nox_strman_read_str_header_40F4E0(FILE* file) {
 	string_entries_cnt = 0;
 	nox_string_str_cnt = 0;
-	while (fgets(file_buffer, sizeof(file_buffer) - 1, nox_strman_file)) {
+	while (fgets(file_buffer, sizeof(file_buffer) - 1, file)) {
 		sub_40F5C0(file_buffer);
 		if (file_buffer[0] == '"') {
 			unsigned int n = strlen((const char*)file_buffer);
 			file_buffer[n + 0] = '\n';
 			file_buffer[n + 1] = 0;
-			sub_40F640(nox_strman_file, (char*)file_buffer + 1, strman_buf_1, strman_buf_2, 4096);
+			sub_40F640(file, (char*)file_buffer + 1, strman_buf_1, strman_buf_2, 4096);
 			nox_string_str_cnt++;
 			continue;
 		}
@@ -493,7 +503,7 @@ void sub_40FB60(wchar_t* a1) {
 }
 
 //----- (0040FBE0) --------------------------------------------------------
-int sub_40FBE0() {
+int nox_strman_read_str_strings_40FBE0(FILE* file) {
 	int v3;          // ebx
 	int v8;          // eax
 
@@ -503,7 +513,7 @@ int sub_40FBE0() {
 	int v11 = 0;
 	do {
 		LABEL_2:
-		if (!fgets(file_buffer, sizeof(file_buffer), nox_strman_file))
+		if (!fgets(file_buffer, sizeof(file_buffer), file))
 			return 1;
 		sub_40F5C0(file_buffer);
 	} while (*(unsigned short*)file_buffer == 0x2F2F || !file_buffer[0]);
@@ -515,13 +525,13 @@ int sub_40FBE0() {
 	v3 = 0;
 	int v4 = v0;
 
-	while (fgets(file_buffer, sizeof(file_buffer) - 1, nox_strman_file)) {
+	while (fgets(file_buffer, sizeof(file_buffer) - 1, file)) {
 		sub_40F5C0(file_buffer);
 		if (file_buffer[0] == '"') {
 			int v5 = strlen((const char*)file_buffer);
 			file_buffer[v5 + 0] = 10;
 			file_buffer[v5 + 1] = 0;
-			sub_40F640(nox_strman_file, (char*)file_buffer + 1, strman_buf_1, strman_buf_2, 4096);
+			sub_40F640(file, (char*)file_buffer + 1, strman_buf_1, strman_buf_2, 4096);
 			sub_40FE00(file_buffer_w, strman_buf_1);
 			sub_40FB60(file_buffer_w);
 			int v6 = nox_wcslen((const wchar_t*)file_buffer_w);
@@ -548,7 +558,7 @@ int sub_40FBE0() {
 }
 
 //----- (0040F830) --------------------------------------------------------
-int sub_40F830(const char* path) {
+int nox_strman_read_csf_strings_40F830(const char* path) {
 	int v7;               // ecx
 	int v8;               // eax
 	int v11;              // ecx
@@ -668,33 +678,42 @@ int nox_strman_readfile(const char* path) {
 		return 0;
 
 	// copy path to a buffer
-	strcpy(nox_strman_path_buf, path);
+	char cpath[1024] = {0}; // CSF file path
+	strcpy(cpath, path);
 	// trim file extension
-	char* ext = strchr(nox_strman_path_buf, '.');
+	char* ext = strchr(cpath, '.');
 	if (ext) {
 		*ext = 0;
 	}
 	// append correct extension
-	ext = &nox_strman_path_buf[strlen(nox_strman_path_buf)];
+	ext = &cpath[strlen(cpath)];
 	strcpy(ext, ".csf");
 	ext[4] = 0;
 
-	int v6 = 0;
-	if (dword_5d4594_251484 == 0 || (nox_strman_file = fopen(path, "r")) == 0) {
-		if (!strman_read_csf_header_40F7A0(nox_strman_path_buf))
+	bool isCSF = false;
+	if (dword_5d4594_251484 == 0) {
+		// ignore legacy, read CSF directly
+		if (!strman_read_csf_header_40F7A0(cpath))
 			return 0;
-		v6 = 1;
+		isCSF = true;
 	} else {
-		if (!sub_40F4E0()) {
-			fclose(nox_strman_file);
-			return 0;
+		// open legacy ".str" file first
+		FILE* file = 0;
+		if (file = fopen(path, "r"), file) {
+			if (!nox_strman_read_str_header_40F4E0(file)) {
+				fclose(file);
+				return 0;
+			}
+			fclose(file);
+			isCSF = false;
+		} else {
+			// try reading CSF
+			if (!strman_read_csf_header_40F7A0(cpath))
+				return 0;
+			isCSF = true;
 		}
-		fclose(nox_strman_file);
-		v6 = 0;
 	}
-	if (!nox_string_str_cnt)
-		return 0;
-	if (!string_entries_cnt)
+	if (!nox_string_str_cnt || !string_entries_cnt)
 		return 0;
 	string_entries = (nox_string_entry*)calloc(string_entries_cnt, sizeof(nox_string_entry));
 	if (!string_entries)
@@ -705,18 +724,21 @@ int nox_strman_readfile(const char* path) {
 	nox_string_str_arr = calloc(nox_string_str_cnt, sizeof(char*));
 	if (!nox_string_str_arr)
 		return 0;
-	if (v6) {
-		sub_40F830(nox_strman_path_buf);
+	if (isCSF) {
+		nox_strman_read_csf_strings_40F830(cpath);
 	} else {
-		nox_strman_file = fopen(path, "r");
-		if (!nox_strman_file)
-			return 0;
-		if (!sub_40FBE0()) {
-			fclose(nox_strman_file);
+		FILE* file = fopen(path, "r");
+		if (!file) {
 			return 0;
 		}
-		fclose(nox_strman_file);
+		bool ok = nox_strman_read_str_strings_40FBE0(file);
+		fclose(file);
+		if (!ok) {
+			return 0;
+		}
 	}
 	qsort(string_entries, string_entries_cnt, sizeof(nox_string_entry), strcasecmp);
 	return 1;
 }
+
+#endif // NOX_CGO
