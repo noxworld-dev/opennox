@@ -8625,7 +8625,7 @@ int nox_xxx_client_435F80_draw() {
 	sub_49BB40();
 	sub_49BA70();
 	if (sub_409F40(4096))
-		sub_46D830();
+		nox_xxx_screenshot_46D830();
 	if (*getMemU32Ptr(0x5D4594, 826068))
 		nox_xxx_motd_4467F0();
 	if (sub_42EBA0() == 1) {
