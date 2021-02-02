@@ -51,7 +51,6 @@ void input_set_win_size(int w, int h);
 */
 import "C"
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -63,6 +62,8 @@ import (
 
 	"github.com/veandco/go-sdl2/sdl"
 )
+
+const noxVersionStr = "1.2g"
 
 func init() {
 	go func() {
@@ -78,7 +79,8 @@ const (
 )
 
 var (
-	noxWindow *sdl.Window
+	noxWindow   *sdl.Window
+	noxDataPath string
 )
 
 // Nox only works on 32bit
@@ -188,11 +190,12 @@ func cmain(args []string) error {
 	C.nox_gameFPS = 30
 	*PtrUint32(0x5D4594, 2598000) = uint32(v2)
 	C.nox_ticks_xxx_416D40()
-	if !*fServer {
-		if C.nox_xxx_createMutexCheck_416A10() == 0 {
-			return errors.New("create mutex failed")
-		}
-	}
+	// does nothing on SDL
+	//if !*fServer {
+	//	if C.nox_xxx_createMutexCheck_416A10() == 0 {
+	//		return errors.New("create mutex failed")
+	//	}
+	//}
 	C.nox_xxx_setGameState_43DDF0(nil)
 	C.nox_game_SetCliDrawFunc(nil)
 	C.sub_43DE40(nil)
@@ -273,7 +276,7 @@ func cmain(args []string) error {
 	if err != nil {
 		return fmt.Errorf("cannot get workdir: %w", err)
 	}
-	C.nox_common_set_data_path_409E20(C.CString(wd))
+	setDataPath(wd)
 	// C.nox_common_readSKU_fromRegistry_4D78C0()
 	C.fesetround(C.FE_TOWARDZERO)
 	C.nox_win_width = 0
@@ -350,6 +353,29 @@ func cmain(args []string) error {
 	C.g_v21 = 0
 	C.cmain_loop(0)
 	return nil
+}
+
+func setDataPath(path string) {
+	noxDataPath = path
+}
+
+func getDataPath() string {
+	return noxDataPath
+}
+
+//export nox_common_get_data_path_409E10
+func nox_common_get_data_path_409E10() *C.char {
+	return internCStr(getDataPath())
+}
+
+//export nox_exit
+func nox_exit(exitCode C.int) {
+	os.Exit(int(exitCode))
+}
+
+//export nox_xxx_getNoxVer_401020
+func nox_xxx_getNoxVer_401020() *C.wchar_t {
+	return internWStr("V:" + noxVersionStr)
 }
 
 //export nox_xxx_gameResizeScreen_43BEF0_set_video_mode
