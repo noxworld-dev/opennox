@@ -2534,7 +2534,7 @@ int nox_cmd_cheat_gold(int tokInd, int tokCnt, wchar_t** tokens) {
 
 //----- (00442120) --------------------------------------------------------
 int nox_cmd_image(int tokInd, int tokCnt, wchar_t** tokens) {
-	sub_46DB00();
+	nox_xxx_saveScreenshot_46DB00();
 	return 1;
 }
 

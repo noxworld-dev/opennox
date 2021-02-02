@@ -694,7 +694,7 @@ void nox_xxx_clientControl_42D6B0_B() {
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 56:
-				sub_46DB00();
+				nox_xxx_saveScreenshot_46DB00();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			default:
