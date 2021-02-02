@@ -1064,9 +1064,6 @@ int __cdecl nox_xxx_XFerRewardMarker_4F74D0(int* a1) {
 }
 // 4F74D0: using guessed type char var_100[256];
 
-//----- (004F78D0) --------------------------------------------------------
-void sub_4F78D0() { nox_platform_srand(0x4E34u); }
-
 //----- (004F78E0) --------------------------------------------------------
 int __cdecl nox_xxx_unitInventoryContains_4F78E0(int a1, int a2) {
 	int v2; // eax
@@ -3205,9 +3202,6 @@ void __cdecl sub_4FADD0(int a1, const char* a2, char a3) {
 	}
 }
 
-//----- (004FAE70) --------------------------------------------------------
-void sub_4FAE70() { nox_platform_srand(0x1432u); }
-
 //----- (004FB000) --------------------------------------------------------
 int __cdecl sub_4FB000(int a1, int a2) {
 	int v2;         // esi
@@ -3237,12 +3231,6 @@ int __cdecl sub_4FB050(int a1, int a2, int* a3) {
 	}
 	return result;
 }
-
-//----- (004FB090) --------------------------------------------------------
-void sub_4FB090() { nox_platform_srand(0x1433u); }
-
-//----- (004FB0A0) --------------------------------------------------------
-void sub_4FB0A0() { nox_platform_srand(0x143Cu); }
 
 //----- (004FB0E0) --------------------------------------------------------
 int __cdecl nox_xxx_playerDoSchedSpell_4FB0E0(int a1, int a2) {
@@ -3303,12 +3291,6 @@ int __cdecl nox_xxx_playerDoSchedSpellQueue_4FB1D0(int a1, int a2) {
 	--*(_BYTE*)(v3 + 212);
 	return 1;
 }
-
-//----- (004FB940) --------------------------------------------------------
-void sub_4FB940() { nox_platform_srand(0x143Du); }
-
-//----- (004FB950) --------------------------------------------------------
-void sub_4FB950() { nox_platform_srand(0x22EAu); }
 
 //----- (004FB990) --------------------------------------------------------
 char* nox_xxx_allocArrayExecAbilities_4FB990() {
@@ -3799,9 +3781,6 @@ int __cdecl nox_xxx_unused_4FC4C0(int a1) {
 	return 1;
 }
 
-//----- (004FC560) --------------------------------------------------------
-void sub_4FC560() { nox_platform_srand(0x22EBu); }
-
 //----- (004FC570) --------------------------------------------------------
 int __cdecl nox_xxx_resetMapInit_4FC570(int a1) {
 	int result; // eax
@@ -3828,9 +3807,6 @@ int __cdecl sub_4FC670(int a1) {
 	dword_5d4594_1569660 = a1;
 	return result;
 }
-
-//----- (004FC950) --------------------------------------------------------
-void sub_4FC950() { nox_platform_srand(0x1446u); }
 
 //----- (004FC960) --------------------------------------------------------
 int __cdecl sub_4FC960(int a1, char a2) {
@@ -5200,9 +5176,6 @@ int __cdecl nox_xxx_spellGetPower_4FE7B0(int a1, int a2) {
 		result = *(_DWORD*)(*(_DWORD*)(a2 + 748) + 2040);
 	return result;
 }
-
-//----- (004FE840) --------------------------------------------------------
-void sub_4FE840() { nox_platform_srand(0x1447u); }
 
 //----- (004FE850) --------------------------------------------------------
 BOOL nox_xxx_spellCreateDurations_4FE850() {
