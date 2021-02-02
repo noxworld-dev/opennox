@@ -1,4 +1,4 @@
-#ifndef NOX_CGO
+//+build none
 
 //Translation layer between Microsoft Sound System to OpenAL
 
@@ -1031,5 +1031,3 @@ DXDEC S32 AILCALL AIL_waveOutOpen(HDIGDRIVER FAR* pdrvr, LPHWAVEOUT FAR* lphWave
 	*pdrvr = dig;
 	return 0;
 }
-
-#endif // NOX_CGO

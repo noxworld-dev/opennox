@@ -1,4 +1,4 @@
-#ifndef NOX_CGO
+//+build none
 
 #ifdef _WIN32
 #include <GL/glew.h>
@@ -559,5 +559,3 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
 	}
 	return result;
 }
-
-#endif // NOX_CGO
