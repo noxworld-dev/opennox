@@ -158,9 +158,6 @@ void nox_exit(int exitCode) {
 //----- (00401000) --------------------------------------------------------
 int nox_get_audio_enabled() { return nox_enable_audio; }
 
-//----- (00401010) --------------------------------------------------------
-void sub_401010() { nox_platform_srand(1u); }
-
 #ifndef NOX_CGO
 //----- (00401020) --------------------------------------------------------
 wchar_t* nox_xxx_getNoxVer_401020() {
@@ -383,9 +380,6 @@ int cmain(int argc, const char* argv[]) {
 // 4017F7: variable 'v22' is possibly undefined
 // 4093D0: using guessed type int sub_4093D0(void);
 // 413F80: using guessed type void nullsub_2(void);
-
-//----- (00401B10) --------------------------------------------------------
-void sub_401B10() { nox_platform_srand(0xCu); }
 
 //----- (00401B20) --------------------------------------------------------
 void __cdecl sub_401B20(char* a1) {
@@ -6396,9 +6390,6 @@ BOOL __cdecl nox_xxx_mapTileAllowTeleport_411A90(float2* a1) {
 		   v3 == *getMemU32Ptr(0x587000, 26532);
 }
 
-//----- (00411B80) --------------------------------------------------------
-void sub_411B80() { nox_platform_srand(0x962u); }
-
 //----- (00411C40) --------------------------------------------------------
 BOOL __cdecl nox_xxx_parseWeapColor_411C40(const char* a1, char* a2, int a3) {
 	int v3;      // eax
@@ -7268,9 +7259,6 @@ int __cdecl sub_413420(char a1) {
 	}
 	return *getMemU32Ptr(0x587000, 20 * v2 + 27340);
 }
-
-//----- (004134C0) --------------------------------------------------------
-void sub_4134C0() { nox_platform_srand(0x963u); }
 
 //----- (004134D0) --------------------------------------------------------
 int sub_4134D0() {
@@ -8329,9 +8317,6 @@ char nox_xxx_initSinCosTables_414C90() {
 	return v0;
 }
 
-//----- (00414D30) --------------------------------------------------------
-void sub_414D30() { nox_platform_srand(0x9E0u); }
-
 //----- (00414D40) --------------------------------------------------------
 int __cdecl nox_thing_read_audio_414D40(int a1) {
 	int* v1;             // ecx
@@ -8935,12 +8920,6 @@ int __cdecl nox_thing_read_ABIL_415750(int a1, void* a2) {
 	return 0;
 }
 
-//----- (004157A0) --------------------------------------------------------
-void sub_4157A0() { nox_platform_srand(0x9E1u); }
-
-//----- (004157B0) --------------------------------------------------------
-void sub_4157B0() { nox_platform_srand(0x964u); }
-
 //----- (00415820) --------------------------------------------------------
 int __cdecl nox_xxx_unitWeaponInventoryEquipFlags_415820(int a1) {
 	int result; // eax
@@ -9082,12 +9061,6 @@ int __cdecl sub_415A30(char* a1) {
 		result = 0;
 	return result;
 }
-
-//----- (00415A90) --------------------------------------------------------
-void sub_415A90() { nox_platform_srand(0x965u); }
-
-//----- (00415AA0) --------------------------------------------------------
-void sub_415AA0() { nox_platform_srand(0x960u); }
 
 //----- (00415B20) --------------------------------------------------------
 int __cdecl sub_415B20(char* a1) {
@@ -9313,9 +9286,6 @@ int __cdecl sub_415EC0(char* a1) {
 		result = 0;
 	return result;
 }
-
-//----- (00415F20) --------------------------------------------------------
-void sub_415F20() { nox_platform_srand(0x961u); }
 
 //----- (004160D0) --------------------------------------------------------
 int __cdecl nox_xxx_setKeybTimeout_4160D0(int a1) {
@@ -9874,9 +9844,6 @@ void nox_ticks_maybe_sleep_416DD0() {
 	if (ms > 0)
 		nox_platform_sleep(ms);
 }
-
-//----- (00416E20) --------------------------------------------------------
-void sub_416E20() { nox_platform_srand(0x9D8u); }
 
 //----- (00416E30) --------------------------------------------------------
 void nox_xxx_cliResetAllPlayers_416E30() { memset(nox_playerinfo_arr, 0, NOX_PLAYERINFO_MAX * sizeof(nox_playerInfo)); }
@@ -10546,9 +10513,6 @@ char* __cdecl sub_417C00(char* a1, int a2) {
 	}
 	return result;
 }
-
-//----- (00417C50) --------------------------------------------------------
-void sub_417C50() { nox_platform_srand(0x9D9u); }
 
 //----- (00417CF0) --------------------------------------------------------
 int sub_417CF0() { return sub_419030(0); }

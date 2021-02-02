@@ -4104,9 +4104,6 @@ int __cdecl nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4
 	return 1;
 }
 
-//----- (00535960) --------------------------------------------------------
-void sub_535960() { nox_platform_srand(0x8A2u); }
-
 //----- (00535970) --------------------------------------------------------
 int __cdecl nox_xxx_parseXP_535970(int a1, int a2, char* a3) {
 	sscanf(a3, "%f", a1 + 44);
@@ -4251,9 +4248,6 @@ int __cdecl nox_xxx_parsePrettyImage_0_535C80(int a1, int a2) {
 	}
 	return 1;
 }
-
-//----- (00535CC0) --------------------------------------------------------
-void sub_535CC0() { nox_platform_srand(0x8A3u); }
 
 //----- (00535CD0) --------------------------------------------------------
 int __cdecl nox_xxx_parseDraw_535CD0(int a1, _DWORD* a2, void* a3) {
@@ -11044,9 +11038,6 @@ void nox_xxx_createCorpse_53FCA0() {
 	*getMemU32Ptr(0x5D4594, 2488736) = 1;
 }
 
-//----- (0053FEA0) --------------------------------------------------------
-void sub_53FEA0() { nox_platform_srand(0x22E0u); }
-
 //----- (0053FEB0) --------------------------------------------------------
 void __cdecl nox_xxx_warriorBerserker_53FEB0(int a1) {
 	int v1; // edi
@@ -11166,9 +11157,6 @@ void __cdecl nox_xxx_warriorInfravis_540110(int a1, __int16 a2) {
 		sub_4FC3C0(a1, 5, 1);
 	}
 }
-
-//----- (00540150) --------------------------------------------------------
-void nox_xxx_r3mov3d_Anvil_540150() { nox_platform_srand(0x22E1u); }
 
 //----- (00540160) --------------------------------------------------------
 int __cdecl nox_xxx_castMissilesOM_540160(int a1, int a2, int a3, int a4, int a5, int a6) {

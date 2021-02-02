@@ -237,9 +237,6 @@ int __cdecl sub_51DE30(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 	return result;
 }
 
-//----- (0051DE90) --------------------------------------------------------
-void sub_51DE90() { nox_platform_srand(0x7D4u); }
-
 //----- (0051DEA0) --------------------------------------------------------
 int __cdecl nox_xxx_mapCountWallsMB_51DEA0(int a1) {
 	int result; // eax
@@ -378,9 +375,6 @@ int nox_xxx_map_51E140() {
 	}
 	return result;
 }
-
-//----- (0051E1C0) --------------------------------------------------------
-void sub_51E1C0() { nox_platform_srand(0x7D5u); }
 
 //----- (0051E1D0) --------------------------------------------------------
 int __cdecl nox_xxx_mapGenSpellIdByName_51E1D0(const char* a1) {

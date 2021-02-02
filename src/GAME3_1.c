@@ -1999,9 +1999,6 @@ void __cdecl sub_4BEDE0(int2* a1, int2* a2, int2* a3, int2* a4, int a5, float a6
 	}
 }
 
-//----- (004BF000) --------------------------------------------------------
-void sub_4BF000() { nox_platform_srand(0x15EA1u); }
-
 //----- (004BF010) --------------------------------------------------------
 int __cdecl nox_xxx_clientReportSecondaryWeapon_4BF010(int a1) {
 	int v1;     // ecx
@@ -2013,9 +2010,6 @@ int __cdecl nox_xxx_clientReportSecondaryWeapon_4BF010(int a1) {
 	*(_WORD*)&v3[1] = nox_xxx_netGetUnitCodeCli_578B00(a1);
 	return nox_xxx_netClientSend2_4E53C0(31, v3, 3, 0, 1);
 }
-
-//----- (004BF040) --------------------------------------------------------
-void sub_4BF040() { nox_platform_srand(0x15EABu); }
 
 //----- (004BF7E0) --------------------------------------------------------
 __int16 __cdecl sub_4BF7E0(_DWORD* a1) {
