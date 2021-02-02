@@ -146,12 +146,14 @@ void nox_common_toggleEngineFlag(const nox_engine_flag flags) { nox_common_engin
 
 bool nox_common_getEngineFlag(const nox_engine_flag flags) { return (nox_common_engineFlags & flags) != 0; }
 
+#ifndef NOX_CGO
 void nox_exit(int exitCode) {
 #ifdef __EMSCRIPTEN__
 	nox_platform_sleep(0x32u);
 #endif
 	exit(exitCode);
 }
+#endif // NOX_CGO
 
 //----- (00401000) --------------------------------------------------------
 int nox_get_audio_enabled() { return nox_enable_audio; }
@@ -159,12 +161,14 @@ int nox_get_audio_enabled() { return nox_enable_audio; }
 //----- (00401010) --------------------------------------------------------
 void sub_401010() { nox_platform_srand(1u); }
 
+#ifndef NOX_CGO
 //----- (00401020) --------------------------------------------------------
 wchar_t* nox_xxx_getNoxVer_401020() {
 	wchar_t* buf = (wchar_t*)getMemAt(0x5D4594, 0);
 	nox_swprintf(buf, L"V:%S", nox_version_string_180);
 	return buf;
 }
+#endif // NOX_CGO
 
 //----- (00401040) --------------------------------------------------------
 BOOL sub_401040() {
@@ -178,6 +182,7 @@ BOOL sub_401040() {
 //----- (00401060) --------------------------------------------------------
 int sub_401060() { return *getMemU32Ptr(0x5D4594, 264); }
 
+#ifndef NOX_CGO
 //----- (00401070) --------------------------------------------------------
 int cmain(int argc, const char* argv[]) {
 	int result; // eax
@@ -373,6 +378,7 @@ int cmain(int argc, const char* argv[]) {
 	cmain_loop(0);
 	return result;
 }
+#endif // NOX_CGO
 // 4015E2: variable 'v18' is possibly undefined
 // 4017F7: variable 'v22' is possibly undefined
 // 4093D0: using guessed type int sub_4093D0(void);
@@ -1190,6 +1196,7 @@ char* __cdecl nox_xxx_gameSetMapPath_409D70(char* a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 char nox_workdir[1025] = {0};
 
 //----- (00409E10) --------------------------------------------------------
@@ -1200,6 +1207,7 @@ void nox_common_set_data_path_409E20(char* wd) {
 	strncpy(nox_workdir, wd, sizeof(nox_workdir)-1);
 	nox_workdir[sizeof(nox_workdir)-1] = 0;
 }
+#endif // NOX_CGO
 
 //----- (00409E40) --------------------------------------------------------
 int __cdecl sub_409E40(int a1) {
