@@ -5472,7 +5472,7 @@ int sub_46D6F0() {
 }
 
 //----- (0046D750) --------------------------------------------------------
-int __cdecl sub_46D750(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10) {
+int __cdecl nox_xxx_queueScreenshot_46D750(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10) {
 	int v10; // edi
 	int v11; // ecx
 	int v12; // esi
@@ -5499,13 +5499,13 @@ int __cdecl sub_46D750(int a1, int a2, int a3, int a4, int a5, int a6, int a7, i
 	*getMemU32Ptr(0x587000, 145552) = v12;
 	*getMemU32Ptr(0x5D4594, 1082908) = a4;
 	*getMemU32Ptr(0x5D4594, 1082912) = a5;
-	*getMemU32Ptr(0x5D4594, 1082904) = a9;
+	*getMemU32Ptr(0x5D4594, 1082904) = a9; // callback func
 	*getMemU32Ptr(0x5D4594, 1082900) = a10;
 	return 0;
 }
 
 //----- (0046D830) --------------------------------------------------------
-int sub_46D830() {
+int nox_xxx_screenshot_46D830() {
 	__int16* v1; // ebp
 	int v2;      // ebx
 	int v3;      // edi
@@ -5554,7 +5554,7 @@ int sub_46D830() {
 }
 
 //----- (0046D950) --------------------------------------------------------
-void __cdecl sub_46D950(_DWORD* a1) {
+void __cdecl nox_xxx_screenshotCallback_46D950(_DWORD* a1) {
 	int v2;        // edx
 	char v3[1024]; // [esp+0h] [ebp-400h]
 
@@ -5564,13 +5564,13 @@ void __cdecl sub_46D950(_DWORD* a1) {
 			nox_sprintf(v3, "%s%d.bmp", a1, v2);
 		else
 			nox_sprintf(v3, "%s.bmp", a1);
-		sub_46D9D0((int)v3, *(int*)&dword_5d4594_1082916, *(LPVOID*)getMemAt(0x5D4594, 1082920),
+		nox_xxx_saveBMP_46D9D0((int)v3, *(int*)&dword_5d4594_1082916, *(LPVOID*)getMemAt(0x5D4594, 1082920),
 				   *getMemIntPtr(0x5D4594, 1082924));
 	}
 }
 
 //----- (0046D9D0) --------------------------------------------------------
-FILE* __cdecl sub_46D9D0(int a1, int a2, LPVOID lpMem, int a4) {
+FILE* __cdecl nox_xxx_saveBMP_46D9D0(int a1, int a2, LPVOID lpMem, int a4) {
 	int v4;                  // ebp
 	size_t v5;               // edi
 	int v6;                  // esi
@@ -5647,7 +5647,7 @@ FILE* __cdecl sub_46D9D0(int a1, int a2, LPVOID lpMem, int a4) {
 // 46DA62: variable 'v9' is possibly undefined
 
 //----- (0046DB00) --------------------------------------------------------
-int sub_46DB00() {
+int nox_xxx_saveScreenshot_46DB00() {
 	if (!*getMemU32Ptr(0x5D4594, 1083964)) {
 		*getMemU32Ptr(0x5D4594, 1083964) = malloc(2 * nox_win_width * nox_win_height);
 		strcpy((char*)getMemAt(0x5D4594, 1082932), "nox");
@@ -5655,7 +5655,7 @@ int sub_46DB00() {
 		*getMemU32Ptr(0x5D4594, 1083960) = 0;
 	}
 	sub_409EC0(4096);
-	return sub_46D750(*getMemIntPtr(0x5D4594, 1083964), 0, 0, nox_win_width, nox_win_height, 1, 0, 0, sub_46D950,
+	return nox_xxx_queueScreenshot_46D750(*getMemIntPtr(0x5D4594, 1083964), 0, 0, nox_win_width, nox_win_height, 1, 0, 0, nox_xxx_screenshotCallback_46D950,
 					  (int)getMemAt(0x5D4594, 1082932));
 }
 
