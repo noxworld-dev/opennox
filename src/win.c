@@ -23,6 +23,7 @@ extern int g_scaled;
 extern int nox_win_width;
 extern int nox_win_height;
 
+#ifndef NOX_CGO
 //----- (00401C70) --------------------------------------------------------
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 	char* v4; // edi
@@ -150,6 +151,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif // USE_SDL
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00401FD0) --------------------------------------------------------
 #ifdef USE_SDL
