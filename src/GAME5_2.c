@@ -1375,9 +1375,6 @@ int __cdecl sub_554240(int a1) {
 	return result;
 }
 
-//----- (00554370) --------------------------------------------------------
-void sub_554370() { nox_platform_srand(0x8FDu); }
-
 //----- (00554380) --------------------------------------------------------
 int __cdecl nox_xxx_netInit_554380(size_t* a1) {
 	int v2;                 // ebx
@@ -1702,9 +1699,6 @@ void __cdecl nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, int a2, int a3, 
 	free(v5);
 }
 
-//----- (00554B30) --------------------------------------------------------
-void sub_554B30() { nox_platform_srand(0x910u); }
-
 //----- (00554B40) --------------------------------------------------------
 int __cdecl nox_xxx_createSocketLocal_554B40(uint16_t hostshort) {
 	int result;             // eax
@@ -1935,12 +1929,6 @@ int __cdecl sub_5550D0(int a1, uint16_t hostshort, char* buf) {
 //----- (00555100) --------------------------------------------------------
 int sub_555100() { return dword_5d4594_2513916; }
 
-//----- (00555110) --------------------------------------------------------
-void sub_555110() { nox_platform_srand(0x911u); }
-
-//----- (00555120) --------------------------------------------------------
-void sub_555120() { nox_platform_srand(0x906u); }
-
 //----- (00555130) --------------------------------------------------------
 int __cdecl sub_555130(unsigned int a1, const void* a2, signed int a3) {
 	int v3;     // edi
@@ -2095,9 +2083,6 @@ int __cdecl sub_555360(unsigned int a1, unsigned __int8 a2, int a3) {
 	}
 	return 0;
 }
-
-//----- (00555420) --------------------------------------------------------
-void sub_555420() { nox_platform_srand(0x907u); }
 
 //----- (00565360) --------------------------------------------------------
 int* __cdecl sub_565360(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
@@ -4514,9 +4499,6 @@ int __cdecl sub_57AE30(const char* a1) {
 	return *getMemU32Ptr(0x587000, 8 * v1 + 312212);
 }
 
-//----- (0057AE90) --------------------------------------------------------
-void sub_57AE90() { nox_platform_srand(0x9DCu); }
-
 //----- (0057AEA0) --------------------------------------------------------
 int __cdecl nox_xxx_playerCheckSpellClass_57AEA0(int a1, int a2) {
 	int v2;     // eax
@@ -4540,9 +4522,6 @@ int __cdecl nox_xxx_playerCheckSpellClass_57AEA0(int a1, int a2) {
 
 //----- (0057AEE0) --------------------------------------------------------
 BOOL __cdecl sub_57AEE0(int a1, int a2) { return a1 < 75 || a1 > 114 || nox_xxx_countControlledCreatures_500D10(a2) <= 4; }
-
-//----- (0057AF10) --------------------------------------------------------
-void sub_57AF10() { nox_platform_srand(0x9DDu); }
 
 //----- (0057AF20) --------------------------------------------------------
 int nox_xxx_get_57AF20() { return dword_5d4594_2523804; }
