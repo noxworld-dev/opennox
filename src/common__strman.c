@@ -1,4 +1,4 @@
-#ifndef NOX_CGO
+//+build none
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -740,5 +740,3 @@ int nox_strman_readfile(const char* path) {
 	qsort(string_entries, string_entries_cnt, sizeof(nox_string_entry), strcasecmp);
 	return 1;
 }
-
-#endif // NOX_CGO
