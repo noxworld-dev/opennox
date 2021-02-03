@@ -44,7 +44,7 @@ int __cdecl nox_xxx_abilityRewardServ_4FB9C0_ability(int a1, int a2, int a3) {
 		return 0;
 	if (a2 <= 0 || a2 >= 6) {
 		v10 =
-			nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 217368), 0, "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 108);
+			nox_strman_loadString_40F1D0("AwardAbilityError", 0, "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 108);
 		nox_xxx_netSendLineMessage_4D9EB0(a1, v10);
 		return 0;
 	}

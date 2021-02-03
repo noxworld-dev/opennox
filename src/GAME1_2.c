@@ -9020,8 +9020,8 @@ int nox_xxx_initSomethingNetGame_438A90() {
 	}
 	/*else
 	{
-	  v0 = nox_strman_loadString_40F1D0((char *)getMemAt(0x587000, 89028), 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
-	541); sub_449E00((int)v0); v1 = nox_strman_loadString_40F1D0((char *)getMemAt(0x587000, 89076), 0,
+	  v0 = nox_strman_loadString_40F1D0("Error", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
+	541); sub_449E00((int)v0); v1 = nox_strman_loadString_40F1D0("ErrRegistry", 0,
 	"C:\\NoxPost\\src\\client\\shell\\noxworld.c", 542); sub_449E30((int)v1); sub_449EA0(1); sub_43AF90(1); result =
 	*(_DWORD *)&dword_587000_87404; if ( *(_DWORD *)&dword_587000_87404 == 1 ) result = sub_40D380();
 	}*/

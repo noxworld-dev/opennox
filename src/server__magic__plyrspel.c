@@ -112,7 +112,7 @@ int __cdecl nox_xxx_playerSpell_4FB2A0_magic_plyrspel(int a1) {
 	if (*(_BYTE*)(v3 + 88) == 2)
 		nox_xxx_playerSetState_4FA020(v1, 13);
 	if (v2) {
-		v13 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 216908), 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 301);
+		v13 = nox_strman_loadString_40F1D0("SpellUnknown", 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 301);
 		result = nox_xxx_netSendLineMessage_4D9EB0((int)v1, v13);
 	} else if (a1) {
 		result = nox_xxx_netReportSpellStat_4D9630(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), **(_DWORD**)(v3 + 184), 0);
@@ -146,14 +146,14 @@ int __cdecl nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(int a1, int a2, int
 		return 0;
 	v6 = a2;
 	if (a2 <= 0 || a2 >= 137) {
-		v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 216964), 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 339);
+		v8 = nox_strman_loadString_40F1D0("AwardSpellError", 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 339);
 		nox_xxx_netSendLineMessage_4D9EB0(a1, v8);
 		return 0;
 	}
 	v7 = *(_DWORD*)(a1 + 748);
 	if (nox_common_gameFlags_check_40A5C0(6144) && *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) == 3 ||
 		*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) == 5) {
-		v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 217020), 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 351);
+		v8 = nox_strman_loadString_40F1D0("MaxSpellLevel", 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 351);
 		nox_xxx_netSendLineMessage_4D9EB0(a1, v8);
 		return 0;
 	}
@@ -161,7 +161,7 @@ int __cdecl nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(int a1, int a2, int
 		(a2 == 34 || a2 == 134 || a2 == 45 || a2 == 46 || a2 == 47 || a2 == 48 || a2 == 49 || a2 == 117 || a2 == 118 ||
 		 a2 == 119 || a2 == 120 || a2 == 121 || a2 == 122 || a2 == 123 || a2 == 124 || a2 == 125 || a2 == 19) &&
 		*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696)) {
-		v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 217076), 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 386);
+		v8 = nox_strman_loadString_40F1D0("MaxSpellLevel", 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 386);
 		nox_xxx_netSendLineMessage_4D9EB0(a1, v8);
 		return 0;
 	}

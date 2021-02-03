@@ -21,7 +21,7 @@ void __cdecl nox_xxx_printCentered_445490(wchar_t* a1) {
 													4 * nox_gameFPS +
 													nox_gameFPS;
 		*getMemU8Ptr( 0x5D4594, v2 + 824444) = 0;
-		v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 107916), 0, "C:\\NoxPost\\src\\Client\\Gui\\guimsg.c", 69);
+		v3 = nox_strman_loadString_40F1D0("systemmsg", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimsg.c", 69);
 		nox_xxx_consoleVPrint_450C00(6u, v3, a1);
 	}
 }

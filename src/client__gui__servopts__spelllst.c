@@ -36,7 +36,7 @@ int __cdecl nox_xxx_guiSpelllistLoad_453850(int a1) {
 			v3 = v2;
 			if (!(v2 & 0x15000)) {
 				if (v2 & 0x1000000 || (v4 = v2 & 0x2000000) != 0 && v2 & 0x4000000) {
-					v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 127452), 0,
+					v7 = nox_strman_loadString_40F1D0("Common", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 307);
 					nox_wcscpy(v12, v7);
 				} else {
@@ -44,12 +44,12 @@ int __cdecl nox_xxx_guiSpelllistLoad_453850(int a1) {
 						goto LABEL_14;
 					nox_wcscpy(v12, (const wchar_t*)getMemAt(0x5D4594, 1045512));
 					if (v4) {
-						v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 127508), 0,
+						v5 = nox_strman_loadString_40F1D0("SpellWizard", 0,
 												   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 314);
 						nox_wcscat(v12, v5);
 					}
 					if (v3 & 0x4000000) {
-						v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 127568), 0,
+						v6 = nox_strman_loadString_40F1D0("SpellConjurer", 0,
 												   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 318);
 						nox_wcscat(v12, v6);
 					}
@@ -175,9 +175,9 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 			v15 = sub_4165B0();
 			if ((nox_common_gameFlags_check_40A5C0(64) || v15[52] & 0x40) && v13 == 132) {
 				v3[9] ^= 4u;
-				v18 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 127748), 0,
+				v18 = nox_strman_loadString_40F1D0("plyrspel.c:Illegal", 0,
 											"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 226);
-				v16 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 127816), 0,
+				v16 = nox_strman_loadString_40F1D0("Notice", 0,
 											"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 225);
 				nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1045484, (int)v16, (int)v18, 33, 0, 0);
 				sub_44A360(1);
@@ -191,9 +191,9 @@ int __cdecl sub_453C00(int a1, int a2, int* a3, int a4) {
 			}
 		} else {
 			v3[9] ^= 4u;
-			v17 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 127632), 0,
+			v17 = nox_strman_loadString_40F1D0("NotInternet", 0,
 										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 211);
-			v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 127692), 0,
+			v14 = nox_strman_loadString_40F1D0("Notice", 0,
 										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 210);
 			nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1045484, (int)v14, (int)v17, 33, 0, 0);
 			sub_44A360(1);

@@ -9976,7 +9976,7 @@ wchar_t* __cdecl sub_417120(int a1) {
 	if (v1)
 		result = (wchar_t*)(v1 + 4704);
 	else
-		result = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 54476), 0, (const char*)getMemAt(0x587000, 54432), 204);
+		result = nox_strman_loadString_40F1D0("UnknownPlayerName", 0, (const char*)getMemAt(0x587000, 54432), 204);
 	return result;
 }
 

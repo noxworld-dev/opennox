@@ -49,9 +49,9 @@ int __cdecl sub_446A20_wol_chat(wchar_t* a1) {
 	sub_446CC0(0);
 	sub_41F140(a1);
 	sub_44A400();
-	v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110256), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
+	v3 = nox_strman_loadString_40F1D0("UpdatingChannels", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 							   212);
-	v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110324), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
+	v1 = nox_strman_loadString_40F1D0("PleaseWait", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 							   211);
 	nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_829480, (int)v1, (int)v3, 288, 0, 0);
 	return sub_44A4B0();
@@ -68,7 +68,7 @@ const char* __cdecl sub_446AE0_wol_chat(int a1) {
 	if (result) {
 		strcpy(&v3[36], result);
 		if (sub_41F9E0((int)v3)) {
-			result = (const char*)nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110384), 0,
+			result = (const char*)nox_strman_loadString_40F1D0("cantignore", 0,
 														"C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 293);
 			if (result)
 				result = (const char*)sub_447310(0, (int)result);
@@ -123,7 +123,7 @@ void __cdecl sub_446F80_wol_chat(wchar_t* a1) {
 			return;
 		}
 	}
-	v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110480), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
+	v8 = nox_strman_loadString_40F1D0("NotJoined", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 							   1076);
 	if (v8)
 		sub_447310(0, (int)v8);
@@ -167,7 +167,7 @@ void __cdecl sub_447090_wol_chat(wchar_t* a1) {
 			return;
 		}
 	}
-	v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110540), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
+	v8 = nox_strman_loadString_40F1D0("NotJoined", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 							   1123);
 	if (v8)
 		sub_447310(0, (int)v8);
@@ -178,7 +178,7 @@ int sub_447470_wol_chat() {
 	wchar_t* v0; // esi
 	int result;  // eax
 
-	v0 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110616), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
+	v0 = nox_strman_loadString_40F1D0("joined", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 							   1261);
 	result = sub_41EC00();
 	if (result) {
@@ -194,11 +194,11 @@ int __cdecl sub_4474C0_wol_chat(int a1, int a2) {
 	wchar_t* v3; // eax
 
 	if (a1) {
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110672), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
+		v2 = nox_strman_loadString_40F1D0("kicked", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 								   1277);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 827176), v2, a2, a1);
 	} else {
-		v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110728), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
+		v3 = nox_strman_loadString_40F1D0("youwerekicked", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 								   1281);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 827176), v3, a2);
 	}
@@ -209,7 +209,7 @@ int __cdecl sub_4474C0_wol_chat(int a1, int a2) {
 int __cdecl sub_447540_wol_chat(int a1) {
 	wchar_t* v1; // eax
 
-	v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110792), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
+	v1 = nox_strman_loadString_40F1D0("banned", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 							   1296);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 827176), v1, a1);
 	return nox_window_call_field_94(*(int*)&dword_5d4594_829492, 16397, (int)getMemAt(0x5D4594, 827176), 9);
@@ -220,7 +220,7 @@ int sub_447590_wol_chat() {
 	wchar_t* v0; // esi
 	int result;  // eax
 
-	v0 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110848), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
+	v0 = nox_strman_loadString_40F1D0("left", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 							   1310);
 	result = sub_41EC00();
 	if (result) {
@@ -267,7 +267,7 @@ int sub_447620_wol_chat() {
 			dword_5d4594_829500 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1910);
 			*getMemU32Ptr(0x5D4594, 829528) = nox_strman_loadString_40F1D0(
 				(char*)getMemAt(0x587000, 110916), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1415);
-			dword_5d4594_829532 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 110980), 0,
+			dword_5d4594_829532 = nox_strman_loadString_40F1D0("NoChannel", 0,
 														"C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1416);
 			*getMemU32Ptr(0x5D4594, 829536) = getMemAt(0x587000, 110992);
 			*getMemU32Ptr(0x5D4594, 829540) = nox_strman_loadString_40F1D0(

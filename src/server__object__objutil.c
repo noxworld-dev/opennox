@@ -24,7 +24,7 @@ wchar_t* __cdecl nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 		v4 = v3;
 		if (!v3) {
 			v12 = nox_xxx_getUnitName_4E39D0(a1);
-			v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 203812), 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c",
+			v5 = nox_strman_loadString_40F1D0("NoInfo", 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c",
 									   983);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1565660), v5, v12);
 			return (wchar_t*)getMemAt(0x5D4594, 1565660);
@@ -57,7 +57,7 @@ wchar_t* __cdecl nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 		}
 	} else {
 		v11 =
-			nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 203876), 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c", 1032);
+			nox_strman_loadString_40F1D0("NoDescription", 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c", 1032);
 		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1565660), v11);
 	}
 	return (wchar_t*)getMemAt(0x5D4594, 1565660);

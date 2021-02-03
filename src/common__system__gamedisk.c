@@ -29,9 +29,9 @@ void sub_413520_gamedisk() {
 			v8 = sub_413760;
 			v7 = sub_413780;
 			v6 = 35;
-			v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 32036), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+			v5 = nox_strman_loadString_40F1D0("CDFailText", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
 									   200);
-			v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 32088), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+			v2 = nox_strman_loadString_40F1D0("CDFailTitle", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
 									   199);
 			goto LABEL_9;
 		}
@@ -42,9 +42,9 @@ void sub_413520_gamedisk() {
 			v8 = sub_413760;
 			v7 = sub_413780;
 			v6 = 35;
-			v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 32140), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+			v5 = nox_strman_loadString_40F1D0("BuddyText", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
 									   219);
-			v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 32192), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
+			v2 = nox_strman_loadString_40F1D0("BuddyTitle", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
 									   218);
 			goto LABEL_9;
 		}
@@ -81,8 +81,8 @@ void sub_413520_gamedisk() {
 		v8 = 0;
 		v7 = sub_413760;
 		v6 = 33;
-		v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 32244), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 293);
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 32296), 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 292);
+		v5 = nox_strman_loadString_40F1D0("DevFailText", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 293);
+		v2 = nox_strman_loadString_40F1D0("DevFailTitle", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 292);
 	LABEL_9:
 		nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v2, (int)v5, v6, v7, v8);
 		sub_44A360(0);

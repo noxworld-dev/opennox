@@ -16,7 +16,7 @@ int nox_xxx_guiChatIconLoad_445650() {
 		nox_window_new(0, 136, nox_win_width - 50, nox_win_height / 2 - 50, 50, 50, 0);
 	nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_825744, *getMemIntPtr(0x5D4594, 825748));
 	nox_window_set_all_funcs(*(unsigned int**)&dword_5d4594_825744, 0, nox_xxx_guiChatMode_4456E0, 0);
-	v0 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 107980), 0, "C:\\NoxPost\\src\\client\\Gui\\chaticon.c", 73);
+	v0 = nox_strman_loadString_40F1D0("chatmode", 0, "C:\\NoxPost\\src\\client\\Gui\\chaticon.c", 73);
 	nox_xxx_wndWddSetTooltip_46B000((unsigned short*)(*(unsigned int*)&dword_5d4594_825744 + 36), v0);
 	return 1;
 }

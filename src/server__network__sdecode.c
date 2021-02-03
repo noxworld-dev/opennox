@@ -445,7 +445,7 @@ int __cdecl nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __in
 				v87[1] = 1;
 				if (!sub_4D12A0(*(unsigned __int8*)(v8 + 2064))) {
 					sub_4D1210(*(unsigned __int8*)(v8 + 2064));
-					v43 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 253012), 0,
+					v43 = nox_strman_loadString_40F1D0("sysopAccessGranted", 0,
 												"C:\\NoxPost\\src\\Server\\Network\\sdecode.c", 735);
 					nox_xxx_consoleVPrint_450C00(6u, v43, v8 + 4704);
 				}

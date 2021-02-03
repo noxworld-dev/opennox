@@ -70,7 +70,7 @@ int __cdecl nox_xxx_guiServerPlayersLoad_456270(int a1) {
 	sub_456500();
 	v9 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10504);
 	if (nox_common_gameFlags_check_40A5C0(128)) {
-		v10 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 129280), 0,
+		v10 = nox_strman_loadString_40F1D0("Title1", 0,
 									"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 631);
 		nox_window_call_field_94((int)v9, 16385, (int)v10, -1);
 	}
@@ -134,9 +134,9 @@ int __cdecl sub_4567C0(int a1, int a2, int* a3, int a4) {
 	nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 	if (v4 > 10507) {
 		if (v4 == 10509) {
-			v28 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 129336), 0,
+			v28 = nox_strman_loadString_40F1D0("NewName", 0,
 										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 504);
-			v27 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 129392), 0,
+			v27 = nox_strman_loadString_40F1D0("Rename", 0,
 										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 504);
 			nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1045684, (int)v27, (int)v28, 163, 0, 0);
 		}
@@ -227,10 +227,10 @@ int __cdecl sub_457010(int a1, wchar_t* a2) {
 			v6 = *(_BYTE*)(a1 + 57);
 			if (v6 < 3u) {
 				if (v6 == 1)
-					v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 129468), 0,
+					v8 = nox_strman_loadString_40F1D0("RedFlag", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 778);
 				else
-					v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 129524), 0,
+					v8 = nox_strman_loadString_40F1D0("BlueFlag", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 782);
 				nox_wcscat(v9, v8);
 			}
@@ -273,10 +273,10 @@ char* __cdecl sub_457230(wchar_t* a1) {
 				v5 = v4[57];
 				if ((unsigned __int8)v5 < 3u) {
 					if (v5 == 1)
-						v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 129584), 0,
+						v7 = nox_strman_loadString_40F1D0("RedFlag", 0,
 												   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 893);
 					else
-						v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 129640), 0,
+						v7 = nox_strman_loadString_40F1D0("BlueFlag", 0,
 												   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 897);
 					nox_wcscat(v8, v7);
 				}

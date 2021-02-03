@@ -1048,7 +1048,7 @@ UINT __cdecl nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) {
 			*getMemU32Ptr(0x5D4594, v3 + 1189608) = -100;
 			*getMemU32Ptr(0x5D4594, v3 + 1189632) = 0;
 			if (joyGetDevCapsA(uJoyID, (LPJOYCAPSA)getMemAt(0x5D4594, 404 * uJoyID + 1189700), 0x194u)) {
-				v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 153832), 0,
+				v4 = nox_strman_loadString_40F1D0("ReadCapsFailed", 0,
 										   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Jstick.c", 79);
 				sub_4517A0(v4, uJoyID);
 				result = 0;

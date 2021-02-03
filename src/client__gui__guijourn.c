@@ -35,19 +35,19 @@ void nox_xxx_cliBuildJournalString_469BC0() {
 				v6 = v5 - 2;
 				if (v6) {
 					if (v6 == 4) {
-						v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 142564), 0,
+						v8 = nox_strman_loadString_40F1D0("Journal:HintLabel", 0,
 												   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 64);
 						nox_wcscpy(v14, v8);
 					} else {
 						v14[0] = 0;
 					}
 				} else {
-					v9 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 142500), 0,
+					v9 = nox_strman_loadString_40F1D0("Journal:CompletedLabel", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 60);
 					nox_wcscpy(v14, v9);
 				}
 			} else {
-				v10 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 142440), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c",
+				v10 = nox_strman_loadString_40F1D0("Journal:QuestLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c",
 											56);
 				nox_wcscpy(v14, v10);
 			}
@@ -100,19 +100,19 @@ void __cdecl nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 					goto LABEL_12;
 				case 2:
 					v8 = *getMemU32Ptr(0x5D4594, 2650644);
-					v9 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 142680), 0,
+					v9 = nox_strman_loadString_40F1D0("Journal:QuestLabel", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 135);
 					nox_wcscpy(v17, v9);
 					break;
 				case 4:
 					v8 = *getMemU32Ptr(0x5D4594, 2650660);
-					v10 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 142740), 0,
+					v10 = nox_strman_loadString_40F1D0("Journal:CompletedLabel", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 140);
 					nox_wcscpy(v17, v10);
 					break;
 				case 8:
 					v8 = *getMemU32Ptr(0x5D4594, 2589772);
-					v11 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 142804), 0,
+					v11 = nox_strman_loadString_40F1D0("Journal:HintLabel", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 145);
 					nox_wcscpy(v17, v11);
 					break;

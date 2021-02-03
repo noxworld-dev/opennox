@@ -44,9 +44,9 @@ int nox_savegame_sub_46C730() {
 		if (v4)
 			nox_xxx_wnd_46AD60((int)v4, 1024);
 	}
-	v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 143360), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 341);
+	v5 = nox_strman_loadString_40F1D0("SaveGUISave", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 341);
 	sub_46AEE0(*getMemIntPtr(0x5D4594, 1082872), (int)v5);
-	v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 143408), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 342);
+	v6 = nox_strman_loadString_40F1D0("SaveGUILoad", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 342);
 	sub_46AEE0(*getMemIntPtr(0x5D4594, 1082876), (int)v6);
 	nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1082856, (nox_win_width - *(int*)(dword_5d4594_1082856 + 8)) / 2,
 					   0);
@@ -93,9 +93,9 @@ int nox_savegame_sub_46C920(_DWORD* a1, int a2, int* a3, int a4) {
 		if (strlen(&nox_savegame_arr_1064948[v8].field_4)) {
 			nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[v8].field_4, (char*)getMemAt(0x5D4594, 1082840));
 			nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_1082856);
-			v13 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 143456), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
+			v13 = nox_strman_loadString_40F1D0("GUISave.c:OverwriteSaveMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
 										184);
-			v11 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 143524), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
+			v11 = nox_strman_loadString_40F1D0("GUISave.c:OverwriteSaveTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
 										183);
 			nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1082856, (int)v11, (int)v13, 56, sub_46CC70, sub_46CC90);
 			return 0;
@@ -116,8 +116,8 @@ int nox_savegame_sub_46C920(_DWORD* a1, int a2, int* a3, int a4) {
 				return 0;
 			}
 			v12 =
-					nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 143616), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 233);
-			v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 143680), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 232);
+					nox_strman_loadString_40F1D0("GUIQuit.c:ReallyLoadMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 233);
+			v7 = nox_strman_loadString_40F1D0("SelChar.c:LoadLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 232);
 			nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v7, (int)v12, 24, nox_savegame_sub_46CBD0, sub_44A400);
 			return 0;
 		}
@@ -153,8 +153,8 @@ int nox_savegame_sub_46CBD0() {
 	}
 	nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[i].field_4, v3);
 	if (!sub_4DB790(v3)) {
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 143736), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 75);
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 143788), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 74);
+		v2 = nox_strman_loadString_40F1D0("SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 75);
+		v1 = nox_strman_loadString_40F1D0("SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 74);
 		nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v1, (int)v2, 33, 0, 0);
 	}
 	if (sub_450560())
@@ -206,11 +206,11 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 			nox_sprintf(&DateStr, "nox.str:%s", *getMemU32Ptr(0x587000, 4 * sv->field_1274 + 29456));
 			wchar_t* v39 = nox_strman_loadString_40F1D0(&DateStr, 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 667);
 			wchar_t* v13 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 144092), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 666);
+				nox_strman_loadString_40F1D0("the", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 666);
 			nox_swprintf(&v42, v13, &sv->field_1224, v39);
 			if (!strcmp(&v41, "AUTOSAVE")) {
 				nox_wcscat(&v42, L" ");
-				wchar_t* v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 144148), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
+				wchar_t* v14 = nox_strman_loadString_40F1D0("AutoSaveLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c",
 											674);
 				nox_wcscat(&v42, v14);
 			} else {
@@ -220,85 +220,85 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 				case 1:;
 					char v16 = sv->field_1274;
 					if (!v16) {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144208), 0,
+						v17 = nox_strman_loadString_40F1D0("WolChat.c:Nox_Lobby_3", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 688);
 					} else if (v16 != 1) {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144316), 0,
+						v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:VillageIx", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 692);
 					} else {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144268), 0,
+						v17 = nox_strman_loadString_40F1D0("NPC:Horvath", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 690);
 					}
 					break;
 				case 2:;
 					char v18 = sv->field_1274;
 					if (!v18) {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144376), 0,
+						v17 = nox_strman_loadString_40F1D0("War02a.scr:Sign5", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 699);
 					} else if (v18 != 1) {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144488), 0,
+						v17 = nox_strman_loadString_40F1D0("NPC:Aldwyn", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 703);
 					} else {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144432), 0,
+						v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:Galava", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 701);
 					}
 					break;
 				case 3:;
 					char v19 = sv->field_1274;
 					if (!v19) {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144536), 0,
+						v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:VillageIx", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 710);
 					} else if (v19 != 1) {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144656), 0,
+						v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:Mines", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 714);
 					} else {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144596), 0,
+						v17 = nox_strman_loadString_40F1D0("WolChat.c:Nox_Lobby_9", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 712);
 					}
 					break;
 				case 4:
-					v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144712), 0,
+					v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:FieldValor", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 718);
 					break;
 				case 5:
-					v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144772), 0,
+					v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:HamletBrin", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 720);
 					break;
 				case 6:
-					v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144832), 0,
+					v17 = nox_strman_loadString_40F1D0("NPC:Horrendous", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 722);
 					break;
 				case 7:
-					v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144884), 0,
+					v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:Galava", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 724);
 					break;
 				case 8:
-					v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 144940), 0,
+					v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:TempleIx", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 726);
 					break;
 				case 9:
-					v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 145000), 0,
+					v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:DismalSwamp", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 728);
 					break;
 				case 10:;
-					v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 145064), 0,
+					v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:LandDead", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 730);
 					break;
 				case 11:;
 					char v20 = sv->field_1274;
 					if (!v20) {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 145124), 0,
+						v17 = nox_strman_loadString_40F1D0("WolChat.c:Nox_Lobby_47", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 735);
 					} else if (v20 == 1) {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 145184), 0,
+						v17 = nox_strman_loadString_40F1D0("NPC:Hecubah", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 737);
 					} else {
-						v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 145232), 0,
+						v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:GrokkTorr", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 739);
 					}
 					break;
 				default:
-					v17 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 145292), 0,
+					v17 = nox_strman_loadString_40F1D0("GuiInv.c:IdentifyUnknown", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 743);
 					break;
 				}
@@ -316,11 +316,11 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 			nox_window_call_field_94(a1, 16397, (int) getMemAt(0x587000, 143900), 3);
 			if (v9) {
 				wchar_t* v11 =
-						nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 143948), 0,
+						nox_strman_loadString_40F1D0("EmptySlot", 0,
 											  "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 645);
 				nox_window_call_field_94(a2, 16397, (int) v11, 3);
 				wchar_t* v12 =
-						nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 143996), 0,
+						nox_strman_loadString_40F1D0("EmptySlot", 0,
 											  "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 650);
 				nox_window_call_field_94(a3, 16397, (int) v12, 3);
 			} else {
@@ -376,15 +376,15 @@ void nox_savegame_sub_46D580() {
 		nox_xxx_wnd_46ABB0((int)v1, 1);
 	}
 	if (sub_450560()) {
-		v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 145376), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 860);
+		v3 = nox_strman_loadString_40F1D0("SaveGUIQuit", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 860);
 		sub_46AEE0(*getMemIntPtr(0x5D4594, 1082880), (int)v3);
 		v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 509);
-		v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 145424), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 862);
+		v5 = nox_strman_loadString_40F1D0("LoadLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 862);
 	} else {
-		v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 145472), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 866);
+		v6 = nox_strman_loadString_40F1D0("SaveGUICancel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 866);
 		sub_46AEE0(*getMemIntPtr(0x5D4594, 1082880), (int)v6);
 		v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1082856, 509);
-		v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 145524), 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 868);
+		v5 = nox_strman_loadString_40F1D0("SaveLoadLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 868);
 	}
 	sub_46AEE0((int)v4, (int)v5);
 	sub_413A00(1);

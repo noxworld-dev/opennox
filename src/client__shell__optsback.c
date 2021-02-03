@@ -24,9 +24,9 @@ int __cdecl sub_4A18E0(int a1, int a2, int a3, int a4) {
 			if (sub_43BE10() == 10000) {
 				sub_4373A0();
 			} else if (sub_43BE10() == 100) {
-				v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 168540), 0,
+				v6 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitMessage", 0,
 										   "C:\\NoxPost\\src\\client\\shell\\OptsBack.c", 65);
-				v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 168608), 0,
+				v5 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitTitle", 0,
 										   "C:\\NoxPost\\src\\client\\shell\\OptsBack.c", 64);
 				nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1307292, (int)v5, (int)v6, 56, sub_4A19D0, 0);
 			} else {
@@ -65,9 +65,9 @@ int __cdecl sub_4A1AA0(int a1, int a2, int* a3, int a4) {
 			if (v3) {
 				if (v3 == 1) {
 					if (sub_43BE10() == 100) {
-						v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 168732), 0,
+						v6 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitMessage", 0,
 												   "C:\\NoxPost\\src\\client\\shell\\OptsBack.c", 142);
-						v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 168800), 0,
+						v4 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitTitle", 0,
 												   "C:\\NoxPost\\src\\client\\shell\\OptsBack.c", 141);
 						nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1307292, (int)v4, (int)v6, 56, sub_4A19D0, 0);
 					} else {
