@@ -2,6 +2,7 @@ package main
 
 /*
 extern unsigned int nox_common_engineFlags;
+extern unsigned int nox_common_gameFlags;
 */
 import "C"
 import (
@@ -58,6 +59,16 @@ func (f EngineFlags) Has(v EngineFlags) bool {
 
 func getEngineFlag(f EngineFlags) bool {
 	return EngineFlags(C.nox_common_engineFlags).Has(f)
+}
+
+type GameFlag uint
+
+func (f GameFlag) Has(v GameFlag) bool {
+	return f&v != 0
+}
+
+func getGameFlag(f GameFlag) bool {
+	return GameFlag(C.nox_common_gameFlags).Has(f)
 }
 
 //export nox_xxx_replayWriteRndCounter_415F30
