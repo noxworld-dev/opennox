@@ -1,5 +1,8 @@
 package main
 
+/*
+extern unsigned int nox_common_engineFlags;
+*/
 import "C"
 import (
 	"encoding/binary"
@@ -11,6 +14,51 @@ var (
 	noxRndCounter1 = prand.New(0)
 	noxRndCounter2 = prand.New(0)
 )
+
+type EngineFlags uint
+
+const (
+	NOX_ENGINE_FLAG_1                          = EngineFlags(1 << 0)
+	NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS        = EngineFlags(1 << 1)
+	NOX_ENGINE_FLAG_3                          = EngineFlags(1 << 2)
+	NOX_ENGINE_FLAG_ENABLE_SHOW_AI             = EngineFlags(1 << 3)
+	NOX_ENGINE_FLAG_5                          = EngineFlags(1 << 4)
+	NOX_ENGINE_FLAG_6                          = EngineFlags(1 << 5)
+	NOX_ENGINE_FLAG_7                          = EngineFlags(1 << 6)
+	NOX_ENGINE_FLAG_8                          = EngineFlags(1 << 7)
+	NOX_ENGINE_FLAG_9                          = EngineFlags(1 << 8)
+	NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE       = EngineFlags(1 << 9)
+	NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE    = EngineFlags(1 << 0)
+	NOX_ENGINE_FLAG_12                         = EngineFlags(1 << 1)
+	NOX_ENGINE_FLAG_13                         = EngineFlags(1 << 2)
+	NOX_ENGINE_FLAG_14                         = EngineFlags(1 << 3)
+	NOX_ENGINE_FLAG_15                         = EngineFlags(1 << 4)
+	NOX_ENGINE_FLAG_ENABLE_NET_DEBUG           = EngineFlags(1 << 5)
+	NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING     = EngineFlags(1 << 6)
+	NOX_ENGINE_FLAG_18                         = EngineFlags(1 << 7)
+	NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING = EngineFlags(1 << 8)
+	NOX_ENGINE_FLAG_20                         = EngineFlags(1 << 9)
+	NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING    = EngineFlags(1 << 0)
+	NOX_ENGINE_FLAG_22                         = EngineFlags(1 << 1)
+	NOX_ENGINE_FLAG_23                         = EngineFlags(1 << 2)
+	NOX_ENGINE_FLAG_24                         = EngineFlags(1 << 3)
+	NOX_ENGINE_FLAG_25                         = EngineFlags(1 << 4)
+	NOX_ENGINE_FLAG_26                         = EngineFlags(1 << 5)
+	NOX_ENGINE_FLAG_27                         = EngineFlags(1 << 6)
+	NOX_ENGINE_FLAG_28                         = EngineFlags(1 << 7)
+	NOX_ENGINE_FLAG_29                         = EngineFlags(1 << 8)
+	NOX_ENGINE_FLAG_30                         = EngineFlags(1 << 9)
+	NOX_ENGINE_FLAG_31                         = EngineFlags(1 << 0)
+	NOX_ENGINE_FLAG_32                         = EngineFlags(1 << 1)
+)
+
+func (f EngineFlags) Has(v EngineFlags) bool {
+	return f&v != 0
+}
+
+func getEngineFlag(f EngineFlags) bool {
+	return EngineFlags(C.nox_common_engineFlags).Has(f)
+}
 
 //export nox_xxx_replayWriteRndCounter_415F30
 func nox_xxx_replayWriteRndCounter_415F30(fd C.int) C.int {

@@ -53,7 +53,7 @@ func fileID(file, id string) string {
 	return id
 }
 
-func (sm *StringManager) GetInFile(file, id string) (Entry, bool) {
+func (sm *StringManager) GetInFile(id, file string) (Entry, bool) {
 	return sm.Get(fileID(file, id))
 }
 
@@ -74,11 +74,11 @@ func (sm *StringManager) GetString(id string) string {
 	return s
 }
 
-func (sm *StringManager) GetString2InFile(file, id string) (string, string) {
+func (sm *StringManager) GetString2InFile(id, file string) (string, string) {
 	return sm.GetString2(fileID(file, id))
 }
 
-func (sm *StringManager) GetStringInFile(file, id string) string {
+func (sm *StringManager) GetStringInFile(id, file string) string {
 	s, _ := sm.GetString2(fileID(file, id))
 	return s
 }

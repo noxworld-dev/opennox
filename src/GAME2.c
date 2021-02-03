@@ -1549,11 +1549,11 @@ int sub_450B10() { return *getMemU32Ptr(0x5D4594, 832468); }
 int nox_xxx_conClear_450B70() { return nox_window_call_field_94(*(int*)&dword_5d4594_833720, 16399, 0, 0); }
 
 //----- (00450B90) --------------------------------------------------------
-int __cdecl nox_xxx_consolePrint_450B90(unsigned __int8 a1, int a2) {
+int nox_xxx_consolePrint_450B90(unsigned char typ, wchar_t* str) {
 	if (*getMemU32Ptr(0x5D4594, 833724))
-		nox_window_call_field_94(*(int*)&dword_5d4594_833720, 16397, a2, a1);
+		nox_window_call_field_94(*(int*)&dword_5d4594_833720, 16397, str, typ);
 	if (sub_579740())
-		sub_579750(a2);
+		sub_579750(str);
 	return 1;
 }
 
