@@ -1,6 +1,7 @@
 #include "client__drawable__drawable.h"
 #include "common__system__settings.h"
 #include "common__system__team.h"
+#include "common__telnet__telnetd.h"
 
 #include "client__gui__gadgets__listbox.h"
 #include "client__gui__gamewin__gamewin.h"
@@ -1552,8 +1553,8 @@ int nox_xxx_conClear_450B70() { return nox_window_call_field_94(*(int*)&dword_5d
 int nox_xxx_consolePrint_450B90(unsigned char typ, wchar_t* str) {
 	if (*getMemU32Ptr(0x5D4594, 833724))
 		nox_window_call_field_94(*(int*)&dword_5d4594_833720, 16397, str, typ);
-	if (sub_579740())
-		sub_579750(str);
+	if (nox_telnet_isActive_579740())
+		nox_telnet_broadcast_579750(str);
 	return 1;
 }
 

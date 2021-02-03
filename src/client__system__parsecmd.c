@@ -1,6 +1,7 @@
 #include "client__system__parsecmd.h"
 
 #include "common__system__settings.h"
+#include "common__telnet__telnetd.h"
 #include "client__gui__guimsg.h"
 #include "client__gui__servopts__general.h"
 #include "client__gui__servopts__guiserv.h"
@@ -13,7 +14,6 @@ extern _DWORD dword_5d4594_833728;
 extern _DWORD dword_5d4594_833732;
 extern _DWORD dword_5d4594_1563664;
 extern _DWORD nox_xxx_useAudio_587000_80832;
-extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_823700;
 extern _DWORD nox_server_connectionType_3596;
 extern _DWORD dword_5d4594_805836;
@@ -352,41 +352,18 @@ int nox_cmd_set_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
-//----- (00579830) --------------------------------------------------------
-void sub_579830() {
-	if (dword_5d4594_2523744) {
-		sub_578F30();
-		dword_5d4594_2523744 = 0;
-	}
-}
-
 //----- (00440E60) --------------------------------------------------------
 int nox_cmd_telnet_off(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2)
 		return 0;
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
-		sub_579830();
+		nox_telnet_stop_579830();
 		wchar_t* s =
 			nox_strman_loadString_40F1D0("telnetoff", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1368);
 		nox_xxx_consoleVPrint_450C00(6, s);
 	}
 	return 1;
 }
-
-//----- (005797F0) --------------------------------------------------------
-void nox_telnet_setPort_5797F0(uint16_t port) {
-	if (dword_5d4594_2523744 != 1) {
-		if (port <= 1024) {
-			port = 18500;
-		}
-		*getMemU16Ptr(0x5D4594, 2523736) = port;
-		nox_xxx_telnet_578E10();
-		dword_5d4594_2523744 = 1;
-	}
-}
-
-//----- (00579850) --------------------------------------------------------
-uint16_t nox_telnet_getPort_579850() { return *getMemU16Ptr(0x5D4594, 2523736); }
 
 //----- (00440EB0) --------------------------------------------------------
 int nox_cmd_telnet_on(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -395,10 +372,10 @@ int nox_cmd_telnet_on(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (nox_common_gameFlags_check_40A5C0(2048))
 		return 1;
 	if (tokCnt == 2) {
-		nox_telnet_setPort_5797F0(0);
+		nox_telnet_start_5797F0(0);
 	} else {
 		unsigned __int16 v = nox_wcstol(tokens[tokCnt-1], 0, 10);
-		nox_telnet_setPort_5797F0(v);
+		nox_telnet_start_5797F0(v);
 	}
 	int port = nox_telnet_getPort_579850();
 	wchar_t* s = nox_strman_loadString_40F1D0("telneton", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1388);

@@ -684,7 +684,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 2487708, 4, "dword_5d4594_2487708"}, // 0x833B30
 	{0x5D4594 + 826032, 4, "dword_5d4594_826032"}, // 0x69E044
 	{0x5D4594 + 1203840, 4, "dword_5d4594_1203840"}, // 0x6FA414
-	{0x5D4594 + 2523744, 4, "dword_5d4594_2523744"}, // 0x83C7F4
+	{0x5D4594 + 2523744, 4, "nox_telnet_listening"}, // 0x83C7F4
 	{0x5D4594 + 741292, 4, "dword_5d4594_741292"}, // 0x689540
 	{0x5D4594 + 3799556, 4, "dword_5d4594_3799556"}, // 0x973F98
 	{0x5D4594 + 830244, 4, "nox_wnd_xxx_830244"}, // 0x69F0B8
@@ -820,7 +820,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1563660, 4, "dword_5d4594_1563660"}, // 0x7521A0
 	{0x587000 + 312784, 4, "nox_xxx_warriorMaxHealth_587000_312784"}, // 0x5D35D0
 	{0x5D4594 + 1193152, 4, "nox_client_lockHighResFloors_1193152"}, // 0x6F7A54
-	{0x587000 + 311480, 4, "nox_telnet_sock"}, // 0x5D30B8
+	{0x587000 + 311480, 4, "nox_telnet_listener"}, // 0x5D30B8
 	{0x5D4594 + 1309780, 4, "dword_5d4594_1309780"}, // 0x7141E8
 	{0x5D4594 + 2487984, 4, "dword_5d4594_2487984"}, // 0x833C44
 	{0x5D4594 + 1307768, 4, "dword_5d4594_1307768"}, // 0x713A0C
@@ -1347,6 +1347,13 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 251512, 4, "nox_strman_complete"}, // 0x611C0C
 	{0x5D4594 + 226804, 1024, "nox_strman_path_buf"}, // 0x60BB88
 	{0x5D4594 + 243288, 1024, "nox_strman_name_buf"}, // 0x60FBEC
+	{0x5D4594 + 2516484, 4176, "nox_telnet_socks_2516484"},
+	{0x5D4594 + 2522712, 1024, "nox_telnet_recv_buf"},
+	{0x5D4594 + 2520660, 1024, "nox_telnet_send_buf"},
+	{0x5D4594 + 2521684, 1024, "nox_telnet_line_buf"},
+	{0x5D4594 + 2523736, 2, "nox_telnet_port"},
+	{0x5D4594 + 2523738, 2, "nox_telnet_conns"},
+	{0x5D4594 + 2523740, 2, "nox_telnet_conns"},
 	{0x587000 + 80, 4, "nox_enable_audio"}, // 0x587050
 	{0x587000 + 180, 7, "nox_version_string_180"}, // 0x5870B4
 	{0x587000 + 5184, 4092, "table_5184"}, // 0x588440
