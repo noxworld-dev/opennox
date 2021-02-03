@@ -1,6 +1,7 @@
 #include "client__system__parsecmd.h"
 
 #include "common__system__settings.h"
+#include "common__telnet__telnetd.h"
 #include "client__gui__guimsg.h"
 #include "client__gui__servopts__general.h"
 #include "client__gui__servopts__guiserv.h"
@@ -16,7 +17,6 @@ extern _DWORD nox_xxx_useAudio_587000_80832;
 extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_823700;
 extern _DWORD nox_server_connectionType_3596;
-extern _DWORD dword_587000_311480;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD dword_5d4594_823692;
 extern _DWORD nox_client_renderGUI_80828;
@@ -353,31 +353,6 @@ int nox_cmd_set_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
-//----- (00578F30) --------------------------------------------------------
-void sub_578F30() {
-	unsigned __int8* v1; // esi
-	if (*(int*)&dword_587000_311480 != -1) {
-		shutdown(*(SOCKET*)&dword_587000_311480, 2);
-		closesocket(*(SOCKET*)&dword_587000_311480);
-	}
-	dword_587000_311480 = -1;
-	*getMemU16Ptr(0x5D4594, 2523738) = 0;
-	v1 = getMemAt(0x5D4594, 2516484);
-	do {
-		if (*(int*)v1 != -1) {
-			shutdown(*(SOCKET*)&dword_587000_311480, 2);
-			closesocket(*(_DWORD*)v1);
-		}
-		*(_DWORD*)v1 = -1;
-		v1[4] = 0;
-		*((_WORD*)v1 + 514) = 0;
-		*((_WORD*)v1 + 515) = 0;
-		*((_WORD*)v1 + 516) = 0;
-		*((_DWORD*)v1 + 260) = 0;
-		v1 += 1044;
-	} while ((int)v1 < (int)getMemAt(0x5D4594, 2520660));
-}
-
 //----- (00579830) --------------------------------------------------------
 void sub_579830() {
 	if (dword_5d4594_2523744) {
@@ -400,19 +375,19 @@ int nox_cmd_telnet_off(int tokInd, int tokCnt, wchar_t** tokens) {
 }
 
 //----- (005797F0) --------------------------------------------------------
-void nox_xxx_setPort_5797F0(uint16_t port) {
+void nox_telnet_setPort_5797F0(uint16_t port) {
 	if (dword_5d4594_2523744 != 1) {
 		if (port <= 1024) {
 			port = 18500;
 		}
 		*getMemU16Ptr(0x5D4594, 2523736) = port;
-		sub_578E10();
+		nox_xxx_telnet_578E10();
 		dword_5d4594_2523744 = 1;
 	}
 }
 
 //----- (00579850) --------------------------------------------------------
-uint16_t nox_xxx_getPort_579850() { return *getMemU16Ptr(0x5D4594, 2523736); }
+uint16_t nox_telnet_getPort_579850() { return *getMemU16Ptr(0x5D4594, 2523736); }
 
 //----- (00440EB0) --------------------------------------------------------
 int nox_cmd_telnet_on(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -421,12 +396,12 @@ int nox_cmd_telnet_on(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (nox_common_gameFlags_check_40A5C0(2048))
 		return 1;
 	if (tokCnt == 2) {
-		nox_xxx_setPort_5797F0(0);
+		nox_telnet_setPort_5797F0(0);
 	} else {
 		unsigned __int16 v = nox_wcstol(tokens[tokCnt-1], 0, 10);
-		nox_xxx_setPort_5797F0(v);
+		nox_telnet_setPort_5797F0(v);
 	}
-	int port = nox_xxx_getPort_579850();
+	int port = nox_telnet_getPort_579850();
 	wchar_t* s = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 101892), 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1388);
 	nox_xxx_consoleVPrint_450C00(6, s, port);
 	return 1;

@@ -2,7 +2,7 @@
 
 #include "client__system__parsecmd.h"
 #include "proto.h"
-extern _DWORD dword_587000_311480;
+SOCKET nox_telnet_sock = -1;
 
 //----- (00578FF0) --------------------------------------------------------
 int sub_578FF0() {
@@ -34,7 +34,7 @@ int sub_578FF0() {
 	}
 	if (v0 != -1) {
 		addrlen = 16;
-		v2 = accept(*(SOCKET*)&dword_587000_311480, &addr, &addrlen);
+		v2 = accept(nox_telnet_sock, &addr, &addrlen);
 		if (v2 == -1) {
 			result = WSAGetLastError();
 			if (result != 10035)
@@ -63,6 +63,71 @@ int sub_578FF0() {
 		}
 	}
 	return result;
+}
+
+//----- (00578F30) --------------------------------------------------------
+void sub_578F30() {
+	unsigned __int8* v1; // esi
+	if (nox_telnet_sock != -1) {
+		shutdown(nox_telnet_sock, 2);
+		closesocket(nox_telnet_sock);
+	}
+	nox_telnet_sock = -1;
+	*getMemU16Ptr(0x5D4594, 2523738) = 0;
+	v1 = getMemAt(0x5D4594, 2516484);
+	do {
+		if (*(int*)v1 != -1) {
+			shutdown(nox_telnet_sock, 2);
+			closesocket(*(_DWORD*)v1);
+		}
+		*(_DWORD*)v1 = -1;
+		v1[4] = 0;
+		*((_WORD*)v1 + 514) = 0;
+		*((_WORD*)v1 + 515) = 0;
+		*((_WORD*)v1 + 516) = 0;
+		*((_DWORD*)v1 + 260) = 0;
+		v1 += 1044;
+	} while ((int)v1 < (int)getMemAt(0x5D4594, 2520660));
+}
+
+//----- (00578E10) --------------------------------------------------------
+int nox_xxx_telnet_578E10() {
+	unsigned __int8* v1;  // eax
+	u_long argp;          // [esp+4h] [ebp-14h]
+	struct sockaddr_in name; // [esp+8h] [ebp-10h]
+
+	argp = 1;
+	name.sin_family = AF_INET;
+	name.sin_port = htons(getMemU16Ptr(0x5D4594, 2523736));
+	name.sin_addr.s_addr = 0;
+	memset(name.sin_zero, 0, 8);
+	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+	nox_telnet_sock = sock;
+	if (sock == -1) {
+		return -1;
+	}
+	if (bind(sock, &name, 16) == -1) {
+		return -2;
+	} else if (ioctlsocket(nox_telnet_sock, -2147195266, &argp) == -1) {
+		sub_578F20(-5);
+		return -5;
+	}
+	if (listen(nox_telnet_sock, 1) == -1) {
+		WSAGetLastError();
+		sub_578F20(-3);
+	}
+	*getMemU16Ptr(0x5D4594, 2523738) = 0;
+	v1 = getMemAt(0x5D4594, 2516484 + 4);
+	do {
+		*((_DWORD*)v1 - 1) = -1;
+		*v1 = 0;
+		*((_WORD*)v1 + 512) = 0;
+		*((_WORD*)v1 + 513) = 0;
+		*((_WORD*)v1 + 514) = 0;
+		*((_DWORD*)v1 + 259) = 0;
+		v1 += 1044;
+	} while ((int)v1 < (int)getMemAt(0x5D4594, 2520664));
+	return 0;
 }
 
 //----- (00579190) --------------------------------------------------------
