@@ -23,10 +23,6 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 
-#ifdef USE_SDL
-extern SDL_GLContext g_ddraw;
-#endif
-
 void cmain_loop(int);
 extern int g_v20, g_v21;
 
@@ -178,23 +174,24 @@ int map_download_finish() {
 }
 
 //----- (0043E290) --------------------------------------------------------
+#ifndef NOX_CGO
 #ifdef USE_SDL
-void __cdecl sub_48B1B0(SDL_GLContext* a1);
+void sub_48B1B0();
 #endif
 
 void cleanup() {
 	printf("%s\n", __FUNCTION__);
 	if (nox_common_gameFlags_check_40A5C0(0x2000000))
-		sub_413D00();
+		nox_xxx_closeNetworkLog_413D00();
 	nox_common_writecfgfile("nox.cfg");
-	sub_4314D0();
+	nox_xxx_freeScreenParticles_4314D0();
 	sub_413960();
 	sub_431380();
 	sub_4134F0();
 	nox_xxx_freeWeaponArmorDefAndModifs_413060();
 	sub_4311B0();
-	sub_430EF0();
-	sub_430210();
+	nox_xxx_freeFloorBuffer_430EF0();
+	nox_xxx_freeKeyboard_430210();
 	nox_xxx_tileFree_410FC0_free();
 	sub_4106C0();
 	sub_42F4D0();
@@ -212,10 +209,11 @@ void cleanup() {
 	sub_4093D0();
 	sub_40AF30();
 #ifdef USE_SDL
-	sub_48B1B0(&g_ddraw);
+	sub_48B1B0();
 #endif
 	nox_free_thing_bin();
 }
+#endif // NOX_CGO
 
 void mainloop() {
 #ifdef NOX_E2E_TEST
