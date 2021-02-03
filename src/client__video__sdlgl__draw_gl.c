@@ -559,3 +559,10 @@ int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
 	}
 	return result;
 }
+
+void sub_48B1B0() {
+	if (g_ddraw) {
+		SDL_GL_DeleteContext(g_ddraw);
+		g_ddraw = NULL;
+	}
+}

@@ -5374,8 +5374,8 @@ int nox_xxx_initInput_430190() {
 }
 
 //----- (00430210) --------------------------------------------------------
-void sub_430210() {
-	sub_47FCC0();
+void nox_xxx_freeKeyboard_430210() {
+	nox_xxx_freeKeyboard_47FCC0();
 	*getMemU32Ptr(0x5D4594, 805808) = 0;
 }
 
@@ -5863,7 +5863,7 @@ int nox_video_freeFloorBuffer_430EC0() {
 }
 
 //----- (00430EF0) --------------------------------------------------------
-void sub_430EF0() { nox_video_freeFloorBuffer_430EC0(); }
+void nox_xxx_freeFloorBuffer_430EF0() { nox_video_freeFloorBuffer_430EC0(); }
 
 //----- (00430F00) --------------------------------------------------------
 int screenshot_num = 0;
@@ -6040,7 +6040,7 @@ int nox_xxx_particlesLoadColor_4313E0() {
 }
 
 //----- (004314D0) --------------------------------------------------------
-void sub_4314D0() {
+void nox_xxx_freeScreenParticles_4314D0() {
 	if (nox_alloc_screenParticles_806044)
 		nox_free_alloc_class(*(LPVOID*)&nox_alloc_screenParticles_806044);
 	nox_alloc_screenParticles_806044 = 0;
