@@ -32,7 +32,6 @@ extern _DWORD dword_5d4594_1556148;
 extern _DWORD dword_5d4594_825768;
 extern void* nox_alloc_springs_2386568;
 extern _DWORD nox_continue_mainloop_93196;
-extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_608316;
 extern _DWORD dword_5d4594_1599060;
 extern _DWORD dword_5d4594_2386160;
@@ -2216,21 +2215,6 @@ void sub_5524C0() {
 	} while ((int)v1 < (int)getMemAt(0x5D4594, 3844300));
 }
 
-//----- (00578FC0) --------------------------------------------------------
-char* sub_578FC0() {
-	char* result; // eax
-
-	result = *(char**)&dword_5d4594_2523744;
-	if (dword_5d4594_2523744) {
-		result = (char*)sub_578FF0();
-		if (*getMemU16Ptr(0x5D4594, 2523738) > 0) {
-			if (getMemByte(0x5D4594, 2598000) & 1)
-				result = sub_579190();
-		}
-	}
-	return result;
-}
-
 //----- (0057B140) --------------------------------------------------------
 BOOL sub_57B140() {
 	unsigned __int64 v0; // rdi
@@ -2646,8 +2630,9 @@ int nox_xxx_gameTick_4D2580_server() {
 			*getMemU32Ptr(0x5D4594, 1548688) = v3;
 		}
 	}
-	if (!nox_common_gameFlags_check_40A5C0(2048))
-		sub_578FC0();
+	if (!nox_common_gameFlags_check_40A5C0(2048)) {
+		nox_telnet_tick_578FC0();
+	}
 	if (nox_common_gameFlags_check_40A5C0(8)) {
 		if (!*getMemU64Ptr(0x5D4594, 1548676)) {
 			*getMemU64Ptr(0x5D4594, 1548676) = nox_call_get_ticks() + 10000;

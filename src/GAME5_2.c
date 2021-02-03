@@ -32,7 +32,6 @@ extern void* nox_alloc_groupInfo_2523892;
 extern _DWORD dword_5d4594_2516356;
 extern _DWORD dword_587000_311372;
 extern void* nox_alloc_debugData_2523908;
-extern _DWORD dword_5d4594_2523744;
 extern _DWORD dword_5d4594_2513916;
 extern void* nox_alloc_itemGroupElem_2523896;
 extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
@@ -3415,86 +3414,6 @@ unsigned __int8 sub_578DF0() { return getMemByte(0x5D4594, 2516476); }
 
 //----- (00578E00) --------------------------------------------------------
 void sub_578E00() { dword_587000_311372 = -1; }
-
-//----- (00578F20) --------------------------------------------------------
-int __cdecl sub_578F20(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 2523740) = a1;
-	return result;
-}
-
-//----- (00579350) --------------------------------------------------------
-int __cdecl sub_579350(int a1) {
-	int result; // eax
-
-	if (*getMemIntPtr(0x5D4594, 2516484 + 1044*a1) != -1) {
-		closesocket(*getMemU32Ptr(0x5D4594, 2516484 + 1044*a1));
-		--*getMemU16Ptr(0x5D4594, 2523738);
-	}
-	result = 0;
-	*getMemU32Ptr(0x5D4594, 2516484 + 1044*a1) = -1;
-	*getMemU8Ptr(0x5D4594, 2516484 + 1044*a1 + 4) = 0;
-	*getMemU16Ptr(0x5D4594, 2516484 + 1044*a1 + 1028) = 0;
-	*getMemU16Ptr(0x5D4594, 2516484 + 1044*a1 + 1030) = 0;
-	*getMemU16Ptr(0x5D4594, 2516484 + 1044*a1 + 1032) = 0;
-	*getMemU32Ptr(0x5D4594, 2516484 + 1044*a1 + 1040) = 0;
-	return result;
-}
-
-//----- (00579700) --------------------------------------------------------
-int __cdecl sub_579700(int a1) {
-	int v1; // eax
-	int v2; // edx
-
-	if (!a1)
-		return 0;
-	v1 = *(__int16*)(a1 + 1028);
-	v2 = *(__int16*)(a1 + 1030);
-	if (v1 == v2)
-		return 0;
-	while (*(_BYTE*)(a1 + v1 + 4) != 10) {
-		if (++v1 == 1024)
-			v1 = 0;
-		if (v1 == v2)
-			return 0;
-	}
-	return 1;
-}
-
-//----- (00579740) --------------------------------------------------------
-BOOL sub_579740() { return *getMemU16Ptr(0x5D4594, 2523738) != 0; }
-
-//----- (00579750) --------------------------------------------------------
-int __cdecl sub_579750(int a1) {
-	unsigned __int8* v1; // esi
-	unsigned __int8* v2; // edi
-	unsigned __int8 v3;  // cl
-	SOCKET v4;           // edx
-	int result;          // eax
-
-	if (a1) {
-		v1 = getMemAt(0x5D4594, 2516484);
-		do {
-			if (*(int*)v1 != -1 && !(v1[1040] & 1)) {
-				nox_sprintf((char*)getMemAt(0x5D4594, 2520660), "%S", a1);
-				v2 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 2520660)) + 2520661);
-				v3 = getMemByte(0x587000, 312162);
-				--v2;
-				v4 = *(_DWORD*)v1;
-				*(_WORD*)v2 = *getMemU16Ptr(0x587000, 312160);
-				v2[2] = v3;
-				result = send(v4, (const char*)getMemAt(0x5D4594, 2520660), strlen((const char*)getMemAt(0x5D4594, 2520660)), 0);
-			}
-			v1 += 1044;
-		} while ((int)v1 < (int)getMemAt(0x5D4594, 2520660));
-	}
-	return result;
-}
-
-//----- (005797E0) --------------------------------------------------------
-int sub_5797E0() { return dword_5d4594_2523744; }
 
 //----- (00579860) --------------------------------------------------------
 LPVOID nox_xxx_waypointGetList_579860() { return *(LPVOID*)&dword_5d4594_2523752; }

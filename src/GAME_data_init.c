@@ -5366,7 +5366,6 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 309860) = getMemAt(0x581450, 11048);
 	*(void**)getMemAt(0x587000, 311240) = getMemAt(0x587000, 311260);
 	*(void**)getMemAt(0x587000, 311244) = getMemAt(0x587000, 311248);
-	*(void**)getMemAt(0x587000, 311484) = getMemAt(0x587000, 311488);
 	*(void**)getMemAt(0x587000, 312208) = getMemAt(0x587000, 312264);
 	*(void**)getMemAt(0x587000, 312216) = getMemAt(0x587000, 312280);
 	*(void**)getMemAt(0x587000, 312224) = getMemAt(0x587000, 312296);
