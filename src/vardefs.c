@@ -560,7 +560,6 @@ _DWORD dword_5d4594_2513916 = 0;
 _DWORD nox_xxx_gameDownloadInProgress_587000_173328 = 0x1;
 _DWORD dword_5d4594_3799556 = 0;
 _DWORD dword_5d4594_741292 = 0;
-_DWORD dword_5d4594_2523744 = 0;
 _DWORD dword_5d4594_1203840 = 0;
 _DWORD dword_5d4594_826032 = 0;
 _DWORD dword_5d4594_2487708 = 0;
