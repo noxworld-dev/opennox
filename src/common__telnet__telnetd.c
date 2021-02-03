@@ -42,12 +42,12 @@ int sub_578FF0() {
 		} else {
 			v3 = 1044 * v0;
 			argp = 1;
-			*getMemU32Ptr(0x5D4594, v3 + 2517520) = addr.sin_addr.s_addr;
+			*getMemU32Ptr(0x5D4594, 2516484 + 1036 + v3) = addr.sin_addr.s_addr;
 			if (ioctlsocket(v2, -2147195266, &argp) == -1)
 				sub_578F20(-5);
 			++*getMemU16Ptr(0x5D4594, 2523738);
-			*getMemU32Ptr(0x5D4594, v3 + 2516484) = v2;
-			v7 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, v3 + 2517520));
+			*getMemU32Ptr(0x5D4594, 2516484 + v3) = v2;
+			v7 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, 2516484 + 1036 + v3));
 			v6 = nox_strman_loadString_40F1D0("ConnectionStarted", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   142);
 			v4 = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
@@ -56,10 +56,10 @@ int sub_578FF0() {
 			v5 = nox_strman_loadString_40F1D0("Password", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 									   146);
 			nox_sprintf(buf, "%S", v5);
-			send(*getMemU32Ptr(0x5D4594, v3 + 2516484), buf, strlen(buf), 0);
-			result = *getMemU32Ptr(0x5D4594, v3 + 2517524);
+			send(*getMemU32Ptr(0x5D4594, 2516484 + v3), buf, strlen(buf), 0);
+			result = *getMemU32Ptr(0x5D4594, 2516484 + 1040 + v3);
 			LOBYTE(result) = result | 1;
-			*getMemU32Ptr(0x5D4594, v3 + 2517524) = result;
+			*getMemU32Ptr(0x5D4594, 2516484 + 1040 + v3) = result;
 		}
 	}
 	return result;
@@ -146,7 +146,7 @@ char* sub_579190() {
 	wchar_t v11[128];    // [esp+14h] [ebp-100h]
 
 	v10 = 0;
-	v0 = getMemAt(0x5D4594, 2517524);
+	v0 = getMemAt(0x5D4594, 2516484 + 1040);
 	do {
 		result = (char*)*((_DWORD*)v0 - 260);
 		v2 = (SOCKET*)(v0 - 1040);
@@ -225,7 +225,7 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 		if (!v3) {
 			v5 = a2;
 			sub_579350(a2);
-			v22 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, 1044 * v5 + 2517520));
+			v22 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, 2516484 + 1044*v5 + 1036));
 			v20 = nox_strman_loadString_40F1D0("ConnectionTerminated", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
 										211);
 			v6 = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c",
@@ -270,7 +270,7 @@ char* __cdecl sub_5793B0(u_long argp, int a2) {
 	} else if (WSAGetLastError() != 10035) {
 		v18 = a2;
 		sub_579350(a2);
-		v23 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, 1044 * v18 + 2517520));
+		v23 = inet_ntoa(*(struct in_addr*)getMemAt(0x5D4594, 2516484 + 1044*v18 + 1036));
 		v21 = nox_strman_loadString_40F1D0("ConnectionTerminated", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
 		v19 = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
 		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 312144), v19, v21, v23);
