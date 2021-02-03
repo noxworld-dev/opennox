@@ -1960,7 +1960,7 @@ int __cdecl sub_450AF0(int a1);
 int __cdecl sub_450B00(int a1);
 int sub_450B10();
 int nox_xxx_conClear_450B70();
-int __cdecl nox_xxx_consolePrint_450B90(unsigned __int8 a1, int a2);
+int nox_xxx_consolePrint_450B90(unsigned char typ, wchar_t* str);
 void nox_xxx____setargv_7_450BE0();
 void sub_450BF0();
 int nox_xxx_consoleVPrint_450C00(unsigned __int8 a1, wchar_t* a2, ...);
