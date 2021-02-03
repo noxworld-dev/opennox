@@ -11,27 +11,27 @@ wchar_t* __cdecl sub_41DAC0(int a1) {
 	switch (a1 + 2147221402) {
 	case 0:
 		result =
-			nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58600), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 196);
+			nox_strman_loadString_40F1D0("nonesuch", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 196);
 		break;
 	case 8:
 		result =
-			nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58496), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 188);
+			nox_strman_loadString_40F1D0("channelfull", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 188);
 		break;
 	case 10:
 		result =
-			nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58376), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 180);
+			nox_strman_loadString_40F1D0("channeldoesnotexist", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 180);
 		break;
 	case 11:
 		result =
-			nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58548), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 192);
+			nox_strman_loadString_40F1D0("badpassword", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 192);
 		break;
 	case 12:
 		result =
-			nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58436), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 184);
+			nox_strman_loadString_40F1D0("bannedfromchannel", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 184);
 		break;
 	default:
 		result =
-			nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58652), 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 200);
+			nox_strman_loadString_40F1D0("unknownerror", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 200);
 		break;
 	}
 	if (result)
@@ -65,27 +65,27 @@ int sub_41DDB0() {
 				}
 				switch (dword_5d4594_2660652 + 2147221403) {
 					case 0:
-						v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58748), 0,
+						v2 = nox_strman_loadString_40F1D0("ServerBusy", 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 414);
 						nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 2660140), v2);
 						break;
 					case 1:
-						v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58800), 0,
+						v3 = nox_strman_loadString_40F1D0("Timeout", 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 418);
 						nox_swprintf((wchar_t*)getMemAt(0x5D4594, 2660140), v3);
 						break;
 					case 155:
-						v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58848), 0,
+						v3 = nox_strman_loadString_40F1D0("InvalidField", 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 422);
 						nox_swprintf((wchar_t*)getMemAt(0x5D4594, 2660140), v3);
 						break;
 					case 156:
-						v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58904), 0,
+						v3 = nox_strman_loadString_40F1D0("CantVerify", 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 426);
 						nox_swprintf((wchar_t*)getMemAt(0x5D4594, 2660140), v3);
 						break;
 					default:
-						v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 58956), 0,
+						v3 = nox_strman_loadString_40F1D0("NetError", 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 430);
 						nox_swprintf((wchar_t*)getMemAt(0x5D4594, 2660140), v3);
 						break;

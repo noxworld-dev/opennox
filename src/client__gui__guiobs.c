@@ -18,7 +18,7 @@ int __cdecl sub_48C9F0(int* a1) {
 	v4 += v1[24];
 	a1 = (int*)((char*)a1 + v1[25]);
 	if (*getMemU32Ptr(0x5D4594, 2618908)) {
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 156384), 0, "C:\\NoxPost\\src\\client\\Gui\\guiobs.c", 41);
+		v2 = nox_strman_loadString_40F1D0("observermode", 0, "C:\\NoxPost\\src\\client\\Gui\\guiobs.c", 41);
 		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1193712 + 36), v2);
 		nox_client_drawImageAt_47D2C0(v1[15], v4, (int)a1);
 	}

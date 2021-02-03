@@ -79,7 +79,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		return 6;
 	case 1u:
 		v50 = nox_xxx_spellLoadName_424930(*(_DWORD*)(a1 + 2));
-		v10 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186124), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 117);
+		v10 = nox_strman_loadString_40F1D0("plyrspel.c:SpellCastSuccess", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 117);
 		nox_swprintf(v62, v10, v50);
 		nox_xxx_printCentered_445490(v62);
 		return 6;
@@ -91,7 +91,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		if (!v13)
 			return 6;
 		v51 = (int)(v13 + 4704);
-		v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186320), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 147);
+		v14 = nox_strman_loadString_40F1D0("netserv.c:PlayerTimeout", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 147);
 		nox_swprintf(v62, v14, v51);
 		nox_xxx_printCentered_445490(v62);
 		return 6;
@@ -100,7 +100,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		if (!v15)
 			return 6;
 		v52 = (int)(v15 + 4704);
-		v16 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186384), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 164);
+		v16 = nox_strman_loadString_40F1D0("objcoll.c:FlagRetrieveNotice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 164);
 		nox_swprintf(v62, v16, v52);
 		goto LABEL_22;
 	case 5u:
@@ -108,7 +108,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		if (!v18)
 			return 10;
 		v54 = sub_418C20(*(_DWORD*)(a1 + 6));
-		v19 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186524), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 196);
+		v19 = nox_strman_loadString_40F1D0("objcoll.c:FlagCaptureNotice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 196);
 		nox_swprintf(v62, v19, v18 + 4704, v54);
 		nox_xxx_printCentered_445490(v62);
 		nox_xxx_clientPlaySoundSpecial_452D80(306, 100);
@@ -118,7 +118,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		if (!v20)
 			return 10;
 		v55 = sub_418C20(*(_DWORD*)(a1 + 6));
-		v21 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186592), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 213);
+		v21 = nox_strman_loadString_40F1D0("objcoll.c:FlagPickupNotice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 213);
 		nox_swprintf(v62, v21, v20 + 4704, v55);
 		nox_xxx_printCentered_445490(v62);
 		nox_xxx_clientPlaySoundSpecial_452D80(303, 100);
@@ -127,7 +127,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		v22 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (v22) {
 			v56 = sub_418C20(*(_DWORD*)(a1 + 6));
-			v23 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186660), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
+			v23 = nox_strman_loadString_40F1D0("drop.c:FlagDropNotice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 										230);
 			nox_swprintf(v62, v23, v22 + 4704, v56);
 			nox_xxx_printCentered_445490(v62);
@@ -136,7 +136,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		return 10;
 	case 8u:
 		v53 = sub_418C20(*(_DWORD*)(a1 + 2));
-		v17 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186456), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 179);
+		v17 = nox_strman_loadString_40F1D0("update.c:FlagRespawnNotice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 179);
 		nox_swprintf(v62, v17, v53);
 	LABEL_22:
 		nox_xxx_printCentered_445490(v62);
@@ -147,7 +147,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		v39 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (!v39) {
 			if (v38) {
-				v41 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 187308), 0,
+				v41 = nox_strman_loadString_40F1D0("objcoll.c:FlagBallUnknownNotice", 0,
 											"C:\\NoxPost\\src\\client\\Network\\inform.c", 374);
 				nox_swprintf(v62, v41, v38);
 				nox_xxx_printCentered_445490(v62);
@@ -157,7 +157,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		if (!v38)
 			return 10;
 		v46 = (int)(v39 + 4704);
-		v40 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 187240), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 365);
+		v40 = nox_strman_loadString_40F1D0("objcoll.c:FlagBallNotice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 365);
 		nox_swprintf(v62, v40, v46, v38);
 		nox_xxx_printCentered_445490(v62);
 		return 10;
@@ -168,7 +168,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 			if (!v34)
 				return 10;
 			v61 = v35;
-			v36 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 187108), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
+			v36 = nox_strman_loadString_40F1D0("pickup.c:PickUpTeamCrown", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 										334);
 			nox_swprintf(v62, v36, v34 + 4704, v61);
 			nox_xxx_printCentered_445490(v62);
@@ -176,7 +176,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		} else {
 			if (!v34)
 				return 10;
-			v37 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 187176), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
+			v37 = nox_strman_loadString_40F1D0("pickup.c:PickUpCrown", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 										343);
 			nox_swprintf(v62, v37, v34 + 4704);
 			nox_xxx_printCentered_445490(v62);
@@ -189,14 +189,14 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		if (v31) {
 			if (v30) {
 				v60 = v31;
-				v32 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186984), 0,
+				v32 = nox_strman_loadString_40F1D0("drop.c:DropTeamCrown", 0,
 											"C:\\NoxPost\\src\\client\\Network\\inform.c", 303);
 				nox_swprintf(v62, v32, v30 + 4704, v60);
 				nox_xxx_printCentered_445490(v62);
 				return 10;
 			}
 		} else if (v30) {
-			v33 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 187048), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
+			v33 = nox_strman_loadString_40F1D0("drop.c:DropCrown", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 										312);
 			nox_swprintf(v62, v33, v30 + 4704);
 			nox_xxx_printCentered_445490(v62);
@@ -204,35 +204,35 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		}
 		return 10;
 	case 0xCu:
-		v11 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186192), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 128);
+		v11 = nox_strman_loadString_40F1D0("Netserv.c:InObservationMode", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 128);
 		nox_xxx_printCentered_445490(v11);
 		if (!*(_DWORD*)(a1 + 2))
 			return 6;
-		v12 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186260), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 132);
+		v12 = nox_strman_loadString_40F1D0("Netserv.c:PressJump", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 132);
 		nox_xxx_printCentered_445490(v12);
 		return 6;
 	case 0xDu:
 		switch (*(_DWORD*)(a1 + 2)) {
 		case 0:
-			v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185600), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
+			v2 = nox_strman_loadString_40F1D0("atckexec.c:PlayerStunned", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 									   27);
 			nox_xxx_printCentered_445490(v2);
 			result = 6;
 			break;
 		case 1:
-			v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185668), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
+			v3 = nox_strman_loadString_40F1D0("atckexec.c:PlayerConfused", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 									   31);
 			nox_xxx_printCentered_445490(v3);
 			result = 6;
 			break;
 		case 2:
-			v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185736), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
+			v4 = nox_strman_loadString_40F1D0("atckexec.c:PlayerPoisoned", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 									   35);
 			nox_xxx_printCentered_445490(v4);
 			result = 6;
 			break;
 		case 3:
-			v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185804), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
+			v5 = nox_strman_loadString_40F1D0("player.c:TooHeavy", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 									   39);
 			nox_xxx_printCentered_445490(v5);
 			result = 6;
@@ -250,7 +250,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 			goto LABEL_57;
 		if (*(_BYTE*)(a1 + 2)) {
 			v47 = nox_strman_loadString_40F1D0((char*)(a1 + 3), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 397);
-			v43 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 187420), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
+			v43 = nox_strman_loadString_40F1D0("use.c:SignSays", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 										396);
 			nox_swprintf(v63, v43, v47);
 			nox_xxx_printCentered_445490(v63);
@@ -264,13 +264,13 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		return result;
 	case 0x10u:
 		v49 = sub_418C20(*(_DWORD*)(a1 + 2));
-		v9 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186064), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 105);
+		v9 = nox_strman_loadString_40F1D0("pickup.c:WrongTeam", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 105);
 		nox_swprintf(v62, v9, v49);
 		nox_xxx_printCentered_445490(v62);
 		return 6;
 	case 0x11u:
-		v45 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185864), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 51);
-		v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185932), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 50);
+		v45 = nox_strman_loadString_40F1D0("Noxworld.c:ErrChangedClass", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 51);
+		v6 = nox_strman_loadString_40F1D0("guiserv.c:Notice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 50);
 		nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v6, (int)v45, 33, 0, 0);
 		return 2;
 	case 0x12u:
@@ -278,7 +278,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		if (!v24)
 			return 6;
 		v57 = (int)(v24 + 4704);
-		v25 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186724), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 247);
+		v25 = nox_strman_loadString_40F1D0("objcoll.c:PlayerExited", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 247);
 		nox_swprintf(v62, v25, v57);
 		nox_xxx_printCentered_445490(v62);
 		return 6;
@@ -286,7 +286,7 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		v26 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 2));
 		if (v26) {
 			v58 = (int)(v26 + 4704);
-			v27 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186788), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
+			v27 = nox_strman_loadString_40F1D0("objcoll.c:PlayerExitedWarp", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 										265);
 			nox_swprintf(v62, v27, v58);
 			nox_xxx_printCentered_445490(v62);
@@ -297,15 +297,15 @@ int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 		if (!v7)
 			return 6;
 		v48 = (int)(v7 + 4704);
-		v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185992), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 90);
+		v8 = nox_strman_loadString_40F1D0("GeneralPrint:SecretFoundOther", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 90);
 		nox_swprintf(v62, v8, v48);
 		nox_xxx_printCentered_445490(v62);
 		return 6;
 	case 0x15u:
 		v59 = *(_DWORD*)(a1 + 2);
-		v28 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186856), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 281);
+		v28 = nox_strman_loadString_40F1D0("GeneralPrint:AdvanceToStage1", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 281);
 		nox_swprintf(v62, v28, v59);
-		v29 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 186928), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 282);
+		v29 = nox_strman_loadString_40F1D0("use.c:SignSays", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 282);
 		nox_swprintf(v63, v29, v62);
 		nox_xxx_printCentered_445490(v63);
 		return 6;

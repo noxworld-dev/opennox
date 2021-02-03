@@ -2412,7 +2412,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 		*getMemU32Ptr(0x5D4594, 1548712) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 196524));
 	v22 = nox_server_getFirstObject_4DA790();
 	if (!v22) {
-		v24 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 196580), 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 792);
+		v24 = nox_strman_loadString_40F1D0("StartingPositionError", 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 792);
 		nox_xxx_printToAll_4D9FD0(0, v24);
 		return 0;
 	}
@@ -2430,17 +2430,17 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 		v22 = nox_server_getNextObject_4DA7A0(v22);
 	}
 	if (!v20) {
-		v24 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 196580), 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 792);
+		v24 = nox_strman_loadString_40F1D0("StartingPositionError", 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 792);
 		nox_xxx_printToAll_4D9FD0(0, v24);
 		return 0;
 	}
 	if (nox_common_gameFlags_check_40A5C0(96) && v19 < 2) {
-		v24 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 196644), 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 799);
+		v24 = nox_strman_loadString_40F1D0("FlagCountError", 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 799);
 		nox_xxx_printToAll_4D9FD0(0, v24);
 		return 0;
 	}
 	if (nox_common_gameFlags_check_40A5C0(64) && v21 < 1) {
-		v24 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 196700), 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 806);
+		v24 = nox_strman_loadString_40F1D0("BallStartCountError", 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 806);
 		nox_xxx_printToAll_4D9FD0(0, v24);
 		return 0;
 	}
@@ -2756,12 +2756,12 @@ int nox_xxx_gameTick_4D2580_server() {
 		nox_common_gameFlags_unset_40A540(0x8000000);
 		if (!v13) {
 			v37 = nox_xxx_mapGetMapName_409B40();
-			v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 196928), 0,
+			v14 = nox_strman_loadString_40F1D0("MapAccessError", 0,
 										"C:\\NoxPost\\src\\Server\\System\\server.c", 1702);
 			nox_xxx_printToAll_4D9FD0(0, v14, v37);
-			v36 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 196984), 0,
+			v36 = nox_strman_loadString_40F1D0("Error", 0,
 										"C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
-			v15 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 197032), 0,
+			v15 = nox_strman_loadString_40F1D0("MapCorrupt", 0,
 										"C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
 			nullsub_4(0, v15, v36, 1);
 			nox_xxx_setContinueMenuOrHost_43DDD0(0);
@@ -2810,9 +2810,9 @@ int nox_xxx_gameTick_4D2580_server() {
 					v23 = nox_xxx_saveDoAutosaveMB_4DB370_savegame((const char*)v26);
 					nox_common_gameFlags_unset_40A540(0x8000000);
 					if (!v23 && nox_common_gameFlags_check_40A5C0(2)) {
-						v35 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 197104), 0,
+						v35 = nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0,
 													"C:\\NoxPost\\src\\Server\\System\\server.c", 1931);
-						v27 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 197172), 0,
+						v27 = nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0,
 													"C:\\NoxPost\\src\\Server\\System\\server.c", 1930);
 						nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v27, (int)v35, 33, 0, 0);
 					}

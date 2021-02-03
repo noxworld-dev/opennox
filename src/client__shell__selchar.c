@@ -52,7 +52,7 @@ int sub_4A4DB0() {
 				v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 505);
 				nox_window_set_hidden((int)v6, 1);
 				v7 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 509);
-				v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 170436), 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c",
+				v8 = nox_strman_loadString_40F1D0("LoadLabel", 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c",
 										   746);
 				sub_46AEE0((int)v7, (int)v8);
 			} else {
@@ -65,7 +65,7 @@ int sub_4A4DB0() {
 				nox_window_call_field_94(*(int*)&dword_5d4594_1307776, 16409, (int)v2, 0);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1307768, 16409, (int)v2, 0);
 				v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 509);
-				v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 170380), 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c",
+				v4 = nox_strman_loadString_40F1D0("LoadCharLabel", 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c",
 										   735);
 				sub_46AEE0((int)v3, (int)v4);
 			}
@@ -179,7 +179,7 @@ int nox_xxx_findAutosaves_4A5150() {
 							*getMemU32Ptr(0x587000, 4 * *(unsigned __int8*)(v12 + dword_5d4594_1307780 + 1274) + 29456));
 				v26 = nox_strman_loadString_40F1D0(v28, 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 285);
 				v24 = v12 + dword_5d4594_1307780 + 1224;
-				v14 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 170600), 0,
+				v14 = nox_strman_loadString_40F1D0("GuiInv.c:ElaborateNameFormat", 0,
 											"C:\\NoxPost\\src\\client\\shell\\selchar.c", 283);
 				nox_swprintf(v30, v14, v24, v26);
 				if (*(_BYTE*)(v12 + dword_5d4594_1307780) & 4) {
@@ -187,7 +187,7 @@ int nox_xxx_findAutosaves_4A5150() {
 					if (v15 < 1)
 						v15 = 1;
 					nox_wcscat(v30, L" - ");
-					v16 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 170680), 0,
+					v16 = nox_strman_loadString_40F1D0("Noxworld.c:Stage", 0,
 												"C:\\NoxPost\\src\\client\\shell\\selchar.c", 298);
 					nox_wcscat(v30, v16);
 					nox_swprintf(v29, L" %d", v15);
@@ -196,10 +196,10 @@ int nox_xxx_findAutosaves_4A5150() {
 				nox_window_call_field_94(*(int*)&dword_5d4594_1307744, 16397, (int)getMemAt(0x587000, 170708), 14);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1307768, 16397, (int)v30, 14);
 				if (*(_BYTE*)(v12 + dword_5d4594_1307780) & 4)
-					v25 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 170752), 0,
+					v25 = nox_strman_loadString_40F1D0("Noxworld.c:Quest", 0,
 												"C:\\NoxPost\\src\\client\\shell\\selchar.c", 316);
 				else
-					v25 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 170812), 0,
+					v25 = nox_strman_loadString_40F1D0("Multiplayer", 0,
 												"C:\\NoxPost\\src\\client\\shell\\selchar.c", 325);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1307776, 16397, (int)v25, 14);
 				v12 += sizeof(nox_savegame_xxx);
@@ -338,9 +338,9 @@ int __cdecl nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, i
 				nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
 				v17 = 0;
 				v16 = 33;
-				v15 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 170876), 0,
+				v15 = nox_strman_loadString_40F1D0("GUISave.c:AutoSaveDeleteNotAllowed", 0,
 											"C:\\NoxPost\\src\\client\\shell\\selchar.c", 466);
-				v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 170952), 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c",
+				v6 = nox_strman_loadString_40F1D0("GUISave.c:AutoSaveDeleteTitle", 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c",
 										   465);
 			} else {
 				if (!strlen((const char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *getMemU32Ptr(0x5D4594, 1307772) + 4))) {
@@ -351,14 +351,14 @@ int __cdecl nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, i
 				v17 = sub_4A5C70;
 				v16 = 56;
 				if (nox_common_gameFlags_check_40A5C0(2048)) {
-					v15 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 171024), 0,
+					v15 = nox_strman_loadString_40F1D0("GUISave.c:DeleteSaveMessage", 0,
 												"C:\\NoxPost\\src\\client\\shell\\selchar.c", 480);
-					v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 171092), 0,
+					v6 = nox_strman_loadString_40F1D0("GUISave.c:DeleteSaveTitle", 0,
 											   "C:\\NoxPost\\src\\client\\shell\\selchar.c", 479);
 				} else {
-					v15 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 171160), 0,
+					v15 = nox_strman_loadString_40F1D0("GUISave.c:DeleteCharacterMessage", 0,
 												"C:\\NoxPost\\src\\client\\shell\\selchar.c", 488);
-					v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 171236), 0,
+					v6 = nox_strman_loadString_40F1D0("GUISave.c:DeleteCharacterTitle", 0,
 											   "C:\\NoxPost\\src\\client\\shell\\selchar.c", 487);
 				}
 			}

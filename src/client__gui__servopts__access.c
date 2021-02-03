@@ -30,13 +30,13 @@ int sub_454640() {
 	v2 = nox_xxx_guiFontHeightMB_43F320(v0[59]) + 1;
 	v1[7] = v1[5] + 4 * v2 + 2;
 	v1[3] = 4 * v2 + 2;
-	v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 128040), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 88);
+	v3 = nox_strman_loadString_40F1D0("WARRIOR", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 88);
 	nox_xxx_drawGetStringSize_43F840(v1[59], v3, &v9, 0, 0);
-	v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 128092), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 89);
+	v4 = nox_strman_loadString_40F1D0("WIZARD", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 89);
 	nox_xxx_drawGetStringSize_43F840(v1[59], v4, &v10, 0, 0);
 	if (v10 > v9)
 		v9 = v10;
-	v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 128144), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 94);
+	v5 = nox_strman_loadString_40F1D0("CONJURER", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 94);
 	nox_xxx_drawGetStringSize_43F840(v1[59], v5, &v10, 0, 0);
 	v6 = v9;
 	if (v10 > v9)
@@ -105,13 +105,13 @@ int* sub_454740() {
 	v5[9] |= 4u;
 	dword_5d4594_1045596 = dword_5d4594_1045528;
 	v6 =
-		nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 128200), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 242);
+		nox_strman_loadString_40F1D0("WARRIOR", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 242);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045552, 16397, (int)v6, -1);
 	v7 =
-		nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 128252), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 243);
+		nox_strman_loadString_40F1D0("WIZARD", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 243);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045552, 16397, (int)v7, -1);
 	v8 =
-		nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 128304), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 244);
+		nox_strman_loadString_40F1D0("CONJURER", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 244);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045552, 16397, (int)v8, -1);
 	if (v0[100] & 0x10) {
 		nox_window_set_hidden(*(int*)&dword_5d4594_1045532, 0);

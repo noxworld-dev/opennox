@@ -35,7 +35,7 @@ int nox_xxx_guiSummonCreatureLoad_4C1D80() {
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1321032, sub_4C2BD0, sub_4C24A0, 0);
 	dword_5d4594_1321036 = nox_window_new(*(int*)&dword_5d4594_1321032, 136, 5, 38, 76, 76, 0);
 	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1321036, nox_xxx_wndSummonProc_4C2B10, nox_xxx_guiDrawSummonBox_4C1FE0, sub_4C2C20);
-	v0 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 184592), 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 818);
+	v0 = nox_strman_loadString_40F1D0("ToolTipSummon", 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 818);
 	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1321036 + 36), v0);
 	*getMemU32Ptr(0x5D4594, 1320996) = nox_xxx_gLoadImg_42F970("CreatureCageBottom");
 	v1 = nox_window_new(*(int*)&dword_5d4594_1321036, 160, 0, 0, 1, 1, 0);
@@ -218,15 +218,15 @@ int sub_4C2CE0() {
 
 	switch (*getMemU32Ptr(0x587000, 184448)) {
 	case 3:
-		v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 184980), 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 785);
+		v3 = nox_strman_loadString_40F1D0("ccs:GUARD", 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 785);
 		nox_xxx_cursorSetTooltip_4776B0(v3);
 		break;
 	case 4:
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 184932), 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 782);
+		v2 = nox_strman_loadString_40F1D0("ccs:ESCORT", 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 782);
 		nox_xxx_cursorSetTooltip_4776B0(v2);
 		return 1;
 	case 5:
-		v0 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 185028), 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 788);
+		v0 = nox_strman_loadString_40F1D0("ccs:HUNT", 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 788);
 		nox_xxx_cursorSetTooltip_4776B0(v0);
 		return 1;
 	}
