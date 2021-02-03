@@ -6989,7 +6989,7 @@ char* nox_xxx_GetEndgameDialog_578D80();
 char __cdecl sub_578DE0(char a1);
 unsigned __int8 sub_578DF0();
 void sub_578E00();
-SOCKET sub_578E10();
+SOCKET nox_xxx_telnet_578E10();
 int __cdecl sub_578F20(int a1);
 int __cdecl sub_579350(int a1);
 int __cdecl sub_579700(int a1);

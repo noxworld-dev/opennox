@@ -434,7 +434,6 @@ _DWORD dword_5d4594_1046516 = 0;
 _DWORD dword_5d4594_1307768 = 0;
 _DWORD dword_5d4594_2487984 = 0;
 _DWORD dword_5d4594_1309780 = 0;
-_DWORD dword_587000_311480 = 0xffffffff;
 _DWORD nox_client_lockHighResFloors_1193152 = 0;
 _DWORD nox_xxx_warriorMaxHealth_587000_312784 = 0x3f800000;
 _DWORD dword_5d4594_1563660 = 0;
