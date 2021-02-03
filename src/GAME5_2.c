@@ -37,7 +37,6 @@ extern _DWORD dword_5d4594_2513916;
 extern void* nox_alloc_itemGroupElem_2523896;
 extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
 extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
-extern _DWORD dword_587000_311480;
 extern _DWORD nox_xxx_conjurerMaxHealth_587000_312800;
 extern _DWORD nox_xxx_wizardMaxHealth_587000_312816;
 extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
@@ -3417,48 +3416,6 @@ unsigned __int8 sub_578DF0() { return getMemByte(0x5D4594, 2516476); }
 //----- (00578E00) --------------------------------------------------------
 void sub_578E00() { dword_587000_311372 = -1; }
 
-//----- (00578E10) --------------------------------------------------------
-SOCKET sub_578E10() {
-	SOCKET result;        // eax
-	unsigned __int8* v1;  // eax
-	u_long argp;          // [esp+4h] [ebp-14h]
-	struct sockaddr_in name; // [esp+8h] [ebp-10h]
-
-	argp = 1;
-	name.sin_family = AF_INET;
-	name.sin_port = htons(getMemU16Ptr(0x5D4594, 2523736));
-	name.sin_addr.s_addr = 0;
-	memset(name.sin_zero, 0, 8);
-	result = socket(AF_INET, SOCK_STREAM, 0);
-	dword_587000_311480 = result;
-	if (result != -1) {
-		if (bind(result, &name, 16) == -1) {
-			result = -2;
-		} else if (ioctlsocket(*(SOCKET*)&dword_587000_311480, -2147195266, &argp) == -1) {
-			sub_578F20(-5);
-			result = -5;
-		} else {
-			if (listen(*(SOCKET*)&dword_587000_311480, 1) == -1) {
-				WSAGetLastError();
-				sub_578F20(-3);
-			}
-			*getMemU16Ptr(0x5D4594, 2523738) = 0;
-			v1 = getMemAt(0x5D4594, 2516488);
-			do {
-				*((_DWORD*)v1 - 1) = -1;
-				*v1 = 0;
-				*((_WORD*)v1 + 512) = 0;
-				*((_WORD*)v1 + 513) = 0;
-				*((_WORD*)v1 + 514) = 0;
-				*((_DWORD*)v1 + 259) = 0;
-				v1 += 1044;
-			} while ((int)v1 < (int)getMemAt(0x5D4594, 2520664));
-			result = 0;
-		}
-	}
-	return result;
-}
-
 //----- (00578F20) --------------------------------------------------------
 int __cdecl sub_578F20(int a1) {
 	int result; // eax
@@ -3478,7 +3435,7 @@ int __cdecl sub_579350(int a1) {
 	}
 	result = 0;
 	*getMemU32Ptr(0x5D4594, 1044 * a1 + 2516484) = -1;
-	*getMemU8Ptr( 0x5D4594, 1044 * a1 + 2516488) = 0;
+	*getMemU8Ptr( 0x5D4594, 1044 * a1 + 2516484 + 4) = 0;
 	*getMemU16Ptr(0x5D4594, 1044 * a1 + 2517512) = 0;
 	*getMemU16Ptr(0x5D4594, 1044 * a1 + 2517514) = 0;
 	*getMemU16Ptr(0x5D4594, 1044 * a1 + 2517516) = 0;
