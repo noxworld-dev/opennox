@@ -1,16 +1,12 @@
 package main
 
 /*
-#include <wchar.h>
+#include <stddef.h>
 #include <stdlib.h>
 */
 import "C"
 import (
 	"log"
-	"reflect"
-	"unicode/utf16"
-	"unsafe"
-
 	"nox/common/strman"
 )
 
@@ -31,23 +27,12 @@ func internCStr(s string) *C.char {
 	return p
 }
 
-func asU16Slice(p unsafe.Pointer, sz int) (out []uint16) {
-	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
-		Data: uintptr(p),
-		Len:  sz, Cap: sz,
-	}
-	return
-}
-
 func internWStr(s string) *C.wchar_t {
 	p, ok := strManW[s]
 	if ok {
 		return p
 	}
-	buf := utf16.Encode([]rune(s))
-	ptr := C.calloc(C.uint(len(buf)+1), 2)
-	copy(asU16Slice(ptr, len(buf)), buf)
-	p = (*C.wchar_t)(ptr)
+	p = CWString(s)
 	strManW[s] = p
 	return p
 }
@@ -78,11 +63,11 @@ func strmanReadFile(path string) error {
 func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char, srcLine C.int) *C.wchar_t {
 	if strOut != nil {
 		*strOut = nil
-		s1, s2 := strMan.GetString2InFile(C.GoString(srcFile), C.GoString(name))
+		s1, s2 := strMan.GetString2InFile(C.GoString(name), C.GoString(srcFile))
 		*strOut = internCStr(s2)
 		return internWStr(s1)
 	}
-	s := strMan.GetStringInFile(C.GoString(srcFile), C.GoString(name))
+	s := strMan.GetStringInFile(C.GoString(name), C.GoString(srcFile))
 	return internWStr(s)
 }
 
@@ -91,10 +76,10 @@ func nox_strman_free_410020() {
 	strMan = strman.New()
 	strManDone = false
 	for _, p := range strManC {
-		C.free(unsafe.Pointer(p))
+		StrFree(p)
 	}
 	for _, p := range strManW {
-		C.free(unsafe.Pointer(p))
+		WStrFree(p)
 	}
 	strManC = make(map[string]*C.char)
 	strManW = make(map[string]*C.wchar_t)
