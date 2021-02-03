@@ -7558,7 +7558,7 @@ FILE* sub_413CC0() {
 }
 
 //----- (00413D00) --------------------------------------------------------
-void sub_413D00() {
+void nox_xxx_closeNetworkLog_413D00() {
 	nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 32528));
 	fclose(nox_file_net_log);
 	nox_file_net_log = 0;
