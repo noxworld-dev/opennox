@@ -3429,17 +3429,17 @@ int __cdecl sub_578F20(int a1) {
 int __cdecl sub_579350(int a1) {
 	int result; // eax
 
-	if (*getMemIntPtr(0x5D4594, 1044 * a1 + 2516484) != -1) {
-		closesocket(*getMemU32Ptr(0x5D4594, 1044 * a1 + 2516484));
+	if (*getMemIntPtr(0x5D4594, 2516484 + 1044*a1) != -1) {
+		closesocket(*getMemU32Ptr(0x5D4594, 2516484 + 1044*a1));
 		--*getMemU16Ptr(0x5D4594, 2523738);
 	}
 	result = 0;
-	*getMemU32Ptr(0x5D4594, 1044 * a1 + 2516484) = -1;
-	*getMemU8Ptr( 0x5D4594, 1044 * a1 + 2516484 + 4) = 0;
-	*getMemU16Ptr(0x5D4594, 1044 * a1 + 2517512) = 0;
-	*getMemU16Ptr(0x5D4594, 1044 * a1 + 2517514) = 0;
-	*getMemU16Ptr(0x5D4594, 1044 * a1 + 2517516) = 0;
-	*getMemU32Ptr(0x5D4594, 1044 * a1 + 2517524) = 0;
+	*getMemU32Ptr(0x5D4594, 2516484 + 1044*a1) = -1;
+	*getMemU8Ptr(0x5D4594, 2516484 + 1044*a1 + 4) = 0;
+	*getMemU16Ptr(0x5D4594, 2516484 + 1044*a1 + 1028) = 0;
+	*getMemU16Ptr(0x5D4594, 2516484 + 1044*a1 + 1030) = 0;
+	*getMemU16Ptr(0x5D4594, 2516484 + 1044*a1 + 1032) = 0;
+	*getMemU32Ptr(0x5D4594, 2516484 + 1044*a1 + 1040) = 0;
 	return result;
 }
 
