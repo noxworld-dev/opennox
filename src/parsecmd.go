@@ -159,13 +159,13 @@ func consoleParseToken(tokInd int, tokens []string, cmds []parsecmd.Command, a5 
 	}
 	if C.dword_5d4594_823684 != 0 {
 		if !cmd.Flags.Has(parsecmd.Server) {
-			s := strMan.GetStringInFile("clientonly", "C:\\NoxPost\\src\\Client\\System\\parsecmd.c")
+			s := strMan.GetString("parsecmd.c:clientonly")
 			consolePrintf(parsecmd.ColorRed, s)
 			return true
 		}
 	} else {
 		if !cmd.Flags.Has(parsecmd.Client) {
-			s := strMan.GetStringInFile("serveronly", "C:\\NoxPost\\src\\Client\\System\\parsecmd.c")
+			s := strMan.GetString("parsecmd.c:serveronly")
 			consolePrintf(parsecmd.ColorRed, s)
 			return true
 		}
@@ -177,7 +177,7 @@ func consoleParseToken(tokInd int, tokens []string, cmds []parsecmd.Command, a5 
 	if len(cmd.Sub) != 0 { // have sub-commands
 		if tokInd+1 >= len(tokens) {
 			// not enough tokens - print help
-			help := strMan.GetStringInFile(cmd.HelpID, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c")
+			help := strMan.GetStringInFile(cmd.HelpID, "parsecmd.c")
 			consolePrintf(parsecmd.ColorRed, help)
 			return true
 		}
@@ -189,7 +189,7 @@ func consoleParseToken(tokInd int, tokens []string, cmds []parsecmd.Command, a5 
 	}
 	if !res {
 		// command failed - print help
-		help := strMan.GetStringInFile(cmd.HelpID, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c")
+		help := strMan.GetStringInFile(cmd.HelpID, "parsecmd.c")
 		consolePrintf(parsecmd.ColorRed, help)
 		return true
 	}
@@ -204,7 +204,7 @@ func nox_xxx_consoleLoadTokens_444440() {
 func consoleLoadTokens(cmds []parsecmd.Command) {
 	for i := range cmds {
 		cmd := &cmds[i]
-		cmd.Token2 = strMan.GetStringInFile("cmd_token:"+cmd.Token, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c")
+		cmd.Token2 = strMan.GetString("cmd_token:" + cmd.Token)
 		C.nox_xxx_consoleTokenAddPair_4444C0(internWStr(cmd.Token), internWStr(cmd.Token2))
 		if len(cmd.Token2) < 32 && len(cmd.Sub) != 0 {
 			consoleLoadTokens(cmd.Sub)
