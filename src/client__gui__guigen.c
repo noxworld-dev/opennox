@@ -29,13 +29,13 @@ __int16 __cdecl nox_xxx_mapGenClientText_4A9D00(unsigned __int8* a1) {
 	nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 1309672) + 1309516), v4, v3);
 	switch (*v1) {
 	case 0x9Bu:
-		v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 172368), 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 89);
+		v5 = nox_strman_loadString_40F1D0("Generating", 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 89);
 		goto LABEL_8;
 	case 0x9Cu:
-		v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 172416), 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 92);
+		v5 = nox_strman_loadString_40F1D0("Assembling", 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 92);
 		goto LABEL_8;
 	case 0x9Du:
-		v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 172464), 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 95);
+		v5 = nox_strman_loadString_40F1D0("Populating", 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 95);
 	LABEL_8:
 		*getMemU32Ptr(0x5D4594, 1309660) = v5;
 		break;

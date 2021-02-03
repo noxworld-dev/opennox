@@ -64,9 +64,9 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 				nox_xxx_gameSetMapPath_409D70(v10);
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v7, 4u);
 				if ((v7 & 0xFF0000) != 0x10000) {
-					v2 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 197480), 0,
+					v2 = nox_strman_loadString_40F1D0("vcheckfailed", 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 355);
-					v3 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 197540), 0,
+					v3 = nox_strman_loadString_40F1D0("playbackerror", 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\playback.c", 356);
 					nullsub_4(0, v2, v3, 1);
 					nox_xxx_setContinueMenuOrHost_43DDD0(0);

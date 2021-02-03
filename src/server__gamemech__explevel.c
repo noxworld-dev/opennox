@@ -39,7 +39,7 @@ void __cdecl sub_4EF2E0_exp_level(int a1) {
 			sub_57AF30(a1, 0);
 		} else {
 			nox_xxx_aud_501960(902, a1, 2, *(_DWORD*)(a1 + 36));
-			v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 206244), 0, "C:\\NoxPost\\src\\Server\\GameMech\\explevel.c",
+			v2 = nox_strman_loadString_40F1D0("LevelUP", 0, "C:\\NoxPost\\src\\Server\\GameMech\\explevel.c",
 									   253);
 			nox_xxx_netSendLineMessage_4D9EB0(a1, v2);
 		}
@@ -55,7 +55,7 @@ void __cdecl nox_xxx_plyrGiveExp_4EF3A0_exp_level(int a1, float a2) {
 	*(float*)(a1 + 28) = a2 + *(float*)(a1 + 28);
 	sub_56FA40(*(_DWORD*)(*(_DWORD*)(v2 + 276) + 4604), a2);
 	sub_4D81A0(a1);
-	v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 206296), 0, "C:\\NoxPost\\src\\Server\\GameMech\\explevel.c", 381);
+	v3 = nox_strman_loadString_40F1D0("health.c:gainpoints", 0, "C:\\NoxPost\\src\\Server\\GameMech\\explevel.c", 381);
 	nox_xxx_netSendLineMessage_4D9EB0(a1, v3, (unsigned int)(__int64)a2);
 	sub_4EF2E0_exp_level(a1);
 }

@@ -57,7 +57,7 @@ int sub_4A5D00() {
 				nox_xxx_wndSetDrawFn_46B340((int)v5, sub_4A6D20);
 			}
 			if (dword_587000_171388) {
-				v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 171448), 0,
+				v6 = nox_strman_loadString_40F1D0("DefaultName", 0,
 										   "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 1138);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16414, (int)v6, 0);
 			}
@@ -101,12 +101,12 @@ wchar_t* sub_4A68C0() {
 
 	v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16413, 0, 0);
 	if (!*v0) {
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 171552), 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 225);
+		v1 = nox_strman_loadString_40F1D0("DefaultName", 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 225);
 		nox_wcscpy(v0, v1);
 	}
 	nox_wcscpy(*(wchar_t**)&dword_5d4594_1307784, v0);
 	if (!sub_4A6B50(*(wchar_t**)&dword_5d4594_1307784)) {
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 171604), 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 232);
+		v2 = nox_strman_loadString_40F1D0("DefaultName", 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 232);
 		nox_wcscpy(*(wchar_t**)&dword_5d4594_1307784, v2);
 	}
 	v3 = getMemAt(0x5D4594, 3 * ((*(_DWORD*)(dword_5d4594_1308096 + 32) >> 16) +
@@ -210,12 +210,12 @@ int sub_4A75C0() {
 	*(_WORD*)&v25[1276] = 0;
 	v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16413, 0, 0);
 	if (!*v0) {
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 171700), 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 605);
+		v1 = nox_strman_loadString_40F1D0("DefaultName", 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 605);
 		nox_wcscpy(v0, v1);
 	}
 	nox_wcscpy((wchar_t*)&v25[1224], v0);
 	if (!sub_4A6B50((wchar_t*)&v25[1224])) {
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 171752), 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 612);
+		v2 = nox_strman_loadString_40F1D0("DefaultName", 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 612);
 		nox_wcscpy((wchar_t*)&v25[1224], v2);
 	}
 	v3 = *(_BYTE*)(dword_5d4594_1307784 + 66);

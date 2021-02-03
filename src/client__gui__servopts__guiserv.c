@@ -141,10 +141,10 @@ int nox_xxx_guiServerOptsLoad_457500() {
 			sub_4165D0(1);
 		} else {
 			v10 = (wchar_t*)nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10159);
-			v11 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130156), 0,
+			v11 = nox_strman_loadString_40F1D0("servopts.wnd:teams", 0,
 										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1811);
 			nox_window_call_field_94((int)v10, 16385, (int)v11, -1);
-			v12 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130224), 0,
+			v12 = nox_strman_loadString_40F1D0("servopts.wnd:TeamTT", 0,
 										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1812);
 			nox_xxx_wndWddSetTooltip_46B000(v10 + 18, v12);
 			v13 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10149);
@@ -169,10 +169,10 @@ int __cdecl nox_xxx_options_457AA0(int a1, _BYTE* a2) {
 	wchar_t* v2; // eax
 
 	if (*a2 & 4)
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130372), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v2 = nox_strman_loadString_40F1D0("AutoAssignOnTT", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   446);
 	else
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130436), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v2 = nox_strman_loadString_40F1D0("AutoAssignOffTT", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   450);
 	nox_xxx_cursorSetTooltip_4776B0(v2);
 	return 1;
@@ -183,10 +183,10 @@ int __cdecl nox_xxx_options_457B00(int a1, _BYTE* a2) {
 	wchar_t* v2; // eax
 
 	if (*a2 & 4)
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130500), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v2 = nox_strman_loadString_40F1D0("TeamDamageOnTT", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   465);
 	else
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130564), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v2 = nox_strman_loadString_40F1D0("TeamDamageOffTT", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   469);
 	nox_xxx_cursorSetTooltip_4776B0(v2);
 	return 1;
@@ -203,19 +203,19 @@ int sub_457FE0() {
 
 	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10210);
 	if (nox_common_gameFlags_check_40A5C0(0x4000)) {
-		v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130636), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v5 = nox_strman_loadString_40F1D0("Servopts.wnd:Individual", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   380);
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130708), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v1 = nox_strman_loadString_40F1D0("Servopts.wnd:Ladder", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   379);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1045700), L"%s %s", v1, v5);
 	} else if (nox_common_gameFlags_check_40A5C0(0x8000)) {
-		v6 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130788), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v6 = nox_strman_loadString_40F1D0("Servopts.wnd:Clan", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   385);
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130856), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v2 = nox_strman_loadString_40F1D0("Servopts.wnd:Ladder", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   384);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1045700), L"%s %s", v2, v6);
 	} else {
-		v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 130936), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v3 = nox_strman_loadString_40F1D0("WindowDir:Empty", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   389);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1045700), v3);
 	}
@@ -234,24 +234,24 @@ int __cdecl sub_4580E0(int a1) {
 	_DWORD* v8;  // eax
 	int v10;     // [esp-4h] [ebp-4h]
 
-	v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131000), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+	v1 = nox_strman_loadString_40F1D0("SettingsMsg", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 							   736);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1045968), v1, a1);
 	if (nox_common_gameFlags_check_40A5C0(128)) {
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131060), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v2 = nox_strman_loadString_40F1D0("GameType", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   739);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1046096), v2);
 	} else {
 		v3 = nox_common_gameFlags_getVal_40A5B0();
 		v10 = nox_xxx_guiServerOptionsGetGametypeName_4573C0(v3);
-		v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131120), 0, (const char*)getMemAt(0x587000, 0x20000), 743);
+		v4 = nox_strman_loadString_40F1D0("GameTypeIs", 0, (const char*)getMemAt(0x587000, 0x20000), 743);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1046096), v4, v10);
 	}
 	if (nox_common_gameFlags_check_40A5C0(1))
-		v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131180), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v5 = nox_strman_loadString_40F1D0("GoMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   748);
 	else
-		v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131240), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v5 = nox_strman_loadString_40F1D0("OptsMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   752);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1046224), v5);
 	v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10121);
@@ -316,7 +316,7 @@ int __cdecl sub_458230(int a1, char* a2, int a3) {
 				}
 				v16 = *((unsigned __int8*)v4 + 33);
 				v15 = *((unsigned __int8*)v4 + 32);
-				v9 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131312), 0,
+				v9 = nox_strman_loadString_40F1D0("RecPlayers", 0,
 										   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 823);
 				nox_swprintf(v21, v9, v4 + 3, v15, v16);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16397, (int)v21, v6);
@@ -471,7 +471,7 @@ int __cdecl nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int 
 				} else {
 					v21 = v19 <= 2;
 					if (v19 < 2) {
-						v22 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131412), 0,
+						v22 = nox_strman_loadString_40F1D0("NeedTeams", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1363);
 						nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1046492, (int)getMemAt(0x5D4594, 1046560), (int)v22, 56, sub_459150,
 								   0);
@@ -480,9 +480,9 @@ int __cdecl nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int 
 					}
 				}
 				if (!v21) {
-					v38 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131472), 0,
+					v38 = nox_strman_loadString_40F1D0("TooManyTeams", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1371);
-					v23 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131536), 0,
+					v23 = nox_strman_loadString_40F1D0("Notice", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1370);
 					nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1046492, (int)v23, (int)v38, 33, 0, 0);
 					sub_44A360(1);
@@ -490,9 +490,9 @@ int __cdecl nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int 
 				}
 			} else if (nox_common_gameFlags_check_40A5C0(128) && nox_common_gameFlags_check_40A5C0(16) &&
 					   nox_xxx_CheckGameplayFlags_417DA0(4) && v19 > 2) {
-				v39 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131592), 0,
+				v39 = nox_strman_loadString_40F1D0("TooManyTeams", 0,
 											"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1384);
-				v24 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131656), 0,
+				v24 = nox_strman_loadString_40F1D0("Notice", 0,
 											"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1383);
 				nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1046492, (int)v24, (int)v39, 33, 0, 0);
 				sub_44A360(1);
@@ -673,7 +673,7 @@ int __cdecl sub_459880(int a1) {
 			nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1046516, 1);
 			nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1046520, 1);
 		}
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131772), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v2 = nox_strman_loadString_40F1D0("Servopts.wnd:CaptureLimit", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   1900);
 	} else {
 		LOBYTE(v1) = *(_BYTE*)(a1 + 57);
@@ -682,14 +682,14 @@ int __cdecl sub_459880(int a1) {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1046516, 1);
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1046520, 1);
 			}
-			v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131848), 0,
+			v2 = nox_strman_loadString_40F1D0("Servopts.wnd:DeathLimit", 0,
 									   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1912);
 		} else {
 			if (!LOBYTE(v1) && nox_common_gameFlags_check_40A5C0(1) && !nox_common_gameFlags_check_40A5C0(49152)) {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1046516, 1);
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1046520, 1);
 			}
-			v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 131920), 0,
+			v2 = nox_strman_loadString_40F1D0("Servopts.wnd:KillLimit", 0,
 									   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1926);
 		}
 	}
@@ -727,7 +727,7 @@ int sub_459CD0() {
 		else
 			v1 = nox_xxx_getTeamCounter_417DD0();
 		v4 = v1;
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132012), 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
+		v2 = nox_strman_loadString_40F1D0("NumTeamsMsg", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   2071);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1046364), v2, v4);
 		v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10110);

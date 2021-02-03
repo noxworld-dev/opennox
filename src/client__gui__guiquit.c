@@ -30,7 +30,7 @@ int nox_xxx_wndLoadQuiteMenu_445790() {
 		sub_445C40();
 		dword_5d4594_825752 = 0;
 		dword_5d4594_825768 = 0;
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108044), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 309);
+		v1 = nox_strman_loadString_40F1D0("Vote", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 309);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 825772), L"%s", v1);
 		result = 1;
 	}
@@ -76,9 +76,9 @@ int __cdecl nox_xxx_menuGameOnButton_445840(_DWORD* a1, int a2, int* a3, int a4)
 			result = 0;
 		} else {
 			v23 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108224), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 199);
+				nox_strman_loadString_40F1D0("GUIQuit.c:ReallyLoadMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 199);
 			v15 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108288), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 198);
+				nox_strman_loadString_40F1D0("SelChar.c:LoadLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 198);
 			nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v15, (int)v23, 56, sub_445B40, sub_445BA0);
 			v16 = a3[9];
 			LOBYTE(v16) = v16 & 0xFD;
@@ -119,8 +119,8 @@ int __cdecl nox_xxx_menuGameOnButton_445840(_DWORD* a1, int a2, int* a3, int a4)
 		break;
 	case 9004:
 		nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_825760);
-		v22 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108096), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 185);
-		v13 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108160), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 184);
+		v22 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 185);
+		v13 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 184);
 		nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_825760, (int)v13, (int)v22, 56, nox_xxx_quitDialogYes_445B20, nox_xxx_quitDialogNo_445B30);
 		v14 = a3[9];
 		LOBYTE(v14) = v14 & 0xFD;
@@ -194,8 +194,8 @@ void* sub_445B40() {
 	sub_413A00(0);
 	result = sub_4DB790("AUTOSAVE");
 	if (!result) {
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108368), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 88);
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108432), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 87);
+		v2 = nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 88);
+		v1 = nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 87);
 		result = nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v1, (int)v2, 33, 0, 0);
 	}
 	return result;
@@ -236,7 +236,7 @@ void sub_445C40() {
 					*(_DWORD*)(dword_5d4594_825760 + 4) |= 8u;
 					nox_xxx_wndSetCaptureMain_46ADC0(*(int*)&dword_5d4594_825760);
 					if (nox_common_gameFlags_check_40A5C0(2048)) {
-						v20 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108496), 0,
+						v20 = nox_strman_loadString_40F1D0("SoloSaveLabel", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 396);
 						v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9003);
 						sub_46AEE0((int)v1, (int)v20);
@@ -255,7 +255,7 @@ void sub_445C40() {
 						sub_413A00(1);
 						sub_46AB20(*(_DWORD**)&dword_5d4594_825760, 220, 285);
 					} else {
-						v21 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108548), 0,
+						v21 = nox_strman_loadString_40F1D0("MultiplayerSaveLabel", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 427);
 						v8 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9003);
 						sub_46AEE0((int)v8, (int)v21);
@@ -314,7 +314,7 @@ void sub_446190() {
 
 	dword_5d4594_825764 = 0;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108608), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 667);
+		v1 = nox_strman_loadString_40F1D0("ServerManualShutdown", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 667);
 		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 108632), v1);
 	}
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
@@ -342,9 +342,9 @@ void sub_446190() {
 			if (dword_5d4594_825752 > 0) {
 				v4 = -57;
 				nox_xxx_netSendPacket0_4E5420(159, &v4, 1, 0, 1);
-				v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108672), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
+				v3 = nox_strman_loadString_40F1D0("ShuttingDown", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
 										   737);
-				v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 108724), 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
+				v2 = nox_strman_loadString_40F1D0("Wolchat.c:PleaseWait", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
 										   736);
 				nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v2, (int)v3, 0, 0, 0);
 				sub_44A360(1);

@@ -45,10 +45,10 @@ int __cdecl nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4) {
 					goto LABEL_8;
 			}
 			v5 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 133772), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 504);
+				nox_strman_loadString_40F1D0("OneSpellPerTrap", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 504);
 		} else {
 			v5 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 133712), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 496);
+				nox_strman_loadString_40F1D0("RestrictedTrapSpell", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 496);
 		}
 		nox_xxx_printCentered_445490(v5);
 		nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
@@ -80,7 +80,7 @@ void nox_xxx_clientUseTrap_45E040() {
 	if (i == 3) {
 		if (*getMemU32Ptr(0x5D4594, 2618908)) {
 			if (*(_DWORD*)(*getMemU32Ptr(0x5D4594, 2618908) + 3832)) {
-				v5 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 133828), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
+				v5 = nox_strman_loadString_40F1D0("TrapError", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 										   1145);
 				nox_xxx_printCentered_445490(v5);
 				nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
@@ -258,11 +258,11 @@ int nox_xxx_quickBarCreate_45E190() {
 				nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1049504, (int)v13);
 				v14 = nox_xxx_gLoadImg_42F970("QuickBarTrapHit");
 				nox_xxx_wndSetIconLit_46AEA0(*(int*)&dword_5d4594_1049504, (int)v14);
-				v15 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 134012), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
+				v15 = nox_strman_loadString_40F1D0("ToolTipLayTrap", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 											1805);
 				nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1049520 + 36), v15);
 				nox_xxx_wnd_46AD60(*(int*)&dword_5d4594_1049520, 8);
-				v16 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 134068), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
+				v16 = nox_strman_loadString_40F1D0("ToolTipTrapConstruct", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 											1808);
 				nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1049500 + 36), v16);
 				nox_xxx_wnd_46AD60(*(int*)&dword_5d4594_1049500, 8);
@@ -283,11 +283,11 @@ int nox_xxx_quickBarCreate_45E190() {
 				nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1049504, (int)v7);
 				v8 = nox_xxx_gLoadImg_42F970("QuickBarBomberHit");
 				nox_xxx_wndSetIconLit_46AEA0(*(int*)&dword_5d4594_1049504, (int)v8);
-				v9 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 134216), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
+				v9 = nox_strman_loadString_40F1D0("ToolTipSummonBomber", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 										   1838);
 				nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1049520 + 36), v9);
 				nox_xxx_wnd_46AD60(*(int*)&dword_5d4594_1049520, 8);
-				v10 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 134276), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
+				v10 = nox_strman_loadString_40F1D0("ToolTipTrapConstruct", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 											1841);
 				nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1049500 + 36), v10);
 				nox_xxx_wnd_46AD60(*(int*)&dword_5d4594_1049500, 8);
@@ -318,7 +318,7 @@ int nox_xxx_quickBarCreate_45E190() {
 		nox_xxx_wndSetIconLit_46AEA0((int)v24, (int)v25);
 		nox_window_set_all_funcs(v24, nox_xxx_quickbarTrapUpDownProc_45F630, nox_xxx_quickbarTrapUpDownDraw_45F6F0, 0);
 		nox_xxx_wndSetOffsetMB_46AE40((int)v24, -55, -32);
-		v26 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 134432), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1883);
+		v26 = nox_strman_loadString_40F1D0("ToolTipPrevTrap", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1883);
 		nox_xxx_wndWddSetTooltip_46B000(v24 + 18, v26);
 		*((_DWORD*)v24 + 92) = 3;
 		v27 = (wchar_t*)nox_window_new(*getMemIntPtr(0x5D4594, 1048148), 1032, 15, 32, 10, 14, 0);
@@ -327,7 +327,7 @@ int nox_xxx_quickBarCreate_45E190() {
 		nox_xxx_wndSetIconLit_46AEA0((int)v27, (int)v28);
 		nox_window_set_all_funcs(v27, nox_xxx_quickbarTrapUpDownProc_45F630, nox_xxx_quickbarTrapUpDownDraw_45F6F0, 0);
 		nox_xxx_wndSetOffsetMB_46AE40((int)v27, -55, -52);
-		v29 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 134512), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1892);
+		v29 = nox_strman_loadString_40F1D0("ToolTipNextTrap", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1892);
 		nox_xxx_wndWddSetTooltip_46B000(v27 + 18, v29);
 		*((_DWORD*)v27 + 92) = 4;
 		dword_5d4594_1049508 = nox_window_new(0, 1032, dword_5d4594_1047548 - 1, dword_5d4594_1047552 + 26, 61, 48, 0);
@@ -354,7 +354,7 @@ int nox_xxx_quickBarCreate_45E190() {
 	nox_xxx_wndSetIconLit_46AEA0(*(int*)&dword_5d4594_1049524, (int)v35);
 	*getMemU32Ptr(0x5D4594, 1049528) = nox_window_new(*(int*)&dword_5d4594_1049524, 1064, 1, 2, 28, 28, 0);
 	nox_window_set_all_funcs(*(_DWORD**)getMemAt(0x5D4594, 1049528), nox_xxx_quickbarButtonBookWnd_45F450, nox_xxx_quickbarButtonBookDraw_45EF30, nox_xxx_quickbarButtonBook_45F3F0);
-	v36 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 134692), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1931);
+	v36 = nox_strman_loadString_40F1D0("OpenSpellBookTT", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1931);
 	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(*getMemU32Ptr(0x5D4594, 1049528) + 36), v36);
 	if (*(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251)) {
 		v37 = (wchar_t*)nox_window_new(*(int*)&dword_5d4594_1049508, 1032, 30, 0, 15, 19, 0);
@@ -364,7 +364,7 @@ int nox_xxx_quickBarCreate_45E190() {
 		nox_xxx_wndSetIconLit_46AEA0((int)v37, (int)v38);
 		nox_window_set_all_funcs(v37, nox_xxx_quickbarTrapUpDownProc_45F630, nox_xxx_quickbarTrapUpDownDraw_45F6F0, 0);
 		*((_DWORD*)v37 + 92) = 0;
-		v39 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 134772), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1943);
+		v39 = nox_strman_loadString_40F1D0("ToolTipPrevSpellSet", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1943);
 		nox_xxx_wndWddSetTooltip_46B000(v37 + 18, v39);
 		v40 = (wchar_t*)nox_window_new(*(int*)&dword_5d4594_1049508, 1032, 30, 29, 15, 19, 0);
 		nox_xxx_wndSetOffsetMB_46AE40((int)v40, -29, -55);
@@ -373,7 +373,7 @@ int nox_xxx_quickBarCreate_45E190() {
 		nox_xxx_wndSetIconLit_46AEA0((int)v40, (int)v41);
 		nox_window_set_all_funcs(v40, nox_xxx_quickbarTrapUpDownProc_45F630, nox_xxx_quickbarTrapUpDownDraw_45F6F0, 0);
 		*((_DWORD*)v40 + 92) = 1;
-		v42 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 134856), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1953);
+		v42 = nox_strman_loadString_40F1D0("ToolTipNextSpellSet", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1953);
 		nox_xxx_wndWddSetTooltip_46B000(v40 + 18, v42);
 		v43 = (wchar_t*)nox_window_new(*(int*)&dword_5d4594_1049508, 1032, 48, 16, 13, 17, 0);
 		nox_xxx_wndSetOffsetMB_46AE40((int)v43, -47, -42);
@@ -382,7 +382,7 @@ int nox_xxx_quickBarCreate_45E190() {
 		nox_xxx_wndSetIconLit_46AEA0((int)v43, (int)v44);
 		nox_window_set_all_funcs(v43, nox_xxx_quickbarTrapUpDownProc_45F630, nox_xxx_quickbarTrapUpDownDraw_45F6F0, 0);
 		*((_DWORD*)v43 + 92) = 2;
-		v45 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 134940), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1963);
+		v45 = nox_strman_loadString_40F1D0("ToolTipAllSpellSets", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1963);
 		nox_xxx_wndWddSetTooltip_46B000(v43 + 18, v45);
 		dword_5d4594_1049516 = nox_window_new(0, 1032, 0, 0, 1, 1, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1049516, sub_45EF40, sub_45F8F0, 0);
@@ -473,9 +473,9 @@ int nox_xxx_quickbarButtonBook_45F3F0() {
 	wchar_t* v0; // eax
 
 	if (sub_45CFC0())
-		v0 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135064), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 901);
+		v0 = nox_strman_loadString_40F1D0("CloseSpellbookTT", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 901);
 	else
-		v0 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135124), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 905);
+		v0 = nox_strman_loadString_40F1D0("OpenSpellbookTT", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 905);
 	nox_xxx_cursorSetTooltip_4776B0(v0);
 	return 1;
 }
@@ -486,9 +486,9 @@ int __cdecl sub_45F480(int a1) {
 
 	if (sub_45F500(*(unsigned __int16*)(a1 + 368),
 				   (int)getMemAt(0x5D4594, 256 * ((unsigned __int16)(*(_DWORD*)(a1 + 368) >> 16)) + 1048196))) {
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135180), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 941);
+		v1 = nox_strman_loadString_40F1D0("ToolTipCastOnMe", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 941);
 	} else {
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135236), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 945);
+		v1 = nox_strman_loadString_40F1D0("ToolTipCastAtOther", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 945);
 	}
 	nox_xxx_cursorSetTooltip_4776B0(v1);
 	return 1;
@@ -512,7 +512,7 @@ int __cdecl sub_45F9B0(_DWORD* a1) {
 		nox_client_wndGetPosition_46AA60(a1, &v6, &a1);
 		nox_window_get_size((int)v1, &v7, &v9);
 		v5 = *(unsigned __int8*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 200) + 1;
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135296), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1276);
+		v2 = nox_strman_loadString_40F1D0("SpellSet", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1276);
 		nox_swprintf(v11, v2, v5);
 		nox_xxx_drawGetStringSize_43F840(0, v11, &v8, &v10, 0);
 		v3 = (char*)a1 - nox_xxx_guiFontHeightMB_43F320(0);
@@ -540,7 +540,7 @@ int __cdecl nox_xxx_quickbarDraw_45FAC0(_DWORD* a1) {
 	nox_client_wndGetPosition_46AA60(a1, &a1, &v7);
 	nox_window_get_size((int)v1, &v5, &v8);
 	v4 = getMemByte(0x5D4594, 1048140) + 1;
-	v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135348), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1299);
+	v2 = nox_strman_loadString_40F1D0("TrapSet", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1299);
 	nox_swprintf(v9, v2, v4);
 	nox_xxx_drawGetStringSize_43F840(0, v9, &v6, 0, 0);
 	a1 = (_DWORD*)((char*)a1 + (v5 - v6) / 2);
@@ -620,7 +620,7 @@ int __cdecl nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 			v17 = yTop + v5 + 2;
 			v15 = xLeft + 6;
-			v11 = (__int16*)nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135396), 0,
+			v11 = (__int16*)nox_strman_loadString_40F1D0("NoIcon", 0,
 												  "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1388);
 		} else {
 			v12 = (wchar_t*)nox_xxx_abilityGetName_0_425260(v16);
@@ -630,7 +630,7 @@ int __cdecl nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 			v17 = yTop + v5 + 2;
 			v15 = xLeft + 6;
-			v11 = (__int16*)nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135444), 0,
+			v11 = (__int16*)nox_strman_loadString_40F1D0("NoIcon", 0,
 												  "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1401);
 		}
 		nox_xxx_drawString_43F6E0(0, v11, v15, v17);
@@ -696,7 +696,7 @@ int __cdecl nox_xxx_quickBarWarriorDraw_45FDE0(int yTop) {
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 			v17 = nox_xxx_guiFontHeightMB_43F320(0) + yTop + 2;
 			v16 = xLeft + 6;
-			v12 = (__int16*)nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135492), 0,
+			v12 = (__int16*)nox_strman_loadString_40F1D0("NoIcon", 0,
 												  "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1491);
 			nox_xxx_drawString_43F6E0(0, v12, v16, v17);
 		}
@@ -747,11 +747,11 @@ int sub_460070() {
 			nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1049504, (int)v5);
 			v6 = nox_xxx_gLoadImg_42F970("QuickBarTrapHit");
 			nox_xxx_wndSetIconLit_46AEA0(*(int*)&dword_5d4594_1049504, (int)v6);
-			v7 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135572), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
+			v7 = nox_strman_loadString_40F1D0("ToolTipLayTrap", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 									   1544);
 			nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1049520 + 36), v7);
 			nox_xxx_wnd_46AD60(*(int*)&dword_5d4594_1049520, 8);
-			v8 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135628), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
+			v8 = nox_strman_loadString_40F1D0("ToolTipTrapConstruct", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 									   1547);
 			nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1049500 + 36), v8);
 			nox_xxx_wnd_46AD60(*(int*)&dword_5d4594_1049500, 8);
@@ -763,11 +763,11 @@ int sub_460070() {
 				nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1049504, (int)v1);
 				v2 = nox_xxx_gLoadImg_42F970("QuickBarBomberHit");
 				nox_xxx_wndSetIconLit_46AEA0(*(int*)&dword_5d4594_1049504, (int)v2);
-				v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135728), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
+				v3 = nox_strman_loadString_40F1D0("ToolTipSummonBomber", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 										   1559);
 				nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1049520 + 36), v3);
 				nox_xxx_wnd_46AD60(*(int*)&dword_5d4594_1049520, 8);
-				v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 135788), 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
+				v4 = nox_strman_loadString_40F1D0("ToolTipTrapConstruct", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c",
 										   1562);
 				nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1049500 + 36), v4);
 				nox_xxx_wnd_46AD60(*(int*)&dword_5d4594_1049500, 8);

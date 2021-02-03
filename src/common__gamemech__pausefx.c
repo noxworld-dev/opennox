@@ -51,7 +51,7 @@ void __cdecl sub_57AF30(int a1, int a2) {
 			goto LABEL_29;
 		}
 		nox_xxx_aud_501960(902, v2, 2, *(_DWORD *) (v2 + 36));
-		v4 = nox_strman_loadString_40F1D0((char *) getMemAt(0x587000, 312764), 0,
+		v4 = nox_strman_loadString_40F1D0("expLevel.c:LevelUP", 0,
 								   "C:\\NoxPost\\src\\common\\GameMech\\PauseFX.c", 109);
 		nox_xxx_netSendLineMessage_4D9EB0(*(int *) &dword_5d4594_2523780, v4);
 		v2 = dword_5d4594_2523780;
