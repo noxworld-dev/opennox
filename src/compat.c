@@ -341,6 +341,11 @@ int WINAPI ioctlsocket(SOCKET s, long cmd, unsigned long* argp) {
 		ret = ioctl(s, FIONREAD, argp);
 #endif
 		break;
+#ifndef __EMSCRIPTEN__
+	case 0x8004667e: // FIONBIO
+		ret = ioctl(s, FIONBIO, argp);
+		break;
+#endif
 	default:
 		DebugBreak();
 		ret = -1;

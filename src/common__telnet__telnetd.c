@@ -74,7 +74,7 @@ void nox_telnet_accept_578FF0() {
 	}
 	cur->addr.S_un.S_addr = addr.sin_addr.s_addr;
 	u_long argp = 1;
-	if (ioctlsocket(cur->sock, -2147195266, &argp) == -1) {
+	if (ioctlsocket(cur->sock, 0x8004667e, &argp) == -1) {
 		nox_telnet_setErr_578F20(-5);
 	}
 	++nox_telnet_conns;
@@ -168,7 +168,7 @@ int nox_telnet_listen_578E10() {
 		return -2;
 	}
 	u_long argp = 1;
-	if (ioctlsocket(nox_telnet_listener, -2147195266, &argp) == -1) {
+	if (ioctlsocket(nox_telnet_listener, 0x8004667e, &argp) == -1) {
 		nox_telnet_setErr_578F20(-5);
 		return -5;
 	}
@@ -190,18 +190,16 @@ int nox_telnet_listen_578E10() {
 }
 
 //----- (00579700) --------------------------------------------------------
-int sub_579700(int a1) {
-	int v1; // eax
-	int v2; // edx
-
-	if (!a1)
+int nox_telnet_checkLine_579700(nox_telnet_sock_t* cur) {
+	if (!cur)
 		return 0;
-	v1 = *(__int16*)(a1 + 1028);
-	v2 = *(__int16*)(a1 + 1030);
+	int v1 = cur->field_1028;
+	int v2 = cur->field_1030;
 	if (v1 == v2)
 		return 0;
-	while (*(_BYTE*)(a1 + v1 + 4) != 10) {
-		if (++v1 == 1024)
+	while (cur->data[v1] != '\n') {
+		++v1;
+		if (v1 == 1024)
 			v1 = 0;
 		if (v1 == v2)
 			return 0;
@@ -212,11 +210,12 @@ int sub_579700(int a1) {
 //----- (005793B0) --------------------------------------------------------
 char* nox_telnet_recv_5793B0(nox_telnet_sock_t* cur, int ind) {
 	u_long argp = 0;
-	if (ioctlsocket(cur->sock, 1074030207, &argp) == -1 || (int)(argp + cur->field_1032) > 1024)
+	if (ioctlsocket(cur->sock, 0x4004667f, &argp) == -1 || (int)(argp + cur->field_1032) > 1024)
 		return 0;
 	int res = recv(cur->sock, nox_telnet_recv_buf, sizeof(nox_telnet_recv_buf), 0);
 	if (res != -1) {
-		if (!res) {
+		int n = res;
+		if (!n) {
 			nox_telnet_closeInd_579350(ind);
 			char* saddr = inet_ntoa(cur->addr);
 			wchar_t* sterm = nox_strman_loadString_40F1D0("ConnectionTerminated", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 211);
@@ -224,42 +223,39 @@ char* nox_telnet_recv_5793B0(nox_telnet_sock_t* cur, int ind) {
 			nox_xxx_networkLog_413D30("%S: %S %s", stel, sterm, saddr);
 			return 0;
 		}
-		int v4 = res;
 		if (cur->field_1040 & 1) {
-			int v8 = 0;
-			int v9 = res;
-			if (res > 0) {
-				do {
-					unsigned char c = nox_telnet_recv_buf[v8];
+			int end = n;
+			if (n > 0) {
+				for (int i = 0; i < n; i++) {
+					unsigned char c = nox_telnet_recv_buf[i];
 					if (c == '\n' || c == '\r') {
-						--v9;
+						--end;
 					}
-					++v8;
-				} while (v8 < v4);
+				}
 			}
-			memset(nox_telnet_line_buf, '*', v9);
-			nox_telnet_line_buf[v9] = 0;
-			send(cur->sock, nox_telnet_line_buf, v9, 0);
+			memset(nox_telnet_line_buf, '*', end);
+			nox_telnet_line_buf[end] = 0;
+			send(cur->sock, nox_telnet_line_buf, end, 0);
 		} else {
-			send(cur->sock, nox_telnet_recv_buf, res, 0);
+			send(cur->sock, nox_telnet_recv_buf, n, 0);
 		}
 		int v11 = cur->field_1030;
-		unsigned char* v12 = &cur->data[v11];
-		if (v11 + v4 < 1024) {
-			memcpy(v12, nox_telnet_recv_buf, v4);
-			cur->field_1030 += v4;
+		unsigned char* b = &cur->data[v11];
+		if (v11 + n < 1024) {
+			memcpy(b, nox_telnet_recv_buf, n);
+			cur->field_1030 += n;
 		} else {
 			unsigned int v14 = 1024 - v11;
 			unsigned int v13 = v14;
-			memcpy(v12, nox_telnet_recv_buf, v14);
+			memcpy(b, nox_telnet_recv_buf, v14);
 			cur->field_1030 = 0;
-			int v15 = v4 - v14;
+			int v15 = n - v14;
 			if (v15 > 0) {
-				memcpy(cur->data, nox_telnet_recv_buf, 4 * ((unsigned int)v15 >> 2) + (((_BYTE)v4 - (_BYTE)v13) & 3));
+				memcpy(cur->data, nox_telnet_recv_buf, 4 * ((unsigned int)v15 >> 2) + (((_BYTE)n - (_BYTE)v13) & 3));
 			}
-			cur->field_1030 = v4 - v13;
+			cur->field_1030 = n - v13;
 		}
-		cur->field_1032 += v4;
+		cur->field_1032 += n;
 	} else if (WSAGetLastError() != 10035) {
 		nox_telnet_closeInd_579350(ind);
 		char* saddr = inet_ntoa(cur->addr);
@@ -268,7 +264,7 @@ char* nox_telnet_recv_5793B0(nox_telnet_sock_t* cur, int ind) {
 		nox_xxx_networkLog_413D30("%S: %S %s", stel, sterm, saddr);
 		return 0;
 	}
-	if (!sub_579700(cur)) {
+	if (!nox_telnet_checkLine_579700(cur)) {
 		return 0;
 	}
 	int i = cur->field_1028;
