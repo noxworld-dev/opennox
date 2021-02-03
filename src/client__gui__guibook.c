@@ -44,7 +44,7 @@ void nox_xxx_bookShowMB_45AD70(int a1) {
 		nox_xxx_guiSpellSortList_45ADF0(*(unsigned __int8*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251))) {
 		nox_xxx_book_45B010(a1);
 	} else {
-		v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132176), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 377);
+		v2 = nox_strman_loadString_40F1D0("EmptyBook", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 377);
 		nox_xxx_printCentered_445490(v2);
 		nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
 	}
@@ -197,7 +197,7 @@ int __cdecl nox_xxx_bookDrawList_45BD40(int a1) {
 	}
 	if (dword_5d4594_1046868 == 1) {
 		v14 = v67 + 51;
-		v15 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132380), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 978);
+		v15 = nox_strman_loadString_40F1D0("Size", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 978);
 		nox_swprintf(v71, L"%s ", v15);
 		v16 = nox_xxx_guideGetUnitSize_427460(*getMemU32Ptr(0x5D4594, 4 * dword_5d4594_1046932 + 1046960)) - 1;
 		if (v16) {
@@ -205,7 +205,7 @@ int __cdecl nox_xxx_bookDrawList_45BD40(int a1) {
 			if (v17) {
 				if (v17 == 2) {
 					v18 = 76;
-					v19 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132520), 0,
+					v19 = nox_strman_loadString_40F1D0("Large", 0,
 												"C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 995);
 					nox_wcscat(v71, v19);
 					v20 = 0;
@@ -215,7 +215,7 @@ int __cdecl nox_xxx_bookDrawList_45BD40(int a1) {
 				}
 			} else {
 				v18 = 38;
-				v21 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132476), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c",
+				v21 = nox_strman_loadString_40F1D0("Medium", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c",
 											989);
 				nox_wcscat(v71, v21);
 				v20 = 0;
@@ -223,7 +223,7 @@ int __cdecl nox_xxx_bookDrawList_45BD40(int a1) {
 		} else {
 			v18 = 38;
 			v22 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132432), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 983);
+				nox_strman_loadString_40F1D0("Small", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 983);
 			nox_wcscat(v71, v22);
 			v20 = 19;
 		}
@@ -297,7 +297,7 @@ int __cdecl nox_xxx_bookDrawList_45BD40(int a1) {
 		nox_xxx_bookDrawString_43FA80_43FD80(0, v42, v57, v59, 128, 0);
 		v43 = v41 + v68 + 2;
 		v44 = nox_xxx_getManaCost_4249A0(*getMemU32Ptr(0x5D4594, 4 * dword_5d4594_1046932 + 1046960), 1);
-		v45 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132564), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1115);
+		v45 = nox_strman_loadString_40F1D0("ManaCost", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1115);
 		nox_swprintf(v71, L"%s ", v45);
 		if (v44) {
 			_itow(v44, WideCharStr, 10);
@@ -313,34 +313,34 @@ int __cdecl nox_xxx_bookDrawList_45BD40(int a1) {
 		v47 = v46 + v3 + 2;
 		if (v38 & 0x100) {
 			v48 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132628), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1173);
+				nox_strman_loadString_40F1D0("SpellInstant", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1173);
 			nox_xxx_drawGetStringSize_43F840(0, v48, &v65, 0, 0);
 			nox_xxx_drawString_43FAF0(0, v48, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
 			v47 += v3;
 		}
 		if (v38 & 4) {
 			v49 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132680), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1181);
+				nox_strman_loadString_40F1D0("SpellTargeted", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1181);
 			nox_xxx_drawGetStringSize_43F840(0, v49, &v65, 0, 0);
 			nox_xxx_drawString_43FAF0(0, v49, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
 			v47 += v3;
 		}
 		if (v38 & 8) {
 			v50 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132732), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1189);
+				nox_strman_loadString_40F1D0("SpellAtLocation", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1189);
 			nox_xxx_drawGetStringSize_43F840(0, v50, &v65, 0, 0);
 			nox_xxx_drawString_43FAF0(0, v50, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
 			v47 += v3;
 		}
 		if (v38 & 0x20) {
 			v51 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132784), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1197);
+				nox_strman_loadString_40F1D0("SpellHostile", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1197);
 			nox_xxx_drawGetStringSize_43F840(0, v51, &v65, 0, 0);
 			nox_xxx_drawString_43FAF0(0, v51, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
 			v47 += v3;
 		}
 		v64 = *(_DWORD*)(dword_5d4594_1047516 + 4 * *getMemU32Ptr(0x5D4594, 4 * dword_5d4594_1046932 + 1046960) + 3696);
-		v52 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 132836), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1206);
+		v52 = nox_strman_loadString_40F1D0("PowerLevel", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1206);
 		nox_swprintf(v71, v52, v64);
 		nox_xxx_drawGetStringSize_43F840(0, v71, &v65, 0, 0);
 		nox_xxx_drawString_43FAF0(0, v71, (108 - v65) / 2 + v66 + 24, v3 + v47, 128, 0);
@@ -376,14 +376,14 @@ int __cdecl nox_xxx_book_45CF00(_DWORD* a1) {
 	if (*a1 == 1310) {
 		if (!*(_BYTE*)(dword_5d4594_1047516 + 2251)) {
 			v3 =
-				nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 133244), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1640);
+				nox_strman_loadString_40F1D0("ToolTipAbilityTab", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1640);
 			nox_xxx_cursorSetTooltip_4776B0(v3);
 			return 1;
 		}
-		v4 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 133300), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1644);
+		v4 = nox_strman_loadString_40F1D0("ToolTipSpellTab", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1644);
 		nox_xxx_cursorSetTooltip_4776B0(v4);
 	} else if (*a1 == 1320) {
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 133352), 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1649);
+		v1 = nox_strman_loadString_40F1D0("ToolTipGuideTab", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1649);
 		nox_xxx_cursorSetTooltip_4776B0(v1);
 		return 1;
 	}

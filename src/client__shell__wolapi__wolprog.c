@@ -13,7 +13,7 @@ int sub_468110_wol_prog() {
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064192, 1804);
 		nox_window_set_hidden((int)v1, 0);
 		v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064192, 1805);
-		v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 140968), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
+		v3 = nox_strman_loadString_40F1D0("startingdownload", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
 								   192);
 		result = nox_window_call_field_94((int)v2, 16385, (int)v3, 0);
 	}
@@ -45,7 +45,7 @@ int sub_468170_wol_prog() {
 		else
 			v2 = 0;
 		nox_window_call_field_94((int)v1, 16416, v2, 0);
-		v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 141036), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
+		v3 = nox_strman_loadString_40F1D0("byteprogress", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
 								   226);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1063680), v3, v6, v5, v8 / 3600, v8 / 60, v8 % 60, v7 / 3600, v7 / 60,
 					 v7 % 60);
@@ -64,7 +64,7 @@ void sub_4682B0_wol_prog() {
 
 	if (dword_5d4594_1064192) {
 		v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064192, 1805);
-		v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 141100), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
+		v1 = nox_strman_loadString_40F1D0("PatchComplete", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
 								   250);
 		if (v1)
 			nox_window_call_field_94((int)v0, 16385, (int)v1, 0);

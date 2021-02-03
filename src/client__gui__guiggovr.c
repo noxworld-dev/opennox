@@ -31,13 +31,13 @@ int __cdecl sub_49B4B0(unsigned __int16* a1) {
 	nox_window_get_size(*(int*)&dword_5d4594_1303452, &v15, &v14);
 	nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1303452, nox_win_width / 2 - v15 / 2, nox_win_height / 2 - v14 / 2);
 	v11 = a1[1];
-	v1 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 163344), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 178);
+	v1 = nox_strman_loadString_40F1D0("GGOver.wnd:GeneratorsDestroyed", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 178);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1302172), v1, v11);
 	v12 = a1[2];
-	v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 163416), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 181);
+	v2 = nox_strman_loadString_40F1D0("GGOver.wnd:NumSecretsFound", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 181);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1301916), v2, v12);
 	v13 = a1[3];
-	v3 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 163484), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 183);
+	v3 = nox_strman_loadString_40F1D0("GGOver.wnd:Kills", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 183);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1302428), v3, v13);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1303196), (const wchar_t*)getMemAt(0x5D4594, 1303460));
 	v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10710);
@@ -77,7 +77,7 @@ int sub_49B6E0() {
 				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1301852), (const wchar_t*)getMemAt(0x5D4594, 1303464));
 			} else {
 				v4 = (unsigned int)v1 / nox_gameFPS;
-				v2 = nox_strman_loadString_40F1D0((char*)getMemAt(0x587000, 163544), 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c",
+				v2 = nox_strman_loadString_40F1D0("Rules.c:Time", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c",
 										   265);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1301852), L"%s - %d", v2, v4);
 			}
