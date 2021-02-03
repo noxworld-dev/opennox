@@ -674,7 +674,7 @@ unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1) {
 }
 
 // free keyboard
-int sub_47FCC0() { return 0; }
+int nox_xxx_freeKeyboard_47FCC0() { return 0; }
 
 // get keyboard data
 void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
@@ -1221,7 +1221,7 @@ void sub_47FB10() {
 }*/
 
 //----- (0047FCC0) --------------------------------------------------------
-int sub_47FCC0() {
+int nox_xxx_freeKeyboard_47FCC0() {
 	g_device_keyboard->lpVtbl->Unacquire(g_device_keyboard);
 	return g_dinput_keyboard->lpVtbl->Release(g_dinput_keyboard);
 }

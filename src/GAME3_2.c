@@ -2188,7 +2188,7 @@ BOOL nox_xxx_servEndSession_4D3200() {
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_xxx_netCloseHandler_4DEC60(*getMemUintPtr(0x5D4594, 1548516));
 		if (!nox_common_gameFlags_check_40A5C0(0x2000000))
-			sub_413D00();
+			nox_xxx_closeNetworkLog_413D00();
 	}
 	sub_56F3B0();
 	nullsub_23();

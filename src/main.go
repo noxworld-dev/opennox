@@ -434,3 +434,38 @@ func sdl_get_display_dim() C.int4 {
 	v.field_C = C.int(r[3])
 	return v
 }
+
+//export cleanup
+func cleanup() {
+	fmt.Println("cleanup")
+	if getGameFlag(0x2000000) {
+		C.nox_xxx_closeNetworkLog_413D00()
+	}
+	C.nox_common_writecfgfile(internCStr("nox.cfg"))
+	C.nox_xxx_freeScreenParticles_4314D0()
+	C.sub_413960()
+	C.sub_431380()
+	C.sub_4134F0()
+	C.nox_xxx_freeWeaponArmorDefAndModifs_413060()
+	C.sub_4311B0()
+	C.nox_xxx_freeFloorBuffer_430EF0()
+	C.nox_xxx_freeKeyboard_430210()
+	C.nox_xxx_tileFree_410FC0_free()
+	C.sub_4106C0()
+	C.sub_42F4D0()
+	C.sub_42EDC0()
+	C.sub_42CD90()
+	nox_strman_free_410020()
+	C.nox_xxx_net_40EA70()
+	C.sub_40D0F0()
+	C.sub_40E070()
+	C.sub_4D11D0()
+	C.sub_4D0DA0()
+	C.sub_40C0D0()
+	C.sub_40B740()
+	C.sub_4D0970()
+	C.sub_4093D0()
+	C.sub_40AF30()
+	//C.sub_48B1B0() // does nothing on SDL
+	C.nox_free_thing_bin()
+}
