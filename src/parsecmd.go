@@ -330,10 +330,8 @@ var noxCommands = []parsecmd.Command{
 	}},
 	{Token: "sysop", HelpID: "nohelp", Flags: parsecmd.ClientServer | parsecmd.Flag0x4, Func: wrapCommandC(nox_cmd_sysop)},
 	{Token: "telnet", HelpID: "telnethelp", Flags: parsecmd.Server, Sub: []parsecmd.Command{
-		{Token: "god", HelpID: "unsetgodhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_unset_god)},
-		{Token: "frameratelimiter", HelpID: "unsetfrhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_unset_fr)},
-		{Token: "netdebug", HelpID: "unsetnetdebug", Flags: parsecmd.ClientServer, Func: wrapCommandC(nox_cmd_unset_net_debug)},
-		{Token: "sage", HelpID: "unsetsagehelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_unset_sage)},
+		{Token: "on", HelpID: "telnetonhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_telnet_on)},
+		{Token: "off", HelpID: "telnetoffhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_telnet_off)},
 	}},
 	{Token: "unset", HelpID: "unsethelp", Flags: parsecmd.ClientServer, Sub: []parsecmd.Command{
 		{Token: "god", HelpID: "unsetgodhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_unset_god)},
