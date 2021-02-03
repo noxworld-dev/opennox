@@ -10,8 +10,6 @@ int nox_xxx_consolePrint_450B90(unsigned char typ, wchar_t* str);
 int nox_cmd_lock(int, int, wchar_t**);
 int nox_cmd_unlock(int, int, wchar_t**);
 int nox_cmd_set_sysop(int, int, wchar_t**);
-int nox_cmd_telnet_off(int, int, wchar_t**);
-int nox_cmd_telnet_on(int, int, wchar_t**);
 int nox_cmd_macros_on(int, int, wchar_t**);
 int nox_cmd_macros_off(int, int, wchar_t**);
 int nox_cmd_list_weapons(int, int, wchar_t**);
@@ -329,10 +327,6 @@ var noxCommands = []parsecmd.Command{
 		{Token: "seq", HelpID: "showseqhelp", Flags: parsecmd.ClientServer | parsecmd.Cheat, Func: wrapCommandC(nox_cmd_show_seq)},
 	}},
 	{Token: "sysop", HelpID: "nohelp", Flags: parsecmd.ClientServer | parsecmd.NoHelp, Func: wrapCommandC(nox_cmd_sysop)},
-	{Token: "telnet", HelpID: "telnethelp", Flags: parsecmd.Server, Sub: []parsecmd.Command{
-		{Token: "on", HelpID: "telnetonhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_telnet_on)},
-		{Token: "off", HelpID: "telnetoffhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_telnet_off)},
-	}},
 	{Token: "unset", HelpID: "unsethelp", Flags: parsecmd.ClientServer, Sub: []parsecmd.Command{
 		{Token: "god", HelpID: "unsetgodhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_unset_god)},
 		{Token: "frameratelimiter", HelpID: "unsetfrhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_unset_fr)},
@@ -355,12 +349,6 @@ func nox_cmd_unlock(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_set_sysop(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_sysop(i, n, arr)
-}
-func nox_cmd_telnet_off(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_telnet_off(i, n, arr)
-}
-func nox_cmd_telnet_on(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_telnet_on(i, n, arr)
 }
 func nox_cmd_macros_on(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_macros_on(i, n, arr)

@@ -352,6 +352,7 @@ int nox_cmd_set_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00440E60) --------------------------------------------------------
 int nox_cmd_telnet_off(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2)
@@ -382,6 +383,7 @@ int nox_cmd_telnet_on(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_consoleVPrint_450C00(6, s, port);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00440F50) --------------------------------------------------------
 int nox_cmd_macros_on(int tokInd, int tokCnt, wchar_t** tokens) {
