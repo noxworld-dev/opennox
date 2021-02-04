@@ -182,6 +182,7 @@ set (
     cdrom.c
     imm.c
     input.c
+    input_common.c
     movie.c
     sm.c
     noxstring.c
