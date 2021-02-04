@@ -21,21 +21,13 @@ nox_point nox_mouse_max = {NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1};
 nox_point nox_mouse_max = {639, 478}; // ugly hack for MSVC
 #endif
 
-typedef struct {
-	unsigned char code;
-	unsigned char field_1;
-	unsigned char field_2;
-	unsigned char field_3;
-	unsigned int seq; // 4
-} nox_input_xxx1_t;
-
-nox_input_xxx1_t nox_input_arr_789276[256];
+nox_keyboard_btn_t nox_input_arr_789276[256];
 
 //----- (00430140) --------------------------------------------------------
 void sub_430140(int a1) {
 	for (int i; i < 256; i++) {
-		nox_input_xxx1_t* cur = &nox_input_arr_789276[i];
-		cur->field_1 = 1;
+		nox_keyboard_btn_t* cur = &nox_input_arr_789276[i];
+		cur->state = 1;
 		cur->field_2 = 0;
 		cur->seq = 0;
 	}
@@ -207,7 +199,7 @@ void nox_xxx_getKeyFromKeyboard_430710() {
 	ev = getMemAt(0x5D4594, 787228);
 	while (ev->code) {
 		if (ev->code == 15) {
-			if (nox_input_arr_789276[56].field_1 == 2 || nox_input_arr_789276[184].field_1 == 2) {
+			if (nox_input_arr_789276[56].state == 2 || nox_input_arr_789276[184].state == 2) {
 				ev->field_2 = 1;
 			}
 		} else if (ev->code == 58) {
@@ -217,7 +209,7 @@ void nox_xxx_getKeyFromKeyboard_430710() {
 			ev->field_2 = 1;
 		}
 		int code = ev->code;
-		nox_input_arr_789276[code].field_1 = ev->state;
+		nox_input_arr_789276[code].state = ev->state;
 		nox_input_arr_789276[code].field_2 = ev->field_2;
 		nox_input_arr_789276[code].seq = nox_mouse_prev_seq;
 		ev++;
@@ -245,8 +237,8 @@ int sub_4307D0() {
 	}
 	int li = -1;
 	for (int i = 0; i < 256; i++) {
-		nox_input_xxx1_t* cur = &nox_input_arr_789276[i];
-		if (cur->field_1 == 2 && nox_mouse_prev_seq - cur->seq > 10) {
+		nox_keyboard_btn_t* cur = &nox_input_arr_789276[i];
+		if (cur->state == 2 && nox_mouse_prev_seq - cur->seq > 10) {
 			li = i;
 			break;
 		}
@@ -266,9 +258,9 @@ int sub_4307D0() {
 }
 void nox_xxx_initKeyboard_yyy() {
 	for (int i = 0; i < 256; i++) {
-		nox_input_xxx1_t* cur = &nox_input_arr_789276[i];
+		nox_keyboard_btn_t* cur = &nox_input_arr_789276[i];
 		cur->code = i;
-		cur->field_1 = 1;
+		cur->state = 1;
 		cur->field_2 = 0;
 		cur->seq = 0;
 	}
@@ -281,7 +273,7 @@ char* nox_xxx_wndKeyGet_430940() { return (char*)getMemAt(0x5D4594, 787228); }
 unsigned char sub_430950(unsigned char i) { return nox_input_arr_789276[i].field_2; }
 
 //----- (00430970) --------------------------------------------------------
-unsigned char sub_430970(unsigned char i) { return nox_input_arr_789276[i].field_1; }
+unsigned char sub_430970(unsigned char i) { return nox_input_arr_789276[i].state; }
 
 //----- (00430990) --------------------------------------------------------
 int sub_430990(unsigned char i) { return nox_input_arr_789276[i].seq; }
@@ -317,7 +309,7 @@ void sub_4309B0(unsigned char i, unsigned char v) {
 
 //----- (004309D0) --------------------------------------------------------
 void sub_4309D0(unsigned char i, unsigned char v) {
-	nox_input_arr_789276[i].field_1 = v;
+	nox_input_arr_789276[i].state = v;
 }
 
 //----- (004309F0) --------------------------------------------------------
