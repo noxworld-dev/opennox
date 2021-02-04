@@ -50,8 +50,8 @@ func unacquireMouse_sub_47D8B0() C.int {
 	return 0
 }
 
-//export initMouse_sub_47D8D0
-func initMouse_sub_47D8D0() C.int {
+//export nox_xxx_initMouse_47D8D0
+func nox_xxx_initMouse_47D8D0() C.int {
 	inputInitMouse()
 	return 1
 }
