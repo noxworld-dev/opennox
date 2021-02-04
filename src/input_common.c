@@ -22,6 +22,7 @@ nox_point nox_mouse_max = {639, 478}; // ugly hack for MSVC
 #endif
 
 nox_keyboard_btn_t nox_input_arr_789276[256];
+nox_keyboard_btn_t nox_input_arr_787228[256];
 
 //----- (00430140) --------------------------------------------------------
 void sub_430140(int a1) {
@@ -185,7 +186,7 @@ void __cdecl nox_client_readMouseBuffer_4306A0(int a1) {
 
 //----- (00430710) --------------------------------------------------------
 void nox_xxx_getKeyFromKeyboard_430710() {
-	nox_keyboard_btn_t* ev = getMemAt(0x5D4594, 787228);
+	nox_keyboard_btn_t* ev = &nox_input_arr_787228[0];
 	unsigned __int8 code;
 	do {
 		do {
@@ -196,7 +197,7 @@ void nox_xxx_getKeyFromKeyboard_430710() {
 	} while (code);
 
 	int cnt = 0;
-	ev = getMemAt(0x5D4594, 787228);
+	ev = &nox_input_arr_787228[0];
 	while (ev->code) {
 		if (ev->code == 15) {
 			if (nox_input_arr_789276[56].state == 2 || nox_input_arr_789276[184].state == 2) {
@@ -226,15 +227,7 @@ int sub_4307D0() {
 	if (obj_5D4594_754104_switch == 1)
 		return 0;
 	int v0 = 0;
-	if (getMemByte(0x5D4594, 787228)) {
-		unsigned __int8* v2 = getMemAt(0x5D4594, 787228);
-		unsigned __int8 v3;
-		do {
-			v3 = v2[8];
-			v2 += 8;
-			++v0;
-		} while (v3);
-	}
+	for (v0 = 0; nox_input_arr_787228[v0].code; v0++) {}
 	int li = -1;
 	for (int i = 0; i < 256; i++) {
 		nox_keyboard_btn_t* cur = &nox_input_arr_789276[i];
@@ -246,10 +239,10 @@ int sub_4307D0() {
 	if (li < 0) {
 		return 0;
 	}
-	*getMemU8Ptr(0x5D4594, 787228 + 8*v0) = li;
-	*getMemU8Ptr(0x5D4594, 787228 + 8*v0 + 1) = 2;
-	*getMemU8Ptr(0x5D4594, 787228 + 8*v0 + 2) = 0;
-	*getMemU8Ptr(0x5D4594, 787228 + 8*(1 + v0)) = 0;
+	nox_input_arr_787228[v0].code = li;
+	nox_input_arr_787228[v0].state = 2;
+	nox_input_arr_787228[v0].field_2 = 0;
+	nox_input_arr_787228[v0+1].code = 0;
 	for (int i = 0; i < 256; i++) {
 		nox_input_arr_789276[i].seq = nox_mouse_prev_seq;
 	}
@@ -267,7 +260,7 @@ void nox_xxx_initKeyboard_yyy() {
 }
 
 //----- (00430940) --------------------------------------------------------
-char* nox_xxx_wndKeyGet_430940() { return (char*)getMemAt(0x5D4594, 787228); }
+char* nox_xxx_wndKeyGet_430940() { return &nox_input_arr_787228[0]; }
 
 //----- (00430950) --------------------------------------------------------
 unsigned char sub_430950(unsigned char i) { return nox_input_arr_789276[i].field_2; }
@@ -280,14 +273,12 @@ int nox_input_keyboardGetKeySeq_430990(unsigned char i) { return nox_input_arr_7
 
 //----- (004308A0) --------------------------------------------------------
 int __cdecl nox_client_processMouseInput_4308A0(int a1) {
-	int v2; // ecx
-
 	nox_client_readMouseBuffer_4306A0(a1);
 	nox_xxx_getKeyFromKeyboard_430710();
-	if (getMemByte(0x5D4594, 787228)) {
-		v2 = *getMemU32Ptr(0x5D4594, 787228) >> 8;
-		if (!BYTE1(v2))
-			OnLibraryNotice(417, *getMemU32Ptr(0x5D4594, 787228));
+	if (nox_input_arr_787228[0].code) {
+		if (!nox_input_arr_787228[0].field_2) {
+			OnLibraryNotice(417, *(unsigned int*)&nox_input_arr_787228[0]);
+		}
 	}
 	++nox_mouse_prev_seq;
 	if (nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096) &&
