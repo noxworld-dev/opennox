@@ -200,7 +200,7 @@ func processGamepadButtonEvent(ev *sdl.ControllerButtonEvent) {
 	case sdl.CONTROLLER_BUTTON_LEFTSHOULDER:
 		inputKeyboard(sdl.SCANCODE_G, pressed) // spell 5
 	case sdl.CONTROLLER_BUTTON_RIGHTSHOULDER:
-		inputMouseButton(noxMouseButtonLeft, pressed) // attack
+		inputMouseButton(mouseButtonLeft, pressed) // attack
 	}
 }
 
@@ -246,12 +246,12 @@ func (g *gamepad) tickRelative() {
 	relV := rel.X*rel.X + rel.Y*rel.Y
 	if g.rel.running {
 		if relV < gpadStickRelAutoRun {
-			inputMouseUp(noxMouseButtonRight) // stop running
+			inputMouseUp(mouseButtonRight) // stop running
 			g.rel.running = false
 		}
 	} else {
 		if relV > gpadStickRelAutoRun {
-			inputMouseDown(noxMouseButtonRight) // start running
+			inputMouseDown(mouseButtonRight) // start running
 			g.rel.running = true
 		}
 	}
