@@ -273,10 +273,10 @@ char* nox_xxx_wndKeyGet_430940() { return (char*)getMemAt(0x5D4594, 787228); }
 unsigned char sub_430950(unsigned char i) { return nox_input_arr_789276[i].field_2; }
 
 //----- (00430970) --------------------------------------------------------
-unsigned char sub_430970(unsigned char i) { return nox_input_arr_789276[i].state; }
+unsigned char nox_input_keyboardGetKeyState_430970(unsigned char i) { return nox_input_arr_789276[i].state; }
 
 //----- (00430990) --------------------------------------------------------
-int sub_430990(unsigned char i) { return nox_input_arr_789276[i].seq; }
+int nox_input_keyboardGetKeySeq_430990(unsigned char i) { return nox_input_arr_789276[i].seq; }
 
 //----- (004308A0) --------------------------------------------------------
 int __cdecl nox_client_processMouseInput_4308A0(int a1) {
@@ -308,7 +308,7 @@ void sub_4309B0(unsigned char i, unsigned char v) {
 }
 
 //----- (004309D0) --------------------------------------------------------
-void sub_4309D0(unsigned char i, unsigned char v) {
+void nox_input_keyboardGetKeyState_4309D0(unsigned char i, unsigned char v) {
 	nox_input_arr_789276[i].state = v;
 }
 
@@ -452,7 +452,7 @@ void nox_xxx_input_42D220() {
 			if (++v19 >= *(int*)(v2 + 32))
 				goto LABEL_33;
 		}
-		if (nox_xxx_wndGetFocus_46B4F0() || sub_46A4A0() || sub_430970(v4) == 1)
+		if (nox_xxx_wndGetFocus_46B4F0() || sub_46A4A0() || nox_input_keyboardGetKeyState_430970(v4) == 1)
 			goto LABEL_33;
 		v5 = sub_430950(v4) == 1;
 		goto LABEL_17;
