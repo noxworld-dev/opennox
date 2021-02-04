@@ -663,12 +663,12 @@ unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1) {
 	if (a1 > 0xFFu)
 		return a1;
 	if (a1 == 42 || a1 == 54) {
-		*getMemU32Ptr(0x5D4594, 1193136) = sub_430970(a1) == 2;
+		*getMemU32Ptr(0x5D4594, 1193136) = nox_input_keyboardGetKeyState_430970(a1) == 2;
 		return 0;
 	}
 	if (a1 != 58) {
 		if ((_BYTE)a1 == getMemByte(0x5D4594, 1193144)) {
-			*getMemU32Ptr(0x5D4594, 1193140) = sub_430970(a1) == 2;
+			*getMemU32Ptr(0x5D4594, 1193140) = nox_input_keyboardGetKeyState_430970(a1) == 2;
 			result = 0;
 		} else if (*getMemU32Ptr(0x5D4594, 1193140)) {
 			result = *getMemU16Ptr(0x5D4594, 6 * (unsigned __int8)a1 + 1191576);
@@ -691,7 +691,7 @@ unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1) {
 	}
 	if (sub_430950(a1))
 		return 0;
-	if (sub_430970(a1) == 2)
+	if (nox_input_keyboardGetKeyState_430970(a1) == 2)
 		dword_5d4594_1193132 = 1 - dword_5d4594_1193132;
 	sub_4309B0(a1, 1);
 	return 0;
@@ -1194,14 +1194,14 @@ void nox_xxx_initKeyboard_47FB10() {
 	return a1;
   if ( a1 == 42 || a1 == 54 )
   {
-	*(_DWORD *)getMemAt(0x5D4594, 1193136) = sub_430970(a1) == 2;
+	*(_DWORD *)getMemAt(0x5D4594, 1193136) = nox_input_keyboardGetKeyState_430970(a1) == 2;
 	return 0;
   }
   if ( a1 != 58 )
   {
 	if ( (_BYTE)a1 == getMemByte(0x5D4594, 1193144) )
 	{
-	  *(_DWORD *)getMemAt(0x5D4594, 1193140) = sub_430970(a1) == 2;
+	  *(_DWORD *)getMemAt(0x5D4594, 1193140) = nox_input_keyboardGetKeyState_430970(a1) == 2;
 	  result = 0;
 	}
 	else if ( *(_DWORD *)getMemAt(0x5D4594, 1193140) )
@@ -1237,7 +1237,7 @@ void nox_xxx_initKeyboard_47FB10() {
   }
   if ( sub_430950(a1) )
 	return 0;
-  if ( sub_430970(a1) == 2 )
+  if ( nox_input_keyboardGetKeyState_430970(a1) == 2 )
 	*(_DWORD *)&dword_5d4594_1193132 = 1 - *(_DWORD *)&dword_5d4594_1193132;
   sub_4309B0(a1, 1);
   return 0;
