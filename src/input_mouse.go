@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/veandco/go-sdl2/sdl"
 
 	"nox/common/types"
@@ -21,6 +23,48 @@ var (
 	// inputMousePos is a last mouse coordinates (in window space)
 	inputMousePos types.Point
 )
+
+const mouseEventBuf = 256
+
+var (
+	mouseEventQueue = make(chan noxMouseEvent, mouseEventBuf)
+)
+
+func inputInitMouse() {
+	inputAcquireMouse()
+
+	// indicates that mouse is present so cursor should be drawn
+	*PtrUint32(0x5D4594, 1193108) = 1
+}
+
+func pushMouseEvent(e noxMouseEvent) {
+	e.Seq = nextInputSeq()
+	select {
+	case mouseEventQueue <- e:
+	default:
+		log.Println("cannot keep up, mouse event dropped")
+	}
+}
+
+func nextMouseEvent() *noxMouseEvent {
+	select {
+	case e, ok := <-mouseEventQueue:
+		if !ok {
+			return nil
+		}
+		return &e
+	default:
+		return nil
+	}
+}
+
+type noxMouseEvent struct {
+	Type    noxMouseEventType
+	X, Y    int
+	Wheel   int
+	Pressed bool
+	Seq     uint
+}
 
 func isMouseInside(win *sdl.Window) bool {
 	mouseX, mouseY, _ := sdl.GetGlobalMouseState()
@@ -49,6 +93,56 @@ func inputUnacquireMouse() {
 		noxWindow.SetGrab(false)
 	}
 	mouseAcquired = false
+}
+
+// inputMouseButtonAt sets mouse pos to a given position and sets a specified mouse button state.
+func inputMouseButtonAt(p types.Point, button mouseButton, pressed bool) {
+	var typ noxMouseEventType
+	switch button {
+	case mouseButtonLeft:
+		typ = noxMouseEventLeft
+	case mouseButtonRight:
+		typ = noxMouseEventRight
+	case mouseButtonMiddle:
+		typ = noxMouseEventMiddle
+	default:
+		panic(button)
+	}
+	inputMousePos = p
+	p = inputToDrawSpace(p)
+
+	pushMouseEvent(noxMouseEvent{
+		Type:    typ,
+		X:       p.X,
+		Y:       p.Y,
+		Pressed: pressed,
+	})
+}
+
+// inputMouseSet sets mouse to a specific position in the window space.
+func inputMouseSet(p types.Point) {
+	inputMousePos = p
+	p = inputToDrawSpace(p)
+
+	pushMouseEvent(noxMouseEvent{
+		Type:  noxMouseEventMotion,
+		X:     p.X,
+		Y:     p.Y,
+		Wheel: 0,
+	})
+}
+
+// inputMouseWheel moves mouse wheel by a specific amount.
+func inputMouseWheel(dv int) {
+	p := inputMousePos
+	p = inputToDrawSpace(p)
+
+	pushMouseEvent(noxMouseEvent{
+		Type:  noxMouseEventWheel,
+		X:     p.X,
+		Y:     p.Y,
+		Wheel: dv,
+	})
 }
 
 // inputMouseMove moves mouse by a specific amount in the window space.
