@@ -56,7 +56,7 @@ void sub_4373A0() {
 	if (*(int*)&dword_587000_87408 == 1 || *(int*)&dword_587000_87412 == -1) {
 		if (dword_5d4594_815048 == 1) {
 			dword_5d4594_815048 = 0;
-			sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
+			nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 			v2 = nox_strman_loadString_40F1D0("ChooseArea", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 									   619);
 			nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v2, 0);
@@ -74,7 +74,7 @@ void sub_4373A0() {
 		}
 	} else if (dword_5d4594_815048 == 1) {
 		dword_5d4594_815048 = 0;
-		sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
+		nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 		nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_814984);
 		sub_4375C0(1);
 		v0 = nox_strman_loadString_40F1D0("JoinServer", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 643);
