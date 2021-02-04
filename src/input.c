@@ -13,6 +13,31 @@
 extern int nox_win_width;
 extern int nox_win_height;
 
+//----- (00430190) --------------------------------------------------------
+int nox_xxx_initInput_430190() {
+	int v1;              // ecx
+	unsigned __int8* v2; // eax
+	int v4;              // [esp+0h] [ebp-4h]
+
+	nox_xxx_initKeyboard_47FB10();
+	v1 = 0;
+	v2 = getMemAt(0x5D4594, 789276 + 2);
+	do {
+		*(v2 - 2) = v1;
+		*v2 = 0;
+		*(_DWORD*)(v2 + 2) = 0;
+		*(v2 - 1) = 1;
+		v2 += 8;
+		++v1;
+	} while (v1 < 256);
+	nox_xxx_initMouse_47D8D0();
+	nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
+	nox_xxx_initJoystick_47D660(0, (int)&v4);
+	nox_xxx_initJoystick_47D660(1u, (int)&v4);
+	sub_42EBB0(2u, sub_430140, 0, "Input");
+	return 1;
+}
+
 #ifdef USE_SDL
 #include "sdl2_scancode_to_dinput.h"
 extern _DWORD dword_5d4594_1193132;
@@ -626,7 +651,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 #endif
 
 // init keyboard
-void sub_47FB10() {
+void nox_xxx_initKeyboard_47FB10() {
 #ifndef NOX_CGO
 	keyboard_event_ridx = 0;
 	keyboard_event_widx = 0;
@@ -635,7 +660,7 @@ void sub_47FB10() {
 	// On non-IME languages, Nox uses this input for text input. This sets up
 	// current SHIFT state and the mapping from DIK code -> wide character.
 	dword_5d4594_1193132 = (SDL_GetModState() & (KMOD_LSHIFT | KMOD_RSHIFT)) != 0;
-	sub_47DBD0();
+	nox_xxx_keyboard_47DBD0();
 }
 
 // SDLMODDED
@@ -707,7 +732,7 @@ void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
 }
 
 // init mouse
-int initMouse_sub_47D8D0() {
+int nox_xxx_initMouse_47D8D0() {
 #ifndef NOX_NO_MOUSE_GRAB
 	SDL_SetWindowGrab(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
@@ -917,7 +942,7 @@ int unacquireMouse_sub_47D8B0() { return g_device_mouse->lpVtbl->Unacquire(g_dev
 int acquireMouse_sub_47D8C0() { return g_device_mouse->lpVtbl->Acquire(g_device_mouse); }
 
 //----- (0047D8D0) --------------------------------------------------------
-signed int initMouse_sub_47D8D0() {
+signed int nox_xxx_initMouse_47D8D0() {
 	wchar_t* v0;    // eax
 	DIPROPDWORD v4; // [esp+20h] [ebp-2Ch]
 	DIDEVCAPS_DX3 v9;
@@ -1109,7 +1134,7 @@ DWORD* __cdecl sub_47D7A0(DWORD* a1, UINT uJoyID) {
 }
 
 //----- (0047FB10) --------------------------------------------------------
-void sub_47FB10() {
+void nox_xxx_initKeyboard_47FB10() {
 	wchar_t* v0;     // eax
 	wchar_t* v1;     // eax
 	wchar_t* v2;     // eax
@@ -1164,7 +1189,7 @@ void sub_47FB10() {
 
 	dword_5d4594_1193132 = GetKeyState(20) & 1;
 	dword_5d4594_1193132 = dword_5d4594_1193132;
-	sub_47DBD0();
+	nox_xxx_keyboard_47DBD0();
 }
 
 // ORIGINAL
