@@ -351,8 +351,6 @@ void nox_xxx_input_42D220() {
 	int v2;      // esi
 	int* v3;     // edi
 	int v4;      // ebx
-	bool v5;     // zf
-	bool pressed;     // zf
 	int v10;     // edx
 	_DWORD* v11; // ebp
 	int v12;     // esi
@@ -369,12 +367,66 @@ void nox_xxx_input_42D220() {
 	v21 = 0;
 	nox_mouse_state_t* mouse = nox_client_getMouseState_4309F0();
 	v2 = dword_5d4594_754056;
-	if (dword_5d4594_754056) {
+	if (v2) {
 		while (1) {
 			v19 = 0;
-			if (*(_DWORD*)(v2 + 32) > 0)
-				break;
-		LABEL_33:
+			if (*(_DWORD*)(v2 + 32) > 0) {
+				v3 = (int*)v2;
+				while (1) {
+					v4 = *v3;
+					if (!(*v3 & 0xFFFF0000)) {
+						if (nox_xxx_wndGetFocus_46B4F0() || sub_46A4A0() || nox_input_keyboardGetKeyState_430970(v4) == 1) {
+							break;
+						}
+						if (sub_430950(v4) == 1) {
+							break;
+						}
+					} else if (v4 & 0x10000 && getMemByte(0x5D4594, 747848) != 2) {
+						if (v4 == 65536) {
+							int btn = NOX_MOUSE_LEFT;
+							int state = mouse->btn[btn].state;
+							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
+								break;
+							}
+							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(_DWORD*)(v2 + 36) == 1) {
+								break;
+							}
+						} else if (v4 == 65537) {
+							int btn = NOX_MOUSE_MIDDLE;
+							int state = mouse->btn[btn].state;
+							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
+								break;
+							}
+							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(_DWORD*)(v2 + 36) == 1) {
+								break;
+							}
+						} else if (v4 == 65538) {
+							int btn = NOX_MOUSE_RIGHT;
+							int state = mouse->btn[NOX_MOUSE_RIGHT].state;
+							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
+								break;
+							}
+							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(_DWORD*)(v2 + 36) == 1) {
+								break;
+							}
+						} else if (v4 == 65539) {
+							if (mouse->wheel != 19) {
+								break;
+							}
+						} else if (v4 == 65540) {
+							if (mouse->wheel != 20) {
+								break;
+							}
+						}
+					} else if (v4 & 0x20000 && (getMemByte(0x5D4594, 750956) || !((1 << v4) & *getMemU32Ptr(0x5D4594, 747844)))) {
+						break;
+					}
+					++v3;
+					if (++v19 >= *(int*)(v2 + 32)) {
+						break;
+					}
+				}
+			}
 			if (v19 == *(_DWORD*)(v2 + 32)) {
 				v10 = v21;
 				v21 = v2;
@@ -384,71 +436,10 @@ void nox_xxx_input_42D220() {
 			v2 = *(_DWORD*)(v2 + 76);
 			if (!v2) {
 				v0 = v21;
-				goto LABEL_37;
-			}
-		}
-		v3 = (int*)v2;
-		while (1) {
-			v4 = *v3;
-			if (!(*v3 & 0xFFFF0000))
 				break;
-			if (v4 & 0x10000 && getMemByte(0x5D4594, 747848) != 2) {
-				int btn = -1;
-				int state = 0;
-				switch (v4) {
-				case 65536:
-					btn = NOX_MOUSE_LEFT;
-					state = mouse->btn[btn].state;
-					if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED))
-						goto LABEL_33;
-					pressed = state == nox_mouse_state(btn, NOX_MOUSE_PRESSED);
-					break;
-				case 65537:
-					btn = NOX_MOUSE_MIDDLE;
-					state = mouse->btn[btn].state;
-					if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED))
-						goto LABEL_33;
-					pressed = state == nox_mouse_state(btn, NOX_MOUSE_PRESSED);
-					break;
-				case 65538:
-					btn = NOX_MOUSE_RIGHT;
-					state = mouse->btn[NOX_MOUSE_RIGHT].state;
-					if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED))
-						goto LABEL_33;
-					pressed = state == nox_mouse_state(btn, NOX_MOUSE_PRESSED);
-					break;
-				case 65539:
-					if (mouse->wheel == 19)
-						goto LABEL_32;
-					goto LABEL_33;
-				case 65540:
-					if (mouse->wheel == 20)
-						goto LABEL_32;
-					goto LABEL_33;
-				default:
-					goto LABEL_32;
-				}
-				if (pressed) {
-					v5 = *(_DWORD*)(v2 + 36) == 1;
-				LABEL_17:
-					if (v5)
-						goto LABEL_33;
-					goto LABEL_32;
-				}
-			} else if (v4 & 0x20000 && (getMemByte(0x5D4594, 750956) || !((1 << v4) & *getMemU32Ptr(0x5D4594, 747844)))) {
-				goto LABEL_33;
 			}
-		LABEL_32:
-			++v3;
-			if (++v19 >= *(int*)(v2 + 32))
-				goto LABEL_33;
 		}
-		if (nox_xxx_wndGetFocus_46B4F0() || sub_46A4A0() || nox_input_keyboardGetKeyState_430970(v4) == 1)
-			goto LABEL_33;
-		v5 = sub_430950(v4) == 1;
-		goto LABEL_17;
 	}
-LABEL_37:
 	if (v0) {
 		do {
 			if (*(_BYTE*)(v0 + 88)) {
