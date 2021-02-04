@@ -18,6 +18,7 @@ const (
 )
 
 var (
+	inputSeq uint
 	// size of the actual window
 	inputWindow = types.Size{W: noxDefaultWidth, H: noxDefaultHeight}
 	// size of the image that Nox draws
@@ -25,6 +26,12 @@ var (
 	// scale factors calculated from sizes above
 	inputScale = types.Sizef{W: 1, H: 1}
 )
+
+func nextInputSeq() uint {
+	v := inputSeq
+	inputSeq++
+	return v
+}
 
 func inputUpdateScale() {
 	inputScale.W = float32(inputDrawWindow.W) / float32(inputWindow.W)
@@ -146,10 +153,6 @@ func processWindowEvent(ev *sdl.WindowEvent) {
 			acquireMouse_sub_47D8C0()
 		}
 	}
-}
-
-func processKeyboardEvent(ev *sdl.KeyboardEvent) {
-	inputKeyboard(ev.Keysym.Scancode, ev.State == sdl.PRESSED)
 }
 
 func inputEventsTick() {

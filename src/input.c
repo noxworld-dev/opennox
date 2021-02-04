@@ -18,6 +18,13 @@ extern int nox_win_height;
 extern _DWORD dword_5d4594_1193132;
 extern int g_textinput;
 
+#ifdef NOX_CGO
+void onLibraryNotice_mouseWheel(nox_mouse_state_t* e) {
+	OnLibraryNotice(265, &e, 2, e->wheel);
+}
+#endif // NOX_CGO
+
+#ifndef NOX_CGO
 SDL_GameController *gpad = NULL;
 int gpad_ind = -1;
 
@@ -47,6 +54,15 @@ struct mouse_event {
 	unsigned int seq;
 };
 
+static int seqnum;
+static struct keyboard_event keyboard_event_queue[256];
+static DWORD keyboard_event_ridx;
+static DWORD keyboard_event_widx;
+static struct mouse_event mouse_event_queue[256];
+DWORD mouse_event_ridx = 0;
+DWORD mouse_event_widx = 0;
+#endif // NOX_CGO
+
 struct finger_state {
 	SDL_FingerID id;
 	unsigned int timestamp;
@@ -55,15 +71,8 @@ struct finger_state {
 
 extern int g_rotated;
 float input_sensitivity = 1.0;
-static struct keyboard_event keyboard_event_queue[256];
-static DWORD keyboard_event_ridx;
-static DWORD keyboard_event_widx;
-static struct mouse_event mouse_event_queue[256];
-DWORD mouse_event_ridx = 0;
-DWORD mouse_event_widx = 0;
 static struct finger_state fingers[8];
 int mouse1_state;
-static int seqnum;
 #ifdef __EMSCRIPTEN__
 static int mouse0_state;
 static int orientation;
@@ -178,7 +187,6 @@ void process_window_event(const SDL_WindowEvent* event) {
 		break;
 	}
 }
-#endif // NOX_CGO
 
 struct keyboard_event* nox_newKeyboardEvent() {
 	struct keyboard_event* ke = &keyboard_event_queue[keyboard_event_widx];
@@ -194,7 +202,6 @@ struct mouse_event* nox_newMouseEvent() {
 	return me;
 }
 
-#ifndef NOX_CGO
 void input_keyboard(SDL_Scancode code, bool pressed) {
 	struct keyboard_event* ke = nox_newKeyboardEvent();
 	ke->code = scanCodeToKeyNum[code];
@@ -620,8 +627,10 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 
 // init keyboard
 void sub_47FB10() {
+#ifndef NOX_CGO
 	keyboard_event_ridx = 0;
 	keyboard_event_widx = 0;
+#endif // NOX_CGO
 
 	// On non-IME languages, Nox uses this input for text input. This sets up
 	// current SHIFT state and the mapping from DIK code -> wide character.
@@ -676,6 +685,8 @@ unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1) {
 // free keyboard
 int nox_xxx_freeKeyboard_47FCC0() { return 0; }
 
+#ifndef NOX_CGO
+
 // get keyboard data
 void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
 	struct keyboard_event* ke = &keyboard_event_queue[keyboard_event_ridx];
@@ -695,7 +706,6 @@ void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
 	keyboard_event_ridx = (keyboard_event_ridx + 1) % 256;
 }
 
-#ifndef NOX_CGO
 // init mouse
 int initMouse_sub_47D8D0() {
 #ifndef NOX_NO_MOUSE_GRAB
@@ -734,7 +744,6 @@ int unacquireMouse_sub_47D8B0() {
 	g_mouse_aquired = 0;
 	return 0;
 }
-#endif // NOX_CGO
 
 typedef struct DIDEVICEOBJECTDATA {
 	DWORD dwOfs;
@@ -745,7 +754,7 @@ typedef struct DIDEVICEOBJECTDATA {
 } DIDEVICEOBJECTDATA, *LPDIDEVICEOBJECTDATA;
 
 // get mouse data
-BOOL nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* e) {
+bool nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* e) {
 	memset(e, 0, sizeof(nox_mouse_state_t));
 	struct mouse_event* me = &mouse_event_queue[mouse_event_ridx];
 
@@ -780,7 +789,6 @@ BOOL nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* e) {
 	return 1;
 }
 
-#ifndef NOX_CGO
 void cleanupControllers() {
 	if (gpad) { // Close if opened
 		SDL_GameControllerClose(gpad);

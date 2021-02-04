@@ -2725,7 +2725,7 @@ void nox_xxx_showWindow_47D8A0();
 int unacquireMouse_sub_47D8B0();
 int acquireMouse_sub_47D8C0();
 int initMouse_sub_47D8D0();
-BOOL nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* a1);
+bool nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* a1);
 unsigned __int8 sub_47DBC0();
 void sub_47DBD0();
 unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1);

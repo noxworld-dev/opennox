@@ -7,40 +7,24 @@ package main
 #include "defs.h"
 
 extern int mouse1_state;
-extern unsigned int mouse_event_ridx;
-extern unsigned int mouse_event_widx;
 extern wchar_t g_ime_buf[512];
 
-struct keyboard_event {
-	unsigned char code;
-	unsigned char state;
-	unsigned int seq;
-};
-
-struct mouse_event {
-	unsigned int type;
-	int x, y, wheel;
-	int pressed;
-	unsigned int seq;
-};
-
 void nox_xxx_onChar_488BD0(unsigned short c);
-struct keyboard_event* nox_newKeyboardEvent();
-struct mouse_event* nox_newMouseEvent();
+void onLibraryNotice_mouseWheel(nox_mouse_state_t* e);
 */
 import "C"
 import (
 	"nox/common/types"
-
-	"github.com/veandco/go-sdl2/sdl"
 )
 
-const ( // must be in sync with C
-	noxMouseMotion       = 0
-	noxMouseWheel        = 1
-	noxMouseButtonLeft   = 2
-	noxMouseButtonRight  = 3
-	noxMouseButtonMiddle = 4
+type noxMouseEventType uint
+
+const (
+	noxMouseEventMotion = noxMouseEventType(iota)
+	noxMouseEventWheel
+	noxMouseEventLeft
+	noxMouseEventRight
+	noxMouseEventMiddle
 )
 
 //export nox_xxx_processWinMessages_4453A0_poll_events
@@ -84,16 +68,6 @@ func nox_xxx_changeWinProcToNormal_5700F6(a1 **C.int) *C.int {
 	return nil
 }
 
-func inputInitMouse() {
-	inputAcquireMouse()
-
-	C.mouse_event_ridx = 0
-	C.mouse_event_widx = 0
-
-	// indicates that mouse is present so cursor should be drawn
-	*PtrUint32(0x5D4594, 1193108) = 1
-}
-
 //export input_set_win_size
 func input_set_win_size(w, h C.int) {
 	inputSetWinSize(types.Size{W: int(w), H: int(h)})
@@ -118,65 +92,54 @@ func noxInputOnChar(c uint16) {
 	C.nox_xxx_onChar_488BD0(C.wchar_t(c))
 }
 
-// inputMouseSet sets mouse to a specific position in the window space.
-func inputMouseSet(p types.Point) {
-	inputMousePos = p
-	p = inputToDrawSpace(p)
-
-	me := C.nox_newMouseEvent()
-	me._type = noxMouseMotion
-	me.x = C.int(p.X)
-	me.y = C.int(p.Y)
-	me.wheel = 0
+//export nox_client_nextMouseEvent_47DB20
+func nox_client_nextMouseEvent_47DB20(e *C.nox_mouse_state_t) C.bool {
+	*e = C.nox_mouse_state_t{}
+	me := nextMouseEvent()
+	if me == nil {
+		return false
+	}
+	e.pos.x = C.int(me.X)
+	e.pos.y = C.int(me.Y)
+	pressed := 0
+	if me.Pressed {
+		pressed = 1
+	}
+	switch me.Type {
+	case noxMouseEventMotion:
+		e.wheel = C.int(me.Wheel)
+	case noxMouseEventWheel:
+		e.wheel = C.int(me.Wheel)
+		// mix event hanlder is triggered only for wheel events
+		C.onLibraryNotice_mouseWheel(e)
+	case noxMouseEventLeft:
+		e.btn[C.NOX_MOUSE_LEFT].pressed = C.int(pressed)
+		e.btn[C.NOX_MOUSE_LEFT].seq = C.uint(me.Seq)
+	case noxMouseEventRight:
+		e.btn[C.NOX_MOUSE_RIGHT].pressed = C.int(pressed)
+		e.btn[C.NOX_MOUSE_RIGHT].seq = C.uint(me.Seq)
+	case noxMouseEventMiddle:
+		e.btn[C.NOX_MOUSE_MIDDLE].pressed = C.int(pressed)
+		e.btn[C.NOX_MOUSE_MIDDLE].seq = C.uint(me.Seq)
+	}
+	return true
 }
 
-// inputMouseWheel moves mouse wheel by a specific amount.
-func inputMouseWheel(dv int) {
-	p := inputMousePos
-	p = inputToDrawSpace(p)
-
-	me := C.nox_newMouseEvent()
-	me._type = noxMouseWheel
-	me.x = C.int(p.X)
-	me.y = C.int(p.Y)
-	me.wheel = C.int(dv)
-}
-
-// inputMouseButtonAt sets mouse pos to a given position and sets a specified mouse button state.
-func inputMouseButtonAt(p types.Point, button mouseButton, pressed bool) {
-	var typ int
-	switch button {
-	case mouseButtonLeft:
-		typ = noxMouseButtonLeft
-	case mouseButtonRight:
-		typ = noxMouseButtonRight
-	case mouseButtonMiddle:
-		typ = noxMouseButtonMiddle
-	default:
-		panic(button)
+//export nox_xxx_getKeyFromKeyboardImpl_47FA80
+func nox_xxx_getKeyFromKeyboardImpl_47FA80(e *C.nox_keyboard_btn_t) {
+	*e = C.nox_keyboard_btn_t{}
+	ke := nextKeyEvent()
+	if ke == nil {
+		return
 	}
-	inputMousePos = p
-	p = inputToDrawSpace(p)
 
-	me := C.nox_newMouseEvent()
-	me._type = C.uint(typ)
-	me.x = C.int(p.X)
-	me.y = C.int(p.Y)
-	if pressed {
-		me.pressed = 1
-	} else {
-		me.pressed = 0
+	e.code = C.uchar(ke.Code)
+	state := 0
+	if ke.Pressed {
+		state = 1
 	}
-}
-
-func inputKeyboard(code sdl.Scancode, pressed bool) {
-	ke := C.nox_newKeyboardEvent()
-	ke.code = C.uchar(scanCodeToKeyNum[code])
-	if pressed {
-		ke.state = 1
-	} else {
-		ke.state = 0
-	}
+	e.state = C.uchar(state + 1)
+	e.seq = C.uint(ke.Seq)
 }
 
 //export send_mouse1_event
