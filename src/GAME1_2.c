@@ -5348,31 +5348,6 @@ void sub_430140(int a1) {
 	nox_client_processMouseEvents_4302A0(1, 1);
 }
 
-//----- (00430190) --------------------------------------------------------
-int nox_xxx_initInput_430190() {
-	int v1;              // ecx
-	unsigned __int8* v2; // eax
-	int v4;              // [esp+0h] [ebp-4h]
-
-	sub_47FB10();
-	v1 = 0;
-	v2 = getMemAt(0x5D4594, 789276 + 2);
-	do {
-		*(v2 - 2) = v1;
-		*v2 = 0;
-		*(_DWORD*)(v2 + 2) = 0;
-		*(v2 - 1) = 1;
-		v2 += 8;
-		++v1;
-	} while (v1 < 256);
-	initMouse_sub_47D8D0();
-	sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
-	nox_xxx_initJoystick_47D660(0, (int)&v4);
-	nox_xxx_initJoystick_47D660(1u, (int)&v4);
-	sub_42EBB0(2u, sub_430140, 0, "Input");
-	return 1;
-}
-
 //----- (00430210) --------------------------------------------------------
 void nox_xxx_freeKeyboard_430210() {
 	nox_xxx_freeKeyboard_47FCC0();
@@ -5695,7 +5670,7 @@ void nox_client_changeMousePos_430A00(int x, int y, bool isAbs) {
 }
 
 //----- (00430A70) --------------------------------------------------------
-int __cdecl sub_430A70_set_mouse_bounds(int x_min, int x_max, int y_min, int y_max) {
+int __cdecl nox_xxx_setMouseBounds_430A70(int x_min, int x_max, int y_min, int y_max) {
 	nox_mouse_min.x = x_min;
 	nox_mouse_min.y = y_min;
 	nox_mouse_max.x = x_max;

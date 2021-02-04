@@ -4469,7 +4469,7 @@ int __cdecl sub_47D5C0(int a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, _DWORD* a5) {
 unsigned __int8 sub_47DBC0() { return getMemByte(0x5D4594, 1193128); }
 
 //----- (0047DBD0) --------------------------------------------------------
-void sub_47DBD0() {
+void nox_xxx_keyboard_47DBD0() {
 	unsigned __int8* v0; // ecx
 	int result;          // eax
 

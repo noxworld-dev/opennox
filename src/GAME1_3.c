@@ -187,7 +187,7 @@ char* sub_43B510() {
 
 	dword_5d4594_815132 = 0;
 	nox_xxx_setGameFlags_40A4D0(5);
-	sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
+	nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	v6 = *getMemU32Ptr(0x5D4594, 814916);
 	if (dword_587000_87404 == 1) {
 		v0 = *getMemU16Ptr(0x5D4594, 814916) - *getMemU16Ptr(0x587000, 8 * dword_587000_87412 + 87528);
@@ -366,7 +366,7 @@ int __cdecl nox_xxx_video_43BF10_upd_video_mode(int defaults) {
 		if (result) {
 			nox_xxx_loadPal_4A96C0_video_read_palette("default.pal");
 			sub_461520();
-			sub_430A70_set_mouse_bounds(0, v1 - 1, 0, v2 - 1);
+			nox_xxx_setMouseBounds_430A70(0, v1 - 1, 0, v2 - 1);
 			sub_48BE50(0);
 			return 1;
 		}
@@ -5946,10 +5946,10 @@ void __cdecl sub_449EA0(int a1) {
 		nox_window_set_hidden((int)v9, v18);
 	}
 	if (a1 & 0x40)
-		sub_430A70_set_mouse_bounds(*(_DWORD*)(dword_5d4594_830224 + 16), *(_DWORD*)(dword_5d4594_830224 + 24),
+		nox_xxx_setMouseBounds_430A70(*(_DWORD*)(dword_5d4594_830224 + 16), *(_DWORD*)(dword_5d4594_830224 + 24),
 									*(_DWORD*)(dword_5d4594_830224 + 20), *(_DWORD*)(dword_5d4594_830224 + 28));
 	else
-		sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
+		nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	*getMemU32Ptr(0x5D4594, 830240) = a1;
 }
 
@@ -5998,10 +5998,10 @@ int __cdecl sub_44A0B0(int a1) {
 		nox_window_set_hidden((int)v8, 0);
 	}
 	if (a1 & 0x40)
-		sub_430A70_set_mouse_bounds(*(_DWORD*)(dword_5d4594_830224 + 16), *(_DWORD*)(dword_5d4594_830224 + 20),
+		nox_xxx_setMouseBounds_430A70(*(_DWORD*)(dword_5d4594_830224 + 16), *(_DWORD*)(dword_5d4594_830224 + 20),
 									*(_DWORD*)(dword_5d4594_830224 + 24), *(_DWORD*)(dword_5d4594_830224 + 28));
 	else
-		sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
+		nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	result = a1 | *getMemU32Ptr(0x5D4594, 830240);
 	*getMemU32Ptr(0x5D4594, 830240) |= a1;
 	return result;
@@ -6052,7 +6052,7 @@ int __cdecl sub_44A200(int a1) {
 		nox_window_set_hidden((int)v8, 1);
 	}
 	if (a1 & 0x40)
-		sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
+		nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	result = ~a1 & *getMemU32Ptr(0x5D4594, 830240);
 	*getMemU32Ptr(0x5D4594, 830240) &= ~a1;
 	return result;
@@ -6098,7 +6098,7 @@ int sub_44A400() {
 		dword_5d4594_830224 = 0;
 		dword_5d4594_830228 = 0;
 		nox_client_setCursorType_477610(0);
-		result = sub_430A70_set_mouse_bounds(0, nox_win_width - 1, 0, nox_win_height - 1);
+		result = nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	}
 	return result;
 }
