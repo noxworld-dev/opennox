@@ -21,15 +21,24 @@ nox_point nox_mouse_max = {NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1};
 nox_point nox_mouse_max = {639, 478}; // ugly hack for MSVC
 #endif
 
+typedef struct {
+	unsigned char code;
+	unsigned char field_1;
+	unsigned char field_2;
+	unsigned char field_3;
+	unsigned int seq; // 4
+} nox_input_xxx1_t;
+
+nox_input_xxx1_t nox_input_arr_789276[256];
+
 //----- (00430140) --------------------------------------------------------
 void sub_430140(int a1) {
-	unsigned __int8* v0 = getMemAt(0x5D4594, 789276 + 4);
-	do {
-		*(v0 - 2) = 0;
-		*(_DWORD*)v0 = 0;
-		*(v0 - 3) = 1;
-		v0 += 8;
-	} while ((int)v0 < (int)getMemAt(0x5D4594, 791328));
+	for (int i; i < 256; i++) {
+		nox_input_xxx1_t* cur = &nox_input_arr_789276[i];
+		cur->field_1 = 1;
+		cur->field_2 = 0;
+		cur->seq = 0;
+	}
 	*getMemU32Ptr(0x5D4594, 791352) = 1;
 	*getMemU32Ptr(0x5D4594, 791344) = 0;
 	*getMemU32Ptr(0x5D4594, 791364) = 1;
@@ -198,7 +207,7 @@ void nox_xxx_getKeyFromKeyboard_430710() {
 	ev = getMemAt(0x5D4594, 787228);
 	while (ev->code) {
 		if (ev->code == 15) {
-			if (getMemByte(0x5D4594, 789276 + 8*56 + 1) == 2 || getMemByte(0x5D4594, 789276 + 8*184 + 1) == 2) {
+			if (nox_input_arr_789276[56].field_1 == 2 || nox_input_arr_789276[184].field_1 == 2) {
 				ev->field_2 = 1;
 			}
 		} else if (ev->code == 58) {
@@ -208,9 +217,9 @@ void nox_xxx_getKeyFromKeyboard_430710() {
 			ev->field_2 = 1;
 		}
 		int code = ev->code;
-		*getMemU8Ptr(0x5D4594, 789276 + 8*code + 1) = ev->state;
-		*getMemU8Ptr(0x5D4594, 789276 + 8*code + 2) = ev->field_2;
-		*getMemU32Ptr(0x5D4594, 789276 + 8*code + 4) = nox_mouse_prev_seq;
+		nox_input_arr_789276[code].field_1 = ev->state;
+		nox_input_arr_789276[code].field_2 = ev->field_2;
+		nox_input_arr_789276[code].seq = nox_mouse_prev_seq;
 		ev++;
 		cnt++;
 	}
@@ -222,59 +231,60 @@ void nox_xxx_getKeyFromKeyboard_430710() {
 
 //----- (004307D0) --------------------------------------------------------
 int sub_4307D0() {
-	int v0;              // edx
-	unsigned __int8* v2; // ecx
-	unsigned __int8 v3;  // al
-	int v4;              // esi
-	unsigned __int8* v6; // ecx
-	unsigned __int8* v7; // eax
-
-	v0 = 0;
 	if (obj_5D4594_754104_switch == 1)
 		return 0;
+	int v0 = 0;
 	if (getMemByte(0x5D4594, 787228)) {
-		v2 = getMemAt(0x5D4594, 787228);
+		unsigned __int8* v2 = getMemAt(0x5D4594, 787228);
+		unsigned __int8 v3;
 		do {
 			v3 = v2[8];
 			v2 += 8;
 			++v0;
 		} while (v3);
 	}
-	v4 = nox_mouse_prev_seq;
-	int v5 = 0;
-	v6 = getMemAt(0x5D4594, 789276 + 4);
-	while (*(v6 - 3) != 2 || (unsigned int)(nox_mouse_prev_seq - *(_DWORD*)v6) <= 0xA) {
-		v6 += 8;
-		++v5;
-		if (v5 >= 256)
-			return 0;
+	int li = -1;
+	for (int i = 0; i < 256; i++) {
+		nox_input_xxx1_t* cur = &nox_input_arr_789276[i];
+		if (cur->field_1 == 2 && nox_mouse_prev_seq - cur->seq > 10) {
+			li = i;
+			break;
+		}
 	}
-	*getMemU8Ptr(0x5D4594, 787228 + 8*v0) = v5;
+	if (li < 0) {
+		return 0;
+	}
+	*getMemU8Ptr(0x5D4594, 787228 + 8*v0) = li;
 	*getMemU8Ptr(0x5D4594, 787228 + 8*v0 + 1) = 2;
 	*getMemU8Ptr(0x5D4594, 787228 + 8*v0 + 2) = 0;
 	*getMemU8Ptr(0x5D4594, 787228 + 8*(1 + v0)) = 0;
-	int v8 = 0;
-	v7 = getMemAt(0x5D4594, 789276 + 4);
-	do {
-		*(_DWORD*)v7 = v4;
-		v7 += 8;
-		++v8;
-	} while (v8 < 256);
-	*getMemU32Ptr(0x5D4594, 789276 + 8*v5 + 4) = v4 - 12;
+	for (int i = 0; i < 256; i++) {
+		nox_input_arr_789276[i].seq = nox_mouse_prev_seq;
+	}
+	nox_input_arr_789276[li].seq = nox_mouse_prev_seq - 12;
 	return 1;
+}
+void nox_xxx_initKeyboard_yyy() {
+	for (int i = 0; i < 256; i++) {
+		nox_input_xxx1_t* cur = &nox_input_arr_789276[i];
+		cur->code = i;
+		cur->field_1 = 1;
+		cur->field_2 = 0;
+		cur->seq = 0;
+	}
 }
 
 //----- (00430940) --------------------------------------------------------
 char* nox_xxx_wndKeyGet_430940() { return (char*)getMemAt(0x5D4594, 787228); }
 
 //----- (00430950) --------------------------------------------------------
-unsigned __int8 __cdecl sub_430950(unsigned __int8 a1) { return getMemByte(0x5D4594, 789276 + 8*a1 + 2); }
+unsigned char sub_430950(unsigned char i) { return nox_input_arr_789276[i].field_2; }
 
 //----- (00430970) --------------------------------------------------------
-unsigned __int8 __cdecl sub_430970(unsigned __int8 a1) { return getMemByte(0x5D4594, 789276 + 8*a1 + 1); }
+unsigned char sub_430970(unsigned char i) { return nox_input_arr_789276[i].field_1; }
 
 //----- (00430990) --------------------------------------------------------
-int __cdecl sub_430990(unsigned __int8 a1) { return *getMemU32Ptr(0x5D4594, 789276 + 8*a1 + 4); }
+int sub_430990(unsigned char i) { return nox_input_arr_789276[i].seq; }
 
 //----- (004308A0) --------------------------------------------------------
 int __cdecl nox_client_processMouseInput_4308A0(int a1) {
@@ -301,21 +311,13 @@ int __cdecl nox_client_processMouseInput_4308A0(int a1) {
 }
 
 //----- (004309B0) --------------------------------------------------------
-int __cdecl sub_4309B0(unsigned __int8 a1, char a2) {
-	int result; // eax
-
-	result = a1;
-	*getMemU8Ptr(0x5D4594, 789276 + 8*a1 + 2) = a2;
-	return result;
+void sub_4309B0(unsigned char i, unsigned char v) {
+	nox_input_arr_789276[i].field_2 = v;
 }
 
 //----- (004309D0) --------------------------------------------------------
-int __cdecl sub_4309D0(unsigned __int8 a1, char a2) {
-	int result; // eax
-
-	result = a1;
-	*getMemU8Ptr(0x5D4594, 789276 + 8*a1 + 1) = a2;
-	return result;
+void sub_4309D0(unsigned char i, unsigned char v) {
+	nox_input_arr_789276[i].field_1 = v;
 }
 
 //----- (004309F0) --------------------------------------------------------
