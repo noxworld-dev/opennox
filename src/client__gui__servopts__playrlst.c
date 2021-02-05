@@ -7,7 +7,7 @@ extern _DWORD dword_5d4594_1045688;
 extern _DWORD dword_5d4594_1045684;
 
 //----- (00456270) --------------------------------------------------------
-int __cdecl nox_xxx_guiServerPlayersLoad_456270(int a1) {
+int  nox_xxx_guiServerPlayersLoad_456270(int a1) {
 	int v1;       // esi
 	_DWORD* v3;   // edi
 	_DWORD* v4;   // ebx
@@ -78,7 +78,7 @@ int __cdecl nox_xxx_guiServerPlayersLoad_456270(int a1) {
 }
 
 //----- (004567C0) --------------------------------------------------------
-int __cdecl sub_4567C0(int a1, int a2, int* a3, int a4) {
+int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 	char* v3;        // esi
 	int v4;          // esi
 	_DWORD* v5;      // eax
@@ -207,7 +207,7 @@ int __cdecl sub_4567C0(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (00457010) --------------------------------------------------------
-int __cdecl sub_457010(int a1, wchar_t* a2) {
+int  sub_457010(int a1, wchar_t* a2) {
 	char* v2;           // ebp
 	int result;         // eax
 	_DWORD* v4;         // esi
@@ -245,7 +245,7 @@ int __cdecl sub_457010(int a1, wchar_t* a2) {
 }
 
 //----- (00457230) --------------------------------------------------------
-char* __cdecl sub_457230(wchar_t* a1) {
+char*  sub_457230(wchar_t* a1) {
 	char* v1;       // ebp
 	char* result;   // eax
 	_DWORD* v3;     // esi

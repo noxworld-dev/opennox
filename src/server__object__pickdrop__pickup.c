@@ -3,7 +3,7 @@
 // TODO: convert table_272352
 
 //----- (004F3A60) --------------------------------------------------------
-int __cdecl nox_xxx_pickupGold_4F3A60_obj_pickup(int a1, int a2, int a3) {
+int  nox_xxx_pickupGold_4F3A60_obj_pickup(int a1, int a2, int a3) {
 	int* v3;     // edi
 	wchar_t* v4; // eax
 	int result;  // eax

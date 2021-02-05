@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (004CD450) --------------------------------------------------------
-int __cdecl sub_4CD450(_DWORD* a1, int a2) {
+int  sub_4CD450(_DWORD* a1, int a2) {
 	int v2;      // esi
 	int v3;      // eax
 	int v4;      // ecx

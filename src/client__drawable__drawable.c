@@ -134,7 +134,7 @@ void* nox_xxx_spriteFromCache_45A330_drawable() {
 }
 
 //----- (0045A240) --------------------------------------------------------
-nox_drawable* __cdecl nox_new_drawable_for_thing(int i) {
+nox_drawable*  nox_new_drawable_for_thing(int i) {
 	int v4; // eax
 
 	nox_drawable* v1 = (nox_drawable*)nox_alloc_class_new_obj_zero(nox_alloc_drawable);
@@ -149,7 +149,7 @@ nox_drawable* __cdecl nox_new_drawable_for_thing(int i) {
 		return 0;
 	}
 
-	int(__cdecl * draw_fnc)(unsigned int*, nox_drawable*);
+	int( * draw_fnc)(unsigned int*, nox_drawable*);
 	draw_fnc = v1->draw_func;
 	if (draw_fnc == nox_thing_static_random_draw) {
 		v4 = nox_common_randomIntMinMax_415FF0(0, *(unsigned __int8*)((char*)v1->field_76 + 8) - 1,

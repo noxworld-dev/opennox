@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (00499490) --------------------------------------------------------
-_DWORD* __cdecl sub_499490(int a1, _WORD* a2, int a3, int a4, char a5, char a6) {
+_DWORD*  sub_499490(int a1, _WORD* a2, int a3, int a4, char a5, char a6) {
 	_DWORD* result; // eax
 	_DWORD* v7;     // esi
 
@@ -23,7 +23,7 @@ _DWORD* __cdecl sub_499490(int a1, _WORD* a2, int a3, int a4, char a5, char a6) 
 }
 
 //----- (00499520) --------------------------------------------------------
-_DWORD* __cdecl sub_499520(int a1, unsigned __int16* a2, __int16 a3, char a4, char a5) {
+_DWORD*  sub_499520(int a1, unsigned __int16* a2, __int16 a3, char a4, char a5) {
 	int v5;         // ebp
 	int v6;         // edi
 	_DWORD* result; // eax
@@ -52,7 +52,7 @@ _DWORD* __cdecl sub_499520(int a1, unsigned __int16* a2, __int16 a3, char a4, ch
 }
 
 //----- (00499610) --------------------------------------------------------
-int __cdecl nox_xxx_makePointFxCli_499610(int a1, int a2, int a3, int a4, int a5, int a6) {
+int  nox_xxx_makePointFxCli_499610(int a1, int a2, int a3, int a4, int a5, int a6) {
 	int result; // eax
 	int v7;     // eax
 	int v8;     // esi
@@ -81,7 +81,7 @@ int __cdecl nox_xxx_makePointFxCli_499610(int a1, int a2, int a3, int a4, int a5
 }
 
 //----- (00499710) --------------------------------------------------------
-int __cdecl nox_xxx_drawEnergyBolt_499710(int a1, int a2, __int16 a3, int a4) {
+int  nox_xxx_drawEnergyBolt_499710(int a1, int a2, __int16 a3, int a4) {
 	int v4;     // eax
 	int v5;     // esi
 	int result; // eax
@@ -109,7 +109,7 @@ int __cdecl nox_xxx_drawEnergyBolt_499710(int a1, int a2, __int16 a3, int a4) {
 }
 
 //----- (00499950) --------------------------------------------------------
-int __cdecl sub_499950(int a1, int2* a2, int2* a3, unsigned __int16 a4, char a5) {
+int  sub_499950(int a1, int2* a2, int2* a3, unsigned __int16 a4, char a5) {
 	int result; // eax
 	int v6;     // esi
 
@@ -127,7 +127,7 @@ int __cdecl sub_499950(int a1, int2* a2, int2* a3, unsigned __int16 a4, char a5)
 }
 
 //----- (004999D0) --------------------------------------------------------
-int __cdecl nox_xxx_makeLightningParticles_4999D0(int a1, int2* a2, int2* a3) {
+int  nox_xxx_makeLightningParticles_4999D0(int a1, int2* a2, int2* a3) {
 	int2* v3;   // ebp
 	int v4;     // esi
 	int v5;     // edi
@@ -191,7 +191,7 @@ int __cdecl nox_xxx_makeLightningParticles_4999D0(int a1, int2* a2, int2* a3) {
 }
 
 //----- (00499E70) --------------------------------------------------------
-int __cdecl nox_xxx_draw_499E70(int a1, int a2, int a3, int a4, int a5, int a6, int a7) {
+int  nox_xxx_draw_499E70(int a1, int a2, int a3, int a4, int a5, int a6, int a7) {
 	int v7;     // edi
 	int v8;     // esi
 	char v9;    // bl
@@ -222,7 +222,7 @@ int __cdecl nox_xxx_draw_499E70(int a1, int a2, int a3, int a4, int a5, int a6, 
 }
 
 //----- (0049A150) --------------------------------------------------------
-int __cdecl sub_49A150(int2* a1, int a2, unsigned __int8 a3) {
+int  sub_49A150(int2* a1, int a2, unsigned __int8 a3) {
 	int v3;     // ebx
 	int result; // eax
 	int v5;     // ebp

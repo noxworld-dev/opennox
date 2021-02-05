@@ -2,7 +2,7 @@
 #include "proto.h"
 
 //----- (004BB9D0) --------------------------------------------------------
-int __cdecl nox_thing_trigger_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_trigger_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2 = *a1 - a1[4];
 	int v3 = a1[1] - a1[5];
 

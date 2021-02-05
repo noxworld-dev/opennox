@@ -68,7 +68,7 @@ void sub_478730(int* a1) {
 }
 
 //----- (00478880) --------------------------------------------------------
-void __cdecl sub_478880(int a1, __int16 a2) {
+void  sub_478880(int a1, __int16 a2) {
 	wchar_t* v2; // eax
 
 	if (sub_467B00(a1, 1)) {
@@ -83,7 +83,7 @@ void __cdecl sub_478880(int a1, __int16 a2) {
 }
 
 //----- (004788F0) --------------------------------------------------------
-void __cdecl sub_4788F0(int a1, int a2) {
+void  sub_4788F0(int a1, int a2) {
 	wchar_t* v2; // eax
 	char v3[5];  // [esp+8h] [ebp-8h]
 
@@ -101,7 +101,7 @@ void __cdecl sub_4788F0(int a1, int a2) {
 }
 
 //----- (00478B10) --------------------------------------------------------
-wchar_t* __cdecl sub_478B10(int2* a1) {
+wchar_t*  sub_478B10(int2* a1) {
 	_DWORD* v1;      // esi
 	wchar_t* result; // eax
 	int v3;          // [esp+4h] [ebp-10h]
@@ -124,7 +124,7 @@ wchar_t* __cdecl sub_478B10(int2* a1) {
 }
 
 //----- (00478BC0) --------------------------------------------------------
-wchar_t* __cdecl sub_478BC0(int* a1) {
+wchar_t*  sub_478BC0(int* a1) {
 	_DWORD* v1;      // esi
 	wchar_t* result; // eax
 	int v3;          // [esp+4h] [ebp-10h]
@@ -148,7 +148,7 @@ wchar_t* __cdecl sub_478BC0(int* a1) {
 }
 
 //----- (00478FD0) --------------------------------------------------------
-int __cdecl nox_xxx_cliStartShopDlg_478FD0(const wchar_t* a1, char* a2, int a3) {
+int  nox_xxx_cliStartShopDlg_478FD0(const wchar_t* a1, char* a2, int a3) {
 	_DWORD* v3; // esi
 
 	v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3810);
@@ -195,7 +195,7 @@ void sub_479520(int a1) {
 void sub_479680() { dword_5d4594_1098616 = 0; }
 
 //----- (004795E0) --------------------------------------------------------
-int __cdecl sub_4795E0(int a1, int a2) {
+int  sub_4795E0(int a1, int a2) {
 	const void* v2; // ebp
 	int result;     // eax
 	int v5;         // esi
@@ -229,7 +229,7 @@ int __cdecl sub_4795E0(int a1, int a2) {
 }
 
 //----- (00479740) --------------------------------------------------------
-void __cdecl sub_479740(int a1, unsigned int a2) {
+void  sub_479740(int a1, unsigned int a2) {
 	const void* v2;   // ebp
 	int v4;           // eax
 	int v5;           // edi

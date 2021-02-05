@@ -8,7 +8,7 @@ extern _DWORD dword_5d4594_1550916;
 int sub_4D42C0() { return dword_5d4594_1550916; }
 
 //----- (00522AD0) --------------------------------------------------------
-float* __cdecl nox_xxx_mapgen_522AD0(float* a1, int a2) {
+float*  nox_xxx_mapgen_522AD0(float* a1, int a2) {
 	int v2;     // eax
 	double v4;  // st7
 	double v5;  // st7
@@ -95,7 +95,7 @@ float* __cdecl nox_xxx_mapgen_522AD0(float* a1, int a2) {
 int sub_5259E0() { return dword_5d4594_2487576; }
 
 //----- (00527D50) --------------------------------------------------------
-int __cdecl sub_527D50(int a1, char* a2) {
+int  sub_527D50(int a1, char* a2) {
 	CHAR* v3; // eax
 
 	if (!a1)
@@ -103,14 +103,14 @@ int __cdecl sub_527D50(int a1, char* a2) {
 	if (!a2)
 		return 0;
 	v3 = (CHAR*)nox_xxx_getUnitName_4E39D0(a1);
-	if (*(int(__cdecl**)(int))(nox_xxx_utilThingDefByName_4E3B60(v3) + 212) != nox_xxx_XFerExit_4F4B90)
+	if (*(int(**)(int))(nox_xxx_utilThingDefByName_4E3B60(v3) + 212) != nox_xxx_XFerExit_4F4B90)
 		return 0;
 	strncpy(*(char**)(a1 + 700), a2, 0x50u);
 	return 1;
 }
 
 //----- (00522A40) --------------------------------------------------------
-int __cdecl nox_xxx_mapGenMakeExit_522A40(int a1) {
+int  nox_xxx_mapGenMakeExit_522A40(int a1) {
 	if (!*(_DWORD*)(a1 + 472))
 		return 1;
 	for (int v2 = sub_5259E0(); v2; v2 = *(_DWORD*)(v2 + 68)) {
@@ -139,7 +139,7 @@ double sub_5259D0() { return *(float*)&dword_5d4594_2487580; }
 void sub_526A90() { free(*(LPVOID*)&dword_5d4594_2487672); }
 
 //----- (005228B0) --------------------------------------------------------
-void __cdecl nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
+void  nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
 	wchar_t* v1; // eax
 	wchar_t* v2; // eax
 	wchar_t* v3; // eax

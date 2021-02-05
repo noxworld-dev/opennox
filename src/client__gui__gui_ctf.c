@@ -35,7 +35,7 @@ int sub_455C30() {
 }
 
 //----- (00455D80) --------------------------------------------------------
-wchar_t* __cdecl sub_455D80(unsigned __int8 a1, char a2) {
+wchar_t*  sub_455D80(unsigned __int8 a1, char a2) {
 	wchar_t* result; // eax
 	wchar_t* v3;     // esi
 	wchar_t* v4;     // eax

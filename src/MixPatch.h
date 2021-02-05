@@ -12,8 +12,8 @@ void OnLibraryNotice(int, ...);
 int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen); // idb
 void OnLibraryNotice_stub(int a1, ...);
 
-void __cdecl sub_980523(_DWORD* a1);
-_DWORD* __cdecl sub_9805EB(_DWORD* a1);
+void  sub_980523(_DWORD* a1);
+_DWORD*  sub_9805EB(_DWORD* a1);
 
 int __stdcall mix_recvfrom(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen);
 

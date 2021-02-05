@@ -10,7 +10,7 @@ extern _DWORD dword_5d4594_833712;
 extern _DWORD dword_5d4594_833716;
 
 //----- (00450C30) --------------------------------------------------------
-wchar_t* __cdecl sub_450C30(unsigned __int8 a1, int a2) {
+wchar_t*  sub_450C30(unsigned __int8 a1, int a2) {
 	wchar_t* result; // eax
 
 	if (a2)

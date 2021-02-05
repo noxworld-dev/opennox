@@ -6,7 +6,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 //----- (004A9D00) --------------------------------------------------------
-__int16 __cdecl nox_xxx_mapGenClientText_4A9D00(unsigned __int8* a1) {
+__int16  nox_xxx_mapGenClientText_4A9D00(unsigned __int8* a1) {
 	unsigned __int8* v1; // ebx
 	int v2;              // eax
 	int v3;              // edi

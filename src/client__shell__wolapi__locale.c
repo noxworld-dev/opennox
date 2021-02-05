@@ -8,7 +8,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 //----- (004B5770) --------------------------------------------------------
-int __cdecl sub_4B5770_wol_locale(int a1) {
+int  sub_4B5770_wol_locale(int a1) {
 	int i;       // esi
 	wchar_t* v2; // eax
 	wchar_t* v3; // eax
@@ -57,7 +57,7 @@ int __cdecl sub_4B5770_wol_locale(int a1) {
 }
 
 //----- (004B5A30) --------------------------------------------------------
-wchar_t* __cdecl sub_4B5A30_wol_locale(wchar_t* a1) {
+wchar_t*  sub_4B5A30_wol_locale(wchar_t* a1) {
 	int v1;         // ebp
 	__int16* v2;    // edi
 	char** v3;      // ebx
@@ -81,7 +81,7 @@ wchar_t* __cdecl sub_4B5A30_wol_locale(wchar_t* a1) {
 }
 
 //----- (004B5B70) --------------------------------------------------------
-int __cdecl sub_4B5B70_wol_locale(wchar_t* a1) {
+int  sub_4B5B70_wol_locale(wchar_t* a1) {
 	int v1;      // edi
 	char** v2;   // esi
 	wchar_t* v3; // eax

@@ -5,7 +5,7 @@
 extern _DWORD dword_5d4594_1307292;
 
 //----- (004A18E0) --------------------------------------------------------
-int __cdecl sub_4A18E0(int a1, int a2, int a3, int a4) {
+int  sub_4A18E0(int a1, int a2, int a3, int a4) {
 	wchar_t* v5; // eax
 	wchar_t* v6; // [esp-10h] [ebp-10h]
 
@@ -40,7 +40,7 @@ int __cdecl sub_4A18E0(int a1, int a2, int a3, int a4) {
 	return 0;
 }
 //----- (004A19F0) --------------------------------------------------------
-int __cdecl sub_4A19F0(char* a1) {
+int  sub_4A19F0(char* a1) {
 	_DWORD* v1;  // esi
 	wchar_t* v2; // eax
 
@@ -50,7 +50,7 @@ int __cdecl sub_4A19F0(char* a1) {
 }
 
 //----- (004A1AA0) --------------------------------------------------------
-int __cdecl sub_4A1AA0(int a1, int a2, int* a3, int a4) {
+int  sub_4A1AA0(int a1, int a2, int* a3, int a4) {
 	int v3;      // eax
 	wchar_t* v4; // eax
 	wchar_t* v6; // [esp-10h] [ebp-10h]

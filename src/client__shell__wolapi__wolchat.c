@@ -42,7 +42,7 @@ char* sub_446970_wol_chat() {
 }
 
 //----- (00446A20) --------------------------------------------------------
-int __cdecl sub_446A20_wol_chat(wchar_t* a1) {
+int  sub_446A20_wol_chat(wchar_t* a1) {
 	wchar_t* v1; // eax
 	wchar_t* v3; // [esp-10h] [ebp-10h]
 
@@ -58,7 +58,7 @@ int __cdecl sub_446A20_wol_chat(wchar_t* a1) {
 }
 
 //----- (00446AE0) --------------------------------------------------------
-const char* __cdecl sub_446AE0_wol_chat(int a1) {
+const char*  sub_446AE0_wol_chat(int a1) {
 	const char* result; // eax
 	const char* v2;     // ebx
 	char v3[108];       // [esp+8h] [ebp-6Ch]
@@ -86,7 +86,7 @@ const char* __cdecl sub_446AE0_wol_chat(int a1) {
 }
 
 //----- (00446F80) --------------------------------------------------------
-void __cdecl sub_446F80_wol_chat(wchar_t* a1) {
+void  sub_446F80_wol_chat(wchar_t* a1) {
 	wchar_t v1;     // ax
 	int* v2;        // eax
 	int* v3;        // edi
@@ -130,7 +130,7 @@ void __cdecl sub_446F80_wol_chat(wchar_t* a1) {
 }
 
 //----- (00447090) --------------------------------------------------------
-void __cdecl sub_447090_wol_chat(wchar_t* a1) {
+void  sub_447090_wol_chat(wchar_t* a1) {
 	wchar_t v1;     // ax
 	int* v2;        // eax
 	int* v3;        // edi
@@ -189,7 +189,7 @@ int sub_447470_wol_chat() {
 }
 
 //----- (004474C0) --------------------------------------------------------
-int __cdecl sub_4474C0_wol_chat(int a1, int a2) {
+int  sub_4474C0_wol_chat(int a1, int a2) {
 	wchar_t* v2; // eax
 	wchar_t* v3; // eax
 
@@ -206,7 +206,7 @@ int __cdecl sub_4474C0_wol_chat(int a1, int a2) {
 }
 
 //----- (00447540) --------------------------------------------------------
-int __cdecl sub_447540_wol_chat(int a1) {
+int  sub_447540_wol_chat(int a1) {
 	wchar_t* v1; // eax
 
 	v1 = nox_strman_loadString_40F1D0("banned", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",

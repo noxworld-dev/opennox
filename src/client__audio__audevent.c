@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (00451CF0) --------------------------------------------------------
-int __cdecl sub_451CF0(_DWORD* a1) {
+int  sub_451CF0(_DWORD* a1) {
 	int v1;     // ecx
 	int result; // eax
 	int v3;     // edx
@@ -48,7 +48,7 @@ int __cdecl sub_451CF0(_DWORD* a1) {
 }
 
 //----- (00451DC0) --------------------------------------------------------
-int __cdecl sub_451DC0(int a1) {
+int  sub_451DC0(int a1) {
 	_DWORD* v1; // esi
 	int result; // eax
 	int v3;     // ebx
@@ -85,7 +85,7 @@ int __cdecl sub_451DC0(int a1) {
 }
 
 //----- (00451E80) --------------------------------------------------------
-int __cdecl sub_451E80(int a1) {
+int  sub_451E80(int a1) {
 	int v1;      // eax
 	int v2;      // ebx
 	int v3;      // eax
@@ -133,7 +133,7 @@ int __cdecl sub_451E80(int a1) {
 }
 
 //----- (00452580) --------------------------------------------------------
-int __cdecl sub_452580(_DWORD* a1) {
+int  sub_452580(_DWORD* a1) {
 	int v1;     // edi
 	int result; // eax
 	int v3;     // eax
@@ -169,7 +169,7 @@ int __cdecl sub_452580(_DWORD* a1) {
 }
 
 //----- (00452770) --------------------------------------------------------
-int __cdecl sub_452770(_DWORD* a1) {
+int  sub_452770(_DWORD* a1) {
 	_DWORD* v1;      // esi
 	_DWORD* v2;      // ebx
 	int v4;          // eax

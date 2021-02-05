@@ -5,7 +5,7 @@
 extern _DWORD dword_5d4594_1096640;
 
 //----- (004773C0) --------------------------------------------------------
-void __cdecl nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
+void  nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 	int v1;     // eax
 	int v2;     // eax
 	_DWORD* v3; // eax

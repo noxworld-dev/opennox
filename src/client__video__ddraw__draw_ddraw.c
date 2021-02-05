@@ -24,22 +24,22 @@ int nox_video_gammaValue = 0;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
 int (*func_5d4594_1311924)(void) = 0;
 
-void __cdecl sub_435380(LPDIRECTDRAWGAMMACONTROL* a1);
-void __cdecl sub_4353A0(LPDIRECTDRAWPALETTE* a1);
-LPDIRECTDRAWSURFACE __cdecl sub_48A600(int a1, int a2, int a3, int a4);
-void __cdecl sub_48A670(LPDIRECTDRAWSURFACE a1);
-void __cdecl sub_48A6B0(LPDIRECTDRAWSURFACE a1);
-LPVOID __cdecl sub_48A6C0(LPDIRECTDRAWSURFACE a1);
-int __cdecl sub_48A720(LPDIRECTDRAWSURFACE a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5);
-void __cdecl sub_48A7B0(LPDIRECTDRAWSURFACE a1);
+void  sub_435380(LPDIRECTDRAWGAMMACONTROL* a1);
+void  sub_4353A0(LPDIRECTDRAWPALETTE* a1);
+LPDIRECTDRAWSURFACE  sub_48A600(int a1, int a2, int a3, int a4);
+void  sub_48A670(LPDIRECTDRAWSURFACE a1);
+void  sub_48A6B0(LPDIRECTDRAWSURFACE a1);
+LPVOID  sub_48A6C0(LPDIRECTDRAWSURFACE a1);
+int  sub_48A720(LPDIRECTDRAWSURFACE a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5);
+void  sub_48A7B0(LPDIRECTDRAWSURFACE a1);
 int __stdcall sub_48AE80(LPDIRECTDRAWSURFACE a1, LPDDSURFACEDESC a2, LPVOID a3);
 BOOL __stdcall Callback(GUID*, LPSTR, LPSTR, LPVOID); // idb
-int __cdecl sub_48B140(LPDIRECTDRAW a1, const IID* a2, int* a3);
-void __cdecl sub_48B190(LPDIRECTDRAWCLIPPER* a1);
-void __cdecl sub_48B1B0(LPDIRECTDRAW* a1);
-void __cdecl sub_48B1D0(LPDIRECTDRAWSURFACE* a1);
-int __cdecl sub_48AD40(HWND a1, int a2, int a3, int a4);
-int __cdecl nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3);
+int  sub_48B140(LPDIRECTDRAW a1, const IID* a2, int* a3);
+void  sub_48B190(LPDIRECTDRAWCLIPPER* a1);
+void  sub_48B1B0(LPDIRECTDRAW* a1);
+void  sub_48B1D0(LPDIRECTDRAWSURFACE* a1);
+int  sub_48AD40(HWND a1, int a2, int a3, int a4);
+int  nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3);
 
 HWND windowHandle_dword_973FE0;
 
@@ -81,7 +81,7 @@ void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
 void (*g_copy_backbuffer_ptr)();
 
 //----- (0048A040) --------------------------------------------------------
-int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
+int  sub_48A040(HWND a1, int a2, int a3, int a4) {
 	int result; // eax
 
 	g_backbuffer_count = 2;
@@ -160,7 +160,7 @@ char sub_48A190() {
 }
 
 //----- (0048A220) --------------------------------------------------------
-void __cdecl nox_xxx_directDrawBlitMB_48A220() {
+void  nox_xxx_directDrawBlitMB_48A220() {
 	HRESULT i; // eax
 
 	if (g_ddraw && !dword_974854 && dword_973C64 && (!dword_973C70 || nox_xxx_directDrawBlitImpl_48A2A0())) {
@@ -224,7 +224,7 @@ LABEL_22:
 }
 
 //----- (0048A600) --------------------------------------------------------
-LPDIRECTDRAWSURFACE __cdecl sub_48A600(int a1, int a2, int a3, int a4) {
+LPDIRECTDRAWSURFACE  sub_48A600(int a1, int a2, int a3, int a4) {
 	LPDIRECTDRAWSURFACE result; // eax
 	DDSURFACEDESC v5;           // [esp+4h] [ebp-6Ch]
 	LPDIRECTDRAWSURFACE surf;
@@ -241,7 +241,7 @@ LPDIRECTDRAWSURFACE __cdecl sub_48A600(int a1, int a2, int a3, int a4) {
 }
 
 //----- (0048A670) --------------------------------------------------------
-void __cdecl sub_48A670(LPDIRECTDRAWSURFACE a1) {
+void  sub_48A670(LPDIRECTDRAWSURFACE a1) {
 	DDSURFACEDESC v3; // [esp+4h] [ebp-6Ch]
 
 	memset(&v3, 0, sizeof(v3));
@@ -250,10 +250,10 @@ void __cdecl sub_48A670(LPDIRECTDRAWSURFACE a1) {
 }
 
 //----- (0048A6B0) --------------------------------------------------------
-void __cdecl sub_48A6B0(LPDIRECTDRAWSURFACE a1) { a1->lpVtbl->Unlock(a1, 0); }
+void  sub_48A6B0(LPDIRECTDRAWSURFACE a1) { a1->lpVtbl->Unlock(a1, 0); }
 
 //----- (0048A6C0) --------------------------------------------------------
-LPVOID __cdecl sub_48A6C0(LPDIRECTDRAWSURFACE a1) {
+LPVOID  sub_48A6C0(LPDIRECTDRAWSURFACE a1) {
 	DDSURFACEDESC v3; // [esp+8h] [ebp-6Ch]
 
 	memset(&v3, 0, sizeof(v3));
@@ -265,7 +265,7 @@ LPVOID __cdecl sub_48A6C0(LPDIRECTDRAWSURFACE a1) {
 }
 
 //----- (0048A720) --------------------------------------------------------
-int __cdecl sub_48A720(LPDIRECTDRAWSURFACE a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5) {
+int  sub_48A720(LPDIRECTDRAWSURFACE a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5) {
 	IDirectDrawSurfaceVtbl* v5; // eax
 	int v6;                     // edi
 	DDSURFACEDESC v8;           // [esp+Ch] [ebp-6Ch]
@@ -288,7 +288,7 @@ int __cdecl sub_48A720(LPDIRECTDRAWSURFACE a1, _DWORD* a2, _DWORD* a3, _DWORD* a
 }
 
 //----- (0048A7B0) --------------------------------------------------------
-void __cdecl sub_48A7B0(LPDIRECTDRAWSURFACE a1) {
+void  sub_48A7B0(LPDIRECTDRAWSURFACE a1) {
 	DDBLTFX v2; // [esp+0h] [ebp-64h]
 
 	if (a1) {
@@ -306,7 +306,7 @@ void sub_48A7F0() {
 }
 
 //----- (0048A820) --------------------------------------------------------
-void __cdecl sub_48A820(UINT uFlags) {
+void  sub_48A820(UINT uFlags) {
 	HCURSOR result; // eax
 	int v2;         // ebp
 	int v3;         // eax
@@ -368,7 +368,7 @@ void __cdecl sub_48A820(UINT uFlags) {
 }
 
 //----- (0048A9C0) --------------------------------------------------------
-void __cdecl sub_48A9C0(int a1) {
+void  sub_48A9C0(int a1) {
 	if (dword_6F7BB0) {
 		EnterCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
 		if (!dword_974854) {
@@ -412,7 +412,7 @@ void sub_48AA40() {
 }
 
 //----- (0048AAF0) --------------------------------------------------------
-void __cdecl sub_48AAF0() {
+void  sub_48AAF0() {
 	if (g_ddraw && !dword_974854 && (!g_frontbuffer->lpVtbl->IsLost(g_frontbuffer) || nox_xxx_directDrawBlitImpl_48A2A0())) {
 		sub_48BE50(1);
 		sub_48B5D0(0, 0);
@@ -422,7 +422,7 @@ void __cdecl sub_48AAF0() {
 }
 
 //----- (0048AB50) --------------------------------------------------------
-void __cdecl sub_48AB50() {
+void  sub_48AB50() {
 	int v0; // eax
 
 	if (g_ddraw) {
@@ -441,7 +441,7 @@ void __cdecl sub_48AB50() {
 }
 
 //----- (0048ABC0) --------------------------------------------------------
-void __cdecl sub_48ABC0() {
+void  sub_48ABC0() {
 	POINT Point;     // [esp+4h] [ebp-28h]
 	RECT rectClient; // [esp+Ch] [ebp-20h]
 	RECT rc;         // [esp+1Ch] [ebp-10h]
@@ -490,7 +490,7 @@ int sub_48ACC0() {
 }
 
 //----- (0048AD40) --------------------------------------------------------
-signed int __cdecl sub_48AD40(HWND a1, int a2, int a3, int a4) {
+signed int  sub_48AD40(HWND a1, int a2, int a3, int a4) {
 	int v5;           // [esp+2Ch] [ebp-70h]
 	DDSURFACEDESC v6; // [esp+30h] [ebp-6Ch]
 
@@ -535,7 +535,7 @@ int __stdcall sub_48AE80(LPDIRECTDRAWSURFACE a1, LPDDSURFACEDESC a2, LPVOID a3) 
 }
 
 //----- (0048AED0) --------------------------------------------------------
-int __cdecl nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3) {
+int  nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3) {
 	char v3;    // al
 	HDC v4;     // esi
 	int v5;     // edi
@@ -620,7 +620,7 @@ BOOL __stdcall Callback(GUID* lpGUID, LPSTR a2, LPSTR a3, LPVOID a4) {
 }
 
 //----- (0048B140) --------------------------------------------------------
-int __cdecl sub_48B140(LPDIRECTDRAW a1, const IID* a2, int* a3) {
+int  sub_48B140(LPDIRECTDRAW a1, const IID* a2, int* a3) {
 	LPVOID pvObj;
 	int result; // eax
 
@@ -637,7 +637,7 @@ int __cdecl sub_48B140(LPDIRECTDRAW a1, const IID* a2, int* a3) {
 }
 
 //----- (0048B190) --------------------------------------------------------
-void __cdecl sub_48B190(LPDIRECTDRAWCLIPPER* a1) {
+void  sub_48B190(LPDIRECTDRAWCLIPPER* a1) {
 	if (*a1) {
 		(*a1)->lpVtbl->Release(*a1);
 		*a1 = 0;
@@ -645,7 +645,7 @@ void __cdecl sub_48B190(LPDIRECTDRAWCLIPPER* a1) {
 }
 
 //----- (0048B1B0) --------------------------------------------------------
-void __cdecl sub_48B1B0(LPDIRECTDRAW* a1) {
+void  sub_48B1B0(LPDIRECTDRAW* a1) {
 	if (*a1) {
 		(*a1)->lpVtbl->Release(*a1);
 		*a1 = 0;
@@ -653,7 +653,7 @@ void __cdecl sub_48B1B0(LPDIRECTDRAW* a1) {
 }
 
 //----- (0048B1D0) --------------------------------------------------------
-void __cdecl sub_48B1D0(LPDIRECTDRAWSURFACE* a1) {
+void  sub_48B1D0(LPDIRECTDRAWSURFACE* a1) {
 	if (*a1) {
 		(*a1)->lpVtbl->Release(*a1);
 		*a1 = 0;
@@ -784,7 +784,7 @@ int sdl_drawCursorThreaded(int a1) {
 
 #if 0
 //----- (0048B840) --------------------------------------------------------
-int __cdecl sub_48B840(int a1)
+int  sub_48B840(int a1)
 {
     LPDIRECTDRAWSURFACE v1;
     LPDIRECTDRAWSURFACE v3; // eax
@@ -855,7 +855,7 @@ int __cdecl sub_48B840(int a1)
 }
 
 //----- (0048BA50) --------------------------------------------------------
-int __cdecl sub_48BA50(int a1)
+int  sub_48BA50(int a1)
 {
     int v2; // eax
     struct tagPOINT Point; // [esp+28h] [ebp-38h]
@@ -1000,7 +1000,7 @@ int sub_434FB0() {
 }
 
 //----- (004352E0) --------------------------------------------------------
-void __cdecl sub_4352E0() {
+void  sub_4352E0() {
 	DDCAPS v0; // [esp+4h] [ebp-2F8h]
 	DDCAPS v1; // [esp+180h] [ebp-17Ch]
 
@@ -1038,7 +1038,7 @@ HDC sub_444F90() {
 }
 
 //----- (00444FC0) --------------------------------------------------------
-void __cdecl sub_444FC0(HDC a1) {
+void  sub_444FC0(HDC a1) {
 	DebugBreak();
 
 #if 0
@@ -1162,7 +1162,7 @@ void sub_433C20() {
 }
 
 //----- (00444930) --------------------------------------------------------
-int __cdecl nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
+int  nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
 	dword_5d4594_823776 = 0;
 	ptr_5D4594_3799572 = &obj_5D4594_3799660;
 	int result = sub_4449D0(wnd, w, h, depth, flags);
@@ -1454,7 +1454,7 @@ void nox_video_stopCursorDrawThread_48B350() {
 }
 
 //----- (00435380) --------------------------------------------------------
-void __cdecl sub_435380(LPDIRECTDRAWGAMMACONTROL* a1) {
+void  sub_435380(LPDIRECTDRAWGAMMACONTROL* a1) {
 	if (*a1) {
 		(*a1)->lpVtbl->Release(*a1);
 		*a1 = 0;
@@ -1462,7 +1462,7 @@ void __cdecl sub_435380(LPDIRECTDRAWGAMMACONTROL* a1) {
 }
 
 //----- (004353A0) --------------------------------------------------------
-void __cdecl sub_4353A0(LPDIRECTDRAWPALETTE* a1) {
+void  sub_4353A0(LPDIRECTDRAWPALETTE* a1) {
 	if (*a1) {
 		(*a1)->lpVtbl->Release(*a1);
 		*a1 = 0;
@@ -1637,7 +1637,7 @@ int PlayMovie(char* filename);
 #endif // NOX_PLAY_MOVIES
 
 //----- (004B0340) --------------------------------------------------------
-int __cdecl sub_4B0340(int a1) // draw general
+int  sub_4B0340(int a1) // draw general
 {
 	BOOL v1;             // esi
 	int v2;              // ebp
@@ -1745,7 +1745,7 @@ int __cdecl sub_4B0340(int a1) // draw general
 // 4B0536: variable 'v7' is possibly undefined
 
 //----- (0048B5D0) --------------------------------------------------------
-int __cdecl nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
+int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	int result; // eax
 	int v3;     // esi
 

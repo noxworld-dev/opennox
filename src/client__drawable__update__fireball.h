@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-void __cdecl sub_4CCEA0(_DWORD* a1, int a2);
+void  sub_4CCEA0(_DWORD* a1, int a2);
 
 #endif // NOX_PORT_CLIENT_DRAWABLE_UPDATE_FIREBALL

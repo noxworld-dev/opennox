@@ -101,7 +101,7 @@ unsigned int nox_memfile_read(void* dst, const unsigned int sz, const int cnt, n
 }
 
 //----- (0040AD10) --------------------------------------------------------
-unsigned int __cdecl nox_memfile_seek_40AD10(nox_memfile* memfile, const int offset, const int fromStartOrEnd) {
+unsigned int  nox_memfile_seek_40AD10(nox_memfile* memfile, const int offset, const int fromStartOrEnd) {
 	if (fromStartOrEnd == 0) {
 		memfile->cur = offset + memfile->data;
 	} else if (fromStartOrEnd == 2) {

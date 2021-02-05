@@ -64,7 +64,7 @@ int sub_4710B0() {
 }
 
 //----- (00471160) --------------------------------------------------------
-int __cdecl sub_471160(int a1, int a2, int a3, int a4, int a5) {
+int  sub_471160(int a1, int a2, int a3, int a4, int a5) {
 	wchar_t* v5; // eax
 	wchar_t* v6; // eax
 	int result;  // eax
@@ -227,7 +227,7 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 }
 
 //----- (00471D10) --------------------------------------------------------
-int __cdecl nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
+int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 	_DWORD* v1;           // ebx
 	int v2;               // esi
 	unsigned __int8* v3;  // edi

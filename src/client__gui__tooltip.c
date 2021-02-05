@@ -3,7 +3,7 @@
 #include "proto.h"
 
 //----- (004BF050) --------------------------------------------------------
-wchar_t* __cdecl nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
+wchar_t*  nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
 	int* v1;            // esi
 	int v2;             // eax
 	const wchar_t* v3;  // ebx

@@ -1,7 +1,7 @@
 #include "proto.h"
 
 //----- (00530A30) --------------------------------------------------------
-int __cdecl sub_530A30_spell_execdur(int a1) {
+int  sub_530A30_spell_execdur(int a1) {
 	int v1;      // esi
 	int v2;      // ebx
 	int v3;      // eax

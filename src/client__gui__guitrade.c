@@ -105,7 +105,7 @@ int sub_4C09D0() {
 }
 
 //----- (004C15D0) --------------------------------------------------------
-int __cdecl sub_4C15D0(int a1) {
+int  sub_4C15D0(int a1) {
 	int result;           // eax
 	int v2;               // ebp
 	unsigned __int8* v3;  // ebx

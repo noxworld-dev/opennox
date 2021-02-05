@@ -165,7 +165,7 @@ int nox_xxx_guiServerOptsLoad_457500() {
 }
 
 //----- (00457AA0) --------------------------------------------------------
-int __cdecl nox_xxx_options_457AA0(int a1, _BYTE* a2) {
+int  nox_xxx_options_457AA0(int a1, _BYTE* a2) {
 	wchar_t* v2; // eax
 
 	if (*a2 & 4)
@@ -179,7 +179,7 @@ int __cdecl nox_xxx_options_457AA0(int a1, _BYTE* a2) {
 }
 
 //----- (00457B00) --------------------------------------------------------
-int __cdecl nox_xxx_options_457B00(int a1, _BYTE* a2) {
+int  nox_xxx_options_457B00(int a1, _BYTE* a2) {
 	wchar_t* v2; // eax
 
 	if (*a2 & 4)
@@ -223,7 +223,7 @@ int sub_457FE0() {
 }
 
 //----- (004580E0) --------------------------------------------------------
-int __cdecl sub_4580E0(int a1) {
+int  sub_4580E0(int a1) {
 	wchar_t* v1; // eax
 	wchar_t* v2; // eax
 	__int16 v3;  // ax
@@ -263,7 +263,7 @@ int __cdecl sub_4580E0(int a1) {
 }
 
 //----- (00458230) --------------------------------------------------------
-int __cdecl sub_458230(int a1, char* a2, int a3) {
+int  sub_458230(int a1, char* a2, int a3) {
 	int v3;           // ebp
 	int* v4;          // ebx
 	int v5;           // eax
@@ -352,7 +352,7 @@ int __cdecl sub_458230(int a1, char* a2, int a3) {
 	return result;
 }
 //----- (004585D0) --------------------------------------------------------
-int __cdecl nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int a4) {
+int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int a4) {
 	_DWORD* v4;           // esi
 	char* v5;             // ebp
 	int result;           // eax
@@ -659,7 +659,7 @@ int __cdecl nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int 
 	return 1;
 }
 //----- (00459880) --------------------------------------------------------
-int __cdecl sub_459880(int a1) {
+int  sub_459880(int a1) {
 	__int16 v1;      // ax
 	wchar_t* v2;     // eax
 	_DWORD* v4;      // eax

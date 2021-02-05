@@ -136,7 +136,7 @@ int sub_4C3760() {
 }
 
 //----- (004C3CD0) --------------------------------------------------------
-int __cdecl sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
+int  sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 	int v5;      // eax
 	wchar_t* v6; // eax
 	int v7;      // esi

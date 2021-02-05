@@ -4,7 +4,7 @@ extern _DWORD dword_5d4594_3821964;
 extern unsigned int nox_gameFPS;
 
 //----- (00512E80) --------------------------------------------------------
-int __cdecl sub_512E80(int a1) {
+int  sub_512E80(int a1) {
 	int v1; // eax
 
 	v1 = dword_5d4594_1599628;
@@ -16,7 +16,7 @@ int __cdecl sub_512E80(int a1) {
 }
 
 //----- (00528AC0) --------------------------------------------------------
-int __cdecl nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3) {
+int  nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3) {
 	char v3;       // al
 	__int16 v4;    // ax
 	double v5;     // st7

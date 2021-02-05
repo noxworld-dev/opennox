@@ -22,7 +22,7 @@ extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 
 //----- (0045DEB0) --------------------------------------------------------
-int __cdecl nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4) {
+int  nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4) {
 	int v4;      // ebx
 	wchar_t* v5; // eax
 	_DWORD* v6;  // ecx
@@ -481,7 +481,7 @@ int nox_xxx_quickbarButtonBook_45F3F0() {
 }
 
 //----- (0045F480) --------------------------------------------------------
-int __cdecl sub_45F480(int a1) {
+int  sub_45F480(int a1) {
 	wchar_t* v1; // eax
 
 	if (sub_45F500(*(unsigned __int16*)(a1 + 368),
@@ -495,7 +495,7 @@ int __cdecl sub_45F480(int a1) {
 }
 
 //----- (0045F9B0) --------------------------------------------------------
-int __cdecl sub_45F9B0(_DWORD* a1) {
+int  sub_45F9B0(_DWORD* a1) {
 	_DWORD* v1;      // esi
 	wchar_t* v2;     // eax
 	char* v3;        // esi
@@ -526,7 +526,7 @@ int __cdecl sub_45F9B0(_DWORD* a1) {
 }
 
 //----- (0045FAC0) --------------------------------------------------------
-int __cdecl nox_xxx_quickbarDraw_45FAC0(_DWORD* a1) {
+int  nox_xxx_quickbarDraw_45FAC0(_DWORD* a1) {
 	_DWORD* v1;     // esi
 	wchar_t* v2;    // eax
 	int v4;         // [esp-4h] [ebp-58h]
@@ -551,7 +551,7 @@ int __cdecl nox_xxx_quickbarDraw_45FAC0(_DWORD* a1) {
 }
 
 //----- (0045FBD0) --------------------------------------------------------
-int __cdecl nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
+int  nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 	int v1;           // ebx
 	int v2;           // esi
 	_DWORD* v3;       // eax
@@ -640,7 +640,7 @@ int __cdecl nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 }
 
 //----- (0045FDE0) --------------------------------------------------------
-int __cdecl nox_xxx_quickBarWarriorDraw_45FDE0(int yTop) {
+int  nox_xxx_quickBarWarriorDraw_45FDE0(int yTop) {
 	int v1;               // edi
 	int v2;               // esi
 	unsigned __int8* v3;  // eax
@@ -779,7 +779,7 @@ int sub_460070() {
 }
 
 //----- (00460EC0) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_quickbarAddTrap_460EC0(int a1) {
+_DWORD*  nox_xxx_quickbarAddTrap_460EC0(int a1) {
 	_DWORD* result; // eax
 	int v2;         // esi
 	int v3;         // eax

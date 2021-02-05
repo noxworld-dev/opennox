@@ -2,7 +2,7 @@
 #include "proto.h"
 
 //----- (004B9ED0) --------------------------------------------------------
-int __cdecl nox_thing_black_powder_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_black_powder_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2; // esi
 	int v3; // edi
 

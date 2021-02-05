@@ -7,7 +7,7 @@ extern int nox_backbuffer_depth;
 extern unsigned int nox_gameFPS;
 
 //----- (004BC490) --------------------------------------------------------
-char __cdecl sub_4BC490(int a1) {
+char  sub_4BC490(int a1) {
 	int v1;          // eax
 	unsigned int v2; // ecx
 	int v3;          // eax
@@ -84,7 +84,7 @@ char __cdecl sub_4BC490(int a1) {
 }
 
 //----- (004BC180) --------------------------------------------------------
-int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	int v2;    // esi
 	int v3;    // edi
 	char v4;   // cl
@@ -208,7 +208,7 @@ int __cdecl nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (0044BB80) --------------------------------------------------------
-bool __cdecl nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	_DWORD* v2;          // ebx
 	int v4;              // ecx
 	unsigned __int8 v6;  // cl

@@ -6,7 +6,7 @@ extern _DWORD nox_server_connectionType_3596;
 extern _DWORD dword_5d4594_1309812;
 
 //----- (004AD320) --------------------------------------------------------
-int __cdecl nox_xxx_gui_4AD320(int a1) {
+int  nox_xxx_gui_4AD320(int a1) {
 	int v1;      // esi
 	_DWORD* v3;  // eax
 	_DWORD* v4;  // esi

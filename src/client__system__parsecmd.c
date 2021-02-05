@@ -301,7 +301,7 @@ int nox_cmd_racoiaws(int tokInd, int tokCnt, wchar_t** tokens) {
 #endif // NOX_CGO
 
 //----- (00450B20) --------------------------------------------------------
-wchar_t* __cdecl sub_450B20(wchar_t* a1) {
+wchar_t*  sub_450B20(wchar_t* a1) {
 	wchar_t* result; // eax
 
 	result = a1;

@@ -3,7 +3,7 @@
 #include "proto.h"
 
 //----- (004A4310) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_wndListboxCreate_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a7, __int16* a8) {
+_DWORD*  nox_xxx_wndListboxCreate_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a7, __int16* a8) {
 	_DWORD* v8;       // ebp
 	void* v9;         // edi
 	int v10;          // edi

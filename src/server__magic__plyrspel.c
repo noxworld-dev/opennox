@@ -4,10 +4,10 @@
 extern void* dword_587000_66120;
 
 //----- (00424850) --------------------------------------------------------
-BOOL __cdecl nox_xxx_isArgB8EqSome_424850(void* a1) { return a1 == *(void**)&dword_587000_66120; }
+BOOL  nox_xxx_isArgB8EqSome_424850(void* a1) { return a1 == *(void**)&dword_587000_66120; }
 
 //----- (004D7F90) --------------------------------------------------------
-int __cdecl nox_xxx_netSendSpellAward_4D7F90(int a1, int a2, char a3, int a4) {
+int  nox_xxx_netSendSpellAward_4D7F90(int a1, int a2, char a3, int a4) {
 	int result; // eax
 	int v5;     // eax
 
@@ -26,7 +26,7 @@ int __cdecl nox_xxx_netSendSpellAward_4D7F90(int a1, int a2, char a3, int a4) {
 }
 
 //----- (004FB0B0) --------------------------------------------------------
-void __cdecl nox_xxx_abilGetError_4FB0B0_magic_plyrspel(int a1) {
+void  nox_xxx_abilGetError_4FB0B0_magic_plyrspel(int a1) {
 	wchar_t* v1; // eax
 
 	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * a1 + 216380), 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c",
@@ -35,7 +35,7 @@ void __cdecl nox_xxx_abilGetError_4FB0B0_magic_plyrspel(int a1) {
 }
 
 //----- (004FB2A0) --------------------------------------------------------
-int __cdecl nox_xxx_playerSpell_4FB2A0_magic_plyrspel(int a1) {
+int  nox_xxx_playerSpell_4FB2A0_magic_plyrspel(int a1) {
 	_DWORD* v1;   // edi
 	int v2;       // ebp
 	int v3;       // esi
@@ -125,7 +125,7 @@ int __cdecl nox_xxx_playerSpell_4FB2A0_magic_plyrspel(int a1) {
 }
 
 //----- (004FB550) --------------------------------------------------------
-int __cdecl nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
+int  nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
 	int v5;      // ebp
 	int v6;      // esi
 	int v7;      // ebx

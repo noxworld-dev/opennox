@@ -3,7 +3,7 @@
 
 extern unsigned int nox_gameFPS;
 //----- (004B7540) --------------------------------------------------------
-int __cdecl nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	unsigned int v2;    // eax
 	int v4;             // edx
 	int v5;             // eax

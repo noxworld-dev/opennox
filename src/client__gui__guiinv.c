@@ -35,7 +35,7 @@ extern unsigned int nox_gameFPS;
 extern nox_obj_1050020_t nox_obj_arr_1050020[NOX_OBJ_1050020_MAX];
 
 //----- (00461660) --------------------------------------------------------
-int __cdecl nox_xxx_spritePickup_461660(int a1, int a2, const void* a3) {
+int  nox_xxx_spritePickup_461660(int a1, int a2, const void* a3) {
 	int* v3;     // eax
 	wchar_t* v4; // eax
 	int v6;      // ecx
@@ -79,7 +79,7 @@ int __cdecl nox_xxx_spritePickup_461660(int a1, int a2, const void* a3) {
 }
 
 //----- (004617C0) --------------------------------------------------------
-int __cdecl sub_4617C0(int a1, int a2, const void* a3, int2* a4) {
+int  sub_4617C0(int a1, int a2, const void* a3, int2* a4) {
 	unsigned __int16 v4; // di
 	unsigned __int16 i;  // dx
 	int result;          // eax
@@ -145,7 +145,7 @@ int __cdecl sub_4617C0(int a1, int a2, const void* a3, int2* a4) {
 }
 
 //----- (00461A30) --------------------------------------------------------
-int __cdecl nox_xxx_unused_461A30(int a1, int a2) {
+int  nox_xxx_unused_461A30(int a1, int a2) {
 	int v2;      // esi
 	wchar_t* v4; // eax
 
@@ -160,7 +160,7 @@ int __cdecl nox_xxx_unused_461A30(int a1, int a2) {
 }
 
 //----- (00461A80) --------------------------------------------------------
-void __cdecl sub_461A80(int a1) {
+void  sub_461A80(int a1) {
 	int v1;      // ebx
 	char* v2;    // esi
 	_QWORD* v3;  // eax
@@ -199,7 +199,7 @@ void __cdecl sub_461A80(int a1) {
 }
 
 //----- (00462040) --------------------------------------------------------
-void __cdecl sub_462040(int a1) {
+void  sub_462040(int a1) {
 	int v1;               // edi
 	char* v2;             // ebp
 	int v3;               // eax
@@ -327,7 +327,7 @@ int sub_462740() {
 }
 
 //----- (004627F0) --------------------------------------------------------
-int __cdecl sub_4627F0(_DWORD* a1) {
+int  sub_4627F0(_DWORD* a1) {
 	int v2;           // ebx
 	int v3;           // eax
 	int result;       // eax
@@ -547,7 +547,7 @@ LABEL_14:
 		v71 = sub_4626C0(*(int*)&dword_5d4594_1063116);
 		v72 = sub_462700(*(int*)&dword_5d4594_1063116);
 		v27 = *(_DWORD*)LODWORD(v68);
-		if (*(_DWORD*)LODWORD(v68) && *(float*(__cdecl**)(int, int, int, int, float*))(v27 + 40) == nox_xxx_effectDamageMultiplier_4E04C0)
+		if (*(_DWORD*)LODWORD(v68) && *(float*(**)(int, int, int, int, float*))(v27 + 40) == nox_xxx_effectDamageMultiplier_4E04C0)
 			v69 = *(float*)(v27 + 44);
 		v28 = nox_xxx_calcBoltDamage_4EF1E0(*(_DWORD*)(LODWORD(v70) + 2239), (int)v26);
 		v29 = v26[1];
@@ -619,7 +619,7 @@ LABEL_14:
 	v17 = (float*)nox_xxx_equipClothFindDefByTT_413270(*(_DWORD*)(dword_5d4594_1063116 + 108));
 	v18 = 1.0;
 	v19 = *(_DWORD*)(dword_5d4594_1063116 + 432);
-	if (v19 && *(float*(__cdecl**)(int, int, int, int, int, float*))(v19 + 76) == sub_4E0370)
+	if (v19 && *(float*(**)(int, int, int, int, int, float*))(v19 + 76) == sub_4E0370)
 		v18 = *(float*)(v19 + 80);
 	v65 = v18 * v17[16] * 1000.0 + 0.5;
 	v20 = nox_float2int(v65);
@@ -702,7 +702,7 @@ LABEL_91:
 	return nox_xxx_wndSetIcon_46AE60((int)v50, v67);
 }
 //----- (00463880) --------------------------------------------------------
-int* __cdecl nox_xxx_makeStatsDlg_463880(int* a1) {
+int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 	int v1;                // esi
 	int v2;                // eax
 	int v3;                // eax
@@ -982,7 +982,7 @@ int* __cdecl nox_xxx_makeStatsDlg_463880(int* a1) {
 }
 
 //----- (004649B0) --------------------------------------------------------
-BOOL __cdecl sub_4649B0(int a1, int a2, int a3) {
+BOOL  sub_4649B0(int a1, int a2, int a3) {
 	BOOL result;         // eax
 	unsigned __int8* v4; // ebp
 	unsigned __int8 v5;  // al
@@ -1047,7 +1047,7 @@ BOOL __cdecl sub_4649B0(int a1, int a2, int a3) {
 }
 
 //----- (00464BD0) --------------------------------------------------------
-int __cdecl sub_464BD0(int a1, int a2, unsigned int a3) {
+int  sub_464BD0(int a1, int a2, unsigned int a3) {
 	int v4;          // eax
 	int v5;          // eax
 	int v6;          // eax
@@ -1432,7 +1432,7 @@ int sub_4661D0() {
 }
 
 //----- (00466660) --------------------------------------------------------
-wchar_t* __cdecl sub_466660(int a1, int2* a2) {
+wchar_t*  sub_466660(int a1, int2* a2) {
 	int v2;          // eax
 	int v3;          // eax
 	wchar_t* result; // eax
@@ -1486,7 +1486,7 @@ wchar_t* __cdecl sub_466660(int a1, int2* a2) {
 	return result;
 }
 //----- (004667E0) --------------------------------------------------------
-int __cdecl nox_xxx_inventroryOnHovewerSub_4667E0(int a1, int a2, unsigned int a3) {
+int  nox_xxx_inventroryOnHovewerSub_4667E0(int a1, int a2, unsigned int a3) {
 	int v3;       // edx
 	int v4;       // esi
 	int v5;       // ecx
@@ -1557,7 +1557,7 @@ int __cdecl nox_xxx_inventroryOnHovewerSub_4667E0(int a1, int a2, unsigned int a
 	return result;
 }
 //----- (00466E20) --------------------------------------------------------
-int __cdecl sub_466E20(_DWORD* a1) {
+int  sub_466E20(_DWORD* a1) {
 	wchar_t* v1; // eax
 	int result;  // eax
 
@@ -1619,7 +1619,7 @@ int nox_xxx_inventoryNameSignInit_4671E0() {
 }
 
 //----- (00467750) --------------------------------------------------------
-int __cdecl sub_467750(int a1, char a2) {
+int  sub_467750(int a1, char a2) {
 	char* v2;    // eax
 	int v3;      // eax
 	wchar_t* v5; // eax

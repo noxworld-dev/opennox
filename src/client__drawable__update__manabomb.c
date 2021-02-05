@@ -6,7 +6,7 @@
 extern _DWORD dword_5d4594_1522956;
 
 //----- (004CCAC0) --------------------------------------------------------
-int __cdecl nox_xxx_updDrawManabombCharge_4CCAC0(int a1, _DWORD* a2) {
+int  nox_xxx_updDrawManabombCharge_4CCAC0(int a1, _DWORD* a2) {
 	unsigned int v2;      // ebx
 	_DWORD* v3;           // ebp
 	int v4;               // edi

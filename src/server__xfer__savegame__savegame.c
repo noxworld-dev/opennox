@@ -20,7 +20,7 @@ BOOL nox_xxx_saveMakeFolder_0_4DB1D0() {
 }
 
 //----- (004DB5A0) --------------------------------------------------------
-BOOL __cdecl sub_4DB5A0(int a1, int a2) {
+BOOL  sub_4DB5A0(int a1, int a2) {
 	char* v2;            // eax
 	char PathName[1024]; // [esp+0h] [ebp-400h]
 
@@ -30,7 +30,7 @@ BOOL __cdecl sub_4DB5A0(int a1, int a2) {
 }
 
 //----- (004DB600) --------------------------------------------------------
-int __cdecl nox_xxx_saveMakePlayerLocation_4DB600(int a1) {
+int  nox_xxx_saveMakePlayerLocation_4DB600(int a1) {
 	char* v1;   // eax
 	float* v2;  // esi
 	_DWORD* v3; // edi
@@ -143,7 +143,7 @@ void sub_4DB9C0() {
 }
 
 //----- (004DB370) --------------------------------------------------------
-int __cdecl nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
+int  nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 	char* v1;        // eax
 	char* v2;        // esi
 	int v3;          // eax
@@ -216,7 +216,7 @@ int __cdecl nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 }
 
 //----- (004DB7E0) --------------------------------------------------------
-char* __cdecl nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
+char*  nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 	char* v1;            // ebp
 	char* result;        // eax
 	char* v3;            // eax

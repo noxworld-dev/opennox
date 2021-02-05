@@ -2,7 +2,7 @@
 #include "proto.h"
 
 //----- (004BCC90) --------------------------------------------------------
-int __cdecl nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2;    // edi
 	int v3;    // ebx
 	int v4;    // eax

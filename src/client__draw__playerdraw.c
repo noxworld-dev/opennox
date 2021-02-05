@@ -16,7 +16,7 @@ extern _DWORD dword_5d4594_3798684;
 extern _DWORD dword_5d4594_3798688;
 
 //----- (004B8270) --------------------------------------------------------
-int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	char* v3;           // esi
 	_DWORD* v4;         // eax
 	char* v5;           // eax
@@ -118,7 +118,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		LABEL_23:
 		v11[3] = dr->field_3 - v10[4] + *v10 + 15;
 		*(_DWORD*)(dword_5d4594_1313792 + 16) = v10[1] - v10[5] + dr->field_4 - 25;
-		(*(void(__cdecl**)(int*, _DWORD))(dword_5d4594_1313792 + 300))(v36, dword_5d4594_1313792);
+		(*(void(**)(int*, _DWORD))(dword_5d4594_1313792 + 300))(v36, dword_5d4594_1313792);
 		goto LABEL_24;
 	}
 	LABEL_25:
@@ -238,7 +238,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 			}
 			*(_DWORD*)(dword_5d4594_1313796 + 12) = *v10 + dr->field_3 - v10[4];
 			*(_DWORD*)(dword_5d4594_1313796 + 16) = v10[1] - v10[5] + dr->field_4 - 50;
-			(*(void(__cdecl**)(int*, _DWORD))(dword_5d4594_1313796 + 300))(v36, dword_5d4594_1313796);
+			(*(void(**)(int*, _DWORD))(dword_5d4594_1313796 + 300))(v36, dword_5d4594_1313796);
 		}
 		if (nox_xxx_spriteTestBuf_4356C0(dr, 30)) {
 			v36[2] = nox_win_width;
@@ -256,7 +256,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 			}
 			*(_DWORD*)(dword_5d4594_1313800 + 12) = *v10 + dr->field_3 - v10[4];
 			*(_DWORD*)(dword_5d4594_1313800 + 16) = v10[1] - v10[5] + dr->field_4 - 50;
-			(*(void(__cdecl**)(int*, _DWORD))(dword_5d4594_1313800 + 300))(v36, dword_5d4594_1313800);
+			(*(void(**)(int*, _DWORD))(dword_5d4594_1313800 + 300))(v36, dword_5d4594_1313800);
 		}
 		do
 			nox_xxx_drawPlayer_4341D0(v12++, *getMemIntPtr(0x5D4594, 2523948));
@@ -270,7 +270,7 @@ int __cdecl nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (004B9790) --------------------------------------------------------
-int __cdecl nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
+int  nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 	int v2; // esi
 	int v3; // ebp
 	int v4; // ebx
@@ -302,7 +302,7 @@ int __cdecl nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 }
 
 //----- (0044B700) --------------------------------------------------------
-bool __cdecl nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	_BYTE* a3 = attr_value;
 	_DWORD* v3;          // eax
 	_DWORD* v5;          // ebx

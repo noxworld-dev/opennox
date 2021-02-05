@@ -164,7 +164,7 @@ void nox_client_processMouseEvents_4302A0(int evNum, int a2) {
 
 //----- (004306A0) --------------------------------------------------------
 int nox_readingMouseBuffer = 0;
-void __cdecl nox_client_readMouseBuffer_4306A0(int a1) {
+void  nox_client_readMouseBuffer_4306A0(int a1) {
 	if (nox_readingMouseBuffer) {
 		return;
 	}
@@ -272,7 +272,7 @@ unsigned char nox_input_keyboardGetKeyState_430970(unsigned char i) { return nox
 int nox_input_keyboardGetKeySeq_430990(unsigned char i) { return nox_input_arr_789276[i].seq; }
 
 //----- (004308A0) --------------------------------------------------------
-int __cdecl nox_client_processMouseInput_4308A0(int a1) {
+int  nox_client_processMouseInput_4308A0(int a1) {
 	nox_client_readMouseBuffer_4306A0(a1);
 	nox_xxx_getKeyFromKeyboard_430710();
 	if (nox_input_arr_787228[0].code) {
@@ -337,7 +337,7 @@ void nox_client_changeMousePos_430A00(int x, int y, bool isAbs) {
 }
 
 //----- (00430A70) --------------------------------------------------------
-int __cdecl nox_xxx_setMouseBounds_430A70(int x_min, int x_max, int y_min, int y_max) {
+int  nox_xxx_setMouseBounds_430A70(int x_min, int x_max, int y_min, int y_max) {
 	nox_mouse_min.x = x_min;
 	nox_mouse_min.y = y_min;
 	nox_mouse_max.x = x_max;

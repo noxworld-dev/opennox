@@ -5,7 +5,7 @@
 #include "client__draw__fx.h"
 
 //----- (004B7A80) --------------------------------------------------------
-int __cdecl nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 	int result;     // eax
 	__int16 v3;     // dx
 	int v4;         // eax

@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (004BC930) --------------------------------------------------------
-int __cdecl nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
+int  nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	int v2;         // eax
 	int v3;         // edi
 	int v4;         // ecx
@@ -46,7 +46,7 @@ int __cdecl nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* d
 }
 
 //----- (0044B560) --------------------------------------------------------
-bool __cdecl nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	_DWORD* v3;           // eax
 	_BYTE* v6;            // edi
 	unsigned __int8* v7;  // ebp

@@ -235,7 +235,7 @@ int nox_xxx_findAutosaves_4A5150() {
 	return result;
 }
 //----- (004A5710) --------------------------------------------------------
-int __cdecl nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) {
+int  nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 	int v5;         // eax
 	wchar_t* v6;    // eax
 	int v7;         // ebx

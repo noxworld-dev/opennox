@@ -5,7 +5,7 @@
 #include "client__draw__fx.h"
 
 //----- (004746C0) --------------------------------------------------------
-int __cdecl nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
+int  nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 	int v2;     // edi
 	int v3;     // eax
 	int v4;     // eax
@@ -107,7 +107,7 @@ int __cdecl nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 }
 
 //----- (00474E60) --------------------------------------------------------
-int __cdecl nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
+int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 	int v2;      // esi
 	int v3;      // eax
 	_DWORD* v4;  // ebp

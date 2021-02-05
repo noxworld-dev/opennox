@@ -5,7 +5,7 @@
 #include "proto.h"
 
 //----- (004B7810) --------------------------------------------------------
-int __cdecl nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
+int  nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 	int v3; // ebx
 	int v4; // ebp
 	int v5; // eax
@@ -47,7 +47,7 @@ int __cdecl nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 }
 
 //----- (004B7700) --------------------------------------------------------
-int __cdecl nox_thing_levelup_draw(int a1, nox_drawable* dr) {
+int  nox_thing_levelup_draw(int a1, nox_drawable* dr) {
 	int v2; // eax
 
 	v2 = *getMemU32Ptr(0x5D4594, 1313708);
@@ -60,7 +60,7 @@ int __cdecl nox_thing_levelup_draw(int a1, nox_drawable* dr) {
 }
 
 //----- (004B77D0) --------------------------------------------------------
-int __cdecl nox_thing_oblivion_up_draw(int a1, nox_drawable* dr) {
+int  nox_thing_oblivion_up_draw(int a1, nox_drawable* dr) {
 	int v2; // eax
 
 	v2 = *getMemU32Ptr(0x5D4594, 1313712);

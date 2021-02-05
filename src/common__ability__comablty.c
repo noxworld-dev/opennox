@@ -3,7 +3,7 @@
 #include "proto.h"
 
 //----- (00424F00) --------------------------------------------------------
-int __cdecl nox_xxx_abil_424F00(int a1, void* a2) {
+int  nox_xxx_abil_424F00(int a1, void* a2) {
 	unsigned __int8* v2;  // eax
 	int v3;               // eax
 	unsigned __int8* v5;  // edi

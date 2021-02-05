@@ -8,7 +8,7 @@ extern _DWORD dword_5d4594_1313796;
 extern _DWORD dword_5d4594_1313800;
 
 //----- (004B9050) --------------------------------------------------------
-int __cdecl nox_thing_npc_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 	int v2;                           // eax
 	int v4;                           // edi
 	int* v5;                          // ebp
@@ -30,10 +30,10 @@ int __cdecl nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 	int* v21;                         // esi
 	char v22;                         // al
 	int v23;                          // eax
-	void(__cdecl * *v24)(char*, int); // ebx
+	void( * *v24)(char*, int); // ebx
 	char* v25;                        // eax
 	int v26;                          // eax
-	void(__cdecl * *v27)(char*, int); // ebx
+	void( * *v27)(char*, int); // ebx
 	char* v28;                        // eax
 	int i;                            // esi
 	int v30;                          // [esp-4h] [ebp-24h]
@@ -134,7 +134,7 @@ int __cdecl nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					*(_DWORD*)(dword_5d4594_1313796 + 12) = *v21 + *(_DWORD*)(v4 + 12) - v21[4];
 					*(_DWORD*)(dword_5d4594_1313796 + 16) = v21[1] - v21[5] + *(_DWORD*)(v4 + 16) - 50;
 					v31 = dword_5d4594_1313796;
-					v24 = (void(__cdecl**)(char*, int))(dword_5d4594_1313796 + 300);
+					v24 = (void(**)(char*, int))(dword_5d4594_1313796 + 300);
 					v25 = sub_437250();
 					(*v24)(v25, v31);
 				}
@@ -147,7 +147,7 @@ int __cdecl nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					*(_DWORD*)(dword_5d4594_1313800 + 12) = *v21 + *(_DWORD*)(v4 + 12) - v21[4];
 					*(_DWORD*)(dword_5d4594_1313800 + 16) = v21[1] - v21[5] + *(_DWORD*)(v4 + 16) - 50;
 					v32 = dword_5d4594_1313800;
-					v27 = (void(__cdecl**)(char*, int))(dword_5d4594_1313800 + 300);
+					v27 = (void(**)(char*, int))(dword_5d4594_1313800 + 300);
 					v28 = sub_437250();
 					(*v27)(v28, v32);
 				}

@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (004CE200) --------------------------------------------------------
-int __cdecl sub_4CE200(int a1, int a2, int a3, int a4) {
+int  sub_4CE200(int a1, int a2, int a3, int a4) {
 	int result; // eax
 	int v5;     // edi
 	int v6;     // eax

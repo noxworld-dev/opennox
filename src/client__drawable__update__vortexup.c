@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (004CC950) --------------------------------------------------------
-int __cdecl nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {
+int  nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {
 	int v2;  // ebp
 	int v3;  // esi
 	int v4;  // eax

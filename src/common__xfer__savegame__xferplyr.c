@@ -6,7 +6,7 @@
 extern FILE* nox_file_2;
 
 //----- (0041C8F0) --------------------------------------------------------
-int __cdecl nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
+int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 	wchar_t* v2;         // eax
 	wchar_t* v3;         // eax
 	int result;          // eax
