@@ -441,43 +441,42 @@ void nox_xxx_input_42D220() {
 		}
 	}
 	if (v0) {
-		do {
-			if (*(_BYTE*)(v0 + 88)) {
-				v20 = 0;
-				if (*(_DWORD*)(v0 + 32) > 0) {
-					v11 = (_DWORD*)v0;
-					do {
-						v12 = v21;
-						do {
-							if (*(_BYTE*)(v12 + 88)) {
-								if (v12 != v0) {
-									v13 = *(_DWORD*)(v12 + 32);
-									v14 = 0;
-									if (v13 > 0) {
-										v15 = (_DWORD*)v12;
-										while (*v11 != *v15) {
-											++v14;
-											++v15;
-											if (v14 >= v13)
-												goto LABEL_52;
-										}
-										if (*(int*)(v0 + 32) >= v13)
-											*(_BYTE*)(v12 + 88) = 0;
-										else
-											*(_BYTE*)(v0 + 88) = 0;
-									}
-								}
-							}
-						LABEL_52:
-							v12 = *(_DWORD*)(v12 + 80);
-						} while (v12);
-						++v11;
-						++v20;
-					} while (v20 < *(int*)(v0 + 32));
-				}
+		for ( ;v0; v0 = *(_DWORD*)(v0 + 80)) {
+			if (!*(_BYTE*)(v0 + 88)) {
+				continue;
 			}
-			v0 = *(_DWORD*)(v0 + 80);
-		} while (v0);
+			v20 = 0;
+			if (*(_DWORD*)(v0 + 32) <= 0) {
+				continue;
+			}
+			v11 = (_DWORD*)v0;
+			while (v20 < *(int*)(v0 + 32)) {
+				v12 = v21;
+				do {
+					if (*(_BYTE*)(v12 + 88) && v12 != v0) {
+						v13 = *(_DWORD*)(v12 + 32);
+						v14 = 0;
+						if (v13 > 0) {
+							v15 = (_DWORD*)v12;
+							while (v14 >= v13) {
+								if (*v11 == *v15) {
+									if (*(int*)(v0 + 32) >= v13)
+										*(_BYTE*)(v12 + 88) = 0;
+									else
+										*(_BYTE*)(v0 + 88) = 0;
+									break;
+								}
+								++v14;
+								++v15;
+							}
+						}
+					}
+					v12 = *(_DWORD*)(v12 + 80);
+				} while (v12);
+				++v11;
+				++v20;
+			}
+		}
 		v0 = v21;
 	}
 	v16 = 0;
