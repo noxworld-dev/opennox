@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-int __cdecl sub_4CD450(_DWORD* a1, int a2);
+int  sub_4CD450(_DWORD* a1, int a2);
 
 #endif // NOX_PORT_CLIENT_DRAWABLE_UPDATE_HEALUP

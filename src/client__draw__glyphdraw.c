@@ -5,7 +5,7 @@
 extern int nox_backbuffer_depth;
 
 //----- (004B9C70) --------------------------------------------------------
-int __cdecl nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 	char v3;    // cl
 	int v4;     // ecx
 	int v5;     // eax

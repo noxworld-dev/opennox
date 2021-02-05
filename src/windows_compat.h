@@ -18,7 +18,6 @@ extern "C" {
 #include <sys/types.h>
 #include <unistd.h>
 
-#define __cdecl
 #define __fastcall
 #define __stdcall
 #define WINAPI
@@ -445,7 +444,7 @@ int WINAPI sendto(int sockfd, void* buffer, unsigned int length, int flags, cons
 
 unsigned int _control87(unsigned int new_, unsigned int mask);
 unsigned int _controlfp(unsigned int new_, unsigned int mask);
-uintptr_t _beginthread(void(__cdecl* start_address)(void*), unsigned int stack_size, void* arglist);
+uintptr_t _beginthread(void(* start_address)(void*), unsigned int stack_size, void* arglist);
 char* _strrev(char* str);
 char* _itoa(int val, char* s, int radix);
 wchar_t* _itow(int val, wchar_t* s, int radix);

@@ -2,7 +2,7 @@
 #include "proto.h"
 
 //----- (00552020) --------------------------------------------------------
-int __cdecl sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen) {
+int  sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen) {
 	int v6;     // esi
 	_BYTE* v7;  // eax
 	char v8;    // al

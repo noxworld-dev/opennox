@@ -5,7 +5,7 @@
 #include "client__draw__fx.h"
 
 //----- (004B7740) --------------------------------------------------------
-_DWORD* __cdecl nox_thing_falling_sparks_draw_4B7740(int a1, int a2, nox_drawable* dr) {
+_DWORD*  nox_thing_falling_sparks_draw_4B7740(int a1, int a2, nox_drawable* dr) {
 	int a3 = dr;
 	int2* v3;       // edi
 	int v4;         // ebp

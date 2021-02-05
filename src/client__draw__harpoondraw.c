@@ -4,10 +4,10 @@
 
 
 //----- (004B64A0) --------------------------------------------------------
-int __cdecl nox_thing_harpoon_draw(int* a1, nox_drawable* dr) { return nox_thing_slave_draw(a1, dr); }
+int  nox_thing_harpoon_draw(int* a1, nox_drawable* dr) { return nox_thing_slave_draw(a1, dr); }
 
 //----- (004B61F0) --------------------------------------------------------
-int __cdecl nox_thing_harpoon_rope_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_harpoon_rope_draw(int* a1, nox_drawable* dr) {
 	int v2;              // ecx
 	int v3;              // edx
 	unsigned __int16 v4; // bx

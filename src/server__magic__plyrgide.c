@@ -1,7 +1,7 @@
 #include "proto.h"
 
 //----- (004D8000) --------------------------------------------------------
-int __cdecl nox_xxx_netReportGuideAward_4D8000(int a1, char a2, char a3, int a4) {
+int  nox_xxx_netReportGuideAward_4D8000(int a1, char a2, char a3, int a4) {
 	int result; // eax
 	int v5;     // ecx
 
@@ -19,7 +19,7 @@ int __cdecl nox_xxx_netReportGuideAward_4D8000(int a1, char a2, char a3, int a4)
 }
 
 //----- (004FAE80) --------------------------------------------------------
-int __cdecl nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
+int  nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 	int v3;               // ebp
 	int v4;               // edi
 	int v5;               // eax

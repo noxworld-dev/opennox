@@ -38,7 +38,7 @@ int nox_xxx_wndLoadQuiteMenu_445790() {
 }
 
 //----- (00445840) --------------------------------------------------------
-int __cdecl nox_xxx_menuGameOnButton_445840(_DWORD* a1, int a2, int* a3, int a4) {
+int  nox_xxx_menuGameOnButton_445840(_DWORD* a1, int a2, int* a3, int a4) {
 	int v3;       // esi
 	int v4;       // eax
 	int result;   // eax

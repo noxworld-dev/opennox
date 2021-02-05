@@ -53,7 +53,7 @@ int nox_xxx_createCoopTeam_417E10() {
 }
 
 //----- (004186D0) --------------------------------------------------------
-char* __cdecl nox_xxx_teamCreate_4186D0(char a1) {
+char*  nox_xxx_teamCreate_4186D0(char a1) {
 	wchar_t* v1;         // eax
 	char* result;        // eax
 	unsigned __int8 v3;  // al
@@ -97,7 +97,7 @@ char* __cdecl nox_xxx_teamCreate_4186D0(char a1) {
 }
 
 //----- (00418C20) --------------------------------------------------------
-wchar_t* __cdecl sub_418C20(int a1) {
+wchar_t*  sub_418C20(int a1) {
 	int v1;              // ecx
 	unsigned __int8* v2; // eax
 

@@ -7,7 +7,7 @@ extern _DWORD dword_5d4594_1309708;
 extern _DWORD dword_5d4594_1309716;
 
 //----- (004AA4D0) --------------------------------------------------------
-int __cdecl nox_xxx_windowArenaSub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
+int  nox_xxx_windowArenaSub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
 	int v4;      // eax
 	wchar_t* v5; // eax
 	wchar_t* v6; // eax

@@ -5,7 +5,7 @@ extern _DWORD dword_5d4594_1064296;
 extern _DWORD dword_5d4594_1064816;
 
 //----- (00468890) --------------------------------------------------------
-int __cdecl sub_468890_wol_reg(char* a1, char* a2, char* a3, _BYTE* a4, _BYTE* a5, wchar_t* a6) {
+int  sub_468890_wol_reg(char* a1, char* a2, char* a3, _BYTE* a4, _BYTE* a5, wchar_t* a6) {
 	_DWORD* v6;   // eax
 	int v7;       // eax
 	_DWORD* v8;   // eax
@@ -93,7 +93,7 @@ int __cdecl sub_468890_wol_reg(char* a1, char* a2, char* a3, _BYTE* a4, _BYTE* a
 }
 
 //----- (00468BB0) --------------------------------------------------------
-int __cdecl sub_468BB0_wol_reg(int* a1, int* a2, int* a3, wchar_t* a4) {
+int  sub_468BB0_wol_reg(int* a1, int* a2, int* a3, wchar_t* a4) {
 	_DWORD* v4;        // eax
 	const wchar_t* v5; // esi
 	_DWORD* v6;        // eax

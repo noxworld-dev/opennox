@@ -9,7 +9,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 //----- (00479D30) --------------------------------------------------------
-int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
+int  sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	_DWORD* v5;   // esi
 	_DWORD* v6;   // edi
 	_DWORD* v7;   // eax
@@ -84,7 +84,7 @@ int __cdecl sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 }
 
 //----- (0047A020) --------------------------------------------------------
-wchar_t* __cdecl sub_47A020(char* a1) {
+wchar_t*  sub_47A020(char* a1) {
 	_DWORD* v1;      // eax
 	int v2;          // ebp
 	wchar_t* v3;     // edi

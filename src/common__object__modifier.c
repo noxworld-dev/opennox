@@ -1,7 +1,7 @@
 #include "proto.h"
 
 //----- (00411B90) --------------------------------------------------------
-int __cdecl nox_xxx_parseWeapDescription_411B90(const char* a1, char* a2, obj_412ae0_t* obj) {
+int  nox_xxx_parseWeapDescription_411B90(const char* a1, char* a2, obj_412ae0_t* obj) {
 	// a1 is of the form "= modifier.db:SomethingDesc".
 	// Parse out the string name (after the separators " =\n\r\t")
 	const char* stringName = strtok(a2, " =\n\r\t");
@@ -25,7 +25,7 @@ int __cdecl nox_xxx_parseWeapDescription_411B90(const char* a1, char* a2, obj_41
 }
 
 //----- (00412100) --------------------------------------------------------
-int __cdecl nox_xxx_parseEnchDesc_412100_parse_desc(const char* a1, char* a2, obj_412ae0_t* obj) {
+int  nox_xxx_parseEnchDesc_412100_parse_desc(const char* a1, char* a2, obj_412ae0_t* obj) {
 	// a1 is of the form "= modifier.db:SomethingDesc".
 	// Parse out the string name (after the separators " =\n\r\t")
 	const char* stringName = strtok(a2, " =\n\r\t");
@@ -48,7 +48,7 @@ int __cdecl nox_xxx_parseEnchDesc_412100_parse_desc(const char* a1, char* a2, ob
 }
 
 //----- (004121B0) --------------------------------------------------------
-int __cdecl nox_xxx_parseEnchDescSecondary_4121B0_parse_second_desc(const char* a1, char* a2, obj_412ae0_t* obj) {
+int  nox_xxx_parseEnchDescSecondary_4121B0_parse_second_desc(const char* a1, char* a2, obj_412ae0_t* obj) {
 	// a1 is of the form "= modifier.db:SomethingDesc".
 	// Parse out the string name (after the separators " =\n\r\t")
 	const char* stringName = strtok(a2, " =\n\r\t");
@@ -71,7 +71,7 @@ int __cdecl nox_xxx_parseEnchDescSecondary_4121B0_parse_second_desc(const char* 
 }
 
 //----- (00412260) --------------------------------------------------------
-int __cdecl nox_xxx_parseIdentifyDesc_412260_parse_ident_desc(const char* a1, char* a2, obj_412ae0_t* obj) {
+int  nox_xxx_parseIdentifyDesc_412260_parse_ident_desc(const char* a1, char* a2, obj_412ae0_t* obj) {
 	// a1 is of the form "= modifier.db:SomethingDesc".
 	// Parse out the string name (after the separators " =\n\r\t")
 	const char* stringName = strtok(a2, " =\n\r\t");
@@ -94,7 +94,7 @@ int __cdecl nox_xxx_parseIdentifyDesc_412260_parse_ident_desc(const char* a1, ch
 }
 
 //----- (00413480) --------------------------------------------------------
-wchar_t* __cdecl sub_413480(char a1) {
+wchar_t*  sub_413480(char a1) {
 	int v1;              // ecx
 	unsigned __int8* v2; // eax
 

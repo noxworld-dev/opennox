@@ -263,7 +263,7 @@ int sub_4365C0() {
 }
 
 //----- (00436970) --------------------------------------------------------
-int __cdecl nox_xxx_drawBandwith_436970(int a1) {
+int  nox_xxx_drawBandwith_436970(int a1) {
 	int v1;      // esi
 	__int16* v2; // eax
 	int v3;      // ecx
@@ -306,7 +306,7 @@ int __cdecl nox_xxx_drawBandwith_436970(int a1) {
 }
 
 //----- (00436AA0) --------------------------------------------------------
-int __cdecl sub_436AA0(int a1) {
+int  sub_436AA0(int a1) {
 	int v1;      // esi
 	int v2;      // ebx
 	__int16* v3; // eax
@@ -439,7 +439,7 @@ int nox_xxx_drawTimingMB_436C40() {
 }
 
 //----- (00436DF0) --------------------------------------------------------
-int __cdecl nox_xxx_drawPing_436DF0(int a1) {
+int  nox_xxx_drawPing_436DF0(int a1) {
 	int v1;      // esi
 	__int16* v2; // eax
 	int v3;      // eax

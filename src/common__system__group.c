@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (0057C2D0) --------------------------------------------------------
-int __cdecl nox_server_scriptGetGroupId_57C2D0(int** a1) {
+int  nox_server_scriptGetGroupId_57C2D0(int** a1) {
 	int** v1;    // eax
 	char v2;     // cl
 	wchar_t* v4; // eax

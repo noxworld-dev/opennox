@@ -3,7 +3,7 @@
 #include "proto.h"
 
 //----- (004D8060) --------------------------------------------------------
-int __cdecl nox_xxx_netAbilityReport_4D8060(int a1, int a2, int a3) {
+int  nox_xxx_netAbilityReport_4D8060(int a1, int a2, int a3) {
 	int result; // eax
 	int v4;     // eax
 
@@ -21,7 +21,7 @@ int __cdecl nox_xxx_netAbilityReport_4D8060(int a1, int a2, int a3) {
 }
 
 //----- (004FB960) --------------------------------------------------------
-void __cdecl nox_xxx_abilGetSuccess_4FB960_ability(int a1) {
+void  nox_xxx_abilGetSuccess_4FB960_ability(int a1) {
 	wchar_t* v1; // eax
 
 	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * a1 + 217092), 0,
@@ -30,7 +30,7 @@ void __cdecl nox_xxx_abilGetSuccess_4FB960_ability(int a1) {
 }
 
 //----- (004FB9C0) --------------------------------------------------------
-int __cdecl nox_xxx_abilityRewardServ_4FB9C0_ability(int a1, int a2, int a3) {
+int  nox_xxx_abilityRewardServ_4FB9C0_ability(int a1, int a2, int a3) {
 	int v3;       // eax
 	int v4;       // ecx
 	int v5;       // edx

@@ -6,7 +6,7 @@ extern _DWORD dword_5d4594_2516328;
 extern _DWORD dword_5d4594_2516348;
 
 //----- (0056F980) --------------------------------------------------------
-_DWORD* __cdecl sub_56F980(int a1, unsigned __int8 a2) {
+_DWORD*  sub_56F980(int a1, unsigned __int8 a2) {
 	_DWORD* result; // eax
 	int v3;         // ecx
 
@@ -25,7 +25,7 @@ _DWORD* __cdecl sub_56F980(int a1, unsigned __int8 a2) {
 }
 
 //----- (004EF2E0) --------------------------------------------------------
-void __cdecl sub_4EF2E0_exp_level(int a1) {
+void  sub_4EF2E0_exp_level(int a1) {
 	int v1;      // esi
 	wchar_t* v2; // eax
 
@@ -47,7 +47,7 @@ void __cdecl sub_4EF2E0_exp_level(int a1) {
 }
 
 //----- (004EF3A0) --------------------------------------------------------
-void __cdecl nox_xxx_plyrGiveExp_4EF3A0_exp_level(int a1, float a2) {
+void  nox_xxx_plyrGiveExp_4EF3A0_exp_level(int a1, float a2) {
 	int v2;      // ecx
 	wchar_t* v3; // eax
 

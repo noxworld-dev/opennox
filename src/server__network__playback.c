@@ -7,7 +7,7 @@ extern _DWORD dword_5d4594_1548732;
 extern _DWORD nox_xxx_replayFile_587000_197428;
 
 //----- (004D3580) --------------------------------------------------------
-int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
+int  nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 	int v1;          // esi
 	wchar_t* v2;     // esi
 	wchar_t* v3;     // eax
@@ -108,4 +108,4 @@ int __cdecl nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 	nox_game_exit_xxx_43DE60();
 	return v1;
 }
-// 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
+// 4514E0: using guessed type void  nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);

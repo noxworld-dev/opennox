@@ -10,7 +10,7 @@ extern _DWORD dword_5d4594_815132;
 extern nox_window* nox_win_main_menu;
 
 //----- (004A1DC0) --------------------------------------------------------
-int __cdecl nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
+int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 	wchar_t* v5;   // eax
 	int v6;        // eax
 	wchar_t* v7;   // eax
@@ -155,7 +155,7 @@ int __cdecl nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (004A22A0) --------------------------------------------------------
-int __cdecl sub_4A22A0(int a1, int* a2) {
+int  sub_4A22A0(int a1, int* a2) {
 	int v2;               // edx
 	int v3;               // ecx
 	unsigned __int8* v4;  // esi

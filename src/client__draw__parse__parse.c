@@ -2,7 +2,7 @@
 #include "proto.h"
 
 //----- (0044C000) --------------------------------------------------------
-void* __cdecl nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* f) {
+void*  nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* f) {
 	_DWORD* v2;          // eax
 	_DWORD* v4;          // ebp
 	void* result;        // eax
@@ -49,7 +49,7 @@ void* __cdecl nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_me
 }
 
 //----- (0044BFA0) --------------------------------------------------------
-int __cdecl nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int a1, nox_memfile* f) {
+int  nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int a1, nox_memfile* f) {
 	if (!nox_xxx_loadVectorAnimated_44B8B0(a1, f))
 		return 0;
 
@@ -57,7 +57,7 @@ int __cdecl nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int a1, nox_memfile* f) {
 }
 
 //----- (0044B8B0) --------------------------------------------------------
-int __cdecl nox_xxx_loadVectorAnimated_44B8B0(int a1, nox_memfile* f) {
+int  nox_xxx_loadVectorAnimated_44B8B0(int a1, nox_memfile* f) {
 	*(_WORD*)(a1 + 40) = nox_memfile_read_u8(f);
 
 	*(_WORD*)(a1 + 42) = nox_memfile_read_u8(f);
@@ -74,7 +74,7 @@ int __cdecl nox_xxx_loadVectorAnimated_44B8B0(int a1, nox_memfile* f) {
 }
 
 //----- (0044BC50) --------------------------------------------------------
-int __cdecl nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
+int  nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
 	int v2;               // ebp
 	int v3;               // esi
 	void* v4;             // eax
@@ -122,7 +122,7 @@ int __cdecl nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
 }
 
 //----- (0044B4C0) --------------------------------------------------------
-int __cdecl get_animation_kind_id_44B4C0(const char* a1) {
+int  get_animation_kind_id_44B4C0(const char* a1) {
 	if (!strcmp(a1, "OneShot"))
 		return 0;
 	if (!strcmp(a1, "OneShotRemove"))

@@ -4,7 +4,7 @@
 extern _DWORD dword_5d4594_1313816;
 
 //----- (004B9F50) --------------------------------------------------------
-int __cdecl nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	int v2;     // ecx
 	int v3;     // edi
 	int v4;     // eax

@@ -3,7 +3,7 @@
 #include "proto.h"
 
 //----- (004BC750) --------------------------------------------------------
-int __cdecl nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 	int v2;               // esi
 	int v3;               // eax
 	int v4;               // edi

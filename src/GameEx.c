@@ -145,7 +145,7 @@ BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRes
 // 10012BCC: using guessed type char isLoaded;
 
 //----- (10001230) --------------------------------------------------------
-unsigned __int8 __cdecl KeyCodeMatcher(char* a1) {
+unsigned __int8  KeyCodeMatcher(char* a1) {
 	int v1;   // ecx
 	char* v2; // edi
 	char* v3; // esi
@@ -184,7 +184,7 @@ unsigned __int8 __cdecl KeyCodeMatcher(char* a1) {
 }
 
 //----- (10001290) --------------------------------------------------------
-int __cdecl GameExCfgSaver() {
+int  GameExCfgSaver() {
 	int result;         // eax
 	void* v1;           // esi
 	const char* v2;     // eax
@@ -448,7 +448,7 @@ char GameExCfgLoader() {
 }
 
 //----- (10001A20) --------------------------------------------------------
-int __cdecl sendtoWrapper(char* buf, int len, int smth) {
+int  sendtoWrapper(char* buf, int len, int smth) {
 	SOCKET* v3; // edx
 	int v4;     // eax
 	int result; // eax
@@ -467,7 +467,7 @@ int __cdecl sendtoWrapper(char* buf, int len, int smth) {
 }
 
 //----- (10001AD0) --------------------------------------------------------
-void __cdecl notifyThisIsServeronly(int ptr, __int16 shortval, BOOL boolval) {
+void  notifyThisIsServeronly(int ptr, __int16 shortval, BOOL boolval) {
 	LOBYTE(boolval) = 1;
 	*(_WORD*)ptr = 0xF13Au;        // packet id
 	*(_WORD*)(ptr + 2) = shortval; // always zero
@@ -532,7 +532,7 @@ int __usercall copyServerMatchData(char* a1) {
 }
 
 //----- (10001C20) --------------------------------------------------------
-char __cdecl getPlayerClassFromObjPtr(int a1) { return *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251); }
+char  getPlayerClassFromObjPtr(int a1) { return *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251); }
 
 //----- (10001C50) --------------------------------------------------------
 int __usercall playerInfoStructsToVector(smallPlayerStructVector* vector) {
@@ -557,7 +557,7 @@ int __usercall playerInfoStructsToVector(smallPlayerStructVector* vector) {
 }
 
 //----- (10001D40) --------------------------------------------------------
-char __cdecl playerInfoStructParser_0(char* a1) {
+char  playerInfoStructParser_0(char* a1) {
 	char* v1;  // esi
 	CHAR pDst; // [esp+10h] [ebp-18h]
 
@@ -609,7 +609,7 @@ char __usercall playerInfoStructParser_1(int a1, int a2, int* a3) {
 }
 
 //----- (10001EE0) --------------------------------------------------------
-char __cdecl mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
+char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 	int v2;        // esi
 	int v3;        // esi MAPDST
 	signed int v4; // edi
@@ -675,7 +675,7 @@ playerCheckStrength
 */
 
 //----- (10002030) --------------------------------------------------------
-char __cdecl playerDropATrap(int playerObj) {
+char  playerDropATrap(int playerObj) {
 	int v2;   // eax
 	int i;    // esi
 	float v4; // [esp+Ch] [ebp-18h]
@@ -834,7 +834,7 @@ HANDLE __usercall startInvalidIpChecker() {
 }
 
 //----- (100024A0) --------------------------------------------------------
-int __cdecl modifyWndInputHandler(int a1, int a2, int a3, int a4) {
+int  modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 	unsigned int v4; // eax
 	int result;      // eax
 	_DWORD* v6;      // edi

@@ -2,7 +2,7 @@
 #include "proto.h"
 
 //----- (004B9B50) --------------------------------------------------------
-int __cdecl nox_thing_boulder_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_boulder_draw(int* a1, nox_drawable* dr) {
 	int v2;          // edi
 	int v3;          // ecx
 	int v4;          // edx

@@ -5,7 +5,7 @@
 #include "proto.h"
 
 //----- (0046B000) --------------------------------------------------------
-wchar_t* __cdecl nox_xxx_wndWddSetTooltip_46B000(wchar_t* a1, wchar_t* a2) {
+wchar_t*  nox_xxx_wndWddSetTooltip_46B000(wchar_t* a1, wchar_t* a2) {
 	wchar_t* result; // eax
 	wchar_t* v3;     // eax
 
@@ -25,7 +25,7 @@ wchar_t* __cdecl nox_xxx_wndWddSetTooltip_46B000(wchar_t* a1, wchar_t* a2) {
 }
 
 //----- (0046C140) --------------------------------------------------------
-void __cdecl nox_xxx_clientPickup_46C140(int a1) {
+void  nox_xxx_clientPickup_46C140(int a1) {
 	int v2;      // eax
 	wchar_t* v3; // eax
 	int v4;      // [esp+0h] [ebp-4h]

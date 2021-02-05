@@ -4,7 +4,7 @@
 extern void* dword_587000_66120;
 
 //----- (00424460) --------------------------------------------------------
-int __cdecl nox_xxx_spellLoadSpells_424460(int a1, void* a2) {
+int  nox_xxx_spellLoadSpells_424460(int a1, void* a2) {
 	unsigned __int8* v2;  // eax
 	int v3;               // ebx
 	int v4;               // eax

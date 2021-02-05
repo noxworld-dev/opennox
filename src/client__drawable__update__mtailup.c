@@ -6,7 +6,7 @@
 
 extern unsigned int nox_gameFPS;
 //----- (004CDD80) --------------------------------------------------------
-void __cdecl nox_xxx_updDrawMagic_4CDD80(int a1, _DWORD* a2) {
+void  nox_xxx_updDrawMagic_4CDD80(int a1, _DWORD* a2) {
 	_DWORD* v2; // edi
 	int v3;     // eax
 	int v4;     // eax

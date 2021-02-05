@@ -50,7 +50,7 @@ extern _DWORD dword_5d4594_2650652;
 extern unsigned int nox_gameFPS;
 
 //----- (0048EA70) --------------------------------------------------------
-int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
+int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 	unsigned int v3;          // ebp
 	unsigned int v4;          // ebx
 	__int64 v5;               // rax
@@ -695,7 +695,7 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				v3 += 3;
 				break;
 			}
-			if (*(int(__cdecl**)(int*, int))(v5 + 300) == nox_thing_animate_draw) {
+			if (*(int(**)(int*, int))(v5 + 300) == nox_thing_animate_draw) {
 				v47 = *(_DWORD*)(v5 + 304);
 				if (v47) {
 					if (*(_DWORD*)(v47 + 12) == 1) {
@@ -726,7 +726,7 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				v3 += 3;
 				break;
 			}
-			if (*(int(__cdecl**)(int*, int))(v5 + 300) == nox_thing_animate_draw) {
+			if (*(int(**)(int*, int))(v5 + 300) == nox_thing_animate_draw) {
 				v52 = *(_DWORD*)(v5 + 304);
 				if (v52) {
 					if (*(_DWORD*)(v52 + 12) == 1) {
@@ -763,7 +763,7 @@ int __cdecl nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 			if (nox_client_fadeObjects_80836) {
 				if ((_DWORD)v5 != *getMemU32Ptr(0x5D4594, 2614252))
 					nox_xxx_spriteTransparentDecay_49B950((_DWORD*)v5, (int)nox_gameFPS);
-			} else if (*(int(__cdecl**)(int*, int))(v5 + 300) != nox_thing_animate_draw ||
+			} else if (*(int(**)(int*, int))(v5 + 300) != nox_thing_animate_draw ||
 					   (v56 = *(_DWORD*)(v5 + 304)) == 0 || *(_DWORD*)(v56 + 12) != 1) {
 				if (v51 != *getMemU32Ptr(0x5D4594, 2614252)) {
 					v53 = nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(v3 + 1));

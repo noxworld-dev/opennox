@@ -3,7 +3,7 @@ extern _DWORD dword_5d4594_2388640;
 extern _DWORD dword_5d4594_2388648;
 
 //----- (005199F0) --------------------------------------------------------
-void __cdecl nox_xxx_netSendMap_5199F0_net_mapsend(unsigned __int8* a1) {
+void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned __int8* a1) {
 	char* v1;         // eax
 	wchar_t* v2;      // eax
 	_WORD* v3;        // ebp
@@ -100,7 +100,7 @@ void __cdecl nox_xxx_netSendMap_5199F0_net_mapsend(unsigned __int8* a1) {
 // 519AFD: variable 'v18' is possibly undefined
 
 //----- (00519C80) --------------------------------------------------------
-void __cdecl nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned __int8* a1, unsigned __int8 a2) {
+void  nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned __int8* a1, unsigned __int8 a2) {
 	int v2;          // ecx
 	wchar_t* v3;     // eax
 	int v4;          // [esp-Ch] [ebp-114h]
@@ -122,7 +122,7 @@ void __cdecl nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned __int8* a1, uns
 }
 
 //----- (00519D20) --------------------------------------------------------
-char* __cdecl nox_xxx_netMapSend_519D20(int a1) {
+char*  nox_xxx_netMapSend_519D20(int a1) {
 	unsigned __int8* v1; // esi
 	wchar_t* v2;         // eax
 	char* result;        // eax
@@ -151,7 +151,7 @@ char* __cdecl nox_xxx_netMapSend_519D20(int a1) {
 }
 
 //----- (00519DE0) --------------------------------------------------------
-int __cdecl nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
+int  nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
 	unsigned __int8* v1; // esi
 	char* v2;            // ebx
 	int result;          // eax
@@ -174,7 +174,7 @@ int __cdecl nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
 	}
 	return result;
 }
-// 519920: using guessed type void __cdecl nullsub_27(_DWORD);
+// 519920: using guessed type void  nullsub_27(_DWORD);
 
 //----- (00519EB0) --------------------------------------------------------
 int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {

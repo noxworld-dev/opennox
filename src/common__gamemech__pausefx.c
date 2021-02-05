@@ -6,7 +6,7 @@ extern _DWORD dword_5d4594_2523776;
 extern _DWORD dword_5d4594_2523780;
 
 //----- (0057AF30) --------------------------------------------------------
-void __cdecl sub_57AF30(int a1, int a2) {
+void  sub_57AF30(int a1, int a2) {
 	int v2;      // ecx
 	_DWORD* v3;  // eax
 	wchar_t* v4; // eax
