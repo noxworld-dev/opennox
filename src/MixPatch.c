@@ -31,7 +31,7 @@ void OnLibraryNotice_stub(int a1, ...) {
 	/* TODO: STUB */
 }
 
-void __cdecl sub_980523(_DWORD* a1) {
+void  sub_980523(_DWORD* a1) {
 	_DWORD* i; // esi
 	int v2;    // eax
 
@@ -48,7 +48,7 @@ void __cdecl sub_980523(_DWORD* a1) {
 	}
 }
 
-_DWORD* __cdecl sub_9805EB(_DWORD* a1) {
+_DWORD*  sub_9805EB(_DWORD* a1) {
 	_DWORD* v1; // esi
 
 	if (!a1)

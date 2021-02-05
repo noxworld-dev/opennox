@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (004CCEA0) --------------------------------------------------------
-void __cdecl sub_4CCEA0(_DWORD* a1, int a2) {
+void  sub_4CCEA0(_DWORD* a1, int a2) {
 	_DWORD* v2; // ebp
 	int v3;     // ebx
 	int v4;     // esi

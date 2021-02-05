@@ -1,7 +1,7 @@
 #include "proto.h"
 
 //----- (00415B60) --------------------------------------------------------
-wchar_t* __cdecl sub_415B60(int a1) {
+wchar_t*  sub_415B60(int a1) {
 	int v1;             // ecx
 	int v2;             // edx
 	unsigned __int8* i; // eax

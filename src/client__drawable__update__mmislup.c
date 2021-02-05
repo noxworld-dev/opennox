@@ -5,7 +5,7 @@
 
 extern unsigned int nox_gameFPS;
 //----- (004CD9E0) --------------------------------------------------------
-int __cdecl nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
+int  nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
 	_DWORD* v2;  // ebp
 	int v3;      // esi
 	int v4;      // edi

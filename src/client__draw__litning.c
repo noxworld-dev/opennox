@@ -16,7 +16,7 @@ extern _DWORD dword_5d4594_1316492;
 void sub_49F5A0() { *getMemU32Ptr(0x5D4594, 3798692) = 0; }
 
 //----- (004BB070) --------------------------------------------------------
-int __cdecl nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
+int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 	int v2;             // eax
 	bool v3;            // zf
 	int v4;             // esi
@@ -166,7 +166,7 @@ int __cdecl nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 }
 
 //----- (004BAE60) --------------------------------------------------------
-int __cdecl nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, int a7) {
+int  nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, int a7) {
 	int2* v7;    // ebx
 	int2* v8;    // ebp
 	int v9;      // esi
@@ -265,7 +265,7 @@ int __cdecl nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, __int16* a
 }
 
 //----- (004BAC80) --------------------------------------------------------
-int __cdecl nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 	int v2;              // ebx
 	int v3;              // edi
 	int v4;              // ebp
@@ -337,7 +337,7 @@ int __cdecl nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (004BB3F0) --------------------------------------------------------
-int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 	unsigned __int16 v2; // ax
 	int v3;              // ebx
 	int v4;              // edi
@@ -411,7 +411,7 @@ int __cdecl nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (004BB5D0) --------------------------------------------------------
-int __cdecl nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 	int v2;              // esi
 	bool v3;             // zf
 	int v4;              // ebp
@@ -487,7 +487,7 @@ int __cdecl nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (004BB7B0) --------------------------------------------------------
-int __cdecl nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 	int v2;              // eax
 	int v3;              // eax
 	int v5;              // ebx

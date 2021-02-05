@@ -2,7 +2,7 @@
 #include "proto.h"
 
 //----- (004BBB30) --------------------------------------------------------
-int __cdecl nox_thing_pressure_plate_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_pressure_plate_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2;    // esi
 	int v4;    // ebp
 	int v5;    // edi

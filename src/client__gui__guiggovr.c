@@ -8,7 +8,7 @@ extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 
 //----- (0049B4B0) --------------------------------------------------------
-int __cdecl sub_49B4B0(unsigned __int16* a1) {
+int  sub_49B4B0(unsigned __int16* a1) {
 	wchar_t* v1; // eax
 	wchar_t* v2; // eax
 	wchar_t* v3; // eax

@@ -3,7 +3,7 @@
 #include "proto.h"
 
 //----- (004EF270) --------------------------------------------------------
-double __cdecl nox_xxx_unitGiveXP_4EF270(int a1, float a2) {
+double  nox_xxx_unitGiveXP_4EF270(int a1, float a2) {
 	int v3;    // ecx
 	double v4; // st7
 	float v5;  // [esp+Ch] [ebp+8h]
@@ -21,7 +21,7 @@ double __cdecl nox_xxx_unitGiveXP_4EF270(int a1, float a2) {
 }
 
 //----- (004EE500) --------------------------------------------------------
-void __cdecl nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1) {
+void  nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1) {
 	int v1;      // ebx
 	int v2;      // esi
 	int v3;      // ebp

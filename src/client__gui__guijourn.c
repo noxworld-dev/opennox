@@ -62,7 +62,7 @@ void nox_xxx_cliBuildJournalString_469BC0() {
 }
 
 //----- (00469D40) --------------------------------------------------------
-void __cdecl nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
+void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 	int v3;            // esi
 	int v4;            // ebp
 	int v5;            // ebx

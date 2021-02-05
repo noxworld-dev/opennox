@@ -7,7 +7,7 @@ extern _DWORD dword_5d4594_2386560;
 extern void* nox_alloc_tradeItems_2386496;
 
 //----- (0050E7A0) --------------------------------------------------------
-int __cdecl sub_50E7A0(_DWORD* a1, int a2) {
+int  sub_50E7A0(_DWORD* a1, int a2) {
 	int* v2; // esi
 	int v4;  // eax
 	int v5;  // eax
@@ -38,7 +38,7 @@ int __cdecl sub_50E7A0(_DWORD* a1, int a2) {
 }
 
 //----- (0050E8F0) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_createPlayerShopSession_50E8F0(int a1, int a2) {
+_DWORD*  nox_xxx_createPlayerShopSession_50E8F0(int a1, int a2) {
 	int v2;         // ebx
 	int v3;         // eax
 	_DWORD* v4;     // esi
@@ -64,7 +64,7 @@ _DWORD* __cdecl nox_xxx_createPlayerShopSession_50E8F0(int a1, int a2) {
 }
 
 //----- (0050F0F0) --------------------------------------------------------
-int __cdecl sub_50F0F0(int a1, int a2) {
+int  sub_50F0F0(int a1, int a2) {
 	int v2;      // ebx
 	int v3;      // ebp
 	wchar_t* v4; // eax
@@ -87,7 +87,7 @@ int __cdecl sub_50F0F0(int a1, int a2) {
 }
 
 //----- (0050F1A0) --------------------------------------------------------
-int __cdecl sub_50F1A0(int a1, int a2) {
+int  sub_50F1A0(int a1, int a2) {
 	int v2;      // eax
 	int v3;      // esi
 	int v4;      // edx
@@ -117,7 +117,7 @@ int __cdecl sub_50F1A0(int a1, int a2) {
 }
 
 //----- (0050F280) --------------------------------------------------------
-int __cdecl nox_xxx_servSendShopItems_50F280(int a1, int a2) {
+int  nox_xxx_servSendShopItems_50F280(int a1, int a2) {
 	int result; // eax
 	_DWORD* i;  // esi
 
@@ -128,7 +128,7 @@ int __cdecl nox_xxx_servSendShopItems_50F280(int a1, int a2) {
 }
 
 //----- (0050F370) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_tradeSetPlayer_50F370(_DWORD* a1, int a2) {
+_DWORD*  nox_xxx_tradeSetPlayer_50F370(_DWORD* a1, int a2) {
 	_DWORD* result; // eax
 
 	result = a1;
@@ -139,7 +139,7 @@ _DWORD* __cdecl nox_xxx_tradeSetPlayer_50F370(_DWORD* a1, int a2) {
 }
 
 //----- (0050FAE0) --------------------------------------------------------
-int __cdecl sub_50FAE0(int a1, int a2, int a3, int a4, int a5) {
+int  sub_50FAE0(int a1, int a2, int a3, int a4, int a5) {
 	int v5;       // esi
 	__int16 v6;   // dx
 	int v7;       // ecx
@@ -172,7 +172,7 @@ int __cdecl sub_50FAE0(int a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (0050FD60) --------------------------------------------------------
-BOOL __cdecl sub_50FD60(_DWORD* a1, int a2) {
+BOOL  sub_50FD60(_DWORD* a1, int a2) {
 	_DWORD* v2;      // esi
 	unsigned int v3; // edi
 	unsigned int v4; // ecx
@@ -226,7 +226,7 @@ BOOL __cdecl sub_50FD60(_DWORD* a1, int a2) {
 }
 
 //----- (00510320) --------------------------------------------------------
-void __cdecl sub_510320(int a1, int a2) {
+void  sub_510320(int a1, int a2) {
 	int v2;    // ecx
 	_BYTE* v3; // ebp
 	int v4;    // eax
@@ -262,7 +262,7 @@ void __cdecl sub_510320(int a1, int a2) {
 }
 
 //----- (005104F0) --------------------------------------------------------
-int __cdecl sub_5104F0(int a1, __int16 a2) {
+int  sub_5104F0(int a1, __int16 a2) {
 	int v2;     // eax
 	char v4[4]; // [esp+0h] [ebp-4h]
 
@@ -274,7 +274,7 @@ int __cdecl sub_5104F0(int a1, __int16 a2) {
 }
 
 //----- (00510540) --------------------------------------------------------
-int __cdecl sub_510540(int a1) {
+int  sub_510540(int a1) {
 	if (!nox_common_gameFlags_check_40A5C0(4096))
 		return 1;
 	if (!*getMemU32Ptr(0x5D4594, 2386520)) {
@@ -292,7 +292,7 @@ int __cdecl sub_510540(int a1) {
 }
 
 //----- (005105D0) --------------------------------------------------------
-BOOL __cdecl sub_5105D0(int a1) {
+BOOL  sub_5105D0(int a1) {
 	int v1; // eax
 
 	if (!*getMemU32Ptr(0x5D4594, 2386536)) {
@@ -306,7 +306,7 @@ BOOL __cdecl sub_5105D0(int a1) {
 }
 
 //----- (0050EF10) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_servShopStart_50EF10_trade(int a1, int a2) {
+_DWORD*  nox_xxx_servShopStart_50EF10_trade(int a1, int a2) {
 	int v2;           // edx
 	int v3;           // eax
 	wchar_t* v4;      // eax
@@ -397,7 +397,7 @@ LABEL_18:
 }
 
 //----- (0050F820) --------------------------------------------------------
-int __cdecl nox_xxx_tradeP2PAddOffer2_50F820_trade(int a1, int a2, float a3) {
+int  nox_xxx_tradeP2PAddOffer2_50F820_trade(int a1, int a2, float a3) {
 	float v3;    // ebx
 	int result;  // eax
 	int* v5;     // eax
@@ -480,7 +480,7 @@ int __cdecl nox_xxx_tradeP2PAddOffer2_50F820_trade(int a1, int a2, float a3) {
 }
 
 //----- (005100C0) --------------------------------------------------------
-float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
+float*  sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 	int v3;                                      // edi
 	unsigned int v4;                             // ebx
 	float* result;                               // eax
@@ -492,7 +492,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 	int v11;                                     // eax
 	int v12;                                     // ebx
 	_DWORD* v13;                                 // eax
-	void(__cdecl * v14)(int, _DWORD*, int, int); // ecx
+	void( * v14)(int, _DWORD*, int, int); // ecx
 	int v15;                                     // [esp+0h] [ebp-14h]
 	float v16;                                   // [esp+0h] [ebp-14h]
 	float v17;                                   // [esp+0h] [ebp-14h]
@@ -550,7 +550,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 				v13 = nox_new_objMem_2_4E3450(*(unsigned __int16*)(v6 + 4));
 			else
 				v13 = (_DWORD*)v6;
-			if (v13[2] & 0x110 || (v14 = (void(__cdecl*)(int, _DWORD*, int, int))v13[177]) == 0) {
+			if (v13[2] & 0x110 || (v14 = (void(*)(int, _DWORD*, int, int))v13[177]) == 0) {
 				nox_xxx_inventoryPutImpl_4F3070(v3, (int)v13, 1);
 				nox_xxx_aud_501960(307, v3, 2, *(_DWORD*)(v3 + 36));
 			} else {
@@ -567,7 +567,7 @@ float* __cdecl sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 }
 
 //----- (00510640) --------------------------------------------------------
-float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
+float*  sub_510640_trade(int a1, int a2, int a3, float* a4) {
 	int v4;                                      // ebp
 	float* result;                               // eax
 	_DWORD* v6;                                  // edi
@@ -577,7 +577,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 	int v10;                                     // eax
 	int v11;                                     // edi
 	_DWORD* v12;                                 // eax
-	void(__cdecl * v13)(int, _DWORD*, int, int); // ecx
+	void( * v13)(int, _DWORD*, int, int); // ecx
 	wchar_t* v14;                                // eax
 	int v15;                                     // [esp+0h] [ebp-1Ch]
 	float v16;                                   // [esp+0h] [ebp-1Ch]
@@ -644,7 +644,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 				v12 = nox_new_objMem_2_4E3450(*(unsigned __int16*)(v7 + 4));
 			else
 				v12 = (_DWORD*)v7;
-			v13 = (void(__cdecl*)(int, _DWORD*, int, int))v12[177];
+			v13 = (void(*)(int, _DWORD*, int, int))v12[177];
 			if (v13)
 				v13(v4, v12, 1, 1);
 			else
@@ -666,7 +666,7 @@ float* __cdecl sub_510640_trade(int a1, int a2, int a3, float* a4) {
 }
 
 //----- (005109C0) --------------------------------------------------------
-_DWORD* __cdecl sub_5109C0_trade(int* a1, int a2, _DWORD* a3) {
+_DWORD*  sub_5109C0_trade(int* a1, int a2, _DWORD* a3) {
 	int v3;         // ebx
 	int v4;         // esi
 	_DWORD* result; // eax
@@ -707,7 +707,7 @@ _DWORD* __cdecl sub_5109C0_trade(int* a1, int a2, _DWORD* a3) {
 }
 
 //----- (00510BE0) --------------------------------------------------------
-_DWORD* __cdecl sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
+_DWORD*  sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
 	_DWORD* result; // eax
 	int v4;         // ebx
 	int v5;         // esi

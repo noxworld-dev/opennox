@@ -84,9 +84,9 @@ extern int PlayMovieCallback(BYTE* frame, unsigned long cx, unsigned long cy) {
 	return result;
 }
 
-void __cdecl sub_555430(HWND* a1) { return; }
+void  sub_555430(HWND* a1) { return; }
 
-char __cdecl sub_555500(char a1) { return 0; }
+char  sub_555500(char a1) { return 0; }
 #else
 
 // getMemByte(0x5D4594, 2513944)
@@ -95,7 +95,7 @@ LPDIRECTSOUND g_dsound;
 LPDIRECTSOUNDBUFFER g_dsound_buffer;
 
 //----- (00555430) --------------------------------------------------------
-void __cdecl sub_555430(HWND* a1) {
+void  sub_555430(HWND* a1) {
 	HWND v2; // edi
 
 	if (!a1) {
@@ -125,7 +125,7 @@ void __cdecl sub_555430(HWND* a1) {
 }
 
 //----- (00555500) --------------------------------------------------------
-char __cdecl sub_555500(char a1) {
+char  sub_555500(char a1) {
 	char result; // al
 
 	result = a1;
@@ -137,7 +137,7 @@ char __cdecl sub_555500(char a1) {
 int sub_555510() { return *getMemU32Ptr(0x5D4594, 2513940) | (char)getMemByte(0x5D4594, 2513936); }
 
 //----- (00555520) --------------------------------------------------------
-signed int __cdecl sub_555520(HWND a1) {
+signed int  sub_555520(HWND a1) {
 	HRESULT v1;        // ebx
 	signed int result; // eax
 
@@ -170,7 +170,7 @@ signed int __cdecl sub_555520(HWND a1) {
 // 5813EC: using guessed type _DWORD __stdcall AIL_lock();
 
 //----- (005555D0) --------------------------------------------------------
-void __cdecl sub_5555D0() {
+void  sub_5555D0() {
 	if (g_dsound_buffer) {
 		g_dsound_buffer->lpVtbl->Stop(g_dsound_buffer);
 		g_dsound_buffer->lpVtbl->Release(g_dsound_buffer);
@@ -187,7 +187,7 @@ void __cdecl sub_5555D0() {
 // 5813EC: using guessed type _DWORD __stdcall AIL_lock();
 
 //----- (00555620) --------------------------------------------------------
-int* __cdecl sub_555620(_DWORD* a1) {
+int*  sub_555620(_DWORD* a1) {
 	_DWORD* v1;  // esi
 	void* v2;    // edi
 	int v3;      // ebx
@@ -348,7 +348,7 @@ int* __cdecl sub_555620(_DWORD* a1) {
 	}
 	return result;
 }
-// 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
+// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (00555A40) --------------------------------------------------------
 int sub_555A40() {
@@ -390,7 +390,7 @@ int sub_555A40() {
 }
 
 //----- (00555AE0) --------------------------------------------------------
-_DWORD* __cdecl sub_555AE0(int a1, int a2, int a3, _DWORD* a4, _DWORD* a5, _DWORD* a6) {
+_DWORD*  sub_555AE0(int a1, int a2, int a3, _DWORD* a4, _DWORD* a5, _DWORD* a6) {
 	_DWORD* result; // eax
 
 	*a6 = a3;
@@ -447,7 +447,7 @@ _DWORD* __cdecl sub_555AE0(int a1, int a2, int a3, _DWORD* a4, _DWORD* a5, _DWOR
 }
 
 //----- (00555C10) --------------------------------------------------------
-int __cdecl sub_555C10(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
+int  sub_555C10(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 	int result; // eax
 
 	*a1 = *getMemU32Ptr(0x5D4594, 2513952);
@@ -458,7 +458,7 @@ int __cdecl sub_555C10(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 }
 
 //----- (00555C40) --------------------------------------------------------
-int __cdecl nox_xxx_VQA_Test_555C40(_DWORD* a1) {
+int  nox_xxx_VQA_Test_555C40(_DWORD* a1) {
 	const char* v1;   // ebp
 	int v2;           // ebx
 	int v3;           // esi
@@ -599,7 +599,7 @@ int __cdecl nox_xxx_VQA_Test_555C40(_DWORD* a1) {
 	sub_413B70((char*)getMemAt(0x587000, 293380));
 	return 1;
 }
-// 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
+// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (00556010) --------------------------------------------------------
 int sub_556010() {
@@ -712,7 +712,7 @@ int __thiscall sub_556240(_DWORD** this) {
 }
 
 //----- (00556280) --------------------------------------------------------
-int __cdecl sub_556280(int a1) {
+int  sub_556280(int a1) {
 	int result; // eax
 
 	result = a1 >> 3;
@@ -721,7 +721,7 @@ int __cdecl sub_556280(int a1) {
 }
 
 //----- (005562A0) --------------------------------------------------------
-BOOL __cdecl sub_5562A0(int a1) { return (getMemByte(0x5D4594, (a1 >> 3) + 2513992) & (unsigned __int8)(1 << (a1 & 7))) != 0; }
+BOOL  sub_5562A0(int a1) { return (getMemByte(0x5D4594, (a1 >> 3) + 2513992) & (unsigned __int8)(1 << (a1 & 7))) != 0; }
 
 //----- (005562C0) --------------------------------------------------------
 void* __thiscall sub_5562C0(void* this) { return this; }
@@ -869,7 +869,7 @@ void* __thiscall sub_556470(_DWORD* this, void* a2, int a3, int a4, int a5, char
 	v8[7] = v8;
 	return result;
 }
-// 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
+// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (00556500) --------------------------------------------------------
 void* __thiscall sub_556500(void* this, void* a2, int a3, int a4) {
@@ -997,7 +997,7 @@ int __thiscall sub_556710(_DWORD* this) {
 	}
 	return result;
 }
-// 560840: using guessed type void __cdecl nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(_DWORD);
 
 //----- (00556820) --------------------------------------------------------
 int __thiscall sub_556820(_DWORD* this) {
@@ -1027,7 +1027,7 @@ int __thiscall sub_556820(_DWORD* this) {
 	}
 	return result;
 }
-// 560840: using guessed type void __cdecl nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(_DWORD);
 
 //----- (00556890) --------------------------------------------------------
 int __thiscall sub_556890(_DWORD* this, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9) {
@@ -1053,7 +1053,7 @@ int __thiscall sub_556890(_DWORD* this, int a2, int a3, int a4, int a5, int a6, 
 }
 
 //----- (00556920) --------------------------------------------------------
-void __cdecl sub_556920(int* a1, char a2) {
+void  sub_556920(int* a1, char a2) {
 	int v2;           // eax
 	int v3;           // edi
 	int v4;           // edx
@@ -1110,7 +1110,7 @@ void __cdecl sub_556920(int* a1, char a2) {
 _DWORD* nox_xxx_unknown_libname_13_5569A0() { return sub_556AC0(getMemAt(0x5D4594, 2514012)); }
 
 //----- (005569B0) --------------------------------------------------------
-int __cdecl sub_5569B0(HWND a1) {
+int  sub_5569B0(HWND a1) {
 	int v1; // eax
 
 	*getMemU32Ptr(0x5D4594, 2515892) = a1;
@@ -1137,7 +1137,7 @@ int sub_5569F0() {
 int nox_xxx_unknown_libname_14_556A10() { return sub_556B80(getMemIntPtr(0x5D4594, 2514012)); }
 
 //----- (00556A20) --------------------------------------------------------
-char* __cdecl sub_556A20(char* a1) {
+char*  sub_556A20(char* a1) {
 	char* result;        // eax
 	int v2;              // ebp
 	unsigned __int8* v3; // ecx
@@ -1282,7 +1282,7 @@ char* __thiscall sub_556C10(_DWORD* this) {
 }
 
 //----- (00556C60) --------------------------------------------------------
-int __cdecl sub_556C60(int a1, int a2) {
+int  sub_556C60(int a1, int a2) {
 	int result; // eax
 	CHAR Text;  // [esp+0h] [ebp-100h]
 
@@ -1816,7 +1816,7 @@ LABEL_14:
 	v9[1556] = 0;
 	return v9;
 }
-// 55A740: using guessed type int __cdecl sub_55A740(_DWORD);
+// 55A740: using guessed type int  sub_55A740(_DWORD);
 
 //----- (00557F50) --------------------------------------------------------
 int __thiscall sub_557F50(char* this) { return sub_559AE0(this + 4); }
@@ -2115,7 +2115,7 @@ LABEL_13:
 }
 // 558800: using guessed type int __thiscall sub_558800(_DWORD);
 // 558810: using guessed type int __thiscall sub_558810(_DWORD);
-// 560840: using guessed type void __cdecl nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(_DWORD);
 
 //----- (005586A0) --------------------------------------------------------
 char __thiscall sub_5586A0(int this) {
@@ -2266,15 +2266,15 @@ BOOL __thiscall sub_558820(char* this, int a2, CHAR* a3, signed int a4) {
 }
 
 //----- (00558970) --------------------------------------------------------
-BOOL __cdecl sub_558970(int a1, int a2, CHAR* a3, signed int a4) { return sub_558820(*(char**)(a1 + 172), a2, a3, a4); }
+BOOL  sub_558970(int a1, int a2, CHAR* a3, signed int a4) { return sub_558820(*(char**)(a1 + 172), a2, a3, a4); }
 
 //----- (00558990) --------------------------------------------------------
-int __cdecl sub_558990(int a1, int a2, void* a3, unsigned int a4) {
+int  sub_558990(int a1, int a2, void* a3, unsigned int a4) {
 	return sub_558090(*(_DWORD**)(a1 + 172), a2, a3, a4);
 }
 
 //----- (005589B0) --------------------------------------------------------
-_DWORD* __cdecl sub_5589B0(int a1, int a2, _DWORD* lpMem, size_t a4) {
+_DWORD*  sub_5589B0(int a1, int a2, _DWORD* lpMem, size_t a4) {
 	_DWORD* result; // eax
 
 	switch (a2) {
@@ -2301,7 +2301,7 @@ _DWORD* __cdecl sub_5589B0(int a1, int a2, _DWORD* lpMem, size_t a4) {
 }
 
 //----- (00558A20) --------------------------------------------------------
-int __cdecl sub_558A20(int a1, int a2, void* a3, unsigned int a4) {
+int  sub_558A20(int a1, int a2, void* a3, unsigned int a4) {
 	_BYTE* v4;  // esi
 	int result; // eax
 
@@ -2332,7 +2332,7 @@ int __cdecl sub_558A20(int a1, int a2, void* a3, unsigned int a4) {
 // 558800: using guessed type int __thiscall sub_558800(_DWORD);
 // 558810: using guessed type int __thiscall sub_558810(_DWORD);
 
-char __cdecl sub_558AA0(_DWORD* a1, _DWORD* a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7,
+char  sub_558AA0(_DWORD* a1, _DWORD* a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7,
 						int a8, char a9) {
 	DebugBreak();
 	return 0;
@@ -2340,7 +2340,7 @@ char __cdecl sub_558AA0(_DWORD* a1, _DWORD* a2, unsigned int a3, unsigned int a4
 
 #if 0
 //----- (00558AA0) --------------------------------------------------------
-char __cdecl sub_558AA0(_DWORD * a1, _DWORD * a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7, int a8, char a9)
+char  sub_558AA0(_DWORD * a1, _DWORD * a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7, int a8, char a9)
 {
     int v9; // edi
     unsigned int v10; // ecx
@@ -2569,14 +2569,14 @@ char __cdecl sub_558AA0(_DWORD * a1, _DWORD * a2, unsigned int a3, unsigned int 
 }
 #endif
 
-void __cdecl sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9,
+void  sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9,
 						int a10, int a11, int a12) {
 	DebugBreak();
 }
 
 #if 0
 //----- (00559030) --------------------------------------------------------
-void __cdecl sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12)
+void  sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12)
 {
     int v12; // edi
     unsigned int v13; // ecx
@@ -2818,7 +2818,7 @@ int __thiscall sub_559C30(_BYTE* this) {
 }
 
 //----- (00559C40) --------------------------------------------------------
-int __cdecl sub_559C40(int a1) {
+int  sub_559C40(int a1) {
 	unsigned __int8* v1; // esi
 	int result;          // eax
 	unsigned int v3;     // ebx
@@ -2860,10 +2860,10 @@ int __cdecl sub_559C40(int a1) {
 	}
 	return *((_DWORD*)v1 + 7);
 }
-// 55A740: using guessed type int __cdecl sub_55A740(_DWORD);
+// 55A740: using guessed type int  sub_55A740(_DWORD);
 
 //----- (00559D00) --------------------------------------------------------
-int __cdecl sub_559D00(int a1, unsigned int a2, int a3) {
+int  sub_559D00(int a1, unsigned int a2, int a3) {
 	_DWORD* v3;                       // esi
 	unsigned int v4;                  // ebp
 	struct _RTL_CRITICAL_SECTION* v5; // ebx
@@ -2916,7 +2916,7 @@ LABEL_10:
 }
 
 //----- (00559DB0) --------------------------------------------------------
-int __cdecl sub_559DB0(DWORD_PTR dwUser, int a2, int a3, int a4) {
+int  sub_559DB0(DWORD_PTR dwUser, int a2, int a3, int a4) {
 	int result; // eax
 
 	result = -1;
@@ -2951,10 +2951,10 @@ int __cdecl sub_559DB0(DWORD_PTR dwUser, int a2, int a3, int a4) {
 	}
 	return result;
 }
-// 55A740: using guessed type int __cdecl sub_55A740(_DWORD);
+// 55A740: using guessed type int  sub_55A740(_DWORD);
 
 //----- (00559E80) --------------------------------------------------------
-int __cdecl sub_559E80(DWORD_PTR dwUser, int a2, int a3) {
+int  sub_559E80(DWORD_PTR dwUser, int a2, int a3) {
 	int v3;                    // eax
 	unsigned __int8* v4;       // ecx
 	unsigned __int8* v5;       // esi
@@ -3046,7 +3046,7 @@ int __cdecl sub_559E80(DWORD_PTR dwUser, int a2, int a3) {
 // 5813EC: using guessed type _DWORD __stdcall AIL_lock();
 
 //----- (0055A0C0) --------------------------------------------------------
-int __cdecl sub_55A0C0(int a1) {
+int  sub_55A0C0(int a1) {
 	unsigned __int8* v1; // esi
 
 	v1 = getMemAt(0x5D4594, 200 * *(_DWORD*)(a1 + 52) + 2515988);
@@ -3063,7 +3063,7 @@ int __cdecl sub_55A0C0(int a1) {
 }
 
 //----- (0055A130) --------------------------------------------------------
-int __cdecl sub_55A130(int a1) {
+int  sub_55A130(int a1) {
 	unsigned __int8* v1;                             // esi
 	int v2;                                          // eax
 	LPDIRECTSOUNDBUFFER v3;                          // eax
@@ -3117,8 +3117,8 @@ int __cdecl sub_55A130(int a1) {
 		g_dsound->lpVtbl->CreateSoundBuffer(g_dsound, (LPCDSBUFFERDESC)(v1 + 96), (LPDIRECTSOUNDBUFFER*)(v1 + 152), 0);
 		AIL_unlock();
 		if (*v6) {
-			(*(void(__cdecl**)(_DWORD)) getMemAt(0x5D4594, 2515980))(a1);
-			(*(void(__cdecl**)(_DWORD)) getMemAt(0x5D4594, 2515980))(a1);
+			(*(void(**)(_DWORD)) getMemAt(0x5D4594, 2515980))(a1);
+			(*(void(**)(_DWORD)) getMemAt(0x5D4594, 2515980))(a1);
 			v11 = *v6;
 			*((_DWORD*)v1 + 16) = 0;
 			*((_DWORD*)v1 + 42) = 0;
@@ -3142,7 +3142,7 @@ int __cdecl sub_55A130(int a1) {
 // 5813EC: using guessed type _DWORD __stdcall AIL_lock();
 
 //----- (0055A2E0) --------------------------------------------------------
-int __cdecl sub_55A2E0(int a1, int a2, int a3) {
+int  sub_55A2E0(int a1, int a2, int a3) {
 	unsigned __int8* v3; // edi
 	int v4;              // esi
 	int v5;              // eax
@@ -3171,7 +3171,7 @@ int __cdecl sub_55A2E0(int a1, int a2, int a3) {
 // 5813EC: using guessed type _DWORD __stdcall AIL_lock();
 
 //----- (0055A360) --------------------------------------------------------
-int __cdecl sub_55A360(int a1) {
+int  sub_55A360(int a1) {
 	unsigned __int8* v1; // esi
 	int v2;              // eax
 
@@ -3188,7 +3188,7 @@ int __cdecl sub_55A360(int a1) {
 }
 
 //----- (0055A3B0) --------------------------------------------------------
-int __cdecl sub_55A3B0(int a1) {
+int  sub_55A3B0(int a1) {
 	int v1;     // eax
 	int result; // eax
 
@@ -3201,7 +3201,7 @@ int __cdecl sub_55A3B0(int a1) {
 }
 
 //----- (0055A3F0) --------------------------------------------------------
-int __cdecl sub_55A3F0(int a1) {
+int  sub_55A3F0(int a1) {
 	unsigned __int8* v1; // esi
 	int v2;              // eax
 
@@ -3268,14 +3268,14 @@ void __stdcall fptc(UINT uTimerID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2
 	}
 	v9 = *((_DWORD*)v6 + 42);
 	if (v14 < v9 || (unsigned int)v14 >= *((_DWORD*)v6 + 39) >> 1 && !v9 || v8) {
-		(*(void(__cdecl**)(_DWORD, _DWORD)) getMemAt(0x5D4594, 2515984))(v5, *(_DWORD*)&v6[4 * *((_DWORD*)v6 + 16) + 76]);
+		(*(void(**)(_DWORD, _DWORD)) getMemAt(0x5D4594, 2515984))(v5, *(_DWORD*)&v6[4 * *((_DWORD*)v6 + 16) + 76]);
 		v10 = *((_DWORD*)v6 + 16);
 		v11 = v10 + 1;
 		++*((_DWORD*)v6 + 40);
 		if (v10 + 1 >= 2)
 			v11 = 0;
 		*(_DWORD*)&v6[4 * v10 + 68] = 0;
-		(*(void(__cdecl**)(_DWORD)) getMemAt(0x5D4594, 2515980))(v5);
+		(*(void(**)(_DWORD)) getMemAt(0x5D4594, 2515980))(v5);
 		if (*(_DWORD*)&v6[4 * v11 + 68])
 			*((_DWORD*)v6 + 16) = v11;
 		if (v12)
@@ -3287,7 +3287,7 @@ void __stdcall fptc(UINT uTimerID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2
 }
 
 //----- (0055A610) --------------------------------------------------------
-int __cdecl sub_55A610(char* a1) {
+int  sub_55A610(char* a1) {
 	unsigned __int8* v1; // ebx
 	int result;          // eax
 	int v3;              // ecx
@@ -3369,13 +3369,13 @@ LABEL_10:
 int sub_55A750() { return 1; }
 
 //----- (0055A760) --------------------------------------------------------
-void __cdecl sub_55A760(void* a1) { memcpy(a1, getMemAt(0x587000, 300360), 0x88u); }
+void  sub_55A760(void* a1) { memcpy(a1, getMemAt(0x587000, 300360), 0x88u); }
 
 //----- (0055A780) --------------------------------------------------------
-char* __cdecl sub_55A780(char* a1) { return sub_556A20(a1); }
+char*  sub_55A780(char* a1) { return sub_556A20(a1); }
 
 //----- (0055A790) --------------------------------------------------------
-int __cdecl sub_55A790(int a1) {
+int  sub_55A790(int a1) {
 	int result; // eax
 
 	for (result = 0; result < 768; ++result)
@@ -3384,15 +3384,15 @@ int __cdecl sub_55A790(int a1) {
 }
 
 //----- (0055A7B0) --------------------------------------------------------
-int __cdecl sub_55A7B0(int a1, int a2, _DWORD* a3) {
+int  sub_55A7B0(int a1, int a2, _DWORD* a3) {
 	_DWORD* v3;                                  // esi
 	bool v4;                                     // zf
 	int result;                                  // eax
-	int(__cdecl * v6)(_DWORD, int, _DWORD, int); // eax
+	int( * v6)(_DWORD, int, _DWORD, int); // eax
 	_WORD* v7;                                   // eax
 	_WORD* v8;                                   // ebx
 	int v9;                                      // eax
-	int(__cdecl * *v10)(int, int, char*, int);   // ebp
+	int( * *v10)(int, int, char*, int);   // ebp
 	const char* v11;                             // esi
 	signed int v12;                              // ecx
 	int v13;                                     // edx
@@ -3422,12 +3422,12 @@ int __cdecl sub_55A7B0(int a1, int a2, _DWORD* a3) {
 		return -15;
 	if (!v3[14])
 		return -16;
-	v6 = (int(__cdecl*)(_DWORD, int, _DWORD, int))v3[1];
+	v6 = (int(*)(_DWORD, int, _DWORD, int))v3[1];
 	if (v6) {
 		v9 = v6(0, 2, 0, 2012);
 		v8 = (_WORD*)v9;
 		if (v9) {
-			((void(__cdecl*)(int, int, int, int))v3[1])(v9, 4, v9, 2012);
+			((void(*)(int, int, int, int))v3[1])(v9, 4, v9, 2012);
 			goto LABEL_12;
 		}
 		return -8;
@@ -3438,7 +3438,7 @@ int __cdecl sub_55A7B0(int a1, int a2, _DWORD* a3) {
 		return -8;
 	sub_562770((int)v7, 4, v7, 2012);
 LABEL_12:
-	v10 = (int(__cdecl**)(int, int, char*, int))(v8 + 32);
+	v10 = (int(**)(int, int, char*, int))(v8 + 32);
 	memset(v8, 0, 0x7DCu);
 	*((_DWORD*)v8 + 12) = 2012;
 	memcpy(v8 + 32, v3, 0x88u);
@@ -3448,8 +3448,8 @@ LABEL_12:
 		*v10 = sub_562930;
 	v11 = (const char*)a1;
 	if ((*v10)((int)v8, 3, (char*)a1, 0)) {
-		(*((void(__cdecl**)(_WORD*, int, _WORD*, int))v8 + 17))(v8, 5, v8, 2012);
-		(*((void(__cdecl**)(_WORD*, int, _WORD*, _DWORD))v8 + 17))(v8, 3, v8, 0);
+		(*((void(**)(_WORD*, int, _WORD*, int))v8 + 17))(v8, 5, v8, 2012);
+		(*((void(**)(_WORD*, int, _WORD*, _DWORD))v8 + 17))(v8, 3, v8, 0);
 		return -3;
 	}
 	v12 = strlen(v11) - 31;
@@ -3589,7 +3589,7 @@ LABEL_12:
 		*((_DWORD*)v8 + 495) |= 0x40000000u;
 		sub_560860((int)(v8 + 1000));
 	} else if (*((_DWORD*)v8 + 22)) {
-		(*((void(__cdecl**)(_WORD*, int, _DWORD, _DWORD))v8 + 22))(v8, 1, 0, 0);
+		(*((void(**)(_WORD*, int, _DWORD, _DWORD))v8 + 22))(v8, 1, 0, 0);
 	}
 	v22 = *((_DWORD*)v8 + 33);
 	if (v22 & 0x20) {
@@ -3597,7 +3597,7 @@ LABEL_12:
 			if ((*v10)((int)v8, 9, (char*)&a2, 0))
 				a2 = 0;
 			*((_DWORD*)v8 + 446) = sub_55BA80((int)v8, a2);
-			(*((void(__cdecl**)(_WORD*, int, int*, _DWORD))v8 + 17))(v8, 6, &a1, 0);
+			(*((void(**)(_WORD*, int, int*, _DWORD))v8 + 17))(v8, 6, &a1, 0);
 			v23 = a1;
 			if (a1 < 0) {
 				v24 = (a2 <= 0) - 1;
@@ -3607,11 +3607,11 @@ LABEL_12:
 			if (*((_DWORD*)v8 + 446) > v23)
 				*((_DWORD*)v8 + 446) = v23;
 			if (*((_DWORD*)v8 + 446) > 0) {
-				v25 = (*((int(__cdecl**)(_WORD*, int, _DWORD, _DWORD))v8 + 17))(v8, 2, 0, *((_DWORD*)v8 + 446));
+				v25 = (*((int(**)(_WORD*, int, _DWORD, _DWORD))v8 + 17))(v8, 2, 0, *((_DWORD*)v8 + 446));
 				*((_DWORD*)v8 + 445) = v25;
 				if (!v25)
 					goto LABEL_95;
-				(*((void(__cdecl**)(_WORD*, int, _DWORD, _DWORD))v8 + 17))(v8, 4, *((_DWORD*)v8 + 445),
+				(*((void(**)(_WORD*, int, _DWORD, _DWORD))v8 + 17))(v8, 4, *((_DWORD*)v8 + 445),
 																		   *((_DWORD*)v8 + 446));
 				v26 = *((_DWORD*)v8 + 446) + *((_DWORD*)v8 + 12);
 				*((_DWORD*)v8 + 85) |= 4u;
@@ -3645,7 +3645,7 @@ LABEL_12:
 }
 
 //----- (0055AE50) --------------------------------------------------------
-int __cdecl sub_55AE50(int a1) {
+int  sub_55AE50(int a1) {
 	int v1; // eax
 
 	if (*(_BYTE*)(a1 + 132) & 1) {
@@ -3660,21 +3660,21 @@ int __cdecl sub_55AE50(int a1) {
 	if (*(_BYTE*)(a1 + 336) & 0x20) {
 		v1 = *(_DWORD*)(a1 + 344);
 		if (v1) {
-			(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 5, v1, *(_DWORD*)(a1 + 348) * *(_DWORD*)(a1 + 352));
-			(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 344), 0);
+			(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v1, *(_DWORD*)(a1 + 348) * *(_DWORD*)(a1 + 352));
+			(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 344), 0);
 		}
 	}
 	sub_562120(a1);
-	(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 64))(a1, 4, 0, 0);
-	(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 5, a1, 2012);
-	return (*(int(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 3, a1, 0);
+	(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 64))(a1, 4, 0, 0);
+	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, a1, 2012);
+	return (*(int(**)(int, int, int, _DWORD))(a1 + 68))(a1, 3, a1, 0);
 }
 
 //----- (0055AEF0) --------------------------------------------------------
-int __cdecl sub_55AEF0(int a1, int a2, char a3) {
+int  sub_55AEF0(int a1, int a2, char a3) {
 	int v3;                 // edi
 	int v4;                 // eax
-	int(__cdecl * v5)(int); // eax
+	int( * v5)(int); // eax
 	int v6;                 // eax
 	int v7;                 // edx
 	int v8;                 // eax
@@ -3710,7 +3710,7 @@ int __cdecl sub_55AEF0(int a1, int a2, char a3) {
 		LOBYTE(v4) = v4 | 8;
 		*(_DWORD*)(a1 + 336) = v4;
 	}
-	v5 = *(int(__cdecl**)(int))(a1 + 84);
+	v5 = *(int(**)(int))(a1 + 84);
 	if (v5)
 		v6 = v5(a1);
 	else
@@ -3805,7 +3805,7 @@ int __cdecl sub_55AEF0(int a1, int a2, char a3) {
 			}
 			*(_DWORD*)(a1 + 420) = v15;
 		LABEL_50:
-			v16 = (*(int(__cdecl**)(int))(a1 + 1916))(a1);
+			v16 = (*(int(**)(int))(a1 + 1916))(a1);
 			v3 = v16;
 			if (v16 == -1) {
 				if (!(*(_BYTE*)(a1 + 420) & 8))
@@ -3849,7 +3849,7 @@ int __cdecl sub_55AEF0(int a1, int a2, char a3) {
 		goto LABEL_80;
 	}
 	*(_DWORD*)(a1 + 420) |= 0x14u;
-	v21 = (*(int(__cdecl**)(int))(a1 + 1916))(a1);
+	v21 = (*(int(**)(int))(a1 + 1916))(a1);
 	v3 = v21;
 	if (v21 != -1) {
 		if (v21 != -9)
@@ -3887,7 +3887,7 @@ LABEL_80:
 }
 
 //----- (0055B2D0) --------------------------------------------------------
-int __cdecl sub_55B2D0(int a1, int a2) {
+int  sub_55B2D0(int a1, int a2) {
 	int v2;  // esi
 	int v3;  // ebp
 	char v4; // bl
@@ -3945,7 +3945,7 @@ int __cdecl sub_55B2D0(int a1, int a2) {
 }
 
 //----- (0055B430) --------------------------------------------------------
-int __cdecl sub_55B430(int a1, int a2, int a3) {
+int  sub_55B430(int a1, int a2, int a3) {
 	if (a2)
 		*(_DWORD*)(a1 + 1924) = a2;
 	else
@@ -3956,10 +3956,10 @@ int __cdecl sub_55B430(int a1, int a2, int a3) {
 		*(_DWORD*)(a1 + 1928) = nullsub_31;
 	return -1;
 }
-// 560840: using guessed type void __cdecl nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(_DWORD);
 
 //----- (0055B470) --------------------------------------------------------
-int __cdecl sub_55B470(int a1, int a2, unsigned int a3, unsigned int a4, unsigned int a5, int a6, int a7) {
+int  sub_55B470(int a1, int a2, unsigned int a3, unsigned int a4, unsigned int a5, int a6, int a7) {
 	int v7;           // ecx
 	char v8;          // al
 	int v9;           // ebx
@@ -4072,7 +4072,7 @@ LABEL_33:
 }
 
 //----- (0055B690) --------------------------------------------------------
-int __cdecl sub_55B690(int a1, int a2, int a3, int a4) {
+int  sub_55B690(int a1, int a2, int a3, int a4) {
 	int v4;              // edx
 	unsigned __int16 v5; // ax
 	int v6;              // ecx
@@ -4091,7 +4091,7 @@ int __cdecl sub_55B690(int a1, int a2, int a3, int a4) {
 }
 
 //----- (0055B710) --------------------------------------------------------
-int __cdecl sub_55B710(int a1, int a2, int a3, int a4, int a5) {
+int  sub_55B710(int a1, int a2, int a3, int a4, int a5) {
 	int v5;     // edx
 	int v6;     // edi
 	int result; // eax
@@ -4150,7 +4150,7 @@ int __cdecl sub_55B710(int a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (0055B820) --------------------------------------------------------
-_DWORD* __cdecl sub_55B820(int a1) {
+_DWORD*  sub_55B820(int a1) {
 	unsigned __int16 v1; // dx
 	int v2;              // esi
 	unsigned int v3;     // esi
@@ -4185,7 +4185,7 @@ _DWORD* __cdecl sub_55B820(int a1) {
 }
 
 //----- (0055B8D0) --------------------------------------------------------
-_DWORD* __cdecl sub_55B8D0(_DWORD* a1) {
+_DWORD*  sub_55B8D0(_DWORD* a1) {
 	_DWORD* result; // eax
 
 	result = a1;
@@ -4196,7 +4196,7 @@ _DWORD* __cdecl sub_55B8D0(_DWORD* a1) {
 }
 
 //----- (0055B8F0) --------------------------------------------------------
-int __cdecl sub_55B8F0(int a1, int a2) {
+int  sub_55B8F0(int a1, int a2) {
 	int result; // eax
 
 	result = -1;
@@ -4208,7 +4208,7 @@ int __cdecl sub_55B8F0(int a1, int a2) {
 }
 
 //----- (0055B930) --------------------------------------------------------
-int __cdecl sub_55B930(unsigned __int8* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4) {
+int  sub_55B930(unsigned __int8* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4) {
 	int result; // eax
 
 	*a2 = a1[242];
@@ -4219,8 +4219,8 @@ int __cdecl sub_55B930(unsigned __int8* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4) 
 }
 
 //----- (0055B970) --------------------------------------------------------
-int __cdecl sub_55B970(int a1) {
-	void(__cdecl * v1)(int, int, _DWORD, _DWORD); // eax
+int  sub_55B970(int a1) {
+	void( * v1)(int, int, _DWORD, _DWORD); // eax
 	_DWORD* v2;                                   // esi
 	int v3;                                       // ecx
 	int v4;                                       // eax
@@ -4233,7 +4233,7 @@ int __cdecl sub_55B970(int a1) {
 	int v11;                                      // edx
 	int v12;                                      // edx
 
-	v1 = *(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 72);
+	v1 = *(void(**)(int, int, _DWORD, _DWORD))(a1 + 72);
 	v2 = *(_DWORD**)(a1 + 1756);
 	if (v1) {
 		v3 = v2[5];
@@ -4245,7 +4245,7 @@ int __cdecl sub_55B970(int a1) {
 		}
 		v5 = v2[5];
 		if (v5 & 0x200) {
-			(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 72))(a1, 5, v2[7], *(_DWORD*)(a1 + 288));
+			(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 72))(a1, 5, v2[7], *(_DWORD*)(a1 + 288));
 			v6 = v2[5];
 			BYTE1(v6) &= 0xFDu;
 			v2[5] = v6;
@@ -4258,7 +4258,7 @@ int __cdecl sub_55B970(int a1) {
 			v2[5] = v8;
 		}
 	}
-	result = (*(int(__cdecl**)(int))(a1 + 1920))(a1);
+	result = (*(int(**)(int))(a1 + 1920))(a1);
 	*(_DWORD*)(a1 + 1760) = v2[7];
 	v10 = *(_DWORD*)(a1 + 420);
 	if (v10 & 8) {
@@ -4278,7 +4278,7 @@ int __cdecl sub_55B970(int a1) {
 }
 
 //----- (0055BA50) --------------------------------------------------------
-int __cdecl sub_55BA50(int a1) {
+int  sub_55BA50(int a1) {
 	int result; // eax
 	int v2;     // edx
 	_DWORD* v3; // ecx
@@ -4298,7 +4298,7 @@ int __cdecl sub_55BA50(int a1) {
 }
 
 //----- (0055BA80) --------------------------------------------------------
-int __cdecl sub_55BA80(int a1, int a2) {
+int  sub_55BA80(int a1, int a2) {
 	int v2;               // edi
 	int result;           // eax
 	unsigned __int16* v4; // ebx
@@ -4351,7 +4351,7 @@ int __cdecl sub_55BA80(int a1, int a2) {
 }
 
 //----- (0055BB30) --------------------------------------------------------
-int __cdecl sub_55BB30(int a1) {
+int  sub_55BB30(int a1) {
 	int v1;     // ebx
 	int v2;     // edx
 	int v3;     // edi
@@ -4418,7 +4418,7 @@ int __cdecl sub_55BB30(int a1) {
 	}
 	return 1;
 }
-// 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
+// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0055BC60) --------------------------------------------------------
 int sub_55BC60() {
@@ -4430,7 +4430,7 @@ int sub_55BC60() {
 }
 
 //----- (0055BC80) --------------------------------------------------------
-unsigned __int16* __cdecl sub_55BC80(unsigned __int16* a1, int a2) {
+unsigned __int16*  sub_55BC80(unsigned __int16* a1, int a2) {
 	int v2;                   // ecx
 	unsigned __int16* result; // eax
 	unsigned __int16 v4;      // dx
@@ -4449,7 +4449,7 @@ unsigned __int16* __cdecl sub_55BC80(unsigned __int16* a1, int a2) {
 }
 
 //----- (0055BCB0) --------------------------------------------------------
-char* __cdecl sub_55BCB0(int a1, unsigned __int16* a2, char* a3, int a4, int a5, int a6) {
+char*  sub_55BCB0(int a1, unsigned __int16* a2, char* a3, int a4, int a5, int a6) {
 	unsigned int v6;       // edi
 	char* result;          // eax
 	unsigned __int16* v8;  // ebx
@@ -4711,7 +4711,7 @@ char* __cdecl sub_55BCB0(int a1, unsigned __int16* a2, char* a3, int a4, int a5,
 }
 
 //----- (0055C050) --------------------------------------------------------
-int* __cdecl sub_55C050(int a1, unsigned __int16* a2, int* a3, int a4, int a5, int a6) {
+int*  sub_55C050(int a1, unsigned __int16* a2, int* a3, int a4, int a5, int a6) {
 	unsigned int v6;       // edi
 	int* result;           // eax
 	unsigned __int16* v8;  // ebx
@@ -4966,7 +4966,7 @@ int* __cdecl sub_55C050(int a1, unsigned __int16* a2, int* a3, int a4, int a5, i
 }
 
 //----- (0055C3F0) --------------------------------------------------------
-int* __cdecl sub_55C3F0(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
+int*  sub_55C3F0(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
 	int* v6;               // edx
 	int v7;                // ebp
 	int v8;                // ecx
@@ -5059,7 +5059,7 @@ int* __cdecl sub_55C3F0(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int
 }
 
 //----- (0055C530) --------------------------------------------------------
-unsigned int __cdecl sub_55C530(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
+unsigned int  sub_55C530(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
 	unsigned int v6;       // ebx
 	int v7;                // ecx
 	int* v8;               // esi
@@ -5365,7 +5365,7 @@ DWORD nox_xxx_unknown_libname_15_55C920() { return sub_55C900((DWORD*)getMemAt(0
 DWORD sub_55C930() { return 3 * sub_55C900((DWORD*)getMemAt(0x5D4594, 2516192)) / 0x32; }
 
 //----- (0055C950) --------------------------------------------------------
-__int16 __cdecl sub_55C950(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
+__int16  sub_55C950(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
 	_BYTE* v6;  // esi
 	int* v7;    // edi
 	int v8;     // ecx
@@ -5450,7 +5450,7 @@ __int16 __cdecl sub_55C950(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (0055CA59) --------------------------------------------------------
-__int16 __cdecl sub_55CA59(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
+__int16  sub_55CA59(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
 	_BYTE* v6;  // esi
 	int* v7;    // edi
 	int v8;     // ecx
@@ -5517,7 +5517,7 @@ __int16 __cdecl sub_55CA59(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (0055CB20) --------------------------------------------------------
-int __cdecl sub_55CB20(int a1, char a2) {
+int  sub_55CB20(int a1, char a2) {
 	int v2;                                              // esi
 	int v3;                                              // ebp
 	char v4;                                             // al
@@ -5530,7 +5530,7 @@ int __cdecl sub_55CB20(int a1, char a2) {
 	_DWORD* v11;                                         // ecx
 	int v12;                                             // edi
 	int v13;                                             // edi
-	int(__cdecl * v14)(_DWORD*, int, void*, signed int); // eax
+	int( * v14)(_DWORD*, int, void*, signed int); // eax
 	int result;                                          // eax
 	int v16;                                             // eax
 	_DWORD* i;                                           // [esp+10h] [ebp-14h]
@@ -5574,7 +5574,7 @@ int __cdecl sub_55CB20(int a1, char a2) {
 			v11 = (_DWORD*)(v5 + 4 * v9);
 			for (i = v11;; v11 = i) {
 				if (v9 >= *(int*)(v2 + 16) - 1) {
-					if ((*(int(__cdecl**)(int, int, int*, _DWORD))(v2 + 64))(v2, 9, &v19, 0))
+					if ((*(int(**)(int, int, int*, _DWORD))(v2 + 64))(v2, 9, &v19, 0))
 						break;
 					v10 = *(_DWORD*)(v2 + 300);
 					v8 += v19 - 2 * (*(_DWORD*)(v18 + 4 * v10) & 0xFFFFFFF);
@@ -5603,15 +5603,15 @@ int __cdecl sub_55CB20(int a1, char a2) {
 			v12 = 2 * (*(_DWORD*)(v5 + 4 * v6 + 4) & 0xFFFFFFF);
 			goto LABEL_32;
 		}
-		if (!(*(int(__cdecl**)(int, int, int*, _DWORD))(v2 + 64))(v2, 9, &v19, 0)) {
+		if (!(*(int(**)(int, int, int*, _DWORD))(v2 + 64))(v2, 9, &v19, 0)) {
 			v12 = v19;
 		LABEL_32:
 			v13 = v12 - v3;
 			if (v13 > 0) {
-				v14 = *(int(__cdecl**)(_DWORD*, int, void*, signed int))(v2 + 64);
+				v14 = *(int(**)(_DWORD*, int, void*, signed int))(v2 + 64);
 				if (v14 != sub_562A90)
 					v14((_DWORD*)v2, 7, 0, v3);
-				if ((*(int(__cdecl**)(int, int, int, int))(v2 + 64))(
+				if ((*(int(**)(int, int, int, int))(v2 + 64))(
 						v2, 5, *(_DWORD*)(v2 + 1780) + *(_DWORD*)(v2 + 1796), v13)) {
 					return -4;
 				}
@@ -5638,7 +5638,7 @@ LABEL_40:
 }
 
 //----- (0055CDB0) --------------------------------------------------------
-int __cdecl sub_55CDB0(int a1, char a2) {
+int  sub_55CDB0(int a1, char a2) {
 	int v2;           // esi
 	int v3;           // eax
 	_DWORD* v4;       // edx
@@ -5753,7 +5753,7 @@ int __cdecl sub_55CDB0(int a1, char a2) {
 		while (1) {
 			while (1) {
 				if (!(*(_BYTE*)(v2 + 336) & 1)) {
-					if ((*(int(__cdecl**)(int, int, int, int))(v2 + 64))(v2, 5, v2 + 408, 8))
+					if ((*(int(**)(int, int, int, int))(v2 + 64))(v2, 5, v2 + 408, 8))
 						return -2;
 					*getMemU32Ptr(0x5D4594, 2516196) =
 						((*(_DWORD*)(v2 + 412) & 0xFF00 | (*(_DWORD*)(v2 + 412) << 16)) << 8) |
@@ -5903,7 +5903,7 @@ int __cdecl sub_55CDB0(int a1, char a2) {
 					LABEL_152:
 						v37 = *getMemU32Ptr(0x5D4594, 2516196) + 1;
 						LOBYTE(v37) = (getMemByte(0x5D4594, 2516196) + 1) & 0xFE;
-						if ((*(int(__cdecl**)(int, int, int, int))(v2 + 64))(v2, 7, 1, v37))
+						if ((*(int(**)(int, int, int, int))(v2 + 64))(v2, 7, 1, v37))
 							return -6;
 						if (v43) {
 						LABEL_159:
@@ -6064,7 +6064,7 @@ int __cdecl sub_55CDB0(int a1, char a2) {
 }
 
 //----- (0055D6F0) --------------------------------------------------------
-int __cdecl sub_55D6F0(int a1) {
+int  sub_55D6F0(int a1) {
 	int i;      // edi
 	int result; // eax
 
@@ -6080,7 +6080,7 @@ int __cdecl sub_55D6F0(int a1) {
 }
 
 //----- (0055D740) --------------------------------------------------------
-unsigned int __cdecl sub_55D740(int a1, int a2) {
+unsigned int  sub_55D740(int a1, int a2) {
 	_DWORD* v2;          // edx
 	unsigned int v3;     // ecx
 	unsigned int result; // eax
@@ -6100,7 +6100,7 @@ unsigned int __cdecl sub_55D740(int a1, int a2) {
 }
 
 //----- (0055D770) --------------------------------------------------------
-int __cdecl sub_55D770(int a1, int a2, int a3) {
+int  sub_55D770(int a1, int a2, int a3) {
 	int v3;           // edi
 	int v4;           // edx
 	int v5;           // eax
@@ -6125,7 +6125,7 @@ int __cdecl sub_55D770(int a1, int a2, int a3) {
 	if (v9 >= *v6)
 		v9 = 0;
 	v6[1] = v9;
-	if ((*(int(__cdecl**)(int, int, int, unsigned int))(v3 + 64))(v3, 5, v13, (a2 + 1) & 0xFFFFFFFE))
+	if ((*(int(**)(int, int, int, unsigned int))(v3 + 64))(v3, 5, v13, (a2 + 1) & 0xFFFFFFFE))
 		return -4;
 	v11 = *(_DWORD*)(v3 + 368);
 	v12 = *(_DWORD*)(v11 + 20);
@@ -6135,7 +6135,7 @@ int __cdecl sub_55D770(int a1, int a2, int a3) {
 }
 
 //----- (0055D800) --------------------------------------------------------
-unsigned int __cdecl sub_55D800(int a1, int a2) {
+unsigned int  sub_55D800(int a1, int a2) {
 	_DWORD* v2;          // edx
 	unsigned int v3;     // ecx
 	unsigned int result; // eax
@@ -6155,7 +6155,7 @@ unsigned int __cdecl sub_55D800(int a1, int a2) {
 }
 
 //----- (0055D830) --------------------------------------------------------
-int __cdecl sub_55D830(int a1, int a2, int a3) {
+int  sub_55D830(int a1, int a2, int a3) {
 	int v3;           // edi
 	int v4;           // edx
 	int v5;           // eax
@@ -6180,7 +6180,7 @@ int __cdecl sub_55D830(int a1, int a2, int a3) {
 	if (v9 >= *v6)
 		v9 = 0;
 	v6[1] = v9;
-	if ((*(int(__cdecl**)(int, int, int, unsigned int))(v3 + 64))(v3, 5, v13, (a2 + 1) & 0xFFFFFFFE))
+	if ((*(int(**)(int, int, int, unsigned int))(v3 + 64))(v3, 5, v13, (a2 + 1) & 0xFFFFFFFE))
 		return -4;
 	v11 = *(_DWORD*)(v3 + 368);
 	v12 = *(_DWORD*)(v11 + 20);
@@ -6190,7 +6190,7 @@ int __cdecl sub_55D830(int a1, int a2, int a3) {
 }
 
 //----- (0055D8C0) --------------------------------------------------------
-char __cdecl sub_55D8C0(int a1, int a2) {
+char  sub_55D8C0(int a1, int a2) {
 	int v3;               // eax
 	unsigned __int16* v4; // edx
 	int v5;               // ecx
@@ -6217,7 +6217,7 @@ char __cdecl sub_55D8C0(int a1, int a2) {
 }
 
 //----- (0055D910) --------------------------------------------------------
-int __cdecl sub_55D910(int a1, int a2, int a3) {
+int  sub_55D910(int a1, int a2, int a3) {
 	int v3;      // esi
 	int v4;      // edx
 	int v5;      // eax
@@ -6285,7 +6285,7 @@ int __cdecl sub_55D910(int a1, int a2, int a3) {
 	}
 	if (v7 < 0)
 		return v12;
-	if ((*(int(__cdecl**)(int, int, _DWORD, int))(v3 + 64))(
+	if ((*(int(**)(int, int, _DWORD, int))(v3 + 64))(
 			v3, 7, 0, 2 * (*(_DWORD*)(*(_DWORD*)(v3 + 1892) + 4 * v7) & 0xFFFFFFF))) {
 		return -6;
 	}
@@ -6301,7 +6301,7 @@ int __cdecl sub_55D910(int a1, int a2, int a3) {
 }
 
 //----- (0055DA90) --------------------------------------------------------
-int __cdecl sub_55DA90(int a1, int a2, _DWORD* a3, _DWORD* a4) {
+int  sub_55DA90(int a1, int a2, _DWORD* a3, _DWORD* a4) {
 	int v4;               // edx
 	int v5;               // ebx
 	int v6;               // ecx
@@ -6337,7 +6337,7 @@ int __cdecl sub_55DA90(int a1, int a2, _DWORD* a3, _DWORD* a4) {
 }
 
 //----- (0055DB20) --------------------------------------------------------
-int __cdecl sub_55DB20(_DWORD* a1, int a2, int a3, char a4, char a5, char* a6) {
+int  sub_55DB20(_DWORD* a1, int a2, int a3, char a4, char a5, char* a6) {
 	_DWORD* v6;           // esi
 	int v7;               // ebp
 	int v8;               // eax
@@ -6492,7 +6492,7 @@ int __cdecl sub_55DB20(_DWORD* a1, int a2, int a3, char a4, char a5, char* a6) {
 			result = -1;
 		return result;
 	}
-	if (((int(__cdecl*)(_DWORD*, int, _DWORD, int))v6[16])(v6, 7, 0, 2 * (*(_DWORD*)(v6[473] + 4 * v9) & 0xFFFFFFF)))
+	if (((int(*)(_DWORD*, int, _DWORD, int))v6[16])(v6, 7, 0, 2 * (*(_DWORD*)(v6[473] + 4 * v9) & 0xFFFFFFF)))
 		return -6;
 	result = -1;
 	v26 = v32 == 0;
@@ -6543,7 +6543,7 @@ int __cdecl sub_55DB20(_DWORD* a1, int a2, int a3, char a4, char a5, char* a6) {
 }
 
 //----- (0055DF50) --------------------------------------------------------
-int __cdecl sub_55DF50(int a1, int a2, int a3) {
+int  sub_55DF50(int a1, int a2, int a3) {
 	int v3;     // edi
 	char v4;    // bl
 	int v5;     // eax
@@ -6558,12 +6558,12 @@ int __cdecl sub_55DF50(int a1, int a2, int a3) {
 		if (v6 + *(_DWORD*)(a1 + 1788) <= 2 * (*(_DWORD*)(v5 + 4 * *(_DWORD*)(a1 + 300)) & 0xFFFFFFF))
 			v4 = 1;
 		*(_DWORD*)(a1 + 1796) = 0;
-	} else if ((*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 7, 0,
+	} else if ((*(int(**)(int, int, _DWORD, int))(a1 + 64))(a1, 7, 0,
 																   2 * (*(_DWORD*)(v5 + 4 * a2) & 0xFFFFFFF))) {
 		return -6;
 	}
 	if (a2 > 0 && (!(a3 & 0x10) || !(*(_BYTE*)(a1 + 234) & 0x10)) && (v3 = sub_55CB20(a1, a3 | 6), v3 != -1) || !v4 ||
-		(v7 = (*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 8, 0,
+		(v7 = (*(int(**)(int, int, _DWORD, int))(a1 + 64))(a1, 8, 0,
 																  *(_DWORD*)(a1 + 1788) + *(_DWORD*)(a1 + 1792)) == 0,
 		 result = -6, v7)) {
 		result = v3;
@@ -6572,7 +6572,7 @@ int __cdecl sub_55DF50(int a1, int a2, int a3) {
 }
 
 //----- (0055E030) --------------------------------------------------------
-int __cdecl sub_55E030(int a1, int a2) {
+int  sub_55E030(int a1, int a2) {
 	int result; // eax
 	char v3;    // al
 	char v4;    // [esp+Bh] [ebp-1h]
@@ -6595,7 +6595,7 @@ int __cdecl sub_55E030(int a1, int a2) {
 }
 
 //----- (0055E100) --------------------------------------------------------
-int __cdecl sub_55E100(int a1, int a2, char a3) {
+int  sub_55E100(int a1, int a2, char a3) {
 	int v3;           // esi
 	unsigned int v4;  // ebp
 	unsigned int* v5; // edi
@@ -6614,7 +6614,7 @@ int __cdecl sub_55E100(int a1, int a2, char a3) {
 	if (!v12)
 		return -1;
 	while (1) {
-		if ((*(int(__cdecl**)(int, int, unsigned int*, int))(v3 + 64))(v3, 5, v5, 8))
+		if ((*(int(**)(int, int, unsigned int*, int))(v3 + 64))(v3, 5, v5, 8))
 			return -2;
 		v6 = ((v5[1] & 0xFF00 | (v5[1] << 16)) << 8) | (((v5[1] >> 16) | v5[1] & 0xFF0000) >> 8);
 		v4 += ((v6 + 1) & 0xFFFFFFFE) + 8;
@@ -6726,31 +6726,31 @@ int __cdecl sub_55E100(int a1, int a2, char a3) {
 		goto LABEL_57;
 	}
 LABEL_56:
-	if (!(*(int(__cdecl**)(int, int, int, unsigned int))(v3 + 64))(v3, 7, 1, (v6 + 1) & 0xFFFFFFFE))
+	if (!(*(int(**)(int, int, int, unsigned int))(v3 + 64))(v3, 7, 1, (v6 + 1) & 0xFFFFFFFE))
 		goto LABEL_57;
 	return -6;
 }
 
 //----- (0055E3D0) --------------------------------------------------------
-int __cdecl sub_55E3D0(int a1, int a2) {
+int  sub_55E3D0(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 274, v2) != 0);
+	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 274, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E400) --------------------------------------------------------
-int __cdecl sub_55E400(int a1) {
+int  sub_55E400(int a1) {
 	int result;            // eax
 	int v2;                // edi
 	int v3;                // eax
 	unsigned __int8 v4[8]; // [esp+8h] [ebp-8h]
 
-	if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(_DWORD*)v4 != 1213090124)
 		return -4;
@@ -6760,13 +6760,13 @@ int __cdecl sub_55E400(int a1) {
 	if (!*(_WORD*)(a1 + 1812))
 		goto LABEL_19;
 	v2 = 4 * *(unsigned __int16*)(a1 + 1812);
-	v3 = (*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, 4 * *(unsigned __int16*)(a1 + 1812));
+	v3 = (*(int(**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, 4 * *(unsigned __int16*)(a1 + 1812));
 	*(_DWORD*)(a1 + 1820) = v3;
 	if (!v3)
 		return -8;
-	(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
+	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
 	*(_DWORD*)(a1 + 48) += v2;
-	if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(_DWORD*)v4 != 1145981260)
 		return -4;
@@ -6780,31 +6780,31 @@ int __cdecl sub_55E400(int a1) {
 }
 
 //----- (0055E550) --------------------------------------------------------
-int __cdecl sub_55E550(int a1, int a2) {
+int  sub_55E550(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1812, v2) != 0);
+	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1812, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E580) --------------------------------------------------------
-int __cdecl sub_55E580(int a1, int a2) {
+int  sub_55E580(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1820), v2) != 0);
+	v3 = -((*(int(**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1820), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E5B0) --------------------------------------------------------
-int __cdecl sub_55E5B0(int a1) {
+int  sub_55E5B0(int a1) {
 	int result;             // eax
 	int v2;                 // eax
 	int v3;                 // edi
@@ -6817,7 +6817,7 @@ int __cdecl sub_55E5B0(int a1) {
 	int v10;                // edi
 	unsigned __int8 v11[8]; // [esp+Ch] [ebp-8h]
 
-	if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v11, 8))
+	if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v11, 8))
 		return -2;
 	if (*(_DWORD*)v11 != 1212368461)
 		return -4;
@@ -6827,13 +6827,13 @@ int __cdecl sub_55E5B0(int a1) {
 	v2 = *(_DWORD*)(a1 + 1824);
 	if (v2) {
 		v3 = 24 * v2;
-		v4 = (*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, 24 * v2);
+		v4 = (*(int(**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, 24 * v2);
 		*(_DWORD*)(a1 + 1840) = v4;
 		if (!v4)
 			return -8;
-		(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 4, v4, v3);
+		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v4, v3);
 		*(_DWORD*)(a1 + 48) += v3;
-		if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v11, 8))
+		if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v11, 8))
 			return -2;
 		if (*(_DWORD*)v11 != 1145259597)
 			return -4;
@@ -6845,13 +6845,13 @@ int __cdecl sub_55E5B0(int a1) {
 	if (!v5)
 		goto LABEL_34;
 	v6 = 16 * v5;
-	v7 = (*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, v6);
+	v7 = (*(int(**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, v6);
 	*(_DWORD*)(a1 + 1844) = v7;
 	if (!v7)
 		return -8;
-	(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 4, v7, v6);
+	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v7, v6);
 	*(_DWORD*)(a1 + 48) += v6;
-	if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v11, 8))
+	if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v11, 8))
 		return -2;
 	if (*(_DWORD*)v11 != 1413695053)
 		return -4;
@@ -6862,11 +6862,11 @@ LABEL_34:
 	v8 = *(_DWORD*)(a1 + 1828);
 	if (!v8)
 		return -1;
-	v9 = (*(int(__cdecl**)(int, int, _DWORD, unsigned int))(a1 + 68))(a1, 2, 0, 12 * v8);
+	v9 = (*(int(**)(int, int, _DWORD, unsigned int))(a1 + 68))(a1, 2, 0, 12 * v8);
 	*(_DWORD*)(a1 + 1848) = v9;
 	if (!v9)
 		return -8;
-	(*(void(__cdecl**)(int, int, int, unsigned int))(a1 + 68))(a1, 4, v9, 12 * v8);
+	(*(void(**)(int, int, int, unsigned int))(a1 + 68))(a1, 4, v9, 12 * v8);
 	v10 = 0;
 	*(_DWORD*)(a1 + 48) += 12 * v8;
 	while (1) {
@@ -6880,43 +6880,43 @@ LABEL_34:
 }
 
 //----- (0055E820) --------------------------------------------------------
-int __cdecl sub_55E820(int a1, int a2) {
+int  sub_55E820(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1824, v2) != 0);
+	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1824, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E850) --------------------------------------------------------
-int __cdecl sub_55E850(int a1, int a2) {
+int  sub_55E850(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1840), v2) != 0);
+	v3 = -((*(int(**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1840), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E880) --------------------------------------------------------
-int __cdecl sub_55E880(int a1, int a2) {
+int  sub_55E880(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1844), v2) != 0);
+	v3 = -((*(int(**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1844), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E8B0) --------------------------------------------------------
-int __cdecl sub_55E8B0(int a1) {
+int  sub_55E8B0(int a1) {
 	int result;            // eax
 	int v2;                // eax
 	int v3;                // edi
@@ -6926,7 +6926,7 @@ int __cdecl sub_55E8B0(int a1) {
 	int v7;                // edi
 	unsigned __int8 v8[8]; // [esp+Ch] [ebp-8h]
 
-	if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v8, 8))
+	if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v8, 8))
 		return -2;
 	if (*(_DWORD*)v8 != 1212371789)
 		return -4;
@@ -6937,13 +6937,13 @@ int __cdecl sub_55E8B0(int a1) {
 	if (!v2)
 		goto LABEL_25;
 	v3 = 16 * v2;
-	v4 = (*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, 16 * v2);
+	v4 = (*(int(**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, 16 * v2);
 	*(_DWORD*)(a1 + 1860) = v4;
 	if (!v4)
 		return -8;
-	(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 4, v4, v3);
+	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v4, v3);
 	*(_DWORD*)(a1 + 48) += v3;
-	if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v8, 8))
+	if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v8, 8))
 		return -2;
 	if (*(_DWORD*)v8 != 1413698381)
 		return -4;
@@ -6954,11 +6954,11 @@ LABEL_25:
 	v5 = *(_DWORD*)(a1 + 1852);
 	if (!v5)
 		return -1;
-	v6 = (*(int(__cdecl**)(int, int, _DWORD, unsigned int))(a1 + 68))(a1, 2, 0, 12 * v5);
+	v6 = (*(int(**)(int, int, _DWORD, unsigned int))(a1 + 68))(a1, 2, 0, 12 * v5);
 	*(_DWORD*)(a1 + 1864) = v6;
 	if (!v6)
 		return -8;
-	(*(void(__cdecl**)(int, int, int, unsigned int))(a1 + 68))(a1, 4, v6, 12 * v5);
+	(*(void(**)(int, int, int, unsigned int))(a1 + 68))(a1, 4, v6, 12 * v5);
 	v7 = 0;
 	*(_DWORD*)(a1 + 48) += 12 * v5;
 	while (1) {
@@ -6972,31 +6972,31 @@ LABEL_25:
 }
 
 //----- (0055EA60) --------------------------------------------------------
-int __cdecl sub_55EA60(int a1, int a2) {
+int  sub_55EA60(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1852, v2) != 0);
+	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1852, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055EA90) --------------------------------------------------------
-int __cdecl sub_55EA90(int a1, int a2) {
+int  sub_55EA90(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1860), v2) != 0);
+	v3 = -((*(int(**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1860), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055EAC0) --------------------------------------------------------
-int __cdecl sub_55EAC0(_DWORD* a1, int a2) {
+int  sub_55EAC0(_DWORD* a1, int a2) {
 	_DWORD* v2;       // esi
 	int v3;           // ecx
 	int* v4;          // eax
@@ -7025,19 +7025,19 @@ int __cdecl sub_55EAC0(_DWORD* a1, int a2) {
 		v9 = (signed int*)(v5 + 12 * a2);
 		*v9 = v6;
 		v9[1] = 0;
-		v10 = ((int(__cdecl*)(_DWORD*, int, _DWORD, int))v2[17])(v2, 2, 0, 12 * v6);
+		v10 = ((int(*)(_DWORD*, int, _DWORD, int))v2[17])(v2, 2, 0, 12 * v6);
 		v16 = v10;
 		if (!v10)
 			return -8;
-		((void(__cdecl*)(_DWORD*, int, int, int))v2[17])(v2, 4, v10, 12 * v7);
+		((void(*)(_DWORD*, int, int, int))v2[17])(v2, 4, v10, 12 * v7);
 		v2[12] += v8;
 		v12 = v7 * ((v15 + 1) & 0xFFFFFFFE);
 		v9[2] = v16;
-		v13 = ((int(__cdecl*)(_DWORD*, int, _DWORD, unsigned int))v2[17])(v2, 2, 0, v7 * ((v15 + 1) & 0xFFFFFFFE));
+		v13 = ((int(*)(_DWORD*, int, _DWORD, unsigned int))v2[17])(v2, 2, 0, v7 * ((v15 + 1) & 0xFFFFFFFE));
 		v17 = v13;
 		if (!v13)
 			return -8;
-		((void(__cdecl*)(_DWORD*, int, int, unsigned int))v2[17])(v2, 4, v13, v12);
+		((void(*)(_DWORD*, int, int, unsigned int))v2[17])(v2, 4, v13, v12);
 		v2[12] += v12;
 		if (v7 > 0) {
 			v14 = 0;
@@ -7054,7 +7054,7 @@ int __cdecl sub_55EAC0(_DWORD* a1, int a2) {
 }
 
 //----- (0055EBD0) --------------------------------------------------------
-unsigned int __cdecl sub_55EBD0(int a1, int a2, int a3, unsigned int a4) {
+unsigned int  sub_55EBD0(int a1, int a2, int a3, unsigned int a4) {
 	unsigned int v5; // esi
 
 	if (!a4)
@@ -7066,7 +7066,7 @@ unsigned int __cdecl sub_55EBD0(int a1, int a2, int a3, unsigned int a4) {
 }
 
 //----- (0055EC10) --------------------------------------------------------
-char __cdecl sub_55EC10(int a1, int a2, unsigned int a3) {
+char  sub_55EC10(int a1, int a2, unsigned int a3) {
 	unsigned int v3;   // edx
 	int v4;            // ebx
 	_WORD* i;          // ebp
@@ -7124,7 +7124,7 @@ char __cdecl sub_55EC10(int a1, int a2, unsigned int a3) {
 }
 
 //----- (0055ECE0) --------------------------------------------------------
-int __cdecl sub_55ECE0(_DWORD* a1, int a2) {
+int  sub_55ECE0(_DWORD* a1, int a2) {
 	_DWORD* v2;      // esi
 	int v3;          // ebx
 	int v4;          // ebp
@@ -7145,19 +7145,19 @@ int __cdecl sub_55ECE0(_DWORD* a1, int a2) {
 		v5 = (_DWORD*)(v4 + 12 * a2);
 		*v5 = v3;
 		v5[1] = 0;
-		v6 = ((int(__cdecl*)(_DWORD*, int, _DWORD, int))v2[17])(v2, 2, 0, 12 * v3);
+		v6 = ((int(*)(_DWORD*, int, _DWORD, int))v2[17])(v2, 2, 0, 12 * v3);
 		v12 = v6;
 		if (!v6)
 			return -8;
-		((void(__cdecl*)(_DWORD*, int, int, int))v2[17])(v2, 4, v6, 12 * v3);
+		((void(*)(_DWORD*, int, int, int))v2[17])(v2, 4, v6, 12 * v3);
 		v2[12] += 12 * v3;
 		v5[2] = v12;
 		v8 = v3 * ((v11 + 1) & 0xFFFFFFFE);
-		v9 = ((int(__cdecl*)(_DWORD*, int, _DWORD, unsigned int))v2[17])(v2, 2, 0, v3 * ((v11 + 1) & 0xFFFFFFFE));
+		v9 = ((int(*)(_DWORD*, int, _DWORD, unsigned int))v2[17])(v2, 2, 0, v3 * ((v11 + 1) & 0xFFFFFFFE));
 		v13 = v9;
 		if (!v9)
 			return -8;
-		((void(__cdecl*)(_DWORD*, int, int, unsigned int))v2[17])(v2, 4, v9, v8);
+		((void(*)(_DWORD*, int, int, unsigned int))v2[17])(v2, 4, v9, v8);
 		v2[12] += v8;
 		v10 = 0;
 		do {
@@ -7172,7 +7172,7 @@ int __cdecl sub_55ECE0(_DWORD* a1, int a2) {
 }
 
 //----- (0055EDD0) --------------------------------------------------------
-int __cdecl sub_55EDD0(int a1, int a2, _DWORD* a3, _DWORD* a4) {
+int  sub_55EDD0(int a1, int a2, _DWORD* a3, _DWORD* a4) {
 	int v4;               // edx
 	int v5;               // ebx
 	int v6;               // ecx
@@ -7213,13 +7213,13 @@ int __cdecl sub_55EDD0(int a1, int a2, _DWORD* a3, _DWORD* a4) {
 }
 
 //----- (0055EE60) --------------------------------------------------------
-int __cdecl sub_55EE60(int a1) {
+int  sub_55EE60(int a1) {
 	int result;            // eax
 	int v2;                // edi
 	int v3;                // eax
 	unsigned __int8 v4[8]; // [esp+8h] [ebp-8h]
 
-	if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(_DWORD*)v4 != 1213090115)
 		return -4;
@@ -7229,13 +7229,13 @@ int __cdecl sub_55EE60(int a1) {
 	if (*(_BYTE*)(a1 + 245) || !*(_WORD*)(a1 + 1868))
 		goto LABEL_20;
 	v2 = 6 * *(unsigned __int16*)(a1 + 1868);
-	v3 = (*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, v2);
+	v3 = (*(int(**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, v2);
 	*(_DWORD*)(a1 + 1876) = v3;
 	if (!v3)
 		return -8;
-	(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
+	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
 	*(_DWORD*)(a1 + 48) += v2;
-	if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(_DWORD*)v4 != 1145981251)
 		return -4;
@@ -7249,37 +7249,37 @@ int __cdecl sub_55EE60(int a1) {
 }
 
 //----- (0055EFC0) --------------------------------------------------------
-int __cdecl sub_55EFC0(int a1, int a2) {
+int  sub_55EFC0(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1868, v2) != 0);
+	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1868, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055EFF0) --------------------------------------------------------
-int __cdecl sub_55EFF0(int a1, int a2) {
+int  sub_55EFF0(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1876), v2) != 0);
+	v3 = -((*(int(**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1876), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055F020) --------------------------------------------------------
-int __cdecl sub_55F020(int a1) {
+int  sub_55F020(int a1) {
 	int result;            // eax
 	int v2;                // edi
 	int v3;                // eax
 	unsigned __int8 v4[8]; // [esp+8h] [ebp-8h]
 
-	if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(_DWORD*)v4 != 1213090128)
 		return -4;
@@ -7289,13 +7289,13 @@ int __cdecl sub_55F020(int a1) {
 	if (!*(_WORD*)(a1 + 1880))
 		goto LABEL_19;
 	v2 = 2 * *(unsigned __int16*)(a1 + 1880);
-	v3 = (*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, 2 * *(unsigned __int16*)(a1 + 1880));
+	v3 = (*(int(**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, 2 * *(unsigned __int16*)(a1 + 1880));
 	*(_DWORD*)(a1 + 1888) = v3;
 	if (!v3)
 		return -8;
-	(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
+	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
 	*(_DWORD*)(a1 + 48) += v2;
-	if ((*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int(**)(int, int, unsigned __int8*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(_DWORD*)v4 != 1145981264)
 		return -4;
@@ -7309,52 +7309,52 @@ int __cdecl sub_55F020(int a1) {
 }
 
 //----- (0055F170) --------------------------------------------------------
-int __cdecl sub_55F170(int a1, int a2) {
+int  sub_55F170(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1880, v2) != 0);
+	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1880, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055F1A0) --------------------------------------------------------
-int __cdecl sub_55F1A0(int a1, int a2) {
+int  sub_55F1A0(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1888), v2) != 0);
+	v3 = -((*(int(**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1888), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055F1D0) --------------------------------------------------------
-int __cdecl sub_55F1D0(int a1, int a2) {
+int  sub_55F1D0(int a1, int a2) {
 	int v2; // ecx
 
 	v2 = *(_DWORD*)(a1 + 1892);
 	if (v2) {
-		if ((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, v2, (a2 + 1) & 0xFFFFFFFE))
+		if ((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, v2, (a2 + 1) & 0xFFFFFFFE))
 			return -4;
-	} else if ((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, (a2 + 1) & 0xFFFFFFFE)) {
+	} else if ((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, (a2 + 1) & 0xFFFFFFFE)) {
 		return -6;
 	}
 	return -1;
 }
 
 //----- (0055F220) --------------------------------------------------------
-int __cdecl sub_55F220(int a1, int a2) {
+int  sub_55F220(int a1, int a2) {
 	int v2;     // eax
 	_DWORD* v3; // esi
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	v3 = *(_DWORD**)(a1 + 356);
-	if ((*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *v3, v2))
+	if ((*(int(**)(int, int, _DWORD, int))(a1 + 64))(a1, 5, *v3, v2))
 		return -4;
 	*(_DWORD*)(a1 + 372) = 0;
 	v3[4] = 0;
@@ -7366,7 +7366,7 @@ int __cdecl sub_55F220(int a1, int a2) {
 }
 
 //----- (0055F280) --------------------------------------------------------
-int __cdecl sub_55F280(int a1, int a2) {
+int  sub_55F280(int a1, int a2) {
 	int v2;     // eax
 	_DWORD* v3; // ebp
 	int v4;     // edi
@@ -7377,7 +7377,7 @@ int __cdecl sub_55F280(int a1, int a2) {
 	v3 = *(_DWORD**)(a1 + 356);
 	v4 = *(_DWORD*)(a1 + 1896) - v2;
 	v5 = v4 + *v3;
-	if ((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *v3, v2))
+	if ((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *v3, v2))
 		return -4;
 	*(_DWORD*)(a1 + 372) = 0;
 	v3[3] = 10;
@@ -7390,7 +7390,7 @@ int __cdecl sub_55F280(int a1, int a2) {
 }
 
 //----- (0055F300) --------------------------------------------------------
-int __cdecl sub_55F300(int a1, int a2) {
+int  sub_55F300(int a1, int a2) {
 	_DWORD* v2; // edi
 	int v4;     // eax
 	int v5;     // ebp
@@ -7399,7 +7399,7 @@ int __cdecl sub_55F300(int a1, int a2) {
 	v2 = *(_DWORD**)(a1 + 356);
 	if (!*(_BYTE*)(a1 + 245) && !*(_DWORD*)(a1 + 376))
 		*(_DWORD*)(a1 + 380) = sub_55F3F0(a1, *(_DWORD*)(a1 + 384));
-	if ((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 376) + *v2,
+	if ((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 376) + *v2,
 																  (a2 + 1) & 0xFFFFFFFE)) {
 		return -4;
 	}
@@ -7429,7 +7429,7 @@ int __cdecl sub_55F300(int a1, int a2) {
 }
 
 //----- (0055F3F0) --------------------------------------------------------
-int __cdecl sub_55F3F0(int a1, int a2) {
+int  sub_55F3F0(int a1, int a2) {
 	int v2;              // eax
 	int v3;              // ecx
 	unsigned __int16* i; // edx
@@ -7446,7 +7446,7 @@ int __cdecl sub_55F3F0(int a1, int a2) {
 }
 
 //----- (0055F440) --------------------------------------------------------
-int __cdecl sub_55F440(int a1, int a2) {
+int  sub_55F440(int a1, int a2) {
 	_DWORD* v2;      // ebx
 	unsigned int v3; // edi
 	int v4;          // ebp
@@ -7472,7 +7472,7 @@ int __cdecl sub_55F440(int a1, int a2) {
 		else
 			v2[4] = *(_DWORD*)(a1 + 1896) - *(_DWORD*)(a1 + 380);
 	}
-	if ((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 376) + v2[4] + *v2, v3))
+	if ((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 376) + v2[4] + *v2, v3))
 		return -4;
 	v7 = *(_DWORD*)(a1 + 372);
 	v8 = a2 + *(_DWORD*)(a1 + 376);
@@ -7502,7 +7502,7 @@ int __cdecl sub_55F440(int a1, int a2) {
 }
 
 //----- (0055F570) --------------------------------------------------------
-int __cdecl sub_55F570(int a1, unsigned int a2) {
+int  sub_55F570(int a1, unsigned int a2) {
 	int v2;          // ebx
 	unsigned int v3; // eax
 	unsigned int v5; // edx
@@ -7510,7 +7510,7 @@ int __cdecl sub_55F570(int a1, unsigned int a2) {
 	v2 = *(_DWORD*)(a1 + 368);
 	v3 = a2 + 1;
 	LOBYTE(v3) = (a2 + 1) & 0xFE;
-	if ((*(int(__cdecl**)(int, int, _DWORD, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(v2 + 8), v3))
+	if ((*(int(**)(int, int, _DWORD, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(v2 + 8), v3))
 		return -4;
 	v5 = *(_DWORD*)(v2 + 20) & 0xFFFFFFF7;
 	*(_DWORD*)(v2 + 36) = 0;
@@ -7525,7 +7525,7 @@ int __cdecl sub_55F570(int a1, unsigned int a2) {
 }
 
 //----- (0055F600) --------------------------------------------------------
-int __cdecl sub_55F600(int a1, int a2) {
+int  sub_55F600(int a1, int a2) {
 	int v2;         // eax
 	int v3;         // ebx
 	int v4;         // esi
@@ -7540,7 +7540,7 @@ int __cdecl sub_55F600(int a1, int a2) {
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	v4 = *(_DWORD*)(a1 + 1904) - v2;
 	v5 = v4 + *(_DWORD*)(v3 + 8);
-	if ((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *(_DWORD*)(v3 + 8), v2))
+	if ((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *(_DWORD*)(v3 + 8), v2))
 		return -4;
 	v7 = *(_DWORD*)(v3 + 20) | 8;
 	*(_DWORD*)(v3 + 36) = v4;
@@ -7564,12 +7564,12 @@ int __cdecl sub_55F600(int a1, int a2) {
 }
 
 //----- (0055F6D0) --------------------------------------------------------
-int __cdecl sub_55F6D0(int a1, int a2) {
+int  sub_55F6D0(int a1, int a2) {
 	_DWORD* v2; // esi
 	int v4;     // eax
 
 	v2 = *(_DWORD**)(a1 + 368);
-	if ((*(int(__cdecl**)(int, int, _DWORD, unsigned int))(a1 + 64))(a1, 5, *v2, (a2 + 1) & 0xFFFFFFFE))
+	if ((*(int(**)(int, int, _DWORD, unsigned int))(a1 + 64))(a1, 5, *v2, (a2 + 1) & 0xFFFFFFFE))
 		return -4;
 	v4 = v2[5];
 	v2[8] = 0;
@@ -7579,7 +7579,7 @@ int __cdecl sub_55F6D0(int a1, int a2) {
 }
 
 //----- (0055F710) --------------------------------------------------------
-int __cdecl sub_55F710(int a1, int a2) {
+int  sub_55F710(int a1, int a2) {
 	int v2;     // eax
 	_DWORD* v3; // ebp
 	int v4;     // edi
@@ -7591,7 +7591,7 @@ int __cdecl sub_55F710(int a1, int a2) {
 	v3 = *(_DWORD**)(a1 + 368);
 	v4 = *(_DWORD*)(a1 + 1900) - v2;
 	v5 = v4 + *v3;
-	if ((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *v3, v2))
+	if ((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *v3, v2))
 		return -4;
 	v7 = v3[5];
 	v3[8] = v4;
@@ -7602,7 +7602,7 @@ int __cdecl sub_55F710(int a1, int a2) {
 }
 
 //----- (0055F780) --------------------------------------------------------
-int __cdecl sub_55F780(int a1, unsigned int a2) {
+int  sub_55F780(int a1, unsigned int a2) {
 	unsigned int v2; // eax
 	int v3;          // ecx
 	int result;      // eax
@@ -7613,13 +7613,13 @@ int __cdecl sub_55F780(int a1, unsigned int a2) {
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	if (*(_BYTE*)(a1 + 132) & 1 && (v3 = *(_DWORD*)(a1 + 1932)) != 0) {
 		if (v2 <= *(int*)(a1 + 1972) || *(_DWORD*)(a1 + 1936)) {
-			if ((*(int(__cdecl**)(int, int, _DWORD, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1960), v2)) {
+			if ((*(int(**)(int, int, _DWORD, unsigned int))(a1 + 64))(a1, 5, *(_DWORD*)(a1 + 1960), v2)) {
 				result = -4;
 			} else {
 				*(_DWORD*)(a1 + 1968) = a2;
 				result = -1;
 			}
-		} else if ((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, v3, v2)) {
+		} else if ((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, v3, v2)) {
 			result = -4;
 		} else {
 			v5 = 0;
@@ -7632,7 +7632,7 @@ int __cdecl sub_55F780(int a1, unsigned int a2) {
 			result = -1;
 		}
 	} else {
-		v6 = -((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, v2) != 0);
+		v6 = -((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, v2) != 0);
 		LOBYTE(v6) = v6 & 0xFB;
 		result = v6 - 1;
 	}
@@ -7640,7 +7640,7 @@ int __cdecl sub_55F780(int a1, unsigned int a2) {
 }
 
 //----- (0055F860) --------------------------------------------------------
-int __cdecl sub_55F860(int a1, int a2) {
+int  sub_55F860(int a1, int a2) {
 	int v2;          // esi
 	unsigned int v3; // edi
 	int result;      // eax
@@ -7655,17 +7655,17 @@ int __cdecl sub_55F860(int a1, int a2) {
 	v2 = a1;
 	v3 = (a2 + 1) & 0xFFFFFFFE;
 	if (*(_BYTE*)(a1 + 132) & 1 && *(_DWORD*)(a1 + 1932)) {
-		if ((*(int(__cdecl**)(int, int, int*, int))(a1 + 64))(a1, 5, &a1, 4))
+		if ((*(int(**)(int, int, int*, int))(a1 + 64))(a1, 5, &a1, 4))
 			return -4;
 		v5 = *(_DWORD*)(v2 + 1972);
 		v6 = v3 - 4;
 		if ((unsigned __int16)a1 <= v5 || *(_DWORD*)(v2 + 1936)) {
 			if ((_WORD)a1 == HIWORD(a1)) {
-				if ((*(int(__cdecl**)(int, int, _DWORD, int))(v2 + 64))(v2, 5, *(_DWORD*)(v2 + 1960), v6))
+				if ((*(int(**)(int, int, _DWORD, int))(v2 + 64))(v2, 5, *(_DWORD*)(v2 + 1960), v6))
 					return -4;
 			} else {
 				v10 = (_WORD*)(v5 + *(_DWORD*)(v2 + 1960) - v6);
-				if ((*(int(__cdecl**)(int, int, unsigned int, int))(v2 + 64))(v2, 5, v5 + *(_DWORD*)(v2 + 1960) - v6,
+				if ((*(int(**)(int, int, unsigned int, int))(v2 + 64))(v2, 5, v5 + *(_DWORD*)(v2 + 1960) - v6,
 																			  v6))
 					return -4;
 				sub_562E30(v10, *(char**)(v2 + 1960), (unsigned __int16)a1);
@@ -7674,11 +7674,11 @@ int __cdecl sub_55F860(int a1, int a2) {
 			*(_DWORD*)(v2 + 1968) = (unsigned __int16)a1;
 		} else {
 			if ((_WORD)a1 == HIWORD(a1)) {
-				if ((*(int(__cdecl**)(int, int, _DWORD, int))(v2 + 64))(v2, 5, *(_DWORD*)(v2 + 1932), v6))
+				if ((*(int(**)(int, int, _DWORD, int))(v2 + 64))(v2, 5, *(_DWORD*)(v2 + 1932), v6))
 					return -4;
 			} else {
 				v7 = (_WORD*)(*(_DWORD*)(v2 + 1932) + *(_DWORD*)(v2 + 152) - v6);
-				if ((*(int(__cdecl**)(int, int, _WORD*, int))(v2 + 64))(v2, 5, v7, v6))
+				if ((*(int(**)(int, int, _WORD*, int))(v2 + 64))(v2, 5, v7, v6))
 					return -4;
 				sub_562E30(v7, *(char**)(v2 + 1932), (unsigned __int16)a1);
 			}
@@ -7693,7 +7693,7 @@ int __cdecl sub_55F860(int a1, int a2) {
 			result = -1;
 		}
 	} else {
-		v11 = -((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, (a2 + 1) & 0xFFFFFFFE) != 0);
+		v11 = -((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, (a2 + 1) & 0xFFFFFFFE) != 0);
 		LOBYTE(v11) = v11 & 0xFB;
 		result = v11 - 1;
 	}
@@ -7701,7 +7701,7 @@ int __cdecl sub_55F860(int a1, int a2) {
 }
 
 //----- (0055FA20) --------------------------------------------------------
-int __cdecl sub_55FA20(int a1, int a2) {
+int  sub_55FA20(int a1, int a2) {
 	int v2;                // eax
 	int v3;                // edi
 	unsigned int v4;       // ecx
@@ -7720,7 +7720,7 @@ int __cdecl sub_55FA20(int a1, int a2) {
 		v5 = a2 * (*(unsigned __int8*)(a1 + 63) >> 2);
 		if (v5 <= v4 || *(_DWORD*)(a1 + 1936)) {
 			v10 = (unsigned __int16*)(v4 + *(_DWORD*)(a1 + 1960) - v2);
-			if ((*(int(__cdecl**)(int, int, unsigned int, int))(a1 + 64))(a1, 5, v4 + *(_DWORD*)(a1 + 1960) - v2, v2)) {
+			if ((*(int(**)(int, int, unsigned int, int))(a1 + 64))(a1, 5, v4 + *(_DWORD*)(a1 + 1960) - v2, v2)) {
 				result = -4;
 			} else {
 				sub_560881(v10, *(_WORD**)(a1 + 1960), *(unsigned __int8*)(a1 + 63), *(unsigned __int8*)(a1 + 62), v5,
@@ -7730,7 +7730,7 @@ int __cdecl sub_55FA20(int a1, int a2) {
 			}
 		} else {
 			v6 = (unsigned __int16*)(v3 + *(_DWORD*)(a1 + 152) - v2);
-			if ((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 5, v3 + *(_DWORD*)(a1 + 152) - v2, v2)) {
+			if ((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, v3 + *(_DWORD*)(a1 + 152) - v2, v2)) {
 				result = -4;
 			} else {
 				sub_560881(v6, *(_WORD**)(a1 + 1932), *(unsigned __int8*)(a1 + 63), *(unsigned __int8*)(a1 + 62), v5,
@@ -7748,7 +7748,7 @@ int __cdecl sub_55FA20(int a1, int a2) {
 			}
 		}
 	} else {
-		v11 = -((*(int(__cdecl**)(int, int, int, int))(a1 + 64))(a1, 7, 1, v2) != 0);
+		v11 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 7, 1, v2) != 0);
 		LOBYTE(v11) = v11 & 0xFB;
 		result = v11 - 1;
 	}
@@ -7756,7 +7756,7 @@ int __cdecl sub_55FA20(int a1, int a2) {
 }
 
 //----- (0055FBA0) --------------------------------------------------------
-int __cdecl sub_55FBA0(int a1, int a2) {
+int  sub_55FBA0(int a1, int a2) {
 	unsigned int v2;        // eax
 	int result;             // eax
 	__int16 v4;             // ax
@@ -7767,7 +7767,7 @@ int __cdecl sub_55FBA0(int a1, int a2) {
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	if (*(_BYTE*)(a1 + 132) & 1 && *(_DWORD*)(a1 + 1932)) {
-		if (v2 > 0xC || (*(int(__cdecl**)(int, int, unsigned __int8*, unsigned int))(a1 + 64))(a1, 5, v7, v2)) {
+		if (v2 > 0xC || (*(int(**)(int, int, unsigned __int8*, unsigned int))(a1 + 64))(a1, 5, v7, v2)) {
 			result = -4;
 		} else {
 			v4 = *(_WORD*)v7;
@@ -7781,7 +7781,7 @@ int __cdecl sub_55FBA0(int a1, int a2) {
 			result = -1;
 		}
 	} else {
-		v6 = -((*(int(__cdecl**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, v2) != 0);
+		v6 = -((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, v2) != 0);
 		LOBYTE(v6) = v6 & 0xFB;
 		result = v6 - 1;
 	}
@@ -7789,7 +7789,7 @@ int __cdecl sub_55FBA0(int a1, int a2) {
 }
 
 //----- (0055FC40) --------------------------------------------------------
-int __cdecl sub_55FC40(int a1) {
+int  sub_55FC40(int a1) {
 	int result; // eax
 
 	result = -1;
@@ -7798,7 +7798,7 @@ int __cdecl sub_55FC40(int a1) {
 }
 
 //----- (0055FC50) --------------------------------------------------------
-int __cdecl sub_55FC50(int a1) {
+int  sub_55FC50(int a1) {
 	int v1;     // eax
 	int v2;     // edx
 	int v3;     // ecx
@@ -7882,11 +7882,11 @@ int __cdecl sub_55FC50(int a1) {
 	}
 	return result;
 }
-// 560840: using guessed type void __cdecl nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(_DWORD);
 // 560850: using guessed type int sub_560850();
 
 //----- (0055FE20) --------------------------------------------------------
-int __cdecl sub_55FE20(int a1, int a2) {
+int  sub_55FE20(int a1, int a2) {
 	int v2;      // esi
 	int v3;      // ebp
 	int v4;      // eax
@@ -7926,7 +7926,7 @@ int __cdecl sub_55FE20(int a1, int a2) {
 				v18 = v8;
 				do {
 					if (v9[1] == a2)
-						(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v2 + 72))(v2, v5, *(v9 - 1), *v9);
+						(*(void(**)(int, int, _DWORD, _DWORD))(v2 + 72))(v2, v5, *(v9 - 1), *v9);
 					v9 += 3;
 					--v18;
 				} while (v18);
@@ -7952,7 +7952,7 @@ int __cdecl sub_55FE20(int a1, int a2) {
 				v21 = v16;
 				do {
 					if (v17[1] == a2)
-						(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v2 + 72))(v2, v13, *(v17 - 1), *v17);
+						(*(void(**)(int, int, _DWORD, _DWORD))(v2 + 72))(v2, v13, *(v17 - 1), *v17);
 					v17 += 3;
 					--v21;
 				} while (v21);
@@ -7968,11 +7968,11 @@ int __cdecl sub_55FE20(int a1, int a2) {
 }
 
 //----- (0055FF30) --------------------------------------------------------
-char __cdecl sub_55FF30(int a1, int* a2) {
+char  sub_55FF30(int a1, int* a2) {
 	int v2;                                      // esi
 	int* v3;                                     // ebx
 	int v4;                                      // eax
-	int(__cdecl * v5)(int, int, _DWORD, _DWORD); // eax
+	int( * v5)(int, int, _DWORD, _DWORD); // eax
 	int v6;                                      // ecx
 	int v7;                                      // edx
 	int v8;                                      // edi
@@ -7989,7 +7989,7 @@ char __cdecl sub_55FF30(int a1, int* a2) {
 	LOBYTE(v4) = *(_BYTE*)(a1 + 420);
 	v16 = a2[1];
 	if (!(v4 & 2)) {
-		if ((v5 = *(int(__cdecl**)(int, int, _DWORD, _DWORD))(v2 + 72)) != 0 && (v4 = v5(v2, 6, 0, 0)) != 0 ||
+		if ((v5 = *(int(**)(int, int, _DWORD, _DWORD))(v2 + 72)) != 0 && (v4 = v5(v2, 6, 0, 0)) != 0 ||
 			(v4 = *(_DWORD*)(v2 + 424)) != 0) {
 			v6 = *(_DWORD*)(v2 + 1732);
 			v7 = *(_DWORD*)(v2 + 1736);
@@ -8008,25 +8008,25 @@ char __cdecl sub_55FF30(int a1, int* a2) {
 			if (*(_DWORD*)(v2 + 72) && v10 & 8) {
 				LOBYTE(v10) = v10 & 0xF7;
 				*(_DWORD*)(v16 + 12) = v10;
-				(*(void(__cdecl**)(int, int, int, _DWORD))(v2 + 72))(v2, 3, v11, *(_DWORD*)(v16 + 20));
+				(*(void(**)(int, int, int, _DWORD))(v2 + 72))(v2, 3, v11, *(_DWORD*)(v16 + 20));
 				v7 = v14;
 				v6 = v15;
 			}
 			v13 = *(_DWORD*)(v2 + 428);
 			if (a2[5] & 0x20)
-				(*(void(__cdecl**)(int, int, int, int, int, int))(v2 + 1928))(v11, v9, v8, v6, v7, v13);
+				(*(void(**)(int, int, int, int, int, int))(v2 + 1928))(v11, v9, v8, v6, v7, v13);
 			else
-				(*(void(__cdecl**)(int, int, int, int, int, int))(v2 + 1924))(v11, v9, v8, v6, v7, v13);
+				(*(void(**)(int, int, int, int, int, int))(v2 + 1924))(v11, v9, v8, v6, v7, v13);
 			v4 = *(_DWORD*)(v2 + 72);
 			if (v4)
-				LOBYTE(v4) = ((int(__cdecl*)(int, int, _DWORD, _DWORD))v4)(v2, 7, 0, 0);
+				LOBYTE(v4) = ((int(*)(int, int, _DWORD, _DWORD))v4)(v2, 7, 0, 0);
 		}
 	}
 	return v4;
 }
 
 //----- (00560030) --------------------------------------------------------
-int __cdecl sub_560030(int a1) {
+int  sub_560030(int a1) {
 	int result; // eax
 	int v2;     // eax
 
@@ -8043,7 +8043,7 @@ int __cdecl sub_560030(int a1) {
 }
 
 //----- (00560080) --------------------------------------------------------
-int __cdecl sub_560080(int a1) {
+int  sub_560080(int a1) {
 	int v1;                                        // ebx
 	int v2;                                        // ebp
 	int v3;                                        // edi
@@ -8060,14 +8060,14 @@ int __cdecl sub_560080(int a1) {
 	int v14;                                       // eax
 	int v15;                                       // eax
 	int v16;                                       // eax
-	void(__cdecl * v17)(int, int, _DWORD, _DWORD); // eax
+	void( * v17)(int, int, _DWORD, _DWORD); // eax
 	int v18;                                       // ecx
 	int v19;                                       // eax
 	int v20;                                       // eax
 	int v21;                                       // eax
 	int v22;                                       // eax
 	int v23;                                       // eax
-	int(__cdecl * v24)(_DWORD, _DWORD);            // eax
+	int( * v24)(_DWORD, _DWORD);            // eax
 	int v25;                                       // eax
 	char v26;                                      // al
 	signed int v27;                                // [esp+10h] [ebp-4h]
@@ -8121,7 +8121,7 @@ int __cdecl sub_560080(int a1) {
 								*(_DWORD*)(v1 + 448) = *(_DWORD*)(v2 + 40);
 								*(_DWORD*)(v1 + 420) = v16;
 							}
-							v17 = *(void(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 72);
+							v17 = *(void(**)(int, int, _DWORD, _DWORD))(v1 + 72);
 							if (v17) {
 								v18 = *(_DWORD*)(v2 + 20);
 								if (v18 & 0x100) {
@@ -8132,7 +8132,7 @@ int __cdecl sub_560080(int a1) {
 								}
 								v20 = *(_DWORD*)(v2 + 20);
 								if (v20 & 0x200) {
-									(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 72))(v1, 5, *(_DWORD*)(v2 + 28),
+									(*(void(**)(int, int, _DWORD, _DWORD))(v1 + 72))(v1, 5, *(_DWORD*)(v2 + 28),
 																							*(_DWORD*)(v1 + 288));
 									v21 = *(_DWORD*)(v2 + 20);
 									BYTE1(v21) &= 0xFDu;
@@ -8146,7 +8146,7 @@ int __cdecl sub_560080(int a1) {
 									*(_DWORD*)(v2 + 20) = v23;
 								}
 							}
-							v24 = *(int(__cdecl**)(_DWORD, _DWORD))(v1 + 76);
+							v24 = *(int(**)(_DWORD, _DWORD))(v1 + 76);
 							if (v24 && v24(0, *(_DWORD*)(v2 + 28)))
 								return -2;
 							v25 = *(_DWORD*)(v2 + 20);
@@ -8208,7 +8208,7 @@ int __cdecl sub_560080(int a1) {
 }
 
 //----- (005603B0) --------------------------------------------------------
-signed int __cdecl sub_5603B0(int a1, int a2, int a3, int a4, int a5) {
+signed int  sub_5603B0(int a1, int a2, int a3, int a4, int a5) {
 	int v5;            // ebp
 	signed int v6;     // esi
 	int v7;            // edi
@@ -8294,7 +8294,7 @@ signed int __cdecl sub_5603B0(int a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (00560560) --------------------------------------------------------
-int __cdecl sub_560560(_DWORD* a1) {
+int  sub_560560(_DWORD* a1) {
 	int v1;     // ebx
 	int v2;     // ecx
 	int v3;     // edi
@@ -8318,13 +8318,13 @@ int __cdecl sub_560560(_DWORD* a1) {
 }
 
 //----- (005605C0) --------------------------------------------------------
-int __cdecl sub_5605C0(int a1) {
+int  sub_5605C0(int a1) {
 	*(_DWORD*)(a1 + 1744) = *(_DWORD*)(*(_DWORD*)(a1 + 416) + 28);
 	return -1;
 }
 
 //----- (005605E0) --------------------------------------------------------
-int __cdecl sub_5605E0(int a1) {
+int  sub_5605E0(int a1) {
 	int result; // eax
 
 	result = *(_DWORD*)(*(_DWORD*)(a1 + 416) + 16);
@@ -8334,7 +8334,7 @@ int __cdecl sub_5605E0(int a1) {
 }
 
 //----- (00560600) --------------------------------------------------------
-char __cdecl sub_560600(int a1) {
+char  sub_560600(int a1) {
 	int v1;   // esi
 	int v2;   // eax
 	int v3;   // edi
@@ -8389,18 +8389,18 @@ char __cdecl sub_560600(int a1) {
 }
 
 //----- (005606D0) --------------------------------------------------------
-int __cdecl sub_5606D0(_DWORD* a1) {
+int  sub_5606D0(_DWORD* a1) {
 	int* v1;                                           // edi
-	void(__cdecl * v2)(_DWORD*, int, int, int);        // eax
+	void( * v2)(_DWORD*, int, int, int);        // eax
 	int v3;                                            // eax
-	void(__cdecl * v4)(_DWORD*, int, _DWORD*, _DWORD); // eax
-	int(__cdecl * v5)(_DWORD*, int);                   // eax
+	void( * v4)(_DWORD*, int, _DWORD*, _DWORD); // eax
+	int( * v5)(_DWORD*, int);                   // eax
 	int result;                                        // eax
 
 	v1 = (int*)a1[439];
 	if (v1[5] & 4 || a1[105] & 1) {
 		if (v1[5] & 4) {
-			v2 = (void(__cdecl*)(_DWORD*, int, int, int))a1[18];
+			v2 = (void(*)(_DWORD*, int, int, int))a1[18];
 			if (v2)
 				v2(a1, 2, v1[2], v1[10]);
 		} else {
@@ -8408,14 +8408,14 @@ int __cdecl sub_5606D0(_DWORD* a1) {
 			if (v3 & 1) {
 				LOBYTE(v3) = v3 & 0xFE;
 				a1[105] = v3;
-				v4 = (void(__cdecl*)(_DWORD*, int, _DWORD*, _DWORD))a1[18];
+				v4 = (void(*)(_DWORD*, int, _DWORD*, _DWORD))a1[18];
 				if (v4)
 					v4(a1, 2, a1 + 113, a1[112]);
 			}
 		}
 	}
 	sub_55FF30((int)a1, v1);
-	v5 = (int(__cdecl*)(_DWORD*, int))a1[19];
+	v5 = (int(*)(_DWORD*, int))a1[19];
 	if (v5 && v5(a1, v1[7]))
 		result = -2;
 	else
@@ -8424,7 +8424,7 @@ int __cdecl sub_5606D0(_DWORD* a1) {
 }
 
 //----- (00560760) --------------------------------------------------------
-int __cdecl sub_560760(int a1) {
+int  sub_560760(int a1) {
 	int result; // eax
 	int v2;     // edi
 
@@ -8442,18 +8442,18 @@ int __cdecl sub_560760(int a1) {
 }
 
 //----- (005607B0) --------------------------------------------------------
-int __cdecl sub_5607B0(_DWORD* a1) {
+int  sub_5607B0(_DWORD* a1) {
 	_DWORD* v1;                                        // edi
-	void(__cdecl * v2)(_DWORD*, int, _DWORD, _DWORD);  // eax
+	void( * v2)(_DWORD*, int, _DWORD, _DWORD);  // eax
 	int v3;                                            // eax
-	void(__cdecl * v4)(_DWORD*, int, _DWORD*, _DWORD); // eax
-	int(__cdecl * v5)(_DWORD*, _DWORD);                // eax
+	void( * v4)(_DWORD*, int, _DWORD*, _DWORD); // eax
+	int( * v5)(_DWORD*, _DWORD);                // eax
 	int result;                                        // eax
 
 	v1 = (_DWORD*)a1[439];
 	if (v1[5] & 4 || a1[105] & 1) {
 		if (v1[5] & 4) {
-			v2 = (void(__cdecl*)(_DWORD*, int, _DWORD, _DWORD))a1[18];
+			v2 = (void(*)(_DWORD*, int, _DWORD, _DWORD))a1[18];
 			if (v2)
 				v2(a1, 2, v1[2], v1[10]);
 		} else {
@@ -8461,13 +8461,13 @@ int __cdecl sub_5607B0(_DWORD* a1) {
 			if (v3 & 1) {
 				LOBYTE(v3) = v3 & 0xFE;
 				a1[105] = v3;
-				v4 = (void(__cdecl*)(_DWORD*, int, _DWORD*, _DWORD))a1[18];
+				v4 = (void(*)(_DWORD*, int, _DWORD*, _DWORD))a1[18];
 				if (v4)
 					v4(a1, 2, a1 + 113, a1[112]);
 			}
 		}
 	}
-	v5 = (int(__cdecl*)(_DWORD*, _DWORD))a1[19];
+	v5 = (int(*)(_DWORD*, _DWORD))a1[19];
 	if (v5 && v5(a1, v1[7]))
 		result = -2;
 	else
@@ -8480,7 +8480,7 @@ int sub_560850() { return -1; }
 // 560850: using guessed type int sub_560850();
 
 //----- (00560860) --------------------------------------------------------
-int __cdecl sub_560860(int a1) {
+int  sub_560860(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -8492,7 +8492,7 @@ int __cdecl sub_560860(int a1) {
 }
 
 //----- (00560881) --------------------------------------------------------
-void __cdecl sub_560881(unsigned __int16* a1, _WORD* a2, __int16 a3, __int16 a4, unsigned int a5, int a6) {
+void  sub_560881(unsigned __int16* a1, _WORD* a2, __int16 a3, __int16 a4, unsigned int a5, int a6) {
 	int v6;                // eax
 	int v7;                // edx
 	unsigned __int16* v8;  // esi
@@ -9076,7 +9076,7 @@ void __cdecl sub_560881(unsigned __int16* a1, _WORD* a2, __int16 a3, __int16 a4,
 }
 
 //----- (00561430) --------------------------------------------------------
-int __cdecl sub_561430(int a1) {
+int  sub_561430(int a1) {
 	int result;             // eax
 	unsigned __int8 v2;     // cl
 	unsigned __int8 v3;     // dl
@@ -9096,7 +9096,7 @@ int __cdecl sub_561430(int a1) {
 	v5[3] = v3;
 	*(_DWORD*)&v5[8] = sub_561760;
 	*(_DWORD*)&v5[12] = sub_5618B0;
-	result = (*(int(__cdecl**)(int, int, unsigned __int8*, int))(a1 + 88))(a1, 2, v5, 16);
+	result = (*(int(**)(int, int, unsigned __int8*, int))(a1 + 88))(a1, 2, v5, 16);
 	if (result >= 0 || result == -1) {
 		v4 = *(_DWORD*)(a1 + 1980);
 		if (v4 >= 0)
@@ -9107,12 +9107,12 @@ int __cdecl sub_561430(int a1) {
 }
 
 //----- (005614E0) --------------------------------------------------------
-int __cdecl sub_5614E0(int a1) {
+int  sub_5614E0(int a1) {
 	int result; // eax
 
 	if (*(_BYTE*)(a1 + 1980) & 0x40)
 		sub_561590(a1);
-	(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 88))(a1, 3, 0, 0);
+	(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 88))(a1, 3, 0, 0);
 	result = *(_DWORD*)(a1 + 1980);
 	if ((*(_DWORD*)(a1 + 1980) & 0x80000000) == 1) {
 		result &= 0x7FFFFFFFu;
@@ -9122,10 +9122,10 @@ int __cdecl sub_5614E0(int a1) {
 }
 
 //----- (00561530) --------------------------------------------------------
-int __cdecl sub_561530(int a1) {
+int  sub_561530(int a1) {
 	int result; // eax
 
-	(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 88))(a1, 4, 0, 0);
+	(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 88))(a1, 4, 0, 0);
 	result = *(_DWORD*)(a1 + 1980);
 	LOBYTE(result) = result | 0x40;
 	*(_DWORD*)(a1 + 1980) = result;
@@ -9133,10 +9133,10 @@ int __cdecl sub_561530(int a1) {
 }
 
 //----- (00561560) --------------------------------------------------------
-char __cdecl sub_561560(int a1) {
+char  sub_561560(int a1) {
 	int v1; // eax
 
-	(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 88))(a1, 6, 0, 0);
+	(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 88))(a1, 6, 0, 0);
 	v1 = *(_DWORD*)(a1 + 1980);
 	LOBYTE(v1) = v1 & 0xBF;
 	*(_DWORD*)(a1 + 1980) = v1;
@@ -9144,10 +9144,10 @@ char __cdecl sub_561560(int a1) {
 }
 
 //----- (00561590) --------------------------------------------------------
-char __cdecl sub_561590(int a1) {
+char  sub_561590(int a1) {
 	int v1; // eax
 
-	(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 88))(a1, 7, 0, 0);
+	(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 88))(a1, 7, 0, 0);
 	v1 = *(_DWORD*)(a1 + 1980);
 	LOBYTE(v1) = v1 & 0xBF;
 	*(_DWORD*)(a1 + 1980) = v1;
@@ -9155,7 +9155,7 @@ char __cdecl sub_561590(int a1) {
 }
 
 //----- (005615C0) --------------------------------------------------------
-int __cdecl sub_5615C0(int a1) {
+int  sub_5615C0(int a1) {
 	int v1;           // ebx
 	int v2;           // ebp
 	int v3;           // eax
@@ -9230,7 +9230,7 @@ int __cdecl sub_5615C0(int a1) {
 }
 
 //----- (00561760) --------------------------------------------------------
-int __cdecl sub_561760(int a1) {
+int  sub_561760(int a1) {
 	int v1;           // ebx
 	int v2;           // edi
 	int v4;           // edx
@@ -9300,16 +9300,16 @@ int __cdecl sub_561760(int a1) {
 	}
 	if (v2 > 0) {
 		if (v8 == 1) {
-			(*(void(__cdecl**)(int, int, _DWORD, int))(a1 + 88))(a1, 5, *(_DWORD*)(a1 + 1976), v2);
+			(*(void(**)(int, int, _DWORD, int))(a1 + 88))(a1, 5, *(_DWORD*)(a1 + 1976), v2);
 			return v2;
 		}
-		(*(void(__cdecl**)(int, int, int, int))(a1 + 88))(a1, 5, v6 + *(_DWORD*)(a1 + 1932), v2);
+		(*(void(**)(int, int, int, int))(a1 + 88))(a1, 5, v6 + *(_DWORD*)(a1 + 1932), v2);
 	}
 	return v2;
 }
 
 //----- (005618B0) --------------------------------------------------------
-int __cdecl sub_5618B0(_DWORD* a1, int a2) {
+int  sub_5618B0(_DWORD* a1, int a2) {
 	int result;      // eax
 	int v3;          // ecx
 	int v4;          // edx
@@ -9350,7 +9350,7 @@ int __cdecl sub_5618B0(_DWORD* a1, int a2) {
 }
 
 //----- (00561980) --------------------------------------------------------
-int __cdecl sub_561980(int a1) {
+int  sub_561980(int a1) {
 	int v1;              // esi
 	_DWORD* v2;          // ebx
 	int v4;              // eax
@@ -9447,22 +9447,22 @@ int __cdecl sub_561980(int a1) {
 	v12 = *(_DWORD*)(a1 + 266) + 16;
 	LOBYTE(v12) = v12 & 0xFC;
 	*(_DWORD*)(a1 + 1896) = v12;
-	v13 = (*(int(__cdecl**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, v41);
+	v13 = (*(int(**)(int, int, _DWORD, int))(a1 + 68))(a1, 2, 0, v41);
 	*(_DWORD*)(a1 + 1776) = v13;
 	if (!v13) {
 		sub_562120(a1);
 		return -8;
 	}
-	(*(void(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 4, v13, *(_DWORD*)(a1 + 1908));
+	(*(void(**)(int, int, int, _DWORD))(a1 + 68))(a1, 4, v13, *(_DWORD*)(a1 + 1908));
 	*(_DWORD*)(a1 + 48) += *(_DWORD*)(a1 + 1908);
 	v45 = 0;
 	if (*(_DWORD*)(v1 + 140) > 0) {
 		while (1) {
-			v14 = (*(int(__cdecl**)(int, int, _DWORD, int))(v1 + 68))(v1, 2, 0, *(_DWORD*)(v1 + 1896) + 24);
+			v14 = (*(int(**)(int, int, _DWORD, int))(v1 + 68))(v1, 2, 0, *(_DWORD*)(v1 + 1896) + 24);
 			v15 = (_DWORD*)v14;
 			if (!v14)
 				goto LABEL_75;
-			(*(void(__cdecl**)(int, int, int, int))(v1 + 68))(v1, 4, v14, *(_DWORD*)(v1 + 1896) + 24);
+			(*(void(**)(int, int, int, int))(v1 + 68))(v1, 4, v14, *(_DWORD*)(v1 + 1896) + 24);
 			*(_DWORD*)(v1 + 48) += *(_DWORD*)(v1 + 1896) + 24;
 			memset(v15, 0, 0x18u);
 			*v15 = v15 + 6;
@@ -9506,22 +9506,22 @@ int __cdecl sub_561980(int a1) {
 	LOBYTE(v21) = v21 & 0xFC;
 	*(_DWORD*)(v1 + 340) |= 2u;
 	*(_DWORD*)(v1 + 1900) = v21;
-	v22 = (*(int(__cdecl**)(int, int, _DWORD, int))(v1 + 68))(v1, 2, 0, v42);
+	v22 = (*(int(**)(int, int, _DWORD, int))(v1 + 68))(v1, 2, 0, v42);
 	*(_DWORD*)(v1 + 1768) = v22;
 	if (!v22) {
 		sub_562120(v1);
 		return -8;
 	}
-	(*(void(__cdecl**)(int, int, int, _DWORD))(v1 + 68))(v1, 4, v22, *(_DWORD*)(v1 + 1912));
+	(*(void(**)(int, int, int, _DWORD))(v1 + 68))(v1, 4, v22, *(_DWORD*)(v1 + 1912));
 	*(_DWORD*)(v1 + 48) += *(_DWORD*)(v1 + 1912);
 	v46 = 0;
 	if (*(_DWORD*)(v1 + 136) > 0) {
 		while (1) {
-			v23 = (_DWORD*)(*(int(__cdecl**)(int, int, _DWORD, int))(v1 + 68))(
+			v23 = (_DWORD*)(*(int(**)(int, int, _DWORD, int))(v1 + 68))(
 				v1, 2, 0, *(_DWORD*)(v1 + 1904) + *(_DWORD*)(v1 + 1900) + 44);
 			if (!v23)
 				goto LABEL_75;
-			(*(void(__cdecl**)(int, int, _DWORD*, int))(v1 + 68))(v1, 4, v23,
+			(*(void(**)(int, int, _DWORD*, int))(v1 + 68))(v1, 4, v23,
 																  *(_DWORD*)(v1 + 1904) + *(_DWORD*)(v1 + 1900) + 44);
 			*(_DWORD*)(v1 + 48) += *(_DWORD*)(v1 + 1904) + *(_DWORD*)(v1 + 1900) + 44;
 			memset(v23, 0, 0x2Cu);
@@ -9586,70 +9586,70 @@ int __cdecl sub_561980(int a1) {
 			if (v32) {
 				*(_DWORD*)(v1 + 1932) = v32;
 			} else {
-				v33 = (*(int(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 2, 0, *(_DWORD*)(v1 + 152));
+				v33 = (*(int(**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 2, 0, *(_DWORD*)(v1 + 152));
 				*(_DWORD*)(v1 + 1932) = v33;
 				if (!v33) {
 					sub_562120(v1);
 					return -8;
 				}
-				(*(void(__cdecl**)(int, int, int, _DWORD))(v1 + 68))(v1, 4, v33, *(_DWORD*)(v1 + 152));
+				(*(void(**)(int, int, int, _DWORD))(v1 + 68))(v1, 4, v33, *(_DWORD*)(v1 + 152));
 				*(_DWORD*)(v1 + 48) += *(_DWORD*)(v1 + 152);
 			}
 			v34 = *(_DWORD*)(v1 + 152) / *(_DWORD*)(v1 + 156);
 			*(_DWORD*)(v1 + 1948) = v34;
-			v35 = (*(int(__cdecl**)(int, int, _DWORD, int))(v1 + 68))(v1, 2, 0, v34);
+			v35 = (*(int(**)(int, int, _DWORD, int))(v1 + 68))(v1, 2, 0, v34);
 			*(_DWORD*)(v1 + 1940) = v35;
 			if (!v35) {
 				sub_562120(v1);
 				return -8;
 			}
-			(*(void(__cdecl**)(int, int, int, _DWORD))(v1 + 68))(v1, 4, v35, *(_DWORD*)(v1 + 1948));
+			(*(void(**)(int, int, int, _DWORD))(v1 + 68))(v1, 4, v35, *(_DWORD*)(v1 + 1948));
 			*(_DWORD*)(v1 + 48) += *(_DWORD*)(v1 + 1948);
 			memset(*(void**)(v1 + 1940), 0, *(_DWORD*)(v1 + 1948));
-			v36 = (*(int(__cdecl**)(int, int, _DWORD, int))(v1 + 68))(v1, 2, 0, 2 * *(_DWORD*)(v1 + 1948));
+			v36 = (*(int(**)(int, int, _DWORD, int))(v1 + 68))(v1, 2, 0, 2 * *(_DWORD*)(v1 + 1948));
 			*(_DWORD*)(v1 + 1944) = v36;
 			if (!v36) {
 				sub_562120(v1);
 				return -8;
 			}
-			(*(void(__cdecl**)(int, int, int, int))(v1 + 68))(v1, 4, v36, 2 * *(_DWORD*)(v1 + 1948));
+			(*(void(**)(int, int, int, int))(v1 + 68))(v1, 4, v36, 2 * *(_DWORD*)(v1 + 1948));
 			*(_DWORD*)(v1 + 48) += 2 * *(_DWORD*)(v1 + 1948);
 			memset(*(void**)(v1 + 1944), 0, 2 * *(_DWORD*)(v1 + 1948));
 			v37 = 2 * (*(_DWORD*)(v1 + 1996) / (unsigned int)*(unsigned __int8*)(v1 + 244)) + 100;
 			*(_DWORD*)(v1 + 1972) = v37;
-			v38 = (*(int(__cdecl**)(int, int, _DWORD, unsigned int))(v1 + 68))(v1, 2, 0, v37);
+			v38 = (*(int(**)(int, int, _DWORD, unsigned int))(v1 + 68))(v1, 2, 0, v37);
 			*(_DWORD*)(v1 + 1960) = v38;
 			if (!v38) {
 				sub_562120(v1);
 				return -8;
 			}
-			(*(void(__cdecl**)(int, int, int, _DWORD))(v1 + 68))(v1, 4, v38, *(_DWORD*)(v1 + 1972));
+			(*(void(**)(int, int, int, _DWORD))(v1 + 68))(v1, 4, v38, *(_DWORD*)(v1 + 1972));
 			*(_DWORD*)(v1 + 48) += *(_DWORD*)(v1 + 1972);
-			v39 = (*(int(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 2, 0, *(_DWORD*)(v1 + 156));
+			v39 = (*(int(**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 2, 0, *(_DWORD*)(v1 + 156));
 			*(_DWORD*)(v1 + 1976) = v39;
 			if (!v39) {
 				sub_562120(v1);
 				return -8;
 			}
-			(*(void(__cdecl**)(int, int, int, _DWORD))(v1 + 68))(v1, 4, v39, *(_DWORD*)(v1 + 156));
+			(*(void(**)(int, int, int, _DWORD))(v1 + 68))(v1, 4, v39, *(_DWORD*)(v1 + 156));
 			memset(*(void**)(v1 + 1976), 0, *(_DWORD*)(v1 + 156));
 			*(_DWORD*)(v1 + 48) += *(_DWORD*)(v1 + 156);
 		}
 	}
-	v40 = (*(int(__cdecl**)(int, int, _DWORD, int))(v1 + 68))(v1, 2, 0, 4 * *(unsigned __int16*)(v1 + 236));
+	v40 = (*(int(**)(int, int, _DWORD, int))(v1 + 68))(v1, 2, 0, 4 * *(unsigned __int16*)(v1 + 236));
 	*(_DWORD*)(v1 + 1892) = v40;
 	if (!v40) {
 	LABEL_75:
 		sub_562120(v1);
 		return -8;
 	}
-	(*(void(__cdecl**)(int, int, int, int))(v1 + 68))(v1, 4, v40, 4 * *(unsigned __int16*)(v1 + 236));
+	(*(void(**)(int, int, int, int))(v1 + 68))(v1, 4, v40, 4 * *(unsigned __int16*)(v1 + 236));
 	*(_DWORD*)(v1 + 48) += 4 * *(unsigned __int16*)(v1 + 236);
 	return -1;
 }
 
 //----- (00562120) --------------------------------------------------------
-int __cdecl sub_562120(int a1) {
+int  sub_562120(int a1) {
 	int v1;     // esi
 	int v2;     // eax
 	int v3;     // eax
@@ -9702,40 +9702,40 @@ int __cdecl sub_562120(int a1) {
 	v1 = a1;
 	v2 = *(_DWORD*)(a1 + 1780);
 	if (v2) {
-		(*(void(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v2, *(_DWORD*)(a1 + 1784));
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1780), 0);
+		(*(void(**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v2, *(_DWORD*)(a1 + 1784));
+		(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1780), 0);
 	}
 	v3 = *(_DWORD*)(a1 + 1892);
 	if (v3) {
-		(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 5, v3, 4 * *(unsigned __int16*)(a1 + 236));
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1892), 0);
+		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v3, 4 * *(unsigned __int16*)(a1 + 236));
+		(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1892), 0);
 	}
 	if (!*(_DWORD*)(a1 + 148)) {
 		v4 = *(_DWORD*)(a1 + 1932);
 		if (v4) {
-			(*(void(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v4, *(_DWORD*)(a1 + 152));
-			(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1932), 0);
+			(*(void(**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v4, *(_DWORD*)(a1 + 152));
+			(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1932), 0);
 		}
 	}
 	v5 = *(_DWORD*)(a1 + 1940);
 	if (v5) {
-		(*(void(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v5, *(_DWORD*)(a1 + 1948));
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1940), 0);
+		(*(void(**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v5, *(_DWORD*)(a1 + 1948));
+		(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1940), 0);
 	}
 	v6 = *(_DWORD*)(a1 + 1944);
 	if (v6) {
-		(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 5, v6, 2 * *(_DWORD*)(a1 + 1948));
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1944), 0);
+		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v6, 2 * *(_DWORD*)(a1 + 1948));
+		(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1944), 0);
 	}
 	v7 = *(_DWORD*)(a1 + 1960);
 	if (v7) {
-		(*(void(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v7, *(_DWORD*)(a1 + 1972));
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1960), 0);
+		(*(void(**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v7, *(_DWORD*)(a1 + 1972));
+		(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1960), 0);
 	}
 	v8 = *(_DWORD*)(a1 + 1976);
 	if (v8) {
-		(*(void(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v8, *(_DWORD*)(a1 + 156));
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1976), 0);
+		(*(void(**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v8, *(_DWORD*)(a1 + 156));
+		(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1976), 0);
 	}
 	v9 = 0;
 	for (i = *(_DWORD*)(a1 + 1764); v9 < *(int*)(a1 + 136); i = v11) {
@@ -9746,15 +9746,15 @@ int __cdecl sub_562120(int a1) {
 		v13 = *(_DWORD*)(a1 + 1904) + 4;
 		*(_DWORD*)(a1 + 1904) = v13;
 		*(_DWORD*)(a1 + 1900) = v12;
-		(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 5, i, v12 + v13 + 44);
-		(*(void(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 3, i, 0);
+		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, i, v12 + v13 + 44);
+		(*(void(**)(int, int, int, _DWORD))(a1 + 68))(a1, 3, i, 0);
 		++v9;
 	}
 	if (*(_BYTE*)(a1 + 340) & 2) {
 		v14 = *(_DWORD*)(a1 + 1768);
 		if (v14) {
-			(*(void(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v14, *(_DWORD*)(a1 + 1912));
-			(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1768), 0);
+			(*(void(**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v14, *(_DWORD*)(a1 + 1912));
+			(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1768), 0);
 			*(_DWORD*)(a1 + 1768) = 0;
 		}
 	}
@@ -9765,27 +9765,27 @@ int __cdecl sub_562120(int a1) {
 		v17 = *(_DWORD*)(v15 + 4);
 		v18 = *(_DWORD*)(a1 + 1896) + 4;
 		*(_DWORD*)(a1 + 1896) = v18;
-		(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 5, v15, v18 + 24);
-		(*(void(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 3, v15, 0);
+		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v15, v18 + 24);
+		(*(void(**)(int, int, int, _DWORD))(a1 + 68))(a1, 3, v15, 0);
 		++j;
 	}
 	if (*(_BYTE*)(a1 + 340) & 1) {
 		v19 = *(_DWORD*)(a1 + 1776);
 		if (v19) {
-			(*(void(__cdecl**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v19, *(_DWORD*)(a1 + 1908));
-			(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1776), 0);
+			(*(void(**)(int, int, int, _DWORD))(a1 + 68))(a1, 5, v19, *(_DWORD*)(a1 + 1908));
+			(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1776), 0);
 			*(_DWORD*)(a1 + 1776) = 0;
 		}
 	}
 	v20 = *(_DWORD*)(a1 + 1888);
 	if (v20) {
-		(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 5, v20, 2 * *(unsigned __int16*)(a1 + 1880));
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1888), 0);
+		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v20, 2 * *(unsigned __int16*)(a1 + 1880));
+		(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1888), 0);
 	}
 	v21 = *(_DWORD*)(a1 + 1876);
 	if (v21) {
-		(*(void(__cdecl**)(int, int, int, int))(a1 + 68))(a1, 5, v21, 6 * *(unsigned __int16*)(a1 + 1868));
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1876), 0);
+		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v21, 6 * *(unsigned __int16*)(a1 + 1868));
+		(*(void(**)(int, int, _DWORD, _DWORD))(a1 + 68))(a1, 3, *(_DWORD*)(a1 + 1876), 0);
 	}
 	v22 = *(_DWORD*)(a1 + 1852);
 	v45 = *(_DWORD*)(a1 + 1852);
@@ -9800,13 +9800,13 @@ int __cdecl sub_562120(int a1) {
 			v26 = *v24;
 			v27 = *v25;
 			if (*v25) {
-				(*(void(__cdecl**)(int, int, int, unsigned int))(v1 + 68))(
+				(*(void(**)(int, int, int, unsigned int))(v1 + 68))(
 					v1, 5, v27, v26 * ((*(_DWORD*)(*(_DWORD*)(v1 + 1860) + v47 + 4) + 1) & 0xFFFFFFFE));
-				(*(void(__cdecl**)(int, int, int, _DWORD))(v1 + 68))(v1, 3, v27, 0);
+				(*(void(**)(int, int, int, _DWORD))(v1 + 68))(v1, 3, v27, 0);
 			}
 			if (v25) {
-				(*(void(__cdecl**)(int, int, int*, int))(v1 + 68))(v1, 5, v25, 12 * v26);
-				(*(void(__cdecl**)(int, int, int*, _DWORD))(v1 + 68))(v1, 3, v25, 0);
+				(*(void(**)(int, int, int*, int))(v1 + 68))(v1, 5, v25, 12 * v26);
+				(*(void(**)(int, int, int*, _DWORD))(v1 + 68))(v1, 3, v25, 0);
 			}
 			v23 = v41 + 12;
 			v28 = v43 == 1;
@@ -9818,13 +9818,13 @@ int __cdecl sub_562120(int a1) {
 	}
 	v29 = *(_DWORD*)(v1 + 1864);
 	if (v29) {
-		(*(void(__cdecl**)(int, int, int, int))(v1 + 68))(v1, 5, v29, 12 * v22);
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1864), 0);
+		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, v29, 12 * v22);
+		(*(void(**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1864), 0);
 	}
 	v30 = *(_DWORD*)(v1 + 1860);
 	if (v30) {
-		(*(void(__cdecl**)(int, int, int, int))(v1 + 68))(v1, 5, v30, 16 * v22);
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1860), 0);
+		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, v30, 16 * v22);
+		(*(void(**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1860), 0);
 	}
 	v31 = *(_DWORD*)(v1 + 1828);
 	v46 = *(_DWORD*)(v1 + 1828);
@@ -9839,13 +9839,13 @@ int __cdecl sub_562120(int a1) {
 			v35 = *v33;
 			v36 = *v34;
 			if (*v34) {
-				(*(void(__cdecl**)(int, int, int, unsigned int))(v1 + 68))(
+				(*(void(**)(int, int, int, unsigned int))(v1 + 68))(
 					v1, 5, v36, v35 * ((*(_DWORD*)(*(_DWORD*)(v1 + 1844) + v48 + 8) + 1) & 0xFFFFFFFE));
-				(*(void(__cdecl**)(int, int, int, _DWORD))(v1 + 68))(v1, 3, v36, 0);
+				(*(void(**)(int, int, int, _DWORD))(v1 + 68))(v1, 3, v36, 0);
 			}
 			if (v34) {
-				(*(void(__cdecl**)(int, int, int*, int))(v1 + 68))(v1, 5, v34, 12 * v35);
-				(*(void(__cdecl**)(int, int, int*, _DWORD))(v1 + 68))(v1, 3, v34, 0);
+				(*(void(**)(int, int, int*, int))(v1 + 68))(v1, 5, v34, 12 * v35);
+				(*(void(**)(int, int, int*, _DWORD))(v1 + 68))(v1, 3, v34, 0);
 			}
 			v32 = v44 + 12;
 			v28 = v42 == 1;
@@ -9857,29 +9857,29 @@ int __cdecl sub_562120(int a1) {
 	}
 	v37 = *(_DWORD*)(v1 + 1848);
 	if (v37) {
-		(*(void(__cdecl**)(int, int, int, int))(v1 + 68))(v1, 5, v37, 12 * v31);
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1848), 0);
+		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, v37, 12 * v31);
+		(*(void(**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1848), 0);
 	}
 	v38 = *(_DWORD*)(v1 + 1844);
 	if (v38) {
-		(*(void(__cdecl**)(int, int, int, int))(v1 + 68))(v1, 5, v38, 16 * v31);
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1844), 0);
+		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, v38, 16 * v31);
+		(*(void(**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1844), 0);
 	}
 	v39 = *(_DWORD*)(v1 + 1840);
 	if (v39) {
-		(*(void(__cdecl**)(int, int, int, int))(v1 + 68))(v1, 5, v39, 24 * *(_DWORD*)(v1 + 1824));
-		(*(void(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1840), 0);
+		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, v39, 24 * *(_DWORD*)(v1 + 1824));
+		(*(void(**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1840), 0);
 	}
 	result = *(_DWORD*)(v1 + 1820);
 	if (result) {
-		(*(void(__cdecl**)(int, int, int, int))(v1 + 68))(v1, 5, result, 4 * *(unsigned __int16*)(v1 + 1812));
-		result = (*(int(__cdecl**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1820), 0);
+		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, result, 4 * *(unsigned __int16*)(v1 + 1812));
+		result = (*(int(**)(int, int, _DWORD, _DWORD))(v1 + 68))(v1, 3, *(_DWORD*)(v1 + 1820), 0);
 	}
 	return result;
 }
 
 //----- (00562640) --------------------------------------------------------
-int __cdecl sub_562640(int a1) {
+int  sub_562640(int a1) {
 	int v1;           // esi
 	unsigned int v2;  // ebp
 	int v3;           // eax
@@ -9910,12 +9910,12 @@ LABEL_6:
 			v6 = v2 * v11;
 			if (v5 == 1 || v5 == 4)
 				v6 *= 2;
-			v7 = (*(int(__cdecl**)(int, int, _DWORD, unsigned int))(v1 + 68))(v1, 2, 0, v6);
+			v7 = (*(int(**)(int, int, _DWORD, unsigned int))(v1 + 68))(v1, 2, 0, v6);
 			v4 = (void*)v7;
 			if (!v7)
 				return -8;
 			*(_DWORD*)(v1 + 48) += v6;
-			(*(void(__cdecl**)(int, int, int, unsigned int))(v1 + 68))(v1, 4, v7, v6);
+			(*(void(**)(int, int, int, unsigned int))(v1 + 68))(v1, 4, v7, v6);
 			memset(v4, 0, v6);
 			*(_DWORD*)(v1 + 344) = v4;
 			*(_DWORD*)(v1 + 352) = v11;
@@ -9938,7 +9938,7 @@ LABEL_6:
 }
 
 //----- (00562770) --------------------------------------------------------
-void* __cdecl sub_562770(int a1, int a2, LPVOID lpMem, int a4) {
+void*  sub_562770(int a1, int a2, LPVOID lpMem, int a4) {
 	void* result; // eax
 
 	switch (a2) {
@@ -9965,7 +9965,7 @@ void* __cdecl sub_562770(int a1, int a2, LPVOID lpMem, int a4) {
 }
 
 //----- (005627E0) --------------------------------------------------------
-__int16 __cdecl sub_5627E0(int a1, _DWORD* a2, _DWORD* a3) {
+__int16  sub_5627E0(int a1, _DWORD* a2, _DWORD* a3) {
 	int v3;                // ecx
 	int v4;                // ebx
 	unsigned __int16* v5;  // esi
@@ -10070,7 +10070,7 @@ __int16 __cdecl sub_5627E0(int a1, _DWORD* a2, _DWORD* a3) {
 }
 
 //----- (00562930) --------------------------------------------------------
-int __cdecl sub_562930(int a1, int a2, char* a3, int a4) {
+int  sub_562930(int a1, int a2, char* a3, int a4) {
 	int result; // eax
 	int v5;     // esi
 	int v6;     // edi
@@ -10126,7 +10126,7 @@ int __cdecl sub_562930(int a1, int a2, char* a3, int a4) {
 }
 
 //----- (00562A90) --------------------------------------------------------
-int __cdecl sub_562A90(_DWORD* a1, int a2, void* a3, signed int a4) {
+int  sub_562A90(_DWORD* a1, int a2, void* a3, signed int a4) {
 	int result; // eax
 	int v5;     // edi
 	int v6;     // esi
@@ -10169,7 +10169,7 @@ int __cdecl sub_562A90(_DWORD* a1, int a2, void* a3, signed int a4) {
 }
 
 //----- (00562B60) --------------------------------------------------------
-unsigned int __cdecl sub_562B60(int a1, int a2) {
+unsigned int  sub_562B60(int a1, int a2) {
 	unsigned int result; // eax
 
 	*(_DWORD*)(a1 + 328) = 0;
@@ -10179,7 +10179,7 @@ unsigned int __cdecl sub_562B60(int a1, int a2) {
 }
 
 //----- (00562B90) --------------------------------------------------------
-int __cdecl sub_562B90(int a1, int a2) {
+int  sub_562B90(int a1, int a2) {
 	int result; // eax
 
 	result = a1;
@@ -10188,12 +10188,12 @@ int __cdecl sub_562B90(int a1, int a2) {
 }
 
 //----- (00562BA0) --------------------------------------------------------
-unsigned int __cdecl sub_562BA0(int a1) {
-	return (unsigned int)(60 * (*(int(__cdecl**)(int))(a1 + 80))(a1)) / *(_DWORD*)(a1 + 120) + *(_DWORD*)(a1 + 328);
+unsigned int  sub_562BA0(int a1) {
+	return (unsigned int)(60 * (*(int(**)(int))(a1 + 80))(a1)) / *(_DWORD*)(a1 + 120) + *(_DWORD*)(a1 + 328);
 }
 
 //----- (00562BD0) --------------------------------------------------------
-int __cdecl sub_562BD0(_BYTE* a1, char* a2, int a3) {
+int  sub_562BD0(_BYTE* a1, char* a2, int a3) {
 	char* v3;           // edi
 	_BYTE* v4;          // ebx
 	int v5;             // eax
@@ -10268,7 +10268,7 @@ int __cdecl sub_562BD0(_BYTE* a1, char* a2, int a3) {
 }
 
 //----- (00562C9B) --------------------------------------------------------
-int __cdecl sub_562C9B(unsigned __int8* a1, char* a2, int a3) {
+int  sub_562C9B(unsigned __int8* a1, char* a2, int a3) {
 	char* v3;             // edi
 	unsigned __int8* v4;  // ebx
 	unsigned int v5;      // eax
@@ -10402,13 +10402,13 @@ int __cdecl sub_562C9B(unsigned __int8* a1, char* a2, int a3) {
 	return v3 - a2;
 }
 
-int __cdecl sub_562E30(_WORD* a1, char* a2, int a3) {
+int  sub_562E30(_WORD* a1, char* a2, int a3) {
 	DebugBreak();
 	return 0;
 }
 #if 0
 //----- (00562E30) --------------------------------------------------------
-int __cdecl sub_562E30(_WORD * a1, char* a2, int a3)
+int  sub_562E30(_WORD * a1, char* a2, int a3)
 {
     unsigned int v3; // et0
     _WORD* v4; // esi
@@ -10653,7 +10653,7 @@ int __cdecl sub_562E30(_WORD * a1, char* a2, int a3)
 // 562EDC: variable 'v20' is possibly undefined
 #endif
 //----- (00563020) --------------------------------------------------------
-unsigned int __cdecl sub_563020(int a1, unsigned __int16* a2, _BYTE* a3, unsigned int a4, int a5, int a6) {
+unsigned int  sub_563020(int a1, unsigned __int16* a2, _BYTE* a3, unsigned int a4, int a5, int a6) {
 	unsigned int result;   // eax
 	_BYTE* v7;             // esi
 	int v8;                // ebx
@@ -10976,7 +10976,7 @@ unsigned int __cdecl sub_563020(int a1, unsigned __int16* a2, _BYTE* a3, unsigne
 }
 
 //----- (00563470) --------------------------------------------------------
-unsigned int __cdecl sub_563470(int a1, unsigned __int16* a2, _BYTE* a3, unsigned int a4, int a5, int a6) {
+unsigned int  sub_563470(int a1, unsigned __int16* a2, _BYTE* a3, unsigned int a4, int a5, int a6) {
 	unsigned int result;  // eax
 	unsigned __int16* v7; // ebp
 	_BYTE* v8;            // esi
@@ -11268,7 +11268,7 @@ unsigned int __cdecl sub_563470(int a1, unsigned __int16* a2, _BYTE* a3, unsigne
 }
 
 //----- (00563880) --------------------------------------------------------
-unsigned int __cdecl sub_563880(int a1, unsigned __int16* a2, _BYTE* a3, unsigned int a4, int a5, int a6) {
+unsigned int  sub_563880(int a1, unsigned __int16* a2, _BYTE* a3, unsigned int a4, int a5, int a6) {
 	unsigned int result;   // eax
 	_BYTE* v7;             // esi
 	int v8;                // ebx
@@ -11586,7 +11586,7 @@ unsigned int __cdecl sub_563880(int a1, unsigned __int16* a2, _BYTE* a3, unsigne
 }
 
 //----- (00563C90) --------------------------------------------------------
-unsigned int __cdecl sub_563C90(int a1, unsigned __int16* a2, _BYTE* a3, unsigned int a4, int a5, int a6) {
+unsigned int  sub_563C90(int a1, unsigned __int16* a2, _BYTE* a3, unsigned int a4, int a5, int a6) {
 	unsigned int result;   // eax
 	_BYTE* v7;             // esi
 	int v8;                // ebx
@@ -11908,7 +11908,7 @@ unsigned int __cdecl sub_563C90(int a1, unsigned __int16* a2, _BYTE* a3, unsigne
 }
 
 //----- (005640C0) --------------------------------------------------------
-unsigned int __cdecl sub_5640C0(int a1, unsigned __int16* a2, _BYTE* a3, unsigned int a4, int a5, int a6) {
+unsigned int  sub_5640C0(int a1, unsigned __int16* a2, _BYTE* a3, unsigned int a4, int a5, int a6) {
 	unsigned int result;  // eax
 	unsigned __int16* v7; // ebp
 	_BYTE* v8;            // esi
@@ -12204,7 +12204,7 @@ unsigned int __cdecl sub_5640C0(int a1, unsigned __int16* a2, _BYTE* a3, unsigne
 }
 
 //----- (005644B0) --------------------------------------------------------
-__int16 __cdecl sub_5644B0(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
+__int16  sub_5644B0(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
 	_BYTE* v6;  // esi
 	int* v7;    // edi
 	int v8;     // ecx
@@ -12260,7 +12260,7 @@ __int16 __cdecl sub_5644B0(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (00564546) --------------------------------------------------------
-__int16 __cdecl sub_564546(int a1, _BYTE* a2, _DWORD* a3, int a4, int a5, int a6) {
+__int16  sub_564546(int a1, _BYTE* a2, _DWORD* a3, int a4, int a5, int a6) {
 	_BYTE* v6;   // esi
 	_DWORD* v7;  // edi
 	int v8;      // ecx
@@ -12322,7 +12322,7 @@ __int16 __cdecl sub_564546(int a1, _BYTE* a2, _DWORD* a3, int a4, int a5, int a6
 }
 
 //----- (00564604) --------------------------------------------------------
-__int16 __cdecl sub_564604(int a1, _BYTE* a2, _WORD* a3, int a4, int a5, int a6) {
+__int16  sub_564604(int a1, _BYTE* a2, _WORD* a3, int a4, int a5, int a6) {
 	_BYTE* v6;      // esi
 	_WORD* v7;      // edi
 	int v8;         // ecx
@@ -12379,7 +12379,7 @@ __int16 __cdecl sub_564604(int a1, _BYTE* a2, _WORD* a3, int a4, int a5, int a6)
 }
 
 //----- (0056469E) --------------------------------------------------------
-__int16 __cdecl sub_56469E(int a1, _BYTE* a2, _WORD* a3, int a4, int a5, int a6) {
+__int16  sub_56469E(int a1, _BYTE* a2, _WORD* a3, int a4, int a5, int a6) {
 	_BYTE* v6;      // esi
 	_WORD* v7;      // edi
 	int v8;         // ecx
@@ -12436,7 +12436,7 @@ __int16 __cdecl sub_56469E(int a1, _BYTE* a2, _WORD* a3, int a4, int a5, int a6)
 }
 
 //----- (00564738) --------------------------------------------------------
-__int16 __cdecl sub_564738(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
+__int16  sub_564738(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
 	_BYTE* v6;  // esi
 	int* v7;    // edi
 	int v8;     // ecx
@@ -12521,7 +12521,7 @@ __int16 __cdecl sub_564738(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (00564834) --------------------------------------------------------
-__int16 __cdecl sub_564834(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
+__int16  sub_564834(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
 	_BYTE* v6;  // esi
 	int* v7;    // edi
 	int v8;     // ecx
@@ -12584,7 +12584,7 @@ __int16 __cdecl sub_564834(int a1, _BYTE* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (005648E4) --------------------------------------------------------
-__int16 __cdecl sub_5648E4(int a1, _BYTE* a2, _DWORD* a3, int a4, int a5, int a6) {
+__int16  sub_5648E4(int a1, _BYTE* a2, _DWORD* a3, int a4, int a5, int a6) {
 	_BYTE* v6;   // esi
 	_DWORD* v7;  // edi
 	int v8;      // ecx
@@ -12650,7 +12650,7 @@ __int16 __cdecl sub_5648E4(int a1, _BYTE* a2, _DWORD* a3, int a4, int a5, int a6
 }
 
 //----- (005649DA) --------------------------------------------------------
-__int16 __cdecl sub_5649DA(int a1, _BYTE* a2, _DWORD* a3, int a4, int a5, int a6) {
+__int16  sub_5649DA(int a1, _BYTE* a2, _DWORD* a3, int a4, int a5, int a6) {
 	_BYTE* v6;   // esi
 	_DWORD* v7;  // edi
 	int v8;      // ecx
@@ -12724,7 +12724,7 @@ __int16 __cdecl sub_5649DA(int a1, _BYTE* a2, _DWORD* a3, int a4, int a5, int a6
 }
 
 //----- (00564AC0) --------------------------------------------------------
-int* __cdecl sub_564AC0(int a1, unsigned __int16* a2, int* a3, int a4, int a5, int a6) {
+int*  sub_564AC0(int a1, unsigned __int16* a2, int* a3, int a4, int a5, int a6) {
 	unsigned int v6;       // edi
 	int* result;           // eax
 	unsigned __int16* v8;  // ebx
@@ -12993,7 +12993,7 @@ int* __cdecl sub_564AC0(int a1, unsigned __int16* a2, int* a3, int a4, int a5, i
 }
 
 //----- (00564E60) --------------------------------------------------------
-int* __cdecl sub_564E60(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
+int*  sub_564E60(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
 	int* v6;               // edx
 	int v7;                // ebp
 	_WORD* v8;             // esi
@@ -13086,7 +13086,7 @@ int* __cdecl sub_564E60(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int
 }
 
 //----- (00564FB0) --------------------------------------------------------
-unsigned int __cdecl sub_564FB0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, int a5, int a6) {
+unsigned int  sub_564FB0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, int a5, int a6) {
 	int v6;                // ebp
 	int* v7;               // ebx
 	unsigned __int8* v8;   // esi
@@ -13359,5 +13359,5 @@ void* sub_55C8D0() { return sub_55C8E0(); }
 
 int __thiscall sub_559AE0(_BYTE* this) { return sub_559C30(this); }
 
-DWORD __cdecl sub_55A740() { return sub_55C930(); }
+DWORD  sub_55A740() { return sub_55C930(); }
 #endif

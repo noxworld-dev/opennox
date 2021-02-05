@@ -5,7 +5,7 @@
 extern _DWORD dword_5d4594_3807156;
 
 //----- (004BC9E0) --------------------------------------------------------
-int __cdecl nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
 	_BYTE* v2; // edi
 	int v3;    // eax
 	int v4;    // edx
@@ -33,7 +33,7 @@ int __cdecl nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
 	sub_4739E0(a1, (int2*)&dr->field_3, &a3);
 	a3.field_0 -= 64;
 	a3.field_4 -= 79;
-	v2 = (_BYTE*)(*(int(__cdecl**)(int2*)) & dword_5d4594_3807156)((int2*)&dr->field_3);
+	v2 = (_BYTE*)(*(int(**)(int2*)) & dword_5d4594_3807156)((int2*)&dr->field_3);
 	v3 = sub_4345F0(1);
 	LOBYTE(v4) = v2[8];
 	LOBYTE(v3) = v2[4];
@@ -84,7 +84,7 @@ int __cdecl nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (0044C0F0) --------------------------------------------------------
-bool __cdecl nox_things_door_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_things_door_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->draw_func = &nox_thing_door_draw;
 	void* v3 = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f);
 	obj->field_5c = v3;

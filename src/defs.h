@@ -409,7 +409,7 @@ typedef struct nox_thing {
 	float shape_w;                                   // 19, 0x4c
 	float shape_h;                                   // 20, 0x50
 	_DWORD field_54;                                 // 21, 0x54
-	int(__cdecl* draw_func)(_DWORD*, nox_drawable*); // 22, 0x58, 88, same as nox_drawable->draw_func
+	int(* draw_func)(_DWORD*, nox_drawable*); // 22, 0x58, 88, same as nox_drawable->draw_func
 	void* field_5c;                                  // 23, 0x5c, 92
 	_DWORD field_60;                                 // 24, 0x60
 	_DWORD client_update;                            // 25, 0x64, 100
@@ -537,7 +537,7 @@ typedef struct nox_drawable {
 	_BYTE field_74_2;                                // 74, 297
 	_BYTE field_74_3;                                // 74, 298
 	_BYTE field_74_4;                                // 74, 299
-	int(__cdecl* draw_func)(_DWORD*, nox_drawable*); // 75, 300, same as nox_thing->draw_func
+	int(* draw_func)(_DWORD*, nox_drawable*); // 75, 300, same as nox_thing->draw_func
 	void* field_76;                                  // 76, 304
 	_DWORD field_77;                                 // 77, 308
 	_DWORD field_78;
@@ -659,30 +659,30 @@ _Static_assert(sizeof(obj_412ae0_t) == 144, "wrong size of obj_412ae0_t structur
 typedef struct table_26792_t {
 	const char* name;
 	void* fnc;
-	int(__cdecl* parse_fnc)(const char*, char*, obj_412ae0_t*);
+	int(* parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_26792_t;
 
 typedef struct table_27008_t {
 	const char* name;
 	void* fnc;
-	int(__cdecl* parse_fnc)(const char*, char*, obj_412ae0_t*);
+	int(* parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_27008_t;
 
 typedef struct table_27104_t {
 	const char* name;
 	void* fnc;
-	int(__cdecl* parse_fnc)(const char*, char*, obj_412ae0_t*);
+	int(* parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_27104_t;
 
 typedef struct table_27168_t {
 	const char* name;
 	void* fnc;
-	int(__cdecl* parse_fnc)(const char*, char*, obj_412ae0_t*);
+	int(* parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_27168_t;
 
 typedef struct table_28760_t {
 	const char* name;
-	int(__cdecl* parse_fnc)(const char*, char*, obj_412ae0_t*);
+	int(* parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_28760_t;
 
 typedef struct nox_ctrlevent_code_info_t {
@@ -759,7 +759,7 @@ typedef struct nox_parse_thing_draw_funcs_t {
 	const char* name;
 	void* draw;
 	unsigned int kind;
-	bool(__cdecl* parse_fnc)(nox_thing*, nox_memfile*, char*);
+	bool(* parse_fnc)(nox_thing*, nox_memfile*, char*);
 } nox_parse_thing_draw_funcs_t;
 
 typedef struct nox_video_mode {

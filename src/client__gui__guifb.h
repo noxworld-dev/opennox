@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-wchar_t* __cdecl sub_456140(unsigned __int8 a1);
+wchar_t*  sub_456140(unsigned __int8 a1);
 
 #endif // NOX_PORT_CLIENT_GUI_GUIFB

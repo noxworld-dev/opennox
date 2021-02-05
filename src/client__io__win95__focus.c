@@ -10,7 +10,7 @@ extern obj_5D4594_754088_t* ptr_5D4594_754092;
 extern int ptr_5D4594_754092_cnt;
 
 //----- (0042EBB0) --------------------------------------------------------
-void __cdecl sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const char* name) {
+void  sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const char* name) {
 	wchar_t* v6; // eax
 	wchar_t* v8; // eax
 

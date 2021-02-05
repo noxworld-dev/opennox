@@ -382,7 +382,7 @@ int cmain(int argc, const char* argv[]) {
 // 413F80: using guessed type void nullsub_2(void);
 
 //----- (00401B20) --------------------------------------------------------
-void __cdecl sub_401B20(char* a1) {
+void  sub_401B20(char* a1) {
 	char* v1; // edi
 	int v2;   // eax
 
@@ -414,7 +414,7 @@ void __cdecl sub_401B20(char* a1) {
 }
 
 //----- (00408CC0) --------------------------------------------------------
-FILE* __cdecl nox_xxx_openFileBin_408CC0(const char* path, int mode) {
+FILE*  nox_xxx_openFileBin_408CC0(const char* path, int mode) {
 	FILE* f = 0;
 	if (mode) {
 		if (mode == 1) {
@@ -441,7 +441,7 @@ FILE* __cdecl nox_xxx_openFileBin_408CC0(const char* path, int mode) {
 }
 
 //----- (00408D40) --------------------------------------------------------
-int __cdecl nox_xxx_cryptOpen_408D40(FILE* f, int a2) {
+int  nox_xxx_cryptOpen_408D40(FILE* f, int a2) {
 	if (nox_xxx_crypt_409A60())
 		return 0;
 	if (a2 == -1)
@@ -452,7 +452,7 @@ int __cdecl nox_xxx_cryptOpen_408D40(FILE* f, int a2) {
 }
 
 //----- (00408D90) --------------------------------------------------------
-int __cdecl nox_xxx_fileBinClose_408D90(FILE* a1) {
+int  nox_xxx_fileBinClose_408D90(FILE* a1) {
 	int v1; // esi
 
 	if (nox_xxx_crypt_409A60()) {
@@ -478,7 +478,7 @@ int __cdecl nox_xxx_fileBinClose_408D90(FILE* a1) {
 }
 
 //----- (00408E40) --------------------------------------------------------
-signed int __cdecl nox_xxx_fread_408E40_fread(char* a1, int a2, signed int a3, FILE* a4) {
+signed int  nox_xxx_fread_408E40_fread(char* a1, int a2, signed int a3, FILE* a4) {
 	unsigned int v4; // ebp
 	unsigned int v5; // edi
 	signed int v6;   // ebx
@@ -540,7 +540,7 @@ signed int __cdecl nox_xxx_fread_408E40_fread(char* a1, int a2, signed int a3, F
 }
 
 //----- (00408FE0) --------------------------------------------------------
-signed int __cdecl nox_xxx_skip2nextboundary_408FE0(char* a1, int a2, int a3, FILE* a4) {
+signed int  nox_xxx_skip2nextboundary_408FE0(char* a1, int a2, int a3, FILE* a4) {
 	signed int result; // eax
 	char v5[8];        // [esp+4h] [ebp-8h]
 
@@ -553,7 +553,7 @@ signed int __cdecl nox_xxx_skip2nextboundary_408FE0(char* a1, int a2, int a3, FI
 }
 
 //----- (00409050) --------------------------------------------------------
-int __cdecl nox_xxx_fseek_409050(FILE* a1, int a2, int a3) {
+int  nox_xxx_fseek_409050(FILE* a1, int a2, int a3) {
 	int v3; // edi
 	int v4; // eax
 	int v5; // edi
@@ -587,7 +587,7 @@ int __cdecl nox_xxx_fseek_409050(FILE* a1, int a2, int a3) {
 }
 
 //----- (00409110) --------------------------------------------------------
-int __cdecl sub_409110(FILE* a1) {
+int  sub_409110(FILE* a1) {
 	int v1; // esi
 	int v2; // esi
 
@@ -625,7 +625,7 @@ void nox_xxx_file_409190(FILE* file, int data, int file_offset) {
 }
 
 //----- (00409200) --------------------------------------------------------
-size_t __cdecl sub_409200(char* a1, int a2, int a3, FILE* a4) {
+size_t  sub_409200(char* a1, int a2, int a3, FILE* a4) {
 	int v4;               // ecx
 	unsigned int v5;      // ebx
 	int v6;               // esi
@@ -719,7 +719,7 @@ void sub_4093A0() {
 }
 
 //----- (004093E0) --------------------------------------------------------
-void __cdecl nox_xxx_parseRead_4093E0(FILE* a1, char* a2, int a3) {
+void  nox_xxx_parseRead_4093E0(FILE* a1, char* a2, int a3) {
 	int v3;   // edi
 	int v4;   // ebx
 	char* v5; // esi
@@ -754,7 +754,7 @@ void __cdecl nox_xxx_parseRead_4093E0(FILE* a1, char* a2, int a3) {
 }
 
 //----- (00409470) --------------------------------------------------------
-int __cdecl nox_xxx_parseString_409470(FILE* a1, _BYTE* a2) {
+int  nox_xxx_parseString_409470(FILE* a1, _BYTE* a2) {
 	_BYTE* v2;        // ebx
 	int v3;           // ecx
 	int v4;           // edi
@@ -797,7 +797,7 @@ int __cdecl nox_xxx_parseString_409470(FILE* a1, _BYTE* a2) {
 }
 
 //----- (00409520) --------------------------------------------------------
-int __cdecl sub_409520(FILE* a1) {
+int  sub_409520(FILE* a1) {
 	FILE* v1;   // esi
 	int result; // eax
 
@@ -817,7 +817,7 @@ void sub_409560() {
 }
 
 //----- (00409580) --------------------------------------------------------
-void __cdecl sub_409580(int* a1, int a2) {
+void  sub_409580(int* a1, int a2) {
 	int* v2;              // ebx
 	int v3;               // ecx
 	int v4;               // ebp
@@ -894,7 +894,7 @@ void __cdecl sub_409580(int* a1, int a2) {
 }
 
 //----- (004096E0) --------------------------------------------------------
-int __cdecl nox_xxx_crypt_4096E0(int* a1, int* a2) {
+int  nox_xxx_crypt_4096E0(int* a1, int* a2) {
 	unsigned __int8* v2; // ecx
 	int result;          // eax
 	int v4;              // edx
@@ -953,7 +953,7 @@ void sub_4097C0(uint8_t* src, size_t sz, uint8_t* dest) {
 }
 
 //----- (00409860) --------------------------------------------------------
-_BYTE* __cdecl nox_xxx_parseThingsRule_409860(_BYTE* a1, _BYTE* a2, _DWORD* a3) {
+_BYTE*  nox_xxx_parseThingsRule_409860(_BYTE* a1, _BYTE* a2, _DWORD* a3) {
 	int v3;        // esi
 	int v4;        // eax
 	_DWORD* v5;    // ecx
@@ -1005,7 +1005,7 @@ _BYTE* __cdecl nox_xxx_parseThingsRule_409860(_BYTE* a1, _BYTE* a2, _DWORD* a3) 
 }
 
 //----- (004099C0) --------------------------------------------------------
-int __cdecl sub_4099C0(_BYTE* a1, signed int a2, _BYTE* a3) {
+int  sub_4099C0(_BYTE* a1, signed int a2, _BYTE* a3) {
 	_BYTE* v3;  // edi
 	_BYTE* v4;  // esi
 	int v5;     // eax
@@ -1047,7 +1047,7 @@ int __cdecl sub_4099C0(_BYTE* a1, signed int a2, _BYTE* a3) {
 int nox_xxx_crypt_409A60() { return dword_5d4594_1308; }
 
 //----- (00409A70) --------------------------------------------------------
-int __cdecl sub_409A70(__int16 a1) {
+int  sub_409A70(__int16 a1) {
 	int result;          // eax
 	unsigned __int8* v2; // ecx
 
@@ -1072,7 +1072,7 @@ int sub_409AB0() { return getMemByte(0x5D4594, 3482); }
 int sub_409AD0() { return *getMemU32Ptr(0x5D4594, 3480); }
 
 //----- (00409AE0) --------------------------------------------------------
-int __cdecl sub_409AE0(int a1) {
+int  sub_409AE0(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1087,7 +1087,7 @@ int __cdecl sub_409AE0(int a1) {
 int nox_xxx_mapCrcGetMB_409B00() { return *getMemU32Ptr(0x5D4594, 3604); }
 
 //----- (00409B10) --------------------------------------------------------
-int __cdecl nox_xxx_mapSetCrcMB_409B10(int a1) {
+int  nox_xxx_mapSetCrcMB_409B10(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1103,7 +1103,7 @@ char* nox_server_currentMapGetFilename_409B30() { return (char*)getMemAt(0x5D459
 char* nox_xxx_mapGetMapName_409B40() { return (char*)getMemAt(0x5D4594, 2649740); }
 
 //----- (00409B50) --------------------------------------------------------
-unsigned int __cdecl sub_409B50(const char* a1) {
+unsigned int  sub_409B50(const char* a1) {
 	unsigned int result; // eax
 
 	result = strlen(a1) + 1;
@@ -1165,7 +1165,7 @@ char* sub_409C70() {
 }
 
 //----- (00409D70) --------------------------------------------------------
-char* __cdecl nox_xxx_gameSetMapPath_409D70(char* a1) {
+char*  nox_xxx_gameSetMapPath_409D70(char* a1) {
 	char* result;  // eax
 	char* v2;      // eax
 	signed int v3; // esi
@@ -1204,7 +1204,7 @@ void nox_common_set_data_path_409E20(char* wd) {
 #endif // NOX_CGO
 
 //----- (00409E40) --------------------------------------------------------
-int __cdecl sub_409E40(int a1) {
+int  sub_409E40(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1219,7 +1219,7 @@ int __cdecl sub_409E40(int a1) {
 int nox_xxx_getServerSubFlags_409E60() { return dword_5d4594_3484; }
 
 //----- (00409E70) --------------------------------------------------------
-int __cdecl sub_409E70(int a1) {
+int  sub_409E70(int a1) {
 	int result; // eax
 
 	result = a1 & dword_5d4594_3484;
@@ -1236,7 +1236,7 @@ int __cdecl sub_409E70(int a1) {
 }
 
 //----- (00409EC0) --------------------------------------------------------
-int __cdecl sub_409EC0(int a1) {
+int  sub_409EC0(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1249,7 +1249,7 @@ int __cdecl sub_409EC0(int a1) {
 }
 
 //----- (00409EF0) --------------------------------------------------------
-int __cdecl sub_409EF0(int a1) {
+int  sub_409EF0(int a1) {
 	int result; // eax
 
 	dword_5d4594_3484 ^= a1;
@@ -1266,7 +1266,7 @@ int __cdecl sub_409EF0(int a1) {
 }
 
 //----- (00409F40) --------------------------------------------------------
-BOOL __cdecl sub_409F40(int a1) {
+BOOL  sub_409F40(int a1) {
 	BOOL result; // eax
 
 	if (a1 == 0x2000 && nox_common_gameFlags_check_40A5C0(1056))
@@ -1277,7 +1277,7 @@ BOOL __cdecl sub_409F40(int a1) {
 }
 
 //----- (00409F80) --------------------------------------------------------
-int __cdecl nox_xxx_servSetPlrLimit_409F80(int a1) {
+int  nox_xxx_servSetPlrLimit_409F80(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1292,10 +1292,10 @@ int __cdecl nox_xxx_servSetPlrLimit_409F80(int a1) {
 int nox_xxx_servGetPlrLimit_409FA0() { return *getMemU32Ptr(0x5D4594, 3464); }
 
 //----- (0040A020) --------------------------------------------------------
-__int16 __cdecl nox_xxx_servGamedataGet_40A020(__int16 a1) { return *getMemU16Ptr(0x5D4594, 2 * sub_409A70(a1) + 3488); }
+__int16  nox_xxx_servGamedataGet_40A020(__int16 a1) { return *getMemU16Ptr(0x5D4594, 2 * sub_409A70(a1) + 3488); }
 
 //----- (0040A180) --------------------------------------------------------
-unsigned __int8 __cdecl sub_40A180(__int16 a1) { return getMemByte(0x5D4594, sub_409A70(a1) + 3500); }
+unsigned __int8  sub_40A180(__int16 a1) { return getMemByte(0x5D4594, sub_409A70(a1) + 3500); }
 
 //----- (0040A1A0) --------------------------------------------------------
 BOOL sub_40A1A0() {
@@ -1307,7 +1307,7 @@ BOOL sub_40A1A0() {
 }
 
 //----- (0040A1F0) --------------------------------------------------------
-int __cdecl sub_40A1F0(int a1) {
+int  sub_40A1F0(int a1) {
 	int result; // eax
 
 	*getMemU32Ptr(0x587000, 4660) = a1;
@@ -1339,7 +1339,7 @@ __int64 sub_40A250() {
 }
 
 //----- (0040A2A0) --------------------------------------------------------
-const char* __cdecl nox_xxx_servStartCountdown_40A2A0(int a1, const char* a2) {
+const char*  nox_xxx_servStartCountdown_40A2A0(int a1, const char* a2) {
 	const char* result; // eax
 
 	*getMemU64Ptr(0x5D4594, 3468) = 1000 * a1 + nox_call_get_ticks();
@@ -1355,7 +1355,7 @@ const char* __cdecl nox_xxx_servStartCountdown_40A2A0(int a1, const char* a2) {
 int sub_40A300() { return dword_5d4594_3592; }
 
 //----- (0040A310) --------------------------------------------------------
-__int64 __cdecl sub_40A310(int a1) {
+__int64  sub_40A310(int a1) {
 	__int64 v1;     // kr00_8
 	__int64 result; // rax
 
@@ -1366,7 +1366,7 @@ __int64 __cdecl sub_40A310(int a1) {
 }
 
 //----- (0040A340) --------------------------------------------------------
-int __cdecl sub_40A340(int a1) {
+int  sub_40A340(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1378,7 +1378,7 @@ int __cdecl sub_40A340(int a1) {
 int sub_40A350() { return *getMemU32Ptr(0x5D4594, 3512); }
 
 //----- (0040A360) --------------------------------------------------------
-int __cdecl nox_xxx_mapCrcMb_40A360(int a1) {
+int  nox_xxx_mapCrcMb_40A360(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1400,7 +1400,7 @@ void nox_xxx_mapLoad_40A380() {
 }
 
 //----- (0040A3C0) --------------------------------------------------------
-unsigned int __cdecl sub_40A3C0(unsigned int a1) {
+unsigned int  sub_40A3C0(unsigned int a1) {
 	unsigned int result; // eax
 
 	result = a1;
@@ -1410,7 +1410,7 @@ unsigned int __cdecl sub_40A3C0(unsigned int a1) {
 }
 
 //----- (0040A3E0) --------------------------------------------------------
-void __cdecl nox_xxx_setPortParam_40A3E0(int a1) {
+void  nox_xxx_setPortParam_40A3E0(int a1) {
 	CHAR String[64]; // [esp+0h] [ebp-40h]
 
 	*getMemU32Ptr(0x5D4594, 3524) = a1;
@@ -1419,7 +1419,7 @@ void __cdecl nox_xxx_setPortParam_40A3E0(int a1) {
 }
 
 //----- (0040A410) --------------------------------------------------------
-int __cdecl nox_xxx_setClientNetPort_40A410(int a1) {
+int  nox_xxx_setClientNetPort_40A410(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1441,7 +1441,7 @@ int nox_xxx_servGetPort_40A430() {
 }
 
 //----- (0040A440) --------------------------------------------------------
-char* __cdecl nox_xxx_gameSetServername_40A440(char* a1) {
+char*  nox_xxx_gameSetServername_40A440(char* a1) {
 	char* result; // eax
 	char v2[16];  // [esp+0h] [ebp-10h]
 
@@ -1466,7 +1466,7 @@ char* __cdecl nox_xxx_gameSetServername_40A440(char* a1) {
 char* nox_xxx_serverOptionsGetServername_40A4C0() { return (char*)getMemAt(0x5D4594, 1324); }
 
 //----- (0040A4D0) --------------------------------------------------------
-int __cdecl nox_xxx_setGameFlags_40A4D0(int a1) {
+int  nox_xxx_setGameFlags_40A4D0(int a1) {
 	int result; // eax
 
 	result = *(_DWORD*)&nox_common_gameFlags;
@@ -1484,7 +1484,7 @@ int __cdecl nox_xxx_setGameFlags_40A4D0(int a1) {
 }
 
 //----- (0040A540) --------------------------------------------------------
-void __cdecl nox_common_gameFlags_unset_40A540(int a1) {
+void  nox_common_gameFlags_unset_40A540(int a1) {
 	if (nox_common_gameFlags & a1) {
 		nox_common_gameFlags &= ~a1;
 		if (a1 & 0x7FFF0)
@@ -1495,7 +1495,7 @@ void __cdecl nox_common_gameFlags_unset_40A540(int a1) {
 }
 
 //----- (0040A590) --------------------------------------------------------
-int __cdecl sub_40A590(int a1) {
+int  sub_40A590(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1512,10 +1512,10 @@ int nox_common_gameFlags_getVal_40A5B0() { return nox_common_gameFlags; }
 // as well whenether sudden death started and much more for ex. if this game client instance is hosting a server the
 // 1'st bit of this value is set
 //----- (0040A5C0) --------------------------------------------------------
-BOOL __cdecl nox_common_gameFlags_check_40A5C0(int a1) { return (a1 & nox_common_gameFlags) != 0; }
+BOOL  nox_common_gameFlags_check_40A5C0(int a1) { return (a1 & nox_common_gameFlags) != 0; }
 
 //----- (0040A5E0) --------------------------------------------------------
-int __cdecl nox_xxx_ruleSetNoRespawn_40A5E0(int a1) {
+int  nox_xxx_ruleSetNoRespawn_40A5E0(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1529,13 +1529,13 @@ int nox_server_doPlayersAutoRespawn_40A5F0() {
 }
 
 //----- (0040A610) --------------------------------------------------------
-wchar_t* __cdecl nox_xxx_sysopSetPass_40A610(wchar_t* a1) { return nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 3540), a1); }
+wchar_t*  nox_xxx_sysopSetPass_40A610(wchar_t* a1) { return nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 3540), a1); }
 
 //----- (0040A630) --------------------------------------------------------
 wchar_t* nox_xxx_sysopGetPass_40A630() { return (wchar_t*)getMemAt(0x5D4594, 3540); }
 
 //----- (0040A640) --------------------------------------------------------
-wchar_t* __cdecl sub_40A640(wchar_t* a1) {
+wchar_t*  sub_40A640(wchar_t* a1) {
 	wchar_t* result; // eax
 
 	result = nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 3560), a1, 8u);
@@ -1556,7 +1556,7 @@ int nox_server_gameDoSwitchMap_40A680() { return *(_DWORD*)&nox_server_gameSetti
 void nox_server_gameUnsetMapLoad_40A690() { *(_DWORD*)&nox_server_gameSettingsUpdated = 0; }
 
 //----- (0040A6A0) --------------------------------------------------------
-int __cdecl sub_40A6A0(int a1) {
+int  sub_40A6A0(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1571,7 +1571,7 @@ int sub_40A6B0() { return *getMemU32Ptr(0x5D4594, 3588); }
 int nox_xxx_rateGet_40A6C0() { return *getMemU32Ptr(0x587000, 4728); }
 
 //----- (0040A6D0) --------------------------------------------------------
-int __cdecl nox_xxx_rateUpdate_40A6D0(int a1) {
+int  nox_xxx_rateUpdate_40A6D0(int a1) {
 	int result; // eax
 
 	result = *getMemU32Ptr(0x587000, 4728);
@@ -1585,7 +1585,7 @@ int __cdecl nox_xxx_rateUpdate_40A6D0(int a1) {
 }
 
 //----- (0040A710) --------------------------------------------------------
-int __cdecl sub_40A710(int a1) {
+int  sub_40A710(int a1) {
 	int v1;              // ecx
 	unsigned __int8* v2; // eax
 
@@ -1649,7 +1649,7 @@ int sub_40A770() {
 }
 
 //----- (0040A830) --------------------------------------------------------
-int __cdecl nox_xxx_countNonEliminatedPlayersInTeam_40A830(int a1) {
+int  nox_xxx_countNonEliminatedPlayersInTeam_40A830(int a1) {
 	int v1; // edi
 	int v2; // esi
 	int v3; // eax
@@ -1672,7 +1672,7 @@ int __cdecl nox_xxx_countNonEliminatedPlayersInTeam_40A830(int a1) {
 }
 
 //----- (0040A8A0) --------------------------------------------------------
-int __cdecl nox_xxx_gamePlayIsAnyPlayers_40A8A0() {
+int  nox_xxx_gamePlayIsAnyPlayers_40A8A0() {
 	int v0;     // ebx
 	char* v1;   // edi
 	int v2;     // esi
@@ -1751,7 +1751,7 @@ BOOL sub_40AA00() {
 int sub_40AA20() { return *getMemU32Ptr(0x5D4594, 3536); }
 
 //----- (0040AA30) --------------------------------------------------------
-int __cdecl sub_40AA30(int a1) {
+int  sub_40AA30(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1766,7 +1766,7 @@ int sub_40AA40() { return *getMemU32Ptr(0x5D4594, 3476); }
 int sub_40AA50() { return *getMemU32Ptr(0x5D4594, 1392); }
 
 //----- (0040AA60) --------------------------------------------------------
-int __cdecl sub_40AA60(int a1) {
+int  sub_40AA60(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1775,7 +1775,7 @@ int __cdecl sub_40AA60(int a1) {
 }
 
 //----- (0040AA70) --------------------------------------------------------
-int __cdecl sub_40AA70(int a1) {
+int  sub_40AA70(int a1) {
 	char* v1;   // edi
 	int result; // eax
 	int v3;     // eax
@@ -1837,12 +1837,12 @@ BOOL nox_xxx_checkConjSoloMap_40ABD0() {
 }
 
 //----- (0040AE90) --------------------------------------------------------
-int __cdecl nox_xxx_PtFuncCompare_40AE90(const void* a1, const void* a2) {
+int  nox_xxx_PtFuncCompare_40AE90(const void* a1, const void* a2) {
 	return _strcmpi(*((const char**)a1 + 1), *((const char**)a2 + 1));
 }
 
 //----- (0040AEB0) --------------------------------------------------------
-int __cdecl sub_40AEB0(const void* a1, const void* a2) { return _strcmpi((const char*)a1, *((const char**)a2 + 1)); }
+int  sub_40AEB0(const void* a1, const void* a2) { return _strcmpi((const char*)a1, *((const char**)a2 + 1)); }
 
 //----- (0040AED0) --------------------------------------------------------
 void sub_40AED0() {
@@ -1867,7 +1867,7 @@ void sub_40AF30() {
 }
 
 //----- (0040AF50) --------------------------------------------------------
-int __cdecl nox_xxx_utilFindSound_40AF50(void* a1) {
+int  nox_xxx_utilFindSound_40AF50(void* a1) {
 	int* v1;    // eax
 	int result; // eax
 
@@ -1880,10 +1880,10 @@ int __cdecl nox_xxx_utilFindSound_40AF50(void* a1) {
 }
 
 //----- (0040AF80) --------------------------------------------------------
-const char* __cdecl nox_xxx_getSndName_40AF80(int a1) { return table_5184[a1]; }
+const char*  nox_xxx_getSndName_40AF80(int a1) { return table_5184[a1]; }
 
 //----- (0040AF90) --------------------------------------------------------
-void __cdecl nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int a4, _BYTE* a5, unsigned int a6) {
+void  nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int a4, _BYTE* a5, unsigned int a6) {
 	char* v6;            // eax
 	char* v7;            // edi
 	char* v8;            // eax
@@ -1939,7 +1939,7 @@ void __cdecl nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int
 }
 
 //----- (0040B170) --------------------------------------------------------
-int __cdecl sub_40B170(int a1) {
+int  sub_40B170(int a1) {
 	int v1;     // ecx
 	int result; // eax
 
@@ -1966,7 +1966,7 @@ int __cdecl sub_40B170(int a1) {
 }
 
 //----- (0040B1F0) --------------------------------------------------------
-char* __cdecl sub_40B1F0(unsigned __int8 a1) {
+char*  sub_40B1F0(unsigned __int8 a1) {
 	char* result; // eax
 
 	result = (char*)(dword_5d4594_3620 + 168 * a1);
@@ -1985,7 +1985,7 @@ char* __cdecl sub_40B1F0(unsigned __int8 a1) {
 }
 
 //----- (0040B250) --------------------------------------------------------
-void __cdecl sub_40B250(int a1, unsigned __int8 a2, unsigned __int16 a3, const void* a4, size_t a5) {
+void  sub_40B250(int a1, unsigned __int8 a2, unsigned __int16 a3, const void* a4, size_t a5) {
 	int v5;                // ebp
 	int v6;                // eax
 	_DWORD* v7;            // ebx
@@ -2087,7 +2087,7 @@ void __cdecl sub_40B250(int a1, unsigned __int8 a2, unsigned __int16 a3, const v
 }
 
 //----- (0040B4B0) --------------------------------------------------------
-int __cdecl nox_xxx_netXfer_40B4B0(unsigned int a1, char a2) {
+int  nox_xxx_netXfer_40B4B0(unsigned int a1, char a2) {
 	char v4[3]; // [esp+0h] [ebp-4h]
 
 	v4[0] = -62;
@@ -2097,7 +2097,7 @@ int __cdecl nox_xxx_netXfer_40B4B0(unsigned int a1, char a2) {
 }
 
 //----- (0040B4E0) --------------------------------------------------------
-int __cdecl sub_40B4E0(unsigned __int8 a1) {
+int  sub_40B4E0(unsigned __int8 a1) {
 	int result; // eax
 	int v2;     // esi
 	int v3;     // edi
@@ -2116,7 +2116,7 @@ int __cdecl sub_40B4E0(unsigned __int8 a1) {
 }
 
 //----- (0040B530) --------------------------------------------------------
-char* __cdecl sub_40B530(unsigned __int8 a1, char a2) {
+char*  sub_40B530(unsigned __int8 a1, char a2) {
 	char* result; // eax
 
 	result = (char*)(dword_5d4594_3620 + 168 * a1);
@@ -2131,7 +2131,7 @@ char* __cdecl sub_40B530(unsigned __int8 a1, char a2) {
 }
 
 //----- (0040B590) --------------------------------------------------------
-int __cdecl nox_xxx_neXfer_40B590(unsigned int a1, char a2, char a3) {
+int  nox_xxx_neXfer_40B590(unsigned int a1, char a2, char a3) {
 	char v4[4]; // [esp+0h] [ebp-4h]
 
 	v4[2] = a2;
@@ -2142,7 +2142,7 @@ int __cdecl nox_xxx_neXfer_40B590(unsigned int a1, char a2, char a3) {
 }
 
 //----- (0040B5D0) --------------------------------------------------------
-int __cdecl sub_40B5D0(unsigned int a1, char a2, const char* a3, size_t a4, char a5) {
+int  sub_40B5D0(unsigned int a1, char a2, const char* a3, size_t a4, char a5) {
 	size_t v5; // esi
 	char* v6;  // eax
 	char* v7;  // ebx
@@ -2171,7 +2171,7 @@ int __cdecl sub_40B5D0(unsigned int a1, char a2, const char* a3, size_t a4, char
 }
 
 //----- (0040B690) --------------------------------------------------------
-int __cdecl sub_40B690(unsigned int a1, char a2, char a3) {
+int  sub_40B690(unsigned int a1, char a2, char a3) {
 	char v4[4]; // [esp+0h] [ebp-4h]
 
 	v4[2] = a2;
@@ -2182,7 +2182,7 @@ int __cdecl sub_40B690(unsigned int a1, char a2, char a3) {
 }
 
 //----- (0040B6D0) --------------------------------------------------------
-char* __cdecl sub_40B6D0(_BYTE* a1) {
+char*  sub_40B6D0(_BYTE* a1) {
 	int v1;       // eax
 	_DWORD* v2;   // ecx
 	char* result; // eax
@@ -2207,7 +2207,7 @@ char* __cdecl sub_40B6D0(_BYTE* a1) {
 }
 
 //----- (0040B720) --------------------------------------------------------
-char* __cdecl sub_40B720(int a1, unsigned __int8 a2) {
+char*  sub_40B720(int a1, unsigned __int8 a2) {
 	sub_40B4E0(a2);
 	return sub_40B1F0(a2);
 }
@@ -2256,13 +2256,13 @@ int sub_40B790() {
 }
 
 //----- (0040B810) --------------------------------------------------------
-void __cdecl sub_40B810(int a1, int a2, int a3) {
+void  sub_40B810(int a1, int a2, int a3) {
 	nox_xxx_soloGameEscMenuCallback_40AF90(31, 0, a1, (int)getMemAt(0x5D4594, 4664), (_BYTE*)a2, a3);
 	sub_40B850(0, a1);
 }
 
 //----- (0040B850) --------------------------------------------------------
-void __cdecl sub_40B850(int a1, char a2) {
+void  sub_40B850(int a1, char a2) {
 	if (a2 == 2 && sub_446030()) {
 		sub_446070();
 		if (sub_446090()) {
@@ -2274,7 +2274,7 @@ void __cdecl sub_40B850(int a1, char a2) {
 }
 
 //----- (0040B890) --------------------------------------------------------
-void* __cdecl sub_40B890(int a1) {
+void*  sub_40B890(int a1) {
 	void* result; // eax
 	int v2;       // esi
 	int v3;       // edi
@@ -2305,7 +2305,7 @@ void* __cdecl sub_40B890(int a1) {
 }
 
 //----- (0040B930) --------------------------------------------------------
-int __cdecl sub_40B930(int a1) {
+int  sub_40B930(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -2384,7 +2384,7 @@ void sub_40B970() {
 }
 
 //----- (0040BA90) --------------------------------------------------------
-int __cdecl sub_40BA90(unsigned int a1, char a2, __int16 a3, __int16 a4, const void* a5) {
+int  sub_40BA90(unsigned int a1, char a2, __int16 a3, __int16 a4, const void* a5) {
 	int v6; // [esp+8h] [ebp-8h]
 	int v7; // [esp+Ch] [ebp-4h]
 
@@ -2401,7 +2401,7 @@ int __cdecl sub_40BA90(unsigned int a1, char a2, __int16 a3, __int16 a4, const v
 // 40BACC: variable 'v6' is possibly undefined
 
 //----- (0040BB20) --------------------------------------------------------
-char* __cdecl sub_40BB20(unsigned int a1, int a2, char a3) {
+char*  sub_40BB20(unsigned int a1, int a2, char a3) {
 	char v3;      // bl
 	char* result; // eax
 	char* v5;     // edi
@@ -2434,7 +2434,7 @@ char* __cdecl sub_40BB20(unsigned int a1, int a2, char a3) {
 }
 
 //----- (0040BBC0) --------------------------------------------------------
-void __cdecl sub_40BBC0(int a1, char a2) {
+void  sub_40BBC0(int a1, char a2) {
 	if (a2 == 2) {
 		if (sub_446030()) {
 			sub_446070();
@@ -2451,7 +2451,7 @@ void __cdecl sub_40BBC0(int a1, char a2) {
 }
 
 //----- (0040BC10) --------------------------------------------------------
-char* __cdecl sub_40BC10(int a1, char a2) {
+char*  sub_40BC10(int a1, char a2) {
 	int v2; // ecx
 	int i;  // eax
 
@@ -2466,7 +2466,7 @@ char* __cdecl sub_40BC10(int a1, char a2) {
 }
 
 //----- (0040BC60) --------------------------------------------------------
-int __cdecl sub_40BC60(int a1, int a2, const char* a3, int a4, int a5, int a6) {
+int  sub_40BC60(int a1, int a2, const char* a3, int a4, int a5, int a6) {
 	char* v6;         // ebx
 	int v7;           // esi
 	int v8;           // eax
@@ -2566,7 +2566,7 @@ LABEL_12:
 }
 
 //----- (0040BE80) --------------------------------------------------------
-int __cdecl nox_xxx_netXferMsg_40BE80(unsigned int a1, char a2, const char* a3, int a4, char a5) {
+int  nox_xxx_netXferMsg_40BE80(unsigned int a1, char a2, const char* a3, int a4, char a5) {
 	char v6[140]; // [esp+4h] [ebp-8Ch]
 
 	v6[0] = -62;
@@ -2582,7 +2582,7 @@ int __cdecl nox_xxx_netXferMsg_40BE80(unsigned int a1, char a2, const char* a3, 
 }
 
 //----- (0040BF10) --------------------------------------------------------
-char* __cdecl sub_40BF10(_BYTE* a1) {
+char*  sub_40BF10(_BYTE* a1) {
 	int v1;    // ecx
 	_DWORD* i; // eax
 
@@ -2598,7 +2598,7 @@ char* __cdecl sub_40BF10(_BYTE* a1) {
 }
 
 //----- (0040BF60) --------------------------------------------------------
-char* __cdecl sub_40BF60(int a1, char a2, int a3) {
+char*  sub_40BF60(int a1, char a2, int a3) {
 	char* result;         // eax
 	unsigned __int16* v4; // esi
 	int v5;               // ecx
@@ -2631,7 +2631,7 @@ char* __cdecl sub_40BF60(int a1, char a2, int a3) {
 }
 
 //----- (0040BFF0) --------------------------------------------------------
-char* __cdecl sub_40BFF0(int a1, char a2, char* a3) {
+char*  sub_40BFF0(int a1, char a2, char* a3) {
 	char* result; // eax
 
 	result = a3;
@@ -2644,7 +2644,7 @@ char* __cdecl sub_40BFF0(int a1, char a2, char* a3) {
 }
 
 //----- (0040C030) --------------------------------------------------------
-char* __cdecl sub_40C030(int a1, char a2) {
+char*  sub_40C030(int a1, char a2) {
 	char* result; // eax
 	char* v3;     // esi
 
@@ -2659,7 +2659,7 @@ char* __cdecl sub_40C030(int a1, char a2) {
 }
 
 //----- (0040C070) --------------------------------------------------------
-char* __cdecl sub_40C070(int a1, int a2, char a3) {
+char*  sub_40C070(int a1, int a2, char a3) {
 	char* result; // eax
 	char* v4;     // ebx
 	int v5;       // esi
@@ -2687,7 +2687,7 @@ char* __cdecl sub_40C070(int a1, int a2, char a3) {
 void sub_40C0D0() { free(*(LPVOID*)&dword_5d4594_3632); }
 
 //----- (0040C0E0) --------------------------------------------------------
-void __cdecl sub_40C0E0(int a1) {
+void  sub_40C0E0(int a1) {
 	int v1; // edi
 	int v2; // eax
 	int v3; // esi
@@ -3483,7 +3483,7 @@ BOOL sub_40D250() {
 }
 
 //----- (0040D280) --------------------------------------------------------
-BOOL __cdecl sub_40D280(int a1, int a2, int a3, int a4, int a5) {
+BOOL  sub_40D280(int a1, int a2, int a3, int a4, int a5) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3495,7 +3495,7 @@ BOOL __cdecl sub_40D280(int a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (0040D2C0) --------------------------------------------------------
-BOOL __cdecl sub_40D2C0(int a1, int a2, int a3) {
+BOOL  sub_40D2C0(int a1, int a2, int a3) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3507,7 +3507,7 @@ BOOL __cdecl sub_40D2C0(int a1, int a2, int a3) {
 }
 
 //----- (0040D2F0) --------------------------------------------------------
-BOOL __cdecl sub_40D2F0(int a1, int a2) {
+BOOL  sub_40D2F0(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3519,7 +3519,7 @@ BOOL __cdecl sub_40D2F0(int a1, int a2) {
 }
 
 //----- (0040D320) --------------------------------------------------------
-BOOL __cdecl sub_40D320(int a1) {
+BOOL  sub_40D320(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3530,7 +3530,7 @@ BOOL __cdecl sub_40D320(int a1) {
 }
 
 //----- (0040D350) --------------------------------------------------------
-BOOL __cdecl sub_40D350(int a1) {
+BOOL  sub_40D350(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3558,7 +3558,7 @@ BOOL sub_40D3B0() {
 }
 
 //----- (0040D3E0) --------------------------------------------------------
-BOOL __cdecl sub_40D3E0(int a1) {
+BOOL  sub_40D3E0(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3569,7 +3569,7 @@ BOOL __cdecl sub_40D3E0(int a1) {
 }
 
 //----- (0040D410) --------------------------------------------------------
-BOOL __cdecl sub_40D410(int a1, int a2) {
+BOOL  sub_40D410(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3594,7 +3594,7 @@ int sub_40D440() {
 }
 
 //----- (0040D470) --------------------------------------------------------
-BOOL __cdecl sub_40D470(int a1, int a2) {
+BOOL  sub_40D470(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3606,7 +3606,7 @@ BOOL __cdecl sub_40D470(int a1, int a2) {
 }
 
 //----- (0040D4A0) --------------------------------------------------------
-BOOL __cdecl sub_40D4A0(int a1) {
+BOOL  sub_40D4A0(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3617,7 +3617,7 @@ BOOL __cdecl sub_40D4A0(int a1) {
 }
 
 //----- (0040D4D0) --------------------------------------------------------
-BOOL __cdecl sub_40D4D0(int a1) {
+BOOL  sub_40D4D0(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3628,7 +3628,7 @@ BOOL __cdecl sub_40D4D0(int a1) {
 }
 
 //----- (0040D500) --------------------------------------------------------
-BOOL __cdecl sub_40D500(int a1, int a2) {
+BOOL  sub_40D500(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3640,7 +3640,7 @@ BOOL __cdecl sub_40D500(int a1, int a2) {
 }
 
 //----- (0040D530) --------------------------------------------------------
-BOOL __cdecl sub_40D530(int a1) {
+BOOL  sub_40D530(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3651,7 +3651,7 @@ BOOL __cdecl sub_40D530(int a1) {
 }
 
 //----- (0040D560) --------------------------------------------------------
-int __cdecl sub_40D560(int a1) {
+int  sub_40D560(int a1) {
 	int v2; // eax
 
 	if (!*getMemU32Ptr(0x5D4594, 10976))
@@ -3666,7 +3666,7 @@ int __cdecl sub_40D560(int a1) {
 }
 
 //----- (0040D5B0) --------------------------------------------------------
-BOOL __cdecl sub_40D5B0(int a1) {
+BOOL  sub_40D5B0(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3677,7 +3677,7 @@ BOOL __cdecl sub_40D5B0(int a1) {
 }
 
 //----- (0040D5E0) --------------------------------------------------------
-BOOL __cdecl sub_40D5E0(int a1) {
+BOOL  sub_40D5E0(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3688,7 +3688,7 @@ BOOL __cdecl sub_40D5E0(int a1) {
 }
 
 //----- (0040D610) --------------------------------------------------------
-BOOL __cdecl sub_40D610(int a1) {
+BOOL  sub_40D610(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3699,7 +3699,7 @@ BOOL __cdecl sub_40D610(int a1) {
 }
 
 //----- (0040D640) --------------------------------------------------------
-BOOL __cdecl sub_40D640(int a1) {
+BOOL  sub_40D640(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3710,7 +3710,7 @@ BOOL __cdecl sub_40D640(int a1) {
 }
 
 //----- (0040D670) --------------------------------------------------------
-BOOL __cdecl sub_40D670(int a1) {
+BOOL  sub_40D670(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3721,7 +3721,7 @@ BOOL __cdecl sub_40D670(int a1) {
 }
 
 //----- (0040D6A0) --------------------------------------------------------
-BOOL __cdecl sub_40D6A0(int a1) {
+BOOL  sub_40D6A0(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3732,7 +3732,7 @@ BOOL __cdecl sub_40D6A0(int a1) {
 }
 
 //----- (0040D6D0) --------------------------------------------------------
-BOOL __cdecl sub_40D6D0(int a1) {
+BOOL  sub_40D6D0(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3743,7 +3743,7 @@ BOOL __cdecl sub_40D6D0(int a1) {
 }
 
 //----- (0040D700) --------------------------------------------------------
-BOOL __cdecl sub_40D700(int a1, int a2, int a3, int a4, int a5, int a6) {
+BOOL  sub_40D700(int a1, int a2, int a3, int a4, int a5, int a6) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3755,7 +3755,7 @@ BOOL __cdecl sub_40D700(int a1, int a2, int a3, int a4, int a5, int a6) {
 }
 
 //----- (0040D740) --------------------------------------------------------
-BOOL __cdecl sub_40D740(int a1) {
+BOOL  sub_40D740(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3766,7 +3766,7 @@ BOOL __cdecl sub_40D740(int a1) {
 }
 
 //----- (0040D770) --------------------------------------------------------
-BOOL __cdecl sub_40D770(int a1, int a2) {
+BOOL  sub_40D770(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3778,7 +3778,7 @@ BOOL __cdecl sub_40D770(int a1, int a2) {
 }
 
 //----- (0040D7A0) --------------------------------------------------------
-BOOL __cdecl sub_40D7A0(int a1, int a2) {
+BOOL  sub_40D7A0(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3790,7 +3790,7 @@ BOOL __cdecl sub_40D7A0(int a1, int a2) {
 }
 
 //----- (0040D7D0) --------------------------------------------------------
-BOOL __cdecl sub_40D7D0(int a1, int a2) {
+BOOL  sub_40D7D0(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3802,7 +3802,7 @@ BOOL __cdecl sub_40D7D0(int a1, int a2) {
 }
 
 //----- (0040D800) --------------------------------------------------------
-BOOL __cdecl sub_40D800(int a1) {
+BOOL  sub_40D800(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3813,7 +3813,7 @@ BOOL __cdecl sub_40D800(int a1) {
 }
 
 //----- (0040D830) --------------------------------------------------------
-BOOL __cdecl sub_40D830(int a1) {
+BOOL  sub_40D830(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3835,7 +3835,7 @@ BOOL sub_40D860() {
 }
 
 //----- (0040D890) --------------------------------------------------------
-BOOL __cdecl sub_40D890(int a1) {
+BOOL  sub_40D890(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3846,7 +3846,7 @@ BOOL __cdecl sub_40D890(int a1) {
 }
 
 //----- (0040D8C0) --------------------------------------------------------
-BOOL __cdecl sub_40D8C0(int a1, int a2) {
+BOOL  sub_40D8C0(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3858,7 +3858,7 @@ BOOL __cdecl sub_40D8C0(int a1, int a2) {
 }
 
 //----- (0040D8F0) --------------------------------------------------------
-BOOL __cdecl sub_40D8F0(int a1) {
+BOOL  sub_40D8F0(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3869,7 +3869,7 @@ BOOL __cdecl sub_40D8F0(int a1) {
 }
 
 //----- (0040D920) --------------------------------------------------------
-BOOL __cdecl sub_40D920(int a1) {
+BOOL  sub_40D920(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3880,7 +3880,7 @@ BOOL __cdecl sub_40D920(int a1) {
 }
 
 //----- (0040D950) --------------------------------------------------------
-BOOL __cdecl sub_40D950(int a1) {
+BOOL  sub_40D950(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3891,7 +3891,7 @@ BOOL __cdecl sub_40D950(int a1) {
 }
 
 //----- (0040D980) --------------------------------------------------------
-BOOL __cdecl sub_40D980(int a1, int a2, int a3) {
+BOOL  sub_40D980(int a1, int a2, int a3) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3903,7 +3903,7 @@ BOOL __cdecl sub_40D980(int a1, int a2, int a3) {
 }
 
 //----- (0040D9C0) --------------------------------------------------------
-BOOL __cdecl sub_40D9C0(int a1, int a2, int a3, int a4) {
+BOOL  sub_40D9C0(int a1, int a2, int a3, int a4) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3915,7 +3915,7 @@ BOOL __cdecl sub_40D9C0(int a1, int a2, int a3, int a4) {
 }
 
 //----- (0040DA00) --------------------------------------------------------
-BOOL __cdecl sub_40DA00(int a1) {
+BOOL  sub_40DA00(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3926,7 +3926,7 @@ BOOL __cdecl sub_40DA00(int a1) {
 }
 
 //----- (0040DA30) --------------------------------------------------------
-BOOL __cdecl sub_40DA30(int a1) {
+BOOL  sub_40DA30(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3937,7 +3937,7 @@ BOOL __cdecl sub_40DA30(int a1) {
 }
 
 //----- (0040DA60) --------------------------------------------------------
-BOOL __cdecl sub_40DA60(int a1, int a2) {
+BOOL  sub_40DA60(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3949,7 +3949,7 @@ BOOL __cdecl sub_40DA60(int a1, int a2) {
 }
 
 //----- (0040DA90) --------------------------------------------------------
-BOOL __cdecl sub_40DA90(int a1, int a2) {
+BOOL  sub_40DA90(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3961,7 +3961,7 @@ BOOL __cdecl sub_40DA90(int a1, int a2) {
 }
 
 //----- (0040DAC0) --------------------------------------------------------
-BOOL __cdecl sub_40DAC0(int a1) {
+BOOL  sub_40DAC0(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3983,7 +3983,7 @@ BOOL sub_40DAF0() {
 }
 
 //----- (0040DB20) --------------------------------------------------------
-BOOL __cdecl sub_40DB20(int a1) {
+BOOL  sub_40DB20(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -3994,7 +3994,7 @@ BOOL __cdecl sub_40DB20(int a1) {
 }
 
 //----- (0040DB50) --------------------------------------------------------
-BOOL __cdecl sub_40DB50(int a1, int a2) {
+BOOL  sub_40DB50(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -4006,7 +4006,7 @@ BOOL __cdecl sub_40DB50(int a1, int a2) {
 }
 
 //----- (0040DB80) --------------------------------------------------------
-BOOL __cdecl sub_40DB80(int a1, int a2) {
+BOOL  sub_40DB80(int a1, int a2) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 10976))
@@ -4063,7 +4063,7 @@ int __stdcall sub_40DC60(int a1) { return 0; }
 BOOL sub_40DC70() { return (*(int(__stdcall**)(_DWORD))(**(_DWORD**)&dword_5d4594_4808 + 16))(dword_5d4594_4808) >= 0; }
 
 //----- (0040DC90) --------------------------------------------------------
-BOOL __cdecl sub_40DC90(int a1, int a2, int a3, int a4, int a5, int a6) {
+BOOL  sub_40DC90(int a1, int a2, int a3, int a4, int a5, int a6) {
 	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int))(**(_DWORD**)&dword_5d4594_4808 + 12))(
 			   dword_5d4594_4808, a1, a2, a3, a4, a5, a6) >= 0;
 }
@@ -4164,25 +4164,25 @@ int __stdcall sub_40DE90(int a1, int a2, int a3, int a4) {
 }
 
 //----- (0040DEA0) --------------------------------------------------------
-BOOL __cdecl sub_40DEA0(int a1, int a2, int a3, int a4) {
+BOOL  sub_40DEA0(int a1, int a2, int a3, int a4) {
 	return (*(int(__stdcall**)(_DWORD, int, int, int, int))(**(_DWORD**)&dword_5d4594_10956 + 12))(dword_5d4594_10956,
 																								   a1, a2, a3, a4) >= 0;
 }
 
 //----- (0040DED0) --------------------------------------------------------
-BOOL __cdecl sub_40DED0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9) {
+BOOL  sub_40DED0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9) {
 	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int, int, int, int))(
 			   **(_DWORD**)&dword_5d4594_10956 + 16))(dword_5d4594_10956, a1, a2, a3, a4, a5, a6, a7, a8, a9) >= 0;
 }
 
 //----- (0040DF20) --------------------------------------------------------
-BOOL __cdecl sub_40DF20(int a1, int a2, int a3, int a4, int a5, int a6, int a7) {
+BOOL  sub_40DF20(int a1, int a2, int a3, int a4, int a5, int a6, int a7) {
 	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int, int))(**(_DWORD**)&dword_5d4594_10956 + 20))(
 			   dword_5d4594_10956, a1, a2, a3, a4, a5, a6, a7) >= 0;
 }
 
 //----- (0040DF60) --------------------------------------------------------
-BOOL __cdecl sub_40DF60(int a1, int a2, int a3) {
+BOOL  sub_40DF60(int a1, int a2, int a3) {
 	return (*(int(__stdcall**)(_DWORD, int, int, int))(**(_DWORD**)&dword_5d4594_10956 + 24))(dword_5d4594_10956, a1,
 																							  a2, a3) >= 0;
 }
@@ -4194,25 +4194,25 @@ BOOL sub_40DF90() {
 }
 
 //----- (0040DFC0) --------------------------------------------------------
-BOOL __cdecl sub_40DFC0(int a1, int a2) {
+BOOL  sub_40DFC0(int a1, int a2) {
 	return (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_10956 + 32))(dword_5d4594_10956, a1, a2) >=
 		   0;
 }
 
 //----- (0040DFE0) --------------------------------------------------------
-BOOL __cdecl sub_40DFE0(int a1, int a2, int a3, int a4, int a5, int a6) {
+BOOL  sub_40DFE0(int a1, int a2, int a3, int a4, int a5, int a6) {
 	return (*(int(__stdcall**)(_DWORD, int, int, int, int, int, int))(**(_DWORD**)&dword_5d4594_10956 + 36))(
 			   dword_5d4594_10956, a1, a2, a3, a4, a5, a6) >= 0;
 }
 
 //----- (0040E020) --------------------------------------------------------
-BOOL __cdecl sub_40E020(int a1, int a2, int a3, int a4) {
+BOOL  sub_40E020(int a1, int a2, int a3, int a4) {
 	return (*(int(__stdcall**)(_DWORD, int, int, int, int))(**(_DWORD**)&dword_5d4594_10956 + 40))(dword_5d4594_10956,
 																								   a1, a2, a3, a4) >= 0;
 }
 
 //----- (0040E050) --------------------------------------------------------
-BOOL __cdecl sub_40E050(int a1, int a2) {
+BOOL  sub_40E050(int a1, int a2) {
 	return (*(int(__stdcall**)(_DWORD, int, int))(**(_DWORD**)&dword_5d4594_10956 + 44))(dword_5d4594_10956, a1, a2) >=
 		   0;
 }
@@ -4240,7 +4240,7 @@ BOOL sub_40E0B0() { return dword_5d4594_10984 == 0; }
 int sub_40E0C0() { return *getMemU32Ptr(0x5D4594, 10976); }
 
 //----- (0040E0D0) --------------------------------------------------------
-int __cdecl nox_common_getInstallPath_40E0D0(int a1, LPCSTR lpSubKey, int a3) {
+int  nox_common_getInstallPath_40E0D0(int a1, LPCSTR lpSubKey, int a3) {
 	int result;     // eax
 	signed int i;   // ecx
 	char* v5;       // edi
@@ -4387,7 +4387,7 @@ int __stdcall sub_40E3E0(_DWORD* a1) {
 	}
 	return result;
 }
-// 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
+// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0040E470) --------------------------------------------------------
 char* __thiscall sub_40E470(char* this) {
@@ -4490,7 +4490,7 @@ int __stdcall sub_40E630(_DWORD* a1) {
 	}
 	return result;
 }
-// 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
+// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0040E680) --------------------------------------------------------
 LONG __stdcall sub_40E680(volatile LONG* lpMem) {
@@ -4580,7 +4580,7 @@ int __stdcall sub_40E800(_DWORD* a1) {
 	}
 	return result;
 }
-// 5667CB: using guessed type void *__cdecl operator_new(unsigned int);
+// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0040E850) --------------------------------------------------------
 LONG __stdcall sub_40E850(volatile LONG* lpMem) {
@@ -4651,10 +4651,10 @@ void __fastcall sub_40E990(_DWORD* a1) {
 }
 
 //----- (0040E9D0) --------------------------------------------------------
-int __cdecl sub_40E9D0(int a1, int a2) { return nox_xxx_netSend_420BC0(*(FILE**)getMemAt(0x5D4594, 4 * (a1 + 32 * a2) + 210036)); }
+int  sub_40E9D0(int a1, int a2) { return nox_xxx_netSend_420BC0(*(FILE**)getMemAt(0x5D4594, 4 * (a1 + 32 * a2) + 210036)); }
 
 //----- (0040E9F0) --------------------------------------------------------
-int __cdecl sub_40E9F0(int a1, int a2) { return nox_xxx_net_420BD0(*getMemU32Ptr(0x5D4594, 4 * (a1 + 32 * a2) + 210036)); }
+int  sub_40E9F0(int a1, int a2) { return nox_xxx_net_420BD0(*getMemU32Ptr(0x5D4594, 4 * (a1 + 32 * a2) + 210036)); }
 
 //----- (0040EA10) --------------------------------------------------------
 _DWORD* nox_xxx_netInitMsgBufs_40EA10() {
@@ -4688,7 +4688,7 @@ void nox_xxx_net_40EA70() {
 }
 
 //----- (0040EAC0) --------------------------------------------------------
-BOOL __cdecl nox_xxx_netSend_40EAC0(int a1, int a2, int a3) {
+BOOL  nox_xxx_netSend_40EAC0(int a1, int a2, int a3) {
 	int v3; // edi
 	int v4; // ebx
 
@@ -4706,7 +4706,7 @@ BOOL __cdecl nox_xxx_netSend_40EAC0(int a1, int a2, int a3) {
 }
 
 //----- (0040EB60) --------------------------------------------------------
-BOOL __cdecl nox_xxx_net_40EB60(int a1, int a2, int a3) {
+BOOL  nox_xxx_net_40EB60(int a1, int a2, int a3) {
 	int* v3;     // esi
 	int v4;      // edi
 	BOOL result; // eax
@@ -4721,7 +4721,7 @@ BOOL __cdecl nox_xxx_net_40EB60(int a1, int a2, int a3) {
 }
 
 //----- (0040EBC0) --------------------------------------------------------
-int __cdecl nox_xxx_netAddToMsgListCli_40EBC0(int a1, int a2, const void* a3, int a4) {
+int  nox_xxx_netAddToMsgListCli_40EBC0(int a1, int a2, const void* a3, int a4) {
 	int v4;   // ebp
 	char* v6; // eax
 
@@ -4738,7 +4738,7 @@ int __cdecl nox_xxx_netAddToMsgListCli_40EBC0(int a1, int a2, const void* a3, in
 }
 
 //----- (0040EC30) --------------------------------------------------------
-char* __cdecl nox_xxx_netSend_40EC30(int a1, int a2, const void* a3, signed int a4) {
+char*  nox_xxx_netSend_40EC30(int a1, int a2, const void* a3, signed int a4) {
 	char* result;        // eax
 	int v5;              // ecx
 	unsigned __int8* v6; // edx
@@ -4757,7 +4757,7 @@ char* __cdecl nox_xxx_netSend_40EC30(int a1, int a2, const void* a3, signed int 
 }
 
 //----- (0040ECA0) --------------------------------------------------------
-int __cdecl nox_xxx_netClientSend_0_40ECA0(int a1, int a2, const void* a3, int a4) {
+int  nox_xxx_netClientSend_0_40ECA0(int a1, int a2, const void* a3, int a4) {
 	int v4;   // ebp
 	char* v6; // eax
 
@@ -4774,7 +4774,7 @@ int __cdecl nox_xxx_netClientSend_0_40ECA0(int a1, int a2, const void* a3, int a
 }
 
 //----- (0040ED10) --------------------------------------------------------
-FILE* __cdecl sub_40ED10(int a1, int a2) {
+FILE*  sub_40ED10(int a1, int a2) {
 	FILE* result; // eax
 
 	result = *(FILE**)getMemAt(0x5D4594, 4 * (a1 + 32 * a2) + 210036);
@@ -4786,7 +4786,7 @@ FILE* __cdecl sub_40ED10(int a1, int a2) {
 }
 
 //----- (0040ED40) --------------------------------------------------------
-int __cdecl nox_xxx_netBufs_40ED40(int a1, int a2) {
+int  nox_xxx_netBufs_40ED40(int a1, int a2) {
 	int result; // eax
 
 	result = a1 + 32 * a2;
@@ -4795,7 +4795,7 @@ int __cdecl nox_xxx_netBufs_40ED40(int a1, int a2) {
 }
 
 //----- (0040ED60) --------------------------------------------------------
-unsigned __int8* __cdecl nox_xxx_netCopyCheckPacketList_40ED60(int a1, unsigned int a2, _DWORD* a3) {
+unsigned __int8*  nox_xxx_netCopyCheckPacketList_40ED60(int a1, unsigned int a2, _DWORD* a3) {
 	int*** v3;               // ebp
 	int v4;                  // ebx
 	int** v5;                // eax
@@ -4833,7 +4833,7 @@ unsigned __int8* __cdecl nox_xxx_netCopyCheckPacketList_40ED60(int a1, unsigned 
 }
 
 //----- (0040EE10) --------------------------------------------------------
-int __cdecl nox_xxx_netSendBySock_40EE10(unsigned int a1, int a2, unsigned int a3) {
+int  nox_xxx_netSendBySock_40EE10(unsigned int a1, int a2, unsigned int a3) {
 	unsigned __int8* v3; // eax
 
 	v3 = nox_xxx_netCopyCheckPacketList_40ED60(a2, a3, &a3);
@@ -4858,7 +4858,7 @@ int sub_40EE60() {
 }
 
 //----- (0040EE90) --------------------------------------------------------
-FILE* __cdecl nox_xxx_netBuf_40EE90(int a1) {
+FILE*  nox_xxx_netBuf_40EE90(int a1) {
 	int i;        // esi
 	FILE* result; // eax
 
@@ -4868,7 +4868,7 @@ FILE* __cdecl nox_xxx_netBuf_40EE90(int a1) {
 }
 
 //----- (0040EEB0) --------------------------------------------------------
-int** __cdecl nox_xxx_net_40EEB0(int a1, int a2, _DWORD* a3) {
+int**  nox_xxx_net_40EEB0(int a1, int a2, _DWORD* a3) {
 	int** result; // eax
 
 	result = nox_xxx_netlistGetList_420A90(*(int****)getMemAt(0x5D4594, 4 * (a1 + 32 * a2) + 210036), &a2);
@@ -4879,7 +4879,7 @@ int** __cdecl nox_xxx_net_40EEB0(int a1, int a2, _DWORD* a3) {
 }
 
 //----- (0040EEF0) --------------------------------------------------------
-BOOL __cdecl sub_40EEF0(int a1, int a2) {
+BOOL  sub_40EEF0(int a1, int a2) {
 	BOOL result; // eax
 
 	if ((unsigned int)(a2 + nox_xxx_net_420BD0(*getMemU32Ptr(0x5D4594, 4 * a1 + 210292))) <= 0x7F0)
@@ -4890,7 +4890,7 @@ BOOL __cdecl sub_40EEF0(int a1, int a2) {
 }
 
 //----- (0040EF40) --------------------------------------------------------
-int __cdecl nox_xxx_netAddToMsgListServ_40EF40(int a1, const void* a2, int a3) {
+int  nox_xxx_netAddToMsgListServ_40EF40(int a1, const void* a2, int a3) {
 	int v3;   // ebx
 	char* v5; // eax
 
@@ -4930,7 +4930,7 @@ int __cdecl nox_xxx_netAddToMsgListServ_40EF40(int a1, const void* a2, int a3) {
 }
 
 //----- (0040EFA0) --------------------------------------------------------
-char* __cdecl nox_xxx_netlistAdd_40EFA0(int a1, const void* a2, signed int a3) {
+char*  nox_xxx_netlistAdd_40EFA0(int a1, const void* a2, signed int a3) {
 	char* result;        // eax
 	int v4;              // ecx
 	unsigned __int8* v5; // edx
@@ -4949,16 +4949,16 @@ char* __cdecl nox_xxx_netlistAdd_40EFA0(int a1, const void* a2, signed int a3) {
 }
 
 //----- (0040F000) --------------------------------------------------------
-void __cdecl sub_40F000(int a1, int a2) { sub_4209E0(*(int**)getMemAt(0x5D4594, 4 * a1 + 210292), a2); }
+void  sub_40F000(int a1, int a2) { sub_4209E0(*(int**)getMemAt(0x5D4594, 4 * a1 + 210292), a2); }
 
 //----- (0040F020) --------------------------------------------------------
-int __cdecl nox_xxx_servBuildMsgPool4Plr_40F020(int a1) {
+int  nox_xxx_servBuildMsgPool4Plr_40F020(int a1) {
 	nox_xxx_net_420830(*(_DWORD**)getMemAt(0x5D4594, 4 * a1 + 210292));
 	return sub_40F040(a1);
 }
 
 //----- (0040F040) --------------------------------------------------------
-int __cdecl sub_40F040(int a1) {
+int  sub_40F040(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -4977,7 +4977,7 @@ int sub_40F060() {
 }
 
 //----- (0040F080) --------------------------------------------------------
-int** __cdecl nox_xxx_netListGetData_40F080(int a1, _DWORD* a2) {
+int**  nox_xxx_netListGetData_40F080(int a1, _DWORD* a2) {
 	int** result; // eax
 
 	result = nox_xxx_netlistGetList_420A90(*(int****)getMemAt(0x5D4594, 4 * a1 + 210292), &a1);
@@ -4988,13 +4988,13 @@ int** __cdecl nox_xxx_netListGetData_40F080(int a1, _DWORD* a2) {
 }
 
 //----- (0040F0B0) --------------------------------------------------------
-int __cdecl sub_40F0B0(int a1) { return nox_xxx_netSend_420BC0(*(FILE**)getMemAt(0x5D4594, 4 * a1 + 210292)); }
+int  sub_40F0B0(int a1) { return nox_xxx_netSend_420BC0(*(FILE**)getMemAt(0x5D4594, 4 * a1 + 210292)); }
 
 //----- (0040F0D0) --------------------------------------------------------
-int __cdecl sub_40F0D0(int a1) { return nox_xxx_net_420BD0(*getMemU32Ptr(0x5D4594, 4 * a1 + 210292)); }
+int  sub_40F0D0(int a1) { return nox_xxx_net_420BD0(*getMemU32Ptr(0x5D4594, 4 * a1 + 210292)); }
 
 //----- (0040F0F0) --------------------------------------------------------
-void __cdecl sub_40F0F0(int a1, int(__cdecl* a2)(_DWORD, int), int a3) {
+void  sub_40F0F0(int a1, int(* a2)(_DWORD, int), int a3) {
 	if (a2) {
 		if (a3)
 			sub_420A60(*(_DWORD**)getMemAt(0x5D4594, 4 * a1 + 210292), a2, a3);
@@ -5002,7 +5002,7 @@ void __cdecl sub_40F0F0(int a1, int(__cdecl* a2)(_DWORD, int), int a3) {
 }
 
 //----- (0040F120) --------------------------------------------------------
-unsigned __int8* __cdecl nox_xxx_netlist_40F120(int a1, _DWORD* a2) {
+unsigned __int8*  nox_xxx_netlist_40F120(int a1, _DWORD* a2) {
 	// int origSize;
 	int*** v2;            // ebp
 	unsigned int v3;      // ebx
@@ -5050,7 +5050,7 @@ unsigned __int8* __cdecl nox_xxx_netlist_40F120(int a1, _DWORD* a2) {
 }
 
 //----- (004100F0) --------------------------------------------------------
-int __cdecl nox_xxx_cliCanTalkMB_4100F0(__int16* a1) {
+int  nox_xxx_cliCanTalkMB_4100F0(__int16* a1) {
 	__int16 v1;  // ax
 	__int16* v2; // ecx
 
@@ -5133,7 +5133,7 @@ int nox_xxx_mapAlloc_4101D0() {
 }
 
 //----- (00410250) --------------------------------------------------------
-LPVOID __cdecl nox_xxx_wallCreateAt_410250(int a1, int a2) {
+LPVOID  nox_xxx_wallCreateAt_410250(int a1, int a2) {
 	LPVOID result; // eax
 	int v3;        // edx
 	int v4;        // eax
@@ -5184,7 +5184,7 @@ LPVOID __cdecl nox_xxx_wallCreateAt_410250(int a1, int a2) {
 }
 
 //----- (00410360) --------------------------------------------------------
-_BYTE* __cdecl nox_xxx_doorAttachWall_410360(int a1, int a2, int a3) {
+_BYTE*  nox_xxx_doorAttachWall_410360(int a1, int a2, int a3) {
 	_BYTE* result; // eax
 	char v4;       // cl
 
@@ -5198,7 +5198,7 @@ _BYTE* __cdecl nox_xxx_doorAttachWall_410360(int a1, int a2, int a3) {
 }
 
 //----- (00410390) --------------------------------------------------------
-_DWORD* __cdecl sub_410390(int a1, int a2, int a3) {
+_DWORD*  sub_410390(int a1, int a2, int a3) {
 	_DWORD* v3;     // esi
 	_DWORD* result; // eax
 	int v5;         // edx
@@ -5223,7 +5223,7 @@ _DWORD* __cdecl sub_410390(int a1, int a2, int a3) {
 }
 
 //----- (00410430) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_mapDelWallAtPt_410430(int a1, int a2) {
+_DWORD*  nox_xxx_mapDelWallAtPt_410430(int a1, int a2) {
 	int v2;         // ecx
 	_DWORD* v3;     // esi
 	_DWORD* result; // eax
@@ -5288,7 +5288,7 @@ _DWORD* __cdecl nox_xxx_mapDelWallAtPt_410430(int a1, int a2) {
 }
 
 //----- (00410520) --------------------------------------------------------
-int* __cdecl nox_xxx_wallDestroyedByWallid_410520(__int16 a1) {
+int*  nox_xxx_wallDestroyedByWallid_410520(__int16 a1) {
 	int* result; // eax
 	int v2;      // ecx
 
@@ -5308,7 +5308,7 @@ int* __cdecl nox_xxx_wallDestroyedByWallid_410520(__int16 a1) {
 }
 
 //----- (00410550) --------------------------------------------------------
-int __cdecl sub_410550(__int16 a1) {
+int  sub_410550(__int16 a1) {
 	int* v1; // eax
 
 	v1 = (int*)nox_xxx_wallSecretGetFirstWall_410780();
@@ -5323,7 +5323,7 @@ int __cdecl sub_410550(__int16 a1) {
 }
 
 //----- (00410580) --------------------------------------------------------
-int __cdecl nox_server_getWallAtPoint_410580(int a1, int a2) {
+int  nox_server_getWallAtPoint_410580(int a1, int a2) {
 	int result; // eax
 	int v3;     // eax
 
@@ -5343,7 +5343,7 @@ int __cdecl nox_server_getWallAtPoint_410580(int a1, int a2) {
 }
 
 //----- (004105E0) --------------------------------------------------------
-int __cdecl nox_xxx_wall_4105E0(int a1, int a2) {
+int  nox_xxx_wall_4105E0(int a1, int a2) {
 	int v2;     // eax
 	int result; // eax
 
@@ -5364,7 +5364,7 @@ int __cdecl nox_xxx_wall_4105E0(int a1, int a2) {
 }
 
 //----- (00410640) --------------------------------------------------------
-int __cdecl nox_xxx_wallForeachFn_410640(void(__cdecl* a1)(int, int), int a2) {
+int  nox_xxx_wallForeachFn_410640(void(* a1)(int, int), int a2) {
 	int result; // eax
 	int v3;     // esi
 
@@ -5381,7 +5381,7 @@ int __cdecl nox_xxx_wallForeachFn_410640(void(__cdecl* a1)(int, int), int a2) {
 }
 
 //----- (00410670) --------------------------------------------------------
-int __cdecl sub_410670(void(__cdecl* a1)(int, int), int a2) {
+int  sub_410670(void(* a1)(int, int), int a2) {
 	int result; // eax
 	int v3;     // esi
 
@@ -5398,7 +5398,7 @@ int __cdecl sub_410670(void(__cdecl* a1)(int, int), int a2) {
 }
 
 //----- (004106A0) --------------------------------------------------------
-int __cdecl sub_4106A0(int a1) {
+int  sub_4106A0(int a1) {
 	int result; // eax
 
 	if (a1 < 0 || a1 >= 256)
@@ -5457,7 +5457,7 @@ _DWORD* sub_410730() {
 }
 
 //----- (00410760) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_wallSecretBlock_410760(_DWORD* a1) {
+_DWORD*  nox_xxx_wallSecretBlock_410760(_DWORD* a1) {
 	_DWORD* result; // eax
 
 	result = a1;
@@ -5470,7 +5470,7 @@ _DWORD* __cdecl nox_xxx_wallSecretBlock_410760(_DWORD* a1) {
 LPVOID nox_xxx_wallSecretGetFirstWall_410780() { return *(LPVOID*)&dword_5d4594_251560; }
 
 //----- (00410790) --------------------------------------------------------
-int __cdecl nox_xxx_wallSecretNext_410790(int* a1) {
+int  nox_xxx_wallSecretNext_410790(int* a1) {
 	int result; // eax
 
 	if (a1)
@@ -5481,7 +5481,7 @@ int __cdecl nox_xxx_wallSecretNext_410790(int* a1) {
 }
 
 //----- (004107A0) --------------------------------------------------------
-int* __cdecl sub_4107A0(LPVOID lpMem) {
+int*  sub_4107A0(LPVOID lpMem) {
 	int* result; // eax
 	int* v2;     // esi
 
@@ -5523,7 +5523,7 @@ _DWORD* nox_xxx_wallBreackableListClear_410810() {
 }
 
 //----- (00410840) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_wallBreackableListAdd_410840(int a1) {
+_DWORD*  nox_xxx_wallBreackableListAdd_410840(int a1) {
 	_DWORD* result; // eax
 
 	result = calloc(1u, 8u);
@@ -5537,7 +5537,7 @@ _DWORD* __cdecl nox_xxx_wallBreackableListAdd_410840(int a1) {
 LPVOID nox_xxx_wallGetFirstBreakableCli_410870() { return *(LPVOID*)&dword_5d4594_251564; }
 
 //----- (00410880) --------------------------------------------------------
-int __cdecl nox_xxx_wallGetNextBreakableCli_410880(int* a1) {
+int  nox_xxx_wallGetNextBreakableCli_410880(int* a1) {
 	int result; // eax
 
 	if (a1)
@@ -5548,7 +5548,7 @@ int __cdecl nox_xxx_wallGetNextBreakableCli_410880(int* a1) {
 }
 
 //----- (00410890) --------------------------------------------------------
-int* __cdecl nox_xxx_wallBreakableRemove_410890(int* lpMem) {
+int*  nox_xxx_wallBreakableRemove_410890(int* lpMem) {
 	int* result; // eax
 	int* v2;     // esi
 
@@ -5571,7 +5571,7 @@ int* __cdecl nox_xxx_wallBreakableRemove_410890(int* lpMem) {
 }
 
 //----- (00410900) --------------------------------------------------------
-int __cdecl nox_thing_read_WALL_410900(_DWORD* a1, char* a2) {
+int  nox_thing_read_WALL_410900(_DWORD* a1, char* a2) {
 	_DWORD* v3;           // esi
 	char* v4;             // ebx
 	unsigned __int8* v5;  // ebp
@@ -5745,10 +5745,10 @@ LABEL_7:
 }
 
 //----- (00410D40) --------------------------------------------------------
-char* __cdecl sub_410D40(int a1) { return (char*)getMemAt(0x5D4594, 12332 * a1 + 2692748); }
+char*  sub_410D40(int a1) { return (char*)getMemAt(0x5D4594, 12332 * a1 + 2692748); }
 
 //----- (00410D60) --------------------------------------------------------
-int __cdecl nox_xxx_wallTileByName_410D60(const char* a1) {
+int  nox_xxx_wallTileByName_410D60(const char* a1) {
 	int v1;        // ebp
 	const char* i; // edi
 
@@ -5763,21 +5763,21 @@ int __cdecl nox_xxx_wallTileByName_410D60(const char* a1) {
 }
 
 //----- (00410DD0) --------------------------------------------------------
-unsigned __int8 __cdecl nox_xxx_mapWallMaxVariation_410DD0(int a1, int a2, int a3) {
+unsigned __int8  nox_xxx_mapWallMaxVariation_410DD0(int a1, int a2, int a3) {
 	return getMemByte(0x5D4594, 12332 * a1 + 2705020 + 12 * a3 + 3 * a3 + a2);
 }
 
 //----- (00410E00) --------------------------------------------------------
-unsigned __int8 __cdecl nox_xxx_map_410E00(int a1) { return getMemByte(0x5D4594, 12332 * a1 + 2693497); }
+unsigned __int8  nox_xxx_map_410E00(int a1) { return getMemByte(0x5D4594, 12332 * a1 + 2693497); }
 
 //----- (00410E20) --------------------------------------------------------
-unsigned __int8 __cdecl nox_xxx_mapWallGetHpByTile_410E20(int a1) { return getMemByte(0x5D4594, 12332 * a1 + 2692789); }
+unsigned __int8  nox_xxx_mapWallGetHpByTile_410E20(int a1) { return getMemByte(0x5D4594, 12332 * a1 + 2692789); }
 
 //----- (00410E40) --------------------------------------------------------
-unsigned __int8 __cdecl nox_xxx_wallGetBrickTypeMB_410E40(int a1) { return getMemByte(0x5D4594, 12332 * a1 + 2692790); }
+unsigned __int8  nox_xxx_wallGetBrickTypeMB_410E40(int a1) { return getMemByte(0x5D4594, 12332 * a1 + 2692790); }
 
 //----- (00410E60) --------------------------------------------------------
-char* __cdecl nox_xxx_wallGetBrickObj_410E60(int a1, int a2) {
+char*  nox_xxx_wallGetBrickObj_410E60(int a1, int a2) {
 	char* result; // eax
 
 	result = (char*)getMemAt(0x587000, 26432);
@@ -5787,7 +5787,7 @@ char* __cdecl nox_xxx_wallGetBrickObj_410E60(int a1, int a2) {
 }
 
 //----- (00410EA0) --------------------------------------------------------
-char* __cdecl nox_xxx_wallSoundByTile_410EA0(int a1) {
+char*  nox_xxx_wallSoundByTile_410EA0(int a1) {
 	char* result; // eax
 
 	result = (char*)getMemAt(0x587000, 26440);
@@ -5797,7 +5797,7 @@ char* __cdecl nox_xxx_wallSoundByTile_410EA0(int a1) {
 }
 
 //----- (00410EE0) --------------------------------------------------------
-char* __cdecl nox_xxx_wallFindOpenSound_410EE0(int a1) {
+char*  nox_xxx_wallFindOpenSound_410EE0(int a1) {
 	char* result; // eax
 
 	result = (char*)getMemAt(0x587000, 26456);
@@ -5807,7 +5807,7 @@ char* __cdecl nox_xxx_wallFindOpenSound_410EE0(int a1) {
 }
 
 //----- (00410F20) --------------------------------------------------------
-char* __cdecl nox_xxx_wallFindCloseSound_410F20(int a1) {
+char*  nox_xxx_wallFindCloseSound_410F20(int a1) {
 	char* result; // eax
 
 	result = (char*)getMemAt(0x587000, 26472);
@@ -5905,7 +5905,7 @@ int nox_xxx_tileUnusedMB_410FF0() {
 }
 
 //----- (00411160) --------------------------------------------------------
-int __cdecl nox_xxx_tileNFromPoint_411160(float2* a1) {
+int  nox_xxx_tileNFromPoint_411160(float2* a1) {
 	float v12 = (a1->field_0 + 11.5) * 0.021739131;
 	float v13 = (a1->field_4 + 11.5) * 0.021739131;
 
@@ -5962,7 +5962,7 @@ int __cdecl nox_xxx_tileNFromPoint_411160(float2* a1) {
 }
 
 //----- (00411350) --------------------------------------------------------
-int __cdecl sub_411350(int* a1, int* a2, int a3) {
+int  sub_411350(int* a1, int* a2, int a3) {
 	int* v3; // esi
 	int v4;  // ebx
 	int v5;  // eax
@@ -5981,7 +5981,7 @@ int __cdecl sub_411350(int* a1, int* a2, int a3) {
 }
 
 //----- (004113A0) --------------------------------------------------------
-int __cdecl sub_4113A0(int* a1, int a2) {
+int  sub_4113A0(int* a1, int a2) {
 	int v2 = *a1;
 	int v3 = a1[1];
 
@@ -6069,7 +6069,7 @@ int __cdecl sub_4113A0(int* a1, int a2) {
 }
 
 //----- (00411490) --------------------------------------------------------
-int __cdecl sub_411490(int a1, int a2) {
+int  sub_411490(int a1, int a2) {
 	int v2; // ecx
 	int v3; // edx
 	int v5; // esi
@@ -6102,7 +6102,7 @@ int __cdecl sub_411490(int a1, int a2) {
 }
 
 //----- (00411540) --------------------------------------------------------
-int __cdecl nox_thing_read_FLOR_411540(int a1, _BYTE* a2) {
+int  nox_thing_read_FLOR_411540(int a1, _BYTE* a2) {
 	int v3;               // esi
 	unsigned __int8* v4;  // edi
 	int v5;               // eax
@@ -6229,7 +6229,7 @@ int __cdecl nox_thing_read_FLOR_411540(int a1, _BYTE* a2) {
 // 411540: using guessed type char var_20[32];
 
 //----- (004117E0) --------------------------------------------------------
-int __cdecl nox_xxx_checkFacade_4117E0(const char* a1) {
+int  nox_xxx_checkFacade_4117E0(const char* a1) {
 	const char* v1;      // eax
 	unsigned __int8* v2; // edi
 
@@ -6247,7 +6247,7 @@ int __cdecl nox_xxx_checkFacade_4117E0(const char* a1) {
 }
 
 //----- (00411850) --------------------------------------------------------
-int __cdecl nox_thing_read_EDGE_411850(int a1, _BYTE* a2) {
+int  nox_thing_read_EDGE_411850(int a1, _BYTE* a2) {
 	int v3;               // ebp
 	unsigned __int8* v4;  // eax
 	int v5;               // eax
@@ -6360,7 +6360,7 @@ int __cdecl nox_thing_read_EDGE_411850(int a1, _BYTE* a2) {
 // 411850: using guessed type char var_20[32];
 
 //----- (00411A90) --------------------------------------------------------
-BOOL __cdecl nox_xxx_mapTileAllowTeleport_411A90(float2* a1) {
+BOOL  nox_xxx_mapTileAllowTeleport_411A90(float2* a1) {
 	int v1;         // edx
 	const char* v2; // eax
 	int v3;         // eax
@@ -6391,7 +6391,7 @@ BOOL __cdecl nox_xxx_mapTileAllowTeleport_411A90(float2* a1) {
 }
 
 //----- (00411C40) --------------------------------------------------------
-BOOL __cdecl nox_xxx_parseWeapColor_411C40(const char* a1, char* a2, int a3) {
+BOOL  nox_xxx_parseWeapColor_411C40(const char* a1, char* a2, int a3) {
 	int v3;      // eax
 	BOOL result; // eax
 
@@ -6404,7 +6404,7 @@ BOOL __cdecl nox_xxx_parseWeapColor_411C40(const char* a1, char* a2, int a3) {
 }
 
 //----- (00411C80) --------------------------------------------------------
-int __cdecl sub_411C80(const char* a1) {
+int  sub_411C80(const char* a1) {
 	const char* v1;      // ecx
 	int v2;              // ebp
 	unsigned __int8* v3; // edi
@@ -6425,7 +6425,7 @@ int __cdecl sub_411C80(const char* a1) {
 }
 
 //----- (00411CF0) --------------------------------------------------------
-char* __cdecl nox_xxx_parseBinColor_411CF0(char* a1, _BYTE* a2) {
+char*  nox_xxx_parseBinColor_411CF0(char* a1, _BYTE* a2) {
 	char* result; // eax
 	char v3;      // bl
 	char v4;      // al
@@ -6453,7 +6453,7 @@ char* __cdecl nox_xxx_parseBinColor_411CF0(char* a1, _BYTE* a2) {
 }
 
 //----- (00411D90) --------------------------------------------------------
-BOOL __cdecl sub_411D90(const char* a1, char* a2, int a3) {
+BOOL  sub_411D90(const char* a1, char* a2, int a3) {
 	char* v3;   // eax
 	int v4;     // esi
 	int v5;     // eax
@@ -6486,7 +6486,7 @@ BOOL __cdecl sub_411D90(const char* a1, char* a2, int a3) {
 }
 
 //----- (00411E60) --------------------------------------------------------
-int __cdecl sub_411E60(int a1, char* a2, int a3) {
+int  sub_411E60(int a1, char* a2, int a3) {
 	size_t v3;  // edx
 	int result; // eax
 	int v5;     // [esp+8h] [ebp-4h]
@@ -6505,7 +6505,7 @@ int __cdecl sub_411E60(int a1, char* a2, int a3) {
 }
 
 //----- (00411ED0) --------------------------------------------------------
-char* __cdecl sub_411ED0(int a1, char* a2, int a3) {
+char*  sub_411ED0(int a1, char* a2, int a3) {
 	char* result; // eax
 	char v4[8];   // [esp+0h] [ebp-8h]
 
@@ -6519,7 +6519,7 @@ char* __cdecl sub_411ED0(int a1, char* a2, int a3) {
 }
 
 //----- (00411F20) --------------------------------------------------------
-char* __cdecl sub_411F20(int a1, char* a2, int a3) {
+char*  sub_411F20(int a1, char* a2, int a3) {
 	char* result; // eax
 	char v4[8];   // [esp+0h] [ebp-8h]
 
@@ -6533,7 +6533,7 @@ char* __cdecl sub_411F20(int a1, char* a2, int a3) {
 }
 
 //----- (00411F70) --------------------------------------------------------
-char* __cdecl sub_411F70(int a1, char* a2, int a3) {
+char*  sub_411F70(int a1, char* a2, int a3) {
 	char* result; // eax
 	char v4[8];   // [esp+0h] [ebp-8h]
 
@@ -6547,7 +6547,7 @@ char* __cdecl sub_411F70(int a1, char* a2, int a3) {
 }
 
 //----- (00411FC0) --------------------------------------------------------
-char* __cdecl sub_411FC0(int a1, char* a2, int a3) {
+char*  sub_411FC0(int a1, char* a2, int a3) {
 	char* result; // eax
 	double v4;    // st7
 	char v5[8];   // [esp+0h] [ebp-8h]
@@ -6563,7 +6563,7 @@ char* __cdecl sub_411FC0(int a1, char* a2, int a3) {
 }
 
 //----- (00412010) --------------------------------------------------------
-const char* __cdecl nox_xxx_parseWeapDamageType_412010(int a1, char* a2, int a3) {
+const char*  nox_xxx_parseWeapDamageType_412010(int a1, char* a2, int a3) {
 	const char* result; // eax
 	int v4;             // eax
 	char v5[8];         // [esp+0h] [ebp-8h]
@@ -6579,7 +6579,7 @@ const char* __cdecl nox_xxx_parseWeapDamageType_412010(int a1, char* a2, int a3)
 }
 
 //----- (00412060) --------------------------------------------------------
-char* __cdecl sub_412060(int a1, char* a2, int a3) {
+char*  sub_412060(int a1, char* a2, int a3) {
 	char* result; // eax
 	double v4;    // st7
 	char v5[8];   // [esp+0h] [ebp-8h]
@@ -6595,7 +6595,7 @@ char* __cdecl sub_412060(int a1, char* a2, int a3) {
 }
 
 //----- (004120B0) --------------------------------------------------------
-char* __cdecl sub_4120B0(int a1, char* a2, int a3) {
+char*  sub_4120B0(int a1, char* a2, int a3) {
 	char* result; // eax
 	double v4;    // st7
 	char v5[8];   // [esp+0h] [ebp-8h]
@@ -6611,7 +6611,7 @@ char* __cdecl sub_4120B0(int a1, char* a2, int a3) {
 }
 
 //----- (00412310) --------------------------------------------------------
-int __cdecl nox_xxx_parseEnchWorth_412310_parse_worth(const char* a1, char* a2, obj_412ae0_t* a3) {
+int  nox_xxx_parseEnchWorth_412310_parse_worth(const char* a1, char* a2, obj_412ae0_t* a3) {
 	char* result; // eax
 	char v4[8];   // [esp+0h] [ebp-8h]
 
@@ -6625,12 +6625,12 @@ int __cdecl nox_xxx_parseEnchWorth_412310_parse_worth(const char* a1, char* a2, 
 }
 
 //----- (00412360) --------------------------------------------------------
-int __cdecl nox_xxx_parseEnchColor_412360_parse_color(const char* a1, char* a2, obj_412ae0_t* a3) {
+int  nox_xxx_parseEnchColor_412360_parse_color(const char* a1, char* a2, obj_412ae0_t* a3) {
 	return nox_xxx_parseBinColor_411CF0(a2, (_BYTE*)(&a3->field_6)) != 0;
 }
 
 //----- (00412380) --------------------------------------------------------
-int __cdecl nox_xxx_parseEnchEffect_412380_parse_attack_effect(const char* a1, char* a2, obj_412ae0_t* obj) {
+int  nox_xxx_parseEnchEffect_412380_parse_attack_effect(const char* a1, char* a2, obj_412ae0_t* obj) {
 	char v9[8];
 	strcpy(v9, " \n\r\t=");
 	char* v3 = strtok(a2, v9);
@@ -6664,7 +6664,7 @@ int __cdecl nox_xxx_parseEnchEffect_412380_parse_attack_effect(const char* a1, c
 }
 
 //----- (00412490) --------------------------------------------------------
-int __cdecl nox_xxx_parseEnchDefend_412490_parse_defend_effect(const char* a1, char* a2, obj_412ae0_t* obj) {
+int  nox_xxx_parseEnchDefend_412490_parse_defend_effect(const char* a1, char* a2, obj_412ae0_t* obj) {
 	char v9[8];
 	strcpy(v9, " \n\r\t=");
 	char* v3 = strtok(a2, v9);
@@ -6695,7 +6695,7 @@ int __cdecl nox_xxx_parseEnchDefend_412490_parse_defend_effect(const char* a1, c
 }
 
 //----- (00412580) --------------------------------------------------------
-int __cdecl nox_xxx_parseEnchEngageOrDisEng_412580_parse_engage_effect(const char* a1, char* a2, obj_412ae0_t* obj) {
+int  nox_xxx_parseEnchEngageOrDisEng_412580_parse_engage_effect(const char* a1, char* a2, obj_412ae0_t* obj) {
 	char v9[8];
 	strcpy(v9, " =\n\r\t");
 	char* v3 = strtok(a2, v9);
@@ -6726,7 +6726,7 @@ int __cdecl nox_xxx_parseEnchEngageOrDisEng_412580_parse_engage_effect(const cha
 }
 
 //----- (00412670) --------------------------------------------------------
-int __cdecl nox_xxx_parseEnchUpdate_412670_parse_update_effect(const char* a1, char* a2, obj_412ae0_t* obj) {
+int  nox_xxx_parseEnchUpdate_412670_parse_update_effect(const char* a1, char* a2, obj_412ae0_t* obj) {
 	char v8[8];
 	strcpy(v8, " =\n\r\t");
 	char* v3 = strtok(a2, v8);
@@ -6755,13 +6755,13 @@ int __cdecl nox_xxx_parseEnchUpdate_412670_parse_update_effect(const char* a1, c
 }
 
 //----- (00412740) --------------------------------------------------------
-int __cdecl nox_xxx_parseEnchAllowedWeapon_412740_parse_allowed_weapons(const char* a1, char* a2, obj_412ae0_t* a3) {
+int  nox_xxx_parseEnchAllowedWeapon_412740_parse_allowed_weapons(const char* a1, char* a2, obj_412ae0_t* a3) {
 	a3->field_7 = 0;
 	return nox_xxx_parseAllowedWeaponArmor_412760(a2, &a3->field_7);
 }
 
 //----- (00412760) --------------------------------------------------------
-int __cdecl nox_xxx_parseAllowedWeaponArmor_412760(char* a1, int* a2) {
+int  nox_xxx_parseAllowedWeaponArmor_412760(char* a1, int* a2) {
 	char* v2;            // eax
 	int* v4;             // ebx
 	const char* v5;      // ecx
@@ -6825,13 +6825,13 @@ int __cdecl nox_xxx_parseAllowedWeaponArmor_412760(char* a1, int* a2) {
 }
 
 //----- (004128A0) --------------------------------------------------------
-int __cdecl nox_xxx_parseEnchAllowedArmor_4128A0_parse_allowed_armor(const char* a1, char* a2, obj_412ae0_t* a3) {
+int  nox_xxx_parseEnchAllowedArmor_4128A0_parse_allowed_armor(const char* a1, char* a2, obj_412ae0_t* a3) {
 	a3->field_8 = 0;
 	return nox_xxx_parseAllowedWeaponArmor_412760(a2, &a3->field_8);
 }
 
 //----- (004128C0) --------------------------------------------------------
-int __cdecl nox_xxx_parseAllowedPosition_4128C0_parse_allowed_pos(const char* a1, char* a2, obj_412ae0_t* a3) {
+int  nox_xxx_parseAllowedPosition_4128C0_parse_allowed_pos(const char* a1, char* a2, obj_412ae0_t* a3) {
 	size_t v3; // edx
 	int v5;    // [esp+8h] [ebp-4h]
 
@@ -6847,7 +6847,7 @@ int __cdecl nox_xxx_parseAllowedPosition_4128C0_parse_allowed_pos(const char* a1
 }
 
 //----- (00412930) --------------------------------------------------------
-int __cdecl nox_xxx_parseModifierBin_412930(char* a1, char* a2) {
+int  nox_xxx_parseModifierBin_412930(char* a1, char* a2) {
 	FILE* v2;      // eax
 	FILE* v3;      // ebx
 	char v10[256]; // [esp+10h] [ebp-100h]
@@ -6892,7 +6892,7 @@ int __cdecl nox_xxx_parseModifierBin_412930(char* a1, char* a2) {
 }
 
 //----- (00412AE0) --------------------------------------------------------
-int __cdecl nox_xxx_parseModifDesc_412AE0(const char* a1, FILE* a2, char* a3) {
+int  nox_xxx_parseModifDesc_412AE0(const char* a1, FILE* a2, char* a3) {
 	char v9[256];
 
 	while (1) {
@@ -6933,7 +6933,7 @@ int __cdecl nox_xxx_parseModifDesc_412AE0(const char* a1, FILE* a2, char* a3) {
 }
 
 //----- (00412C60) --------------------------------------------------------
-int __cdecl nox_xxx_parseModifAddByType_412C60(const char* a1, obj_412ae0_t* a2) {
+int  nox_xxx_parseModifAddByType_412C60(const char* a1, obj_412ae0_t* a2) {
 	if (!strcmp(a1, "EFFECTIVENESS")) {
 		a2->field_35 = 0;
 		a2->field_34 = byte_5D4594_251584[0];
@@ -6959,7 +6959,7 @@ int __cdecl nox_xxx_parseModifAddByType_412C60(const char* a1, obj_412ae0_t* a2)
 }
 
 //----- (00412D40) --------------------------------------------------------
-int __cdecl nox_xxx_parseWeaponDef_412D40(int a1, FILE* a2, char* a3) {
+int  nox_xxx_parseWeaponDef_412D40(int a1, FILE* a2, char* a3) {
 	char** v3;           // eax
 	char** v4;           // ebp
 	char* v5;            // edx
@@ -6999,7 +6999,7 @@ int __cdecl nox_xxx_parseWeaponDef_412D40(int a1, FILE* a2, char* a3) {
 						goto LABEL_13;
 				}
 				nox_xxx_parseRead_4093E0(a2, a3, 0x40000);
-				if (!(*((int(__cdecl**)(char*, char*, char**))v6 + 1))(v9, a3, v4))
+				if (!(*((int(**)(char*, char*, char**))v6 + 1))(v9, a3, v4))
 					return 0;
 			}
 		LABEL_13:
@@ -7010,7 +7010,7 @@ int __cdecl nox_xxx_parseWeaponDef_412D40(int a1, FILE* a2, char* a3) {
 }
 
 //----- (00412ED0) --------------------------------------------------------
-int __cdecl sub_412ED0(int a1, FILE* a2, char* a3) {
+int  sub_412ED0(int a1, FILE* a2, char* a3) {
 	char** v3;           // eax
 	char** v4;           // ebp
 	char* v5;            // edx
@@ -7050,7 +7050,7 @@ int __cdecl sub_412ED0(int a1, FILE* a2, char* a3) {
 						goto LABEL_13;
 				}
 				nox_xxx_parseRead_4093E0(a2, a3, 0x40000);
-				if (!(*((int(__cdecl**)(char*, char*, char**))v6 + 1))(v9, a3, v4))
+				if (!(*((int(**)(char*, char*, char**))v6 + 1))(v9, a3, v4))
 					return 0;
 			}
 		LABEL_13:
@@ -7076,7 +7076,7 @@ void nox_xxx_freeWeaponArmorDefAndModifs_413060() {
 }
 
 //----- (004130C0) --------------------------------------------------------
-void __cdecl sub_4130C0(LPVOID lpMem) {
+void  sub_4130C0(LPVOID lpMem) {
 	LPVOID v1; // esi
 	void* v2;  // edi
 
@@ -7095,7 +7095,7 @@ void __cdecl sub_4130C0(LPVOID lpMem) {
 }
 
 //----- (00413100) --------------------------------------------------------
-void __cdecl sub_413100(LPVOID lpMem) {
+void  sub_413100(LPVOID lpMem) {
 	LPVOID v1; // esi
 	void* v2;  // edi
 
@@ -7114,7 +7114,7 @@ void __cdecl sub_413100(LPVOID lpMem) {
 }
 
 //----- (00413140) --------------------------------------------------------
-void __cdecl nox_xxx_modifFreeOne_413140(LPVOID lpMem) {
+void  nox_xxx_modifFreeOne_413140(LPVOID lpMem) {
 	LPVOID v1; // esi
 	void* v2;  // edi
 
@@ -7135,7 +7135,7 @@ void __cdecl nox_xxx_modifFreeOne_413140(LPVOID lpMem) {
 }
 
 //----- (00413250) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_getProjectileClassById_413250(int a1) {
+_DWORD*  nox_xxx_getProjectileClassById_413250(int a1) {
 	_DWORD* result; // eax
 
 	result = *(_DWORD**)&dword_5d4594_251600;
@@ -7150,7 +7150,7 @@ _DWORD* __cdecl nox_xxx_getProjectileClassById_413250(int a1) {
 }
 
 //----- (00413270) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_equipClothFindDefByTT_413270(int a1) {
+_DWORD*  nox_xxx_equipClothFindDefByTT_413270(int a1) {
 	_DWORD* result; // eax
 
 	result = *(_DWORD**)&dword_5d4594_251608;
@@ -7165,7 +7165,7 @@ _DWORD* __cdecl nox_xxx_equipClothFindDefByTT_413270(int a1) {
 }
 
 //----- (00413290) --------------------------------------------------------
-int __cdecl nox_xxx_modifGetIdByName_413290(const char* a1) {
+int  nox_xxx_modifGetIdByName_413290(const char* a1) {
 	if (!a1)
 		return 255;
 	for (int i = 0; i < 3; i++) {
@@ -7178,7 +7178,7 @@ int __cdecl nox_xxx_modifGetIdByName_413290(const char* a1) {
 }
 
 //----- (00413300) --------------------------------------------------------
-int __cdecl sub_413300(int a1) {
+int  sub_413300(int a1) {
 	for (int i = 0; i < 3; i++) {
 		for (obj_412ae0_t* it = byte_5D4594_251584[i]; it; it = it->field_34) {
 			if (it->field_1 == a1)
@@ -7189,7 +7189,7 @@ int __cdecl sub_413300(int a1) {
 }
 
 //----- (00413330) --------------------------------------------------------
-obj_412ae0_t* __cdecl nox_xxx_modifGetDescById_413330(int a1) {
+obj_412ae0_t*  nox_xxx_modifGetDescById_413330(int a1) {
 	if (a1 == 255)
 		return 0;
 	for (int i = 0; i < 3; i++) {
@@ -7205,22 +7205,22 @@ obj_412ae0_t* __cdecl nox_xxx_modifGetDescById_413330(int a1) {
 LPVOID sub_413370() { return *(LPVOID*)&dword_5d4594_251600; }
 
 //----- (00413380) --------------------------------------------------------
-int __cdecl sub_413380(int a1) { return *(_DWORD*)(a1 + 80); }
+int  sub_413380(int a1) { return *(_DWORD*)(a1 + 80); }
 
 //----- (00413390) --------------------------------------------------------
 LPVOID sub_413390() { return *(LPVOID*)&dword_5d4594_251608; }
 
 //----- (004133A0) --------------------------------------------------------
-int __cdecl sub_4133A0(int a1) { return *(_DWORD*)(a1 + 80); }
+int  sub_4133A0(int a1) { return *(_DWORD*)(a1 + 80); }
 
 //----- (004133B0) --------------------------------------------------------
-obj_412ae0_t* __cdecl nox_xxx_modifGetModifListByType_4133B0(int a1) { return byte_5D4594_251584[a1]; }
+obj_412ae0_t*  nox_xxx_modifGetModifListByType_4133B0(int a1) { return byte_5D4594_251584[a1]; }
 
 //----- (004133C0) --------------------------------------------------------
-obj_412ae0_t* __cdecl nox_xxx_modifNext_4133C0(obj_412ae0_t* a1) { return a1->field_34; }
+obj_412ae0_t*  nox_xxx_modifNext_4133C0(obj_412ae0_t* a1) { return a1->field_34; }
 
 //----- (004133D0) --------------------------------------------------------
-BOOL __cdecl sub_4133D0(int a1) {
+BOOL  sub_4133D0(int a1) {
 	int v1; // eax
 	int v2; // esi
 	int v3; // eax
@@ -7236,7 +7236,7 @@ BOOL __cdecl sub_4133D0(int a1) {
 }
 
 //----- (00413420) --------------------------------------------------------
-int __cdecl sub_413420(char a1) {
+int  sub_413420(char a1) {
 	unsigned __int8* v1; // esi
 	int v2;              // ecx
 	unsigned __int8* v3; // eax
@@ -7357,7 +7357,7 @@ int sub_413850() {
 }
 
 //----- (00413870) --------------------------------------------------------
-BOOL __cdecl sub_413870(int a1) {
+BOOL  sub_413870(int a1) {
 	BOOL result; // eax
 
 	dword_5d4594_251708 = 1;
@@ -7444,7 +7444,7 @@ void sub_413A60() {
 }
 
 //----- (00413A80) --------------------------------------------------------
-int __cdecl sub_413A80(char* a1) {
+int  sub_413A80(char* a1) {
 	int result; // eax
 
 	result = 0;
@@ -7458,7 +7458,7 @@ int __cdecl sub_413A80(char* a1) {
 }
 
 //----- (00413AD0) --------------------------------------------------------
-void __cdecl sub_413AD0(FILE* a1) {
+void  sub_413AD0(FILE* a1) {
 	char* v2; // eax
 
 	if (a1) {
@@ -7480,7 +7480,7 @@ char* sub_413B00() {
 }
 
 //----- (00413B20) --------------------------------------------------------
-int __cdecl sub_413B20(FILE** a1, char* a2, char* a3) {
+int  sub_413B20(FILE** a1, char* a2, char* a3) {
 	char* v4; // eax
 
 	if (!a2)
@@ -7508,7 +7508,7 @@ void sub_413B70(char* a1, ...) {
 }
 
 //----- (00413BD0) --------------------------------------------------------
-void __cdecl sub_413BD0(FILE* a1, int a2) {
+void  sub_413BD0(FILE* a1, int a2) {
 	if (a1) {
 		fprintf(a1, "%s", a2);
 		fflush(a1);
@@ -7664,10 +7664,10 @@ void sub_413E30() {
 }
 
 //----- (00413F60) --------------------------------------------------------
-int __cdecl sub_413F60(const void* a1, const void* a2) { return *((_DWORD*)a1 + 20) - *((_DWORD*)a2 + 20); }
+int  sub_413F60(const void* a1, const void* a2) { return *((_DWORD*)a1 + 20) - *((_DWORD*)a2 + 20); }
 
 //----- (00413F90) --------------------------------------------------------
-char* __cdecl nox_clone_str(const char* a1) {
+char*  nox_clone_str(const char* a1) {
 	char* result; // eax
 
 	result = (char*)malloc(strlen(a1) + 1);
@@ -7677,7 +7677,7 @@ char* __cdecl nox_clone_str(const char* a1) {
 }
 
 //----- (00413FE0) --------------------------------------------------------
-nox_alloc_class* __cdecl nox_new_alloc_class(const char* name, int size, int cnt) {
+nox_alloc_class*  nox_new_alloc_class(const char* name, int size, int cnt) {
 	nox_alloc_class* p = (nox_alloc_class*)calloc(1, sizeof(nox_alloc_class));
 	if (!p)
 		return 0;
@@ -7721,7 +7721,7 @@ nox_alloc_class* __cdecl nox_new_alloc_class(const char* name, int size, int cnt
 }
 
 //----- (004140D0) --------------------------------------------------------
-nox_alloc_class* __cdecl nox_new_alloc_class_f30(const char* name, int size, int cnt) {
+nox_alloc_class*  nox_new_alloc_class_f30(const char* name, int size, int cnt) {
 	nox_alloc_class* p = nox_new_alloc_class(name, size, cnt);
 	if (!p)
 		return 0;
@@ -7730,7 +7730,7 @@ nox_alloc_class* __cdecl nox_new_alloc_class_f30(const char* name, int size, int
 }
 
 //----- (00414100) --------------------------------------------------------
-void __cdecl nox_free_alloc_class(nox_alloc_class* p) {
+void  nox_free_alloc_class(nox_alloc_class* p) {
 	if (!p)
 		return;
 	if (p->field_30)
@@ -7740,7 +7740,7 @@ void __cdecl nox_free_alloc_class(nox_alloc_class* p) {
 }
 
 //----- (00414130) --------------------------------------------------------
-void __cdecl nox_free_alloc_class_f30(nox_alloc_class* p) {
+void  nox_free_alloc_class_f30(nox_alloc_class* p) {
 	if (!p)
 		return;
 
@@ -7770,7 +7770,7 @@ void __cdecl nox_free_alloc_class_f30(nox_alloc_class* p) {
 }
 
 //----- (00414190) --------------------------------------------------------
-int __cdecl nox_alloc_class_new_obj(_DWORD* a1) {
+int  nox_alloc_class_new_obj(_DWORD* a1) {
 	_DWORD* v1;           // esi
 	int v2;               // eax
 	int v3;               // edx
@@ -7871,7 +7871,7 @@ int __cdecl nox_alloc_class_new_obj(_DWORD* a1) {
 }
 
 //----- (004142F0) --------------------------------------------------------
-void* __cdecl nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
+void*  nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 	void* v1 = (void*)nox_alloc_class_new_obj(al);
 	if (!v1)
 		return 0;
@@ -7880,7 +7880,7 @@ void* __cdecl nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 }
 
 //----- (00414330) --------------------------------------------------------
-void __cdecl nox_xxx_memDeleteAdv_414330(unsigned int* a1, nox_drawable* dr) {
+void  nox_xxx_memDeleteAdv_414330(unsigned int* a1, nox_drawable* dr) {
 	_QWORD* a2 = dr;
 	_QWORD* v2;      // esi
 	unsigned int v3; // ecx
@@ -7911,7 +7911,7 @@ void __cdecl nox_xxx_memDeleteAdv_414330(unsigned int* a1, nox_drawable* dr) {
 }
 
 //----- (004143D0) --------------------------------------------------------
-int __cdecl sub_4143D0(int a1, nox_drawable* dr) {
+int  sub_4143D0(int a1, nox_drawable* dr) {
 	int a2 = dr;
 	int result; // eax
 	int v3;     // ecx
@@ -7934,7 +7934,7 @@ int __cdecl sub_4143D0(int a1, nox_drawable* dr) {
 }
 
 //----- (00414400) --------------------------------------------------------
-void __cdecl sub_414400(unsigned int* a1, _QWORD* a2) {
+void  sub_414400(unsigned int* a1, _QWORD* a2) {
 	_QWORD* v2;      // esi
 	unsigned int v3; // eax
 	unsigned int v4; // eax
@@ -7968,7 +7968,7 @@ void __cdecl sub_414400(unsigned int* a1, _QWORD* a2) {
 }
 
 //----- (004144B0) --------------------------------------------------------
-int __cdecl sub_4144B0(int a1) {
+int  sub_4144B0(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -7977,7 +7977,7 @@ int __cdecl sub_4144B0(int a1) {
 }
 
 //----- (004144D0) --------------------------------------------------------
-void __cdecl nox_xxx_class_4144D0(_DWORD* a1) {
+void  nox_xxx_class_4144D0(_DWORD* a1) {
 	int v1; // edx
 	int v2; // eax
 
@@ -8019,13 +8019,13 @@ int sub_4145A0() { return *getMemU32Ptr(0x5D4594, 338320); }
 int sub_4145B0() { return *getMemU32Ptr(0x5D4594, 338316); }
 
 //----- (004145C0) --------------------------------------------------------
-void* __cdecl sub_4145C0(size_t a1, size_t a2) { return calloc(a1, a2); }
+void*  sub_4145C0(size_t a1, size_t a2) { return calloc(a1, a2); }
 
 //----- (004145E0) --------------------------------------------------------
-void __cdecl sub_4145E0(LPVOID lpMem) { free(lpMem); }
+void  sub_4145E0(LPVOID lpMem) { free(lpMem); }
 
 //----- (004145F0) --------------------------------------------------------
-int __cdecl sub_4145F0(_DWORD* a1) {
+int  sub_4145F0(_DWORD* a1) {
 	int v1;                  // edi
 	HANDLE v2;               // eax
 	void* v3;                // esi
@@ -8049,7 +8049,7 @@ int __cdecl sub_4145F0(_DWORD* a1) {
 }
 
 //----- (00414690) --------------------------------------------------------
-char __cdecl sub_414690(unsigned int* a1, void(__stdcall* a2)(char*)) {
+char  sub_414690(unsigned int* a1, void(__stdcall* a2)(char*)) {
 	unsigned int v2;  // esi
 	unsigned int v3;  // eax
 	unsigned int v4;  // eax
@@ -8113,10 +8113,10 @@ int sub_414800() {
 	nullsub_4(0, v5, v4, 262192);
 	return 1;
 }
-// 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
+// 4514E0: using guessed type void  nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
 
 //----- (004148D0) --------------------------------------------------------
-unsigned int __cdecl sub_4148D0(LPCSTR lpFileName) {
+unsigned int  sub_4148D0(LPCSTR lpFileName) {
 	unsigned int v1;    // esi
 	HANDLE v2;          // ebx
 	_DWORD* v3;         // ebp
@@ -8145,7 +8145,7 @@ unsigned int __cdecl sub_4148D0(LPCSTR lpFileName) {
 }
 
 //----- (004149A0) --------------------------------------------------------
-int __cdecl sub_4149A0(LPCSTR lpFileName, LPVOID lpBuffer, LPVOID a3, LPVOID a4) {
+int  sub_4149A0(LPCSTR lpFileName, LPVOID lpBuffer, LPVOID a3, LPVOID a4) {
 	int v4;    // ebx
 	HANDLE v5; // eax
 	void* v6;  // esi
@@ -8166,7 +8166,7 @@ int __cdecl sub_4149A0(LPCSTR lpFileName, LPVOID lpBuffer, LPVOID a3, LPVOID a4)
 }
 
 //----- (00414A40) --------------------------------------------------------
-int __cdecl nox_common_getRegistryValue_414A40(LPCSTR lpSubKey, LPCSTR lpValueName) {
+int  nox_common_getRegistryValue_414A40(LPCSTR lpSubKey, LPCSTR lpValueName) {
 	int v2; // esi
 
 	v2 = 0;
@@ -8179,7 +8179,7 @@ int __cdecl nox_common_getRegistryValue_414A40(LPCSTR lpSubKey, LPCSTR lpValueNa
 }
 
 //----- (00414A90) --------------------------------------------------------
-int __cdecl nox_common_setRegistryValue_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData) {
+int  nox_common_setRegistryValue_414A90(LPCSTR lpSubKey, LPCSTR lpValueName, BYTE* lpData) {
 	int v3;              // esi
 	DWORD dwDisposition; // [esp+4h] [ebp-4h]
 
@@ -8193,7 +8193,7 @@ int __cdecl nox_common_setRegistryValue_414A90(LPCSTR lpSubKey, LPCSTR lpValueNa
 }
 
 //----- (00414B00) --------------------------------------------------------
-char* __cdecl nox_common_convertWideToMbString_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMultiByte) {
+char*  nox_common_convertWideToMbString_414B00(LPCWSTR lpWideCharStr, LPSTR lpMultiByteStr, int cbMultiByte) {
 	WideCharToMultiByte(0, 0, lpWideCharStr, -1, lpMultiByteStr, cbMultiByte, 0, 0);
 	return _strrev(lpMultiByteStr);
 }
@@ -8249,7 +8249,7 @@ int main(){
 }
 
 //----- (00414BA0) --------------------------------------------------------
-int __cdecl sub_414BA0(int a1) {
+int  sub_414BA0(int a1) {
 	int v1; // eax
 
 	v1 = a1 + 4096;
@@ -8261,7 +8261,7 @@ int __cdecl sub_414BA0(int a1) {
 }
 
 //----- (00414BD0) --------------------------------------------------------
-int __cdecl sub_414BD0(signed int a1) {
+int  sub_414BD0(signed int a1) {
 	signed int v1; // ecx
 
 	v1 = a1;
@@ -8273,7 +8273,7 @@ int __cdecl sub_414BD0(signed int a1) {
 }
 
 //----- (00414C50) --------------------------------------------------------
-int __cdecl sub_414C50(signed int a1) {
+int  sub_414C50(signed int a1) {
 	int v1;     // edi
 	int v2;     // eax
 	int result; // eax
@@ -8318,7 +8318,7 @@ char nox_xxx_initSinCosTables_414C90() {
 }
 
 //----- (00414D40) --------------------------------------------------------
-int __cdecl nox_thing_read_audio_414D40(int a1) {
+int  nox_thing_read_audio_414D40(int a1) {
 	int* v1;             // ecx
 	int v2;              // edx
 	int v3;              // esi
@@ -8347,7 +8347,7 @@ int __cdecl nox_thing_read_audio_414D40(int a1) {
 }
 
 //----- (00414DB0) --------------------------------------------------------
-BOOL __cdecl nox_thing_read_FLOR_414DB0(nox_memfile* f) {
+BOOL  nox_thing_read_FLOR_414DB0(nox_memfile* f) {
 	unsigned __int8* v2;  // ecx
 	unsigned __int8* v3;  // ecx
 	unsigned __int8* v4;  // esi
@@ -8397,7 +8397,7 @@ BOOL __cdecl nox_thing_read_FLOR_414DB0(nox_memfile* f) {
 }
 
 //----- (00414E70) --------------------------------------------------------
-BOOL __cdecl nox_thing_read_EDGE_414E70(int a1, void* a2) {
+BOOL  nox_thing_read_EDGE_414E70(int a1, void* a2) {
 	int v2;               // esi
 	unsigned __int8* v3;  // edx
 	unsigned __int8* v4;  // eax
@@ -8463,7 +8463,7 @@ BOOL __cdecl nox_thing_read_EDGE_414E70(int a1, void* a2) {
 }
 
 //----- (00414F60) --------------------------------------------------------
-BOOL __cdecl nox_thing_read_WALL_414F60(_DWORD* a1, void* a2) {
+BOOL  nox_thing_read_WALL_414F60(_DWORD* a1, void* a2) {
 	_DWORD* v2;           // esi
 	void* v3;             // edi
 	unsigned __int8* v4;  // eax
@@ -8565,7 +8565,7 @@ BOOL __cdecl nox_thing_read_WALL_414F60(_DWORD* a1, void* a2) {
 }
 
 //----- (00415100) --------------------------------------------------------
-int __cdecl nox_thing_read_spells_415100(int a1) {
+int  nox_thing_read_spells_415100(int a1) {
 	int* v1;              // ecx
 	int v2;               // edx
 	int v3;               // esi
@@ -8629,7 +8629,7 @@ int __cdecl nox_thing_read_spells_415100(int a1) {
 }
 
 //----- (00415240) --------------------------------------------------------
-int __cdecl nox_thing_read_image_415240(int a1) {
+int  nox_thing_read_image_415240(int a1) {
 	int v1;               // ecx
 	int* v2;              // eax
 	int v3;               // edx
@@ -8692,7 +8692,7 @@ int __cdecl nox_thing_read_image_415240(int a1) {
 }
 
 //----- (00415320) --------------------------------------------------------
-int __cdecl nox_thing_read_ability_415320(int a1) {
+int  nox_thing_read_ability_415320(int a1) {
 	int* v1;              // ecx
 	int v2;               // edx
 	int v3;               // esi
@@ -8763,7 +8763,7 @@ int __cdecl nox_thing_read_ability_415320(int a1) {
 }
 
 //----- (00415470) --------------------------------------------------------
-bool __cdecl nox_xxx_loadAllBinFiles_415470(void) {
+bool  nox_xxx_loadAllBinFiles_415470(void) {
 	int v4;           // [esp+8h] [ebp-4h]
 
 	int result = nox_xxx_parseSoundSetBin_424170("SoundSet.bin");
@@ -8847,7 +8847,7 @@ bool __cdecl nox_xxx_loadAllBinFiles_415470(void) {
 }
 
 //----- (00415660) --------------------------------------------------------
-int __cdecl nox_thing_read_audio_415660(int a1, char* a2) {
+int  nox_thing_read_audio_415660(int a1, char* a2) {
 	int v2;  // ebx
 	int* v3; // eax
 	int v4;  // edi
@@ -8866,7 +8866,7 @@ int __cdecl nox_thing_read_audio_415660(int a1, char* a2) {
 }
 
 //----- (004156B0) --------------------------------------------------------
-int __cdecl nox_thing_read_SPEL_4156B0(nox_memfile* f, void* a2) {
+int  nox_thing_read_SPEL_4156B0(nox_memfile* f, void* a2) {
 	int v2 = 0;  // ebx
 	int v4;  // edi
 	v4 = nox_memfile_read_u32(f);
@@ -8880,7 +8880,7 @@ int __cdecl nox_thing_read_SPEL_4156B0(nox_memfile* f, void* a2) {
 }
 
 //----- (00415700) --------------------------------------------------------
-int __cdecl nox_thing_read_IMAG_415700(int a1, void* a2) {
+int  nox_thing_read_IMAG_415700(int a1, void* a2) {
 	int* v2; // eax
 	int v3;  // esi
 	int v5;  // edi
@@ -8902,7 +8902,7 @@ int __cdecl nox_thing_read_IMAG_415700(int a1, void* a2) {
 }
 
 //----- (00415750) --------------------------------------------------------
-int __cdecl nox_thing_read_ABIL_415750(int a1, void* a2) {
+int  nox_thing_read_ABIL_415750(int a1, void* a2) {
 	int v2;  // ebx
 	int* v3; // eax
 	int v4;  // edi
@@ -8921,7 +8921,7 @@ int __cdecl nox_thing_read_ABIL_415750(int a1, void* a2) {
 }
 
 //----- (00415820) --------------------------------------------------------
-int __cdecl nox_xxx_unitWeaponInventoryEquipFlags_415820(int a1) {
+int  nox_xxx_unitWeaponInventoryEquipFlags_415820(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -8931,7 +8931,7 @@ int __cdecl nox_xxx_unitWeaponInventoryEquipFlags_415820(int a1) {
 }
 
 //----- (00415840) --------------------------------------------------------
-int __cdecl sub_415840(char* a1) {
+int  sub_415840(char* a1) {
 	int v1;             // ecx
 	unsigned __int8* i; // eax
 	int v3;             // esi
@@ -8949,7 +8949,7 @@ int __cdecl sub_415840(char* a1) {
 }
 
 //----- (00415880) --------------------------------------------------------
-int __cdecl nox_xxx_ammoCheck_415880(char* a1) {
+int  nox_xxx_ammoCheck_415880(char* a1) {
 	int v1;             // ecx
 	unsigned __int8* i; // eax
 	int v3;             // esi
@@ -8967,7 +8967,7 @@ int __cdecl nox_xxx_ammoCheck_415880(char* a1) {
 }
 
 //----- (00415910) --------------------------------------------------------
-int __cdecl sub_415910(char* a1) {
+int  sub_415910(char* a1) {
 	int v1;              // edi
 	const char** v2;     // eax
 	unsigned __int8* v3; // esi
@@ -8990,7 +8990,7 @@ int __cdecl sub_415910(char* a1) {
 }
 
 //----- (00415960) --------------------------------------------------------
-int __cdecl sub_415960(wchar_t* a1) {
+int  sub_415960(wchar_t* a1) {
 	int v1;              // edi
 	const wchar_t** v2;  // eax
 	unsigned __int8* v3; // esi
@@ -9013,7 +9013,7 @@ int __cdecl sub_415960(wchar_t* a1) {
 }
 
 //----- (004159B0) --------------------------------------------------------
-char* __cdecl sub_4159B0(char* a1) {
+char*  sub_4159B0(char* a1) {
 	int v1;             // ecx
 	unsigned __int8* i; // eax
 	int v3;             // esi
@@ -9031,7 +9031,7 @@ char* __cdecl sub_4159B0(char* a1) {
 }
 
 //----- (004159F0) --------------------------------------------------------
-int __cdecl sub_4159F0(int a1) {
+int  sub_4159F0(int a1) {
 	int v1;             // ecx
 	unsigned __int8* i; // eax
 	int v3;             // esi
@@ -9049,7 +9049,7 @@ int __cdecl sub_4159F0(int a1) {
 }
 
 //----- (00415A30) --------------------------------------------------------
-int __cdecl sub_415A30(char* a1) {
+int  sub_415A30(char* a1) {
 	char* v1;   // eax
 	int v2;     // eax
 	int result; // eax
@@ -9063,7 +9063,7 @@ int __cdecl sub_415A30(char* a1) {
 }
 
 //----- (00415B20) --------------------------------------------------------
-int __cdecl sub_415B20(char* a1) {
+int  sub_415B20(char* a1) {
 	int v1;             // ecx
 	unsigned __int8* i; // eax
 	int v3;             // esi
@@ -9081,7 +9081,7 @@ int __cdecl sub_415B20(char* a1) {
 }
 
 //----- (00415BD0) --------------------------------------------------------
-double __cdecl sub_415BD0(int a1) {
+double  sub_415BD0(int a1) {
 	float* v1;     // eax
 	double result; // st7
 
@@ -9093,11 +9093,11 @@ double __cdecl sub_415BD0(int a1) {
 }
 
 //----- (00415C00) --------------------------------------------------------
-double __cdecl nox_xxx_itemApplyDefendEffect_415C00(int a1) {
+double  nox_xxx_itemApplyDefendEffect_415C00(int a1) {
 	int* v1;                                                   // edi
 	float* v2;                                                 // eax
 	int v4;                                                    // eax
-	void(__cdecl * v5)(int, int, _DWORD, int, _DWORD, float*); // ecx
+	void( * v5)(int, int, _DWORD, int, _DWORD, float*); // ecx
 	float v6;                                                  // [esp+8h] [ebp-4h]
 
 	v6 = 0.0;
@@ -9110,7 +9110,7 @@ double __cdecl nox_xxx_itemApplyDefendEffect_415C00(int a1) {
 	v6 = v2[16];
 	v4 = *v1;
 	if (*v1) {
-		v5 = *(void(__cdecl**)(int, int, _DWORD, int, _DWORD, float*))(v4 + 76);
+		v5 = *(void(**)(int, int, _DWORD, int, _DWORD, float*))(v4 + 76);
 		if (v5)
 			v5(v4, a1, 0, a1, 0, &v6);
 	}
@@ -9118,7 +9118,7 @@ double __cdecl nox_xxx_itemApplyDefendEffect_415C00(int a1) {
 }
 
 //----- (00415C70) --------------------------------------------------------
-int __cdecl nox_xxx_unitArmorInventoryEquipFlags_415C70(int a1) {
+int  nox_xxx_unitArmorInventoryEquipFlags_415C70(int a1) {
 	int v1;     // eax
 	int result; // eax
 
@@ -9131,7 +9131,7 @@ int __cdecl nox_xxx_unitArmorInventoryEquipFlags_415C70(int a1) {
 }
 
 //----- (00415C90) --------------------------------------------------------
-int __cdecl sub_415C90(int a1) {
+int  sub_415C90(int a1) {
 	int result;         // eax
 	int v2;             // edx
 	unsigned __int8* i; // ecx
@@ -9156,7 +9156,7 @@ int __cdecl sub_415C90(int a1) {
 }
 
 //----- (00415CD0) --------------------------------------------------------
-int __cdecl sub_415CD0(char* a1) {
+int  sub_415CD0(char* a1) {
 	int v1;             // ecx
 	unsigned __int8* i; // eax
 	int v3;             // esi
@@ -9174,7 +9174,7 @@ int __cdecl sub_415CD0(char* a1) {
 }
 
 //----- (00415D10) --------------------------------------------------------
-int __cdecl sub_415D10(char* a1) {
+int  sub_415D10(char* a1) {
 	int v1;             // ecx
 	unsigned __int8* i; // eax
 	int v3;             // esi
@@ -9192,7 +9192,7 @@ int __cdecl sub_415D10(char* a1) {
 }
 
 //----- (00415DA0) --------------------------------------------------------
-int __cdecl sub_415DA0(wchar_t* a1) {
+int  sub_415DA0(wchar_t* a1) {
 	int v1;              // edi
 	const wchar_t** v2;  // eax
 	unsigned __int8* v3; // esi
@@ -9215,7 +9215,7 @@ int __cdecl sub_415DA0(wchar_t* a1) {
 }
 
 //----- (00415DF0) --------------------------------------------------------
-int __cdecl sub_415DF0(char* a1) {
+int  sub_415DF0(char* a1) {
 	int v1;              // edi
 	const char** v2;     // eax
 	unsigned __int8* v3; // esi
@@ -9238,7 +9238,7 @@ int __cdecl sub_415DF0(char* a1) {
 }
 
 //----- (00415E40) --------------------------------------------------------
-char* __cdecl sub_415E40(char* a1) {
+char*  sub_415E40(char* a1) {
 	int v1;             // ecx
 	unsigned __int8* i; // eax
 	int v3;             // esi
@@ -9256,7 +9256,7 @@ char* __cdecl sub_415E40(char* a1) {
 }
 
 //----- (00415E80) --------------------------------------------------------
-int __cdecl sub_415E80(int a1) {
+int  sub_415E80(int a1) {
 	int v1;             // ecx
 	unsigned __int8* i; // eax
 	int v3;             // esi
@@ -9274,7 +9274,7 @@ int __cdecl sub_415E80(int a1) {
 }
 
 //----- (00415EC0) --------------------------------------------------------
-int __cdecl sub_415EC0(char* a1) {
+int  sub_415EC0(char* a1) {
 	char* v1;   // eax
 	int v2;     // eax
 	int result; // eax
@@ -9288,7 +9288,7 @@ int __cdecl sub_415EC0(char* a1) {
 }
 
 //----- (004160D0) --------------------------------------------------------
-int __cdecl nox_xxx_setKeybTimeout_4160D0(int a1) {
+int  nox_xxx_setKeybTimeout_4160D0(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -9300,17 +9300,17 @@ int __cdecl nox_xxx_setKeybTimeout_4160D0(int a1) {
 }
 
 //----- (004160F0) --------------------------------------------------------
-BOOL __cdecl nox_xxx_checkKeybTimeout_4160F0(unsigned __int8 a1, unsigned int a2) {
+BOOL  nox_xxx_checkKeybTimeout_4160F0(unsigned __int8 a1, unsigned int a2) {
 	return a1 < 0x18u && *getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 371268 + 4 * a1) > a2;
 }
 
 //----- (00416120) --------------------------------------------------------
-BOOL __cdecl sub_416120(unsigned __int8 a1) {
+BOOL  sub_416120(unsigned __int8 a1) {
 	return a1 < 0x18u && *getMemU32Ptr(0x5D4594, 2598000) != *getMemU32Ptr(0x5D4594, 371268 + 4 * a1);
 }
 
 //----- (00416150) --------------------------------------------------------
-int __cdecl sub_416150(int a1, int a2) {
+int  sub_416150(int a1, int a2) {
 	int result; // eax
 
 	result = a1;
@@ -9322,7 +9322,7 @@ int __cdecl sub_416150(int a1, int a2) {
 }
 
 //----- (00416170) --------------------------------------------------------
-int __cdecl sub_416170(int a1) {
+int  sub_416170(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -9343,7 +9343,7 @@ int nox_xxx_clear18hDD_416190() {
 }
 
 //----- (004161B0) --------------------------------------------------------
-BOOL __cdecl sub_4161B0(unsigned __int8 a1) { return a1 < 0x18u && !*getMemU32Ptr(0x5D4594, 371268 + 4 * a1); }
+BOOL  sub_4161B0(unsigned __int8 a1) { return a1 < 0x18u && !*getMemU32Ptr(0x5D4594, 371268 + 4 * a1); }
 
 //----- (004161E0) --------------------------------------------------------
 int sub_4161E0() {
@@ -9476,19 +9476,19 @@ int nox_xxx_mapSetDataDefault_416500() {
 int sub_416580() { return *getMemU32Ptr(0x5D4594, 371688); }
 
 //----- (00416590) --------------------------------------------------------
-char* __cdecl nox_xxx_cliGamedataGet_416590(int a1) { return (char*)getMemAt(0x5D4594, 371380 + 58 * a1); }
+char*  nox_xxx_cliGamedataGet_416590(int a1) { return (char*)getMemAt(0x5D4594, 371380 + 58 * a1); }
 
 //----- (004165B0) --------------------------------------------------------
 char* sub_4165B0() { return (char*)getMemAt(0x5D4594, 371380 + 58 * *getMemU32Ptr(0x5D4594, 371688)); }
 
 //----- (004165D0) --------------------------------------------------------
-char* __cdecl sub_4165D0(int a1) {
+char*  sub_4165D0(int a1) {
 	*getMemU32Ptr(0x5D4594, 371688) = a1;
 	return (char*)getMemAt(0x5D4594, 371380 + 58 * a1);
 }
 
 //----- (004165F0) --------------------------------------------------------
-int __cdecl sub_4165F0(int a1, int a2) {
+int  sub_4165F0(int a1, int a2) {
 	int result; // eax
 
 	result = a2;
@@ -9506,7 +9506,7 @@ char* sub_416640() { return (char*)getMemAt(0x5D4594, 371516); }
 int sub_416650() { return *getMemU32Ptr(0x5D4594, 371700); }
 
 //----- (00416670) --------------------------------------------------------
-int __cdecl sub_416670(int a1) {
+int  sub_416670(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -9557,7 +9557,7 @@ void sub_416720() {
 }
 
 //----- (00416770) --------------------------------------------------------
-int* __cdecl sub_416770(int a1, wchar_t* a2, const char* a3) {
+int*  sub_416770(int a1, wchar_t* a2, const char* a3) {
 	_DWORD* v3; // ebp
 
 	v3 = malloc(0x60u);
@@ -9602,7 +9602,7 @@ void sub_416820(int a1) {
 }
 
 //----- (00416860) --------------------------------------------------------
-int* __cdecl sub_416860(int a1) {
+int*  sub_416860(int a1) {
 	int* result; // eax
 	int* v2;     // esi
 	int v3;      // edi
@@ -9628,7 +9628,7 @@ int* __cdecl sub_416860(int a1) {
 }
 
 //----- (004168A0) --------------------------------------------------------
-int* __cdecl sub_4168A0(wchar_t* a1) {
+int*  sub_4168A0(wchar_t* a1) {
 	wchar_t* v1; // esi
 
 	v1 = (wchar_t*)malloc(0x40u);
@@ -9642,13 +9642,13 @@ int* __cdecl sub_4168A0(wchar_t* a1) {
 int* sub_4168E0() { return nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 371364)); }
 
 //----- (004168F0) --------------------------------------------------------
-int* __cdecl sub_4168F0(int* a1) { return sub_4258A0(a1); }
+int*  sub_4168F0(int* a1) { return sub_4258A0(a1); }
 
 //----- (00416900) --------------------------------------------------------
 int* sub_416900() { return nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 371500)); }
 
 //----- (00416910) --------------------------------------------------------
-int* __cdecl sub_416910(int* a1) { return sub_4258A0(a1); }
+int*  sub_416910(int* a1) { return sub_4258A0(a1); }
 
 //----- (00416920) --------------------------------------------------------
 int sub_416920() {
@@ -9692,7 +9692,7 @@ int* sub_416950() {
 int sub_4169C0() { return *getMemU32Ptr(0x5D4594, 371704); }
 
 //----- (004169D0) --------------------------------------------------------
-int __cdecl nox_xxx_cliSetSettingsAcquired_4169D0(int a1) {
+int  nox_xxx_cliSetSettingsAcquired_4169D0(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -9849,7 +9849,7 @@ void nox_ticks_maybe_sleep_416DD0() {
 void nox_xxx_cliResetAllPlayers_416E30() { memset(nox_playerinfo_arr, 0, NOX_PLAYERINFO_MAX * sizeof(nox_playerInfo)); }
 
 //----- (00416E50) --------------------------------------------------------
-char* __cdecl nox_xxx_playerForceSendLessons_416E50(int a1) {
+char*  nox_xxx_playerForceSendLessons_416E50(int a1) {
 	char* result; // eax
 	int* i;       // esi
 
@@ -9951,7 +9951,7 @@ nox_playerInfo* nox_common_playerInfoFromNum_417090(int i) {
 }
 
 //----- (004170D0) --------------------------------------------------------
-char* __cdecl nox_xxx_playerByName_4170D0(wchar_t* a1) {
+char*  nox_xxx_playerByName_4170D0(wchar_t* a1) {
 	char* v1; // esi
 
 	if (!a1)
@@ -9968,7 +9968,7 @@ char* __cdecl nox_xxx_playerByName_4170D0(wchar_t* a1) {
 }
 
 //----- (00417120) --------------------------------------------------------
-wchar_t* __cdecl sub_417120(int a1) {
+wchar_t*  sub_417120(int a1) {
 	char* v1;        // eax
 	wchar_t* result; // eax
 
@@ -9981,7 +9981,7 @@ wchar_t* __cdecl sub_417120(int a1) {
 }
 
 //----- (00417190) --------------------------------------------------------
-int __cdecl nox_xxx_netMarkMinimapObject_417190(int a1, int a2, int a3) {
+int  nox_xxx_netMarkMinimapObject_417190(int a1, int a2, int a3) {
 	int v3;              // ebx
 	_DWORD* v4;          // ecx
 	unsigned __int8* v5; // esi
@@ -10036,7 +10036,7 @@ int __cdecl nox_xxx_netMarkMinimapObject_417190(int a1, int a2, int a3) {
 }
 
 //----- (00417270) --------------------------------------------------------
-int __cdecl sub_417270(int a1) {
+int  sub_417270(int a1) {
 	int result; // eax
 	int v2;     // edx
 	int v3;     // ecx
@@ -10054,7 +10054,7 @@ int __cdecl sub_417270(int a1) {
 }
 
 //----- (004172C0) --------------------------------------------------------
-int __cdecl sub_4172C0(int a1) {
+int  sub_4172C0(int a1) {
 	int result; // eax
 	int v2;     // ecx
 
@@ -10070,7 +10070,7 @@ int __cdecl sub_4172C0(int a1) {
 }
 
 //----- (00417300) --------------------------------------------------------
-int __cdecl nox_xxx_netUnmarkMinimapObj_417300(int a1, int a2, int a3) {
+int  nox_xxx_netUnmarkMinimapObj_417300(int a1, int a2, int a3) {
 	int result;          // eax
 	unsigned __int8* v4; // edi
 	_DWORD* v5;          // ecx
@@ -10124,7 +10124,7 @@ int __cdecl nox_xxx_netUnmarkMinimapObj_417300(int a1, int a2, int a3) {
 
 // mark spell -- is tracked
 //----- (004173D0) --------------------------------------------------------
-int __cdecl nox_xxx_playerMapTracksObj_4173D0(int a1, int a2) {
+int  nox_xxx_playerMapTracksObj_4173D0(int a1, int a2) {
 	int result; // eax
 	int v3;     // ecx
 
@@ -10146,7 +10146,7 @@ int __cdecl nox_xxx_playerMapTracksObj_4173D0(int a1, int a2) {
 }
 
 //----- (00417430) --------------------------------------------------------
-char* __cdecl nox_xxx_netMinimapUnmark4All_417430(int a1) {
+char*  nox_xxx_netMinimapUnmark4All_417430(int a1) {
 	char* result; // eax
 	int i;        // esi
 
@@ -10159,7 +10159,7 @@ char* __cdecl nox_xxx_netMinimapUnmark4All_417430(int a1) {
 }
 
 //----- (00417470) --------------------------------------------------------
-char* __cdecl nox_xxx_netUnmarkMinimapSpec_417470(int a1, int a2) {
+char*  nox_xxx_netUnmarkMinimapSpec_417470(int a1, int a2) {
 	char* result; // eax
 	int i;        // esi
 
@@ -10172,7 +10172,7 @@ char* __cdecl nox_xxx_netUnmarkMinimapSpec_417470(int a1, int a2) {
 }
 
 //----- (004174B0) --------------------------------------------------------
-char* __cdecl nox_xxx_netMarkMinimapForAll_4174B0(int a1, int a2) {
+char*  nox_xxx_netMarkMinimapForAll_4174B0(int a1, int a2) {
 	char* result; // eax
 	int i;        // esi
 
@@ -10185,7 +10185,7 @@ char* __cdecl nox_xxx_netMarkMinimapForAll_4174B0(int a1, int a2) {
 }
 
 //----- (004174F0) --------------------------------------------------------
-int __cdecl nox_xxx_netNeedTimestampStatus_4174F0(int a1, int a2) {
+int  nox_xxx_netNeedTimestampStatus_4174F0(int a1, int a2) {
 	int result; // eax
 
 	*(_DWORD*)(a1 + 3680) |= a2;
@@ -10198,7 +10198,7 @@ int __cdecl nox_xxx_netNeedTimestampStatus_4174F0(int a1, int a2) {
 }
 
 //----- (00417530) --------------------------------------------------------
-char __cdecl nox_xxx_playerUnsetStatus_417530(int a1, int a2) {
+char  nox_xxx_playerUnsetStatus_417530(int a1, int a2) {
 	int v2;     // eax
 	__int16 v3; // ax
 
@@ -10230,7 +10230,7 @@ char __cdecl nox_xxx_playerUnsetStatus_417530(int a1, int a2) {
 // 417577: variable 'v2' is possibly undefined
 
 //----- (004175C0) --------------------------------------------------------
-char* __cdecl nox_xxx_sendAllClientStatus_4175C0(int a1) {
+char*  nox_xxx_sendAllClientStatus_4175C0(int a1) {
 	char* result; // eax
 	int i;        // esi
 	int v3;       // [esp-18h] [ebp-24h]
@@ -10249,7 +10249,7 @@ char* __cdecl nox_xxx_sendAllClientStatus_4175C0(int a1) {
 }
 
 //----- (00417630) --------------------------------------------------------
-int __cdecl nox_xxx_netReportPlayerStatus_417630(int a1) {
+int  nox_xxx_netReportPlayerStatus_417630(int a1) {
 	__int16 v1; // cx
 	int v2;     // edx
 	char v4[7]; // [esp+0h] [ebp-8h]
@@ -10263,7 +10263,7 @@ int __cdecl nox_xxx_netReportPlayerStatus_417630(int a1) {
 }
 
 //----- (00417680) --------------------------------------------------------
-void __cdecl nox_xxx_cliPlayerRespawn_417680(int a1, char a2) {
+void  nox_xxx_cliPlayerRespawn_417680(int a1, char a2) {
 	int v2;     // esi
 	int v3;     // eax
 	int v4;     // ecx
@@ -10407,7 +10407,7 @@ void __cdecl nox_xxx_cliPlayerRespawn_417680(int a1, char a2) {
 }
 
 //----- (00417AA0) --------------------------------------------------------
-char* __cdecl nox_xxx_clientEquipWeaponArmor_417AA0(char a1, int a2, int a3, int a4) {
+char*  nox_xxx_clientEquipWeaponArmor_417AA0(char a1, int a2, int a3, int a4) {
 	char* result; // eax
 	char* v5;     // edx
 	int v6;       // ecx
@@ -10464,7 +10464,7 @@ char* __cdecl nox_xxx_clientEquipWeaponArmor_417AA0(char a1, int a2, int a3, int
 }
 
 //----- (00417B80) --------------------------------------------------------
-char* __cdecl sub_417B80(char a1, int a2, int a3) {
+char*  sub_417B80(char a1, int a2, int a3) {
 	char* result; // eax
 	int v4;       // ecx
 	int v5;       // edx
@@ -10501,7 +10501,7 @@ char* __cdecl sub_417B80(char a1, int a2, int a3) {
 }
 
 //----- (00417C00) --------------------------------------------------------
-char* __cdecl sub_417C00(char* a1, int a2) {
+char*  sub_417C00(char* a1, int a2) {
 	char* result; // eax
 	int i;        // esi
 
@@ -10537,7 +10537,7 @@ int sub_417D00() {
 }
 
 //----- (00417D50) --------------------------------------------------------
-int __cdecl nox_xxx_SetGameplayFlag_417D50(int a1) {
+int  nox_xxx_SetGameplayFlag_417D50(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -10546,7 +10546,7 @@ int __cdecl nox_xxx_SetGameplayFlag_417D50(int a1) {
 }
 
 //----- (00417D70) --------------------------------------------------------
-int __cdecl nox_xxx_UnsetGameplayFlags_417D70(int a1) {
+int  nox_xxx_UnsetGameplayFlags_417D70(int a1) {
 	int result; // eax
 
 	result = ~a1;
@@ -10558,7 +10558,7 @@ int __cdecl nox_xxx_UnsetGameplayFlags_417D70(int a1) {
 int nox_xxx_GetGameplayFlags_417D90() { return dword_5d4594_526284; }
 
 //----- (00417DA0) --------------------------------------------------------
-BOOL __cdecl nox_xxx_CheckGameplayFlags_417DA0(int a1) { return (a1 & dword_5d4594_526284) != 0; }
+BOOL  nox_xxx_CheckGameplayFlags_417DA0(int a1) { return (a1 & dword_5d4594_526284) != 0; }
 
 //----- (00417DC0) --------------------------------------------------------
 int sub_417DC0() { return dword_5d4594_526276; }
@@ -10621,7 +10621,7 @@ char nox_xxx_mapInfoSetFlagball_417F30() {
 // 417F37: variable 'v0' is possibly undefined
 
 //----- (00417F50) --------------------------------------------------------
-int __cdecl sub_417F50(int a1) {
+int  sub_417F50(int a1) {
 	int v1;     // esi
 	int v2;     // eax
 	int v3;     // esi
@@ -10913,7 +10913,7 @@ int sub_4183C0() {
 }
 
 //----- (004184D0) --------------------------------------------------------
-void __cdecl sub_4184D0(wchar_t* a1) {
+void  sub_4184D0(wchar_t* a1) {
 	int v1;      // edi
 	_DWORD* v2;  // ebp
 	char v3[18]; // [esp+4h] [ebp-14h]
@@ -10997,7 +10997,7 @@ int nox_xxx_teamAssignFlags_418640() {
 }
 
 //----- (00418690) --------------------------------------------------------
-char* __cdecl nox_xxx_toggleAllTeamFlags_418690(int a1) {
+char*  nox_xxx_toggleAllTeamFlags_418690(int a1) {
 	char* result; // eax
 	char* i;      // esi
 	int v3;       // [esp-8h] [ebp-Ch]

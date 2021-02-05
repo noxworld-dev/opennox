@@ -4,7 +4,7 @@
 #include "client__gui__guimsg.h"
 
 //----- (0043D0A0) --------------------------------------------------------
-void __cdecl sub_43D0A0(int a1) {
+void  sub_43D0A0(int a1) {
 	wchar_t* v1; // esi
 	wchar_t* v2; // eax
 
@@ -55,7 +55,7 @@ void __cdecl sub_43D0A0(int a1) {
 }
 
 //----- (0043D260) --------------------------------------------------------
-void __cdecl sub_43D260(int a1, int a2) {
+void  sub_43D260(int a1, int a2) {
 	wchar_t* v2;     // eax
 	wchar_t v3[256]; // [esp+8h] [ebp-200h]
 

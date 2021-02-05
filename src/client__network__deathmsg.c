@@ -3,7 +3,7 @@
 #include "proto.h"
 
 //----- (004952E0) --------------------------------------------------------
-int __cdecl sub_4952E0(_WORD* a1) {
+int  sub_4952E0(_WORD* a1) {
 	char* v1;        // eax
 	wchar_t* v2;     // eax
 	char* v3;        // eax

@@ -5,7 +5,7 @@
 extern _DWORD dword_5d4594_2660652;
 
 //----- (0041DAC0) --------------------------------------------------------
-wchar_t* __cdecl sub_41DAC0(int a1) {
+wchar_t*  sub_41DAC0(int a1) {
 	wchar_t* result; // eax
 
 	switch (a1 + 2147221402) {

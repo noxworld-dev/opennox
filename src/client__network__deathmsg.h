@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-int __cdecl sub_4952E0(_WORD* a1);
+int  sub_4952E0(_WORD* a1);
 
 #endif // NOX_PORT_CLIENT_NETWORK_DEATHMSG

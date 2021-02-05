@@ -7,7 +7,7 @@ extern _DWORD dword_5d4594_1316412;
 extern _DWORD dword_5d4594_1316408;
 
 //----- (004BA230) --------------------------------------------------------
-int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
+int  sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 	int v5;               // ebx
 	unsigned __int8* v6;  // eax
 	int v7;               // ecx
@@ -180,7 +180,7 @@ int __cdecl sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (004BA8B0) --------------------------------------------------------
-char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3) {
+char  sub_4BA8B0(int* a1, int* a2, int* a3) {
 	int v3;   // esi
 	char* v4; // edi
 	int v5;   // edx
@@ -208,7 +208,7 @@ char __cdecl sub_4BA8B0(int* a1, int* a2, int* a3) {
 }
 
 //----- (004BA980) --------------------------------------------------------
-int __cdecl nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
 	int v3;              // ebx
 	unsigned __int16 v4; // di
 	int v5;              // ebp

@@ -6,7 +6,7 @@ extern _DWORD dword_5d4594_1313804;
 extern unsigned int nox_gameFPS;
 
 //----- (004B98A0) --------------------------------------------------------
-int __cdecl nox_thing_magic_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_magic_draw(int* a1, nox_drawable* dr) {
 	int v2;   // esi
 	int v3;   // edi
 	int v4;   // ecx
@@ -43,7 +43,7 @@ int __cdecl nox_thing_magic_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (004B99F0) --------------------------------------------------------
-int __cdecl nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 	int v2;   // esi
 	int v3;   // edi
 	int v4;   // ecx
@@ -80,7 +80,7 @@ int __cdecl nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (004B5F30) --------------------------------------------------------
-int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2;         // ecx
 	int v3;         // edi
 	int v4;         // esi
@@ -125,7 +125,7 @@ int __cdecl nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) 
 }
 
 //----- (004B5E10) --------------------------------------------------------
-int __cdecl nox_thing_magic_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_magic_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2;          // ecx
 	int v3;          // edi
 	int v4;          // esi

@@ -5,7 +5,7 @@
 extern _DWORD dword_5d4594_1045636;
 
 //----- (00456140) --------------------------------------------------------
-wchar_t* __cdecl sub_456140(unsigned __int8 a1) {
+wchar_t*  sub_456140(unsigned __int8 a1) {
 	wchar_t* result; // eax
 	int v2;          // esi
 	wchar_t* v3;     // eax

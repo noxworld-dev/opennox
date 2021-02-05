@@ -97,7 +97,7 @@ static int jump;
 int g_mouse_aquired = 0;
 
 // init joystick
-UINT __cdecl nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) { return 0; }
+UINT  nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) { return 0; }
 
 #ifndef NOX_CGO
 int is_mouse_inside(HWND wnd) {
@@ -655,7 +655,7 @@ void nox_xxx_initKeyboard_47FB10() {
 
 // SDLMODDED
 //----- (0047F950) --------------------------------------------------------
-unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1) {
+unsigned __int16  nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1) {
 	unsigned __int16 result; // ax
 	int scrollLockStatus;
 
@@ -917,7 +917,7 @@ void input_cleanup() {
 
 #else // USE_SDL
 
-void __cdecl sub_47DA70(_DWORD* a1, LPDIDEVICEOBJECTDATA a2);
+void  sub_47DA70(_DWORD* a1, LPDIDEVICEOBJECTDATA a2);
 
 LPDIRECTINPUTA g_dinput_keyboard;
 LPDIRECTINPUTDEVICEA g_device_keyboard;
@@ -984,7 +984,7 @@ signed int nox_xxx_initMouse_47D8D0() {
 // 47D890: using guessed type int sub_47D890();
 
 //----- (0047DA70) --------------------------------------------------------
-void __cdecl sub_47DA70(_DWORD* a1, LPDIDEVICEOBJECTDATA a2) {
+void  sub_47DA70(_DWORD* a1, LPDIDEVICEOBJECTDATA a2) {
 	switch (a2->dwOfs) {
 	case DIMOFS_X:
 		*a1 = a2->dwData;
@@ -1014,7 +1014,7 @@ void __cdecl sub_47DA70(_DWORD* a1, LPDIDEVICEOBJECTDATA a2) {
 }
 
 //----- (0047DB20) --------------------------------------------------------
-char __cdecl sub_47DB20(signed int* a1) {
+char  sub_47DB20(signed int* a1) {
 	HRESULT v2;            // eax
 	HRESULT v4;            // eax
 	DIDEVICEOBJECTDATA v5; // [esp+14h] [ebp-10h]
@@ -1046,7 +1046,7 @@ char __cdecl sub_47DB20(signed int* a1) {
 }
 
 //----- (0047D660) --------------------------------------------------------
-UINT __cdecl nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) {
+UINT  nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) {
 	UINT result;              // eax
 	UINT v3;                  // esi
 	wchar_t* v4;              // eax
@@ -1091,7 +1091,7 @@ UINT __cdecl nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) {
 }
 
 //----- (0047D7A0) --------------------------------------------------------
-DWORD* __cdecl sub_47D7A0(DWORD* a1, UINT uJoyID) {
+DWORD*  sub_47D7A0(DWORD* a1, UINT uJoyID) {
 	DWORD* result;            // eax
 	DWORD v3;                 // ebx
 	DWORD v4;                 // edi
@@ -1184,7 +1184,7 @@ void nox_xxx_initKeyboard_47FB10() {
 
 // ORIGINAL
 //----- (0047F950) --------------------------------------------------------
-/*unsigned __int16 __cdecl nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1)
+/*unsigned __int16  nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1)
 {
   unsigned __int16 result; // ax
   int scrollLockStatus;

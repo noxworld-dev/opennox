@@ -4,7 +4,7 @@
 extern _DWORD dword_5d4594_3592;
 
 //----- (00409FB0) --------------------------------------------------------
-void __cdecl sub_409FB0_settings(__int16 a1, unsigned __int16 a2) {
+void  sub_409FB0_settings(__int16 a1, unsigned __int16 a2) {
 	int v2;              // eax
 	unsigned __int16 v3; // si
 	wchar_t* v4;         // eax
@@ -25,7 +25,7 @@ void __cdecl sub_409FB0_settings(__int16 a1, unsigned __int16 a2) {
 }
 
 //----- (0040A040) --------------------------------------------------------
-void __cdecl sub_40A040_settings(__int16 a1, unsigned __int8 a2) {
+void  sub_40A040_settings(__int16 a1, unsigned __int8 a2) {
 	int v2;      // edi
 	wchar_t* v3; // eax
 	int v4;      // eax

@@ -6,7 +6,7 @@
 extern _DWORD dword_5d4594_1304328;
 
 //----- (0049BDD0) --------------------------------------------------------
-int __cdecl nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1) {
+int  nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1) {
 	int result;          // eax
 	unsigned __int8* v2; // esi
 	unsigned __int8* v3; // edi

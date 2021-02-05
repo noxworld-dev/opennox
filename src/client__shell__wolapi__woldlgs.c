@@ -76,7 +76,7 @@ int sub_448730_wol_dialogs() {
 }
 
 //----- (004489C0) --------------------------------------------------------
-int __cdecl sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
+int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 	wchar_t* v4;       // esi
 	const wchar_t* v5; // eax
 	int result;        // eax
@@ -213,7 +213,7 @@ int sub_448CF0_wol_dialogs() {
 }
 
 //----- (004490C0) --------------------------------------------------------
-void __cdecl sub_4490C0_wol_dialogs(int a1) {
+void  sub_4490C0_wol_dialogs(int a1) {
 	int v1;         // ebp
 	char* v3;       // ebx
 	const char* v4; // esi
@@ -296,7 +296,7 @@ int sub_449240_wol_dialogs() {
 }
 
 //----- (004497D0) --------------------------------------------------------
-int __cdecl sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
+int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 	_DWORD* v3;    // esi
 	int v4;        // eax
 	int result;    // eax

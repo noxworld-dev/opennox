@@ -59,7 +59,7 @@ void nullsub_21(void) {}
 void nullsub_25(_DWORD a1) {}
 
 //----- (00413980) --------------------------------------------------------
-void __cdecl sub_413980(int a1) {
+void  sub_413980(int a1) {
 	if (a1) {
 		sub_413A00(1);
 		dword_5d4594_251744 = a1 + nox_xxx_bookGet_430B40_get_mouse_prev_seq();
@@ -153,7 +153,7 @@ int sub_446040() { return dword_5d4594_825768; }
 int sub_46DCB0(void) { return sub_46DCC0(); }
 
 //----- (004CF5F0) --------------------------------------------------------
-int __cdecl nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
+int  nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
 	char* v2;            // ebx
 	char* v3;            // eax
 	char* v4;            // eax
@@ -282,7 +282,7 @@ char* sub_4D0CF0() {
 }
 
 //----- (004D10F0) --------------------------------------------------------
-void __cdecl sub_4D10F0(char* a1) {
+void  sub_4D10F0(char* a1) {
 	int v1;              // esi
 	const char* i;       // edi
 	int v3;              // edi
@@ -415,7 +415,7 @@ char* sub_4D22B0() {
 }
 
 //----- (004D2DA0) --------------------------------------------------------
-int __cdecl nox_xxx_updateServer_4D2DA0(__int64 a1) {
+int  nox_xxx_updateServer_4D2DA0(__int64 a1) {
 	int result;           // eax
 	char* v2;             // eax
 	int v3;               // ebx
@@ -585,7 +585,7 @@ char* nox_server_switchQuestIfRequested_4D6FD0() {
 // 4D6FD0: using guessed type char var_40[64];
 
 //----- (004D7140) --------------------------------------------------------
-int __cdecl sub_4D7140(int a1) {
+int  sub_4D7140(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -873,7 +873,7 @@ char* nox_xxx_netUpdateRemotePlayers_4DEC80() {
 }
 
 //----- (004DEE00) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_netUseMap_4DEE00(const char* a1, int a2) {
+_DWORD*  nox_xxx_netUseMap_4DEE00(const char* a1, int a2) {
 	int v2;              // edx
 	_DWORD* result;      // eax
 	_DWORD* i;           // esi
@@ -955,7 +955,7 @@ int sub_4E76C0() {
 	}
 	return result;
 }
-// 4E76F0: using guessed type void __cdecl nullsub_25(_DWORD);
+// 4E76F0: using guessed type void  nullsub_25(_DWORD);
 
 //----- (004EC720) --------------------------------------------------------
 void sub_4EC720() {
@@ -1116,7 +1116,7 @@ int sub_4EDD70() {
 }
 
 //----- (004EF660) --------------------------------------------------------
-int __cdecl sub_4EF660(int a1) {
+int  sub_4EF660(int a1) {
 	int v1; // esi
 	int i;  // eax
 
@@ -1180,7 +1180,7 @@ void sub_4F1F20() {
 					}
 				}
 				nox_xxx_delayedDeleteObject_4E5CC0(v0);
-			} else if (*(int*(__cdecl**)(int))(v0 + 688) == nox_xxx_initChest_4F0400) {
+			} else if (*(int*(**)(int))(v0 + 688) == nox_xxx_initChest_4F0400) {
 				v2 = nox_xxx_inventoryGetFirst_4E7980(v0);
 				if (v2) {
 					do {
@@ -1399,7 +1399,7 @@ void nox_xxx_spellBookReact_4FCB70() {
 }
 
 //----- (005003B0) --------------------------------------------------------
-int __cdecl nox_xxx_playerSomeWallsUpdate_5003B0(int a1) {
+int  nox_xxx_playerSomeWallsUpdate_5003B0(int a1) {
 	int v1;              // edi
 	int result;          // eax
 	int v3;              // ebp
@@ -1452,7 +1452,7 @@ int __cdecl nox_xxx_playerSomeWallsUpdate_5003B0(int a1) {
 }
 
 //----- (00500510) --------------------------------------------------------
-void __cdecl sub_500510(const char* a1) {
+void  sub_500510(const char* a1) {
 	if (a1)
 		strcpy((char*)getMemAt(0x5D4594, 1570008), a1);
 }
@@ -1654,7 +1654,7 @@ unsigned int sub_50D890() {
 }
 
 //----- (00511590) --------------------------------------------------------
-void __cdecl nox_xxx_addDebugEntry_511590(int a1, int a2) {
+void  nox_xxx_addDebugEntry_511590(int a1, int a2) {
 	int v2;         // ebx
 	_DWORD* v3;     // eax
 	int v4;         // esi
@@ -1720,7 +1720,7 @@ void nox_xxx_serverLoopSendMap_519990() {
 }
 
 //----- (0051A1F0) --------------------------------------------------------
-void __cdecl sub_51A1F0(int a1) {
+void  sub_51A1F0(int a1) {
 	int v1;           // ebx
 	int v2;           // edi
 	int v3;           // ebx
@@ -1854,7 +1854,7 @@ void __cdecl sub_51A1F0(int a1) {
 }
 
 //----- (0051A920) --------------------------------------------------------
-int __cdecl sub_51A920(int a1) {
+int  sub_51A920(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1895,7 +1895,7 @@ char nox_xxx_updateUnits_51B100() {
 	int v3;                   // ebx
 	int v4;                   // eax
 	int v5;                   // eax
-	void(__cdecl * v6)(int);  // eax
+	void( * v6)(int);  // eax
 	int v7;                   // edi
 	_WORD* v8;                // eax
 	double v9;                // st7
@@ -1903,7 +1903,7 @@ char nox_xxx_updateUnits_51B100() {
 	int v11;                  // ecx
 	int v12;                  // eax
 	int j;                    // esi
-	void(__cdecl * v14)(int); // eax
+	void( * v14)(int); // eax
 	int v15;                  // eax
 	int v16;                  // ecx
 	int v17;                  // edx
@@ -1974,7 +1974,7 @@ char nox_xxx_updateUnits_51B100() {
 					else
 						*(_DWORD*)(v2 + 520) = v5;
 				}
-				v6 = *(void(__cdecl**)(int))(v2 + 744);
+				v6 = *(void(**)(int))(v2 + 744);
 				if (v6) {
 					if (*(_BYTE*)(v2 + 8) & 4) {
 						v7 = *(_DWORD*)(v2 + 748);
@@ -2034,7 +2034,7 @@ char nox_xxx_updateUnits_51B100() {
 	}
 	for (j = nox_xxx_getFirstUpdatable2Object_4DA840(); j; j = nox_xxx_getNextUpdatable2Object_4DA850(j)) {
 		if (!(*(_BYTE*)(j + 16) & 0x22)) {
-			v14 = *(void(__cdecl**)(int))(j + 744);
+			v14 = *(void(**)(int))(j + 744);
 			if (v14)
 				v14(j);
 			nox_xxx_updateFallLogic_51B870(j);
@@ -2103,7 +2103,7 @@ char nox_xxx_updateUnits_51B100() {
 					if (!v29 || (unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - v29) > 0x3C) {
 						v31 = *(_BYTE*)(k + 540);
 						if (v31 > 8u || !(*getMemU32Ptr(0x5D4594, 2598000) % (unsigned int)(128 >> (v31 - 1))))
-							(*(void(__cdecl**)(int, _DWORD, _DWORD, int, int))(k + 716))(k, 0, 0, v30, 5);
+							(*(void(**)(int, _DWORD, _DWORD, int, int))(k + 716))(k, 0, 0, v30, 5);
 					}
 				}
 			}
@@ -2852,5 +2852,5 @@ int nox_xxx_gameTick_4D2580_server() {
 // 4D26F3: variable 'v5' is possibly undefined
 // 4D2A52: variable 'v19' is possibly undefined
 // 4D2CEB: variable 'v32' is possibly undefined
-// 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
+// 4514E0: using guessed type void  nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
 // 46DCB0: using guessed type int sub_46DCB0(void);
