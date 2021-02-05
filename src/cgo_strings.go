@@ -26,6 +26,14 @@ func WStrSliceFree(arr []*C.wchar_t) {
 	C.free(unsafe.Pointer(&arr[0]))
 }
 
+func asByteSlice(p unsafe.Pointer, sz int) (out []byte) {
+	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
+		Data: uintptr(p),
+		Len:  sz, Cap: sz,
+	}
+	return
+}
+
 func asU16Slice(p unsafe.Pointer, sz int) (out []uint16) {
 	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
 		Data: uintptr(p),

@@ -7676,6 +7676,7 @@ char*  nox_clone_str(const char* a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00413FE0) --------------------------------------------------------
 nox_alloc_class*  nox_new_alloc_class(const char* name, int size, int cnt) {
 	nox_alloc_class* p = (nox_alloc_class*)calloc(1, sizeof(nox_alloc_class));
@@ -7738,6 +7739,7 @@ void  nox_free_alloc_class(nox_alloc_class* p) {
 	free(p->items);
 	free(p);
 }
+#endif // NOX_CGO
 
 //----- (00414130) --------------------------------------------------------
 void  nox_free_alloc_class_f30(nox_alloc_class* p) {
@@ -7745,24 +7747,22 @@ void  nox_free_alloc_class_f30(nox_alloc_class* p) {
 		return;
 
 	if (p->field_26) {
-		_DWORD* v1 = (_DWORD*)p->field_26;
-		_DWORD* v2;
-		do {
-			v2 = (_DWORD*)v1[2];
-			free(v1);
-			v1 = v2;
-		} while (v2);
+		_DWORD* ptr = (_DWORD*)p->field_26;
+		while (ptr) {
+			_DWORD* next = (_DWORD*)ptr[2];
+			free(ptr);
+			ptr = next;
+		}
 	}
 
 	if (p->field_28) {
-		_DWORD* v3 = (_DWORD*)p->field_28;
-		_DWORD* v4;
-		do {
-			v4 = (_DWORD*)v3[2];
-			if (*(_QWORD*)v3)
-				free(v3);
-			v3 = v4;
-		} while (v4);
+		_DWORD* ptr = (_DWORD*)p->field_28;
+		while (ptr) {
+			DWORD* next = (_DWORD*)ptr[2];
+			if (*(_QWORD*)ptr)
+				free(ptr);
+			ptr = next;
+		}
 	}
 
 	p->field_26 = 0;
@@ -7770,7 +7770,8 @@ void  nox_free_alloc_class_f30(nox_alloc_class* p) {
 }
 
 //----- (00414190) --------------------------------------------------------
-int  nox_alloc_class_new_obj(_DWORD* a1) {
+void* nox_alloc_class_new_obj(nox_alloc_class* al) {
+	_DWORD* a1 = al;
 	_DWORD* v1;           // esi
 	int v2;               // eax
 	int v3;               // edx
@@ -7870,6 +7871,7 @@ int  nox_alloc_class_new_obj(_DWORD* a1) {
 	return v20;
 }
 
+#ifndef NOX_CGO
 //----- (004142F0) --------------------------------------------------------
 void*  nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 	void* v1 = (void*)nox_alloc_class_new_obj(al);
@@ -7878,6 +7880,7 @@ void*  nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 	memset(v1, 0, al->size);
 	return v1;
 }
+#endif // NOX_CGO
 
 //----- (00414330) --------------------------------------------------------
 void  nox_xxx_memDeleteAdv_414330(unsigned int* a1, nox_drawable* dr) {
