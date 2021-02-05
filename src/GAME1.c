@@ -7713,11 +7713,10 @@ nox_alloc_class*  nox_new_alloc_class(const char* name, int size, int cnt) {
 	p->size = size;
 	p->cnt1 = cnt;
 	p->cnt2 = cnt;
-	p->field_32 = 0;
+	p->ticks = 0;
 	p->field_26 = 0;
 	p->field_27 = 0;
 	p->field_31 = 0;
-	p->field_33 = 0;
 	return p;
 }
 
@@ -7771,103 +7770,82 @@ void  nox_free_alloc_class_f30(nox_alloc_class* p) {
 
 //----- (00414190) --------------------------------------------------------
 void* nox_alloc_class_new_obj(nox_alloc_class* al) {
-	_DWORD* a1 = al;
-	_DWORD* v1;           // esi
-	int v2;               // eax
-	int v3;               // edx
-	_DWORD* v4;           // ecx
-	_DWORD* v5;           // eax
-	int v6;               // edx
-	_DWORD* v7;           // ecx
-	int v8;               // edx
-	int v9;               // edx
-	int v10;              // ecx
-	unsigned __int64 v11; // kr00_8
-	_DWORD* v12;          // eax
-	int v13;              // ecx
-	_DWORD* v14;          // edi
-	int v15;              // edx
-	int v16;              // ecx
-	int v17;              // ecx
-	int v18;              // edx
-	int v20;              // [esp+Ch] [ebp+4h]
-
-	v1 = a1;
-	if (!a1)
+	if (!al)
 		return 0;
-	v2 = a1[24];
+	int v2 = al->field_24;
+	_DWORD* v4;
 	if (v2) {
-		v3 = *(_DWORD*)(v2 + 8);
+		int v3 = *(_DWORD*)(v2 + 8);
 		v4 = (_DWORD*)(v2 + 8);
-		a1[24] = v3;
+		al->field_24 = v3;
 		if (!v3)
-			a1[25] = 0;
+			al->field_25 = 0;
 	} else {
-		if (!a1[26]) {
-			if (!a1[30])
+		if (!al->field_26) {
+			if (!al->field_30)
 				return 0;
-			v5 = malloc(a1[22] + 16);
-			v6 = a1[31] + 1;
-			a1[26] = v5;
-			a1[31] = v6;
+			_DWORD* v5 = malloc(al->size + 16); // TODO: sizeof(nox_alloc_hdr) ?
+			al->field_26 = v5;
+			al->field_31++;
 			if (!v5)
 				return 0;
-			++a1[36];
+			al->cnt2++;
 			v5[2] = 0;
-			*(_DWORD*)(a1[26] + 12) = 0;
-			v7 = (_DWORD*)a1[26];
-			*v7 = 1;
+			*(_DWORD*)(al->field_26 + 12) = 0;
+			_DWORD* v7 = (_DWORD*)al->field_26;
+			v7[0] = 1;
 			v7[1] = 0;
-			a1[27] = a1[26];
+			al->field_27 = al->field_26;
 		}
-		v2 = a1[26];
-		v8 = *(_DWORD*)(v2 + 8);
+		v2 = al->field_26;
+		int v8 = *(_DWORD*)(v2 + 8);
 		v4 = (_DWORD*)(v2 + 8);
-		a1[26] = v8;
+		al->field_26 = v8;
 		if (!v8)
-			a1[27] = 0;
+			al->field_27 = 0;
+		if (!v2)
+			return 0;
 	}
-	if (!v2)
-		return 0;
-	v9 = a1[28];
+	int v9 = al->field_28;
 	*(_DWORD*)(v2 + 12) = 0;
 	*v4 = v9;
-	v10 = a1[28];
-	if (v10)
+	int v10 = al->field_28;
+	if (v10) {
 		*(_DWORD*)(v10 + 12) = v2;
-	a1[28] = v2;
-	v20 = v2 + 16;
-	v11 = nox_call_get_ticks();
-	if (v11 != *((_QWORD*)v1 + 16)) {
-		v12 = (_DWORD*)v1[26];
+	}
+	al->field_28 = v2;
+	int v20 = v2 + 16;
+	unsigned __int64 ticks = nox_call_get_ticks();
+	if (ticks != al->ticks) {
+		_DWORD* v12 = (_DWORD*)al->field_26;
 		if (v12) {
+			_DWORD* v14;
 			do {
-				v13 = v12[2];
+				int v13 = v12[2];
 				v14 = (_DWORD*)v12[2];
-				if (v11 > *(_QWORD*)v12) {
-					v15 = v12[3];
+				if (ticks > *(_QWORD*)v12) {
+					int v15 = v12[3];
 					if (v15)
 						*(_DWORD*)(v15 + 8) = v13;
 					else
-						v1[26] = v13;
-					v16 = v12[2];
+						al->field_26 = v13;
+					int v16 = v12[2];
 					if (v16)
 						*(_DWORD*)(v16 + 12) = v12[3];
 					else
-						v1[27] = v12[3];
-					--v1[31];
+						al->field_27 = v12[3];
+					--al->field_31;
 					free(v12);
 				}
 				v12 = v14;
 			} while (v14);
 		}
-		*((_QWORD*)v1 + 16) = v11;
+		al->ticks = ticks;
 	}
-	v17 = v1[34];
-	v18 = v1[35] + 1;
-	v1[35] = v18;
-	if (v18 > v17)
-		v1[34] = v18;
+	al->field_35++;
+	if (al->field_35 > al->field_34) {
+		al->field_34 = al->field_35;
+	}
 	return v20;
 }
 

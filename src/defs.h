@@ -370,8 +370,7 @@ typedef struct nox_alloc_class {
 	void* items;             // 29
 	_DWORD field_30;         // 30
 	_DWORD field_31;         // 31
-	_DWORD field_32;         // 32
-	_DWORD field_33;         // 33
+	unsigned __int64 ticks;  // 32
 	_DWORD field_34;         // 34
 	_DWORD field_35;         // 35
 	int cnt2;                // 36
