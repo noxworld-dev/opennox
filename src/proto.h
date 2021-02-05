@@ -546,11 +546,16 @@ void sub_413E30();
 int  sub_413F60(const void*, const void*); // idb
 void nullsub_2(void);                             // weak
 char*  nox_clone_str(const char* a1);
+#ifndef NOX_CGO
 nox_alloc_class*  nox_new_alloc_class(const char* name, int size, int cnt);
 nox_alloc_class*  nox_new_alloc_class_f30(const char* name, int size, int cnt);
+#else // NOX_CGO
+nox_alloc_class*  nox_new_alloc_class(char* name, int size, int cnt);
+nox_alloc_class*  nox_new_alloc_class_f30(char* name, int size, int cnt);
+#endif // NOX_CGO
 void  nox_free_alloc_class(nox_alloc_class* p); // idb
 void  nox_free_alloc_class_f30(nox_alloc_class* p);
-int  nox_alloc_class_new_obj(_DWORD* a1);
+void*  nox_alloc_class_new_obj(nox_alloc_class* a1);
 void*  nox_alloc_class_new_obj_zero(nox_alloc_class* a1);
 void  nox_xxx_memDeleteAdv_414330(unsigned int* a1, nox_drawable* dr);
 int  sub_4143D0(int a1, nox_drawable* dr);
