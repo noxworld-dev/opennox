@@ -56,11 +56,10 @@ func nox_new_alloc_class(name *C.char, size, cnt C.int) *C.nox_alloc_class {
 	p.size = size
 	p.cnt1 = cnt
 	p.cnt2 = cnt
-	p.field_32 = 0
+	p.ticks = 0
 	p.field_26 = 0
 	p.field_27 = 0
 	p.field_31 = 0
-	p.field_33 = 0
 
 	al := &allocClass{
 		name: sname,
