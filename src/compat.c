@@ -89,7 +89,7 @@ unsigned int _controlfp(unsigned int new_, unsigned int mask) {
 }
 
 typedef struct {
-    void(__cdecl* start_address)(void*);
+    void(* start_address)(void*);
     void* arglist;
 } thread_arg_wrapper;
 
@@ -97,13 +97,13 @@ typedef struct {
 void* thread_start_wrapper(void* arglist) {
     thread_arg_wrapper* arg = arglist;
     arglist = arg->arglist;
-    void(__cdecl* start_address)(void*) = arg->start_address;
+    void(* start_address)(void*) = arg->start_address;
     free(arg);
     start_address(arglist);
     return 0;
 }
 
-uintptr_t _beginthread(void(__cdecl* start_address)(void*), unsigned int stack_size, void* arglist) {
+uintptr_t _beginthread(void(* start_address)(void*), unsigned int stack_size, void* arglist) {
 #ifdef __EMSCRIPTEN__
 	fprintf(stderr, "%s: unsupported\n");
 	while (1) {

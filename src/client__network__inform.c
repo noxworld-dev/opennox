@@ -7,7 +7,7 @@
 #include "client__gui__guimsg.h"
 
 //----- (004C9BF0) --------------------------------------------------------
-int __cdecl nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
+int  nox_xxx_cliHandlePacketInform_4C9BF0(int a1) {
 	int result;       // eax
 	wchar_t* v2;      // eax
 	wchar_t* v3;      // eax

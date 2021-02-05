@@ -4,7 +4,7 @@
 #include "client__gui__gamewin__gamewin.h"
 
 //----- (004A0800) --------------------------------------------------------
-int __cdecl sub_4A0800(wchar_t* a1, char* a2) {
+int  sub_4A0800(wchar_t* a1, char* a2) {
 	wchar_t* v2; // eax
 
 	v2 = nox_strman_loadString_40F1D0(a2, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 267);
@@ -13,7 +13,7 @@ int __cdecl sub_4A0800(wchar_t* a1, char* a2) {
 }
 
 //----- (004A0A90) --------------------------------------------------------
-int __cdecl sub_4A0A90(int a1, char* a2) {
+int  sub_4A0A90(int a1, char* a2) {
 	wchar_t* v2; // eax
 
 	if (!strcmp(a2, "Options.wnd:8BitColor")) {
@@ -29,7 +29,7 @@ int __cdecl sub_4A0A90(int a1, char* a2) {
 }
 
 //----- (004A10A0) --------------------------------------------------------
-int __cdecl nox_xxx_wndParseDataField_4A10A0(_DWORD* a1, const char* a2, char* a3) {
+int  nox_xxx_wndParseDataField_4A10A0(_DWORD* a1, const char* a2, char* a3) {
 	char* v3;        // eax
 	char* v4;        // eax
 	char* v5;        // eax

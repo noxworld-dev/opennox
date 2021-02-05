@@ -9,7 +9,7 @@ extern _DWORD dword_5d4594_1197324;
 extern _DWORD dword_5d4594_1197312;
 
 //----- (0048CB10) --------------------------------------------------------
-_DWORD* __cdecl sub_48CB10(int a1) {
+_DWORD*  sub_48CB10(int a1) {
 	_DWORD* result;     // eax
 	wchar_t* v2;        // eax
 	_DWORD* v3;         // esi

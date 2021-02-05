@@ -19,7 +19,7 @@ extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 
 //----- (0046DC60) --------------------------------------------------------
-wchar_t* __cdecl sub_46DC60(int a1, unsigned __int8 a2, int a3) {
+wchar_t*  sub_46DC60(int a1, unsigned __int8 a2, int a3) {
 	wchar_t* result; // eax
 
 	if (a3)
@@ -262,7 +262,7 @@ wchar_t* sub_46F030() {
 }
 
 //----- (0046F080) --------------------------------------------------------
-int __cdecl sub_46F080(int a1, int a2) {
+int  sub_46F080(int a1, int a2) {
 	char* v2;            // ebp
 	char* v4;            // esi
 	__int16 v5;          // ax
@@ -533,7 +533,7 @@ int __cdecl sub_46F080(int a1, int a2) {
 }
 
 //----- (0046F8F0) --------------------------------------------------------
-wchar_t* __cdecl sub_46F8F0(int a1, int a2) {
+wchar_t*  sub_46F8F0(int a1, int a2) {
 	int v2;      // edi
 	wchar_t* v3; // eax
 	wchar_t* v4; // eax
@@ -578,7 +578,7 @@ wchar_t* __cdecl sub_46F8F0(int a1, int a2) {
 }
 
 //----- (0046FB50) --------------------------------------------------------
-wchar_t* __cdecl sub_46FB50(int a1, _BYTE* a2) {
+wchar_t*  sub_46FB50(int a1, _BYTE* a2) {
 	wchar_t* v2;     // eax
 	wchar_t* result; // eax
 	wchar_t* v4;     // eax

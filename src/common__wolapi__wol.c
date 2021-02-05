@@ -4,7 +4,7 @@
 extern _DWORD dword_5d4594_2660652;
 
 //----- (0041D1D0) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_wolApiError_41D1D0(int a1) {
+_DWORD*  nox_xxx_wolApiError_41D1D0(int a1) {
 	wchar_t* v1;         // edi
 	wchar_t* v2;         // eax
 	int v3;              // eax

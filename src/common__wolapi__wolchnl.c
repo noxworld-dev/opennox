@@ -3,7 +3,7 @@
 #include "proto.h"
 
 //----- (0041F3A0) --------------------------------------------------------
-BOOL __cdecl sub_41F3A0(int a1, int a2) {
+BOOL  sub_41F3A0(int a1, int a2) {
 	wchar_t* v2; // eax
 	wchar_t* v4; // [esp-10h] [ebp-10h]
 

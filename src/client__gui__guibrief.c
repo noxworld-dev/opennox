@@ -79,7 +79,7 @@ wchar_t* sub_44E410() {
 }
 
 //----- (0044E8E0) --------------------------------------------------------
-int __cdecl sub_44E8E0(int a1, int a2) {
+int  sub_44E8E0(int a1, int a2) {
 	int v2;                // ebx
 	int v3;                // esi
 	wchar_t* v4;           // eax
@@ -293,7 +293,7 @@ int __cdecl sub_44E8E0(int a1, int a2) {
 }
 
 //----- (0044F0F0) --------------------------------------------------------
-int __cdecl sub_44F0F0(int a1, int a2) {
+int  sub_44F0F0(int a1, int a2) {
 	int v2;               // esi
 	int v3;               // ebx
 	wchar_t* v4;          // eax
@@ -345,7 +345,7 @@ int __cdecl sub_44F0F0(int a1, int a2) {
 }
 
 //----- (0044F300) --------------------------------------------------------
-int __cdecl sub_44F300(int a1, int a2) {
+int  sub_44F300(int a1, int a2) {
 	char* v2;              // ebx
 	int v3;                // esi
 	int v4;                // edi
@@ -404,7 +404,7 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_0 = v3 + 73;
 	v34.field_4 = v4 + 123;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832492 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832492 + 300))(v2, dword_5d4594_832492);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832492 + 300))(v2, dword_5d4594_832492);
 	v34.field_0 = v3 + 109;
 	v34.field_4 = v4 + 76;
 	v6 = (__int16*)nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash2a", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
@@ -419,7 +419,7 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_0 = v3 + 565;
 	v34.field_4 = v4 + 117;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832496 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832496 + 300))(v2, dword_5d4594_832496);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832496 + 300))(v2, dword_5d4594_832496);
 	v29 = nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash3a", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 809);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_832484, v29, &v27, 0, 0);
 	v30 = nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash3b", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 811);
@@ -446,7 +446,7 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_0 = v3 + 133;
 	v34.field_4 = v4 + 192;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832504 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832504 + 300))(v2, dword_5d4594_832504);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832504 + 300))(v2, dword_5d4594_832504);
 	v34.field_0 = v3 + 157;
 	v34.field_4 = v4 + 156;
 	v9 = (__int16*)nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash4a", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
@@ -461,7 +461,7 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_0 = v3 + 525;
 	v34.field_4 = v4 + 222;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832500 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832500 + 300))(v2, dword_5d4594_832500);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832500 + 300))(v2, dword_5d4594_832500);
 	v29 = nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash7a", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 879);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_832484, v29, &v27, 0, 0);
 	v30 = nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash7b", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 881);
@@ -488,15 +488,15 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_0 = v3 + 182;
 	v34.field_4 = v4 + 262;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832528 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832528 + 300))(v2, dword_5d4594_832528);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832528 + 300))(v2, dword_5d4594_832528);
 	v34.field_0 = v3 + 201;
 	v34.field_4 = v4 + 251;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832536 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832536 + 300))(v2, dword_5d4594_832536);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832536 + 300))(v2, dword_5d4594_832536);
 	v34.field_0 = v3 + 185;
 	v34.field_4 = v4 + 234;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832532 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832532 + 300))(v2, dword_5d4594_832532);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832532 + 300))(v2, dword_5d4594_832532);
 	v34.field_0 = v3 + 221;
 	v34.field_4 = v4 + 240;
 	v12 = (__int16*)nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash5a", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
@@ -511,11 +511,11 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_0 = v3 + 484;
 	v34.field_4 = v4 + 278;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832516 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832516 + 300))(v2, dword_5d4594_832516);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832516 + 300))(v2, dword_5d4594_832516);
 	v34.field_0 = v3 + 503;
 	v34.field_4 = v4 + 303;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832520 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832520 + 300))(v2, dword_5d4594_832520);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832520 + 300))(v2, dword_5d4594_832520);
 	v29 = nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash6a", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 964);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_832484, v29, &v27, 0, 0);
 	v30 = nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash6b", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 966);
@@ -542,15 +542,15 @@ int __cdecl sub_44F300(int a1, int a2) {
 	v34.field_0 = v3 + 186;
 	v34.field_4 = v4 + 333;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832512 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832512 + 300))(v2, dword_5d4594_832512);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832512 + 300))(v2, dword_5d4594_832512);
 	v34.field_0 = v3 + 219;
 	v34.field_4 = v4 + 345;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832508 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832508 + 300))(v2, dword_5d4594_832508);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832508 + 300))(v2, dword_5d4594_832508);
 	v34.field_0 = v3 + 220;
 	v34.field_4 = v4 + 322;
 	sub_473A10(v2, &v34, (_DWORD*)(dword_5d4594_832524 + 12));
-	(*(void(__cdecl**)(char*, _DWORD))(dword_5d4594_832524 + 300))(v2, dword_5d4594_832524);
+	(*(void(**)(char*, _DWORD))(dword_5d4594_832524 + 300))(v2, dword_5d4594_832524);
 	v34.field_0 = v3 + 241;
 	v34.field_4 = v4 + 330;
 	v15 = (__int16*)nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash8a", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
@@ -617,7 +617,7 @@ int __cdecl sub_44F300(int a1, int a2) {
 }
 
 //----- (00450770) --------------------------------------------------------
-int __cdecl nox_xxx_clientQuestWinScreen_450770(int a1) {
+int  nox_xxx_clientQuestWinScreen_450770(int a1) {
 	size_t v1;            // ebx
 	unsigned __int8* v2;  // esi
 	unsigned __int16* v3; // edi
@@ -677,7 +677,7 @@ int __cdecl nox_xxx_clientQuestWinScreen_450770(int a1) {
 }
 
 //----- (00450980) --------------------------------------------------------
-int __cdecl sub_450980(int a1, int a2) {
+int  sub_450980(int a1, int a2) {
 	char* v2;    // eax
 	wchar_t* v3; // eax
 	int result;  // eax
@@ -704,7 +704,7 @@ int __cdecl sub_450980(int a1, int a2) {
 }
 
 //----- (00450A30) --------------------------------------------------------
-int __cdecl nox_client_showQuestBriefing_450A30(int a1, int a2) {
+int  nox_client_showQuestBriefing_450A30(int a1, int a2) {
 	char* v2;    // eax
 	wchar_t* v3; // eax
 	int result;  // eax

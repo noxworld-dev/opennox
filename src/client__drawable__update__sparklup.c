@@ -5,7 +5,7 @@
 #include "client__draw__glowdraw.h"
 
 //----- (004CDBF0) --------------------------------------------------------
-int __cdecl nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, _DWORD* a2) {
+int  nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, _DWORD* a2) {
 	_DWORD* v2; // ebx
 	int v3;     // edi
 	int v4;     // ebp

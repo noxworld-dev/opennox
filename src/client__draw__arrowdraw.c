@@ -4,7 +4,7 @@
 
 extern unsigned int nox_gameFPS;
 //----- (004B7920) --------------------------------------------------------
-int __cdecl nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 	int v2;     // eax
 	int v3;     // edi
 	_DWORD* v4; // edi
@@ -32,7 +32,7 @@ int __cdecl nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (004B79D0) --------------------------------------------------------
-int __cdecl nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
 	int v2;     // eax
 	int v3;     // edi
 	_DWORD* v4; // edi
@@ -60,7 +60,7 @@ int __cdecl nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (004B6050) --------------------------------------------------------
-int __cdecl nox_thing_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2; // ebp
 	int v3; // edi
 	int v4; // esi
@@ -92,7 +92,7 @@ int __cdecl nox_thing_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (004B6120) --------------------------------------------------------
-int __cdecl nox_thing_weak_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_weak_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2; // ebp
 	int v3; // edi
 	int v4; // esi

@@ -8,7 +8,7 @@
 #include "server__network__mapsend.h"
 
 //----- (0051BAD0) --------------------------------------------------------
-int __cdecl nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
+int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 	unsigned __int8* v4;                   // esi
 	char* v5;                              // eax
 	char* v6;                              // eax
@@ -34,7 +34,7 @@ int __cdecl nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __in
 	int v27;                               // eax
 	int v28;                               // edi
 	int v29;                               // eax
-	void(__cdecl * v30)(int, int, _DWORD); // ecx
+	void( * v30)(int, int, _DWORD); // ecx
 	int v31;                               // edi
 	int v32;                               // eax
 	BOOL v33;                              // edi
@@ -332,7 +332,7 @@ int __cdecl nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __in
 				!*(_DWORD*)(v85 + 284)) {
 				v29 = nox_server_getObjectFromNetCode_4ECCB0(v28);
 				if (v29) {
-					v30 = *(void(__cdecl**)(int, int, _DWORD))(v29 + 696);
+					v30 = *(void(**)(int, int, _DWORD))(v29 + 696);
 					if (v30)
 						v30(v29, v9, 0);
 				}

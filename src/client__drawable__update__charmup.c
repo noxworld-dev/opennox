@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (004CD150) --------------------------------------------------------
-void __cdecl sub_4CD150(int a1, _DWORD* a2, int a3, int a4) {
+void  sub_4CD150(int a1, _DWORD* a2, int a3, int a4) {
 	int v4;      // eax
 	int v5;      // esi
 	int v6;      // eax

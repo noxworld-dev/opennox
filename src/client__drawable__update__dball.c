@@ -5,7 +5,7 @@
 #include "client__draw__fx.h"
 
 //----- (004CDFA0) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_updDrawAddRndSpark_4CDFA0(int a1, _DWORD* a2) {
+_DWORD*  nox_xxx_updDrawAddRndSpark_4CDFA0(int a1, _DWORD* a2) {
 	_DWORD* result; // eax
 	_DWORD* v3;     // ebp
 	_DWORD* v4;     // esi
@@ -38,7 +38,7 @@ _DWORD* __cdecl nox_xxx_updDrawAddRndSpark_4CDFA0(int a1, _DWORD* a2) {
 }
 
 //----- (004CE0C0) --------------------------------------------------------
-int __cdecl nox_xxx_updDrawDBallCharge_4CE0C0(int a1, int a2) {
+int  nox_xxx_updDrawDBallCharge_4CE0C0(int a1, int a2) {
 	int v2;         // ebx
 	__int16 v3;     // cx
 	int v4;         // esi

@@ -145,7 +145,7 @@ LABEL_16:
 }
 
 //----- (004C27F0) --------------------------------------------------------
-int __cdecl sub_4C27F0(_DWORD* a1) {
+int  sub_4C27F0(_DWORD* a1) {
 	int result;           // eax
 	unsigned __int16* v2; // edi
 	int v4;               // esi

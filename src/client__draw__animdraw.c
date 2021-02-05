@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (004BBD60) --------------------------------------------------------
-int __cdecl nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
+int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	int v2;     // edi
 	int v3;     // esi
 	int v4;     // ecx
@@ -75,7 +75,7 @@ int __cdecl nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 }
 
 //----- (004BBF10) --------------------------------------------------------
-int __cdecl nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2;     // eax
 	int v3;     // edx
 	int v4;     // eax
@@ -103,7 +103,7 @@ int __cdecl nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (0044B390) --------------------------------------------------------
-bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	_BYTE* a3 = attr_value;
 	_DWORD* v3;          // eax
 	_DWORD* v5;          // edi
@@ -161,7 +161,7 @@ bool __cdecl nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char*
 }
 
 //----- (0044BE90) --------------------------------------------------------
-int __cdecl sub_44BE90(int a1, nox_memfile* f) {
+int  sub_44BE90(int a1, nox_memfile* f) {
 	int a2 = f;
 	int v2;              // esi
 	int result;          // eax
@@ -207,7 +207,7 @@ int __cdecl sub_44BE90(int a1, nox_memfile* f) {
 }
 
 //----- (0044BD90) --------------------------------------------------------
-bool __cdecl nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	const size_t data_sz = 0x94u;
 	_DWORD* draw_cb_data = calloc(1u, data_sz);
 	draw_cb_data[0] = data_sz;

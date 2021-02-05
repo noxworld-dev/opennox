@@ -8,7 +8,7 @@ extern nox_wnd_xxx* nox_wnd_xxx_1307732;
 extern _DWORD dword_5d4594_1307736;
 
 //----- (004A4A20) --------------------------------------------------------
-int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
+int  sub_4A4A20(int a1, int a2, int* a3, int a4) {
 	int v4;      // eax
 	int v5;      // eax
 	int v6;      // eax
@@ -52,7 +52,7 @@ int __cdecl sub_4A4A20(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (004A4B70) --------------------------------------------------------
-void* __cdecl sub_4A4B70(int a1) {
+void*  sub_4A4B70(int a1) {
 	unsigned __int8 v1; // dl
 	void* result;       // eax
 	_BYTE* v3;          // edi

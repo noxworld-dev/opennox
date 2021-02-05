@@ -5,7 +5,7 @@ extern _DWORD dword_5d4594_531652;
 extern _DWORD dword_5d4594_531648;
 
 //----- (0041F620) --------------------------------------------------------
-void __cdecl sub_41F620(int a1) {
+void  sub_41F620(int a1) {
 	_DWORD* v1;  // esi
 	int v2;      // ebp
 	_DWORD* v3;  // edi

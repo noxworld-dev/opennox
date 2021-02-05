@@ -4,7 +4,7 @@
 #include "proto.h"
 
 //----- (004BC5D0) --------------------------------------------------------
-int __cdecl sub_4BC5D0(nox_drawable* dr, int a2) {
+int  sub_4BC5D0(nox_drawable* dr, int a2) {
 	_DWORD* a1 = dr;
 	int result; // eax
 	int v3;     // ecx
@@ -44,10 +44,10 @@ int __cdecl sub_4BC5D0(nox_drawable* dr, int a2) {
 }
 
 //----- (004BC700) --------------------------------------------------------
-int __cdecl nox_thing_vector_animate_draw(int* a1, nox_drawable* dr) { return sub_4BC6B0(a1, dr, *(_DWORD*)&dr->field_76); }
+int  nox_thing_vector_animate_draw(int* a1, nox_drawable* dr) { return sub_4BC6B0(a1, dr, *(_DWORD*)&dr->field_76); }
 
 //----- (0044BF60) --------------------------------------------------------
-bool __cdecl nox_things_vector_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_things_vector_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	_DWORD* v2; // eax
 	_DWORD* v3; // esi
 	int result; // eax

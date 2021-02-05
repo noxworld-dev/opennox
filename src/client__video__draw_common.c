@@ -69,17 +69,17 @@ void sdl_present();
 int sdl_drawCursorThreaded(int);
 int create_surfaces(HWND a1, int width, int height);
 
-SDL_Surface* __cdecl nox_video_createSurface_48A600(int a1, int a2, int a3, int a4);
-int __cdecl sub_48A720(SDL_Surface* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5);
-void __cdecl sub_48A670(SDL_Surface* a1);
-void __cdecl sub_48A6B0(SDL_Surface* a1);
+SDL_Surface*  nox_video_createSurface_48A600(int a1, int a2, int a3, int a4);
+int  sub_48A720(SDL_Surface* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5);
+void  sub_48A670(SDL_Surface* a1);
+void  sub_48A6B0(SDL_Surface* a1);
 
 SDL_Window* windowHandle_dword_973FE0;
 
 DWORD dword_973C64;
 
 //----- (00444AC0) --------------------------------------------------------
-int __cdecl sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
+int  sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	int v5;             // eax
 	bool v6;            // zf
 	unsigned __int8 v7; // al
@@ -252,13 +252,13 @@ char sub_48A190() {
 }
 
 //----- (0048A220) --------------------------------------------------------
-void __cdecl nox_xxx_directDrawBlitMB_48A220() {
+void  nox_xxx_directDrawBlitMB_48A220() {
 
 }
 
-void __cdecl sub_48A670(SDL_Surface* a1) { SDL_LockSurface(a1); }
+void  sub_48A670(SDL_Surface* a1) { SDL_LockSurface(a1); }
 
-void __cdecl sub_48A6B0(SDL_Surface* a1) { SDL_UnlockSurface(a1); }
+void  sub_48A6B0(SDL_Surface* a1) { SDL_UnlockSurface(a1); }
 
 //----- (0048A7F0) --------------------------------------------------------
 void sub_48A7F0() {
@@ -268,7 +268,7 @@ void sub_48A7F0() {
 }
 
 //----- (0048A820) --------------------------------------------------------
-void __cdecl sub_48A820(UINT uFlags) {
+void  sub_48A820(UINT uFlags) {
 	//DWORD width = nox_backbuffer_width;
 	//DWORD height = nox_backbuffer_height;
 
@@ -277,7 +277,7 @@ void __cdecl sub_48A820(UINT uFlags) {
 }
 
 //----- (0048A9C0) --------------------------------------------------------
-void __cdecl sub_48A9C0(int a1) {
+void  sub_48A9C0(int a1) {
 	if (dword_6F7BB0) {
 		EnterCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
 		if (!dword_974854) {
@@ -304,7 +304,7 @@ void sub_48AA40() {
 	// FIXME
 }
 
-void __cdecl sub_48B1D0_free_surface(SDL_Surface** a1) {
+void  sub_48B1D0_free_surface(SDL_Surface** a1) {
 	if (*a1) {
 		SDL_FreeSurface(*a1);
 		*a1 = NULL;
@@ -429,7 +429,7 @@ int sdl_drawCursorThreaded(int a1) {
 }
 
 //----- (004340A0) --------------------------------------------------------
-void __cdecl sub_4340A0(int a1, int a2, int a3, int a4) {
+void  sub_4340A0(int a1, int a2, int a3, int a4) {
 	unsigned __int64 v4; // rax
 	int v5;              // esi
 	unsigned __int64 v6; // rax
@@ -465,7 +465,7 @@ void __cdecl sub_4340A0(int a1, int a2, int a3, int a4) {
 }
 
 //----- (004347F0) --------------------------------------------------------
-BOOL __cdecl sub_4347F0(char* a1, int a2) {
+BOOL  sub_4347F0(char* a1, int a2) {
 	if (a2 <= 256) {
 		sub_435120(getMemAt(0x5D4594, 3803308), a1);
 		sub_4353F0();
@@ -488,7 +488,7 @@ int sub_434FB0() {
 }
 
 //----- (004352E0) --------------------------------------------------------
-void __cdecl sub_4352E0() {
+void  sub_4352E0() {
 	// FIXME gamma control
 }
 
@@ -499,7 +499,7 @@ HDC sub_444F90() {
 }
 
 //----- (00444FC0) --------------------------------------------------------
-void __cdecl sub_444FC0(HDC a1) {
+void  sub_444FC0(HDC a1) {
 	DebugBreak();
 }
 
@@ -552,7 +552,7 @@ void sub_433C20() {
 }
 
 //----- (00444930) --------------------------------------------------------
-int __cdecl nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
+int  nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
 	dword_5d4594_823776 = 0;
 	ptr_5D4594_3799572 = &obj_5D4594_3799660;
 	int result = sub_4449D0(wnd, w, h, depth, flags);
@@ -754,7 +754,7 @@ int nox_video_createCursorSurface_48BF70() {
 }
 
 //----- (0048B3F0) --------------------------------------------------------
-int __cdecl sub_48B3F0(int a1, int a2, int a3) {
+int  sub_48B3F0(int a1, int a2, int a3) {
 	int i; // esi
 
 	if (nox_video_cursorDrawIsThreaded) {
@@ -948,7 +948,7 @@ int sub_4338D0() {
 }
 
 //----- (00433CD0) --------------------------------------------------------
-int __cdecl sub_433CD0(BYTE a1, BYTE a2, BYTE a3) {
+int  sub_433CD0(BYTE a1, BYTE a2, BYTE a3) {
 	__int64 v5;          // rax
 	unsigned __int64 v6; // rax
 	unsigned __int64 v7; // rax
@@ -978,7 +978,7 @@ int __cdecl sub_433CD0(BYTE a1, BYTE a2, BYTE a3) {
 }
 
 //----- (00433E40) --------------------------------------------------------
-int __cdecl sub_433E40(int a1) {
+int  sub_433E40(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
@@ -987,7 +987,7 @@ int __cdecl sub_433E40(int a1) {
 }
 
 //----- (00433ED0) --------------------------------------------------------
-void __cdecl sub_433ED0(int a1) {
+void  sub_433ED0(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
@@ -996,7 +996,7 @@ void __cdecl sub_433ED0(int a1) {
 }
 
 //----- (00434040) --------------------------------------------------------
-int __cdecl sub_434040(int a1) {
+int  sub_434040(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
@@ -1005,7 +1005,7 @@ int __cdecl sub_434040(int a1) {
 }
 
 //----- (004341D0) --------------------------------------------------------
-int __cdecl nox_xxx_drawPlayer_4341D0(int a1, int a2) {
+int  nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 	int result;          // eax
 	int v3;              // edi
 	int v4;              // esi
@@ -1086,7 +1086,7 @@ void nox_set_color_rgb_434430(int r, int g, int b) {
 }
 
 //----- (00434480) --------------------------------------------------------
-void __cdecl sub_434480(int a1, int a2, int a3, int a4) { dword_975240(a1, a2, a3, a4); }
+void  sub_434480(int a1, int a2, int a3, int a4) { dword_975240(a1, a2, a3, a4); }
 
 //----- (004344A0) --------------------------------------------------------
 uint32_t nox_color_rgb_4344A0(int r, int g, int b) {
@@ -1101,10 +1101,10 @@ uint32_t nox_color_rgb_4344A0(int r, int g, int b) {
 }
 
 //----- (00434AA0) --------------------------------------------------------
-int __cdecl sub_434AA0(int a1, int a2, int a3) { return dword_975380(a1, a2, a3); }
+int  sub_434AA0(int a1, int a2, int a3) { return dword_975380(a1, a2, a3); }
 
 //----- (00434AC0) --------------------------------------------------------
-int __cdecl sub_434AC0(int a1) {
+int  sub_434AC0(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
@@ -1151,7 +1151,7 @@ void updateGamma(int value) {
 }
 
 //----- (00434B30) --------------------------------------------------------
-int __cdecl nox_video_setGammaSetting_434B30(int a1) {
+int  nox_video_setGammaSetting_434B30(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1251,7 +1251,7 @@ int sub_434CC0() {
 // 434CDD: variable 'v3' is possibly undefined
 
 //----- (004B0300) --------------------------------------------------------
-int __cdecl sub_4B0300(char* a1) {
+int  sub_4B0300(char* a1) {
 	int result; // eax
 
 	result = *getMemU32Ptr(0x5D4594, 1311928);
@@ -1279,7 +1279,7 @@ void sub_4B05D0() {
 }
 
 //----- (004B0640) --------------------------------------------------------
-int __cdecl sub_4B0640(int (*a1)(void)) {
+int  sub_4B0640(int (*a1)(void)) {
 	int result; // eax
 
 	result = a1;
@@ -1288,7 +1288,7 @@ int __cdecl sub_4B0640(int (*a1)(void)) {
 }
 
 //----- (0048B5D0) --------------------------------------------------------
-int __cdecl nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
+int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	int result; // eax
 	int v3;     // esi
 
@@ -1308,7 +1308,7 @@ int __cdecl nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 }
 
 //----- (0048C200) --------------------------------------------------------
-unsigned __int8* __cdecl sub_48C200(int a1, int a2, int a3) {
+unsigned __int8*  sub_48C200(int a1, int a2, int a3) {
 	unsigned __int8* result; // eax
 	int v4;                  // ebp
 	unsigned __int8* v5;     // eax
@@ -1331,7 +1331,7 @@ unsigned __int8* __cdecl sub_48C200(int a1, int a2, int a3) {
 	int v22;                 // [esp+18h] [ebp+8h]
 	int v23;                 // [esp+1Ch] [ebp+Ch]
 
-	result = (unsigned __int8*)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(a1);
+	result = (unsigned __int8*)(*(int(**)(_DWORD)) & dword_5d4594_3799492)(a1);
 	dword_5d4594_1193516 = result;
 	if (result) {
 		v4 = *(_DWORD*)result;
@@ -1394,7 +1394,7 @@ unsigned __int8* __cdecl sub_48C200(int a1, int a2, int a3) {
 }
 
 //----- (0048C320) --------------------------------------------------------
-unsigned __int8* __cdecl sub_48C320(int a1, int a2, int a3) {
+unsigned __int8*  sub_48C320(int a1, int a2, int a3) {
 	unsigned __int8* result; // eax
 	int v4;                  // edi
 	unsigned __int8* v5;     // eax
@@ -1414,7 +1414,7 @@ unsigned __int8* __cdecl sub_48C320(int a1, int a2, int a3) {
 	void (*v19)(void);       // [esp+14h] [ebp+4h]
 	int v20;                 // [esp+18h] [ebp+8h]
 
-	result = (unsigned __int8*)(*(int(__cdecl**)(_DWORD)) & dword_5d4594_3799492)(a1);
+	result = (unsigned __int8*)(*(int(**)(_DWORD)) & dword_5d4594_3799492)(a1);
 	dword_5d4594_1193516 = result;
 	if (result) {
 		v4 = *(_DWORD*)result;

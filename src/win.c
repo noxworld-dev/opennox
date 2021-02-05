@@ -161,7 +161,7 @@ HWND getWindowHandle_nox_xxx_getHWND_401FD0() { return g_hwnd; }
 #endif
 
 //----- (00401FE0) --------------------------------------------------------
-void __cdecl sub_401FE0(LPCSTR lpString) {
+void  sub_401FE0(LPCSTR lpString) {
 #ifdef USE_SDL
 	if (lpString)
 		SDL_SetWindowTitle(g_window, lpString);
@@ -322,7 +322,7 @@ int nox_xxx_processWinMessages_4453A0_poll_events() {
 #endif // NOX_CGO
 
 //----- (004147E0) --------------------------------------------------------
-BOOL __cdecl sub_4147E0(HWND hWnd) {
+BOOL  sub_4147E0(HWND hWnd) {
 #ifdef USE_SDL
 	return 0;
 #else
@@ -331,7 +331,7 @@ BOOL __cdecl sub_4147E0(HWND hWnd) {
 #endif
 }
 
-// 4514E0: using guessed type void __cdecl nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
+// 4514E0: using guessed type void  nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
 
 //----- (00416A10) --------------------------------------------------------
 int nox_xxx_createMutexCheck_416A10() {

@@ -1,14 +1,14 @@
 #include "proto.h"
 
 #if 1
-BOOL __cdecl sub_423CC0(int a1) { return 0; }
+BOOL  sub_423CC0(int a1) { return 0; }
 
 BOOL sub_423C60() { return 0; }
 
 unsigned __int8 sub_423EC0() { return 0; }
 #else
 //----- (00423CC0) --------------------------------------------------------
-BOOL __cdecl sub_423CC0(int a1) {
+BOOL  sub_423CC0(int a1) {
 	BOOL result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 588112) && a1 == 1)
@@ -135,7 +135,7 @@ LABEL_23:
 unsigned __int8 sub_423EC0() { return getMemByte(0x5D4594, 588116); }
 
 //----- (00423ED0) --------------------------------------------------------
-BOOL __cdecl sub_423ED0(LPCSTR lpRootPathName, DWORD SectorsPerCluster) {
+BOOL  sub_423ED0(LPCSTR lpRootPathName, DWORD SectorsPerCluster) {
 	DWORD v2;                     // esi
 	const CHAR* v3;               // edi
 	BOOL result;                  // eax

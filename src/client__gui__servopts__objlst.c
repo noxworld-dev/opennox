@@ -6,7 +6,7 @@ extern _DWORD dword_5d4594_1045468;
 extern _DWORD dword_5d4594_1045464;
 
 //----- (004530C0) --------------------------------------------------------
-int __cdecl nox_xxx_guiObjlistLoad_4530C0(int a1, int a2) {
+int  nox_xxx_guiObjlistLoad_4530C0(int a1, int a2) {
 	int v2;          // edi
 	wchar_t* v3;     // eax
 	int v4;          // esi

@@ -4,7 +4,7 @@ extern _DWORD dword_5d4594_825736;
 
 extern unsigned int nox_gameFPS;
 //----- (00445490) --------------------------------------------------------
-void __cdecl nox_xxx_printCentered_445490(wchar_t* a1) {
+void  nox_xxx_printCentered_445490(wchar_t* a1) {
 	int v1;             // eax
 	int v2;             // eax
 	unsigned short* v3; // eax

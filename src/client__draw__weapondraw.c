@@ -4,19 +4,19 @@
 #include "proto.h"
 
 //----- (004B9690) --------------------------------------------------------
-int __cdecl nox_thing_weapon_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_weapon_draw(int* a1, nox_drawable* dr) {
 	sub_4B95D0(dr);
 	return nox_thing_static_draw(a1, dr);
 }
 
 //----- (004B96B0) --------------------------------------------------------
-int __cdecl nox_thing_weapon_animate_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_weapon_animate_draw(int* a1, nox_drawable* dr) {
 	sub_4B95D0(dr);
 	return nox_thing_animate_draw(a1, dr);
 }
 
 //----- (004B8020) --------------------------------------------------------
-int __cdecl nox_thing_spherical_shield_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_spherical_shield_draw(int* a1, nox_drawable* dr) {
 	int v2;     // esi
 	int v3;     // eax
 	_DWORD* v4; // eax

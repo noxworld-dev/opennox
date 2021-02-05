@@ -12,7 +12,7 @@ extern int nox_win_height;
 int nox_client_mouseCursorType = 0;
 
 //----- (00477A30) --------------------------------------------------------
-int __cdecl nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
+int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	int v3;       // edi
 	int v4;       // ebp
 	int v5;       // esi

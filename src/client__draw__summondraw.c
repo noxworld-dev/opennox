@@ -6,7 +6,7 @@
 extern _DWORD dword_5d4594_1313740;
 
 //----- (004B7D00) --------------------------------------------------------
-int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
+int  nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 	_DWORD* v2;           // esi
 	int v3;               // ecx
 	int v4;               // edx
@@ -73,7 +73,7 @@ int __cdecl nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 		LODWORD(v16) = v2[79];
 		nox_client_drawSetAlpha_434580((__int64)(((double)*getMemUintPtr(0x5D4594, 2598000) - (double)v16) /
 		                                         (double)*((unsigned __int16*)v2 + 218) * 255.0));
-		(*(void(__cdecl**)(int*, _DWORD))(v2[108] + 300))(a1, v2[108]);
+		(*(void(**)(int*, _DWORD))(v2[108] + 300))(a1, v2[108]);
 		nox_client_drawEnableAlpha_434560(0);
 		result = 1;
 	} else {

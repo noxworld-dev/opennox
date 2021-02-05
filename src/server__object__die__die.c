@@ -6,7 +6,7 @@
 // TODO: convert table_274080
 
 //----- (0054E170) --------------------------------------------------------
-void __cdecl nox_xxx_dieArmor_54E170_obj_die(int a1) {
+void  nox_xxx_dieArmor_54E170_obj_die(int a1) {
 	int v1;      // ebx
 	int v2;      // edi
 	_DWORD* v3;  // eax
@@ -78,7 +78,7 @@ void __cdecl nox_xxx_dieArmor_54E170_obj_die(int a1) {
 }
 
 //----- (0054E370) --------------------------------------------------------
-void __cdecl nox_xxx_dieWeapon_54E370_obj_die(int a1) {
+void  nox_xxx_dieWeapon_54E370_obj_die(int a1) {
 	int v1;      // edi
 	float2* v2;  // ebx
 	__int16 v3;  // ax

@@ -517,7 +517,7 @@ int sub_438BD0() {
 }
 
 //----- (00439370) --------------------------------------------------------
-void __cdecl sub_439370(int2* a1, int a2) {
+void  sub_439370(int2* a1, int a2) {
 	int v2;      // eax
 	wchar_t* v3; // eax
 
@@ -540,7 +540,7 @@ void __cdecl sub_439370(int2* a1, int a2) {
 	}
 }
 //----- (004394D0) --------------------------------------------------------
-int __cdecl sub_4394D0(int a1) {
+int  sub_4394D0(int a1) {
 	int v1;              // ebp
 	wchar_t* v2;         // eax
 	wchar_t* v3;         // eax
@@ -735,7 +735,7 @@ int __cdecl sub_4394D0(int a1) {
 }
 
 //----- (00439E70) --------------------------------------------------------
-int __cdecl nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a4) {
+int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a4) {
 	int v4;             // eax
 	int v5;             // esi
 	int* v6;            // eax
@@ -1132,7 +1132,7 @@ void sub_43B750() {
 }
 
 //----- (0043B7C0) --------------------------------------------------------
-_DWORD* __cdecl nox_xxx_openfuckupwindow_43B7C0(int a1) {
+_DWORD*  nox_xxx_openfuckupwindow_43B7C0(int a1) {
 	int v1;                // eax
 	__int16 v2;            // cx
 	_DWORD* v3;            // eax
@@ -1237,7 +1237,7 @@ _DWORD* __cdecl nox_xxx_openfuckupwindow_43B7C0(int a1) {
 }
 
 //----- (0043BCB0) --------------------------------------------------------
-wchar_t* __cdecl sub_43BCB0(__int16 a1) {
+wchar_t*  sub_43BCB0(__int16 a1) {
 	if (a1 & 0x1000)
 		return nox_strman_loadString_40F1D0("Quest", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 									 3534);

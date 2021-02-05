@@ -53,7 +53,7 @@ void sub_48A120() {
 	sub_48AA40();
 }
 
-SDL_Surface* __cdecl nox_video_createSurface_48A600(int width, int height, int flags, int caps) {
+SDL_Surface*  nox_video_createSurface_48A600(int width, int height, int flags, int caps) {
 	if (!(flags & DDSD_WIDTH))
 		DebugBreak();
 	if (!(flags & DDSD_HEIGHT))
@@ -64,7 +64,7 @@ SDL_Surface* __cdecl nox_video_createSurface_48A600(int width, int height, int f
 	return pSurface;
 }
 
-int __cdecl sub_48A720(SDL_Surface* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5) {
+int  sub_48A720(SDL_Surface* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5) {
 	if (a2)
 		*a2 = a1->w;
 	if (a3)
@@ -426,7 +426,7 @@ int PlayMovie(char* filename);
 #endif // NOX_PLAY_MOVIES
 
 //----- (004B0340) --------------------------------------------------------
-int __cdecl sub_4B0340(int a1) // draw general
+int  sub_4B0340(int a1) // draw general
 {
 	BOOL v1;             // esi
 	int v2;              // ebp
@@ -525,7 +525,7 @@ int __cdecl sub_4B0340(int a1) // draw general
 }
 
 //----- (0048A040) --------------------------------------------------------
-int __cdecl sub_48A040(HWND a1, int a2, int a3, int a4) {
+int  sub_48A040(HWND a1, int a2, int a3, int a4) {
 	int result; // eax
 
 	g_backbuffer_count = 2;

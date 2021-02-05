@@ -20,27 +20,27 @@ extern _DWORD dword_5d4594_741680;
 extern _DWORD dword_5d4594_1563660;
 extern _DWORD dword_5d4594_1563664;
 
-bool __cdecl nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool __cdecl nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool __cdecl nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool __cdecl nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool __cdecl nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
+bool  nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
+bool  nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value);
+bool  nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool  nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value);
 
 nox_parse_thing_funcs_t nox_parse_thing_funcs[] = {
 	{"FLAGS", &nox_parse_thing_flags},
@@ -68,28 +68,28 @@ nox_parse_thing_funcs_t nox_parse_thing_funcs[] = {
 int nox_parse_thing_funcs_cnt = sizeof(nox_parse_thing_funcs) / sizeof(nox_parse_thing_funcs_t);
 
 //----- (0044B160) --------------------------------------------------------
-bool __cdecl nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value) {
+bool  nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value) {
 	obj->flags = 0;
 	set_bitmask_flags_from_plus_separated_names_423930(attr_value, &obj->flags, (const char**)getMemAt(0x587000, 114076));
 	return 1;
 }
 
 //----- (0044B190) --------------------------------------------------------
-bool __cdecl nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value) {
+bool  nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value) {
 	obj->pri_class = 0;
 	set_bitmask_flags_from_plus_separated_names_423930(attr_value, &obj->pri_class, (const char**)getMemAt(0x587000, 114208));
 	return 1;
 }
 
 //----- (0044B1C0) --------------------------------------------------------
-bool __cdecl nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value) {
+bool  nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value) {
 	obj->sub_class = 0;
 	set_bitmask_flags_from_plus_separated_names_multiple_423A10(attr_value, &obj->sub_class);
 	return 1;
 }
 
 //----- (0044B1F0) --------------------------------------------------------
-bool __cdecl nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	nox_shape s;
 	bool res = nox_parse_shape(&s, attr_value);
 	obj->shape_kind = s.kind;
@@ -100,13 +100,13 @@ bool __cdecl nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_v
 }
 
 //----- (0044B230) --------------------------------------------------------
-bool __cdecl nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	sscanf(attr_value, "%f", &obj->light_intensity);
 	return 1;
 }
 
 //----- (0044C200) --------------------------------------------------------
-bool __cdecl nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	const uint8_t read_len = nox_memfile_read_u8(f);
 
 	char read_str[256];
@@ -144,7 +144,7 @@ bool __cdecl nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_val
 }
 
 //----- (0044C2F0) --------------------------------------------------------
-bool __cdecl nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int z = 0;
 	sscanf(attr_value, "%d", &z);
 	obj->z = z;
@@ -152,7 +152,7 @@ bool __cdecl nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value)
 }
 
 //----- (0044C320) --------------------------------------------------------
-bool __cdecl nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int min = 0;
 	int max = 0;
 	sscanf(attr_value, "%d %d", &min, &max);
@@ -164,7 +164,7 @@ bool __cdecl nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_va
 }
 
 //----- (0044C370) --------------------------------------------------------
-bool __cdecl nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int w = 0;
 	int h = 0;
 	sscanf(attr_value, "%d %d", &w, &h);
@@ -174,7 +174,7 @@ bool __cdecl nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_val
 }
 
 //----- (0044C3B0) --------------------------------------------------------
-bool __cdecl nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->menuicon = nox_memfile_read_u32(f);
 	if (obj->menuicon == -1) {
 		// TODO: This branch doesnt seem to ever be taken. The meaning is not clear. Is this reading (and dropping) a string?
@@ -186,7 +186,7 @@ bool __cdecl nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* att
 }
 
 //----- (0044B250) --------------------------------------------------------
-bool __cdecl nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int r;
 	int g;
 	int b;
@@ -200,7 +200,7 @@ bool __cdecl nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* a
 }
 
 //----- (0044B2D0) --------------------------------------------------------
-bool __cdecl nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int deg = 0;
 	if (sscanf(attr_value, "%d", &deg) != 1)
 		return 0;
@@ -213,7 +213,7 @@ bool __cdecl nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* att
 }
 
 //----- (0044B330) --------------------------------------------------------
-bool __cdecl nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int deg = 0;
 	if (sscanf(attr_value, "%d", &deg) != 1)
 		return 0;
@@ -227,13 +227,13 @@ bool __cdecl nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char
 // 44C200: using guessed type char var_100[256];
 
 //----- (0044C3F0) --------------------------------------------------------
-bool __cdecl nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->audio_loop = nox_xxx_utilFindSound_40AF50(attr_value);
 	return 1;
 }
 
 //----- (004B5C40) --------------------------------------------------------
-bool __cdecl nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	char* v3;            // eax
 	const char* v4;      // ecx
 	int v5;              // ebp
@@ -259,7 +259,7 @@ bool __cdecl nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char*
 }
 
 //----- (0044C410) --------------------------------------------------------
-bool __cdecl nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int v = 0;
 	sscanf(attr_value, "%d", &v);
 	obj->lifetime = v;
@@ -267,7 +267,7 @@ bool __cdecl nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr
 }
 
 //----- (0044C440) --------------------------------------------------------
-bool __cdecl nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int v = 0;
 	sscanf(attr_value, "%d", &v);
 	obj->weight = (_BYTE)v;
@@ -276,19 +276,19 @@ bool __cdecl nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_v
 }
 
 //----- (0044C480) --------------------------------------------------------
-bool __cdecl nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->pretty_name = nox_strman_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
 	return 1;
 }
 
 //----- (0044C4B0) --------------------------------------------------------
-bool __cdecl nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->desc = nox_strman_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
 	return 1;
 }
 
 //----- (0044C500) --------------------------------------------------------
-bool __cdecl nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	char v10[128];
 
 	const uint32_t known_idx = nox_memfile_read_u32(f);
@@ -306,13 +306,13 @@ bool __cdecl nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* 
 }
 
 //----- (0044C4E0) --------------------------------------------------------
-bool __cdecl nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool  nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->health = atoi(attr_value);
 	return 1;
 }
 
 //----- (0044CE00) --------------------------------------------------------
-int __cdecl nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* thing) {
+int  nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* thing) {
 	unsigned __int8 entry_len;
 	while ((entry_len = nox_memfile_read_u8(thing_file))) {
 		nox_memfile_read(scratch_buffer, 1u, entry_len, thing_file);
@@ -428,7 +428,7 @@ size_t nox_xxx_spriteDefByAlphabetAlloc_44CCD0() {
 }
 
 //----- (0044CD60) --------------------------------------------------------
-void __cdecl nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2) {
+void  nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2) {
 	if (!a1)
 		return;
 
@@ -447,7 +447,7 @@ void __cdecl nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2) {
 }
 
 //----- (0044CDE0) --------------------------------------------------------
-int __cdecl nox_xxx_spriteDefByAlphabetCompare_44CDE0(const void* a1, const void* a2) { return _strcmpi(**(const char***)a1, **(const char***)a2); }
+int  nox_xxx_spriteDefByAlphabetCompare_44CDE0(const void* a1, const void* a2) { return _strcmpi(**(const char***)a1, **(const char***)a2); }
 
 //----- (0044CDB0) --------------------------------------------------------
 void nox_xxx_spriteDefByAlphabetSort_44CDB0() {
@@ -571,7 +571,7 @@ int sub_42BF10() {
 }
 
 //----- (0044C840) --------------------------------------------------------
-void* __cdecl nox_xxx_parseThingBinClient_44C840_read_things(void) {
+void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 	char* scratch_buffer = (char*)malloc(256 * 1024);
 	nox_xxx_spriteDefByAlphabetClear_44CCA0();
 	nox_things_free_44C580();
@@ -821,7 +821,7 @@ int sub_4E3010() {
 }
 
 //----- (004E3080) --------------------------------------------------------
-CHAR* __cdecl nox_xxx_unitDefByAlphabetAdd_4E3080(CHAR* a1) {
+CHAR*  nox_xxx_unitDefByAlphabetAdd_4E3080(CHAR* a1) {
 	CHAR* result; // eax
 
 	result = a1;
@@ -885,7 +885,7 @@ size_t nox_xxx_unitDefByAlphabetInit_4E3040() {
 }
 
 //----- (004E30D0) --------------------------------------------------------
-void __cdecl sub_4E30D0(int a1) {
+void  sub_4E30D0(int a1) {
 	int v1; // eax
 	int v2; // ecx
 
@@ -900,7 +900,7 @@ void __cdecl sub_4E30D0(int a1) {
 }
 
 //----- (004E2A00) --------------------------------------------------------
-int __cdecl sub_4E2A00(const void* a1, const void* a2) {
+int  sub_4E2A00(const void* a1, const void* a2) {
 	return _strcmpi(*(const char**)(*(_DWORD*)a1 + 4), *(const char**)(*(_DWORD*)a2 + 4));
 }
 //----- (004E29D0) --------------------------------------------------------
@@ -991,7 +991,7 @@ const char* sub_4F0640() {
 }
 
 //----- (004E2B60) --------------------------------------------------------
-int __cdecl nox_read_things_alternative_4E2B60(void) {
+int  nox_read_things_alternative_4E2B60(void) {
 	void* v1;            // eax
 	void* v3;            // edi
 	void* result;        // eax
@@ -1187,7 +1187,7 @@ int __cdecl nox_read_things_alternative_4E2B60(void) {
 }
 
 //----- (0044C780) --------------------------------------------------------
-void* __cdecl nox_xxx_draw_44C780(int a1) {
+void*  nox_xxx_draw_44C780(int a1) {
 	int i;        // esi
 	int v2;       // eax
 	void* result; // eax
@@ -1204,7 +1204,7 @@ void* __cdecl nox_xxx_draw_44C780(int a1) {
 }
 
 //----- (0044C7B0) --------------------------------------------------------
-LPVOID __cdecl sub_44C7B0(int a1) {
+LPVOID  sub_44C7B0(int a1) {
 	LPVOID* v1;    // ebx
 	int v2;        // ebp
 	LPVOID* v3;    // esi
@@ -1248,7 +1248,7 @@ LPVOID __cdecl sub_44C7B0(int a1) {
 }
 
 //----- (0044C650) --------------------------------------------------------
-void __cdecl nox_xxx_draw_44C650_free(LPVOID lpMem, void* draw) {
+void  nox_xxx_draw_44C650_free(LPVOID lpMem, void* draw) {
 	int kind = 0;
 	if (*(_DWORD*)nox_parse_thing_draw_funcs) {
 		nox_parse_thing_draw_funcs_t* item = NULL;

@@ -3,7 +3,7 @@
 
 #include "defs.h"
 
-wchar_t* __cdecl sub_450C30(unsigned __int8 a1, int a2);
+wchar_t*  sub_450C30(unsigned __int8 a1, int a2);
 int nox_xxx_consoleEnter_450FD0();
 int nox_xxx_consoleF1_451350();
 

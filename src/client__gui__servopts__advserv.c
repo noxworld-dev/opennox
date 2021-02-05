@@ -3,7 +3,7 @@
 extern _DWORD dword_5d4594_1316972;
 
 //----- (004BE2C0) --------------------------------------------------------
-int __cdecl sub_4BE2C0(int a1) {
+int  sub_4BE2C0(int a1) {
 	wchar_t* v1; // eax
 	_DWORD* v2;  // eax
 

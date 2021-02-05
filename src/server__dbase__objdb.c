@@ -1,7 +1,7 @@
 #include "proto.h"
 
 //----- (004E39F0) --------------------------------------------------------
-wchar_t* __cdecl sub_4E39F0_obj_db(const char** a1) {
+wchar_t*  sub_4E39F0_obj_db(const char** a1) {
 	const char* v1;      // esi
 	char* v2;            // eax
 	const char* v3;      // eax
