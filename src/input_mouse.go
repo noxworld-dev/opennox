@@ -5,6 +5,7 @@ import (
 
 	"github.com/veandco/go-sdl2/sdl"
 
+	"nox/common/memmap"
 	"nox/common/types"
 )
 
@@ -34,7 +35,7 @@ func inputInitMouse() {
 	inputAcquireMouse()
 
 	// indicates that mouse is present so cursor should be drawn
-	*PtrUint32(0x5D4594, 1193108) = 1
+	*memmap.PtrUint32(0x5D4594, 1193108) = 1
 }
 
 func pushMouseEvent(e noxMouseEvent) {
