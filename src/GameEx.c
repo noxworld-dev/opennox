@@ -11,6 +11,7 @@ extern int dword_5d4594_3484;
 extern unsigned int dword_5d4594_3843628;
 extern unsigned int dword_5d4594_1064896;
 extern unsigned int dword_5d4594_1064900;
+extern unsigned int dword_5d4594_815700;
 
 //-------------------------------------------------------------------------
 // Data declarations
@@ -453,12 +454,12 @@ int  sendtoWrapper(char* buf, int len, int smth) {
 	int v4;     // eax
 	int result; // eax
 
-	if (buf && len && (v3 = *(SOCKET**)getMemAt(0x5D4594, 3843788 + 4 * (*getMemU32Ptr(0x5D4594, 815700)))) != 0 // 0x97EC60 = netstructList
+	if (buf && len && (v3 = *(SOCKET**)getMemAt(0x5D4594, 3843788 + 4 * (dword_5d4594_815700))) != 0 // 0x97EC60 = netstructList
 																						// 0x69B7E8 = netSocketData
-		&& 4 * (*getMemU32Ptr(0x5D4594, 815700)) != 0xFF6813A0                                        // Seems to be bug
+		&& 4 * (dword_5d4594_815700) != 0xFF6813A0                                        // Seems to be bug
 												 // lea     eax, ds:97EC60h[eax*4]
 												 // test    eax, eax
-		&& (v4 = *getMemU32Ptr(0x5D4594, 3843788 + 4 * (*getMemU32Ptr(0x5D4594, 815700)))) != 0) {
+		&& (v4 = *getMemU32Ptr(0x5D4594, 3843788 + 4 * (dword_5d4594_815700))) != 0) {
 		result = sendto(*v3, buf, len, 0, (const struct sockaddr*)(v4 + 4), 16);
 	} else {
 		result = 0; // A call here is lost? - nope, as somehow the checks in ASM denies it completely
