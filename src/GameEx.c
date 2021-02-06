@@ -11,6 +11,7 @@ extern int dword_5d4594_3484;
 extern unsigned int dword_5d4594_3843628;
 extern unsigned int dword_5d4594_1064896;
 extern unsigned int dword_5d4594_1064900;
+extern unsigned int dword_587000_87404;
 
 //-------------------------------------------------------------------------
 // Data declarations
@@ -828,7 +829,7 @@ unsigned int invalidIpChecker(unsigned int interval, void* param) {
 HANDLE __usercall startInvalidIpChecker() {
 	HANDLE result; // eax
 
-	if (!*getMemU32Ptr(0x587000, 87404))
+	if (!dword_587000_87404)
 		result = SDL_AddTimer(0x12Cu, invalidIpChecker, NULL);
 	return result;
 }
