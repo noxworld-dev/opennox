@@ -32,12 +32,12 @@ void sub_430140(int a1) {
 		cur->field_2 = 0;
 		cur->seq = 0;
 	}
-	*getMemU32Ptr(0x5D4594, 791352) = 1;
-	*getMemU32Ptr(0x5D4594, 791344) = 0;
-	*getMemU32Ptr(0x5D4594, 791364) = 1;
-	*getMemU32Ptr(0x5D4594, 791356) = 0;
-	*getMemU32Ptr(0x5D4594, 791376) = 1;
-	*getMemU32Ptr(0x5D4594, 791368) = 0;
+	nox_input_buffer[0].btn[0].seq = 1;
+	nox_input_buffer[0].btn[0].pressed = 0;
+	nox_input_buffer[0].btn[1].seq = 1;
+	nox_input_buffer[0].btn[1].pressed = 0;
+	nox_input_buffer[0].btn[2].seq = 1;
+	nox_input_buffer[0].btn[2].pressed = 0;
 	nox_client_processMouseEvents_4302A0(1, 1);
 }
 
