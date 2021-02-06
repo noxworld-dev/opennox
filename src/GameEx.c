@@ -12,6 +12,7 @@ extern unsigned int dword_5d4594_3843628;
 extern unsigned int dword_5d4594_1064896;
 extern unsigned int dword_5d4594_1064900;
 extern unsigned int dword_587000_87404;
+extern unsigned int dword_5d4594_1064868;
 
 //-------------------------------------------------------------------------
 // Data declarations
@@ -1222,7 +1223,7 @@ void OnLibraryNotice(int a1, ...) {
 		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 			result = (_DWORD*)nox_common_gameFlags_check_40A5C0(0x204); // checks some gameFlags that are yet undiscovered
 			if (result) {
-				if (*getMemU32Ptr(0x5D4594, 1064868) || *getMemU32Ptr(0x5D4594, 1064905))
+				if (dword_5d4594_1064868 || *getMemU32Ptr(0x5D4594, 1064905))
 					return;
 				if (nox_common_gameFlags_check_40A5C0(1)) // isServer
 				{
@@ -1240,7 +1241,7 @@ void OnLibraryNotice(int a1, ...) {
 			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 				result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
 				if (result) {
-					if (*getMemU32Ptr(0x5D4594, 1064868) || *getMemU32Ptr(0x5D4594, 1064905))
+					if (dword_5d4594_1064868 || *getMemU32Ptr(0x5D4594, 1064905))
 						return;
 					if (nox_common_gameFlags_check_40A5C0(1)) // checkGameFlags isServer
 					{
