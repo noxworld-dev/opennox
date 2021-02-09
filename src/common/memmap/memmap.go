@@ -41,6 +41,22 @@ func (b *Blob) Contains(addr uintptr) bool {
 	return off < b.Size
 }
 
+// ContainsPtr checks if a blob contains a pointer.
+func (b *Blob) ContainsPtr(ptr unsafe.Pointer) (uintptr, bool) {
+	if len(b.Data) == 0 {
+		return 0, false
+	}
+	blob := unsafe.Pointer(&b.Data[0])
+	if uintptr(ptr) < uintptr(blob) {
+		return 0, false
+	}
+	off := uintptr(ptr) - uintptr(blob)
+	if off >= uintptr(len(b.Data)) {
+		return 0, false
+	}
+	return off, true
+}
+
 var (
 	blobs      []Blob
 	variables  []Variable
@@ -103,6 +119,16 @@ func BlobByAddr(addr uintptr) *Blob {
 		}
 	}
 	return nil
+}
+
+// BlobByPtr find a blob containing a pointer. Returns nil if there's no such blob.
+func BlobByPtr(ptr unsafe.Pointer) (*Blob, uintptr) {
+	for _, b := range blobs {
+		if off, ok := b.ContainsPtr(ptr); ok {
+			return &b, off
+		}
+	}
+	return nil, 0
 }
 
 // Blobs returns a sorted list of blobs.
