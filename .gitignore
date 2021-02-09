@@ -4,6 +4,9 @@ CMakeFiles/
 *.o
 *.exe
 *.wasm
+*.png
+*.dat
+*.dat.gz
 
 # For IntelliJ IDE
 src/.idea

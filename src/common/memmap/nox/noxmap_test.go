@@ -23,12 +23,26 @@ func TestIntersection(t *testing.T) {
 	}
 }
 
+const noxRoot = "../../.."
+
 func TestCodeStatic(t *testing.T) {
-	const path = "../../.."
-	files, err := ioutil.ReadDir(path)
+	out := findBlobAccesses(t, noxRoot)
+	for _, acc := range out {
+		if v := memmap.VariableByAddr(acc.Blob + acc.Off); v != nil {
+			voff := v.Addr - acc.Blob
+			t.Errorf("invalid access: accessing %s (+%d)[%d] as %q (%+d)", v.Name, voff, v.Size, acc.Expr, acc.Off-voff)
+		}
+	}
+}
+
+var reBlobAcc = regexp.MustCompile(`(getMem[\w\d]*)\s*\(`)
+
+func findBlobAccesses(t testing.TB, root string) []blobAccess {
+	files, err := ioutil.ReadDir(root)
 	if err != nil {
 		t.Fatal(err)
 	}
+	var out []blobAccess
 	for _, fi := range files {
 		if fi.IsDir() {
 			continue // we have a flat file tree
@@ -36,27 +50,31 @@ func TestCodeStatic(t *testing.T) {
 		name := fi.Name()
 		switch filepath.Ext(name) {
 		case ".c", ".h":
-			t.Run(filepath.Base(name), func(t *testing.T) {
-				if name == "memmap.h" {
-					t.SkipNow()
-				}
-				checkFileC(t, filepath.Join(path, name))
-			})
+			if name == "memmap.h" {
+				continue
+			}
+			list := parseFileC(t, filepath.Join(root, name))
+			out = append(out, list...)
 		case ".go":
-			t.Run(filepath.Base(name), func(t *testing.T) {
-				checkFileGo(t, filepath.Join(path, name))
-			})
+			// TODO: parse Go files as well
 		}
 	}
+	return out
 }
 
-var reBlobAcc = regexp.MustCompile(`(getMem[\w\d]*)\s*\(`)
+type blobAccess struct {
+	File string
+	Expr string
+	Blob uintptr
+	Off  uintptr
+}
 
-func checkFileC(t testing.TB, path string) {
+func parseFileC(t testing.TB, path string) []blobAccess {
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		t.Fatal(err)
 	}
+	var out []blobAccess
 	for len(data) > 0 {
 		loc := reBlobAcc.FindIndex(data)
 		if len(loc) == 0 {
@@ -72,8 +90,10 @@ func checkFileC(t testing.TB, path string) {
 		end += i + 1
 		expr := data[start:end]
 		data = data[end:]
-		checkExprC(t, expr)
+
+		out = append(out, parseExprC(t, expr))
 	}
+	return out
 }
 
 func removeLine(t testing.TB, path, word string) {
@@ -95,7 +115,7 @@ func removeLine(t testing.TB, path, word string) {
 	}
 }
 
-func checkExprC(t testing.TB, expr []byte) bool {
+func parseExprC(t testing.TB, expr []byte) blobAccess {
 	data := expr
 	//t.Logf("%q", string(data))
 	i := bytes.IndexByte(data, '(')
@@ -145,17 +165,11 @@ func checkExprC(t testing.TB, expr []byte) bool {
 			off += uintptr(v)
 		}
 	}
-	//t.Logf("%q = (0x%X, %d); %q", string(expr), blob, off, parts)
-	if v := memmap.VariableByAddr(uintptr(blob) + off); v != nil {
-		voff := v.Addr - uintptr(blob)
-		t.Errorf("invalid access: accessing %s (+%d)[%d] as %q (%+d)", v.Name, voff, v.Size, string(expr), off-voff)
-		return false
+	return blobAccess{
+		Expr: string(expr),
+		Blob: uintptr(blob),
+		Off:  off,
 	}
-	return true
-}
-
-func checkFileGo(t testing.TB, path string) {
-	t.Skip("TODO")
 }
 
 func indexToken(data []byte, start, end byte) int {
