@@ -2,10 +2,12 @@ package nox
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"nox/common/memmap"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 	"testing"
@@ -146,7 +148,7 @@ func checkExprC(t testing.TB, expr []byte) bool {
 	//t.Logf("%q = (0x%X, %d); %q", string(expr), blob, off, parts)
 	if v := memmap.VariableByAddr(uintptr(blob) + off); v != nil {
 		voff := v.Addr - uintptr(blob)
-		t.Errorf("invalid access: accessing %s (+%d) as %q (%+d)", v.Name, voff, string(expr), off-voff)
+		t.Errorf("invalid access: accessing %s (+%d)[%d] as %q (%+d)", v.Name, voff, v.Size, string(expr), off-voff)
 		return false
 	}
 	return true
@@ -202,4 +204,14 @@ func indexTokenAll(data []byte, tokens ...byte) int {
 		}
 	}
 	return -1
+}
+
+func TestSortMemmap(t *testing.T) {
+	sort.Slice(noxMemmap, func(i, j int) bool {
+		a, b := &noxMemmap[i], &noxMemmap[j]
+		return a.blob+a.off < b.blob+b.off
+	})
+	for _, v := range noxMemmap {
+		fmt.Printf("{0x%X, %d, %d, %q}, // 0x%X\n", v.blob, v.off, v.size, v.name, v.blob+v.off)
+	}
 }
