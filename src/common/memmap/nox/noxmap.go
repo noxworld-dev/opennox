@@ -3,6 +3,10 @@ package nox
 import "nox/common/memmap"
 
 func init() {
+	memmap.RegisterBlob(0x581450, "byte_581450", 23472)
+	memmap.RegisterBlob(0x587000, "byte_587000", 316820)
+	memmap.RegisterBlob(0x5D4594, "byte_5D4594", 3844309)
+	memmap.RegisterBlob(0x980858, "mix_dword_980858", 12)
 	for _, v := range noxMemmap {
 		memmap.RegisterVariableOff(v.blob, v.off, v.size, v.name, nil)
 	}
