@@ -5,16 +5,32 @@ import (
 	"nox/common/memmap"
 	"os"
 	"sync"
+	"sync/atomic"
 	"unsafe"
 )
 
 var (
-	logOnce sync.Once
-	logMu   sync.Mutex
-	log     *os.File
-	logSeen = make(map[memlog]struct{})
-	logEnc  *json.Encoder
+	logEnable uint32 // atomic
+	logOnce   sync.Once
+	logMu     sync.Mutex
+	log       *os.File
+	logSeen   = make(map[memlog]struct{})
+	logEnc    *json.Encoder
 )
+
+func init() {
+	if os.Getenv("NOX_MEMLOG") == "1" {
+		EnableMemlog(true)
+	}
+}
+
+func EnableMemlog(enable bool) {
+	var vi uint32
+	if enable {
+		vi = 1
+	}
+	atomic.StoreUint32(&logEnable, vi)
+}
 
 func ensureLog() {
 	logOnce.Do(func() {
@@ -67,17 +83,29 @@ func logMem(ptr unsafe.Pointer, size uintptr, typ, kind string) {
 }
 
 func logMemRead(ptr unsafe.Pointer, size uintptr) {
+	if atomic.LoadUint32(&logEnable) == 0 {
+		return
+	}
 	logMem(ptr, size, memlogRead, "")
 }
 
 func logMemWrite(ptr unsafe.Pointer, size uintptr) {
+	if atomic.LoadUint32(&logEnable) == 0 {
+		return
+	}
 	logMem(ptr, size, memlogWrite, "")
 }
 
 func logMemReadString(ptr unsafe.Pointer, size uintptr) {
+	if atomic.LoadUint32(&logEnable) == 0 {
+		return
+	}
 	logMem(ptr, size, memlogRead, memlogString)
 }
 
 func logMemWriteString(ptr unsafe.Pointer, size uintptr) {
+	if atomic.LoadUint32(&logEnable) == 0 {
+		return
+	}
 	logMem(ptr, size, memlogWrite, memlogString)
 }
