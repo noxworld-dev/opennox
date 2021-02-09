@@ -3,7 +3,7 @@
 package main
 
 /*
-#cgo CFLAGS: -DNOX_CGO_MEMMAP
+#cgo CFLAGS: -g -O0 -DNOX_CGO_MEMMAP
 typedef unsigned int uintptr_t;
 */
 import "C"
