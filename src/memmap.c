@@ -43,7 +43,7 @@ void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size) {
 	case 0x980858:
 		return &((char*)mix_dword_980858)[off];
 	}
-	fprintf(stderr, "Invalid memory access! Requested = %x+%x[%d]\n", base, off, size);
+	fprintf(stderr, "Invalid memory access! Requested = %x+%d[%d]\n", base, off, size);
 	abort();
 	return 0;
 }

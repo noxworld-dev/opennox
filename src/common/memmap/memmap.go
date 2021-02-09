@@ -1,6 +1,7 @@
 package memmap
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"sync/atomic"
@@ -20,6 +21,8 @@ type Variable struct {
 func (v *Variable) Contains(addr uintptr) bool {
 	if addr < v.Addr {
 		return false
+	} else if addr == v.Addr {
+		return true
 	}
 	off := addr - v.Addr
 	return off < v.Size
@@ -36,6 +39,8 @@ type Blob struct {
 func (b *Blob) Contains(addr uintptr) bool {
 	if addr < b.Addr {
 		return false
+	} else if addr == b.Addr {
+		return true
 	}
 	off := addr - b.Addr
 	return off < b.Size
@@ -204,7 +209,19 @@ func RelativeAddr(addr uintptr) (blob, off uintptr) {
 
 // PtrOff returns an unsafe pointer to the specified blob at a given offset.
 func PtrOff(blob, off uintptr) unsafe.Pointer {
-	return Ptr(blob + off)
+	if len(blobs) == 0 {
+		panic("no blobs defined")
+	}
+	if atomic.LoadUint32(&runtimeCheck) != 0 {
+		checkAddr(blob + off)
+	}
+	if b := BlobByAddr(blob); b != nil {
+		if off >= uintptr(len(b.Data)) {
+			panic(fmt.Errorf("out of bounds error on blob: 0x%X, %d (%+d)", blob, off, off-uintptr(len(b.Data))))
+		}
+		return unsafe.Pointer(&b.Data[off])
+	}
+	panic("no blobs matching the address: 0x" + strconv.FormatUint(uint64(blob), 16))
 }
 
 // PtrSize is similar to Ptr, but also specifies the size of the access.
@@ -214,7 +231,7 @@ func PtrSize(addr, size uintptr) unsafe.Pointer {
 
 // PtrSizeOff is similar to PtrOff, but also specifies the size of the access.
 func PtrSizeOff(addr, off, size uintptr) unsafe.Pointer {
-	return Ptr(addr + off)
+	return PtrOff(addr, off)
 }
 
 func PtrPtr(base, off uintptr) *unsafe.Pointer {
