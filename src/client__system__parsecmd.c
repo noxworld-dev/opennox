@@ -145,13 +145,13 @@ nox_cmd_t nox_commands_quality[] = {
 	{L"cable", 0, "setqualcablehelp", 0x3, 0, &nox_cmd_set_qual_cable},
 	{L"T1", 0, "setqualT1help", 0x3, 0, &nox_cmd_set_qual_t1},
 	{L"LAN", 0, "setqualLANhelp", 0x3, 0, &nox_cmd_set_qual_lan},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands_allow[] = {
 	{L"user", 0, "allowuserhelp", 0x1, 0, &nox_cmd_allow_user},
 	{L"IP", 0, "allowiphelp", 0x1, 0, &nox_cmd_allow_ip},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands_cheat[] = {
@@ -163,7 +163,7 @@ nox_cmd_t nox_commands_cheat[] = {
 	{L"spells", 0, "cheatspellshelp", 0x1, 0, &nox_cmd_cheat_spells},
 	{L"gold", 0, "cheatgoldhelp", 0x1, 0, &nox_cmd_cheat_gold},
 	{L"re-enter", 0, "", 0x1, 0, &nox_cmd_reenter},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands_list[] = {
@@ -173,26 +173,26 @@ nox_cmd_t nox_commands_list[] = {
 	{L"staffs", 0, "liststaffshelp", 0x3, 0, &nox_cmd_list_staffs},
 	{L"weapons", 0, "listweaponshelp", 0x3, 0, &nox_cmd_list_weapons},
 	{L"users", 0, "listusershelp", 0x3, 0, &nox_cmd_list_users},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands_log[] = {
 	{L"console", 0, "logconsolehelp", 0x3, 0, &nox_cmd_log_console},
 	{L"file", 0, "logfilehelp", 0x3, 0, &nox_cmd_log_file},
 	{L"stop", 0, "logstophelp", 0x3, 0, &nox_cmd_log_stop},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands_macros[] = {
 	{L"on", 0, "macrosonhelp", 0x1, 0, &nox_cmd_macros_on},
 	{L"off", 0, "macrosoffhelp", 0x1, 0, &nox_cmd_macros_off},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands_menu[] = {
 	{L"vidopt", 0, "menuvidopthelp", 0x3, 0, &nox_cmd_menu_vidopt},
 	{L"options", 0, "menuoptionshelp", 0x3, 0, &nox_cmd_menu_options},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands_set[] = {
@@ -219,7 +219,7 @@ nox_cmd_t nox_commands_set[] = {
 	{L"weapons", 0, "setweaponshelp", 0x11, 0, &nox_cmd_set_weapons},
 	{L"team", 0, "officialonly", 0x31, 0, &nox_cmd_offonly1},
 	{L"mode", 0, "officialonly", 0x31, 0, &nox_cmd_offonly2},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands_show[] = {
@@ -236,13 +236,13 @@ nox_cmd_t nox_commands_show[] = {
 	{L"netstat", 0, "shownetstathelp", 0x3, 0, &nox_cmd_show_netstat},
 	{L"mmx", 0, "showmmxhelp", 0x3, 0, &nox_cmd_show_mmx},
 	{L"seq", 0, "showseqhelp", 0x13, 0, &nox_cmd_show_seq},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands_telnet[] = {
 	{L"on", 0, "telnetonhelp", 0x1, 0, &nox_cmd_telnet_on},
 	{L"off", 0, "telnetoffhelp", 0x1, 0, &nox_cmd_telnet_off},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands_unset[] = {
@@ -250,7 +250,7 @@ nox_cmd_t nox_commands_unset[] = {
 	{L"frameratelimiter", 0, "unsetfrhelp", 0x1, 0, &nox_cmd_unset_fr},
 	{L"netdebug", 0, "unsetnetdebug", 0x3, 0, &nox_cmd_unset_net_debug},
 	{L"sage", 0, "unsetsagehelp", 0x1, 0, &nox_cmd_unset_sage},
-	{},
+	{0},
 };
 
 nox_cmd_t nox_commands[] = {
@@ -290,7 +290,7 @@ nox_cmd_t nox_commands[] = {
 	{L"window", 0, "windowhelp", 0x3, 0, &nox_cmd_window},
 	{L"startSoloQuest", 0, "nohelp", 0x5, 0, &nox_cmd_startSoloQuest},
 	{L"ques", 0, "helphelp", 0x3, 0, &nox_cmd_help},
-	{},
+	{0},
 };
 
 //----- (00440D70) --------------------------------------------------------
