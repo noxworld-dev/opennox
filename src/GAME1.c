@@ -661,9 +661,11 @@ size_t  sub_409200(char* a1, int a2, int a3, FILE* a4) {
 			v19 = v5;
 		}
 		memcpy(getMemAt(0x5D4594, v8 + 1288), a1, 4 * (v9 >> 2));
-		v10 = getMemAt(0x5D4594, 4 * (v9 >> 2) + 1288 + v8);
 		v11 = v9 + *getMemU32Ptr(0x5D4594, 1284);
-		memcpy(v10, &a1[4 * (v9 >> 2)], v9 & 3);
+		if (v9 & 3) {
+			v10 = getMemAt(0x5D4594, 4 * (v9 >> 2) + 1288 + v8);
+			memcpy(v10, &a1[4 * (v9 >> 2)], v9 & 3);
+		}
 		*getMemU32Ptr(0x5D4594, 1284) = v11;
 		if (!(v11 & 7)) {
 			sub_4097C0(getMemAt(0x5D4594, 1288), 8, getMemAt(0x5D4594, 1276));
