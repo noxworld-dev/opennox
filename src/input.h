@@ -15,4 +15,4 @@ bool controller_relative();
 nox_pointf controller_relative_pos();
 #endif // USE_SDL
 
-#endif NOX_INPUT_H
+#endif // NOX_INPUT_H
