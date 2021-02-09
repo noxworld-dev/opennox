@@ -27,6 +27,7 @@ func (v *Variable) Contains(addr uintptr) bool {
 
 type Blob struct {
 	Addr uintptr
+	Size uintptr // if Data is not set
 	Data []byte
 	Name string
 }
@@ -37,7 +38,7 @@ func (b *Blob) Contains(addr uintptr) bool {
 		return false
 	}
 	off := addr - b.Addr
-	return off < uintptr(len(b.Data))
+	return off < b.Size
 }
 
 var (
@@ -56,13 +57,39 @@ func sortVars() {
 	varsSorted = true
 }
 
-// RegisterBlob registers a raw blob with a given address in original Nox binary and specified name and data.
-func RegisterBlob(addr uintptr, name string, data []byte) {
-	blobs = append(blobs, Blob{
+// RegisterBlob registers a blob with a given address in original Nox binary and specified name and size.
+func RegisterBlob(addr uintptr, name string, size uintptr) {
+	b := Blob{
 		Addr: addr,
 		Name: name,
-		Data: data,
+		Size: size,
+	}
+	for _, b2 := range blobs {
+		if b.Addr == b2.Addr {
+			return // duplicate
+		}
+	}
+	blobs = append(blobs, b)
+	sort.Slice(blobs, func(i, j int) bool {
+		return blobs[i].Addr < blobs[j].Addr
 	})
+}
+
+// RegisterBlobData registers a raw blob with a given address in original Nox binary and specified name and data.
+func RegisterBlobData(addr uintptr, name string, data []byte) {
+	b := Blob{
+		Addr: addr,
+		Name: name,
+		Size: uintptr(len(data)),
+		Data: data,
+	}
+	for i, b2 := range blobs {
+		if b.Addr == b2.Addr {
+			blobs[i] = b
+			return
+		}
+	}
+	blobs = append(blobs, b)
 	sort.Slice(blobs, func(i, j int) bool {
 		return blobs[i].Addr < blobs[j].Addr
 	})
