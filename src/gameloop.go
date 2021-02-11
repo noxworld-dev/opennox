@@ -196,7 +196,49 @@ mainloop:
 				nox_exit(0)
 			}
 			// repeat
-			cmainLoop(true)
+			if C.nox_game_loop_xxx_805872 == 0 {
+				C.sub_43DB60()
+				C.sub_43D990()
+				C.g_v20 = 1
+				C.sub_43F140(800)
+				nox_common_initRandom_415F70()
+				*memmap.PtrUint32(0x5D4594, 2598000) = uint32(bool2int(getGameFlag(1)))
+				C.nox_ensure_thing_bin()
+				*memmap.PtrUint32(0x5D4594, 2650664) = 0
+				*memmap.PtrUint32(0x5D4594, 2649708) = 0
+				if C.g_v21 != 0 {
+					fmt.Println("goto CONNECT_RESULT")
+					mainloopEnter = func() {
+						CONNECT_RESULT(0)
+					}
+					continue mainloop
+				}
+				if getGameFlag(1) {
+					if C.nox_xxx_servNewSession_4D1660() == 0 {
+						continue mainloop
+					}
+				}
+				if C.nox_xxx_clientResetSpriteAndGui_4357D0(C.int(g_argc2), g_argv2) == 0 {
+					continue mainloop
+				}
+				if getGameFlag(1) && getGameFlag(0x400000) && getEngineFlag(NOX_ENGINE_FLAG_1) {
+					v23 := nox_common_get_data_path_409E10()
+					C.sub_4D39F0(v23)
+					if C.nox_xxx_mapGenStart_4D4320() == 0 {
+						C.nox_xxx_mapSwitchLevel_4D12E0(0)
+						continue mainloop
+					}
+					C.sub_4D3C30()
+					unsetGameFlag(0x400000)
+				}
+				fmt.Println("goto CONNECT_PREPARE")
+				mainloopEnter = CONNECT_PREPARE
+				continue mainloop
+			}
+			C.nox_xxx_cliSetupSession_437190()
+			C.nox_xxx_video_43BF10_upd_video_mode(1)
+			C.nox_client_initScreenParticles_431390()
+			cmainLoop()
 			continue mainloop
 		}
 		unsetGameFlag(0x10000000)
@@ -231,7 +273,7 @@ mainloop:
 		// C.nullsub_2()
 
 		// repeat
-		cmainLoop(false)
+		cmainLoop()
 		continue mainloop
 	}
 }
@@ -248,52 +290,8 @@ func caller(skip int) string {
 	return fmt.Sprintf("%s, %s:%d", fnc, filepath.Base(file), line)
 }
 
-func cmainLoop(reentrant bool) {
-	fmt.Printf("cmainLoop %v (%s)\n", reentrant, caller(1))
-	if reentrant {
-		if C.nox_game_loop_xxx_805872 == 0 {
-			C.sub_43DB60()
-			C.sub_43D990()
-			C.g_v20 = 1
-			C.sub_43F140(800)
-			nox_common_initRandom_415F70()
-			*memmap.PtrUint32(0x5D4594, 2598000) = uint32(bool2int(getGameFlag(1)))
-			C.nox_ensure_thing_bin()
-			*memmap.PtrUint32(0x5D4594, 2650664) = 0
-			*memmap.PtrUint32(0x5D4594, 2649708) = 0
-			if C.g_v21 != 0 {
-				fmt.Println("goto CONNECT_RESULT")
-				mainloopEnter = func() {
-					CONNECT_RESULT(0)
-				}
-				return
-			}
-			if getGameFlag(1) {
-				if C.nox_xxx_servNewSession_4D1660() == 0 {
-					return
-				}
-			}
-			if C.nox_xxx_clientResetSpriteAndGui_4357D0(C.int(g_argc2), g_argv2) == 0 {
-				return
-			}
-			if getGameFlag(1) && getGameFlag(0x400000) && getEngineFlag(NOX_ENGINE_FLAG_1) {
-				v23 := nox_common_get_data_path_409E10()
-				C.sub_4D39F0(v23)
-				if C.nox_xxx_mapGenStart_4D4320() == 0 {
-					C.nox_xxx_mapSwitchLevel_4D12E0(0)
-					return
-				}
-				C.sub_4D3C30()
-				unsetGameFlag(0x400000)
-			}
-			fmt.Println("goto CONNECT_PREPARE")
-			mainloopEnter = CONNECT_PREPARE
-			return
-		}
-		C.nox_xxx_cliSetupSession_437190()
-		C.nox_xxx_video_43BF10_upd_video_mode(1)
-		C.nox_client_initScreenParticles_431390()
-	}
+func cmainLoop() {
+	fmt.Printf("cmainLoop (%s)\n", caller(1))
 	C.sub_43F140(300)
 	if C.sub_43C060() == 0 {
 		return
@@ -671,18 +669,18 @@ func CONNECT_RESULT(result int) {
 			C.sub_413E30()
 		}
 		C.sub_43D0A0(C.int(result))
-		cmainLoop(false)
+		cmainLoop()
 		return
 	}
 	C.g_v21 = 1
 	if C.nox_xxx_replayStartReadingOrSaving_4D38D0() == 1 {
-		cmainLoop(false)
+		cmainLoop()
 		return
 	}
 	if !getGameFlag(1) {
 		C.nox_xxx_setGameState_43DDF0(nil)
 	} else if C.nox_xxx_servInitialMapLoad_4D17F0() == 0 {
-		cmainLoop(false)
+		cmainLoop()
 		return
 	}
 	if !getGameFlag(2) {
@@ -698,7 +696,7 @@ func CONNECT_RESULT(result int) {
 			}
 		}
 		if C.nox_xxx_initGameSession_435CC0() == 0 {
-			cmainLoop(false)
+			cmainLoop()
 			return
 		}
 	}
