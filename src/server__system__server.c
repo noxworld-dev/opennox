@@ -31,7 +31,6 @@ extern void* nox_alloc_execAbil_1569644;
 extern _DWORD dword_5d4594_1556148;
 extern _DWORD dword_5d4594_825768;
 extern void* nox_alloc_springs_2386568;
-extern _DWORD nox_continue_mainloop_93196;
 extern _DWORD dword_5d4594_608316;
 extern _DWORD dword_5d4594_1599060;
 extern _DWORD dword_5d4594_2386160;
@@ -145,7 +144,10 @@ LPVOID sub_426060() {
 }
 
 //----- (0043DEA0) --------------------------------------------------------
+#ifndef NOX_CGO
+extern _DWORD nox_continue_mainloop_93196;
 BOOL nox_server_mainloop_exiting_43DEA0() { return nox_continue_mainloop_93196 == 0; }
+#endif // NOX_CGO
 
 //----- (00446040) --------------------------------------------------------
 int sub_446040() { return dword_5d4594_825768; }
