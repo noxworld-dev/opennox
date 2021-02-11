@@ -33,8 +33,7 @@ func nox_xxx_processWinMessages_4453A0_poll_events() C.int {
 	return 0
 }
 
-//export input_cleanup
-func input_cleanup() {
+func inputCleanup() {
 	inputCleanupControllers()
 }
 
