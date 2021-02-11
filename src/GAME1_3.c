@@ -55,7 +55,6 @@ extern _DWORD dword_5d4594_816376;
 extern _DWORD dword_587000_111668;
 extern _DWORD dword_5d4594_825768;
 extern _DWORD dword_5d4594_825736;
-extern _DWORD nox_game_continueMenuOrHost_93200;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_830292;
 extern _DWORD dword_5d4594_816448;
@@ -151,6 +150,7 @@ extern nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[];
 extern int nox_parse_thing_draw_funcs_cnt;
 
 #ifndef NOX_CGO
+extern _DWORD nox_game_continueMenuOrHost_93200;
 extern _DWORD nox_continue_mainloop_93196;
 #endif // NOX_CGO
 
@@ -1697,9 +1697,11 @@ void sub_43DDA0() {
 }
 
 //----- (0043DDD0) --------------------------------------------------------
+#ifndef NOX_CGO
 void nox_xxx_setContinueMenuOrHost_43DDD0(int v) {
 	nox_game_continueMenuOrHost_93200 = v;
 }
+#endif // NOX_CGO
 
 //----- (0043DDE0) --------------------------------------------------------
 int  sub_43DDE0(int a1) {

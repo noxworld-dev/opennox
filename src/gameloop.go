@@ -20,7 +20,6 @@ extern unsigned int dword_5d4594_1556112;
 extern unsigned int dword_5d4594_2618912;
 extern unsigned int dword_5d4594_815132;
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_game_continueMenuOrHost_93200;
 extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -47,12 +46,18 @@ import (
 )
 
 var (
-	mainloopExitPath bool
-	mainloopEnter    func()
-	mainloopContinue = true // nox_continue_mainloop_93196
-	g_argc2          int
-	g_argv2          **C.char
+	mainloopExitPath   bool
+	mainloopEnter      func()
+	mainloopContinue   = true // nox_continue_mainloop_93196
+	continueMenuOrHost = true // nox_game_continueMenuOrHost_93200
+	g_argc2            int
+	g_argv2            **C.char
 )
+
+//export nox_xxx_setContinueMenuOrHost_43DDD0
+func nox_xxx_setContinueMenuOrHost_43DDD0(v C.int) {
+	continueMenuOrHost = v != 0
+}
 
 //export nox_server_mainloop_exiting_43DEA0
 func nox_server_mainloop_exiting_43DEA0() C.bool {
@@ -75,7 +80,7 @@ func nox_game_exit_xxx_43DE60() {
 func mainloop_43E290() {
 	fmt.Printf("mainloop_43E290 (%s)\n", caller(1))
 	mainloopContinue = true
-	C.nox_game_continueMenuOrHost_93200 = 1
+	continueMenuOrHost = true
 	*memmap.PtrUint32(0x5D4594, 816400) = 60 * uint32(C.nox_gameFPS)
 
 	// XXX
@@ -102,7 +107,7 @@ func mainloop() {
 		} else if ret == 0 {
 			// map error
 			mainloopContinue = false
-			C.nox_game_continueMenuOrHost_93200 = 0
+			continueMenuOrHost = false
 			goto MAINLOOP_EXIT
 		}
 	} else {
@@ -113,7 +118,7 @@ func mainloop() {
 				return
 			}
 			mainloopContinue = false
-			C.nox_game_continueMenuOrHost_93200 = 0
+			continueMenuOrHost = false
 			goto MAINLOOP_EXIT
 		}
 	}
@@ -148,7 +153,7 @@ func mainloop() {
 	C.sub_4519C0()
 	C.sub_4312C0()
 	C.sub_495430()
-	if getGameFlag(1) && C.nox_game_continueMenuOrHost_93200 == 1 {
+	if getGameFlag(1) && continueMenuOrHost {
 		if C.dword_5d4594_815132 == 0 {
 			if getGameFlag(0x2000) {
 				if C.nox_server_gameDoSwitchMap_40A680() != 0 {
@@ -282,7 +287,7 @@ MAINLOOP_WAIT:
 	}
 MAINLOOP_CHECK_STOP:
 	if C.nox_game_loop_xxx_805872 != 0 {
-		C.nox_game_continueMenuOrHost_93200 = 1
+		continueMenuOrHost = true
 	} else {
 		if mainloopContinue {
 			// unwind the stack and continue the mainloop
@@ -291,7 +296,7 @@ MAINLOOP_CHECK_STOP:
 	}
 MAINLOOP_EXIT:
 	if !mainloopExitPath {
-		if C.nox_game_continueMenuOrHost_93200 == 0 {
+		if !continueMenuOrHost {
 			cleanup()
 			nox_exit(0)
 		}
