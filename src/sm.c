@@ -1,3 +1,5 @@
+//+build none
+
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
 #endif
@@ -270,7 +272,7 @@ void NET_CONNECT(sm_args_t* args) {
 		WSACleanup();
 		GOTO_NET_CONNECT_THEN(-22);
 	}
-	if ((unsigned __int8)*cp < 0x30u || (unsigned __int8)*cp > 0x39u) {
+	if ((unsigned __int8)*cp < '0' || (unsigned __int8)*cp > '9') {
 		v9 = gethostbyname(cp);
 		if (!v9) {
 			WSACleanup();

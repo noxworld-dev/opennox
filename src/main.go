@@ -39,8 +39,6 @@ extern unsigned int dword_5d4594_2650652;
 extern unsigned int dword_5d4594_3804680;
 
 extern int g_v20, g_v21;
-extern int g_argc2;
-extern char** g_argv2;
 
 extern SDL_Window* g_window;
 
@@ -180,13 +178,13 @@ func cmain(args []string) error {
 	*memmap.PtrUint32(0x5D4594, 2618916) = 0
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	C.sub_43BDD0(10)
-	C.nox_common_gameFlags_unset_40A540(-1)
+	unsetGameFlag(GameFlag_ALL)
 	C.nox_xxx_setGameFlags_40A4D0(3)
-	C.nox_common_setEngineFlag(C.NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+	setEngineFlag(C.NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
 	C.dword_5d4594_2650652 = 0
-	v2 := C.nox_common_gameFlags_check_40A5C0(1)
+	v2 := getGameFlag(1)
 	C.nox_gameFPS = 30
-	*memmap.PtrUint32(0x5D4594, 2598000) = uint32(v2)
+	*memmap.PtrUint32(0x5D4594, 2598000) = uint32(bool2int(v2))
 	C.nox_ticks_xxx_416D40()
 	// does nothing on SDL
 	//if !*fServer {
@@ -204,28 +202,28 @@ func cmain(args []string) error {
 	}
 	if *fServer {
 		C.nox_enable_audio = 0
-		C.nox_common_setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | C.NOX_ENGINE_FLAG_31)
+		setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | C.NOX_ENGINE_FLAG_31)
 		C.nox_init_ticks_func()
 	}
 	if *fSleep {
-		C.nox_common_setEngineFlag(C.NOX_ENGINE_FLAG_31)
+		setEngineFlag(C.NOX_ENGINE_FLAG_31)
 	}
 	if v := *fDrop; v != 0 {
 		// TODO: can it be 0?
 		C.sub_552010(C.int(v))
 	}
 	if *fNoText {
-		C.nox_common_setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING)
+		setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING)
 	}
 	if *fNoLog {
 		C.sub_413C00()
 	}
 	if *fLock {
-		C.nox_common_setEngineFlag(C.NOX_ENGINE_FLAG_26)
+		setEngineFlag(C.NOX_ENGINE_FLAG_26)
 	}
 	if *fSafe {
-		C.nox_common_resetEngineFlag(C.NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
-		C.nox_common_setEngineFlag(C.NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE)
+		resetEngineFlag(C.NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		setEngineFlag(C.NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE)
 		C.nox_enable_audio = 0
 		C.nox_video_dxUnlockSurface = 1
 		C.nox_xxx_useAudio_587000_80800 = 0
@@ -256,10 +254,10 @@ func cmain(args []string) error {
 		*memmap.PtrUint8(0x587000, 88) = byte(v)
 	}
 	if *fNoFloor {
-		C.nox_common_setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING)
+		setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING)
 	}
 	if *fNoDraw {
-		C.nox_common_setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)
+		setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)
 	}
 	if v := *fPort; v > 0 {
 		C.nox_xxx_setPortParam_40A3E0(C.int(v))
@@ -268,7 +266,7 @@ func cmain(args []string) error {
 		C.nox_xxx_setClientNetPort_40A410(C.int(v))
 	}
 	if *fNoSoft {
-		C.nox_common_resetEngineFlag(C.NOX_ENGINE_FLAG_12)
+		resetEngineFlag(C.NOX_ENGINE_FLAG_12)
 	}
 	wd, err := os.Getwd()
 	if err != nil {
@@ -345,11 +343,11 @@ func cmain(args []string) error {
 	}
 	// does nothing on SDL
 	// C.sub_4147E0(C.int(uintptr(unsafe.Pointer(noxWindow))))
-	C.g_argc2 = C.int(len(args))
-	C.g_argv2 = &CStringArray(args)[0]
+	g_argc2 = len(args)
+	g_argv2 = &CStringArray(args)[0]
 	C.g_v20 = 0
 	C.g_v21 = 0
-	C.cmain_loop(0)
+	cmainLoop(false)
 	return nil
 }
 
@@ -379,6 +377,27 @@ func nox_xxx_getNoxVer_401020() *C.wchar_t {
 //export nox_xxx_gameResizeScreen_43BEF0_set_video_mode
 func nox_xxx_gameResizeScreen_43BEF0_set_video_mode(w, h, d C.int) {
 	nox_xxx_gameResizeScreen_setVideoMode(int(w), int(h), int(d))
+}
+
+//export nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode
+func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
+	cw, ch, cd := nox_xxx_gameGetScreenBoundaries_getVideoMode()
+	if w != nil {
+		*w = C.int(cw)
+	}
+	if h != nil {
+		*h = C.int(ch)
+	}
+	if d != nil {
+		*d = C.int(cd)
+	}
+}
+
+func nox_xxx_gameGetScreenBoundaries_getVideoMode() (w, h, d int) {
+	w = int(C.nox_win_width_1)
+	h = int(C.nox_win_height_1)
+	d = int(C.nox_win_depth_1)
+	return
 }
 
 func nox_xxx_gameResizeScreen_setVideoMode(w, h, d int) {
