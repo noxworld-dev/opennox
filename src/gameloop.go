@@ -154,33 +154,24 @@ mainloop:
 			mainloopDrawAndPresent()
 		}
 		C.sub_435750()
-		if memmap.Uint32(0x587000, 93192) == 0 {
-			goto MAINLOOP_CHECK_STOP
-		}
-		if !getGameFlag(1) || !getGameFlag(2) {
-			goto MAINLOOP_WAIT
-		}
-		if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
-			if getGameFlag(0x10000000) {
+		if memmap.Uint32(0x587000, 93192) != 0 {
+			if getGameFlag(1) && getGameFlag(2) && !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && getGameFlag(0x10000000) {
 				if !getEngineFlag(NOX_ENGINE_FLAG_32) {
 					C.nox_ticks_maybe_sleep_416DD0()
 				}
-				goto MAINLOOP_CHECK_STOP
+			} else {
+				if !getEngineFlag(NOX_ENGINE_FLAG_31) {
+					for C.nox_ticks_should_update_416CD0() == 0 {
+					}
+				} else {
+					ms := C.nox_ticks_until_next_416D00()
+					*memmap.PtrUint32(0x5D4594, 816404) = uint32(ms)
+					if ms > 0 {
+						platform.Sleep(time.Duration(ms) * time.Millisecond)
+					}
+				}
 			}
 		}
-		goto MAINLOOP_WAIT
-	MAINLOOP_WAIT:
-		if !getEngineFlag(NOX_ENGINE_FLAG_31) {
-			for C.nox_ticks_should_update_416CD0() == 0 {
-			}
-		} else {
-			ms := C.nox_ticks_until_next_416D00()
-			*memmap.PtrUint32(0x5D4594, 816404) = uint32(ms)
-			if ms > 0 {
-				platform.Sleep(time.Duration(ms) * time.Millisecond)
-			}
-		}
-	MAINLOOP_CHECK_STOP:
 		if C.nox_game_loop_xxx_805872 != 0 {
 			continueMenuOrHost = true
 		} else {
