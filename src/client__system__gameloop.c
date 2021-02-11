@@ -11,7 +11,6 @@
 #endif
 
 extern _DWORD dword_5d4594_1556112;
-extern _DWORD nox_game_continueMenuOrHost_93200;
 extern _DWORD nox_game_loop_xxx_805872;
 extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
 extern _DWORD nox_xxx_mapDownloadOK_587000_173332;
@@ -25,6 +24,7 @@ extern unsigned int nox_gameFPS;
 void cmain_loop(int);
 extern int g_v20, g_v21;
 #ifndef NOX_CGO
+_DWORD nox_game_continueMenuOrHost_93200 = 0x1;
 _DWORD nox_continue_mainloop_93196 = 0x1;
 #endif // NOX_CGO
 
