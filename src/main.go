@@ -43,9 +43,6 @@ extern int g_v20, g_v21;
 extern SDL_Window* g_window;
 
 void init_data();
-void cmain_loop(int);
-void input_cleanup();
-void input_set_win_size(int w, int h);
 */
 import "C"
 import (
@@ -92,15 +89,6 @@ func main() {
 	}
 }
 
-func CStringArray(arr []string) []*C.char {
-	out := make([]*C.char, 0, len(arr)+1)
-	for _, arg := range arr {
-		out = append(out, C.CString(arg))
-	}
-	out = append(out, nil)
-	return out[:len(arr):len(arr)]
-}
-
 func run() error { // aka WinMain
 	C.init_data()
 	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0) // probably not needed
@@ -110,7 +98,7 @@ func run() error { // aka WinMain
 	defer sdl.Quit()
 
 	sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "1")
-	defer C.input_cleanup()
+	defer inputCleanup()
 
 	win, err := sdl.CreateWindow("Nox Game Window", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
 		int32(C.nox_win_width), int32(C.nox_win_height), sdl.WINDOW_RESIZABLE)
@@ -179,8 +167,8 @@ func cmain(args []string) error {
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	C.sub_43BDD0(10)
 	unsetGameFlag(GameFlag_ALL)
-	C.nox_xxx_setGameFlags_40A4D0(3)
-	setEngineFlag(C.NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+	setGameFlag(3)
+	setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
 	C.dword_5d4594_2650652 = 0
 	v2 := getGameFlag(1)
 	C.nox_gameFPS = 30
@@ -195,35 +183,35 @@ func cmain(args []string) error {
 	C.nox_xxx_setGameState_43DDF0(nil)
 	C.nox_game_SetCliDrawFunc(nil)
 	C.sub_43DE40(nil)
-	C.nox_xxx_setGameFlags_40A4D0(256)
+	setGameFlag(256)
 	if *fNoLimit {
 		C.sub_43DDE0(0)
 		*memmap.PtrUint32(0x587000, 84) = 0
 	}
 	if *fServer {
 		C.nox_enable_audio = 0
-		setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | C.NOX_ENGINE_FLAG_31)
+		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | NOX_ENGINE_FLAG_31)
 		C.nox_init_ticks_func()
 	}
 	if *fSleep {
-		setEngineFlag(C.NOX_ENGINE_FLAG_31)
+		setEngineFlag(NOX_ENGINE_FLAG_31)
 	}
 	if v := *fDrop; v != 0 {
 		// TODO: can it be 0?
 		C.sub_552010(C.int(v))
 	}
 	if *fNoText {
-		setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING)
+		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING)
 	}
 	if *fNoLog {
 		C.sub_413C00()
 	}
 	if *fLock {
-		setEngineFlag(C.NOX_ENGINE_FLAG_26)
+		setEngineFlag(NOX_ENGINE_FLAG_26)
 	}
 	if *fSafe {
-		resetEngineFlag(C.NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
-		setEngineFlag(C.NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE)
+		resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		setEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE)
 		C.nox_enable_audio = 0
 		C.nox_video_dxUnlockSurface = 1
 		C.nox_xxx_useAudio_587000_80800 = 0
@@ -254,10 +242,10 @@ func cmain(args []string) error {
 		*memmap.PtrUint8(0x587000, 88) = byte(v)
 	}
 	if *fNoFloor {
-		setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING)
+		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING)
 	}
 	if *fNoDraw {
-		setEngineFlag(C.NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)
+		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)
 	}
 	if v := *fPort; v > 0 {
 		C.nox_xxx_setPortParam_40A3E0(C.int(v))
@@ -266,7 +254,7 @@ func cmain(args []string) error {
 		C.nox_xxx_setClientNetPort_40A410(C.int(v))
 	}
 	if *fNoSoft {
-		resetEngineFlag(C.NOX_ENGINE_FLAG_12)
+		resetEngineFlag(NOX_ENGINE_FLAG_12)
 	}
 	wd, err := os.Getwd()
 	if err != nil {
@@ -452,7 +440,6 @@ func sdl_get_display_dim() C.int4 {
 	return v
 }
 
-//export cleanup
 func cleanup() {
 	fmt.Println("cleanup")
 	if getGameFlag(0x2000000) {
