@@ -335,7 +335,7 @@ func cmain(args []string) error {
 	g_argv2 = &CStringArray(args)[0]
 	C.g_v20 = 0
 	C.g_v21 = 0
-	cmainLoop(false)
+	cmainLoop()
 	return nil
 }
 
