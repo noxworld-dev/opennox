@@ -592,7 +592,6 @@ _DWORD dword_5d4594_1197352 = 0;
 _DWORD dword_5d4594_826036 = 0;
 _DWORD dword_5d4594_1064860 = 0;
 _DWORD nox_xxx_mapPartN_587000_173336 = 0x1;
-_DWORD nox_continue_mainloop_93196 = 0x1;
 _DWORD dword_5d4594_1046536 = 0;
 _DWORD dword_5d4594_1062468 = 0;
 _DWORD nox_xxx_useAudio_587000_80832 = 0x1;
