@@ -3,13 +3,23 @@ package main
 /*
 extern unsigned int nox_common_engineFlags;
 extern unsigned int nox_common_gameFlags;
+void nox_common_gameFlags_unset_40A540(int a1);
+int nox_xxx_setGameFlags_40A4D0(int a1);
 */
 import "C"
 import (
 	"encoding/binary"
+	"math"
 	"nox/common/platform"
 	"nox/common/prand"
 )
+
+func bool2int(v bool) int {
+	if v {
+		return 1
+	}
+	return 0
+}
 
 var (
 	noxRndCounter1 = prand.New(0)
@@ -61,7 +71,19 @@ func getEngineFlag(f EngineFlags) bool {
 	return EngineFlags(C.nox_common_engineFlags).Has(f)
 }
 
+func setEngineFlag(f EngineFlags) {
+	C.nox_common_engineFlags |= C.uint(f)
+}
+
+func resetEngineFlag(f EngineFlags) {
+	C.nox_common_engineFlags &= C.uint(^f)
+}
+
 type GameFlag uint
+
+const (
+	GameFlag_ALL = GameFlag(math.MaxUint32)
+)
 
 func (f GameFlag) Has(v GameFlag) bool {
 	return f&v != 0
@@ -69,6 +91,14 @@ func (f GameFlag) Has(v GameFlag) bool {
 
 func getGameFlag(f GameFlag) bool {
 	return GameFlag(C.nox_common_gameFlags).Has(f)
+}
+
+func unsetGameFlag(f GameFlag) {
+	C.nox_common_gameFlags_unset_40A540(C.int(f))
+}
+
+func setGameFlag(f GameFlag) {
+	C.nox_xxx_setGameFlags_40A4D0(C.int(f))
 }
 
 //export nox_xxx_replayWriteRndCounter_415F30
@@ -106,7 +136,11 @@ func nox_common_randomInt_415FA0(min, max C.int) C.int {
 
 //export nox_common_randomIntMinMax_415FF0
 func nox_common_randomIntMinMax_415FF0(min, max C.int, file *C.char, line C.int) C.int {
-	return C.int(noxRndCounter2.Int(int(min), int(max)))
+	return C.int(randomIntMinMax(int(min), int(max)))
+}
+
+func randomIntMinMax(min, max int) int {
+	return noxRndCounter2.Int(min, max)
 }
 
 //export nox_common_randomFloat_416030

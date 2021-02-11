@@ -42,6 +42,14 @@ func asU16Slice(p unsafe.Pointer, sz int) (out []uint16) {
 	return
 }
 
+func asU32Slice(p unsafe.Pointer, sz int) (out []uint32) {
+	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
+		Data: uintptr(p),
+		Len:  sz, Cap: sz,
+	}
+	return
+}
+
 func asWStr(p unsafe.Pointer, sz int) (out []C.wchar_t) {
 	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
 		Data: uintptr(p),
