@@ -27,8 +27,6 @@ extern int nox_win_height;
 int call_func_5D4594_816388();
 int call_func_5D4594_816392();
 int call_nox_draw_unk1();
-
-extern int g_v20, g_v21;
 */
 import "C"
 import (
@@ -46,6 +44,8 @@ import (
 )
 
 var (
+	g_v20              bool
+	g_v21              bool
 	mainloopExitPath   bool
 	mainloopEnter      func()
 	mainloopContinue   = true // nox_continue_mainloop_93196
@@ -190,14 +190,14 @@ mainloop:
 			if C.nox_game_loop_xxx_805872 == 0 {
 				C.sub_43DB60()
 				C.sub_43D990()
-				C.g_v20 = 1
+				g_v20 = true
 				C.sub_43F140(800)
 				nox_common_initRandom_415F70()
 				*memmap.PtrUint32(0x5D4594, 2598000) = uint32(bool2int(getGameFlag(1)))
 				C.nox_ensure_thing_bin()
 				*memmap.PtrUint32(0x5D4594, 2650664) = 0
 				*memmap.PtrUint32(0x5D4594, 2649708) = 0
-				if C.g_v21 != 0 {
+				if g_v21 {
 					fmt.Println("goto CONNECT_RESULT")
 					mainloopEnter = func() {
 						CONNECT_RESULT(0)
@@ -250,7 +250,7 @@ mainloop:
 		*memmap.PtrUint32(0x587000, 80852) = uint32(C.nox_video_getGammaSetting_434B00())
 		C.nox_video_setGammaSetting_434B30(1)
 		C.sub_434B60()
-		C.g_v21 = 0
+		g_v21 = false
 		if getGameFlag(1) {
 			C.nox_xxx_servEndSession_4D3200()
 		}
@@ -290,9 +290,9 @@ func cmainLoop() {
 	if C.nox_xxx_cliWaitForJoinData_43BFE0() == 0 {
 		return
 	}
-	if C.g_v20 != 0 {
+	if g_v20 {
 		C.sub_43DBA0()
-		C.g_v20 = 0
+		g_v20 = false
 	}
 	C.sub_43F1A0()
 	mainloopExitPath = false
@@ -648,7 +648,7 @@ func CONNECT_WAIT_THEN(result int) {
 func CONNECT_RESULT(result int) {
 	if result != 0 {
 		unsetGameFlag(0x100000)
-		C.g_v21 = 0
+		g_v21 = false
 		if getGameFlag(1) {
 			C.nox_xxx_servEndSession_4D3200()
 		}
@@ -663,7 +663,7 @@ func CONNECT_RESULT(result int) {
 		cmainLoop()
 		return
 	}
-	C.g_v21 = 1
+	g_v21 = true
 	if C.nox_xxx_replayStartReadingOrSaving_4D38D0() == 1 {
 		cmainLoop()
 		return

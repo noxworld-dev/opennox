@@ -38,8 +38,6 @@ extern unsigned int nox_xxx_useAudio_587000_80800;
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int dword_5d4594_3804680;
 
-extern int g_v20, g_v21;
-
 extern SDL_Window* g_window;
 
 void init_data();
@@ -333,8 +331,6 @@ func cmain(args []string) error {
 	// C.sub_4147E0(C.int(uintptr(unsafe.Pointer(noxWindow))))
 	g_argc2 = len(args)
 	g_argv2 = &CStringArray(args)[0]
-	C.g_v20 = 0
-	C.g_v21 = 0
 	cmainLoop()
 	return nil
 }
