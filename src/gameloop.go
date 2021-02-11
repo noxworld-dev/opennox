@@ -97,7 +97,6 @@ func mainloop() {
 		mainloopEnter()
 		return
 	}
-	var v0 *C.uchar
 	if C.nox_xxx_gameDownloadInProgress_587000_173328 != 0 {
 		ret := C.map_download_loop(0)
 		if ret == -1 {
@@ -136,11 +135,7 @@ func mainloop() {
 	C.sub_430880(1)
 	C.nox_client_processMouseInput_4308A0(1)
 	C.nox_xxx_cursorUpdate_46B740()
-	v0 = (*C.uchar)(unsafe.Pointer(C.nox_xxx_wndKeyGet_430940()))
-	for C.dword_5d4594_2618912 = C.uint(uintptr(unsafe.Pointer(v0))); *v0 != 0; C.dword_5d4594_2618912 = C.uint(uintptr(unsafe.Pointer(v0))) {
-		C.nox_xxx_windowUpdateKeysMB_46B6B0(v0)
-		v0 = (*C.uchar)(unsafe.Pointer(uintptr(C.dword_5d4594_2618912) + 8))
-	}
+	mainloopKeysUpdate()
 	if C.call_nox_draw_unk1() == 0 {
 		goto MAINLOOP_EXIT
 	}
@@ -152,109 +147,15 @@ func mainloop() {
 	C.sub_4312C0()
 	C.sub_495430()
 	if getGameFlag(1) && continueMenuOrHost {
-		if C.dword_5d4594_815132 == 0 {
-			if getGameFlag(0x2000) {
-				if C.nox_server_gameDoSwitchMap_40A680() != 0 {
-					C.nox_xxx_netGameSettings_4DEF00()
-					C.nox_server_gameUnsetMapLoad_40A690()
-				} else if C.sub_459D60() != 0 && !getGameFlag(9437184) {
-					if C.sub_459DA0() != 0 {
-						C.sub_4DF020()
-					}
-					C.sub_459D50(0)
-				}
-				if memmap.Int32(0x5D4594, 2598000) >= memmap.Int32(0x5D4594, 816400) {
-					C.sub_4161E0()
-					C.sub_416690()
-					*memmap.PtrUint32(0x5D4594, 816400) = memmap.Uint32(0x5D4594, 2598000) + 60*uint32(C.nox_gameFPS)
-				}
-			}
-		}
+		mainloopMaybeSwitchMapXXX()
 	}
 	if C.dword_5d4594_815132 != 0 {
 		C.sub_43C380()
 		resetEngineFlag(NOX_ENGINE_FLAG_32)
-		if memmap.Uint32(0x5D4594, 816408) == 0 {
-			mouse := C.nox_client_getMouseState_4309F0()
-			// emit sparks when passing a certain distance
-			const distanceSparks = 0.25
-			dx := int(mouse.pos.x) - int(memmap.Uint32(0x5D4594, 816420))
-			dy := int(mouse.pos.y) - int(memmap.Uint32(0x5D4594, 816424))
-			r2 := dx*dx + dy*dy
-			if memmap.Uint32(0x5D4594, 816428) != 0 {
-				cnt := (int)(math.Sqrt(float64(r2)) * distanceSparks)
-				for i := cnt; i > 0; i-- {
-					v6 := randomIntMinMax(0, 100)
-					v7 := int(memmap.Uint32(0x5D4594, 816420)) + dx*v6/100
-					v9 := int(memmap.Uint32(0x5D4594, 816424)) + dy*v6/100
-					v23 := randomIntMinMax(2, 5)
-					v22 := randomIntMinMax(2, 5)
-					v21 := randomIntMinMax(-7, 2)
-					v10 := randomIntMinMax(-5, 5)
-					C.nox_client_newScreenParticle_431540(4, C.int(v7), C.int(v9), C.int(v10), C.int(v21), 1, C.char(v22), C.char(v23), 2, 1)
-				}
-				if r2 < 10 {
-					*memmap.PtrUint32(0x5D4594, 816428) = 0
-				}
-				*memmap.PtrUint32(0x5D4594, 816420) = uint32(mouse.pos.x)
-				*memmap.PtrUint32(0x5D4594, 816424) = uint32(mouse.pos.y)
-			} else if r2 > 64 {
-				*memmap.PtrUint32(0x5D4594, 816428) = 1
-			}
-			// explode with sparks when clicking
-			const explosionSparks = 75
-			if mouse.btn[C.NOX_MOUSE_LEFT].pressed == 1 {
-				randomIntMinMax(0, 2)
-				if memmap.Uint32(0x5D4594, 816416) == 0 {
-					*memmap.PtrUint32(0x5D4594, 816416) = 1
-					C.nox_xxx_clientPlaySoundSpecial_452D80(924, 100)
-					for i := explosionSparks; i > 0; i-- {
-						v12 := randomIntMinMax(0, 255)
-						v13 := randomIntMinMax(6, 12)
-						v14 := v13 * int(memmap.Int32(0x587000, 8*uintptr(v12)+192088))
-						v15 := v13*int(memmap.Int32(0x587000, 8*uintptr(v12)+192092))/16 - 6
-						v24 := randomIntMinMax(2, 5)
-						v16 := randomIntMinMax(2, 5)
-						C.nox_client_newScreenParticle_431540(4, C.int(v14/16+int(mouse.pos.x)), C.int(int(mouse.pos.y)+v15), C.int(v14/16), C.int(v15), 1, C.char(v16), C.char(v24), 2, 1)
-					}
-				}
-			} else {
-				*memmap.PtrUint32(0x5D4594, 816416) = 0
-			}
-		}
+		generateMouseSparks()
 	}
 	if !getEngineFlag(NOX_ENGINE_FLAG_32) {
-		C.sub_437180()
-		if C.dword_5d4594_1556112 == 0 {
-			C.mainloop_draw() // Draw game windows
-		}
-		if C.dword_5d4594_815132 != 0 {
-			v28 := alloc.Calloc(10, 4)
-			v28s := asU32Slice(v28, 10)
-			v28s[0] = 0
-			v28s[1] = 0
-			v28s[2] = uint32(C.nox_win_width)
-			v28s[3] = uint32(C.nox_win_height)
-			v28s[8] = uint32(C.nox_win_width)
-			v28s[9] = uint32(C.nox_win_height)
-			C.nox_client_screenParticlesDraw_431720((*C.int)(v28))
-			alloc.Free(v28)
-		} else {
-			v25 := C.sub_437250()
-			C.nox_client_screenParticlesDraw_431720((*C.int)(unsafe.Pointer(v25)))
-		}
-		if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.dword_5d4594_815132 != 0 {
-			C.nox_client_drawCursorAndTooltips_477830() // Draw cursor
-		}
-		C.sub_44D9F0(1)
-		if C.sub_409F40(4096) == 0 { // CheckRuleFlags and smth
-			C.nox_xxx_screenshot_46D830()
-		}
-		if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.dword_5d4594_815132 != 0 {
-			C.nox_xxx_directDrawBlitMB_48A220()
-			C.sub_4AD170_call_copy_backbuffer()
-			C.sub_48A290_call_present()
-		}
+		mainloopDrawAndPresent()
 	}
 	C.sub_435750()
 	if memmap.Uint32(0x587000, 93192) == 0 {
@@ -820,4 +721,126 @@ func CONNECT_RESULT(result int) {
 	setGameFlag(0x10000000)
 	mainloopExitPath = true
 	mainloop_43E290()
+}
+
+func mainloopKeysUpdate() {
+	v0 := (*C.uchar)(unsafe.Pointer(C.nox_xxx_wndKeyGet_430940()))
+	for C.dword_5d4594_2618912 = C.uint(uintptr(unsafe.Pointer(v0))); *v0 != 0; C.dword_5d4594_2618912 = C.uint(uintptr(unsafe.Pointer(v0))) {
+		C.nox_xxx_windowUpdateKeysMB_46B6B0(v0)
+		v0 = (*C.uchar)(unsafe.Pointer(uintptr(C.dword_5d4594_2618912) + 8))
+	}
+}
+
+func mainloopMaybeSwitchMapXXX() {
+	if C.dword_5d4594_815132 != 0 {
+		return
+	}
+	if !getGameFlag(0x2000) {
+		return
+	}
+	if C.nox_server_gameDoSwitchMap_40A680() != 0 {
+		C.nox_xxx_netGameSettings_4DEF00()
+		C.nox_server_gameUnsetMapLoad_40A690()
+	} else if C.sub_459D60() != 0 && !getGameFlag(9437184) {
+		if C.sub_459DA0() != 0 {
+			C.sub_4DF020()
+		}
+		C.sub_459D50(0)
+	}
+	if memmap.Int32(0x5D4594, 2598000) >= memmap.Int32(0x5D4594, 816400) {
+		C.sub_4161E0()
+		C.sub_416690()
+		*memmap.PtrUint32(0x5D4594, 816400) = memmap.Uint32(0x5D4594, 2598000) + 60*uint32(C.nox_gameFPS)
+	}
+}
+
+func mainloopDrawAndPresent() {
+	C.sub_437180()
+	if C.dword_5d4594_1556112 == 0 {
+		C.mainloop_draw() // Draw game windows
+	}
+	mainloopDrawSparks()
+	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.dword_5d4594_815132 != 0 {
+		C.nox_client_drawCursorAndTooltips_477830() // Draw cursor
+	}
+	C.sub_44D9F0(1)
+	if C.sub_409F40(4096) == 0 { // CheckRuleFlags and smth
+		C.nox_xxx_screenshot_46D830()
+	}
+	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.dword_5d4594_815132 != 0 {
+		C.nox_xxx_directDrawBlitMB_48A220()
+		C.sub_4AD170_call_copy_backbuffer()
+		C.sub_48A290_call_present()
+	}
+}
+
+func mainloopDrawSparks() {
+	if C.dword_5d4594_815132 != 0 {
+		v28 := alloc.Calloc(10, 4)
+		v28s := asU32Slice(v28, 10)
+		v28s[0] = 0
+		v28s[1] = 0
+		v28s[2] = uint32(C.nox_win_width)
+		v28s[3] = uint32(C.nox_win_height)
+		v28s[8] = uint32(C.nox_win_width)
+		v28s[9] = uint32(C.nox_win_height)
+		C.nox_client_screenParticlesDraw_431720((*C.int)(v28))
+		alloc.Free(v28)
+	} else {
+		v25 := C.sub_437250()
+		C.nox_client_screenParticlesDraw_431720((*C.int)(unsafe.Pointer(v25)))
+	}
+}
+
+func generateMouseSparks() {
+	if memmap.Uint32(0x5D4594, 816408) != 0 {
+		return
+	}
+
+	mouse := C.nox_client_getMouseState_4309F0()
+	// emit sparks when passing a certain distance
+	const distanceSparks = 0.25
+	dx := int(mouse.pos.x) - int(memmap.Uint32(0x5D4594, 816420))
+	dy := int(mouse.pos.y) - int(memmap.Uint32(0x5D4594, 816424))
+	r2 := dx*dx + dy*dy
+	if memmap.Uint32(0x5D4594, 816428) != 0 {
+		cnt := (int)(math.Sqrt(float64(r2)) * distanceSparks)
+		for i := cnt; i > 0; i-- {
+			v6 := randomIntMinMax(0, 100)
+			v7 := int(memmap.Uint32(0x5D4594, 816420)) + dx*v6/100
+			v9 := int(memmap.Uint32(0x5D4594, 816424)) + dy*v6/100
+			v23 := randomIntMinMax(2, 5)
+			v22 := randomIntMinMax(2, 5)
+			v21 := randomIntMinMax(-7, 2)
+			v10 := randomIntMinMax(-5, 5)
+			C.nox_client_newScreenParticle_431540(4, C.int(v7), C.int(v9), C.int(v10), C.int(v21), 1, C.char(v22), C.char(v23), 2, 1)
+		}
+		if r2 < 10 {
+			*memmap.PtrUint32(0x5D4594, 816428) = 0
+		}
+		*memmap.PtrUint32(0x5D4594, 816420) = uint32(mouse.pos.x)
+		*memmap.PtrUint32(0x5D4594, 816424) = uint32(mouse.pos.y)
+	} else if r2 > 64 {
+		*memmap.PtrUint32(0x5D4594, 816428) = 1
+	}
+	// explode with sparks when clicking
+	const explosionSparks = 75
+	if mouse.btn[C.NOX_MOUSE_LEFT].pressed == 1 {
+		randomIntMinMax(0, 2)
+		if memmap.Uint32(0x5D4594, 816416) == 0 {
+			*memmap.PtrUint32(0x5D4594, 816416) = 1
+			C.nox_xxx_clientPlaySoundSpecial_452D80(924, 100)
+			for i := explosionSparks; i > 0; i-- {
+				v12 := randomIntMinMax(0, 255)
+				v13 := randomIntMinMax(6, 12)
+				v14 := v13 * int(memmap.Int32(0x587000, 8*uintptr(v12)+192088))
+				v15 := v13*int(memmap.Int32(0x587000, 8*uintptr(v12)+192092))/16 - 6
+				v24 := randomIntMinMax(2, 5)
+				v16 := randomIntMinMax(2, 5)
+				C.nox_client_newScreenParticle_431540(4, C.int(v14/16+int(mouse.pos.x)), C.int(int(mouse.pos.y)+v15), C.int(v14/16), C.int(v15), 1, C.char(v16), C.char(v24), 2, 1)
+			}
+		}
+	} else {
+		*memmap.PtrUint32(0x5D4594, 816416) = 0
+	}
 }
