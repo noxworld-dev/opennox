@@ -86,157 +86,154 @@ func mainloop_43E290() {
 	C.nox_xxx_gameStopDownload_4AB560(0)
 
 	mainloopEnter = nil
+mainloop:
 	for mainloopContinue {
-		mainloop()
-	}
-}
-
-func mainloop() {
-	if mainloopEnter != nil {
-		fmt.Printf("mainloop continues (%s)\n", caller(1))
-		mainloopEnter()
-		return
-	}
-	if C.nox_xxx_gameDownloadInProgress_587000_173328 != 0 {
-		ret := C.map_download_loop(0)
-		if ret == -1 {
-			return
-		} else if ret == 0 {
-			// map error
-			mainloopContinue = false
-			continueMenuOrHost = false
+		if mainloopEnter != nil {
+			fmt.Printf("mainloop continues (%s)\n", caller(1))
+			mainloopEnter()
+			continue mainloop
+		}
+		if C.nox_xxx_gameDownloadInProgress_587000_173328 != 0 {
+			ret := C.map_download_loop(0)
+			if ret == -1 {
+				continue mainloop
+			} else if ret == 0 {
+				// map error
+				mainloopContinue = false
+				continueMenuOrHost = false
+				goto MAINLOOP_EXIT
+			}
+		} else {
+			C.fesetround(C.FE_TOWARDZERO)
+			if C.nox_xxx_gameChangeMap_43DEB0() == 0 {
+				// XXX
+				if C.nox_xxx_gameDownloadInProgress_587000_173328 != 0 {
+					continue mainloop
+				}
+				mainloopContinue = false
+				continueMenuOrHost = false
+				goto MAINLOOP_EXIT
+			}
+		}
+		if C.sub_43AF70() == 1 {
+			C.sub_40D250()
+			C.sub_40DF90()
+		}
+		C.nox_framerate_limit_416C70(30)
+		inputPollEvents()
+		C.sub_413520_gamedisk()
+		C.nox_xxx_time_startProfile_435770()
+		if C.call_func_5D4594_816388() == 0 {
 			goto MAINLOOP_EXIT
 		}
-	} else {
-		C.fesetround(C.FE_TOWARDZERO)
-		if C.nox_xxx_gameChangeMap_43DEB0() == 0 {
-			// XXX
-			if C.nox_xxx_gameDownloadInProgress_587000_173328 != 0 {
-				return
-			}
-			mainloopContinue = false
-			continueMenuOrHost = false
+		C.nox_xxx_time_endProfile_435780()
+		C.sub_435740()
+		C.sub_430880(1)
+		C.nox_client_processMouseInput_4308A0(1)
+		C.nox_xxx_cursorUpdate_46B740()
+		mainloopKeysUpdate()
+		if C.call_nox_draw_unk1() == 0 {
 			goto MAINLOOP_EXIT
 		}
-	}
-	if C.sub_43AF70() == 1 {
-		C.sub_40D250()
-		C.sub_40DF90()
-	}
-	C.nox_framerate_limit_416C70(30)
-	inputPollEvents()
-	C.sub_413520_gamedisk()
-	C.nox_xxx_time_startProfile_435770()
-	if C.call_func_5D4594_816388() == 0 {
-		goto MAINLOOP_EXIT
-	}
-	C.nox_xxx_time_endProfile_435780()
-	C.sub_435740()
-	C.sub_430880(1)
-	C.nox_client_processMouseInput_4308A0(1)
-	C.nox_xxx_cursorUpdate_46B740()
-	mainloopKeysUpdate()
-	if C.call_nox_draw_unk1() == 0 {
-		goto MAINLOOP_EXIT
-	}
-	C.sub_430880(0)
-	if C.call_func_5D4594_816392() == 0 {
-		goto MAINLOOP_EXIT
-	}
-	C.sub_4519C0()
-	C.sub_4312C0()
-	C.sub_495430()
-	if getGameFlag(1) && continueMenuOrHost {
-		mainloopMaybeSwitchMapXXX()
-	}
-	if C.dword_5d4594_815132 != 0 {
-		C.sub_43C380()
-		resetEngineFlag(NOX_ENGINE_FLAG_32)
-		generateMouseSparks()
-	}
-	if !getEngineFlag(NOX_ENGINE_FLAG_32) {
-		mainloopDrawAndPresent()
-	}
-	C.sub_435750()
-	if memmap.Uint32(0x587000, 93192) == 0 {
-		goto MAINLOOP_CHECK_STOP
-	}
-	if !getGameFlag(1) || !getGameFlag(2) {
-		goto MAINLOOP_WAIT
-	}
-	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
-		if getGameFlag(0x10000000) {
-			if !getEngineFlag(NOX_ENGINE_FLAG_32) {
-				C.nox_ticks_maybe_sleep_416DD0()
-			}
+		C.sub_430880(0)
+		if C.call_func_5D4594_816392() == 0 {
+			goto MAINLOOP_EXIT
+		}
+		C.sub_4519C0()
+		C.sub_4312C0()
+		C.sub_495430()
+		if getGameFlag(1) && continueMenuOrHost {
+			mainloopMaybeSwitchMapXXX()
+		}
+		if C.dword_5d4594_815132 != 0 {
+			C.sub_43C380()
+			resetEngineFlag(NOX_ENGINE_FLAG_32)
+			generateMouseSparks()
+		}
+		if !getEngineFlag(NOX_ENGINE_FLAG_32) {
+			mainloopDrawAndPresent()
+		}
+		C.sub_435750()
+		if memmap.Uint32(0x587000, 93192) == 0 {
 			goto MAINLOOP_CHECK_STOP
 		}
-	}
-	goto MAINLOOP_WAIT
-MAINLOOP_WAIT:
-	if !getEngineFlag(NOX_ENGINE_FLAG_31) {
-		for C.nox_ticks_should_update_416CD0() == 0 {
+		if !getGameFlag(1) || !getGameFlag(2) {
+			goto MAINLOOP_WAIT
 		}
-	} else {
-		ms := C.nox_ticks_until_next_416D00()
-		*memmap.PtrUint32(0x5D4594, 816404) = uint32(ms)
-		if ms > 0 {
-			platform.Sleep(time.Duration(ms) * time.Millisecond)
+		if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+			if getGameFlag(0x10000000) {
+				if !getEngineFlag(NOX_ENGINE_FLAG_32) {
+					C.nox_ticks_maybe_sleep_416DD0()
+				}
+				goto MAINLOOP_CHECK_STOP
+			}
 		}
-	}
-MAINLOOP_CHECK_STOP:
-	if C.nox_game_loop_xxx_805872 != 0 {
-		continueMenuOrHost = true
-	} else {
-		if mainloopContinue {
-			// unwind the stack and continue the mainloop
-			return
+		goto MAINLOOP_WAIT
+	MAINLOOP_WAIT:
+		if !getEngineFlag(NOX_ENGINE_FLAG_31) {
+			for C.nox_ticks_should_update_416CD0() == 0 {
+			}
+		} else {
+			ms := C.nox_ticks_until_next_416D00()
+			*memmap.PtrUint32(0x5D4594, 816404) = uint32(ms)
+			if ms > 0 {
+				platform.Sleep(time.Duration(ms) * time.Millisecond)
+			}
 		}
-	}
-MAINLOOP_EXIT:
-	if !mainloopExitPath {
-		if !continueMenuOrHost {
-			cleanup()
-			nox_exit(0)
+	MAINLOOP_CHECK_STOP:
+		if C.nox_game_loop_xxx_805872 != 0 {
+			continueMenuOrHost = true
+		} else {
+			if mainloopContinue {
+				// unwind the stack and continue the mainloop
+				continue mainloop
+			}
 		}
-		// repeat
-		cmainLoop(true)
-		return
-	}
-	unsetGameFlag(0x10000000)
-	unsetGameFlag(0xD7F0)
-	unsetGameFlag(0x900000)
-	C.sub_43F140(300)
-	C.sub_43D990()
-	C.nox_xxx_replayWriteSomeInt_4D39B0()
-	if getGameFlag(1) {
-		C.nox_xxx_servResetPlayers_4D23C0()
-	}
-	if getGameFlag(2) {
-		C.sub_435EB0()
-	}
-	if C.nox_xxx_video_43BF10_upd_video_mode(1) == 0 {
-		return
-	}
-	*memmap.PtrUint32(0x587000, 80852) = uint32(C.nox_video_getGammaSetting_434B00())
-	C.nox_video_setGammaSetting_434B30(1)
-	C.sub_434B60()
-	C.g_v21 = 0
-	if getGameFlag(1) {
-		C.nox_xxx_servEndSession_4D3200()
-	}
-	if getGameFlag(2) {
-		C.nox_xxx_cliSetupSession_437190()
-	}
-	C.nox_xxx_clear18hDD_416190()
-	if getEngineFlag(NOX_ENGINE_FLAG_13) {
-		C.sub_413E30()
-	}
-	// C.nullsub_2()
+	MAINLOOP_EXIT:
+		if !mainloopExitPath {
+			if !continueMenuOrHost {
+				cleanup()
+				nox_exit(0)
+			}
+			// repeat
+			cmainLoop(true)
+			continue mainloop
+		}
+		unsetGameFlag(0x10000000)
+		unsetGameFlag(0xD7F0)
+		unsetGameFlag(0x900000)
+		C.sub_43F140(300)
+		C.sub_43D990()
+		C.nox_xxx_replayWriteSomeInt_4D39B0()
+		if getGameFlag(1) {
+			C.nox_xxx_servResetPlayers_4D23C0()
+		}
+		if getGameFlag(2) {
+			C.sub_435EB0()
+		}
+		if C.nox_xxx_video_43BF10_upd_video_mode(1) == 0 {
+			continue mainloop
+		}
+		*memmap.PtrUint32(0x587000, 80852) = uint32(C.nox_video_getGammaSetting_434B00())
+		C.nox_video_setGammaSetting_434B30(1)
+		C.sub_434B60()
+		C.g_v21 = 0
+		if getGameFlag(1) {
+			C.nox_xxx_servEndSession_4D3200()
+		}
+		if getGameFlag(2) {
+			C.nox_xxx_cliSetupSession_437190()
+		}
+		C.nox_xxx_clear18hDD_416190()
+		if getEngineFlag(NOX_ENGINE_FLAG_13) {
+			C.sub_413E30()
+		}
+		// C.nullsub_2()
 
-	// repeat
-	cmainLoop(false)
-	return
+		// repeat
+		cmainLoop(false)
+		continue mainloop
+	}
 }
 
 func caller(skip int) string {
