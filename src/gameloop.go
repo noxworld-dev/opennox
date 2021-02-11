@@ -76,7 +76,6 @@ func nox_game_exit_xxx_43DE60() {
 	}
 }
 
-//export mainloop_43E290
 func mainloop_43E290() {
 	fmt.Printf("mainloop_43E290 (%s)\n", caller(1))
 	mainloopContinue = true
@@ -92,7 +91,6 @@ func mainloop_43E290() {
 	}
 }
 
-//export mainloop
 func mainloop() {
 	if mainloopEnter != nil {
 		fmt.Printf("mainloop continues (%s)\n", caller(1))
@@ -338,11 +336,6 @@ MAINLOOP_EXIT:
 	// repeat
 	cmainLoop(false)
 	return
-}
-
-//export cmain_loop
-func cmain_loop(reentrant C.int) {
-	cmainLoop(reentrant != 0)
 }
 
 func caller(skip int) string {

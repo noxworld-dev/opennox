@@ -26,6 +26,15 @@ func WStrSliceFree(arr []*C.wchar_t) {
 	C.free(unsafe.Pointer(&arr[0]))
 }
 
+func CStringArray(arr []string) []*C.char {
+	out := make([]*C.char, 0, len(arr)+1)
+	for _, arg := range arr {
+		out = append(out, C.CString(arg))
+	}
+	out = append(out, nil)
+	return out[:len(arr):len(arr)]
+}
+
 func asByteSlice(p unsafe.Pointer, sz int) (out []byte) {
 	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
 		Data: uintptr(p),
