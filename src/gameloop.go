@@ -19,7 +19,6 @@ extern unsigned int dword_5d4594_815700;
 extern unsigned int dword_5d4594_1556112;
 extern unsigned int dword_5d4594_2618912;
 extern unsigned int dword_5d4594_815132;
-extern unsigned int nox_continue_mainloop_93196;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_game_continueMenuOrHost_93200;
 extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
@@ -50,14 +49,32 @@ import (
 var (
 	mainloopExitPath bool
 	mainloopEnter    func()
+	mainloopContinue = true // nox_continue_mainloop_93196
 	g_argc2          int
 	g_argv2          **C.char
 )
 
+//export nox_server_mainloop_exiting_43DEA0
+func nox_server_mainloop_exiting_43DEA0() C.bool {
+	return C.bool(!mainloopContinue)
+}
+
+//export nox_game_exit_xxx_43DE60
+func nox_game_exit_xxx_43DE60() {
+	mainloopContinue = false
+	C.nox_xxx_gameSetCliConnected_43C720(0)
+	if C.sub_43AF70() != 1 {
+		return
+	}
+	if !getGameFlag(0x2000000) {
+		C.sub_40D380()
+	}
+}
+
 //export mainloop_43E290
 func mainloop_43E290() {
 	fmt.Printf("mainloop_43E290 (%s)\n", caller(1))
-	C.nox_continue_mainloop_93196 = 1
+	mainloopContinue = true
 	C.nox_game_continueMenuOrHost_93200 = 1
 	*memmap.PtrUint32(0x5D4594, 816400) = 60 * uint32(C.nox_gameFPS)
 
@@ -65,7 +82,7 @@ func mainloop_43E290() {
 	C.nox_xxx_gameStopDownload_4AB560(0)
 
 	mainloopEnter = nil
-	for C.nox_continue_mainloop_93196 != 0 {
+	for mainloopContinue {
 		mainloop()
 	}
 }
@@ -84,7 +101,7 @@ func mainloop() {
 			return
 		} else if ret == 0 {
 			// map error
-			C.nox_continue_mainloop_93196 = 0
+			mainloopContinue = false
 			C.nox_game_continueMenuOrHost_93200 = 0
 			goto MAINLOOP_EXIT
 		}
@@ -95,7 +112,7 @@ func mainloop() {
 			if C.nox_xxx_gameDownloadInProgress_587000_173328 != 0 {
 				return
 			}
-			C.nox_continue_mainloop_93196 = 0
+			mainloopContinue = false
 			C.nox_game_continueMenuOrHost_93200 = 0
 			goto MAINLOOP_EXIT
 		}
@@ -267,7 +284,7 @@ MAINLOOP_CHECK_STOP:
 	if C.nox_game_loop_xxx_805872 != 0 {
 		C.nox_game_continueMenuOrHost_93200 = 1
 	} else {
-		if C.nox_continue_mainloop_93196 != 0 {
+		if mainloopContinue {
 			// unwind the stack and continue the mainloop
 			return
 		}

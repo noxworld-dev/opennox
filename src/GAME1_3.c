@@ -61,7 +61,6 @@ extern _DWORD dword_5d4594_830292;
 extern _DWORD dword_5d4594_816448;
 extern _DWORD dword_5d4594_815704;
 extern _DWORD nox_xxx_useAudio_587000_80832;
-extern _DWORD nox_continue_mainloop_93196;
 extern _DWORD dword_5d4594_826036;
 extern _DWORD dword_5d4594_816356;
 extern _DWORD dword_5d4594_826032;
@@ -150,6 +149,10 @@ extern int nox_video_modes_cnt;
 
 extern nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[];
 extern int nox_parse_thing_draw_funcs_cnt;
+
+#ifndef NOX_CGO
+extern _DWORD nox_continue_mainloop_93196;
+#endif // NOX_CGO
 
 int (*nox_draw_unk1)(void) = 0;
 
@@ -1732,6 +1735,7 @@ int  sub_43DE40(int (*a1)(void)) {
 }
 
 //----- (0043DE60) --------------------------------------------------------
+#ifndef NOX_CGO
 void nox_game_exit_xxx_43DE60() {
 	nox_continue_mainloop_93196 = 0;
 	nox_xxx_gameSetCliConnected_43C720(0);
@@ -1741,6 +1745,7 @@ void nox_game_exit_xxx_43DE60() {
 	if (!nox_common_gameFlags_check_40A5C0(0x2000000))
 		sub_40D380();
 }
+#endif // NOX_CGO
 
 int map_download_loop(int first) {
 	unsigned __int8* v1; // eax
