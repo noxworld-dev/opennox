@@ -22,8 +22,8 @@ extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 
 void cmain_loop(int);
-extern int g_v20, g_v21;
 #ifndef NOX_CGO
+extern int g_v21;
 _DWORD nox_game_continueMenuOrHost_93200 = 0x1;
 _DWORD nox_continue_mainloop_93196 = 0x1;
 #endif // NOX_CGO
