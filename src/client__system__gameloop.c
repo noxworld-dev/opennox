@@ -213,7 +213,6 @@ void cleanup() {
 #endif
 	nox_free_thing_bin();
 }
-#endif // NOX_CGO
 
 void mainloop() {
 #ifdef NOX_E2E_TEST
@@ -487,3 +486,4 @@ MAINLOOP_EXIT:
 	cmain_loop(0);
 	return;
 }
+#endif // NOX_CGO
