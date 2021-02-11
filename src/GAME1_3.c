@@ -317,6 +317,7 @@ nox_video_mode*  sub_43BE80_video_mode_by_id(int a1) {
 }
 
 //----- (0043BEB0) --------------------------------------------------------
+#ifndef NOX_CGO
 void  nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(int* w, int* h, int* d) {
 	if (w)
 		*w = nox_win_width_1;
@@ -327,7 +328,6 @@ void  nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(int* w, int* h, int*
 }
 
 //----- (0043BEF0) --------------------------------------------------------
-#ifndef NOX_CGO
 void nox_xxx_gameResizeScreen_43BEF0_set_video_mode(int w, int h, int d) {
 	d = 16; // 8 bit not supported
 	nox_win_width_1 = w;
@@ -1822,7 +1822,7 @@ int sub_43E230() {
 }
 
 //-------------------------------------------------------------------------
-
+#ifndef NOX_CGO
 void mainloop_43E290() {
 	nox_continue_mainloop_93196 = 1;
 	nox_game_continueMenuOrHost_93200 = 1;
@@ -1844,6 +1844,7 @@ void mainloop_43E290() {
 	}
 #endif // __EMSCRIPTEN__
 }
+#endif // NOX_CGO
 // 43E815: variable 'v18' is possibly undefined
 // 4AD170: using guessed type int sub_4AD170_call_copy_backbuffer(void);
 
