@@ -644,7 +644,6 @@ _DWORD dword_5d4594_787180 = 0;
 _DWORD dword_5d4594_787200 = 0;
 _DWORD dword_5d4594_1316704 = 0;
 _DWORD dword_5d4594_1082864 = 0;
-_DWORD nox_game_continueMenuOrHost_93200 = 0x1;
 _DWORD dword_5d4594_825736 = 0;
 _DWORD dword_5d4594_1313540 = 0;
 _DWORD dword_5d4594_1096284 = 0;

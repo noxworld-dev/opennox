@@ -42,7 +42,6 @@ extern _DWORD dword_5d4594_10984;
 extern _DWORD dword_5d4594_1308;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_3616;
-extern _DWORD nox_game_continueMenuOrHost_93200;
 extern _DWORD dword_5d4594_252276;
 extern _DWORD dword_5d4594_251720;
 extern _DWORD dword_5d4594_3804680;
