@@ -37,6 +37,13 @@ extern unsigned int nox_xxx_useAudio_587000_80800;
 
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int dword_5d4594_3804680;
+extern void* dword_587000_81128;
+extern unsigned int dword_5d4594_1193336;
+extern unsigned int dword_5d4594_805980;
+extern unsigned int dword_587000_93156;
+extern unsigned int dword_5d4594_816340;
+extern unsigned int dword_5d4594_816348;
+extern unsigned int dword_5d4594_805988;
 
 extern SDL_Window* g_window;
 
@@ -449,7 +456,7 @@ func cleanup() {
 	C.sub_431380()
 	C.sub_4134F0()
 	C.nox_xxx_freeWeaponArmorDefAndModifs_413060()
-	C.sub_4311B0()
+	sub_4311B0()
 	C.nox_xxx_freeFloorBuffer_430EF0()
 	C.nox_xxx_freeKeyboard_430210()
 	C.nox_xxx_tileFree_410FC0_free()
@@ -470,4 +477,68 @@ func cleanup() {
 	C.sub_40AF30()
 	//C.sub_48B1B0() // does nothing on SDL
 	C.nox_free_thing_bin()
+}
+
+func sub_4311B0() {
+	sub_43DCC0()
+	sub_4312B0()
+	sub_43D970()
+	C.sub_44D8C0()
+	C.sub_451970()
+	if C.dword_5d4594_805980 != 0 {
+		C.sub_4869C0(C.LPVOID(unsafe.Pointer(uintptr(C.dword_5d4594_805980))))
+	}
+	C.dword_587000_81128 = nil
+	C.sub_431270()
+	if C.dword_5d4594_1193336 != 0 {
+		C.sub_4875F0()
+		C.sub_4870A0()
+		C.dword_5d4594_1193336 = 0
+	}
+}
+
+func sub_4312B0() {
+	C.sub_431290()
+	C.sub_44D8F0()
+	C.sub_43D990()
+}
+
+func sub_43D970() {
+	if C.dword_5d4594_816340 != 0 {
+		sub_43DCC0()
+		C.dword_5d4594_816340 = 0
+	}
+}
+
+func sub_43DCC0() {
+	if C.dword_587000_93156 == 0 {
+		return
+	}
+	if C.dword_5d4594_816340 == 0 {
+		return
+	}
+	C.sub_43D990()
+	for C.dword_5d4594_816348 != 0 {
+		if C.dword_5d4594_816348 == 3 {
+			C.sub_43D650()
+			C.dword_5d4594_816348 = 0
+		}
+		sub_4312C0()
+	}
+}
+
+//export sub_4312C0
+func sub_4312C0() {
+	if C.dword_5d4594_805988 != 0 {
+		return
+	}
+	C.dword_5d4594_805988 = 1
+	v1 := platformTicks()
+	v3 := int64(v1) - int64(memmap.Uint64(0x5D4594, 805996))
+	if v3 > 33 {
+		C.sub_44D3A0()
+		C.sub_43D440()
+		*memmap.PtrUint64(0x5D4594, 805996) = v1
+	}
+	C.dword_5d4594_805988 = 0
 }

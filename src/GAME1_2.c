@@ -5369,6 +5369,7 @@ int  nox_audio_initall(int a3) {
 }
 
 //----- (004311B0) --------------------------------------------------------
+#ifndef NOX_CGO
 void sub_4311B0() {
 	sub_43DCC0();
 	sub_4312B0();
@@ -5385,6 +5386,7 @@ void sub_4311B0() {
 		dword_5d4594_1193336 = 0;
 	}
 }
+#endif // NOX_CGO
 
 //----- (004311F0) --------------------------------------------------------
 BOOL sub_4311F0() {
@@ -5424,6 +5426,7 @@ int* sub_431290() {
 }
 
 //----- (004312B0) --------------------------------------------------------
+#ifndef NOX_CGO
 void sub_4312B0() {
 	sub_431290();
 	sub_44D8F0();
@@ -5431,28 +5434,21 @@ void sub_4312B0() {
 }
 
 //----- (004312C0) --------------------------------------------------------
-int sub_4312C0() {
-	int result;      // eax
-	__int64 v1;      // rax
-	__int64 v2;      // kr00_8
-	unsigned int v3; // ecx
-
-	result = dword_5d4594_805988;
-	if (!dword_5d4594_805988) {
-		dword_5d4594_805988 = 1;
-		v1 = nox_call_get_ticks();
-		v2 = v1;
-		v3 = (unsigned __int64)(v1 - *getMemU64Ptr(0x5D4594, 805996)) >> 32;
-		result = v1 - *getMemU32Ptr(0x5D4594, 805996);
-		if (__PAIR64__(v3, result) > 0x21) {
-			sub_44D3A0();
-			result = sub_43D440();
-			*getMemU64Ptr(0x5D4594, 805996) = v2;
-		}
-		dword_5d4594_805988 = 0;
+void sub_4312C0() {
+	if (dword_5d4594_805988) {
+		return;
 	}
-	return result;
+	dword_5d4594_805988 = 1;
+	__int64 v1 = nox_call_get_ticks();
+	__int64 v3 = v1 - *getMemU64Ptr(0x5D4594, 805996);
+	if (v3 > 33) {
+		sub_44D3A0();
+		sub_43D440();
+		*getMemU64Ptr(0x5D4594, 805996) = v1;
+	}
+	dword_5d4594_805988 = 0;
 }
+#endif // NOX_CGO
 
 //----- (00431330) --------------------------------------------------------
 BOOL sub_431330() { return dword_5d4594_805984 != 0; }
