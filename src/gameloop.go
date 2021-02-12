@@ -119,7 +119,7 @@ mainloop:
 			C.sub_40D250()
 			C.sub_40DF90()
 		}
-		C.nox_framerate_limit_416C70(30)
+		nox_framerate_limit_416C70(30)
 		inputPollEvents()
 		C.sub_413520_gamedisk()
 		C.nox_xxx_time_startProfile_435770()
@@ -157,14 +157,14 @@ mainloop:
 		if memmap.Uint32(0x587000, 93192) != 0 {
 			if getGameFlag(1) && getGameFlag(2) && !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && getGameFlag(0x10000000) {
 				if !getEngineFlag(NOX_ENGINE_FLAG_32) {
-					C.nox_ticks_maybe_sleep_416DD0()
+					nox_ticks_maybe_sleep_416DD0()
 				}
 			} else {
 				if !getEngineFlag(NOX_ENGINE_FLAG_31) {
-					for C.nox_ticks_should_update_416CD0() == 0 {
+					for !nox_ticks_should_update_416CD0() {
 					}
 				} else {
-					ms := C.nox_ticks_until_next_416D00()
+					ms := nox_ticks_until_next_416D00()
 					*memmap.PtrUint32(0x5D4594, 816404) = uint32(ms)
 					if ms > 0 {
 						platform.Sleep(time.Duration(ms) * time.Millisecond)
@@ -589,7 +589,7 @@ func NET_CONNECT_THEN(v5 int) {
 	C.sub_40A340(0)
 	C.nox_xxx_mapCrcMb_40A360(0)
 
-	deadline := uint64(C.nox_call_get_ticks()) + 10000
+	deadline := platformTicks() + 10000
 	fmt.Println("goto CONNECT_WAIT_LOOP")
 	mainloopEnter = func() {
 		CONNECT_WAIT_LOOP(deadline)
@@ -598,7 +598,7 @@ func NET_CONNECT_THEN(v5 int) {
 }
 
 func CONNECT_WAIT_LOOP(deadline uint64) {
-	if uint64(C.nox_call_get_ticks()) >= deadline {
+	if platformTicks() >= deadline {
 		fmt.Println("goto CONNECT_WAIT_THEN")
 		mainloopEnter = func() {
 			CONNECT_WAIT_THEN(0)
