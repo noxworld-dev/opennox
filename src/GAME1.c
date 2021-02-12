@@ -9726,6 +9726,7 @@ __int64 nox_get_ticks_freq() {
 
 
 //----- (00416B20) --------------------------------------------------------
+#ifndef NOX_CGO
 __int64 nox_get_ticks() { return nox_platform_get_ticks(); }
 
 __int64 (*nox_get_ticks_func)(void) = 0;
@@ -9788,7 +9789,7 @@ void nox_framerate_limit_416C70(int fps) {
 }
 
 //----- (00416CD0) --------------------------------------------------------
-BOOL nox_ticks_should_update_416CD0() {
+bool nox_ticks_should_update_416CD0() {
 	nox_framerate_cur_ticks = nox_call_get_ticks();
 	return nox_framerate_cur_ticks >= nox_framerate_next_ticks;
 }
@@ -9810,7 +9811,7 @@ void nox_ticks_xxx_416D40() {
 }
 
 //----- (00416D70) --------------------------------------------------------
-BOOL sub_416D70() {
+bool sub_416D70() {
 	float v2; // [esp+4h] [ebp-8h]
 
 	v2 = (double)(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 371772)) *
@@ -9826,6 +9827,7 @@ void nox_ticks_maybe_sleep_416DD0() {
 	if (ms > 0)
 		nox_platform_sleep(ms);
 }
+#endif // NOX_CGO
 
 //----- (00416E30) --------------------------------------------------------
 void nox_xxx_cliResetAllPlayers_416E30() { memset(nox_playerinfo_arr, 0, NOX_PLAYERINFO_MAX * sizeof(nox_playerInfo)); }

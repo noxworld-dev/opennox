@@ -159,7 +159,8 @@ func cmain(args []string) error {
 		*memmap.PtrUint32(0x5D4594, 805864) = 1
 	}
 
-	C.nox_init_ticks_func()
+	// static, don't need this
+	//C.nox_init_ticks_func()
 	*memmap.PtrUint32(0x5D4594, 2650640) = 0
 	*memmap.PtrUint32(0x5D4594, 2618916) = 0
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
@@ -171,7 +172,7 @@ func cmain(args []string) error {
 	v2 := getGameFlag(1)
 	C.nox_gameFPS = 30
 	*memmap.PtrUint32(0x5D4594, 2598000) = uint32(bool2int(v2))
-	C.nox_ticks_xxx_416D40()
+	nox_ticks_xxx_416D40()
 	// does nothing on SDL
 	//if !*fServer {
 	//	if C.nox_xxx_createMutexCheck_416A10() == 0 {
@@ -189,7 +190,8 @@ func cmain(args []string) error {
 	if *fServer {
 		C.nox_enable_audio = 0
 		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | NOX_ENGINE_FLAG_31)
-		C.nox_init_ticks_func()
+		// static, don't need this
+		//C.nox_init_ticks_func()
 	}
 	if *fSleep {
 		setEngineFlag(NOX_ENGINE_FLAG_31)
