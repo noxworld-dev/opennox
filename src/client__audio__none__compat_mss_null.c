@@ -105,7 +105,7 @@ DXDEC void AILCALL AIL_stop_timer(HTIMER timer) {}
 
 DXDEC S32 AILCALL AIL_stream_position(HSTREAM stream) { return -1; }
 
-DXDEC S32 AILCALL AIL_stream_status(HSTREAM stream) { return -1; }
+DXDEC S32 AILCALL AIL_stream_status(HSTREAM stream) { return 2; }
 
 DXDEC void AILCALL AIL_waveOutClose(HDIGDRIVER drvr) {}
 
