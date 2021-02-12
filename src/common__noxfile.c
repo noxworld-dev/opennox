@@ -2,7 +2,7 @@
 
 int dword_5d4594_3612 = 0;
 
-int sub_4312C0();
+void sub_4312C0();
 //----- (0040ADD0) --------------------------------------------------------
 int nox_xxx_fileBinRead_40ADD0_fread(char* buf, size_t size, size_t count, FILE* file) {
 

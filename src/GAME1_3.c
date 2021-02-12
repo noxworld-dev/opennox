@@ -1451,16 +1451,14 @@ int sub_43D8E0() {
 }
 
 //----- (0043D970) --------------------------------------------------------
-int sub_43D970() {
-	int result; // eax
-
-	result = dword_5d4594_816340;
+#ifndef NOX_CGO
+void sub_43D970() {
 	if (dword_5d4594_816340) {
-		result = sub_43DCC0();
+		sub_43DCC0();
 		dword_5d4594_816340 = 0;
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (0043D990) --------------------------------------------------------
 void sub_43D990() {
@@ -1638,28 +1636,27 @@ int sub_43DC80() {
 }
 
 //----- (0043DCC0) --------------------------------------------------------
-int sub_43DCC0() {
-	int result; // eax
-
-	result = dword_587000_93156;
-	if (dword_587000_93156) {
-		result = dword_5d4594_816340;
-		if (dword_5d4594_816340) {
-			sub_43D990();
-			for (result = dword_5d4594_816348; dword_5d4594_816348; result = dword_5d4594_816348) {
-				if (dword_5d4594_816348 == 3) {
-					sub_43D650();
-					dword_5d4594_816348 = 0;
-				}
-				sub_4312C0();
-#ifdef __EMSCRIPTEN__
-				nox_platform_sleep(0x32u);
-#endif // __EMSCRIPTEN__
-			}
-		}
+#ifndef NOX_CGO
+void sub_43DCC0() {
+	if (!dword_587000_93156) {
+		return;
 	}
-	return result;
+	if (!dword_5d4594_816340) {
+		return;
+	}
+	sub_43D990();
+	while (dword_5d4594_816348) {
+		if (dword_5d4594_816348 == 3) {
+			sub_43D650();
+			dword_5d4594_816348 = 0;
+		}
+		sub_4312C0();
+#ifdef __EMSCRIPTEN__
+		nox_platform_sleep(0x32u);
+#endif // __EMSCRIPTEN__
+	}
 }
+#endif // NOX_CGO
 
 //----- (0043DD10) --------------------------------------------------------
 int  sub_43DD10(int* a1) {
