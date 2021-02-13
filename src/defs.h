@@ -36,17 +36,16 @@
 #endif
 
 #ifdef _WIN32
-// Windows specific headers
-// Already defined in winreg.h
-/*
-typedef intptr_t INT_PTR;
-typedef INT_PTR LSTATUS;
-*/
+// added for MinGW headers compatibility
+#ifndef LSTATUS
+typedef intptr_t LSTATUS;
+#endif // LSTATUS
 
 #include <windows.h>
 //#include <mmreg.h>
 
 #ifdef _MSC_VER
+// added for MSVC compatibility 
 #ifndef _Static_assert
 #define _Static_assert static_assert
 #endif // _Static_assert
