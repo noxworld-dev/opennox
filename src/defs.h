@@ -433,6 +433,20 @@ typedef struct nox_server_xxx {
 } nox_server_xxx;
 _Static_assert(sizeof(nox_server_xxx) == 12, "wrong size of nox_server_xxx structure!");
 
+typedef struct nox_net_struct_arg_t {
+	_DWORD field_0;
+	_DWORD field_1;
+	_DWORD field_2;
+	int field_3;
+	_DWORD field_4;
+	int field_5;
+	_DWORD field_6;
+	_DWORD field_7;
+	void* field_8; // func
+	void* field_9; // func
+} nox_net_struct_arg_t;
+_Static_assert(sizeof(nox_net_struct_arg_t) == 40, "wrong size of nox_net_struct_arg_t structure!");
+
 typedef struct nox_net_struct_t {
 	_DWORD field_0;
 	_DWORD field_1;
@@ -454,7 +468,7 @@ typedef struct nox_net_struct_t {
 	_DWORD field_17;
 	_DWORD field_18;
 	_DWORD field_19;
-	void* field_20;
+	_DWORD field_20;
 	_DWORD field_21;
 	_DWORD field_22;
 	_DWORD field_23;

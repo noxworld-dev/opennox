@@ -475,7 +475,7 @@ u_long  sub_552FD0(u_long argp) {
 }
 
 //----- (00553000) --------------------------------------------------------
-nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(size_t* a1) {
+nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(nox_net_struct_arg_t* arg) {
 	nox_net_struct_t* net = malloc(sizeof(nox_net_struct_t));
 	if (!net) {
 		return 0;
@@ -495,23 +495,23 @@ nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(size_t* a1) {
 		return 0;
 	}
 	net->field_31 = v4;
-	if ((int)a1[3] > 0) {
-		void* v5 = malloc(a1[3]);
-		if (!v5) {
+	if (arg->field_3 > 0) {
+		void* p = malloc(arg->field_3);
+		if (!p) {
 			free(net);
 			return 0;
 		}
-		net->field_30 = v5;
-		memset(v5, 0, a1[3]);
+		memset(p, 0, arg->field_3);
+		net->field_30 = p;
 	}
-	signed int v6 = a1[5];
+	int v6 = arg->field_5;
 	if (v6 > 0) {
 		LOBYTE(v6) = v6 & 0xFC;
-		a1[5] = v6;
+		arg->field_5 = v6;
 	} else {
-		a1[5] = 1024;
+		arg->field_5 = 1024;
 	}
-	char* v7 = (char*)malloc(a1[5] + 2);
+	char* v7 = (char*)malloc(arg->field_5 + 2);
 	if (!v7) {
 		free(net->field_30);
 		free(net);
@@ -520,32 +520,30 @@ nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(size_t* a1) {
 	net->field_8 = v7;
 	net->field_9 = v7;
 	net->field_10 = v7;
-	net->field_11 = &v7[a1[5] + 2];
+	net->field_11 = &v7[arg->field_5 + 2];
 
-	void* v8 = malloc(a1[5] + 2);
+	void* v8 = malloc(arg->field_5 + 2);
 	if (!v8) {
 		free(net->field_8);
 		free(net->field_30);
 		free(net);
 		return 0;
 	}
+	memset(v8, 0, arg->field_5 + 2);
 	net->field_12 = v8;
-	memset(v8, 0, a1[5] + 2);
 	*((_BYTE*)v8) = -1;
 	int v9 = v8;
 	net->field_13 = v9 + 2;
 	net->field_14 = v9 + 2;
-	net->field_15 = v9 + a1[5] + 2;
+	net->field_15 = v9 + arg->field_5 + 2;
 
-	net->field_20 = a1[4];
-	void* v10 = a1[8];
-	if (v10)
-		net->field_35 = v10;
+	net->field_20 = arg->field_4;
+	if (arg->field_8)
+		net->field_35 = arg->field_8;
 	else
 		net->field_35 = sub_553D60;
-	size_t v11 = a1[9];
-	if (v11)
-		net->field_36 = v11;
+	if (arg->field_9)
+		net->field_36 = arg->field_9;
 	else
 		net->field_36 = sub_553D70;
 	net->field_28_1 = -1;
