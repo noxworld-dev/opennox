@@ -448,7 +448,7 @@ typedef struct nox_net_struct_arg_t {
 _Static_assert(sizeof(nox_net_struct_arg_t) == 40, "wrong size of nox_net_struct_arg_t structure!");
 
 typedef struct nox_net_struct_t {
-	_DWORD field_0;
+	SOCKET* sock; // 0
 	_DWORD field_1;
 	_DWORD field_2;
 	_DWORD field_3;

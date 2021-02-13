@@ -620,7 +620,6 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 	unsigned int v57;       // edx
 	unsigned __int8* v58;   // ecx
 	int v59;                // eax
-	void* v61;              // eax
 	int v62;                // ecx
 	char v63;               // al
 	char v64;               // al
@@ -690,9 +689,9 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 					memset(&narg, 0, sizeof(nox_net_struct_arg_t));
 					narg.field_3 = 4;
 					narg.field_5 = *(_DWORD*)(v7 + 60) - *(_DWORD*)(v7 + 48);
-					v61 = nox_xxx_makeNewNetStruct_553000(&narg);
-					*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) = v61; // <- HERE
-					if (v61) {
+					nox_net_struct_t* ns = nox_xxx_makeNewNetStruct_553000(&narg);
+					*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) = ns; // <- HERE
+					if (ns) {
 						++*(_DWORD*)(v7 + 84);
 						**(_BYTE**)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 48) = a1;
 						v62 = *(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 48);
@@ -1412,8 +1411,6 @@ int  sub_554240(int a1) {
 int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	int v2;                 // ebx
 	unsigned __int8* v3;    // eax
-	SOCKET* v4;             // eax
-	SOCKET* v5;             // esi
 	SOCKET v6;              // eax
 	__int16 v9;             // cx
 	struct hostent* v10;    // eax
@@ -1440,18 +1437,17 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	}
 	if (v2 == -1)
 		return -8;
-	v4 = (SOCKET*)nox_xxx_makeNewNetStruct_553000(narg);
-	v5 = v4;
-	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = v4; // <- HERE
-	if (!v4)
+	nox_net_struct_t* ns = nox_xxx_makeNewNetStruct_553000(narg);
+	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = ns; // <- HERE
+	if (!ns)
 		return -1;
-	*(_BYTE*)v4[12] = v2;
-	v4[5] = -1;
+	*(_BYTE*)(ns->field_12) = v2;
+	ns->field_5 = -1;
 	if (WSAStartup(0x101u, &WSAData) == -1) {
 		return -1;
 	}
 	v6 = socket(AF_INET, SOCK_DGRAM, 0);
-	*v5 = v6;
+	ns->sock = v6;
 	if (v6 == -1) {
 		WSACleanup();
 		return -1;
@@ -1471,7 +1467,7 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	name.sin_port = htons(v11);
 	name.sin_addr.s_addr = 0;
 	*getMemU16Ptr(0x5D4594, 3843636) = v9;
-	while (bind(*v5, &name, 16) == -1) {
+	while (bind(ns->sock, &name, 16) == -1) {
 		if (WSAGetLastError() != 10048) {
 			WSACleanup();
 			return -1;
@@ -1568,7 +1564,6 @@ int nox_xxx_netPreStructToFull_5546F0(nox_net_struct_arg_t* narg) {
 	int result;          // eax
 	int v2;              // esi
 	unsigned __int8* v3; // eax
-	void* v4;            // eax
 
 	if (!narg)
 		return -2;
@@ -1584,9 +1579,9 @@ int nox_xxx_netPreStructToFull_5546F0(nox_net_struct_arg_t* narg) {
 	}
 	if (v2 == -1)
 		return -8;
-	v4 = nox_xxx_makeNewNetStruct_553000(narg);
-	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = v4; // <- HERE
-	if (v4)
+	nox_net_struct_t* ns = nox_xxx_makeNewNetStruct_553000(narg);
+	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = ns; // <- HERE
+	if (ns)
 		result = v2;
 	else
 		result = -1;
