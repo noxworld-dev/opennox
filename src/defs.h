@@ -436,9 +436,9 @@ _Static_assert(sizeof(nox_server_xxx) == 12, "wrong size of nox_server_xxx struc
 typedef struct nox_net_struct_arg_t {
 	_DWORD field_0;
 	_DWORD field_1;
-	_DWORD field_2;
+	int field_2; // port?
 	int field_3;
-	_DWORD field_4;
+	int field_4;
 	int field_5;
 	_DWORD field_6;
 	_DWORD field_7;
