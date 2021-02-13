@@ -620,7 +620,6 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 	unsigned int v57;       // edx
 	unsigned __int8* v58;   // ecx
 	int v59;                // eax
-	int v60;                // eax
 	void* v61;              // eax
 	int v62;                // ecx
 	char v63;               // al
@@ -637,7 +636,6 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 	unsigned __int8 v74[8]; // [esp+18h] [ebp-38h]
 	int v75;                // [esp+20h] [ebp-30h]
 	int v76;                // [esp+24h] [ebp-2Ch]
-	char v77[40];           // [esp+28h] [ebp-28h]
 	char* v78;              // [esp+54h] [ebp+4h]
 
 	v4 = a4;
@@ -688,11 +686,11 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 					*(_BYTE*)(v4 + 2) = 2;
 					result = 3;
 				} else {
-					memset(v77, 0, sizeof(v77));
-					v60 = *(_DWORD*)(v7 + 60) - *(_DWORD*)(v7 + 48);
-					*(_DWORD*)&v77[12] = 4;
-					*(_DWORD*)&v77[20] = v60;
-					v61 = nox_xxx_makeNewNetStruct_553000((size_t*)v77);
+					nox_net_struct_arg_t narg;
+					memset(&narg, 0, sizeof(nox_net_struct_arg_t));
+					narg.field_3 = 4;
+					narg.field_5 = *(_DWORD*)(v7 + 60) - *(_DWORD*)(v7 + 48);
+					v61 = nox_xxx_makeNewNetStruct_553000(&narg);
 					*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) = v61; // <- HERE
 					if (v61) {
 						++*(_DWORD*)(v7 + 84);
