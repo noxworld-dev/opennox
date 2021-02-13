@@ -180,13 +180,13 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 	struct sockaddr to; // [esp+2Ch] [ebp-110h]
 	char buf[256];      // [esp+3Ch] [ebp-100h]
 
+	if (a1 >= 128) {
+		return -3;
+	}
 	v2 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
 	tolen = 16;
 	v29 = v2;
 	v26 = 1;
-	if (a1 >= 128) {
-		return -3;
-	}
 	if (!v2) {
 		return -3;
 	}
@@ -475,93 +475,82 @@ u_long  sub_552FD0(u_long argp) {
 }
 
 //----- (00553000) --------------------------------------------------------
-void*  nox_xxx_makeNewNetStruct_553000(size_t* a1) {
-	void* result;  // eax
-	void* v2;      // esi
-	HANDLE v3;     // eax
-	HANDLE v4;     // eax
-	void* v5;      // edi
-	signed int v6; // eax
-	char* v7;      // eax
-	void* v8;      // edi
-	int v9;        // eax
-	size_t v10;    // eax
-	size_t v11;    // ebx
-
-	result = malloc(0xA4u);
-	v2 = result;
-	if (result) {
-		memset(result, 0, 0xA4u);
-		v3 = CreateMutexA(0, 0, 0);
-		*((_DWORD*)v2 + 32) = v3;
-		if (!v3) {
-			free(v2);
-			return 0;
-		}
-		v4 = CreateMutexA(0, 0, 0);
-		*((_DWORD*)v2 + 31) = v4;
-		if (!v4) {
-			free(v2);
-			return 0;
-		}
-		if ((int)a1[3] > 0) {
-			v5 = malloc(a1[3]);
-			*((_DWORD*)v2 + 30) = v5;
-			if (!v5) {
-				free(v2);
-				return 0;
-			}
-			memset(v5, 0, a1[3]);
-		}
-		v6 = a1[5];
-		if (v6 > 0) {
-			LOBYTE(v6) = v6 & 0xFC;
-			a1[5] = v6;
-		} else {
-			a1[5] = 1024;
-		}
-		v7 = (char*)malloc(a1[5] + 2);
-		*((_DWORD*)v2 + 8) = v7;
-		if (v7) {
-			*((_DWORD*)v2 + 10) = v7;
-			*((_DWORD*)v2 + 9) = v7;
-			*((_DWORD*)v2 + 11) = &v7[a1[5] + 2];
-			v8 = malloc(a1[5] + 2);
-			*((_DWORD*)v2 + 12) = v8;
-			if (v8) {
-				memset(v8, 0, a1[5] + 2);
-				**((_BYTE**)v2 + 12) = -1;
-				v9 = *((_DWORD*)v2 + 12);
-				*((_DWORD*)v2 + 13) = v9 + 2;
-				*((_DWORD*)v2 + 14) = v9 + 2;
-				*((_DWORD*)v2 + 15) = v9 + a1[5] + 2;
-				*((_DWORD*)v2 + 20) = a1[4];
-				v10 = a1[8];
-				if (v10)
-					*((_DWORD*)v2 + 35) = v10;
-				else
-					*((_DWORD*)v2 + 35) = sub_553D60;
-				v11 = a1[9];
-				if (v11)
-					*((_DWORD*)v2 + 36) = v11;
-				else
-					*((_DWORD*)v2 + 36) = sub_553D70;
-				*((_BYTE*)v2 + 113) = -1;
-				*((_BYTE*)v2 + 148) = 0;
-				result = v2;
-			} else {
-				free(*((LPVOID*)v2 + 8));
-				free(*((LPVOID*)v2 + 30));
-				free(v2);
-				result = 0;
-			}
-		} else {
-			free(*((LPVOID*)v2 + 30));
-			free(v2);
-			result = 0;
-		}
+nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(size_t* a1) {
+	nox_net_struct_t* net = malloc(sizeof(nox_net_struct_t));
+	if (!net) {
+		return 0;
 	}
-	return result;
+	memset(net, 0, sizeof(nox_net_struct_t));
+
+	HANDLE v3 = CreateMutexA(0, 0, 0);
+	if (!v3) {
+		free(net);
+		return 0;
+	}
+	net->field_32 = v3;
+
+	HANDLE v4 = CreateMutexA(0, 0, 0);
+	if (!v4) {
+		free(net);
+		return 0;
+	}
+	net->field_31 = v4;
+	if ((int)a1[3] > 0) {
+		void* v5 = malloc(a1[3]);
+		if (!v5) {
+			free(net);
+			return 0;
+		}
+		net->field_30 = v5;
+		memset(v5, 0, a1[3]);
+	}
+	signed int v6 = a1[5];
+	if (v6 > 0) {
+		LOBYTE(v6) = v6 & 0xFC;
+		a1[5] = v6;
+	} else {
+		a1[5] = 1024;
+	}
+	char* v7 = (char*)malloc(a1[5] + 2);
+	if (!v7) {
+		free(net->field_30);
+		free(net);
+		return 0;
+	}
+	net->field_8 = v7;
+	net->field_9 = v7;
+	net->field_10 = v7;
+	net->field_11 = &v7[a1[5] + 2];
+
+	void* v8 = malloc(a1[5] + 2);
+	if (!v8) {
+		free(net->field_8);
+		free(net->field_30);
+		free(net);
+		return 0;
+	}
+	net->field_12 = v8;
+	memset(v8, 0, a1[5] + 2);
+	*((_BYTE*)v8) = -1;
+	int v9 = v8;
+	net->field_13 = v9 + 2;
+	net->field_14 = v9 + 2;
+	net->field_15 = v9 + a1[5] + 2;
+
+	net->field_20 = a1[4];
+	void* v10 = a1[8];
+	if (v10)
+		net->field_35 = v10;
+	else
+		net->field_35 = sub_553D60;
+	size_t v11 = a1[9];
+	if (v11)
+		net->field_36 = v11;
+	else
+		net->field_36 = sub_553D70;
+	net->field_28_1 = -1;
+	net->data_37[0] = 0;
+	return net;
 }
 
 //----- (005531C0) --------------------------------------------------------
@@ -706,7 +695,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 					*(_DWORD*)&v77[12] = 4;
 					*(_DWORD*)&v77[20] = v60;
 					v61 = nox_xxx_makeNewNetStruct_553000((size_t*)v77);
-					*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) = v61;
+					*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) = v61; // <- HERE
 					if (v61) {
 						++*(_DWORD*)(v7 + 84);
 						**(_BYTE**)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 48) = a1;
@@ -1458,7 +1447,7 @@ int  nox_xxx_netInit_554380(size_t* a1) {
 		return -8;
 	v4 = (SOCKET*)nox_xxx_makeNewNetStruct_553000(a1);
 	v5 = v4;
-	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = v4;
+	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = v4; // <- HERE
 	if (!v4)
 		return -1;
 	*(_BYTE*)v4[12] = v2;
@@ -1601,7 +1590,7 @@ int  nox_xxx_netPreStructToFull_5546F0(size_t* a1) {
 	if (v2 == -1)
 		return -8;
 	v4 = nox_xxx_makeNewNetStruct_553000(a1);
-	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = v4;
+	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = v4; // <- HERE
 	if (v4)
 		result = v2;
 	else
