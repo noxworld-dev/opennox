@@ -9372,19 +9372,19 @@ char*  nox_xxx_playerDisconnByPlrID_4DEB00(int a1) {
 }
 
 //----- (004DEBC0) --------------------------------------------------------
-int  nox_xxx_netAddPlayerHandler_4DEBC0(int a1) {
+int  nox_xxx_netAddPlayerHandler_4DEBC0(int port) {
 	int result;  // eax
-	char v2[40]; // [esp+4h] [ebp-28h]
 
-	memset(v2, 0, sizeof(v2));
-	*(_DWORD*)&v2[16] = nox_xxx_servGetPlrLimit_409FA0();
-	*(_DWORD*)&v2[20] = 2048;
-	*(_DWORD*)&v2[8] = a1;
-	*(_DWORD*)&v2[12] = 0;
+	nox_net_struct_arg_t narg;
+	memset(&narg, 0, sizeof(nox_net_struct_arg_t));
+	narg.field_2 = port;
+	narg.field_3 = 0;
+	narg.field_4 = nox_xxx_servGetPlrLimit_409FA0();
+	narg.field_5 = 2048;
 	nox_xxx_allocNetGQueue_5520B0(200, 1024);
-	*(_DWORD*)&v2[36] = nox_xxx_netlist_ServRecv_4DEC30;
-	*(_DWORD*)&v2[32] = nox_xxx_netFn_UpdateStream_4DF630;
-	result = nox_xxx_netInit_554380((size_t*)v2);
+	narg.field_9 = nox_xxx_netlist_ServRecv_4DEC30;
+	narg.field_8 = nox_xxx_netFn_UpdateStream_4DF630;
+	result = nox_xxx_netInit_554380(&narg);
 	OnLibraryNotice(256, 0);
 	*getMemU32Ptr(0x5D4594, 1563148) = result;
 	return result;

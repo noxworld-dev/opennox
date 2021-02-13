@@ -4228,7 +4228,7 @@ void  sub_4DE790(int a1);
 char*  nox_xxx_playerForceDisconnect_4DE7C0(int a1);
 char*  nox_xxx_playerCallDisconnect_4DEAB0(int a1, char a2);
 char*  nox_xxx_playerDisconnByPlrID_4DEB00(int a1);
-int  nox_xxx_netAddPlayerHandler_4DEBC0(int a1);
+int  nox_xxx_netAddPlayerHandler_4DEBC0(int port);
 int  nox_xxx_netlist_ServRecv_4DEC30(int a1, unsigned __int8* a2, signed int a3);
 int  sub_4DEC50(int a1);
 int  nox_xxx_netCloseHandler_4DEC60(unsigned int a1);
