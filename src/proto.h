@@ -6555,7 +6555,7 @@ char* sub_554230();
 int  sub_554240(int a1);
 unsigned int sub_554290();
 int sub_554300();
-int  nox_xxx_netInit_554380(size_t* a1);
+int  nox_xxx_netInit_554380(nox_net_struct_arg_t* narg);
 __int16 sub_5545A0();
 int  nox_xxx_netStructReadPackets_5545B0(unsigned int a1);
 int  sub_5546A0(unsigned int a1);
