@@ -178,10 +178,12 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 	tolen = 16;
 	v29 = v2;
 	v26 = 1;
-	if (a1 >= 0x80)
+	if (a1 >= 128) {
 		return -3;
-	if (!v2)
+	}
+	if (!v2) {
 		return -3;
+	}
 	v32 = a2 & 1;
 	if (!(a2 & 1)) {
 		argp = 1;
@@ -193,11 +195,13 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 			v33 = 1;
 			v5 = sub_552020(v4, v24, v25, 0, &to, &tolen);
 			v6 = v5;
-			if (v5 == -1)
+			if (v5 == -1) {
 				goto LABEL_8;
+			}
 			sub_553FC0(v5, 1);
-			if (v6 < 3)
+			if (v6 < 3) {
 				goto LABEL_48;
+			}
 			v7 = *(unsigned __int8**)(v2 + 40);
 			*(_DWORD*)(v2 + 36) += v6;
 			v8 = *v7;
@@ -217,23 +221,28 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 			}
 			if (v10 < 0xEu || v10 > 0x14u) {
 				if (v8 == 255) {
-					if (v26 != 1)
+					if (v26 != 1) {
 						goto LABEL_48;
+					}
 				} else {
 					v26 = 0;
-					if (!sub_551E00(v8 & 0x7F, (int)&to))
+					if (!sub_551E00(v8 & 0x7F, (int)&to)) {
 						goto LABEL_48;
+					}
 					v10 = v27;
 					v9 = v31;
 					v26 = 1;
 				}
-				if (*(int*)(v2 + 20) == -1)
+				if (*(int*)(v2 + 20) == -1) {
 					v29 = *getMemU32Ptr(0x5D4594, 4 * (v8 & 0x7F) + 3843788);
+				}
 				if ((v8 & 0x80u) == 0) {
-					if (!v29)
+					if (!v29) {
 						goto LABEL_48;
-					if (v9 == *(_BYTE*)(v29 + 113))
+					}
+					if (v9 == *(_BYTE*)(v29 + 113)) {
 						goto LABEL_42;
+					}
 					v19 = v31;
 					sub_5551F0(v8, v31, 1);
 					sub_555360(v8, v19, 1);
@@ -245,8 +254,9 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 					buf[0] = 38;
 					buf[1] = *(_BYTE*)(v29 + 113);
 					(*(void(**)(unsigned int, char*, int, _DWORD))(v2 + 144))(v8, buf, 2, *(_DWORD*)(v29 + 120));
-					if (!v20)
+					if (!v20) {
 						goto LABEL_48;
+					}
 				} else {
 					if (v8 == 255) {
 						if (!v10) {
@@ -262,16 +272,19 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 					}
 					**(_BYTE**)(v2 + 40) &= 0x7Fu;
 					v8 = **(unsigned __int8**)(v2 + 40);
-					if (!v29)
+					if (!v29) {
 						goto LABEL_48;
+					}
 					v16 = *(_DWORD*)(v29 + 48);
 					v17 = *(_BYTE*)(v16 + 1);
-					if (v17 != v9)
+					if (v17 != v9) {
 						goto LABEL_48;
+					}
 					v18 = v31;
 					*(BYTE*)(v16 + 1) = v17 + 1;
-					if (sub_551EB0(a1, v8, v18, *(_DWORD*)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40)) == 1)
+					if (sub_551EB0(a1, v8, v18, *(_DWORD*)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40)) == 1) {
 						goto LABEL_48;
+					}
 				}
 				v10 = v27;
 			} else {
@@ -294,27 +307,30 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 				}
 				goto LABEL_48;
 			}
-			if (v29 && !(a2 & 2))
-				(*(void(**)(unsigned int, int, int, _DWORD))(v2 + 144))(v8, *(_DWORD*)(v2 + 40) + 2, v6 - 2,
-																			   *(_DWORD*)(v29 + 120));
+			if (v29 && !(a2 & 2)) {
+				(*(void(**)(unsigned int, int, int, _DWORD))(v2 + 144))(v8, *(_DWORD*)(v2 + 40) + 2, v6 - 2, *(_DWORD*)(v29 + 120));
+		    }
 		LABEL_48:
 			v23 = *(_DWORD*)(v2 + 32);
 			*(_DWORD*)(v2 + 40) = v23;
 			*(_DWORD*)(v2 + 36) = v23;
 			argp = 0;
 			if (v32 && !(a2 & 4)) {
-				if (ioctlsocket(*(_DWORD*)v2, 1074030207, &argp) == -1)
+				if (ioctlsocket(*(_DWORD*)v2, 1074030207, &argp) == -1) {
 					goto LABEL_8;
-				if (argp)
+				}
+				if (argp) {
 					continue;
+				}
 			}
 			return v6;
 		}
 	}
 	result = ioctlsocket(*(_DWORD*)v2, 1074030207, &argp);
 	if (result != -1) {
-		if (argp)
+		if (argp) {
 			goto LABEL_10;
+		}
 	LABEL_8:
 		result = -1;
 	}
