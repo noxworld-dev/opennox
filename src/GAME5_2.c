@@ -1564,15 +1564,15 @@ int  sub_5546A0(unsigned int a1) {
 }
 
 //----- (005546F0) --------------------------------------------------------
-int  nox_xxx_netPreStructToFull_5546F0(size_t* a1) {
+int nox_xxx_netPreStructToFull_5546F0(nox_net_struct_arg_t* narg) {
 	int result;          // eax
 	int v2;              // esi
 	unsigned __int8* v3; // eax
 	void* v4;            // eax
 
-	if (!a1)
+	if (!narg)
 		return -2;
-	if (*a1)
+	if (narg->field_0)
 		return -5;
 	v2 = 0;
 	v3 = getMemAt(0x5D4594, 3843788);
@@ -1584,7 +1584,7 @@ int  nox_xxx_netPreStructToFull_5546F0(size_t* a1) {
 	}
 	if (v2 == -1)
 		return -8;
-	v4 = nox_xxx_makeNewNetStruct_553000(a1);
+	v4 = nox_xxx_makeNewNetStruct_553000(narg);
 	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = v4; // <- HERE
 	if (v4)
 		result = v2;
