@@ -375,15 +375,14 @@ func CONNECT_PREPARE() {
 }
 
 func CONNECT_SERVER(cp *C.char, hostshort uint32, data []byte) {
-	v7 := alloc.Calloc(40, 1)
-	v7s := asByteSlice(v7, 40)
+	narg := (*C.nox_net_struct_arg_t)(alloc.Calloc(1, unsafe.Sizeof(C.nox_net_struct_arg_t{})))
 	C.dword_5d4594_815704 = 0
 	C.dword_5d4594_815708 = 0
-	*(*uint32)(unsafe.Pointer(&v7s[20])) = 2048
-	*(*uint32)(unsafe.Pointer(&v7s[8])) = hostshort
+	narg.field_5 = 2048
+	narg.field_2 = C.int(hostshort)
 	C.nox_xxx_allocNetGQueue_5520B0(200, 1024)
-	*(*uintptr)(unsafe.Pointer(&v7s[36])) = uintptr(unsafe.Pointer(C.nox_xxx_netHandleCliPacket_43C860)) // TODO
-	v4 := C.nox_xxx_netPreStructToFull_5546F0((*C.uint)(v7))
+	narg.field_9 = unsafe.Pointer(C.nox_xxx_netHandleCliPacket_43C860) // TODO
+	v4 := C.nox_xxx_netPreStructToFull_5546F0(narg)
 	C.dword_5d4594_815700 = C.uint(v4)
 
 	fmt.Println("goto NET_CONNECT")

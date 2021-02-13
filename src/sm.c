@@ -215,19 +215,19 @@ void CONNECT_PREPARE(sm_args_t* args) {
 
 void CONNECT_SERVER(sm_args_t* args) {
 	int v4;      // eax
-	char v7[40]; // [esp+8h] [ebp-28h]
 
 	const char* cp = args->connect_server.hostname;
 	int hostshort = args->connect_server.port;
 
-	memset(v7, 0, sizeof(v7));
+	nox_net_struct_arg_t narg;
+	memset(&narg, 0, sizeof(nox_net_struct_arg_t));
 	dword_5d4594_815704 = 0;
 	dword_5d4594_815708 = 0;
-	*(_DWORD*)&v7[20] = 2048;
-	*(_DWORD*)&v7[8] = hostshort;
+	narg.field_5 = 2048;
+	narg.field_2 = hostshort;
 	nox_xxx_allocNetGQueue_5520B0(200, 1024);
-	*(_DWORD*)&v7[36] = nox_xxx_netHandleCliPacket_43C860;
-	v4 = nox_xxx_netPreStructToFull_5546F0((size_t*)v7);
+	narg.field_9 = nox_xxx_netHandleCliPacket_43C860;
+	v4 = nox_xxx_netPreStructToFull_5546F0(&narg);
 	dword_5d4594_815700 = v4;
 
 	GOTO_NET_CONNECT(v4, cp, hostshort, args->connect_server.data);
