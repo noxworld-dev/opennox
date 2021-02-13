@@ -249,7 +249,7 @@ void NET_CONNECT(sm_args_t* args) {
 	const char* cp = args->net_connect.hostname;
 	int hostshort = args->net_connect.port;
 
-	v5 = *(int**)getMemAt(0x5D4594, 4 * a1 + 3843788);
+	v5 = *(int**)getMemAt(0x5D4594, 3843788 + 4*a1);
 	if ((unsigned int)a1 >= 0x80) {
 		GOTO_NET_CONNECT_THEN(-3);
 	}
@@ -315,7 +315,7 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 	char a4 = args->net_connect_wait_loop.flags;
 	int v6 = args->net_connect_wait_loop.counter;
 
-	v4 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v4 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
 	}
@@ -346,7 +346,7 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 		GOTO_NET_CONNECT_THEN(-23);
 	}
 
-	v5 = *(int**)getMemAt(0x5D4594, 4 * a1 + 3843788);
+	v5 = *(int**)getMemAt(0x5D4594, 3843788 + 4*a1);
 	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
 		memset(getMemAt(0x5D4594, 2512892), 0, 0x400u);
 		*getMemU8Ptr(0x5D4594, 2512892) = 31;
