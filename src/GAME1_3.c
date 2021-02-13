@@ -853,16 +853,17 @@ int  sub_43C7A0(int a1) {
 int  nox_xxx_netAddNetStruct4Host_43C7B0(char* cp, int hostshort, int a3, signed int* a4) {
 	int v4;      // eax
 	int v5;      // eax
-	char v7[40]; // [esp+8h] [ebp-28h]
 
-	memset(v7, 0, sizeof(v7));
 	dword_5d4594_815704 = 0;
 	dword_5d4594_815708 = 0;
-	*(_DWORD*)&v7[20] = 2048;
-	*(_DWORD*)&v7[8] = hostshort;
+
+	nox_net_struct_arg_t narg;
+	memset(&narg, 0, sizeof(nox_net_struct_arg_t));
+	narg.field_5 = 2048;
+	narg.field_2 = hostshort;
 	nox_xxx_allocNetGQueue_5520B0(200, 1024);
-	*(_DWORD*)&v7[36] = nox_xxx_netHandleCliPacket_43C860;
-	v4 = nox_xxx_netPreStructToFull_5546F0((size_t*)v7);
+	narg.field_9 = nox_xxx_netHandleCliPacket_43C860;
+	v4 = nox_xxx_netPreStructToFull_5546F0(&narg);
 	dword_5d4594_815700 = v4;
 	v5 = sub_554760(v4, cp, hostshort, a3, 153);
 	OnLibraryNotice(258, 0);
