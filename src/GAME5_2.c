@@ -212,132 +212,159 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 			return -1;
 		}
 		sub_553FC0(v5, 1);
-		if (v6 >= 3) {
-			v7 = *(unsigned __int8**)(v2 + 40);
-			*(_DWORD*)(v2 + 36) += v6;
-			v8 = *v7;
-			v9 = v7[1];
-			v10 = v7[2];
-			v31 = v9;
-			v27 = v10;
-			if (v10 == 12) {
-				if (!sub_43AF70()) {
-					v6 = sub_554040(*(_DWORD*)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40), buf);
-					if (v6 > 0) {
-						v6 = sendto(*(_DWORD*)v2, buf, v6, 0, &to, tolen);
-						sub_553F40(v6, 1);
-					}
+		if (v6 < 3) {
+			v23 = *(_DWORD*)(v2 + 32);
+			*(_DWORD*)(v2 + 40) = v23;
+			*(_DWORD*)(v2 + 36) = v23;
+			if (!(v32 && !(a2 & 4))) {
+				return v6;
+			}
+			argp = 0;
+			if (ioctlsocket(*(_DWORD*)v2, FIONREAD, &argp) == -1) {
+				return -1;
+			} else if (!argp) {
+				return v6;
+			}
+			continue;
+		}
+		v7 = *(unsigned __int8**)(v2 + 40);
+		*(_DWORD*)(v2 + 36) += v6;
+		v8 = *v7;
+		v9 = v7[1];
+		v10 = v7[2];
+		v31 = v9;
+		v27 = v10;
+		if (v10 == 12) {
+			if (!sub_43AF70()) {
+				v6 = sub_554040(*(_DWORD*)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40), buf);
+				if (v6 > 0) {
+					v6 = sendto(*(_DWORD*)v2, buf, v6, 0, &to, tolen);
+					sub_553F40(v6, 1);
+				}
+			}
+			v23 = *(_DWORD*)(v2 + 32);
+			*(_DWORD*)(v2 + 40) = v23;
+			*(_DWORD*)(v2 + 36) = v23;
+			if (!(v32 && !(a2 & 4))) {
+				return v6;
+			}
+			argp = 0;
+			if (ioctlsocket(*(_DWORD*)v2, FIONREAD, &argp) == -1) {
+				return -1;
+			} else if (!argp) {
+				return v6;
+			}
+			continue;
+		}
+		if (v10 < 0xEu || v10 > 0x14u) {
+			if (v8 == 255) {
+				if (v26 != 1) {
+					goto LABEL_48;
+				}
+				if (*(int*)(v2 + 20) == -1) {
+					v29 = *getMemU32Ptr(0x5D4594, 4 * (v8 & 0x7F) + 3843788);
 				}
 			} else {
-				if (v10 < 0xEu || v10 > 0x14u) {
-					if (v8 == 255) {
-						if (v26 != 1) {
-							goto LABEL_48;
-						}
-					} else {
-						v26 = 0;
-						if (!sub_551E00(v8 & 0x7F, (int)&to)) {
-							goto LABEL_48;
-						}
-						v10 = v27;
-						v9 = v31;
-						v26 = 1;
+				v26 = 0;
+				if (!sub_551E00(v8 & 0x7F, (int)&to)) {
+					goto LABEL_48;
+				}
+				v10 = v27;
+				v9 = v31;
+				v26 = 1;
+				if (*(int*)(v2 + 20) == -1) {
+					v29 = *getMemU32Ptr(0x5D4594, 4 * (v8 & 0x7F) + 3843788);
+				}
+			}
+			if ((v8 & 0x80u) == 0) {
+				if (!v29) {
+					goto LABEL_48;
+				}
+				if (v9 != *(_BYTE*)(v29 + 113)) {
+					v19 = v31;
+					sub_5551F0(v8, v31, 1);
+					sub_555360(v8, v19, 1);
+					*(_BYTE*)(v29 + 113) = v31;
+					if (sub_551EB0(a1, v8, v19, *(_DWORD*)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40)) == 1)
+						v20 = 0;
+					else
+						v20 = v33;
+					buf[0] = 38;
+					buf[1] = *(_BYTE*)(v29 + 113);
+					(*(void(**)(unsigned int, char*, int, _DWORD))(v2 + 144))(v8, buf, 2, *(_DWORD*)(v29 + 120));
+					if (!v20) {
+						goto LABEL_48;
 					}
-					if (*(int*)(v2 + 20) == -1) {
-						v29 = *getMemU32Ptr(0x5D4594, 4 * (v8 & 0x7F) + 3843788);
-					}
-					if ((v8 & 0x80u) == 0) {
-						if (!v29) {
-							goto LABEL_48;
+					v10 = v27;
+				}
+			} else {
+				if (v8 == 255) {
+					if (!v10) {
+						v11 = tolen;
+						v12 = (unsigned int)tolen >> 2;
+						memcpy(buf, &to, 4 * ((unsigned int)tolen >> 2));
+						v14 = (char*)&to + 4 * v12;
+						v13 = &buf[4 * v12];
+						v15 = v11;
+						memcpy(v13, v14, v15 & 3);
+						v6 = nox_xxx_netBigSwitch_553210(a1, *(unsigned __int8**)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40), (int)buf);
+						if (v6 > 0) {
+							v6 = nox_xxx_sendto_551F90(*(_DWORD*)v2, buf, v6, 0, &to, tolen);
+							sub_553F40(v6, 1);
 						}
-						if (v9 != *(_BYTE*)(v29 + 113)) {
-							v19 = v31;
-							sub_5551F0(v8, v31, 1);
-							sub_555360(v8, v19, 1);
-							*(_BYTE*)(v29 + 113) = v31;
-							if (sub_551EB0(a1, v8, v19, *(_DWORD*)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40)) == 1)
-								v20 = 0;
-							else
-								v20 = v33;
-							buf[0] = 38;
-							buf[1] = *(_BYTE*)(v29 + 113);
-							(*(void(**)(unsigned int, char*, int, _DWORD))(v2 + 144))(v8, buf, 2, *(_DWORD*)(v29 + 120));
-							if (!v20) {
-								goto LABEL_48;
-							}
-							v10 = v27;
-						}
-					} else {
-						if (v8 == 255) {
-							if (!v10) {
-								v11 = tolen;
-								v12 = (unsigned int)tolen >> 2;
-								memcpy(buf, &to, 4 * ((unsigned int)tolen >> 2));
-								v14 = (char*)&to + 4 * v12;
-								v13 = &buf[4 * v12];
-								v15 = v11;
-								memcpy(v13, v14, v15 & 3);
-								v6 = nox_xxx_netBigSwitch_553210(a1, *(unsigned __int8**)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40), (int)buf);
-								if (v6 > 0) {
-									v6 = nox_xxx_sendto_551F90(*(_DWORD*)v2, buf, v6, 0, &to, tolen);
-									sub_553F40(v6, 1);
-								}
-								goto LABEL_48;
-							}
-						} else {
-							**(_BYTE**)(v2 + 40) &= 0x7Fu;
-							v8 = **(unsigned __int8**)(v2 + 40);
-							if (!v29) {
-								goto LABEL_48;
-							}
-							v16 = *(_DWORD*)(v29 + 48);
-							v17 = *(_BYTE*)(v16 + 1);
-							if (v17 != v9) {
-								goto LABEL_48;
-							}
-							v18 = v31;
-							*(BYTE*)(v16 + 1) = v17 + 1;
-							if (sub_551EB0(a1, v8, v18, *(_DWORD*)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40)) == 1) {
-								goto LABEL_48;
-							}
-							v10 = v27;
-						}
+						goto LABEL_48;
 					}
 				} else {
-					v26 = 1;
-				}
-				if (v10 < 0x20u) {
-					v21 = tolen;
-					v22 = (unsigned int)tolen >> 2;
-					memcpy(buf, &to, 4 * ((unsigned int)tolen >> 2));
-					v14 = (char*)&to + 4 * v22;
-					v13 = &buf[4 * v22];
-					v15 = v21;
-					memcpy(v13, v14, v15 & 3);
-					v6 = nox_xxx_netBigSwitch_553210(a1, *(unsigned __int8**)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40), (int)buf);
-					if (v6 > 0) {
-						v6 = nox_xxx_sendto_551F90(*(_DWORD*)v2, buf, v6, 0, &to, tolen);
-						sub_553F40(v6, 1);
+					**(_BYTE**)(v2 + 40) &= 0x7Fu;
+					v8 = **(unsigned __int8**)(v2 + 40);
+					if (!v29) {
+						goto LABEL_48;
 					}
-				} else {
-					if (v29 && !(a2 & 2)) {
-						(*(void(**)(unsigned int, int, int, _DWORD))(v2 + 144))(v8, *(_DWORD*)(v2 + 40) + 2, v6 - 2, *(_DWORD*)(v29 + 120));
+					v16 = *(_DWORD*)(v29 + 48);
+					v17 = *(_BYTE*)(v16 + 1);
+					if (v17 != v9) {
+						goto LABEL_48;
 					}
+					v18 = v31;
+					*(BYTE*)(v16 + 1) = v17 + 1;
+					if (sub_551EB0(a1, v8, v18, *(_DWORD*)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40)) == 1) {
+						goto LABEL_48;
+					}
+					v10 = v27;
 				}
+			}
+		} else {
+			v26 = 1;
+		}
+		if (v10 < 0x20u) {
+			v21 = tolen;
+			v22 = (unsigned int)tolen >> 2;
+			memcpy(buf, &to, 4 * ((unsigned int)tolen >> 2));
+			v14 = (char*)&to + 4 * v22;
+			v13 = &buf[4 * v22];
+			v15 = v21;
+			memcpy(v13, v14, v15 & 3);
+			v6 = nox_xxx_netBigSwitch_553210(a1, *(unsigned __int8**)(v2 + 40), *(_DWORD*)(v2 + 36) - *(_DWORD*)(v2 + 40), (int)buf);
+			if (v6 > 0) {
+				v6 = nox_xxx_sendto_551F90(*(_DWORD*)v2, buf, v6, 0, &to, tolen);
+				sub_553F40(v6, 1);
+			}
+		} else {
+			if (v29 && !(a2 & 2)) {
+				(*(void(**)(unsigned int, int, int, _DWORD))(v2 + 144))(v8, *(_DWORD*)(v2 + 40) + 2, v6 - 2, *(_DWORD*)(v29 + 120));
 			}
 		}
 	LABEL_48:
 		v23 = *(_DWORD*)(v2 + 32);
 		*(_DWORD*)(v2 + 40) = v23;
 		*(_DWORD*)(v2 + 36) = v23;
-		argp = 0;
 		if (!(v32 && !(a2 & 4))) {
 			return v6;
 		}
+		argp = 0;
 		if (ioctlsocket(*(_DWORD*)v2, FIONREAD, &argp) == -1) {
 			return -1;
-		}
-		if (!argp) {
+		} else if (!argp) {
 			return v6;
 		}
 	}
