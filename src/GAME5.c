@@ -8185,7 +8185,7 @@ LPVOID  sub_551E60(int a1) {
 		if ((int)v2 >= (int)getMemAt(0x5D4594, 3844300))
 			return 0;
 	}
-	return *(LPVOID*)getMemAt(0x5D4594, 4 * v1 + 3843788);
+	return *(LPVOID*)getMemAt(0x5D4594, 3843788 + 4*v1);
 }
 
 //----- (00551EB0) --------------------------------------------------------
@@ -8193,18 +8193,18 @@ int  sub_551EB0(int a1, unsigned int a2, unsigned __int8 a3, int a4, int a5) {
 	int v5;     // eax
 	int result; // eax
 
-	v5 = *getMemU32Ptr(0x5D4594, 4 * a2 + 3843788);
+	v5 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a2);
 	// fprintf(stderr, "551EB0: %d %d %d %d %d %d %d %d %d\n", v5, *(_DWORD *)(v5 + 152), *(_BYTE *)(v5 + 156), a1,
-	// a3, *(_BYTE *)(a4 + 4), a5,  *(_DWORD *)(*(_DWORD *)getMemAt(0x5D4594, 4 * a1 + 3843788) + 84), nox_xxx_servGetPlrLimit_409FA0());
+	// a3, *(_BYTE *)(a4 + 4), a5,  *(_DWORD *)(*(_DWORD *)getMemAt(0x5D4594, 3843788 + 4*a1) + 84), nox_xxx_servGetPlrLimit_409FA0());
 	if (!v5 || *(_DWORD*)(v5 + 152) != 1 || *(_BYTE*)(v5 + 156) > a3)
 		return 0;
-	if (*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * a1 + 3843788) + 84) <= (unsigned int)(nox_xxx_servGetPlrLimit_409FA0() - 1)) {
+	if (*(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*a1) + 84) <= (unsigned int)(nox_xxx_servGetPlrLimit_409FA0() - 1)) {
 		if (a5 > 3 && *(_BYTE*)(a4 + 4) == 32) {
-			*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * a2 + 3843788) + 152) = 2;
-			*(_BYTE*)(*getMemU32Ptr(0x5D4594, 4 * a2 + 3843788) + 156) = -1;
-			*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * a2 + 3843788) + 160) = 0;
-			(*(void(**)(unsigned int, int, int, _DWORD))(*getMemU32Ptr(0x5D4594, 4 * a1 + 3843788) + 144))(
-				a2, a4 + 4, a5 - 4, *(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * a2 + 3843788) + 120));
+			*(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*a2) + 152) = 2;
+			*(_BYTE*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*a2) + 156) = -1;
+			*(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*a2) + 160) = 0;
+			(*(void(**)(unsigned int, int, int, _DWORD))(*getMemU32Ptr(0x5D4594, 3843788 + 4*a1) + 144))(
+				a2, a4 + 4, a5 - 4, *(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*a2) + 120));
 		}
 		result = 1;
 	} else {
@@ -8348,7 +8348,7 @@ void  sub_5522E0(int a1) {
 	int v3;      // eax
 	char buf[8]; // [esp+8h] [ebp-8h]
 
-	v1 = *(SOCKET**)getMemAt(0x5D4594, 4 * sub_4DF550() + 3843788);
+	v1 = *(SOCKET**)getMemAt(0x5D4594, 3843788 + 4*sub_4DF550());
 	v2 = nox_xxx_makePacketTime_552340(a1, (int)buf);
 	v3 = nox_xxx_sendto_551F90(*v1, buf, v2, 0, (struct sockaddr*)getMemAt(0x5D4594, 68 * a1 + 2500092), 16);
 	sub_553F40(v3, 1);
@@ -8371,7 +8371,7 @@ void  sub_552380(int a1) {
 	int buf;    // [esp+0h] [ebp-4h]
 
 	buf = v1;
-	v2 = *(SOCKET**)getMemAt(0x5D4594, 4 * sub_4DF550() + 3843788);
+	v2 = *(SOCKET**)getMemAt(0x5D4594, 3843788 + 4*sub_4DF550());
 	LOWORD(buf) = 0;
 	BYTE2(buf) = 20;
 	v3 = nox_xxx_sendto_551F90(*v2, (char*)&buf, 3, 0, (struct sockaddr*)getMemAt(0x5D4594, 68 * a1 + 2500092), 16);
@@ -8387,7 +8387,7 @@ void  sub_5523E0(char a1, int a2) {
 	int buf;    // [esp+0h] [ebp-4h]
 
 	buf = v2;
-	v3 = *(SOCKET**)getMemAt(0x5D4594, 4 * sub_4DF550() + 3843788);
+	v3 = *(SOCKET**)getMemAt(0x5D4594, 3843788 + 4*sub_4DF550());
 	HIBYTE(buf) = a1;
 	LOWORD(buf) = 0;
 	BYTE2(buf) = 19;
@@ -8425,7 +8425,7 @@ int sub_552460() {
 int  sub_552510(unsigned int a1) {
 	int v1; // ecx
 
-	v1 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v1 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80)
 		return 0;
 	if (v1)
@@ -8437,7 +8437,7 @@ int  sub_552510(unsigned int a1) {
 int  sub_552540(unsigned int a1) {
 	int v1; // ecx
 
-	v1 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v1 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80)
 		return 0;
 	if (v1)
@@ -8449,7 +8449,7 @@ int  sub_552540(unsigned int a1) {
 int  sub_552570(unsigned int a1, int a2) {
 	int v2; // eax
 
-	v2 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v2 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80)
 		return -3;
 	if (!v2)
@@ -8465,7 +8465,7 @@ int  nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a3, char
 
 	printf("%s: %d, %d, %d, %d\n", __FUNCTION__, a1, a2, a3, a4);
 
-	v4 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v4 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80)
 		return -3;
 	if (!v4)
@@ -8508,7 +8508,7 @@ int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, 
 	unsigned __int8* i;   // [esp+24h] [ebp+Ch]
 
 	v4 = a1;
-	v5 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v5 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80)
 		return -3;
 	if (!v5)
@@ -8531,7 +8531,7 @@ int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, 
 		if (v8 >= v7)
 			return (int)a2;
 		v10 = (unsigned int)a2;
-		v11 = getMemAt(0x5D4594, 4 * v8 + 3843788);
+		v11 = getMemAt(0x5D4594, 3843788 + 4*v8);
 		do {
 			if (*(_DWORD*)v11 && *(_DWORD*)(*(_DWORD*)v11 + 20) == v18) {
 				v12 = sub_555130(v9, a2, a3);
@@ -8550,7 +8550,7 @@ int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, 
 	v19 = v8;
 	if (v8 >= v7)
 		return v10;
-	for (i = getMemAt(0x5D4594, 4 * v8 + 3843788);; i += 4) {
+	for (i = getMemAt(0x5D4594, 3843788 + 4*v8);; i += 4) {
 		v13 = *(_DWORD*)i;
 		if (*(_DWORD*)i) {
 			if (*(_DWORD*)(v13 + 20) == v18)

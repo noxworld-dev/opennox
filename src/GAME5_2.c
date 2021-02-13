@@ -81,8 +81,8 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
 	unsigned int v18;    // [esp+20h] [ebp+4h]
 
 	v2 = a1;
-	v3 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
-	v17 = *(SOCKET**)getMemAt(0x5D4594, 4 * a1 + 3843788);
+	v3 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
+	v17 = *(SOCKET**)getMemAt(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80)
 		return -3;
 	if (!v3)
@@ -103,7 +103,7 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
 	v6 = v5;
 	if (v5 < v18) {
 		v7 = v18;
-		v8 = getMemAt(0x5D4594, 4 * v5 + 3843788);
+		v8 = getMemAt(0x5D4594, 3843788 + 4*v5);
 		for (i = v8;; i += 4) {
 			v9 = *(_DWORD*)v8;
 			if (*(_DWORD*)v8 && *(_DWORD*)(v9 + 20) == v15) {
@@ -183,7 +183,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 	if (a1 >= 128) {
 		return -3;
 	}
-	v2 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v2 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	tolen = 16;
 	v29 = v2;
 	v26 = 1;
@@ -262,7 +262,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 					goto LABEL_48;
 				}
 				if (*(int*)(v2 + 20) == -1) {
-					v29 = *getMemU32Ptr(0x5D4594, 4 * (v8 & 0x7F) + 3843788);
+					v29 = *getMemU32Ptr(0x5D4594, 3843788 + 4*(v8 & 0x7F));
 				}
 			} else {
 				v26 = 0;
@@ -273,7 +273,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 				v9 = v31;
 				v26 = 1;
 				if (*(int*)(v2 + 20) == -1) {
-					v29 = *getMemU32Ptr(0x5D4594, 4 * (v8 & 0x7F) + 3843788);
+					v29 = *getMemU32Ptr(0x5D4594, 3843788 + 4*(v8 & 0x7F));
 				}
 			}
 			if ((v8 & 0x80u) == 0) {
@@ -382,7 +382,7 @@ int  sub_552E70(unsigned int a1) {
 	int v8;              // ecx
 	char v9[5];          // [esp+0h] [ebp-8h]
 
-	v1 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v1 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80)
 		return -3;
 	if (!v1)
@@ -398,7 +398,7 @@ int  sub_552E70(unsigned int a1) {
 	}
 	v9[0] = 6;
 	if (v3 < v4) {
-		v6 = getMemAt(0x5D4594, 4 * v3 + 3843788);
+		v6 = getMemAt(0x5D4594, 3843788 + 4*v3);
 		do {
 			v7 = *(_DWORD**)v6;
 			if (*(_DWORD*)v6) {
@@ -428,7 +428,7 @@ int  sub_552F20(unsigned int a1) {
 	int v8;              // edx
 	char v9[256];        // [esp+0h] [ebp-100h]
 
-	v1 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v1 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80)
 		return -3;
 	if (!v1)
@@ -444,7 +444,7 @@ int  sub_552F20(unsigned int a1) {
 	}
 	v9[0] = 5;
 	if (v3 < v4) {
-		v6 = getMemAt(0x5D4594, 4 * v3 + 3843788);
+		v6 = getMemAt(0x5D4594, 3843788 + 4*v3);
 		do {
 			v7 = *(_DWORD**)v6;
 			if (*(_DWORD*)v6) {
@@ -467,7 +467,7 @@ int  sub_552F20(unsigned int a1) {
 u_long  sub_552FD0(u_long argp) {
 	u_long result; // eax
 
-	if (ioctlsocket(**(_DWORD**)getMemAt(0x5D4594, 4 * argp + 3843788), FIONREAD, &argp))
+	if (ioctlsocket(**(_DWORD**)getMemAt(0x5D4594, 3843788 + 4*argp), FIONREAD, &argp))
 		result = -1;
 	else
 		result = argp;
@@ -642,9 +642,9 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 	// dhexdump(a2, a3);
 	v6 = *a2;
 	LOBYTE(a3) = a2[1];
-	v7 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v7 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	v73 = (unsigned int)v5;
-	v8 = *getMemU32Ptr(0x5D4594, 4 * v6 + 3843788); // FIXME: blob overflow here
+	v8 = *getMemU32Ptr(0x5D4594, 3843788 + 4*v6); // FIXME: blob overflow here
 	*(_DWORD*)v74 = *(_DWORD*)a4;
 	v9 = a2 + 2;
 	v72 = v8;
@@ -690,24 +690,24 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 					narg.field_3 = 4;
 					narg.field_5 = *(_DWORD*)(v7 + 60) - *(_DWORD*)(v7 + 48);
 					nox_net_struct_t* ns = nox_xxx_makeNewNetStruct_553000(&narg);
-					*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) = ns; // <- HERE
+					*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) = ns; // <- HERE
 					if (ns) {
 						++*(_DWORD*)(v7 + 84);
-						**(_BYTE**)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 48) = a1;
-						v62 = *(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 48);
+						**(_BYTE**)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 48) = a1;
+						v62 = *(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 48);
 						v63 = *(_BYTE*)(v62 + 1);
 						if (v63 == (_BYTE)a3)
 							*(_BYTE*)(v62 + 1) = v63 + 1;
-						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 20) = a1;
-						**(_DWORD**)getMemAt(0x5D4594, 4 * v6 + 3843788) = *(_DWORD*)v7;
-						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 140) = *(_DWORD*)(v7 + 140);
-						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 144) = *(_DWORD*)(v7 + 144);
+						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 20) = a1;
+						**(_DWORD**)getMemAt(0x5D4594, 3843788 + 4*v6) = *(_DWORD*)v7;
+						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 140) = *(_DWORD*)(v7 + 140);
+						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 144) = *(_DWORD*)(v7 + 144);
 						memset(getMemAt(0x5D4594, 32 * a1 + 2508788), 0, 0x20u);
 						*getMemU32Ptr(0x5D4594, 32 * a1 + 2508816) = 1;
 						v64 = nox_common_randomInt_415FA0(1, 255);
 						v65 = v64;
-						*(_BYTE*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 148) = 0;
-						v66 = *getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 4;
+						*(_BYTE*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 148) = 0;
+						v66 = *getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 4;
 						*(_QWORD*)v66 = *(_QWORD*)v74;
 						*(_DWORD*)(v66 + 8) = v75;
 						*(_DWORD*)(v66 + 12) = v76;
@@ -718,10 +718,10 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 						*(_DWORD*)(v4 + 3) = v6;
 						*(_BYTE*)(v4 + 7) = v64;
 						v67 = nox_xxx_netSendSock_552640(v6, (const void*)v4, 8, 3);
-						*(_BYTE*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 148) = v65;
-						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 152) = 1;
-						*(_BYTE*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 156) = v67;
-						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * v6 + 3843788) + 160) = *getMemU32Ptr(0x5D4594, 2598000);
+						*(_BYTE*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 148) = v65;
+						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 152) = 1;
+						*(_BYTE*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 156) = v67;
+						*(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v6) + 160) = *getMemU32Ptr(0x5D4594, 2598000);
 						result = 0;
 					} else {
 					LABEL_113:
@@ -761,7 +761,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 				*(_DWORD*)(v4 + 3) = *(_DWORD*)v9;
 				return result;
 			case 6:
-				v17 = *getMemU32Ptr(0x5D4594, 4 * v6 + 3843788);
+				v17 = *getMemU32Ptr(0x5D4594, 3843788 + 4*v6);
 				LOBYTE(a2) = 37;
 				(*(void(**)(unsigned int, unsigned __int8**, int, _DWORD))(v7 + 144))(v6, &a2, 1,
 																							 *(_DWORD*)(v17 + 120));
@@ -836,7 +836,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 			case 10:
 				if (v6 == 255)
 					return 0;
-				v68 = *getMemU32Ptr(0x5D4594, 4 * v6 + 3843788);
+				v68 = *getMemU32Ptr(0x5D4594, 3843788 + 4*v6);
 				if (*(_DWORD*)(v68 + 152) == 1)
 					return 0;
 				LOBYTE(a2) = 34;
@@ -853,7 +853,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 				nox_xxx_netStructReadPackets_5545B0(v6);
 				return 0;
 			case 11:
-				v71 = *getMemU32Ptr(0x5D4594, 4 * v6 + 3843788);
+				v71 = *getMemU32Ptr(0x5D4594, 3843788 + 4*v6);
 				LOBYTE(a2) = 33;
 				(*(void(**)(unsigned int, unsigned __int8**, int, _DWORD))(v7 + 144))(v6, &a2, 1,
 																							 *(_DWORD*)(v71 + 120));
@@ -1315,7 +1315,7 @@ int  sub_554200(unsigned int a1) {
 		goto LABEL_9;
 	if (!a1)
 		return dword_5d4594_3843632;
-	v2 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v2 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (v2)
 		result = *(_DWORD*)(v2 + 8);
 	else
@@ -1438,7 +1438,7 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	if (v2 == -1)
 		return -8;
 	nox_net_struct_t* ns = nox_xxx_makeNewNetStruct_553000(narg);
-	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = ns; // <- HERE
+	*getMemU32Ptr(0x5D4594, 3843788 + 4*v2) = ns; // <- HERE
 	if (!ns)
 		return -1;
 	*(_BYTE*)(ns->field_12) = v2;
@@ -1504,7 +1504,7 @@ int  nox_xxx_netStructReadPackets_5545B0(unsigned int a1) {
 	v8 = 11;
 	if (a1 >= 0x80)
 		return -3;
-	v3 = *(_DWORD**)getMemAt(0x5D4594, 4 * a1 + 3843788);
+	v3 = *(_DWORD**)getMemAt(0x5D4594, 3843788 + 4*a1);
 	if (!v3)
 		return 0;
 	v4 = v3[5];
@@ -1515,23 +1515,23 @@ int  nox_xxx_netStructReadPackets_5545B0(unsigned int a1) {
 	} else {
 		v5 = a1;
 		v9 = a1 + 1;
-		v6 = *getMemU32Ptr(0x5D4594, 4 * v4 + 3843788);
+		v6 = *getMemU32Ptr(0x5D4594, 3843788 + 4*v4);
 		if (!v6 || *(int*)(v6 + 20) != -1) {
 			sub_5531C0(v3);
-			*getMemU32Ptr(0x5D4594, 4 * v1 + 3843788) = 0;
+			*getMemU32Ptr(0x5D4594, 3843788 + 4*v1) = 0;
 			return 0;
 		}
 	}
 	if (v5 >= v9)
 		return 0;
-	v7 = (LPVOID*)getMemAt(0x5D4594, 4 * v5 + 3843788);
+	v7 = (LPVOID*)getMemAt(0x5D4594, 3843788 + 4*v5);
 	do {
 		if (*v7) {
 			if (*((int*)*v7 + 5) == v4) {
 				nox_xxx_netSendReadPacket_5528B0(v5, 1);
 				nox_xxx_netSendSock_552640(v5, &v8, 1, 0);
 				nox_xxx_netSendReadPacket_5528B0(v5, 1);
-				--*(_DWORD*)(*getMemU32Ptr(0x5D4594, 4 * v4 + 3843788) + 84);
+				--*(_DWORD*)(*getMemU32Ptr(0x5D4594, 3843788 + 4*v4) + 84);
 				sub_555360(v1, 0, 2);
 				sub_5531C0(*v7);
 				*v7 = 0;
@@ -1549,11 +1549,11 @@ int  sub_5546A0(unsigned int a1) {
 
 	if (a1 >= 0x80)
 		return -3;
-	v2 = *(SOCKET**)getMemAt(0x5D4594, 4 * a1 + 3843788);
+	v2 = *(SOCKET**)getMemAt(0x5D4594, 3843788 + 4*a1);
 	if (v2) {
 		closesocket(*v2);
-		sub_5531C0(*(LPVOID*)getMemAt(0x5D4594, 4 * a1 + 3843788));
-		*getMemU32Ptr(0x5D4594, 4 * a1 + 3843788) = 0;
+		sub_5531C0(*(LPVOID*)getMemAt(0x5D4594, 3843788 + 4*a1));
+		*getMemU32Ptr(0x5D4594, 3843788 + 4*a1) = 0;
 		WSACleanup();
 	}
 	return 0;
@@ -1580,7 +1580,7 @@ int nox_xxx_netPreStructToFull_5546F0(nox_net_struct_arg_t* narg) {
 	if (v2 == -1)
 		return -8;
 	nox_net_struct_t* ns = nox_xxx_makeNewNetStruct_553000(narg);
-	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = ns; // <- HERE
+	*getMemU32Ptr(0x5D4594, 3843788 + 4*v2) = ns; // <- HERE
 	if (ns)
 		result = v2;
 	else
@@ -1602,7 +1602,7 @@ int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	int v15;                // [esp+28h] [ebp-19Ch]
 	struct WSAData WSAData; // [esp+34h] [ebp-190h]
 
-	v5 = *(int**)getMemAt(0x5D4594, 4 * a1 + 3843788);
+	v5 = *(int**)getMemAt(0x5D4594, 3843788 + 4*a1);
 	if ((unsigned int)a1 >= 0x80)
 		return -3;
 	if (!v5)
@@ -1673,7 +1673,7 @@ int  sub_5549F0(unsigned int a1) {
 	v2 = 10;
 	if (a1 >= 0x80)
 		return -3;
-	if (*getMemU32Ptr(0x5D4594, 4 * a1 + 3843788)) {
+	if (*getMemU32Ptr(0x5D4594, 3843788 + 4*a1)) {
 		nox_xxx_netSendReadPacket_5528B0(a1, 0);
 		nox_xxx_netSendSock_552640(a1, &v2, 1, 0);
 		nox_xxx_netSendReadPacket_5528B0(a1, 0);
@@ -1688,12 +1688,12 @@ int  sub_554A50(unsigned int a1) {
 
 	if (a1 >= 0x80)
 		return -3;
-	v2 = *(SOCKET**)getMemAt(0x5D4594, 4 * a1 + 3843788);
+	v2 = *(SOCKET**)getMemAt(0x5D4594, 3843788 + 4*a1);
 	if (v2) {
 		closesocket(*v2);
-		OnLibraryNotice(259, *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788));
-		sub_5531C0(*(LPVOID*)getMemAt(0x5D4594, 4 * a1 + 3843788));
-		*getMemU32Ptr(0x5D4594, 4 * a1 + 3843788) = 0;
+		OnLibraryNotice(259, *getMemU32Ptr(0x5D4594, 3843788 + 4*a1));
+		sub_5531C0(*(LPVOID*)getMemAt(0x5D4594, 3843788 + 4*a1));
+		*getMemU32Ptr(0x5D4594, 3843788 + 4*a1) = 0;
 		WSACleanup();
 	}
 	return 0;
@@ -1961,7 +1961,7 @@ int  sub_555130(unsigned int a1, const void* a2, signed int a3) {
 	int v3;     // edi
 	_DWORD* v5; // eax
 
-	v3 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v3 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a3 > *getMemIntPtr(0x5D4594, 2512884))
 		return -1;
 	if (!a2)
@@ -1990,7 +1990,7 @@ int  sub_5551F0(unsigned int a1, char a2, int a3) {
 
 	if (a1 >= 0x80)
 		return -3;
-	v4 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v4 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (!v4)
 		return -3;
 	for (i = *(int**)(v4 + 116); i; i = (int*)*i) {
@@ -2015,7 +2015,7 @@ int  sub_555250(unsigned int a1, _DWORD* a2) {
 
 	if (a1 >= 0x80)
 		return 0;
-	v2 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v2 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (!v2)
 		return 0;
 	v3 = *(_DWORD*)(v2 + 116);
@@ -2032,7 +2032,7 @@ int  sub_555250(unsigned int a1, _DWORD* a2) {
 int  sub_555290(unsigned int a1, _DWORD* a2) {
 	int result; // eax
 
-	if (!dword_5d4594_2513932 || a1 >= 0x80 || !*getMemU32Ptr(0x5D4594, 4 * a1 + 3843788))
+	if (!dword_5d4594_2513932 || a1 >= 0x80 || !*getMemU32Ptr(0x5D4594, 3843788 + 4*a1))
 		return 0;
 	result = dword_5d4594_2513932 + 22;
 	*a2 = *(_DWORD*)(dword_5d4594_2513932 + 16);
@@ -2046,7 +2046,7 @@ int  nox_xxx_netSend_5552D0(unsigned int a1, char a2, int a3) {
 	int* i; // esi
 	int v6; // eax
 
-	v3 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v3 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80)
 		return -3;
 	if (!v3)
@@ -2076,7 +2076,7 @@ int  sub_555360(unsigned int a1, unsigned __int8 a2, int a3) {
 	_DWORD* v7;  // ecx
 	char v8[24]; // [esp+4h] [ebp-18h]
 
-	v3 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
+	v3 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80)
 		return -3;
 	if (!v3)
