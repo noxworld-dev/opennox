@@ -804,10 +804,13 @@ int sub_4DCF20() {
 }
 
 //----- (004DEB30) --------------------------------------------------------
-void sub_4DEB30() {
-	if (!(nox_common_getEngineFlag(NOX_ENGINE_FLAG_23)))
+#ifndef NOX_CGO
+void nox_server_netMaybeSendInitialPackets_4DEB30() {
+	if (!(nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))) {
 		nox_xxx_servNetInitialPackets_552A80(*getMemUintPtr(0x5D4594, 1563148), 1);
+	}
 }
+#endif // NOX_CGO
 
 //----- (004DEB50) --------------------------------------------------------
 void nox_xxx_netlist_4DEB50() {
@@ -916,7 +919,7 @@ void sub_4E4170() {
 }
 
 //----- (004E5E20) --------------------------------------------------------
-_DWORD* nox_xxx_unitsUpdateDeletedList_4E5E20() {
+void nox_xxx_unitsUpdateDeletedList_4E5E20() {
 	_DWORD* result; // eax
 	_DWORD* v1;     // edi
 	_DWORD* v2;     // esi
@@ -939,7 +942,6 @@ _DWORD* nox_xxx_unitsUpdateDeletedList_4E5E20() {
 	} else {
 		*getMemU32Ptr(0x5D4594, 1565588) = 0;
 	}
-	return result;
 }
 
 //----- (004E76C0) --------------------------------------------------------
@@ -1466,7 +1468,7 @@ void sub_502100() {
 }
 
 //----- (00506F30) --------------------------------------------------------
-_DWORD* nox_xxx_voteUptate_506F30() {
+void nox_xxx_voteUptate_506F30() {
 	_DWORD* result; // eax
 	_DWORD* v1;     // esi
 
@@ -1491,7 +1493,6 @@ _DWORD* nox_xxx_voteUptate_506F30() {
 			result = v1;
 		} while (v1);
 	}
-	return result;
 }
 
 //----- (0050AFA0) --------------------------------------------------------
@@ -2567,52 +2568,218 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 // 4D1CBA: variable 'v25' is possibly undefined
 
 //----- (004D2580) --------------------------------------------------------
-int nox_xxx_gameTick_4D2580_server() {
-	__int64 v0;           // rax
-	unsigned int v1;      // edi
-	int v2;               // ebx
-	unsigned int v3;      // ebp
-	unsigned int v4;      // esi
-	_DWORD* i;            // esi
-	char* v7;             // ebp
-	char* v8;             // edi
-	unsigned __int8 v9;   // dl
-	char* v10;            // edi
-	char* v11;            // esi
-	char* v12;            // eax
-	int v13;              // esi
-	wchar_t* v14;         // eax
-	wchar_t* v15;         // eax
-	char* v17;            // eax
-	int v18;              // eax
-	char* v20;            // eax
-	char* v21;            // esi
-	int v22;              // ebx
-	int v23;              // ebp
-	int v24;              // edi
-	int v25;              // esi
-	unsigned __int8* v26; // eax
-	wchar_t* v27;         // eax
-	int v28;              // eax
-	int v29;              // esi
-	char* v30;            // ebp
-	const char* v31;      // edi
-	char* v33;            // eax
-	int v34;              // eax
-	wchar_t* v35;         // [esp-10h] [ebp-50h]
-	wchar_t* v36;         // [esp-8h] [ebp-48h]
-	char* v37;            // [esp-4h] [ebp-44h]
-	char v38[16];         // [esp+10h] [ebp-30h]
-	char v39[32];         // [esp+20h] [ebp-20h]
+void nox_xxx_gameTick_4D2580_server_A(int v2, char* v38) {
+	if (!*getMemU64Ptr(0x5D4594, 1548676)) {
+		*getMemU64Ptr(0x5D4594, 1548676) = nox_call_get_ticks() + 10000;
+		nox_xxx_guiServerOptionsHide_4597E0(0);
+		if (sub_43AF70() == 1) {
+			if (!nox_common_gameFlags_check_40A5C0(128)) {
+				nox_xxx_net_4263C0();
+				sub_40DF90();
+				sub_4264D0();
+			}
+			if (!sub_4165B0()[57])
+				sub_41D650();
+		}
+		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 196872));
+		sub_46DCB0();
+	}
+	nox_server_netMaybeSendInitialPackets_4DEB30();
+	nox_xxx_netlist_4DEB50();
+	if (!((unsigned __int64)nox_call_get_ticks() > *getMemU64Ptr(0x5D4594, 1548676) && !v2)) {
+		return;
+	}
+	*getMemU32Ptr(0x5D4594, 1548676) = 0;
+	*getMemU32Ptr(0x5D4594, 1548680) = 0;
+	dword_5d4594_1548524 = 1;
+	sub_416170(12);
+	nox_common_gameFlags_unset_40A540(8);
+	for (_DWORD* i = (_DWORD*)nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = (_DWORD*)nox_xxx_getNextPlayerUnit_4DA7F0((int)i)) {
+		nox_xxx_dropAllItems_4EDA40(i);
+		nox_xxx_playerMakeDefItems_4EF7D0((int)i, 1, 0);
+	}
+	nox_xxx_unitsNewAddToList_4DAC00();
+	if (nox_common_gameFlags_check_40A5C0(512)) {
+		return;
+	}
+	char* v7 = nox_xxx_cliGamedataGet_416590(0);
+	if (v7[57]) {
+		v38[0] = 0;
+		*(_DWORD*)&v38[1] = 0;
+		*(_DWORD*)&v38[5] = 0;
+		*(_DWORD*)&v38[9] = 0;
+		char* v8 = sub_409B80();
+		unsigned __int8 v9 = getMemByte(0x587000, 196884);
+		strcpy(v38, v8);
+		char* v10 = &v38[strlen(v38)];
+		*(_DWORD*)v10 = *getMemU32Ptr(0x587000, 196880);
+		v10[4] = v9;
+		nox_xxx_gameSetMapPath_409D70(v38);
+		v7[57] = 0;
+	} else if (sub_4D0D70()) {
+		nox_xxx_loadMapCycle_4D0A30();
+		char* v11 = sub_4D0CF0();
+		if (v11) {
+			char* v12 = nox_server_currentMapGetFilename_409B30();
+			if (!_strcmpi(v11, v12))
+				v11 = sub_4D0CF0();
+			if (v11)
+				nox_xxx_gameSetMapPath_409D70(v11);
+		}
+	}
+}
 
-	v0 = nox_call_get_ticks();
-	v1 = v0;
-	v2 = 0;
-	v3 = HIDWORD(v0);
+#ifndef NOX_CGO
+int nox_xxx_gameTick_4D2580_server_B(__int64 ticks) {
+	nox_xxx_updateServer_4D2DA0(ticks);
+	nox_server_netMaybeSendInitialPackets_4DEB30();
+	nox_xxx_netlist_4DEB50();
+	if (nox_server_mainloop_exiting_43DEA0()) {
+		return 0;
+	}
+	if (!(getMemByte(0x5D4594, 2598000) & 1)) {
+		nox_xxx_serverLoopSendMap_519990();
+	}
+	sub_40B970();
+	sub_40B790();
+	if (!nox_xxx_checkGFlagNoParticles_413A50()) {
+		nox_xxx_updateUnits_51B100();
+		sub_4EC720();
+		if (nox_common_gameFlags_check_40A5C0(4096)) {
+			sub_50D890();
+			sub_4E4170();
+		}
+		nox_xxx_spellBookReact_4FCB70();
+		nox_xxx_abilUpdateMB_4FBEE0();
+		nox_xxx_scriptLeverReact_51ADF0();
+		nox_xxx_voteUptate_506F30();
+		nox_xxx_unitsUpdateDeletedList_4E5E20();
+	}
+	nox_xxx_netUpdateRemotePlayers_4DEC80();
+	nox_xxx_unitsNewAddToList_4DAC00();
+	if (nox_xxx_checkKeybTimeout_4160F0(0x10u, 10 * nox_gameFPS)) {
+		nox_xxx_protectUnitDefUpdateMB_4E3C20();
+		nox_xxx_setKeybTimeout_4160D0(16);
+	}
+	if (nox_common_gameFlags_check_40A5C0(0x2000) && sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128) &&
+		nox_xxx_checkKeybTimeout_4160F0(0xFu, 60 * nox_gameFPS)) {
+		nox_xxx_net_4263C0();
+		nox_xxx_setKeybTimeout_4160D0(15);
+	}
+	return 1;
+}
+#endif // NOX_CGO
+
+int nox_xxx_gameTick_4D2580_server_C() {
+	sub_4EDD70();
+	sub_417160();
+	sub_4573B0();
+	if (nox_xxx_CheckGameplayFlags_417DA0(2) && !nox_common_gameFlags_check_40A5C0(49152) &&
+		nox_xxx_CheckGameplayFlags_417DA0(4) && !nox_common_gameFlags_check_40A5C0(128)) {
+		sub_4181F0(1);
+	}
+	if (nox_common_gameFlags_check_40A5C0(4096) && sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128)) {
+		sub_4264D0();
+	}
+	nox_xxx_setGameFlags_40A4D0(0x8000000);
+	sub_43F140(500);
+	int v13 = nox_xxx_mapExitAndCheckNext_4D1860_server();
+	sub_43F1A0();
+	nox_common_gameFlags_unset_40A540(0x8000000);
+	if (!v13) {
+		char* v37 = nox_xxx_mapGetMapName_409B40();
+		wchar_t* v14 = nox_strman_loadString_40F1D0("MapAccessError", 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 1702);
+		nox_xxx_printToAll_4D9FD0(0, v14, v37);
+		wchar_t* v36 = nox_strman_loadString_40F1D0("Error", 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
+		wchar_t* v15 = nox_strman_loadString_40F1D0("MapCorrupt", 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
+		nullsub_4(0, v15, v36, 1);
+		nox_xxx_setContinueMenuOrHost_43DDD0(0);
+		return 0;
+	}
+	char* v17 = nox_xxx_mapGetMapName_409B40();
+	char v39[32];
+	nox_sprintf(v39, "%s.map", v17);
+	int v18 = nox_xxx_mapCrcGetMB_409B00();
+	nox_xxx_netUseMap_4DEE00(v39, v18);
+	if (sub_43AF70() == 1) {
+		sub_416690();
+		if (nox_common_gameFlags_check_40A5C0(128)) {
+			if (nox_common_gameFlags_check_40A5C0(0x8000)) {
+				sub_419030(1);
+			}
+			nox_common_gameFlags_unset_40A540(49152);
+		} else {
+			sub_426060();
+			sub_41D6C0();
+			nox_xxx_setKeybTimeout_4160D0(15);
+		}
+	}
+	nox_xxx_guiServerOptionsHide_4597E0(0);
+	return 1;
+}
+
+void nox_xxx_gameTick_4D2580_server_D() {
+	char* v20 = nox_common_playerInfoFromNum_417090(31);
+	char* v21 = v20;
+	if (!v20) {
+		return;
+	}
+	if (!(*((_DWORD*)v20 + 514) && sub_4DCC10(*((_DWORD*)v20 + 514)) == 1)) {
+		return;
+	}
+	int v22 = *((_DWORD*)v21 + 514);
+	int v23 = 0;
+	int v24 = (*(_DWORD*)(v22 + 16) >> 15) & 1;
+	if (!v24) {
+		if (dword_5d4594_1599640 > 0) {
+			int v25 = 0;
+			do {
+				if (!strncmp("MapShutdown", *(const char**)(v25 + dword_5d4594_1599636), 0xBu))
+					nox_server_doMapScript_507310(v23, 0, 0);
+				++v23;
+				v25 += 48;
+			} while (v23 < *(int*)&dword_5d4594_1599640);
+		}
+		nox_xxx_setGameFlags_40A4D0(0x8000000);
+		unsigned __int8* v26 = sub_4DB160();
+		v23 = nox_xxx_saveDoAutosaveMB_4DB370_savegame((const char*)v26);
+		nox_common_gameFlags_unset_40A540(0x8000000);
+		if (!v23 && nox_common_gameFlags_check_40A5C0(2)) {
+			wchar_t* v35 = nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 1931);
+			wchar_t* v27 = nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 1930);
+			nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v27, (int)v35, 33, 0, 0);
+		}
+	}
+	int v28 = sub_4DB1C0();
+	int v29 = v28;
+	if (v24 || v23 != 1) {
+		if (v28 && !v23) {
+			nox_xxx_unitMove_4E7010(v22, (float2*)(*(_DWORD*)(v28 + 700) + 80));
+		}
+	} else if (v28) {
+		char* v30 = *(char**)(v28 + 700);
+		const char* v31 = (const char*)nox_xxx_cliCheckMapExists_4DB2A0(*(const char**)(v28 + 700));
+		if (v31) {
+			nox_xxx_gameSetSwitchSolo_4DB220(1);
+			nox_xxx_gameSetNoMPFlag_4DB230(1);
+			nox_xxx_gameSetSoloSavePath_4DB270(v31);
+		}
+		nox_xxx_mapLoad_4D2450(v30);
+	}
+	sub_4DB170(0, v29, 0);
+}
+
+int nox_xxx_gameTick_4D2580_server() {
+	char v38[16];         // [esp+10h] [ebp-30h]
+
+	__int64 v0 = nox_call_get_ticks();
+	unsigned int v1 = v0;
+	int v2 = 0;
+	unsigned int v3 = HIDWORD(v0);
 	if (!dword_5d4594_2650652) {
 		nox_xxx_netBuf_40EE90(1);
 	} else {
-		v4 = nox_xxx_rateGet_40A6C0();
+		unsigned int v4 = nox_xxx_rateGet_40A6C0();
 		if (sub_416650() && sub_41E2F0() == 8)
 			v2 = 1;
 		if (v4 == 1 || nox_common_gameFlags_check_40A5C0(8) || *getMemU32Ptr(0x5D4594, 2598000) % v4 == 1) {
@@ -2636,192 +2803,20 @@ int nox_xxx_gameTick_4D2580_server() {
 		nox_telnet_tick_578FC0();
 	}
 	if (nox_common_gameFlags_check_40A5C0(8)) {
-		if (!*getMemU64Ptr(0x5D4594, 1548676)) {
-			*getMemU64Ptr(0x5D4594, 1548676) = nox_call_get_ticks() + 10000;
-			nox_xxx_guiServerOptionsHide_4597E0(0);
-			if (sub_43AF70() == 1) {
-				if (!nox_common_gameFlags_check_40A5C0(128)) {
-					nox_xxx_net_4263C0();
-					sub_40DF90();
-					sub_4264D0();
-				}
-				if (!sub_4165B0()[57])
-					sub_41D650();
-			}
-			nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 196872));
-			sub_46DCB0();
-		}
-		sub_4DEB30();
-		nox_xxx_netlist_4DEB50();
-		if ((unsigned __int64)nox_call_get_ticks() > *getMemU64Ptr(0x5D4594, 1548676) && !v2) {
-			*getMemU32Ptr(0x5D4594, 1548676) = 0;
-			*getMemU32Ptr(0x5D4594, 1548680) = 0;
-			dword_5d4594_1548524 = 1;
-			sub_416170(12);
-			nox_common_gameFlags_unset_40A540(8);
-			for (i = (_DWORD*)nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = (_DWORD*)nox_xxx_getNextPlayerUnit_4DA7F0((int)i)) {
-				nox_xxx_dropAllItems_4EDA40(i);
-				nox_xxx_playerMakeDefItems_4EF7D0((int)i, 1, 0);
-			}
-			nox_xxx_unitsNewAddToList_4DAC00();
-			if (!nox_common_gameFlags_check_40A5C0(512)) {
-				v7 = nox_xxx_cliGamedataGet_416590(0);
-				if (v7[57]) {
-					v38[0] = 0;
-					*(_DWORD*)&v38[1] = 0;
-					*(_DWORD*)&v38[5] = 0;
-					*(_DWORD*)&v38[9] = 0;
-					v8 = sub_409B80();
-					v9 = getMemByte(0x587000, 196884);
-					strcpy(v38, v8);
-					v10 = &v38[strlen(v38)];
-					*(_DWORD*)v10 = *getMemU32Ptr(0x587000, 196880);
-					v10[4] = v9;
-					nox_xxx_gameSetMapPath_409D70(v38);
-					v7[57] = 0;
-				} else if (sub_4D0D70()) {
-					nox_xxx_loadMapCycle_4D0A30();
-					v11 = sub_4D0CF0();
-					if (v11) {
-						v12 = nox_server_currentMapGetFilename_409B30();
-						if (!_strcmpi(v11, v12))
-							v11 = sub_4D0CF0();
-						if (v11)
-							nox_xxx_gameSetMapPath_409D70(v11);
-					}
-				}
-			}
-		}
+		nox_xxx_gameTick_4D2580_server_A(v2, v38);
 	} else if (!dword_5d4594_1548524) {
-		nox_xxx_updateServer_4D2DA0(__SPAIR64__(v3, v1));
-		sub_4DEB30();
-		nox_xxx_netlist_4DEB50();
-		if (nox_server_mainloop_exiting_43DEA0()) {
+		if (!nox_xxx_gameTick_4D2580_server_B(v0)) {
 			return 1;
 		}
-		if (!(getMemByte(0x5D4594, 2598000) & 1))
-			nox_xxx_serverLoopSendMap_519990();
-		sub_40B970();
-		sub_40B790();
-		if (!nox_xxx_checkGFlagNoParticles_413A50()) {
-			nox_xxx_updateUnits_51B100();
-			sub_4EC720();
-			if (nox_common_gameFlags_check_40A5C0(4096)) {
-				sub_50D890();
-				sub_4E4170();
-			}
-			nox_xxx_spellBookReact_4FCB70();
-			nox_xxx_abilUpdateMB_4FBEE0();
-			nox_xxx_scriptLeverReact_51ADF0();
-			nox_xxx_voteUptate_506F30();
-			nox_xxx_unitsUpdateDeletedList_4E5E20();
-		}
-		nox_xxx_netUpdateRemotePlayers_4DEC80();
-		nox_xxx_unitsNewAddToList_4DAC00();
-		if (nox_xxx_checkKeybTimeout_4160F0(0x10u, 10 * nox_gameFPS)) {
-			nox_xxx_protectUnitDefUpdateMB_4E3C20();
-			nox_xxx_setKeybTimeout_4160D0(16);
-		}
-		if (nox_common_gameFlags_check_40A5C0(0x2000) && sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128) &&
-			nox_xxx_checkKeybTimeout_4160F0(0xFu, 60 * nox_gameFPS)) {
-			nox_xxx_net_4263C0();
-			nox_xxx_setKeybTimeout_4160D0(15);
-		}
 	} else if (!sub_43AF70() || !v2) {
-		sub_4EDD70();
-		sub_417160();
-		sub_4573B0();
-		if (nox_xxx_CheckGameplayFlags_417DA0(2) && !nox_common_gameFlags_check_40A5C0(49152) && nox_xxx_CheckGameplayFlags_417DA0(4) &&
-			!nox_common_gameFlags_check_40A5C0(128))
-			sub_4181F0(1);
-		if (nox_common_gameFlags_check_40A5C0(4096) && sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128))
-			sub_4264D0();
-		nox_xxx_setGameFlags_40A4D0(0x8000000);
-		sub_43F140(500);
-		v13 = nox_xxx_mapExitAndCheckNext_4D1860_server();
-		sub_43F1A0();
-		nox_common_gameFlags_unset_40A540(0x8000000);
-		if (!v13) {
-			v37 = nox_xxx_mapGetMapName_409B40();
-			v14 = nox_strman_loadString_40F1D0("MapAccessError", 0,
-										"C:\\NoxPost\\src\\Server\\System\\server.c", 1702);
-			nox_xxx_printToAll_4D9FD0(0, v14, v37);
-			v36 = nox_strman_loadString_40F1D0("Error", 0,
-										"C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
-			v15 = nox_strman_loadString_40F1D0("MapCorrupt", 0,
-										"C:\\NoxPost\\src\\Server\\System\\server.c", 1703);
-			nullsub_4(0, v15, v36, 1);
-			nox_xxx_setContinueMenuOrHost_43DDD0(0);
+		if (!nox_xxx_gameTick_4D2580_server_C()) {
 			return 0;
 		}
-		v17 = nox_xxx_mapGetMapName_409B40();
-		nox_sprintf(v39, "%s.map", v17);
-		v18 = nox_xxx_mapCrcGetMB_409B00();
-		nox_xxx_netUseMap_4DEE00(v39, v18);
-		if (sub_43AF70() == 1) {
-			sub_416690();
-			if (nox_common_gameFlags_check_40A5C0(128)) {
-				if (nox_common_gameFlags_check_40A5C0(0x8000))
-					sub_419030(1);
-				nox_common_gameFlags_unset_40A540(49152);
-			} else {
-				sub_426060();
-				sub_41D6C0();
-				nox_xxx_setKeybTimeout_4160D0(15);
-			}
-		}
-		nox_xxx_guiServerOptionsHide_4597E0(0);
 	}
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22 | NOX_ENGINE_FLAG_23))
 		sub_4E76C0();
 	if (nox_xxx_gameGet_4DB1B0()) {
-		v20 = nox_common_playerInfoFromNum_417090(31);
-		v21 = v20;
-		if (v20) {
-			if (*((_DWORD*)v20 + 514) && sub_4DCC10(*((_DWORD*)v20 + 514)) == 1) {
-				v22 = *((_DWORD*)v21 + 514);
-				v23 = 0;
-				v24 = (*(_DWORD*)(v22 + 16) >> 15) & 1;
-				if (!v24) {
-					if (dword_5d4594_1599640 > 0) {
-						v25 = 0;
-						do {
-							if (!strncmp("MapShutdown", *(const char**)(v25 + dword_5d4594_1599636), 0xBu))
-								nox_server_doMapScript_507310(v23, 0, 0);
-							++v23;
-							v25 += 48;
-						} while (v23 < *(int*)&dword_5d4594_1599640);
-					}
-					nox_xxx_setGameFlags_40A4D0(0x8000000);
-					v26 = sub_4DB160();
-					v23 = nox_xxx_saveDoAutosaveMB_4DB370_savegame((const char*)v26);
-					nox_common_gameFlags_unset_40A540(0x8000000);
-					if (!v23 && nox_common_gameFlags_check_40A5C0(2)) {
-						v35 = nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0,
-													"C:\\NoxPost\\src\\Server\\System\\server.c", 1931);
-						v27 = nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0,
-													"C:\\NoxPost\\src\\Server\\System\\server.c", 1930);
-						nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v27, (int)v35, 33, 0, 0);
-					}
-				}
-				v28 = sub_4DB1C0();
-				v29 = v28;
-				if (v24 || v23 != 1) {
-					if (v28 && !v23)
-						nox_xxx_unitMove_4E7010(v22, (float2*)(*(_DWORD*)(v28 + 700) + 80));
-				} else if (v28) {
-					v30 = *(char**)(v28 + 700);
-					v31 = (const char*)nox_xxx_cliCheckMapExists_4DB2A0(*(const char**)(v28 + 700));
-					if (v31) {
-						nox_xxx_gameSetSwitchSolo_4DB220(1);
-						nox_xxx_gameSetNoMPFlag_4DB230(1);
-						nox_xxx_gameSetSoloSavePath_4DB270(v31);
-					}
-					nox_xxx_mapLoad_4D2450(v30);
-				}
-				sub_4DB170(0, v29, 0);
-			}
-		}
+		nox_xxx_gameTick_4D2580_server_D();
 	}
 	sub_4139C0();
 	if (nox_xxx_serverIsClosing_446180())
@@ -2837,9 +2832,9 @@ int nox_xxx_gameTick_4D2580_server() {
 	nox_xxx_mapInitialize_4FC590();
 	nox_xxx_mapEntry_4FC600();
 	sub_4FC680();
-	v33 = nox_common_playerInfoFromNum_417090(31);
+	char* v33 = nox_common_playerInfoFromNum_417090(31);
 	if (v33) {
-		v34 = *((_DWORD*)v33 + 514);
+		int v34 = *((_DWORD*)v33 + 514);
 		if (v34)
 			nox_xxx_playerSomeWallsUpdate_5003B0(v34);
 	}
