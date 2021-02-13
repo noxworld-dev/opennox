@@ -1409,24 +1409,23 @@ int  sub_554240(int a1) {
 }
 
 //----- (00554380) --------------------------------------------------------
-int  nox_xxx_netInit_554380(size_t* a1) {
+int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	int v2;                 // ebx
 	unsigned __int8* v3;    // eax
 	SOCKET* v4;             // eax
 	SOCKET* v5;             // esi
 	SOCKET v6;              // eax
-	signed int v7;          // eax
 	__int16 v9;             // cx
 	struct hostent* v10;    // eax
 	uint16_t v11;            // [esp-4h] [ebp-1B8h]
 	uint16_t v12;            // [esp-4h] [ebp-1B8h]
 	struct WSAData WSAData; // [esp+24h] [ebp-190h]
 
-	if (!a1)
+	if (!narg)
 		return -2;
-	if (*a1)
+	if (narg->field_0)
 		return -5;
-	if ((int)a1[4] > 128)
+	if (narg->field_4 > 128)
 		return -2;
 	v2 = 0;
 	*getMemU8Ptr(0x5D4594, 3843644) = 0;
@@ -1441,7 +1440,7 @@ int  nox_xxx_netInit_554380(size_t* a1) {
 	}
 	if (v2 == -1)
 		return -8;
-	v4 = (SOCKET*)nox_xxx_makeNewNetStruct_553000(a1);
+	v4 = (SOCKET*)nox_xxx_makeNewNetStruct_553000(narg);
 	v5 = v4;
 	*getMemU32Ptr(0x5D4594, 4 * v2 + 3843788) = v4; // <- HERE
 	if (!v4)
@@ -1457,10 +1456,10 @@ int  nox_xxx_netInit_554380(size_t* a1) {
 		WSACleanup();
 		return -1;
 	}
-	v7 = a1[2];
-	if (v7 < 1024 || v7 > 0x10000)
-		a1[2] = 18590;
-	v11 = *((_WORD*)a1 + 4);
+	int port = narg->field_2;
+	if (port < 1024 || port > 0x10000)
+		narg->field_2 = 18590;
+	v11 = (_WORD)(narg->field_2);
 
 	struct sockaddr_in name;
 	name.sin_family = AF_INET;
@@ -1468,7 +1467,7 @@ int  nox_xxx_netInit_554380(size_t* a1) {
 	name.sin_addr.s_addr = 0;
 	memset(name.sin_zero, 0, 8);
 
-	v9 = *((_WORD*)a1 + 4);
+	v9 = (_WORD)(narg->field_2);
 	name.sin_port = htons(v11);
 	name.sin_addr.s_addr = 0;
 	*getMemU16Ptr(0x5D4594, 3843636) = v9;
@@ -1477,8 +1476,8 @@ int  nox_xxx_netInit_554380(size_t* a1) {
 			WSACleanup();
 			return -1;
 		}
-		v12 = *((_WORD*)a1 + 4) + 1;
-		++a1[2];
+		v12 = (_WORD)(narg->field_2) + 1;
+		++narg->field_2;
 		name.sin_port = htons(v12);
 	}
 	if (gethostname((char*)getMemAt(0x5D4594, 3843660), 128) != -1) {
