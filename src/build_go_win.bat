@@ -13,3 +13,4 @@ set CC_FOR_TARGET=gcc
 set CC=gcc 
 set PATH=%PATH%;C:\TDM-GCC-32\bin;C:\TDM-GCC-32\mingw32\bin
 go build -o nox_go.exe
+pause
