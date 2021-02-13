@@ -610,7 +610,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, i
 	LOBYTE(a3) = a2[1];
 	v7 = *getMemU32Ptr(0x5D4594, 4 * a1 + 3843788);
 	v73 = (unsigned int)v5;
-	v8 = *getMemU32Ptr(0x5D4594, 4 * v6 + 3843788);
+	v8 = *getMemU32Ptr(0x5D4594, 4 * v6 + 3843788); // FIXME: blob overflow here
 	*(_DWORD*)v74 = *(_DWORD*)a4;
 	v9 = a2 + 2;
 	v72 = v8;
