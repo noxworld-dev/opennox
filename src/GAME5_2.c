@@ -8,6 +8,13 @@
 #include "proto.h"
 
 #include <float.h>
+
+#ifndef _WIN32
+#include <sys/ioctl.h>
+#else // _WIN32
+#include <windows.h>
+#endif // _WIN32
+
 extern _DWORD dword_5d4594_2496988;
 extern _DWORD dword_5d4594_2516352;
 extern _DWORD dword_5d4594_3843632;
@@ -185,7 +192,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 	}
 	v32 = a2 & 1;
 	if (a2 & 1) {
-		if (ioctlsocket(*(_DWORD*)v2, 1074030207, &argp) == -1) {
+		if (ioctlsocket(*(_DWORD*)v2, FIONREAD, &argp) == -1) {
 			return -1;
 		}
 		if (!argp) {
@@ -327,7 +334,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2) {
 		if (!(v32 && !(a2 & 4))) {
 			return v6;
 		}
-		if (ioctlsocket(*(_DWORD*)v2, 1074030207, &argp) == -1) {
+		if (ioctlsocket(*(_DWORD*)v2, FIONREAD, &argp) == -1) {
 			return -1;
 		}
 		if (!argp) {
@@ -433,7 +440,7 @@ int  sub_552F20(unsigned int a1) {
 u_long  sub_552FD0(u_long argp) {
 	u_long result; // eax
 
-	if (ioctlsocket(**(_DWORD**)getMemAt(0x5D4594, 4 * argp + 3843788), 1074030207, &argp))
+	if (ioctlsocket(**(_DWORD**)getMemAt(0x5D4594, 4 * argp + 3843788), FIONREAD, &argp))
 		result = -1;
 	else
 		result = argp;
@@ -1813,7 +1820,7 @@ int  sub_554D70(char a1) {
 		return -17;
 	v11 = a1 & 1;
 	if (a1 & 1) {
-		result = ioctlsocket(*(SOCKET*)&dword_5d4594_2513920, 1074030207, &argp);
+		result = ioctlsocket(*(SOCKET*)&dword_5d4594_2513920, FIONREAD, &argp);
 		if (result == -1)
 			return result;
 		if (argp)
@@ -1876,7 +1883,7 @@ int  sub_554D70(char a1) {
 				}
 			}
 			if (v11 && !(a1 & 4)) {
-				if (ioctlsocket(*(SOCKET*)&dword_5d4594_2513920, 1074030207, &argp) == -1)
+				if (ioctlsocket(*(SOCKET*)&dword_5d4594_2513920, FIONREAD, &argp) == -1)
 					return -1;
 				if (argp)
 					continue;

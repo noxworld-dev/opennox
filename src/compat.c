@@ -333,6 +333,9 @@ int WINAPI ioctlsocket(SOCKET s, long cmd, unsigned long* argp) {
 	int ret;
 
 	switch (cmd) {
+	case FIONREAD:
+		ret = ioctl(s, FIONREAD, argp);
+		break;
 	case 0x4004667f: // FIONREAD
 #ifdef __EMSCRIPTEN__
 		*argp = EM_ASM_INT({ return network.available($0); }, s);
