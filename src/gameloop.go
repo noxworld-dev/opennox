@@ -384,7 +384,7 @@ func CONNECT_SERVER(cp *C.char, hostshort uint32, data []byte) {
 	*(*uint32)(unsafe.Pointer(&v7s[8])) = hostshort
 	C.nox_xxx_allocNetGQueue_5520B0(200, 1024)
 	*(*uintptr)(unsafe.Pointer(&v7s[36])) = uintptr(unsafe.Pointer(C.nox_xxx_netHandleCliPacket_43C860)) // TODO
-	v4 := C.nox_xxx_netPreStructToFull_5546F0((*C.uint)(v7))
+	v4 := C.nox_xxx_netPreStructToFull_5546F0((*C.nox_net_struct_arg_t)(v7))
 	*memmap.PtrUint32(0x5D4594, 815700) = uint32(v4)
 
 	fmt.Println("goto NET_CONNECT")

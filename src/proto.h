@@ -6559,7 +6559,7 @@ int  nox_xxx_netInit_554380(nox_net_struct_arg_t* narg);
 __int16 sub_5545A0();
 int  nox_xxx_netStructReadPackets_5545B0(unsigned int a1);
 int  sub_5546A0(unsigned int a1);
-int  nox_xxx_netPreStructToFull_5546F0(size_t* a1);
+int  nox_xxx_netPreStructToFull_5546F0(nox_net_struct_arg_t* narg);
 int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5);
 int  sub_5549F0(unsigned int a1);
 int  sub_554A50(unsigned int a1);
