@@ -36,10 +36,10 @@
 #endif
 
 #ifdef _WIN32
-// added for MinGW headers compatibility
-#ifndef LSTATUS
-typedef intptr_t LSTATUS;
-#endif // LSTATUS
+// added for TDM-GCC/MinGW headers compatibility
+#ifdef _TDM
+typedef long LSTATUS;
+#endif // _TDM
 
 #include <windows.h>
 //#include <mmreg.h>

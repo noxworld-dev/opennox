@@ -10,7 +10,8 @@ set GOARCH=386
 set GOOS=windows
 set CXX_FOR_TARGET=g++
 set CC_FOR_TARGET=gcc
-set CC=gcc 
+set CC=gcc
+set CGO_CFLAGS=-D_TDM -g -O2
 set PATH=%PATH%;C:\TDM-GCC-32\bin;C:\TDM-GCC-32\mingw32\bin
 go build -o nox_go.exe
 pause
