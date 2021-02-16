@@ -9385,7 +9385,7 @@ int  nox_xxx_netAddPlayerHandler_4DEBC0(int port) {
 	narg.func_yyy = nox_xxx_netlist_ServRecv_4DEC30;
 	narg.func_xxx = nox_xxx_netFn_UpdateStream_4DF630;
 	result = nox_xxx_netInit_554380(&narg);
-	OnLibraryNotice(256, 0);
+	OnLibraryNotice_256();
 	*getMemU32Ptr(0x5D4594, 1563148) = result;
 	return result;
 }
@@ -9403,7 +9403,7 @@ int  sub_4DEC50(int a1) { return nox_xxx_netStructReadPackets_5545B0(a1 + 1); }
 int  nox_xxx_netCloseHandler_4DEC60(unsigned int a1) {
 	nox_xxx_netStructReadPackets_5545B0(a1);
 	sub_5546A0(a1);
-	OnLibraryNotice(257, 0);
+	OnLibraryNotice_257();
 	return sub_552450();
 }
 

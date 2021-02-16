@@ -599,7 +599,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					nox_xxx_printCentered_445490(v399);
 				if (v210 == *getMemU32Ptr(0x5D4594, 2616328) && nox_wcscmp((const wchar_t*)getMemAt(0x5D4594, 2661908), v212))
 					dword_5d4594_1200832 = 1;
-				OnLibraryNotice(263, v211);
+				OnLibraryNotice_263(v211);
 			}
 			v3 += 129;
 			break;
@@ -617,7 +617,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					*((_DWORD*)v216 + 523) = 0;
 					v218 = nox_xxx_objGetTeamByNetCode_418C80(v215);
 					v219 = (int)v218;
-					OnLibraryNotice(264, v216 + 4704);
+					OnLibraryNotice_264(v216 + 4704);
 					if (v218 && nox_xxx_servObjectHasTeam_419130((int)v218))
 						nox_xxx_netChangeTeamMb_419570(v219, v215);
 				} else {

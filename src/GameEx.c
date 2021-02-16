@@ -1096,255 +1096,214 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 // 1000EF00: using guessed type int DefaultPacket[4];
 
 //----- (10002C30) --------------------------------------------------------
-void OnLibraryNotice(int a1, ...) {
-	int v1;                  // edi
-	_DWORD* result;          // eax
-	int v3;                  // ST34_4
-	int v4;                  // ebx
-	int v5;                  // ecx
-	int v6;                  // esi
-	__int16 v7;              // kr00_2
-	char v8;                 // bl
-	_DWORD* v9;              // eax
-	_DWORD* v10;             // eax
-	_DWORD* v11;             // eax
-	int v12;                 // edi
-	wchar_t(*v13)[35];       // ebx
-	_DWORD* v14;             // eax
-	_DWORD* v15;             // eax
-	_DWORD* v16;             // eax
-	char v17;                // dl
-	_DWORD* v18;             // [esp-4h] [ebp-70h]
-	int v19;                 // [esp+Ch] [ebp-60h]
-	int a2;                  // [esp+10h] [ebp-5Ch]
-	char a2a;                // [esp+10h] [ebp-5Ch]
-	_DWORD* a2b;             // [esp+10h] [ebp-5Ch]
-	int v23;                 // [esp+14h] [ebp-58h]
-	unsigned __int8 v24[64]; // [esp+1Ch] [ebp-50h]
-	char buf[10];            // [esp+5Ch] [ebp-10h]
-	char vaArg1_1[4];        // [esp+60h] [ebp-Ch]
-	// char v27; // [esp+64h] [ebp-8h]
-	int vaArg1; // [esp+78h] [ebp+Ch]
-	int vaArg2; // [esp+7Ch] [ebp+10h]
-	int vaArg3; // [esp+80h] [ebp+14h]
-	va_list va; // [esp+84h] [ebp+18h]
+void OnLibraryNotice_256() {
 
-	va_start(va, a1);
-	vaArg1 = va_arg(va, _DWORD);
-	vaArg2 = va_arg(va, _DWORD);
-	vaArg3 = va_arg(va, _DWORD);
-	*(_DWORD*)vaArg1_1 = vaArg1;
-	result = (_DWORD*)(a1 - 257);
-	switch (a1) // нет кейсов 256, 262, но на них есть ссылки из экзе
-				//  -- видимо микс вырезал функционал
-	{
-	case 257:
-		dword_5d4594_3843628 = 0;
-		return;
-	case 258: // вызывается в экзешнике отсюда 0x980650
-		someSwitch = 1;
-		return;
-	case 259: // предполагаю что маркер выгрузки из нокса
-		someSwitch = 0;
-		return;
-	case 260: // пингует все сервера из файла game.ip
-		LOWORD(a2) = **(_DWORD**)vaArg1_1;
-		v3 = *(_DWORD*)(*(_DWORD*)vaArg1_1 + 8);
-		v4 = *(_DWORD*)(*(_DWORD*)vaArg1_1 + 4);
-		GameIpParser(v4, a2, v3);
-		pingAllServersInGameIp(v4, v1, a2, v4, v3);
-		return;
-	case 261: // вызывается при обновлении параметров сервера через гуй
-			  // Просто копирует данные из сервера в переменную serverData
-		copyServerMatchData((char*)v24);
-		result = (_DWORD*)64;
-		v5 = 0;
-		while (*(_DWORD*)&serverData[v5] == *(_DWORD*)&v24[v5]) {
-			--result;
-			v5 += 4;
-			if ((unsigned int)result < 4)
-				return;
-		}
-		memcpy(serverData, v24, sizeof(serverData));
-		return;
-	case 263: // просто проверяет является ли инстанс игры хостом
-		nox_common_gameFlags_check_40A5C0(1);
-		return;
-	case 264:
-		nox_common_gameFlags_check_40A5C0(1);
-		return;
-	case 265:
-		// toggles weapons by mouse wheel
-		// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
-		//a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1;
-		a2a = vaArg3 > 0; // scroll weapons back or forth
-		result = (_DWORD*)((unsigned __int8)vaArg2 - 2);
-		if ((unsigned __int8)vaArg2 == 2 &&
-			// FIXME: checked in asm (cmp ds:6D8555, eax)
-			((dword_5d4594_1064896 >> 8) | (dword_5d4594_1064900 << 24)) == result) {
-			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
-				result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
-				if (result) {
-					result = (_DWORD*)nox_common_gameFlags_check_40A5C0(1);
-					if (result) {
-						v6 = dword_5d4594_3843628; // playerObjServerHost
-						if (dword_5d4594_3843628) {
-							LOBYTE(result) = getPlayerClassFromObjPtr(dword_5d4594_3843628);
-							if (!(_BYTE)result) {
-								LOBYTE(result) = mix_MouseKeyboardWeaponRoll(v6, a2a);
-								if ((_BYTE)result)
-									nox_xxx_clientPlaySoundSpecial_452D80(895, 100); // clientPlaySound
-							}
-						}
-					} else {
-						notifyThisIsServeronly((int)&buf, 0, 1);
-						// v27 = a2a;
-						sendtoWrapper(&buf, 9, 0);
-					}
-				}
-			}
-		}
-		return;
-	case 417:
-		v7 = *(_WORD*)vaArg1_1;
-		if (vaArg1_1[1] != 2)
+}
+void OnLibraryNotice_257() {
+	dword_5d4594_3843628 = 0;
+}
+void OnLibraryNotice_258() {
+	// is called from exe from here: 0x980650
+	someSwitch = 1;
+}
+void OnLibraryNotice_259(DWORD arg1) {
+
+}
+void OnLibraryNotice_260(DWORD arg1, DWORD arg2, DWORD arg3) {
+	// pings all servers from game_ip.txt
+	int v1 = 0;
+	GameIpParser(arg2, arg1, arg3);
+	pingAllServersInGameIp(arg2, v1, arg1, arg2, arg3);
+}
+void OnLibraryNotice_261() {
+	unsigned __int8 v24[64]; // [esp+1Ch] [ebp-50h]
+	// is called when game parameters change via UI
+	// it just copies server data to a serverData variable
+	copyServerMatchData((char*)v24);
+	_DWORD* result = (_DWORD*)64;
+	int v5 = 0;
+	while (*(_DWORD*)&serverData[v5] == *(_DWORD*)&v24[v5]) {
+		--result;
+		v5 += 4;
+		if ((unsigned int)result < 4)
 			return;
-		if (vaArg1_1[0] == 26) {
-			v8 = 1;
-		} else {
-			if (vaArg1_1[0] != 27)
-				goto LABEL_37;
-			v8 = 0;
-		}
-		vaArg1_1[1] = v8;
+	}
+	memcpy(serverData, v24, sizeof(serverData));
+}
+void OnLibraryNotice_262(DWORD arg1) {
+
+}
+void OnLibraryNotice_263(DWORD arg1) {
+	nox_common_gameFlags_check_40A5C0(1);
+}
+void OnLibraryNotice_264(DWORD arg1) {
+	nox_common_gameFlags_check_40A5C0(1);
+}
+void OnLibraryNotice_265(DWORD arg1, DWORD arg2, DWORD arg3) {
+	// toggles weapons by mouse wheel
+	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
+	//a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1;
+	char a2a = arg3 > 0; // scroll weapons back or forth
+	_DWORD* result = (_DWORD*)(arg2 - 2);
+	if (arg2 == 2 &&
+		// FIXME: checked in asm (cmp ds:6D8555, eax)
+		((dword_5d4594_1064896 >> 8) | (dword_5d4594_1064900 << 24)) == result) {
 		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
-			result = (_DWORD*)nox_common_gameFlags_check_40A5C0(0x204); // checks some gameFlags that are yet undiscovered
-			if (result) {
-				if (dword_5d4594_1064868 || *getMemU32Ptr(0x5D4594, 1064905))
-					return;
-				if (nox_common_gameFlags_check_40A5C0(1)) // isServer
-				{
-					if (dword_5d4594_3843628 && mix_MouseKeyboardWeaponRoll(dword_5d4594_3843628, vaArg1_1[1]))
-						nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
+			if (nox_common_gameFlags_check_40A5C0(516)) {
+				if (nox_common_gameFlags_check_40A5C0(1)) {
+					if (dword_5d4594_3843628) { // playerObjServerHost
+						if (!getPlayerClassFromObjPtr(dword_5d4594_3843628)) {
+							if (mix_MouseKeyboardWeaponRoll(dword_5d4594_3843628, a2a))
+								nox_xxx_clientPlaySoundSpecial_452D80(895, 100); // clientPlaySound
+						}
+					}
 				} else {
+					char buf[10];
 					notifyThisIsServeronly((int)&buf, 0, 1);
-					// v27 = v8 | 0x10;
+					// v27 = a2a;
 					sendtoWrapper(&buf, 9, 0);
 				}
 			}
 		}
-	LABEL_37:
-		if ((_BYTE)v7 == functionalKeyCodes[5]) {
-			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
-				result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
-				if (result) {
-					if (dword_5d4594_1064868 || *getMemU32Ptr(0x5D4594, 1064905))
-						return;
-					if (nox_common_gameFlags_check_40A5C0(1)) // checkGameFlags isServer
-					{
-						v9 = nox_xxx_objGetTeamByNetCode_418C80(*getMemU32Ptr(0x5D4594, 2616328));
-						playerDropATrap((int)(v9 - 12));
-					} else {
-						notifyThisIsServeronly((int)&buf, 9, 1);
-						sendtoWrapper(&buf, 8, 0);
-					}
-				}
-			}
-		}
-		if ((_BYTE)v7 != 66)
-			goto LABEL_60;
-		if (!nox_common_gameFlags_check_40A5C0(1)) {
-			nox_xxx_printCentered_445490(L"only server can change these options");
-			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
-			return;
-		}
-		result = (_DWORD*)nox_common_gameFlags_check_40A5C0(516);
-		if (result) {
-			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
-			if (modifyWndPntr) {
-				GameExCfgSaver();
-				DestroyNoxWindow();
-				modifyWndPntr = 0;
-			} else {
-				result = nox_new_window_from_file("modify.wnd", modifyWndInputHandler);
-				modifyWndPntr = result;
-				if (!result)
-					return;
-				if (nox_common_gameFlags_check_40A5C0(512)) {
-					v10 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1938);
-					nox_window_set_hidden((int)v10, 1);
-					v11 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1524);
-					nox_xxx_wnd_46ABB0((int)v11, 0);
-				}
-				sub_46B120(modifyWndPntr, 0);
-				a2b = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1981);
-				v12 = 1520;
-				v13 = wndEntryNames;
-				*(_DWORD*)vaArg1_1 = 5;
-				do {
-					nox_window_call_field_94((int)a2b, 16397, (int)v13, -1);
-					if (getFlagValueFromFlagIndex(v12 - 1519) & *getMemU32Ptr(0x980858, 2)) {
-						v14 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, v12);
-						v14[9] |= 4u;
-					} else {
-						v15 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, v12);
-						v15[9] &= 0xFBu;
-					}
-					++v13;
-					++v12;
-					--*(_DWORD*)vaArg1_1;
-				} while (*(_DWORD*)vaArg1_1);
-			}
-		LABEL_60:
-			result = 0;
-			while ((_BYTE)v7 != functionalKeyCodes[(_DWORD)result]) {
-				result = (_DWORD*)((char*)result + 1);
-				if ((signed int)result >= 5)
-					return;
-			}
-			nox_xxx_clientUpdateButtonRow_45E110((int)result);
-		}
-		return;
-	case 418:
-		result = (_DWORD*)sub_44A4A0();
-		if (!result) {
-			memset(inputNewIpMsgBox, 0, 0x200u);
-			*(_DWORD*)&inputNewIpMsgBox[376] = inputNewIp_;
-			nox_xxx_dialogMsgBoxCreate_449A10((int)inputNewIpMsgBox, (int)L"Ip Address", (int)L"Enter address", 163,
-								(int (*)(void))startInvalidIpChecker, 0);
-		}
-		return;
-	case 420:
-		v23 = **(_DWORD**)vaArg1_1;
-		v19 = *(_DWORD*)(*(_DWORD*)vaArg1_1 + 4);
-		v16 = getPlayerClassFromObjPtr(**(_DWORD**)vaArg1_1);
-		v18 = v16;
-		if (*(_BYTE*)(v19 + 0xA) != 17)
-			goto LABEL_71;
-		v17 = *(_BYTE*)(v19 + 4);
-		if (v17 != 0x6A) {
-			if ((v17 == 0x6B || v17 == 0x6D) && (_BYTE)v16)
-				goto ifIsWarrior;
-		LABEL_71:
-			nox_xxx_inventoryServPlace_4F36F0(v23, v19, 1, 1);
-			return;
-		}
-		if ((_BYTE)v16 == 1)
-			goto LABEL_71;
-	ifIsWarrior:
-		nox_xxx_netPriMsgToPlayer_4DA2C0(v23, (const char*)getMemAt(0x587000, 215732), 0); // 0x5BBAB4 = pickup.c:ObjectEquipClassFail
-		nox_xxx_aud_501960(925, v23, 2, *(_DWORD*)(v23 + 36));
-		return;
-	default:
-		return;
 	}
 }
-// 1000F198: using guessed type wchar_t aEnterAddress[14];
-// 1000F1B4: using guessed type wchar_t aIpAddress[11];
-// 100129C0: using guessed type char someSwitch;
+void OnLibraryNotice_417(DWORD arg1) {
+	char* vaArg1_1 = &arg1;
+	__int16 v7 = *(_WORD*)vaArg1_1;
+	if (vaArg1_1[1] != 2)
+		return;
+	char v8 = 0;
+	if (vaArg1_1[0] == 26) {
+		v8 = 1;
+	} else if (vaArg1_1[0] == 27) {
+		v8 = 0;
+	} else {
+		goto LABEL_37;
+	}
+	vaArg1_1[1] = v8;
+	if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
+		// checks some gameFlags that are yet undiscovered
+		if (nox_common_gameFlags_check_40A5C0(0x204)) {
+			if (dword_5d4594_1064868 || *getMemU32Ptr(0x5D4594, 1064905))
+				return;
+			if (nox_common_gameFlags_check_40A5C0(1)) // isServer
+			{
+				if (dword_5d4594_3843628 && mix_MouseKeyboardWeaponRoll(dword_5d4594_3843628, vaArg1_1[1]))
+					nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
+			} else {
+				char buf[10];
+				notifyThisIsServeronly((int)&buf, 0, 1);
+				// v27 = v8 | 0x10;
+				sendtoWrapper(&buf, 9, 0);
+			}
+		}
+	}
+LABEL_37:
+	if ((_BYTE)v7 == functionalKeyCodes[5]) {
+		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
+			if (nox_common_gameFlags_check_40A5C0(516)) {
+				if (dword_5d4594_1064868 || *getMemU32Ptr(0x5D4594, 1064905))
+					return;
+				if (nox_common_gameFlags_check_40A5C0(1)) // checkGameFlags isServer
+				{
+					_DWORD* v9 = nox_xxx_objGetTeamByNetCode_418C80(*getMemU32Ptr(0x5D4594, 2616328));
+					playerDropATrap((int)(v9 - 12));
+				} else {
+					char buf[10];
+					notifyThisIsServeronly((int)&buf, 9, 1);
+					sendtoWrapper(&buf, 8, 0);
+				}
+			}
+		}
+	}
+	if ((_BYTE)v7 != 66) {
+		goto LABEL_60;
+	}
+	if (!nox_common_gameFlags_check_40A5C0(1)) {
+		nox_xxx_printCentered_445490(L"only server can change these options");
+		nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
+		return;
+	}
+	if (nox_common_gameFlags_check_40A5C0(516)) {
+		nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
+		if (modifyWndPntr) {
+			GameExCfgSaver();
+			DestroyNoxWindow();
+			modifyWndPntr = 0;
+		} else {
+			modifyWndPntr = nox_new_window_from_file("modify.wnd", modifyWndInputHandler);
+			if (!modifyWndPntr)
+				return;
+			if (nox_common_gameFlags_check_40A5C0(512)) {
+				_DWORD* v10 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1938);
+				nox_window_set_hidden((int)v10, 1);
+				_DWORD* v11 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1524);
+				nox_xxx_wnd_46ABB0((int)v11, 0);
+			}
+			sub_46B120(modifyWndPntr, 0);
+			_DWORD* a2b = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1981);
+			int v12 = 1520;
+			wchar_t(*v13)[35] = wndEntryNames;
+			*(_DWORD*)vaArg1_1 = 5;
+			do {
+				nox_window_call_field_94((int)a2b, 16397, (int)v13, -1);
+				if (getFlagValueFromFlagIndex(v12 - 1519) & *getMemU32Ptr(0x980858, 2)) {
+					_DWORD* v14 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, v12);
+					v14[9] |= 4u;
+				} else {
+					_DWORD* v15 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, v12);
+					v15[9] &= 0xFBu;
+				}
+				++v13;
+				++v12;
+				--*(_DWORD*)vaArg1_1;
+			} while (*(_DWORD*)vaArg1_1);
+		}
+	LABEL_60:;
+		_DWORD* result = 0;
+		while ((_BYTE)v7 != functionalKeyCodes[(_DWORD)result]) {
+			result = (_DWORD*)((char*)result + 1);
+			if ((signed int)result >= 5)
+				return;
+		}
+		nox_xxx_clientUpdateButtonRow_45E110((int)result);
+	}
+}
+void OnLibraryNotice_418() {
+	if (!sub_44A4A0()) {
+		memset(inputNewIpMsgBox, 0, 0x200u);
+		*(_DWORD*)&inputNewIpMsgBox[376] = inputNewIp_;
+		nox_xxx_dialogMsgBoxCreate_449A10((int)inputNewIpMsgBox, (int)L"Ip Address", (int)L"Enter address", 163,
+							(int (*)(void))startInvalidIpChecker, 0);
+	}
+}
+void OnLibraryNotice_420(DWORD arg1, DWORD arg2, DWORD arg3, DWORD arg4) {
+	int v23 = arg1;
+	int v19 = arg2;
+	_DWORD* v16 = getPlayerClassFromObjPtr(arg1);
+	if (*(_BYTE*)(v19 + 0xA) != 17) {
+		nox_xxx_inventoryServPlace_4F36F0(v23, v19, 1, 1);
+		return;
+	}
+	char v17 = *(_BYTE*)(v19 + 4);
+	if (v17 != 0x6A) {
+		if ((v17 == 0x6B || v17 == 0x6D) && (_BYTE)v16) {
+			goto ifIsWarrior;
+		}
+		nox_xxx_inventoryServPlace_4F36F0(v23, v19, 1, 1);
+		return;
+	}
+	if ((_BYTE)v16 == 1) {
+		nox_xxx_inventoryServPlace_4F36F0(v23, v19, 1, 1);
+		return;
+	}
+ifIsWarrior:
+	nox_xxx_netPriMsgToPlayer_4DA2C0(v23, (const char*)getMemAt(0x587000, 215732), 0); // 0x5BBAB4 = pickup.c:ObjectEquipClassFail
+	nox_xxx_aud_501960(925, v23, 2, *(_DWORD*)(v23 + 36));
+}
 
 //----- (10004330) --------------------------------------------------------
-int __usercall getFlagValueFromFlagIndex(signed int a1) {
+int getFlagValueFromFlagIndex(signed int a1) {
 	signed int v1;   // edx
 	unsigned int v2; // eax
 	signed int v3;   // ecx
@@ -1369,5 +1328,3 @@ int __usercall getFlagValueFromFlagIndex(signed int a1) {
 		result = 1 / v3;
 	return result;
 }
-
-// ALL OK, 25 function(s) have been successfully decompiled
