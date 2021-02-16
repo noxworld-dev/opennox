@@ -5,13 +5,12 @@
 #include <windows.h>
 #else
 #include "../windows_compat.h"
+extern const char* progname;
 #endif
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
 #endif
-
-extern const char* progname;
 
 #if defined(__EMSCRIPTEN__)
 extern int main()
@@ -52,13 +51,15 @@ extern int main(int argc, char* argv[])
 		fprintf(stderr, "Failed to enter Nox directory.\n");
 		return 1;
 	}
-#else
+#else // !__EMSCRIPTEN__
+#ifndef _WIN32
 	progname = argv[0];
+#endif // _WIN32
 	strcpy(cmdline, argv[0]);
 
 	for (int i = 1; i < argc; i++)
 		sprintf(cmdline + strlen(cmdline), " %s", argv[i]);
-#endif
+#endif // __EMSCRIPTEN__
 
 	return WinMain(NULL, NULL, cmdline, 0);
 }
