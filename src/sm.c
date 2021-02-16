@@ -18,7 +18,7 @@ extern _DWORD dword_5d4594_815704;
 extern _DWORD dword_5d4594_815708;
 extern _DWORD dword_5d4594_3844304;
 extern _DWORD dword_5d4594_2649712;
-extern _DWORD dword_5d4594_815700;
+extern _DWORD nox_xxx_netStructID_815700;
 extern void (*mainloop_enter)(void*);
 extern void* mainloop_enter_args;
 extern BOOL mainloop_exit_path;
@@ -229,7 +229,7 @@ void CONNECT_SERVER(sm_args_t* args) {
 	nox_xxx_allocNetGQueue_5520B0(200, 1024);
 	narg.field_9 = nox_xxx_netHandleCliPacket_43C860;
 	v4 = nox_xxx_netPreStructToFull_5546F0(&narg);
-	dword_5d4594_815700 = v4;
+	nox_xxx_netStructID_815700 = v4;
 
 	GOTO_NET_CONNECT(v4, cp, hostshort, args->connect_server.data);
 }
@@ -375,8 +375,8 @@ void CONNECT_WAIT_LOOP(sm_args_t* args) {
 		GOTO_CONNECT_WAIT_THEN(0);
 	}
 
-	nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
-	nox_xxx_netSendBySock_40EE10(*(unsigned int*)&dword_5d4594_815700, 31, 0);
+	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1);
+	nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
 	sub_40ED10(31, 0);
 	sub_552460();
 	if (nox_xxx_crc_40A370()) {

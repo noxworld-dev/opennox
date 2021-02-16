@@ -11,7 +11,7 @@ extern int dword_5d4594_3484;
 extern unsigned int dword_5d4594_3843628;
 extern unsigned int dword_5d4594_1064896;
 extern unsigned int dword_5d4594_1064900;
-extern unsigned int dword_5d4594_815700;
+extern unsigned int nox_xxx_netStructID_815700;
 extern unsigned int dword_587000_87404;
 extern unsigned int dword_5d4594_1064868;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
@@ -453,11 +453,11 @@ char GameExCfgLoader() {
 
 //----- (10001A20) --------------------------------------------------------
 int  sendtoWrapper(char* buf, int len, int smth) {
-	if (!buf || !len || dword_5d4594_815700 >= NOX_NET_STRUCT_MAX) {
+	if (!buf || !len || nox_xxx_netStructID_815700 >= NOX_NET_STRUCT_MAX) {
 		return 0;
 	}
 	// 0x69B7E8 = netSocketData
-	nox_net_struct_t* ns = nox_net_struct_arr[dword_5d4594_815700];
+	nox_net_struct_t* ns = nox_net_struct_arr[nox_xxx_netStructID_815700];
 	if (!ns) {
 		// A call here is lost? - nope, as somehow the checks in ASM denies it completely
 		return 0;
