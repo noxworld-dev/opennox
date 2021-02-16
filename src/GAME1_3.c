@@ -114,7 +114,6 @@ extern _DWORD dword_587000_87404;
 extern _DWORD dword_587000_87412;
 extern _DWORD dword_5d4594_829492;
 extern _DWORD dword_5d4594_816364;
-extern _DWORD dword_5d4594_815700;
 extern _DWORD dword_5d4594_830248;
 extern _DWORD dword_5d4594_829480;
 extern _DWORD dword_5d4594_3801780;
@@ -159,6 +158,8 @@ int (*nox_draw_unk1)(void) = 0;
 void (*mainloop_enter)(void*);
 void* mainloop_enter_args;
 BOOL mainloop_exit_path = 0;
+
+unsigned int nox_xxx_netStructID_815700 = 0;
 
 nox_thing* nox_things_head = 0;
 nox_thing** nox_things_array = 0;
@@ -825,7 +826,7 @@ int  nox_xxx_gameSetCliConnected_43C720(int a1) {
 }
 
 //----- (0043C750) --------------------------------------------------------
-int nox_xxx_netGet_43C750() { return dword_5d4594_815700; }
+int nox_xxx_netGet_43C750() { return nox_xxx_netStructID_815700; }
 
 //----- (0043C760) --------------------------------------------------------
 int sub_43C760() {
@@ -851,7 +852,6 @@ int  sub_43C7A0(int a1) {
 
 //----- (0043C7B0) --------------------------------------------------------
 int  nox_xxx_netAddNetStruct4Host_43C7B0(char* cp, int hostshort, int a3, signed int* a4) {
-	int v4;      // eax
 	int v5;      // eax
 
 	dword_5d4594_815704 = 0;
@@ -863,9 +863,9 @@ int  nox_xxx_netAddNetStruct4Host_43C7B0(char* cp, int hostshort, int a3, signed
 	narg.field_2 = hostshort;
 	nox_xxx_allocNetGQueue_5520B0(200, 1024);
 	narg.field_9 = nox_xxx_netHandleCliPacket_43C860;
-	v4 = nox_xxx_netPreStructToFull_5546F0(&narg);
-	dword_5d4594_815700 = v4;
-	v5 = sub_554760(v4, cp, hostshort, a3, 153);
+	unsigned int id = nox_xxx_netPreStructToFull_5546F0(&narg);
+	nox_xxx_netStructID_815700 = id;
+	v5 = sub_554760(id, cp, hostshort, a3, 153);
 	OnLibraryNotice(258, 0);
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		dword_5d4594_2649712 |= 0x80000000;
@@ -944,7 +944,7 @@ int nox_xxx_netSendClientReady_43C9F0() {
 	char v1; // [esp+1h] [ebp-1h]
 
 	v1 = -64;
-	nox_xxx_netSendSock_552640(*(unsigned int*)&dword_5d4594_815700, &v1, 1, 3);
+	nox_xxx_netSendSock_552640(nox_xxx_netStructID_815700, &v1, 1, 3);
 	return 1;
 }
 
@@ -953,7 +953,7 @@ int nox_xxx_netKeepAliveSocket_43CA20() {
 	char v1; // [esp+1h] [ebp-1h]
 
 	v1 = -66;
-	nox_xxx_netSendSock_552640(*(unsigned int*)&dword_5d4594_815700, &v1, 1, 2);
+	nox_xxx_netSendSock_552640(nox_xxx_netStructID_815700, &v1, 1, 2);
 	return 1;
 }
 
@@ -962,7 +962,7 @@ int nox_xxx_netRequestMap_43CA50() {
 	char v1; // [esp+1h] [ebp-1h]
 
 	v1 = -74;
-	nox_xxx_netSendSock_552640(*(unsigned int*)&dword_5d4594_815700, &v1, 1, 3);
+	nox_xxx_netSendSock_552640(nox_xxx_netStructID_815700, &v1, 1, 3);
 	return 1;
 }
 
@@ -971,7 +971,7 @@ int nox_xxx_netMapReceived_43CA80() {
 	char v1; // [esp+1h] [ebp-1h]
 
 	v1 = -65;
-	nox_xxx_netSendSock_552640(*(unsigned int*)&dword_5d4594_815700, &v1, 1, 3);
+	nox_xxx_netSendSock_552640(nox_xxx_netStructID_815700, &v1, 1, 3);
 	return 1;
 }
 
@@ -981,8 +981,8 @@ int nox_xxx_cliSendCancelMap_43CAB0() {
 	char v2; // [esp+1h] [ebp-1h]
 
 	v2 = -73;
-	v0 = nox_xxx_netSendSock_552640(*(unsigned int*)&dword_5d4594_815700, &v2, 1, 3);
-	if (nox_xxx_cliWaitServerResponse_5525B0(*(unsigned int*)&dword_5d4594_815700, v0, 20, 6))
+	v0 = nox_xxx_netSendSock_552640(nox_xxx_netStructID_815700, &v2, 1, 3);
+	if (nox_xxx_cliWaitServerResponse_5525B0(nox_xxx_netStructID_815700, v0, 20, 6))
 		return 0;
 	sub_40ED10(31, 0);
 	return 1;
@@ -994,8 +994,8 @@ int nox_xxx_netSendIncomingClient_43CB00() {
 	char v2; // [esp+1h] [ebp-1h]
 
 	v2 = -83;
-	v0 = nox_xxx_netSendSock_552640(*(unsigned int*)&dword_5d4594_815700, &v2, 1, 3);
-	if (nox_xxx_cliWaitServerResponse_5525B0(*(unsigned int*)&dword_5d4594_815700, v0, 20, 6))
+	v0 = nox_xxx_netSendSock_552640(nox_xxx_netStructID_815700, &v2, 1, 3);
+	if (nox_xxx_cliWaitServerResponse_5525B0(nox_xxx_netStructID_815700, v0, 20, 6))
 		return 0;
 	sub_40ED10(31, 0);
 	return 1;
@@ -1007,20 +1007,20 @@ int nox_xxx_cliSendOutgoingClient_43CB50() {
 	char v2; // [esp+1h] [ebp-1h]
 
 	v2 = -82;
-	v0 = nox_xxx_netSendSock_552640(*(unsigned int*)&dword_5d4594_815700, &v2, 1, 3);
-	if (nox_xxx_cliWaitServerResponse_5525B0(*(unsigned int*)&dword_5d4594_815700, v0, 20, 6))
+	v0 = nox_xxx_netSendSock_552640(nox_xxx_netStructID_815700, &v2, 1, 3);
+	if (nox_xxx_cliWaitServerResponse_5525B0(nox_xxx_netStructID_815700, v0, 20, 6))
 		return 0;
-	nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)&dword_5d4594_815700, 3);
+	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 3);
 	sub_40ED10(31, 0);
 	return 1;
 }
 
 //----- (0043CBB0) --------------------------------------------------------
 int sub_43CBB0() {
-	nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
+	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1);
 	if ((unsigned __int64)(nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_815724) >= 2000) {
 		*(_QWORD*)&qword_5d4594_815724 = nox_call_get_ticks();
-		sub_552E70(*(unsigned int*)&dword_5d4594_815700);
+		sub_552E70(nox_xxx_netStructID_815700);
 	}
 	sub_552460();
 	if (!*getMemU32Ptr(0x5D4594, 815720) && !*getMemU32Ptr(0x5D4594, 815716) ||
@@ -1044,7 +1044,7 @@ BOOL  sub_43CC60(int a1) {
 int sub_43CC80() {
 	int result; // eax
 
-	result = sub_5549F0(*(unsigned int*)&dword_5d4594_815700);
+	result = sub_5549F0(nox_xxx_netStructID_815700);
 	dword_5d4594_2649712 = 0;
 	return result;
 }
@@ -1060,7 +1060,7 @@ void sub_43CCA0() {
 
 	nox_xxx_spriteDeleteSomeList_49C4B0();
 	v0 = *getMemU32Ptr(0x5D4594, 2598000);
-	nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
+	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1);
 	if (v0 != *getMemU32Ptr(0x5D4594, 2598000) && dword_5d4594_2650652 == 1 && !nox_common_gameFlags_check_40A5C0(1)) {
 		v1 = sub_40A710(1);
 		if (sub_43C790() > v1) {
@@ -1077,11 +1077,11 @@ void sub_43CCA0() {
 	v3 = nox_call_get_ticks() - *(_QWORD*)&qword_5d4594_815724;
 	if (v3 >= 2000) {
 		*(_QWORD*)&qword_5d4594_815724 = nox_call_get_ticks();
-		sub_552E70(*(unsigned int*)&dword_5d4594_815700);
+		sub_552E70(nox_xxx_netStructID_815700);
 	}
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		nox_xxx_netImportant_4E5770(0x1Fu, 0);
-	nox_xxx_netSendBySock_40EE10(*(unsigned int*)&dword_5d4594_815700, 31, 0);
+	nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
 	sub_40ED10(31, 0);
 	sub_552460();
 	if (!(*getMemU32Ptr(0x5D4594, 815720) || (*getMemU32Ptr(0x5D4594, 815716) != 0))) {
@@ -1177,22 +1177,22 @@ int sub_43CF70() {
 // 43CFA0: variable 'v1' is possibly undefined
 
 //----- (0043CFD0) --------------------------------------------------------
-BOOL sub_43CFD0() { return nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)&dword_5d4594_815700, 1) != -1; }
+BOOL sub_43CFD0() { return nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1) != -1; }
 
 //----- (0043CFF0) --------------------------------------------------------
 int sub_43CFF0() {
 	__int64 v0; // kr00_8
 
 	v0 = nox_call_get_ticks();
-	nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
-	nox_xxx_netSendBySock_40EE10(*(unsigned int*)&dword_5d4594_815700, 31, 0);
+	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1);
+	nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
 	sub_40ED10(31, 0);
 	sub_552460();
 	if (nox_xxx_crc_40A370())
 		return 1;
 	while ((unsigned __int64)(nox_call_get_ticks() - v0) < 0x2710) {
-		nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)&dword_5d4594_815700, 1);
-		nox_xxx_netSendBySock_40EE10(*(unsigned int*)&dword_5d4594_815700, 31, 0);
+		nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1);
+		nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
 		sub_40ED10(31, 0);
 		sub_552460();
 		if (nox_xxx_crc_40A370())

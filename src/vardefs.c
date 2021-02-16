@@ -93,7 +93,6 @@ _DWORD dword_5d4594_3798840 = 0;
 _DWORD dword_5d4594_1309812 = 0;
 _DWORD dword_5d4594_754036 = 0;
 void* dword_587000_155144 = 0;
-_DWORD dword_5d4594_815700 = 0;
 _DWORD dword_5d4594_741676 = 0;
 _DWORD dword_5d4594_1047516 = 0;
 _DWORD dword_5d4594_1308084 = 0;
