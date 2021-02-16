@@ -25,6 +25,7 @@ extern BOOL mainloop_exit_path;
 extern int g_v20, g_v21;
 extern int g_argc2;
 extern char** g_argv2;
+extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
 typedef union {
 	struct {
@@ -234,7 +235,6 @@ void CONNECT_SERVER(sm_args_t* args) {
 }
 
 void NET_CONNECT(sm_args_t* args) {
-	int* v5;                // ebp
 	int v7;                 // eax
 	unsigned int v8;        // ebx
 	struct hostent* v9;     // eax
@@ -242,7 +242,6 @@ void NET_CONNECT(sm_args_t* args) {
 	char v11;               // al
 	char v12;               // [esp+12h] [ebp-1B2h]
 	struct sockaddr_in name;   // [esp+14h] [ebp-1B0h]
-	WORD v14[2];            // [esp+24h] [ebp-1A0h]
 	int v15;                // [esp+28h] [ebp-19Ch]
 	struct WSAData WSAData; // [esp+34h] [ebp-190h]
 
@@ -250,11 +249,11 @@ void NET_CONNECT(sm_args_t* args) {
 	const char* cp = args->net_connect.hostname;
 	int hostshort = args->net_connect.port;
 
-	v5 = *(int**)getMemAt(0x5D4594, 3843788 + 4*a1);
-	if ((unsigned int)a1 >= 0x80) {
+	if ((unsigned int)a1 >= NOX_NET_STRUCT_MAX) {
 		GOTO_NET_CONNECT_THEN(-3);
 	}
-	if (!v5) {
+	nox_net_struct_t* ns = nox_net_struct_arr[a1];
+	if (!ns) {
 		GOTO_NET_CONNECT_THEN(-3);
 	}
 	if (!cp) {
@@ -267,7 +266,7 @@ void NET_CONNECT(sm_args_t* args) {
 		GOTO_NET_CONNECT_THEN(-21);
 	}
 	v7 = socket(AF_INET, SOCK_DGRAM, 0);
-	*v5 = v7;
+	ns->sock = v7;
 	if (v7 == -1) {
 		WSACleanup();
 		GOTO_NET_CONNECT_THEN(-22);
@@ -283,18 +282,17 @@ void NET_CONNECT(sm_args_t* args) {
 		v8 = inet_addr(cp);
 	}
 	v15 = 0;
-	v14[0] = 2;
-	v14[1] = htons(hostshort);
-	v5[1] = *(_DWORD*)v14;
-	v5[2] = v8;
-	v5[3] = 0;
-	v5[4] = 0;
+	ns->addr.sin_family = AF_INET;
+	ns->addr.sin_port = htons(hostshort);
+	ns->addr.sin_addr.s_addr = v8;
+	memset(ns->addr.sin_zero, 0, 8);
+
 	v10 = sub_40A420();
 	name.sin_family = AF_INET;
 	name.sin_port = htons(v10);
 	name.sin_addr.s_addr = 0;
 	memset(name.sin_zero, 0, 8);
-	while (bind(*v5, &name, 16) == -1) {
+	while (bind(ns->sock, &name, 16) == -1) {
 		if (WSAGetLastError() != 10048) {
 			WSACleanup();
 			GOTO_NET_CONNECT_THEN(-1);
@@ -308,19 +306,17 @@ void NET_CONNECT(sm_args_t* args) {
 }
 
 void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
-	int v4; // edi
-
 	unsigned int a1 = args->net_connect_wait_loop.id;
 	char a2 = args->net_connect_wait_loop.val;
 	int a3 = args->net_connect_wait_loop.retries;
 	char a4 = args->net_connect_wait_loop.flags;
 	int v6 = args->net_connect_wait_loop.counter;
 
-	v4 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
 	}
-	if (!v4) {
+	nox_net_struct_t* ns = nox_net_struct_arr[a1];
+	if (!ns) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
 	}
 	v6 = 0;
@@ -329,7 +325,7 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 	}
 	nox_xxx_servNetInitialPackets_552A80(a1, a4 | 1);
 	sub_552460();
-	if (*(char*)(v4 + 113) >= a2) {
+	if (ns->field_28_1 >= a2) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, 0);
 	}
 
@@ -337,8 +333,6 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 }
 
 void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
-	int* v5;
-
 	unsigned int a1 = args->net_connect_wait_then.id;
 	void* a4 = args->net_connect_wait_then.data;
 	unsigned int a5 = sizeof(args->net_connect_wait_then.data);
@@ -347,18 +341,18 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 		GOTO_NET_CONNECT_THEN(-23);
 	}
 
-	v5 = *(int**)getMemAt(0x5D4594, 3843788 + 4*a1);
-	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
+	nox_net_struct_t* ns = nox_net_struct_arr[a1];
+	if (dword_5d4594_3844304 && ns->field_5 >= 0) {
 		memset(getMemAt(0x5D4594, 2512892), 0, 0x400u);
 		*getMemU8Ptr(0x5D4594, 2512892) = 31;
-		*getMemU8Ptr(0x5D4594, 2512892 + 1) = *(_BYTE*)(v5[12] + 1);
+		*getMemU8Ptr(0x5D4594, 2512892 + 1) = ns->field_12[1];
 		*getMemU8Ptr(0x5D4594, 2512892 + 2) = 32;
 		if (a4) {
 			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void *) a4, a5);
 		}
 		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
 	}
-	GOTO_NET_CONNECT_THEN(v5[5]);
+	GOTO_NET_CONNECT_THEN(ns->field_5);
 }
 
 void NET_CONNECT_THEN(sm_args_t* args) {

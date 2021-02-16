@@ -50,6 +50,7 @@ extern _DWORD dword_5d4594_1599656;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_1599636;
 extern unsigned int nox_gameFPS;
+extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
 // monster AI?
 nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE*NOX_SERVER_XXX_SIZE] = {0};
@@ -2200,22 +2201,14 @@ char nox_xxx_updateUnits_51B100() {
 
 //----- (005524C0) --------------------------------------------------------
 void sub_5524C0() {
-	unsigned int v0;  // edi
-	unsigned int* v1; // esi
-
 	dword_5d4594_2495920 = nox_platform_get_ticks();
-	v0 = 0;
-	v1 = getMemUintPtr(0x5D4594, 3843788);
-	do {
-		unsigned int result = *v1;
-		if (*v1 && *(_DWORD*)(result + 152) == 1) {
-			_DWORD result = *(_DWORD*)(result + 160) + 300;
-			if (result < *getMemIntPtr(0x5D4594, 2598000))
-				result = nox_xxx_netStructReadPackets_5545B0(v0);
+	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
+		nox_net_struct_t* ns = nox_net_struct_arr[i];
+		if (ns && ns->field_38 == 1) {
+			if (ns->field_40 + 300 < *getMemIntPtr(0x5D4594, 2598000))
+				nox_xxx_netStructReadPackets_5545B0(i);
 		}
-		++v1;
-		++v0;
-	} while ((int)v1 < (int)getMemAt(0x5D4594, 3844300));
+	}
 }
 
 //----- (0057B140) --------------------------------------------------------

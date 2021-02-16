@@ -23,6 +23,7 @@ extern unsigned int nox_gameFPS;
 extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
 extern int nox_win_width;
 extern int nox_win_height;
+extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
 int call_func_5D4594_816388();
 int call_func_5D4594_816392();
@@ -30,7 +31,6 @@ int call_nox_draw_unk1();
 */
 import "C"
 import (
-	"encoding/binary"
 	"fmt"
 	"math"
 	"nox/common/alloc"
@@ -393,16 +393,15 @@ func CONNECT_SERVER(cp *C.char, hostshort uint32, data []byte) {
 }
 
 func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
-	v5 := *(**int)(memmap.PtrOff(0x5D4594, 4*uintptr(a1)+3843788))
-	v5s := asU32Slice(unsafe.Pointer(v5), 5)
-	if uint(a1) >= 0x80 {
+	if uint(a1) >= C.NOX_NET_STRUCT_MAX {
 		fmt.Println("goto NET_CONNECT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_THEN(-3)
 		}
 		return
 	}
-	if v5 == nil {
+	ns := C.nox_net_struct_arr[a1]
+	if ns == nil {
 		fmt.Println("goto NET_CONNECT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_THEN(-3)
@@ -432,7 +431,7 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 		return
 	}
 	v7 := C.socket(C.AF_INET, C.SOCK_DGRAM, 0)
-	*v5 = int(v7)
+	ns.sock = v7
 	if v7 == -1 {
 		C.WSACleanup()
 
@@ -459,21 +458,17 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 		v8 = uint32(C.inet_addr(cp))
 	}
 
-	var v14 [4]byte
-	binary.LittleEndian.PutUint16(v14[0:], 2)
-	binary.LittleEndian.PutUint16(v14[2:], uint16(C.htons(C.ushort(hostshort))))
-
-	v5s[1] = binary.LittleEndian.Uint32(v14[:])
-	v5s[2] = v8
-	v5s[3] = 0
-	v5s[4] = 0
+	ns.addr.sin_family = C.AF_INET
+	ns.addr.sin_port = C.htons(C.ushort(hostshort))
+	ns.addr.sin_addr.s_addr = C.uint(v8)
+	alloc.Memset(unsafe.Pointer(&ns.addr.sin_zero[0]), 0, 8)
 
 	port := C.sub_40A420()
 	var name C.struct_sockaddr_in
 	name.sin_family = C.AF_INET
 	name.sin_port = C.htons(C.ushort(port))
 	name.sin_addr.s_addr = 0
-	for C.bind(C.int(v5s[0]), (*C.struct_sockaddr)(unsafe.Pointer(&name)), 16) == -1 {
+	for C.bind(ns.sock, (*C.struct_sockaddr)(unsafe.Pointer(&name)), 16) == -1 {
 		if C.WSAGetLastError() != 10048 {
 			C.WSACleanup()
 
@@ -498,15 +493,15 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 }
 
 func NET_CONNECT_WAIT_LOOP(id uint32, val int8, retries, flags, counter uint32, data []byte) {
-	v4 := memmap.Uint32(0x5D4594, 4*uintptr(id)+3843788)
-	if id >= 0x80 {
+	if id >= C.NOX_NET_STRUCT_MAX {
 		fmt.Println("goto NET_CONNECT_WAIT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_WAIT_THEN(id, -3, data)
 		}
 		return
 	}
-	if v4 == 0 {
+	ns := C.nox_net_struct_arr[id]
+	if ns == nil {
 		fmt.Println("goto NET_CONNECT_WAIT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_WAIT_THEN(id, -3, data)
@@ -524,7 +519,7 @@ func NET_CONNECT_WAIT_LOOP(id uint32, val int8, retries, flags, counter uint32, 
 	}
 	C.nox_xxx_servNetInitialPackets_552A80(C.uint(id), C.char(flags|1))
 	C.sub_552460()
-	if *(*int8)(unsafe.Pointer(uintptr(v4) + 113)) >= val {
+	if int8(ns.field_28_1) >= val {
 		fmt.Println("goto NET_CONNECT_WAIT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_WAIT_THEN(id, 0, data)
@@ -550,13 +545,12 @@ func NET_CONNECT_WAIT_THEN(id uint32, result int, data []byte) {
 		return
 	}
 
-	v5 := *(**int)(memmap.PtrOff(0x5D4594, 4*uintptr(id)+3843788))
-	v5s := asU32Slice(unsafe.Pointer(v5), 13)
-	if C.dword_5d4594_3844304 != 0 && int(v5s[5]) >= 0 {
+	ns := C.nox_net_struct_arr[id]
+	if C.dword_5d4594_3844304 != 0 && ns.field_5 >= 0 {
 		vs := asByteSlice(memmap.PtrOff(0x5D4594, 2512892), 1024)
 		copy(vs, make([]byte, 1024))
 		vs[0] = 31
-		vs[1] = *(*byte)(unsafe.Pointer(uintptr(v5s[12]) + 1))
+		vs[1] = *(*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(ns.field_12)) + 1))
 		vs[2] = 32
 		if len(data) > 0 {
 			copy(vs[3:], data[:a5])
@@ -564,7 +558,7 @@ func NET_CONNECT_WAIT_THEN(id uint32, result int, data []byte) {
 		C.nox_xxx_netSendSock_552640(C.uint(id), memmap.PtrOff(0x5D4594, 2512892), C.int(a5+3), 3)
 	}
 
-	result = int(v5s[5])
+	result = int(ns.field_5)
 	fmt.Println("goto NET_CONNECT_THEN")
 	mainloopEnter = func() {
 		NET_CONNECT_THEN(result)
