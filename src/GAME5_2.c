@@ -47,7 +47,6 @@ extern _DWORD nox_xxx_conjurerMaxHealth_587000_312800;
 extern _DWORD nox_xxx_wizardMaxHealth_587000_312816;
 extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
 extern _DWORD dword_5d4594_3844304;
-extern _DWORD dword_5d4594_2513920;
 extern _DWORD nox_xxx_wizardMaximumMana_587000_312820;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_2523912;
@@ -62,6 +61,7 @@ extern _DWORD dword_5d4594_2516348;
 extern _DWORD dword_5d4594_2650652;
 
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
+SOCKET nox_xxx_sockLocalBroadcast_2513920 = 0;
 
 //----- (005528B0) --------------------------------------------------------
 int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
@@ -1655,8 +1655,8 @@ int  nox_xxx_createSocketLocal_554B40(uint16_t hostshort) {
 	if (result == -1) {
 		return -1;
 	}
-	dword_5d4594_2513920 = socket(AF_INET, SOCK_DGRAM, 0);
-	if (*(int*)&dword_5d4594_2513920 == -1) {
+	nox_xxx_sockLocalBroadcast_2513920 = socket(AF_INET, SOCK_DGRAM, 0);
+	if (nox_xxx_sockLocalBroadcast_2513920 == -1) {
 		WSACleanup();
 		return -1;
 	}
@@ -1670,12 +1670,12 @@ int  nox_xxx_createSocketLocal_554B40(uint16_t hostshort) {
 	name.sin_port = htons(hostshort);
 	name.sin_addr.s_addr = 0;
 	memset(name.sin_zero, 0, 8);
-	if (bind(*(SOCKET*)&dword_5d4594_2513920, &name, 16) == -1) {
+	if (bind(nox_xxx_sockLocalBroadcast_2513920, &name, 16) == -1) {
 		WSACleanup();
 		return -1;
 	}
 	int32_t optval = 1;
-	result = setsockopt(*(SOCKET*)&dword_5d4594_2513920, SOL_SOCKET, SO_BROADCAST, &optval, 4);
+	result = setsockopt(nox_xxx_sockLocalBroadcast_2513920, SOL_SOCKET, SO_BROADCAST, &optval, 4);
 	if (result == -1) {
 		return -1;
 	}
@@ -1699,7 +1699,7 @@ int  nox_xxx_sendLobbyPacket_554C80(uint16_t hostshort, char* buf, int a3) {
 
 	int result = 0;
 	if (!buf || (unsigned __int16)a3 < 2u ||
-		(result = sendto(*(SOCKET*)&dword_5d4594_2513920, buf, (unsigned __int16)a3, 0, &to, 16), v3 = result,
+		(result = sendto(nox_xxx_sockLocalBroadcast_2513920, buf, (unsigned __int16)a3, 0, &to, 16), v3 = result,
 		 result != -1)) {
 		result = v3;
 	}
@@ -1709,9 +1709,9 @@ int  nox_xxx_sendLobbyPacket_554C80(uint16_t hostshort, char* buf, int a3) {
 //----- (00554D10) --------------------------------------------------------
 int sub_554D10() {
 	if (dword_5d4594_2513916) {
-		closesocket(*(SOCKET*)&dword_5d4594_2513920);
+		closesocket(nox_xxx_sockLocalBroadcast_2513920);
 		closesocket(*(SOCKET*)&dword_5d4594_2513924);
-		dword_5d4594_2513920 = 0;
+		nox_xxx_sockLocalBroadcast_2513920 = 0;
 		dword_5d4594_2513924 = 0;
 		dword_5d4594_2513916 = 0;
 		nox_game_SetCliDrawFunc(0);
@@ -1744,7 +1744,7 @@ int  sub_554D70(char a1) {
 		return -17;
 	v11 = a1 & 1;
 	if (a1 & 1) {
-		result = ioctlsocket(*(SOCKET*)&dword_5d4594_2513920, FIONREAD, &argp);
+		result = ioctlsocket(nox_xxx_sockLocalBroadcast_2513920, FIONREAD, &argp);
 		if (result == -1)
 			return result;
 		if (argp)
@@ -1753,7 +1753,7 @@ int  sub_554D70(char a1) {
 		argp = 1;
 	LABEL_8:
 		while (1) {
-			v2 = mix_recvfrom(*(SOCKET*)&dword_5d4594_2513920, buf, 256, 0, &from, &fromlen);
+			v2 = mix_recvfrom(nox_xxx_sockLocalBroadcast_2513920, buf, 256, 0, &from, &fromlen);
 			if (v2 == -1)
 				break;
 			v3 = buf[2];
@@ -1807,7 +1807,7 @@ int  sub_554D70(char a1) {
 				}
 			}
 			if (v11 && !(a1 & 4)) {
-				if (ioctlsocket(*(SOCKET*)&dword_5d4594_2513920, FIONREAD, &argp) == -1)
+				if (ioctlsocket(nox_xxx_sockLocalBroadcast_2513920, FIONREAD, &argp) == -1)
 					return -1;
 				if (argp)
 					continue;
@@ -1848,7 +1848,7 @@ int  nox_xxx_makeTempSocket_555010(int a1, uint16_t hostshort, char* buf, int a4
 	to.sin_addr.s_addr = a1;
 	memset(to.sin_zero, 0, 8);
 	if (!buf || (unsigned __int16)a4 < 2u ||
-		(result = sendto(*(SOCKET*)&dword_5d4594_2513920, buf, (unsigned __int16)a4, 0, &to, 16), v4 = result,
+		(result = sendto(nox_xxx_sockLocalBroadcast_2513920, buf, (unsigned __int16)a4, 0, &to, 16), v4 = result,
 		 result != -1)) {
 		result = v4;
 	}

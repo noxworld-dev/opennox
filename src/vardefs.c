@@ -373,7 +373,6 @@ _DWORD dword_5d4594_1321236 = 0;
 _DWORD dword_5d4594_1047552 = 0;
 _DWORD dword_587000_60044 = 0xffffffff;
 _DWORD dword_5d4594_251560 = 0;
-_DWORD dword_5d4594_2513920 = 0;
 _DWORD dword_5d4594_3484 = 0;
 void* nox_alloc_screenParticles_806044 = 0;
 _DWORD dword_5d4594_528252 = 0;
