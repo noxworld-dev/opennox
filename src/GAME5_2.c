@@ -1747,71 +1747,72 @@ int  sub_554D70(char a1) {
 		result = ioctlsocket(nox_xxx_sockLocalBroadcast_2513920, FIONREAD, &argp);
 		if (result == -1)
 			return result;
-		if (argp)
-			goto LABEL_8;
+		if (!argp) {
+			return -1;
+		}
 	} else {
 		argp = 1;
-	LABEL_8:
-		while (1) {
-			v2 = mix_recvfrom(nox_xxx_sockLocalBroadcast_2513920, buf, 256, 0, &from, &fromlen);
-			if (v2 == -1)
-				break;
-			v3 = buf[2];
-			LOBYTE(v12) = buf[2];
-			if (buf[2] < 0x20u) {
-				memcpy(in, &from, fromlen);
-				if (v3 == 13 || nox_xxx_inServerGetAddr_43B300() == *(_DWORD*)&from.sa_data[2]) {
-					switch ((unsigned __int8)v12) {
-					case 0xDu:
-						v4 = inet_ntoa(*(struct in_addr*)&in[4]);
-						v5 = v4;
-						if (&v8 != (int*)-120) {
-							if (v4) {
-								if (*getMemU32Ptr(0x5D4594, 2513928)) {
-									OnLibraryNotice(262, &v8);
-									LOWORD(v6) = ntohs(*(uint16_t*)&in[2]);
-									if ((*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) getMemAt(0x5D4594, 2513928))(v5, v6, &buf[72], buf) == 1)
-										sub_555000(0);
-								}
+	}
+	while (1) {
+		v2 = mix_recvfrom(nox_xxx_sockLocalBroadcast_2513920, buf, 256, 0, &from, &fromlen);
+		if (v2 == -1)
+			break;
+		v3 = buf[2];
+		LOBYTE(v12) = buf[2];
+		if (buf[2] < 0x20u) {
+			memcpy(in, &from, fromlen);
+			if (v3 == 13 || nox_xxx_inServerGetAddr_43B300() == *(_DWORD*)&from.sa_data[2]) {
+				switch ((unsigned __int8)v12) {
+				case 0xDu:
+					v4 = inet_ntoa(*(struct in_addr*)&in[4]);
+					v5 = v4;
+					if (&v8 != (int*)-120) {
+						if (v4) {
+							if (*getMemU32Ptr(0x5D4594, 2513928)) {
+								OnLibraryNotice(262, &v8);
+								LOWORD(v6) = ntohs(*(uint16_t*)&in[2]);
+								if ((*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) getMemAt(0x5D4594, 2513928))(v5, v6, &buf[72], buf) == 1)
+									sub_555000(0);
 							}
 						}
-						break;
-					case 0xFu:
-						if (sub_43B6D0())
-							sub_43AF90(5);
-						break;
-					case 0x10u:
-						if (sub_43B6D0()) {
-							sub_43AF90(4);
-							buf[2] = 18;
-							v7 = htons(*(uint16_t*)from.sa_data);
-							nox_xxx_makeTempSocket_555010(*(int*)&from.sa_data[2], v7, buf, 8);
-						}
-						break;
-						/*case 0x13u:
-						  if ( sub_43B6D0() )
-							sub_43AFA0((unsigned __int8)buf[3]);
-						  break;*/
-					case 0x13u:
-					case 0x14u:
-						if (sub_43B6D0() && sub_43AF80() == 3)
-							sub_43AF90(7);
-						break;
-					case 0x15u:
-						if (sub_43B6D0())
-							sub_43AF90(8);
-						break;
-					default:
-						break;
 					}
+					break;
+				case 0xFu:
+					if (sub_43B6D0())
+						sub_43AF90(5);
+					break;
+				case 0x10u:
+					if (sub_43B6D0()) {
+						sub_43AF90(4);
+						buf[2] = 18;
+						v7 = htons(*(uint16_t*)from.sa_data);
+						nox_xxx_makeTempSocket_555010(*(int*)&from.sa_data[2], v7, buf, 8);
+					}
+					break;
+				/*case 0x13u:
+				  if ( sub_43B6D0() )
+					sub_43AFA0((unsigned __int8)buf[3]);
+				  break;*/
+				case 0x13u:
+				case 0x14u:
+					if (sub_43B6D0() && sub_43AF80() == 3)
+						sub_43AF90(7);
+					break;
+				case 0x15u:
+					if (sub_43B6D0())
+						sub_43AF90(8);
+					break;
+				default:
+					break;
 				}
 			}
-			if (v11 && !(a1 & 4)) {
-				if (ioctlsocket(nox_xxx_sockLocalBroadcast_2513920, FIONREAD, &argp) == -1)
-					return -1;
-				if (argp)
-					continue;
-			}
+		}
+		if (!v11 || (a1 & 4)) {
+			return v2;
+		}
+		if (ioctlsocket(nox_xxx_sockLocalBroadcast_2513920, FIONREAD, &argp) == -1)
+			return -1;
+		if (!argp) {
 			return v2;
 		}
 	}
