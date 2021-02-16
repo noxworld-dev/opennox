@@ -436,32 +436,35 @@ _Static_assert(sizeof(nox_server_xxx) == 12, "wrong size of nox_server_xxx struc
 typedef struct nox_net_struct_arg_t {
 	_DWORD field_0;
 	_DWORD field_1;
-	int field_2; // port?
-	int field_3;
+	int port;
+	int data_3_size;
 	int field_4;
-	int field_5;
+	int data_size;
 	_DWORD field_6;
 	_DWORD field_7;
-	void* field_8; // func
-	void* field_9; // func
+	int (*func_xxx)(unsigned int, char*, int, void*);
+	int (*func_yyy)(unsigned int, char*, int, void*);
 } nox_net_struct_arg_t;
 _Static_assert(sizeof(nox_net_struct_arg_t) == 40, "wrong size of nox_net_struct_arg_t structure!");
 
 #define NOX_NET_STRUCT_MAX 128
 typedef struct nox_net_struct_t {
-	SOCKET sock; // 0
-	struct sockaddr_in addr; // 4
-	int field_5; // 20
+	SOCKET sock; // 0, 0
+	struct sockaddr_in addr; // 1, 4
+	int id; // 5, 20
 	_DWORD field_6;
 	_DWORD field_7;
-	void* field_8; // 32
-	char* field_9; // 36
-	char* field_10; // 40
-	void* field_11; // 44
-	char* field_12; // 48
-	char* field_13; // 52
-	void* field_14; // 56
-	void* field_15; // 60
+
+	char* data_1_base; //  8, 32
+	char* data_1_xxx;  //  9, 36
+	char* data_1_yyy;  // 10, 40
+	char* data_1_end;  // 11, 44
+
+	char* data_2_base; // 12, 48
+	char* data_2_xxx;  // 13, 52
+	char* data_2_yyy;  // 14, 56
+	char* data_2_end;  // 15, 60
+
 	_DWORD field_16;
 	_DWORD field_17;
 	_DWORD field_18;
@@ -478,13 +481,13 @@ typedef struct nox_net_struct_t {
 	_BYTE field_28_1; // 113
 	_WORD field_28_2; // 114
 	void* field_29; // 116
-	void* field_30; // 120
-	HANDLE field_31; // 124, mutex
-	HANDLE field_32; // 128, mutex
+	void* data_3; // 30, 120
+	HANDLE mutex_xxx; // 31, 124
+	HANDLE mutex_yyy; // 32, 128
 	_DWORD field_33;
 	_DWORD field_34; // 136
-	int (*field_35)(unsigned int, char*, int, void*); // 140, func(i, field_13, sz, field_30)
-	void (*field_36)(unsigned int, char*, int, void*); // 144, last arg is field_30
+	int (*func_xxx)(unsigned int, char*, int, void*); // 35, 140, func(i, data_2_xxx, sz, data_3)
+	int (*func_yyy)(unsigned int, char*, int, void*); // 36, 144, last arg is data_3
 	_BYTE data_37[4]; // 148
 	_DWORD field_38;  // 152
 	_BYTE data_39[4]; // 156
@@ -508,7 +511,7 @@ typedef struct nox_window {
 	_DWORD field_92;                      // 92
 	int (*field_93)(int, int, int, int);  // 93
 	int (*field_94)(int, int, int, int);  // 94
-	int (*draw_func)(nox_window*, void*); // 95, second arg is &field_9
+	int (*draw_func)(nox_window*, void*); // 95, second arg is &data_1_xxx
 	int (*field_96)(void*);               // 96
 	nox_window* field_97;                 // 97, 388
 	nox_window* field_98;                 // 98, 392
