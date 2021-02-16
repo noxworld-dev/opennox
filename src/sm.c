@@ -224,10 +224,10 @@ void CONNECT_SERVER(sm_args_t* args) {
 	memset(&narg, 0, sizeof(nox_net_struct_arg_t));
 	dword_5d4594_815704 = 0;
 	dword_5d4594_815708 = 0;
-	narg.field_5 = 2048;
-	narg.field_2 = hostshort;
+	narg.data_size = 2048;
+	narg.port = hostshort;
 	nox_xxx_allocNetGQueue_5520B0(200, 1024);
-	narg.field_9 = nox_xxx_netHandleCliPacket_43C860;
+	narg.func_yyy = nox_xxx_netHandleCliPacket_43C860;
 	v4 = nox_xxx_netPreStructToFull_5546F0(&narg);
 	nox_xxx_netStructID_815700 = v4;
 
@@ -342,17 +342,17 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 	}
 
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (dword_5d4594_3844304 && ns->field_5 >= 0) {
+	if (dword_5d4594_3844304 && ns->id >= 0) {
 		memset(getMemAt(0x5D4594, 2512892), 0, 0x400u);
 		*getMemU8Ptr(0x5D4594, 2512892) = 31;
-		*getMemU8Ptr(0x5D4594, 2512892 + 1) = ns->field_12[1];
+		*getMemU8Ptr(0x5D4594, 2512892 + 1) = ns->data_2_base[1];
 		*getMemU8Ptr(0x5D4594, 2512892 + 2) = 32;
 		if (a4) {
 			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void *) a4, a5);
 		}
 		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
 	}
-	GOTO_NET_CONNECT_THEN(ns->field_5);
+	GOTO_NET_CONNECT_THEN(ns->id);
 }
 
 void NET_CONNECT_THEN(sm_args_t* args) {

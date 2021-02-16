@@ -8174,21 +8174,22 @@ nox_net_struct_t* sub_551E60(int a1) {
 }
 
 //----- (00551EB0) --------------------------------------------------------
-int sub_551EB0(int a1, unsigned int a2, unsigned __int8 a3, int a4, int a5) {
-	nox_net_struct_t* ns = nox_net_struct_arr[a2];
-	// fprintf(stderr, "551EB0: %d %d %d %d %d %d %d %d %d\n", ns, ns->field_38, ns->data_39[0], a1,
-	// a3, *(_BYTE *)(a4 + 4), a5,  *(_DWORD *)(*(_DWORD *)getMemAt(0x5D4594, 3843788 + 4*a1) + 84), nox_xxx_servGetPlrLimit_409FA0());
-	if (!ns || ns->field_38 != 1 || ns->data_39[0] > a3)
+int nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned __int8 a3, int a4, int a5) {
+	nox_net_struct_t* ns2 = nox_net_struct_arr[id2];
+	// fprintf(stderr, "551EB0: %d %d %d %d %d %d %d %d %d\n", ns2, ns2->field_38, ns2->data_39[0], id1,
+	// a3, *(_BYTE *)(a4 + 4), a5,  *(_DWORD *)(*(_DWORD *)getMemAt(0x5D4594, 3843788 + 4*id1) + 84), nox_xxx_servGetPlrLimit_409FA0());
+	if (!ns2 || ns2->field_38 != 1 || ns2->data_39[0] > a3)
 		return 0;
-	if (nox_net_struct_arr[a1]->field_21 > (unsigned int)(nox_xxx_servGetPlrLimit_409FA0() - 1)) {
-		nox_xxx_netStructReadPackets_5545B0(a2);
+	nox_net_struct_t* ns1 = nox_net_struct_arr[id1];
+	if (ns1->field_21 > (unsigned int)(nox_xxx_servGetPlrLimit_409FA0() - 1)) {
+		nox_xxx_netStructReadPackets_5545B0(id2);
 		return 1;
 	}
 	if (a5 > 3 && *(_BYTE*)(a4 + 4) == 32) {
-		nox_net_struct_arr[a2]->field_38 = 2;
-		nox_net_struct_arr[a2]->data_39[0] = -1;
-		nox_net_struct_arr[a2]->field_40 = 0;
-		nox_net_struct_arr[a1]->field_36(a2, a4 + 4, a5 - 4, nox_net_struct_arr[a2]->field_30);
+		ns2->field_38 = 2;
+		ns2->data_39[0] = -1;
+		ns2->field_40 = 0;
+		ns1->func_yyy(id2, a4 + 4, a5 - 4, ns2->data_3);
 	}
 	return 1;
 }
@@ -8391,7 +8392,7 @@ int sub_552510(unsigned int a1) {
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
 	if (!ns)
 		return 0;
-	return (char*)(ns->field_12) + 2;
+	return &ns->data_2_base[2];
 }
 
 //----- (00552540) --------------------------------------------------------
@@ -8401,7 +8402,7 @@ int  sub_552540(unsigned int a1) {
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
 	if (!ns)
 		return 0;
-	return (char*)(ns->field_8) + 2;
+	return &ns->data_1_base[2];
 }
 
 //----- (00552570) --------------------------------------------------------
@@ -8411,7 +8412,7 @@ int  sub_552570(unsigned int a1, int a2) {
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
 	if (!ns)
 		return -3;
-	*(_DWORD*)(&ns->field_13) += a2;
+	ns->data_2_xxx = &ns->data_2_xxx[a2];
 	return 0;
 }
 
@@ -8460,7 +8461,7 @@ int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, 
 		return -3;
 	if (!a2)
 		return -2;
-	if (ns->field_5 == -1) {
+	if (ns->id == -1) {
 		v7 = NOX_NET_STRUCT_MAX;
 		v8 = 0;
 		v20 = NOX_NET_STRUCT_MAX;
@@ -8469,13 +8470,13 @@ int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, 
 		v8 = a1;
 		v20 = a1 + 1;
 		v7 = v20;
-		v18 = ns->field_5;
+		v18 = ns->id;
 	}
 	if (a4 & 1) {
 		v10 = (unsigned int)a2;
 		for (int i = v8; i < v7; i++) {
 			nox_net_struct_t* ns2 = nox_net_struct_arr[i];
-			if (ns2 && ns2->field_5 == v18) {
+			if (ns2 && ns2->id == v18) {
 				v12 = sub_555130(i, a2, a3);
 				v10 = v12;
 				if (v12 == -1)
@@ -8495,28 +8496,28 @@ int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, 
 			continue;
 		}
 		if (ns2->field_20 == v18) {
-			if ((char*)(ns2->field_13) + v10 + 1 > ns2->field_15)
+			if (v10 + 1 > (int)(ns2->data_2_end) - (int)(ns2->data_2_xxx))
 				return -7;
-			v14 = WaitForSingleObject(ns2->field_32, 0x3E8u);
+			v14 = WaitForSingleObject(ns2->mutex_yyy, 0x3E8u);
 			if (v14 == -1 || v14 == 258)
 				return -16;
 			if (!(a4 & 2)) {
-				memcpy(ns2->field_13, a2, v10);
-				*(_DWORD*)(&ns2->field_13) += v10;
-				if (!ReleaseMutex(ns2->field_32))
-					ReleaseMutex(ns2->field_32);
+				memcpy(ns2->data_2_xxx, a2, v10);
+				ns2->data_2_xxx = &ns2->data_2_xxx[v10];
+				if (!ReleaseMutex(ns2->mutex_yyy))
+					ReleaseMutex(ns2->mutex_yyy);
 				v7 = v20;
 				continue;
 			}
-			ns2->field_13[0] = ns2->field_12[0];
-			ns2->field_13[1] = ns2->field_12[1];
-			memcpy(&ns2->field_13[2], a2, v10);
-			v16 = nox_xxx_sendto_551F90(ns2->sock, ns2->field_13, v10 + 2, 0, &ns2->addr, 16);
+			ns2->data_2_xxx[0] = ns2->data_2_base[0];
+			ns2->data_2_xxx[1] = ns2->data_2_base[1];
+			memcpy(&ns2->data_2_xxx[2], a2, v10);
+			v16 = nox_xxx_sendto_551F90(ns2->sock, ns2->data_2_xxx, v10 + 2, 0, &ns2->addr, 16);
 			if (v16 == -1)
 				return -1;
 			sub_553F40(v10 + 2, 1);
 			nox_xxx_netCountData_554030(v10 + 2, i);
-			ReleaseMutex(ns2->field_32);
+			ReleaseMutex(ns2->mutex_yyy);
 			return v16;
 		}
 	}

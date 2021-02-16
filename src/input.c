@@ -1270,8 +1270,8 @@ void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
 		} else if (!v2 && dw) {
 			ev->code = v6.dwOfs; // key code
 			ev->state = (v6.dwData & 0x80 != 0) + 1;
-			ev->field_2 = 0;
-			ev->field_3 = 0;
+			ev->port = 0;
+			ev->data_3_size = 0;
 			ev->seq = v6.dwSequence;
 		}
 	}
