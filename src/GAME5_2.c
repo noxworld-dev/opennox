@@ -1609,7 +1609,7 @@ int  sub_554A50(unsigned int a1) {
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
 	if (ns) {
 		closesocket(ns->sock);
-		OnLibraryNotice(259, ns);
+		OnLibraryNotice_259(ns);
 		nox_xxx_netStructFree_5531C0(ns);
 		nox_net_struct_arr[a1] = 0;
 		WSACleanup();
@@ -1621,7 +1621,6 @@ int  sub_554A50(unsigned int a1) {
 void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, int a2, int a3, int a4) {
 	int v4;   // esi
 	char* v5; // ebx
-	int v6[3];
 
 	v4 = 12;
 	v5 = (char*)malloc((unsigned __int16)a3 + 12);
@@ -1637,10 +1636,7 @@ void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, int a2, int a3, int a4)
 	}
 	dword_5d4594_3844304 = 0;
 	nox_xxx_sendLobbyPacket_554C80(hostshort, v5, v4);
-	v6[0] = hostshort;
-	v6[1] = v5;
-	v6[2] = v4;
-	OnLibraryNotice(260, &v6);
+	OnLibraryNotice_260(hostshort, v5, v4);
 	free(v5);
 }
 
@@ -1769,7 +1765,7 @@ int  sub_554D70(char a1) {
 					if (&v8 != (int*)-120) {
 						if (v4) {
 							if (*getMemU32Ptr(0x5D4594, 2513928)) {
-								OnLibraryNotice(262, &v8);
+								OnLibraryNotice_262(&v8);
 								LOWORD(v6) = ntohs(*(uint16_t*)&in[2]);
 								if ((*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) getMemAt(0x5D4594, 2513928))(v5, v6, &buf[72], buf) == 1)
 									sub_555000(0);

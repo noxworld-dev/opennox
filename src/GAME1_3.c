@@ -866,7 +866,7 @@ int  nox_xxx_netAddNetStruct4Host_43C7B0(char* cp, int hostshort, int a3, signed
 	unsigned int id = nox_xxx_netPreStructToFull_5546F0(&narg);
 	nox_xxx_netStructID_815700 = id;
 	v5 = sub_554760(id, cp, hostshort, a3, 153);
-	OnLibraryNotice(258, 0);
+	OnLibraryNotice_258();
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		dword_5d4594_2649712 |= 0x80000000;
 	return 1;

@@ -499,7 +499,7 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 				return 1;
 			}
 			sub_459150();
-			OnLibraryNotice(261, 0);
+			OnLibraryNotice_261();
 			result = 1;
 			break;
 		case 10146:

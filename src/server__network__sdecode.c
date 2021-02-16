@@ -99,9 +99,6 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 	wchar_t v97[256];                      // [esp+54h] [ebp-600h]
 	CHAR FileName[1024];                   // [esp+254h] [ebp-400h]
 
-	// mix patch
-	int vU101[2]; // ebp
-
 	if (a3) {
 		//	OutputDebugStringA("S -> ");
 		//    dhexdump((_BYTE*)a2, a3);
@@ -195,9 +192,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 							v24 += *(unsigned __int8 *) (i + 488);
 						if (v24 + *(unsigned __int8 *) (v23 + 488) <= *(unsigned __int16 *) (v9 + 490)) {
 							// nox_xxx_inventoryServPlace_4F36F0(v9, v23, 1, 1);
-							vU101[0] = v9;
-							vU101[1] = v23;
-							OnLibraryNotice(420, vU101, v9, v23);
+							OnLibraryNotice_420(v9, v23, v9, v23);
 						} else {
 							nox_xxx_netPriMsgToPlayer_4DA2C0(v9, "pickup.c:CarryingTooMuch", 0);
 						}

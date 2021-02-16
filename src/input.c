@@ -35,7 +35,7 @@ extern int g_textinput;
 
 #ifdef NOX_CGO
 void onLibraryNotice_mouseWheel(nox_mouse_state_t* e) {
-	OnLibraryNotice(265, &e, 2, e->wheel);
+	OnLibraryNotice_265(&e, 2, e->wheel);
 }
 #endif // NOX_CGO
 
@@ -784,7 +784,7 @@ bool nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* e) {
 		break;
 	case MOUSE_WHEEL:
 		e->wheel = me->wheel;
-		OnLibraryNotice(265, &e, 2, me->wheel); // mix event hanlder is triggered only for wheel events
+		OnLibraryNotice_265(&e, 2, me->wheel); // mix event hanlder is triggered only for wheel events
 		break;
 	case MOUSE_BUTTON0:
 		e->btn[NOX_MOUSE_LEFT].pressed = me->pressed;
@@ -993,7 +993,7 @@ void  sub_47DA70(_DWORD* a1, LPDIDEVICEOBJECTDATA a2) {
 		a1[1] = a2->dwData;
 		break;
 	case DIMOFS_Z:
-		OnLibraryNotice(265, &a1, 2, a2);
+		OnLibraryNotice_265(&a1, 2, a2);
 		a1[2] = a2->dwData;
 		break;
 	case DIMOFS_BUTTON0:
