@@ -9380,13 +9380,13 @@ int  nox_xxx_netAddPlayerHandler_4DEBC0(int port) {
 
 	nox_net_struct_arg_t narg;
 	memset(&narg, 0, sizeof(nox_net_struct_arg_t));
-	narg.field_2 = port;
-	narg.field_3 = 0;
+	narg.port = port;
+	narg.data_3_size = 0;
 	narg.field_4 = nox_xxx_servGetPlrLimit_409FA0();
-	narg.field_5 = 2048;
+	narg.data_size = 2048;
 	nox_xxx_allocNetGQueue_5520B0(200, 1024);
-	narg.field_9 = nox_xxx_netlist_ServRecv_4DEC30;
-	narg.field_8 = nox_xxx_netFn_UpdateStream_4DF630;
+	narg.func_yyy = nox_xxx_netlist_ServRecv_4DEC30;
+	narg.func_xxx = nox_xxx_netFn_UpdateStream_4DF630;
 	result = nox_xxx_netInit_554380(&narg);
 	OnLibraryNotice(256, 0);
 	*getMemU32Ptr(0x5D4594, 1563148) = result;
@@ -9394,7 +9394,7 @@ int  nox_xxx_netAddPlayerHandler_4DEBC0(int port) {
 }
 
 //----- (004DEC30) --------------------------------------------------------
-int  nox_xxx_netlist_ServRecv_4DEC30(int a1, unsigned __int8* a2, signed int a3) {
+int  nox_xxx_netlist_ServRecv_4DEC30(int a1, unsigned __int8* a2, signed int a3, void* a4) {
 	nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(a1 - 1, a2, a3);
 	return 1;
 }
@@ -9714,7 +9714,7 @@ int  sub_4DF5E0(int a1, int a2) {
 }
 
 //----- (004DF630) --------------------------------------------------------
-int  nox_xxx_netFn_UpdateStream_4DF630(int a1, char* a2, unsigned int a3) {
+int  nox_xxx_netFn_UpdateStream_4DF630(int a1, char* a2, unsigned int a3, void* a4) {
 	char* v3;        // edi
 	int v4;          // ebx
 	char* v5;        // ebp

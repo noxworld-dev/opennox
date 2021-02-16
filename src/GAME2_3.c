@@ -10174,7 +10174,7 @@ _DWORD*  nox_xxx_guiWndLoad2_4A0D80_parse_window(FILE* a1, char* a2, int (*a3)(i
 	int v19;              // [esp+24h] [ebp-194h]
 	int v20;              // [esp+28h] [ebp-190h]
 	char v21[64];         // [esp+2Ch] [ebp-18Ch]
-	char v22[332];        // [esp+6Ch] [ebp-14Ch], same as nox_window->field_9 ?
+	char v22[332];        // [esp+6Ch] [ebp-14Ch], same as nox_window->data_1_xxx ?
 
 	*(_DWORD*)v22 = 0;
 	memset(&v22[4], 0, 0x148u);

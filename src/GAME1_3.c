@@ -850,7 +850,6 @@ int  sub_43C7A0(int a1) {
 
 //----- (0043C7B0) --------------------------------------------------------
 int  nox_xxx_netAddNetStruct4Host_43C7B0(char* cp, int hostshort, int a3, signed int* a4) {
-	int v4;      // eax
 	int v5;      // eax
 
 	dword_5d4594_815704 = 0;
@@ -858,13 +857,13 @@ int  nox_xxx_netAddNetStruct4Host_43C7B0(char* cp, int hostshort, int a3, signed
 
 	nox_net_struct_arg_t narg;
 	memset(&narg, 0, sizeof(nox_net_struct_arg_t));
-	narg.field_5 = 2048;
-	narg.field_2 = hostshort;
+	narg.data_size = 2048;
+	narg.port = hostshort;
 	nox_xxx_allocNetGQueue_5520B0(200, 1024);
-	narg.field_9 = nox_xxx_netHandleCliPacket_43C860;
-	v4 = nox_xxx_netPreStructToFull_5546F0(&narg);
-	*(_DWORD*)getMemAt(0x5D4594, 815700) = v4;
-	v5 = sub_554760(v4, cp, hostshort, a3, 153);
+	narg.func_yyy = nox_xxx_netHandleCliPacket_43C860;
+	unsigned int id = nox_xxx_netPreStructToFull_5546F0(&narg);
+	*(_DWORD*)getMemAt(0x5D4594, 815700) = id;
+	v5 = sub_554760(id, cp, hostshort, a3, 153);
 	OnLibraryNotice(258, 0);
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		dword_5d4594_2649712 |= 0x80000000;
@@ -872,7 +871,7 @@ int  nox_xxx_netAddNetStruct4Host_43C7B0(char* cp, int hostshort, int a3, signed
 }
 
 //----- (0043C860) --------------------------------------------------------
-int  nox_xxx_netHandleCliPacket_43C860(int a1, unsigned __int8* a2, int a3) {
+int  nox_xxx_netHandleCliPacket_43C860(int a1, unsigned __int8* a2, int a3, void* a4) {
 	unsigned __int8 v3; // cl
 	int v4;             // ecx
 
