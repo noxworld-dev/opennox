@@ -155,7 +155,7 @@ endif ()
 
 set (
 	SOURCE_LIST
-    main/main.cpp
+    main/main.c
 	ConvertUTF.c
     platform.c
     e2e.c

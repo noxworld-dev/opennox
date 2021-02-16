@@ -1,5 +1,5 @@
-#include <cstdio>
-#include <cstring>
+#include <stdio.h>
+#include <string.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -11,14 +11,14 @@
 #include <emscripten/emscripten.h>
 #endif
 
-extern "C" const char* progname;
+extern const char* progname;
 
 #if defined(__EMSCRIPTEN__)
-extern "C" int main()
+extern int main()
 #elif defined(_WIN32)
 int main(int argc, char* argv[])
 #else
-extern "C" int main(int argc, char* argv[])
+extern int main(int argc, char* argv[])
 #endif
 {
 	char cmdline[256];
