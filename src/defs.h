@@ -447,48 +447,50 @@ typedef struct nox_net_struct_arg_t {
 } nox_net_struct_arg_t;
 _Static_assert(sizeof(nox_net_struct_arg_t) == 40, "wrong size of nox_net_struct_arg_t structure!");
 
+#define NOX_NET_STRUCT_MAX 128
 typedef struct nox_net_struct_t {
-	SOCKET* sock; // 0
-	_DWORD field_1;
-	_DWORD field_2;
-	_DWORD field_3;
-	_DWORD field_4;
-	_DWORD field_5;
+	SOCKET sock; // 0
+	struct sockaddr_in addr; // 4
+	int field_5; // 20
 	_DWORD field_6;
 	_DWORD field_7;
-	void* field_8;
-	void* field_9;
-	void* field_10;
-	void* field_11;
-	void* field_12;
-	void* field_13;
-	void* field_14;
-	void* field_15;
+	void* field_8; // 32
+	char* field_9; // 36
+	char* field_10; // 40
+	void* field_11; // 44
+	char* field_12; // 48
+	char* field_13; // 52
+	void* field_14; // 56
+	void* field_15; // 60
 	_DWORD field_16;
 	_DWORD field_17;
 	_DWORD field_18;
-	_DWORD field_19;
+	_DWORD field_19; // 76
 	_DWORD field_20;
-	_DWORD field_21;
-	_DWORD field_22;
-	_DWORD field_23;
-	_DWORD field_24;
-	_DWORD field_25;
-	_DWORD field_26;
-	_DWORD field_27;
-	_BYTE field_28_0;
-	_BYTE field_28_1;
-	_WORD field_28_2;
-	_DWORD field_29;
-	void* field_30;
-	HANDLE field_31; // mutex
-	HANDLE field_32; // mutex
+	_DWORD field_21; // 84
+	_DWORD field_22; // 88
+	_DWORD field_23; // 92
+	_DWORD field_24; // 96
+	_DWORD field_25; // 100
+	_DWORD field_26; // 104
+	_DWORD field_27; // 108
+	_BYTE field_28_0; // 112
+	_BYTE field_28_1; // 113
+	_WORD field_28_2; // 114
+	void* field_29; // 116
+	void* field_30; // 120
+	HANDLE field_31; // 124, mutex
+	HANDLE field_32; // 128, mutex
 	_DWORD field_33;
-	_DWORD field_34;
-	void* field_35; // func
-	void* field_36; // func
-	_BYTE data_37[16];
+	_DWORD field_34; // 136
+	int (*field_35)(unsigned int, char*, int, void*); // 140, func(i, field_13, sz, field_30)
+	void (*field_36)(unsigned int, char*, int, void*); // 144, last arg is field_30
+	_BYTE data_37[4]; // 148
+	_DWORD field_38;  // 152
+	_BYTE data_39[4]; // 156
+	_DWORD field_40;  // 160
 } nox_net_struct_t;
+_Static_assert(sizeof(struct sockaddr_in) == 16, "wrong size of sockaddr_in structure!");
 _Static_assert(sizeof(nox_net_struct_t) == 164, "wrong size of nox_net_struct_t structure!");
 
 typedef struct nox_window nox_window;

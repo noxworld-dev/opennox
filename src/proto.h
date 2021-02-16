@@ -6507,8 +6507,8 @@ BOOL  sub_551A90(float2* a1, float4* a2);                                      /
 void  sub_551AE0(int a1, int a2, int a3);
 void sub_551BF0();
 void  sub_551C40(int a1, int a2);
-int  sub_551E00(unsigned __int8 a1, int a2);
-LPVOID  sub_551E60(int a1);
+bool sub_551E00(unsigned __int8 a1, int a2);
+nox_net_struct_t* sub_551E60(int a1);
 int  sub_551EB0(int a1, unsigned int a2, unsigned __int8 a3, int a4, int a5);
 int  nox_xxx_sendto_551F90(SOCKET s, char* buf, int len, int flags, struct sockaddr* to, int tolen); // idb
 int  sub_552010(int a1);
@@ -6529,8 +6529,7 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
 int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2);
 int  sub_552E70(unsigned int a1);
 int  sub_552F20(unsigned int a1);
-u_long  sub_552FD0(u_long argp);
-void sub_5531C0(LPVOID lpMem); // idb
+u_long  sub_552FD0(int a1);
 int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4);
 int sub_553D10();
 int  sub_553D30(int a1);
@@ -6550,7 +6549,7 @@ void sub_553FC0(int a1, int a2);
 void nox_xxx_netCountData_554030(int a1, int a2);
 unsigned int  sub_554040(int a1, int a2, char* a3);
 int*  nox_xxx_findPlayerID_5541D0(int a1);
-int  sub_554200(unsigned int a1);
+int  nox_xxx_net_getIP_554200(unsigned int a1);
 char* sub_554230();
 int  sub_554240(int a1);
 unsigned int sub_554290();

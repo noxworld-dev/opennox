@@ -8996,9 +8996,9 @@ char*  sub_425CA0(int a1, int a2) {
 					v5 = 32 * v4;
 					strcpy((char*)getMemAt(0x5D4594, 600124 + v5), (const char*)(a1 + 2096));
 					if (*(_BYTE*)(v3 + 2064) == 31)
-						v6 = sub_554200(0);
+						v6 = nox_xxx_net_getIP_554200(0);
 					else
-						v6 = sub_554200(*(unsigned __int8*)(a1 + 2064) + 1);
+						v6 = nox_xxx_net_getIP_554200(*(unsigned __int8*)(a1 + 2064) + 1);
 					*getMemU32Ptr(0x5D4594, 600124 + 12 + v5) = htonl(v6);
 					*getMemU32Ptr(0x5D4594, 600124 + 16 + v5) = *(_DWORD*)(a1 + 2068);
 					*getMemU8Ptr(0x5D4594, 600124 + 20 + v5) = *(_BYTE*)(a1 + 2251);
@@ -9011,11 +9011,11 @@ char*  sub_425CA0(int a1, int a2) {
 						v12 = (dword_5d4594_608316)++;
 						strcpy((char*)getMemAt(0x5D4594, 600124 + 32 * v13), (const char*)(v3 + 2096));
 						if (*(_BYTE*)(v3 + 2064) == 31) {
-							v7 = sub_554200(0);
+							v7 = nox_xxx_net_getIP_554200(0);
 							v8 = v12;
 							*getMemU32Ptr(0x5D4594, 600124 + 12 + 32 * v13) = htonl(v7);
 						} else {
-							v9 = sub_554200(*(unsigned __int8*)(v3 + 2064) + 1);
+							v9 = nox_xxx_net_getIP_554200(*(unsigned __int8*)(v3 + 2064) + 1);
 							v8 = v12;
 							*getMemU32Ptr(0x5D4594, 600124 + 12 + 32 * v12) = htonl(v9);
 						}
@@ -9114,7 +9114,7 @@ int  sub_425F10(int a1) {
 					} while (!v7);
 					memcpy(getMemAt(0x5D4594, 600124 + v6), &v5[v3 + 1], ~v3);
 					if (*(_BYTE*)(v2 + 2064) == 31) {
-						v8 = sub_554200(0);
+						v8 = nox_xxx_net_getIP_554200(0);
 						*getMemU32Ptr(0x5D4594, 600124 + 12 + v6) = htonl(v8);
 						if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 							*getMemU8Ptr(0x5D4594, 600124 + 28 + v6) = 0;
@@ -9126,7 +9126,7 @@ int  sub_425F10(int a1) {
 							goto LABEL_18;
 						}
 					} else {
-						v10 = sub_554200(*(unsigned __int8*)(v2 + 2064) + 1);
+						v10 = nox_xxx_net_getIP_554200(*(unsigned __int8*)(v2 + 2064) + 1);
 						*getMemU32Ptr(0x5D4594, 600124 + 12 + v6) = htonl(v10);
 						v11 = *(_DWORD*)(v2 + 3680);
 						if (v11 & 1 && !(v11 & 0x20)) {
