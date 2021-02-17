@@ -521,7 +521,7 @@ func NET_CONNECT_WAIT_LOOP(id uint32, val int8, retries, flags, counter uint32, 
 		return
 	}
 	C.nox_xxx_servNetInitialPackets_552A80(C.uint(id), C.char(flags|1))
-	C.sub_552460()
+	C.nox_xxx_netMaybeSendAll_552460()
 	if int8(ns.field_28_1) >= val {
 		fmt.Println("goto NET_CONNECT_WAIT_THEN")
 		mainloopEnter = func() {
@@ -581,7 +581,7 @@ func NET_CONNECT_THEN(v5 int) {
 	if !getGameFlag(1) {
 		C.dword_5d4594_2649712 |= 0x80000000
 	}
-	C.sub_40ED10(31, 0)
+	C.nox_xxx_netBufs_40ED10(31, 0)
 	C.sub_40A340(0)
 	C.nox_xxx_setMapCRC_40A360(0)
 
@@ -604,8 +604,8 @@ func CONNECT_WAIT_LOOP(deadline uint64) {
 
 	C.nox_xxx_servNetInitialPackets_552A80(C.nox_xxx_netStructID_815700, 1)
 	C.nox_xxx_netSendBySock_40EE10(C.nox_xxx_netStructID_815700, 31, 0)
-	C.sub_40ED10(31, 0)
-	C.sub_552460()
+	C.nox_xxx_netBufs_40ED10(31, 0)
+	C.nox_xxx_netMaybeSendAll_552460()
 	if C.nox_xxx_getMapCRC_40A370() != 0 {
 		fmt.Println("goto CONNECT_WAIT_THEN")
 		mainloopEnter = func() {

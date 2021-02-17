@@ -324,7 +324,7 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -23);
 	}
 	nox_xxx_servNetInitialPackets_552A80(a1, a4 | 1);
-	sub_552460();
+	nox_xxx_netMaybeSendAll_552460();
 	if (ns->field_28_1 >= a2) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, 0);
 	}
@@ -364,7 +364,7 @@ void NET_CONNECT_THEN(sm_args_t* args) {
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		dword_5d4594_2649712 |= 0x80000000;
 	}
-	sub_40ED10(31, 0);
+	nox_xxx_netBufs_40ED10(31, 0);
 	sub_40A340(0);
 	nox_xxx_setMapCRC_40A360(0);
 	GOTO_CONNECT_WAIT_LOOP(nox_call_get_ticks() + 10000);
@@ -377,8 +377,8 @@ void CONNECT_WAIT_LOOP(sm_args_t* args) {
 
 	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1);
 	nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
-	sub_40ED10(31, 0);
-	sub_552460();
+	nox_xxx_netBufs_40ED10(31, 0);
+	nox_xxx_netMaybeSendAll_552460();
 	if (nox_xxx_getMapCRC_40A370()) {
 		GOTO_CONNECT_WAIT_THEN(1);
 	}

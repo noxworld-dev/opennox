@@ -7880,7 +7880,7 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 		result = nox_xxx_netAddNetStruct4Host_43C7B0((char*)getMemAt(0x587000, 85680), v3, (int)Data, a1);
 		if (!result)
 			return result;
-		sub_40ED10(31, 0);
+		nox_xxx_netBufs_40ED10(31, 0);
 		sub_40A340(0);
 		nox_xxx_setMapCRC_40A360(0);
 		result = nox_xxx_servNetInitialPacketsUntilCRC_43CFF0();
