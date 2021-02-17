@@ -162,7 +162,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 	char v26 = 1;
 	while (1) {
 		int tolen = sizeof(to);
-		int v6 = sub_552020(ns->sock, ns->data_1_xxx, (int)(ns->data_1_end) - (int)(ns->data_1_xxx), 0, &to, &tolen);
+		int v6 = nox_xxx_netRecv_552020(ns->sock, ns->data_1_xxx, (int)(ns->data_1_end) - (int)(ns->data_1_xxx), 0, &to, &tolen);
 		if (v6 == -1) {
 			return -1;
 		} else if (sizeof(to) < tolen) {
