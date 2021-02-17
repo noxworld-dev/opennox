@@ -582,7 +582,7 @@ func NET_CONNECT_THEN(v5 int) {
 		C.dword_5d4594_2649712 |= 0x80000000
 	}
 	C.nox_xxx_netBufs_40ED10(31, 0)
-	C.sub_40A340(0)
+	C.nox_xxx_set3512_40A340(0)
 	C.nox_xxx_setMapCRC_40A360(0)
 
 	deadline := platformTicks() + 10000
