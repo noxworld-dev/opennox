@@ -1186,7 +1186,7 @@ char*  nox_xxx_gameSetMapPath_409D70(char* a1) {
 			result = strncpy((char*)getMemAt(0x5D4594, 2649740), (const char*)getMemAt(0x5D4594, 2598188), v3);
 		}
 		*getMemU8Ptr( 0x5D4594, v3 + 2649740) = 0;
-		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+		nox_server_gameSettingsUpdated = 1;
 	}
 	return result;
 }
@@ -1211,7 +1211,7 @@ int  sub_409E40(int a1) {
 	result = a1;
 	if (dword_5d4594_3484 != a1) {
 		dword_5d4594_3484 = a1;
-		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+		nox_server_gameSettingsUpdated = 1;
 	}
 	return result;
 }
@@ -1231,7 +1231,7 @@ int  sub_409E70(int a1) {
 			if (a1 & 0x2000)
 				result = sub_4D7EA0();
 		}
-		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+		nox_server_gameSettingsUpdated = 1;
 	}
 	return result;
 }
@@ -1243,7 +1243,7 @@ int  sub_409EC0(int a1) {
 	result = a1;
 	if (dword_5d4594_3484 & a1) {
 		result = ~a1;
-		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+		nox_server_gameSettingsUpdated = 1;
 		dword_5d4594_3484 &= ~a1;
 	}
 	return result;
@@ -1262,7 +1262,7 @@ int  sub_409EF0(int a1) {
 				result = sub_4D7EA0();
 		}
 	}
-	*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+	nox_server_gameSettingsUpdated = 1;
 	return result;
 }
 
@@ -1284,7 +1284,7 @@ int  nox_xxx_servSetPlrLimit_409F80(int a1) {
 	result = a1;
 	if (*getMemU32Ptr(0x5D4594, 3464) != a1) {
 		*getMemU32Ptr(0x5D4594, 3464) = a1;
-		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+		nox_server_gameSettingsUpdated = 1;
 	}
 	return result;
 }
@@ -1390,7 +1390,7 @@ void nox_xxx_mapLoad_40A380() {
 	nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x5D4594, 3608));
 	nox_xxx_setGameFlags_40A4D0(3);
 	nox_common_gameFlags_unset_40A540(137212);
-	*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+	nox_server_gameSettingsUpdated = 1;
 }
 
 //----- (0040A3C0) --------------------------------------------------------
@@ -1447,11 +1447,11 @@ char*  nox_xxx_gameSetServername_40A440(char* a1) {
 		if (result) {
 			result = strncpy((char*)getMemAt(0x5D4594, 1324), v2, 0xFu);
 			*getMemU8Ptr( 0x5D4594, 1339) = 0;
-			*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+			nox_server_gameSettingsUpdated = 1;
 		}
 	} else {
 		*getMemU8Ptr(0x5D4594, 1324) = 0;
-		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+		nox_server_gameSettingsUpdated = 1;
 	}
 	return result;
 }
@@ -1466,7 +1466,7 @@ int  nox_xxx_setGameFlags_40A4D0(int a1) {
 	result = *(_DWORD*)&nox_common_gameFlags;
 	if ((a1 & *(_DWORD*)&nox_common_gameFlags) != a1) {
 		if (a1 & 0x7FFF0)
-			*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+			nox_server_gameSettingsUpdated = 1;
 		*(_DWORD*)&nox_common_gameFlags |= a1;
 		result = nox_xxx_guiChatShowHide_445730((*(_WORD*)&nox_common_gameFlags & 0x17F0) != 128);
 		if (a1 & 0x4000000) {
@@ -1482,7 +1482,7 @@ void  nox_common_gameFlags_unset_40A540(int a1) {
 	if (nox_common_gameFlags & a1) {
 		nox_common_gameFlags &= ~a1;
 		if (a1 & 0x7FFF0)
-			*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+			nox_server_gameSettingsUpdated = 1;
 	}
 	if (a1 & 0x4000000)        // sudden death
 		dword_5d4594_3592 = 0; // countdown is ticking/set
@@ -1493,7 +1493,7 @@ int  sub_40A590(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+	nox_server_gameSettingsUpdated = 1;
 	*(_DWORD*)&nox_common_gameFlags ^= a1;
 	return result;
 }
@@ -1541,13 +1541,13 @@ wchar_t*  sub_40A640(wchar_t* a1) {
 wchar_t* sub_40A660() { return (wchar_t*)getMemAt(0x5D4594, 3560); }
 
 //----- (0040A670) --------------------------------------------------------
-void nox_server_gameSettingsUpdated_40A670() { *(_DWORD*)&nox_server_gameSettingsUpdated = 1; }
+void nox_server_gameSettingsUpdated_40A670() { nox_server_gameSettingsUpdated = 1; }
 
 //----- (0040A680) --------------------------------------------------------
-int nox_server_gameDoSwitchMap_40A680() { return *(_DWORD*)&nox_server_gameSettingsUpdated; }
+int nox_server_gameDoSwitchMap_40A680() { return nox_server_gameSettingsUpdated; }
 
 //----- (0040A690) --------------------------------------------------------
-void nox_server_gameUnsetMapLoad_40A690() { *(_DWORD*)&nox_server_gameSettingsUpdated = 0; }
+void nox_server_gameUnsetMapLoad_40A690() { nox_server_gameSettingsUpdated = 0; }
 
 //----- (0040A6A0) --------------------------------------------------------
 int  sub_40A6A0(int a1) {

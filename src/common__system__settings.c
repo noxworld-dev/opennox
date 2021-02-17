@@ -15,7 +15,7 @@ void  sub_409FB0_settings(__int16 a1, unsigned __int16 a2) {
 		if (a2 > 0x3E7u)
 			v3 = 999;
 		*getMemU16Ptr(0x5D4594, 2 * v2 + 3488) = v3;
-		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+		nox_server_gameSettingsUpdated = 1;
 		if (nox_client_isConnected_43C700()) {
 			v4 = nox_strman_loadString_40F1D0("parsecmd.c:lessonsset", 0, "C:\\NoxPost\\src\\Common\\System\\settings.c",
 									   389);
@@ -41,7 +41,7 @@ void  sub_40A040_settings(__int16 a1, unsigned __int8 a2) {
 		nox_xxx_printCentered_445490(v6);
 		return;
 	}
-	*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+	nox_server_gameSettingsUpdated = 1;
 	if (nox_client_isConnected_43C700()) {
 		if (!a2) {
 			v5 = nox_strman_loadString_40F1D0("parsecmd.c:timedisabled", 0,
