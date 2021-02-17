@@ -60,7 +60,8 @@ extern _DWORD dword_5d4594_2516328;
 extern _DWORD dword_5d4594_2516348;
 extern _DWORD dword_5d4594_2650652;
 
-nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
+nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
+nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
 SOCKET nox_xxx_sockLocalBroadcast_2513920 = 0;
 
 //----- (005528B0) --------------------------------------------------------
@@ -509,7 +510,6 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 	int v39;                // esi
 	int v40;                // eax
 	unsigned __int8* v41;   // ecx
-	unsigned __int8 v42;    // dl
 	int v43;                // edi
 	char v44;               // dl
 	char* v45;              // eax
@@ -520,8 +520,6 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 	_DWORD* v50;            // eax
 	int* j;                 // ebx
 	char v52;               // al
-	int v53;                // eax
-	int v54;                // ecx
 	unsigned __int8* v55;   // edx
 	char v56;               // dl
 	int v62;                // ecx
@@ -544,8 +542,8 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 	v6 = *a2;
 	LOBYTE(a3) = a2[1];
 	v73 = (unsigned int)v5;
-	*(_DWORD*)v74 = *(_DWORD*)a4;
 	v9 = a2 + 2;
+	*(_DWORD*)&v74[0] = *(_DWORD*)(a4 + 0);
 	*(_DWORD*)&v74[4] = *(_DWORD*)(a4 + 4);
 	v75 = *(_DWORD*)(a4 + 8);
 	v76 = *(_DWORD*)(a4 + 12);
@@ -567,7 +565,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(8))
 				return 0;
 			v56 = a3;
-			*(_BYTE*)v4 = 0;
+			*(_BYTE*)(v4 + 0) = 0;
 			*(_BYTE*)(v4 + 1) = v56;
 			if (ns1->field_21 >= nox_xxx_servGetPlrLimit_409FA0() + (unsigned int)getMemByte(0x5D4594, 2500076) - 1) {
 				*(_BYTE*)(v4 + 2) = 2;
@@ -619,7 +617,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			*(_DWORD*)(v66 + 8) = v75;
 			*(_DWORD*)(v66 + 12) = v76;
 			LOBYTE(v66) = a3;
-			*(_BYTE*)v4 = 31;
+			*(_BYTE*)(v4 + 0) = 31;
 			*(_BYTE*)(v4 + 1) = v66;
 			*(_BYTE*)(v4 + 2) = 1;
 			*(_DWORD*)(v4 + 3) = v6;
@@ -805,13 +803,12 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			v40 = sub_553D30((int)v74);
 			if (v40 < 0)
 				return 0;
-			v41 = getMemAt(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*v40 + 5);
-			if (v38[3] != getMemByte(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*v40 + 5))
+			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[v40];
+			if (v38[3] != nx1->field_1_1)
 				return 0;
-			*getMemU32Ptr(0x5D4594, 2500084 + 24 + 4*((sizeof(nox_net_struct2_t)/4)*v40 + getMemByte(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*v40 + 5))) = v39;
-			v42 = *v41 + 1;
-			*v41 = v42;
-			if (v42 >= 0xAu)
+			nx1->field_6[nx1->field_1_1] = v39;
+			nx1->field_1_1++;
+			if (nx1->field_1_1 >= 10)
 				return 0;
 			return nox_xxx_makePacketTime_552340(v40, v4);
 		case 31:
@@ -952,17 +949,16 @@ LABEL_50:
 			return 3;
 		}
 	}
-LABEL_97:
-	v53 = sub_553D10();
+LABEL_97:;
+	int v53 = sub_553D10();
 	if (v53 >= 0) {
-		v54 = sizeof(nox_net_struct2_t) * v53;
-		*getMemU32Ptr(0x5D4594, 2500084 + v54) = 1;
-		*getMemU8Ptr(0x5D4594, 2500084 + 5 + v54) = 0;
-		*getMemU8Ptr(0x5D4594, 2500084 + 4 + v54) = 0;
-		v55 = getMemAt(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*v53 + 8);
-		*(_QWORD*)v55 = *(_QWORD*)v74;
-		*((_DWORD*)v55 + 2) = v75;
-		*((_DWORD*)v55 + 3) = v76;
+		nox_net_struct2_t* nx = &nox_net_struct2_arr[v53];
+		nx->field_0 = 1;
+		nx->field_1_1 = 0;
+		nx->field_1_0 = 0;
+		*(_QWORD*)(&nx->addr) = *(_QWORD*)v74;
+		*((_DWORD*)(&nx->addr) + 1) = v75;
+		*((_DWORD*)(&nx->addr) + 2) = v76;
 		return nox_xxx_makePacketTime_552340(v53, v4);
 	}
 	*(_BYTE*)(v4 + 2) = 20;
@@ -971,34 +967,21 @@ LABEL_97:
 
 //----- (00553D10) --------------------------------------------------------
 int sub_553D10() {
-	int result;          // eax
-	unsigned __int8* v1; // ecx
-
-	result = 0;
-	v1 = getMemAt(0x5D4594, 2500084);
-	while (*(_DWORD*)v1) {
-		v1 += sizeof(nox_net_struct2_t);
-		++result;
-		if ((int)v1 >= (int)getMemAt(0x5D4594, 2508788))
-			return -1;
+	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
+		if (!nox_net_struct2_arr[i].field_0)
+			return i;
 	}
-	return result;
+	return -1;
 }
 
 //----- (00553D30) --------------------------------------------------------
 int  sub_553D30(int a1) {
-	int result;          // eax
-	unsigned __int8* v2; // ecx
-
-	result = 0;
-	v2 = getMemAt(0x5D4594, 2500084 + 10);
-	while (*(_DWORD*)(v2 + 2) != *(_DWORD*)(a1 + 4) || *(_WORD*)v2 != *(_WORD*)(a1 + 2)) {
-		v2 += sizeof(nox_net_struct2_t);
-		++result;
-		if ((int)v2 >= (int)getMemAt(0x5D4594, 2508798))
-			return -1;
+	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
+		nox_net_struct2_t* nx = &nox_net_struct2_arr[i];
+		if (nx->addr.sin_addr.s_addr == *(_DWORD*)(a1 + 4) && nx->addr.sin_port == *(_WORD*)(a1 + 2))
+			return i;
 	}
-	return result;
+	return -1;
 }
 
 //----- (00553D80) --------------------------------------------------------
