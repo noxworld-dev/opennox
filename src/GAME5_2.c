@@ -476,78 +476,21 @@ void  nox_xxx_netStructFree_5531C0(nox_net_struct_t* ns) {
 
 //----- (00553210) --------------------------------------------------------
 int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, int a4) {
-	int v4;                 // ebp
-	unsigned __int8* v5;    // ecx
-	unsigned int v6;        // esi
-	unsigned __int8* v9;    // edi
-	int v10;                // eax
-	int v11;                // eax
-	_BYTE* v12;             // edx
-	_BYTE* v13;             // edi
-	_BYTE v14;              // al
-	_BYTE v15;              // dl
-	int v18;                // edx
-	int v19;                // ecx
-	char v20;               // cl
-	int v21;                // ecx
-	int v22;                // edi
-	int v23;                // eax
-	int v24;                // edx
-	int v25;                // esi
-	int v26;                // edx
-	int v27;                // edi
-	unsigned __int8* v28;   // eax
-	int v29;                // ebx
-	char v30;               // dl
-	int v31;                // edi
-	int v32;                // eax
-	char* v33;              // eax
-	char v34;               // dl
-	char* v35;              // esi
-	const wchar_t* v36;     // ecx
-	DWORD v37;              // eax
-	unsigned __int8* v38;   // edi
-	int v39;                // esi
-	int v40;                // eax
-	unsigned __int8* v41;   // ecx
-	int v43;                // edi
-	char v44;               // dl
-	char* v45;              // eax
-	int v46;                // esi
-	char* i;                // esi
-	int* v48;               // esi
-	const wchar_t* v49;     // edi
-	_DWORD* v50;            // eax
-	int* j;                 // ebx
-	char v52;               // al
-	unsigned __int8* v55;   // edx
-	char v56;               // dl
-	int v62;                // ecx
-	char v63;               // al
-	char v64;               // al
-	char v65;               // bl
-	int v66;                // edx
-	char v67;               // al
-	int* v69;               // eax
-	int* v70;               // edi
-	unsigned int v73;       // [esp+14h] [ebp-3Ch]
-	unsigned __int8 v74[8]; // [esp+18h] [ebp-38h]
-	int v75;                // [esp+20h] [ebp-30h]
-	int v76;                // [esp+24h] [ebp-2Ch]
-	char* v78;              // [esp+54h] [ebp+4h]
-
-	v4 = a4;
-	v5 = &a2[a3];
+	int out = a4;
 	// dhexdump(a2, a3);
-	v6 = *a2;
-	LOBYTE(a3) = a2[1];
-	v73 = (unsigned int)v5;
-	v9 = a2 + 2;
+	unsigned int v6 = *a2;
+	char a3a = a2[1];
+
+	unsigned char* a2end = &a2[a3];
+	unsigned char* a2p = a2 + 2;
+
+	unsigned __int8 v74[8];
 	*(_DWORD*)&v74[0] = *(_DWORD*)(a4 + 0);
 	*(_DWORD*)&v74[4] = *(_DWORD*)(a4 + 4);
-	v75 = *(_DWORD*)(a4 + 8);
-	v76 = *(_DWORD*)(a4 + 12);
-	if ((unsigned int)(a2 + 2) >= v73) {
+	int v75 = *(_DWORD*)(a4 + 8);
+	int v76 = *(_DWORD*)(a4 + 12);
+
+	if ((unsigned int)(a2 + 2) >= a2end) {
 		return 0;
 	}
 
@@ -558,19 +501,20 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 	nox_net_struct_t* ns1 = nox_net_struct_arr[id];
 	nox_net_struct_t* ns3 = 0;
 	while (2) {
-		v10 = *v9++;
-		switch (v10) {
+		int op = *a2p;
+		a2p++;
+		switch (op) {
 		case 0:
 			{
 			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(8))
 				return 0;
-			v56 = a3;
-			*(_BYTE*)(v4 + 0) = 0;
-			*(_BYTE*)(v4 + 1) = v56;
+			*(_BYTE*)(out + 0) = 0;
+			*(_BYTE*)(out + 1) = a3a;
 			if (ns1->field_21 >= nox_xxx_servGetPlrLimit_409FA0() + (unsigned int)getMemByte(0x5D4594, 2500076) - 1) {
-				*(_BYTE*)(v4 + 2) = 2;
+				*(_BYTE*)(out + 2) = 2;
 				return 3;
 			}
+			// TODO: this seems to assume v6 == -1, but does it?
 			for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
 				nox_net_struct_t* ns4 = nox_net_struct_arr[i];
 				if (!ns4) {
@@ -579,12 +523,12 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 				}
 				if (*(_WORD*)&v74[2] == ns4->addr.sin_port && *(_DWORD*)&v74[4] == ns4->addr.sin_addr.s_addr) {
 					printf("%d %d\n", *(_WORD*)&v74[2], *(_DWORD*)&v74[4]);
-					*(_BYTE*)(v4 + 2) = 4;
+					*(_BYTE*)(out + 2) = 4;
 					return 3;
 				}
 			}
 			if (v6 == -1) {
-				*(_BYTE*)(v4 + 2) = 2;
+				*(_BYTE*)(out + 2) = 2;
 				return 3;
 			}
 			nox_net_struct_arg_t narg;
@@ -594,14 +538,14 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			nox_net_struct_t* ns2 = nox_xxx_makeNewNetStruct_553000(&narg);
 			nox_net_struct_arr[v6] = ns2;
 			if (!ns2) {
-				*(_BYTE*)(v4 + 2) = 2;
+				*(_BYTE*)(out + 2) = 2;
 				return 3;
 			}
 			ns1->field_21++;
 			ns2->data_2_base[0] = id;
-			v62 = ns2->data_2_base;
-			v63 = *(_BYTE*)(v62 + 1);
-			if (v63 == (_BYTE)a3)
+			int v62 = ns2->data_2_base;
+			char v63 = *(_BYTE*)(v62 + 1);
+			if (v63 == a3a)
 				*(_BYTE*)(v62 + 1) = v63 + 1;
 			ns2->id = id;
 			ns2->sock = ns1->sock;
@@ -609,20 +553,20 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			ns2->func_yyy = ns1->func_yyy;
 			memset(getMemAt(0x5D4594, 32 * id + 2508788), 0, 0x20u);
 			*getMemU32Ptr(0x5D4594, 32 * id + 2508816) = 1;
-			v64 = nox_common_randomInt_415FA0(1, 255);
-			v65 = v64;
+			char v64 = nox_common_randomInt_415FA0(1, 255);
+			char v65 = v64;
 			ns2->data_37[0] = 0;
-			v66 = &ns2->addr;
+			int v66 = &ns2->addr;
 			*(_QWORD*)v66 = *(_QWORD*)v74;
 			*(_DWORD*)(v66 + 8) = v75;
 			*(_DWORD*)(v66 + 12) = v76;
-			LOBYTE(v66) = a3;
-			*(_BYTE*)(v4 + 0) = 31;
-			*(_BYTE*)(v4 + 1) = v66;
-			*(_BYTE*)(v4 + 2) = 1;
-			*(_DWORD*)(v4 + 3) = v6;
-			*(_BYTE*)(v4 + 7) = v64;
-			v67 = nox_xxx_netSendSock_552640(v6, (const void*)v4, 8, 3);
+			LOBYTE(v66) = a3a;
+			*(_BYTE*)(out + 0) = 31;
+			*(_BYTE*)(out + 1) = v66;
+			*(_BYTE*)(out + 2) = 1;
+			*(_DWORD*)(out + 3) = v6;
+			*(_BYTE*)(out + 7) = v64;
+			char v67 = nox_xxx_netSendSock_552640(v6, out, 8, 3);
 			ns2->data_37[0] = v65;
 			ns2->field_38 = 1;
 			ns2->data_39[0] = v67;
@@ -630,67 +574,72 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			return 0;
 			}
 		case 1:
-			v11 = *(_DWORD*)v9;
-			v12 = ns1->data_2_base;
-			v13 = v9 + 4;
+			{
+			int v11 = *(_DWORD*)a2p;
+			_BYTE* v12 = ns1->data_2_base;
+			_BYTE* v13 = a2p + 4;
 			ns1->id = v11;
 			*v12 = v11;
 			LOBYTE(v12) = *v13;
-			v9 = v13 + 1;
+			a2p = v13 + 1;
 			ns1->data_37[0] = (_BYTE)v12;
 			dword_5d4594_3844304 = 1;
-			if ((unsigned int)v9 >= v73) {
+			if ((unsigned int)a2p >= a2end) {
 				return 0;
 			}
 			break;
+			}
 		case 2:
 			ns1->id = -18;
 			dword_5d4594_3844304 = 1;
-			if ((unsigned int)v9 >= v73) {
+			if ((unsigned int)a2p >= a2end) {
 				return 0;
 			}
 			break;
 		case 3:
 			ns1->id = -12;
 			dword_5d4594_3844304 = 1;
-			if ((unsigned int)v9 >= v73) {
+			if ((unsigned int)a2p >= a2end) {
 				return 0;
 			}
 			break;
 		case 4:
 			ns1->id = -13;
 			dword_5d4594_3844304 = 1;
-			if ((unsigned int)v9 >= v73) {
+			if ((unsigned int)a2p >= a2end) {
 				return 0;
 			}
 			break;
 		case 5:
-			v30 = ns1->data_37[0];
-			*(_BYTE*)(v4 + 2) = 7;
-			*(_BYTE*)v4 = v30;
-			*(_DWORD*)(v4 + 3) = *(_DWORD*)v9;
+			*(_BYTE*)(out + 0) = ns1->data_37[0];
+			*(_BYTE*)(out + 2) = 7;
+			*(_DWORD*)(out + 3) = *(_DWORD*)a2p;
 			return 7;
-		case 6:;
+		case 6:
+			{
 			if (v6 > NOX_NET_STRUCT_MAX) {
 				printf("nox_net_struct_arr overflow (2): %d\n", (int)(v6));
 				abort();
 			}
 			ns3 = nox_net_struct_arr[v6];
-			LOBYTE(a2) = 37;
-			ns1->func_yyy(v6, &a2, 1, ns3->data_3);
+			_BYTE a2b3 = 37;
+			ns1->func_yyy(v6, &a2b3, 1, ns3->data_3);
+			int v18 = 0;
 			if (ns1->id == -1) {
-				*(_BYTE*)v4 = ns3->id;
+				*(_BYTE*)(out + 0) = ns3->id;
 				v18 = ns3->data_2_base;
 			} else {
-				*(_BYTE*)v4 = ns1->id;
+				*(_BYTE*)(out + 0) = ns1->id;
 				v18 = ns1->data_2_base;
 			}
-			*(_BYTE*)(v4 + 1) = *(_BYTE*)(v18 + 1);
-			*getMemU32Ptr(0x5D4594, 32 * v6 + 2508792) = *(_DWORD*)v9;
-			*(_BYTE*)(v4 + 2) = 8;
-			*(_DWORD*)(v4 + 3) = *(_DWORD*)v9;
+			*(_BYTE*)(out + 1) = *(_BYTE*)(v18 + 1);
+			*getMemU32Ptr(0x5D4594, 32 * v6 + 2508792) = *(_DWORD*)a2p;
+			*(_BYTE*)(out + 2) = 8;
+			*(_DWORD*)(out + 3) = *(_DWORD*)a2p;
 			return 7;
+			}
 		case 7:
+			{
 			if (v6 > NOX_NET_STRUCT_MAX) {
 				printf("nox_net_struct_arr overflow (2): %d\n", (int)(v6));
 				abort();
@@ -698,55 +647,58 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			ns3 = nox_net_struct_arr[v6];
 			if (!ns3->field_25)
 				return 0;
-			v31 = dword_5d4594_2495920 - (int)(ns3->field_26) - (int)(ns3->field_24);
+			int v31 = dword_5d4594_2495920 - (int)(ns3->field_26) - (int)(ns3->field_24);
+			int v32 = -1;
 			if (v31 >= 1)
 				v32 = 256000 / v31;
-			else
-				v32 = -1;
-			*(_BYTE*)v4 = 35;
-			*(_DWORD*)(v4 + 1) = v32;
+			*(_BYTE*)(out + 0) = 35;
+			*(_DWORD*)(out + 1) = v32;
 			if (ns1->id == -1)
-				ns1->func_yyy(v6, v4, 5, ns3->data_3);
+				ns1->func_yyy(v6, out, 5, ns3->data_3);
 			else
-				ns1->func_yyy(v6, v4, 5, ns1->data_3);
+				ns1->func_yyy(v6, out, 5, ns1->data_3);
 			return 0;
+			}
 		case 8:
+			{
 			if (v6 > NOX_NET_STRUCT_MAX) {
 				printf("nox_net_struct_arr overflow (2): %d\n", (int)(v6));
 				abort();
 			}
 			ns3 = nox_net_struct_arr[v6];
-			if (*(_DWORD*)v9 != ns3->field_22)
+			if (*(_DWORD*)a2p != ns3->field_22)
 				return 0;
 			ns3->field_24 = dword_5d4594_2495920 - ns3->field_23;
-			*(_BYTE*)v4 = 36;
-			*(_DWORD*)(v4 + 1) = ns3->field_24;
+			*(_BYTE*)(out + 0) = 36;
+			*(_DWORD*)(out + 1) = ns3->field_24;
+			int v19 = 0;
 			if (ns1->id == -1)
 				v19 = ns3->data_3;
 			else
 				v19 = ns1->data_3;
-			ns1->func_yyy(v6, v4, 5, v19);
-			*(_BYTE*)v4 = ns1->data_37[0];
-			v20 = ns3->data_2_base[1];
-			*(_BYTE*)(v4 + 2) = 9;
-			*(_BYTE*)(v4 + 1) = v20;
-			*(_DWORD*)(v4 + 3) = dword_5d4594_2495920;
+			ns1->func_yyy(v6, out, 5, v19);
+			*(_BYTE*)(out + 0) = ns1->data_37[0];
+			*(_BYTE*)(out + 1) = ns3->data_2_base[1];
+			*(_BYTE*)(out + 2) = 9;
+			*(_DWORD*)(out + 3) = dword_5d4594_2495920;
 			return 7;
+			}
 		case 9:
-			v21 = 32 * v6;
-			v22 = *(_DWORD*)v9 - *getMemU32Ptr(0x5D4594, 32 * v6 + 2508792);
+			{
+			int v21 = 32 * v6;
+			int v22 = *(_DWORD*)a2p - *getMemU32Ptr(0x5D4594, 32 * v6 + 2508792);
 			if (v22 <= 0 || v22 >= 1000)
 				return 0;
-			v23 = *getMemU32Ptr(0x5D4594, 32 * v6 + 2508788);
-			v24 = v23 + 8 * v6;
-			v25 = 5;
+			int v23 = *getMemU32Ptr(0x5D4594, 32 * v6 + 2508788);
+			int v24 = v23 + 8 * v6;
+			int v25 = 5;
 			*getMemU32Ptr(0x5D4594, 4 * v24 + 2508796) = v22;
-			v26 = (v23 + 1) % 5;
-			v27 = v26;
+			int v26 = (v23 + 1) % 5;
+			int v27 = v26;
 			if (!v26) {
-				v28 = getMemAt(0x5D4594, v21 + 2508796);
+				unsigned __int8* v28 = getMemAt(0x5D4594, v21 + 2508796);
 				do {
-					v29 = *(_DWORD*)v28;
+					int v29 = *(_DWORD*)v28;
 					v28 += 4;
 					v26 += v29;
 					--v25;
@@ -755,45 +707,49 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			}
 			*getMemU32Ptr(0x5D4594, v21 + 2508788) = v27;
 			return 0;
+			}
 		case 10:
+			{
 			if (v6 == 255)
 				return 0;
 			nox_net_struct_t* ns4 = nox_net_struct_arr[v6];
 			if (ns4->field_38 == 1)
 				return 0;
-			LOBYTE(a2) = 34;
-			ns1->func_yyy(v6, &a2, 1, ns4->data_3);
+			_BYTE a2b2 = 34;
+			ns1->func_yyy(v6, &a2b2, 1, ns4->data_3);
 			memset(getMemAt(0x5D4594, 32 * id + 2508788), 0, 0x20u);
-			v69 = nox_xxx_findPlayerID_5541D0(v6);
-			v70 = v69;
+			int* v69 = nox_xxx_findPlayerID_5541D0(v6);
 			if (v69) {
 				sub_425920((_DWORD**)v69);
-				free(v70);
+				free(v69);
 				--*getMemU8Ptr( 0x5D4594, 2500076);
 			}
 			nox_xxx_netStructReadPackets_5545B0(v6);
 			return 0;
-		case 11:;
+			}
+		case 11:
+			{
 			nox_net_struct_t* ns5 = nox_net_struct_arr[v6];
-			LOBYTE(a2) = 33;
-			ns1->func_yyy(v6, &a2, 1, ns5->data_3);
+			_BYTE a2b = 33;
+			ns1->func_yyy(v6, &a2b, 1, ns5->data_3);
 			sub_554A50(id);
 			return 0;
+			}
 		case 14:
-			v43 = 0;
-			v78 = sub_416640();
+			{
+			int v43 = 0;
+			char* v78 = sub_416640();
 			nox_xxx_cliGamedataGet_416590(0);
-			v44 = a3;
-			a4 = 0;
-			*(_BYTE*)v4 = 0;
-			*(_BYTE*)(v4 + 1) = v44;
+			bool a4a = 0;
+			*(_BYTE*)(out + 0) = 0;
+			*(_BYTE*)(out + 1) = a3a;
 			if (!sub_43AF70()) {
-				v45 = nox_common_playerInfoGetFirst_416EA0();
+				char* v45 = nox_common_playerInfoGetFirst_416EA0();
 				while (v45) {
 					if (v45[2135] == a2[98]) {
 						if (!strcmp(v45 + 2112, (const char*)a2 + 56)) {
-							*(_BYTE*)(v4 + 2) = 19;
-							*(_BYTE*)(v4 + 3) = 12;
+							*(_BYTE*)(out + 2) = 19;
+							*(_BYTE*)(out + 3) = 12;
 							return 4;
 						}
 						v43 = 0;
@@ -802,18 +758,18 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 				}
 			}
 			if (*((_DWORD*)a2 + 20) != 66458) {
-				*(_BYTE*)(v4 + 2) = 19;
-				*(_BYTE*)(v4 + 3) = 13;
+				*(_BYTE*)(out + 2) = 19;
+				*(_BYTE*)(out + 3) = 13;
 				return 4;
 			}
 			if (ns1->field_21 >= (unsigned int)(nox_xxx_servGetPlrLimit_409FA0() - 1))
-				a4 = 1;
+				a4a = 1;
 			if (sub_40A740()) {
-				v46 = nox_xxx_countObserverPlayers_425BF0();
+				int v46 = nox_xxx_countObserverPlayers_425BF0();
 				if (!*((_DWORD*)a2 + 21)) {
 					if (v46 >= (unsigned __int8)v78[53]) {
-						*(_BYTE*)(v4 + 2) = 19;
-						*(_BYTE*)(v4 + 3) = 11;
+						*(_BYTE*)(out + 2) = 19;
+						*(_BYTE*)(out + 3) = 11;
 						return 4;
 					}
 				} else if (sub_418AE0(*((_DWORD*)a2 + 21))) {
@@ -823,8 +779,8 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 				} else {
 					if ((unsigned __int8)sub_417DE0() >= (unsigned __int8)v78[52]) {
 						if (v46 >= (unsigned __int8)v78[53]) {
-							*(_BYTE*)(v4 + 2) = 19;
-							*(_BYTE*)(v4 + 3) = 11;
+							*(_BYTE*)(out + 2) = 19;
+							*(_BYTE*)(out + 3) = 11;
 							return 4;
 						}
 					} else if (v46 > 0) {
@@ -832,150 +788,152 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 					}
 				}
 			}
-			if (a4) {
+			if (a4a) {
 				if (!v43 || !*(_DWORD*)(v78 + 54)) {
-					*(_BYTE*)(v4 + 2) = 19;
-					*(_BYTE*)(v4 + 3) = 11;
+					*(_BYTE*)(out + 2) = 19;
+					*(_BYTE*)(out + 3) = 11;
 					return 4;
 				}
-				for (i = nox_xxx_firstReplaceablePlayer_425C40(); i; i = nox_xxx_nextReplaceablePlayer_425C70((int)i)) {
+				for (char* i = nox_xxx_firstReplaceablePlayer_425C40(); i; i = nox_xxx_nextReplaceablePlayer_425C70((int)i)) {
 					if (!nox_xxx_findPlayerID_5541D0((unsigned __int8)i[2064] + 1)) {
 						nox_xxx_playerCallDisconnect_4DEAB0((unsigned __int8)i[2064], 4);
-						v50 = malloc(0x10u);
+						_DWORD* v50 = malloc(0x10u);
 						v50[3] = (unsigned __int8)i[2064] + 1;
 						sub_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
 						++*getMemU8Ptr( 0x5D4594, 2500076);
-						*(_BYTE*)(v4 + 2) = 21;
+						*(_BYTE*)(out + 2) = 21;
 						return 3;
 					}
 				}
 			}
 			if (v78[100] & 0x10) {
-				v48 = sub_4168E0();
+				int* v48 = sub_4168E0();
 				if (!v48) {
-					*(_BYTE*)(v4 + 2) = 19;
-					*(_BYTE*)(v4 + 3) = 4;
+					*(_BYTE*)(out + 2) = 19;
+					*(_BYTE*)(out + 3) = 4;
 					return 4;
 				}
-				v49 = (const wchar_t*)(a2 + 4);
-				while (_nox_wcsicmp((const wchar_t*)v48 + 6, v49)) {
+				while (_nox_wcsicmp((const wchar_t*)v48 + 6, (const wchar_t*)(a2 + 4))) {
 					v48 = sub_4168F0(v48);
 					if (!v48) {
-						*(_BYTE*)(v4 + 2) = 19;
-						*(_BYTE*)(v4 + 3) = 4;
+						*(_BYTE*)(out + 2) = 19;
+						*(_BYTE*)(out + 3) = 4;
 						return 4;
 					}
 				}
 			} else {
-				for (j = sub_416900(); j; j = sub_416910(j)) {
+				for (int* j = sub_416900(); j; j = sub_416910(j)) {
 					if (!strcmp((const char*)j + 72, "0")) {
 						if (!_nox_wcsicmp((const wchar_t*)j + 6, (const wchar_t*)a2 + 2)) {
-							*(_BYTE*)(v4 + 2) = 19;
-							*(_BYTE*)(v4 + 3) = 5;
+							*(_BYTE*)(out + 2) = 19;
+							*(_BYTE*)(out + 3) = 5;
 							return 4;
 						}
 					} else if (!_strcmpi((const char*)j + 72, (const char*)a2 + 56)) {
-						*(_BYTE*)(v4 + 2) = 19;
-						*(_BYTE*)(v4 + 3) = 5;
+						*(_BYTE*)(out + 2) = 19;
+						*(_BYTE*)(out + 3) = 5;
 						return 4;
 					}
 				}
 			}
-			v35 = v78;
-			v52 = v78[100];
+			char* v35 = v78;
+			char v52 = v78[100];
 			if (v52 && (unsigned __int8)(1 << a2[54]) & (unsigned __int8)v52) {
-				*(_BYTE*)(v4 + 2) = 19;
-				*(_BYTE*)(v4 + 3) = 7;
+				*(_BYTE*)(out + 2) = 19;
+				*(_BYTE*)(out + 3) = 7;
 				return 4;
 			}
 			if (v52 & 0x20) {
-				*(_BYTE*)(v4 + 2) = 15;
+				*(_BYTE*)(out + 2) = 15;
 				return 3;
 			}
 			if (*(short*)(v78 + 105) == -1 && *(short*)(v35 + 107) == -1) {
-				*(_BYTE*)(v4 + 2) = 20;
+				*(_BYTE*)(out + 2) = 20;
 				return 3;
 			}
 			int v53 = sub_553D10();
-			if (v53 >= 0) {
-				nox_net_struct2_t* nx = &nox_net_struct2_arr[v53];
-				nx->field_0 = 1;
-				nx->field_1_1 = 0;
-				nx->field_1_0 = 0;
-				*(_QWORD*)(&nx->addr) = *(_QWORD*)v74;
-				*((_DWORD*)(&nx->addr) + 1) = v75;
-				*((_DWORD*)(&nx->addr) + 2) = v76;
-				return nox_xxx_makePacketTime_552340(v53, v4);
+			if (v53 < 0) {
+				*(_BYTE*)(out + 2) = 20;
+				return 3;
 			}
-			*(_BYTE*)(v4 + 2) = 20;
-			return 3;
+			nox_net_struct2_t* nx = &nox_net_struct2_arr[v53];
+			nx->field_0 = 1;
+			nx->field_1_1 = 0;
+			nx->field_1_0 = 0;
+			*(_QWORD*)(&nx->addr) = *(_QWORD*)v74;
+			*((_DWORD*)(&nx->addr) + 1) = v75;
+			*((_DWORD*)(&nx->addr) + 2) = v76;
+			return nox_xxx_makePacketTime_552340(v53, out);
+			}
 		case 17:
-			v33 = sub_416640();
-			v34 = a3;
-			v35 = v33;
-			v36 = (const wchar_t*)(a2 + 4);
-			*(_BYTE*)v4 = 0;
-			*(_BYTE*)(v4 + 1) = v34;
-			if (nox_wcscmp(v36, (const wchar_t*)v33 + 39)) {
-				*(_BYTE*)(v4 + 2) = 19;
-				*(_BYTE*)(v4 + 3) = 6;
+			{
+			char* v33 = sub_416640();
+			char* v35 = v33;
+			*(_BYTE*)(out + 0) = 0;
+			*(_BYTE*)(out + 1) = a3a;
+			if (nox_wcscmp((const wchar_t*)(a2 + 4), (const wchar_t*)v33 + 39)) {
+				*(_BYTE*)(out + 2) = 19;
+				*(_BYTE*)(out + 3) = 6;
 				return 4;
 			}
 			if (*(short*)(v35 + 105) == -1 && *(short*)(v35 + 107) == -1) {
-				*(_BYTE*)(v4 + 2) = 20;
+				*(_BYTE*)(out + 2) = 20;
 				return 3;
 			}
 			int v53 = sub_553D10();
-			if (v53 >= 0) {
-				nox_net_struct2_t* nx = &nox_net_struct2_arr[v53];
-				nx->field_0 = 1;
-				nx->field_1_1 = 0;
-				nx->field_1_0 = 0;
-				*(_QWORD*)(&nx->addr) = *(_QWORD*)v74;
-				*((_DWORD*)(&nx->addr) + 1) = v75;
-				*((_DWORD*)(&nx->addr) + 2) = v76;
-				return nox_xxx_makePacketTime_552340(v53, v4);
+			if (v53 < 0) {
+				*(_BYTE*)(out + 2) = 20;
+				return 3;
 			}
-			*(_BYTE*)(v4 + 2) = 20;
-			return 3;
+			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[v53];
+			nx1->field_0 = 1;
+			nx1->field_1_1 = 0;
+			nx1->field_1_0 = 0;
+			*(_QWORD*)(&nx1->addr) = *(_QWORD*)v74;
+			*((_DWORD*)(&nx1->addr) + 1) = v75;
+			*((_DWORD*)(&nx1->addr) + 2) = v76;
+			return nox_xxx_makePacketTime_552340(v53, out);
+			}
 		case 18:
-			v37 = nox_platform_get_ticks();
-			v38 = a2;
-			v39 = v37 - *((_DWORD*)a2 + 1);
-			v40 = sub_553D30((int)v74);
+			{
+			int v39 = nox_platform_get_ticks() - *((_DWORD*)a2 + 1);
+			int v40 = sub_553D30((int)v74);
 			if (v40 < 0)
 				return 0;
 			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[v40];
-			if (v38[3] != nx1->field_1_1)
+			if (*((unsigned __int8*)a2 + 3) != nx1->field_1_1)
 				return 0;
 			nx1->field_6[nx1->field_1_1] = v39;
 			nx1->field_1_1++;
 			if (nx1->field_1_1 >= 10)
 				return 0;
-			return nox_xxx_makePacketTime_552340(v40, v4);
+			return nox_xxx_makePacketTime_552340(v40, out);
+			}
 		case 31:
+			{
 			if (v6 > NOX_NET_STRUCT_MAX) {
 				printf("nox_net_struct_arr overflow (2): %d\n", (int)(v6));
 				abort();
 			}
 			ns3 = nox_net_struct_arr[v6];
-			v14 = *v9;
-			v15 = ns3->field_28_1;
-			++v9;
-			LOBYTE(a4) = v14;
+			_BYTE v14 = *a2p;
+			_BYTE v15 = ns3->field_28_1;
+			++a2p;
+			_BYTE a4b = v14;
 			printf("foo 0x%x 0x%x\n", v14, v15);
 			if (v14 != v15) {
-				sub_5551F0(v6, a4, 1);
-				sub_555360(v6, a4, 1);
-				ns3->field_28_1 = a4;
-				*(_BYTE*)v4 = 38;
-				*(_BYTE*)(v4 + 1) = ns3->field_28_1;
-				ns1->func_yyy(v6, v4, 2, ns3->data_3);
+				sub_5551F0(v6, a4b, 1);
+				sub_555360(v6, a4b, 1);
+				ns3->field_28_1 = a4b;
+				*(_BYTE*)(out + 0) = 38;
+				*(_BYTE*)(out + 1) = ns3->field_28_1;
+				ns1->func_yyy(v6, out, 2, ns3->data_3);
 			}
-			if ((unsigned int)v9 >= v73) {
+			if ((unsigned int)a2p >= a2end) {
 				return 0;
 			}
 			break;
+			}
 		default:
 			return 0;
 		}
