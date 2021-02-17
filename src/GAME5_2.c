@@ -805,10 +805,10 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			v40 = sub_553D30((int)v74);
 			if (v40 < 0)
 				return 0;
-			v41 = getMemAt(0x5D4594, 68 * v40 + 2500089);
-			if (v38[3] != getMemByte(0x5D4594, 68 * v40 + 2500089))
+			v41 = getMemAt(0x5D4594, 2500084 + 68*v40 + 5);
+			if (v38[3] != getMemByte(0x5D4594, 2500084 + 68*v40 + 5))
 				return 0;
-			*getMemU32Ptr(0x5D4594, 4 * (getMemByte(0x5D4594, 68 * v40 + 2500089) + 17 * v40) + 2500108) = v39;
+			*getMemU32Ptr(0x5D4594, 2500084 + 24 + 4*(17*v40 + getMemByte(0x5D4594, 2500084 + 68*v40 + 5))) = v39;
 			v42 = *v41 + 1;
 			*v41 = v42;
 			if (v42 >= 0xAu)
@@ -956,10 +956,10 @@ LABEL_97:
 	v53 = sub_553D10();
 	if (v53 >= 0) {
 		v54 = 68 * v53;
-		*getMemU32Ptr(0x5D4594, v54 + 2500084) = 1;
-		*getMemU8Ptr( 0x5D4594, v54 + 2500089) = 0;
-		*getMemU8Ptr( 0x5D4594, v54 + 2500088) = 0;
-		v55 = getMemAt(0x5D4594, 68 * v53 + 2500092);
+		*getMemU32Ptr(0x5D4594, 2500084 + v54) = 1;
+		*getMemU8Ptr(0x5D4594, 2500084 + 5 + v54) = 0;
+		*getMemU8Ptr(0x5D4594, 2500084 + 4 + v54) = 0;
+		v55 = getMemAt(0x5D4594, 2500084 + 68*v53 + 8);
 		*(_QWORD*)v55 = *(_QWORD*)v74;
 		*((_DWORD*)v55 + 2) = v75;
 		*((_DWORD*)v55 + 3) = v76;
@@ -991,7 +991,7 @@ int  sub_553D30(int a1) {
 	unsigned __int8* v2; // ecx
 
 	result = 0;
-	v2 = getMemAt(0x5D4594, 2500094);
+	v2 = getMemAt(0x5D4594, 2500084 + 10);
 	while (*(_DWORD*)(v2 + 2) != *(_DWORD*)(a1 + 4) || *(_WORD*)v2 != *(_WORD*)(a1 + 2)) {
 		v2 += 68;
 		++result;
