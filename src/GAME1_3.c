@@ -1180,17 +1180,9 @@ int sub_43CF70() {
 BOOL nox_xxx_servNetInitialPacketsCheck_43CFD0() { return nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1) != -1; }
 
 //----- (0043CFF0) --------------------------------------------------------
-int sub_43CFF0() {
-	__int64 v0; // kr00_8
-
-	v0 = nox_call_get_ticks();
-	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1);
-	nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
-	sub_40ED10(31, 0);
-	sub_552460();
-	if (nox_xxx_crc_40A370())
-		return 1;
-	while ((unsigned __int64)(nox_call_get_ticks() - v0) < 0x2710) {
+int nox_xxx_servNetInitialPacketsUntilCRC_43CFF0() {
+	__int64 start = nox_call_get_ticks();
+	while ((unsigned __int64)(nox_call_get_ticks() - start) < 10000) {
 		nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1);
 		nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
 		sub_40ED10(31, 0);
