@@ -8272,7 +8272,7 @@ int sub_5521A0() {
 	v0 = 0;
 	v12 = nox_platform_get_ticks();
 	v11 = 0;
-	v1 = getMemAt(0x5D4594, 2500089);
+	v1 = getMemAt(0x5D4594, 2500084 + 5);
 	do {
 		if (*(_DWORD*)(v1 - 5)) {
 			v2 = *v1;
@@ -8300,7 +8300,7 @@ int sub_5521A0() {
 				sub_552380(v0);
 			} else if ((int)(v12 - *(_DWORD*)(v1 + 59)) > 2000) {
 				v3 = *getMemU32Ptr(0x587000, 292940);
-				*getMemU32Ptr(0x5D4594, 4 * (v2 + v11) + 2500108) = -1;
+				*getMemU32Ptr(0x5D4594, 2500084 + 24 + 4*(v2 + v11)) = -1;
 				v4 = *(v1 - 1) + 1;
 				*(v1 - 1) = v4;
 				if (v4 <= v3) {
@@ -8324,16 +8324,16 @@ void sub_5522E0(int a1) {
 	nox_net_struct_t* ns = nox_net_struct_arr[i];
 	char buf[8];
 	int v2 = nox_xxx_makePacketTime_552340(a1, buf);
-	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, 0, (struct sockaddr*)getMemAt(0x5D4594, 68 * a1 + 2500092), 16);
+	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + 68*a1 + 8), 16);
 	sub_553F40(v3, 1);
 }
 
 //----- (00552340) --------------------------------------------------------
 int  nox_xxx_makePacketTime_552340(int a1, int a2) {
-	*getMemU32Ptr(0x5D4594, 68 * a1 + 2500148) = nox_platform_get_ticks();
+	*getMemU32Ptr(0x5D4594, 2500084 + 68*a1 + 64) = nox_platform_get_ticks();
 	*(_BYTE*)(a2 + 2) = 16;
-	*(_DWORD*)(a2 + 4) = *getMemU32Ptr(0x5D4594, 68 * a1 + 2500148);
-	*(_BYTE*)(a2 + 3) = getMemByte(0x5D4594, 68 * a1 + 2500089);
+	*(_DWORD*)(a2 + 4) = *getMemU32Ptr(0x5D4594, 2500084 + 68*a1 + 64);
+	*(_BYTE*)(a2 + 3) = getMemByte(0x5D4594, 2500084 + 68*a1 + 5);
 	return 8;
 }
 
@@ -8345,9 +8345,9 @@ void  sub_552380(int a1) {
 	nox_net_struct_t* ns = nox_net_struct_arr[i];
 	LOWORD(buf) = 0;
 	BYTE2(buf) = 20;
-	int v3 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 3, 0, (struct sockaddr*)getMemAt(0x5D4594, 68 * a1 + 2500092), 16);
+	int v3 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 3, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + 68*a1 + 8), 16);
 	sub_553F40(v3, 1);
-	*getMemU32Ptr(0x5D4594, 68 * a1 + 2500084) = 0;
+	*getMemU32Ptr(0x5D4594, 2500084 + 68*a1) = 0;
 }
 
 //----- (005523E0) --------------------------------------------------------
@@ -8359,9 +8359,9 @@ void  sub_5523E0(char a1, int a2) {
 	HIBYTE(buf) = a1;
 	LOWORD(buf) = 0;
 	BYTE2(buf) = 19;
-	int v4 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 4, 0, (struct sockaddr*)getMemAt(0x5D4594, 68 * a2 + 2500092), 16);
+	int v4 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 4, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + 68*a2 + 8), 16);
 	sub_553F40(v4, 1);
-	*getMemU32Ptr(0x5D4594, 68 * a2 + 2500084) = 0;
+	*getMemU32Ptr(0x5D4594, 2500084 + 68*a2) = 0;
 }
 
 //----- (00552450) --------------------------------------------------------
