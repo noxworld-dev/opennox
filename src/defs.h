@@ -25,6 +25,8 @@
 
 #define NOX_FILEPATH_MAX 1024
 
+#define NOX_CLIENT_VERS_CODE 0x0001039A
+
 #define USE_SDL 1
 #include <SDL2/SDL.h>
 

@@ -579,9 +579,6 @@ int nox_cmd_show_bindings(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
-//----- (00409AC0) --------------------------------------------------------
-int nox_client_getBuildVersion_409AC0() { return *getMemU16Ptr(0x5D4594, 3480); }
-
 //----- (00441550) --------------------------------------------------------
 int nox_cmd_show_game(int tokInd, int tokCnt, wchar_t** tokens) {
 	char* v2;           // esi
@@ -607,7 +604,7 @@ int nox_cmd_show_game(int tokInd, int tokCnt, wchar_t** tokens) {
 	v4 = nox_common_playerInfoCount_416F40();
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
 		--v4;
-	v5 = nox_client_getBuildVersion_409AC0();
+	v5 = nox_client_getVersionBuild_409AC0();
 	nox_xxx_consoleVPrint_450C00(6, (wchar_t*)getMemAt(0x587000, 102952), nox_version_string_102944, v5);
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		v15 = nox_xxx_serverOptionsGetServername_40A4C0();
