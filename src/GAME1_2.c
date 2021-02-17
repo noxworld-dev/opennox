@@ -7882,7 +7882,7 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 			return result;
 		sub_40ED10(31, 0);
 		sub_40A340(0);
-		nox_xxx_mapCrcMb_40A360(0);
+		nox_xxx_setMapCRC_40A360(0);
 		result = nox_xxx_servNetInitialPacketsUntilCRC_43CFF0();
 		if (!result) {
 			*a1 = -19;
