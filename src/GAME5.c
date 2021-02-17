@@ -8302,21 +8302,22 @@ int sub_5521A0() {
 }
 
 //----- (005522E0) --------------------------------------------------------
-void sub_5522E0(int a1) {
+void sub_5522E0(int id) {
 	int i = sub_4DF550();
 	nox_net_struct_t* ns = nox_net_struct_arr[i];
 	char buf[8];
-	int v2 = nox_xxx_makePacketTime_552340(a1, buf);
-	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, 0, &nox_net_struct2_arr[a1].addr, 16);
+	int v2 = nox_xxx_makePacketTime_552340(id, buf);
+	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, 0, &nox_net_struct2_arr[id].addr, 16);
 	sub_553F40(v3, 1);
 }
 
 //----- (00552340) --------------------------------------------------------
-int  nox_xxx_makePacketTime_552340(int a1, int a2) {
-	nox_net_struct2_arr[a1].ticks = nox_platform_get_ticks();
-	*(_BYTE*)(a2 + 2) = 16;
-	*(_DWORD*)(a2 + 4) = nox_net_struct2_arr[a1].ticks;
-	*(_BYTE*)(a2 + 3) = nox_net_struct2_arr[a1].field_1_1;
+int  nox_xxx_makePacketTime_552340(int id, unsigned char* buf) {
+	nox_net_struct2_t* nx = &nox_net_struct2_arr[id];
+	nx->ticks = nox_platform_get_ticks();
+	buf[2] = 16;
+	buf[3] = nx->field_1_1;
+	*(unsigned int*)(&buf[4]) = nx->ticks;
 	return 8;
 }
 
