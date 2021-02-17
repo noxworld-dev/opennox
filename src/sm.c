@@ -365,7 +365,7 @@ void NET_CONNECT_THEN(sm_args_t* args) {
 		dword_5d4594_2649712 |= 0x80000000;
 	}
 	nox_xxx_netBufs_40ED10(31, 0);
-	sub_40A340(0);
+	nox_xxx_set3512_40A340(0);
 	nox_xxx_setMapCRC_40A360(0);
 	GOTO_CONNECT_WAIT_LOOP(nox_call_get_ticks() + 10000);
 }
