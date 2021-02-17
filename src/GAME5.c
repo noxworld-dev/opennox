@@ -8177,7 +8177,7 @@ nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct sockaddr_in* addr) {
 int nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned __int8 a3, int a4, int a5) {
 	nox_net_struct_t* ns2 = nox_net_struct_arr[id2];
 	// fprintf(stderr, "551EB0: %d %d %d %d %d %d %d %d %d\n", ns2, ns2->field_38, ns2->data_39[0], id1,
-	// a3, *(_BYTE *)(a4 + 4), a5,  *(_DWORD *)(*(_DWORD *)getMemAt(0x5D4594, 3843788 + 4*id1) + 84), nox_xxx_servGetPlrLimit_409FA0());
+	// a3, *(_BYTE *)(a4 + 4), a5,  nox_net_struct_arr[id1]->field_21, nox_xxx_servGetPlrLimit_409FA0());
 	if (!ns2 || ns2->field_38 != 1 || ns2->data_39[0] > a3)
 		return 0;
 	nox_net_struct_t* ns1 = nox_net_struct_arr[id1];
