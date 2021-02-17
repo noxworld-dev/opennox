@@ -8336,13 +8336,13 @@ void  sub_552380(int a1) {
 
 //----- (005523E0) --------------------------------------------------------
 void  sub_5523E0(char a1, int a2) {
-	int v2;     // ecx
-	int buf = v2;
 	int i = sub_4DF550();
 	nox_net_struct_t* ns = nox_net_struct_arr[i];
-	HIBYTE(buf) = a1;
-	LOWORD(buf) = 0;
-	BYTE2(buf) = 19;
+	char buf[4];
+	buf[0] = 0;
+	buf[1] = 0;
+	buf[2] = 19;
+	buf[3] = a1;
 	int v4 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 4, 0, &nox_net_struct2_arr[a2].addr, 16);
 	sub_553F40(v4, 1);
 	nox_net_struct2_arr[a2].field_0 = 0;
