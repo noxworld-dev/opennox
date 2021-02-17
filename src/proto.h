@@ -1636,7 +1636,7 @@ void sub_43CEB0();
 int sub_43CF40();
 int sub_43CF70();
 BOOL nox_xxx_servNetInitialPacketsCheck_43CFD0();
-int sub_43CFF0();
+int nox_xxx_servNetInitialPacketsUntilCRC_43CFF0();
 void sub_43D0A0(int a1);
 void sub_43D2D0();
 void  sub_43D3C0(int a1, int a2);
