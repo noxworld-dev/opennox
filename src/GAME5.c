@@ -29,6 +29,7 @@ extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2650652;
 extern unsigned int nox_gameFPS;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
+extern nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX];
 
 //-------------------------------------------------------------------------
 // Function declarations
@@ -8225,7 +8226,7 @@ int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
 		return -14;
 	*getMemU32Ptr(0x5D4594, 3844300) = 0;
 	memset(nox_net_struct_arr, 0, sizeof(nox_net_struct_t*) * NOX_NET_STRUCT_MAX);
-	memset(getMemAt(0x5D4594, 2500084), 0, sizeof(nox_net_struct2_t) * NOX_NET_STRUCT_MAX);
+	memset(nox_net_struct2_arr, 0, sizeof(nox_net_struct2_t) * NOX_NET_STRUCT_MAX);
 	*getMemU32Ptr(0x5D4594, 2512884) = a2;
 	*getMemU32Ptr(0x5D4594, 3844300) = nox_new_alloc_class("GQueue", a2, a1);
 	if (!*getMemU32Ptr(0x5D4594, 3844300))
@@ -8254,67 +8255,50 @@ int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
 
 //----- (005521A0) --------------------------------------------------------
 int sub_5521A0() {
-	int v0;              // ebp
-	unsigned __int8* v1; // esi
 	int v2;              // eax
 	int v3;              // ecx
 	unsigned __int8 v4;  // bl
-	int v5;              // edi
-	int v6;              // eax
-	_DWORD* v7;          // edx
-	int v8;              // ebx
-	int v9;              // edi
-	int v11;             // [esp+10h] [ebp-Ch]
-	DWORD v12;           // [esp+14h] [ebp-8h]
 	char* v13;           // [esp+18h] [ebp-4h]
 
 	v13 = sub_416640();
-	v0 = 0;
-	v12 = nox_platform_get_ticks();
-	v11 = 0;
-	v1 = getMemAt(0x5D4594, 2500084 + 5);
-	do {
-		if (*(_DWORD*)(v1 - 5)) {
-			v2 = *v1;
-			if (v2 >= 10) {
-				if ((int)*(v1 - 1) > *getMemIntPtr(0x587000, 292940))
-					goto LABEL_24;
-				v5 = 0;
-				v6 = 0;
-				v7 = v1 + 19;
-				v8 = 10;
-				do {
-					if (*v7 > 0) {
-						++v5;
-						v6 += *v7;
-					}
-					++v7;
-					--v8;
-				} while (v8);
-				v9 = v6 / v5;
-				if (*(short*)(v13 + 105) != -1 && v9 < *(unsigned __int16*)(v13 + 105))
-					sub_5523E0(0, v0);
-				if (*(short*)(v13 + 107) != -1 && v9 > *(unsigned __int16*)(v13 + 107))
-				LABEL_24:
-					sub_5523E0(1, v0);
-				sub_552380(v0);
-			} else if ((int)(v12 - *(_DWORD*)(v1 + 59)) > 2000) {
-				v3 = *getMemU32Ptr(0x587000, 292940);
-				*getMemU32Ptr(0x5D4594, 2500084 + 24 + 4*(v2 + v11)) = -1;
-				v4 = *(v1 - 1) + 1;
-				*(v1 - 1) = v4;
-				if (v4 <= v3) {
-					++*v1;
-					sub_5522E0(v0);
-				} else {
-					sub_5523E0(1, v0);
+	DWORD start = nox_platform_get_ticks();
+	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
+		nox_net_struct2_t* nx = &nox_net_struct2_arr[i];
+		if (!nx->field_0) {
+			continue;
+		}
+		v2 = nx->field_1_1;
+		if (v2 >= 10) {
+			if ((int)nx->field_1_0 > *getMemIntPtr(0x587000, 292940))
+				goto LABEL_24;
+			int cnt = 0;
+			int sum = 0;
+			for (int i = 0; i < 10; i++) {
+				if (nx->field_6[i] > 0) {
+					cnt++;
+					sum += nx->field_6[i];
 				}
 			}
+			int avg = sum / cnt;
+			if (*(short*)(v13 + 105) != -1 && avg < *(unsigned __int16*)(v13 + 105))
+				sub_5523E0(0, i);
+			if (*(short*)(v13 + 107) != -1 && avg > *(unsigned __int16*)(v13 + 107))
+			LABEL_24:
+				sub_5523E0(1, i);
+			sub_552380(i);
+		} else if ((int)(start - nx->ticks) > 2000) {
+			v3 = *getMemU32Ptr(0x587000, 292940);
+			nox_net_struct2_arr[i].field_6[v2] = -1;
+			v4 = nx->field_1_0 + 1;
+			nx->field_1_0 = v4;
+			if (v4 <= v3) {
+				nx->field_1_1++;
+				sub_5522E0(i);
+			} else {
+				sub_5523E0(1, i);
+			}
 		}
-		v1 += sizeof(nox_net_struct2_t);
-		++v0;
-		v11 += 17;
-	} while ((int)v1 < (int)getMemAt(0x5D4594, 2508793));
+	}
 	return 1;
 }
 
@@ -8324,16 +8308,16 @@ void sub_5522E0(int a1) {
 	nox_net_struct_t* ns = nox_net_struct_arr[i];
 	char buf[8];
 	int v2 = nox_xxx_makePacketTime_552340(a1, buf);
-	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1 + 8), 16);
+	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, 0, &nox_net_struct2_arr[a1].addr, 16);
 	sub_553F40(v3, 1);
 }
 
 //----- (00552340) --------------------------------------------------------
 int  nox_xxx_makePacketTime_552340(int a1, int a2) {
-	*getMemU32Ptr(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1 + 64) = nox_platform_get_ticks();
+	nox_net_struct2_arr[a1].ticks = nox_platform_get_ticks();
 	*(_BYTE*)(a2 + 2) = 16;
-	*(_DWORD*)(a2 + 4) = *getMemU32Ptr(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1 + 64);
-	*(_BYTE*)(a2 + 3) = getMemByte(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1 + 5);
+	*(_DWORD*)(a2 + 4) = nox_net_struct2_arr[a1].ticks;
+	*(_BYTE*)(a2 + 3) = nox_net_struct2_arr[a1].field_1_1;
 	return 8;
 }
 
@@ -8345,9 +8329,9 @@ void  sub_552380(int a1) {
 	nox_net_struct_t* ns = nox_net_struct_arr[i];
 	LOWORD(buf) = 0;
 	BYTE2(buf) = 20;
-	int v3 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 3, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1 + 8), 16);
+	int v3 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 3, 0, &nox_net_struct2_arr[a1].addr, 16);
 	sub_553F40(v3, 1);
-	*getMemU32Ptr(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1) = 0;
+	nox_net_struct2_arr[a1].field_0 = 0;
 }
 
 //----- (005523E0) --------------------------------------------------------
@@ -8359,9 +8343,9 @@ void  sub_5523E0(char a1, int a2) {
 	HIBYTE(buf) = a1;
 	LOWORD(buf) = 0;
 	BYTE2(buf) = 19;
-	int v4 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 4, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a2 + 8), 16);
+	int v4 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 4, 0, &nox_net_struct2_arr[a2].addr, 16);
 	sub_553F40(v4, 1);
-	*getMemU32Ptr(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a2) = 0;
+	nox_net_struct2_arr[a2].field_0 = 0;
 }
 
 //----- (00552450) --------------------------------------------------------

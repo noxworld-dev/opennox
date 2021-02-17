@@ -499,23 +499,14 @@ _Static_assert(sizeof(struct sockaddr_in) == 16, "wrong size of sockaddr_in stru
 _Static_assert(sizeof(nox_net_struct_t) == 164, "wrong size of nox_net_struct_t structure!");
 
 typedef struct nox_net_struct2_t {
-	_DWORD field_0;
-	_DWORD field_1;
-	_DWORD field_2;
-	_DWORD field_3;
-	_DWORD field_4;
-	_DWORD field_5;
-	_DWORD field_6;
-	_DWORD field_7;
-	_DWORD field_8;
-	_DWORD field_9;
-	_DWORD field_10;
-	_DWORD field_11;
-	_DWORD field_12;
-	_DWORD field_13;
-	_DWORD field_14;
-	_DWORD field_15;
-	_DWORD field_16;
+	_DWORD field_0; // 0, 0
+	_BYTE field_1_0; // 1, 4
+	_BYTE field_1_1; // 1, 5
+	_WORD field_1_2; // 1, 6
+	// TODO: check usages, looks like it reuses sin_zero for something else
+	struct sockaddr_in addr; // 2, 8
+	_DWORD field_6[10]; // 6, 24
+	_DWORD ticks; // 16, 64
 } nox_net_struct2_t;
 _Static_assert(sizeof(nox_net_struct2_t) == 68, "wrong size of nox_net_struct2_t structure!");
 
