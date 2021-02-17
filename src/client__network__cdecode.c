@@ -2386,8 +2386,8 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 		case 0xAFu:
 			dword_5d4594_1200768 = 0;
 			v34 = *(_DWORD*)(v3 + 1);
-			if (sub_40A350() < v34) {
-				sub_40A340(v34);
+			if (nox_xxx_get3512_40A350() < v34) {
+				nox_xxx_set3512_40A340(v34);
 				nox_common_gameFlags_check_40A5C0(1024);
 				v355 = nox_common_gameFlags_check_40A5C0(32);
 				v360 = nox_common_gameFlags_check_40A5C0(32);
