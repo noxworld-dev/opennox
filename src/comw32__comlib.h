@@ -9,6 +9,6 @@
 
 #include "defs.h"
 
-int  sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen); // idb
+int  nox_xxx_netRecv_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen); // idb
 
 #endif // NOX_PORT_COMW32_COMLIB
