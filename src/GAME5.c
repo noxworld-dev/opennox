@@ -8160,13 +8160,13 @@ bool sub_551E00(unsigned __int8 a1, int a2) {
 }
 
 //----- (00551E60) --------------------------------------------------------
-nox_net_struct_t* sub_551E60(int a1) {
+nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct sockaddr_in* addr) {
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
 		nox_net_struct_t* ns = nox_net_struct_arr[i];
 		if (!ns) {
 			continue;
 		}
-		if (*(_WORD*)(a1 + 2) == ns->addr.sin_port && *(_DWORD*)(a1 + 4) == ns->addr.sin_addr.s_addr) {
+		if (addr->sin_port == ns->addr.sin_port && addr->sin_addr.s_addr == ns->addr.sin_addr.s_addr) {
 			return ns;
 		}
 	}
@@ -8195,11 +8195,11 @@ int nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned __in
 }
 
 //----- (00551F90) --------------------------------------------------------
-int  nox_xxx_sendto_551F90(SOCKET s, char* buf, int len, int flags, struct sockaddr* to, int tolen) {
+int  nox_xxx_sendto_551F90(SOCKET s, char* buf, int len, int flags, struct sockaddr_in* to, int tolen) {
 	_BYTE* v6; // eax
 	char v7;   // al
 
-	v6 = sub_551E60((int)to);
+	v6 = nox_xxx_netStructByAddr_551E60(to);
 	if (!v6)
 		return sendto(s, buf, len, flags, to, tolen);
 	v7 = v6[148];
