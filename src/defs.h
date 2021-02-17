@@ -25,6 +25,8 @@
 
 #define NOX_FILEPATH_MAX 1024
 
+#define NOX_CLIENT_VERS_CODE 0x0001039A
+
 #define USE_SDL 1
 #include <SDL2/SDL.h>
 
@@ -45,7 +47,7 @@ typedef long LSTATUS;
 //#include <mmreg.h>
 
 #ifdef _MSC_VER
-// added for MSVC compatibility 
+// added for MSVC compatibility
 #ifndef _Static_assert
 #define _Static_assert static_assert
 #endif // _Static_assert

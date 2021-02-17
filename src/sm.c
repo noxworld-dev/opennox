@@ -204,7 +204,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_replay_4D3860(Data);
 		*getMemU32Ptr(0x5D4594, 2616328) = nox_xxx_playerNew_4DD320(31, Data);
-		sub_409AE0(66458);
+		nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE);
 		nox_xxx_netlist_494E90(31);
 		dword_5d4594_811372 = 2;
 		GOTO_CONNECT_RESULT(0);
@@ -388,7 +388,7 @@ void CONNECT_WAIT_THEN(sm_args_t* args) {
 	if (!args->connect_wait_then.result) {
 		GOTO_CONNECT_RESULT(-19);
 	}
-	if (sub_409AD0() != 66458) {
+	if (nox_client_getVersionCode_409AD0() != NOX_CLIENT_VERS_CODE) {
 		GOTO_CONNECT_RESULT(-20);
 	}
 	dword_5d4594_811372 = 2;

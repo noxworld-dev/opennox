@@ -1063,25 +1063,25 @@ int  sub_409A70(__int16 a1) {
 	return result;
 }
 
+//----- (00409AC0) --------------------------------------------------------
+unsigned int nox_version_code = 0;
+unsigned short nox_client_getVersionBuild_409AC0() { return nox_version_code & 0xffff; }
+
 //----- (00409AA0) --------------------------------------------------------
-unsigned int sub_409AA0() { return getMemByte(0x5D4594, 3483); }
+unsigned char nox_client_getVersionMajor_409AA0() { return (nox_version_code >> 24) & 0xff; }
 
 //----- (00409AB0) --------------------------------------------------------
-int sub_409AB0() { return getMemByte(0x5D4594, 3482); }
+unsigned char nox_client_getVersionMinor_409AB0() { return (nox_version_code >> 16) & 0xff; }
 
 //----- (00409AD0) --------------------------------------------------------
-int sub_409AD0() { return *getMemU32Ptr(0x5D4594, 3480); }
+unsigned int nox_client_getVersionCode_409AD0() { return nox_version_code; }
 
 //----- (00409AE0) --------------------------------------------------------
-int  sub_409AE0(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (*getMemU32Ptr(0x5D4594, 3480) != a1) {
-		*getMemU32Ptr(0x5D4594, 3480) = a1;
-		*(_DWORD*)&nox_server_gameSettingsUpdated = 1;
+void nox_client_setVersion_409AE0(unsigned int vers) {
+	if (nox_version_code != vers) {
+		nox_version_code = vers;
+		nox_server_gameSettingsUpdated = 1;
 	}
-	return result;
 }
 
 //----- (00409B00) --------------------------------------------------------

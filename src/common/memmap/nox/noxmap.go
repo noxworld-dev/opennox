@@ -179,7 +179,8 @@ var noxMemmap = []struct {
 	{0x5D4594, 1304, 4, "dword_5d4594_1304"},                              // 0x5D4AAC
 	{0x5D4594, 1308, 4, "dword_5d4594_1308"},                              // 0x5D4AB0
 	{0x5D4594, 1396, 1025, "nox_workdir"},                                 // 0x5D4B08
-	{0x5D4594, 3484, 4, "dword_5d4594_3484"},                              // 0x5D5330
+	{0x5D4594, 3480, 4, "nox_version_code"},
+	{0x5D4594, 3484, 4, "dword_5d4594_3484"}, // 0x5D5330
 	{0x5D4594, 3516, 4, "nox_server_mapCRC"},
 	{0x5D4594, 3532, 4, "nox_server_gameSettingsUpdated"},            // 0x5D5360
 	{0x5D4594, 3592, 4, "dword_5d4594_3592"},                         // 0x5D539C

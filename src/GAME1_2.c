@@ -7873,7 +7873,7 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_replay_4D3860(Data);
 		*getMemU32Ptr(0x5D4594, 2616328) = nox_xxx_playerNew_4DD320(31, (int)Data);
-		sub_409AE0(66458);
+		nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE);
 		nox_xxx_netlist_494E90(31);
 	} else {
 		v3 = sub_43B320();
@@ -7888,7 +7888,7 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 			*a1 = -19;
 			return result;
 		}
-		if (sub_409AD0() != 66458) {
+		if (nox_client_getVersionCode_409AD0() != NOX_CLIENT_VERS_CODE) {
 			*a1 = -20;
 			return 0;
 		}
