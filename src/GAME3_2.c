@@ -8587,7 +8587,7 @@ _DWORD*  nox_xxx_playerNew_4DD320(int a1, int a2) {
 			return 0;
 	}
 	v5 = sub_416640();
-	sub_40ED10(a1, 1);
+	nox_xxx_netBufs_40ED10(a1, 1);
 	nox_xxx_playerResetImportantCtr_4E4F40(a1);
 	sub_4E4F30(a1);
 	if (*(_BYTE*)(a2 + 67)) {
@@ -8846,20 +8846,17 @@ _DWORD*  nox_xxx_servSendSettings_4DDB40(_DWORD* a1) {
 }
 
 //----- (004DDDC0) --------------------------------------------------------
-FILE*  nox_xxx_netSendBySock_4DDDC0(int a1) {
-	FILE* result;        // eax
+void nox_xxx_netSendBySock_4DDDC0(int a1) {
 	int v2;              // esi
 	unsigned __int8* v3; // eax
 
-	result = (FILE*)nox_common_gameFlags_check_40A5C0(2);
 	v2 = a1;
-	if (!result || a1 != 31) {
+	if (!nox_common_gameFlags_check_40A5C0(2) || a1 != 31) {
 		v3 = nox_xxx_netCopyCheckPacketList_40ED60(a1, 1u, &a1);
 		if (v3)
 			nox_xxx_netSendSock_552640(v2 + 1, v3, a1, 3);
-		result = sub_40ED10(v2, 1);
+		nox_xxx_netBufs_40ED10(v2, 1);
 	}
-	return result;
 }
 
 //----- (004DDE10) --------------------------------------------------------
