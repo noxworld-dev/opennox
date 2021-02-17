@@ -16,6 +16,7 @@ extern unsigned int dword_587000_87404;
 extern unsigned int dword_5d4594_1064868;
 extern unsigned int dword_5d4594_1316972;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
+extern nox_window* nox_win_unk3;
 
 //-------------------------------------------------------------------------
 // Data declarations
@@ -1185,7 +1186,7 @@ void OnLibraryNotice_417(DWORD arg1) {
 	if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 		// checks some gameFlags that are yet undiscovered
 		if (nox_common_gameFlags_check_40A5C0(0x204)) {
-			if (dword_5d4594_1064868 || *getMemU32Ptr(0x5D4594, 1064905))
+			if (dword_5d4594_1064868 || nox_win_unk3)
 				return;
 			if (nox_common_gameFlags_check_40A5C0(1)) // isServer
 			{
@@ -1203,7 +1204,7 @@ LABEL_37:
 	if ((_BYTE)v7 == functionalKeyCodes[5]) {
 		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 			if (nox_common_gameFlags_check_40A5C0(516)) {
-				if (dword_5d4594_1064868 || *getMemU32Ptr(0x5D4594, 1064905))
+				if (dword_5d4594_1064868 || nox_win_unk3)
 					return;
 				if (nox_common_gameFlags_check_40A5C0(1)) // checkGameFlags isServer
 				{
