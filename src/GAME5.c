@@ -8323,12 +8323,12 @@ int  nox_xxx_makePacketTime_552340(int id, unsigned char* buf) {
 
 //----- (00552380) --------------------------------------------------------
 void  sub_552380(int a1) {
-	int v1;     // ecx
-	int buf = v1;
 	int i = sub_4DF550();
 	nox_net_struct_t* ns = nox_net_struct_arr[i];
-	LOWORD(buf) = 0;
-	BYTE2(buf) = 20;
+	char buf[4];
+	buf[0] = 0;
+	buf[1] = 0;
+	buf[2] = 20;
 	int v3 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 3, 0, &nox_net_struct2_arr[a1].addr, 16);
 	sub_553F40(v3, 1);
 	nox_net_struct2_arr[a1].field_0 = 0;
