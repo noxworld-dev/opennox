@@ -135,37 +135,10 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
 }
 
 //----- (00552A80) --------------------------------------------------------
-int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char a2) {
-	SOCKET v4;           // eax
-	int v5;              // eax
-	int v6;              // esi
-	unsigned __int8* v7; // eax
-	unsigned __int8 v9;  // cl
-	unsigned __int8 v10; // al
-	char v11;            // al
-	unsigned int v12;    // ecx
-	char* v13;           // edi
-	char* v14;           // esi
-	char v15;            // cl
-	int v16;             // edi
-	BYTE v17;            // al
-	unsigned __int8 v18; // dl
-	unsigned __int8 v19; // di
-	int v20;             // edi
-	char v21;            // dl
-	unsigned int v22;    // ecx
-	int v23;             // eax
-	char* v24;           // [esp-14h] [ebp-150h]
-	int v25;             // [esp-10h] [ebp-14Ch]
-	char v26;            // [esp+12h] [ebp-12Ah]
-	unsigned __int8 v27; // [esp+13h] [ebp-129h]
-	int tolen;           // [esp+14h] [ebp-128h]
-	u_long argp;         // [esp+1Ch] [ebp-120h]
-	BYTE v31;
-	int v32;            // [esp+24h] [ebp-118h]
-	int v33;            // [esp+28h] [ebp-114h]
-	struct sockaddr to; // [esp+2Ch] [ebp-110h]
-	char buf[256];      // [esp+3Ch] [ebp-100h]
+int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
+	u_long argp;
+	struct sockaddr to;
+	char buf[256];
 
 	if (id >= NOX_NET_STRUCT_MAX) {
 		return -3;
@@ -175,10 +148,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char a2) {
 		return -3;
 	}
 	nox_net_struct_t* ns2 = ns;
-	tolen = 16;
-	v26 = 1;
-	v32 = a2 & 1;
-	if (a2 & 1) {
+	if (flags & 1) {
 		if (ioctlsocket(ns->sock, FIONREAD, &argp) == -1) {
 			return -1;
 		}
@@ -188,22 +158,20 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char a2) {
 	} else {
 		argp = 1;
 	}
+	char v26 = 1;
 	while (1) {
-		v25 = (int)(ns->data_1_end) - (int)(ns->data_1_xxx);
-		v24 = ns->data_1_xxx;
-		v4 = ns->sock;
-		v33 = 1;
-		v5 = sub_552020(v4, v24, v25, 0, &to, &tolen);
-		v6 = v5;
-		if (v5 == -1) {
+		int tolen = sizeof(to);
+		int v6 = sub_552020(ns->sock, ns->data_1_xxx, (int)(ns->data_1_end) - (int)(ns->data_1_xxx), 0, &to, &tolen);
+		if (v6 == -1) {
 			return -1;
+		} else if (sizeof(to) < tolen) {
+			abort();
 		}
-		sub_553FC0(v5, 1);
+		sub_553FC0(v6, 1);
 		if (v6 < 3) {
-			v23 = ns->data_1_base;
-			ns->data_1_yyy = v23;
-			ns->data_1_xxx = v23;
-			if (!(v32 && !(a2 & 4))) {
+			ns->data_1_yyy = ns->data_1_base;
+			ns->data_1_xxx = ns->data_1_base;
+			if (!(flags & 1) || (flags & 4)) {
 				return v6;
 			}
 			argp = 0;
@@ -214,13 +182,11 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char a2) {
 			}
 			continue;
 		}
-		v7 = ns->data_1_yyy;
+		unsigned __int8* v7 = ns->data_1_yyy;
 		ns->data_1_xxx = &ns->data_1_xxx[v6];
-		unsigned int id2 = *v7;
-		v9 = v7[1];
-		v10 = v7[2];
-		v31 = v9;
-		v27 = v10;
+		unsigned int    id2 = v7[0];
+		unsigned __int8 v9  = v7[1];
+		unsigned __int8 v10 = v7[2];
 		if (v10 == 12) {
 			if (!sub_43AF70()) {
 				v6 = sub_554040(ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), buf);
@@ -229,10 +195,9 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char a2) {
 					sub_553F40(v6, 1);
 				}
 			}
-			v23 = ns->data_1_base;
-			ns->data_1_yyy = v23;
-			ns->data_1_xxx = v23;
-			if (!(v32 && !(a2 & 4))) {
+			ns->data_1_yyy = ns->data_1_base;
+			ns->data_1_xxx = ns->data_1_base;
+			if (!(flags & 1) || (flags & 4)) {
 				return v6;
 			}
 			argp = 0;
@@ -243,7 +208,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char a2) {
 			}
 			continue;
 		}
-		if (v10 < 0xEu || v10 > 0x14u) {
+		if (v10 < 14 || v10 > 20) {
 			if (id2 == 255) {
 				if (v26 != 1) {
 					goto LABEL_48;
@@ -256,8 +221,6 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char a2) {
 				if (!sub_551E00(id2 & 127, (int)&to)) {
 					goto LABEL_48;
 				}
-				v10 = v27;
-				v9 = v31;
 				v26 = 1;
 				if (ns->id == -1) {
 					ns2 = nox_net_struct_arr[id2 & 127];
@@ -268,32 +231,25 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char a2) {
 					goto LABEL_48;
 				}
 				if (v9 != ns2->field_28_1) {
-					v19 = v31;
-					sub_5551F0(id2, v31, 1);
-					sub_555360(id2, v19, 1);
-					ns2->field_28_1 = v31;
-					if (nox_xxx_netRead2Xxx_551EB0(id, id2, v19, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy)) == 1)
+					sub_5551F0(id2, v9, 1);
+					sub_555360(id2, v9, 1);
+					ns2->field_28_1 = v9;
+					bool v20 = 0;
+					if (nox_xxx_netRead2Xxx_551EB0(id, id2, v9, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy)) == 1)
 						v20 = 0;
 					else
-						v20 = v33;
+						v20 = 1;
 					buf[0] = 38;
 					buf[1] = ns2->field_28_1;
 					ns->func_yyy(id2, buf, 2, ns2->data_3);
 					if (!v20) {
 						goto LABEL_48;
 					}
-					v10 = v27;
 				}
 			} else {
 				if (id2 == 255) {
 					if (!v10) {
-						v11 = tolen;
-						v12 = (unsigned int)tolen >> 2;
-						memcpy(buf, &to, 4 * ((unsigned int)tolen >> 2));
-						v14 = (char*)&to + 4 * v12;
-						v13 = &buf[4 * v12];
-						v15 = v11;
-						memcpy(v13, v14, v15 & 3);
+						memcpy(buf, &to, tolen);
 						v6 = nox_xxx_netBigSwitch_553210(id, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), (int)buf);
 						if (v6 > 0) {
 							v6 = nox_xxx_sendto_551F90(ns->sock, buf, v6, 0, &to, tolen);
@@ -307,45 +263,34 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char a2) {
 					if (!ns2) {
 						goto LABEL_48;
 					}
-					v16 = ns2->data_2_base;
-					v17 = *(_BYTE*)(v16 + 1);
-					if (v17 != v9) {
+					if (ns2->data_2_base[1] != v9) {
 						goto LABEL_48;
 					}
-					v18 = v31;
-					*(BYTE*)(v16 + 1) = v17 + 1;
-					if (nox_xxx_netRead2Xxx_551EB0(id, id2, v18, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy)) == 1) {
+					ns2->data_2_base[1]++;
+					if (nox_xxx_netRead2Xxx_551EB0(id, id2, v9, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy)) == 1) {
 						goto LABEL_48;
 					}
-					v10 = v27;
 				}
 			}
 		} else {
 			v26 = 1;
 		}
 		if (v10 < 0x20u) {
-			v21 = tolen;
-			v22 = (unsigned int)tolen >> 2;
-			memcpy(buf, &to, 4 * ((unsigned int)tolen >> 2));
-			v14 = (char*)&to + 4 * v22;
-			v13 = &buf[4 * v22];
-			v15 = v21;
-			memcpy(v13, v14, v15 & 3);
+			memcpy(buf, &to, tolen);
 			v6 = nox_xxx_netBigSwitch_553210(id, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), (int)buf);
 			if (v6 > 0) {
 				v6 = nox_xxx_sendto_551F90(ns->sock, buf, v6, 0, &to, tolen);
 				sub_553F40(v6, 1);
 			}
 		} else {
-			if (ns2 && !(a2 & 2)) {
+			if (ns2 && !(flags & 2)) {
 				ns->func_yyy(id2, &ns->data_1_yyy[2], v6 - 2, ns2->data_3);
 			}
 		}
 	LABEL_48:
-		v23 = ns->data_1_base;
-		ns->data_1_yyy = v23;
-		ns->data_1_xxx = v23;
-		if (!(v32 && !(a2 & 4))) {
+		ns->data_1_yyy = ns->data_1_base;
+		ns->data_1_xxx = ns->data_1_base;
+		if (!(flags & 1) || (flags & 4)) {
 			return v6;
 		}
 		argp = 0;
