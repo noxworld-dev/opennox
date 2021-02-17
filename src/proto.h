@@ -6955,7 +6955,7 @@ int  sub_56FCB0(int a1, int a2);
 int  nox_xxx_playerAwardSpellProtection_56FCE0(int a1, int a2, int a3);
 int  sub_56FD50(int a1, int a2, int a3);
 void nox_xxx_cryptXor_56FDD0(char key, unsigned char* p, int n);
-void  sub_56FE00(char a1, _BYTE* a2, int a3, _BYTE* a4);
+void  nox_xxx_cryptXorDst_56FE00(char key, unsigned char* p1, int n, unsigned char* p2);
 double nox_xxx_unkDoubleSmth_56FE30();
 void  sub_56FF00(int a1);
 int  sub_56FF80(int a1, int a2);
