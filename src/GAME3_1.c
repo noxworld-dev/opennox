@@ -6772,7 +6772,7 @@ void sub_4C6DE0() {
 	v0 = *getMemU32Ptr(0x5D4594, 3799456);
 	v1 = *(_BYTE**)getMemAt(0x5D4594, 3799444);
 	v2 = *(_BYTE**)&dword_5d4594_3799540;
-	v3 = 32 * getMemByte(0x5D4594, 48 * (*getMemU32Ptr(0x5D4594, 3799428) >> 4) + 3801020) + dword_5d4594_810636;
+	v3 = 32 * (*(_BYTE*)&obj_5D4594_3800716.data[76 + 12 * (*getMemU32Ptr(0x5D4594, 3799428) >> 4)]) + dword_5d4594_810636;
 	v4 = 0;
 	do {
 		LOBYTE(v4) = *v1++;
