@@ -490,7 +490,9 @@ typedef struct nox_net_struct_t {
 	_DWORD field_34; // 136
 	int (*func_xxx)(unsigned int, char*, int, void*); // 35, 140, func(i, data_2_xxx, sz, data_3)
 	int (*func_yyy)(unsigned int, char*, int, void*); // 36, 144, last arg is data_3
-	_BYTE data_37[4]; // 148
+	_BYTE xor_key; // 37, 148
+	_BYTE field_37_1; // 37, 149
+	_WORD field_37_2; // 37, 150
 	_DWORD field_38;  // 152
 	_BYTE data_39[4]; // 156
 	_DWORD field_40;  // 160

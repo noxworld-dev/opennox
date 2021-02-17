@@ -7,9 +7,8 @@ int  nox_xxx_netRecv_552020(SOCKET s, char* buf, int len, int flags, struct sock
 	if (n != -1) {
 		nox_net_struct_t* ns = nox_xxx_netStructByAddr_551E60(from);
 		if (ns) {
-			char key = ns->data_37[0];
-			if (key) {
-				nox_xxx_cryptXor_56FDD0(key, buf, n);
+			if (ns->xor_key) {
+				nox_xxx_cryptXor_56FDD0(ns->xor_key, buf, n);
 			}
 		}
 	}
