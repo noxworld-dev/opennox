@@ -8196,13 +8196,10 @@ int nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned __in
 
 //----- (00551F90) --------------------------------------------------------
 int  nox_xxx_sendto_551F90(SOCKET s, char* buf, int len, int flags, struct sockaddr_in* to, int tolen) {
-	_BYTE* v6; // eax
-	char v7;   // al
-
-	v6 = nox_xxx_netStructByAddr_551E60(to);
-	if (!v6)
+	nox_net_struct_t* ns = nox_xxx_netStructByAddr_551E60(to);
+	if (!ns)
 		return sendto(s, buf, len, flags, to, tolen);
-	v7 = v6[148];
+	char v7 = ns->data_37[0];
 	if (!v7)
 		return sendto(s, buf, len, flags, to, tolen);
 	sub_56FE00(v7, buf, len, getMemAt(0x5D4594, 2491812));
