@@ -8371,10 +8371,11 @@ void  sub_5523E0(char a1, int a2) {
 int sub_552450() { return sub_43DE40(0); }
 
 //----- (00552460) --------------------------------------------------------
-int sub_552460() {
+void nox_xxx_netMaybeSendAll_552460() {
 	dword_5d4594_2495920 = nox_platform_get_ticks();
-	if (dword_5d4594_2495920 - *getMemU32Ptr(0x5D4594, 2512888) <= 1000)
-		return 0;
+	if (dword_5d4594_2495920 - *getMemU32Ptr(0x5D4594, 2512888) <= 1000) {
+		return;
+	}
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i ++) {
 		if (nox_net_struct_arr[i]) {
 			sub_5551F0(i, 0, 0);
@@ -8382,7 +8383,6 @@ int sub_552460() {
 		}
 	}
 	*getMemU32Ptr(0x5D4594, 2512888) = dword_5d4594_2495920;
-	return 0;
 }
 
 //----- (00552510) --------------------------------------------------------
@@ -8432,7 +8432,7 @@ int  nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a3, char
 		if (20 * a3 < ++v6)
 			break;
 		nox_xxx_servNetInitialPackets_552A80(a1, a4 | 1);
-		sub_552460();
+		nox_xxx_netMaybeSendAll_552460();
 		if (ns->field_28_1 >= a2)
 			return 0;
 		// FIXME(awesie)

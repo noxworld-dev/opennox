@@ -4772,24 +4772,17 @@ int  nox_xxx_netClientSend_0_40ECA0(int a1, int a2, const void* a3, int a4) {
 }
 
 //----- (0040ED10) --------------------------------------------------------
-FILE*  sub_40ED10(int a1, int a2) {
-	FILE* result; // eax
-
-	result = *(FILE**)getMemAt(0x5D4594, 4 * (a1 + 32 * a2) + 210036);
-	if (result) {
-		nox_xxx_net_420830(*(_DWORD**)getMemAt(0x5D4594, 4 * (a1 + 32 * a2) + 210036));
-		result = (FILE*)nox_xxx_netBufs_40ED40(a1, a2);
+void nox_xxx_netBufs_40ED10(int a1, int a2) {
+	int p = *getMemU32Ptr(0x5D4594, 4 * (a1 + 32 * a2) + 210036);
+	if (p) {
+		nox_xxx_net_420830(p);
+		nox_xxx_netBufsSetZero_40ED40(a1, a2);
 	}
-	return result;
 }
 
 //----- (0040ED40) --------------------------------------------------------
-int  nox_xxx_netBufs_40ED40(int a1, int a2) {
-	int result; // eax
-
-	result = a1 + 32 * a2;
+void nox_xxx_netBufsSetZero_40ED40(int a1, int a2) {
 	*getMemU32Ptr(0x5D4594, 2052 * (a1 + 32 * a2) + 78708) = 0;
-	return result;
 }
 
 //----- (0040ED60) --------------------------------------------------------
@@ -4848,21 +4841,17 @@ int sub_40EE60() {
 	int result; // eax
 
 	for (i = 0; i < 32; ++i) {
-		sub_40ED10(i, 1);
-		sub_40ED10(i, 0);
+		nox_xxx_netBufs_40ED10(i, 1);
+		nox_xxx_netBufs_40ED10(i, 0);
 		result = nox_xxx_servBuildMsgPool4Plr_40F020(i);
 	}
 	return result;
 }
 
 //----- (0040EE90) --------------------------------------------------------
-FILE*  nox_xxx_netBuf_40EE90(int a1) {
-	int i;        // esi
-	FILE* result; // eax
-
-	for (i = 0; i < 32; ++i)
-		result = sub_40ED10(i, a1);
-	return result;
+void nox_xxx_netBuf_40EE90(int a1) {
+	for (int i = 0; i < 32; ++i)
+		nox_xxx_netBufs_40ED10(i, a1);
 }
 
 //----- (0040EEB0) --------------------------------------------------------
