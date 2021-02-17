@@ -459,7 +459,7 @@ nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(nox_net_struct_arg_t* arg) {
 	else
 		net->func_yyy = nox_xxx_netHandlerDefYyy_553D70;
 	net->field_28_1 = -1;
-	net->data_37[0] = 0;
+	net->xor_key = 0;
 	return net;
 }
 
@@ -553,9 +553,8 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			ns2->func_yyy = ns1->func_yyy;
 			memset(getMemAt(0x5D4594, 32 * id + 2508788), 0, 0x20u);
 			*getMemU32Ptr(0x5D4594, 32 * id + 2508816) = 1;
-			char v64 = nox_common_randomInt_415FA0(1, 255);
-			char v65 = v64;
-			ns2->data_37[0] = 0;
+			char key = nox_common_randomInt_415FA0(1, 255);
+			ns2->xor_key = 0;
 			int v66 = &ns2->addr;
 			*(_QWORD*)v66 = *(_QWORD*)v74;
 			*(_DWORD*)(v66 + 8) = v75;
@@ -565,9 +564,9 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			*(_BYTE*)(out + 1) = v66;
 			*(_BYTE*)(out + 2) = 1;
 			*(_DWORD*)(out + 3) = v6;
-			*(_BYTE*)(out + 7) = v64;
+			*(_BYTE*)(out + 7) = key;
 			char v67 = nox_xxx_netSendSock_552640(v6, out, 8, 3);
-			ns2->data_37[0] = v65;
+			ns2->xor_key = key;
 			ns2->field_38 = 1;
 			ns2->data_39[0] = v67;
 			ns2->field_40 = *getMemU32Ptr(0x5D4594, 2598000);
@@ -580,9 +579,8 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			_BYTE* v13 = a2p + 4;
 			ns1->id = v11;
 			*v12 = v11;
-			LOBYTE(v12) = *v13;
 			a2p = v13 + 1;
-			ns1->data_37[0] = (_BYTE)v12;
+			ns1->xor_key = (_BYTE)*v13;
 			dword_5d4594_3844304 = 1;
 			if ((unsigned int)a2p >= a2end) {
 				return 0;
@@ -611,7 +609,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			}
 			break;
 		case 5:
-			*(_BYTE*)(out + 0) = ns1->data_37[0];
+			*(_BYTE*)(out + 0) = ns1->xor_key;
 			*(_BYTE*)(out + 2) = 7;
 			*(_DWORD*)(out + 3) = *(_DWORD*)a2p;
 			return 7;
@@ -677,7 +675,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			else
 				v19 = ns1->data_3;
 			ns1->func_yyy(v6, out, 5, v19);
-			*(_BYTE*)(out + 0) = ns1->data_37[0];
+			*(_BYTE*)(out + 0) = ns1->xor_key;
 			*(_BYTE*)(out + 1) = ns3->data_2_base[1];
 			*(_BYTE*)(out + 2) = 9;
 			*(_DWORD*)(out + 3) = dword_5d4594_2495920;

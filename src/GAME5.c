@@ -8200,10 +8200,9 @@ int  nox_xxx_sendto_551F90(SOCKET s, char* buf, int len, int flags, struct socka
 	nox_net_struct_t* ns = nox_xxx_netStructByAddr_551E60(to);
 	if (!ns)
 		return sendto(s, buf, len, flags, to, tolen);
-	char v7 = ns->data_37[0];
-	if (!v7)
+	if (!ns->xor_key)
 		return sendto(s, buf, len, flags, to, tolen);
-	sub_56FE00(v7, buf, len, getMemAt(0x5D4594, 2491812));
+	sub_56FE00(ns->xor_key, buf, len, getMemAt(0x5D4594, 2491812));
 	return sendto(s, (const char*)getMemAt(0x5D4594, 2491812), len, flags, to, tolen);
 }
 
