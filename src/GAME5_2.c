@@ -2970,25 +2970,11 @@ void nox_xxx_cryptXor_56FDD0(char key, unsigned char* p, int n) {
 }
 
 //----- (0056FE00) --------------------------------------------------------
-void  sub_56FE00(char a1, _BYTE* a2, int a3, _BYTE* a4) {
-	_BYTE* v4; // esi
-	int v5;    // edi
-	_BYTE* v6; // eax
-	char v7;   // dl
-
-	v4 = a2;
-	if (a2) {
-		v5 = a3;
-		if (a3) {
-			v6 = a4;
-			if (a4) {
-				do {
-					v7 = a1 ^ *v4++;
-					*v6++ = v7;
-					--v5;
-				} while (v5);
-			}
-		}
+void nox_xxx_cryptXorDst_56FE00(char key, unsigned char* src, int n, unsigned char* dst) {
+	if (!src || !n || !dst)
+		return;
+	for (int i = 0; i < n; i++) {
+		dst[i] = key ^ src[i];
 	}
 }
 

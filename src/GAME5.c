@@ -8202,7 +8202,7 @@ int  nox_xxx_sendto_551F90(SOCKET s, char* buf, int len, int flags, struct socka
 		return sendto(s, buf, len, flags, to, tolen);
 	if (!ns->xor_key)
 		return sendto(s, buf, len, flags, to, tolen);
-	sub_56FE00(ns->xor_key, buf, len, getMemAt(0x5D4594, 2491812));
+	nox_xxx_cryptXorDst_56FE00(ns->xor_key, buf, len, getMemAt(0x5D4594, 2491812));
 	return sendto(s, (const char*)getMemAt(0x5D4594, 2491812), len, flags, to, tolen);
 }
 
