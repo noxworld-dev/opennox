@@ -6509,9 +6509,9 @@ void  sub_551AE0(int a1, int a2, int a3);
 void sub_551BF0();
 void  sub_551C40(int a1, int a2);
 bool sub_551E00(unsigned __int8 a1, int a2);
-nox_net_struct_t* sub_551E60(int a1);
+nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct sockaddr_in* addr);
 int  nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned __int8 a3, int a4, int a5);
-int  nox_xxx_sendto_551F90(SOCKET s, char* buf, int len, int flags, struct sockaddr* to, int tolen); // idb
+int  nox_xxx_sendto_551F90(SOCKET s, char* buf, int len, int flags, struct sockaddr_in* to, int tolen); // idb
 int  sub_552010(int a1);
 int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2);
 int sub_5521A0();

@@ -2,7 +2,7 @@
 #include "proto.h"
 
 //----- (00552020) --------------------------------------------------------
-int  sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen) {
+int  sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr_in* from, int* fromlen) {
 	int v6;     // esi
 	_BYTE* v7;  // eax
 	char v8;    // al
@@ -10,7 +10,7 @@ int  sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, 
 
 	v6 = mix_recvfrom(s, buf, len, flags, from, fromlen);
 	if (v6 != -1) {
-		v7 = sub_551E60((int)from);
+		v7 = nox_xxx_netStructByAddr_551E60(from);
 		if (v7) {
 			v8 = v7[148];
 			if (v8)

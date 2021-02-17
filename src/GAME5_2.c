@@ -137,7 +137,7 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
 //----- (00552A80) --------------------------------------------------------
 int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 	u_long argp;
-	struct sockaddr to;
+	struct sockaddr_in to;
 	char buf[256];
 
 	if (id >= NOX_NET_STRUCT_MAX) {
