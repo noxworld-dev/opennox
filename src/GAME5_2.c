@@ -805,10 +805,10 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 			v40 = sub_553D30((int)v74);
 			if (v40 < 0)
 				return 0;
-			v41 = getMemAt(0x5D4594, 2500084 + 68*v40 + 5);
-			if (v38[3] != getMemByte(0x5D4594, 2500084 + 68*v40 + 5))
+			v41 = getMemAt(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*v40 + 5);
+			if (v38[3] != getMemByte(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*v40 + 5))
 				return 0;
-			*getMemU32Ptr(0x5D4594, 2500084 + 24 + 4*(17*v40 + getMemByte(0x5D4594, 2500084 + 68*v40 + 5))) = v39;
+			*getMemU32Ptr(0x5D4594, 2500084 + 24 + 4*((sizeof(nox_net_struct2_t)/4)*v40 + getMemByte(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*v40 + 5))) = v39;
 			v42 = *v41 + 1;
 			*v41 = v42;
 			if (v42 >= 0xAu)
@@ -955,11 +955,11 @@ LABEL_50:
 LABEL_97:
 	v53 = sub_553D10();
 	if (v53 >= 0) {
-		v54 = 68 * v53;
+		v54 = sizeof(nox_net_struct2_t) * v53;
 		*getMemU32Ptr(0x5D4594, 2500084 + v54) = 1;
 		*getMemU8Ptr(0x5D4594, 2500084 + 5 + v54) = 0;
 		*getMemU8Ptr(0x5D4594, 2500084 + 4 + v54) = 0;
-		v55 = getMemAt(0x5D4594, 2500084 + 68*v53 + 8);
+		v55 = getMemAt(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*v53 + 8);
 		*(_QWORD*)v55 = *(_QWORD*)v74;
 		*((_DWORD*)v55 + 2) = v75;
 		*((_DWORD*)v55 + 3) = v76;
@@ -977,7 +977,7 @@ int sub_553D10() {
 	result = 0;
 	v1 = getMemAt(0x5D4594, 2500084);
 	while (*(_DWORD*)v1) {
-		v1 += 68;
+		v1 += sizeof(nox_net_struct2_t);
 		++result;
 		if ((int)v1 >= (int)getMemAt(0x5D4594, 2508788))
 			return -1;
@@ -993,7 +993,7 @@ int  sub_553D30(int a1) {
 	result = 0;
 	v2 = getMemAt(0x5D4594, 2500084 + 10);
 	while (*(_DWORD*)(v2 + 2) != *(_DWORD*)(a1 + 4) || *(_WORD*)v2 != *(_WORD*)(a1 + 2)) {
-		v2 += 68;
+		v2 += sizeof(nox_net_struct2_t);
 		++result;
 		if ((int)v2 >= (int)getMemAt(0x5D4594, 2508798))
 			return -1;

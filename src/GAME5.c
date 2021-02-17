@@ -8225,7 +8225,7 @@ int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
 		return -14;
 	*getMemU32Ptr(0x5D4594, 3844300) = 0;
 	memset(nox_net_struct_arr, 0, sizeof(nox_net_struct_t*) * NOX_NET_STRUCT_MAX);
-	memset(getMemAt(0x5D4594, 2500084), 0, 8704);
+	memset(getMemAt(0x5D4594, 2500084), 0, sizeof(nox_net_struct2_t) * NOX_NET_STRUCT_MAX);
 	*getMemU32Ptr(0x5D4594, 2512884) = a2;
 	*getMemU32Ptr(0x5D4594, 3844300) = nox_new_alloc_class("GQueue", a2, a1);
 	if (!*getMemU32Ptr(0x5D4594, 3844300))
@@ -8311,7 +8311,7 @@ int sub_5521A0() {
 				}
 			}
 		}
-		v1 += 68;
+		v1 += sizeof(nox_net_struct2_t);
 		++v0;
 		v11 += 17;
 	} while ((int)v1 < (int)getMemAt(0x5D4594, 2508793));
@@ -8324,16 +8324,16 @@ void sub_5522E0(int a1) {
 	nox_net_struct_t* ns = nox_net_struct_arr[i];
 	char buf[8];
 	int v2 = nox_xxx_makePacketTime_552340(a1, buf);
-	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + 68*a1 + 8), 16);
+	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1 + 8), 16);
 	sub_553F40(v3, 1);
 }
 
 //----- (00552340) --------------------------------------------------------
 int  nox_xxx_makePacketTime_552340(int a1, int a2) {
-	*getMemU32Ptr(0x5D4594, 2500084 + 68*a1 + 64) = nox_platform_get_ticks();
+	*getMemU32Ptr(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1 + 64) = nox_platform_get_ticks();
 	*(_BYTE*)(a2 + 2) = 16;
-	*(_DWORD*)(a2 + 4) = *getMemU32Ptr(0x5D4594, 2500084 + 68*a1 + 64);
-	*(_BYTE*)(a2 + 3) = getMemByte(0x5D4594, 2500084 + 68*a1 + 5);
+	*(_DWORD*)(a2 + 4) = *getMemU32Ptr(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1 + 64);
+	*(_BYTE*)(a2 + 3) = getMemByte(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1 + 5);
 	return 8;
 }
 
@@ -8345,9 +8345,9 @@ void  sub_552380(int a1) {
 	nox_net_struct_t* ns = nox_net_struct_arr[i];
 	LOWORD(buf) = 0;
 	BYTE2(buf) = 20;
-	int v3 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 3, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + 68*a1 + 8), 16);
+	int v3 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 3, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1 + 8), 16);
 	sub_553F40(v3, 1);
-	*getMemU32Ptr(0x5D4594, 2500084 + 68*a1) = 0;
+	*getMemU32Ptr(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a1) = 0;
 }
 
 //----- (005523E0) --------------------------------------------------------
@@ -8359,9 +8359,9 @@ void  sub_5523E0(char a1, int a2) {
 	HIBYTE(buf) = a1;
 	LOWORD(buf) = 0;
 	BYTE2(buf) = 19;
-	int v4 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 4, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + 68*a2 + 8), 16);
+	int v4 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 4, 0, (struct sockaddr*)getMemAt(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a2 + 8), 16);
 	sub_553F40(v4, 1);
-	*getMemU32Ptr(0x5D4594, 2500084 + 68*a2) = 0;
+	*getMemU32Ptr(0x5D4594, 2500084 + sizeof(nox_net_struct2_t)*a2) = 0;
 }
 
 //----- (00552450) --------------------------------------------------------
