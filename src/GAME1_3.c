@@ -1175,7 +1175,7 @@ int sub_43CF70() {
 // 43CFA0: variable 'v1' is possibly undefined
 
 //----- (0043CFD0) --------------------------------------------------------
-BOOL sub_43CFD0() { return nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)getMemAt(0x5D4594, 815700), 1) != -1; }
+BOOL nox_xxx_servNetInitialPacketsCheck_43CFD0() { return nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)getMemAt(0x5D4594, 815700), 1) != -1; }
 
 //----- (0043CFF0) --------------------------------------------------------
 int sub_43CFF0() {
