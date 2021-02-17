@@ -366,7 +366,7 @@ void NET_CONNECT_THEN(sm_args_t* args) {
 	}
 	sub_40ED10(31, 0);
 	sub_40A340(0);
-	nox_xxx_mapCrcMb_40A360(0);
+	nox_xxx_setMapCRC_40A360(0);
 	GOTO_CONNECT_WAIT_LOOP(nox_call_get_ticks() + 10000);
 }
 
@@ -379,7 +379,7 @@ void CONNECT_WAIT_LOOP(sm_args_t* args) {
 	nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
 	sub_40ED10(31, 0);
 	sub_552460();
-	if (nox_xxx_crc_40A370()) {
+	if (nox_xxx_getMapCRC_40A370()) {
 		GOTO_CONNECT_WAIT_THEN(1);
 	}
 }

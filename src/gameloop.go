@@ -581,7 +581,7 @@ func NET_CONNECT_THEN(v5 int) {
 	}
 	C.sub_40ED10(31, 0)
 	C.sub_40A340(0)
-	C.nox_xxx_mapCrcMb_40A360(0)
+	C.nox_xxx_setMapCRC_40A360(0)
 
 	deadline := platformTicks() + 10000
 	fmt.Println("goto CONNECT_WAIT_LOOP")
@@ -604,7 +604,7 @@ func CONNECT_WAIT_LOOP(deadline uint64) {
 	C.nox_xxx_netSendBySock_40EE10(C.nox_xxx_netStructID_815700, 31, 0)
 	C.sub_40ED10(31, 0)
 	C.sub_552460()
-	if C.nox_xxx_crc_40A370() != 0 {
+	if C.nox_xxx_getMapCRC_40A370() != 0 {
 		fmt.Println("goto CONNECT_WAIT_THEN")
 		mainloopEnter = func() {
 			CONNECT_WAIT_THEN(1)
