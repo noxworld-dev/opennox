@@ -1379,21 +1379,18 @@ int  sub_40A340(int a1) {
 int sub_40A350() { return *getMemU32Ptr(0x5D4594, 3512); }
 
 //----- (0040A360) --------------------------------------------------------
-int  nox_xxx_mapCrcMb_40A360(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 3516) = a1;
-	return result;
+int nox_server_mapCRC = 0;
+void nox_xxx_setMapCRC_40A360(int crc) {
+	nox_server_mapCRC = crc;
 }
 
 //----- (0040A370) --------------------------------------------------------
-int nox_xxx_crc_40A370() { return *getMemU32Ptr(0x5D4594, 3516); }
+int nox_xxx_getMapCRC_40A370() { return nox_server_mapCRC; }
 
 //----- (0040A380) --------------------------------------------------------
 void nox_xxx_mapLoad_40A380() {
 	sub_40A340(0);
-	nox_xxx_mapCrcMb_40A360(0);
+	nox_xxx_setMapCRC_40A360(0);
 	nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x5D4594, 3608));
 	nox_xxx_setGameFlags_40A4D0(3);
 	nox_common_gameFlags_unset_40A540(137212);

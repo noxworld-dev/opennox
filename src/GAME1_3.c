@@ -1185,7 +1185,7 @@ int nox_xxx_servNetInitialPacketsUntilCRC_43CFF0() {
 		nox_xxx_netSendBySock_40EE10(*(unsigned int*)getMemAt(0x5D4594, 815700), 31, 0);
 		sub_40ED10(31, 0);
 		sub_552460();
-		if (nox_xxx_crc_40A370())
+		if (nox_xxx_getMapCRC_40A370())
 			return 1;
 	}
 	return 0;

@@ -527,7 +527,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 		case 0x2Bu:
 			k = dword_5d4594_1200804;
 			if (*(_DWORD*)(v3 + 37) > *(int*)&dword_5d4594_1200804) {
-				nox_xxx_mapCrcMb_40A360(*(_DWORD*)(v3 + 37));
+				nox_xxx_setMapCRC_40A360(*(_DWORD*)(v3 + 37));
 				nox_xxx_gameClearAll_467DF0(1);
 				nox_xxx_gameSetMapPath_409D70((char*)(v3 + 1));
 				nox_xxx_mapSetCrcMB_409B10(*(_DWORD*)(v3 + 33));
