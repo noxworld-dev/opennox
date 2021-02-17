@@ -6516,7 +6516,7 @@ int  sub_552010(int a1);
 int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2);
 int sub_5521A0();
 void sub_5522E0(int a1);
-int  nox_xxx_makePacketTime_552340(int a1, int a2);
+int  nox_xxx_makePacketTime_552340(int id, unsigned char* buf);
 void sub_552380(int a1);
 void sub_5523E0(char a1, int a2);
 int sub_552450();

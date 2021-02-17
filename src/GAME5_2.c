@@ -849,19 +849,19 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 				*(_BYTE*)(out + 2) = 20;
 				return 3;
 			}
-			int v53 = sub_553D10();
-			if (v53 < 0) {
+			int id53 = sub_553D10();
+			if (id53 < 0) {
 				*(_BYTE*)(out + 2) = 20;
 				return 3;
 			}
-			nox_net_struct2_t* nx = &nox_net_struct2_arr[v53];
+			nox_net_struct2_t* nx = &nox_net_struct2_arr[id53];
 			nx->field_0 = 1;
 			nx->field_1_1 = 0;
 			nx->field_1_0 = 0;
 			*(_QWORD*)(&nx->addr) = *(_QWORD*)v74;
 			*((_DWORD*)(&nx->addr) + 1) = v75;
 			*((_DWORD*)(&nx->addr) + 2) = v76;
-			return nox_xxx_makePacketTime_552340(v53, out);
+			return nox_xxx_makePacketTime_552340(id53, out);
 			}
 		case 17:
 			{
@@ -878,34 +878,34 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned __int8* a2, int a3, i
 				*(_BYTE*)(out + 2) = 20;
 				return 3;
 			}
-			int v53 = sub_553D10();
-			if (v53 < 0) {
+			int id53 = sub_553D10();
+			if (id53 < 0) {
 				*(_BYTE*)(out + 2) = 20;
 				return 3;
 			}
-			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[v53];
+			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[id53];
 			nx1->field_0 = 1;
 			nx1->field_1_1 = 0;
 			nx1->field_1_0 = 0;
 			*(_QWORD*)(&nx1->addr) = *(_QWORD*)v74;
 			*((_DWORD*)(&nx1->addr) + 1) = v75;
 			*((_DWORD*)(&nx1->addr) + 2) = v76;
-			return nox_xxx_makePacketTime_552340(v53, out);
+			return nox_xxx_makePacketTime_552340(id53, out);
 			}
 		case 18:
 			{
 			int v39 = nox_platform_get_ticks() - *((_DWORD*)a2 + 1);
-			int v40 = sub_553D30((int)v74);
-			if (v40 < 0)
+			int id40 = sub_553D30((int)v74);
+			if (id40 < 0)
 				return 0;
-			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[v40];
+			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[id40];
 			if (*((unsigned __int8*)a2 + 3) != nx1->field_1_1)
 				return 0;
 			nx1->field_6[nx1->field_1_1] = v39;
 			nx1->field_1_1++;
 			if (nx1->field_1_1 >= 10)
 				return 0;
-			return nox_xxx_makePacketTime_552340(v40, out);
+			return nox_xxx_makePacketTime_552340(id40, out);
 			}
 		case 31:
 			{
