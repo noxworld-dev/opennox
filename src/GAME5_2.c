@@ -2963,16 +2963,12 @@ int  sub_56FD50(int a1, int a2, int a3) {
 // 560840: using guessed type void  nullsub_31(_DWORD);
 
 //----- (0056FDD0) --------------------------------------------------------
-_BYTE*  nox_xxx_cryptXor_56FDD0(char a1, _BYTE* a2, int a3) {
-	_BYTE* result; // eax
-	int i;         // ecx
-
-	result = a2;
-	if (a2) {
-		for (i = a3; i; --i)
-			*result++ ^= a1;
+void nox_xxx_cryptXor_56FDD0(char key, unsigned char* p, int n) {
+	if (!p)
+		return;
+	for (int i = 0; i < n; i++) {
+		p[i] ^= key;
 	}
-	return result;
 }
 
 //----- (0056FE00) --------------------------------------------------------
