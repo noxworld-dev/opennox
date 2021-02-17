@@ -4,15 +4,13 @@
 //----- (00552020) --------------------------------------------------------
 int  sub_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr_in* from, int* fromlen) {
 	int v6;     // esi
-	_BYTE* v7;  // eax
-	char v8;    // al
 	int result; // eax
 
 	v6 = mix_recvfrom(s, buf, len, flags, from, fromlen);
 	if (v6 != -1) {
-		v7 = nox_xxx_netStructByAddr_551E60(from);
-		if (v7) {
-			v8 = v7[148];
+		nox_net_struct_t* ns = nox_xxx_netStructByAddr_551E60(from);
+		if (ns) {
+			char v8 = ns->data_37[0];
 			if (v8)
 				nox_xxx_cryptXor_56FDD0(v8, buf, v6);
 		}
