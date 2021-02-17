@@ -43,6 +43,8 @@ import (
 	"unsafe"
 )
 
+const NOX_CLIENT_VERS_CODE = C.NOX_CLIENT_VERS_CODE
+
 var (
 	g_v20              bool
 	g_v21              bool
@@ -355,7 +357,7 @@ func CONNECT_PREPARE() {
 	if getGameFlag(1) {
 		C.nox_xxx_replay_4D3860(Data)
 		*memmap.PtrPtr(0x5D4594, 2616328) = unsafe.Pointer(C.nox_xxx_playerNew_4DD320(31, (C.int)(uintptr(Data))))
-		C.sub_409AE0(66458)
+		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
 		C.nox_xxx_netlist_494E90(31)
 		C.dword_5d4594_811372 = 2
 
@@ -621,7 +623,7 @@ func CONNECT_WAIT_THEN(result int) {
 		}
 		return
 	}
-	if C.sub_409AD0() != 66458 {
+	if C.nox_client_getVersionCode_409AD0() != NOX_CLIENT_VERS_CODE {
 		fmt.Println("goto CONNECT_RESULT")
 		mainloopEnter = func() {
 			CONNECT_RESULT(-20)

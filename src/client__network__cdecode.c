@@ -2396,7 +2396,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					nox_common_gameFlags_unset_40A540(524272);
 					nox_xxx_setGameFlags_40A4D0(*(_DWORD*)(v3 + 9));
 					sub_409E40(*(_DWORD*)(v3 + 13));
-					sub_409AE0(*(_DWORD*)(v3 + 5));
+					nox_client_setVersion_409AE0(*(_DWORD*)(v3 + 5));
 					nox_xxx_servSetPlrLimit_409F80(*(unsigned __int8*)(v3 + 17));
 					v35 = nox_xxx_cliGamedataGet_416590(0);
 					if (v35[56] != *(_BYTE*)(v3 + 19) || *((_WORD*)v35 + 27) != *(unsigned __int8*)(v3 + 18))
