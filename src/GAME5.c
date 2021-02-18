@@ -8423,8 +8423,7 @@ int  nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a3, char
 }
 
 //----- (00552640) --------------------------------------------------------
-int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, char a4) {
-	unsigned int v4;      // ecx
+int  nox_xxx_netSendSock_552640(unsigned int id, const void* a2, signed int a3, char a4) {
 	unsigned int v7;      // edi
 	unsigned int v8;      // eax
 	unsigned int v10;     // ebx
@@ -8434,10 +8433,9 @@ int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, 
 	unsigned int v18;     // [esp+10h] [ebp-8h]
 	unsigned int v20;     // [esp+1Ch] [ebp+4h]
 
-	v4 = a1;
-	if (a1 >= NOX_NET_STRUCT_MAX)
+	if (id >= NOX_NET_STRUCT_MAX)
 		return -3;
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
+	nox_net_struct_t* ns = nox_net_struct_arr[id];
 	if (!ns)
 		return -3;
 	if (!a2)
@@ -8446,10 +8444,10 @@ int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, 
 		v7 = NOX_NET_STRUCT_MAX;
 		v8 = 0;
 		v20 = NOX_NET_STRUCT_MAX;
-		v18 = v4;
+		v18 = id;
 	} else {
-		v8 = a1;
-		v20 = a1 + 1;
+		v8 = id;
+		v20 = id + 1;
 		v7 = v20;
 		v18 = ns->id;
 	}
@@ -8469,27 +8467,20 @@ int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, 
 		return v10;
 	}
 	v10 = a3;
-	if (v8 >= v7)
-		return v10;
 	for (int i = v8; i < v7; i++) {
 		nox_net_struct_t* ns2 = nox_net_struct_arr[i];
 		if (!ns2) {
 			continue;
 		}
-		if (ns2->field_20 == v18) {
-			if (v10 + 1 > (int)(ns2->data_2_end) - (int)(ns2->data_2_xxx))
-				return -7;
-			v14 = WaitForSingleObject(ns2->mutex_yyy, 0x3E8u);
-			if (v14 == -1 || v14 == 258)
-				return -16;
-			if (!(a4 & 2)) {
-				memcpy(ns2->data_2_xxx, a2, v10);
-				ns2->data_2_xxx = &ns2->data_2_xxx[v10];
-				if (!ReleaseMutex(ns2->mutex_yyy))
-					ReleaseMutex(ns2->mutex_yyy);
-				v7 = v20;
-				continue;
-			}
+		if (ns2->field_20 != v18) {
+			continue;
+		}
+		if (v10 + 1 > (int)(ns2->data_2_end) - (int)(ns2->data_2_xxx))
+			return -7;
+		v14 = WaitForSingleObject(ns2->mutex_yyy, 0x3E8u);
+		if (v14 == -1 || v14 == 258)
+			return -16;
+		if (a4 & 2) {
 			ns2->data_2_xxx[0] = ns2->data_2_base[0];
 			ns2->data_2_xxx[1] = ns2->data_2_base[1];
 			memcpy(&ns2->data_2_xxx[2], a2, v10);
@@ -8501,6 +8492,11 @@ int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, 
 			ReleaseMutex(ns2->mutex_yyy);
 			return v16;
 		}
+		memcpy(ns2->data_2_xxx, a2, v10);
+		ns2->data_2_xxx = &ns2->data_2_xxx[v10];
+		if (!ReleaseMutex(ns2->mutex_yyy))
+			ReleaseMutex(ns2->mutex_yyy);
+		v7 = v20;
 	}
 	return v10;
 }
