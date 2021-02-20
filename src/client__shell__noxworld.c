@@ -119,7 +119,7 @@ int sub_4378B0() {
 			v3 = sub_41E2F0();
 			sub_41DA70(v3, 12);
 		} else {
-			sub_555000(sub_4375F0);
+			nox_client_setOnLobbyServer_555000(nox_client_OnLobbyServer_4375F0);
 			unsigned int ticks = nox_platform_get_ticks();
 			*getMemU32Ptr(0x5D4594, 814964) = ticks;
 			uint16_t port = nox_xxx_servGetPort_40A430();
@@ -587,7 +587,7 @@ int  sub_4394D0(int a1) {
 		strncpy(v37, (const char*)(a1 + 120), 0xFu);
 		v37[15] = 0;
 	} else {
-		sub_43BC80(a1 + 12, *(_WORD*)(a1 + 109), v37);
+		nox_sprintAddrPort_43BC80(a1 + 12, *(_WORD*)(a1 + 109), v37);
 	}
 	nox_swprintf(v38, L"%S", v37);
 	nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)v38, -1);
@@ -1151,7 +1151,7 @@ _DWORD*  nox_xxx_openfuckupwindow_43B7C0(int a1) {
 		strncpy(v14, (const char*)(a1 + 120), 0xFu);
 		v14[15] = 0;
 		if (!memcmp(v14, getMemAt(0x5D4594, 815120), 1u))
-			sub_43BC80(a1 + 12, *(_WORD*)(a1 + 109), v14);
+			nox_sprintAddrPort_43BC80(a1 + 12, *(_WORD*)(a1 + 109), v14);
 		nox_swprintf(WideCharStr, L"%S", v14);
 		sub_43BC10(WideCharStr, 0x64u);
 		nox_window_call_field_94(*(int*)&dword_5d4594_815016, 16397, (int)WideCharStr, 4);
@@ -1220,7 +1220,7 @@ _DWORD*  nox_xxx_openfuckupwindow_43B7C0(int a1) {
 			strncpy(v13, (const char*)(a1 + 120), 0xFu);
 			v13[15] = 0;
 		} else {
-			sub_43BC80(a1 + 12, *(_WORD*)(a1 + 109), v13);
+			nox_sprintAddrPort_43BC80(a1 + 12, *(_WORD*)(a1 + 109), v13);
 		}
 		if (*(_DWORD*)(a1 + 96) == 9999)
 			nox_swprintf(WideCharStr, L"%S -- ms", v13);

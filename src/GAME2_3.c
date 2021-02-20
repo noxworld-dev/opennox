@@ -9617,8 +9617,8 @@ int  sub_4A0030(const void* a1) {
 	wchar_t* v8; // ebp
 	wchar_t* v9; // eax
 
-	v1 = calloc(1u, 0xA9u);
-	memcpy(v1, a1, 0xA9u);
+	v1 = calloc(1, 169);
+	memcpy(v1, a1, 169);
 	v2 = 0;
 	switch (nox_xxx_connresult_587000_166704) {
 	case 0:

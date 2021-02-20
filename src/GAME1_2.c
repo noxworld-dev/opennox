@@ -8284,73 +8284,58 @@ void  sub_4375C0(int a1) {
 }
 
 //----- (004375F0) --------------------------------------------------------
-int  sub_4375F0(const char* a1, __int16 a2, char* a3, int a4) {
-	DWORD v4;      // edx
-	int v5;        // edi
-	__int16 v6;    // cx
-	__int16 v7;    // ax
-	int v8;        // ecx
-	__int16 v9;    // ax
-	int v10;       // ecx
-	int v11;       // eax
+int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char* name, const char* packet) {
 	char v13[172]; // [esp+14h] [ebp-CCh]
 	char v14[32];  // [esp+C0h] [ebp-20h]
 
-	if (dword_5d4594_815088 < 0x9C4u && !dword_5d4594_815044 && !dword_5d4594_815060) {
-		if (memcmp(a1, getMemAt(0x5D4594, 815108), 1u)) {
-			if (*(_DWORD*)(a4 + 44) == *getMemU32Ptr(0x5D4594, 814964)) {
-				if (sub_4A0410(a1, a2)) {
-					memset(v13, 0, 0xA8u);
-					v13[168] = 0;
-					v4 = nox_platform_get_ticks();
-					v5 = *(_DWORD*)(a4 + 44);
-					v6 = *(_WORD*)(a4 + 36);
-					v13[101] = *(_BYTE*)(a4 + 5) | (16 * *(_BYTE*)(a4 + 6));
-					v7 = *(_WORD*)(a4 + 38);
-					*(_WORD*)&v13[105] = v6;
-					LOBYTE(v6) = *(_BYTE*)(a4 + 21);
-					*(_WORD*)&v13[107] = v7;
-					LOBYTE(v7) = *(_BYTE*)(a4 + 4);
-					v13[100] = *(_BYTE*)(a4 + 20) | v6;
-					LOBYTE(v6) = *(_BYTE*)(a4 + 3);
-					v13[104] = v7;
-					LOBYTE(v7) = *(_BYTE*)(a4 + 19);
-					v13[103] = v6;
-					v8 = *(_DWORD*)(a4 + 32);
-					v13[102] = v7;
-					v9 = *(_WORD*)(a4 + 28);
-					*(_DWORD*)&v13[159] = v8;
-					v10 = *(_DWORD*)(a4 + 24);
-					*(_WORD*)&v13[163] = v9;
-					v11 = *(_DWORD*)(a4 + 40);
-					*(_DWORD*)&v13[48] = v10;
-					*(_DWORD*)&v13[44] = v11;
-					memcpy(&v13[135], (const void*)(a4 + 48), 0x14u);
-					*(_DWORD*)&v13[155] = *(_DWORD*)(a4 + 7);
-					strcpy(&v13[111], (const char*)(a4 + 10));
-					LOWORD(v10) = *(_WORD*)(a4 + 68);
-					*(_DWORD*)&v13[96] = v4 - v5;
-					*(_WORD*)&v13[165] = v10;
-					if (*(int*)&dword_587000_87412 == -1 ||
-						sub_437860(*(__int16*)&v13[44], *(__int16*)&v13[46]) == dword_587000_87412) {
-						if (nox_xxx_checkSomeFlagsOnJoin_4899C0((int)v13)) {
-							*(_DWORD*)&v13[36] = dword_5d4594_815088;
-							*(_DWORD*)&v13[28] = 0;
-							strcpy(&v13[12], a1);
-							*(_WORD*)&v13[109] = a2;
-							strncpy(&v13[120], a3, 0xFu);
-							*(_WORD*)&v13[163] = *(_WORD*)(a4 + 28);
-							sub_4A0030(v13);
-							v14[0] = 0;
-							if (a3)
-								strcpy(v14, a3);
-							else
-								sub_43BC80((int)a1, a2, v14);
-							++dword_5d4594_815088;
-						}
-					}
-				}
-			}
+	if (dword_5d4594_815088 >= 2500 || dword_5d4594_815044 || dword_5d4594_815060) {
+		return 0;
+	}
+	if (!memcmp(addr, getMemAt(0x5D4594, 815108), 1u)) {
+		return 0;
+	}
+	if (*(_DWORD*)(packet + 44) != *getMemU32Ptr(0x5D4594, 814964)) {
+		return 0;
+	}
+	if (!sub_4A0410(addr, port)) {
+		return 0;
+	}
+	memset(v13, 0, 168);
+	unsigned int curTicks = nox_platform_get_ticks();
+	unsigned int ticks = *(_DWORD*)(packet + 44);
+	*(_DWORD*)&v13[44] = *(_DWORD*)(packet + 40);
+	*(_DWORD*)&v13[48] = *(_DWORD*)(packet + 24);
+	*(_DWORD*)&v13[96] = curTicks - ticks;
+	v13[100] = *(_BYTE*)(packet + 20) | *(_BYTE*)(packet + 21);
+	v13[101] = *(_BYTE*)(packet + 5) | (16 * *(_BYTE*)(packet + 6));
+	v13[102] = *(_BYTE*)(packet + 19);
+	v13[103] = *(_BYTE*)(packet + 3);
+	v13[104] = *(_BYTE*)(packet + 4);
+	*(_WORD*)&v13[105] = *(_WORD*)(packet + 36);
+	*(_WORD*)&v13[107] = *(_WORD*)(packet + 38);
+	strcpy(&v13[111], (const char*)(packet + 10));
+	memcpy(&v13[135], (const void*)(packet + 48), 20);
+	*(_DWORD*)&v13[155] = *(_DWORD*)(packet + 7);
+	*(_DWORD*)&v13[159] = *(_DWORD*)(packet + 32);
+	*(_WORD*)&v13[163] = *(_WORD*)(packet + 28);
+	*(_WORD*)&v13[165] = *(_WORD*)(packet + 68);
+	v13[168] = 0;
+	if (*(int*)&dword_587000_87412 == -1 || sub_437860(*(__int16*)&v13[44], *(__int16*)&v13[46]) == dword_587000_87412) {
+		if (nox_xxx_checkSomeFlagsOnJoin_4899C0(v13)) {
+			strcpy(&v13[12], addr);
+			*(_DWORD*)&v13[36] = dword_5d4594_815088;
+			*(_DWORD*)&v13[28] = 0;
+			*(_WORD*)&v13[109] = port;
+			strncpy(&v13[120], name, 15);
+			*(_WORD*)&v13[163] = *(_WORD*)(packet + 28);
+			sub_4A0030(v13);
+			v14[0] = 0;
+			if (name)
+				strcpy(v14, name);
+			else
+				nox_sprintAddrPort_43BC80(addr, port, v14);
+			// TODO: v14 unused after the copy?
+			++dword_5d4594_815088;
 		}
 	}
 	return 0;
@@ -8912,7 +8897,7 @@ void sub_43ACC0() {
 							strncpy(v10, &v9[120], 0xFu);
 							v10[15] = 0;
 						} else {
-							sub_43BC80((int)&v9[12], *(unsigned __int16*)&v9[109], v10);
+							nox_sprintAddrPort_43BC80((int)&v9[12], *(unsigned __int16*)&v9[109], v10);
 						}
 						if (++dword_5d4594_815088 >= 0x9C4u)
 							break;
@@ -9053,7 +9038,7 @@ void  nox_xxx_failconn_43B0E0(int a1) {
 							strncpy((char*)getMemAt(0x5D4594, 814920), (const char*)(v3 + 120), 0xFu);
 							*getMemU8Ptr(0x5D4594, 814935) = 0;
 						} else {
-							sub_43BC80(v3 + 12, *(_WORD*)(v3 + 109), (char*)getMemAt(0x5D4594, 814920));
+							nox_sprintAddrPort_43BC80(v3 + 12, *(_WORD*)(v3 + 109), (char*)getMemAt(0x5D4594, 814920));
 						}
 						if (*(_DWORD*)(v3 + 96) == 9999)
 							nox_swprintf((wchar_t*)getMemAt(0x5D4594, 814628), L"%S -- ms", getMemAt(0x5D4594, 814920));
