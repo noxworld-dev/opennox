@@ -1540,7 +1540,7 @@ BOOL nox_xxx_playerAnimCheck_4372B0();
 BOOL nox_xxx_clientIsObserver_4372E0();
 int  sub_437320(int a1);
 void  sub_4375C0(int a1);
-int  sub_4375F0(const char* a1, __int16 a2, char* a3, int a4);
+int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char* name, const char* packet);
 int  sub_437860(int a1, int a2);
 void sub_4379C0();
 int sub_438330();
@@ -1582,7 +1582,7 @@ char* sub_43B510();
 _DWORD* sub_43B670();
 int sub_43B6D0();
 unsigned __int16*  sub_43BC10(wchar_t* a1, unsigned __int8 a2);
-int  sub_43BC80(int a1, unsigned __int16 a2, char* a3);
+int  nox_sprintAddrPort_43BC80(const char* addr, unsigned __int16 port, char* dst);
 int  sub_43BD90(int a1);
 int sub_43BDB0();
 void sub_43BDC0();
@@ -6567,7 +6567,7 @@ int  nox_xxx_sendLobbyPacket_554C80(uint16_t hostshort, char* buf, int); // idb
 int sub_554D10();
 int sub_554D70(char a1);
 int sub_554FF0();
-int  sub_555000(int a1);
+void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const char*, const char*));
 int  nox_xxx_makeTempSocket_555010(int, uint16_t hostshort, char* buf, int); // idb
 int  sub_5550A0(int, uint16_t hostshort, char* buf);      // idb
 int  sub_5550D0(int, uint16_t hostshort, char* buf);      // idb

@@ -414,7 +414,7 @@ int  sub_4A2610(int a1, _DWORD* a2, int* a3) {
 					strncpy(v16, (const char*)(*(_DWORD*)v11 + 120), 0xFu);
 					v16[15] = 0;
 				} else {
-					sub_43BC80(*(_DWORD*)v11 + 12, *(_WORD*)(*(_DWORD*)v11 + 109), v16);
+					nox_sprintAddrPort_43BC80(*(_DWORD*)v11 + 12, *(_WORD*)(*(_DWORD*)v11 + 109), v16);
 				}
 				nox_swprintf(v17, L"%S   %dms", v16, *(_DWORD*)(*(_DWORD*)v11 + 96));
 				nox_window_call_field_94((int)v7, 16397, (int)v17, -1);

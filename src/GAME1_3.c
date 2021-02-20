@@ -256,7 +256,7 @@ unsigned __int16*  sub_43BC10(wchar_t* a1, unsigned __int8 a2) {
 }
 
 //----- (0043BC80) --------------------------------------------------------
-int  sub_43BC80(int a1, unsigned __int16 a2, char* a3) { return nox_sprintf(a3, "%s:%d", a1, a2); }
+int  nox_sprintAddrPort_43BC80(const char* addr, unsigned __int16 port, char* dst) { return nox_sprintf(dst, "%s:%d", addr, port); }
 
 //----- (0043BD90) --------------------------------------------------------
 int  sub_43BD90(int a1) {

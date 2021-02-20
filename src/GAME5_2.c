@@ -60,6 +60,8 @@ extern _DWORD dword_5d4594_2516328;
 extern _DWORD dword_5d4594_2516348;
 extern _DWORD dword_5d4594_2650652;
 
+int (*nox_client_onLobbyServer_2513928)(const char*, uint16_t, const char*, const char*) = 0;
+
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
 nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
 SOCKET nox_xxx_sockLocalBroadcast_2513920 = 0;
@@ -1602,7 +1604,7 @@ int sub_554D10() {
 		dword_5d4594_2513924 = 0;
 		dword_5d4594_2513916 = 0;
 		nox_game_SetCliDrawFunc(0);
-		sub_555000(0);
+		nox_client_setOnLobbyServer_555000(0);
 		WSACleanup();
 	}
 	return 0;
@@ -1612,16 +1614,11 @@ int sub_554D10() {
 int  sub_554D70(char a1) {
 	int result;           // eax
 	int v2;               // ebp
-	char v3;              // al
-	char* v4;             // eax
-	char* v5;             // esi
-	int v6;               // eax
 	uint16_t v7;           // ax
 	int v8;               // [esp+0h] [ebp-230h]
 	u_long argp;          // [esp+10h] [ebp-220h]
 	int fromlen;          // [esp+14h] [ebp-21Ch]
 	int v11;              // [esp+18h] [ebp-218h]
-	int v12;              // [esp+1Ch] [ebp-214h]
 	struct sockaddr from; // [esp+20h] [ebp-210h]
 	char buf[256];        // [esp+30h] [ebp-200h]
 	char in[256];         // [esp+130h] [ebp-100h]
@@ -1644,31 +1641,29 @@ int  sub_554D70(char a1) {
 		v2 = mix_recvfrom(nox_xxx_sockLocalBroadcast_2513920, buf, 256, 0, &from, &fromlen);
 		if (v2 == -1)
 			break;
-		v3 = buf[2];
-		LOBYTE(v12) = buf[2];
-		if (buf[2] < 0x20u) {
+		unsigned __int8 op = buf[2];
+		if (op < 32) {
 			memcpy(in, &from, fromlen);
-			if (v3 == 13 || nox_xxx_inServerGetAddr_43B300() == *(_DWORD*)&from.sa_data[2]) {
-				switch ((unsigned __int8)v12) {
-				case 0xDu:
-					v4 = inet_ntoa(*(struct in_addr*)&in[4]);
-					v5 = v4;
+			if (op == 13 || nox_xxx_inServerGetAddr_43B300() == *(_DWORD*)&from.sa_data[2]) {
+				switch (op) {
+				case 13:;
+					char* saddr = inet_ntoa(*(struct in_addr*)&in[4]);
 					if (&v8 != (int*)-120) {
-						if (v4) {
-							if (*getMemU32Ptr(0x5D4594, 2513928)) {
+						if (saddr) {
+							if (nox_client_onLobbyServer_2513928) {
 								OnLibraryNotice_262(&v8);
-								LOWORD(v6) = ntohs(*(uint16_t*)&in[2]);
-								if ((*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) getMemAt(0x5D4594, 2513928))(v5, v6, &buf[72], buf) == 1)
-									sub_555000(0);
+								uint16_t port = ntohs(*(uint16_t*)&in[2]);
+								if (nox_client_onLobbyServer_2513928(saddr, port, &buf[72], buf) == 1)
+									nox_client_setOnLobbyServer_555000(0);
 							}
 						}
 					}
 					break;
-				case 0xFu:
+				case 15:
 					if (sub_43B6D0())
 						sub_43AF90(5);
 					break;
-				case 0x10u:
+				case 16:
 					if (sub_43B6D0()) {
 						sub_43AF90(4);
 						buf[2] = 18;
@@ -1676,16 +1671,16 @@ int  sub_554D70(char a1) {
 						nox_xxx_makeTempSocket_555010(*(int*)&from.sa_data[2], v7, buf, 8);
 					}
 					break;
-				/*case 0x13u:
+				/*case 19:
 				  if ( sub_43B6D0() )
 					sub_43AFA0((unsigned __int8)buf[3]);
 				  break;*/
-				case 0x13u:
-				case 0x14u:
+				case 19:
+				case 20:
 					if (sub_43B6D0() && sub_43AF80() == 3)
 						sub_43AF90(7);
 					break;
-				case 0x15u:
+				case 21:
 					if (sub_43B6D0())
 						sub_43AF90(8);
 					break;
@@ -1714,12 +1709,8 @@ int sub_554FF0() {
 }
 
 //----- (00555000) --------------------------------------------------------
-int  sub_555000(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 2513928) = a1;
-	return result;
+void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const char*, const char*)) {
+	nox_client_onLobbyServer_2513928 = fnc;
 }
 
 //----- (00555010) --------------------------------------------------------
