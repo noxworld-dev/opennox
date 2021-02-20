@@ -47,7 +47,7 @@ func (cn *Console) registerBuiltin() {
 	cn.Register(Command{
 		Token:  "racoiaws",
 		HelpID: "noHelp",
-		Flags:  Secret | ClientServer | Flag0x4,
+		Flags:  Secret | ClientServer | NoHelp,
 		Func: func(_ int, _ []string) bool {
 			cn.SetCheats(true)
 			return true
@@ -72,7 +72,7 @@ func (cn *Console) helpOne(ind int, tokens []string, cmds []Command) bool {
 	var cmd *Command
 	for i, cur := range cmds {
 		if tokens[ind] == cur.Token {
-			if !cur.Flags.Has(Flag0x4) && (cn.Cheats() || !cur.Flags.Has(Cheat)) {
+			if !cur.Flags.Has(NoHelp) && (cn.Cheats() || !cur.Flags.Has(Cheat)) {
 				cmd = &cmds[i]
 				break
 			}
@@ -98,7 +98,7 @@ func (cn *Console) helpOne(ind int, tokens []string, cmds []Command) bool {
 
 func (cn *Console) helpList(cmds []Command) {
 	for _, cmd := range cmds {
-		if !cmd.Flags.Has(Flag0x4) && (cn.Cheats() || !cmd.Flags.Has(Cheat)) {
+		if !cmd.Flags.Has(NoHelp) && (cn.Cheats() || !cmd.Flags.Has(Cheat)) {
 			help := cn.sm.GetStringInFile(cmd.HelpID, "parsecmd.c")
 			cn.p.Printf(ColorRed, "\t%s -\t%s", cmd.Token2, help)
 		}
