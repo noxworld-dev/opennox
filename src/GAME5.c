@@ -8423,7 +8423,7 @@ int  nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a3, char
 }
 
 //----- (00552640) --------------------------------------------------------
-int  nox_xxx_netSendSock_552640(unsigned int id, const void* a2, signed int a3, char a4) {
+int  nox_xxx_netSendSock_552640(unsigned int id, const char* buf, signed int sz, char flags) {
 	unsigned int v7;      // edi
 	unsigned int v8;      // eax
 	unsigned int v10;     // ebx
@@ -8438,7 +8438,7 @@ int  nox_xxx_netSendSock_552640(unsigned int id, const void* a2, signed int a3, 
 	nox_net_struct_t* ns = nox_net_struct_arr[id];
 	if (!ns)
 		return -3;
-	if (!a2)
+	if (!buf)
 		return -2;
 	if (ns->id == -1) {
 		v7 = NOX_NET_STRUCT_MAX;
@@ -8451,22 +8451,22 @@ int  nox_xxx_netSendSock_552640(unsigned int id, const void* a2, signed int a3, 
 		v7 = v20;
 		v18 = ns->id;
 	}
-	if (a4 & 1) {
-		v10 = (unsigned int)a2;
+	if (flags & 1) {
+		v10 = (unsigned int)buf; // TODO: this doesn't make sense!
 		for (int i = v8; i < v7; i++) {
 			nox_net_struct_t* ns2 = nox_net_struct_arr[i];
 			if (ns2 && ns2->id == v18) {
-				v12 = sub_555130(i, a2, a3);
+				v12 = sub_555130(i, buf, sz);
 				v10 = v12;
 				if (v12 == -1)
 					return -1;
-				if (a4 & 2)
+				if (flags & 2)
 					nox_xxx_netSend_5552D0(i, v12, 1);
 			}
 		}
 		return v10;
 	}
-	v10 = a3;
+	v10 = sz;
 	for (int i = v8; i < v7; i++) {
 		nox_net_struct_t* ns2 = nox_net_struct_arr[i];
 		if (!ns2) {
@@ -8480,10 +8480,10 @@ int  nox_xxx_netSendSock_552640(unsigned int id, const void* a2, signed int a3, 
 		v14 = WaitForSingleObject(ns2->mutex_yyy, 0x3E8u);
 		if (v14 == -1 || v14 == 258)
 			return -16;
-		if (a4 & 2) {
+		if (flags & 2) {
 			ns2->data_2_xxx[0] = ns2->data_2_base[0];
 			ns2->data_2_xxx[1] = ns2->data_2_base[1];
-			memcpy(&ns2->data_2_xxx[2], a2, v10);
+			memcpy(&ns2->data_2_xxx[2], buf, v10);
 			v16 = nox_xxx_sendto_551F90(ns2->sock, ns2->data_2_xxx, v10 + 2, 0, &ns2->addr, 16);
 			if (v16 == -1)
 				return -1;
@@ -8492,7 +8492,7 @@ int  nox_xxx_netSendSock_552640(unsigned int id, const void* a2, signed int a3, 
 			ReleaseMutex(ns2->mutex_yyy);
 			return v16;
 		}
-		memcpy(ns2->data_2_xxx, a2, v10);
+		memcpy(ns2->data_2_xxx, buf, v10);
 		ns2->data_2_xxx = &ns2->data_2_xxx[v10];
 		if (!ReleaseMutex(ns2->mutex_yyy))
 			ReleaseMutex(ns2->mutex_yyy);

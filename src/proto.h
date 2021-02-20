@@ -6525,7 +6525,7 @@ int  sub_552510(unsigned int a1);
 int  sub_552540(unsigned int a1);
 int  sub_552570(unsigned int a1, int a2);
 int  nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a3, char a4);
-int  nox_xxx_netSendSock_552640(unsigned int a1, const void* a2, signed int a3, char a4);
+int  nox_xxx_netSendSock_552640(unsigned int id, const char* buf, signed int sz, char flags);
 int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
 int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags);
 int  sub_552E70(unsigned int a1);

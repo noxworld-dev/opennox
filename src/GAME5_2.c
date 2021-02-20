@@ -518,7 +518,11 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 				*(_BYTE*)(out + 2) = 2;
 				return 3;
 			}
-			// TODO: this seems to assume pid == -1, but does it?
+			if (pid != -1) {
+				// pid in the request must be -1 (0xff); fail if it's not
+				*(_BYTE*)(out + 2) = 2;
+				return 3;
+			}
 			for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
 				nox_net_struct_t* ns4 = nox_net_struct_arr[i];
 				if (!ns4) {
@@ -527,7 +531,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 				}
 				if (*(_WORD*)&v74[2] == ns4->addr.sin_port && *(_DWORD*)&v74[4] == ns4->addr.sin_addr.s_addr) {
 					printf("%d %d\n", *(_WORD*)&v74[2], *(_DWORD*)&v74[4]);
-					*(_BYTE*)(out + 2) = 4;
+					*(_BYTE*)(out + 2) = 4; // already joined?
 					return 3;
 				}
 			}
@@ -542,6 +546,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			nox_net_struct_t* ns2 = nox_xxx_makeNewNetStruct_553000(&narg);
 			nox_net_struct_arr[pid] = ns2;
 			if (!ns2) {
+				// cannot allocate - fail
 				*(_BYTE*)(out + 2) = 2;
 				return 3;
 			}
@@ -555,21 +560,23 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			ns2->sock = ns1->sock;
 			ns2->func_xxx = ns1->func_xxx;
 			ns2->func_yyy = ns1->func_yyy;
-			memset(getMemAt(0x5D4594, 32 * id + 2508788), 0, 0x20u);
+			memset(getMemAt(0x5D4594, 32 * id + 2508788), 0, 32);
 			*getMemU32Ptr(0x5D4594, 32 * id + 2508816) = 1;
 			char key = nox_common_randomInt_415FA0(1, 255);
-			ns2->xor_key = 0;
+			ns2->xor_key = 0; // probably to send without xor encoding
+
 			int v66 = &ns2->addr;
 			*(_QWORD*)v66 = *(_QWORD*)v74;
 			*(_DWORD*)(v66 + 8) = v75;
 			*(_DWORD*)(v66 + 12) = v76;
-			LOBYTE(v66) = p1;
+
 			*(_BYTE*)(out + 0) = 31;
-			*(_BYTE*)(out + 1) = v66;
+			*(_BYTE*)(out + 1) = p1;
 			*(_BYTE*)(out + 2) = 1;
 			*(_DWORD*)(out + 3) = pid;
 			*(_BYTE*)(out + 7) = key;
 			char v67 = nox_xxx_netSendSock_552640(pid, out, 8, 3);
+
 			ns2->xor_key = key;
 			ns2->field_38 = 1;
 			ns2->data_39[0] = v67;
