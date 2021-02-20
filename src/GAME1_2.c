@@ -7863,7 +7863,7 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 	nox_xxx_regGetSerial_420120(&Data[105]);
 	if (!sub_43AF70())
 		nox_common_getInstallPath_40E0D0((int)&Data[105], (LPCSTR)getMemAt(0x587000, 86344), 0);
-	Data[152] = !nox_xxx_checkConjSoloMap_40ABD0();
+	Data[152] = !nox_xxx_checkHasSoloMaps_40ABD0();
 	if (getMemByte(0x5D4594, 2660684) & 4)
 		Data[152] |= 0x80u;
 	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660012 + 87));
@@ -8452,7 +8452,7 @@ int nox_client_joinGame_438A90() {
 		*(_DWORD*)&buf[80] = NOX_CLIENT_VERS_CODE;
 		*(_DWORD*)&buf[84] = dword_5d4594_2660032;
 		strcpy(&buf[88], (const char*)getMemAt(0x5D4594, 2660012 + 36));
-		buf[98] = !nox_xxx_checkConjSoloMap_40ABD0();
+		buf[98] = !nox_xxx_checkHasSoloMaps_40ABD0();
 
 		sub_43AF90(3);
 		*(_QWORD*)&qword_5d4594_814956 = nox_call_get_ticks() + 20000;
