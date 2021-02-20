@@ -31,6 +31,8 @@ extern unsigned int nox_gameFPS;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 extern nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX];
 
+nox_alloc_class* nox_alloc_gQueue_3844300 = 0;
+
 //-------------------------------------------------------------------------
 // Function declarations
 
@@ -8223,12 +8225,12 @@ int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
 	sub_43DE40((int)sub_5521A0);
 	if (*getMemU32Ptr(0x5D4594, 2495924))
 		return -14;
-	*getMemU32Ptr(0x5D4594, 3844300) = 0;
+	nox_alloc_gQueue_3844300 = 0;
 	memset(nox_net_struct_arr, 0, sizeof(nox_net_struct_t*) * NOX_NET_STRUCT_MAX);
 	memset(nox_net_struct2_arr, 0, sizeof(nox_net_struct2_t) * NOX_NET_STRUCT_MAX);
 	*getMemU32Ptr(0x5D4594, 2512884) = a2;
-	*getMemU32Ptr(0x5D4594, 3844300) = nox_new_alloc_class("GQueue", a2, a1);
-	if (!*getMemU32Ptr(0x5D4594, 3844300))
+	nox_alloc_gQueue_3844300 = nox_new_alloc_class("GQueue", a2, a1);
+	if (!nox_alloc_gQueue_3844300)
 		return -1;
 	if (*getMemU32Ptr(0x5D4594, 2495924)) {
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 2495908));
