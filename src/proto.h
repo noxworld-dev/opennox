@@ -6561,7 +6561,7 @@ int  nox_xxx_netPreStructToFull_5546F0(nox_net_struct_arg_t* narg);
 int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5);
 int  sub_5549F0(unsigned int a1);
 int  sub_554A50(unsigned int a1);
-void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, int, int, int); // idb
+void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, const char* payload, int payloadSz, unsigned int ticks); // idb
 int  nox_xxx_createSocketLocal_554B40(uint16_t hostshort);                 // idb
 int  nox_xxx_sendLobbyPacket_554C80(uint16_t hostshort, char* buf, int); // idb
 int sub_554D10();

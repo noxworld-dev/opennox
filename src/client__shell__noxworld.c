@@ -101,10 +101,8 @@ void sub_4373A0() {
 //----- (004378B0) --------------------------------------------------------
 int sub_4378B0() {
 	int result;  // eax
-	uint16_t v1;  // ax
 	wchar_t* v2; // eax
 	int v3;      // eax
-	int v4;      // [esp-4h] [ebp-4h]
 
 	result = sub_44A4A0();
 	if (result) {
@@ -122,10 +120,10 @@ int sub_4378B0() {
 			sub_41DA70(v3, 12);
 		} else {
 			sub_555000(sub_4375F0);
-			v4 = nox_platform_get_ticks();
-			*getMemU32Ptr(0x5D4594, 814964) = v4;
-			v1 = nox_xxx_servGetPort_40A430();
-			nox_xxx_lobbyMakePacket_554AA0(v1, 0, 0, v4);
+			unsigned int ticks = nox_platform_get_ticks();
+			*getMemU32Ptr(0x5D4594, 814964) = ticks;
+			uint16_t port = nox_xxx_servGetPort_40A430();
+			nox_xxx_lobbyMakePacket_554AA0(port, 0, 0, ticks);
 			v2 = nox_strman_loadString_40F1D0("Wolchat.c:PleaseWait", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 									   1097);
 			nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_814980, 0, (int)v2, 0, 0, 0);

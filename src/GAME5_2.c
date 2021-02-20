@@ -1531,26 +1531,26 @@ int  sub_554A50(unsigned int a1) {
 }
 
 //----- (00554AA0) --------------------------------------------------------
-void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, int a2, int a3, int a4) {
-	int v4;   // esi
-	char* v5; // ebx
-
-	v4 = 12;
-	v5 = (char*)malloc((unsigned __int16)a3 + 12);
-	v5[2] = 12;
-	*v5 = 0;
-	v5[1] = 0;
-	*((_WORD*)v5 + 2) = 0;
-	*((_DWORD*)v5 + 2) = a4;
-	if (a2 && (unsigned __int16)a3 > 0u) {
-		memcpy(v5 + 12, (const void*)a2, (unsigned __int16)a3);
-		*((_WORD*)v5 + 2) = a3;
-		v4 = a3 + 12;
+void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, const char* payload, int payloadSz, unsigned int ticks) {
+	int dataSz = 12;
+	char* data = (char*)malloc(12 + payloadSz);
+	data[0] = 0;
+	data[1] = 0;
+	data[2] = 12;
+	// data[3] = ???
+	*((_WORD*)&data[4]) = 0;
+	// data[6] = ???
+	// data[7] = ???
+	*((_DWORD*)&data[8]) = ticks;
+	if (payload && payloadSz > 0) {
+		*((_WORD*)&data[4]) = payloadSz;
+		memcpy(&data[12], payload, payloadSz);
+		dataSz += payloadSz;
 	}
 	dword_5d4594_3844304 = 0;
-	nox_xxx_sendLobbyPacket_554C80(hostshort, v5, v4);
-	OnLibraryNotice_260(hostshort, v5, v4);
-	free(v5);
+	nox_xxx_sendLobbyPacket_554C80(hostshort, data, dataSz);
+	OnLibraryNotice_260(hostshort, data, dataSz);
+	free(data);
 }
 
 //----- (00554B40) --------------------------------------------------------
