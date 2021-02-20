@@ -343,7 +343,7 @@ func CONNECT_PREPARE() {
 	if C.sub_43AF70() == 0 {
 		C.nox_common_getInstallPath_40E0D0(C.int(uintptr(unsafe.Pointer(&Datas[105]))), (*C.char)(memmap.PtrOff(0x587000, 86344)), 0)
 	}
-	Datas[152] = byte(bool2int(C.nox_xxx_checkConjSoloMap_40ABD0() == 0))
+	Datas[152] = byte(bool2int(C.nox_xxx_checkHasSoloMaps_40ABD0() == 0))
 	if memmap.Uint8(0x5D4594, 2660684)&4 != 0 {
 		Datas[152] |= 0x80
 	}

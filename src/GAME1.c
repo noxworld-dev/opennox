@@ -1824,10 +1824,10 @@ LABEL_31:
 }
 
 //----- (0040ABD0) --------------------------------------------------------
-BOOL nox_xxx_checkConjSoloMap_40ABD0() {
+BOOL nox_xxx_checkHasSoloMaps_40ABD0() {
 	struct _stat v1; // [esp+0h] [ebp-24h]
 
-	return _stat((LPCSTR)getMemAt(0x587000, 5160), (int)&v1) == 0;
+	return _stat("maps\\con01a\\con01a.map", (int)&v1) == 0;
 }
 
 //----- (0040AE90) --------------------------------------------------------

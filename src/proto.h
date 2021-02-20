@@ -213,7 +213,7 @@ int sub_40AA40();
 int sub_40AA50();
 int  sub_40AA60(int a1);
 int  sub_40AA70(int a1);
-BOOL nox_xxx_checkConjSoloMap_40ABD0();
+BOOL nox_xxx_checkHasSoloMaps_40ABD0();
 signed int  nox_xxx_fileBinRead_40ADD0_fread(char* a1, size_t a2, size_t a3, FILE* a4);
 int  nox_xxx_PtFuncCompare_40AE90(const void*, const void*); // idb
 int  sub_40AEB0(const void*, const void*); // idb
