@@ -373,7 +373,7 @@ void build_server_info(void* arg) {
 		return;
 	}
 
-	length = sub_554040(dummy, sizeof(buf), buf);
+	length = nox_server_makeServerInfoPacket_554040(dummy, sizeof(buf), buf);
 	if (oldlen != length || memcmp(buf, oldbuf, length) != 0) {
 		memcpy(oldbuf, buf, length);
 		oldlen = length;
