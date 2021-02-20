@@ -190,7 +190,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 		unsigned __int8 v10 = v7[2];
 		if (v10 == 12) {
 			if (!sub_43AF70()) {
-				v6 = sub_554040(ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), buf);
+				v6 = nox_server_makeServerInfoPacket_554040(ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), buf);
 				if (v6 > 0) {
 					v6 = sendto(ns->sock, buf, v6, 0, &to, tolen);
 					sub_553F40(v6, 1);
@@ -1087,70 +1087,48 @@ void  sub_553FC0(int a1, int a2) {
 void  nox_xxx_netCountData_554030(int a1, int a2) { *getMemU32Ptr(0x5D4594, 4 * a2 + 2498024) += a1; }
 
 //----- (00554040) --------------------------------------------------------
-unsigned int  sub_554040(int a1, int a2, char* a3) {
-	char* v3;           // esi
-	char* v4;           // edi
-	char v5;            // bl
-	char* v6;           // ebp
-	int v7;             // ebx
-	unsigned __int8 v8; // al
-	char v9;            // cl
-	int v10;            // ecx
-	char v11;           // al
-	int v12;            // ecx
-	int v13;            // edx
-	int v14;            // eax
-	char v16;           // [esp+8h] [ebp-4Ch]
-	char v17[72];       // [esp+Ch] [ebp-48h]
+unsigned int  nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
+	char buf[72];
 
-	v3 = sub_416640();
-	v4 = nox_xxx_cliGamedataGet_416590(0);
+	char* v3 = sub_416640();
+	char* game = nox_xxx_cliGamedataGet_416590(0);
 	if (!sub_43AF30() || sub_4D6F30())
 		return 0;
-	v16 = nox_xxx_servGetPlrLimit_409FA0();
-	v5 = nox_common_playerInfoCount_416F40();
+	char playerLimit = nox_xxx_servGetPlrLimit_409FA0();
+	char playerCount = nox_common_playerInfoCount_416F40();
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-		--v5;
-		--v16;
+		--playerCount;
+		--playerLimit;
 	}
-	v6 = nox_xxx_serverOptionsGetServername_40A4C0();
-	v17[0] = 0;
-	v17[1] = 0;
-	v17[2] = 13;
-	v17[3] = v5;
-	v17[4] = v16;
-	v7 = nox_common_gameFlags_getVal_40A5B0();
-	*(_DWORD*)&v17[28] = v7;
+	char* srvName = nox_xxx_serverOptionsGetServername_40A4C0();
+	buf[0] = 0;
+	buf[1] = 0;
+	buf[2] = 13;
+	buf[3] = playerCount;
+	buf[4] = playerLimit;
+	buf[5] = v3[101] & 0xF;
+	buf[6] = ((unsigned __int8)v3[101]) >> 4;
+	*(_DWORD*)&buf[7] = *((_DWORD*)game + 11);
+	strcpy(&buf[10], nox_xxx_mapGetMapName_409B40());
+	buf[19] = v3[102] | sub_43BE50_get_video_mode_id();
+	buf[20] = v3[100];
+	buf[21] = v3[100] & 0x10;
+	*(_DWORD*)&buf[24] = *((_DWORD*)v3 + 12);
+	unsigned int gameFlags = nox_common_gameFlags_getVal_40A5B0();
 	if (sub_4D6F50()) {
-		LOBYTE(v7) = v7 & 0x7F;
-		BYTE1(v7) |= 0x10u;
-		*(_DWORD*)&v17[28] = v7;
-		*(_WORD*)&v17[68] = nox_xxx_GetQuestStage_4E3CC0();
+		gameFlags = (gameFlags & 0xFFFFFF7Fu) | 0x1000u;
+		*(_WORD*)&buf[68] = nox_xxx_GetQuestStage_4E3CC0();
 	}
-	v8 = v3[101];
-	v9 = v3[101];
-	*(_WORD*)&v17[36] = *(_WORD*)(v3 + 105);
-	v17[5] = v9 & 0xF;
-	v10 = *((_DWORD*)v3 + 11);
-	v17[6] = v8 >> 4;
-	*(_WORD*)&v17[38] = *(_WORD*)(v3 + 107);
-	*(_DWORD*)&v17[40] = v10;
-	v11 = sub_43BE50_get_video_mode_id();
-	v12 = *((_DWORD*)v4 + 12);
-	v17[19] = v3[102] | v11;
-	v17[20] = v3[100];
-	v17[21] = v17[20] & 0x10;
-	v13 = *((_DWORD*)v3 + 12);
-	*(_DWORD*)&v17[44] = *(_DWORD*)(a1 + 8);
-	v14 = *((_DWORD*)v4 + 11);
-	*(_DWORD*)&v17[32] = v12;
-	*(_DWORD*)&v17[24] = v13;
-	*(_DWORD*)&v17[7] = v14;
-	memcpy(&v17[48], v4 + 24, 0x14u);
-	strcpy(&v17[10], nox_xxx_mapGetMapName_409B40());
-	memcpy(a3, v17, 0x48u);
-	strcpy(a3 + 72, v6);
-	return strlen(v6) + 73;
+	*(_DWORD*)&buf[28] = gameFlags;
+	*(_DWORD*)&buf[32] = *((_DWORD*)game + 12);
+	*(_WORD*)&buf[36] = *(_WORD*)(v3 + 105);
+	*(_WORD*)&buf[38] = *(_WORD*)(v3 + 107);
+	*(_DWORD*)&buf[40] = *((_DWORD*)v3 + 11);
+	*(_DWORD*)&buf[44] = *(_DWORD*)(&inBuf[8]); // timestamp of the packet
+	memcpy(&buf[48], game + 24, 20);
+	memcpy(&out[0], buf, 72);
+	strcpy(&out[72], srvName);
+	return 72 + strlen(srvName)+1;
 }
 
 //----- (005541D0) --------------------------------------------------------

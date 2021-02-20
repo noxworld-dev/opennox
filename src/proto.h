@@ -6546,7 +6546,7 @@ int  sub_553ED0(int a3);
 void sub_553F40(int a1, int a2);
 void sub_553FC0(int a1, int a2);
 void nox_xxx_netCountData_554030(int a1, int a2);
-unsigned int  sub_554040(int a1, int a2, char* a3);
+unsigned int  nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out);
 int*  nox_xxx_findPlayerID_5541D0(int a1);
 int  nox_xxx_net_getIP_554200(unsigned int a1);
 char* sub_554230();
