@@ -7876,7 +7876,7 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 		nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE);
 		nox_xxx_netlist_494E90(31);
 	} else {
-		v3 = sub_43B320();
+		v3 = nox_client_getServerPort_43B320();
 		result = nox_xxx_netAddNetStruct4Host_43C7B0((char*)getMemAt(0x587000, 85680), v3, (int)Data, a1);
 		if (!result)
 			return result;
@@ -8436,31 +8436,30 @@ int sub_438480() {
 }
 
 //----- (00438A90) --------------------------------------------------------
-int nox_xxx_initSomethingNetGame_438A90() {
-	int result;    // eax
-	BOOL v3;       // eax
-	int v4;        // eax
-	uint16_t v5;    // [esp-10h] [ebp-74h]
+int nox_client_joinGame_438A90() {
+	int result = 0;    // eax
 	char buf[100]; // [esp+0h] [ebp-64h]
 
 	memset(&buf[0], 0, 100);
+	// write 22 chars for serial number
 	/*if (*/ nox_xxx_regGetSerial_420120((LPBYTE)&buf[56]); //)
 	{
 		/*if ( !*(_DWORD *)&dword_587000_87404 )
 		  nox_common_getInstallPath_40E0D0((int)&buf[56], (LPCSTR)getMemAt(0x587000, 89088), 0);*/
-		v3 = nox_xxx_checkConjSoloMap_40ABD0();
-		buf[55] = getMemByte(0x5D4594, 2661960);
+		nox_wcscpy((wchar_t*)&buf[4], (const wchar_t*)getMemAt(0x5D4594, 2661908));
 		buf[54] = getMemByte(0x5D4594, 2661958);
-		buf[98] = !v3;
-		*(_DWORD*)&buf[80] = 0x1039A;
+		buf[55] = getMemByte(0x5D4594, 2661960);
+		*(_DWORD*)&buf[80] = NOX_CLIENT_VERS_CODE;
 		*(_DWORD*)&buf[84] = dword_5d4594_2660032;
 		strcpy(&buf[88], (const char*)getMemAt(0x5D4594, 2660012 + 36));
-		nox_wcscpy((wchar_t*)&buf[4], (const wchar_t*)getMemAt(0x5D4594, 2661908));
+		buf[98] = !nox_xxx_checkConjSoloMap_40ABD0();
+
 		sub_43AF90(3);
 		*(_QWORD*)&qword_5d4594_814956 = nox_call_get_ticks() + 20000;
-		v5 = sub_43B320();
-		v4 = nox_xxx_inServerGetAddr_43B300();
-		result = sub_5550A0(v4, v5, buf);
+
+		uint16_t port = nox_client_getServerPort_43B320();
+		unsigned int addr = nox_client_getServerAddr_43B300();
+		return nox_client_sendJoinGame_5550A0(addr, port, buf);
 	}
 	/*else
 	{
@@ -9071,7 +9070,7 @@ int  sub_43B2A0(int a1) {
 }
 
 //----- (0043B300) --------------------------------------------------------
-unsigned int nox_xxx_inServerGetAddr_43B300() {
+unsigned int nox_client_getServerAddr_43B300() {
 	unsigned int result; // eax
 
 	if (dword_5d4594_815056)
@@ -9082,7 +9081,7 @@ unsigned int nox_xxx_inServerGetAddr_43B300() {
 }
 
 //----- (0043B320) --------------------------------------------------------
-int sub_43B320() { return dword_5d4594_815056 != 0 ? *getMemU32Ptr(0x5D4594, 814604) : 0; }
+int nox_client_getServerPort_43B320() { return dword_5d4594_815056 != 0 ? *getMemU32Ptr(0x5D4594, 814604) : 0; }
 
 //----- (0043B340) --------------------------------------------------------
 int sub_43B340() {
@@ -9109,7 +9108,7 @@ int nox_xxx_cliDrawConnectedLoop_43B360() // client connecting draw handler
 	if (!memcmp((const void*)(dword_5d4594_814624 + 12), getMemAt(0x5D4594, 815116), 1u)) {
 		sub_435720((char*)getMemAt(0x587000, 90828));
 	} else {
-		v1 = sub_43B320();
+		v1 = nox_client_getServerPort_43B320();
 		nox_sprintf(v5, "%s:%d", v0, v1);
 		nox_xxx_copyServerIPAndPort_431790(v5);
 		sub_435720(v0);
@@ -9131,7 +9130,7 @@ int nox_xxx_cliDrawConnectedLoop_43B360() // client connecting draw handler
 int sub_43B440() {
 	if (dword_587000_87404 == 1)
 		nox_xxx_createSocketLocal_554B40(0);
-	nox_xxx_initSomethingNetGame_438A90();
+	nox_client_joinGame_438A90();
 	return 1;
 }
 
