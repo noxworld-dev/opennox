@@ -5047,6 +5047,7 @@ int sub_420100() { return *getMemU32Ptr(0x587000, 60072) >> 8; }
 char* sub_420110() { return (char*)getMemAt(0x5D4594, 534780); }
 
 //----- (00420120) --------------------------------------------------------
+#ifndef NOX_CGO
 int  nox_xxx_regGetSerial_420120(LPBYTE lpData) {
 	int v1;           // ebx
 	HKEY phkResult;   // [esp+Ch] [ebp-8Ch]
@@ -5067,6 +5068,7 @@ int  nox_xxx_regGetSerial_420120(LPBYTE lpData) {
 	}
 	return v1;
 }
+#endif // NOX_CGO
 
 //----- (004201B0) --------------------------------------------------------
 void  sub_4201B0(_DWORD* a1) {
