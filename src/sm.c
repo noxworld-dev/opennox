@@ -209,7 +209,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 		dword_5d4594_811372 = 2;
 		GOTO_CONNECT_RESULT(0);
 	} else {
-		v3 = sub_43B320();
+		v3 = nox_client_getServerPort_43B320();
 		GOTO_CONNECT_SERVER((char*)getMemAt(0x587000, 85680), v3, Data);
 	}
 }

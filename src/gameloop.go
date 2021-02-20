@@ -367,10 +367,10 @@ func CONNECT_PREPARE() {
 		}
 		return
 	} else {
-		v3 := uint32(C.sub_43B320())
+		port := uint32(C.nox_client_getServerPort_43B320())
 		fmt.Println("goto CONNECT_SERVER")
 		mainloopEnter = func() {
-			CONNECT_SERVER((*C.char)(memmap.PtrOff(0x587000, 85680)), v3, Datas[:153])
+			CONNECT_SERVER((*C.char)(memmap.PtrOff(0x587000, 85680)), port, Datas[:153])
 		}
 		return
 	}

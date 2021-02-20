@@ -1646,7 +1646,7 @@ int  sub_554D70(char a1) {
 		unsigned __int8 op = buf[2];
 		if (op < 32) {
 			memcpy(in, &from, fromlen);
-			if (op == 13 || nox_xxx_inServerGetAddr_43B300() == *(_DWORD*)&from.sa_data[2]) {
+			if (op == 13 || nox_client_getServerAddr_43B300() == *(_DWORD*)&from.sa_data[2]) {
 				switch (op) {
 				case 13:;
 					char* saddr = inet_ntoa(*(struct in_addr*)&in[4]);
@@ -1670,7 +1670,7 @@ int  sub_554D70(char a1) {
 						sub_43AF90(4);
 						buf[2] = 18;
 						v7 = htons(*(uint16_t*)from.sa_data);
-						nox_xxx_makeTempSocket_555010(*(int*)&from.sa_data[2], v7, buf, 8);
+						nox_client_sendToServer_555010(*(int*)&from.sa_data[2], v7, buf, 8);
 					}
 					break;
 				/*case 19:
@@ -1716,7 +1716,7 @@ void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const 
 }
 
 //----- (00555010) --------------------------------------------------------
-int  nox_xxx_makeTempSocket_555010(int a1, uint16_t hostshort, char* buf, int a4) {
+int  nox_client_sendToServer_555010(unsigned int addr, uint16_t port, char* buf, int sz) {
 	int v4;             // esi
 	int result;         // eax
 	struct sockaddr_in to; // [esp+4h] [ebp-10h]
@@ -1725,11 +1725,11 @@ int  nox_xxx_makeTempSocket_555010(int a1, uint16_t hostshort, char* buf, int a4
 	if (!dword_5d4594_2513916)
 		return -17;
 	to.sin_family = AF_INET;
-	to.sin_port = htons(hostshort);
-	to.sin_addr.s_addr = a1;
+	to.sin_port = htons(port);
+	to.sin_addr.s_addr = addr;
 	memset(to.sin_zero, 0, 8);
-	if (!buf || (unsigned __int16)a4 < 2u ||
-		(result = sendto(nox_xxx_sockLocalBroadcast_2513920, buf, (unsigned __int16)a4, 0, &to, 16), v4 = result,
+	if (!buf || sz < 2 ||
+		(result = sendto(nox_xxx_sockLocalBroadcast_2513920, buf, sz, 0, &to, 16), v4 = result,
 		 result != -1)) {
 		result = v4;
 	}
@@ -1737,11 +1737,11 @@ int  nox_xxx_makeTempSocket_555010(int a1, uint16_t hostshort, char* buf, int a4
 }
 
 //----- (005550A0) --------------------------------------------------------
-int  sub_5550A0(int a1, uint16_t hostshort, char* buf) {
-	*buf = 0;
-	buf[1] = 0;
-	buf[2] = 14;
-	return nox_xxx_makeTempSocket_555010(a1, hostshort, buf, 100);
+int  nox_client_sendJoinGame_5550A0(unsigned int addr, uint16_t port, char* data) {
+	data[0] = 0;
+	data[1] = 0;
+	data[2] = 14;
+	return nox_client_sendToServer_555010(addr, port, data, 100);
 }
 
 //----- (005550D0) --------------------------------------------------------
@@ -1749,7 +1749,7 @@ int  sub_5550D0(int a1, uint16_t hostshort, char* buf) {
 	*buf = 0;
 	buf[1] = 0;
 	buf[2] = 17;
-	return nox_xxx_makeTempSocket_555010(a1, hostshort, buf, 22);
+	return nox_client_sendToServer_555010(a1, hostshort, buf, 22);
 }
 
 //----- (00555100) --------------------------------------------------------

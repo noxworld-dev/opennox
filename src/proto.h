@@ -1546,7 +1546,7 @@ void sub_4379C0();
 int sub_438330();
 int sub_438370();
 int sub_438480();
-int nox_xxx_initSomethingNetGame_438A90();
+int nox_client_joinGame_438A90();
 int sub_438C80(int a1, int a2);
 int  sub_438DD0(unsigned int a1, unsigned int a2);
 int  sub_438E30(_DWORD* a1, int a2);
@@ -1570,8 +1570,8 @@ int  sub_43AFA0(int a1);
 void  sub_43AFC0(int a1);
 void  nox_xxx_failconn_43B0E0(int a1);
 int  sub_43B2A0(int a1);
-unsigned int nox_xxx_inServerGetAddr_43B300();
-int sub_43B320();
+unsigned int nox_client_getServerAddr_43B300();
+int nox_client_getServerPort_43B320();
 int sub_43B340();
 int nox_xxx_cliDrawConnectedLoop_43B360();
 int sub_43B440();
@@ -6568,8 +6568,8 @@ int sub_554D10();
 int sub_554D70(char a1);
 int sub_554FF0();
 void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const char*, const char*));
-int  nox_xxx_makeTempSocket_555010(int, uint16_t hostshort, char* buf, int); // idb
-int  sub_5550A0(int, uint16_t hostshort, char* buf);      // idb
+int  nox_client_sendToServer_555010(unsigned int addr, uint16_t port, char* buf, int sz); // idb
+int  nox_client_sendJoinGame_5550A0(unsigned int addr, uint16_t port, char* data);      // idb
 int  sub_5550D0(int, uint16_t hostshort, char* buf);      // idb
 int sub_555100();
 int  sub_555130(unsigned int a1, const void* a2, signed int a3);

@@ -448,7 +448,7 @@ int sub_438770() {
 		case 9:
 			if ((unsigned __int64)nox_call_get_ticks() <= *getMemU64Ptr(0x5D4594, 814972))
 				goto LABEL_29;
-			nox_xxx_initSomethingNetGame_438A90();
+			nox_client_joinGame_438A90();
 			result = 1;
 			break;
 		case 0xA:
@@ -982,8 +982,8 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 			v12 = (const wchar_t*)sub_449E60(4);
 			nox_wcsncpy(v33, v12, 9u);
 			v33[8] = 0;
-			v28 = sub_43B320();
-			v13 = nox_xxx_inServerGetAddr_43B300();
+			v28 = nox_client_getServerPort_43B320();
+			v13 = nox_client_getServerAddr_43B300();
 			sub_5550D0(v13, v28, buf);
 			sub_43AF90(3);
 			*(_QWORD*)&qword_5d4594_814956 = nox_call_get_ticks() + 20000;

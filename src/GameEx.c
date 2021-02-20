@@ -745,7 +745,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 							currentFileBufferPntr == 32 || currentFileBufferPntr == 10) {
 							if (v9) {
 								NumberOfBytesRead = inet_addr(cp);
-								nox_xxx_makeTempSocket_555010(NumberOfBytesRead, a2, (char*)a1, a3);
+								nox_client_sendToServer_555010(NumberOfBytesRead, a2, (char*)a1, a3);
 								*(_DWORD*)cp = 0;
 								*(_DWORD*)&cp[4] = 0;
 								*(_DWORD*)&cp[8] = 0;
@@ -774,7 +774,7 @@ unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a
 	int* end = da_end(gameIps);
 
 	for (it = da_begin(gameIps), end = da_end(gameIps); it != end; ++it) {
-		nox_xxx_makeTempSocket_555010(*it, a1, (char*)a2,
+		nox_client_sendToServer_555010(*it, a1, (char*)a2,
 				   a3); // Вызывает какую-то функцию которая создаёт структуру сокета и отпр 16 байт
 	}
 	return end;
