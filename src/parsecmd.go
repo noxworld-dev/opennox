@@ -322,13 +322,13 @@ var noxCommands = []parsecmd.Command{
 		{Token: "extents", HelpID: "showextentshelp", Flags: parsecmd.ClientServer | parsecmd.Cheat, Func: wrapCommandC(nox_cmd_show_extents)},
 		{Token: "gui", HelpID: "showguihelp", Flags: parsecmd.ClientServer, Func: wrapCommandC(nox_cmd_show_gui)},
 		{Token: "ai", HelpID: "showaihelp", Flags: parsecmd.Server | parsecmd.Cheat, Func: wrapCommandC(nox_cmd_show_ai)},
-		{Token: "info", HelpID: "showinfohelp", Flags: parsecmd.ClientServer | parsecmd.Flag0x4, Func: wrapCommandC(nox_cmd_show_info)},
+		{Token: "info", HelpID: "showinfohelp", Flags: parsecmd.ClientServer | parsecmd.NoHelp, Func: wrapCommandC(nox_cmd_show_info)},
 		{Token: "mem", HelpID: "showmemhelp", Flags: parsecmd.ClientServer | parsecmd.Cheat, Func: wrapCommandC(nox_cmd_show_mem)},
 		{Token: "netstat", HelpID: "shownetstathelp", Flags: parsecmd.ClientServer, Func: wrapCommandC(nox_cmd_show_netstat)},
 		{Token: "mmx", HelpID: "showmmxhelp", Flags: parsecmd.ClientServer, Func: wrapCommandC(nox_cmd_show_mmx)},
 		{Token: "seq", HelpID: "showseqhelp", Flags: parsecmd.ClientServer | parsecmd.Cheat, Func: wrapCommandC(nox_cmd_show_seq)},
 	}},
-	{Token: "sysop", HelpID: "nohelp", Flags: parsecmd.ClientServer | parsecmd.Flag0x4, Func: wrapCommandC(nox_cmd_sysop)},
+	{Token: "sysop", HelpID: "nohelp", Flags: parsecmd.ClientServer | parsecmd.NoHelp, Func: wrapCommandC(nox_cmd_sysop)},
 	{Token: "telnet", HelpID: "telnethelp", Flags: parsecmd.Server, Sub: []parsecmd.Command{
 		{Token: "on", HelpID: "telnetonhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_telnet_on)},
 		{Token: "off", HelpID: "telnetoffhelp", Flags: parsecmd.Server, Func: wrapCommandC(nox_cmd_telnet_off)},
@@ -344,7 +344,7 @@ var noxCommands = []parsecmd.Command{
 	{Token: "unlock", HelpID: "unlockhelp", Flags: parsecmd.ClientServer, Func: wrapCommandC(nox_cmd_unlock)},
 	{Token: "watch", HelpID: "watchhelp", Flags: parsecmd.ClientServer, Func: wrapCommandC(nox_cmd_watch)},
 	{Token: "window", HelpID: "windowhelp", Flags: parsecmd.ClientServer, Func: wrapCommandC(nox_cmd_window)},
-	{Token: "startSoloQuest", HelpID: "nohelp", Flags: parsecmd.Server | parsecmd.Flag0x4, Func: wrapCommandC(nox_cmd_startSoloQuest)},
+	{Token: "startSoloQuest", HelpID: "nohelp", Flags: parsecmd.Server | parsecmd.NoHelp, Func: wrapCommandC(nox_cmd_startSoloQuest)},
 }
 
 func nox_cmd_lock(i C.int, n C.int, arr **C.wchar_t) C.int {

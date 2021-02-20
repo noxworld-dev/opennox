@@ -23,7 +23,7 @@ func (f Flags) Has(v Flags) bool {
 const (
 	Server   = Flags(1 << 0)
 	Client   = Flags(1 << 2)
-	Flag0x4  = Flags(1 << 3)
+	NoHelp   = Flags(1 << 3)
 	Flag0x8  = Flags(1 << 4)
 	Cheat    = Flags(1 << 5)
 	Flag0x20 = Flags(1 << 6)
