@@ -59,6 +59,7 @@ extern _DWORD dword_5d4594_2523752;
 extern _DWORD dword_5d4594_2516328;
 extern _DWORD dword_5d4594_2516348;
 extern _DWORD dword_5d4594_2650652;
+extern nox_alloc_class* nox_alloc_gQueue_3844300;
 
 int (*nox_client_onLobbyServer_2513928)(const char*, uint16_t, const char*, const char*) = 0;
 
@@ -1775,7 +1776,7 @@ int  sub_555130(unsigned int a1, const void* a2, signed int a3) {
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
 	if (!ns)
 		return -3;
-	v5 = nox_alloc_class_new_obj_zero(*(_DWORD**)getMemAt(0x5D4594, 3844300));
+	v5 = nox_alloc_class_new_obj_zero(nox_alloc_gQueue_3844300);
 	if (!v5)
 		return -1;
 	*v5 = ns->field_29;
@@ -1902,7 +1903,7 @@ int  sub_555360(unsigned int a1, unsigned __int8 a2, int a3) {
 					ns->field_29 = *v7;
 				*(_DWORD*)v5 = **(_DWORD**)v5;
 				*(_DWORD*)v6 = 0;
-				nox_xxx_memDeleteAdv_414330(*(unsigned int**)getMemAt(0x5D4594, 3844300), v6);
+				nox_xxx_memDeleteAdv_414330(nox_alloc_gQueue_3844300, v6);
 				continue;
 			}
 		} else if (*(_BYTE*)(*(_DWORD*)v5 + 21) == a2) {
