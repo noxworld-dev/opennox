@@ -175,7 +175,7 @@ int PlayMovie(char* filename);
 #endif // NOX_PLAY_MOVIES
 
 //----- (004B0340) --------------------------------------------------------
-int  sub_4B0340(int a1) // draw general
+int  nox_client_drawGeneral_4B0340(int a1) // draw general
 {
 	BOOL v1;             // esi
 	int v2;              // ebp

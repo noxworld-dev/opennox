@@ -3504,7 +3504,7 @@ int  sub_4B0220(size_t a1);
 int sub_4B02D0();
 void nullsub_18(void); // weak
 int  sub_4B0300(char* a1);
-int  sub_4B0340(int a1);
+int  nox_client_drawGeneral_4B0340(int a1);
 void sub_4B05D0();
 void  sub_4B0610(int a1);
 int  sub_4B0640(int (*a1)(void));
