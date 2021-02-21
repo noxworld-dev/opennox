@@ -1,3 +1,6 @@
+#ifndef NOX_PROTO_H
+#define NOX_PROTO_H
+
 #include "defs.h"
 #include "memfile.h"
 
@@ -6525,6 +6528,10 @@ int  sub_552510(unsigned int a1);
 int  sub_552540(unsigned int a1);
 int  sub_552570(unsigned int a1, int a2);
 int  nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a3, char a4);
+enum {
+	NOX_NET_SEND_NO_LOCK = 0x1,
+	NOX_NET_SEND_FLAG2 = 0x2,
+};
 int  nox_xxx_netSendSock_552640(unsigned int id, const char* buf, signed int sz, char flags);
 int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
 int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags);
@@ -7423,3 +7430,5 @@ int  SEH_57EA00(int a1, int a2, int a3, int a4);
 // void __stdcall CoUninitialize();
 // HRESULT __stdcall CoCreateInstance(const IID *const rclsid, LPUNKNOWN pUnkOuter, DWORD dwClsContext, const IID *const
 // riid, LPVOID *ppv);
+
+#endif // NOX_PROTO_H

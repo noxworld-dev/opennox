@@ -492,7 +492,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 				v90[2] = v4[2];
 				v82 = *(unsigned __int8*)(v8 + 2064) + 1;
 				*(_WORD*)&v90[4] = *((_WORD*)v4 + 2);
-				nox_xxx_netSendSock_552640(v82, v90, 6, 3);
+				nox_xxx_netSendSock_552640(v82, v90, 6, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 				sub_40B250(*(unsigned __int8*)(v8 + 2064) + 1, v4[2], *((_WORD*)v4 + 2), v4 + 8,
 						   *((unsigned __int16*)v4 + 3));
 				v4 += *((unsigned __int16*)v4 + 3) + 8;

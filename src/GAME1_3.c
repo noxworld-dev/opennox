@@ -942,7 +942,7 @@ int nox_xxx_netSendClientReady_43C9F0() {
 	char v1; // [esp+1h] [ebp-1h]
 
 	v1 = -64;
-	nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v1, 1, 3);
+	nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v1, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	return 1;
 }
 
@@ -951,7 +951,7 @@ int nox_xxx_netKeepAliveSocket_43CA20() {
 	char v1; // [esp+1h] [ebp-1h]
 
 	v1 = -66;
-	nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v1, 1, 2);
+	nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v1, 1, NOX_NET_SEND_FLAG2);
 	return 1;
 }
 
@@ -960,7 +960,7 @@ int nox_xxx_netRequestMap_43CA50() {
 	char v1; // [esp+1h] [ebp-1h]
 
 	v1 = -74;
-	nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v1, 1, 3);
+	nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v1, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	return 1;
 }
 
@@ -969,7 +969,7 @@ int nox_xxx_netMapReceived_43CA80() {
 	char v1; // [esp+1h] [ebp-1h]
 
 	v1 = -65;
-	nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v1, 1, 3);
+	nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v1, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	return 1;
 }
 
@@ -979,7 +979,7 @@ int nox_xxx_cliSendCancelMap_43CAB0() {
 	char v2; // [esp+1h] [ebp-1h]
 
 	v2 = -73;
-	v0 = nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v2, 1, 3);
+	v0 = nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v2, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	if (nox_xxx_cliWaitServerResponse_5525B0(*(unsigned int*)getMemAt(0x5D4594, 815700), v0, 20, 6))
 		return 0;
 	nox_xxx_netBufs_40ED10(31, 0);
@@ -992,7 +992,7 @@ int nox_xxx_netSendIncomingClient_43CB00() {
 	char v2; // [esp+1h] [ebp-1h]
 
 	v2 = -83;
-	v0 = nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v2, 1, 3);
+	v0 = nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v2, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	if (nox_xxx_cliWaitServerResponse_5525B0(*(unsigned int*)getMemAt(0x5D4594, 815700), v0, 20, 6))
 		return 0;
 	nox_xxx_netBufs_40ED10(31, 0);
@@ -1005,7 +1005,7 @@ int nox_xxx_cliSendOutgoingClient_43CB50() {
 	char v2; // [esp+1h] [ebp-1h]
 
 	v2 = -82;
-	v0 = nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v2, 1, 3);
+	v0 = nox_xxx_netSendSock_552640(*(unsigned int*)getMemAt(0x5D4594, 815700), &v2, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	if (nox_xxx_cliWaitServerResponse_5525B0(*(unsigned int*)getMemAt(0x5D4594, 815700), v0, 20, 6))
 		return 0;
 	nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)getMemAt(0x5D4594, 815700), 3);

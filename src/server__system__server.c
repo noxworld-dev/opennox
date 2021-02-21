@@ -853,7 +853,7 @@ char* nox_xxx_netUpdateRemotePlayers_4DEC80() {
 				nox_xxx_netInformTextMsg2_4DA180(3, &v7);
 				v3 = *(unsigned __int8*)(i + 2064) + 1;
 				v5[0] = -58;
-				nox_xxx_netSendSock_552640(v3, v5, 1, 3);
+				nox_xxx_netSendSock_552640(v3, v5, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 				nox_xxx_playerCallDisconnect_4DEAB0(*(unsigned __int8*)(i + 2064), 3);
 			}
 			if ((*(_BYTE*)(i + 3680) & 0x80))
@@ -900,7 +900,7 @@ _DWORD*  nox_xxx_netUseMap_4DEE00(const char* a1, int a2) {
 		if (!nox_common_gameFlags_check_40A5C0(2) || *(_BYTE*)(*(_DWORD*)(v5 + 276) + 2064) != 31) {
 			v6 = nox_xxx_netCopyCheckPacketList_40ED60(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), 1u, &a1);
 			if (v6)
-				nox_xxx_netSendSock_552640(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064) + 1, v6, (signed int)a1, 3);
+				nox_xxx_netSendSock_552640(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064) + 1, v6, (signed int)a1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 		}
 		result = (_DWORD*)nox_xxx_getNextPlayerUnit_4DA7F0((int)i);
 	}
