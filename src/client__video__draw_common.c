@@ -79,7 +79,7 @@ SDL_Window* windowHandle_dword_973FE0;
 DWORD dword_973C64;
 
 //----- (00444AC0) --------------------------------------------------------
-int  sub_444AC0(HWND wnd, int w, int h, int depth, int flags) {
+int  nox_client_drawXxx_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	int v5;             // eax
 	bool v6;            // zf
 	unsigned __int8 v7; // al

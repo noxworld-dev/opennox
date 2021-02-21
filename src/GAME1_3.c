@@ -3963,7 +3963,7 @@ BOOL nox_xxx____crtGetStringTypeA_0_444830()
 int  sub_4449D0(HWND wnd, int w, int h, int depth, int flags) {
 	int result; // eax
 
-	result = sub_444AC0(wnd, w, h, depth, flags);
+	result = nox_client_drawXxx_444AC0(wnd, w, h, depth, flags);
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result)
 		return result;
