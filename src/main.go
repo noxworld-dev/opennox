@@ -88,35 +88,14 @@ var (
 var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
 
 func main() {
-	if err := run(); err != nil && err != flag.ErrHelp {
+	C.init_data()
+	if err := runNox(os.Args); err != nil && err != flag.ErrHelp {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }
 
-func run() error { // aka WinMain
-	C.init_data()
-	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0) // probably not needed
-	if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER | sdl.INIT_GAMECONTROLLER); err != nil {
-		return fmt.Errorf("SDL Initialization failed: %w", err)
-	}
-	defer sdl.Quit()
-
-	sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "1")
-	defer inputCleanup()
-
-	win, err := sdl.CreateWindow("Nox Game Window", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
-		int32(C.nox_win_width), int32(C.nox_win_height), sdl.WINDOW_RESIZABLE)
-	if err != nil {
-		return fmt.Errorf("SDL Window creation failed: %w", err)
-	}
-	noxWindow = win
-	C.g_window = (*C.SDL_Window)(win)
-
-	return cmain(os.Args)
-}
-
-func cmain(args []string) error {
+func runNox(args []string) error {
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
 	// TODO: add missing flag descriptions
 	var (
@@ -145,6 +124,24 @@ func cmain(args []string) error {
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
+	}
+	if !*fServer && !*fNoDraw {
+		nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0) // probably not needed
+		if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER | sdl.INIT_GAMECONTROLLER); err != nil {
+			return fmt.Errorf("SDL Initialization failed: %w", err)
+		}
+		defer sdl.Quit()
+
+		sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "1")
+		defer inputCleanup()
+
+		win, err := sdl.CreateWindow("Nox Game Window", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
+			int32(C.nox_win_width), int32(C.nox_win_height), sdl.WINDOW_RESIZABLE)
+		if err != nil {
+			return fmt.Errorf("SDL Window creation failed: %w", err)
+		}
+		noxWindow = win
+		C.g_window = (*C.SDL_Window)(win)
 	}
 	if *fWindow {
 		C.nox_video_dxFullScreen = 0
