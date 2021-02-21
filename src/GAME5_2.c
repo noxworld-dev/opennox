@@ -4738,41 +4738,27 @@ LABEL_30:
 }
 
 //----- (0057BBC0) --------------------------------------------------------
-int  nox_xxx_getToken_57BBC0(FILE* a1, int a2, int a3) {
-	int v3;     // esi
-	int v4;     // ebx
-	char v5;    // al
-	int v6;     // eax
-	int result; // eax
-
-	v3 = 0;
-	v4 = 1;
-	if (a3 <= 0) {
-	LABEL_11:
-		result = a3;
-		*(_BYTE*)(a2 + a3 - 1) = 0;
-		return result;
-	}
-	while (1) {
-		v5 = fgetc(a1);
-		*(_BYTE*)(v3 + a2) = v5;
-		v6 = isspace(v5);
-		if (!v6)
-			break;
-		if (!v4) {
-			*(_BYTE*)(v3 + a2) = 32;
-		LABEL_9:
-			++v3;
+int  nox_xxx_getToken_57BBC0(FILE* f, char* buf, int bufSz) {
+	bool tab = true;
+	for (int i = 0; i < bufSz; i++) {
+		char c = fgetc(f);
+		if (!isspace(c)) {
+			if (c == ';') {
+				buf[i] = 0;
+				return c;
+			}
+			tab = false;
+			buf[i] = c;
+		} else {
+			if (!tab) {
+				buf[i] = ' ';
+			} else {
+				i--; // stay
+			}
 		}
-		if (v3 >= a3)
-			goto LABEL_11;
 	}
-	result = *(unsigned __int8*)(v3 + a2);
-	v4 = 0;
-	if ((_BYTE)result != 59)
-		goto LABEL_9;
-	*(_BYTE*)(v3 + a2) = 0;
-	return result;
+	buf[bufSz - 1] = 0;
+	return bufSz;
 }
 
 //----- (0057BC50) --------------------------------------------------------

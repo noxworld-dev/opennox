@@ -7057,7 +7057,7 @@ char  sub_57B930(int a1, int a2, int a3, unsigned int a4);
 char  nox_xxx_cliGenerateAlias_57B9A0(int a1, int a2, int a3, unsigned int a4);
 int  sub_57BA10(int a1, __int16 a2, __int16 a3, int a4);
 int  sub_57BA30(int2* a1, int2* a2, int4* a3); // idb
-int  nox_xxx_getToken_57BBC0(FILE* a1, int a2, int a3);
+int  nox_xxx_getToken_57BBC0(FILE* f, char* buf, int bufSz);
 int  nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2);
 int  nox_xxx_mapFile_57BDD0(LPVOID lpMem, int); // idb
 BOOL  sub_57BF20(int a1, int a2);
