@@ -3228,8 +3228,8 @@ int*  sub_4A04C0(int a1);
 int*  sub_4A04F0(char* a1);
 void  sub_4A0540(LPVOID lpMem); // idb
 int nox_xxx_getConnResult_4A0560();
-int  nox_xxx_parseColor_4A0570(int* a1, char* a2);
-int  nox_xxx_guiParseColor_4A05E0(int* a1, FILE* a2, char* a3);
+int  nox_xxx_parseColor_4A0570(unsigned int* out, char* buf);
+int  nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf);
 int  sub_4A0650(int a1, char* a2);
 int  sub_4A0690(int a1, char* a2);
 int  sub_4A06D0(int a1, char* a2);
@@ -3249,7 +3249,7 @@ int  sub_4A0A60(int a1, char* a2);
 nox_window*  nox_new_window_from_file(const char* a1, int (*a2)(int, int, int, int));
 int nox_xxx_wndResetParentStack_4A0CF0();
 int sub_4A0D10();
-BOOL  sub_4A0D40(int* a1, FILE* a2, char* a3);
+BOOL  nox_gui_parseFont_4A0D40(int* a1, FILE* a2, char* a3);
 _DWORD*  nox_xxx_guiWndLoad2_4A0D80_parse_window(FILE* a1, char* a2, int (*a3)(int, int, int, int));
 nox_window*  nox_xxx_wndLoadControlOrUser_4A1440_parse_window(const char* a1, int a2, int a3, wchar_t* a4, int a5, int a6, int a7,
 											_DWORD* a8, float* a9, int (*a10)(int, int, int, int));
