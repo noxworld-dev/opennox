@@ -39,6 +39,7 @@ extern _DWORD dword_5d4594_814980;
 extern int nox_win_width;
 extern int nox_win_height;
 
+int dword_5d4594_815104 = 0;
 nox_wnd_xxx* nox_wnd_xxx_815040 = 0;
 
 //----- (004373A0) --------------------------------------------------------
@@ -101,7 +102,7 @@ void sub_4373A0() {
 //----- (004378B0) --------------------------------------------------------
 void nox_client_refreshServerList_4378B0() {
 	if (sub_44A4A0()) {
-		*getMemU32Ptr(0x5D4594, 815104) = 1;
+		dword_5d4594_815104 = 1;
 		return;
 	}
 
@@ -124,7 +125,7 @@ void nox_client_refreshServerList_4378B0() {
 		wchar_t* str = nox_strman_loadString_40F1D0("Wolchat.c:PleaseWait", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1097);
 		nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_814980, 0, str, 0, 0, 0);
 	}
-	*getMemU32Ptr(0x5D4594, 815104) = 0;
+	dword_5d4594_815104 = 0;
 	*(_QWORD*)&qword_5d4594_815068 = *getMemU64Ptr(0x5D4594, 815076) + (__int64)120000;
 }
 
@@ -1001,7 +1002,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 			sub_4379F0();
 			return 0;
 		}
-		if (*getMemU32Ptr(0x5D4594, 815104)) {
+		if (dword_5d4594_815104) {
 			*(_QWORD*)&qword_5d4594_815068 = nox_call_get_ticks() + 1000;
 			return 0;
 		}
