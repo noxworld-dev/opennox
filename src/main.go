@@ -88,7 +88,7 @@ var (
 var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
 
 func main() {
-	if err := run(); err != nil {
+	if err := run(); err != nil && err != flag.ErrHelp {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
@@ -120,28 +120,28 @@ func cmain(args []string) error {
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
 	// TODO: add missing flag descriptions
 	var (
-		fServer     = flag.Bool("serveronly", false, "run the server only")
-		fWindow     = flag.Bool("window", false, "window")
-		fSWindow    = flag.Bool("swindow", false, "swindow")
-		fFullScreen = flag.Bool("fullscreen", false, "fullscreen")
-		fStretch    = flag.Bool("stretch", false, "stretch")
-		fMinimize   = flag.Bool("minimize", false, "minimize")
-		fNoLimit    = flag.Bool("nolimit", false, "nolimit")
-		fSleep      = flag.Bool("sleep", false, "sleep")
-		fDrop       = flag.Int("drop", 0, "drop")
-		fNoText     = flag.Bool("notext", false, "notext")
-		fNoLog      = flag.Bool("nolog", false, "nolog")
-		fLock       = flag.Bool("lock", false, "lock")
-		fSafe       = flag.Bool("safe", false, "run in safe mode")
-		fNoAudio    = flag.Bool("noaudio", false, "disable audio")
-		fNoMMX      = flag.Bool("noMMX", false, "noMMX")
-		fNoThreads  = flag.Bool("nothread", false, "nothread")
-		fVol        = flag.Int("vol", -1, "vol")
-		fNoFloor    = flag.Bool("noFloor", false, "noFloor")
-		fNoDraw     = flag.Bool("noDraw", false, "noDraw")
-		fPort       = flag.Int("port", 0, "port")
-		fClientPort = flag.Int("clientport", 0, "clientport")
-		fNoSoft     = flag.Bool("nosoft", false, "nosoft")
+		fServer     = flags.Bool("serveronly", false, "run the server only")
+		fWindow     = flags.Bool("window", false, "window")
+		fSWindow    = flags.Bool("swindow", false, "swindow")
+		fFullScreen = flags.Bool("fullscreen", false, "fullscreen")
+		fStretch    = flags.Bool("stretch", false, "stretch")
+		fMinimize   = flags.Bool("minimize", false, "minimize")
+		fNoLimit    = flags.Bool("nolimit", false, "nolimit")
+		fSleep      = flags.Bool("sleep", false, "sleep")
+		fDrop       = flags.Int("drop", 0, "drop")
+		fNoText     = flags.Bool("notext", false, "notext")
+		fNoLog      = flags.Bool("nolog", false, "nolog")
+		fLock       = flags.Bool("lock", false, "lock")
+		fSafe       = flags.Bool("safe", false, "run in safe mode")
+		fNoAudio    = flags.Bool("noaudio", false, "disable audio")
+		fNoMMX      = flags.Bool("noMMX", false, "noMMX")
+		fNoThreads  = flags.Bool("nothread", false, "nothread")
+		fVol        = flags.Int("vol", -1, "vol")
+		fNoFloor    = flags.Bool("noFloor", false, "noFloor")
+		fNoDraw     = flags.Bool("noDraw", false, "noDraw")
+		fPort       = flags.Int("port", 0, "port")
+		fClientPort = flags.Int("clientport", 0, "clientport")
+		fNoSoft     = flags.Bool("nosoft", false, "nosoft")
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
