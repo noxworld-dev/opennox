@@ -2472,7 +2472,7 @@ int  nox_window_call_field_93(nox_window* win, int a2, int a3, int a4);
 int nox_xxx_wndGetFocus_46B4F0();
 int  nox_xxx_windowDestroyChildsMB_46B500(nox_window* win);
 int  sub_46B580(int a1);
-_DWORD*  nox_xxx_wnd_46B5B0(_DWORD* a1, int a2, int a3);
+nox_window* nox_client_inWindowByPos_46B5B0(nox_window* root, int x, int y);
 int  sub_46B630(int a1, int a2, int a3);
 void nox_xxx_windowUpdateKeysMB_46B6B0(unsigned __int8* a1);
 void nox_xxx_cursorUpdate_46B740();
