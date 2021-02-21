@@ -60,7 +60,6 @@ _DWORD nox_client_renderGUI_80828 = 0x1;
 _DWORD dword_5d4594_810632 = 0;
 _DWORD dword_5d4594_787148 = 0;
 _DWORD dword_5d4594_2386944 = 0;
-_DWORD dword_5d4594_1064916 = 0;
 _DWORD dword_5d4594_3801780 = 0;
 _DWORD dword_5d4594_2516348 = 0;
 _DWORD dword_5d4594_1063116 = 0;
