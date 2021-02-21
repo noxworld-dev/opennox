@@ -2173,7 +2173,7 @@ int  sub_466950(int a1) {
 	*(_DWORD*)&v6[8] = 1;
 	*(_WORD*)&v6[72] = 0;
 	*(_DWORD*)&v6[16] = a1;
-	v1 = (_DWORD*)nox_xxx_wndCreateButtonOrChekBox_4A91A0(a1, 1161, 522, 2, 20, 25, v6);
+	v1 = (_DWORD*)nox_gui_newButtonOrCheckbox_4A91A0(a1, 1161, 522, 2, 20, 25, v6);
 	*getMemU32Ptr(0x5D4594, 1062500) = v1;
 	if (!v1)
 		return 0;
@@ -2188,7 +2188,7 @@ int  sub_466950(int a1) {
 	*(_DWORD*)&v6[8] = 1;
 	*(_WORD*)&v6[72] = 0;
 	*(_DWORD*)&v6[16] = a1;
-	v3 = (_DWORD*)nox_xxx_wndCreateButtonOrChekBox_4A91A0(a1, 1161, 522, 148, 20, 25, v6);
+	v3 = (_DWORD*)nox_gui_newButtonOrCheckbox_4A91A0(a1, 1161, 522, 148, 20, 25, v6);
 	*getMemU32Ptr(0x5D4594, 1062504) = v3;
 	if (!v3)
 		return 0;
@@ -2205,7 +2205,7 @@ int  sub_466950(int a1) {
 	v5[3] = 0;
 	v5[0] = 0;
 	v5[1] = 850;
-	v4 = nox_xxx_wndScrollBoxCreate_4B4EE0(a1, 1033, 524, 42, 16, 91, v6, (float*)v5);
+	v4 = nox_gui_newSlider_4B4EE0(a1, 1033, 524, 42, 16, 91, v6, (float*)v5);
 	dword_5d4594_1062508 = v4;
 	if (!v4)
 		return 0;
@@ -2258,7 +2258,7 @@ int  sub_466C40(int a1) {
 	*(_DWORD*)&v5[64] = -170;
 	*(_DWORD*)&v5[16] = a1;
 	*(_DWORD*)&v5[8] = 1;
-	v1 = (_DWORD*)nox_xxx_wndCreateButtonOrChekBox_4A91A0(a1, 1161, 243, 170, 34, 34, v5);
+	v1 = (_DWORD*)nox_gui_newButtonOrCheckbox_4A91A0(a1, 1161, 243, 170, 34, 34, v5);
 	dword_5d4594_1062528 = v1;
 	if (!v1)
 		return 0;
@@ -2274,7 +2274,7 @@ int  sub_466C40(int a1) {
 	*(_DWORD*)&v5[64] = -186;
 	*(_DWORD*)&v5[16] = a1;
 	*(_DWORD*)&v5[8] = 1;
-	v3 = (_DWORD*)nox_xxx_wndCreateButtonOrChekBox_4A91A0(a1, 1161, 5, 186, 34, 34, v5);
+	v3 = (_DWORD*)nox_gui_newButtonOrCheckbox_4A91A0(a1, 1161, 5, 186, 34, 34, v5);
 	dword_5d4594_1062524 = v3;
 	if (!v3)
 		return 0;
@@ -2290,7 +2290,7 @@ int  sub_466C40(int a1) {
 	*(_DWORD*)&v5[64] = -2;
 	*(_DWORD*)&v5[16] = a1;
 	*(_DWORD*)&v5[8] = 1;
-	v4 = (_DWORD*)nox_xxx_wndCreateButtonOrChekBox_4A91A0(a1, 1161, 547, 2, 16, 16, v5);
+	v4 = (_DWORD*)nox_gui_newButtonOrCheckbox_4A91A0(a1, 1161, 547, 2, 16, 16, v5);
 	*getMemU32Ptr(0x5D4594, 1062532) = v4;
 	if (!v4)
 		return 0;
@@ -4263,7 +4263,7 @@ int  sub_46AF50(int a1, int a2) {
 }
 
 //----- (0046AF80) --------------------------------------------------------
-int  nox_xxx_wndSetDrawData_46AF80_copy_window_part(nox_window* win, const void* p) {
+int  nox_gui_windowCopyDrawData_46AF80(nox_window* win, const void* p) {
 	if (!win)
 		return -2;
 	if (!p)
@@ -4303,10 +4303,10 @@ int  sub_46B070(int a1, int a2) {
 }
 
 //----- (0046B080) --------------------------------------------------------
-int  nox_xxx_wndSetID_46B080(_DWORD* a1, int a2) {
-	if (!a1)
+int  nox_xxx_wndSetID_46B080(nox_window* win, int id) {
+	if (!win)
 		return -2;
-	*a1 = a2;
+	win->id = id;
 	return 0;
 }
 
@@ -5231,7 +5231,7 @@ nox_window*  nox_window_new(nox_window* a1, int flags, int a3, int a4, int w, in
 	} else {
 		nox_xxx_wndToTopList_46A920((int)win);
 	}
-	win->field_0 = 0;
+	win->id = 0;
 	win->flags = flags;
 	win->width = w;
 	win->height = h;
@@ -5322,10 +5322,10 @@ int sub_46C610() {
 
 	v0 = nox_window_new(0, 12, 100, 100, 200, 200, 0);
 	*(_DWORD*)&v3[20] = 4;
-	nox_xxx_wndSetDrawData_46AF80_copy_window_part((int)v0, v3);
+	nox_gui_windowCopyDrawData_46AF80((int)v0, v3);
 	v1 = nox_window_new(0, 12, 150, 150, 200, 200, 0);
 	*(_DWORD*)&v3[20] = 8;
-	nox_xxx_wndSetDrawData_46AF80_copy_window_part((int)v1, v3);
+	nox_gui_windowCopyDrawData_46AF80((int)v1, v3);
 	return 1;
 }
 

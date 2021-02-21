@@ -190,28 +190,28 @@ int nox_xxx_guiDrawRank_46E870() {
 	v19 = 2 * (v0 + 1);
 	v20 = 2 * v0;
 	do {
-		v21 = nox_xxx_wndListboxCreate_4A4310(*(int*)&dword_5d4594_1090048, 1088, v17 * dword_5d4594_1090040, v18,
+		v21 = nox_gui_newScrollListBox_4A4310(*(int*)&dword_5d4594_1090048, 1088, v17 * dword_5d4594_1090040, v18,
 						 *(int*)&dword_5d4594_1090040, dword_5d4594_1090044 - v19, (int)v49, (__int16*)v48);
 		v22 = *getMemU32Ptr(0x5D4594, 1084036);
 		v23 = dword_5d4594_1090044 - v19;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052) = v21;
-		v24 = nox_xxx_wndListboxCreate_4A4310((int)v21, 1088, 0, v20, v22, v23, (int)v49, (__int16*)v48);
+		v24 = nox_gui_newScrollListBox_4A4310((int)v21, 1088, 0, v20, v22, v23, (int)v49, (__int16*)v48);
 		v25 = dword_5d4594_1090044;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090060) = v24;
-		v26 = nox_xxx_wndListboxCreate_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088, *getMemIntPtr(0x5D4594, 1084036), v20,
+		v26 = nox_gui_newScrollListBox_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088, *getMemIntPtr(0x5D4594, 1084036), v20,
 						 *getMemIntPtr(0x5D4594, 1084040), v25 - v19, (int)v49, (__int16*)v48);
 		v27 = dword_5d4594_1090044;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090068) = v26;
-		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090076) = nox_xxx_wndListboxCreate_4A4310(
+		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090076) = nox_gui_newScrollListBox_4A4310(
 			*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088, *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040),
 			v20, *getMemIntPtr(0x5D4594, 1084044), v27 - v19, (int)v49, (__int16*)v48);
-		v28 = nox_xxx_wndListboxCreate_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088,
+		v28 = nox_gui_newScrollListBox_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088,
 						 *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040) + *getMemU32Ptr(0x5D4594, 1084044), v20,
 						 *getMemIntPtr(0x5D4594, 1084048), dword_5d4594_1090044 - v19, (int)v49, (__int16*)v48);
 		v29 = dword_5d4594_1090044;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090084) = v28;
 		*getMemU32Ptr(0x5D4594, 4 * v17 + 1090092) =
-			nox_xxx_wndListboxCreate_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088,
+			nox_gui_newScrollListBox_4A4310(*getMemU32Ptr(0x5D4594, 4 * v17 + 1090052), 1088,
 					   *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040) + *getMemU32Ptr(0x5D4594, 1084048) +
 							   *getMemU32Ptr(0x5D4594, 1084044),
 					   v20, *getMemIntPtr(0x5D4594, 1084052), v29 - v19, (int)v49, (__int16*)v48);
@@ -230,19 +230,19 @@ int nox_xxx_guiDrawRank_46E870() {
 	v45[1] = 0;
 	v45[2] = 0;
 	dword_5d4594_1090100 =
-		nox_xxx_wndStaticCreate_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v46, *(int*)&dword_5d4594_1090040, v46 + 1, v49, v45);
+		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v46, *(int*)&dword_5d4594_1090040, v46 + 1, v49, v45);
 	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x5D4594, 2523948);
 	v45[0] = nox_strman_loadString_40F1D0("WindowDir:Empty", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1782);
 	dword_5d4594_1090112 =
-		nox_xxx_wndStaticCreate_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v20, *(int*)&dword_5d4594_1090040, v30, v49, v45);
+		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v20, *(int*)&dword_5d4594_1090040, v30, v49, v45);
 	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x5D4594, 2650644);
 	v45[0] = nox_strman_loadString_40F1D0("WindowDir:Empty", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1790);
 	dword_5d4594_1090108 =
-		nox_xxx_wndStaticCreate_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v47, *(int*)&dword_5d4594_1090040, v30, v49, v45);
+		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v47, *(int*)&dword_5d4594_1090040, v30, v49, v45);
 	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x5D4594, 2618904);
 	v45[0] = nox_strman_loadString_40F1D0("TeamPlayerRank", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1798);
 	*getMemU32Ptr(0x5D4594, 1090104) =
-		nox_xxx_wndStaticCreate_489300(*(int*)&dword_5d4594_1090048, 1088, 0, 0, *(int*)&dword_5d4594_1090040, v30, v49, v45);
+		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, 0, *(int*)&dword_5d4594_1090040, v30, v49, v45);
 	result = dword_5d4594_1090048;
 	dword_587000_145664 = 1;
 	return result;

@@ -1201,11 +1201,11 @@ _DWORD*  nox_xxx_openfuckupwindow_43B7C0(int a1) {
 			*(_WORD*)(a1 + 44) >>= 1;
 			*(_WORD*)(a1 + 46) >>= 1;
 			v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_814988, v1);
-			v4 = nox_xxx_wndCreateButtonOrChekBox_4A91A0((int)v3, 1185, *(__int16*)(a1 + 44) - 5, *(__int16*)(a1 + 46) - 5, 10, 10, v14);
+			v4 = nox_gui_newButtonOrCheckbox_4A91A0((int)v3, 1185, *(__int16*)(a1 + 44) - 5, *(__int16*)(a1 + 46) - 5, 10, 10, v14);
 		} else {
 			*(_WORD*)(a1 + 44) -= *getMemU16Ptr(0x587000, 8 * dword_587000_87412 + 87528);
 			*(_WORD*)(a1 + 46) -= *getMemU16Ptr(0x587000, 8 * dword_587000_87412 + 87530);
-			v4 = nox_xxx_wndCreateButtonOrChekBox_4A91A0(*(int*)&dword_5d4594_814984, 1192, *(__int16*)(a1 + 44) - 10, *(__int16*)(a1 + 46) - 10, 20,
+			v4 = nox_gui_newButtonOrCheckbox_4A91A0(*(int*)&dword_5d4594_814984, 1192, *(__int16*)(a1 + 44) - 10, *(__int16*)(a1 + 46) - 10, 20,
 							20, v14);
 		}
 		*(_DWORD*)(a1 + 28) = v4;

@@ -11898,7 +11898,7 @@ int  nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 // 488160: using guessed type wchar_t var_200[256];
 
 //----- (00488500) --------------------------------------------------------
-_DWORD*  nox_xxx_wndEditCreate_488500(int a1, int a2, int a3, int a4, int a5, int a6, int a7, wchar_t* a8) {
+_DWORD*  nox_gui_newEntryField_488500(int a1, int a2, int a3, int a4, int a5, int a6, int a7, wchar_t* a8) {
 	_DWORD* v8;     // esi
 	bool v9;        // cc
 	int* v10;       // ebx
@@ -11915,7 +11915,7 @@ _DWORD*  nox_xxx_wndEditCreate_488500(int a1, int a2, int a3, int a4, int a5, in
 			return v8;
 		if (!*(_DWORD*)(a7 + 16))
 			*(_DWORD*)(a7 + 16) = v8;
-		nox_xxx_wndSetDrawData_46AF80_copy_window_part((int)v8, (const void*)a7);
+		nox_gui_windowCopyDrawData_46AF80((int)v8, (const void*)a7);
 		memset(a8, 0, 0x100u);
 		memset(a8 + 256, 0, 0x100u);
 		a8[526] = nox_wcslen(a8);
@@ -11948,7 +11948,7 @@ _DWORD*  nox_xxx_wndEditCreate_488500(int a1, int a2, int a3, int a4, int a5, in
 		*(_DWORD*)&v14[16] = 0;
 		*(_WORD*)&v15[72] = 0;
 		*(_DWORD*)&v15[8] = 288;
-		v12 = nox_xxx_wndListboxCreate_4A4310(0, 17584, 0, a6, 110, 119, (int)v15, (__int16*)v14);
+		v12 = nox_gui_newScrollListBox_4A4310(0, 17584, 0, a6, 110, 119, (int)v15, (__int16*)v14);
 		v10[262] = (int)v12;
 		if (v12) {
 			nox_xxx_wndClearFlag_46AD80((int)v12, 128);
@@ -12394,7 +12394,7 @@ wchar_t*  sub_4892D0(int a1) {
 }
 
 //----- (00489300) --------------------------------------------------------
-_DWORD*  nox_xxx_wndStaticCreate_489300(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7, _DWORD* a8) {
+_DWORD*  nox_gui_newStaticText_489300(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7, _DWORD* a8) {
 	int v8;      // ecx
 	_DWORD* v9;  // esi
 	_DWORD* v10; // edx
@@ -12409,7 +12409,7 @@ _DWORD*  nox_xxx_wndStaticCreate_489300(int a1, int a2, int a3, int a4, int a5, 
 	if (v9) {
 		if (!a7[4])
 			a7[4] = v9;
-		nox_xxx_wndSetDrawData_46AF80_copy_window_part((int)v9, a7);
+		nox_gui_windowCopyDrawData_46AF80((int)v9, a7);
 		v10 = malloc(0xCu);
 		*v10 = *a8;
 		v10[1] = a8[1];
