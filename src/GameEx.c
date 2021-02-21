@@ -819,7 +819,7 @@ unsigned int invalidIpChecker(unsigned int interval, void* param) {
 		nox_xxx_dialogMsgBoxCreate_449A10(0, 0, (int)L"Invalid Address", 33, playErrSoundClient, 0);
 		return 0;
 	}
-	sub_4378B0();
+	nox_client_refreshServerList_4378B0();
 	return 0;
 }
 // 1000F110: using guessed type wchar_t aInvalidAddress[16];
