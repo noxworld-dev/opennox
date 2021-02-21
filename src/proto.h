@@ -1753,7 +1753,7 @@ void sub_4445C0();
 BOOL nox_xxx____crtGetStringTypeA_0_444830();
 int  nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags);
 int  sub_4449D0(HWND wnd, int w, int h, int depth, int flags);
-int  sub_444AC0(HWND wnd, int w, int h, int depth, int flags);
+int  nox_client_drawXxx_444AC0(HWND wnd, int w, int h, int depth, int flags);
 void sub_444C50();
 void sub_444D00();
 void sub_444D30();
