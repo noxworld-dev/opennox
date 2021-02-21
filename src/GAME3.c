@@ -2993,7 +2993,7 @@ int  nox_xxx_wndButtonProc_4A7F50(_DWORD* a1, int a2, int xy, int a4) {
 		v10 = a1;
 		if (!(a1[9] & 4))
 			goto LABEL_22;
-		nox_window_call_field_94(a1[13], 16391, (int)a1, xy);
+		nox_window_call_field_94(a1[13], 16391, (int)a1, xy); // HERE
 		goto LABEL_16;
 	case 8:
 		nox_window_call_field_94(a1[13], 0x4000, (int)a1, xy);
