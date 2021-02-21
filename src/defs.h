@@ -514,25 +514,25 @@ _Static_assert(sizeof(nox_net_struct2_t) == 68, "wrong size of nox_net_struct2_t
 
 typedef struct nox_window nox_window;
 typedef struct nox_window {
-	_DWORD field_0;
-	nox_window_flags flags; // 1
-	int width;              // 2
-	int height;             // 3
-	_DWORD field_4;
-	_DWORD field_5;
-	_DWORD field_6;
-	_DWORD field_7;
+	_DWORD field_0; // 0, 0
+	nox_window_flags flags; // 1, 4
+	int width;              // 2, 8
+	int height;             // 3, 12
+	int field_4; // 4, 16
+	int field_5; // 5, 20
+	_DWORD field_6; // 6, 24
+	_DWORD field_7; // 7, 28
 	_DWORD field_8; // index in nox_windows_arr_1093036?
 	_DWORD field_9[83]; // wchar_t[???]
 	_DWORD field_92;                      // 92
 	int (*field_93)(int, int, int, int);  // 93
 	int (*field_94)(int, int, int, int);  // 94
-	int (*draw_func)(nox_window*, void*); // 95, second arg is &data_1_xxx
+	int (*draw_func)(nox_window*, void*); // 95, second arg is &field_9
 	int (*field_96)(void*);               // 96
 	nox_window* field_97;                 // 97, 388
 	nox_window* field_98;                 // 98, 392
-	nox_window* field_99;                 // 99
-	nox_window* field_100;                // 100
+	nox_window* field_99;                 // 99, 396
+	nox_window* field_100;                // 100, 400
 } nox_window;
 _Static_assert(sizeof(nox_window) == 404, "wrong size of nox_window structure!");
 
