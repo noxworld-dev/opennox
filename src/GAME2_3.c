@@ -9871,7 +9871,7 @@ void  sub_4A0540(LPVOID lpMem) {
 int nox_xxx_getConnResult_4A0560() { return nox_xxx_connresult_587000_166704; }
 
 //----- (004A0570) --------------------------------------------------------
-int  nox_xxx_parseColor_4A0570(unsigned int* out, char* buf) {
+int  nox_gui_parseColor_4A0570(unsigned int* out, char* buf) {
 	int r = atoi(strtok(buf, " \t\n\r"));
 	int g = atoi(strtok(0, " \t\n\r"));
 	int b = atoi(strtok(0, " \t\n\r"));
@@ -9884,7 +9884,7 @@ int  nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf) {
 	fscanf(f, "%*s"); // skip '='
 	nox_xxx_getToken_57BBC0(f, buf, 256);
 	if (strcmp(buf, "TRANSPARENT"))
-		return nox_xxx_parseColor_4A0570(out, buf);
+		return nox_gui_parseColor_4A0570(out, buf);
 	*out = 0x80000000;
 	return 1;
 }
@@ -9892,7 +9892,7 @@ int  nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf) {
 //----- (004A0650) --------------------------------------------------------
 int  sub_4A0650(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
-		return nox_xxx_parseColor_4A0570((int*)(a1 + 20), a2);
+		return nox_gui_parseColor_4A0570((int*)(a1 + 20), a2);
 	*(_DWORD*)(a1 + 20) = 0x80000000;
 	return 1;
 }
@@ -9900,7 +9900,7 @@ int  sub_4A0650(int a1, char* a2) {
 //----- (004A0690) --------------------------------------------------------
 int  sub_4A0690(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
-		return nox_xxx_parseColor_4A0570((int*)(a1 + 28), a2);
+		return nox_gui_parseColor_4A0570((int*)(a1 + 28), a2);
 	*(_DWORD*)(a1 + 28) = 0x80000000;
 	return 1;
 }
@@ -9908,7 +9908,7 @@ int  sub_4A0690(int a1, char* a2) {
 //----- (004A06D0) --------------------------------------------------------
 int  sub_4A06D0(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
-		return nox_xxx_parseColor_4A0570((int*)(a1 + 44), a2);
+		return nox_gui_parseColor_4A0570((int*)(a1 + 44), a2);
 	*(_DWORD*)(a1 + 44) = 0x80000000;
 	return 1;
 }
@@ -9916,7 +9916,7 @@ int  sub_4A06D0(int a1, char* a2) {
 //----- (004A0710) --------------------------------------------------------
 int  sub_4A0710(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
-		return nox_xxx_parseColor_4A0570((int*)(a1 + 36), a2);
+		return nox_gui_parseColor_4A0570((int*)(a1 + 36), a2);
 	*(_DWORD*)(a1 + 36) = 0x80000000;
 	return 1;
 }
@@ -9924,7 +9924,7 @@ int  sub_4A0710(int a1, char* a2) {
 //----- (004A0750) --------------------------------------------------------
 int  sub_4A0750(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
-		return nox_xxx_parseColor_4A0570((int*)(a1 + 52), a2);
+		return nox_gui_parseColor_4A0570((int*)(a1 + 52), a2);
 	*(_DWORD*)(a1 + 52) = 0x80000000;
 	return 1;
 }
@@ -9932,7 +9932,7 @@ int  sub_4A0750(int a1, char* a2) {
 //----- (004A0790) --------------------------------------------------------
 int  sub_4A0790(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
-		return nox_xxx_parseColor_4A0570((int*)(a1 + 68), a2);
+		return nox_gui_parseColor_4A0570((int*)(a1 + 68), a2);
 	*(_DWORD*)(a1 + 68) = 0x80000000;
 	return 1;
 }
@@ -10044,7 +10044,7 @@ int  sub_4A0A60(int a1, char* a2) {
 }
 
 //----- (004A0AD0) --------------------------------------------------------
-nox_window*  nox_new_window_from_file(const char* name, int (*a2)(int, int, int, int)) {
+nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int, int)) {
 	char path[256];
 	memset(path, 0, 256);
 	strcpy(path, "window\\");
@@ -10080,7 +10080,7 @@ nox_window*  nox_new_window_from_file(const char* name, int (*a2)(int, int, int,
 			if (!nox_gui_parseFont_4A0D40(getMemIntPtr(0x5D4594, 1307288), f, sbuf))
 				break;
 		} else if (!strcmp(sbuf, "WINDOW")) {
-			nox_window* win = nox_xxx_guiWndLoad2_4A0D80_parse_window(f, sbuf, a2);
+			nox_window* win = nox_gui_parseWindowRoot_4A0D80(f, sbuf, fnc);
 			fclose(f);
 			return win;
 		}
@@ -10124,129 +10124,102 @@ BOOL  nox_gui_parseFont_4A0D40(int* out, FILE* f, char* buf) {
 }
 
 //----- (004A0D80) --------------------------------------------------------
-_DWORD*  nox_xxx_guiWndLoad2_4A0D80_parse_window(FILE* a1, char* a2, int (*a3)(int, int, int, int)) {
-	int v3;               // eax
-	char* v4;             // eax
-	char* v5;             // eax
-	char* v6;             // eax
-	char* v7;             // eax
-	char* v8;             // eax
-	char* v9;             // eax
-	unsigned __int8* v10; // edi
-	int v11;              // eax
-	float* v15;           // [esp+14h] [ebp-1A4h]
-	int v16;              // [esp+18h] [ebp-1A0h]
-	wchar_t* v17;         // [esp+1Ch] [ebp-19Ch]
-	int v18;              // [esp+20h] [ebp-198h]
-	int v19;              // [esp+24h] [ebp-194h]
-	int v20;              // [esp+28h] [ebp-190h]
-	char v21[64];         // [esp+2Ch] [ebp-18Ch]
-	char v22[332];        // [esp+6Ch] [ebp-14Ch], same as nox_window->field_9 ?
+nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, int, int, int)) {
+	char drawData[332];        // same as nox_window->field_9 ?
+	memset(drawData, 0, 332);
 
-	*(_DWORD*)v22 = 0;
-	memset(&v22[4], 0, 0x148u);
-	*(_DWORD*)&v22[28] = *getMemU32Ptr(0x5D4594, 1307264);
-	*(_DWORD*)&v22[36] = *getMemU32Ptr(0x5D4594, 1307276);
-	v3 = *getMemU32Ptr(0x5D4594, 1307288);
-	*(_DWORD*)&v22[44] = *getMemU32Ptr(0x5D4594, 1307268);
-	*(_DWORD*)&v22[20] = *getMemU32Ptr(0x5D4594, 1307272);
-	v15 = 0;
-	*(_DWORD*)&v22[52] = *getMemU32Ptr(0x5D4594, 1307280);
-	*(_DWORD*)&v22[68] = *getMemU32Ptr(0x5D4594, 1307284);
-	if (!*getMemU32Ptr(0x5D4594, 1307288)) {
+	*(_DWORD*)&drawData[0] = 0;
+	*(_DWORD*)&drawData[28] = *getMemU32Ptr(0x5D4594, 1307264);
+	*(_DWORD*)&drawData[36] = *getMemU32Ptr(0x5D4594, 1307276);
+	int font = *getMemU32Ptr(0x5D4594, 1307288);
+	*(_DWORD*)&drawData[44] = *getMemU32Ptr(0x5D4594, 1307268);
+	*(_DWORD*)&drawData[20] = *getMemU32Ptr(0x5D4594, 1307272);
+	*(_DWORD*)&drawData[52] = *getMemU32Ptr(0x5D4594, 1307280);
+	*(_DWORD*)&drawData[68] = *getMemU32Ptr(0x5D4594, 1307284);
+	if (!font) {
 		if (dword_5d4594_815132)
-			v3 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 167936));
+			font = nox_xxx_guiFontPtrByName_43F360("large");
 		else
-			v3 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 167944));
+			font = nox_xxx_guiFontPtrByName_43F360("default");
 	}
-	*(_DWORD*)&v22[200] = v3;
-	nox_xxx_getToken_57BBC0(a1, (int)a2, 256);
-	// OutputDebugStringA(a2);
-	// OutputDebugStringA("\n");
-	v4 = strtok(a2, " \t\n\r");
-	v18 = atoi(v4);
-	v5 = strtok(0, " \t\n\r");
-	v17 = (wchar_t*)atoi(v5);
-	v6 = strtok(0, " \t\n\r");
-	v16 = atoi(v6);
-	v7 = strtok(0, " \t\n\r");
-	v20 = atoi(v7);
-	v8 = strtok(0, " \t\n\r");
-	v19 = atoi(v8);
-	v9 = strtok(0, " \t\n\r");
-	strncpy(v21, v9, 0x3Fu);
+	*(_DWORD*)&drawData[200] = font;
+
+	nox_xxx_getToken_57BBC0(f, buf, 256);
+	int id = atoi(strtok(buf, " \t\n\r"));
+	int px = atoi(strtok(0, " \t\n\r"));
+	int py = atoi(strtok(0, " \t\n\r"));
+	int w = atoi(strtok(0, " \t\n\r"));
+	int h = atoi(strtok(0, " \t\n\r"));
+	char typ[64];
+	strncpy(typ, strtok(0, " \t\n\r"), 63);
 
 	nox_window* win = 0;
+	void* data = 0;
 	while (1) {
 		while (1) {
+			unsigned __int8* v10 = 0;
 			do {
-				fscanf(a1, "%s", a2);
-				// OutputDebugStringA(a2);
-				// OutputDebugStringA("\n");
+				fscanf(f, "%s", buf);
 				v10 = getMemAt(0x587000, 166840);
 				if (*getMemU32Ptr(0x587000, 166844)) {
-					while (strcmp(a2, *(const char**)v10)) {
-						v11 = *((_DWORD*)v10 + 3);
+					while (strcmp(buf, *(const char**)v10)) {
+						int v11 = *((_DWORD*)v10 + 3);
 						v10 += 8;
-						if (!v11)
+						if (!v11) {
 							goto LABEL_11;
+						}
 					}
-					fscanf(a1, "%*s");
-					nox_xxx_getToken_57BBC0(a1, (int)a2, 256);
-					// OutputDebugStringA(a2);
-					// OutputDebugStringA("\n");
-					if (!(*((int(**)(char*, char*))v10 + 1))(v22, a2))
+					fscanf(f, "%*s");
+					nox_xxx_getToken_57BBC0(f, buf, 256);
+					if (!(*((int(**)(char*, char*))v10 + 1))(drawData, buf)) {
 						return 0;
+					}
 				}
 			LABEL_11:;
 			} while (*((_DWORD*)v10 + 1));
-			if (strcmp(a2, "DATA"))
+			if (strcmp(buf, "DATA")) {
 				break;
-			fscanf(a1, "%*s");
-			nox_xxx_getToken_57BBC0(a1, (int)a2, 256);
-			// OutputDebugStringA(a2);
-			// OutputDebugStringA("\n");
-			if (!nox_xxx_wndParseDataField_4A10A0(&v15, v21, a2))
+			}
+			fscanf(f, "%*s");
+			nox_xxx_getToken_57BBC0(f, buf, 256);
+			if (!nox_xxx_wndParseDataField_4A10A0(&data, typ, buf)) {
 				return 0;
+			}
 		}
-		if (!strcmp(a2, "END"))
-			break;
-		if (!strcmp(a2, "CHILD")) {
-			win = nox_xxx_wndLoadControlOrUser_4A1440_parse_window(v21, v18, *(int*)&v22[12], v17, v16, v20, v19, v22, v15, a3);
-			if (!win || !nox_xxx_guiParse_4A1780(win, a1, a2))
+		if (!strcmp(buf, "END")) {
+			if (!win)
+				win = nox_gui_parseWindowOrWidget_4A1440(typ, id, *(int*)&drawData[12], px, py, w, h, drawData, data, fnc);
+			return win;
+		}
+		if (!strcmp(buf, "CHILD")) {
+			win = nox_gui_parseWindowOrWidget_4A1440(typ, id, *(int*)&drawData[12], px, py, w, h, drawData, data, fnc);
+			if (!win || !nox_xxx_guiParse_4A1780(win, f, buf)) {
 				return 0;
+			}
 		} else {
-			nox_xxx_getToken_57BBC0(a1, (int)a2, 256);
-			// OutputDebugStringA(a2);
-			// OutputDebugStringA("\n");
+			nox_xxx_getToken_57BBC0(f, buf, 256);
 		}
 	}
-	if (!win)
-		win = nox_xxx_wndLoadControlOrUser_4A1440_parse_window(v21, v18, *(int*)&v22[12], v17, v16, v20, v19, v22, v15, a3);
-	return win;
+	// unreachable
 }
 
 //----- (004A1440) --------------------------------------------------------
-nox_window*  nox_xxx_wndLoadControlOrUser_4A1440_parse_window(const char* a1, int a2, int a3, wchar_t* a4, int a5, int a6, int a7,
-											_DWORD* a8, float* a9, int (*a10)(int, int, int, int)) {
-	int v10; // ebx
-	int v12; // edx
+nox_window*  nox_gui_parseWindowOrWidget_4A1440(const char* typ, int id, int a3, int px, int py, int w, int h,
+											_DWORD* drawData, void* data, int (*fnc)(int, int, int, int)) {
 
-	v10 = nox_xxx_wndLoadStackPop_4A14F0();
-
+	nox_window* parent = nox_xxx_wndLoadStackPop_4A14F0();
 	nox_window* win;
-	if (!strcmp(a1, "USER")) {
-		win = nox_window_new(v10, a3, (int)a4, a5, a6, a7, a10);
-		v12 = a8[2];
-		BYTE1(v12) |= 0x20u;
-		a8[2] = v12;
-		nox_xxx_wndSetDrawData_46AF80_copy_window_part(win, a8);
+	if (!strcmp(typ, "USER")) {
+		win = nox_window_new(parent, a3, px, py, w, h, fnc);
+		drawData[2] |= 0x2000;
+		nox_gui_windowCopyDrawData_46AF80(win, drawData);
 	} else {
-		win = nox_xxx_wndLoadControl_4A1510_parse_window(a1, v10, a3, a4, a5, a6, a7, a8, a9);
+		win = nox_gui_parseWidget_4A1510(typ, parent, a3, px, py, w, h, drawData, data);
 	}
-	nox_xxx_wndSetID_46B080(win, a2);
-	if (v10)
-		(*(int(**)(int, int, int, _DWORD))(v10 + 376))(v10, 22, a2, 0);
+	nox_xxx_wndSetID_46B080(win, id);
+	if (parent) {
+		parent->field_94(parent, 22, id, 0);
+	}
 	return win;
 }
 
@@ -10262,93 +10235,61 @@ int nox_xxx_wndLoadStackPop_4A14F0() {
 }
 
 //----- (004A1510) --------------------------------------------------------
-nox_window*  nox_xxx_wndLoadControl_4A1510_parse_window(const char* a1, int a2, int a3, wchar_t* a4, int a5, int a6, int a7,
-											_DWORD* a8, float* a9) {
-	_DWORD* result; // eax
-	int v10;        // ebx
-	int v11;        // ebx
-	int v12;        // ebx
-	int v13;        // ebx
-
-	a8[4] = a2;
-	if (!strcmp(a1, "PUSHBUTTON")) {
-		a8[2] |= 1u;
-		return (_DWORD*)nox_xxx_wndCreateButtonOrChekBox_4A91A0(a2, a3, (int)a4, a5, a6, a7, a8);
+nox_window*  nox_gui_parseWidget_4A1510(const char* typ, nox_window* parent, int a3, int px, int py, int w, int h, _DWORD* drawData, void* data) {
+	drawData[4] = parent;
+	if (!strcmp(typ, "PUSHBUTTON")) {
+		drawData[2] |= 0x1;
+		return nox_gui_newButtonOrCheckbox_4A91A0(parent, a3, px, py, w, h, drawData);
+	} else if (!strcmp(typ, "RADIOBUTTON")) {
+		drawData[2] |= 0x2;
+		return nox_gui_newRadioButton_4A9330(parent, a3, px, py, w, h, drawData, data);
+	} else if (!strcmp(typ, "CHECKBOX")) {
+		drawData[2] |= 0x4;
+		return nox_gui_newButtonOrCheckbox_4A91A0(parent, a3, px, py, w, h, drawData);
+	} else if (!strcmp(typ, "VERTSLIDER")) {
+		drawData[2] |= 0x8;
+		return nox_gui_newSlider_4B4EE0(parent, a3, px, py, w, h, drawData, data);
+	} else if (!strcmp(typ, "HORZSLIDER")) {
+		drawData[2] |= 0x10;
+		return nox_gui_newSlider_4B4EE0(parent, a3, px, py, w, h, drawData, data);
+	} else if (!strcmp(typ, "SCROLLLISTBOX")) {
+		drawData[2] |= 0x20;
+		return nox_gui_newScrollListBox_4A4310(parent, a3, px, py, w, h, drawData, data);
+	} else if (!strcmp(typ, "ENTRYFIELD")) {
+		drawData[2] |= 0x80;
+		return nox_gui_newEntryField_488500(parent, a3, px, py, w, h, drawData, data);
+	} else if (!strcmp(typ, "STATICTEXT")) {
+		drawData[2] |= 0x800;
+		return nox_gui_newStaticText_489300(parent, a3, px, py, w, h, drawData, data);
+	} else if (!strcmp(typ, "PROGRESSBAR")) {
+		drawData[2] |= 0x1000;
+		return nox_gui_newProgressBar_4CAF10(parent, a3, px, py, w, h, drawData);
 	}
-	if (!strcmp(a1, "RADIOBUTTON")) {
-		a8[2] |= 2u;
-		return (_DWORD*)nox_xxx_wndCreateRadioButton_4A9330(a2, a3, (int)a4, a5, a6, a7, (int)a8, a9);
-	}
-	if (!strcmp(a1, "CHECKBOX")) {
-		a8[2] |= 4u;
-		return (_DWORD*)nox_xxx_wndCreateButtonOrChekBox_4A91A0(a2, a3, (int)a4, a5, a6, a7, a8);
-	}
-	if (!strcmp(a1, "VERTSLIDER")) {
-		v10 = a8[2] | 8;
-	LABEL_9:
-		a8[2] = v10;
-		return nox_xxx_wndScrollBoxCreate_4B4EE0(a2, a3, (int)a4, a5, a6, a7, a8, a9);
-	}
-	if (!strcmp(a1, "HORZSLIDER")) {
-		v10 = a8[2] | 0x10;
-		goto LABEL_9;
-	}
-	if (!strcmp(a1, "SCROLLLISTBOX")) {
-		a8[2] |= 0x20u;
-		result = nox_xxx_wndListboxCreate_4A4310(a2, a3, (int)a4, a5, a6, a7, (int)a8, (__int16*)a9);
-	} else if (!strcmp(a1, "ENTRYFIELD")) {
-		v11 = a8[2];
-		LOBYTE(v11) = v11 | 0x80;
-		a8[2] = v11;
-		result = nox_xxx_wndEditCreate_488500(a2, a3, (int)a4, a5, a6, a7, (int)a8, (wchar_t*)a9);
-	} else if (!strcmp(a1, "STATICTEXT")) {
-		v12 = a8[2];
-		BYTE1(v12) |= 8u;
-		a8[2] = v12;
-		result = nox_xxx_wndStaticCreate_489300(a2, a3, (int)a4, a5, a6, a7, a8, a9);
-	} else if (!strcmp(a1, "PROGRESSBAR")) {
-		v13 = a8[2];
-		BYTE1(v13) |= 0x10u;
-		a8[2] = v13;
-		result = sub_4CAF10(a2, a3, (int)a4, a5, a6, a7, a8);
-	} else {
-		result = (_DWORD*)a7;
-	}
-	return result;
+	return 0;
 }
 
 //----- (004A1780) --------------------------------------------------------
 BOOL  nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3) {
-	_DWORD* v3; // eax
-
 	sub_4A18C0(a1);
 	while (fscanf(a2, "%s", a3) != -1 && strcmp(a3, "END")) {
 		if (!strcmp(a3, "ENABLEDCOLOR")) {
-			v3 = (_DWORD*)nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307264), a2, a3);
-		LABEL_14:
-			if (!v3)
+			if (!nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307264), a2, a3))
 				return 0;
-		} else {
-			if (!strcmp(a3, "DISABLEDCOLOR")) {
-				v3 = (_DWORD*)nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307268), a2, a3);
-				goto LABEL_14;
-			}
-			if (!strcmp(a3, "HILITECOLOR")) {
-				v3 = (_DWORD*)nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307276), a2, a3);
-				goto LABEL_14;
-			}
-			if (!strcmp(a3, "SELECTEDCOLOR")) {
-				v3 = (_DWORD*)nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307280), a2, a3);
-				goto LABEL_14;
-			}
-			if (!strcmp(a3, "TEXTCOLOR")) {
-				v3 = (_DWORD*)nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307284), a2, a3);
-				goto LABEL_14;
-			}
-			if (!strcmp(a3, "WINDOW")) {
-				v3 = nox_xxx_guiWndLoad2_4A0D80_parse_window(a2, a3, 0);
-				goto LABEL_14;
-			}
+		} else if (!strcmp(a3, "DISABLEDCOLOR")) {
+			if (!nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307268), a2, a3))
+				return 0;
+		} else if (!strcmp(a3, "HILITECOLOR")) {
+			if (!nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307276), a2, a3))
+				return 0;
+		} else if (!strcmp(a3, "SELECTEDCOLOR")) {
+			if (!nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307280), a2, a3))
+				return 0;
+		} else if (!strcmp(a3, "TEXTCOLOR")) {
+			if (!nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307284), a2, a3))
+				return 0;
+		} else if (!strcmp(a3, "WINDOW")) {
+			if (!nox_gui_parseWindowRoot_4A0D80(a2, a3, 0))
+				return 0;
 		}
 	}
 	return sub_4A18A0() == a1;

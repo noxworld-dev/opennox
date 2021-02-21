@@ -1606,7 +1606,7 @@ int nox_xxx_consoleCreate_450C70() {
 	nox_wcsncpy((wchar_t*)&v4[72], v1, 0x40u);
 	*(_WORD*)&v4[198] = 0;
 	*(_DWORD*)&v4[8] = 32;
-	dword_5d4594_833720 = nox_xxx_wndListboxCreate_4A4310(*(int*)&dword_5d4594_833712, 1152, 0, 0, *getMemIntPtr(0x5D4594, 833704),
+	dword_5d4594_833720 = nox_gui_newScrollListBox_4A4310(*(int*)&dword_5d4594_833712, 1152, 0, 0, *getMemIntPtr(0x5D4594, 833704),
 									 *getMemU32Ptr(0x5D4594, 833708) - 20, (int)v4, (__int16*)v3);
 	*(_DWORD*)&v4[44] = v0;
 	*(_DWORD*)&v4[28] = v0;
@@ -1622,7 +1622,7 @@ int nox_xxx_consoleCreate_450C70() {
 	*(_DWORD*)&v5[1036] = 0;
 	nox_wcscpy((wchar_t*)&v4[72], (const wchar_t*)getMemAt(0x5D4594, 833740));
 	*(_DWORD*)&v4[8] = 128;
-	dword_5d4594_833716 = nox_xxx_wndEditCreate_488500(*(int*)&dword_5d4594_833712, 16393, 0, *getMemU32Ptr(0x5D4594, 833708) - 20,
+	dword_5d4594_833716 = nox_gui_newEntryField_488500(*(int*)&dword_5d4594_833712, 16393, 0, *getMemU32Ptr(0x5D4594, 833708) - 20,
 									 *getMemIntPtr(0x5D4594, 833704), 20, (int)v4, (wchar_t*)v5);
 	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_833716, nox_xxx_consoleEditProc_450F40);
 	result = dword_5d4594_833712;

@@ -9379,7 +9379,7 @@ int  sub_4CAED0(int a1) {
 }
 
 //----- (004CAF10) --------------------------------------------------------
-_DWORD*  sub_4CAF10(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7) {
+_DWORD*  nox_gui_newProgressBar_4CAF10(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7) {
 	int v7;     // eax
 	_DWORD* v8; // esi
 
@@ -9391,7 +9391,7 @@ _DWORD*  sub_4CAF10(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7) 
 	if (v8) {
 		if (!a7[4])
 			a7[4] = v8;
-		nox_xxx_wndSetDrawData_46AF80_copy_window_part((int)v8, a7);
+		nox_gui_windowCopyDrawData_46AF80((int)v8, a7);
 	}
 	return v8;
 }

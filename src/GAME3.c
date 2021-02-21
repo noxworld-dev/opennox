@@ -3628,7 +3628,7 @@ LABEL_12:
 }
 
 //----- (004A91A0) --------------------------------------------------------
-int  nox_xxx_wndCreateButtonOrChekBox_4A91A0(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7) {
+int  nox_gui_newButtonOrCheckbox_4A91A0(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7) {
 	int v7;      // eax
 	_DWORD* v8;  // eax
 	int v9;      // esi
@@ -3643,7 +3643,7 @@ int  nox_xxx_wndCreateButtonOrChekBox_4A91A0(int a1, int a2, int a3, int a4, int
 		LABEL_7:
 			if (!a7[4])
 				a7[4] = v9;
-			nox_xxx_wndSetDrawData_46AF80_copy_window_part(v9, a7);
+			nox_gui_windowCopyDrawData_46AF80(v9, a7);
 			return v9;
 		}
 		return v9;
@@ -3711,7 +3711,7 @@ int  nox_xxx_wndCheckboxProcMB_4A92C0(int a1, int a2, wchar_t* a3, int a4) {
 }
 
 //----- (004A9330) --------------------------------------------------------
-int  nox_xxx_wndCreateRadioButton_4A9330(int a1, int a2, int a3, int a4, int a5, int a6, int a7, _DWORD* a8) {
+int  nox_gui_newRadioButton_4A9330(int a1, int a2, int a3, int a4, int a5, int a6, int a7, _DWORD* a8) {
 	_DWORD* v8;  // eax
 	int v9;      // esi
 	_DWORD* v10; // eax
@@ -3729,7 +3729,7 @@ int  nox_xxx_wndCreateRadioButton_4A9330(int a1, int a2, int a3, int a4, int a5,
 		if (a8)
 			*v10 = *a8;
 		*(_DWORD*)(v9 + 32) = v10;
-		nox_xxx_wndSetDrawData_46AF80_copy_window_part(v9, (const void*)a7);
+		nox_gui_windowCopyDrawData_46AF80(v9, (const void*)a7);
 	}
 	return v9;
 }
@@ -10506,7 +10506,7 @@ int  nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4) {
 }
 
 //----- (004B4EE0) --------------------------------------------------------
-_DWORD*  nox_xxx_wndScrollBoxCreate_4B4EE0(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7, float* a8) {
+_DWORD*  nox_gui_newSlider_4B4EE0(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7, float* a8) {
 	int v8;      // eax
 	int v9;      // ebp
 	_DWORD* v10; // edi
@@ -10529,7 +10529,7 @@ _DWORD*  nox_xxx_wndScrollBoxCreate_4B4EE0(int a1, int a2, int a3, int a4, int a
 	if (v10) {
 		if (!a7[4])
 			a7[4] = v10;
-		nox_xxx_wndSetDrawData_46AF80_copy_window_part((int)v10, a7);
+		nox_gui_windowCopyDrawData_46AF80((int)v10, a7);
 		nox_xxx_wndScrollBoxButtonCreate_4B5640((int)v10, a2 | 0x100, (int)a7);
 		v11 = *(_DWORD*)a8;
 		if (*((_DWORD*)a8 + 1) == *(_DWORD*)a8)
@@ -10872,9 +10872,9 @@ int  nox_xxx_wndScrollBoxButtonCreate_4B5640(int a1, int a2, int a3) {
 		*(_DWORD*)&v6[40] = *(_DWORD*)(a3 + 40);
 	}
 	if (*(_BYTE*)(a3 + 8) & 0x10)
-		result = nox_xxx_wndCreateButtonOrChekBox_4A91A0(a1, v4, 0, 0, 10, *(_DWORD*)(a1 + 12), v6);
+		result = nox_gui_newButtonOrCheckbox_4A91A0(a1, v4, 0, 0, 10, *(_DWORD*)(a1 + 12), v6);
 	else
-		result = nox_xxx_wndCreateButtonOrChekBox_4A91A0(a1, v4, 0, 0, *(_DWORD*)(a1 + 8), 10, v6);
+		result = nox_gui_newButtonOrCheckbox_4A91A0(a1, v4, 0, 0, *(_DWORD*)(a1 + 8), 10, v6);
 	return result;
 }
 

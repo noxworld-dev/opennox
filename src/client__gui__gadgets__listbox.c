@@ -3,7 +3,7 @@
 #include "proto.h"
 
 //----- (004A4310) --------------------------------------------------------
-_DWORD*  nox_xxx_wndListboxCreate_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a7, __int16* a8) {
+_DWORD*  nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a7, __int16* a8) {
 	_DWORD* v8;       // ebp
 	void* v9;         // edi
 	int v10;          // edi
@@ -35,7 +35,7 @@ _DWORD*  nox_xxx_wndListboxCreate_4A4310(int a1, int a2, int a3, int a4, int a5,
 	if (v8) {
 		if (!*(_DWORD*)(a7 + 16))
 			*(_DWORD*)(a7 + 16) = v8;
-		nox_xxx_wndSetDrawData_46AF80_copy_window_part((int)v8, (const void*)a7);
+		nox_gui_windowCopyDrawData_46AF80((int)v8, (const void*)a7);
 		v9 = malloc(524 * *a8);
 		*((_DWORD*)a8 + 6) = v9;
 		if (!v9)
@@ -98,7 +98,7 @@ _DWORD*  nox_xxx_wndListboxCreate_4A4310(int a1, int a2, int a3, int a4, int a5,
 			v17 = v26 | 9;
 			*(_DWORD*)&v25[16] = v8;
 			*(_DWORD*)&v25[8] = 1;
-			*((_DWORD*)a8 + 7) = nox_xxx_wndCreateButtonOrChekBox_4A91A0((int)v8, v26 | 9, a5 - 10, v22, 10, v23, v25);
+			*((_DWORD*)a8 + 7) = nox_gui_newButtonOrCheckbox_4A91A0((int)v8, v26 | 9, a5 - 10, v22, 10, v23, v25);
 			memset(v25, 0, sizeof(v25));
 			if ((signed char)*((_BYTE*)v8 + 4) >= 0) {
 				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x5D4594, 2650656);
@@ -119,7 +119,7 @@ _DWORD*  nox_xxx_wndListboxCreate_4A4310(int a1, int a2, int a3, int a4, int a5,
 			}
 			*(_DWORD*)&v25[8] = 1;
 			*(_DWORD*)&v25[16] = v8;
-			*((_DWORD*)a8 + 8) = nox_xxx_wndCreateButtonOrChekBox_4A91A0((int)v8, v17, a5 - 10, v22 + v10 - v23, 10, v23, v25);
+			*((_DWORD*)a8 + 8) = nox_gui_newButtonOrCheckbox_4A91A0((int)v8, v17, a5 - 10, v22 + v10 - v23, 10, v23, v25);
 			memset(v25, 0, sizeof(v25));
 			if ((signed char)*((_BYTE*)v8 + 4) >= 0) {
 				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x5D4594, 2650656);
@@ -142,7 +142,7 @@ _DWORD*  nox_xxx_wndListboxCreate_4A4310(int a1, int a2, int a3, int a4, int a5,
 			*(_DWORD*)&v25[8] = 8;
 			v24[3] = 0;
 			*(_DWORD*)&v25[16] = v8;
-			*((_DWORD*)a8 + 9) = nox_xxx_wndScrollBoxCreate_4B4EE0((int)v8, v17, a5 - v19, v22 + v23, v19, v10 - 2 * v23, v25, (float*)v24);
+			*((_DWORD*)a8 + 9) = nox_gui_newSlider_4B4EE0((int)v8, v17, a5 - v19, v22 + v23, v19, v10 - 2 * v23, v25, (float*)v24);
 		}
 		v20 = (__int16*)malloc(0x38u);
 		memcpy(v20, a8, 0x38u);
