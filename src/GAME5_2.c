@@ -483,7 +483,7 @@ void  nox_xxx_netStructFree_5531C0(nox_net_struct_t* ns) {
 int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, int a4) {
 	int out = a4;
 	// dhexdump(packet, packetSz);
-	unsigned int pid = packet[0];
+	int pid = (char)packet[0];
 	char p1 = packet[1];
 
 	unsigned char* packetEnd = &packet[packetSz];
