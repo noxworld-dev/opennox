@@ -154,7 +154,7 @@ nox_window* nox_win_unk2 = 0;
 nox_window* nox_win_unk3 = 0;
 nox_window* nox_win_unk4 = 0;
 nox_window* nox_win_unk5 = 0;
-_DWORD nox_win_1064916 = 0;
+nox_window* nox_win_1064916 = 0;
 
 nox_window_yyy nox_windows_arr_1093036[7] = {0};
 
@@ -4687,8 +4687,6 @@ void nox_xxx_cursorUpdate_46B740() {
 	int v18;                                      // ecx
 	int v19;                                      // ebp
 	int v20;                                      // ecx
-	_DWORD* v21;                                  // eax
-	_DWORD* v22;                                  // eax
 	wchar_t* v23;                                 // eax
 	_DWORD* v24;                                  // esi
 	int v25;                                      // eax
@@ -4786,14 +4784,14 @@ void nox_xxx_cursorUpdate_46B740() {
 			switch (v66[0]) {
 			case 0:
 			case 8:
-				if (!(!(*(_BYTE *) (nox_win_1064916 + 4) & 4) || sub_45D9B0())) {
+				if (!(!(nox_win_1064916->flags & 4) || sub_45D9B0())) {
 					v11 = m->dpos.x;
 					v12 = m->dpos.y;
-					v13 = *(_DWORD *) (nox_win_1064916 + 396);
+					v13 = nox_win_1064916->field_99;
 					if (v13) {
-						v14 = *(_DWORD *) (nox_win_1064916 + 16);
+						v14 = nox_win_1064916->field_4;
 						if (v14 + v11 >= 0) {
-							v15 = *(_DWORD *) (nox_win_1064916 + 24);
+							v15 = nox_win_1064916->field_6;
 							v16 = *(_DWORD *) (v13 + 8);
 							if (v11 + v15 > v16) {
 								v11 = v16 - v15;
@@ -4802,9 +4800,9 @@ void nox_xxx_cursorUpdate_46B740() {
 						} else {
 							v11 = -v14;
 						}
-						v17 = *(_DWORD *) (nox_win_1064916 + 20);
+						v17 = nox_win_1064916->field_5;
 						if (v17 + v12 >= 0) {
-							v19 = *(_DWORD *) (nox_win_1064916 + 28);
+							v19 = nox_win_1064916->field_7;
 							v20 = *(_DWORD *) (v13 + 12);
 							if (v12 + v19 > v20) {
 								v18 = v20 - v19;
@@ -4815,43 +4813,35 @@ void nox_xxx_cursorUpdate_46B740() {
 							v12 = v18;
 						}
 					}
-					*(_DWORD *) (nox_win_1064916 + 16) += v11;
-					*(_DWORD *) (nox_win_1064916 + 20) += v12;
-					v21 = *(_DWORD **) &nox_win_1064916;
-					if (*(int *) (nox_win_1064916 + 16) < 0) {
-						*(_DWORD *) (nox_win_1064916 + 16) = 0;
-						v21 = *(_DWORD **) &nox_win_1064916;
+					nox_win_1064916->field_4 += v11;
+					nox_win_1064916->field_5 += v12;
+					if (nox_win_1064916->field_4 < 0) {
+						nox_win_1064916->field_4 = 0;
 					}
-					if ((int) v21[5] < 0) {
-						v21[5] = 0;
-						v21 = *(_DWORD **) &nox_win_1064916;
+					if (nox_win_1064916->field_5 < 0) {
+						nox_win_1064916->field_5 = 0;
 					}
-					v21[6] = v21[2] + v21[4];
-					*(_DWORD *) (nox_win_1064916 + 28) =
-							*(_DWORD *) (nox_win_1064916 + 12) + *(_DWORD *) (nox_win_1064916 + 20);
-					v22 = *(_DWORD **) &nox_win_1064916;
-					if (*(_DWORD *) (nox_win_1064916 + 24) > nox_win_width) {
-						*(_DWORD *) (nox_win_1064916 + 24) = nox_win_width;
-						v22 = *(_DWORD **) &nox_win_1064916;
+					nox_win_1064916->field_6 = nox_win_1064916->width + nox_win_1064916->field_4;
+					nox_win_1064916->field_7 = nox_win_1064916->height + nox_win_1064916->field_5;
+					if (nox_win_1064916->field_6 > nox_win_width) {
+						nox_win_1064916->field_6 = nox_win_width;
 					}
-					if (v22[7] > nox_win_height) {
-						v22[7] = nox_win_height;
-						v22 = *(_DWORD **) &nox_win_1064916;
+					if (nox_win_1064916->field_7 > nox_win_height) {
+						nox_win_1064916->field_7 = nox_win_height;
 					}
-					v22[4] = v22[6] - v22[2];
+					nox_win_1064916->field_4 = nox_win_1064916->field_6 - nox_win_1064916->width;
+					nox_win_1064916->field_5 = nox_win_1064916->field_7 - nox_win_1064916->height;
 					spos = spos2;
-					*(_DWORD *) (nox_win_1064916 + 20) =
-							*(_DWORD *) (nox_win_1064916 + 28) - *(_DWORD *) (nox_win_1064916 + 12);
 				}
-				nox_window_call_field_93(*(int *) &nox_win_1064916, 8, spos, 0);
+				nox_window_call_field_93(nox_win_1064916, 8, spos, 0);
 				v66[0] = 0;
 				break;
 			case 6:
-				*(_DWORD *) (nox_win_1064916 + 4) &= 0xFFFFFFFE;
-				if (nox_xxx_wndPointInWnd_46AAB0(*(_DWORD **) &nox_win_1064916, m->pos.x, m->pos.y)) {
-					nox_window_call_field_93(*(int *) &nox_win_1064916, 6, spos, 0);
-				} else if (*(_BYTE *) (nox_win_1064916 + 4) & 4) {
-					nox_window_call_field_93(*(int *) &nox_win_1064916, 6, spos, 0);
+				nox_win_1064916->flags &= 0xFFFFFFFE;
+				if (nox_xxx_wndPointInWnd_46AAB0(nox_win_1064916, m->pos.x, m->pos.y)) {
+					nox_window_call_field_93(nox_win_1064916, 6, spos, 0);
+				} else if (nox_win_1064916->flags & 4) {
+					nox_window_call_field_93(nox_win_1064916, 6, spos, 0);
 				}
 				v64 = 1;
 				v66[0] = 0;
@@ -5285,7 +5275,7 @@ int  nox_xxx_windowDestroyMB_46C4E0(_DWORD* a1) {
 			nox_xxx_wnd_46C6E0(**(_DWORD**)&dword_5d4594_1064912);
 		if (*(_DWORD**)&dword_5d4594_1064900 == a1)
 			dword_5d4594_1064900 = 0;
-		if (*(_DWORD**)&nox_win_1064916 == a1)
+		if (nox_win_1064916 == a1)
 			nox_win_1064916 = 0;
 		v3 = (_DWORD*)a1[100];
 		if (v3) {
@@ -5371,7 +5361,7 @@ int  nox_xxx_wnd_46C6E0(int a1) {
 }
 
 //----- (0046C720) --------------------------------------------------------
-int sub_46C720() { return nox_win_1064916; }
+nox_window* nox_client_getWin1064916_46C720() { return nox_win_1064916; }
 
 //----- (0046CC70) --------------------------------------------------------
 int sub_46CC70() {

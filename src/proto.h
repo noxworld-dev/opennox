@@ -2487,7 +2487,7 @@ int sub_46C5D0();
 int sub_46C610();
 int  sub_46C690(int a1);
 int  nox_xxx_wnd_46C6E0(int a1);
-int sub_46C720();
+nox_window* nox_client_getWin1064916_46C720();
 int sub_46CC70();
 int sub_46CC90();
 int sub_46CCA0(int a1, int a2, int a3, int a4);

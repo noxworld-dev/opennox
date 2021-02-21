@@ -4586,7 +4586,7 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 		break;
 	case 16393:
 		v7 = nox_xxx_wndGetID_46B0A0(a3);
-		v8 = sub_46C720();
+		v8 = nox_client_getWin1064916_46C720();
 		switch (v7) {
 		case 351:
 			sub_486320(*(_DWORD**)&dword_587000_127004, a4);
@@ -6260,7 +6260,7 @@ int  nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 		break;
 	case 16393:
 		v5 = nox_xxx_wndGetID_46B0A0(a3);
-		v6 = sub_46C720();
+		v6 = nox_client_getWin1064916_46C720();
 		switch (v5) {
 		case 351:
 			sub_486320(*(_DWORD**)&dword_587000_127004, a4);
