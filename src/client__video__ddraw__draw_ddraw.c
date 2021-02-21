@@ -1165,7 +1165,7 @@ void sub_433C20() {
 int  nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
 	dword_5d4594_823776 = 0;
 	ptr_5D4594_3799572 = &obj_5D4594_3799660;
-	int result = sub_4449D0(wnd, w, h, depth, flags);
+	int result = nox_client_drawInitAll_4449D0(wnd, w, h, depth, flags);
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result) {
 		return 0;

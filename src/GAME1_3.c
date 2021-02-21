@@ -3960,7 +3960,7 @@ BOOL nox_xxx____crtGetStringTypeA_0_444830()
 #endif
 
 //----- (004449D0) --------------------------------------------------------
-int  sub_4449D0(HWND wnd, int w, int h, int depth, int flags) {
+int  nox_client_drawInitAll_4449D0(HWND wnd, int w, int h, int depth, int flags) {
 	int result; // eax
 
 	result = nox_client_drawXxx_444AC0(wnd, w, h, depth, flags);
