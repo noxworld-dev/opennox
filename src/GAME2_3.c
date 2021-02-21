@@ -66,7 +66,6 @@ extern _DWORD dword_5d4594_1193584;
 extern _DWORD dword_5d4594_1301832;
 extern _DWORD dword_5d4594_1301836;
 extern _DWORD dword_5d4594_1301776;
-extern _DWORD dword_5d4594_1307204;
 extern _DWORD dword_5d4594_1197316;
 extern _DWORD dword_5d4594_3798720;
 extern _DWORD dword_5d4594_1217460;
@@ -114,6 +113,37 @@ const int nox_drawable_2d_index_cap = 47;
 
 int4*(* func_5D4594_1305696)(int, int, int, int, int);
 void(* func_5D4594_1305708)(_DWORD*, int, unsigned int);
+
+//----- (004A0CF0) --------------------------------------------------------
+nox_window* nox_win_parents[10] = {0}; // stack
+nox_window** nox_win_parents_top = 0;
+void nox_gui_winParentsReset_4A0CF0() {
+	memset(nox_win_parents, 0, sizeof(nox_win_parents));
+	nox_win_parents_top = &nox_win_parents[0];
+}
+
+//----- (004A14F0) --------------------------------------------------------
+nox_window* nox_gui_winParentsTop_4A14F0() {
+	if (nox_win_parents_top == &nox_win_parents[0])
+		return 0;
+	return *(nox_win_parents_top - 1);
+}
+
+//----- (004A18A0) --------------------------------------------------------
+nox_window* nox_gui_winParentsPop_4A18A0() {
+	if (nox_win_parents_top == &nox_win_parents[0])
+		return 0;
+	nox_win_parents_top--;
+	return *nox_win_parents_top;
+}
+
+//----- (004A18C0) --------------------------------------------------------
+void nox_gui_winParentsPush_4A18C0(nox_window* win) {
+	if (nox_win_parents_top != &nox_win_parents[9]) {
+		*nox_win_parents_top = win;
+		nox_win_parents_top++;
+	}
+}
 
 //----- (0048C4D0) --------------------------------------------------------
 int sub_48C4D0() {
@@ -10048,7 +10078,7 @@ nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int
 	char path[256];
 	memset(path, 0, 256);
 	strcpy(path, "window\\");
-	nox_xxx_wndResetParentStack_4A0CF0();
+	nox_gui_winParentsReset_4A0CF0();
 	sub_4A0D10();
 	strcat(path, name);
 
@@ -10087,16 +10117,6 @@ nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int
 	}
 	fclose(f);
 	return 0;
-}
-
-//----- (004A0CF0) --------------------------------------------------------
-int nox_xxx_wndResetParentStack_4A0CF0() {
-	int result; // eax
-
-	result = 0;
-	memset(getMemAt(0x5D4594, 1307208), 0, 0x28u);
-	dword_5d4594_1307204 = getMemAt(0x5D4594, 1307208);
-	return result;
 }
 
 //----- (004A0D10) --------------------------------------------------------
@@ -10207,7 +10227,7 @@ nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, 
 nox_window*  nox_gui_parseWindowOrWidget_4A1440(const char* typ, int id, int a3, int px, int py, int w, int h,
 											_DWORD* drawData, void* data, int (*fnc)(int, int, int, int)) {
 
-	nox_window* parent = nox_xxx_wndLoadStackPop_4A14F0();
+	nox_window* parent = nox_gui_winParentsTop_4A14F0();
 	nox_window* win;
 	if (!strcmp(typ, "USER")) {
 		win = nox_window_new(parent, a3, px, py, w, h, fnc);
@@ -10221,17 +10241,6 @@ nox_window*  nox_gui_parseWindowOrWidget_4A1440(const char* typ, int id, int a3,
 		parent->field_94(parent, 22, id, 0);
 	}
 	return win;
-}
-
-//----- (004A14F0) --------------------------------------------------------
-int nox_xxx_wndLoadStackPop_4A14F0() {
-	int result; // eax
-
-	if (*(unsigned __int8**)&dword_5d4594_1307204 == getMemAt(0x5D4594, 1307208))
-		result = 0;
-	else
-		result = *(_DWORD*)(dword_5d4594_1307204 - 4);
-	return result;
 }
 
 //----- (004A1510) --------------------------------------------------------
@@ -10270,7 +10279,7 @@ nox_window*  nox_gui_parseWidget_4A1510(const char* typ, nox_window* parent, int
 
 //----- (004A1780) --------------------------------------------------------
 BOOL  nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3) {
-	sub_4A18C0(a1);
+	nox_gui_winParentsPush_4A18C0(a1);
 	while (fscanf(a2, "%s", a3) != -1 && strcmp(a3, "END")) {
 		if (!strcmp(a3, "ENABLEDCOLOR")) {
 			if (!nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307264), a2, a3))
@@ -10292,28 +10301,7 @@ BOOL  nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3) {
 				return 0;
 		}
 	}
-	return sub_4A18A0() == a1;
-}
-
-//----- (004A18A0) --------------------------------------------------------
-int sub_4A18A0() {
-	if (*(unsigned __int8**)&dword_5d4594_1307204 == getMemAt(0x5D4594, 1307208))
-		return 0;
-	dword_5d4594_1307204 -= 4;
-	return **(_DWORD**)&dword_5d4594_1307204;
-}
-
-//----- (004A18C0) --------------------------------------------------------
-int  sub_4A18C0(int a1) {
-	int result; // eax
-
-	result = dword_5d4594_1307204;
-	if (*(unsigned __int8**)&dword_5d4594_1307204 != getMemAt(0x5D4594, 1307208 + 36)) {
-		**(_DWORD**)&dword_5d4594_1307204 = a1;
-		result = dword_5d4594_1307204 + 4;
-		dword_5d4594_1307204 += 4;
-	}
-	return result;
+	return nox_gui_winParentsPop_4A18A0() == a1;
 }
 
 // 4A18E0: using guessed type int  sub_4A18E0(int, int, int, int);
