@@ -10064,8 +10064,8 @@ int  sub_4A0A60(int a1, char* a2) {
 //----- (004A0AD0) --------------------------------------------------------
 nox_window*  nox_new_window_from_file(const char* name, int (*a2)(int, int, int, int)) {
 	char path[256];
+	memset(path, 0, 256);
 	strcpy(path, "window\\");
-	memset(&path[8], 0, 0xF8u);
 	nox_xxx_wndResetParentStack_4A0CF0();
 	sub_4A0D10();
 	strcat(path, name);
@@ -10074,46 +10074,33 @@ nox_window*  nox_new_window_from_file(const char* name, int (*a2)(int, int, int,
 	if (!f)
 		return 0;
 
-	int v3;
-	while (fscanf(f, "%s", getMemAt(0x5D4594, 1306948)) != -1 && strcmp((const char*)getMemAt(0x5D4594, 1306948), "END")) {
-		if (!strcmp((const char*)getMemAt(0x5D4594, 1306948), "ENABLEDCOLOR")) {
-			v3 = nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307264), f, (char*)getMemAt(0x5D4594, 1306948));
-			if (!v3)
+	char* sbuf = getMemAt(0x5D4594, 1306948);
+	while (fscanf(f, "%s", sbuf) != -1) {
+		if (!strcmp(sbuf, "ENABLEDCOLOR")) {
+			if (!nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307264), f, sbuf))
 				break;
-		} else {
-			if (!strcmp((const char*)getMemAt(0x5D4594, 1306948), "DISABLEDCOLOR")) {
-				v3 = nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307268), f, (char*)getMemAt(0x5D4594, 1306948));
-				if (!v3)
-					break;
-			}
-			if (!strcmp((const char*)getMemAt(0x5D4594, 1306948), "HILITECOLOR")) {
-				v3 = nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307276), f, (char*)getMemAt(0x5D4594, 1306948));
-				if (!v3)
-					break;
-			}
-			if (!strcmp((const char*)getMemAt(0x5D4594, 1306948), "SELECTEDCOLOR")) {
-				v3 = nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307280), f, (char*)getMemAt(0x5D4594, 1306948));
-				if (!v3)
-					break;
-			}
-			if (!strcmp((const char*)getMemAt(0x5D4594, 1306948), "TEXTCOLOR")) {
-				v3 = nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307284), f, (char*)getMemAt(0x5D4594, 1306948));
-				if (!v3)
-					break;
-			}
-			if (!strcmp((const char*)getMemAt(0x5D4594, 1306948), "BACKGROUNDCOLOR")) {
-				v3 = nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307272), f, (char*)getMemAt(0x5D4594, 1306948));
-				if (!v3)
-					break;
-			}
-			if (!strcmp((const char*)getMemAt(0x5D4594, 1306948), "FONT")) {
-				if (!sub_4A0D40(getMemIntPtr(0x5D4594, 1307288), f, (char*)getMemAt(0x5D4594, 1306948)))
-					break;
-			} else if (!strcmp((const char*)getMemAt(0x5D4594, 1306948), "WINDOW")) {
-				nox_window* win = nox_xxx_guiWndLoad2_4A0D80_parse_window(f, (char*)getMemAt(0x5D4594, 1306948), a2);
-				fclose(f);
-				return win;
-			}
+		} else if (!strcmp(sbuf, "DISABLEDCOLOR")) {
+			if (!nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307268), f, sbuf))
+				break;
+		} else if (!strcmp(sbuf, "HILITECOLOR")) {
+			if (!nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307276), f, sbuf))
+				break;
+		} else if (!strcmp(sbuf, "SELECTEDCOLOR")) {
+			if (!nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307280), f, sbuf))
+				break;
+		} else if (!strcmp(sbuf, "TEXTCOLOR")) {
+			if (!nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307284), f, sbuf))
+				break;
+		} else if (!strcmp(sbuf, "BACKGROUNDCOLOR")) {
+			if (!nox_xxx_guiParseColor_4A05E0(getMemIntPtr(0x5D4594, 1307272), f, sbuf))
+				break;
+		} else if (!strcmp(sbuf, "FONT")) {
+			if (!sub_4A0D40(getMemIntPtr(0x5D4594, 1307288), f, sbuf))
+				break;
+		} else if (!strcmp(sbuf, "WINDOW")) {
+			nox_window* win = nox_xxx_guiWndLoad2_4A0D80_parse_window(f, sbuf, a2);
+			fclose(f);
+			return win;
 		}
 	}
 	fclose(f);
