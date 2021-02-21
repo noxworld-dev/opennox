@@ -260,7 +260,7 @@ int sub_4A1D80() {
 // 4A203B: variable 'v6' is possibly undefined
 
 //----- (004A2200) --------------------------------------------------------
-int sub_4A2200() { return nox_client_drawGeneral_4B0340(0); }
+int nox_client_drawGeneralCallback_4A2200() { return nox_client_drawGeneral_4B0340(0); }
 
 //----- (004A2210) --------------------------------------------------------
 int nox_xxx_wndLoadMainBG_4A2210() {

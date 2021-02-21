@@ -3268,7 +3268,7 @@ int  sub_4A1BE0(int a1);
 int sub_4A1C00();
 int sub_4A1D40();
 int sub_4A1D80();
-int sub_4A2200();
+int nox_client_drawGeneralCallback_4A2200();
 int nox_xxx_wndLoadMainBG_4A2210();
 BOOL  sub_4A2490(int a1, int a2, int a3, int a4);
 int sub_4A24A0();
