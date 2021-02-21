@@ -3182,7 +3182,7 @@ int sub_578CD0() {
 		if (sub_4CB230(v3, v4)) {
 			sub_4B0300(v4);
 			sub_4B0640(sub_578C60);
-			result = sub_4B0340(1);
+			result = nox_client_drawGeneral_4B0340(1);
 		} else {
 			result = sub_578C60();
 		}

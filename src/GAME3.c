@@ -260,7 +260,7 @@ int sub_4A1D80() {
 // 4A203B: variable 'v6' is possibly undefined
 
 //----- (004A2200) --------------------------------------------------------
-int sub_4A2200() { return sub_4B0340(0); }
+int sub_4A2200() { return nox_client_drawGeneral_4B0340(0); }
 
 //----- (004A2210) --------------------------------------------------------
 int nox_xxx_wndLoadMainBG_4A2210() {
@@ -4742,7 +4742,7 @@ int nox_xxx_gameStartup_4AB0F0() // playmovielogo
 	} else {
 		sub_4B0300(v1);
 		sub_4B0640(sub_4CC4E0);
-		sub_4B0340(0);
+		nox_client_drawGeneral_4B0340(0);
 		result = 1;
 	}
 	return result;
@@ -4760,7 +4760,7 @@ int sub_4AB170() {
 	} else {
 		sub_4B0300(v2);
 		sub_4B0640(nox_xxx_gameStartup_4AB0F0);
-		sub_4B0340(1);
+		nox_client_drawGeneral_4B0340(1);
 		v0 = sub_578DF0();
 		sub_578DE0(v0 | 0x80);
 		result = 1;
@@ -4780,7 +4780,7 @@ int sub_4AB1F0() {
 	} else {
 		sub_4B0300(v1);
 		sub_4B0640(sub_4AB170);
-		sub_4B0340(0);
+		nox_client_drawGeneral_4B0340(0);
 		result = 1;
 	}
 	return result;
