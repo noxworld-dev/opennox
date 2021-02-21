@@ -3247,18 +3247,14 @@ int  nox_xxx_parseWindowStatus_4A0A00(int a1, const char* a2);
 int  nox_xxx_parseWindowStyle_4A0A30(int a1, const char* a2);
 int  sub_4A0A60(int a1, char* a2);
 nox_window*  nox_new_window_from_file(const char* a1, int (*a2)(int, int, int, int));
-int nox_xxx_wndResetParentStack_4A0CF0();
 int sub_4A0D10();
 BOOL  nox_gui_parseFont_4A0D40(int* a1, FILE* a2, char* a3);
 nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* a1, char* a2, int (*a3)(int, int, int, int));
 nox_window*  nox_gui_parseWindowOrWidget_4A1440(const char* typ, int id, int a3, int px, int py, int w, int h,
 											_DWORD* drawData, void* data, int (*fnc)(int, int, int, int));
-int nox_xxx_wndLoadStackPop_4A14F0();
 nox_window*  nox_gui_parseWidget_4A1510(const char* typ, nox_window* parent, int a3, int px, int py, int w, int h,
 											_DWORD* drawData, void* data);
 BOOL  nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3);
-int sub_4A18A0();
-int  sub_4A18C0(int a1);
 int  sub_4A18E0(int, int, int, int); // weak
 void sub_4A19D0();
 int  sub_4A1A40(int a1);
