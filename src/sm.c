@@ -301,7 +301,7 @@ void NET_CONNECT(sm_args_t* args) {
 	}
 	dword_5d4594_3844304 = 0;
 	v12 = 0;
-	v11 = nox_xxx_netSendSock_552640(a1, &v12, 1, 3);
+	v11 = nox_xxx_netSendSock_552640(a1, &v12, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	GOTO_NET_CONNECT_WAIT_LOOP(args->net_connect.data, a1, v11, 60, 6);
 }
 
@@ -350,7 +350,7 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 		if (a4) {
 			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void *) a4, a5);
 		}
-		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
+		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	}
 	GOTO_NET_CONNECT_THEN(ns->id);
 }

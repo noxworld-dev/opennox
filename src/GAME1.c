@@ -2087,7 +2087,7 @@ int  nox_xxx_netXfer_40B4B0(unsigned int a1, char a2) {
 	v4[0] = -62;
 	v4[1] = 4;
 	v4[2] = a2;
-	return nox_xxx_netSendSock_552640(a1, v4, 3, 3);
+	return nox_xxx_netSendSock_552640(a1, v4, 3, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 }
 
 //----- (0040B4E0) --------------------------------------------------------
@@ -2132,7 +2132,7 @@ int  nox_xxx_neXfer_40B590(unsigned int a1, char a2, char a3) {
 	v4[0] = -62;
 	v4[1] = 6;
 	v4[3] = a3;
-	return nox_xxx_netSendSock_552640(a1, v4, 4, 3);
+	return nox_xxx_netSendSock_552640(a1, v4, 4, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 }
 
 //----- (0040B5D0) --------------------------------------------------------
@@ -2172,7 +2172,7 @@ int  sub_40B690(unsigned int a1, char a2, char a3) {
 	v4[0] = -62;
 	v4[1] = 1;
 	v4[3] = a3;
-	return nox_xxx_netSendSock_552640(a1, v4, 4, 3);
+	return nox_xxx_netSendSock_552640(a1, v4, 4, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 }
 
 //----- (0040B6D0) --------------------------------------------------------
@@ -2409,7 +2409,7 @@ char*  sub_40BB20(unsigned int a1, int a2, char a3) {
 		LOWORD(a2) = 1474;
 		BYTE2(a2) = v3;
 		HIBYTE(a2) = a3;
-		nox_xxx_netSendSock_552640(a1, &a2, 4, 3);
+		nox_xxx_netSendSock_552640(a1, &a2, 4, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 		sub_40BBC0(*(_DWORD*)v5, v5[22]);
 		if (*getMemU16Ptr(0x5D4594, 4662))
 			--*getMemU16Ptr(0x5D4594, 4662);
@@ -2572,7 +2572,7 @@ int  nox_xxx_netXferMsg_40BE80(unsigned int a1, char a2, const char* a3, int a4,
 	else
 		v6[8] = 0;
 	v6[136] = a5;
-	return nox_xxx_netSendSock_552640(a1, v6, 140, 3);
+	return nox_xxx_netSendSock_552640(a1, v6, 140, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 }
 
 //----- (0040BF10) --------------------------------------------------------

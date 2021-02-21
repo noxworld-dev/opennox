@@ -2611,7 +2611,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				v365[2] = *(_BYTE*)(v3 + 2);
 				*(_WORD*)&v365[4] = *(_WORD*)(v3 + 4);
 				v266 = nox_xxx_netGet_43C750();
-				nox_xxx_netSendSock_552640(v266, v365, 6, 3);
+				nox_xxx_netSendSock_552640(v266, v365, 6, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 				v344 = *(unsigned __int16*)(v3 + 6);
 				v319 = *(_WORD*)(v3 + 4);
 				v316 = *(_BYTE*)(v3 + 2);
@@ -2830,7 +2830,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 		case 0xC7u:
 			v359 = -56;
 			v33 = nox_xxx_netGet_43C750();
-			nox_xxx_netSendSock_552640(v33, &v359, 1, 2);
+			nox_xxx_netSendSock_552640(v33, &v359, 1, NOX_NET_SEND_FLAG2);
 			sub_446380();
 			++v3;
 			break;

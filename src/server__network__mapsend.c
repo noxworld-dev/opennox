@@ -38,7 +38,7 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned __int8* a1) {
 			*(_DWORD*)&v19[4] = *((_DWORD*)a1 + 3);
 			v19[0] = -72;
 			strcpy(&v19[8], (const char*)getMemAt(0x5D4594, 2387068));
-			nox_xxx_netSendSock_552640(*a1 + 1, v19, 88, 3);
+			nox_xxx_netSendSock_552640(*a1 + 1, v19, 88, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 		}
 		v3 = malloc(*((unsigned __int16*)a1 + 10) + 6);
 		if (v3) {
@@ -61,7 +61,7 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned __int8* a1) {
 				v6 = dword_5d4594_2388640;
 			}
 			memcpy(v3 + 3, (const void*)(v6 + v5), v4);
-			nox_xxx_netSendSock_552640(*a1 + 1, v3, v4 + 6, 3);
+			nox_xxx_netSendSock_552640(*a1 + 1, v3, v4 + 6, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 			free(v3);
 			v7 = *((_DWORD*)a1 + 3);
 			v8 = v17 + *((_DWORD*)a1 + 6);
@@ -111,7 +111,7 @@ void  nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned __int8* a1, unsigned _
 		v2 = *a1;
 		v5[0] = -70;
 		v5[1] = a2;
-		nox_xxx_netSendSock_552640(v2 + 1, v5, 2, 3);
+		nox_xxx_netSendSock_552640(v2 + 1, v5, 2, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 		if (dword_5d4594_2388648)
 			--dword_5d4594_2388648;
 		v4 = *a1;

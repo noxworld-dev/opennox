@@ -8841,7 +8841,7 @@ _DWORD*  nox_xxx_servSendSettings_4DDB40(_DWORD* a1) {
 	strcpy(&v5[81], nox_server_currentMapGetFilename_409B30());
 	*(_DWORD*)&v5[113] = nox_xxx_mapCrcGetMB_409B00();
 	*(_DWORD*)&v5[117] = *getMemU32Ptr(0x5D4594, 2598000);
-	nox_xxx_netSendSock_552640(*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064) + 1, &v5[80], 41, 3);
+	nox_xxx_netSendSock_552640(*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064) + 1, &v5[80], 41, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	return sub_4DDE10(*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064), *(_DWORD*)(v1 + 276));
 }
 
@@ -8854,7 +8854,7 @@ void nox_xxx_netSendBySock_4DDDC0(int a1) {
 	if (!nox_common_gameFlags_check_40A5C0(2) || a1 != 31) {
 		v3 = nox_xxx_netCopyCheckPacketList_40ED60(a1, 1u, &a1);
 		if (v3)
-			nox_xxx_netSendSock_552640(v2 + 1, v3, a1, 3);
+			nox_xxx_netSendSock_552640(v2 + 1, v3, a1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 		nox_xxx_netBufs_40ED10(v2, 1);
 	}
 }
@@ -9202,7 +9202,7 @@ char  nox_xxx_playerDisconnFinish_4DE530(int a1, char a2) {
 	}
 	if (a2 == 4) {
 		LOBYTE(a1) = -59;
-		nox_xxx_netSendSock_552640(v2 + 1, &a1, 1, 3);
+		nox_xxx_netSendSock_552640(v2 + 1, &a1, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	}
 	result = sub_4E55F0(v2);
 	if (v4) {

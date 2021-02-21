@@ -338,7 +338,7 @@ int  sub_552E70(unsigned int a1) {
 			ns2->field_22 = dword_5d4594_2495920;
 			ns2->field_23 = dword_5d4594_2495920;
 			*(_DWORD*)&v9[1] = v8;
-			nox_xxx_netSendSock_552640(v3, v9, 5, 2);
+			nox_xxx_netSendSock_552640(v3, v9, 5, NOX_NET_SEND_FLAG2);
 		}
 	}
 	return 0;
@@ -373,7 +373,7 @@ int  sub_552F20(unsigned int a1) {
 			ns2->field_25 = v8;
 			ns2->field_26 = dword_5d4594_2495920;
 			*(_DWORD*)&v9[1] = v8;
-			nox_xxx_netSendSock_552640(v3, v9, 256, 2);
+			nox_xxx_netSendSock_552640(v3, v9, 256, NOX_NET_SEND_FLAG2);
 		}
 	}
 	return 0;
@@ -576,7 +576,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			*(_BYTE*)(out + 2) = 1;
 			*(_DWORD*)(out + 3) = pid;
 			*(_BYTE*)(out + 7) = key;
-			char v67 = nox_xxx_netSendSock_552640(pid, out, 8, 3);
+			char v67 = nox_xxx_netSendSock_552640(pid, out, 8, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 
 			ns2->xor_key = key;
 			ns2->field_38 = 1;
@@ -1473,7 +1473,7 @@ int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	}
 	dword_5d4594_3844304 = 0;
 	v12 = 0;
-	v11 = nox_xxx_netSendSock_552640(a1, &v12, 1, 3);
+	v11 = nox_xxx_netSendSock_552640(a1, &v12, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	if (nox_xxx_cliWaitServerResponse_5525B0(a1, v11, 60, 6))
 		return -23;
 	printf("bar %d\n", dword_5d4594_3844304);
@@ -1484,7 +1484,7 @@ int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 		*getMemU8Ptr(0x5D4594, 2512892 + 2) = 32;
 		if (a4)
 			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void*)a4, a5);
-		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
+		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	}
 	return ns->id;
 }

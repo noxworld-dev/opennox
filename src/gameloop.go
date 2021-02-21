@@ -486,7 +486,8 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 	}
 	C.dword_5d4594_3844304 = 0
 	v12 := 0
-	v11 := C.nox_xxx_netSendSock_552640(C.uint(a1), (*C.char)(unsafe.Pointer(&v12)), 1, 3) // TODO: passing Go pointer
+	// TODO: passing Go pointer
+	v11 := C.nox_xxx_netSendSock_552640(C.uint(a1), (*C.char)(unsafe.Pointer(&v12)), 1, C.NOX_NET_SEND_NO_LOCK|C.NOX_NET_SEND_FLAG2)
 
 	fmt.Println("goto NET_CONNECT_WAIT_LOOP")
 	mainloopEnter = func() {
@@ -558,7 +559,7 @@ func NET_CONNECT_WAIT_THEN(id uint32, result int, data []byte) {
 		if len(data) > 0 {
 			copy(vs[3:], data[:a5])
 		}
-		C.nox_xxx_netSendSock_552640(C.uint(id), (*C.char)(memmap.PtrOff(0x5D4594, 2512892)), C.int(a5+3), 3)
+		C.nox_xxx_netSendSock_552640(C.uint(id), (*C.char)(memmap.PtrOff(0x5D4594, 2512892)), C.int(a5+3), C.NOX_NET_SEND_NO_LOCK|C.NOX_NET_SEND_FLAG2)
 	}
 
 	result = int(ns.id)
