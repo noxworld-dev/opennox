@@ -94,7 +94,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_4A1D40();
 				sub_4B0300(v10);
 				sub_4B0640(sub_43C0A0);
-				nox_wnd_xxx_1307308->field_13 = sub_4A2200;
+				nox_wnd_xxx_1307308->field_13 = nox_client_drawGeneralCallback_4A2200;
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				return 1;
 			case 122:
