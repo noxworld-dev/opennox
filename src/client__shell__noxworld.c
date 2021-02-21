@@ -90,7 +90,7 @@ void sub_4373A0() {
 			v1 = nox_strman_loadString_40F1D0("ChooseArea", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 									   660);
 			nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v1, 0);
-			sub_4378B0();
+			nox_client_refreshServerList_4378B0();
 			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
 		} else {
 			sub_43C1E0();
@@ -99,40 +99,33 @@ void sub_4373A0() {
 }
 
 //----- (004378B0) --------------------------------------------------------
-int sub_4378B0() {
-	int result;  // eax
-	wchar_t* v2; // eax
-	int v3;      // eax
-
-	result = sub_44A4A0();
-	if (result) {
+void nox_client_refreshServerList_4378B0() {
+	if (sub_44A4A0()) {
 		*getMemU32Ptr(0x5D4594, 815104) = 1;
-	} else {
-		*getMemU64Ptr(0x5D4594, 815076) = nox_call_get_ticks();
-		dword_5d4594_815060 = 0;
-		sub_4379C0();
-		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16399, 0, 0);
-		sub_49FFA0(1);
-		dword_5d4594_815088 = 0;
-		if (dword_587000_87404) {
-			sub_41F370(1);
-			v3 = sub_41E2F0();
-			sub_41DA70(v3, 12);
-		} else {
-			nox_client_setOnLobbyServer_555000(nox_client_OnLobbyServer_4375F0);
-			unsigned int ticks = nox_platform_get_ticks();
-			*getMemU32Ptr(0x5D4594, 814964) = ticks;
-			uint16_t port = nox_xxx_servGetPort_40A430();
-			nox_xxx_lobbyMakePacket_554AA0(port, 0, 0, ticks);
-			v2 = nox_strman_loadString_40F1D0("Wolchat.c:PleaseWait", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
-									   1097);
-			nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_814980, 0, (int)v2, 0, 0, 0);
-		}
-		*getMemU32Ptr(0x5D4594, 815104) = 0;
-		result = (unsigned __int64)(*getMemU64Ptr(0x5D4594, 815076) + (__int64)120000) >> 32;
-		*(_QWORD*)&qword_5d4594_815068 = *getMemU64Ptr(0x5D4594, 815076) + (__int64)120000;
+		return;
 	}
-	return result;
+
+	*getMemU64Ptr(0x5D4594, 815076) = nox_call_get_ticks();
+	dword_5d4594_815060 = 0;
+	sub_4379C0();
+	nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16399, 0, 0);
+	sub_49FFA0(1);
+	dword_5d4594_815088 = 0;
+	if (dword_587000_87404) {
+		sub_41F370(1);
+		int v3 = sub_41E2F0();
+		sub_41DA70(v3, 12);
+	} else {
+		nox_client_setOnLobbyServer_555000(nox_client_OnLobbyServer_4375F0);
+		unsigned int ticks = nox_platform_get_ticks();
+		*getMemU32Ptr(0x5D4594, 814964) = ticks;
+		uint16_t port = nox_xxx_servGetPort_40A430();
+		nox_xxx_lobbyMakePacket_554AA0(port, 0, 0, ticks);
+		wchar_t* str = nox_strman_loadString_40F1D0("Wolchat.c:PleaseWait", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1097);
+		nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_814980, 0, str, 0, 0, 0);
+	}
+	*getMemU32Ptr(0x5D4594, 815104) = 0;
+	*(_QWORD*)&qword_5d4594_815068 = *getMemU64Ptr(0x5D4594, 815076) + (__int64)120000;
 }
 
 //----- (004379F0) --------------------------------------------------------
@@ -472,7 +465,7 @@ int sub_438770() {
 			!dword_5d4594_815048 && !dword_5d4594_815044 && !dword_5d4594_815052 &&
 			wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_815000)) {
 			if ((unsigned __int64)nox_call_get_ticks() > *(_QWORD*)&qword_5d4594_815068) {
-				sub_4378B0();
+				nox_client_refreshServerList_4378B0();
 				return 1;
 			}
 			if ((unsigned __int64)(nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 815076)) > 0x3E8 && !dword_5d4594_815060 &&
@@ -844,7 +837,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 		case 10054:
 			dword_587000_87412 = 0;
 			sub_43A810();
-			sub_4378B0();
+			nox_client_refreshServerList_4378B0();
 			if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 				v24 = sub_4A7EF0();
 				sub_439D90(*(_DWORD*)v24 + 216, *((_DWORD*)v24 + 1) + 27);
@@ -856,7 +849,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 		case 10055:
 			dword_587000_87412 = 1;
 			sub_43A810();
-			sub_4378B0();
+			nox_client_refreshServerList_4378B0();
 			if (!nox_common_gameFlags_check_40A5C0(0x2000000)) {
 				sub_439D90(0x198u, 0xEFu);
 				result = 0;
@@ -869,7 +862,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 		case 10056:
 			dword_587000_87412 = 2;
 			sub_43A810();
-			sub_4378B0();
+			nox_client_refreshServerList_4378B0();
 			if (!nox_common_gameFlags_check_40A5C0(0x2000000)) {
 				sub_439D90(0x198u, 0xEFu);
 			} else {
@@ -881,7 +874,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 		case 10057:
 			dword_587000_87412 = 3;
 			sub_43A810();
-			sub_4378B0();
+			nox_client_refreshServerList_4378B0();
 			if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 				v26 = sub_4A7EF0();
 				sub_439D90(*(_DWORD*)v26 + 216, *((_DWORD*)v26 + 1) + 27);
@@ -897,7 +890,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 	}
 	if (v5 == 10006) {
 		dword_5d4594_815048 = 0;
-		sub_4378B0();
+		nox_client_refreshServerList_4378B0();
 		return 0;
 	}
 	if (v5 > 10002) {
@@ -907,7 +900,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 			if (!v20) {
 				dword_5d4594_815048 = 0;
 				sub_4383A0();
-				sub_4378B0();
+				nox_client_refreshServerList_4378B0();
 				return 0;
 			}
 			if (v20 == 1) {
