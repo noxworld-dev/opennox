@@ -10192,25 +10192,31 @@ nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, 
 	while (1) {
 		while (1) {
 			unsigned __int8* v10 = 0;
-			do {
+			while (1) {
 				fscanf(f, "%s", buf);
 				v10 = getMemAt(0x587000, 166840);
-				if (*getMemU32Ptr(0x587000, 166844)) {
-					while (strcmp(buf, *(const char**)v10)) {
-						int v11 = *((_DWORD*)v10 + 3);
-						v10 += 8;
-						if (!v11) {
-							goto LABEL_11;
+				if (!*((_DWORD*)v10 + 1)) {
+					break;
+				}
+				while (1) {
+					if (!strcmp(buf, *(const char**)v10)) {
+						fscanf(f, "%*s");
+						nox_xxx_getToken_57BBC0(f, buf, 256);
+						if (!(*((int(**)(char*, char*))v10 + 1))(drawData, buf)) {
+							return 0;
 						}
+						break;
 					}
-					fscanf(f, "%*s");
-					nox_xxx_getToken_57BBC0(f, buf, 256);
-					if (!(*((int(**)(char*, char*))v10 + 1))(drawData, buf)) {
-						return 0;
+					v10 += 8;
+					if (!*((_DWORD*)v10 + 1)) {
+						goto REST;
 					}
 				}
-			LABEL_11:;
-			} while (*((_DWORD*)v10 + 1));
+				if (!*((_DWORD*)v10 + 1)) {
+					break;
+				}
+			}
+		REST:
 			if (strcmp(buf, "DATA")) {
 				break;
 			}
@@ -10221,8 +10227,9 @@ nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, 
 			}
 		}
 		if (!strcmp(buf, "END")) {
-			if (!win)
+			if (!win) {
 				win = nox_gui_parseWindowOrWidget_4A1440(typ, id, *(int*)&drawData[12], px, py, w, h, drawData, data, fnc);
+			}
 			return win;
 		}
 		if (!strcmp(buf, "CHILD")) {
