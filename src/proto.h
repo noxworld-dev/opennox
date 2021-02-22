@@ -3246,7 +3246,11 @@ int  sub_4A09B0(int a1, char* a2);
 int  nox_xxx_parseWindowStatus_4A0A00(int a1, const char* a2);
 int  nox_xxx_parseWindowStyle_4A0A30(int a1, const char* a2);
 int  sub_4A0A60(int a1, char* a2);
+#ifndef NOX_CGO
 nox_window*  nox_new_window_from_file(const char* a1, int (*a2)(int, int, int, int));
+#else NOX_CGO
+nox_window*  nox_new_window_from_file(char* a1, void* a2);
+#endif // NOX_CGO
 int sub_4A0D10();
 BOOL  nox_gui_parseFont_4A0D40(int* a1, FILE* a2, char* a3);
 nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* a1, char* a2, int (*a3)(int, int, int, int));
