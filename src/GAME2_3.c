@@ -114,6 +114,7 @@ const int nox_drawable_2d_index_cap = 47;
 int4*(* func_5D4594_1305696)(int, int, int, int, int);
 void(* func_5D4594_1305708)(_DWORD*, int, unsigned int);
 
+#ifndef NOX_CGO
 //----- (004A0CF0) --------------------------------------------------------
 nox_window* nox_win_parents[10] = {0}; // stack
 nox_window** nox_win_parents_top = 0;
@@ -144,6 +145,12 @@ void nox_gui_winParentsPush_4A18C0(nox_window* win) {
 		nox_win_parents_top++;
 	}
 }
+#else // NOX_CGO
+void nox_gui_winParentsReset_4A0CF0();
+nox_window* nox_gui_winParentsTop_4A14F0();
+nox_window* nox_gui_winParentsPop_4A18A0();
+void nox_gui_winParentsPush_4A18C0(nox_window* win);
+#endif // NOX_CGO
 
 //----- (0048C4D0) --------------------------------------------------------
 int sub_48C4D0() {
