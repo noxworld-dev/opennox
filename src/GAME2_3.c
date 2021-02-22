@@ -10081,6 +10081,7 @@ int  sub_4A0A60(int a1, char* a2) {
 }
 
 //----- (004A0AD0) --------------------------------------------------------
+char nox_window_parse_buf[256] = {0};
 nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int, int)) {
 	char path[256];
 	memset(path, 0, 256);
@@ -10093,7 +10094,7 @@ nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int
 	if (!f)
 		return 0;
 
-	char* sbuf = getMemAt(0x5D4594, 1306948);
+	char* sbuf = nox_window_parse_buf;
 	while (fscanf(f, "%s", sbuf) != -1) {
 		if (!strcmp(sbuf, "ENABLEDCOLOR")) {
 			if (!nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307264), f, sbuf))
