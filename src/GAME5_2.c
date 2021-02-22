@@ -4738,6 +4738,7 @@ LABEL_30:
 }
 
 //----- (0057BBC0) --------------------------------------------------------
+#ifndef NOX_CGO
 int  nox_xxx_getToken_57BBC0(FILE* f, char* buf, int bufSz) {
 	bool tab = true;
 	for (int i = 0; i < bufSz; i++) {
@@ -4760,6 +4761,7 @@ int  nox_xxx_getToken_57BBC0(FILE* f, char* buf, int bufSz) {
 	buf[bufSz - 1] = 0;
 	return bufSz;
 }
+#endif // NOX_CGO
 
 //----- (0057BC50) --------------------------------------------------------
 int  nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
