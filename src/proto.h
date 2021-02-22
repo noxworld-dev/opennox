@@ -3230,22 +3230,22 @@ void  sub_4A0540(LPVOID lpMem); // idb
 int nox_xxx_getConnResult_4A0560();
 int  nox_gui_parseColor_4A0570(unsigned int* out, char* buf);
 int  nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf);
-int  sub_4A0650(int a1, char* a2);
-int  sub_4A0690(int a1, char* a2);
-int  sub_4A06D0(int a1, char* a2);
-int  sub_4A0710(int a1, char* a2);
-int  sub_4A0750(int a1, char* a2);
-int  sub_4A0790(int a1, char* a2);
-int  sub_4A07D0(int a1, char* a2);
-int  sub_4A0830(int a1, char* a2);
-int  sub_4A0870(int a1, char* a2);
-int  sub_4A08C0(int a1, char* a2);
-int  sub_4A0910(int a1, char* a2);
-int  sub_4A0960(int a1, char* a2);
-int  sub_4A09B0(int a1, char* a2);
-int  nox_xxx_parseWindowStatus_4A0A00(int a1, const char* a2);
-int  nox_xxx_parseWindowStyle_4A0A30(int a1, const char* a2);
-int  sub_4A0A60(int a1, char* a2);
+int  nox_gui_parseWindowBgColor_4A0650(int a1, char* a2);
+int  nox_gui_parseWindowEnColor_4A0690(int a1, char* a2);
+int  nox_gui_parseWindowDisColor_4A06D0(int a1, char* a2);
+int  nox_gui_parseWindowHlColor_4A0710(int a1, char* a2);
+int  nox_gui_parseWindowSelColor_4A0750(int a1, char* a2);
+int  nox_gui_parseWindowTextColor_4A0790(int a1, char* a2);
+int  nox_gui_parseWindowFont_4A07D0(int a1, char* a2);
+int  nox_gui_parseWindowImgOffs_4A0830(int a1, char* a2);
+int  nox_gui_parseWindowBgImage_4A0870(int a1, char* a2);
+int  nox_gui_parseWindowEnImage_4A08C0(int a1, char* a2);
+int  nox_gui_parseWindowDisImage_4A0910(int a1, char* a2);
+int  nox_gui_parseWindowSelImage_4A0960(int a1, char* a2);
+int  nox_gui_parseWindowHlImage_4A09B0(int a1, char* a2);
+int  nox_gui_parseWindowStatus_4A0A00(int a1, const char* a2);
+int  nox_gui_parseWindowStyle_4A0A30(int a1, const char* a2);
+int  nox_gui_parseWindowGroup_4A0A60(int a1, char* a2);
 #ifndef NOX_CGO
 nox_window*  nox_new_window_from_file(const char* a1, int (*a2)(int, int, int, int));
 #else NOX_CGO

@@ -9929,7 +9929,7 @@ int  nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf) {
 #endif // NOX_CGO
 
 //----- (004A0650) --------------------------------------------------------
-int  sub_4A0650(int a1, char* a2) {
+int  nox_gui_parseWindowBgColor_4A0650(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
 		return nox_gui_parseColor_4A0570((int*)(a1 + 20), a2);
 	*(_DWORD*)(a1 + 20) = 0x80000000;
@@ -9937,7 +9937,7 @@ int  sub_4A0650(int a1, char* a2) {
 }
 
 //----- (004A0690) --------------------------------------------------------
-int  sub_4A0690(int a1, char* a2) {
+int  nox_gui_parseWindowEnColor_4A0690(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
 		return nox_gui_parseColor_4A0570((int*)(a1 + 28), a2);
 	*(_DWORD*)(a1 + 28) = 0x80000000;
@@ -9945,7 +9945,7 @@ int  sub_4A0690(int a1, char* a2) {
 }
 
 //----- (004A06D0) --------------------------------------------------------
-int  sub_4A06D0(int a1, char* a2) {
+int  nox_gui_parseWindowDisColor_4A06D0(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
 		return nox_gui_parseColor_4A0570((int*)(a1 + 44), a2);
 	*(_DWORD*)(a1 + 44) = 0x80000000;
@@ -9953,7 +9953,7 @@ int  sub_4A06D0(int a1, char* a2) {
 }
 
 //----- (004A0710) --------------------------------------------------------
-int  sub_4A0710(int a1, char* a2) {
+int  nox_gui_parseWindowHlColor_4A0710(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
 		return nox_gui_parseColor_4A0570((int*)(a1 + 36), a2);
 	*(_DWORD*)(a1 + 36) = 0x80000000;
@@ -9961,7 +9961,7 @@ int  sub_4A0710(int a1, char* a2) {
 }
 
 //----- (004A0750) --------------------------------------------------------
-int  sub_4A0750(int a1, char* a2) {
+int  nox_gui_parseWindowSelColor_4A0750(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
 		return nox_gui_parseColor_4A0570((int*)(a1 + 52), a2);
 	*(_DWORD*)(a1 + 52) = 0x80000000;
@@ -9969,7 +9969,7 @@ int  sub_4A0750(int a1, char* a2) {
 }
 
 //----- (004A0790) --------------------------------------------------------
-int  sub_4A0790(int a1, char* a2) {
+int  nox_gui_parseWindowTextColor_4A0790(int a1, char* a2) {
 	if (strcmp(a2, "TRANSPARENT"))
 		return nox_gui_parseColor_4A0570((int*)(a1 + 68), a2);
 	*(_DWORD*)(a1 + 68) = 0x80000000;
@@ -9977,7 +9977,7 @@ int  sub_4A0790(int a1, char* a2) {
 }
 
 //----- (004A07D0) --------------------------------------------------------
-int  sub_4A07D0(int a1, char* a2) {
+int  nox_gui_parseWindowFont_4A07D0(int a1, char* a2) {
 	int v2; // eax
 
 	v2 = nox_xxx_guiFontPtrByName_43F360(a2);
@@ -9988,7 +9988,7 @@ int  sub_4A07D0(int a1, char* a2) {
 }
 
 //----- (004A0830) --------------------------------------------------------
-int  sub_4A0830(int a1, char* a2) {
+int  nox_gui_parseWindowImgOffs_4A0830(int a1, char* a2) {
 	char* v2; // eax
 	char* v3; // eax
 
@@ -10000,7 +10000,7 @@ int  sub_4A0830(int a1, char* a2) {
 }
 
 //----- (004A0870) --------------------------------------------------------
-int  sub_4A0870(int a1, char* a2) {
+int  nox_gui_parseWindowBgImage_4A0870(int a1, char* a2) {
 	char* v2; // eax
 
 	v2 = strtok(a2, "\t\n\r");
@@ -10012,7 +10012,7 @@ int  sub_4A0870(int a1, char* a2) {
 }
 
 //----- (004A08C0) --------------------------------------------------------
-int  sub_4A08C0(int a1, char* a2) {
+int  nox_gui_parseWindowEnImage_4A08C0(int a1, char* a2) {
 	char* v2; // eax
 
 	v2 = strtok(a2, "\t\n\r");
@@ -10024,7 +10024,7 @@ int  sub_4A08C0(int a1, char* a2) {
 }
 
 //----- (004A0910) --------------------------------------------------------
-int  sub_4A0910(int a1, char* a2) {
+int  nox_gui_parseWindowDisImage_4A0910(int a1, char* a2) {
 	char* v2; // eax
 
 	v2 = strtok(a2, "\t\n\r");
@@ -10036,7 +10036,7 @@ int  sub_4A0910(int a1, char* a2) {
 }
 
 //----- (004A0960) --------------------------------------------------------
-int  sub_4A0960(int a1, char* a2) {
+int  nox_gui_parseWindowSelImage_4A0960(int a1, char* a2) {
 	char* v2; // eax
 
 	v2 = strtok(a2, "\t\n\r");
@@ -10048,7 +10048,7 @@ int  sub_4A0960(int a1, char* a2) {
 }
 
 //----- (004A09B0) --------------------------------------------------------
-int  sub_4A09B0(int a1, char* a2) {
+int  nox_gui_parseWindowHlImage_4A09B0(int a1, char* a2) {
 	char* v2; // eax
 
 	v2 = strtok(a2, "\t\n\r");
@@ -10060,21 +10060,21 @@ int  sub_4A09B0(int a1, char* a2) {
 }
 
 //----- (004A0A00) --------------------------------------------------------
-int  nox_xxx_parseWindowStatus_4A0A00(int a1, const char* a2) {
+int  nox_gui_parseWindowStatus_4A0A00(int a1, const char* a2) {
 	*(_DWORD*)(a1 + 12) = 0;
 	set_bitmask_flags_from_plus_separated_names_423930(a2, (_DWORD*)(a1 + 12), (const char**)getMemAt(0x587000, 166712));
 	return 1;
 }
 
 //----- (004A0A30) --------------------------------------------------------
-int  nox_xxx_parseWindowStyle_4A0A30(int a1, const char* a2) {
+int  nox_gui_parseWindowStyle_4A0A30(int a1, const char* a2) {
 	*(_DWORD*)(a1 + 8) = 0;
 	set_bitmask_flags_from_plus_separated_names_423930(a2, (_DWORD*)(a1 + 8), (const char**)getMemAt(0x587000, 166780));
 	return 1;
 }
 
 //----- (004A0A60) --------------------------------------------------------
-int  sub_4A0A60(int a1, char* a2) {
+int  nox_gui_parseWindowGroup_4A0A60(int a1, char* a2) {
 	char* v2; // eax
 
 	v2 = strtok(a2, "\t\n\r");
@@ -10159,24 +10159,24 @@ BOOL  nox_gui_parseFont_4A0D40(int* out, FILE* f, char* buf) {
 
 //----- (004A0D80) --------------------------------------------------------
 nox_parseWindowFunc nox_parseWindowFuncs[] = {
-    {"STATUS", &nox_xxx_parseWindowStatus_4A0A00},
-    {"STYLE", &nox_xxx_parseWindowStyle_4A0A30},
-    {"GROUP", &sub_4A0A60},
-    {"BACKGROUNDCOLOR", &sub_4A0650},
-    {"BACKGROUNDIMAGE", &sub_4A0870},
-    {"ENABLEDCOLOR", &sub_4A0690},
-    {"ENABLEDIMAGE", &sub_4A08C0},
-    {"DISABLEDCOLOR", &sub_4A06D0},
-    {"DISABLEDIMAGE", &sub_4A0910},
-    {"HILITECOLOR", &sub_4A0710},
-    {"HILITEIMAGE", &sub_4A09B0},
-    {"SELECTEDCOLOR", &sub_4A0750},
-    {"SELECTEDIMAGE", &sub_4A0960},
-    {"IMAGEOFFSET", &sub_4A0830},
-    {"TEXTCOLOR", &sub_4A0790},
-    {"TEXT", &sub_4A0A90},
-    {"FONT", &sub_4A07D0},
-    {"TOOLTIP", &sub_4A0800},
+    {"STATUS", &nox_gui_parseWindowStatus_4A0A00},
+    {"STYLE", &nox_gui_parseWindowStyle_4A0A30},
+    {"GROUP", &nox_gui_parseWindowGroup_4A0A60},
+    {"BACKGROUNDCOLOR", &nox_gui_parseWindowBgColor_4A0650},
+    {"BACKGROUNDIMAGE", &nox_gui_parseWindowBgImage_4A0870},
+    {"ENABLEDCOLOR", &nox_gui_parseWindowEnColor_4A0690},
+    {"ENABLEDIMAGE", &nox_gui_parseWindowEnImage_4A08C0},
+    {"DISABLEDCOLOR", &nox_gui_parseWindowDisColor_4A06D0},
+    {"DISABLEDIMAGE", &nox_gui_parseWindowDisImage_4A0910},
+    {"HILITECOLOR", &nox_gui_parseWindowHlColor_4A0710},
+    {"HILITEIMAGE", &nox_gui_parseWindowHlImage_4A09B0},
+    {"SELECTEDCOLOR", &nox_gui_parseWindowSelColor_4A0750},
+    {"SELECTEDIMAGE", &nox_gui_parseWindowSelImage_4A0960},
+    {"IMAGEOFFSET", &nox_gui_parseWindowImgOffs_4A0830},
+    {"TEXTCOLOR", &nox_gui_parseWindowTextColor_4A0790},
+    {"TEXT", &nox_gui_parseWindowText_4A0A90},
+    {"FONT", &nox_gui_parseWindowFont_4A07D0},
+    {"TOOLTIP", &nox_gui_parseWindowTooltip_4A0800},
     {0},
 };
 
