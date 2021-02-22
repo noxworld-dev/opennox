@@ -545,6 +545,12 @@ typedef struct nox_window_yyy {
 } nox_window_yyy;
 _Static_assert(sizeof(nox_window_yyy) == 20, "wrong size of nox_window_yyy structure!");
 
+typedef struct {
+	const char* name;
+	int (*fnc)(char*, char*);
+} nox_parseWindowFunc;
+_Static_assert(sizeof(nox_parseWindowFunc) == 8, "wrong size of nox_parseWindowFunc structure!");
+
 #define NOX_SAVEGAME_XXX_MAX 14
 #pragma pack(push,1)
 typedef struct nox_savegame_xxx {

@@ -10158,6 +10158,28 @@ BOOL  nox_gui_parseFont_4A0D40(int* out, FILE* f, char* buf) {
 #endif // NOX_CGO
 
 //----- (004A0D80) --------------------------------------------------------
+nox_parseWindowFunc nox_parseWindowFuncs[] = {
+    {"STATUS", &nox_xxx_parseWindowStatus_4A0A00},
+    {"STYLE", &nox_xxx_parseWindowStyle_4A0A30},
+    {"GROUP", &sub_4A0A60},
+    {"BACKGROUNDCOLOR", &sub_4A0650},
+    {"BACKGROUNDIMAGE", &sub_4A0870},
+    {"ENABLEDCOLOR", &sub_4A0690},
+    {"ENABLEDIMAGE", &sub_4A08C0},
+    {"DISABLEDCOLOR", &sub_4A06D0},
+    {"DISABLEDIMAGE", &sub_4A0910},
+    {"HILITECOLOR", &sub_4A0710},
+    {"HILITEIMAGE", &sub_4A09B0},
+    {"SELECTEDCOLOR", &sub_4A0750},
+    {"SELECTEDIMAGE", &sub_4A0960},
+    {"IMAGEOFFSET", &sub_4A0830},
+    {"TEXTCOLOR", &sub_4A0790},
+    {"TEXT", &sub_4A0A90},
+    {"FONT", &sub_4A07D0},
+    {"TOOLTIP", &sub_4A0800},
+    {0},
+};
+
 nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, int, int, int)) {
 	char drawData[332];        // same as nox_window->field_9 ?
 	memset(drawData, 0, 332);
@@ -10190,58 +10212,49 @@ nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, 
 	nox_window* win = 0;
 	void* data = 0;
 	while (1) {
-		while (1) {
-			unsigned __int8* v10 = 0;
-			while (1) {
-				fscanf(f, "%s", buf);
-				v10 = getMemAt(0x587000, 166840);
-				if (!*((_DWORD*)v10 + 1)) {
-					break;
+		fscanf(f, "%s", buf);
+		// hooks for different custom fields
+		bool found = false;
+		for (int i = 0; nox_parseWindowFuncs[i].fnc; i++) {
+			nox_parseWindowFunc* pfnc = &nox_parseWindowFuncs[i];
+			if (!strcmp(buf, pfnc->name)) {
+				fscanf(f, "%*s");
+				nox_xxx_getToken_57BBC0(f, buf, 256);
+				if (!pfnc->fnc(drawData, buf)) {
+					return 0;
 				}
-				while (1) {
-					if (!strcmp(buf, *(const char**)v10)) {
-						fscanf(f, "%*s");
-						nox_xxx_getToken_57BBC0(f, buf, 256);
-						if (!(*((int(**)(char*, char*))v10 + 1))(drawData, buf)) {
-							return 0;
-						}
-						break;
-					}
-					v10 += 8;
-					if (!*((_DWORD*)v10 + 1)) {
-						goto REST;
-					}
-				}
-				if (!*((_DWORD*)v10 + 1)) {
-					break;
-				}
-			}
-		REST:
-			if (strcmp(buf, "DATA")) {
+				found = true;
 				break;
 			}
+		}
+		if (found) {
+			continue;
+		}
+		// check the builtin fields
+		if (!strcmp(buf, "DATA")) {
 			fscanf(f, "%*s");
 			nox_xxx_getToken_57BBC0(f, buf, 256);
 			if (!nox_xxx_wndParseDataField_4A10A0(&data, typ, buf)) {
 				return 0;
 			}
-		}
-		if (!strcmp(buf, "END")) {
-			if (!win) {
-				win = nox_gui_parseWindowOrWidget_4A1440(typ, id, *(int*)&drawData[12], px, py, w, h, drawData, data, fnc);
+		} else if (!strcmp(buf, "END")) {
+			if (win) {
+				return win;
 			}
-			return win;
-		}
-		if (!strcmp(buf, "CHILD")) {
+			return nox_gui_parseWindowOrWidget_4A1440(typ, id, *(int*)&drawData[12], px, py, w, h, drawData, data, fnc);
+		} else if (!strcmp(buf, "CHILD")) {
 			win = nox_gui_parseWindowOrWidget_4A1440(typ, id, *(int*)&drawData[12], px, py, w, h, drawData, data, fnc);
-			if (!win || !nox_xxx_guiParse_4A1780(win, f, buf)) {
+			if (!win) {
+				return 0;
+			}
+			if (!nox_xxx_guiParse_4A1780(win, f, buf)) {
 				return 0;
 			}
 		} else {
+			// skip?
 			nox_xxx_getToken_57BBC0(f, buf, 256);
 		}
 	}
-	// unreachable
 }
 
 //----- (004A1440) --------------------------------------------------------
