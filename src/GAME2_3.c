@@ -9908,6 +9908,7 @@ void  sub_4A0540(LPVOID lpMem) {
 int nox_xxx_getConnResult_4A0560() { return nox_xxx_connresult_587000_166704; }
 
 //----- (004A0570) --------------------------------------------------------
+#ifndef NOX_CGO
 int  nox_gui_parseColor_4A0570(unsigned int* out, char* buf) {
 	int r = atoi(strtok(buf, " \t\n\r"));
 	int g = atoi(strtok(0, " \t\n\r"));
@@ -9925,6 +9926,7 @@ int  nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf) {
 	*out = 0x80000000;
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004A0650) --------------------------------------------------------
 int  sub_4A0650(int a1, char* a2) {
@@ -10081,6 +10083,7 @@ int  sub_4A0A60(int a1, char* a2) {
 }
 
 //----- (004A0AD0) --------------------------------------------------------
+#ifndef NOX_CGO
 char nox_window_parse_buf[256] = {0};
 nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int, int)) {
 	char path[256];
@@ -10126,6 +10129,7 @@ nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int
 	fclose(f);
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (004A0D10) --------------------------------------------------------
 int sub_4A0D10() {
@@ -10143,6 +10147,7 @@ int sub_4A0D10() {
 }
 
 //----- (004A0D40) --------------------------------------------------------
+#ifndef NOX_CGO
 BOOL  nox_gui_parseFont_4A0D40(int* out, FILE* f, char* buf) {
 	fscanf(f, "%*s");
 	nox_xxx_getToken_57BBC0(f, buf, 256);
@@ -10150,6 +10155,7 @@ BOOL  nox_gui_parseFont_4A0D40(int* out, FILE* f, char* buf) {
 	*out = fnt;
 	return fnt != 0;
 }
+#endif // NOX_CGO
 
 //----- (004A0D80) --------------------------------------------------------
 nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, int, int, int)) {
