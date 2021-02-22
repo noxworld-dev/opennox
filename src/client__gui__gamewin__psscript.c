@@ -4,7 +4,7 @@
 #include "client__gui__gamewin__gamewin.h"
 
 //----- (004A0800) --------------------------------------------------------
-int  sub_4A0800(wchar_t* a1, char* a2) {
+int  nox_gui_parseWindowTooltip_4A0800(wchar_t* a1, char* a2) {
 	wchar_t* v2; // eax
 
 	v2 = nox_strman_loadString_40F1D0(a2, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 267);
@@ -13,7 +13,7 @@ int  sub_4A0800(wchar_t* a1, char* a2) {
 }
 
 //----- (004A0A90) --------------------------------------------------------
-int  sub_4A0A90(int a1, char* a2) {
+int  nox_gui_parseWindowText_4A0A90(int a1, char* a2) {
 	wchar_t* v2; // eax
 
 	if (!strcmp(a2, "Options.wnd:8BitColor")) {
