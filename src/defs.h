@@ -549,7 +549,7 @@ typedef struct nox_window {
 	_DWORD field_7; // 7, 28
 	_DWORD field_8; // index in nox_windows_arr_1093036?
 	nox_window_data draw_data; // 9, 36
-	_DWORD field_92;                      // 92
+	_DWORD field_92;                      // 92, 368
 	int (*field_93)(int, int, int, int);  // 93
 	int (*field_94)(int, int, int, int);  // 94, 376
 	int (*draw_func)(nox_window*, void*); // 95, second arg is &field_9

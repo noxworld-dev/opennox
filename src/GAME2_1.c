@@ -5237,7 +5237,7 @@ nox_window*  nox_window_new(nox_window* a1, int flags, int a3, int a4, int w, in
 	win->height = h;
 	win->field_4 = a3;
 	win->field_5 = a4;
-	*((_WORD*)win + 120) = 0;
+	win->draw_data.tooltip[0] = 0;
 	win->field_6 = w + a3;
 	win->field_7 = h + a4;
 	nox_xxx_wndFixCoords_46A9F0(win);
