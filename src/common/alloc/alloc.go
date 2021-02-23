@@ -16,6 +16,9 @@ var (
 )
 
 func Malloc(size uintptr) unsafe.Pointer {
+	if size == 0 {
+		panic("zero alloc")
+	}
 	ptr := C.malloc(C.uint(size))
 	allocMu.Lock()
 	allocs[ptr] = size
@@ -24,6 +27,9 @@ func Malloc(size uintptr) unsafe.Pointer {
 }
 
 func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
+	if size == 0 {
+		panic("zero alloc")
+	}
 	old := ptr
 	ptr = C.realloc(ptr, C.uint(size))
 	allocMu.Lock()
@@ -36,6 +42,9 @@ func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
 }
 
 func Calloc(num, size uintptr) unsafe.Pointer {
+	if num*size == 0 {
+		panic("zero alloc")
+	}
 	ptr := C.calloc(C.uint(num), C.uint(size))
 	allocMu.Lock()
 	allocs[ptr] = num * size
