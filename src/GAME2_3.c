@@ -9926,7 +9926,6 @@ int nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf) {
 	*out = 0x80000000;
 	return 1;
 }
-#endif // NOX_CGO
 
 int nox_gui_parseWindowTranspColor(uint32_t* out, const char* buf) {
 	if (!strcmp(buf, "TRANSPARENT")) {
@@ -10037,7 +10036,6 @@ int nox_gui_parseWindowGroup_4A0A60(nox_window_data* data, const char* buf) {
 }
 
 //----- (004A0AD0) --------------------------------------------------------
-#ifndef NOX_CGO
 char nox_window_parse_buf[256] = {0};
 nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int, int)) {
 	char path[256];
