@@ -9918,7 +9918,7 @@ int  nox_gui_parseColor_4A0570(unsigned int* out, char* buf) {
 }
 
 //----- (004A05E0) --------------------------------------------------------
-int  nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf) {
+int nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf) {
 	fscanf(f, "%*s"); // skip '='
 	nox_xxx_getToken_57BBC0(f, buf, 256);
 	if (strcmp(buf, "TRANSPARENT"))
@@ -9928,157 +9928,111 @@ int  nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf) {
 }
 #endif // NOX_CGO
 
+int nox_gui_parseWindowTranspColor(uint32_t* out, const char* buf) {
+	if (!strcmp(buf, "TRANSPARENT")) {
+		*out = 0x80000000;
+		return 1;
+	}
+	return nox_gui_parseColor_4A0570(out, buf);
+}
+
 //----- (004A0650) --------------------------------------------------------
-int  nox_gui_parseWindowBgColor_4A0650(int a1, char* a2) {
-	if (strcmp(a2, "TRANSPARENT"))
-		return nox_gui_parseColor_4A0570((int*)(a1 + 20), a2);
-	*(_DWORD*)(a1 + 20) = 0x80000000;
-	return 1;
+int nox_gui_parseWindowBgColor_4A0650(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowTranspColor(&data->bg_color, buf);
 }
 
 //----- (004A0690) --------------------------------------------------------
-int  nox_gui_parseWindowEnColor_4A0690(int a1, char* a2) {
-	if (strcmp(a2, "TRANSPARENT"))
-		return nox_gui_parseColor_4A0570((int*)(a1 + 28), a2);
-	*(_DWORD*)(a1 + 28) = 0x80000000;
-	return 1;
+int nox_gui_parseWindowEnColor_4A0690(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowTranspColor(&data->en_color, buf);
 }
 
 //----- (004A06D0) --------------------------------------------------------
-int  nox_gui_parseWindowDisColor_4A06D0(int a1, char* a2) {
-	if (strcmp(a2, "TRANSPARENT"))
-		return nox_gui_parseColor_4A0570((int*)(a1 + 44), a2);
-	*(_DWORD*)(a1 + 44) = 0x80000000;
-	return 1;
+int nox_gui_parseWindowDisColor_4A06D0(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowTranspColor(&data->dis_color, buf);
 }
 
 //----- (004A0710) --------------------------------------------------------
-int  nox_gui_parseWindowHlColor_4A0710(int a1, char* a2) {
-	if (strcmp(a2, "TRANSPARENT"))
-		return nox_gui_parseColor_4A0570((int*)(a1 + 36), a2);
-	*(_DWORD*)(a1 + 36) = 0x80000000;
-	return 1;
+int nox_gui_parseWindowHlColor_4A0710(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowTranspColor(&data->hl_color, buf);
 }
 
 //----- (004A0750) --------------------------------------------------------
-int  nox_gui_parseWindowSelColor_4A0750(int a1, char* a2) {
-	if (strcmp(a2, "TRANSPARENT"))
-		return nox_gui_parseColor_4A0570((int*)(a1 + 52), a2);
-	*(_DWORD*)(a1 + 52) = 0x80000000;
-	return 1;
+int  nox_gui_parseWindowSelColor_4A0750(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowTranspColor(&data->sel_color, buf);
 }
 
 //----- (004A0790) --------------------------------------------------------
-int  nox_gui_parseWindowTextColor_4A0790(int a1, char* a2) {
-	if (strcmp(a2, "TRANSPARENT"))
-		return nox_gui_parseColor_4A0570((int*)(a1 + 68), a2);
-	*(_DWORD*)(a1 + 68) = 0x80000000;
-	return 1;
+int nox_gui_parseWindowTextColor_4A0790(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowTranspColor(&data->text_color, buf);
 }
 
 //----- (004A07D0) --------------------------------------------------------
-int  nox_gui_parseWindowFont_4A07D0(int a1, char* a2) {
-	int v2; // eax
-
-	v2 = nox_xxx_guiFontPtrByName_43F360(a2);
+int nox_gui_parseWindowFont_4A07D0(nox_window_data* data, const char* buf) {
+	int v2 = nox_xxx_guiFontPtrByName_43F360(buf);
 	if (!v2)
 		return 0;
-	*(_DWORD*)(a1 + 200) = v2;
+	data->font = v2;
 	return 1;
 }
 
 //----- (004A0830) --------------------------------------------------------
-int  nox_gui_parseWindowImgOffs_4A0830(int a1, char* a2) {
-	char* v2; // eax
-	char* v3; // eax
+int nox_gui_parseWindowImgOffs_4A0830(nox_window_data* data, const char* buf) {
+	data->img_px = atoi(strtok(buf, " \t\n\r"));
+	data->img_py = atoi(strtok(0, " \t\n\r"));
+	return 1;
+}
 
-	v2 = strtok(a2, " \t\n\r");
-	*(_DWORD*)(a1 + 60) = atoi(v2);
-	v3 = strtok(0, " \t\n\r");
-	*(_DWORD*)(a1 + 64) = atoi(v3);
+int nox_gui_parseWindowImage_4A0870(void** out, char* buf) {
+	char* str = strtok(buf, "\t\n\r");
+	if (!strcmp(str, "NULL"))
+		*out = 0;
+	else
+		*out = nox_xxx_gLoadImg_42F970(str);
 	return 1;
 }
 
 //----- (004A0870) --------------------------------------------------------
-int  nox_gui_parseWindowBgImage_4A0870(int a1, char* a2) {
-	char* v2; // eax
-
-	v2 = strtok(a2, "\t\n\r");
-	if (!strcmp(v2, "NULL"))
-		*(_DWORD*)(a1 + 24) = 0;
-	else
-		*(_DWORD*)(a1 + 24) = nox_xxx_gLoadImg_42F970(v2);
-	return 1;
+int nox_gui_parseWindowBgImage_4A0870(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowImage_4A0870(&data->bg_image, buf);
 }
 
 //----- (004A08C0) --------------------------------------------------------
-int  nox_gui_parseWindowEnImage_4A08C0(int a1, char* a2) {
-	char* v2; // eax
-
-	v2 = strtok(a2, "\t\n\r");
-	if (!strcmp(v2, "NULL"))
-		*(_DWORD*)(a1 + 32) = 0;
-	else
-		*(_DWORD*)(a1 + 32) = nox_xxx_gLoadImg_42F970(v2);
-	return 1;
+int nox_gui_parseWindowEnImage_4A08C0(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowImage_4A0870(&data->en_image, buf);
 }
 
 //----- (004A0910) --------------------------------------------------------
-int  nox_gui_parseWindowDisImage_4A0910(int a1, char* a2) {
-	char* v2; // eax
-
-	v2 = strtok(a2, "\t\n\r");
-	if (!strcmp(v2, "NULL"))
-		*(_DWORD*)(a1 + 48) = 0;
-	else
-		*(_DWORD*)(a1 + 48) = nox_xxx_gLoadImg_42F970(v2);
-	return 1;
+int nox_gui_parseWindowDisImage_4A0910(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowImage_4A0870(&data->dis_image, buf);
 }
 
 //----- (004A0960) --------------------------------------------------------
-int  nox_gui_parseWindowSelImage_4A0960(int a1, char* a2) {
-	char* v2; // eax
-
-	v2 = strtok(a2, "\t\n\r");
-	if (!strcmp(v2, "NULL"))
-		*(_DWORD*)(a1 + 56) = 0;
-	else
-		*(_DWORD*)(a1 + 56) = nox_xxx_gLoadImg_42F970(v2);
-	return 1;
+int nox_gui_parseWindowSelImage_4A0960(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowImage_4A0870(&data->sel_image, buf);
 }
 
 //----- (004A09B0) --------------------------------------------------------
-int  nox_gui_parseWindowHlImage_4A09B0(int a1, char* a2) {
-	char* v2; // eax
-
-	v2 = strtok(a2, "\t\n\r");
-	if (!strcmp(v2, "NULL"))
-		*(_DWORD*)(a1 + 40) = 0;
-	else
-		*(_DWORD*)(a1 + 40) = nox_xxx_gLoadImg_42F970(v2);
-	return 1;
+int nox_gui_parseWindowHlImage_4A09B0(nox_window_data* data, const char* buf) {
+	return nox_gui_parseWindowImage_4A0870(&data->hl_image, buf);
 }
 
 //----- (004A0A00) --------------------------------------------------------
-int  nox_gui_parseWindowStatus_4A0A00(int a1, const char* a2) {
-	*(_DWORD*)(a1 + 12) = 0;
-	set_bitmask_flags_from_plus_separated_names_423930(a2, (_DWORD*)(a1 + 12), (const char**)getMemAt(0x587000, 166712));
+int nox_gui_parseWindowStatus_4A0A00(nox_window_data* data, const char* buf) {
+	data->status = 0;
+	set_bitmask_flags_from_plus_separated_names_423930(buf, &data->status, (const char**)getMemAt(0x587000, 166712));
 	return 1;
 }
 
 //----- (004A0A30) --------------------------------------------------------
-int  nox_gui_parseWindowStyle_4A0A30(int a1, const char* a2) {
-	*(_DWORD*)(a1 + 8) = 0;
-	set_bitmask_flags_from_plus_separated_names_423930(a2, (_DWORD*)(a1 + 8), (const char**)getMemAt(0x587000, 166780));
+int nox_gui_parseWindowStyle_4A0A30(nox_window_data* data, const char* buf) {
+	data->style = 0;
+	set_bitmask_flags_from_plus_separated_names_423930(buf, &data->style, (const char**)getMemAt(0x587000, 166780));
 	return 1;
 }
 
 //----- (004A0A60) --------------------------------------------------------
-int  nox_gui_parseWindowGroup_4A0A60(int a1, char* a2) {
-	char* v2; // eax
-
-	v2 = strtok(a2, "\t\n\r");
-	*(_DWORD*)(a1 + 4) = atoi(v2);
+int nox_gui_parseWindowGroup_4A0A60(nox_window_data* data, const char* buf) {
+	data->group = atoi(strtok(buf, "\t\n\r"));
 	return 1;
 }
 
@@ -10090,7 +10044,7 @@ nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int
 	memset(path, 0, 256);
 	strcpy(path, "window\\");
 	nox_gui_winParentsReset_4A0CF0();
-	sub_4A0D10();
+	nox_gui_resetWidgetData_4A0D10();
 	strcat(path, name);
 
 	FILE* f = fopen(path, "r");
@@ -10129,25 +10083,20 @@ nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int
 	fclose(f);
 	return 0;
 }
-#endif // NOX_CGO
 
 //----- (004A0D10) --------------------------------------------------------
-int sub_4A0D10() {
-	int result; // eax
-
-	result = *getMemU32Ptr(0x5D4594, 2650656);
+void nox_gui_resetWidgetData_4A0D10() {
+	unsigned int val = *getMemU32Ptr(0x5D4594, 2650656);
 	*getMemU32Ptr(0x5D4594, 1307288) = 0;
-	*getMemU32Ptr(0x5D4594, 1307264) = *getMemU32Ptr(0x5D4594, 2650656);
-	*getMemU32Ptr(0x5D4594, 1307268) = *getMemU32Ptr(0x5D4594, 2650656);
-	*getMemU32Ptr(0x5D4594, 1307272) = *getMemU32Ptr(0x5D4594, 2650656);
-	*getMemU32Ptr(0x5D4594, 1307276) = *getMemU32Ptr(0x5D4594, 2650656);
-	*getMemU32Ptr(0x5D4594, 1307280) = *getMemU32Ptr(0x5D4594, 2650656);
-	*getMemU32Ptr(0x5D4594, 1307284) = *getMemU32Ptr(0x5D4594, 2650656);
-	return result;
+	*getMemU32Ptr(0x5D4594, 1307264) = val;
+	*getMemU32Ptr(0x5D4594, 1307268) = val;
+	*getMemU32Ptr(0x5D4594, 1307272) = val;
+	*getMemU32Ptr(0x5D4594, 1307276) = val;
+	*getMemU32Ptr(0x5D4594, 1307280) = val;
+	*getMemU32Ptr(0x5D4594, 1307284) = val;
 }
 
 //----- (004A0D40) --------------------------------------------------------
-#ifndef NOX_CGO
 BOOL  nox_gui_parseFont_4A0D40(int* out, FILE* f, char* buf) {
 	fscanf(f, "%*s");
 	nox_xxx_getToken_57BBC0(f, buf, 256);
@@ -10155,7 +10104,6 @@ BOOL  nox_gui_parseFont_4A0D40(int* out, FILE* f, char* buf) {
 	*out = fnt;
 	return fnt != 0;
 }
-#endif // NOX_CGO
 
 //----- (004A0D80) --------------------------------------------------------
 nox_parseWindowFunc nox_parseWindowFuncs[] = {
@@ -10259,13 +10207,13 @@ nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, 
 
 //----- (004A1440) --------------------------------------------------------
 nox_window*  nox_gui_parseWindowOrWidget_4A1440(const char* typ, int id, int a3, int px, int py, int w, int h,
-											_DWORD* drawData, void* data, int (*fnc)(int, int, int, int)) {
+											nox_window_data* drawData, void* data, int (*fnc)(int, int, int, int)) {
 
 	nox_window* parent = nox_gui_winParentsTop_4A14F0();
 	nox_window* win;
 	if (!strcmp(typ, "USER")) {
 		win = nox_window_new(parent, a3, px, py, w, h, fnc);
-		drawData[2] |= 0x2000;
+		drawData->style |= 0x2000;
 		nox_gui_windowCopyDrawData_46AF80(win, drawData);
 	} else {
 		win = nox_gui_parseWidget_4A1510(typ, parent, a3, px, py, w, h, drawData, data);
@@ -10337,5 +10285,6 @@ BOOL  nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3) {
 	}
 	return nox_gui_winParentsPop_4A18A0() == a1;
 }
+#endif // NOX_CGO
 
 // 4A18E0: using guessed type int  sub_4A18E0(int, int, int, int);

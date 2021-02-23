@@ -7,7 +7,7 @@ import (
 	"unicode"
 )
 
-func ParseNextToken(r io.ByteReader) (string, error) {
+func ReadNextToken(r io.ByteReader) (string, error) {
 	tab := true
 	var out []byte
 	for {

@@ -5,8 +5,7 @@
 extern _DWORD dword_5d4594_1045636;
 
 //----- (00456140) --------------------------------------------------------
-wchar_t*  sub_456140(unsigned __int8 a1) {
-	wchar_t* result; // eax
+void sub_456140(unsigned __int8 a1) {
 	int v2;          // esi
 	wchar_t* v3;     // eax
 	wchar_t* v4;     // eax
@@ -14,31 +13,27 @@ wchar_t*  sub_456140(unsigned __int8 a1) {
 	wchar_t* v6;     // eax
 
 	*getMemU8Ptr(0x5D4594, 1045644) = a1;
-	result = (wchar_t*)a1;
 	v2 = dword_5d4594_1045636 + 36;
 	switch (a1) {
-	case 0u:
+	case 0:
 		*(_DWORD*)(v2 + 24) = nox_xxx_gLoadImg_42F970("BallAtHome");
 		v3 = nox_strman_loadString_40F1D0("BallHomeTT", 0, "C:\\NoxPost\\src\\client\\Gui\\guifb.c", 165);
-		result = nox_xxx_wndWddSetTooltip_46B000((wchar_t*)v2, v3);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)v2, v3);
 		break;
-	case 1u:
+	case 1:
 		*(_DWORD*)(v2 + 24) = nox_xxx_gLoadImg_42F970("BallAway");
 		v4 = nox_strman_loadString_40F1D0("BallAwayTT", 0, "C:\\NoxPost\\src\\client\\Gui\\guifb.c", 170);
-		result = nox_xxx_wndWddSetTooltip_46B000((wchar_t*)v2, v4);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)v2, v4);
 		break;
-	case 2u:
+	case 2:
 		*(_DWORD*)(v2 + 24) = nox_xxx_gLoadImg_42F970("BallRed");
 		v5 = nox_strman_loadString_40F1D0("BallRedTT", 0, "C:\\NoxPost\\src\\client\\Gui\\guifb.c", 175);
-		result = nox_xxx_wndWddSetTooltip_46B000((wchar_t*)v2, v5);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)v2, v5);
 		break;
-	case 4u:
+	case 4:
 		*(_DWORD*)(v2 + 24) = nox_xxx_gLoadImg_42F970("BallBlue");
 		v6 = nox_strman_loadString_40F1D0("BallBlueTT", 0, "C:\\NoxPost\\src\\client\\Gui\\guifb.c", 180);
-		result = nox_xxx_wndWddSetTooltip_46B000((wchar_t*)v2, v6);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)v2, v6);
 		break;
-	default:
-		return result;
 	}
-	return result;
 }

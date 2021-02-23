@@ -5,23 +5,15 @@
 #include "proto.h"
 
 //----- (0046B000) --------------------------------------------------------
-wchar_t*  nox_xxx_wndWddSetTooltip_46B000(wchar_t* a1, wchar_t* a2) {
-	wchar_t* result; // eax
-	wchar_t* v3;     // eax
-
-	if (a2) {
-		if (nox_wcslen(a2) < 0x40) {
-			result = nox_wcscpy(a1 + 102, a2);
-		} else {
-			v3 = nox_strman_loadString_40F1D0("TooltipTooLong", 0,
-									   "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c", 1004);
-			result = nox_wcscpy(a1 + 102, v3);
-		}
-	} else {
-		result = a1;
-		a1[102] = 0;
+void nox_xxx_wndWddSetTooltip_46B000(nox_window_data* data, wchar_t* str) {
+	if (!str) {
+		data->tooltip[0] = 0;
+		return;
 	}
-	return result;
+	if (nox_wcslen(str) >= 64) {
+		str = nox_strman_loadString_40F1D0("TooltipTooLong", 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c", 1004);
+	}
+	nox_wcscpy(data->tooltip, str);
 }
 
 //----- (0046C140) --------------------------------------------------------

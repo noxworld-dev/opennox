@@ -4268,7 +4268,7 @@ int  nox_gui_windowCopyDrawData_46AF80(nox_window* win, const void* p) {
 		return -2;
 	if (!p)
 		return -3;
-	memcpy(win->field_9, p, 83 * 4);
+	memcpy(&win->draw_data, p, sizeof(nox_window_data));
 	return 0;
 }
 
@@ -5202,9 +5202,9 @@ int  nox_window_draw_recursive(nox_window* win) {
 		return 0;
 
 	if (win->draw_func)
-		win->draw_func(win, win->field_9);
+		win->draw_func(win, &win->draw_data);
 	if ((win->flags & 0x1000) == 0x1000)
-		sub_4AA030(win, win->field_9);
+		sub_4AA030(win, &win->draw_data);
 
 	for (nox_window* i = win->field_100; i; i = i->field_97)
 		nox_window_draw_recursive(i);
@@ -5249,7 +5249,7 @@ nox_window*  nox_window_new(nox_window* a1, int flags, int a3, int a4, int w, in
 	} else {
 		win->field_94 = nox_xxx_wndDefaultProc_46B2F0;
 	}
-	memset(win->field_9, 0, 332);
+	memset(&win->draw_data, 0, sizeof(nox_window_data));
 	win->field_92 = 0;
 	return win;
 }

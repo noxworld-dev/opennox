@@ -3628,7 +3628,7 @@ LABEL_12:
 }
 
 //----- (004A91A0) --------------------------------------------------------
-int  nox_gui_newButtonOrCheckbox_4A91A0(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7) {
+nox_window* nox_gui_newButtonOrCheckbox_4A91A0(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7) {
 	int v7;      // eax
 	_DWORD* v8;  // eax
 	int v9;      // esi
@@ -3711,7 +3711,7 @@ int  nox_xxx_wndCheckboxProcMB_4A92C0(int a1, int a2, wchar_t* a3, int a4) {
 }
 
 //----- (004A9330) --------------------------------------------------------
-int  nox_gui_newRadioButton_4A9330(int a1, int a2, int a3, int a4, int a5, int a6, int a7, _DWORD* a8) {
+nox_window* nox_gui_newRadioButton_4A9330(int a1, int a2, int a3, int a4, int a5, int a6, int a7, _DWORD* a8) {
 	_DWORD* v8;  // eax
 	int v9;      // esi
 	_DWORD* v10; // eax
@@ -10506,7 +10506,7 @@ int  nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4) {
 }
 
 //----- (004B4EE0) --------------------------------------------------------
-_DWORD*  nox_gui_newSlider_4B4EE0(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7, float* a8) {
+nox_window*  nox_gui_newSlider_4B4EE0(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7, float* a8) {
 	int v8;      // eax
 	int v9;      // ebp
 	_DWORD* v10; // edi

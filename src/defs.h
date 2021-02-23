@@ -513,6 +513,31 @@ typedef struct nox_net_struct2_t {
 _Static_assert(sizeof(nox_net_struct2_t) == 68, "wrong size of nox_net_struct2_t structure!");
 
 typedef struct nox_window nox_window;
+typedef struct nox_window_data {
+	_DWORD field_0; // 0
+	int group; // 1
+	int style; // 2
+	int status; // 3
+	nox_window* win; // 4
+	uint32_t bg_color;  // 5
+	void*    bg_image;  // 6
+	uint32_t en_color;  // 7
+	void*    en_image;  // 8
+	uint32_t hl_color;  // 9
+	void*    hl_image;  // 10
+	uint32_t dis_color; // 11
+	void*    dis_image; // 12
+	uint32_t sel_color; // 13
+	void*    sel_image; // 14
+	int img_px; // 15
+	int img_py; // 16
+	uint32_t text_color; // 17
+	wchar_t text[64]; // 18
+	_DWORD font; // 50
+	wchar_t tooltip[64]; // 51
+} nox_window_data;
+_Static_assert(sizeof(nox_window_data) == 332, "wrong size of nox_window_data structure!");
+
 typedef struct nox_window {
 	int id; // 0, 0
 	nox_window_flags flags; // 1, 4
@@ -523,7 +548,7 @@ typedef struct nox_window {
 	_DWORD field_6; // 6, 24
 	_DWORD field_7; // 7, 28
 	_DWORD field_8; // index in nox_windows_arr_1093036?
-	_DWORD field_9[83]; // wchar_t[???]
+	nox_window_data draw_data; // 9, 36
 	_DWORD field_92;                      // 92
 	int (*field_93)(int, int, int, int);  // 93
 	int (*field_94)(int, int, int, int);  // 94, 376
@@ -547,7 +572,7 @@ _Static_assert(sizeof(nox_window_yyy) == 20, "wrong size of nox_window_yyy struc
 
 typedef struct {
 	const char* name;
-	int (*fnc)(char*, char*);
+	int (*fnc)(nox_window_data*, char*);
 } nox_parseWindowFunc;
 _Static_assert(sizeof(nox_parseWindowFunc) == 8, "wrong size of nox_parseWindowFunc structure!");
 

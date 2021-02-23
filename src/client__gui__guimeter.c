@@ -73,10 +73,10 @@ int  sub_471160(int a1, int a2, int a3, int a4, int a5) {
 	nox_windows_arr_1093036[6].win = nox_window_new(a1, 1032, a2 - 17, a3 - 15, 15, 15, 0);
 	nox_window_set_all_funcs(nox_windows_arr_1093036[5].win, 0, sub_471250, 0);
 	v5 = nox_strman_loadString_40F1D0("ToolTipCharges", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 921);
-	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[5].win->field_9), v5);
+	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[5].win->draw_data), v5);
 	nox_window_set_all_funcs(nox_windows_arr_1093036[6].win, 0, sub_471450, 0);
 	v6 = nox_strman_loadString_40F1D0("ToolTipCharges", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 925);
-	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[6].win->field_9), v6);
+	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[6].win->draw_data), v6);
 	result = nox_windows_arr_1093036[5].win;
 	nox_windows_arr_1093036[5].win->field_8 = 5;
 	nox_windows_arr_1093036[6].win->field_8 = 6;
@@ -180,13 +180,13 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 		nox_windows_arr_1093036[1].win = nox_window_new((int)v8, 8, 60, 34, 25, 125, 0);
 		nox_window_set_all_funcs(nox_windows_arr_1093036[1].win, nox_xxx_guiHealthManaTubeProc_472100, nox_xxx_guiHealthManaTubeDraw_471D10, 0);
 		v10 = nox_strman_loadString_40F1D0("ToolTipMana", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1122);
-		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[1].win->field_9), v10);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[1].win->draw_data), v10);
 		nox_windows_arr_1093036[1].win->field_8 = 1;
 
 		nox_windows_arr_1093036[0].win = nox_window_new((int)v8, 8, 34, 34, 25, 125, 0);
 		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, nox_xxx_guiHealthManaTubeProc_472100, nox_xxx_guiHealthManaTubeDraw_471D10, 0);
 		v11 = nox_strman_loadString_40F1D0("ToolTipHealth", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1135);
-		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[0].win->field_9), v11);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[0].win->draw_data), v11);
 		nox_windows_arr_1093036[0].win->field_8 = 0;
 
 		nox_windows_arr_1093036[2].win = nox_window_new(0, 8, 0, 0, 0, 0, 0);
@@ -207,7 +207,7 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 		nox_windows_arr_1093036[0].win = nox_window_new((int)v12, 8, 34, 34, 25, 125, 0);
 		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, nox_xxx_guiHealthManaTubeProc_472100, nox_xxx_guiHealthManaTubeDraw_471D10, 0);
 		v14 = nox_strman_loadString_40F1D0("ToolTipHealth", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1173);
-		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[0].win->field_9), v14);
+		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(&nox_windows_arr_1093036[0].win->draw_data), v14);
 		nox_windows_arr_1093036[0].win->field_8 = 0;
 
 		nox_windows_arr_1093036[2].win = nox_window_new(0, 24, 0, 0, 0, 0, 0);
