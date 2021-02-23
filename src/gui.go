@@ -18,6 +18,31 @@ import (
 	"nox/common/memmap"
 )
 
+func asWindowData(data *C.nox_window_data) *WindowData {
+	return (*WindowData)(unsafe.Pointer(data))
+}
+
+type WindowData C.nox_window_data
+
+func (d *WindowData) C() *C.nox_window_data {
+	return (*C.nox_window_data)(unsafe.Pointer(d))
+}
+
+func (d *WindowData) SetText(s string) {
+	n := len(d.text)
+	CWStringCopyTo(&d.text[0], n, s)
+	d.text[n-1] = 0
+}
+
+func (d *WindowData) SetTooltip(s string) {
+	n := len(d.tooltip)
+	if len(s) > n {
+		s = strMan.GetStringInFile("TooltipTooLong", "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c")
+	}
+	CWStringCopyTo(&d.tooltip[0], n, s)
+	d.tooltip[n-1] = 0
+}
+
 func asWindow(win *C.nox_window) *Window {
 	return (*Window)(unsafe.Pointer(win))
 }
@@ -36,14 +61,18 @@ func (win *Window) SetID(id uint) int {
 	return 0
 }
 
-func (win *Window) CopyDrawData(p *C.nox_window_data) int {
+func (win *Window) DrawData() *WindowData {
+	return asWindowData(&win.draw_data)
+}
+
+func (win *Window) CopyDrawData(p *WindowData) int {
 	if win == nil {
 		return -2
 	}
 	if p == nil {
 		return -3
 	}
-	win.draw_data = *p
+	win.draw_data = *p.C()
 	return 0
 }
 
@@ -198,56 +227,56 @@ var guiWinStyles = []string{
 	"ENTRYFIELD", "MOUSETRACK", "ANIMATED", "TABSTOP", "STATICTEXT", "PROGRESSBAR",
 }
 
-type guiWindowParseFunc func(*C.nox_window_data, string) bool
+type guiWindowParseFunc func(*WindowData, string) bool
 
 var parseWindowFuncs = []struct {
 	name string
 	fnc  guiWindowParseFunc
 }{
-	{"STATUS", func(draw *C.nox_window_data, buf string) bool {
+	{"STATUS", func(draw *WindowData, buf string) bool {
 		draw.status = C.int(set_bitmask_flags_from_plus_separated_names_423930(buf, guiWinStatuses))
 		return true
 	}},
-	{"STYLE", func(draw *C.nox_window_data, buf string) bool {
+	{"STYLE", func(draw *WindowData, buf string) bool {
 		draw.style = C.int(set_bitmask_flags_from_plus_separated_names_423930(buf, guiWinStyles))
 		return true
 	}},
-	{"GROUP", func(draw *C.nox_window_data, buf string) bool {
+	{"GROUP", func(draw *WindowData, buf string) bool {
 		v, _ := gui.ParseNextIntField(buf)
 		draw.group = C.int(v)
 		return true
 	}},
-	{"BACKGROUNDCOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+	{"BACKGROUNDCOLOR", makeColorParseFunc(func(data *WindowData) *C.uint {
 		return &data.bg_color
 	})},
-	{"BACKGROUNDIMAGE", makeImageParseFunc(func(data *C.nox_window_data) *unsafe.Pointer {
+	{"BACKGROUNDIMAGE", makeImageParseFunc(func(data *WindowData) *unsafe.Pointer {
 		return &data.bg_image
 	})},
-	{"ENABLEDCOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+	{"ENABLEDCOLOR", makeColorParseFunc(func(data *WindowData) *C.uint {
 		return &data.en_color
 	})},
-	{"ENABLEDIMAGE", makeImageParseFunc(func(data *C.nox_window_data) *unsafe.Pointer {
+	{"ENABLEDIMAGE", makeImageParseFunc(func(data *WindowData) *unsafe.Pointer {
 		return &data.en_image
 	})},
-	{"DISABLEDCOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+	{"DISABLEDCOLOR", makeColorParseFunc(func(data *WindowData) *C.uint {
 		return &data.dis_color
 	})},
-	{"DISABLEDIMAGE", makeImageParseFunc(func(data *C.nox_window_data) *unsafe.Pointer {
+	{"DISABLEDIMAGE", makeImageParseFunc(func(data *WindowData) *unsafe.Pointer {
 		return &data.dis_image
 	})},
-	{"HILITECOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+	{"HILITECOLOR", makeColorParseFunc(func(data *WindowData) *C.uint {
 		return &data.hl_color
 	})},
-	{"HILITEIMAGE", makeImageParseFunc(func(data *C.nox_window_data) *unsafe.Pointer {
+	{"HILITEIMAGE", makeImageParseFunc(func(data *WindowData) *unsafe.Pointer {
 		return &data.hl_image
 	})},
-	{"SELECTEDCOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+	{"SELECTEDCOLOR", makeColorParseFunc(func(data *WindowData) *C.uint {
 		return &data.sel_color
 	})},
-	{"SELECTEDIMAGE", makeImageParseFunc(func(data *C.nox_window_data) *unsafe.Pointer {
+	{"SELECTEDIMAGE", makeImageParseFunc(func(data *WindowData) *unsafe.Pointer {
 		return &data.sel_image
 	})},
-	{"IMAGEOFFSET", func(draw *C.nox_window_data, buf string) bool {
+	{"IMAGEOFFSET", func(draw *WindowData, buf string) bool {
 		var px, py int
 		px, buf = gui.ParseNextIntField(buf)
 		py, buf = gui.ParseNextIntField(buf)
@@ -255,10 +284,10 @@ var parseWindowFuncs = []struct {
 		draw.img_py = C.int(py)
 		return true
 	}},
-	{"TEXTCOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+	{"TEXTCOLOR", makeColorParseFunc(func(data *WindowData) *C.uint {
 		return &data.text_color
 	})},
-	{"TEXT", func(draw *C.nox_window_data, buf string) bool {
+	{"TEXT", func(draw *WindowData, buf string) bool {
 		var str string
 		// TODO: this is a hack to replace 8-16bit switch with Window-FullScreen switch
 		//       we can probably do better than this and insert additional controls based
@@ -271,12 +300,10 @@ var parseWindowFuncs = []struct {
 		default:
 			str = strMan.GetStringInFile(buf, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
 		}
-		n := len(draw.text) - 1
-		CWStringCopyTo(&draw.text[0], n, str)
-		draw.text[n] = 0
+		draw.SetText(str)
 		return true
 	}},
-	{"FONT", func(draw *C.nox_window_data, buf string) bool {
+	{"FONT", func(draw *WindowData, buf string) bool {
 		fnt := nox_xxx_guiFontPtrByName_43F360(buf)
 		if fnt == 0 {
 			return false
@@ -284,9 +311,9 @@ var parseWindowFuncs = []struct {
 		draw.font = C.uint(fnt)
 		return true
 	}},
-	{"TOOLTIP", func(draw *C.nox_window_data, buf string) bool {
+	{"TOOLTIP", func(draw *WindowData, buf string) bool {
 		s := strMan.GetStringInFile(buf, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
-		nox_xxx_wndWddSetTooltip(draw, s)
+		draw.SetTooltip(s)
 		return true
 	}},
 }
@@ -295,7 +322,7 @@ func unsafePtrToInt(p unsafe.Pointer) C.int {
 	return C.int(uintptr(p))
 }
 
-func dataPtrToInt(p *C.nox_window_data) C.int {
+func dataPtrToInt(p *WindowData) C.int {
 	return C.int(uintptr(unsafe.Pointer(p)))
 }
 
@@ -317,8 +344,8 @@ func set_bitmask_flags_from_plus_separated_names_423930(str string, values []str
 	return out
 }
 
-func makeColorParseFunc(field func(*C.nox_window_data) *C.uint) guiWindowParseFunc {
-	return func(draw *C.nox_window_data, buf string) bool {
+func makeColorParseFunc(field func(*WindowData) *C.uint) guiWindowParseFunc {
+	return func(draw *WindowData, buf string) bool {
 		cl, _ := guiParseColorTransp(buf)
 		out := field(draw)
 		*out = C.uint(cl)
@@ -326,8 +353,8 @@ func makeColorParseFunc(field func(*C.nox_window_data) *C.uint) guiWindowParseFu
 	}
 }
 
-func makeImageParseFunc(field func(*C.nox_window_data) *unsafe.Pointer) guiWindowParseFunc {
-	return func(draw *C.nox_window_data, buf string) bool {
+func makeImageParseFunc(field func(*WindowData) *unsafe.Pointer) guiWindowParseFunc {
+	return func(draw *WindowData, buf string) bool {
 		s, _ := gui.ParseNextField(buf)
 		out := field(draw)
 		if s == "NULL" {
@@ -343,28 +370,18 @@ func makeImageParseFunc(field func(*C.nox_window_data) *unsafe.Pointer) guiWindo
 
 //export nox_xxx_wndWddSetTooltip_46B000
 func nox_xxx_wndWddSetTooltip_46B000(draw *C.nox_window_data, str *C.wchar_t) {
+	d := asWindowData(draw)
 	if str == nil {
-		draw.tooltip[0] = 0
+		d.SetTooltip("")
 		return
 	}
-	nox_xxx_wndWddSetTooltip(draw, GoWString(str))
-}
-
-func nox_xxx_wndWddSetTooltip(draw *C.nox_window_data, s string) {
-	if s == "" {
-		draw.tooltip[0] = 0
-		return
-	}
-	if len(s) >= len(draw.tooltip) {
-		s = strMan.GetStringInFile("TooltipTooLong", "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c")
-	}
-	CWStringCopyTo(&draw.tooltip[0], len(draw.tooltip), s)
+	d.SetTooltip(GoWString(str))
 }
 
 func guiParseWindowRoot(f *C.FILE, fnc unsafe.Pointer) *Window {
-	drawDataP := alloc.Calloc(1, unsafe.Sizeof(C.nox_window_data{}))
+	drawDataP := alloc.Calloc(1, unsafe.Sizeof(WindowData{}))
 	defer alloc.Free(drawDataP)
-	draw := (*C.nox_window_data)(drawDataP)
+	draw := (*WindowData)(drawDataP)
 
 	draw.field_0 = 0
 	draw.en_color = C.uint(memmap.Uint32(0x5D4594, 1307264))
@@ -581,7 +598,7 @@ func guiParseDataField(typ string, buf string) (unsafe.Pointer, bool) {
 	return nil, true
 }
 
-func guiParseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, drawData *C.nox_window_data, data unsafe.Pointer, fnc unsafe.Pointer) *Window {
+func guiParseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, drawData *WindowData, data unsafe.Pointer, fnc unsafe.Pointer) *Window {
 	parent := guiWinParentsTop()
 	var win *Window
 	if typ == "USER" {
@@ -598,10 +615,10 @@ func guiParseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, d
 	return win
 }
 
-func guiParseWidget(typ string, parent *Window, status int, px, py, w, h int, draw *C.nox_window_data, data unsafe.Pointer) *Window {
+func guiParseWidget(typ string, parent *Window, status int, px, py, w, h int, draw *WindowData, data unsafe.Pointer) *Window {
 	draw.win = parent.C()
 	iparent := unsafePtrToInt(unsafe.Pointer(parent.C()))
-	udraw := unsafe.Pointer(draw)
+	udraw := unsafe.Pointer(draw.C())
 	switch typ {
 	case "PUSHBUTTON":
 		draw.style |= 0x1

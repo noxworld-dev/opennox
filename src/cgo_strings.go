@@ -125,7 +125,11 @@ func CWString(s string) *C.wchar_t {
 
 func CWStringCopyTo(dst *C.wchar_t, dstSz int, src string) {
 	str := asU16Slice(unsafe.Pointer(dst), dstSz)
-	n := copy(str, utf16.Encode([]rune(src)))
+	if len(src) == 0 {
+		str[0] = 0
+		return
+	}
+	n := copy(str[:len(str)-1], utf16.Encode([]rune(src)))
 	str[n] = 0
 }
 
