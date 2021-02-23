@@ -76,6 +76,20 @@ func (win *Window) CopyDrawData(p *WindowData) int {
 	return 0
 }
 
+func (win *Window) Func93(ev int, a1, a2 int) int {
+	if win == nil {
+		return 0
+	}
+	return int(C.nox_window_call_field_93(win.C(), C.int(ev), C.int(a1), C.int(a2)))
+}
+
+func (win *Window) Func94(ev int, a1, a2 int) int {
+	if win == nil {
+		return 0
+	}
+	return int(C.nox_window_call_field_94(win.C(), C.int(ev), C.int(a1), C.int(a2)))
+}
+
 var noxWinParents []*Window
 
 func guiWinParentsReset() {
@@ -610,7 +624,7 @@ func guiParseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, d
 	}
 	win.SetID(id)
 	if parent != nil {
-		C.nox_window_call_field_94(parent.C(), 22, C.int(id), 0)
+		parent.Func94(22, int(id), 0)
 	}
 	return win
 }
