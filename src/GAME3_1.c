@@ -9379,7 +9379,7 @@ int  sub_4CAED0(int a1) {
 }
 
 //----- (004CAF10) --------------------------------------------------------
-_DWORD*  nox_gui_newProgressBar_4CAF10(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7) {
+nox_window*  nox_gui_newProgressBar_4CAF10(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7) {
 	int v7;     // eax
 	_DWORD* v8; // esi
 

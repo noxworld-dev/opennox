@@ -7682,7 +7682,7 @@ int  nox_xxx_quickBarWnd_45EF50(int a1, int a2, unsigned int a3) {
 // 45F261: variable 'v13' is possibly undefined
 
 //----- (0045F300) --------------------------------------------------------
-wchar_t*  nox_xxx_clientSwapQuickbarKeys_45F300(int a1, int a2, int a3) {
+void nox_xxx_clientSwapQuickbarKeys_45F300(int a1, int a2, int a3) {
 	int v3;      // eax
 	int v4;      // ecx
 	int v5;      // edx
@@ -7701,11 +7701,11 @@ wchar_t*  nox_xxx_clientSwapQuickbarKeys_45F300(int a1, int a2, int a3) {
 	v7 = (wchar_t*)nox_xxx_spellLoadName_424930(*(_DWORD*)(*(_DWORD*)(a1 + 204) + 8 * a2));
 	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(*(_DWORD*)(a1 + 4 * a2 + 212) + 36), v7);
 	v8 = (wchar_t*)nox_xxx_spellLoadName_424930(*(_DWORD*)(8 * a3 + *(_DWORD*)(a1 + 204)));
-	return nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(*(_DWORD*)(a1 + 4 * a3 + 212) + 36), v8);
+	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(*(_DWORD*)(a1 + 4 * a3 + 212) + 36), v8);
 }
 
 //----- (0045F390) --------------------------------------------------------
-wchar_t*  sub_45F390(int a1, int a2, int a3, int a4) {
+void sub_45F390(int a1, int a2, int a3, int a4) {
 	int v4;      // edi
 	int v5;      // ebx
 	wchar_t* v6; // eax
@@ -7717,7 +7717,7 @@ wchar_t*  sub_45F390(int a1, int a2, int a3, int a4) {
 	*(_DWORD*)(a1 + 8 * a3) = v4;
 	*(_DWORD*)(a1 + 8 * a3 + 4) = v5;
 	v6 = (wchar_t*)nox_xxx_spellLoadName_424930(*(_DWORD*)(a2 + 8 * a4));
-	return nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(*(_DWORD*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 4 * a4 + 212) + 36), v6);
+	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(*(_DWORD*)((_DWORD)nox_xxx_aClosewoodengat_587000_133480 + 4 * a4 + 212) + 36), v6);
 }
 
 //----- (0045F450) --------------------------------------------------------

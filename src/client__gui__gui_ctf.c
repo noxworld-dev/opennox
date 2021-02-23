@@ -35,7 +35,7 @@ int sub_455C30() {
 }
 
 //----- (00455D80) --------------------------------------------------------
-wchar_t*  sub_455D80(unsigned __int8 a1, char a2) {
+void  sub_455D80(unsigned __int8 a1, char a2) {
 	wchar_t* result; // eax
 	wchar_t* v3;     // esi
 	wchar_t* v4;     // eax
@@ -51,7 +51,7 @@ wchar_t*  sub_455D80(unsigned __int8 a1, char a2) {
 											   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 234);
 				} else {
 					if (a2 != 2)
-						return result;
+						return;
 					v4 = nox_strman_loadString_40F1D0("FlagAwayTT", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 238);
 				}
@@ -65,14 +65,13 @@ wchar_t*  sub_455D80(unsigned __int8 a1, char a2) {
 										   252);
 			} else {
 				if (a2 != 2)
-					return result;
+					return;
 				v4 = nox_strman_loadString_40F1D0("FlagAwayTT", 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
 										   256);
 			}
 		} else {
 			v4 = nox_strman_loadString_40F1D0("FlagHomeTT", 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 260);
 		}
-		result = nox_xxx_wndWddSetTooltip_46B000(v3 + 18, v4);
+		nox_xxx_wndWddSetTooltip_46B000(v3 + 18, v4);
 	}
-	return result;
 }
