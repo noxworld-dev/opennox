@@ -172,10 +172,14 @@ func guiParseColorTo(f *C.FILE) (uint, bool) {
 	if err != nil {
 		return 0, false
 	}
-	if tok == "TRANSPARENT" {
+	return guiParseColorTransp(tok)
+}
+
+func guiParseColorTransp(str string) (uint, bool) {
+	if str == "TRANSPARENT" {
 		return 0x80000000, true
 	}
-	r, g, b := gui.ParseColor(tok)
+	r, g, b := gui.ParseColor(str)
 	cl := nox_color_rgb_4344A0(r, g, b)
 	return cl, true
 }
@@ -184,28 +188,107 @@ func nox_color_rgb_4344A0(r, g, b int) uint {
 	return uint(C.nox_color_rgb_4344A0(C.int(r), C.int(g), C.int(b)))
 }
 
+var guiWinStatuses = []string{
+	"ACTIVE", "TOGGLE", "DRAGABLE", "ENABLED", "HIDDEN", "ABOVE", "BELOW", "IMAGE",
+	"TABSTOP", "NOINPUT", "NOFOCUS", "DESTROYED", "BORDER", "SMOOTH_TEXT", "ONE_LINE", "NO_FLUSH",
+}
+
+var guiWinStyles = []string{
+	"PUSHBUTTON", "RADIOBUTTON", "CHECKBOX", "VERTSLIDER", "HORZSLIDER", "SCROLLLISTBOX", "FADELISTBOX",
+	"ENTRYFIELD", "MOUSETRACK", "ANIMATED", "TABSTOP", "STATICTEXT", "PROGRESSBAR",
+}
+
+type guiWindowParseFunc func(*C.nox_window_data, string) bool
+
 var parseWindowFuncs = []struct {
 	name string
-	fnc  func(*C.nox_window_data, *C.char) C.int
+	fnc  guiWindowParseFunc
 }{
-	{"STATUS", nox_gui_parseWindowStatus_4A0A00},
-	{"STYLE", nox_gui_parseWindowStyle_4A0A30},
-	{"GROUP", nox_gui_parseWindowGroup_4A0A60},
-	{"BACKGROUNDCOLOR", nox_gui_parseWindowBgColor_4A0650},
-	{"BACKGROUNDIMAGE", nox_gui_parseWindowBgImage_4A0870},
-	{"ENABLEDCOLOR", nox_gui_parseWindowEnColor_4A0690},
-	{"ENABLEDIMAGE", nox_gui_parseWindowEnImage_4A08C0},
-	{"DISABLEDCOLOR", nox_gui_parseWindowDisColor_4A06D0},
-	{"DISABLEDIMAGE", nox_gui_parseWindowDisImage_4A0910},
-	{"HILITECOLOR", nox_gui_parseWindowHlColor_4A0710},
-	{"HILITEIMAGE", nox_gui_parseWindowHlImage_4A09B0},
-	{"SELECTEDCOLOR", nox_gui_parseWindowSelColor_4A0750},
-	{"SELECTEDIMAGE", nox_gui_parseWindowSelImage_4A0960},
-	{"IMAGEOFFSET", nox_gui_parseWindowImgOffs_4A0830},
-	{"TEXTCOLOR", nox_gui_parseWindowTextColor_4A0790},
-	{"TEXT", nox_gui_parseWindowText_4A0A90},
-	{"FONT", nox_gui_parseWindowFont_4A07D0},
-	{"TOOLTIP", nox_gui_parseWindowTooltip_4A0800},
+	{"STATUS", func(draw *C.nox_window_data, buf string) bool {
+		draw.status = C.int(set_bitmask_flags_from_plus_separated_names_423930(buf, guiWinStatuses))
+		return true
+	}},
+	{"STYLE", func(draw *C.nox_window_data, buf string) bool {
+		draw.style = C.int(set_bitmask_flags_from_plus_separated_names_423930(buf, guiWinStyles))
+		return true
+	}},
+	{"GROUP", func(draw *C.nox_window_data, buf string) bool {
+		v, _ := gui.ParseNextIntField(buf)
+		draw.group = C.int(v)
+		return true
+	}},
+	{"BACKGROUNDCOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+		return &data.bg_color
+	})},
+	{"BACKGROUNDIMAGE", makeImageParseFunc(func(data *C.nox_window_data) *unsafe.Pointer {
+		return &data.bg_image
+	})},
+	{"ENABLEDCOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+		return &data.en_color
+	})},
+	{"ENABLEDIMAGE", makeImageParseFunc(func(data *C.nox_window_data) *unsafe.Pointer {
+		return &data.en_image
+	})},
+	{"DISABLEDCOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+		return &data.dis_color
+	})},
+	{"DISABLEDIMAGE", makeImageParseFunc(func(data *C.nox_window_data) *unsafe.Pointer {
+		return &data.dis_image
+	})},
+	{"HILITECOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+		return &data.hl_color
+	})},
+	{"HILITEIMAGE", makeImageParseFunc(func(data *C.nox_window_data) *unsafe.Pointer {
+		return &data.hl_image
+	})},
+	{"SELECTEDCOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+		return &data.sel_color
+	})},
+	{"SELECTEDIMAGE", makeImageParseFunc(func(data *C.nox_window_data) *unsafe.Pointer {
+		return &data.sel_image
+	})},
+	{"IMAGEOFFSET", func(draw *C.nox_window_data, buf string) bool {
+		var px, py int
+		px, buf = gui.ParseNextIntField(buf)
+		py, buf = gui.ParseNextIntField(buf)
+		draw.img_px = C.int(px)
+		draw.img_py = C.int(py)
+		return true
+	}},
+	{"TEXTCOLOR", makeColorParseFunc(func(data *C.nox_window_data) *C.uint {
+		return &data.text_color
+	})},
+	{"TEXT", func(draw *C.nox_window_data, buf string) bool {
+		var str string
+		// TODO: this is a hack to replace 8-16bit switch with Window-FullScreen switch
+		//       we can probably do better than this and insert additional controls based
+		//       on the window identifier later
+		switch buf {
+		case "Options.wnd:8BitColor":
+			str = "\tWindowed"
+		case "Options.wnd:16BitColor":
+			str = "\tFullscreen"
+		default:
+			str = strMan.GetStringInFile(buf, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
+		}
+		n := len(draw.text) - 1
+		CWStringCopyTo(&draw.text[0], n, str)
+		draw.text[n] = 0
+		return true
+	}},
+	{"FONT", func(draw *C.nox_window_data, buf string) bool {
+		fnt := nox_xxx_guiFontPtrByName_43F360(buf)
+		if fnt == 0 {
+			return false
+		}
+		draw.font = C.uint(fnt)
+		return true
+	}},
+	{"TOOLTIP", func(draw *C.nox_window_data, buf string) bool {
+		s := strMan.GetStringInFile(buf, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
+		nox_xxx_wndWddSetTooltip(draw, s)
+		return true
+	}},
 }
 
 func unsafePtrToInt(p unsafe.Pointer) C.int {
@@ -216,59 +299,66 @@ func dataPtrToInt(p *C.nox_window_data) C.int {
 	return C.int(uintptr(unsafe.Pointer(p)))
 }
 
-func nox_gui_parseWindowStatus_4A0A00(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowStatus_4A0A00(draw, buf)
+func set_bitmask_flags_from_plus_separated_names_423930(str string, values []string) int {
+	str = strings.TrimSpace(str)
+	if str == "NULL" {
+		return 0
+	}
+	out := 0
+	for _, v := range strings.Split(str, "+") {
+		v = strings.TrimSpace(v)
+		for j, v2 := range values {
+			if v == v2 {
+				out |= 1 << j
+				break
+			}
+		}
+	}
+	return out
 }
-func nox_gui_parseWindowStyle_4A0A30(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowStyle_4A0A30(draw, buf)
+
+func makeColorParseFunc(field func(*C.nox_window_data) *C.uint) guiWindowParseFunc {
+	return func(draw *C.nox_window_data, buf string) bool {
+		cl, _ := guiParseColorTransp(buf)
+		out := field(draw)
+		*out = C.uint(cl)
+		return true
+	}
 }
-func nox_gui_parseWindowGroup_4A0A60(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowGroup_4A0A60(draw, buf)
+
+func makeImageParseFunc(field func(*C.nox_window_data) *unsafe.Pointer) guiWindowParseFunc {
+	return func(draw *C.nox_window_data, buf string) bool {
+		s, _ := gui.ParseNextField(buf)
+		out := field(draw)
+		if s == "NULL" {
+			*out = nil
+		} else {
+			cstr := C.CString(s)
+			defer StrFree(cstr)
+			*out = unsafe.Pointer(C.nox_xxx_gLoadImg_42F970(cstr))
+		}
+		return true
+	}
 }
-func nox_gui_parseWindowBgColor_4A0650(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowBgColor_4A0650(draw, buf)
+
+//export nox_xxx_wndWddSetTooltip_46B000
+func nox_xxx_wndWddSetTooltip_46B000(draw *C.nox_window_data, str *C.wchar_t) {
+	if str == nil {
+		draw.tooltip[0] = 0
+		return
+	}
+	nox_xxx_wndWddSetTooltip(draw, GoWString(str))
 }
-func nox_gui_parseWindowBgImage_4A0870(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowBgImage_4A0870(draw, buf)
-}
-func nox_gui_parseWindowEnColor_4A0690(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowEnColor_4A0690(draw, buf)
-}
-func nox_gui_parseWindowEnImage_4A08C0(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowEnImage_4A08C0(draw, buf)
-}
-func nox_gui_parseWindowDisColor_4A06D0(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowDisColor_4A06D0(draw, buf)
-}
-func nox_gui_parseWindowDisImage_4A0910(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowDisImage_4A0910(draw, buf)
-}
-func nox_gui_parseWindowHlColor_4A0710(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowHlColor_4A0710(draw, buf)
-}
-func nox_gui_parseWindowHlImage_4A09B0(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowHlImage_4A09B0(draw, buf)
-}
-func nox_gui_parseWindowSelColor_4A0750(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowSelColor_4A0750(draw, buf)
-}
-func nox_gui_parseWindowSelImage_4A0960(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowSelImage_4A0960(draw, buf)
-}
-func nox_gui_parseWindowImgOffs_4A0830(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowImgOffs_4A0830(draw, buf)
-}
-func nox_gui_parseWindowTextColor_4A0790(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowTextColor_4A0790(draw, buf)
-}
-func nox_gui_parseWindowText_4A0A90(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowText_4A0A90(draw, buf)
-}
-func nox_gui_parseWindowFont_4A07D0(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowFont_4A07D0(draw, buf)
-}
-func nox_gui_parseWindowTooltip_4A0800(draw *C.nox_window_data, buf *C.char) C.int {
-	return C.nox_gui_parseWindowTooltip_4A0800(draw, buf)
+
+func nox_xxx_wndWddSetTooltip(draw *C.nox_window_data, s string) {
+	if s == "" {
+		draw.tooltip[0] = 0
+		return
+	}
+	if len(s) >= len(draw.tooltip) {
+		s = strMan.GetStringInFile("TooltipTooLong", "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c")
+	}
+	CWStringCopyTo(&draw.tooltip[0], len(draw.tooltip), s)
 }
 
 func guiParseWindowRoot(f *C.FILE, fnc unsafe.Pointer) *Window {
@@ -321,10 +411,7 @@ func guiParseWindowRoot(f *C.FILE, fnc unsafe.Pointer) *Window {
 			if field == pfnc.name {
 				fscanf(f, "%*s") // skip '='
 				sdata, _ := gui.ReadNextToken(fi)
-				cdata := C.CString(sdata)
-				ok := pfnc.fnc(draw, cdata) != 0
-				StrFree(cdata)
-				if !ok {
+				if !pfnc.fnc(draw, sdata) {
 					return nil
 				}
 				found = true
