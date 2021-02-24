@@ -32,19 +32,25 @@ func (f cfileReader) ReadByte() (byte, error) {
 	return byte(c), nil
 }
 
+func resolveGamePath(path string) string {
+	cpath := C.CString(path)
+	defer StrFree(cpath)
+	if p := C.dos_to_unix(cpath); p != cpath {
+		defer StrFree(p)
+		return C.GoString(p)
+	}
+	return path
+}
+
 func fopen(path, mode string) *C.FILE {
+	path = resolveGamePath(path)
 	cpath := C.CString(path)
 	cmode := C.CString(mode)
 	defer func() {
 		StrFree(cpath)
 		StrFree(cmode)
 	}()
-	apath := cpath
-	if p := C.dos_to_unix(cpath); p != cpath {
-		defer StrFree(p)
-		apath = p
-	}
-	return C.fopen(apath, cmode)
+	return C.fopen(cpath, cmode)
 }
 
 func fscanf(f *C.FILE, format string, args ...interface{}) int {

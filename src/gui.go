@@ -9,7 +9,11 @@ extern unsigned int dword_5d4594_815132;
 */
 import "C"
 import (
+	"bufio"
+	"fmt"
 	"io"
+	"log"
+	"os"
 	"strconv"
 	"strings"
 	"unsafe"
@@ -99,21 +103,23 @@ func nox_new_window_from_file(name *C.char, fnc unsafe.Pointer) *C.nox_window {
 
 func newWindowFromFile(name string, fnc unsafe.Pointer) *Window {
 	path := strings.Join([]string{"window", name}, "\\")
+	path = resolveGamePath(path)
 
-	f := fopen(path, "r")
-	if f == nil {
+	f, err := os.Open(path)
+	if err != nil {
+		log.Printf("cannot load gui file %q: %v", path, err)
 		return nil
 	}
-	defer C.fclose(f)
+	defer f.Close()
 
 	return newGUIParser(strMan, f).ParseRoot(fnc)
 }
 
-func newGUIParser(sm *strman.StringManager, f *C.FILE) *guiParser {
+func newGUIParser(sm *strman.StringManager, r io.Reader) *guiParser {
+	br := bufio.NewReader(r)
 	p := &guiParser{
 		sm: sm,
-		cf: f,
-		fi: newCFile(f),
+		br: br,
 	}
 	p.resetDefaults()
 	return p
@@ -121,8 +127,7 @@ func newGUIParser(sm *strman.StringManager, f *C.FILE) *guiParser {
 
 type guiParser struct {
 	sm       *strman.StringManager
-	cf       *C.FILE
-	fi       io.ByteReader
+	br       *bufio.Reader
 	parents  []*Window
 	defaults struct {
 		font      uintptr
@@ -201,8 +206,8 @@ func (p *guiParser) ParseRoot(fnc unsafe.Pointer) *Window {
 }
 
 func (p *guiParser) parseFontField() (uintptr, bool) {
-	fscanf(p.cf, "%*s") // skip '='
-	tok, _ := gui.ReadNextToken(p.fi)
+	p.skipToken() // skip '='
+	tok, _ := p.nextToken()
 	fnt := nox_xxx_guiFontPtrByName_43F360(tok)
 	return fnt, fnt != 0
 }
@@ -221,17 +226,18 @@ func nox_gui_parseColor_4A0570(out *C.uint, buf *C.char) C.int {
 }
 
 func (p *guiParser) skipToken() {
-	fscanf(p.cf, "%*s")
+	var s string
+	fmt.Fscan(p.br, &s)
 }
 
 func (p *guiParser) nextWord() string {
 	var v string
-	fscanf(p.cf, "%s", &v)
+	fmt.Fscan(p.br, &v)
 	return v
 }
 
 func (p *guiParser) nextToken() (string, error) {
-	return gui.ReadNextToken(p.fi)
+	return gui.ReadNextToken(p.br)
 }
 
 func (p *guiParser) parseColorField() (uint, bool) {
