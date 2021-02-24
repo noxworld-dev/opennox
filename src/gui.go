@@ -138,6 +138,13 @@ type guiParser struct {
 		selColor  uint
 		textColor uint
 	}
+	widgets struct {
+		radioButton *radioButtonData
+		slider      *sliderData
+		scrollBox   *scrollListBoxData
+		entryField  *entryFieldData
+		staticText  *staticTextData
+	}
 }
 
 func (p *guiParser) parentsTop() *Window {
@@ -462,7 +469,7 @@ func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
 	typ, tok = gui.ParseNextField(tok)
 
 	var win *Window
-	var data unsafe.Pointer
+	var data guiWidgetData
 	for {
 		field := p.nextWord()
 		// hooks for different custom fields
@@ -543,89 +550,110 @@ func (p *guiParser) parseWinFields(win *Window) bool {
 	return p.parentsPop() == win
 }
 
-func (p *guiParser) parseDataField(typ string, buf string) (unsafe.Pointer, bool) {
+func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool) {
 	var (
 		s string
 		v uint
 	)
 	switch typ {
 	case "VERTSLIDER", "HORZSLIDER":
-		*memmap.PtrUint32(0x5D4594, 1305820) = 0
-		*memmap.PtrUint32(0x5D4594, 1305824) = 0
-		*memmap.PtrUint32(0x5D4594, 1305828) = 0
-		*memmap.PtrUint32(0x5D4594, 1305832) = 0
+		if p.widgets.slider == nil {
+			p.widgets.slider = (*sliderData)(alloc.Calloc(1, unsafe.Sizeof(sliderData{})))
+		}
+		d := p.widgets.slider
+		*d = sliderData{}
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint32(0x5D4594, 1305820) = uint32(v)
+		d.field_0 = C.uint(v)
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint32(0x5D4594, 1305824) = uint32(v)
-		return memmap.PtrOff(0x5D4594, 1305820), true
+		d.field_1 = C.uint(v)
+		d.field_2 = 0
+		d.field_3 = 0
+		return d, true
 	case "SCROLLLISTBOX":
-		alloc.Memset(memmap.PtrOff(0x5D4594, 1306892), 0, 0x38)
+		if p.widgets.scrollBox == nil {
+			p.widgets.scrollBox = (*scrollListBoxData)(alloc.Calloc(1, unsafe.Sizeof(scrollListBoxData{})))
+		}
+		d := p.widgets.scrollBox
+		*d = scrollListBoxData{}
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint16(0x5D4594, 1306892) = uint16(v)
+		d.field_0_0 = C.ushort(v)
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint16(0x5D4594, 1306892+2) = uint16(v)
+		d.field_0_1 = C.ushort(v)
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint32(0x5D4594, 1306892+4) = uint32(v)
+		d.field_1 = C.uint(v)
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint32(0x5D4594, 1306892+8) = uint32(v)
+		d.field_2 = C.uint(v)
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint32(0x5D4594, 1306892+12) = uint32(v)
+		d.field_3 = C.uint(v)
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint32(0x5D4594, 1306892+16) = uint32(v)
+		d.field_4 = C.uint(v)
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint32(0x5D4594, 1306892+20) = uint32(v)
-		return memmap.PtrOff(0x5D4594, 1306892), true
+		d.field_5 = C.uint(v)
+		return d, true
 	case "ENTRYFIELD":
-		alloc.Memset(memmap.PtrOff(0x5D4594, 1305836), 0, 0x420)
+		if p.widgets.entryField == nil {
+			p.widgets.entryField = (*entryFieldData)(alloc.Calloc(1, unsafe.Sizeof(entryFieldData{})))
+		}
+		d := p.widgets.entryField
+		*d = entryFieldData{}
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint16(0x5D4594, 1305836+1040) = uint16(v)
+		d.field_1040 = C.ushort(v)
 		s, buf = gui.ParseNextField(buf)
 		if s != "" {
 			v, _ := strconv.Atoi(s)
-			*memmap.PtrUint16(0x5D4594, 1305836+1042) = uint16(v)
+			d.field_1042 = C.short(v)
 		} else {
-			*memmap.PtrInt16(0x5D4594, 1305836+1042) = -1
+			d.field_1042 = -1
 		}
 		s, buf = gui.ParseNextField(buf)
 		if s != "" {
 			v, _ := strconv.Atoi(s)
-			*memmap.PtrUint32(0x5D4594, 1305836+1024) = uint32(bool2int(v != 0))
+			d.field_1024 = C.uint(bool2int(v != 0))
 		} else {
-			*memmap.PtrUint32(0x5D4594, 1305836+1024) = 0
+			d.field_1024 = 0
 		}
 		s, buf = gui.ParseNextField(buf)
 		if s != "" {
 			v, _ := strconv.Atoi(s)
-			*memmap.PtrUint32(0x5D4594, 1305836+1028) = uint32(bool2int(v == 1))
-			*memmap.PtrUint32(0x5D4594, 1305836+1032) = uint32(bool2int(v == 2))
-			*memmap.PtrUint32(0x5D4594, 1305836+1036) = uint32(bool2int(v == 3))
+			d.field_1028 = C.uint(bool2int(v == 1))
+			d.field_1032 = C.uint(bool2int(v == 2))
+			d.field_1036 = C.uint(bool2int(v == 3))
 		} else {
-			*memmap.PtrUint32(0x5D4594, 1305836+1028) = 0
-			*memmap.PtrUint32(0x5D4594, 1305836+1032) = 0
-			*memmap.PtrUint32(0x5D4594, 1305836+1036) = 0
+			d.field_1028 = 0
+			d.field_1032 = 0
+			d.field_1036 = 0
 		}
-		return memmap.PtrOff(0x5D4594, 1305836), true
+		return d, true
 	case "STATICTEXT":
+		if p.widgets.staticText == nil {
+			p.widgets.staticText = (*staticTextData)(alloc.Calloc(1, unsafe.Sizeof(staticTextData{})))
+		}
+		d := p.widgets.staticText
+		*d = staticTextData{}
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint32(0x5D4594, 1307256) = uint32(bool2int(v != 0))
+		d.field_1 = C.uint(bool2int(v != 0))
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint32(0x5D4594, 1307260) = uint32(bool2int(v != 0))
+		d.field_2 = C.uint(bool2int(v != 0))
 		s, buf = gui.ParseNextField(buf)
 		text := p.sm.GetStringInFile(s, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
-		*memmap.PtrPtr(0x5D4594, 1307252) = unsafe.Pointer(internWStr(text))
-		return memmap.PtrOff(0x5D4594, 1307252), true
+		d.text = internWStr(text)
+		return d, true
 	case "RADIOBUTTON":
+		if p.widgets.radioButton == nil {
+			p.widgets.radioButton = (*radioButtonData)(alloc.Calloc(1, unsafe.Sizeof(radioButtonData{})))
+		}
+		d := p.widgets.radioButton
+		*d = radioButtonData{}
 		v, buf = gui.ParseNextUintField(buf)
-		*memmap.PtrUint32(0x5D4594, 1305812) = uint32(v)
+		d.field_0 = C.uint(v)
 		// TODO: is this correct?
-		*memmap.PtrUint32(0x5D4594, 1307256) = uint32(bool2int(memmap.Uint32(0x5D4594, 1307256) != 0))
-		return memmap.PtrOff(0x5D4594, 1305812), true
+		p.widgets.staticText.field_1 = C.uint(bool2int(p.widgets.staticText.field_1 != 0))
+		return d, true
 	}
 	return nil, true
 }
 
-func (p *guiParser) parseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, drawData *WindowData, data unsafe.Pointer, fnc unsafe.Pointer) *Window {
+func (p *guiParser) parseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, drawData *WindowData, data guiWidgetData, fnc unsafe.Pointer) *Window {
 	parent := p.parentsTop()
 	var win *Window
 	if typ == "USER" {
@@ -642,7 +670,49 @@ func (p *guiParser) parseWindowOrWidget(typ string, id uint, status int, px, py,
 	return win
 }
 
-func guiNewWidget(typ string, parent *Window, status int, px, py, w, h int, draw *WindowData, data unsafe.Pointer) *Window {
+type guiWidgetData interface {
+	cWidgetData() unsafe.Pointer
+}
+
+type rawWidgetData struct {
+	Ptr unsafe.Pointer
+}
+
+func (d rawWidgetData) cWidgetData() unsafe.Pointer {
+	return unsafe.Pointer(d.Ptr)
+}
+
+type radioButtonData C.nox_radioButton_data
+
+func (d *radioButtonData) cWidgetData() unsafe.Pointer {
+	return unsafe.Pointer(d)
+}
+
+type sliderData C.nox_slider_data
+
+func (d *sliderData) cWidgetData() unsafe.Pointer {
+	return unsafe.Pointer(d)
+}
+
+type scrollListBoxData C.nox_scrollListBox_data
+
+func (d *scrollListBoxData) cWidgetData() unsafe.Pointer {
+	return unsafe.Pointer(d)
+}
+
+type entryFieldData C.nox_entryField_data
+
+func (d *entryFieldData) cWidgetData() unsafe.Pointer {
+	return unsafe.Pointer(d)
+}
+
+type staticTextData C.nox_staticText_data
+
+func (d *staticTextData) cWidgetData() unsafe.Pointer {
+	return unsafe.Pointer(d)
+}
+
+func guiNewWidget(typ string, parent *Window, status int, px, py, w, h int, draw *WindowData, data guiWidgetData) *Window {
 	draw.win = parent.C()
 	iparent := unsafePtrToInt(unsafe.Pointer(parent.C()))
 	udraw := unsafe.Pointer(draw.C())
@@ -651,26 +721,32 @@ func guiNewWidget(typ string, parent *Window, status int, px, py, w, h int, draw
 		draw.style |= stylePushButton
 		return newButtonOrCheckbox(parent, status, px, py, w, h, draw)
 	case "RADIOBUTTON":
+		tdata, _ := data.(*radioButtonData)
 		draw.style |= styleRadioButton
-		return asWindow(C.nox_gui_newRadioButton_4A9330(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.uint)(data)))
+		return newRadioButton(parent, status, px, py, w, h, draw, tdata)
 	case "CHECKBOX":
 		draw.style |= styleCheckBox
 		return newButtonOrCheckbox(parent, status, px, py, w, h, draw)
 	case "VERTSLIDER":
+		tdata, _ := data.(*sliderData)
 		draw.style |= styleVertSlider
-		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(data)))
+		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(unsafe.Pointer(tdata))))
 	case "HORZSLIDER":
+		tdata, _ := data.(*sliderData)
 		draw.style |= styleHorizSlider
-		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(data)))
+		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(unsafe.Pointer(tdata))))
 	case "SCROLLLISTBOX":
+		tdata, _ := data.(*scrollListBoxData)
 		draw.style |= styleScrollListBox
-		return asWindow(C.nox_gui_newScrollListBox_4A4310(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.short)(data)))
+		return asWindow(C.nox_gui_newScrollListBox_4A4310(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.short)(unsafe.Pointer(tdata))))
 	case "ENTRYFIELD":
+		tdata, _ := data.(*entryFieldData)
 		draw.style |= styleEntryField
-		return asWindow(C.nox_gui_newEntryField_488500(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.ushort)(data)))
+		return asWindow(C.nox_gui_newEntryField_488500(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.ushort)(unsafe.Pointer(tdata))))
 	case "STATICTEXT":
+		tdata, _ := data.(*staticTextData)
 		draw.style |= styleStaticText
-		return asWindow(C.nox_gui_newStaticText_489300(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.uint)(data)))
+		return asWindow(C.nox_gui_newStaticText_489300(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.uint)(unsafe.Pointer(tdata))))
 	case "PROGRESSBAR":
 		draw.style |= styleProgressBar
 		return asWindow(C.nox_gui_newProgressBar_4CAF10(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw)))
@@ -721,4 +797,25 @@ func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *Win
 		return btn
 	}
 	return nil
+}
+
+func newRadioButton(parent *Window, status int, px, py, w, h int, draw *WindowData, data *radioButtonData) *Window {
+	if draw.style&styleRadioButton == 0 {
+		return nil
+	}
+	win := newWindow(parent, status, px, py, w, h, C.nox_xxx_wndRadioButtonProcPre_4A93C0)
+	if win == nil {
+		return nil
+	}
+	C.nox_xxx_wndRadioButtonSetAllFn_4A87E0(unsafePtrToInt(unsafe.Pointer(win.C())))
+	if draw.win == nil {
+		draw.win = win.C()
+	}
+	d := (*C.nox_radioButton_data)(alloc.Calloc(1, unsafe.Sizeof(C.nox_radioButton_data{})))
+	if data != nil {
+		d.field_0 = data.field_0
+	}
+	win.field_8 = C.uint(unsafePtrToInt(unsafe.Pointer(d)))
+	win.CopyDrawData(draw)
+	return win
 }

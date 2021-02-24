@@ -3673,27 +3673,22 @@ int  nox_xxx_wndCheckboxProcMB_4A92C0(int a1, int a2, wchar_t* a3, int a4) {
 }
 
 //----- (004A9330) --------------------------------------------------------
-nox_window* nox_gui_newRadioButton_4A9330(int a1, int a2, int a3, int a4, int a5, int a6, int a7, _DWORD* a8) {
-	_DWORD* v8;  // eax
-	int v9;      // esi
-	_DWORD* v10; // eax
-
-	if (!(*(_BYTE*)(a7 + 8) & 2))
+nox_window* nox_gui_newRadioButton_4A9330(nox_window* parent, int a2, int a3, int a4, int a5, int a6, nox_window_data* draw, nox_radioButton_data* data) {
+	if (!(draw->style & 2))
 		return 0;
-	v8 = nox_window_new(a1, a2, a3, a4, a5, a6, nox_xxx_wndRadioButtonProcPre_4A93C0);
-	v9 = (int)v8;
-	if (v8) {
-		nox_xxx_wndRadioButtonSetAllFn_4A87E0((int)v8);
-		if (!*(_DWORD*)(a7 + 16))
-			*(_DWORD*)(a7 + 16) = v9;
-		v10 = malloc(4u);
-		*v10 = 0;
-		if (a8)
-			*v10 = *a8;
-		*(_DWORD*)(v9 + 32) = v10;
-		nox_gui_windowCopyDrawData_46AF80(v9, (const void*)a7);
-	}
-	return v9;
+	nox_window* win = nox_window_new(parent, a2, a3, a4, a5, a6, nox_xxx_wndRadioButtonProcPre_4A93C0);
+	if (!win)
+		return 0;
+	nox_xxx_wndRadioButtonSetAllFn_4A87E0(win);
+	if (!draw->win)
+		draw->win = win;
+	nox_radioButton_data* d = malloc(sizeof(nox_radioButton_data));
+	d->field_0 = 0;
+	if (data)
+		d->field_0 = data->field_0;
+	win->field_8 = d;
+	nox_gui_windowCopyDrawData_46AF80(win, draw);
+	return win;
 }
 
 //----- (004A93C0) --------------------------------------------------------

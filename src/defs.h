@@ -512,6 +512,52 @@ typedef struct nox_net_struct2_t {
 } nox_net_struct2_t;
 _Static_assert(sizeof(nox_net_struct2_t) == 68, "wrong size of nox_net_struct2_t structure!");
 
+typedef struct {
+	_DWORD field_0;
+} nox_radioButton_data;
+_Static_assert(sizeof(nox_radioButton_data) == 4, "wrong size of nox_radioButton_data structure!");
+
+typedef struct {
+	_DWORD field_0;
+	_DWORD field_1;
+	_DWORD field_2;
+	_DWORD field_3;
+} nox_slider_data;
+_Static_assert(sizeof(nox_slider_data) == 16, "wrong size of nox_slider_data structure!");
+
+typedef struct {
+	_WORD field_0_0;
+	_WORD field_0_1;
+	_DWORD field_1;
+	_DWORD field_2;
+	_DWORD field_3;
+	_DWORD field_4;
+	_DWORD field_5;
+	_DWORD data_6[8];
+} nox_scrollListBox_data;
+_Static_assert(sizeof(nox_scrollListBox_data) == 56, "wrong size of nox_scrollListBox_data structure!");
+
+typedef struct {
+	_BYTE data_0[1024];
+	_DWORD field_1024;
+	_DWORD field_1028;
+	_DWORD field_1032;
+	_DWORD field_1036;
+	unsigned short field_1040;
+	short field_1042;
+	_DWORD field_1044;
+	_DWORD field_1048;
+	_DWORD field_1052;
+} nox_entryField_data;
+_Static_assert(sizeof(nox_entryField_data) == 1056, "wrong size of nox_entryField_data structure!");
+
+typedef struct {
+	wchar_t* text;
+	_DWORD field_1;
+	_DWORD field_2;
+} nox_staticText_data;
+_Static_assert(sizeof(nox_staticText_data) == 12, "wrong size of nox_staticText_data structure!");
+
 typedef struct nox_window nox_window;
 typedef struct nox_window_data {
 	_DWORD field_0; // 0

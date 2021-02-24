@@ -3363,7 +3363,7 @@ int  nox_xxx_wndDrawCheckBox_4A9050(_DWORD* a1, int a2);
 nox_window* nox_gui_newButtonOrCheckbox_4A91A0(nox_window* parent, int a2, int a3, int a4, int a5, int a6, nox_window_data* draw);
 int  nox_xxx_wndButtonProcPre_4A9250(int a1, int a2, wchar_t* a3, int a4);
 int  nox_xxx_wndCheckboxProcMB_4A92C0(int a1, int a2, wchar_t* a3, int a4);
-nox_window*  nox_gui_newRadioButton_4A9330(int a1, int a2, int a3, int a4, int a5, int a6, int a7, _DWORD* a8);
+nox_window* nox_gui_newRadioButton_4A9330(nox_window* parent, int a2, int a3, int a4, int a5, int a6, nox_window_data* draw, nox_radioButton_data* data);
 int  nox_xxx_wndRadioButtonProcPre_4A93C0(int a1, int a2, wchar_t* a3, int a4);
 int nox_xxx_loadDefColor_4A94A0();
 FILE*  nox_xxx_loadPal_4A96C0_video_read_palette(char* a1);
