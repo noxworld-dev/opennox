@@ -2396,17 +2396,17 @@ int  sub_4C0030(int a1) {
 	*(_DWORD*)(dword_5d4594_1319256 + 16) = v6 + dword_587000_183460;
 	(*(void(**)(unsigned __int8*, _DWORD))(dword_5d4594_1319256 + 300))(getMemAt(0x5D4594, 1319108),
 																			   dword_5d4594_1319256);
-	if (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3603)[9] & 4)
+	if (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3603)->draw_data.field_0 & 4)
 		nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1319204), v5, v6);
-	if (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3602)[9] & 4)
+	if (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3602)->draw_data.field_0 & 4)
 		nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1319200), v5, v6);
-	if (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3604)[9] & 4) {
+	if (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3604)->draw_data.field_0 & 4) {
 		v2 = *getMemU32Ptr(0x5D4594, 1319208);
 		if (!dword_5d4594_1319264)
 			v2 = *getMemU32Ptr(0x5D4594, 1319220);
 		nox_client_drawImageAt_47D2C0(v2, v5, v6);
 	}
-	if (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3605)[9] & 4) {
+	if (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1319228, 3605)->draw_data.field_0 & 4) {
 		v3 = *getMemU32Ptr(0x5D4594, 1319212);
 		if (!dword_5d4594_1319264)
 			v3 = *getMemU32Ptr(0x5D4594, 1319224);

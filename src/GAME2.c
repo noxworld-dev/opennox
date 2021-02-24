@@ -4705,7 +4705,7 @@ int  sub_4571A0(int a1, int a2) {
 
 	result = dword_5d4594_1045684;
 	if (dword_5d4594_1045684) {
-		v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10501)[8];
+		v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10501)->field_8;
 		result = sub_456E40(a1, 0);
 		v4 = result;
 		if (result != -1) {
@@ -5321,7 +5321,7 @@ char*  sub_459AA0(int a1) {
 	v3 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1046520, 16413, 0, 0);
 	if (*v3)
 		*(_BYTE*)(a1 + 56) = nox_wcstol(v3, 0, 10);
-	*(_BYTE*)(a1 + 57) = (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10122)[9] >> 2) & 1;
+	*(_BYTE*)(a1 + 57) = (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10122)->draw_data.field_0 >> 2) & 1;
 	result = (char*)nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16404, 0, 0);
 	if ((int)result >= 0 && (v5 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16406, (int)result, 0),
 							 nox_sprintf(v7, "%S", v5), (result = strtok(v7, "\t")) != 0)) {

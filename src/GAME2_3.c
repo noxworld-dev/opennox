@@ -6597,7 +6597,7 @@ int sub_49C7A0() {
 
 	result = dword_5d4594_1305680;
 	if (dword_5d4594_1305680) {
-		nox_server_sanctuaryHelp_54276 = ((unsigned int)~nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1305680, 4104)[9] >> 2) & 1;
+		nox_server_sanctuaryHelp_54276 = ((unsigned int)~(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1305680, 4104)->draw_data.field_0) >> 2) & 1;
 		nox_xxx_wnd_46C6E0(*(int*)&dword_5d4594_1305680);
 		nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_1305680);
 		nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1305680);

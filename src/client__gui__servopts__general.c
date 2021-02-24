@@ -84,7 +84,7 @@ int sub_4AD4B0() {
 			v3 = v9;
 		++v4;
 	} while ((int)v4 < (int)getMemAt(0x587000, 173556));
-	result = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10316)[2];
+	result = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10316)->width;
 	v7 = v3 + 7;
 	if (v7 <= result)
 		v7 = result;

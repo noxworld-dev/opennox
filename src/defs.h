@@ -550,14 +550,14 @@ typedef struct nox_window {
 	_DWORD field_8; // index in nox_windows_arr_1093036?
 	nox_window_data draw_data; // 9, 36
 	_DWORD field_92;                      // 92, 368
-	int (*field_93)(int, int, int, int);  // 93
-	int (*field_94)(int, int, int, int);  // 94, 376
-	int (*draw_func)(nox_window*, void*); // 95, second arg is &field_9
-	int (*field_96)(void*);               // 96
-	nox_window* field_97;                 // 97, 388
-	nox_window* field_98;                 // 98, 392
-	nox_window* field_99;                 // 99, 396
-	nox_window* field_100;                // 100, 400
+	int (*field_93)(nox_window*, int, int, int);  // 93
+	int (*field_94)(nox_window*, int, int, int);  // 94, 376
+	int (*draw_func)(nox_window*, void*); // 95, 380, second arg is &field_9
+	int (*field_96)(void*);               // 96, 384
+	nox_window* prev;      // 97, 388
+	nox_window* next;      // 98, 392
+	nox_window* parent;    // 99, 396
+	nox_window* field_100; // 100, 400
 } nox_window;
 _Static_assert(sizeof(nox_window) == 404, "wrong size of nox_window structure!");
 
