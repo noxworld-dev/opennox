@@ -115,15 +115,24 @@ func newGUIParser(sm *strman.StringManager, f *C.FILE) *guiParser {
 		cf: f,
 		fi: newCFile(f),
 	}
-	p.resetWidgetData()
+	p.resetDefaults()
 	return p
 }
 
 type guiParser struct {
-	sm      *strman.StringManager
-	cf      *C.FILE
-	fi      io.ByteReader
-	parents []*Window
+	sm       *strman.StringManager
+	cf       *C.FILE
+	fi       io.ByteReader
+	parents  []*Window
+	defaults struct {
+		font      uintptr
+		enColor   uint
+		disColor  uint
+		bgColor   uint
+		hlColor   uint
+		selColor  uint
+		textColor uint
+	}
 }
 
 func (p *guiParser) parentsTop() *Window {
@@ -148,66 +157,44 @@ func (p *guiParser) parentsPush(win *Window) {
 	p.parents = append(p.parents, win)
 }
 
-func (p *guiParser) resetWidgetData() {
-	val := memmap.Uint32(0x5D4594, 2650656)
-	*memmap.PtrUint32(0x5D4594, 1307288) = 0
-	*memmap.PtrUint32(0x5D4594, 1307264) = val
-	*memmap.PtrUint32(0x5D4594, 1307268) = val
-	*memmap.PtrUint32(0x5D4594, 1307272) = val
-	*memmap.PtrUint32(0x5D4594, 1307276) = val
-	*memmap.PtrUint32(0x5D4594, 1307280) = val
-	*memmap.PtrUint32(0x5D4594, 1307284) = val
+func (p *guiParser) resetDefaults() {
+	val := uint(memmap.Uint32(0x5D4594, 2650656))
+	p.defaults.font = 0
+	p.defaults.enColor = val
+	p.defaults.disColor = val
+	p.defaults.bgColor = val
+	p.defaults.hlColor = val
+	p.defaults.selColor = val
+	p.defaults.textColor = val
 }
 
 func (p *guiParser) ParseRoot(fnc unsafe.Pointer) *Window {
-	var tok string
-loop:
-	for fscanf(p.cf, "%s", &tok) != -1 {
+	for {
+		tok := p.nextWord()
+		if tok == "" {
+			break
+		}
+		ok := true
 		switch tok {
 		case "ENABLEDCOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				break loop
-			}
-			*memmap.PtrUint32(0x5D4594, 1307264) = uint32(cl)
+			p.defaults.enColor, ok = p.parseColorField()
 		case "DISABLEDCOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				break loop
-			}
-			*memmap.PtrUint32(0x5D4594, 1307268) = uint32(cl)
+			p.defaults.disColor, ok = p.parseColorField()
 		case "BACKGROUNDCOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				break loop
-			}
-			*memmap.PtrUint32(0x5D4594, 1307272) = uint32(cl)
+			p.defaults.bgColor, ok = p.parseColorField()
 		case "HILITECOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				break loop
-			}
-			*memmap.PtrUint32(0x5D4594, 1307276) = uint32(cl)
+			p.defaults.hlColor, ok = p.parseColorField()
 		case "SELECTEDCOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				break loop
-			}
-			*memmap.PtrUint32(0x5D4594, 1307280) = uint32(cl)
+			p.defaults.selColor, ok = p.parseColorField()
 		case "TEXTCOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				break loop
-			}
-			*memmap.PtrUint32(0x5D4594, 1307284) = uint32(cl)
+			p.defaults.textColor, ok = p.parseColorField()
 		case "FONT":
-			fnt, ok := p.parseFontField()
-			if !ok {
-				break loop
-			}
-			*memmap.PtrUint32(0x5D4594, 1307288) = uint32(fnt)
+			p.defaults.font, ok = p.parseFontField()
 		case "WINDOW":
 			return p.parseWindowRoot(fnc)
+		}
+		if !ok {
+			break
 		}
 	}
 	return nil
@@ -436,13 +423,13 @@ func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
 	draw := (*WindowData)(drawDataP)
 
 	draw.field_0 = 0
-	draw.en_color = C.uint(memmap.Uint32(0x5D4594, 1307264))
-	draw.hl_color = C.uint(memmap.Uint32(0x5D4594, 1307276))
-	font := uintptr(memmap.Uint32(0x5D4594, 1307288))
-	draw.dis_color = C.uint(memmap.Uint32(0x5D4594, 1307268))
-	draw.bg_color = C.uint(memmap.Uint32(0x5D4594, 1307272))
-	draw.sel_color = C.uint(memmap.Uint32(0x5D4594, 1307280))
-	draw.text_color = C.uint(memmap.Uint32(0x5D4594, 1307284))
+	draw.en_color = C.uint(p.defaults.enColor)
+	draw.hl_color = C.uint(p.defaults.hlColor)
+	draw.dis_color = C.uint(p.defaults.disColor)
+	draw.bg_color = C.uint(p.defaults.bgColor)
+	draw.sel_color = C.uint(p.defaults.selColor)
+	draw.text_color = C.uint(p.defaults.textColor)
+	font := p.defaults.font
 	if font == 0 {
 		if C.dword_5d4594_815132 != 0 {
 			font = nox_xxx_guiFontPtrByName_43F360("large")
@@ -521,46 +508,30 @@ func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
 
 func (p *guiParser) parseWinFields(win *Window) bool {
 	p.parentsPush(win)
-loop:
 	for {
 		tok := p.nextWord()
+		if tok == "" || tok == "END" {
+			break
+		}
+		ok := true
 		switch tok {
-		case "", "END":
-			break loop
 		case "ENABLEDCOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				return false
-			}
-			*memmap.PtrUint32(0x5D4594, 1307264) = uint32(cl)
+			p.defaults.enColor, ok = p.parseColorField()
 		case "DISABLEDCOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				return false
-			}
-			*memmap.PtrUint32(0x5D4594, 1307268) = uint32(cl)
+			p.defaults.disColor, ok = p.parseColorField()
 		case "HILITECOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				return false
-			}
-			*memmap.PtrUint32(0x5D4594, 1307276) = uint32(cl)
+			p.defaults.hlColor, ok = p.parseColorField()
 		case "SELECTEDCOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				return false
-			}
-			*memmap.PtrUint32(0x5D4594, 1307280) = uint32(cl)
+			p.defaults.selColor, ok = p.parseColorField()
 		case "TEXTCOLOR":
-			cl, ok := p.parseColorField()
-			if !ok {
-				return false
-			}
-			*memmap.PtrUint32(0x5D4594, 1307284) = uint32(cl)
+			p.defaults.textColor, ok = p.parseColorField()
 		case "WINDOW":
 			if p.parseWindowRoot(nil) == nil {
 				return false
 			}
+		}
+		if !ok {
+			return false
 		}
 	}
 	return p.parentsPop() == win
