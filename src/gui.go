@@ -9,6 +9,7 @@ extern unsigned int dword_5d4594_815132;
 */
 import "C"
 import (
+	"io"
 	"strconv"
 	"strings"
 	"unsafe"
@@ -16,6 +17,7 @@ import (
 	"nox/client/gui"
 	"nox/common/alloc"
 	"nox/common/memmap"
+	"nox/common/strman"
 )
 
 func asWindowData(data *C.nox_window_data) *WindowData {
@@ -34,10 +36,10 @@ func (d *WindowData) SetText(s string) {
 	d.text[n-1] = 0
 }
 
-func (d *WindowData) SetTooltip(s string) {
+func (d *WindowData) SetTooltip(sm *strman.StringManager, s string) {
 	n := len(d.tooltip)
-	if len(s) > n {
-		s = strMan.GetStringInFile("TooltipTooLong", "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c")
+	if len(s) > n && sm != nil {
+		s = sm.GetStringInFile("TooltipTooLong", "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c")
 	}
 	CWStringCopyTo(&d.tooltip[0], n, s)
 	d.tooltip[n-1] = 0
@@ -90,42 +92,12 @@ func (win *Window) Func94(ev int, a1, a2 int) int {
 	return int(C.nox_window_call_field_94(win.C(), C.int(ev), C.int(a1), C.int(a2)))
 }
 
-var noxWinParents []*Window
-
-func guiWinParentsReset() {
-	noxWinParents = nil
-}
-
-func guiWinParentsTop() *Window {
-	n := len(noxWinParents)
-	if n == 0 {
-		return nil
-	}
-	return noxWinParents[n-1]
-}
-
-func guiWinParentsPop() *Window {
-	n := len(noxWinParents)
-	if n == 0 {
-		return nil
-	}
-	cur := noxWinParents[n-1]
-	noxWinParents = noxWinParents[:n-1]
-	return cur
-}
-
-func guiWinParentsPush(win *Window) {
-	noxWinParents = append(noxWinParents, win)
-}
-
 //export nox_new_window_from_file
 func nox_new_window_from_file(name *C.char, fnc unsafe.Pointer) *C.nox_window {
 	return newWindowFromFile(C.GoString(name), fnc).C()
 }
 
 func newWindowFromFile(name string, fnc unsafe.Pointer) *Window {
-	guiWinParentsReset()
-	guiResetWidgetData()
 	path := strings.Join([]string{"window", name}, "\\")
 
 	f := fopen(path, "r")
@@ -134,63 +106,116 @@ func newWindowFromFile(name string, fnc unsafe.Pointer) *Window {
 	}
 	defer C.fclose(f)
 
+	return newGUIParser(strMan, f).ParseRoot(fnc)
+}
+
+func newGUIParser(sm *strman.StringManager, f *C.FILE) *guiParser {
+	p := &guiParser{
+		sm: sm,
+		cf: f,
+		fi: newCFile(f),
+	}
+	p.resetWidgetData()
+	return p
+}
+
+type guiParser struct {
+	sm      *strman.StringManager
+	cf      *C.FILE
+	fi      io.ByteReader
+	parents []*Window
+}
+
+func (p *guiParser) parentsTop() *Window {
+	n := len(p.parents)
+	if n == 0 {
+		return nil
+	}
+	return p.parents[n-1]
+}
+
+func (p *guiParser) parentsPop() *Window {
+	n := len(p.parents)
+	if n == 0 {
+		return nil
+	}
+	cur := p.parents[n-1]
+	p.parents = p.parents[:n-1]
+	return cur
+}
+
+func (p *guiParser) parentsPush(win *Window) {
+	p.parents = append(p.parents, win)
+}
+
+func (p *guiParser) resetWidgetData() {
+	val := memmap.Uint32(0x5D4594, 2650656)
+	*memmap.PtrUint32(0x5D4594, 1307288) = 0
+	*memmap.PtrUint32(0x5D4594, 1307264) = val
+	*memmap.PtrUint32(0x5D4594, 1307268) = val
+	*memmap.PtrUint32(0x5D4594, 1307272) = val
+	*memmap.PtrUint32(0x5D4594, 1307276) = val
+	*memmap.PtrUint32(0x5D4594, 1307280) = val
+	*memmap.PtrUint32(0x5D4594, 1307284) = val
+}
+
+func (p *guiParser) ParseRoot(fnc unsafe.Pointer) *Window {
 	var tok string
 loop:
-	for fscanf(f, "%s", &tok) != -1 {
+	for fscanf(p.cf, "%s", &tok) != -1 {
 		switch tok {
 		case "ENABLEDCOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				break loop
 			}
 			*memmap.PtrUint32(0x5D4594, 1307264) = uint32(cl)
 		case "DISABLEDCOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				break loop
 			}
 			*memmap.PtrUint32(0x5D4594, 1307268) = uint32(cl)
 		case "BACKGROUNDCOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				break loop
 			}
 			*memmap.PtrUint32(0x5D4594, 1307272) = uint32(cl)
 		case "HILITECOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				break loop
 			}
 			*memmap.PtrUint32(0x5D4594, 1307276) = uint32(cl)
 		case "SELECTEDCOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				break loop
 			}
 			*memmap.PtrUint32(0x5D4594, 1307280) = uint32(cl)
 		case "TEXTCOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				break loop
 			}
 			*memmap.PtrUint32(0x5D4594, 1307284) = uint32(cl)
 		case "FONT":
-			fnt, ok := guiParseFont(f)
+			fnt, ok := p.parseFontField()
 			if !ok {
 				break loop
 			}
 			*memmap.PtrUint32(0x5D4594, 1307288) = uint32(fnt)
 		case "WINDOW":
-			return guiParseWindowRoot(f, fnc)
+			return p.parseWindowRoot(fnc)
 		}
 	}
 	return nil
 }
 
-func guiParseFont(f *C.FILE) (uintptr, bool) {
-	fi := newCFile(f)
-	fscanf(f, "%*s") // skip '='
-	tok, _ := gui.ReadNextToken(fi)
+func (p *guiParser) parseFontField() (uintptr, bool) {
+	fscanf(p.cf, "%*s") // skip '='
+	tok, _ := gui.ReadNextToken(p.fi)
 	fnt := nox_xxx_guiFontPtrByName_43F360(tok)
 	return fnt, fnt != 0
 }
@@ -208,10 +233,23 @@ func nox_gui_parseColor_4A0570(out *C.uint, buf *C.char) C.int {
 	return 1
 }
 
-func guiParseColorTo(f *C.FILE) (uint, bool) {
-	fi := newCFile(f)
-	fscanf(f, "%*s") // skip '='
-	tok, err := gui.ReadNextToken(fi)
+func (p *guiParser) skipToken() {
+	fscanf(p.cf, "%*s")
+}
+
+func (p *guiParser) nextWord() string {
+	var v string
+	fscanf(p.cf, "%s", &v)
+	return v
+}
+
+func (p *guiParser) nextToken() (string, error) {
+	return gui.ReadNextToken(p.fi)
+}
+
+func (p *guiParser) parseColorField() (uint, bool) {
+	p.skipToken() // skip '='
+	tok, err := p.nextToken()
 	if err != nil {
 		return 0, false
 	}
@@ -241,21 +279,21 @@ var guiWinStyles = []string{
 	"ENTRYFIELD", "MOUSETRACK", "ANIMATED", "TABSTOP", "STATICTEXT", "PROGRESSBAR",
 }
 
-type guiWindowParseFunc func(*WindowData, string) bool
+type guiWindowParseFunc func(*guiParser, *WindowData, string) bool
 
 var parseWindowFuncs = []struct {
 	name string
 	fnc  guiWindowParseFunc
 }{
-	{"STATUS", func(draw *WindowData, buf string) bool {
-		draw.status = C.int(set_bitmask_flags_from_plus_separated_names_423930(buf, guiWinStatuses))
+	{"STATUS", func(_ *guiParser, draw *WindowData, buf string) bool {
+		draw.status = C.int(guiFlagsFromNames(buf, guiWinStatuses))
 		return true
 	}},
-	{"STYLE", func(draw *WindowData, buf string) bool {
-		draw.style = C.int(set_bitmask_flags_from_plus_separated_names_423930(buf, guiWinStyles))
+	{"STYLE", func(_ *guiParser, draw *WindowData, buf string) bool {
+		draw.style = C.int(guiFlagsFromNames(buf, guiWinStyles))
 		return true
 	}},
-	{"GROUP", func(draw *WindowData, buf string) bool {
+	{"GROUP", func(_ *guiParser, draw *WindowData, buf string) bool {
 		v, _ := gui.ParseNextIntField(buf)
 		draw.group = C.int(v)
 		return true
@@ -290,7 +328,7 @@ var parseWindowFuncs = []struct {
 	{"SELECTEDIMAGE", makeImageParseFunc(func(data *WindowData) *unsafe.Pointer {
 		return &data.sel_image
 	})},
-	{"IMAGEOFFSET", func(draw *WindowData, buf string) bool {
+	{"IMAGEOFFSET", func(_ *guiParser, draw *WindowData, buf string) bool {
 		var px, py int
 		px, buf = gui.ParseNextIntField(buf)
 		py, buf = gui.ParseNextIntField(buf)
@@ -301,7 +339,7 @@ var parseWindowFuncs = []struct {
 	{"TEXTCOLOR", makeColorParseFunc(func(data *WindowData) *C.uint {
 		return &data.text_color
 	})},
-	{"TEXT", func(draw *WindowData, buf string) bool {
+	{"TEXT", func(p *guiParser, draw *WindowData, buf string) bool {
 		var str string
 		// TODO: this is a hack to replace 8-16bit switch with Window-FullScreen switch
 		//       we can probably do better than this and insert additional controls based
@@ -312,12 +350,12 @@ var parseWindowFuncs = []struct {
 		case "Options.wnd:16BitColor":
 			str = "\tFullscreen"
 		default:
-			str = strMan.GetStringInFile(buf, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
+			str = p.sm.GetStringInFile(buf, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
 		}
 		draw.SetText(str)
 		return true
 	}},
-	{"FONT", func(draw *WindowData, buf string) bool {
+	{"FONT", func(_ *guiParser, draw *WindowData, buf string) bool {
 		fnt := nox_xxx_guiFontPtrByName_43F360(buf)
 		if fnt == 0 {
 			return false
@@ -325,9 +363,9 @@ var parseWindowFuncs = []struct {
 		draw.font = C.uint(fnt)
 		return true
 	}},
-	{"TOOLTIP", func(draw *WindowData, buf string) bool {
-		s := strMan.GetStringInFile(buf, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
-		draw.SetTooltip(s)
+	{"TOOLTIP", func(p *guiParser, draw *WindowData, buf string) bool {
+		s := p.sm.GetStringInFile(buf, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
+		draw.SetTooltip(p.sm, s)
 		return true
 	}},
 }
@@ -340,7 +378,7 @@ func dataPtrToInt(p *WindowData) C.int {
 	return C.int(uintptr(unsafe.Pointer(p)))
 }
 
-func set_bitmask_flags_from_plus_separated_names_423930(str string, values []string) int {
+func guiFlagsFromNames(str string, values []string) int {
 	str = strings.TrimSpace(str)
 	if str == "NULL" {
 		return 0
@@ -359,7 +397,7 @@ func set_bitmask_flags_from_plus_separated_names_423930(str string, values []str
 }
 
 func makeColorParseFunc(field func(*WindowData) *C.uint) guiWindowParseFunc {
-	return func(draw *WindowData, buf string) bool {
+	return func(_ *guiParser, draw *WindowData, buf string) bool {
 		cl, _ := guiParseColorTransp(buf)
 		out := field(draw)
 		*out = C.uint(cl)
@@ -368,7 +406,7 @@ func makeColorParseFunc(field func(*WindowData) *C.uint) guiWindowParseFunc {
 }
 
 func makeImageParseFunc(field func(*WindowData) *unsafe.Pointer) guiWindowParseFunc {
-	return func(draw *WindowData, buf string) bool {
+	return func(_ *guiParser, draw *WindowData, buf string) bool {
 		s, _ := gui.ParseNextField(buf)
 		out := field(draw)
 		if s == "NULL" {
@@ -386,13 +424,13 @@ func makeImageParseFunc(field func(*WindowData) *unsafe.Pointer) guiWindowParseF
 func nox_xxx_wndWddSetTooltip_46B000(draw *C.nox_window_data, str *C.wchar_t) {
 	d := asWindowData(draw)
 	if str == nil {
-		d.SetTooltip("")
+		d.SetTooltip(strMan, "")
 		return
 	}
-	d.SetTooltip(GoWString(str))
+	d.SetTooltip(strMan, GoWString(str))
 }
 
-func guiParseWindowRoot(f *C.FILE, fnc unsafe.Pointer) *Window {
+func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
 	drawDataP := alloc.Calloc(1, unsafe.Sizeof(WindowData{}))
 	defer alloc.Free(drawDataP)
 	draw := (*WindowData)(drawDataP)
@@ -414,8 +452,7 @@ func guiParseWindowRoot(f *C.FILE, fnc unsafe.Pointer) *Window {
 	}
 	draw.font = C.uint(font)
 
-	fi := newCFile(f)
-	tok, _ := gui.ReadNextToken(fi)
+	tok, _ := p.nextToken()
 
 	var id uint
 	id, tok = gui.ParseNextUintField(tok)
@@ -434,15 +471,14 @@ func guiParseWindowRoot(f *C.FILE, fnc unsafe.Pointer) *Window {
 	var win *Window
 	var data unsafe.Pointer
 	for {
-		var field string
-		fscanf(f, "%s", &field)
+		field := p.nextWord()
 		// hooks for different custom fields
 		found := false
 		for _, pfnc := range parseWindowFuncs {
 			if field == pfnc.name {
-				fscanf(f, "%*s") // skip '='
-				sdata, _ := gui.ReadNextToken(fi)
-				if !pfnc.fnc(draw, sdata) {
+				p.skipToken() // skip '='
+				sdata, _ := p.nextToken()
+				if !pfnc.fnc(p, draw, sdata) {
 					return nil
 				}
 				found = true
@@ -454,9 +490,9 @@ func guiParseWindowRoot(f *C.FILE, fnc unsafe.Pointer) *Window {
 		}
 		// check the builtin fields
 		if field == "DATA" {
-			fscanf(f, "%*s")
-			sdata, _ := gui.ReadNextToken(fi)
-			d, ok := guiParseDataField(typ, sdata)
+			p.skipToken() // skip '='
+			sdata, _ := p.nextToken()
+			d, ok := p.parseDataField(typ, sdata)
 			if !ok {
 				return nil
 			}
@@ -465,72 +501,72 @@ func guiParseWindowRoot(f *C.FILE, fnc unsafe.Pointer) *Window {
 			if win != nil {
 				return win
 			}
-			return guiParseWindowOrWidget(typ, id, int(draw.status), px, py, w, h, draw, data, fnc)
+			return p.parseWindowOrWidget(typ, id, int(draw.status), px, py, w, h, draw, data, fnc)
 		} else if field == "CHILD" {
-			win = guiParseWindowOrWidget(typ, id, int(draw.status), px, py, w, h, draw, data, fnc)
+			win = p.parseWindowOrWidget(typ, id, int(draw.status), px, py, w, h, draw, data, fnc)
 			if win == nil {
 				return nil
 			}
-			if !guiParseWinFields(win, f) {
+			if !p.parseWinFields(win) {
 				return nil
 			}
 		} else {
 			// skip?
-			if _, err := gui.ReadNextToken(fi); err != nil {
+			if _, err := p.nextToken(); err != nil {
 				return nil
 			}
 		}
 	}
 }
 
-func guiParseWinFields(win *Window, f *C.FILE) bool {
-	guiWinParentsPush(win)
-	var tok string
+func (p *guiParser) parseWinFields(win *Window) bool {
+	p.parentsPush(win)
 loop:
-	for fscanf(f, "%s", &tok) != -1 {
+	for {
+		tok := p.nextWord()
 		switch tok {
-		case "END":
+		case "", "END":
 			break loop
 		case "ENABLEDCOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				return false
 			}
 			*memmap.PtrUint32(0x5D4594, 1307264) = uint32(cl)
 		case "DISABLEDCOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				return false
 			}
 			*memmap.PtrUint32(0x5D4594, 1307268) = uint32(cl)
 		case "HILITECOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				return false
 			}
 			*memmap.PtrUint32(0x5D4594, 1307276) = uint32(cl)
 		case "SELECTEDCOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				return false
 			}
 			*memmap.PtrUint32(0x5D4594, 1307280) = uint32(cl)
 		case "TEXTCOLOR":
-			cl, ok := guiParseColorTo(f)
+			cl, ok := p.parseColorField()
 			if !ok {
 				return false
 			}
 			*memmap.PtrUint32(0x5D4594, 1307284) = uint32(cl)
 		case "WINDOW":
-			if guiParseWindowRoot(f, nil) == nil {
+			if p.parseWindowRoot(nil) == nil {
 				return false
 			}
 		}
 	}
-	return guiWinParentsPop() == win
+	return p.parentsPop() == win
 }
 
-func guiParseDataField(typ string, buf string) (unsafe.Pointer, bool) {
+func (p *guiParser) parseDataField(typ string, buf string) (unsafe.Pointer, bool) {
 	var (
 		s string
 		v uint
@@ -599,7 +635,7 @@ func guiParseDataField(typ string, buf string) (unsafe.Pointer, bool) {
 		v, buf = gui.ParseNextUintField(buf)
 		*memmap.PtrUint32(0x5D4594, 1307260) = uint32(bool2int(v != 0))
 		s, buf = gui.ParseNextField(buf)
-		text := strMan.GetStringInFile(s, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
+		text := p.sm.GetStringInFile(s, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
 		*memmap.PtrPtr(0x5D4594, 1307252) = unsafe.Pointer(internWStr(text))
 		return memmap.PtrOff(0x5D4594, 1307252), true
 	case "RADIOBUTTON":
@@ -612,19 +648,15 @@ func guiParseDataField(typ string, buf string) (unsafe.Pointer, bool) {
 	return nil, true
 }
 
-func newWindow(parent *Window, status int, px, py, w, h int, fnc94 unsafe.Pointer) *Window {
-	return asWindow(C.nox_window_new(parent.C(), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*[0]byte)(fnc94)))
-}
-
-func guiParseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, drawData *WindowData, data unsafe.Pointer, fnc unsafe.Pointer) *Window {
-	parent := guiWinParentsTop()
+func (p *guiParser) parseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, drawData *WindowData, data unsafe.Pointer, fnc unsafe.Pointer) *Window {
+	parent := p.parentsTop()
 	var win *Window
 	if typ == "USER" {
 		win = newWindow(parent, status, px, py, w, h, fnc)
 		drawData.style |= styleUserWindow
 		win.CopyDrawData(drawData)
 	} else {
-		win = guiParseWidget(typ, parent, status, px, py, w, h, drawData, data)
+		win = guiNewWidget(typ, parent, status, px, py, w, h, drawData, data)
 	}
 	win.SetID(id)
 	if parent != nil {
@@ -633,20 +665,7 @@ func guiParseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, d
 	return win
 }
 
-const (
-	stylePushButton    = 0x1
-	styleRadioButton   = 0x2
-	styleCheckBox      = 0x4
-	styleVertSlider    = 0x8
-	styleHorizSlider   = 0x10
-	styleScrollListBox = 0x20
-	styleEntryField    = 0x80
-	styleStaticText    = 0x800
-	styleProgressBar   = 0x1000
-	styleUserWindow    = 0x2000
-)
-
-func guiParseWidget(typ string, parent *Window, status int, px, py, w, h int, draw *WindowData, data unsafe.Pointer) *Window {
+func guiNewWidget(typ string, parent *Window, status int, px, py, w, h int, draw *WindowData, data unsafe.Pointer) *Window {
 	draw.win = parent.C()
 	iparent := unsafePtrToInt(unsafe.Pointer(parent.C()))
 	udraw := unsafe.Pointer(draw.C())
@@ -682,6 +701,23 @@ func guiParseWidget(typ string, parent *Window, status int, px, py, w, h int, dr
 	return nil
 }
 
+func newWindow(parent *Window, status int, px, py, w, h int, fnc94 unsafe.Pointer) *Window {
+	return asWindow(C.nox_window_new(parent.C(), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*[0]byte)(fnc94)))
+}
+
+const (
+	stylePushButton    = 0x1
+	styleRadioButton   = 0x2
+	styleCheckBox      = 0x4
+	styleVertSlider    = 0x8
+	styleHorizSlider   = 0x10
+	styleScrollListBox = 0x20
+	styleEntryField    = 0x80
+	styleStaticText    = 0x800
+	styleProgressBar   = 0x1000
+	styleUserWindow    = 0x2000
+)
+
 func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *WindowData) *Window {
 	if draw.style&stylePushButton != 0 {
 		btn := newWindow(parent, status, px, py, w, h, C.nox_xxx_wndButtonProcPre_4A9250)
@@ -708,15 +744,4 @@ func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *Win
 		return btn
 	}
 	return nil
-}
-
-func guiResetWidgetData() {
-	val := memmap.Uint32(0x5D4594, 2650656)
-	*memmap.PtrUint32(0x5D4594, 1307288) = 0
-	*memmap.PtrUint32(0x5D4594, 1307264) = val
-	*memmap.PtrUint32(0x5D4594, 1307268) = val
-	*memmap.PtrUint32(0x5D4594, 1307272) = val
-	*memmap.PtrUint32(0x5D4594, 1307276) = val
-	*memmap.PtrUint32(0x5D4594, 1307280) = val
-	*memmap.PtrUint32(0x5D4594, 1307284) = val
 }
