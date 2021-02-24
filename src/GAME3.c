@@ -2972,99 +2972,67 @@ int  sub_4A7F40(int a1) {
 }
 
 //----- (004A7F50) --------------------------------------------------------
-int  nox_xxx_wndButtonProc_4A7F50(_DWORD* a1, int a2, int xy, int a4) {
-	int v4;      // eax
-	int v5;      // eax
-	int result;  // eax
-	int v7;      // eax
-	int v8;      // eax
-	int v9;      // eax
-	_DWORD* v10; // esi
-	int v11;     // eax
-	int v12;     // [esp-10h] [ebp-14h]
-
-	switch (a2) {
+int  nox_xxx_wndButtonProc_4A7F50(nox_window* win, int ev, int a3, int a4) {
+	switch (ev) {
 	case 5:
-	LABEL_9:
-		a1[9] |= 4u;
+		win->draw_data.field_0 |= 4u;
 		return 1;
 	case 6:
 	case 7:
-		v10 = a1;
-		if (!(a1[9] & 4))
-			goto LABEL_22;
-		nox_window_call_field_94(a1[13], 16391, (int)a1, xy); // HERE
-		goto LABEL_16;
+		if (!(win->draw_data.field_0 & 4))
+			return 0;
+		nox_window_call_field_94(win->draw_data.win, 0x4000 | 7, win, a3); // HERE
+		win->draw_data.field_0 &= 0xFFFFFFFB;
+		return 1;
 	case 8:
-		nox_window_call_field_94(a1[13], 0x4000, (int)a1, xy);
+		nox_window_call_field_94(win->draw_data.win, 0x4000, win, a3);
 		return 1;
 	case 17:
-		v4 = a1[11];
-		if (!(v4 & 0x100))
-			goto LABEL_21;
-		v5 = a1[13];
-		a1[9] |= 2u;
-		nox_window_call_field_94(v5, 16389, (int)a1, xy);
-		nox_xxx_windowDestroyChildsMB_46B500((int)a1);
-		result = 1;
-		break;
+		if (win->draw_data.style & 0x100) {
+			win->draw_data.field_0 |= 2u;
+			nox_window_call_field_94(win->draw_data.win, 0x4000 | 5, win, a3);
+			nox_xxx_windowDestroyChildsMB_46B500(win);
+		}
+		return 1;
 	case 18:
-		v7 = a1[11];
-		if (v7 & 0x100) {
-			v8 = a1[9];
-			LOBYTE(v8) = v8 & 0xFD;
-			v12 = a1[13];
-			a1[9] = v8;
-			nox_window_call_field_94(v12, 16390, (int)a1, xy);
+		if (win->draw_data.style & 0x100) {
+			win->draw_data.field_0 &= 0xFFFFFFFD;
+			nox_window_call_field_94(win->draw_data.win, 0x4000 | 6, win, a3);
 		}
-		v9 = a1[9];
-		if (v9 & 4) {
-			LOBYTE(v9) = v9 & 0xFB;
-			a1[9] = v9;
-			result = 1;
-		} else {
-		LABEL_21:
-			result = 1;
+		if (win->draw_data.field_0 & 4) {
+			win->draw_data.field_0 &= 0xFFFFFFFB;
 		}
-		break;
+		return 1;
 	case 21:
-		switch (xy) {
+		switch (a3) {
 		case 15:
 		case 205:
 		case 208:
-			if (a4 != 2)
-				goto LABEL_21;
-			nox_xxx_wndRetNULL_46A8A0();
+			if (a4 == 2)
+				nox_xxx_wndRetNULL_46A8A0();
 			return 1;
 		case 28:
 		case 57:
-			if (a4 != 1)
-				goto LABEL_9;
-			v10 = a1;
-			if (!(a1[9] & 4))
-				goto LABEL_21;
-			nox_window_call_field_94(a1[13], 16391, (int)a1, 0);
-			break;
+			if (a4 != 1) {
+				win->draw_data.field_0 |= 4u;
+				return 1;
+			}
+			if (win->draw_data.field_0 & 4) {
+				nox_window_call_field_94(win->draw_data.win, 0x4000 | 7, win, 0);
+				win->draw_data.field_0 &= 0xFFFFFFFB;
+			}
+			return 1;
 		case 200:
 		case 203:
 			if (a4 == 2)
 				nox_xxx_wndRetNULL_0_46A8B0();
-			goto LABEL_21;
+			return 1;
 		default:
-			goto LABEL_22;
+			return 0;
 		}
-	LABEL_16:
-		v11 = v10[9];
-		LOBYTE(v11) = v11 & 0xFB;
-		v10[9] = v11;
-		result = 1;
-		break;
 	default:
-	LABEL_22:
-		result = 0;
-		break;
+		return 0;
 	}
-	return result;
 }
 
 //----- (004A81D0) --------------------------------------------------------
@@ -3628,34 +3596,28 @@ LABEL_12:
 }
 
 //----- (004A91A0) --------------------------------------------------------
-nox_window* nox_gui_newButtonOrCheckbox_4A91A0(int a1, int a2, int a3, int a4, int a5, int a6, _DWORD* a7) {
-	int v7;      // eax
-	_DWORD* v8;  // eax
-	int v9;      // esi
-	_DWORD* v10; // eax
-
-	v7 = a7[2];
-	if (v7 & 1) {
-		v8 = nox_window_new(a1, a2, a3, a4, a5, a6, nox_xxx_wndButtonProcPre_4A9250);
-		v9 = (int)v8;
-		if (v8) {
-			nox_xxx_wndButtonInit_4A8340((int)v8);
-		LABEL_7:
-			if (!a7[4])
-				a7[4] = v9;
-			nox_gui_windowCopyDrawData_46AF80(v9, a7);
-			return v9;
+nox_window* nox_gui_newButtonOrCheckbox_4A91A0(nox_window* parent, int a2, int a3, int a4, int a5, int a6, nox_window_data* draw) {
+	if (draw->style & 1) {
+		nox_window* btn = nox_window_new(parent, a2, a3, a4, a5, a6, nox_xxx_wndButtonProcPre_4A9250);
+		if (!btn) {
+			return 0;
 		}
-		return v9;
+		nox_xxx_wndButtonInit_4A8340(btn);
+		if (!draw->win)
+			draw->win = btn;
+		nox_gui_windowCopyDrawData_46AF80(btn, draw);
+		return btn;
 	}
-	if (v7 & 4) {
-		v10 = nox_window_new(a1, a2, a3, a4, a5, a6, nox_xxx_wndCheckboxProcMB_4A92C0);
-		v9 = (int)v10;
-		if (v10) {
-			nox_xxx_wndCheckBoxInit_4A8E60((int)v10);
-			goto LABEL_7;
+	if (draw->style & 4) {
+		nox_window* btn = nox_window_new(parent, a2, a3, a4, a5, a6, nox_xxx_wndCheckboxProcMB_4A92C0);
+		if (!btn) {
+			return 0;
 		}
-		return v9;
+		nox_xxx_wndCheckBoxInit_4A8E60(btn);
+		if (!draw->win)
+			draw->win = btn;
+		nox_gui_windowCopyDrawData_46AF80(btn, draw);
+		return btn;
 	}
 	return 0;
 }

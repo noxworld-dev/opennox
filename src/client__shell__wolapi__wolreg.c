@@ -28,8 +28,8 @@ int  sub_468890_wol_reg(char* a1, char* a2, char* a3, _BYTE* a4, _BYTE* a5, wcha
 	wchar_t* v25; // [esp-4h] [ebp-60h]
 	char v26[80]; // [esp+Ch] [ebp-50h]
 
-	*a4 = (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1766)[9] >> 2) & 1;
-	*a5 = (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1767)[9] >> 2) & 1;
+	*a4 = (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1766)->draw_data.field_0 >> 2) & 1;
+	*a5 = (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1767)->draw_data.field_0 >> 2) & 1;
 	v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1762);
 	v7 = nox_window_call_field_94((int)v6, 16413, 0, 0);
 	nox_sprintf(a1, "%S", v7);

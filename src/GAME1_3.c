@@ -5707,7 +5707,7 @@ int nox_xxx_guiServerListLoad_449530() {
 		*(_DWORD*)(v10[100] + 8) = 16;
 		*(_DWORD*)(v10[100] + 12) = 10;
 		if (nox_common_gameFlags_check_40A5C0(0x2000000) && v16 && v17 != -1) {
-			*(_DWORD*)(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1961)[8] + 48) = v17;
+			*(_DWORD*)(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1961)->field_8 + 48) = v17;
 			v15 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1962);
 			nox_window_call_field_94(*(int*)&dword_5d4594_830108, 16391, (int)v15, 0);
 		}

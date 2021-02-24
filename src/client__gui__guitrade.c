@@ -47,9 +47,9 @@ int sub_4C09D0() {
 	v6 = nox_strman_loadString_40F1D0("TradeVendorName", 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 698);
 	nox_xxx_wndWddSetTooltip_46B000(v5 + 18, v6);
 	v7 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3704);
-	sub_46B070((int)v7, sub_4C1120);
+	nox_gui_winSetFunc96_46B070((int)v7, sub_4C1120);
 	v8 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3705);
-	sub_46B070((int)v8, sub_4C1120);
+	nox_gui_winSetFunc96_46B070((int)v8, sub_4C1120);
 	v9 = (wchar_t*)nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3708);
 	v10 = nox_strman_loadString_40F1D0("TradePlayerAccept", 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 709);
 	nox_xxx_wndWddSetTooltip_46B000(v9 + 18, v10);

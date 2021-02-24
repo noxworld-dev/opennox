@@ -612,12 +612,16 @@ func guiParseDataField(typ string, buf string) (unsafe.Pointer, bool) {
 	return nil, true
 }
 
+func newWindow(parent *Window, status int, px, py, w, h int, fnc94 unsafe.Pointer) *Window {
+	return asWindow(C.nox_window_new(parent.C(), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*[0]byte)(fnc94)))
+}
+
 func guiParseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, drawData *WindowData, data unsafe.Pointer, fnc unsafe.Pointer) *Window {
 	parent := guiWinParentsTop()
 	var win *Window
 	if typ == "USER" {
-		win = asWindow(C.nox_window_new(parent.C(), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*[0]byte)(fnc)))
-		drawData.style |= 0x2000
+		win = newWindow(parent, status, px, py, w, h, fnc)
+		drawData.style |= styleUserWindow
 		win.CopyDrawData(drawData)
 	} else {
 		win = guiParseWidget(typ, parent, status, px, py, w, h, drawData, data)
@@ -629,38 +633,79 @@ func guiParseWindowOrWidget(typ string, id uint, status int, px, py, w, h int, d
 	return win
 }
 
+const (
+	stylePushButton    = 0x1
+	styleRadioButton   = 0x2
+	styleCheckBox      = 0x4
+	styleVertSlider    = 0x8
+	styleHorizSlider   = 0x10
+	styleScrollListBox = 0x20
+	styleEntryField    = 0x80
+	styleStaticText    = 0x800
+	styleProgressBar   = 0x1000
+	styleUserWindow    = 0x2000
+)
+
 func guiParseWidget(typ string, parent *Window, status int, px, py, w, h int, draw *WindowData, data unsafe.Pointer) *Window {
 	draw.win = parent.C()
 	iparent := unsafePtrToInt(unsafe.Pointer(parent.C()))
 	udraw := unsafe.Pointer(draw.C())
 	switch typ {
 	case "PUSHBUTTON":
-		draw.style |= 0x1
-		return asWindow(C.nox_gui_newButtonOrCheckbox_4A91A0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw)))
+		draw.style |= stylePushButton
+		return newButtonOrCheckbox(parent, status, px, py, w, h, draw)
 	case "RADIOBUTTON":
-		draw.style |= 0x2
+		draw.style |= styleRadioButton
 		return asWindow(C.nox_gui_newRadioButton_4A9330(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.uint)(data)))
 	case "CHECKBOX":
-		draw.style |= 0x4
-		return asWindow(C.nox_gui_newButtonOrCheckbox_4A91A0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw)))
+		draw.style |= styleCheckBox
+		return newButtonOrCheckbox(parent, status, px, py, w, h, draw)
 	case "VERTSLIDER":
-		draw.style |= 0x8
+		draw.style |= styleVertSlider
 		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(data)))
 	case "HORZSLIDER":
-		draw.style |= 0x10
+		draw.style |= styleHorizSlider
 		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(data)))
 	case "SCROLLLISTBOX":
-		draw.style |= 0x20
+		draw.style |= styleScrollListBox
 		return asWindow(C.nox_gui_newScrollListBox_4A4310(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.short)(data)))
 	case "ENTRYFIELD":
-		draw.style |= 0x80
+		draw.style |= styleEntryField
 		return asWindow(C.nox_gui_newEntryField_488500(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.ushort)(data)))
 	case "STATICTEXT":
-		draw.style |= 0x800
+		draw.style |= styleStaticText
 		return asWindow(C.nox_gui_newStaticText_489300(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.uint)(data)))
 	case "PROGRESSBAR":
-		draw.style |= 0x1000
+		draw.style |= styleProgressBar
 		return asWindow(C.nox_gui_newProgressBar_4CAF10(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw)))
+	}
+	return nil
+}
+
+func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *WindowData) *Window {
+	if draw.style&stylePushButton != 0 {
+		btn := newWindow(parent, status, px, py, w, h, C.nox_xxx_wndButtonProcPre_4A9250)
+		if btn == nil {
+			return nil
+		}
+		C.nox_xxx_wndButtonInit_4A8340(unsafePtrToInt(unsafe.Pointer(btn.C())))
+		if draw.win == nil {
+			draw.win = btn.C()
+		}
+		btn.CopyDrawData(draw)
+		return btn
+	}
+	if draw.style&styleCheckBox != 0 {
+		btn := newWindow(parent, status, px, py, w, h, C.nox_xxx_wndCheckboxProcMB_4A92C0)
+		if btn == nil {
+			return nil
+		}
+		C.nox_xxx_wndCheckBoxInit_4A8E60(unsafePtrToInt(unsafe.Pointer(btn.C())))
+		if draw.win == nil {
+			draw.win = btn.C()
+		}
+		btn.CopyDrawData(draw)
+		return btn
 	}
 	return nil
 }

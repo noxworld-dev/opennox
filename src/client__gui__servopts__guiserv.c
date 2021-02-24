@@ -95,9 +95,9 @@ int nox_xxx_guiServerOptsLoad_457500() {
 		dword_5d4594_1046520 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10135);
 		dword_5d4594_1046536 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10153);
 		v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10331);
-		sub_46B070((int)v2, nox_xxx_options_457AA0);
+		nox_gui_winSetFunc96_46B070((int)v2, nox_xxx_options_457AA0);
 		v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10333);
-		sub_46B070((int)v3, nox_xxx_options_457B00);
+		nox_gui_winSetFunc96_46B070((int)v3, nox_xxx_options_457B00);
 		nox_xxx_wnd_46B280(*(int*)&dword_5d4594_1046524, *(int*)&dword_5d4594_1046492);
 		nox_xxx_wnd_46B280(*(int*)&dword_5d4594_1046532, *(int*)&dword_5d4594_1046492);
 		nox_xxx_wnd_46B280(*(int*)&dword_5d4594_1046536, *(int*)&dword_5d4594_1046492);
