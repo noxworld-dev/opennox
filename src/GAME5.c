@@ -3464,10 +3464,10 @@ int  sub_54A310(int a1) {
 	sub_54A4C0(a1);
 	if (v1 > 20) {
 		if (v1 <= 50) {
-			sub_54A390(a1, (CHAR*)getMemAt(0x587000, 288832), "WeaponPower1", "Material2", 0, 0, 0);
+			sub_54A390(a1, "Sword", "WeaponPower1", "Material2", 0, 0, 0);
 			return 1;
 		}
-		sub_54A390(a1, (CHAR*)getMemAt(0x587000, 288852), 0, "Material2", 0, 0, 0);
+		sub_54A390(a1, "WoodenShield", 0, "Material2", 0, 0, 0);
 	}
 	return 1;
 }
@@ -3596,10 +3596,10 @@ int  sub_54A750(int a1) {
 	sub_54A4C0(a1);
 	if (v1 > 20) {
 		if (v1 <= 50) {
-			sub_54A390(a1, (CHAR*)getMemAt(0x587000, 289504), "WeaponPower1", "Material2", 0, 0, 0);
+			sub_54A390(a1, "Sword", "WeaponPower1", "Material2", 0, 0, 0);
 			return 1;
 		}
-		sub_54A390(a1, (CHAR*)getMemAt(0x587000, 289524), 0, "Material2", 0, 0, 0);
+		sub_54A390(a1, "SteelShield", 0, "Material2", 0, 0, 0);
 	}
 	return 1;
 }
@@ -3611,10 +3611,10 @@ int  sub_54A7D0(int a1) {
 	v1 = nox_common_randomInt_415FA0(0, 100);
 	if (v1 > 20) {
 		if (v1 <= 50) {
-			sub_54A390(a1, (CHAR*)getMemAt(0x587000, 289612), "WeaponPower1", "Material1", 0, 0, 0);
+			sub_54A390(a1, "Sword", "WeaponPower1", "Material1", 0, 0, 0);
 			return 1;
 		}
-		sub_54A390(a1, (CHAR*)getMemAt(0x587000, 289632), 0, "Material1", 0, 0, 0);
+		sub_54A390(a1, "WoodenShield", 0, "Material1", 0, 0, 0);
 	}
 	return 1;
 }
@@ -3622,7 +3622,7 @@ int  sub_54A7D0(int a1) {
 //----- (0054A850) --------------------------------------------------------
 int  sub_54A850(int a1) {
 	if (nox_common_randomInt_415FA0(0, 100) > 25)
-		sub_54A390(a1, (CHAR*)getMemAt(0x587000, 289712), "WeaponPower1", 0, 0, 0, 0);
+		sub_54A390(a1, "StaffWooden", "WeaponPower1", 0, 0, 0, 0);
 	return 1;
 }
 
@@ -3633,10 +3633,10 @@ int  sub_54A890(int a1) {
 	v1 = nox_common_randomInt_415FA0(0, 100);
 	if (v1 > 20) {
 		if (v1 <= 50) {
-			sub_54A390(a1, (CHAR*)getMemAt(0x587000, 289772), 0, 0, 0, 0, 0);
+			sub_54A390(a1, "Bow", 0, 0, 0, 0, 0);
 			return 1;
 		}
-		sub_54A390(a1, (CHAR*)getMemAt(0x587000, 289776), 0, 0, 0, 0, 0);
+		sub_54A390(a1, "Quiver", 0, 0, 0, 0, 0);
 	}
 	return 1;
 }
@@ -3644,14 +3644,14 @@ int  sub_54A890(int a1) {
 //----- (0054A900) --------------------------------------------------------
 int  sub_54A900(int a1) {
 	if (nox_common_randomInt_415FA0(0, 100) > 25)
-		sub_54A390(a1, (CHAR*)getMemAt(0x587000, 289860), "WeaponPower1", "Material2", 0, 0, 0);
+		sub_54A390(a1, "OgreAxe", "WeaponPower1", "Material2", 0, 0, 0);
 	return 1;
 }
 
 //----- (0054A950) --------------------------------------------------------
 int  sub_54A950(int a1) {
 	if (nox_common_randomInt_415FA0(0, 100) > 25)
-		sub_54A390(a1, (CHAR*)getMemAt(0x587000, 289916), 0, 0, 0, 0, 5);
+		sub_54A390(a1, "FanChakram", 0, 0, 0, 0, 5);
 	return 1;
 }
 
