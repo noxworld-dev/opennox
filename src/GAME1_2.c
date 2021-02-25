@@ -2202,28 +2202,28 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 	*(_DWORD*)&v118[4] = 0;
 	v6 = operator_new(0x10u);
 	if (v6)
-		v7 = sub_42C8B0((int)v6, (char*)getMemAt(0x587000, 71632), v5);
+		v7 = sub_42C8B0((int)v6, "MXPL", v5);
 	else
 		v7 = 0;
 	sub_42C360(v118, v7);
 	v8 = *(_DWORD*)(a1 + 12);
 	v9 = operator_new(0x10u);
 	if (v9)
-		v10 = sub_42C8B0((int)v9, (char*)getMemAt(0x587000, 71640), v8);
+		v10 = sub_42C8B0((int)v9, "IDNO", v8);
 	else
 		v10 = 0;
 	sub_42C360(v118, v10);
 	v11 = *(_DWORD*)(a1 + 16);
 	v12 = operator_new(0x10u);
 	if (v12)
-		v13 = sub_42C8B0((int)v12, (char*)getMemAt(0x587000, 71648), v11);
+		v13 = sub_42C8B0((int)v12, "GSKU", v11);
 	else
 		v13 = 0;
 	sub_42C360(v118, v13);
 	v14 = *(_DWORD*)(a1 + 20);
 	v15 = operator_new(0x10u);
 	if (v15)
-		v16 = sub_42C8B0((int)v15, (char*)getMemAt(0x587000, 71656), v14);
+		v16 = sub_42C8B0((int)v15, "GSTY", v14);
 	else
 		v16 = 0;
 	sub_42C360(v118, v16);
@@ -2237,14 +2237,14 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 	v19 = *(_DWORD*)(v4 + 32);
 	v20 = operator_new(0x10u);
 	if (v20)
-		v21 = sub_42C8B0((int)v20, (char*)getMemAt(0x587000, 71672), v19);
+		v21 = sub_42C8B0((int)v20, "LIMT", v19);
 	else
 		v21 = 0;
 	sub_42C360(v118, v21);
 	v22 = *(_DWORD*)(v4 + 36);
 	v23 = operator_new(0x10u);
 	if (v23)
-		v24 = sub_42C8B0((int)v23, (char*)getMemAt(0x587000, 71680), v22);
+		v24 = sub_42C8B0((int)v23, "TLMT", v22);
 	else
 		v24 = 0;
 	sub_42C360(v118, v24);
@@ -2258,28 +2258,28 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 	v27 = *(_DWORD*)(v4 + 44);
 	v28 = operator_new(0x10u);
 	if (v28)
-		v29 = sub_42C8B0((int)v28, (char*)getMemAt(0x587000, 71696), v27);
+		v29 = sub_42C8B0((int)v28, "MINE", v27);
 	else
 		v29 = 0;
 	sub_42C360(v118, v29);
 	v30 = *(_DWORD*)(v4 + 48);
 	v31 = operator_new(0x10u);
 	if (v31)
-		v32 = sub_42C8B0((int)v31, (char*)getMemAt(0x587000, 71704), v30);
+		v32 = sub_42C8B0((int)v31, "MAXE", v30);
 	else
 		v32 = 0;
 	sub_42C360(v118, v32);
 	v33 = *(_DWORD*)(v4 + 52);
 	v34 = operator_new(0x10u);
 	if (v34)
-		v35 = sub_42C8B0((int)v34, (char*)getMemAt(0x587000, 71712), v33);
+		v35 = sub_42C8B0((int)v34, "MINP", v33);
 	else
 		v35 = 0;
 	sub_42C360(v118, v35);
 	v36 = *(_DWORD*)(v4 + 56);
 	v37 = operator_new(0x10u);
 	if (v37)
-		v38 = sub_42C8B0((int)v37, (char*)getMemAt(0x587000, 71720), v36);
+		v38 = sub_42C8B0((int)v37, "MAXP", v36);
 	else
 		v38 = 0;
 	sub_42C360(v118, v38);
@@ -2319,28 +2319,28 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 	v49 = *(_DWORD*)(v4 + 64);
 	v50 = operator_new(0x10u);
 	if (v50)
-		v51 = sub_42C8B0((int)v50, (char*)getMemAt(0x587000, 71768), v49);
+		v51 = sub_42C8B0((int)v50, "SPL1", v49);
 	else
 		v51 = 0;
 	sub_42C360(v118, v51);
 	v52 = *(_DWORD*)(v4 + 68);
 	v53 = operator_new(0x10u);
 	if (v53)
-		v54 = sub_42C8B0((int)v53, (char*)getMemAt(0x587000, 71776), v52);
+		v54 = sub_42C8B0((int)v53, "SPL2", v52);
 	else
 		v54 = 0;
 	sub_42C360(v118, v54);
 	v55 = *(_DWORD*)(v4 + 72);
 	v56 = operator_new(0x10u);
 	if (v56)
-		v57 = sub_42C8B0((int)v56, (char*)getMemAt(0x587000, 71784), v55);
+		v57 = sub_42C8B0((int)v56, "SPL3", v55);
 	else
 		v57 = 0;
 	sub_42C360(v118, v57);
 	v58 = *(_DWORD*)(v4 + 88);
 	v59 = operator_new(0x10u);
 	if (v59)
-		v60 = sub_42C8B0((int)v59, (char*)getMemAt(0x587000, 71792), v58);
+		v60 = sub_42C8B0((int)v59, "ARMR", v58);
 	else
 		v60 = 0;
 	sub_42C360(v118, v60);
@@ -2368,14 +2368,14 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 	v67 = *(_DWORD*)(v4 + 92);
 	v68 = operator_new(0x10u);
 	if (v68)
-		v69 = sub_42C8B0((int)v68, (char*)getMemAt(0x587000, 71824), v67);
+		v69 = sub_42C8B0((int)v68, "STAF", v67);
 	else
 		v69 = 0;
 	sub_42C360(v118, v69);
 	v70 = *(_DWORD*)(v4 + 28);
 	v71 = operator_new(0x10u);
 	if (v71)
-		v72 = sub_42C8B0((int)v71, (char*)getMemAt(0x587000, 71832), v70);
+		v72 = sub_42C8B0((int)v71, "DURA", v70);
 	else
 		v72 = 0;
 	sub_42C360(v118, v72);
@@ -2397,7 +2397,7 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 		*getMemU32Ptr(0x5D4594, 741668) = 0;
 		v77 = operator_new(0x10u);
 		if (v77)
-			v78 = sub_42C8B0((int)v77, (char*)getMemAt(0x587000, 71856), 0);
+			v78 = sub_42C8B0((int)v77, "SEQU", 0);
 		else
 			v78 = 0;
 		sub_42C360(v118, v78);
@@ -2421,7 +2421,7 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 		v84 = v83;
 		v85 = operator_new(0x10u);
 		if (v85)
-			v86 = sub_42C8B0((int)v85, (char*)getMemAt(0x587000, 71880), v84);
+			v86 = sub_42C8B0((int)v85, "SEQU", v84);
 		else
 			v86 = 0;
 		sub_42C360(v118, v86);
@@ -2452,7 +2452,7 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 			v96 = *(_DWORD*)(*(_DWORD*)(v4 + 612) + 4 * *getMemU32Ptr(0x5D4594, 741660));
 			v97 = operator_new(0x10u);
 			if (v97)
-				v98 = sub_42C8B0((int)v97, (char*)getMemAt(0x587000, 71496), v96);
+				v98 = sub_42C8B0((int)v97, "IPL?", v96);
 			else
 				v98 = 0;
 			sub_42C360(v118, v98);
@@ -2460,7 +2460,7 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 			v99 = *(_DWORD*)(*(_DWORD*)(v4 + 616) + 4 * *getMemU32Ptr(0x5D4594, 741660));
 			v100 = operator_new(0x10u);
 			if (v100)
-				v101 = sub_42C8B0((int)v100, (char*)getMemAt(0x587000, 71512), v99);
+				v101 = sub_42C8B0((int)v100, "CNL?", v99);
 			else
 				v101 = 0;
 			sub_42C360(v118, v101);
@@ -2484,7 +2484,7 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 			v106 = *(_DWORD*)(*(_DWORD*)(v4 + 628) + 4 * *getMemU32Ptr(0x5D4594, 741660));
 			v107 = operator_new(0x10u);
 			if (v107)
-				v108 = sub_42C8B0((int)v107, (char*)getMemAt(0x587000, 71528), v106);
+				v108 = sub_42C8B0((int)v107, "DUR?", v106);
 			else
 				v108 = 0;
 			sub_42C360(v118, v108);
@@ -2614,21 +2614,21 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 	*(_DWORD*)&v59[4] = 0;
 	v4 = operator_new(0x10u);
 	if (v4)
-		v5 = sub_42C8B0((int)v4, (char*)getMemAt(0x587000, 71944), v3);
+		v5 = sub_42C8B0((int)v4, "IDNO", v3);
 	else
 		v5 = 0;
 	sub_42C360(v59, v5);
 	v6 = *((_DWORD*)a1 + 2);
 	v7 = operator_new(0x10u);
 	if (v7)
-		v8 = sub_42C8B0((int)v7, (char*)getMemAt(0x587000, 71952), v6);
+		v8 = sub_42C8B0((int)v7, "GSKU", v6);
 	else
 		v8 = 0;
 	sub_42C360(v59, v8);
 	v9 = *((_DWORD*)a1 + 3);
 	v10 = operator_new(0x10u);
 	if (v10)
-		v11 = sub_42C8B0((int)v10, (char*)getMemAt(0x587000, 71960), v9);
+		v11 = sub_42C8B0((int)v10, "GSTY", v9);
 	else
 		v11 = 0;
 	sub_42C360(v59, v11);
@@ -2647,7 +2647,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 	v16 = *((_DWORD*)a1 + 5);
 	v17 = operator_new(0x10u);
 	if (v17)
-		v18 = sub_42C8B0((int)v17, (char*)getMemAt(0x587000, 71984), v16);
+		v18 = sub_42C8B0((int)v17, "DURA", v16);
 	else
 		v18 = 0;
 	sub_42C360(v59, v18);
@@ -2668,7 +2668,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 	v24 = getMemByte(0x5D4594, 741672);
 	v25 = operator_new(0x10u);
 	if (v25)
-		v26 = sub_42C8B0((int)v25, (char*)getMemAt(0x587000, 72008), v24);
+		v26 = sub_42C8B0((int)v25, "SEQU", v24);
 	else
 		v26 = 0;
 	sub_42C360(v59, v26);
@@ -2686,7 +2686,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 		v31 = *(_DWORD*)(*((_DWORD*)v2 + 135) + 4 * *getMemU32Ptr(0x5D4594, 741664));
 		v32 = operator_new(0x10u);
 		if (v32)
-			v33 = sub_42C8B0((int)v32, (char*)getMemAt(0x587000, 71552), v31);
+			v33 = sub_42C8B0((int)v32, "IPLS", v31);
 		else
 			v33 = 0;
 		sub_42C360(v59, v33);
@@ -2702,7 +2702,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 		v36 = *(_DWORD*)(*((_DWORD*)v2 + 136) + 4 * *getMemU32Ptr(0x5D4594, 741664));
 		v37 = operator_new(0x10u);
 		if (v37)
-			v38 = sub_42C8B0((int)v37, (char*)getMemAt(0x587000, 71568), v36);
+			v38 = sub_42C8B0((int)v37, "CSTS", v36);
 		else
 			v38 = 0;
 		sub_42C360(v59, v38);
@@ -2710,7 +2710,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 		v39 = *(_DWORD*)(*((_DWORD*)v2 + 137) + 4 * *getMemU32Ptr(0x5D4594, 741664));
 		v40 = operator_new(0x10u);
 		if (v40)
-			v41 = sub_42C8B0((int)v40, (char*)getMemAt(0x587000, 71576), v39);
+			v41 = sub_42C8B0((int)v40, "HSTS", v39);
 		else
 			v41 = 0;
 		sub_42C360(v59, v41);
@@ -2718,7 +2718,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 		v42 = *(_DWORD*)(*((_DWORD*)v2 + 138) + 4 * *getMemU32Ptr(0x5D4594, 741664));
 		v43 = operator_new(0x10u);
 		if (v43)
-			v44 = sub_42C8B0((int)v43, (char*)getMemAt(0x587000, 71584), v42);
+			v44 = sub_42C8B0((int)v43, "MKLS", v42);
 		else
 			v44 = 0;
 		sub_42C360(v59, v44);
@@ -2726,7 +2726,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 		v45 = *(_DWORD*)(*((_DWORD*)v2 + 139) + 4 * *getMemU32Ptr(0x5D4594, 741664));
 		v46 = operator_new(0x10u);
 		if (v46)
-			v47 = sub_42C8B0((int)v46, (char*)getMemAt(0x587000, 71592), v45);
+			v47 = sub_42C8B0((int)v46, "ANKS", v45);
 		else
 			v47 = 0;
 		sub_42C360(v59, v47);
@@ -2734,7 +2734,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 		v48 = *(_DWORD*)(*((_DWORD*)v2 + 140) + 4 * *getMemU32Ptr(0x5D4594, 741664));
 		v49 = operator_new(0x10u);
 		if (v49)
-			v50 = sub_42C8B0((int)v49, (char*)getMemAt(0x587000, 71600), v48);
+			v50 = sub_42C8B0((int)v49, "GNDS", v48);
 		else
 			v50 = 0;
 		sub_42C360(v59, v50);
@@ -2742,7 +2742,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 		v51 = *(_DWORD*)(*((_DWORD*)v2 + 141) + 4 * *getMemU32Ptr(0x5D4594, 741664));
 		v52 = operator_new(0x10u);
 		if (v52)
-			v53 = sub_42C8B0((int)v52, (char*)getMemAt(0x587000, 71608), v51);
+			v53 = sub_42C8B0((int)v52, "SECS", v51);
 		else
 			v53 = 0;
 		sub_42C360(v59, v53);
@@ -2750,7 +2750,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 		v54 = *(_DWORD*)(*((_DWORD*)v2 + 142) + 4 * *getMemU32Ptr(0x5D4594, 741664));
 		v55 = operator_new(0x10u);
 		if (v55)
-			v56 = sub_42C8B0((int)v55, (char*)getMemAt(0x587000, 71616), v54);
+			v56 = sub_42C8B0((int)v55, "BPTS", v54);
 		else
 			v56 = 0;
 		sub_42C360(v59, v56);
