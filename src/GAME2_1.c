@@ -3093,7 +3093,7 @@ void sub_468020() {
 	if (dword_5d4594_815132) {
 		sub_468060();
 		sub_4207F0(1);
-		sub_44A560_wol_login();
+		nox_game_showWolLogin_44A560();
 		nox_xxx____setargv_0_40E0A0();
 	}
 }
@@ -3317,7 +3317,7 @@ int  sub_4685D0(int a1, int a2, int* a3, int a4) {
 	case 5:
 		sub_41E300(5);
 		sub_4207F0(1);
-		sub_44A560_wol_login();
+		nox_game_showWolLogin_44A560();
 		result = 1;
 		break;
 	default:

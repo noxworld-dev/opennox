@@ -168,7 +168,7 @@ func runNox(args []string) error {
 	*memmap.PtrUint32(0x5D4594, 2650640) = 0
 	*memmap.PtrUint32(0x5D4594, 2618916) = 0
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
-	C.sub_43BDD0(10)
+	C.nox_game_addStateCode_43BDD0(10)
 	unsetGameFlag(GameFlag_ALL)
 	setGameFlag(3)
 	setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)

@@ -3511,7 +3511,7 @@ int sub_41E1B0() {
 			if (v3) {
 				if (v3 == 3) {
 					sub_4207F0(1);
-					sub_43C260();
+					nox_game_checkStateWol_43C260();
 				}
 			} else {
 				nox_xxx_wolApiError_41D1D0(1);

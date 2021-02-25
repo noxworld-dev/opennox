@@ -50,7 +50,7 @@ extern _DWORD dword_5d4594_251744;
 extern _DWORD dword_5d4594_251556;
 extern _DWORD dword_5d4594_4808;
 extern _DWORD dword_5d4594_251552;
-extern _DWORD dword_5d4594_251700;
+extern _DWORD nox_game_cdState_251700;
 extern _DWORD dword_5d4594_251564;
 extern _DWORD dword_5d4594_528252;
 extern _DWORD dword_5d4594_3484;
@@ -197,7 +197,7 @@ int cmain(int argc, const char* argv[]) {
 	*getMemU32Ptr(0x5D4594, 2650640) = 0;
 	*getMemU32Ptr(0x5D4594, 2618916) = 0;
 	nox_gameDisableMapDraw_5d4594_2650672 = 0;
-	sub_43BDD0(10);
+	nox_game_addStateCode_43BDD0(10);
 	nox_common_gameFlags_unset_40A540(-1);
 	nox_xxx_setGameFlags_40A4D0(3);
 	nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
@@ -3152,7 +3152,7 @@ BOOL __stdcall sub_40CA60(int a1, int a2, const void* a3) {
 			}
 			if (sub_41E2F0() == 3) {
 				sub_446A90();
-				sub_446AD0(sub_447620_wol_chat);
+				sub_446AD0(nox_game_showWolChat_447620);
 				sub_41FF30(a3);
 				v8 = sub_41E2F0();
 				sub_41DA70(v8, 7);
@@ -3198,7 +3198,7 @@ int __stdcall sub_40CBE0(int a1, int a2) {
 				sub_446490(0);
 				nox_xxx____setargv_4_44B000();
 				nox_xxx____setargv_0_40E0A0();
-				sub_43C260();
+				nox_game_checkStateWol_43C260();
 				sub_44A400();
 			}
 			return 0;
@@ -7255,7 +7255,7 @@ int sub_4134D0() {
 
 //----- (004134F0) --------------------------------------------------------
 void sub_4134F0() {
-	dword_5d4594_251700 = 0;
+	nox_game_cdState_251700 = 0;
 	dword_5d4594_251704 = 0;
 	dword_5d4594_251708 = 0;
 	dword_5d4594_251712 = 0;
@@ -7267,12 +7267,12 @@ void sub_4134F0() {
 void sub_413760() {
 	nox_xxx_setContinueMenuOrHost_43DDD0(0);
 	nox_game_exit_xxx_43DE60();
-	dword_5d4594_251700 = 5;
+	nox_game_cdState_251700 = 5;
 }
 
 //----- (00413780) --------------------------------------------------------
 void sub_413780() {
-	dword_5d4594_251700 = 1;
+	nox_game_cdState_251700 = 1;
 	if (dword_5d4594_251716)
 		dword_5d4594_251716 = 0;
 }
@@ -7312,10 +7312,10 @@ int sub_4137E0() {
 }
 
 //----- (00413800) --------------------------------------------------------
-void sub_413800() {
+void nox_game_cdMaybeSwitchState_413800() {
 	if (!*getMemU32Ptr(0x5D4594, 251724)) {
 		*getMemU32Ptr(0x5D4594, 251724) = 1;
-		if (!sub_43C0A0())
+		if (!nox_game_switchStates_43C0A0())
 			sub_413760();
 	}
 }
@@ -7334,7 +7334,7 @@ int sub_413850() {
 	if (!dword_5d4594_251728) {
 		result = 1;
 		dword_5d4594_251728 = 1;
-		dword_5d4594_251700 = 1;
+		nox_game_cdState_251700 = 1;
 	}
 	return result;
 }

@@ -10,7 +10,7 @@ extern _DWORD dword_5d4594_830264;
 extern _DWORD dword_5d4594_830248;
 
 //----- (0044A560) --------------------------------------------------------
-int sub_44A560_wol_login() {
+int nox_game_showWolLogin_44A560() {
 	int result;       // eax
 	int i;            // esi
 	int v2;           // esi
@@ -42,7 +42,7 @@ int sub_44A560_wol_login() {
 	if (dword_5d4594_830248) {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830248, 1);
 	} else {
-		sub_43BDD0(1700);
+		nox_game_addStateCode_43BDD0(1700);
 		result = nox_new_window_from_file("wolapi.wnd", sub_44AB30);
 		dword_5d4594_830248 = result;
 		if (!result)

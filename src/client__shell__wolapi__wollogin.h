@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-int sub_44A560_wol_login();
+int nox_game_showWolLogin_44A560();
 
 #endif // NOX_PORT_CLIENT_SHELL_WOLAPI_WOLLOGIN

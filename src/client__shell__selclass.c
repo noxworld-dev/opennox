@@ -30,7 +30,7 @@ int  sub_4A4A20(int a1, int a2, int* a3, int a4) {
 					sub_4A4B70(v5);
 				}
 				sub_4A4970();
-				nox_wnd_xxx_1307732->field_13 = sub_4A5D00;
+				nox_wnd_xxx_1307732->field_13 = nox_game_showSelColor_4A5D00;
 			}
 		}
 		nox_xxx_clientPlaySoundSpecial_452D80(921, 100);

@@ -318,12 +318,12 @@ void sub_446190() {
 		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 108632), v1);
 	}
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-		sub_43C260();
+		nox_game_checkStateWol_43C260();
 		sub_41E300(9);
 		nox_xxx____setargv_4_44B000();
 	} else if (sub_4D6F50()) {
 		if (sub_4D6F30())
-			sub_43C2F0();
+			nox_game_checkStateMenu_43C2F0();
 		sub_4D70B0();
 		sub_4D6F40(0);
 		sub_4D6F90(0);

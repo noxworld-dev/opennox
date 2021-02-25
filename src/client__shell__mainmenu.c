@@ -50,10 +50,10 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 					}
 					if (sub_4DC550()) {
 						sub_4A7A70(1);
-						nox_wnd_xxx_1307308->field_13 = sub_4A4DB0;
+						nox_wnd_xxx_1307308->field_13 = nox_game_showSelChar_4A4DB0;
 					} else {
 						sub_4A7A70(0);
-						nox_wnd_xxx_1307308->field_13 = sub_4A4840;
+						nox_wnd_xxx_1307308->field_13 = nox_game_showSelClass_4A4840;
 					}
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				} else {
@@ -68,6 +68,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				}
 				return 1;
 			case 112:
+				// prepare to start a server
 				sub_4A1D40();
 				nox_common_setEngineFlag(NOX_ENGINE_FLAG_5);
 				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_6);
@@ -83,17 +84,18 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 					sub_473610();
 				nox_xxx_cliShowHideTubes_470AA0(0);
 				nox_xxx_cliSetMinimapZoom_472520(2300);
-				if (nox_xxx_parseGamedataBinPre_4D1630())
-					goto LABEL_26;
-				nox_xxx_setContinueMenuOrHost_43DDD0(0);
-				dword_5d4594_815132 = 0;
-				return 0;
+				if (!nox_xxx_parseGamedataBinPre_4D1630()) {
+					nox_xxx_setContinueMenuOrHost_43DDD0(0);
+					dword_5d4594_815132 = 0;
+					return 0;
+				}
+				goto LABEL_26;
 			case 121:
 				if (!sub_4CB230("Intro.vqa", v10))
 					goto LABEL_32;
 				sub_4A1D40();
 				sub_4B0300(v10);
-				sub_4B0640(sub_43C0A0);
+				sub_4B0640(nox_game_switchStates_43C0A0);
 				nox_wnd_xxx_1307308->field_13 = nox_client_drawGeneralCallback_4A2200;
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				return 1;
@@ -139,10 +141,10 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 			LABEL_26:
 #ifdef __EMSCRIPTEN__
 				sub_4AA450();
-				nox_wnd_xxx_1307308->field_13 = sub_4379F0;
+				nox_wnd_xxx_1307308->field_13 = nox_game_showGameSel_4379F0;
 				sub_43AF50(0);
 #else
-				nox_wnd_xxx_1307308->field_13 = sub_4AA270;
+				nox_wnd_xxx_1307308->field_13 = nox_game_showOnlineOrLAN_413800;
 #endif
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				break;

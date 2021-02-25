@@ -5,7 +5,7 @@
 
 void sub_4373A0();
 void nox_client_refreshServerList_4378B0();
-int sub_4379F0();
+int nox_game_showGameSel_4379F0();
 int sub_4383A0();
 int sub_438770();
 int sub_438BD0();
