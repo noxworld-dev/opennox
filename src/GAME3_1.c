@@ -78,7 +78,7 @@ extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_810636;
 extern _DWORD dword_5d4594_3799508;
-extern _DWORD dword_5d4594_1522892;
+extern _DWORD nox_win_legalBg_1522892;
 extern _DWORD nox_client_drawFrontWalls_80812;
 extern _DWORD dword_5d4594_1321236;
 extern _DWORD dword_5d4594_1320992;
@@ -9773,7 +9773,7 @@ int sub_4CB880() {
 	_DWORD* v8;  // eax
 	_DWORD* v9;  // eax
 
-	sub_43BDD0(900);
+	nox_game_addStateCode_43BDD0(900);
 	result = nox_new_window_from_file("InputCfg.wnd", sub_4CBE70);
 	dword_5d4594_1522604 = result;
 	if (result) {
@@ -10098,7 +10098,7 @@ int  sub_4CC3C0(char* a1) {
 }
 
 //----- (004CC4E0) --------------------------------------------------------
-int sub_4CC4E0() // display legal window
+int nox_game_showLegal_4CC4E0() // display legal window
 {
 	_DWORD* v0;           // esi
 	int v1;               // eax
@@ -10111,29 +10111,29 @@ int sub_4CC4E0() // display legal window
 	int v9;               // [esp+4h] [ebp-14h]
 	char v10[16];         // [esp+8h] [ebp-10h]
 
-	dword_5d4594_1522892 = nox_new_window_from_file("legal.wnd", nox_xxx_windowMainBGProc_4CC6A0);
-	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1522892, sub_4CC660, 0, 0);
-	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1522892);
-	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522892, 9980);
+	nox_win_legalBg_1522892 = nox_new_window_from_file("legal.wnd", nox_xxx_windowMainBGProc_4CC6A0);
+	nox_window_set_all_funcs(nox_win_legalBg_1522892, sub_4CC660, 0, 0);
+	nox_xxx_wndShowModalMB_46A8C0(nox_win_legalBg_1522892);
+	v0 = nox_xxx_wndGetChildByID_46B0C0(nox_win_legalBg_1522892, 9980);
 	v8 = (unsigned __int16*)sub_46AF00((int)v0);
 	v1 = sub_46AF40((int)v0);
 	nox_xxx_drawGetStringSize_43F840(v1, v8, 0, &v9, 640);
 	nox_wnd_nox_xxx_wndDraw_46A9B0(v0, 0, 477 - v9);
-	v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522892, 9999);
+	v2 = nox_xxx_wndGetChildByID_46B0C0(nox_win_legalBg_1522892, 9999);
 	v3 = nox_xxx_getNoxVer_401020();
 	nox_window_call_field_94((int)v2, 16385, (int)v3, 0);
-	v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522892, 9998);
+	v4 = nox_xxx_wndGetChildByID_46B0C0(nox_win_legalBg_1522892, 9998);
 	if (!sub_4145F0(v10))
 		v10[0] = 0;
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1522896), L"%S", v10);
 	nox_window_call_field_94((int)v4, 16385, (int)getMemAt(0x5D4594, 1522896), 0);
-	v5 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522892, 9970);
+	v5 = nox_xxx_wndGetChildByID_46B0C0(nox_win_legalBg_1522892, 9970);
 	nox_xxx_wndSetDrawFn_46B340((int)v5, sub_4CC6F0);
 	*getMemU16Ptr(0x5D4594, 1522928) = 300;
 	nox_xxx_wndRetNULL_46A8A0();
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-		v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522892, 9901);
-		nox_window_call_field_94(*(int*)&dword_5d4594_1522892, 16391, (int)v6, 0);
+		v6 = nox_xxx_wndGetChildByID_46B0C0(nox_win_legalBg_1522892, 9901);
+		nox_window_call_field_94(nox_win_legalBg_1522892, 16391, (int)v6, 0);
 	}
 	sub_43D9B0(14, 100);
 	return 1;
@@ -10146,7 +10146,7 @@ int  sub_4CC660(_DWORD* a1, int a2, int a3, int a4) {
 			return 0;
 		if (a4 == 2) {
 			nox_xxx_windowDestroyMB_46C4E0(a1);
-			sub_4A1C00();
+			nox_game_showMainMenu_4A1C00();
 		}
 	}
 	return 1;
@@ -10159,7 +10159,7 @@ int  nox_xxx_windowMainBGProc_4CC6A0(_DWORD* a1, int a2, int* a3, int a4) {
 			return 0;
 		if (nox_xxx_wndGetID_46B0A0(a3) == 9901) {
 			nox_xxx_windowDestroyMB_46C4E0(a1);
-			sub_4A1C00();
+			nox_game_showMainMenu_4A1C00();
 		}
 	}
 	return 1;
@@ -10170,11 +10170,11 @@ int sub_4CC6F0(int a1, int a2) {
 	_DWORD* v0; // eax
 
 	if (--*getMemI16Ptr(0x5D4594, 1522928) < 0) {
-		nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1522892);
-		sub_4A1C00();
+		nox_xxx_windowDestroyMB_46C4E0(nox_win_legalBg_1522892);
+		nox_game_showMainMenu_4A1C00();
 	}
 	if (*getMemI16Ptr(0x5D4594, 1522928) < 270) {
-		v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522892, 9910);
+		v0 = nox_xxx_wndGetChildByID_46B0C0(nox_win_legalBg_1522892, 9910);
 		nox_window_set_hidden((int)v0, 0);
 	}
 	nox_set_color_rgb_4343B0(150, 150, 150);

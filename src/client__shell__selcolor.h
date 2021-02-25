@@ -3,7 +3,7 @@
 
 #include "defs.h"
 
-int sub_4A5D00();
+int nox_game_showSelColor_4A5D00();
 wchar_t* sub_4A68C0();
 int sub_4A75C0();
 

@@ -12,7 +12,7 @@ void sub_44B010() {
 	wchar_t* v0; // eax
 	wchar_t* v1; // eax
 
-	sub_43C260();
+	nox_game_checkStateWol_43C260();
 	sub_41E300(9);
 	sub_44E040();
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {

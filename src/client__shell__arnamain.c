@@ -4,7 +4,7 @@
 #include "client__shell__noxworld.h"
 #include "client__shell__wolapi__wollogin.h"
 extern _DWORD dword_5d4594_1309708;
-extern _DWORD dword_5d4594_1309716;
+extern _DWORD nox_win_onlineOrLAN_1309716;
 
 //----- (004AA4D0) --------------------------------------------------------
 int  nox_xxx_windowArenaSub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
@@ -27,7 +27,7 @@ int  nox_xxx_windowArenaSub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
 				return 1;
 			}
 			sub_4AA450();
-			*(_DWORD*)(dword_5d4594_1309708 + 52) = sub_4379F0;
+			*(_DWORD*)(dword_5d4594_1309708 + 52) = nox_game_showGameSel_4379F0;
 			sub_43AF50(0);
 		} else {
 			if (!sub_41D440()) {
@@ -35,7 +35,7 @@ int  nox_xxx_windowArenaSub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
 										   "C:\\NoxPost\\src\\client\\shell\\ArnaMain.c", 100);
 				v5 = nox_strman_loadString_40F1D0("Error", 0,
 										   "C:\\NoxPost\\src\\client\\shell\\ArnaMain.c", 100);
-				nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1309716, (int)v5, (int)v7, 33, 0, 0);
+				nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&nox_win_onlineOrLAN_1309716, (int)v5, (int)v7, 33, 0, 0);
 				return 0;
 			}
 			if (sub_40D5B0((int)&a2) && a2 < 0x10009) {
@@ -44,12 +44,12 @@ int  nox_xxx_windowArenaSub_4AA4D0(int a1, unsigned int a2, int* a3, int a4) {
 										   "C:\\NoxPost\\src\\client\\shell\\ArnaMain.c", 111);
 				v6 = nox_strman_loadString_40F1D0("Error", 0,
 										   "C:\\NoxPost\\src\\client\\shell\\ArnaMain.c", 111);
-				nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1309716, (int)v6, (int)v8, 33, 0, 0);
+				nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&nox_win_onlineOrLAN_1309716, (int)v6, (int)v8, 33, 0, 0);
 				return 0;
 			}
 			sub_4A1A40(0);
 			sub_4AA450();
-			*(_DWORD*)(dword_5d4594_1309708 + 52) = sub_44A560_wol_login;
+			*(_DWORD*)(dword_5d4594_1309708 + 52) = nox_game_showWolLogin_44A560;
 		}
 		nox_common_gameFlags_unset_40A540(0x1000000);
 		goto LABEL_17;

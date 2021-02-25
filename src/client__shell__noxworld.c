@@ -29,7 +29,7 @@ extern _DWORD dword_5d4594_815024;
 extern _DWORD dword_5d4594_815028;
 extern _DWORD dword_5d4594_814984;
 extern _DWORD dword_5d4594_815016;
-extern _DWORD dword_5d4594_815048;
+extern _DWORD nox_game_createOrJoin_815048;
 extern _DWORD dword_587000_87404;
 extern _DWORD dword_587000_87412;
 extern _DWORD dword_5d4594_815000;
@@ -55,15 +55,15 @@ void sub_4373A0() {
 		nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_814980);
 	}
 	if (*(int*)&dword_587000_87408 == 1 || *(int*)&dword_587000_87412 == -1) {
-		if (dword_5d4594_815048 == 1) {
-			dword_5d4594_815048 = 0;
+		if (nox_game_createOrJoin_815048 == 1) {
+			nox_game_createOrJoin_815048 = 0;
 			nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 			v2 = nox_strman_loadString_40F1D0("ChooseArea", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 									   619);
 			nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v2, 0);
 			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
 		} else {
-			sub_43C1E0();
+			nox_game_checkStateSwitch_43C1E0();
 			sub_49FF20();
 			if (dword_587000_87404 == 1) {
 				*getMemU32Ptr(0x5D4594, 815084) = 1;
@@ -73,8 +73,8 @@ void sub_4373A0() {
 			}
 			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
 		}
-	} else if (dword_5d4594_815048 == 1) {
-		dword_5d4594_815048 = 0;
+	} else if (nox_game_createOrJoin_815048 == 1) {
+		nox_game_createOrJoin_815048 = 0;
 		nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 		nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_814984);
 		sub_4375C0(1);
@@ -94,7 +94,7 @@ void sub_4373A0() {
 			nox_client_refreshServerList_4378B0();
 			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
 		} else {
-			sub_43C1E0();
+			nox_game_checkStateSwitch_43C1E0();
 		}
 	}
 }
@@ -130,7 +130,7 @@ void nox_client_refreshServerList_4378B0() {
 }
 
 //----- (004379F0) --------------------------------------------------------
-int sub_4379F0() {
+int nox_game_showGameSel_4379F0() {
 	int result;   // eax
 	_DWORD* v2;   // esi
 	_DWORD* v3;   // eax
@@ -163,13 +163,13 @@ int sub_4379F0() {
 	sub_4D6F60(0);
 	sub_4D6F80(0);
 	if (!nox_common_gameFlags_check_40A5C0(0x2000000) && !sub_4D6F30()) {
-		dword_5d4594_815048 = 0;
+		nox_game_createOrJoin_815048 = 0;
 		dword_587000_87412 = -1;
 	}
 	*getMemU32Ptr(0x5D4594, 815076) = 0;
 	*getMemU32Ptr(0x5D4594, 815080) = 0;
 	*getMemU32Ptr(0x5D4594, 815084) = 0;
-	sub_43BDD0(10000);
+	nox_game_addStateCode_43BDD0(10000);
 	sub_4A24C0(1);
 	if (*(int*)&dword_587000_87404 != 1 || (sub_4A1BE0(0), *(int*)&dword_587000_87412 != -1))
 		sub_49FDB0(0);
@@ -182,7 +182,7 @@ int sub_4379F0() {
 		nox_window_set_hidden(*(int*)&dword_5d4594_814980, 0);
 		nox_window_set_hidden(*(int*)&dword_5d4594_815000, 0);
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_814984, 1);
-		if (dword_5d4594_815048)
+		if (nox_game_createOrJoin_815048)
 			sub_4375C0(0);
 		sub_46ACE0(*(_DWORD**)&dword_5d4594_814980, 10047, 10051, dword_587000_87408 == 0);
 		if (sub_4D6FA0() == 2) {
@@ -292,7 +292,7 @@ int sub_4379F0() {
 				sub_438480();
 				v16 = nox_xxx_servGetPort_40A430();
 				sub_40A3C0(v16);
-				dword_5d4594_815048 = 0;
+				nox_game_createOrJoin_815048 = 0;
 				dword_5d4594_815044 = 0;
 				dword_5d4594_815052 = 0;
 				dword_5d4594_814548 = 0;
@@ -463,7 +463,7 @@ int sub_438770() {
 		if ((!wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_814984) ||
 			 !wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_814988) ||
 			 !wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_815012)) &&
-			!dword_5d4594_815048 && !dword_5d4594_815044 && !dword_5d4594_815052 &&
+			!nox_game_createOrJoin_815048 && !dword_5d4594_815044 && !dword_5d4594_815052 &&
 			wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_815000)) {
 			if ((unsigned __int64)nox_call_get_ticks() > *(_QWORD*)&qword_5d4594_815068) {
 				nox_client_refreshServerList_4378B0();
@@ -816,7 +816,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 	if (v5 > 10006) {
 		switch (v5) {
 		case 10007:
-			if (dword_5d4594_815048)
+			if (nox_game_createOrJoin_815048)
 				sub_4373A0();
 			if (dword_587000_87404)
 				sub_43A980();
@@ -890,7 +890,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 		return result;
 	}
 	if (v5 == 10006) {
-		dword_5d4594_815048 = 0;
+		nox_game_createOrJoin_815048 = 0;
 		nox_client_refreshServerList_4378B0();
 		return 0;
 	}
@@ -899,13 +899,13 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 		if (v19) {
 			v20 = v19 - 1;
 			if (!v20) {
-				dword_5d4594_815048 = 0;
+				nox_game_createOrJoin_815048 = 0;
 				sub_4383A0();
 				nox_client_refreshServerList_4378B0();
 				return 0;
 			}
 			if (v20 == 1) {
-				dword_5d4594_815048 = 0;
+				nox_game_createOrJoin_815048 = 0;
 				nox_window_set_hidden(*(int*)&dword_5d4594_815012, 1);
 				nox_window_set_hidden(*(int*)&dword_5d4594_814984, 1);
 				nox_window_set_hidden(*(int*)&dword_5d4594_814988, 1);
@@ -928,7 +928,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 			sub_44A4B0();
 			return 0;
 		}
-		dword_5d4594_815048 = 1;
+		nox_game_createOrJoin_815048 = 1;
 		nox_common_gameFlags_unset_40A540(0x10000);
 		nox_client_setMousePos_430B10(408, 239);
 		sub_4375C0(0);
@@ -950,7 +950,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 	if (v5 == 10002) {
 		if (nox_common_gameFlags_check_40A5C0(0x1000000))
 			return 0;
-		dword_5d4594_815048 = 1;
+		nox_game_createOrJoin_815048 = 1;
 		nox_xxx_setGameFlags_40A4D0(0x10000);
 		nox_xxx_cliShowHideTubes_470AA0(0);
 		nox_client_setMousePos_430B10(408, 239);
@@ -999,7 +999,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 			if (dword_587000_87404 == 1)
 				sub_40D380();
 			sub_43A920();
-			sub_4379F0();
+			nox_game_showGameSel_4379F0();
 			return 0;
 		}
 		if (dword_5d4594_815104) {
@@ -1013,7 +1013,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 		if (dword_587000_87404 == 1)
 			sub_40D380();
 		sub_43A920();
-		sub_4379F0();
+		nox_game_showGameSel_4379F0();
 		return 0;
 	}
 	if (v9 != 5999 || dword_5d4594_815044)
@@ -1027,20 +1027,20 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 	if (sub_4D6F70()) {
 		if (sub_4DC7D0()) {
 			sub_4A7A70(1);
-			sub_4A4DB0();
+			nox_game_showSelChar_4A4DB0();
 			dword_5d4594_815044 = 1;
 			sub_4A2890();
 			return 0;
 		}
 	} else if (sub_4DC630()) {
 		sub_4A7A70(1);
-		sub_4A4DB0();
+		nox_game_showSelChar_4A4DB0();
 		dword_5d4594_815044 = 1;
 		sub_4A2890();
 		return 0;
 	}
 	sub_4A7A70(0);
-	sub_4A4840();
+	nox_game_showSelClass_4A4840();
 	dword_5d4594_815044 = 1;
 	sub_4A2890();
 	return 0;
@@ -1054,7 +1054,7 @@ void sub_43A810() {
 	nox_window_set_hidden(*(int*)&dword_5d4594_814984, 0);
 	nox_window_set_hidden(*(int*)&dword_5d4594_814988, 1);
 	nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_814984, *getMemU32Ptr(0x5D4594, 4 * dword_587000_87412 + 814900));
-	if (dword_5d4594_815048 == 1)
+	if (nox_game_createOrJoin_815048 == 1)
 		v2 = nox_strman_loadString_40F1D0("CreateMsg", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 377);
 	else
 		v2 = nox_strman_loadString_40F1D0("JoinServer", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 382);

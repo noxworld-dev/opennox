@@ -23,7 +23,7 @@ extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1307784;
 
 //----- (004A5D00) --------------------------------------------------------
-int sub_4A5D00() {
+int nox_game_showSelColor_4A5D00() {
 	char* v0;    // eax
 	int result;  // eax
 	int i;       // esi
@@ -33,7 +33,7 @@ int sub_4A5D00() {
 	wchar_t* v6; // eax
 	_DWORD* v7;  // eax
 
-	sub_43BDD0(700);
+	nox_game_addStateCode_43BDD0(700);
 	v0 = nox_xxx_getHostInfoPtr_431770();
 	dword_5d4594_1307784 = v0;
 	v0[67] = 0;

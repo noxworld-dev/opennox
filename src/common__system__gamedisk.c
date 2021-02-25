@@ -3,7 +3,7 @@ extern _DWORD dword_5d4594_251728;
 extern _DWORD dword_5d4594_251704;
 extern _DWORD dword_5d4594_251712;
 extern _DWORD dword_5d4594_251708;
-extern _DWORD dword_5d4594_251700;
+extern _DWORD nox_game_cdState_251700;
 
 //----- (00413520) --------------------------------------------------------
 void sub_413520_gamedisk() {
@@ -15,7 +15,7 @@ void sub_413520_gamedisk() {
 	void (*v7)();         // [esp-8h] [ebp-14h]
 	void (*v8)();         // [esp-4h] [ebp-10h]
 
-	switch (dword_5d4594_251700) {
+	switch (nox_game_cdState_251700) {
 	case 1:
 		// XXX NO CD
 		// v1 = nox_xxx_noxCDinDriver_423CF0();
@@ -49,8 +49,8 @@ void sub_413520_gamedisk() {
 			goto LABEL_9;
 		}
 		sub_4137E0();
-		sub_413800();
-		dword_5d4594_251700 = 6;
+		nox_game_cdMaybeSwitchState_413800();
+		nox_game_cdState_251700 = 6;
 		dword_5d4594_251728 = 0;
 		break;
 	case 2:
@@ -59,7 +59,7 @@ void sub_413520_gamedisk() {
 		int v0 = v3 - *getMemU64Ptr(0x5D4594, 251732);
 		if (v0 > 2000) {
 			sub_423C60();
-			dword_5d4594_251700 = 3;
+			nox_game_cdState_251700 = 3;
 			*getMemU32Ptr(0x5D4594, 251732) = *getMemU32Ptr(0x5D4594, 251628);
 			*getMemU32Ptr(0x5D4594, 251736) = *getMemU32Ptr(0x5D4594, 251632);
 		}
@@ -71,9 +71,9 @@ void sub_413520_gamedisk() {
 			dword_5d4594_251708 = 0;
 			if (dword_5d4594_251712) {
 				dword_5d4594_251712 = 0;
-				dword_5d4594_251700 = 1;
+				nox_game_cdState_251700 = 1;
 			} else {
-				dword_5d4594_251700 = 2;
+				nox_game_cdState_251700 = 2;
 			}
 		}
 		break;
@@ -87,7 +87,7 @@ void sub_413520_gamedisk() {
 		nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v2, (int)v5, v6, v7, v8);
 		sub_44A360(0);
 		sub_44A4B0();
-		dword_5d4594_251700 = 6;
+		nox_game_cdState_251700 = 6;
 		break;
 	case 6:
 		break;

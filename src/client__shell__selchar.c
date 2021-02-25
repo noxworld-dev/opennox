@@ -13,7 +13,7 @@ char nox_savegame_name_1307752[9] = {0};
 nox_wnd_xxx* nox_wnd_xxx_1307748 = 0;
 
 //----- (004A4DB0) --------------------------------------------------------
-int sub_4A4DB0() {
+int nox_game_showSelChar_4A4DB0() {
 	int result;  // eax
 	_DWORD* v1;  // esi
 	_DWORD* v2;  // esi
@@ -28,7 +28,7 @@ int sub_4A4DB0() {
 	nox_client_setCursorType_477610(0);
 	if (sub_4D6F30())
 		sub_4D6F90(1);
-	sub_43BDD0(500);
+	nox_game_addStateCode_43BDD0(500);
 	sub_4A1BE0(1);
 	result = nox_new_window_from_file("SelChar.wnd", nox_xxx_windowSelCharProc_4A5710);
 	dword_5d4594_1307764 = result;
@@ -273,7 +273,7 @@ int  nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) 
 		case 501:
 			nox_xxx_cliSetPlrGuid_4E3C60(1000000000);
 			sub_4A50A0();
-			nox_wnd_xxx_1307748->field_13 = sub_4A4840;
+			nox_wnd_xxx_1307748->field_13 = nox_game_showSelClass_4A4840;
 			goto LABEL_40;
 		case 502:
 			v7 = *(_DWORD*)(dword_5d4594_1307776 + 32);
@@ -286,7 +286,7 @@ int  nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) 
 					sub_41A000((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(_DWORD*)(v7 + 48) + 4), v23)) {
 					memcpy(getMemAt(0x5D4594, 2660684), v23, 0x4FCu);
 					*getMemU16Ptr(0x5D4594, 2661960) = *(_WORD*)&v23[1276];
-					sub_43BDC0();
+					nox_game_decStateInd_43BDC0();
 					if (getMemByte(0x5D4594, 2661958) != 0) {
 						if (getMemByte(0x5D4594, 2661958) == 1) {
 							nox_xxx_gameSetMapPath_409D70("Wiz01a.map");
