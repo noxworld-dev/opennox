@@ -2281,7 +2281,7 @@ int*  sub_495500(int* a1) {
 	wchar_t v29[32]; // [esp+6Ch] [ebp-80h]
 	wchar_t v30[32]; // [esp+ACh] [ebp-40h]
 
-	v1 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 161680));
+	v1 = nox_xxx_guiFontPtrByName_43F360("large");
 	v2 = *a1;
 	v3 = 0;
 	v4 = *a1 == 0;
@@ -5326,7 +5326,7 @@ int nox_xxx_allocArrayHealthChanges_49A5F0() {
 	result = nox_new_alloc_class("HealthChange", 20, 32);
 	nox_alloc_healthChange_1301772 = result;
 	if (result) {
-		dword_5d4594_1301780 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 163264));
+		dword_5d4594_1301780 = nox_xxx_guiFontPtrByName_43F360("numbers");
 		result = 1;
 	}
 	return result;

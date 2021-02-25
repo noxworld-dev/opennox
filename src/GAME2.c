@@ -1034,7 +1034,7 @@ _DWORD* sub_44E110() {
 	int v23;        // eax
 
 	if (!dword_5d4594_832484)
-		dword_5d4594_832484 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 123044));
+		dword_5d4594_832484 = nox_xxx_guiFontPtrByName_43F360("default");
 	v0 = *(_DWORD**)&dword_5d4594_832496;
 	if (!dword_5d4594_832496) {
 		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0("GauntletExitB");

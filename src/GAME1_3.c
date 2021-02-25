@@ -6042,13 +6042,13 @@ void  sub_44A360(int a1) {
 
 	v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830224, 4005);
 	if (a1 == 1) {
-		v1[59] = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 113100));
+		v1[59] = nox_xxx_guiFontPtrByName_43F360("large");
 		v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830224, 4004);
-		result = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 113108));
+		result = nox_xxx_guiFontPtrByName_43F360("large");
 	} else {
-		v1[59] = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 113116));
+		v1[59] = nox_xxx_guiFontPtrByName_43F360("default");
 		v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830224, 4004);
-		result = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 113124));
+		result = nox_xxx_guiFontPtrByName_43F360("default");
 	}
 	v2[59] = result;
 }

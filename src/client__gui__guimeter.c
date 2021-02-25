@@ -101,7 +101,7 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 
 	if (!*getMemU32Ptr(0x5D4594, 2618908))
 		return 0;
-	dword_5d4594_1096288 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 148576));
+	dword_5d4594_1096288 = nox_xxx_guiFontPtrByName_43F360("small");
 	dword_5d4594_1096264 = 0;
 	dword_5d4594_1096256 = 0;
 	dword_5d4594_1096260 = 0;

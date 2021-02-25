@@ -81,7 +81,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		if (!*getMemU32Ptr(0x5D4594, 814540))
 			*getMemU32Ptr(0x5D4594, 814540) = nox_xxx_gLoadImg_42F970("MenuSystemBG");
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_9)) {
-			v10 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 86448));
+			v10 = nox_xxx_guiFontPtrByName_43F360("large");
 			nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 814540), 0, 0);
 			v11 = nox_strman_loadString_40F1D0("InProgress", 0, "C:\\NoxPost\\src\\client\\System\\client.c",
 										1550);
