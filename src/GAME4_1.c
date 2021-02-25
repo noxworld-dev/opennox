@@ -396,22 +396,22 @@ void  nox_xxx_debugPrintStack_509F60(int a1, int a2) {
 	_DWORD* v6; // esi
 
 	v2 = *(_DWORD*)(a1 + 748);
-	nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 233784), *getMemU32Ptr(0x5D4594, 2598000), a2);
+	nox_xxx_debugPrintf_5341A0("%d: stack (%s):\n", *getMemU32Ptr(0x5D4594, 2598000), a2);
 	v3 = *(_BYTE*)(v2 + 544);
 	if (v3 == -1) {
-		nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 233804));
-		nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 233832));
+		nox_xxx_debugPrintf_5341A0("  <stack empty>\n");
+		nox_xxx_debugPrintf_5341A0("----------------------------------------\n");
 	} else {
 		if (v3 >= 0) {
 			v5 = v3 + 1;
 			v6 = (_DWORD*)(v2 + 8 * (3 * v3 + 69));
 			do {
-				nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 233824), *getMemU32Ptr(0x587000, 4 * *v6 + 230096));
+				nox_xxx_debugPrintf_5341A0("  %s\n", *getMemU32Ptr(0x587000, 4 * *v6 + 230096));
 				v6 -= 6;
 				--v5;
 			} while (v5);
 		}
-		nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 233832));
+		nox_xxx_debugPrintf_5341A0("----------------------------------------\n");
 	}
 }
 
@@ -536,7 +536,7 @@ char  nox_xxx_monsterPopAction_50A160(int a1) {
 	v14 = *getMemU32Ptr(0x587000, 4 * *(_DWORD*)(v1 + 8 * (3 * v2 + 69)) + 230096);
 	v13 = *(_DWORD*)(a1 + 36);
 	v3 = nox_xxx_getUnitName_4E39D0(a1);
-	nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 233876), *getMemU32Ptr(0x5D4594, 2598000), v3, v13, v14, v15);
+	nox_xxx_debugPrintf_5341A0("%d: PopActionStack( %s(#%d) ) = %s@%d:\n", *getMemU32Ptr(0x5D4594, 2598000), v3, v13, v14, v15);
 	v4 = *(_BYTE*)(v1 + 544);
 	if (v4 >= 0) {
 		v5 = (_DWORD*)(v1 + 24 * (v4 + 23));
@@ -620,7 +620,7 @@ int*  nox_xxx_monsterPushAction_50A260(int a1, int a2) {
 	v12 = *getMemU32Ptr(0x587000, 4 * a2 + 230096);
 	v11 = *(_DWORD*)(a1 + 36);
 	v10 = nox_xxx_getUnitName_4E39D0(a1);
-	nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 233916), *getMemU32Ptr(0x5D4594, 2598000), v10, v11, v12);
+	nox_xxx_debugPrintf_5341A0("%d: PushActionStack( %s(#%d), %s ), result:\n", *getMemU32Ptr(0x5D4594, 2598000), v10, v11, v12);
 	result = v9;
 	dword_5d4594_1599692 = 1;
 	return result;
@@ -773,7 +773,7 @@ int  nox_xxx_unitUpdateMonster_50A5C0(float a1) {
 					if (v7)
 						nox_xxx_aud_501960(*(_DWORD*)(v7 + 64), SLODWORD(a1), 0, 0);
 					nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1248), *(_DWORD*)(LODWORD(a1) + 520), SLODWORD(a1));
-					nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 234068), *getMemU32Ptr(0x5D4594, 2598000),
+					nox_xxx_debugPrintf_5341A0("%d: HP = %d/%d\n", *getMemU32Ptr(0x5D4594, 2598000),
 							   **(unsigned __int16**)(LODWORD(a1) + 556),
 							   *(unsigned __int16*)(*(_DWORD*)(LODWORD(a1) + 556) + 4));
 				}
@@ -1812,7 +1812,7 @@ LPVOID  nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int(* a5)(
 				if (!v31) {
 					v55 = *(_DWORD*)(v30 + 36);
 					v47 = nox_xxx_getUnitName_4E39D0(v30);
-					nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 234404), *getMemU32Ptr(0x5D4594, 2598000), v47, v55);
+					nox_xxx_debugPrintf_5341A0("%d: %s(#%d), buildPath: Exhausted search storage\n", *getMemU32Ptr(0x5D4594, 2598000), v47, v55);
 				LABEL_130:
 					dword_5d4594_1599712 = 1;
 					return (LPVOID)sub_50C320(v30, v67, 0);
@@ -1831,7 +1831,7 @@ LPVOID  nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int(* a5)(
 				v30 = a2;
 				v56 = *(_DWORD*)(a2 + 36);
 				v48 = nox_xxx_getUnitName_4E39D0(a2);
-				nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 234456), *getMemU32Ptr(0x5D4594, 2598000), v48, v56);
+				nox_xxx_debugPrintf_5341A0("%d: %s(#%d), buildPath: Exhausted search storage\n", *getMemU32Ptr(0x5D4594, 2598000), v48, v56);
 				goto LABEL_130;
 			}
 			*(_DWORD*)v32 = *(_DWORD*)v68;
@@ -1888,7 +1888,7 @@ LPVOID  nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int(* a5)(
 			if (a6 && v66 >= a6) {
 				v58 = *(_DWORD*)(a2 + 36);
 				v50 = nox_xxx_getUnitName_4E39D0(a2);
-				nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 234556), *getMemU32Ptr(0x5D4594, 2598000), v50, v58);
+				nox_xxx_debugPrintf_5341A0("%d: %s(#%d), buildPath: Reached search depth limit\n", *getMemU32Ptr(0x5D4594, 2598000), v50, v58);
 				goto LABEL_134;
 			}
 			++v66;
@@ -1898,7 +1898,7 @@ LPVOID  nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int(* a5)(
 	}
 	v57 = *(_DWORD*)(a2 + 36);
 	v49 = nox_xxx_getUnitName_4E39D0(a2);
-	nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 234508), *getMemU32Ptr(0x5D4594, 2598000), v49, v57);
+	nox_xxx_debugPrintf_5341A0("%d: %s(#%d), buildPath: Exhausted search space\n", *getMemU32Ptr(0x5D4594, 2598000), v49, v57);
 LABEL_134:
 	v30 = a2;
 	dword_5d4594_1599712 = 2;
@@ -2158,7 +2158,7 @@ int  nox_xxx_appendWorkPath_50C990(int a1, int a2, int a3) {
 		if (v3 >= *(int*)&dword_5d4594_2386180)
 			return v4;
 	}
-	nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 234608));
+	nox_xxx_debugPrintf_5341A0("appendWorkPath: Path truncated.\n");
 	return v4;
 }
 
@@ -2748,7 +2748,7 @@ int  nox_xxx_creatureSetMovePath_50D5A0(int a1) {
 				}
 				return 0;
 			}
-			nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 234672));
+			nox_xxx_debugPrintf_5341A0(" ** Waypoint path failed, doing detailed path\n");
 			nox_xxx_creatureSetDetailedPath_50D220(a1, (int)v3);
 		}
 	} else if (!v9 || (unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v1 + 280)) > 0xA &&

@@ -7995,7 +7995,7 @@ int  nox_xxx_aiLostSight_528560(int a1, int a2) {
 	v4 = (int*)(v2 + 4 * a2 + 1132);
 	v10 = *(_DWORD*)(v3 + 36);
 	v5 = nox_xxx_getUnitName_4E39D0(v3);
-	nox_xxx_debugPrintf_5341A0((char*)getMemAt(0x587000, 255232), *getMemU32Ptr(0x5D4594, 2598000), v5, v10);
+	nox_xxx_debugPrintf_5341A0("%d: Lost sight of %s(#%d)\n", *getMemU32Ptr(0x5D4594, 2598000), v5, v10);
 	nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1296), *v4, a1);
 	v6 = *(_DWORD*)(v2 + 1196);
 	if (*v4 == v6) {
