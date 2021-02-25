@@ -3835,7 +3835,7 @@ _DWORD* sub_41E810() {
 	_DWORD* result; // eax
 	int v3;         // ecx
 
-	v0 = sub_41E990((char*)getMemAt(0x587000, 59620));
+	v0 = sub_41E990("Chat Channels");
 	v1 = v0;
 	result = (_DWORD*)v0[7];
 	if (result) {
