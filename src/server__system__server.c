@@ -531,7 +531,7 @@ char* sub_4D3130() {
 	int v9;       // [esp+8h] [ebp-8h]
 	int v10;      // [esp+Ch] [ebp-4h]
 
-	sub_413C80((char*)getMemAt(0x587000, 197312));
+	sub_413C80("\n");
 	result = nox_common_playerInfoGetFirst_416EA0();
 	for (i = (int)result; result; i = (int)result) {
 		sub_4E5630(*(_BYTE*)(i + 2064), &v10, &v9, &v8);
@@ -541,10 +541,10 @@ char* sub_4D3130() {
 		v4 = *getMemU32Ptr(0x5D4594, 2598000);
 		if (*(_BYTE*)(i + 2064) == 31) {
 			v2 = sub_553ED0(0);
-			sub_413C80((char*)getMemAt(0x587000, 197316), i + 4704, v2, v4, v5, v6, v7);
+			sub_413C80("%S, %d, %d, %d, %d, %d\n", i + 4704, v2, v4, v5, v6, v7);
 		} else {
 			v3 = sub_553ED0(*(unsigned __int8*)(i + 2064) + 1);
-			sub_413C80((char*)getMemAt(0x587000, 197340), i + 4704, v3, v4, v5, v6, v7);
+			sub_413C80("%S, %d, %d, %d, %d, %d\n", i + 4704, v3, v4, v5, v6, v7);
 		}
 		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
