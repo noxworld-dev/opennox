@@ -80,9 +80,11 @@ const (
 )
 
 var (
-	noxWindow   *sdl.Window
-	noxDataPath string
-	isServer    bool
+	noxWindow     *sdl.Window
+	noxDataPath   string
+	isServer      bool
+	isServerQuest bool
+	serverExec    string
 )
 
 // Nox only works on 32bit
@@ -124,11 +126,15 @@ func runNox(args []string) error {
 		fNoSoft     = flags.Bool("nosoft", false, "nosoft")
 		// TODO: replace with -serveronly once we figure out all the details
 		fAutoServer = flags.Bool("autosrv", false, "automatically start the server")
+		fAutoQuest  = flags.Bool("autoquest", false, "automatically start the quest game")
+		fAutoExec   = flags.String("autoexec", "load estate", "run the specified command at server startup")
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
 	}
 	isServer = *fAutoServer
+	isServerQuest = *fAutoQuest
+	serverExec = *fAutoExec
 	if !*fServer && !*fNoDraw {
 		nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0) // probably not needed
 		if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER | sdl.INIT_GAMECONTROLLER); err != nil {
