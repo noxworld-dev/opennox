@@ -7901,10 +7901,8 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 }
 
 //----- (00435CC0) --------------------------------------------------------
+#ifndef NOX_CGO
 int nox_xxx_initGameSession_435CC0() {
-	int result; // eax
-	int v1;     // eax
-
 	sub_445450();
 	sub_45DB90();
 	sub_41D1A0(0);
@@ -7914,59 +7912,49 @@ int nox_xxx_initGameSession_435CC0() {
 	if (!nox_alloc_drawable_init(5000))
 		return 0;
 
-	result = sub_49A8E0_init();
-	if (!result)
+	if (!sub_49A8E0_init())
 		return 0;
 
-	result = nox_xxx_allocArrayHealthChanges_49A5F0();
-	if (!result)
+	if (!nox_xxx_allocArrayHealthChanges_49A5F0())
 		return 0;
 
-	result = nox_xxx_parseThingBinClient_44C840_read_things();
-	if (!result)
+	if (!nox_xxx_parseThingBinClient_44C840_read_things())
 		return 0;
 
-	result = nox_xxx_loadGuides_427070();
-	if (!result)
+	if (!nox_xxx_loadGuides_427070())
 		return 0;
 
-	result = sub_494F00();
-	if (!result)
+	if (!sub_494F00())
 		return 0;
 
-	result = nox_xxx_wnd_473680();
-	if (!result)
+	if (!nox_xxx_wnd_473680())
 		return 0;
 
 	nox_alloc_npcs();
-	result = nox_xxx_loadReflSheild_499360();
-	if (!result)
+	if (!nox_xxx_loadReflSheild_499360())
 		return 0;
 
 	sub_485F80();
-	result = sub_4960B0();
-	if (!result)
+	if (!sub_4960B0())
 		return 0;
 
-	result = sub_473A40();
-	if (!result)
+	if (!sub_473A40())
 		return 0;
 
-	result = nox_xxx_allocArrayDrawableFX_495AB0();
-	if (!result)
+	if (!nox_xxx_allocArrayDrawableFX_495AB0())
 		return 0;
 
-	result = nox_xxx_allocClassListFriends_495980();
-	if (!result)
+	if (!nox_xxx_allocClassListFriends_495980())
 		return 0;
 
 	sub_4958F0();
 	nox_xxx_gameSetCliConnected_43C720(0);
 	nox_xxx_setGameFlags_40A4D0(0x800000);
-	if (nox_common_gameFlags_check_40A5C0(1))
+	if (nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_netPlayerIncomingServ_4DDF60(31);
-	else
+	} else {
 		nox_xxx_netSendIncomingClient_43CB00();
+	}
 	nox_game_SetCliDrawFunc(nox_xxx_client_435F80_draw);
 	dword_5d4594_811372 = 3;
 	*getMemU32Ptr(0x587000, 85720) = 1;
@@ -7979,7 +7967,7 @@ int nox_xxx_initGameSession_435CC0() {
 	obj_5D4594_811068.field_10 = 0;
 	obj_5D4594_811068.field_11 = 0;
 	obj_5D4594_811068.field_12 = 0;
-	v1 = sub_4766D0();
+	int v1 = sub_4766D0();
 	sub_476700(v1, 0);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		sub_41CC00((char*)getMemAt(0x5D4594, 2660688));
@@ -7989,8 +7977,9 @@ int nox_xxx_initGameSession_435CC0() {
 			nox_xxx_cliPrepareGameplay1_460E60();
 			nox_xxx_cliPrepareGameplay2_4721D0();
 		}
-		if (!nox_common_gameFlags_check_40A5C0(1))
+		if (!nox_common_gameFlags_check_40A5C0(1)) {
 			sub_41CC00((char*)getMemAt(0x5D4594, 2660688));
+		}
 	}
 	nox_xxx_plrLoad_41A480((char*)getMemAt(0x5D4594, 2660688));
 	nox_server_parseCmdText_443C80(L"execrul autoexec.rul", 1);
@@ -7998,6 +7987,7 @@ int nox_xxx_initGameSession_435CC0() {
 	sub_465DE0(0);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00435EB0) --------------------------------------------------------
 int sub_435EB0() {
