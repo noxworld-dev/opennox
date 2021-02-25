@@ -70,7 +70,7 @@ int nox_game_showSelChar_4A4DB0() {
 				sub_46AEE0((int)v3, (int)v4);
 			}
 			nox_xxx_findAutosaves_4A5150();
-			sub_4A19F0((char*)getMemAt(0x587000, 170448));
+			sub_4A19F0("OptsBack.wnd:Back");
 			nox_xxx_wndRetNULL_46A8A0();
 			if (nox_common_gameFlags_check_40A5C0(0x2000))
 				sub_4A5700();
