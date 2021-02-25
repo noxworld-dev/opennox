@@ -9876,7 +9876,7 @@ int nox_xxx_loadMonsterBin_517010() {
 	char v2[256]; // [esp+4h] [ebp-100h]
 
 	dword_5d4594_2386924 = 0;
-	result = nox_xxx_openFileBin_408CC0((char*)getMemAt(0x587000, 249116), 0);
+	result = nox_xxx_openFileBin_408CC0("monster.bin", 0);
 	v1 = (FILE*)result;
 	if (result) {
 		result = nox_xxx_cryptOpen_408D40(result, 23);

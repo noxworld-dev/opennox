@@ -855,7 +855,7 @@ int nox_xxx_parseGamedataBin_419B30() {
 	result = sub_426590();
 	dword_5d4594_527684 = result;
 	if (result) {
-		result = nox_xxx_openFileBin_408CC0((char*)getMemAt(0x587000, 55748), 0);
+		result = nox_xxx_openFileBin_408CC0("gamedata.bin", 0);
 		v1 = (FILE*)result;
 		if (result) {
 			result = nox_xxx_cryptOpen_408D40(result, 8);
