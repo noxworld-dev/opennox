@@ -2741,7 +2741,7 @@ void sub_4D4160() {
 	CHAR ExistingFileName[1024]; // [esp+410h] [ebp-400h]
 
 	nox_xxx_setGameFlags_40A4D0(0x400000);
-	nox_xxx_tileGetDefByName_51D4D0((char*)getMemAt(0x587000, 197596));
+	nox_xxx_tileGetDefByName_51D4D0("BrickLight");
 	v8.field_4 = 0.0;
 	v8.field_0 = 0.0;
 	v0 = 20;

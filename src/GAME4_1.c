@@ -12860,7 +12860,7 @@ float*  nox_xxx_unused_51D650(float* a1) {
 	char v3[0x48]; // [esp+8h] [ebp-48h]
 
 	memcpy(v3, sub_4D3C70(), 0x48u);
-	nox_xxx_tileGetDefByName_51D4D0((char*)getMemAt(0x587000, 253096));
+	nox_xxx_tileGetDefByName_51D4D0("NONE");
 	v1 = sub_51D5E0(a1);
 	nox_xxx_tileInitdataClear_4D3C50(v3);
 	return v1;
@@ -12876,7 +12876,7 @@ int  nox_xxx_unused_51D6A0(int a1) {
 	if (!*(_DWORD*)a1)
 		return 0;
 	memcpy(v2, sub_4D3C70(), 0x48u);
-	nox_xxx_tileGetDefByName_51D4D0((char*)getMemAt(0x587000, 253104));
+	nox_xxx_tileGetDefByName_51D4D0("NONE");
 	result = sub_51D8F0((float2*)(a1 + 4));
 	if (result) {
 		if (dword_5d4594_3835364 != 1 || (result = sub_527380((float*)(a1 + 4))) != 0) {
