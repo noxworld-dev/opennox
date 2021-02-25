@@ -4685,63 +4685,50 @@ int sub_4AB0C0() {
 }
 
 //----- (004AB0F0) --------------------------------------------------------
-int nox_game_rollNoxLogoAndStart_4AB0F0() // playmovielogo
-{
-	int result;   // eax
-	char v1[128]; // [esp+0h] [ebp-80h]
-
-	if (nox_common_gameFlags_check_40A5C0(0x2000000) || !sub_4CB230("NoxLogo.vqa", v1)) {
+#ifndef NOX_CGO
+int nox_game_rollNoxLogoAndStart_4AB0F0() { // playmovielogo
+	char path[128];
+	if (nox_common_gameFlags_check_40A5C0(0x2000000) || !nox_game_setMovieFile_4CB230("NoxLogo.vqa", path)) {
 		if (!nox_game_showLegal_4CC4E0()) {
 			nox_xxx_setContinueMenuOrHost_43DDD0(0);
 			dword_5d4594_815132 = 0;
 		}
-		result = 1;
-	} else {
-		sub_4B0300(v1);
-		sub_4B0640(nox_game_showLegal_4CC4E0);
-		nox_client_drawGeneral_4B0340(0);
-		result = 1;
+		return 1;
 	}
-	return result;
+	sub_4B0300(path);
+	sub_4B0640(nox_game_showLegal_4CC4E0);
+	nox_client_drawGeneral_4B0340(0);
+	return 1;
 }
 
 //----- (004AB170) --------------------------------------------------------
 int nox_game_rollIntroAndStart_4AB170() {
-	unsigned __int8 v0; // al
-	int result;         // eax
-	char v2[128];       // [esp+0h] [ebp-80h]
-
-	if ((sub_578DF0() & 0x80u) != 0 || nox_common_gameFlags_check_40A5C0(0x2000000) || !sub_4CB230("Intro.vqa", v2)) {
+	char path[128];
+	if ((sub_578DF0() & 0x80u) != 0 || nox_common_gameFlags_check_40A5C0(0x2000000) || !nox_game_setMovieFile_4CB230("Intro.vqa", path)) {
 		nox_game_rollNoxLogoAndStart_4AB0F0();
-		result = 1;
-	} else {
-		sub_4B0300(v2);
-		sub_4B0640(nox_game_rollNoxLogoAndStart_4AB0F0);
-		nox_client_drawGeneral_4B0340(1);
-		v0 = sub_578DF0();
-		sub_578DE0(v0 | 0x80);
-		result = 1;
+		return 1;
 	}
-	return result;
+	sub_4B0300(path);
+	sub_4B0640(nox_game_rollNoxLogoAndStart_4AB0F0);
+	nox_client_drawGeneral_4B0340(1);
+	sub_578DE0(sub_578DF0() | 0x80);
+	return 1;
 }
 
 //----- (004AB1F0) --------------------------------------------------------
 int nox_game_rollLogoAndStart_4AB1F0() {
-	int result;   // eax
-	char v1[128]; // [esp+0h] [ebp-80h]
-
+	char path[128];
 	nox_game_decStateInd_43BDC0();
-	if (nox_common_gameFlags_check_40A5C0(0x2000000) || !sub_4CB230("WWLogo.vqa", v1)) {
+	if (nox_common_gameFlags_check_40A5C0(0x2000000) || !nox_game_setMovieFile_4CB230("WWLogo.vqa", path)) {
 		nox_game_rollIntroAndStart_4AB170();
-		result = 1;
-	} else {
-		sub_4B0300(v1);
-		sub_4B0640(nox_game_rollIntroAndStart_4AB170);
-		nox_client_drawGeneral_4B0340(0);
-		result = 1;
+		return 1;
 	}
-	return result;
+	sub_4B0300(path);
+	sub_4B0640(nox_game_rollIntroAndStart_4AB170);
+	nox_client_drawGeneral_4B0340(0);
+	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004AB260) --------------------------------------------------------
 int sub_4AB260() {

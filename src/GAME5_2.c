@@ -3179,7 +3179,7 @@ int sub_578CD0() {
 		v2 = &v3[strlen(v3)];
 		*(_DWORD*)v2 = *getMemU32Ptr(0x587000, 311376);
 		v2[4] = v1;
-		if (sub_4CB230(v3, v4)) {
+		if (nox_game_setMovieFile_4CB230(v3, v4)) {
 			sub_4B0300(v4);
 			sub_4B0640(sub_578C60);
 			result = nox_client_drawGeneral_4B0340(1);

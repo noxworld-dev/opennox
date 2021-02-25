@@ -91,7 +91,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				}
 				goto LABEL_26;
 			case 121:
-				if (!sub_4CB230("Intro.vqa", v10))
+				if (!nox_game_setMovieFile_4CB230("Intro.vqa", v10))
 					goto LABEL_32;
 				sub_4A1D40();
 				sub_4B0300(v10);
