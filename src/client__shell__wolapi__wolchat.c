@@ -283,7 +283,7 @@ int nox_game_showWolChat_447620() {
 			sub_447600();
 			sub_41EBB0(0);
 			sub_446CC0(0);
-			sub_41F100((char*)getMemAt(0x587000, 111400));
+			sub_41F100("Chat Channels");
 			if (**(_BYTE**)getMemAt(0x587000, 108828)) {
 				v1 = (char**)getMemAt(0x587000, 108828);
 				v2 = getMemAt(0x587000, 108828);
