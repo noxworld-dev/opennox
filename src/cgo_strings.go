@@ -123,6 +123,10 @@ func CWString(s string) *C.wchar_t {
 	return (*C.wchar_t)(ptr)
 }
 
+func CWLen(s string) int {
+	return len(utf16.Encode([]rune(s)))
+}
+
 func CWStringCopyTo(dst *C.wchar_t, dstSz int, src string) {
 	str := asU16Slice(unsafe.Pointer(dst), dstSz)
 	if len(src) == 0 {
