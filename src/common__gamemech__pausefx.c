@@ -24,12 +24,12 @@ void  sub_57AF30(int a1, int a2) {
 		if (a2 != 1) {
 			v3 = *(_DWORD**)&dword_5d4594_2523776;
 		} else {
-			v3 = nox_xxx_objectCreateByName_4E3810((CHAR *) getMemAt(0x587000, 312708));
+			v3 = nox_xxx_objectCreateByName_4E3810("OblivionUp");
 			v2 = dword_5d4594_2523780;
 			dword_5d4594_2523776 = v3;
 		}
 	} else {
-		v3 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 312700));
+		v3 = nox_xxx_objectCreateByName_4E3810("LevelUp");
 		v2 = dword_5d4594_2523780;
 		dword_5d4594_2523776 = v3;
 	}

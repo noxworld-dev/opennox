@@ -1130,7 +1130,7 @@ void  nox_xxx_playerSetCustomWP_4F79A0(int a1, int a2, int a3) {
 			LODWORD(v5.field_4) = a3;
 			nox_xxx_unitMove_4E7010(v4, &v5);
 		} else {
-			*(_DWORD*)(v3 + 4 * *(unsigned __int8*)(v3 + 180) + 168) = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 215932));
+			*(_DWORD*)(v3 + 4 * *(unsigned __int8*)(v3 + 180) + 168) = nox_xxx_objectCreateByName_4E3810("PlayerWaypoint");
 			nox_xxx_createAt_4DAA50(*(_DWORD*)(v3 + 4 * *(unsigned __int8*)(v3 + 180) + 168), a1, *(float*)&a2, *(float*)&a3);
 		}
 	}
@@ -3836,7 +3836,7 @@ int nox_xxx_allocSpellRelatedArrays_4FC9B0() {
 		result = nox_new_alloc_class("magicEntityClass", 60, 64);
 		mox_alloc_magicEnt_1569668 = result;
 		if (result) {
-			result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 217476));
+			result = nox_xxx_objectCreateByName_4E3810("ImaginaryCaster");
 			dword_5d4594_1569664 = result;
 			if (result) {
 				nox_xxx_createAt_4DAA50(result, 0, 2944.0, 2944.0);
@@ -3885,7 +3885,7 @@ int  nox_xxx_Fn_4FCAC0(int a1, int a2) {
 		*(_BYTE*)(v3 + 212) = 0;
 	}
 	if (a2) {
-		v4 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 217572));
+		v4 = nox_xxx_objectCreateByName_4E3810("ImaginaryCaster");
 		dword_5d4594_1569664 = v4;
 		if (!v4)
 			return 0;
@@ -4708,7 +4708,7 @@ _DWORD*  nox_xxx_createSpellFly_4FDDA0(int a1, int a2, int a3) {
 	v22.field_C = v22.field_C + *(float*)(v3 + 84);
 	result = (_DWORD*)nox_xxx_mapTraceRay_535250(&v22, 0, 0, 5);
 	if (result) {
-		result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 217680));
+		result = nox_xxx_objectCreateByName_4E3810("Magic");
 		v12 = result;
 		if (result) {
 			v13 = (int*)result[187];

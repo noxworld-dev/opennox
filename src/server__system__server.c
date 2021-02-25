@@ -1174,7 +1174,7 @@ void sub_4F1F20() {
 						nox_xxx_createAt_4DAA50((int)v7, 0, *(float*)(v0 + 56), *(float*)(v0 + 60));
 						if (v7[2] & 0x1000000) {
 							if (v7[3] & 0xC) {
-								v8 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 214980));
+								v8 = nox_xxx_objectCreateByName_4E3810("Quiver");
 								if (v8) {
 									a3 = *((float2*)v7 + 7);
 									sub_4ED970(30.0, (float2*)v7 + 7, &a3);
@@ -1199,7 +1199,7 @@ void sub_4F1F20() {
 								nox_xxx_inventoryPutImpl_4F3070(v0, (int)v5, 0);
 								if (v5[2] & 0x1000000) {
 									if (v5[3] & 0xC) {
-										v6 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 214988));
+										v6 = nox_xxx_objectCreateByName_4E3810("Quiver");
 										if (v6)
 											nox_xxx_inventoryPutImpl_4F3070(v0, (int)v6, 0);
 									}

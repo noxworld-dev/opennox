@@ -6782,7 +6782,7 @@ void  nox_xxx_collideBearTrap_4EB890(int* a1, int a2) {
 	_DWORD* v2; // eax
 
 	if (a2 && sub_4E9A30((int)a1, a2)) {
-		v2 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 204888));
+		v2 = nox_xxx_objectCreateByName_4E3810("ClosedBearTrap");
 		if (v2) {
 			nox_xxx_createAt_4DAA50((int)v2, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
 			nox_xxx_delayedDeleteObject_4E5CC0((int)a1);
@@ -6800,7 +6800,7 @@ void  nox_xxx_collidePoisonGasTrap_4EB910(int* a1, int a2) {
 	float v4;   // [esp+0h] [ebp-14h]
 
 	if (a2 && sub_4E9A30((int)a1, a2)) {
-		v2 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 204904));
+		v2 = nox_xxx_objectCreateByName_4E3810("ToxicCloud");
 		if (v2) {
 			nox_xxx_createAt_4DAA50((int)v2, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
 			v3 = (_DWORD*)v2[187];
@@ -7138,7 +7138,7 @@ void  nox_xxx_collideAnkhQuest_4EBF40(int a1, int a2) {
 			goto LABEL_17;
 		v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 205104));
 		if (*(_DWORD*)(v4 + 320) < nox_float2int(v17)) {
-			v12 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 205156));
+			v12 = nox_xxx_objectCreateByName_4E3810("AnkhTradable");
 			if (v12)
 				((void(*)(int, _DWORD*, int, _DWORD))v12[177])(v2, v12, 1, 0);
 			*(_DWORD*)(a1 + 136) = *getMemU32Ptr(0x5D4594, 2598000);
@@ -10280,12 +10280,12 @@ LABEL_27:
 		if (nox_xxx_playerCheckSpellClass_57AEA0(1, v9)) {
 			if (nox_xxx_playerCheckSpellClass_57AEA0(2, v9))
 				return 0;
-			result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 213260));
+			result = nox_xxx_objectCreateByName_4E3810("ConjurerSpellBook");
 		} else {
-			result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 213244));
+			result = nox_xxx_objectCreateByName_4E3810("WizardSpellBook");
 		}
 	} else {
-		result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 213228));
+		result = nox_xxx_objectCreateByName_4E3810("CommonSpellBook");
 	}
 	if (!result)
 		return 0;
@@ -10394,7 +10394,7 @@ _DWORD*  nox_xxx_rewardAbilityBook_4F0C70(int a1) {
 LABEL_16:
 	if (!v8)
 		return 0;
-	result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 213400));
+	result = nox_xxx_objectCreateByName_4E3810("AbilityBook");
 	if (result)
 		*(_BYTE*)result[184] = v8;
 	return result;
@@ -10479,7 +10479,7 @@ _DWORD*  nox_xxx_rewardFieldGuide_4F0D20(int a1, unsigned int a2) {
 			v9 = *getMemU32Ptr(0x587000, 12 * v16 + 207796);
 		LABEL_29:
 			if (v9) {
-				result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 213492));
+				result = nox_xxx_objectCreateByName_4E3810("FieldGuide");
 				v19 = result;
 				if (result) {
 					v20 = (char*)result[184];
@@ -11404,9 +11404,9 @@ _DWORD*  nox_xxx_createGem_4F1D30(int a1, unsigned int a2) {
 	v2 = nox_server_rewardGen_pickRandomSlots_4F0B60(a2);
 	if (v2 < 4 || nox_common_randomInt_415FA0(1, 100) <= 90) {
 		if (nox_common_randomInt_415FA0(1, 2) == 1)
-			result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 214712));
+			result = nox_xxx_objectCreateByName_4E3810("QuestGoldChest");
 		else
-			result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 214728));
+			result = nox_xxx_objectCreateByName_4E3810("QuestGoldPile");
 		v5 = result;
 		if (result) {
 			v6 = (int*)result[173];
@@ -11437,11 +11437,11 @@ _DWORD*  nox_xxx_createGem_4F1D30(int a1, unsigned int a2) {
 		v3 = nox_common_randomInt_415FA0(1, 100);
 		if (v3 >= 50) {
 			if (v3 >= 90)
-				result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 214660));
+				result = nox_xxx_objectCreateByName_4E3810("DiamondGem");
 			else
-				result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 214648));
+				result = nox_xxx_objectCreateByName_4E3810("EmeraldGem");
 		} else {
-			result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 214640));
+			result = nox_xxx_objectCreateByName_4E3810("RubyGem");
 		}
 	}
 	return result;
@@ -11480,7 +11480,7 @@ void sub_4F2110() {
 		if (((unsigned __int16)v6 == dword_5d4594_1568280 || v6 == *getMemU32Ptr(0x5D4594, 1568284)) &&
 			(**(_BYTE**)(j + 692) & 0x80)) {
 			if (v4 == v3) {
-				v7 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 215072));
+				v7 = nox_xxx_objectCreateByName_4E3810("Ankh");
 				if (v7) {
 					nox_xxx_createAt_4DAA50((int)v7, 0, *(float*)(j + 56), *(float*)(j + 60));
 					nox_xxx_delayedDeleteObject_4E5CC0(j);
