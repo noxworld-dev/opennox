@@ -2509,7 +2509,7 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 		break;
 	case 1:
 		++*getMemU32Ptr(0x5D4594, 741668);
-		sub_42BDC0(v118, (char*)getMemAt(0x587000, 71912), getMemByte(0x5D4594, 741668));
+		sub_42BDC0(v118, "SEQU", getMemByte(0x5D4594, 741668));
 		sub_42BCE0(v118, "ENDF", 0);
 		sub_42BD50(v118, (char*)getMemAt(0x587000, 71928), *(_WORD*)(v4 + 6));
 		v114 = 0;
@@ -2517,10 +2517,10 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 			*getMemU8Ptr(0x587000, 71491) = v114 + 48;
 			sub_42BE30(v118, (char*)getMemAt(0x587000, 71488), *(const char**)(*(_DWORD*)(v4 + 608) + 4 * v114));
 			*getMemU8Ptr(0x587000, 71499) = getMemByte(0x5D4594, 741660) + 48;
-			sub_42BDC0(v118, (char*)getMemAt(0x587000, 71496),
+			sub_42BDC0(v118, "IPL?",
 					   *(_DWORD*)(*(_DWORD*)(v4 + 612) + 4 * *getMemU32Ptr(0x5D4594, 741660)));
 			*getMemU8Ptr(0x587000, 71515) = getMemByte(0x5D4594, 741660) + 48;
-			sub_42BDC0(v118, (char*)getMemAt(0x587000, 71512),
+			sub_42BDC0(v118, "CNL?",
 					   *(_DWORD*)(*(_DWORD*)(v4 + 616) + 4 * *getMemU32Ptr(0x5D4594, 741660)));
 			*getMemU8Ptr(0x587000, 71507) = getMemByte(0x5D4594, 741660) + 48;
 			sub_42BCE0(v118, "CLL?",
@@ -2529,7 +2529,7 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 			sub_42BCE0(v118, "CMP?",
 					   *(_BYTE*)(*(_DWORD*)(v4 + 624) + *getMemU32Ptr(0x5D4594, 741660)));
 			*getMemU8Ptr(0x587000, 71531) = getMemByte(0x5D4594, 741660) + 48;
-			sub_42BDC0(v118, (char*)getMemAt(0x587000, 71528),
+			sub_42BDC0(v118, "DUR?",
 					   *(_DWORD*)(*(_DWORD*)(v4 + 628) + 4 * *getMemU32Ptr(0x5D4594, 741660)));
 			*getMemU8Ptr(0x587000, 71539) = getMemByte(0x5D4594, 741660) + 48;
 			sub_42BCE0(v118, "PAR?",
@@ -2755,7 +2755,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 			v56 = 0;
 		sub_42C360(v59, v56);
 		*getMemU8Ptr(0x587000, 71627) = getMemByte(0x5D4594, 741664) + 48;
-		sub_42BDC0(v59, (char*)getMemAt(0x587000, 71624),
+		sub_42BDC0(v59, "SCRS",
 				   *(_DWORD*)(*((_DWORD*)v2 + 143) + 4 * *getMemU32Ptr(0x5D4594, 741664)));
 		v27 = *getMemU32Ptr(0x5D4594, 741664) + 1;
 	}
