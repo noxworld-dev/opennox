@@ -2574,7 +2574,7 @@ void nox_xxx_gameTick_4D2580_server_A(int v2, char* v38) {
 			if (!sub_4165B0()[57])
 				sub_41D650();
 		}
-		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 196872));
+		nox_xxx_networkLog_413D30("EndGame");
 		sub_46DCB0();
 	}
 	nox_server_netMaybeSendInitialPackets_4DEB30();
