@@ -409,7 +409,7 @@ int nox_xxx_gameStateWait_43C020() {
 
 //----- (0043C060) --------------------------------------------------------
 BOOL sub_43C060() {
-	nox_xxx_loadPal_4A96C0_video_read_palette((char*)getMemAt(0x587000, 91856));
+	nox_xxx_loadPal_4A96C0_video_read_palette("default.pal");
 	nox_xxx_wndLoadBorder_4AA1F0();
 	nox_xxx_wndLoadMainBG_4A2210();
 	nox_client_setCursorType_477610(0);
