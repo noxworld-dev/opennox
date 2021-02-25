@@ -9629,7 +9629,7 @@ int* sub_416950() {
 	int* v3;     // esi
 	int* v4;     // edi
 
-	sub_4E43F0((char*)getMemAt(0x587000, 54288));
+	sub_4E43F0("ban.txt");
 	v0 = sub_4168E0();
 	if (v0) {
 		do {
