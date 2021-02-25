@@ -2510,7 +2510,7 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 	case 1:
 		++*getMemU32Ptr(0x5D4594, 741668);
 		sub_42BDC0(v118, (char*)getMemAt(0x587000, 71912), getMemByte(0x5D4594, 741668));
-		sub_42BCE0(v118, (char*)getMemAt(0x587000, 71920), 0);
+		sub_42BCE0(v118, "ENDF", 0);
 		sub_42BD50(v118, (char*)getMemAt(0x587000, 71928), *(_WORD*)(v4 + 6));
 		v114 = 0;
 		for (*getMemU32Ptr(0x5D4594, 741660) = 0; v114 < *(__int16*)(v4 + 6); *getMemU32Ptr(0x5D4594, 741660) = v114) {
@@ -2523,16 +2523,16 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 			sub_42BDC0(v118, (char*)getMemAt(0x587000, 71512),
 					   *(_DWORD*)(*(_DWORD*)(v4 + 616) + 4 * *getMemU32Ptr(0x5D4594, 741660)));
 			*getMemU8Ptr(0x587000, 71507) = getMemByte(0x5D4594, 741660) + 48;
-			sub_42BCE0(v118, (char*)getMemAt(0x587000, 71504),
+			sub_42BCE0(v118, "CLL?",
 					   *(_BYTE*)(*getMemU32Ptr(0x5D4594, 741660) + *(_DWORD*)(v4 + 620)));
 			*getMemU8Ptr(0x587000, 71523) = getMemByte(0x5D4594, 741660) + 48;
-			sub_42BCE0(v118, (char*)getMemAt(0x587000, 71520),
+			sub_42BCE0(v118, "CMP?",
 					   *(_BYTE*)(*(_DWORD*)(v4 + 624) + *getMemU32Ptr(0x5D4594, 741660)));
 			*getMemU8Ptr(0x587000, 71531) = getMemByte(0x5D4594, 741660) + 48;
 			sub_42BDC0(v118, (char*)getMemAt(0x587000, 71528),
 					   *(_DWORD*)(*(_DWORD*)(v4 + 628) + 4 * *getMemU32Ptr(0x5D4594, 741660)));
 			*getMemU8Ptr(0x587000, 71539) = getMemByte(0x5D4594, 741660) + 48;
-			sub_42BCE0(v118, (char*)getMemAt(0x587000, 71536),
+			sub_42BCE0(v118, "PAR?",
 					   *(_BYTE*)(*(_DWORD*)(v4 + 632) + *getMemU32Ptr(0x5D4594, 741660)));
 			v114 = *getMemU32Ptr(0x5D4594, 741660) + 1;
 		}
