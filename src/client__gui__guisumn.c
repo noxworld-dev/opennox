@@ -159,7 +159,7 @@ int  sub_4C27F0(_DWORD* a1) {
 	int v12;              // [esp+8h] [ebp-4h]
 
 	if (!dword_5d4594_1321208)
-		dword_5d4594_1321208 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 184840));
+		dword_5d4594_1321208 = nox_xxx_getNameId_4E3AA0("CarnivorousPlant");
 	if (dword_5d4594_1321204 || (result = 1, a1[8] != 1)) {
 		v2 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * a1[8] + 184344), 0,
 								   "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);

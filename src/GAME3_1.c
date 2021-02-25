@@ -3827,7 +3827,7 @@ BOOL  sub_4C2DD0(int a1) {
 
 	v1 = dword_5d4594_1321208;
 	if (!dword_5d4594_1321208) {
-		v1 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 185040));
+		v1 = nox_xxx_getNameId_4E3AA0("CarnivorousPlant");
 		dword_5d4594_1321208 = v1;
 	}
 	return *(_DWORD*)(a1 + 4) != v1;
@@ -3838,7 +3838,7 @@ int sub_4C2E00() {
 	char* v0; // esi
 
 	if (!dword_5d4594_1321208)
-		dword_5d4594_1321208 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 185060));
+		dword_5d4594_1321208 = nox_xxx_getNameId_4E3AA0("CarnivorousPlant");
 	v0 = sub_4C2D60();
 	if (!v0)
 		return 0;

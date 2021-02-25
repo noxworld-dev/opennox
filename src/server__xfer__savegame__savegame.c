@@ -84,7 +84,7 @@ void nox_xxx_monstersAllBelongToHost_4DB6A0() {
 	v1 = v0;
 	if (v0 && *((_DWORD*)v0 + 514)) {
 		if (!*getMemU32Ptr(0x5D4594, 1563124))
-			*getMemU32Ptr(0x5D4594, 1563124) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 199388));
+			*getMemU32Ptr(0x5D4594, 1563124) = nox_xxx_getNameId_4E3AA0("SaveGameLocation");
 		v2 = nox_server_getFirstObject_4DA790();
 		if (v2) {
 			while (*(unsigned __int16*)(v2 + 4) != *getMemU32Ptr(0x5D4594, 1563124)) {

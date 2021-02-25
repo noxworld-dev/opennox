@@ -637,8 +637,8 @@ void sub_4DBA30(int a1) {
 		v25 = *((_DWORD*)result + 514);
 		if (v4) {
 			if (!*getMemU32Ptr(0x5D4594, 1563128)) {
-				*getMemU32Ptr(0x5D4594, 1563128) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 199624));
-				*getMemU32Ptr(0x5D4594, 1563132) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 199644));
+				*getMemU32Ptr(0x5D4594, 1563128) = nox_xxx_getNameId_4E3AA0("SaveGameLocation");
+				*getMemU32Ptr(0x5D4594, 1563132) = nox_xxx_getNameId_4E3AA0("Glyph");
 			}
 			if (a1 == 1) {
 				v5 = nox_server_getFirstObject_4DA790();
@@ -984,7 +984,7 @@ void sub_4EC720() {
 	int v18;    // eax
 
 	if (!dword_5d4594_1568028)
-		dword_5d4594_1568028 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 205204));
+		dword_5d4594_1568028 = nox_xxx_getNameId_4E3AA0("Crown");
 	if (nox_common_gameFlags_check_40A5C0(4608)) {
 		return;
 	}
@@ -1157,8 +1157,8 @@ void sub_4F1F20() {
 
 	v9 = nox_xxx_GetQuestStage_4E3CC0();
 	if (!dword_5d4594_1568300) {
-		dword_5d4594_1568300 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 214944));
-		*getMemU32Ptr(0x5D4594, 1568304) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 214960));
+		dword_5d4594_1568300 = nox_xxx_getNameId_4E3AA0("RewardMarker");
+		*getMemU32Ptr(0x5D4594, 1568304) = nox_xxx_getNameId_4E3AA0("RewardMarkerPlus");
 	}
 	sub_4F2110();
 	sub_4F2210();
@@ -1758,8 +1758,8 @@ void  sub_51A1F0(int a1) {
 	v19 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 252424));
 	v24 = nox_float2int(v19);
 	if (!*getMemU32Ptr(0x5D4594, 2388668)) {
-		*getMemU32Ptr(0x5D4594, 2388668) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 252444));
-		*getMemU32Ptr(0x5D4594, 2388672) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 252460));
+		*getMemU32Ptr(0x5D4594, 2388668) = nox_xxx_getNameId_4E3AA0("HecubahMarker");
+		*getMemU32Ptr(0x5D4594, 2388672) = nox_xxx_getNameId_4E3AA0("NecromancerMarker");
 	}
 	v2 = nox_server_getFirstObject_4DA790();
 	if (v2) {
@@ -2387,9 +2387,9 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	*getMemU32Ptr(0x5D4594, 1548528) = 0;
 	dword_5d4594_1548532 = 0;
 	if (!*getMemU32Ptr(0x5D4594, 1548708))
-		*getMemU32Ptr(0x5D4594, 1548708) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 196512));
+		*getMemU32Ptr(0x5D4594, 1548708) = nox_xxx_getNameId_4E3AA0("PlayerStart");
 	if (!*getMemU32Ptr(0x5D4594, 1548712))
-		*getMemU32Ptr(0x5D4594, 1548712) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 196524));
+		*getMemU32Ptr(0x5D4594, 1548712) = nox_xxx_getNameId_4E3AA0("GameBallStart");
 	v22 = nox_server_getFirstObject_4DA790();
 	if (!v22) {
 		v24 = nox_strman_loadString_40F1D0("StartingPositionError", 0, "C:\\NoxPost\\src\\Server\\System\\server.c", 792);
