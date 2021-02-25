@@ -4239,7 +4239,7 @@ int  sub_4C35B0(int a1) {
 		nox_window_set_hidden(*(int*)&dword_5d4594_1321228, 1);
 	} else {
 		sub_4C3620();
-		nox_common_writecfgfile((char*)getMemAt(0x587000, 185108));
+		nox_common_writecfgfile("nox.cfg");
 		nox_window_set_hidden(*(int*)&dword_5d4594_1321228, 1);
 		sub_472280();
 		sub_4ADA40();
@@ -9839,7 +9839,7 @@ int sub_4CB880() {
 //----- (004CBB70) --------------------------------------------------------
 int sub_4CBB70() {
 	sub_4CBD30();
-	nox_common_writecfgfile((char*)getMemAt(0x587000, 187536));
+	nox_common_writecfgfile("nox.cfg");
 	*(_BYTE*)(&nox_wnd_xxx_1522608->field_16) = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
