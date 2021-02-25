@@ -315,7 +315,7 @@ void sub_446190() {
 	dword_5d4594_825764 = 0;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		v1 = nox_strman_loadString_40F1D0("ServerManualShutdown", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 667);
-		nox_xxx_networkLog_413D30((char*)getMemAt(0x587000, 108632), v1);
+		nox_xxx_networkLog_413D30("%S", v1);
 	}
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		nox_game_checkStateWol_43C260();
