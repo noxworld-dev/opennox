@@ -4272,7 +4272,7 @@ int  sub_4C3A90(int a1, int a2, int* a3, int a4) {
 	switch (v3) {
 	case 931:
 		sub_42CD90();
-		nox_common_readcfgfile((char*)getMemAt(0x587000, 185332), 1);
+		nox_common_readcfgfile("nox.cfg", 1);
 		sub_4C3B70();
 		result = 0;
 		break;
@@ -4334,7 +4334,7 @@ char* sub_4C3B70() {
 //----- (004C3CB0) --------------------------------------------------------
 char* sub_4C3CB0() {
 	sub_42CD90();
-	nox_common_readcfgfile((char*)getMemAt(0x587000, 185352), 1);
+	nox_common_readcfgfile("default.cfg", 1);
 	return sub_4C3B70();
 }
 
@@ -9908,7 +9908,7 @@ int  sub_4CBE70(int a1, int a2, int* a3, int a4) {
 	switch (v3) {
 	case 931:
 		sub_42CD90();
-		nox_common_readcfgfile((char*)getMemAt(0x587000, 187716), 1);
+		nox_common_readcfgfile("nox.cfg", 1);
 		sub_4CBBF0();
 		result = 0;
 		break;
@@ -9934,7 +9934,7 @@ int  sub_4CBE70(int a1, int a2, int* a3, int a4) {
 //----- (004CBF40) --------------------------------------------------------
 char* sub_4CBF40() {
 	sub_42CD90();
-	nox_common_readcfgfile((char*)getMemAt(0x587000, 187724), 1);
+	nox_common_readcfgfile("default.cfg", 1);
 	return sub_4CBBF0();
 }
 
