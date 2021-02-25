@@ -278,10 +278,10 @@ int  sub_510540(int a1) {
 	if (!nox_common_gameFlags_check_40A5C0(4096))
 		return 1;
 	if (!*getMemU32Ptr(0x5D4594, 2386520)) {
-		*getMemU32Ptr(0x5D4594, 2386520) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236324));
-		*getMemU32Ptr(0x5D4594, 2386528) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236332));
-		*getMemU32Ptr(0x5D4594, 2386524) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236340));
-		*getMemU32Ptr(0x5D4594, 2386532) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236348));
+		*getMemU32Ptr(0x5D4594, 2386520) = nox_xxx_getNameId_4E3AA0("Diamond");
+		*getMemU32Ptr(0x5D4594, 2386528) = nox_xxx_getNameId_4E3AA0("Emerald");
+		*getMemU32Ptr(0x5D4594, 2386524) = nox_xxx_getNameId_4E3AA0("Ruby");
+		*getMemU32Ptr(0x5D4594, 2386532) = nox_xxx_getNameId_4E3AA0("AnkhTradable");
 	}
 	int v1 = *(unsigned __int16*)(a1 + 4);
 	if ((unsigned __int16)v1 == *getMemU32Ptr(0x5D4594, 2386520) || v1 == *getMemU32Ptr(0x5D4594, 2386524) ||
@@ -296,9 +296,9 @@ BOOL  sub_5105D0(int a1) {
 	int v1; // eax
 
 	if (!*getMemU32Ptr(0x5D4594, 2386536)) {
-		*getMemU32Ptr(0x5D4594, 2386536) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236364));
-		*getMemU32Ptr(0x5D4594, 2386544) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236372));
-		*getMemU32Ptr(0x5D4594, 2386540) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236380));
+		*getMemU32Ptr(0x5D4594, 2386536) = nox_xxx_getNameId_4E3AA0("Diamond");
+		*getMemU32Ptr(0x5D4594, 2386544) = nox_xxx_getNameId_4E3AA0("Emerald");
+		*getMemU32Ptr(0x5D4594, 2386540) = nox_xxx_getNameId_4E3AA0("Ruby");
 	}
 	v1 = *(unsigned __int16*)(a1 + 4);
 	return (unsigned __int16)v1 == *getMemU32Ptr(0x5D4594, 2386536) || v1 == *getMemU32Ptr(0x5D4594, 2386540) ||
@@ -410,7 +410,7 @@ int  nox_xxx_tradeP2PAddOffer2_50F820_trade(int a1, int a2, float a3) {
 	int v12;     // eax
 
 	if (!*getMemU32Ptr(0x5D4594, 2386516))
-		*getMemU32Ptr(0x5D4594, 2386516) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236008));
+		*getMemU32Ptr(0x5D4594, 2386516) = nox_xxx_getNameId_4E3AA0("Gold");
 	if (*(_DWORD*)(a1 + 8) == a2) {
 		v3 = a3;
 		if (!sub_50FD60(*(_DWORD**)(a1 + 32), SLODWORD(a3)))
@@ -503,7 +503,7 @@ float*  sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 	v18 = *(_DWORD*)(a1 + 748);
 	v4 = nox_xxx_playerGetGold_4FA6B0(v15);
 	if (!dword_5d4594_2386548)
-		dword_5d4594_2386548 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236144));
+		dword_5d4594_2386548 = nox_xxx_getNameId_4E3AA0("AnkhTradable");
 	result = (float*)a2[5];
 	if (result) {
 		while (!*(_DWORD*)result || *(_DWORD*)(*(_DWORD*)result + 36) != a3) {
@@ -591,7 +591,7 @@ float*  sub_510640_trade(int a1, int a2, int a3, float* a4) {
 	v20 = *(_DWORD*)(a1 + 748);
 	v19 = nox_xxx_playerGetGold_4FA6B0(v15);
 	if (!dword_5d4594_2386552)
-		dword_5d4594_2386552 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236388));
+		dword_5d4594_2386552 = nox_xxx_getNameId_4E3AA0("AnkhTradable");
 	result = a4;
 	v18 = 0;
 	if (a4) {
@@ -676,7 +676,7 @@ _DWORD*  sub_5109C0_trade(int* a1, int a2, _DWORD* a3) {
 
 	v3 = a1[187];
 	if (!*getMemU32Ptr(0x5D4594, 2386556))
-		*getMemU32Ptr(0x5D4594, 2386556) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236568));
+		*getMemU32Ptr(0x5D4594, 2386556) = nox_xxx_getNameId_4E3AA0("Glyph");
 	v4 = a1[126];
 	result = a3;
 	v8[0] = -55;
@@ -719,7 +719,7 @@ _DWORD*  sub_510BE0_trade(int* a1, int a2, _DWORD* a3) {
 	result = *(_DWORD**)&dword_5d4594_2386560;
 	v4 = a1[187];
 	if (!dword_5d4594_2386560) {
-		result = (_DWORD*)nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 236692));
+		result = (_DWORD*)nox_xxx_getNameId_4E3AA0("Glyph");
 		dword_5d4594_2386560 = result;
 	}
 	v5 = a1[126];

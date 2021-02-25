@@ -138,7 +138,7 @@ void nox_xxx_createAtImpl_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int
 
 	result = *(char**)&dword_5d4594_527660;
 	if (!dword_5d4594_527660) {
-		result = (char*)nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 55500));
+		result = (char*)nox_xxx_getNameId_4E3AA0("GameBall");
 		dword_5d4594_527660 = result;
 	}
 	if (!a2) {

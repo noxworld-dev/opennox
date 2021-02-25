@@ -1594,7 +1594,7 @@ BOOL  sub_41AC30(_DWORD* a1) {
 	v36 = 1;
 	v40 = a1[187];
 	if (!*getMemU32Ptr(0x5D4594, 527704))
-		*getMemU32Ptr(0x5D4594, 527704) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 56328));
+		*getMemU32Ptr(0x5D4594, 527704) = nox_xxx_getNameId_4E3AA0("Glyph");
 	if (*getMemU32Ptr(0x5D4594, 3803300) == 1)
 		sub_4EF140((int)a1);
 	v42 = 3;
@@ -1874,7 +1874,7 @@ BOOL  sub_41B3E0(int a1) {
 
 	v1 = *getMemU32Ptr(0x5D4594, 527724);
 	if (!*getMemU32Ptr(0x5D4594, 527724)) {
-		v1 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 56336));
+		v1 = nox_xxx_getNameId_4E3AA0("Glyph");
 		*getMemU32Ptr(0x5D4594, 527724) = v1;
 	}
 	if ((*(_BYTE*)(a1 + 8) & 0x40) == 64)

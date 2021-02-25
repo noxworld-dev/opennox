@@ -43,7 +43,7 @@ int sub_4710B0() {
 		if (v1[58] & 0xC) {
 			v3 = *getMemU32Ptr(0x5D4594, 1096292);
 			if (!*getMemU32Ptr(0x5D4594, 1096292)) {
-				v3 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 148392));
+				v3 = nox_xxx_getNameId_4E3AA0("Quiver");
 				*getMemU32Ptr(0x5D4594, 1096292) = v3;
 			}
 			v4 = (wchar_t*)sub_461600(v3);

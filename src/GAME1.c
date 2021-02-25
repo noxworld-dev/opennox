@@ -10599,7 +10599,7 @@ int  sub_417F50(int a1) {
 	float v10;  // [esp+0h] [ebp-14h]
 
 	if (!dword_5d4594_527656)
-		dword_5d4594_527656 = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 55172));
+		dword_5d4594_527656 = nox_xxx_getNameId_4E3AA0("GameBallStart");
 	v1 = 0;
 	v2 = nox_server_getFirstObject_4DA790();
 	if (!v2)
@@ -10669,7 +10669,7 @@ int nox_xxx_mapInfoSetKotr_4180D0() {
 	char* v8; // eax
 
 	if (!*getMemU32Ptr(0x5D4594, 527652))
-		*getMemU32Ptr(0x5D4594, 527652) = nox_xxx_getNameId_4E3AA0((CHAR*)getMemAt(0x587000, 55280));
+		*getMemU32Ptr(0x5D4594, 527652) = nox_xxx_getNameId_4E3AA0("Crown");
 	v0 = nox_server_getFirstObject_4DA790();
 	if (v0) {
 		do {
