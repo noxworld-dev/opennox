@@ -169,9 +169,9 @@ void  nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
 		if (*(_DWORD*)(a1 + 60)) {
 			for (j = *(_DWORD*)(i + 368); j; j = *(_DWORD*)(j + 24)) {
 				if (*(_DWORD*)j)
-					nox_xxx_tileGetDefByName_51D4D0((char*)getMemAt(0x587000, 254924));
+					nox_xxx_tileGetDefByName_51D4D0("CrystalBlue");
 				else
-					nox_xxx_tileGetDefByName_51D4D0((char*)getMemAt(0x587000, 254912));
+					nox_xxx_tileGetDefByName_51D4D0("CrystalRed");
 				sub_5245A0(a1, (float*)(j + 4), (__int64)((*(float*)(j + 12) - *(float*)(j + 4) + 0.5) * 0.030743772),
 						   (__int64)((*(float*)(j + 16) - *(float*)(j + 8) + 0.5) * 0.030743772));
 			}
