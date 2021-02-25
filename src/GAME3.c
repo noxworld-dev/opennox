@@ -1618,7 +1618,7 @@ int nox_game_showSelClass_4A4840() {
 	_DWORD* v2; // eax
 	_DWORD* v3; // eax
 
-	sub_5007E0((char*)getMemAt(0x587000, 170168));
+	sub_5007E0("*:*");
 	sub_4A1BE0(1);
 	dword_5d4594_1307724 = nox_xxx_getHostInfoPtr_431770();
 	nox_game_addStateCode_43BDD0(600);

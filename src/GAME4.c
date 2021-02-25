@@ -6903,7 +6903,7 @@ int sub_500B70() {
 	int v7;          // [esp+14h] [ebp-104h]
 	char v8[256];    // [esp+18h] [ebp-100h]
 
-	sub_5007E0((char*)getMemAt(0x587000, 217964));
+	sub_5007E0("*:*");
 	v3 = 1;
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v3, 2u);
 	if ((__int16)v3 > 1)
