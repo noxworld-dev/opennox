@@ -410,9 +410,9 @@ int nox_xxx_prepareLightningEffects_4BAB30() {
 	*getMemU32Ptr(0x5D4594, 1316444) = nox_color_rgb_4344A0(60, 140, 60);
 	*getMemU32Ptr(0x5D4594, 1316504) = nox_color_rgb_4344A0(40, 225, 40);
 	*getMemU32Ptr(0x5D4594, 1316480) = nox_color_rgb_4344A0(150, 220, 150);
-	*getMemU32Ptr(0x5D4594, 1316520) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 178220));
-	*getMemU32Ptr(0x5D4594, 1316524) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 178232));
-	result = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 178244));
+	*getMemU32Ptr(0x5D4594, 1316520) = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueSpark");
+	*getMemU32Ptr(0x5D4594, 1316524) = nox_xxx_getTTByNameSpriteMB_44CFC0("YellowSpark");
+	result = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenSpark");
 	*getMemU32Ptr(0x5D4594, 1316528) = result;
 	return result;
 }
@@ -4861,7 +4861,7 @@ __int16  nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	v53 = 0;
 	v54 = 0;
 	if (!dword_5d4594_1321520)
-		dword_5d4594_1321520 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 185484));
+		dword_5d4594_1321520 = nox_xxx_getTTByNameSpriteMB_44CFC0("Ghost");
 	v3 = a2;
 	if (a2[112] & 4) {
 		v4 = nox_common_playerInfoGetByID_417040(*((_DWORD*)a2 + 32));
@@ -10366,7 +10366,7 @@ int  sub_4CD400(_DWORD* a1, int a2) {
 
 	v2 = dword_5d4594_1522968;
 	if (!dword_5d4594_1522968) {
-		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 189100));
+		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0("CharmOrb");
 		dword_5d4594_1522968 = v2;
 	}
 	sub_4CD150(v2, a1, a2, 1);

@@ -40,8 +40,8 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 	}
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 9) && !nox_xxx_checkGFlagNoParticles_413A50()) {
 		if (!*getMemU32Ptr(0x5D4594, 1096524)) {
-			*getMemU32Ptr(0x5D4594, 1096524) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 149612));
-			*getMemU32Ptr(0x5D4594, 1096528) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 149632));
+			*getMemU32Ptr(0x5D4594, 1096524) = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteBubbleParticle");
+			*getMemU32Ptr(0x5D4594, 1096528) = nox_xxx_getTTByNameSpriteMB_44CFC0("LightBlueBubbleParticle");
 		}
 		if (*(_DWORD*)(a2 + 12) != *(_DWORD*)(a2 + 32) || *(_DWORD*)(a2 + 16) != *(_DWORD*)(a2 + 36))
 			v2 = 2;
@@ -69,8 +69,8 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 	}
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 8) && !nox_xxx_checkGFlagNoParticles_413A50()) {
 		if (!*getMemU32Ptr(0x5D4594, 1096532)) {
-			*getMemU32Ptr(0x5D4594, 1096532) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 150056));
-			*getMemU32Ptr(0x5D4594, 1096536) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 150076));
+			*getMemU32Ptr(0x5D4594, 1096532) = nox_xxx_getTTByNameSpriteMB_44CFC0("RedBubbleParticle");
+			*getMemU32Ptr(0x5D4594, 1096536) = nox_xxx_getTTByNameSpriteMB_44CFC0("OrangeBubbleParticle");
 		}
 		if (*(_DWORD*)(a2 + 12) != *(_DWORD*)(a2 + 32) || (v5 = 1, *(_DWORD*)(a2 + 16) != *(_DWORD*)(a2 + 36)))
 			v5 = 2;
@@ -158,7 +158,7 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 22)) {
 		v3 = *getMemU32Ptr(0x5D4594, 1096540);
 		if (!*getMemU32Ptr(0x5D4594, 1096540)) {
-			v3 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 150500));
+			v3 = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteSpark");
 			*getMemU32Ptr(0x5D4594, 1096540) = v3;
 		}
 		nox_xxx_drawEnergyBolt_499710(*(_DWORD*)(a2 + 12), *(_DWORD*)(a2 + 16), *(_WORD*)(a2 + 104), v3);
@@ -192,7 +192,7 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 		v39 = *(float*)(a2 + 100) * 0.5;
 		v44 = nox_float2int(v39);
 		if (!*getMemU32Ptr(0x5D4594, 1096544))
-			*getMemU32Ptr(0x5D4594, 1096544) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 150512));
+			*getMemU32Ptr(0x5D4594, 1096544) = nox_xxx_getTTByNameSpriteMB_44CFC0("YellowBubbleParticle");
 		v12 = 2;
 		do {
 			v40 = nox_common_randomIntMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1307);
@@ -208,7 +208,7 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 	}
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 21) && !nox_xxx_checkGFlagNoParticles_413A50()) {
 		if (!*getMemU32Ptr(0x5D4594, 1096548))
-			*getMemU32Ptr(0x5D4594, 1096548) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 150776));
+			*getMemU32Ptr(0x5D4594, 1096548) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenBubbleParticle");
 		v41 = nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1335);
 		v37 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1331);
 		v35 = nox_common_randomIntMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1330);

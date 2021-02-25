@@ -520,8 +520,8 @@ LABEL_14:
 		v69 = 1.0;
 		v70 = *getMemFloatPtr(0x5D4594, 2618908);
 		if (!*getMemU32Ptr(0x5D4594, 1063644)) {
-			*getMemU32Ptr(0x5D4594, 1063644) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 137608));
-			v24 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 137620));
+			*getMemU32Ptr(0x5D4594, 1063644) = nox_xxx_getTTByNameSpriteMB_44CFC0("ArcherArrow");
+			v24 = nox_xxx_getTTByNameSpriteMB_44CFC0("ArcherBolt");
 			v23 = *getMemU32Ptr(0x5D4594, 2618908);
 			*getMemU32Ptr(0x5D4594, 1063648) = v24;
 			v15 = dword_5d4594_1063116;

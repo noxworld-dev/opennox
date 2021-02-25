@@ -14,7 +14,7 @@ int  nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 
 	v2 = *getMemU32Ptr(0x5D4594, 1313720);
 	if (!*getMemU32Ptr(0x5D4594, 1313720)) {
-		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176776));
+		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0("ArrowTailLink");
 		*getMemU32Ptr(0x5D4594, 1313720) = v2;
 	}
 	v3 = a2[81];
@@ -42,7 +42,7 @@ int  nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
 
 	v2 = *getMemU32Ptr(0x5D4594, 1313724);
 	if (!*getMemU32Ptr(0x5D4594, 1313724)) {
-		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176792));
+		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0("WeakArrowTailLink");
 		*getMemU32Ptr(0x5D4594, 1313724) = v2;
 	}
 	v3 = a2[81];

@@ -102,7 +102,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	v36[9] = nox_win_height;
 	v36[4] = 0;
 	v36[5] = 0;
-	if (dword_5d4594_1313792 || (v13 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177400)), v11 = nox_new_drawable_for_thing(v13),
+	if (dword_5d4594_1313792 || (v13 = nox_xxx_getTTByNameSpriteMB_44CFC0("Flag"), v11 = nox_new_drawable_for_thing(v13),
 		(dword_5d4594_1313792 = v11) != 0)) {
 		v14 = 0;
 		v15 = v3 + 2324;
@@ -232,7 +232,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 			v36[4] = 0;
 			v36[5] = 0;
 			if (!dword_5d4594_1313796) {
-				v24 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177408));
+				v24 = nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningSkull");
 				dword_5d4594_1313796 = nox_new_drawable_for_thing(v24);
 				*(_DWORD*)(dword_5d4594_1313796 + 120) |= 0x1000000u;
 			}
@@ -250,7 +250,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 			v36[4] = 0;
 			v36[5] = 0;
 			if (!dword_5d4594_1313800) {
-				v25 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177424));
+				v25 = nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningCrown");
 				dword_5d4594_1313800 = nox_new_drawable_for_thing(v25);
 				*(_DWORD*)(dword_5d4594_1313800 + 120) |= 0x1000000u;
 			}

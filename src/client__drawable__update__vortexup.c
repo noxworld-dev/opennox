@@ -14,7 +14,7 @@ int  nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {
 	int v9;  // [esp+0h] [ebp-4h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1522952)) {
-		*getMemU32Ptr(0x5D4594, 1522952) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 187880));
+		*getMemU32Ptr(0x5D4594, 1522952) = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteVortexOrb");
 		*getMemU32Ptr(0x5D4594, 1522944) = nox_color_rgb_4344A0(200, 200, 200);
 		*getMemU32Ptr(0x5D4594, 1522948) = nox_color_rgb_4344A0(255, 255, 255);
 	}

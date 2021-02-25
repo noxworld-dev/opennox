@@ -189,7 +189,7 @@ char  sub_4BA8B0(int* a1, int* a2, int* a3) {
 	v3 = *a3;
 	v4 = sub_437250();
 	if (!*getMemU32Ptr(0x5D4594, 1316416))
-		*getMemU32Ptr(0x5D4594, 1316416) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 178156));
+		*getMemU32Ptr(0x5D4594, 1316416) = nox_xxx_getTTByNameSpriteMB_44CFC0("CyanSpark");
 	v6 = 28 * (dword_5d4594_1316412 + 30 * v3);
 	v5 = dword_5d4594_1316412 + 1;
 	*getMemU32Ptr(0x5D4594, v6 + 1313884) = *a1;

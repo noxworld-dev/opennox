@@ -1037,84 +1037,84 @@ _DWORD* sub_44E110() {
 		dword_5d4594_832484 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 123044));
 	v0 = *(_DWORD**)&dword_5d4594_832496;
 	if (!dword_5d4594_832496) {
-		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123052));
+		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0("GauntletExitB");
 		v0 = nox_new_drawable_for_thing(v1);
 		dword_5d4594_832496 = v0;
 	}
 	v0[30] |= 0x1000000u;
 	v2 = *(_DWORD**)&dword_5d4594_832492;
 	if (!dword_5d4594_832492) {
-		v3 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123068));
+		v3 = nox_xxx_getTTByNameSpriteMB_44CFC0("BeholderGenerator");
 		v2 = nox_new_drawable_for_thing(v3);
 		dword_5d4594_832492 = v2;
 	}
 	v2[30] |= 0x1000000u;
 	v4 = *(_DWORD**)&dword_5d4594_832500;
 	if (!dword_5d4594_832500) {
-		v5 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123088));
+		v5 = nox_xxx_getTTByNameSpriteMB_44CFC0("Ankh");
 		v4 = nox_new_drawable_for_thing(v5);
 		dword_5d4594_832500 = v4;
 	}
 	v4[30] |= 0x1000000u;
 	v6 = *(_DWORD**)&dword_5d4594_832504;
 	if (!dword_5d4594_832504) {
-		v7 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123096));
+		v7 = nox_xxx_getTTByNameSpriteMB_44CFC0("SoulGate");
 		v6 = nox_new_drawable_for_thing(v7);
 		dword_5d4594_832504 = v6;
 	}
 	v6[30] |= 0x1000000u;
 	v8 = *(_DWORD**)&dword_5d4594_832508;
 	if (!dword_5d4594_832508) {
-		v9 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123108));
+		v9 = nox_xxx_getTTByNameSpriteMB_44CFC0("SilverKey");
 		v8 = nox_new_drawable_for_thing(v9);
 		dword_5d4594_832508 = v8;
 	}
 	v8[30] |= 0x1000000u;
 	v10 = *(_DWORD**)&dword_5d4594_832512;
 	if (!dword_5d4594_832512) {
-		v11 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123120));
+		v11 = nox_xxx_getTTByNameSpriteMB_44CFC0("GoldKey");
 		v10 = nox_new_drawable_for_thing(v11);
 		dword_5d4594_832512 = v10;
 	}
 	v10[30] |= 0x1000000u;
 	v12 = *(_DWORD**)&dword_5d4594_832516;
 	if (!dword_5d4594_832516) {
-		v13 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123128));
+		v13 = nox_xxx_getTTByNameSpriteMB_44CFC0("QuestGoldChest");
 		v12 = nox_new_drawable_for_thing(v13);
 		dword_5d4594_832516 = v12;
 	}
 	v12[30] |= 0x1000000u;
 	v14 = *(_DWORD**)&dword_5d4594_832520;
 	if (!dword_5d4594_832520) {
-		v15 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123144));
+		v15 = nox_xxx_getTTByNameSpriteMB_44CFC0("QuestGoldPile");
 		v14 = nox_new_drawable_for_thing(v15);
 		dword_5d4594_832520 = v14;
 	}
 	v14[30] |= 0x1000000u;
 	v16 = *(_DWORD**)&dword_5d4594_832524;
 	if (!dword_5d4594_832524) {
-		v17 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123160));
+		v17 = nox_xxx_getTTByNameSpriteMB_44CFC0("DunMirChest4");
 		v16 = nox_new_drawable_for_thing(v17);
 		dword_5d4594_832524 = v16;
 	}
 	v16[30] |= 0x1000000u;
 	v18 = *(_DWORD**)&dword_5d4594_832528;
 	if (!dword_5d4594_832528) {
-		v19 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123176));
+		v19 = nox_xxx_getTTByNameSpriteMB_44CFC0("WarHammer");
 		v18 = nox_new_drawable_for_thing(v19);
 		dword_5d4594_832528 = v18;
 	}
 	v18[30] |= 0x1000000u;
 	v20 = *(_DWORD**)&dword_5d4594_832532;
 	if (!dword_5d4594_832532) {
-		v21 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123188));
+		v21 = nox_xxx_getTTByNameSpriteMB_44CFC0("HastePotion");
 		v20 = nox_new_drawable_for_thing(v21);
 		dword_5d4594_832532 = v20;
 	}
 	v20[30] |= 0x1000000u;
 	result = *(_DWORD**)&dword_5d4594_832536;
 	if (!dword_5d4594_832536) {
-		v23 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 123200));
+		v23 = nox_xxx_getTTByNameSpriteMB_44CFC0("ConjurerSpellBook");
 		result = nox_new_drawable_for_thing(v23);
 		dword_5d4594_832536 = result;
 	}
@@ -5804,7 +5804,7 @@ void  sub_45A670(unsigned int a1) {
 
 	result = dword_5d4594_1046604;
 	if (!dword_5d4594_1046604) {
-		result = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 132084));
+		result = nox_xxx_getTTByNameSpriteMB_44CFC0("SummonEffect");
 		dword_5d4594_1046604 = result;
 	}
 	v2 = nox_drawable_head_unk1;
