@@ -47,22 +47,14 @@ int sub_448730_wol_dialogs() {
 		*getMemU32Ptr(0x5D4594, 830144) = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1939);
 		dword_5d4594_830148 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1936);
 		nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_830132);
-		*getMemU32Ptr(0x5D4594, 830160) = nox_strman_loadString_40F1D0(
-			(char*)getMemAt(0x587000, 111732), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 579);
-		*getMemU32Ptr(0x5D4594, 830164) = nox_strman_loadString_40F1D0(
-			(char*)getMemAt(0x587000, 111800), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 580);
-		*getMemU32Ptr(0x5D4594, 830168) = nox_strman_loadString_40F1D0(
-			(char*)getMemAt(0x587000, 111872), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 581);
-		*getMemU32Ptr(0x5D4594, 830172) = nox_strman_loadString_40F1D0(
-			(char*)getMemAt(0x587000, 111936), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 582);
-		*getMemU32Ptr(0x5D4594, 830176) = nox_strman_loadString_40F1D0(
-			(char*)getMemAt(0x587000, 112000), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 583);
-		*getMemU32Ptr(0x5D4594, 830180) = nox_strman_loadString_40F1D0(
-			(char*)getMemAt(0x587000, 112068), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 584);
-		*getMemU32Ptr(0x5D4594, 830184) = nox_strman_loadString_40F1D0(
-			(char*)getMemAt(0x587000, 112136), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 585);
-		*getMemU32Ptr(0x5D4594, 830188) = nox_strman_loadString_40F1D0(
-			(char*)getMemAt(0x587000, 112196), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 586);
+		*getMemU32Ptr(0x5D4594, 830160) = nox_strman_loadString_40F1D0("WolFind.wnd:Title", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 579);
+		*getMemU32Ptr(0x5D4594, 830164) = nox_strman_loadString_40F1D0("WolFind.wnd:pageTitle", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 580);
+		*getMemU32Ptr(0x5D4594, 830168) = nox_strman_loadString_40F1D0("WolFind.wnd:Loc", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 581);
+		*getMemU32Ptr(0x5D4594, 830172) = nox_strman_loadString_40F1D0("WolFind.wnd:Msg", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 582);
+		*getMemU32Ptr(0x5D4594, 830176) = nox_strman_loadString_40F1D0("WolFind.wnd:GoFind", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 583);
+		*getMemU32Ptr(0x5D4594, 830180) = nox_strman_loadString_40F1D0("WolFind.wnd:GoPage", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 584);
+		*getMemU32Ptr(0x5D4594, 830184) = nox_strman_loadString_40F1D0("searching", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 585);
+		*getMemU32Ptr(0x5D4594, 830188) = nox_strman_loadString_40F1D0("paging", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 586);
 		dword_587000_111668 = 1;
 		dword_5d4594_830116 = 1;
 		sub_46B120(*(_DWORD**)&dword_5d4594_830124, 0);

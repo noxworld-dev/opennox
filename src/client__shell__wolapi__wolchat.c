@@ -265,25 +265,18 @@ int nox_game_showWolChat_447620() {
 			dword_5d4594_829492 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1907);
 			*getMemU32Ptr(0x5D4594, 829496) = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1916);
 			dword_5d4594_829500 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1910);
-			*getMemU32Ptr(0x5D4594, 829528) = nox_strman_loadString_40F1D0(
-				(char*)getMemAt(0x587000, 110916), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1415);
+			*getMemU32Ptr(0x5D4594, 829528) = nox_strman_loadString_40F1D0("messageTitle", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1415);
 			dword_5d4594_829532 = nox_strman_loadString_40F1D0("NoChannel", 0,
 														"C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1416);
 			*getMemU32Ptr(0x5D4594, 829536) = getMemAt(0x587000, 110992);
-			*getMemU32Ptr(0x5D4594, 829540) = nox_strman_loadString_40F1D0(
-				(char*)getMemAt(0x587000, 111048), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1418);
+			*getMemU32Ptr(0x5D4594, 829540) = nox_strman_loadString_40F1D0("pageMsg", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1418);
 			dword_5d4594_829544 = getMemAt(0x587000, 111056);
-			*getMemU32Ptr(0x5D4594, 829548) = nox_strman_loadString_40F1D0(
-				(char*)getMemAt(0x587000, 111120), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1420);
-			*getMemU32Ptr(0x5D4594, 829552) = nox_strman_loadString_40F1D0(
-				(char*)getMemAt(0x587000, 111184), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1421);
+			*getMemU32Ptr(0x5D4594, 829548) = nox_strman_loadString_40F1D0("PrivateMessage", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1420);
+			*getMemU32Ptr(0x5D4594, 829552) = nox_strman_loadString_40F1D0("PrivateToMessage", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1421);
 			*getMemU32Ptr(0x5D4594, 829556) = getMemAt(0x587000, 111204);
-			*getMemU32Ptr(0x5D4594, 829560) = nox_strman_loadString_40F1D0(
-				(char*)getMemAt(0x587000, 111264), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1423);
-			*getMemU32Ptr(0x5D4594, 829564) = nox_strman_loadString_40F1D0(
-				(char*)getMemAt(0x587000, 111328), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1424);
-			*getMemU32Ptr(0x5D4594, 829524) = nox_strman_loadString_40F1D0(
-				(char*)getMemAt(0x587000, 111392), 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1425);
+			*getMemU32Ptr(0x5D4594, 829560) = nox_strman_loadString_40F1D0("PrivateAction", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1423);
+			*getMemU32Ptr(0x5D4594, 829564) = nox_strman_loadString_40F1D0("PrivateToAction", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1424);
+			*getMemU32Ptr(0x5D4594, 829524) = nox_strman_loadString_40F1D0("Stats", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 1425);
 			dword_587000_109280 = -1;
 			sub_446D50();
 			nox_xxx_wndRetNULL_46A8A0();
