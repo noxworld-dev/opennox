@@ -195,7 +195,7 @@ int nox_xxx_quickBarCreate_45E190() {
 	v68 = nox_xxx_guiFontHeightMB_43F320(0);
 	dword_5d4594_1047548 = (nox_win_width - 320) / 2;
 	dword_5d4594_1047552 = nox_win_height - 74;
-	*getMemU32Ptr(0x5D4594, 1049684) = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 133840));
+	*getMemU32Ptr(0x5D4594, 1049684) = nox_xxx_guiFontPtrByName_43F360("small");
 	*getMemU32Ptr(0x587000, 133656) = dword_5d4594_1047548;
 	v1 = dword_5d4594_1047548 + 69;
 	*getMemU32Ptr(0x587000, 133660) = dword_5d4594_1047552 - 17;

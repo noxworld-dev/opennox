@@ -1916,7 +1916,7 @@ int nox_xxx_wndCreateInventoryMB_465E00() {
 
 	nox_xxx_inventoryLoadImages_467050();
 	nox_xxx_inventoryNameSignInit_4671E0();
-	dword_5d4594_1063636 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 139424));
+	dword_5d4594_1063636 = nox_xxx_guiFontPtrByName_43F360("small");
 	*getMemU32Ptr(0x5D4594, 1049732) = 0;
 	*getMemU32Ptr(0x5D4594, 1049736) = 0;
 	*getMemU32Ptr(0x5D4594, 1049740) = nox_win_width;
@@ -6515,7 +6515,7 @@ int sub_470710() {
 		nox_xxx_wndSetDrawFn_46B340(result, nox_xxx_cliDrawLagometer_470770);
 		nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1090176, 121,
 						   nox_win_height - *(_DWORD*)(dword_5d4594_1090176 + 12) - 5);
-		dword_5d4594_1090140 = nox_xxx_guiFontPtrByName_43F360((char*)getMemAt(0x587000, 147880));
+		dword_5d4594_1090140 = nox_xxx_guiFontPtrByName_43F360("numbers");
 		sub_4706C0(0);
 		result = 1;
 	}
