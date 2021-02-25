@@ -8001,7 +8001,7 @@ int nox_xxx_initGameSession_435CC0() {
 
 //----- (00435EB0) --------------------------------------------------------
 int sub_435EB0() {
-	nox_common_writecfgfile((char*)getMemAt(0x587000, 86424));
+	nox_common_writecfgfile("nox.cfg");
 	if (nox_common_gameFlags_check_40A5C0(1))
 		nox_xxx_playerDisconnFinish_4DE530(31, 2);
 	else
@@ -9113,7 +9113,7 @@ int nox_xxx_cliDrawConnectedLoop_43B360() // client connecting draw handler
 		nox_xxx_copyServerIPAndPort_431790(v5);
 		sub_435720(v0);
 	}
-	nox_common_writecfgfile((char*)getMemAt(0x587000, 90848));
+	nox_common_writecfgfile("nox.cfg");
 	v2 = *(_BYTE*)(dword_5d4594_814624 + 102);
 	nox_video_mode* v3;
 	if (v2 < 0 && (v3 = sub_43BE80_video_mode_by_id(v2 & 0x7F)) != 0)

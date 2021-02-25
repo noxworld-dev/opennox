@@ -4346,7 +4346,7 @@ int nox_game_showOptions_4AA6B0() {
 int sub_4AA9C0() {
 	sub_44D8F0();
 	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(*(int*)&nox_xxx_normalWndHeight_587000_172876, *(int*)&nox_xxx_normalWndWidth_587000_172872, *(int*)&nox_xxx_normalWndBits_587000_172880);
-	nox_common_writecfgfile((char*)getMemAt(0x587000, 173256));
+	nox_common_writecfgfile("nox.cfg");
 	*(_BYTE*)(&nox_wnd_xxx_1309740->field_16) = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
@@ -5942,7 +5942,7 @@ int  sub_4AD9B0(int a1) {
 		nox_window_set_hidden(*(int*)&dword_5d4594_1309820, 1);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1309824, 1);
 	} else {
-		nox_common_writecfgfile((char*)getMemAt(0x587000, 174124));
+		nox_common_writecfgfile("nox.cfg");
 		nox_window_set_hidden(*(int*)&dword_5d4594_1309820, 1);
 		nox_window_set_hidden(*(int*)&dword_5d4594_1309824, 1);
 		sub_445C40();
