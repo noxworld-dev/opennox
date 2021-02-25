@@ -25,9 +25,9 @@ void  nox_xxx_clientPickup_46C140(int a1) {
 	int v4;      // [esp+0h] [ebp-4h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1064928)) {
-		*getMemU32Ptr(0x5D4594, 1064928) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 143192));
-		*getMemU32Ptr(0x5D4594, 1064932) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 143200));
-		*getMemU32Ptr(0x5D4594, 1064936) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 143216));
+		*getMemU32Ptr(0x5D4594, 1064928) = nox_xxx_getTTByNameSpriteMB_44CFC0("Gold");
+		*getMemU32Ptr(0x5D4594, 1064932) = nox_xxx_getTTByNameSpriteMB_44CFC0("QuestGoldPile");
+		*getMemU32Ptr(0x5D4594, 1064936) = nox_xxx_getTTByNameSpriteMB_44CFC0("QuestGoldChest");
 	}
 	if (a1) {
 		v2 = *(_DWORD*)(a1 + 108);

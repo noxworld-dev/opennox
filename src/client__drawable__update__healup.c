@@ -29,7 +29,7 @@ int  sub_4CD450(_DWORD* a1, int a2) {
 	int v24;     // [esp+Ch] [ebp+4h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1522972))
-		*getMemU32Ptr(0x5D4594, 1522972) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 189112));
+		*getMemU32Ptr(0x5D4594, 1522972) = nox_xxx_getTTByNameSpriteMB_44CFC0("HealOrb");
 	if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\healup.c", 20) < 50) {
 		if (*(_BYTE*)(a2 + 432)) {
 			if (a2 == -432)

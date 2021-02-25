@@ -26,7 +26,7 @@ void  nox_xxx_updDrawMagic_4CDD80(int a1, _DWORD* a2) {
 	if (v3 * v3 + (a2[4] - a2[109]) * (a2[4] - a2[109]) > 200) {
 		v4 = *getMemU32Ptr(0x5D4594, 1523000);
 		if (!*getMemU32Ptr(0x5D4594, 1523000)) {
-			v4 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 190560));
+			v4 = nox_xxx_getTTByNameSpriteMB_44CFC0("MagicTailLink");
 			*getMemU32Ptr(0x5D4594, 1523000) = v4;
 		}
 		v5 = (_DWORD*)nox_xxx_spriteLoadAdd_45A360_drawable(v4, a2[108], a2[109]);
@@ -40,7 +40,7 @@ void  nox_xxx_updDrawMagic_4CDD80(int a1, _DWORD* a2) {
 	v13 = a2[3] - a2[8];
 	v14 = a2[4] - a2[9];
 	if (!*getMemU32Ptr(0x5D4594, 1523004))
-		*getMemU32Ptr(0x5D4594, 1523004) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 190576));
+		*getMemU32Ptr(0x5D4594, 1523004) = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueSpark");
 	v6 = 0;
 	v7 = 0;
 	v15 = 4;

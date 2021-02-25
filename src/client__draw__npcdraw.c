@@ -127,7 +127,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 				}
 				if (nox_xxx_spriteTestBuf_4356C0(v4, 16)) {
 					if (!dword_5d4594_1313796) {
-						v23 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177452));
+						v23 = nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningSkull");
 						dword_5d4594_1313796 = nox_new_drawable_for_thing(v23);
 						*(_DWORD*)(dword_5d4594_1313796 + 120) |= 0x1000000u;
 					}
@@ -140,7 +140,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 				}
 				if (nox_xxx_spriteTestBuf_4356C0(v4, 30)) {
 					if (!dword_5d4594_1313800) {
-						v26 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177468));
+						v26 = nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningCrown");
 						dword_5d4594_1313800 = nox_new_drawable_for_thing(v26);
 						*(_DWORD*)(dword_5d4594_1313800 + 120) |= 0x1000000u;
 					}

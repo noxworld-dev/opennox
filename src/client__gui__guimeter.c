@@ -123,11 +123,11 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 		v2i++;
 	} while (v2i < 10);
 	if (!*getMemU32Ptr(0x5D4594, 1096268)) {
-		*getMemU32Ptr(0x5D4594, 1096268) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 148600));
-		dword_5d4594_1096272 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 148612));
-		dword_5d4594_1096276 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 148624));
-		dword_5d4594_1096280 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 148644));
-		dword_5d4594_1096284 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 148656));
+		*getMemU32Ptr(0x5D4594, 1096268) = nox_xxx_getTTByNameSpriteMB_44CFC0("RedPotion");
+		dword_5d4594_1096272 = nox_xxx_getTTByNameSpriteMB_44CFC0("BluePotion");
+		dword_5d4594_1096276 = nox_xxx_getTTByNameSpriteMB_44CFC0("CurePoisonPotion");
+		dword_5d4594_1096280 = nox_xxx_getTTByNameSpriteMB_44CFC0("RedApple");
+		dword_5d4594_1096284 = nox_xxx_getTTByNameSpriteMB_44CFC0("Meat");
 	}
 	dword_5d4594_1090276 = nox_window_new(0, 136, nox_win_width - 91, nox_win_height - 201, 91, 201, 0);
 	nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1090276, *getMemIntPtr(0x5D4594, 1092996));

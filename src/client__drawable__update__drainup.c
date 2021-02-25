@@ -29,7 +29,7 @@ int  sub_4CD690(_DWORD* a1, int a2) {
 	int v24;     // [esp+Ch] [ebp+4h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1522976))
-		*getMemU32Ptr(0x5D4594, 1522976) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 189456));
+		*getMemU32Ptr(0x5D4594, 1522976) = nox_xxx_getTTByNameSpriteMB_44CFC0("DrainManaOrb");
 	if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 20) < 50) {
 		if (*(_BYTE*)(a2 + 432)) {
 			if (a2 == -432)

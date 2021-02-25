@@ -22,7 +22,7 @@ void  sub_4CCEA0(_DWORD* a1, int a2) {
 	int v18;    // [esp+18h] [ebp+4h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1522964))
-		*getMemU32Ptr(0x5D4594, 1522964) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 188304));
+		*getMemU32Ptr(0x5D4594, 1522964) = nox_xxx_getTTByNameSpriteMB_44CFC0("Spark");
 	v2 = a1;
 	v3 = a1[4] - a1[9];
 	v4 = a1[3] - a1[8];

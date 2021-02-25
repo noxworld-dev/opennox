@@ -17,8 +17,8 @@ int  sub_4CE200(int a1, int a2, int a3, int a4) {
 	int v13;    // eax
 
 	if (!*getMemU32Ptr(0x5D4594, 1523016)) {
-		*getMemU32Ptr(0x5D4594, 1523016) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 191240));
-		*getMemU32Ptr(0x5D4594, 1523020) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 191252));
+		*getMemU32Ptr(0x5D4594, 1523016) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenPuff");
+		*getMemU32Ptr(0x5D4594, 1523020) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenSmoke");
 	}
 	result = a3;
 	if (a3 > 0) {

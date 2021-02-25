@@ -1841,7 +1841,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				case 133:
 					v257 = *getMemU32Ptr(0x5D4594, 1200872);
 					if (!*getMemU32Ptr(0x5D4594, 1200872)) {
-						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160152));
+						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0("FireBoom");
 						*getMemU32Ptr(0x5D4594, 1200872) = v257;
 					}
 					v258 = *(__int16*)(v3 + 3);
@@ -1849,7 +1849,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				case 134:
 					v257 = *getMemU32Ptr(0x5D4594, 1200876);
 					if (!*getMemU32Ptr(0x5D4594, 1200876)) {
-						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160164));
+						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0("MediumFireBoom");
 						*getMemU32Ptr(0x5D4594, 1200876) = v257;
 					}
 					v258 = *(__int16*)(v3 + 3);
@@ -1857,7 +1857,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				case 135:
 					v257 = *getMemU32Ptr(0x5D4594, 1200880);
 					if (!*getMemU32Ptr(0x5D4594, 1200880)) {
-						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160180));
+						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0("CounterspellBoom");
 						*getMemU32Ptr(0x5D4594, 1200880) = v257;
 					}
 					v258 = *(__int16*)(v3 + 3);
@@ -1865,7 +1865,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				case 136:
 					v257 = *getMemU32Ptr(0x5D4594, 1200884);
 					if (!*getMemU32Ptr(0x5D4594, 1200884)) {
-						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160200));
+						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0("ThinFireBoom");
 						*getMemU32Ptr(0x5D4594, 1200884) = v257;
 					}
 					v258 = *(__int16*)(v3 + 3);
@@ -1873,14 +1873,14 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				case 137:
 					v257 = *getMemU32Ptr(0x5D4594, 1200888);
 					if (!*getMemU32Ptr(0x5D4594, 1200888)) {
-						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160216));
+						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0("TeleportPoof");
 						*getMemU32Ptr(0x5D4594, 1200888) = v257;
 					}
 					goto LABEL_857;
 				case 138:
 					if (!*getMemU32Ptr(0x5D4594, 1200900)) {
-						*getMemU32Ptr(0x5D4594, 1200900) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160244));
-						*getMemU32Ptr(0x5D4594, 1200896) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160252));
+						*getMemU32Ptr(0x5D4594, 1200900) = nox_xxx_getTTByNameSpriteMB_44CFC0("Smoke");
+						*getMemU32Ptr(0x5D4594, 1200896) = nox_xxx_getTTByNameSpriteMB_44CFC0("Puff");
 					}
 					v259 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1200900), *(__int16*)(v3 + 1), *(__int16*)(v3 + 3));
 					if (v259) {
@@ -1904,7 +1904,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				case 139:
 					v257 = *getMemU32Ptr(0x5D4594, 1200892);
 					if (!*getMemU32Ptr(0x5D4594, 1200892)) {
-						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160232));
+						v257 = nox_xxx_getTTByNameSpriteMB_44CFC0("DamagePoof");
 						*getMemU32Ptr(0x5D4594, 1200892) = v257;
 					}
 				LABEL_857:
@@ -1968,9 +1968,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 			break;
 		case 0x93u:
 			if (!*getMemU32Ptr(0x5D4594, 1200852)) {
-				*getMemU32Ptr(0x5D4594, 1200852) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 159532));
-				*getMemU32Ptr(0x5D4594, 1200856) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 159540));
-				*getMemU32Ptr(0x5D4594, 1197380) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 159556));
+				*getMemU32Ptr(0x5D4594, 1200852) = nox_xxx_getTTByNameSpriteMB_44CFC0("Spark");
+				*getMemU32Ptr(0x5D4594, 1200856) = nox_xxx_getTTByNameSpriteMB_44CFC0("MediumFireBoom");
+				*getMemU32Ptr(0x5D4594, 1197380) = nox_xxx_getTTByNameSpriteMB_44CFC0("FireBoom");
 			}
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_916;
@@ -2078,7 +2078,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 		case 0x96u:
 			if (nox_client_isConnected_43C700()) {
 				if (!*getMemU32Ptr(0x5D4594, 1200860))
-					*getMemU32Ptr(0x5D4594, 1200860) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 159568));
+					*getMemU32Ptr(0x5D4594, 1200860) = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueSpark");
 				v239 = 5;
 				do {
 					LODWORD(v5) =
@@ -2113,7 +2113,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 			break;
 		case 0x98u:
 			if (!*getMemU32Ptr(0x5D4594, 1200844))
-				*getMemU32Ptr(0x5D4594, 1200844) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 159192));
+				*getMemU32Ptr(0x5D4594, 1200844) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenZap");
 			if (nox_client_isConnected_43C700()) {
 				LODWORD(v5) =
 					nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1200844),
@@ -2202,8 +2202,8 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_916;
 			if (!*getMemU32Ptr(0x5D4594, 1200864)) {
-				*getMemU32Ptr(0x5D4594, 1200864) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 159940));
-				*getMemU32Ptr(0x5D4594, 1200868) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 159956));
+				*getMemU32Ptr(0x5D4594, 1200864) = nox_xxx_getTTByNameSpriteMB_44CFC0("ArrowTrap1Smoke");
+				*getMemU32Ptr(0x5D4594, 1200868) = nox_xxx_getTTByNameSpriteMB_44CFC0("ArrowTrap2Smoke");
 			}
 			v251 = *(__int16*)(v3 + 1);
 			v339 = *(__int16*)(v3 + 3);
@@ -2229,7 +2229,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 		case 0xA2u:
 			if (nox_client_isConnected_43C700()) {
 				if (!*getMemU32Ptr(0x5D4594, 1200848))
-					*getMemU32Ptr(0x5D4594, 1200848) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 159204));
+					*getMemU32Ptr(0x5D4594, 1200848) = nox_xxx_getTTByNameSpriteMB_44CFC0("HealOrb");
 				v221 = *(unsigned __int16*)(v3 + 9);
 				k = v221 & 0xFFFC;
 				if (k <= 28)
@@ -3432,7 +3432,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			case 0x10u:
 				if (!*getMemU32Ptr(0x5D4594, 1200904))
-					*getMemU32Ptr(0x5D4594, 1200904) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160484));
+					*getMemU32Ptr(0x5D4594, 1200904) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenZap");
 				if (nox_client_isConnected_43C700()) {
 					v301 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1200904), *(unsigned __int16*)(v3 + 6),
 											   *(unsigned __int16*)(v3 + 8));
@@ -3501,8 +3501,8 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				break;
 			case 0x19u:
 				if (!*getMemU32Ptr(0x5D4594, 1200908)) {
-					*getMemU32Ptr(0x5D4594, 1200908) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160496));
-					*getMemU32Ptr(0x5D4594, 1200912) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 160508));
+					*getMemU32Ptr(0x5D4594, 1200908) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenSpark");
+					*getMemU32Ptr(0x5D4594, 1200912) = nox_xxx_getTTByNameSpriteMB_44CFC0("FireBoom");
 				}
 				v302 = (_DWORD*)nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1200912), *(__int16*)(v3 + 2),
 													*(__int16*)(v3 + 4));

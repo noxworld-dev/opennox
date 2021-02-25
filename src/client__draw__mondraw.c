@@ -129,7 +129,7 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	}
 	v6 = *getMemU32Ptr(0x5D4594, 1316536);
 	if (!*getMemU32Ptr(0x5D4594, 1316536)) {
-		v6 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 178376));
+		v6 = nox_xxx_getTTByNameSpriteMB_44CFC0("Ghost");
 		*getMemU32Ptr(0x5D4594, 1316536) = v6;
 	}
 	v7 = 48 * *(_DWORD*)(v2 + 276);

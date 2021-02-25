@@ -19,7 +19,7 @@ int  nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 	if (nox_common_gameFlags_check_40A5C0(0x200000))
 		return 1;
 	if (!*getMemU32Ptr(0x5D4594, 1313716))
-		*getMemU32Ptr(0x5D4594, 1313716) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176640));
+		*getMemU32Ptr(0x5D4594, 1313716) = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueRainSpark");
 	v3 = a2;
 	v9 = 2;
 	do {
@@ -52,7 +52,7 @@ int  nox_thing_levelup_draw(int a1, nox_drawable* dr) {
 
 	v2 = *getMemU32Ptr(0x5D4594, 1313708);
 	if (!*getMemU32Ptr(0x5D4594, 1313708)) {
-		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176492));
+		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0("RainOrbWhite");
 		*getMemU32Ptr(0x5D4594, 1313708) = v2;
 	}
 	nox_thing_falling_sparks_draw_4B7740(v2, a1, dr);
@@ -65,7 +65,7 @@ int  nox_thing_oblivion_up_draw(int a1, nox_drawable* dr) {
 
 	v2 = *getMemU32Ptr(0x5D4594, 1313712);
 	if (!*getMemU32Ptr(0x5D4594, 1313712)) {
-		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176628));
+		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0("RainOrbBlue");
 		*getMemU32Ptr(0x5D4594, 1313712) = v2;
 	}
 	nox_thing_falling_sparks_draw_4B7740(v2, a1, dr);

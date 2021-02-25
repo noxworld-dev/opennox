@@ -31,15 +31,15 @@ int  nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1) {
 	result = *getMemU32Ptr(0x5D4594, 1304308);
 	if (*getMemIntPtr(0x5D4594, 1304308) < 96) {
 		if (!*getMemU32Ptr(0x5D4594, 1304316)) {
-			*getMemU32Ptr(0x5D4594, 1304316) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 163612));
-			*getMemU32Ptr(0x5D4594, 1304320) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 163632));
-			*getMemU32Ptr(0x5D4594, 1304324) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 163656));
-			*getMemU32Ptr(0x5D4594, 1304348) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 163676));
-			dword_5d4594_1304328 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 163688));
-			*getMemU32Ptr(0x5D4594, 1304332) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 163696));
-			*getMemU32Ptr(0x5D4594, 1304336) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 163708));
-			*getMemU32Ptr(0x5D4594, 1304340) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 163724));
-			*getMemU32Ptr(0x5D4594, 1304344) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 163732));
+			*getMemU32Ptr(0x5D4594, 1304316) = nox_xxx_getTTByNameSpriteMB_44CFC0("DynamicLightning");
+			*getMemU32Ptr(0x5D4594, 1304320) = nox_xxx_getTTByNameSpriteMB_44CFC0("DynamicChainLightning");
+			*getMemU32Ptr(0x5D4594, 1304324) = nox_xxx_getTTByNameSpriteMB_44CFC0("DynamicEnergyBolt");
+			*getMemU32Ptr(0x5D4594, 1304348) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenZap");
+			dword_5d4594_1304328 = nox_xxx_getTTByNameSpriteMB_44CFC0("OrbRay");
+			*getMemU32Ptr(0x5D4594, 1304332) = nox_xxx_getTTByNameSpriteMB_44CFC0("PlasmaRay");
+			*getMemU32Ptr(0x5D4594, 1304336) = nox_xxx_getTTByNameSpriteMB_44CFC0("DrainManaOrb");
+			*getMemU32Ptr(0x5D4594, 1304340) = nox_xxx_getTTByNameSpriteMB_44CFC0("HealOrb");
+			*getMemU32Ptr(0x5D4594, 1304344) = nox_xxx_getTTByNameSpriteMB_44CFC0("CharmOrb");
 		}
 		v2 = a1;
 		v3 = a1 + 1;

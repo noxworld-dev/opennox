@@ -1026,7 +1026,7 @@ void  nox_xxx_clientOnCursorHover_477050(int arg0, int a2) {
 	int v29;   // [esp+28h] [ebp+4h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1096648))
-		*getMemU32Ptr(0x5D4594, 1096648) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 151440));
+		*getMemU32Ptr(0x5D4594, 1096648) = nox_xxx_getTTByNameSpriteMB_44CFC0("Polyp");
 	v2 = arg0;
 	if (arg0 == *getMemU32Ptr(0x5D4594, 2614252)) {
 		return;
@@ -1911,14 +1911,14 @@ char*  nox_xxx_getShopPic_4790F0(int a1) {
 
 	v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3805);
 	if (!*getMemU32Ptr(0x5D4594, 1107040)) {
-		*getMemU32Ptr(0x5D4594, 1098396) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 152868));
-		*getMemU32Ptr(0x5D4594, 1098560) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 152880));
-		*getMemU32Ptr(0x5D4594, 1098556) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 152904));
-		*getMemU32Ptr(0x5D4594, 1098564) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 152928));
-		*getMemU32Ptr(0x5D4594, 1098572) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 152952));
-		*getMemU32Ptr(0x5D4594, 1098568) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 152976));
-		*getMemU32Ptr(0x5D4594, 1098484) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 152996));
-		*getMemU32Ptr(0x5D4594, 1097292) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 153016));
+		*getMemU32Ptr(0x5D4594, 1098396) = nox_xxx_getTTByNameSpriteMB_44CFC0("Shopkeeper");
+		*getMemU32Ptr(0x5D4594, 1098560) = nox_xxx_getTTByNameSpriteMB_44CFC0("ShopkeeperWarriorsRealm");
+		*getMemU32Ptr(0x5D4594, 1098556) = nox_xxx_getTTByNameSpriteMB_44CFC0("ShopkeeperConjurerRealm");
+		*getMemU32Ptr(0x5D4594, 1098564) = nox_xxx_getTTByNameSpriteMB_44CFC0("ShopkeeperWizardRealm");
+		*getMemU32Ptr(0x5D4594, 1098572) = nox_xxx_getTTByNameSpriteMB_44CFC0("ShopkeeperLandOfTheDead");
+		*getMemU32Ptr(0x5D4594, 1098568) = nox_xxx_getTTByNameSpriteMB_44CFC0("ShopkeeperMagicShop");
+		*getMemU32Ptr(0x5D4594, 1098484) = nox_xxx_getTTByNameSpriteMB_44CFC0("ShopkeeperPurple");
+		*getMemU32Ptr(0x5D4594, 1097292) = nox_xxx_getTTByNameSpriteMB_44CFC0("ShopkeeperYellow");
 		*getMemU32Ptr(0x5D4594, 1107040) = 1;
 	}
 	if (a1 == *getMemU32Ptr(0x5D4594, 1098396)) {

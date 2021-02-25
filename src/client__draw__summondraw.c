@@ -36,7 +36,7 @@ int  nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 	v15 = v3;
 	v17 = v4;
 	if (!dword_5d4594_1313740) {
-		v6 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177040));
+		v6 = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueSpark");
 		dword_5d4594_1313740 = v6;
 	}
 	v7 = *getMemU32Ptr(0x5D4594, 2598000) - v2[79];

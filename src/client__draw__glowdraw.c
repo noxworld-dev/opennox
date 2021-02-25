@@ -154,7 +154,7 @@ int  nox_thing_blue_rain_spark_draw(_DWORD* a1, nox_drawable* dr) {
 	if (result == 1 && *(_BYTE*)(a2 + 296) >= 5) {
 		v3 = *getMemU32Ptr(0x5D4594, 1313688);
 		if (!*getMemU32Ptr(0x5D4594, 1313688)) {
-			v3 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176184));
+			v3 = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteSpark");
 			*getMemU32Ptr(0x5D4594, 1313688) = v3;
 		}
 		v4 = nox_xxx_spriteLoadAdd_45A360_drawable(v3, *(_DWORD*)(a2 + 12), *(_DWORD*)(a2 + 16));
@@ -211,8 +211,8 @@ int  nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 
 	v2 = (_DWORD*)a2;
 	if (!dword_5d4594_1313692) {
-		dword_5d4594_1313692 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176396));
-		*getMemU32Ptr(0x5D4594, 1313696) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176412));
+		dword_5d4594_1313692 = nox_xxx_getTTByNameSpriteMB_44CFC0("RainOrbWhite");
+		*getMemU32Ptr(0x5D4594, 1313696) = nox_xxx_getTTByNameSpriteMB_44CFC0("RainOrbBlue");
 	}
 	v3 = *(_WORD*)(a2 + 104);
 	if (v3 > 0) {
@@ -238,8 +238,8 @@ int  nox_thing_rain_orb_draw(_DWORD* a1, nox_drawable* dr) {
 		result = 1;
 	} else {
 		if (!*getMemU32Ptr(0x5D4594, 1313700)) {
-			*getMemU32Ptr(0x5D4594, 1313700) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176424));
-			*getMemU32Ptr(0x5D4594, 1313704) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176440));
+			*getMemU32Ptr(0x5D4594, 1313700) = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteMoveOrb");
+			*getMemU32Ptr(0x5D4594, 1313704) = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueMoveOrb");
 		}
 		v4 = *(_DWORD*)(a2 + 12);
 		v5 = *(_DWORD*)(a2 + 16);

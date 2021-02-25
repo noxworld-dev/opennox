@@ -4331,7 +4331,7 @@ int  nox_xxx_client_57B400(int a1) {
 
 	v1 = *getMemU32Ptr(0x5D4594, 2523876);
 	if (!*getMemU32Ptr(0x5D4594, 2523876)) {
-		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 313100));
+		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0("Glyph");
 		*getMemU32Ptr(0x5D4594, 2523876) = v1;
 	}
 	if (!*getMemU32Ptr(0x5D4594, 2618908))
@@ -4348,7 +4348,7 @@ BOOL  sub_57B450(int* a1) {
 
 	v1 = *getMemU32Ptr(0x5D4594, 2523880);
 	if (!*getMemU32Ptr(0x5D4594, 2523880)) {
-		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 313108));
+		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0("Glyph");
 		*getMemU32Ptr(0x5D4594, 2523880) = v1;
 	}
 	if (!a1 || !*getMemU32Ptr(0x5D4594, 2614252) || !*getMemU32Ptr(0x5D4594, 2618908) ||

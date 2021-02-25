@@ -5340,7 +5340,7 @@ int  nox_xxx_spriteLoadFromMap_4AC020(int thingInd, __int16 a2, _DWORD* a3) {
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		v17 = *getMemU32Ptr(0x5D4594, 1309788);
 		if (!*getMemU32Ptr(0x5D4594, 1309788)) {
-			v17 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 173444));
+			v17 = nox_xxx_getTTByNameSpriteMB_44CFC0("FlagMarker");
 			*getMemU32Ptr(0x5D4594, 1309788) = v17;
 		}
 		v18 = *(_BYTE*)(v9 + 28);
@@ -5487,10 +5487,10 @@ int nox_client_mapSpecialRWObjectData_4AC610() {
 //----- (004AC6E0) --------------------------------------------------------
 int  nox_xxx_clientLoadSomeObject_4AC6E0(unsigned __int16 a1) {
 	if (!*getMemU32Ptr(0x5D4594, 1309792)) {
-		*getMemU32Ptr(0x5D4594, 1309792) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 173476));
-		*getMemU32Ptr(0x5D4594, 1309796) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 173488));
-		*getMemU32Ptr(0x5D4594, 1309800) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 173508));
-		*getMemU32Ptr(0x5D4594, 1309804) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 173520));
+		*getMemU32Ptr(0x5D4594, 1309792) = nox_xxx_getTTByNameSpriteMB_44CFC0("ColorLight");
+		*getMemU32Ptr(0x5D4594, 1309796) = nox_xxx_getTTByNameSpriteMB_44CFC0("ColorLightMovable");
+		*getMemU32Ptr(0x5D4594, 1309800) = nox_xxx_getTTByNameSpriteMB_44CFC0("TeamBase");
+		*getMemU32Ptr(0x5D4594, 1309804) = nox_xxx_getTTByNameSpriteMB_44CFC0("PressurePlate");
 	}
 	if (a1 == *getMemU32Ptr(0x5D4594, 1309792) || a1 == *getMemU32Ptr(0x5D4594, 1309796))
 		return nox_xxx_colorLightClientLoad_4AC980(a1);
@@ -11189,13 +11189,13 @@ int  sub_4B6B80(int* a1, nox_drawable* dr, int a3) {
 
 	v3 = a2;
 	if (!*getMemU32Ptr(0x5D4594, 1313660)) {
-		*getMemU32Ptr(0x5D4594, 1313660) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176016));
-		*getMemU32Ptr(0x5D4594, 1313664) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176032));
-		*getMemU32Ptr(0x5D4594, 1313668) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176040));
-		*getMemU32Ptr(0x5D4594, 1313672) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176052));
-		*getMemU32Ptr(0x5D4594, 1313676) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176064));
-		*getMemU32Ptr(0x5D4594, 1313680) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176076));
-		*getMemU32Ptr(0x5D4594, 1313684) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 176092));
+		*getMemU32Ptr(0x5D4594, 1313660) = nox_xxx_getTTByNameSpriteMB_44CFC0("DrainManaOrb");
+		*getMemU32Ptr(0x5D4594, 1313664) = nox_xxx_getTTByNameSpriteMB_44CFC0("HealOrb");
+		*getMemU32Ptr(0x5D4594, 1313668) = nox_xxx_getTTByNameSpriteMB_44CFC0("CharmOrb");
+		*getMemU32Ptr(0x5D4594, 1313672) = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteOrb");
+		*getMemU32Ptr(0x5D4594, 1313676) = nox_xxx_getTTByNameSpriteMB_44CFC0("ManaBombOrb");
+		*getMemU32Ptr(0x5D4594, 1313680) = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteMoveOrb");
+		*getMemU32Ptr(0x5D4594, 1313684) = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueMoveOrb");
 	}
 	v4 = *(_DWORD*)(a2 + 108);
 	if (v4 == *getMemU32Ptr(0x5D4594, 1313660) || v4 == *getMemU32Ptr(0x5D4594, 1313684)) {
@@ -11331,7 +11331,7 @@ _DWORD*  nox_xxx_netHandleSummonPacket_4B7C40(__int16 a1, unsigned __int16* a2, 
 
 	v10 = a2[1];
 	v9 = *a2;
-	v5 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177024));
+	v5 = nox_xxx_getTTByNameSpriteMB_44CFC0("SummonEffect");
 	result = (_DWORD*)nox_xxx_spriteLoadAdd_45A360_drawable(v5, v9, v10);
 	v7 = result;
 	if (result) {
@@ -11356,9 +11356,9 @@ _DWORD*  nox_xxx_netHandleSummonPacket_4B7C40(__int16 a1, unsigned __int16* a2, 
 //----- (004B7EE0) --------------------------------------------------------
 void  sub_4B7EE0(__int16 a1) {
 	if (!*getMemU32Ptr(0x5D4594, 1313744))
-		*getMemU32Ptr(0x5D4594, 1313744) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177052));
+		*getMemU32Ptr(0x5D4594, 1313744) = nox_xxx_getTTByNameSpriteMB_44CFC0("SummonEffect");
 	if (!dword_5d4594_1313740)
-		dword_5d4594_1313740 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177068));
+		dword_5d4594_1313740 = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueSpark");
 
 	int v2 = sub_45A060();
 	if (!v2)
@@ -11378,14 +11378,14 @@ void  sub_4B7EE0(__int16 a1) {
 int nox_xxx_spriteShieldLoad_4B7F90() {
 	int result; // eax
 
-	*getMemU32Ptr(0x5D4594, 1313748) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177080));
-	*getMemU32Ptr(0x5D4594, 1313752) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177100));
-	*getMemU32Ptr(0x5D4594, 1313756) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177120));
-	*getMemU32Ptr(0x5D4594, 1313760) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177140));
-	*getMemU32Ptr(0x5D4594, 1313768) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177160));
-	*getMemU32Ptr(0x5D4594, 1313772) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177180));
-	*getMemU32Ptr(0x5D4594, 1313776) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177200));
-	result = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177220));
+	*getMemU32Ptr(0x5D4594, 1313748) = nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldNW");
+	*getMemU32Ptr(0x5D4594, 1313752) = nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldN");
+	*getMemU32Ptr(0x5D4594, 1313756) = nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldNE");
+	*getMemU32Ptr(0x5D4594, 1313760) = nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldW");
+	*getMemU32Ptr(0x5D4594, 1313768) = nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldE");
+	*getMemU32Ptr(0x5D4594, 1313772) = nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldSW");
+	*getMemU32Ptr(0x5D4594, 1313776) = nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldS");
+	result = nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldSE");
 	*getMemU32Ptr(0x5D4594, 1313780) = result;
 	*getMemU32Ptr(0x5D4594, 1313764) = 0;
 	*getMemU32Ptr(0x5D4594, 1313784) = 1;
@@ -11408,28 +11408,28 @@ _DWORD*  nox_xxx_fxShield_4B8090(unsigned int a1, int a2) {
 	v2 = a2;
 	switch (a2) {
 	case 0:
-		nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177380));
+		nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldNW");
 		break;
 	case 1:
-		nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177240));
+		nox_xxx_getTTByNameSpriteMB_44CFC0("ShpericalShieldN");
 		break;
 	case 2:
-		nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177260));
+		nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldNW");
 		break;
 	case 3:
-		nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177360));
+		nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldW");
 		break;
 	case 5:
-		nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177280));
+		nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldE");
 		break;
 	case 6:
-		nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177340));
+		nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldSW");
 		break;
 	case 7:
-		nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177320));
+		nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldS");
 		break;
 	case 8:
-		nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 177300));
+		nox_xxx_getTTByNameSpriteMB_44CFC0("SphericalShieldSE");
 		break;
 	default:
 		break;

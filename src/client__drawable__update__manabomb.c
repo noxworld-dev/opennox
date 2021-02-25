@@ -28,8 +28,8 @@ int  nox_xxx_updDrawManabombCharge_4CCAC0(int a1, _DWORD* a2) {
 	v14 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 188052));
 	v2 = nox_float2int(v14);
 	if (!dword_5d4594_1522956) {
-		dword_5d4594_1522956 = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 188072));
-		*getMemU32Ptr(0x5D4594, 1522960) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 188084));
+		dword_5d4594_1522956 = nox_xxx_getTTByNameSpriteMB_44CFC0("ManaBombOrb");
+		*getMemU32Ptr(0x5D4594, 1522960) = nox_xxx_getTTByNameSpriteMB_44CFC0("VioletSpark");
 	}
 	v3 = a2;
 	v19 = 20;

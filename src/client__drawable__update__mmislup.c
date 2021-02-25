@@ -22,9 +22,9 @@ int  nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
 
 	v2 = a2;
 	if (!*getMemU32Ptr(0x5D4594, 1522984)) {
-		*getMemU32Ptr(0x5D4594, 1522984) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 190112));
-		*getMemU32Ptr(0x5D4594, 1522988) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 190120));
-		*getMemU32Ptr(0x5D4594, 1522992) = nox_xxx_getTTByNameSpriteMB_44CFC0((CHAR*)getMemAt(0x587000, 190128));
+		*getMemU32Ptr(0x5D4594, 1522984) = nox_xxx_getTTByNameSpriteMB_44CFC0("Spark");
+		*getMemU32Ptr(0x5D4594, 1522988) = nox_xxx_getTTByNameSpriteMB_44CFC0("Puff");
+		*getMemU32Ptr(0x5D4594, 1522992) = nox_xxx_getTTByNameSpriteMB_44CFC0("MagicMissileTailLink");
 	}
 	v3 = a2[3] - a2[8];
 	v15 = a2[4] - a2[9];
