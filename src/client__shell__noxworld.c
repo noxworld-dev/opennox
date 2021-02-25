@@ -896,7 +896,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 	}
 	if (v5 > 10002) {
 		v19 = v5 - 10003;
-		if (v19) {
+		if (v5 != 10003) {
 			v20 = v19 - 1;
 			if (!v20) {
 				nox_game_createOrJoin_815048 = 0;
@@ -919,6 +919,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 			}
 			return 0;
 		}
+		// host quest game
 		LOBYTE(v22) = nox_client_checkQuestExp_SKU2_4D7700();
 		if (!v22) {
 			v23 = nox_strman_loadString_40F1D0("GeneralPrint:InformExpansion", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
@@ -939,15 +940,18 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 		if (dword_587000_87404 == 1) {
 			if (*(int*)&dword_587000_87412 != -1)
 				return 0;
-			goto LABEL_52;
+			v16 = nox_common_randomInt_415FA0(10054, 10057);
+			v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_814980, v16);
+			nox_window_call_field_94(*(int*)&dword_5d4594_814980, 16391, (int)v17, 0);
+			return 0;
 		}
-	LABEL_53:
 		dword_587000_87412 = 0;
 		v18 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10020);
 		nox_window_call_field_93((int)v18, 5, 15663512, 0);
 		return 0;
 	}
 	if (v5 == 10002) {
+		// host regular game
 		if (nox_common_gameFlags_check_40A5C0(0x1000000))
 			return 0;
 		nox_game_createOrJoin_815048 = 1;
@@ -962,13 +966,15 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 		if (dword_587000_87404 == 1) {
 			if (*(int*)&dword_587000_87412 != -1)
 				return 0;
-		LABEL_52:
 			v16 = nox_common_randomInt_415FA0(10054, 10057);
 			v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_814980, v16);
 			nox_window_call_field_94(*(int*)&dword_5d4594_814980, 16391, (int)v17, 0);
 			return 0;
 		}
-		goto LABEL_53;
+		dword_587000_87412 = 0;
+		v18 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_814980, 10020);
+		nox_window_call_field_93((int)v18, 5, 15663512, 0);
+		return 0;
 	}
 	v8 = v5 - 4001;
 	if (!v8) {

@@ -9153,7 +9153,8 @@ int sub_43B490() {
 }
 
 //----- (0043B4D0) --------------------------------------------------------
-_DWORD* nox_xxx_serverHost_43B4D0() {
+#ifndef NOX_CGO
+void nox_xxx_serverHost_43B4D0() {
 	if (nox_game_createOrJoin_815048) {
 		sub_43B510();
 		sub_43A9D0();
@@ -9163,5 +9164,6 @@ _DWORD* nox_xxx_serverHost_43B4D0() {
 		sub_43B630();
 		sub_43B440();
 	}
-	return sub_49FF20();
+	sub_49FF20();
 }
+#endif // NOX_CGO

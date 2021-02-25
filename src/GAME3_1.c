@@ -9487,7 +9487,7 @@ int  sub_4CB1A0(_DWORD* a1, int a2) {
 }
 
 //----- (004CB230) --------------------------------------------------------
-BOOL  sub_4CB230(const char* a1, char* lpFileName) // setmoviefile
+BOOL  nox_game_setMovieFile_4CB230(const char* a1, char* lpFileName) // setmoviefile
 {
 	char* v3;        // eax
 	struct _stat v4; // [esp+10h] [ebp-24h]
