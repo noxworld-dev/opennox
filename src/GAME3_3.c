@@ -9561,7 +9561,7 @@ char  nox_xxx_playerMakeDefItems_4EF7D0(int a1, int a2, int a3) {
 					*(_DWORD*)&v18[4] = nox_xxx_modifGetDescById_413330(*(_DWORD*)(v11 + 4) + v19[84]);
 					*(_DWORD*)&v18[8] = nox_xxx_modifGetDescById_413330(*(_DWORD*)(v11 + 4) + v19[85]);
 					*(_DWORD*)&v18[12] = 0;
-					nox_xxx_playerRespawnItem_4EF750(v3, (CHAR*)getMemAt(0x587000, 206412), (int*)v18, 1, 0);
+					nox_xxx_playerRespawnItem_4EF750(v3, "StreetShirt", (int*)v18, 1, 0);
 				}
 			}
 			if (!(**(_BYTE**)(v4 + 276) & 4)) {
@@ -9569,14 +9569,14 @@ char  nox_xxx_playerMakeDefItems_4EF7D0(int a1, int a2, int a3) {
 				*(_DWORD*)&v18[4] = nox_xxx_modifGetDescById_413330(*(_DWORD*)(v11 + 4) + v19[83]);
 				*(_DWORD*)&v18[8] = 0;
 				*(_DWORD*)&v18[12] = 0;
-				nox_xxx_playerRespawnItem_4EF750(v3, (CHAR*)getMemAt(0x587000, 206424), (int*)v18, 1, 0);
+				nox_xxx_playerRespawnItem_4EF750(v3, "StreetPants", (int*)v18, 1, 0);
 			}
 			if (!(**(_BYTE**)(v4 + 276) & 1)) {
 				*(_DWORD*)v18 = nox_xxx_modifGetDescById_413330(*(_DWORD*)(v11 + 4) + v19[87]);
 				*(_DWORD*)&v18[4] = nox_xxx_modifGetDescById_413330(*(_DWORD*)(v11 + 4) + v19[86]);
 				*(_DWORD*)&v18[8] = 0;
 				*(_DWORD*)&v18[12] = 0;
-				nox_xxx_playerRespawnItem_4EF750(v3, (CHAR*)getMemAt(0x587000, 206436), (int*)v18, 1, 0);
+				nox_xxx_playerRespawnItem_4EF750(v3, "StreetSneakers", (int*)v18, 1, 0);
 			}
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
 				v13 = nox_xxx_modifGetIdByName_413290("ArmorQuality1");
@@ -9608,10 +9608,10 @@ char  nox_xxx_playerMakeDefItems_4EF7D0(int a1, int a2, int a3) {
 				LOBYTE(v7) = *(_BYTE*)(*(_DWORD*)(v4 + 276) + 2251);
 				if ((_BYTE)v7) {
 					if ((_BYTE)v7 == 1)
-						LOBYTE(v7) = (unsigned int)nox_xxx_playerRespawnItem_4EF750(v3, (CHAR*)getMemAt(0x587000, 206588), 0, 1, 0);
+						LOBYTE(v7) = (unsigned int)nox_xxx_playerRespawnItem_4EF750(v3, "WizardRobe", 0, 1, 0);
 				} else {
-					nox_xxx_playerRespawnItem_4EF750(v3, (CHAR*)getMemAt(0x587000, 206560), 0, 1, 0);
-					LOBYTE(v7) = (unsigned int)nox_xxx_playerRespawnItem_4EF750(v3, (CHAR*)getMemAt(0x587000, 206572), 0, 1, 0);
+					nox_xxx_playerRespawnItem_4EF750(v3, "Longsword", 0, 1, 0);
+					LOBYTE(v7) = (unsigned int)nox_xxx_playerRespawnItem_4EF750(v3, "WoodenShield", 0, 1, 0);
 				}
 			}
 		}
