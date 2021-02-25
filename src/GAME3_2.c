@@ -3039,9 +3039,9 @@ float* nox_xxx_mapgen_Doors_4D4790() {
 								sub_527030(&v34);
 								v34.field_0 = v34.field_0 - 16.263456;
 								if (v29 < 4)
-									nox_xxx_mapGenGetObjID_527940((char*)getMemAt(0x587000, 198320));
+									nox_xxx_mapGenGetObjID_527940("ArchedDoor");
 								else
-									nox_xxx_mapGenGetObjID_527940((char*)getMemAt(0x587000, 198304));
+									nox_xxx_mapGenGetObjID_527940("ArchedHalfDoor");
 								v20 = nox_xxx_mapGenPlaceObj_5279B0(&v34.field_0);
 								if (v20)
 									nox_xxx_mapGenOrientObj_527C60((int)v20, 5);
@@ -3067,7 +3067,7 @@ float* nox_xxx_mapgen_Doors_4D4790() {
 									v34.field_0 = v23 + 32.526913;
 									sub_527030(&v34);
 									v34.field_0 = v34.field_0 + 16.263456;
-									nox_xxx_mapGenGetObjID_527940((char*)getMemAt(0x587000, 198332));
+									nox_xxx_mapGenGetObjID_527940("ArchedHalfDoor");
 									v24 = nox_xxx_mapGenPlaceObj_5279B0(&v34.field_0);
 									if (v24)
 										nox_xxx_mapGenOrientObj_527C60((int)v24, 3);
@@ -3158,9 +3158,9 @@ float* nox_xxx_mapgen_Doors_4D4790() {
 							sub_527030(&v34);
 							v34.field_4 = v34.field_4 - 16.263456;
 							if (v29 < 4)
-								nox_xxx_mapGenGetObjID_527940((char*)getMemAt(0x587000, 198276));
+								nox_xxx_mapGenGetObjID_527940("ArchedDoor");
 							else
-								nox_xxx_mapGenGetObjID_527940((char*)getMemAt(0x587000, 198260));
+								nox_xxx_mapGenGetObjID_527940("ArchedHalfDoor");
 							v8 = nox_xxx_mapGenPlaceObj_5279B0(&v34.field_0);
 							if (v8)
 								nox_xxx_mapGenOrientObj_527C60((int)v8, 7);
@@ -3186,7 +3186,7 @@ float* nox_xxx_mapgen_Doors_4D4790() {
 								v34.field_4 = v34.field_4 + 16.263456 + 32.526913;
 								sub_527030(&v34);
 								v34.field_4 = v34.field_4 + 16.263456;
-								nox_xxx_mapGenGetObjID_527940((char*)getMemAt(0x587000, 198288));
+								nox_xxx_mapGenGetObjID_527940("ArchedHalfDoor");
 								v11 = nox_xxx_mapGenPlaceObj_5279B0(&v34.field_0);
 								if (v11)
 									nox_xxx_mapGenOrientObj_527C60((int)v11, 1);

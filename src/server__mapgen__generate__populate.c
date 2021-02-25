@@ -180,7 +180,7 @@ void  nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
 	v6 = (float*)sub_4D42C0();
 	v8 = (v6[11] + v6[9]) * 0.5;
 	v9 = (v6[12] + v6[10]) * 0.5;
-	nox_xxx_mapGenGetObjID_527940((char*)getMemAt(0x587000, 254936));
+	nox_xxx_mapGenGetObjID_527940("PlayerStart");
 	nox_xxx_mapGenPlaceObj_5279B0(&v8);
 	sub_469B90((int*)(a1 + 536));
 	sub_526A90();
