@@ -10625,7 +10625,7 @@ int  sub_417F50(int a1) {
 		--v3;
 		goto LABEL_12;
 	}
-	v6 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 55224));
+	v6 = nox_xxx_objectCreateByName_4E3810("GameBall");
 	v7 = v6;
 	if (!v6)
 		return 0;

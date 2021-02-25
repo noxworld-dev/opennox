@@ -3219,7 +3219,7 @@ _DWORD*  nox_xxx_mapGenMakeSpellbook_5220E0(int a1, const char* a2) {
 
 	if (!*(_DWORD*)(a1 + 1096))
 		return 0;
-	v3 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 254704));
+	v3 = nox_xxx_objectCreateByName_4E3810("SpellBook");
 	if (!v3)
 		return v3;
 	if (!strcmp("*", a2)) {
@@ -8748,7 +8748,7 @@ LABEL_137:
 									--v36;
 								} while (v36);
 								if (!v32 && v33) {
-									v38 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 258384));
+									v38 = nox_xxx_objectCreateByName_4E3810("Glyph");
 									v46 = (int)v38;
 									if (v38) {
 										v39 = v38[173];
@@ -10010,7 +10010,7 @@ int  nox_xxx_deathBallCreateFragments_52BD30(int* a1) {
 
 	v1 = 3;
 	do {
-		result = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 258448));
+		result = nox_xxx_objectCreateByName_4E3810("DeathBallFragment");
 		v3 = (float*)result;
 		if (result) {
 			nox_xxx_createAt_4DAA50(result, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
@@ -11022,7 +11022,7 @@ int  nox_xxx_castTelekinesis_52D330(int a1, int a2, int a3, int a4, int* a5, cha
 	result = *a5;
 	if (*a5) {
 		if (*(_BYTE*)(result + 8) & 4) {
-			v7 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 259584));
+			v7 = nox_xxx_objectCreateByName_4E3810("TelekinesisHand");
 			if (v7) {
 				nox_xxx_createAt_4DAA50((int)v7, *a5, *(float*)(*a5 + 56), *(float*)(*a5 + 60));
 				nox_xxx_buffApplyTo_4FF380(*a5, 24, 20 * (_WORD)nox_gameFPS, a6);
@@ -12252,7 +12252,7 @@ int  sub_52EF30(int a1) {
 		v5 = *(float*)(v6 + 60);
 		*(_WORD*)(a1 + 72) = *(_WORD*)(v6 + 124);
 	}
-	v7 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 260596));
+	v7 = nox_xxx_objectCreateByName_4E3810("ForceOfNatureCharge");
 	v8 = v7;
 	if (v7) {
 		nox_xxx_createAt_4DAA50((int)v7, 0, v4, v5);
@@ -12289,7 +12289,7 @@ int  sub_52EFD0(int a1) {
 		*(_DWORD*)(a1 + 76) = 0;
 	}
 	if (*(_DWORD*)(a1 + 68) - 1 == *getMemU32Ptr(0x5D4594, 2598000)) {
-		v4 = (float*)nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 260616));
+		v4 = (float*)nox_xxx_objectCreateByName_4E3810("DeathBall");
 		if (v4) {
 			if (*(_DWORD*)(a1 + 20)) {
 				v5 = *(float*)(a1 + 28);

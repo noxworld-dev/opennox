@@ -3171,7 +3171,7 @@ int  sub_50E030(int a1, _DWORD* a2) {
 		v3[548] = a1;
 		v6 = a2[3];
 		if (v6 & 0x2000) {
-			v7 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 234800));
+			v7 = nox_xxx_objectCreateByName_4E3810("Glyph");
 			if (v7) {
 				v8 = v7[173];
 				v9 = v3 + 511;
@@ -3532,8 +3532,8 @@ _DWORD* nox_xxx_createShopStruct_50E870() {
 	v0[10] = 0;
 	v0[11] = 0;
 	v0[5] = 0;
-	v0[12] = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 235776));
-	v1[13] = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 235784));
+	v0[12] = nox_xxx_objectCreateByName_4E3810("Gold");
+	v1[13] = nox_xxx_objectCreateByName_4E3810("Gold");
 	v1[15] = 0;
 	v1[14] = dword_5d4594_2386500;
 	if (dword_5d4594_2386500)
@@ -3598,7 +3598,7 @@ void  nox_xxx_loadShopItems_50E970(int a1) {
 			v40 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 235792));
 			v4 = nox_float2int(v40);
 			if (nox_xxx_GetQuestStage_4E3CC0() < v4) {
-				v5 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 235812));
+				v5 = nox_xxx_objectCreateByName_4E3810("AnkhTradable");
 				if (v5)
 					nox_xxx_addItemToShopSession_50EE00(a1, *(float*)&v5);
 			}
@@ -3614,7 +3614,7 @@ void  nox_xxx_loadShopItems_50E970(int a1) {
 					v6 = (CHAR**)v7;
 				} while (v9);
 			}
-			v10 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 235828));
+			v10 = nox_xxx_objectCreateByName_4E3810("RewardMarker");
 			v11 = (int)v10;
 			if (v10) {
 				v12 = (_DWORD*)v10[173];
@@ -6380,7 +6380,7 @@ _DWORD*  sub_5130E0(int a1, _DWORD* a2) {
 	_DWORD* result; // eax
 	int v5;         // eax
 
-	v2 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 247016));
+	v2 = nox_xxx_objectCreateByName_4E3810("Mover");
 	v3 = v2;
 	if (v2) {
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
@@ -9529,7 +9529,7 @@ void  sub_516A80(int a1, int a2, int a3, int a4) {
 		nox_xxx_delayedDeleteObject_4E5CC0(v4);
 	}
 LABEL_8:
-	v5 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 247424));
+	v5 = nox_xxx_objectCreateByName_4E3810("Glyph");
 	if (v5) {
 		v6 = v5[173];
 		*(_DWORD*)v6 = a2;
@@ -11909,7 +11909,7 @@ void  nox_xxx_spawnHecubahQuest_51A5A0(int* a1) {
 	float v16;   // [esp+8h] [ebp-8h]
 	float v17;   // [esp+Ch] [ebp-4h]
 
-	v1 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 252796));
+	v1 = nox_xxx_objectCreateByName_4E3810("Hecubah");
 	v16 = sub_4E40F0();
 	if (v1) {
 		v2 = (_DWORD*)v1[187];
@@ -11941,7 +11941,7 @@ void  nox_xxx_spawnHecubahQuest_51A5A0(int* a1) {
 		nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 252804));
 		v2[330] = 1062836634;
 		nox_xxx_createAt_4DAA50((int)v1, 0, *(float*)a1, *((float*)a1 + 1));
-		v7 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 252824));
+		v7 = nox_xxx_objectCreateByName_4E3810("RewardMarker");
 		if (v7) {
 			v8 = nox_xxx_GetQuestStage_4E3CC0();
 			v9 = nox_server_rewardgen_activateMarker_4F0720((int)v7, v8 + 2);
@@ -11978,7 +11978,7 @@ void  nox_xxx_spawnNecroQuest_51A7A0(int* a1) {
 	float v10;  // [esp+8h] [ebp-8h]
 	float v11;  // [esp+Ch] [ebp-4h]
 
-	v1 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 252840));
+	v1 = nox_xxx_objectCreateByName_4E3810("Necromancer");
 	v10 = sub_4E40F0();
 	if (v1) {
 		v2 = (_DWORD*)v1[187];
@@ -12007,7 +12007,7 @@ void  nox_xxx_spawnNecroQuest_51A7A0(int* a1) {
 		v2[444] = 0x20000000;
 		v2[415] = 0x40000000;
 		nox_xxx_createAt_4DAA50((int)v1, 0, *(float*)a1, *((float*)a1 + 1));
-		v7 = nox_xxx_objectCreateByName_4E3810((CHAR*)getMemAt(0x587000, 252852));
+		v7 = nox_xxx_objectCreateByName_4E3810("RewardMarker");
 		if (v7) {
 			v8 = nox_xxx_GetQuestStage_4E3CC0();
 			v9 = nox_server_rewardgen_activateMarker_4F0720((int)v7, v8 + 2);
