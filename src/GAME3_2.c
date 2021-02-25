@@ -4541,7 +4541,7 @@ int nox_server_setupQuestGame_4D6C70() {
 			v9 = *(_BYTE*)(*(_DWORD*)(v4 + 276) + 2251);
 			if (v9) {
 				if (v9 == 1) {
-					v10 = nox_xxx_playerRespawnItem_4EF750(v3, (CHAR*)getMemAt(0x587000, 198552), v0, 1, 1);
+					v10 = nox_xxx_playerRespawnItem_4EF750(v3, "SulphorousFlareWand", v0, 1, 1);
 					*(_DWORD*)v18 = v0;
 					*(_DWORD*)&v18[4] = v0;
 					v11 = nox_xxx_modifGetIdByName_413290("Replenishment1");
@@ -4551,10 +4551,10 @@ int nox_server_setupQuestGame_4D6C70() {
 					*(_WORD*)&v18[18] = (_WORD)v0;
 					nox_xxx_modifSetItemAttrs_4E4990((int)v10, (int*)v18);
 				} else if (v9 == 2) {
-					nox_xxx_playerRespawnItem_4EF750(v3, (CHAR*)getMemAt(0x587000, 198588), v0, 1, 1);
+					nox_xxx_playerRespawnItem_4EF750(v3, "Bow", v0, 1, 1);
 				}
 			} else {
-				nox_xxx_playerRespawnItem_4EF750(v3, (CHAR*)getMemAt(0x587000, 198544), v0, 1, 1);
+				nox_xxx_playerRespawnItem_4EF750(v3, "Sword", v0, 1, 1);
 			}
 			v12 = *(_DWORD*)(v4 + 276);
 			if (*(int**)(v12 + 4792) == v0)
