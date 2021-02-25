@@ -2306,13 +2306,13 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 	sub_42C360(v118, v44);
 	v45 = operator_new(0x10u);
 	if (v45)
-		v46 = sub_42C8E0((int)v45, (char*)getMemAt(0x587000, 71752), (const char*)(v4 + 96));
+		v46 = sub_42C8E0((int)v45, "SCEN", (const char*)(v4 + 96));
 	else
 		v46 = 0;
 	sub_42C360(v118, v46);
 	v47 = operator_new(0x10u);
 	if (v47)
-		v48 = sub_42C8E0((int)v47, (char*)getMemAt(0x587000, 71760), (const char*)(v4 + 352));
+		v48 = sub_42C8E0((int)v47, "GNAM", (const char*)(v4 + 352));
 	else
 		v48 = 0;
 	sub_42C360(v118, v48);
@@ -2444,7 +2444,7 @@ uint16_t*  sub_42ADA0(int a1, int a2, __int16 a3, unsigned int* a4) {
 			v93 = *(const char**)(*(_DWORD*)(v4 + 608) + 4 * v92);
 			v94 = operator_new(0x10u);
 			if (v94)
-				v95 = sub_42C8E0((int)v94, (char*)getMemAt(0x587000, 71488), v93);
+				v95 = sub_42C8E0((int)v94, "LGL?", v93);
 			else
 				v95 = 0;
 			sub_42C360(v118, v95);
@@ -2634,13 +2634,13 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 	sub_42C360(v59, v11);
 	v12 = operator_new(0x10u);
 	if (v12)
-		v13 = sub_42C8E0((int)v12, (char*)getMemAt(0x587000, 71968), (const char*)a1 + 24);
+		v13 = sub_42C8E0((int)v12, "SCEN", (const char*)a1 + 24);
 	else
 		v13 = 0;
 	sub_42C360(v59, v13);
 	v14 = operator_new(0x10u);
 	if (v14)
-		v15 = sub_42C8E0((int)v14, (char*)getMemAt(0x587000, 71976), (const char*)a1 + 280);
+		v15 = sub_42C8E0((int)v14, "GNAM", (const char*)a1 + 280);
 	else
 		v15 = 0;
 	sub_42C360(v59, v15);
@@ -2678,7 +2678,7 @@ uint16_t*  sub_42B810(__int16* a1, unsigned int* a2) {
 		v28 = *(const char**)(*((_DWORD*)v2 + 134) + 4 * v27);
 		v29 = operator_new(0x10u);
 		if (v29)
-			v30 = sub_42C8E0((int)v29, (char*)getMemAt(0x587000, 71544), v28);
+			v30 = sub_42C8E0((int)v29, "LGLS", v28);
 		else
 			v30 = 0;
 		sub_42C360(v59, v30);
