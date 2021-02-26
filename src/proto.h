@@ -4436,7 +4436,7 @@ int sub_4E6230();
 int  nox_xxx_playerObserverFindGoodSlave0_4E6280(int a1);
 unsigned __int8*  nox_xxx_updatePlayerObserver_4E62F0(int a1);
 void  sub_4E6800(float*, int); // idb
-int  nox_xxx_playerGoObserver_4E6860(int a1, int a2, int a3);
+int  nox_xxx_playerGoObserver_4E6860(nox_playerInfo* pl, int a2, int a3);
 void  nox_xxx_playerLeaveObserver_0_4E6AA0(int a1);
 BOOL  sub_4E6BD0(int a1);
 long double  nox_xxx_calcDistance_4E6C00(int a1, int a2);
