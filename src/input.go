@@ -96,6 +96,12 @@ func inputClampf(p types.Pointf) types.Pointf {
 }
 
 func inputPollEvents() {
+	if isServer {
+		// TODO: remove SDL dependency for the server
+		for sdl.PollEvent() != nil {
+		}
+		return
+	}
 	inputEventsTick()
 	for {
 		switch ev := sdl.PollEvent().(type) {
