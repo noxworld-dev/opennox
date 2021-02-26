@@ -11,6 +11,7 @@
 
 #include "client__draw__drawwin.h"
 
+#include "mutexes.h"
 #include "proto.h"
 
 extern unsigned char byte_5D4594_3804364[160];
@@ -12942,13 +12943,13 @@ int  sub_48B800(int a1) {
 
 //----- (0048BD90) --------------------------------------------------------
 void  sub_48BD90(int a1) {
-	EnterCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+	nox_mutex_lock(getMemAt(0x5D4594, 3799596));
 	if (!a1)
 		SetRect((LPRECT)getMemAt(0x5D4594, 1193532), 0, 0, 0, 0);
 	dword_5d4594_1193664 = 1;
 	dword_5d4594_1193668 = 1;
 	dword_5d4594_1193624 = 0;
-	LeaveCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+	nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 }
 
 //----- (0048BE50) --------------------------------------------------------

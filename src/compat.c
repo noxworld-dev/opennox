@@ -1244,15 +1244,6 @@ LSTATUS WINAPI RegCloseKey(HKEY hKey) {
 }
 
 // Synchronization functions
-VOID WINAPI InitializeCriticalSection(LPCRITICAL_SECTION lpCriticalSection) {
-	lpCriticalSection->opaque = SDL_CreateMutex();
-}
-
-VOID WINAPI DeleteCriticalSection(LPCRITICAL_SECTION lpCriticalSection) { SDL_DestroyMutex(lpCriticalSection->opaque); }
-
-VOID WINAPI EnterCriticalSection(LPCRITICAL_SECTION lpCriticalSection) { SDL_LockMutex(lpCriticalSection->opaque); }
-
-VOID WINAPI LeaveCriticalSection(LPCRITICAL_SECTION lpCriticalSection) { SDL_UnlockMutex(lpCriticalSection->opaque); }
 
 HANDLE WINAPI CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwner, LPCSTR lpName) {
 	pthread_mutex_t* m = malloc(sizeof(pthread_mutex_t));

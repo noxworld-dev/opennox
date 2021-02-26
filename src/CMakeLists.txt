@@ -187,6 +187,7 @@ set (
     sm.c
     noxstring.c
     win.c
+    mutexes.c
     memmap.c
     static.c
     MixPatch.c

@@ -294,10 +294,6 @@ enum {
 #define GetModuleFileNameA compatGetModuleFileNameA
 #define QueryPerformanceCounter compatQueryPerformanceCounter
 #define QueryPerformanceFrequency compatQueryPerformanceFrequency
-#define InitializeCriticalSection compatInitializeCriticalSection
-#define DeleteCriticalSection compatDeleteCriticalSection
-#define EnterCriticalSection compatEnterCriticalSection
-#define LeaveCriticalSection compatLeaveCriticalSection
 #define HeapDestroy compatHeapDestroy
 #define GetVersionExA compatGetVersionExA
 #define OutputDebugStringA compatOutputDebugStringA
@@ -404,10 +400,6 @@ VOID WINAPI GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
 DWORD WINAPI GetModuleFileNameA(HMODULE hModule, LPSTR lpFileName, DWORD nSize);
 BOOL WINAPI QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount);
 BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency);
-VOID WINAPI InitializeCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
-VOID WINAPI DeleteCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
-VOID WINAPI EnterCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
-VOID WINAPI LeaveCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
 BOOL WINAPI HeapDestroy(HANDLE hHeap);
 BOOL WINAPI GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
 VOID WINAPI OutputDebugStringA(LPCSTR lpOutputString);

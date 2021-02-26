@@ -20,6 +20,7 @@
 #include "common__random.h"
 
 #include "static.h"
+#include "mutexes.h"
 #include "proto.h"
 
 extern _DWORD dword_5d4594_526284;
@@ -3339,9 +3340,9 @@ int sub_40CE60() {
 		*getMemU32Ptr(0x5D4594, 4680) = *getMemU32Ptr(0x5D4594, 823784);
 		*getMemU32Ptr(0x5D4594, 4696) = 0;
 		*getMemU32Ptr(0x5D4594, 4700) = 0;
-		InitializeCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 4704));
-		InitializeCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 4728));
-		InitializeCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 4752));
+		nox_mutex_init(getMemAt(0x5D4594, 4704));
+		nox_mutex_init(getMemAt(0x5D4594, 4728));
+		nox_mutex_init(getMemAt(0x5D4594, 4752));
 		v0 = *getMemU32Ptr(0x5D4594, 4692);
 		*getMemU32Ptr(0x5D4594, 4780) = 0;
 		*getMemU8Ptr(0x5D4594, 4784) = 1;
@@ -3440,9 +3441,9 @@ void sub_40D0F0() {
 						v1 += 36;
 				} while (*(_DWORD*)v1);
 			}
-			DeleteCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 4704));
-			DeleteCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 4728));
-			DeleteCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 4752));
+			nox_mutex_free(getMemAt(0x5D4594, 4704));
+			nox_mutex_free(getMemAt(0x5D4594, 4728));
+			nox_mutex_free(getMemAt(0x5D4594, 4752));
 			v3 = *(_DWORD**)getMemAt(0x5D4594, 4804);
 			if (*getMemU32Ptr(0x5D4594, 4804)) {
 				do {
@@ -4389,7 +4390,7 @@ char* __thiscall sub_40E470(char* this) {
 
 	v1 = this;
 	*(_DWORD*)this = 0;
-	InitializeCriticalSection((LPCRITICAL_SECTION)(this + 4));
+	nox_mutex_init(this + 4);
 	return v1;
 }
 
@@ -4461,7 +4462,7 @@ void __fastcall sub_40E5F0(_DWORD* a1) {
 	*a1 = getMemAt(0x581450, 5920);
 	a1[1] = 1;
 	InterlockedDecrement((volatile LONG*)getMemAt(0x5D4594, 4696));
-	DeleteCriticalSection((LPCRITICAL_SECTION)(v1 != 0 ? v2 + 1 : 4));
+	nox_mutex_free(v1 != 0 ? v2 + 1 : 4);
 }
 
 //----- (0040E630) --------------------------------------------------------
@@ -4551,7 +4552,7 @@ void __fastcall sub_40E7C0(_DWORD* a1) {
 	*a1 = getMemAt(0x581450, 6084);
 	a1[1] = 1;
 	InterlockedDecrement((volatile LONG*)getMemAt(0x5D4594, 4696));
-	DeleteCriticalSection((LPCRITICAL_SECTION)(v1 != 0 ? v2 + 1 : 4));
+	nox_mutex_free(v1 != 0 ? v2 + 1 : 4);
 }
 
 //----- (0040E800) --------------------------------------------------------
@@ -4641,7 +4642,7 @@ void __fastcall sub_40E990(_DWORD* a1) {
 	*a1 = getMemAt(0x581450, 6116);
 	a1[1] = 1;
 	InterlockedDecrement((volatile LONG*)getMemAt(0x5D4594, 4696));
-	DeleteCriticalSection((LPCRITICAL_SECTION)(v1 != 0 ? v2 + 1 : 4));
+	nox_mutex_free(v1 != 0 ? v2 + 1 : 4);
 }
 
 //----- (0040E9D0) --------------------------------------------------------
