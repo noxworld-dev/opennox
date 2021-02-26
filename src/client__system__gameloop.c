@@ -6,10 +6,6 @@
 #include "client__gui__guimsg.h"
 #include "client__io__console.h"
 
-#ifdef NOX_E2E_TEST
-#include "platform.h"
-#endif
-
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD nox_game_loop_xxx_805872;
 extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
@@ -217,10 +213,6 @@ void cleanup() {
 }
 
 void mainloop() {
-#ifdef NOX_E2E_TEST
-	nox_platform_time_hook();
-#endif
-
 #ifdef __EMSCRIPTEN__
 	DWORD cur_tick;
 	static DWORD last_tick;

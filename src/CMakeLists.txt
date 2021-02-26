@@ -15,7 +15,6 @@ endif ()
 option (USE_ASAN "Enable address sanitizer" OFF)
 option (STRICT_MODE "Fail on compilation warnings" OFF)
 option (PREDICTABLE "Run in predicatble mode" OFF)
-option (E2E_TEST "Run in end-to-end test mode" OFF)
 
 option (USE_OPENAL "Use OpenAL in Nox, disabling results in no sound" ON)
 option (USE_OPENGL "Use OpenGL in Nox, disabling results in running in SDL Rendering" ON)
@@ -51,10 +50,7 @@ else ()
         add_compile_options (-O3)
     endif ()
 
-    if (E2E_TEST)
-        add_definitions (-DNOX_PREDICTABLE)
-        add_definitions (-DNOX_E2E_TEST)
-    elseif (PREDICTABLE)
+    if (PREDICTABLE)
         add_definitions (-DNOX_PREDICTABLE)
     endif ()
 
@@ -158,7 +154,6 @@ set (
     main/main.c
 	ConvertUTF.c
     platform.c
-    e2e.c
     GAME1.c
     GAME1_1.c
     GAME1_2.c
