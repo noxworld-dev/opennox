@@ -59,6 +59,7 @@ import (
 	"nox/common/memmap"
 	"nox/common/types"
 	"os"
+	"strings"
 	"unsafe"
 
 	"github.com/veandco/go-sdl2/sdl"
@@ -84,7 +85,7 @@ var (
 	noxDataPath   string
 	isServer      bool
 	isServerQuest bool
-	serverExec    string
+	serverExec    []string
 )
 
 // Nox only works on 32bit
@@ -134,7 +135,7 @@ func runNox(args []string) error {
 	}
 	isServer = *fAutoServer
 	isServerQuest = *fAutoQuest
-	serverExec = *fAutoExec
+	serverExec = strings.Split(*fAutoExec, ";")
 	if !*fServer && !*fNoDraw {
 		nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0) // probably not needed
 		if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER | sdl.INIT_GAMECONTROLLER); err != nil {
