@@ -370,12 +370,12 @@ void  sub_48A820(UINT uFlags) {
 //----- (0048A9C0) --------------------------------------------------------
 void  sub_48A9C0(int a1) {
 	if (dword_6F7BB0) {
-		EnterCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+		nox_mutex_lock(getMemAt(0x5D4594, 3799596));
 		if (!dword_974854) {
 			if (nox_video_renderTargetFlags & 0x10) {
 				dword_974854 = 1;
 				ClipCursor(0);
-				LeaveCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+				nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 				return;
 			}
 			if (a1) {
@@ -384,7 +384,7 @@ void  sub_48A9C0(int a1) {
 				ShowWindow(windowHandle_dword_973FE0, SW_MINIMIZE);
 			}
 		}
-		LeaveCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+		nox_mutex_unlock(getMemAt(0x5D4594, 3799596);
 	}
 }
 
@@ -1754,11 +1754,11 @@ int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 		nox_video_cursorDrawIsThreaded && dword_5d4594_1193672 && *getMemU32Ptr(0x5D4594, 1193108) &&
 		dword_5d4594_787144) {
 		*getMemU32Ptr(0x5D4594, 1193708) = 1;
-		EnterCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+		nox_mutex_lock(getMemAt(0x5D4594, 3799596));
 		if (a2)
 			g_ddraw->lpVtbl->WaitForVerticalBlank(g_ddraw, 1, 0);
 		v3 = nox_video_cursorThreadedDrawFnPtr(a1);
-		LeaveCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+		nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 		result = v3;
 		*getMemU32Ptr(0x5D4594, 1193708) = 0;
 	}

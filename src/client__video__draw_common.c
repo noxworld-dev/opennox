@@ -1,6 +1,7 @@
 #define IGNORE_EXTERNS
 #include "client__video__draw_common.h"
 #undef IGNORE_EXTERNS
+#include "mutexes.h"
 
 unsigned char byte_5D4594_3804364[160] = { 0 };
 
@@ -87,7 +88,7 @@ int  nox_client_drawXxx_444AC0(HWND wnd, int w, int h, int depth, int flags) {
 	int v9;             // eax
 	int v10;            // eax
 
-	InitializeCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+	nox_mutex_init(getMemAt(0x5D4594, 3799596));
 	*getMemU32Ptr(0x5D4594, 823780) = 1;
 
 	windowHandle_dword_973FE0 = (SDL_Window*)wnd;
@@ -279,13 +280,13 @@ void  sub_48A820(UINT uFlags) {
 //----- (0048A9C0) --------------------------------------------------------
 void  sub_48A9C0(int a1) {
 	if (dword_6F7BB0) {
-		EnterCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+		nox_mutex_lock(getMemAt(0x5D4594, 3799596));
 		if (!dword_974854) {
 			if (nox_video_renderTargetFlags & 0x10) {
 				dword_974854 = 1;
 				printf("Ungrab\n");
 				SDL_SetWindowGrab(windowHandle_dword_973FE0, SDL_FALSE);
-				LeaveCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+				nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 				return;
 			}
 			if (a1) {
@@ -295,7 +296,7 @@ void  sub_48A9C0(int a1) {
 				SDL_MinimizeWindow(windowHandle_dword_973FE0);
 			}
 		}
-		LeaveCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+		nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 	}
 }
 
@@ -598,7 +599,7 @@ void sub_444C50() {
 		windowHandle_dword_973FE0 = 0;
 		dword_5d4594_823776 = 0;
 		if (*getMemU32Ptr(0x5D4594, 823780)) {
-			DeleteCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+			nox_mutex_free(getMemAt(0x5D4594, 3799596));
 			*getMemU32Ptr(0x5D4594, 823780) = 0;
 		}
 	}
@@ -758,7 +759,7 @@ int  sub_48B3F0(int a1, int a2, int a3) {
 	int i; // esi
 
 	if (nox_video_cursorDrawIsThreaded) {
-		EnterCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+		nox_mutex_lock(getMemAt(0x5D4594, 3799596));
 		*getMemU32Ptr(0x5D4594, 1193640) = dword_5d4594_1193648;
 		*getMemU32Ptr(0x5D4594, 1193628) = dword_5d4594_1193524;
 		dword_5d4594_1193648 = a2;
@@ -788,7 +789,7 @@ int  sub_48B3F0(int a1, int a2, int a3) {
 			dword_5d4594_1193524 != *getMemU32Ptr(0x5D4594, 1193628)) {
 			dword_5d4594_1193668 = 1;
 		}
-		LeaveCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+		nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 	} else if (dword_5d4594_1193672 && a1) {
 		nox_client_drawImageAt_47D2C0(a1, a2, a3);
 		return 1;
@@ -1297,10 +1298,10 @@ int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 		nox_video_cursorDrawIsThreaded && dword_5d4594_1193672 && *getMemU32Ptr(0x5D4594, 1193108) &&
 		dword_5d4594_787144) {
 		*getMemU32Ptr(0x5D4594, 1193708) = 1;
-		EnterCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+		nox_mutex_lock(getMemAt(0x5D4594, 3799596));
 		// FIXME SDL will always wait for vblank?
 		v3 = nox_video_cursorThreadedDrawFnPtr(a1);
-		LeaveCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+		nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 		result = v3;
 		*getMemU32Ptr(0x5D4594, 1193708) = 0;
 	}

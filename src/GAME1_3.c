@@ -18,6 +18,7 @@
 #include "client__shell__selcolor.h"
 #include "client__system__gameloop.h"
 
+#include "mutexes.h"
 #include "proto.h"
 
 extern _DWORD dword_587000_122856;
@@ -4055,10 +4056,10 @@ int  nox_client_drawInitAll_4449D0(HWND wnd, int w, int h, int depth, int flags)
 
 //----- (00444D00) --------------------------------------------------------
 void sub_444D00() {
-	EnterCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+	nox_mutex_lock(getMemAt(0x5D4594, 3799596));
 	sub_48A190();
 	sub_4AD150();
-	LeaveCriticalSection((LPCRITICAL_SECTION)getMemAt(0x5D4594, 3799596));
+	nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 }
 
 //----- (00444D30) --------------------------------------------------------

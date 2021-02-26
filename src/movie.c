@@ -2882,7 +2882,7 @@ int  sub_559D00(int a1, unsigned int a2, int a3) {
 	v3 = (_DWORD*)a2;
 	v4 = *(_DWORD*)(a2 + 156);
 	v5 = (struct _RTL_CRITICAL_SECTION*)(a2 + 172);
-	EnterCriticalSection((LPCRITICAL_SECTION)(a2 + 172));
+	nox_mutex_lock(a2 + 172);
 	v6 = v3[41];
 	v7 = v3[40];
 	v8 = v3[38];
@@ -2907,7 +2907,7 @@ int  sub_559D00(int a1, unsigned int a2, int a3) {
 		goto LABEL_9;
 	}
 LABEL_10:
-	LeaveCriticalSection(v5);
+	nox_mutex_unlock(v5);
 	v12 = v14 * *(_DWORD*)(a3 + 92);
 	result = v9 - v12;
 	if (v9 - v12 > v9)
@@ -2986,7 +2986,7 @@ int  sub_559E80(DWORD_PTR dwUser, int a2, int a3) {
 	memset(v5, 0, 0xC8u);
 	*(_DWORD*)v5 = 1;
 	*((_DWORD*)v5 + 1) = *(_DWORD*)(dwUser + 164);
-	InitializeCriticalSection((LPCRITICAL_SECTION)(v5 + 172));
+	nox_mutex_init(v5 + 172);
 	v6 = *(_DWORD*)(dwUser + 160);
 	if (v6 == -1) {
 		v7 = *(_DWORD*)(dwUser + 112);
@@ -3057,7 +3057,7 @@ int  sub_55A0C0(int a1) {
 		*((_DWORD*)v1 + 23) = 0;
 		timeEndPeriod(0x10u);
 		*(_DWORD*)v1 = 0;
-		DeleteCriticalSection((LPCRITICAL_SECTION)(v1 + 172));
+		nox_mutex_free(v1 + 172);
 	}
 	return -1;
 }
@@ -3084,7 +3084,7 @@ int  sub_55A130(int a1) {
 		result = -1;
 	} else {
 		lpCriticalSection = (struct _RTL_CRITICAL_SECTION*)(v1 + 172);
-		EnterCriticalSection((LPCRITICAL_SECTION)(v1 + 172));
+		nox_mutex_lock(v1 + 172);
 		v5 = *(LPDIRECTSOUNDBUFFER*)(v1 + 152);
 		v6 = (LPDIRECTSOUNDBUFFER*)(v1 + 152);
 		if (v5) {
@@ -3125,14 +3125,14 @@ int  sub_55A130(int a1) {
 			*((_DWORD*)v1 + 40) = 0;
 			v11->lpVtbl->SetCurrentPosition(v11, 0);
 			if ((*v6)->lpVtbl->Play(*v6, 0, 0, 1)) {
-				LeaveCriticalSection(lpCriticalSection);
+				nox_mutex_unlock(lpCriticalSection);
 				result = -13;
 			} else {
-				LeaveCriticalSection(lpCriticalSection);
+				nox_mutex_unlock(lpCriticalSection);
 				result = -1;
 			}
 		} else {
-			LeaveCriticalSection(lpCriticalSection);
+			nox_mutex_unlock(lpCriticalSection);
 			result = -13;
 		}
 	}
@@ -3176,14 +3176,14 @@ int  sub_55A360(int a1) {
 	int v2;              // eax
 
 	v1 = getMemAt(0x5D4594, 200 * *(_DWORD*)(a1 + 52) + 2515988);
-	EnterCriticalSection((LPCRITICAL_SECTION)(v1 + 172));
+	nox_mutex_lock(v1 + 172);
 	if (*(_DWORD*)v1) {
 		v2 = *((_DWORD*)v1 + 38);
 		if (v2)
 			(*(void(__stdcall**)(_DWORD))(*(_DWORD*)v2 + 72))(*((_DWORD*)v1 + 38));
 	}
 	*((_DWORD*)v1 + 9) |= 1u;
-	LeaveCriticalSection((LPCRITICAL_SECTION)(v1 + 172));
+	nox_mutex_unlock(v1 + 172);
 	return -1;
 }
 
@@ -3208,7 +3208,7 @@ int  sub_55A3F0(int a1) {
 	v1 = getMemAt(0x5D4594, 200 * *(_DWORD*)(a1 + 52) + 2515988);
 	if (!*getMemU32Ptr(0x5D4594, 200 * *(_DWORD*)(a1 + 52) + 2516140))
 		return -1;
-	EnterCriticalSection((LPCRITICAL_SECTION)(v1 + 172));
+	nox_mutex_lock(v1 + 172);
 	v2 = *((_DWORD*)v1 + 38);
 	if (v2) {
 		(*(void(__stdcall**)(_DWORD))(*(_DWORD*)v2 + 72))(*((_DWORD*)v1 + 38));
@@ -3219,7 +3219,7 @@ int  sub_55A3F0(int a1) {
 	*((_DWORD*)v1 + 16) = 0;
 	*((_DWORD*)v1 + 17) = 0;
 	*((_DWORD*)v1 + 18) = 0;
-	LeaveCriticalSection((LPCRITICAL_SECTION)(v1 + 172));
+	nox_mutex_unlock(v1 + 172);
 	return -1;
 }
 
@@ -3246,11 +3246,11 @@ void __stdcall fptc(UINT uTimerID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2
 	if (InterlockedIncrement((volatile LONG*)v6 + 49) != 1 || v6[36] & 1)
 		goto LABEL_20;
 	dwUsera = (struct _RTL_CRITICAL_SECTION*)(v6 + 172);
-	EnterCriticalSection((LPCRITICAL_SECTION)(v6 + 172));
+	nox_mutex_lock(v6 + 172);
 	v7 = *((_DWORD*)v6 + 38);
 	if (!v7 || *((_DWORD*)v6 + 23) != uTimerID ||
 		((*(void(__stdcall**)(int, int*))(*(_DWORD*)v7 + 36))(v7, &v13), !(v13 & 5))) {
-		LeaveCriticalSection(dwUsera);
+		nox_mutex_unlock(dwUsera);
 	LABEL_20:
 		InterlockedDecrement((volatile LONG*)v6 + 49);
 		return;
@@ -3282,7 +3282,7 @@ void __stdcall fptc(UINT uTimerID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2
 			(*(void(__stdcall**)(_DWORD, _DWORD, _DWORD, int))(**((_DWORD**)v6 + 38) + 48))(*((_DWORD*)v6 + 38), 0, 0,
 																							1);
 	}
-	LeaveCriticalSection(dwUsera);
+	nox_mutex_unlock(dwUsera);
 	InterlockedDecrement(lpAddend);
 }
 
