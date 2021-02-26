@@ -223,10 +223,16 @@ func nox_xxx_initGameSession_435CC0() C.int {
 	}
 	C.nox_xxx_plrLoad_41A480((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
 	nox_server_parseCmdText_443C80("execrul autoexec.rul", 1)
-	if isServer && serverExec != "" {
+	if isServer {
 		old := parseCmd.Cheats()
 		parseCmd.SetCheats(true)
-		nox_server_parseCmdText_443C80(serverExec, 1)
+		nox_server_parseCmdText_443C80("set cycle on", 1)
+		for _, cmd := range serverExec {
+			if len(cmd) == 0 {
+				continue
+			}
+			nox_server_parseCmdText_443C80(cmd, 1)
+		}
 		parseCmd.SetCheats(old)
 	}
 	C.sub_4951C0()
