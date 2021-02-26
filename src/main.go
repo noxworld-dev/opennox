@@ -1,12 +1,6 @@
 package main
 
 /*
-#cgo CFLAGS: -w -fshort-wchar -fno-strict-aliasing -fno-strict-overflow
-#cgo windows LDFLAGS: -lSDL2 -lws2_32
-#cgo linux LDFLAGS: -lm
-#cgo linux freebsd darwin openbsd pkg-config: sdl2
-#cgo CFLAGS: -DNOX_CGO
-
 #include <fenv.h>
 #include <SDL2/SDL.h>
 #include "proto.h"
