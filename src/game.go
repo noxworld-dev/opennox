@@ -222,6 +222,9 @@ func nox_xxx_initGameSession_435CC0() C.int {
 		}
 	}
 	C.nox_xxx_plrLoad_41A480((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
+	if isServer {
+		getPlayers()[0].GoObserver(false, true)
+	}
 	nox_server_parseCmdText_443C80("execrul autoexec.rul", 1)
 	if isServer {
 		old := parseCmd.Cheats()
