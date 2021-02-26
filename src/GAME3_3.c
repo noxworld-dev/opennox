@@ -3280,10 +3280,7 @@ void  sub_4E6800(float* a1, int a2) {
 }
 
 //----- (004E6860) --------------------------------------------------------
-int  nox_xxx_playerGoObserver_4E6860(int a1, int a2, int a3) {
-	int v3;          // edi
-	int v4;          // eax
-	int v5;          // ebp
+int  nox_xxx_playerGoObserver_4E6860(nox_playerInfo* pl, int a2, int a3) {
 	int i;           // esi
 	int v8;          // eax
 	unsigned int v9; // edx
@@ -3291,66 +3288,63 @@ int  nox_xxx_playerGoObserver_4E6860(int a1, int a2, int a3) {
 	int v12;         // ecx
 	int v13;         // [esp+Ch] [ebp+4h]
 
-	v3 = a1;
-	if (a1) {
-		v4 = *(_DWORD*)(a1 + 2056);
-		if (v4) {
-			v5 = *(_DWORD*)(a1 + 2056);
-			v13 = *(_DWORD*)(v4 + 748);
-			if (!a3 && nox_xxx_playerIsExecutingAbility_4FC2B0(v5) == 1)
-				return 0;
-			if (*(int(**)(_DWORD*))(v5 + 744) == nox_xxx_updatePlayerMonsterBot_4FAB20)
-				return 0;
-			if (nox_common_gameFlags_check_40A5C0(112)) {
-				if (!*getMemU32Ptr(0x5D4594, 1565620))
-					*getMemU32Ptr(0x5D4594, 1565620) = nox_xxx_getNameId_4E3AA0("Crown");
-				if (!dword_5d4594_1565616)
-					dword_5d4594_1565616 = nox_xxx_getNameId_4E3AA0("GameBall");
-				for (i = *(_DWORD*)(*(_DWORD*)(v3 + 2056) + 516); i; i = *(_DWORD*)(i + 512)) {
-					v8 = *(unsigned __int16*)(i + 4);
-					if ((unsigned __int16)v8 == *getMemU32Ptr(0x5D4594, 1565620)) {
-						nox_xxx_dropCrown_4ED5E0(*(_DWORD*)(v3 + 2056), i, (int*)(*(_DWORD*)(v3 + 2056) + 56));
-					} else if (v8 == dword_5d4594_1565616) {
-						v9 = *(_DWORD*)(i + 16) & 0xFFFFFFBF;
-						*(_DWORD*)(i + 520) = 0;
-						*(_DWORD*)(i + 16) = v9;
-						nox_xxx_unitClearOwner_4EC300(i);
-						sub_4E8290(1, 0);
-					} else if (*(_DWORD*)(i + 8) & 0x10000000) {
-						nox_xxx_drop_4ED790(*(_DWORD*)(v3 + 2056), (_DWORD*)i, (float2*)(*(_DWORD*)(v3 + 2056) + 56));
-					}
-				}
+	if (!pl || !pl->playerUnit) {
+		return 1;
+	}
+	int unit = pl->playerUnit;
+	v13 = *(_DWORD*)(unit + 748);
+	if (!a3 && nox_xxx_playerIsExecutingAbility_4FC2B0(unit) == 1)
+		return 0;
+	if (*(int(**)(_DWORD*))(unit + 744) == nox_xxx_updatePlayerMonsterBot_4FAB20)
+		return 0;
+	if (nox_common_gameFlags_check_40A5C0(112)) {
+		if (!*getMemU32Ptr(0x5D4594, 1565620))
+			*getMemU32Ptr(0x5D4594, 1565620) = nox_xxx_getNameId_4E3AA0("Crown");
+		if (!dword_5d4594_1565616)
+			dword_5d4594_1565616 = nox_xxx_getNameId_4E3AA0("GameBall");
+		for (i = *(_DWORD*)((int)(pl->playerUnit) + 516); i; i = *(_DWORD*)(i + 512)) {
+			v8 = *(unsigned __int16*)(i + 4);
+			if ((unsigned __int16)v8 == *getMemU32Ptr(0x5D4594, 1565620)) {
+				nox_xxx_dropCrown_4ED5E0(pl->playerUnit, i, (int*)((int)(pl->playerUnit) + 56));
+			} else if (v8 == dword_5d4594_1565616) {
+				v9 = *(_DWORD*)(i + 16) & 0xFFFFFFBF;
+				*(_DWORD*)(i + 520) = 0;
+				*(_DWORD*)(i + 16) = v9;
+				nox_xxx_unitClearOwner_4EC300(i);
+				sub_4E8290(1, 0);
+			} else if (*(_DWORD*)(i + 8) & 0x10000000) {
+				nox_xxx_drop_4ED790(pl->playerUnit, (_DWORD*)i, (float2*)((int)(pl->playerUnit) + 56));
 			}
-			if (nox_xxx_playerGetPossess_4DDF30(*(_DWORD*)(v3 + 2056)))
-				nox_xxx_playerObserveClear_4DDEF0(*(_DWORD*)(v3 + 2056));
-			nox_xxx_netNeedTimestampStatus_4174F0(v3, 1);
-			v10 = nox_xxx_gamePlayIsAnyPlayers_40A8A0();
-			if (!v10 && !nox_common_gameFlags_check_40A5C0(4096)) {
-				sub_40A1F0(0);
-				nox_xxx_playerForceSendLessons_416E50(1);
-				sub_417D00();
-				sub_40A970();
-			}
-			nox_xxx_netInformTextMsg_4DA0F0(*(unsigned __int8*)(v3 + 2064), 12, (int*)&a2);
-			nox_xxx_buffApplyTo_4FF380(v5, 0, 0, 5);
-			v12 = *(_DWORD*)(v5 + 56);
-			*(_DWORD*)(v5 + 16) |= 0x40u;
-			*(_DWORD*)(v3 + 3632) = v12;
-			*(_DWORD*)(v3 + 3636) = *(_DWORD*)(v5 + 60);
-			nox_xxx_playerCameraUnlock_4E6040(v5);
-			if (nox_common_gameFlags_check_40A5C0(2048)) {
-				*(_DWORD*)(v3 + 3672) = 1;
-				*(_DWORD*)(v3 + 3628) = 0;
-			} else if (nox_common_gameFlags_check_40A5C0(64)) {
-				if (!a3)
-					nox_xxx_playerLeaveMonsterObserver_4E60E0(v3);
-			}
-			nox_xxx_playerRemoveSpawnedStuff_4E5AD0(v5);
-			*(_BYTE*)(v13 + 244) = 0;
-			*(_DWORD*)(v5 + 744) = nox_xxx_updatePlayerObserver_4E62F0;
-			sub_4D7E50(v5);
 		}
 	}
+	if (nox_xxx_playerGetPossess_4DDF30(pl->playerUnit))
+		nox_xxx_playerObserveClear_4DDEF0(pl->playerUnit);
+	nox_xxx_netNeedTimestampStatus_4174F0(pl, 1);
+	v10 = nox_xxx_gamePlayIsAnyPlayers_40A8A0();
+	if (!v10 && !nox_common_gameFlags_check_40A5C0(4096)) {
+		sub_40A1F0(0);
+		nox_xxx_playerForceSendLessons_416E50(1);
+		sub_417D00();
+		sub_40A970();
+	}
+	nox_xxx_netInformTextMsg_4DA0F0(pl->playerInd, 12, (int*)&a2);
+	nox_xxx_buffApplyTo_4FF380(unit, 0, 0, 5);
+	v12 = *(_DWORD*)(unit + 56);
+	*(_DWORD*)(unit + 16) |= 0x40u;
+	*(_DWORD*)((int)pl + 3632) = v12;
+	*(_DWORD*)((int)pl + 3636) = *(_DWORD*)(unit + 60);
+	nox_xxx_playerCameraUnlock_4E6040(unit);
+	if (nox_common_gameFlags_check_40A5C0(2048)) {
+		*(_DWORD*)((int)pl + 3672) = 1;
+		*(_DWORD*)((int)pl + 3628) = 0;
+	} else if (nox_common_gameFlags_check_40A5C0(64)) {
+		if (!a3)
+			nox_xxx_playerLeaveMonsterObserver_4E60E0(pl);
+	}
+	nox_xxx_playerRemoveSpawnedStuff_4E5AD0(unit);
+	*(_BYTE*)(v13 + 244) = 0;
+	*(_DWORD*)(unit + 744) = nox_xxx_updatePlayerObserver_4E62F0;
+	sub_4D7E50(unit);
 	return 1;
 }
 // 4E69B8: variable 'v10' is possibly undefined
