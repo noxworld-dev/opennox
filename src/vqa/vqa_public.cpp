@@ -8,9 +8,6 @@ extern "C" int PlayMovieCallback(byte* frame, dword cx, dword cy);
 
 extern "C" int PlayMovie(char* filename)
 {
-#ifdef NOX_E2E_TEST
-    return 0;
-#endif
     char* backslash = strchr(filename, '\\');
     if (backslash != NULL)
     {
