@@ -1101,9 +1101,11 @@ typedef struct nox_playerInfo {
 	_DWORD data_2000[8];
 	_DWORD data_2032[4];
 	_DWORD data_2048[2];
-	_DWORD field_2056;
-	_DWORD field_2060;
-	_DWORD field_2064;
+	void* playerUnit; // 2056
+	_DWORD netCode; // 2060
+	unsigned char playerInd; // 2064
+	_BYTE field_2064_1; // 2065
+	_WORD field_2064_2; // 2066
 	_DWORD data_2068[4];
 	_DWORD data_2084[2];
 	_DWORD field_2092;
