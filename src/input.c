@@ -100,6 +100,10 @@ int g_mouse_aquired = 0;
 UINT  nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) { return 0; }
 
 #ifndef NOX_CGO
+bool nox_input_isMouseDown() {
+	return nox_SDL_GetEventState(SDL_MOUSEBUTTONDOWN);
+}
+
 int is_mouse_inside(HWND wnd) {
 #ifdef __EMSCRIPTEN__
 	return 1;

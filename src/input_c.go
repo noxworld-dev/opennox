@@ -161,3 +161,8 @@ func controller_relative_pos() (out C.nox_pointf) {
 	out.y = C.float(p.Y)
 	return
 }
+
+//export nox_input_isMouseDown
+func nox_input_isMouseDown() C.bool {
+	return C.bool(isMouseDown())
+}

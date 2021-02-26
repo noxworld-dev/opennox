@@ -77,6 +77,10 @@ func isMouseInside(win *sdl.Window) bool {
 		mouseY <= wndPosY+wndSizeH
 }
 
+func isMouseDown() bool {
+	return sdl.GetEventState(sdl.MOUSEBUTTONDOWN) != 0
+}
+
 func inputAcquireMouse() {
 	if mouseAcquired {
 		return

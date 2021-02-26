@@ -9,6 +9,7 @@
 
 void input_cleanup();
 void input_events_tick();
+bool nox_input_isMouseDown();
 void process_event(const SDL_Event* event);
 
 bool controller_relative();

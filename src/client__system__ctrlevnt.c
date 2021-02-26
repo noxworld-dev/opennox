@@ -205,7 +205,7 @@ void nox_xxx_clientControl_42D6B0_A(int a4) {
 					}
 					break;
 				case 2:
-					if (nox_SDL_GetEventState(SDL_MOUSEBUTTONDOWN)) {
+					if (nox_input_isMouseDown()) {
 						int v5 = 1;
 						if (getMemByte(0x5D4594, 754064) & 8) {
 							v5 = 3;
@@ -765,7 +765,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 	}
 	nox_xxx_clientControl_42D6B0_A(a4);
 #ifdef __EMSCRIPTEN__
-	if (!nox_SDL_GetEventState(SDL_MOUSEBUTTONDOWN)) {
+	if (!nox_input_isMouseDown()) {
 		nox_xxx_clientControl_42D6B0_em_not_mouse_down();
 	} else
 #endif
