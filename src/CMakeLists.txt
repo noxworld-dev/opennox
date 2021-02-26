@@ -14,7 +14,6 @@ endif ()
 
 option (USE_ASAN "Enable address sanitizer" OFF)
 option (STRICT_MODE "Fail on compilation warnings" OFF)
-option (PREDICTABLE "Run in predicatble mode" OFF)
 
 option (USE_OPENAL "Use OpenAL in Nox, disabling results in no sound" ON)
 option (USE_OPENGL "Use OpenGL in Nox, disabling results in running in SDL Rendering" ON)
@@ -48,10 +47,6 @@ else ()
         add_definitions (-DNOX_DEBUG)
     else ()
         add_compile_options (-O3)
-    endif ()
-
-    if (PREDICTABLE)
-        add_definitions (-DNOX_PREDICTABLE)
     endif ()
 
     if (STRICT_MODE)
