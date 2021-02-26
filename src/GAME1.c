@@ -9845,7 +9845,7 @@ nox_playerInfo* nox_common_playerInfoGetFirst_416EA0() {
 nox_playerInfo* nox_common_playerInfoGetNext_416EE0(nox_playerInfo* p) {
 	if (!p)
 		return 0;
-	for (int i = *(unsigned __int8*)(&p->field_2064) + 1; i < NOX_PLAYERINFO_MAX; i++) {
+	for (int i = p->playerInd + 1; i < NOX_PLAYERINFO_MAX; i++) {
 		if (nox_playerinfo_arr[i].field_2092)
 			return &nox_playerinfo_arr[i];
 	}
@@ -9872,8 +9872,8 @@ nox_playerInfo* nox_common_playerInfoNew_416F60(int a1) {
 		p = &nox_playerinfo_arr[i];
 		if (!p->field_2092) {
 			nox_common_playerInfoReset_416FD0(p);
-			*(_BYTE*)(&p->field_2064) = i;
-			p->field_2060 = a1;
+			p->playerInd = i;
+			p->netCode = a1;
 			return p;
 		}
 	}
@@ -9891,7 +9891,7 @@ void nox_common_playerInfoReset_416FD0(nox_playerInfo* p) {
 nox_playerInfo* nox_common_playerInfoResetInd_417000(int i) {
 	nox_playerInfo* p = &nox_playerinfo_arr[i];
 	nox_common_playerInfoReset_416FD0(p);
-	*(_BYTE*)(&p->field_2064) = i;
+	p->playerInd = i;
 	return p;
 }
 
@@ -9899,8 +9899,8 @@ nox_playerInfo* nox_common_playerInfoResetInd_417000(int i) {
 nox_playerInfo* nox_common_playerInfoGetByID_417040(int a1) {
 	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
 		nox_playerInfo* p = &nox_playerinfo_arr[i];
-		if (!(!p->field_2092 || p->field_2060 != a1)) {
-			*(_BYTE*)(&p->field_2064) = i;
+		if (!(!p->field_2092 || p->netCode != a1)) {
+			p->playerInd = i;
 			return p;
 		}
 	}
@@ -9912,7 +9912,7 @@ nox_playerInfo* nox_common_playerInfoFromNum_417090(int i) {
 	nox_playerInfo* p = &nox_playerinfo_arr[i];
 	if (!p->field_2092)
 		return 0;
-	*(_BYTE*)(&p->field_2064) = i;
+	p->playerInd = i;
 	return p;
 }
 

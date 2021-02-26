@@ -1809,7 +1809,7 @@ int nox_server_parseCmdText_443C80(wchar_t* cmdText, int a2) {
 }
 
 //----- (00443E90) --------------------------------------------------------
-int nox_xxx_serverHandleClientConsole_443E90(int a1, char a2, wchar_t* a3) {
+int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_t* a3) {
 	int v3;        // ecx
 	int result;    // eax
 	BOOL v5;       // edi
@@ -1831,14 +1831,14 @@ int nox_xxx_serverHandleClientConsole_443E90(int a1, char a2, wchar_t* a3) {
 	wchar_t* v21;  // [esp-4h] [ebp-90h]
 	char v22[128]; // [esp+Ch] [ebp-80h]
 
-	if (!a1 || !*(_DWORD*)(a1 + 2056))
+	if (!pl || !pl->playerUnit)
 		return 0;
 	if (a3)
 		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 818228), a3);
 	else
 		*getMemU16Ptr(0x5D4594, 818228) = 0;
-	v3 = a1;
-	dword_5d4594_823692 = a1;
+	v3 = pl;
+	dword_5d4594_823692 = pl;
 	if (a2 != 4 && a2 != 5 && a2) {
 		if (nox_common_gameFlags_check_40A5C0(49152))
 			return 1;
@@ -1846,37 +1846,34 @@ int nox_xxx_serverHandleClientConsole_443E90(int a1, char a2, wchar_t* a3) {
 	}
 	switch (a2) {
 	case 0:
-		if (nox_common_gameFlags_check_40A5C0(8) || nox_common_gameFlags_check_40A5C0(4096) || *(_BYTE*)(a1 + 3680) & 1) {
+		if (nox_common_gameFlags_check_40A5C0(8) || nox_common_gameFlags_check_40A5C0(4096) || *(_BYTE*)((int)pl + 3680) & 1) {
 			dword_5d4594_823692 = 0;
 			return 1;
 		}
 		v5 = *getMemI16Ptr(0x5D4594, 818228) == -4083 && *getMemI16Ptr(0x5D4594, 818230) == -3923 &&
 			 !*getMemU16Ptr(0x5D4594, 818232);
-		if (nox_xxx_playerGoObserver_4E6860(a1, v5, 0) != 1) {
+		if (nox_xxx_playerGoObserver_4E6860(pl, v5, 0) != 1) {
 			dword_5d4594_823692 = 0;
 			return 1;
 		}
-		v6 =
-			nox_strman_loadString_40F1D0("set", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4287);
+		v6 = nox_strman_loadString_40F1D0("set", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4287);
 		v7 = nox_xxx_gamePlayIsAnyPlayers_40A8A0();
 		if (v7) {
 			if (!v5)
-				nox_xxx_netNeedTimestampStatus_4174F0(a1, 256);
+				nox_xxx_netNeedTimestampStatus_4174F0(pl, 256);
 			if (nox_common_gameFlags_check_40A5C0(1024) && sub_40A770() == 1)
 				sub_5095E0();
 		}
-		v8 = *(_DWORD*)(a1 + 2056);
+		v8 = pl->playerUnit;
 		if (v8)
-			nox_xxx_netChangeTeamMb_419570(v8 + 48, *(_DWORD*)(a1 + 2060));
+			nox_xxx_netChangeTeamMb_419570(v8 + 48, pl->netCode);
 		v21 = v6;
-		v9 =
-			nox_strman_loadString_40F1D0("observermode", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4308);
+		v9 = nox_strman_loadString_40F1D0("observermode", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4308);
 		nox_xxx_consoleVPrint_450C00(6, v9, v21);
 		dword_5d4594_823692 = 0;
 		return 1;
 	case 1:
-		if (!sub_4D12A0(*(unsigned __int8*)(a1 + 2064)) &&
-			*(unsigned __int8*)(a1 + 2064) != *getMemU32Ptr(0x5D4594, 2616328) &&
+		if (!sub_4D12A0(pl->playerInd) && pl->playerInd != *getMemU32Ptr(0x5D4594, 2616328) &&
 			!nox_common_gameFlags_check_40A5C0(2048)) {
 			dword_5d4594_823692 = 0;
 			return 1;
@@ -1901,8 +1898,7 @@ int nox_xxx_serverHandleClientConsole_443E90(int a1, char a2, wchar_t* a3) {
 		}
 		return 1;
 	case 2:
-		if (!sub_4D12A0(*(unsigned __int8*)(a1 + 2064)) &&
-			*(unsigned __int8*)(a1 + 2064) != *getMemU32Ptr(0x5D4594, 2616328) &&
+		if (!sub_4D12A0(pl->playerInd) && pl->playerInd != *getMemU32Ptr(0x5D4594, 2616328) &&
 			!nox_common_gameFlags_check_40A5C0(2048)) {
 			dword_5d4594_823692 = 0;
 			return 1;
