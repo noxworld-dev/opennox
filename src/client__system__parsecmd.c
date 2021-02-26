@@ -846,7 +846,7 @@ int nox_cmd_unset_sage(int tokInd, int tokCnt, wchar_t** tokens) {
 int nox_cmd_set_cycle(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v3;
 	if (tokCnt == 3) {
-		if (!_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94468))) {
+		if (!_nox_wcsicmp(tokens[tokInd], L"on")) {
 			sub_4D0D90(1);
 			v3 = nox_strman_loadString_40F1D0("MapCycleOn", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   2614);
@@ -854,7 +854,7 @@ int nox_cmd_set_cycle(int tokInd, int tokCnt, wchar_t** tokens) {
 			sub_4AD840();
 			return 1;
 		}
-		if (!_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94472))) {
+		if (!_nox_wcsicmp(tokens[tokInd], L"off")) {
 			sub_4D0D90(0);
 			v3 = nox_strman_loadString_40F1D0("MapCycleOff", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   2621);
@@ -871,7 +871,7 @@ int nox_cmd_set_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v3;
 	wchar_t* v5;
 	if (tokCnt == 3) {
-		if (!_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94468))) {
+		if (!_nox_wcsicmp(tokens[tokInd], L"on")) {
 			sub_409E70(1);
 			nox_server_gameSettingsUpdated_40A670();
 			v5 = nox_strman_loadString_40F1D0("cmd_token:on", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
@@ -881,7 +881,7 @@ int nox_cmd_set_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
 			nox_xxx_consoleVPrint_450C00(6, v3, v5);
 			return 1;
 		}
-		if (!_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94472))) {
+		if (!_nox_wcsicmp(tokens[tokInd], L"off")) {
 			sub_409EC0(1);
 			nox_server_gameSettingsUpdated_40A670();
 			v5 = nox_strman_loadString_40F1D0("cmd_token:off", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
@@ -900,7 +900,7 @@ int nox_cmd_set_staffs(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v3;
 	wchar_t* v5;
 	if (tokCnt == 3) {
-		if (!_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94468))) {
+		if (!_nox_wcsicmp(tokens[tokInd], L"on")) {
 			sub_409E70(16);
 			nox_server_gameSettingsUpdated_40A670();
 			v5 = nox_strman_loadString_40F1D0("cmd_token:on", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
@@ -910,7 +910,7 @@ int nox_cmd_set_staffs(int tokInd, int tokCnt, wchar_t** tokens) {
 			nox_xxx_consoleVPrint_450C00(6, v3, v5);
 			return 1;
 		}
-		if (!_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94472))) {
+		if (!_nox_wcsicmp(tokens[tokInd], L"off")) {
 			sub_409EC0(16);
 			nox_server_gameSettingsUpdated_40A670();
 			v5 = nox_strman_loadString_40F1D0("cmd_token:off", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
@@ -977,7 +977,7 @@ int nox_cmd_set_mnstrs(int tokInd, int tokCnt, wchar_t** tokens) {
 
 	if (tokCnt == 3 || tokCnt == 4) {
 		if (_nox_wcsicmp(tokens[2], *(const wchar_t**)getMemAt(0x587000, 94492))) {
-			if (!_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94468))) {
+			if (!_nox_wcsicmp(tokens[tokInd], L"on")) {
 				sub_409E70(4);
 				nox_server_gameSettingsUpdated_40A670();
 				v5 = nox_strman_loadString_40F1D0("cmd_token:on", 0,
@@ -987,7 +987,7 @@ int nox_cmd_set_mnstrs(int tokInd, int tokCnt, wchar_t** tokens) {
 				nox_xxx_consoleVPrint_450C00(6, v3, v5);
 				return 1;
 			}
-			if (!_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94472))) {
+			if (!_nox_wcsicmp(tokens[tokInd], L"off")) {
 				sub_409EC0(4);
 				nox_server_gameSettingsUpdated_40A670();
 				v5 = nox_strman_loadString_40F1D0("cmd_token:off", 0,
@@ -998,7 +998,7 @@ int nox_cmd_set_mnstrs(int tokInd, int tokCnt, wchar_t** tokens) {
 				return 1;
 			}
 		} else if (tokCnt != 3) {
-			if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94468))) {
+			if (!_nox_wcsicmp(tokens[3], L"on")) {
 				sub_409E70(8);
 				nox_server_gameSettingsUpdated_40A670();
 				v5 = nox_strman_loadString_40F1D0("cmd_token:on", 0,
@@ -1008,7 +1008,7 @@ int nox_cmd_set_mnstrs(int tokInd, int tokCnt, wchar_t** tokens) {
 				nox_xxx_consoleVPrint_450C00(6, v3, v5);
 				return 1;
 			}
-			if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94472))) {
+			if (!_nox_wcsicmp(tokens[3], L"off")) {
 				sub_409E70(8);
 				nox_server_gameSettingsUpdated_40A670();
 				v5 = nox_strman_loadString_40F1D0("cmd_token:off", 0,
@@ -1043,7 +1043,7 @@ int nox_cmd_set_spell(int tokInd, int tokCnt, wchar_t** tokens) {
 		}
 		v4 = sub_424960(tokens[2]);
 		if (v4 || (nox_sprintf(v10, "%S", tokens[2]), (v4 = nox_xxx_spellNameToN_4243F0(v10)) != 0)) {
-			if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94468))) {
+			if (!_nox_wcsicmp(tokens[3], L"on")) {
 				v5 = sub_4165B0();
 				if ((nox_common_gameFlags_check_40A5C0(64) || v5[52] & 0x40) && v4 == 132)
 					return 1;
@@ -1057,7 +1057,7 @@ int nox_cmd_set_spell(int tokInd, int tokCnt, wchar_t** tokens) {
 				nox_xxx_consoleVPrint_450C00(6, v3, v8);
 				return 1;
 			}
-			if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94472))) {
+			if (!_nox_wcsicmp(tokens[3], L"off")) {
 				if (!nox_xxx_spellIsEnabled_424B70(v4))
 					return 1;
 				nox_xxx_spellDisable_424BB0(v4);
@@ -1144,7 +1144,7 @@ int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
 		if (_nox_wcsicmp(tokens[2], *(const wchar_t**)getMemAt(0x587000, 94492))) {
 			v6 = (unsigned __int16*)sub_415A60(tokens[2]);
 			if (v6 || (nox_sprintf(v11, "%S", tokens[2]), (v6 = (unsigned __int16*)sub_415A30(v11)) != 0)) {
-				if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94468))) {
+				if (!_nox_wcsicmp(tokens[3], L"on")) {
 					if (nox_xxx_getUnitDefDd10_4E3BA0(*v6))
 						return 1;
 					sub_4E3BF0((int)v6);
@@ -1155,7 +1155,7 @@ int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
 					nox_xxx_consoleVPrint_450C00(6, v3, v8);
 					return 1;
 				}
-				if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94472))) {
+				if (!_nox_wcsicmp(tokens[3], L"off")) {
 					if (!nox_xxx_getUnitDefDd10_4E3BA0(*v6) || nox_xxx_ammoCheck_415880((char*)*v6) == 1)
 						return 1;
 					sub_4E3BC0((int)v6);
@@ -1174,7 +1174,7 @@ int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
 				nox_xxx_consoleVPrint_450C00(6, v7, v10);
 			}
 		} else {
-			if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94468))) {
+			if (!_nox_wcsicmp(tokens[3], L"on")) {
 				sub_409E70(2);
 				v9 = tokens[3];
 				v4 = nox_strman_loadString_40F1D0("weaponsrespawn", 0,
@@ -1183,7 +1183,7 @@ int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
 				sub_4AD840();
 				return 1;
 			}
-			if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94472))) {
+			if (!_nox_wcsicmp(tokens[3], L"off")) {
 				sub_409E70(2);
 				v9 = tokens[3];
 				v4 = nox_strman_loadString_40F1D0("weaponsrespawn", 0,
@@ -1227,7 +1227,7 @@ int nox_cmd_set_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 		}
 		v4 = (unsigned __int16*)sub_415EF0(tokens[2]);
 		if (v4 || (nox_sprintf(v9, "%S", tokens[2]), (v4 = (unsigned __int16*)sub_415EC0(v9)) != 0)) {
-			if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94468))) {
+			if (!_nox_wcsicmp(tokens[3], L"on")) {
 				if (!nox_xxx_getUnitDefDd10_4E3BA0(*v4)) {
 					sub_4E3BF0((int)v4);
 					nox_server_gameSettingsUpdated_40A670();
@@ -1239,7 +1239,7 @@ int nox_cmd_set_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 				}
 				return 1;
 			}
-			if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94472))) {
+			if (!_nox_wcsicmp(tokens[3], L"off")) {
 				if (nox_xxx_getUnitDefDd10_4E3BA0(*v4)) {
 					sub_4E3BC0((int)v4);
 					nox_xxx_deleteAllObjectsOfType_4E5DB0(*v4);
@@ -1275,7 +1275,7 @@ int nox_cmd_set_staff(int tokInd, int tokCnt, wchar_t** tokens) {
 		nox_sprintf(v9, "%S", tokens[2]);
 		v3 = nox_xxx_utilThingDefByName_4E3B60(v9);
 		if (v3) {
-			if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94468))) {
+			if (!_nox_wcsicmp(tokens[3], L"on")) {
 				sub_4E3BF0(v3);
 				v7 = tokens[2];
 				v4 = nox_strman_loadString_40F1D0("staffEnabled", 0,
@@ -1283,7 +1283,7 @@ int nox_cmd_set_staff(int tokInd, int tokCnt, wchar_t** tokens) {
 				nox_xxx_consoleVPrint_450C00(6, v4, v7);
 				return 1;
 			}
-			if (!_nox_wcsicmp(tokens[3], *(const wchar_t**)getMemAt(0x587000, 94472))) {
+			if (!_nox_wcsicmp(tokens[3], L"off")) {
 				sub_4E3BC0(v3);
 				v7 = tokens[2];
 				v4 = nox_strman_loadString_40F1D0("staffDisabled", 0,
