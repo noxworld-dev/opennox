@@ -8,7 +8,7 @@ import (
 )
 
 func sdlSetWindowRect(size types.Size, pos types.Point) {
-	inputSetWinSize(size)
+	inpHandler.SetWinSize(size)
 	noxWindow.SetSize(int32(size.W), int32(size.H))
 	noxWindow.SetPosition(int32(pos.X), int32(pos.Y))
 }

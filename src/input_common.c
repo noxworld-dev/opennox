@@ -1,9 +1,14 @@
+#include "input.h"
 #include "proto.h"
 #include "client__system__parsecmd.h"
 #include "client__system__ctrlevnt.h"
 
 extern _DWORD dword_5d4594_754056;
+extern _DWORD dword_5d4594_1193132;
 extern int obj_5D4594_754104_switch;
+
+extern int nox_win_width;
+extern int nox_win_height;
 
 nox_mouse_state_t nox_input_buffer[256] = {0};
 int nox_input_buffer_cap = sizeof(nox_input_buffer) / sizeof(nox_mouse_state_t);
@@ -184,6 +189,72 @@ void  nox_client_readMouseBuffer_4306A0(int a1) {
 	}
 }
 
+// init keyboard
+void nox_xxx_initKeyboard_47FB10() {
+	nox_input_resetBuffers();
+
+	// On non-IME languages, Nox uses this input for text input. This sets up
+	// current SHIFT state and the mapping from DIK code -> wide character.
+	dword_5d4594_1193132 = nox_input_shiftState();
+	nox_xxx_keyboard_47DBD0();
+}
+
+void nox_xxx_initKeyboard_yyy();
+
+//----- (00430190) --------------------------------------------------------
+int nox_xxx_initInput_430190() {
+	nox_xxx_initKeyboard_47FB10();
+	nox_xxx_initKeyboard_yyy();
+	nox_xxx_initMouse_47D8D0();
+	nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
+	sub_42EBB0(2u, sub_430140, 0, "Input");
+	return 1;
+}
+
+// SDLMODDED
+//----- (0047F950) --------------------------------------------------------
+unsigned short nox_input_scanCodeToAlpha_47F950(unsigned short a1) {
+	unsigned __int16 result; // ax
+	int scrollLockStatus;
+
+	scrollLockStatus = nox_input_scrollLockState();
+	if (a1 > 0xFFu)
+		return a1;
+	if (a1 == 42 || a1 == 54) {
+		*getMemU32Ptr(0x5D4594, 1193136) = nox_input_keyboardGetKeyState_430970(a1) == 2;
+		return 0;
+	}
+	if (a1 != 58) {
+		if ((_BYTE)a1 == getMemByte(0x5D4594, 1193144)) {
+			*getMemU32Ptr(0x5D4594, 1193140) = nox_input_keyboardGetKeyState_430970(a1) == 2;
+			result = 0;
+		} else if (*getMemU32Ptr(0x5D4594, 1193140)) {
+			result = *getMemU16Ptr(0x5D4594, 6 * (unsigned __int8)a1 + 1191576);
+		} else if (*getMemU32Ptr(0x5D4594, 1193136) ||
+				   dword_5d4594_1193132 && iswalpha(*getMemU16Ptr(0x5D4594, 6 * (unsigned __int8)a1 + 1191572))) {
+
+			if (scrollLockStatus) {
+				result = asc_9800B0[3 * (unsigned __int8)a1 + 264];
+			} else {
+				result = *getMemU16Ptr(0x5D4594, 6 * (unsigned __int8)a1 + 1191574);
+			}
+		} else {
+			if (scrollLockStatus) {
+				result = asc_9800B0[3 * (unsigned __int8)a1];
+			} else {
+				result = *getMemU16Ptr(0x5D4594, 6 * (unsigned __int8)a1 + 1191572);
+			}
+		}
+		return result;
+	}
+	if (sub_430950(a1))
+		return 0;
+	if (nox_input_keyboardGetKeyState_430970(a1) == 2)
+		dword_5d4594_1193132 = 1 - dword_5d4594_1193132;
+	sub_4309B0(a1, 1);
+	return 0;
+}
+
 //----- (00430710) --------------------------------------------------------
 void nox_xxx_getKeyFromKeyboard_430710() {
 	nox_keyboard_btn_t* ev = &nox_input_arr_787228[0];
@@ -204,7 +275,7 @@ void nox_xxx_getKeyFromKeyboard_430710() {
 				ev->field_2 = 1;
 			}
 		} else if (ev->code == 58) {
-			nox_xxx_conScanCode2Alpha_47F950(0x3Au);
+			nox_input_scanCodeToAlpha_47F950(0x3Au);
 		}
 		if (obj_5D4594_754104_switch == 1) {
 			ev->field_2 = 1;

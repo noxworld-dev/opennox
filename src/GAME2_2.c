@@ -12,6 +12,7 @@
 #include "client__draw__drawwin.h"
 
 #include "mutexes.h"
+#include "input.h"
 #include "proto.h"
 
 extern unsigned char byte_5D4594_3804364[160];
@@ -5591,7 +5592,7 @@ int sub_4800F0() {
 		*getMemU32Ptr(0x5D4594, 3805488) = nox_pitch_3801808 * nox_backbuffer_height;
 		*getMemU32Ptr(0x5D4594, 3807124) = dword_5d4594_3801780 == 1;
 		sub_430B50(0, 0, 639, 479);
-		nox_xxx_processWinMessages_4453A0_poll_events();
+		nox_input_pollEvents_4453A0();
 		result = 1;
 	} else {
 		MessageBoxA(0, (LPCSTR)getMemAt(0x587000, 154896), (LPCSTR)getMemAt(0x587000, 154880), 0);
@@ -11615,7 +11616,6 @@ int  nox_xxx_wndEditProc_487D70(_DWORD* a1, int a2, int a3, int a4) {
 	int result;          // eax
 	__int16 v6;          // ax
 	unsigned __int16 v7; // ax
-	unsigned __int8* v8; // eax
 	unsigned __int16 v9; // di
 	int v10;             // eax
 	int v11;             // eax
@@ -11707,17 +11707,18 @@ int  nox_xxx_wndEditProc_487D70(_DWORD* a1, int a2, int a3, int a4) {
 				goto LABEL_24;
 		LABEL_19:
 			if (!*(_DWORD*)(v4 + 1036) && !*(_DWORD*)(v4 + 1032) && !*(_DWORD*)(v4 + 1028)) {
-				v8 = nox_xxx_string_57011C(*(_DWORD***)&dword_5d4594_1193348);
+				wchar_t* v8 = nox_input_getStringBuffer_57011C();
 				nox_wcscpy((wchar_t*)(v4 + 512), (const wchar_t*)v8);
+				nox_input_freeStringBuffer_57011C(v8);
 				*(_WORD*)(v4 + 1054) = nox_wcslen((const wchar_t*)(v4 + 512));
-				if (!nox_xxx_string_5702B4(*(_DWORD***)&dword_5d4594_1193348))
+				if (0) // if (!nox_xxx_string_5702B4(*(_DWORD***)&dword_5d4594_1193348))
 					goto LABEL_41;
-				nox_xxx_string_570392(*(_DWORD***)&dword_5d4594_1193348);
+				//nox_xxx_string_570392(*(_DWORD***)&dword_5d4594_1193348);
 				nox_window_set_hidden(*(_DWORD*)(v4 + 1048), 1);
 				return 1;
 			}
 		LABEL_24:
-			v9 = nox_xxx_conScanCode2Alpha_47F950(a3);
+			v9 = nox_input_scanCodeToAlpha_47F950(a3);
 			if (!v9 || a4 != 2)
 				goto LABEL_41;
 			if (*(_DWORD*)(v4 + 1028)) {
@@ -11991,12 +11992,12 @@ int  nox_xxx_wndEditProcPre_488710(int a1, unsigned int a2, wchar_t* a3, int a4)
 		return 0;
 	if (a3) {
 		dword_5d4594_1193352 = a1;
-		nox_xxx_changeWinProcToEdit_5700CA(*(int***)&dword_5d4594_1193348, getWindowHandle_nox_xxx_getHWND_401FD0());
+		nox_input_enableTextEdit_5700CA();
 		v6 = *(_DWORD*)(a1 + 36);
 		LOBYTE(v6) = v6 | 6;
 		*(_DWORD*)(a1 + 36) = v6;
 	} else {
-		nox_xxx_changeWinProcToNormal_5700F6(*(int***)&dword_5d4594_1193348);
+		nox_input_disableTextEdit_5700F6();
 		dword_5d4594_1193352 = 0;
 		v4 = *(_DWORD*)(a1 + 36);
 		LOBYTE(v4) = v4 & 0xF9;
@@ -12128,11 +12129,11 @@ int sub_488B60() {
 
 	v0 = (int**)operator_new(4u);
 	if (v0) {
-		dword_5d4594_1193348 = sub_56FFE0(v0);
-		sub_570142(*(_DWORD***)&dword_5d4594_1193348, 11);
+		dword_5d4594_1193348 = v0;
+		//sub_570142(*(_DWORD***)&dword_5d4594_1193348, 11);
 	} else {
 		dword_5d4594_1193348 = 0;
-		sub_570142(0, 11);
+		//sub_570142(0, 11);
 	}
 	return 1;
 }
@@ -12144,7 +12145,6 @@ int sub_488BA0() {
 
 	v0 = *(void**)&dword_5d4594_1193348;
 	if (dword_5d4594_1193348) {
-		sub_570070(*(int****)&dword_5d4594_1193348);
 		operator_delete(v0);
 	}
 	dword_5d4594_1193348 = 0;
@@ -12155,7 +12155,6 @@ int sub_488BA0() {
 void nox_xxx_onChar_488BD0(unsigned __int16 a1) {
 	int v2;              // esi
 	int v3;              // eax
-	unsigned __int8* v4; // eax
 
 	if (dword_5d4594_1193348) {
 		if (dword_5d4594_1193352) {
@@ -12182,10 +12181,11 @@ void nox_xxx_onChar_488BD0(unsigned __int16 a1) {
 									*(_WORD*)(v2 + 2 * v3) = a1;
 									*(_WORD*)(v2 + 2 * (unsigned __int16)++*(_WORD*)(v2 + 1052)) = 0;
 								}
-								v4 = nox_xxx_string_57011C(*(_DWORD***)&dword_5d4594_1193348);
+								wchar_t* v4 = nox_input_getStringBuffer_57011C();
 								nox_wcscpy((wchar_t*)(v2 + 512), (const wchar_t*)v4);
+								nox_input_freeStringBuffer_57011C(v4);
 								*(_WORD*)(v2 + 1054) = nox_wcslen((const wchar_t*)(v2 + 512));
-								nox_xxx_string_570392(*(_DWORD***)&dword_5d4594_1193348);
+								//nox_xxx_string_570392(*(_DWORD***)&dword_5d4594_1193348);
 								nox_window_set_hidden(*(_DWORD*)(v2 + 1048), 1);
 								break;
 							}

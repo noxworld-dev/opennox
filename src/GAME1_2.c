@@ -19,6 +19,7 @@
 
 #include "client__draw__partscrn.h"
 
+#include "input.h"
 #include "proto.h"
 
 extern unsigned char byte_5D4594_3804364[160];
@@ -5916,7 +5917,7 @@ LABEL_2:
 			strtok(NULL, " \r\t\n");
 			token = strtok(NULL, " \r\t\n");
 			if (token)
-				input_sensitivity = atof(token);
+				nox_input_setSensitivity(atof(token));
 		} else {
 			v3 = *(const char**)getMemAt(0x587000, 81168);
 			v4 = 0;
@@ -6942,7 +6943,7 @@ int  sub_4332E0(FILE* a1) {
 	fprintf(a1, "VideoSize = %d\n", v2);
 	// fprintf(a1, "Gamma = %d\n", *(_DWORD *)getMemAt(0x587000, 80852));
 	fprintf(a1, "Gamma2 = %f\n", draw_gamma);
-	fprintf(a1, "InputSensitivity = %f\n", input_sensitivity);
+	fprintf(a1, "InputSensitivity = %f\n", nox_input_getSensitivity());
 	if (sub_453070() == 1)
 		v3 = *(_DWORD*)((_DWORD)dword_587000_127004 + 4) >> 16;
 	else

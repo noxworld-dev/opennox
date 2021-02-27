@@ -1,30 +1,99 @@
 package main
 
 import (
-	"fmt"
-	"math"
+	"log"
+	"unicode/utf16"
+
+	"nox/client/input"
+	"nox/common/memmap"
+	"nox/common/types"
 
 	"github.com/veandco/go-sdl2/sdl"
-
-	"nox/common/types"
 )
 
-const (
-	gpadStickMax        = math.MaxInt16
-	gpadTrigMax         = math.MaxInt16
-	gpadMouseSpeed      = 50.0
-	gpadDeadZone        = 1500
-	gpadStickRelAutoRun = 0.3
-)
+var inpHandler *input.Handler
+
+var _ input.Interface = noxInput{}
+
+type noxInput struct{}
+
+func (noxInput) MouseButtonAt(p types.Point, button input.MouseButton, pressed bool) {
+	var typ noxMouseEventType
+	switch button {
+	case input.MouseButtonLeft:
+		typ = noxMouseEventLeft
+	case input.MouseButtonRight:
+		typ = noxMouseEventRight
+	case input.MouseButtonMiddle:
+		typ = noxMouseEventMiddle
+	default:
+		panic(button)
+	}
+	pushMouseEvent(noxMouseEvent{
+		Type:    typ,
+		X:       p.X,
+		Y:       p.Y,
+		Pressed: pressed,
+	})
+}
+
+func (noxInput) MouseMotion(p types.Point) {
+	pushMouseEvent(noxMouseEvent{
+		Type:  noxMouseEventMotion,
+		X:     p.X,
+		Y:     p.Y,
+		Wheel: 0,
+	})
+}
+
+func (noxInput) MouseWheel(p types.Point, dv int) {
+	pushMouseEvent(noxMouseEvent{
+		Type:  noxMouseEventWheel,
+		X:     p.X,
+		Y:     p.Y,
+		Wheel: dv,
+	})
+}
+
+func (noxInput) InputKeyboard(code input.Scancode, pressed bool) {
+	pushKeyEvent(noxKeyEvent{
+		Code:    scanCodeToKeyNum[code],
+		Pressed: pressed,
+	})
+}
+
+func (noxInput) WindowDefault() types.Size {
+	return types.Size{W: noxDefaultWidth, H: noxDefaultHeight}
+}
+
+func (noxInput) WindowEvent(ev input.WindowEvent) {
+	switch ev {
+	case input.WindowUnfocus:
+		unacquireMouse_sub_47D8B0()
+	case input.WindowFocus:
+		if isMouseInside(noxWindow) {
+			acquireMouse_sub_47D8C0()
+		}
+	case input.WindowAcquireMouse:
+		noxWindow.SetGrab(true)
+	case input.WindowUnacquireMouse:
+		noxWindow.SetGrab(false)
+	}
+}
+
+func (noxInput) TextEdit(text string) {
+	setIMEBuffer(text)
+}
+
+func (noxInput) TextInput(text string) {
+	setIMEBuffer("")
+	for _, c := range utf16.Encode([]rune(text)) {
+		noxInputOnChar(c)
+	}
+}
 
 var (
 	inputSeq uint
-	// size of the actual window
-	inputWindow = types.Size{W: noxDefaultWidth, H: noxDefaultHeight}
-	// size of the image that Nox draws
-	inputDrawWindow = types.Size{W: noxDefaultWidth, H: noxDefaultHeight}
-	// scale factors calculated from sizes above
-	inputScale = types.Sizef{W: 1, H: 1}
 )
 
 func nextInputSeq() uint {
@@ -33,141 +102,87 @@ func nextInputSeq() uint {
 	return v
 }
 
-func inputUpdateScale() {
-	inputScale.W = float32(inputDrawWindow.W) / float32(inputWindow.W)
-	inputScale.H = float32(inputDrawWindow.H) / float32(inputWindow.H)
+const keyboardEventBuf = 256
+
+var (
+	keyboardEventQueue = make(chan noxKeyEvent, keyboardEventBuf)
+)
+
+type noxKeyEvent struct {
+	Code    byte
+	Pressed bool
+	Seq     uint
 }
 
-func inputSetWinSize(sz types.Size) {
-	if sz.W == 0 || sz.H == 0 {
-		return
+func pushKeyEvent(e noxKeyEvent) {
+	e.Seq = nextInputSeq()
+	select {
+	case keyboardEventQueue <- e:
+	default:
+		log.Println("cannot keep up, keyboard event dropped")
 	}
-	inputWindow = sz
-	inputUpdateScale()
 }
 
-func inputSetDrawWinSize(sz types.Size) {
-	if sz.W == 0 || sz.H == 0 {
-		return
-	}
-	inputDrawWindow = sz
-	inputUpdateScale()
-}
-
-// inputToDrawSpace remaps window position to position on the video buffer
-func inputToDrawSpace(p types.Point) types.Point {
-	p.X = int(float32(p.X) * inputScale.W)
-	p.Y = int(float32(p.Y) * inputScale.H)
-	return p
-}
-
-// inputClamp clamps window coords according to the current screen size.
-func inputClamp(p types.Point) types.Point {
-	if p.X < 0 {
-		p.X = 0
-	}
-	if p.Y < 0 {
-		p.Y = 0
-	}
-	if inputWindow.W > 0 && p.X > inputWindow.W {
-		p.X = inputWindow.W
-	}
-	if inputWindow.H > 0 && p.Y > inputWindow.H {
-		p.Y = inputWindow.H
-	}
-	return p
-}
-
-// inputClampf clamps window coords according to the current screen size.
-func inputClampf(p types.Pointf) types.Pointf {
-	if p.X < 0 {
-		p.X = 0
-	}
-	if p.Y < 0 {
-		p.Y = 0
-	}
-	if inputWindow.W > 0 && p.X > float32(inputWindow.W) {
-		p.X = float32(inputWindow.W)
-	}
-	if inputWindow.H > 0 && p.Y > float32(inputWindow.H) {
-		p.Y = float32(inputWindow.H)
-	}
-	return p
-}
-
-func inputPollEvents() {
-	if isServer {
-		// TODO: remove SDL dependency for the server
-		for sdl.PollEvent() != nil {
+func nextKeyEvent() *noxKeyEvent {
+	select {
+	case e, ok := <-keyboardEventQueue:
+		if !ok {
+			return nil
 		}
-		return
+		return &e
+	default:
+		return nil
 	}
-	inputEventsTick()
-	for {
-		switch ev := sdl.PollEvent().(type) {
-		case nil:
-			// no more events
-			return
-		case *sdl.TextEditingEvent:
-			processTextEditingEvent(ev)
-		case *sdl.TextInputEvent:
-			processTextInputEvent(ev)
-		case *sdl.KeyboardEvent:
-			if inTextInput {
-				processTextInputKeyboardEvent(ev)
-			} else {
-				processKeyboardEvent(ev)
-			}
-		case *sdl.MouseButtonEvent:
-			processMouseEvent(ev)
-		case *sdl.MouseMotionEvent:
-			processMotionEvent(ev)
-		case *sdl.MouseWheelEvent:
-			processWheelEvent(ev)
-		case *sdl.ControllerAxisEvent:
-			fmt.Printf("SDL event: SDL_CONTROLLERAXISMOTION (%x): joy=%d, axis=%d, val=%d\n",
-				ev.GetType(), ev.Which, ev.Axis, ev.Value)
-			processGamepadAxisEvent(ev)
-		case *sdl.ControllerButtonEvent:
-			fmt.Printf("SDL event: SDL_CONTROLLERBUTTON (%x): joy=%d, btn=%d, state=%d\n",
-				ev.GetType(), ev.Which, ev.Button, ev.State)
-			processGamepadButtonEvent(ev)
-		case *sdl.ControllerDeviceEvent:
-			switch ev.GetType() {
-			case sdl.CONTROLLERDEVICEADDED:
-				fmt.Printf("SDL event: SDL_CONTROLLERDEVICEADDED (%x): joy=%d\n", ev.GetType(), ev.Which)
-				processGamepadDeviceEvent(ev)
-			case sdl.CONTROLLERDEVICEREMOVED:
-				fmt.Printf("SDL event: SDL_CONTROLLERDEVICEREMOVED (%x): joy=%d\n", ev.GetType(), ev.Which)
-				processGamepadDeviceEvent(ev)
-			case sdl.CONTROLLERDEVICEREMAPPED:
-				fmt.Printf("SDL event: SDL_CONTROLLERDEVICEREMAPPED (%x)\n", ev.GetType())
-			}
-		case *sdl.WindowEvent:
-			processWindowEvent(ev)
+}
+
+const mouseEventBuf = 256
+
+var (
+	mouseEventQueue = make(chan noxMouseEvent, mouseEventBuf)
+)
+
+func inputInitMouse() {
+	inpHandler.AcquireMouse()
+
+	// indicates that mouse is present so cursor should be drawn
+	*memmap.PtrUint32(0x5D4594, 1193108) = 1
+}
+
+func pushMouseEvent(e noxMouseEvent) {
+	e.Seq = nextInputSeq()
+	select {
+	case mouseEventQueue <- e:
+	default:
+		log.Println("cannot keep up, mouse event dropped")
+	}
+}
+
+func nextMouseEvent() *noxMouseEvent {
+	select {
+	case e, ok := <-mouseEventQueue:
+		if !ok {
+			return nil
 		}
-		// TODO: touch events for WASM
+		return &e
+	default:
+		return nil
 	}
 }
 
-func processWindowEvent(ev *sdl.WindowEvent) {
-	switch ev.GetType() {
-	case sdl.WINDOWEVENT_FOCUS_LOST:
-		unacquireMouse_sub_47D8B0()
-	case sdl.WINDOWEVENT_FOCUS_GAINED:
-		if isMouseInside(noxWindow) {
-			acquireMouse_sub_47D8C0()
-		}
-	}
+type noxMouseEvent struct {
+	Type    noxMouseEventType
+	X, Y    int
+	Wheel   int
+	Pressed bool
+	Seq     uint
 }
 
-func inputEventsTick() {
-	inputControllerTick()
-}
-
-func abs(v int) int {
-	if v < 0 {
-		return -v
-	}
-	return v
+func isMouseInside(win *sdl.Window) bool {
+	mouse := inpHandler.GlobalMousePos()
+	wndPosX, wndPosY := win.GetPosition()
+	wndSizeW, wndSizeH := win.GetSize()
+	return mouse.X >= int(wndPosX) &&
+		mouse.X <= int(wndPosX+wndSizeW) &&
+		mouse.Y >= int(wndPosY) &&
+		mouse.Y <= int(wndPosY+wndSizeH)
 }

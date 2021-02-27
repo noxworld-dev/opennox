@@ -11,7 +11,4 @@ unsigned int nox_platform_time_seed();
 unsigned int nox_platform_get_ticks();
 void nox_platform_sleep(unsigned int ms);
 
-int nox_SDL_PollEvent(SDL_Event* event);
-Uint8 nox_SDL_GetEventState(Uint32 type);
-
 #endif // NOX_PLATFORM_H

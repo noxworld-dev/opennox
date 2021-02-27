@@ -1,45 +1,31 @@
+//+build none
+
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
 #include <emscripten/html5.h>
 #include "client__system__ctrlevnt.h"
 #endif
 
+#include <SDL2/SDL.h>
 #include <limits.h>
 #include "client__io__console.h"
 #include "input.h"
+#include "ConvertUTF.h"
 
 #include "proto.h"
 
-extern int nox_win_width;
-extern int nox_win_height;
-
-void nox_xxx_initKeyboard_yyy();
-
-//----- (00430190) --------------------------------------------------------
-int nox_xxx_initInput_430190() {
-	nox_xxx_initKeyboard_47FB10();
-	nox_xxx_initKeyboard_yyy();
-	nox_xxx_initMouse_47D8D0();
-	nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
-	int v4;
-	nox_xxx_initJoystick_47D660(0, (int)&v4);
-	nox_xxx_initJoystick_47D660(1u, (int)&v4);
-	sub_42EBB0(2u, sub_430140, 0, "Input");
-	return 1;
+float input_sensitivity = 1.0;
+void nox_input_setSensitivity(float v) {
+	input_sensitivity = v;
+}
+float nox_input_getSensitivity() {
+	return input_sensitivity;
 }
 
-#ifdef USE_SDL
 #include "sdl2_scancode_to_dinput.h"
 extern _DWORD dword_5d4594_1193132;
 extern int g_textinput;
 
-#ifdef NOX_CGO
-void onLibraryNotice_mouseWheel(nox_mouse_state_t* e) {
-	OnLibraryNotice_265(&e, 2, e->wheel);
-}
-#endif // NOX_CGO
-
-#ifndef NOX_CGO
 SDL_GameController *gpad = NULL;
 int gpad_ind = -1;
 
@@ -76,7 +62,6 @@ static DWORD keyboard_event_widx;
 static struct mouse_event mouse_event_queue[256];
 DWORD mouse_event_ridx = 0;
 DWORD mouse_event_widx = 0;
-#endif // NOX_CGO
 
 struct finger_state {
 	SDL_FingerID id;
@@ -85,9 +70,8 @@ struct finger_state {
 };
 
 extern int g_rotated;
-float input_sensitivity = 1.0;
 static struct finger_state fingers[8];
-int mouse1_state;
+int mouse1_finger_state;
 #ifdef __EMSCRIPTEN__
 static int mouse0_state;
 static int orientation;
@@ -96,12 +80,8 @@ static int jump;
 #endif
 int g_mouse_aquired = 0;
 
-// init joystick
-UINT  nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) { return 0; }
-
-#ifndef NOX_CGO
 bool nox_input_isMouseDown() {
-	return nox_SDL_GetEventState(SDL_MOUSEBUTTONDOWN);
+	return SDL_GetEventState(SDL_MOUSEBUTTONDOWN);
 }
 
 int is_mouse_inside(HWND wnd) {
@@ -343,7 +323,6 @@ void fake_keyup(void* arg) {
 void fake_mouseup(void* arg) {
 	input_mouse_up(MOUSE_BUTTON0);
 }
-#endif // NOX_CGO
 
 struct finger_state* find_finger(SDL_FingerID id, int alloc) {
 	int i;
@@ -359,9 +338,8 @@ struct finger_state* find_finger(SDL_FingerID id, int alloc) {
 	return NULL;
 }
 
-#ifndef NOX_CGO
 void send_mouse1_event() {
-	input_mouse_button(MOUSE_BUTTON1, mouse1_state /* && !mouse0_state */ );
+	input_mouse_button(MOUSE_BUTTON1, mouse1_finger_state /* && !mouse0_state */ );
 }
 
 float gpad_mouse_speed = 50.0;
@@ -530,7 +508,6 @@ void process_gpad_button_event(const SDL_ControllerButtonEvent* event) {
 		break;
 	}
 }
-#endif // NOX_CGO
 
 #ifdef __EMSCRIPTEN__
 void nox_xxx_clientControl_42D6B0_em_not_mouse_down() {
@@ -562,7 +539,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 		finger->y = event->y;
 
 		if (finger->x < 0.5) {
-			mouse1_state = 1;
+			mouse1_finger_state = 1;
 			// send_mouse1_event();
 		} else {
 			mouse0_state = 1;
@@ -590,7 +567,7 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 		ms = event->timestamp - finger->timestamp;
 
 		if (finger->x < 0.5) {
-			mouse1_state = 0;
+			mouse1_finger_state = 0;
 			// send_mouse1_event();
 
 			move_speed = 0;
@@ -644,67 +621,22 @@ void process_touch_event(SDL_TouchFingerEvent* event) {
 }
 #endif
 
-// init keyboard
-void nox_xxx_initKeyboard_47FB10() {
-#ifndef NOX_CGO
+void nox_input_resetBuffers() {
 	keyboard_event_ridx = 0;
 	keyboard_event_widx = 0;
-#endif // NOX_CGO
-
-	// On non-IME languages, Nox uses this input for text input. This sets up
-	// current SHIFT state and the mapping from DIK code -> wide character.
-	dword_5d4594_1193132 = (SDL_GetModState() & (KMOD_LSHIFT | KMOD_RSHIFT)) != 0;
-	nox_xxx_keyboard_47DBD0();
 }
 
-// SDLMODDED
-//----- (0047F950) --------------------------------------------------------
-unsigned __int16  nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1) {
-	unsigned __int16 result; // ax
-	int scrollLockStatus;
+bool nox_input_shiftState() {
+	return (SDL_GetModState() & (KMOD_LSHIFT | KMOD_RSHIFT)) != 0;
+}
 
-	scrollLockStatus = ((SDL_GetModState() & KMOD_RALT) == (KMOD_RALT));
-	if (a1 > 0xFFu)
-		return a1;
-	if (a1 == 42 || a1 == 54) {
-		*getMemU32Ptr(0x5D4594, 1193136) = nox_input_keyboardGetKeyState_430970(a1) == 2;
-		return 0;
-	}
-	if (a1 != 58) {
-		if ((_BYTE)a1 == getMemByte(0x5D4594, 1193144)) {
-			*getMemU32Ptr(0x5D4594, 1193140) = nox_input_keyboardGetKeyState_430970(a1) == 2;
-			result = 0;
-		} else if (*getMemU32Ptr(0x5D4594, 1193140)) {
-			result = *getMemU16Ptr(0x5D4594, 6 * (unsigned __int8)a1 + 1191576);
-		} else if (*getMemU32Ptr(0x5D4594, 1193136) ||
-				   dword_5d4594_1193132 && iswalpha(*getMemU16Ptr(0x5D4594, 6 * (unsigned __int8)a1 + 1191572))) {
-
-			if (scrollLockStatus) {
-				result = asc_9800B0[3 * (unsigned __int8)a1 + 0x108];
-			} else {
-				result = *getMemU16Ptr(0x5D4594, 6 * (unsigned __int8)a1 + 1191574);
-			}
-		} else {
-			if (scrollLockStatus) {
-				result = asc_9800B0[3 * (unsigned __int8)a1];
-			} else {
-				result = *getMemU16Ptr(0x5D4594, 6 * (unsigned __int8)a1 + 1191572);
-			}
-		}
-		return result;
-	}
-	if (sub_430950(a1))
-		return 0;
-	if (nox_input_keyboardGetKeyState_430970(a1) == 2)
-		dword_5d4594_1193132 = 1 - dword_5d4594_1193132;
-	sub_4309B0(a1, 1);
-	return 0;
+bool nox_input_scrollLockState() {
+	// TODO: why it uses RALT?
+	return (SDL_GetModState() & KMOD_RALT) == (KMOD_RALT);
 }
 
 // free keyboard
 int nox_xxx_freeKeyboard_47FCC0() { return 0; }
-
-#ifndef NOX_CGO
 
 // get keyboard data
 void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
@@ -917,369 +849,205 @@ void process_event(const SDL_Event* event) {
 void input_cleanup() {
 	cleanupControllers();
 }
-#endif // NOX_CGO
 
-#else // USE_SDL
-
-void  sub_47DA70(_DWORD* a1, LPDIDEVICEOBJECTDATA a2);
-
-LPDIRECTINPUTA g_dinput_keyboard;
-LPDIRECTINPUTDEVICEA g_device_keyboard;
-
-LPDIRECTINPUTA g_dinput_mouse;
-LPDIRECTINPUTDEVICEA g_device_mouse;
-
-//----- (0047D8B0) --------------------------------------------------------
-int unacquireMouse_sub_47D8B0() { return g_device_mouse->lpVtbl->Unacquire(g_device_mouse); }
-
-//----- (0047D8C0) --------------------------------------------------------
-int acquireMouse_sub_47D8C0() { return g_device_mouse->lpVtbl->Acquire(g_device_mouse); }
-
-//----- (0047D8D0) --------------------------------------------------------
-signed int nox_xxx_initMouse_47D8D0() {
-	wchar_t* v0;    // eax
-	DIPROPDWORD v4; // [esp+20h] [ebp-2Ch]
-	DIDEVCAPS_DX3 v9;
-
-	if (DirectInputCreateA(*(HINSTANCE*)getMemAt(0x5D4594, 823784), 0x300u, &g_dinput_mouse, 0) < 0) {
-		v0 = nox_strman_loadString_40F1D0("Dxinput.c:IM_CreateFailed", 0,
-								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 73);
-		sub_4516C0(v0);
-	}
-	if (g_dinput_mouse->lpVtbl->CreateDevice(g_dinput_mouse, &GUID_SysMouse, &g_device_mouse, 0) < 0) {
-		v0 = nox_strman_loadString_40F1D0("Dxinput.c:IM_CreateDeviceFailed", 0,
-								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 87);
-		sub_4516C0(v0);
-	}
-	if (g_device_mouse->lpVtbl->SetCooperativeLevel(g_device_mouse, getWindowHandle_nox_xxx_getHWND_401FD0(),
-													DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0) {
-		v0 = nox_strman_loadString_40F1D0("Dxinput.c:IM_SetCoopFailed", 0,
-								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 105);
-		sub_4516C0(v0);
-	}
-	v4.diph.dwSize = 20;
-	v4.diph.dwHeaderSize = 16;
-	v4.diph.dwObj = 0;
-	v4.diph.dwHow = 0;
-	v4.dwData = 256;
-	if (g_device_mouse->lpVtbl->SetProperty(g_device_mouse, DIPROP_BUFFERSIZE, (LPCDIPROPHEADER)&v4) < 0) {
-		v0 = nox_strman_loadString_40F1D0("Dxinput.c:IM_SetPropertyFailed", 0,
-								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 123);
-		sub_4516C0(v0);
-	}
-	if (g_device_mouse->lpVtbl->SetDataFormat(g_device_mouse, &c_dfDIMouse) < 0) {
-		v0 = nox_strman_loadString_40F1D0("Dxinput.c:IM_SetFormatFailed", 0,
-								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 135);
-		sub_4516C0(v0);
-	}
-	if (g_device_mouse->lpVtbl->Acquire(g_device_mouse) < 0) {
-		v0 = nox_strman_loadString_40F1D0("Dxinput.c:IM_AquireFailed", 0,
-								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 147);
-		sub_4516C0(v0);
-	}
-	v9.dwSize = 24;
-	if (g_device_mouse->lpVtbl->GetCapabilities(g_device_mouse, (LPDIDEVCAPS)&v9) >= 0)
-		*getMemU8Ptr(0x5D4594, 1193128) = v9.dwButtons;
-	*getMemU32Ptr(0x5D4594, 1193108) = 1;
-	sub_42EBB0(2, sub_47D890, 0, "DXInput");
-	sub_42EBB0(1, nox_xxx_showWindow_47D8A0, 0, "DXInput");
-	return 1;
+//----- (004453A0) --------------------------------------------------------
+int nox_input_pollEvents_4453A0() {
+	input_events_tick();
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+		process_event(&event);
+	return 0;
 }
-// 47D890: using guessed type int sub_47D890();
 
-//----- (0047DA70) --------------------------------------------------------
-void  sub_47DA70(_DWORD* a1, LPDIDEVICEOBJECTDATA a2) {
-	switch (a2->dwOfs) {
-	case DIMOFS_X:
-		*a1 = a2->dwData;
+int process_movie_event(const SDL_Event* event) {
+	switch (event->type) {
+	case SDL_KEYUP:
+	case SDL_MOUSEBUTTONUP:
+		return -1;
 		break;
-	case DIMOFS_Y:
-		a1[1] = a2->dwData;
+#ifdef __EMSCRIPTEN__
+	case SDL_FINGERMOTION:
+	case SDL_FINGERDOWN:
+	case SDL_FINGERUP:
+		return -1;
 		break;
-	case DIMOFS_Z:
-		OnLibraryNotice_265(&a1, 2, a2);
-		a1[2] = a2->dwData;
-		break;
-	case DIMOFS_BUTTON0:
-		a1[5] = (a2->dwData >> 7) & 1;
-		a1[7] = a2->dwSequence;
-		break;
-	case DIMOFS_BUTTON1:
-		a1[8] = (a2->dwData >> 7) & 1;
-		a1[10] = a2->dwSequence;
-		break;
-	case DIMOFS_BUTTON2:
-		a1[11] = (a2->dwData >> 7) & 1;
-		a1[13] = a2->dwSequence;
+#endif
+	case SDL_WINDOWEVENT:
+		// process_window_event(&event->window);
 		break;
 	default:
-		return;
-	}
-}
-
-//----- (0047DB20) --------------------------------------------------------
-char  sub_47DB20(signed int* a1) {
-	HRESULT v2;            // eax
-	HRESULT v4;            // eax
-	DIDEVICEOBJECTDATA v5; // [esp+14h] [ebp-10h]
-	DWORD dw;
-
-	a1[0] = 0;
-	a1[1] = 0;
-	a1[2] = 0;
-	a1[5] = 0;
-	a1[7] = 0;
-	a1[8] = 0;
-	a1[10] = 0;
-	a1[11] = 0;
-	a1[13] = 0;
-
-	if (g_device_mouse) {
-		dw = 1;
-		v2 = g_device_mouse->lpVtbl->GetDeviceData(g_device_mouse, 16, &v5, &dw, 0);
-		if (v2 == DIERR_NOTACQUIRED || v2 == DIERR_INPUTLOST) {
-			v4 = g_device_mouse->lpVtbl->Acquire(g_device_mouse);
-			if (v4 >= 0 && v4 <= 1)
-				return -1;
-		} else if (!v2 && dw) {
-			sub_47DA70(a1, &v5);
-			return 1;
-		}
+		break;
 	}
 	return 0;
 }
 
-//----- (0047D660) --------------------------------------------------------
-UINT  nox_xxx_initJoystick_47D660(UINT uJoyID, int a2) {
-	UINT result;              // eax
-	UINT v3;                  // esi
-	wchar_t* v4;              // eax
-	__int64 v5;               // rax
-	__int64 v6;               // [esp+10h] [ebp-3Ch]
-	struct joyinfoex_tag pji; // [esp+18h] [ebp-34h]
+int nox_input_pollEventsMovie() {
+	int result;
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		int processed = process_movie_event(&event);
+		result = processed;
+	}
+	return result;
+}
 
-	result = joyGetNumDevs();
-	if (result) {
-		pji.dwSize = 52;
-		pji.dwFlags = 255;
-		if (joyGetPosEx(uJoyID, &pji)) {
-			result = 0;
+int g_textinput;
+wchar_t g_ime_buf[512];
+//static unsigned int g_ime_idx;
+
+#ifdef __EMSCRIPTEN__
+static char g_ime_raw[512];
+
+static void update_ime(int finished) {
+	char tmp[512], complete[512];
+	const char* src;
+	wchar_t wtmp[3], *dst;
+
+	complete[0] = 0;
+	tmp[0] = 0;
+	EM_ASM_(
+		{
+			var raw = Array.from(UTF8ToString($0));
+			var assembled = Hangul.assemble(raw);
+			if (assembled.length > 1) {
+				stringToUTF8(assembled.slice(0, 1), $1, 512);
+				raw = Hangul.disassemble(assembled.slice(1));
+				stringToUTF8(raw.join(), $0, 512);
+				assembled = Hangul.assemble(raw);
+			}
+			stringToUTF8(assembled, $2, 512);
+		},
+		g_ime_raw, complete, tmp);
+
+	dst = g_ime_buf;
+	src = tmp;
+	if (ConvertUTF8toUTF16(&src, src + strlen(src), &dst, g_ime_buf + 512, strictConversion) == conversionOK) {
+		*dst = 0;
+	} else {
+		g_ime_buf[0] = UNI_REPLACEMENT_CHAR;
+		g_ime_buf[1] = 0;
+	}
+
+	if (complete[0]) {
+		dst = wtmp;
+		src = complete;
+		if (ConvertUTF8toUTF16(&src, src + strlen(src), &dst, wtmp + 3, strictConversion) == conversionOK) {
+			unsigned int i;
+			for (i = 0; &wtmp[i] != dst; i++)
+				nox_xxx_onChar_488BD0(wtmp[i]);
 		} else {
-			v3 = 48 * uJoyID;
-			*getMemU32Ptr(0x5D4594, v3 + 1189612) = 200;
-			*getMemU32Ptr(0x5D4594, v3 + 1189620) = 0;
-			*getMemU32Ptr(0x5D4594, v3 + 1189604) = -100;
-			*getMemU32Ptr(0x5D4594, v3 + 1189628) = 0;
-			*getMemU32Ptr(0x5D4594, v3 + 1189616) = 200;
-			*getMemU32Ptr(0x5D4594, v3 + 1189624) = 0;
-			*getMemU32Ptr(0x5D4594, v3 + 1189608) = -100;
-			*getMemU32Ptr(0x5D4594, v3 + 1189632) = 0;
-			if (joyGetDevCapsA(uJoyID, (LPJOYCAPSA)getMemAt(0x5D4594, 404 * uJoyID + 1189700), 0x194u)) {
-				v4 = nox_strman_loadString_40F1D0("ReadCapsFailed", 0,
-										   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Jstick.c", 79);
-				sub_4517A0(v4, uJoyID);
-				result = 0;
-			} else {
-				v6 = *getMemUintPtr(0x5D4594, 404 * uJoyID + 1189748);
-				*getMemU32Ptr(0x5D4594, 48 * uJoyID + 1189636) =
-					(__int64)(200.0 / (double)*getMemUintPtr(0x5D4594, 404 * uJoyID + 1189740) * 1000000.0);
-				v5 = (__int64)(200.0 / (double)v6 * 1000000.0);
-				HIDWORD(v5) = *getMemU32Ptr(0x5D4594, 404 * uJoyID + 1189760);
-				*getMemU32Ptr(0x5D4594, 48 * uJoyID + 1189640) = v5;
-				*(_DWORD*)a2 = HIDWORD(v5);
-				result = 2;
+			nox_xxx_onChar_488BD0(UNI_REPLACEMENT_CHAR);
+		}
+	}
+
+	if (finished) {
+		unsigned int i;
+		wchar_t wc = g_ime_buf[0];
+		if (wc) {
+			g_ime_buf[0] = 0;
+			nox_xxx_onChar_488BD0(wc);
+			for (i = 1; g_ime_buf[i]; i++)
+				nox_xxx_onChar_488BD0(g_ime_buf[i]);
+		}
+		g_ime_raw[0] = 0;
+	}
+}
+#endif // __EMSCRIPTEN__
+
+void process_textediting_event(const SDL_TextEditingEvent* event) {
+	const char* src = event->text;
+	wchar_t* dst = g_ime_buf;
+
+	if (ConvertUTF8toUTF16(&src, event->text + strlen(event->text), &dst, g_ime_buf + 512, strictConversion) ==
+		conversionOK) {
+		*dst = 0;
+	} else {
+		g_ime_buf[0] = UNI_REPLACEMENT_CHAR;
+		g_ime_buf[1] = 0;
+	}
+}
+
+void process_textinput_event(const SDL_TextInputEvent* event) {
+#ifdef __EMSCRIPTEN__
+	// Javascript / emscripten is terrible and we need to handle composition ourselves :(
+	// Thankfully we only want to handle English and Korean, and we can use JS libraries.
+	int hangul;
+
+	hangul = EM_ASM_INT(
+		{
+			var raw = Array.from(UTF8ToString($0));
+			return Hangul.isCho(raw[0]) || Hangul.isJong(raw[0]) || Hangul.isVowel(raw[0]);
+		},
+		event->text);
+	strcat(g_ime_raw, event->text);
+	update_ime(!hangul);
+#else // !__EMSCRIPTEN__
+	const char* src = event->text;
+	wchar_t tmp[3], *dst = tmp;
+
+	// g_ime_buf[g_ime_idx++] = event->text[0];
+	// g_ime_buf[g_ime_idx] = 0;
+	g_ime_buf[0] = 0;
+
+	if (ConvertUTF8toUTF16(&src, event->text + strlen(event->text), &dst, tmp + 3, strictConversion) == conversionOK) {
+		unsigned int i;
+		for (i = 0; &tmp[i] != dst; i++)
+			nox_xxx_onChar_488BD0(tmp[i]);
+	} else {
+		nox_xxx_onChar_488BD0(UNI_REPLACEMENT_CHAR);
+	}
+#endif // __EMSCRIPTEN__
+}
+
+void process_keyboard_event(const SDL_KeyboardEvent* event);
+void process_textinput_keyboard_event(const SDL_KeyboardEvent* event) {
+#ifdef __EMSCRIPTEN__
+	// intercept keyboard events, such as backspace and enter
+	switch (event->keysym.sym) {
+	case SDLK_BACKSPACE:
+		if (g_ime_raw[0]) {
+			char* tmp;
+			unsigned int i;
+
+			// only process key down
+			if (event->state == SDL_PRESSED) {
+				tmp = NULL;
+				for (i = 0; g_ime_raw[i]; i++) {
+					if ((g_ime_raw[i] & 0xc0) != 0x80)
+						tmp = &g_ime_raw[i];
+				}
+				if (tmp) {
+					dprintf("BACKSPACE %d", tmp - g_ime_raw);
+					*tmp = 0;
+					update_ime(0);
+				}
 			}
 		}
-	}
-	return result;
-}
-
-//----- (0047D7A0) --------------------------------------------------------
-DWORD*  sub_47D7A0(DWORD* a1, UINT uJoyID) {
-	DWORD* result;            // eax
-	DWORD v3;                 // ebx
-	DWORD v4;                 // edi
-	struct joyinfoex_tag pji; // [esp+8h] [ebp-34h]
-
-	pji.dwSize = 52;
-	pji.dwFlags = 131;
-	if (joyGetPosEx(uJoyID, &pji) == 167) {
-		result = a1;
-		a1[2] = 0;
-		*a1 = 0;
-		a1[1] = 0;
-	} else {
-		a1[2] = pji.dwButtons;
-		*a1 = *getMemU32Ptr(0x5D4594, 48 * uJoyID + 1189636) *
-			  (pji.dwXpos - *getMemU32Ptr(0x5D4594, 404 * uJoyID + 1189736)) / 0xF4240;
-		v3 = *a1;
-		a1[1] = *getMemU32Ptr(0x5D4594, 48 * uJoyID + 1189640) *
-				(pji.dwYpos - *getMemU32Ptr(0x5D4594, 404 * uJoyID + 1189744)) / 0xF4240;
-		v4 = a1[1];
-		*a1 = *getMemU32Ptr(0x5D4594, 48 * uJoyID + 1189604) + v3;
-		a1[1] = *getMemU32Ptr(0x5D4594, 48 * uJoyID + 1189608) + v4;
-		if (*getMemU32Ptr(0x5D4594, 48 * uJoyID + 1189620))
-			*a1 = -*a1;
-		result = *(DWORD**)getMemAt(0x5D4594, 48 * uJoyID + 1189624);
-		if (result)
-			a1[1] = -a1[1];
-	}
-	return result;
-}
-
-//----- (0047FB10) --------------------------------------------------------
-void nox_xxx_initKeyboard_47FB10() {
-	wchar_t* v0;     // eax
-	wchar_t* v1;     // eax
-	wchar_t* v2;     // eax
-	int v3;          // edi
-	HWND v4;         // eax
-	wchar_t* v5;     // eax
-	wchar_t* v6;     // eax
-	wchar_t* v7;     // eax
-	DIPROPDWORD v15; // [esp+24h] [ebp-14h]
-
-	if (DirectInputCreateA(*(HINSTANCE*)getMemAt(0x5D4594, 823784), 0x300u, &g_dinput_keyboard, 0) < 0) {
-		v0 = nox_strman_loadString_40F1D0("Dxinput.c:OK_CreateFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
-								   827);
-		sub_4516C0(v0);
-	}
-
-	if (g_dinput_keyboard->lpVtbl->CreateDevice(g_dinput_keyboard, &GUID_SysKeyboard, &g_device_keyboard, NULL) < 0) {
-		v1 = nox_strman_loadString_40F1D0("Dxinput.c:OK_CreateDeviceFailed", 0,
-								   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 841);
-		sub_4516C0(v1);
-	}
-
-	if (g_device_keyboard->lpVtbl->SetDataFormat(g_device_keyboard, &c_dfDIKeyboard) < 0) {
-		v2 = nox_strman_loadString_40F1D0("Dxinput.c:OK_SetFormatFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
-								   853);
-		sub_4516C0(v2);
-	}
-
-	if (g_device_keyboard->lpVtbl->SetCooperativeLevel(g_device_keyboard, getWindowHandle_nox_xxx_getHWND_401FD0(),
-													   DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0) {
-		v5 = nox_strman_loadString_40F1D0("Dxinput.c:OK_SetCoopFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
-								   868);
-		sub_4516C0(v5);
-	}
-
-	v15.diph.dwSize = 20;
-	v15.diph.dwHeaderSize = 16;
-	v15.diph.dwObj = 0;
-	v15.diph.dwHow = 0;
-	v15.dwData = 256;
-	if (g_device_keyboard->lpVtbl->SetProperty(g_device_keyboard, DIPROP_BUFFERSIZE, &v15) < 0) {
-		v6 = nox_strman_loadString_40F1D0("Dxinput.c:OK_SetPropertyFailed", 0,
-								   "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 886);
-		sub_4516C0(v6);
-	}
-
-	if (g_device_keyboard->lpVtbl->Acquire(g_device_keyboard) < 0) {
-		v7 = nox_strman_loadString_40F1D0("Dxinput.c:OK_AquireFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
-								   899);
-		sub_4516C0(v7);
-	}
-
-	dword_5d4594_1193132 = GetKeyState(20) & 1;
-	dword_5d4594_1193132 = dword_5d4594_1193132;
-	nox_xxx_keyboard_47DBD0();
-}
-
-// ORIGINAL
-//----- (0047F950) --------------------------------------------------------
-/*unsigned __int16  nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1)
-{
-  unsigned __int16 result; // ax
-  int scrollLockStatus;
-
-  scrollLockStatus = GetKeyState(145);
-  if ( a1 > 0xFFu )
-	return a1;
-  if ( a1 == 42 || a1 == 54 )
-  {
-	*(_DWORD *)getMemAt(0x5D4594, 1193136) = nox_input_keyboardGetKeyState_430970(a1) == 2;
-	return 0;
-  }
-  if ( a1 != 58 )
-  {
-	if ( (_BYTE)a1 == getMemByte(0x5D4594, 1193144) )
-	{
-	  *(_DWORD *)getMemAt(0x5D4594, 1193140) = nox_input_keyboardGetKeyState_430970(a1) == 2;
-	  result = 0;
-	}
-	else if ( *(_DWORD *)getMemAt(0x5D4594, 1193140) )
-	{
-	  result = *(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191576);
-	}
-	else if ( *(_DWORD *)getMemAt(0x5D4594, 1193136)
-	   || *(_DWORD *)&dword_5d4594_1193132
-	   && iswalpha(*(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191572)) )
-	{
-
-	if (scrollLockStatus)
-	{
-		result = asc_9800B0[3 * (unsigned __int8)a1 + 0x108];
-	}
-	else
-	{
-	  result = *(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191574);
-	}
-	}
-	else
-	{
-	if (scrollLockStatus)
-	{
-		result = asc_9800B0[3 * (unsigned __int8)a1];
-	}
-	else
-	{
-		result = *(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191572);
-	}
-	}
-	return result;
-  }
-  if ( sub_430950(a1) )
-	return 0;
-  if ( nox_input_keyboardGetKeyState_430970(a1) == 2 )
-	*(_DWORD *)&dword_5d4594_1193132 = 1 - *(_DWORD *)&dword_5d4594_1193132;
-  sub_4309B0(a1, 1);
-  return 0;
-}*/
-
-//----- (0047FCC0) --------------------------------------------------------
-int nox_xxx_freeKeyboard_47FCC0() {
-	g_device_keyboard->lpVtbl->Unacquire(g_device_keyboard);
-	return g_dinput_keyboard->lpVtbl->Release(g_dinput_keyboard);
-}
-
-//----- (0047FA80) --------------------------------------------------------
-void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
-	HRESULT v2;            // eax
-	char v3;               // al
-	char v4;               // dl
-	HRESULT v5;            // eax
-	DIDEVICEOBJECTDATA v6; // [esp+14h] [ebp-10h]
-	DWORD dw;
-
-	ev->code = 0;
-	ev->seq = 0;
-	if (g_device_keyboard) {
-		dw = 1;
-		v2 = g_device_keyboard->lpVtbl->GetDeviceData(g_device_keyboard, 16, &v6, &dw, 0);
-		if (v2 == DIERR_INPUTLOST) {
-			v5 = g_device_keyboard->lpVtbl->Acquire(g_device_keyboard);
-			if (v5 >= 0 && v5 <= 1)
-				ev->code = -1;
-		} else if (!v2 && dw) {
-			ev->code = v6.dwOfs; // key code
-			ev->state = (v6.dwData & 0x80 != 0) + 1;
-			ev->port = 0;
-			ev->data_3_size = 0;
-			ev->seq = v6.dwSequence;
+		break;
+	case SDLK_RETURN:
+		if (g_ime_raw[0] && event->state == SDL_PRESSED) {
+			update_ime(1);
 		}
+		break;
+	default:
+		break;
 	}
+#endif // __EMSCRIPTEN__
+	process_keyboard_event(event);
 }
 
-int sub_47D890() { return unacquireMouse_sub_47D8B0(); }
-#endif // USE_SDL
+//----- (005700CA) --------------------------------------------------------
+void nox_input_enableTextEdit_5700CA() {
+	SDL_StartTextInput();
+	g_textinput = 1;
+}
+
+//----- (005700F6) --------------------------------------------------------
+void nox_input_disableTextEdit_5700F6() {
+	SDL_StopTextInput();
+	g_textinput = 0;
+}
+
+//----- (0057011C) --------------------------------------------------------
+wchar_t* nox_input_getStringBuffer_57011C() { return g_ime_buf; }
+void nox_input_freeStringBuffer_57011C(wchar_t* p) { }

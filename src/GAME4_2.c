@@ -4031,7 +4031,7 @@ int  nox_xxx_mapGenSetFlags_5235F0(char a1) {
 		dword_5d4594_2487564 = clock();
 		if (dword_5d4594_2487568 > *(int*)&dword_5d4594_2487564)
 			dword_5d4594_2487568 = 0;
-		nox_xxx_processWinMessages_4453A0_poll_events();
+		nox_input_pollEvents_4453A0();
 		result = dword_5d4594_2487564 - dword_5d4594_2487568;
 		if (dword_5d4594_2487564 - dword_5d4594_2487568 > *getMemIntPtr(0x587000, 254948)) {
 			*(_WORD*)((char*)&v3 + 1) = *getMemU16Ptr(0x5D4594, 2487572);

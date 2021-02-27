@@ -13,7 +13,6 @@
 #include <sys/stat.h>
 #include <wctype.h>
 
-#define NO_IMM 1
 #define NO_MOVIE 1
 #define NO_WOLAPI 1
 

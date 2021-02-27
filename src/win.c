@@ -139,7 +139,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
 			sub_413E30(/* "Memory dump after GameLoop() :" */);
 		*getMemU32Ptr(0x5D4594, 823800) = 1;
-		nox_xxx_processWinMessages_4453A0_poll_events();
+		nox_input_pollEvents_4453A0();
 		DestroyWindow(g_hwnd);
 		sub_416B00();
 		UnregisterClassA(g_wnd_class.lpszClassName, hInstance);
@@ -294,32 +294,6 @@ int __stdcall nox_xxx_windowProc_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPAR
 	return result;
 }
 #endif
-
-//----- (004453A0) --------------------------------------------------------
-#ifndef NOX_CGO
-int nox_xxx_processWinMessages_4453A0_poll_events() {
-#ifdef USE_SDL
-	input_events_tick();
-	SDL_Event event;
-	while (nox_SDL_PollEvent(&event))
-		process_event(&event);
-	return 0;
-#else
-	struct tagMSG Msg; // [esp+4h] [ebp-1Ch]
-
-	while (PeekMessageA(&Msg, 0, 0, 0, 0)) {
-		if (!GetMessageA(&Msg, 0, 0, 0))
-			break;
-		TranslateMessage(&Msg);
-		DispatchMessageA(&Msg);
-	}
-	if (!*getMemU32Ptr(0x5D4594, 823800))
-		return 0;
-	PostMessageA(*(HWND*)getMemAt(0x5D4594, 823796), WM_CLOSE, 0, 0);
-	return 1;
-#endif
-}
-#endif // NOX_CGO
 
 //----- (004147E0) --------------------------------------------------------
 BOOL  sub_4147E0(HWND hWnd) {

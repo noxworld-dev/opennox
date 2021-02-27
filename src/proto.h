@@ -1326,7 +1326,6 @@ void nox_xxx_freeKeyboard_430210();
 void nox_client_mouseBtnState_430230();
 void nox_client_processMouseEvents_4302A0(int a1, int a2);
 void  nox_client_readMouseBuffer_4306A0(int a1);
-void nox_xxx_getKeyFromKeyboard_430710();
 int sub_4307D0();
 int  sub_430880(int a1);
 int nox_xxx_get_430890();
@@ -1764,7 +1763,7 @@ signed int sub_444DD0();
 HDC sub_444F90();
 void  sub_444FC0(HDC a1);
 int __stdcall nox_xxx_windowProc_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam); // idb
-int nox_xxx_processWinMessages_4453A0_poll_events();
+int nox_input_pollEvents_4453A0();
 int sub_445440();
 wchar_t* sub_445450();
 int nox_xxx_drawMessageLines_445530();
@@ -2727,7 +2726,6 @@ char  nox_xxx_video_ReadSprite_Real_47D530(int* a1);
 int(*  sub_47D5B0(int a1))(_DWORD);
 int  sub_47D5C0(int a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, _DWORD* a5);
 void nullsub_7(); // weak
-UINT  nox_xxx_initJoystick_47D660(UINT uJoyID, int a2);
 DWORD*  sub_47D7A0(DWORD* a1, UINT uJoyID);
 int sub_47D890(); // weak
 void nox_xxx_showWindow_47D8A0();
@@ -2737,7 +2735,6 @@ int nox_xxx_initMouse_47D8D0();
 bool nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* a1);
 unsigned __int8 sub_47DBC0();
 void nox_xxx_keyboard_47DBD0();
-unsigned __int16  nox_xxx_conScanCode2Alpha_47F950(unsigned __int16 a1);
 void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev);
 void nox_xxx_initKeyboard_47FB10();
 void nox_xxx_clientControl_42D6B0_em_not_mouse_down();
@@ -6966,18 +6963,6 @@ void  nox_xxx_cryptXorDst_56FE00(char key, unsigned char* p1, int n, unsigned ch
 double nox_xxx_unkDoubleSmth_56FE30();
 void  sub_56FF00(int a1);
 int  sub_56FF80(int a1, int a2);
-int** __thiscall sub_56FFE0(int** this);
-int** __thiscall sub_570070(int*** this);
-#ifndef NOX_CGO
-int nox_xxx_changeWinProcToEdit_5700CA(int** a1, HWND hWnd);
-#else // NOX_CGO
-int nox_xxx_changeWinProcToEdit_5700CA(int** a1, int hWnd);
-#endif // NOX_CGO
-int* nox_xxx_changeWinProcToNormal_5700F6(int** this);
-wchar_t* __thiscall nox_xxx_string_57011C(_DWORD** this);
-_DWORD* __thiscall sub_570142(_DWORD** this, char a2);
-bool __thiscall nox_xxx_string_5702B4(_DWORD** this);
-int __thiscall nox_xxx_string_570392(_DWORD** this);
 unsigned int  nox_xxx_netGetUnitCodeServ_578AC0(_DWORD* a1);
 unsigned int  nox_xxx_netGetUnitCodeCli_578B00(int a1);
 int  nox_xxx_netClearHighBit_578B30(__int16 a1);
