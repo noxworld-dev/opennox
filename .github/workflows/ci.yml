@@ -11,6 +11,44 @@ on:
       - dev
 
 jobs:
+  hybrid_linux_go:
+    name: Go build on Linux Host
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: true
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.15.8'
+
+      - name: Check Go version
+        run: go version
+
+      - name: Install C dependencies
+        run: sudo dpkg --add-architecture i386 && sudo apt-get update -m && sudo apt-get install -y build-essential ccache cmake gcc gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
+
+      - name: Install Go dependencies
+        run: cd ./src && go mod download
+
+      - name: Go build
+        run: cd ./src && ./build_go.sh
+
+      - name: Prepare the binary
+        run: |
+          cp ./src/nox_go /tmp/nox-go-linux
+
+      - name: Upload the binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: nox-go-linux
+          path: /tmp/nox-go-linux
+
   hybrid_linux_gcc:
     name: alpine-386-gcc-github on Linux Host
     runs-on: ubuntu-20.04
@@ -44,7 +82,7 @@ jobs:
         with:
           name: nox-linux
           path: /tmp/nox-linux
-        
+
   hybrid_linux_wasm:
     name: alpine-wasm-github on Linux Host
     runs-on: ubuntu-20.04
@@ -68,7 +106,7 @@ jobs:
 
       - name: Build WASM
         uses: docker://noxworld/alpine-wasm-github
-          
+
   windows_native_hosted:
     name: MSVC on ${{ matrix.config.name }} Host
     runs-on: ${{ matrix.config.os }}
