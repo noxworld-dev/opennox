@@ -42,7 +42,7 @@ int nox_video_recreateRenderTarget_47FD70() {
 	nox_client_setCursorType_477610(0);
 	v2 = sub_48B3E0(0);
 	int depth = dword_5d4594_3804680 != 0 ? 16 : 8;
-	if (!nox_xxx_GfxInit_444930(getWindowHandle_nox_xxx_getHWND_401FD0(), nox_win_width, nox_win_height, depth, flags)) {
+	if (!nox_xxx_GfxInit_444930(nox_video_getWindow_401FD0(), nox_win_width, nox_win_height, depth, flags)) {
 		wchar_t* v9 = nox_strman_loadString_40F1D0("result:ERROR", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);
 		wchar_t* v4 =
 			nox_strman_loadString_40F1D0("gfxDdraw.c:DXWarning", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);

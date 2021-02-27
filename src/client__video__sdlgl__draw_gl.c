@@ -128,7 +128,7 @@ void sdl_present() {
 
 		dstrect.x = 0;
 		dstrect.y = 0;
-		SDL_GL_GetDrawableSize(getWindowHandle_nox_xxx_getHWND_401FD0(), &(dstrect.w), &(dstrect.h));
+		SDL_GL_GetDrawableSize(nox_video_getWindow_401FD0(), &(dstrect.w), &(dstrect.h));
 		SDL_GetClipRect(g_backbuffer1, &srcrect);
 		if (dstrect.w != srcrect.w || dstrect.h != srcrect.h) {
 			float newW;

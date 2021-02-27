@@ -164,7 +164,7 @@ int4 sdl_get_display_dim() {
 	result.field_8 = 0;
 	result.field_C = 0;
 
-	display_id = SDL_GetWindowDisplayIndex(getWindowHandle_nox_xxx_getHWND_401FD0());
+	display_id = SDL_GetWindowDisplayIndex(nox_video_getWindow_401FD0());
 
 	if (display_id >= 0 && SDL_GetDisplayBounds(display_id, &bounds) == 0) {
 		result.field_0 = bounds.w;
@@ -179,8 +179,8 @@ int4 sdl_get_display_dim() {
 void input_set_win_size(int w, int h);
 void sdl_set_window_rect(int2 size, int2 position) {
 	input_set_win_size(size.field_0, size.field_4);
-	SDL_SetWindowSize(getWindowHandle_nox_xxx_getHWND_401FD0(), size.field_0, size.field_4);
-	SDL_SetWindowPosition(getWindowHandle_nox_xxx_getHWND_401FD0(), position.field_0, position.field_4);
+	SDL_SetWindowSize(nox_video_getWindow_401FD0(), size.field_0, size.field_4);
+	SDL_SetWindowPosition(nox_video_getWindow_401FD0(), position.field_0, position.field_4);
 }
 
 extern int nox_win_width_1;
@@ -215,24 +215,24 @@ void change_windowed_fullscreen() {
 	case -1:
 	case 1:
 		// Normal fullscreen
-		SDL_SetWindowResizable(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_FALSE);
-		SDL_SetWindowBordered(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_FALSE);
+		SDL_SetWindowResizable(nox_video_getWindow_401FD0(), SDL_FALSE);
+		SDL_SetWindowBordered(nox_video_getWindow_401FD0(), SDL_FALSE);
 		sdl_set_window_rect(fullscreenSize, fullscreenPosition);
-		SDL_SetWindowFullscreen(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_WINDOW_FULLSCREEN_DESKTOP);
+		SDL_SetWindowFullscreen(nox_video_getWindow_401FD0(), SDL_WINDOW_FULLSCREEN_DESKTOP);
 		break;
 	case -2:
 	case 2:
 		// Borderless fullscreen
-		SDL_SetWindowFullscreen(getWindowHandle_nox_xxx_getHWND_401FD0(), 0);
-		SDL_SetWindowResizable(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_FALSE);
-		SDL_SetWindowBordered(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
+		SDL_SetWindowFullscreen(nox_video_getWindow_401FD0(), 0);
+		SDL_SetWindowResizable(nox_video_getWindow_401FD0(), SDL_FALSE);
+		SDL_SetWindowBordered(nox_video_getWindow_401FD0(), SDL_TRUE);
 		sdl_set_window_rect(fullscreenSize, fullscreenPosition);
 		break;
 	default:
 		// Windowed
-		SDL_SetWindowFullscreen(getWindowHandle_nox_xxx_getHWND_401FD0(), 0);
-		SDL_SetWindowResizable(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
-		SDL_SetWindowBordered(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
+		SDL_SetWindowFullscreen(nox_video_getWindow_401FD0(), 0);
+		SDL_SetWindowResizable(nox_video_getWindow_401FD0(), SDL_TRUE);
+		SDL_SetWindowBordered(nox_video_getWindow_401FD0(), SDL_TRUE);
 		sdl_set_window_rect(windowedSize, windowedPosition);
 		break;
 	}

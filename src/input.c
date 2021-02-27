@@ -179,7 +179,7 @@ void process_window_event(const SDL_WindowEvent* event) {
 		unacquireMouse_sub_47D8B0();
 		break;
 	case SDL_WINDOWEVENT_FOCUS_GAINED:
-		if (is_mouse_inside(getWindowHandle_nox_xxx_getHWND_401FD0()))
+		if (is_mouse_inside(nox_video_getWindow_401FD0()))
 			acquireMouse_sub_47D8C0();
 		break;
 	default:
@@ -660,7 +660,7 @@ void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev) {
 // init mouse
 int nox_xxx_initMouse_47D8D0() {
 #ifndef NOX_NO_MOUSE_GRAB
-	SDL_SetWindowGrab(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
+	SDL_SetWindowGrab(nox_video_getWindow_401FD0(), SDL_TRUE);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 #endif
 
@@ -678,7 +678,7 @@ int nox_xxx_initMouse_47D8D0() {
 int acquireMouse_sub_47D8C0() {
 	if (!g_mouse_aquired) {
 #ifndef NOX_NO_MOUSE_GRAB
-		SDL_SetWindowGrab(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_TRUE);
+		SDL_SetWindowGrab(nox_video_getWindow_401FD0(), SDL_TRUE);
 		SDL_SetRelativeMouseMode(SDL_TRUE);
 #endif
 		g_mouse_aquired = 1;
@@ -690,7 +690,7 @@ int acquireMouse_sub_47D8C0() {
 int unacquireMouse_sub_47D8B0() {
 #ifndef NOX_NO_MOUSE_GRAB
 	SDL_SetRelativeMouseMode(SDL_FALSE);
-	SDL_SetWindowGrab(getWindowHandle_nox_xxx_getHWND_401FD0(), SDL_FALSE);
+	SDL_SetWindowGrab(nox_video_getWindow_401FD0(), SDL_FALSE);
 #endif
 	g_mouse_aquired = 0;
 	return 0;

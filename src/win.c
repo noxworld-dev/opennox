@@ -155,9 +155,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 //----- (00401FD0) --------------------------------------------------------
 #ifdef USE_SDL
-SDL_Window* getWindowHandle_nox_xxx_getHWND_401FD0() { return g_window; }
+SDL_Window* nox_video_getWindow_401FD0() { return g_window; }
 #else
-HWND getWindowHandle_nox_xxx_getHWND_401FD0() { return g_hwnd; }
+HWND nox_video_getWindow_401FD0() { return g_hwnd; }
 #endif
 
 //----- (00401FE0) --------------------------------------------------------
@@ -176,7 +176,7 @@ void nox_xxx_showWindow_47D8A0() {
 #ifdef USE_SDL
 	SDL_RestoreWindow(g_window);
 #else
-	ShowWindow(getWindowHandle_nox_xxx_getHWND_401FD0(), SW_RESTORE);
+	ShowWindow(nox_video_getWindow_401FD0(), SW_RESTORE);
 #endif
 }
 

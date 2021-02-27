@@ -67,9 +67,9 @@ int  cmain(int argc, const char* argv[]);
 void  sub_401B20(char*);
 // int __stdcall WinMain(HINSTANCE hInstance, int, int, int); // idb
 #ifdef USE_SDL
-SDL_Window* getWindowHandle_nox_xxx_getHWND_401FD0();
+SDL_Window* nox_video_getWindow_401FD0();
 #else
-HWND getWindowHandle_nox_xxx_getHWND_401FD0();
+HWND nox_video_getWindow_401FD0();
 #endif // USE_SDL
 void  sub_401FE0(LPCSTR);
 // void  srand(unsigned int);

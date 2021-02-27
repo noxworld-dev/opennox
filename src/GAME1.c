@@ -367,7 +367,7 @@ int cmain(int argc, const char* argv[]) {
 	if (!nox_client_initScreenParticles_431390()) {
 		return 0;
 	}
-	sub_4147E0(getWindowHandle_nox_xxx_getHWND_401FD0());
+	sub_4147E0(nox_video_getWindow_401FD0());
 	g_argc2 = argc;
 	g_argv2 = argv;
 	g_v20 = 0;
