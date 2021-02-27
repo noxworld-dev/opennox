@@ -1,19 +1,30 @@
 #ifndef NOX_INPUT_H
 #define NOX_INPUT_H
 
-#define USE_SDL 1
-
-#ifdef USE_SDL
-#include <SDL2/SDL.h>
 #include "defs.h" // for nox_point
 
 void input_cleanup();
 void input_events_tick();
+
+float nox_input_getSensitivity();
+void nox_input_setSensitivity(float v);
+
+void nox_input_resetBuffers();
+bool nox_input_shiftState();
+bool nox_input_scrollLockState();
+int nox_input_pollEvents_4453A0();
+int nox_input_pollEventsMovie();
 bool nox_input_isMouseDown();
-void process_event(const SDL_Event* event);
 
 bool controller_relative();
 nox_pointf controller_relative_pos();
-#endif // USE_SDL
+
+void nox_input_enableTextEdit_5700CA();
+void nox_input_disableTextEdit_5700F6();
+wchar_t* nox_input_getStringBuffer_57011C();
+void nox_input_freeStringBuffer_57011C(wchar_t* p);
+
+unsigned short nox_input_scanCodeToAlpha_47F950(unsigned short a1);
+void nox_xxx_getKeyFromKeyboard_430710();
 
 #endif // NOX_INPUT_H

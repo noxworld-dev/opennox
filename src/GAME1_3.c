@@ -1719,7 +1719,7 @@ int map_download_loop(int first) {
 	unsigned __int8* v1; // eax
 
 	nox_framerate_limit_416C70(30);
-	nox_xxx_processWinMessages_4453A0_poll_events();
+	nox_input_pollEvents_4453A0();
 	nox_client_processMouseInput_4308A0(1);
 	nox_xxx_cursorUpdate_46B740();
 	if (sub_43AF70() == 1) {

@@ -122,7 +122,7 @@ mainloop:
 			C.sub_40DF90()
 		}
 		nox_framerate_limit_416C70(30)
-		inputPollEvents()
+		inpHandler.Tick()
 		C.sub_413520_gamedisk()
 		C.nox_xxx_time_startProfile_435770()
 		if C.call_func_5D4594_816388() == 0 {

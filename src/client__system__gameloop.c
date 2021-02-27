@@ -273,7 +273,7 @@ void mainloop() {
 		sub_40DF90();
 	}
 	nox_framerate_limit_416C70(30);
-	nox_xxx_processWinMessages_4453A0_poll_events();
+	nox_input_pollEvents_4453A0();
 	sub_413520_gamedisk();
 	nox_xxx_time_startProfile_435770();
 	if (!func_5D4594_816388()) {

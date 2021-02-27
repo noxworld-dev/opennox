@@ -61,6 +61,6 @@ int nox_video_recreateRenderTarget_47FD70() {
 	*getMemU32Ptr(0x5D4594, 3805488) = nox_pitch_3801808 * nox_backbuffer_height;
 	*getMemU32Ptr(0x5D4594, 3807124) = dword_5d4594_3801780 == 1;
 	sub_430B50(0, 0, NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1);
-	nox_xxx_processWinMessages_4453A0_poll_events();
+	nox_input_pollEvents_4453A0();
 	return 1;
 }

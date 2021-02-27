@@ -170,7 +170,6 @@ set (
     GAME_data.c
     GAME_data_init.c
     cdrom.c
-    imm.c
     input.c
     input_common.c
     movie.c

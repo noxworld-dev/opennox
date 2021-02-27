@@ -50,6 +50,7 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof"
+	"nox/client/input"
 	"nox/common/memmap"
 	"nox/common/types"
 	"os"
@@ -138,7 +139,12 @@ func runNox(args []string) error {
 		defer sdl.Quit()
 
 		sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "1")
-		defer inputCleanup()
+		inp, err := input.NewHandler(noxInput{})
+		if err != nil {
+			return fmt.Errorf("input initialization failed: %w", err)
+		}
+		defer inp.Close()
+		inpHandler = inp
 
 		win, err := sdl.CreateWindow("Nox Game Window", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
 			int32(C.nox_win_width), int32(C.nox_win_height), sdl.WINDOW_RESIZABLE)

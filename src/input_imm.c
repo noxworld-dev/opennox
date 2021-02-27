@@ -1,188 +1,4 @@
-#ifdef __EMSCRIPTEN__
-#include <emscripten/emscripten.h>
-#endif
-#include "ConvertUTF.h"
-#include "proto.h"
-
-#ifdef NO_IMM
-int g_textinput;
-wchar_t g_ime_buf[512];
-//static unsigned int g_ime_idx;
-
-#ifdef __EMSCRIPTEN__
-static char g_ime_raw[512];
-
-static void update_ime(int finished) {
-	char tmp[512], complete[512];
-	const char* src;
-	wchar_t wtmp[3], *dst;
-
-	complete[0] = 0;
-	tmp[0] = 0;
-	EM_ASM_(
-		{
-			var raw = Array.from(UTF8ToString($0));
-			var assembled = Hangul.assemble(raw);
-			if (assembled.length > 1) {
-				stringToUTF8(assembled.slice(0, 1), $1, 512);
-				raw = Hangul.disassemble(assembled.slice(1));
-				stringToUTF8(raw.join(), $0, 512);
-				assembled = Hangul.assemble(raw);
-			}
-			stringToUTF8(assembled, $2, 512);
-		},
-		g_ime_raw, complete, tmp);
-
-	dst = g_ime_buf;
-	src = tmp;
-	if (ConvertUTF8toUTF16(&src, src + strlen(src), &dst, g_ime_buf + 512, strictConversion) == conversionOK) {
-		*dst = 0;
-	} else {
-		g_ime_buf[0] = UNI_REPLACEMENT_CHAR;
-		g_ime_buf[1] = 0;
-	}
-
-	if (complete[0]) {
-		dst = wtmp;
-		src = complete;
-		if (ConvertUTF8toUTF16(&src, src + strlen(src), &dst, wtmp + 3, strictConversion) == conversionOK) {
-			unsigned int i;
-			for (i = 0; &wtmp[i] != dst; i++)
-				nox_xxx_onChar_488BD0(wtmp[i]);
-		} else {
-			nox_xxx_onChar_488BD0(UNI_REPLACEMENT_CHAR);
-		}
-	}
-
-	if (finished) {
-		unsigned int i;
-		wchar_t wc = g_ime_buf[0];
-		if (wc) {
-			g_ime_buf[0] = 0;
-			nox_xxx_onChar_488BD0(wc);
-			for (i = 1; g_ime_buf[i]; i++)
-				nox_xxx_onChar_488BD0(g_ime_buf[i]);
-		}
-		g_ime_raw[0] = 0;
-	}
-}
-#endif // __EMSCRIPTEN__
-
-#ifndef NOX_CGO
-void process_textediting_event(const SDL_TextEditingEvent* event) {
-	const char* src = event->text;
-	wchar_t* dst = g_ime_buf;
-
-	if (ConvertUTF8toUTF16(&src, event->text + strlen(event->text), &dst, g_ime_buf + 512, strictConversion) ==
-		conversionOK) {
-		*dst = 0;
-	} else {
-		g_ime_buf[0] = UNI_REPLACEMENT_CHAR;
-		g_ime_buf[1] = 0;
-	}
-}
-
-void process_textinput_event(const SDL_TextInputEvent* event) {
-#ifdef __EMSCRIPTEN__
-	// Javascript / emscripten is terrible and we need to handle composition ourselves :(
-	// Thankfully we only want to handle English and Korean, and we can use JS libraries.
-	int hangul;
-
-	hangul = EM_ASM_INT(
-		{
-			var raw = Array.from(UTF8ToString($0));
-			return Hangul.isCho(raw[0]) || Hangul.isJong(raw[0]) || Hangul.isVowel(raw[0]);
-		},
-		event->text);
-	strcat(g_ime_raw, event->text);
-	update_ime(!hangul);
-#else // !__EMSCRIPTEN__
-	const char* src = event->text;
-	wchar_t tmp[3], *dst = tmp;
-
-	// g_ime_buf[g_ime_idx++] = event->text[0];
-	// g_ime_buf[g_ime_idx] = 0;
-	g_ime_buf[0] = 0;
-
-	if (ConvertUTF8toUTF16(&src, event->text + strlen(event->text), &dst, tmp + 3, strictConversion) == conversionOK) {
-		unsigned int i;
-		for (i = 0; &tmp[i] != dst; i++)
-			nox_xxx_onChar_488BD0(tmp[i]);
-	} else {
-		nox_xxx_onChar_488BD0(UNI_REPLACEMENT_CHAR);
-	}
-#endif // __EMSCRIPTEN__
-}
-
-void process_keyboard_event(const SDL_KeyboardEvent* event);
-void process_textinput_keyboard_event(const SDL_KeyboardEvent* event) {
-#ifdef __EMSCRIPTEN__
-	// intercept keyboard events, such as backspace and enter
-	switch (event->keysym.sym) {
-	case SDLK_BACKSPACE:
-		if (g_ime_raw[0]) {
-			char* tmp;
-			unsigned int i;
-
-			// only process key down
-			if (event->state == SDL_PRESSED) {
-				tmp = NULL;
-				for (i = 0; g_ime_raw[i]; i++) {
-					if ((g_ime_raw[i] & 0xc0) != 0x80)
-						tmp = &g_ime_raw[i];
-				}
-				if (tmp) {
-					dprintf("BACKSPACE %d", tmp - g_ime_raw);
-					*tmp = 0;
-					update_ime(0);
-				}
-			}
-		}
-		break;
-	case SDLK_RETURN:
-		if (g_ime_raw[0] && event->state == SDL_PRESSED) {
-			update_ime(1);
-		}
-		break;
-	default:
-		break;
-	}
-#endif // __EMSCRIPTEN__
-	process_keyboard_event(event);
-}
-
-//----- (005700CA) --------------------------------------------------------
-int nox_xxx_changeWinProcToEdit_5700CA(int** a1, HWND hWnd) {
-	SDL_StartTextInput();
-	g_textinput = 1;
-	return 0;
-}
-
-//----- (005700F6) --------------------------------------------------------
-int* nox_xxx_changeWinProcToNormal_5700F6(int** a1) {
-	SDL_StopTextInput();
-	g_textinput = 0;
-	return 0;
-}
-#endif // NOX_CGO
-
-int** __thiscall sub_56FFE0(int** this) { return this; }
-
-int** __thiscall sub_570070(int*** this) { return this; }
-
-//----- (0057011C) --------------------------------------------------------
-wchar_t* __thiscall nox_xxx_string_57011C(_DWORD** this) { return g_ime_buf; }
-
-//----- (00570142) --------------------------------------------------------
-_DWORD* __thiscall sub_570142(_DWORD** this, char a2) { return 0; }
-
-//----- (005702B4) --------------------------------------------------------
-bool __thiscall nox_xxx_string_5702B4(_DWORD** this) { return 1; }
-
-//----- (00570392) --------------------------------------------------------
-int __thiscall nox_xxx_string_570392(_DWORD** this) { return 0; }
-
-#else // !NO_IMM
+//+build none
 
 unsigned __int8* __thiscall sub_57016E(void* this, unsigned int a2);
 int __thiscall sub_5701D1(void* this);
@@ -496,13 +312,13 @@ int** __thiscall sub_570070(int*** this) {
 }
 
 //----- (005700CA) --------------------------------------------------------
-int nox_xxx_changeWinProcToEdit_5700CA(int** a1, HWND hWnd) { return sub_57366C(*a1, hWnd); }
+int nox_input_enableTextEdit_5700CA(int** a1, HWND hWnd) { return sub_57366C(*a1, hWnd); }
 
 //----- (005700F6) --------------------------------------------------------
-int* nox_xxx_changeWinProcToNormal_5700F6(int** this) { return sub_57381A(*this); }
+int* nox_input_disableTextEdit_5700F6(int** this) { return sub_57381A(*this); }
 
 //----- (0057011C) --------------------------------------------------------
-wchar_t* __thiscall nox_xxx_string_57011C(_DWORD** this) { return sub_573B56(*this); }
+wchar_t* __thiscall nox_input_getStringBuffer_57011C(_DWORD** this) { return sub_573B56(*this); }
 
 //----- (00570142) --------------------------------------------------------
 _DWORD* __thiscall sub_570142(_DWORD** this, char a2) { return sub_573B1F(*this, a2); }
@@ -4905,4 +4721,3 @@ bool  sub_578A90(void* a1, void* a2) {
 	v2 = sub_5773C0(a1);
 	return v2 == sub_5773C0(a2);
 }
-#endif

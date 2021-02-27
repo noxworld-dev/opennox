@@ -66,8 +66,8 @@ void sub_4516C0(wchar_t* a1, ...) {
 	fclose(nox_file_log);
 	if (*(unsigned int*)&dword_5d4594_823776)
 		nox_xxx_freeFloorBuffer_430EF0();
-	nox_xxx_processWinMessages_4453A0_poll_events();
-	nox_xxx_processWinMessages_4453A0_poll_events();
+	nox_input_pollEvents_4453A0();
+	nox_input_pollEvents_4453A0();
 	nox_exit(0);
 }
 

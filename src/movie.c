@@ -1,31 +1,8 @@
+#include "input.h"
 #include "proto.h"
 #include <SDL2/SDL.h>
 
 #ifdef NO_MOVIE
-
-void process_window_event(const SDL_WindowEvent* event);
-
-int process_movie_event(const SDL_Event* event) {
-	switch (event->type) {
-	case SDL_KEYUP:
-	case SDL_MOUSEBUTTONUP:
-		return -1;
-		break;
-#ifdef __EMSCRIPTEN__
-	case SDL_FINGERMOTION:
-	case SDL_FINGERDOWN:
-	case SDL_FINGERUP:
-		return -1;
-		break;
-#endif
-	case SDL_WINDOWEVENT:
-		// process_window_event(&event->window);
-		break;
-	default:
-		break;
-	}
-	return 0;
-}
 
 unsigned short int rgb888Toargb1555(int red, int green, int blue) {
 	unsigned short b = (blue >> 3) & 0x001f << 0;
@@ -74,12 +51,7 @@ void DrawMovieFrame(BYTE* frame, unsigned long cx, unsigned long cy) {
 }
 
 extern int PlayMovieCallback(BYTE* frame, unsigned long cx, unsigned long cy) {
-	SDL_Event event;
-	int result = 0;
-	while (nox_SDL_PollEvent(&event)) {
-		int processed = process_movie_event(&event);
-		result = result == -1 ? -1 : processed;
-	}
+	int result = nox_input_pollEventsMovie();
 	DrawMovieFrame(frame, cx, cy);
 	return result;
 }

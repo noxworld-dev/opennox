@@ -180,9 +180,6 @@ void init_data() {
     *(void**)getMemAt(0x581450, 11112) = &sub_56D90A;
     *(void**)getMemAt(0x581450, 11116) = &sub_56D90E;
 #endif
-#ifndef NO_IMM
-	*(void**)getMemAt(0x581450, 11420) = &sub_573D10;
-#endif
 #if 0
     * (void**)getMemAt(0x581450, 11436) = getMemAt(0x581450, 11704);
     *(void**)getMemAt(0x581450, 11440) = &sub_57F518;
@@ -372,10 +369,6 @@ void init_data() {
 #ifndef NO_MOVIE
 	*(void**)getMemAt(0x587000, 4) = &nox_xxx_j_unknown_libname_13_556990;
 	*(void**)getMemAt(0x587000, 8) = &sub_55C8D0;
-#endif
-#ifndef NO_IMM
-	*(void**)getMemAt(0x587000, 12) = &sub_570485;
-	*(void**)getMemAt(0x587000, 16) = &sub_573C05;
 #endif
 	*(void**)getMemAt(0x587000, 20) = &nox_xxx_unknown_libname_86_57F634;
 	*(void**)getMemAt(0x587000, 32) = (void*)0xdeadbeef;

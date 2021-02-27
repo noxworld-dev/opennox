@@ -23,6 +23,7 @@
 #include "client__draw__fx.h"
 #include "client__draw__lvupdraw.h"
 
+#include "input.h"
 #include "proto.h"
 
 extern unsigned char byte_5D4594_3804364[160];
@@ -4405,7 +4406,7 @@ _DWORD* sub_4AAA70() {
 	nox_window_call_field_94((int)v1, 16392, 1, 0);
 	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 316), 16394, (draw_gamma - 0.5f) * 50, 0);
 	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 318), 16394,
-							 (log10f(input_sensitivity) + 1.0f) * 50, 0);
+							 (log10f(nox_input_getSensitivity()) + 1.0f) * 50, 0);
 #if 0
     _DWORD* v2; // eax
     _DWORD* v3; // eax
@@ -4609,7 +4610,7 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			draw_gamma = 0.5 + a4 / 50.0f;
 			break;
 		case 318: // input sensitivity slider
-			input_sensitivity = powf(10.0, a4 / 50.0f - 1.0);
+			nox_input_setSensitivity(powf(10.0, a4 / 50.0f - 1.0));
 			break;
 		default:
 			goto LABEL_76;
@@ -4899,7 +4900,7 @@ int nox_xxx_gameDownloadMap_4AB5E0() {
 	nox_xxx_mapDownloadOK_587000_173332 = 1;
 	do {
 		nox_framerate_limit_416C70(30);
-		nox_xxx_processWinMessages_4453A0_poll_events();
+		nox_input_pollEvents_4453A0();
 		nox_client_processMouseInput_4308A0(1);
 		nox_xxx_cursorUpdate_46B740();
 		if (sub_43AF70() == 1) {
@@ -6092,7 +6093,7 @@ int sub_4ADAD0() {
 			nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 316), 16394, (draw_gamma - 0.5f) * 50,
 									 0);
 			nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 318), 16394,
-									 (log10f(input_sensitivity) + 1.0f) * 50, 0);
+									 (log10f(nox_input_getSensitivity()) + 1.0f) * 50, 0);
 			for (i = 320; i <= 332; ++i) {
 				v19 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, i);
 				if (v19 && !(v19[9] & 4))
@@ -6270,7 +6271,7 @@ int  nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 			draw_gamma = 0.5 + a4 / 50.0f;
 			break;
 		case 318: // input sensitivity slider
-			input_sensitivity = powf(10.0, a4 / 50.0f - 1.0);
+			nox_input_setSensitivity(powf(10.0, a4 / 50.0f - 1.0));
 			break;
 		default:
 			goto LABEL_64;
