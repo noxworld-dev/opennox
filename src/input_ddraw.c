@@ -31,7 +31,7 @@ signed int nox_xxx_initMouse_47D8D0() {
 								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 87);
 		sub_4516C0(v0);
 	}
-	if (g_device_mouse->lpVtbl->SetCooperativeLevel(g_device_mouse, getWindowHandle_nox_xxx_getHWND_401FD0(),
+	if (g_device_mouse->lpVtbl->SetCooperativeLevel(g_device_mouse, nox_video_getWindow_401FD0(),
 													DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0) {
 		v0 = nox_strman_loadString_40F1D0("Dxinput.c:IM_SetCoopFailed", 0,
 								   (int)"C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c", 105);
@@ -237,7 +237,7 @@ void nox_xxx_initKeyboard_47FB10() {
 		sub_4516C0(v2);
 	}
 
-	if (g_device_keyboard->lpVtbl->SetCooperativeLevel(g_device_keyboard, getWindowHandle_nox_xxx_getHWND_401FD0(),
+	if (g_device_keyboard->lpVtbl->SetCooperativeLevel(g_device_keyboard, nox_video_getWindow_401FD0(),
 													   DISCL_BACKGROUND | DISCL_NONEXCLUSIVE) < 0) {
 		v5 = nox_strman_loadString_40F1D0("Dxinput.c:OK_SetCoopFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Dxinput.c",
 								   868);

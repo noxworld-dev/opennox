@@ -60,7 +60,7 @@ MCIERROR __thiscall sub_423C20(void* this) {
 BOOL sub_423C60() {
 	if (!*getMemU32Ptr(0x5D4594, 588112))
 		return 0;
-	*getMemU32Ptr(0x5D4594, 588092) = getWindowHandle_nox_xxx_getHWND_401FD0();
+	*getMemU32Ptr(0x5D4594, 588092) = nox_video_getWindow_401FD0();
 	*getMemU32Ptr(0x5D4594, 588100) = 4;
 	*getMemU32Ptr(0x5D4594, 588104) = 0;
 	*getMemU32Ptr(0x5D4594, 588096) = 0;

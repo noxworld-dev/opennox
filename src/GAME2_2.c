@@ -5583,7 +5583,7 @@ int sub_4800F0() {
 	v4 = dword_5d4594_3804680 != 0 ? 16 : 8;
 	v3 = nox_win_height;
 	v2 = nox_win_width;
-	if (nox_xxx_GfxInit_444930(getWindowHandle_nox_xxx_getHWND_401FD0(), v2, v3, v4, v5)) {
+	if (nox_xxx_GfxInit_444930(nox_video_getWindow_401FD0(), v2, v3, v4, v5)) {
 		sub_440900();
 		nox_xxx_setupSomeVideo_47FEF0();
 		sub_49F6D0(1);

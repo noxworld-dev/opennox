@@ -53,7 +53,7 @@ func sdl_present() {
 		return
 	}
 	var srcrect, dstrect C.SDL_Rect
-	C.SDL_GetWindowSize(C.getWindowHandle_nox_xxx_getHWND_401FD0(), &dstrect.w, &dstrect.h)
+	C.SDL_GetWindowSize(C.nox_video_getWindow_401FD0(), &dstrect.w, &dstrect.h)
 	C.SDL_GetClipRect(C.g_backbuffer1, &srcrect)
 
 	C.sub_48BE50(1)
