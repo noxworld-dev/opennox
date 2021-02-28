@@ -5,6 +5,7 @@
 #include "common__object__weaplook.h"
 #include "proto.h"
 #include "client__gui__gamewin__gamewin.h"
+#include "client__shell__mainmenu.h"
 #include "client__shell__selchar.h"
 
 extern _DWORD dword_5d4594_815096;

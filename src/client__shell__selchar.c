@@ -3,6 +3,7 @@
 #include "proto.h"
 #include "client__gui__guisave.h"
 #include "client__shell__optsback.h"
+#include "client__shell__mainmenu.h"
 extern _DWORD dword_5d4594_1307768;
 extern _DWORD dword_5d4594_1307744;
 extern _DWORD dword_5d4594_1307776;

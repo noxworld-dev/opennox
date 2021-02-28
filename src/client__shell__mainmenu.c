@@ -4,10 +4,131 @@
 #include "proto.h"
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
+#include "client__shell__optsback.h"
 
-extern nox_wnd_xxx* nox_wnd_xxx_1307308;
 extern _DWORD dword_5d4594_815132;
-extern nox_window* nox_win_main_menu;
+
+nox_wnd_xxx* nox_wnd_xxx_1307308 = 0;
+nox_window* nox_win_main_bg = 0;
+nox_window* nox_win_main_menu = 0;
+
+//----- (004A24F0) --------------------------------------------------------
+int sub_4A24F0() { return nox_xxx_windowDestroyChildsMB_46B500(nox_win_main_bg); }
+
+//----- (004A1D40) --------------------------------------------------------
+int sub_4A1D40() {
+	*(_BYTE*)&nox_wnd_xxx_1307308->field_16 = 2;
+	*(_BYTE*)(*getMemU32Ptr(0x5D4594, 1307304) + 64) = 2;
+	sub_43BE40(2);
+	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
+	return 1;
+}
+
+//----- (004A2500) --------------------------------------------------------
+int sub_4A2500() {
+	sub_43DDE0(1);
+	nox_window_set_hidden(nox_win_main_bg, 0);
+	nox_window_set_hidden(nox_win_main_menu, 0);
+	return sub_4A24F0();
+}
+
+//----- (004A2530) --------------------------------------------------------
+int sub_4A2530() {
+	sub_43DDE0(0);
+	nox_window_set_hidden(nox_win_main_bg, 1);
+	return nox_window_set_hidden(nox_win_main_menu, 1);
+}
+
+//----- (004A1D80) --------------------------------------------------------
+int sub_4A1D80() {
+	int (*v0)(void); // esi
+
+	v0 = nox_wnd_xxx_1307308->field_13;
+	sub_43C570(nox_wnd_xxx_1307308);
+	sub_43C570(*(LPVOID*)getMemAt(0x5D4594, 1307304));
+	nox_xxx_windowDestroyMB_46C4E0(nox_win_main_menu);
+	v0();
+	return 1;
+}
+
+//----- (004A24C0) --------------------------------------------------------
+int  sub_4A24C0(int a1) {
+	_DWORD* v1; // eax
+	int result; // eax
+
+	v1 = nox_xxx_wndGetChildByID_46B0C0(nox_win_main_bg, 99);
+	result = nox_window_set_hidden((int)v1, a1);
+	if (!a1)
+		result = sub_43E8C0(1);
+	return result;
+}
+
+//----- (004A2210) --------------------------------------------------------
+int nox_xxx_wndLoadMainBG_4A2210() {
+	_DWORD* v1;          // esi
+	const char* v2;      // eax
+	unsigned __int8* v3; // esi
+
+	dword_5d4594_815132 = 1;
+	nox_win_main_bg = nox_new_window_from_file("MainBG.wnd", sub_4A2490);
+	if (!sub_4A1A60()) {
+		return 0;
+	}
+	v1 = nox_xxx_wndGetChildByID_46B0C0(nox_win_main_bg, 98);
+	nox_xxx_wndSetWindowProc_46B300((int)v1, sub_4A18E0);
+	nox_xxx_wndSetDrawFn_46B340((int)v1, sub_4A22A0);
+	v2 = *(const char**)getMemAt(0x587000, 168832);
+	if (*getMemU32Ptr(0x587000, 168832)) {
+		v3 = getMemAt(0x587000, 168832);
+		do {
+			*((_DWORD*)v3 + 1) = nox_xxx_gLoadImg_42F970(v2);
+			v2 = (const char*)*((_DWORD*)v3 + 12);
+			v3 += 48;
+		} while (v2);
+	}
+	nox_xxx_windowDestroyChildsMB_46B500(nox_win_main_bg);
+	return 1;
+}
+
+//----- (004A1C00) --------------------------------------------------------
+int nox_game_showMainMenu_4A1C00() {
+	_DWORD* v1; // esi
+	_DWORD* v2; // esi
+	_DWORD* v3; // eax
+
+	sub_4D6F40(0);
+	sub_4D6F90(0);
+	nox_game_addStateCode_43BDD0(100);
+	nox_win_main_menu = nox_new_window_from_file("MainMenu.wnd", nox_xxx_windowMainMenuProc_4A1DC0);
+	if (!nox_win_main_menu) {
+		return 0;
+	}
+	nox_xxx_wndSetWindowProc_46B300(nox_win_main_menu, sub_4A18E0);
+	v1 = nox_xxx_wndGetChildByID_46B0C0(nox_win_main_menu, 110);
+	nox_xxx_wndSetProc_46B2C0((int)v1, nox_xxx_windowMainMenuProc_4A1DC0);
+	nox_wnd_xxx_1307308 = nox_wnd_sub_43C5B0(v1, 0, 0, 0, -270, 0, 20, 0, -40);
+	if (!nox_wnd_xxx_1307308) {
+		return 0;
+	}
+	nox_wnd_xxx_1307308->field_0 = 100;
+	nox_wnd_xxx_1307308->field_12 = sub_4A1D40;
+	nox_wnd_xxx_1307308->field_14 = sub_4A1D80;
+	v2 = nox_xxx_wndGetChildByID_46B0C0(nox_win_main_menu, 120);
+	nox_xxx_wndSetProc_46B2C0((int)v2, nox_xxx_windowMainMenuProc_4A1DC0);
+	*getMemU32Ptr(0x5D4594, 1307304) = nox_wnd_sub_43C5B0(v2, 0, 270, 0, 510, 0, -20, 0, 40);
+	if (!*getMemU32Ptr(0x5D4594, 1307304)) {
+		return 0;
+	}
+	sub_4A19F0("OptsBack.wnd:Quit");
+	nox_xxx_unknown_libname_11_4D1650();
+	sub_578CD0();
+	sub_43D9B0(25, 100);
+	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
+		v3 = nox_xxx_wndGetChildByID_46B0C0(nox_win_main_menu, 112);
+		nox_window_call_field_94(nox_win_main_menu, 16391, (int)v3, 0);
+	}
+	return 1;
+}
 
 //----- (004A1DC0) --------------------------------------------------------
 int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {

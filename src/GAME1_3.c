@@ -16,6 +16,7 @@
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
 #include "client__shell__selcolor.h"
+#include "client__shell__mainmenu.h"
 #include "client__system__gameloop.h"
 
 #include "mutexes.h"

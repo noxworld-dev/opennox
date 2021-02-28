@@ -2,6 +2,7 @@
 #include "common__random.h"
 
 #include "client__gui__guiinv.h"
+#include "client__shell__mainmenu.h"
 #include "common__system__group.h"
 #include "comw32__comlib.h"
 
