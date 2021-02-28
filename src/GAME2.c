@@ -15,6 +15,7 @@
 #include "client__gui__servopts__general.h"
 #include "client__gui__servopts__guiserv.h"
 #include "client__gui__servopts__playrlst.h"
+#include "client__shell__mainmenu.h"
 #include "common__gamemech__pausefx.h"
 
 #include "client__audio__audevent.h"

@@ -14,6 +14,7 @@
 #include "client__gui__servopts__spelllst.h"
 #include "client__gui__tooltip.h"
 #include "client__shell__inputcfg__inputcfg.h"
+#include "client__shell__mainmenu.h"
 
 #include "client__draw__mondraw.h"
 #include "client__draw__plasma.h"
